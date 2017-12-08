@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 4.5
 Stable tag: 4.6.8
-Tested up to: 4.9
+Tested up to: 4.9.1
 Requires PHP: 5.2.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -308,7 +308,7 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 
 == Changelog ==
 
-= [4.6.8 | M17.25] TBD =
+= [4.6.8] TBD =
 
 * Fix - Preserve filter bar checkbox selections when changing views [66749]
 * Fix - Fix radio filters so they are only included as values when switching views when checked [72954]
@@ -322,12 +322,20 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 * Tweak - Added `slug` to the REST API responses for event data [92825]
 * Tweak - Added `slug` to the REST API parameters allowed to use when inserting or updating an event [92825]
 
+= [4.6.7] 2017-12-07 =
+
+* Fix - Fixed an issue where EA imports might not correctly create venues for iCalendar imports (thanks @starweb and others for highlighting this issue) [94323]
+* Fix - Fixed an issue where Month View wouldn't render correctly in X Theme with the "Events template" option set to "Default Page Template" [92554]
+* Fix - Fixed a WPML incompatibility issue where language could be switched to the wrong one (thanks @dgwatkins) [94732]
+* Tweak - Added the `tribe_events_x_theme_force_full_content()` filter to let users disable X Theme compatibility code [92554]
+* Language - 0 new strings added, 2 updated, 0 fuzzied, and 0 obsoleted
+
 = [4.6.6] 2017-11-21 =
 
 * Feature - Added Template class which adds a few layers of filtering to any template file included
-* Tweak - Add clear warnings and errors to prevent and limit the import of iCalendar sources missing required fields [93600]
+* Tweak - Added clear warnings and errors to prevent and limit the import of iCalendar sources missing required fields [93600]
 * Tweak - Included `tribe_callback_return` for static returns for Hooks
-* Tweak - Improve Aggregator notices including error data on the responses [87326]
+* Tweak - Improved Aggregator notices including error data on the responses [87326]
 * Language - 4 new strings added, 79 updated, 0 fuzzied, and 0 obsoleted
 
 = [4.6.5] 2017-11-16 =

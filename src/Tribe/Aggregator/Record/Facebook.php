@@ -20,8 +20,20 @@ class Tribe__Events__Aggregator__Record__Facebook extends Tribe__Events__Aggrega
 		return parent::queue_import( $args );
 	}
 
+	/**
+	 * Returns the Facebook authorization token generation URL.
+	 *
+	 * @param array $args
+	 *
+	 * @return string Either the URL to obtain FB authorization token or an empty string.
+	 */
 	public static function get_auth_url( $args = array() ) {
 		$service = tribe( 'events-aggregator.service' );
+
+		if ( $service->api() instanceof WP_Error ) {
+			return '';
+		}
+
 		$url = $service->api()->domain . 'facebook/' . $service->api()->key;
 		$defaults = array(
 			'referral' => urlencode( home_url() ),

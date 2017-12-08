@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-10-01 00:05:22+0000\n"
+"PO-Revision-Date: 2017-12-05 22:40:01+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -2227,12 +2227,12 @@ msgstr "Eliminar &#8220;%s&#8221; permanentemente"
 
 #: src/Tribe/Ignored_Events.php:419
 msgid "Restore"
-msgstr "Restaurar"
+msgstr "Repor"
 
 #. translators: %s: post title
 #: src/Tribe/Ignored_Events.php:418
 msgid "Restore &#8220;%s&#8221; from the Ignored"
-msgstr "Restaurar &#8220;%s&#8221; dos ignorados"
+msgstr "Repor &#8220;%s&#8221; a partir dos ignorados"
 
 #: src/Tribe/Ignored_Events.php:333 src/Tribe/Ignored_Events.php:335
 #: src/admin-views/aggregator/meta-box.php:5
@@ -2254,16 +2254,16 @@ msgstr "Origem"
 #: src/Tribe/Ignored_Events.php:275
 msgid "%s post restored."
 msgid_plural "%s posts restored."
-msgstr[0] "%s conteúdo restaurado."
-msgstr[1] "%s conteúdos restaurados."
+msgstr[0] "%s conteúdo reposto."
+msgstr[1] "%s conteúdos repostos."
 
 #: src/Tribe/Ignored_Events.php:223 src/Tribe/Ignored_Events.php:267
 msgid "Error restoring from Ignored Events."
-msgstr "Ocorreu um erro ao restaurar dos eventos ignorados."
+msgstr "Ocorreu um erro ao repor a partir dos eventos ignorados."
 
 #: src/Tribe/Ignored_Events.php:219 src/Tribe/Ignored_Events.php:261
 msgid "You do not have permission to restore this post."
-msgstr "Não tem permissão para restaurar este conteúdo."
+msgstr "Não tem permissão para repor este conteúdo."
 
 #: src/Tribe/Ignored_Events.php:165
 msgid "Migrate Legacy Ignored Events"
@@ -6717,7 +6717,7 @@ msgstr "%s publicado."
 #. translators: %s: date and time of the revision
 #: src/Tribe/Main.php:1816
 msgid "%s restored to revision from %s"
-msgstr "%s restaurado para revisão de %s"
+msgstr "%s reposto para revisão de %s"
 
 #. translators: Publish box date format, see http://php.net/date
 #: src/Tribe/Main.php:1776 src/Tribe/Main.php:1804 src/Tribe/Main.php:1824
@@ -6731,7 +6731,7 @@ msgstr "%s guardado."
 #. translators: %s: date and time of the revision
 #: src/Tribe/Main.php:1759 src/Tribe/Main.php:1796
 msgid "%1$s restored to revision from %2$s"
-msgstr "%1$s restaurado para revisão de %2$s"
+msgstr "%1$s reposto para revisão de %2$s"
 
 #: src/Tribe/Main.php:1757 src/Tribe/Main.php:1791 src/Tribe/Main.php:1794
 #: src/Tribe/Main.php:1811 src/Tribe/Main.php:1814
