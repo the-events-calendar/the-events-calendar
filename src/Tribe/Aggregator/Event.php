@@ -146,7 +146,7 @@ class Tribe__Events__Aggregator__Event {
 
 		if ( ! empty( $item->organizer ) ) {
 			$event['Organizer'] = array();
-			$organizer_entries  = $item->organizer;
+			$organizer_entries = is_array( $item->organizer ) ? $item->organizer : array( $item->organizer );
 
 			foreach ( $organizer_entries as $organizer_entry ) {
 				$this_organizer = array();
