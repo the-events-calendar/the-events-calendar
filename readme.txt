@@ -45,7 +45,7 @@ Or customize it to suit your specific needs. The Events Calendar is built by dev
 
 The Events Calendar is built to work out of the box. Just turn it on, configure the settings to match your needs and you'll be making events in less than 5 minutes.
 
-* WP REST API support
+* [WP REST API support](http://m.tri.be/19tl)
 * Skeleton stylesheet to theme fast & efficiently
 * Partial template overrides
 * Template tags, hooks, and filters
@@ -72,7 +72,7 @@ Just getting started? Definitely watch and read through the [New User Primer](ht
 * Widget: Upcoming events list
 * Events Taxonomies (Categories & Tags)
 * Google Calendar and iCal exporting
-* WP REST API endpoints (READ)
+* WP REST API endpoints 
 * Completely ajaxified for super smooth browsing
 * Completely responsive from mobile to tablet to desktop
 * Tested on the major theme frameworks such as Avada, Genesis, Woo Themes, Thesis and many more.
@@ -96,7 +96,7 @@ Collect free RSVPs with Event Tickets or add paid ticketing features with [Event
 
 = Bulk Event Import =
 
-Fill your calendar with events from your favorite sources, including Facebook, Meetup, Google Calendar, iCalendar, CSV, and ICS. [Event Aggregator](http://m.tri.be/197u) provides a convenient dashboard to manage scheduled imports, manual imports, filters, one-way sync, import history, and more.
+Fill your calendar with events from your favorite sources, including Facebook, Meetup, Google Calendar, iCalendar, CSV, other websites using The Events Calendar plugin, and ICS. [Event Aggregator](http://m.tri.be/197u) provides a convenient dashboard to manage scheduled imports, manual imports, filters, one-way sync, import history, and more.
 
 = User-Submitted Events =
 
