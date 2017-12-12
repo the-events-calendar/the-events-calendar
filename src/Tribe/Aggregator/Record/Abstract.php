@@ -1548,6 +1548,12 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			if ( ! empty( $event['Organizer'] ) ) {
 				$event_organizers = array();
 
+				// make sure organizers is an array
+				if ( $item->organizer instanceof stdClass ) {
+					$item->organizer    = array( $item->organizer );
+					$event['Organizer'] = array( $event['Organizer'] );
+				}
+
 				foreach ( $event['Organizer'] as $key => $organizer_data ) {
 					//if we should create an organizer or use existing
 					if ( ! empty( $organizer_data['Organizer'] ) ) {
