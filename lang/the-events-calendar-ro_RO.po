@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-11-12 11:27:46+0000\n"
+"PO-Revision-Date: 2017-12-05 23:14:08+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -171,7 +171,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/settings.php:410
 msgid "Import Event Settings"
-msgstr ""
+msgstr "Importă setări eveniment "
 
 #: src/admin-views/aggregator/settings.php:400
 msgid "When importing from a website that uses The Events Calendar, the REST API will attempt to fetch events this far in the future. That website's hosting resources may impact the success of imports. Selecting a shorter time period may improve results."
@@ -7156,7 +7156,7 @@ msgstr "Tipul de câmp este incorect specificat"
 
 #: common/src/Tribe/Credits.php:31
 msgid "This calendar is powered by The Events Calendar."
-msgstr ""
+msgstr "Acest calendar este propulsat de The Events Calendar."
 
 #: common/src/Tribe/Cost_Utils.php:108
 msgid "Free"
@@ -7257,12 +7257,12 @@ msgstr ""
 
 #: src/deprecated/Tribe__Events__Activation_Page.php:215
 msgid "Thanks for Updating The Events Calendar"
-msgstr ""
+msgstr "Îți mulțumim pentru actualizarea The Events Calendar"
 
 #: src/Tribe/Main.php:812 src/Tribe/Main.php:814
 #: src/deprecated/Tribe__Events__Activation_Page.php:195
 msgid "Welcome to The Events Calendar"
-msgstr ""
+msgstr "Bine ai venit la The Events Calendar"
 
 #: common/src/Tribe/Admin/Activation_Page.php:85
 #: src/deprecated/Tribe__Events__Activation_Page.php:49

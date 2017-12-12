@@ -36,6 +36,7 @@ class EventInsertionCest extends BaseRestCest {
 		$end = 'tomorrow 11am';
 		$I->sendPOST( $this->events_url, [
 			'title'       => 'An event',
+			'slug'        => 'an-event',
 			'description' => 'An event content',
 			'excerpt'     => 'An event excerpt',
 			'start_date'  => date( 'Y-m-d H:i:s', strtotime( $start ) ),
@@ -46,6 +47,7 @@ class EventInsertionCest extends BaseRestCest {
 		$I->seeResponseIsJson();
 		$I->canSeeResponseContainsJson( [
 			'title'          => 'An event',
+			'slug'           => 'an-event',
 			'description'    => trim( apply_filters( 'the_content', 'An event content' ) ),
 			'excerpt'        => trim( apply_filters( 'the_excerpt', 'An event excerpt' ) ),
 			'start_date'     => date( 'Y-m-d H:i:s', strtotime( $start ) ),

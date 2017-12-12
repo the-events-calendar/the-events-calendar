@@ -203,7 +203,7 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 
 		$posts = $query->have_posts() ? $query->posts : array();
 
-		$sitepress->switch_lang( $sitepress->get_current_language() );
+		$sitepress->switch_lang( ICL_LANGUAGE_CODE );
 
 		$not_translated = array_filter( $posts, array( $this, 'is_not_translated' ) );
 		$assigned = $this->get_linked_post_assigned_to_current( $args );

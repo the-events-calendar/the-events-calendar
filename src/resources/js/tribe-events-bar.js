@@ -339,7 +339,7 @@ var tribe_events_bar_action;
 					}
 					else {
 						if ( $this.is( ':checkbox' ) ) {
-							if ( $this.is( ':checked' ) && 'undefined' === typeof ts.url_params[ $this.attr( 'name' ) ] ) {
+							if ( $this.is( ':checked' ) ) {
 
 								// if checkbox and not defined setup as an array
 								if ( 'undefined' === typeof ts.url_params[ $this.attr( 'name' ) ] ) {
