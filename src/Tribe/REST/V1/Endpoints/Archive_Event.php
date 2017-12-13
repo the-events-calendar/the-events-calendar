@@ -75,7 +75,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 		 *
 		 * @param bool $use_inclusive Defaults to true. Whether to use "inclusive" start and end dates.
 		 */
-		if ( apply_filters( 'tribe_rest_events_use_inclusive_start_end_dates', true ) ) {
+		if ( apply_filters( 'tribe_events_rest_use_inclusive_start_end_dates', true ) ) {
 
 			if ( $args['start_date'] ) {
 				$args['start_date'] = tribe_beginning_of_day( $request['start_date'] );

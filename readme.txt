@@ -322,7 +322,7 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 * Tweak - Added new REST API endpoint that allows looking up events by slug instead of ID at the path `events/by-slug/{slug}/`, it has the same functionality as the endpoint `events/{ID}` [92825]
 * Tweak - Added `slug` to the REST API responses for event data [92825]
 * Tweak - Added `slug` to the REST API parameters allowed to use when inserting or updating an event [92825]
-* Tweak - Added new `tribe_rest_events_use_inclusive_start_end_dates` filter so that users can make the REST API return events from a more literal date range [90005]
+* Tweak - Added new `tribe_events_rest_use_inclusive_start_end_dates` filter so that users can make the REST API return events from a more literal date range [90005]
 
 = [4.6.7] 2017-12-07 =
 
