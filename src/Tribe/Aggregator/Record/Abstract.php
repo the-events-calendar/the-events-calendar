@@ -316,12 +316,14 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$defaults = array(
 			'parent'    => 0,
 		);
+
 		$args = (object) wp_parse_args( $args, $defaults );
 
 		$defaults = array(
-			'frequency' => null,
-			'hash'      => wp_generate_password( 32, true, true ),
-			'preview'   => false,
+			'frequency'                 => null,
+			'hash'                      => wp_generate_password( 32, true, true ),
+			'preview'                   => false,
+			'allow_multiple_organizers' => true,
 		);
 
 		$meta = wp_parse_args( $meta, $defaults );
@@ -684,6 +686,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		if ( ! empty( $this->meta['radius'] ) ) {
 			$defaults['radius'] = $this->meta['radius'];
+		}
+
+		if ( ! empty( $this->meta['allow_multiple_organizers'] ) ) {
+			$defaults['allow_multiple_organizers'] = $this->meta['allow_multiple_organizers'];
 		}
 
 		if ( $is_previewing ) {
@@ -1535,126 +1541,144 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				&& 'preserve_changes' === $update_authority_setting
 				&& $existing_organizer_ids = tribe_get_organizer_ids( $event['ID'] )
 			) {
-				$event['EventOrganizerID'] = $existing_organizer_ids;
+				$event['Organizer'] = $existing_organizer_ids;
 				unset( $event['Organizer'] );
 			}
 
-			//if we should create an organizer or use existing
-			if ( ! empty( $event['Organizer']['Organizer'] ) ) {
-				$event['Organizer']['Organizer'] = trim( $event['Organizer']['Organizer'] );
+			if ( ! empty( $event['Organizer'] ) ) {
+				$event_organizers = array();
 
-				if ( ! empty( $item->organizer->global_id ) || in_array( $this->origin, array( 'ics', 'csv', 'gcal' ) ) ) {
-					// Pre-set for ICS based imports
-					$organizer = false;
-					if ( ! empty( $item->organizer->global_id ) ) {
-						// Did we find a Post with a matching Global ID in History
-						$organizer = Tribe__Events__Aggregator__Event::get_post_by_meta( 'global_id_lineage', $item->organizer->global_id );
-					}
+				// make sure organizers is an array
+				if ( $item->organizer instanceof stdClass ) {
+					$item->organizer    = array( $item->organizer );
+				}
 
-					// Save the Organizer Data for Updating
-					$organizer_data = $event['Organizer'];
+				foreach ( $event['Organizer'] as $key => $organizer_data ) {
+					//if we should create an organizer or use existing
+					if ( ! empty( $organizer_data['Organizer'] ) ) {
+						$organizer_data['Organizer'] = trim( $organizer_data['Organizer'] );
 
-					if ( isset( $item->organizer->description ) ) {
-						$organizer_data['Description'] = $item->organizer->description;
-					}
-
-					if ( isset( $item->organizer->excerpt ) ) {
-						$organizer_data['Excerpt'] = $item->organizer->excerpt;
-					}
-
-					if ( $organizer ) {
-						$organizer_id = $event['EventOrganizerID'] = $organizer_data['ID'] = $organizer->ID;
-						$found_organizers[ $organizer->ID ] = $event['Organizer']['Organizer'];
-
-						// Here we might need to update the Organizer depending we found something based on old code
-						if ( 'retain' === $update_authority_setting ) {
-							// When we get here we say that we skipped an Organizer
-							$activity->add( 'organizer', 'skipped', $organizer->ID );
-						} else {
-							if ( 'preserve_changes' === $update_authority_setting ) {
-								$organizer_data = Tribe__Events__Aggregator__Event::preserve_changed_fields( $organizer_data );
+						if ( ! empty( $item->organizer[ $key ]->global_id ) || in_array( $this->origin, array( 'ics', 'csv', 'gcal' ) ) ) {
+							// Pre-set for ICS based imports
+							$organizer = false;
+							if ( ! empty( $item->organizer[ $key ]->global_id ) ) {
+								// Did we find a Post with a matching Global ID in History
+								$organizer = Tribe__Events__Aggregator__Event::get_post_by_meta(
+									'global_id_lineage',
+									$item->organizer[ $key ]->global_id
+								);
 							}
 
-							add_filter( 'tribe_tracker_enabled', '__return_false' );
-
-							// Update the Organizer
-							Tribe__Events__Organizer::instance()->update( $organizer->ID, $organizer_data );
-
-							remove_filter( 'tribe_tracker_enabled', '__return_false' );
-
-							// Tell that we updated the Organizer to the activity tracker
-							$activity->add( 'organizer', 'updated', $organizer->ID );
-						}
-					} else {
-						$organizer_id = array_search( $event['Organizer']['Organizer'], $found_organizers );
-
-						if ( ! $organizer_id ) {
-							$organizer_unique_field = $this->get_unique_field( 'organizer' );
-
-							if ( ! empty( $organizer_unique_field ) ) {
-								$target    = $organizer_unique_field['target'];
-								$value     = $organizer_data[ $target ];
-								$organizer = Tribe__Events__Aggregator__Event::get_post_by_meta( "_Organizer{$target}", $value );
-							} else {
-								$organizer = get_page_by_title( $event['Organizer']['Organizer'], 'OBJECT', Tribe__Events__Organizer::POSTTYPE );
+							if ( isset( $item->organizer[ $key ]->description ) ) {
+								$organizer_data['Description'] = $item->organizer[ $key ]->description;
 							}
-						}
 
-						if ( ! $organizer_id ) {
+							if ( isset( $item->organizer[ $key ]->excerpt ) ) {
+								$organizer_data['Excerpt'] = $item->organizer[ $key ]->excerpt;
+							}
+
 							if ( $organizer ) {
-								$organizer_id                      = $organizer->ID;
-								$found_organizers[ $organizer_id ] = $event['Organizer']['Organizer'];
-							}
-						}
+								$organizer_id       = $organizer_data['ID'] = $organizer->ID;
+								$event_organizers[] = $organizer_id;
 
-						// We didn't find any matching Organizer for the provided one
-						if ( ! $organizer_id ) {
-							$organizer_id = $event['EventOrganizerID'] = Tribe__Events__Organizer::instance()->create( $event['Organizer'], $this->meta['post_status'] );
-							$found_organizers[ $event['EventOrganizerID'] ] = $event['Organizer']['Organizer'];
+								$found_organizers[ $organizer->ID ] = $organizer_data['Organizer'];
 
-							// Log this Organizer was created
-							$activity->add( 'organizer', 'created', $event['EventOrganizerID'] );
+								// Here we might need to update the Organizer depending we found something based on old code
+								if ( 'retain' === $update_authority_setting ) {
+									// When we get here we say that we skipped an Organizer
+									$activity->add( 'organizer', 'skipped', $organizer->ID );
+								} else {
+									if ( 'preserve_changes' === $update_authority_setting ) {
+										$organizer_data = Tribe__Events__Aggregator__Event::preserve_changed_fields( $organizer_data );
+									}
 
-							// Create the Organizer Global ID
-							if ( ! empty( $item->organizer->global_id ) ) {
-								update_post_meta( $event['EventOrganizerID'], Tribe__Events__Aggregator__Event::$global_id_key, $item->organizer->global_id );
-							}
+									add_filter( 'tribe_tracker_enabled', '__return_false' );
 
-							// Create the Organizer Global ID History
-							if ( ! empty( $item->organizer->global_id_lineage ) ) {
-								foreach ( $item->organizer->global_id_lineage as $gid ) {
-									add_post_meta( $event['EventOrganizerID'], Tribe__Events__Aggregator__Event::$global_id_lineage_key, $gid );
+									// Update the Organizer
+									Tribe__Events__Organizer::instance()->update( $organizer->ID, $organizer_data );
+
+									remove_filter( 'tribe_tracker_enabled', '__return_false' );
+
+									// Tell that we updated the Organizer to the activity tracker
+									$activity->add( 'organizer', 'updated', $organizer->ID );
 								}
-							}
-						} else {
-							$event['EventOrganizerID'] = $organizer_data['ID'] = $organizer_id;
-
-							// Here we might need to update the Organizer depending we found something based on old code
-							if ( 'retain' === $update_authority_setting ) {
-								// When we get here we say that we skipped an Organizer
-								$activity->add( 'organizer', 'skipped', $organizer_id );
-
 							} else {
-								if ( 'preserve_changes' === $update_authority_setting ) {
-									$organizer_data = Tribe__Events__Aggregator__Event::preserve_changed_fields( $organizer_data );
+								$organizer_id = array_search( $organizer_data['Organizer'], $found_organizers );
+
+								if ( ! $organizer_id ) {
+									$organizer_unique_field = $this->get_unique_field( 'organizer' );
+
+									if ( ! empty( $organizer_unique_field ) ) {
+										$target    = $organizer_unique_field['target'];
+										$value     = $organizer_data[ $target ];
+										$organizer = Tribe__Events__Aggregator__Event::get_post_by_meta( "_Organizer{$target}", $value );
+									} else {
+										$organizer = get_page_by_title( $organizer_data['Organizer'], 'OBJECT', Tribe__Events__Organizer::POSTTYPE );
+									}
 								}
 
-								add_filter( 'tribe_tracker_enabled', '__return_false' );
+								if ( ! $organizer_id ) {
+									if ( $organizer ) {
+										$organizer_id                      = $organizer->ID;
+										$found_organizers[ $organizer_id ] = $organizer_data['Organizer'];
+									}
+								}
 
-								// Update the Organizer
-								Tribe__Events__Organizer::instance()->update( $organizer_id, $organizer_data );
+								// We didn't find any matching Organizer for the provided one
+								if ( ! $organizer_id ) {
+									$organizer_id = $event_organizers[] = Tribe__Events__Organizer::instance()
+									                                                              ->create( $organizer_data,
+										                                                              $this->meta['post_status'] );
 
-								remove_filter( 'tribe_tracker_enabled', '__return_false' );
+									$found_organizers[ $organizer_id ] = $organizer_data['Organizer'];
 
-								// Tell that we updated the Organizer to the activity tracker
-								$activity->add( 'organizer', 'updated', $organizer_id );
+									// Log this Organizer was created
+									$activity->add( 'organizer', 'created', $organizer_id );
+
+									// Create the Organizer Global ID
+									if ( ! empty( $item->organizer[ $key ]->global_id ) ) {
+										update_post_meta( $organizer_id, Tribe__Events__Aggregator__Event::$global_id_key,
+											$item->organizer[ $key ]->global_id );
+									}
+
+									// Create the Organizer Global ID History
+									if ( ! empty( $item->organizer[ $key ]->global_id_lineage ) ) {
+										foreach ( $item->organizer[ $key ]->global_id_lineage as $gid ) {
+											add_post_meta( $organizer_id, Tribe__Events__Aggregator__Event::$global_id_lineage_key,
+												$gid );
+										}
+									}
+								} else {
+									$event_organizers[] = $organizer_data['ID'] = $organizer_id;
+
+									// Here we might need to update the Organizer depending we found something based on old code
+									if ( 'retain' === $update_authority_setting ) {
+										// When we get here we say that we skipped an Organizer
+										$activity->add( 'organizer', 'skipped', $organizer_id );
+
+									} else {
+										if ( 'preserve_changes' === $update_authority_setting ) {
+											$organizer_data = Tribe__Events__Aggregator__Event::preserve_changed_fields( $organizer_data );
+										}
+
+										add_filter( 'tribe_tracker_enabled', '__return_false' );
+
+										// Update the Organizer
+										Tribe__Events__Organizer::instance()->update( $organizer_id, $organizer_data );
+
+										remove_filter( 'tribe_tracker_enabled', '__return_false' );
+
+										// Tell that we updated the Organizer to the activity tracker
+										$activity->add( 'organizer', 'updated', $organizer_id );
+									}
+								}
 							}
 						}
 					}
 				}
 
-				// Remove the Organizer to avoid duplicates
-				unset( $event['Organizer'] );
+				// Update the organizer submission data
+				$event['Organizer']['OrganizerID'] = $event_organizers;
 			}
 
 			/**
@@ -1827,10 +1851,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			}
 
 			// If we have a Image Field for the Organizer from Service
-			if ( ! empty( $item->organizer->image ) && $organizer_id ) {
-				$args = array(
-					'ID' => $organizer_id,
-					'image' => $item->organizer->image,
+			if ( ! empty( $item->organizer[ $key ]->image ) && $organizer_id ) {
+				$args  = array(
+					'ID'         => $organizer_id,
+					'image'      => $item->organizer[ $key ]->image,
 					'post_title' => get_the_title( $organizer_id ),
 				);
 				$image = $this->import_image( $args );

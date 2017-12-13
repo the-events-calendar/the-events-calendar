@@ -126,6 +126,9 @@ $field->help        = __( 'Enter the url for a Facebook group or page. You can a
 		<span class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help" data-bumpdown="<?php echo esc_attr( $field->help ); ?>" data-width-rule="all-triggers"></span>
 	</td>
 </tr>
+
+<?php include dirname( __FILE__ ) . '/refine.php'; ?>
+
 <tr class="tribe-dependent" data-depends="#tribe-ea-field-facebook_import_type" data-condition-not-empty>
 	<td colspan="2" class="tribe-button-row">
 		<button type="submit" class="button button-primary tribe-preview">
