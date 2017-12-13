@@ -1551,7 +1551,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				// make sure organizers is an array
 				if ( $item->organizer instanceof stdClass ) {
 					$item->organizer    = array( $item->organizer );
-					$event['Organizer'] = array( $event['Organizer'] );
 				}
 
 				foreach ( $event['Organizer'] as $key => $organizer_data ) {
