@@ -85,7 +85,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 				$args['end_date'] = tribe_end_of_day( $args['end_date'] );
 			}
 		}
-		
+
 		$args['meta_query'] = array_filter( array(
 			$this->parse_meta_query_entry( $request['venue'], '_EventVenueID', '=', 'NUMERIC' ),
 			$this->parse_meta_query_entry( $request['organizer'], '_EventOrganizerID', '=', 'NUMERIC' ),
@@ -131,11 +131,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 			$args['posts_per_page'] = $this->get_default_posts_per_page();
 		}
 
-		write_log( $args );
-
 		$events = tribe_get_events( $args );
-
-		write_log( $events );
 
 		$page = $this->parse_page( $request ) ? $this->parse_page( $request ) : 1;
 
@@ -156,8 +152,6 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 		if ( $this->has_previous( $page, $args ) ) {
 			$data['previous_rest_url'] = $this->get_previous_rest_url( $data['rest_url'], $page );;
 		}
-
-		write_log( $events );
 
 		foreach ( $events as $event_id ) {
 			$data['events'][] = $this->repository->get_event_data( $event_id );

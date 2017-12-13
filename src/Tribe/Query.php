@@ -1041,8 +1041,6 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			$args = array_filter( $args, array( __CLASS__, 'filter_args' ) );
 			ksort( $args );
 
-			write_log( $args, 'fromGetEvents' ); 
-
 			$cache     = new Tribe__Cache();
 			$cache_key = 'get_events_' . get_current_user_id() . serialize( $args );
 
