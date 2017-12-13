@@ -1028,7 +1028,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				'tribe_render_context' => 'default',
 			);
 
-			$args     = wp_parse_args( $args, $defaults );
+			$args = wp_parse_args( $args, $defaults );
 
 			$return_found_posts = ! empty( $args['found_posts'] );
 
@@ -1040,6 +1040,8 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			// remove empty args and sort by key, this increases chance of a cache hit
 			$args = array_filter( $args, array( __CLASS__, 'filter_args' ) );
 			ksort( $args );
+
+			write_log( $args, 'fromGetEvents' ); 
 
 			$cache     = new Tribe__Cache();
 			$cache_key = 'get_events_' . get_current_user_id() . serialize( $args );

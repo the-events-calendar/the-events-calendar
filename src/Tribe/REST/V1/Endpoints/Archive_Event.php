@@ -64,6 +64,28 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 			: false;
 		$args['s'] = $request['search'];
 
+		/**
+		 * Allows users to make the REST API return events from a more literal date range.
+		 *
+		 * With this enabled, "inclusive" start dates and end dates are supplied: the first second
+		 * of the specified start date, the last second of the specified end date. With this
+		 * disabled, the plain, unmodified start and dates are used, which may yield fewer results.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool $use_inclusive Defaults to true. Whether to use "inclusive" start and end dates.
+		 */
+		if ( apply_filters( 'tribe_rest_events_use_inclusive_start_end_dates', true ) ) {
+
+			if ( $args['start_date'] ) {
+				$args['start_date'] = tribe_beginning_of_day( $args['start_date'] );
+			}
+
+			if ( $args['end_date'] ) {
+				$args['end_date'] = tribe_end_of_day( $args['end_date'] );
+			}
+		}
+		
 		$args['meta_query'] = array_filter( array(
 			$this->parse_meta_query_entry( $request['venue'], '_EventVenueID', '=', 'NUMERIC' ),
 			$this->parse_meta_query_entry( $request['organizer'], '_EventOrganizerID', '=', 'NUMERIC' ),
@@ -109,7 +131,11 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 			$args['posts_per_page'] = $this->get_default_posts_per_page();
 		}
 
+		write_log( $args );
+
 		$events = tribe_get_events( $args );
+
+		write_log( $events );
 
 		$page = $this->parse_page( $request ) ? $this->parse_page( $request ) : 1;
 
@@ -130,6 +156,8 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 		if ( $this->has_previous( $page, $args ) ) {
 			$data['previous_rest_url'] = $this->get_previous_rest_url( $data['rest_url'], $page );;
 		}
+
+		write_log( $events );
 
 		foreach ( $events as $event_id ) {
 			$data['events'][] = $this->repository->get_event_data( $event_id );

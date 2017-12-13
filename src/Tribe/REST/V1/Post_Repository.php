@@ -68,7 +68,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 
 		$meta = array_map( 'reset', get_post_custom( $event_id ) );
 
-		$venue = $this->get_venue_data( $event_id, $context );
+		$venue     = $this->get_venue_data( $event_id, $context );
 		$organizer = $this->get_organizer_data( $event_id, $context );
 
 		$data = array(
@@ -127,6 +127,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		 * @param array $json_ld_contexts An array of contexts.
 		 */
 		$json_ld_contexts = apply_filters( 'tribe_rest_event_json_ld_data_contexts', array( 'single' ) );
+
 		if ( in_array( $context, $json_ld_contexts, true ) ) {
 			$json_ld_data = tribe( 'tec.json-ld.event' )->get_data( $event );
 
@@ -225,7 +226,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 
 		$data = array_filter( $data );
 
-		$data['show_map'] = isset( $meta['_VenueShowMap'] ) ? tribe_is_truthy( $meta['_VenueShowMap'] ) : true;
+		$data['show_map']      = isset( $meta['_VenueShowMap'] ) ? tribe_is_truthy( $meta['_VenueShowMap'] ) : true;
 		$data['show_map_link'] = isset( $meta['_VenueShowMapLink'] ) ? tribe_is_truthy( $meta['_VenueShowMapLink'] ) : true;
 
 		// Add the Global ID fields
