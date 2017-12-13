@@ -934,15 +934,15 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 							AND (
 								(
 									tribe_event_start.meta_value >= '{$start_date_sql}'
-									AND  tribe_event_start.meta_value <= '{$end_date_sql}'
-								)
-								OR (
-									tribe_event_start.meta_value <= '{$start_date_sql}'
-									AND tribe_event_end_date.meta_value >= '{$start_date_sql}'
-								)
-								OR (
-									tribe_event_start.meta_value >= '{$start_date_sql}'
 									AND tribe_event_start.meta_value <= '{$end_date_sql}'
+								)
+								OR (
+									tribe_event_end_date.meta_value >= '{$start_date_sql}'
+									AND tribe_event_end_date.meta_value <= '{$end_date_sql}'
+								)
+								OR (
+									tribe_event_start.meta_value < '{$start_date_sql}'
+									AND tribe_event_end_date.meta_value > '{$end_date_sql}'
 								)
 							)
 							ORDER BY menu_order ASC, DATE(tribe_event_start.meta_value) ASC, TIME(tribe_event_start.meta_value) ASC;"
@@ -1009,8 +1009,13 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		/**
 		 * Customized WP_Query wrapper to setup event queries with default arguments.
 		 *
-		 * @param array $args
-		 * @param bool  $full
+		 * @param array $args {
+		 *		Optional. Array of Query parameters.
+		 *
+		 *      @type bool $found_posts Return the number of found events.
+		 * }
+		 * @param bool  $full Whether the full WP_Query object should returned (`true`) or just the
+		 *                    found posts (`false`)
 		 *
 		 * @return array|WP_Query
 		 */
@@ -1022,7 +1027,15 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				'posts_per_page'       => tribe_get_option( 'postsPerPage', 10 ),
 				'tribe_render_context' => 'default',
 			);
+
 			$args     = wp_parse_args( $args, $defaults );
+
+			$return_found_posts = ! empty( $args['found_posts'] );
+
+			if ( $return_found_posts ) {
+				$args['posts_per_page'] = 1;
+				$args['paged']          = 1;
+			}
 
 			// remove empty args and sort by key, this increases chance of a cache hit
 			$args = array_filter( $args, array( __CLASS__, 'filter_args' ) );
@@ -1037,7 +1050,16 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			} else {
 				do_action( 'log', 'no cache hit', 'tribe-events-cache', $args );
 				$result = new WP_Query( $args );
+
+				if ( $return_found_posts ) {
+					$result = $result->found_posts;
+				}
+
 				$cache->set( $cache_key, $result, Tribe__Cache::NON_PERSISTENT, 'save_post' );
+			}
+
+			if ( $return_found_posts ) {
+				return $result;
 			}
 
 			if ( ! empty( $result->posts ) ) {

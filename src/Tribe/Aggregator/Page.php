@@ -81,6 +81,7 @@ class Tribe__Events__Aggregator__Page {
 					'pm' => _x( 'PM', 'Meridian: pm', 'the-events-calendar' ),
 					'preview_timeout' => __( 'The preview is taking longer than expected. Please try again in a moment.', 'the-events-calendar' ),
 					'preview_fetch_error_prefix' => __( 'There was an error fetching the results from your import:', 'the-events-calendar' ),
+					'preview_fetch_warning_prefix' => __( 'A warning was generated while fetching the results from your import:', 'the-events-calendar' ),
 					'import_all' => __( 'Import All (%d)', 'the-events-calendar' ),
 					'import_all_no_number' => __( 'Import All', 'the-events-calendar' ),
 					'import_checked' => __( 'Import Checked (%d)', 'the-events-calendar' ),

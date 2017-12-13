@@ -19,11 +19,11 @@ class Tribe__Events__Admin__Event_Meta_Box extends Tribe__Template {
 	 * @var array
 	 */
 	protected $vars = array(
-		'_EventAllDay' => false,
-		'_EventEndDate' => null,
-		'_EventStartDate' => null,
+		'_EventAllDay'      => false,
+		'_EventEndDate'     => null,
+		'_EventStartDate'   => null,
 		'_EventOrganizerID' => null,
-		'_EventVenueID' => null,
+		'_EventVenueID'     => null,
 	);
 
 
@@ -65,7 +65,7 @@ class Tribe__Events__Admin__Event_Meta_Box extends Tribe__Template {
 		$this->get_event( $event );
 		$this->setup_data();
 
-		$variables = $this->vars;
+		$variables          = $this->vars;
 		$variables['event'] = $this->event;
 
 		return $variables;
@@ -273,7 +273,7 @@ class Tribe__Events__Admin__Event_Meta_Box extends Tribe__Template {
 		 * @param string $date
 		 * @param self   $metabox
 		 */
-		$time = apply_filters( 'tribe_events_meta_box_timepicker_default', $default, $type, $date, $this );
+		$time     = apply_filters( 'tribe_events_meta_box_timepicker_default', $default, $type, $date, $this );
 		$time_str = Tribe__Date_Utils::time_only( $date . ' ' . $time );
 
 		// If we couldn't set we apply the default

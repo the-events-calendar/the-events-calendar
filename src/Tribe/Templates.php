@@ -358,6 +358,11 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 		public static function modify_global_post_title( $title = '' ) {
 			global $post;
 
+			// When in the loop, no need to override titles.
+			if ( in_the_loop() ) {
+				return $title;
+			}
+
 			// Set the title to an empty string (but record the original)
 			self::$original_post_title = $post->post_title;
 			$post->post_title          = apply_filters( 'tribe_set_global_post_title', '' );

@@ -388,8 +388,12 @@ a.tribe-events-gcal {
 
 /* Event Schedule Detail Styling */
 .tribe-events-schedule h2 {
+	display: inline-block;
+	margin-bottom: 0;
+	font-size: 1.2em;
 	font-style: normal;
 	font-weight: bold;
+	line-height: normal;
 }
 
 .tribe-events-event-schedule-details {
@@ -774,6 +778,12 @@ select.tribe-events-dropdown {
 			float: none;
 			position: relative;
 		}
+
+		/* Reset list-view descriptions to static position; fixes bug with relative positioning
+		   that prevented the full area of the .tribe-events-event-image being "clickable". */
+		+ div.tribe-events-content.tribe-events-list-event-description {
+			position: static;
+		}
 	}
 
 	.tribe-events-loop .tribe-events-event-meta {
@@ -946,6 +956,7 @@ select.tribe-events-dropdown {
 /* Date/Time */
 .tribe-events-schedule {
 	margin: 20px 0 0;
+	vertical-align: middle;
 }
 
 .single-tribe_events {
@@ -1312,7 +1323,6 @@ select.tribe-events-dropdown {
 	*display: inline;
 	display: inline-block;
 	position: relative;
-	vertical-align: middle;
 	zoom: 1;
 }
 
@@ -2178,9 +2188,10 @@ input[name*='tribe-bar-']:-moz-placeholder {
 	}
 }
 
-/* Twenty Fifteen
+/* Twenty Fifteen (including Twenty Fifteen child themes)
 ========================================================================== */
-.tribe-theme-twentyfifteen {
+.tribe-theme-twentyfifteen,
+.tribe-theme-parent-twentyfifteen {
 	#tribe-events {
 		background: white;
 		margin: 0 8.333%;
@@ -2190,7 +2201,8 @@ input[name*='tribe-bar-']:-moz-placeholder {
 		font-size: 39px;
 	}
 }
-.tribe-theme-twentyfifteen {
+.tribe-theme-twentyfifteen,
+.tribe-theme-parent-twentyfifteen {
 	&.events-single {
 		&.tribe-events-page-template {
 			#tribe-events-pg-template {
@@ -2297,9 +2309,10 @@ input[name*='tribe-bar-']:-moz-placeholder {
 	}
 }
 
-/* Twenty Sixteen
+/* Twenty Sixteen (including Twenty Sixteen child themes)
 ========================================================================== */
-.tribe-theme-twentysixteen {
+.tribe-theme-twentysixteen,
+.tribe-theme-parent-twentysixteen {
 	table.tribe-events-calendar {
 		table-layout: auto;
 	}

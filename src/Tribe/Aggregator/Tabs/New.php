@@ -384,14 +384,17 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 										 _x( ' at ', 'separator between date and time', 'the-events-calendar' ) .
 										 date( get_option( 'time_format' ), $scheduled_time );
 
-				$messages['success'][] = '<br/>' .
-										 sprintf( // add in timing
-											 __( 'The next import is scheduled for %1$s.', 'the-events-calendar' ),
-											 esc_html( $scheduled_time_string )
-										 ) .
-										 ' <a href="' . admin_url( 'edit.php?page=aggregator&post_type=tribe_events&tab=scheduled' ) . '">' .
-										 __( 'View your scheduled imports.', 'the-events-calendar' ) .
-										 '</a>';
+                if ( 'on_demand' !== $queue->record->frequency->id ) {
+
+                    $messages['success'][] = '<br/>' .
+                                             sprintf( // add in timing
+                                                 __( 'The next import is scheduled for %1$s.', 'the-events-calendar' ),
+                                                 esc_html( $scheduled_time_string )
+                                             ) .
+                                             ' <a href="' . admin_url( 'edit.php?page=aggregator&post_type=tribe_events&tab=scheduled' ) . '">' .
+                                             __( 'View your scheduled imports.', 'the-events-calendar' ) .
+                                             '</a>';
+                }
 			}
 		}
 
@@ -447,10 +450,10 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 
 		if ( is_wp_error( $result ) ) {
 			/** @var Tribe__Events__Aggregator__Service $service */
-			$service = tribe( 'events-aggregator.service' );
-			$result  = (object) array(
+			$service      = tribe( 'events-aggregator.service' );
+			$result       = (object) array(
 				'message_code' => $result->get_error_code(),
-				'message'      => $service->get_service_message( $result->get_error_code() ),
+				'message'      => $service->get_service_message( $result->get_error_code(), $result->get_error_data() ),
 			);
 			wp_send_json_error( $result );
 		}
@@ -488,6 +491,14 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 					$parent_record->update_meta( 'source_name', $result->data->source_name );
 				}
 			}
+		}
+
+		// if there is a warning in the data let's localize it
+		if ( ! empty( $result->warning_code ) ) {
+			/** @var Tribe__Events__Aggregator__Service $service */
+			$service         = tribe( 'events-aggregator.service' );
+			$default_warning = ! empty( $result->warning ) ? $result->warning : null;
+			$result->warning = $service->get_service_message( $result->warning_code, array(), $default_warning );
 		}
 
 		wp_send_json_success( $result );

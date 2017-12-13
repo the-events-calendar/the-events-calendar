@@ -88,7 +88,12 @@ class Tribe__Events__Aggregator__Admin_Bar {
 				'name' => esc_attr__( 'CSV File', 'the-events-calendar' ),
 			),
 		);
-		$origins = array_merge( $origins, $service_response['origin'] );
+
+		if ( empty( $service_response[0]->origin ) ) {
+			return;
+		}
+
+		$origins = array_merge( $origins, $service_response[0]->origin );
 
 		foreach ( $origins as $origin ) {
 			$url = Tribe__Events__Aggregator__Page::instance()->get_url( array( 'ea-origin' => $origin->id ) );

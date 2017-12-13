@@ -1,9 +1,12 @@
 <?php
 global $post;
 
-// If not $_POST get the current values to edit
-if ( ! $_POST ) {
-	$postId                 = Tribe__Events__Main::postIdHelper();
+$post_id = Tribe__Events__Main::postIdHelper();
+$is_auto_draft = get_post_status( $post_id ) === 'auto-draft';
+
+// If not $_POST and if this is not an auto-draft then get the current values to edit
+if ( ! $_POST && ! $is_auto_draft ) {
+
 	$venue_name             = tribe_get_venue();
 	$_VenuePhone            = tribe_get_phone();
 	$_VenueURL              = strip_tags( tribe_get_venue_website_link( null, null ) );
@@ -13,8 +16,8 @@ if ( ! $_POST ) {
 	$_VenueState            = tribe_get_state();
 	$_VenueCountry          = tribe_get_country();
 	$_VenueZip              = tribe_get_zip();
-	$google_map_link_toggle = get_post_meta( $postId, '_EventShowMapLink', true );
-	$google_map_toggle      = tribe_embed_google_map( $postId );
+	$google_map_link_toggle = get_post_meta( $post_id, '_EventShowMapLink', true );
+	$google_map_toggle      = tribe_embed_google_map( $post_id );
 
 	//If we just saved use those values from $_POST
 } elseif ( ! empty( $_POST ) ) {
@@ -104,7 +107,7 @@ if ( ! $_POST ) {
 				if ( $abbr == '' ) {
 					echo '<option value="">' . esc_html( $fullname ) . '</option>';
 				} else {
-					echo '<option value="' . esc_attr( $fullname ) . '" ' . selected( ( $current == $fullname ), true, false ) . '>' . esc_html( $fullname ) . '</option>';
+					echo '<option value="' . esc_attr( $fullname ) . '">' . esc_html( $fullname ) . '</option>';
 				}
 			}
 			?>
@@ -132,7 +135,7 @@ if ( ! $_POST ) {
 			<option value=""><?php esc_html_e( 'Select a State:', 'the-events-calendar' ); ?></option>
 			<?php
 			foreach ( Tribe__View_Helpers::loadStates() as $abbr => $fullname ) {
-				echo '<option value="' . esc_attr( $abbr ) . '" ' . selected( ( ( $_VenueStateProvince != - 1 ? $_VenueStateProvince : $currentState ) == $abbr ), true, false ) . '>' . esc_html( $fullname ) . '</option>';
+				echo '<option value="' . esc_attr( $abbr ) . '">' . esc_html( $fullname ) . '</option>';
 			}
 			?>
 		</select>

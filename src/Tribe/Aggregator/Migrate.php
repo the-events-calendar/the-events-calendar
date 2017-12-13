@@ -94,7 +94,7 @@ class Tribe__Events__Aggregator__Migrate {
 		// It's important only to use values here that are true for the `empty()` function
 		$data = (object) array(
 			'post_status' => null,
-			'ids' => '',
+			'ids' => array(),
 			'google_maps' => false,
 			'auto' => false,
 			'frequency' => null,

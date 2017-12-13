@@ -125,7 +125,8 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		if ( $organizer_id && $link = tribe_get_organizer_website_link() ) {
-			$details[] = '<span class="link"> <a href="' . esc_attr( $link ) . '">' . $link . '</a> </span>';
+			// $link is a full HTML string (<a>) whose components are already escaped, so we don't need create an anchor tag or escape again here
+			$details[] = '<span class="link">' . $link . '</span>';
 		}
 
 		$html = join( '<span class="tribe-events-divider">|</span>', $details );
@@ -226,7 +227,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		if ( $echo != false ) _deprecated_argument( __FUNCTION__, '4.0' );
 
 		$org_id = tribe_get_organizer_id( $postId );
-		if ( class_exists( 'Tribe__Events__Pro__Main' ) ) {
+		if ( class_exists( 'Tribe__Events__Pro__Main' ) && get_post_status( $org_id ) == 'publish' ) {
 			$url = esc_url_raw( get_permalink( $org_id ) );
 			if ( $full_link ) {
 				$name = tribe_get_organizer( $org_id );
@@ -324,16 +325,14 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @param array $args {
 	 *		Optional. Array of Query parameters.
 	 *
-	 *		@type int  $event      Only organizers linked to this event post ID.
-	 *		@type bool $has_events Only organizers that have events.
+	 *		@type int  $event       Only organizers linked to this event post ID.
+	 *		@type bool $has_events  Only organizers that have events.
+	 *		@type bool $found_posts Return the number of found organizers.
 	 * }
 	 *
-	 * @return array An array of organizer post objects.
+	 * @return array|int An array of organizer post objects or an integer value if `found_posts` is set to a truthy value.
 	 */
 	function tribe_get_organizers( $only_with_upcoming = false, $posts_per_page = - 1, $suppress_filters = true, array $args = array() ) {
-		/** @var wpdb $wpdb */
-		global $wpdb;
-
 		// filter out the `null` values
 		$args = array_diff_key( $args, array_filter( $args, 'is_null' ) );
 
@@ -377,9 +376,25 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			)
 		);
 
-		$organizers = get_posts( $parsed_args );
+		$return_found_posts = ! empty( $args['found_posts'] );
 
-		return $organizers;
+		if ( $return_found_posts ) {
+			$parsed_args['posts_per_page'] = 1;
+			$parsed_args['paged']          = 1;
+		}
+
+		$query = new WP_Query( $parsed_args );
+
+		if ( $return_found_posts ) {
+			if ( $query->have_posts() ) {
+
+				return $query->found_posts;
+			}
+
+			return 0;
+		}
+
+		return $query->have_posts() ? $query->posts : array();
 	}
 
 }
