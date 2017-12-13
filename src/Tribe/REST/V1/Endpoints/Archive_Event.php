@@ -65,11 +65,11 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 		$args['s'] = $request['search'];
 
 		/**
-		 * Allows users to make the REST API return events from a more literal date range.
+		 * Allows users to make the REST API return events from a more specific, localized date range.
 		 *
 		 * With this enabled, "inclusive" start dates and end dates are supplied: the first second
-		 * of the specified start date, the last second of the specified end date. With this
-		 * disabled, the plain, unmodified start and dates are used, which may yield fewer results.
+		 * of the specified start date, and the last second of the specified end date. With this
+		 * disabled, the localized but otherwise-unmodified start and dates are used, which may yield fewer results.
 		 *
 		 * @since TBD
 		 *
@@ -78,11 +78,11 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 		if ( apply_filters( 'tribe_rest_events_use_inclusive_start_end_dates', true ) ) {
 
 			if ( $args['start_date'] ) {
-				$args['start_date'] = tribe_beginning_of_day( $args['start_date'] );
+				$args['start_date'] = tribe_beginning_of_day( $request['start_date'] );
 			}
 
 			if ( $args['end_date'] ) {
-				$args['end_date'] = tribe_end_of_day( $args['end_date'] );
+				$args['end_date'] = tribe_end_of_day( $request['end_date'] );
 			}
 		}
 
