@@ -1028,7 +1028,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				'tribe_render_context' => 'default',
 			);
 
-			$args     = wp_parse_args( $args, $defaults );
+			$args = wp_parse_args( $args, $defaults );
 
 			$return_found_posts = ! empty( $args['found_posts'] );
 
