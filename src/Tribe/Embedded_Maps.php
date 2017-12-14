@@ -112,7 +112,7 @@ class Tribe__Events__Embedded_Maps {
 	protected function get_ids( $post_id ) {
 		$post_id = $post_id = Tribe__Events__Main::postIdHelper( $post_id );
 		$this->event_id = tribe_is_event( $post_id ) ? $post_id : 0;
-		$this->venue_id  = tribe_is_venue( $post_id ) ? $post_id : tribe_get_venue_id( $post_id );
+		$this->venue_id = tribe_is_venue( $post_id ) ? $post_id : tribe_get_venue_id( $post_id );
 	}
 
 	protected function form_address() {
@@ -160,8 +160,21 @@ class Tribe__Events__Embedded_Maps {
 	}
 
 	protected function enqueue_map_scripts() {
-		// Setup Google Maps API
-		$url  = apply_filters( 'tribe_events_google_maps_api', 'https://maps.google.com/maps/api/js' );
+
+		$api_url = 'https://maps.google.com/maps/api/js';
+		$api_key = tribe_get_option( 'google_maps_js_api_key' );
+
+		if ( ! empty( $api_key ) && is_string( $api_key ) ) {
+			$api_url = sprintf( 'https://maps.googleapis.com/maps/api/js?key=%s', trim( $api_key ) );
+		}
+
+		/**
+		 * Allows for filtering the embedded Google Maps API URL.
+		 *
+		 * @param string $api_url The Google Maps API URL.
+		 */
+		$url = apply_filters( 'tribe_events_google_maps_api', $api_url );
+
 		wp_enqueue_script( 'tribe_events_google_maps_api', $url, array(), false, true );
 
 		// Setup our own script used to initialize each map
