@@ -169,7 +169,7 @@ class Tribe__Events__Embedded_Maps {
 		}
 
 		/**
-		 * Allows for filtering the etup Google Maps API URL.
+		 * Allows for filtering the embedded Google Maps API URL.
 		 *
 		 * @param string $api_url The Google Maps API URL.
 		 */
