@@ -1851,7 +1851,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			}
 
 			// If we have a Image Field for the Organizer from Service
-			if ( ! empty( $item->organizer[ $key ]->image ) && $organizer_id ) {
+			if ( ! empty( $item->organizer[ $key ] ) && ! empty( $item->organizer[ $key ]->image ) && $organizer_id ) {
 				$args  = array(
 					'ID'         => $organizer_id,
 					'image'      => $item->organizer[ $key ]->image,
