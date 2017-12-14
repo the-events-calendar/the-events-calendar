@@ -87,6 +87,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			'title'                  => trim( apply_filters( 'the_title', $event->post_title ) ),
 			'description'            => trim( apply_filters( 'the_content', $event->post_content ) ),
 			'excerpt'                => trim( apply_filters( 'the_excerpt', $event->post_excerpt ) ),
+			'slug'                   => $event->post_name,
 			'image'                  => $this->get_featured_image( $event_id ),
 			'all_day'                => isset( $meta['_EventAllDay'] ) ? tribe_is_truthy( $meta['_EventAllDay'] ) : false,
 			'start_date'             => $meta['_EventStartDate'],
