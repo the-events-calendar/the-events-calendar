@@ -108,9 +108,7 @@ before_script:
   - sudo service nginx restart
 
 script:
-  - cat /etc/nginx/sites-available/$WP_DOMAIN
-  - curl tribe.localhost
-#  - codecept run integration -vvv
-#  - codecept run muintegration -vvv
+  - codecept run integration -vvv
+  - codecept run muintegration -vvv
   - codecept run wpunit -vvv
 #  - codecept run restv1 -vvv
