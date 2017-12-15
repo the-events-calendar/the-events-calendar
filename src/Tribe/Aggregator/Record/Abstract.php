@@ -1106,7 +1106,12 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$status = empty( $this->meta['last_import_status'] ) ? null : $this->meta['last_import_status'];
 
 		if ( empty( $status ) && $lookup_children ) {
-			$children_query_args = array( 'post_parent' => $this->post->ID, 'posts_per_page' => 1, 'order' => 'DESC', 'order_by' => 'modified' );
+			$children_query_args = array( 'posts_per_page' => 1, 'order' => 'DESC', 'order_by' => 'modified' );
+
+			if ( ! empty( $this->post ) && $this->post instanceof WP_Post ) {
+				$children_query_args['post_parent'] = $this->post->ID;
+			}
+
 			$last_children_query = $this->query_child_records( $children_query_args );
 
 			if ( $last_children_query->have_posts() ) {
