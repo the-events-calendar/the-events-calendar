@@ -104,8 +104,7 @@ before_script:
   - cd $PLUGIN_DIR
 
   # restart Nnginx and PHP-FPM services
-  - sudo service --status-all
-  - sudo service php5.6-fpm restart
+  - sudo service php5-fpm restart
   - sudo service nginx restart
 
 script:
