@@ -308,7 +308,7 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 
 == Changelog ==
 
-= [4.6.8] TBD =
+= [4.6.8] 2017-12-18 =
 
 * Fix - Preserve filter bar checkbox selections when changing views [66749]
 * Fix - Fix radio filters so they are only included as values when switching views when checked [72954]
@@ -324,6 +324,7 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 * Tweak - Added `slug` to the REST API responses for event data [92825]
 * Tweak - Added `slug` to the REST API parameters allowed to use when inserting or updating an event [92825]
 * Tweak - Added new `tribe_events_rest_use_inclusive_start_end_dates` filter so that users can make the REST API return events from a more literal date range [90005]
+* Language - 3 new strings added, 68 updated, 0 fuzzied, and 0 obsoleted
 
 = [4.6.7] 2017-12-07 =
 
