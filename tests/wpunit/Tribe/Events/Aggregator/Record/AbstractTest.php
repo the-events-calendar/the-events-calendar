@@ -164,9 +164,9 @@ class AbstractTest extends \Codeception\TestCase\WPTestCase {
 	public function should_use_the_most_recent_children_import_to_determine_the_status_if_last_import_status_is_not_set() {
 		$scheduled_record = $this->make_scheduled_record_instance( 'weekly', '-1 day' );
 
-		$this->add_successful_children_to( $scheduled_record );
-		$this->add_successful_children_to( $scheduled_record );
-		$last = $this->add_failed_children_to( $scheduled_record );
+		$this->add_successful_children_to( $scheduled_record, '-2 hours' );
+		$this->add_successful_children_to( $scheduled_record, '-1 hour' );
+		$last = $this->add_failed_children_to( $scheduled_record, '-20 minutes' );
 
 		$this->assertTrue( $scheduled_record->is_schedule_time() );
 
