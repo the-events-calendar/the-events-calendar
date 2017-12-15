@@ -108,7 +108,7 @@ before_script:
   - sudo service nginx restart
 
 script:
-  - codecept run integration -vvv
-  - codecept run muintegration -vvv
-  - codecept run wpunit -vvv
-  - codecept run restv1 -vvv
+  - codecept run integration
+  - codecept run muintegration
+  - codecept run wpunit
+  - codecept run restv1
