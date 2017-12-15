@@ -78,7 +78,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 		 *   REST API would set start_date to 2017-12-20 19:00:00 and end_date to
 		 *   2017-12-21 19:00:00. A different range of events to draw from.
 		 *
-		 * @since TBD
+		 * @since 4.6.8
 		 *
 		 * @param bool $use_inclusive Defaults to true. Whether to use "inclusive" start and end dates.
 		 */
