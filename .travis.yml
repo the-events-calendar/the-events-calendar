@@ -104,6 +104,7 @@ before_script:
   - cd $PLUGIN_DIR
 
 script:
+  - curl tribe.localhost
 #  - codecept run integration -vvv
 #  - codecept run muintegration -vvv
   - codecept run wpunit -vvv
