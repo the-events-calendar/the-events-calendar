@@ -103,6 +103,10 @@ before_script:
   # get back to the plugin dir
   - cd $PLUGIN_DIR
 
+  # restart Nnginx and PHP-FPM services
+  - sudo service php5.6-fpm restart
+  - sudo service nginx restart
+
 script:
   - cat /etc/nginx/sites-available/$WP_DOMAIN
   - curl tribe.localhost
