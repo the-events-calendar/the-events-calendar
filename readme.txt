@@ -308,7 +308,7 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 
 == Changelog ==
 
-= [4.6.8] 2017-12-18 =
+= [4.6.8] 2017-12-19 =
 
 * Fix - Preserve filter bar checkbox selections when changing views [66749]
 * Fix - Fix radio filters so they are only included as values when switching views when checked [72954]
