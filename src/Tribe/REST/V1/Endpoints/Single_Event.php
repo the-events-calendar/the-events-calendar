@@ -580,6 +580,11 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 		$postarr['EventShowInCalendar']   = tribe_is_truthy( $request['sticky'] );
 		$postarr['feature_event']         = tribe_is_truthy( $request['featured'] );
 
+		// If we are scheduling an event and a date has been provided, WP requires an additional argument
+		if ( ! empty( $postarr['post_status'] ) && 'future' === $postarr['post_status'] && ! empty( $postarr['post_date'] ) ) {
+			$postarr['edit_date'] = true;
+		}
+
 		/**
 		 * Allow filtering of $postarr data with additional $request arguments.
 		 *
