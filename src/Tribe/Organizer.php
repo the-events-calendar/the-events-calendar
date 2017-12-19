@@ -310,6 +310,19 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 	 *
 	 */
 	public function save_meta( $organizerId, $data ) {
+		$organizer = get_post( $organizerId );
+
+		/**
+		 * Allow hooking in prior to updating meta fields.
+		 *
+		 * @param int     $organizerId The organizer ID we are modifying meta for.
+		 * @param array   $data        The meta fields we want saved.
+		 * @param WP_Post $organizer   The organizer itself.
+		 *
+		 * @since TBD
+		 */
+		do_action( 'tribe_events_organizer_save', $organizerId, $data, $organizer );
+
 		if ( isset( $data['FeaturedImage'] ) && ! empty( $data['FeaturedImage'] ) ) {
 			update_post_meta( $organizerId, '_thumbnail_id', $data['FeaturedImage'] );
 			unset( $data['FeaturedImage'] );
