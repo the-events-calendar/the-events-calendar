@@ -7,20 +7,15 @@ modules:
     enabled: [WPLoader, \Helper\Wpunit]
     config:
         WPLoader:
-            wpRootFolder: /tmp/wordpress
-            dbName: wploader
-            dbHost: localhost
-            dbUser: root
-            dbPassword: ''
-            wpDebug: true
-            dbCharset: utf8
-            dbCollate: ''
-            tablePrefix: wp_
-            domain: tec.tri.be
-            adminEmail: admin@tec.tri.be
+            wpRootFolder: %WP_ROOT_FOLDER%
+            dbName: %TEST_DB_NAME%
+            dbHost: %TEST_DB_HOST%
+            dbUser: %TEST_DB_USER%
+            dbPassword: %TEST_DB_PASSWORD%
+            tablePrefix: test_
+            domain: %WP_DOMAIN%
+            adminEmail: admin@%WP_DOMAIN%
             title: 'The Events Calendar Tests'
-            phpBinary: php
-            language: ''
             plugins:
                 - the-events-calendar/the-events-calendar.php
             activatePlugins:
