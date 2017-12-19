@@ -232,21 +232,20 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		// Add the Global ID fields
 		$data = $this->add_global_id_fields( $data, $venue->ID );
 
+		$event = null;
+
+		if ( tribe_is_event( $event_or_venue_id ) ) {
+			$event = get_post( $event_or_venue_id );
+		}
+
 		/**
 		 * Filters the data that will be returned for a single venue.
 		 *
-		 * @param array   $data  The data that will be returned in the response.
-		 * @param WP_Post $event The requested venue.
+		 * @param array        $data  The data that will be returned in the response.
+		 * @param WP_Post      $venue The requested venue.
+		 * @param WP_Post|null $event The requested event, if event ID was used.
 		 */
-		$data = apply_filters( 'tribe_rest_venue_data', $data, $venue );
-
-		/**
-		 * Filters the data that will be returned for an event venue.
-		 *
-		 * @param array   $data  The data that will be returned in the response.
-		 * @param WP_Post $event The requested event.
-		 */
-		$data = apply_filters( 'tribe_rest_venue_data', $data, get_post( $event_or_venue_id ) );
+		$data = apply_filters( 'tribe_rest_venue_data', $data, $venue, $event );
 
 		return $data;
 	}
