@@ -237,6 +237,12 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 				'type'              => 'string',
 				'description'       => __( 'The event description', 'the-events-calendar' ),
 			),
+			'slug'               => array(
+				'required'          => false,
+				'validate_callback' => array( $this->validator, 'is_string' ),
+				'type'              => 'string',
+				'description'       => __( 'The event slug', 'the-events-calendar' ),
+			),
 			'excerpt'            => array(
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_string' ),
@@ -535,6 +541,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 			'post_date'             => $post_date,
 			'post_date_gmt'         => $post_date_gmt,
 			'post_title'            => $request['title'],
+			'post_name'             => $request['slug'],
 			'post_content'          => $request['description'],
 			'post_excerpt'          => $request['excerpt'],
 			'post_status'           => $this->scale_back_post_status( $request['status'], Tribe__Events__Main::POSTTYPE ),

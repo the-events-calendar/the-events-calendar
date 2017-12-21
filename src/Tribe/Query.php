@@ -393,7 +393,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 
 			/**
 			 * If is in the admin remove the event date & upcoming filters, unless is an ajax call
-			 * It's important to note that `tribe_remove_date_filters` nees to be set before calling
+			 * It's important to note that `tribe_remove_date_filters` needs to be set before calling
 			 * self::should_remove_date_filters() to allow the date_filters to be actually removed
 			 */
 			if ( self::should_remove_date_filters( $query ) ) {
@@ -1028,7 +1028,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				'tribe_render_context' => 'default',
 			);
 
-			$args     = wp_parse_args( $args, $defaults );
+			$args = wp_parse_args( $args, $defaults );
 
 			$return_found_posts = ! empty( $args['found_posts'] );
 

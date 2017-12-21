@@ -64,6 +64,45 @@ class EventUpdateCest extends BaseRestCest
 	}
 
 	/**
+	 * It should allow updating an event slug
+	 * @test
+	 */
+	public function it_should_allow_updating_an_event_slug( Tester $I ) {
+		$event_id = $I->haveEventInDatabase();
+
+		$I->generate_nonce_for_role( 'administrator' );
+
+		$timezone = 'America/New_York';
+		$I->haveOptionInDatabase( 'timezone_string', $timezone );
+
+		$start = 'tomorrow 9am';
+		$end = 'tomorrow 11am';
+		$I->sendPOST( $this->events_url . "/{$event_id}", [
+			'title'       => 'An event',
+			'slug'        => 'an-interesting-event',
+			'description' => 'An event content',
+			'excerpt'     => 'An event excerpt',
+			'start_date'  => date( 'Y-m-d H:i:s', strtotime( $start ) ),
+			'end_date'    => date( 'Y-m-d H:i:s', strtotime( $end ) ),
+		] );
+
+		$I->seeResponseCodeIs( 200 );
+		$I->seeResponseIsJson();
+		$I->canSeeResponseContainsJson( [
+			'title'          => 'An event',
+			'slug'           => 'an-interesting-event',
+			'description'    => trim( apply_filters( 'the_content', 'An event content' ) ),
+			'excerpt'        => trim( apply_filters( 'the_excerpt', 'An event excerpt' ) ),
+			'start_date'     => date( 'Y-m-d H:i:s', strtotime( $start ) ),
+			'end_date'       => date( 'Y-m-d H:i:s', strtotime( $end ) ),
+			'utc_start_date' => Timezones::convert_date_from_timezone( $start, $timezone, 'UTC', 'Y-m-d H:i:s' ),
+			'utc_end_date'   => Timezones::convert_date_from_timezone( $end, $timezone, 'UTC', 'Y-m-d H:i:s' ),
+		] );
+		$response = json_decode( $I->grabResponse(), true );
+		$I->assertArrayHasKey( 'id', $response );
+	}
+
+	/**
 	 * It should allow to set the start date using natural language
 	 *
 	 * @test

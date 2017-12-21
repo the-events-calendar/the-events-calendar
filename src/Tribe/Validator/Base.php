@@ -95,6 +95,25 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 	}
 
 	/**
+	 * Whether the value is the post name of an existing event or not.
+	 *
+	 * @since 4.6.8
+	 *
+	 * @param string $event_slug
+	 *
+	 * @return bool
+	 */
+	public function is_event_slug( $event_slug ) {
+		if ( empty( $event_slug ) ) {
+			return false;
+		}
+
+		$event = get_page_by_path( $event_slug, OBJECT, Tribe__Events__Main::POSTTYPE );
+
+		return ! empty( $event ) && Tribe__Events__Main::POSTTYPE === $event->post_type;
+	}
+
+	/**
 	 * Whether the string represents a valid PHP timezone or not.
 	 *
 	 * @since 4.6

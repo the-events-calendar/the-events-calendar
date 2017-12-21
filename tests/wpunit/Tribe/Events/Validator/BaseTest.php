@@ -302,6 +302,32 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertTrue( $sut->is_event_id( '' . $id ) );
 	}
 
+	/**
+	 * Test is_event_slug with the wrong slug
+	 *
+	 * @test
+	 */
+	public function test_is_event_slug_with_bad_inputs() {
+		$sut = $this->make_instance();
+
+		$this->assertFalse( $sut->is_event_slug( 'nope-doesnt-exist' ) );
+	}
+
+	/**
+	 * Test is_event_slug
+	 *
+	 * @test
+	 */
+	public function test_is_event_slug() {
+		$id = $this->factory()->event->create();
+
+		$post = get_post( $id );
+
+		$sut = $this->make_instance();
+
+		$this->assertTrue( $sut->is_event_slug( $post->post_name ) );
+	}
+
 	function setUp() {
 		parent::setUp();
 		$this->factory()->event = new Event();

@@ -200,13 +200,18 @@ a.tribe-events-gmap {
 	padding: 12px 0 15px;
 }
 
-.tribe-events-list-separator-year,
-.tribe-events-list .tribe-events-event-cost {
+.tribe-events-list-separator-year {
 	display: none;
 }
 
 .tribe-events-list-separator-month {
 	margin: 36px 0 0;
+}
+
+.tribe-events-event-cost .tribe-out-of-stock, .tribe-events-event-cost .tribe-tickets-left {
+	font-size: 12px;
+	line-height: 15px;
+	white-space: nowrap;
 }
 
 /* = Single Event Template Styles

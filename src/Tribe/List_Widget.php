@@ -110,6 +110,7 @@ class Tribe__Events__List_Widget extends WP_Widget {
 				'tribe_events_list_widget_query_args', array(
 					'eventDisplay'   => 'list',
 					'posts_per_page' => self::$limit,
+					'is_tribe_widget' => true,
 					'tribe_render_context' => 'widget',
 					'featured' => empty( $instance['featured_events_only'] ) ? false : (bool) $instance['featured_events_only'],
 				)

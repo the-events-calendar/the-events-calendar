@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-12-05 22:40:01+0000\n"
+"PO-Revision-Date: 2017-12-14 18:41:50+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -838,7 +838,7 @@ msgstr "%1$s em %2$s"
 
 #: src/admin-views/tribe-options-display.php:185
 msgid "Change the default 3 events per day in month view. To impose no limit, you may specify -1. Please note there may be performance issues if you allow too many events per day. <a href=\"%s\">Read more</a>."
-msgstr "Altere o valor por omissão de 3 eventos por dia na vista mensal. Para não impor limites, pode especificar -1. Atenção que poderão ocorrer problemas de performance se permitir demasiados eventos por dia. <a href=\"%s\">Ler mais</a>."
+msgstr "Altere o valor por omissão de 3 eventos por dia na vista mensal. Para não impor limites, pode especificar -1. Atenção que poderão ocorrer problemas de desempenho se permitir demasiados eventos por dia. <a href=\"%s\">Ler mais</a>."
 
 #: src/Tribe/Main.php:733
 msgctxt "all events slug"

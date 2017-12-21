@@ -352,7 +352,13 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			}
 
 			if ( empty( $data['EventTimezoneAbbr'] ) ) {
-				$data['EventTimezoneAbbr'] = Tribe__Events__Timezones::abbr( $data['EventStartDate'], $data['EventTimezone'] );
+				if ( Tribe__Timezones::is_utc_offset( $data['EventTimezone'] ) ) {
+					$data['EventTimezoneAbbr'] = $data['EventTimezone'];
+				} elseif ( Tribe__Timezones::is_valid_timezone( $data['EventTimezone'] ) ) {
+					$data['EventTimezoneAbbr'] = Tribe__Events__Timezones::abbr( $data['EventStartDate'], $data['EventTimezone'] );
+				} else {
+					$data['EventTimezoneAbbr'] = Tribe__Timezones::wp_timezone_abbr( $data['EventStartDate'] );
+				}
 			}
 
 			// sanity check that start date < end date
