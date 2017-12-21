@@ -64,7 +64,10 @@ class Single_Venue_SlugTest extends WPRestApiTestCase {
 		$sut = $this->make_instance();
 		$request = new \WP_REST_Request();
 		$venue_id = $this->factory()->venue->create();
-		$request->set_param( 'id', $venue_id );
+
+		$post = get_post( $venue_id );
+
+		$request->set_param( 'slug', $post->post_name );
 
 		$response = $sut->get( $request );
 
@@ -82,7 +85,10 @@ class Single_Venue_SlugTest extends WPRestApiTestCase {
 		$sut = $this->make_instance();
 		$request = new \WP_REST_Request();
 		$venue_id = $this->factory()->venue->create( [ 'post_status' => 'draft' ] );
-		$request->set_param( 'id', $venue_id );
+
+		$post = get_post( $venue_id );
+
+		$request->set_param( 'slug', $post->post_name );
 
 		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'subscriber' ] ) );
 		$response = $sut->get( $request );
@@ -205,10 +211,12 @@ class Single_Venue_SlugTest extends WPRestApiTestCase {
 	 * @test
 	 */
 	public function it_should_allow_updating_a_venue() {
-		$venue = $this->factory()->venue->create();
+		$venue_id = $this->factory()->venue->create();
+
+		$post = get_post( $venue_id );
 
 		$data = [
-			'id'            => $venue,
+			'slug'          => $post->post_name,
 			'venue'         => 'A venue',
 			'show_map'      => false,
 			'show_map_link' => false,
@@ -239,10 +247,12 @@ class Single_Venue_SlugTest extends WPRestApiTestCase {
 	 * @test
 	 */
 	public function it_should_properly_set_boolean_meta_fields_when_updating() {
-		$venue = $this->factory()->venue->create();
+		$venue_id = $this->factory()->venue->create();
+
+		$post = get_post( $venue_id );
 
 		$data = [
-			'id'            => $venue,
+			'slug'          => $post->post_name,
 			'venue'         => 'A venue',
 			'show_map'      => false,
 			'show_map_link' => false,
@@ -261,7 +271,7 @@ class Single_Venue_SlugTest extends WPRestApiTestCase {
 		$this->assertFalse( $response->data['show_map_link'] );
 
 		$data = [
-			'id'            => $venue,
+			'slug'          => $post->post_name,
 			'venue'         => 'A venue',
 			'show_map'      => true,
 			'show_map_link' => true,
@@ -286,10 +296,12 @@ class Single_Venue_SlugTest extends WPRestApiTestCase {
 	 * @test
 	 */
 	public function it_should_return_wp_error_if_venue_could_not_be_updated() {
-		$venue = $this->factory()->venue->create();
+		$venue_id = $this->factory()->venue->create();
+
+		$post = get_post( $venue_id );
 
 		$request = new \WP_REST_Request();
-		$request->set_param( 'id', $venue );
+		$request->set_param( 'slug', $post->post_name );
 		$request->set_param( 'venue', 'A venue' );
 		add_filter( 'tribe_events_tribe_venue_update', function () {
 			return false;
