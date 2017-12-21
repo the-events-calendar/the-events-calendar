@@ -1106,7 +1106,14 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$status = empty( $this->meta['last_import_status'] ) ? null : $this->meta['last_import_status'];
 
 		if ( empty( $status ) && $lookup_children ) {
-			$last_children_query = $this->query_child_records( array( 'posts_per_page' => 1, 'order' => 'DESC', 'order_by' => 'modified' ) );
+			$children_query_args = array( 'posts_per_page' => 1, 'order' => 'DESC', 'order_by' => 'modified' );
+
+			if ( ! empty( $this->post ) && $this->post instanceof WP_Post ) {
+				$children_query_args['post_parent'] = $this->post->ID;
+			}
+
+			$last_children_query = $this->query_child_records( $children_query_args );
+
 			if ( $last_children_query->have_posts() ) {
 				$last_children = reset( $last_children_query->posts );
 
@@ -1851,7 +1858,12 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			}
 
 			// If we have a Image Field for the Organizer from Service
-			if ( ! empty( $item->organizer[ $key ] ) && ! empty( $item->organizer[ $key ]->image ) && $organizer_id ) {
+			if (
+				! empty( $item->organizer )
+				&& ! empty( $item->organizer[ $key ] )
+				&& ! empty( $item->organizer[ $key ]->image )
+				&& $organizer_id
+			) {
 				$args  = array(
 					'ID'         => $organizer_id,
 					'image'      => $item->organizer[ $key ]->image,
