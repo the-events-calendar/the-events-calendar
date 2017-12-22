@@ -1588,6 +1588,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 								$organizer_id       = $organizer_data['ID'] = $organizer->ID;
 								$event_organizers[] = $organizer_id;
 
+								// If we have a Image Field for the Organizers from Service
+								if ( ! empty( $item->organizer[ $key ]->image ) ) {
+									$this->import_organizer_image( $organizer_id, $item->organizer[ $key ]->image, $activity );
+								}
+
 								$found_organizers[ $organizer->ID ] = $organizer_data['Organizer'];
 
 								// Here we might need to update the Organizer depending we found something based on old code
@@ -1681,6 +1686,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 								}
 							}
 						}
+
 					}
 				}
 
@@ -1849,31 +1855,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				if ( ! is_wp_error( $image ) && ! empty( $image->post_id ) ) {
 					// Set as featured image
 					$featured_status = $this->set_post_thumbnail( $event['ID'], $image->post_id );
-
-					if ( $featured_status ) {
-						// Log this attachment was created
-						$activity->add( 'attachment', 'created', $image->post_id );
-					}
-				}
-			}
-
-			// If we have a Image Field for the Organizer from Service
-			if (
-				! empty( $item->organizer )
-				&& ! empty( $item->organizer[ $key ] )
-				&& ! empty( $item->organizer[ $key ]->image )
-				&& $organizer_id
-			) {
-				$args  = array(
-					'ID'         => $organizer_id,
-					'image'      => $item->organizer[ $key ]->image,
-					'post_title' => get_the_title( $organizer_id ),
-				);
-				$image = $this->import_image( $args );
-
-				if ( ! is_wp_error( $image ) && ! empty( $image->post_id ) ) {
-					// Set as featured image
-					$featured_status = $this->set_post_thumbnail( $organizer_id, $image->post_id );
 
 					if ( $featured_status ) {
 						// Log this attachment was created
@@ -2265,5 +2246,33 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		$this->update_meta( $key, (bool) $should_queue_import );
+	}
+
+	/**
+	 * Attaches a service-provided image to an organizer.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $organizer_id The organizer post ID.
+	 * @param string $service_image
+	 * @param \Tribe__Events__Aggregator__Record__Activity $activity
+	 */
+	protected function import_organizer_image( $organizer_id, $service_image, $activity ) {
+		$args = array(
+			'ID'         => $organizer_id,
+			'image'      => $service_image,
+			'post_title' => get_the_title( $organizer_id ),
+		);
+		$image = $this->import_image( $args );
+
+		if ( ! is_wp_error( $image ) && ! empty( $image->post_id ) ) {
+			// Set as featured image
+			$featured_status = $this->set_post_thumbnail( $organizer_id, $image->post_id );
+
+			if ( $featured_status ) {
+				// Log this attachment was created
+				$activity->add( 'attachment', 'created', $image->post_id );
+			}
+		}
 	}
 }
