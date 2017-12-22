@@ -2255,7 +2255,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 *
 	 * @param int $organizer_id The organizer post ID.
 	 * @param string $service_image
-	 * @param \Tribe__Events__Aggregator__Record__Activity $activity
+	 * @param Tribe__Events__Aggregator__Record__Activity $activity
 	 *
 	 * @return bool Whether the image was attached to the organizer or not.
 	 */
