@@ -2281,9 +2281,9 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		// Set as featured image
-		$featured_status = $this->set_post_thumbnail( $organizer_id, $image->post_id );
+		$image_attached = $this->set_post_thumbnail( $organizer_id, $image->post_id );
 
-		if ( $featured_status ) {
+		if ( $image_attached ) {
 			// Log this attachment was created
 			$activity->add( 'attachment', 'created', $image->post_id );
 		}
