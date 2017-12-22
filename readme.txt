@@ -308,6 +308,10 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 
 == Changelog ==
 
+= [4.6.9] TBD =
+
+* Fix - Avoid issues when importing multiple organizers that specify images [96354]
+
 = [4.6.8] 2017-12-18 =
 
 * Fix - Preserve filter bar checkbox selections when changing views [66749]
