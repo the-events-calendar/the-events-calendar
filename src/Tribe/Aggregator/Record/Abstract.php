@@ -2256,23 +2256,38 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @param int $organizer_id The organizer post ID.
 	 * @param string $service_image
 	 * @param \Tribe__Events__Aggregator__Record__Activity $activity
+	 *
+	 * @return bool Whether the image was attached to the organizer or not.
 	 */
-	protected function import_organizer_image( $organizer_id, $service_image, $activity ) {
+	public function import_organizer_image( $organizer_id, $service_image, $activity ) {
+		if ( ! tribe_is_organizer( $organizer_id ) ) {
+			return false;
+		}
+
 		$args = array(
 			'ID'         => $organizer_id,
 			'image'      => $service_image,
 			'post_title' => get_the_title( $organizer_id ),
 		);
+
 		$image = $this->import_image( $args );
 
-		if ( ! is_wp_error( $image ) && ! empty( $image->post_id ) ) {
-			// Set as featured image
-			$featured_status = $this->set_post_thumbnail( $organizer_id, $image->post_id );
-
-			if ( $featured_status ) {
-				// Log this attachment was created
-				$activity->add( 'attachment', 'created', $image->post_id );
-			}
+		if ( empty( $image ) ) {
+			return false;
 		}
+
+		if ( is_wp_error( $image ) || empty( $image->post_id ) ) {
+			return false;
+		}
+
+		// Set as featured image
+		$featured_status = $this->set_post_thumbnail( $organizer_id, $image->post_id );
+
+		if ( $featured_status ) {
+			// Log this attachment was created
+			$activity->add( 'attachment', 'created', $image->post_id );
+		}
+
+		return true;
 	}
 }
