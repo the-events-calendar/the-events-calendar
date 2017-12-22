@@ -311,6 +311,7 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 = [4.6.9] TBD =
 
 * Fix - Avoid issues when importing multiple organizers that specify images [96354]
+* Fix - Make sure latitude and longitude information from iCal feeds is used if available [96363]
 
 = [4.6.8] 2017-12-18 =
 
