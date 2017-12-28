@@ -163,7 +163,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * @category Events
 	 * @param bool $view
-	 * @return boolean
+	 * @return bool
 	 */
 	function tribe_is_ajax_view_request( $view = false ) {
 		$is_ajax_view_request = false;
@@ -866,7 +866,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @param string $event_cat_slug
 	 * @param int    $event_id
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	function tribe_event_in_category( $event_cat_slug, $event_id = null ) {
 
