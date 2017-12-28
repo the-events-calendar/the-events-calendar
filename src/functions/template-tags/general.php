@@ -1669,4 +1669,41 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 		return $field ? $body_and_separator . $field : $body;
 	}
+
+	/**
+	 * Utility function to test if we are on the home of events, it makes test the case when the page is set to be on
+	 * the frontpage of the site and if the user is on that page is on the homepage or if the user is on the events page
+	 * where the eventDisplay is set to default.
+	 *
+	 * @return bool
+	 */
+	function tribe_is_home_events() {
+		global $wp_query;
+
+		$events_as_front_page = tribe_get_option( 'front_page_event_archive', false );
+		// If the reading option has an events page as front page and we are on that page is on the home of events.
+		if (
+			$wp_query->tribe_is_event
+			&& $events_as_front_page
+			&& true === get_query_var( 'tribe_events_front_page' )
+		) {
+			return true;
+		}
+
+		// If the readme option does not has an event page as front page and if id the 'default' view on the main query
+		// as is going to set to 'default' when is loading the root of events/ rewrite rule also makes sure is not on
+		// a taxonomy or a tag.
+		if (
+			! $events_as_front_page
+			&& $wp_query->tribe_is_event // Make sure following conditionals operate only on events
+			&& ( isset( $wp_query->query['eventDisplay'] ) && 'default' === $wp_query->query['eventDisplay'] )
+			&& is_post_type_archive()
+			&& ! is_tax()
+			&& ! is_tag()
+		) {
+			return true;
+		}
+		// No condition was true so is not on home of events.
+		return false;
+	}
 }
