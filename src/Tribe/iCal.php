@@ -420,7 +420,7 @@ class Tribe__Events__iCal {
 
 		$content .= 'X-WR-CALNAME:' . $x_wr_calname . "\r\n";
 		$content .= 'X-ORIGINAL-URL:' . $blogHome . "\r\n";
-		$content .= 'X-WR-CALDESC:Events for ' . $blogName . "\r\n";
+		$content .= 'X-WR-CALDESC:' . esc_html__( 'Events for ', 'the-events-calendar' ) . $blogName . "\r\n";
 
 		/**
 		 * Allows for customization of the various properties at the top of the generated iCal file.
