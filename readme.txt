@@ -312,6 +312,7 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 
 * Fix - Avoid issues when importing multiple organizers that specify images [96354]
 * Fix - Make sure latitude and longitude information from iCal feeds is used if available [96363]
+* Tweak - Added new `tribe_aggregator_import_event_image`, `tribe_aggregator_import_venue_image` and `tribe_aggregator_import_organizer_image` filter so that users can control wheter, during EA imports, images should be attached to post or not [96393]
 
 = [4.6.8] 2017-12-18 =
 
