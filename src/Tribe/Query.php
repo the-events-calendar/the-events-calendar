@@ -149,16 +149,29 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			}
 
 			// never allow 404 on month view
-			if ( $query->is_main_query() && $query->get( 'eventDisplay' ) == 'month' && ! $query->is_tax && ! $query->tribe_is_event_category ) {
+			if (
+				$query->is_main_query()
+				&& $query->get( 'eventDisplay' ) == 'month'
+				&& ! $query->is_tax
+				&& ! $query->tribe_is_event_category
+			) {
 				$query->is_post_type_archive = true;
 				$query->queried_object       = get_post_type_object( Tribe__Events__Main::POSTTYPE );
 				$query->queried_object_id    = 0;
 			}
 
-			// check if is_event_query === true and hook filter
-			if ( $query->tribe_is_event_query ) {
+			$events_as_front_page = tribe_get_option( 'front_page_event_archive', false );
+			// TODO: Replace with new utility function tribe_is_event_front_page();
+			if (
+				$query->is_main_query()
+				&& $events_as_front_page
+				&& $query->tribe_is_event
+				&& true === get_query_var( 'tribe_events_front_page' )
+			) {
+				$query->is_home = true;
+			} else if ( $query->tribe_is_event_query ) {
 				// fixing is_home param
-				$query->is_home = ! empty( $query->query_vars['is_home'] ) ? $query->query_vars['is_home'] : false;
+				$query->is_home = empty( $query->query_vars['is_home'] ) ? false : $query->query_vars['is_home'];
 				do_action( 'tribe_events_parse_query', $query );
 			}
 		}
