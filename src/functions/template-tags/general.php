@@ -1675,6 +1675,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * the frontpage of the site and if the user is on that page is on the homepage or if the user is on the events page
 	 * where the eventDisplay is set to default.
 	 *
+	 * @since TBD
 	 * @return bool
 	 */
 	function tribe_is_home_events() {
