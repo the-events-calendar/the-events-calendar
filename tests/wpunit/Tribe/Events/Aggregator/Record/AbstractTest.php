@@ -267,7 +267,7 @@ class AbstractTest extends Events_TestCase {
 		$activity = $this->prophesize( Activity::class );
 		$activity->add( 'attachment', 'created', $service_image->ID )->shouldBeCalled();
 
-		$this->assertTrue( $sut->import_organizer_image( $organizer_id, $service_image->guid, $activity->reveal() ) );
+		$this->assertTrue( $sut->import_organizer_image( $organizer_id, $service_image->ID, $activity->reveal() ) );
 	}
 
 	/**
@@ -306,4 +306,151 @@ class AbstractTest extends Events_TestCase {
 
 		$this->assertFalse( $sut->import_organizer_image( $organizer_id, 'foo', $activity->reveal() ) );
 	}
+
+	/**
+	 * Test import_venue_image
+	 */
+	public function test_import_venue_image() {
+		$sut = new FB_Record();
+		$service_image = $this->factory()->attachment->create_and_get( [ 'file' => codecept_data_dir( 'images/featured-image.jpg' ) ] );
+		$venue_id = $this->factory()->venue->create();
+		$activity = $this->prophesize( Activity::class );
+		$activity->add( 'attachment', 'created', $service_image->ID )->shouldBeCalled();
+
+		$this->assertTrue( $sut->import_venue_image( $venue_id, $service_image->ID, $activity->reveal() ) );
+	}
+
+	/**
+	 * Test import_venue_image with non URL
+	 */
+	public function test_import_venue_image_with_non_url() {
+		$sut = new FB_Record();
+		$service_image = $this->factory()->attachment->create_and_get( [ 'file' => codecept_data_dir( 'images/featured-image.jpg' ) ] );
+		$venue_id = $this->factory()->venue->create();
+		$activity = $this->prophesize( Activity::class );
+		$activity->add( 'attachment', 'created', $service_image->ID )->shouldNotBeCalled();
+
+		$this->assertFalse( $sut->import_venue_image( $venue_id, 'foo', $activity->reveal() ) );
+	}
+
+	/**
+	 * Test import_venue_image with empty venue
+	 */
+	public function test_import_venue_image_with_empty_venue() {
+		$sut = new FB_Record();
+		$venue_id = '';
+		$activity = $this->prophesize( Activity::class );
+		$activity->add( 'attachment', 'created', Argument::any() )->shouldNotBeCalled();
+
+		$this->assertFalse( $sut->import_venue_image( $venue_id, 'foo', $activity->reveal() ) );
+	}
+
+	/**
+	 * Test import_venue_image with not an venue
+	 */
+	public function test_import_venue_image_with_not_an_venue() {
+		$sut = new FB_Record();
+		$venue_id = $this->factory()->post->create();
+		$activity = $this->prophesize( Activity::class );
+		$activity->add( 'attachment', 'created', Argument::any() )->shouldNotBeCalled();
+
+		$this->assertFalse( $sut->import_venue_image( $venue_id, 'foo', $activity->reveal() ) );
+	}
+
+	/**
+	 * Test venue image import can be blocked with filter
+	 */
+	public function test_venue_image_import_can_be_blocked_with_filter() {
+		add_filter( 'tribe_aggregator_import_venue_image', '__return_false' );
+		$sut           = new FB_Record();
+		$service_image = $this->factory()->attachment->create_and_get( [ 'file' => codecept_data_dir( 'images/featured-image.jpg' ) ] );
+		$venue_id      = $this->factory()->venue->create();
+		$activity      = $this->prophesize( Activity::class );
+		$activity->add( 'attachment', 'created', $service_image->ID )->shouldNotBeCalled();
+
+		$this->assertFalse( $sut->import_venue_image( $venue_id, $service_image->guid, $activity->reveal() ) );
+	}
+
+	/**
+	 * Test organizer image import can be blocked with filter
+	 */
+	public function test_organizer_image_import_can_be_blocked_with_filter() {
+		add_filter( 'tribe_aggregator_import_organizer_image', '__return_false' );
+		$sut           = new FB_Record();
+		$service_image = $this->factory()->attachment->create_and_get( [ 'file' => codecept_data_dir( 'images/featured-image.jpg' ) ] );
+		$organizer_id  = $this->factory()->venue->create();
+		$activity      = $this->prophesize( Activity::class );
+		$activity->add( 'attachment', 'created', $service_image->ID )->shouldNotBeCalled();
+
+		$this->assertFalse( $sut->import_organizer_image( $organizer_id, $service_image->guid, $activity->reveal() ) );
+	}
+	/**
+	 * Test import_event_image
+	 */
+	public function test_import_event_image() {
+		$sut = new FB_Record();
+		$service_image = $this->factory()->attachment->create_and_get( [ 'file' => codecept_data_dir( 'images/featured-image.jpg' ) ] );
+		$event = (array)$this->factory()->event->create_and_get();
+		$event['image'] = $service_image->ID;
+		$activity = $this->prophesize( Activity::class );
+		$activity->add( 'attachment', 'created', $service_image->ID )->shouldBeCalled();
+
+		$this->assertTrue( $sut->import_event_image( $event, $activity->reveal() ) );
+	}
+
+	/**
+	 * Test import_event_image with non URL
+	 */
+	public function test_import_event_image_with_non_url() {
+		$sut = new FB_Record();
+		$service_image = $this->factory()->attachment->create_and_get( [ 'file' => codecept_data_dir( 'images/featured-image.jpg' ) ] );
+		$event = (array)$this->factory()->event->create_and_get();
+		$event['image'] = 'foo';
+		$activity = $this->prophesize( Activity::class );
+		$activity->add( 'attachment', 'created', $service_image->ID )->shouldNotBeCalled();
+
+		$this->assertFalse( $sut->import_event_image( $event, $activity->reveal() ) );
+	}
+
+	/**
+	 * Test import_event_image with empty event
+	 */
+	public function test_import_event_image_with_empty_event() {
+		$sut = new FB_Record();
+		$event = [];
+		$activity = $this->prophesize( Activity::class );
+		$activity->add( 'attachment', 'created', Argument::any() )->shouldNotBeCalled();
+
+		$this->assertFalse( $sut->import_event_image( $event,  $activity->reveal() ) );
+	}
+
+	/**
+	 * Test import_event_image with not an event
+	 */
+	public function test_import_event_image_with_not_an_event() {
+		$sut = new FB_Record();
+		$service_image = $this->factory()->attachment->create_and_get( [ 'file' => codecept_data_dir( 'images/featured-image.jpg' ) ] );
+		$event = (array)$this->factory()->post->create_and_get();
+		$event['image'] = $service_image->guid;
+		$activity = $this->prophesize( Activity::class );
+		$activity->add( 'attachment', 'created', Argument::any() )->shouldNotBeCalled();
+
+		$this->assertFalse( $sut->import_event_image( $event, $activity->reveal() ) );
+	}
+
+	/**
+	 * Test event image import can be blocked with filter
+	 */
+	public function test_event_image_import_can_be_blocked_with_filter() {
+		add_filter( 'tribe_aggregator_import_event_image', '__return_false' );
+		$sut           = new FB_Record();
+		$service_image = $this->factory()->attachment->create_and_get( [ 'file' => codecept_data_dir( 'images/featured-image.jpg' ) ] );
+		$event      = (array)$this->factory()->event->create_and_get();
+		$event['image'] = $service_image->guid;
+		$activity      = $this->prophesize( Activity::class );
+		$activity->add( 'attachment', 'created', $service_image->ID )->shouldNotBeCalled();
+
+		$this->assertFalse( $sut->import_event_image( $event, $activity->reveal() ) );
+	}
+
 }
