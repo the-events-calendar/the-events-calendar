@@ -125,7 +125,7 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 	}
 
 	/**
-	 * Filters the post type args for the venue post type
+	 * Filters the post type args for the organizer post type
 	 *
 	 * @since 4.2
 	 *
@@ -410,7 +410,7 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 			}
 		}
 
-		// if the venue is blank, let's save the value as 0 instead
+		// if the organizer is blank, let's save the value as 0 instead
 		return 0;
 	}
 
@@ -489,7 +489,7 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 	 * Deletes an organizer
 	 *
 	 * @param int  $organizerId  The organizer ID to delete.
-	 * @param bool $force_delete  Whether or not to bypass the trash when deleting the venue (see wp_delete_post's $force_delete param)
+	 * @param bool $force_delete  Whether or not to bypass the trash when deleting the organizer (see wp_delete_post's $force_delete param)
 	 *
 	 */
 	public function delete( $id, $force_delete = false ) {
@@ -560,7 +560,7 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 		 *
 		 * @since 4.6
 		 */
-		return apply_filters( 'tribe_event_venue_duplicate_post_fields', $fields );
+		return apply_filters( 'tribe_event_organizer_duplicate_post_fields', $fields );
 	}
 
 	/**
