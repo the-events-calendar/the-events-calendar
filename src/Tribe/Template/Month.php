@@ -334,6 +334,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		 * Remove any event that is not the same as the current term of the array of events, it return a modified events
 		 * array with the events that only has the current term or original events if the term is not valid.
 		 *
+		 * @since TBD
  		 * @param array
 		 * @return array
 		 */
