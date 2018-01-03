@@ -1671,11 +1671,18 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	}
 
 	/**
-	 * Function to test if we are on the front page of the events, as WordPress language front page is different from
-	 * is_home, if we have a front page on the reading options and if the uzer is on that page, this function will
-	 * return true otherwise will return false.
+	 * Tests if we are on the site homepage and if it is set to display the main events page.
+	 *
+	 * As WordPress front page it might be different from is_home, if we have a front page on the reading options and
+	 * if the User is on that page, this function will return true otherwise will return false. So either if the User has
+	 * the frontpage set on the reading options and the User is visiting this page.
+	 *
+	 * Another consideration about this is it might behave as a WordPress function which means after any Ajax action is
+	 * fired the result of call this function via Ajax might not be the expected result so ideally can be used to test
+	 * if you are on the front page on first load of the page only.
 	 *
 	 * @since TBD
+	 *
 	 * @return bool
 	 */
 	function tribe_is_events_front_page() {
@@ -1692,11 +1699,17 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	}
 
 	/**
-	 * Utility function to test if we are on the home of events, it makes test the case when the page is set to be on
-	 * the frontpage of the site and if the user is on that page is on the homepage or if the user is on the events page
+	 * Test if we are on the home of events either if is set to frontpage or the default /events page.
+	 *
+	 * Utility function to test if we are on the home of events, it makes a test in cases when the page is set to be on
+	 * the frontpage of the site and if the User is on that page is on the homepage or if the User is on the events page
 	 * where the eventDisplay is set to default.
 	 *
+	 * Also consider this might not work as expected inside of Ajax Calls as this one is fired on initial loading of the
+	 * page so be aware of unexpected results via Ajax calls.
+	 *
 	 * @since TBD
+	 *
 	 * @return bool
 	 */
 	function tribe_is_events_home() {
