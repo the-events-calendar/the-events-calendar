@@ -169,7 +169,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				&& true === get_query_var( 'tribe_events_front_page' )
 			) {
 				$query->is_home = true;
-			} else if ( $query->tribe_is_event_query ) {
+			} elseif ( $query->tribe_is_event_query ) {
 				// fixing is_home param
 				$query->is_home = empty( $query->query_vars['is_home'] ) ? false : $query->query_vars['is_home'];
 				do_action( 'tribe_events_parse_query', $query );
