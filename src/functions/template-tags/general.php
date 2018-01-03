@@ -1671,6 +1671,27 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	}
 
 	/**
+	 * Function to test if we are on the front page of the events, as WordPress language front page is different from
+	 * is_home, if we have a front page on the reading options and if the uzer is on that page, this function will
+	 * return true otherwise will return false.
+	 *
+	 * @since TBD
+	 * @return bool
+	 */
+	function tribe_is_events_front_page() {
+		global $wp_query;
+
+		$events_as_front_page = tribe_get_option( 'front_page_event_archive', false );
+		// If the reading option has an events page as front page and we are on that page is on the home of events.
+		return (
+			$wp_query->is_main_query()
+			&& $events_as_front_page
+			&& $wp_query->tribe_is_event
+			&& true === get_query_var( 'tribe_events_front_page' )
+		);
+	}
+
+	/**
 	 * Utility function to test if we are on the home of events, it makes test the case when the page is set to be on
 	 * the frontpage of the site and if the user is on that page is on the homepage or if the user is on the events page
 	 * where the eventDisplay is set to default.
@@ -1678,24 +1699,20 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @since TBD
 	 * @return bool
 	 */
-	function tribe_is_home_events() {
+	function tribe_is_events_home() {
 		global $wp_query;
 
-		$events_as_front_page = tribe_get_option( 'front_page_event_archive', false );
-		// If the reading option has an events page as front page and we are on that page is on the home of events.
-		if (
-			$wp_query->tribe_is_event
-			&& $events_as_front_page
-			&& true === get_query_var( 'tribe_events_front_page' )
-		) {
+		if ( tribe_is_events_front_page() ) {
 			return true;
 		}
 
+		$events_as_front_page = tribe_get_option( 'front_page_event_archive', false );
 		// If the readme option does not has an event page as front page and if id the 'default' view on the main query
 		// as is going to set to 'default' when is loading the root of events/ rewrite rule also makes sure is not on
 		// a taxonomy or a tag.
 		if (
 			! $events_as_front_page
+			&& $wp_query->is_main_query()
 			&& $wp_query->tribe_is_event // Make sure following conditionals operate only on events
 			&& ( isset( $wp_query->query['eventDisplay'] ) && 'default' === $wp_query->query['eventDisplay'] )
 			&& is_post_type_archive()
@@ -1704,6 +1721,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		) {
 			return true;
 		}
+
 		// No condition was true so is not on home of events.
 		return false;
 	}
