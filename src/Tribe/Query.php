@@ -151,7 +151,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			// never allow 404 on month view
 			if (
 				$query->is_main_query()
-				&& $query->get( 'eventDisplay' ) == 'month'
+				&& 'month' === $query->get( 'eventDisplay' )
 				&& ! $query->is_tax
 				&& ! $query->tribe_is_event_category
 			) {
