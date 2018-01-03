@@ -403,6 +403,7 @@ class Tribe__Events__iCal {
 		 */
 		$filename = apply_filters( 'tribe_events_ical_feed_filename', $site . '-' . $hash . '.ics', $post );
 
+		header( 'HTTP/1.0 200 OK', true, 200 );
 		header( 'Content-type: text/calendar; charset=UTF-8' );
 		header( 'Content-Disposition: attachment; filename="' . $filename . '"' );
 		$content  = "BEGIN:VCALENDAR\r\n";
