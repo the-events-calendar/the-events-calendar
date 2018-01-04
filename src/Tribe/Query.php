@@ -161,13 +161,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			}
 
 			$events_as_front_page = tribe_get_option( 'front_page_event_archive', false );
-			// TODO: Replace with new utility function tribe_is_event_front_page();
-			if (
-				$query->is_main_query()
-				&& $events_as_front_page
-				&& $query->tribe_is_event
-				&& true === get_query_var( 'tribe_events_front_page' )
-			) {
+			if ( tribe_is_events_front_page() ) {
 				$query->is_home = true;
 			} elseif ( $query->tribe_is_event_query ) {
 				// fixing is_home param
