@@ -160,7 +160,6 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				$query->queried_object_id    = 0;
 			}
 
-			$events_as_front_page = tribe_get_option( 'front_page_event_archive', false );
 			if ( tribe_is_events_front_page() ) {
 				$query->is_home = true;
 			} elseif ( $query->tribe_is_event_query ) {
