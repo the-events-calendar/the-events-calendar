@@ -317,6 +317,10 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 * Tweak - Made it possible to translate the iCal feed's description field (props @gafderks) [96677]
 * Tweak - Improved escaping of map IDs (props LucaPipolo) [96772]
 * Feature - Add new utility functions tribe_is_events_home and tribe_is_events_front_page similar to native WP is_home and is_front_page [42195]
+* Tweak - Added action: `tribe_events_venue_save` [96069]
+* Tweak - Added action: `tribe_events_organizer_save` [96069]
+* Tweak - Added filter: `tribe_events_rest_venue_prepare_postarr` [96069]
+* Tweak - Added filter: `tribe_events_rest_organizer_prepare_postarr` [96069]
 
 = [4.6.8] 2017-12-18 =
 
