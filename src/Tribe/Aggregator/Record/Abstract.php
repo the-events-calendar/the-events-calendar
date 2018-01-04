@@ -2053,9 +2053,9 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	public function import_image( $data ) {
 		if (
 			empty( $data['image'] )
-			&& (
-				! filter_var( $data['image'], FILTER_VALIDATE_URL )
-				|| ! filter_var( $data['image'], FILTER_VALIDATE_INT )
+			|| ! (
+				filter_var( $data['image'], FILTER_VALIDATE_URL )
+				|| filter_var( $data['image'], FILTER_VALIDATE_INT )
 			)
 		) {
 			return false;
