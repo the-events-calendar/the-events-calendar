@@ -297,6 +297,19 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 	 *
 	 */
 	public function save_meta( $venue_id, $data ) {
+		$venue = get_post( $venue_id );
+
+		/**
+		 * Allow hooking in prior to updating meta fields.
+		 *
+		 * @param int     $venue_id The venue ID we are modifying meta for.
+		 * @param array   $data     The meta fields we want saved.
+		 * @param WP_Post $venue    The venue itself.
+		 *
+		 * @since TBD
+		 */
+		do_action( 'tribe_events_venue_save', $venue_id, $data, $venue );
+
 		// TODO: We should probably do away with 'StateProvince' and stick to 'State' and 'Province'.
 		if ( ! isset( $data['StateProvince'] ) || $data['StateProvince'] == '' ) {
 			if (
