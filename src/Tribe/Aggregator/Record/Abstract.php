@@ -106,6 +106,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @return void
 	 */
 	public function __construct( $post = null ) {
+		$this->image_uploader = new Tribe__Image__Uploader();
 		// If we have an Post we try to Setup
 		$this->load( $post );
 	}
@@ -1588,6 +1589,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 								$organizer_id       = $organizer_data['ID'] = $organizer->ID;
 								$event_organizers[] = $organizer_id;
 
+								// If we have a Image Field for the Organizers from Service
+								if ( ! empty( $item->organizer[ $key ]->image ) ) {
+									$this->import_organizer_image( $organizer_id, $item->organizer[ $key ]->image, $activity );
+								}
+
 								$found_organizers[ $organizer->ID ] = $organizer_data['Organizer'];
 
 								// Here we might need to update the Organizer depending we found something based on old code
@@ -1681,6 +1687,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 								}
 							}
 						}
+
 					}
 				}
 
@@ -1840,66 +1847,12 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 			// If we have a Image Field from Service
 			if ( ! empty( $event['image'] ) ) {
-				if ( is_object( $event['image'] ) ) {
-					$image = $this->import_aggregator_image( $event );
-				} else {
-					$image = $this->import_image( $event );
-				}
-
-				if ( ! is_wp_error( $image ) && ! empty( $image->post_id ) ) {
-					// Set as featured image
-					$featured_status = $this->set_post_thumbnail( $event['ID'], $image->post_id );
-
-					if ( $featured_status ) {
-						// Log this attachment was created
-						$activity->add( 'attachment', 'created', $image->post_id );
-					}
-				}
-			}
-
-			// If we have a Image Field for the Organizer from Service
-			if (
-				! empty( $item->organizer )
-				&& ! empty( $item->organizer[ $key ] )
-				&& ! empty( $item->organizer[ $key ]->image )
-				&& $organizer_id
-			) {
-				$args  = array(
-					'ID'         => $organizer_id,
-					'image'      => $item->organizer[ $key ]->image,
-					'post_title' => get_the_title( $organizer_id ),
-				);
-				$image = $this->import_image( $args );
-
-				if ( ! is_wp_error( $image ) && ! empty( $image->post_id ) ) {
-					// Set as featured image
-					$featured_status = $this->set_post_thumbnail( $organizer_id, $image->post_id );
-
-					if ( $featured_status ) {
-						// Log this attachment was created
-						$activity->add( 'attachment', 'created', $image->post_id );
-					}
-				}
+				$this->import_event_image( $event, $activity );
 			}
 
 			// If we have a Image Field for the Venue from Service
 			if ( ! empty( $item->venue->image ) && $venue_id ) {
-				$args = array(
-					'ID' => $venue_id,
-					'image' => $item->venue->image,
-					'post_title' => get_the_title( $venue_id ),
-				);
-				$image = $this->import_image( $args );
-
-				if ( ! is_wp_error( $image ) && ! empty( $image->post_id ) ) {
-					// Set as featured image
-					$featured_status = $this->set_post_thumbnail( $venue_id, $image->post_id );
-
-					if ( $featured_status ) {
-						// Log this attachment was created
-						$activity->add( 'attachment', 'created', $image->post_id );
-					}
-				}
+				$this->import_venue_image( $venue_id, $item->venue->image, $activity );
 			}
 
 			// update the existing IDs in the context of this batch
@@ -2091,18 +2044,24 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	}
 
 	/**
-	 * Imports the image contained in the event `image` field if any.
+	 * Imports the image contained in the post data `image` field if any.
 	 *
-	 * @param array $event An event data in array format.
+	 * @param array $data A post data in array format.
 	 *
 	 * @return object|bool An object with the image post ID or `false` on failure.
 	 */
-	public function import_image( $event ) {
-		if ( empty( $event['image'] ) || ! filter_var( $event['image'], FILTER_VALIDATE_URL ) ) {
+	public function import_image( $data ) {
+		if (
+			empty( $data['image'] )
+			|| ! (
+				filter_var( $data['image'], FILTER_VALIDATE_URL )
+				|| filter_var( $data['image'], FILTER_VALIDATE_INT )
+			)
+		) {
 			return false;
 		}
 
-		$uploader = new Tribe__Image__Uploader( $event['image'] );
+		$uploader = new Tribe__Image__Uploader( $data['image'] );
 		$thumbnail_id = $uploader->upload_and_get_attachment_id();
 
 		return false !== $thumbnail_id ? (object) array( 'post_id' => $thumbnail_id ) : false;
@@ -2265,5 +2224,166 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		$this->update_meta( $key, (bool) $should_queue_import );
+	}
+
+	/**
+	 * Attaches a service-provided image to an organizer.
+	 *
+	 * @since TBD
+	 *
+	 * @param int                                         $organizer_id The organizer post ID.
+	 * @param string                                      $image_url
+	 * @param Tribe__Events__Aggregator__Record__Activity $activity
+	 *
+	 * @return bool Whether the image was attached to the organizer or not.
+	 */
+	public function import_organizer_image( $organizer_id, $image_url, $activity ) {
+		/**
+		 * Whether the organizer image should be imported and attached or not.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool                                        $import_organizer_image Defaults to `true`
+		 * @param int                                         $organizer_id           The organizer post ID
+		 * @param string                                      $image_url              The URL to the image that should be imported
+		 * @param Tribe__Events__Aggregator__Record__Activity $activity               The importer activity so far
+		 */
+		$import_organizer_image = apply_filters( 'tribe_aggregator_import_organizer_image', true, $organizer_id, $image_url, $activity );
+
+		if ( ! $import_organizer_image ) {
+			return false;
+		}
+
+		if ( ! tribe_is_organizer( $organizer_id ) ) {
+			return false;
+		}
+
+		return $this->import_and_attach_image_to( $organizer_id, $image_url, $activity );
+	}
+
+	/**
+	 * Attaches a service-provided image to a venue.
+	 *
+	 * @since TBD
+	 *
+	 * @param int                                         $venue_id The venue post ID.
+	 * @param string                                      $image_url
+	 * @param Tribe__Events__Aggregator__Record__Activity $activity
+	 *
+	 * @return bool Whether the image was attached to the venue or not.
+	 */
+	public function import_venue_image( $venue_id, $image_url, $activity ) {
+		/**
+		 * Whether the venue image should be imported and attached or not.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool                                        $import_venue_image Defaults to `true`
+		 * @param int                                         $venue_id The venue post ID
+		 * @param string                                      $image_url The URL to the image that should be imported
+		 * @param Tribe__Events__Aggregator__Record__Activity $activity The importer activity so far
+		 */
+		$import_venue_image = apply_filters( 'tribe_aggregator_import_venue_image', true, $venue_id, $image_url, $activity );
+
+		if ( ! $import_venue_image ) {
+			return false;
+		}
+
+		if ( ! tribe_is_venue( $venue_id ) ) {
+			return false;
+		}
+
+		return $this->import_and_attach_image_to( $venue_id, $image_url, $activity );
+	}
+
+	/**
+	 * Imports and attaches an image as post thumbnail to a post.
+	 *
+	 * @since TBD
+	 *
+	 * @param int                                         $post_id
+	 * @param string                                      $image_url
+	 * @param Tribe__Events__Aggregator__Record__Activity $activity
+	 *
+	 * @return bool `true` if the image was correctly downloaded and attached, `false` otherwise.
+	 */
+	protected function import_and_attach_image_to( $post_id, $image_url, $activity ) {
+		$args = array(
+			'ID'         => $post_id,
+			'image'      => $image_url,
+			'post_title' => get_the_title( $post_id ),
+		);
+
+		$image = $this->import_image( $args );
+
+		if ( empty( $image ) ) {
+			return false;
+		}
+
+		if ( is_wp_error( $image ) || empty( $image->post_id ) ) {
+			return false;
+		}
+
+		// Set as featured image
+		$image_attached = $this->set_post_thumbnail( $post_id, $image->post_id );
+
+		if ( $image_attached ) {
+			// Log this attachment was created
+			$activity->add( 'attachment', 'created', $image->post_id );
+		}
+
+		return true;
+	}
+
+	/**
+	 * Attaches a service-provided image to an event.
+	 *
+	 * @since TBD
+	 *
+	 * @param array                                       $event The event data.
+	 * @param Tribe__Events__Aggregator__Record__Activity $activity
+	 *
+	 * @return bool Whether the image was attached to the event or not.
+	 */
+	public function import_event_image( $event, $activity ) {
+		/**
+		 * Whether the event image should be imported and attached or not.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool                                        $import_event_image Defaults to `true`
+		 * @param array                                       $event              The event post ID
+		 * @param string                                      $image_url          The URL to the image that should be imported
+		 * @param Tribe__Events__Aggregator__Record__Activity $activity           The importer activity so far
+		 */
+		$import_event_image = apply_filters( 'tribe_aggregator_import_event_image', true, $event, $activity );
+
+		if ( ! $import_event_image ) {
+			return false;
+		}
+
+		if ( empty( $event['ID'] ) || ! tribe_is_event( $event['ID'] ) ) {
+			return false;
+		}
+
+		if ( is_object( $event['image'] ) ) {
+			$image = $this->import_aggregator_image( $event );
+		} else {
+			$image = $this->import_image( $event );
+		}
+
+		if ( ! empty( $image ) || ! is_wp_error( $image ) && ! empty( $image->post_id ) ) {
+			// Set as featured image
+			$featured_status = $this->set_post_thumbnail( $event['ID'], $image->post_id );
+
+			if ( $featured_status ) {
+				// Log this attachment was created
+				$activity->add( 'attachment', 'created', $image->post_id );
+
+				return true;
+			}
+		}
+
+		return false;
 	}
 }

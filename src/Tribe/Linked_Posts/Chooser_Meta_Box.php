@@ -97,7 +97,7 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 		 * Allows for filtering the array of values retrieved for a specific linked post meta field.
 		 *
 		 * Name of filter is assembled as tribe_events_linked_post_meta_values_{$current_linked_post_meta_key}, where
-		 * $current_linked_post_meta_key is just literally the name of the curren meta key. So when the _EventOrganizerID
+		 * $current_linked_post_meta_key is just literally the name of the current meta key. So when the _EventOrganizerID
 		 * is being filtered, for example, the filter name would be tribe_events_linked_post_meta_values__EventOrganizerID
 		 *
 		 * @since 4.5.11
