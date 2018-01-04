@@ -2279,9 +2279,9 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		 * @since TBD
 		 *
 		 * @param bool                                        $import_venue_image Defaults to `true`
-		 * @param int                                         $venue_id       The venue post ID
-		 * @param string                                      $image_url          The URL to the image that should be imported
-		 * @param Tribe__Events__Aggregator__Record__Activity $activity           The importer activity so far
+		 * @param int                                         $venue_id The venue post ID
+		 * @param string                                      $image_url The URL to the image that should be imported
+		 * @param Tribe__Events__Aggregator__Record__Activity $activity The importer activity so far
 		 */
 		$import_venue_image = apply_filters( 'tribe_aggregator_import_venue_image', true, $venue_id, $image_url, $activity );
 
