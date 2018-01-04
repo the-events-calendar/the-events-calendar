@@ -321,6 +321,8 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 * Tweak - Added action: `tribe_events_organizer_save` [96069]
 * Tweak - Added filter: `tribe_events_rest_venue_prepare_postarr` [96069]
 * Tweak - Added filter: `tribe_events_rest_organizer_prepare_postarr` [96069]
+* Fix - Remove the duplicate filter call that was running twice for `tribe_rest_venue_data` [96090]
+* Tweak - Old `tribe_rest_venue_data` filter was passing the venue and the event two the second parameter because of the duplication. Now it has the second parameter as $venue, third parameter as $event if event ID was provided [96090]
 
 = [4.6.8] 2017-12-18 =
 
