@@ -312,10 +312,13 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 
 * Fix - Avoid issues when importing multiple organizers that specify images [96354]
 * Fix - Make sure latitude and longitude information from iCal feeds is used if available [96363]
+* Tweak - Made it possible to translate the iCal feed's description field (props @gafderks) [96677]
+* Tweak - Improved escaping of map IDs (props LucaPipolo) [96772]
 * Tweak - Added new REST API endpoint that allows looking up organizers by slug instead of ID at the path `organizers/by-slug/{slug}/`, it has the same functionality as the endpoint `organizers/{ID}` [96088]
 * Tweak - Added new REST API endpoint that allows looking up venues by slug instead of ID at the path `venues/by-slug/{slug}/`, it has the same functionality as the endpoint `venues/{ID}` [96088]
 * Tweak - Added `slug` to the REST API responses for organizer and venue data [96088]
 * Tweak - Added `slug` to the REST API parameters allowed to use when inserting or updating an organizer or event [96088]
+* Feature - Add new utility functions tribe_is_events_home and tribe_is_events_front_page similar to native WP is_home and is_front_page [42195]
 
 = [4.6.8] 2017-12-18 =
 
