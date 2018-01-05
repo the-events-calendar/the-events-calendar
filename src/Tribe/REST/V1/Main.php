@@ -116,8 +116,10 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 		$this->register_single_event_slug_endpoint( $register_routes );
 		$this->register_venue_archives_endpoint( $register_routes );
 		$this->register_single_venue_endpoint( $register_routes );
+		$this->register_single_venue_slug_endpoint( $register_routes );
 		$this->register_organizer_archives_endpoint( $register_routes );
 		$this->register_single_organizer_endpoint( $register_routes );
+		$this->register_single_organizer_slug_endpoint( $register_routes );
 
 		global $wp_version;
 
