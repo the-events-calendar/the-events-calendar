@@ -161,7 +161,6 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 		$linked_post_type_container = $this->linked_posts->get_post_type_container( $this->post_type );
 		?>
 		<tr class="saved-linked-post">
-            <td class="saved-<?php echo esc_attr( $linked_post_type_container ); ?>-table-cell">
 			<td class="saved-<?php echo esc_attr( $linked_post_type_container ); ?>-table-cell">
 				<?php $this->move_handle(); ?>
 				<label
