@@ -162,6 +162,7 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 		?>
 		<tr class="saved-linked-post">
             <td class="saved-<?php echo esc_attr( $linked_post_type_container ); ?>-table-cell">
+			<td class="saved-<?php echo esc_attr( $linked_post_type_container ); ?>-table-cell">
 				<?php $this->move_handle(); ?>
 				<label
 					data-l10n-create-<?php echo esc_attr( $this->post_type ); ?>="<?php printf( esc_attr__( 'Create New %s', 'the-events-calendar' ), $this->singular_name ); ?>">
