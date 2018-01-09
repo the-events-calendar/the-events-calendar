@@ -308,6 +308,10 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 
 == Changelog ==
 
+= [4.6.9] TBD =
+
+* Tweak - Added some more context to the labeling of the "Number of events per page" option (thanks to Todd H. for highlighting this label) [73659] 
+
 = [4.6.8] 2017-12-18 =
 
 * Fix - Preserve filter bar checkbox selections when changing views [66749]
