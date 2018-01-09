@@ -61,6 +61,15 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			$args['ID'] = $event_id;
 			$args['post_type'] = Tribe__Events__Main::POSTTYPE;
 
+			// allow for the change of the date and the status in the same update request
+			if (
+				isset( $args['post_date'], $args['post_status'] )
+				&& in_array( $post->post_status, array( 'draft', 'pending', 'auto-draft' ) )
+				&& $args['post_status'] !== $post->post_status
+			) {
+				$args['edit_date'] = true;
+			}
+
 			if ( wp_update_post( $args ) ) {
 				self::saveEventMeta( $event_id, $args, $post );
 			}
