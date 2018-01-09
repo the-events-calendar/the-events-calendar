@@ -322,7 +322,8 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 
 				delete_post_meta( $event_id, '_EventAllDay' );
 
-				if ( $has_start_time || $has_start_hour_minute ) { // EventStartTime will always be 24h Format
+				if ( $has_start_time || $has_start_hour_minute ) {
+					// EventStartTime will always be 24h Format
 					if ( $has_start_time ) {
 						$start_date_string = "{$data['EventStartDate']} {$data['EventStartTime']}";
 					} elseif ( $has_start_hour_minute ) {
