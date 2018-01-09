@@ -512,8 +512,8 @@ class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$request->set_param( 'status', 'future' );
 		$request->set_param( 'date', date_i18n( 'Y-m-d H:i:s', strtotime( '+1 month' ) ) );
 
-		$sut      = $this->make_instance();
 		/** @var \WP_REST_Response $response */
+		$sut      = $this->make_instance();
 		$response = $sut->update( $request );
 
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
