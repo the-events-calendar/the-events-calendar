@@ -64,7 +64,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			// allow for the change of the date and the status in the same update request
 			if (
 				isset( $args['post_date'], $args['post_status'] )
-				&& in_array( $post->post_status, array( 'draft', 'pending', 'auto-draft' ) )
+				&& in_array( $post->post_status, array( 'future', 'draft', 'pending', 'auto-draft' ) )
 				&& $args['post_status'] !== $post->post_status
 			) {
 				$args['edit_date'] = true;
