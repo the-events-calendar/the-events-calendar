@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-11-04 11:17:46+0000\n"
+"PO-Revision-Date: 2018-01-02 16:35:58+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,7 +13,7 @@ msgstr ""
 
 #: src/admin-views/create-organizer-fields.php:19
 msgid "The e-mail address will be obfuscated on this site to avoid it getting harvested by spammers."
-msgstr ""
+msgstr "La dirección de correo electrónico se ofuscará en este sitio para evitar que la capten los que envían correo no deseado."
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:32
 msgid "An array containing the lineage of where this venue comes from; this should not change after the venue is created."
@@ -48,11 +48,11 @@ msgstr "Ocultar e ignorar &#8220;%s&#8221;"
 
 #: common/src/Tribe/Main.php:265
 msgid "Clear Selection."
-msgstr "Limpiar selección."
+msgstr "Cancelar la selección"
 
 #: common/src/Tribe/Main.php:264
 msgid "Select all pages"
-msgstr "Selecciona todas las páginas"
+msgstr "Seleccione una imagen"
 
 #: common/src/Tribe/Main.php:263
 msgid "All items on this page were selected. "
@@ -385,7 +385,7 @@ msgstr "Etiquetas del evento"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:172
 msgid "The event venue"
-msgstr "Lugar del evento"
+msgstr "The Events Calendar"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:177
 msgid "The event organizers"
@@ -1442,7 +1442,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/origins/refine.php:5
 msgid "Location"
-msgstr "Localización"
+msgstr "Ubicación"
 
 #: src/admin-views/admin-welcome-message.php:26
 msgid "Stay in touch with The Events Calendar team. We send out periodic updates, key developer notices, and even the occasional discount."
@@ -1900,7 +1900,7 @@ msgstr "Eventos el o después de"
 
 #: src/admin-views/aggregator/origins/refine.php:33
 msgid "Refine:"
-msgstr ""
+msgstr "Afinar:"
 
 #: src/admin-views/aggregator/origins/refine.php:27
 msgid "Use the filters to narrow down which events are fetched from this iCalendar feed."
@@ -1921,7 +1921,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/origins/refine.php:3
 msgid "Keyword(s)"
-msgstr "Palabra(s) clave"
+msgstr "Palabra clave(s)"
 
 #: src/admin-views/aggregator/origins/meetup.php:139
 msgid "Enter the url for a Meetup group, page, or individual. You can also enter the url of a single Meetup event."
@@ -2082,7 +2082,7 @@ msgstr "Previsualizar"
 #: src/admin-views/aggregator/origins/csv.php:68
 #: src/admin-views/aggregator/origins/ics.php:35
 msgid "No file chosen"
-msgstr "Fichero no elegido"
+msgstr "No has elegido ningún archivo"
 
 #: src/admin-views/aggregator/origins/csv.php:43
 msgid "Upload a CSV File"
@@ -2148,7 +2148,7 @@ msgstr "Noticias y anuncios"
 
 #: src/admin-views/admin-welcome-message.php:28
 msgid "Developer News"
-msgstr ""
+msgstr "Noticias para desarrolladores"
 
 #: src/admin-views/admin-welcome-message.php:21
 msgid "Rate us today!"
@@ -2170,7 +2170,7 @@ msgstr "km"
 #: src/Tribe/Utils/Radius.php:53
 msgctxt "Abbreviation for the miles unit of measure"
 msgid "mi"
-msgstr "mil"
+msgstr "mi"
 
 #: src/Tribe/Main.php:944
 msgid "The %3$s \"%1$s\" uses the \"/%2$s\" slug: the Events Calendar plugin will show its calendar in place of the page."
@@ -2217,13 +2217,13 @@ msgstr ""
 #: src/Tribe/Ignored_Events.php:711
 msgid "Ignored <span class=\"count\">(%s)</span>"
 msgid_plural "Ignored <span class=\"count\">(%s)</span>"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "<span class=\"count\">(%s)</span> Ignorado"
+msgstr[1] "<span class=\"count\">(%s)</span> ignoradas"
 
 #. translators: %s: post title
 #: src/Tribe/Ignored_Events.php:426
 msgid "Delete &#8220;%s&#8221; permanently"
-msgstr ""
+msgstr "Eliminar &#8220;%s&#8221; permanentemente"
 
 #: src/Tribe/Ignored_Events.php:419
 msgid "Restore"
@@ -2232,7 +2232,7 @@ msgstr "Restablece"
 #. translators: %s: post title
 #: src/Tribe/Ignored_Events.php:418
 msgid "Restore &#8220;%s&#8221; from the Ignored"
-msgstr ""
+msgstr "Restaurar &#8220;%s&#8221; de la Ignorada"
 
 #: src/Tribe/Ignored_Events.php:333 src/Tribe/Ignored_Events.php:335
 #: src/admin-views/aggregator/meta-box.php:5
@@ -2418,7 +2418,7 @@ msgstr "se abre en una nueva ventana"
 
 #: src/Tribe/Aggregator/Tabs/New.php:523
 msgid "Buy It Now"
-msgstr "Comprar ahora"
+msgstr "Compra ahora"
 
 #: src/Tribe/Aggregator/Tabs/New.php:520
 msgid "With Event Aggregator, you can import events from Facebook, iCalendar, Google, and Meetup.com in a jiffy."
@@ -2477,7 +2477,7 @@ msgstr[1] ""
 
 #: src/Tribe/Aggregator/Tabs/New.php:342
 msgid "View your event organizers"
-msgstr ""
+msgstr "Ver los organizadores de eventos"
 
 #: src/Tribe/Aggregator/Tabs/New.php:338
 msgid "%1$d new organizer was imported."
@@ -3919,11 +3919,11 @@ msgstr "Ajustes de importación de CSV"
 
 #: src/Tribe/Asset/Bootstrap_Datepicker.php:26
 msgid "Clear"
-msgstr "Aclarar"
+msgstr "Limpiar"
 
 #: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:256
 msgid "Add another %s"
-msgstr "Agregar otro %s"
+msgstr "Añadir otro %s"
 
 #: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:168
 msgid "Create New %s"
@@ -3987,7 +3987,7 @@ msgstr ""
 
 #: common/src/admin-views/tribe-options-help.php:15
 msgid "Knowledgebase"
-msgstr ""
+msgstr "Base de conocimiento"
 
 #: common/src/admin-views/tribe-options-help.php:15
 msgid "Our website’s %s is a great place to find tips and tricks for using and customizing our plugins."
@@ -4043,7 +4043,7 @@ msgstr "Instalar Plugin"
 
 #: common/src/Tribe/Admin/Help_Page.php:802
 msgid "Install %s"
-msgstr "Instalar Plugin"
+msgstr "Instalar %s"
 
 #: common/src/Tribe/Admin/Help_Page.php:786
 msgid "Upgrade Plugin"
@@ -4060,20 +4060,20 @@ msgstr "Activar %s"
 #: common/src/Tribe/Admin/Help_Page.php:244
 #: common/src/Tribe/Plugins_API.php:100
 msgid "Community Tickets"
-msgstr "Community Tickets"
+msgstr "Tickets de la comunidad"
 
 #: common/src/Tribe/Admin/Help_Page.php:235 common/src/Tribe/Plugins_API.php:66
 msgid "Event Tickets Plus"
-msgstr "Event Tickets Plus"
+msgstr "Tickets Plus de eventos"
 
 #: src/Tribe/Aggregator/Page.php:379
 msgid "Facebook Events"
-msgstr "Eventos en Facebook"
+msgstr "Eventos de Facebook"
 
 #: common/src/Tribe/Admin/Help_Page.php:203
 #: common/src/Tribe/Plugins_API.php:111
 msgid "Eventbrite Tickets"
-msgstr "Tickets para Eventbrite"
+msgstr "Entradas Eventbrite"
 
 #: common/src/Tribe/Admin/Help_Page.php:170
 msgid " and "
@@ -4734,7 +4734,7 @@ msgstr "¿Busca funcionalidad adicional incluyendo eventos periodicos, meta pers
 
 #: src/admin-views/tribe-options-general.php:22
 msgid "Right here"
-msgstr "Aquí está"
+msgstr "Aquí esta"
 
 #: src/admin-views/tribe-options-general.php:22
 msgid "Where's my calendar?"
@@ -6983,20 +6983,20 @@ msgstr "Sitio web del recinto"
 #: src/Tribe/Importer/Column_Mapper.php:108
 #: src/admin-views/create-venue-fields.php:165
 msgid "Venue Phone"
-msgstr "Teléfono del recinto"
+msgstr "Teléfono"
 
 #: src/Tribe/Importer/Column_Mapper.php:107
 msgid "Venue Zip"
-msgstr "Código postal del recinto"
+msgstr "Código postal"
 
 #: src/Tribe/Importer/Column_Mapper.php:106
 msgid "Venue State/Province"
-msgstr "Estado o provincia del recinto:"
+msgstr "Estado o Provincia:"
 
 #: src/Tribe/Importer/Column_Mapper.php:105
 #: src/admin-views/create-venue-fields.php:74
 msgid "Venue City"
-msgstr "Ciudad del recinto"
+msgstr "Ciudad"
 
 #: src/Tribe/Importer/Column_Mapper.php:104
 msgid "Venue Address 2"
@@ -7005,12 +7005,12 @@ msgstr "Dirección del recinto 2"
 #: src/Tribe/Importer/Column_Mapper.php:103
 #: src/admin-views/create-venue-fields.php:61
 msgid "Venue Address"
-msgstr "Dirección del recinto"
+msgstr "Dirección"
 
 #: src/Tribe/Importer/Column_Mapper.php:102
 #: src/admin-views/create-venue-fields.php:99
 msgid "Venue Country"
-msgstr "País del recinto"
+msgstr "País"
 
 #: src/Tribe/Importer/Column_Mapper.php:100
 msgid "Venue Name"
@@ -7050,7 +7050,7 @@ msgstr "Mostrar el enlace al Mapa del Evento"
 
 #: src/Tribe/Importer/Column_Mapper.php:75
 msgid "Event Venue Name"
-msgstr "Nombre del recinto del evento"
+msgstr "Recinto del evento"
 
 #: src/Tribe/Importer/Column_Mapper.php:72
 #: src/admin-views/events-meta-box.php:144

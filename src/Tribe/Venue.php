@@ -306,7 +306,7 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 		 * @param array   $data     The meta fields we want saved.
 		 * @param WP_Post $venue    The venue itself.
 		 *
-		 * @since TBD
+		 * @since 4.6.9
 		 */
 		do_action( 'tribe_events_venue_save', $venue_id, $data, $venue );
 

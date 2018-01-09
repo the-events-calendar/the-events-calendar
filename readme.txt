@@ -308,7 +308,7 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 
 == Changelog ==
 
-= [4.6.9] TBD =
+= [4.6.9] 2018-01-10 =
 
 * Feature - Add new utility functions tribe_is_events_home and tribe_is_events_front_page similar to native WP is_home and is_front_page [42195]
 * Fix - Avoid issues when importing multiple organizers that specify images [96354]

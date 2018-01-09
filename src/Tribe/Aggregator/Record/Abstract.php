@@ -2229,7 +2229,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	/**
 	 * Attaches a service-provided image to an organizer.
 	 *
-	 * @since TBD
+	 * @since 4.6.9
 	 *
 	 * @param int                                         $organizer_id The organizer post ID.
 	 * @param string                                      $image_url
@@ -2241,7 +2241,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		/**
 		 * Whether the organizer image should be imported and attached or not.
 		 *
-		 * @since TBD
+		 * @since 4.6.9
 		 *
 		 * @param bool                                        $import_organizer_image Defaults to `true`
 		 * @param int                                         $organizer_id           The organizer post ID
@@ -2264,7 +2264,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	/**
 	 * Attaches a service-provided image to a venue.
 	 *
-	 * @since TBD
+	 * @since 4.6.9
 	 *
 	 * @param int                                         $venue_id The venue post ID.
 	 * @param string                                      $image_url
@@ -2276,7 +2276,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		/**
 		 * Whether the venue image should be imported and attached or not.
 		 *
-		 * @since TBD
+		 * @since 4.6.9
 		 *
 		 * @param bool                                        $import_venue_image Defaults to `true`
 		 * @param int                                         $venue_id The venue post ID
@@ -2299,7 +2299,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	/**
 	 * Imports and attaches an image as post thumbnail to a post.
 	 *
-	 * @since TBD
+	 * @since 4.6.9
 	 *
 	 * @param int                                         $post_id
 	 * @param string                                      $image_url
@@ -2338,7 +2338,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	/**
 	 * Attaches a service-provided image to an event.
 	 *
-	 * @since TBD
+	 * @since 4.6.9
 	 *
 	 * @param array                                       $event The event data.
 	 * @param Tribe__Events__Aggregator__Record__Activity $activity
@@ -2349,7 +2349,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		/**
 		 * Whether the event image should be imported and attached or not.
 		 *
-		 * @since TBD
+		 * @since 4.6.9
 		 *
 		 * @param bool                                        $import_event_image Defaults to `true`
 		 * @param array                                       $event              The event post ID
