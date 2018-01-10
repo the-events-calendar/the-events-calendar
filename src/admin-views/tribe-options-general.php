@@ -25,10 +25,10 @@ $general_tab_fields = Tribe__Main::array_insert_after_key(
 	)
 );
 
-$postsPerPage_tooltip = esc_html__( 'The number of events per page on the List View. Does not affect other views.', 'the-events-calendar' );
+$posts_per_page_tooltip = esc_html__( 'The number of events per page on the List View. Does not affect other views.', 'the-events-calendar' );
 
 if ( class_exists( 'Tribe__Events__Pro__Main' ) ) {
-	$postsPerPage_tooltip = esc_html__( 'The number of events per page on the List, Photo, and Map Views. Does not affect other views.', 'the-events-calendar' );
+	$posts_per_page_tooltip = esc_html__( 'The number of events per page on the List, Photo, and Map Views. Does not affect other views.', 'the-events-calendar' );
 }
 
 $general_tab_fields = Tribe__Main::array_insert_before_key(
@@ -42,7 +42,7 @@ $general_tab_fields = Tribe__Main::array_insert_before_key(
 		'postsPerPage'                  => array(
 			'type'            => 'text',
 			'label'           => esc_html__( 'Number of events to show per page', 'the-events-calendar' ),
-			'tooltip'         => $postsPerPage_tooltip,
+			'tooltip'         => $posts_per_page_tooltip,
 			'size'            => 'small',
 			'default'         => get_option( 'posts_per_page' ),
 			'validation_type' => 'positive_int',
