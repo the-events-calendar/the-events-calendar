@@ -403,6 +403,7 @@ class Tribe__Events__iCal {
 		 */
 		$filename = apply_filters( 'tribe_events_ical_feed_filename', $site . '-' . $hash . '.ics', $post );
 
+		header( 'HTTP/1.0 200 OK', true, 200 );
 		header( 'Content-type: text/calendar; charset=UTF-8' );
 		header( 'Content-Disposition: attachment; filename="' . $filename . '"' );
 		$content  = "BEGIN:VCALENDAR\r\n";
@@ -420,7 +421,7 @@ class Tribe__Events__iCal {
 
 		$content .= 'X-WR-CALNAME:' . $x_wr_calname . "\r\n";
 		$content .= 'X-ORIGINAL-URL:' . $blogHome . "\r\n";
-		$content .= 'X-WR-CALDESC:Events for ' . $blogName . "\r\n";
+		$content .= 'X-WR-CALDESC:' . sprintf( esc_html_x( 'Events for %s', 'iCal feed description', 'the-events-calendar' ), $blogName ) . "\r\n";
 
 		/**
 		 * Allows for customization of the various properties at the top of the generated iCal file.
