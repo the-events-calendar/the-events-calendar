@@ -518,8 +518,17 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			$event_start_key = '_EventStartDate';
 			$event_end_key   = '_EventEndDate';
 
+			/**
+			 * When the "Use site timezone everywhere" option is checked in events settings,
+			 * the UTC time for event start and end times will be used. This filter allows the
+			 * disabling of that in certain contexts, so that local (not UTC) event times are used.
+			 *
+			 * @since TBD
+			 *
+			 * @param boolean $force_local_tz Whether to force the local TZ.
+			 */
 			$force_local_tz = apply_filters( 'tribe_events_query_force_local_tz', false );
-			
+
 			if ( Tribe__Events__Timezones::is_mode( 'site' ) && ! $force_local_tz ) {
 				$event_start_key .= 'UTC';
 				$event_end_key   .= 'UTC';

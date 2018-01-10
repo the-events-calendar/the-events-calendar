@@ -308,6 +308,10 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 
 == Changelog ==
 
+= [4.6.9] TBD =
+
+* New - Introduced the `tribe_events_query_force_local_tz` filter to allow for forcing non-UTC event start and end times in Tribe__Events__Query [92948]
+
 = [4.6.8] 2017-12-18 =
 
 * Fix - Preserve filter bar checkbox selections when changing views [66749]
