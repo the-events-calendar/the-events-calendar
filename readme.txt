@@ -315,7 +315,7 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 * Fix - Make sure latitude and longitude information from iCal feeds is used if available [96363]
 * Fix - Fixed an issue that prevented EA from importing images attached to Facebook events [96393]
 * Fix - Remove the duplicate filter call that was running twice for `tribe_rest_venue_data` [96090]
-* Tweak - Added new `tribe_aggregator_import_event_image`, `tribe_aggregator_import_venue_image` and `tribe_aggregator_import_organizer_image` filter so that users can control wheter, during EA imports, images should be attached to post or not [96393]
+* Tweak - Added new `tribe_aggregator_import_event_image`, `tribe_aggregator_import_venue_image` and `tribe_aggregator_import_organizer_image` filter so that users can control whether, during EA imports, images should be attached to post or not [96393]
 * Tweak - Made it possible to translate the iCal feed's description field (props @gafderks) [96677]
 * Tweak - Improved escaping of map IDs (props LucaPipolo) [96772]
 * Tweak - Added new REST API endpoint that allows looking up organizers by slug instead of ID at the path `organizers/by-slug/{slug}/`, it has the same functionality as the endpoint `organizers/{ID}` [96088]
