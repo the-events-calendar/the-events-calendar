@@ -3201,7 +3201,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$data = wp_parse_args( (array) $data, array(
 				'ShowMap' => 'false',
 				'ShowMapLink' => 'false',
-			));
+			) );
 			Tribe__Events__API::updateVenue( $postID, $data );
 		}
 
