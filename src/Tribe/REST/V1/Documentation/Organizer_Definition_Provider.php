@@ -72,6 +72,10 @@ class Tribe__Events__REST__V1__Documentation__Organizer_Definition_Provider
 					'type' => 'string',
 					'description' => __( 'The organizer short description', 'the-events-calendar' ),
 				),
+				'slug' => array(
+					'type' => 'string',
+					'description' => __( 'The organizer slug', 'the-events-calendar' ),
+				),
 				'image' => array(
 					'type' => 'string',
 					'description' => __( 'The event featured image details if set', 'the-events-calendar' ),

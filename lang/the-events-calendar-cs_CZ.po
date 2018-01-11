@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-08-06 20:35:16+0000\n"
+"PO-Revision-Date: 2018-01-02 21:07:39+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -48,7 +48,7 @@ msgstr ""
 
 #: common/src/Tribe/Main.php:265
 msgid "Clear Selection."
-msgstr ""
+msgstr "Zrušit výběr."
 
 #: common/src/Tribe/Main.php:264
 msgid "Select all pages"
@@ -84,7 +84,7 @@ msgstr ""
 
 #: src/Tribe/Linked_Posts.php:923 src/Tribe/Linked_Posts.php:929
 msgid "Create or Find %s"
-msgstr ""
+msgstr "Vytvořit nebo najít %s"
 
 #: src/Tribe/Integrations/WPML/Defaults.php:117
 msgid "The Events Calendar could not write WPML default config file: please create the file manually."
@@ -104,11 +104,11 @@ msgstr ""
 
 #: common/src/Tribe/PUE/Checker.php:1095
 msgid "There is a new version of %1$s available. %2$s"
-msgstr ""
+msgstr "K dispozici je novější verze %1$s. %2$s"
 
 #: common/src/Tribe/PUE/Checker.php:1084
 msgid "Update now to version %s."
-msgstr ""
+msgstr "Aktualizovat na verzi %s."
 
 #: common/src/Tribe/Ajax/Dropdown.php:238
 msgid "The \"%s\" source is invalid and cannot be reached on \"%s\" instance."
