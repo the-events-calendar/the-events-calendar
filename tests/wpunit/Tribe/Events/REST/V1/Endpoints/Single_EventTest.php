@@ -501,4 +501,25 @@ class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$data = $response->get_data();
 		$this->assertNotEmpty( $data['featured'] );
 	}
+
+	/**
+	 * @test
+	 * it should set date for scheduled event that was draft
+	 */
+	public function it_should_set_date_for_scheduled_event_that_was_draft() {
+		$request = new \WP_REST_Request( 'GET', '' );
+		$request->set_param( 'id', $this->factory()->event->create( [ 'post_status' => 'draft' ] ) );
+		$request->set_param( 'status', 'future' );
+		$request->set_param( 'date', date_i18n( 'Y-m-d H:i:s', strtotime( '+1 month' ) ) );
+
+		/** @var \WP_REST_Response $response */
+		$response = $sut->update( $request );
+
+		$this->assertInstanceOf( \WP_REST_Response::class, $response );
+		$this->assertEquals( 200, $response->status );
+
+		$data = $response->get_data();
+
+		$this->assertEquals( $request->get_param( 'date' ), $data['date'] );
+	}
 }

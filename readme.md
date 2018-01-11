@@ -27,7 +27,7 @@ That's all! please have fun and code responsibly :)
 ## Further Information
 
 * **Official Release**: https://wordpress.org/plugins/the-events-calendar/
-* **Readme**: https://github.com/moderntribe/the-events-calendar/blob/develop/readme.txt
+* **Readme**: https://github.com/moderntribe/the-events-calendar/blob/master/readme.txt
 * **Website**: https://theeventscalendar.com/product/wordpress-events-calendar/
 * **Support**: https://theeventscalendar.com/support
 * **Documentation**: https://theeventscalendar.com/functions/
