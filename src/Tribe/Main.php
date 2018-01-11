@@ -904,7 +904,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			$post = get_post( $post );
-			$archive_slug = Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' );
+			$archive_slug = _x( Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' ), 'Archive Events Slug', 'the-events-calendar' );
 
 			// is it a real post?
 			if ( ! $post instanceof WP_Post ) {
@@ -925,7 +925,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return string
 		 */
 		public function render_notice_archive_slug_conflict() {
-			$archive_slug   = Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' );
+			$archive_slug   = _x( Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' ), 'Archive Events Slug', 'the-events-calendar' );
 			$conflict_query = new WP_Query( array(
 				'name'                   => $archive_slug,
 				'post_type'              => 'any',
@@ -1594,6 +1594,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 *
 			 * @since 3.2
 			 */
+			$post_type_args['rewrite']['slug'] = $this->getRewriteSlugSingular();
 			$post_type_args = apply_filters( 'tribe_events_register_event_type_args', $post_type_args );
 
 			register_post_type( self::POSTTYPE, $post_type_args );
@@ -1643,7 +1644,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return string
 		 */
 		public function getRewriteSlug() {
-			return sanitize_title( Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' ) );
+			return sanitize_title( _x( Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' ), 'Archive Events Slug', 'the-events-calendar' ) );
 		}
 
 		/**
@@ -1652,7 +1653,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return string
 		 */
 		public function getRewriteSlugSingular() {
-			return sanitize_title( Tribe__Settings_Manager::get_option( 'singleEventSlug', 'event' ) );
+			return sanitize_title( _x( Tribe__Settings_Manager::get_option( 'singleEventSlug', 'event' ), 'Rewrite Singular Slug', 'the-events-calendar' ) );
 		}
 
 		/**
@@ -2463,7 +2464,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			// Append Events structure
-			$event_url .= trailingslashit( sanitize_title( Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' ) ) );
+			$slug = _x( Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' ), 'Archive Events Slug', 'the-events-calendar' );
+			$event_url .= trailingslashit( sanitize_title( $slug ) );
 
 			// if we're on an Event Cat, show the cat link, except for home and days.
 			if ( $type !== 'home' && is_tax( self::TAXONOMY ) && $term !== false && ! is_numeric( $term ) ) {
