@@ -1,47 +1,68 @@
-# Events Calendar PRO tests
+# Quick tests introduction
 
 This is a brief and quick guide that's covering the bare essentials needed to set up the tests on your local plugin copy.
 Please refer to [Codeception](http://codeception.com/docs) and [WP Browser](https://github.com/lucatume/wp-browser) documentation for any issue that's not TEC related.
 
 ## Set up
-After cloning the TEX repository on your local machine change directory to the plugin root folder and pull in any needed dependency using [Composer](https://getcomposer.org/):
+After cloning the TEC repository on your local machine change directory to the plugin root folder and pull in any needed dependency using [Composer](https://getcomposer.org/):
 
-	composer update
+	composer install
 
-when Composer finished the update process (might take a while) set up your own [Codeception](http://codeception.com/) installation running
+Using `composer install` in place of `composer update` will ensure you are using working and known dependencies; only run `composer update` if you know what you are doing.  
+When Composer finished the update process (might take a while) set up your own [Codeception](http://codeception.com/) installation to work in your local setup.  
+Create a `codeception.yml` file in the plugin root folder with this content:
 
-	vendor/bin/wpcept bootstrap
+```yaml
+params:
+	- .env.local
+```
 
-The `wpcept bootstrap` command is a modified version of the default `codecept bootstrap` command that will take care of setting up a WordPress-friendly testing environment.  
-To be able to run successfully on your system Codeception will need to be configured to look for the right database, the right WordPress installation and so on.  
-Codeception allows for "distribution" versions of its configuration to be  shared among developers, what you define in your local Codeception configuration files will override the "distribution" setting; think of CSS rules.  
-The repository contains a `codeception.dist.yml` file that Codeception will read before reading the local to your machine `codeception.yml` file.  
-Copy the distribution version of the Codeception configuration file in the root folder of the plugin
-	
-	cp codeception.dist.yml codeception.yml
+Codeception will process configuration files in a cascading way, think of CSS, so the `codeception.dist.yml` file will be read first and whatever you set in `codeception.yml` will be applied on top of it.  
+The only override we do here is telling Codeception that it should read the modules settings not from the `.env` file, that is configured to run the tests on Travis CI, but to read them from a `.env.local` file.  
+Now create, again in the plugin root folder, a `.env.local` file copying the `.env.` file and changing any value in it to match your local installation, e.g.:
 
-**Edit the file `codeception.yml` file to suit your database, installation folder and web driver settings.**
+```
+WP_ROOT_FOLDER="/Users/Luca/Sites/wp"
+WP_DOMAIN="tribe.test"
+WP_URL="http://tribe.test"
+WP_ADMIN_USERNAME="admin"
+WP_ADMIN_PASSWORD="secred"
+DB_HOST="db"
+DB_NAME="tribe"
+DB_USER="root"
+DB_PASSWORD="root"
+TEST_DB_HOST="db"
+TEST_DB_NAME="test"
+TEST_DB_USER="root"
+TEST_DB_PASSWORD="root"
+```
 
-**Beware**: The `WPLoader` module that's used in functional tests will **destroy** the database it's working on: **do not** point it to the same database you use for development! A good rule of thumb is to have a database for development (e.g. `tec`) and one that will be used for tests (e.g. `tec-tests`).  
-On the same lines the repository packs "distribution" versions of the `unit.suite.dist.yml`, `functional.suite.dist.yml` and `acceptance.suite.dist.yml` configuration files: there is usually no need to override those but it's worth mentioning they exist.
-The last piece of the configuration is the bootstrap file; the repository comes with "distribution" versions of these file in the root folder of the pluging tests (`/tests/_bootstrap.dist.php`) and a bootstrap file specific to each suite (`/tests/acceptance/_bootstrap.dist.php`, `/tests/functional/_bootstrap.dist.php`, `/tests/unit/_bootstrap.dist.php`); remove the root `_bootstrap.php` file Codeception created during bootstrapping and copy the one in the root of the plugin tests (`/tests`)
-	
-	rm _bootstrap.php
-	cp _bootstrap.dist.php _bootstrap.php
-
-You *should* not need to edit anything in any bootstrap file to make things work. Do the same for the suite specific bootstrap files
-
-	cp acceptance/_bootstrap.dist.php acceptance/_bootstrap.php
-	cp functional/_bootstrap.dist.php functional/_bootstrap.php
-	cp unit/_bootstrap.dist.php unit/_bootstrap.php
+If you look at any `tests/*.suite.dist.yml` file you will see that the configuration contains placeholders like `%WP_ROOT_FOLDER%` that [Codeception will configure at runtime](http://codeception.com/docs/06-ModulesAndHelpers#Dynamic-Configuration-With-Parameters).  
+Once those are correct you are ready to run, no need to change anything else.
 	
 ## Running the tests
-Nothing different from a default Codeception environment so this command will run all the tests
+Nothing different from a default Codeception environment so this command will run all the tests in the `wpunit` suite:
 
-	vendor/bin/codecept run
+```bash
+vendor/bin/codecept run wpunit
+```
+
+**Do not** run all the suites at the same time using `vendor/bin/codecept run`: due to WordPress love for globals and side-effects this will mean disaster.  
+To run a specific test case (a `class`) use:
+
+```bash
+vendor/bin/codecept run tests/wpunit/Some/Path/MyTest.php
+```
+
+To run a single test method (a `function`) in a test case use:
+
+```bash
+vendor/bin/codecept run tests/wpunit/Some/Path/MyTest.php:some_test
+```
 
 Failing tests are ok in set up terms: the system works. Errors should be reported.
-Please refer to [Codeception documentation](http://codeception.com/docs) to learn about more run and configuaration options.
+Please refer to [Codeception documentation](http://codeception.com/docs) to learn about more run and configuration options.
 
-## Contributing to tests
-Should you come up with good utility methods, worthy database configurations and "cool additions" in general for the plugin tests feel free to open a PR and submit them for review.
+## Where to find help
+Look for test examples in the code; look for configuration guides on [Codeception](http://codeception.com/ "Codeception - BDD-style PHP testing.") and [wp-browser](https://github.com/lucatume/wp-browser "lucatume/wp-browser · GitHub")  site; ask for help to other testers for things like "How should I test this?" or "In what suite should I add this test?".  
+
