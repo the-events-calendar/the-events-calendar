@@ -1766,7 +1766,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				/* translators: %s: date and time of the revision */
 				5  => isset( $_GET['revision'] ) ? sprintf( esc_html__( '%1$s restored to revision from %2$s', 'the-events-calendar' ), $this->singular_event_label, wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
 				6  => sprintf(
-					esc_html__( 'Event published. %1$sView %2$s', 'the-events-calendar' ),
+					esc_html__( '%1$s published. %2$sView %3$s', 'the-events-calendar' ),
+					$this->singular_event_label,
 					'<a href="' . esc_url( get_permalink( $post_ID ) ) . '">',
 					$this->singular_event_label_lowercase . '</a>'
 				),

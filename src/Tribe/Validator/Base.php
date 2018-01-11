@@ -114,6 +114,44 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 	}
 
 	/**
+	 * Whether the value is the post name of an existing organizer or not.
+	 *
+	 * @since 4.6.9
+	 *
+	 * @param string $organizer_slug
+	 *
+	 * @return bool
+	 */
+	public function is_organizer_slug( $organizer_slug ) {
+		if ( empty( $organizer_slug ) ) {
+			return false;
+		}
+
+		$organizer = get_page_by_path( $organizer_slug, OBJECT, Tribe__Events__Organizer::POSTTYPE );
+
+		return ! empty( $organizer ) && Tribe__Events__Organizer::POSTTYPE === $organizer->post_type;
+	}
+
+	/**
+	 * Whether the value is the post name of an existing venue or not.
+	 *
+	 * @since 4.6.9
+	 *
+	 * @param string $venue_slug
+	 *
+	 * @return bool
+	 */
+	public function is_venue_slug( $venue_slug ) {
+		if ( empty( $venue_slug ) ) {
+			return false;
+		}
+
+		$venue = get_page_by_path( $venue_slug, OBJECT, Tribe__Events__Venue::POSTTYPE );
+
+		return ! empty( $venue ) && Tribe__Events__Venue::POSTTYPE === $venue->post_type;
+	}
+
+	/**
 	 * Whether the string represents a valid PHP timezone or not.
 	 *
 	 * @since 4.6
