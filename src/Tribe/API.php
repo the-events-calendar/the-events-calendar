@@ -313,20 +313,20 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 				$data['EventStartDate'] = tribe_beginning_of_day( $data['EventStartDate'] );
 				$data['EventEndDate']   = tribe_end_of_day( $data['EventEndDate'] );
 			} elseif ( isset( $data['EventStartDate'], $data['EventEndDate'] ) ) {
-				$has_start_time        = isset( $data['EventStartTime'] );
-				$has_start_hour_minute = isset( $data['EventStartHour'], $data['EventStartMinute'] );
-				$has_end_time          = isset( $data['EventEndTime'] );
-				$has_end_hour_minute   = isset( $data['EventEndHour'], $data['EventEndMinute'] );
+				$has_start_time      = isset( $data['EventStartTime'] );
+				$has_start_hour_min  = isset( $data['EventStartHour'], $data['EventStartMinute'] );
+				$has_end_time        = isset( $data['EventEndTime'] );
+				$has_end_hour_minute = isset( $data['EventEndHour'], $data['EventEndMinute'] );
 
-				$date_provided         = ( $has_start_time || $has_start_hour_minute ) && ( $has_end_time || $has_end_hour_minute );
+				$date_provided         = ( $has_start_time || $has_start_hour_min ) && ( $has_end_time || $has_end_hour_minute );
 
 				delete_post_meta( $event_id, '_EventAllDay' );
 
-				if ( $has_start_time || $has_start_hour_minute ) {
+				if ( $has_start_time || $has_start_hour_min ) {
 					// EventStartTime will always be 24h Format
 					if ( $has_start_time ) {
 						$start_date_string = "{$data['EventStartDate']} {$data['EventStartTime']}";
-					} elseif ( $has_start_hour_minute ) {
+					} elseif ( $has_start_hour_min ) {
 						$start_date_string = "{$data['EventStartDate']} {$data['EventStartHour']}:{$data['EventStartMinute']}:00";
 						if ( isset( $data['EventStartMeridian'] ) ) {
 							$start_date_string .= " {$data['EventStartMeridian']}";
