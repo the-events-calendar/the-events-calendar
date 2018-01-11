@@ -311,6 +311,7 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 = [4.6.10] TBD =
 
 * Fix - Allow The Events Calendar REST API to be disabled using the `tribe_events_rest_api_enabled` filter [97209]
+* Tweak - Improve performance on Event Admin List Count by removing JOIN and use cached results [63567]
 
 = [4.6.9] 2018-01-10 =
 

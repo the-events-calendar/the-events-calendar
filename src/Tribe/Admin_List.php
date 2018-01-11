@@ -368,7 +368,6 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 			$cache_key = $type;
 
 			$query = "SELECT post_status, COUNT( * ) AS num_posts FROM {$wpdb->posts}";
-			$query .= " LEFT JOIN {$wpdb->postmeta} as eventStart ON( {$wpdb->posts}.ID = eventStart.post_id AND eventStart.meta_key = '_EventStartDate') ";
 			$query .= ' WHERE post_type = %s';
 			if ( 'readable' == $perm && is_user_logged_in() ) {
 				$post_type_object = get_post_type_object( $type );
