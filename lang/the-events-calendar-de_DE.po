@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-11-11 16:49:22+0000\n"
+"PO-Revision-Date: 2017-12-27 19:43:37+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -2942,7 +2942,7 @@ msgstr "Anwenden"
 #: src/Tribe/Aggregator/Record/List_Table.php:228
 #: src/Tribe/Aggregator/Record/List_Table.php:229
 msgid "Bulk Actions"
-msgstr "Massenverarbeitung"
+msgstr "Sammelaktionen"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:181
 msgid "Filter"

@@ -104,7 +104,7 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 		add_filter( 'tribe_events_linked_post_id_field_index', array( $this, 'linked_post_id_field_index' ), 10, 2 );
 		add_filter( 'tribe_events_linked_post_name_field_index', array( $this, 'linked_post_name_field_index' ), 10, 2 );
 		add_filter( 'tribe_events_linked_post_type_container', array( $this, 'linked_post_type_container' ), 10, 2 );
-		add_filter( 'tribe_events_linked_post_create_' . self::POSTTYPE, array( $this, 'save' ), 10, 5 );
+		add_filter( 'tribe_events_linked_post_create_' . self::POSTTYPE, array( $this, 'save' ), 10, 4 );
 		add_filter( 'tribe_events_linked_post_default', array( $this, 'linked_post_default' ), 10, 2 );
 		add_action( 'tribe_events_linked_post_new_form', array( $this, 'linked_post_new_form' ) );
 		add_filter( 'tribe_events_linked_post_meta_values__EventOrganizerID', array( $this, 'filter_out_invalid_organizer_ids' ), 10, 2 );
@@ -125,7 +125,7 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 	}
 
 	/**
-	 * Filters the post type args for the venue post type
+	 * Filters the post type args for the organizer post type
 	 *
 	 * @since 4.2
 	 *
@@ -310,6 +310,19 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 	 *
 	 */
 	public function save_meta( $organizerId, $data ) {
+		$organizer = get_post( $organizerId );
+
+		/**
+		 * Allow hooking in prior to updating meta fields.
+		 *
+		 * @param int     $organizerId The organizer ID we are modifying meta for.
+		 * @param array   $data        The meta fields we want saved.
+		 * @param WP_Post $organizer   The organizer itself.
+		 *
+		 * @since 4.6.9
+		 */
+		do_action( 'tribe_events_organizer_save', $organizerId, $data, $organizer );
+
 		if ( isset( $data['FeaturedImage'] ) && ! empty( $data['FeaturedImage'] ) ) {
 			update_post_meta( $organizerId, '_thumbnail_id', $data['FeaturedImage'] );
 			unset( $data['FeaturedImage'] );
@@ -410,7 +423,7 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 			}
 		}
 
-		// if the venue is blank, let's save the value as 0 instead
+		// if the organizer is blank, let's save the value as 0 instead
 		return 0;
 	}
 
@@ -489,7 +502,7 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 	 * Deletes an organizer
 	 *
 	 * @param int  $organizerId  The organizer ID to delete.
-	 * @param bool $force_delete  Whether or not to bypass the trash when deleting the venue (see wp_delete_post's $force_delete param)
+	 * @param bool $force_delete  Whether or not to bypass the trash when deleting the organizer (see wp_delete_post's $force_delete param)
 	 *
 	 */
 	public function delete( $id, $force_delete = false ) {
@@ -560,7 +573,7 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 		 *
 		 * @since 4.6
 		 */
-		return apply_filters( 'tribe_event_venue_duplicate_post_fields', $fields );
+		return apply_filters( 'tribe_event_organizer_duplicate_post_fields', $fields );
 	}
 
 	/**
