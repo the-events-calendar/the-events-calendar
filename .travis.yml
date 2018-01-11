@@ -7,10 +7,22 @@ notifications:
 
 php:
   - '5.6'
-  - '7.0'
 
 services:
   - mysql
+
+addons:
+  apt:
+    packages:
+      # needed for Nginx
+      - libjpeg-dev
+      - libpng12-dev
+      - php5-fpm
+      - php5-mysql
+      - nginx
+  hosts:
+    # resolve the following domains to localhost
+    - tribe.localhost
 
 # disable the default submodule logic
 git:
@@ -22,60 +34,82 @@ cache:
     - $HOME/.composer/cache
 
 env:
-  - wpDbName=test wpLoaderDbName=wploader wpDbPrefix=wp_ wpUrl=tec.tri.be wpAdminUsername=admin wpAdminPassword=admin
+  global:
+    - WP_VERSION="latest"
+    - WP_ROOT_FOLDER="/tmp/wordpress"
+    - WP_URL="http://tribe.localhost"
+    - WP_DOMAIN="tribe.localhost"
+    - WP_TABLE_PREFIX="wp_"
+    - DB_NAME="wp"
+    - TEST_DB_NAME="test"
+    - WP_ADMIN_USERNAME="admin"
+    - WP_ADMIN_PASSWORD="password"
 
 before_install:
-  - mysql -e "create database IF NOT EXISTS $wpDbName;" -uroot
-  - mysql -e "create database IF NOT EXISTS $wpLoaderDbName;" -uroot
+  # create the databases needed for the tests
+  - mysql -e "create database IF NOT EXISTS $DB_NAME;" -uroot
+  - mysql -e "create database IF NOT EXISTS $TEST_DB_NAME;" -uroot
+
+  # tweak git to correctly work with submodules
   - sed -i 's/git@github.com:/git:\/\/github.com\//' .gitmodules
   - git submodule update --init --recursive
 
 install:
+  # disable XDebug to speed up the tests
+  - phpenv config-rm xdebug.ini
+
   - composer update --prefer-dist
 
 before_script:
   # set up folders
-  - mkdir -p $HOME/tools /tmp/wordpress
+  - mkdir -p /tmp/tools $WP_ROOT_FOLDER
 
   # install wp-cli
   - wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar -P /tmp/tools/
   - chmod +x /tmp/tools/wp-cli.phar && mv /tmp/tools/wp-cli.phar /tmp/tools/wp
   - export PATH=$PATH:/tmp/tools:vendor/bin
 
-  # install Apache and WordPress setup scripts
-  - git clone https://github.com/lucatume/travis-apache-setup.git /tmp/tools/travis-apache-setup
-  - chmod +x /tmp/tools/travis-apache-setup/apache-setup.sh
-  - chmod +x /tmp/tools/travis-apache-setup/wp-install.sh
-  - ln -s /tmp/tools/travis-apache-setup/apache-setup.sh /tmp/tools/apache-setup
-  - ln -s /tmp/tools/travis-apache-setup/wp-install.sh /tmp/tools/wp-install
+  # install WordPress in the `wordpress` folder
+  - cd $WP_ROOT_FOLDER
+  - wp core download --version=$WP_VERSION
+  - wp config create --dbname="$DB_NAME" --dbuser="root" --dbpass="" --dbhost="127.0.0.1" --dbprefix="$WP_TABLE_PREFIX"
+  - wp core install --url="$WP_URL" --title="TEC Tests" --admin_user="$WP_ADMIN_USERNAME" --admin_password="$WP_ADMIN_PASSWORD" --admin_email="admin@$WP_DOMAIN" --skip-email
 
-  # download and install WordPress
-  - wp-install --dir=/tmp/wordpress --dbname="$wpDbName" --dbuser="root" --dbpass="" --dbprefix=wp_ --domain="wordpress.dev" --title="Test" --admin_user=admin --admin_password=admin --admin_email=admin@wordpress.dev --theme=twentysixteen --empty
-  - cd /tmp/wordpress
+  # get back to the build folder
+  - cd $TRAVIS_BUILD_DIR
+
+  # copy the Nginx configuration file to the available sites
+  - sudo cp tests/_support/travis/nginx.conf /etc/nginx/sites-available/$WP_DOMAIN
+  - sudo sed -e "s?%WP_ROOT_FOLDER%?$WP_ROOT_FOLDER?g" --in-place /etc/nginx/sites-available/$WP_DOMAIN
+  - sudo sed -e "s?%WP_DOMAIN%?$WP_DOMAIN?g" --in-place /etc/nginx/sites-available/$WP_DOMAIN
+
+  # enable the site
+  - sudo ln -s /etc/nginx/sites-available/$WP_DOMAIN /etc/nginx/sites-enabled/
 
   # move the plugin into WordPress folder
-  - mv $TRAVIS_BUILD_DIR /tmp/wordpress/wp-content/plugins/the-events-calendar
-  - export PLUGIN_DIR="/tmp/wordpress/wp-content/plugins/the-events-calendar"
+  - mv $TRAVIS_BUILD_DIR $WP_ROOT_FOLDER/wp-content/plugins/the-events-calendar
+  - export PLUGIN_DIR="$WP_ROOT_FOLDER/wp-content/plugins/the-events-calendar"
 
   # activate the plugin in WordPress
+  - cd $WP_ROOT_FOLDER
   - wp plugin activate the-events-calendar
 
   # flush rewrite rules
-  - printf  "apache_modules:\n\t- mod_rewrite" > /tmp/wordpress/wp-cli.yml
   - wp rewrite structure '/%postname%/' --hard
 
   # export a dump of the just installed database to the _data folder
-  - cd /tmp/wordpress
   - wp db export $PLUGIN_DIR/tests/_data/dump.sql
 
-  # set up Apache virtual host
-  - sudo env "PATH=$PATH" apache-setup --host="127.0.0.1" --url="$wpUrl" --dir="/tmp/wordpress"
-
-  # Get back to the plugin dir
+  # get back to the plugin dir
   - cd $PLUGIN_DIR
 
+  # restart Nnginx and PHP-FPM services
+  - sudo service php5-fpm restart
+  - sudo service nginx restart
+
 script:
-  - codecept run integration -vvv
-  - codecept run muintegration -vvv
-  - codecept run wpunit -vvv
-  - codecept run restv1 -vvv
+  - codecept run integration
+  - codecept run muintegration
+  - codecept run wpunit
+  # Travis CI will fail for "too many open files" notice; skip this for the time being
+  # - codecept run restv1

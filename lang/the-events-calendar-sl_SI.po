@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-01-29 05:45:29+0000\n"
+"PO-Revision-Date: 2018-01-05 07:26:39+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -820,7 +820,7 @@ msgstr ""
 #: src/Tribe/Venue.php:201
 msgctxt "Metabox title"
 msgid "Location"
-msgstr ""
+msgstr "Kraj"
 
 #: src/admin-views/aggregator/settings.php:55
 msgid "Import events but preserve local changes to event fields."
@@ -833,12 +833,12 @@ msgstr ""
 #: src/functions/template-tags/loop.php:171
 msgctxt "day_view"
 msgid "%1$s for %2$s"
-msgstr ""
+msgstr "%1$s za %2$s"
 
 #: src/functions/template-tags/loop.php:162
 msgctxt "month view"
 msgid "%1$s for %2$s"
-msgstr ""
+msgstr "%1$s v %2$s"
 
 #: src/admin-views/tribe-options-display.php:185
 msgid "Change the default 3 events per day in month view. To impose no limit, you may specify -1. Please note there may be performance issues if you allow too many events per day. <a href=\"%s\">Read more</a>."
@@ -851,7 +851,7 @@ msgstr ""
 
 #: common/src/Tribe/Validate.php:245
 msgid "%s must be a whole number."
-msgstr ""
+msgstr "%s mora biti celo število."
 
 #: common/src/Tribe/Documentation/Swagger/Term_Definition_Provider.php:52
 msgid "The URL to the term archive page"
@@ -963,7 +963,7 @@ msgstr ""
 
 #: src/Tribe/Main.php:4340
 msgid "Keyword"
-msgstr ""
+msgstr "Ključna beseda"
 
 #: src/functions/template-tags/loop.php:130
 msgctxt "featured events title"
@@ -978,17 +978,17 @@ msgstr ""
 #: src/admin-views/events-meta-box.php:99
 msgctxt "Start Date Time \"to\" End Date Time"
 msgid "to"
-msgstr ""
+msgstr "do"
 
 #: src/admin-views/aggregator/fields/schedule.php:79
 #: src/admin-views/events-meta-box.php:97
 #: src/admin-views/events-meta-box.php:112
 msgid "HH:MM"
-msgstr ""
+msgstr "UU:MM"
 
 #: src/admin-views/events-meta-box.php:72
 msgid "Start/End:"
-msgstr ""
+msgstr "Začetek/Konec:"
 
 #: src/admin-views/event-sidebar-options.php:33
 msgid "Featured events are highlighted on the front end in views, archives, and widgets."
@@ -1000,11 +1000,11 @@ msgstr ""
 
 #: src/admin-views/create-venue-fields.php:233
 msgid "Show Google Map Link?"
-msgstr ""
+msgstr "Pokaži povezavo Google Zemljevid?"
 
 #: src/admin-views/create-venue-fields.php:215
 msgid "Show Google Map?"
-msgstr ""
+msgstr "Prikaži Google zemljevid?"
 
 #: src/admin-views/create-venue-fields.php:179
 msgid "Venue URL"
@@ -1012,12 +1012,12 @@ msgstr ""
 
 #: src/admin-views/create-venue-fields.php:151
 msgid "Venue Zip Code"
-msgstr ""
+msgstr "Poštna številka prizorišča"
 
 #: src/admin-views/create-venue-fields.php:124
 #: src/admin-views/create-venue-fields.php:130
 msgid "Venue State"
-msgstr ""
+msgstr "Država prizorišča"
 
 #: src/admin-views/aggregator/settings.php:97
 msgid "Stop all Event Aggregator imports from running. Existing imported events will not be affected. Imports via CSV file will still be available."
@@ -1033,7 +1033,7 @@ msgstr ""
 
 #: src/Tribe/iCal.php:108
 msgid "Export Events"
-msgstr ""
+msgstr "Izvozi dogodeke"
 
 #: src/Tribe/Main.php:732
 msgctxt "featured events slug"
@@ -1046,15 +1046,15 @@ msgstr ""
 
 #: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:279
 msgid "Delete this"
-msgstr ""
+msgstr "Izbrišite"
 
 #: src/Tribe/Event_Tickets/Attendees_Report.php:38
 msgid "Event Date:"
-msgstr ""
+msgstr "Datum dogodka:"
 
 #: src/Tribe/Customizer/Widget.php:132
 msgid "Show Featured Event Images"
-msgstr ""
+msgstr "Pokaži prikazne slike dogodka"
 
 #: src/Tribe/Customizer/Widget.php:113
 msgid "Calendar Date Bar Color"
@@ -1062,7 +1062,7 @@ msgstr ""
 
 #: src/Tribe/Customizer/Widget.php:91
 msgid "Calendar Header Color"
-msgstr ""
+msgstr "Barva glave koledarja"
 
 #: src/Tribe/Customizer/Widget.php:59
 msgid "Widgets"
@@ -1078,7 +1078,7 @@ msgstr ""
 
 #: src/Tribe/Customizer/Single_Event.php:78
 msgid "Single Event"
-msgstr ""
+msgstr "Posamezni dogodek"
 
 #: src/Tribe/Customizer/Month_Week_View.php:197
 msgid "Calendar Highlight Color"
@@ -1095,7 +1095,7 @@ msgstr ""
 
 #: src/Tribe/Customizer/Month_Week_View.php:143
 msgid "Month View"
-msgstr ""
+msgstr "Mesečni pogled"
 
 #: src/Tribe/Customizer/Global_Elements.php:211
 msgid "Map Pin"
@@ -1103,7 +1103,7 @@ msgstr ""
 
 #: src/Tribe/Customizer/Global_Elements.php:189
 msgid "Button Color"
-msgstr ""
+msgstr "Barva gumba"
 
 #: src/Tribe/Customizer/Global_Elements.php:167
 msgid "Filter Bar Color"
@@ -1111,19 +1111,19 @@ msgstr ""
 
 #: src/Tribe/Customizer/Global_Elements.php:145
 msgid "Link Color"
-msgstr ""
+msgstr "Barva povezave"
 
 #: src/Tribe/Customizer/Global_Elements.php:114
 msgid "Options selected here will override what was selected in the \"General Theme\" section"
-msgstr ""
+msgstr "Nastavitve, ki ste jih izbrali tukaj, bodo prepisale, kar je bilo izbrano v rubriki \"Splošna tema\""
 
 #: src/Tribe/Customizer/Global_Elements.php:113
 msgid "Global Elements"
-msgstr ""
+msgstr "Globalni elementi"
 
 #: src/Tribe/Customizer/General_Theme.php:396
 msgid "Custom"
-msgstr ""
+msgstr "Po meri"
 
 #: src/Tribe/Customizer/General_Theme.php:390
 msgid "Sunshine"
@@ -1147,7 +1147,7 @@ msgstr ""
 
 #: src/Tribe/Customizer/General_Theme.php:360
 msgid "Default"
-msgstr ""
+msgstr "Privzet"
 
 #: src/Tribe/Customizer/General_Theme.php:354
 msgid "Deep Sea"
@@ -1175,11 +1175,11 @@ msgstr ""
 
 #: src/Tribe/Customizer/Day_List_View.php:115
 msgid "Price Background Color"
-msgstr ""
+msgstr "Barva ozadja za cene"
 
 #: src/Tribe/Customizer/Day_List_View.php:83
 msgid "List-style Views"
-msgstr ""
+msgstr "Pogled v obliki seznama"
 
 #: src/Tribe/Customizer/Day_List_View.php:75
 msgid "These settings impact all list-style views, including List View and Day View."
@@ -1191,15 +1191,15 @@ msgstr ""
 
 #: src/Tribe/Asset/Dynamic.php:75
 msgid "This event is all day starting on %%startdatenoyear%% and ending on %%enddatewithyear%%."
-msgstr ""
+msgstr "Celodnevni dogodek se bo začel %%startdatenoyear%% in zaključil %%enddatewithyear%%."
 
 #: src/Tribe/Asset/Dynamic.php:74
 msgid "This event starts at %%starttime%% on %%startdatenoyear%% and ends on %%enddatewithyear%%"
-msgstr ""
+msgstr "Dogodek se začne ob %%starttime%% v %%startdatenoyear%% in zaključil v %%enddatewithyear%%"
 
 #: src/Tribe/Asset/Dynamic.php:73
 msgid "This event starts at %%starttime%% on %%startdatenoyear%% and ends at %%endtime%% on %%enddatewithyear%%"
-msgstr ""
+msgstr "Dogodek se bo začel ob %%starttime%% v %%startdatenoyear%% in zaključil ob %%endtime%% v %%enddatewithyear%%"
 
 #: src/Tribe/Asset/Dynamic.php:72
 msgid "This event is all day on %%startdatewithyear%%."
@@ -1215,151 +1215,151 @@ msgstr ""
 
 #: src/Tribe/Asset/Dynamic.php:67
 msgid "Dec"
-msgstr ""
+msgstr "Dec"
 
 #: src/Tribe/Asset/Dynamic.php:66
 msgid "Nov"
-msgstr ""
+msgstr "Nov"
 
 #: src/Tribe/Asset/Dynamic.php:65
 msgid "Oct"
-msgstr ""
+msgstr "Okt"
 
 #: src/Tribe/Asset/Dynamic.php:64
 msgid "Sep"
-msgstr ""
+msgstr "Sep"
 
 #: src/Tribe/Asset/Dynamic.php:63
 msgid "Aug"
-msgstr ""
+msgstr "Avg"
 
 #: src/Tribe/Asset/Dynamic.php:62
 msgid "Jul"
-msgstr ""
+msgstr "Jul"
 
 #: src/Tribe/Asset/Dynamic.php:61
 msgid "Jun"
-msgstr ""
+msgstr "Jun"
 
 #: src/Tribe/Asset/Dynamic.php:59
 msgid "Apr"
-msgstr ""
+msgstr "Apr"
 
 #: src/Tribe/Asset/Dynamic.php:58
 msgid "Mar"
-msgstr ""
+msgstr "Mar"
 
 #: src/Tribe/Asset/Dynamic.php:57
 msgid "Feb"
-msgstr ""
+msgstr "Feb"
 
 #: src/Tribe/Asset/Dynamic.php:56
 msgid "Jan"
-msgstr ""
+msgstr "Jan"
 
 #: src/Tribe/Asset/Dynamic.php:53
 msgid "December"
-msgstr ""
+msgstr "December"
 
 #: src/Tribe/Asset/Dynamic.php:52
 msgid "November"
-msgstr ""
+msgstr "November"
 
 #: src/Tribe/Asset/Dynamic.php:51
 msgid "October"
-msgstr ""
+msgstr "Oktober"
 
 #: src/Tribe/Asset/Dynamic.php:50
 msgid "September"
-msgstr ""
+msgstr "September"
 
 #: src/Tribe/Asset/Dynamic.php:49
 msgid "August"
-msgstr ""
+msgstr "Avgust"
 
 #: src/Tribe/Asset/Dynamic.php:48
 msgid "July"
-msgstr ""
+msgstr "Julij"
 
 #: src/Tribe/Asset/Dynamic.php:47
 msgid "June"
-msgstr ""
+msgstr "Junij"
 
 #: src/Tribe/Asset/Dynamic.php:46 src/Tribe/Asset/Dynamic.php:60
 msgid "May"
-msgstr ""
+msgstr "Maj"
 
 #: src/Tribe/Asset/Dynamic.php:45
 msgid "April"
-msgstr ""
+msgstr "April"
 
 #: src/Tribe/Asset/Dynamic.php:44
 msgid "March"
-msgstr ""
+msgstr "Marec"
 
 #: src/Tribe/Asset/Dynamic.php:43
 msgid "February"
-msgstr ""
+msgstr "Februar"
 
 #: src/Tribe/Asset/Dynamic.php:42
 msgid "January"
-msgstr ""
+msgstr "Januar"
 
 #: src/Tribe/Asset/Dynamic.php:39
 msgid "Sat"
-msgstr ""
+msgstr "Sob"
 
 #: src/Tribe/Asset/Dynamic.php:38
 msgid "Fri"
-msgstr ""
+msgstr "Pet"
 
 #: src/Tribe/Asset/Dynamic.php:37
 msgid "Thu"
-msgstr ""
+msgstr "Čet"
 
 #: src/Tribe/Asset/Dynamic.php:36
 msgid "Wed"
-msgstr ""
+msgstr "Sre"
 
 #: src/Tribe/Asset/Dynamic.php:35
 msgid "Tue"
-msgstr ""
+msgstr "Tor"
 
 #: src/Tribe/Asset/Dynamic.php:34
 msgid "Mon"
-msgstr ""
+msgstr "Pon"
 
 #: src/Tribe/Asset/Dynamic.php:33
 msgid "Sun"
-msgstr ""
+msgstr "Ned"
 
 #: src/Tribe/Asset/Dynamic.php:30
 msgid "Saturday"
-msgstr ""
+msgstr "Sobota"
 
 #: src/Tribe/Asset/Dynamic.php:29
 msgid "Friday"
-msgstr ""
+msgstr "Petek"
 
 #: src/Tribe/Asset/Dynamic.php:28
 msgid "Thursday"
-msgstr ""
+msgstr "Četrtek"
 
 #: src/Tribe/Asset/Dynamic.php:27
 msgid "Wednesday"
-msgstr ""
+msgstr "Sreda"
 
 #: src/Tribe/Asset/Dynamic.php:26
 msgid "Tuesday"
-msgstr ""
+msgstr "Torek"
 
 #: src/Tribe/Asset/Dynamic.php:25
 msgid "Monday"
-msgstr ""
+msgstr "Ponedeljek"
 
 #: src/Tribe/Asset/Dynamic.php:24
 msgid "Sunday"
-msgstr ""
+msgstr "Nedelja"
 
 #: src/Tribe/Admin/Front_Page_View.php:18
 msgctxt "Static front page setting"
@@ -2083,7 +2083,7 @@ msgstr ""
 #: src/admin-views/aggregator/origins/meetup.php:160
 #: src/admin-views/aggregator/origins/url.php:119
 msgid "Preview"
-msgstr ""
+msgstr "Predogled"
 
 #: src/admin-views/aggregator/origins/csv.php:68
 #: src/admin-views/aggregator/origins/ics.php:35
@@ -2472,7 +2472,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Tabs/New.php:393
 msgid "View your scheduled imports."
-msgstr ""
+msgstr "Poglej svoje predvidene uvoze."
 
 #: src/Tribe/Aggregator/Tabs/New.php:389
 msgid "The next import is scheduled for %1$s."
@@ -2481,7 +2481,7 @@ msgstr ""
 #: src/Tribe/Aggregator/Tabs/New.php:384
 msgctxt "separator between date and time"
 msgid " at "
-msgstr ""
+msgstr "ob"
 
 #: src/Tribe/Aggregator/Tabs/New.php:380
 msgid "Your scheduled import was saved and the first import is complete!"
@@ -2489,7 +2489,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Tabs/New.php:355
 msgid "View your event categories"
-msgstr ""
+msgstr "Poglej kategorije dogodkov"
 
 #: src/Tribe/Aggregator/Tabs/New.php:351
 msgid "%1$d new event category was created."
@@ -2501,7 +2501,7 @@ msgstr[3] ""
 
 #: src/Tribe/Aggregator/Tabs/New.php:342
 msgid "View your event organizers"
-msgstr ""
+msgstr "Poglej vaše organizatorje dogodkov"
 
 #: src/Tribe/Aggregator/Tabs/New.php:338
 msgid "%1$d new organizer was imported."
@@ -2513,7 +2513,7 @@ msgstr[3] ""
 
 #: src/Tribe/Aggregator/Tabs/New.php:330
 msgid "View your event venues"
-msgstr ""
+msgstr "Poglej vaša prizorišča dogodkov"
 
 #: src/Tribe/Aggregator/Tabs/New.php:326
 msgid "%1$d new venue was imported."
@@ -2525,7 +2525,7 @@ msgstr[3] ""
 
 #: src/Tribe/Aggregator/Tabs/New.php:316
 msgid "View all %s"
-msgstr ""
+msgstr "Poglej vse %s"
 
 #: src/Tribe/Aggregator/Tabs/New.php:308
 msgid "No %1$s were imported or updated."
@@ -2590,7 +2590,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Tabs/Edit.php:137
 msgid "View All Scheduled Imports"
-msgstr ""
+msgstr "Poglej vse predvidene uvoze"
 
 #: src/Tribe/Aggregator/Tabs/Edit.php:131
 msgid "Scheduled import was successfully updated."
@@ -2700,10 +2700,10 @@ msgstr ""
 msgctxt "event aggregator status"
 msgid "Draft <span class=\"count\">(%s)</span>"
 msgid_plural "Draft <span class=\"count\">(%s)</span>"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Osnutek <span class=\"count\">(%s)</span>"
+msgstr[1] "Osnutka <span class=\"count\">(%s)</span>"
+msgstr[2] "Osnutki <span class=\"count\">(%s)</span>"
+msgstr[3] "Osnutki <span class=\"count\">(%s)</span>"
 
 #: src/Tribe/Aggregator/Records.php:256
 msgctxt "event aggregator status"
@@ -2903,11 +2903,11 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Record/List_Table.php:506
 msgid "Radius:"
-msgstr ""
+msgstr "Radij:"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:489
 msgid "Keywords:"
-msgstr ""
+msgstr "Ključne besede:"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:476
 #: src/Tribe/Ignored_Events.php:329
@@ -2917,7 +2917,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Record/List_Table.php:433
 msgid "Import preview"
-msgstr ""
+msgstr "Uvozi predogled"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:429
 msgid "Import pending"
@@ -3562,7 +3562,7 @@ msgstr ""
 
 #: src/Tribe/Venue.php:152
 msgid "venue"
-msgstr ""
+msgstr "prizorišče"
 
 #: src/io/csv/admin-views/result.php:33
 msgid "Rows numbers with encoding changes: %s"
@@ -4156,10 +4156,10 @@ msgstr ""
 #: src/views/month/single-day.php:42
 msgid "View %1$s %2$s"
 msgid_plural "View All %1$s %2$s"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Prikaži %1$s %2$s"
+msgstr[1] "Prikaži %1$s %2$s"
+msgstr[2] "Prikaži vse %1$s %2$s"
+msgstr[3] "Prikaži vse %1$s %2$s"
 
 #: src/Tribe/Aggregator/Record/Queue_Realtime.php:54
 msgid "Completed!"
@@ -4199,11 +4199,11 @@ msgstr ""
 
 #: src/views/widgets/list-widget.php:101
 msgid "There are no upcoming %s at this time."
-msgstr ""
+msgstr "Trenutno ni prihajajočih %s."
 
 #: src/views/widgets/list-widget.php:95
 msgid "View All %s"
-msgstr ""
+msgstr "Poglej vse %s"
 
 #: src/views/single-event.php:46 src/views/single-event.php:79
 msgid "%s Navigation"
@@ -4393,7 +4393,7 @@ msgstr ""
 
 #: src/functions/template-tags/loop.php:140
 msgid "Upcoming %s"
-msgstr ""
+msgstr "Prihajajoči %s"
 
 #: src/functions/template-tags/google-map.php:47
 msgid "+ Google Map"
@@ -6568,7 +6568,7 @@ msgstr "Nimate dovoljenja za ta ukaz."
 
 #: common/src/Tribe/Settings.php:360 src/Tribe/Aggregator/Page.php:88
 msgid "Save Changes"
-msgstr ""
+msgstr "Shrani spremembe"
 
 #: common/src/Tribe/Settings.php:352
 msgid "You've requested a non-existent tab."
@@ -6584,7 +6584,7 @@ msgstr "Nastavitve dogodkov"
 
 #: common/src/Tribe/PUE/Checker.php:888
 msgid "Hmmm... something's wrong with this validator. Please contact %ssupport%s."
-msgstr ""
+msgstr "Hmmm ... nekaj je narobe s preverjanjem. Prosimo kontaktirajte %ssupport%s podporo."
 
 #: common/src/Tribe/PUE/Checker.php:927
 msgid "Valid Key! Expires on %s"
@@ -6617,7 +6617,7 @@ msgstr "Napaka"
 
 #: src/Tribe/Main.php:4444
 msgid "Once Every 30 Mins"
-msgstr ""
+msgstr "Enkrat vsakih 30 minut"
 
 #: src/Tribe/Main.php:4371
 msgid "Day Of"
@@ -6625,11 +6625,11 @@ msgstr "Dan od"
 
 #: src/Tribe/Main.php:4369
 msgid "%s From"
-msgstr ""
+msgstr "%s od"
 
 #: src/Tribe/Main.php:4367
 msgid "%s In"
-msgstr ""
+msgstr "%s v"
 
 #: src/Tribe/Main.php:4364 src/Tribe/Main.php:4380
 #: src/admin-views/aggregator/origins/refine.php:7
@@ -6669,7 +6669,7 @@ msgstr "CSV"
 
 #: src/Tribe/Admin/Bar/Default_Configurator.php:53
 msgid "Add %s"
-msgstr ""
+msgstr "Dodaj %s"
 
 #: src/Tribe/Admin/Bar/Default_Configurator.php:45 src/Tribe/Main.php:4213
 msgid "View Calendar"
@@ -6677,7 +6677,7 @@ msgstr "Ogled koledarja"
 
 #: src/Tribe/Admin/Bar/Default_Configurator.php:18
 msgid "%s"
-msgstr ""
+msgstr "%s"
 
 #: src/Tribe/Main.php:4160
 msgid "Looking for additional functionality including recurring events, ticket sales, publicly submitted events, new views and more?"
@@ -6701,11 +6701,11 @@ msgstr "Podpora"
 
 #: src/Tribe/Main.php:3738 src/Tribe/Main.php:3749
 msgid "%s Information"
-msgstr ""
+msgstr "%s informacije"
 
 #: src/Tribe/Main.php:3731
 msgid "%s Options"
-msgstr ""
+msgstr "%s možnosti"
 
 #: src/Tribe/Main.php:3661 src/Tribe/Main.php:3696
 #: src/functions/template-tags/day.php:157
@@ -6715,19 +6715,19 @@ msgstr "Datum izven dosega."
 
 #: src/Tribe/Main.php:2278
 msgid "all"
-msgstr ""
+msgstr "vsi"
 
 #: src/Tribe/Main.php:2277 src/functions/template-tags/general.php:91
 msgid "events"
-msgstr ""
+msgstr "dogodki"
 
 #: src/Tribe/Main.php:2276 src/functions/template-tags/general.php:69
 msgid "event"
-msgstr ""
+msgstr "dogodek"
 
 #: src/Tribe/Main.php:2275
 msgid "page"
-msgstr ""
+msgstr "stran"
 
 #: common/src/Tribe/Settings_Manager.php:219
 msgid "Network"
@@ -6836,7 +6836,7 @@ msgstr ""
 
 #: src/Tribe/Main.php:1726
 msgid "Search %s Categories"
-msgstr ""
+msgstr "Išči %s kategorij"
 
 #: src/Tribe/Main.php:1725
 msgid "%s Category"
@@ -6931,7 +6931,7 @@ msgstr "prihajajoče"
 
 #: src/Tribe/Main.php:727
 msgid "list"
-msgstr ""
+msgstr "seznam"
 
 #: src/Tribe/Main.php:726
 msgid "month"
@@ -7190,7 +7190,7 @@ msgstr ""
 
 #: common/src/Tribe/Cost_Utils.php:108
 msgid "Free"
-msgstr "Zastonj"
+msgstr "Brezplačno"
 
 #: src/Tribe/Cost_Utils.php:113
 msgctxt "Cost range separator"
@@ -7245,7 +7245,7 @@ msgstr "Začetni datum"
 
 #: src/Tribe/Admin_List.php:246 src/Tribe/Main.php:1724
 msgid "%s Categories"
-msgstr ""
+msgstr "%s kategorije"
 
 #: src/Tribe/Admin/Timezone_Updater.php:105
 msgid "A problem stopped the timezone update process from completing. Please refresh and try again."
@@ -7256,7 +7256,7 @@ msgstr ""
 #: src/Tribe/Aggregator/Record/Queue_Realtime.php:98
 #: src/Tribe/Aggregator/Record/Queue_Realtime.php:201
 msgid "%d%% complete"
-msgstr ""
+msgstr "%d%% dokončano"
 
 #: src/Tribe/Admin/Timezone_Updater.php:78
 msgid "Update complete: timezone data has been added to all events in the database."
