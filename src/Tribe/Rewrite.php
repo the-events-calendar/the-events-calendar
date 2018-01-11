@@ -86,7 +86,7 @@ class Tribe__Events__Rewrite extends  Tribe__Rewrite {
 		 * @param array $events_rewrite_rules
 		 * @param Tribe__Events__Rewrite $tribe_rewrite
 		 */
-		$this->rules = apply_filters( 'tribe_events_rewrite_rules_custom', $this->rules, $this );
+		$this->rules = apply_filters( 'tribe_events_rewrite_rules_custom', $this->rules, $this, $wp_rewrite );
 
 		$wp_rewrite->rules = $this->rules + $wp_rewrite->rules;
 	}
@@ -254,8 +254,8 @@ class Tribe__Events__Rewrite extends  Tribe__Rewrite {
 			'tag' => array( 'tag', $tec->tag_slug ),
 			'tax' => array( 'category', $tec->category_slug ),
 			'page' => (array) 'page',
-			'single' => (array) Tribe__Settings_Manager::get_option( 'singleEventSlug', 'event' ),
-			'archive' => (array) Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' ),
+			'single' => array( 'event', $tec->rewriteSlugSingular ),
+			'archive' => array( 'events', $tec->rewriteSlug ),
 			'featured' => array( 'featured', $tec->featured_slug ),
 		) );
 
