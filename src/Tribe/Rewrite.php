@@ -247,15 +247,15 @@ class Tribe__Events__Rewrite extends  Tribe__Rewrite {
 		 * @var array $bases
 		 */
 		$bases = apply_filters( 'tribe_events_rewrite_base_slugs', array(
-			'month' => array( 'month', $tec->monthSlug ),
-			'list' => array( 'list', $tec->listSlug ),
-			'today' => array( 'today', $tec->todaySlug ),
-			'day' => array( 'day', $tec->daySlug ),
-			'tag' => array( 'tag', $tec->tag_slug ),
-			'tax' => array( 'category', $tec->category_slug ),
-			'page' => (array) 'page',
-			'single' => (array) Tribe__Settings_Manager::get_option( 'singleEventSlug', 'event' ),
-			'archive' => (array) Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' ),
+			'month'    => array( 'month', $tec->monthSlug ),
+			'list'     => array( 'list', $tec->listSlug ),
+			'today'    => array( 'today', $tec->todaySlug ),
+			'day'      => array( 'day', $tec->daySlug ),
+			'tag'      => array( 'tag', $tec->tag_slug ),
+			'tax'      => array( 'category', $tec->category_slug ),
+			'page'     => (array) esc_html_x( 'page', 'The "/page/" URL string component.', 'the-events-calendar' ),
+			'single'   => (array) Tribe__Settings_Manager::get_option( 'singleEventSlug', 'event' ),
+			'archive'  => (array) Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' ),
 			'featured' => array( 'featured', $tec->featured_slug ),
 		) );
 
