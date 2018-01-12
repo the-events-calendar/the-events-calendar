@@ -3192,6 +3192,16 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			$data = stripslashes_deep( $_POST['venue'] );
+			/**
+			 * When a new venue is saved set the value for ShowMap and ShowMapLink if they are not present as if
+			 * a checkbox is set to false $_POST is not going to send the value and is not going to be present inside
+			 * of the array. This action is fired on update or creation from the admin so it's not goint to affect
+			 * external components like Community Plugin.
+			 */
+			$data = wp_parse_args( (array) $data, array(
+				'ShowMap' => 'false',
+				'ShowMapLink' => 'false',
+			) );
 			Tribe__Events__API::updateVenue( $postID, $data );
 		}
 
