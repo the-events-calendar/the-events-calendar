@@ -123,7 +123,7 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 		add_filter( 'tribe_events_linked_post_id_field_index', array( $this, 'linked_post_id_field_index' ), 10, 2 );
 		add_filter( 'tribe_events_linked_post_name_field_index', array( $this, 'linked_post_name_field_index' ), 10, 2 );
 		add_filter( 'tribe_events_linked_post_type_container', array( $this, 'linked_post_type_container' ), 10, 2 );
-		add_filter( 'tribe_events_linked_post_create_' . self::POSTTYPE, array( $this, 'save' ), 10, 5 );
+		add_filter( 'tribe_events_linked_post_create_' . self::POSTTYPE, array( $this, 'save' ), 10, 4 );
 		add_filter( 'tribe_events_linked_post_meta_box_title', array( $this, 'meta_box_title' ), 5, 2 );
 		add_filter( 'tribe_events_linked_post_default', array( $this, 'linked_post_default' ), 10, 2 );
 		add_action( 'tribe_events_linked_post_new_form', array( $this, 'linked_post_new_form' ) );
@@ -297,6 +297,19 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 	 *
 	 */
 	public function save_meta( $venue_id, $data ) {
+		$venue = get_post( $venue_id );
+
+		/**
+		 * Allow hooking in prior to updating meta fields.
+		 *
+		 * @param int     $venue_id The venue ID we are modifying meta for.
+		 * @param array   $data     The meta fields we want saved.
+		 * @param WP_Post $venue    The venue itself.
+		 *
+		 * @since 4.6.9
+		 */
+		do_action( 'tribe_events_venue_save', $venue_id, $data, $venue );
+
 		// TODO: We should probably do away with 'StateProvince' and stick to 'State' and 'Province'.
 		if ( ! isset( $data['StateProvince'] ) || $data['StateProvince'] == '' ) {
 			if (
