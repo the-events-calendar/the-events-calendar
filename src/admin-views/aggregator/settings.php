@@ -475,9 +475,32 @@ $internal = array_merge(
 	$ea_disable
 );
 
-$internal = apply_filters( 'tribe_aggregator_fields', $internal );
+$internal = apply_filters( 'tribe_aggregator_fields', $internal, $origin_categories );
 
 if ( tribe( 'events-aggregator.main' )->is_service_active() ) {
+
+	$import_setting_links = array(
+		'update-authority'  => __( 'Update Authority', 'the-events-calendar' ),
+		'global-settings'   => __( 'Global', 'the-events-calendar' ),
+		'csv-settings'      => __( 'CSV', 'the-events-calendar' ),
+		'ical-settings'     => __( 'iCalendar', 'the-events-calendar' ),
+		'ics-settings'      => __( 'ICS File', 'the-events-calendar' ),
+		'facebook-settings' => __( 'Facebook', 'the-events-calendar' ),
+		'google-settings'   => __( 'Google Calendar', 'the-events-calendar' ),
+		'meetup-settings'   => __( 'Meetup', 'the-events-calendar' ),
+		'url-settings'      => __( 'Other URLs', 'the-events-calendar' ),
+	);
+
+	/**
+	 * Filter the Import Setting Links on the Import Tab
+	 *
+	 * @since TDB
+	 *
+	 * @param $import_setting_links array an array of import setting anchor links
+	 *
+	 */
+	$import_setting_links = apply_filters( 'tribe_aggregator_setting_links', $import_setting_links );
+
 	ob_start();
 	?>
 	<p>
@@ -492,15 +515,15 @@ if ( tribe( 'events-aggregator.main' )->is_service_active() ) {
 		?>
 	</p>
 	<div>
-		<a href="#tribe-import-update-authority"><?php esc_html_e( 'Update Authority', 'the-events-calendar' ); ?></a> |
-		<a href="#tribe-import-global-settings"><?php esc_html_e( 'Global', 'the-events-calendar' ); ?></a> |
-		<a href="#tribe-import-csv-settings"><?php esc_html_e( 'CSV', 'the-events-calendar' ); ?></a> |
-		<a href="#tribe-import-ical-settings"><?php esc_html_e( 'iCalendar', 'the-events-calendar' ); ?></a> |
-		<a href="#tribe-import-ics-settings"><?php esc_html_e( 'ICS File', 'the-events-calendar' ); ?></a> |
-		<a href="#tribe-import-facebook-settings"><?php esc_html_e( 'Facebook', 'the-events-calendar' ); ?></a> |
-		<a href="#tribe-import-google-settings"><?php esc_html_e( 'Google Calendar', 'the-events-calendar' ); ?></a> |
-		<a href="#tribe-import-meetup-settings"><?php esc_html_e( 'Meetup', 'the-events-calendar' ); ?></a> |
-		<a href="#tribe-import-url-settings"><?php esc_html_e( 'Other URLs', 'the-events-calendar' ); ?></a>
+		<?php
+		foreach ( $import_setting_links as $anchor => $link ) {
+			$separator = '';
+			if ( $link !== end( $import_setting_links ) ) {
+				$separator = ' | ';
+			}
+			echo '<a href="#tribe-import-' . esc_attr( $anchor ) . '">' . esc_attr( $link ) . '</a>' . $separator;
+		}
+		?>
 	</div>
 	<?php
 	$import_instructions = ob_get_clean();
