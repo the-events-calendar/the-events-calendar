@@ -319,7 +319,7 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 		 * @param array   $data        The meta fields we want saved.
 		 * @param WP_Post $organizer   The organizer itself.
 		 *
-		 * @since TBD
+		 * @since 4.6.9
 		 */
 		do_action( 'tribe_events_organizer_save', $organizerId, $data, $organizer );
 

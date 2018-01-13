@@ -306,7 +306,7 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 		 * @param array   $data     The meta fields we want saved.
 		 * @param WP_Post $venue    The venue itself.
 		 *
-		 * @since TBD
+		 * @since 4.6.9
 		 */
 		do_action( 'tribe_events_venue_save', $venue_id, $data, $venue );
 
@@ -422,16 +422,29 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 				? wp_insert_post( array_filter( $postdata ), true )
 				: $found;
 
+			/**
+			 * Filters the default value to be set on the creation of a new venue.
+			 *
+			 * Useful as this might be fired or required by a third party plugin like community events that would like
+			 * to change the default value for the map fields.
+			 *
+			 * @param mixed $default_value    The default value to be applied on creation.
+			 *
+			 * @since TBD
+			 */
+			$default_value = apply_filters( 'tribe_events_venue_created_map_default', true );
+
 			// By default, the show map and show map link options should be on
 			if ( isset( $data['ShowMap'] ) && ! tribe_is_truthy( $data['ShowMap'] ) ) {
 				unset( $data['ShowMap'] );
 			} else {
-				$data['ShowMap'] = true;
+				$data['ShowMap'] = $default_value;
 			}
+
 			if ( isset( $data['ShowMapLink'] ) && ! tribe_is_truthy( $data['ShowMapLink'] ) ) {
 				unset( $data['ShowMapLink'] );
 			} else {
-				$data['ShowMapLink'] = true;
+				$data['ShowMapLink'] = $default_value;
 			}
 
 			if ( ! is_wp_error( $venue_id ) ) {

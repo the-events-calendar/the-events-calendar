@@ -334,8 +334,10 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		 * Remove any event that is not the same as the current term of the array of events, it return a modified events
 		 * array with the events that only has the current term or original events if the term is not valid.
 		 *
-		 * @since TBD
+		 * @since 4.6.9
+		 *
  		 * @param array
+		 *
 		 * @return array
 		 */
 		private function filter_by_current_term( $events ) {

@@ -1681,7 +1681,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * fired the result of call this function via Ajax might not be the expected result so ideally can be used to test
 	 * if you are on the front page on first load of the page only.
 	 *
-	 * @since TBD
+	 * @since 4.6.9
 	 *
 	 * @return bool
 	 */
@@ -1708,7 +1708,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * Also consider this might not work as expected inside of Ajax Calls as this one is fired on initial loading of the
 	 * page so be aware of unexpected results via Ajax calls.
 	 *
-	 * @since TBD
+	 * @since 4.6.9
 	 *
 	 * @return bool
 	 */
