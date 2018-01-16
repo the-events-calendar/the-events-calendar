@@ -442,7 +442,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe_singleton( 'tec.linked-posts.organizer', 'Tribe__Events__Organizer' );
 
 
-			tribe_singleton( 'tec.gutenberg', 'Tribe__Events__Gutenberg', array( 'hook' ) );
+			tribe_singleton( 'tec.editor', 'Tribe__Events__Editor', array( 'hook' ) );
+
+			tribe_register_provider( 'Tribe__Events__Editor__Provider' );
 
 			/**
 			 * Allows other plugins and services to override/change the bound implementations.
@@ -706,7 +708,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Add support for positioning the main events view on the site homepage
 			tribe( 'tec.front-page-view' )->hook();
 
-			tribe( 'tec.gutenberg' );
+			tribe( 'tec.editor' );
 
 			tribe( 'events-aggregator.main' );
 			tribe( 'tec.shortcodes.event-details' );
