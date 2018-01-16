@@ -904,6 +904,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			$post = get_post( $post );
+			// translators: For compatibility with WPML and other multilingual plugins, not to be translated directly on .mo files.
 			$archive_slug = _x( Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' ), 'Archive Events Slug', 'the-events-calendar' );
 
 			// is it a real post?
@@ -925,6 +926,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return string
 		 */
 		public function render_notice_archive_slug_conflict() {
+			// translators: For compatibility with WPML and other multilingual plugins, not to be translated directly on .mo files.
 			$archive_slug   = _x( Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' ), 'Archive Events Slug', 'the-events-calendar' );
 			$conflict_query = new WP_Query( array(
 				'name'                   => $archive_slug,
@@ -1644,6 +1646,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return string
 		 */
 		public function getRewriteSlug() {
+			// translators: For compatibility with WPML and other multilingual plugins, not to be translated directly on .mo files.
 			return sanitize_title( _x( Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' ), 'Archive Events Slug', 'the-events-calendar' ) );
 		}
 
@@ -1653,6 +1656,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return string
 		 */
 		public function getRewriteSlugSingular() {
+			// translators: For compatibility with WPML and other multilingual plugins, not to be translated directly on .mo files.
 			return sanitize_title( _x( Tribe__Settings_Manager::get_option( 'singleEventSlug', 'event' ), 'Rewrite Singular Slug', 'the-events-calendar' ) );
 		}
 
