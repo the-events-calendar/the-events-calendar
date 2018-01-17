@@ -85,6 +85,7 @@ class Tribe__Events__Rewrite extends  Tribe__Rewrite {
 		 *
 		 * @param array $events_rewrite_rules
 		 * @param Tribe__Events__Rewrite $tribe_rewrite
+		 * @param WP_Rewrite $wp_rewrite WordPress Rewrite that will be modified.
 		 */
 		$this->rules = apply_filters( 'tribe_events_rewrite_rules_custom', $this->rules, $this, $wp_rewrite );
 
