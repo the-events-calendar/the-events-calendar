@@ -67,6 +67,22 @@ class Tribe__Events__Editor {
 
 		tribe_asset(
 			$plugin,
+			'tribe-events-html-react-parser',
+			'editor/html-react-parser.js',
+			array( 'react', 'react-dom' ),
+			'enqueue_block_editor_assets'
+		);
+
+		tribe_asset(
+			$plugin,
+			'tribe-events-editor-qs',
+			'editor/qs.js',
+			array(),
+			'enqueue_block_editor_assets'
+		);
+
+		tribe_asset(
+			$plugin,
 			'tribe-block-editor-styles',
 			'block-editor-styles.css',
 			array( 'wp-edit-blocks' ),

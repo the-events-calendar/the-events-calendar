@@ -14,6 +14,17 @@ implements Tribe__Events__Editor__Blocks__Interface {
 	abstract public function render( $attributes = array() );
 
 	/**
+	 * Sends a valid JSON response to the AJAX request for the block contents
+	 *
+	 * @since  TBD
+	 *
+	 * @return void
+	 */
+	public function ajax() {
+		wp_send_json_error( esc_attr__( 'Problem loading the block, please remove this block to restart.', 'the-events-calendar' ) );
+	}
+
+	/**
 	 * Fetches which ever is the plugin we are dealing with
 	 *
 	 * @since  TBD
@@ -39,7 +50,21 @@ implements Tribe__Events__Editor__Blocks__Interface {
 
 		register_block_type( $this->name(), $block_args );
 
+		add_action( 'wp_ajax_' . $this->get_ajax_action(), array( $this, 'ajax' ) );
+
 		$this->assets();
+	}
+
+	/**
+	 * Fetches the name for the block we are working with and converts it to the
+	 * correct `wp_ajax_{$action}` string for us to Hook
+	 *
+	 * @since  TBD
+	 *
+	 * @return string
+	 */
+	public function get_ajax_action() {
+		return str_replace( 'tribe/', 'tribe_editor_block_', $this->name() );
 	}
 
 	/**

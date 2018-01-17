@@ -27,6 +27,19 @@ extends Tribe__Events__Editor__Blocks__Abstract {
 	}
 
 	/**
+	 * Sends a valid JSON response to the AJAX request for the block contents
+	 *
+	 * @since  TBD
+	 *
+	 * @return void
+	 */
+	public function ajax() {
+		$data = $this->render();
+
+		wp_send_json_success( $data );
+	}
+
+	/**
 	 * Used to include any Assets for the Block we are registering
 	 *
 	 * @since  TBD
@@ -37,8 +50,8 @@ extends Tribe__Events__Editor__Blocks__Abstract {
 		tribe_asset(
 			$this->plugin(),
 			'tribe-block-editor-event-details',
-			'block/event-details.js',
-			array( 'wp-blocks', 'wp-i18n', 'wp-element' ),
+			'editor/blocks/event-details.js',
+			array( 'react', 'wp-blocks', 'wp-i18n', 'wp-element', 'tribe-events-html-react-parser', 'tribe-events-editor-qs' ),
 			'enqueue_block_editor_assets'
 		);
 	}
