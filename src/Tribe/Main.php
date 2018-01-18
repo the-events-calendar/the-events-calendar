@@ -3345,7 +3345,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$event_id     = get_the_ID();
 			$event_status = get_post_status( $event_id );
 
-			$is_event_preview = is_preview() && ( 'draft' === $event_status || 'auto-draft' === $event_status );
+			$is_event_preview = is_preview() && ( 'auto-draft' === $event_status );
 
 			if ( ! $is_event_preview ) {
 				return;
