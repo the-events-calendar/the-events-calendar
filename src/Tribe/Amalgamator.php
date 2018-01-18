@@ -32,7 +32,6 @@ class Tribe__Events__Amalgamator {
 		$this->merge_identical_venues();
 
 		$events = Tribe__Events__Main::instance();
-		$events->setOption( 'organizer_venue_amalgamation', 1 );
 		wp_cache_flush();
 	}
 
