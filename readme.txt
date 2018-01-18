@@ -310,6 +310,7 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 
 = [4.6.10] TBD =
 
+* New - Made the "events" and "event" slugs translatable by WPML and other multilingual plugins [95026]
 * New - Introduced the `tribe_events_query_force_local_tz` filter to allow for forcing non-UTC event start and end times in Tribe__Events__Query [92948]
 * Fix - Allow The Events Calendar REST API to be disabled using the `tribe_events_rest_api_enabled` filter [97209]
 * Tweak - Added some more context to the labeling of the "Number of events per page" option (thanks to Todd H. for highlighting this label) [73659]
@@ -317,6 +318,7 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 * Tweak - Improve performance on Event Admin List Count by removing JOIN and use cached results [63567]
 * Tweak - Made the "/page/" component of some views' URL string translatable [40976]
 * Fix - Make sure the date for past events is set to the current date not the end of the day of the current date [71936]
+* Tweak - Button "Merge Duplicates" is always visible from now on [75208]
 
 = [4.6.9] 2018-01-10 =
 
