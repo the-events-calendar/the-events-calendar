@@ -317,6 +317,7 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 * Fix - Remove the errant `div.tribe-events-single-section` on the single event view when there is no venue [97615]
 * Tweak - Improve performance on Event Admin List Count by removing JOIN and use cached results [63567]
 * Tweak - Made the "/page/" component of some views' URL string translatable [40976]
+* Fix - Use `featured_color_scheme_custom` if present as mechanism to overwrite the default color scheme for highlight color [96821]
 * Tweak - Button "Merge Duplicates" is always visible from now on [75208]
 
 = [4.6.9] 2018-01-10 =
