@@ -49,7 +49,7 @@ class Tribe__Events__Google__Maps_API_Key {
 				'type' => 'html',
 				'html' => '<p>' . sprintf(
 					__(
-						'We highly recommend that you specify a valid %s for The Events Calendar to use. Doing this will help prevent problems with maps, especially for sites that receive a lot of traffic. Visit %s for a detailed explanation in how to do it.',
+						'We highly recommend that you specify a valid %1$s for The Events Calendar to use. Doing this will help prevent problems with maps, especially for sites that receive a lot of traffic. Visit %2$s for a detailed explanation in how to do it.',
 						'the-events-calendar'
 					),
 					'<a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank" rel="noopener noreferrer">' . __( 'Google Maps API key', 'the-events-calendar' ) . '</a>',
