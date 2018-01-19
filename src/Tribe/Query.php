@@ -234,6 +234,10 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 
 				$query->set( 'eventDisplay', $query->get( 'eventDisplay', Tribe__Events__Main::instance()->displaying ) );
 
+				// By default we'll hide events marked as "hidden from event listings" unless
+				// the query explicity requests they be exposed
+				$maybe_hide_events = (bool) $query->get( 'hide_upcoming', true );
+
 				//@todo stop calling EOD cutoff transformations all over the place
 
 				if ( ! empty( $query->query_vars['eventDisplay'] ) ) {
@@ -272,7 +276,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 							if ( $query->get( 'end_date' == '' ) ) {
 								$query->set( 'end_date', tribe_end_of_day( $query->get( 'start_date' ) ) );
 							}
-							$query->set( 'hide_upcoming', true );
+							$query->set( 'hide_upcoming', $maybe_hide_events );
 
 							break;
 						case 'day':
@@ -282,7 +286,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 							$query->set( 'start_date', date_i18n( Tribe__Date_Utils::DBDATETIMEFORMAT, $beginning_of_day ) );
 							$query->set( 'end_date', tribe_end_of_day( $event_date ) );
 							$query->set( 'posts_per_page', - 1 ); // show ALL day posts
-							$query->set( 'hide_upcoming', true );
+							$query->set( 'hide_upcoming', $maybe_hide_events );
 							$query->set( 'order', self::set_order( 'ASC', $query ) );
 							break;
 						case 'single-event':
@@ -308,11 +312,11 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 								$query->set( 'order', self::set_order( 'DESC', $query ) );
 							}
 							$query->set( 'orderby', self::set_orderby( null, $query ) );
-							$query->set( 'hide_upcoming', true );
+							$query->set( 'hide_upcoming', $maybe_hide_events );
 							break;
 					}
 				} else {
-					$query->set( 'hide_upcoming', true );
+					$query->set( 'hide_upcoming', $maybe_hide_events );
 					$query->set( 'start_date', date_i18n( Tribe__Date_Utils::DBDATETIMEFORMAT ) );
 					$query->set( 'orderby', self::set_orderby( null, $query ) );
 					$query->set( 'order', self::set_order( null, $query ) );
