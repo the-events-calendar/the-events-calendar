@@ -321,6 +321,7 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 * Tweak - Made the "/page/" component of some views' URL string translatable [40976]
 * Fix - Make sure the date for past events is set to the current date not the end of the day of the current date [71936]
 * Tweak - Button "Merge Duplicates" is always visible from now on [75208]
+* Tweak - Allow queries to explicity include or exclude events that are nominally hidden from event listings [91254]
 * Fix - Use `featured_color_scheme_custom` if present as mechanism to overwrite the default color scheme for highlight color [96821]
 
 = [4.6.9] 2018-01-10 =
