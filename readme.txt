@@ -310,6 +310,7 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 
 = [4.6.10] TBD =
 
+* New - Add `the_title` filter to events called by `tribe_events_template_data` [38237]
 * New - Made the "events" and "event" slugs translatable by WPML and other multilingual plugins [95026]
 * New - Introduced the `tribe_events_query_force_local_tz` filter to allow for forcing non-UTC event start and end times in Tribe__Events__Query [92948]
 * Fix - Allow The Events Calendar REST API to be disabled using the `tribe_events_rest_api_enabled` filter [97209]
