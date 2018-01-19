@@ -121,36 +121,42 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 		}
 
 		if ( $customizer->has_option( $this->ID, 'featured_color_scheme' ) ) {
-			$template .= '
+			$featured_bg = '<%= general_theme.button_bg %>';
+
+			if ( $customizer->has_option( $this->ID, 'featured_color_scheme_custom' ) ) {
+				$featured_bg = '<%= general_theme.featured_color_scheme_custom %>';
+			}
+
+			$template .= "
 				.tribe-events-list .tribe-events-loop .tribe-event-featured,
 				.tribe-events-list #tribe-events-day.tribe-events-loop .tribe-event-featured,
 				.type-tribe_events.tribe-events-photo-event.tribe-event-featured .tribe-events-photo-event-wrap,
 				.type-tribe_events.tribe-events-photo-event.tribe-event-featured .tribe-events-photo-event-wrap:hover {
-					background-color: <%= general_theme.button_bg %>;
+					background-color: {$featured_bg};
 				}
 
 				#tribe-events-content table.tribe-events-calendar .type-tribe_events.tribe-event-featured {
-					background-color: <%= general_theme.button_bg %>;
+					background-color: {$featured_bg};
 				}
 
 				.tribe-events-list-widget .tribe-event-featured,
 				.tribe-events-venue-widget .tribe-event-featured,
 				.tribe-mini-calendar-list-wrapper .tribe-event-featured,
 				.tribe-events-adv-list-widget .tribe-event-featured .tribe-mini-calendar-event {
-					background-color: <%= general_theme.button_bg %>;
+					background-color: {$featured_bg};
 				}
 
 				.tribe-grid-body .tribe-event-featured.tribe-events-week-hourly-single {
 					background-color: rgba(<%= general_theme.button_bg_hex_red %>,<%= general_theme.button_bg_hex_green %>,<%= general_theme.button_bg_hex_blue %>, .7 );
-					border-color: <%= general_theme.button_bg %>;
+					border-color: {$featured_bg};
 				}
 
 				.tribe-grid-body .tribe-event-featured.tribe-events-week-hourly-single:hover {
-					background-color: <%= general_theme.button_bg %>;
+					background-color: {$featured_bg};
 				}
 
 				.tribe-button {
-					background-color: <%= general_theme.button_bg %>;
+					background-color: {$featured_bg};
 					color: <%= general_theme.button_color %>;
 				}
 
@@ -163,7 +169,7 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 				#tribe-events .tribe-event-featured .tribe-button:hover {
 					color: <%= general_theme.button_color_hover %>;
 				}
-			';
+			";
 
 			if ( $background_color_obj->isLight() ) {
 				$template .= '
