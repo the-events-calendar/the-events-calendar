@@ -304,7 +304,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 							} else {
 								// on past view, set the passed date as the end date
 								$query->set( 'start_date', '' );
-								$query->set( 'end_date', tribe_end_of_day( $event_date ) );
+								$query->set( 'end_date', $event_date );
 								$query->set( 'order', self::set_order( 'DESC', $query ) );
 							}
 							$query->set( 'orderby', self::set_orderby( null, $query ) );
