@@ -108,6 +108,23 @@ class Tribe__Events__Cost_Utils extends Tribe__Cost_Utils {
 					$currency_position = tribe_get_option( 'reverseCurrencyPosition', false );
 				}
 
+				/**
+				 * Allow other plugins to filter the currency symbol
+				 * @since TBD
+				 *
+				 * @param string      $currency_symbol The formatted costs string
+				 * @param int|WP_Post $event     The Event post object or event ID
+				 */
+				$currency_symbol   = apply_filters( 'tribe_events_cost_utils_formatted_events_cost_symbol', $currency_symbol, $event );
+				/**
+				 * Allow other plugins to filter the currency symbol position
+				 * @since TBD
+				 *
+				 * @param string      $currency_symbol The formatted costs string
+				 * @param int|WP_Post $event     The Event post object or event ID
+				 */
+				$currency_position = apply_filters( 'tribe_events_cost_utils_formatted_events_cost_symbol_position', $currency_position, $event );
+
 				$cost = $this->maybe_format_with_currency( $cost, $event, $currency_symbol, $currency_position );
 			}
 
@@ -122,7 +139,14 @@ class Tribe__Events__Cost_Utils extends Tribe__Cost_Utils {
 					'the-events-calendar' ) . $relevant_costs['max'];
 		}
 
-		return $formatted;
+		/**
+		 * Filter the formatted costs before returning
+		 * @since TBD
+		 *
+		 * @param string      $formatted The formatted costs string
+		 * @param int|WP_Post $event     The Event post object or event ID
+		 */
+		return apply_filters( 'tribe_events_cost_utils_formatted_events_cost', $formatted, $event );
 	}
 
 	/**
