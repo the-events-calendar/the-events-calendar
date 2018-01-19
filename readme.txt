@@ -316,12 +316,13 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 * Fix - Allow The Events Calendar REST API to be disabled using the `tribe_events_rest_api_enabled` filter [97209]
 * Fix - Remove the errant `div.tribe-events-single-section` on the single event view when there is no venue [97615]
 * Fix - Prevent newly-created venues and organizers from being deleted when saving and previewing drafts of new events (thanks Matt R. for reporting this issue) [90757]
+* Fix - Make sure the date for past events is set to the current date not the end of the day of the current date [71936]
+* Fix - Use `featured_color_scheme_custom` if present as mechanism to overwrite the default color scheme for highlight color [96821]
+* Tweak - Improved the alignment of the event cost on the single-event view (props to @canberraclimbersassociation for reporting this bug) [97208] 
 * Tweak - Added some more context to the labeling of the "Number of events per page" option (thanks to Todd H. for highlighting this label) [73659]
 * Tweak - Improve performance on Event Admin List Count by removing JOIN and use cached results [63567]
 * Tweak - Made the "/page/" component of some views' URL string translatable [40976]
-* Fix - Make sure the date for past events is set to the current date not the end of the day of the current date [71936]
 * Tweak - Button "Merge Duplicates" is always visible from now on [75208]
-* Fix - Use `featured_color_scheme_custom` if present as mechanism to overwrite the default color scheme for highlight color [96821]
 
 = [4.6.9] 2018-01-10 =
 
