@@ -1020,7 +1020,7 @@ select.tribe-events-dropdown {
 }
 
 .single-tribe_events .tribe-events-schedule .tribe-events-cost {
-	vertical-align: middle;
+	vertical-align: baseline;
 }
 
 /* Featured Image */
