@@ -320,7 +320,7 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 * Fix - Use `featured_color_scheme_custom` if present as mechanism to overwrite the default color scheme for highlight color [96821]
 * Fix - Prevent newly-created venues and organizers from being deleted when saving and previewing drafts of new events (thanks Matt R. for reporting this issue) [90757]
 * Fix - Make sure the date for past events is set to the current date not the end of the day of the current date [71936]
-* Fix - Use `featured_color_scheme_custom` if present as mechanism to overwrite the default color scheme for highlight color [96821]
+* Tweak - Prevent empty or otherwise-invalid values for various date-format options in the Display settings [94725]
 * Tweak - Brought day number headers in the Month View into compliance with WCAG 2.0 accessibility standards when using the "Tribe Events" stylesheet [68411]
 * Tweak - Improved the alignment of the event cost on the single-event view (props to @canberraclimbersassociation for reporting this bug) [97208] 
 * Tweak - Added some more context to the labeling of the "Number of events per page" option (thanks to Todd H. for highlighting this label) [73659]
