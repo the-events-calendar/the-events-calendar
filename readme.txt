@@ -310,6 +310,7 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 
 = [4.6.10] TBD =
 
+* New - Trigger an event `map-created.tribe` when a map is created to allow flexibility on customization [91984]
 * New - Add a link to the knowledge base about 'Setting Up Your Google Maps API Key' [89761]
 * New - Add `the_title` filter to events called by `tribe_events_template_data` [38237]
 * New - Made the "events" and "event" slugs translatable by WPML and other multilingual plugins [95026]
@@ -322,7 +323,7 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 * Fix - Make sure the date for past events is set to the current date not the end of the day of the current date [71936]
 * Tweak - Prevent empty or otherwise-invalid values for various date-format options in the Display settings [94725]
 * Tweak - Brought day number headers in the Month View into compliance with WCAG 2.0 accessibility standards when using the "Tribe Events" stylesheet [68411]
-* Tweak - Improved the alignment of the event cost on the single-event view (props to @canberraclimbersassociation for reporting this bug) [97208] 
+* Tweak - Improved the alignment of the event cost on the single-event view (props to @canberraclimbersassociation for reporting this bug) [97208]
 * Tweak - Added some more context to the labeling of the "Number of events per page" option (thanks to Todd H. for highlighting this label) [73659]
 * Tweak - Improve performance on Event Admin List Count by removing JOIN and use cached results [63567]
 * Tweak - Made the "/page/" component of some views' URL string translatable [40976]
