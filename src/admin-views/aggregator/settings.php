@@ -517,6 +517,15 @@ $internal = array_merge(
 	$ea_disable
 );
 
+/**
+ * Filter the Aggregator Setting Fields
+ *
+ * @since TDB
+ *
+ * @param $internal array an array of aggregator fields
+ * @param $origin_post_statuses array an array of post statuses
+ * @param $origin_categories array an array of event categories
+ */
 $internal = apply_filters( 'tribe_aggregator_fields', $internal, $origin_post_statuses, $origin_categories );
 
 /**
@@ -573,7 +582,6 @@ if ( tribe( 'events-aggregator.main' )->is_service_active() ) {
 	 * @since TDB
 	 *
 	 * @param $import_setting_links array an array of import setting anchor links
-	 *
 	 */
 	$import_setting_links = apply_filters( 'tribe_aggregator_setting_links', $import_setting_links );
 
