@@ -5,7 +5,7 @@
  * Override this template in your own theme by creating a file at:
  * [your-theme]/tribe-events/modules/meta.php
  *
- * @version TBD
+ * @version 4.6.10
  *
  * @package TribeEventsCalendar
  */

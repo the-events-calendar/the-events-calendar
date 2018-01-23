@@ -533,7 +533,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			 * the UTC time for event start and end times will be used. This filter allows the
 			 * disabling of that in certain contexts, so that local (not UTC) event times are used.
 			 *
-			 * @since TBD
+			 * @since 4.6.10
 			 *
 			 * @param boolean $force_local_tz Whether to force the local TZ.
 			 */

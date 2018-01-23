@@ -430,7 +430,7 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 			 *
 			 * @param mixed $default_value    The default value to be applied on creation.
 			 *
-			 * @since TBD
+			 * @since 4.6.10
 			 */
 			$default_value = apply_filters( 'tribe_events_venue_created_map_default', true );
 
