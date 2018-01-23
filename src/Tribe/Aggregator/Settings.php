@@ -32,6 +32,7 @@ class Tribe__Events__Aggregator__Settings {
 	public function __construct() {
 		add_action( 'tribe_settings_do_tabs', array( $this, 'do_import_settings_tab' ) );
 		add_action( 'current_screen', array( $this, 'maybe_clear_fb_credentials' ) );
+		add_action( 'current_screen', array( $this, 'maybe_clear_eb_credentials' ) );
 	}
 
 	/**
@@ -117,6 +118,98 @@ class Tribe__Events__Aggregator__Settings {
 		}
 
 		$credentials = $this->get_fb_credentials();
+
+		// Allow passing comparing time
+		if ( is_null( $time ) ) {
+			$time = time();
+		}
+
+		return $credentials->expires > $time;
+	}
+
+	/**
+	 * Hooked to current_screen, this method identifies whether or not eb credentials should be cleared
+	 *
+	 * @param WP_Screen $screen
+	 */
+	public function maybe_clear_eb_credentials( $screen ) {
+		if ( 'tribe_events_page_tribe-common' !== $screen->base ) {
+			return;
+		}
+
+		if ( ! isset( $_GET['tab'] ) || 'addons' !== $_GET['tab'] ) {
+			return;
+		}
+
+		if (
+			! (
+				isset( $_GET['action'] )
+				&& isset( $_GET['_wpnonce'] )
+				&& 'disconnect-eventbrite' === $_GET['action']
+				&& wp_verify_nonce( $_GET['_wpnonce'], 'disconnect-eventbrite' )
+			)
+		) {
+			return;
+		}
+
+		$this->clear_eb_credentials();
+
+		wp_redirect(
+			Tribe__Settings::instance()->get_url( array( 'tab' => 'addons' ) )
+		);
+		die;
+	}
+
+	public function get_eb_credentials() {
+		$args = array(
+			'token'   => tribe_get_option( 'eb_token' ),
+			'expires' => tribe_get_option( 'eb_token_expires' ),
+			'scopes'  => tribe_get_option( 'eb_token_scopes' ),
+		);
+
+		return (object) $args;
+	}
+
+	public function has_eb_credentials() {
+		$credentials = $this->get_eb_credentials();
+		return ! empty( $credentials->token ) && ! empty( $credentials->expires ) && ! empty( $credentials->scopes );
+	}
+
+	public function clear_eb_credentials() {
+		tribe_update_option( 'eb_token', null );
+		tribe_update_option( 'eb_token_expires', null );
+		tribe_update_option( 'eb_token_scopes', null );
+	}
+
+	/**
+	 * Given a URL, tack on the parts of the URL that gets used to disconnect Eventbrite
+	 *
+	 * @param string $url
+	 *
+	 * @return string
+	 */
+	public function build_disconnect_eventbrite_url( $url ) {
+		return wp_nonce_url(
+			add_query_arg(
+				'action',
+				'disconnect-eventbrite',
+				$url
+			),
+			'disconnect-eventbrite'
+		);
+	}
+
+	public function is_eb_credentials_valid( $time = null ) {
+		// if the service hasn't enabled oauth for Eventbrite, always assume it is valid
+		if ( ! tribe( 'events-aggregator.main' )->api( 'origins' )->is_oauth_enabled( 'eventbrite' ) ) {
+			return true;
+		}
+
+		if ( ! $this->has_eb_credentials() ) {
+			return false;
+		}
+
+		$credentials = $this->get_eb_credentials();
 
 		// Allow passing comparing time
 		if ( is_null( $time ) ) {

@@ -37,6 +37,12 @@ class Tribe__Events__Aggregator__API__Origins extends Tribe__Events__Aggregator_
 				'disabled' => true,
 				'upsell' => true,
 			),
+			'eventbrite' => (object) array(
+				'id' => 'eventbrite',
+				'name' => __( 'Eventbrite', 'the-events-calendar' ),
+				'disabled' => true,
+				'upsell' => true,
+			),
 			'gcal' => (object) array(
 				'id' => 'gcal',
 				'name' => __( 'Google Calendar', 'the-events-calendar' ),

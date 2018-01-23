@@ -45,6 +45,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 
 		add_action( 'tribe_aggregator_page_request', array( $this, 'handle_submit' ) );
 		add_action( 'tribe_aggregator_page_request', array( $this, 'handle_facebook_credentials' ) );
+		add_action( 'tribe_aggregator_page_request', array( $this, 'handle_eventbrite_credentials' ) );
 
 		// hooked at priority 9 to ensure that notices are injected before notices get hooked in Tribe__Admin__Notices
 		add_action( 'current_screen', array( $this, 'maybe_display_notices' ), 9 );
@@ -165,6 +166,56 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		tribe_update_option( 'fb_token', trim( preg_replace( '/[^a-zA-Z0-9]/', '', $response->data->token ) ) );
 		tribe_update_option( 'fb_token_expires', $expires );
 		tribe_update_option( 'fb_token_scopes', trim( preg_replace( '/[^a-zA-Z0-9\,_-]/', '', $response->data->scopes ) ) );
+
+		// Send it back to the Given Url
+		wp_redirect( $url_map[ $type ] );
+		exit;
+	}
+
+	public function handle_eventbrite_credentials() {
+		/**
+		 * Verify that we are dealing with a EB token Request
+		 */
+		if ( ! isset( $_GET['ea-eb-token'] ) ) {
+			return false;
+		}
+
+		/**
+		 * @todo  include a way to handle errors on the Send back URL
+		 */
+		$api      = tribe( 'events-aggregator.service' )->api();
+		$response = tribe( 'events-aggregator.service' )->get_eventbrite_token();
+		$type     = $_GET['ea-eb-token'];
+
+		if ( is_wp_error( $response ) ) {
+			return false;
+		}
+
+		if ( empty( $response->data ) ) {
+			return false;
+		}
+
+		if ( empty( $response->data->token ) ) {
+			return false;
+		}
+
+		$url_map = array(
+			'new'      => Tribe__Events__Aggregator__Page::instance()->get_url( array( 'tab' => $this->get_slug(), 'ea-auth' => 'eventbrite' ) ),
+			'settings' => Tribe__Settings::instance()->get_url( array( 'tab' => 'addons', 'ea-auth' => 'eventbrite' ) ),
+		);
+
+		if ( ! isset( $url_map[ $type ] ) ) {
+			return false;
+		}
+
+		// Calculate when will this Token Expire
+		$expires = absint( trim( preg_replace( '/[^0-9]/', '', $response->data->expires ) ) );
+		$expires += time();
+
+		// Save the Options
+		tribe_update_option( 'eb_token', trim( preg_replace( '/[^a-zA-Z0-9]/', '', $response->data->token ) ) );
+		tribe_update_option( 'eb_token_expires', $expires );
+		tribe_update_option( 'eb_token_scopes', trim( preg_replace( '/[^a-zA-Z0-9\,_-]/', '', $response->data->scopes ) ) );
 
 		// Send it back to the Given Url
 		wp_redirect( $url_map[ $type ] );
