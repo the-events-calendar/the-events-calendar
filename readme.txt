@@ -327,7 +327,7 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 * Tweak - Improve performance on Event Admin List Count by removing JOIN and use cached results [63567]
 * Tweak - Made the "/page/" component of some views' URL string translatable [40976]
 * Tweak - Button "Merge Duplicates" is always visible from now on [75208]
-* Tweak - Allow queries to explicity include or exclude events that are nominally hidden from event listings [91254]
+* Tweak - Allow queries to explicitly include or exclude events that are nominally hidden from event listings [91254]
 
 = [4.6.9] 2018-01-10 =
 
