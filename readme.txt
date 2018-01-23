@@ -310,16 +310,16 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 
 = [4.6.10] 2018-01-23 =
 
-* New - Trigger an event `map-created.tribe` when a map is created to allow flexibility on customization [91984]
-* New - Add a link to the knowledge base about 'Setting Up Your Google Maps API Key' [89761]
-* New - Add `the_title` filter to events called by `tribe_events_template_data` [38237]
-* New - Made the "events" and "event" slugs translatable by WPML and other multilingual plugins [95026]
-* New - Introduced the `tribe_events_query_force_local_tz` filter to allow for forcing non-UTC event start and end times in Tribe__Events__Query [92948]
 * Fix - Allow The Events Calendar REST API to be disabled using the `tribe_events_rest_api_enabled` filter [97209]
 * Fix - Remove the errant `div.tribe-events-single-section` on the single event view when there is no venue [97615]
 * Fix - Make sure the date for past events is set to the current date not the end of the day of the current date [71936]
 * Fix - Use `featured_color_scheme_custom` if present as mechanism to overwrite the default color scheme for highlight color [96821]
 * Fix - Make sure the date for past events is set to the current date not the end of the day of the current date [71936]
+* Tweak - Trigger an event `map-created.tribe` when a map is created to allow flexibility on customization [91984]
+* Tweak - Add a link to the knowledge base about 'Setting Up Your Google Maps API Key' [89761]
+* Tweak - Add `the_title` filter to events called by `tribe_events_template_data` [38237]
+* Tweak - Made the "events" and "event" slugs translatable by WPML and other multilingual plugins [95026]
+* Tweak - Introduced the `tribe_events_query_force_local_tz` filter to allow for forcing non-UTC event start and end times in Tribe__Events__Query [92948]
 * Tweak - Prevent empty or otherwise-invalid values for various date-format options in the Display settings [94725]
 * Tweak - Brought day number headers in the Month View into compliance with WCAG 2.0 accessibility standards when using the "Tribe Events" stylesheet [68411]
 * Tweak - Improved the alignment of the event cost on the single-event view (props to @canberraclimbersassociation for reporting this bug) [97208]

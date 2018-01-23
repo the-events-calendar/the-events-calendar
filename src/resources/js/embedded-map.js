@@ -86,7 +86,7 @@ if ( "function" === typeof jQuery ) jQuery( document ).ready( function( $ ) {
 		 * @param {Element} el The DOM Element where the map is attached.
 		 * @param {Object} options The initial set of options for the map.
 		 *
-		 * @since TBD
+		 * @since 4.6.10
 		 *
 		 */
 		$( 'body' ).trigger( 'map-created.tribe', [ venueObject.map, mapHolder, mapOptions ] );
