@@ -308,7 +308,7 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 
 == Changelog ==
 
-= [4.6.10] TBD =
+= [4.6.10] 2018-01-23 =
 
 * New - Trigger an event `map-created.tribe` when a map is created to allow flexibility on customization [91984]
 * New - Add a link to the knowledge base about 'Setting Up Your Google Maps API Key' [89761]
