@@ -604,7 +604,7 @@ if ( tribe( 'events-aggregator.main' )->is_service_active() ) {
 			if ( $information !== end( $import_setting_links ) ) {
 				$separator = ' | ';
 			}
-			echo '<a href="#tribe-import-' . esc_attr( $anchor ) . '">' . esc_attr( $information['name'] ) . '</a>' . $separator;
+			echo '<a href="#tribe-import-' . esc_attr( $anchor ) . '">' . esc_attr( $information['name'] ) . '</a>' . esc_attr( $separator );
 		}
 		?>
 	</div>
