@@ -85,8 +85,9 @@ class Tribe__Events__Rewrite extends  Tribe__Rewrite {
 		 *
 		 * @param array $events_rewrite_rules
 		 * @param Tribe__Events__Rewrite $tribe_rewrite
+		 * @param WP_Rewrite $wp_rewrite WordPress Rewrite that will be modified.
 		 */
-		$this->rules = apply_filters( 'tribe_events_rewrite_rules_custom', $this->rules, $this );
+		$this->rules = apply_filters( 'tribe_events_rewrite_rules_custom', $this->rules, $this, $wp_rewrite );
 
 		$wp_rewrite->rules = $this->rules + $wp_rewrite->rules;
 	}
@@ -253,9 +254,9 @@ class Tribe__Events__Rewrite extends  Tribe__Rewrite {
 			'day' => array( 'day', $tec->daySlug ),
 			'tag' => array( 'tag', $tec->tag_slug ),
 			'tax' => array( 'category', $tec->category_slug ),
-			'page' => (array) 'page',
-			'single' => (array) Tribe__Settings_Manager::get_option( 'singleEventSlug', 'event' ),
-			'archive' => (array) Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' ),
+			'page'     => array( 'page', esc_html_x( 'page', 'The "/page/" URL string component.', 'the-events-calendar' ) ),
+			'single' => array( 'event', $tec->rewriteSlugSingular ),
+			'archive' => array( 'events', $tec->rewriteSlug ),
 			'featured' => array( 'featured', $tec->featured_slug ),
 		) );
 
@@ -267,7 +268,7 @@ class Tribe__Events__Rewrite extends  Tribe__Rewrite {
 
 		// By default we load the Default and our plugin domains
 		$domains = apply_filters( 'tribe_events_rewrite_i18n_domains', array(
-			'default' => true, // Default doesn't need file path
+			'default'             => true, // Default doesn't need file path
 			'the-events-calendar' => $tec->plugin_dir . 'lang/',
 		) );
 

@@ -25,6 +25,12 @@ $general_tab_fields = Tribe__Main::array_insert_after_key(
 	)
 );
 
+$posts_per_page_tooltip = esc_html__( 'The number of events per page on the List View. Does not affect other views.', 'the-events-calendar' );
+
+if ( class_exists( 'Tribe__Events__Pro__Main' ) ) {
+	$posts_per_page_tooltip = esc_html__( 'The number of events per page on the List, Photo, and Map Views. Does not affect other views.', 'the-events-calendar' );
+}
+
 $general_tab_fields = Tribe__Main::array_insert_before_key(
 	'debugEvents',
 	$general_tab_fields,
@@ -36,6 +42,7 @@ $general_tab_fields = Tribe__Main::array_insert_before_key(
 		'postsPerPage'                  => array(
 			'type'            => 'text',
 			'label'           => esc_html__( 'Number of events to show per page', 'the-events-calendar' ),
+			'tooltip'         => $posts_per_page_tooltip,
 			'size'            => 'small',
 			'default'         => get_option( 'posts_per_page' ),
 			'validation_type' => 'positive_int',
@@ -152,7 +159,6 @@ $general_tab_fields = Tribe__Main::array_insert_before_key(
 		'amalgamateDuplicates'          => array(
 			'type'        => 'html',
 			'html'        => '<fieldset class="tribe-field tribe-field-html"><legend>' . esc_html__( 'Duplicate Venues &amp; Organizers', 'the-events-calendar' ) . '</legend><div class="tribe-field-wrap">' . Tribe__Events__Amalgamator::migration_button( esc_html__( 'Merge Duplicates', 'the-events-calendar' ) ) . '<p class="tribe-field-indent description">' . esc_html__( 'You might find duplicate venues and organizers when updating The Events Calendar from a pre-3.0 version. Click this button to automatically merge identical venues and organizers.', 'the-events-calendar' ) . '</p></div></fieldset><div class="clear"></div>',
-			'conditional' => ( Tribe__Settings_Manager::get_option( 'organizer_venue_amalgamation', 0 ) < 1 ),
 		),
 		'tribeEventsMiscellaneousTitle' => array(
 			'type' => 'html',

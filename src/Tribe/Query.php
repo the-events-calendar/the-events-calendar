@@ -234,6 +234,10 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 
 				$query->set( 'eventDisplay', $query->get( 'eventDisplay', Tribe__Events__Main::instance()->displaying ) );
 
+				// By default we'll hide events marked as "hidden from event listings" unless
+				// the query explicity requests they be exposed
+				$maybe_hide_events = (bool) $query->get( 'hide_upcoming', true );
+
 				//@todo stop calling EOD cutoff transformations all over the place
 
 				if ( ! empty( $query->query_vars['eventDisplay'] ) ) {
@@ -272,7 +276,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 							if ( $query->get( 'end_date' == '' ) ) {
 								$query->set( 'end_date', tribe_end_of_day( $query->get( 'start_date' ) ) );
 							}
-							$query->set( 'hide_upcoming', true );
+							$query->set( 'hide_upcoming', $maybe_hide_events );
 
 							break;
 						case 'day':
@@ -282,7 +286,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 							$query->set( 'start_date', date_i18n( Tribe__Date_Utils::DBDATETIMEFORMAT, $beginning_of_day ) );
 							$query->set( 'end_date', tribe_end_of_day( $event_date ) );
 							$query->set( 'posts_per_page', - 1 ); // show ALL day posts
-							$query->set( 'hide_upcoming', true );
+							$query->set( 'hide_upcoming', $maybe_hide_events );
 							$query->set( 'order', self::set_order( 'ASC', $query ) );
 							break;
 						case 'single-event':
@@ -304,15 +308,15 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 							} else {
 								// on past view, set the passed date as the end date
 								$query->set( 'start_date', '' );
-								$query->set( 'end_date', tribe_end_of_day( $event_date ) );
+								$query->set( 'end_date', $event_date );
 								$query->set( 'order', self::set_order( 'DESC', $query ) );
 							}
 							$query->set( 'orderby', self::set_orderby( null, $query ) );
-							$query->set( 'hide_upcoming', true );
+							$query->set( 'hide_upcoming', $maybe_hide_events );
 							break;
 					}
 				} else {
-					$query->set( 'hide_upcoming', true );
+					$query->set( 'hide_upcoming', $maybe_hide_events );
 					$query->set( 'start_date', date_i18n( Tribe__Date_Utils::DBDATETIMEFORMAT ) );
 					$query->set( 'orderby', self::set_orderby( null, $query ) );
 					$query->set( 'order', self::set_order( null, $query ) );
@@ -524,7 +528,18 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			$event_start_key = '_EventStartDate';
 			$event_end_key   = '_EventEndDate';
 
-			if ( Tribe__Events__Timezones::is_mode( 'site' ) ) {
+			/**
+			 * When the "Use site timezone everywhere" option is checked in events settings,
+			 * the UTC time for event start and end times will be used. This filter allows the
+			 * disabling of that in certain contexts, so that local (not UTC) event times are used.
+			 *
+			 * @since 4.6.10
+			 *
+			 * @param boolean $force_local_tz Whether to force the local TZ.
+			 */
+			$force_local_tz = apply_filters( 'tribe_events_query_force_local_tz', false );
+
+			if ( Tribe__Events__Timezones::is_mode( 'site' ) && ! $force_local_tz ) {
 				$event_start_key .= 'UTC';
 				$event_end_key   .= 'UTC';
 			}

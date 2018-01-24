@@ -47,9 +47,14 @@ class Tribe__Events__Google__Maps_API_Key {
 
 			'gmaps-js-api-info-box' => array(
 				'type' => 'html',
-				'html' => '<p>' . sprintf( __( 'We highly recommend that you specify a valid %s for The Events Calendar to use. Doing this will help prevent problems with maps, especially for sites that receive a lot of traffic.',
-						'the-events-calendar' ), '<a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank">' . __( 'Google Maps API key',
-							'the-events-calendar' ) . '</a>' ) . '</p>',
+				'html' => '<p>' . sprintf(
+					__(
+						'We highly recommend that you specify a valid %1$s for The Events Calendar to use. Doing this will help prevent problems with maps, especially for sites that receive a lot of traffic. Visit %2$s for a detailed explanation in how to do it.',
+						'the-events-calendar'
+					),
+					'<a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank" rel="noopener noreferrer">' . __( 'Google Maps API key', 'the-events-calendar' ) . '</a>',
+					'<a href="https://theeventscalendar.com/knowledgebase/setting-up-your-google-maps-api-key/" target="_blank" rel="noopener noreferrer">' . __( 'our guide', 'the-events-calendar' ) . '</a>'
+				) . '</p>',
 			),
 
 			$this->api_key_option_name => array(
@@ -84,6 +89,6 @@ class Tribe__Events__Google__Maps_API_Key {
 	}
 
 	public function filter_tribe_events_pro_google_maps_api($js_maps_api_url  ) {
-		
+
 	}
 }

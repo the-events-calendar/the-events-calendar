@@ -32,7 +32,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '4.6.9';
+		const VERSION             = '4.6.10';
 		const MIN_ADDON_VERSION   = '4.4';
 		const MIN_COMMON_VERSION  = '4.7.3';
 
@@ -904,7 +904,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			$post = get_post( $post );
-			$archive_slug = Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' );
+			// translators: For compatibility with WPML and other multilingual plugins, not to be translated directly on .mo files.
+			$archive_slug = _x( Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' ), 'Archive Events Slug', 'the-events-calendar' );
 
 			// is it a real post?
 			if ( ! $post instanceof WP_Post ) {
@@ -925,7 +926,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return string
 		 */
 		public function render_notice_archive_slug_conflict() {
-			$archive_slug   = Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' );
+			// translators: For compatibility with WPML and other multilingual plugins, not to be translated directly on .mo files.
+			$archive_slug   = _x( Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' ), 'Archive Events Slug', 'the-events-calendar' );
 			$conflict_query = new WP_Query( array(
 				'name'                   => $archive_slug,
 				'post_type'              => 'any',
@@ -1594,6 +1596,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 *
 			 * @since 3.2
 			 */
+			$post_type_args['rewrite']['slug'] = $this->getRewriteSlugSingular();
 			$post_type_args = apply_filters( 'tribe_events_register_event_type_args', $post_type_args );
 
 			register_post_type( self::POSTTYPE, $post_type_args );
@@ -1643,7 +1646,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return string
 		 */
 		public function getRewriteSlug() {
-			return sanitize_title( Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' ) );
+			// translators: For compatibility with WPML and other multilingual plugins, not to be translated directly on .mo files.
+			return sanitize_title( _x( Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' ), 'Archive Events Slug', 'the-events-calendar' ) );
 		}
 
 		/**
@@ -1652,7 +1656,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return string
 		 */
 		public function getRewriteSlugSingular() {
-			return sanitize_title( Tribe__Settings_Manager::get_option( 'singleEventSlug', 'event' ) );
+			// translators: For compatibility with WPML and other multilingual plugins, not to be translated directly on .mo files.
+			return sanitize_title( _x( Tribe__Settings_Manager::get_option( 'singleEventSlug', 'event' ), 'Rewrite Singular Slug', 'the-events-calendar' ) );
 		}
 
 		/**
@@ -1766,7 +1771,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				/* translators: %s: date and time of the revision */
 				5  => isset( $_GET['revision'] ) ? sprintf( esc_html__( '%1$s restored to revision from %2$s', 'the-events-calendar' ), $this->singular_event_label, wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
 				6  => sprintf(
-					esc_html__( 'Event published. %1$sView %2$s', 'the-events-calendar' ),
+					esc_html__( '%1$s published. %2$sView %3$s', 'the-events-calendar' ),
+					$this->singular_event_label,
 					'<a href="' . esc_url( get_permalink( $post_ID ) ) . '">',
 					$this->singular_event_label_lowercase . '</a>'
 				),
@@ -2462,7 +2468,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			// Append Events structure
-			$event_url .= trailingslashit( sanitize_title( Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' ) ) );
+			$slug = _x( Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' ), 'Archive Events Slug', 'the-events-calendar' );
+			$event_url .= trailingslashit( sanitize_title( $slug ) );
 
 			// if we're on an Event Cat, show the cat link, except for home and days.
 			if ( $type !== 'home' && is_tax( self::TAXONOMY ) && $term !== false && ! is_numeric( $term ) ) {
@@ -3191,6 +3198,16 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			$data = stripslashes_deep( $_POST['venue'] );
+			/**
+			 * When a new venue is saved set the value for ShowMap and ShowMapLink if they are not present as if
+			 * a checkbox is set to false $_POST is not going to send the value and is not going to be present inside
+			 * of the array. This action is fired on update or creation from the admin so it's not goint to affect
+			 * external components like Community Plugin.
+			 */
+			$data = wp_parse_args( (array) $data, array(
+				'ShowMap' => 'false',
+				'ShowMapLink' => 'false',
+			) );
 			Tribe__Events__API::updateVenue( $postID, $data );
 		}
 
@@ -3328,7 +3345,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$event_id     = get_the_ID();
 			$event_status = get_post_status( $event_id );
 
-			$is_event_preview = is_preview() && ( 'draft' === $event_status || 'auto-draft' === $event_status );
+			$is_event_preview = is_preview() && ( 'auto-draft' === $event_status );
 
 			if ( ! $is_event_preview ) {
 				return;
