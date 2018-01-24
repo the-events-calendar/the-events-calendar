@@ -413,11 +413,13 @@ h2.tribe-events-page-title,
 
 /* Large Calendar Specifics */
 
-.events-archive.events-gridview #tribe-events-content table .type-tribe_events {
+.events-archive.events-gridview #tribe-events-content table .type-tribe_events,
+.tribe-events-shortcode .tribe-events-month table .type-tribe_events {
 	border-bottom: 1px solid #e0e0e0;
 }
 
-.events-archive.events-gridview #tribe-events-content table .tribe-events-last {
+.events-archive.events-gridview #tribe-events-content table .tribe-events-last,
+.tribe-events-shortcode .tribe-events-month table .tribe-events-last {
 	border-bottom: 0;
 }
 

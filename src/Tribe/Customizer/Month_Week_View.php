@@ -51,7 +51,8 @@ final class Tribe__Events__Customizer__Month_Week_View extends Tribe__Customizer
 					border-color: <%= month_week_view.border_dark_color %>;
 				}
 
-				.events-archive.events-gridview #tribe-events-content table .type-tribe_events {
+				.events-archive.events-gridview #tribe-events-content table .type-tribe_events,
+				.tribe-events-shortcode .tribe-events-month table .type-tribe_events {
 					border-color: <%= month_week_view.border_light_color %>;
 				}
 
