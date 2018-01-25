@@ -309,7 +309,7 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 == Changelog ==
 
 = [4.6.10.1] 2018-01-25 =
-* Fix - Make sure rewrite rule for `/events` is not hardcoded and is based on dynamic option field [98463]
+* Fix - Make sure rewrite rule for `/events` is not hardcoded and is based on dynamic option field (thanks to @earnjam and others for flagging this problem) [98463]
 
 = [4.6.10] 2018-01-23 =
 
