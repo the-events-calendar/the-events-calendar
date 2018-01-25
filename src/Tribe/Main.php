@@ -471,7 +471,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			require_once $this->plugin_path . 'vendor/tribe-common-libraries/tribe-common-libraries.class.php';
 
 			// Load CSV importer
-			require_once $this->plugin_path . 'src/io/csv/ecp-events-importer.php';
+			//todo deprecate
+			//require_once $this->plugin_path . 'src/io/csv/ecp-events-importer.php';
 
 			// Load Template Tags
 			require_once $this->plugin_path . 'src/functions/template-tags/query.php';

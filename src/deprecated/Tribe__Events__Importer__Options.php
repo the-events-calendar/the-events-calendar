@@ -1,4 +1,5 @@
 <?php
+_deprecated_file( __FILE__, '4.5' );
 /**
  * Tribe__Events__Importer__Options
  *

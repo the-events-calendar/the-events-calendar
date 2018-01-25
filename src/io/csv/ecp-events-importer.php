@@ -1,5 +1,5 @@
 <?php
-
+//todo deprecat file
 if ( ! function_exists( 'Tribe_Events_Importer_Load' ) ) {
 
 	function Tribe_Events_Importer_Load() {
