@@ -199,6 +199,13 @@ class Tribe__Events__Aggregator__Settings {
 		);
 	}
 
+	/**
+	 * Check if the Eventbrite credentials are connected, valid, and not expired.
+	 *
+	 * @param null|int $time UNIX Timestamp to check if credentials have expired yet.
+	 *
+	 * @return bool Whether the Eventbrite credentials are valid
+	 */
 	public function is_eb_credentials_valid( $time = null ) {
 		// if the service hasn't enabled oauth for Eventbrite, always assume it is valid
 		if ( ! tribe( 'events-aggregator.main' )->api( 'origins' )->is_oauth_enabled( 'eventbrite' ) ) {
