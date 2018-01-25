@@ -25,6 +25,14 @@ switch ( $origin_slug ) {
 		$depends = "#tribe-ea-field-{$origin_slug}_import_type";
 		$radius->help = __( 'Use the filters to narrow down which events are fetched from Facebook.', 'the-events-calendar' );
 		break;
+	case 'eventbrite':
+		$depends = "#tribe-ea-field-{$origin_slug}_import_type";
+		$radius->help = __( 'Use the filters to narrow down which events are fetched from Eventbrite.', 'the-events-calendar' );
+		// Only new events
+		if ( empty( $record->meta['start'] ) ) {
+			$record->meta['start'] = date_i18n( 'Y-m-d' );
+		}
+		break;
 	case 'ical':
 	default:
 		$depends = "#tribe-ea-field-{$origin_slug}_import_type";
