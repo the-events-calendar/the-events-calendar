@@ -245,6 +245,13 @@ class Tribe__Events__Rewrite extends  Tribe__Rewrite {
 		 * way if the forms are altered (whether through i18n or other custom mods) *after* links
 		 * have already been promulgated, there will be less chance of visitors hitting 404s.
 		 *
+		 * The term "original" here for:
+		 * - events
+		 * - event
+		 *
+		 * Means that is a value that can be overwritten and relies on the user value entered on the
+		 * options page.
+		 *
 		 * @var array $bases
 		 */
 		$bases = apply_filters( 'tribe_events_rewrite_base_slugs', array(
