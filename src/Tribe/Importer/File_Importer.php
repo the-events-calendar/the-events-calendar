@@ -165,8 +165,18 @@ abstract class Tribe__Events__Importer__File_Importer {
 		$record = $this->reader->read_next_row();
 		$row    = $this->reader->get_last_line_number_read() + 1;
 
+		$encoding_option = Tribe__Settings_Manager::get_option( 'imported_encoding_status', array( 'csv' => 'encode' ) );
+		/**
+		 *  Filter Encoding Status Option for CSV Imports
+		 *
+		 * @since TBD
+		 *
+		 * @param  $encoding_status array an array to encode
+		 * @param [ 'csv' => 'encode' ] array the default value to enable encoding to UTF8
+		 */
+		$encoding_option = apply_filters( 'tribe_import_setting_imported_encoding_status', $encoding_option, array( 'csv' => 'encode' ) );
+
 		//Check if option to encode is active
-		$encoding_option = Tribe__Events__Importer__Options::getOption( 'imported_encoding_status', array( 'csv' => 'encode' ) );
 		if ( isset( $encoding_option['csv'] ) && 'encode' == $encoding_option['csv'] ) {
 			$encoded       = ForceUTF8__Encoding::toUTF8( $record );
 			$encoding_diff = array_diff( $encoded, $record );
