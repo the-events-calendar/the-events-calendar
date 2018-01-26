@@ -73,6 +73,11 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				$query->set( 'paged', $_REQUEST['tribe_paged'] );
 			}
 
+			// Ball early as we don't want to change a post that is not an event.
+			if ( $query->is_main_query() && $query->is_single() && $query->get('post_type') !== Tribe__Events__Main::POSTTYPE )  {
+				return $query;
+			}
+
 			// Add tribe events post type to tag queries only in tag archives
 			if ( $query->is_tag
 				&& (array) $query->get( 'post_type' ) != array( Tribe__Events__Main::POSTTYPE )
