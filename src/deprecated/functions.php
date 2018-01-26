@@ -407,7 +407,6 @@ function tribe_display_meta( $meta_id ) {
  *  Load Legacy Imports
  *
  * @deprecated TBD
- *
  */
 if ( ! function_exists( 'Tribe_Events_Importer_Load' ) ) {
 
