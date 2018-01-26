@@ -74,7 +74,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			}
 
 			// Ball early as we don't want to change a post that is not an event.
-			if ( $query->is_main_query() && $query->is_single() && $query->get('post_type') !== Tribe__Events__Main::POSTTYPE )  {
+			if ( $query->is_main_query() && $query->is_single() && $query->get( 'post_type' ) !== Tribe__Events__Main::POSTTYPE )  {
 				return $query;
 			}
 
