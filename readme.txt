@@ -311,6 +311,11 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 = [4.6.11] TBD =
 
 
+
+= [4.6.10.1] 2018-01-26 =
+
+* Fix - Make sure rewrite rule for `/events` is not hardcoded and is based on dynamic option field (thanks to @earnjam and others for flagging this problem) [98463]
+
 = [4.6.10] 2018-01-23 =
 
 * Fix - Allow The Events Calendar REST API to be disabled using the `tribe_events_rest_api_enabled` filter [97209]
