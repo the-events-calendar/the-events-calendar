@@ -310,7 +310,7 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 
 = [4.6.11] TBD =
 
-* Fix - Don't modify the main query if is in a single post to allow custom variables don't affect the page loading when using shortcode [91787]
+* Fix - Don't modify the main query if is in a single post to allow custom variables don't affect the page loading when using shortcode (our thanks to Joseph Reckley and others for highlighting this problem) [91787]
 
 
 = [4.6.10] 2018-01-23 =
