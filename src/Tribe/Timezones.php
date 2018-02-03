@@ -126,45 +126,17 @@ class Tribe__Events__Timezones extends Tribe__Timezones {
 	 *
 	 * @param int    $event_id
 	 * @param string $type (expected to be 'Start' or 'End')
-	 * @param string $timezone
 	 *
 	 * @return int
 	 */
-	protected static function get_event_timestamp( $event_id, $type = 'Start', $timezone = null ) {
+	protected static function get_event_timestamp( $event_id, $type = 'Start' ) {
 		$event    = get_post( Tribe__Events__Main::postIdHelper( $event_id ) );
-		$event_tz = get_post_meta( $event->ID, '_EventTimezone', true );
-		$site_tz  = self::wp_timezone_string();
+		$timezone = self::get_event_timezone_string( $event_id );
 
-		if ( null === $timezone ) {
-			$timezone = self::mode();
-		}
+		$datetime = get_post_meta( $event->ID, "_Event{$type}Date", true );
+		$datetime_w_timezone = sprintf( '%s %s', $datetime, $timezone );
 
-		// Should we use the event specific timezone or the site-wide timezone?
-		$use_event_tz = self::EVENT_TIMEZONE === $timezone;
-		$use_site_tz  = self::SITE_TIMEZONE === $timezone;
-
-		// Determine if the event timezone and site timezone the same *or* if the event does not have timezone
-		// information (in which case, we'll assume the event time inherits the site timezone)
-		$site_zone_is_event_zone = ( $event_tz === $site_tz || empty( $event_tz ) );
-
-		// If the event-specific timezone is suitable, we can obtain it without any conversion work
-		if ( $use_event_tz || ( $use_site_tz && $site_zone_is_event_zone ) ) {
-			$datetime = get_post_meta( $event->ID, "_Event{$type}Date", true );
-
-			return strtotime( $datetime );
-		}
-
-		// Otherwise lets load the event's UTC time and convert it
-		$datetime = isset( $event->{"Event{$type}DateUTC"} )
-			? $event->{"Event{$type}DateUTC"}
-			: get_post_meta( $event->ID, "_Event{$type}DateUTC", true );
-
-		$tzstring = ( self::SITE_TIMEZONE === $timezone )
-			? self::wp_timezone_string()
-			: $timezone;
-
-		$localized = self::to_tz( $datetime, $tzstring );
-		return strtotime( $localized );
+		return strtotime( $datetime_w_timezone );
 	}
 
 
