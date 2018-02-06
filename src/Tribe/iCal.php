@@ -148,6 +148,14 @@ class Tribe__Events__iCal {
 	public function do_ical_template() {
 		// hijack to iCal template
 		if ( get_query_var( 'ical' ) || isset( $_GET['ical'] ) ) {
+			/**
+			 * Action fired before the creation of the feed is started, helpful to set up methods and other filters used
+			 * on this class.
+			 *
+			 * @since TBD
+			 */
+			do_action( 'tribe_events_ical_before' );
+
 			global $wp_query;
 			if ( isset( $_GET['event_ids'] ) ) {
 				if ( empty( $_GET['event_ids'] ) ) {
@@ -156,88 +164,13 @@ class Tribe__Events__iCal {
 				$event_ids = explode( ',', $_GET['event_ids'] );
 				$events    = tribe_get_events( array( 'post__in' => $event_ids ) );
 				$this->generate_ical_feed( $events );
-			} elseif ( is_single() ) {
-				if ( is_singular( Tribe__Events__Main::POSTTYPE ) ) {
-					// If the single view is rendered we need to render the post only if is an Event
-					$this->generate_ical_feed( $wp_query->post );
-				} else {
-					// otherwise it might be a shortcode.
-					$this->generate_ical_feed( $this->find_events_in_shortcode() );
-				}
-			} elseif ( is_page() ) {
-				// If we are on a page, we might be in a shortcode
-				$this->generate_ical_feed( $this->find_events_in_shortcode() );
+			} elseif ( is_singular( Tribe__Events__Main::POSTTYPE ) ) {
+				$this->generate_ical_feed( $wp_query->post );
 			} else {
 				$this->generate_ical_feed();
 			}
 			die();
 		}
-	}
-
-	/**
-	 * Returns a list of events based on the shortcode inserted in current post / page, this will look if there are shortcode
-	 * and extract the attributes of the shortcode to return the events based on those settings.
-	 *
-	 * @since TBD
-	 *
-	 * @return array
-	 */
-	private function find_events_in_shortcode() {
-		$attributes = $this->get_shortcode_attributes( get_the_ID() );
-		$events = array();
-		if ( 'month' === strtolower( $attributes['view'] ) ) {
-			$events = $this->get_month_view_events();
-		} else {
-			$events = $this->get_events_list( array(
-				'eventDisplay' => $attributes['view'],
-			) );
-		}
-		return $events;
-	}
-
-	/**
-	 * Look for the attributes of the [tribe_events] shortcode inside of the current post / page by looking into
-	 * the content, extract the attributes to know exactly how to render the iCal feed.
-	 *
-	 * @since TBD
-	 *
-	 * @param int $id The post / page ID.
-	 * @return array
-	 */
-	private function get_shortcode_attributes( $id = 0 ) {
-		$content = get_post_field( 'post_content', $id );
-		$shortcode = $this->get_shortcode( $content );
-		// remove any empty value
-		$attributes = array_filter( (array) shortcode_parse_atts( $shortcode ) );
-		return wp_parse_args( $attributes, array(
-			'view' => 'default',
-		) );
-	}
-
-	/**
-	 * Function to extract the $shortcode from the content, by default it will return the first match with all the attributes
-	 * definition from the provided content. Removes the opening, closing and shortcode it self so it returns only the attributes
-	 * of the shortcode.
-	 *
-	 * @since TBD
-	 *
-	 * @param string $content The content with the shortcode (if any)
-	 * @param string $shortcode The desired shortcode
-	 * @return string
-	 */
-	private function get_shortcode( $content = '', $shortcode = 'tribe_events' ) {
-		$pattern = get_shortcode_regex();
-		preg_match_all( "/$pattern/s", $content, $matches );
-		if ( ! empty( $matches[0] ) && is_array( $matches[0] ) ) {
-			foreach ( $matches[0] as $match ) {
-				// return only the first shortcode found.
-				if ( false !== strpos( $match, $shortcode ) ) {
-					// remove opening, closing and shortcode definition.
-					return str_replace( array( '[', ']', $shortcode ), '', $match );
-				}
-			}
-		}
-		return '';
 	}
 
 	/**
@@ -504,6 +437,24 @@ class Tribe__Events__iCal {
 	 * @return array
 	 */
 	protected function get_events_list( $args = array(), $query = null ) {
+		/**
+		 * Filter the arguments used to construct the call to get the list of events.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $args Arguments used in WP_Query call.
+		 */
+		$args = apply_filters( 'tribe_events_ical_events_list_args', $args );
+
+		/**
+		 * Filter the Query object used to get the list of events used to populate the feed.
+		 *
+		 * @since TBD
+		 *
+		 * @param mixed $query a WP_Query or null.
+		 */
+		$query = apply_filters( 'tribe_events_ical_events_list_query', $query );
+
 		$count = $this->feed_posts_per_page();
 		$query_posts_per_page = 0;
 		if ( $query instanceof WP_Query ) {
