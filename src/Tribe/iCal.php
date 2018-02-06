@@ -413,21 +413,12 @@ class Tribe__Events__iCal {
 		$content .= "METHOD:PUBLISH\r\n";
 
 		/**
-		 * Controls if the property X-WR-CALNAME is added to the file or not, allowing flexibility to disable the option
-		 * as in some cases like users of Outlook does not need this feature, to create a new calendar.
-		 *
-		 * @since TBD
-		 *
-		 * @param boolean Controls if add or not the the X-WR-CALNAME property
-		 */
-		if ( apply_filters( 'tribe_events_ical_add_calname', true ) ) {
-			/**
-			 * Allows for customizing the value of the generated iCal file's "X-WR-CALNAME:" property.
-			 *
-			 * @param string $blogName The value to use for "X-WR-CALNAME"; defaults to value of get_bloginfo( 'name' ).
-			 */
-			$x_wr_calname = apply_filters( 'tribe_ical_feed_calname', $blogName );
-
+		* Allows for customizing the value of the generated iCal file's "X-WR-CALNAME:" property.
+		*
+		* @param string $blogName The value to use for "X-WR-CALNAME"; defaults to value of get_bloginfo( 'name' ).
+		*/
+		$x_wr_calname = apply_filters( 'tribe_ical_feed_calname', $blogName );
+		if ( ! empty( $x_wr_calname ) ) {
 			$content .= 'X-WR-CALNAME:' . $x_wr_calname . "\r\n";
 		}
 
