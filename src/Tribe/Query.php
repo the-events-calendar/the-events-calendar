@@ -133,9 +133,9 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				: false;
 
 			$query->tribe_is_event_query = ( $query->tribe_is_event
-			                                 || $query->tribe_is_event_category
-			                                 || $query->tribe_is_event_venue
-			                                 || $query->tribe_is_event_organizer )
+				|| $query->tribe_is_event_category
+				|| $query->tribe_is_event_venue
+				|| $query->tribe_is_event_organizer )
 				? true // this is an event query of some type
 				: false; // move along, this is not the query you are looking for
 
@@ -247,78 +247,78 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 
 				if ( ! empty( $query->query_vars['eventDisplay'] ) ) {
 					switch ( $query->query_vars['eventDisplay'] ) {
-						case 'custom':
-							// if the eventDisplay is 'custom', all we're gonna do is make sure the start and end dates are formatted
-							$start_date = $query->get( 'start_date' );
+					case 'custom':
+						// if the eventDisplay is 'custom', all we're gonna do is make sure the start and end dates are formatted
+						$start_date = $query->get( 'start_date' );
 
-							if ( $start_date ) {
-								$start_date_string = $start_date instanceof DateTime
-									? $start_date->format( Tribe__Date_Utils::DBDATETIMEFORMAT )
-									: $start_date;
+						if ( $start_date ) {
+							$start_date_string = $start_date instanceof DateTime
+								? $start_date->format( Tribe__Date_Utils::DBDATETIMEFORMAT )
+								: $start_date;
 
-								$query->set( 'start_date', date_i18n( Tribe__Date_Utils::DBDATETIMEFORMAT, strtotime( $start_date_string ) ) );
-							}
+							$query->set( 'start_date', date_i18n( Tribe__Date_Utils::DBDATETIMEFORMAT, strtotime( $start_date_string ) ) );
+						}
 
-							$end_date = $query->get( 'end_date' );
+						$end_date = $query->get( 'end_date' );
 
-							if ( $end_date ) {
-								$end_date_string = $end_date instanceof DateTime
-									? $end_date->format( Tribe__Date_Utils::DBDATETIMEFORMAT )
-									: $end_date;
+						if ( $end_date ) {
+							$end_date_string = $end_date instanceof DateTime
+								? $end_date->format( Tribe__Date_Utils::DBDATETIMEFORMAT )
+								: $end_date;
 
-								$query->set( 'end_date', date_i18n( Tribe__Date_Utils::DBDATETIMEFORMAT, strtotime( $end_date_string ) ) );
-							}
-							break;
-						case 'month':
-							// make sure start and end date are set
-							if ( $query->get( 'start_date' ) == '' ) {
-								$event_date = ( $query->get( 'eventDate' ) != '' )
-									? $query->get( 'eventDate' )
-									: date_i18n( Tribe__Date_Utils::DBDATETIMEFORMAT );
-								$query->set( 'start_date', tribe_beginning_of_day( $event_date ) );
-							}
-
-							if ( $query->get( 'end_date' == '' ) ) {
-								$query->set( 'end_date', tribe_end_of_day( $query->get( 'start_date' ) ) );
-							}
-							$query->set( 'hide_upcoming', $maybe_hide_events );
-
-							break;
-						case 'day':
-							$event_date = $query->get( 'eventDate' ) != '' ? $query->get( 'eventDate' ) : date( 'Y-m-d', current_time( 'timestamp' ) );
-							$query->set( 'eventDate', $event_date );
-							$beginning_of_day = strtotime( tribe_beginning_of_day( $event_date ) ) + 1;
-							$query->set( 'start_date', date_i18n( Tribe__Date_Utils::DBDATETIMEFORMAT, $beginning_of_day ) );
-							$query->set( 'end_date', tribe_end_of_day( $event_date ) );
-							$query->set( 'posts_per_page', - 1 ); // show ALL day posts
-							$query->set( 'hide_upcoming', $maybe_hide_events );
-							$query->set( 'order', self::set_order( 'ASC', $query ) );
-							break;
-						case 'single-event':
-							if ( $query->get( 'eventDate' ) != '' ) {
-								$query->set( 'start_date', $query->get( 'eventDate' ) );
-								$query->set( 'eventDate', $query->get( 'eventDate' ) );
-							}
-							break;
-						case 'all':
-						case 'list':
-						default: // default display query
+							$query->set( 'end_date', date_i18n( Tribe__Date_Utils::DBDATETIMEFORMAT, strtotime( $end_date_string ) ) );
+						}
+						break;
+					case 'month':
+						// make sure start and end date are set
+						if ( $query->get( 'start_date' ) == '' ) {
 							$event_date = ( $query->get( 'eventDate' ) != '' )
 								? $query->get( 'eventDate' )
 								: date_i18n( Tribe__Date_Utils::DBDATETIMEFORMAT );
-							if ( ! $query->tribe_is_past ) {
-								$query->set( 'start_date', ( '' != $query->get( 'eventDate' ) ? tribe_beginning_of_day( $event_date ) : tribe_format_date( current_time( 'timestamp' ), true, 'Y-m-d H:i:00' ) ) );
-								$query->set( 'end_date', '' );
-								$query->set( 'order', self::set_order( 'ASC', $query ) );
-							} else {
-								// on past view, set the passed date as the end date
-								$query->set( 'start_date', '' );
-								$query->set( 'end_date', $event_date );
-								$query->set( 'order', self::set_order( 'DESC', $query ) );
-							}
-							$query->set( 'orderby', self::set_orderby( null, $query ) );
-							$query->set( 'hide_upcoming', $maybe_hide_events );
-							break;
+							$query->set( 'start_date', tribe_beginning_of_day( $event_date ) );
+						}
+
+						if ( $query->get( 'end_date' == '' ) ) {
+							$query->set( 'end_date', tribe_end_of_day( $query->get( 'start_date' ) ) );
+						}
+						$query->set( 'hide_upcoming', $maybe_hide_events );
+
+						break;
+					case 'day':
+						$event_date = $query->get( 'eventDate' ) != '' ? $query->get( 'eventDate' ) : date( 'Y-m-d', current_time( 'timestamp' ) );
+						$query->set( 'eventDate', $event_date );
+						$beginning_of_day = strtotime( tribe_beginning_of_day( $event_date ) ) + 1;
+						$query->set( 'start_date', date_i18n( Tribe__Date_Utils::DBDATETIMEFORMAT, $beginning_of_day ) );
+						$query->set( 'end_date', tribe_end_of_day( $event_date ) );
+						$query->set( 'posts_per_page', - 1 ); // show ALL day posts
+						$query->set( 'hide_upcoming', $maybe_hide_events );
+						$query->set( 'order', self::set_order( 'ASC', $query ) );
+						break;
+					case 'single-event':
+						if ( $query->get( 'eventDate' ) != '' ) {
+							$query->set( 'start_date', $query->get( 'eventDate' ) );
+							$query->set( 'eventDate', $query->get( 'eventDate' ) );
+						}
+						break;
+					case 'all':
+					case 'list':
+					default: // default display query
+					$event_date = ( $query->get( 'eventDate' ) != '' )
+						? $query->get( 'eventDate' )
+						: date_i18n( Tribe__Date_Utils::DBDATETIMEFORMAT );
+					if ( ! $query->tribe_is_past ) {
+						$query->set( 'start_date', ( '' != $query->get( 'eventDate' ) ? tribe_beginning_of_day( $event_date ) : tribe_format_date( current_time( 'timestamp' ), true, 'Y-m-d H:i:00' ) ) );
+						$query->set( 'end_date', '' );
+						$query->set( 'order', self::set_order( 'ASC', $query ) );
+					} else {
+						// on past view, set the passed date as the end date
+						$query->set( 'start_date', '' );
+						$query->set( 'end_date', $event_date );
+						$query->set( 'order', self::set_order( 'DESC', $query ) );
+					}
+					$query->set( 'orderby', self::set_orderby( null, $query ) );
+					$query->set( 'hide_upcoming', $maybe_hide_events );
+					break;
 					}
 				} else {
 					$query->set( 'hide_upcoming', $maybe_hide_events );
@@ -665,18 +665,18 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			$url_param = strtolower( $url_param );
 
 			switch ( $url_param ) {
-				case 'tribe_sort_ecp_venue_filter':
-					$orderby = 'venue';
-					break;
-				case 'tribe_sort_ecp_organizer_filter':
-					$orderby = 'organizer';
-					break;
-				case 'title':
-					$orderby = $url_param;
-					break;
-				default:
-					$orderby = $default;
-					break;
+			case 'tribe_sort_ecp_venue_filter':
+				$orderby = 'venue';
+				break;
+			case 'tribe_sort_ecp_organizer_filter':
+				$orderby = 'organizer';
+				break;
+			case 'title':
+				$orderby = $url_param;
+				break;
+			default:
+				$orderby = $default;
+				break;
 			}
 
 			return $orderby;
@@ -739,18 +739,18 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				do_action( 'log', 'orderby', 'default', $orderby );
 
 				switch ( $orderby ) {
-					case 'title':
-						$order_sql = "{$wpdb->posts}.post_title {$order}, " . $order_sql;
-						break;
-					case 'menu_order':
-						$order_sql = "{$wpdb->posts}.menu_order ASC, " . $order_sql;
-						break;
-					case 'event_date':
-						// we've already setup $order_sql
-						break;
-					case 'rand':
-						$order_sql = 'RAND()';
-						break;
+				case 'title':
+					$order_sql = "{$wpdb->posts}.post_title {$order}, " . $order_sql;
+					break;
+				case 'menu_order':
+					$order_sql = "{$wpdb->posts}.menu_order ASC, " . $order_sql;
+					break;
+				case 'event_date':
+					// we've already setup $order_sql
+					break;
+				case 'rand':
+					$order_sql = 'RAND()';
+					break;
 				}
 
 				// trim trailing characters
@@ -785,15 +785,15 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			global $wpdb;
 
 			switch ( $query->get( 'orderby' ) ) {
-				case 'venue':
-					$join_sql .= " LEFT JOIN {$wpdb->postmeta} tribe_order_by_venue_meta ON {$wpdb->posts}.ID = tribe_order_by_venue_meta.post_id AND tribe_order_by_venue_meta.meta_key='_EventVenueID' LEFT JOIN {$wpdb->posts} tribe_order_by_venue ON tribe_order_by_venue_meta.meta_value = tribe_order_by_venue.ID ";
-					break;
-				case 'organizer':
-					$join_sql .= " LEFT JOIN {$wpdb->postmeta} tribe_order_by_organizer_meta ON {$wpdb->posts}.ID = tribe_order_by_organizer_meta.post_id AND tribe_order_by_organizer_meta.meta_key='_EventOrganizerID' LEFT JOIN {$wpdb->posts} tribe_order_by_organizer ON tribe_order_by_organizer_meta.meta_value = tribe_order_by_organizer.ID ";
-					break;
-				default:
-					return $join_sql;
-					break;
+			case 'venue':
+				$join_sql .= " LEFT JOIN {$wpdb->postmeta} tribe_order_by_venue_meta ON {$wpdb->posts}.ID = tribe_order_by_venue_meta.post_id AND tribe_order_by_venue_meta.meta_key='_EventVenueID' LEFT JOIN {$wpdb->posts} tribe_order_by_venue ON tribe_order_by_venue_meta.meta_value = tribe_order_by_venue.ID ";
+				break;
+			case 'organizer':
+				$join_sql .= " LEFT JOIN {$wpdb->postmeta} tribe_order_by_organizer_meta ON {$wpdb->posts}.ID = tribe_order_by_organizer_meta.post_id AND tribe_order_by_organizer_meta.meta_key='_EventOrganizerID' LEFT JOIN {$wpdb->posts} tribe_order_by_organizer ON tribe_order_by_organizer_meta.meta_value = tribe_order_by_organizer.ID ";
+				break;
+			default:
+				return $join_sql;
+				break;
 			}
 
 			/**
@@ -850,15 +850,15 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			$orderby = ( isset( $query->orderby ) && ! empty( $query->orderby ) ) ? $query->orderby : $query->get( 'orderby' );
 
 			switch ( $orderby ) {
-				case 'venue':
-					$clauses['orderby'] = "tribe_order_by_venue.post_title {$order}, " . $clauses['orderby'];
-					break;
-				case 'organizer':
-					$clauses['orderby'] = "tribe_order_by_organizer.post_title {$order}, " . $clauses['orderby'];
-					break;
-				default:
-					return $clauses;
-					break;
+			case 'venue':
+				$clauses['orderby'] = "tribe_order_by_venue.post_title {$order}, " . $clauses['orderby'];
+				break;
+			case 'organizer':
+				$clauses['orderby'] = "tribe_order_by_organizer.post_title {$order}, " . $clauses['orderby'];
+				break;
+			default:
+				return $clauses;
+				break;
 			}
 
 			// Trim trailing characters
@@ -939,15 +939,15 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			$event_ids = array();
 			if ( ! empty( $post_ids ) ) {
 				switch ( $args['display_type'] ) {
-					case 'daily':
-					default :
-						global $wp_query;
-						$output_date_format = '%Y-%m-%d %H:%i:%s';
-						$start_date_sql = esc_sql( $post_id_query->query_vars['start_date'] );
-						$end_date_sql = esc_sql( $post_id_query->query_vars['end_date'] );
-						$sql_ids = esc_sql( implode( ',', array_map( 'intval', $post_ids ) ) );
+				case 'daily':
+				default :
+					global $wp_query;
+					$output_date_format = '%Y-%m-%d %H:%i:%s';
+					$start_date_sql = esc_sql( $post_id_query->query_vars['start_date'] );
+					$end_date_sql = esc_sql( $post_id_query->query_vars['end_date'] );
+					$sql_ids = esc_sql( implode( ',', array_map( 'intval', $post_ids ) ) );
 
-						$raw_counts = $wpdb->get_results( "
+					$raw_counts = $wpdb->get_results( "
 							SELECT 	tribe_event_start.post_id as ID,
 									tribe_event_start.meta_value as EventStartDate,
 									DATE_FORMAT( tribe_event_end_date.meta_value, '{$output_date_format}') as EventEndDate,
