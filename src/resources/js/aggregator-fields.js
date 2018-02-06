@@ -151,7 +151,9 @@ tribe_aggregator.fields = {
 	/**
 	 * Send an Ajax request to preview the import
 	 */
-	obj.preview_import = function() {
+	obj.preview_import = function( event ) {
+		event.preventDefault();
+
 		obj.reset_polling_counter();
 
 		// clear the warning area
