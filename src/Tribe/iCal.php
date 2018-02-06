@@ -164,7 +164,7 @@ class Tribe__Events__iCal {
 					// otherwise it might be a shortcode.
 					$this->generate_ical_feed( $this->find_events_in_shortcode() );
 				}
-			} else if ( is_page() ) {
+			} elseif ( is_page() ) {
 				// If we are on a page, we might be in a shortcode
 				$this->generate_ical_feed( $this->find_events_in_shortcode() );
 			} else {
@@ -188,9 +188,9 @@ class Tribe__Events__iCal {
 		if ( 'month' === strtolower( $attributes['view'] ) ) {
 			$events = $this->get_month_view_events();
 		} else {
-			$events = $this->get_events_list(array(
+			$events = $this->get_events_list( array(
 				'eventDisplay' => $attributes['view'],
-			));
+			) );
 		}
 		return $events;
 	}
@@ -210,8 +210,8 @@ class Tribe__Events__iCal {
 		// remove any empty value
 		$attributes = array_filter( (array) shortcode_parse_atts( $shortcode ) );
 		return wp_parse_args( $attributes, array(
-			'view' => 'default'
-		));
+			'view' => 'default',
+		) );
 	}
 
 	/**
@@ -229,11 +229,11 @@ class Tribe__Events__iCal {
 		$pattern = get_shortcode_regex();
 		preg_match_all( "/$pattern/s", $content, $matches );
 		if ( ! empty( $matches[0] ) && is_array( $matches[0] ) ) {
-			foreach( $matches[0] as $match ) {
+			foreach ( $matches[0] as $match ) {
 				// return only the first shortcode found.
 				if ( false !== strpos( $match, $shortcode ) ) {
 					// remove opening, closing and shortcode definition.
-					return str_replace( array('[', ']', $shortcode ), '', $match );
+					return str_replace( array( '[', ']', $shortcode ), '', $match );
 				}
 			}
 		}
@@ -518,7 +518,7 @@ class Tribe__Events__iCal {
 				'eventDisplay' => 'default',
 			) ) );
 			$list = $events_query->get_posts();
-		} else if ( $query instanceof WP_Query ) {
+		} elseif ( $query instanceof WP_Query ) {
 			$list = array_slice( $query->posts, 0, $count );
 		}
 		return $list;
