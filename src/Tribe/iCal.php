@@ -219,7 +219,7 @@ class Tribe__Events__iCal {
 	 * Generates the iCal file
 	 *
 	 * @param int|null $post If you want the ical file for a single event
-	 * @param bool $echo Whether the content should be echoed or returned
+	 * @param boolean $echo Whether the content should be echoed or returned
 	 */
 	public function generate_ical_feed( $post = null, $echo = true ) {
 		$tec         = Tribe__Events__Main::instance();
@@ -413,13 +413,24 @@ class Tribe__Events__iCal {
 		$content .= "METHOD:PUBLISH\r\n";
 
 		/**
-		 * Allows for customizing the value of the generated iCal file's "X-WR-CALNAME:" property.
+		 * Controls if the property X-WR-CALNAME is added to the file or not, allowing flexibility to disable the option
+		 * as in some cases like users of Outlook does not need this feature, to create a new calendar.
 		 *
-		 * @param string $blogName The value to use for "X-WR-CALNAME"; defaults to value of get_bloginfo( 'name' ).
+		 * @since TBD
+		 *
+		 * @param boolean Controls if add or not the the X-WR-CALNAME property
 		 */
-		$x_wr_calname = apply_filters( 'tribe_ical_feed_calname', $blogName );
+		if ( apply_filters( 'tribe_events_ical_add_calname', true ) ) {
+			/**
+			 * Allows for customizing the value of the generated iCal file's "X-WR-CALNAME:" property.
+			 *
+			 * @param string $blogName The value to use for "X-WR-CALNAME"; defaults to value of get_bloginfo( 'name' ).
+			 */
+			$x_wr_calname = apply_filters( 'tribe_ical_feed_calname', $blogName );
 
-		$content .= 'X-WR-CALNAME:' . $x_wr_calname . "\r\n";
+			$content .= 'X-WR-CALNAME:' . $x_wr_calname . "\r\n";
+		}
+
 		$content .= 'X-ORIGINAL-URL:' . $blogHome . "\r\n";
 		$content .= 'X-WR-CALDESC:' . sprintf( esc_html_x( 'Events for %s', 'iCal feed description', 'the-events-calendar' ), $blogName ) . "\r\n";
 
