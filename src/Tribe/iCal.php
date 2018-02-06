@@ -157,12 +157,87 @@ class Tribe__Events__iCal {
 				$events    = tribe_get_events( array( 'post__in' => $event_ids ) );
 				$this->generate_ical_feed( $events );
 			} elseif ( is_single() ) {
-				$this->generate_ical_feed( $wp_query->post );
+				if ( is_singular( Tribe__Events__Main::POSTTYPE ) ) {
+					// If the single view is rendered we need to render the post only if is an Event
+					$this->generate_ical_feed( $wp_query->post );
+				} else {
+					// otherwise it might be a shortcode.
+					$this->generate_ical_feed( $this->find_events_in_shortcode() );
+				}
+			} else if ( is_page() ) {
+				// If we are on a page, we might be in a shortcode
+				$this->generate_ical_feed( $this->find_events_in_shortcode() );
 			} else {
 				$this->generate_ical_feed();
 			}
 			die();
 		}
+	}
+
+	/**
+	 * Returns a list of events based on the shortcode inserted in current post / page, this will look if there are shortcode
+	 * and extract the attributes of the shortcode to return the events based on those settings.
+	 *
+	 * @since TBD
+	 *
+	 * @return array
+	 */
+	private function find_events_in_shortcode() {
+		$attributes = $this->get_shortcode_attributes( get_the_ID() );
+		$events = array();
+		if ( 'month' === strtolower( $attributes['view'] ) ) {
+			$events = $this->get_month_view_events();
+		} else {
+			$events = $this->get_events_list(array(
+				'eventDisplay' => $attributes['view'],
+			));
+		}
+		return $events;
+	}
+
+	/**
+	 * Look for the attributes of the [tribe_events] shortcode inside of the current post / page by looking into
+	 * the content, extract the attributes to know exactly how to render the iCal feed.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $id The post / page ID.
+	 * @return array
+	 */
+	private function get_shortcode_attributes( $id = 0 ) {
+		$content = get_post_field( 'post_content', $id );
+		$shortcode = $this->get_shortcode( $content );
+		// remove any empty value
+		$attributes = array_filter( (array) shortcode_parse_atts( $shortcode ) );
+		return wp_parse_args( $attributes, array(
+			'view' => 'default'
+		));
+	}
+
+	/**
+	 * Function to extract the $shortcode from the content, by default it will return the first match with all the attributes
+	 * definition from the provided content. Removes the opening, closing and shortcode it self so it returns only the attributes
+	 * of the shortcode.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $content The content with the shortcode (if any)
+	 * @param string $shortcode The desired shortcode
+	 * @return string
+	 */
+	private function get_shortcode( $content = '', $shortcode = 'tribe_events' ) {
+		$pattern = get_shortcode_regex();
+		preg_match_all( "/$pattern/s", $content, $matches );
+		if ( ! empty( $matches[0] ) && is_array( $matches[0] ) ) {
+			foreach( $matches[0] as $match ) {
+				// return only the first shortcode found.
+				if ( false !== strpos( $match, $shortcode ) ) {
+					// remove opening, closing and shortcode definition.
+					return str_replace( array('[', ']', $shortcode ), '', $match );
+				}
+			}
+		}
+		return '';
 	}
 
 	/**
@@ -232,31 +307,8 @@ class Tribe__Events__iCal {
 		} elseif ( tribe_is_month() ) {
 			$events_posts = self::get_month_view_events();
 		} else {
-			/**
-			 * Filters the number of upcoming events the iCal feed should export.
-			 *
-			 * This filter allows developer to override the pagination setting and the default value
-			 * to export a number of events that's inferior or superior to the one shown on the page.
-			 * The minimum value is 1.
-			 *
-			 * @param int $count The number of upcoming events that should be exported in the
-			 *                   feed, defaults to 30.
-			 */
-			$count = apply_filters( 'tribe_ical_feed_posts_per_page', $this->feed_default_export_count );
-
-			$count = is_numeric( $count ) && is_int( $count ) && $count > 0 ? $count : $this->feed_default_export_count;
-
-			/** @var WP_Query $wp_query */
 			global $wp_query;
-
-			$query_posts_per_page = $wp_query->get( 'posts_per_page' );
-
-			if ( $count > $query_posts_per_page ) {
-				$query        = new WP_Query( array_merge( $wp_query->query, array( 'posts_per_page' => $count ) ) );
-				$events_posts = $query->get_posts();
-			} else {
-				$events_posts = array_slice( $wp_query->posts, 0, $count );
-			}
+			$events_posts = $this->get_events_list( $wp_query->query, $wp_query );
 		}
 
 		$event_ids = wp_list_pluck( $events_posts, 'ID' );
@@ -438,6 +490,62 @@ class Tribe__Events__iCal {
 		}
 
 		return $content;
+	}
+
+	/**
+	 * Get a list of events, the function make sure it uses the default values used on the main events page
+	 * so if is called from a different location like a page or post (shortcode) it will retain the original values
+	 * to generate the events feed.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $args The WP_Query arguments.
+	 * @param mixed $query A WP_Query object or null if none.
+	 * @return array
+	 */
+	protected function get_events_list( $args = array(), $query = null ) {
+		$count = $this->feed_posts_per_page();
+		$query_posts_per_page = 0;
+		if ( $query instanceof WP_Query ) {
+			$query_posts_per_page = $query->get( 'posts_per_page' );
+		}
+
+		$list = array();
+		if ( $count > $query_posts_per_page ) {
+			$events_query = new WP_Query( array_merge( $args, array(
+				'posts_per_page' => $count,
+				'post_type' => Tribe__Events__Main::POSTTYPE,
+				'eventDisplay' => 'default',
+			) ) );
+			$list = $events_query->get_posts();
+		} else if ( $query instanceof WP_Query ) {
+			$list = array_slice( $query->posts, 0, $count );
+		}
+		return $list;
+	}
+
+	/**
+	 * Get the number of posts per page to be used on the feed of the iCal, make sure it passes the value via the filter
+	 * tribe_ical_feed_posts_per_page and validates the number is greather than 0.
+	 *
+	 * @since TBD
+	 *
+	 * @return int
+	 */
+	protected function feed_posts_per_page() {
+		/**
+		 * Filters the number of upcoming events the iCal feed should export.
+		 *
+		 * This filter allows developer to override the pagination setting and the default value
+		 * to export a number of events that's inferior or superior to the one shown on the page.
+		 * The minimum value is 1.
+		 *
+		 * @param int $count The number of upcoming events that should be exported in the
+		 *                   feed, defaults to 30.
+		 */
+		$count = absint( apply_filters( 'tribe_ical_feed_posts_per_page', $this->feed_default_export_count ) );
+
+		return $count === 0 ? $this->feed_default_export_count : $count;
 	}
 
 	/**

@@ -310,6 +310,7 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 
 = [4.6.11] TBD =
 
+* Fix - iCal feed now contains the correct list of events if [tribe_events] shortcode is being used [86227]
 
 = [4.6.10] 2018-01-23 =
 
