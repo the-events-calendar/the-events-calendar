@@ -154,6 +154,16 @@ tribe_aggregator.fields = {
 	obj.preview_import = function( event ) {
 		event.preventDefault();
 
+		var $form = $( '.tribe-ea-form.tribe-validation' );
+
+		// Makes sure we have validation
+		$form.trigger( 'validation.tribe' );
+
+		// Prevent anything from happening when there are errors
+		if ( tribe.validation.hasErrors( $form ) ) {
+			return;
+		}
+
 		obj.reset_polling_counter();
 
 		// clear the warning area
