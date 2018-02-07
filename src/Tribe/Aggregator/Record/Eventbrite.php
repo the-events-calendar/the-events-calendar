@@ -21,6 +21,17 @@ class Tribe__Events__Aggregator__Record__Eventbrite extends Tribe__Events__Aggre
 	}
 
 	/**
+	 * Gets the Regular Expression string to match a source URL
+	 *
+	 * @since  TBD
+	 *
+	 * @return string
+	 */
+	public static function get_source_regexp() {
+		return '^(https?:\/\/)?(www\.)?eventbrite\.com(\.[a-z]{2})?\/';
+	}
+
+	/**
 	 * Returns the Eventbrite authorization token generation URL.
 	 *
 	 * @param array $args
