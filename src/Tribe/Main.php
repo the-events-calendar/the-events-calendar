@@ -522,7 +522,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Frontend Javascript
 			add_action( 'wp_enqueue_scripts', array( $this, 'loadStyle' ) );
-			add_filter( 'script_loader_tag', array( $this, 'prevent_underscore_conflict' ), 10, 2 );
 
 			// WP Admin Menu Fixes
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_wp_admin_menu_style' ) );
@@ -2170,39 +2169,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 				}
 			}
-		}
-
-		/**
-		 * Before underscore is loaded to the FE we add two scripts on before and one after to prevent underscore from
-		 * taking place on the global namespace if lodash is present.
-		 *
- 		 * @since TBD
- 		 *
- 		 * @param string $tag The <script> tag for the enqueued script.
-		 * @param string $handle The script's registered handle.
-		 * @return string The <script> tag.
-		 */
-		public function prevent_underscore_conflict( $tag, $handle ) {
-
-			if ( is_admin() ) {
-				return $tag;
-			}
-
-			if ( 'underscore' === $handle ) {
-				$path = plugin_dir_path( TRIBE_EVENTS_FILE ) . 'src/resources/js/';
-				$dir = plugin_dir_url( TRIBE_EVENTS_FILE ) . 'src/resources/js/';
-
-				$before = file_exists( $path . 'underscore-before.js' ) ? file_get_contents( $dir . 'underscore-before.js' ) : '';
-				if ( $before ) {
-					$tag = "<script type='text/javascript'>$before</script>\n" . $tag;
-				}
-
-				$after = file_exists( $path . 'underscore-after.js' ) ? file_get_contents( $dir . 'underscore-after.js' ) : '';
-				if ( $after ) {
-					$tag = $tag . "\n<script type='text/Javascript'>$after</script>";
-				}
-			}
-			return $tag;
 		}
 
 		/**
