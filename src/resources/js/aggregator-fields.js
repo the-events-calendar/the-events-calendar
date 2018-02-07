@@ -276,11 +276,17 @@ tribe_aggregator.fields = {
 	 */
 	obj.handle_preview_create_results = function( response ) {
 		if ( ! response.success ) {
+			var error = response.data;
+
+			if ( ! _.isString( error ) ) {
+				error = error.message;
+			}
+
 			obj.display_fetch_error( [
 				'<b>',
 					ea.l10n.preview_fetch_error_prefix,
 				'</b>',
-				' ' + response.data.message
+				' ' + error
 			].join( ' ' ) );
 			return;
 		}
