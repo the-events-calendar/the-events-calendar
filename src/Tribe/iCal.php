@@ -227,7 +227,7 @@ class Tribe__Events__iCal {
 	 * Generates the iCal file
 	 *
 	 * @param int|null $post If you want the ical file for a single event
-	 * @param bool $echo Whether the content should be echoed or returned
+	 * @param boolean $echo Whether the content should be echoed or returned
 	 */
 	public function generate_ical_feed( $post = null, $echo = true ) {
 		$tec         = Tribe__Events__Main::instance();
@@ -398,13 +398,15 @@ class Tribe__Events__iCal {
 		$content .= "METHOD:PUBLISH\r\n";
 
 		/**
-		 * Allows for customizing the value of the generated iCal file's "X-WR-CALNAME:" property.
-		 *
-		 * @param string $blogName The value to use for "X-WR-CALNAME"; defaults to value of get_bloginfo( 'name' ).
-		 */
+		* Allows for customizing the value of the generated iCal file's "X-WR-CALNAME:" property.
+		*
+		* @param string $blogName The value to use for "X-WR-CALNAME"; defaults to value of get_bloginfo( 'name' ).
+		*/
 		$x_wr_calname = apply_filters( 'tribe_ical_feed_calname', $blogName );
+		if ( ! empty( $x_wr_calname ) ) {
+			$content .= 'X-WR-CALNAME:' . $x_wr_calname . "\r\n";
+		}
 
-		$content .= 'X-WR-CALNAME:' . $x_wr_calname . "\r\n";
 		$content .= 'X-ORIGINAL-URL:' . $blogHome . "\r\n";
 		$content .= 'X-WR-CALDESC:' . sprintf( esc_html_x( 'Events for %s', 'iCal feed description', 'the-events-calendar' ), $blogName ) . "\r\n";
 
