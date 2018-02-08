@@ -409,6 +409,7 @@ class Tribe__Events__Aggregator__Service {
 		}
 
 		$response = $this->post( 'import', $args );
+
 		return $response;
 	}
 
