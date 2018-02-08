@@ -134,6 +134,15 @@ class Tribe__Events__Cost_Utils extends Tribe__Cost_Utils {
 		return $formatted;
 	}
 
+	/**
+	 * Determines if the specificed cost value contains more than just numeric values.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $cost The cost to check, often the raw value of the _EventCost event meta field.
+	 *
+	 * @return boolean
+	 */
 	public function cost_is_mixed_content( array $cost ) {
 
 		if ( empty( $cost ) ) {
@@ -151,7 +160,6 @@ class Tribe__Events__Cost_Utils extends Tribe__Cost_Utils {
 
 		return false;
 	}
-
 
 	/**
 	 * Returns boolean true if there are events for which a cost has not been specified.
