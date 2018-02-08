@@ -120,18 +120,16 @@ if ( get_option( 'pue_install_key_event_aggregator' ) ) {
 	<fieldset id="tribe-field-eventbrite_token" class="tribe-field tribe-field-text tribe-size-medium">
 		<legend class="tribe-field-label"><?php esc_html_e( 'Eventbrite Token', 'the-events-calendar' ) ?></legend>
 		<div class="tribe-field-wrap">
-			<p>
-				<?php
-				if ( $missing_eb_credentials ) {
-					esc_html_e( 'You need to connect to Eventbrite for Event Aggregator to work properly' );
-					$eventbrite_button_label = __( 'Connect to Eventbrite', 'the-events-calendar' );
-				} else {
-					$eventbrite_button_label = __( 'Refresh your connection to Eventbrite', 'the-events-calendar' );
-					$eventbrite_disconnect_label = __( 'Disconnect', 'the-events-calendar' );
-					$eventbrite_disconnect_url = tribe( 'events-aggregator.settings' )->build_disconnect_eventbrite_url( $current_url );
-				}
-				?>
-			</p>
+			<?php
+			if ( $missing_eb_credentials ) {
+				echo '<p>' . esc_html__( 'You need to connect to Eventbrite for Event Aggregator to work properly' ) . '</p>';
+				$eventbrite_button_label = __( 'Connect to Eventbrite', 'the-events-calendar' );
+			} else {
+				$eventbrite_button_label = __( 'Refresh your connection to Eventbrite', 'the-events-calendar' );
+				$eventbrite_disconnect_label = __( 'Disconnect', 'the-events-calendar' );
+				$eventbrite_disconnect_url = tribe( 'events-aggregator.settings' )->build_disconnect_eventbrite_url( $current_url );
+			}
+			?>
 			<a target="_blank" class="tribe-ea-eventbrite-button" href="<?php echo esc_url( Tribe__Events__Aggregator__Record__Eventbrite::get_auth_url( array( 'back' => 'settings' ) ) ); ?>"><?php esc_html_e( $eventbrite_button_label ); ?></a>
 			<?php if ( ! $missing_eb_credentials ) : ?>
 				<a href="<?php echo esc_url( $eventbrite_disconnect_url ); ?>" class="tribe-ea-eventbrite-disconnect"><?php echo esc_html( $eventbrite_disconnect_label ); ?></a>

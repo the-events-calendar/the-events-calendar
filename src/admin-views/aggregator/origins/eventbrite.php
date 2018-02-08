@@ -123,7 +123,7 @@ $field->help        = __( 'We will pull the events directly from your connected 
 		</label>
 	</th>
 	<td>
-		<label for="tribe-ea-field-eventbrite_source_type_me">
+		<label for="tribe-ea-field-eventbrite_source_type_me" class="tribe-ea-inline-label">
 			<?php echo esc_html( $field->label ); ?>
 		</label>
 		<span class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help" data-bumpdown="<?php echo esc_attr( $field->help ); ?>" data-width-rule="all-triggers"></span>
