@@ -70,9 +70,9 @@ class SingleEventCest extends BaseRestCest {
 	 * @test
 	 */
 	public function it_should_return_invalid_auth_status_if_user_cannot_access_drafts( Restv1Tester $I ) {
-		$I->generate_nonce_for_role( 'subscriber' );
-
 		$id = $I->haveEventInDatabase( [ 'post_status' => 'draft' ] );
+		
+		$I->generate_nonce_for_role( 'subscriber' );
 
 		$I->sendGET( $this->events_url . '/' . $id );
 
