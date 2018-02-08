@@ -40,6 +40,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			'source' => 'meetup_id',
 			'target' => 'EventMeetupID',
 		),
+		'meetup' => array(
+			'source' => 'eventbrite_id',
+			'target' => 'EventEventbriteID',
+		),
 		'ical' => array(
 			'source' => 'uid',
 			'target' => 'uid',
@@ -70,6 +74,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			'source' => 'meetup_id',
 			'target' => 'VenueMeetupID',
 		),
+		'eventbrit'   => array(
+			'source' => 'eventbrite_id',
+			'target' => 'VenueEventbriteID',
+		),
 	);
 
 	/**
@@ -83,6 +91,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		'meetup'   => array(
 			'source' => 'meetup_id',
 			'target' => 'OrganizerMeetupID',
+		),
+		'eventbrit'   => array(
+			'source' => 'eventbrit_id',
+			'target' => 'OrganizerEventbritID',
 		),
 	);
 
