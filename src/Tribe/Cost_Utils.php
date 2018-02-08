@@ -96,6 +96,7 @@ class Tribe__Events__Cost_Utils extends Tribe__Cost_Utils {
 		}
 
 		if ( $this->cost_is_mixed_content( $costs ) ) {
+			// Return the cost without additional formatting, as it's not a "normal" numeric cost.
 			return $costs[0];
 		}
 
@@ -103,8 +104,6 @@ class Tribe__Events__Cost_Utils extends Tribe__Cost_Utils {
 			'min' => $this->get_cost_by_func( $costs, 'min' ),
 			'max' => $this->get_cost_by_func( $costs, 'max' ),
 		);
-
-		write_log( $relevant_costs, 'relevant costs' );
 
 		foreach ( $relevant_costs as &$cost ) {
 			$cost = $this->maybe_replace_cost_with_free( $cost );
