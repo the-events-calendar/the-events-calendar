@@ -416,7 +416,8 @@ table.eventForm {
 	font-weight: bold;
 }
 
-.tribe-ea-facebook-disconnect {
+.tribe-ea-facebook-disconnect,
+.tribe-ea-eventbrite-disconnect {
 	color: #a00;
 	display: inline-block;
 	margin-left: 16px;
@@ -424,12 +425,14 @@ table.eventForm {
 }
 
 .tribe-ea-facebook-disconnect:active,
-	.tribe-ea-facebook-disconnect:hover {
+	.tribe-ea-facebook-disconnect:hover,
+	.tribe-ea-eventbrite-disconnect:active,
+	.tribe-ea-eventbrite-disconnect:hover {
 	color: #f00;
 }
 
-.tribe-ea-facebook-button {
-	background: #3d599b;
+.tribe-ea-facebook-button,
+.tribe-ea-eventbrite-button {
 	border-radius: 3px;
 	color: #fff;
 	display: inline-block;
@@ -440,10 +443,29 @@ table.eventForm {
 }
 
 .tribe-ea-facebook-button:active,
-	.tribe-ea-facebook-button:hover {
-	background: #32497e;
+	.tribe-ea-facebook-button:hover,
+	.tribe-ea-eventbrite-button:active,
+	.tribe-ea-eventbrite-button:hover {
 	color: #fff;
 	cursor: pointer;
+}
+
+.tribe-ea-facebook-button {
+	background: #3d599b;
+}
+
+.tribe-ea-facebook-button:active,
+	.tribe-ea-facebook-button:hover {
+	background: #32497e;
+}
+
+.tribe-ea-eventbrite-button {
+	background: #f6682f;
+}
+
+.tribe-ea-eventbrite-button:active,
+	.tribe-ea-eventbrite-button:hover {
+	background: #c85b2f;
 }
 
 /* = Event Aggregator Status
