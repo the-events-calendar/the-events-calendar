@@ -65,6 +65,39 @@ class SingleEventCest extends BaseRestCest {
 	}
 
 	/**
+	 * It should return invalid auth status if user cannot access drafts
+	 *
+	 * @test
+	 */
+	public function it_should_return_invalid_auth_status_if_user_cannot_access_drafts( Restv1Tester $I ) {
+		$I->generate_nonce_for_role( 'contributor' );
+
+		$id = $I->haveEventInDatabase( [ 'post_status' => 'draft' ] );
+
+		$I->sendGET( $this->events_url . '/' . $id );
+
+		$I->seeResponseCodeIs( 403 );
+		$I->seeResponseIsJson();
+	}
+
+	/**
+	 * It should return invalid auth status if user can access drafts
+	 *
+	 * @test
+	 */
+	public function it_should_return_invalid_auth_status_if_user_can_access_drafts( Restv1Tester $I ) {
+		$I->generate_nonce_for_role( 'editor' );
+
+		$id = $I->haveEventInDatabase( [ 'post_status' => 'draft' ] );
+
+		$I->sendGET( $this->events_url . '/' . $id );
+
+		$I->seeResponseCodeIs( 200 );
+		$I->seeResponseIsJson();
+		$I->seeResponseContainsJson( [ 'id' => $id ] );
+	}
+
+	/**
 	 * @test
 	 * it should return event data if event accessible
 	 */
