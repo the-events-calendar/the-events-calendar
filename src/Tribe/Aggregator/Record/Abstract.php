@@ -40,7 +40,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			'source' => 'meetup_id',
 			'target' => 'EventMeetupID',
 		),
-		'meetup' => array(
+		'eventbrite' => array(
 			'source' => 'eventbrite_id',
 			'target' => 'EventEventbriteID',
 		),
@@ -74,7 +74,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			'source' => 'meetup_id',
 			'target' => 'VenueMeetupID',
 		),
-		'eventbrit'   => array(
+		'eventbrite'   => array(
 			'source' => 'eventbrite_id',
 			'target' => 'VenueEventbriteID',
 		),
@@ -92,9 +92,9 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			'source' => 'meetup_id',
 			'target' => 'OrganizerMeetupID',
 		),
-		'eventbrit'   => array(
+		'eventbrite'   => array(
 			'source' => 'eventbrit_id',
-			'target' => 'OrganizerEventbritID',
+			'target' => 'OrganizerEventbriteID',
 		),
 	);
 
@@ -1699,7 +1699,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 								}
 							}
 						}
-
 					}
 				}
 
