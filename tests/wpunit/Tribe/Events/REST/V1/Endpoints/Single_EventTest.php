@@ -90,6 +90,37 @@ class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 
 	/**
 	 * @test
+	 * it should return a WP_Error if user cannot access requested event
+	 */
+	public function it_should_return_a_wp_error_if_contributor_user_cannot_access_draft_event() {
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'contributor' ] ) );
+		$request = new \WP_REST_Request( 'GET', '' );
+		$request->set_param( 'id', $this->factory()->event->create( [ 'post_status' => 'draft' ] ) );
+
+		$sut = $this->make_instance();
+		$response = $sut->get( $request );
+
+		$this->assertErrorResponse( 'event-not-accessible', $response, 403 );
+	}
+
+	/**
+	 * @test
+	 * it should return a WP_Error if user cannot access requested event
+	 */
+	public function it_should_return_event_data_if_editor_user_can_access_draft_event() {
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'editor' ] ) );
+		$request = new \WP_REST_Request( 'GET', '' );
+		$request->set_param( 'id', $this->factory()->event->create( [ 'post_status' => 'draft' ] ) );
+
+		$sut = $this->make_instance();
+		$response = $sut->get( $request );
+
+		$this->assertInstanceOf( \WP_REST_Response::class, $response );
+		$this->assertEquals( [ 'some' => 'data' ], $response->get_data() );
+	}
+
+	/**
+	 * @test
 	 * it should return event data if event accessible
 	 */
 	public function it_should_return_event_data_if_event_accessible() {
