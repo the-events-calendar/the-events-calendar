@@ -30,7 +30,7 @@ class Tribe__Events__Aggregator__Record__Eventbrite extends Tribe__Events__Aggre
 
 		// If we have a key we add that to the Arguments
 		if ( ! empty( $pue_key ) ) {
-			$args['eventbrite_license'] = $pue_key;
+			$args['licenses']['eventbrite'] = $pue_key;
 		}
 
 		return parent::queue_import( $args );
