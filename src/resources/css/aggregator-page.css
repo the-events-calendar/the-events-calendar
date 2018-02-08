@@ -282,6 +282,10 @@
 	color: gray;
 }
 
+.tribe-ea .tribe-ea-inline-label {
+	line-height: 30px;
+}
+
 .tribe-ea .tribe-notice-tribe-missing-aggregator-license {
 	background: url(../images/aggregator/ea-upsell-bkg.svg) transparent no-repeat;
 	background-size: cover;

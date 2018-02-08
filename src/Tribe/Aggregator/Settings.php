@@ -236,6 +236,7 @@ class Tribe__Events__Aggregator__Settings {
 			'gcal',
 			'ical',
 			'ics',
+			'eventbrite',
 			'facebook',
 			'meetup',
 			'url',
