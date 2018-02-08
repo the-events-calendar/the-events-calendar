@@ -17,6 +17,22 @@ class Tribe__Events__Aggregator__Record__Eventbrite extends Tribe__Events__Aggre
 
 		$args = wp_parse_args( $args, $defaults );
 
+		/**
+		 * Allows filtering to add a PUE key to be passed to the EA service
+		 *
+		 * @since  TBD
+		 *
+		 * @param  bool|string $pue_key PUE key
+		 * @param  array       $args    Arguments to queue the import
+		 * @param  self        $record  Which record we are dealing with
+		 */
+		$pue_key = apply_filters( 'tribe_aggregator_eventbrite_record_queue_import_pue_key', false, $args, $this );
+
+		// If we have a key we add that to the Arguments
+		if ( ! empty( $pue_key ) ) {
+			$args['licenses']['eventbrite'] = $pue_key;
+		}
+
 		return parent::queue_import( $args );
 	}
 
