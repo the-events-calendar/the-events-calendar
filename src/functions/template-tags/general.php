@@ -792,10 +792,10 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 */
 	function tribe_get_cost( $post_id = null, $with_currency_symbol = false ) {
 		$tribe_ecp = Tribe__Events__Main::instance();
-		$post_id    = Tribe__Events__Main::postIdHelper( $post_id );
+		$post_id   = Tribe__Events__Main::postIdHelper( $post_id );
 
 		$cost_utils = tribe( 'tec.cost-utils' );
-		$cost = $cost_utils->get_formatted_event_cost( $post_id, $with_currency_symbol );
+		$cost       = $cost_utils->get_formatted_event_cost( $post_id, $with_currency_symbol );
 
 		return apply_filters( 'tribe_get_cost', $cost, $post_id, $with_currency_symbol );
 	}

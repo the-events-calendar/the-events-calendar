@@ -65,6 +65,10 @@ class Tribe__Events__Cost_Utils extends Tribe__Cost_Utils {
 
 		$parsed_costs = array();
 
+		if ( $this->cost_is_mixed_content( $costs ) ) {
+			return $costs;
+		}
+
 		foreach ( $costs as $index => $value ) {
 			if ( '' === $value ) {
 				continue;
@@ -89,6 +93,11 @@ class Tribe__Events__Cost_Utils extends Tribe__Cost_Utils {
 
 		if ( ! $costs ) {
 			return '';
+		}
+
+		if ( $this->cost_is_mixed_content( $costs ) ) {
+			// Return the cost without additional formatting, as it's not a "normal" numeric cost.
+			return $costs[0];
 		}
 
 		$relevant_costs = array(
@@ -123,6 +132,33 @@ class Tribe__Events__Cost_Utils extends Tribe__Cost_Utils {
 		}
 
 		return $formatted;
+	}
+
+	/**
+	 * Determines if the specificed cost value contains more than just numeric values.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $cost The cost to check, often the raw value of the _EventCost event meta field.
+	 *
+	 * @return boolean
+	 */
+	public function cost_is_mixed_content( array $cost ) {
+
+		if ( empty( $cost ) ) {
+			return false;
+		}
+
+		// If more than one array item, it's almost certainly an array of numeric costs, so bail.
+		if ( 1 < count( $cost ) ) {
+			return false;
+		}
+
+		if ( ! is_numeric( $cost[0] ) ) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**
