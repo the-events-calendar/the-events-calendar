@@ -78,6 +78,11 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				return $query;
 			}
 
+			// Don't change query on pages as we might be ina shortcode.
+			if ( $query->is_main_query() && $query->is_page() ) {
+				return $query;
+			}
+
 			// Add tribe events post type to tag queries only in tag archives
 			if ( $query->is_tag
 				&& (array) $query->get( 'post_type' ) != array( Tribe__Events__Main::POSTTYPE )
