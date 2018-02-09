@@ -486,8 +486,13 @@ a.tribe-events-gmap {
 
 .tribe-theme-twentyfourteen #tribe-events-pg-template {
 	padding-left: 0;
-	padding-right: 0;
+	padding-right: 0;/* padding-top: 0; */
 }
+
+/* 	#tribe-events-bar {
+		margin-bottom: 10px;
+	}
+ */
 
 .tribe-theme-twentyfourteen.events-archive .entry-content {
 	width: 90%;
@@ -497,10 +502,24 @@ a.tribe-events-gmap {
 	margin-top: .5em;
 }
 
+/* = Twenty Fifteen Styling
+   @ Template: ALL
+=============================================*/
+
+.tribe-theme-twentyfifteen #tribe-events {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.tribe-theme-twentyfifteen #tribe-bar-views .tribe-bar-views-list .tribe-bar-views-option a {
+	padding-left: 6px;
+	padding-right: 6px;
+}
+
 /* = Twenty Sixteen Styling
    @ Template: ALL
 =============================================*/
 
-.tribe-theme-twentysixteen .tribe-events-pg-template {
+.tribe-theme-twentysixteen #tribe-events-pg-template {
 	padding-top: 0;
 }
