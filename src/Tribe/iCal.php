@@ -496,9 +496,11 @@ class Tribe__Events__iCal {
 		 * @param int $count The number of upcoming events that should be exported in the
 		 *                   feed, defaults to 30.
 		 */
-		$count = absint( apply_filters( 'tribe_ical_feed_posts_per_page', $this->feed_default_export_count ) );
+		$count = apply_filters( 'tribe_ical_feed_posts_per_page', $this->feed_default_export_count );
 
-		return $count === 0 ? $this->feed_default_export_count : $count;
+		return is_numeric( $count ) && is_int( $count ) && $count > 0
+			? $count
+			: $this->feed_default_export_count;
 	}
 
 	/**
