@@ -465,8 +465,9 @@ class Tribe__Events__iCal {
 
 		$list = array();
 		if ( $count > $query_posts_per_page ) {
+			$args['posts_per_page'] = $count;
 			$events_query = new WP_Query( wp_parse_args( $args, array(
-				'posts_per_page' => $count,
+				'posts_per_page' => $this->feed_posts_per_page(),
 				'post_type' => Tribe__Events__Main::POSTTYPE,
 				'eventDisplay' => 'default',
 			) ) );
