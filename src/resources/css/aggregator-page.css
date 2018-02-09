@@ -556,10 +556,6 @@
 	display: inline-block;
 }
 
-.tribe-ea-form[data-origin="eventbrite"] .tribe-finalize-container {
-	display: block;
-}
-
 .tribe-ea-form[data-origin="csv"] .dataTables_length,
 		.tribe-ea-form[data-origin="csv"] .dataTables_info,
 		.tribe-ea-form[data-origin="csv"] .dataTables_paginate,
