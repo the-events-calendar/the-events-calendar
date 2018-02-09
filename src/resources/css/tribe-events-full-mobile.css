@@ -496,3 +496,11 @@ a.tribe-events-gmap {
 .tribe-is-responsive.tribe-mobile .tribe-events-page-title {
 	margin-top: .5em;
 }
+
+/* = Twenty Sixteen Styling
+   @ Template: ALL
+=============================================*/
+
+.tribe-theme-twentysixteen .tribe-events-pg-template {
+	padding-top: 0;
+}
