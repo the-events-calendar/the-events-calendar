@@ -155,7 +155,10 @@ $field->help        = __( 'Enter an Eventbrite event URL, e.g. https://www.event
 			name="aggregator[eventbrite][source]"
 			type="text"
 			id="tribe-ea-field-eventbrite_source"
-			class="tribe-ea-field tribe-ea-size-xlarge"
+			class="tribe-ea-field tribe-ea-size-xlarge tribe-dependent"
+			data-depends="#tribe-ea-field-eventbrite_source_type_url"
+			data-condition-is-checked
+			data-dependency-always-visible
 			placeholder="<?php echo esc_attr( $field->placeholder ); ?>"
 			value="<?php echo esc_attr( empty( $record->meta['source'] ) ? '' : $record->meta['source'] ); ?>"
 			data-validation-match-regexp="<?php echo esc_attr( Tribe__Events__Aggregator__Record__Eventbrite::get_source_regexp() ); ?>"
