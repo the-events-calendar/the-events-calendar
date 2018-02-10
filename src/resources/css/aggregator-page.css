@@ -396,7 +396,8 @@
 	margin-bottom: .25em;
 }
 
-.tribe-ea .tribe-ea-facebook-button {
+.tribe-ea .tribe-ea-facebook-button,
+	.tribe-ea .tribe-ea-eventbrite-button {
 	margin-left: 32px;
 	margin-left: 2rem;
 	margin-top: 16px;
