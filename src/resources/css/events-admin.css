@@ -455,7 +455,8 @@ table.eventForm {
 }
 
 .tribe-ea-facebook-button:active,
-	.tribe-ea-facebook-button:hover {
+	.tribe-ea-facebook-button:hover,
+	.tribe-ea-facebook-button:focus {
 	background: #32497e;
 }
 
@@ -464,7 +465,8 @@ table.eventForm {
 }
 
 .tribe-ea-eventbrite-button:active,
-	.tribe-ea-eventbrite-button:hover {
+	.tribe-ea-eventbrite-button:hover,
+	.tribe-ea-eventbrite-button:focus {
 	background: #c85b2f;
 }
 
