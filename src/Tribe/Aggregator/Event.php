@@ -86,6 +86,7 @@ class Tribe__Events__Aggregator__Event {
 			'image'              => 'image',
 			'facebook_id'        => 'EventFacebookID',
 			'meetup_id'          => 'EventMeetupID',
+			'eventbrite_id'      => 'EventEventbriteID',
 			'uid'                => 'uid',
 			'parent_uid'         => 'parent_uid',
 			'recurrence'         => 'recurrence',
@@ -105,6 +106,7 @@ class Tribe__Events__Aggregator__Event {
 		$venue_field_map = array(
 			'facebook_id'           => 'VenueFacebookID',
 			'meetup_id'             => 'VenueMeetupID',
+			'eventbrite_id'         => 'VenueEventbriteID',
 			'venue'                 => 'Venue',
 			'address'               => 'Address',
 			'city'                  => 'City',
@@ -120,12 +122,13 @@ class Tribe__Events__Aggregator__Event {
 		);
 
 		$organizer_field_map = array(
-			'facebook_id' => 'OrganizerFacebookID',
-			'meetup_id'   => 'OrganizerMeetupID',
-			'organizer'   => 'Organizer',
-			'phone'       => 'Phone',
-			'email'       => 'Email',
-			'website'     => 'Website',
+			'facebook_id'   => 'OrganizerFacebookID',
+			'meetup_id'     => 'OrganizerMeetupID',
+			'eventbrite_id' => 'OrganizerEventbriteID',
+			'organizer'     => 'Organizer',
+			'phone'         => 'Phone',
+			'email'         => 'Email',
+			'website'       => 'Website',
 		);
 
 		foreach ( $field_map as $origin_field => $target_field ) {

@@ -93,7 +93,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			'target' => 'OrganizerMeetupID',
 		),
 		'eventbrite'   => array(
-			'source' => 'eventbrit_id',
+			'source' => 'eventbrite_id',
 			'target' => 'OrganizerEventbriteID',
 		),
 	);
@@ -1574,6 +1574,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				}
 
 				foreach ( $event['Organizer'] as $key => $organizer_data ) {
+
 					//if we should create an organizer or use existing
 					if ( ! empty( $organizer_data['Organizer'] ) ) {
 						$organizer_data['Organizer'] = trim( $organizer_data['Organizer'] );
