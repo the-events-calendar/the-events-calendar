@@ -666,11 +666,6 @@ tribe_aggregator.fields = {
 		var $table = $( '.dataTable' );
 		var table = window.tribe_data_table;
 
-		if ( 'eventbrite' === origin ) {
-			obj.$.form.submit();
-			return;
-		}
-
 		if ( $table.hasClass( 'display-checkboxes' ) ) {
 			var row_selection = table.rows( { selected: true } );
 			if ( ! row_selection[0].length ) {
@@ -690,6 +685,8 @@ tribe_aggregator.fields = {
 				unique_id_field = 'facebook_id';
 			} else if ( 'meetup' === origin ) {
 				unique_id_field = 'meetup_id';
+			} else if ( 'eventbrite' === origin ) {
+				unique_id_field = 'eventbrite_id';
 			} else if ( 'ical' === origin || 'ics' === origin || 'gcal' === origin ) {
 				unique_id_field = 'uid';
 			} else if ( 'url' === origin ) {
@@ -1030,7 +1027,7 @@ tribe_aggregator.fields = {
 	obj.events.suppress_submission = function( e ) {
 		var origin = $( '#tribe-ea-field-origin' ).val();
 
-		if ( $( '#tribe-selected-rows' ).val().length || 'eventbrite' === origin ) {
+		if ( $( '#tribe-selected-rows' ).val().length ) {
 			return true;
 		}
 
