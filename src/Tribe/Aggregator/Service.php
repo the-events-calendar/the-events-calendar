@@ -408,6 +408,22 @@ class Tribe__Events__Aggregator__Service {
 			$args = $request_args;
 		}
 
+		/**
+		 * Allows filtering to add a PUE key to be passed to the EA service
+		 *
+		 * @since  TBD
+		 *
+		 * @param  bool|string $pue_key PUE key
+		 * @param  array       $args    Arguments to queue the import
+		 * @param  self        $record  Which record we are dealing with
+		 */
+		$licenses = apply_filters( 'tribe_aggregator_service_post_pue_licenses', array(), $request_args['body'], $this );
+
+		// If we have a key we add that to the Arguments
+		if ( ! empty( $licenses ) ) {
+			$args['body']['licenses'] = $licenses;
+		}
+
 		$response = $this->post( 'import', $args );
 
 		return $response;
@@ -628,6 +644,9 @@ class Tribe__Events__Aggregator__Service {
 			'eventbrite_token' => '1',
 			'meetup_api_key'   => '1',
 		) );
+
+
+
 		$response = $this->post_import( $confirmation_args );
 
 		$confirmed = ! empty( $response->status ) && 0 !== strpos( $response->status, 'error' );
