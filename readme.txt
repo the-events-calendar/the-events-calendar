@@ -4,7 +4,7 @@ Contributors: ModernTribe, borkweb, aguseo, barry.hughes, bordoni, brianjessee, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.5
-Stable tag: 4.6.11
+Stable tag: 4.6.12
 Tested up to: 4.9.2
 Requires PHP: 5.2.4
 License: GPLv2 or later
@@ -307,6 +307,8 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 * <a href="https://profiles.wordpress.org/users/thatdudebutch">Wayne Stratton</a>
 
 == Changelog ==
+
+= [4.6.12] TBD =
 
 = [4.6.11] TBD =
 
