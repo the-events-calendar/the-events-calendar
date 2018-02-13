@@ -87,6 +87,7 @@ class Tribe__Events__Aggregator__Event {
 			'facebook_id'        => 'EventFacebookID',
 			'meetup_id'          => 'EventMeetupID',
 			'eventbrite_id'      => 'EventEventbriteID',
+			'eventbrite_tickets' => 'eventbrite_tickets',
 			'uid'                => 'uid',
 			'parent_uid'         => 'parent_uid',
 			'recurrence'         => 'recurrence',
