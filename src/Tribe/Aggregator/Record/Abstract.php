@@ -1874,6 +1874,17 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 					'meta_value' => $event[ $unique_field['target'] ],
 				);
 			}
+
+			/**
+			 * Allows third party plugins to hook into after Aggregator saved a Event
+			 *
+			 * @since  TBD
+			 *
+			 * @param  array $event   Which Event data was sent
+			 * @param  array $item    Raw version of the data sent from EA
+			 * @param  self  $record  The record we are dealing with
+			 */
+			do_action( 'tribe_aggregator_after_save_event', $event, $item, $this );
 		}
 
 		remove_filter( 'tribe-post-origin', array( Tribe__Events__Aggregator__Records::instance(), 'filter_post_origin' ), 10 );
