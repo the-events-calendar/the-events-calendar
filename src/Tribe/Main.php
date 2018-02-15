@@ -4008,6 +4008,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$direction  = '>';
 				$mode       = 'next';
 			}
+			
+			write_log( sprintf( 'get_closest_event ran for "%s" mode', $mode ) );
 
 			$args = array(
 				'post__not_in'   => array( $post->ID ),

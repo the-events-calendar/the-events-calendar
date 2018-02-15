@@ -33,9 +33,16 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string
 	 */
 	function tribe_get_prev_event_link( $anchor = false ) {
-		global $post;
+		//global $post;
+		// global $prev_event_link;
+		
+		$adjacent_events = Tribe__Events__Adjacent_Events::instance( get_the_ID() );
 
-		return apply_filters( 'tribe_get_prev_event_link', Tribe__Events__Main::instance()->get_event_link( $post, 'previous', $anchor ) );
+		// if ( empty( $prev_event_link ) ) {
+		// 	$prev_event_link = Tribe__Events__Main::instance()->get_event_link( $post, 'previous', $anchor );
+		// }
+
+		return apply_filters( 'tribe_get_prev_event_link', $adjacent_events->get_prev_event_link( $anchor ) );
 	}
 
 	/**
@@ -60,9 +67,16 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string
 	 */
 	function tribe_get_next_event_link( $anchor = false ) {
-		global $post;
 
-		return apply_filters( 'tribe_get_next_event_link', Tribe__Events__Main::instance()->get_event_link( $post, 'next', $anchor ) );
+		$adjacent_events = Tribe__Events__Adjacent_Events::instance( get_the_ID() );
+		// global $post;
+		// global $next_event_link;
+
+		// if ( empty( $next_event_link ) ) {
+		// 	$next_event_link = Tribe__Events__Main::instance()->get_event_link( $post, 'next', $anchor );
+		// }
+
+		return apply_filters( 'tribe_get_next_event_link', $adjacent_events->get_next_event_link( $anchor )  );
 	}
 
 	/**
