@@ -49,8 +49,8 @@ $general_tab_fields = Tribe__Main::array_insert_before_key(
 		),
 		'liveFiltersUpdate'             => array(
 			'type'            => 'checkbox_bool',
-			'label'           => esc_html__( 'Use Javascript to control date filtering', 'the-events-calendar' ),
-			'tooltip'         => tribe_get_option( 'tribeDisableTribeBar', false ) == true ? esc_html__( 'This option is disabled when "Disable the Event Search Bar" is checked on the Display settings tab.', 'the-events-calendar' ) : esc_html__( 'Enable live ajax for datepicker on front end (User submit not required).', 'the-events-calendar' ),
+			'label'           => esc_html__( 'Enable live refresh', 'the-events-calendar' ),
+			'tooltip'         => tribe_get_option( 'tribeDisableTribeBar', false ) == true ? esc_html__( 'This option is disabled when "Disable the Event Search Bar" is checked on the Display settings tab.', 'the-events-calendar' ) : esc_html__( 'Instantly updates the calendar view when searching for or filtering events.', 'the-events-calendar' ),
 			'attributes'      => tribe_get_option( 'tribeDisableTribeBar', false ) == true ? array( 'disabled' => 'disabled' ) : null,
 			'default'         => true,
 			'validation_type' => 'boolean',
