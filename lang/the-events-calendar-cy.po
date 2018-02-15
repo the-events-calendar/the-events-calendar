@@ -19,7 +19,7 @@ msgstr ""
 msgid "The number of events per page on the List View. Does not affect other views."
 msgstr ""
 
-#: src/Tribe/Rewrite.php:257
+#: src/Tribe/Rewrite.php:264
 msgctxt "The \"/page/\" URL string component."
 msgid "page"
 msgstr ""
@@ -7790,7 +7790,7 @@ msgstr "rhestr"
 msgid "month"
 msgstr "mis"
 
-#. #-#-#-#-#  the-events-calendar-code.pot (The Events Calendar 4.6.10) 
+#. #-#-#-#-#  the-events-calendar-code.pot (The Events Calendar 4.6.10.1) 
 #. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:59 common/src/Tribe/Customizer.php:569
