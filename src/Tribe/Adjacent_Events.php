@@ -17,16 +17,51 @@ if ( ! class_exists( 'Tribe__Events__Adjacent_Events' ) ) {
 		 */
 		protected static $instance;
 
+		/**
+		 * @var int
+		 */
 		public $current_event_id;
-		public $previous_event_id;
-		public $next_event_id;
-		public $previous_event_link = '';
-		public $next_event_link     = '';
 
+		/**
+		 * @var int
+		 */
+		public $previous_event_id;
+
+		/**
+		 * @var int
+		 */
+		public $next_event_id;
+
+		/**
+		 * @var string
+		 */
+		public $previous_event_link = '';
+
+		/**
+		 * @var string
+		 */
+		public $next_event_link = '';
+
+		/**
+		 * Set the "center" event ID to look on either side of in prev/next methods.
+		 *
+		 * @since TBD
+		 *
+		 * @param 
+		 * @return
+		 */
 		public function __construct( $event_id ) {
 			$this->current_event_id = $event_id;
 		}
 
+		/**
+		 * Singleton constructor for the class.
+		 *
+		 * @since TBD
+		 *
+		 * @param int $event_id The ID to look in front of and behind.
+		 * @return Tribe__Events__Adjacent_Events
+		 */
 		public static function instance( $event_id ) {
 			if ( empty( self::$instance ) ) {
 				self::$instance = new self( $event_id );
@@ -35,6 +70,14 @@ if ( ! class_exists( 'Tribe__Events__Adjacent_Events' ) ) {
 			return self::$instance;
 		}
 
+		/**
+		 * Get link to the previous event.
+		 *
+		 * @since TBD
+		 *
+		 * @param boolean $anchor
+		 * @return string
+		 */
 		public function get_prev_event_link( $anchor ) {
 
 			if ( empty( $this->previous_event_link ) ) {
@@ -44,6 +87,14 @@ if ( ! class_exists( 'Tribe__Events__Adjacent_Events' ) ) {
 			return $this->previous_event_link;
 		}
 
+		/**
+		 * Get link to the next event.
+		 *
+		 * @since TBD
+		 *
+		 * @param boolean $anchor
+		 * @return string
+		 */
 		public function get_next_event_link( $anchor ) {
 
 			if ( empty( $this->next_event_link ) ) {
@@ -64,7 +115,7 @@ if ( ! class_exists( 'Tribe__Events__Adjacent_Events' ) ) {
 		 * @param string $where_sql WHERE SQL statement
 		 * @param WP_Query $query WP_Query object
 		 *
-		 * return string
+		 * @return string
 		 */
 		public function get_closest_event_where( $where_sql ) {
 			// if we are in this method, we KNOW there is a section of the SQL that looks like this:
@@ -171,8 +222,6 @@ if ( ! class_exists( 'Tribe__Events__Adjacent_Events' ) ) {
 				$direction  = '>';
 				$mode       = 'next';
 			}
-
-			write_log( sprintf( 'get_closest_event ran for "%s" mode', $mode ) );
 
 			$args = array(
 				'post__not_in'   => array( $this->current_event_id ),
