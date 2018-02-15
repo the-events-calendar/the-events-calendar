@@ -47,8 +47,7 @@ if ( ! class_exists( 'Tribe__Events__Adjacent_Events' ) ) {
 		 *
 		 * @since TBD
 		 *
-		 * @param 
-		 * @return
+		 * @param int $event_id The event ID to look on either side of in prev/next methods.
 		 */
 		public function __construct( $event_id ) {
 			$this->current_event_id = $event_id;
@@ -103,7 +102,7 @@ if ( ! class_exists( 'Tribe__Events__Adjacent_Events' ) ) {
 
 			return $this->next_event_link;
 		}
- 
+
 		/**
 		 * Modify the WHERE clause of query when fetching next/prev posts so events with identical times are not excluded
 		 *
@@ -251,11 +250,11 @@ if ( ! class_exists( 'Tribe__Events__Adjacent_Events' ) ) {
 			 * @var WP_Post $post_obj
 			 */
 			$args = (array) apply_filters( "tribe_events_get_{$mode}_event_link", $args, $post_obj );
-			
+
 			add_filter( 'posts_where', array( $this, 'get_closest_event_where' ) );
-			
+
 			$results = tribe_get_events( $args );
-			
+
 			remove_filter( 'posts_where', array( $this, 'get_closest_event_where' ) );
 
 			$event = null;

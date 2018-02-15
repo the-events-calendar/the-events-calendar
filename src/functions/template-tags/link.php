@@ -68,8 +68,8 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 */
 	function tribe_get_next_event_link( $anchor = false ) {
 		$event_id        = get_the_ID();
-		$adjacent_events = Tribe__Events__Adjacent_Events::instance( $event_id );		
-		
+		$adjacent_events = Tribe__Events__Adjacent_Events::instance( $event_id );
+
 		/**
 		 * Filter the output of the link to the next event by start date of a given event.
 		 *
