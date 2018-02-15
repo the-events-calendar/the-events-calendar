@@ -152,7 +152,7 @@ class Tribe__Events__iCal {
 			 * Action fired before the creation of the feed is started, helpful to set up methods and other filters used
 			 * on this class.
 			 *
-			 * @since TBD
+			 * @since 4.6.11
 			 */
 			do_action( 'tribe_events_ical_before' );
 
@@ -432,7 +432,7 @@ class Tribe__Events__iCal {
 	 * so if is called from a different location like a page or post (shortcode) it will retain the original values
 	 * to generate the events feed.
 	 *
-	 * @since TBD
+	 * @since 4.6.11
 	 *
 	 * @param array $args The WP_Query arguments.
 	 * @param mixed $query A WP_Query object or null if none.
@@ -442,7 +442,7 @@ class Tribe__Events__iCal {
 		/**
 		 * Filter the arguments used to construct the call to get the list of events.
 		 *
-		 * @since TBD
+		 * @since 4.6.11
 		 *
 		 * @param array $args Arguments used in WP_Query call.
 		 */
@@ -451,7 +451,7 @@ class Tribe__Events__iCal {
 		/**
 		 * Filter the Query object used to get the list of events used to populate the feed.
 		 *
-		 * @since TBD
+		 * @since 4.6.11
 		 *
 		 * @param mixed $query a WP_Query or null.
 		 */
@@ -482,7 +482,7 @@ class Tribe__Events__iCal {
 	 * Get the number of posts per page to be used on the feed of the iCal, make sure it passes the value via the filter
 	 * tribe_ical_feed_posts_per_page and validates the number is greather than 0.
 	 *
-	 * @since TBD
+	 * @since 4.6.11
 	 *
 	 * @return int
 	 */
