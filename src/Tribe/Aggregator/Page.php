@@ -101,6 +101,7 @@ class Tribe__Events__Aggregator__Page {
 					'debug' => defined( 'WP_DEBUG' ) && true === WP_DEBUG,
 				),
 				'default_settings' => tribe( 'events-aggregator.settings' )->get_all_default_settings(),
+				'source_origin_regexp' => tribe( 'events-aggregator.settings' )->get_source_origin_regexp(),
 			),
 		);
 

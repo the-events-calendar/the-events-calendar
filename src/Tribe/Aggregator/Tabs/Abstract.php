@@ -86,7 +86,7 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract extends Tribe__Tabbed_V
 
 		// If we are dealing with Other URL made
 		if ( 'url' === $post_data['origin'] ) {
-			$new_origin = Tribe__Events__Aggregator__Record__Url::match_source_origin( $data['source'] );
+			$new_origin = tribe( 'events-aggregator.settings' )->match_source_origin( $data['source'] );
 
 			// If we found a valid new origin we overwrite
 			if ( false !== $new_origin ) {
