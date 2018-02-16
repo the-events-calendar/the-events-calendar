@@ -302,7 +302,7 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 					if ( is_array( $event_cats ) ) {
 						$categories_list = implode( ', ', $event_cats );
 					}
-					echo $categories_list;
+					echo esc_html( $categories_list );
 				break;
 
 				case 'start-date':
