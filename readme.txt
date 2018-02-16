@@ -310,6 +310,7 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 
 = [4.6.12] TBD =
 
+* Fix - Prevent error on the admin during the generation of the columns [99266]
 * Tweak - Rename 'Use Javascript to control date filtering' option to 'Enable live refresh' and modify explanatory copy [98022]
 
 = [4.6.11] 2018-02-14 =
