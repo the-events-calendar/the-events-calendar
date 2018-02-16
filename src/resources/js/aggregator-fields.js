@@ -10,6 +10,7 @@ tribe_aggregator.fields = {
 		fields                  : '.tribe-ea-field',
 		dropdown                : '.tribe-ea-dropdown',
 		origin_field            : '#tribe-ea-field-origin',
+		field_url_source        : '#tribe-ea-field-url_source',
 		import_type_field       : '.tribe-import-type',
 		media_button            : '.tribe-ea-media_button',
 		datepicker              : '.tribe-datepicker',
@@ -131,6 +132,63 @@ tribe_aggregator.fields = {
 					window.open( 'https://theeventscalendar.com/wordpress-event-aggregator/?utm_source=importoptions&utm_medium=plugin-tec&utm_campaign=in-app','_blank' );
 					location.reload();
 				}
+			} )
+			.on( 'change', obj.selector.field_url_source, function( e ) {
+				var $field = $( this );
+				var value = $field.val();
+				var origin = null;
+
+				if ( ! value ) {
+					return;
+				}
+
+				_.each( ea.source_origin_regexp, function( regularExpression, key ) {
+					var exp = new RegExp( regularExpression, 'g' );
+					var match = exp.exec( value );
+
+					if ( null === match ) {
+						return;
+					}
+
+					origin = key;
+				} );
+
+				if ( null == origin ) {
+					return;
+				}
+
+				var $origin = $( obj.selector.origin_field );
+
+				// Prevent Changing when dealing with Non-Existant Origin
+				if ( ! $origin.find( 'option[value="' + origin + '"]' ).length ) {
+					return;
+				}
+
+				var $type = $( '#tribe-ea-field-url_import_type' );
+				var typeValue = $type.val();
+				var frequencyValue = null;
+				if ( 'schedule' === typeValue ) {
+					frequencyValue = $( '#tribe-ea-field-url_import_frequency' ).val();
+				}
+
+				// Reset type value to avoid bugs
+				$type.val( '' );
+
+				// Change the Origin to what ever matched
+				$origin.val( origin ).trigger( 'change' );
+
+				// Change the frequency accordingly
+				$( '#tribe-ea-field-' + origin + '_import_type' ).val( typeValue ).trigger( 'change' );
+				if ( 'schedule' === typeValue ) {
+					$( '#tribe-ea-field-' + origin + '_import_frequency' ).val( frequencyValue ).trigger( 'change' );
+				}
+
+				if ( 'eventbrite' === origin ) {
+					$( '#tribe-ea-field-' + origin + '_source_type_url' ).trigger( 'click' );
+				}
+
+				// Change the Source URL accordingly
+				$( '#tribe-ea-field-' + origin + '_source' ).val( value ).trigger( 'change' );
 			} );
 
 		$( '.tribe-dependency' ).change();
