@@ -74,11 +74,11 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			}
 
 			// Return early as we don't want to change a post that is not part of the valid group of event post types.
-			$valid_post_types = [
+			$valid_post_types = array(
 				Tribe__Events__Main::POSTTYPE,
-				Tribe__Events__Main::ORGANIZER_POST_TYPE,
-				Tribe__Events__Main::VENUE_POST_TYPE,
-			];
+				Tribe__Events__Venue::POSTTYPE,
+				Tribe__Events__Organizer::POSTTYPE,
+			);
 			if (
 				$query->is_main_query()
 				&& $query->is_single()
