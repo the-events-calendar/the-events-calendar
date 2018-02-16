@@ -311,6 +311,7 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 = [4.6.12] TBD =
 
 * Tweak - Rename 'Use Javascript to control date filtering' option to 'Enable live refresh' and modify explanatory copy [98022]
+* Tweak - Add cache in `Tribe__Events__Aggregator__Service::instance()->get_origins();` to avoid same HTTP call being fired multiple times in the admin [99486]
 
 = [4.6.11] 2018-02-14 =
 
