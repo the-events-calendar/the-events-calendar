@@ -80,7 +80,13 @@ class Tribe__Events__Aggregator__Admin_Bar {
 			return;
 		}
 
-		$service_response = Tribe__Events__Aggregator__Service::instance()->get_origins();
+		$service_response = get_transient( Tribe__Events__Aggregator::SERVICES_CACHE_KEY );
+
+		// Save HTTP request into a transient
+		if ( false === $service_response ) {
+			$service_response = Tribe__Events__Aggregator__Service::instance()->get_origins();
+			set_transient( Tribe__Events__Aggregator::SERVICES_CACHE_KEY, $service_response, DAY_IN_SECONDS );
+		}
 
 		$origins = array(
 			(object) array(
@@ -89,11 +95,11 @@ class Tribe__Events__Aggregator__Admin_Bar {
 			),
 		);
 
-		if ( empty( $service_response[0]->origin ) ) {
+		if ( empty( $service_response['origin'] ) ) {
 			return;
 		}
 
-		$origins = array_merge( $origins, $service_response[0]->origin );
+		$origins = array_merge( $origins, $service_response['origin'] );
 
 		foreach ( $origins as $origin ) {
 			$url = Tribe__Events__Aggregator__Page::instance()->get_url( array( 'ea-origin' => $origin->id ) );
