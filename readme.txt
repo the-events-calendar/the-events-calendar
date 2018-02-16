@@ -308,7 +308,8 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 
 == Changelog ==
 
-= [4.6.11.1] TBD =
+= [4.6.11.1] 2018-02-16 =
+
 * Fix - The render of the venue and organizer templates (thanks to Antonio and others for reporting this in our forums) [99550]
 * Fix - Make sure events on calendar are not affected by DST changes [99537]
 
