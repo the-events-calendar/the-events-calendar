@@ -42,7 +42,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		),
 		'eventbrite' => array(
 			'source' => 'eventbrite_id',
-			'target' => 'EventEventbriteID',
+			'target' => 'EventbriteID',
 		),
 		'ical' => array(
 			'source' => 'uid',
