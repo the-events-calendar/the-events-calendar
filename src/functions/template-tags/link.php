@@ -33,8 +33,9 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string
 	 */
 	function tribe_get_prev_event_link( $anchor = false ) {
-		$event_id        = get_the_ID();
-		$adjacent_events = Tribe__Events__Adjacent_Events::instance( $event_id );
+		$event_id = get_the_ID();
+		
+		tribe( 'tec.adjacent-events' )->set_current_event_id( $event_id );
 
 		/**
 		 * Filter the output of the link to the previous event by start date of a given event.
@@ -42,7 +43,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param string $prev_event_link The link to the previous event.
 		 * @param int    $event_id        The ID of the reference event.
 		 */
-		return apply_filters( 'tribe_get_prev_event_link', $adjacent_events->get_prev_event_link( $anchor ), $event_id );
+		return apply_filters( 'tribe_get_prev_event_link', tribe( 'tec.adjacent-events' )->get_prev_event_link( $anchor ), $event_id );
 	}
 
 	/**
@@ -67,8 +68,9 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string
 	 */
 	function tribe_get_next_event_link( $anchor = false ) {
-		$event_id        = get_the_ID();
-		$adjacent_events = Tribe__Events__Adjacent_Events::instance( $event_id );
+		$event_id = get_the_ID();
+		
+		tribe( 'tec.adjacent-events' )->set_current_event_id( $event_id );
 
 		/**
 		 * Filter the output of the link to the next event by start date of a given event.
@@ -76,7 +78,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param string $next_event_link The link to the next event.
 		 * @param int    $event_id        The ID of the reference event.
 		 */
-		return apply_filters( 'tribe_get_next_event_link', $adjacent_events->get_next_event_link( $anchor ), $event_id );
+		return apply_filters( 'tribe_get_next_event_link', tribe( 'tec.adjacent-events' )->get_next_event_link( $anchor ), $event_id );
 	}
 
 	/**

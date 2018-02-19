@@ -441,6 +441,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe_singleton( 'tec.linked-posts.venue', 'Tribe__Events__Venue' );
 			tribe_singleton( 'tec.linked-posts.organizer', 'Tribe__Events__Organizer' );
 
+			// Adjacent Events
+			tribe_singleton( 'tec.adjacent-events', 'Tribe__Events__Adjacent_Events' );
+
 			/**
 			 * Allows other plugins and services to override/change the bound implementations.
 			 */
