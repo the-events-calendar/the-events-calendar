@@ -577,6 +577,7 @@ class Tribe__Events__Aggregator {
 
 		// Remove caches associated with the list of services
 		add_action( 'tribe_settings_after_save', array( $this, 'clear_services_list_cache' ) );
+		add_action( 'tribe_settings_save_field_value', array( $this, 'clear_services_list_cache' ) );
 
 		// Let's prevent events-importer-ical from DESTROYING its saved recurring imports when it gets deactivated
 		if ( class_exists( 'Tribe__Events__Ical_Importer__Main' ) ) {
@@ -598,8 +599,9 @@ class Tribe__Events__Aggregator {
 	 * Function used to remove cache stored in transients.
 	 *
 	 * @since TBD
+	 * @return boolean
 	 */
 	public function clear_services_list_cache() {
-		delete_transient( self::SERVICES_CACHE_KEY );
+		return delete_transient( self::SERVICES_CACHE_KEY );
 	}
 }
