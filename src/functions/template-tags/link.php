@@ -34,7 +34,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 */
 	function tribe_get_prev_event_link( $anchor = false ) {
 		$event_id = get_the_ID();
-		
+
 		tribe( 'tec.adjacent-events' )->set_current_event_id( $event_id );
 
 		/**
@@ -69,7 +69,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 */
 	function tribe_get_next_event_link( $anchor = false ) {
 		$event_id = get_the_ID();
-		
+
 		tribe( 'tec.adjacent-events' )->set_current_event_id( $event_id );
 
 		/**

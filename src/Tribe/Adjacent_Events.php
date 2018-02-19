@@ -194,8 +194,7 @@ class Tribe__Events__Adjacent_Events {
 	 * @return null|WP_Post
 	 */
 	public function get_closest_event( $mode = 'next' ) {
-		write_log( sprintf( 'ran for mode: %s', $mode ) );
-
+		do_action( 'schmootzy' );
 		global $wpdb;
 
 		$post_obj = get_post( $this->current_event_id );
