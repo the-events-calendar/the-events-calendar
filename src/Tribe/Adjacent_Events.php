@@ -95,6 +95,7 @@ class Tribe__Events__Adjacent_Events {
 	 * that occur at the exact same time are are not excluded from the prev/next links
 	 *
 	 * @since 4.0.2
+	 * @since TBD Moved to new Tribe__Events__Adjacent_Events class.
 	 *
 	 * @param string $where_sql WHERE SQL statement
 	 * @param WP_Query $query WP_Query object
@@ -189,6 +190,8 @@ class Tribe__Events__Adjacent_Events {
 	/**
 	 * Get the prev/next post for a given event. Ordered by start date instead of ID.
 	 *
+	 * @since TBD
+	 *
 	 * @param string  $mode Either 'next' or 'previous'.
 	 *
 	 * @return null|WP_Post
@@ -231,8 +234,10 @@ class Tribe__Events__Adjacent_Events {
 		 * Allows the query arguments used when retrieving the next/previous event link
 		 * to be modified.
 		 *
-		 * @var array   $args
-		 * @var WP_Post $post_obj
+		 * @since TBD
+		 *
+		 * @param array   $args
+		 * @param WP_Post $post_obj
 		 */
 		$args = (array) apply_filters( "tribe_events_get_{$mode}_event_link", $args, $post_obj );
 
@@ -253,14 +258,18 @@ class Tribe__Events__Adjacent_Events {
 		 * Affords an opportunity to modify the event used to generate the event link (typically for
 		 * the next or previous event in relation to $post).
 		 *
-		 * @var WP_Post $post_obj
-		 * @var string  $mode (typically "previous" or "next")
+		 * @since TBD
+		 *
+		 * @param WP_Post $post_obj
+		 * @param string  $mode (typically "previous" or "next")
 		 */
 		return apply_filters( 'tribe_events_get_closest_event', $event, $post_obj, $mode );
 	}
 
 	/**
 	 * Get a "previous/next post" link for events. Ordered by start date instead of ID.
+	 *
+	 * @since TBD
 	 *
 	 * @param string  $mode Either 'next' or 'previous'.
 	 * @param mixed   $anchor
@@ -302,11 +311,13 @@ class Tribe__Events__Adjacent_Events {
 		 * Affords an opportunity to modify the event link (typically for the next or previous
 		 * event in relation to $post).
 		 *
-		 * @var string  $link
-		 * @var int     $current_event_id
-		 * @var WP_Post $event
-		 * @var string  $mode (typically "previous" or "next")
-		 * @var string  $anchor
+		 * @since TBD
+		 *
+		 * @param string  $link
+		 * @param int     $current_event_id
+		 * @param WP_Post $event
+		 * @param string  $mode (typically "previous" or "next")
+		 * @param string  $anchor
 		 */
 		return apply_filters( 'tribe_events_get_event_link', $link, $this->current_event_id, $event, $mode, $anchor );
 	}
