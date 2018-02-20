@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the The Events Calendar package.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 4.6.10\n"
+"Project-Id-Version: The Events Calendar 4.6.11\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/the-events-"
 "calendar\n"
-"POT-Creation-Date: 2018-01-23 20:47:19+00:00\n"
+"POT-Creation-Date: 2018-02-14 16:08:09+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2018-01-23 20:47\n"
+"PO-Revision-Date: 2018-02-14 16:08\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -1663,22 +1663,22 @@ msgstr ""
 msgid "Map Pin"
 msgstr ""
 
-#: src/Tribe/Customizer/Month_Week_View.php:143
+#: src/Tribe/Customizer/Month_Week_View.php:144
 msgid "Month View"
 msgstr ""
 
-#: src/Tribe/Customizer/Month_Week_View.php:144
+#: src/Tribe/Customizer/Month_Week_View.php:145
 #: src/Tribe/Customizer/Single_Event.php:79 src/Tribe/Customizer/Widget.php:60
 msgid ""
 "Options selected here will override what was selected in the \"General Theme"
 "\" and \"Global Elements\" sections"
 msgstr ""
 
-#: src/Tribe/Customizer/Month_Week_View.php:175
+#: src/Tribe/Customizer/Month_Week_View.php:176
 msgid "Calendar Table Color"
 msgstr ""
 
-#: src/Tribe/Customizer/Month_Week_View.php:197
+#: src/Tribe/Customizer/Month_Week_View.php:198
 msgid "Calendar Highlight Color"
 msgstr ""
 
@@ -2317,7 +2317,7 @@ msgstr ""
 msgid "Upcoming Events"
 msgstr ""
 
-#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 4.6.10)  #-#-#-#-#
+#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 4.6.11)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: src/Tribe/Main.php:727 src/Tribe/Main.php:1064
 #: src/functions/template-tags/general.php:1312
@@ -4077,7 +4077,7 @@ msgstr ""
 msgid "The requested event term archive page does not exist"
 msgstr ""
 
-#: src/Tribe/Rewrite.php:257
+#: src/Tribe/Rewrite.php:264
 msgctxt "The \"/page/\" URL string component."
 msgid "page"
 msgstr ""
@@ -4231,7 +4231,7 @@ msgid ""
 "compatible apps"
 msgstr ""
 
-#: src/Tribe/iCal.php:424
+#: src/Tribe/iCal.php:411
 msgctxt "iCal feed description"
 msgid "Events for %s"
 msgstr ""
