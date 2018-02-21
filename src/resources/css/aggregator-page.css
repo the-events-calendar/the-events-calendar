@@ -593,6 +593,12 @@
 	padding-top: .5rem;
 }
 
+.tribe-finalize-container .tribe-limits-message {
+	font-style: italic;
+	padding: 0;
+	margin: 1em 0 -1.5em;
+}
+
 .tribe-message-loader {
 	display: none;
 }
