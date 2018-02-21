@@ -312,6 +312,7 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 
 * Fix - Add version parameter to _doing_it_wrong to prevent PHP notices in date utils (props to @sharewisdom for pointing this out) [99117]
 * Fix - Prevent error on the admin during the generation of the columns [99266]
+* Fix - If the canonical attribute is set on the page make sure does not affect the redirection on mobile if desktop view is different from mobile [68716]
 * Tweak - Rename 'Use Javascript to control date filtering' option to 'Enable live refresh' and modify explanatory copy [98022]
 
 = [4.6.11.1] 2018-02-16 =
