@@ -776,10 +776,7 @@ Date.prototype.format = function( mask, utc ) {
 				! tribe_ev.state.view ||
 
 				// We are on the default mobile view
-				tribe_ev.data.default_mobile_view == tribe_ev.state.view ||
-
-				// We are with an defined view
-				tribe_ev.data.cur_url == tribe_ev.data.base_url
+				tribe_ev.data.default_mobile_view == tribe_ev.state.view
 			) {
 				return false;
 			}
@@ -1375,7 +1372,9 @@ Date.prototype.format = function( mask, utc ) {
 
 			var $header = $( document.getElementById( 'tribe-events-header' ) );
 			var $canonical = $( 'link[rel="canonical"]' );
+			$canonical = [];
 			var url = null;
+
 
 			if ( $canonical.length ) {
 				// use the canonical URL if it is available (it should be)
