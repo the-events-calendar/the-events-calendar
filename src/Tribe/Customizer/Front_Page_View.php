@@ -12,8 +12,9 @@ class Tribe__Events__Customizer__Front_Page_View extends Tribe__Customizer__Sect
 
 	/**
 	 * PHP 5.2 method of creating "instances" of an abstract require this
-	 *
 	 * Note: This is the only required method for a Connector to work
+	 *
+	 * @since TBD
 	 *
 	 * @return self The dynamic instance of this Class
 	 */
