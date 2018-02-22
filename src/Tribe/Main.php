@@ -661,6 +661,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_filter( 'tribe_general_settings_tab_fields', array( $this, 'general_settings_tab_fields' ) );
 			add_filter( 'tribe_display_settings_tab_fields', array( $this, 'display_settings_tab_fields' ) );
 			add_filter( 'tribe_settings_url', array( $this, 'tribe_settings_url' ) );
+			add_action( 'update_option_' . Tribe__Main::OPTIONNAME, array( $this, 'delete_old_events' ), 10, 2 );
+			add_action( 'update_option_' . Tribe__Main::OPTIONNAME, array( $this, 'move_past_events_to_trash' ), 10, 2 );
 
 			// Setup Help Tab texting
 			add_action( 'tribe_help_pre_get_sections', array( $this, 'add_help_section_feature_box_content' ) );
@@ -1392,6 +1394,81 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				WHERE pm1.meta_key = '_EventEndDate'";
 			$wpdb->query( $fix_start_dates );
 			$wpdb->query( $fix_end_dates );
+		}
+
+		/**
+		 * Selects events to be moved to trash or permanently deleted.
+		 *
+		 * @see 'update_option_'.Tribe__Main::OPTIONNAME
+		 */
+		public function select_events_to_delete( $field_name, $old_value, $new_value ) {
+			$default_value = null;
+
+			// If the field value is changed to 'Disabled', we can exit the execution here
+			if ( $new_value[$field_name] == $default_value ) {
+				return;
+			}
+			// If the value is not changed, we can exit the execution here
+			if ( $old_value[$field_name] == $new_value[$field_name] ) {
+				return;
+			}
+
+			global $wpdb;
+
+			$event_month_cutoff = $new_value[$field_name];
+
+			$sql = "SELECT post_id
+					FROM {$wpdb->posts} AS t1
+					INNER JOIN {$wpdb->postmeta} AS t2 ON t1.ID = t2.post_id
+					WHERE t1.post_type = %s
+						AND t2.meta_key = '_EventEndDate'
+						AND t2.meta_value <= DATE_SUB( CURDATE(), INTERVAL %s MONTH )";
+
+			$args = [
+				'post_type'  => Tribe__Events__Main::POSTTYPE,
+				'meta_value' => $event_month_cutoff,
+			];
+
+			$sql  = apply_filters( 'tribe_events_delete_old_events_sql', $sql );
+			$args = apply_filters( 'tribe_events_delete_old_events_sql_args', $args );
+
+			// Returns an array of Post IDs (events) that ended before a specific date
+			$post_ids = $wpdb->get_col( $wpdb->prepare( $sql, $args ) );
+
+			return $post_ids;
+		}
+
+		/**
+		 * Moves to trash events that ended before a date specified by user
+		 */
+		public function move_past_events_to_trash( $old_value, $new_value ) {
+			$field_name = 'trashPastEvents';
+			$post_ids = $this->select_events_to_delete( $field_name, $old_value, $new_value );
+
+			if ( empty( $post_ids ) ) {
+				return;
+			}
+
+			foreach ( $post_ids as $post_id ) {
+				wp_trash_post( $post_id );
+			}
+		}
+
+		/**
+		 * Permanently deletes events that ended before a date specified by user
+		 */
+		public function delete_old_events( $old_value, $new_value ) {
+			$field_name = 'deletePastEvents';
+			$post_ids = $this->select_events_to_delete( $field_name, $old_value, $new_value );
+
+			if ( empty( $post_ids ) ) {
+				return;
+			}
+
+			foreach ( $post_ids as $post_id ) {
+				wp_delete_post( $post_id, true );
+			}
+
 		}
 
 		/**
