@@ -1405,17 +1405,17 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$default_value = null;
 
 			// If the field value is changed to 'Disabled', we can exit the execution here
-			if ( $new_value[$field_name] == $default_value ) {
+			if ( $new_value[ $field_name ] == $default_value ) {
 				return;
 			}
 			// If the value is not changed, we can exit the execution here
-			if ( $old_value[$field_name] == $new_value[$field_name] ) {
+			if ( $old_value[ $field_name ] == $new_value[ $field_name ] ) {
 				return;
 			}
 
 			global $wpdb;
 
-			$event_month_cutoff = $new_value[$field_name];
+			$event_month_cutoff = $new_value[ $field_name ];
 
 			$sql = "SELECT post_id
 					FROM {$wpdb->posts} AS t1
@@ -1425,7 +1425,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 						AND t2.meta_value <= DATE_SUB( CURDATE(), INTERVAL %s MONTH )";
 
 			$args = [
-				'post_type'  => Tribe__Events__Main::POSTTYPE,
+				'post_type'  => self::POSTTYPE,
 				'meta_value' => $event_month_cutoff,
 			];
 
@@ -1443,7 +1443,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function move_past_events_to_trash( $old_value, $new_value ) {
 			$field_name = 'trashPastEvents';
-			$post_ids = $this->select_events_to_delete( $field_name, $old_value, $new_value );
+			$post_ids   = $this->select_events_to_delete( $field_name, $old_value, $new_value );
 
 			if ( empty( $post_ids ) ) {
 				return;
@@ -1459,7 +1459,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function delete_old_events( $old_value, $new_value ) {
 			$field_name = 'deletePastEvents';
-			$post_ids = $this->select_events_to_delete( $field_name, $old_value, $new_value );
+			$post_ids   = $this->select_events_to_delete( $field_name, $old_value, $new_value );
 
 			if ( empty( $post_ids ) ) {
 				return;
