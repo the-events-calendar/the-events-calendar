@@ -123,7 +123,7 @@ $field->help        = __( 'Import events directly from your connected Eventbrite
 			data-prevent-clear
 			data-value="https://www.eventbrite.com/me"
 		>
-			<option value="https://www.eventbrite.com/me"><?php echo esc_html__( 'Import from your Eventbrite account', 'the-events-calendar' ); ?></option>
+			<option value="https://www.eventbrite.com/me" selected="selected"><?php echo esc_html__( 'Import from your Eventbrite account', 'the-events-calendar' ); ?></option>
 			<option value="source_type_url"><?php echo esc_html__( 'Import from Eventbrite.com url', 'the-events-calendar' ); ?></option>
 		</select>
 		<span class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help" data-bumpdown="<?php echo esc_attr( $field->help ); ?>" data-width-rule="all-triggers"></span>
