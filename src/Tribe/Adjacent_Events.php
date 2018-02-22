@@ -38,9 +38,7 @@ class Tribe__Events__Adjacent_Events {
 	 * @param int $event_id The event ID to look on either side of in prev/next methods.
 	 */
 	public function set_current_event_id( $event_id ) {
-		if ( 0 !== $this->current_event_id ) {
-			$this->current_event_id = $event_id;
-		}
+		$this->current_event_id = $event_id;
 	}
 
 	/**
