@@ -26,16 +26,24 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	}
 
 	/**
-	 * Return a link to the previous post by start date for the given event
+	 * Return a link to the previous event by start date for the given event.
 	 *
 	 * @param bool|string $anchor link text. Use %title% to place the post title in your string.
 	 *
 	 * @return string
 	 */
 	function tribe_get_prev_event_link( $anchor = false ) {
-		global $post;
+		$event_id = get_the_ID();
 
-		return apply_filters( 'tribe_get_prev_event_link', Tribe__Events__Main::instance()->get_event_link( $post, 'previous', $anchor ) );
+		tribe( 'tec.adjacent-events' )->set_current_event_id( $event_id );
+
+		/**
+		 * Filter the output of the link to the previous event by start date of a given event.
+		 *
+		 * @param string $prev_event_link The link to the previous event.
+		 * @param int    $event_id        The ID of the reference event.
+		 */
+		return apply_filters( 'tribe_get_prev_event_link', tribe( 'tec.adjacent-events' )->get_prev_event_link( $anchor ), $event_id );
 	}
 
 	/**
@@ -60,9 +68,17 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string
 	 */
 	function tribe_get_next_event_link( $anchor = false ) {
-		global $post;
+		$event_id = get_the_ID();
 
-		return apply_filters( 'tribe_get_next_event_link', Tribe__Events__Main::instance()->get_event_link( $post, 'next', $anchor ) );
+		tribe( 'tec.adjacent-events' )->set_current_event_id( $event_id );
+
+		/**
+		 * Filter the output of the link to the next event by start date of a given event.
+		 *
+		 * @param string $next_event_link The link to the next event.
+		 * @param int    $event_id        The ID of the reference event.
+		 */
+		return apply_filters( 'tribe_get_next_event_link', tribe( 'tec.adjacent-events' )->get_next_event_link( $anchor ), $event_id );
 	}
 
 	/**
