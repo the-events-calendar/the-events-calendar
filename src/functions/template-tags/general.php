@@ -1691,7 +1691,8 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		$events_as_front_page = tribe_get_option( 'front_page_event_archive', false );
 		// If the reading option has an events page as front page and we are on that page is on the home of events.
 		return (
-			$wp_query->is_main_query()
+			! empty( $wp_query )
+			&& $wp_query->is_main_query()
 			&& $events_as_front_page
 			&& $wp_query->tribe_is_event
 			&& true === get_query_var( 'tribe_events_front_page' )
