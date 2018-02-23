@@ -315,6 +315,8 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 * Fix - Ensure "Main Events Page" exists as an option in the dropdown menu of available static front pages in the Customizer's "Homepage Settings" screen [97978] 
 * Tweak - Rename 'Use Javascript to control date filtering' option to 'Enable live refresh' and modify explanatory copy [98022]
 * Tweak - Prevent the `tribe_get_prev_event_link()` and `tribe_get_next_event_link()` queries from running more times than necessary on single-event views, which improves performance [94587]
+* Tweak - Adjusted the display of timezone abbreviations so that the event's local timezone is always referenced; this ensures accurate display of abbreviations even with Daylight Savings adjustments [97344]
+* Tweak - Introduced new filter, `tribe_events_timezone_force_local_abbr`, to disable the above-mentioned tweak of timezone abbreviation behavior and allow for the sitewide timezone to be referenced instead [97344]
 
 = [4.6.11.1] 2018-02-16 =
 
