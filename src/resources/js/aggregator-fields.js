@@ -804,6 +804,8 @@ tribe_aggregator.fields = {
 	 * @return {jQuery}         Affected fields
 	 */
 	obj.construct.dropdown = function( $fields ) {
+		console.log( $fields );
+
 		var $elements = $fields.filter( obj.selector.dropdown ).not( '.select2-offscreen, .select2-container' );
 
 		$elements.each(function(){
