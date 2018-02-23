@@ -110,9 +110,8 @@ $field->label       = __( 'Import Source', 'the-events-calendar' );
 $field->placeholder = __( 'Select Source', 'the-events-calendar' );
 $field->help        = __( 'Import events directly from your connected Eventbrite.com account or from a public Eventbrite.com url.', 'the-events-calendar' );
 $field->options[] = array(
-	'id'      => 'https://www.eventbrite.com/me',
-	'text'    => __( 'Import from your Eventbrite account', 'the-events-calendar' ),
-	'selected' => true,
+	'id'   => 'https://www.eventbrite.com/me',
+	'text' => __( 'Import from your Eventbrite account', 'the-events-calendar' ),
 );
 $field->options[] = array(
 	'id'   => 'source_type_url',
@@ -132,7 +131,8 @@ $field->options[] = array(
 			data-hide-search
 			data-prevent-clear
 			data-options="<?php echo esc_attr( json_encode( $field->options ) ); ?>"
-		>
+			value="https://www.eventbrite.com/me"
+		/>
 		<span class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help" data-bumpdown="<?php echo esc_attr( $field->help ); ?>" data-width-rule="all-triggers"></span>
 	</td>
 
