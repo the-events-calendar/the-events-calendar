@@ -189,7 +189,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 
 				$cache_id = serialize( $this->args );
 				if ( isset( $_REQUEST ) && is_array( $_REQUEST ) ) {
-					$cache_id = serialize( $_REQUEST );
+					$cache_id .= serialize( $_REQUEST );
 				}
 				$cache_id = md5( $cache_id );
 				$this->html_cache = new Tribe__Template_Part_Cache( 'month/content.php', $cache_id, $this->cache_expiration, 'save_post' );
