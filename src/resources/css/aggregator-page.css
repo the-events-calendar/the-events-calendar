@@ -23,6 +23,14 @@
 	position: relative;
 }
 
+.tribe-ea .tribe-ea-tab .form-table .eb-url-row th[scope="row"] {
+	padding: 0;
+}
+
+.tribe-ea .tribe-ea-tab .form-table .eb-url-row td {
+	padding: 0 10px;
+}
+
 .tribe-ea .tribe-ea-tab .subsubsub li {
 	font-weight: bold;
 }
