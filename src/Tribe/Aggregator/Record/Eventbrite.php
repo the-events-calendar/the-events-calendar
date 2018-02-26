@@ -40,11 +40,11 @@ class Tribe__Events__Aggregator__Record__Eventbrite extends Tribe__Events__Aggre
 	 */
 	public static function get_auth_url( $args = array() ) {
 		$service = tribe( 'events-aggregator.service' );
-
+		log_me( $service->api());
 		if ( $service->api() instanceof WP_Error ) {
 			return '';
 		}
-
+		log_me('get_auth_url');
 		$url = $service->api()->domain . 'eventbrite/' . $service->api()->key;
 		$defaults = array(
 			'referral' => urlencode( home_url() ),
@@ -56,7 +56,8 @@ class Tribe__Events__Aggregator__Record__Eventbrite extends Tribe__Events__Aggre
 		$args = wp_parse_args( $args, $defaults );
 
 		$url = add_query_arg( $args, $url );
-
+		log_me('$url');
+		log_me($url);
 		return $url;
 	}
 

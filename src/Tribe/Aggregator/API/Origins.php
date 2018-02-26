@@ -189,7 +189,8 @@ class Tribe__Events__Aggregator__API__Origins extends Tribe__Events__Aggregator_
 	 * @return boolean
 	 */
 	public function is_oauth_enabled( $origin ) {
-		if ( ! tribe( 'events-aggregator.main' )->is_service_active() ) {
+
+		if (  'eventbrite' !== $origin && ! tribe( 'events-aggregator.main' )->is_service_active() ) {
 			return false;
 		}
 
