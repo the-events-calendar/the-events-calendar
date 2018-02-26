@@ -124,6 +124,15 @@ $field->options[] = array(
 	</th>
 	<td>
 		<input
+			type="hidden"
+			name="aggregator[eventbrite][source_type]"
+			id="tribe-ea-field-eventbrite_import_source"
+			class="tribe-ea-field tribe-ea-dropdown tribe-ea-size-xlarge"
+			data-hide-search
+			data-prevent-clear
+			data-options="<?php echo esc_attr( json_encode( $field->options ) ); ?>"
+			value="https://www.eventbrite.com/me"
+		/>
 				type="hidden"
 				name="aggregator[eventbrite][source_type]"
 				id="tribe-ea-field-eventbrite_import_source"
