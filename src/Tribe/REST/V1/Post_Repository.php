@@ -71,6 +71,16 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		$venue     = $this->get_venue_data( $event_id, $context );
 		$organizer = $this->get_organizer_data( $event_id, $context );
 
+		if ( Tribe__Timezones::is_mode( Tribe__Timezones::SITE_TIMEZONE ) ) {
+			// Use site timezone
+			$timezone      = Tribe__Timezones::wp_timezone_string();
+			$timezone_abbr = Tribe__Timezones::abbr( date_i18n( 'Y-m-d H:i:s' ), $timezone );
+		} else {
+			// Use event timezone
+			$timezone      = Tribe__Events__Timezones::get_event_timezone_string( $event_id );
+			$timezone_abbr = Tribe__Events__Timezones::get_event_timezone_abbr( $event_id );
+		}
+
 		$data = array(
 			'id'                     => $event_id,
 			'global_id'              => false,
@@ -98,8 +108,8 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			'utc_start_date_details' => $this->get_date_details( $meta['_EventStartDateUTC'] ),
 			'utc_end_date'           => $meta['_EventEndDateUTC'],
 			'utc_end_date_details'   => $this->get_date_details( $meta['_EventEndDateUTC'] ),
-			'timezone'               => Tribe__Events__Timezones::get_event_timezone_string( $event_id ),
-			'timezone_abbr'          => Tribe__Events__Timezones::get_event_timezone_abbr( $event_id ),
+			'timezone'               => $timezone,
+			'timezone_abbr'          => $timezone_abbr,
 			'cost'                   => tribe_get_cost( $event_id, true ),
 			'cost_details'           => array(
 				'currency_symbol'   => isset( $meta['_EventCurrencySymbol'] ) ? $meta['_EventCurrencySymbol'] : '',
