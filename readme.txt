@@ -308,6 +308,10 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 
 == Changelog ==
 
+= TBD =
+
+* Fix - REST API Event responses now include the correct timezone even if the event has no timezone set or if using the site-wide timezone option [100159]
+
 = [4.6.11.1] 2018-02-16 =
 
 * Fix - The render of the venue and organizer templates (thanks to Antonio and others for reporting this in our forums) [99550]
