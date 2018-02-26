@@ -185,6 +185,7 @@ tribe_aggregator.fields = {
 
 				if ( 'eventbrite' === origin ) {
 					$( '#tribe-ea-field-' + origin + '_source_type_url' ).trigger( 'click' );
+					$( '#tribe-ea-field-' + origin + '_import_source' ).val( 'source_type_url' ).trigger( 'change' );
 				}
 
 				// Change the Source URL accordingly
