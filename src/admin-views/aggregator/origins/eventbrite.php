@@ -8,7 +8,7 @@ $field->help        = __( 'One-time imports include all currently listed events,
 $field->source      = 'eventbrite_import_type';
 
 $frequency              = (object) array();
-$frequency->placeholder = __( 'Select Frequency', 'the-events-calendar' );
+$frequency->placeholder = __( 'Import from your Eventbrite account', 'the-events-calendar' );
 $frequency->help        = __( 'Select how often you would like events to be automatically imported.', 'the-events-calendar' );
 $frequency->source      = 'eventbrite_import_frequency';
 
@@ -106,28 +106,36 @@ if ( 'edit' === $tab->get_slug() ) {
 
 <?php
 $field              = (object) array();
-$field->label       = __( 'Import from your Eventbrite profile', 'the-events-calendar' );
-$field->help        = __( 'We will pull the events directly from your connected Eventbrite account profile.', 'the-events-calendar' );
+$field->label       = __( 'Import Source', 'the-events-calendar' );
+$field->placeholder = __( 'Select Source', 'the-events-calendar' );
+$field->help        = __( 'Import events directly from your connected Eventbrite.com account or from a public Eventbrite.com url.', 'the-events-calendar' );
+$field->options[] = array(
+	'id'   => 'https://www.eventbrite.com/me',
+	'text' => __( 'Import from your Eventbrite account', 'the-events-calendar' ),
+);
+$field->options[] = array(
+	'id'   => 'source_type_url',
+	'text' => __( 'Import from Eventbrite.com url', 'the-events-calendar' ),
+);
 ?>
 <tr class="tribe-dependent" data-depends="#tribe-ea-field-eventbrite_import_type" data-condition-not-empty>
 	<th scope="row">
-		<label for="tribe-ea-field-eventbrite_source_type_me">
-			<input
-				name="aggregator[eventbrite][source_type]"
-				type="radio"
-				id="tribe-ea-field-eventbrite_source_type_me"
-				value="https://www.eventbrite.com/me"
-			>
-
-			<?php esc_html_e( 'Profile', 'the-events-calendar' ); ?>
-		</label>
+		<label for="tribe-ea-field-import_type"><?php echo esc_html( $field->label ); ?></label>
 	</th>
 	<td>
-		<label for="tribe-ea-field-eventbrite_source_type_me" class="tribe-ea-inline-label">
-			<?php echo esc_html( $field->label ); ?>
-		</label>
+		<input
+			type="hidden"
+			name="aggregator[eventbrite][source_type]"
+			id="tribe-ea-field-eventbrite_import_source"
+			class="tribe-ea-field tribe-dropdown tribe-ea-size-xlarge"
+			data-hide-search
+			data-prevent-clear
+			data-options="<?php echo esc_attr( json_encode( $field->options ) ); ?>"
+			value="https://www.eventbrite.com/me"
+		/>
 		<span class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help" data-bumpdown="<?php echo esc_attr( $field->help ); ?>" data-width-rule="all-triggers"></span>
 	</td>
+
 </tr>
 
 <?php
@@ -136,9 +144,13 @@ $field->label       = __( 'URL:', 'the-events-calendar' );
 $field->placeholder = __( 'eventbrite.com/e/example-12345', 'the-events-calendar' );
 $field->help        = __( 'Enter an Eventbrite event URL, e.g. https://www.eventbrite.com/e/example-12345', 'the-events-calendar' );
 ?>
-<tr class="tribe-dependent" data-depends="#tribe-ea-field-eventbrite_import_type" data-condition-not-empty>
+<tr
+	class="tribe-dependent eb-url-row"
+	data-depends="#tribe-ea-field-eventbrite_import_source"
+	data-condition="source_type_url"
+>
 	<th scope="row">
-		<label for="tribe-ea-field-eventbrite_source_type_url">
+		<label for="tribe-ea-field-eventbrite_source_type_url" class="tribe-ea-hidden">
 			<input
 				name="aggregator[eventbrite][source_type]"
 				type="radio"
@@ -151,26 +163,22 @@ $field->help        = __( 'Enter an Eventbrite event URL, e.g. https://www.event
 		</label>
 	</th>
 	<td>
-		<input
-			name="aggregator[eventbrite][source]"
-			type="text"
-			id="tribe-ea-field-eventbrite_source"
-			class="tribe-ea-field tribe-ea-size-xlarge tribe-dependent"
-			data-depends="#tribe-ea-field-eventbrite_source_type_url"
-			data-condition-is-checked
-			data-dependency-always-visible
-			placeholder="<?php echo esc_attr( $field->placeholder ); ?>"
-			value="<?php echo esc_attr( empty( $record->meta['source'] ) ? '' : $record->meta['source'] ); ?>"
-			data-validation-match-regexp="<?php echo esc_attr( Tribe__Events__Aggregator__Record__Eventbrite::get_source_regexp() ); ?>"
-			data-validation-error="<?php esc_attr_e( 'Invalid Eventbrite URL', 'the-events-calendar' ); ?>"
-		>
-		<span class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help" data-bumpdown="<?php echo esc_attr( $field->help ); ?>" data-width-rule="all-triggers"></span>
-	</td>
+	<input
+		name="aggregator[eventbrite][source]"
+		type="text"
+		id="tribe-ea-field-eventbrite_source"
+		class="tribe-ea-field tribe-ea-size-xlarge"
+		placeholder="<?php echo esc_attr( $field->placeholder ); ?>"
+		value="<?php echo esc_attr( empty( $record->meta['source'] ) ? '' : $record->meta['source'] ); ?>"
+		data-validation-match-regexp="<?php echo esc_attr( Tribe__Events__Aggregator__Record__Eventbrite::get_source_regexp() ); ?>"
+		data-validation-error="<?php esc_attr_e( 'Invalid Eventbrite URL', 'the-events-calendar' ); ?>"
+	>
+</td>
 </tr>
 
 <?php include dirname( __FILE__ ) . '/refine.php'; ?>
 
-<tr class="tribe-dependent" data-depends="#tribe-ea-field-eventbrite_import_type" data-condition-not-empty>
+<tr class="tribe-dependent" data-depends="#tribe-ea-field-eventbrite_import_source" data-condition-not-empty>
 	<td colspan="2" class="tribe-button-row">
 		<button type="submit" class="button button-primary tribe-preview">
 			<?php esc_html_e( 'Preview', 'the-events-calendar' ); ?>
