@@ -65,8 +65,6 @@ class Tribe__Events__Aggregator__API__Import extends Tribe__Events__Aggregator__
 	public function get( $import_id, $data = array() ) {
 		$response = $this->service->get_import( $import_id, $data );
 
-		bdump( $response );
-
 		if ( is_wp_error( $response ) ) {
 
 			/** @var WP_Error $response */
