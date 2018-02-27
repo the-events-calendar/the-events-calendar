@@ -317,6 +317,7 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 * Fix - When a protected event is created make sure the tooltip does not create any console error [99089]
 * Tweak - Rename 'Use Javascript to control date filtering' option to 'Enable live refresh' and modify explanatory copy [98022]
 * Tweak - Prevent the `tribe_get_prev_event_link()` and `tribe_get_next_event_link()` queries from running more times than necessary on single-event views, which improves performance [94587]
+* Tweak - Refactor link attributes generation to extend mechanism to handle pagination on list view [97772]
 
 = [4.6.11.1] 2018-02-16 =
 
