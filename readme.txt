@@ -4,7 +4,7 @@ Contributors: ModernTribe, borkweb, aguseo, barry.hughes, bordoni, brianjessee, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.5
-Stable tag: 4.6.11
+Stable tag: 4.6.11.1
 Tested up to: 4.9.4
 Requires PHP: 5.2.4
 License: GPLv2 or later
@@ -307,6 +307,11 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 * <a href="https://profiles.wordpress.org/users/thatdudebutch">Wayne Stratton</a>
 
 == Changelog ==
+
+= [4.6.11.1] 2018-02-16 =
+
+* Fix - The render of the venue and organizer templates (thanks to Antonio and others for reporting this in our forums) [99550]
+* Fix - Make sure events on calendar are not affected by DST changes [99537]
 
 = [4.6.11] 2018-02-14 =
 
