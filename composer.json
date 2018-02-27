@@ -9,7 +9,7 @@
   "homepage": "http://tri.be/shop/wordpress-events-calendar/",
   "license": "GPL-2.0",
   "require-dev": {
-    "lucatume/wp-browser": "~1.0",
+    "lucatume/wp-browser": "1.22.6.1",
     "xamin/handlebars.php": "^0.10.3",
     "mikey179/vfsStream": "^1.6",
     "vlucas/phpdotenv": "^2.4"

@@ -2438,6 +2438,12 @@ input[name*='tribe-bar-']:-moz-placeholder {
 	display: none;
 }
 
+/* Ensure full-width calendar if Main Events Page is site homepage. */
+
+.tribe-theme-twentyseventeen.page-template-page-php.blog:not(.has-sidebar) #primary article {
+	width: 100%;
+}
+
 /* = Events Retina
 =============================================*/
 
