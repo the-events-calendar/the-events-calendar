@@ -1416,6 +1416,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public function select_events_to_delete( $field_name, $old_value, $new_value ) {
 			$default_value = null;
 
+			// Prevent notices for undefined indexes
 			if ( empty( $old_value[ $field_name ] ) ) {
 				$old_value[ $field_name ] = $default_value;
 			}
@@ -1423,7 +1424,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			if ( empty( $new_value[ $field_name ] ) ) {
 				$new_value[ $field_name ] = $default_value;
 			}
-
 			// If the field value is changed to 'Disabled', we can exit the execution here
 			if ( $new_value[ $field_name ] == $default_value ) {
 				return;
@@ -1452,8 +1452,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			/**
 			 * This pair of filters allows users to manipulate the cleanup query
 			 *
-			 * @param string $sql - the Query statement
-			 * @param array $args - The array of variables to substitute into the query's placeholders
+			 * @param string $sql  - the Query statement
+			 * @param array  $args - The array of variables to substitute into the query's placeholders
 			 *
 			 * @since TBD
 			 */

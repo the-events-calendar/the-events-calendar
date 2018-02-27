@@ -174,7 +174,7 @@ $general_tab_fields = Tribe__Main::array_insert_before_key(
 				9    => esc_html__( '9 months' ),
 				12   => esc_html__( '1 year' ),
 				24   => esc_html__( '2 years' ),
-				36   => esc_html__( '3 years' )
+				36   => esc_html__( '3 years' ),
 			),
 		),
 		'deletePastEvents' => array(
@@ -191,7 +191,7 @@ $general_tab_fields = Tribe__Main::array_insert_before_key(
 				9    => esc_html__( '9 months' ),
 				12   => esc_html__( '1 year' ),
 				24   => esc_html__( '2 years' ),
-				36   => esc_html__( '3 years' )
+				36   => esc_html__( '3 years' ),
 			),
 		),
 		'tribeEventsMiscellaneousTitle' => array(
