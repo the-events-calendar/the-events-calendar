@@ -308,6 +308,10 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 
 == Changelog ==
 
+= TBD =
+
+* Tweak - Sending an empty `timezone` parameter to the REST API for an event no longer results in an error response and now properly clears the timezone for the event [100274]
+
 = [4.6.11.1] 2018-02-16 =
 
 * Fix - The render of the venue and organizer templates (thanks to Antonio and others for reporting this in our forums) [99550]
