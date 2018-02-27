@@ -67,7 +67,7 @@ class Tribe__Events__List_Widget extends WP_Widget {
 		global $post;
 
 		$wp_query = tribe_get_global_query_object();
-		
+
 		$instance = wp_parse_args(
 			$instance, array(
 				'limit' => self::$limit,
