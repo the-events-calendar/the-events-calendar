@@ -318,6 +318,8 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 * Fix - Exported events on Venue and Organizer page are the ones being displayed on the list [70727]
 * Tweak - Rename 'Use Javascript to control date filtering' option to 'Enable live refresh' and modify explanatory copy [98022]
 * Tweak - Prevent the `tribe_get_prev_event_link()` and `tribe_get_next_event_link()` queries from running more times than necessary on single-event views, which improves performance [94587]
+* Tweak - Adjusted the display of timezone abbreviations so that the event's local timezone is always referenced; this ensures accurate display of abbreviations even with Daylight Savings adjustments [97344]
+* Tweak - Introduced new filter, `tribe_events_timezone_force_local_abbr`, to disable the above-mentioned tweak of timezone abbreviation behavior and allow for the sitewide timezone to be referenced instead [97344]
 * Tweak - Refactor link attributes generation to extend mechanism to handle pagination on list view [97772]
 * Tweak - Ensure calendar is full-width in Twenty Seventeen theme if set to be the site's homepage [97977]
 

@@ -41,7 +41,17 @@ class Tribe__Events__Timezones extends Tribe__Timezones {
 			return $schedule_text;
 		}
 
-		$timezone = self::is_mode( 'site' )
+		/**
+		 * Force referencing the local event timezone when getting timezone abbreviation so that it
+		 * always accurately adjusts for Daylight Savings; the tribe_events_timezone_force_local_abbr
+		 * filter allows users to disable this functionality so that sitewide timezone is used if so
+		 * chosen in the wp-admin.
+		 *
+		 * @since TBD
+		 *
+		 * @param boolean $force_local_abbr Whether to force referencing the local TZ when getting abbr.
+		 */
+		$timezone = self::is_mode( 'site' ) && ! apply_filters( 'tribe_events_timezone_force_local_abbr', true )
 			? self::wp_timezone_abbr( tribe_get_start_date( $event_id, true, Tribe__Date_Utils::DBDATETIMEFORMAT ) )
 			: self::get_event_timezone_abbr( $event_id );
 
