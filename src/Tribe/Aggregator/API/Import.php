@@ -65,6 +65,8 @@ class Tribe__Events__Aggregator__API__Import extends Tribe__Events__Aggregator__
 	public function get( $import_id, $data = array() ) {
 		$response = $this->service->get_import( $import_id, $data );
 
+		bdump( $response );
+
 		if ( is_wp_error( $response ) ) {
 
 			/** @var WP_Error $response */
@@ -74,8 +76,8 @@ class Tribe__Events__Aggregator__API__Import extends Tribe__Events__Aggregator__
 					'message_code' => 'queued',
 					'message'      => tribe( 'events-aggregator.service' )->get_service_message( 'queued' ),
 					'data'         => (object) array(
-						'import_id' => $import_id
-					)
+						'import_id' => $import_id,
+					),
 				);
 			}
 
