@@ -1399,10 +1399,26 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Selects events to be moved to trash or permanently deleted.
 		 *
-		 * @see 'update_option_'.Tribe__Main::OPTIONNAME
+		 * @since TBD
+		 *
+		 * @param string $field_name - The name of the field that will be updated (trashPastEvents or deletePastEvents)
+		 * @param int    $old_value  - The default/existing number of months: this is the existing value used
+		 *                           to purge all events that ended before $old_value months
+		 * @param int    $new_value  - The updated number of months: this is the value chosen by user to purge all
+		 *                           events that ended before $new_value months
+		 *
+		 * @return array $post_ids   - an array of event Post_IDs with the Event End Date older than $new_value
 		 */
 		public function select_events_to_delete( $field_name, $old_value, $new_value ) {
 			$default_value = null;
+
+			if ( empty( $old_value[ $field_name ] ) ) {
+				$old_value[ $field_name ] = $default_value;
+			}
+
+			if ( empty( $new_value[ $field_name ] ) ) {
+				$new_value[ $field_name ] = $default_value;
+			}
 
 			// If the field value is changed to 'Disabled', we can exit the execution here
 			if ( $new_value[ $field_name ] == $default_value ) {
@@ -1429,17 +1445,34 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				'meta_value' => $event_month_cutoff,
 			];
 
+			/**
+			 * This pair of filters allows users to manipulate the cleanup query
+			 *
+			 * @param string $sql - the Query statement
+			 * @param array $args - The array of variables to substitute into the query's placeholders
+			 *
+			 * @since TBD
+			 */
 			$sql  = apply_filters( 'tribe_events_delete_old_events_sql', $sql );
 			$args = apply_filters( 'tribe_events_delete_old_events_sql_args', $args );
 
 			// Returns an array of Post IDs (events) that ended before a specific date
 			$post_ids = $wpdb->get_col( $wpdb->prepare( $sql, $args ) );
 
+			$new_value[ $field_name ] = $default_value;
+
 			return $post_ids;
 		}
 
 		/**
 		 * Moves to trash events that ended before a date specified by user
+		 *
+		 * @since TBD
+		 *
+		 * @param int $old_value - The default/existing number of months
+		 * @param int $new_value - The updated number of months
+		 *
+		 * @return mixed
 		 */
 		public function move_past_events_to_trash( $old_value, $new_value ) {
 			$field_name = 'trashPastEvents';
@@ -1456,6 +1489,13 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 		/**
 		 * Permanently deletes events that ended before a date specified by user
+		 *
+		 * @since TBD
+		 *
+		 * @param int $old_value - The default/existing number of months
+		 * @param int $new_value - The updated number of months
+		 *
+		 * @return mixed
 		 */
 		public function delete_old_events( $old_value, $new_value ) {
 			$field_name = 'deletePastEvents';
