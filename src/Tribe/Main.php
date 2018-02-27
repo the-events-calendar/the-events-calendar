@@ -1403,7 +1403,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Selects events to be moved to trash or permanently deleted.
 		 *
-		 * @since TBD
+		 * @since 4.6.12
 		 *
 		 * @param string $field_name - The name of the field that will be updated (trashPastEvents or deletePastEvents)
 		 * @param int    $old_value  - The default/existing number of months: this is the existing value used
@@ -1440,9 +1440,18 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$sql = "SELECT post_id
 					FROM {$wpdb->posts} AS t1
 					INNER JOIN {$wpdb->postmeta} AS t2 ON t1.ID = t2.post_id
-					WHERE t1.post_type = %s
+					WHERE t1.post_type = %d
 						AND t2.meta_key = '_EventEndDate'
-						AND t2.meta_value <= DATE_SUB( CURDATE(), INTERVAL %s MONTH )";
+						AND t2.meta_value <= DATE_SUB( CURDATE(), INTERVAL %d MONTH )";
+
+			/**
+			 * Filter - Allows users to manipulate the cleanup query
+			 *
+			 * @param string $sql - The query statement
+			 *
+			 * @since 4.6.12
+			 */
+			$sql = apply_filters( 'tribe_events_delete_old_events_sql', $sql );
 
 			$args = [
 				'post_type'  => self::POSTTYPE,
@@ -1450,20 +1459,16 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			];
 
 			/**
-			 * This pair of filters allows users to manipulate the cleanup query
+			 * Filter - Allows users to modify the query's placeholders
 			 *
-			 * @param string $sql  - the Query statement
-			 * @param array  $args - The array of variables to substitute into the query's placeholders
+			 * @param array $args - The array of variables
 			 *
-			 * @since TBD
+			 * @since 4.6.12
 			 */
-			$sql  = apply_filters( 'tribe_events_delete_old_events_sql', $sql );
 			$args = apply_filters( 'tribe_events_delete_old_events_sql_args', $args );
 
 			// Returns an array of Post IDs (events) that ended before a specific date
 			$post_ids = $wpdb->get_col( $wpdb->prepare( $sql, $args ) );
-
-			$new_value[ $field_name ] = $default_value;
 
 			return $post_ids;
 		}
