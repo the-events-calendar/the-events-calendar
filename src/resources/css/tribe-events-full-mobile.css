@@ -486,13 +486,13 @@ a.tribe-events-gmap {
 
 .tribe-theme-twentyfourteen #tribe-events-pg-template {
 	padding-left: 0;
-	padding-right: 0;/* padding-top: 0; */
+	padding-right: 0;
+	padding-top: 0;
 }
 
-/* 	#tribe-events-bar {
-		margin-bottom: 10px;
-	}
- */
+.tribe-theme-twentyfourteen #tribe-events-bar {
+	margin-bottom: 10px;
+}
 
 .tribe-theme-twentyfourteen.events-archive .entry-content {
 	width: 90%;
