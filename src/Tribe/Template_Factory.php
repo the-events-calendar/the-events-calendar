@@ -252,7 +252,7 @@ class Tribe__Events__Template_Factory extends Tribe__Template_Factory {
 	 * @return array
 	 **/
 	protected function get_search_terms() {
-		global $wp_query;
+		$wp_query = tribe_get_global_query_object();
 		$tribe           = Tribe__Events__Main::instance();
 		$geographic_term = '';
 		$search_term     = '';
@@ -313,7 +313,7 @@ class Tribe__Events__Template_Factory extends Tribe__Template_Factory {
 	 **/
 	public function setup_view() {
 
-		global $wp_query;
+		$wp_query = tribe_get_global_query_object();
 
 		// don't show past posts in reverse order
 		if ( $wp_query->tribe_is_past ) {

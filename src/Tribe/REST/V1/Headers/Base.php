@@ -85,7 +85,7 @@ class Tribe__Events__REST__V1__Headers__Base implements Tribe__REST__Headers__Ba
 		}
 
 		/** @var WP_Query $wp_query */
-		global $wp_query;
+		$wp_query = tribe_get_global_query_object();
 
 		$is_featured = (bool) $wp_query->get( 'featured', false );
 		if ( $is_featured ) {

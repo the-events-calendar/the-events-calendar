@@ -405,7 +405,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 
 			if ( empty( $args ) ) {
 				// if no args were passed to the constructor, get them from $wp_query
-				global $wp_query;
+				$wp_query = tribe_get_global_query_object();
 				$args = $wp_query->query;
 
 				if ( ! empty( $wp_query->query_vars['meta_query'] ) ) {
@@ -1204,7 +1204,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 
 				Tribe__Events__Main::instance()->displaying = 'month';
 
-				global $wp_query;
+				$wp_query = tribe_get_global_query_object();
 
 				$wp_query = tribe_get_events( $this->args, true );
 

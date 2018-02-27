@@ -841,7 +841,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return string
 		 */
 		public function before_html_data_wrapper( $html ) {
-			global $wp_query;
+			$wp_query = tribe_get_global_query_object();
 
 			if ( ! $this->show_data_wrapper['before'] ) {
 				return $html;
@@ -1162,7 +1162,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *     add_filter( 'tribe_events_add_no_index_meta', '__return_true' );
 		 */
 		public function issue_noindex() {
-			global $wp_query;
+			$wp_query = tribe_get_global_query_object();
 
 			if ( empty( $wp_query->tribe_is_event_query ) ) {
 				return;
@@ -1291,7 +1291,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Trigger is_404 on single event if no events are found
 		 */
 		public function template_redirect() {
-			global $wp_query;
+			$wp_query = tribe_get_global_query_object();
 
 			// if JS is disabled, then we need to handle tribe bar submissions manually
 			if ( ! empty( $_POST['tribe-bar-view'] ) && ! empty( $_POST['submit-bar'] ) ) {
@@ -1463,7 +1463,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return array
 		 */
 		public function add_current_menu_item_class_to_events( $items, $args ) {
-			global $wp_query;
+			$wp_query = tribe_get_global_query_object();
 
 			foreach ( $items as $item ) {
 				if ( $item->url == $this->getLink() ) {
@@ -1540,7 +1540,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return string
 		 */
 		public function add_space_to_rss( $title ) {
-			global $wp_query;
+			$wp_query = tribe_get_global_query_object();
 			if ( get_query_var( 'eventDisplay' ) == 'upcoming' && get_query_var( 'post_type' ) == self::POSTTYPE ) {
 				return $title . ' ';
 			}
@@ -4393,7 +4393,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function setup_date_search_in_bar( $filters ) {
 
-			global $wp_query;
+			$wp_query = tribe_get_global_query_object();
 
 			/**
 			 * Allows for customizing the "date search" field value.

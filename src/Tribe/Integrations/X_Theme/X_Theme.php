@@ -104,7 +104,7 @@ class Tribe__Events__Integrations__X_Theme__X_Theme {
 	public function should_run_tribe_overrides() {
 
 		/** @var WP_Query $wp_query */
-		global $wp_query;
+		$wp_query = tribe_get_global_query_object();
 
 		return $wp_query->is_main_query()
 			   && empty( $wp_query->tribe_is_multi_posttype )

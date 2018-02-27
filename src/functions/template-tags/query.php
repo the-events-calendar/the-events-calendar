@@ -13,7 +13,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return bool
 	 **/
 	function tribe_is_event_category() {
-		global $wp_query;
+		$wp_query = tribe_get_global_query_object();
 		$tribe_is_event_category = ! empty( $wp_query->tribe_is_event_category );
 
 		return apply_filters( 'tribe_query_is_event_category', $tribe_is_event_category );
@@ -25,7 +25,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return bool
 	 **/
 	function tribe_is_event_venue() {
-		global $wp_query;
+		$wp_query = tribe_get_global_query_object();
 		$tribe_is_event_venue = ! empty( $wp_query->tribe_is_event_venue );
 
 		return apply_filters( 'tribe_query_is_event_venue', $tribe_is_event_venue );
@@ -37,7 +37,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return bool
 	 **/
 	function tribe_is_event_organizer() {
-		global $wp_query;
+		$wp_query = tribe_get_global_query_object();
 		$tribe_is_event_organizer = ! empty( $wp_query->tribe_is_event_organizer );
 
 		return apply_filters( 'tribe_query_is_event_organizer', $tribe_is_event_organizer );
@@ -49,7 +49,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return bool
 	 **/
 	function tribe_is_event_query() {
-		global $wp_query;
+		$wp_query = tribe_get_global_query_object();
 		$tribe_is_event_query = ! empty( $wp_query->tribe_is_event_query );
 
 		return apply_filters( 'tribe_query_is_event_query', $tribe_is_event_query );
