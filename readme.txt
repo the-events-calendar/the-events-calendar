@@ -4,7 +4,7 @@ Contributors: ModernTribe, borkweb, aguseo, barry.hughes, bordoni, brianjessee, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.5
-Stable tag: 4.6.11.1
+Stable tag: 4.6.12
 Tested up to: 4.9.4
 Requires PHP: 5.2.4
 License: GPLv2 or later
@@ -307,6 +307,17 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 * <a href="https://profiles.wordpress.org/users/thatdudebutch">Wayne Stratton</a>
 
 == Changelog ==
+
+= [4.6.12] TBD =
+
+* Fix - Add version parameter to _doing_it_wrong to prevent PHP notices in date utils (props to @sharewisdom for pointing this out) [99117]
+* Fix - Prevent error on the admin during the generation of the columns [99266]
+* Fix - If the canonical attribute is set on the page make sure does not affect the redirection on mobile if desktop view is different from mobile [68716]
+* Fix - Ensure "Main Events Page" exists as an option in the dropdown menu of available static front pages in the Customizer's "Homepage Settings" screen [97978]
+* Fix - When a protected event is created make sure the tooltip does not create any console error [99089]
+* Tweak - Rename 'Use Javascript to control date filtering' option to 'Enable live refresh' and modify explanatory copy [98022]
+* Tweak - Prevent the `tribe_get_prev_event_link()` and `tribe_get_next_event_link()` queries from running more times than necessary on single-event views, which improves performance [94587]
+* Tweak - Refactor link attributes generation to extend mechanism to handle pagination on list view [97772]
 
 = [4.6.11.1] 2018-02-16 =
 

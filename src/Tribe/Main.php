@@ -32,7 +32,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '4.6.11.1';
+		const VERSION             = '4.6.12';
 		const MIN_ADDON_VERSION   = '4.4';
 		const MIN_COMMON_VERSION  = '4.7.3';
 
@@ -425,6 +425,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe_singleton( 'tec.customizer.month-week-view', new Tribe__Events__Customizer__Month_Week_View() );
 			tribe_singleton( 'tec.customizer.single-event', new Tribe__Events__Customizer__Single_Event() );
 			tribe_singleton( 'tec.customizer.widget', new Tribe__Events__Customizer__Widget() );
+			tribe_singleton( 'tec.customizer.front-page-view', new Tribe__Events__Customizer__Front_Page_View() );
 
 			// iCal
 			tribe_singleton( 'tec.iCal', 'Tribe__Events__iCal', array( 'hook' ) );
@@ -440,6 +441,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe_singleton( 'tec.linked-posts', 'Tribe__Events__Linked_Posts' );
 			tribe_singleton( 'tec.linked-posts.venue', 'Tribe__Events__Venue' );
 			tribe_singleton( 'tec.linked-posts.organizer', 'Tribe__Events__Organizer' );
+
+			// Adjacent Events
+			tribe_singleton( 'tec.adjacent-events', 'Tribe__Events__Adjacent_Events' );
 
 			/**
 			 * Allows other plugins and services to override/change the bound implementations.

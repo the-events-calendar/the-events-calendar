@@ -186,7 +186,13 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			// Cache the result of month/content.php
 			if ( $this->use_cache ) {
 				$this->cache_expiration = apply_filters( 'tribe_events_month_view_transient_expiration', HOUR_IN_SECONDS );
-				$this->html_cache = new Tribe__Template_Part_Cache( 'month/content.php', serialize( $this->args ), $this->cache_expiration, 'save_post' );
+
+				$cache_id = serialize( $this->args );
+				if ( isset( $_REQUEST ) && is_array( $_REQUEST ) ) {
+					$cache_id .= serialize( $_REQUEST );
+				}
+				$cache_id = md5( $cache_id );
+				$this->html_cache = new Tribe__Template_Part_Cache( 'month/content.php', $cache_id, $this->cache_expiration, 'save_post' );
 			}
 
 			$this->events_per_day  = apply_filters( 'tribe_events_month_day_limit', tribe_get_option( 'monthEventAmount', '3' ) );
@@ -408,7 +414,6 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			}
 
 			$this->args = $args;
-
 		}
 
 		/**
