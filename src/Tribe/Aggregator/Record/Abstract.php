@@ -807,8 +807,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		 *
 		 * @since  TBD
 		 *
-		 * @param  array  $data   Which Arguments
-		 * @param  self   $record Record we are dealing with
+		 * @param  array                                        $data   Which Arguments
+		 * @param  Tribe__Events__Aggregator__Record__Abstract  $record Record we are dealing with
 		 */
 		$data = apply_filters( 'tribe_aggregator_get_import_data_args', $data, $this );
 
