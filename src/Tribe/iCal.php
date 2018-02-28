@@ -239,6 +239,16 @@ class Tribe__Events__iCal {
 			$events_posts = is_array( $post ) ? $post : array( $post );
 		} elseif ( tribe_is_month() ) {
 			$events_posts = self::get_month_view_events();
+		} elseif ( tribe_is_organizer() ) {
+			$events_posts = $this->get_events_list( array(
+				'organizer'    => get_the_ID(),
+				'eventDisplay' => 'list',
+			) );
+		} elseif ( tribe_is_venue() ) {
+			$events_posts = $this->get_events_list( array(
+				'venue'        => get_the_ID(),
+				'eventDisplay' => tribe_get_request_var( 'tribe_event_display', 'list' ),
+			) );
 		} else {
 			global $wp_query;
 			$events_posts = $this->get_events_list( $wp_query->query, $wp_query );
