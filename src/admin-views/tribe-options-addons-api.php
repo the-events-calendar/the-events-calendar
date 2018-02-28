@@ -107,10 +107,16 @@ if ( get_option( 'pue_install_key_event_aggregator' ) ) {
 	if ( ! tribe( 'events-aggregator.main' )->api( 'origins' )->is_oauth_enabled( 'facebook' ) ) {
 		unset( $internal['fb-start'], $internal['fb-info-box'], $internal['fb_token_button'] );
 	}
+}
 
-	$eb_token = tribe_get_option( 'eb_token' );
+/**
+ * Show Eventbrite API Connection only if Eventbrite Plugin is Active
+ */
+if ( class_exists( 'Tribe__Events__Tickets__Eventbrite__Main' ) ) {
+
+	$eb_token         = tribe_get_option( 'eb_token' );
 	$eb_token_expires = tribe_get_option( 'eb_token_expires' );
-	$eb_token_scopes = tribe_get_option( 'eb_token_scopes' );
+	$eb_token_scopes  = tribe_get_option( 'eb_token_scopes' );
 
 	$missing_eb_credentials = ! $eb_token;
 
@@ -125,9 +131,9 @@ if ( get_option( 'pue_install_key_event_aggregator' ) ) {
 				echo '<p>' . esc_html__( 'You need to connect to Eventbrite for Event Aggregator to work properly' ) . '</p>';
 				$eventbrite_button_label = __( 'Connect to Eventbrite', 'the-events-calendar' );
 			} else {
-				$eventbrite_button_label = __( 'Refresh your connection to Eventbrite', 'the-events-calendar' );
+				$eventbrite_button_label     = __( 'Refresh your connection to Eventbrite', 'the-events-calendar' );
 				$eventbrite_disconnect_label = __( 'Disconnect', 'the-events-calendar' );
-				$eventbrite_disconnect_url = tribe( 'events-aggregator.settings' )->build_disconnect_eventbrite_url( $current_url );
+				$eventbrite_disconnect_url   = tribe( 'events-aggregator.settings' )->build_disconnect_eventbrite_url( $current_url );
 			}
 			?>
 			<a target="_blank" class="tribe-ea-eventbrite-button" href="<?php echo esc_url( Tribe__Events__Aggregator__Record__Eventbrite::get_auth_url( array( 'back' => 'settings' ) ) ); ?>"><?php esc_html_e( $eventbrite_button_label ); ?></a>
@@ -141,11 +147,11 @@ if ( get_option( 'pue_install_key_event_aggregator' ) ) {
 	$eventbrite_token_html = ob_get_clean();
 
 	$internal2 = array(
-		'eb-start' => array(
+		'eb-start'        => array(
 			'type' => 'html',
 			'html' => '<h3>' . esc_html__( 'Eventbrite', 'the-events-calendar' ) . '</h3>',
 		),
-		'eb-info-box' => array(
+		'eb-info-box'     => array(
 			'type' => 'html',
 			'html' => '<p>' . esc_html__( 'You need to connect Event Aggregator to Eventbrite to import your events from Eventbrite.', 'the-events-calendar' ) . '</p>',
 		),
@@ -154,10 +160,6 @@ if ( get_option( 'pue_install_key_event_aggregator' ) ) {
 			'html' => $eventbrite_token_html,
 		),
 	);
-
-	if ( ! tribe( 'events-aggregator.main' )->api( 'origins' )->is_oauth_enabled( 'eventbrite' ) ) {
-		unset( $internal2['eb-start'], $internal2['eb-info-box'], $internal2['eb_token_button'] );
-	}
 
 	$internal = array_merge( $internal, $internal2 );
 }
