@@ -310,8 +310,19 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 
 = [4.6.12] TBD =
 
+* Fix - Add version parameter to _doing_it_wrong to prevent PHP notices in date utils (props to @sharewisdom for pointing this out) [99117]
+* Fix - Prevent error on the admin during the generation of the columns [99266]
+* Fix - If the canonical attribute is set on the page make sure does not affect the redirection on mobile if desktop view is different from mobile [68716]
+* Fix - Ensure "Main Events Page" exists as an option in the dropdown menu of available static front pages in the Customizer's "Homepage Settings" screen [97978]
+* Fix - When a protected event is created make sure the tooltip does not create any console error [99089]
 * Tweak - Rename 'Use Javascript to control date filtering' option to 'Enable live refresh' and modify explanatory copy [98022]
 * Tweak - Add cache in `Tribe__Events__Aggregator__Service::instance()->get_origins();` to avoid same HTTP call being fired multiple times in the admin [99486]
+* Tweak - Prevent the `tribe_get_prev_event_link()` and `tribe_get_next_event_link()` queries from running more times than necessary on single-event views, which improves performance [94587]
+
+= [4.6.11.1] 2018-02-16 =
+
+* Fix - The render of the venue and organizer templates (thanks to Antonio and others for reporting this in our forums) [99550]
+* Fix - Make sure events on calendar are not affected by DST changes [99537]
 
 = [4.6.11] 2018-02-14 =
 
