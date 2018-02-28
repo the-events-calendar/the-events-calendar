@@ -116,7 +116,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$request = new \WP_REST_Request( 'GET', '' );
 		$request->set_param( 'start_date', strtotime( '+1 month' ) );
 		update_option( 'posts_per_page', 10 );
-		$this->factory()->event->create_many( 10, [ 'time_space' => '+12 days' ] );
+		$this->factory()->event->create_many( 10, [ 'time_space' => 12 * DAY_IN_SECONDS ] );
 		$this->assertCount( 10, tribe_get_events() );
 
 		$sut = $this->make_instance();
