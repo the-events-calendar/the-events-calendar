@@ -323,16 +323,33 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			global $post;
 			$event = $post;
 		}
-		// Check if event has passed
-		$gmt_offset = ( get_option( 'gmt_offset' ) >= '0' ) ? ' +' . get_option( 'gmt_offset' ) : ' ' . get_option( 'gmt_offset' );
-		$gmt_offset = str_replace( array( '.25', '.5', '.75' ), array( ':15', ':30', ':45' ), $gmt_offset );
 
-		if ( strtotime( tribe_get_end_date( $event, false, 'Y-m-d G:i' ) . $gmt_offset ) <= time() ) {
-			return true;
+		// Are we using the site wide timezone or the local event timezone?
+		$timezone_name = Tribe__Events__Timezones::EVENT_TIMEZONE === Tribe__Events__Timezones::mode()
+			? Tribe__Events__Timezones::get_event_timezone_string( $event->ID )
+			: Tribe__Events__Timezones::wp_timezone_string();
+
+		$format = 'Y-m-d G:i';
+		$end_date = tribe_get_end_date( $event, false, $format );
+
+		// Try to create a a current and end date with the timezone to avoid using the WP timezone if is not the setup case.
+		try {
+			$timezone = new DateTimeZone( $timezone_name );
+			$current  = date_create( 'now', $timezone );
+			$end      = date_create( $end_date, $timezone );
+		} catch( Exception $exception ) {
+			$current = false;
+			$end = false;
 		}
 
-		return false;
-
+		// If date_create throws an error or was not created correctly we fallback to the original solution
+		if ( false === $current || false === $end ) {
+			$gmt_offset = ( get_option( 'gmt_offset' ) >= '0' ) ? ' +' . get_option( 'gmt_offset' ) : ' ' . get_option( 'gmt_offset' );
+			$gmt_offset = str_replace( array( '.25', '.5', '.75' ), array( ':15', ':30', ':45' ), $gmt_offset );
+			return strtotime( $end_date . $gmt_offset ) < time();
+		} else {
+			return $current > $end;
+		}
 	}
 
 	/**
