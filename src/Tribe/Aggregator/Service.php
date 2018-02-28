@@ -325,6 +325,16 @@ class Tribe__Events__Aggregator__Service {
 		$args = array(
 			'referral' => urlencode( home_url() ),
 		);
+
+		/**
+		 *	Allow filtering for which params we are sending to EA for Token callback
+		 *
+		 * @since  TBD
+		 *
+		 * @param array $args Which arguments are sent to Token Callback
+		 */
+		$args = apply_filters( 'tribe_aggregator_eventbrite_token_callback_args', $args );
+
 		$response = $this->get( 'eventbrite/token', $args );
 
 		// If we have an WP_Error we return only CSV

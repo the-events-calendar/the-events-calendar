@@ -45,7 +45,14 @@ class Tribe__Events__Aggregator__Record__Eventbrite extends Tribe__Events__Aggre
 			return '';
 		}
 
-		$url = $service->api()->domain . 'eventbrite/' . $service->api()->key;
+		$api = $service->api();
+		$key = $api->key;
+
+		if ( ! empty( $api->licenses['tribe-eventbrite'] ) ) {
+			$key = $api->licenses['tribe-eventbrite'];
+		}
+
+		$url = $service->api()->domain . 'eventbrite/' . $key;
 		$defaults = array(
 			'referral' => urlencode( home_url() ),
 			'admin_url' => urlencode( get_admin_url() ),
