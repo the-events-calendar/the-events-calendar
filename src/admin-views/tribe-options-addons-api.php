@@ -158,9 +158,9 @@ if ( class_exists('Tribe__Events__Tickets__Eventbrite__Main') ) {
 		),
 	);
 
-	if ( ! tribe( 'events-aggregator.main' )->api( 'origins' )->is_oauth_enabled( 'eventbrite' ) ) {
+/*	if ( ! tribe( 'events-aggregator.main' )->api( 'origins' )->is_oauth_enabled( 'eventbrite' ) ) {
 		unset( $internal2['eb-start'], $internal2['eb-info-box'], $internal2['eb_token_button'] );
-	}
+	}*/
 
 	$internal = array_merge( $internal, $internal2 );
 }
