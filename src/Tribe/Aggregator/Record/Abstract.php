@@ -802,6 +802,16 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			return tribe_error( 'core:aggregator:record-not-finalized' );
 		}
 
+		/**
+		 * Allow filtering of the Import data Request Args
+		 *
+		 * @since  TBD
+		 *
+		 * @param  array                                        $data   Which Arguments
+		 * @param  Tribe__Events__Aggregator__Record__Abstract  $record Record we are dealing with
+		 */
+		$data = apply_filters( 'tribe_aggregator_get_import_data_args', $data, $this );
+
 		$import_data = $import_api->get( $this->meta['import_id'], $data );
 
 		$import_data = $this->maybe_cast_to_error( $import_data );

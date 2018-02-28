@@ -32,6 +32,7 @@ class Tribe__Events__Aggregator__Service {
 	 *     @type string     $version     Which version of we are dealing with
 	 *     @type string     $domain      Domain in which the API lies
 	 *     @type string     $path        Path of the API on the domain above
+	 *     @type array      $licenses    Array with plugins and licenses that we will pass to EA
 	 * }
 	 */
 	public $api = array(
@@ -39,6 +40,7 @@ class Tribe__Events__Aggregator__Service {
 		'version' => 'v1',
 		'domain' => 'https://ea.theeventscalendar.com/',
 		'path' => 'api/aggregator/',
+		'licenses' => array(),
 	);
 
 	/**
@@ -85,9 +87,30 @@ class Tribe__Events__Aggregator__Service {
 
 		/**
 		 * Creates a clean way to filter and redirect to another API domain/path
-		 * @var stdClass
+		 * @param  stdClass API object
 		 */
 		$api = (object) apply_filters( 'tribe_aggregator_api', $api );
+
+		// Allows Eventbrite and others to skip ea license check
+		if ( ! empty( $api->licenses ) ) {
+			foreach ( $api->licenses as $plugin => $key ) {
+				// If empty Key was passed we skip
+				if ( empty( $key ) ) {
+					continue;
+				}
+
+				$aggregator = tribe( 'events-aggregator.main' );
+				$plugin_name = $aggregator->filter_pue_plugin_name( '', $plugin );
+
+				$pue_notices = Tribe__Main::instance()->pue_notices();
+				$has_notice = $pue_notices->has_notice( $plugin_name );
+
+				// Means that we have a license and no notice - Valid Key
+				if ( ! $has_notice ) {
+					return $api;
+				}
+			}
+		}
 
 		// The user doesn't have a license key
 		if ( empty( $api->key ) ) {
@@ -302,6 +325,16 @@ class Tribe__Events__Aggregator__Service {
 		$args = array(
 			'referral' => urlencode( home_url() ),
 		);
+
+		/**
+		 *	Allow filtering for which params we are sending to EA for Token callback
+		 *
+		 * @since  TBD
+		 *
+		 * @param array $args Which arguments are sent to Token Callback
+		 */
+		$args = apply_filters( 'tribe_aggregator_eventbrite_token_callback_args', $args );
+
 		$response = $this->get( 'eventbrite/token', $args );
 
 		// If we have an WP_Error we return only CSV
