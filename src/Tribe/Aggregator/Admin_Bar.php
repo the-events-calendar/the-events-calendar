@@ -80,12 +80,13 @@ class Tribe__Events__Aggregator__Admin_Bar {
 			return;
 		}
 
-		$service_response = get_transient( Tribe__Events__Aggregator::SERVICES_CACHE_KEY );
+		$transient_key = tribe( 'events-aggregator.main' )->KEY_CACHE_SERVICES;
+		$service_response = get_transient( $transient_key );
 
 		// Save HTTP request into a transient
 		if ( false === $service_response ) {
 			$service_response = Tribe__Events__Aggregator__Service::instance()->get_origins();
-			set_transient( Tribe__Events__Aggregator::SERVICES_CACHE_KEY, $service_response, DAY_IN_SECONDS );
+			set_transient( $transient_key, $service_response, DAY_IN_SECONDS );
 		}
 
 		$origins = array(
@@ -95,7 +96,7 @@ class Tribe__Events__Aggregator__Admin_Bar {
 			),
 		);
 
-		if ( empty( $service_response['origin'] ) ) {
+		if ( ! is_array( $service_response ) || empty( $service_response['origin'] ) ) {
 			return;
 		}
 

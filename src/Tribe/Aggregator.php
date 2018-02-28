@@ -9,7 +9,7 @@ class Tribe__Events__Aggregator {
 	 *
 	 * @since TBD
 	 */
-	const SERVICES_CACHE_KEY = 'tribe_aggregator_services_list';
+	public $KEY_CACHE_SERVICES = 'tribe_aggregator_services_list';
 
 	/**
 	 * @var Tribe__Events__Aggregator__Meta_Box Event Aggregator Meta Box object
@@ -577,7 +577,6 @@ class Tribe__Events__Aggregator {
 
 		// Remove caches associated with the list of services
 		add_action( 'tribe_settings_after_save', array( $this, 'clear_services_list_cache' ) );
-		add_action( 'tribe_settings_save_field_value', array( $this, 'clear_services_list_cache' ) );
 
 		// Let's prevent events-importer-ical from DESTROYING its saved recurring imports when it gets deactivated
 		if ( class_exists( 'Tribe__Events__Ical_Importer__Main' ) ) {
@@ -602,6 +601,6 @@ class Tribe__Events__Aggregator {
 	 * @return boolean
 	 */
 	public function clear_services_list_cache() {
-		return delete_transient( self::SERVICES_CACHE_KEY );
+		return delete_transient( $this->KEY_CACHE_SERVICES );
 	}
 }
