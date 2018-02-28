@@ -49,7 +49,10 @@ if ( ! class_exists( 'Tribe__Events__Template__Day' ) ) {
 		 **/
 		public function header_attributes( $attrs ) {
 
-			$wp_query = tribe_get_global_query_object();
+			if ( ! $wp_query = tribe_get_global_query_object() ) {
+				return;
+			}
+
 			$current_day = $wp_query->get( 'start_date' );
 
 			$attrs['data-view']    = 'day';
@@ -85,7 +88,10 @@ if ( ! class_exists( 'Tribe__Events__Template__Day' ) ) {
 		 * @return string
 		 */
 		public function ical_link( $link ) {
-			$wp_query = tribe_get_global_query_object();
+			if ( ! $wp_query = tribe_get_global_query_object() ) {
+				return;
+			}
+
 			$day = $wp_query->get( 'start_date' );
 
 			return trailingslashit( esc_url( trailingslashit( tribe_get_day_link( $day ) ) . '?ical=1' ) );
@@ -97,7 +103,9 @@ if ( ! class_exists( 'Tribe__Events__Template__Day' ) ) {
 		 **/
 		public function setup_view() {
 
-			$wp_query = tribe_get_global_query_object();
+			if ( ! $wp_query = tribe_get_global_query_object() ) {
+				return;
+			}
 
 			$time_format = apply_filters( 'tribe_events_day_timeslot_format', get_option( 'time_format', Tribe__Date_Utils::TIMEFORMAT ) );
 
@@ -182,7 +190,10 @@ if ( ! class_exists( 'Tribe__Events__Template__Day' ) ) {
 
 				global $post;
 
-				$wp_query = tribe_get_global_query_object();
+				if ( ! $wp_query = tribe_get_global_query_object() ) {
+					return;
+				}
+
 				$wp_query = $query;
 
 				add_filter( 'tribe_is_day', '__return_true' ); // simplest way to declare that this is a day view

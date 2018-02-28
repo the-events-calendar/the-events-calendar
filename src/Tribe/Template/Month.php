@@ -405,7 +405,10 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 
 			if ( empty( $args ) ) {
 				// if no args were passed to the constructor, get them from $wp_query
-				$wp_query = tribe_get_global_query_object();
+				if ( ! $wp_query = tribe_get_global_query_object() ) {
+					return;
+				}
+
 				$args = $wp_query->query;
 
 				if ( ! empty( $wp_query->query_vars['meta_query'] ) ) {
@@ -1204,7 +1207,9 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 
 				Tribe__Events__Main::instance()->displaying = 'month';
 
-				$wp_query = tribe_get_global_query_object();
+				if ( ! $wp_query = tribe_get_global_query_object() ) {
+					return;
+				}
 
 				$wp_query = tribe_get_events( $this->args, true );
 
