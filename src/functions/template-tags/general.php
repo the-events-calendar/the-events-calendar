@@ -689,7 +689,9 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 **/
 	function tribe_events_the_header_attributes( $current_view = null ) {
 
-		global $wp_query;
+		if ( ! $wp_query = tribe_get_global_query_object() ) {
+			return;
+		}
 
 		$attrs        = array();
 		$current_view = ! empty( $current_view ) ? $current_view : basename( tribe_get_current_template() );
@@ -1239,7 +1241,10 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string
 	 **/
 	function tribe_include_view_list( $args = null, $initialize = true ) {
-		global $wp_query;
+
+		if ( ! $wp_query = tribe_get_global_query_object() ) {
+			return;
+		}
 
 		// hijack the main query to load the events via provided $args
 		if ( ! is_null( $args ) || ! ( $wp_query->tribe_is_event || $wp_query->tribe_is_event_category ) ) {
@@ -1614,15 +1619,22 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string
 	 */
 	function tribe_get_render_context( $query = null ) {
-		global $wp_query;
+
+		if ( ! $wp_query = tribe_get_global_query_object() ) {
+			return;
+		}
+
 		if ( ! $query instanceof WP_Query ) {
 			$query = $wp_query;
 		}
+
 		if ( empty( $query->query['tribe_render_context'] ) ) {
 			return 'default';
 		}
+
 		return $query->query['tribe_render_context'];
 	}
+
 	/**
 	 * Returns or echoes a url to a file in the Events Calendar plugin resources directory
 	 *
@@ -1703,7 +1715,10 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return bool
 	 */
 	function tribe_is_events_front_page() {
-		global $wp_query;
+
+		if ( ! $wp_query = tribe_get_global_query_object() ) {
+			return;
+		}
 
 		$events_as_front_page = tribe_get_option( 'front_page_event_archive', false );
 		// If the reading option has an events page as front page and we are on that page is on the home of events.
@@ -1730,7 +1745,10 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return bool
 	 */
 	function tribe_is_events_home() {
-		global $wp_query;
+
+		if ( ! $wp_query = tribe_get_global_query_object() ) {
+			return;
+		}
 
 		if ( tribe_is_events_front_page() ) {
 			return true;
