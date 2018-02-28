@@ -61,7 +61,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return bool
 	 **/
 	function tribe_is_event_query() {
-		
+
 		if ( ! $wp_query = tribe_get_global_query_object() ) {
 			return;
 		}

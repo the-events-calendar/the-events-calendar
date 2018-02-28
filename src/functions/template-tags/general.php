@@ -1241,7 +1241,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string
 	 **/
 	function tribe_include_view_list( $args = null, $initialize = true ) {
-		
+
 		if ( ! $wp_query = tribe_get_global_query_object() ) {
 			return;
 		}
@@ -1619,7 +1619,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string
 	 */
 	function tribe_get_render_context( $query = null ) {
-		
+
 		if ( ! $wp_query = tribe_get_global_query_object() ) {
 			return;
 		}

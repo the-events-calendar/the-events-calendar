@@ -713,7 +713,7 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 		 * Query is complete: stop the loop from repeating.
 		 */
 		private static function endQuery() {
-			
+
 			if ( ! $wp_query = tribe_get_global_query_object() ) {
 				return;
 			}

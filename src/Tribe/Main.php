@@ -843,7 +843,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return string
 		 */
 		public function before_html_data_wrapper( $html ) {
-			
+
 			if ( ! $wp_query = tribe_get_global_query_object() ) {
 				return;
 			}

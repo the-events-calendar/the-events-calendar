@@ -103,7 +103,7 @@ class Tribe__Events__Revisions__Preview {
 	 */
 	protected function get_event_id() {
 		if ( $this->is_previewing() ) {
-			
+
 			if ( ! $wp_query = tribe_get_global_query_object() ) {
 				return;
 			}
