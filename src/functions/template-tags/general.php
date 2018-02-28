@@ -330,7 +330,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			: Tribe__Events__Timezones::wp_timezone_string();
 
 		$format = 'Y-m-d G:i';
-		$end_date = tribe_get_end_date( $event->ID, false, $format );
+		$end_date = tribe_get_end_date( $event, false, $format );
 
 		// Try to create a a current and end date with the timezone to avoid using the WP timezone if is not the setup case.
 		try {
