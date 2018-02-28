@@ -194,6 +194,10 @@ class Tribe__Events__Aggregator__API__Origins extends Tribe__Events__Aggregator_
 			return false;
 		}
 
+		if (  'eventbrite' === $origin && class_exists( 'Tribe__Events__Tickets__Eventbrite__Main' ) ) {
+			return true;
+		}
+
 		$cached_oauth_settings = get_transient( "{$this->cache_group}_origin_oauth" );
 		if ( $cached_oauth_settings && isset( $cached_oauth_settings->$origin ) ) {
 			return (bool) $cached_oauth_settings->$origin;

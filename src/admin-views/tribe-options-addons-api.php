@@ -109,7 +109,10 @@ if ( get_option( 'pue_install_key_event_aggregator' ) ) {
 	}
 }
 
-if ( class_exists('Tribe__Events__Tickets__Eventbrite__Main') ) {
+/**
+ * Show Eventbrite API Connection only if Eventbrite Plugin is Active
+ */
+if ( class_exists( 'Tribe__Events__Tickets__Eventbrite__Main' ) ) {
 
 	$eb_token         = tribe_get_option( 'eb_token' );
 	$eb_token_expires = tribe_get_option( 'eb_token_expires' );
@@ -157,10 +160,6 @@ if ( class_exists('Tribe__Events__Tickets__Eventbrite__Main') ) {
 			'html' => $eventbrite_token_html,
 		),
 	);
-
-/*	if ( ! tribe( 'events-aggregator.main' )->api( 'origins' )->is_oauth_enabled( 'eventbrite' ) ) {
-		unset( $internal2['eb-start'], $internal2['eb-info-box'], $internal2['eb_token_button'] );
-	}*/
 
 	$internal = array_merge( $internal, $internal2 );
 }
