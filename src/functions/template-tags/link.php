@@ -206,24 +206,33 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 		// if a page isn't passed in, attempt to fetch it from a get var
 		if ( ! $page ) {
-			if ( ! empty( $_POST['tribe_paged'] ) ) {
-				$page = absint( $_POST['tribe_paged'] );
-			} elseif ( ! empty( $_GET['tribe_paged'] ) ) {
-				$page = absint( $_GET['tribe_paged'] );
-			} else {
-				$page = 1;
-			}
+			$page = absint( tribe_get_request_var( 'tribe_paged', 1 ) );
 		}
 
+		$args = tribe_get_listview_args( $page, $direction, $currently_displaying );
+		$link = add_query_arg( array(
+			'tribe_event_display' => $args['display'],
+			'tribe_paged'         => $args['page'],
+		), $link );
+
+		return apply_filters( 'tribe_get_listview_dir_link', $link, $term );
+	}
+
+	/**
+	 * Utility function to update the pagination and current display on the list view.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $page
+	 * @param string $direction
+	 * @param null $currently_displaying
+	 *
+	 * @return array
+	 */
+	function tribe_get_listview_args( $page = 1, $direction = 'next', $currently_displaying = null ) {
 		// if what we are currently displaying is not passed in, let's set a default and check $_GET
 		if ( ! $currently_displaying ) {
-			$currently_displaying = 'list';
-			if (
-				( ! empty( $_GET['tribe_event_display'] ) && 'past' === $_GET['tribe_event_display'] )
-				|| ( ! empty( $_POST['tribe_event_display'] ) && 'past' === $_POST['tribe_event_display'] )
-			) {
-				$currently_displaying = 'past';
-			}
+			$currently_displaying = tribe_get_listview_display();
 		}
 
 		// assume we want to display what we're currently displaying (until we discover otherwise)
@@ -242,13 +251,27 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$page--;
 		}
 
-		$link = add_query_arg( array(
-			'tribe_event_display' => $display,
-			'tribe_paged' => $page,
-		), $link );
-
-		return apply_filters( 'tribe_get_listview_dir_link', $link, $term );
+		return array(
+			'display' => $display,
+			'page'    => $page,
+		);
 	}
+
+	/**
+	 * Validates that the current view is inside of the Two allowed: list or view if not default to the list view.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	function tribe_get_listview_display() {
+		$default_display = 'list';
+		$display         = tribe_get_request_var( 'tribe_event_display', $default_display );
+		$valid_values    = array( 'list', 'past' );
+
+		return in_array( $display, $valid_values ) ? $display : $default_display;
+	}
+
 
 	/**
 	 * Link to prev List View

@@ -665,6 +665,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_filter( 'tribe_general_settings_tab_fields', array( $this, 'general_settings_tab_fields' ) );
 			add_filter( 'tribe_display_settings_tab_fields', array( $this, 'display_settings_tab_fields' ) );
 			add_filter( 'tribe_settings_url', array( $this, 'tribe_settings_url' ) );
+			add_action( 'update_option_' . Tribe__Main::OPTIONNAME, array( $this, 'delete_old_events' ), 10, 2 );
+			add_action( 'update_option_' . Tribe__Main::OPTIONNAME, array( $this, 'move_past_events_to_trash' ), 10, 2 );
 
 			// Setup Help Tab texting
 			add_action( 'tribe_help_pre_get_sections', array( $this, 'add_help_section_feature_box_content' ) );
@@ -841,7 +843,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return string
 		 */
 		public function before_html_data_wrapper( $html ) {
-			global $wp_query;
+
+			if ( ! $wp_query = tribe_get_global_query_object() ) {
+				return;
+			}
 
 			if ( ! $this->show_data_wrapper['before'] ) {
 				return $html;
@@ -1162,7 +1167,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *     add_filter( 'tribe_events_add_no_index_meta', '__return_true' );
 		 */
 		public function issue_noindex() {
-			global $wp_query;
+
+			if ( ! $wp_query = tribe_get_global_query_object() ) {
+				return;
+			}
 
 			if ( empty( $wp_query->tribe_is_event_query ) ) {
 				return;
@@ -1291,7 +1299,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Trigger is_404 on single event if no events are found
 		 */
 		public function template_redirect() {
-			global $wp_query;
+			if ( ! $wp_query = tribe_get_global_query_object() ) {
+				return;
+			}
 
 			// if JS is disabled, then we need to handle tribe bar submissions manually
 			if ( ! empty( $_POST['tribe-bar-view'] ) && ! empty( $_POST['submit-bar'] ) ) {
@@ -1399,6 +1409,126 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
+		 * Selects events to be moved to trash or permanently deleted.
+		 *
+		 * @since 4.6.12
+		 *
+		 * @param string $field_name - The name of the field that will be updated (trashPastEvents or deletePastEvents)
+		 * @param int    $old_value  - The default/existing number of months: this is the existing value used
+		 *                           to purge all events that ended before $old_value months
+		 * @param int    $new_value  - The updated number of months: this is the value chosen by user to purge all
+		 *                           events that ended before $new_value months
+		 *
+		 * @return array $post_ids   - an array of event Post_IDs with the Event End Date older than $new_value
+		 */
+		public function select_events_to_delete( $field_name, $old_value, $new_value ) {
+			$default_value = null;
+
+			// Prevent notices for undefined indexes
+			if ( empty( $old_value[ $field_name ] ) ) {
+				$old_value[ $field_name ] = $default_value;
+			}
+
+			if ( empty( $new_value[ $field_name ] ) ) {
+				$new_value[ $field_name ] = $default_value;
+			}
+			// If the field value is changed to 'Disabled', we can exit the execution here
+			if ( $new_value[ $field_name ] == $default_value ) {
+				return;
+			}
+			// If the value is not changed, we can exit the execution here
+			if ( $old_value[ $field_name ] == $new_value[ $field_name ] ) {
+				return;
+			}
+
+			global $wpdb;
+
+			$event_month_cutoff = $new_value[ $field_name ];
+
+			$sql = "SELECT post_id
+					FROM {$wpdb->posts} AS t1
+					INNER JOIN {$wpdb->postmeta} AS t2 ON t1.ID = t2.post_id
+					WHERE t1.post_type = %d
+						AND t2.meta_key = '_EventEndDate'
+						AND t2.meta_value <= DATE_SUB( CURDATE(), INTERVAL %d MONTH )";
+
+			/**
+			 * Filter - Allows users to manipulate the cleanup query
+			 *
+			 * @param string $sql - The query statement
+			 *
+			 * @since 4.6.12
+			 */
+			$sql = apply_filters( 'tribe_events_delete_old_events_sql', $sql );
+
+			$args = [
+				'post_type'  => self::POSTTYPE,
+				'meta_value' => $event_month_cutoff,
+			];
+
+			/**
+			 * Filter - Allows users to modify the query's placeholders
+			 *
+			 * @param array $args - The array of variables
+			 *
+			 * @since 4.6.12
+			 */
+			$args = apply_filters( 'tribe_events_delete_old_events_sql_args', $args );
+
+			// Returns an array of Post IDs (events) that ended before a specific date
+			$post_ids = $wpdb->get_col( $wpdb->prepare( $sql, $args ) );
+
+			return $post_ids;
+		}
+
+		/**
+		 * Moves to trash events that ended before a date specified by user
+		 *
+		 * @since TBD
+		 *
+		 * @param int $old_value - The default/existing number of months
+		 * @param int $new_value - The updated number of months
+		 *
+		 * @return mixed
+		 */
+		public function move_past_events_to_trash( $old_value, $new_value ) {
+			$field_name = 'trashPastEvents';
+			$post_ids   = $this->select_events_to_delete( $field_name, $old_value, $new_value );
+
+			if ( empty( $post_ids ) ) {
+				return;
+			}
+
+			foreach ( $post_ids as $post_id ) {
+				wp_trash_post( $post_id );
+			}
+		}
+
+		/**
+		 * Permanently deletes events that ended before a date specified by user
+		 *
+		 * @since TBD
+		 *
+		 * @param int $old_value - The default/existing number of months
+		 * @param int $new_value - The updated number of months
+		 *
+		 * @return mixed
+		 */
+		public function delete_old_events( $old_value, $new_value ) {
+			$field_name = 'deletePastEvents';
+			$post_ids   = $this->select_events_to_delete( $field_name, $old_value, $new_value );
+
+			if ( empty( $post_ids ) ) {
+				return;
+			}
+
+			foreach ( $post_ids as $post_id ) {
+				wp_delete_post( $post_id, true );
+			}
+
+		}
+
+		/**
 		 * Test PHP and WordPress versions for compatibility
 		 *
 		 * @param string $system - system to be tested such as 'php' or 'wordpress'
@@ -1463,7 +1593,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return array
 		 */
 		public function add_current_menu_item_class_to_events( $items, $args ) {
-			global $wp_query;
+			if ( ! $wp_query = tribe_get_global_query_object() ) {
+				return;
+			}
 
 			foreach ( $items as $item ) {
 				if ( $item->url == $this->getLink() ) {
@@ -1540,7 +1672,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return string
 		 */
 		public function add_space_to_rss( $title ) {
-			global $wp_query;
+			if ( ! $wp_query = tribe_get_global_query_object() ) {
+				return;
+			}
+
 			if ( get_query_var( 'eventDisplay' ) == 'upcoming' && get_query_var( 'post_type' ) == self::POSTTYPE ) {
 				return $title . ' ';
 			}
@@ -4393,7 +4528,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function setup_date_search_in_bar( $filters ) {
 
-			global $wp_query;
+			if ( ! $wp_query = tribe_get_global_query_object() ) {
+				return;
+			}
 
 			/**
 			 * Allows for customizing the "date search" field value.
