@@ -148,6 +148,14 @@ class Tribe__Events__iCal {
 	public function do_ical_template() {
 		// hijack to iCal template
 		if ( get_query_var( 'ical' ) || isset( $_GET['ical'] ) ) {
+			/**
+			 * Action fired before the creation of the feed is started, helpful to set up methods and other filters used
+			 * on this class.
+			 *
+			 * @since 4.6.11
+			 */
+			do_action( 'tribe_events_ical_before' );
+
 			global $wp_query;
 			if ( isset( $_GET['event_ids'] ) ) {
 				if ( empty( $_GET['event_ids'] ) ) {
@@ -156,7 +164,7 @@ class Tribe__Events__iCal {
 				$event_ids = explode( ',', $_GET['event_ids'] );
 				$events    = tribe_get_events( array( 'post__in' => $event_ids ) );
 				$this->generate_ical_feed( $events );
-			} elseif ( is_single() ) {
+			} elseif ( is_singular( Tribe__Events__Main::POSTTYPE ) ) {
 				$this->generate_ical_feed( $wp_query->post );
 			} else {
 				$this->generate_ical_feed();
@@ -219,7 +227,7 @@ class Tribe__Events__iCal {
 	 * Generates the iCal file
 	 *
 	 * @param int|null $post If you want the ical file for a single event
-	 * @param bool $echo Whether the content should be echoed or returned
+	 * @param boolean $echo Whether the content should be echoed or returned
 	 */
 	public function generate_ical_feed( $post = null, $echo = true ) {
 		$tec         = Tribe__Events__Main::instance();
@@ -232,31 +240,8 @@ class Tribe__Events__iCal {
 		} elseif ( tribe_is_month() ) {
 			$events_posts = self::get_month_view_events();
 		} else {
-			/**
-			 * Filters the number of upcoming events the iCal feed should export.
-			 *
-			 * This filter allows developer to override the pagination setting and the default value
-			 * to export a number of events that's inferior or superior to the one shown on the page.
-			 * The minimum value is 1.
-			 *
-			 * @param int $count The number of upcoming events that should be exported in the
-			 *                   feed, defaults to 30.
-			 */
-			$count = apply_filters( 'tribe_ical_feed_posts_per_page', $this->feed_default_export_count );
-
-			$count = is_numeric( $count ) && is_int( $count ) && $count > 0 ? $count : $this->feed_default_export_count;
-
-			/** @var WP_Query $wp_query */
 			global $wp_query;
-
-			$query_posts_per_page = $wp_query->get( 'posts_per_page' );
-
-			if ( $count > $query_posts_per_page ) {
-				$query        = new WP_Query( array_merge( $wp_query->query, array( 'posts_per_page' => $count ) ) );
-				$events_posts = $query->get_posts();
-			} else {
-				$events_posts = array_slice( $wp_query->posts, 0, $count );
-			}
+			$events_posts = $this->get_events_list( $wp_query->query, $wp_query );
 		}
 
 		$event_ids = wp_list_pluck( $events_posts, 'ID' );
@@ -413,13 +398,15 @@ class Tribe__Events__iCal {
 		$content .= "METHOD:PUBLISH\r\n";
 
 		/**
-		 * Allows for customizing the value of the generated iCal file's "X-WR-CALNAME:" property.
-		 *
-		 * @param string $blogName The value to use for "X-WR-CALNAME"; defaults to value of get_bloginfo( 'name' ).
-		 */
+		* Allows for customizing the value of the generated iCal file's "X-WR-CALNAME:" property.
+		*
+		* @param string $blogName The value to use for "X-WR-CALNAME"; defaults to value of get_bloginfo( 'name' ).
+		*/
 		$x_wr_calname = apply_filters( 'tribe_ical_feed_calname', $blogName );
+		if ( ! empty( $x_wr_calname ) ) {
+			$content .= 'X-WR-CALNAME:' . $x_wr_calname . "\r\n";
+		}
 
-		$content .= 'X-WR-CALNAME:' . $x_wr_calname . "\r\n";
 		$content .= 'X-ORIGINAL-URL:' . $blogHome . "\r\n";
 		$content .= 'X-WR-CALDESC:' . sprintf( esc_html_x( 'Events for %s', 'iCal feed description', 'the-events-calendar' ), $blogName ) . "\r\n";
 
@@ -438,6 +425,83 @@ class Tribe__Events__iCal {
 		}
 
 		return $content;
+	}
+
+	/**
+	 * Get a list of events, the function make sure it uses the default values used on the main events page
+	 * so if is called from a different location like a page or post (shortcode) it will retain the original values
+	 * to generate the events feed.
+	 *
+	 * @since 4.6.11
+	 *
+	 * @param array $args The WP_Query arguments.
+	 * @param mixed $query A WP_Query object or null if none.
+	 * @return array
+	 */
+	protected function get_events_list( $args = array(), $query = null ) {
+		/**
+		 * Filter the arguments used to construct the call to get the list of events.
+		 *
+		 * @since 4.6.11
+		 *
+		 * @param array $args Arguments used in WP_Query call.
+		 */
+		$args = apply_filters( 'tribe_events_ical_events_list_args', $args );
+
+		/**
+		 * Filter the Query object used to get the list of events used to populate the feed.
+		 *
+		 * @since 4.6.11
+		 *
+		 * @param mixed $query a WP_Query or null.
+		 */
+		$query = apply_filters( 'tribe_events_ical_events_list_query', $query );
+
+		$count = $this->feed_posts_per_page();
+		$query_posts_per_page = 0;
+		if ( $query instanceof WP_Query ) {
+			$query_posts_per_page = $query->get( 'posts_per_page' );
+		}
+
+		$list = array();
+		if ( $count > $query_posts_per_page ) {
+			$args['posts_per_page'] = $count;
+			$events_query = new WP_Query( wp_parse_args( $args, array(
+				'posts_per_page' => $this->feed_posts_per_page(),
+				'post_type' => Tribe__Events__Main::POSTTYPE,
+				'eventDisplay' => 'default',
+			) ) );
+			$list = $events_query->get_posts();
+		} elseif ( $query instanceof WP_Query ) {
+			$list = array_slice( $query->posts, 0, $count );
+		}
+		return $list;
+	}
+
+	/**
+	 * Get the number of posts per page to be used on the feed of the iCal, make sure it passes the value via the filter
+	 * tribe_ical_feed_posts_per_page and validates the number is greather than 0.
+	 *
+	 * @since 4.6.11
+	 *
+	 * @return int
+	 */
+	protected function feed_posts_per_page() {
+		/**
+		 * Filters the number of upcoming events the iCal feed should export.
+		 *
+		 * This filter allows developer to override the pagination setting and the default value
+		 * to export a number of events that's inferior or superior to the one shown on the page.
+		 * The minimum value is 1.
+		 *
+		 * @param int $count The number of upcoming events that should be exported in the
+		 *                   feed, defaults to 30.
+		 */
+		$count = apply_filters( 'tribe_ical_feed_posts_per_page', $this->feed_default_export_count );
+
+		return is_numeric( $count ) && is_int( $count ) && $count > 0
+			? $count
+			: $this->feed_default_export_count;
 	}
 
 	/**
