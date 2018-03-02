@@ -30,24 +30,6 @@ class Tribe__Events__Customizer__Front_Page_View extends Tribe__Customizer__Sect
 	 */
 	public function setup() {
 		add_filter( 'wp_dropdown_pages', array( $this, 'add_events_page_option' ), 10, 3 );
-		add_action('customize_controls_print_scripts', array( $this, 'test' ) );
-	}
-
-	public function test() {
-		wp_enqueue_script( 'jquery' );
-	?>
-		<script>
-			(function($) {
-
-				var $page_on_front      = $( document.getElementById( '_customize-input-page_on_front' ) );
-				var $events_page_option = $page_on_front.find( 'option[value="main_events_page"]' );
-
-				$page_on_front.find( ':selected' ).prop( 'selected', false );
-				$events_page_option.prop( 'selected', true );
-
-			})(jQuery);
-		</script>
-	<?php
 	}
 
 	/**
