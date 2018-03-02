@@ -125,12 +125,12 @@
 
 						if ( $this.tribe_has_attr( 'data-tribejson' ) ) {
 
-							var data = $this.data( 'tribejson' )
+							var data = $this.data( 'tribejson' );
 							if ( 'string' === typeof data ) {
 								try {
-									data = JSON.parse( data )
+									data = JSON.parse( data );
 								} catch ( e ) {
-									data = {}
+									data = {};
 								}
 							}
 
