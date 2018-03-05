@@ -38,12 +38,12 @@ class Tribe__Events__Customizer__Front_Page_View extends Tribe__Customizer__Sect
 	 * @since TBD
 	 *
 	 * @param string $output HTML output for drop down list of pages.
-	 * @param array  $r      The parsed arguments array.
+	 * @param array  $args   The parsed arguments array.
 	 * @param array  $pages  List of WP_Post objects returned by `get_pages()`
 	 *
 	 * @return string
 	 */
-	public function add_events_page_option( $output, $r, $pages ) {
+	public function add_events_page_option( $output, $args, $pages ) {
 
 		// Ensures we don't show the "Main Events Page" option outside the Customizer pane.
 		if ( ! is_customize_preview() ) {
@@ -51,7 +51,7 @@ class Tribe__Events__Customizer__Front_Page_View extends Tribe__Customizer__Sect
 		}
 
 		// Ensures we only modify the Homepage dropdown, not the Blog page.
-		if ( ! isset( $r['name'] ) || '_customize-dropdown-pages-page_on_front' !== $r['name'] ) {
+		if ( ! isset( $args['name'] ) || '_customize-dropdown-pages-page_on_front' !== $args['name'] ) {
 			return $output;
 		}
 
