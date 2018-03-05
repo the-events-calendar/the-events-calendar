@@ -38,12 +38,24 @@ class Tribe__Events__Customizer__Front_Page_View extends Tribe__Customizer__Sect
 	 * @since TBD
 	 *
 	 * @param string $output HTML output for drop down list of pages.
-	 * @param array  $r      The parsed arguments array.
+	 * @param array  $args   The parsed arguments array.
 	 * @param array  $pages  List of WP_Post objects returned by `get_pages()`
 	 *
 	 * @return string
 	 */
-	public function add_events_page_option( $output, $r, $pages ) {
+	public function add_events_page_option( $output, $args, $pages ) {
+
+		// Ensures we don't show the "Main Events Page" option outside the Customizer pane.
+		if ( ! is_customize_preview() ) {
+			return $output;
+		}
+
+		// Ensures we only modify the Homepage dropdown, not the Blog page.
+		if ( ! isset( $args['name'] ) || '_customize-dropdown-pages-page_on_front' !== $args['name'] ) {
+			return $output;
+		}
+
+		$already_chosen = tribe_get_option( 'front_page_event_archive', false );
 
 		$label = sprintf(
 			esc_html_x( 'Main %s Page', 'Customizer static front page setting', 'the-events-calendar' ),
@@ -51,8 +63,9 @@ class Tribe__Events__Customizer__Front_Page_View extends Tribe__Customizer__Sect
 		);
 
 		$option = sprintf(
-			'<option class="level-0" value="%1$s">%2$s</option></select>',
+			'<option class="level-0" value="%1$s" selected="%2$s">%3$s</option></select>',
 			'main_events_page',
+			( $already_chosen ? 'selected' : '' ),
 			$label
 		);
 
