@@ -313,7 +313,6 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 * Fix - Add version parameter to _doing_it_wrong to prevent PHP notices in date utils (props to @sharewisdom for pointing this out) [99117]
 * Fix - Prevent error on the admin during the generation of the columns [99266]
 * Fix - If the canonical attribute is set on the page make sure does not affect the redirection on mobile if desktop view is different from mobile [68716]
-* Fix - Ensure "Main Events Page" exists as an option in the dropdown menu of available static front pages in the Customizer's "Homepage Settings" screen [97978]
 * Fix - When a protected event is created make sure the tooltip does not create any console error [99089]
 * Fix - Events are marked as "past events" based on date comparison using timezones (globally or individually) [91168]
 * Fix - Exported events on Venue and Organizer page are the ones being displayed on the list [70727]
