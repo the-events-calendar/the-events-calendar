@@ -308,7 +308,7 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 
 == Changelog ==
 
-= [4.6.12] TBD =
+= [4.6.12] 2018-03-06 =
 
 * Fix - Add version parameter to _doing_it_wrong to prevent PHP notices in date utils (props to @sharewisdom for pointing this out) [99117]
 * Fix - Prevent error on the admin during the generation of the columns [99266]

@@ -221,7 +221,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	/**
 	 * Utility function to update the pagination and current display on the list view.
 	 *
-	 * @since TBD
+	 * @since 4.6.12
 	 *
 	 * @param int $page
 	 * @param string $direction
@@ -260,7 +260,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	/**
 	 * Validates that the current view is inside of the Two allowed: list or view if not default to the list view.
 	 *
-	 * @since TBD
+	 * @since 4.6.12
 	 *
 	 * @return string
 	 */
