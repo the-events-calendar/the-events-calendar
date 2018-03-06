@@ -315,7 +315,7 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 * Fix - Improved compatibility with WordPress SEO in relation to the default mobile events view [68716]
 * Fix - Resolved Javascript errors in month view which were triggered under some conditions by the presence of password-protected events [99089]
 * Fix - Improved logic responsible for identifying which events are expired (in the past) by using timezone-aware comparisons [91168]
-* Fix - Corrected the export of upcoming events from single organizer pages [70727]
+* Fix - Corrected the export of upcoming events from single organizer pages (added to support changes in Events Calendar PRO) [70727]
 * Tweak - Added safety checks around our use of the global $wp_query object (thanks @archetypalsxe for highlighting this issue!) [100199]
 * Tweak - Renamed 'Use Javascript to control date filtering' option to 'Enable live refresh' and improved the associated helper text [98022]
 * Tweak - Added caching to reduce the number of HTTP requests being made in relation to Event Aggregator within the admin environment [99486]
