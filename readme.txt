@@ -4,7 +4,7 @@ Contributors: ModernTribe, borkweb, aguseo, barry.hughes, bordoni, brianjessee, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.5
-Stable tag: 4.6.11.1
+Stable tag: 4.6.12
 Tested up to: 4.9.4
 Requires PHP: 5.2.4
 License: GPLv2 or later
@@ -308,8 +308,20 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 
 == Changelog ==
 
-= TBD =
+= [4.6.12] TBD =
 
+* Fix - Add version parameter to _doing_it_wrong to prevent PHP notices in date utils (props to @sharewisdom for pointing this out) [99117]
+* Fix - Prevent error on the admin during the generation of the columns [99266]
+* Fix - If the canonical attribute is set on the page make sure does not affect the redirection on mobile if desktop view is different from mobile [68716]
+* Fix - When a protected event is created make sure the tooltip does not create any console error [99089]
+* Fix - Events are marked as "past events" based on date comparison using timezones (globally or individually) [91168]
+* Fix - Exported events on Venue and Organizer page are the ones being displayed on the list [70727]
+* Tweak - Replaced direct references to $wp_query global with new `tribe_get_global_query_object()` function to mitigate errors on sites with plugins or themes that manipulate that global directly (thanks @archetypalsxe for highlighting this issue!) [100199]
+* Tweak - Rename 'Use Javascript to control date filtering' option to 'Enable live refresh' and modify explanatory copy [98022]
+* Tweak - Add cache in `Tribe__Events__Aggregator__Service::instance()->get_origins();` to avoid same HTTP call being fired multiple times in the admin [99486]
+* Tweak - Prevent the `tribe_get_prev_event_link()` and `tribe_get_next_event_link()` queries from running more times than necessary on single-event views, which improves performance [94587]
+* Tweak - Refactor link attributes generation to extend mechanism to handle pagination on list view [97772]
+* Tweak - Ensure calendar is full-width in Twenty Seventeen theme if set to be the site's homepage [97977]
 * Tweak - Sending an empty `timezone` parameter to the REST API for an event no longer results in an error response and now properly clears the timezone for the event [100274]
 
 = [4.6.11.1] 2018-02-16 =

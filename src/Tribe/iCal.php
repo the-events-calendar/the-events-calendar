@@ -63,7 +63,11 @@ class Tribe__Events__iCal {
 	 */
 	public function day_view_ical_link( $link ) {
 		if ( tribe_is_day() ) {
-			global $wp_query;
+
+			if ( ! $wp_query = tribe_get_global_query_object() ) {
+				return;
+			}
+
 			$day  = $wp_query->get( 'start_date' );
 			$link = trailingslashit( esc_url( trailingslashit( tribe_get_day_link( $day ) ) . '?ical=1' ) );
 		}
@@ -98,7 +102,10 @@ class Tribe__Events__iCal {
 	 * Generates the markup for the "iCal Import" link for the views.
 	 */
 	public function maybe_add_link() {
-		global $wp_query;
+
+		if ( ! $wp_query = tribe_get_global_query_object() ) {
+			return;
+		}
 
 		/**
 		 * A filter to control whether the "iCal Import" link shows up or not.
@@ -156,7 +163,10 @@ class Tribe__Events__iCal {
 			 */
 			do_action( 'tribe_events_ical_before' );
 
-			global $wp_query;
+			if ( ! $wp_query = tribe_get_global_query_object() ) {
+				return;
+			}
+
 			if ( isset( $_GET['event_ids'] ) ) {
 				if ( empty( $_GET['event_ids'] ) ) {
 					die();
@@ -185,7 +195,10 @@ class Tribe__Events__iCal {
 	 * @return array events in the month
 	 */
 	private function get_month_view_events() {
-		global $wp_query;
+
+		if ( ! $wp_query = tribe_get_global_query_object() ) {
+			return;
+		}
 
 		$event_date = $wp_query->get( 'eventDate' );
 
@@ -239,8 +252,22 @@ class Tribe__Events__iCal {
 			$events_posts = is_array( $post ) ? $post : array( $post );
 		} elseif ( tribe_is_month() ) {
 			$events_posts = self::get_month_view_events();
+		} elseif ( tribe_is_organizer() ) {
+			$events_posts = $this->get_events_list( array(
+				'organizer'    => get_the_ID(),
+				'eventDisplay' => 'list',
+			) );
+		} elseif ( tribe_is_venue() ) {
+			$events_posts = $this->get_events_list( array(
+				'venue'        => get_the_ID(),
+				'eventDisplay' => tribe_get_request_var( 'tribe_event_display', 'list' ),
+			) );
 		} else {
-			global $wp_query;
+
+			if ( ! $wp_query = tribe_get_global_query_object() ) {
+				return;
+			}
+
 			$events_posts = $this->get_events_list( $wp_query->query, $wp_query );
 		}
 
