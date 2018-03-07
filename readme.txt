@@ -322,6 +322,7 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 * Tweak - Prevent the `tribe_get_prev_event_link()` and `tribe_get_next_event_link()` queries from running more times than necessary on single-event views, which improves performance [94587]
 * Tweak - Refactor link attributes generation to extend mechanism to handle pagination on list view [97772]
 * Tweak - Ensure calendar is full-width in Twenty Seventeen theme if set to be the site's homepage [97977]
+* Tweak - Sending an empty `timezone` parameter to the REST API for an event no longer results in an error response and now properly clears the timezone for the event [100274]
 
 = [4.6.11.1] 2018-02-16 =
 
