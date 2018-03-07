@@ -957,9 +957,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				switch ( $args['display_type'] ) {
 					case 'daily':
 					default :
-						if ( ! $wp_query = tribe_get_global_query_object() ) {
-							return;
-						}
+						$wp_query = tribe_get_global_query_object();
 
 						$output_date_format = '%Y-%m-%d %H:%i:%s';
 						$start_date_sql = esc_sql( $post_id_query->query_vars['start_date'] );
