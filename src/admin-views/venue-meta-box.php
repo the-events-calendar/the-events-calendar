@@ -253,7 +253,7 @@ if ( $post->post_type != Tribe__Events__Main::VENUE_POST_TYPE ) {
 ?>
 <?php do_action( 'tribe_events_after_venue_metabox', $post ); ?>
 
-<script type="text/javascript">
+<script>
 	jQuery('[name=venue\\[Venue\\]]').blur(function () {
 		jQuery.post('<?php echo esc_url_raw( admin_url( 'admin-ajax.php' ) ); ?>',
 			{

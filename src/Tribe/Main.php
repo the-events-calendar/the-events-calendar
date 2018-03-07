@@ -3563,7 +3563,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			?>
-			<style type="text/css">
+			<style>
 				#EventInfo {
 					border: none;
 				}
@@ -3612,7 +3612,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				}
 			}
 			?>
-			<style type="text/css">
+			<style>
 				#EventInfo {
 					border: none;
 				}

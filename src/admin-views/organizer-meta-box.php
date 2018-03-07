@@ -58,7 +58,7 @@ do_action( 'tribe_events_organizer_before_metabox', $post );
 do_action( 'tribe_events_organizer_after_metabox', $post );
 ?>
 
-<script type="text/javascript">
+<script>
 	jQuery('[name=organizer\\[Organizer\\]]').blur(function () {
 		jQuery.post('<?php echo esc_url_raw( admin_url( 'admin-ajax.php' ) ); ?>',
 			{
