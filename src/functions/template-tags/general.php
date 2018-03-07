@@ -1242,7 +1242,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 **/
 	function tribe_include_view_list( $args = null, $initialize = true ) {
 
-		$wp_query = tribe_get_global_query_object();
+		global $wp_query;
 
 		// hijack the main query to load the events via provided $args
 		if ( ! is_null( $args ) || ! ( $wp_query->tribe_is_event || $wp_query->tribe_is_event_category ) ) {
@@ -1618,7 +1618,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 */
 	function tribe_get_render_context( $query = null ) {
 
-		$wp_query = tribe_get_global_query_object();
+		global $wp_query;
 
 		if ( ! $query instanceof WP_Query ) {
 			$query = $wp_query;
