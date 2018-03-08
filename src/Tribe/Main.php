@@ -684,6 +684,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_filter( 'tribe_meta_chunker_post_types', array( $this, 'filter_meta_chunker_post_types' ) );
 			tribe( 'chunker' );
 
+			// Purge old events
+			add_action( 'update_option_' . Tribe__Main::OPTIONNAME, array( Tribe__Events__Event_Cleaner::instance(), 'move_old_events_to_trash', ), 10, 2 );
+			add_action( 'update_option_' . Tribe__Main::OPTIONNAME, array( Tribe__Events__Event_Cleaner::instance(), 'permanently_delete_old_events', ), 10, 2 );
+
 			// Register slug conflict notices (but test to see if tribe_notice() is indeed available, in case another plugin
 			// is hosting an earlier version of tribe-common which is already active)
 			//
@@ -766,6 +770,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			Tribe__Debug::debug( sprintf( esc_html__( 'Initializing Tribe Events on %s', 'the-events-calendar' ), date( 'M, jS \a\t h:m:s a' ) ) );
 			$this->maybeSetTECVersion();
+
+			$this->runScheduler();
 		}
 
 		/**
@@ -2146,6 +2152,20 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			} else {
 				return get_post_meta( $post_id, '_EventStartDate', true );
 			}
+		}
+
+		/**
+		 * Runs the Event Scheduler to purge old events
+		 *
+		 * @return void
+		 */
+		public function runScheduler() {
+			if ( ! empty( $this->scheduler ) ) {
+				$this->scheduler->remove_hooks();
+			}
+
+			$this->scheduler = new Tribe__Events__Event_Scheduler( tribe_get_option( 'trashPastEvents', null ), tribe_get_option( 'deletePastEvents', null ) );
+			$this->scheduler->add_hooks();
 		}
 
 		/**
