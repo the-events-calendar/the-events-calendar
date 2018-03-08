@@ -116,14 +116,18 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$request = new \WP_REST_Request( 'GET', '' );
 		$request->set_param( 'start_date', strtotime( '+1 month' ) );
 		update_option( 'posts_per_page', 10 );
-		$this->factory()->event->create_many( 10, [ 'time_space' => '+12 days' ] );
+		$this->factory()->event->create_many( 10, [ 'time_space' => 3 * 24 ] ); // space events by 3 days
 		$this->assertCount( 10, tribe_get_events() );
 
 		$sut = $this->make_instance();
 		$response = $sut->get( $request );
+		$event_dates = array_map( function ( $id ) {
+			return get_post_meta( $id, '_EventStartDate', true );
+		}, tribe_get_events( [ 'fields' => 'ids' ] ) );
+		$start_t = date('Y-m-d', strtotime( '+1 month' ));
 
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
-		$this->assertCount( 4, $response->get_data()['events'] );
+		$this->assertCount( 6, $response->get_data()['events'] );
 	}
 
 	/**

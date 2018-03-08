@@ -295,8 +295,14 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 		public static function custom_columns( $column_id, $post_id ) {
 			switch ( $column_id ) {
 				case 'events-cats':
-					$event_cats = get_the_term_list( $post_id, Tribe__Events__Main::TAXONOMY, '', ', ', '' );
-					echo ( $event_cats ) ? strip_tags( $event_cats ) : '—';
+					$event_cats = wp_get_post_terms( $post_id, Tribe__Events__Main::TAXONOMY, array(
+						'fields' => 'names',
+					) );
+					$categories_list = '-';
+					if ( is_array( $event_cats ) ) {
+						$categories_list = implode( ', ', $event_cats );
+					}
+					echo esc_html( $categories_list );
 				break;
 
 				case 'start-date':
