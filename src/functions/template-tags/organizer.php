@@ -62,7 +62,8 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			}
 		}
 		// if there are linked post order use that instead of the current linked post to change the order
-		if ( ! empty( $organizer_ids_order = get_post_meta( $event_id, '_EventOrganizerID_Order', true ) ) ) {
+		$organizer_ids_order = get_post_meta( $event_id, '_EventOrganizerID_Order', true );
+		if ( ! empty( $organizer_ids_order ) ) {
 			$organizer_ids = $organizer_ids_order;
 		}
 
