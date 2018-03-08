@@ -308,6 +308,11 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 
 == Changelog ==
 
+= [M18.05] TBD =
+
+* Fix - Save order of organizers as displayed in the admin (thanks to JobInfo and others for report) [79126]
+
+
 = [4.6.12] TBD =
 
 * Fix - Add version parameter to _doing_it_wrong to prevent PHP notices in date utils (props to @sharewisdom for pointing this out) [99117]
