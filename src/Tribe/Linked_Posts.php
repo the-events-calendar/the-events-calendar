@@ -592,7 +592,7 @@ class Tribe__Events__Linked_Posts {
 	/**
 	 * Save Order of Linked Posts
 	 *
-	 * @tbd
+	 * @since TBD
 	 *
 	 * @param int $target_post_id post id to save meta from
 	 * @param string $post_type the post-type to get the key for
@@ -605,7 +605,7 @@ class Tribe__Events__Linked_Posts {
 	/**
 	 * Get Linked Post Order
 	 *
-	 * @tbd
+	 * @since TBD
 	 *
 	 * @param int $post_id post id to get meta from
 	 * @param string $meta_key the metakey to get the data
