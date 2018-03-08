@@ -92,7 +92,7 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 		$post_id                      = $this->event->ID;
 		$current_linked_post_meta_key = $this->linked_posts->get_meta_key( $this->post_type );
 		$current_linked_posts         = get_post_meta( $post_id, $current_linked_post_meta_key, false );
-		if( $linked_post_order_field = $this->linked_posts->get_order_meta_key( $this->post_type ) ) {
+		if ( $linked_post_order_field = $this->linked_posts->get_order_meta_key( $this->post_type ) ) {
 			$linked_post_order = $this->linked_posts->get_order_linked_posts( $post_id, $linked_post_order_field );
 		}
 
