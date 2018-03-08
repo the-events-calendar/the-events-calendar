@@ -126,8 +126,17 @@
 						if ( $this.tribe_has_attr( 'data-tribejson' ) ) {
 
 							var data = $this.data( 'tribejson' );
+							if ( 'string' === typeof data ) {
+								try {
+									data = JSON.parse( data );
+								} catch ( e ) {
+									data = {};
+								}
+							}
 
-							$target.append( tribe_tmpl( 'tribe_tmpl_month_mobile', data ) );
+							if ( data && 'eventId' in data ) {
+								$target.append( tribe_tmpl( 'tribe_tmpl_month_mobile', data ) )
+							}
 						}
 
 					} );
@@ -141,7 +150,7 @@
 		}
 
 		function tribe_mobile_setup_day( $date ) {
-			
+
 			var data  = $date.data( 'tribejson' );
 			data.date = $date.attr( 'data-day' );
 

@@ -713,7 +713,10 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 		 * Query is complete: stop the loop from repeating.
 		 */
 		private static function endQuery() {
-			global $wp_query;
+
+			if ( ! $wp_query = tribe_get_global_query_object() ) {
+				return;
+			}
 
 			$wp_query->current_post = -1;
 			$wp_query->post_count   = 0;
@@ -771,7 +774,9 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 				return;
 			}
 
-			global $wp_query;
+			if ( ! $wp_query = tribe_get_global_query_object() ) {
+				return;
+			}
 
 			if ( $wp_query->is_main_query() && tribe_is_event_query() && tribe_get_option( 'tribeEventsTemplate', 'default' ) != '' ) {
 
@@ -794,7 +799,7 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 		 * Restore the original query after spoofing it.
 		 */
 		public static function restoreQuery() {
-			global $wp_query;
+			$wp_query = tribe_get_global_query_object();
 
 			// If the query hasn't been spoofed we need take no action
 			if ( ! isset( $wp_query->spoofed ) || ! $wp_query->spoofed ) {
