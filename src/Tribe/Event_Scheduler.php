@@ -83,8 +83,8 @@ class Tribe__Events__Event_Scheduler {
 	 * @since TBD
 	 */
 	public function remove_hooks() {
-		remove_action( self::TRASH_CRON_HOOK, array( $this, 'move_old_events_to_trash', ), 10, 0 );
-		remove_action( self::DEL_CRON_HOOK, array( $this, 'permanently_delete_old_events', ), 10, 0 );
+		remove_action( self::TRASH_CRON_HOOK, array( $this, 'move_old_events_to_trash' ), 10, 0 );
+		remove_action( self::DEL_CRON_HOOK, array( $this, 'permanently_delete_old_events' ), 10, 0 );
 	}
 
 	/**

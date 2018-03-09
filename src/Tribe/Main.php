@@ -685,8 +685,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe( 'chunker' );
 
 			// Purge old events
-			add_action( 'update_option_' . Tribe__Main::OPTIONNAME, array( Tribe__Events__Event_Cleaner::instance(), 'move_old_events_to_trash', ), 10, 2 );
-			add_action( 'update_option_' . Tribe__Main::OPTIONNAME, array( Tribe__Events__Event_Cleaner::instance(), 'permanently_delete_old_events', ), 10, 2 );
+			add_action( 'update_option_' . Tribe__Main::OPTIONNAME, array( Tribe__Events__Event_Cleaner::instance(), 'move_old_events_to_trash' ), 10, 2 );
+			add_action( 'update_option_' . Tribe__Main::OPTIONNAME, array( Tribe__Events__Event_Cleaner::instance(), 'permanently_delete_old_events' ), 10, 2 );
 
 			// Register slug conflict notices (but test to see if tribe_notice() is indeed available, in case another plugin
 			// is hosting an earlier version of tribe-common which is already active)

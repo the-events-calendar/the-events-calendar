@@ -14,7 +14,7 @@ class Tribe__Events__Event_Cleaner {
 	 * @return Tribe__Events__Event_Cleaner
 	 */
 	public static function instance() {
-		if ( empty( self::$instance ) ) {
+		if ( self::$instance == false ) {
 			self::$instance = new self();
 		}
 
