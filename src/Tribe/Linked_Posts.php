@@ -603,21 +603,6 @@ class Tribe__Events__Linked_Posts {
 	}
 
 	/**
-	 * Get Linked Post Order
-	 *
-	 * @since TBD
-	 *
-	 * @param int $post_id post id to get meta from
-	 * @param string $meta_key the metakey to get the data
-	 *
-	 * @return mixed
-	 */
-	public function get_order_linked_posts( $post_id, $meta_key ) {
-		return get_post_meta( $post_id, $meta_key, true );
-	}
-
-
-	/**
 	 * Unlinks two posts from eachother
 	 *
 	 * @since 4.2
