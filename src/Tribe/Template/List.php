@@ -125,8 +125,12 @@ if ( ! class_exists( 'Tribe__Events__Template__List' ) ) {
 				'view'        => 'list',
 			);
 
-			global $wp_query, $post, $paged;
+			global $post;
+			global $paged;
+			global $wp_query;
+
 			$wp_query = $query;
+
 			if ( ! empty( $query->posts ) ) {
 				$post = $query->posts[0];
 			}
