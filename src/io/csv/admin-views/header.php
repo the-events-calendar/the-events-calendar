@@ -8,7 +8,7 @@ $post_type = Tribe__Events__Main::POSTTYPE;
 $active = $this->get_active_tab();
 
 ?>
-<style type="text/css">
+<style>
 	div.tribe_settings {
 		width: 90%;
 	}
