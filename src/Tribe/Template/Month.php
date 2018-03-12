@@ -716,15 +716,16 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 						}
 					}
 
-					$event_start = strtotime( tribe_get_start_date( $event->ID, true, Tribe__Date_Utils::DBDATETIMEFORMAT ) );
-					$event_end   = strtotime( tribe_get_end_date( $event->ID, true, Tribe__Date_Utils::DBDATETIMEFORMAT ) );
+					$event_start = strtotime( $event->EventStartDate );
+					$event_end   = strtotime( $event->EventEndDate );
+
 					$order = get_post_field( 'menu_order', $event->ID );
 
 					// Builds the Index to allow a better ordering of events
 					$order_index = $order . ':' . $event_start . ':' . $event->ID;
 
 					$start = date( 'Y-m-d', $event_start );
-					$end = date( 'Y-m-d', $event_end );
+					$end   = date( 'Y-m-d', $event_end );
 
 					$beginning_of_start           = $this->get_cutoff_details( $start, 'beginning' );
 					$beginning_of_start_timestamp = $this->get_cutoff_details( $start, 'beginning_timestamp' );
