@@ -311,7 +311,7 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 = [M18.05] TBD =
 
 * Fix - Save order of organizers as displayed in the admin (thanks to JobInfo and others for report) [79126]
-
+* Tweak - Remove some unnecessary calls of `tribe_get_start_date()` and `tribe_get_end_date()` from the Month View [100914]
 
 = [4.6.12] TBD =
 
