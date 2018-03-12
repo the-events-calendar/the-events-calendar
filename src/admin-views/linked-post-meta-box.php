@@ -24,7 +24,7 @@ $linked_post_name_field = "{$linked_post_container}[{$linked_post_name}][]";
 	</tbody>
 </script>
 
-<script type="text/javascript">
+<script>
 ( function( $ ) {
 	$('#event_<?php echo esc_js( $this->post_type ); ?>').on( 'blur', '.linked-post-name', function () {
 		var input = $(this);
