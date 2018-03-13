@@ -223,7 +223,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_time' ),
 				'type'              => 'string',
-				'description'       => __( 'The event publication date (UTC timezone)', 'the-events-calendar' ),
+				'description'       => __( 'The event publication date (UTC time zone)', 'the-events-calendar' ),
 			),
 			'title'              => array(
 				'required'          => true,
@@ -260,7 +260,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_timezone_or_empty' ),
 				'type'              => 'string',
-				'description'       => __( 'The event timezone', 'the-events-calendar' ),
+				'description'       => __( 'The event time zone', 'the-events-calendar' ),
 			),
 			'all_day'            => array(
 				'required'    => false,
