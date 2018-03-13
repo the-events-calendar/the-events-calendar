@@ -100,7 +100,7 @@ class Tribe__Events__REST__V1__Documentation__Event_Definition_Provider
 				),
 				'end_date' => array(
 					'type' => 'string',
-					'description' => __( 'The event end date in the event or site time zone', 'the-events-calendar' )
+					'description' => __( 'The event end date in the event or site time zone', 'the-events-calendar' ),
 				),
 				'end_date_details' => array(
 					'type' => 'array',
