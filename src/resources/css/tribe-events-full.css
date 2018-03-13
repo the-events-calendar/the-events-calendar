@@ -942,7 +942,7 @@ select.tribe-events-dropdown {
 
 .venue-address {
 	margin-top: 1em;
-	
+
 }
 
 .venue-address>* {
@@ -1920,10 +1920,6 @@ input[name*='tribe-bar-']:-moz-placeholder {
 	border-radius: 0 0 3px 3px;
 }
 
-#tribe-bar-views [name='tribe-bar-view'] {
-	display: none;
-}
-
 #tribe-bar-views .tribe-bar-views-list {
 	float: left;
 	width: 100%;
@@ -1931,12 +1927,6 @@ input[name*='tribe-bar-']:-moz-placeholder {
 
 #tribe-bar-views .tribe-bar-settings {
 	display: none;
-}
-
-/* Views Select */
-
-.tribe-no-js #tribe-bar-views [name='tribe-bar-view'] {
-	display: block;
 }
 
 /* Tribe Bar Mini Styles */
