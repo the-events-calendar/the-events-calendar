@@ -308,26 +308,25 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 
 == Changelog ==
 
-= [M18.05] TBD =
+= [4.6.13] TBD =
 
-* Fix - Save order of organizers as displayed in the admin (thanks to JobInfo and others for report) [79126]
+* Tweak - Added Gutenberg compatibility for the Extension
 
+= [4.6.12] 2018-03-08 =
 
-= [4.6.12] TBD =
-
-* Fix - Add version parameter to _doing_it_wrong to prevent PHP notices in date utils (props to @sharewisdom for pointing this out) [99117]
-* Fix - Prevent error on the admin during the generation of the columns [99266]
-* Fix - If the canonical attribute is set on the page make sure does not affect the redirection on mobile if desktop view is different from mobile [68716]
-* Fix - When a protected event is created make sure the tooltip does not create any console error [99089]
-* Fix - Events are marked as "past events" based on date comparison using timezones (globally or individually) [91168]
-* Fix - Exported events on Venue and Organizer page are the ones being displayed on the list [70727]
-* Tweak - Replaced direct references to $wp_query global with new `tribe_get_global_query_object()` function to mitigate errors on sites with plugins or themes that manipulate that global directly (thanks @archetypalsxe for highlighting this issue!) [100199]
-* Tweak - Rename 'Use Javascript to control date filtering' option to 'Enable live refresh' and modify explanatory copy [98022]
-* Tweak - Add cache in `Tribe__Events__Aggregator__Service::instance()->get_origins();` to avoid same HTTP call being fired multiple times in the admin [99486]
-* Tweak - Prevent the `tribe_get_prev_event_link()` and `tribe_get_next_event_link()` queries from running more times than necessary on single-event views, which improves performance [94587]
-* Tweak - Refactor link attributes generation to extend mechanism to handle pagination on list view [97772]
-* Tweak - Ensure calendar is full-width in Twenty Seventeen theme if set to be the site's homepage [97977]
-* Tweak - Sending an empty `timezone` parameter to the REST API for an event no longer results in an error response and now properly clears the timezone for the event [100274]
+* Fix - Resolved an oversight resulting in notice-level errors when the `tribe_event_is_on_date()` function was called incorrectly (props to @sharewisdom for pointing this out) [99117]
+* Fix - Resolved errors within the admin environment when the "ticketed" view of events is generated [99266]
+* Fix - Improved compatibility with WordPress SEO in relation to the default mobile events view [68716]
+* Fix - Resolved Javascript errors in month view which were triggered under some conditions by the presence of password-protected events [99089]
+* Fix - Improved logic responsible for identifying which events are expired (in the past) by using timezone-aware comparisons [91168]
+* Fix - Corrected the export of upcoming events from single organizer pages (added to support changes in Events Calendar PRO) [70727]
+* Tweak - Added safety checks around our use of the global $wp_query object (thanks @archetypalsxe for highlighting this issue!) [100199]
+* Tweak - Renamed 'Use Javascript to control date filtering' option to 'Enable live refresh' and improved the associated helper text [98022]
+* Tweak - Added caching to reduce the number of HTTP requests being made in relation to Event Aggregator within the admin environment [99486]
+* Tweak - Improved performance by reducing the number of queries that run in single event pages (in relation to `tribe_get_prev_event_link()` and `tribe_get_next_event_link()` specifically) [94587]
+* Tweak - Added pagination to single organizer and venue pages [97772]
+* Tweak - Improved compatibility with the Twety Seventeen theme (ensuring the calendar is full-width if set to be the site's homepage) [97977]
+* Language - 3 new strings added, 161 updated, 1 fuzzied, and 2 obsoleted
 
 = [4.6.11.1] 2018-02-16 =
 

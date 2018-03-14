@@ -714,9 +714,7 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 		 */
 		private static function endQuery() {
 
-			if ( ! $wp_query = tribe_get_global_query_object() ) {
-				return;
-			}
+			$wp_query = tribe_get_global_query_object();
 
 			$wp_query->current_post = -1;
 			$wp_query->post_count   = 0;
@@ -774,9 +772,7 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 				return;
 			}
 
-			if ( ! $wp_query = tribe_get_global_query_object() ) {
-				return;
-			}
+			$wp_query = tribe_get_global_query_object();
 
 			if ( $wp_query->is_main_query() && tribe_is_event_query() && tribe_get_option( 'tribeEventsTemplate', 'default' ) != '' ) {
 

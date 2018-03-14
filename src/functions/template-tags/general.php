@@ -1242,9 +1242,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 **/
 	function tribe_include_view_list( $args = null, $initialize = true ) {
 
-		if ( ! $wp_query = tribe_get_global_query_object() ) {
-			return;
-		}
+		global $wp_query;
 
 		// hijack the main query to load the events via provided $args
 		if ( ! is_null( $args ) || ! ( $wp_query->tribe_is_event || $wp_query->tribe_is_event_category ) ) {
@@ -1620,9 +1618,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 */
 	function tribe_get_render_context( $query = null ) {
 
-		if ( ! $wp_query = tribe_get_global_query_object() ) {
-			return;
-		}
+		global $wp_query;
 
 		if ( ! $query instanceof WP_Query ) {
 			$query = $wp_query;
@@ -1716,9 +1712,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 */
 	function tribe_is_events_front_page() {
 
-		if ( ! $wp_query = tribe_get_global_query_object() ) {
-			return;
-		}
+		$wp_query = tribe_get_global_query_object();
 
 		$events_as_front_page = tribe_get_option( 'front_page_event_archive', false );
 		// If the reading option has an events page as front page and we are on that page is on the home of events.
@@ -1746,9 +1740,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 */
 	function tribe_is_events_home() {
 
-		if ( ! $wp_query = tribe_get_global_query_object() ) {
-			return;
-		}
+		$wp_query = tribe_get_global_query_object();
 
 		if ( tribe_is_events_front_page() ) {
 			return true;
