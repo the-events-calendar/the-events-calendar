@@ -323,16 +323,33 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			global $post;
 			$event = $post;
 		}
-		// Check if event has passed
-		$gmt_offset = ( get_option( 'gmt_offset' ) >= '0' ) ? ' +' . get_option( 'gmt_offset' ) : ' ' . get_option( 'gmt_offset' );
-		$gmt_offset = str_replace( array( '.25', '.5', '.75' ), array( ':15', ':30', ':45' ), $gmt_offset );
 
-		if ( strtotime( tribe_get_end_date( $event, false, 'Y-m-d G:i' ) . $gmt_offset ) <= time() ) {
-			return true;
+		// Are we using the site wide timezone or the local event timezone?
+		$timezone_name = Tribe__Events__Timezones::EVENT_TIMEZONE === Tribe__Events__Timezones::mode()
+			? Tribe__Events__Timezones::get_event_timezone_string( $event->ID )
+			: Tribe__Events__Timezones::wp_timezone_string();
+
+		$format = 'Y-m-d G:i';
+		$end_date = tribe_get_end_date( $event, false, $format );
+
+		// Try to create a a current and end date with the timezone to avoid using the WP timezone if is not the setup case.
+		try {
+			$timezone = new DateTimeZone( $timezone_name );
+			$current  = date_create( 'now', $timezone );
+			$end      = date_create( $end_date, $timezone );
+		} catch( Exception $exception ) {
+			$current = false;
+			$end = false;
 		}
 
-		return false;
-
+		// If date_create throws an error or was not created correctly we fallback to the original solution
+		if ( false === $current || false === $end ) {
+			$gmt_offset = ( get_option( 'gmt_offset' ) >= '0' ) ? ' +' . get_option( 'gmt_offset' ) : ' ' . get_option( 'gmt_offset' );
+			$gmt_offset = str_replace( array( '.25', '.5', '.75' ), array( ':15', ':30', ':45' ), $gmt_offset );
+			return strtotime( $end_date . $gmt_offset ) < time();
+		} else {
+			return $current > $end;
+		}
 	}
 
 	/**
@@ -672,7 +689,9 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 **/
 	function tribe_events_the_header_attributes( $current_view = null ) {
 
-		global $wp_query;
+		if ( ! $wp_query = tribe_get_global_query_object() ) {
+			return;
+		}
 
 		$attrs        = array();
 		$current_view = ! empty( $current_view ) ? $current_view : basename( tribe_get_current_template() );
@@ -1222,6 +1241,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string
 	 **/
 	function tribe_include_view_list( $args = null, $initialize = true ) {
+
 		global $wp_query;
 
 		// hijack the main query to load the events via provided $args
@@ -1597,15 +1617,20 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string
 	 */
 	function tribe_get_render_context( $query = null ) {
+
 		global $wp_query;
+
 		if ( ! $query instanceof WP_Query ) {
 			$query = $wp_query;
 		}
+
 		if ( empty( $query->query['tribe_render_context'] ) ) {
 			return 'default';
 		}
+
 		return $query->query['tribe_render_context'];
 	}
+
 	/**
 	 * Returns or echoes a url to a file in the Events Calendar plugin resources directory
 	 *
@@ -1686,7 +1711,8 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return bool
 	 */
 	function tribe_is_events_front_page() {
-		global $wp_query;
+
+		$wp_query = tribe_get_global_query_object();
 
 		$events_as_front_page = tribe_get_option( 'front_page_event_archive', false );
 		// If the reading option has an events page as front page and we are on that page is on the home of events.
@@ -1713,7 +1739,8 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return bool
 	 */
 	function tribe_is_events_home() {
-		global $wp_query;
+
+		$wp_query = tribe_get_global_query_object();
 
 		if ( tribe_is_events_front_page() ) {
 			return true;

@@ -193,7 +193,7 @@ class QueryTest extends Events_TestCase {
 	 *
 	 * @test
 	 *
-	 * @since TBD
+	 * @since 4.6.10
 	 */
 	public function should_allow_queries_to_ignore_hidden_events() {
 		// Create 4 events, of which 1 will be marked as "hidden from event listings"
@@ -221,7 +221,7 @@ class QueryTest extends Events_TestCase {
 	 * 
 	 * @test
 	 *
-	 * @since TBD
+	 * @since 4.6.10
 	 */
 	public function should_allow_queries_to_fetch_hidden_events() {
 		// Create 4 events, of which 1 will be marked as "hidden from event listings"

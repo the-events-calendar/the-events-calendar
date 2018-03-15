@@ -2366,6 +2366,7 @@ input[name*='tribe-bar-']:-moz-placeholder {
 /* Twenty Seventeen
 ========================================================================== */
 .tribe-theme-twentyseventeen {
+
 	.entry-content {
 		a {
 			box-shadow: none;
@@ -2376,7 +2377,14 @@ input[name*='tribe-bar-']:-moz-placeholder {
 		.single-featured-image-header {
 			display: none;
 		}
-	}	
+	}
+
+	/* Ensure full-width calendar if Main Events Page is site homepage. */
+	&.page-template-page-php.blog:not(.has-sidebar) {
+		#primary article {
+			width: 100%;
+		}
+	}
 }
 
 /* = Events Retina

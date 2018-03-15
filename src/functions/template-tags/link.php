@@ -26,16 +26,24 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	}
 
 	/**
-	 * Return a link to the previous post by start date for the given event
+	 * Return a link to the previous event by start date for the given event.
 	 *
 	 * @param bool|string $anchor link text. Use %title% to place the post title in your string.
 	 *
 	 * @return string
 	 */
 	function tribe_get_prev_event_link( $anchor = false ) {
-		global $post;
+		$event_id = get_the_ID();
 
-		return apply_filters( 'tribe_get_prev_event_link', Tribe__Events__Main::instance()->get_event_link( $post, 'previous', $anchor ) );
+		tribe( 'tec.adjacent-events' )->set_current_event_id( $event_id );
+
+		/**
+		 * Filter the output of the link to the previous event by start date of a given event.
+		 *
+		 * @param string $prev_event_link The link to the previous event.
+		 * @param int    $event_id        The ID of the reference event.
+		 */
+		return apply_filters( 'tribe_get_prev_event_link', tribe( 'tec.adjacent-events' )->get_prev_event_link( $anchor ), $event_id );
 	}
 
 	/**
@@ -60,9 +68,17 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string
 	 */
 	function tribe_get_next_event_link( $anchor = false ) {
-		global $post;
+		$event_id = get_the_ID();
 
-		return apply_filters( 'tribe_get_next_event_link', Tribe__Events__Main::instance()->get_event_link( $post, 'next', $anchor ) );
+		tribe( 'tec.adjacent-events' )->set_current_event_id( $event_id );
+
+		/**
+		 * Filter the output of the link to the next event by start date of a given event.
+		 *
+		 * @param string $next_event_link The link to the next event.
+		 * @param int    $event_id        The ID of the reference event.
+		 */
+		return apply_filters( 'tribe_get_next_event_link', tribe( 'tec.adjacent-events' )->get_next_event_link( $anchor ), $event_id );
 	}
 
 	/**
@@ -190,24 +206,33 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 		// if a page isn't passed in, attempt to fetch it from a get var
 		if ( ! $page ) {
-			if ( ! empty( $_POST['tribe_paged'] ) ) {
-				$page = absint( $_POST['tribe_paged'] );
-			} elseif ( ! empty( $_GET['tribe_paged'] ) ) {
-				$page = absint( $_GET['tribe_paged'] );
-			} else {
-				$page = 1;
-			}
+			$page = absint( tribe_get_request_var( 'tribe_paged', 1 ) );
 		}
 
+		$args = tribe_get_listview_args( $page, $direction, $currently_displaying );
+		$link = add_query_arg( array(
+			'tribe_event_display' => $args['display'],
+			'tribe_paged'         => $args['page'],
+		), $link );
+
+		return apply_filters( 'tribe_get_listview_dir_link', $link, $term );
+	}
+
+	/**
+	 * Utility function to update the pagination and current display on the list view.
+	 *
+	 * @since 4.6.12
+	 *
+	 * @param int $page
+	 * @param string $direction
+	 * @param null $currently_displaying
+	 *
+	 * @return array
+	 */
+	function tribe_get_listview_args( $page = 1, $direction = 'next', $currently_displaying = null ) {
 		// if what we are currently displaying is not passed in, let's set a default and check $_GET
 		if ( ! $currently_displaying ) {
-			$currently_displaying = 'list';
-			if (
-				( ! empty( $_GET['tribe_event_display'] ) && 'past' === $_GET['tribe_event_display'] )
-				|| ( ! empty( $_POST['tribe_event_display'] ) && 'past' === $_POST['tribe_event_display'] )
-			) {
-				$currently_displaying = 'past';
-			}
+			$currently_displaying = tribe_get_listview_display();
 		}
 
 		// assume we want to display what we're currently displaying (until we discover otherwise)
@@ -226,13 +251,27 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$page--;
 		}
 
-		$link = add_query_arg( array(
-			'tribe_event_display' => $display,
-			'tribe_paged' => $page,
-		), $link );
-
-		return apply_filters( 'tribe_get_listview_dir_link', $link, $term );
+		return array(
+			'display' => $display,
+			'page'    => $page,
+		);
 	}
+
+	/**
+	 * Validates that the current view is inside of the Two allowed: list or view if not default to the list view.
+	 *
+	 * @since 4.6.12
+	 *
+	 * @return string
+	 */
+	function tribe_get_listview_display() {
+		$default_display = 'list';
+		$display         = tribe_get_request_var( 'tribe_event_display', $default_display );
+		$valid_values    = array( 'list', 'past' );
+
+		return in_array( $display, $valid_values ) ? $display : $default_display;
+	}
+
 
 	/**
 	 * Link to prev List View

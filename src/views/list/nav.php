@@ -6,10 +6,12 @@
  * Override this template in your own theme by creating a file at [your-theme]/tribe-events/list/nav.php
  *
  * @package TribeEventsCalendar
- * @version 4.6.3
+ * @version 4.6.12
  *
  */
-global $wp_query;
+if ( ! $wp_query = tribe_get_global_query_object() ) {
+	return;
+}
 
 $events_label_plural = tribe_get_event_label_plural();
 
