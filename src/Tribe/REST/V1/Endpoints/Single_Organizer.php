@@ -26,7 +26,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 		if ( ! ( 'publish' === $organizer->post_status || current_user_can( $cap, $request['id'] ) ) ) {
 			$message = $this->messages->get_message( 'organizer-not-accessible' );
 
-			return new WP_Error( 'organizer-not-accessible', $message, array( 'status' => 403 ) );
+			return new WP_Error( 'organizer-not-accessible', $message, array( 'status' => 401 ) );
 		}
 
 		$data = $this->post_repository->get_organizer_data( $request['id'], 'single' );
@@ -136,7 +136,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 					'400' => array(
 						'description' => __( 'The organizer post ID is missing.', 'the-events-calendar' ),
 					),
-					'403' => array(
+					'401' => array(
 						'description' => __( 'The organizer with the specified ID is not accessible.', 'the-events-calendar' ),
 					),
 					'404' => array(
@@ -157,7 +157,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 					'400' => array(
 						'description' => __( 'A required parameter is missing or an input parameter is in the wrong format', 'the-events-calendar' ),
 					),
-					'403' => array(
+					'401' => array(
 						'description' => __( 'The user is not authorized to create organizers', 'the-events-calendar' ),
 					),
 				),
@@ -174,7 +174,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 					'400' => array(
 						'description' => __( 'The organizer post ID is missing or does not exist.', 'the-venues-calendar' ),
 					),
-					'403' => array(
+					'401' => array(
 						'description' => __( 'The current user cannot delete the organizer with the specified ID.', 'the-venues-calendar' ),
 					),
 					'410' => array(

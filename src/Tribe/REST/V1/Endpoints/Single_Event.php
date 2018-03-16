@@ -75,7 +75,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 		if ( ! ( 'publish' === $event->post_status || current_user_can( $cap, $request['id'] ) ) ) {
 			$message = $this->messages->get_message( 'event-not-accessible' );
 
-			return new WP_Error( 'event-not-accessible', $message, array( 'status' => 403 ) );
+			return new WP_Error( 'event-not-accessible', $message, array( 'status' => 401 ) );
 		}
 
 		$data = $this->post_repository->get_event_data( $request['id'], 'single' );
@@ -123,7 +123,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 					'400' => array(
 						'description' => __( 'The event post ID is missing.', 'the-events-calendar' ),
 					),
-					'403' => array(
+					'401' => array(
 						'description' => __( 'The event with the specified ID is not accessible.', 'the-events-calendar' ),
 					),
 					'404' => array(
@@ -150,7 +150,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 					'400' => array(
 						'description' => __( 'A required parameter is missing or an input parameter is in the wrong format', 'the-events-calendar' ),
 					),
-					'403' => array(
+					'401' => array(
 						'description' => __( 'The user is not authorized to create events', 'the-events-calendar' ),
 					),
 				),
@@ -167,7 +167,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 					'400' => array(
 						'description' => __( 'The event post ID is missing or does not exist.', 'the-events-calendar' ),
 					),
-					'403' => array(
+					'401' => array(
 						'description' => __( 'The current user cannot delete the event with the specified ID.', 'the-events-calendar' ),
 					),
 					'410' => array(
@@ -482,7 +482,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 		if ( false === $id ) {
 			$message = $this->messages->get_message( 'could-not-update-event' );
 
-			return new WP_Error( 'could-not-update-event', $message, array( 'status' => 403 ) );
+			return new WP_Error( 'could-not-update-event', $message, array( 'status' => 401 ) );
 		}
 
 		$data = $this->post_repository->get_event_data( $id );

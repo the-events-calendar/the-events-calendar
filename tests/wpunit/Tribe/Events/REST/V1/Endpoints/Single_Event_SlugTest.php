@@ -90,7 +90,7 @@ class Single_Event_SlugTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$sut = $this->make_instance();
 		$response = $sut->get( $request );
 
-		$this->assertErrorResponse( 'event-not-accessible', $response, 403 );
+		$this->assertErrorResponse( 'event-not-accessible', $response, 401 );
 	}
 
 	/**

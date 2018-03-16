@@ -60,7 +60,7 @@ class SingleEventCest extends BaseRestCest {
 
 		$I->sendGET( $this->events_url . '/' . $id );
 
-		$I->seeResponseCodeIs( 403 );
+		$I->seeResponseCodeIs( 401 );
 		$I->seeResponseIsJson();
 	}
 
