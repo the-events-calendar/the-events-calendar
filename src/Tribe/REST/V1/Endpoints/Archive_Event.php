@@ -64,6 +64,35 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 			: false;
 		$args['s'] = $request['search'];
 
+		/**
+		 * Allows users to override "inclusive" start and end dates and  make the REST API use a
+		 * timezone-adjusted date range.
+		 *
+		 * Example: wp-json/tribe/events/v1/events?start_date=2017-12-21&end_date=2017-12-22
+		 *
+		 * - The "inclusive" behavior, which is the default here, would set start_date to
+		 *   2017-12-21 00:00:00 and end_date to 2017-12-22 23:59:59. Events within this range will
+		 *   be retrieved.
+		 *
+		 * - If you set this filter to false on a site whose timezone is America/New_York, then the
+		 *   REST API would set start_date to 2017-12-20 19:00:00 and end_date to
+		 *   2017-12-21 19:00:00. A different range of events to draw from.
+		 *
+		 * @since 4.6.8
+		 *
+		 * @param bool $use_inclusive Defaults to true. Whether to use "inclusive" start and end dates.
+		 */
+		if ( apply_filters( 'tribe_events_rest_use_inclusive_start_end_dates', true ) ) {
+
+			if ( $args['start_date'] ) {
+				$args['start_date'] = tribe_beginning_of_day( $request['start_date'] );
+			}
+
+			if ( $args['end_date'] ) {
+				$args['end_date'] = tribe_end_of_day( $request['end_date'] );
+			}
+		}
+
 		$args['meta_query'] = array_filter( array(
 			$this->parse_meta_query_entry( $request['venue'], '_EventVenueID', '=', 'NUMERIC' ),
 			$this->parse_meta_query_entry( $request['organizer'], '_EventOrganizerID', '=', 'NUMERIC' ),

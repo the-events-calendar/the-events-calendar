@@ -97,7 +97,7 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 	/**
 	 * Whether the value is the post name of an existing event or not.
 	 *
-	 * @since TBD
+	 * @since 4.6.8
 	 *
 	 * @param string $event_slug
 	 *
@@ -116,7 +116,7 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 	/**
 	 * Whether the value is the post name of an existing organizer or not.
 	 *
-	 * @since TBD
+	 * @since 4.6.9
 	 *
 	 * @param string $organizer_slug
 	 *
@@ -135,7 +135,7 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 	/**
 	 * Whether the value is the post name of an existing venue or not.
 	 *
-	 * @since TBD
+	 * @since 4.6.9
 	 *
 	 * @param string $venue_slug
 	 *

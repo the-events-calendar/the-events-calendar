@@ -57,6 +57,7 @@ class QueryTest extends Events_TestCase {
 		] );
 
 		$this->assertFalse( Query::should_remove_date_filters( $query ), 'Date filters should not be removed on non-event edit pages' );
+		unset( $GLOBALS['current_screen'] ); // cleanup
 	}
 
 	/**
@@ -76,6 +77,7 @@ class QueryTest extends Events_TestCase {
 		] );
 
 		$this->assertTrue( Query::should_remove_date_filters( $query ), 'Date filters should be removed when on the event import page' );
+		unset( $GLOBALS['current_screen'] ); // cleanup
 	}
 
 	/**
@@ -120,6 +122,7 @@ class QueryTest extends Events_TestCase {
 		}
 
 		$this->assertTrue( Query::should_remove_date_filters( $query ), 'Date filters should be removed when on the event list page' );
+		unset( $GLOBALS['current_screen'] ); // cleanup
 	}
 
 	/**
@@ -183,5 +186,53 @@ class QueryTest extends Events_TestCase {
 		$found_posts = Query::getEvents( $args );
 
 		$this->assertEquals( 0, $found_posts );
+	}
+
+	/**
+	 * Ensure queries respect events that are marked as "hidden from event listings".
+	 *
+	 * @test
+	 *
+	 * @since 4.6.10
+	 */
+	public function should_allow_queries_to_ignore_hidden_events() {
+		// Create 4 events, of which 1 will be marked as "hidden from event listings"
+		$this->factory()->event->create_many( 3 );
+		$this->factory()->event->create( [ 'meta_input' => [ '_EventHideFromUpcoming' => 'yes' ] ] );
+
+		// Respecting hidden events is the default behaviour
+		$all_unhidden_upcoming_events = Query::getEvents( [
+			'found_posts'   => true,
+		] );
+
+		// It should also be possible to explicitly request this
+		$all_unhidden_upcoming_events_explicit = Query::getEvents( [
+			'found_posts'   => true,
+			'hide_upcoming' => true,
+		] );
+
+		$this->assertEquals( 3, $all_unhidden_upcoming_events );
+		$this->assertEquals( 3, $all_unhidden_upcoming_events_explicit );
+	}
+
+	/**
+	 * Ensure that queries can retrieve events that are nominally hidden from event listings
+	 * when required.
+	 * 
+	 * @test
+	 *
+	 * @since 4.6.10
+	 */
+	public function should_allow_queries_to_fetch_hidden_events() {
+		// Create 4 events, of which 1 will be marked as "hidden from event listings"
+		$this->factory()->event->create_many( 3 );
+		$this->factory()->event->create( [ 'meta_input' => [ '_EventHideFromUpcoming' => 'yes' ] ] );
+
+		$all_upcoming_events = Query::getEvents( [
+			'found_posts'   => true,
+			'hide_upcoming' => false,
+		] );
+
+		$this->assertEquals( 4, $all_upcoming_events );
 	}
 }

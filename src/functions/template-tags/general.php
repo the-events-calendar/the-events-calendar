@@ -163,7 +163,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * @category Events
 	 * @param bool $view
-	 * @return boolean
+	 * @return bool
 	 */
 	function tribe_is_ajax_view_request( $view = false ) {
 		$is_ajax_view_request = false;
@@ -323,16 +323,33 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			global $post;
 			$event = $post;
 		}
-		// Check if event has passed
-		$gmt_offset = ( get_option( 'gmt_offset' ) >= '0' ) ? ' +' . get_option( 'gmt_offset' ) : ' ' . get_option( 'gmt_offset' );
-		$gmt_offset = str_replace( array( '.25', '.5', '.75' ), array( ':15', ':30', ':45' ), $gmt_offset );
 
-		if ( strtotime( tribe_get_end_date( $event, false, 'Y-m-d G:i' ) . $gmt_offset ) <= time() ) {
-			return true;
+		// Are we using the site wide timezone or the local event timezone?
+		$timezone_name = Tribe__Events__Timezones::EVENT_TIMEZONE === Tribe__Events__Timezones::mode()
+			? Tribe__Events__Timezones::get_event_timezone_string( $event->ID )
+			: Tribe__Events__Timezones::wp_timezone_string();
+
+		$format = 'Y-m-d G:i';
+		$end_date = tribe_get_end_date( $event, false, $format );
+
+		// Try to create a a current and end date with the timezone to avoid using the WP timezone if is not the setup case.
+		try {
+			$timezone = new DateTimeZone( $timezone_name );
+			$current  = date_create( 'now', $timezone );
+			$end      = date_create( $end_date, $timezone );
+		} catch( Exception $exception ) {
+			$current = false;
+			$end = false;
 		}
 
-		return false;
-
+		// If date_create throws an error or was not created correctly we fallback to the original solution
+		if ( false === $current || false === $end ) {
+			$gmt_offset = ( get_option( 'gmt_offset' ) >= '0' ) ? ' +' . get_option( 'gmt_offset' ) : ' ' . get_option( 'gmt_offset' );
+			$gmt_offset = str_replace( array( '.25', '.5', '.75' ), array( ':15', ':30', ':45' ), $gmt_offset );
+			return strtotime( $end_date . $gmt_offset ) < time();
+		} else {
+			return $current > $end;
+		}
 	}
 
 	/**
@@ -672,7 +689,9 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 **/
 	function tribe_events_the_header_attributes( $current_view = null ) {
 
-		global $wp_query;
+		if ( ! $wp_query = tribe_get_global_query_object() ) {
+			return;
+		}
 
 		$attrs        = array();
 		$current_view = ! empty( $current_view ) ? $current_view : basename( tribe_get_current_template() );
@@ -866,7 +885,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @param string $event_cat_slug
 	 * @param int    $event_id
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	function tribe_event_in_category( $event_cat_slug, $event_id = null ) {
 
@@ -1165,7 +1184,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				$category_classes = tribe_events_event_classes( $event->ID, false );
 
 				$json['eventId']         = $event->ID;
-				$json['title']           = wp_kses_post( $event->post_title );
+				$json['title']           = wp_kses_post( apply_filters( 'the_title', $event->post_title, $event->ID ) );
 				$json['permalink']       = tribe_get_event_link( $event->ID );
 				$json['imageSrc']        = $image_src;
 				$json['dateDisplay']     = $date_display;
@@ -1222,6 +1241,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string
 	 **/
 	function tribe_include_view_list( $args = null, $initialize = true ) {
+
 		global $wp_query;
 
 		// hijack the main query to load the events via provided $args
@@ -1597,15 +1617,20 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string
 	 */
 	function tribe_get_render_context( $query = null ) {
+
 		global $wp_query;
+
 		if ( ! $query instanceof WP_Query ) {
 			$query = $wp_query;
 		}
+
 		if ( empty( $query->query['tribe_render_context'] ) ) {
 			return 'default';
 		}
+
 		return $query->query['tribe_render_context'];
 	}
+
 	/**
 	 * Returns or echoes a url to a file in the Events Calendar plugin resources directory
 	 *
@@ -1668,5 +1693,76 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		$body_and_separator = $body ? $body . $separator : $body;
 
 		return $field ? $body_and_separator . $field : $body;
+	}
+
+	/**
+	 * Tests if we are on the site homepage and if it is set to display the main events page.
+	 *
+	 * As WordPress front page it might be different from is_home, if we have a front page on the reading options and
+	 * if the User is on that page, this function will return true otherwise will return false. So either if the User has
+	 * the frontpage set on the reading options and the User is visiting this page.
+	 *
+	 * Another consideration about this is it might behave as a WordPress function which means after any Ajax action is
+	 * fired the result of call this function via Ajax might not be the expected result so ideally can be used to test
+	 * if you are on the front page on first load of the page only.
+	 *
+	 * @since 4.6.9
+	 *
+	 * @return bool
+	 */
+	function tribe_is_events_front_page() {
+
+		$wp_query = tribe_get_global_query_object();
+
+		$events_as_front_page = tribe_get_option( 'front_page_event_archive', false );
+		// If the reading option has an events page as front page and we are on that page is on the home of events.
+		return (
+			$wp_query->is_main_query()
+			&& $events_as_front_page
+			&& $wp_query->tribe_is_event
+			&& true === get_query_var( 'tribe_events_front_page' )
+		);
+	}
+
+	/**
+	 * Test if we are on the home of events either if is set to frontpage or the default /events page.
+	 *
+	 * Utility function to test if we are on the home of events, it makes a test in cases when the page is set to be on
+	 * the frontpage of the site and if the User is on that page is on the homepage or if the User is on the events page
+	 * where the eventDisplay is set to default.
+	 *
+	 * Also consider this might not work as expected inside of Ajax Calls as this one is fired on initial loading of the
+	 * page so be aware of unexpected results via Ajax calls.
+	 *
+	 * @since 4.6.9
+	 *
+	 * @return bool
+	 */
+	function tribe_is_events_home() {
+
+		$wp_query = tribe_get_global_query_object();
+
+		if ( tribe_is_events_front_page() ) {
+			return true;
+		}
+
+		$events_as_front_page = tribe_get_option( 'front_page_event_archive', false );
+		// If the readme option does not has an event page as front page and if id the 'default' view on the main query
+		// as is going to set to 'default' when is loading the root of events/ rewrite rule also makes sure is not on
+		// a taxonomy or a tag.
+		if (
+			! $events_as_front_page
+			&& $wp_query->is_main_query()
+			&& $wp_query->tribe_is_event // Make sure following conditionals operate only on events
+			&& ( isset( $wp_query->query['eventDisplay'] ) && 'default' === $wp_query->query['eventDisplay'] )
+			&& is_post_type_archive()
+			&& ! is_tax()
+			&& ! is_tag()
+		) {
+			return true;
+		}
+
+		// No condition was true so is not on home of events.
+		return false;
 	}
 }

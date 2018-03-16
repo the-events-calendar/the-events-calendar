@@ -65,17 +65,32 @@ if ( "function" === typeof jQuery ) jQuery( document ).ready( function( $ ) {
 	 * on an map-by-map basis.
 	 */
 	function initialize() {
-		venueObject.map = new google.maps.Map( mapHolder, {
+		var mapOptions = {
 			zoom     : parseInt( tribeEventsSingleMap.zoom ),
 			center   : position,
 			mapTypeId: google.maps.MapTypeId.ROADMAP
-		} );
+		}
+		venueObject.map = new google.maps.Map( mapHolder, mapOptions );
 
 		var marker = {
 			map     : venueObject.map,
 			title   : venueTitle,
 			position: position
 		};
+
+		/**
+		 * Trigger a new event when the Map is created in order to allow Users option to customize the map by listening
+		 * to the correct event and having an instance of the Map variable avialable to modify if required.
+		 *
+		 * @param {Object} map An instance of the Google Map.
+		 * @param {Element} el The DOM Element where the map is attached.
+		 * @param {Object} options The initial set of options for the map.
+		 *
+		 * @since 4.6.10
+		 *
+		 */
+		$( 'body' ).trigger( 'map-created.tribe', [ venueObject.map, mapHolder, mapOptions ] );
+
 
 		// If we have a Map Pin set, we use it
 		if ( 'undefined' !== tribeEventsSingleMap.pin_url && tribeEventsSingleMap.pin_url ) {

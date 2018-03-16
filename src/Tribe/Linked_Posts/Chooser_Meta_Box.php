@@ -92,12 +92,20 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 		$post_id                      = $this->event->ID;
 		$current_linked_post_meta_key = $this->linked_posts->get_meta_key( $this->post_type );
 		$current_linked_posts         = get_post_meta( $post_id, $current_linked_post_meta_key, false );
+		if ( $linked_post_order_field = $this->linked_posts->get_order_meta_key( $this->post_type ) ) {
+			$linked_post_order = get_post_meta( $post_id, $linked_post_order_field, true );
+		}
+
+		// if there are linked post order use that instead of the current linked post to change the order
+		if ( ! empty( $linked_post_order ) ) {
+			$current_linked_posts = $linked_post_order;
+		}
 
 		/**
 		 * Allows for filtering the array of values retrieved for a specific linked post meta field.
 		 *
 		 * Name of filter is assembled as tribe_events_linked_post_meta_values_{$current_linked_post_meta_key}, where
-		 * $current_linked_post_meta_key is just literally the name of the curren meta key. So when the _EventOrganizerID
+		 * $current_linked_post_meta_key is just literally the name of the current meta key. So when the _EventOrganizerID
 		 * is being filtered, for example, the filter name would be tribe_events_linked_post_meta_values__EventOrganizerID
 		 *
 		 * @since 4.5.11
@@ -158,9 +166,10 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 	 * @param int $linked_post_id
 	 */
 	protected function single_post_dropdown( $linked_post_id ) {
+		$linked_post_type_container = $this->linked_posts->get_post_type_container( $this->post_type );
 		?>
 		<tr class="saved-linked-post">
-			<td class="saved-organizer-table-cell">
+			<td class="saved-<?php echo esc_attr( $linked_post_type_container ); ?>-table-cell">
 				<?php $this->move_handle(); ?>
 				<label
 					data-l10n-create-<?php echo esc_attr( $this->post_type ); ?>="<?php printf( esc_attr__( 'Create New %s', 'the-events-calendar' ), $this->singular_name ); ?>">

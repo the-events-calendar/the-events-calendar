@@ -235,7 +235,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_time' ),
 				'type'              => 'string',
-				'description'       => __( 'The organizer publication date (UTC timezone)', 'the-events-calendar' ),
+				'description'       => __( 'The organizer publication date (UTC time zone)', 'the-events-calendar' ),
 			),
 			'organizer'   => array(
 				'required'          => true,
@@ -330,7 +330,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 		 * @param array           $postarr Post array used for create/update
 		 * @param WP_REST_Request $request REST request object
 		 *
-		 * @since TBD
+		 * @since 4.6.9
 		 */
 		$postarr = apply_filters( 'tribe_events_rest_organizer_prepare_postarr', $postarr, $request );
 
