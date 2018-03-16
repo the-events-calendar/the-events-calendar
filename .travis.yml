@@ -107,9 +107,6 @@ before_script:
   - sudo service php5-fpm restart
   - sudo service nginx restart
 
-  # set the ulimit to an high value to avoid issues when running REST tests
-  - sudo ulimit -n 10000
-
 script:
   - codecept run integration
   - codecept run muintegration
