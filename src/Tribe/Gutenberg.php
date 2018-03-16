@@ -81,7 +81,7 @@ class Tribe__Events__Gutenberg {
 			esc_url( $url ),
 			esc_html__( 'check how add The Events Calendar compatibility!', 'the-events-calendar' )
 		);
-		$text = __( 'We noticed that you are using Gutenberg on this WordPress instalation, %1$s', 'the-events-calendar' );
+		$text = __( 'We noticed that you are using Gutenberg on this WordPress installation, %1$s', 'the-events-calendar' );
 
 		return sprintf( $text, $link );
 	}
