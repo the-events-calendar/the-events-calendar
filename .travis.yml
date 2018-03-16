@@ -111,4 +111,4 @@ script:
   - codecept run integration
   - codecept run muintegration
   - codecept run wpunit
-   - codecept run restv1
+  - codecept run restv1
