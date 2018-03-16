@@ -79,9 +79,9 @@ class Tribe__Events__Gutenberg {
 		$link = sprintf(
 			'<a href="%1$s" target="_blank">%2$s</a>',
 			esc_url( $url ),
-			esc_html__( 'check how add The Events Calendar compatibility!', 'the-events-calendar' )
+			esc_html__( 'Download our Events Gutenberg extension and start using the block editor on your events!', 'the-events-calendar' )
 		);
-		$text = __( 'We noticed that you are using Gutenberg on this WordPress installation, %1$s', 'the-events-calendar' );
+		$text = __( 'Looks like you are using Gutenberg on this WordPress installation. %1$s', 'the-events-calendar' );
 
 		return sprintf( $text, $link );
 	}
