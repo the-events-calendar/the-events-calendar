@@ -444,6 +444,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Adjacent Events
 			tribe_singleton( 'tec.adjacent-events', 'Tribe__Events__Adjacent_Events' );
 
+			// Gutenberg Extension
+			tribe_singleton( 'tec.gutenberg', 'Tribe__Events__Gutenberg', array( 'hook' ) );
+
 			/**
 			 * Allows other plugins and services to override/change the bound implementations.
 			 */
@@ -711,6 +714,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe( 'tec.ignored-events' );
 			tribe( 'tec.iCal' );
 			tribe( 'tec.rest-v1.main' );
+			tribe( 'tec.gutenberg' );
 		}
 
 		/**
