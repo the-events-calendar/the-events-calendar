@@ -292,7 +292,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 					'The aggregator origin "%s" contains records, but is not supported and was skipped in the counts.',
 					$origin
 				);
-				Tribe__Main::instance()->log()->log_debug( $debug_message, 'aggregator' );
+				tribe( 'logger' )->log_debug( $debug_message, 'aggregator' );
 
 				continue;
 			}
