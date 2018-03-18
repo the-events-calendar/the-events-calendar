@@ -1,19 +1,36 @@
 <?php
 /**
- * Class Events_Scheduler
+ * Class Event_Scheduler
  *
  * Uses cron to move old events to trash and/or permanently delete them.
  */
 class Tribe__Events__Event_Scheduler {
 
-	const DEL_CRON_HOOK = 'tribe-del-event-cron';
-	const TRASH_CRON_HOOK = 'tribe-trash-event-cron';
-
+	/**
+	 * The name of the cron event to permanently delete past events.
+	 * @static $del_cron_hook
+	 */
+	public static $del_cron_hook = 'tribe_del_event_cron';
+	/**
+	 * The name of the cron event to move past events to trash.
+	 * @static $trash_cron_hook
+	 */
+	public static $trash_cron_hook = 'tribe_trash_event_cron';
+	/**
+	 * The new value for the trash-past-events option.
+	 *
+	 * @var $trash_new_date
+	 */
 	public $trash_new_date;
+	/**
+	 * The new value for the delete-past-events option.
+	 *
+	 * @var $del_new_date
+	 */
 	public $del_new_date;
 
 	/**
-	 * Retrieves the existing values for trashPastEvents and deletePastEvents options
+	 * Retrieves the existing values for trash-past-events and delete-past-events options
 	 * and defines them as trash_new_date and del_new_date variables.
 	 *
 	 * @param mixed $move_to_trash
@@ -27,10 +44,10 @@ class Tribe__Events__Event_Scheduler {
 	}
 
 	/**
-	 * Retrieves the new user-defined value for trashPastEvents option
+	 * Retrieves the new user-defined value for trash-past-events option
 	 * and defines it as the trash_new_date variable.
 	 *
-	 * @param $mixed - the value for the trashPastEvents option
+	 * @param mixed $trash_new_value - the value for the trash-past-events option
 	 *
 	 * @since TBD
 	 */
@@ -39,10 +56,10 @@ class Tribe__Events__Event_Scheduler {
 	}
 
 	/**
-	 * Retrieves the new user-defined value for deletePastEvents option
+	 * Retrieves the new user-defined value for delete-past-events option
 	 * and defines it as the del_new_date variable.
 	 *
-	 * @param $mixed - the value for the deletePastEvents option
+	 * @param mixed $del_new_value - the value for the delete-past-events option
 	 *
 	 * @since TBD
 	 */
@@ -57,20 +74,20 @@ class Tribe__Events__Event_Scheduler {
 	 * @since TBD
 	 */
 	public function add_hooks() {
-		if ( ! wp_next_scheduled( self::TRASH_CRON_HOOK ) && $this->trash_new_date != null ) {
-			wp_schedule_event( time(), 'daily', self::TRASH_CRON_HOOK );
+		if ( ! wp_next_scheduled( self::$trash_cron_hook ) && $this->trash_new_date != null ) {
+			wp_schedule_event( time(), 'daily', self::$trash_cron_hook );
 		}
 
-		if ( ! wp_next_scheduled( self::DEL_CRON_HOOK ) && $this->del_new_date != null ) {
-			wp_schedule_event( time(), 'daily', self::DEL_CRON_HOOK );
+		if ( ! wp_next_scheduled( self::$del_cron_hook ) && $this->del_new_date != null ) {
+			wp_schedule_event( time(), 'daily', self::$del_cron_hook );
 		}
 
 		if ( $this->trash_new_date != null ) {
-			add_action( self::TRASH_CRON_HOOK, array( $this, 'move_old_events_to_trash' ), 10, 0 );
+			add_action( self::$trash_cron_hook, array( $this, 'move_old_events_to_trash' ), 10, 0 );
 		}
 
 		if ( $this->del_new_date != null ) {
-			add_action( self::DEL_CRON_HOOK, array( $this, 'permanently_delete_old_events' ), 10, 0 );
+			add_action( self::$del_cron_hook, array( $this, 'permanently_delete_old_events' ), 10, 0 );
 		}
 
 		add_action( 'tribe_events_blog_deactivate', array( $this, 'trash_clear_scheduled_task' ) );
@@ -83,26 +100,26 @@ class Tribe__Events__Event_Scheduler {
 	 * @since TBD
 	 */
 	public function remove_hooks() {
-		remove_action( self::TRASH_CRON_HOOK, array( $this, 'move_old_events_to_trash' ), 10, 0 );
-		remove_action( self::DEL_CRON_HOOK, array( $this, 'permanently_delete_old_events' ), 10, 0 );
+		remove_action( self::$trash_cron_hook, array( $this, 'move_old_events_to_trash' ) );
+		remove_action( self::$del_cron_hook, array( $this, 'permanently_delete_old_events' ) );
 	}
 
 	/**
-	 * Un-schedules all previously-scheduled cron jobs for tribe-trash-event-cron
+	 * Un-schedules all previously-scheduled cron jobs for tribe_trash_event_cron
 	 *
 	 * @since TBD
 	 */
 	public function trash_clear_scheduled_task() {
-		wp_clear_scheduled_hook( self::TRASH_CRON_HOOK );
+		wp_clear_scheduled_hook( self::$trash_cron_hook );
 	}
 
 	/**
-	 * Un-schedules all previously-scheduled cron jobs for tribe-del-event-cron
+	 * Un-schedules all previously-scheduled cron jobs for tribe_del_event_cron
 	 *
 	 * @since TBD
 	 */
 	public function delete_clear_scheduled_task() {
-		wp_clear_scheduled_hook( self::DEL_CRON_HOOK );
+		wp_clear_scheduled_hook( self::$del_cron_hook );
 	}
 
 	/**
@@ -198,6 +215,5 @@ class Tribe__Events__Event_Scheduler {
 		foreach ( $post_ids as $post_id ) {
 			wp_delete_post( $post_id, true );
 		}
-
 	}
 }

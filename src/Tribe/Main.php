@@ -444,6 +444,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Adjacent Events
 			tribe_singleton( 'tec.adjacent-events', 'Tribe__Events__Adjacent_Events' );
 
+			// Purge Expired events
+			tribe_singleton( 'tec.event-cleaner', new Tribe__Events__Event_Cleaner() );
+
 			/**
 			 * Allows other plugins and services to override/change the bound implementations.
 			 */
@@ -685,8 +688,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe( 'chunker' );
 
 			// Purge old events
-			add_action( 'update_option_' . Tribe__Main::OPTIONNAME, array( Tribe__Events__Event_Cleaner::instance(), 'move_old_events_to_trash' ), 10, 2 );
-			add_action( 'update_option_' . Tribe__Main::OPTIONNAME, array( Tribe__Events__Event_Cleaner::instance(), 'permanently_delete_old_events' ), 10, 2 );
+			add_action( 'update_option_' . Tribe__Main::OPTIONNAME, array( tribe( 'tec.event-cleaner' ), 'move_old_events_to_trash' ), 10, 2 );
+			add_action( 'update_option_' . Tribe__Main::OPTIONNAME, array( tribe( 'tec.event-cleaner' ), 'permanently_delete_old_events' ), 10, 2 );
 
 			// Register slug conflict notices (but test to see if tribe_notice() is indeed available, in case another plugin
 			// is hosting an earlier version of tribe-common which is already active)
@@ -771,7 +774,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			Tribe__Debug::debug( sprintf( esc_html__( 'Initializing Tribe Events on %s', 'the-events-calendar' ), date( 'M, jS \a\t h:m:s a' ) ) );
 			$this->maybeSetTECVersion();
 
-			$this->runScheduler();
+			$this->run_scheduler();
 		}
 
 		/**
@@ -2159,12 +2162,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @return void
 		 */
-		public function runScheduler() {
+		public function run_scheduler() {
 			if ( ! empty( $this->scheduler ) ) {
 				$this->scheduler->remove_hooks();
 			}
 
-			$this->scheduler = new Tribe__Events__Event_Scheduler( tribe_get_option( 'trashPastEvents', null ), tribe_get_option( 'deletePastEvents', null ) );
+			$this->scheduler = new Tribe__Events__Event_Scheduler( tribe_get_option( 'trash-past-events', null ), tribe_get_option( 'delete-past-events', null ) );
 			$this->scheduler->add_hooks();
 		}
 
