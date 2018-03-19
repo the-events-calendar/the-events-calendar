@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Class Event_Scheduler
  *
@@ -11,26 +12,29 @@ class Tribe__Events__Event_Scheduler {
 	 * @static $del_cron_hook
 	 */
 	public static $del_cron_hook = 'tribe_del_event_cron';
+
 	/**
 	 * The name of the cron event to move past events to trash.
 	 * @static $trash_cron_hook
 	 */
 	public static $trash_cron_hook = 'tribe_trash_event_cron';
+
 	/**
-	 * The new value for the trash-past-events option.
+	 * The new value for the $trash_events option.
 	 *
 	 * @var $trash_new_date
 	 */
 	public $trash_new_date;
+
 	/**
-	 * The new value for the delete-past-events option.
+	 * The new value for the $delete_events option.
 	 *
 	 * @var $del_new_date
 	 */
 	public $del_new_date;
 
 	/**
-	 * Retrieves the existing values for trash-past-events and delete-past-events options
+	 * Receives the existing values for $trash_events and $delete_events options
 	 * and defines them as trash_new_date and del_new_date variables.
 	 *
 	 * @param mixed $move_to_trash
@@ -44,10 +48,10 @@ class Tribe__Events__Event_Scheduler {
 	}
 
 	/**
-	 * Retrieves the new user-defined value for trash-past-events option
+	 * Receives the new user-defined value for $trash_events option
 	 * and defines it as the trash_new_date variable.
 	 *
-	 * @param mixed $trash_new_value - the value for the trash-past-events option
+	 * @param mixed $trash_new_value - the value for the $trash_events option
 	 *
 	 * @since TBD
 	 */
@@ -56,10 +60,10 @@ class Tribe__Events__Event_Scheduler {
 	}
 
 	/**
-	 * Retrieves the new user-defined value for delete-past-events option
+	 * Receives the new user-defined value for $delete_events option
 	 * and defines it as the del_new_date variable.
 	 *
-	 * @param mixed $del_new_value - the value for the delete-past-events option
+	 * @param mixed $del_new_value - the value for the $delete_events option
 	 *
 	 * @since TBD
 	 */
@@ -217,3 +221,4 @@ class Tribe__Events__Event_Scheduler {
 		}
 	}
 }
+

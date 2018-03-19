@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Class Event_Cleaner
  */
@@ -9,12 +10,24 @@ class Tribe__Events__Event_Cleaner {
 	 */
 	private $scheduler;
 
+	/**
+	 * The option name to move old events to trash.
+	 * @var $trash_events
+	 */
+	public $trash_events = 'trash-past-events';
+
+	/**
+	 * The option name to permanently delete old events.
+	 * @var $delete_events
+	 */
+	public $delete_events = 'delete-past-events';
+
 	public function __construct( Tribe__Events__Event_Scheduler $scheduler = null ) {
 		$this->scheduler = $scheduler ? $scheduler : new Tribe__Events__Event_Scheduler();
 	}
 
 	/**
-	 * Receives the existing value and the new value (modified by user) for the trash-past-events option,
+	 * Receives the existing value and the new value (modified by user) for the $trash_events option,
 	 * compares them and runs the scheduler if the conditions are satisfied.
 	 *
 	 * @param array $old_value
@@ -23,8 +36,8 @@ class Tribe__Events__Event_Cleaner {
 	 * @since TBD
 	 */
 	public function move_old_events_to_trash( array $old_value, array $new_value ) {
-		$old_value = empty( $old_value['trash-past-events'] ) ? null : $old_value['trash-past-events'];
-		$new_value = empty( $new_value['trash-past-events'] ) ? null : $new_value['trash-past-events'];
+		$old_value = empty( $old_value[ $this->trash_events ] ) ? null : $old_value[ $this->trash_events ];
+		$new_value = empty( $new_value[ $this->trash_events ] ) ? null : $new_value[ $this->trash_events ];
 
 		if ( $new_value == $old_value ) {
 			return;
@@ -41,7 +54,7 @@ class Tribe__Events__Event_Cleaner {
 	}
 
 	/**
-	 * Receives the existing value and the new value (modified by user) for the delete-past-events option,
+	 * Receives the existing value and the new value (modified by user) for the $delete_events option,
 	 * compares them and runs the scheduler if the conditions are satisfied.
 	 *
 	 * @param array $old_value
@@ -50,8 +63,8 @@ class Tribe__Events__Event_Cleaner {
 	 * @since TBD
 	 */
 	public function permanently_delete_old_events( array $old_value, array $new_value ) {
-		$old_value = empty( $old_value['delete-past-events'] ) ? null : $old_value['delete-past-events'];
-		$new_value = empty( $new_value['delete-past-events'] ) ? null : $new_value['delete-past-events'];
+		$old_value = empty( $old_value[ $this->delete_events ] ) ? null : $old_value[ $this->delete_events ];
+		$new_value = empty( $new_value[ $this->delete_events ] ) ? null : $new_value[ $this->delete_events ];
 
 		if ( $new_value == $old_value ) {
 			return;
