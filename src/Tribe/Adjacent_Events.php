@@ -33,7 +33,7 @@ class Tribe__Events__Adjacent_Events {
 	/**
 	 * Set the "center" event ID to look on either side of in prev/next methods.
 	 *
-	 * @since TBD
+	 * @since 4.6.12
 	 *
 	 * @param int $event_id The event ID to look on either side of in prev/next methods.
 	 */
@@ -44,7 +44,7 @@ class Tribe__Events__Adjacent_Events {
 	/**
 	 * Get the "center" event ID to look on either side of in prev/next methods.
 	 *
-	 * @since TBD
+	 * @since 4.6.12
 	 *
 	 * @param int $event_id The event ID to look on either side of in prev/next methods.
 	 */
@@ -55,7 +55,7 @@ class Tribe__Events__Adjacent_Events {
 	/**
 	 * Get link to the previous event.
 	 *
-	 * @since TBD
+	 * @since 4.6.12
 	 *
 	 * @param boolean $anchor
 	 * @return string
@@ -72,7 +72,7 @@ class Tribe__Events__Adjacent_Events {
 	/**
 	 * Get link to the next event.
 	 *
-	 * @since TBD
+	 * @since 4.6.12
 	 *
 	 * @param boolean $anchor
 	 * @return string
@@ -93,7 +93,7 @@ class Tribe__Events__Adjacent_Events {
 	 * that occur at the exact same time are are not excluded from the prev/next links
 	 *
 	 * @since 4.0.2
-	 * @since TBD Moved to new Tribe__Events__Adjacent_Events class.
+	 * @since 4.6.12 Moved to new Tribe__Events__Adjacent_Events class.
 	 *
 	 * @param string $where_sql WHERE SQL statement
 	 * @param WP_Query $query WP_Query object
@@ -188,7 +188,7 @@ class Tribe__Events__Adjacent_Events {
 	/**
 	 * Get the prev/next post for a given event. Ordered by start date instead of ID.
 	 *
-	 * @since TBD
+	 * @since 4.6.12
 	 *
 	 * @param string  $mode Either 'next' or 'previous'.
 	 *
@@ -216,7 +216,7 @@ class Tribe__Events__Adjacent_Events {
 			'meta_query'     => array(
 				array(
 					'key'     => '_EventStartDate',
-					'value'   => $post_obj->EventStartDate,
+					'value'   => $post_obj->_EventStartDate,
 					'type'    => 'DATETIME',
 					'compare' => $direction,
 				),
@@ -232,7 +232,7 @@ class Tribe__Events__Adjacent_Events {
 		 * Allows the query arguments used when retrieving the next/previous event link
 		 * to be modified.
 		 *
-		 * @since TBD
+		 * @since 4.6.12
 		 *
 		 * @param array   $args
 		 * @param WP_Post $post_obj
@@ -256,7 +256,7 @@ class Tribe__Events__Adjacent_Events {
 		 * Affords an opportunity to modify the event used to generate the event link (typically for
 		 * the next or previous event in relation to $post).
 		 *
-		 * @since TBD
+		 * @since 4.6.12
 		 *
 		 * @param WP_Post $post_obj
 		 * @param string  $mode (typically "previous" or "next")
@@ -267,7 +267,7 @@ class Tribe__Events__Adjacent_Events {
 	/**
 	 * Get a "previous/next post" link for events. Ordered by start date instead of ID.
 	 *
-	 * @since TBD
+	 * @since 4.6.12
 	 *
 	 * @param string  $mode Either 'next' or 'previous'.
 	 * @param mixed   $anchor
@@ -309,7 +309,7 @@ class Tribe__Events__Adjacent_Events {
 		 * Affords an opportunity to modify the event link (typically for the next or previous
 		 * event in relation to $post).
 		 *
-		 * @since TBD
+		 * @since 4.6.12
 		 *
 		 * @param string  $link
 		 * @param int     $current_event_id

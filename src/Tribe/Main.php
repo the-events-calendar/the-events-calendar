@@ -32,7 +32,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '4.6.12';
+		const VERSION             = '4.6.13';
 		const MIN_ADDON_VERSION   = '4.4';
 		const MIN_COMMON_VERSION  = '4.7.3';
 
@@ -447,7 +447,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Purge Expired events
 			tribe_singleton( 'tec.event-cleaner', new Tribe__Events__Event_Cleaner() );
 
-			/**
+			// Gutenberg Extension
+			tribe_singleton( 'tec.gutenberg', 'Tribe__Events__Gutenberg', array( 'hook' ) );
+
+      /**
 			 * Allows other plugins and services to override/change the bound implementations.
 			 */
 			do_action( 'tribe_events_bound_implementations' );
@@ -718,6 +721,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe( 'tec.ignored-events' );
 			tribe( 'tec.iCal' );
 			tribe( 'tec.rest-v1.main' );
+			tribe( 'tec.gutenberg' );
 		}
 
 		/**
@@ -3797,23 +3801,33 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function addEventBox() {
 			add_meta_box(
-				'tribe_events_event_details', $this->plugin_name, array(
-					$this,
-					'EventsChooserBox',
-				), self::POSTTYPE, 'normal', 'high'
-			);
-			add_meta_box(
-				'tribe_events_event_options', sprintf( esc_html__( '%s Options', 'the-events-calendar' ), $this->singular_event_label ), array(
-					$this,
-					'eventMetaBox',
-				), self::POSTTYPE, 'side', 'default'
+				'tribe_events_event_details',
+				$this->plugin_name,
+				array( $this, 'EventsChooserBox' ),
+				self::POSTTYPE,
+				'normal',
+				'high',
+				array(
+					'__back_compat_meta_box' => true,
+				)
 			);
 
 			add_meta_box(
-				'tribe_events_venue_details', sprintf( esc_html__( '%s Information', 'the-events-calendar' ), $this->singular_venue_label ), array(
-					$this,
-					'VenueMetaBox',
-				), self::VENUE_POST_TYPE, 'normal', 'high'
+				'tribe_events_event_options',
+				sprintf( esc_html__( '%s Options', 'the-events-calendar' ), $this->singular_event_label ),
+				array( $this, 'eventMetaBox' ),
+				self::POSTTYPE,
+				'side',
+				'default'
+			);
+
+			add_meta_box(
+				'tribe_events_venue_details',
+				sprintf( esc_html__( '%s Information', 'the-events-calendar' ), $this->singular_venue_label ),
+				array( $this, 'VenueMetaBox' ),
+				self::VENUE_POST_TYPE,
+				'normal',
+				'high'
 			);
 
 			if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {
@@ -3821,10 +3835,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			add_meta_box(
-				'tribe_events_organizer_details', sprintf( esc_html__( '%s Information', 'the-events-calendar' ), $this->singular_organizer_label ), array(
-					$this,
-					'OrganizerMetaBox',
-				), self::ORGANIZER_POST_TYPE, 'normal', 'high'
+				'tribe_events_organizer_details',
+				sprintf( esc_html__( '%s Information', 'the-events-calendar' ), $this->singular_organizer_label ),
+				array( $this, 'OrganizerMetaBox' ),
+				self::ORGANIZER_POST_TYPE,
+				'normal',
+				'high'
 			);
 		}
 

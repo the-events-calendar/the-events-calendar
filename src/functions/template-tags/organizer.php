@@ -61,6 +61,12 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				$organizer_ids = array_filter( (array) $organizer_ids );
 			}
 		}
+		// if there are linked post order use that instead of the current linked post to change the order
+		$organizer_ids_order = get_post_meta( $event_id, '_EventOrganizerID_Order', true );
+		if ( ! empty( $organizer_ids_order ) ) {
+			$organizer_ids = $organizer_ids_order;
+		}
+
 		return apply_filters( 'tribe_get_organizer_ids', $organizer_ids, $event_id );
 	}
 

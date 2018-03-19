@@ -7,7 +7,7 @@ class Tribe__Events__Aggregator {
 	 * Cache key used to storage the services list returned by the call to:
 	 * - Tribe__Events__Aggregator__Service::instance()->get_origins();
 	 *
-	 * @since TBD
+	 * @since 4.6.12
 	 */
 	public $KEY_CACHE_SERVICES = 'tribe_aggregator_services_list';
 
@@ -597,7 +597,8 @@ class Tribe__Events__Aggregator {
 	/**
 	 * Function used to remove cache stored in transients.
 	 *
-	 * @since TBD
+	 * @since 4.6.12
+	 *
 	 * @return boolean
 	 */
 	public function clear_services_list_cache() {

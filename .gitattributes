@@ -1,0 +1,4 @@
+*.css linguist-generated=true
+*.min.css linguist-generated=true
+*.min.js linguist-generated=true
+tests/_support/_generated/* linguist-generated=true
