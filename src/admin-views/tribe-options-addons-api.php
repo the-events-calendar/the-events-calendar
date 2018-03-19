@@ -110,9 +110,9 @@ if ( get_option( 'pue_install_key_event_aggregator' ) ) {
 }
 
 /**
- * Show Eventbrite API Connection only if Eventbrite Plugin is Active
+ * Show Eventbrite API Connection only if Eventbrite Plugin is Active or Event Aggregator license key has a license key
  */
-if ( class_exists( 'Tribe__Events__Tickets__Eventbrite__Main' ) ) {
+if ( class_exists( 'Tribe__Events__Tickets__Eventbrite__Main' ) || get_option( 'pue_install_key_event_aggregator' ) ) {
 
 	$eb_token         = tribe_get_option( 'eb_token' );
 	$eb_token_expires = tribe_get_option( 'eb_token_expires' );
