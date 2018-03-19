@@ -43,7 +43,7 @@ class Tribe__Events__Event_Cleaner {
 			return;
 		}
 
-		if ( $new_value === null ) {
+		if ( null === $new_value ) {
 			$this->scheduler->trash_clear_scheduled_task();
 
 			return;
@@ -70,7 +70,7 @@ class Tribe__Events__Event_Cleaner {
 			return;
 		}
 
-		if ( $new_value === null ) {
+		if ( null === $new_value ) {
 			$this->scheduler->delete_clear_scheduled_task();
 
 			return;

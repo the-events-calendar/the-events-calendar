@@ -86,11 +86,11 @@ class Tribe__Events__Event_Scheduler {
 			wp_schedule_event( time(), 'daily', self::$del_cron_hook );
 		}
 
-		if ( $this->trash_new_date != null ) {
+		if ( null != $this->trash_new_date ) {
 			add_action( self::$trash_cron_hook, array( $this, 'move_old_events_to_trash' ), 10, 0 );
 		}
 
-		if ( $this->del_new_date != null ) {
+		if ( null != $this->del_new_date ) {
 			add_action( self::$del_cron_hook, array( $this, 'permanently_delete_old_events' ), 10, 0 );
 		}
 
