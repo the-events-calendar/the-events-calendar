@@ -310,6 +310,7 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 
 = [4.6.13] TBD =
 
+* Feature - Allow users to move to trash or permanently delete expired events [98826]
 * Tweak - Added Gutenberg compatibility for the Extension
 * Fix - Prevent Adjacent Events links failing due to wrong meta key been used (props to @jeremyfelt for fixing this) [101757]
 
