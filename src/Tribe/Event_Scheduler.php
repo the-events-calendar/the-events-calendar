@@ -4,6 +4,8 @@
  * Class Event_Scheduler
  *
  * Uses cron to move old events to trash and/or permanently delete them.
+ *
+ * @since TBD
  */
 class Tribe__Events__Event_Scheduler {
 
@@ -20,21 +22,25 @@ class Tribe__Events__Event_Scheduler {
 	public static $trash_cron_hook = 'tribe_trash_event_cron';
 
 	/**
-	 * The new value for the $trash_events option.
+	 * The new value for the $key_trash_events option.
 	 *
 	 * @var $trash_new_date
+	 *
+	 * @since TBD
 	 */
 	public $trash_new_date;
 
 	/**
-	 * The new value for the $delete_events option.
+	 * The new value for the $key_delete_events option.
 	 *
 	 * @var $del_new_date
+	 *
+	 * @since TBD
 	 */
 	public $del_new_date;
 
 	/**
-	 * Receives the existing values for $trash_events and $delete_events options
+	 * Receives the existing values for $key_trash_events and $key_delete_events options
 	 * and defines them as trash_new_date and del_new_date variables.
 	 *
 	 * @param mixed $move_to_trash
@@ -48,26 +54,26 @@ class Tribe__Events__Event_Scheduler {
 	}
 
 	/**
-	 * Receives the new user-defined value for $trash_events option
+	 * Receives the new user-defined value for $key_trash_events option
 	 * and defines it as the trash_new_date variable.
 	 *
-	 * @param mixed $trash_new_value - the value for the $trash_events option
+	 * @param mixed $trash_new_value - the value for the $key_trash_events option
 	 *
 	 * @since TBD
 	 */
-	public function trash_set_new_date( $trash_new_value ) {
+	public function set_trash_new_date( $trash_new_value ) {
 		$this->trash_new_date = $trash_new_value;
 	}
 
 	/**
-	 * Receives the new user-defined value for $delete_events option
+	 * Receives the new user-defined value for $key_delete_events option
 	 * and defines it as the del_new_date variable.
 	 *
-	 * @param mixed $del_new_value - the value for the $delete_events option
+	 * @param mixed $del_new_value - the value for the $key_delete_events option
 	 *
 	 * @since TBD
 	 */
-	public function delete_set_new_date( $del_new_value ) {
+	public function set_delete_new_date( $del_new_value ) {
 		$this->del_new_date = $del_new_value;
 	}
 

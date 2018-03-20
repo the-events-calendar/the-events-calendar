@@ -2,6 +2,8 @@
 
 /**
  * Class Event_Cleaner
+ *
+ * @since TBD
  */
 class Tribe__Events__Event_Cleaner {
 
@@ -12,22 +14,28 @@ class Tribe__Events__Event_Cleaner {
 
 	/**
 	 * The option name to move old events to trash.
-	 * @var $trash_events
+	 *
+	 * @var $key_trash_events
+	 *
+	 * @since TBD
 	 */
-	public $trash_events = 'trash-past-events';
+	public $key_trash_events = 'trash-past-events';
 
 	/**
 	 * The option name to permanently delete old events.
-	 * @var $delete_events
+	 *
+	 * @var $key_delete_events
+	 *
+	 * @since TBD
 	 */
-	public $delete_events = 'delete-past-events';
+	public $key_delete_events = 'delete-past-events';
 
 	public function __construct( Tribe__Events__Event_Scheduler $scheduler = null ) {
 		$this->scheduler = $scheduler ? $scheduler : new Tribe__Events__Event_Scheduler();
 	}
 
 	/**
-	 * Receives the existing value and the new value (modified by user) for the $trash_events option,
+	 * Receives the existing value and the new value (modified by user) for the $key_trash_events option,
 	 * compares them and runs the scheduler if the conditions are satisfied.
 	 *
 	 * @param array $old_value
@@ -36,8 +44,8 @@ class Tribe__Events__Event_Cleaner {
 	 * @since TBD
 	 */
 	public function move_old_events_to_trash( array $old_value, array $new_value ) {
-		$old_value = empty( $old_value[ $this->trash_events ] ) ? null : $old_value[ $this->trash_events ];
-		$new_value = empty( $new_value[ $this->trash_events ] ) ? null : $new_value[ $this->trash_events ];
+		$old_value = empty( $old_value[ $this->key_trash_events ] ) ? null : $old_value[ $this->key_trash_events ];
+		$new_value = empty( $new_value[ $this->key_trash_events ] ) ? null : $new_value[ $this->key_trash_events ];
 
 		if ( $new_value == $old_value ) {
 			return;
@@ -49,12 +57,12 @@ class Tribe__Events__Event_Cleaner {
 			return;
 		}
 
-		$this->scheduler->trash_set_new_date( $new_value );
+		$this->scheduler->set_trash_new_date( $new_value );
 		$this->scheduler->move_old_events_to_trash();
 	}
 
 	/**
-	 * Receives the existing value and the new value (modified by user) for the $delete_events option,
+	 * Receives the existing value and the new value (modified by user) for the $key_delete_events option,
 	 * compares them and runs the scheduler if the conditions are satisfied.
 	 *
 	 * @param array $old_value
@@ -63,8 +71,8 @@ class Tribe__Events__Event_Cleaner {
 	 * @since TBD
 	 */
 	public function permanently_delete_old_events( array $old_value, array $new_value ) {
-		$old_value = empty( $old_value[ $this->delete_events ] ) ? null : $old_value[ $this->delete_events ];
-		$new_value = empty( $new_value[ $this->delete_events ] ) ? null : $new_value[ $this->delete_events ];
+		$old_value = empty( $old_value[ $this->key_delete_events ] ) ? null : $old_value[ $this->key_delete_events ];
+		$new_value = empty( $new_value[ $this->key_delete_events ] ) ? null : $new_value[ $this->key_delete_events ];
 
 		if ( $new_value == $old_value ) {
 			return;
@@ -76,7 +84,7 @@ class Tribe__Events__Event_Cleaner {
 			return;
 		}
 
-		$this->scheduler->delete_set_new_date( $new_value );
+		$this->scheduler->set_delete_new_date( $new_value );
 		$this->scheduler->permanently_delete_old_events();
 	}
 }
