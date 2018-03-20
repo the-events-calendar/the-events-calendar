@@ -73,8 +73,29 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				$query->set( 'paged', $_REQUEST['tribe_paged'] );
 			}
 
+			// Return early as we don't want to change a post that is not part of the valid group of event post types.
+			$valid_post_types = array(
+				Tribe__Events__Main::POSTTYPE,
+				Tribe__Events__Venue::POSTTYPE,
+				Tribe__Events__Organizer::POSTTYPE,
+			);
+			if (
+				$query->is_main_query()
+				&& $query->is_single()
+				// Make sure we are not in a Post Type declared by the plugin.
+				&& false === in_array( $query->get( 'post_type' ), $valid_post_types )
+			)  {
+				return $query;
+			}
+
+			// Don't change query on pages as we might be ina shortcode.
+			if ( $query->is_main_query() && $query->is_page() ) {
+				return $query;
+			}
+
 			// Add tribe events post type to tag queries only in tag archives
-			if ( $query->is_tag
+			if (
+				$query->is_tag
 				&& (array) $query->get( 'post_type' ) != array( Tribe__Events__Main::POSTTYPE )
 				&& ! $helper->is_post_type_screen( 'post' )
 			) {
@@ -149,16 +170,22 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			}
 
 			// never allow 404 on month view
-			if ( $query->is_main_query() && $query->get( 'eventDisplay' ) == 'month' && ! $query->is_tax && ! $query->tribe_is_event_category ) {
+			if (
+				$query->is_main_query()
+				&& 'month' === $query->get( 'eventDisplay' )
+				&& ! $query->is_tax
+				&& ! $query->tribe_is_event_category
+			) {
 				$query->is_post_type_archive = true;
 				$query->queried_object       = get_post_type_object( Tribe__Events__Main::POSTTYPE );
 				$query->queried_object_id    = 0;
 			}
 
-			// check if is_event_query === true and hook filter
-			if ( $query->tribe_is_event_query ) {
+			if ( tribe_is_events_front_page() ) {
+				$query->is_home = true;
+			} elseif ( $query->tribe_is_event_query ) {
 				// fixing is_home param
-				$query->is_home = ! empty( $query->query_vars['is_home'] ) ? $query->query_vars['is_home'] : false;
+				$query->is_home = empty( $query->query_vars['is_home'] ) ? false : $query->query_vars['is_home'];
 				do_action( 'tribe_events_parse_query', $query );
 			}
 		}
@@ -228,6 +255,10 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 
 				$query->set( 'eventDisplay', $query->get( 'eventDisplay', Tribe__Events__Main::instance()->displaying ) );
 
+				// By default we'll hide events marked as "hidden from event listings" unless
+				// the query explicity requests they be exposed
+				$maybe_hide_events = (bool) $query->get( 'hide_upcoming', true );
+
 				//@todo stop calling EOD cutoff transformations all over the place
 
 				if ( ! empty( $query->query_vars['eventDisplay'] ) ) {
@@ -266,7 +297,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 							if ( $query->get( 'end_date' == '' ) ) {
 								$query->set( 'end_date', tribe_end_of_day( $query->get( 'start_date' ) ) );
 							}
-							$query->set( 'hide_upcoming', true );
+							$query->set( 'hide_upcoming', $maybe_hide_events );
 
 							break;
 						case 'day':
@@ -276,7 +307,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 							$query->set( 'start_date', date_i18n( Tribe__Date_Utils::DBDATETIMEFORMAT, $beginning_of_day ) );
 							$query->set( 'end_date', tribe_end_of_day( $event_date ) );
 							$query->set( 'posts_per_page', - 1 ); // show ALL day posts
-							$query->set( 'hide_upcoming', true );
+							$query->set( 'hide_upcoming', $maybe_hide_events );
 							$query->set( 'order', self::set_order( 'ASC', $query ) );
 							break;
 						case 'single-event':
@@ -298,15 +329,15 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 							} else {
 								// on past view, set the passed date as the end date
 								$query->set( 'start_date', '' );
-								$query->set( 'end_date', tribe_end_of_day( $event_date ) );
+								$query->set( 'end_date', $event_date );
 								$query->set( 'order', self::set_order( 'DESC', $query ) );
 							}
 							$query->set( 'orderby', self::set_orderby( null, $query ) );
-							$query->set( 'hide_upcoming', true );
+							$query->set( 'hide_upcoming', $maybe_hide_events );
 							break;
 					}
 				} else {
-					$query->set( 'hide_upcoming', true );
+					$query->set( 'hide_upcoming', $maybe_hide_events );
 					$query->set( 'start_date', date_i18n( Tribe__Date_Utils::DBDATETIMEFORMAT ) );
 					$query->set( 'orderby', self::set_orderby( null, $query ) );
 					$query->set( 'order', self::set_order( null, $query ) );
@@ -393,7 +424,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 
 			/**
 			 * If is in the admin remove the event date & upcoming filters, unless is an ajax call
-			 * It's important to note that `tribe_remove_date_filters` nees to be set before calling
+			 * It's important to note that `tribe_remove_date_filters` needs to be set before calling
 			 * self::should_remove_date_filters() to allow the date_filters to be actually removed
 			 */
 			if ( self::should_remove_date_filters( $query ) ) {
@@ -518,7 +549,18 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			$event_start_key = '_EventStartDate';
 			$event_end_key   = '_EventEndDate';
 
-			if ( Tribe__Events__Timezones::is_mode( 'site' ) ) {
+			/**
+			 * When the "Use site timezone everywhere" option is checked in events settings,
+			 * the UTC time for event start and end times will be used. This filter allows the
+			 * disabling of that in certain contexts, so that local (not UTC) event times are used.
+			 *
+			 * @since 4.6.10
+			 *
+			 * @param boolean $force_local_tz Whether to force the local TZ.
+			 */
+			$force_local_tz = apply_filters( 'tribe_events_query_force_local_tz', false );
+
+			if ( Tribe__Events__Timezones::is_mode( 'site' ) && ! $force_local_tz ) {
 				$event_start_key .= 'UTC';
 				$event_end_key   .= 'UTC';
 			}
@@ -915,7 +957,8 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				switch ( $args['display_type'] ) {
 					case 'daily':
 					default :
-						global $wp_query;
+						$wp_query = tribe_get_global_query_object();
+
 						$output_date_format = '%Y-%m-%d %H:%i:%s';
 						$start_date_sql = esc_sql( $post_id_query->query_vars['start_date'] );
 						$end_date_sql = esc_sql( $post_id_query->query_vars['end_date'] );
@@ -1028,7 +1071,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				'tribe_render_context' => 'default',
 			);
 
-			$args     = wp_parse_args( $args, $defaults );
+			$args = wp_parse_args( $args, $defaults );
 
 			$return_found_posts = ! empty( $args['found_posts'] );
 

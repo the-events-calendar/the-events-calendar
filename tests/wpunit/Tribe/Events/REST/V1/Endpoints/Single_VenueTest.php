@@ -87,7 +87,7 @@ class Single_VenueTest extends WPRestApiTestCase {
 		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'subscriber' ] ) );
 		$response = $sut->get( $request );
 
-		$this->assertErrorResponse( 'venue-not-accessible', $response, 403 );
+		$this->assertErrorResponse( 'venue-not-accessible', $response, 401 );
 	}
 
 	/**

@@ -87,7 +87,7 @@ class Single_OrganizerTest extends WPRestApiTestCase {
 		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'subscriber' ] ) );
 		$response = $sut->get( $request );
 
-		$this->assertErrorResponse( 'organizer-not-accessible', $response, 403 );
+		$this->assertErrorResponse( 'organizer-not-accessible', $response, 401 );
 	}
 
 	/**

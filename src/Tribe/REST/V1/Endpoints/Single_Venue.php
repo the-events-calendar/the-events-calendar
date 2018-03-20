@@ -30,7 +30,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 		if ( ! ( 'publish' === $venue->post_status || current_user_can( $cap, $request['id'] ) ) ) {
 			$message = $this->messages->get_message( 'venue-not-accessible' );
 
-			return new WP_Error( 'venue-not-accessible', $message, array( 'status' => 403 ) );
+			return new WP_Error( 'venue-not-accessible', $message, array( 'status' => 401 ) );
 		}
 
 		$data = $this->post_repository->get_venue_data( $request['id'], 'single' );
@@ -113,7 +113,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 					'400' => array(
 						'description' => __( 'The venue post ID is missing.', 'the-events-calendar' ),
 					),
-					'403' => array(
+					'401' => array(
 						'description' => __( 'The venue with the specified ID is not accessible.', 'the-events-calendar' ),
 					),
 					'404' => array(
@@ -140,7 +140,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 					'400' => array(
 						'description' => __( 'A required parameter is missing or an input parameter is in the wrong format', 'the-events-calendar' ),
 					),
-					'403' => array(
+					'401' => array(
 						'description' => __( 'The user is not authorized to create venues', 'the-events-calendar' ),
 					),
 				),
@@ -157,7 +157,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 					'400' => array(
 						'description' => __( 'The venue post ID is missing or does not exist.', 'the-venues-calendar' ),
 					),
-					'403' => array(
+					'401' => array(
 						'description' => __( 'The current user cannot delete the venue with the specified ID.', 'the-venues-calendar' ),
 					),
 					'410' => array(
@@ -218,7 +218,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_time' ),
 				'type'              => 'string',
-				'description'       => __( 'The venue publication date (UTC timezone)', 'the-events-calendar' ),
+				'description'       => __( 'The venue publication date (UTC time zone)', 'the-events-calendar' ),
 			),
 			'venue'         => array(
 				'required'          => true,
@@ -359,7 +359,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 		 * @param array           $postarr Post array used for create/update
 		 * @param WP_REST_Request $request REST request object
 		 *
-		 * @since TBD
+		 * @since 4.6.9
 		 */
 		$postarr = apply_filters( 'tribe_events_rest_venue_prepare_postarr', $postarr, $request );
 

@@ -79,7 +79,7 @@ if ( ! function_exists( 'tribe_event_is_on_date' ) ) {
 			global $post;
 			$event = $post;
 			if ( empty( $event ) ) {
-				_doing_it_wrong( __FUNCTION__, esc_html__( 'The function needs to be passed an $event or used in the loop.', 'the-events-calendar' ) );
+				_doing_it_wrong( __FUNCTION__, esc_html__( 'The function needs to be passed an $event or used in the loop.', 'the-events-calendar' ), '3.10' );
 				return false;
 			}
 		}

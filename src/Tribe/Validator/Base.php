@@ -97,7 +97,7 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 	/**
 	 * Whether the value is the post name of an existing event or not.
 	 *
-	 * @since TBD
+	 * @since 4.6.8
 	 *
 	 * @param string $event_slug
 	 *
@@ -108,15 +108,17 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 			return false;
 		}
 
-		$event = get_page_by_path( $event_slug, OBJECT, Tribe__Events__Main::POSTTYPE );
+		// the post might exist but the user might be unable to access it so we query the db directly
+		// auth will be handled in the endpoint
+		$event_id = $this->get_id_for_slug( $event_slug, Tribe__Events__Main::POSTTYPE );
 
-		return ! empty( $event ) && Tribe__Events__Main::POSTTYPE === $event->post_type;
+		return (bool) $event_id;
 	}
 
 	/**
 	 * Whether the value is the post name of an existing organizer or not.
 	 *
-	 * @since TBD
+	 * @since 4.6.9
 	 *
 	 * @param string $organizer_slug
 	 *
@@ -127,15 +129,17 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 			return false;
 		}
 
-		$organizer = get_page_by_path( $organizer_slug, OBJECT, Tribe__Events__Organizer::POSTTYPE );
+		// the post might exist but the user might be unable to access it so we query the db directly
+		// auth will be handled in the endpoint
+		$organizer_id = $this->get_id_for_slug( $organizer_slug, Tribe__Events__Organizer::POSTTYPE );
 
-		return ! empty( $organizer ) && Tribe__Events__Organizer::POSTTYPE === $organizer->post_type;
+		return (bool) $organizer_id;
 	}
 
 	/**
 	 * Whether the value is the post name of an existing venue or not.
 	 *
-	 * @since TBD
+	 * @since 4.6.9
 	 *
 	 * @param string $venue_slug
 	 *
@@ -146,9 +150,11 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 			return false;
 		}
 
-		$venue = get_page_by_path( $venue_slug, OBJECT, Tribe__Events__Venue::POSTTYPE );
+		// the post might exist but the user might be unable to access it so we query the db directly
+		// auth will be handled in the endpoint
+		$venue_id = $this->get_id_for_slug( $venue_slug, Tribe__Events__Venue::POSTTYPE );
 
-		return ! empty( $venue ) && Tribe__Events__Venue::POSTTYPE === $venue->post_type;
+		return (bool) $venue_id;
 	}
 
 	/**

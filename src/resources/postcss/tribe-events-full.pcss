@@ -908,6 +908,16 @@ select.tribe-events-dropdown {
 	color: #333;
 }
 
+.venue-address {
+	margin-top: 1em;
+
+	&>* {
+		display: block;
+		margin-top: 0.5em;
+	}
+
+}
+
 /* = Single Event Template Styles
    @ Template: single-event.php
 =============================================*/
@@ -979,7 +989,7 @@ select.tribe-events-dropdown {
 		}
 
 		.tribe-events-cost {
-			vertical-align: middle;
+			vertical-align: baseline;
 		}
 	}
 
@@ -988,6 +998,11 @@ select.tribe-events-dropdown {
 		clear: both;
 		margin-bottom: 30px;
 		text-align: center;
+	}
+
+	/* Export Links */
+	.tribe-events-cal-links {
+		clear: both;
 	}
 
 	/* Meta Sections */
@@ -1813,10 +1828,6 @@ input[name*='tribe-bar-']:-moz-placeholder {
 		border-radius: 0 0 3px 3px;
 	}
 
-	[name='tribe-bar-view'] {
-		display: none;
-	}
-
 	.tribe-bar-views-list {
 		float: left;
 		width: 100%;
@@ -1825,11 +1836,6 @@ input[name*='tribe-bar-']:-moz-placeholder {
 	.tribe-bar-settings {
 		display: none;
 	}
-}
-
-/* Views Select */
-.tribe-no-js #tribe-bar-views [name='tribe-bar-view'] {
-	display: block;
 }
 
 /* Tribe Bar Mini Styles */
@@ -2351,6 +2357,7 @@ input[name*='tribe-bar-']:-moz-placeholder {
 /* Twenty Seventeen
 ========================================================================== */
 .tribe-theme-twentyseventeen {
+
 	.entry-content {
 		a {
 			box-shadow: none;
@@ -2361,7 +2368,14 @@ input[name*='tribe-bar-']:-moz-placeholder {
 		.single-featured-image-header {
 			display: none;
 		}
-	}	
+	}
+
+	/* Ensure full-width calendar if Main Events Page is site homepage. */
+	&.page-template-page-php.blog:not(.has-sidebar) {
+		#primary article {
+			width: 100%;
+		}
+	}
 }
 
 /* = Events Retina
@@ -2385,7 +2399,7 @@ input[name*='tribe-bar-']:-moz-placeholder {
 		}
 
 		[class^='tribe-bar-button-']::after {
-			background-image: url(../../../common/vendor/select2/select2x2.png);
+			background-image: url(../../../common/vendor/tribe-select2/select2x2.png);
 		}
 	}
 

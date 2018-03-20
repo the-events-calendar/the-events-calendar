@@ -85,7 +85,7 @@ class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$sut = $this->make_instance();
 		$response = $sut->get( $request );
 
-		$this->assertErrorResponse( 'event-not-accessible', $response, 403 );
+		$this->assertErrorResponse( 'event-not-accessible', $response, 401 );
 	}
 
 	/**
@@ -513,6 +513,7 @@ class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$request->set_param( 'date', date_i18n( 'Y-m-d H:i:s', strtotime( '+1 month' ) ) );
 
 		/** @var \WP_REST_Response $response */
+		$sut      = $this->make_instance();
 		$response = $sut->update( $request );
 
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );

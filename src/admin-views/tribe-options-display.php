@@ -72,7 +72,7 @@ $display_tab_fields = Tribe__Main::array_insert_before_key(
 			'tooltip'         => esc_html__( 'Enter the format to use for displaying dates with the year. Used when displaying a date in a future year.', 'the-events-calendar' ),
 			'default'         => get_option( 'date_format' ),
 			'size'            => 'medium',
-			'validation_type' => 'html',
+			'validation_type' => 'not_empty',
 		),
 		'dateTimeSeparator'                  => array(
 			'type'            => 'text',
@@ -95,7 +95,7 @@ $display_tab_fields = Tribe__Main::array_insert_after_key(
 			'tooltip'         => esc_html__( 'Enter the format to use for displaying dates without a year. Used when showing an event from the current year.', 'the-events-calendar' ),
 			'default'         => 'F j',
 			'size'            => 'medium',
-			'validation_type' => 'html',
+			'validation_type' => 'not_empty',
 		),
 		'monthAndYearFormat'                 => array(
 			'type'            => 'text',
@@ -103,7 +103,7 @@ $display_tab_fields = Tribe__Main::array_insert_after_key(
 			'tooltip'         => esc_html__( 'Enter the format to use for dates that show a month and year only. Used on month view.', 'the-events-calendar' ),
 			'default'         => 'F Y',
 			'size'            => 'medium',
-			'validation_type' => 'html',
+			'validation_type' => 'not_empty',
 		),
 	)
 );
