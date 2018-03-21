@@ -102,6 +102,13 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 
 			$data = self::prepare_event_date_meta( $event_id, $data );
 
+			/**
+			 * Prevent non Events to have the Save Events Meta applied
+			 */
+			if ( ! empty( $data['post_type'] ) && Tribe__Events__Main::POSTTYPE !== $data['post_type'] ) {
+				return false;
+			}
+
 			if ( empty( $data['EventHideFromUpcoming'] ) ) {
 				delete_metadata( 'post', $event_id, '_EventHideFromUpcoming' );
 			}
