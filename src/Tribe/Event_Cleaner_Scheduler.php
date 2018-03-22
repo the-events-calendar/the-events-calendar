@@ -148,9 +148,9 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 		$event_post_type = Tribe__Events__Main::POSTTYPE;
 
 		$posts_with_parents_sql = "SELECT DISTINCT post_parent
-				FROM {$wpdb->posts}
-				WHERE post_type= '$event_post_type'
-					AND post_parent <> 0
+		FROM {$wpdb->posts}
+		WHERE post_type= '$event_post_type'
+			AND post_parent <> 0
 		";
 
 		$sql = "SELECT post_id
