@@ -30,8 +30,8 @@ class Tribe__Events__Event_Cleaner {
 	 */
 	public $key_delete_events = 'delete-past-events';
 
-	public function __construct( Tribe__Events__Event_Scheduler $scheduler = null ) {
-		$this->scheduler = $scheduler ? $scheduler : new Tribe__Events__Event_Scheduler();
+	public function __construct( Tribe__Events__Event_Cleaner_Scheduler $scheduler = null ) {
+		$this->scheduler = $scheduler ? $scheduler : new Tribe__Events__Event_Cleaner_Scheduler();
 	}
 
 	/**

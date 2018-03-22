@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Class Event_Scheduler
+ * Class Event_Cleaner_Scheduler
  *
  * Uses cron to move old events to trash and/or permanently delete them.
  *
  * @since TBD
  */
-class Tribe__Events__Event_Scheduler {
+class Tribe__Events__Event_Cleaner_Scheduler {
 
 	/**
 	 * The name of the cron event to permanently delete past events.
@@ -150,7 +150,14 @@ class Tribe__Events__Event_Scheduler {
 		INNER JOIN {$wpdb->postmeta} AS t2 ON t1.ID = t2.post_id
 		WHERE t1.post_type = %d
 			AND t2.meta_key = '_EventEndDate'
-			AND t2.meta_value <= DATE_SUB( CURDATE(), INTERVAL %d MONTH )";
+			AND t2.meta_value <= DATE_SUB( CURDATE(), INTERVAL %d MONTH )
+			AND t1.post_parent = 0
+			AND t1.ID NOT IN (
+				SELECT DISTINCT post_parent
+				FROM wp_posts
+				WHERE post_type= 'tribe_events'
+					AND post_parent <> 0)
+		";
 
 		/**
 		 * Filter - Allows users to manipulate the cleanup query
@@ -201,6 +208,7 @@ class Tribe__Events__Event_Scheduler {
 		}
 
 		foreach ( $post_ids as $post_id ) {
+
 			wp_trash_post( $post_id );
 		}
 	}
