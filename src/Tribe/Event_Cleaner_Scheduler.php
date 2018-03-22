@@ -145,6 +145,14 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 		/** @var wpdb $wpdb */
 		global $wpdb;
 
+		$event_post_type = Tribe__Events__Main::POSTTYPE;
+
+		$posts_with_parents_sql = "SELECT DISTINCT post_parent
+				FROM {$wpdb->posts}
+				WHERE post_type= '$event_post_type'
+					AND post_parent <> 0
+		";
+
 		$sql = "SELECT post_id
 		FROM {$wpdb->posts} AS t1
 		INNER JOIN {$wpdb->postmeta} AS t2 ON t1.ID = t2.post_id
@@ -152,11 +160,7 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 			AND t2.meta_key = '_EventEndDate'
 			AND t2.meta_value <= DATE_SUB( CURDATE(), INTERVAL %d MONTH )
 			AND t1.post_parent = 0
-			AND t1.ID NOT IN (
-				SELECT DISTINCT post_parent
-				FROM wp_posts
-				WHERE post_type= 'tribe_events'
-					AND post_parent <> 0)
+			AND t1.ID NOT IN ( $posts_with_parents_sql )
 		";
 
 		/**
@@ -169,7 +173,7 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 		$sql = apply_filters( 'tribe_events_delete_old_events_sql', $sql );
 
 		$args = array(
-			'post_type' => Tribe__Events__Main::POSTTYPE,
+			'post_type' => $event_post_type,
 			'date'      => $month,
 		);
 
@@ -208,7 +212,6 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 		}
 
 		foreach ( $post_ids as $post_id ) {
-
 			wp_trash_post( $post_id );
 		}
 	}
