@@ -313,6 +313,7 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 * Feature - Allow users to move to trash or permanently delete expired events [98826]
 * Tweak - Added Gutenberg compatibility for the Extension
 * Fix - Prevent Adjacent Events links failing due to wrong meta key been used (props to @jeremyfelt for fixing this) [101757]
+* Tweak - Added new filter, `tribe_tickets_venue_action_links_edit_url`, to modify the venue edit link in the sales and attendee report on the front end [93923]
 
 = [4.6.12] 2018-03-08 =
 
