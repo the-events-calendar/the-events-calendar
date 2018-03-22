@@ -2171,7 +2171,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$this->scheduler->remove_hooks();
 			}
 
-			$this->scheduler = new Tribe__Events__Event_Scheduler(
+			$this->scheduler = new Tribe__Events__Event_Cleaner_Scheduler(
 				tribe_get_option( tribe( 'tec.event-cleaner' )->key_trash_events, null ),
 				tribe_get_option( tribe( 'tec.event-cleaner' )->key_delete_events, null )
 			);
