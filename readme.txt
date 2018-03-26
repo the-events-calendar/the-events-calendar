@@ -308,6 +308,10 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 
 == Changelog ==
 
+= [4.6.13] TBD =
+
+* Fix - Make the `tribe-ea-record` custom post type (used to store Event Aggregator record information) private [99106]
+
 = [4.6.12] 2018-03-08 =
 
 * Fix - Resolved an oversight resulting in notice-level errors when the `tribe_event_is_on_date()` function was called incorrectly (props to @sharewisdom for pointing this out) [99117]
