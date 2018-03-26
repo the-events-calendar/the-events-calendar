@@ -1095,7 +1095,8 @@ tribe_aggregator.fields = {
 		if ( data.html ) {
 			obj.progress.data.notice.html( data.html );
 		}
-		if ( data.progress ) {
+
+		if ( ! isNaN( parseInt( data.progress, 10 ) ) ) {
 			obj.progress.update( data );
 		}
 
