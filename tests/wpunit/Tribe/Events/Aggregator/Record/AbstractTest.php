@@ -5,15 +5,22 @@ namespace Tribe\Events\Aggregator\Record;
 include_once( codecept_data_dir( 'classes/Tribe__Events__Aggregator__Record__Scheduled_Test.php' ) );
 
 use Prophecy\Argument;
+use Tribe\Events\Tests\Factories\Aggregator\V1\Import_Record;
 use Tribe\Events\Tests\Testcases\Events_TestCase;
 use Tribe__Events__Aggregator__Record__Abstract as Base;
 use Tribe__Events__Aggregator__Record__Activity as Activity;
 use Tribe__Events__Aggregator__Record__Facebook as FB_Record;
 use Tribe__Events__Aggregator__Record__Scheduled_Test as Record;
+use Tribe__Events__Aggregator__Record__Url as Url_Import_Record;
 use Tribe__Events__Aggregator__Records as Records;
 use Tribe__Events__Main as Main;
 
 class AbstractTest extends Events_TestCase {
+
+	function setUp() {
+		parent::setUp();
+		$this->factory()->import_record = new Import_Record();
+	}
 
 	/**
 	 * Builds a simulation of a scheduled record.
@@ -453,4 +460,56 @@ class AbstractTest extends Events_TestCase {
 		$this->assertFalse( $sut->import_event_image( $event, $activity->reveal() ) );
 	}
 
+	/**
+	 * It should allow filtering the venue id when global ID does not provide a match
+	 *
+	 * @test
+	 */
+	public function should_allow_filtering_the_venue_id_when_global_id_does_not_provide_a_match() {
+		$item = $this->factory()->import_record->create_and_get_event_record(
+			'url',
+			[
+				'venue' =>
+					[ 'venue' => 'Venue title from record' ]
+			]
+		);
+		$venue_id = $this->factory()->venue->create();
+		add_filter( 'tribe_aggregator_find_matching_venue', function ( $_ = null, $venue_data ) use ( $venue_id ) {
+			$this->assertEquals( 'Venue title from record', $venue_data['Venue'] );
+
+			return $venue_id;
+		}, 10, 2 );
+		$sut = new Url_Import_Record();
+
+		/** @var \Tribe__Events__Aggregator__Record__Activity $activity */
+		$activity       = $sut->insert_posts( [ $item ] );
+		$created_events = $activity->get( \Tribe__Events__Main::POSTTYPE, 'created' );
+		$updated_venues = $activity->get( \Tribe__Events__Venue::POSTTYPE, 'updated' );
+		$this->assertCount( 1, $created_events );
+		$this->assertCount( 1, $updated_venues );
+		$this->assertEquals( $venue_id, get_post_meta( $created_events[0], '_EventVenueID', true ) );
+	}
+
+	/**
+	 * It should allow filtering the organizer id when global ID does not provide a match
+	 *
+	 * @test
+	 */
+	public function should_allow_filtering_the_organizer_id_when_global_id_does_not_provide_a_match() {
+		$item = $this->factory()->import_record->create_and_get_event_record( 'url', [ 'organizer_count' => 3, ] );
+		$organizer_ids = $this->factory()->organizer->create_many(3);
+		$i =0;
+		add_filter( 'tribe_aggregator_find_matching_organizer', function ( $_ = null, $organizer_data ) use ( $organizer_ids, &$i ) {
+			return $organizer_ids[ $i ++ ];
+		}, 10, 2 );
+		$sut = new Url_Import_Record();
+
+		/** @var \Tribe__Events__Aggregator__Record__Activity $activity */
+		$activity           = $sut->insert_posts( [ $item ] );
+		$created_events     = $activity->get( \Tribe__Events__Main::POSTTYPE, 'created' );
+		$updated_organizers = $activity->get( \Tribe__Events__Organizer::POSTTYPE, 'updated' );
+		$this->assertCount( 1, $created_events );
+		$this->assertCount( 3, $updated_organizers );
+		$this->assertEquals( $organizer_ids, get_post_meta( $created_events[0], '_EventOrganizerID' ) );
+	}
 }
