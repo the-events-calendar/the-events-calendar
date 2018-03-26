@@ -957,7 +957,8 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				switch ( $args['display_type'] ) {
 					case 'daily':
 					default :
-						global $wp_query;
+						$wp_query = tribe_get_global_query_object();
+
 						$output_date_format = '%Y-%m-%d %H:%i:%s';
 						$start_date_sql = esc_sql( $post_id_query->query_vars['start_date'] );
 						$end_date_sql = esc_sql( $post_id_query->query_vars['end_date'] );
