@@ -308,6 +308,10 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 
 == Changelog ==
 
+= [4.6.13] TBD =
+
+* Fix - Prevent warnings on retrival of posts if "Include events in main blog loop" is checked (thanks to Colin Carmichael for report this problem) [97667]
+
 = [4.6.12] 2018-03-08 =
 
 * Fix - Resolved an oversight resulting in notice-level errors when the `tribe_event_is_on_date()` function was called incorrectly (props to @sharewisdom for pointing this out) [99117]

@@ -203,8 +203,13 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			if ( $query->is_main_query() && is_home() ) {
 				// check option for including events in the main wordpress loop, if true, add events post type
 				if ( tribe_get_option( 'showEventsInMainLoop', false ) ) {
-					$query->query_vars['post_type']   = isset( $query->query_vars['post_type'] ) ? ( array ) $query->query_vars['post_type'] : array( 'post' );
-					$query->query_vars['post_type'][] = Tribe__Events__Main::POSTTYPE;
+					$query->query_vars['post_type']   = isset( $query->query_vars['post_type'] )
+						? ( array ) $query->query_vars['post_type']
+						: array( 'post' );
+
+					if ( ! in_array( Tribe__Events__Main::POSTTYPE, $query->query_vars['post_type'] ) ) {
+						$query->query_vars['post_type'][] = Tribe__Events__Main::POSTTYPE;
+					}
 					$query->tribe_is_multi_posttype   = true;
 				}
 			}
@@ -743,7 +748,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				$order   = ( isset( $query->query_vars['order'] ) && ! empty( $query->query_vars['order'] ) ) ? $query->query_vars['order'] : $query->get( 'order' );
 				$orderby = ( isset( $query->query_vars['orderby'] ) && ! empty( $query->query_vars['orderby'] ) ) ? $query->query_vars['orderby'] : $query->get( 'orderby' );
 
-				if ( self::can_inject_date_field( $query ) ) {
+				if ( self::can_inject_date_field( $query ) && ! $query->tribe_is_multi_posttype ) {
 					$old_orderby = $order_sql;
 					$order_sql = "EventStartDate {$order}";
 
