@@ -2416,7 +2416,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			// Prep strings so we can compare paths sans any leading/trailing slashes
-			$requested_path = trim( $requested_path, '/' );
+			$requested_path['path'] = trim( $requested_path, '/' );
 			$legacy_past_events_url = $this->getRewriteSlug() . '/' . $this->pastSlug;
 			$legacy_upcoming_events_url = $this->getRewriteSlug() . '/' . $this->upcomingSlug;
 
