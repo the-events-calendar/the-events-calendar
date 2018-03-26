@@ -303,7 +303,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 						case 'day':
 							$event_date = $query->get( 'eventDate' ) != '' ? $query->get( 'eventDate' ) : date( 'Y-m-d', current_time( 'timestamp' ) );
 							$query->set( 'eventDate', $event_date );
-							$beginning_of_day = strtotime( tribe_beginning_of_day( $event_date ) ) + 1;
+							$beginning_of_day = strtotime( tribe_beginning_of_day( $event_date ) );
 							$query->set( 'start_date', date_i18n( Tribe__Date_Utils::DBDATETIMEFORMAT, $beginning_of_day ) );
 							$query->set( 'end_date', tribe_end_of_day( $event_date ) );
 							$query->set( 'posts_per_page', - 1 ); // show ALL day posts
