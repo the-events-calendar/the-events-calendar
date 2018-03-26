@@ -548,7 +548,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_filter( 'nav_menu_items_' . self::POSTTYPE, array( $this, 'add_events_checkbox_to_menu' ), null, 3 );
 			add_filter( 'wp_nav_menu_objects', array( $this, 'add_current_menu_item_class_to_events' ), null, 2 );
 
-			add_filter( 'template_redirect', array( $this, 'redirect_past_upcoming_view_urls' ), 9 );
+			add_action( 'template_redirect', array( $this, 'redirect_past_upcoming_view_urls' ), 9 );
 
 			/* Setup Tribe Events Bar */
 			add_filter( 'tribe-events-bar-views', array( $this, 'setup_listview_in_bar' ), 1, 1 );
