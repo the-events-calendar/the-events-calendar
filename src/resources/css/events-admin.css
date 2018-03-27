@@ -147,7 +147,7 @@
 }
 
 .eventForm .tribe-datetime-block .tribe-field-timezone {
-	width: calc(100% - 400px);
+	width: 100%;
 	max-width: 199px;
 	min-width: 100px;
 	margin-top: -2px;
@@ -531,5 +531,12 @@ table.eventForm {
 		display: block;
 		text-align: center;
 		padding: 5px 0;
+	}
+}
+
+@media(min-width: 1193px) {
+
+	.eventForm .tribe-datetime-block .tribe-field-timezone {
+		width: calc(100% - 400px);
 	}
 }
