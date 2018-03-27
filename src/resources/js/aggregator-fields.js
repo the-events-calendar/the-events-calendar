@@ -1095,7 +1095,8 @@ tribe_aggregator.fields = {
 		if ( data.html ) {
 			obj.progress.data.notice.html( data.html );
 		}
-		if ( data.progress ) {
+
+		if ( ! isNaN( parseInt( data.progress, 10 ) ) ) {
 			obj.progress.update( data );
 		}
 
@@ -1144,7 +1145,19 @@ tribe_aggregator.fields = {
 				continue;
 			}
 
-			obj.progress.$[ types[ i ] ].html( data.counts[ types[ i ] ] );
+			var count = data.counts[ types[ i ] ];
+			var $target = obj.progress.$[ types[ i ] ];
+
+			// update updated and skipped count only if higher
+			if ( 'updated' === types[ i ] || 'skipped' === types[ i ] ) {
+				var current = $target ? $target.html() : 0;
+
+				if ( count > current ) {
+					$target.html( count );
+				}
+			} else {
+				$target.html( count );
+			}
 
 			if ( ! obj.progress.$.tracker.hasClass( 'has-' + types[ i ] ) ) {
 				obj.progress.$.tracker.addClass( 'has-' + types[ i ] );
