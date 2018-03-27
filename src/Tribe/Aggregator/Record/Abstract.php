@@ -1457,7 +1457,24 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 							remove_filter( 'tribe_tracker_enabled', '__return_false' );
 						}
 					} else {
-						$venue_id = array_search( $event['Venue']['Venue'], $found_venues );
+						/**
+						 * Allows filtering the venue ID while searching for it.
+						 *
+						 * Use this filter to define custom ways to find a matching Venue provided the EA
+						 * record information; returning a non `null` value here will short-circuit the
+						 * check Event Aggregator would make.
+						 *
+						 * @since TBD
+						 *
+						 * @param int|null $venue_id The matching venue ID if any
+						 * @param array $venue The venue data from the record.
+						 */
+						$venue_id = apply_filters( 'tribe_aggregator_find_matching_venue', null, $event['Venue'] );
+
+						if ( null === $venue_id ) {
+							// we search the venues already found in this request for this venue title
+							$venue_id = array_search( $event['Venue']['Venue'], $found_venues );
+						}
 
 						if ( ! $venue_id ) {
 							$venue_unique_field = $this->get_unique_field( 'venue' );
@@ -1616,7 +1633,24 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 									$activity->add( 'organizer', 'updated', $organizer->ID );
 								}
 							} else {
-								$organizer_id = array_search( $organizer_data['Organizer'], $found_organizers );
+								/**
+								 * Allows filtering the organizer ID while searching for it.
+								 *
+								 * Use this filter to define custom ways to find a matching Organizer provided the EA
+								 * record information; returning a non `null` value here will short-circuit the
+								 * check Event Aggregator would make.
+								 *
+								 * @since TBD
+								 *
+								 * @param int|null $organizer_id The matching organizer ID if any
+								 * @param array $organizer The venue data from the record.
+								 */
+								$organizer_id = apply_filters( 'tribe_aggregator_find_matching_organizer', null, $organizer_data['Organizer'] );
+
+								if ( null === $organizer_id ) {
+									// we search the organizers already found in this request for this organizer title
+									$organizer_id = array_search( $organizer_data['Organizer'], $found_organizers );
+								}
 
 								if ( ! $organizer_id ) {
 									$organizer_unique_field = $this->get_unique_field( 'organizer' );

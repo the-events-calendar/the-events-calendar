@@ -312,6 +312,7 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 
 * Fix - Prevent warnings on retrival of posts if "Include events in main blog loop" is checked (thanks to Colin Carmichael for report this problem) [97667]
 * Fix - Make the `tribe-ea-record` custom post type (used to store Event Aggregator record information) private [99106]
+* Tweak - Added the `tribe_aggregator_find_matching_organizer` and `tribe_aggregator_find_matching_venue` filters in Events Aggregator code to allow the definition of custom Venue and Organizer match criteria [97292]
 
 = [4.6.12] 2018-03-08 =
 
