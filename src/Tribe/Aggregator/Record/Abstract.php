@@ -995,19 +995,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			return false;
 		}
 
-		$retry_interval = max( DAY_IN_SECONDS, $this->frequency->interval / 2 );
-		/**
-		 * Filters the time interval between a failure and a retry for a scheduled record.
-		 *
-		 * By default scheduled imports that failed will retry again in a day or in half the frequency for
-		 * frequencies below the daily ones.
-		 *
-		 * @since TBD
-		 *
-		 * @param int An interval in seconds; defaults to the record frequency / 2.
-		 * @param Tribe__Events__Aggregator__Record__Abstract $this
-		 */
-		$retry_interval         = apply_filters( 'tribe_aggregator_scheduled_records_retry_interval', $retry_interval, $this );
+		$retry_interval = $this->get_retry_interval();
 		$failure_time_threshold = time() - $retry_interval;
 
 		// If the last import status is an error and it happened before half the frequency ago let's try again
@@ -2482,6 +2470,37 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 */
 	protected function has_own_last_import_status() {
 		return ! empty( $this->meta['last_import_status'] );
+	}
+
+	/**
+	 * Returns the default retry interval depending on this record frequency.
+	 *
+	 * @since TBD
+	 *
+	 * @return int
+	 */
+	protected function get_retry_interval() {
+		if ( $this->frequency->interval === DAY_IN_SECONDS ) {
+			$retry_interval = 6 * HOUR_IN_SECONDS;
+		} elseif ( $this->frequency->interval < DAY_IN_SECONDS ) {
+			// do not retry and let the scheduled import try again next time
+			$retry_interval = 0;
+		} else {
+			$retry_interval = DAY_IN_SECONDS;
+		}
+
+		/**
+		 * Filters the retry interval between a failure and a retry for a scheduled record.
+		 *
+		 * By default scheduled imports that failed will retry again in a day or in half the frequency for
+		 * frequencies below the daily ones.
+		 *
+		 * @since TBD
+		 *
+		 * @param int An interval in seconds; defaults to the record frequency / 2.
+		 * @param Tribe__Events__Aggregator__Record__Abstract $this
+		 */
+		return apply_filters( 'tribe_aggregator_scheduled_records_retry_interval', $retry_interval, $this );
 	}
 }
 
