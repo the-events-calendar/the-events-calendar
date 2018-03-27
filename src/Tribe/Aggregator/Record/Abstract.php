@@ -2492,9 +2492,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		/**
 		 * Filters the retry interval between a failure and a retry for a scheduled record.
 		 *
-		 * By default scheduled imports that failed will retry again in a day or in half the frequency for
-		 * frequencies below the daily ones.
-		 *
 		 * @since TBD
 		 *
 		 * @param int An interval in seconds; defaults to the record frequency / 2.
