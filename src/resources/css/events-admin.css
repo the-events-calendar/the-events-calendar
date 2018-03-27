@@ -534,7 +534,7 @@ table.eventForm {
 	}
 }
 
-@media(min-width: 1193px) {
+@media( min-width: 1193px ) {
 
 	.eventForm .tribe-datetime-block .tribe-field-timezone {
 		width: calc(100% - 400px);
