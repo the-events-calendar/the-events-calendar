@@ -3,7 +3,7 @@ class Tribe__Events__Gutenberg {
 	/**
 	 * Extension hooks and initialization; exits if the extension is not authorized by Tribe Common to run.
 	 *
-	 * @since  TBD
+	 * @since  4.6.13
 	 */
 	public function hook() {
 		// Bail if we already have the extension
@@ -30,7 +30,7 @@ class Tribe__Events__Gutenberg {
 	/**
 	 * Checks if we have The Events Calendar Gutenberg Extension active
 	 *
-	 * @since  TBD
+	 * @since  4.6.13
 	 *
 	 * @return boolean
 	 */
@@ -44,7 +44,7 @@ class Tribe__Events__Gutenberg {
 	 *
 	 * @todo   Revise when Gutenberg is merged into core
 	 *
-	 * @since  TBD
+	 * @since  4.6.13
 	 *
 	 * @return boolean
 	 */
@@ -55,7 +55,7 @@ class Tribe__Events__Gutenberg {
 	/**
 	 * Checks if we have Editor Block active
 	 *
-	 * @since  TBD
+	 * @since  4.6.13
 	 *
 	 * @return boolean
 	 */
@@ -66,7 +66,7 @@ class Tribe__Events__Gutenberg {
 	/**
 	 * HTML for the notice from Gutenberg Extension download
 	 *
-	 * @since  TBD
+	 * @since  4.6.13
 	 *
 	 * @return string
 	 */

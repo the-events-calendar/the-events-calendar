@@ -3,7 +3,7 @@
 /**
  * Class Event_Cleaner
  *
- * @since TBD
+ * @since 4.6.13
  */
 class Tribe__Events__Event_Cleaner {
 
@@ -17,7 +17,7 @@ class Tribe__Events__Event_Cleaner {
 	 *
 	 * @var $key_trash_events
 	 *
-	 * @since TBD
+	 * @since 4.6.13
 	 */
 	public $key_trash_events = 'trash-past-events';
 
@@ -26,7 +26,7 @@ class Tribe__Events__Event_Cleaner {
 	 *
 	 * @var $key_delete_events
 	 *
-	 * @since TBD
+	 * @since 4.6.13
 	 */
 	public $key_delete_events = 'delete-past-events';
 
@@ -41,7 +41,7 @@ class Tribe__Events__Event_Cleaner {
 	 * @param array $old_value
 	 * @param array $new_value
 	 *
-	 * @since TBD
+	 * @since 4.6.13
 	 */
 	public function move_old_events_to_trash( array $old_value, array $new_value ) {
 		$old_value = empty( $old_value[ $this->key_trash_events ] ) ? null : $old_value[ $this->key_trash_events ];
@@ -68,7 +68,7 @@ class Tribe__Events__Event_Cleaner {
 	 * @param array $old_value
 	 * @param array $new_value
 	 *
-	 * @since TBD
+	 * @since 4.6.13
 	 */
 	public function permanently_delete_old_events( array $old_value, array $new_value ) {
 		$old_value = empty( $old_value[ $this->key_delete_events ] ) ? null : $old_value[ $this->key_delete_events ];

@@ -47,7 +47,7 @@ class Tribe__Events__Event_Tickets__Attendees_Report {
 			/**
 			 * Allows for control of the specific "edit post" URLs used for venue.
 			 *
-			 * @since TBD
+			 * @since 4.6.13
 			 *
 			 * @param string $link     The default "edit post" URL.
 			 * @param int    $venue_id The Post ID of the venue.

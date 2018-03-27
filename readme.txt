@@ -308,13 +308,13 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 
 == Changelog ==
 
-= [4.6.13] TBD =
+= [4.6.13] 2018-03-28 =
 
-* Feature - Allow users to move to trash or permanently delete expired events [98826]
-* Tweak - Added Gutenberg compatibility for the Extension
-* Fix - Prevent Adjacent Events links failing due to wrong meta key been used (props to @jeremyfelt for fixing this) [101757]
-* Tweak - Added new filter, `tribe_tickets_venue_action_links_edit_url`, to modify the venue edit link in the sales and attendee report on the front end [93923]
-* Tweak - Start Day view at 00:00:00 and not 00:00:01 [99641]
+* Feature - Added facilities allowing users to trash or permanently delete expired events [98826]
+* Fix - Corrected the behavior of the previous/next event links rendered on single event pages (props to @jeremyfelt for fixing this) [101757]
+* Tweak - Added Gutenberg compatibility for the Gutenberg Extension plugin
+* Tweak - Added new filter `tribe_tickets_venue_action_links_edit_url` to modify the venue edit link for the sales and attendee reports [93923]
+* Tweak - Altered day view to start at 00:00:00 and not 00:00:01 [99641]
 
 = [4.6.12] 2018-03-08 =
 

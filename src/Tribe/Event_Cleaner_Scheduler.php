@@ -5,7 +5,7 @@
  *
  * Uses cron to move old events to trash and/or permanently delete them.
  *
- * @since TBD
+ * @since 4.6.13
  */
 class Tribe__Events__Event_Cleaner_Scheduler {
 
@@ -26,7 +26,7 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 	 *
 	 * @var $trash_new_date
 	 *
-	 * @since TBD
+	 * @since 4.6.13
 	 */
 	public $trash_new_date;
 
@@ -35,7 +35,7 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 	 *
 	 * @var $del_new_date
 	 *
-	 * @since TBD
+	 * @since 4.6.13
 	 */
 	public $del_new_date;
 
@@ -46,7 +46,7 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 	 * @param mixed $move_to_trash
 	 * @param mixed $permanently_delete
 	 *
-	 * @since TBD
+	 * @since 4.6.13
 	 */
 	public function __construct( $move_to_trash = null, $permanently_delete = null ) {
 		$this->trash_new_date = $move_to_trash;
@@ -59,7 +59,7 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 	 *
 	 * @param mixed $trash_new_value - the value for the $key_trash_events option
 	 *
-	 * @since TBD
+	 * @since 4.6.13
 	 */
 	public function set_trash_new_date( $trash_new_value ) {
 		$this->trash_new_date = $trash_new_value;
@@ -71,7 +71,7 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 	 *
 	 * @param mixed $del_new_value - the value for the $key_delete_events option
 	 *
-	 * @since TBD
+	 * @since 4.6.13
 	 */
 	public function set_delete_new_date( $del_new_value ) {
 		$this->del_new_date = $del_new_value;
@@ -81,7 +81,7 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 	 * Schedules the hooks to delete and move old events to trash
 	 * These hooks will be executed daily.
 	 *
-	 * @since TBD
+	 * @since 4.6.13
 	 */
 	public function add_hooks() {
 		if ( ! wp_next_scheduled( self::$trash_cron_hook ) && $this->trash_new_date != null ) {
@@ -107,7 +107,7 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 	/**
 	 * Removes the hooks
 	 *
-	 * @since TBD
+	 * @since 4.6.13
 	 */
 	public function remove_hooks() {
 		remove_action( self::$trash_cron_hook, array( $this, 'move_old_events_to_trash' ) );
@@ -117,7 +117,7 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 	/**
 	 * Un-schedules all previously-scheduled cron jobs for tribe_trash_event_cron
 	 *
-	 * @since TBD
+	 * @since 4.6.13
 	 */
 	public function trash_clear_scheduled_task() {
 		wp_clear_scheduled_hook( self::$trash_cron_hook );
@@ -126,7 +126,7 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 	/**
 	 * Un-schedules all previously-scheduled cron jobs for tribe_del_event_cron
 	 *
-	 * @since TBD
+	 * @since 4.6.13
 	 */
 	public function delete_clear_scheduled_task() {
 		wp_clear_scheduled_hook( self::$del_cron_hook );
@@ -135,7 +135,7 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 	/**
 	 * Selects events to be moved to trash or permanently deleted.
 	 *
-	 * @since TBD
+	 * @since 4.6.13
 	 *
 	 * @param int $month - The value chosen by user to purge all events older than x months
 	 *
@@ -168,7 +168,7 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 		 *
 		 * @param string $sql - The query statement
 		 *
-		 * @since TBD
+		 * @since 4.6.13
 		 */
 		$sql = apply_filters( 'tribe_events_delete_old_events_sql', $sql );
 
@@ -197,7 +197,7 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 	/**
 	 * Moves to trash events that ended before a date specified by user
 	 *
-	 * @since TBD
+	 * @since 4.6.13
 	 *
 	 * @return mixed
 	 */
@@ -219,7 +219,7 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 	/**
 	 * Permanently deletes events that ended before a date specified by user
 	 *
-	 * @since TBD
+	 * @since 4.6.13
 	 *
 	 * @return mixed - The post object (if it was deleted successfully) or false (failure)
 	 */

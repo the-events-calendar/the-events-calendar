@@ -167,7 +167,7 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 	/**
 	 * Whether the string is empty or represents a valid PHP timezone.
 	 *
-	 * @since TBD
+	 * @since 4.6.13
 	 *
 	 * @param string $candidate
 	 *
