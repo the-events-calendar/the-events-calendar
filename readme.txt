@@ -310,6 +310,7 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 
 = [4.6.13] TBD =
 
+* Fix - Prevent warnings on retrival of posts if "Include events in main blog loop" is checked (thanks to Colin Carmichael for report this problem) [97667]
 * Fix - Make the `tribe-ea-record` custom post type (used to store Event Aggregator record information) private [99106]
 
 = [4.6.12] 2018-03-08 =
