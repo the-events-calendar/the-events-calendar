@@ -2411,6 +2411,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 *
 	 * @since TBD
 	 *
+	 * @param bool $force Whether to use the the last child cached value or refetch it.
+	 *
 	 * @return WP_Post|false Either the last child post object or `false` on failure.
 	 */
 	protected function get_last_child_post( $force = false ) {
