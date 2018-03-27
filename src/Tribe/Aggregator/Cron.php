@@ -354,7 +354,15 @@ class Tribe__Events__Aggregator__Cron {
 
 					$record->update_meta( 'last_import_status', 'queued' );
 				} else {
-					tribe( 'logger' )->log_debug( 'Could not create Queue on Service', 'EA Cron' );
+					$message = '';
+
+					if ( is_string( $response ) ) {
+						$message = $response;
+					} else if ( is_object( $response ) || is_array( $response ) ) {
+						$message = json_encode( $response );
+					}
+
+					tribe( 'logger' )->log_debug( 'Could not create Queue on Service, message is ' . $message, 'EA Cron' );
 
 					$record->update_meta( 'last_import_status', 'error:import-failed' );
 				}
