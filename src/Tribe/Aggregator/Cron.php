@@ -358,7 +358,7 @@ class Tribe__Events__Aggregator__Cron {
 
 					if ( is_string( $response ) ) {
 						$message = $response;
-					} else if ( is_object( $response ) || is_array( $response ) ) {
+					} elseif ( is_object( $response ) || is_array( $response ) ) {
 						$message = json_encode( $response );
 					}
 
