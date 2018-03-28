@@ -565,7 +565,10 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 				$diff   = human_time_diff( $retry_time, $now );
 				$html[] = sprintf( esc_html_x( 'retrying in about %s', 'in human readable time', 'the-events-calendar' ), $diff );
 			} else {
-				$html[] = date( tribe_get_date_format( true ), $retry_time ) . '<br>' . date( Tribe__Date_Utils::TIMEFORMAT, $time );
+				$html[] = sprintf(
+					esc_html_x( 'retrying at %s', 'when the retry will happen, a date', 'the-events-calendar' ),
+					date( tribe_get_date_format( true ), $retry_time )
+				);
 			}
 			$html[] = '</div>';
 		}
