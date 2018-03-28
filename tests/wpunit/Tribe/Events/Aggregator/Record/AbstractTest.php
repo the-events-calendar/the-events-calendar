@@ -25,19 +25,21 @@ class AbstractTest extends Events_TestCase {
 	/**
 	 * Builds a simulation of a scheduled record.
 	 *
-	 * @param string $frequency_id  A supported scheduled frequency string among ("on_demand", "daily", "weekly", "monthly")
-	 * @param string $modified      A `strtotime` compatible string to indicate when the scheduled record was last modified
-	 * @param int    $schedule_day  The day of the week the import should happen at; defaults to 1 (Monday)
+	 * @param string $frequency_id A supported scheduled frequency string among ("on_demand", "daily", "weekly", "monthly")
+	 * @param string|int $modified A `strtotime` compatible string to indicate when the scheduled record was last modified
+	 * @param int $schedule_day The day of the week the import should happen at; defaults to 1 (Monday)
 	 * @param string $schedule_time The time of the day the import should happen at in 'H:i:s' format; defaults to 9am
 	 *
 	 * @return \Tribe__Events__Aggregator__Record__Scheduled_Test
 	 */
 	private function make_scheduled_record_instance( $frequency_id = 'weekly', $modified = 'now', $schedule_day = 1, $schedule_time = '09:00:00' ) {
 		$supported_frequencies = [
-			'on_demand' => 0,
-			'daily'     => 1 * DAY_IN_SECONDS,
-			'weekly'    => 7 * DAY_IN_SECONDS,
-			'monthly'   => 30 * DAY_IN_SECONDS,
+			'on_demand'   => 0,
+			'every30mins' => .5 * HOUR_IN_SECONDS,
+			'hourly'      => HOUR_IN_SECONDS,
+			'daily'       => 1 * DAY_IN_SECONDS,
+			'weekly'      => 7 * DAY_IN_SECONDS,
+			'monthly'     => 30 * DAY_IN_SECONDS,
 		];
 
 		if ( ! array_key_exists( $frequency_id, $supported_frequencies ) ) {
@@ -45,16 +47,17 @@ class AbstractTest extends Events_TestCase {
 			throw new \InvalidArgumentException( "Frequency id should be one among [{$frequencies}]" );
 		}
 
-		$modified = strtotime( $modified );
+		$modified = is_numeric($modified) ? $modified : strtotime( $modified );
 
 		if ( 0 >= $modified ) {
 			throw new \InvalidArgumentException( 'Modified should be a string parseable by the strtotime function' );
 		}
 
 		$post = $this->factory()->post->create_and_get( [
-			'post_type'   => Records::$post_type,
-			'post_status' => Records::$status->schedule,
-			'post_date'   => date( 'Y-m-d H:i:s', $modified ),
+			'post_type'      => Records::$post_type,
+			'post_status'    => Records::$status->schedule,
+			'post_date'      => date( 'Y-m-d H:i:s', $modified ),
+			'post_mime_type' => 'ea/ical',
 		] );
 
 		$record = new Record();
@@ -77,7 +80,7 @@ class AbstractTest extends Events_TestCase {
 	 * @test
 	 */
 	public function should_mark_a_scheduled_record_that_failed_on_last_run_as_in_schedule_time() {
-		$scheduled_record                             = $this->make_scheduled_record_instance( 'weekly', '-1 hour' );
+		$scheduled_record = $this->make_scheduled_record_instance( 'weekly', '-4 days' );
 		$scheduled_record->meta['last_import_status'] = 'success:hurray';
 
 		$this->assertFalse( $scheduled_record->is_schedule_time() );
@@ -113,7 +116,7 @@ class AbstractTest extends Events_TestCase {
 
 		$this->assertFalse( $scheduled_record->is_schedule_time() );
 
-		$this->add_failed_children_to( $scheduled_record, '-1 hour' );
+		$this->add_failed_children_to( $scheduled_record, '-4 days' );
 
 		$this->assertTrue( $scheduled_record->is_schedule_time() );
 	}
@@ -152,7 +155,7 @@ class AbstractTest extends Events_TestCase {
 	 * @test
 	 */
 	public function should_use_last_import_status_over_last_children_post_status_to_determine_status() {
-		$scheduled_record = $this->make_scheduled_record_instance( 'weekly', '-1 hour' );
+		$scheduled_record = $this->make_scheduled_record_instance( 'weekly', '-4 days' );
 
 		$scheduled_record->meta['last_import_status'] = 'error::something-happened';
 
@@ -175,9 +178,9 @@ class AbstractTest extends Events_TestCase {
 	public function should_use_the_most_recent_children_import_to_determine_the_status_if_last_import_status_is_not_set() {
 		$scheduled_record = $this->make_scheduled_record_instance( 'weekly', '-1 day' );
 
-		$this->add_successful_children_to( $scheduled_record, '-2 hours' );
-		$this->add_successful_children_to( $scheduled_record, '-1 hour' );
-		$last = $this->add_failed_children_to( $scheduled_record, '-20 minutes' );
+		$this->add_successful_children_to( $scheduled_record, '-2 weeks' );
+		$this->add_successful_children_to( $scheduled_record, '-9 days' );
+		$last = $this->add_failed_children_to( $scheduled_record, '-4 days' );
 
 		$this->assertTrue( $scheduled_record->is_schedule_time() );
 
@@ -190,22 +193,23 @@ class AbstractTest extends Events_TestCase {
 	 * Attaches a failed children import record to the specified scheduled record.
 	 *
 	 * @param Base   $scheduled_record
-	 * @param string $modified
+	 * @param string|int $modified
 	 *
 	 * @return int The children record post ID.
 	 */
 	protected function add_failed_children_to( $scheduled_record, $modified = 'now' ) {
-		$modified = strtotime( $modified );
+		$modified = is_numeric( $modified ) ? $modified : strtotime( $modified );
 
 		if ( 0 >= $modified ) {
 			throw new \InvalidArgumentException( 'Modified should be a string parseable by the strtotime function' );
 		}
 
 		return $this->factory()->post->create( [
-			'post_type'   => Records::$post_type,
-			'post_parent' => $scheduled_record->post->id,
-			'post_status' => Records::$status->failed,
-			'post_date'   => date( 'Y-m-d H:i:s', $modified ),
+			'post_type'      => Records::$post_type,
+			'post_parent'    => $scheduled_record->post->ID,
+			'post_status'    => Records::$status->failed,
+			'post_date'      => date( 'Y-m-d H:i:s', $modified ),
+			'post_mime_type' => $scheduled_record->post->post_mime_type,
 		] );
 	}
 
@@ -225,10 +229,11 @@ class AbstractTest extends Events_TestCase {
 		}
 
 		return $this->factory()->post->create( [
-			'post_type'   => Records::$post_type,
-			'post_parent' => $scheduled_record->post->id,
-			'post_status' => Records::$status->success,
-			'post_date'   => date( 'Y-m-d H:i:s', $modified ),
+			'post_type'      => Records::$post_type,
+			'post_parent'    => $scheduled_record->post->ID,
+			'post_status'    => Records::$status->success,
+			'post_date'      => date( 'Y-m-d H:i:s', $modified ),
+			'post_mime_type' => $scheduled_record->post->post_mime_type,
 		] );
 	}
 
@@ -511,5 +516,63 @@ class AbstractTest extends Events_TestCase {
 		$this->assertCount( 1, $created_events );
 		$this->assertCount( 3, $updated_organizers );
 		$this->assertEquals( $organizer_ids, get_post_meta( $created_events[0], '_EventOrganizerID' ) );
+	}
+	
+	/**
+	 * It should reschedule a failed import again at half its frequency
+	 *
+	 * @test
+	 */
+	public function should_reschedule_a_failed_import_again_at_half_its_frequency() {
+		$frequency        = 'weekly';
+		$modified         = '-1 day';
+		$child_failed_at = '-20 minutes';
+		$second_child_failed_at = '-5 days';
+
+		$scheduled_record = $this->make_scheduled_record_instance( $frequency, $modified );
+
+		$failed = $this->add_failed_children_to( $scheduled_record, $child_failed_at  );
+
+		$this->assertFalse( $scheduled_record->is_schedule_time() );
+
+		wp_delete_post( $failed, true );
+
+		$failed = $this->add_failed_children_to( $scheduled_record, $second_child_failed_at );
+
+		$this->assertTrue( $scheduled_record->is_schedule_time() );
+	}
+
+	public function frequencies_and_expected_retry_times() {
+		return [
+			[ 'on_demand', false ],
+			[ 'every30mins', false ],
+			[ 'hourly', false ],
+			[ 'daily', 6 * 3600 ],
+			[ 'weekly', 24 * 3600 ],
+			[ 'monthly', 24 * 3600 ],
+		];
+	}
+
+	/**
+	 * It should correctly return a record retry timestamp
+	 *
+	 * @test
+	 *
+	 * @dataProvider frequencies_and_expected_retry_times
+	 */
+	public function should_correctly_return_a_record_retry_timestamp( $frequency_id, $expected_interval ) {
+		$record_modified_time = strtotime( '-2 hours' );
+		$child_modified_time  = strtotime( '-1 hour' );
+		$record               = $this->make_scheduled_record_instance( $frequency_id, $record_modified_time );
+
+		$this->assertFalse( $record->get_retry_time() );
+
+		$this->add_failed_children_to( $record, $child_modified_time );
+
+		if ( false !== $expected_interval ) {
+			$this->assertEquals( $child_modified_time + $expected_interval, $record->get_retry_time() );
+		} else {
+			$this->assertFalse( $record->get_retry_time() );
+		}
 	}
 }
