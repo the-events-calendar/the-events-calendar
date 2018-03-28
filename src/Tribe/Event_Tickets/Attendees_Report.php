@@ -44,10 +44,20 @@ class Tribe__Events__Event_Tickets__Attendees_Report {
 		if ( tribe_has_venue( $event_id ) ) {
 			$venue_id = tribe_get_venue_id( $event_id );
 
+			/**
+			 * Allows for control of the specific "edit post" URLs used for venue.
+			 *
+			 * @since 4.6.13
+			 *
+			 * @param string $link     The default "edit post" URL.
+			 * @param int    $venue_id The Post ID of the venue.
+			 */
+			$edit_venue_link = apply_filters( 'tribe_tickets_venue_action_links_edit_url', get_edit_post_link( $venue_id ), $venue_id );
+
 			echo '
 				<li class="venue-name">
 					<strong>' . tribe_get_venue_label_singular() . ': </strong>
-					<a href="' . get_edit_post_link( $venue_id ) . '" title="' . esc_html__( 'Edit Venue', 'the-events-calendar' ) . '">' . tribe_get_venue( $event_id ) . '</a>
+					<a href="' . esc_url( $edit_venue_link ) . '" title="' . esc_html__( 'Edit Venue', 'the-events-calendar' ) . '">' . tribe_get_venue( $event_id ) . '</a>
 				</li>
 			';
 		}
