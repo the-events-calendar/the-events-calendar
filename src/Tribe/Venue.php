@@ -127,6 +127,7 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 		add_filter( 'tribe_events_linked_post_meta_box_title', array( $this, 'meta_box_title' ), 5, 2 );
 		add_filter( 'tribe_events_linked_post_default', array( $this, 'linked_post_default' ), 10, 2 );
 		add_action( 'tribe_events_linked_post_new_form', array( $this, 'linked_post_new_form' ) );
+		add_action( 'wp_head', array( $this, 'add_json_ld_to_single_venues' ) ) ;
 	}
 
 	/**
@@ -671,5 +672,16 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 		 * @since 4.6
 		 */
 		return apply_filters( 'tribe_event_venue_duplicate_custom_fields', $fields );
+	}
+
+	/**
+	 * Add JSON LD script for the single venue page.
+	 *
+	 * @since TBD
+	 */
+	public function add_json_ld_to_single_venues() {
+		if ( is_singular( $this::POSTTYPE ) ) {
+			Tribe__Events__JSON_LD__Venue::instance()->markup();
+		}
 	}
 }
