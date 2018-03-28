@@ -52,9 +52,10 @@ class AbstractTest extends Events_TestCase {
 		}
 
 		$post = $this->factory()->post->create_and_get( [
-			'post_type'   => Records::$post_type,
-			'post_status' => Records::$status->schedule,
-			'post_date'   => date( 'Y-m-d H:i:s', $modified ),
+			'post_type'      => Records::$post_type,
+			'post_status'    => Records::$status->schedule,
+			'post_date'      => date( 'Y-m-d H:i:s', $modified ),
+			'post_mime_type' => 'ea/ical',
 		] );
 
 		$record = new Record();
@@ -77,7 +78,7 @@ class AbstractTest extends Events_TestCase {
 	 * @test
 	 */
 	public function should_mark_a_scheduled_record_that_failed_on_last_run_as_in_schedule_time() {
-		$scheduled_record                             = $this->make_scheduled_record_instance( 'weekly', '-1 hour' );
+		$scheduled_record = $this->make_scheduled_record_instance( 'weekly', '-4 days' );
 		$scheduled_record->meta['last_import_status'] = 'success:hurray';
 
 		$this->assertFalse( $scheduled_record->is_schedule_time() );
@@ -113,7 +114,7 @@ class AbstractTest extends Events_TestCase {
 
 		$this->assertFalse( $scheduled_record->is_schedule_time() );
 
-		$this->add_failed_children_to( $scheduled_record, '-1 hour' );
+		$this->add_failed_children_to( $scheduled_record, '-4 days' );
 
 		$this->assertTrue( $scheduled_record->is_schedule_time() );
 	}
@@ -152,7 +153,7 @@ class AbstractTest extends Events_TestCase {
 	 * @test
 	 */
 	public function should_use_last_import_status_over_last_children_post_status_to_determine_status() {
-		$scheduled_record = $this->make_scheduled_record_instance( 'weekly', '-1 hour' );
+		$scheduled_record = $this->make_scheduled_record_instance( 'weekly', '-4 days' );
 
 		$scheduled_record->meta['last_import_status'] = 'error::something-happened';
 
@@ -175,9 +176,9 @@ class AbstractTest extends Events_TestCase {
 	public function should_use_the_most_recent_children_import_to_determine_the_status_if_last_import_status_is_not_set() {
 		$scheduled_record = $this->make_scheduled_record_instance( 'weekly', '-1 day' );
 
-		$this->add_successful_children_to( $scheduled_record, '-2 hours' );
-		$this->add_successful_children_to( $scheduled_record, '-1 hour' );
-		$last = $this->add_failed_children_to( $scheduled_record, '-20 minutes' );
+		$this->add_successful_children_to( $scheduled_record, '-2 weeks' );
+		$this->add_successful_children_to( $scheduled_record, '-9 days' );
+		$last = $this->add_failed_children_to( $scheduled_record, '-4 days' );
 
 		$this->assertTrue( $scheduled_record->is_schedule_time() );
 
@@ -202,10 +203,11 @@ class AbstractTest extends Events_TestCase {
 		}
 
 		return $this->factory()->post->create( [
-			'post_type'   => Records::$post_type,
-			'post_parent' => $scheduled_record->post->id,
-			'post_status' => Records::$status->failed,
-			'post_date'   => date( 'Y-m-d H:i:s', $modified ),
+			'post_type'      => Records::$post_type,
+			'post_parent'    => $scheduled_record->post->ID,
+			'post_status'    => Records::$status->failed,
+			'post_date'      => date( 'Y-m-d H:i:s', $modified ),
+			'post_mime_type' => $scheduled_record->post->post_mime_type,
 		] );
 	}
 
@@ -225,10 +227,11 @@ class AbstractTest extends Events_TestCase {
 		}
 
 		return $this->factory()->post->create( [
-			'post_type'   => Records::$post_type,
-			'post_parent' => $scheduled_record->post->id,
-			'post_status' => Records::$status->success,
-			'post_date'   => date( 'Y-m-d H:i:s', $modified ),
+			'post_type'      => Records::$post_type,
+			'post_parent'    => $scheduled_record->post->ID,
+			'post_status'    => Records::$status->success,
+			'post_date'      => date( 'Y-m-d H:i:s', $modified ),
+			'post_mime_type' => $scheduled_record->post->post_mime_type,
 		] );
 	}
 
@@ -511,5 +514,29 @@ class AbstractTest extends Events_TestCase {
 		$this->assertCount( 1, $created_events );
 		$this->assertCount( 3, $updated_organizers );
 		$this->assertEquals( $organizer_ids, get_post_meta( $created_events[0], '_EventOrganizerID' ) );
+	}
+	
+	/**
+	 * It should reschedule a failed import again at half its frequency
+	 *
+	 * @test
+	 */
+	public function should_reschedule_a_failed_import_again_at_half_its_frequency() {
+		$frequency        = 'weekly';
+		$modified         = '-1 day';
+		$child_failed_at = '-20 minutes';
+		$second_child_failed_at = '-5 days';
+
+		$scheduled_record = $this->make_scheduled_record_instance( $frequency, $modified );
+
+		$failed = $this->add_failed_children_to( $scheduled_record, $child_failed_at  );
+
+		$this->assertFalse( $scheduled_record->is_schedule_time() );
+
+		wp_delete_post( $failed, true );
+
+		$failed = $this->add_failed_children_to( $scheduled_record, $second_child_failed_at );
+
+		$this->assertTrue( $scheduled_record->is_schedule_time() );
 	}
 }
