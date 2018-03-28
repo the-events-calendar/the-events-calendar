@@ -34,10 +34,12 @@ class AbstractTest extends Events_TestCase {
 	 */
 	private function make_scheduled_record_instance( $frequency_id = 'weekly', $modified = 'now', $schedule_day = 1, $schedule_time = '09:00:00' ) {
 		$supported_frequencies = [
-			'on_demand' => 0,
-			'daily'     => 1 * DAY_IN_SECONDS,
-			'weekly'    => 7 * DAY_IN_SECONDS,
-			'monthly'   => 30 * DAY_IN_SECONDS,
+			'on_demand'   => 0,
+			'every30mins' => .5 * HOUR_IN_SECONDS,
+			'hourly'      => HOUR_IN_SECONDS,
+			'daily'       => 1 * DAY_IN_SECONDS,
+			'weekly'      => 7 * DAY_IN_SECONDS,
+			'monthly'     => 30 * DAY_IN_SECONDS,
 		];
 
 		if ( ! array_key_exists( $frequency_id, $supported_frequencies ) ) {
@@ -45,7 +47,7 @@ class AbstractTest extends Events_TestCase {
 			throw new \InvalidArgumentException( "Frequency id should be one among [{$frequencies}]" );
 		}
 
-		$modified = strtotime( $modified );
+		$modified = is_numeric($modified) ? $modified : strtotime( $modified );
 
 		if ( 0 >= $modified ) {
 			throw new \InvalidArgumentException( 'Modified should be a string parseable by the strtotime function' );
@@ -538,5 +540,34 @@ class AbstractTest extends Events_TestCase {
 		$failed = $this->add_failed_children_to( $scheduled_record, $second_child_failed_at );
 
 		$this->assertTrue( $scheduled_record->is_schedule_time() );
+	}
+
+	public function frequencies_and_expected_retry_times() {
+		return [
+			[ 'on_demand', false ],
+			[ 'every30mins', false ],
+			[ 'hourly', false ],
+			[ 'daily', 6 * 3600 ],
+			[ 'weekly', 24 * 3600 ],
+			[ 'monthly', 24 * 3600 ],
+		];
+	}
+
+	/**
+	 * It should correctly return a record retry timestamp
+	 *
+	 * @test
+	 *
+	 * @dataProvider frequencies_and_expected_retry_times
+	 */
+	public function should_correctly_return_a_record_retry_timestamp( $frequency_id, $expected_interval ) {
+		$modified_time = strtotime( '-1 hour' );
+		$record        = $this->make_scheduled_record_instance( $frequency_id, $modified_time );
+
+		if ( false !== $expected_interval ) {
+			$this->assertEquals( $modified_time + $expected_interval, $record->get_retry_time() );
+		} else {
+			$this->assertFalse( $record->get_retry_time() );
+		}
 	}
 }
