@@ -313,6 +313,7 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 * Fix - Prevent warnings on retrival of posts if "Include events in main blog loop" is checked (thanks to Colin Carmichael for report this problem) [97667]
 * Fix - Make the `tribe-ea-record` custom post type (used to store Event Aggregator record information) private [99106]
 * Fix - Expand the size of the TimeZone input on the admin to allow better visibility for long names [100363]
+* Fix - If the main events page is set to be the site's front page, ensure it shows as "selected" in the Customizer's front page option [100832]
 * Fix - Prevent Event Aggregator scheduled imports that failed from re-attempting the import too soon [102489]
 * Tweak - Added the `tribe_aggregator_find_matching_organizer` and `tribe_aggregator_find_matching_venue` filters in Events Aggregator code to allow the definition of custom Venue and Organizer match criteria [97292]
 * Tweak - Display the retry time for a failed Event Aggregator scheduled import in the Scheduled tab [102489]
