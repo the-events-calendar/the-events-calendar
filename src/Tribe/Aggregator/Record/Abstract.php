@@ -2551,7 +2551,12 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			return false;
 		}
 
-		$retry_time = strtotime( $this->post->post_modified_gmt ) + (int) $retry_interval;
+		if ( ! $this->get_last_import_status( 'error', true ) ) {
+			return false;
+		}
+
+		$last_attempt_time = strtotime( $this->last_child()->post->post_modified_gmt );
+		$retry_time        = $last_attempt_time + (int) $retry_interval;
 
 		if ( $retry_time < time() ) {
 			$retry_time = false;

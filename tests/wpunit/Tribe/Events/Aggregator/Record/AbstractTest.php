@@ -25,9 +25,9 @@ class AbstractTest extends Events_TestCase {
 	/**
 	 * Builds a simulation of a scheduled record.
 	 *
-	 * @param string $frequency_id  A supported scheduled frequency string among ("on_demand", "daily", "weekly", "monthly")
-	 * @param string $modified      A `strtotime` compatible string to indicate when the scheduled record was last modified
-	 * @param int    $schedule_day  The day of the week the import should happen at; defaults to 1 (Monday)
+	 * @param string $frequency_id A supported scheduled frequency string among ("on_demand", "daily", "weekly", "monthly")
+	 * @param string|int $modified A `strtotime` compatible string to indicate when the scheduled record was last modified
+	 * @param int $schedule_day The day of the week the import should happen at; defaults to 1 (Monday)
 	 * @param string $schedule_time The time of the day the import should happen at in 'H:i:s' format; defaults to 9am
 	 *
 	 * @return \Tribe__Events__Aggregator__Record__Scheduled_Test
@@ -193,12 +193,12 @@ class AbstractTest extends Events_TestCase {
 	 * Attaches a failed children import record to the specified scheduled record.
 	 *
 	 * @param Base   $scheduled_record
-	 * @param string $modified
+	 * @param string|int $modified
 	 *
 	 * @return int The children record post ID.
 	 */
 	protected function add_failed_children_to( $scheduled_record, $modified = 'now' ) {
-		$modified = strtotime( $modified );
+		$modified = is_numeric( $modified ) ? $modified : strtotime( $modified );
 
 		if ( 0 >= $modified ) {
 			throw new \InvalidArgumentException( 'Modified should be a string parseable by the strtotime function' );
@@ -561,11 +561,16 @@ class AbstractTest extends Events_TestCase {
 	 * @dataProvider frequencies_and_expected_retry_times
 	 */
 	public function should_correctly_return_a_record_retry_timestamp( $frequency_id, $expected_interval ) {
-		$modified_time = strtotime( '-1 hour' );
-		$record        = $this->make_scheduled_record_instance( $frequency_id, $modified_time );
+		$record_modified_time = strtotime( '-2 hours' );
+		$child_modified_time  = strtotime( '-1 hour' );
+		$record               = $this->make_scheduled_record_instance( $frequency_id, $record_modified_time );
+
+		$this->assertFalse( $record->get_retry_time() );
+
+		$this->add_failed_children_to( $record, $child_modified_time );
 
 		if ( false !== $expected_interval ) {
-			$this->assertEquals( $modified_time + $expected_interval, $record->get_retry_time() );
+			$this->assertEquals( $child_modified_time + $expected_interval, $record->get_retry_time() );
 		} else {
 			$this->assertFalse( $record->get_retry_time() );
 		}
