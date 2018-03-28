@@ -64,7 +64,7 @@ class Tribe__Events__Customizer__Front_Page_View extends Tribe__Customizer__Sect
 
 		$option = sprintf(
 			'<option class="level-0" value="%1$s" selected="%2$s">%3$s</option></select>',
-			'main_events_page',
+			0,
 			( $already_chosen ? 'selected' : '' ),
 			$label
 		);
