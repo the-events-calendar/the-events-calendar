@@ -2515,7 +2515,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 *
 	 * @return int
 	 */
-	protected function get_retry_interval() {
+	public function get_retry_interval() {
 		if ( $this->frequency->interval === DAY_IN_SECONDS ) {
 			$retry_interval = 6 * HOUR_IN_SECONDS;
 		} elseif ( $this->frequency->interval < DAY_IN_SECONDS ) {
@@ -2530,10 +2530,47 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		 *
 		 * @since TBD
 		 *
-		 * @param int An interval in seconds; defaults to the record frequency / 2.
+		 * @param int $retry_interval An interval in seconds; defaults to the record frequency / 2.
 		 * @param Tribe__Events__Aggregator__Record__Abstract $this
 		 */
 		return apply_filters( 'tribe_aggregator_scheduled_records_retry_interval', $retry_interval, $this );
+	}
+
+	/**
+	 * Returns the record retry timestamp.
+	 *
+	 * @since TBD
+	 *
+	 * @return int|bool Either the record retry timestamp or `false` if the record will
+	 *                  not retry to import.
+	 */
+	public function get_retry_time() {
+		$retry_interval = $this->get_retry_interval();
+
+		if ( empty( $retry_interval ) ) {
+			return false;
+		}
+
+		if ( ! $this->get_last_import_status( 'error', true ) ) {
+			return false;
+		}
+
+		$last_attempt_time = strtotime( $this->last_child()->post->post_modified_gmt );
+		$retry_time        = $last_attempt_time + (int) $retry_interval;
+
+		if ( $retry_time < time() ) {
+			$retry_time = false;
+		}
+
+		/**
+		 * Filters the retry timestamp for a scheduled record.
+		 *
+		 * @since TBD
+		 *
+		 * @param int $retry_time A timestamp.
+		 * @param Tribe__Events__Aggregator__Record__Abstract $this
+		 */
+		return apply_filters( 'tribe_aggregator_scheduled_records_retry_interval', $retry_time, $this );
 	}
 }
 
