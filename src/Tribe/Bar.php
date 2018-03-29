@@ -91,7 +91,7 @@ class Tribe__Events__Bar {
 	}
 
 	/**
-	 *    Load the CSSs and JSs only if the Bar will be shown
+	 * Load the CSSs and JSs only if the Bar will be shown
 	 */
 	public function load_script() {
 

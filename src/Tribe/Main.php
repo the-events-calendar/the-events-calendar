@@ -66,6 +66,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			'capability_type' => array( 'tribe_event', 'tribe_events' ),
 			'map_meta_cap'    => true,
 			'has_archive'     => true,
+			'menu_icon'       => 'dashicons-calendar',
 		);
 
 		/**
@@ -418,6 +419,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Ignored Events
 			tribe_singleton( 'tec.ignored-events', 'Tribe__Events__Ignored_Events', array( 'hook' ) );
 
+			// Assets loader
+			tribe_singleton( 'tec.assets', 'Tribe__Events__Assets', array( 'register', 'hook' ) );
+
 			// Register and start the Customizer Sections
 			tribe_singleton( 'tec.customizer.general-theme', new Tribe__Events__Customizer__General_Theme() );
 			tribe_singleton( 'tec.customizer.global-elements', new Tribe__Events__Customizer__Global_Elements() );
@@ -530,13 +534,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( 'init', array( $this, 'init' ), 10 );
 			add_action( 'admin_init', array( $this, 'admin_init' ) );
 
-			// Frontend Javascript
-			add_action( 'wp_enqueue_scripts', array( $this, 'loadStyle' ) );
-
-			// WP Admin Menu Fixes
-			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_wp_admin_menu_style' ) );
-			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_wp_admin_menu_style' ) );
-
 			add_filter( 'tribe_events_before_html', array( $this, 'before_html_data_wrapper' ) );
 			add_filter( 'tribe_events_after_html', array( $this, 'after_html_data_wrapper' ) );
 
@@ -583,9 +580,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( 'delete_post', array( Tribe__Events__Dates__Known_Range::instance(), 'maybe_rebuild_known_range' ) );
 			add_action( 'tribe_events_post_errors', array( 'Tribe__Events__Post_Exception', 'displayMessage' ) );
 			add_action( 'tribe_settings_top', array( 'Tribe__Events__Options_Exception', 'displayMessage' ) );
-			add_action( 'admin_enqueue_scripts', array( $this, 'add_admin_assets' ) );
-			add_action( 'admin_enqueue_scripts', array( $this, 'asset_fixes' ), 200 );
-			add_filter( 'tribe_events_register_event_type_args', array( $this, 'setDashicon' ) );
 			add_action( 'trash_' . self::VENUE_POST_TYPE, array( $this, 'cleanupPostVenues' ) );
 			add_action( 'trash_' . self::ORGANIZER_POST_TYPE, array( $this, 'cleanupPostOrganizers' ) );
 			add_action( 'wp_ajax_tribe_event_validation', array( $this, 'ajax_form_validate' ) );
@@ -720,6 +714,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe( 'events-aggregator.main' );
 			tribe( 'tec.shortcodes.event-details' );
 			tribe( 'tec.ignored-events' );
+			tribe( 'tec.assets' );
 			tribe( 'tec.iCal' );
 			tribe( 'tec.rest-v1.main' );
 			tribe( 'tec.gutenberg' );
@@ -1930,7 +1925,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$args['checked_ontop'] = false;
 
 			return $args;
-		}//end prevent_checked_on_top_terms
+		}
 
 		/**
 		 * Update admin classes
@@ -1946,140 +1941,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			return $classes;
-		}
-
-		/**
-		 * Add admin scripts and styles
-		 *
-		 */
-		public function add_admin_assets() {
-			$admin_helpers = Tribe__Admin__Helpers::instance();
-
-			// setup plugin resources & 3rd party vendor urls
-			$vendor_url    = trailingslashit( $this->plugin_url ) . 'vendor/';
-
-			// admin stylesheet - only load admin stylesheet when on Tribe pages
-			if ( $admin_helpers->is_screen() ) {
-				wp_enqueue_style( self::POSTTYPE . '-admin', tribe_events_resource_url( 'events-admin.css' ), array(), apply_filters( 'tribe_events_css_version', self::VERSION ) );
-			}
-
-			// settings screen
-			if ( $admin_helpers->is_screen( 'settings_page_tribe-settings' ) ) {
-				// JS admin
-				Tribe__Events__Template_Factory::asset_package( 'admin' );
-
-				// JS settings
-				Tribe__Events__Template_Factory::asset_package( 'settings' );
-
-				wp_enqueue_script( 'thickbox' );
-				wp_enqueue_style( 'thickbox' );
-
-				// hook for other plugins
-				do_action( 'tribe_settings_enqueue' );
-			}
-
-			if ( $admin_helpers->is_screen( array( 'widgets', 'customize' ) ) ) {
-				Tribe__Events__Template_Factory::asset_package( 'tribe-select2' );
-				Tribe__Events__Template_Factory::asset_package( 'admin' );
-			}
-
-			// events, organizer, or venue editing
-			if ( $admin_helpers->is_post_type_screen() ) {
-				// select 2
-				Tribe__Events__Template_Factory::asset_package( 'tribe-select2' );
-
-				//php date formatter
-				Tribe__Events__Template_Factory::asset_package( 'php-date-formatter' );
-
-				//dynamic helper text
-				Tribe__Events__Template_Factory::asset_package( 'dynamic' );
-
-				// date picker
-				Tribe__Events__Template_Factory::asset_package( 'datepicker' );
-
-				// dialog
-				Tribe__Events__Template_Factory::asset_package( 'dialog' );
-
-				// UI admin
-				Tribe__Events__Template_Factory::asset_package( 'admin-ui' );
-
-				// JS admin
-				Tribe__Events__Template_Factory::asset_package( 'admin' );
-
-				// Admin Legacy Migration
-				Tribe__Events__Template_Factory::asset_package( 'admin-migrate-legacy-ignored-events' );
-
-				// ecp placeholders
-				Tribe__Events__Template_Factory::asset_package( 'ecp-plugins' );
-
-				if ( $admin_helpers->is_post_type_screen( self::POSTTYPE ) ) {
-					tribe_asset( $this, 'tribe-events-editor', 'event-editor.js', array( 'jquery' ), 'admin_enqueue_scripts' );
-
-					add_action( 'admin_footer', array( $this, 'printLocalizedAdmin' ) );
-					// hook for other plugins
-					do_action( 'tribe_events_enqueue' );
-				} elseif ( $admin_helpers->is_post_type_screen( self::VENUE_POST_TYPE ) ) {
-					// hook for other plugins
-					do_action( 'tribe_venues_enqueue' );
-				} elseif ( $admin_helpers->is_post_type_screen( self::ORGANIZER_POST_TYPE ) ) {
-					do_action( 'tribe_organizers_enqueue' );
-				}
-			}
-		}
-
-		/**
-		 * Compatibility fix: some plugins enqueue jQuery UI/other styles on all post screens,
-		 * breaking our own custom styling of event editor components such as the datepicker.
-		 *
-		 * Needs to execute late enough during admin_enqueue_scripts that the items we are removing
-		 * have already been registered and enqueued.
-		 *
-		 * @see https://github.com/easydigitaldownloads/easy-digital-downloads/issues/3033
-		 */
-		public function asset_fixes() {
-			if ( ! Tribe__Admin__Helpers::instance()->is_post_type_screen( self::POSTTYPE ) ) {
-				return;
-			}
-
-			wp_dequeue_style( 'jquery-ui-css' );
-			wp_dequeue_style( 'edd-admin' );
-		}
-
-		/**
-		 * Modify the post type args to set Dashicon if we're in WP 3.8+
-		 *
-		 * @return array post type args
-		 **/
-		public function setDashicon( $postTypeArgs ) {
-			global $wp_version;
-
-			if ( version_compare( $wp_version, 3.8 ) >= 0 ) {
-				$postTypeArgs['menu_icon'] = 'dashicons-calendar';
-			}
-
-			return $postTypeArgs;
-
-		}
-
-		/**
-		 * Localize admin.
-		 *
-		 * @return array
-		 */
-		public function localizeAdmin() {
-			$bits = array(
-				'ajaxurl' => esc_url_raw( admin_url( 'admin-ajax.php', ( is_ssl() || FORCE_SSL_ADMIN ? 'https' : 'http' ) ) ),
-			);
-
-			return $bits;
-		}
-
-		/**
-		 * Output localized admin javascript
-		 *
-		 */
-		public function printLocalizedAdmin() {
-			wp_localize_script( 'tribe-events-admin', 'TEC', $this->localizeAdmin() );
 		}
 
 		/**
@@ -2177,45 +2038,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				tribe_get_option( tribe( 'tec.event-cleaner' )->key_delete_events, null )
 			);
 			$this->scheduler->add_hooks();
-		}
-
-		/**
-		 * Make sure we are loading a style for all logged-in users when we have the admin menu
-		 * @return void
-		 */
-		public function enqueue_wp_admin_menu_style() {
-			if ( ! is_admin_bar_showing() ) {
-				return;
-			}
-
-			// UI admin
-			Tribe__Events__Template_Factory::asset_package( 'admin-menu' );
-		}
-
-		/**
-		 * Load asset packages.
-		 *
-		 */
-		public function loadStyle() {
-			if ( tribe_is_event_query() || tribe_is_event_organizer() || tribe_is_event_venue() ) {
-
-				// jquery-resize
-				Tribe__Events__Template_Factory::asset_package( 'jquery-resize' );
-
-				// smoothness
-				Tribe__Events__Template_Factory::asset_package( 'smoothness' );
-
-				// Tribe Calendar JS
-				Tribe__Events__Template_Factory::asset_package( 'calendar-script' );
-
-				Tribe__Events__Template_Factory::asset_package( 'events-css' );
-			} else {
-				if ( is_active_widget( false, false, 'tribe-events-list-widget' ) ) {
-
-					Tribe__Events__Template_Factory::asset_package( 'events-css' );
-
-				}
-			}
 		}
 
 		/**
@@ -4559,7 +4381,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public function register_30min_interval( $schedules ) {
 			$schedules['every_30mins'] = array(
 				'interval' => 30 * MINUTE_IN_SECONDS,
-				'display'  => esc_html__( 'Once Every 30 Mins', 'tribe-events-pro' ),
+				'display'  => esc_html__( 'Once Every 30 Mins', 'the-events-calendar' ),
 			);
 
 			return $schedules;
@@ -4772,11 +4594,151 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			return $reverse_position;
 		}
 
+		/**
+		 * Filters the chunkable post types.
+		 *
+		 * @param array $post_types
+		 * @return array The filtered post types
+		 */
+		public function filter_meta_chunker_post_types( array $post_types ) {
+			$post_types = array_merge(
+				$post_types,
+				array(
+					self::POSTTYPE,
+					self::VENUE_POST_TYPE,
+					self::ORGANIZER_POST_TYPE,
+					Tribe__Events__Aggregator__Records::$post_type,
+				)
+			);
+
+			return $post_types;
+		}
+
 		/************************
 		 *                      *
 		 *  Deprecated Methods  *
 		 *                      *
 		 ************************/
+
+		/**
+		 * Make sure we are loading a style for all logged-in users when we have the admin menu
+		 *
+		 * @deprecated TBD
+		 *
+		 * @return void
+		 */
+		public function enqueue_wp_admin_menu_style() {
+			_deprecated_function(
+				__METHOD__,
+				'We are now using `Assets.php` class to load all CSS files',
+				'TBD'
+			);
+		}
+
+		/**
+		 * Load asset packages.
+		 *
+		 * @deprecated TBD
+		 */
+		public function loadStyle() {
+			_deprecated_function(
+				__METHOD__,
+				'We are now using `Assets.php` class to load all CSS files',
+				'TBD'
+			);
+		}
+
+		/**
+		 * Add admin scripts and styles
+		 *
+		 * @deprecated TBD
+		 */
+		public function add_admin_assets() {
+			_deprecated_function(
+				__METHOD__,
+				'tribe( "tec.assets" )->load_admin()',
+				'TBD'
+			);
+			tribe( 'tec.assets' )->load_admin();
+		}
+
+		/**
+		 * Compatibility fix: some plugins enqueue jQuery UI/other styles on all post screens,
+		 * breaking our own custom styling of event editor components such as the datepicker.
+		 *
+		 * Needs to execute late enough during admin_enqueue_scripts that the items we are removing
+		 * have already been registered and enqueued.
+		 *
+		 * @deprecated TBD
+		 *
+		 * @see https://github.com/easydigitaldownloads/easy-digital-downloads/issues/3033
+		 */
+		public function asset_fixes() {
+			_deprecated_function(
+				__METHOD__,
+				'tribe( "tec.assets" )->dequeue_incompatible()',
+				'TBD'
+			);
+
+			tribe( 'tec.assets' )->dequeue_incompatible();
+		}
+
+		/**
+		 * Localize admin.
+		 *
+		 * @deprecated TBD
+		 *
+		 * @return array
+		 */
+		public function localizeAdmin() {
+			_deprecated_function(
+				__METHOD__,
+				'We are now using `Assets.php` class to load all JS localization',
+				'TBD'
+			);
+			$bits = array(
+				'ajaxurl' => esc_url_raw( admin_url( 'admin-ajax.php', ( is_ssl() || FORCE_SSL_ADMIN ? 'https' : 'http' ) ) ),
+			);
+
+			return $bits;
+		}
+
+		/**
+		 * Output localized admin javascript
+		 *
+		 * @deprecated TBD
+		 */
+		public function printLocalizedAdmin() {
+			_deprecated_function(
+				__METHOD__,
+				'We are now using `Assets.php` class to load all JS localization',
+				'TBD'
+			);
+			wp_localize_script( 'tribe-events-admin', 'TEC', $this->localizeAdmin() );
+		}
+
+		/**
+		 * Modify the post type args to set Dashicon if we're in WP 3.8+
+		 *
+		 * @deprecated TBD
+		 *
+		 * @return array post type args
+		 **/
+		public function setDashicon( $postTypeArgs ) {
+			_deprecated_function(
+				__METHOD__,
+				'We add `menu_icon` goes into the base arguments',
+				'TBD'
+			);
+
+			global $wp_version;
+
+			if ( version_compare( $wp_version, 3.8 ) >= 0 ) {
+				$postTypeArgs['menu_icon'] = 'dashicons-calendar';
+			}
+
+			return $postTypeArgs;
+		}
 
 		/**
 		 * displays the saved venue dropdown in the event metabox
@@ -5435,22 +5397,5 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			return class_exists( 'Tribe__Events__Pro__Main' ) && defined( 'Tribe__Events__Pro__Main::VERSION' ) && version_compare( Tribe__Events__Pro__Main::VERSION, $version, '>=' );
 		}
 
-		/**
-		 * Filters the chunkable post types.
-		 *
-		 * @param array $post_types
-		 * @return array The filtered post types
-		 */
-		public function filter_meta_chunker_post_types( array $post_types ) {
-			$post_types = array_merge( $post_types, array(
-				self::POSTTYPE,
-				self::VENUE_POST_TYPE,
-				self::ORGANIZER_POST_TYPE,
-				Tribe__Events__Aggregator__Records::$post_type,
-			) );
-
-			return $post_types;
-		}
-
 	}
-} // end if !class_exists Tribe__Events__Main
+}
