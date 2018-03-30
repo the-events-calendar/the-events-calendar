@@ -39,7 +39,17 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		public static function createEvent( $args ) {
 
 			$args['post_type'] = Tribe__Events__Main::POSTTYPE;
-			$event_id          = wp_insert_post( $args, true );
+
+			/**
+			 * Allow filtering of arguments in prior to inserting the event and meta fields.
+			 *
+			 * @param array $args The fields we want saved.
+			 *
+			 * @since TBD
+			 */
+			$args = apply_filters( 'tribe_events_event_insert_args', $args );
+
+			$event_id = wp_insert_post( $args, true );
 
 			if ( ! is_wp_error( $event_id ) ) {
 				self::saveEventMeta( $event_id, $args, get_post( $event_id ) );
@@ -69,6 +79,17 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			) {
 				$args['edit_date'] = true;
 			}
+
+			/**
+			 * Allow hooking in prior to updating the event and meta fields.
+			 *
+			 * @param array   $args     The fields we want saved.
+			 * @param int     $event_id The event ID we are modifying.
+			 * @param WP_Post $post     The event itself.
+			 *
+			 * @since TBD
+			 */
+			$args = apply_filters( 'tribe_events_event_update_args', $args, $event_id, $post );
 
 			if ( wp_update_post( $args ) ) {
 				self::saveEventMeta( $event_id, $args, $post );
