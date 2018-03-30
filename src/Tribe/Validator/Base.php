@@ -53,12 +53,35 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 	 * @return bool
 	 */
 	public function is_organizer_id_list( $organizers, $sep = ',' ) {
-		$sep        = is_string( $sep ) ? $sep : ',';
+		$valid = $this->organizer_id_list( $organizers, $sep );
+
+		return ! empty( $organizers ) && count( $valid ) === count( $organizers );
+	}
+
+	/**
+	 * Get list or array of organizer post IDs that contain valid organizer IDs.
+	 *
+	 * @since TBD
+	 *
+	 * @param  string|array $organizers A list of organizer post IDs separated by the specified separator or an array
+	 *                                  of organizer post IDs.
+	 * @param string        $sep        The separator used in the list to separate the organizer post IDs; ignored if
+	 *                                  the input value is an array.
+	 *
+	 * @return array
+	 */
+	public function organizer_id_list( $organizers, $sep = ',' ) {
+		$sep = is_string( $sep ) ? $sep : ',';
+
+		if ( is_array( $organizers ) && isset( $organizers['OrganizerID'] ) ) {
+			$organizers = $organizers['OrganizerID'];
+		}
+
 		$organizers = Tribe__Utils__Array::list_to_array( $organizers, $sep );
 
 		$valid = array_filter( $organizers, array( $this, 'is_organizer_id' ) );
 
-		return ! empty( $organizers ) && count( $valid ) === count( $organizers );
+		return $valid;
 	}
 
 	/**
@@ -200,11 +223,35 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 	 * @return bool
 	 */
 	public function is_venue_id_list( $venues, $sep = ',' ) {
-		$sep    = is_string( $sep ) ? $sep : ',';
+		$valid = $this->venue_id_list( $venues, $sep );
+
+		return ! empty( $venues ) && count( $valid ) === count( $venues );
+	}
+
+	/**
+	 * Get list or array of venue post IDs that contains valid venue IDs.
+	 *
+	 * @since TBD
+	 *
+	 * @param  string|array $venues A list of venue post IDs separated by the specified separator or an array
+	 *                                  of venue post IDs.
+	 * @param string        $sep        The separator used in the list to separate the venue post IDs; ignored if
+	 *                                  the input value is an array.
+	 *
+	 * @return array
+	 */
+	public function venue_id_list( $venues, $sep = ',' ) {
+
+		$sep = is_string( $sep ) ? $sep : ',';
+
+		if ( is_array( $venues ) && isset( $venues['VenueID'] ) ) {
+			$venues = $venues['VenueID'];
+		}
+
 		$venues = Tribe__Utils__Array::list_to_array( $venues, $sep );
 
 		$valid = array_filter( $venues, array( $this, 'is_venue_id' ) );
 
-		return ! empty( $venues ) && count( $valid ) === count( $venues );
+		return $valid;
 	}
 }
