@@ -143,7 +143,7 @@ class Tribe__Events__Assets {
 			$plugin,
 			'tribe-events-calendar-script',
 			'tribe-events.js',
-			array( 'jquery', 'tribe-events-jquery-resize' ),
+			array( 'jquery', 'tribe-events-bootstrap-datepicker', 'tribe-events-jquery-resize', 'jquery-placeholder' ),
 			'wp_enqueue_scripts',
 			array(
 				'conditionals' => array( $this, 'should_enqueue_frontend' ),
