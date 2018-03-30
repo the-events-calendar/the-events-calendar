@@ -160,10 +160,6 @@ class Tribe__Events__Assets {
 			'wp_enqueue_scripts',
 			array(
 				'conditionals' => array( $this, 'should_enqueue_frontend' ),
-				'localize'     => array(
-					'name' => 'tribe_js_config',
-					'data' => array( $this, 'get_js_calendar_script_data' ),
-				),
 			)
 		);
 
