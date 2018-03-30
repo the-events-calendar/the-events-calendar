@@ -42,7 +42,10 @@ class Tribe__Events__Assets {
 				array( 'tribe-events-bootstrap-datepicker-css', 'vendor/bootstrap-datepicker/css/bootstrap-datepicker.standalone.css', array() ),
 				array( 'tribe-events-bootstrap-datepicker', 'vendor/bootstrap-datepicker/js/bootstrap-datepicker.js', array( 'jquery' ) ),
 			),
-			null
+			null,
+			array(
+				'in_footer'    => false,
+			)
 		);
 
 		// All post Type pages
@@ -154,6 +157,18 @@ class Tribe__Events__Assets {
 
 		tribe_asset(
 			$plugin,
+			'tribe-events-bar',
+			'tribe-events-bar.js',
+			array( 'jquery', 'tribe-events-calendar-script', 'tribe-events-bootstrap-datepicker', 'tribe-events-jquery-resize', 'jquery-placeholder' ),
+			'wp_enqueue_scripts',
+			array(
+				'in_footer'    => false,
+				'conditionals' => array( $this, 'should_enqueue_frontend' ),
+			)
+		);
+
+		tribe_asset(
+			$plugin,
 			'tribe-events-dynamic',
 			'events-dynamic.js',
 			array( 'jquery', 'tribe-events-php-date-formatter', 'tribe-moment' ),
@@ -234,17 +249,6 @@ class Tribe__Events__Assets {
 			'wp_enqueue_scripts',
 			array(
 				'groups'       => array( 'events-styles' ),
-				'conditionals' => array( $this, 'should_enqueue_frontend' ),
-			)
-		);
-
-		tribe_asset(
-			$plugin,
-			'tribe-events-bar',
-			'tribe-events-bar.js',
-			array( 'jquery', 'tribe-events-calendar-script', 'tribe-events-bootstrap-datepicker', 'tribe-events-jquery-resize', 'jquery-placeholder' ),
-			'wp_enqueue_scripts',
-			array(
 				'conditionals' => array( $this, 'should_enqueue_frontend' ),
 			)
 		);
