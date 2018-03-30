@@ -71,7 +71,7 @@ class Tribe__Events__Assets {
 			'admin_enqueue_scripts',
 			array(
 				'groups'       => array( 'events-admin' ),
-				'conditionals' => array( $admin_helpers, 'should_enqueue_admin' ),
+				'conditionals' => array( $this, 'should_enqueue_admin' ),
 			)
 		);
 
@@ -282,7 +282,7 @@ class Tribe__Events__Assets {
 			do_action( 'tribe_settings_enqueue' );
 		}
 
-		if ( $admin_helpers->is_post_type_screen( self::POSTTYPE ) ) {
+		if ( $admin_helpers->is_post_type_screen( Tribe__Events__Main::POSTTYPE ) ) {
 			// hook for other plugins
 			do_action( 'tribe_events_enqueue' );
 		} elseif ( $admin_helpers->is_post_type_screen( self::VENUE_POST_TYPE ) ) {
@@ -305,7 +305,7 @@ class Tribe__Events__Assets {
 	 * @see https://github.com/easydigitaldownloads/easy-digital-downloads/issues/3033
 	 */
 	public function dequeue_incompatible() {
-		if ( ! Tribe__Admin__Helpers::instance()->is_post_type_screen( self::POSTTYPE ) ) {
+		if ( ! Tribe__Admin__Helpers::instance()->is_post_type_screen( Tribe__Events__Main::POSTTYPE ) ) {
 			return false;
 		}
 
