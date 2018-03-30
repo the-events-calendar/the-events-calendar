@@ -53,10 +53,6 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 	 * @return bool
 	 */
 	public function is_organizer_id_list( $organizers, $sep = ',' ) {
-		if ( is_array( $organizers ) && isset( $organizers['OrganizerID'] ) ) {
-			$organizers = $organizers['OrganizerID'];
-		}
-
 		$valid = $this->organizer_id_list( $organizers, $sep );
 
 		$organizers = Tribe__Utils__Array::extract_values( Tribe__Utils__Array::list_to_array( $organizers ) );
@@ -77,10 +73,6 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 	 * @return array
 	 */
 	public function organizer_id_list( $organizers, $sep = ',' ) {
-		if ( is_array( $organizers ) && isset( $organizers['OrganizerID'] ) ) {
-			$organizers = $organizers['OrganizerID'];
-		}
-
 		$sep = is_string( $sep ) ? $sep : ',';
 
 		if ( is_array( $organizers ) && Tribe__Utils__Array::is_associative( $organizers ) ) {
@@ -232,10 +224,6 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 	 * @return bool
 	 */
 	public function is_venue_id_list( $venues, $sep = ',' ) {
-		if ( is_array( $venues ) && isset( $venues['VenueID'] ) ) {
-			$venues = $venues['VenueID'];
-		}
-
 		$valid = $this->venue_id_list( $venues, $sep );
 
 		$venues = Tribe__Utils__Array::extract_values( Tribe__Utils__Array::list_to_array( $venues ) );
@@ -256,10 +244,6 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 	 * @return array
 	 */
 	public function venue_id_list( $venues, $sep = ',' ) {
-		if ( is_array( $venues ) && isset( $venues['VenueID'] ) ) {
-			$venues = $venues['VenueID'];
-		}
-
 		$sep = is_string( $sep ) ? $sep : ',';
 
 		if ( is_array( $venues ) && Tribe__Utils__Array::is_associative( $venues ) ) {
