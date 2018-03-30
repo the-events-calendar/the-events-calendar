@@ -285,10 +285,10 @@ class Tribe__Events__Assets {
 		if ( $admin_helpers->is_post_type_screen( Tribe__Events__Main::POSTTYPE ) ) {
 			// hook for other plugins
 			do_action( 'tribe_events_enqueue' );
-		} elseif ( $admin_helpers->is_post_type_screen( self::VENUE_POST_TYPE ) ) {
+		} elseif ( $admin_helpers->is_post_type_screen( Tribe__Events__Venue::POSTTYPE ) ) {
 			// hook for other plugins
 			do_action( 'tribe_venues_enqueue' );
-		} elseif ( $admin_helpers->is_post_type_screen( self::ORGANIZER_POST_TYPE ) ) {
+		} elseif ( $admin_helpers->is_post_type_screen( Tribe__Events__Organizer::POSTTYPE ) ) {
 			do_action( 'tribe_organizers_enqueue' );
 		}
 	}
