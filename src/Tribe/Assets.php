@@ -141,6 +141,21 @@ class Tribe__Events__Assets {
 		// FrontEnd
 		tribe_asset(
 			$plugin,
+			'tribe-events-dynamic',
+			'events-dynamic.js',
+			array( 'jquery', 'tribe-events-php-date-formatter', 'tribe-moment' ),
+			'wp_enqueue_scripts',
+			array(
+				'conditionals' => array( $this, 'should_enqueue_frontend' ),
+				'localize'     => array(
+					'name' => 'tribe_dynamic_help_text',
+					'data' => array( $this, 'get_js_dynamic_data' ),
+				),
+			)
+		);
+
+		tribe_asset(
+			$plugin,
 			'tribe-events-calendar-script',
 			'tribe-events.js',
 			array( 'jquery', 'tribe-events-bootstrap-datepicker', 'tribe-events-jquery-resize', 'jquery-placeholder' ),
@@ -159,26 +174,11 @@ class Tribe__Events__Assets {
 			$plugin,
 			'tribe-events-bar',
 			'tribe-events-bar.js',
-			array( 'jquery', 'tribe-events-calendar-script', 'tribe-events-bootstrap-datepicker', 'tribe-events-jquery-resize', 'jquery-placeholder' ),
+			array( 'jquery', 'tribe-events-dynamic', 'tribe-events-calendar-script', 'tribe-events-bootstrap-datepicker', 'tribe-events-jquery-resize', 'jquery-placeholder' ),
 			'wp_enqueue_scripts',
 			array(
 				'in_footer'    => false,
 				'conditionals' => array( $this, 'should_enqueue_frontend' ),
-			)
-		);
-
-		tribe_asset(
-			$plugin,
-			'tribe-events-dynamic',
-			'events-dynamic.js',
-			array( 'jquery', 'tribe-events-php-date-formatter', 'tribe-moment' ),
-			'wp_enqueue_scripts',
-			array(
-				'conditionals' => array( $this, 'should_enqueue_frontend' ),
-				'localize'     => array(
-					'name' => 'tribe_dynamic_help_text',
-					'data' => array( $this, 'get_js_dynamic_data' ),
-				),
 			)
 		);
 

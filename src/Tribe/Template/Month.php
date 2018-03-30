@@ -272,6 +272,8 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		protected function hooks() {
 			parent::hooks();
 
+			tribe_asset_enqueue( 'the-events-calendar' );
+
 			// Since we set is_post_type_archive to true on month view, this prevents 'Events' from being added to the page title
 			add_filter( 'post_type_archive_title', '__return_false', 10 );
 
