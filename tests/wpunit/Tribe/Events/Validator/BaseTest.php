@@ -263,7 +263,7 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertTrue( $sut->is_organizer_id_list( implode( ', ', $organizers ) ) );
 		$this->assertTrue( $sut->is_organizer_id_list( implode( ' , ', $organizers ) ) );
 		$this->assertTrue( $sut->is_organizer_id_list( implode( ' ,', $organizers ) ) );
-		$this->assertFalse( $sut->is_organizer_id_list( implode( ' ,', array_merge( $organizers, [ 23 ] ) ) ) );
+		$this->assertTrue( $sut->is_organizer_id_list( implode( ' ,', array_merge( $organizers, [ 23 ] ) ) ) );
 	}
 
 	/**
@@ -287,7 +287,7 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertCount( 2, $sut->organizer_id_list( implode( ', ', $organizers ) ) );
 		$this->assertCount( 2, $sut->organizer_id_list( implode( ' , ', $organizers ) ) );
 		$this->assertCount( 2, $sut->organizer_id_list( implode( ' ,', $organizers ) ) );
-		$this->assertCount( 0, $sut->organizer_id_list( implode( ' ,', array_merge( $organizers, [ 23 ] ) ) ) );
+		$this->assertCount( 3, $sut->organizer_id_list( implode( ' ,', array_merge( $organizers, [ 23 ] ) ) ) );
 	}
 
 	/**
@@ -311,7 +311,7 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertTrue( $sut->is_venue_id_list( implode( ', ', $venues ) ) );
 		$this->assertTrue( $sut->is_venue_id_list( implode( ' , ', $venues ) ) );
 		$this->assertTrue( $sut->is_venue_id_list( implode( ' ,', $venues ) ) );
-		$this->assertFalse( $sut->is_venue_id_list( implode( ' ,', array_merge( $venues, [ 23 ] ) ) ) );
+		$this->assertTrue( $sut->is_venue_id_list( implode( ' ,', array_merge( $venues, [ 23 ] ) ) ) );
 	}
 
 	/**
@@ -335,7 +335,7 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertCount( 2, $sut->venue_id_list( implode( ', ', $venues ) ) );
 		$this->assertCount( 2, $sut->venue_id_list( implode( ' , ', $venues ) ) );
 		$this->assertCount( 2, $sut->venue_id_list( implode( ' ,', $venues ) ) );
-		$this->assertCount( 0, $sut->venue_id_list( implode( ' ,', array_merge( $venues, [ 23 ] ) ) ) );
+		$this->assertCount( 3, $sut->venue_id_list( implode( ' ,', array_merge( $venues, [ 23 ] ) ) ) );
 	}
 
 	public function post_id_bad_inputs() {
