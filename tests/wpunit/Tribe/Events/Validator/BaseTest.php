@@ -253,14 +253,89 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 		$sut = $this->make_instance();
 
 		$this->assertFalse( $sut->is_organizer_id_list( [] ) );
+		$this->assertFalse( $sut->is_organizer_id_list( [ 'OrganizerID' => [] ] ) );
 		$this->assertFalse( $sut->is_organizer_id_list( [ ',' ] ) );
 		$this->assertTrue( $sut->is_organizer_id_list( reset( $organizers ) ) );
 		$this->assertTrue( $sut->is_organizer_id_list( [ reset( $organizers ) ] ) );
+		$this->assertTrue( $sut->is_organizer_id_list( [ 'OrganizerID' => $organizers ] ) );
+		$this->assertTrue( $sut->is_organizer_id_list( [ 'OrganizerID' => reset( $organizers ) ] ) );
 		$this->assertTrue( $sut->is_organizer_id_list( implode( ',', $organizers ) ) );
 		$this->assertTrue( $sut->is_organizer_id_list( implode( ', ', $organizers ) ) );
 		$this->assertTrue( $sut->is_organizer_id_list( implode( ' , ', $organizers ) ) );
 		$this->assertTrue( $sut->is_organizer_id_list( implode( ' ,', $organizers ) ) );
 		$this->assertFalse( $sut->is_organizer_id_list( implode( ' ,', array_merge( $organizers, [ 23 ] ) ) ) );
+	}
+
+	/**
+	 * Test organizer_id_list
+	 *
+	 * @test
+	 */
+	public function test_organizer_id_list() {
+		$organizers = $this->factory()->post->create_many( 2, [ 'post_type' => \Tribe__Events__Main::ORGANIZER_POST_TYPE ] );
+
+		$sut = $this->make_instance();
+
+		$this->assertCount( 0, $sut->organizer_id_list( [] ) );
+		$this->assertCount( 0, $sut->organizer_id_list( [ 'OrganizerID' => [] ] ) );
+		$this->assertCount( 0, $sut->organizer_id_list( [ ',' ] ) );
+		$this->assertCount( 1, $sut->organizer_id_list( reset( $organizers ) ) );
+		$this->assertCount( 1, $sut->organizer_id_list( [ reset( $organizers ) ] ) );
+		$this->assertCount( 2, $sut->organizer_id_list( [ 'OrganizerID' => $organizers ] ) );
+		$this->assertCount( 1, $sut->organizer_id_list( [ 'OrganizerID' => reset( $organizers ) ] ) );
+		$this->assertCount( 2, $sut->organizer_id_list( implode( ',', $organizers ) ) );
+		$this->assertCount( 2, $sut->organizer_id_list( implode( ', ', $organizers ) ) );
+		$this->assertCount( 2, $sut->organizer_id_list( implode( ' , ', $organizers ) ) );
+		$this->assertCount( 2, $sut->organizer_id_list( implode( ' ,', $organizers ) ) );
+		$this->assertCount( 0, $sut->organizer_id_list( implode( ' ,', array_merge( $organizers, [ 23 ] ) ) ) );
+	}
+
+	/**
+	 * Test is_venue_id_list
+	 *
+	 * @test
+	 */
+	public function test_is_venue_id_list() {
+		$venues = $this->factory()->post->create_many( 2, [ 'post_type' => \Tribe__Events__Main::VENUE_POST_TYPE ] );
+
+		$sut = $this->make_instance();
+
+		$this->assertFalse( $sut->is_venue_id_list( [] ) );
+		$this->assertFalse( $sut->is_venue_id_list( [ 'VenueID' => [] ] ) );
+		$this->assertFalse( $sut->is_venue_id_list( [ ',' ] ) );
+		$this->assertTrue( $sut->is_venue_id_list( reset( $venues ) ) );
+		$this->assertTrue( $sut->is_venue_id_list( [ reset( $venues ) ] ) );
+		$this->assertTrue( $sut->is_venue_id_list( [ 'VenueID' => $venues ] ) );
+		$this->assertTrue( $sut->is_venue_id_list( [ 'VenueID' => reset( $venues ) ] ) );
+		$this->assertTrue( $sut->is_venue_id_list( implode( ',', $venues ) ) );
+		$this->assertTrue( $sut->is_venue_id_list( implode( ', ', $venues ) ) );
+		$this->assertTrue( $sut->is_venue_id_list( implode( ' , ', $venues ) ) );
+		$this->assertTrue( $sut->is_venue_id_list( implode( ' ,', $venues ) ) );
+		$this->assertFalse( $sut->is_venue_id_list( implode( ' ,', array_merge( $venues, [ 23 ] ) ) ) );
+	}
+
+	/**
+	 * Test venue_id_list
+	 *
+	 * @test
+	 */
+	public function test_venue_id_list() {
+		$venues = $this->factory()->post->create_many( 2, [ 'post_type' => \Tribe__Events__Main::VENUE_POST_TYPE ] );
+
+		$sut = $this->make_instance();
+
+		$this->assertCount( 0, $sut->venue_id_list( [] ) );
+		$this->assertCount( 0, $sut->venue_id_list( [ 'VenueID' => [] ] ) );
+		$this->assertCount( 0, $sut->venue_id_list( [ ',' ] ) );
+		$this->assertCount( 1, $sut->venue_id_list( reset( $venues ) ) );
+		$this->assertCount( 1, $sut->venue_id_list( [ reset( $venues ) ] ) );
+		$this->assertCount( 2, $sut->venue_id_list( [ 'VenueID' => $venues ] ) );
+		$this->assertCount( 1, $sut->venue_id_list( [ 'VenueID' => reset( $venues ) ] ) );
+		$this->assertCount( 2, $sut->venue_id_list( implode( ',', $venues ) ) );
+		$this->assertCount( 2, $sut->venue_id_list( implode( ', ', $venues ) ) );
+		$this->assertCount( 2, $sut->venue_id_list( implode( ' , ', $venues ) ) );
+		$this->assertCount( 2, $sut->venue_id_list( implode( ' ,', $venues ) ) );
+		$this->assertCount( 0, $sut->venue_id_list( implode( ' ,', array_merge( $venues, [ 23 ] ) ) ) );
 	}
 
 	public function post_id_bad_inputs() {
