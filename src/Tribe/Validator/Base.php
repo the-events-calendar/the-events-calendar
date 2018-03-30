@@ -55,7 +55,8 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 	public function is_organizer_id_list( $organizers, $sep = ',' ) {
 		$valid = $this->organizer_id_list( $organizers, $sep );
 
-		return ! empty( $organizers ) && count( $valid ) === count( $organizers );
+		return ! empty( $valid ) && ! empty( $organizers )
+		       && count( $valid ) === count( Tribe__Utils__Array::extract_values( Tribe__Utils__Array::list_to_array( $organizers ) ) );
 	}
 
 	/**
@@ -73,11 +74,12 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 	public function organizer_id_list( $organizers, $sep = ',' ) {
 		$sep = is_string( $sep ) ? $sep : ',';
 
-		if ( is_array( $organizers ) && isset( $organizers['OrganizerID'] ) ) {
-			$organizers = $organizers['OrganizerID'];
+		if ( is_array( $organizers ) && Tribe__Utils__Array::is_associative( $organizers ) ) {
+			// if the organizers array is associative we presume each entry will specify one or more organizer IDs
+			$organizers = Tribe__Utils__Array::extract_values( $organizers );
+		} else {
+			$organizers = Tribe__Utils__Array::list_to_array( $organizers, $sep );
 		}
-
-		$organizers = Tribe__Utils__Array::list_to_array( $organizers, $sep );
 
 		return array_filter( $organizers, array( $this, 'is_organizer_id' ) );
 	}
@@ -223,7 +225,8 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 	public function is_venue_id_list( $venues, $sep = ',' ) {
 		$valid = $this->venue_id_list( $venues, $sep );
 
-		return ! empty( $venues ) && count( $valid ) === count( $venues );
+		return ! empty( $valid ) && ! empty( $venues )
+		       && count( $valid ) === count( Tribe__Utils__Array::extract_values( Tribe__Utils__Array::list_to_array( $venues ) ) );
 	}
 
 	/**
@@ -241,11 +244,12 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 	public function venue_id_list( $venues, $sep = ',' ) {
 		$sep = is_string( $sep ) ? $sep : ',';
 
-		if ( is_array( $venues ) && isset( $venues['VenueID'] ) ) {
-			$venues = $venues['VenueID'];
+		if ( is_array( $venues ) && Tribe__Utils__Array::is_associative( $venues ) ) {
+			// if the venues array is associative we presume each entry will specify one or more venue IDs
+			$venues = Tribe__Utils__Array::extract_values( $venues );
+		} else {
+			$venues = Tribe__Utils__Array::list_to_array( $venues, $sep );
 		}
-
-		$venues = Tribe__Utils__Array::list_to_array( $venues, $sep );
 
 		return array_filter( $venues, array( $this, 'is_venue_id' ) );
 	}
