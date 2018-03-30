@@ -40,7 +40,7 @@ class Tribe__Events__Assets {
 				array( 'tribe-events-chosen-style', 'vendor/chosen/public/chosen.css', array() ),
 				array( 'tribe-events-chosen-jquery', 'vendor/chosen/public/chosen.jquery.js', array( 'jquery' ) ),
 				array( 'tribe-events-bootstrap-datepicker-css', 'vendor/bootstrap-datepicker/css/bootstrap-datepicker.standalone.css', array() ),
-				array( 'tribe-events-bootstrap-datepicker', 'vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js', array( 'jquery' ) ),
+				array( 'tribe-events-bootstrap-datepicker', 'vendor/bootstrap-datepicker/js/bootstrap-datepicker.js', array( 'jquery' ) ),
 			),
 			null
 		);
@@ -160,15 +160,18 @@ class Tribe__Events__Assets {
 			'wp_enqueue_scripts',
 			array(
 				'conditionals' => array( $this, 'should_enqueue_frontend' ),
+				'localize'     => array(
+					'name' => 'tribe_dynamic_help_text',
+					'data' => array( $this, 'get_js_dynamic_data' ),
+				),
 			)
 		);
 
-		tribe_assets(
+		tribe_asset(
 			$plugin,
-			array(
-				array( 'tribe-events-calendar-full-mobile-style', 'tribe-events-full-mobile.css', array( 'tribe-events-calendar-style', 'tribe-accessibility-css' ) ),
-				array( 'tribe-events-calendar-mobile-style', 'tribe-events-theme-mobile.css', array( 'tribe-events-calendar-style', 'tribe-accessibility-css' ) ),
-			),
+			'tribe-events-calendar-mobile-style',
+			'tribe-events-theme-mobile.css',
+			array( 'tribe-events-calendar-style', 'tribe-accessibility-css' ),
 			'wp_enqueue_scripts',
 			array(
 				'media'        => 'only screen and (max-width: ' . tribe_get_mobile_breakpoint() . 'px)',
@@ -176,6 +179,37 @@ class Tribe__Events__Assets {
 				'conditionals' => array(
 					array( $this, 'is_mobile_breakpoint' ),
 					array( $this, 'should_enqueue_frontend' ),
+				),
+			)
+		);
+
+		tribe_asset(
+			$plugin,
+			'tribe-events-calendar-full-mobile-style',
+			'tribe-events-full-mobile.css',
+			array( 'tribe-events-calendar-style', 'tribe-accessibility-css' ),
+			'wp_enqueue_scripts',
+			array(
+				'media'        => 'only screen and (max-width: ' . tribe_get_mobile_breakpoint() . 'px)',
+				'groups'       => array( 'events-styles' ),
+				'conditionals' => array(
+					array( $this, 'is_mobile_breakpoint' ),
+					array( $this, 'should_enqueue_frontend' ),
+					array( $this, 'should_enqueue_full_styles' ),
+				),
+			)
+		);
+
+		tribe_asset(
+			$plugin,
+			'tribe-events-full-calendar-style',
+			'tribe-events-full.css',
+			array(),
+			'wp_enqueue_scripts',
+			array(
+				'conditionals' => array(
+					array( $this, 'should_enqueue_frontend' ),
+					array( $this, 'should_enqueue_full_styles' ),
 				),
 			)
 		);
@@ -332,6 +366,26 @@ class Tribe__Events__Assets {
 		 * @param bool $should_enqueue
 		 */
 		return apply_filters( 'tribe_events_assets_should_enqueue_frontend', $should_enqueue );
+	}
+
+	/**
+	 * Checks if we should enqueue full styles assets
+	 *
+	 * @since  TBD
+	 *
+	 * @return bool
+	 */
+	public function should_enqueue_full_styles() {
+		$should_enqueue = $this->is_style_option_tribe();
+
+		/**
+		 * Allow filtering of where the base Full Style Assets will be loaded
+		 *
+		 * @since  TBD
+		 *
+		 * @param bool $should_enqueue
+		 */
+		return apply_filters( 'tribe_events_assets_should_enqueue_full_styles', $should_enqueue );
 	}
 
 	/**
