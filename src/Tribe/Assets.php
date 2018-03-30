@@ -256,7 +256,7 @@ class Tribe__Events__Assets {
 		// Register AJAX views assets
 		tribe_asset(
 			$plugin,
-			'tribe-events-ajax-calendar',
+			'the-events-calendar',
 			'tribe-events-ajax-calendar.js',
 			array( 'jquery', 'tribe-events-calendar-script', 'tribe-events-bootstrap-datepicker', 'tribe-events-jquery-resize', 'jquery-placeholder' ),
 			null,
