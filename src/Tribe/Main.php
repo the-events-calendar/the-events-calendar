@@ -455,6 +455,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Gutenberg Extension
 			tribe_singleton( 'tec.gutenberg', 'Tribe__Events__Gutenberg', array( 'hook' ) );
 
+			tribe_singleton( 'tec.bar', 'Tribe__Events__Bar', array( 'hook' ) );
+
 			/**
 			 * Allows other plugins and services to override/change the bound implementations.
 			 */
@@ -643,7 +645,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			add_action( 'plugins_loaded', array( $this, 'init_day_view' ), 2 );
 
-			add_action( 'plugins_loaded', array( 'Tribe__Events__Bar', 'instance' ) );
 			add_action( 'plugins_loaded', array( 'Tribe__Events__Templates', 'init' ) );
 
 			add_action( 'init', array( $this, 'filter_cron_schedules' ) );
@@ -718,6 +719,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe( 'tec.iCal' );
 			tribe( 'tec.rest-v1.main' );
 			tribe( 'tec.gutenberg' );
+			tribe( 'tec.bar' );
 		}
 
 		/**

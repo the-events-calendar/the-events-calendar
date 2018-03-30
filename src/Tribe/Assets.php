@@ -53,10 +53,11 @@ class Tribe__Events__Assets {
 			array( 'jquery', 'jquery-ui-dialog', 'jquery-ui-datepicker', 'tribe-events-dynamic', 'tribe-events-jquery-resize' ),
 			'admin_enqueue_scripts',
 			array(
-				'conditionals' => array( $admin_helpers, 'should_enqueue_admin' ),
+				'groups'       => array( 'events-admin' ),
+				'conditionals' => array( $this, 'should_enqueue_admin' ),
 				'localize'     => array(
 					'name' => 'TEC',
-					'data' => array( $this, 'get_js_admin_tec_data' ),
+					'data' => array( $this, 'get_ajax_url_data' ),
 				),
 			)
 		);
@@ -69,6 +70,7 @@ class Tribe__Events__Assets {
 			array(),
 			'admin_enqueue_scripts',
 			array(
+				'groups'       => array( 'events-admin' ),
 				'conditionals' => array( $admin_helpers, 'should_enqueue_admin' ),
 			)
 		);
@@ -104,7 +106,8 @@ class Tribe__Events__Assets {
 			),
 			'admin_enqueue_scripts',
 			array(
-				'conditionals' => array( $admin_helpers, 'should_enqueue_admin' ),
+				'groups'       => array( 'events-admin' ),
+				'conditionals' => array( $this, 'should_enqueue_admin' ),
 			)
 		);
 
@@ -215,6 +218,52 @@ class Tribe__Events__Assets {
 				'conditionals' => array( $this, 'should_enqueue_frontend' ),
 			)
 		);
+
+		// Register AJAX views assets
+		tribe_asset(
+			$plugin,
+			'tribe-events-ajax-calendar',
+			'tribe-events-ajax-calendar.js',
+			array( 'jquery', 'tribe-events-calendar-script', 'tribe-events-bootstrap-datepicker', 'tribe-events-jquery-resize', 'jquery-placeholder' ),
+			null,
+			array(
+				'localize'     => array(
+					'name' => 'TribeCalendar',
+					'data' => array( $this, 'get_ajax_url_data' ),
+				),
+			)
+		);
+
+		tribe_asset(
+			$plugin,
+			'tribe-events-ajax-day',
+			'tribe-events-ajax-day.js',
+			array( 'jquery', 'tribe-events-calendar-script' ),
+			null,
+			array(
+				'localize'     => array(
+					'name' => 'TribeCalendar',
+					'data' => array( $this, 'get_ajax_url_data' ),
+				),
+			)
+		);
+
+		tribe_asset(
+			$plugin,
+			'tribe-events-list',
+			'tribe-events-ajax-list.js',
+			array( 'jquery', 'tribe-events-calendar-script' ),
+			null,
+			array(
+				'localize'     => array(
+					'name' => 'TribeList',
+					'data' => array(
+						'ajaxurl'     => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ),
+						'tribe_paged' => absint( tribe_get_request_var( 'tribe_paged', 0 ) ),
+					),
+				),
+			)
+		);
 	}
 
 	/**
@@ -272,12 +321,21 @@ class Tribe__Events__Assets {
 	 * @return bool
 	 */
 	public function should_enqueue_frontend() {
-		return (
+		$should_enqueue = (
 			tribe_is_event_query()
 			|| tribe_is_event_organizer()
 			|| tribe_is_event_venue()
 			|| is_active_widget( false, false, 'tribe-events-list-widget' )
 		);
+
+		/**
+		 * Allow filtering of where the base Frontend Assets will be loaded
+		 *
+		 * @since  TBD
+		 *
+		 * @param bool $should_enqueue
+		 */
+		return apply_filters( 'tribe_events_assets_should_enqueue_frontend', $should_enqueue );
 	}
 
 	/**
@@ -289,12 +347,20 @@ class Tribe__Events__Assets {
 	 */
 	public function should_enqueue_admin() {
 		$admin_helpers = Tribe__Admin__Helpers::instance();
-
-		return (
+		$should_enqueue = (
 			$admin_helpers->is_screen( array( 'widgets', 'customize' ) )
 			|| $admin_helpers->is_screen()
 			|| $admin_helpers->is_post_type_screen()
 		);
+
+		/**
+		 * Allow filtering of where the base Admin Assets will be loaded
+		 *
+		 * @since  TBD
+		 *
+		 * @param bool $should_enqueue
+		 */
+		return apply_filters( 'tribe_events_assets_should_enqueue_admin', $should_enqueue );
 	}
 
 	/**
@@ -336,6 +402,31 @@ class Tribe__Events__Assets {
 	public function is_settings_page() {
 		return $admin_helpers->is_screen( 'settings_page_tribe-settings' );
 	}
+
+	/**
+	 * Playing ping-pong with WooCommerce. They keep changing their script.
+	 *
+	 * @since TBD
+	 *
+	 * @see https://github.com/woothemes/woocommerce/issues/3623
+	 *
+	 * @return string
+	 */
+	public function get_placeholder_handle() {
+		$placeholder_handle = 'jquery-placeholder';
+
+		global $woocommerce;
+		if (
+			class_exists( 'Woocommerce' ) &&
+			version_compare( $woocommerce->version, '2.0.11', '>=' ) &&
+			version_compare( $woocommerce->version, '2.0.13', '<=' )
+		) {
+			$placeholder_handle = 'tribe-placeholder';
+		}
+
+		return $placeholder_handle;
+	}
+
 
 	/**
 	 * Due to how we define which style we use based on an Option on the Administration
@@ -381,9 +472,10 @@ class Tribe__Events__Assets {
 	 *
 	 * @return array
 	 */
-	public function get_js_admin_tec_data() {
+	public function get_ajax_url_data() {
 		$bits = array(
 			'ajaxurl' => esc_url_raw( admin_url( 'admin-ajax.php', ( is_ssl() || FORCE_SSL_ADMIN ? 'https' : 'http' ) ) ),
+			'post_type' => Tribe__Events__Main::POSTTYPE,
 		);
 
 		return $bits;

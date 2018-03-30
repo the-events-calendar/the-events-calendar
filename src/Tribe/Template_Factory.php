@@ -107,47 +107,6 @@ class Tribe__Events__Template_Factory extends Tribe__Template_Factory {
 	}
 
 	/**
-	 * Asset calls for vendor packages
-	 *
-	 * @param string $name
-	 * @param array  $deps Dependents
-	 */
-	public static function asset_package( $name, $deps = array() ) {
-
-		$common = Tribe__Events__Main::instance();
-		$prefix = 'tribe-events'; // Tribe__Events__Main::POSTTYPE;
-
-		// setup plugin resources & 3rd party vendor urls
-		$vendor_url = trailingslashit( $common->plugin_url ) . 'vendor/';
-
-		self::handle_asset_package_request( $name, $deps, $vendor_url, $prefix, $common );
-	}
-
-	/**
-	 * Handles an asset package request.
-	 *
-	 * @param string      $name       The asset name in the `hyphen-separated-format`
-	 * @param array       $deps       An array of dependency handles
-	 * @param string      $vendor_url URL to vendor scripts and styles dir
-	 * @param string      $prefix     MT script and style prefix
-	 * @param Tribe__Main $tec        An instance of the main plugin class
-	 */
-	protected static function handle_asset_package_request( $name, $deps, $vendor_url, $prefix, $tec ) {
-
-		$asset = self::get_asset_factory_instance( $name );
-
-		self::prepare_asset_package_request( $asset, $name, $deps, $vendor_url, $prefix, $tec );
-	}
-
-	/**
-	 * Retrieves the appropriate asset factory instance
-	 */
-	protected static function get_asset_factory_instance( $name ) {
-		$asset = Tribe__Events__Asset__Factory::instance()->make_for_name( $name );
-		return $asset;
-	}
-
-	/**
 	 * Filter the body class
 	 *
 	 * @param array $classes
@@ -201,34 +160,6 @@ class Tribe__Events__Template_Factory extends Tribe__Template_Factory {
 	 **/
 	public function event_classes( $classes ) {
 		return $classes;
-	}
-
-	/**
-	 * Setup meta display in this template
-	 *
-	 * @deprecated 4.3
-	 **/
-	public function setup_meta() {
-		_deprecated_function( __METHOD__, '4.3' );
-
-		// customize meta items
-		tribe_set_the_meta_template( 'tribe_event_venue_name', array(
-				'before'       => '',
-				'after'        => '',
-				'label_before' => '',
-				'label_after'  => '',
-				'meta_before'  => '<span class="%s">',
-				'meta_after'   => '</span>',
-			) );
-		tribe_set_meta_label( 'tribe_event_venue_address', '' );
-		tribe_set_the_meta_template( 'tribe_event_venue_address', array(
-				'before'       => '',
-				'after'        => '',
-				'label_before' => '',
-				'label_after'  => '',
-				'meta_before'  => '',
-				'meta_after'   => '',
-			) );
 	}
 
 	/**
@@ -538,6 +469,86 @@ class Tribe__Events__Template_Factory extends Tribe__Template_Factory {
 		}
 
 		return $option_value;
+	}
 
+	/************************
+	 *                      *
+	 *  Deprecated Methods  *
+	 *                      *
+	 ************************/
+
+	/**
+	 * Asset calls for vendor packages
+	 *
+	 * @deprecated TBD
+	 *
+	 * @param string $name
+	 * @param array  $deps Dependents
+	 */
+	public static function asset_package( $name, $deps = array() ) {
+
+		$common = Tribe__Events__Main::instance();
+		$prefix = 'tribe-events'; // Tribe__Events__Main::POSTTYPE;
+
+		// setup plugin resources & 3rd party vendor urls
+		$vendor_url = trailingslashit( $common->plugin_url ) . 'vendor/';
+
+		self::handle_asset_package_request( $name, $deps, $vendor_url, $prefix, $common );
+	}
+
+	/**
+	 * Handles an asset package request.
+	 *
+	 * @deprecated TBD
+	 *
+	 * @param string      $name       The asset name in the `hyphen-separated-format`
+	 * @param array       $deps       An array of dependency handles
+	 * @param string      $vendor_url URL to vendor scripts and styles dir
+	 * @param string      $prefix     MT script and style prefix
+	 * @param Tribe__Main $tec        An instance of the main plugin class
+	 */
+	protected static function handle_asset_package_request( $name, $deps, $vendor_url, $prefix, $tec ) {
+
+		$asset = self::get_asset_factory_instance( $name );
+
+		self::prepare_asset_package_request( $asset, $name, $deps, $vendor_url, $prefix, $tec );
+	}
+
+	/**
+	 * Retrieves the appropriate asset factory instance
+	 *
+	 * @deprecated TBD
+	 */
+	protected static function get_asset_factory_instance( $name ) {
+		$asset = Tribe__Events__Asset__Factory::instance()->make_for_name( $name );
+		return $asset;
+	}
+
+	/**
+	 * Setup meta display in this template
+	 *
+	 * @deprecated 4.3
+	 **/
+	public function setup_meta() {
+		_deprecated_function( __METHOD__, '4.3' );
+
+		// customize meta items
+		tribe_set_the_meta_template( 'tribe_event_venue_name', array(
+				'before'       => '',
+				'after'        => '',
+				'label_before' => '',
+				'label_after'  => '',
+				'meta_before'  => '<span class="%s">',
+				'meta_after'   => '</span>',
+			) );
+		tribe_set_meta_label( 'tribe_event_venue_address', '' );
+		tribe_set_the_meta_template( 'tribe_event_venue_address', array(
+				'before'       => '',
+				'after'        => '',
+				'label_before' => '',
+				'label_after'  => '',
+				'meta_before'  => '',
+				'meta_after'   => '',
+			) );
 	}
 }
