@@ -303,8 +303,6 @@ class Tribe__Events__Assets {
 	/**
 	 * Add admin scripts and styles
 	 *
-	 * @todo  make this a little bit better Actions
-	 *
 	 * @since  TBD
 	 */
 	public function load_admin() {
