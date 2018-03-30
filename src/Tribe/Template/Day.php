@@ -15,7 +15,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Day' ) ) {
 	class Tribe__Events__Template__Day extends Tribe__Events__Template_Factory {
 
 		protected $body_class = 'tribe-events-day';
-		protected $asset_packages = array( 'ajax-dayview' );
+		protected $asset_packages = array();
 
 		const AJAX_HOOK = 'tribe_event_day';
 

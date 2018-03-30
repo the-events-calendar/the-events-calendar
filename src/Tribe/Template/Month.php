@@ -103,7 +103,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		 * Static asset packages required for month view functionality
 		 * @var array
 		 */
-		protected $asset_packages = array( 'ajax-calendar' );
+		protected $asset_packages = array();
 
 		/**
 		 * HTML cache holder
@@ -1233,5 +1233,5 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			return (bool) $this->events_in_month;
 		}
 
-	} // class Tribe__Events__Template__Month
+	}
 }

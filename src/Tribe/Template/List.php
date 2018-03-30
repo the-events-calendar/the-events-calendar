@@ -18,7 +18,7 @@ if ( ! class_exists( 'Tribe__Events__Template__List' ) ) {
 	class Tribe__Events__Template__List extends Tribe__Events__Template_Factory {
 
 		protected $body_class = 'events-list';
-		protected $asset_packages = array( 'ajax-list' );
+		protected $asset_packages = array();
 
 		const AJAX_HOOK = 'tribe_list';
 
