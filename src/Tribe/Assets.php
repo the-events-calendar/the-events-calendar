@@ -59,16 +59,16 @@ class Tribe__Events__Assets {
 				'groups'       => array( 'events-admin' ),
 				'conditionals' => array( $this, 'should_enqueue_admin' ),
 				'localize'     => array(
-					array (
+					array(
 						'name' => 'TEC',
 						'data' => array( $this, 'get_ajax_url_data' ),
 					),
-					array (
+					array(
 						'name' => 'tribe_datepicker_opts',
 						'data' => array(
 							'firstDay' => absint( get_option( 'start_of_week' ) ),
-						)
-					)
+						),
+					),
 				),
 			)
 		);
