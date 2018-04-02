@@ -429,7 +429,7 @@ jQuery( document ).ready( function( $ ) {
 
 		var startofweek = 0;
 		if ( 'firstDay' in tribe_datepicker_opts ) {
-			var firstDay = parseInt( tribe_datepicker_opts.firstDay );
+			var firstDay = parseInt( tribe_datepicker_opts.firstDay, 10 );
 			startofweek = isNaN( firstDay ) ? 0 : firstDay;
 		}
 
