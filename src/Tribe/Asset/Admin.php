@@ -27,7 +27,7 @@ class Tribe__Events__Asset__Admin extends Tribe__Events__Asset__Abstract_Asset {
 		wp_enqueue_script( $handle, $path, $deps, $this->filter_js_version(), true );
 		wp_localize_script( $handle, 'tribe_datepicker_opts', array(
 			'firstDay' => absint( get_option( 'start_of_week' ) ),
-		));
+		) );
 		wp_enqueue_style( 'dashicons' );
 	}
 }
