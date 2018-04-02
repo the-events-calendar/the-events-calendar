@@ -319,6 +319,7 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 * Tweak - Added the `tribe_aggregator_find_matching_organizer` and `tribe_aggregator_find_matching_venue` filters in Events Aggregator code to allow the definition of custom Venue and Organizer match criteria [97292]
 * Tweak - Display the retry time for a failed Event Aggregator scheduled import in the Scheduled tab [102489]
 * Tweak - Add new filter `tribe_events_import_event_duplicate_matches` to determine if an event is part of the duplicates matches [77956]
+* Tweak - Restore the missing header navigation elements [99742]
 
 = [4.6.13] 2018-03-28 =
 
