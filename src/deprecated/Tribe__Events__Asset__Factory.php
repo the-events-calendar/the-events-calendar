@@ -1,4 +1,5 @@
 <?php
+_deprecated_file( __FILE__, 'TBD', 'Deprecated class in favor of using `tribe_asset` registration' );
 
 class Tribe__Events__Asset__Factory extends Tribe__Asset__Factory {
 	/**
