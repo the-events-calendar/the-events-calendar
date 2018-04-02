@@ -1076,6 +1076,10 @@ select.tribe-events-dropdown {
 	width: 58%;
 }
 
+.single-tribe_events .sidebar .secondary .tribe-events-venue-map {
+	width: 100%;
+}
+
 /* Event Meta */
 
 .single-tribe_events .tribe-events-event-meta {
