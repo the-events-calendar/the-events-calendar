@@ -142,7 +142,7 @@ Date.prototype.format = function( mask, utc ) {
 	return tribeDateFormat( this, mask, utc );
 };
 
-var tribe_datepicker_opts = {};
+var tribe_datepicker_opts = tribe_datepicker_opts || {};
 
 jQuery( document ).ready( function( $ ) {
 
@@ -428,6 +428,10 @@ jQuery( document ).ready( function( $ ) {
 		}
 
 		var startofweek = 0;
+		if ( 'firstDay' in tribe_datepicker_opts ) {
+			var firstDay = parseInt( tribe_datepicker_opts.firstDay );
+			startofweek = isNaN( firstDay ) ? 0 : firstDay;
+		}
 
 		if ( $event_pickers.length ) {
 			startofweek = $event_pickers.data( 'startofweek' );
