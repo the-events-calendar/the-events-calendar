@@ -216,7 +216,6 @@ abstract class Tribe__Events__Importer__File_Importer {
 		$featured_image = $this->get_value_by_key( $record, 'featured_image' );
 
 		if ( ! empty( $featured_image ) ) {
-			error_log( "Setting featured image in async process for post {$id}" );
 			$process = new Tribe__Process__Post_Thumbnail_Setter();
 			$process->data( array( 'id' => $id, 'featured-image' => $featured_image ) );
 			$process->dispatch();
