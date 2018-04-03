@@ -43,13 +43,13 @@ class Tribe__Events__Bar {
 			return;
 		}
 
-		$not_in_post_types = array(
-			Tribe__Events__Main::VENUE_POST_TYPE,
-			Tribe__Events__Main::ORGANIZER_POST_TYPE,
+		$disallowed_types = array(
+			Tribe__Events__Organizer::POSTTYPE,
+			Tribe__Events__Venue::POSTTYPE,
 		);
 
-		$show_bar_filter = ! in_array( get_post_type(), $not_in_post_types );
-		$is_tribe_view   = ( ! empty( $wp_query->tribe_is_event_query ) && ! is_single() && $show_bar_filter );
+		$in_disallowed_type = in_array( get_post_type(), $disallowed_types );
+		$is_tribe_view   = ( ! empty( $wp_query->tribe_is_event_query ) && ! is_single() && ! $in_disallowed_type );
 
 		return apply_filters( 'tribe-events-bar-should-show', $is_tribe_view );
 	}
