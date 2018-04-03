@@ -59,8 +59,14 @@ class Tribe__Events__Assets {
 				'groups'       => array( 'events-admin' ),
 				'conditionals' => array( $this, 'should_enqueue_admin' ),
 				'localize'     => array(
-					'name' => 'TEC',
-					'data' => array( $this, 'get_ajax_url_data' ),
+					(object) array(
+						'name' => 'TEC',
+						'data' => array( $this, 'get_ajax_url_data' ),
+					),
+					(object) array(
+						'name' => 'tribe_dynamic_help_text',
+						'data' => array( $this, 'get_js_dynamic_data' ),
+					),
 				),
 			)
 		);
