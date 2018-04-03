@@ -22,13 +22,13 @@ class Tribe__Events__Integrations__WPML__Meta {
 	/**
 	 * Translates post id in the Event meta data.
 	 *
-	 * @param string  $value
-	 * @param int     $object_id
-	 * @param boolean $single
+	 * @param string $value
+	 * @param int    $object_id
+	 * @param string $meta_key
 	 *
 	 * @return string The translated id for _EventOrganizerID & _EventVenueID.
 	 */
-	public function translate_post_id( $value, $object_id, $meta_key, $single ) {
+	public function translate_post_id( $value, $object_id, $meta_key ) {
 		global $wpdb;
 
 		if ( '_EventOrganizerID' === $meta_key ) {
