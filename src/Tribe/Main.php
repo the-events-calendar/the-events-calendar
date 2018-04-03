@@ -574,16 +574,16 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			/* Registers the list widget */
 			add_action( 'widgets_init', array( $this, 'register_list_widget' ), 90 );
 
-			add_action( 'save_post_' . self::VENUE_POST_TYPE, array( $this, 'save_venue_data' ), 16, 2 );
-			add_action( 'save_post_' . self::ORGANIZER_POST_TYPE, array( $this, 'save_organizer_data' ), 16, 2 );
+			add_action( 'save_post_' . Tribe__Events__Venue::POSTTYPE, array( $this, 'save_venue_data' ), 16, 2 );
+			add_action( 'save_post_' . Tribe__Events__Organizer::POSTTYPE, array( $this, 'save_organizer_data' ), 16, 2 );
 			add_action( 'save_post_' . self::POSTTYPE, array( Tribe__Events__Dates__Known_Range::instance(), 'maybe_update_known_range' ) );
 			add_action( 'tribe_events_csv_import_complete', array( Tribe__Events__Dates__Known_Range::instance(), 'rebuild_known_range' ) );
 			add_action( 'publish_' . self::POSTTYPE, array( $this, 'publishAssociatedTypes' ), 25, 2 );
 			add_action( 'delete_post', array( Tribe__Events__Dates__Known_Range::instance(), 'maybe_rebuild_known_range' ) );
 			add_action( 'tribe_events_post_errors', array( 'Tribe__Events__Post_Exception', 'displayMessage' ) );
 			add_action( 'tribe_settings_top', array( 'Tribe__Events__Options_Exception', 'displayMessage' ) );
-			add_action( 'trash_' . self::VENUE_POST_TYPE, array( $this, 'cleanupPostVenues' ) );
-			add_action( 'trash_' . self::ORGANIZER_POST_TYPE, array( $this, 'cleanupPostOrganizers' ) );
+			add_action( 'trash_' . Tribe__Events__Venue::POSTTYPE, array( $this, 'cleanupPostVenues' ) );
+			add_action( 'trash_' . Tribe__Events__Organizer::POSTTYPE, array( $this, 'cleanupPostOrganizers' ) );
 			add_action( 'wp_ajax_tribe_event_validation', array( $this, 'ajax_form_validate' ) );
 			add_action( 'plugins_loaded', array( 'Tribe__Cache_Listener', 'instance' ) );
 			add_action( 'plugins_loaded', array( 'Tribe__Cache', 'setup' ) );
@@ -1488,7 +1488,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			foreach ( $items as $item ) {
 				if ( $item->url == $this->getLink() ) {
 					if ( is_singular( self::POSTTYPE )
-						 || is_singular( self::VENUE_POST_TYPE )
+						 || is_singular( Tribe__Events__Venue::POSTTYPE )
 						 || is_tax( self::TAXONOMY )
 						 || ( ( tribe_is_upcoming()
 								|| tribe_is_past()
@@ -1827,7 +1827,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				),
 			);
 
-			$messages[ self::VENUE_POST_TYPE ] = array(
+			$messages[ Tribe__Events__Venue::POSTTYPE ] = array(
 				0  => '', // Unused. Messages start at index 1.
 				1  => sprintf( esc_html__( '%s updated.', 'the-events-calendar' ), $this->singular_venue_label ),
 				2  => esc_html__( 'Custom field updated.', 'the-events-calendar' ),
@@ -1847,7 +1847,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				10 => sprintf( esc_html__( '%s draft updated.', 'the-events-calendar' ), $this->singular_venue_label ),
 			);
 
-			$messages[ self::ORGANIZER_POST_TYPE ] = array(
+			$messages[ Tribe__Events__Organizer::POSTTYPE ] = array(
 				0  => '', // Unused. Messages start at index 1.
 				1  => sprintf( esc_html__( '%s updated.', 'the-events-calendar' ), $this->singular_organizer_label ),
 				2  => esc_html__( 'Custom field updated.', 'the-events-calendar' ),
@@ -1876,10 +1876,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 */
 		public function addVenueAndOrganizerEditor() {
-			add_submenu_page( 'edit.php?post_type=' . self::POSTTYPE, __( $this->plural_venue_label, 'the-events-calendar' ), __( $this->plural_venue_label, 'the-events-calendar' ), 'edit_tribe_venues', 'edit.php?post_type=' . self::VENUE_POST_TYPE );
-			add_submenu_page( 'edit.php?post_type=' . self::POSTTYPE, __( $this->plural_organizer_label, 'the-events-calendar' ), __( $this->plural_organizer_label, 'the-events-calendar' ), 'edit_tribe_organizers', 'edit.php?post_type=' . self::ORGANIZER_POST_TYPE );
-			add_submenu_page( 'edit.php?post_type=' . self::VENUE_POST_TYPE, sprintf( esc_html__( 'Add New %s', 'the-events-calendar' ), $this->singular_venue_label ), sprintf( esc_html__( 'Add New %s', 'the-events-calendar' ), $this->singular_venue_label ), 'edit_tribe_venues', 'post-new.php?post_type=' . self::VENUE_POST_TYPE );
-			add_submenu_page( 'edit.php?post_type=' . self::ORGANIZER_POST_TYPE, sprintf( esc_html__( 'Add New %s', 'the-events-calendar' ), $this->singular_organizer_label ), sprintf( esc_html__( 'Add New %s', 'the-events-calendar' ), $this->singular_organizer_label ), 'edit_tribe_organizers', 'post-new.php?post_type=' . self::ORGANIZER_POST_TYPE );
+			add_submenu_page( 'edit.php?post_type=' . self::POSTTYPE, __( $this->plural_venue_label, 'the-events-calendar' ), __( $this->plural_venue_label, 'the-events-calendar' ), 'edit_tribe_venues', 'edit.php?post_type=' . Tribe__Events__Venue::POSTTYPE );
+			add_submenu_page( 'edit.php?post_type=' . self::POSTTYPE, __( $this->plural_organizer_label, 'the-events-calendar' ), __( $this->plural_organizer_label, 'the-events-calendar' ), 'edit_tribe_organizers', 'edit.php?post_type=' . Tribe__Events__Organizer::POSTTYPE );
+			add_submenu_page( 'edit.php?post_type=' . Tribe__Events__Venue::POSTTYPE, sprintf( esc_html__( 'Add New %s', 'the-events-calendar' ), $this->singular_venue_label ), sprintf( esc_html__( 'Add New %s', 'the-events-calendar' ), $this->singular_venue_label ), 'edit_tribe_venues', 'post-new.php?post_type=' . Tribe__Events__Venue::POSTTYPE );
+			add_submenu_page( 'edit.php?post_type=' . Tribe__Events__Organizer::POSTTYPE, sprintf( esc_html__( 'Add New %s', 'the-events-calendar' ), $this->singular_organizer_label ), sprintf( esc_html__( 'Add New %s', 'the-events-calendar' ), $this->singular_organizer_label ), 'edit_tribe_organizers', 'post-new.php?post_type=' . Tribe__Events__Organizer::POSTTYPE );
 		}
 
 		/**
@@ -1992,8 +1992,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function filter_post_types( $post_types ) {
 			$post_types[] = self::POSTTYPE;
-			$post_types[] = self::ORGANIZER_POST_TYPE;
-			$post_types[] = self::VENUE_POST_TYPE;
+			$post_types[] = Tribe__Events__Organizer::POSTTYPE;
+			$post_types[] = Tribe__Events__Venue::POSTTYPE;
 
 			return $post_types;
 		}
@@ -2926,7 +2926,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		public function normalize_organizer_submission( $submission ) {
-			$organizer_pto = get_post_type_object( self::ORGANIZER_POST_TYPE );
+			$organizer_pto = get_post_type_object( Tribe__Events__Organizer::POSTTYPE );
 			$organizers = array();
 			if ( ! isset( $submission['OrganizerID'] ) ) {
 				return $organizers; // not a valid submission
@@ -2974,9 +2974,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			if ( isset( $postId ) && isset( $post->post_type ) ) {
 				if ( $post->post_type == self::POSTTYPE ) {
 					$post_type = '_Event';
-				} elseif ( $post->post_type == self::VENUE_POST_TYPE ) {
+				} elseif ( $post->post_type == Tribe__Events__Venue::POSTTYPE ) {
 					$post_type = '_Venue';
-				} elseif ( $post->post_type == self::ORGANIZER_POST_TYPE ) {
+				} elseif ( $post->post_type == Tribe__Events__Organizer::POSTTYPE ) {
 					$post_type = '_Organizer';
 				} else {
 					return;
@@ -3000,8 +3000,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public function publishAssociatedTypes( $post_id, $post ) {
 
 			// don't need to save the venue or organizer meta when we are just publishing
-			remove_action( 'save_post_' . self::VENUE_POST_TYPE, array( $this, 'save_venue_data' ), 16 );
-			remove_action( 'save_post_' . self::ORGANIZER_POST_TYPE, array( $this, 'save_organizer_data' ), 16 );
+			remove_action( 'save_post_' . Tribe__Events__Venue::POSTTYPE, array( $this, 'save_venue_data' ), 16 );
+			remove_action( 'save_post_' . Tribe__Events__Organizer::POSTTYPE, array( $this, 'save_organizer_data' ), 16 );
 
 			// Remove any "preview" venues and organizers (duplicates) attached to this event.
 			$this->remove_preview_venues( $post_id, true );
@@ -3045,8 +3045,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			// put the actions back
-			add_action( 'save_post_' . self::VENUE_POST_TYPE, array( $this, 'save_venue_data' ), 16, 2 );
-			add_action( 'save_post_' . self::ORGANIZER_POST_TYPE, array( $this, 'save_organizer_data' ), 16, 2 );
+			add_action( 'save_post_' . Tribe__Events__Venue::POSTTYPE, array( $this, 'save_venue_data' ), 16, 2 );
+			add_action( 'save_post_' . Tribe__Events__Organizer::POSTTYPE, array( $this, 'save_organizer_data' ), 16, 2 );
 		}
 
 		/**
@@ -3092,7 +3092,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function get_venue_info( $p = null, $args = array() ) {
 			$defaults = array(
-				'post_type'            => self::VENUE_POST_TYPE,
+				'post_type'            => Tribe__Events__Venue::POSTTYPE,
 				'nopaging'             => 1,
 				'post_status'          => 'publish',
 				'ignore_sticky_posts ' => 1,
@@ -3146,14 +3146,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				return $data['OrganizerID'];
 			}
 
-			if ( $post->post_type == self::ORGANIZER_POST_TYPE && $post->ID ) {
+			if ( $post->post_type == Tribe__Events__Organizer::POSTTYPE && $post->ID ) {
 				$data['OrganizerID'] = $post->ID;
 			}
 
 			//google map checkboxes
 			$postdata = array(
 				'post_title'  => $data['Organizer'],
-				'post_type'   => self::ORGANIZER_POST_TYPE,
+				'post_type'   => Tribe__Events__Organizer::POSTTYPE,
 				'post_status' => 'publish',
 				'ID'          => $data['OrganizerID'],
 			);
@@ -3184,7 +3184,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function get_organizer_info( $p = null, $args = array() ) {
 			$defaults = array(
-				'post_type'            => self::ORGANIZER_POST_TYPE,
+				'post_type'            => Tribe__Events__Organizer::POSTTYPE,
 				'nopaging'             => 1,
 				'post_status'          => 'publish',
 				'ignore_sticky_posts ' => 1,
@@ -3411,7 +3411,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$style   = '';
 			$event    = $post;
 
-			if ( $post->post_type == self::VENUE_POST_TYPE ) {
+			if ( $post->post_type == Tribe__Events__Venue::POSTTYPE ) {
 
 				if ( ( is_admin() && isset( $_GET['post'] ) && $_GET['post'] ) || ( ! is_admin() && isset( $event->ID ) ) ) {
 					$saved = true;
@@ -3463,7 +3463,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$postId  = $post->ID;
 			$saved   = false;
 
-			if ( $post->post_type == self::ORGANIZER_POST_TYPE ) {
+			if ( $post->post_type == Tribe__Events__Organizer::POSTTYPE ) {
 
 				if ( ( is_admin() && isset( $_GET['post'] ) && $_GET['post'] ) || ( ! is_admin() && isset( $postId ) ) ) {
 					$saved = true;
@@ -3653,20 +3653,20 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				'tribe_events_venue_details',
 				sprintf( esc_html__( '%s Information', 'the-events-calendar' ), $this->singular_venue_label ),
 				array( $this, 'VenueMetaBox' ),
-				self::VENUE_POST_TYPE,
+				Tribe__Events__Venue::POSTTYPE,
 				'normal',
 				'high'
 			);
 
 			if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {
-				remove_meta_box( 'slugdiv', self::VENUE_POST_TYPE, 'normal' );
+				remove_meta_box( 'slugdiv', Tribe__Events__Venue::POSTTYPE, 'normal' );
 			}
 
 			add_meta_box(
 				'tribe_events_organizer_details',
 				sprintf( esc_html__( '%s Information', 'the-events-calendar' ), $this->singular_organizer_label ),
 				array( $this, 'OrganizerMetaBox' ),
-				self::ORGANIZER_POST_TYPE,
+				Tribe__Events__Organizer::POSTTYPE,
 				'normal',
 				'high'
 			);
@@ -3746,7 +3746,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					$postId = $post->ID;
 				}
 			}
-			if ( isset( $postId ) && get_post_field( 'post_type', $postId ) == self::VENUE_POST_TYPE ) {
+			if ( isset( $postId ) && get_post_field( 'post_type', $postId ) == Tribe__Events__Venue::POSTTYPE ) {
 				return true;
 			}
 
@@ -3767,7 +3767,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					$postId = $post->ID;
 				}
 			}
-			if ( isset( $postId ) && get_post_field( 'post_type', $postId ) == self::ORGANIZER_POST_TYPE ) {
+			if ( isset( $postId ) && get_post_field( 'post_type', $postId ) == Tribe__Events__Organizer::POSTTYPE ) {
 				return true;
 			}
 
@@ -4155,10 +4155,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			if ( $array_key = array_search( 'add-' . self::POSTTYPE, $current_hidden_boxes ) ) {
 				unset( $current_hidden_boxes[ $array_key ] );
 			}
-			if ( $array_key = array_search( 'add-' . self::VENUE_POST_TYPE, $current_hidden_boxes ) ) {
+			if ( $array_key = array_search( 'add-' . Tribe__Events__Venue::POSTTYPE, $current_hidden_boxes ) ) {
 				unset( $current_hidden_boxes[ $array_key ] );
 			}
-			if ( $array_key = array_search( 'add-' . self::ORGANIZER_POST_TYPE, $current_hidden_boxes ) ) {
+			if ( $array_key = array_search( 'add-' . Tribe__Events__Organizer::POSTTYPE, $current_hidden_boxes ) ) {
 				unset( $current_hidden_boxes[ $array_key ] );
 			}
 			if ( $array_key = array_search( 'add-' . self::TAXONOMY, $current_hidden_boxes ) ) {
@@ -4607,8 +4607,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$post_types,
 				array(
 					self::POSTTYPE,
-					self::VENUE_POST_TYPE,
-					self::ORGANIZER_POST_TYPE,
+					Tribe__Events__Venue::POSTTYPE,
+					Tribe__Events__Organizer::POSTTYPE,
 					Tribe__Events__Aggregator__Records::$post_type,
 				)
 			);
@@ -4778,12 +4778,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				<td>
 					<?php
 					Tribe__Events__Linked_Posts::instance()->saved_linked_post_dropdown( Tribe__Events__Venue::POSTTYPE, $venue_id );
-					$venue_pto = get_post_type_object( self::VENUE_POST_TYPE );
+					$venue_pto = get_post_type_object( Tribe__Events__Venue::POSTTYPE );
 					if ( current_user_can( $venue_pto->cap->edit_posts ) ) {
 						//Use Admin Link Unless on Community Events Editor then use Front End Link to Edit
 						$edit_link = admin_url( sprintf( 'post.php?action=edit&post=%s', $venue_id ) );
 						if ( tribe_is_community_edit_event_page() ) {
-							$edit_link = Tribe__Events__Community__Main::instance()->getUrl( 'edit', $venue_id, null, self::VENUE_POST_TYPE );
+							$edit_link = Tribe__Events__Community__Main::instance()->getUrl( 'edit', $venue_id, null, Tribe__Events__Venue::POSTTYPE );
 						}
 						?>
 						<div class="edit-linked-post-link">
