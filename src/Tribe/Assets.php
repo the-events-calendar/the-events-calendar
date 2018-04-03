@@ -53,7 +53,16 @@ class Tribe__Events__Assets {
 			$plugin,
 			'tribe-events-admin',
 			'events-admin.js',
-			array( 'jquery', 'jquery-ui-dialog', 'jquery-ui-datepicker', 'tribe-events-dynamic', 'tribe-events-jquery-resize' ),
+			array(
+				'jquery',
+				'jquery-ui-dialog',
+				'jquery-ui-datepicker',
+				'jquery-ui-sortable',
+				'tribe-bumpdown',
+				'tribe-attrchange',
+				'tribe-events-dynamic',
+				'tribe-events-jquery-resize',
+			),
 			'admin_enqueue_scripts',
 			array(
 				'groups'       => array( 'events-admin' ),
@@ -62,10 +71,6 @@ class Tribe__Events__Assets {
 					(object) array(
 						'name' => 'TEC',
 						'data' => array( $this, 'get_ajax_url_data' ),
-					),
-					(object) array(
-						'name' => 'tribe_dynamic_help_text',
-						'data' => array( $this, 'get_js_dynamic_data' ),
 					),
 				),
 			)
@@ -150,9 +155,9 @@ class Tribe__Events__Assets {
 			'tribe-events-dynamic',
 			'events-dynamic.js',
 			array( 'jquery', 'tribe-events-php-date-formatter', 'tribe-moment' ),
-			'wp_enqueue_scripts',
+			array( 'wp_enqueue_scripts', 'admin_enqueue_scripts' ),
 			array(
-				'conditionals' => array( $this, 'should_enqueue_frontend' ),
+				'conditionals' => array( $this, 'should_enqueue_on_tribe' ),
 				'localize'     => array(
 					'name' => 'tribe_dynamic_help_text',
 					'data' => array( $this, 'get_js_dynamic_data' ),
@@ -349,6 +354,21 @@ class Tribe__Events__Assets {
 
 		wp_dequeue_style( 'jquery-ui-css' );
 		wp_dequeue_style( 'edd-admin' );
+	}
+
+	/**
+	 * Checks if we should enqueue on frontend and backend on our pages
+	 *
+	 * @since  TBD
+	 *
+	 * @return bool
+	 */
+	public function should_enqueue_on_tribe() {
+		if ( is_admin() ) {
+			return $this->should_enqueue_admin();
+		} else {
+			return $this->should_enqueue_frontend();
+		}
 	}
 
 	/**
