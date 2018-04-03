@@ -150,6 +150,12 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 
 		$page = Tribe__Utils__Array::get( $args, 'paged', 1 );
 
+		if ( empty( $organizers ) && (int) $page > 1 ) {
+			$message = $this->messages->get_message( 'organizer-archive-page-not-found' );
+
+			return new WP_Error( 'organizer-archive-page-not-found', $message, array( 'status' => 404 ) );
+		}
+
 		if ( $this->has_next( $args, $page, $only_with_upcoming ) ) {
 			$data['next_rest_url'] = $this->get_next_rest_url( $data['rest_url'], $page );
 		}

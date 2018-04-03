@@ -147,6 +147,12 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 
 		$page = Tribe__Utils__Array::get( $args, 'paged', 1 );
 
+		if ( empty( $venues ) && (int) $page > 1 ) {
+			$message = $this->messages->get_message( 'venue-archive-page-not-found' );
+
+			return new WP_Error( 'venue-archive-page-not-found', $message, array( 'status' => 404 ) );
+		}
+
 		if ( $this->has_next( $args, $page, $only_with_upcoming ) ) {
 			$data['next_rest_url'] = $this->get_next_rest_url( $data['rest_url'], $page );
 		}
