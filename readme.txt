@@ -316,10 +316,12 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 * Fix - If the main events page is set to be the site's front page, ensure it shows as "selected" in the Customizer's front page option [100832]
 * Fix - Prevent Event Aggregator scheduled imports that failed from re-attempting the import too soon [102489]
 * Fix - Calendar Bar displays all the range of date times available [100646]
+* Fix - Hide the Filters on the Calendar Bar if a unique view is enabled [75114]
 * Tweak - Added the `tribe_aggregator_find_matching_organizer` and `tribe_aggregator_find_matching_venue` filters in Events Aggregator code to allow the definition of custom Venue and Organizer match criteria [97292]
 * Tweak - Display the retry time for a failed Event Aggregator scheduled import in the Scheduled tab [102489]
 * Tweak - Add new filter `tribe_events_import_event_duplicate_matches` to determine if an event is part of the duplicates matches [77956]
 * Tweak - Ensure "secondary" maps, e.g. in the sidebar, have the same full-width behavior as "main" maps [74052]
+* Tweak - Restore the missing header navigation elements [99742]
 
 = [4.6.13] 2018-03-28 =
 
