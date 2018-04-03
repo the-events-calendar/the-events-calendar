@@ -216,9 +216,10 @@ abstract class Tribe__Events__Importer__File_Importer {
 		$featured_image = $this->get_value_by_key( $record, 'featured_image' );
 
 		if ( ! empty( $featured_image ) ) {
-			$process = new Tribe__Process__Post_Thumbnail_Setter();
-			$process->data( array( 'id' => $id, 'featured-image' => $featured_image ) );
-			$process->dispatch();
+			$post_thumbnail_process = new Tribe__Process__Post_Thumbnail_Setter();
+			$post_thumbnail_process->set_post_id( $id );
+			$post_thumbnail_process->set_post_thumbnail( $featured_image );
+			$post_thumbnail_process->dispatch();
 		}
 
 		return $id;
