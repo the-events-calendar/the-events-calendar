@@ -192,7 +192,6 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 			'EventURL'              => $this->get_value_by_key( $record, 'event_website' ),
 			'EventCurrencySymbol'   => $this->get_value_by_key( $record, 'event_currency_symbol' ),
 			'EventCurrencyPosition' => $this->get_currency_position( $record ),
-			'FeaturedImage'         => $this->get_featured_image( $event_id, $record ),
 			'EventTimezone'         => $this->get_timezone( $this->get_value_by_key( $record, 'event_timezone' ) ),
 		);
 
