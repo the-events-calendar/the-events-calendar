@@ -66,6 +66,9 @@ class Tribe__Events__Integrations__WPML__WPML {
 		$language_switcher = Tribe__Events__Integrations__WPML__Language_Switcher::instance();
 		add_filter( 'icl_ls_languages', array( $language_switcher, 'filter_icl_ls_languages' ), 5 );
 
+		$meta = Tribe__Events__Integrations__WPML__Meta::instance();
+		add_filter( 'get_post_metadata', array( $meta, 'translate_post_id' ), 10, 4);
+
 		// Disable month view caching when WPML is activated for now, until we
 		// fully implement multilingual support for the month view cache.
 		add_filter( 'tribe_events_enable_month_view_cache', '__return_false' );
