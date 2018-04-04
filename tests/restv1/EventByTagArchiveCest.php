@@ -16,15 +16,24 @@ class EventByTagArchiveCest extends BaseRestCest {
 
 	/**
 	 * @test
-	 * it should return 404 if hitting empty tag archive
+	 * it should return 200 if hitting empty tag archive
 	 */
-	public function it_should_return_404_if_hitting_empty_tag_archive( Restv1Tester $I ) {
+	public function it_should_return_200_if_hitting_empty_tag_archive( Restv1Tester $I ) {
 		$I->haveTermInDatabase( 'tag1', 'post_tag', [ 'slug' => 'tag1' ] );
 
 		$I->sendGET( $this->events_url, [ 'tags' => [ 'tag1' ] ] );
 
-		$I->seeResponseCodeIs( 404 );
+		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse() );
+
+		$I->assertCount( 0, $response->events );
+		$I->assertEquals( 0, $response->total );
+		$I->assertEquals( 0, $response->total_pages );
+		$I->seeHttpHeader( 'X-TEC-Total', 0 );
+		$I->seeHttpHeader( 'X-TEC-TotalPages', 0 );
+		$I->assertArrayNotHasKey( 'previous_rest_url', (array) $response );
+		$I->assertArrayNotHasKey( 'next_rest_url', (array) $response );
 	}
 
 	/**
