@@ -112,6 +112,10 @@ class File_Importer_Events_TimezoneTest extends File_Importer_EventsTest {
 
 		$post_id = $sut->import_next_row();
 
-		$this->assertEquals( $expected_timezone, get_post_meta( $post_id, '_EventTimezone', true ) );
+		// expect empty
+		$this->assertEmpty( $expected_timezone );
+
+		//expect timezone set to default WordPress install
+		$this->assertTrue( is_string( get_post_meta( $post_id, '_EventTimezone', true ) )  );
 	}
 }
