@@ -108,7 +108,7 @@ class Tribe__Events__Aggregator {
 	 * Set up any necessary notices
 	 */
 	public function setup_notices() {
-		if ( ! is_admin() || Tribe__Main::instance()->doing_ajax() ) {
+		if ( ! is_admin() || tribe( 'context' )->doing_ajax() ) {
 			return;
 		}
 
