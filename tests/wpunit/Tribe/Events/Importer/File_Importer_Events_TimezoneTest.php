@@ -116,6 +116,6 @@ class File_Importer_Events_TimezoneTest extends File_Importer_EventsTest {
 		$this->assertEmpty( $expected_timezone );
 
 		//expect timezone set to default WordPress install
-		$this->assertTrue( is_string( get_post_meta( $post_id, '_EventTimezone', true ) )  );
+		$this->assertInternalType( 'string', get_post_meta( $post_id, '_EventTimezone', true ) );
 	}
 }
