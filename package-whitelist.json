@@ -27,6 +27,7 @@
   "common/vendor/autoload_52.php",
   "common/vendor/composer/*",
   "common/vendor/lucatume/di52/src/**",
+  "common/vendor/a5hleyrich/wp-background-processing/**",
   "common/vendor/momentjs/*.js",
   "common/vendor/tribe-select2/*.css",
   "common/vendor/tribe-select2/*.js",
