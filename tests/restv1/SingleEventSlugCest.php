@@ -52,7 +52,7 @@ class SingleEventSlugCest extends BaseRestCest {
 
 		$I->sendGET( $this->events_url . '/by-slug/' . $post->post_name );
 
-		$I->seeResponseCodeIs( 403 );
+		$I->seeResponseCodeIs( 401 );
 		$I->seeResponseIsJson();
 	}
 
