@@ -38,7 +38,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$this->validator = new \Tribe__Events__Validator__Base;
 
 		// to avoid date filters from being canned
-		\Tribe__Main::instance()->doing_ajax( true );
+		tribe( 'context' )->doing_ajax( true );
 	}
 
 	/**
@@ -115,17 +115,14 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 	 */
 	public function it_should_allow_filtering_the_events_by_start_date() {
 		$request = new \WP_REST_Request( 'GET', '' );
-		$request->set_param( 'start_date', strtotime( '+1 month' ) );
+		$request->set_param( 'start_date', strtotime( '15 days' ) );
 		update_option( 'posts_per_page', 10 );
-		$this->factory()->event->create_many( 10, [ 'time_space' => 3 * 24 ] ); // space events by 3 days
+		 // space events by 3 days
+		$this->factory()->event->create_many( 10, [ 'time_space' => 3 * 24 ] );
 		$this->assertCount( 10, tribe_get_events() );
 
 		$sut = $this->make_instance();
 		$response = $sut->get( $request );
-		$event_dates = array_map( function ( $id ) {
-			return get_post_meta( $id, '_EventStartDate', true );
-		}, tribe_get_events( [ 'fields' => 'ids' ] ) );
-		$start_t = date('Y-m-d', strtotime( '+1 month' ));
 
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
 		$this->assertCount( 6, $response->get_data()['events'] );
@@ -139,9 +136,10 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$request = new \WP_REST_Request( 'GET', '' );
 		$request->set_param( 'end_date', strtotime( '+1 month' ) );
 		update_option( 'posts_per_page', 10 );
-		$this->factory()->event->create_many( 10, [ 'time_space' => '+12 days' ] );
+		// create many events 5 days apart
+		$this->factory()->event->create_many( 10, [ 'time_space' => 5 * 24 ] );
 
-		$sut = $this->make_instance();
+		$sut      = $this->make_instance();
 		$response = $sut->get( $request );
 
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
@@ -157,7 +155,8 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$request->set_param( 'start_date', strtotime( '+1 week' ) );
 		$request->set_param( 'end_date', strtotime( '+5 weeks' ) );
 		update_option( 'posts_per_page', 10 );
-		$this->factory()->event->create_many( 10, [ 'time_space' => '+12 days' ] );
+		// create events 10 days apart
+		$this->factory()->event->create_many( 10, [ 'time_space' => 10 * 24 ] );
 
 		$sut = $this->make_instance();
 		$response = $sut->get( $request );

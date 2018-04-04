@@ -596,7 +596,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_filter( 'tribe_tracker_post_types', array( $this, 'filter_tracker_event_post_types' ) );
 			add_filter( 'tribe_tracker_taxonomies', array( $this, 'filter_tracker_event_taxonomies' ) );
 
-			if ( ! Tribe__Main::instance()->doing_ajax() ) {
+			if ( ! tribe( 'context' )->doing_ajax() ) {
 				add_action( 'current_screen', array( $this, 'init_admin_list_screen' ) );
 			} else {
 				add_action( 'admin_init', array( $this, 'init_admin_list_screen' ) );
@@ -2226,7 +2226,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function init_admin_list_screen( $screen ) {
 			// If we are dealing with a AJAX call just drop these checks
-			if ( ! Tribe__Main::instance()->doing_ajax() ) {
+			if ( ! tribe( 'context' )->doing_ajax() ) {
 				if ( 'edit' !== $screen->base ) {
 					return;
 				}
@@ -2250,7 +2250,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			// If we are in Admin and Not inside of the Default WP AJAX request
-			if ( is_admin() && ! Tribe__Main::instance()->doing_ajax() ) {
+			if ( is_admin() && ! tribe( 'context' )->doing_ajax() ) {
 				$this->displaying = 'admin';
 				return;
 			}
@@ -2612,7 +2612,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 *
 			 * @return string The AJAX provided base url.
 			 */
-			if ( Tribe__Main::instance()->doing_ajax() && ! empty( $_POST['baseurl'] ) ) {
+			if ( tribe( 'context' )->doing_ajax() && ! empty( $_POST['baseurl'] ) ) {
 				$eventUrl = trailingslashit( $_POST['baseurl'] );
 			}
 
@@ -2620,7 +2620,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			if ( $type !== 'home' && is_tax( self::TAXONOMY ) ) {
 				if (
 					(
-						Tribe__Main::instance()->doing_ajax()
+						tribe( 'context' )->doing_ajax()
 						&& ! empty( $_POST['baseurl'] )
 					)
 					|| apply_filters( 'tribe_events_force_ugly_link', false )
