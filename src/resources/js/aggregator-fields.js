@@ -494,7 +494,10 @@ tribe_aggregator.fields = {
 
 				// if this is a CSV import, add the column map headers and default-select where possible
 				if ( is_csv ) {
-					var column_slug = data.columns[ i ].toLowerCase().replace( ' ', '_' ).replace( /[^a-z0-9_]/, '' );
+					var column_slug = data.columns[ i ].toLowerCase()
+						.replace( /^\s+|\s+$/g, '' ) // Remove left / right spaces before the word starts
+						.replace( /\s/g, '_' )    // change all spaces inside of words to underscores
+						.replace( /[^a-z0-9_]/, '' );
 					$map_row.append( '<th scope="col">' + column_map.replace( 'name="column_map[]"', 'name="aggregator[column_map][' + column + ']" id="column-' + column + '"' ) + '</th>' );
 
 					var $map_select = $map_row.find( '#column-' + column );
@@ -502,7 +505,6 @@ tribe_aggregator.fields = {
 					if ( 'undefined' !== typeof ea.csv_column_mapping[ content_type ][ column ] ) {
 						column_slug = ea.csv_column_mapping[ content_type ][ column ];
 					}
-
 					$map_select.find( 'option[value="' + column_slug + '"]' ).prop( 'selected', true );
 				}
 
