@@ -1,7 +1,10 @@
 <?php
 class Tribe__Events__Admin__Front_Page_View {
+
+	private $HOME_VIRTUAL_ID = -1;
+
 	public function hook() {
-		add_action( 'load-options.php', array( $this, 'save_setting' ) );
+		add_action( 'sanitize_option_page_on_front', array( $this, 'save_page_on_front' ), 10, 3 );
 
 		tribe_asset(
 			Tribe__Events__Main::instance(),
@@ -25,28 +28,31 @@ class Tribe__Events__Admin__Front_Page_View {
 		);
 	}
 
-	public function save_setting() {
-		if ( ! current_user_can( 'customize' ) || empty( $_POST ) ) {
-			return;
-		}
+	/**
+	 *
+	 *
+	 * @since TBD
+	 *
+	 * @param $value
+	 * @param $option
+	 * @param $original_value
+	 *
+	 * @return mixed
+	 */
+	public function save_page_on_front( $value, $option, $original_value ) {
 
-		$fields = array_merge(
-			array(
-				'show_on_front'        => '',
-				'page_on_front'        => '',
-				'set_main_events_page' => '',
-			),
-			$_POST
-		);
+		$is_front_page_event_archive = $this->is_virtual_page_id( $original_value );
 
-		if ( ! wp_verify_nonce( $fields['set_main_events_page'], 'events_front_page_setting' ) ) {
-			return;
-		}
+		tribe_update_option( 'front_page_event_archive', $is_front_page_event_archive );
 
-		if ( 'page' === $fields['show_on_front'] && 'main_events_page' === $fields['page_on_front'] ) {
-			tribe_update_option( 'front_page_event_archive', true );
-		} else {
-			tribe_update_option( 'front_page_event_archive', false );
-		}
+		return $is_front_page_event_archive ? $original_value : $value;
+	}
+
+	public function get_virtual_id() {
+		return $this->HOME_VIRTUAL_ID;
+	}
+
+	public function is_virtual_page_id( $compare ) {
+		return $this->get_virtual_id() === (int) $compare;
 	}
 }
