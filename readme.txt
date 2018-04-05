@@ -325,6 +325,7 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 * Tweak - Ensure "secondary" maps, e.g. in the sidebar, have the same full-width behavior as "main" maps [74052]
 * Tweak - Restore the missing header navigation elements [99742]
 * Tweak - Add notice if the import is missing required columns [67886]
+* Tweak - Removed plugin name, author and URI from translation file [42146]
 
 = [4.6.13] 2018-03-28 =
 
