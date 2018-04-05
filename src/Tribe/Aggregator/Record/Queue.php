@@ -178,7 +178,7 @@ class Tribe__Events__Aggregator__Record__Queue {
 	 * @return int
 	 */
 	public function count() {
-		return count( $this->items );
+		return is_array( $this->items ) ? count( $this->items ) : 0;
 	}
 
 	/**
