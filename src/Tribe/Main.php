@@ -4550,7 +4550,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param $post_type can be 'venue' or 'organizer'
 		 */
 		protected function manage_preview_metapost( $post_type, $event_id ) {
-			_deprecated_function( __METHOD__, 'TBD' );
+			_deprecated_function( __METHOD__, 'TBD', 'Functionality outdated by new linked post architecture in 4.6'  );
 
 			if ( ! in_array( $post_type, array( 'venue', 'organizer' ) ) ) {
 				return;
@@ -4591,7 +4591,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @since 4.5.1
 		 */
 		public function maybe_add_preview_venues_and_organizers() {
-			_deprecated_function( __METHOD__, 'TBD' );
+			_deprecated_function( __METHOD__, 'TBD', 'Functionality outdated by new linked post architecture in 4.6'  );
 
 			if ( ! is_singular( self::POSTTYPE ) ) {
 				return;
@@ -4620,7 +4620,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param int $event_id The ID of the event being previewed.
 		 */
 		public function add_preview_venues( $event_id ) {
-			_deprecated_function( __METHOD__, 'TBD' );
+			_deprecated_function( __METHOD__, 'TBD', 'Functionality outdated by new linked post architecture in 4.6'  );
 
 			$venue_id = get_post_meta( $event_id, '_EventVenueID', true );
 
@@ -4652,7 +4652,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param int $event_id The ID of the event being previewed.
 		 */
 		public function add_preview_organizers( $event_id ) {
-			_deprecated_function( __METHOD__, 'TBD' );
+			_deprecated_function( __METHOD__, 'TBD', 'Functionality outdated by new linked post architecture in 4.6'  );
 
 			$organizer_ids = get_post_meta( $event_id, '_EventOrganizerID', false );
 
@@ -4685,7 +4685,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param int $event_id ID of event being previewed.
 		 */
 		public function link_preview_venue_to_event( $venue_id, $event_id ) {
-			_deprecated_function( __METHOD__, 'TBD' );
+			_deprecated_function( __METHOD__, 'TBD', 'Functionality outdated by new linked post architecture in 4.6'  );
 
 			$preview_venues = (array) get_post_meta( $event_id, '_preview_venues', true );
 
@@ -4709,7 +4709,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param int $event_id ID of event being previewed.
 		 */
 		public function link_preview_organizer_to_event( $organizer_ids, $event_id ) {
-			_deprecated_function( __METHOD__, 'TBD' );
+			_deprecated_function( __METHOD__, 'TBD', 'Functionality outdated by new linked post architecture in 4.6'  );
 
 			$preview_organizers = (array) get_post_meta( $event_id, '_preview_organizers', true );
 
@@ -4735,7 +4735,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param bool $delete_meta Whether to delete existing _EventVenueID
 		 */
 		public function remove_preview_venues( $event_id, $delete_meta = false ) {
-			_deprecated_function( __METHOD__, 'TBD' );
+			_deprecated_function( __METHOD__, 'TBD', 'Functionality outdated by new linked post architecture in 4.6'  );
 
 			$event_id = absint( $event_id );
 
@@ -4770,7 +4770,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param bool $delete_meta Whether to delete existing _EventOrganizerID
 		 */
 		public function remove_preview_organizers( $event_id, $delete_meta = false ) {
-			_deprecated_function( __METHOD__, 'TBD' );
+			_deprecated_function( __METHOD__, 'TBD', 'Functionality outdated by new linked post architecture in 4.6' );
 
 			$event_id = absint( $event_id );
 
