@@ -21,6 +21,14 @@ class Tribe__Events__Front_Page_View {
 	 * @param WP_Query $query
 	 */
 	public function parse_query( WP_Query $query ) {
+
+
+		if ( tribe('tec.admin.front-page-view')->is_virtual_page_id( $query->get( 'page_id' ) ) ) {
+			// $query->set( 'page_id', 0 );
+			// $query->is_page = false;
+			$query->is_home = true;
+		}
+
 		// We're only interested in the main query (when it runs in relation to the site homepage),
 		// we also need to make an exception for compatibility with Community Events (WP_Route)
 		if (
