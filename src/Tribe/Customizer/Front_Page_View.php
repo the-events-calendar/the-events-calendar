@@ -45,30 +45,21 @@ class Tribe__Events__Customizer__Front_Page_View extends Tribe__Customizer__Sect
 	 */
 	public function add_events_page_option( $output, $args, $pages ) {
 
-		// Ensures we don't show the "Main Events Page" option outside the Customizer pane.
-		if ( ! is_customize_preview() ) {
-			return $output;
-		}
-
 		// Ensures we only modify the Homepage dropdown, not the Blog page.
-		if ( ! isset( $args['name'] ) || '_customize-dropdown-pages-page_on_front' !== $args['name'] ) {
+		$valid_names = array( '_customize-dropdown-pages-page_on_front', 'page_on_front' );
+		if ( ! isset( $args['name'] ) || ! in_array( $args['name'], $valid_names ) ) {
 			return $output;
 		}
 
-		$already_chosen = tribe_get_option( 'front_page_event_archive', false );
+		$already_chosen = tribe_get_option( 'front_page_event_archive', false ) && -1 === (int) get_option( 'page_on_front' );
 
 		$label = sprintf(
 			esc_html_x( 'Main %s Page', 'Customizer static front page setting', 'the-events-calendar' ),
 			tribe_get_event_label_plural()
 		);
 
-		$option = sprintf(
-			'<option class="level-0" value="%1$s" selected="%2$s">%3$s</option></select>',
-			0,
-			( $already_chosen ? 'selected' : '' ),
-			$label
-		);
-
+		$selected = $already_chosen ? 'selected' : '';
+		$option = '<option class="level-0" value="-1" ' . $selected . '>' . $label . '</option></select>';
 		$output = str_replace( '</select>', $option, $output );
 
 		return $output;
