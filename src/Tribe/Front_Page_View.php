@@ -3,11 +3,29 @@
  * Provides an option to position the main events view on the site homepage.
  */
 class Tribe__Events__Front_Page_View {
+
+
+	/**
+	 * The ID used to identify the virtual page, using a -10 for no particular reason, but avoding -1 as is regular
+	 * used as infinite or any other popular reference.
+	 *
+	 * @since TBD
+	 *
+	 * @var int
+	 */
+	private $HOME_VIRTUAL_ID = -10;
+
 	public function hook() {
-		if ( is_admin() ) {
-			// Integrate with the Settings > Reading screen
-			tribe( 'tec.admin.front-page-view' )->hook();
-		} elseif ( tribe_get_option( 'front_page_event_archive', false ) ) {
+
+		// Prevent breaking changing on sites with the old implementation
+		add_action( 'admin_init', array( $this, 'backwards_compatible' ) );
+
+		// Allow to set negative numbers on the homepage.
+		add_action( 'sanitize_option_page_on_front', array( $this, 'save_page_on_front' ), 10, 3 );
+		// Insert the main Events page on the Customizer and Reading settings option
+		add_filter( 'wp_dropdown_pages', array( $this, 'add_events_page_option' ), 10, 3 );
+
+		if ( tribe_get_option( 'front_page_event_archive', false ) ) {
 			// Implement front page view
 			add_action( 'parse_query', array( $this, 'parse_query' ), 5 );
 			add_filter( 'tribe_events_getLink', array( $this, 'main_event_page_links' ) );
@@ -22,10 +40,7 @@ class Tribe__Events__Front_Page_View {
 	 */
 	public function parse_query( WP_Query $query ) {
 
-
-		if ( tribe('tec.admin.front-page-view')->is_virtual_page_id( $query->get( 'page_id' ) ) ) {
-			// $query->set( 'page_id', 0 );
-			// $query->is_page = false;
+		if ( $this->is_virtual_page_id( $query->get( 'page_id' ) ) ) {
 			$query->is_home = true;
 		}
 
@@ -110,5 +125,131 @@ class Tribe__Events__Front_Page_View {
 		} else {
 			return trailingslashit( home_url() . '/' . sanitize_title( $events_slug ) );
 		}
+	}
+
+	/**
+	 * Return the $original_value to avoid convert to a positive integer if the $original_value is the same as
+	 * the ID of the virtual page.
+	 *
+	 * @since TBD
+	 *
+	 * @param $value
+	 * @param $option
+	 * @param $original_value
+	 *
+	 * @return mixed
+	 */
+	public function save_page_on_front( $value, $option, $original_value ) {
+
+		$is_front_page_event_archive = $this->is_virtual_page_id( $original_value );
+
+		tribe_update_option( 'front_page_event_archive', $is_front_page_event_archive );
+
+		return $is_front_page_event_archive ? $original_value : $value;
+	}
+
+	/**
+	 * Add "Main Events Page" option to the Customizer's "Homepage Settings" and the reading settings of the admin
+	 *
+	 * @since TBD
+	 *
+	 * @param string $output HTML output for drop down list of pages.
+	 * @param array  $args   The parsed arguments array.
+	 * @param array  $pages  List of WP_Post objects returned by `get_pages()`
+	 *
+	 * @return string
+	 */
+	public function add_events_page_option( $output, $args, $pages ) {
+
+		// Ensures we only modify the Homepage dropdown.
+		$valid_names = array( '_customize-dropdown-pages-page_on_front', 'page_on_front' );
+		if ( ! isset( $args['name'] ) || ! in_array( $args['name'], $valid_names ) ) {
+			return $output;
+		}
+
+		$label = sprintf(
+			esc_html_x( 'Main %s Page', 'Customizer static front page setting', 'the-events-calendar' ),
+			tribe_get_event_label_plural()
+		);
+
+		$selected = $this->is_page_on_front() ? 'selected' : '';
+		$option = '<option class="level-0" value="' . $this->get_virtual_id() . '" ' . $selected . '>' . $label . '</option></select>';
+		return str_replace( '</select>', $option, $output );
+	}
+
+	/**
+	 * Make sure to set the correct values if we need to update old versions using the previous logic.
+	 *
+	 * @since TBD
+	 */
+	public function backwards_compatible() {
+
+		if ( $this->is_page_on_front() ) {
+			return;
+		}
+
+		// If the archive option is false we don't need to update anything
+		if ( $this->has_event_archive_option() && 'post' === get_option( 'show_on_front' ) ) {
+			update_option( 'show_on_front', 'page' );
+			update_option( 'page_on_front', $this->get_virtual_id() );
+		}
+	}
+
+	/**
+	 * Returns `true` if the 'front_page_event_archive' is `true` and the `page_on_front` is same as the virtual page ID
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function is_page_on_front() {
+		return $this->has_event_archive_option() && $this->is_virtual_page_on_front();
+	}
+
+	/**
+	 * Returns `true` if the `front_page_event_archive` is `true` otherwise `false`
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function has_event_archive_option() {
+		return tribe_get_option( 'front_page_event_archive', false );
+	}
+
+	/**
+	 * Compares the value of the setting `page_on_front` is same as the one used for the virtual page ID.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function is_virtual_page_on_front() {
+		return $this->is_virtual_page_id( get_option( 'page_on_front' ) );
+	}
+
+	/**
+	 * Compare a value with the value used on the virtual page ID and converts the var $compare to an integer
+	 * to make sure the strict comparision is done correctly between two integers.
+	 *
+	 * @since TBD
+	 *
+	 * @param $compare
+	 *
+	 * @return bool
+	 */
+	public function is_virtual_page_id( $compare ) {
+		return $this->get_virtual_id() === (int) $compare;
+	}
+
+	/**
+	 * Return the ID of the virtual page.
+	 *
+	 * @since TBD
+	 *
+	 * @return int
+	 */
+	public function get_virtual_id() {
+		return $this->HOME_VIRTUAL_ID;
 	}
 }
