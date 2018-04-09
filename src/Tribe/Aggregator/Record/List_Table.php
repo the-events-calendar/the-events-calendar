@@ -542,8 +542,9 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 		$now = current_time( 'timestamp', true );
 
 		$retry_time = false;
-		if ( $last_import_error ) {
-		    $retry_time = $record->get_retry_time();
+
+		if ( ! empty( $last_import_error ) ) {
+			$retry_time = $record->get_retry_time();
 		}
 
 		$html[] = '<span title="' . esc_attr( $original ) . '">';
