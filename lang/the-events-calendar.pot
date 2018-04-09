@@ -2333,12 +2333,6 @@ msgid "Upcoming Events"
 msgstr ""
 
 #. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 4.6.13)  #-#-#-#-#
-#. Plugin Name of the plugin/theme
-#: src/Tribe/Main.php:741 src/Tribe/Main.php:1083
-#: src/functions/template-tags/general.php:1332
-msgid "The Events Calendar"
-msgstr ""
-
 #: src/Tribe/Main.php:748
 msgid "month"
 msgstr ""
@@ -6420,12 +6414,4 @@ msgstr ""
 msgid ""
 "The Events Calendar is a carefully crafted, extensible plugin that lets you "
 "easily share your events. Beautiful. Solid. Awesome."
-msgstr ""
-
-#. Author of the plugin/theme
-msgid "Modern Tribe, Inc."
-msgstr ""
-
-#. Author URI of the plugin/theme
-msgid "http://m.tri.be/1x"
 msgstr ""
