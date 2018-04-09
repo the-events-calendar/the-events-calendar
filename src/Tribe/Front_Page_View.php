@@ -191,7 +191,7 @@ class Tribe__Events__Front_Page_View {
 		}
 
 		// If the archive option is false we don't need to update anything
-		if ( $this->has_event_archive_option() && 'post' === get_option( 'show_on_front' ) ) {
+		if ( $this->has_event_archive_option() && 'posts' === get_option( 'show_on_front' ) ) {
 			update_option( 'show_on_front', 'page' );
 			$modified = update_option( 'page_on_front', $this->get_virtual_id() );
 		}
