@@ -187,7 +187,16 @@ class Tribe__Events__Linked_Posts {
 			return '_EventOrganizerID_Order';
 		}
 
-		// This allows for things like Extensions to hook in here and return their own key
+		/**
+		 * This allows for things like Extensions to hook in here and return their own key
+		 * See '_EventOrganizerID_Order' above for an example
+		 *
+		 * @since TBD
+		 *
+		 * @param bool false (not linked)
+		 * @param string $post_type current (potentially linked) post type
+		 * @return string
+		 */
 		return apply_filters( 'tribe_events_linked_post_type_meta_key', false, $post_type );
 	}
 
