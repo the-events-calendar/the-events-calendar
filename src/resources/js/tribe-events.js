@@ -1148,7 +1148,7 @@ Date.prototype.format = function( mask, utc ) {
 		 * )
 		 */
 		map_view      : function() {
-			return ( typeof GeoLoc !== 'undefined' && GeoLoc.map_view ) ? true : false;
+			return typeof GeoLoc !== 'undefined' && GeoLoc.map_view;
 		},
 		/**
 		 * @function tribe_ev.tests.no_bar
