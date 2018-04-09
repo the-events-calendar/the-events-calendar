@@ -13,7 +13,7 @@ class Tribe__Events__Front_Page_View {
 	 *
 	 * @var int
 	 */
-	private $HOME_VIRTUAL_ID = -10;
+	private $home_virtual_ID = -10;
 
 	public function hook() {
 
@@ -181,18 +181,21 @@ class Tribe__Events__Front_Page_View {
 	 * Make sure to set the correct values if we need to update old versions using the previous logic.
 	 *
 	 * @since TBD
+	 * @return boolean
 	 */
 	public function backwards_compatible() {
 
+		$modified = false;
 		if ( $this->is_page_on_front() ) {
-			return;
+			return $modified;
 		}
 
 		// If the archive option is false we don't need to update anything
 		if ( $this->has_event_archive_option() && 'post' === get_option( 'show_on_front' ) ) {
 			update_option( 'show_on_front', 'page' );
-			update_option( 'page_on_front', $this->get_virtual_id() );
+			$modified = update_option( 'page_on_front', $this->get_virtual_id() );
 		}
+		return $modified;
 	}
 
 	/**
@@ -250,6 +253,6 @@ class Tribe__Events__Front_Page_View {
 	 * @return int
 	 */
 	public function get_virtual_id() {
-		return $this->HOME_VIRTUAL_ID;
+		return $this->home_virtual_ID;
 	}
 }
