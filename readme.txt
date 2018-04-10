@@ -318,6 +318,7 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 * Fix - Prevent Event Aggregator scheduled imports that failed from re-attempting the import too soon [102489]
 * Fix - Calendar Bar displays all the range of date times available [100646]
 * Fix - Hide the Filters on the Calendar Bar if a unique view is enabled [75114]
+* Fix - On import check if timezone is empty and add site timezone to prevent the event with no time and that is not an all day from displaying [93979]
 * Fix - Change the HTTP status code of empty event, venue, organizer, category and tag archives from 404 to 200 and return empty arrays to stick with WP REST API standard [102283]
 * Fix - Better "guessing" on column mapping during the import of CSV file (thanks to April in our Help Desk for flag this problem) [96162]
 * Tweak - Added the `tribe_aggregator_find_matching_organizer` and `tribe_aggregator_find_matching_venue` filters in Events Aggregator code to allow the definition of custom Venue and Organizer match criteria [97292]
