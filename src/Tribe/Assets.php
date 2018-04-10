@@ -203,6 +203,7 @@ class Tribe__Events__Assets {
 				'media'        => 'only screen and (max-width: ' . tribe_get_mobile_breakpoint() . 'px)',
 				'groups'       => array( 'events-styles' ),
 				'conditionals' => array(
+					'operator' => 'AND',
 					array( $this, 'is_mobile_breakpoint' ),
 					array( $this, 'should_enqueue_frontend' ),
 				),
@@ -219,6 +220,7 @@ class Tribe__Events__Assets {
 				'media'        => 'only screen and (max-width: ' . tribe_get_mobile_breakpoint() . 'px)',
 				'groups'       => array( 'events-styles' ),
 				'conditionals' => array(
+					'operator' => 'AND',
 					array( $this, 'is_mobile_breakpoint' ),
 					array( $this, 'should_enqueue_frontend' ),
 					array( $this, 'should_enqueue_full_styles' ),
@@ -233,7 +235,9 @@ class Tribe__Events__Assets {
 			array(),
 			'wp_enqueue_scripts',
 			array(
+				'groups'       => array( 'events-styles' ),
 				'conditionals' => array(
+					'operator' => 'AND',
 					array( $this, 'should_enqueue_frontend' ),
 					array( $this, 'should_enqueue_full_styles' ),
 				),
