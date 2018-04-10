@@ -229,6 +229,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			if ( $query->tribe_is_event || $query->tribe_is_event_category ) {
 
 				if ( ! ( $query->is_main_query() && 'month' === $query->get( 'eventDisplay' ) ) ) {
+					add_filter( 'option_page_on_front', array( __CLASS__, 'default_page_on_front' ) );
 					add_filter( 'posts_fields', array( __CLASS__, 'posts_fields' ), 10, 2 );
 					add_filter( 'posts_join', array( __CLASS__, 'posts_join' ), 10, 2 );
 					add_filter( 'posts_join', array( __CLASS__, 'posts_join_venue_organizer' ), 10, 2 );
@@ -433,6 +434,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			 * self::should_remove_date_filters() to allow the date_filters to be actually removed
 			 */
 			if ( self::should_remove_date_filters( $query ) ) {
+				remove_filter( 'option_page_on_front', array( __CLASS__, 'default_page_on_front' ) );
 				remove_filter( 'posts_where', array( __CLASS__, 'posts_where' ), 10, 2 );
 				remove_filter( 'posts_fields', array( __CLASS__, 'posts_fields' ) );
 				remove_filter( 'posts_orderby', array( __CLASS__, 'posts_orderby' ), 10, 2 );
@@ -656,6 +658,8 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 					}
 				}
 			}
+
+			remove_filter( 'option_page_on_front', array( __CLASS__, 'default_page_on_front' ) );
 
 			return $where_sql;
 		}
@@ -1178,5 +1182,27 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			return true;
 		}
 
+		/**
+		 * If the user has the Main events page set on the reading options it should return 0 or the default value in
+		 * order to avoid to set the:
+		 * - p
+		 * - page_id
+		 *
+		 * variables when using  pre_get_posts or posts_where
+		 *
+		 * This filter is removed when this funtions has finished the execution
+		 *
+		 * @since TBD
+		 *
+		 * @param $value
+		 *
+		 * @return int
+		 */
+		public static function default_page_on_front( $value ) {
+			return tribe( 'tec.front-page-view' )->is_virtual_page_id( $value ) ? 0 : $value;
+		}
+
+
 	}
+
 }
