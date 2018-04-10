@@ -1148,7 +1148,7 @@ Date.prototype.format = function( mask, utc ) {
 		 * )
 		 */
 		map_view      : function() {
-			return ( typeof GeoLoc !== 'undefined' && GeoLoc.map_view ) ? true : false;
+			return typeof GeoLoc !== 'undefined' && GeoLoc.map_view;
 		},
 		/**
 		 * @function tribe_ev.tests.no_bar
@@ -1340,7 +1340,7 @@ Date.prototype.format = function( mask, utc ) {
 			ts.view = $tribe_events_header.data( 'view' );
 		}
 
-		if ( $tribe_events.tribe_has_attr( 'data-datepicker_format' ) && $tribe_events.attr( 'data-datepicker_format' ).length === 1 ) {
+		if ( $tribe_events.tribe_has_attr( 'data-datepicker_format' ) && $tribe_events.attr( 'data-datepicker_format' ).length >= 1 ) {
 			ts.datepicker_format = $tribe_events.attr( 'data-datepicker_format' );
 		}
 

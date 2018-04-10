@@ -86,7 +86,7 @@ $field->help        = __( 'Enter the url for the calendar, website, or event you
 $range_option = tribe_get_option( 'tribe_aggregator_default_url_import_range', 30 * DAY_IN_SECONDS );
 $range_strings = tribe( 'events-aggregator.settings' )->get_url_import_range_options( false );
 $range_string = $range_strings[ $range_option ];
-$range_message = esc_html( sprintf( __( 'Event Aggregator will try to fetch events starting in %s from the current date or the specified date;', 'the-events-calendar' ), $range_string ) );
+$range_message = esc_html( sprintf( __( 'Event Aggregator will try to fetch events starting within the next %s from the current date or the specified date;', 'the-events-calendar' ), $range_string ) );
 $link = esc_attr( admin_url( '/edit.php?post_type=tribe_events&page=tribe-common&tab=imports#tribe-field-tribe_aggregator_default_url_import_range' ) );
 $field->range_message = $range_message . ' ' . sprintf( '<a href="%s" target="_blank">%s</a> ', $link, esc_html__( 'you can modify this setting here.', 'the-events-calendar' ) );
 ?>

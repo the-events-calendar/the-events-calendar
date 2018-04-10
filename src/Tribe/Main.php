@@ -592,7 +592,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_filter( 'tribe_tracker_post_types', array( $this, 'filter_tracker_event_post_types' ) );
 			add_filter( 'tribe_tracker_taxonomies', array( $this, 'filter_tracker_event_taxonomies' ) );
 
-			if ( ! Tribe__Main::instance()->doing_ajax() ) {
+			if ( ! tribe( 'context' )->doing_ajax() ) {
 				add_action( 'current_screen', array( $this, 'init_admin_list_screen' ) );
 			} else {
 				add_action( 'admin_init', array( $this, 'init_admin_list_screen' ) );
@@ -697,9 +697,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			if ( function_exists( 'tribe_notice' ) ) {
 				tribe_notice( 'archive-slug-conflict', array( $this, 'render_notice_archive_slug_conflict' ), 'dismiss=1&type=error' );
 			}
-
-			// Prevent duplicate venues and organizers from being created on event preview.
-			add_action( 'tribe_events_after_view', array( $this, 'maybe_add_preview_venues_and_organizers' ) );
 
 			/**
 			 * Expire notices
@@ -2050,7 +2047,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function init_admin_list_screen( $screen ) {
 			// If we are dealing with a AJAX call just drop these checks
-			if ( ! Tribe__Main::instance()->doing_ajax() ) {
+			if ( ! tribe( 'context' )->doing_ajax() ) {
 				if ( 'edit' !== $screen->base ) {
 					return;
 				}
@@ -2074,7 +2071,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			// If we are in Admin and Not inside of the Default WP AJAX request
-			if ( is_admin() && ! Tribe__Main::instance()->doing_ajax() ) {
+			if ( is_admin() && ! tribe( 'context' )->doing_ajax() ) {
 				$this->displaying = 'admin';
 				return;
 			}
@@ -2436,7 +2433,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 *
 			 * @return string The AJAX provided base url.
 			 */
-			if ( Tribe__Main::instance()->doing_ajax() && ! empty( $_POST['baseurl'] ) ) {
+			if ( tribe( 'context' )->doing_ajax() && ! empty( $_POST['baseurl'] ) ) {
 				$eventUrl = trailingslashit( $_POST['baseurl'] );
 			}
 
@@ -2444,7 +2441,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			if ( $type !== 'home' && is_tax( self::TAXONOMY ) ) {
 				if (
 					(
-						Tribe__Main::instance()->doing_ajax()
+						tribe( 'context' )->doing_ajax()
 						&& ! empty( $_POST['baseurl'] )
 					)
 					|| apply_filters( 'tribe_events_force_ugly_link', false )
@@ -2847,49 +2844,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * ensure only one venue or organizer is created during post preview
-		 * subsequent previews will reuse that same post
-		 *
-		 * ensure that preview post is the one that's used when the event is published,
-		 * unless we're publishing with a saved venue
-		 *
-		 * @param $post_type can be 'venue' or 'organizer'
-		 */
-		protected function manage_preview_metapost( $post_type, $event_id ) {
-
-			if ( ! in_array( $post_type, array( 'venue', 'organizer' ) ) ) {
-				return;
-			}
-
-			$posttype        = ucfirst( $post_type );
-			$posttype_id     = $posttype . 'ID';
-			$meta_key        = '_preview_' . $post_type . '_id';
-			$valid_post_id   = "tribe_get_{$post_type}_id";
-			$create          = "create$posttype";
-			$preview_post_id = get_post_meta( $event_id, $meta_key, true );
-			$doing_preview   = ( $_REQUEST['wp-preview'] == 'dopreview' );
-
-			if ( empty( $_POST[ $posttype ][ $posttype_id ] ) ) {
-				// the event is set to use a new metapost
-				if ( $doing_preview ) {
-					// we're previewing
-					if ( $preview_post_id && $preview_post_id == $valid_post_id( $preview_post_id ) ) {
-						// a preview post has been created and is valid, update that
-						wp_update_post( array(
-							'ID'         => $preview_post_id,
-							'post_title' => $_POST[ $posttype ][ $posttype ],
-						) );
-					} else {
-						// a preview post has not been created yet, or is not valid - create one and save the ID
-						$preview_post_id = Tribe__Events__API::$create( $_POST[ $posttype ], 'draft' );
-						update_post_meta( $event_id, $meta_key, $preview_post_id );
-					}
-				}
-			}
-		}
-
-
-		/**
 		 * Adds / removes the event details as meta tags to the post.
 		 *
 		 * @param int     $postId
@@ -3002,10 +2956,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// don't need to save the venue or organizer meta when we are just publishing
 			remove_action( 'save_post_' . Tribe__Events__Venue::POSTTYPE, array( $this, 'save_venue_data' ), 16 );
 			remove_action( 'save_post_' . Tribe__Events__Organizer::POSTTYPE, array( $this, 'save_organizer_data' ), 16 );
-
-			// Remove any "preview" venues and organizers (duplicates) attached to this event.
-			$this->remove_preview_venues( $post_id, true );
-			$this->remove_preview_organizers( $post_id, true );
 
 			// save venue and organizer info on first pass
 			if ( isset( $post->post_status ) && $post->post_status == 'publish' ) {
@@ -3200,195 +3150,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			endif;
 
 			return false;
-		}
-
-		/**
-		 * Prevents duplicate venues or organizers when previewing an event.
-		 *
-		 * @since 4.5.1
-		 */
-		public function maybe_add_preview_venues_and_organizers() {
-
-			if ( ! is_singular( self::POSTTYPE ) ) {
-				return;
-			}
-
-			$event_id     = get_the_ID();
-			$event_status = get_post_status( $event_id );
-
-			$is_event_preview = is_preview() && ( 'auto-draft' === $event_status );
-
-			if ( ! $is_event_preview ) {
-				return;
-			}
-
-			$this->add_preview_venues( $event_id );
-			$this->add_preview_organizers( $event_id );
-		}
-
-		/**
-		 * Specify the "preview venue" to link to an event.
-		 *
-		 * @since 4.5.1
-		 *
-		 * @param int $event_id The ID of the event being previewed.
-		 */
-		public function add_preview_venues( $event_id ) {
-
-			$venue_id = get_post_meta( $event_id, '_EventVenueID', true );
-
-			// Prevent imported venues from being auto-deleted.
-			$venue_origin = get_post_meta( $venue_id, '_VenueOrigin', true );
-
-			if ( 'events-calendar' !== $venue_origin ) {
-				return;
-			}
-
-			$venue_status     = get_post_status( $venue_id );
-
-			$is_preview_venue = 'draft' === $venue_status || 'auto-draft' === $venue_status;
-
-			if ( ! $is_preview_venue ) {
-				return;
-			}
-
-			$this->link_preview_venue_to_event( $venue_id, $event_id );
-		}
-
-		/**
-		 * Specify the "preview organizer" to link to an event.
-		 *
-		 * @since 4.5.1
-		 *
-		 * @param int $event_id The ID of the event being previewed.
-		 */
-		public function add_preview_organizers( $event_id ) {
-
-			$organizer_ids = get_post_meta( $event_id, '_EventOrganizerID', false );
-
-			if ( empty( $organizer_ids ) || ! is_array( $organizer_ids ) ) {
-				return;
-			}
-
-			foreach ( $organizer_ids as $key => $organizer_id ) {
-
-				$organizer_status = get_post_status( $organizer_id );
-
-				$is_preview_organizer = 'draft' === $organizer_status || 'auto-draft' === $organizer_status;
-
-				if ( ! $is_preview_organizer ) {
-					unset( $organizer_ids[ $key ] );
-				}
-			}
-
-			$this->link_preview_organizer_to_event( $organizer_ids, $event_id );
-		}
-
-		/**
-		 * Identifies "preview" venues as duplicates and worthy of later deletion.
-		 *
-		 * @since 4.5.1
-		 *
-		 * @param int $venue_id ID of venue being identified as a duplicate.
-		 * @param int $event_id ID of event being previewed.
-		 */
-		public function link_preview_venue_to_event( $venue_id, $event_id ) {
-
-			$preview_venues = (array) get_post_meta( $event_id, '_preview_venues', true );
-
-			$preview_venues[] = $venue_id;
-
-			// Remove empty and duplicate values, which can easily arise here.
-			$preview_venues = array_filter( $preview_venues );
-			$preview_venues = array_unique( $preview_venues );
-
-			update_post_meta( $event_id, '_preview_venues', array_values( $preview_venues ) );
-		}
-
-		/**
-		 * Identifies "preview" venues as duplicates and worthy of later deletion.
-		 *
-		 * @since 4.5.1
-		 *
-		 * @param int $venue_id ID of venue being identified as a duplicate.
-		 * @param int $event_id ID of event being previewed.
-		 */
-		public function link_preview_organizer_to_event( $organizer_ids, $event_id ) {
-
-			$preview_organizers = (array) get_post_meta( $event_id, '_preview_organizers', true );
-
-			foreach ( $organizer_ids as $key => $organizer_id ) {
-				$preview_organizers[] = $organizer_id;
-			}
-
-			// Remove empty and duplicate values, which can easily arise here.
-			$preview_organizers = array_filter( $preview_organizers );
-			$preview_organizers = array_unique( $preview_organizers );
-
-			update_post_meta( $event_id, '_preview_organizers', array_values( $preview_organizers ) );
-		}
-
-		/**
-		 * Removes "preview" venues on a given event if any exist.
-		 *
-		 * @since 4.5.1
-		 *
-		 * @param int $event_id The event ID whose preview venues to remove.
-		 * @param bool $delete_meta Whether to delete existing _EventVenueID
-		 */
-		public function remove_preview_venues( $event_id, $delete_meta = false ) {
-
-			$event_id = absint( $event_id );
-
-			if ( ! $event_id ) {
-				return;
-			}
-
-			$preview_venues = get_post_meta( $event_id, '_preview_venues', true );
-
-			if ( ! is_array( $preview_venues ) || empty( $preview_venues ) ) {
-				return;
-			}
-
-			foreach ( $preview_venues as $key => $venue_id ) {
-				wp_delete_post( $venue_id );
-			}
-
-			// In some cases, one must clear the _EventVenueID before it's regenerated.
-			if ( $delete_meta ) {
-				delete_post_meta( $event_id, '_EventVenueID' );
-			}
-		}
-
-		/**
-		 * Removes "preview" organizers on a given event if any exist.
-		 *
-		 * @since 4.5.1
-		 *
-		 * @param int $event_id The event ID whose preview organizers to remove.
-		 * @param bool $delete_meta Whether to delete existing _EventOrganizerID
-		 */
-		public function remove_preview_organizers( $event_id, $delete_meta = false ) {
-			$event_id = absint( $event_id );
-
-			if ( ! $event_id ) {
-				return;
-			}
-
-			$preview_organizers = get_post_meta( $event_id, '_preview_organizers', true );
-
-			if ( ! is_array( $preview_organizers ) || empty( $preview_organizers ) ) {
-				return;
-			}
-
-			foreach ( $preview_organizers as $key => $organizer_id ) {
-				wp_delete_post( $organizer_id );
-			}
-
-			// In some cases, one must clear the _EventOrganizerID before it's regenerated.
-			if ( $delete_meta ) {
-				delete_post_meta( $event_id, '_EventOrganizerID' );
-			}
 		}
 
 		/**
@@ -4096,7 +3857,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			</tr><?php
 		}
 
-
 		/**
 		 * Helper function for getting Post Id. Accepts null or a post id. If no $post object exists, returns false to avoid a PHP NOTICE
 		 *
@@ -4740,6 +4500,262 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			return $postTypeArgs;
+		}
+
+		/**
+		 * ensure only one venue or organizer is created during post preview
+		 * subsequent previews will reuse that same post
+		 *
+		 * @deprecated TBD
+		 *
+		 * ensure that preview post is the one that's used when the event is published,
+		 * unless we're publishing with a saved venue
+		 *
+		 * @param $post_type can be 'venue' or 'organizer'
+		 */
+		protected function manage_preview_metapost( $post_type, $event_id ) {
+			_deprecated_function( __METHOD__, 'TBD', 'Functionality outdated by new linked post architecture in 4.6'  );
+
+			if ( ! in_array( $post_type, array( 'venue', 'organizer' ) ) ) {
+				return;
+			}
+
+			$posttype        = ucfirst( $post_type );
+			$posttype_id     = $posttype . 'ID';
+			$meta_key        = '_preview_' . $post_type . '_id';
+			$valid_post_id   = "tribe_get_{$post_type}_id";
+			$create          = "create$posttype";
+			$preview_post_id = get_post_meta( $event_id, $meta_key, true );
+			$doing_preview   = ( $_REQUEST['wp-preview'] == 'dopreview' );
+
+			if ( empty( $_POST[ $posttype ][ $posttype_id ] ) ) {
+				// the event is set to use a new metapost
+				if ( $doing_preview ) {
+					// we're previewing
+					if ( $preview_post_id && $preview_post_id == $valid_post_id( $preview_post_id ) ) {
+						// a preview post has been created and is valid, update that
+						wp_update_post( array(
+							'ID'         => $preview_post_id,
+							'post_title' => $_POST[ $posttype ][ $posttype ],
+						) );
+					} else {
+						// a preview post has not been created yet, or is not valid - create one and save the ID
+						$preview_post_id = Tribe__Events__API::$create( $_POST[ $posttype ], 'draft' );
+						update_post_meta( $event_id, $meta_key, $preview_post_id );
+					}
+				}
+			}
+		}
+
+		/**
+		 * Prevents duplicate venues or organizers when previewing an event.
+		 *
+		 * @deprecated TBD
+		 *
+		 * @since 4.5.1
+		 */
+		public function maybe_add_preview_venues_and_organizers() {
+			_deprecated_function( __METHOD__, 'TBD', 'Functionality outdated by new linked post architecture in 4.6'  );
+
+			if ( ! is_singular( self::POSTTYPE ) ) {
+				return;
+			}
+
+			$event_id     = get_the_ID();
+			$event_status = get_post_status( $event_id );
+
+			$is_event_preview = is_preview() && ( 'auto-draft' === $event_status );
+
+			if ( ! $is_event_preview ) {
+				return;
+			}
+
+			$this->add_preview_venues( $event_id );
+			$this->add_preview_organizers( $event_id );
+		}
+
+		/**
+		 * Specify the "preview venue" to link to an event.
+		 *
+		 * @deprecated TBD
+		 *
+		 * @since 4.5.1
+		 *
+		 * @param int $event_id The ID of the event being previewed.
+		 */
+		public function add_preview_venues( $event_id ) {
+			_deprecated_function( __METHOD__, 'TBD', 'Functionality outdated by new linked post architecture in 4.6'  );
+
+			$venue_id = get_post_meta( $event_id, '_EventVenueID', true );
+
+			// Prevent imported venues from being auto-deleted.
+			$venue_origin = get_post_meta( $venue_id, '_VenueOrigin', true );
+
+			if ( 'events-calendar' !== $venue_origin ) {
+				return;
+			}
+
+			$venue_status     = get_post_status( $venue_id );
+
+			$is_preview_venue = 'draft' === $venue_status || 'auto-draft' === $venue_status;
+
+			if ( ! $is_preview_venue ) {
+				return;
+			}
+
+			$this->link_preview_venue_to_event( $venue_id, $event_id );
+		}
+
+		/**
+		 * Specify the "preview organizer" to link to an event.
+		 *
+		 * @deprecated TBD
+		 *
+		 * @since 4.5.1
+		 *
+		 * @param int $event_id The ID of the event being previewed.
+		 */
+		public function add_preview_organizers( $event_id ) {
+			_deprecated_function( __METHOD__, 'TBD', 'Functionality outdated by new linked post architecture in 4.6'  );
+
+			$organizer_ids = get_post_meta( $event_id, '_EventOrganizerID', false );
+
+			if ( empty( $organizer_ids ) || ! is_array( $organizer_ids ) ) {
+				return;
+			}
+
+			foreach ( $organizer_ids as $key => $organizer_id ) {
+
+				$organizer_status = get_post_status( $organizer_id );
+
+				$is_preview_organizer = 'draft' === $organizer_status || 'auto-draft' === $organizer_status;
+
+				if ( ! $is_preview_organizer ) {
+					unset( $organizer_ids[ $key ] );
+				}
+			}
+
+			$this->link_preview_organizer_to_event( $organizer_ids, $event_id );
+		}
+
+		/**
+		 * Identifies "preview" venues as duplicates and worthy of later deletion.
+		 *
+		 * @deprecated TBD
+		 *
+		 * @since 4.5.1
+		 *
+		 * @param int $venue_id ID of venue being identified as a duplicate.
+		 * @param int $event_id ID of event being previewed.
+		 */
+		public function link_preview_venue_to_event( $venue_id, $event_id ) {
+			_deprecated_function( __METHOD__, 'TBD', 'Functionality outdated by new linked post architecture in 4.6'  );
+
+			$preview_venues = (array) get_post_meta( $event_id, '_preview_venues', true );
+
+			$preview_venues[] = $venue_id;
+
+			// Remove empty and duplicate values, which can easily arise here.
+			$preview_venues = array_filter( $preview_venues );
+			$preview_venues = array_unique( $preview_venues );
+
+			update_post_meta( $event_id, '_preview_venues', array_values( $preview_venues ) );
+		}
+
+		/**
+		 * Identifies "preview" venues as duplicates and worthy of later deletion.
+		 *
+		 * @deprecated TBD
+		 *
+		 * @since 4.5.1
+		 *
+		 * @param int $venue_id ID of venue being identified as a duplicate.
+		 * @param int $event_id ID of event being previewed.
+		 */
+		public function link_preview_organizer_to_event( $organizer_ids, $event_id ) {
+			_deprecated_function( __METHOD__, 'TBD', 'Functionality outdated by new linked post architecture in 4.6'  );
+
+			$preview_organizers = (array) get_post_meta( $event_id, '_preview_organizers', true );
+
+			foreach ( $organizer_ids as $key => $organizer_id ) {
+				$preview_organizers[] = $organizer_id;
+			}
+
+			// Remove empty and duplicate values, which can easily arise here.
+			$preview_organizers = array_filter( $preview_organizers );
+			$preview_organizers = array_unique( $preview_organizers );
+
+			update_post_meta( $event_id, '_preview_organizers', array_values( $preview_organizers ) );
+		}
+
+		/**
+		 * Removes "preview" venues on a given event if any exist.
+		 *
+		 * @deprecated TBD
+		 *
+		 * @since 4.5.1
+		 *
+		 * @param int $event_id The event ID whose preview venues to remove.
+		 * @param bool $delete_meta Whether to delete existing _EventVenueID
+		 */
+		public function remove_preview_venues( $event_id, $delete_meta = false ) {
+			_deprecated_function( __METHOD__, 'TBD', 'Functionality outdated by new linked post architecture in 4.6'  );
+
+			$event_id = absint( $event_id );
+
+			if ( ! $event_id ) {
+				return;
+			}
+
+			$preview_venues = get_post_meta( $event_id, '_preview_venues', true );
+
+			if ( ! is_array( $preview_venues ) || empty( $preview_venues ) ) {
+				return;
+			}
+
+			foreach ( $preview_venues as $key => $venue_id ) {
+				wp_delete_post( $venue_id );
+			}
+
+			// In some cases, one must clear the _EventVenueID before it's regenerated.
+			if ( $delete_meta ) {
+				delete_post_meta( $event_id, '_EventVenueID' );
+			}
+		}
+
+		/**
+		 * Removes "preview" organizers on a given event if any exist.
+		 *
+		 * @deprecated TBD
+		 *
+		 * @since 4.5.1
+		 *
+		 * @param int $event_id The event ID whose preview organizers to remove.
+		 * @param bool $delete_meta Whether to delete existing _EventOrganizerID
+		 */
+		public function remove_preview_organizers( $event_id, $delete_meta = false ) {
+			_deprecated_function( __METHOD__, 'TBD', 'Functionality outdated by new linked post architecture in 4.6' );
+
+			$event_id = absint( $event_id );
+
+			if ( ! $event_id ) {
+				return;
+			}
+
+			$preview_organizers = get_post_meta( $event_id, '_preview_organizers', true );
+
+			if ( ! is_array( $preview_organizers ) || empty( $preview_organizers ) ) {
+				return;
+			}
+
+			foreach ( $preview_organizers as $key => $organizer_id ) {
+				wp_delete_post( $organizer_id );
+			}
+
+			// In some cases, one must clear the _EventOrganizerID before it's regenerated.
+			if ( $delete_meta ) {
+				delete_post_meta( $event_id, '_EventOrganizerID' );
+			}
 		}
 
 		/**
