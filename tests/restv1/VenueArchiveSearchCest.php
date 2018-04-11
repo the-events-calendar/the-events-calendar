@@ -16,7 +16,7 @@ class VenueArchiveSearchCest extends BaseRestCest {
 			'search' => 'woo',
 		] );
 
-		$I->seeResponseCodeIs( 404 );
+		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 
 		$I->sendGET( $this->venues_url, [
@@ -51,7 +51,7 @@ class VenueArchiveSearchCest extends BaseRestCest {
 			'search' => 'woo',
 		] );
 
-		$I->seeResponseCodeIs( 404 );
+		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 
 		$I->sendGET( $this->venues_url, [
@@ -86,7 +86,7 @@ class VenueArchiveSearchCest extends BaseRestCest {
 			'search' => 'woo',
 		] );
 
-		$I->seeResponseCodeIs( 404 );
+		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 
 		$I->sendGET( $this->venues_url, [
@@ -160,7 +160,7 @@ class VenueArchiveSearchCest extends BaseRestCest {
 			'search' => 'woo',
 		] );
 
-		$I->seeResponseCodeIs( 404 );
+		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 
 		$I->sendGET( $this->venues_url, [

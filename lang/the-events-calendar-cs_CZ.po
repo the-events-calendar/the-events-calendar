@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-01-02 21:07:39+0000\n"
+"PO-Revision-Date: 2018-03-27 05:17:37+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -3780,7 +3780,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Record/List_Table.php:489
 msgid "Keywords:"
-msgstr ""
+msgstr "Klíčová slova:"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:476
 #: src/Tribe/Ignored_Events.php:337
@@ -4175,18 +4175,18 @@ msgstr ""
 #: src/Tribe/Aggregator/API/Origins.php:54
 #: src/admin-views/aggregator/settings.php:499
 msgid "ICS File"
-msgstr ""
+msgstr "ICS soubor"
 
 #: src/Tribe/Aggregator/API/Origins.php:48
 #: src/Tribe/Aggregator/Record/iCal.php:14
 #: src/admin-views/aggregator/settings.php:498
 msgid "iCalendar"
-msgstr ""
+msgstr "iCalendar"
 
 #: src/Tribe/Aggregator/API/Origins.php:31
 #: src/Tribe/Aggregator/Admin_Bar.php:88 src/Tribe/Aggregator/Service.php:626
 msgid "CSV File"
-msgstr ""
+msgstr "CSV soubor"
 
 #: src/Tribe/Admin_List.php:330
 msgctxt "%s Event count in admin list"

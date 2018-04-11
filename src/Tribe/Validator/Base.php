@@ -165,6 +165,23 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 	}
 
 	/**
+	 * Whether the string is empty or represents a valid PHP timezone.
+	 *
+	 * @since 4.6.13
+	 *
+	 * @param string $candidate
+	 *
+	 * @return bool
+	 */
+	public function is_timezone_or_empty( $candidate ) {
+		if ( empty( $candidate ) ) {
+			return true;
+		}
+
+		return $this->is_timezone( $candidate );
+	}
+
+	/**
 	 * Whether a list or array of venue post IDs only contains valid venue IDs or not.
 	 *
 	 * @since 4.6

@@ -6,11 +6,11 @@ use Tribe__Timezones as Timezones;
 
 class EventInsertionCest extends BaseRestCest {
 	/**
-	 * It should return 403 if user cannot insert events
+	 * It should return 401 if user cannot insert events
 	 *
 	 * @test
 	 */
-	public function it_should_return_403_if_user_cannot_insert_events( Tester $I ) {
+	public function it_should_return_401_if_user_cannot_insert_events( Tester $I ) {
 		$I->sendPOST( $this->events_url, [
 			'title'       => 'An event',
 			'description' => 'An event content',
@@ -19,7 +19,7 @@ class EventInsertionCest extends BaseRestCest {
 			'end_date'    => 'tomorrow 11am',
 		] );
 
-		$I->seeResponseCodeIs( 403 );
+		$I->seeResponseCodeIs( 401 );
 		$I->seeResponseIsJson();
 	}
 

@@ -42,7 +42,7 @@ do_action( 'tribe_events_organizer_before_metabox', $post );
 <tr class="organizer tribe-linked-type-organizer-email">
 	<td><?php esc_html_e( 'Email:', 'the-events-calendar' ); ?>
 	</td>
-	<small><?php esc_html_e( 'The e-mail address will be obfuscated on your site to avoid it getting harvested by spammers.', 'the-events-calendar' ); ?></small>
+	<small><?php esc_html_e( 'The e-mail address will be obfuscated on this site to avoid it getting harvested by spammers.', 'the-events-calendar' ); ?></small>
 	<td class="organizer-email">
 		<input tabindex="<?php tribe_events_tab_index(); ?>" type='text' id='OrganizerEmail' name='organizer[Email]' size='25' value='<?php echo isset( $_OrganizerEmail ) ? esc_attr( $_OrganizerEmail ) : ''; ?>' />
 	</td>
@@ -58,7 +58,7 @@ do_action( 'tribe_events_organizer_before_metabox', $post );
 do_action( 'tribe_events_organizer_after_metabox', $post );
 ?>
 
-<script type="text/javascript">
+<script>
 	jQuery('[name=organizer\\[Organizer\\]]').blur(function () {
 		jQuery.post('<?php echo esc_url_raw( admin_url( 'admin-ajax.php' ) ); ?>',
 			{

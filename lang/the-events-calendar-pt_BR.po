@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-02-20 01:56:53+0000\n"
+"PO-Revision-Date: 2018-03-19 19:04:32+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,48 +13,48 @@ msgstr ""
 
 #: src/admin-views/tribe-options-general.php:31
 msgid "The number of events per page on the List, Photo, and Map Views. Does not affect other views."
-msgstr ""
+msgstr "O número de eventos por página nas visualizações em Lista, Foto e Mapa. Não afeta outras visualizações."
 
 #: src/admin-views/tribe-options-general.php:28
 msgid "The number of events per page on the List View. Does not affect other views."
-msgstr ""
+msgstr "O número de eventos por página na visualização em lista. Não afeta outras visualizações."
 
 #: src/Tribe/Rewrite.php:264
 msgctxt "The \"/page/\" URL string component."
 msgid "page"
-msgstr ""
+msgstr "pagina"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:143
 msgid "An organizer with the specified event does not exist."
-msgstr ""
+msgstr "Um organizador com o evento especificado não existe."
 
 #: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:140
 msgid "The organizer with the specified ID is not accessible."
-msgstr ""
+msgstr "O organizador com o ID especificado não está acessível."
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:130
 msgid "An event with the specified ID does not exist."
-msgstr ""
+msgstr "Não existe um evento com o ID especificado."
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:127
 msgid "The event with the specified ID is not accessible."
-msgstr ""
+msgstr "O evento com o ID especificado não está acessível."
 
 #: src/Tribe/Main.php:1774
 msgid "%1$s published. %2$sView %3$s"
-msgstr ""
+msgstr "%1$s publicado(s). %2$sVer %3$s"
 
 #: src/Tribe/Google/Maps_API_Key.php:56
 msgid "our guide"
-msgstr ""
+msgstr "nosso guia"
 
 #: src/Tribe/Google/Maps_API_Key.php:51
 msgid "We highly recommend that you specify a valid %1$s for The Events Calendar to use. Doing this will help prevent problems with maps, especially for sites that receive a lot of traffic. Visit %2$s for a detailed explanation in how to do it."
-msgstr ""
+msgstr "Recomendamos que você especifique uma %1$s válida para o The Events Calendar utilizar. Fazer isso ajudará a evitar problemas com mapas, especialmente em sites que recebem muito tráfego. Visite o %2$s para uma explicação detalhada de como fazê-lo."
 
 #: common/src/Tribe/Validate.php:184
 msgid "%s must not be empty"
-msgstr ""
+msgstr "%s não deve estar vazio"
 
 #: src/functions/template-tags/general.php:1312
 msgid "Calendar powered by %s"
@@ -62,23 +62,23 @@ msgstr ""
 
 #: src/admin-views/tribe-options-general.php:78
 msgid "The current URL for your events page is %1$s. <br><br> You cannot edit the slug for your events page as you do not have pretty permalinks enabled. In order to edit the slug here, <a href=\"%2$s\">enable pretty permalinks</a>."
-msgstr ""
+msgstr "A URL atual da página de eventos é %1$s. <br><br> Você não pode editar o slug da sua página de eventos porque você não tem os permalinks legíveis (pretty permalinks) habilitados. Para poder editar o slug aqui, <a href=\"%2$s\"> habilite os permalinks legíveis</a>."
 
 #: src/admin-views/tribe-options-display.php:52
 msgid "There are going to be situations where no out-of-the-box template is 100&#37; perfect. Check out our <a href=\"%s\">our themer's guide</a> for instructions on custom modifications."
-msgstr ""
+msgstr "Haverá situações em que nenhum template será 100&#37; perfeito. Confira o nosso <a href=\"%s\">Themer's Guide</a> para obter instruções sobre customização."
 
 #: src/admin-views/tribe-options-display.php:49
 msgid "The settings below control the display of your calendar. If things don't look right, try switching between the three style sheet options or pick a page template from your theme."
-msgstr ""
+msgstr "As configurações abaixo controlam a exibição do seu calendário. Se as visualizações não parecem corretas, tente alternar entre as três opções de estilos ou escolha um template do seu tema."
 
 #: src/admin-views/aggregator/settings.php:176
 msgid "When importing from an event source, this is the maximum number of events that will be imported; on slower websites this may impact the success of imports. Setting this to a smaller number may improve results."
-msgstr ""
+msgstr "Ao importar de uma fonte de eventos, este é o número máximo de eventos que serão importados; Em sites mais lentos, isso pode afetar o sucesso das importações. Estabelecer um número menor pode melhorar os resultados."
 
 #: src/admin-views/aggregator/settings.php:175
 msgid "Import Quantity Limit"
-msgstr ""
+msgstr "Limite de Quantidade de Importação"
 
 #: src/admin-views/aggregator/settings.php:160
 msgid "When importing from an event source, this is how far into the future the events will be fetched; on slower websites a larger date range may impact the success of imports. Selecting a shorter time period may improve results."
@@ -86,23 +86,23 @@ msgstr ""
 
 #: src/admin-views/aggregator/settings.php:159
 msgid "Import Date Range Limit"
-msgstr ""
+msgstr "Limite de data de importação"
 
 #: src/admin-views/aggregator/settings.php:148
 msgid "Limit the number of imported events by number, date range, or not at all; on slower websites this may impact the success of imports. Selecting a shorter time period or a smaller number of events may improve results."
-msgstr ""
+msgstr "Permite limitar o número de eventos importados por número, intervalo de datas, ou sem limite; em sites mais lentos isso pode impactar o sucesso das importações. Selecionar um período de tempo mais curto ou um menor número de eventos pode melhorar os resultados."
 
 #: src/admin-views/aggregator/settings.php:147
 msgid "Import Limit Type"
-msgstr ""
+msgstr "Tipo de limite de importação"
 
 #: src/admin-views/aggregator/origins/refine.php:26
 msgid "Use the filters to narrow down which events are fetched from Facebook."
-msgstr ""
+msgstr "Use os filtros para determinar quais eventos são obtidos do Facebook."
 
 #: src/admin-views/aggregator/origins/limit.php:20
 msgid "Event Aggregator will try to fetch %s events starting from the current date or the specified date;"
-msgstr ""
+msgstr "Event Aggregator tentará obter %s eventos a partir da data atual ou da data especificada;"
 
 #: src/Tribe/iCal.php:411
 msgctxt "iCal feed description"
@@ -111,155 +111,155 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Messages.php:45
 msgid "The requested event term archive page does not exist"
-msgstr ""
+msgstr "A página de arquivo do termo de evento solicitado não existe"
 
 #: src/Tribe/REST/V1/Messages.php:43
 msgid "The requested organizer archive page does not exist"
-msgstr ""
+msgstr "A página de arquivo do organizador solicitada não existe"
 
 #: src/Tribe/REST/V1/Messages.php:42
 msgid "The requested venue archive page does not exist"
-msgstr ""
+msgstr "A página de arquivo do local solicitado não existe"
 
 #: src/Tribe/REST/V1/Messages.php:41
 msgid "The organizer could not be updated"
-msgstr ""
+msgstr "O organizador não pôde ser atualizado"
 
 #: src/Tribe/REST/V1/Messages.php:40
 msgid "The venue could not be updated"
-msgstr ""
+msgstr "O local não pôde ser atualizado"
 
 #: src/Tribe/REST/V1/Messages.php:39
 msgid "The event could not be updated"
-msgstr ""
+msgstr "O evento não pôde ser atualizado"
 
 #: src/Tribe/REST/V1/Messages.php:38
 msgid "The organizer is already trashed"
-msgstr ""
+msgstr "O organizador já está na lixeira"
 
 #: src/Tribe/REST/V1/Messages.php:37
 msgid "The organizer could not be deleted"
-msgstr ""
+msgstr "O organizador não pôde ser excluído"
 
 #: src/Tribe/REST/V1/Messages.php:36
 msgid "The venue is already trashed"
-msgstr ""
+msgstr "O local já está na lixeira"
 
 #: src/Tribe/REST/V1/Messages.php:35
 msgid "The venue could not be deleted"
-msgstr ""
+msgstr "O local não pôde ser excluído"
 
 #: src/Tribe/REST/V1/Messages.php:34
 msgid "The event is already trashed"
-msgstr ""
+msgstr "O evento já está na lixeira"
 
 #: src/Tribe/REST/V1/Messages.php:33
 msgid "The event could not be deleted"
-msgstr ""
+msgstr "O evento não pôde ser excluído"
 
 #: src/Tribe/REST/V1/Messages.php:32
 msgid "The requested organizer is not accessible"
-msgstr ""
+msgstr "O organizador solicitado não está acessível"
 
 #: src/Tribe/REST/V1/Messages.php:31
 msgid "The requested venue is not accessible"
-msgstr ""
+msgstr "O local solicitado não está acessível"
 
 #: src/Tribe/REST/V1/Messages.php:30
 msgid "The provided linked post ID is not valid"
-msgstr ""
+msgstr "O post ID vinculado fornecido não é válido"
 
 #: src/Tribe/REST/V1/Messages.php:29
 msgid "The organizer could not be created from the provided data"
-msgstr ""
+msgstr "O organizador não pôde ser criado a partir dos dados fornecidos"
 
 #: src/Tribe/REST/V1/Messages.php:28
 msgid "The venue could not be created from the provided data"
-msgstr ""
+msgstr "O local não pôde ser criado a partir dos dados fornecidos"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue_Slug.php:36
 msgid "the venue post name"
-msgstr ""
+msgstr "o nome do post do local"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:298
 msgid "The venue state and province"
-msgstr ""
+msgstr "Estado e província do local"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:250
 msgid "Whether events linked to the venue should show a map link or not"
-msgstr ""
+msgstr "Se os eventos vinculados ao local devem mostrar um link do mapa ou não"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:245
 msgid "Whether events linked to the venue should show a map or not"
-msgstr ""
+msgstr "Se os eventos vinculados ao local devem mostrar um mapa ou não"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:239
 msgid "The venue post status"
-msgstr ""
+msgstr "O status do post do local"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:233
 msgid "The venue description"
-msgstr ""
+msgstr "A descrição do local"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:221
 msgid "The venue publication date (UTC timezone)"
-msgstr ""
+msgstr "A data de publicação do local (fuso horário UTC)"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:215
 msgid "The venue publication date"
-msgstr ""
+msgstr "A data de publicação do local"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:209
 msgid "The venue author ID"
-msgstr ""
+msgstr "A ID do autor do local"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:187
 msgid "the venue post ID"
-msgstr ""
+msgstr "a ID do post do local"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:167
 msgid "The venue with the specified ID could not be deleted."
-msgstr ""
+msgstr "O local com o ID especificado não pôde ser excluído."
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:164
 msgid "The venue with the specified ID has been deleted already."
-msgstr ""
+msgstr "O local com a identificação especificada já foi excluído."
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:161
 msgid "The current user cannot delete the venue with the specified ID."
-msgstr ""
+msgstr "O usuário atual não pode excluir o local com o ID especificado."
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:158
 msgid "The venue post ID is missing or does not exist."
-msgstr ""
+msgstr "A ID do post do local está faltando ou não existe."
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:152
 msgid "Deletes a venue and returns its data"
-msgstr ""
+msgstr "Exclui um local e retorna seus dados"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:144
 msgid "The user is not authorized to create venues"
-msgstr ""
+msgstr "O usuário não está autorizado a criar locais"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:135
 msgid "Returns the data of the created venue"
-msgstr ""
+msgstr "Retorna os dados do local criado"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:129
 msgid "Returns the data of the updated venue"
-msgstr ""
+msgstr "Retorna os dados do local atualizado"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:120
 msgid "A venue with the specified post ID does not exist."
-msgstr ""
+msgstr "Não existe um local com o post ID especificado."
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:114
 msgid "The venue post ID is missing."
-msgstr ""
+msgstr "O post ID do local está faltando."
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:108
 msgid "Returns the data of the venue with the specified post ID"
-msgstr ""
+msgstr "Retorna os dados do local com o post ID especificado"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Tag.php:142
 msgid "the event tag term ID"
