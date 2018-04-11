@@ -67,7 +67,6 @@ class SingleTagCest extends BaseRestCest {
 	 * @test
 	 * @example ["foo"]
 	 * @example ["foo bar"]
-	 * @example [""]
 	 */
 	public function should_return_404_if_supplying_not_int_values_for_single_tag_term( Tester $I, Example $example ) {
 		$url = $this->tags_url . "/{$example[0]}";
