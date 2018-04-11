@@ -72,7 +72,8 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$sut = $this->make_instance();
 		$response = $sut->get( $request );
 
-		$this->assertInstanceOf( \WP_Error::class, $response );
+		$this->assertInstanceOf( \WP_REST_Response::class, $response );
+		$this->assertEmpty( $response->data['events'] );
 	}
 
 	/**
@@ -229,20 +230,6 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$this->assertCount( 10, $bar_events );
 
 		$this->assertCount( 5, array_intersect( wp_list_pluck( $foo_events, 'id' ), wp_list_pluck( $bar_events, 'id' ) ) );
-	}
-
-	/**
-	 * @test
-	 * it should return WP_Error if search string does not validate
-	 */
-	public function it_should_return_wp_error_if_search_string_does_not_validate() {
-		$request = new \WP_REST_Request( 'GET', '' );
-		$request->set_param( 'search', new \stdClass() );
-
-		$sut = $this->make_instance();
-		$response = $sut->get( $request );
-
-		$this->assertWPError( $response );
 	}
 
 	public function events_and_per_page_settings() {

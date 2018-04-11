@@ -36,7 +36,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Category
 						'description' => __( 'One or more of the specified query variables has a bad format', 'the-events-calendar' ),
 					),
 					'404' => array(
-						'description' => __( 'No event categories match the query or the requested page was not found.', 'the-events-calendar' ),
+						'description' => __( 'The requested page was not found.', 'the-events-calendar' ),
 					),
 				),
 			),

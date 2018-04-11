@@ -75,7 +75,8 @@ class Archive_OrganizerTest extends \Codeception\TestCase\WPTestCase {
 		$sut      = $this->make_instance();
 		$response = $sut->get( $request );
 
-		$this->assertInstanceOf( \WP_Error::class, $response );
+		$this->assertInstanceOf( \WP_REST_Response::class, $response );
+		$this->assertEmpty( $response->data['organizers'] );
 	}
 
 	/**
