@@ -64,12 +64,6 @@ abstract class Tribe__Events__REST__V1__Endpoints__Term_Archive_Base
 
 		$terms_data = $terms_response->get_data();
 
-		if ( empty( $terms_data ) ) {
-			$message = $this->messages->get_message( 'term-archive-page-not-found' );
-
-			return new WP_Error( 'term-archive-page-not-found', $message, array( 'status' => 404 ) );
-		}
-
 		$prepared = $this->repository->prepare_terms_data( $terms_data, $this->get_taxonomy() );
 
 		$response = new WP_REST_Response();

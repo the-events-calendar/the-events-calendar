@@ -3,8 +3,8 @@
 namespace Tribe\REST\V1\Endpoints;
 
 use Prophecy\Argument;
-use Tribe__Events__REST__V1__Endpoints__Archive_Category as Archive;
 use Tribe__Events__Main as Main;
+use Tribe__Events__REST__V1__Endpoints__Archive_Category as Archive;
 
 class Archive_CategoryTest extends \Codeception\TestCase\WPTestCase {
 
@@ -66,11 +66,11 @@ class Archive_CategoryTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * It should return WP_Error ir there are no event categories in db
+	 * It should return empty array ir there are no event categories in db
 	 *
 	 * @test
 	 */
-	public function should_return_wp_error_ir_there_are_no_event_categories_in_db() {
+	public function should_return_empty_array_ir_there_are_no_event_categories_in_db() {
 		$term_response = new \WP_REST_Response( [] );
 		$term_response->header('X-WP-Total', 0);
 		$term_response->header('X-WP-TotalPages', 0);
@@ -81,7 +81,8 @@ class Archive_CategoryTest extends \Codeception\TestCase\WPTestCase {
 
 		$got = $sut->get( $request );
 
-		$this->assertInstanceOf( \WP_Error::class, $got );
+		$this->assertInstanceOf( \WP_REST_Response::class, $got );
+		$this->assertEmpty( $got->data['categories'] );
 	}
 
 	/**

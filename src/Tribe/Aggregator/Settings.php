@@ -434,7 +434,7 @@ class Tribe__Events__Aggregator__Settings {
 			),
 			WEEK_IN_SECONDS         => array(
 				'title' => __( 'One week', 'the-events-calendar' ),
-				'range' => __( 'a week', 'the-events-calendar' ),
+				'range' => __( 'one week', 'the-events-calendar' ),
 			),
 			2 * WEEK_IN_SECONDS     => array(
 				'title' => __( 'Two weeks', 'the-events-calendar' ),
@@ -446,7 +446,7 @@ class Tribe__Events__Aggregator__Settings {
 			),
 			30 * DAY_IN_SECONDS     => array(
 				'title' => __( 'One month', 'the-events-calendar' ),
-				'range' => __( 'a month', 'the-events-calendar' ),
+				'range' => __( 'one month', 'the-events-calendar' ),
 			),
 			2 * 30 * DAY_IN_SECONDS => array(
 				'title' => __( 'Two months', 'the-events-calendar' ),

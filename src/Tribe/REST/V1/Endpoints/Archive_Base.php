@@ -73,7 +73,9 @@ abstract class Tribe__Events__REST__V1__Endpoints__Archive_Base
 	 */
 	protected function get_total_pages( $total, $per_page = null ) {
 		$per_page = $per_page ? $per_page : get_option( 'posts_per_page' );
-		$total_pages = intval( ceil( $total / $per_page ) );
+		$total_pages = (int) $total > 0
+			? (int) ceil( $total / $per_page )
+			: 0;
 
 		return $total_pages;
 	}

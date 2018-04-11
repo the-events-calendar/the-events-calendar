@@ -223,7 +223,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_time' ),
 				'type'              => 'string',
-				'description'       => __( 'The event publication date (UTC timezone)', 'the-events-calendar' ),
+				'description'       => __( 'The event publication date (UTC time zone)', 'the-events-calendar' ),
 			),
 			'title'              => array(
 				'required'          => true,
@@ -258,9 +258,9 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 			// Event meta fields
 			'timezone'           => array(
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_timezone' ),
+				'validate_callback' => array( $this->validator, 'is_timezone_or_empty' ),
 				'type'              => 'string',
-				'description'       => __( 'The event timezone', 'the-events-calendar' ),
+				'description'       => __( 'The event time zone', 'the-events-calendar' ),
 			),
 			'all_day'            => array(
 				'required'    => false,
@@ -563,6 +563,14 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 				'post_tag'  => Tribe__Terms::translate_terms_to_ids( $request['tags'], 'post_tag' ),
 			) ),
 		);
+
+		// If an empty EventTimezone was passed, lets unset it so it can be unset during event meta save
+		if ( empty( $postarr['EventTimezone'] ) ) {
+			unset( $postarr['EventTimezone'] );
+		} else {
+			// If we are changing a timezone, we need to ensure clear EventTimezoneAbbr so it gets correctly set.
+			$postarr['EventTimezoneAbbr'] = '';
+		}
 
 		$venue = $this->venue_endpoint->insert( $request['venue'] );
 

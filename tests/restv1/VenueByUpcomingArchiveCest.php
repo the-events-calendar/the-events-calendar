@@ -41,10 +41,10 @@ class VenueByUpcomingArchiveCest extends BaseRestCest {
 	}
 
 	/**
-	 * It should return 404 if no venues have upcoming events
+	 * It should return 200 if no venues have upcoming events
 	 * @test
 	 */
-	public function it_should_return_404_if_no_venues_have_upcoming_events( Tester $I ) {
+	public function it_should_return_200_if_no_venues_have_upcoming_events( Tester $I ) {
 		$venue_1 = $I->haveVenueInDatabase();
 		$venue_2 = $I->haveVenueInDatabase();
 		$venue_3 = $I->haveVenueInDatabase();
@@ -57,8 +57,17 @@ class VenueByUpcomingArchiveCest extends BaseRestCest {
 			'only_with_upcoming' => 'true',
 		] );
 
-		$I->seeResponseCodeIs( 404 );
+		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse() );
+
+		$I->assertCount( 0, $response->venues );
+		$I->assertEquals( 0, $response->total );
+		$I->assertEquals( 0, $response->total_pages );
+		$I->seeHttpHeader( 'X-TEC-Total', 0 );
+		$I->seeHttpHeader( 'X-TEC-TotalPages', 0 );
+		$I->assertArrayNotHasKey( 'previous_rest_url', (array) $response );
+		$I->assertArrayNotHasKey( 'next_rest_url', (array) $response );
 	}
 
 	/**

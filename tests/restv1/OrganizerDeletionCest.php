@@ -18,15 +18,15 @@ class OrganizerDeletionCest extends BaseRestCest {
 	}
 
 	/**
-	 * It should return 403 if user cannot delete organizers
+	 * It should return 401 if user cannot delete organizers
 	 * @test
 	 */
-	public function it_should_return_403_if_user_cannot_delete_organizers( Tester $I ) {
+	public function it_should_return_401_if_user_cannot_delete_organizers( Tester $I ) {
 		$id = $I->haveOrganizerInDatabase();
 
 		$I->sendDELETE( $this->organizers_url . "/{$id}" );
 
-		$I->seeResponseCodeIs( 403 );
+		$I->seeResponseCodeIs( 401 );
 		$I->seeResponseIsJson();
 	}
 
