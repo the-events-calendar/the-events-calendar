@@ -45,7 +45,7 @@ class OrganizerSingleCest extends BaseRestCest {
 	}
 
 	/**
-	 * It should return 400 if trying to get organizer by bad post ID
+	 * It should return 404 if trying to get organizer by bad post ID
 	 *
 	 * @test
 	 * @example ["foo"]
