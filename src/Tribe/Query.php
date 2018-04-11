@@ -474,7 +474,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		 * @return mixed
 		 */
 		public static function posts_results( $posts ) {
-			if ( tribe('tec.front-page-view')->is_page_on_front() ) {
+			if ( tribe( 'tec.front-page-view' )->is_page_on_front() ) {
 				remove_filter( 'option_page_on_front', array( __CLASS__, 'default_page_on_front' ) );
 			}
 			return $posts;
