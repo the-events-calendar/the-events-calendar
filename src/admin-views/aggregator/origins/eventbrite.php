@@ -15,7 +15,7 @@ $frequency->source      = 'eventbrite_import_frequency';
 $cron = Tribe__Events__Aggregator__Cron::instance();
 $frequencies = $cron->get_frequency();
 
-$missing_eventbrite_credentials = ! tribe( 'events-aggregator.settings' )->is_eb_credentials_valid();
+$missing_eventbrite_credentials = ! tribe( 'events-aggregator.settings' )->is_ea_authorized_for_eb();
 $data_depends = '#tribe-ea-field-origin';
 $data_condition = 'eventbrite';
 

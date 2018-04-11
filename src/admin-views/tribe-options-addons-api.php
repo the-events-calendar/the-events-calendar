@@ -114,11 +114,7 @@ if ( get_option( 'pue_install_key_event_aggregator' ) ) {
  */
 if ( class_exists( 'Tribe__Events__Tickets__Eventbrite__Main' ) || get_option( 'pue_install_key_event_aggregator' ) ) {
 
-	$eb_token         = tribe_get_option( 'eb_token' );
-	$eb_token_expires = tribe_get_option( 'eb_token_expires' );
-	$eb_token_scopes  = tribe_get_option( 'eb_token_scopes' );
-
-	$missing_eb_credentials = ! $eb_token;
+	$missing_eb_credentials = ! tribe( 'events-aggregator.settings' )->is_ea_authorized_for_eb();
 
 	ob_start();
 	?>
@@ -137,9 +133,6 @@ if ( class_exists( 'Tribe__Events__Tickets__Eventbrite__Main' ) || get_option( '
 			}
 			?>
 			<a target="_blank" class="tribe-ea-eventbrite-button" href="<?php echo esc_url( Tribe__Events__Aggregator__Record__Eventbrite::get_auth_url( array( 'back' => 'settings' ) ) ); ?>"><?php esc_html_e( $eventbrite_button_label ); ?></a>
-			<?php if ( ! $missing_eb_credentials ) : ?>
-				<a href="<?php echo esc_url( $eventbrite_disconnect_url ); ?>" class="tribe-ea-eventbrite-disconnect"><?php echo esc_html( $eventbrite_disconnect_label ); ?></a>
-			<?php endif; ?>
 		</div>
 	</fieldset>
 

@@ -321,9 +321,10 @@ class Tribe__Events__Aggregator__Service {
 	 *
 	 * @return array
 	 */
-	public function get_eventbrite_token() {
+	public function has_eventbrite_authorized() {
 		$args = array(
 			'referral' => urlencode( home_url() ),
+			'url'      => urlencode( site_url() ),
 		);
 
 		/**
@@ -335,7 +336,7 @@ class Tribe__Events__Aggregator__Service {
 		 */
 		$args = apply_filters( 'tribe_aggregator_eventbrite_token_callback_args', $args );
 
-		$response = $this->get( 'eventbrite/token', $args );
+		$response = $this->get( 'eventbrite/validate', $args );
 
 		// If we have an WP_Error we return only CSV
 		if ( is_wp_error( $response ) ) {

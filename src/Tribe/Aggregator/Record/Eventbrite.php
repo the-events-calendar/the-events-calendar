@@ -9,10 +9,9 @@ class Tribe__Events__Aggregator__Record__Eventbrite extends Tribe__Events__Aggre
 	 * Queues the import on the Aggregator service
 	 */
 	public function queue_import( $args = array() ) {
-		$eb_token = tribe_get_option( 'eb_token' );
 
 		$defaults = array(
-			'eventbrite_token' => $eb_token,
+			'site' => urlencode( site_url() ),
 		);
 
 		$args = wp_parse_args( $args, $defaults );
