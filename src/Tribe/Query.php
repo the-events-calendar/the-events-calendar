@@ -19,6 +19,8 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			// if tribe event query add filters
 			add_action( 'parse_query', array( __CLASS__, 'parse_query' ), 50 );
 			add_action( 'pre_get_posts', array( __CLASS__, 'pre_get_posts' ), 50 );
+			// Remove the filter to reset the value of the virtual page if is setup.
+			add_filter( 'posts_results', array( __CLASS__, 'posts_results' ) );
 
 			if ( is_admin() ) {
 				$cleanup = new Tribe__Events__Recurring_Event_Cleanup();
@@ -201,6 +203,11 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			$admin_helpers = Tribe__Admin__Helpers::instance();
 
 			if ( $query->is_main_query() && is_home() ) {
+				/**
+				 * The following filter will remove the virtual page from the option page and return a 0 as it's not
+				 * set when the SQL query is constructed to avoid having a is_page() instead of a is_home().
+				 */
+				add_filter( 'option_page_on_front', array( __CLASS__, 'default_page_on_front' ) );
 				// check option for including events in the main wordpress loop, if true, add events post type
 				if ( tribe_get_option( 'showEventsInMainLoop', false ) ) {
 					$query->query_vars['post_type']   = isset( $query->query_vars['post_type'] )
@@ -292,6 +299,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 							}
 							break;
 						case 'month':
+
 							// make sure start and end date are set
 							if ( $query->get( 'start_date' ) == '' ) {
 								$event_date = ( $query->get( 'eventDate' ) != '' )
@@ -450,6 +458,26 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			}
 
 			return $query;
+		}
+
+		/**
+		 * Return a false ID when the SQL query is being constructed to avoid create a false positive with a page and
+		 * add the virtual ID to the SQL query. Once this one has been added we need to remove the filter as is no
+		 * longer required or used.
+		 *
+		 * This is done after we have results of the posts so the filter can be safely removed at this stage.
+		 *
+		 * @since TBD
+		 *
+		 * @param $posts
+		 *
+		 * @return mixed
+		 */
+		public static function posts_results( $posts ) {
+			if ( tribe('tec.front-page-view')->is_page_on_front() ) {
+				remove_filter( 'option_page_on_front', array( __CLASS__, 'default_page_on_front' ) );
+			}
+			return $posts;
 		}
 
 		/**
