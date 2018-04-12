@@ -98,7 +98,7 @@ class Tribe__Events__Front_Page_View {
 		$data = wp_parse_args( $data, array(
 			'show_on_front' => get_option( 'show_on_front' ),
 			'page_on_front' => get_option( 'page_on_front' ),
-		));
+		) );
 
 		if ( 'posts' === $data['show_on_front'] ) {
 			$query->query_vars = wp_parse_args( $query->query_vars, array(
