@@ -1,7 +1,6 @@
 <?php
 
 use Step\Restv1\RestGuy as Tester;
-use Tribe__Events__Main as Main;
 
 class TagArchiveCest extends BaseRestCest {
 
@@ -17,7 +16,7 @@ class TagArchiveCest extends BaseRestCest {
 		$I->seeResponseIsJson();
 		$response = json_decode( $I->grabResponse(), false );
 
-		$I->assertCount( 0, $response->categories );
+		$I->assertCount( 0, $response->tags );
 		$I->assertEquals( 0, $response->total );
 		$I->assertEquals( 0, $response->total_pages );
 		$I->seeHttpHeader( 'X-TEC-Total', 0 );
@@ -503,7 +502,7 @@ class TagArchiveCest extends BaseRestCest {
 		$I->seeResponseIsJson();
 		$response = json_decode( $I->grabResponse() );
 
-		$I->assertCount( 0, $response->events );
+		$I->assertCount( 0, $response->tags );
 		$I->assertEquals( 0, $response->total );
 		$I->assertEquals( 0, $response->total_pages );
 		$I->seeHttpHeader( 'X-TEC-Total', 0 );

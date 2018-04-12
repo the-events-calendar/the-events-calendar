@@ -72,7 +72,6 @@ class SingleCategoryCest extends BaseRestCest {
 	 * @test
 	 * @example ["foo"]
 	 * @example ["foo bar"]
-	 * @example [""]
 	 */
 	public function should_return_404_if_supplying_not_int_values_for_single_category_term( Tester $I, Example $example ) {
 		$url = $this->categories_url . "/{$example[0]}";

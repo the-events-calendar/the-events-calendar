@@ -2,19 +2,6 @@
 
 
 class SingleEventCest extends BaseRestCest {
-
-	/**
-	 * It should return 404 if event ID is is missing
-	 *
-	 * @test
-	 */
-	public function it_should_return_404_if_event_id_is_missing(Restv1Tester $I) {
-		$I->sendGET( $this->events_url . '/' );
-
-		$I->seeResponseCodeIs( 404 ); // as it will not match any registered route
-		$I->seeResponseIsJson();
-	}
-
 	/**
 	 * It should return bad request if event ID is 0
 	 *

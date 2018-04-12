@@ -48,7 +48,7 @@ class VenueByEmptyArchiveCest extends BaseRestCest {
 		$I->seeResponseIsJson();
 		$response = json_decode( $I->grabResponse() );
 
-		$I->assertCount( 0, $response->organizers );
+		$I->assertCount( 0, $response->venues );
 		$I->assertEquals( 0, $response->total );
 		$I->assertEquals( 0, $response->total_pages );
 		$I->seeHttpHeader( 'X-TEC-Total', 0 );
@@ -75,7 +75,7 @@ class VenueByEmptyArchiveCest extends BaseRestCest {
 		$I->seeResponseIsJson();
 		$response = json_decode( $I->grabResponse() );
 
-		$I->assertCount( 0, $response->organizers );
+		$I->assertCount( 0, $response->venues );
 		$I->assertEquals( 0, $response->total );
 		$I->assertEquals( 0, $response->total_pages );
 		$I->seeHttpHeader( 'X-TEC-Total', 0 );
