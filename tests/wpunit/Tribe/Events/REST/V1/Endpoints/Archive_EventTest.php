@@ -157,9 +157,10 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$events_in_interval = array_filter( $data, function( $item ) {
 			$final = new \Datetime();
 			$final->add(new \DateInterval('P1M') );
-			return $item < $final;
+			return $item <= $final;
 		});
 
+		codecept_debug( count( $events_in_interval ) );
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
 		$this->assertCount( count( $events_in_interval ), $response->get_data()['events'] );
 	}
