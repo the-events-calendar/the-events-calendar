@@ -454,7 +454,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		 */
 		public static function should_remove_date_filters( $query ) {
 			// if we're doing ajax, let's keep the date filters
-			if ( Tribe__Main::instance()->doing_ajax() ) {
+			if ( tribe( 'context' )->doing_ajax() ) {
 				return false;
 			}
 

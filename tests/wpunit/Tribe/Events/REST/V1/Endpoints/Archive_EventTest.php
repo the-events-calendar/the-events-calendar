@@ -38,7 +38,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$this->validator = new \Tribe__Events__Validator__Base;
 
 		// to avoid date filters from being canned
-		\Tribe__Main::instance()->doing_ajax( true );
+		\tribe( 'context' )->doing_ajax( true );
 	}
 
 	/**
