@@ -34,7 +34,7 @@ class Archive_VenueTest extends \Codeception\TestCase\WPTestCase {
 		$this->validator        = new \Tribe__Events__Validator__Base;
 
 		// to avoid date filters from being canned
-		\tribe( 'context' )->doing_ajax( true );
+		tribe( 'context' )->doing_ajax( true );
 	}
 
 	public function tearDown() {
@@ -75,7 +75,8 @@ class Archive_VenueTest extends \Codeception\TestCase\WPTestCase {
 		$sut      = $this->make_instance();
 		$response = $sut->get( $request );
 
-		$this->assertInstanceOf( \WP_Error::class, $response );
+		$this->assertInstanceOf( \WP_REST_Response::class, $response );
+		$this->assertEmpty( $response->data['venues'] );
 	}
 
 	/**

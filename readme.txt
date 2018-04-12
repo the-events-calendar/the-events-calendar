@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 4.5
 Stable tag: 4.8dev
-Tested up to: 4.9.4
+Tested up to: 4.9.5
 Requires PHP: 5.2.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -312,9 +312,33 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 
 * Tweak - Sending an empty `timezone` parameter to the REST API for an event no longer results in an error response and now properly clears the timezone for the event [100274]
 
-= [4.6.13] TBD =
+= [4.6.14] TBD =
 
-* Tweak - Added Gutenberg compatibility for the Extension
+* Fix - Update the Front Page logic to store the value on the DB instead of "mocking" the view via JS [100832]
+* Fix - Prevent warnings on retrival of posts if "Include events in main blog loop" is checked (thanks to Colin Carmichael for report this problem) [97667]
+* Fix - Make the `tribe-ea-record` custom post type (used to store Event Aggregator record information) private [99106]
+* Fix - Expand the size of the TimeZone input on the admin to allow better visibility for long names [100363]
+* Fix - If the main events page is set to be the site's front page, ensure it shows as "selected" in the Customizer's front page option [100832]
+* Fix - Prevent Event Aggregator scheduled imports that failed from re-attempting the import too soon [102489]
+* Fix - Calendar Bar displays all the range of date times available [100646]
+* Fix - Hide the Filters on the Calendar Bar if a unique view is enabled [75114]
+* Fix - On import check if timezone is empty and add site timezone to prevent the event with no time and that is not an all day from displaying [93979]
+* Fix - Change the HTTP status code of empty event, venue, organizer, category and tag archives from 404 to 200 and return empty arrays to stick with WP REST API standard [102283]
+* Fix - Better "guessing" on column mapping during the import of CSV file (thanks to April in our Help Desk for flag this problem) [96162]
+* Tweak - Added the `tribe_aggregator_find_matching_organizer` and `tribe_aggregator_find_matching_venue` filters in Events Aggregator code to allow the definition of custom Venue and Organizer match criteria [97292]
+* Tweak - Display the retry time for a failed Event Aggregator scheduled import in the Scheduled tab [102489]
+* Tweak - Add new filter `tribe_events_import_event_duplicate_matches` to determine if an event is part of the duplicates matches [77956]
+* Tweak - Ensure "secondary" maps, e.g. in the sidebar, have the same full-width behavior as "main" maps [74052]
+* Tweak - Restore the missing header navigation elements [99742]
+* Tweak - Add notice if the import is missing required columns [67886]
+
+= [4.6.13] 2018-03-28 =
+
+* Feature - Added facilities allowing users to trash or permanently delete expired events [98826]
+* Fix - Corrected the behavior of the previous/next event links rendered on single event pages (props to @jeremyfelt for fixing this) [101757]
+* Tweak - Added Gutenberg compatibility for the Gutenberg Extension plugin
+* Tweak - Added new filter `tribe_tickets_venue_action_links_edit_url` to modify the venue edit link for the sales and attendee reports [93923]
+* Tweak - Altered day view to start at 00:00:00 and not 00:00:01 [99641]
 
 = [4.6.12] 2018-03-08 =
 

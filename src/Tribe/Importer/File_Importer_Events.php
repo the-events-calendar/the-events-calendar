@@ -58,7 +58,16 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		$query_args['tribe_remove_date_filters'] = true;
 
 		add_filter( 'posts_search', array( $this, 'filter_query_for_title_search' ), 10, 2 );
-		$matches = get_posts( $query_args );
+
+		/**
+		 * Add an option to change the $matches that are duplicates.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $matches Array with the duplicate matches
+		 * @param array $query_args Array with the arguments used to get the posts.
+		 */
+		$matches = (array) apply_filters( 'tribe_events_import_event_duplicate_matches', get_posts( $query_args ), $query_args );
 		remove_filter( 'posts_search', array( $this, 'filter_query_for_title_search' ), 10 );
 
 		if ( empty( $matches ) ) {
@@ -183,7 +192,6 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 			'EventURL'              => $this->get_value_by_key( $record, 'event_website' ),
 			'EventCurrencySymbol'   => $this->get_value_by_key( $record, 'event_currency_symbol' ),
 			'EventCurrencyPosition' => $this->get_currency_position( $record ),
-			'FeaturedImage'         => $this->get_featured_image( $event_id, $record ),
 			'EventTimezone'         => $this->get_timezone( $this->get_value_by_key( $record, 'event_timezone' ) ),
 		);
 

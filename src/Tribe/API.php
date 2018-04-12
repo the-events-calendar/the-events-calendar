@@ -365,7 +365,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			}
 
 			// If a specific timezone was not specified, default to the sitewide timezone
-			if ( ! isset( $data['EventTimezone'] ) ) {
+			if ( empty( $data['EventTimezone'] ) ) {
 				$data['EventTimezone'] = Tribe__Events__Timezones::wp_timezone_string();
 			}
 

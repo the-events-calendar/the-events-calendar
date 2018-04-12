@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Class Tribe__Events__Importer__Plugin
  */

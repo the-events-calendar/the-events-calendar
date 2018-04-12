@@ -38,7 +38,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$this->validator = new \Tribe__Events__Validator__Base;
 
 		// to avoid date filters from being canned
-		\tribe( 'context' )->doing_ajax( true );
+		tribe( 'context' )->doing_ajax( true );
 	}
 
 	/**
@@ -72,7 +72,8 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$sut = $this->make_instance();
 		$response = $sut->get( $request );
 
-		$this->assertInstanceOf( \WP_Error::class, $response );
+		$this->assertInstanceOf( \WP_REST_Response::class, $response );
+		$this->assertEmpty( $response->data['events'] );
 	}
 
 	/**
@@ -114,17 +115,14 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 	 */
 	public function it_should_allow_filtering_the_events_by_start_date() {
 		$request = new \WP_REST_Request( 'GET', '' );
-		$request->set_param( 'start_date', strtotime( '+1 month' ) );
+		$request->set_param( 'start_date', strtotime( '15 days' ) );
 		update_option( 'posts_per_page', 10 );
-		$this->factory()->event->create_many( 10, [ 'time_space' => 3 * 24 ] ); // space events by 3 days
+		 // space events by 3 days
+		$this->factory()->event->create_many( 10, [ 'time_space' => 3 * 24 ] );
 		$this->assertCount( 10, tribe_get_events() );
 
 		$sut = $this->make_instance();
 		$response = $sut->get( $request );
-		$event_dates = array_map( function ( $id ) {
-			return get_post_meta( $id, '_EventStartDate', true );
-		}, tribe_get_events( [ 'fields' => 'ids' ] ) );
-		$start_t = date('Y-m-d', strtotime( '+1 month' ));
 
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
 		$this->assertCount( 6, $response->get_data()['events'] );
@@ -138,13 +136,33 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$request = new \WP_REST_Request( 'GET', '' );
 		$request->set_param( 'end_date', strtotime( '+1 month' ) );
 		update_option( 'posts_per_page', 10 );
-		$this->factory()->event->create_many( 10, [ 'time_space' => '+12 days' ] );
+		// create many events 5 days apart
+		$total_events = 10;
+		$this->factory()->event->create_many( $total_events, [ 'time_space' => 5 * 24 ] );
 
-		$sut = $this->make_instance();
+		$sut      = $this->make_instance();
 		$response = $sut->get( $request );
 
+		// Create a set of intervals to know exactly how many days are inside of a month with a range of 5 days between each
+		// as some months has more days than other is not always a fixed number of events between the current date an a month.
+		$data = [];
+		for ( $i = 1; $i <= $total_events; $i++ ) {
+			$tmp = new \Datetime();
+			$days = 5 * $i;
+			// Every 5 days
+			$tmp->add( new \DateInterval( "P{$days}D" ) );
+			$data[] = $tmp;
+		}
+		// Filter only the ones that are  part of the current date plus one month
+		$events_in_interval = array_filter( $data, function( $item ) {
+			$final = new \Datetime();
+			$final->add(new \DateInterval('P1M') );
+			return $item <= $final;
+		});
+
+		codecept_debug( count( $events_in_interval ) );
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
-		$this->assertCount( 6, $response->get_data()['events'] );
+		$this->assertCount( count( $events_in_interval ), $response->get_data()['events'] );
 	}
 
 	/**
@@ -156,7 +174,8 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$request->set_param( 'start_date', strtotime( '+1 week' ) );
 		$request->set_param( 'end_date', strtotime( '+5 weeks' ) );
 		update_option( 'posts_per_page', 10 );
-		$this->factory()->event->create_many( 10, [ 'time_space' => '+12 days' ] );
+		// create events 10 days apart
+		$this->factory()->event->create_many( 10, [ 'time_space' => 10 * 24 ] );
 
 		$sut = $this->make_instance();
 		$response = $sut->get( $request );
@@ -229,20 +248,6 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$this->assertCount( 10, $bar_events );
 
 		$this->assertCount( 5, array_intersect( wp_list_pluck( $foo_events, 'id' ), wp_list_pluck( $bar_events, 'id' ) ) );
-	}
-
-	/**
-	 * @test
-	 * it should return WP_Error if search string does not validate
-	 */
-	public function it_should_return_wp_error_if_search_string_does_not_validate() {
-		$request = new \WP_REST_Request( 'GET', '' );
-		$request->set_param( 'search', new \stdClass() );
-
-		$sut = $this->make_instance();
-		$response = $sut->get( $request );
-
-		$this->assertWPError( $response );
 	}
 
 	public function events_and_per_page_settings() {

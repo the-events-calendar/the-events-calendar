@@ -142,7 +142,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 
 		$page = $this->parse_page( $request ) ? $this->parse_page( $request ) : 1;
 
-		if ( empty( $events ) ) {
+		if ( empty( $events ) && (int) $page > 1 ) {
 			$message = $this->messages->get_message( 'event-archive-page-not-found' );
 
 			return new WP_Error( 'event-archive-page-not-found', $message, array( 'status' => 404 ) );
@@ -366,7 +366,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 						'description' => __( 'One or more of the specified query variables has a bad format', 'the-events-calendar' ),
 					),
 					'404' => array(
-						'description' => __( 'No events match the query or the requested page was not found.', 'the-events-calendar' ),
+						'description' => __( 'The requested page was not found.', 'the-events-calendar' ),
 					),
 				),
 			),

@@ -48,11 +48,11 @@ class TagUpdateCest extends BaseRestCest {
 	}
 
 	/**
-	 * It should return 403 if user cannot update terms
+	 * It should return 401 if user cannot update terms
 	 *
 	 * @test
 	 */
-	public function should_return_403_if_user_cannot_update_terms( Tester $I ) {
+	public function should_return_401_if_user_cannot_update_terms( Tester $I ) {
 		list( $id ) = $I->haveTermInDatabase( 'old-foo', 'post_tag' );
 
 		$I->generate_nonce_for_role( 'subscriber' );
@@ -62,7 +62,7 @@ class TagUpdateCest extends BaseRestCest {
 			'slug'        => 'foo-bar',
 		] );
 
-		$I->seeResponseCodeIs( 403 );
+		$I->seeResponseCodeIs( 401 );
 		$I->seeResponseIsJson();
 	}
 
