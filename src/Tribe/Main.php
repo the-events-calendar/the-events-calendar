@@ -33,7 +33,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
 		const VERSION             = '4.8dev';
-		const VERSION             = '4.6.14';
 		const MIN_ADDON_VERSION   = '4.4';
 		const MIN_COMMON_VERSION  = '4.8dev';
 
