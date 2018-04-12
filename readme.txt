@@ -327,6 +327,7 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 * Tweak - Ensure "secondary" maps, e.g. in the sidebar, have the same full-width behavior as "main" maps [74052]
 * Tweak - Restore the missing header navigation elements [99742]
 * Tweak - Add notice if the import is missing required columns [67886]
+* Tweak - Save timezone and timezone abbreviation fields (if provided) even if date was not changed when saving event through API [102705]
 
 = [4.6.13] 2018-03-28 =
 
