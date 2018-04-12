@@ -311,6 +311,8 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 = TBD =
 
 * Tweak - Sending an empty `timezone` parameter to the REST API for an event no longer results in an error response and now properly clears the timezone for the event [100274]
+* Tweak - Introduced the `tribe_events_event_insert_args` filter to allow changing arguments used for insert an event with the API [102545]
+* Tweak - Introduced the `tribe_events_event_update_args` filter to allow changing arguments used for updating an event with the API [102545]
 
 = [4.6.14] TBD =
 
