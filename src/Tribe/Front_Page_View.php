@@ -21,6 +21,7 @@ class Tribe__Events__Front_Page_View {
 		add_action( 'admin_init', array( $this, 'backwards_compatible' ) );
 
 		// Allow to set negative numbers on the homepage.
+		add_action( 'sanitize_option_show_on_front', array( $this, 'save_show_on_front' ), 10, 3 );
 		add_action( 'sanitize_option_page_on_front', array( $this, 'save_page_on_front' ), 10, 3 );
 		// Insert the main Events page on the Customizer and Reading settings option
 		add_filter( 'wp_dropdown_pages', array( $this, 'add_events_page_option' ), 10, 3 );
@@ -30,6 +31,8 @@ class Tribe__Events__Front_Page_View {
 			add_action( 'parse_query', array( $this, 'parse_query' ), 5 );
 			add_filter( 'tribe_events_getLink', array( $this, 'main_event_page_links' ) );
 		}
+
+		add_action( 'parse_query', array( $this, 'parse_customizer_query' ) );
 	}
 
 	/**
@@ -67,6 +70,70 @@ class Tribe__Events__Front_Page_View {
 		// Some extra tricks required to help avoid problems when the default view is list view
 		$query->is_page = false;
 		$query->is_singular = false;
+	}
+
+	/**
+	 * Parse the query when the customizer sends request to preview specifc page to avoid 404 pages
+	 * or the wrong page.
+	 *
+	 * @since TBD
+	 *
+	 * @param WP_Query $query
+	 */
+	public function parse_customizer_query( $query ) {
+
+		$data = tribe_get_request_var( 'customized', array() );
+
+		if ( empty( $data ) ) {
+			return;
+		}
+
+		$data = json_decode( wp_unslash( $_REQUEST['customized'] ), true );
+
+		$does_not_have_data = empty( $data['show_on_front'] ) && empty( 'page_on_front' );
+		if ( ! $query->is_main_query() || $does_not_have_data ) {
+			return;
+		}
+
+		// Fallback to the data that is missing with the current settings
+		$data = wp_parse_args( $data, array(
+			'show_on_front' => get_option( 'show_on_front' ),
+			'page_on_front' => get_option( 'page_on_front' ),
+		) );
+
+
+		if ( 'posts' === $data['show_on_front'] ) {
+			$query->query_vars = wp_parse_args( $query->query_vars, array(
+				'is_post_type_archive' => false,
+				'post_type' => '',
+				'eventDisplay' => '',
+				'page_id' => 0,
+			) );
+			unset( $query->query_vars['is_post_type_archive'] );
+			unset( $query->query_vars['post_type'] );
+			unset( $query->query_vars['eventDisplay'] );
+			unset( $query->query_vars['page_id'] );
+
+			if ( ! empty ( $query->query['page_id'] ) ) {
+				unset( $query->query['page_id'] );
+			}
+
+			$query->is_singular = false;
+			$query->is_page = false;
+			$query->is_home = true;
+
+		} elseif ( 'page' === $data['show_on_front'] && $this->is_virtual_page_id( $data['page_on_front'] ) ) {
+			$query->is_404  = false;
+			$query->is_home = true;
+
+			$query->set( 'page_id', 0 );
+			$query->set( 'post_type', Tribe__Events__Main::POSTTYPE );
+			$query->set( 'eventDisplay', 'default' );
+			$query->set( 'tribe_events_front_page', true );
+
+			$query->is_page     = false;
+			$query->is_singular = false;
+		}
 	}
 
 	/**
@@ -175,6 +242,32 @@ class Tribe__Events__Front_Page_View {
 		$selected = $this->is_page_on_front() ? 'selected' : '';
 		$option = '<option class="level-0" value="' . $this->get_virtual_id() . '" ' . $selected . '>' . $label . '</option></select>';
 		return str_replace( '</select>', $option, $output );
+	}
+
+	/**
+	 * Reset the values for:
+	 *
+	 * - page_on_front
+	 * - page_for_posts
+	 * - front_page_event_archive
+	 *
+	 * if only the value for show_on_front is changed.
+	 *
+	 * @since TBD
+	 *
+	 * @param $value
+	 *
+	 * @return mixed
+	 */
+	public function save_show_on_front( $value ) {
+		if ( 'posts' === $value ) {
+			tribe_update_option( 'front_page_event_archive', false );
+			update_option( 'page_on_front', 0 );
+			update_option( 'page_for_posts', 0 );
+		} elseif ( 'page' === $value && $this->is_virtual_page_on_front() ) {
+			tribe_update_option( 'front_page_event_archive', true );
+		}
+		return $value;
 	}
 
 	/**
