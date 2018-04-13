@@ -72,7 +72,7 @@ class Tribe__Events__Front_Page_View {
 		$query->is_singular = false;
 	}
 
-	/*
+	/**
 	 * Parse the query when the customizer sends request to preview specifc page to avoid 404 pages
 	 * or the wrong page.
 	 *
@@ -82,15 +82,16 @@ class Tribe__Events__Front_Page_View {
 	 */
 	public function parse_customizer_query( $query ) {
 
-		$data = empty( $_REQUEST['customized'] )
-			? array()
-			: json_decode( wp_unslash( $_REQUEST['customized'] ), true );
+		$data = tribe_get_request_var( 'customized', array() );
 
-		if (
-			! $query->is_main_query()
-		     || empty( $data )
-		     || ( empty( $data['show_on_front'] ) && empty( 'page_on_front' ) )
-		) {
+		if ( empty( $data ) ) {
+			return;
+		}
+
+		$data = json_decode( wp_unslash( $_REQUEST['customized'] ), true );
+
+		$does_not_have_data = empty( $data['show_on_front'] ) && empty( 'page_on_front' );
+		if ( ! $query->is_main_query() || $does_not_have_data ) {
 			return;
 		}
 
@@ -100,15 +101,27 @@ class Tribe__Events__Front_Page_View {
 			'page_on_front' => get_option( 'page_on_front' ),
 		) );
 
+
 		if ( 'posts' === $data['show_on_front'] ) {
 			$query->query_vars = wp_parse_args( $query->query_vars, array(
 				'is_post_type_archive' => false,
 				'post_type' => '',
 				'eventDisplay' => '',
+				'page_id' => 0,
 			) );
 			unset( $query->query_vars['is_post_type_archive'] );
 			unset( $query->query_vars['post_type'] );
 			unset( $query->query_vars['eventDisplay'] );
+			unset( $query->query_vars['page_id'] );
+
+			if ( ! empty ( $query->query['page_id'] ) ) {
+				unset( $query->query['page_id'] );
+			}
+
+			$query->is_singular = false;
+			$query->is_page = false;
+			$query->is_home = true;
+
 		} elseif ( 'page' === $data['show_on_front'] && $this->is_virtual_page_id( $data['page_on_front'] ) ) {
 			$query->is_404  = false;
 			$query->is_home = true;
