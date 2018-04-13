@@ -153,10 +153,15 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 			$tmp->add( new \DateInterval( "P{$days}D" ) );
 			$data[] = $tmp;
 		}
+
+		$events = $response->get_data()['events'];
+
 		// Filter only the ones that are  part of the current date plus one month
-		$events_in_interval = array_filter( $data, function( $item ) {
-			$final = new \Datetime();
-			$final->add(new \DateInterval('P1M') );
+		$events_in_interval = array_filter( $data, function( $item ) use ( $events ) {
+			$total_events = count( $events );
+			$last_event   = $events[ $total_events - 1 ];
+			$final        = new \Datetime( $last_event['end_date'] );
+
 			return $item <= $final;
 		});
 
