@@ -38,12 +38,11 @@ If you need a deeper level of support or a faster response to your specific ques
 
 Enjoy using The Events Calendar, know how to get under the hood and want to make money helping people? We’re growing our community team and would love to hear from you. If you’re interested, [check this out!](http://m.tri.be/mk)
 
-= PLUG-N-PLAY or HIGHLY CUSTOMIZABLE =
-
-The Events Calendar is built to work out of the box. Just turn it on, configure the settings to match your needs and you’ll be making events in less than 5 minutes.
-Or customize it to suit your specific needs. The Events Calendar is built by developers, for developers…it’s ready to be the foundation for your wildest hack sessions:
+= PLUG-N-PLAY & HIGHLY CUSTOMIZABLE =
 
 The Events Calendar is built to work out of the box. Just turn it on, configure the settings to match your needs and you'll be making events in less than 5 minutes.
+
+Or customize it to suit your specific needs. The Events Calendar is built by developers, for developers…it’s ready to be the foundation for your wildest hack sessions:
 
 * [WP REST API support](http://m.tri.be/19tl)
 * Skeleton stylesheet to theme fast & efficiently
@@ -88,7 +87,7 @@ Looking for something else? We’ve got add-ons available to take your calendar 
 
 = PRO Features =
 
-Add recurring events, a whole recurring events, a whole range of new views ( week / map / photo / venue / organizer) & widgets (calendar / featured venue / week / event countdown), shortcodes, custom event attributes, default content, location search, much more with [Events Calendar PRO](http://m.tri.be/2c)
+Add recurring events, a whole range of new views ( week / map / photo / venue / organizer) & widgets (calendar / featured venue / week / event countdown), shortcodes, custom event attributes, default content, location search, much more with [Events Calendar PRO](http://m.tri.be/2c)
 
 = Event Ticketing =
 
@@ -112,7 +111,7 @@ Connect your calendar with your Eventbrite.com account! [Eventbrite Tickets](htt
 
 [Join us on Facebook](https://www.facebook.com/theeventscalendar/) to be part of our active community, check us out [on Twitter](https://twitter.com/TheEventsCal), and [sign up for our newsletter](http://m.tri.be/rm) for release announcements and discounts.
 
-= SUBMITTING PATCHES =
+= Submitting Patches =
 
 If you’ve identified a bug and want to submit a patch, we’d welcome it at our [GitHub page for The Events Calendar](https://github.com/moderntribe/the-events-calendar). Simply cue up your proposed patch as a pull request, and we’ll review as part of our monthly release cycle and merge into the codebase if appropriate from there. (If a pull request is rejected, we’ll do our best to tell you why). Users whose pull requests are accepted will receive credit in the plugin's changelog. For more information, check out the readme at our GitHub page. Happy coding!
 
@@ -171,7 +170,7 @@ Absolutely. If you're not finding your questions answered on the product pages, 
 
 = What add-ons are available for The Events Calendar, and where can I read more about them? =
 
-Currently, the following add-ons are available for The Events Calendar:
+The following add-ons are available for The Events Calendar:
 
 * [Events Calendar PRO](http://m.tri.be/18wi), for adding premium calendar features like recurring events, advanced views, cool widgets, shortcodes, additional fields, and more!
 * [Event Aggregator](http://m.tri.be/197u), a service that effortlessly fills your calendar with events from Facebook, Meetup, Google Calendar, iCalendar, CSV, and ICS.
@@ -225,10 +224,6 @@ Our Premium Plugins and Services:
 * [The Events Calendar: Filter Bar](http://m.tri.be/fa)
 * [The Events Calendar: Eventbrite Tickets](http://m.tri.be/2e)
 
-== Translations ==
-
-The Events Calendar is translated by volunteers at [translate.wordpress.org](https://translate.wordpress.org/projects/wp-plugins/the-events-calendar/stable). There you can find a list of available languages, download translation files, or help update the translations. Thank you to everyone who helps to maintain our translations!
-
 == Help ==
 
 Welcome to The Events Calendar, a full-featured events management system for WordPress. Thank you so much for using the labor of our love. We are Modern Tribe and we are here to help you be awesome.
@@ -255,56 +250,6 @@ Some things to consider before posting on the forum:
 * Sometimes, just resetting your permalinks can fix the issue. Visit Events -> Settings -> Permalinks, save your permalinks with a different option and then save with your preferred choice again. This can solve events-related problems and can is worth a shot before creating a new thread.
 
 Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to [@TheEventsCal](https://twitter.com/TheEventsCal) and tell us why. We'll do what we can to make it right.
-
-== Contributors ==
-
-The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
-
-= Current Contributors =
-
-* <a href="https://profiles.wordpress.org/users/barryhughes">Barry Hughes</a>
-* <a href="https://profiles.wordpress.org/users/brianjessee">Brian Jessee</a>
-* <a href="https://profiles.wordpress.org/users/geoffgraham">Geoff Graham</a>
-* <a href="https://profiles.wordpress.org/users/ggwicz">George Gecewicz</a>
-* <a href="https://profiles.wordpress.org/users/bordoni">Gustavo Bordoni</a>
-* <a href="https://profiles.wordpress.org/users/jbrinley">Jonathan Brinley</a>
-* <a href="https://profiles.wordpress.org/users/leahkoerper">Leah Koerper</a>
-* <a href="https://profiles.wordpress.org/users/lucatume">Luca Tumedei</a>
-* <a href="https://profiles.wordpress.org/users/borkweb">Matthew Batchelder</a>
-* <a href="https://profiles.wordpress.org/users/neillmcshea">Neill McShea</a>
-* <a href="https://profiles.wordpress.org/users/mastromktg">Nick Mastromattei</a>
-* <a href="https://profiles.wordpress.org/users/nicosantos">Nico Santo</a>
-* <a href="https://profiles.wordpress.org/users/peterchester">Peter Chester</a>
-* <a href="https://profiles.wordpress.org/users/roblagatta">Rob La Gatta</a>
-* <a href="https://profiles.wordpress.org/users/reid.peifer">Reid Peifer</a>
-* <a href="https://profiles.wordpress.org/users/ryancurban">Ryan Urban</a>
-* <a href="https://profiles.wordpress.org/users/faction23">Samuel Estok</a>
-* <a href="https://profiles.wordpress.org/users/shane.pearlman">Shane Pearlman</a>
-* <a href="https://profiles.wordpress.org/users/zbtirrell">Zachary Tirrell</a>
-
-= Past Contributors =
-
-* <a href="https://profiles.wordpress.org/users/brook-tribe">Brook Harding</a>
-* <a href="https://profiles.wordpress.org/users/caseypatrickdriscoll">Casey Driscoll</a>
-* <a href="https://profiles.wordpress.org/users/ckpicker">Casey Picker</a>
-* <a href="https://profiles.wordpress.org/users/dancameron">Dan Cameron</a>
-* <a href="https://profiles.wordpress.org/users/MZAWeb">Daniel Dvorkin</a>
-* <a href="https://profiles.wordpress.org/users/jazbek">Jessica Yazbek</a>
-* <a href="https://profiles.wordpress.org/users/jkudish">Joachim Kudish</a>
-* <a href="https://profiles.wordpress.org/users/jgadbois">John Gadbois</a>
-* <a href="https://profiles.wordpress.org/users/jonahcoyote">Jonah West</a>
-* <a href="https://profiles.wordpress.org/users/joshlimecuda">Josh Mallard</a>
-* <a href="https://profiles.wordpress.org/justinendler/">Justin Endler</a>
-* <a href="https://profiles.wordpress.org/users/kellykathryn">Kelly Groves</a>
-* <a href="https://profiles.wordpress.org/users/kelseydamas">Kelsey Damas</a>
-* <a href="https://profiles.wordpress.org/users/kyleunzicker">Kyle Unzicker</a>
-* <a href="https://profiles.wordpress.org/users/mat-lipe">Mat Lipe</a>
-* <a href="https://profiles.wordpress.org/users/mdbitz">Matthew Denton</a>
-* <a href="https://profiles.wordpress.org/users/mattwiebe">Matt Wiebe</a>
-* <a href="https://profiles.wordpress.org/users/nickciske">Nick Ciske</a>
-* <a href="https://profiles.wordpress.org/users/paulhughes01">Paul Hughes</a>
-* <a href="https://profiles.wordpress.org/users/codearachnid">Timothy Wood</a>
-* <a href="https://profiles.wordpress.org/users/thatdudebutch">Wayne Stratton</a>
 
 == Changelog ==
 
