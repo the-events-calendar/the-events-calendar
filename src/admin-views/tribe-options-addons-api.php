@@ -129,7 +129,6 @@ if ( class_exists( 'Tribe__Events__Tickets__Eventbrite__Main' ) || get_option( '
 			} else {
 				$eventbrite_button_label     = __( 'Refresh your connection to Eventbrite', 'the-events-calendar' );
 				$eventbrite_disconnect_label = __( 'Disconnect', 'the-events-calendar' );
-				$eventbrite_disconnect_url   = tribe( 'events-aggregator.settings' )->build_disconnect_eventbrite_url( $current_url );
 			}
 			?>
 			<a target="_blank" class="tribe-ea-eventbrite-button" href="<?php echo esc_url( Tribe__Events__Aggregator__Record__Eventbrite::get_auth_url( array( 'back' => 'settings' ) ) ); ?>"><?php esc_html_e( $eventbrite_button_label ); ?></a>
