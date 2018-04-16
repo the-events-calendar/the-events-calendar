@@ -137,13 +137,37 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$request->set_param( 'end_date', strtotime( '+1 month' ) );
 		update_option( 'posts_per_page', 10 );
 		// create many events 5 days apart
-		$this->factory()->event->create_many( 10, [ 'time_space' => 5 * 24 ] );
+		$total_events = 10;
+		$this->factory()->event->create_many( $total_events, [ 'time_space' => 5 * 24 ] );
 
 		$sut      = $this->make_instance();
 		$response = $sut->get( $request );
 
+		// Create a set of intervals to know exactly how many days are inside of a month with a range of 5 days between each
+		// as some months has more days than other is not always a fixed number of events between the current date an a month.
+		$data = [];
+		for ( $i = 1; $i <= $total_events; $i++ ) {
+			$tmp = new \Datetime();
+			$days = 5 * $i;
+			// Every 5 days
+			$tmp->add( new \DateInterval( "P{$days}D" ) );
+			$data[] = $tmp;
+		}
+
+		$events = $response->get_data()['events'];
+
+		// Filter only the ones that are  part of the current date plus one month
+		$events_in_interval = array_filter( $data, function( $item ) use ( $events ) {
+			$total_events = count( $events );
+			$last_event   = $events[ $total_events - 1 ];
+			$final        = new \Datetime( $last_event['end_date'] );
+
+			return $item <= $final;
+		});
+
+		codecept_debug( count( $events_in_interval ) );
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
-		$this->assertCount( 6, $response->get_data()['events'] );
+		$this->assertCount( count( $events_in_interval ), $response->get_data()['events'] );
 	}
 
 	/**

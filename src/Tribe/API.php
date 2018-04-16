@@ -353,22 +353,12 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 
 			if ( ! $date_provided ) {
 				$data['EventStartDate'] = get_post_meta( $event_id, '_EventStartDate', true );
-				$data['EventEndDate'] = get_post_meta( $event_id, '_EventEndDate', true );
-				return $data;
+				$data['EventEndDate']   = get_post_meta( $event_id, '_EventEndDate', true );
 			}
 
 			// If a specific timezone was not specified, default to the sitewide timezone
-			if ( ! isset( $data['EventTimezone'] ) ) {
+			if ( empty( $data['EventTimezone'] ) ) {
 				$data['EventTimezone'] = Tribe__Events__Timezones::wp_timezone_string();
-			}
-
-			// Additionally store datetimes in UTC
-			if ( empty( $data['EventStartDateUTC'] ) ) {
-				$data['EventStartDateUTC'] = Tribe__Events__Timezones::to_utc( $data['EventStartDate'], $data['EventTimezone'] );
-			}
-
-			if ( empty( $data['EventEndDateUTC'] ) ) {
-				$data['EventEndDateUTC']   = Tribe__Events__Timezones::to_utc( $data['EventEndDate'], $data['EventTimezone'] );
 			}
 
 			if ( empty( $data['EventTimezoneAbbr'] ) ) {
@@ -379,6 +369,19 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 				} else {
 					$data['EventTimezoneAbbr'] = Tribe__Timezones::wp_timezone_abbr( $data['EventStartDate'] );
 				}
+			}
+
+			if ( ! $date_provided ) {
+				return $data;
+			}
+
+			// Additionally store datetimes in UTC
+			if ( empty( $data['EventStartDateUTC'] ) ) {
+				$data['EventStartDateUTC'] = Tribe__Events__Timezones::to_utc( $data['EventStartDate'], $data['EventTimezone'] );
+			}
+
+			if ( empty( $data['EventEndDateUTC'] ) ) {
+				$data['EventEndDateUTC']   = Tribe__Events__Timezones::to_utc( $data['EventEndDate'], $data['EventTimezone'] );
 			}
 
 			// sanity check that start date < end date
