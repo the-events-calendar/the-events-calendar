@@ -88,7 +88,7 @@ class Tribe__Events__Front_Page_View {
 			return;
 		}
 
-		$data = json_decode( wp_unslash( $_REQUEST['customized'] ), true );
+		$data = json_decode( wp_unslash( $data ), true );
 
 		$does_not_have_data = empty( $data['show_on_front'] ) && empty( 'page_on_front' );
 		if ( ! $query->is_main_query() || $does_not_have_data ) {
