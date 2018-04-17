@@ -1,6 +1,6 @@
 === The Events Calendar ===
 
-Contributors: ModernTribe, borkweb, aguseo, barry.hughes, bordoni, brianjessee, cliffpaulick, courane01, faction23, GeoffBel, geoffgraham, ggwicz, jbrinley, jentheo, leahkoerper, lucatume, mastromktg, MZAWeb, neillmcshea, nicosantos, patriciahillebrandt, peterchester, reid.peifer, roblagatta, ryancurban, shane.pearlman, tribecari, vicskf, zbtirrell
+Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, cliffpaulick, courane01, faction23, GeoffBel, geoffgraham, ggwicz, jbrinley, jentheo, leahkoerper, lucatume, mastromktg, MZAWeb, neillmcshea, nicosantos, patriciahillebrandt, peterchester, reid.peifer, roblagatta, ryancurban, shane.pearlman, tribecari, vicskf, zbtirrell
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.5
@@ -215,7 +215,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
-= [4.6.14] TBD =
+= [4.6.14] 2018-04-17 =
 
 * Fix - Updated the "front page" logic to store the value in the DB instead of "mocking" the view via JS [100832]
 * Fix - Fixed the generation of PHP warnings on retrieval of posts if the "Include events in main blog loop" option is checked (thanks to Colin Carmichael for reporting this problem) [97667]
