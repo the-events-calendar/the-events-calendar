@@ -32,6 +32,7 @@ class Tribe__Events__Aggregator__Settings {
 	public function __construct() {
 		add_action( 'tribe_settings_do_tabs', array( $this, 'do_import_settings_tab' ) );
 		add_action( 'current_screen', array( $this, 'maybe_clear_fb_credentials' ) );
+		add_action( 'current_screen', array( $this, 'maybe_clear_eb_credentials' ) );
 	}
 
 	/**
@@ -124,6 +125,69 @@ class Tribe__Events__Aggregator__Settings {
 		}
 
 		return $credentials->expires > $time;
+	}
+
+	/**
+	 * Hooked to current_screen, this method identifies whether or not eb credentials should be cleared
+	 *
+	 * @param WP_Screen $screen
+	 */
+	public function maybe_clear_eb_credentials( $screen ) {
+		if ( 'tribe_events_page_tribe-common' !== $screen->base ) {
+			return;
+		}
+
+		if ( ! isset( $_GET['tab'] ) || 'addons' !== $_GET['tab'] ) {
+			return;
+		}
+
+		if (
+			! (
+				isset( $_GET['action'] )
+				&& isset( $_GET['_wpnonce'] )
+				&& 'disconnect-eventbrite' === $_GET['action']
+				&& wp_verify_nonce( $_GET['_wpnonce'], 'disconnect-eventbrite' )
+			)
+		) {
+			return;
+		}
+
+		$this->clear_eb_credentials();
+
+		wp_redirect(
+			Tribe__Settings::instance()->get_url( array( 'tab' => 'addons' ) )
+		);
+		die;
+	}
+
+	/**
+	 * Disconnect Eventbrite from EA
+	 *
+	 * @since TBD
+	 *
+	 */
+	public function clear_eb_credentials() {
+
+		tribe( 'events-aggregator.service' )->disconnect_eventbrite_token();
+
+	}
+
+	/**
+	 * Given a URL, tack on the parts of the URL that gets used to disconnect Eventbrite
+	 *
+	 * @param string $url
+	 *
+	 * @return string
+	 */
+	public function build_disconnect_eventbrite_url( $url ) {
+		return wp_nonce_url(
+			add_query_arg(
+				'action',
+				'disconnect-eventbrite',
+				$url
+			),
+			'disconnect-eventbrite'
+		);
 	}
 
 	/**
