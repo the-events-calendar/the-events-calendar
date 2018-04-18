@@ -215,6 +215,10 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
+= [4.6.15] TBD =
+
+* Fix - Remove organizers when an event has multiple organizers [103715]
+
 = [4.6.14.1] 2018-04-18 =
 
 * Fix - Fixed fatal error that would sometimes arise when The Events Calendar was set to display on the front page
