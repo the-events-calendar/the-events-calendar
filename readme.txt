@@ -4,7 +4,7 @@ Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.5
-Stable tag: 4.6.14
+Stable tag: 4.6.14.1
 Tested up to: 4.9.5
 Requires PHP: 5.2.4
 License: GPLv2 or later
@@ -217,7 +217,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 = [4.6.14.1] 2018-04-18 =
 
-* Fix - Prevent error `T_CONSTANT_ENCAPSED_STRING`, when the site has the events calendar on the front page.
+* Fix - Fixed fatal error that would sometimes arise when The Events Calendar was set to display on the front page
 
 = [4.6.14] 2018-04-18 =
 
