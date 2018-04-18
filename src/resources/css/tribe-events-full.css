@@ -25,12 +25,10 @@
 /* Cost */
 
 .tribe-events-event-cost {
-	display: -webkit-box;
 	display: -ms-flexbox;
 	display: flex;
-	-webkit-box-align: center;
-	    -ms-flex-align: center;
-	        align-items: center;
+	-ms-flex-align: center;
+	    align-items: center;
 	float: none;
 	margin: 0 0 15px;
 }
@@ -688,12 +686,10 @@ select.tribe-events-dropdown {
 /* Cost */
 
 .tribe-events-list .tribe-events-loop .tribe-event-featured .tribe-events-event-cost {
-	display: -webkit-box;
 	display: -ms-flexbox;
 	display: flex;
-	-webkit-box-align: center;
-	    -ms-flex-align: center;
-	        align-items: center;
+	-ms-flex-align: center;
+	    align-items: center;
 	float: none;
 	margin: 30px 0;
 }
@@ -1211,12 +1207,10 @@ select.tribe-events-dropdown {
 /* Cost */
 
 .tribe-events-day .tribe-event-featured .tribe-events-event-cost {
-	display: -webkit-box;
 	display: -ms-flexbox;
 	display: flex;
-	-webkit-box-align: center;
-	    -ms-flex-align: center;
-	        align-items: center;
+	-ms-flex-align: center;
+	    align-items: center;
 	float: none;
 	margin: 30px 0;
 }
