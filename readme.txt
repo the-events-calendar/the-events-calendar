@@ -215,6 +215,10 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
+= [4.6.14.1] 2018-04-18 =
+
+* Fix - Prevent error `T_CONSTANT_ENCAPSED_STRING`, when the site has the events calendar on the front page.
+
 = [4.6.14] 2018-04-18 =
 
 * Fix - Updated the "front page" logic to store the value in the DB instead of "mocking" the view via JS [100832]
