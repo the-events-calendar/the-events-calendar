@@ -344,6 +344,8 @@ class Tribe__Events__Aggregator__Service {
 	/**
 	 * Fetch Eventbrite Extended Token from the Service
 	 *
+	 * @since TBD
+	 *
 	 *  @return stdClass|WP_Error
 	 */
 	public function has_eventbrite_authorized() {

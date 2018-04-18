@@ -5,17 +5,6 @@ defined( 'WPINC' ) or die;
 class Tribe__Events__Aggregator__Record__Eventbrite extends Tribe__Events__Aggregator__Record__Abstract {
 	public $origin = 'eventbrite';
 
-
-	public static function filter_add_site_get_import_data( $args, $record ) {
-		if ( 'eventbrite' !== $record->origin ) {
-			return $args;
-		}
-
-		$args['site'] = urlencode( site_url() );
-
-		return $args;
-	}
-
 	/**
 	 * Queues the import on the Aggregator service
 	 */
@@ -122,5 +111,25 @@ class Tribe__Events__Aggregator__Record__Eventbrite extends Tribe__Events__Aggre
 		}
 
 		return self::preserve_event_option_fields( $event );
+	}
+
+	/**
+	 * Add Site URL for Eventbrite Requets
+	 *
+	 * @since TBD
+	 *
+	 * @param array $args EA REST arguments
+	 * @param Tribe__Events__Aggregator__Record__Abstract $record Aggregator Import Record
+	 *
+	 * @return mixed
+	 */
+	public static function filter_add_site_get_import_data( $args, $record ) {
+		if ( 'eventbrite' !== $record->origin ) {
+			return $args;
+		}
+
+		$args['site'] = urlencode( site_url() );
+
+		return $args;
 	}
 }
