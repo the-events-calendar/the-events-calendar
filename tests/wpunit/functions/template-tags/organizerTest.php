@@ -1,9 +1,9 @@
 <?php
 namespace TEC\Tests\functions\template_tags;
 
-use Codeception\TestCase\WPTestCase;
+use Tribe\Events\Tests\Testcases\Events_TestCase;
 
-class organizerTest extends WPTestCase {
+class organizerTest extends Events_TestCase {
 
 	/**
 	 * It should allow getting found posts when querying organizers
