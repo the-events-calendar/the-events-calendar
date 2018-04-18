@@ -215,7 +215,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
-= [4.6.14] 2018-04-17 =
+= [4.6.14] 2018-04-18 =
 
 * Fix - Updated the "front page" logic to store the value in the DB instead of "mocking" the view via JS [100832]
 * Fix - Fixed the generation of PHP warnings on retrieval of posts if the "Include events in main blog loop" option is checked (thanks to Colin Carmichael for reporting this problem) [97667]
