@@ -408,9 +408,9 @@ class Tribe__Events__Linked_Posts {
 			$args = array();
 			// Sort by drag-n-drop order
 			$linked_ids_order = get_post_meta( $post_id, $this->get_order_meta_key( $post_type ), true );
+			$linked_post_ids = tribe_sanitize_organizers( $linked_post_ids, $linked_ids_order );
 			if ( ! empty( $linked_ids_order ) ) {
-				$linked_post_ids = $linked_ids_order;
-				$args['post__in'] = $linked_ids_order;
+				$args['post__in'] = $linked_post_ids;
 				$args['orderby'] = 'post__in';
 			}
 
@@ -705,7 +705,7 @@ class Tribe__Events__Linked_Posts {
 		}
 
 		if ( ! isset( $submission[ $linked_post_type_id_field ] ) ) {
-			$submission[ $linked_post_type_id_field ] = array( 0 );
+			$submission[ $linked_post_type_id_field ] = array();
 		}
 
 		$temp_submission = $submission;
@@ -780,7 +780,7 @@ class Tribe__Events__Linked_Posts {
 		}
 
 		// if we allow multiples and there is more then one save current order
-		if ( $this->allow_multiple( $linked_post_type ) && count( $linked_posts ) > 1 ) {
+		if ( $this->allow_multiple( $linked_post_type ) ) {
 			$this->order_linked_posts( $event_id, $linked_post_type, $submission[ $linked_post_type_id_field ] );
 		}
 
