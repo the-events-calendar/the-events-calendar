@@ -203,7 +203,7 @@ class Tribe__Events__Aggregator__Settings {
 
 		$eb_authorized = tribe( 'events-aggregator.service' )->has_eventbrite_authorized();
 
-		if ( 'success' !== $eb_authorized->status ) {
+		if ( empty( $eb_authorized->status ) || 'success' !== $eb_authorized->status ) {
 			return false;
 		}
 
