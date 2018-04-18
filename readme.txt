@@ -253,6 +253,11 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
+= [4.6.15] TBD =
+
+* Fix - Remove organizers when an event has multiple organizers [103715]
+
+
 = [4.6.14] TBD =
 
 * Fix - Update the Front Page logic to store the value on the DB instead of "mocking" the view via JS [100832]
