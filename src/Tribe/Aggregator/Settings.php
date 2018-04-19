@@ -161,6 +161,58 @@ class Tribe__Events__Aggregator__Settings {
 	}
 
 	/**
+	 * Get EB Security Key
+	 *
+	 * @since TBD
+	 *
+	 */
+	public function get_eb_security_key() {
+		$args = array(
+			'security_key' => tribe_get_option( 'eb_security_key' ),
+		);
+
+		return (object) $args;
+	}
+
+	/**
+	 * Check if Security Key
+	 *
+	 * @since TBD
+	 *
+	 */
+	public function has_eb_security_key() {
+		$credentials = $this->get_eb_security_key();
+
+		return ! empty( $credentials->security_key );
+	}
+
+	/**
+	 * Handle Checking if there is a Security Key and Saving It
+	 *
+	 * @since TBD
+	 *
+	 * @param object $eb_authorized object from EA service for EB Validation
+	 *
+	 * @return bool
+	 */
+	public function handle_eventbrite_security_key( $eb_authorized ) {
+
+		// key is sent on initial authorization and save it if we have it
+		if ( ! empty( $eb_authorized->data->secret_key ) ) {
+			tribe_update_option( 'eb_security_key', esc_attr( $eb_authorized->data->secret_key ) );
+
+			return true;
+		}
+
+
+		if ( $this->has_eb_security_key() ) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
 	 * Disconnect Eventbrite from EA
 	 *
 	 * @since TBD
@@ -169,6 +221,8 @@ class Tribe__Events__Aggregator__Settings {
 	public function clear_eb_credentials() {
 
 		tribe( 'events-aggregator.service' )->disconnect_eventbrite_token();
+
+		tribe_update_option( 'eb_security_key', null );
 
 	}
 
@@ -204,6 +258,10 @@ class Tribe__Events__Aggregator__Settings {
 		$eb_authorized = tribe( 'events-aggregator.service' )->has_eventbrite_authorized();
 
 		if ( empty( $eb_authorized->status ) || 'success' !== $eb_authorized->status ) {
+			return false;
+		}
+
+		if ( ! $this->handle_eventbrite_security_key( $eb_authorized ) ) {
 			return false;
 		}
 
