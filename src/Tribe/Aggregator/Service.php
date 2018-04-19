@@ -174,7 +174,7 @@ class Tribe__Events__Aggregator__Service {
 		if ( is_wp_error( $url ) ) {
 			return $url;
 		}
-
+		log_me($url);
 		/**
 		 * Length of time to wait when initially connecting to Event Aggregator before abandoning the attempt.
 		 * default is 60 seconds. We set this high so large files can be transfered on slow connections
@@ -353,6 +353,8 @@ class Tribe__Events__Aggregator__Service {
 		$args = $this->get_eventbrite_args();
 
 		$response = $this->get( 'eventbrite/validate', $args );
+
+		log_me($response);
 
 		// If we have an WP_Error we return only CSV
 		if ( is_wp_error( $response ) ) {
