@@ -9,10 +9,9 @@ class Tribe__Events__Aggregator__Record__Eventbrite extends Tribe__Events__Aggre
 	 * Queues the import on the Aggregator service
 	 */
 	public function queue_import( $args = array() ) {
-		$eb_token = tribe_get_option( 'eb_token' );
 
 		$defaults = array(
-			'eventbrite_token' => $eb_token,
+			'site' => urlencode( site_url() ),
 		);
 
 		$args = wp_parse_args( $args, $defaults );
@@ -112,5 +111,25 @@ class Tribe__Events__Aggregator__Record__Eventbrite extends Tribe__Events__Aggre
 		}
 
 		return self::preserve_event_option_fields( $event );
+	}
+
+	/**
+	 * Add Site URL for Eventbrite Requets
+	 *
+	 * @since TBD
+	 *
+	 * @param array $args EA REST arguments
+	 * @param Tribe__Events__Aggregator__Record__Abstract $record Aggregator Import Record
+	 *
+	 * @return mixed
+	 */
+	public static function filter_add_site_get_import_data( $args, $record ) {
+		if ( 'eventbrite' !== $record->origin ) {
+			return $args;
+		}
+
+		$args['site'] = urlencode( site_url() );
+
+		return $args;
 	}
 }

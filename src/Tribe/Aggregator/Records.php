@@ -78,6 +78,9 @@ class Tribe__Events__Aggregator__Records {
 		// Edit Link Filter
 		add_filter( 'get_edit_post_link', array( $this, 'filter_edit_link' ), 15, 3 );
 
+		// Filter Eventbrite to Add Site to URL
+		add_filter( 'tribe_aggregator_get_import_data_args', array( 'Tribe__Events__Aggregator__Record__Eventbrite', 'filter_add_site_get_import_data' ), 10, 2 );
+
 		// Filter ical events to preserve some fields that aren't supported by iCalendar
 		add_filter( 'tribe_aggregator_before_update_event', array( 'Tribe__Events__Aggregator__Record__iCal', 'filter_event_to_preserve_fields' ), 10, 2 );
 
@@ -98,6 +101,7 @@ class Tribe__Events__Aggregator__Records {
 
 		// Filter meetup events to preserve some fields that aren't supported by Meetup
 		add_filter( 'tribe_aggregator_before_update_event', array( 'Tribe__Events__Aggregator__Record__Meetup', 'filter_event_to_preserve_fields' ), 10, 2 );
+
 	}
 
 	public function filter_edit_link( $link, $post, $context ) {

@@ -317,13 +317,17 @@ class Tribe__Events__Aggregator__Service {
 	}
 
 	/**
-	 * Fetch Eventbrite Extended Token from the Service
+	 * Get Eventbrite Arguments for EA
 	 *
-	 * @return array
+	 * @since TBD
+	 *
+	 * @return mixed|void
 	 */
-	public function get_eventbrite_token() {
+	public function get_eventbrite_args( ) {
+
 		$args = array(
 			'referral' => urlencode( home_url() ),
+			'url'      => urlencode( site_url() ),
 		);
 
 		/**
@@ -333,9 +337,43 @@ class Tribe__Events__Aggregator__Service {
 		 *
 		 * @param array $args Which arguments are sent to Token Callback
 		 */
-		$args = apply_filters( 'tribe_aggregator_eventbrite_token_callback_args', $args );
+		return apply_filters( 'tribe_aggregator_eventbrite_token_callback_args', $args );
 
-		$response = $this->get( 'eventbrite/token', $args );
+	}
+
+	/**
+	 * Fetch Eventbrite Extended Token from the Service
+	 *
+	 * @since TBD
+	 *
+	 *  @return stdClass|WP_Error
+	 */
+	public function has_eventbrite_authorized() {
+
+		$args = $this->get_eventbrite_args();
+
+		$response = $this->get( 'eventbrite/validate', $args );
+
+		// If we have an WP_Error we return only CSV
+		if ( is_wp_error( $response ) ) {
+			return tribe_error( 'core:aggregator:invalid-eventbrite-token', array(), array( 'response' => $response ) );
+		}
+
+		return $response;
+	}
+
+	/**
+	 * Disconnect Eventbrite Token on EA
+	 *
+	 * @since TBD
+	 *
+	 * @return stdClass|WP_Error
+	 */
+	public function disconnect_eventbrite_token() {
+
+		$args = $this->get_eventbrite_args();
+
+		$response = $this->get( 'eventbrite/disconnect', $args );
 
 		// If we have an WP_Error we return only CSV
 		if ( is_wp_error( $response ) ) {

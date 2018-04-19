@@ -160,25 +160,16 @@ class Tribe__Events__Aggregator__Settings {
 		die;
 	}
 
-	public function get_eb_credentials() {
-		$args = array(
-			'token'   => tribe_get_option( 'eb_token' ),
-			'expires' => tribe_get_option( 'eb_token_expires' ),
-			'scopes'  => tribe_get_option( 'eb_token_scopes' ),
-		);
-
-		return (object) $args;
-	}
-
-	public function has_eb_credentials() {
-		$credentials = $this->get_eb_credentials();
-		return ! empty( $credentials->token ) && ! empty( $credentials->expires ) && ! empty( $credentials->scopes );
-	}
-
+	/**
+	 * Disconnect Eventbrite from EA
+	 *
+	 * @since TBD
+	 *
+	 */
 	public function clear_eb_credentials() {
-		tribe_update_option( 'eb_token', null );
-		tribe_update_option( 'eb_token_expires', null );
-		tribe_update_option( 'eb_token_scopes', null );
+
+		tribe( 'events-aggregator.service' )->disconnect_eventbrite_token();
+
 	}
 
 	/**
@@ -200,30 +191,23 @@ class Tribe__Events__Aggregator__Settings {
 	}
 
 	/**
-	 * Check if the Eventbrite credentials are connected, valid, and not expired.
-	 *
-	 * @param null|int $time UNIX Timestamp to check if credentials have expired yet.
+	 * Check if the Eventbrite credentials are connected in EA
 	 *
 	 * @return bool Whether the Eventbrite credentials are valid
 	 */
-	public function is_eb_credentials_valid( $time = null ) {
+	public function is_ea_authorized_for_eb() {
 		// if the service hasn't enabled oauth for Eventbrite, always assume it is valid
 		if ( ! tribe( 'events-aggregator.main' )->api( 'origins' )->is_oauth_enabled( 'eventbrite' ) ) {
 			return true;
 		}
 
-		if ( ! $this->has_eb_credentials() ) {
+		$eb_authorized = tribe( 'events-aggregator.service' )->has_eventbrite_authorized();
+
+		if ( empty( $eb_authorized->status ) || 'success' !== $eb_authorized->status ) {
 			return false;
 		}
 
-		$credentials = $this->get_eb_credentials();
-
-		// Allow passing comparing time
-		if ( is_null( $time ) ) {
-			$time = time();
-		}
-
-		return $credentials->expires > $time;
+		return true;
 	}
 
 	public function do_import_settings_tab() {

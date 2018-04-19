@@ -114,11 +114,7 @@ if ( get_option( 'pue_install_key_event_aggregator' ) ) {
  */
 if ( class_exists( 'Tribe__Events__Tickets__Eventbrite__Main' ) || get_option( 'pue_install_key_event_aggregator' ) ) {
 
-	$eb_token         = tribe_get_option( 'eb_token' );
-	$eb_token_expires = tribe_get_option( 'eb_token_expires' );
-	$eb_token_scopes  = tribe_get_option( 'eb_token_scopes' );
-
-	$missing_eb_credentials = ! $eb_token;
+	$missing_eb_credentials = ! tribe( 'events-aggregator.settings' )->is_ea_authorized_for_eb();
 
 	ob_start();
 	?>
