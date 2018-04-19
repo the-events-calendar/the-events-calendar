@@ -46,11 +46,11 @@ class TagInsertionCest extends BaseRestCest {
 	}
 
 	/**
-	 * It should return 401 if user cannot insert terms
+	 * It should return 403 if user cannot insert terms
 	 *
 	 * @test
 	 */
-	public function should_return_401_if_user_cannot_insert_terms( Tester $I ) {
+	public function should_return_403_if_user_cannot_insert_terms( Tester $I ) {
 		$I->generate_nonce_for_role( 'subscriber' );
 		$I->sendPOST( $this->tags_url, [
 			'name'        => 'foo',
@@ -58,7 +58,7 @@ class TagInsertionCest extends BaseRestCest {
 			'slug'        => 'foo-bar',
 		] );
 
-		$I->seeResponseCodeIs( 401 );
+		$I->seeResponseCodeIs( 403 );
 		$I->seeResponseIsJson();
 	}
 
