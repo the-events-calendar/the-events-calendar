@@ -11,8 +11,7 @@ class Tribe__Events__Aggregator__Record__Eventbrite extends Tribe__Events__Aggre
 	public function queue_import( $args = array() ) {
 
 		$defaults = array(
-			'site'            => urlencode( site_url() ),
-			'eb_security_key' => tribe( 'events-aggregator.settings' )->get_eb_security_key()->security_key,
+			'site' => urlencode( site_url() ),
 		);
 
 		$args = wp_parse_args( $args, $defaults );
@@ -129,8 +128,7 @@ class Tribe__Events__Aggregator__Record__Eventbrite extends Tribe__Events__Aggre
 			return $args;
 		}
 
-		$args['site']     = urlencode( site_url() );
-		$args['security'] = tribe( 'events-aggregator.settings' )->get_eb_security_key()->security_key;
+		$args['site'] = urlencode( site_url() );
 
 		return $args;
 	}
