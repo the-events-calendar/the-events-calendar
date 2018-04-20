@@ -69,12 +69,12 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 */
 	function tribe_is_month() {
 		$tribe_ecp = Tribe__Events__Main::instance();
-		$is_month  = ( $tribe_ecp->displaying == 'month' ) ? true : false;
+		$is_month  = ( 'month' === $tribe_ecp->displaying ) ? true : false;
 
 		/**
 		 * Allows filtering of the tribe_is_month boolean value.
 		 *
-		 * @since TBD
+		 * @since TBD Added inline documentation for this filter.
 		 *
 		 * @param boolean $is_month Whether you're on the main Month View or not
 		 * @param Tribe__Events__Main $tribe_ecp The current Tribe__Events__Main instance.
