@@ -326,8 +326,9 @@ class Tribe__Events__Aggregator__Service {
 	public function get_eventbrite_args( ) {
 
 		$args = array(
-			'referral' => urlencode( home_url() ),
-			'url'      => urlencode( site_url() ),
+			'referral'   => urlencode( home_url() ),
+			'url'        => urlencode( site_url() ),
+			'secret_key' => tribe( 'events-aggregator.settings' )->get_eb_security_key()->security_key,
 		);
 
 		/**
