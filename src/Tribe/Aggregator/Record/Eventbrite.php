@@ -46,9 +46,16 @@ class Tribe__Events__Aggregator__Record__Eventbrite extends Tribe__Events__Aggre
 
 		$api = $service->api();
 		$key = $api->key;
+		$key2 = null;
 
 		if ( ! empty( $api->licenses['tribe-eventbrite'] ) ) {
-			$key = $api->licenses['tribe-eventbrite'];
+			$eb_license = $api->licenses['tribe-eventbrite'];
+
+			if ( empty( $key ) ) {
+				$key = $eb_license;
+			} else {
+				$key2 = $eb_license;
+			}
 		}
 
 		$url = $service->api()->domain . 'eventbrite/' . $key;
@@ -58,6 +65,12 @@ class Tribe__Events__Aggregator__Record__Eventbrite extends Tribe__Events__Aggre
 			'type' => 'new',
 			'lang' => get_bloginfo( 'language' ),
 		);
+
+		if ( $key2 ) {
+			$defaults['licenses'] = [
+				'tribe-eventbrite' => $key2,
+			];
+		}
 
 		$args = wp_parse_args( $args, $defaults );
 
