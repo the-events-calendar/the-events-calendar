@@ -28,7 +28,7 @@ class Tribe__Events__Admin__Inactive_List extends Tribe__Template {
 	 * @return void
 	 */
 	public function init() {
-		$action = Tribe__Main::instance()->doing_ajax() ? 'admin_init' : 'current_screen';
+		$action = tribe( 'context' )->doing_ajax() ? 'admin_init' : 'current_screen';
 		add_action( $action, array( $this, 'configure_screen' ) );
 	}
 
