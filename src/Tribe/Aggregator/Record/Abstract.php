@@ -42,7 +42,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		),
 		'eventbrite' => array(
 			'source' => 'eventbrite_id',
-			'target' => 'EventbriteID',
+			'target' => 'EventBriteID',
 		),
 		'ical' => array(
 			'source' => 'uid',
@@ -76,7 +76,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		),
 		'eventbrite'   => array(
 			'source' => 'eventbrite_id',
-			'target' => 'VenueEventbriteID',
+			'target' => 'VenueEventBriteID',
 		),
 	);
 
@@ -94,7 +94,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		),
 		'eventbrite'   => array(
 			'source' => 'eventbrite_id',
-			'target' => 'OrganizerEventbriteID',
+			'target' => 'OrganizerEventBriteID',
 		),
 	);
 
