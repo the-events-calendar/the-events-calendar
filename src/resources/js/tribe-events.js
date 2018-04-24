@@ -1408,6 +1408,15 @@ Date.prototype.format = function( mask, utc ) {
 					}
 				}
 			}
+
+			if ( ( ts.view === 'month' ) && ( ! $( '#tribe-events-bar' ).length ) ) {
+				if ( ! td.default_permalinks ) {
+					ts.url_params = 'tribe-bar-date=' + tribeDateFormat( ts.mdate, "tribeMonthQuery" );
+				} else {
+					tribe_ev.state.url_params += '&tribe-bar-date=' + tribeDateFormat( ts.mdate, "tribeMonthQuery" );
+				}
+			}
+
 		} );
 
 		/**
