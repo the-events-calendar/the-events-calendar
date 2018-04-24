@@ -730,6 +730,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				: date( Tribe__Date_Utils::DBDATETIMEFORMAT, $args['end'] );
 		}
 
+		// Set site for origin(s) that need it for new token handling.
+		if ( 'eventbrite' === $args['origin'] ) {
+			$args['site'] = site_url();
+		}
+
 		// create the import on the Event Aggregator service
 		$response = $aggregator->api( 'import' )->create( $args );
 
