@@ -94,6 +94,9 @@ before_script:
   - cd $WP_ROOT_FOLDER
   - wp plugin activate the-events-calendar
 
+  # skip any welcome screen
+  - wp option set tribe_skip_welcome 1
+
   # flush rewrite rules
   - wp rewrite structure '/%postname%/' --hard
 

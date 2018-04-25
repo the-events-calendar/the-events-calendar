@@ -1,0 +1,36 @@
+actor: Aggregatorv1Tester
+modules:
+    enabled:
+        - \Helper\Aggregatorv1
+        - REST
+        - WPDb
+        - WPBrowser
+        - \Helper\TribeDb
+        - Asserts
+        - WPLoader
+    config:
+        WPDb:
+            dsn: 'mysql:host=%DB_HOST%;dbname=%DB_NAME%'
+            user: %DB_USER%
+            password: %DB_PASSWORD%
+            dump: tests/_data/aggregator-dump.sql
+            populate: true
+            cleanup: true
+            url: '%WP_URL%'
+            tablePrefix: wp_
+        WPBrowser:
+            url: '%WP_URL%'
+            adminUsername: %WP_ADMIN_USERNAME%
+            adminPassword: '%WP_ADMIN_PASSWORD%'
+            adminUrl: /wp-admin
+        REST:
+            depends: WPBrowser
+            url: '%WP_URL%/wp-json/tribe/event-aggregator/v1/'
+        WPLoader:
+            # just load WordPress using the same db as WPDb
+            loadOnly: true
+            wpRootFolder: %WP_ROOT_FOLDER%
+            dbName: %DB_NAME%
+            dbHost: %DB_HOST%
+            dbUser: %DB_USER%
+            dbPassword: '%DB_PASSWORD%'
