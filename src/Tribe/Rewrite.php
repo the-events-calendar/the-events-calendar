@@ -396,5 +396,26 @@ class Tribe__Events__Rewrite extends  Tribe__Rewrite {
 		parent::add_hooks();
 		add_action( 'tribe_events_pre_rewrite', array( $this, 'generate_core_rules' ) );
 		add_filter( 'post_type_link', array( $this, 'filter_post_type_link' ), 15, 2 );
+		add_filter( 'url_to_postid', array( $this, 'filter_url_to_postid' ) );
+	}
+
+	/**
+	 * Prevent url_to_postid to run if on the main events page to avoid
+	 * query conflicts. See [94328]
+	 *
+	 * @since TBD
+	 *
+	 * @param string $url The URL from `url_to_postid()`
+	 *
+	 * @return int|string $url
+	 */
+	public function filter_url_to_postid( $url ) {
+
+		if ( $url === Tribe__Events__Main::instance()->getLink() ) {
+			return 0;
+		}
+
+		return $url;
+
 	}
 }
