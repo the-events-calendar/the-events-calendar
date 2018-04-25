@@ -99,12 +99,12 @@ class Event extends \WP_UnitTest_Factory_For_Post {
 	 */
 	function create_many( $count, $args = array(), $generation_definitions = null ) {
 		$ids = [];
-		$time = empty( $args['time_space'] ) ? 1 : $args['time_space'];
+		$next_time = $time = empty( $args['time_space'] ) ? 1 : $args['time_space'];
 		for ( $n = 0; $n < $count; $n ++ ) {
 			$event_args = $args;
-			if ( ! empty( $time ) ) {
-				$event_args['when'] = '+' . $time . ' hours';
-				$time += $time;
+			if ( ! empty( $next_time ) ) {
+				$event_args['when'] = '+' . $next_time . ' hours';
+				$next_time += $time;
 			}
 			$ids[] = $this->create_object( $event_args );
 		}

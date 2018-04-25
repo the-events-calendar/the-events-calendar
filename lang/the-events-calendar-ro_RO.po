@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-01-19 14:59:11+0000\n"
+"PO-Revision-Date: 2018-03-10 07:21:21+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -4423,15 +4423,15 @@ msgstr ""
 
 #: src/Tribe/Organizer.php:184
 msgid "organizer"
-msgstr ""
+msgstr "organizator"
 
 #: src/Tribe/Venue.php:194
 msgid "venues"
-msgstr ""
+msgstr "locații"
 
 #: src/Tribe/Venue.php:185
 msgid "venue"
-msgstr ""
+msgstr "locație"
 
 #: src/io/csv/admin-views/result.php:33
 msgid "Rows numbers with encoding changes: %s"
@@ -4461,7 +4461,7 @@ msgstr ""
 
 #: src/Tribe/Importer/Column_Mapper.php:124
 msgid "Organizer Description"
-msgstr ""
+msgstr "Descriere organizator"
 
 #: src/Tribe/Importer/Column_Mapper.php:101
 msgid "Venue Description"
@@ -4489,7 +4489,7 @@ msgstr ""
 
 #: src/Tribe/Importer/Column_Mapper.php:71
 msgid "Event Timezone"
-msgstr ""
+msgstr "Fus orar eveniment"
 
 #: src/Tribe/Importer/Column_Mapper.php:66
 msgid "Event Excerpt"
@@ -4660,7 +4660,7 @@ msgstr "Ziua precedentă"
 
 #: src/admin-views/venue-meta-box.php:273
 msgid "%s Name already exists"
-msgstr ""
+msgstr "Numele %s există deja"
 
 #: src/admin-views/venue-meta-box.php:268
 msgid "%s Name can not be empty"
@@ -4680,7 +4680,7 @@ msgstr ""
 
 #: src/Tribe/Template/Month.php:448
 msgid "There were no results found for %s this month. Try searching next month."
-msgstr ""
+msgstr "Niciun rezultat găsit pentru %s în această lună. Încearcă o căutare în luna viitoare.."
 
 #: src/Tribe/Template/Day.php:147
 msgid "No %1$s scheduled for %2$s. Please try another day."
@@ -5023,7 +5023,7 @@ msgstr ""
 
 #: src/Tribe/Organizer.php:198
 msgid "organizers"
-msgstr ""
+msgstr "organizatori"
 
 #: src/admin-views/aggregator/origins/gcal.php:117
 #: src/admin-views/aggregator/origins/ical.php:111
@@ -5314,7 +5314,7 @@ msgstr "Detalii"
 
 #: src/admin-views/widget-admin-list.php:31
 msgid "Show widget only if there are upcoming events"
-msgstr "Arată piesa numai dacă există evenimente viitoare"
+msgstr "Afișează piesa numai dacă există evenimente viitoare"
 
 #: src/admin-views/widget-admin-list.php:18
 msgid "Show:"
@@ -5369,7 +5369,7 @@ msgstr ""
 
 #: src/admin-views/tribe-options-timezones.php:48
 msgid "Show timezone"
-msgstr ""
+msgstr "Arată fus orar"
 
 #: src/admin-views/tribe-options-timezones.php:43
 msgid "Use the sitewide timezone everywhere"
@@ -5377,7 +5377,7 @@ msgstr ""
 
 #: src/admin-views/tribe-options-timezones.php:42
 msgid "Use the local timezones for each event"
-msgstr ""
+msgstr "Utilizează ora locală pentru fiecare eveniment"
 
 #: src/admin-views/tribe-options-timezones.php:38
 msgid "Timezone mode"
@@ -5385,7 +5385,7 @@ msgstr ""
 
 #: src/admin-views/tribe-options-timezones.php:30
 msgid "Timezone Settings"
-msgstr ""
+msgstr "Setări fus orar"
 
 #: src/admin-views/tribe-options-timezones.php:10
 msgid "Click this button to update your database and take advantage of additional timezone capabilities. Please <a href=\"%s\" target=\"_blank\">configure WordPress</a> to use the correct timezone before clicking this button!"
@@ -6036,7 +6036,7 @@ msgstr ""
 
 #: src/Tribe/iCal.php:85
 msgid "Download .ics file"
-msgstr ""
+msgstr "Descarcă fișierul .ics"
 
 #: src/Tribe/Aggregator/API/Origins.php:42
 #: src/Tribe/Aggregator/Record/gCal.php:14 src/Tribe/iCal.php:84
@@ -7411,7 +7411,7 @@ msgstr ""
 
 #: common/src/Tribe/PUE/Checker.php:927
 msgid "Valid Key! Expires on %s"
-msgstr ""
+msgstr "Cheie validă! Expiră la %s"
 
 #: common/src/Tribe/PUE/Checker.php:907
 msgid "Sorry, key validation server is not available."

@@ -507,7 +507,7 @@ class Tribe__Events__iCal {
 
 	/**
 	 * Get the number of posts per page to be used on the feed of the iCal, make sure it passes the value via the filter
-	 * tribe_ical_feed_posts_per_page and validates the number is greather than 0.
+	 * tribe_ical_feed_posts_per_page and validates the number is greater than 0.
 	 *
 	 * @since 4.6.11
 	 *

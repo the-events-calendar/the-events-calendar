@@ -216,7 +216,7 @@ class Tribe__Events__Adjacent_Events {
 			'meta_query'     => array(
 				array(
 					'key'     => '_EventStartDate',
-					'value'   => $post_obj->EventStartDate,
+					'value'   => $post_obj->_EventStartDate,
 					'type'    => 'DATETIME',
 					'compare' => $direction,
 				),

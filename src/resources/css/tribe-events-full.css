@@ -1076,6 +1076,10 @@ select.tribe-events-dropdown {
 	width: 58%;
 }
 
+.single-tribe_events .sidebar .secondary .tribe-events-venue-map {
+	width: 100%;
+}
+
 /* Event Meta */
 
 .single-tribe_events .tribe-events-event-meta {
@@ -2053,12 +2057,15 @@ input[name*='tribe-bar-']:-moz-placeholder {
 
 #tribe-bar-form.tribe-bar-collapse #tribe-bar-views + .tribe-bar-filters {
 	clear: both;
-	display: none;
 	left: auto;
 	margin-top: 5px;
 	overflow: hidden;
 	right: auto;
 	width: 100%;
+}
+
+#tribe-bar-form.tribe-bar-collapse .tribe-bar-filters {
+	display: none;
 }
 
 #tribe-bar-form.tribe-bar-collapse .tribe-bar-views-inner {

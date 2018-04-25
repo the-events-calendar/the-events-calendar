@@ -47,7 +47,8 @@ class Tribe__Events__Admin__Event_Meta_Box extends Tribe__Template {
 	}
 
 	public function init_with_event( $event ) {
-		add_action( 'tribe_events_eventform_top', array( $this, 'date_time_section' ) );
+		// @todo here we need to decide if we want to load the whole form below or section by section
+		// add_action( 'tribe_events_eventform_top', array( $this, 'date_time_section' ) );
 
 		$this->get_event( $event );
 		$this->setup_data();
