@@ -316,7 +316,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 *
 	 * @return WP_Post|WP_Error
 	 */
-	public function create( $type = 'manual', $args = array(), $meta = array() ) {
+	public function
+	create( $type = 'manual', $args = array(), $meta = array() ) {
 		if ( ! in_array( $type, array( 'manual', 'schedule' ) ) ) {
 			return tribe_error( 'core:aggregator:invalid-create-record-type', $type );
 		}
@@ -349,6 +350,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		if ( $this->db_errors_happened() ) {
 			$error_message = __( 'Something went wrong while inserting the record in the database.', 'the-events-calendar' );
 			wp_delete_post( $result );
+
 
 			return new WP_Error( 'db-error-during-creation', $error_message );
 		}
@@ -456,7 +458,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			$post['meta_input'][ self::$meta_key_prefix . $key ] = $value;
 		}
 
-		$args = (object) $args;
 		$meta = (object) $meta;
 
 		if ( 'schedule' === $type ) {
@@ -1271,7 +1272,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 *
 	 * @param array $data Dummy data var to allow children to optionally react to passed in data
 	 *
-	 * @return array|WP_Error
+	 * @return array|WP_Error|Tribe__Events__Aggregator__Record__Activity
 	 */
 	public function insert_posts( $items = array() ) {
 		add_filter( 'tribe-post-origin', array( Tribe__Events__Aggregator__Records::instance(), 'filter_post_origin' ), 10 );

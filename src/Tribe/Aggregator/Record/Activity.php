@@ -289,4 +289,15 @@ class Tribe__Events__Aggregator__Record__Activity {
 			$this->items[ $slug ]->updated = array_diff( $this->items[ $slug ]->updated, $this->items[ $slug ]->created );
 		}
 	}
+
+	/**
+	 * Returns the raw items from the activity.
+	 *
+	 * @since TBD
+	 *
+	 * @return array
+	 */
+	public function get_items() {
+		return $this->items;
+	}
 }

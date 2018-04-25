@@ -100,6 +100,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		// mark the record creation as a preview record
 		$meta['preview'] = true;
 
+
 		if ( ! empty( $post_data['import_id'] ) ) {
 			$this->handle_import_finalize( $post_data );
 			return;

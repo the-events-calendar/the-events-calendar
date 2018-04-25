@@ -8,4 +8,3 @@ $support = Configuration::supportDir();
 include_once codecept_data_dir( 'classes/WP_Screen.php' );
 include_once  $support . 'utils.php';
 
-Autoload::addNamespace( '\Tribe\Events\Tests', $support );

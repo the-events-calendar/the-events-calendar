@@ -1,6 +1,6 @@
 <?php
 
-namespace Tribe\Events\Tests\Factories\Aggregator\V1;
+namespace Tribe\Events\Test\Factories\Aggregator\V1;
 
 /**
  * Class Import_Record
@@ -17,10 +17,11 @@ class Import_Record {
 	 * @param array $overrides An array of arguments to override the defaults; e.g. `start` to override
 	 * the start date, `end` to override the end date and any other argument. Use `organizer`, `venue` and `image`
 	 * to override the respective data.
+	 * @param bool $with_image
 	 *
 	 * @return array|object
 	 */
-	public function create_and_get_event_record( $origin = 'ical', array $overrides = [] ) {
+	public function create_and_get_event_record( $origin = 'ical', array $overrides = [], bool $with_image = false ) {
 		$uniqid = uniqid( 'record-', true );
 
 		$event_unique_id_key = $this->get_event_unique_id_field( $origin );
@@ -71,7 +72,10 @@ class Import_Record {
 
 		$record = array_merge( $record, $overrides );
 
-		$record ['image']    = $this->create_and_get_image_record( $origin, $image_overrides );
+		if ( $with_image ) {
+			$record ['image'] = $this->create_and_get_image_record( $origin, $image_overrides );
+		}
+
 		$record['organizer'] = $this->create_and_get_many_organizers_record( $origin, $organizer_count, $organizer_overrides );
 		$record['venue']     = (object) $this->create_and_get_venue_record( $origin, $venue_overrides );
 

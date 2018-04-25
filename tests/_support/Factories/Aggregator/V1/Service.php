@@ -1,6 +1,6 @@
 <?php
 
-namespace Tribe\Events\Tests\Factories\Aggregator\V1;
+namespace Tribe\Events\Test\Factories\Aggregator\V1;
 
 
 class Service extends \WP_UnitTest_Factory {
