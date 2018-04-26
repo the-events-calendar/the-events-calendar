@@ -533,10 +533,10 @@
 								if ( -1 !== td.cur_url.indexOf( '?' ) ) {
 									td.cur_url = td.cur_url.split( '?' )[0];
 								}
+								td.cur_url = td.cur_url + '?' + ts.url_params;
+							} else {
+								td.cur_url = td.cur_url + '&' + ts.url_params;
 							}
-
-							td.cur_url = td.cur_url + '?' + ts.url_params;
-
 						}
 
 						if ( ts.do_string ) {
