@@ -20,6 +20,8 @@ class Tribe__Events__Aggregator__REST__V1__Service_Provider extends tad_DI52_Ser
 	 * @since TBD
 	 */
 	public function register() {
+		// @todo -- should we check for a valid license here? Usage?
+
 		tribe_singleton( 'events-aggregator.rest-api.v1.endpoints.batch', 'Tribe__Events__Aggregator__REST__V1__Endpoints__Batch' );
 
 		add_action( 'rest_api_init', array( $this, 'register_endpoints' ) );
@@ -34,7 +36,7 @@ class Tribe__Events__Aggregator__REST__V1__Service_Provider extends tad_DI52_Ser
 		/** @var Tribe__REST__Endpoints__CREATE_Endpoint_Interface $batch_endpoint */
 		$batch_endpoint = tribe( 'events-aggregator.rest-api.v1.endpoints.batch' );
 
-		// @todo should we check the specific length of the import ID here?
+		// @todo -- should we check the specific length of the import ID here?
 		$this->namespace = 'tribe/event-aggregator/v1';
 		register_rest_route( $this->namespace, '/import/(?P<import_id>\w+)/batch', array(
 			'methods' => WP_REST_Server::CREATABLE,

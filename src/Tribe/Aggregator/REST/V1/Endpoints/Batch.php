@@ -81,7 +81,7 @@ class Tribe__Events__Aggregator__REST__V1__Endpoints__Batch
 		if ( $is_finished ) {
 			$record->delete_meta( 'next_batch_hash' );
 		} else {
-			$next_batch_hash = md5( uniqid( '', true ) );
+			$next_batch_hash = $record->generate_next_batch_hash();
 			$record->update_meta( 'next_batch_hash', $next_batch_hash );
 			$response_data['next_batch_hash'] = $next_batch_hash;
 		}

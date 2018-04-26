@@ -9,7 +9,6 @@ use Tribe\Events\Test\Traits\Aggregator\RecordMaker;
 use Tribe__Events__Aggregator__Records as Records;
 use Tribe__Events__Main as Main;
 
-// @todo the client should send the first expected hash when creating the import
 class ProcessingCest {
 	use RecordMaker;
 	use BatchDataMaker;
@@ -40,7 +39,7 @@ class ProcessingCest {
 
 		$previous_hash = $batch_data['batch_hash'];
 		$meta          = [ 'next_batch_hash' => $previous_hash ];
-		$record = $this->make_record( $import_id, $meta, 'pending' );
+		$record        = $this->make_record( $import_id, $meta, 'pending' );
 
 		$I->sendPOST( "import/{$import_id}/batch", $batch_data );
 
@@ -59,8 +58,11 @@ class ProcessingCest {
 
 		$I->canSeeResponseContainsJson( [ 'status' => 'success' ] );
 		$I->canSeeResponseContainsJson( [ 'activity' => [ $event_cpt => [ 'created' => $event_ids ] ] ] );
-		$next_batch_hash_criteria = [ 'post_id' => $record->post->ID, 'meta_key' => '_tribe_aggregator_next_batch_hash' ];
-		$new_hash = $I->grabFromDatabase( $I->grabPostMetaTableName(), 'meta_value', $next_batch_hash_criteria );
+		$next_batch_hash_criteria = [
+			'post_id' => $record->post->ID,
+			'meta_key' => '_tribe_aggregator_next_batch_hash'
+		];
+		$new_hash                 = $I->grabFromDatabase( $I->grabPostMetaTableName(), 'meta_value', $next_batch_hash_criteria );
 		$I->assertNotEquals( $previous_hash, $new_hash, 'After processing a batch the record should update the `next_batch_hash` meta' );
 		$I->canSeeResponseContainsJson( [ 'next_batch_hash' => $new_hash ] );
 		$I->canSeeResponseContainsJson( [ 'interval' => 10 ] );
@@ -92,7 +94,7 @@ class ProcessingCest {
 
 		$previous_hash = $batch_data['batch_hash'];
 		$meta          = [ 'next_batch_hash' => $previous_hash ];
-		$record = $this->make_record( $import_id, $meta, 'pending' );
+		$record        = $this->make_record( $import_id, $meta, 'pending' );
 
 		$I->sendPOST( "import/{$import_id}/batch", $batch_data );
 
@@ -111,8 +113,11 @@ class ProcessingCest {
 
 		$I->canSeeResponseContainsJson( [ 'status' => 'success' ] );
 		$I->canSeeResponseContainsJson( [ 'activity' => [ $event_cpt => [ 'created' => $event_ids ] ] ] );
-		$next_batch_hash_criteria = [ 'post_id' => $record->post->ID, 'meta_key' => '_tribe_aggregator_next_batch_hash' ];
-		$new_hash = $I->grabFromDatabase( $I->grabPostMetaTableName(), 'meta_value', $next_batch_hash_criteria );
+		$next_batch_hash_criteria = [
+			'post_id' => $record->post->ID,
+			'meta_key' => '_tribe_aggregator_next_batch_hash'
+		];
+		$new_hash                 = $I->grabFromDatabase( $I->grabPostMetaTableName(), 'meta_value', $next_batch_hash_criteria );
 		$I->assertNotEquals( $previous_hash, $new_hash, 'After processing a batch the record should update the `next_batch_hash` meta' );
 		$I->canSeeResponseContainsJson( [ 'next_batch_hash' => $new_hash ] );
 		$I->canSeeResponseContainsJson( [ 'interval' => 10 ] );
@@ -144,7 +149,7 @@ class ProcessingCest {
 
 		$previous_hash = $batch_data['batch_hash'];
 		$meta          = [ 'next_batch_hash' => $previous_hash ];
-		$record = $this->make_record( $import_id, $meta, 'pending' );
+		$record        = $this->make_record( $import_id, $meta, 'pending' );
 
 		$I->sendPOST( "import/{$import_id}/batch", $batch_data );
 
@@ -163,8 +168,11 @@ class ProcessingCest {
 
 		$I->canSeeResponseContainsJson( [ 'status' => 'success' ] );
 		$I->canSeeResponseContainsJson( [ 'activity' => [ $event_cpt => [ 'created' => $event_ids ] ] ] );
-		$next_batch_hash_criteria = [ 'post_id' => $record->post->ID, 'meta_key' => '_tribe_aggregator_next_batch_hash' ];
-		$I->dontSeeInDatabase($I->grabPostMetaTableName(), $next_batch_hash_criteria );
+		$next_batch_hash_criteria = [
+			'post_id' => $record->post->ID,
+			'meta_key' => '_tribe_aggregator_next_batch_hash'
+		];
+		$I->dontSeeInDatabase( $I->grabPostMetaTableName(), $next_batch_hash_criteria );
 		$I->cantSeeResponseContainsJson( [ 'next_batch_hash' => '*' ] );
 		$I->canSeeResponseContainsJson( [ 'interval' => 10 ] );
 	}

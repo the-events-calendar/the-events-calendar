@@ -8,7 +8,6 @@ use Codeception\Example;
 use Tribe\Events\Test\Traits\Aggregator\BatchDataMaker;
 use Tribe\Events\Test\Traits\Aggregator\RecordMaker;
 
-// @todo the client should send the first expected hash when creating the import
 class IntervalCest {
 	use RecordMaker;
 	use BatchDataMaker;

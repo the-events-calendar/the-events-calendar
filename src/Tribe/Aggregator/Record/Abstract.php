@@ -701,8 +701,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			$defaults['allow_multiple_organizers'] = $this->meta['allow_multiple_organizers'];
 		}
 
-		if(!empty($this->meta['next_batch_hash'])){
-			$defaults['next_batch_hash'] =
+		if ( empty( $this->meta['next_batch_hash'] ) ) {
+			$next_batch_hash             = $this->generate_next_batch_hash();
+			$defaults['next_batch_hash'] = $next_batch_hash;
+			$this->update_meta( 'next_batch_hash', $next_batch_hash );
 		}
 
 		if ( $is_previewing ) {
@@ -783,8 +785,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	}
 
 	public function get_import_data() {
-		/** @var \Tribe__Events__Aggregator $aggregator */
-		$aggregator = tribe( 'events-aggregator.main' );
 		$data       = array();
 
 		// For now only apply this to the URL type
@@ -2589,6 +2589,18 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		 * @param Tribe__Events__Aggregator__Record__Abstract $this
 		 */
 		return apply_filters( 'tribe_aggregator_scheduled_records_retry_interval', $retry_time, $this );
+	}
+
+	/*
+	*
+	 * Generates the hash that will be expected in the for the next batch of events.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	public function generate_next_batch_hash() {
+		return md5( uniqid( '', true ) );
 	}
 }
 
