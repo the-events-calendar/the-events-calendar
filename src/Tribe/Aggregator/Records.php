@@ -686,45 +686,24 @@ Tribe__Events__Aggregator__Records {
 		add_filter( 'get_edit_post_link', array( $this, 'filter_edit_link' ), 15, 3 );
 
 		// Filter ical events to preserve some fields that aren't supported by iCalendar
-		add_filter( 'tribe_aggregator_before_update_event', array(
-			'Tribe__Events__Aggregator__Record__iCal',
-			'filter_event_to_preserve_fields'
-		), 10, 2 );
+		add_filter( 'tribe_aggregator_before_update_event', array( 'Tribe__Events__Aggregator__Record__iCal', 'filter_event_to_preserve_fields' ), 10, 2 );
 
 		// Filter ics events to preserve some fields that aren't supported by ICS
-		add_filter( 'tribe_aggregator_before_update_event', array(
-			'Tribe__Events__Aggregator__Record__ICS',
-			'filter_event_to_preserve_fields'
-		), 10, 2 );
+		add_filter( 'tribe_aggregator_before_update_event', array( 'Tribe__Events__Aggregator__Record__ICS', 'filter_event_to_preserve_fields' ), 10, 2 );
 
 		// Filter gcal events to preserve some fields that aren't supported by Google Calendar
-		add_filter( 'tribe_aggregator_before_update_event', array(
-			'Tribe__Events__Aggregator__Record__gCal',
-			'filter_event_to_preserve_fields'
-		), 10, 2 );
+		add_filter( 'tribe_aggregator_before_update_event', array( 'Tribe__Events__Aggregator__Record__gCal', 'filter_event_to_preserve_fields' ), 10, 2 );
 
 		// Filter facebook events to force an event URL
-		add_filter( 'tribe_aggregator_before_save_event', array(
-			'Tribe__Events__Aggregator__Record__Facebook',
-			'filter_event_to_force_url'
-		), 10, 2 );
+		add_filter( 'tribe_aggregator_before_save_event', array( 'Tribe__Events__Aggregator__Record__Facebook', 'filter_event_to_force_url' ), 10, 2 );
 
 		// Filter facebook events to preserve some fields that aren't supported by Facebook
-		add_filter( 'tribe_aggregator_before_update_event', array(
-			'Tribe__Events__Aggregator__Record__Facebook',
-			'filter_event_to_preserve_fields'
-		), 10, 2 );
+		add_filter( 'tribe_aggregator_before_update_event', array( 'Tribe__Events__Aggregator__Record__Facebook', 'filter_event_to_preserve_fields' ), 10, 2 );
 
 		// Filter meetup events to force an event URL
-		add_filter( 'tribe_aggregator_before_save_event', array(
-			'Tribe__Events__Aggregator__Record__Meetup',
-			'filter_event_to_force_url'
-		), 10, 2 );
+		add_filter( 'tribe_aggregator_before_save_event', array( 'Tribe__Events__Aggregator__Record__Meetup', 'filter_event_to_force_url' ), 10, 2 );
 
 		// Filter meetup events to preserve some fields that aren't supported by Meetup
-		add_filter( 'tribe_aggregator_before_update_event', array(
-			'Tribe__Events__Aggregator__Record__Meetup',
-			'filter_event_to_preserve_fields'
-		), 10, 2 );
+		add_filter( 'tribe_aggregator_before_update_event', array( 'Tribe__Events__Aggregator__Record__Meetup', 'filter_event_to_preserve_fields' ), 10, 2 );
 	}
 }
