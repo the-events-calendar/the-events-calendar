@@ -4,10 +4,31 @@ defined( 'WPINC' ) or die;
 
 class Tribe__Events__Aggregator__Record__Activity {
 	/**
+	 * The below constants are meant to be used to set a status on the activity.
+	 * The reasons, check and management of said status are up to the client
+	 * object and not managed by the activity instance.
+	 *
+	 * @see Tribe__Events__Aggregator__Record__Activity::set_last_status()
+	 * @see Tribe__Events__Aggregator__Record__Activity::get_last_status()
+	 *
+	 */
+	const STATUS_SUCCESS = 'success';
+	const STATUS_FAIL = 'fail';
+	const STATUS_PARTIAL = 'partial';
+	const STATUS_NULL = 'null';
+
+	/**
 	 * Holds a Log of what has been done on This Queue
 	 * @var array
 	 */
 	protected $items = array();
+
+	/**
+	 * The status of the last processing operation.
+	 *
+	 * @var string
+	 */
+	protected $last_status;
 
 	/**
 	 * Allows easier quick shortcodes to access activity
@@ -68,7 +89,7 @@ class Tribe__Events__Aggregator__Record__Activity {
 	 * @return array
 	 */
 	public function __sleep() {
-		return array( 'items' );
+		return array( 'items', 'last_status' );
 	}
 
 	/**
@@ -299,5 +320,35 @@ class Tribe__Events__Aggregator__Record__Activity {
 	 */
 	public function get_items() {
 		return $this->items;
+	}
+
+	/**
+	 * Sets the last status on the activity object.
+	 *
+	 * Ideally set to one of the `STATUS_` constants defined by the class
+	 * but allowing arbitrary stati by design. It's up to the client to set
+	 * and consume this information.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $status
+	 */
+	public function set_last_status( $status ) {
+		$this->last_status = $status;
+	}
+
+	/**
+	 * Gets the last status on the activity object.
+	 *
+	 * Ideally set to one of the `STATUS_` constants defined by the class
+	 * but allowing arbitrary stati by design. It's up to the client to set
+	 * and consume this information.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	public function get_last_status() {
+		return $this->last_status;
 	}
 }

@@ -22,7 +22,7 @@ trait BatchDataMaker {
 			$events[] = $import_data->create_and_get_event_record( $origin );
 		}
 
-		return array_merge_recursive( [
+		return array_merge( [
 			'batch_hash' => '2389',
 			'events' => $events,
 			'status' => [

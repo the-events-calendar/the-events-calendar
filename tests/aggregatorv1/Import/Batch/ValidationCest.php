@@ -11,12 +11,6 @@ class ValidationCest {
 	use RecordMaker;
 	use BatchDataMaker;
 
-	public function _before( Aggregatorv1Tester $I ) {
-	}
-
-	public function _after( Aggregatorv1Tester $I ) {
-	}
-
 	/**
 	 * It should reject data when the import ID is not an existing one
 	 *

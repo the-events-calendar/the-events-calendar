@@ -316,8 +316,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 *
 	 * @return WP_Post|WP_Error
 	 */
-	public function
-	create( $type = 'manual', $args = array(), $meta = array() ) {
+	public function create( $type = 'manual', $args = array(), $meta = array() ) {
 		if ( ! in_array( $type, array( 'manual', 'schedule' ) ) ) {
 			return tribe_error( 'core:aggregator:invalid-create-record-type', $type );
 		}
@@ -501,6 +500,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			'post_parent'    => 0,
 			'meta_input'     => array(),
 		);
+
 
 		foreach ( $this->meta as $key => $value ) {
 			// don't propagate these meta keys to the scheduled record
@@ -1272,7 +1272,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 *
 	 * @param array $data Dummy data var to allow children to optionally react to passed in data
 	 *
-	 * @return array|WP_Error|Tribe__Events__Aggregator__Record__Activity
+	 * @return Tribe__Events__Aggregator__Record__Activity
 	 */
 	public function insert_posts( $items = array() ) {
 		add_filter( 'tribe-post-origin', array( Tribe__Events__Aggregator__Records::instance(), 'filter_post_origin' ), 10 );
@@ -1284,6 +1284,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		 *
 		 * @param array $items An array of items to insert.
 		 * @param array $meta  The record meta information.
+
 		 */
 		do_action( 'tribe_aggregator_before_insert_posts', $items, $this->meta );
 
@@ -1292,6 +1293,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		// Creates an Activity to log what Happened
 		$activity = new Tribe__Events__Aggregator__Record__Activity();
+		$initial_created_events = $activity->count( Tribe__Events__Main::POSTTYPE );
+		$expected_created_events = $initial_created_events + count( $items );
 
 		$args = array(
 			'post_status' => $this->meta['post_status'],
@@ -1915,6 +1918,16 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		 * @param Tribe__Events__Aggregator__Record__Activity $activity The record insertion activity report.
 		 */
 		do_action( 'tribe_aggregator_after_insert_posts', $items, $this->meta, $activity );
+
+		$final_created_events = (int) $activity->count( Tribe__Events__Main::POSTTYPE );
+
+		if ( $expected_created_events === $final_created_events ) {
+			$activity->set_last_status( Tribe__Events__Aggregator__Record__Activity::STATUS_SUCCESS );
+		} elseif ( $initial_created_events === $final_created_events ) {
+			$activity->set_last_status( Tribe__Events__Aggregator__Record__Activity::STATUS_FAIL );
+		} else {
+			$activity->set_last_status( Tribe__Events__Aggregator__Record__Activity::STATUS_PARTIAL );
+		}
 
 		return $activity;
 	}

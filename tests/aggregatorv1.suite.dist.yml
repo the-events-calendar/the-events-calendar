@@ -8,6 +8,7 @@ modules:
         - \Helper\TribeDb
         - Asserts
         - WPLoader
+        - WPFilesystem
     config:
         WPDb:
             dsn: 'mysql:host=%DB_HOST%;dbname=%DB_NAME%'
@@ -34,3 +35,6 @@ modules:
             dbHost: %DB_HOST%
             dbUser: %DB_USER%
             dbPassword: '%DB_PASSWORD%'
+        WPFilesystem:
+            wpRootFolder: %WP_ROOT_FOLDER%
+
