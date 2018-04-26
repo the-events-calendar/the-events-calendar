@@ -7,7 +7,7 @@ use Codeception\TestCase\WPTestCase;
 use Tribe\Events\Test\Factories\Event;
 use Tribe\Events\Test\Factories\Organizer;
 use Tribe\Events\Test\Factories\Venue;
-use Tribe\Test\Data;
+use Tribe\Tests\Data;
 
 class Events_TestCase extends WPTestCase {
 	/**

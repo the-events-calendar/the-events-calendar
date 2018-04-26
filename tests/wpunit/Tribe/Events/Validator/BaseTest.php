@@ -2,7 +2,7 @@
 
 namespace Tribe\Events\Validator;
 
-use Tribe\Events\Tests\Factories\Event;
+use Tribe\Events\Test\Factories\Event;
 use Tribe__Events__Validator__Base as Validator;
 
 class BaseTest extends \Codeception\TestCase\WPTestCase {

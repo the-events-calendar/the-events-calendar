@@ -1,7 +1,7 @@
 <?php
 namespace Tribe\Events;
 
-use Tribe\Events\Tests\Testcases\Events_TestCase;
+use Tribe\Events\Test\Testcases\Events_TestCase;
 use Tribe__Events__Main as Main;
 use Tribe__Events__Query as Query;
 use Tribe__Main;

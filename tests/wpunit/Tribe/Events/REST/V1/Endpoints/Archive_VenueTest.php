@@ -2,8 +2,8 @@
 
 namespace Tribe\Events\REST\V1\Endpoints;
 
-use Tribe\Events\Tests\Factories\Event;
-use Tribe\Events\Tests\Factories\Venue;
+use Tribe\Events\Test\Factories\Event;
+use Tribe\Events\Test\Factories\Venue;
 use Tribe__Events__REST__V1__Endpoints__Archive_Venue as Archive;
 
 class Archive_VenueTest extends \Codeception\TestCase\WPTestCase {

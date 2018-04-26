@@ -3,8 +3,8 @@
 
 namespace Tribe\Events\Aggregator\Record;
 
-use Tribe\Events\Tests\Factories\REST\V1\Event_Response;
-use Tribe\Events\Tests\Testcases\Events_TestCase;
+use Tribe\Events\Test\Factories\REST\V1\Event_Response;
+use Tribe\Events\Test\Testcases\Events_TestCase;
 use Tribe__Events__Aggregator__Record__Url as Url;
 use Tribe__Events__Main as TEC;
 

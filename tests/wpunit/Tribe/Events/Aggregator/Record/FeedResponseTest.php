@@ -3,7 +3,7 @@
 
 namespace Tribe\Events\Aggregator\Record;
 
-use Tribe\Events\Tests\Testcases\Events_TestCase;
+use Tribe\Events\Test\Testcases\Events_TestCase;
 
 class FeedResponseTest extends Events_TestCase {
 
