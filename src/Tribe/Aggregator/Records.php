@@ -652,19 +652,6 @@ Tribe__Events__Aggregator__Records {
 	}
 
 	/**
-	 * Finds and returns a record post object if
-	 *
-	 * @param $import_id
-	 * @param array $args An array of override arguments.
-	 *
-	 * @since TBD
-	 *
-	 * @return WP_Post|Tribe_Error The record post object or an error if not found.
-	 */
-	public function find_by_import_id( $import_id, array $args= array() ) {
-	}
-
-	/**
 	 * Hooks all the actions and filters needed by the class.
 	 *
 	 * @since TBD
