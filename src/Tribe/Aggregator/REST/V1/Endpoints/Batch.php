@@ -8,12 +8,28 @@
  * An endpoint dedicated to processing events in batches.
  */
 class Tribe__Events__Aggregator__REST__V1__Endpoints__Batch
+	extends
+	Tribe__Events__Aggregator__REST__V1__Endpoints__Base
 	implements Tribe__REST__Endpoints__CREATE_Endpoint_Interface {
 
 	/**
 	 * @var Tribe__Events__Aggregator__Record__Abstract
 	 */
 	protected $current_record;
+
+	/**
+	 * The minimum interval, in seconds.
+	 *
+	 * @var int
+	 */
+	protected $interval_min = 10;
+
+	/**
+	 * The maximum interval, in seconds.
+	 *
+	 * @var
+	 */
+	protected $interval_max = 600;
 
 	/**
 	 * Handles a batch processing request sent by the server.
@@ -32,30 +48,25 @@ class Tribe__Events__Aggregator__REST__V1__Endpoints__Batch
 		/** @var Tribe__Events__Aggregator__Record__Abstract $record */
 		$record = $records->get_by_import_id( $request['import_id'], array( 'post_status' => 'any' ) );
 
-		if ( $request['force_import_status'] ) {
-			$activity            = $record->activity();
-			$force_import_status = $request['force_import_status'];
-			$is_finished         = 'pending' !== $force_import_status;
-			$new_status          = $force_import_status;
-		} else {
-			if ( empty( $record->meta['post_status'] ) ) {
-				$record->update_meta( 'post_status', tribe( 'events-aggregator.settings' )->default_post_status( $record->meta['origin'] ) );
-			}
-
-			// let's make sure it's a nested object
-			$items = json_decode( json_encode( $request['events'] ) );
-
-			$is_last_batch = (int) $request['status']['batch']['total'] === ( (int) $request['status']['batch']['done'] + 1 );
-
-			/** @var Tribe__Events__Aggregator__Record__Activity $activity */
-			$activity = $record->insert_posts( $items );
-
-			$is_finished = ( $is_last_batch && $activity->get_last_status() === Tribe__Events__Aggregator__Record__Activity::STATUS_SUCCESS );
-			$new_status  = $is_finished ? 'success' : 'pending';
+		if ( empty( $record->meta['post_status'] ) ) {
+			$record->update_meta( 'post_status', tribe( 'events-aggregator.settings' )->default_post_status( $record->meta['origin'] ) );
 		}
 
-		$default_interval = 10;
-		$max_interval     = 600;
+		// let's make sure it's a nested object
+		$items = json_decode( json_encode( $request['events'] ) );
+
+		$is_last_batch = (int) $request['status']['batch']['total'] === ( (int) $request['status']['batch']['done'] + 1 );
+
+		/** @var Tribe__Events__Aggregator__Record__Activity $activity */
+		$activity = $record->insert_posts( $items );
+
+		$is_success  = $activity->get_last_status() === Tribe__Events__Aggregator__Record__Activity::STATUS_SUCCESS;
+		$is_finished = ( $is_last_batch && $is_success );
+		$new_status  = $is_finished ? 'success' : 'pending';
+
+		if ( $is_success ) {
+			$record->update_meta( 'done', $request['done'] );
+		}
 
 		/**
 		 * Allows filtering the interval between a finished batch process and the closest push of the next one
@@ -66,11 +77,11 @@ class Tribe__Events__Aggregator__REST__V1__Endpoints__Batch
 		 * @param int $interval A value in seconds; defaults to 10.
 		 * @param WP_REST_Request The current batch import request.
 		 */
-		$interval = apply_filters( 'event_aggregator_event_batch_interval', $default_interval, $request );
+		$interval = apply_filters( 'event_aggregator_event_batch_interval', $this->interval_min, $request );
 
-		$interval = is_numeric( $interval ) && (int) $interval > $default_interval
-			? min( $max_interval, (int) $interval )
-			: $default_interval;
+		$interval = is_numeric( $interval ) && (int) $interval > $this->interval_min
+			? min( $this->interval_max, (int) $interval )
+			: $this->interval_min;
 
 		$response_data = array(
 			'status' => 'success',
@@ -114,16 +125,17 @@ class Tribe__Events__Aggregator__REST__V1__Endpoints__Batch
 				'validate_callback' => array( $this, 'is_valid_status_information' ),
 				'description' => __( 'The current status of the import.', 'the-events-calendar' ),
 			),
+			'done' => array(
+				'required' => true,
+				'type' => 'integer',
+				'validate_callback' => array( $this, 'is_percentage' ),
+				'description' => __( 'The percentage of import completed.', 'the-events-calendar' ),
+			),
 			'interval' => array(
 				'required' => false,
 				'type' => 'integer',
+				'validate_callback' => array( $this, 'is_valid_interval' ),
 				'description' => __( 'The current interval, in seconds, between the end of a batch process and the start of the next; as set on the server.', 'the-events-calendar' ),
-			),
-			'force_import_status' => array(
-				'required' => false,
-				'type' => 'string',
-				'enum' => array( 'success', 'failed', 'pending' ),
-				'description' => __( 'A forcefully set by the server new status for the import.', 'the-events-calendar' ),
 			),
 		);
 	}
@@ -142,42 +154,6 @@ class Tribe__Events__Aggregator__REST__V1__Endpoints__Batch
 		return apply_filters( 'tribe_aggregator_batch_data_processing_enabled', true );
 	}
 
-	/**
-	 * Whether teh current import ID exists and is for a record that needs data.
-	 *
-	 * @since TBD
-	 *
-	 * @param string $import_id
-	 *
-	 * @return bool
-	 */
-	public function is_valid_import_id( $import_id ) {
-		/** @var Tribe__Events__Aggregator__Records $records */
-		$records = tribe( 'events-aggregator.records' );
-		$args    = array( 'post_status' => Tribe__Events__Aggregator__Records::$status->pending );
-		$record  = $records->get_by_import_id( $import_id, $args );
-
-		$this->current_record = $record;
-
-		return $record instanceof Tribe__Events__Aggregator__Record__Abstract;
-	}
-
-	/**
-	 * Whether the batch hash is the expected one or not.
-	 *
-	 * @since TBD
-	 *
-	 * @param string $batch_hash
-	 *
-	 * @return bool
-	 */
-	public function is_expected_batch_hash( $batch_hash ) {
-		if ( ! $this->current_record instanceof Tribe__Events__Aggregator__Record__Abstract ) {
-			return false;
-		}
-
-		return $this->current_record->meta['next_batch_hash'] === $batch_hash;
-	}
 
 	/**
 	 * Validates the status information sent by the server.

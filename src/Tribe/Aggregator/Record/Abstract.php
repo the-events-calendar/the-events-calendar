@@ -834,7 +834,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		) );
 
 		if ( ! is_wp_error( $status ) && ! empty( $this->post->post_parent ) ) {
-			wp_update_post( array(
+			$status = wp_update_post( array(
 				'ID' => $this->post->post_parent,
 				'post_modified' => date( Tribe__Date_Utils::DBDATETIMEFORMAT, current_time( 'timestamp' ) ),
 			) );

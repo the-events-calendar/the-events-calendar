@@ -66,6 +66,12 @@ class ProcessingCest {
 		$I->assertNotEquals( $previous_hash, $new_hash, 'After processing a batch the record should update the `next_batch_hash` meta' );
 		$I->canSeeResponseContainsJson( [ 'next_batch_hash' => $new_hash ] );
 		$I->canSeeResponseContainsJson( [ 'interval' => 10 ] );
+		$done_criteria = [
+			'post_id' => $record->post->ID,
+			'meta_key' => '_tribe_aggregator_done'
+		];
+		$done_in_db    = $I->grabFromDatabase( $I->grabPostMetaTableName(), 'meta_value', $done_criteria );
+		$I->assertEquals( $batch_data['done'], $done_in_db );
 	}
 
 	/**
@@ -121,6 +127,12 @@ class ProcessingCest {
 		$I->assertNotEquals( $previous_hash, $new_hash, 'After processing a batch the record should update the `next_batch_hash` meta' );
 		$I->canSeeResponseContainsJson( [ 'next_batch_hash' => $new_hash ] );
 		$I->canSeeResponseContainsJson( [ 'interval' => 10 ] );
+		$done_criteria = [
+			'post_id' => $record->post->ID,
+			'meta_key' => '_tribe_aggregator_done'
+		];
+		$done_in_db    = $I->grabFromDatabase( $I->grabPostMetaTableName(), 'meta_value', $done_criteria );
+		$I->assertEquals( $batch_data['done'], $done_in_db );
 	}
 
 	/**
@@ -175,5 +187,11 @@ class ProcessingCest {
 		$I->dontSeeInDatabase( $I->grabPostMetaTableName(), $next_batch_hash_criteria );
 		$I->cantSeeResponseContainsJson( [ 'next_batch_hash' => '*' ] );
 		$I->canSeeResponseContainsJson( [ 'interval' => 10 ] );
+		$done_criteria = [
+			'post_id' => $record->post->ID,
+			'meta_key' => '_tribe_aggregator_done'
+		];
+		$done_in_db    = $I->grabFromDatabase( $I->grabPostMetaTableName(), 'meta_value', $done_criteria );
+		$I->assertEquals( $batch_data['done'], $done_in_db );
 	}
 }

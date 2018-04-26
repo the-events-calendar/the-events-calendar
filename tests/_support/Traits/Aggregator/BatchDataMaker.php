@@ -36,6 +36,7 @@ trait BatchDataMaker {
 					'done' => 2,
 				],
 			],
+			'done'=> 18,
 			'interval' => 10,
 		], $overrides );
 	}
