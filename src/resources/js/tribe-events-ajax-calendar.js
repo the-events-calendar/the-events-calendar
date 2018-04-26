@@ -302,7 +302,7 @@
 				}
 
 				// if using the shortcode
-				if ( $( document.getElementById( 'tribe-events' ) ).is( '.tribe-events-shortcode' ) ) {
+				if ( $wrapper.is( '.tribe-events-shortcode' ) ) {
 					// and plain permalinks
 					if ( td.default_permalinks ) {
 						// we get the base URL
@@ -441,7 +441,7 @@
 				// when having plain permalinks
 				if ( td.default_permalinks ) {
 					// when not using the shorcode
-					if ( ! $( document.getElementById( 'tribe-events' ) ).is( '.tribe-events-shortcode' ) ) {
+					if ( ! $wrapper.is( '.tribe-events-shortcode' ) ) {
 						if ( ! ts.url_params.hasOwnProperty( 'post_type' ) ) {
 							ts.url_params['post_type'] = config.events_post_type;
 						}
@@ -529,13 +529,13 @@
 								$( '#tribe-events.tribe-events-shortcode' ).length
 								|| ts.do_string
 						) {
-							if ( ! td.default_permalinks ) {
+							if ( td.default_permalinks ) {
+								td.cur_url = td.cur_url + '&' + ts.url_params;
+							} else {
 								if ( -1 !== td.cur_url.indexOf( '?' ) ) {
 									td.cur_url = td.cur_url.split( '?' )[0];
 								}
 								td.cur_url = td.cur_url + '?' + ts.url_params;
-							} else {
-								td.cur_url = td.cur_url + '&' + ts.url_params;
 							}
 						}
 
