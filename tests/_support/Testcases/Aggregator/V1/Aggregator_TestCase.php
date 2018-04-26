@@ -1,6 +1,6 @@
 <?php
 
-namespace Tribe\Events\Tests\Testcases\Aggregator\V1;
+namespace Tribe\Events\Test\Testcases\Aggregator\V1;
 
 
 use Codeception\TestCase\WPTestCase;
