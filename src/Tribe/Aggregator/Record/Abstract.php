@@ -701,6 +701,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			$defaults['allow_multiple_organizers'] = $this->meta['allow_multiple_organizers'];
 		}
 
+		if(!empty($this->meta['next_batch_hash'])){
+			$defaults['next_batch_hash'] =
+		}
+
 		if ( $is_previewing ) {
 			$defaults['preview'] = true;
 		}

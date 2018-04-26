@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Class Tribe__Events__Aggregator__REST__V1__Endpoints__Batch
+ *
+ * @since TBD
+ *
+ * An endpoint dedicated to processing events in batches.
+ */
 class Tribe__Events__Aggregator__REST__V1__Endpoints__Batch
 	implements Tribe__REST__Endpoints__CREATE_Endpoint_Interface {
 
@@ -9,12 +16,14 @@ class Tribe__Events__Aggregator__REST__V1__Endpoints__Batch
 	protected $current_record;
 
 	/**
-	 * Handles POST requests on the endpoint.
+	 * Handles a batch processing request sent by the server.
+	 *
+	 * @since TBD
 	 *
 	 * @param WP_REST_Request $request
-	 * @param bool $return_id Whether the created post ID should be returned or the full response object.
+	 * @param bool $return_id
 	 *
-	 * @return WP_Error|WP_REST_Response|int An array containing the data on success or a WP_Error instance on failure.
+	 * @return int|WP_Error|WP_REST_Response
 	 */
 	public function create( WP_REST_Request $request, $return_id = false ) {
 		/** @var Tribe__Events__Aggregator__Records $records */
@@ -46,7 +55,7 @@ class Tribe__Events__Aggregator__REST__V1__Endpoints__Batch
 		}
 
 		$default_interval = 10;
-		$max_interval = 600;
+		$max_interval     = 600;
 
 		/**
 		 * Allows filtering the interval between a finished batch process and the closest push of the next one
@@ -83,10 +92,7 @@ class Tribe__Events__Aggregator__REST__V1__Endpoints__Batch
 	}
 
 	/**
-	 * Returns the content of the `args` array that should be used to register the endpoint
-	 * with the `register_rest_route` function.
-	 *
-	 * @return array
+	 * {@inheritdoc}
 	 */
 	public function CREATE_args() {
 		return array(
@@ -122,10 +128,29 @@ class Tribe__Events__Aggregator__REST__V1__Endpoints__Batch
 		);
 	}
 
+	/**
+	 * Whether batch imports are supported or not.
+	 */
 	public function can_create() {
+		/**
+		 * Whether batch imports are allowed or not.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool $can_create
+		 */
 		return apply_filters( 'tribe_aggregator_batch_data_processing_enabled', true );
 	}
 
+	/**
+	 * Whether teh current import ID exists and is for a record that needs data.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $import_id
+	 *
+	 * @return bool
+	 */
 	public function is_valid_import_id( $import_id ) {
 		/** @var Tribe__Events__Aggregator__Records $records */
 		$records = tribe( 'events-aggregator.records' );
@@ -137,6 +162,15 @@ class Tribe__Events__Aggregator__REST__V1__Endpoints__Batch
 		return $record instanceof Tribe__Events__Aggregator__Record__Abstract;
 	}
 
+	/**
+	 * Whether the batch hash is the expected one or not.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $batch_hash
+	 *
+	 * @return bool
+	 */
 	public function is_expected_batch_hash( $batch_hash ) {
 		if ( ! $this->current_record instanceof Tribe__Events__Aggregator__Record__Abstract ) {
 			return false;
@@ -145,6 +179,15 @@ class Tribe__Events__Aggregator__REST__V1__Endpoints__Batch
 		return $this->current_record->meta['next_batch_hash'] === $batch_hash;
 	}
 
+	/**
+	 * Validates the status information sent by the server.
+	 *
+	 * @since TBD
+	 *
+	 * @param object $status
+	 *
+	 * @return bool
+	 */
 	public function is_valid_status_information( $status ) {
 		return is_array( $status )
 		       && isset( $status['data']['total'] ) && is_numeric( $status['data']['total'] )
