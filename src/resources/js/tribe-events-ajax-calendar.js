@@ -301,6 +301,15 @@
 					url = td.cur_url.split("?")[0];
 				}
 
+				// if using the shortcode
+				if ( $wrapper.is( '.tribe-events-shortcode' ) ) {
+					// and plain permalinks
+					if ( td.default_permalinks ) {
+						// we get the base URL
+						url = tf.get_base_url();
+					}
+				}
+
 				// Update the baseurl
 				tf.update_base_url( url );
 
@@ -414,7 +423,7 @@
 			ts.pushcount = 0;
 			ts.ajax_running = true;
 
-			if ( !ts.popping ) {
+			if ( ! ts.popping ) {
 
 				ts.params = {
 					action   : 'tribe_calendar',
@@ -429,12 +438,16 @@
 					ts.url_params.tribe_events_cat = ts.category;
 				}
 
+				// when having plain permalinks
 				if ( td.default_permalinks ) {
-					if( !ts.url_params.hasOwnProperty( 'post_type' ) ){
-						ts.url_params['post_type'] = config.events_post_type;
-					}
-					if( !ts.url_params.hasOwnProperty( 'eventDisplay' ) ){
-						ts.url_params['eventDisplay'] = ts.view;
+					// when not using the shorcode
+					if ( ! $wrapper.is( '.tribe-events-shortcode' ) ) {
+						if ( ! ts.url_params.hasOwnProperty( 'post_type' ) ) {
+							ts.url_params['post_type'] = config.events_post_type;
+						}
+						if ( ! ts.url_params.hasOwnProperty( 'eventDisplay' ) ) {
+							ts.url_params['eventDisplay'] = ts.view;
+						}
 					}
 				}
 
@@ -516,11 +529,14 @@
 								$( '#tribe-events.tribe-events-shortcode' ).length
 								|| ts.do_string
 						) {
-							if ( -1 !== td.cur_url.indexOf( '?' ) ) {
-								td.cur_url = td.cur_url.split( '?' )[0];
+							if ( td.default_permalinks ) {
+								td.cur_url = td.cur_url + '&' + ts.url_params;
+							} else {
+								if ( -1 !== td.cur_url.indexOf( '?' ) ) {
+									td.cur_url = td.cur_url.split( '?' )[0];
+								}
+								td.cur_url = td.cur_url + '?' + ts.url_params;
 							}
-
-							td.cur_url = td.cur_url + '?' + ts.url_params;
 						}
 
 						if ( ts.do_string ) {

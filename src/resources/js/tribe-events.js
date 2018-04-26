@@ -1413,7 +1413,7 @@ Date.prototype.format = function( mask, utc ) {
 				if ( ! td.default_permalinks ) {
 					ts.url_params = 'tribe-bar-date=' + tribeDateFormat( ts.mdate, "tribeMonthQuery" );
 				} else {
-					tribe_ev.state.url_params += '&tribe-bar-date=' + tribeDateFormat( ts.mdate, "tribeMonthQuery" );
+					tribe_ev.state.url_params += 'tribe-bar-date=' + tribeDateFormat( ts.mdate, "tribeMonthQuery" );
 				}
 			}
 

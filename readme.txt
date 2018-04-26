@@ -218,7 +218,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 = [4.6.15] TBD =
 
 * Fix - Remove organizers when an event has multiple organizers [103715]
-* Fix - Fixed the `[tribe_events]` month view pagination without the bar [95720]
+* Fix - Fixed the `[tribe_events]` month view pagination without the bar, and when using plain permalinks [95720]
 * Fix - Prevent `url_to_postid` to run if on the main events page to avoid query conflicts. [94328]
 
 = [4.6.14.1] 2018-04-18 =
