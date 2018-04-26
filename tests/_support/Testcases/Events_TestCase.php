@@ -1,13 +1,13 @@
 <?php
 
-namespace Tribe\Events\Tests\Testcases;
+namespace Tribe\Events\Test\Testcases;
 
 
 use Codeception\TestCase\WPTestCase;
-use Tribe\Events\Tests\Factories\Event;
-use Tribe\Events\Tests\Factories\Organizer;
-use Tribe\Events\Tests\Factories\Venue;
-use Tribe\Tests\Data;
+use Tribe\Events\Test\Factories\Event;
+use Tribe\Events\Test\Factories\Organizer;
+use Tribe\Events\Test\Factories\Venue;
+use Tribe\Test\Data;
 
 class Events_TestCase extends WPTestCase {
 	/**

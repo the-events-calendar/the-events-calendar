@@ -4,7 +4,7 @@ namespace Tribe\Events\Test\Testcases\Aggregator\V1;
 
 
 use Codeception\TestCase\WPTestCase;
-use Tribe\Events\Tests\Factories\Aggregator\V1\Service;
+use Tribe\Events\Test\Factories\Aggregator\V1\Service;
 
 class Aggregator_TestCase extends WPTestCase {
 

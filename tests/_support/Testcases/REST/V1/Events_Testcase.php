@@ -1,15 +1,15 @@
 <?php
 
-namespace Tribe\Events\Tests\Testcases\REST\V1;
+namespace Tribe\Events\Test\Testcases\REST\V1;
 
 
 use Codeception\TestCase\WPTestCase;
-use Tribe\Events\Tests\Factories\Event as Event_Factory;
-use Tribe\Events\Tests\Factories\Organizer as Organizer_Factory;
-use Tribe\Events\Tests\Factories\REST\V1\Event_Response;
-use Tribe\Events\Tests\Factories\REST\V1\Organizer_Response;
-use Tribe\Events\Tests\Factories\REST\V1\Venue_Response;
-use Tribe\Events\Tests\Factories\Venue as Venue_Factory;
+use Tribe\Events\Test\Factories\Event as Event_Factory;
+use Tribe\Events\Test\Factories\Organizer as Organizer_Factory;
+use Tribe\Events\Test\Factories\REST\V1\Event_Response;
+use Tribe\Events\Test\Factories\REST\V1\Organizer_Response;
+use Tribe\Events\Test\Factories\REST\V1\Venue_Response;
+use Tribe\Events\Test\Factories\Venue as Venue_Factory;
 
 class Events_Testcase extends WPTestCase {
 

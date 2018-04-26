@@ -7,7 +7,7 @@ namespace Tribe\Events\Test\Factories\Aggregator\V1;
  *
  * Creates mock import record data.
  *
- * @package Tribe\Events\Tests\Factories\Aggregator\V1
+ * @package Tribe\Events\Test\Factories\Aggregator\V1
  */
 class Import_Record {
 	/**

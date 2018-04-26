@@ -1,6 +1,6 @@
 <?php
 
-namespace Tribe\Events\Tests\Factories;
+namespace Tribe\Events\Test\Factories;
 
 use Tribe__Events__Main as Main;
 
