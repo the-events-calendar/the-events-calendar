@@ -78,14 +78,13 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 	public function get_csv_data() {
 		if (
 			empty( $this->meta['file'] )
-			|| ! is_numeric( $this->meta['file'] )
+			|| ! $file_path = $this->get_file_path()
 		) {
 			return $this->set_status_as_failed( tribe_error( 'core:aggregator:invalid-csv-file' ) );
 		}
 
 		$content_type = str_replace( 'tribe_', '', $this->meta['content_type'] );
 
-		$file_path   = get_attached_file( absint( $this->meta['file'] ) );
 		$file_reader = new Tribe__Events__Importer__File_Reader( $file_path );
 		$importer    = Tribe__Events__Importer__File_Importer::get_importer( $content_type, $file_reader );
 
@@ -215,7 +214,7 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 		if ( ! $this->importer ) {
 			$content_type = $this->get_csv_content_type();
 
-			$file_path      = get_attached_file( absint( $this->meta['file'] ) );
+			$file_path      = $this->get_file_path();
 			$file_reader    = new Tribe__Events__Importer__File_Reader( $file_path );
 			$this->importer = Tribe__Events__Importer__File_Importer::get_importer( $content_type, $file_reader );
 
@@ -281,6 +280,23 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 		 * @param array $post_types Array of post type objects
 		 */
 		return apply_filters( 'tribe_aggregator_csv_post_types', $post_types );
+	}
+
+	/**
+	 * Returns the path to the CSV file.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool|false|string Either the absolute path to the CSV file or `false` on failure.
+	 */
+	protected function get_file_path() {
+		if ( is_numeric( $this->meta['file'] ) ) {
+			$file_path = get_attached_file( absint( $this->meta['file'] ) );
+		} else {
+			$file_path = realpath( $this->meta['file'] );
+		}
+
+		return $file_path && file_exists( $file_path ) ? $file_path : false;
 	}
 
 	private function begin_import() {
