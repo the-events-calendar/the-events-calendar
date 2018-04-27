@@ -257,15 +257,24 @@ class Tribe__Events__Aggregator__Service {
 			$args = $data;
 		}
 
+		// if not timeout was set we pass it as 15 seconds
+		if ( ! isset( $args['timeout'] ) ) {
+			$args['timeout'] = 15;
+		}
+
 		$response = $this->requests->post( esc_url_raw( $url ), $args );
 
 		if ( is_wp_error( $response ) ) {
 			return $response;
 		}
 
-		$response = json_decode( wp_remote_retrieve_body( $response ) );
+		$json = json_decode( wp_remote_retrieve_body( $response ) );
 
-		return $response;
+		if ( empty( $json ) ) {
+			return tribe_error( 'core:aggregator:invalid-json-response', array( 'response' => $response ), array( 'response' => $response ) );
+		}
+
+		return $json;
 	}
 
 	/**
