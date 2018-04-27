@@ -717,7 +717,10 @@ class Tribe__Events__Aggregator__Service {
 			'meetup_api_key'   => '1',
 		) );
 
-
+		// Set site for origin(s) that need it for new token handling.
+		if ( 'eventbrite' === $confirmation_args['origin'] ) {
+			$confirmation_args['site'] = site_url();
+		}
 
 		$response = $this->post_import( $confirmation_args );
 
