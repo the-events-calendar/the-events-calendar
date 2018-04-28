@@ -2096,7 +2096,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
      */
 	public function import_aggregator_image( $event ) {
 		// Attempt to grab the event image
-		$image_import = tribe( 'events-aggregator.main' )->api( 'image' )->get( $event['image']->id );
+		$image_import = tribe( 'events-aggregator.main' )->api( 'image' )->get( $event['image']->id, $this );
 
 		/**
 		 * Filters the returned event image url
