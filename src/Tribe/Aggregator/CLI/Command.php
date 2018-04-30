@@ -204,7 +204,7 @@ class Tribe__Events__Aggregator__CLI__Command {
 			'limit' => $limit_type ? Tribe__Utils__Array::get( $assoc_args, 'limit' ) : null,
 			'source' => $source,
 			'preview' => false,
-			'category' => $category_id
+			'category' => $category_id,
 		);
 
 		if ( $is_csv ) {
@@ -293,8 +293,8 @@ class Tribe__Events__Aggregator__CLI__Command {
 	 *
 	 * @return Tribe__Events__Aggregator__Record__Activity
 	 */
-	protected function import_csv_file( $queue_result, $record ): Tribe__Events__Aggregator__Record__Activity {
-		WP_CLI::log( "Reading the file..." );
+	protected function import_csv_file( $queue_result, $record ) {
+		WP_CLI::log( 'Reading the file...' );
 
 		$data = array(
 			'action' => 'new',
@@ -376,7 +376,7 @@ class Tribe__Events__Aggregator__CLI__Command {
 	 *
 	 * @return Tribe__Events__Aggregator__Record__Activity
 	 */
-	protected function import_from_service( $queue_result, $record ): Tribe__Events__Aggregator__Record__Activity {
+	protected function import_from_service( $queue_result, $record ) {
 		$item_name = 'event';
 		WP_CLI::log( 'Creating import on the service...' );
 
@@ -399,7 +399,7 @@ class Tribe__Events__Aggregator__CLI__Command {
 					sleep( $this->polling_interval );
 				}
 
-				WP_CLI::log( "Polling service to get data..." );
+				WP_CLI::log( 'Polling service to get data...' );
 
 				$response = $record->get_import_data();
 				$first    = false;
@@ -437,7 +437,9 @@ class Tribe__Events__Aggregator__CLI__Command {
 			WP_CLI::error( 'Empty data; response was ' . wp_json_encode( $response ) );
 		}
 
-		$progress = WP_CLI\Utils\make_progress_bar( "Inserting posts", $events_count, $interval = 100 );
+		$progress = WP_CLI\Utils\make_progress_bar( 'Inserting posts', $events_count, $interval = 100 );
+
+		// here we use the filter as an action to tick the progress
 		add_action( 'tribe_aggregator_before_save_event', function ( array $event ) use ( $progress ) {
 			$progress->tick();
 
