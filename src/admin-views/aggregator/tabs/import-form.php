@@ -268,6 +268,13 @@ $scheduled_save_help = esc_html__( 'When you save this scheduled import, the eve
 			<?php echo esc_html__( 'Eventbrite imports can fetch up to 50 events from your source.', 'the-events-calendar' ); ?>
 		</p>
 	</div>
+	<div class="tribe-dependent" data-depends="#tribe-ea-field-origin" data-condition="eventbrite">
+		<p class="tribe-timezone-message">
+			<?php echo sprintf( esc_html__( 'Events will be imported with the same timezone as defined on eventbrite.com. You can make use of The Events Calendar\'s %1$stimezone settings%2$s to change how the actual time is displayed on your calendar.', 'the-events-calendar' ),
+				'<a href="' . esc_url( Tribe__Settings::instance()->get_url() ) . '#tribe-field-tribe_events_timezone_mode">',
+				'</a>' ); ?>
+		</p>
+	</div>
 	<div class="tribe-dependent" data-depends="#tribe-ea-field-origin" data-condition-not="eventbrite">
 		<p class="tribe-limits-message">
 			<?php echo sprintf( esc_html__( 'The number of events available in the preview may be limited by your %1$sImport Settings.%2$s', 'the-events-calendar' ),
@@ -275,11 +282,13 @@ $scheduled_save_help = esc_html__( 'When you save this scheduled import, the eve
 				'</a>' ); ?>
 		</p>
 	</div>
-	<p class="tribe-timezone-message">
-		<?php echo sprintf( esc_html__( 'Events will be imported with the time zone defined by the source. If no time zone is specified, events will be assigned your site\'s default time zone (see %1$sSettings > General%2$s).', 'the-events-calendar' ),
-			'<a href="' . esc_url( Tribe__Settings::instance()->get_url() ) . '#tribe-field-tribe_events_timezone_mode">',
-			'</a>' ); ?>
-	</p>
+	<div class="tribe-dependent" data-depends="#tribe-ea-field-origin" data-condition-not="eventbrite">
+		<p class="tribe-timezone-message">
+			<?php echo sprintf( esc_html__( 'Events will be imported with the time zone defined by the source. If no time zone is specified, events will be assigned your site\'s default time zone (see %1$sSettings > General%2$s).', 'the-events-calendar' ),
+				'<a href="' . esc_url( Tribe__Settings::instance()->get_url() ) . '#tribe-field-tribe_events_timezone_mode">',
+				'</a>' ); ?>
+		</p>
+	</div>
 </div>
 <?php
 echo Tribe__Events__Aggregator__Tabs__New::instance()->maybe_display_aggregator_upsell();
