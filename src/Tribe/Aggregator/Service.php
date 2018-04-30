@@ -503,10 +503,11 @@ class Tribe__Events__Aggregator__Service {
 	 * Fetches an image from the Event Aggregator service
 	 *
 	 * @param string $image_id Image ID to fetch
+	 * @param  Tribe__Events__Aggregator__Record__Abstract $record    Record Object
 	 *
 	 * @return stdClass|WP_Error
 	 */
-	public function get_image( $image_id ) {
+	public function get_image( $image_id, $record ) {
 		/**
 		 * Allow filtering of the Image data Request Args
 		 *
