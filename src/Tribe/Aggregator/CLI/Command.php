@@ -235,7 +235,7 @@ class Tribe__Events__Aggregator__CLI__Command {
 
 		WP_CLI::log( "Record created with post ID {$record->id}." );
 
-		$record;
+		return $record;
 	}
 
 	/**
