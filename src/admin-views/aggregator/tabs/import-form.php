@@ -270,9 +270,15 @@ $scheduled_save_help = esc_html__( 'When you save this scheduled import, the eve
 	</div>
 	<div class="tribe-dependent" data-depends="#tribe-ea-field-origin" data-condition="eventbrite">
 		<p class="tribe-timezone-message">
-			<?php echo sprintf( esc_html__( 'Events will be imported with the same timezone as defined on eventbrite.com. You can make use of The Events Calendar\'s %1$stimezone settings%2$s to change how the actual time is displayed on your calendar.', 'the-events-calendar' ),
+			<?php echo sprintf(
+				'%1$s %2$s %3$s %4$s %5$s',
+					esc_html__( 'Events will be imported with the same timezone as defined on eventbrite.com. You can make use of The Events Calendar\'s', 'the-events-calendar' ),
 				'<a href="' . esc_url( Tribe__Settings::instance()->get_url() ) . '#tribe-field-tribe_events_timezone_mode">',
-				'</a>' ); ?>
+					esc_html__( 'timezone settings', 'the-events-calendar' ),
+					'</a>',
+					esc_html__( 'to change how the actual time is displayed on your calendar.', 'the-events-calendar' )
+				);
+			?>
 		</p>
 	</div>
 	<div class="tribe-dependent" data-depends="#tribe-ea-field-origin" data-condition-not="eventbrite">
