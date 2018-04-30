@@ -123,11 +123,41 @@ class Tribe__Events__Aggregator__CLI__Command {
 	 * @when       after_wp_load
 	 */
 	public function import_from_source( array $args, array $assoc_args = array() ) {
+		$this->ensure_timeout( $assoc_args );
+
+		list( $origin, $source ) = $args;
+
+		$is_csv = 'csv' === $origin;
+
+		$record = $this->create_record_from( $assoc_args, $origin, $source );
+
+		$this->fetch_and_process( $assoc_args, $record, $is_csv );
+	}
+
+	/**
+	 * Check the timeout parameter if set.
+	 *
+	 * @since TBD
+	 */
+	protected function ensure_timeout( array $assoc_args ) {
 		if ( isset( $assoc_args['timeout'] ) && ! is_numeric( $assoc_args['timeout'] ) ) {
 			WP_CLI::error( 'The timeout should be a numeric value.' );
 		}
+	}
 
-		list( $origin, $source ) = $args;
+	/**
+	 * Creates a new record.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $assoc_args
+	 * @param string $origin
+	 * @param string $source
+	 *
+	 * @return Tribe__Events__Aggregator__Record__Abstract
+	 */
+	protected function create_record_from( array $assoc_args, $origin, $source ) {
+		$is_csv = 'csv' === $origin;
 
 		$types = array(
 			'ical' => 'Tribe__Events__Aggregator__Record__iCal',
@@ -149,7 +179,7 @@ class Tribe__Events__Aggregator__CLI__Command {
 		$location   = Tribe__Utils__Array::get( $assoc_args, 'location' );
 		$limit_type = Tribe__Utils__Array::get( $assoc_args, 'limit_type' );
 
-		$category = Tribe__Utils__Array::get( $assoc_args, 'category', '' );
+		$category    = Tribe__Utils__Array::get( $assoc_args, 'category', '' );
 		$category_id = '';
 
 		if ( is_numeric( $category ) ) {
@@ -176,8 +206,6 @@ class Tribe__Events__Aggregator__CLI__Command {
 			'preview' => false,
 			'category' => $category_id
 		);
-
-		$is_csv = 'csv' === $origin;
 
 		if ( $is_csv ) {
 			$record_meta['file']         = $source;
@@ -207,6 +235,18 @@ class Tribe__Events__Aggregator__CLI__Command {
 
 		WP_CLI::log( "Record created with post ID {$record->id}." );
 
+		$record;
+	}
+
+	/**
+	 * @param array $assoc_args
+	 * @param $record
+	 * @param $is_csv
+	 * @param $action
+	 *
+	 * @return array
+	 */
+	protected function fetch_and_process( array $assoc_args, $record, $is_csv ) {
 		$queue_result = $record->queue_import();
 
 		$record->finalize();
@@ -221,16 +261,35 @@ class Tribe__Events__Aggregator__CLI__Command {
 
 		$assoc_args['format'] = ! empty( $assoc_args['format'] ) ? $assoc_args['format'] : 'yaml';
 
-		WP_CLI::print_value( $activity->get(), $assoc_args );
+		$items = $activity->get();
+
+		// just a "cosmetic" refinement to make sure integers will be rendered as integers
+		foreach ( $items as $type ) {
+			foreach ( $type as &$action ) {
+				$action = array_map( function ( $entry ) {
+					return is_numeric( $entry ) ? (int) $entry : $entry;
+				}, $action );
+			}
+		}
+
+		WP_CLI::print_value( $items, $assoc_args );
 
 		WP_CLI::success( 'Import done!' );
+
+		return $action;
 	}
 
 	/**
-	 * @param $record
-	 * @param $record_meta
-	 * @param $category
-	 * @param $queue_result
+	 * Imports a CSV file.
+	 *
+	 * The logic to handle and import CSV files is different, primarily in it not relying on the Service, from
+	 * other imports. Mind that CSV source files should have their columns in exactly the same order and named
+	 * exactly as those found in the UI.
+	 *
+	 * @since TBD
+	 *
+	 * @param Tribe__Events__Aggregator__Record__CSV $record
+	 * @param array $record_meta
 	 *
 	 * @return Tribe__Events__Aggregator__Record__Activity
 	 */
@@ -306,9 +365,14 @@ class Tribe__Events__Aggregator__CLI__Command {
 	}
 
 	/**
+	 * Imports the data for a record from the Service.
+	 *
+	 * This is a full end-to-end handling of the request; the method will queue the import on the Service,
+	 * fetch the data from it and import the returned data (if any).
+	 *
 	 * @param array $assoc_args
-	 * @param $queue_result
-	 * @param $record
+	 * @param object|WP_Error $queue_result The result of the queue operation on the Service
+	 * @param Tribe__Events__Aggregator__Record__Abstract $record
 	 *
 	 * @return Tribe__Events__Aggregator__Record__Activity
 	 */
@@ -373,11 +437,83 @@ class Tribe__Events__Aggregator__CLI__Command {
 			WP_CLI::error( 'Empty data; response was ' . wp_json_encode( $response ) );
 		}
 
-		WP_CLI::log( "Inserting posts..." );
+		$progress = WP_CLI\Utils\make_progress_bar( "Inserting posts", $events_count, $interval = 100 );
+		add_action( 'tribe_aggregator_before_save_event', function ( array $event ) use ( $progress ) {
+			$progress->tick();
+
+			return $event;
+		} );
 
 		/** @var Tribe__Events__Aggregator__Record__Activity $activity */
 		$activity = $record->insert_posts( $items );
 
+		$progress->finish();
+
 		return $activity;
+	}
+
+	/**
+	 * Run a schuduled import.
+	 *
+	 * The command will use the API and licenses set for the site if required.
+	 *
+	 * <import_id>
+	 * : the import ID, i.e. the import post ID in the site database
+	 *
+	 * [--timeout=<timeout>]
+	 * : How long should the command wait for the data from EA Service in seconds
+	 * ---
+	 * default: 30
+	 * ---
+	 *
+	 * [--format=<format>]
+	 * : The results output format
+	 * ---
+	 *
+	 * ## Examples
+	 *
+	 *      wp event-aggregator run-import 2389
+	 *      wp event-aggregator run-import 2389 --timeout=180
+	 *
+	 * @since      TBD
+	 *
+	 * @subcommand run-import
+	 *
+	 * @when       after_wp_load
+	 */
+	public function run_import( array $args, array $assoc_args = array() ) {
+		$this->ensure_timeout( $assoc_args );
+
+		$record_id = $args[0];
+
+		/** @var Tribe__Events__Aggregator__Records $records */
+		$records = tribe( 'events-aggregator.records' );
+
+		$parent_record = $records->get_by_post_id( $record_id );
+
+		if ( ! $parent_record instanceof Tribe__Events__Aggregator__Record__Abstract ) {
+			WP_CLI::error( "No scheduled record with a post ID of {$record_id} was found." );
+		}
+
+		// this should not be possible, yet let's take the possibility into account
+		$is_csv = 'csv' === $parent_record->meta['origin'];
+
+		WP_CLI::log( 'Creating child import post...' );
+
+		$record = $parent_record->create_child_record();
+
+		if ( ! $record instanceof Tribe__Events__Aggregator__Record__Abstract ) {
+			if ( $record instanceof WP_Error ) {
+				WP_CLI::error( "Could not create child record for record {$record_id}: " . $record->get_error_message() );
+			} else {
+				WP_CLI::error( "Could not create child record for record {$record_id}." );
+			}
+		}
+
+		WP_CLI::log( "Created child import post with ID {$record->id}" );
+
+		$record->update_meta( 'interactive', true );
+
+		$this->fetch_and_process( $assoc_args, $record, $is_csv );
 	}
 }

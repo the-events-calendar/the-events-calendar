@@ -2,7 +2,8 @@
 // Don't load directly
 defined( 'WPINC' ) or die;
 
-class Tribe__Events__Aggregator__Records {
+class
+Tribe__Events__Aggregator__Records {
 	/**
 	 * Slug of the Post Type used for Event Aggregator Records
 	 *
@@ -16,6 +17,7 @@ class Tribe__Events__Aggregator__Records {
 	 * @var stdClass
 	 */
 	public static $status = array(
+
 		'success'   => 'tribe-ea-success',
 		'failed'    => 'tribe-ea-failed',
 		'pending'   => 'tribe-ea-pending',
@@ -45,11 +47,7 @@ class Tribe__Events__Aggregator__Records {
 	 * @return self
 	 */
 	public static function instance() {
-		if ( ! self::$instance ) {
-			self::$instance = new self;
-		}
-
-		return self::$instance;
+		return tribe( 'events-aggregator.records' );
 	}
 
 	/**
@@ -57,47 +55,11 @@ class Tribe__Events__Aggregator__Records {
 	 *
 	 * @return void
 	 */
-	private function __construct() {
+	public function __construct() {
 		// Make it an object for easier usage
 		if ( ! is_object( self::$status ) ) {
 			self::$status = (object) self::$status;
 		}
-
-		// Register the Custom Post Type
-		add_action( 'init', array( $this, 'get_post_type' ) );
-
-		// Register the Custom Post Statuses
-		add_action( 'init', array( $this, 'get_status' ) );
-
-		// Run the Import when Hitting the Event Aggregator Endpoint
-		add_action( 'tribe_aggregator_endpoint_insert', array( $this, 'action_do_import' ) );
-
-		// Delete Link Filter
-		add_filter( 'get_delete_post_link', array( $this, 'filter_delete_link' ), 15, 3 );
-
-		// Edit Link Filter
-		add_filter( 'get_edit_post_link', array( $this, 'filter_edit_link' ), 15, 3 );
-
-		// Filter ical events to preserve some fields that aren't supported by iCalendar
-		add_filter( 'tribe_aggregator_before_update_event', array( 'Tribe__Events__Aggregator__Record__iCal', 'filter_event_to_preserve_fields' ), 10, 2 );
-
-		// Filter ics events to preserve some fields that aren't supported by ICS
-		add_filter( 'tribe_aggregator_before_update_event', array( 'Tribe__Events__Aggregator__Record__ICS', 'filter_event_to_preserve_fields' ), 10, 2 );
-
-		// Filter gcal events to preserve some fields that aren't supported by Google Calendar
-		add_filter( 'tribe_aggregator_before_update_event', array( 'Tribe__Events__Aggregator__Record__gCal', 'filter_event_to_preserve_fields' ), 10, 2 );
-
-		// Filter facebook events to force an event URL
-		add_filter( 'tribe_aggregator_before_save_event', array( 'Tribe__Events__Aggregator__Record__Facebook', 'filter_event_to_force_url' ), 10, 2 );
-
-		// Filter facebook events to preserve some fields that aren't supported by Facebook
-		add_filter( 'tribe_aggregator_before_update_event', array( 'Tribe__Events__Aggregator__Record__Facebook', 'filter_event_to_preserve_fields' ), 10, 2 );
-
-		// Filter meetup events to force an event URL
-		add_filter( 'tribe_aggregator_before_save_event', array( 'Tribe__Events__Aggregator__Record__Meetup', 'filter_event_to_force_url' ), 10, 2 );
-
-		// Filter meetup events to preserve some fields that aren't supported by Meetup
-		add_filter( 'tribe_aggregator_before_update_event', array( 'Tribe__Events__Aggregator__Record__Meetup', 'filter_event_to_preserve_fields' ), 10, 2 );
 	}
 
 	public function filter_edit_link( $link, $post, $context ) {
@@ -408,11 +370,12 @@ class Tribe__Events__Aggregator__Records {
 	 * Returns an appropriate Record object for the given import id
 	 *
 	 * @param int $import_id Aggregator import id
+	 * @param array $args An array of arguments to override the default ones.
 	 *
 	 * @return Tribe__Events__Aggregator__Record__Abstract|Tribe__Error
 	 */
-	public function get_by_import_id( $import_id ) {
-		$args = array(
+	public function get_by_import_id( $import_id, array $args = array() ) {
+		$args = wp_parse_args( $args, array(
 			'post_type' => self::$post_type,
 			'meta_key' => $this->prefix_meta( 'import_id' ),
 			'meta_value' => $import_id,
@@ -421,7 +384,7 @@ class Tribe__Events__Aggregator__Records {
 				self::$status->pending,
 				self::$status->success,
 			),
-		);
+		) );
 
 		$query = new WP_Query( $args );
 
@@ -430,12 +393,12 @@ class Tribe__Events__Aggregator__Records {
 		}
 
 		$post = $query->post;
+
 		if ( empty( $post->post_mime_type ) ) {
 			return tribe_error( 'core:aggregator:invalid-record-origin', array(), array( $post ) );
 		}
 
 		return $this->get_by_origin( $post->post_mime_type, $post );
-
 	}
 
 	/**
@@ -686,5 +649,48 @@ class Tribe__Events__Aggregator__Records {
 		unset( $this->after_time );
 
 		return $where;
+	}
+
+	/**
+	 * Hooks all the actions and filters needed by the class.
+	 *
+	 * @since TBD
+	 */
+	public function hook() {
+		// Register the Custom Post Type
+		add_action( 'init', array( $this, 'get_post_type' ) );
+
+		// Register the Custom Post Statuses
+		add_action( 'init', array( $this, 'get_status' ) );
+
+		// Run the Import when Hitting the Event Aggregator Endpoint
+		add_action( 'tribe_aggregator_endpoint_insert', array( $this, 'action_do_import' ) );
+
+		// Delete Link Filter
+		add_filter( 'get_delete_post_link', array( $this, 'filter_delete_link' ), 15, 3 );
+
+		// Edit Link Filter
+		add_filter( 'get_edit_post_link', array( $this, 'filter_edit_link' ), 15, 3 );
+
+		// Filter ical events to preserve some fields that aren't supported by iCalendar
+		add_filter( 'tribe_aggregator_before_update_event', array( 'Tribe__Events__Aggregator__Record__iCal', 'filter_event_to_preserve_fields' ), 10, 2 );
+
+		// Filter ics events to preserve some fields that aren't supported by ICS
+		add_filter( 'tribe_aggregator_before_update_event', array( 'Tribe__Events__Aggregator__Record__ICS', 'filter_event_to_preserve_fields' ), 10, 2 );
+
+		// Filter gcal events to preserve some fields that aren't supported by Google Calendar
+		add_filter( 'tribe_aggregator_before_update_event', array( 'Tribe__Events__Aggregator__Record__gCal', 'filter_event_to_preserve_fields' ), 10, 2 );
+
+		// Filter facebook events to force an event URL
+		add_filter( 'tribe_aggregator_before_save_event', array( 'Tribe__Events__Aggregator__Record__Facebook', 'filter_event_to_force_url' ), 10, 2 );
+
+		// Filter facebook events to preserve some fields that aren't supported by Facebook
+		add_filter( 'tribe_aggregator_before_update_event', array( 'Tribe__Events__Aggregator__Record__Facebook', 'filter_event_to_preserve_fields' ), 10, 2 );
+
+		// Filter meetup events to force an event URL
+		add_filter( 'tribe_aggregator_before_save_event', array( 'Tribe__Events__Aggregator__Record__Meetup', 'filter_event_to_force_url' ), 10, 2 );
+
+		// Filter meetup events to preserve some fields that aren't supported by Meetup
+		add_filter( 'tribe_aggregator_before_update_event', array( 'Tribe__Events__Aggregator__Record__Meetup', 'filter_event_to_preserve_fields' ), 10, 2 );
 	}
 }
