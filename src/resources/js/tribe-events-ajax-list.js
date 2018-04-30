@@ -248,7 +248,7 @@
 
 				var pathname = document.location.pathname;
 				if ( pathname.match( /\/all\/$/ ) || td.cur_url.match( /tribe_post_parent=[0-9]+/ ) ) {
-					ts.url_params.tribe_event_display = 'all';
+					ts.url_params.tribe_event_display = 'past' === ts.url_params.tribe_event_display ? 'past' : 'all';
 					ts.params.tribe_post_parent = parseInt( $header.closest( '#tribe-events-content' ).find( '[data-parent-post-id]:first' ).data( 'parent-post-id' ), 10 );
 				}
 
