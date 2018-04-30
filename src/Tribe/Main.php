@@ -2924,24 +2924,13 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				/**
 				 * Used to Filter the default value for a Specific meta
 				 *
-				 * @deprecated 4.0.7
-				 * @var $default
-				 * @var $id
-				 * @var $meta
-				 * @var $single
-				 */
-				$value = apply_filters( 'filter_eventsDefault' . $filter, $default, $id, $meta, $single );
-
-				/**
-				 * Used to Filter the default value for a Specific meta
-				 *
 				 * @since 4.0.7
 				 * @var $value
 				 * @var $id
 				 * @var $meta
 				 * @var $single
 				 */
-				$value = apply_filters( 'tribe_get_meta_default_value_' . $filter, $value, $id, $meta, $single );
+				$value = apply_filters( "tribe_get_meta_default_value_{ $filter }", $default, $id, $meta, $single );
 			}
 			return $value;
 		}
