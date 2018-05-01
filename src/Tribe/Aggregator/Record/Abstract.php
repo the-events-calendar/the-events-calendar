@@ -1200,6 +1200,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		// if this is a batch push record then set its queue to fetching
 		// to feed the UI something coherent
 		if ( ! $this->is_polling() ) {
+			// @todo let's revisit this to return when more UI is exposed
 			$queue = new Tribe__Events__Aggregator__Record__Queue( $this, 'fetch' );
 
 			return $queue;
