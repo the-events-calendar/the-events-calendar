@@ -11,14 +11,16 @@ if ( ! $_POST && is_admin() ) {
 
 	if ( null === $venue_name ) {
 
-		$_VenuePhone            = Tribe__Events__Main::instance()->defaults()->phone();
-		$_VenueURL              = strip_tags( Tribe__Events__Main::instance()->defaults()->url() );
-		$_VenueAddress          = Tribe__Events__Main::instance()->defaults()->address();
-		$_VenueCity             = Tribe__Events__Main::instance()->defaults()->city();
-		$_VenueProvince         = Tribe__Events__Main::instance()->defaults()->province();
-		$_VenueState            = Tribe__Events__Main::instance()->defaults()->state();
-		$_VenueCountry          = Tribe__Events__Main::instance()->defaults()->country();
-		$_VenueZip              = Tribe__Events__Main::instance()->defaults()->zip();
+		$defaults = Tribe__Events__Main::instance()->defaults();
+
+		$_VenuePhone            = $defaults->phone();
+		$_VenueURL              = strip_tags( $defaults->url() );
+		$_VenueAddress          = $defaults->address();
+		$_VenueCity             = $defaults->city();
+		$_VenueProvince         = $defaults->province();
+		$_VenueState            = $defaults->state();
+		$_VenueCountry          = $defaults->country();
+		$_VenueZip              = $defaults->zip();
 
 	} else {
 		$_VenuePhone            = tribe_get_phone();
