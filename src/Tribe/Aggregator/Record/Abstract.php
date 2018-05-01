@@ -806,6 +806,9 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @return stdClass|WP_Error An object containing the response data or a `WP_Error` on failure.
 	 */
 	public function get_import_data() {
+		/** @var \Tribe__Events__Aggregator $aggregator */
+		$aggregator = tribe( 'events-aggregator.main' );
+
 		$data       = array();
 
 		// For now only apply this to the URL type
