@@ -161,11 +161,11 @@ class Tribe__Events__Linked_Posts {
 	 * @return string
 	 */
 	public function get_meta_key( $post_type ) {
-		if ( 'tribe_venue' === $post_type ) {
+		if ( Tribe__Events__Main::VENUE_POST_TYPE === $post_type ) {
 			return '_EventVenueID';
 		}
 
-		if ( 'tribe_organizer' === $post_type ) {
+		if ( Tribe__Events__Main::ORGANIZER_POST_TYPE === $post_type ) {
 			return '_EventOrganizerID';
 		}
 
@@ -182,8 +182,7 @@ class Tribe__Events__Linked_Posts {
 	 * @return bool|string
 	 */
 	public function get_order_meta_key( $post_type ) {
-
-		if ( 'tribe_organizer' === $post_type ) {
+		if ( Tribe__Events__Main::ORGANIZER_POST_TYPE === $post_type ) {
 			return '_EventOrganizerID_Order';
 		}
 
@@ -404,18 +403,26 @@ class Tribe__Events__Linked_Posts {
 	public function get_linked_posts_by_post_type( $post_id, $post_type ) {
 		$result = array();
 
-		if ( $linked_post_ids = get_post_meta( $post_id, $this->get_meta_key( $post_type ) ) ) {
-			$args = array();
+		$args = array();
+
+		$linked_ids_order_key = $this->get_order_meta_key( $post_type );
+
+		if ( $linked_ids_order_key ) {
 			// Sort by drag-n-drop order
-			$linked_ids_order = get_post_meta( $post_id, $this->get_order_meta_key( $post_type ), true );
+			$linked_ids_order = get_post_meta( $post_id, $linked_ids_order_key, true );
 			if ( ! empty( $linked_ids_order ) ) {
-				$linked_post_ids = $linked_ids_order;
 				$args['post__in'] = $linked_ids_order;
 				$args['orderby'] = 'post__in';
 			}
-
-			$result = $this->get_linked_post_info( $post_type, $args, $linked_post_ids );
 		}
+
+		if ( ! empty( $linked_ids_order ) ) {
+			$linked_post_ids = $linked_ids_order;
+		} else {
+			$linked_post_ids = get_post_meta( $post_id, $this->get_meta_key( $post_type ) );
+		}
+
+		$result = $this->get_linked_post_info( $post_type, $args, $linked_post_ids );
 
 		/**
 		 * Filters the linked posts of a given type for the given post
