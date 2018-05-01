@@ -222,6 +222,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - Prevent `url_to_postid` to run if on the main events page to avoid query conflicts. [94328]
 * Fix - Navigation to the past on Recurring List [43925]
 * Fix - Make the `[tribe_events]` scroll to top when using the list view. [81509]
+* Fix - Respect default venue and address. [63915]
 
 = [4.6.14.1] 2018-04-18 =
 
