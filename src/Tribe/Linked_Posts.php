@@ -191,7 +191,7 @@ class Tribe__Events__Linked_Posts {
 		 * This allows for things like Extensions to hook in here and return their own key
 		 * See '_EventOrganizerID_Order' above for an example
 		 *
-		 * @since TBD
+		 * @since 4.6.14
 		 *
 		 * @param bool false (not linked)
 		 * @param string $post_type current (potentially linked) post type

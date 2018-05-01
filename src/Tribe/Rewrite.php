@@ -6,7 +6,7 @@ defined( 'WPINC' ) or die;
  * Rewrite Configuration Class
  * Permalinks magic Happens over here!
  */
-class Tribe__Events__Rewrite extends  Tribe__Rewrite {
+class Tribe__Events__Rewrite extends Tribe__Rewrite {
 	/**
 	 * Static singleton variable
 	 * @var self
@@ -255,15 +255,15 @@ class Tribe__Events__Rewrite extends  Tribe__Rewrite {
 		 * @var array $bases
 		 */
 		$bases = apply_filters( 'tribe_events_rewrite_base_slugs', array(
-			'month' => array( 'month', $tec->monthSlug ),
-			'list' => array( 'list', $tec->listSlug ),
-			'today' => array( 'today', $tec->todaySlug ),
-			'day' => array( 'day', $tec->daySlug ),
-			'tag' => array( 'tag', $tec->tag_slug ),
-			'tax' => array( 'category', $tec->category_slug ),
+			'month'    => array( 'month', $tec->monthSlug ),
+			'list'     => array( 'list', $tec->listSlug ),
+			'today'    => array( 'today', $tec->todaySlug ),
+			'day'      => array( 'day', $tec->daySlug ),
+			'tag'      => array( 'tag', $tec->tag_slug ),
+			'tax'      => array( 'category', $tec->category_slug ),
 			'page'     => array( 'page', esc_html_x( 'page', 'The "/page/" URL string component.', 'the-events-calendar' ) ),
-			'single' => array( Tribe__Settings_Manager::get_option( 'singleEventSlug', 'event' ), $tec->rewriteSlugSingular ),
-			'archive' => array( Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' ), $tec->rewriteSlug ),
+			'single'   => array( Tribe__Settings_Manager::get_option( 'singleEventSlug', 'event' ), $tec->rewriteSlugSingular ),
+			'archive'  => array( Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' ), $tec->rewriteSlug ),
 			'featured' => array( 'featured', $tec->featured_slug ),
 		) );
 
@@ -396,5 +396,27 @@ class Tribe__Events__Rewrite extends  Tribe__Rewrite {
 		parent::add_hooks();
 		add_action( 'tribe_events_pre_rewrite', array( $this, 'generate_core_rules' ) );
 		add_filter( 'post_type_link', array( $this, 'filter_post_type_link' ), 15, 2 );
+		add_filter( 'url_to_postid', array( $this, 'filter_url_to_postid' ) );
+	}
+
+	/**
+	 * Prevent url_to_postid to run if on the main events page to avoid
+	 * query conflicts.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $url The URL from `url_to_postid()`
+	 * @see [94328]
+	 *
+	 * @return int|string $url
+	 */
+	public function filter_url_to_postid( $url ) {
+
+		if ( $url === Tribe__Events__Main::instance()->getLink() ) {
+			return 0;
+		}
+
+		return $url;
+
 	}
 }

@@ -784,6 +784,12 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		return $response;
 	}
 
+	/**
+	 * Returns the record import data either fetching it locally or trying to retrieve
+	 * it from EA Service.
+	 *
+	 * @return stdClass|WP_Error An object containing the response data or a `WP_Error` on failure.
+	 */
 	public function get_import_data() {
 		$data       = array();
 
@@ -1276,7 +1282,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 *
 	 * @param array $data Dummy data var to allow children to optionally react to passed in data
 	 *
-	 * @return Tribe__Events__Aggregator__Record__Activity
+	 * @return Tribe__Events__Aggregator__Record__Activity The import activity record.
 	 */
 	public function insert_posts( $items = array() ) {
 		add_filter( 'tribe-post-origin', array( Tribe__Events__Aggregator__Records::instance(), 'filter_post_origin' ), 10 );
@@ -2589,6 +2595,18 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		 * @param Tribe__Events__Aggregator__Record__Abstract $this
 		 */
 		return apply_filters( 'tribe_aggregator_scheduled_records_retry_interval', $retry_time, $this );
+	}
+
+	/**
+	 * Whether the record will try to fetch the import data polling EA Service or
+	 * expecting batches of data being pushed to it by EA Service.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function is_polling() {
+		return empty( $this->meta['allow_batch_push'] ) || false === (bool) $this->meta['allow_batch_push'];
 	}
 
 	/*

@@ -217,7 +217,13 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 = [4.6.15] TBD =
 
+* Feature - added wp-cli command to import events from a source with Events Aggregator, see `wp event-aggregator import-from --help` to know more [104426]
+* Feature - added wp-cli command to run scheduled imports with Events Aggregator, see `wp event-aggregator run-import --help` to know more [104426]
 * Fix - Remove organizers when an event has multiple organizers [103715]
+* Fix - Fixed the `[tribe_events]` month view pagination without the bar, and when using plain permalinks [95720]
+* Fix - Prevent `url_to_postid` to run if on the main events page to avoid query conflicts. [94328]
+* Fix - Navigation to the past on Recurring List [43925]
+* Fix - Make the `[tribe_events]` scroll to top when using the list view. [81509]
 
 = [4.6.14.1] 2018-04-18 =
 
