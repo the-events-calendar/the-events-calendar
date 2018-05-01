@@ -238,8 +238,8 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 	}
 
 	/**
-     * Parses the queue for errors and informations.
-     *
+	 * Parses the queue for errors and informations.
+	 *
 	 * @param Tribe__Events__Aggregator__Record__Queue $queue
 	 *
 	 * @return array
