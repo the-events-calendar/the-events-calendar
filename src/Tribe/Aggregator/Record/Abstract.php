@@ -777,6 +777,21 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			$this->set_status_as_pending();
 		}
 
+		$service_supports_batch_push = ! empty( $response->batch_push );
+
+		/**
+		 * Whether batch pushing is supported for this record or not.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool $service_supports_batch_push Whether the Service supports batch pushing or not.
+		 * @param Tribe__Events__Aggregator__Record__Abstract $this
+		 */
+		$allow_batch_push = apply_filters( 'tribe_aggregator_allow_batch_push', $service_supports_batch_push, $this );
+		if ( $allow_batch_push ) {
+			$this->update_meta( 'allow_batch_push', true );
+		}
+
 		// store the import id
 		$this->update_meta( 'import_id', $response->data->import_id );
 		$this->should_queue_import( false );
