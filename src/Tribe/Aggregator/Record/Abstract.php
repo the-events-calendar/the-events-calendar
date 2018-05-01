@@ -2449,6 +2449,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		if ( $image && ! is_wp_error( $image ) && ! empty( $image->post_id ) ) {
+
 			// Set as featured image
 			$featured_status = $this->set_post_thumbnail( $event['ID'], $image->post_id );
 
