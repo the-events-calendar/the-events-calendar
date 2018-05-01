@@ -90,7 +90,7 @@ class Tribe__Events__Front_Page_View {
 
 		$data = json_decode( wp_unslash( $data ), true );
 
-		$does_not_have_data = empty( $data['show_on_front'] ) && empty( 'page_on_front' );
+		$does_not_have_data = empty( $data['show_on_front'] ) && empty( $data['page_on_front'] );
 		if ( ! $query->is_main_query() || $does_not_have_data ) {
 			return;
 		}
