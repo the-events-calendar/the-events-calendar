@@ -5,17 +5,35 @@ $post_id = Tribe__Events__Main::postIdHelper();
 $is_auto_draft = get_post_status( $post_id ) === 'auto-draft';
 
 // If not $_POST and if this is not an auto-draft then get the current values to edit
-if ( ! $_POST && ! $is_auto_draft ) {
+if ( ! $_POST && is_admin() ) {
 
 	$venue_name             = tribe_get_venue();
-	$_VenuePhone            = tribe_get_phone();
-	$_VenueURL              = strip_tags( tribe_get_venue_website_link( null, null ) );
-	$_VenueAddress          = tribe_get_address();
-	$_VenueCity             = tribe_get_city();
-	$_VenueProvince         = tribe_get_province();
-	$_VenueState            = tribe_get_state();
-	$_VenueCountry          = tribe_get_country();
-	$_VenueZip              = tribe_get_zip();
+
+	if ( null === $venue_name ) {
+
+		$defaults = Tribe__Events__Main::instance()->defaults();
+
+		$_VenuePhone            = $defaults->phone();
+		$_VenueURL              = strip_tags( $defaults->url() );
+		$_VenueAddress          = $defaults->address();
+		$_VenueCity             = $defaults->city();
+		$_VenueProvince         = $defaults->province();
+		$_VenueState            = $defaults->state();
+		$_VenueCountry          = $defaults->country();
+		$_VenueZip              = $defaults->zip();
+
+	} else {
+		$_VenuePhone            = tribe_get_phone();
+		$_VenueURL              = strip_tags( tribe_get_venue_website_link( null, null ) );
+		$_VenueAddress          = tribe_get_address();
+		$_VenueCity             = tribe_get_city();
+		$_VenueProvince         = tribe_get_province();
+		$_VenueState            = tribe_get_state();
+		$_VenueCountry          = tribe_get_country();
+		$_VenueZip              = tribe_get_zip();
+
+	}
+
 	$google_map_link_toggle = get_post_meta( $post_id, '_EventShowMapLink', true );
 	$google_map_toggle      = tribe_embed_google_map( $post_id );
 
