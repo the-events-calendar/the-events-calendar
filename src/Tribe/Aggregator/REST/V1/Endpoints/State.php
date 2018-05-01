@@ -22,7 +22,6 @@ class Tribe__Events__Aggregator__REST__V1__Endpoints__State
 		$status = $request['status'];
 
 		$updated = $record->set_status( $status );
-		$record->update_meta( 'percentage_complete', $request['percentage_complete'] );
 
 		if ( empty( $updated ) ) {
 			$updated = new WP_Error( "Could not update the status of import {$record->id} to {$status}; current record status is {$record->post->post_status}" );
@@ -32,6 +31,8 @@ class Tribe__Events__Aggregator__REST__V1__Endpoints__State
 			// the REST API will cast it to an error
 			return $updated;
 		}
+
+		$record->update_meta( 'percentage_complete', $request['percentage_complete'] );
 
 		if ( $status !== 'pending' ) {
 			$record->delete_meta( 'next_batch_hash' );
@@ -76,7 +77,6 @@ class Tribe__Events__Aggregator__REST__V1__Endpoints__State
 				'type' => 'string',
 				'description' => __( 'The new status message slug, to allow for localized messages.', 'the-events-calendar' ),
 			),
-
 			'percentage_complete' => array(
 				'required' => true,
 				'type' => 'integer',
