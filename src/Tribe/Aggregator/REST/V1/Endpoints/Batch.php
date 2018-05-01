@@ -65,7 +65,7 @@ class Tribe__Events__Aggregator__REST__V1__Endpoints__Batch
 		$new_status  = $is_finished ? 'success' : 'pending';
 
 		if ( $is_success ) {
-			$record->update_meta( 'done', $request['done'] );
+			$record->update_meta( 'percentage_complete', $request['percentage_complete'] );
 		}
 
 		/**
@@ -125,7 +125,7 @@ class Tribe__Events__Aggregator__REST__V1__Endpoints__Batch
 				'validate_callback' => array( $this, 'is_valid_status_information' ),
 				'description' => __( 'The current status of the import.', 'the-events-calendar' ),
 			),
-			'done' => array(
+			'percentage_complete' => array(
 				'required' => true,
 				'type' => 'integer',
 				'validate_callback' => array( $this, 'is_percentage' ),

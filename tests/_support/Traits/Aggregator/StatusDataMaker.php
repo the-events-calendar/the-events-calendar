@@ -16,7 +16,7 @@ trait StatusDataMaker {
 			'status' => 'success',
 			'message' => 'Some message',
 			'message_slug' => 'message-slug',
-			'done' => 50,
+			'percentage_complete' => 50,
 		], $overrides );
 	}
 }

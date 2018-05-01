@@ -36,7 +36,7 @@ trait BatchDataMaker {
 					'done' => 2,
 				],
 			],
-			'done'=> 18,
+			'percentage_complete' => 18,
 			'interval' => 10,
 		], $overrides );
 	}

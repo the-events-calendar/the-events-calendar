@@ -68,10 +68,10 @@ class ProcessingCest {
 		$I->canSeeResponseContainsJson( [ 'interval' => 10 ] );
 		$done_criteria = [
 			'post_id' => $record->post->ID,
-			'meta_key' => '_tribe_aggregator_done'
+			'meta_key' => '_tribe_aggregator_percentage_complete'
 		];
 		$done_in_db    = $I->grabFromDatabase( $I->grabPostMetaTableName(), 'meta_value', $done_criteria );
-		$I->assertEquals( $batch_data['done'], $done_in_db );
+		$I->assertEquals( $batch_data['percentage_complete'], $done_in_db );
 	}
 
 	/**
@@ -129,10 +129,10 @@ class ProcessingCest {
 		$I->canSeeResponseContainsJson( [ 'interval' => 10 ] );
 		$done_criteria = [
 			'post_id' => $record->post->ID,
-			'meta_key' => '_tribe_aggregator_done'
+			'meta_key' => '_tribe_aggregator_percentage_complete'
 		];
 		$done_in_db    = $I->grabFromDatabase( $I->grabPostMetaTableName(), 'meta_value', $done_criteria );
-		$I->assertEquals( $batch_data['done'], $done_in_db );
+		$I->assertEquals( $batch_data['percentage_complete'], $done_in_db );
 	}
 
 	/**
@@ -189,9 +189,9 @@ class ProcessingCest {
 		$I->canSeeResponseContainsJson( [ 'interval' => 10 ] );
 		$done_criteria = [
 			'post_id' => $record->post->ID,
-			'meta_key' => '_tribe_aggregator_done'
+			'meta_key' => '_tribe_aggregator_percentage_complete'
 		];
 		$done_in_db    = $I->grabFromDatabase( $I->grabPostMetaTableName(), 'meta_value', $done_criteria );
-		$I->assertEquals( $batch_data['done'], $done_in_db );
+		$I->assertEquals( $batch_data['percentage_complete'], $done_in_db );
 	}
 }

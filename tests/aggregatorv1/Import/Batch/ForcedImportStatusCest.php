@@ -23,7 +23,7 @@ class ForcedImportStatusCest {
 	public function should_allow_forcing_the_import_record_to_a_status( Aggregatorv1Tester $I, Example $example ) {
 		$force_status = $example['status'];
 		$data         = $this->make_status_data( [ 'status' => $force_status ] );
-		$done         = $data['done'];
+		$done         = $data['percentage_complete'];
 
 		$posts_table = $I->grabPostsTableName();
 		$import_id   = '234324234234234';
@@ -57,7 +57,7 @@ class ForcedImportStatusCest {
 		}
 		$done_criteria = [
 			'post_id' => $record->post->ID,
-			'meta_key' => '_tribe_aggregator_done'
+			'meta_key' => '_tribe_aggregator_percentage_complete'
 		];
 		$done_in_db    = $I->grabFromDatabase( $I->grabPostMetaTableName(), 'meta_value', $done_criteria );
 		$I->assertEquals( $done, $done_in_db );
