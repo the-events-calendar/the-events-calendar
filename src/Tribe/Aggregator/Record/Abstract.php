@@ -1197,6 +1197,14 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			$service->confirm_import( $this->meta );
 		}
 
+		// if this is a batch push record then set its queue to fetching
+		// to feed the UI something coherent
+		if ( ! $this->is_polling() ) {
+			$queue = new Tribe__Events__Aggregator__Record__Queue( $this, 'fetch' );
+
+			return $queue;
+		}
+
 		if ( $this->has_queue() ) {
 			$queue = new Tribe__Events__Aggregator__Record__Queue( $this );
 			return $queue->process();
