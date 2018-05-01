@@ -626,7 +626,7 @@ class Tribe__Events__Linked_Posts {
 	 */
 	public function order_linked_posts( $target_post_id, $post_type, $current_order ) {
 		$linked_ids_order_key = $this->get_order_meta_key( $post_type );
-		
+
 		if ( $linked_ids_order_key ) {
 			update_post_meta( $target_post_id, $linked_ids_order_key, $current_order );
 		}
