@@ -5,17 +5,33 @@ $post_id = Tribe__Events__Main::postIdHelper();
 $is_auto_draft = get_post_status( $post_id ) === 'auto-draft';
 
 // If not $_POST and if this is not an auto-draft then get the current values to edit
-if ( ! $_POST && ! $is_auto_draft ) {
+if ( ! $_POST && is_admin() ) {
 
 	$venue_name             = tribe_get_venue();
-	$_VenuePhone            = tribe_get_phone();
-	$_VenueURL              = strip_tags( tribe_get_venue_website_link( null, null ) );
-	$_VenueAddress          = tribe_get_address();
-	$_VenueCity             = tribe_get_city();
-	$_VenueProvince         = tribe_get_province();
-	$_VenueState            = tribe_get_state();
-	$_VenueCountry          = tribe_get_country();
-	$_VenueZip              = tribe_get_zip();
+
+	if ( null === $venue_name ) {
+
+		$_VenuePhone            = Tribe__Events__Main::instance()->defaults()->phone();
+		$_VenueURL              = strip_tags( Tribe__Events__Main::instance()->defaults()->url() );
+		$_VenueAddress          = Tribe__Events__Main::instance()->defaults()->address();
+		$_VenueCity             = Tribe__Events__Main::instance()->defaults()->city();
+		$_VenueProvince         = Tribe__Events__Main::instance()->defaults()->province();
+		$_VenueState            = Tribe__Events__Main::instance()->defaults()->state();
+		$_VenueCountry          = Tribe__Events__Main::instance()->defaults()->country();
+		$_VenueZip              = Tribe__Events__Main::instance()->defaults()->zip();
+
+	} else {
+		$_VenuePhone            = tribe_get_phone();
+		$_VenueURL              = strip_tags( tribe_get_venue_website_link( null, null ) );
+		$_VenueAddress          = tribe_get_address();
+		$_VenueCity             = tribe_get_city();
+		$_VenueProvince         = tribe_get_province();
+		$_VenueState            = tribe_get_state();
+		$_VenueCountry          = tribe_get_country();
+		$_VenueZip              = tribe_get_zip();
+
+	}
+
 	$google_map_link_toggle = get_post_meta( $post_id, '_EventShowMapLink', true );
 	$google_map_toggle      = tribe_embed_google_map( $post_id );
 
