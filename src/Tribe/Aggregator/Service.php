@@ -333,7 +333,6 @@ class Tribe__Events__Aggregator__Service {
 	 * @return mixed|void
 	 */
 	public function get_eventbrite_args( ) {
-
 		$args = array(
 			'referral'   => urlencode( home_url() ),
 			'url'        => urlencode( site_url() ),
@@ -348,7 +347,6 @@ class Tribe__Events__Aggregator__Service {
 		 * @param array $args Which arguments are sent to Token Callback
 		 */
 		return apply_filters( 'tribe_aggregator_eventbrite_token_callback_args', $args );
-
 	}
 
 	/**
@@ -514,11 +512,22 @@ class Tribe__Events__Aggregator__Service {
 	 * Fetches an image from the Event Aggregator service
 	 *
 	 * @param string $image_id Image ID to fetch
+	 * @param  Tribe__Events__Aggregator__Record__Abstract $record    Record Object
 	 *
 	 * @return stdClass|WP_Error
 	 */
-	public function get_image( $image_id ) {
-		$response = $this->get( 'image/' . $image_id );
+	public function get_image( $image_id, $record ) {
+		/**
+		 * Allow filtering of the Image data Request Args
+		 *
+		 * @since  TBD
+		 *
+		 * @param  array  $data      Which Arguments
+		 * @param  strng  $image_id  Image ID
+		 */
+		$data = apply_filters( 'tribe_aggregator_get_image_data_args', array(), $record, $image_id );
+
+		$response = $this->get( 'image/' . $image_id, $data );
 
 		return $response;
 	}
@@ -726,7 +735,10 @@ class Tribe__Events__Aggregator__Service {
 			'meetup_api_key'   => '1',
 		) );
 
-
+		// Set site for origin(s) that need it for new token handling.
+		if ( 'eventbrite' === $confirmation_args['origin'] ) {
+			$confirmation_args['site'] = site_url();
+		}
 
 		$response = $this->post_import( $confirmation_args );
 

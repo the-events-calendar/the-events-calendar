@@ -112,6 +112,12 @@ class Tribe__Events__Meta__Save {
 		$_POST['Organizer'] = isset( $_POST['organizer'] ) ? stripslashes_deep( $_POST['organizer'] ) : null;
 		$_POST['Venue']     = isset( $_POST['venue'] ) ? stripslashes_deep( $_POST['venue'] ) : null;
 
+		/**
+		 * handle previewed venues and organizers
+		 */
+		$this->manage_preview_metapost( 'venue', $this->post_id );
+		$this->manage_preview_metapost( 'organizer', $this->post_id );
+
 		Tribe__Events__API::saveEventMeta( $this->post_id, $_POST, $this->post );
 
 		return true;

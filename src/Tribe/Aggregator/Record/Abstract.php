@@ -2096,7 +2096,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
      */
 	public function import_aggregator_image( $event ) {
 		// Attempt to grab the event image
-		$image_import = tribe( 'events-aggregator.main' )->api( 'image' )->get( $event['image']->id );
+		$image_import = tribe( 'events-aggregator.main' )->api( 'image' )->get( $event['image']->id, $this );
 
 		/**
 		 * Filters the returned event image url
@@ -2448,10 +2448,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			$image = $this->import_image( $event );
 		}
 
-		if (
-			( ! empty( $image ) || ! is_wp_error( $image ) )
-			&& ! empty( $image->post_id )
-		) {
+		if ( $image && ! is_wp_error( $image ) && ! empty( $image->post_id ) ) {
+
 			// Set as featured image
 			$featured_status = $this->set_post_thumbnail( $event['ID'], $image->post_id );
 
