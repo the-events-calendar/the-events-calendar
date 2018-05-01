@@ -1,5 +1,5 @@
 <?php
-namespace TEC\Tests\functions\template_tags;
+namespace TEC\Test\functions\template_tags;
 
 use Codeception\TestCase\WPTestCase;
 

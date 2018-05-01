@@ -5,8 +5,8 @@ namespace Tribe\Events\Aggregator\Record;
 include_once( codecept_data_dir( 'classes/Tribe__Events__Aggregator__Record__Scheduled_Test.php' ) );
 
 use Prophecy\Argument;
-use Tribe\Events\Tests\Factories\Aggregator\V1\Import_Record;
-use Tribe\Events\Tests\Testcases\Events_TestCase;
+use Tribe\Events\Test\Factories\Aggregator\V1\Import_Record;
+use Tribe\Events\Test\Testcases\Events_TestCase;
 use Tribe__Events__Aggregator__Record__Abstract as Base;
 use Tribe__Events__Aggregator__Record__Activity as Activity;
 use Tribe__Events__Aggregator__Record__Facebook as FB_Record;

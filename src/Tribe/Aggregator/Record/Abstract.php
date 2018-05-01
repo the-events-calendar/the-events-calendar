@@ -350,6 +350,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			$error_message = __( 'Something went wrong while inserting the record in the database.', 'the-events-calendar' );
 			wp_delete_post( $result );
 
+
 			return new WP_Error( 'db-error-during-creation', $error_message );
 		}
 
@@ -456,7 +457,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			$post['meta_input'][ self::$meta_key_prefix . $key ] = $value;
 		}
 
-		$args = (object) $args;
 		$meta = (object) $meta;
 
 		if ( 'schedule' === $type ) {
@@ -500,6 +500,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			'post_parent'    => 0,
 			'meta_input'     => array(),
 		);
+
 
 		foreach ( $this->meta as $key => $value ) {
 			// don't propagate these meta keys to the scheduled record
@@ -700,6 +701,12 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			$defaults['allow_multiple_organizers'] = $this->meta['allow_multiple_organizers'];
 		}
 
+		if ( empty( $this->meta['next_batch_hash'] ) ) {
+			$next_batch_hash             = $this->generate_next_batch_hash();
+			$defaults['next_batch_hash'] = $next_batch_hash;
+			$this->update_meta( 'next_batch_hash', $next_batch_hash );
+		}
+
 		if ( $is_previewing ) {
 			$defaults['preview'] = true;
 		}
@@ -770,6 +777,21 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			$this->set_status_as_pending();
 		}
 
+		$service_supports_batch_push = ! empty( $response->batch_push );
+
+		/**
+		 * Whether batch pushing is supported for this record or not.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool $service_supports_batch_push Whether the Service supports batch pushing or not.
+		 * @param Tribe__Events__Aggregator__Record__Abstract $this
+		 */
+		$allow_batch_push = apply_filters( 'tribe_aggregator_allow_batch_push', $service_supports_batch_push, $this );
+		if ( $allow_batch_push ) {
+			$this->update_meta( 'allow_batch_push', true );
+		}
+
 		// store the import id
 		$this->update_meta( 'import_id', $response->data->import_id );
 		$this->should_queue_import( false );
@@ -777,9 +799,16 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		return $response;
 	}
 
+	/**
+	 * Returns the record import data either fetching it locally or trying to retrieve
+	 * it from EA Service.
+	 *
+	 * @return stdClass|WP_Error An object containing the response data or a `WP_Error` on failure.
+	 */
 	public function get_import_data() {
 		/** @var \Tribe__Events__Aggregator $aggregator */
 		$aggregator = tribe( 'events-aggregator.main' );
+
 		$data       = array();
 
 		// For now only apply this to the URL type
@@ -829,7 +858,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		) );
 
 		if ( ! is_wp_error( $status ) && ! empty( $this->post->post_parent ) ) {
-			wp_update_post( array(
+			$status = wp_update_post( array(
 				'ID' => $this->post->post_parent,
 				'post_modified' => date( Tribe__Date_Utils::DBDATETIMEFORMAT, current_time( 'timestamp' ) ),
 			) );
@@ -1186,6 +1215,15 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			$service->confirm_import( $this->meta );
 		}
 
+		// if this is a batch push record then set its queue to fetching
+		// to feed the UI something coherent
+		if ( ! $this->is_polling() ) {
+			// @todo let's revisit this to return when more UI is exposed
+			$queue = new Tribe__Events__Aggregator__Record__Queue( $this, 'fetch' );
+
+			return $queue;
+		}
+
 		if ( $this->has_queue() ) {
 			$queue = new Tribe__Events__Aggregator__Record__Queue( $this );
 			return $queue->process();
@@ -1271,7 +1309,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 *
 	 * @param array $data Dummy data var to allow children to optionally react to passed in data
 	 *
-	 * @return array|WP_Error
+	 * @return Tribe__Events__Aggregator__Record__Activity The import activity record.
 	 */
 	public function insert_posts( $items = array() ) {
 		add_filter( 'tribe-post-origin', array( Tribe__Events__Aggregator__Records::instance(), 'filter_post_origin' ), 10 );
@@ -1283,6 +1321,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		 *
 		 * @param array $items An array of items to insert.
 		 * @param array $meta  The record meta information.
+
 		 */
 		do_action( 'tribe_aggregator_before_insert_posts', $items, $this->meta );
 
@@ -1291,6 +1330,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		// Creates an Activity to log what Happened
 		$activity = new Tribe__Events__Aggregator__Record__Activity();
+		$initial_created_events = $activity->count( Tribe__Events__Main::POSTTYPE );
+		$expected_created_events = $initial_created_events + count( $items );
 
 		$args = array(
 			'post_status' => $this->meta['post_status'],
@@ -1914,6 +1955,16 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		 * @param Tribe__Events__Aggregator__Record__Activity $activity The record insertion activity report.
 		 */
 		do_action( 'tribe_aggregator_after_insert_posts', $items, $this->meta, $activity );
+
+		$final_created_events = (int) $activity->count( Tribe__Events__Main::POSTTYPE );
+
+		if ( $expected_created_events === $final_created_events ) {
+			$activity->set_last_status( Tribe__Events__Aggregator__Record__Activity::STATUS_SUCCESS );
+		} elseif ( $initial_created_events === $final_created_events ) {
+			$activity->set_last_status( Tribe__Events__Aggregator__Record__Activity::STATUS_FAIL );
+		} else {
+			$activity->set_last_status( Tribe__Events__Aggregator__Record__Activity::STATUS_PARTIAL );
+		}
 
 		return $activity;
 	}
@@ -2571,6 +2622,42 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		 * @param Tribe__Events__Aggregator__Record__Abstract $this
 		 */
 		return apply_filters( 'tribe_aggregator_scheduled_records_retry_interval', $retry_time, $this );
+	}
+
+	/**
+	 * Whether the record will try to fetch the import data polling EA Service or
+	 * expecting batches of data being pushed to it by EA Service.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function is_polling() {
+		$is_polling = empty( $this->meta['allow_batch_push'] ) || false === (bool) $this->meta['allow_batch_push'];
+
+		/**
+		 * Whether the current record is a Service polling one or not.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool $is_polling
+		 * @param Tribe__Events__Aggregator__Record__Abstract $record
+		 */
+		$is_polling = apply_filters( 'tribe_aggregator_record_is_polling', $is_polling, $this );
+
+		return $is_polling;
+	}
+
+	/*
+	*
+	 * Generates the hash that will be expected in the for the next batch of events.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	public function generate_next_batch_hash() {
+		return md5( uniqid( '', true ) );
 	}
 }
 

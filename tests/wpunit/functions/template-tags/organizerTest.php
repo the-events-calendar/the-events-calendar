@@ -1,7 +1,7 @@
 <?php
-namespace TEC\Tests\functions\template_tags;
+namespace TEC\Test\functions\template_tags;
 
-use Tribe\Events\Tests\Testcases\Events_TestCase;
+use Tribe\Events\Test\Testcases\Events_TestCase;
 
 class organizerTest extends Events_TestCase {
 

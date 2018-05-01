@@ -3,7 +3,7 @@
 namespace Tribe\Events\REST\V1;
 
 use Prophecy\Argument;
-use Tribe\Events\Tests\Testcases\Events_TestCase;
+use Tribe\Events\Test\Testcases\Events_TestCase;
 use Tribe__Events__Cost_Utils as Cost_Utils;
 use Tribe__Events__Main as Main;
 use Tribe__Events__REST__V1__Messages as Messages;
