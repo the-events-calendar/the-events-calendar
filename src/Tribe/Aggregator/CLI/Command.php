@@ -36,7 +36,7 @@ class Tribe__Events__Aggregator__CLI__Command {
 	 * : Optionally filter events by these keywords.
 	 *
 	 * [--location=<location>]
-	 * : Filter events by this location, not supported by all origin types; not supported by all origin types.
+	 * : Filter events by this location, not supported by all origin types.
 	 *
 	 * [--radius=<radius>]
 	 * : Only fetch events in this mile radius around the location.
