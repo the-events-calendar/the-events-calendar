@@ -105,10 +105,8 @@ class Tribe__Events__Aggregator__CLI__Command {
 	 * For events the available columns are: name, description, excerpt, start_date, start_time, end_date, end_time,
 	 * timezone, all_day, hide, sticky, venue_name, organizer_name, show_map_link, show_map, cost, currency_symbol,
 	 * currency_position, category, tags, website, comment_status, ping_status, featured_image
-	 *
 	 * For venues the available columns are: name, description, country, address, address2, city, state, zip, phone,
 	 * url, featured_image
-	 *
 	 * For organizers the available columns are: name, description, email, website, phone, featured_image
 	 *
 	 * [--format=<format>]
