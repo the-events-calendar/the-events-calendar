@@ -50,6 +50,7 @@ class Tribe__Events__Aggregator__CLI__Command {
 	 * [--end=<end>]
 	 * : Only fetch events starting before this date.
 	 * This should be a valid date string or a value supported by the `strtotime` PHP function.
+	 * When using natural language expressions keep in mind that those apply from the current time, not start.
 	 * Not supported by all origin types.
 	 * Defaults the range set in the import settings for this origin type.
 	 *
@@ -194,6 +195,12 @@ class Tribe__Events__Aggregator__CLI__Command {
 
 		$location   = Tribe__Utils__Array::get( $assoc_args, 'location' );
 		$limit_type = Tribe__Utils__Array::get( $assoc_args, 'limit_type' );
+		$limit      = Tribe__Utils__Array::get( $assoc_args, 'limit' );
+
+		if ( isset( $assoc_args['start'], $assoc_args['end'] ) ) {
+			$limit_type = 'no_limit';
+			$limit      = 'not_set';
+		}
 
 		$category    = Tribe__Utils__Array::get( $assoc_args, 'category', '' );
 		$category_id = '';
@@ -217,11 +224,31 @@ class Tribe__Events__Aggregator__CLI__Command {
 			'end' => Tribe__Utils__Array::get( $assoc_args, 'end' ),
 			'radius' => $location ? Tribe__Utils__Array::get( $assoc_args, 'radius' ) : null,
 			'limit_type' => $limit_type,
-			'limit' => $limit_type ? Tribe__Utils__Array::get( $assoc_args, 'limit' ) : null,
+			'limit' => $limit,
 			'source' => $source,
 			'preview' => false,
 			'category' => $category_id,
 		);
+
+		if ( ! empty( $record_meta['start'] ) ) {
+			$record_meta['start'] = Tribe__Date_Utils::reformat( $record_meta['start'], 'Y-m-d H:i:s' );
+			if ( empty( $record_meta['start'] ) ) {
+				WP_CLI::error( 'The --start parameter could not be parsed; review the argument description.' );
+			}
+		}
+
+		if ( ! empty( $record_meta['end'] ) ) {
+			$record_meta['end'] = Tribe__Date_Utils::reformat( $record_meta['end'], 'Y-m-d H:i:s' );
+			if ( empty( $record_meta['end'] ) ) {
+				WP_CLI::error( 'The --end parameter could not be parsed; review the argument description.' );
+			}
+		}
+
+		if ( isset( $record_meta['start'], $record_meta['end'] ) ) {
+			if ( strtotime( $record_meta['end'] ) < strtotime( $record_meta['start'] ) ) {
+				WP_CLI::error( "End date [{$record_meta['end']}] cannot be before start date [{$record_meta['start']}]; review the argument description." );
+			}
+		}
 
 		if ( $is_csv ) {
 			$record_meta['file']         = $source;
