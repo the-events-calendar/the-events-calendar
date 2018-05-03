@@ -125,7 +125,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				// support matching by state abbreviation OR fullname.
 				// NOTE: converts to abbreviation on save
 				$selected = selected( ( $currentState === $abbr || $currentState === $fullname ), true, false );
-				echo '<option value="' . esc_attr( $abbr ) . '"' . $selected . '>' . esc_html( $fullname ) . '</option>';
+				echo '<option value="' . esc_attr( $abbr ) . '" ' . $selected . '>' . esc_html( $fullname ) . '</option>';
 			}
 			?>
 		</select>
