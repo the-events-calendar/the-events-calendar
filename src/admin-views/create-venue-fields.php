@@ -125,7 +125,7 @@ if ( ! $_POST && is_admin() ) {
 				if ( $abbr == '' ) {
 					echo '<option value="">' . esc_html( $fullname ) . '</option>';
 				} else {
-					echo '<option value="' . esc_attr( $fullname ) . '">' . esc_html( $fullname ) . '</option>';
+					echo '<option value="' . esc_attr( $fullname ) . '"' . selected( ( $current == $fullname ), true, false ) . '>' . esc_html( $fullname ) . '</option>';
 				}
 			}
 			?>
@@ -133,16 +133,18 @@ if ( ! $_POST && is_admin() ) {
 	</td>
 </tr>
 <tr class="linked-post venue tribe-linked-type-venue-state-province">
-	<?php
-	if ( ! isset( $_VenueStateProvince ) || $_VenueStateProvince == '' ) {
-		$_VenueStateProvince = - 1;
-	}
-	$currentState = ( $_VenueStateProvince == - 1 ) ? '' : $_VenueStateProvince;
-	$currentProvince = empty( $_VenueProvince ) ? '' : $_VenueProvince;
-	?>
 	<td class='tribe-table-field-label'><?php esc_html_e( 'State or Province:', 'the-events-calendar' ); ?></td>
 	<td>
-		<input tabindex="<?php tribe_events_tab_index(); ?>" id="StateProvinceText" name="venue[Province][]" type='text' name='' size='25' value='<?php echo esc_attr( $currentProvince ); ?>' aria-label="<?php esc_html_e( 'Venue State', 'the-events-calendar' ); ?>" />
+		<input
+			tabindex="<?php tribe_events_tab_index(); ?>"
+			id="StateProvinceText"
+			name="venue[Province][]"
+			type='text'
+			name=''
+			size='25'
+			value='<?php echo esc_attr( $_VenueProvince ); ?>'
+			aria-label="<?php esc_html_e( 'Venue State', 'the-events-calendar' ); ?>"
+		 />
 		<select
 			class="tribe-dropdown"
 			tabindex="<?php tribe_events_tab_index(); ?>"
@@ -153,7 +155,8 @@ if ( ! $_POST && is_admin() ) {
 			<option value=""><?php esc_html_e( 'Select a State:', 'the-events-calendar' ); ?></option>
 			<?php
 			foreach ( Tribe__View_Helpers::loadStates() as $abbr => $fullname ) {
-				echo '<option value="' . esc_attr( $abbr ) . '">' . esc_html( $fullname ) . '</option>';
+				$selected = selected( ( $_VenueState === $abbr || $_VenueState === $fullname ), true, false );
+				echo '<option value="' . esc_attr( $abbr ) . '" ' . $selected . '>' . esc_html( $fullname ) . '</option>';
 			}
 			?>
 		</select>
