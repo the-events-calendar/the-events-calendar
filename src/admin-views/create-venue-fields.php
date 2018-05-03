@@ -155,7 +155,8 @@ if ( ! $_POST && is_admin() ) {
 			<option value=""><?php esc_html_e( 'Select a State:', 'the-events-calendar' ); ?></option>
 			<?php
 			foreach ( Tribe__View_Helpers::loadStates() as $abbr => $fullname ) {
-				echo '<option value="' . esc_attr( $abbr ) . '" ' . selected( ( $_VenueState === $abbr || $_VenueState === $fullname ), true, false ) . '>' . esc_html( $fullname ) . '</option>';
+				$selected = selected( ( $_VenueState === $abbr || $_VenueState === $fullname ), true, false );
+				echo '<option value="' . esc_attr( $abbr ) . '" ' . $selected . '>' . esc_html( $fullname ) . '</option>';
 			}
 			?>
 		</select>

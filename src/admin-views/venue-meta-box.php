@@ -124,7 +124,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 			foreach ( Tribe__View_Helpers::loadStates() as $abbr => $fullname ) {
 				// support matching by state abbreviation OR fullname.
 				// NOTE: converts to abbreviation on save
-				echo '<option value="' . esc_attr( $abbr ) . '"' . selected( ( $currentState === $abbr || $currentState === $fullname ), true, false ) . '>' . esc_html( $fullname ) . '</option>';
+				$selected = selected( ( $currentState === $abbr || $currentState === $fullname ), true, false );
+				echo '<option value="' . esc_attr( $abbr ) . '"' . $selected . '>' . esc_html( $fullname ) . '</option>';
 			}
 			?>
 		</select>
