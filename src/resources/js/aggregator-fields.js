@@ -540,8 +540,8 @@ tribe_aggregator.fields = {
 		// if eb then reverse the order of events
 		if ( is_eventbrite ) {
 			args.order = [
-							[ 1, 'desc' ]
-						];
+				[ 1, 'desc' ]
+			];
 		}
 
 		if ( 'undefined' !== typeof data.columns ) {
