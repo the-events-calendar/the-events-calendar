@@ -31,22 +31,35 @@ class Tribe__Events__Integrations__WPML__Meta {
 	public function translate_post_id( $value, $object_id, $meta_key ) {
 		global $wpdb;
 
-		if ( '_EventOrganizerID' === $meta_key ) {
-			$value = $wpdb->get_var( $wpdb->prepare(
-				"SELECT meta_value FROM $wpdb->postmeta WHERE post_id = %d AND meta_key = %s",
-				$object_id,
-				$meta_key
-			) );
-			$value = apply_filters( 'wpml_object_id', $value, Tribe__Events__Organizer::POSTTYPE, true );
+		if ( '_EventOrganizerID' !== $meta_key &&
+			 '_EventOrganizerID_Order' !== $meta_key &&
+			 '_EventVenueID' !== $meta_key) {
+			return $value;
 		}
 
-		if ( '_EventVenueID' === $meta_key ) {
-			$value = $wpdb->get_var( $wpdb->prepare(
-				"SELECT meta_value FROM $wpdb->postmeta WHERE post_id = %d AND meta_key = %s",
-				$object_id,
-				$meta_key
-			) );
-			$value = apply_filters( 'wpml_object_id', $value, Tribe__Events__Venue::POSTTYPE, true );
+		$value = $wpdb->get_col( $wpdb->prepare(
+			"SELECT meta_value FROM $wpdb->postmeta WHERE post_id = %d AND meta_key = %s",
+			$object_id,
+			$meta_key
+		) );
+
+		if ( empty( $value ) ) {
+			return false;
+		}
+
+		$type = strpos( 'Organizer', $meta_key )
+			? Tribe__Events__Organizer::POSTTYPE
+			: Tribe__Events__Venue::POSTTYPE;
+
+		foreach ( $value as & $post_id ) {
+			if ( is_serialized( $post_id ) ) {
+				$array = unserialize( $post_id );
+				foreach ( $array as $index => $id ) {
+					$post_id[ $index ] = apply_filters( 'wpml_object_id', $id, $type, true );
+				}
+			} else {
+				$post_id = apply_filters( 'wpml_object_id', $post_id, $type, true );
+			}
 		}
 
 		return $value;
