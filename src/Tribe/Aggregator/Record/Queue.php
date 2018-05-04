@@ -2,7 +2,7 @@
 // Don't load directly
 defined( 'WPINC' ) or die;
 
-class Tribe__Events__Aggregator__Record__Queue {
+class Tribe__Events__Aggregator__Record__Queue implements Tribe__Events__Aggregator__Record__Queue_Interface {
 	public static $in_progress_key = 'tribe_aggregator_queue_';
 	public static $queue_key = 'queue';
 	public static $activity_key = 'activity';
@@ -121,7 +121,7 @@ class Tribe__Events__Aggregator__Record__Queue {
 		}
 	}
 
-	public function init_queue( $items ) {
+	protected function init_queue( $items ) {
 		if ( 'csv' === $this->record->origin ) {
 			$this->record->reset_tracking_options();
 			$this->importer = $items;
@@ -135,7 +135,7 @@ class Tribe__Events__Aggregator__Record__Queue {
 		}
 	}
 
-	public function load_queue() {
+	protected function load_queue() {
 		if ( empty( $this->record->meta[ self::$queue_key ] ) ) {
 			$this->is_fetching = false;
 			$this->items       = array();
@@ -168,7 +168,7 @@ class Tribe__Events__Aggregator__Record__Queue {
 	 *
 	 * @return boolean
 	 */
-	public function is_fetching() {
+	protected function is_fetching() {
 		return $this->is_fetching;
 	}
 
@@ -196,7 +196,7 @@ class Tribe__Events__Aggregator__Record__Queue {
 	 *
 	 * @return int
 	 */
-	public function get_total() {
+	protected function get_total() {
 		return $this->count() + $this->activity->count( $this->get_queue_type() );
 	}
 
@@ -205,16 +205,14 @@ class Tribe__Events__Aggregator__Record__Queue {
 	 *
 	 * @return self
 	 */
-	public function save() {
+	protected function save() {
 		$this->record->update_meta( self::$activity_key, $this->activity );
 
-		// @todo remove this code, the Q takes care of that
 		/** @var Tribe__Meta__Chunker $chunker */
 		$chunker = tribe( 'chunker' );
 		// this data has the potential to be very big, so we register it for possible chunking in the db
 		$key = Tribe__Events__Aggregator__Record__Abstract::$meta_key_prefix . self::$queue_key;
 		$chunker->register_chunking_for( $this->record->post->ID, $key );
-
 
 		if ( empty( $this->items ) ) {
 			$this->record->delete_meta( self::$queue_key );

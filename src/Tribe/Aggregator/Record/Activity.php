@@ -266,7 +266,10 @@ class Tribe__Events__Aggregator__Record__Activity {
 
 		// Sum all of the Actions
 		if ( is_null( $action ) ) {
-			return array_sum( array_map( 'count', (array) $actions ) );
+			// recursively convert to associative array
+			$actions = json_decode( json_encode( $actions ), true );
+
+			return array_sum( array_map( 'count', $actions ) );
 		} elseif ( ! empty( $actions->{ $action } ) ) {
 			return count( $actions->{ $action } );
 		}

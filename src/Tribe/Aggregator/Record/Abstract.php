@@ -1224,45 +1224,13 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			return $queue;
 		}
 
-		// @todo -- remove this, was always re-queueing
-		if ( $this->has_queue() ) {
-			$queue = new Tribe__Events__Aggregator__Record__Queue( $this );
-			return $queue->process();
-		}
-
 		$items = $this->prep_import_data( $data );
 
 		if ( is_wp_error( $items ) ) {
 			return $items;
 		}
-
-		$transitional_id = substr( md5( uniqid( '', true ) ), 0, 8 );
-
-		/** @var Tribe__Events__Aggregator__Record__Items $record_items */
-		$record_items = tribe( 'events-aggregator.record-items' );
-		$record_items->set_items( $items );
-		$items = $record_items->mark_dependencies()->get_items();
-
-		/** @var Tribe__Process__Queue $import_queue */
-		$import_queue = tribe( 'events-aggregator.processes.import-events' );
-
-		foreach ( $items as $item ) {
-			$item_data = array(
-				'user_id'         => get_current_user_id(),
-				'record_id'       => $this->id,
-				'data'            => $item,
-				'transitional_id' => $transitional_id,
-			);
-			$import_queue->push_to_queue( $item_data );
-		}
-
-		$import_queue->save()->dispatch();
-		$queue_id = $import_queue->get_id();
-		$this->update_meta( 'queue_id', $queue_id );
-
-		$queue = new Tribe__Events__Aggregator__Record__Queue( $this, $items );
-
-		// $queue = new Tribe__Events__Aggregator__Record__Queue( $this, 'fetch' );
+//		define( 'TRIBE_EA_QUEUE_USE_LEGACY', true );
+		$queue = Tribe__Events__Aggregator__Record__Queue_Processor::build_queue( $this, $items );
 
 		return $queue->activity();
 	}

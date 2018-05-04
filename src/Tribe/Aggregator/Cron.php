@@ -450,10 +450,10 @@ class Tribe__Events__Aggregator__Cron {
 			$queue = $record->process_posts();
 
 			if ( ! is_wp_error( $queue ) ) {
-				/** @var Tribe__Events__Aggregator__Record__Queue $queue */
+				/** @var Tribe__Events__Aggregator__Record__Queue_Interface $queue */
 				tribe( 'logger' )->log_debug( sprintf( 'Record (%d) has processed queue ', $record->id ), 'EA Cron' );
 
-				if ( $queue instanceof Tribe__Events__Aggregator__Record__Queue ) {
+				if ( $queue instanceof Tribe__Events__Aggregator__Record__Queue_Interface ) {
 					$activity = $queue->activity()->get();
 				} else {
 					// if fetching or on error

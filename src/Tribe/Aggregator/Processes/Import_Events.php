@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Class Tribe__Events__Aggregator__Processes__Import_Events
+ *
+ * Imports events in an async queue.
+ *
+ * @since TBD
+ */
 class Tribe__Events__Aggregator__Processes__Import_Events extends Tribe__Process__Queue {
 	/**
 	 * @var string
@@ -7,9 +14,19 @@ class Tribe__Events__Aggregator__Processes__Import_Events extends Tribe__Process
 	protected $transitional_id;
 
 	/**
+	 * @var int The post ID of the record associated to this queue instance.
+	 */
+	protected $record_id;
+
+	/**
 	 * @var bool Whether the current item has dependencies or not.
 	 */
 	protected $has_dependencies = true;
+
+	/**
+	 * @var Tribe__Events__Aggregator__Record__Activity[]
+	 */
+	protected $activities = array();
 
 	/**
 	 * Returns the async process action name.
@@ -22,6 +39,13 @@ class Tribe__Events__Aggregator__Processes__Import_Events extends Tribe__Process
 		return 'ea_import_events';
 	}
 
+	/**
+	 * Adds transitional data, used to check dependencies, to an event linked posts.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $event
+	 */
 	public function add_transitional_data( array $event ) {
 		$venue_id      = Tribe__Utils__Array::get( $event, 'EventVenueID', false );
 		$organizer_ids = Tribe__Utils__Array::get( $event, array( 'Organizer', 'OrganizerID' ), false );
@@ -37,6 +61,16 @@ class Tribe__Events__Aggregator__Processes__Import_Events extends Tribe__Process
 		}
 	}
 
+	/**
+	 * Returns the `meta_key` that will be used to store the transitional data
+	 * in linked post for this import process.
+	 *
+	 * @since TBD
+	 *
+	 * @param null $transitional_id
+	 *
+	 * @return string
+	 */
 	public function get_transitional_meta_key( $transitional_id = null ) {
 		if ( null === $transitional_id ) {
 			$transitional_id = $this->transitional_id;
@@ -46,6 +80,11 @@ class Tribe__Events__Aggregator__Processes__Import_Events extends Tribe__Process
 	}
 
 	/**
+	 * Sets the final part `meta_key` that should be used to store transitional
+	 * information for this import process.
+	 *
+	 * @since TBD
+	 *
 	 * @param string $transitional_id
 	 */
 	public function set_transitional_id( $transitional_id ) {
@@ -53,40 +92,103 @@ class Tribe__Events__Aggregator__Processes__Import_Events extends Tribe__Process
 	}
 
 	/**
-	 * Task
+	 * Overrides the parent `save` method to save some additonal data.
 	 *
-	 * Override this method to perform any actions required on each
-	 * queue item. Return the modified item for further processing
-	 * in the next pass through. Or, return false to remove the
-	 * item from the queue.
+	 * @since TBD
 	 *
-	 * @param mixed $item Queue item to iterate over.
+	 * @return Tribe__Events__Aggregator__Processes__Import_Events
+	 */
+	public function save() {
+		add_filter( "tribe_process_queue_{$this->identifier}_save_data", array( $this, 'save_data' ) );
+
+		return parent::save();
+	}
+
+	/**
+	 * Overrides the parent `update` method to save some additonal data.
 	 *
-	 * @return mixed
+	 * @since TBD
+	 *
+	 * @return Tribe__Events__Aggregator__Processes__Import_Events
+	 */
+	public function update( $key, $data ) {
+		add_filter( "tribe_process_queue_{$this->identifier}_update_data", array( $this, 'save_data' ) );
+
+		return parent::update( $key, $data );
+	}
+
+	/**
+	 * Saves some additional data on the record to keep track of the progress.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $save_data
+	 *
+	 * @return array
+	 */
+	public function save_data( array $save_data = array() ) {
+		$save_data['record_id'] = $this->record_id;
+
+		return $save_data;
+	}
+
+	/**
+	 * Returns this import process record post ID.
+	 *
+	 * @since TBD
+	 *
+	 * @return int
+	 */
+	public function get_record_id() {
+		return $this->record_id;
+	}
+
+	/**
+	 * Sets this import process record ID.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $record_id
+	 */
+	public function set_record_id( $record_id ) {
+		$this->record_id = $record_id;
+	}
+
+	/**
+	 * Handles the real import.
+	 *
+	 * In short: if an event has dependencies and those are not yet all in place then the event
+	 * will be re-queued; otherwise it's inserted.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $item
+	 *
+	 * @return array|false Either the event data to requeue or `false` if done.
 	 */
 	protected function task( $item ) {
-		$record_id             = $item['record_id'];
+		$record_id             = $this->record_id = $item['record_id'];
 		$data                  = (array) $item['data'];
 		$this->transitional_id = filter_var( $item['transitional_id'], FILTER_SANITIZE_STRING );
-		// @todo use the user
-		$user_id = $item['user_id'];
 
 		$dependencies = $this->parse_linked_post_dependencies( $data );
 
 		if ( empty( $dependencies ) ) {
 			$this->has_dependencies = false;
-			$result = $this->insert_event( $record_id, (object) $data );
+			$activity               = $this->insert_event( $record_id, (object) $data );
+			$this->activities[]     = $activity;
 
-			return $this->doing_sync ? $result : false;
+			return $this->doing_sync ? $activity : false;
 		}
 
 		$dependencies_ids = $this->check_dependencies( $dependencies );
 
 		if ( $dependencies_ids ) {
 			$this->set_linked_posts_ids( $data, $dependencies_ids );
-			$result = $this->insert_event( $record_id, (object) $data );
+			$activity           = $this->insert_event( $record_id, (object) $data );
+			$this->activities[] = $activity;
 
-			return $this->doing_sync ? $result : false;
+			return $this->doing_sync ? $activity : false;
 		}
 
 		return $item;
@@ -125,15 +227,28 @@ class Tribe__Events__Aggregator__Processes__Import_Events extends Tribe__Process
 	protected function insert_event( $record_id, $data ) {
 		$record = $this->get_record( $record_id );
 
+		if ( empty( $record ) || $record instanceof WP_Error ) {
+			// no point in going on
+			return false;
+		}
+
 		if ( ! $this->has_dependencies ) {
 			add_action( 'tribe_aggregator_after_insert_post', array( $this, 'add_transitional_data' ) );
 		}
 
-		return $record->insert_posts( array( $data ) );
+		$activity = $record->insert_posts( array( $data ) );
+		$record->activity()->merge( $activity );
+		$record->update_meta( 'activity', $record->activity() );
+
+		return $activity;
 	}
 
 	/**
-	 * @param $record_id
+	 * Returns this import process record.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $record_id
 	 *
 	 * @return null|Tribe__Error|Tribe__Events__Aggregator__Record__Abstract
 	 */
@@ -185,6 +300,16 @@ class Tribe__Events__Aggregator__Processes__Import_Events extends Tribe__Process
 		return $can_create ? $ids : false;
 	}
 
+	/**
+	 * Replaces, in the event data, the unique ids of the linked posts with their post IDs.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $data
+	 * @param array $dependencies_ids
+	 *
+	 * @return array
+	 */
 	protected function set_linked_posts_ids( &$data, array $dependencies_ids ) {
 		$linked_post_types = array(
 			'venue'     => Tribe__Events__Venue::POSTTYPE,
@@ -199,7 +324,7 @@ class Tribe__Events__Aggregator__Processes__Import_Events extends Tribe__Process
 			}
 
 			if ( 'venue' === $linked_post_key ) {
-				$data['venue'] = (object) array( '_venue_id' => reset($linked_post_ids) );
+				$data['venue'] = (object) array( '_venue_id' => reset( $linked_post_ids ) );
 			} else {
 				$data[ $linked_post_key ] = array();
 				foreach ( $linked_post_ids as $id ) {
@@ -211,6 +336,9 @@ class Tribe__Events__Aggregator__Processes__Import_Events extends Tribe__Process
 		return $data;
 	}
 
+	/**
+	 * {@inheritdoc}
+	 */
 	protected function complete() {
 		parent::complete();
 
@@ -223,5 +351,16 @@ class Tribe__Events__Aggregator__Processes__Import_Events extends Tribe__Process
 				$this->get_transitional_meta_key()
 			)
 		);
+
+		$record = $this->get_record( $this->record_id );
+
+		if ( empty( $record ) || $record instanceof WP_Error ) {
+			// no point in going on
+			return false;
+		}
+
+		$record->set_status_as_success();
+		$record->delete_meta( 'queue' );
+		$record->delete_meta( 'queue_id' );
 	}
 }

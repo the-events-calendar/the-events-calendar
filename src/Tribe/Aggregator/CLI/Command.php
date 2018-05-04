@@ -420,7 +420,7 @@ class Tribe__Events__Aggregator__CLI__Command {
 			return $items_count + 1;
 		} );
 
-		/** @var Tribe__Events__Aggregator__Record__Queue $result */
+		/** @var Tribe__Events__Aggregator__Record__Queue_Interface $result */
 		$result = $record->process_posts( $data );
 
 		if ( $result instanceof WP_Error ) {
