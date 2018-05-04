@@ -36,7 +36,7 @@ class Tribe__Events__Aggregator__CLI__Command {
 	 * : Optionally filter events by these keywords.
 	 *
 	 * [--location=<location>]
-	 * : Filter events by this location, not supported by all origin types; not supported by all origin types.
+	 * : Filter events by this location, not supported by all origin types.
 	 *
 	 * [--radius=<radius>]
 	 * : Only fetch events in this mile radius around the location.
@@ -50,6 +50,7 @@ class Tribe__Events__Aggregator__CLI__Command {
 	 * [--end=<end>]
 	 * : Only fetch events starting before this date.
 	 * This should be a valid date string or a value supported by the `strtotime` PHP function.
+	 * When using natural language expressions keep in mind that those apply from the current time, not start.
 	 * Not supported by all origin types.
 	 * Defaults the range set in the import settings for this origin type.
 	 *
@@ -89,7 +90,7 @@ class Tribe__Events__Aggregator__CLI__Command {
 	 *
 	 * [--content_type=<content_type>]
 	 * : The type of import for CSV files.
-	 * The column mapping must match exactly, in order and naming, the one used by the UI to import this content type.
+	 * The column mapping must be defined with the `--column_map` parameter.
 	 * ---
 	 * default: events
 	 * options:
@@ -97,6 +98,16 @@ class Tribe__Events__Aggregator__CLI__Command {
 	 *   - venues
 	 *   - organizers
 	 * ---
+	 *
+	 * [--column_map=<column_map>]
+	 * : the column mapping that should be used for CSV imports; required when runnin CSV imports. A comma separated
+	 * list where the order counts.
+	 * For events the available columns are: name, description, excerpt, start_date, start_time, end_date, end_time,
+	 * timezone, all_day, hide, sticky, venue_name, organizer_name, show_map_link, show_map, cost, currency_symbol,
+	 * currency_position, category, tags, website, comment_status, ping_status, featured_image
+	 * For venues the available columns are: name, description, country, address, address2, city, state, zip, phone,
+	 * url, featured_image
+	 * For organizers the available columns are: name, description, email, website, phone, featured_image
 	 *
 	 * [--format=<format>]
 	 * : The results output format
@@ -112,7 +123,7 @@ class Tribe__Events__Aggregator__CLI__Command {
 	 *      wp event-aggregator import-from facebook https://www.facebook.com/ModernTribeInc/
 	 *      wp event-aggregator import-from meetup https://www.meetup.com/wordpress-ile-de-france/
 	 *      wp event-aggregator import-from gcal https://calendar.google.com/calendar/ical/me/public/basic.ics
-	 *      wp event-aggregator import-from csv /Users/moi/events.csv
+	 *      wp event-aggregator import-from csv /Users/moi/events.csv --content_type=events --column_map=name,description,start_date,start_time,end_date,end_time
 	 *      wp event-aggregator import-from ics /Users/moi/events.ics
 	 *
 	 *
@@ -128,6 +139,10 @@ class Tribe__Events__Aggregator__CLI__Command {
 		list( $origin, $source ) = $args;
 
 		$is_csv = 'csv' === $origin;
+
+		if ( $is_csv ) {
+			$this->ensure_column_map( $assoc_args );
+		}
 
 		$record = $this->create_record_from( $assoc_args, $origin, $source );
 
@@ -178,6 +193,12 @@ class Tribe__Events__Aggregator__CLI__Command {
 
 		$location   = Tribe__Utils__Array::get( $assoc_args, 'location' );
 		$limit_type = Tribe__Utils__Array::get( $assoc_args, 'limit_type' );
+		$limit      = Tribe__Utils__Array::get( $assoc_args, 'limit' );
+
+		if ( isset( $assoc_args['start'], $assoc_args['end'] ) ) {
+			$limit_type = 'no_limit';
+			$limit      = 'not_set';
+		}
 
 		$category    = Tribe__Utils__Array::get( $assoc_args, 'category', '' );
 		$category_id = '';
@@ -201,11 +222,31 @@ class Tribe__Events__Aggregator__CLI__Command {
 			'end' => Tribe__Utils__Array::get( $assoc_args, 'end' ),
 			'radius' => $location ? Tribe__Utils__Array::get( $assoc_args, 'radius' ) : null,
 			'limit_type' => $limit_type,
-			'limit' => $limit_type ? Tribe__Utils__Array::get( $assoc_args, 'limit' ) : null,
+			'limit' => $limit,
 			'source' => $source,
 			'preview' => false,
 			'category' => $category_id,
 		);
+
+		if ( ! empty( $record_meta['start'] ) ) {
+			$record_meta['start'] = Tribe__Date_Utils::reformat( $record_meta['start'], 'Y-m-d H:i:s' );
+			if ( empty( $record_meta['start'] ) ) {
+				WP_CLI::error( 'The --start parameter could not be parsed; review the argument description.' );
+			}
+		}
+
+		if ( ! empty( $record_meta['end'] ) ) {
+			$record_meta['end'] = Tribe__Date_Utils::reformat( $record_meta['end'], 'Y-m-d H:i:s' );
+			if ( empty( $record_meta['end'] ) ) {
+				WP_CLI::error( 'The --end parameter could not be parsed; review the argument description.' );
+			}
+		}
+
+		if ( isset( $record_meta['start'], $record_meta['end'] ) ) {
+			if ( strtotime( $record_meta['end'] ) < strtotime( $record_meta['start'] ) ) {
+				WP_CLI::error( "End date [{$record_meta['end']}] cannot be before start date [{$record_meta['start']}]; review the argument description." );
+			}
+		}
 
 		if ( $is_csv ) {
 			$record_meta['file']         = $source;
@@ -239,24 +280,44 @@ class Tribe__Events__Aggregator__CLI__Command {
 	}
 
 	/**
+	 * Fetches the data from the Service and processes it.
+	 *
+	 * @since TBD
+	 *
 	 * @param array $assoc_args
-	 * @param $record
-	 * @param $is_csv
-	 * @param $action
+	 * @param Tribe__Events__Aggregator__Record__Abstract $record
+	 * @param bool $is_csv
 	 *
 	 * @return array
 	 */
 	protected function fetch_and_process( array $assoc_args, $record, $is_csv ) {
-		$queue_result = $record->queue_import();
+		$queue_import_args         = array();
+		// remove anything that cannot be serialized
+		foreach ( $record->meta as $key => $value ) {
+			if ( is_array( $value ) || is_scalar( $value ) ) {
+				$queue_import_args[ $key ] = $value;
+			}
+		}
+		$queue_result = $record->queue_import( $queue_import_args );
 
 		$record->finalize();
 
 		$this->polling_timeout = (float) $assoc_args['timeout'];
 
 		if ( $is_csv ) {
-			$activity = $this->import_csv_file( $queue_result, $record );
+			$column_map = $assoc_args['column_map'];
+			$activity   = $this->import_csv_file( $queue_result, $record, $column_map );
 		} else {
 			$activity = $this->import_from_service( $queue_result, $record );
+		}
+
+		if ( ! $activity instanceof Tribe__Events__Aggregator__Record__Activity ) {
+			if ( $activity instanceof WP_Error ) {
+				WP_CLI::error( $activity->get_error_message() );
+			} else {
+				WP_CLI::error( 'Something went wrong during the import process.' );
+			}
+			$record->set_status_as_failed();
 		}
 
 		$assoc_args['format'] = ! empty( $assoc_args['format'] ) ? $assoc_args['format'] : 'yaml';
@@ -276,6 +337,8 @@ class Tribe__Events__Aggregator__CLI__Command {
 
 		WP_CLI::success( 'Import done!' );
 
+		$record->set_status_as_success();
+
 		return $action;
 	}
 
@@ -290,11 +353,32 @@ class Tribe__Events__Aggregator__CLI__Command {
 	 *
 	 * @param Tribe__Events__Aggregator__Record__CSV $record
 	 * @param array $record_meta
+	 * @param string|array $column_map The column map that should be used for the import, either a comma-separated list
+	 *                                 or an array.
 	 *
 	 * @return Tribe__Events__Aggregator__Record__Activity
 	 */
-	protected function import_csv_file( $queue_result, $record ) {
+	protected function import_csv_file( $queue_result, $record, $column_map ) {
 		WP_CLI::log( 'Reading the file...' );
+
+		if ( ! is_array( $column_map ) ) {
+			$column_map = preg_split( '/\\s*,\\s*/', $column_map );
+		}
+
+		if ( empty( $column_map ) ) {
+			WP_CLI::error( 'The provided column map is invalid.' );
+		}
+
+		$map    = array(
+			'events' => 'event',
+			'venues' => 'venue',
+			'organizers' => 'organizer',
+		);
+		$prefix = Tribe__Utils__Array::get( $map, $record->meta['content_type'], 'event' );
+
+		$column_map = array_map( function ( $key ) use ( $prefix ) {
+			return $key === 'featured_image' ? $key : $prefix . '_' . $key;
+		}, $column_map );
 
 		$data = array(
 			'action' => 'new',
@@ -305,23 +389,7 @@ class Tribe__Events__Aggregator__CLI__Command {
 					'content_type' => 'tribe_' . $record->meta['content_type'],
 					'file' => $record->meta['file'],
 				),
-			'column_map' =>
-				array(
-					0 => 'event_name',
-					1 => 'event_description',
-					2 => 'event_start_date',
-					3 => 'event_start_time',
-					4 => 'event_end_date',
-					5 => 'event_end_time',
-					6 => '',
-					7 => 'event_venue_name',
-					8 => 'event_organizer_name',
-					9 => 'event_show_map_link',
-					10 => 'event_show_map',
-					11 => 'event_cost',
-					12 => 'event_category',
-					13 => 'event_website',
-				),
+			'column_map' => $column_map,
 			'post_status' => $record->meta['post_status'],
 			'category' => $record->meta['category'],
 			'selected_rows' => 'all',
@@ -500,6 +568,10 @@ class Tribe__Events__Aggregator__CLI__Command {
 		// this should not be possible, yet let's take the possibility into account
 		$is_csv = 'csv' === $parent_record->meta['origin'];
 
+		if ( $is_csv ) {
+			$this->ensure_column_map( $assoc_args );
+		}
+
 		WP_CLI::log( 'Creating child import post...' );
 
 		$record = $parent_record->create_child_record();
@@ -517,5 +589,23 @@ class Tribe__Events__Aggregator__CLI__Command {
 		$record->update_meta( 'interactive', true );
 
 		$this->fetch_and_process( $assoc_args, $record, $is_csv );
+	}
+
+	/**
+	 * Checks the associative arguments to make sure the column map is provided for CSV imports.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $assoc_args
+	 */
+	protected function ensure_column_map( array $assoc_args = array() ) {
+		if ( ! isset( $assoc_args['column_map'] ) ) {
+			WP_CLI::error( 'the --column_map argument is required when importing CSV files.' );
+		}
+		$split = preg_split( '/\\s*,\\s*/', $assoc_args['column_map'] );
+
+		if ( empty( $split ) ) {
+			WP_CLI::error( 'the --column_map argument should contain a comma-separated list of column names for CSV imports.' );
+		}
 	}
 }
