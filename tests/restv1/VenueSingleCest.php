@@ -78,16 +78,16 @@ class VenueSingleCest extends BaseRestCest {
 	}
 
 	/**
-	 * It should return 403 when trying to get venue that is not public
+	 * It should return 401 when trying to get venue that is not public
 	 *
 	 * @test
 	 */
-	public function it_should_return_403_when_trying_to_get_venue_that_is_not_public( Tester $I ) {
+	public function it_should_return_401_when_trying_to_get_venue_that_is_not_public( Tester $I ) {
 		$venue_id = $I->haveVenueInDatabase( [ 'post_status' => 'draft' ] );
 
 		$I->sendGET( $this->venues_url . "/{$venue_id}" );
 
-		$I->seeResponseCodeIs( 403 );
+		$I->seeResponseCodeIs( 401 );
 		$I->seeResponseIsJson();
 	}
 

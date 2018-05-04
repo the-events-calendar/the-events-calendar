@@ -567,6 +567,9 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 		// If an empty EventTimezone was passed, lets unset it so it can be unset during event meta save
 		if ( empty( $postarr['EventTimezone'] ) ) {
 			unset( $postarr['EventTimezone'] );
+		} else {
+			// If we are changing a timezone, we need to ensure clear EventTimezoneAbbr so it gets correctly set.
+			$postarr['EventTimezoneAbbr'] = '';
 		}
 
 		$venue = $this->venue_endpoint->insert( $request['venue'] );

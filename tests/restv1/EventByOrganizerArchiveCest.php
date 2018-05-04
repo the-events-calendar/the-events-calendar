@@ -28,17 +28,26 @@ class EventByOrganizerArchiveCest extends BaseRestCest {
 	}
 
 	/**
-	 * It should return 404 if trying to get events by organizer not assigned to any event
+	 * It should return 200 if trying to get events by organizer not assigned to any event
 	 *
 	 * @test
 	 */
-	public function it_should_return_404_if_trying_to_get_events_by_organizer_not_assigned_to_any_event( Tester $I ) {
+	public function it_should_return_200_if_trying_to_get_events_by_organizer_not_assigned_to_any_event( Tester $I ) {
 		$organizer = $I->haveOrganizerInDatabase();
 
 		$I->sendGET( $this->events_url, [ 'organizer' => $organizer ] );
 
-		$I->seeResponseCodeIs( 404 );
+		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse() );
+
+		$I->assertCount( 0, $response->events );
+		$I->assertEquals( 0, $response->total );
+		$I->assertEquals( 0, $response->total_pages );
+		$I->seeHttpHeader( 'X-TEC-Total', 0 );
+		$I->seeHttpHeader( 'X-TEC-TotalPages', 0 );
+		$I->assertArrayNotHasKey( 'previous_rest_url', (array) $response );
+		$I->assertArrayNotHasKey( 'next_rest_url', (array) $response );
 	}
 
 	/**
@@ -69,7 +78,7 @@ class EventByOrganizerArchiveCest extends BaseRestCest {
 
 		$I->sendGET( $this->events_url, [ 'organizer' => $organizer ] );
 
-		$I->seeResponseCodeIs( 404 );
+		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 	}
 

@@ -58,18 +58,18 @@ class OrganizerSingleSlugCest extends BaseRestCest {
 	}
 
 	/**
-	 * It should return 403 when trying to get organizer that is not public
+	 * It should return 401 when trying to get organizer that is not public
 	 *
 	 * @test
 	 */
-	public function it_should_return_403_when_trying_to_get_organizer_that_is_not_public( Tester $I ) {
+	public function it_should_return_401_when_trying_to_get_organizer_that_is_not_public( Tester $I ) {
 		$organizer_id = $I->haveOrganizerInDatabase( [ 'post_status' => 'draft' ] );
 
 		$post = get_post( $organizer_id );
 
 		$I->sendGET( $this->organizers_url . "/by-slug/{$post->post_name}" );
 
-		$I->seeResponseCodeIs( 403 );
+		$I->seeResponseCodeIs( 401 );
 		$I->seeResponseIsJson();
 	}
 

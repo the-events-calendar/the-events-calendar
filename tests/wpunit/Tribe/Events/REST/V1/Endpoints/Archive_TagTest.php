@@ -80,7 +80,8 @@ class Archive_TagTest extends \Codeception\TestCase\WPTestCase {
 
 		$got = $sut->get( $request );
 
-		$this->assertInstanceOf( \WP_Error::class, $got );
+		$this->assertInstanceOf( \WP_REST_Response::class, $got );
+		$this->assertEmpty( $got->data['tags'] );
 	}
 
 	/**

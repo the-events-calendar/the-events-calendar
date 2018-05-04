@@ -7,18 +7,18 @@ use Tribe__Timezones as Timezones;
 
 class VenueUpdateCest extends BaseRestCest {
 	/**
-	 * It should return 403 if user cannot update venues
+	 * It should return 401 if user cannot update venues
 	 *
 	 * @test
 	 */
-	public function it_should_return_403_if_user_cannot_update_venues(Tester $I) {
+	public function it_should_return_401_if_user_cannot_update_venues(Tester $I) {
 		$venue_id = $I->haveVenueInDatabase();
 
 		$I->sendPOST( $this->venues_url . "/{$venue_id}", [
 			'venue' => 'A venue',
 		] );
 
-		$I->seeResponseCodeIs( 403 );
+		$I->seeResponseCodeIs( 401 );
 		$I->seeResponseIsJson();
 	}
 

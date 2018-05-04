@@ -4,17 +4,26 @@ use Step\Restv1\RestGuy as Tester;
 
 class EventByFeaturedStateArchiveCest extends BaseRestCest {
 	/**
-	 * It should return 404 if no event is featured
+	 * It should return 200 if no event is featured
 	 *
 	 * @test
 	 */
-	public function it_should_return_404_if_no_event_is_featured( Tester $I ) {
+	public function it_should_return_200_if_no_event_is_featured( Tester $I ) {
 		$I->haveManyEventsInDatabase( 3 );
 
 		$I->sendGET( $this->events_url, [ 'featured' => true ] );
 
-		$I->seeResponseCodeIs( 404 );
+		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse() );
+
+		$I->assertCount( 0, $response->events );
+		$I->assertEquals( 0, $response->total );
+		$I->assertEquals( 0, $response->total_pages );
+		$I->seeHttpHeader( 'X-TEC-Total', 0 );
+		$I->seeHttpHeader( 'X-TEC-TotalPages', 0 );
+		$I->assertArrayNotHasKey( 'previous_rest_url', (array) $response );
+		$I->assertArrayNotHasKey( 'next_rest_url', (array) $response );
 	}
 
 	/**

@@ -541,6 +541,12 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 		$time = strtotime( $original );
 		$now = current_time( 'timestamp', true );
 
+		$retry_time = false;
+
+		if ( ! empty( $last_import_error ) ) {
+			$retry_time = $record->get_retry_time();
+		}
+
 		$html[] = '<span title="' . esc_attr( $original ) . '">';
 		if ( ( $now - $time ) <= DAY_IN_SECONDS ) {
 			$diff = human_time_diff( $time, $now );
@@ -552,8 +558,22 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 		} else {
 			$html[] = date( tribe_get_date_format( true ), $time ) . '<br>' . date( Tribe__Date_Utils::TIMEFORMAT, $time );
 		}
-
 		$html[] = '</span>';
+
+		if ( $retry_time ) {
+			$html[] = '<div title="' . esc_attr( $original ) . '-retry">';
+			if ( ( $retry_time - $now ) <= DAY_IN_SECONDS ) {
+				$diff   = human_time_diff( $retry_time, $now );
+				$html[] = sprintf( esc_html_x( 'retrying in about %s', 'in human readable time', 'the-events-calendar' ), $diff );
+			} else {
+				$html[] = sprintf(
+					esc_html_x( 'retrying at %s', 'when the retry will happen, a date', 'the-events-calendar' ),
+					date( tribe_get_date_format( true ), $retry_time )
+				);
+			}
+			$html[] = '</div>';
+		}
+
 		return $this->render( $html );
 	}
 

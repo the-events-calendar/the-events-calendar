@@ -108,11 +108,6 @@ h2.tribe-events-page-title,
 
 /* General Template Header/Footer Nav */
 
-#tribe-events-header .tribe-events-sub-nav li,
-#tribe-events-header .tribe-events-sub-nav .tribe-events-nav-next a {
-	display: none;
-}
-
 #tribe-events-header .tribe-events-sub-nav .tribe-events-nav-next {
 	display: block;
 }

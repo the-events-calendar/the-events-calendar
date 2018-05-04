@@ -18,15 +18,15 @@ class EventDeletionCest extends BaseRestCest {
 	}
 
 	/**
-	 * It should return 403 if user cannot delete events
+	 * It should return 401 if user cannot delete events
 	 * @test
 	 */
-	public function it_should_return_403_if_user_cannot_delete_events( Tester $I ) {
+	public function it_should_return_401_if_user_cannot_delete_events( Tester $I ) {
 		$id = $I->haveEventInDatabase();
 
 		$I->sendDELETE( $this->events_url . "/{$id}" );
 
-		$I->seeResponseCodeIs( 403 );
+		$I->seeResponseCodeIs( 401 );
 		$I->seeResponseIsJson();
 	}
 

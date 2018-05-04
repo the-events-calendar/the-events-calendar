@@ -187,7 +187,17 @@ class Tribe__Events__Linked_Posts {
 			return '_EventOrganizerID_Order';
 		}
 
-		return false;
+		/**
+		 * This allows for things like Extensions to hook in here and return their own key
+		 * See '_EventOrganizerID_Order' above for an example
+		 *
+		 * @since TBD
+		 *
+		 * @param bool false (not linked)
+		 * @param string $post_type current (potentially linked) post type
+		 * @return string
+		 */
+		return apply_filters( 'tribe_events_linked_post_type_meta_key', false, $post_type );
 	}
 
 	/**
@@ -395,7 +405,16 @@ class Tribe__Events__Linked_Posts {
 		$result = array();
 
 		if ( $linked_post_ids = get_post_meta( $post_id, $this->get_meta_key( $post_type ) ) ) {
-			$result = $this->get_linked_post_info( $post_type, array(), $linked_post_ids );
+			$args = array();
+			// Sort by drag-n-drop order
+			$linked_ids_order = get_post_meta( $post_id, $this->get_order_meta_key( $post_type ), true );
+			if ( ! empty( $linked_ids_order ) ) {
+				$linked_post_ids = $linked_ids_order;
+				$args['post__in'] = $linked_ids_order;
+				$args['orderby'] = 'post__in';
+			}
+
+			$result = $this->get_linked_post_info( $post_type, $args, $linked_post_ids );
 		}
 
 		/**

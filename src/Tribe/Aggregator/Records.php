@@ -147,7 +147,7 @@ class Tribe__Events__Aggregator__Records {
 
 		$args = array(
 			'description'        => esc_html__( 'Events Aggregator Record', 'the-events-calendar' ),
-			'public'             => true,
+			'public'             => false,
 			'publicly_queryable' => false,
 			'show_ui'            => false,
 			'show_in_menu'       => false,

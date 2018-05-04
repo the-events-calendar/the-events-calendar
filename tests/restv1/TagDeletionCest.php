@@ -50,17 +50,17 @@ class TagDeletionCest extends BaseRestCest {
 	}
 
 	/**
-	 * It should return 403 if user cannot delete event tag
+	 * It should return 401 if user cannot delete event tag
 	 *
 	 * @test
 	 */
-	public function should_return_403_if_user_cannot_delete_event_tag( Tester $I ) {
+	public function should_return_401_if_user_cannot_delete_event_tag( Tester $I ) {
 		list( $id ) = $I->haveTermInDatabase( 'foo', 'post_tag' );
 
 		$I->generate_nonce_for_role( 'subscriber' );
 		$I->sendDELETE( $this->tags_url . "/{$id}" );
 
-		$I->seeResponseCodeIs( 403 );
+		$I->seeResponseCodeIs( 401 );
 		$I->seeResponseIsJson();
 	}
 

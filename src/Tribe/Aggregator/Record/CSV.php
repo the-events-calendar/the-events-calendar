@@ -129,6 +129,11 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 		}
 
 		$importer = $this->prep_import_data( $data );
+
+		if ( tribe_is_error( $importer ) ) {
+			return $importer;
+		}
+
 		$queue    = new Tribe__Events__Aggregator__Record__Queue( $this->post->ID, $importer );
 
 		return $queue->process();
