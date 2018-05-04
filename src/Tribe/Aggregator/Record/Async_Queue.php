@@ -224,14 +224,14 @@ class Tribe__Events__Aggregator__Record__Async_Queue
 	 */
 	public function progress_percentage() {
 		$queue_status = $this->get_queue_process_status();
-		$total        = (int) Tribe__Utils__Array::get( $queue_status, 'total', 0 );
-		$done         = (int) Tribe__Utils__Array::get( $queue_status, 'done', 0 );
+		$total = (int) Tribe__Utils__Array::get( $queue_status, 'total', 0 );
+		$done = (int) $this->record->activity()->count( Tribe__Events__Main::POSTTYPE );
 
 		if ( 0 === $total ) {
 			return 100;
 		}
 
-		return 100 * (int) ( $done / $total );
+		return min( 100, max( 1, (int) ( 100 * ( $done / $total ) ) ) );
 	}
 
 	/**
