@@ -439,6 +439,7 @@ tribe_aggregator.fields = {
 
 		var origin = $( obj.selector.origin_field ).val();
 		var is_csv = 'csv' === origin;
+		var is_eventbrite = 'eventbrite' === origin;
 
 		var $import_type = $( '[id$="import_type"]:visible' );
 		var import_type = 'manual';
@@ -535,6 +536,13 @@ tribe_aggregator.fields = {
 			],
 			data: rows
 		};
+
+		// if eb then reverse the order of events
+		if ( is_eventbrite ) {
+			args.order = [
+				[ 1, 'desc' ]
+			];
+		}
 
 		if ( 'undefined' !== typeof data.columns ) {
 			args.columns = [
