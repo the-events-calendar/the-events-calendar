@@ -217,15 +217,15 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 = [4.6.15] TBD =
 
-* Feature - added wp-cli command to import events from a source with Events Aggregator, see `wp event-aggregator import-from --help` to know more [104426]
-* Feature - added wp-cli command to run scheduled imports with Events Aggregator, see `wp event-aggregator run-import --help` to know more [104426]
-* Fix - Remove organizers when an event has multiple organizers [103715]
-* Fix - Fixed the `[tribe_events]` month view pagination without the bar, and when using plain permalinks [95720]
-* Fix - Prevent `url_to_postid` to run if on the main events page to avoid query conflicts. [94328]
-* Fix - Navigation to the past on Recurring List [43925]
-* Fix - Make the `[tribe_events]` scroll to top when using the list view. [81509]
-* Fix - Respect default venue and address. [63915]
-* Tweak - Honor the return types for `tribe_has_next_event` y `tribe_has_previous_event` when the global query is null
+* Feature - Added wp-cli command to import events from a source with Event Aggregator. See `wp event-aggregator import-from --help` to know more [104426]
+* Feature - Added wp-cli command to run scheduled imports with Event Aggregator. See `wp event-aggregator run-import --help` to know more [104426]
+* Fix - Ensure that organizers can be deleted when an event has multiple organizers [103715]
+* Fix - Fixed a bug where the `[tribe_events]` Month View pagination would fail when no Tribe Bar was visible and plain permalinks were being used [95720]
+* Fix - Prevent `url_to_postid` from running when on the main events page to avoid query conflicts [94328]
+* Fix - Prevent 404s and malformed URLs that would sometimes arise when navigating to a past-events view from the "All"-events view on a single recurring event [43925]
+* Fix - Make the `[tribe_events]` shortcode's output scroll to top when using the List View to match the non-shortcode List View  [81509]
+* Fix - Ensure that default venue and address values are used throughout various venue-creation forms [63915]
+* Tweak - Honor the return types for `tribe_has_next_event` and `tribe_has_previous_event` when the global query is null
 
 = [4.6.14.1] 2018-04-18 =
 
