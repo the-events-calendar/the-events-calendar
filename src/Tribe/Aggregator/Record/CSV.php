@@ -133,7 +133,7 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 			return $importer;
 		}
 
-		$queue    = new Tribe__Events__Aggregator__Record__Queue_Processor::build_queue( $this->post->ID, $importer );
+		$queue    = Tribe__Events__Aggregator__Record__Queue_Processor::build_queue( $this->post->ID, $importer );
 
 		return $queue->process();
 	}
