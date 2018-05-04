@@ -43,7 +43,7 @@ class Tribe__Events__Integrations__WPML__Meta {
 
 		if ( '_EventOrganizerID' !== $meta_key &&
 			 '_EventOrganizerID_Order' !== $meta_key &&
-			 '_EventVenueID' !== $meta_key) {
+			 '_EventVenueID' !== $meta_key ) {
 			return $value;
 		}
 
