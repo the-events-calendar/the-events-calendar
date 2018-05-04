@@ -1224,6 +1224,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			return $queue;
 		}
 
+		// @todo -- remove this, was always re-queueing
 		if ( $this->has_queue() ) {
 			$queue = new Tribe__Events__Aggregator__Record__Queue( $this );
 			return $queue->process();
@@ -1235,9 +1236,35 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			return $items;
 		}
 
-		$queue = new Tribe__Events__Aggregator__Record__Queue( $this, $items );
+		$transitional_id = substr( md5( uniqid( '', true ) ), 0, 8 );
 
-		return $queue->process();
+		/** @var Tribe__Events__Aggregator__Record__Items $record_items */
+		$record_items = tribe( 'events-aggregator.record-items' );
+		$record_items->set_items( $items );
+		$items = $record_items->mark_dependencies()->get_items();
+
+		/** @var Tribe__Process__Queue $import_queue */
+		$import_queue = tribe( 'events-aggregator.processes.import-events' );
+
+		foreach ( $items as $item ) {
+			$item_data = array(
+				'user_id' => get_current_user_id(),
+				'record_id' => $this->id,
+				'data' => $item,
+				'transitional_id' => $transitional_id,
+			);
+			$import_queue->push_to_queue( $item_data );
+		}
+
+		$import_queue->save()->dispatch();
+		$queue_id = $import_queue->get_id();
+		$this->update_meta( 'queue_id', $queue_id );
+
+		 $queue = new Tribe__Events__Aggregator__Record__Queue( $this, $items );
+
+		// $queue = new Tribe__Events__Aggregator__Record__Queue( $this, 'fetch' );
+
+		return $queue->activity();
 	}
 
 	/**
@@ -1941,6 +1968,17 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 					'meta_value' => $event[ $unique_field['target'] ],
 				);
 			}
+
+			/**
+			 * Fires after a single event has been created/updated, and  with it its linked
+			 * posts, with import data.
+			 *
+			 * @since TBD
+			 *
+			 * @param array $event The final event data.
+			 * @param self $this
+			 */
+			do_action( 'tribe_aggregator_after_insert_post', $event, $this );
 		}
 
 		remove_filter( 'tribe-post-origin', array( Tribe__Events__Aggregator__Records::instance(), 'filter_post_origin' ), 10 );

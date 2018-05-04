@@ -21,7 +21,8 @@ class Import_Record {
 	 *
 	 * @return array|object
 	 */
-	public function create_and_get_event_record( $origin = 'ical', array $overrides = [], bool $with_image = false ) {
+	public function
+	create_and_get_event_record( $origin = 'ical', array $overrides = [], bool $with_image = false ) {
 		$uniqid = uniqid( 'record-', true );
 
 		$event_unique_id_key = $this->get_event_unique_id_field( $origin );

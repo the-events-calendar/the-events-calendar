@@ -219,8 +219,11 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		$record->update_meta( 'interactive', true );
 
 		if ( 'csv' === $data['origin'] ) {
+		    // @todo here replace the queue for CSV imports
+            // here generate a global_id for the data
 			$result = $record->process_posts( $data );
 		} else {
+			// @todo here replace the queue for imports
 			$result = $record->process_posts();
 		}
 
