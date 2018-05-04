@@ -35,7 +35,7 @@ class Tribe__Events__Aggregator__Record__Items {
 	 *
 	 * @return array
 	 */
-	public function get_items(): array {
+	public function get_items() {
 		return $this->items;
 	}
 
@@ -123,3 +123,4 @@ class Tribe__Events__Aggregator__Record__Items {
 		return $this->original_items;
 	}
 }
+
