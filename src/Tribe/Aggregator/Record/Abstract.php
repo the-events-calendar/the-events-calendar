@@ -1248,9 +1248,9 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		foreach ( $items as $item ) {
 			$item_data = array(
-				'user_id' => get_current_user_id(),
-				'record_id' => $this->id,
-				'data' => $item,
+				'user_id'         => get_current_user_id(),
+				'record_id'       => $this->id,
+				'data'            => $item,
 				'transitional_id' => $transitional_id,
 			);
 			$import_queue->push_to_queue( $item_data );
@@ -1260,7 +1260,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$queue_id = $import_queue->get_id();
 		$this->update_meta( 'queue_id', $queue_id );
 
-		 $queue = new Tribe__Events__Aggregator__Record__Queue( $this, $items );
+		$queue = new Tribe__Events__Aggregator__Record__Queue( $this, $items );
 
 		// $queue = new Tribe__Events__Aggregator__Record__Queue( $this, 'fetch' );
 
@@ -1651,6 +1651,15 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				}
 
 				foreach ( $event['Organizer'] as $key => $organizer_data ) {
+					// if provided a valid Organizer ID right away use it
+					if ( ! empty( $organizer_data['OrganizerID'] ) ) {
+						if ( tribe_is_organizer( $organizer_data['OrganizerID'] ) ) {
+							$event_organizers[] = (int) $organizer_data['OrganizerID'];
+							continue;
+						}
+						unset( $organizer_data['OrganizerID'] );
+					}
+
 					//if we should create an organizer or use existing
 					if ( ! empty( $organizer_data['Organizer'] ) ) {
 						$organizer_data['Organizer'] = trim( $organizer_data['Organizer'] );

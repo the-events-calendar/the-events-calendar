@@ -7,6 +7,11 @@ class Tribe__Events__Aggregator__Processes__Import_Events extends Tribe__Process
 	protected $transitional_id;
 
 	/**
+	 * @var bool Whether the current item has dependencies or not.
+	 */
+	protected $has_dependencies = true;
+
+	/**
 	 * Returns the async process action name.
 	 *
 	 * @since TBD
@@ -17,7 +22,7 @@ class Tribe__Events__Aggregator__Processes__Import_Events extends Tribe__Process
 		return 'ea_import_events';
 	}
 
-	public function add_transitional_data( array $event, $event_id ) {
+	public function add_transitional_data( array $event ) {
 		$venue_id      = Tribe__Utils__Array::get( $event, 'EventVenueID', false );
 		$organizer_ids = Tribe__Utils__Array::get( $event, array( 'Organizer', 'OrganizerID' ), false );
 
@@ -32,12 +37,19 @@ class Tribe__Events__Aggregator__Processes__Import_Events extends Tribe__Process
 		}
 	}
 
-	public function get_transitional_meta_key($transitional_id = null) {
+	public function get_transitional_meta_key( $transitional_id = null ) {
 		if ( null === $transitional_id ) {
 			$transitional_id = $this->transitional_id;
 		}
 
 		return '_tribe_import_' . $transitional_id;
+	}
+
+	/**
+	 * @param string $transitional_id
+	 */
+	public function set_transitional_id( $transitional_id ) {
+		$this->transitional_id = $transitional_id;
 	}
 
 	/**
@@ -62,6 +74,7 @@ class Tribe__Events__Aggregator__Processes__Import_Events extends Tribe__Process
 		$dependencies = $this->parse_linked_post_dependencies( $data );
 
 		if ( empty( $dependencies ) ) {
+			$this->has_dependencies = false;
 			$result = $this->insert_event( $record_id, (object) $data );
 
 			return $this->doing_sync ? $result : false;
@@ -110,11 +123,10 @@ class Tribe__Events__Aggregator__Processes__Import_Events extends Tribe__Process
 	 * @return Tribe__Events__Aggregator__Record__Activity
 	 */
 	protected function insert_event( $record_id, $data ) {
-		$record      = $this->get_record( $record_id );
-		$independent = empty( $data->depends_on );
+		$record = $this->get_record( $record_id );
 
-		if ( $independent ) {
-			add_action( 'tribe_aggregator_after_insert_post', array( $this, 'add_transitional_data' ), 10, 2 );
+		if ( ! $this->has_dependencies ) {
+			add_action( 'tribe_aggregator_after_insert_post', array( $this, 'add_transitional_data' ) );
 		}
 
 		return $record->insert_posts( array( $data ) );
@@ -206,8 +218,10 @@ class Tribe__Events__Aggregator__Processes__Import_Events extends Tribe__Process
 		global $wpdb;
 
 		$wpdb->query(
-			$wpdb->prepare( "DELETE FROM {$wpdb->postmeta} WHERE meta_key = %s" ),
-			$this->get_transitional_meta_key()
+			$wpdb->prepare(
+				"DELETE FROM {$wpdb->postmeta} WHERE meta_key = %s",
+				$this->get_transitional_meta_key()
+			)
 		);
 	}
 }

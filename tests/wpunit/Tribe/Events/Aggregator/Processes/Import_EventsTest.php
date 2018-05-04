@@ -186,11 +186,35 @@ class Import_EventsTest extends Aggregator_TestCase {
 		$this->assertEmpty( get_post_meta( $event_id, $transitional_meta_key ) );
 		$this->assertEquals( $venue_id, get_post_meta( $event_id, '_EventVenueID', true ) );
 		$this->assertEqualSets( [ $organizer_1_id, $organizer_2_id ], get_post_meta( $event_id, '_EventOrganizerID' ) );
-//		$organizer_ids = get_post_meta( $event_id, '_EventOrganizerID' );
-//		$i = 0;
-//		foreach ( $organizer_ids as $organizer_id ) {
-//			$this->assertEquals( $item->organizer[ $i ]->global_id, get_post_meta( $organizer_id, $sut->get_transitional_meta_key(), true ) );
-//			$i ++;
-//		}
+	}
+
+	/**
+	 * It should remove the transitional meta from all posts when complete
+	 *
+	 * @test
+	 */
+	public function should_remove_the_transitional_meta_from_all_posts_when_complete() {
+		$sut = $this->make_instance();
+		$sut->set_transitional_id( 'foo-bar' );
+		$transitional_meta_key = $sut->get_transitional_meta_key( 'foo-bar' );
+		$venue_id              = $this->factory()->venue->create( [ 'meta_input' => [ $transitional_meta_key => 'venue-global-id' ] ] );
+		$organizer_1_id        = $this->factory()->organizer->create( [ 'meta_input' => [ $transitional_meta_key => 'org-1-global-id' ] ] );
+		$organizer_2_id        = $this->factory()->organizer->create( [ 'meta_input' => [ $transitional_meta_key => 'org-2-global-id' ] ] );
+		$ids                   = [ $venue_id, $organizer_1_id, $organizer_2_id ];
+		foreach ( $ids as $id ) {
+			$this->assertNotEmpty( get_post_meta( $id, $transitional_meta_key ) );
+		}
+
+		// we are not *really* supposed to trigger it directly...
+		$reflection = new \ReflectionClass( Import_Events::class );
+		$complete = $reflection->getMethod( 'complete' );
+		$complete->setAccessible( true );
+		$complete->invoke( $sut );
+
+		foreach ( $ids as $id ) {
+			wp_cache_delete( $id, 'post_meta' );
+			$meta = get_post_meta( $id, $transitional_meta_key );
+			$this->assertEmpty( $meta );
+		}
 	}
 }
