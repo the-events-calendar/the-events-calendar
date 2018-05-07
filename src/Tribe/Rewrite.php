@@ -42,7 +42,7 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 	 *
 	 * @param WP_Rewrite|null $wp_rewrite
 	 */
-	public function __construct(WP_Rewrite $wp_rewrite = null) {
+	public function __construct( WP_Rewrite $wp_rewrite = null ) {
 		$this->rewrite = $wp_rewrite;
 	}
 
