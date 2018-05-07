@@ -412,7 +412,20 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 	 */
 	public function filter_url_to_postid( $url ) {
 
-		if ( $url === Tribe__Events__Main::instance()->getLink() ) {
+		// check if the site is using pretty permalinks
+		if ( '' !== get_option( 'permalink_structure' ) ) {
+			$url_query = @parse_url( $url, PHP_URL_QUERY );
+
+			// Remove the "args" in case we receive any
+			if ( ! empty( $url_query ) ) {
+				$url = str_replace( '?' . $url_query, '', $url );
+			}
+		}
+
+		if (
+			$url === Tribe__Events__Main::instance()->getLink()
+			|| $url === Tribe__Events__Main::instance()->getLink( 'month' )
+		) {
 			return 0;
 		}
 
