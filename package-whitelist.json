@@ -7,7 +7,7 @@
   "common/src/**/*",
   "common/lang/**/*",
   "common/vendor/clipboard/*.js",
-  "common/vendor/datatables//datatables*.js",
+  "common/vendor/datatables/datatables*.js",
   "common/vendor/datatables/datatables*.css",
   "common/vendor/datatables/DataTables/images/*.png",
   "common/vendor/jquery/*.css",
