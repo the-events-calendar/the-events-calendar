@@ -423,7 +423,7 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 				$url = str_replace( '?' . $url_query, '', $url );
 			} else {
 				// Check if they're viewing the events page with pretty params
-				if ( substr( $url, 0, strlen( $events_url ) ) === $events_url ) {
+				if ( 0 === stripos( $url, $events_url ) ) {
 					$url = $events_url;
 				}
 			}
