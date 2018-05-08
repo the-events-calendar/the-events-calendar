@@ -403,7 +403,7 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 	 * Prevent url_to_postid to run if on the main events page to avoid
 	 * query conflicts.
 	 *
-	 * @since TBD
+	 * @since 4.6.15
 	 *
 	 * @param string $url The URL from `url_to_postid()`
 	 * @see [94328]

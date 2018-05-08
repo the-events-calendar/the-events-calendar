@@ -95,7 +95,7 @@ class Tribe__Events__Aggregator__REST__V1__Endpoints__State
 		/**
 		 * Whether remotely setting a status for records is allowed or not.
 		 *
-		 * @since TBD
+		 * @since 4.6.15
 		 *
 		 * @param bool $can_create
 		 */

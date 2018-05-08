@@ -5,7 +5,7 @@
  *
  * Provides the Event Aggregator batch process support functionality.
  *
- * @since TBD
+ * @since 4.6.15
  */
 class Tribe__Events__Aggregator__REST__V1__Service_Provider extends tad_DI52_ServiceProvider {
 
@@ -17,7 +17,7 @@ class Tribe__Events__Aggregator__REST__V1__Service_Provider extends tad_DI52_Ser
 	/**
 	 * Registers the classes and functionality needed to support batch imports.
 	 *
-	 * @since TBD
+	 * @since 4.6.15
 	 */
 	public function register() {
 		tribe_singleton( 'events-aggregator.rest-api.v1.endpoints.batch', 'Tribe__Events__Aggregator__REST__V1__Endpoints__Batch' );
@@ -29,7 +29,7 @@ class Tribe__Events__Aggregator__REST__V1__Service_Provider extends tad_DI52_Ser
 	/**
 	 * Registers the REST API endpoints needed to support batch imports.
 	 *
-	 * @since TBD
+	 * @since 4.6.15
 	 */
 	public function register_endpoints() {
 		/** @var Tribe__REST__Endpoints__CREATE_Endpoint_Interface $batch_endpoint */

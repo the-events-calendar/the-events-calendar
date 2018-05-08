@@ -74,7 +74,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Allows filtering of the tribe_is_month boolean value.
 		 *
-		 * @since TBD Added inline documentation for this filter.
+		 * @since 4.6.15 Added inline documentation for this filter.
 		 *
 		 * @param boolean $is_month Whether you're on the main Month View or not
 		 * @param Tribe__Events__Main $tribe_ecp The current Tribe__Events__Main instance.

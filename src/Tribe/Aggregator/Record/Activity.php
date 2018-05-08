@@ -314,7 +314,7 @@ class Tribe__Events__Aggregator__Record__Activity {
 	/**
 	 * Returns the raw items from the activity.
 	 *
-	 * @since TBD
+	 * @since 4.6.15
 	 *
 	 * @return array
 	 */
@@ -329,7 +329,7 @@ class Tribe__Events__Aggregator__Record__Activity {
 	 * but allowing arbitrary stati by design. It's up to the client to set
 	 * and consume this information.
 	 *
-	 * @since TBD
+	 * @since 4.6.15
 	 *
 	 * @param string $status
 	 */
@@ -344,7 +344,7 @@ class Tribe__Events__Aggregator__Record__Activity {
 	 * but allowing arbitrary stati by design. It's up to the client to set
 	 * and consume this information.
 	 *
-	 * @since TBD
+	 * @since 4.6.15
 	 *
 	 * @return string
 	 */
