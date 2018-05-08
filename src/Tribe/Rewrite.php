@@ -412,6 +412,8 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 	 */
 	public function filter_url_to_postid( $url ) {
 
+		$events_url = Tribe__Events__Main::instance()->getLink();
+
 		// check if the site is using pretty permalinks
 		if ( '' !== get_option( 'permalink_structure' ) ) {
 			$url_query = @parse_url( $url, PHP_URL_QUERY );
@@ -419,11 +421,16 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 			// Remove the "args" in case we receive any
 			if ( ! empty( $url_query ) ) {
 				$url = str_replace( '?' . $url_query, '', $url );
+			} else {
+				// Check if they're viewing the events page with pretty params
+				if ( 0 === stripos( $url, $events_url ) ) {
+					$url = $events_url;
+				}
 			}
 		}
 
 		if (
-			$url === Tribe__Events__Main::instance()->getLink()
+			$url === $events_url
 			|| $url === Tribe__Events__Main::instance()->getLink( 'month' )
 		) {
 			return 0;
