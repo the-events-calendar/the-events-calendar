@@ -226,6 +226,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - Make the `[tribe_events]` shortcode's output scroll to top when using the List View to match the non-shortcode List View  [81509]
 * Fix - Ensure that default venue and address values are used throughout various venue-creation forms [63915]
 * Tweak - Honor the return types for `tribe_has_next_event` and `tribe_has_previous_event` when the global query is null
+* Language - 28 new strings added, 290 updated, 29 fuzzied, and 7 obsoleted
 
 = [4.6.14.1] 2018-04-18 =
 
