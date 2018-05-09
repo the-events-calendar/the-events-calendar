@@ -67,9 +67,9 @@ class Tribe__Events__Aggregator__Record__Eventbrite extends Tribe__Events__Aggre
 		);
 
 		if ( $key2 ) {
-			$defaults['licenses'] = [
+			$defaults['licenses'] = array(
 				'tribe-eventbrite' => $key2,
-			];
+			);
 		}
 
 		$args = wp_parse_args( $args, $defaults );
