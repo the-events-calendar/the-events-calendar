@@ -1205,10 +1205,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * Queues events, venues, and organizers for insertion
 	 *
 	 * @param array $data Import data
+	 * @param bool $start_immediately Whether the data processing should start immediately or not.
 	 *
 	 * @return array|WP_Error|Tribe__Events__Aggregator__Record__Queue
 	 */
-	public function process_posts( $data = array() ) {
+	public function process_posts( $data = array(), $start_immediately = false ) {
 		if ( 'manual' === $this->type ) {
 			/** @var Tribe__Events__Aggregator__Service $service */
 			$service = tribe( 'events-aggregator.service' );
@@ -1229,8 +1230,12 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		if ( is_wp_error( $items ) ) {
 			return $items;
 		}
-//		define( 'TRIBE_EA_QUEUE_USE_LEGACY', true );
+
 		$queue = Tribe__Events__Aggregator__Record__Queue_Processor::build_queue( $this, $items );
+
+		if ( $start_immediately ) {
+			$queue->process();
+		}
 
 		return $queue->activity();
 	}
