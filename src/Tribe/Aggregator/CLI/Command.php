@@ -339,6 +339,8 @@ class Tribe__Events__Aggregator__CLI__Command {
 
 		WP_CLI::success( 'Import done!' );
 
+		$record->update_meta( 'activity', $activity );
+		$record->delete_meta( 'queue' );
 		$record->set_status_as_success();
 
 		return $action;
