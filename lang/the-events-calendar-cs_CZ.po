@@ -11,6 +11,35 @@ msgstr ""
 "Language: cs_CZ\n"
 "Project-Id-Version: Plugins - The Events Calendar - Stable (latest release)\n"
 
+#: src/Tribe/REST/V1/Endpoints/Archive_Category.php:39
+#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:369
+#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:67
+#: src/Tribe/REST/V1/Endpoints/Archive_Venue.php:64
+msgid "The requested page was not found."
+msgstr ""
+
+#: src/Tribe/Aggregator/Settings.php:348
+msgid "one month"
+msgstr ""
+
+#: src/Tribe/Aggregator/Settings.php:336
+msgid "one week"
+msgstr ""
+
+#: src/Tribe/Aggregator/Record/List_Table.php:570
+msgctxt "when the retry will happen, a date"
+msgid "retrying at %s"
+msgstr ""
+
+#: src/Tribe/Aggregator/Record/List_Table.php:567
+msgctxt "in human readable time"
+msgid "retrying in about %s"
+msgstr ""
+
+#: common/vendor/a5hleyrich/wp-background-processing/classes/wp-background-process.php:425
+msgid "Every %d Minutes"
+msgstr ""
+
 #: src/admin-views/tribe-options-general.php:183
 msgid "This option allows you to bulk delete past events. Be careful and backup your database before removing your events as there is no way to reverse the changes."
 msgstr "Toto nastavení vám umožní dávkové smazání uplynulých akcí. Buďte opatrní a zálohujte si svou databázi před smazáním akcí, tento krok je nevratný."
@@ -77,7 +106,8 @@ msgstr ""
 msgid "Download our Events Gutenberg extension and start using the block editor on your events!"
 msgstr ""
 
-#: src/Tribe/Customizer/Front_Page_View.php:61
+#: src/Tribe/Front_Page_View.php:238
+#: src/deprecated/Tribe__Events__Customizer__Front_Page_View.php:55
 msgctxt "Customizer static front page setting"
 msgid "Main %s Page"
 msgstr "Hlavní %s stránka"
@@ -115,7 +145,7 @@ msgstr ""
 msgid "The event with the specified ID is not accessible."
 msgstr ""
 
-#: src/Tribe/Main.php:1803
+#: src/Tribe/Main.php:1802
 msgid "%1$s published. %2$sView %3$s"
 msgstr ""
 
@@ -160,6 +190,7 @@ msgid "When importing from an event source, this is how far into the future the 
 msgstr ""
 
 #: src/admin-views/aggregator/settings.php:159
+#: src/admin-views/aggregator/settings.php:442
 msgid "Import Date Range Limit"
 msgstr ""
 
@@ -682,29 +713,29 @@ msgstr ""
 msgid "Returns all the event tags matching the search criteria"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:231
+#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:233
 #: src/Tribe/REST/V1/Endpoints/Archive_Venue.php:230
 #: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:256
 msgid "The organizer post status"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:222
+#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:224
 msgid "Organizers should have upcoming events associated to them"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:217
+#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:219
 msgid "Organizers should have events associated to them"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:212
+#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:214
 msgid "Organizers should be related to this event"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:206
+#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:208
 msgid "Organizers should contain the specified string in the title, description or custom fields"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:200
+#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:202
 msgid "The number of organizers to return on each page"
 msgstr ""
 
@@ -794,10 +825,6 @@ msgstr ""
 msgid "The number of event categories to return on each page"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Category.php:39
-msgid "No event categories match the query or the requested page was not found."
-msgstr ""
-
 #: src/Tribe/REST/V1/Endpoints/Archive_Category.php:28
 msgid "Returns all the event categories matching the search criteria"
 msgstr ""
@@ -835,48 +862,48 @@ msgstr ""
 msgid "The event status"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1097
+#: src/Tribe/Linked_Posts.php:1116
 msgctxt "The \"Create or Find {post type name}\" label for custom linked post types that are *not* Venues or Organizers"
 msgid "Create or Find %s"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1088
+#: src/Tribe/Linked_Posts.php:1107
 msgctxt "The \"Find a {post type name}\" label for custom linked post types that are *not* Venues or Organizers"
 msgid "Find %1$s %2$s"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1079
+#: src/Tribe/Linked_Posts.php:1098
 msgid "Find a Venue"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1078
+#: src/Tribe/Linked_Posts.php:1097
 msgid "Create or Find a Venue"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1071
+#: src/Tribe/Linked_Posts.php:1090
 msgctxt "\"Create or Find Venue\", but when the word \"Venue\" is customized to something else."
 msgid "Create or Find %s"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1062
+#: src/Tribe/Linked_Posts.php:1081
 msgctxt "\"Find a Venue\", but when the word \"Venue\" is customized to something else."
 msgid "Find %1$s %2$s"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1051
+#: src/Tribe/Linked_Posts.php:1070
 msgid "Find an Organizer"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1050
+#: src/Tribe/Linked_Posts.php:1069
 msgid "Create or Find an Organizer"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1043
+#: src/Tribe/Linked_Posts.php:1062
 msgctxt "\"Create or Find Organizer\", but when the word \"Organizer\" is customized to something else."
 msgid "Create or Find %s"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1034
+#: src/Tribe/Linked_Posts.php:1053
 msgctxt "\"Find an Organizer\", but when the word \"Organizer\" is customized to something else."
 msgid "Find %1$s %2$s"
 msgstr ""
@@ -968,23 +995,24 @@ msgid "A list of links to the term own, archive and parent REST URL"
 msgstr ""
 
 #: src/admin-views/create-organizer-fields.php:19
+#: src/admin-views/organizer-meta-box.php:45
 msgid "The e-mail address will be obfuscated on this site to avoid it getting harvested by spammers."
 msgstr ""
 
-#: src/Tribe/Main.php:987
+#: src/Tribe/Main.php:986
 msgid "edit Events settings."
 msgstr ""
 
-#: src/Tribe/Main.php:978
+#: src/Tribe/Main.php:977
 msgid "Edit the %s slug"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1020
+#: src/Tribe/Linked_Posts.php:1039
 msgctxt "Indefinite article for the phrase \"Find a {post type name}\" when the {post type name} starts with a vowel, e.g. \"Find an Organizer\"."
 msgid "an"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1013
+#: src/Tribe/Linked_Posts.php:1032
 msgctxt "Indefinite article for the phrase \"Find a {post type name}. Will be replaced with \"an\" if the {post type name} starts with a vowel."
 msgid "a"
 msgstr ""
@@ -994,15 +1022,15 @@ msgstr ""
 msgid "Hide and Ignore &#8220;%s&#8221;"
 msgstr ""
 
-#: common/src/Tribe/Main.php:268
+#: common/src/Tribe/Main.php:265
 msgid "Clear Selection."
 msgstr "Zrušit výběr."
 
-#: common/src/Tribe/Main.php:267
+#: common/src/Tribe/Main.php:264
 msgid "Select all pages"
 msgstr ""
 
-#: common/src/Tribe/Main.php:266
+#: common/src/Tribe/Main.php:263
 msgid "All items on this page were selected. "
 msgstr ""
 
@@ -1074,7 +1102,7 @@ msgstr ""
 msgid "The event WordPress post ID"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/Abstract.php:343
+#: src/Tribe/Aggregator/Record/Abstract.php:350
 msgid "Something went wrong while inserting the record in the database."
 msgstr ""
 
@@ -1139,10 +1167,6 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Messages.php:15
 msgid "The event does not have a venue assigned"
-msgstr ""
-
-#: src/admin-views/aggregator/settings.php:442
-msgid "Import Date Range"
 msgstr ""
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:118
@@ -1216,7 +1240,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/origins/limit.php:19
 #: src/admin-views/aggregator/origins/url.php:89
-msgid "Event Aggregator will try to fetch events starting in %s from the current date or the specified date;"
+msgid "Event Aggregator will try to fetch events starting within the next %s from the current date or the specified date;"
 msgstr ""
 
 #: src/admin-views/aggregator/origins/url.php:83
@@ -1494,7 +1518,7 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Endpoints/Archive_Category.php:93
 #: src/Tribe/REST/V1/Endpoints/Archive_Event.php:388
-#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:192
+#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:194
 #: src/Tribe/REST/V1/Endpoints/Archive_Tag.php:110
 #: src/Tribe/REST/V1/Endpoints/Archive_Venue.php:191
 msgid "The archive page to return"
@@ -1651,12 +1675,6 @@ msgstr ""
 msgid "Try to adjust your import settings and try again."
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:369
-#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:67
-#: src/Tribe/REST/V1/Endpoints/Archive_Venue.php:64
-msgid "No events match the query or the requested page was not found."
-msgstr ""
-
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:124
 msgid "The event post ID is missing."
 msgstr ""
@@ -1706,10 +1724,6 @@ msgstr ""
 msgid "The requested source does not have any upcoming and published events matching the search criteria."
 msgstr ""
 
-#: src/Tribe/Aggregator/Settings.php:336
-msgid "a week"
-msgstr ""
-
 #: src/Tribe/Aggregator/Settings.php:339
 msgid "Two weeks"
 msgstr ""
@@ -1724,10 +1738,6 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Settings.php:347
 msgid "One month"
-msgstr ""
-
-#: src/Tribe/Aggregator/Settings.php:348
-msgid "a month"
 msgstr ""
 
 #: src/Tribe/Aggregator/Settings.php:351
@@ -1812,7 +1822,7 @@ msgstr "%1$s na měsíc %2$s"
 msgid "Change the default 3 events per day in month view. To impose no limit, you may specify -1. Please note there may be performance issues if you allow too many events per day. <a href=\"%s\">Read more</a>."
 msgstr ""
 
-#: src/Tribe/Main.php:755
+#: src/Tribe/Main.php:754
 msgctxt "all events slug"
 msgid "all"
 msgstr "vše"
@@ -1929,7 +1939,7 @@ msgstr ""
 msgid "The cost currency symbol"
 msgstr ""
 
-#: src/Tribe/Main.php:4434
+#: src/Tribe/Main.php:4433
 msgid "Keyword"
 msgstr "Klíčové slovo"
 
@@ -2003,12 +2013,12 @@ msgstr ""
 msgid "Export Events"
 msgstr "Export akcí"
 
-#: src/Tribe/Main.php:754
+#: src/Tribe/Main.php:753
 msgctxt "featured events slug"
 msgid "featured"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:976
+#: src/Tribe/Linked_Posts.php:995
 msgid "Create: <b><%= term %></b>"
 msgstr ""
 
@@ -2329,7 +2339,7 @@ msgstr "Pondělí"
 msgid "Sunday"
 msgstr "Neděle"
 
-#: src/Tribe/Admin/Front_Page_View.php:19
+#: src/deprecated/Tribe__Events__Admin__Front_Page_View.php:20
 msgctxt "Static front page setting"
 msgid "Main %s Page"
 msgstr ""
@@ -2408,7 +2418,7 @@ msgstr ""
 msgid "Unknown"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/Abstract.php:1139
+#: src/Tribe/Aggregator/Record/Abstract.php:1143
 msgid "When this import was last scheduled to run, the daily limit for your Event Aggregator license had already been reached."
 msgstr ""
 
@@ -2483,10 +2493,6 @@ msgstr ""
 
 #: src/admin-views/tribe-options-addons-api.php:46
 msgid "Facebook Token"
-msgstr ""
-
-#: src/admin-views/organizer-meta-box.php:45
-msgid "The e-mail address will be obfuscated on your site to avoid it getting harvested by spammers."
 msgstr ""
 
 #: src/admin-views/aggregator/tabs/import-form.php:267
@@ -3146,7 +3152,7 @@ msgctxt "Abbreviation for the miles unit of measure"
 msgid "mi"
 msgstr ""
 
-#: src/Tribe/Main.php:973
+#: src/Tribe/Main.php:972
 msgid "The %3$s \"%1$s\" uses the \"/%2$s\" slug: the Events Calendar plugin will show its calendar in place of the page."
 msgstr ""
 
@@ -3803,46 +3809,46 @@ msgstr ""
 msgid "Could not process queue for Import Record %1$d: %2$s"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:637
+#: src/Tribe/Aggregator/Record/List_Table.php:657
 msgid "Select %s"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:602
-#: src/Tribe/Aggregator/Record/List_Table.php:611
-#: src/Tribe/Aggregator/Record/List_Table.php:619
+#: src/Tribe/Aggregator/Record/List_Table.php:622
+#: src/Tribe/Aggregator/Record/List_Table.php:631
+#: src/Tribe/Aggregator/Record/List_Table.php:639
 msgid "updated"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:600
-#: src/Tribe/Aggregator/Record/List_Table.php:608
-#: src/Tribe/Aggregator/Record/List_Table.php:616
+#: src/Tribe/Aggregator/Record/List_Table.php:620
+#: src/Tribe/Aggregator/Record/List_Table.php:628
+#: src/Tribe/Aggregator/Record/List_Table.php:636
 msgid "new"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:597
+#: src/Tribe/Aggregator/Record/List_Table.php:617
 msgid "Latest Import:"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:595
+#: src/Tribe/Aggregator/Record/List_Table.php:615
 msgid "all time"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:569
+#: src/Tribe/Aggregator/Record/List_Table.php:589
 msgid "One Time"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:566
+#: src/Tribe/Aggregator/Record/List_Table.php:586
 msgid "Invalid Frequency"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:550 src/Tribe/Aggregator.php:405
+#: src/Tribe/Aggregator/Record/List_Table.php:556 src/Tribe/Aggregator.php:405
 #: src/Tribe/Ignored_Events.php:357
 #: src/admin-views/tribe-options-addons-api.php:36
 msgctxt "in human readable time"
 msgid "in about %s"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:548 src/Tribe/Aggregator.php:403
+#: src/Tribe/Aggregator/Record/List_Table.php:554 src/Tribe/Aggregator.php:403
 #: src/Tribe/Ignored_Events.php:355
 #: src/admin-views/tribe-options-addons-api.php:34
 msgctxt "human readable time ago"
@@ -3961,11 +3967,11 @@ msgstr ""
 msgid "Eventbrite"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/Abstract.php:1074
+#: src/Tribe/Aggregator/Record/Abstract.php:1086
 msgid "Deleted Attachment: %d"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/Abstract.php:477
+#: src/Tribe/Aggregator/Record/Abstract.php:484
 msgid "Record: "
 msgstr ""
 
@@ -4361,7 +4367,7 @@ msgid "There is an update for %s. You'll need to %scheck your license%s to have 
 msgstr ""
 
 #: common/src/Tribe/PUE/Checker.php:961 common/src/Tribe/PUE/Notices.php:285
-#: src/Tribe/Aggregator/Record/Abstract.php:1089
+#: src/Tribe/Aggregator/Record/Abstract.php:1101
 msgid " (opens in a new window)"
 msgstr ""
 
@@ -4369,67 +4375,67 @@ msgstr ""
 msgid "Renew Your License Now"
 msgstr ""
 
-#: common/src/Tribe/Main.php:278
+#: common/src/Tribe/Main.php:275
 msgid ": Selected 1 row"
 msgstr ""
 
-#: common/src/Tribe/Main.php:277
+#: common/src/Tribe/Main.php:274
 msgid ": Selected %d rows"
 msgstr ""
 
-#: common/src/Tribe/Main.php:272
+#: common/src/Tribe/Main.php:269
 msgid "Previous"
 msgstr ""
 
-#: common/src/Tribe/Main.php:270
+#: common/src/Tribe/Main.php:267
 msgid "All"
 msgstr "Všechny"
 
-#: common/src/Tribe/Main.php:265
+#: common/src/Tribe/Main.php:262
 msgid "Search:"
 msgstr ""
 
-#: common/src/Tribe/Main.php:264
+#: common/src/Tribe/Main.php:261
 msgid "No matching records found"
 msgstr ""
 
-#: common/src/Tribe/Main.php:263
+#: common/src/Tribe/Main.php:260
 msgid "(filtered from _MAX_ total entries)"
 msgstr ""
 
-#: common/src/Tribe/Main.php:262
+#: common/src/Tribe/Main.php:259
 msgid "Showing 0 to 0 of 0 entries"
 msgstr ""
 
-#: common/src/Tribe/Main.php:261
+#: common/src/Tribe/Main.php:258
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr ""
 
-#: common/src/Tribe/Main.php:260
+#: common/src/Tribe/Main.php:257
 msgid "No data available in table"
 msgstr ""
 
-#: common/src/Tribe/Main.php:259
+#: common/src/Tribe/Main.php:256
 msgid "Show _MENU_ entries"
 msgstr ""
 
-#: common/src/Tribe/Main.php:257
+#: common/src/Tribe/Main.php:254
 msgid ": activate to sort column descending"
 msgstr ""
 
-#: common/src/Tribe/Main.php:256
+#: common/src/Tribe/Main.php:253
 msgid ": activate to sort column ascending"
 msgstr ""
 
-#: common/src/Tribe/Main.php:237
+#: common/src/Tribe/Main.php:234
 msgid "Press \"Cmd + C\" to copy"
 msgstr ""
 
-#: common/src/Tribe/Main.php:236
+#: common/src/Tribe/Main.php:233
 msgid "System info copied"
 msgstr ""
 
-#: common/src/Tribe/Main.php:235
+#: common/src/Tribe/Main.php:232
 #: common/src/admin-views/tribe-options-help.php:50
 msgid "Copy to clipboard"
 msgstr ""
@@ -4678,7 +4684,7 @@ msgstr "Nové nebo aktualizované šablony v této verzi (%s):"
 msgid "No notable changes detected"
 msgstr "Nebyly zjištěny žádné významné změny"
 
-#: src/Tribe/Main.php:2725
+#: src/Tribe/Main.php:2724
 msgid " (View Full %1$s Description Here: %2$s)"
 msgstr " (úplný popis %1$s najdete zde: %2$s)"
 
@@ -4758,131 +4764,131 @@ msgstr "Nebyly nalezeny žádné záznamy pro %s v tomto měsíci. Zkuste hledat
 msgid "No %1$s scheduled for %2$s. Please try another day."
 msgstr "Nebyly nalezeny žádné %1$s naplánované na %2$s. Zkuste prosím zvolit jiný den."
 
-#: src/Tribe/Main.php:4255
+#: src/Tribe/Main.php:4254
 msgid "Check out the %savailable add-ons%s."
 msgstr "Podívejte se na %sdostupné doplňky%s."
 
-#: src/Tribe/Main.php:1913
+#: src/Tribe/Main.php:1912
 msgid "Without a defined location your event will not display a %sGoogle Rich Snippet%s on the search results."
 msgstr "Pokud nezadáte žádné místo, vaše akce se zobrazí ve výsledcích vyhledávání bez doplňujících údajů %sGoogle Rich Snippet%s."
 
-#: src/Tribe/Main.php:1844 src/Tribe/Main.php:1864
+#: src/Tribe/Main.php:1843 src/Tribe/Main.php:1863
 msgid "%1$s scheduled for: %2$s."
 msgstr "%1$s – bude automaticky publikováno: %2$s."
 
-#: src/Tribe/Main.php:1825
+#: src/Tribe/Main.php:1824
 msgid "%1$s draft updated. %2$sPreview %3$s"
 msgstr "Koncept %1$s byl uložen. %2$sZobrazit náhled %3$s"
 
-#: src/Tribe/Main.php:1816
+#: src/Tribe/Main.php:1815
 msgid "%1$s scheduled for: %2$s. %3$sPreview %4$s"
 msgstr "%1$s bude automaticky publikována: %2$s. %3$sZobrazit náhled %4$s"
 
-#: src/Tribe/Main.php:1810
+#: src/Tribe/Main.php:1809
 msgid "%1$s submitted. %2$sPreview %3$s"
 msgstr "%1$s byla odeslána ke schválení. %2$sZobrazit náhled %3$s"
 
-#: src/Tribe/Main.php:1792
+#: src/Tribe/Main.php:1791
 msgid "%1$s updated. %2$sView %1$s%3$s"
 msgstr "%1$s byla aktualizována. %2$sZobrazit stránku %1$s%3$s"
 
-#: src/Tribe/Main.php:1467
+#: src/Tribe/Main.php:1466
 msgid "It appears as if the tribe-common libraries cannot be found! The directory should be in the \"common/\" directory in the events calendar plugin."
 msgstr "Vypadá to, že se nepodařilo nalézt knihovny tribe-common! Složka by se měla nacházet v podadresáři \"common/\" pluginu pro kalendář akcí."
 
-#: src/Tribe/Main.php:1102
+#: src/Tribe/Main.php:1101
 msgid "If you have a valid license for one of our paid plugins, you can %s in our premium support forums. Our support team monitors the forums and will respond to your thread within 24-48 hours (during the week)."
 msgstr "Pokud máte platnou licenci pro některý z našich placených pluginů, můžete %s v našem prémiovém fóru podpory. Náš tým podpory sleduje toto fórum a odpoví na vaše dotazy během 24-48 hodin (v pracovní dny)."
 
-#: src/Tribe/Main.php:1101
+#: src/Tribe/Main.php:1100
 msgid "post a thread"
 msgstr "založit vlákno"
 
-#: src/Tribe/Main.php:1097
+#: src/Tribe/Main.php:1096
 msgid "<strong>Looking for more immediate support?</strong> We offer %1$s with the purchase of any of our premium plugins (like %2$s). Pick up a license and you can post there directly and expect a response within 24-48 hours during weekdays."
 msgstr "<strong>Potřebujete okamžitou pomoc?</strong> Nabízíme %1$s při zakoupení některého z našich prémiových pluginů (jako např. %2$s). Získejte licenci a můžete očekávat odpověď na své dotazy během 24-48 hodin v pracovní dny."
 
-#: src/Tribe/Main.php:1093
+#: src/Tribe/Main.php:1092
 msgid "If you have tried the above steps and are still having trouble, you can post a new thread to our %s. Our support staff monitors these forums once a week and would be happy to assist you there."
 msgstr "Pokud jste vyzkoušeli výše uvedené kroky a stále máte potíže, můžete navštívit naše %s a založit nové vlákno. Pracovníci naší podpory jednou týdně kontrolují tato fóra a rádi vám pomohou."
 
-#: src/Tribe/Main.php:1092
+#: src/Tribe/Main.php:1091
 msgid "open-source forum on WordPress.org"
 msgstr "open-source fórum na WordPress.org"
 
-#: src/Tribe/Main.php:1088
+#: src/Tribe/Main.php:1087
 msgid "<strong>Looking for more immediate support?</strong> We offer %s with the purchase of any of our premium plugins. Pick up a license and you can post there directly and expect a response within 24-48 hours during weekdays"
 msgstr "<strong>Potřebujete okamžitou pomoc?</strong> Nabízíme %s při zakoupení některého z našich prémiových pluginů. Získejte licenci a můžete očekávat odpověď na své dotazy během 24-48 hodin v pracovní dny."
 
-#: src/Tribe/Main.php:1087 src/Tribe/Main.php:1095
+#: src/Tribe/Main.php:1086 src/Tribe/Main.php:1094
 msgid "premium support on our website"
 msgstr "prémiovou podporu na našem webu"
 
-#: src/Tribe/Main.php:1085
+#: src/Tribe/Main.php:1084
 msgid "If you have tried the above steps and are still having trouble, you can post a new thread to our WordPress.org forums for %1$s or %2$s. Our support staff monitors these forums once a week and would be happy to assist you there. "
 msgstr "Pokud jste vyzkoušeli výše uvedené kroky a stále máte potíže, můžete založit nové vlákno na WordPress.org fórech pro plugin %1$s nebo %2$s. Pracovníci naší podpory jednou týdně kontrolují tato fóra a rádi vám pomohou."
 
-#: src/Tribe/Main.php:1084
+#: src/Tribe/Main.php:1083
 msgid "Events Tickets"
 msgstr "Events Tickets"
 
-#: src/Tribe/Main.php:1069
+#: src/Tribe/Main.php:1068
 msgid "Customizing the Events plugins"
 msgstr "Přizpůsobení pluginů pro Akce"
 
-#: src/Tribe/Main.php:1069
+#: src/Tribe/Main.php:1068
 msgid "%s: Code and guides for customizing your calendar in useful and interesting ways."
 msgstr "%s: Kód a návody pro přizpůsobení vašeho kalendáře užitečnými a zajímavými způsoby."
 
-#: src/Tribe/Main.php:1067
+#: src/Tribe/Main.php:1066
 msgid "Troubleshooting common problems"
 msgstr "Řešení obvyklých problémů"
 
-#: src/Tribe/Main.php:1067
+#: src/Tribe/Main.php:1066
 msgid "%s: Do you see an issue with your calendar? Go here first to find where it’s coming from and how to fix it."
 msgstr "%s: Máte problém s vaším kalendářem? Prvně zkuste zjistit zde, jaký je možný zdroj chyby a jak ji opravit."
 
-#: src/Tribe/Main.php:1065
+#: src/Tribe/Main.php:1064
 msgid "Using stylesheets and page templates"
 msgstr "Používání CSS stylů a šablon stránek"
 
-#: src/Tribe/Main.php:1065
+#: src/Tribe/Main.php:1064
 msgid "%s: An overview of the default templates and styles that are included in the plugin, as well as how to change them."
 msgstr "%s: Přehled výchozích šablon a stylů, které jsou zahrnuty v pluginu, včetně postupů k jejich úpravě."
 
-#: src/Tribe/Main.php:1063
+#: src/Tribe/Main.php:1062
 msgid "Themer’s Guide"
 msgstr "Příručka šablonáře"
 
-#: src/Tribe/Main.php:1063
+#: src/Tribe/Main.php:1062
 msgid "%s: Our most comprehensive outline for customizing the calendar to suit your needs, including custom layouts and styles."
 msgstr "%s: Náš nejkomplexnější návod pro přizpůsobení kalendáře vašim potřebám, včetně vlastních rozvržení a stylů."
 
-#: src/Tribe/Main.php:1061
+#: src/Tribe/Main.php:1060
 msgid "Features overview"
 msgstr "Přehled funkcí"
 
-#: src/Tribe/Main.php:1061
+#: src/Tribe/Main.php:1060
 msgid "%s: A complete look at the features you can expect to see right out of the box as well as how to use them."
 msgstr "%s: Kompletní přehled funkcí, které budete mít k dispozici ihned po instalaci, včetně popisu jak je používat. "
 
-#: src/Tribe/Main.php:1059
+#: src/Tribe/Main.php:1058
 msgid "Settings overview"
 msgstr "Přehled nastavení"
 
-#: src/Tribe/Main.php:1059
+#: src/Tribe/Main.php:1058
 msgid "%s: A thorough walkthrough of The Events Calendar and the settings that are available to you."
 msgstr "%s: Detailní průvodce pluginem The Events Calendar a všech jeho nastavení, která máte k dispozici."
 
-#: src/Tribe/Main.php:1056
+#: src/Tribe/Main.php:1055
 msgid "Support for The Events Calendar"
 msgstr "Podpora pro The Events Calendar"
 
-#: src/Tribe/Main.php:1045
+#: src/Tribe/Main.php:1044
 msgid "We are committed to helping make your calendar spectacular and have a wealth of resources available, including a handy %s to get your calendar up and running."
 msgstr "Chceme vám pomoci udělat váš kalendář akcí působivým a k tomu pro vás máme dostatek informačních zdrojů. Pro začátek by se vám mohla hodit naše %s."
 
-#: src/Tribe/Main.php:1043
+#: src/Tribe/Main.php:1042
 msgid "New User Primer"
 msgstr "Příručka nového uživatele"
 
@@ -5109,7 +5115,7 @@ msgstr "Storno"
 msgid "%s must be a positive number or percent."
 msgstr "%s musí být kladné číslo nebo procento."
 
-#: src/Tribe/Main.php:990
+#: src/Tribe/Main.php:989
 msgid "%1$s or %2$s"
 msgstr "%1$s nebo %2$s"
 
@@ -5500,7 +5506,7 @@ msgid "WordPress "
 msgstr "WordPress"
 
 #: common/src/Tribe/Admin/Help_Page.php:822
-#: common/src/admin-views/app-shop.php:78
+#: common/src/admin-views/app-shop.php:77
 msgid "Requires:"
 msgstr "Vyžaduje:"
 
@@ -5513,7 +5519,7 @@ msgid "More..."
 msgstr "Více..."
 
 #: common/src/Tribe/Admin/Help_Page.php:194 common/src/Tribe/Plugins_API.php:43
-#: src/Tribe/Main.php:1096
+#: src/Tribe/Main.php:1095
 msgid "Events Calendar PRO"
 msgstr "Events Calendar PRO"
 
@@ -6112,203 +6118,203 @@ msgctxt "feed link"
 msgid "&raquo;"
 msgstr "&raquo;"
 
-#: common/src/Tribe/Languages/Locations.php:367
+#: common/src/Tribe/Languages/Locations.php:374
 msgid "Wyoming"
 msgstr "Wyoming"
 
-#: common/src/Tribe/Languages/Locations.php:366
+#: common/src/Tribe/Languages/Locations.php:373
 msgid "Wisconsin"
 msgstr "Wisconsin"
 
-#: common/src/Tribe/Languages/Locations.php:365
+#: common/src/Tribe/Languages/Locations.php:372
 msgid "West Virginia"
 msgstr "Západní Virginie"
 
-#: common/src/Tribe/Languages/Locations.php:364
+#: common/src/Tribe/Languages/Locations.php:371
 msgid "Washington"
 msgstr "Washington"
 
-#: common/src/Tribe/Languages/Locations.php:363
+#: common/src/Tribe/Languages/Locations.php:370
 msgid "Virginia"
 msgstr "Virginie"
 
-#: common/src/Tribe/Languages/Locations.php:362
+#: common/src/Tribe/Languages/Locations.php:369
 msgid "Vermont"
 msgstr "Vermont"
 
-#: common/src/Tribe/Languages/Locations.php:361
+#: common/src/Tribe/Languages/Locations.php:368
 msgid "Utah"
 msgstr "Utah"
 
-#: common/src/Tribe/Languages/Locations.php:360
+#: common/src/Tribe/Languages/Locations.php:367
 msgid "Texas"
 msgstr "Texas"
 
-#: common/src/Tribe/Languages/Locations.php:359
+#: common/src/Tribe/Languages/Locations.php:366
 msgid "Tennessee"
 msgstr "Tennessee"
 
-#: common/src/Tribe/Languages/Locations.php:358
+#: common/src/Tribe/Languages/Locations.php:365
 msgid "South Dakota"
 msgstr "Jižní Dakota"
 
-#: common/src/Tribe/Languages/Locations.php:357
+#: common/src/Tribe/Languages/Locations.php:364
 msgid "South Carolina"
 msgstr "Jižní Karolína"
 
-#: common/src/Tribe/Languages/Locations.php:356
+#: common/src/Tribe/Languages/Locations.php:363
 msgid "Rhode Island"
 msgstr "Rhode Island"
 
-#: common/src/Tribe/Languages/Locations.php:355
+#: common/src/Tribe/Languages/Locations.php:362
 msgid "Pennsylvania"
 msgstr "Pensylvánie"
 
-#: common/src/Tribe/Languages/Locations.php:354
+#: common/src/Tribe/Languages/Locations.php:361
 msgid "Oregon"
 msgstr "Oregon"
 
-#: common/src/Tribe/Languages/Locations.php:353
+#: common/src/Tribe/Languages/Locations.php:360
 msgid "Oklahoma"
 msgstr "Oklahoma"
 
-#: common/src/Tribe/Languages/Locations.php:352
+#: common/src/Tribe/Languages/Locations.php:359
 msgid "Ohio"
 msgstr "Ohio"
 
-#: common/src/Tribe/Languages/Locations.php:351
+#: common/src/Tribe/Languages/Locations.php:358
 msgid "North Dakota"
 msgstr "Severní Dakota"
 
-#: common/src/Tribe/Languages/Locations.php:350
+#: common/src/Tribe/Languages/Locations.php:357
 msgid "North Carolina"
 msgstr "Severní Karolína"
 
-#: common/src/Tribe/Languages/Locations.php:349
+#: common/src/Tribe/Languages/Locations.php:356
 msgid "New York"
 msgstr "New York"
 
-#: common/src/Tribe/Languages/Locations.php:348
+#: common/src/Tribe/Languages/Locations.php:355
 msgid "New Mexico"
 msgstr "Nové Mexiko"
 
-#: common/src/Tribe/Languages/Locations.php:347
+#: common/src/Tribe/Languages/Locations.php:354
 msgid "New Jersey"
 msgstr "New Jersey"
 
-#: common/src/Tribe/Languages/Locations.php:346
+#: common/src/Tribe/Languages/Locations.php:353
 msgid "New Hampshire"
 msgstr "New Hampshire"
 
-#: common/src/Tribe/Languages/Locations.php:345
+#: common/src/Tribe/Languages/Locations.php:352
 msgid "Nevada"
 msgstr "Nevada"
 
-#: common/src/Tribe/Languages/Locations.php:344
+#: common/src/Tribe/Languages/Locations.php:351
 msgid "Nebraska"
 msgstr "Nebraska"
 
-#: common/src/Tribe/Languages/Locations.php:343
+#: common/src/Tribe/Languages/Locations.php:350
 msgid "Montana"
 msgstr "Montana"
 
-#: common/src/Tribe/Languages/Locations.php:342
+#: common/src/Tribe/Languages/Locations.php:349
 msgid "Missouri"
 msgstr "Missouri"
 
-#: common/src/Tribe/Languages/Locations.php:341
+#: common/src/Tribe/Languages/Locations.php:348
 msgid "Mississippi"
 msgstr "Mississippi"
 
-#: common/src/Tribe/Languages/Locations.php:340
+#: common/src/Tribe/Languages/Locations.php:347
 msgid "Minnesota"
 msgstr "Minnesota"
 
-#: common/src/Tribe/Languages/Locations.php:339
+#: common/src/Tribe/Languages/Locations.php:346
 msgid "Michigan"
 msgstr "Michigan"
 
-#: common/src/Tribe/Languages/Locations.php:338
+#: common/src/Tribe/Languages/Locations.php:345
 msgid "Massachusetts"
 msgstr "Massachusetts"
 
-#: common/src/Tribe/Languages/Locations.php:337
+#: common/src/Tribe/Languages/Locations.php:344
 msgid "Maryland"
 msgstr "Maryland"
 
-#: common/src/Tribe/Languages/Locations.php:336
+#: common/src/Tribe/Languages/Locations.php:343
 msgid "Maine"
 msgstr "Maine"
 
-#: common/src/Tribe/Languages/Locations.php:335
+#: common/src/Tribe/Languages/Locations.php:342
 msgid "Louisiana"
 msgstr "Louisiana"
 
-#: common/src/Tribe/Languages/Locations.php:334
+#: common/src/Tribe/Languages/Locations.php:341
 msgid "Kentucky"
 msgstr "Kentucky"
 
-#: common/src/Tribe/Languages/Locations.php:333
+#: common/src/Tribe/Languages/Locations.php:340
 msgid "Kansas"
 msgstr "Kansas"
 
-#: common/src/Tribe/Languages/Locations.php:332
+#: common/src/Tribe/Languages/Locations.php:339
 msgid "Iowa"
 msgstr "Iowa"
 
-#: common/src/Tribe/Languages/Locations.php:331
+#: common/src/Tribe/Languages/Locations.php:338
 msgid "Indiana"
 msgstr "Indiana"
 
-#: common/src/Tribe/Languages/Locations.php:330
+#: common/src/Tribe/Languages/Locations.php:337
 msgid "Illinois"
 msgstr "Illinois"
 
-#: common/src/Tribe/Languages/Locations.php:329
+#: common/src/Tribe/Languages/Locations.php:336
 msgid "Idaho"
 msgstr "Idaho"
 
-#: common/src/Tribe/Languages/Locations.php:328
+#: common/src/Tribe/Languages/Locations.php:335
 msgid "Hawaii"
 msgstr "Havaj"
 
-#: common/src/Tribe/Languages/Locations.php:326
+#: common/src/Tribe/Languages/Locations.php:333
 msgid "Florida"
 msgstr "Florida"
 
-#: common/src/Tribe/Languages/Locations.php:325
+#: common/src/Tribe/Languages/Locations.php:332
 msgid "District of Columbia"
 msgstr "District of Columbia"
 
-#: common/src/Tribe/Languages/Locations.php:324
+#: common/src/Tribe/Languages/Locations.php:331
 msgid "Delaware"
 msgstr "Delaware"
 
-#: common/src/Tribe/Languages/Locations.php:323
+#: common/src/Tribe/Languages/Locations.php:330
 msgid "Connecticut"
 msgstr "Connecticut"
 
-#: common/src/Tribe/Languages/Locations.php:322
+#: common/src/Tribe/Languages/Locations.php:329
 msgid "Colorado"
 msgstr "Colorado"
 
-#: common/src/Tribe/Languages/Locations.php:321
+#: common/src/Tribe/Languages/Locations.php:328
 msgid "California"
 msgstr "Kalifornie"
 
-#: common/src/Tribe/Languages/Locations.php:320
+#: common/src/Tribe/Languages/Locations.php:327
 msgid "Arkansas"
 msgstr "Arkansas"
 
-#: common/src/Tribe/Languages/Locations.php:319
+#: common/src/Tribe/Languages/Locations.php:326
 msgid "Arizona"
 msgstr "Arizona"
 
-#: common/src/Tribe/Languages/Locations.php:318
+#: common/src/Tribe/Languages/Locations.php:325
 msgid "Alaska"
 msgstr "Aljaška"
 
-#: common/src/Tribe/Languages/Locations.php:317
+#: common/src/Tribe/Languages/Locations.php:324
 msgid "Alabama"
 msgstr "Alabama"
 
@@ -6933,7 +6939,7 @@ msgid "Germany"
 msgstr "Německo"
 
 #: common/src/Tribe/Languages/Locations.php:138
-#: common/src/Tribe/Languages/Locations.php:327
+#: common/src/Tribe/Languages/Locations.php:334
 msgid "Georgia"
 msgstr "Gruzie"
 
@@ -7493,50 +7499,50 @@ msgstr "Licenční klíč"
 msgid "Error"
 msgstr "Chyba"
 
-#: src/Tribe/Main.php:4561
+#: src/Tribe/Main.php:4560
 msgid "Once Every 30 Mins"
 msgstr "Jednou za 30 minut"
 
-#: src/Tribe/Main.php:4481
+#: src/Tribe/Main.php:4480
 msgid "Day Of"
 msgstr "Dne"
 
-#: src/Tribe/Main.php:4479
+#: src/Tribe/Main.php:4478
 msgid "%s From"
 msgstr "%s od"
 
-#: src/Tribe/Main.php:4477
+#: src/Tribe/Main.php:4476
 msgid "%s In"
 msgstr "%s v"
 
-#: src/Tribe/Main.php:4474 src/Tribe/Main.php:4495
+#: src/Tribe/Main.php:4473 src/Tribe/Main.php:4494
 #: src/admin-views/aggregator/origins/refine.php:7
 msgid "Date"
 msgstr "Datum"
 
-#: src/Tribe/Main.php:4433
+#: src/Tribe/Main.php:4432
 msgid "Search"
 msgstr "Hledat"
 
-#: src/Tribe/Main.php:4408 src/admin-views/aggregator/fields/schedule.php:44
+#: src/Tribe/Main.php:4407 src/admin-views/aggregator/fields/schedule.php:44
 #: src/admin-views/aggregator/fields/schedule.php:62
 msgid "Day"
 msgstr "Den"
 
-#: src/Tribe/Main.php:4391
+#: src/Tribe/Main.php:4390
 msgid "Month"
 msgstr "Měsíc"
 
-#: src/Tribe/Main.php:4373
+#: src/Tribe/Main.php:4372
 msgid "List"
 msgstr "Seznam"
 
-#: src/Tribe/Main.php:4357
+#: src/Tribe/Main.php:4356
 msgid "Calendar"
 msgstr "Kalendář"
 
 #: common/src/Tribe/Settings.php:254
-#: src/Tribe/Admin/Bar/Default_Configurator.php:89 src/Tribe/Main.php:4356
+#: src/Tribe/Admin/Bar/Default_Configurator.php:89 src/Tribe/Main.php:4355
 msgid "Settings"
 msgstr "Nastavení"
 
@@ -7549,7 +7555,7 @@ msgstr "CSV"
 msgid "Add %s"
 msgstr "Vytvořit (%s)"
 
-#: src/Tribe/Admin/Bar/Default_Configurator.php:45 src/Tribe/Main.php:4307
+#: src/Tribe/Admin/Bar/Default_Configurator.php:45 src/Tribe/Main.php:4306
 msgid "View Calendar"
 msgstr "Zobrazit kalendář"
 
@@ -7557,53 +7563,53 @@ msgstr "Zobrazit kalendář"
 msgid "%s"
 msgstr "%s"
 
-#: src/Tribe/Main.php:4254
+#: src/Tribe/Main.php:4253
 msgid "Looking for additional functionality including recurring events, ticket sales, publicly submitted events, new views and more?"
 msgstr "Hledáte další funkce, včetně opakujících se akcí, prodeje vstupenek, veřejně přidávaných akcí, nových způsobů zobrazení a další?"
 
-#: src/Tribe/Main.php:4249
+#: src/Tribe/Main.php:4248
 msgid "Additional Functionality"
 msgstr "Další funkce"
 
-#: src/Tribe/Main.php:4204
+#: src/Tribe/Main.php:4203
 msgid "News from Modern Tribe"
 msgstr "Novinky od Modern Tribe"
 
-#: src/Tribe/Main.php:4184
+#: src/Tribe/Main.php:4183
 msgid "View All Add-Ons"
 msgstr "Prohlédnout všechny doplňky"
 
-#: src/Tribe/Main.php:4181
+#: src/Tribe/Main.php:4180
 msgid "Support"
 msgstr "Podpora"
 
-#: src/Tribe/Main.php:3829 src/Tribe/Main.php:3842
+#: src/Tribe/Main.php:3828 src/Tribe/Main.php:3841
 msgid "%s Information"
 msgstr "%s – údaje"
 
-#: src/Tribe/Main.php:3820
+#: src/Tribe/Main.php:3819
 msgid "%s Options"
 msgstr "Nastavení %s"
 
-#: src/Tribe/Main.php:3743 src/Tribe/Main.php:3778
+#: src/Tribe/Main.php:3742 src/Tribe/Main.php:3777
 #: src/functions/template-tags/day.php:157
 #: src/functions/template-tags/day.php:178
 msgid "Date out of range."
 msgstr "Datum je mimo platný rozsah."
 
-#: src/Tribe/Main.php:2334
+#: src/Tribe/Main.php:2333
 msgid "all"
 msgstr "vse"
 
-#: src/Tribe/Main.php:2333 src/functions/template-tags/general.php:111
+#: src/Tribe/Main.php:2332 src/functions/template-tags/general.php:111
 msgid "events"
 msgstr "kalendar-akci"
 
-#: src/Tribe/Main.php:2332 src/functions/template-tags/general.php:79
+#: src/Tribe/Main.php:2331 src/functions/template-tags/general.php:79
 msgid "event"
 msgstr "akce"
 
-#: src/Tribe/Main.php:2331
+#: src/Tribe/Main.php:2330
 msgid "page"
 msgstr "strana"
 
@@ -7611,157 +7617,157 @@ msgstr "strana"
 msgid "Network"
 msgstr "Síť webů"
 
-#: common/src/Tribe/Main.php:290
+#: common/src/Tribe/Main.php:287
 msgid "Done"
 msgstr "Hotovo"
 
-#: common/src/Tribe/Main.php:289 src/Tribe/Asset/Bootstrap_Datepicker.php:27
+#: common/src/Tribe/Main.php:286 src/Tribe/Asset/Bootstrap_Datepicker.php:27
 #: src/functions/template-tags/day.php:104
 msgid "Today"
 msgstr "Dnes"
 
-#: common/src/Tribe/Main.php:288
+#: common/src/Tribe/Main.php:285
 msgid "Prev"
 msgstr "Předchozí"
 
-#: common/src/Tribe/Main.php:271 common/src/Tribe/Main.php:287
+#: common/src/Tribe/Main.php:268 common/src/Tribe/Main.php:284
 msgid "Next"
 msgstr "Další"
 
-#: src/Tribe/Linked_Posts.php:981
+#: src/Tribe/Linked_Posts.php:1000
 msgid "No saved %s exists."
 msgstr "Zatím nebyl uložen žádný záznam."
 
-#: src/Tribe/Linked_Posts.php:809
+#: src/Tribe/Linked_Posts.php:828
 msgid "Available %s"
 msgstr "%s k dispozici"
 
-#: src/Tribe/Linked_Posts.php:805
+#: src/Tribe/Linked_Posts.php:824
 msgid "My %s"
 msgstr "Moje záznamy"
 
-#: src/Tribe/Main.php:1849 src/Tribe/Main.php:1869
+#: src/Tribe/Main.php:1848 src/Tribe/Main.php:1868
 msgid "%s draft updated."
 msgstr "Koncept (%s) byl uložen."
 
-#: src/Tribe/Main.php:1842 src/Tribe/Main.php:1862
+#: src/Tribe/Main.php:1841 src/Tribe/Main.php:1861
 msgid "%s submitted."
 msgstr "%s – odesláno ke schválení."
 
-#: src/Tribe/Main.php:1840 src/Tribe/Main.php:1860
+#: src/Tribe/Main.php:1839 src/Tribe/Main.php:1859
 msgid "%s published."
 msgstr "%s – publikováno."
 
 #. translators: %s: date and time of the revision
-#: src/Tribe/Main.php:1859
+#: src/Tribe/Main.php:1858
 msgid "%s restored to revision from %s"
 msgstr "Následující verze (%s) byla úspěšně obnovena: %s"
 
 #. translators: Publish box date format, see http://php.net/date
-#: src/Tribe/Main.php:1819 src/Tribe/Main.php:1847 src/Tribe/Main.php:1867
+#: src/Tribe/Main.php:1818 src/Tribe/Main.php:1846 src/Tribe/Main.php:1866
 msgid "M j, Y @ G:i"
 msgstr "j.n.Y, G:i"
 
-#: src/Tribe/Main.php:1808 src/Tribe/Main.php:1841 src/Tribe/Main.php:1861
+#: src/Tribe/Main.php:1807 src/Tribe/Main.php:1840 src/Tribe/Main.php:1860
 msgid "%s saved."
 msgstr "%s – uloženo."
 
 #. translators: %s: date and time of the revision
-#: src/Tribe/Main.php:1801 src/Tribe/Main.php:1839
+#: src/Tribe/Main.php:1800 src/Tribe/Main.php:1838
 msgid "%1$s restored to revision from %2$s"
 msgstr "Následující verze %1$s byla úspěšně obnovena: %2$s"
 
-#: src/Tribe/Main.php:1799 src/Tribe/Main.php:1834 src/Tribe/Main.php:1837
-#: src/Tribe/Main.php:1854 src/Tribe/Main.php:1857
+#: src/Tribe/Main.php:1798 src/Tribe/Main.php:1833 src/Tribe/Main.php:1836
+#: src/Tribe/Main.php:1853 src/Tribe/Main.php:1856
 msgid "%s updated."
 msgstr "%s – aktualizováno."
 
-#: src/Tribe/Main.php:1798 src/Tribe/Main.php:1836 src/Tribe/Main.php:1856
+#: src/Tribe/Main.php:1797 src/Tribe/Main.php:1835 src/Tribe/Main.php:1855
 msgid "Custom field deleted."
 msgstr "Uživatelské pole bylo smazáno."
 
-#: src/Tribe/Main.php:1797 src/Tribe/Main.php:1835 src/Tribe/Main.php:1855
+#: src/Tribe/Main.php:1796 src/Tribe/Main.php:1834 src/Tribe/Main.php:1854
 msgid "Custom field updated."
 msgstr "Uživatelské pole bylo aktualizováno."
 
-#: src/Tribe/Main.php:1775
+#: src/Tribe/Main.php:1774
 msgid "New %s Category Name"
 msgstr "Název nové rubriky %s"
 
-#: src/Tribe/Main.php:1774
+#: src/Tribe/Main.php:1773
 msgid "Add New %s Category"
 msgstr "Vytvořit novou rubriku %s"
 
-#: src/Tribe/Main.php:1773
+#: src/Tribe/Main.php:1772
 msgid "Update %s Category"
 msgstr "Aktualizovat rubriku %s"
 
-#: src/Tribe/Main.php:1772
+#: src/Tribe/Main.php:1771
 msgid "Edit %s Category"
 msgstr "Upravit rubriku %s"
 
-#: src/Tribe/Main.php:1771
+#: src/Tribe/Main.php:1770
 msgid "Parent %s Category:"
 msgstr "Nadřazená rubrika %s:"
 
-#: src/Tribe/Main.php:1770
+#: src/Tribe/Main.php:1769
 msgid "Parent %s Category"
 msgstr "Nadřazená rubrika %s"
 
-#: src/Tribe/Main.php:1769
+#: src/Tribe/Main.php:1768
 msgid "All %s Categories"
 msgstr "Všechny rubriky %s"
 
-#: src/Tribe/Main.php:1768
+#: src/Tribe/Main.php:1767
 msgid "Search %s Categories"
 msgstr "Hledat rubriky %s"
 
-#: src/Tribe/Main.php:1767
+#: src/Tribe/Main.php:1766
 msgid "%s Category"
 msgstr "Rubrika %s"
 
-#: src/Tribe/Main.php:1757 src/Tribe/Organizer.php:98 src/Tribe/Venue.php:117
+#: src/Tribe/Main.php:1756 src/Tribe/Organizer.php:98 src/Tribe/Venue.php:117
 msgid "No %s found in Trash"
 msgstr "V koši nebyly nalezeny žádné záznamy (%s)"
 
-#: src/Tribe/Main.php:1756 src/Tribe/Organizer.php:97 src/Tribe/Venue.php:116
+#: src/Tribe/Main.php:1755 src/Tribe/Organizer.php:97 src/Tribe/Venue.php:116
 msgid "No %s found"
 msgstr "Nebyly nalezeny žádné záznamy (%s)"
 
-#: src/Tribe/Main.php:1755 src/Tribe/Organizer.php:96 src/Tribe/Venue.php:115
+#: src/Tribe/Main.php:1754 src/Tribe/Organizer.php:96 src/Tribe/Venue.php:115
 msgid "Search %s"
 msgstr "Hledat %s"
 
-#: src/Tribe/Main.php:1754 src/Tribe/Organizer.php:95 src/Tribe/Venue.php:114
+#: src/Tribe/Main.php:1753 src/Tribe/Organizer.php:95 src/Tribe/Venue.php:114
 msgid "View %s"
 msgstr "Zobrazit (%s)"
 
-#: src/Tribe/Main.php:1753 src/Tribe/Organizer.php:94 src/Tribe/Venue.php:113
+#: src/Tribe/Main.php:1752 src/Tribe/Organizer.php:94 src/Tribe/Venue.php:113
 msgid "New %s"
 msgstr "Vytvořit (%s)"
 
-#: src/Tribe/Main.php:1751 src/Tribe/Main.php:1883 src/Tribe/Main.php:1884
+#: src/Tribe/Main.php:1750 src/Tribe/Main.php:1882 src/Tribe/Main.php:1883
 #: src/Tribe/Organizer.php:92 src/Tribe/Venue.php:111
 msgid "Add New %s"
 msgstr "Vytvořit nový záznam (%s)"
 
-#: src/Tribe/Main.php:1750 src/Tribe/Organizer.php:91 src/Tribe/Venue.php:110
+#: src/Tribe/Main.php:1749 src/Tribe/Organizer.php:91 src/Tribe/Venue.php:110
 msgid "Add New"
 msgstr "Vytvořit"
 
-#: src/Tribe/Main.php:1717 src/Tribe/Main.php:2329
+#: src/Tribe/Main.php:1716 src/Tribe/Main.php:2328
 msgid "tag"
 msgstr "stitek"
 
-#: src/Tribe/Main.php:1703 src/Tribe/Main.php:2330
+#: src/Tribe/Main.php:1702 src/Tribe/Main.php:2329
 msgid "category"
 msgstr "rubrika"
 
-#: src/Tribe/Main.php:1455
+#: src/Tribe/Main.php:1454
 msgid "Sorry, The Events Calendar requires PHP %s or higher. Talk to your Web host about moving you to a newer version of PHP."
 msgstr "Omlouváme se, ale plugin The Events Calendar vyžaduje alespoň PHP %s. Požádejte svého poskytovatele webhostingu o přechod na novější verzi PHP."
 
-#: src/Tribe/Main.php:1452
+#: src/Tribe/Main.php:1451
 msgid "Sorry, The Events Calendar requires WordPress %s or higher. Please upgrade your WordPress install."
 msgstr "Omlouváme se, ale plugin The Events Calendar vyžaduje alespoň WordPress %s. Aktualizujte si prosím svůj WordPress."
 
@@ -7779,52 +7785,52 @@ msgstr "Nápověda"
 msgid "Display"
 msgstr "Zobrazování"
 
-#: src/Tribe/Main.php:1299
+#: src/Tribe/Main.php:1298
 msgid "The following plugins are out of date: %1$s. All add-ons contain dependencies on The Events Calendar and will not function properly unless paired with the right version. %2$sLearn More%3$s."
 msgstr "Následující pluginy jsou zastaralé: %1$s. Všechny doplňky jsou závislé na pluginu The Events Calendar a nebudou fungovat správně, pokud nejsou spárovány se správnou verzí. %2$sPodrobnější informace%3$s."
 
-#: src/Tribe/Main.php:1287
+#: src/Tribe/Main.php:1286
 msgid "Your version of The Events Calendar is not up-to-date with one of your The Events Calendar add-ons. Please %supdate now.%s"
 msgstr "Vaše verze pluginu The Events Calendar není dostatečně aktuální s jedním z jeho doplňků. Proveďte prosím %saktualizaci.%s"
 
-#: src/Tribe/Main.php:778
+#: src/Tribe/Main.php:777
 msgid "Initializing Tribe Events on %s"
 msgstr "Initializing Tribe Events on %s"
 
-#: src/Tribe/Main.php:753
+#: src/Tribe/Main.php:752
 msgid "today"
 msgstr "dnes"
 
-#: src/Tribe/Main.php:752
+#: src/Tribe/Main.php:751
 msgid "day"
 msgstr "den"
 
-#: src/Tribe/Main.php:751
+#: src/Tribe/Main.php:750
 msgid "past"
 msgstr "uplynulé"
 
-#: src/Tribe/Main.php:750
+#: src/Tribe/Main.php:749
 msgid "upcoming"
 msgstr "nadcházející"
 
-#: src/Tribe/Main.php:749
+#: src/Tribe/Main.php:748
 msgid "list"
 msgstr "seznam"
 
-#: src/Tribe/Main.php:748
+#: src/Tribe/Main.php:747
 msgid "month"
 msgstr "měsíc"
 
-#. #-#-#-#-#  the-events-calendar-code.pot (The Events Calendar 4.6.13) 
+#. #-#-#-#-#  the-events-calendar-code.pot (The Events Calendar 4.6.14.1) 
 #. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:59 common/src/Tribe/Customizer.php:569
-#: common/src/Tribe/Plugins_API.php:25 src/Tribe/Main.php:741
-#: src/Tribe/Main.php:1083 src/functions/template-tags/general.php:1332
+#: common/src/Tribe/Plugins_API.php:25 src/Tribe/Main.php:740
+#: src/Tribe/Main.php:1082 src/functions/template-tags/general.php:1332
 msgid "The Events Calendar"
 msgstr "The Events Calendar"
 
-#: src/Tribe/Main.php:1153 src/admin-views/aggregator/tabs/import-form.php:185
+#: src/Tribe/Main.php:1152 src/admin-views/aggregator/tabs/import-form.php:185
 #: src/admin-views/aggregator/tabs/import-form.php:197
 #: src/functions/template-tags/general.php:63
 msgid "Event"
@@ -7832,7 +7838,7 @@ msgstr "Akce"
 
 #: common/src/Tribe/Settings.php:177 common/src/Tribe/Settings.php:241
 #: common/src/Tribe/Settings.php:242 src/Tribe/Importer/Admin_Page.php:206
-#: src/Tribe/Main.php:1145 src/functions/template-tags/general.php:95
+#: src/Tribe/Main.php:1144 src/functions/template-tags/general.php:95
 msgid "Events"
 msgstr "Akce"
 
@@ -7890,7 +7896,7 @@ msgstr "Příspěvek %s (ID: %d) byl aktualizován."
 msgid "Failed to import record in row %d."
 msgstr "Nepodařilo se importovat záznam v řádku %d."
 
-#: src/Tribe/Importer/File_Importer.php:334
+#: src/Tribe/Importer/File_Importer.php:343
 msgid "Missing required fields in row %d."
 msgstr "Chybí vyžadovaná pole v řádku %d."
 
@@ -8023,7 +8029,7 @@ msgstr "Název akce"
 msgid "Do Not Import"
 msgstr "Neimportovat"
 
-#: src/Tribe/Aggregator/Record/CSV.php:192
+#: src/Tribe/Aggregator/Record/CSV.php:197
 #: src/Tribe/Importer/Admin_Page.php:357
 msgid "The following fields are required for a successful import:"
 msgstr "Pro úspěšný import jsou vyžadována následující pole:"
@@ -8121,7 +8127,7 @@ msgstr "Koncové datum"
 msgid "Start Date"
 msgstr "Počáteční datum"
 
-#: src/Tribe/Admin_List.php:246 src/Tribe/Main.php:1766
+#: src/Tribe/Admin_List.php:246 src/Tribe/Main.php:1765
 msgid "%s Categories"
 msgstr "Rubriky %s"
 
@@ -8145,21 +8151,21 @@ msgid "Please wait while time zone data is added to your events."
 msgstr "Počkejte dokud se k vašim akcím nepřidají údaje o časovém pásmu."
 
 #: src/Tribe/Admin/Bar/Default_Configurator.php:62
-#: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:216 src/Tribe/Main.php:1752
-#: src/Tribe/Main.php:4826 src/Tribe/Main.php:4873 src/Tribe/Organizer.php:93
+#: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:216 src/Tribe/Main.php:1751
+#: src/Tribe/Main.php:4825 src/Tribe/Main.php:4872 src/Tribe/Organizer.php:93
 #: src/Tribe/Venue.php:112
 msgid "Edit %s"
 msgstr "Upravit (%s)"
 
-#: src/Tribe/Main.php:4810 src/Tribe/Main.php:4867
+#: src/Tribe/Main.php:4809 src/Tribe/Main.php:4866
 msgid "Use Saved %s:"
 msgstr "Použít dřívější hodnoty"
 
-#: src/Tribe/Main.php:982
+#: src/Tribe/Main.php:981
 msgid " ask the site administrator set a different Events URL slug."
 msgstr "požádejte administrátora webu aby změnil název v URL u akcí."
 
-#: src/Tribe/Main.php:976
+#: src/Tribe/Main.php:975
 msgid "Ask the site administrator to edit the %s slug"
 msgstr "Požádejte administrátora webu, aby upravil název v URL (%s)"
 
@@ -8167,7 +8173,7 @@ msgstr "Požádejte administrátora webu, aby upravil název v URL (%s)"
 msgid "Thanks for Updating The Events Calendar"
 msgstr "Děkujeme za aktualizování pluginu The Events Calendar"
 
-#: src/Tribe/Main.php:836 src/Tribe/Main.php:838
+#: src/Tribe/Main.php:835 src/Tribe/Main.php:837
 #: src/deprecated/Tribe__Events__Activation_Page.php:195
 msgid "Welcome to The Events Calendar"
 msgstr "Vítejte u pluginu The Events Calendar"

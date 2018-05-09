@@ -285,7 +285,7 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 	/**
 	 * Returns the path to the CSV file.
 	 *
-	 * @since TBD
+	 * @since 4.6.15
 	 *
 	 * @return bool|false|string Either the absolute path to the CSV file or `false` on failure.
 	 */

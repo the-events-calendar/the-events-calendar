@@ -3,7 +3,7 @@
 /**
  * Class Tribe__Events__Aggregator__REST__V1__Endpoints__Base
  *
- * @since TBD
+ * @since 4.6.15
  *
  * The base for the Aggregator endpoints.
  */
@@ -11,7 +11,7 @@ abstract class Tribe__Events__Aggregator__REST__V1__Endpoints__Base {
 	/**
 	 * Whether teh current import ID exists and is for a record that needs data.
 	 *
-	 * @since TBD
+	 * @since 4.6.15
 	 *
 	 * @param string $import_id
 	 *
@@ -31,7 +31,7 @@ abstract class Tribe__Events__Aggregator__REST__V1__Endpoints__Base {
 	/**
 	 * Whether the batch hash is the expected one or not.
 	 *
-	 * @since TBD
+	 * @since 4.6.15
 	 *
 	 * @param string $batch_hash
 	 *
@@ -48,7 +48,7 @@ abstract class Tribe__Events__Aggregator__REST__V1__Endpoints__Base {
 	/**
 	 * Whether the interval is an acceptable one or not.
 	 *
-	 * @since TBD
+	 * @since 4.6.15
 	 *
 	 * @param int $interval
 	 *
@@ -61,7 +61,7 @@ abstract class Tribe__Events__Aggregator__REST__V1__Endpoints__Base {
 	/**
 	 * Whether the specified percentage is legit or not.
 	 *
-	 * @since TBD
+	 * @since 4.6.15
 	 *
 	 * @param int $percentage
 	 *

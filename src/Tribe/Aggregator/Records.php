@@ -654,7 +654,7 @@ Tribe__Events__Aggregator__Records {
 	/**
 	 * Hooks all the actions and filters needed by the class.
 	 *
-	 * @since TBD
+	 * @since 4.6.15
 	 */
 	public function hook() {
 		// Register the Custom Post Type

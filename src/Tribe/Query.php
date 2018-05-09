@@ -467,7 +467,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		 *
 		 * This is done after we have results of the posts so the filter can be safely removed at this stage.
 		 *
-		 * @since TBD
+		 * @since 4.6.15
 		 *
 		 * @param $posts
 		 *
@@ -1220,7 +1220,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		 *
 		 * This filter is removed when this funtions has finished the execution
 		 *
-		 * @since TBD
+		 * @since 4.6.15
 		 *
 		 * @param $value
 		 *

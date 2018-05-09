@@ -64,7 +64,7 @@ class organizerTest extends Events_TestCase {
 	/**
 	 * Test multiple combinations possibles for the sensitization of organizer lists when an ordered list is presented.
 	 *
-	 * @since TBD
+	 * @since 4.6.15
 	 */
 	public function test_tribe_sanitize_organizers() {
 		// Test empty values

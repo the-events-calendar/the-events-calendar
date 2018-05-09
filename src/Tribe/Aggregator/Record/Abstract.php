@@ -782,7 +782,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		/**
 		 * Whether batch pushing is supported for this record or not.
 		 *
-		 * @since TBD
+		 * @since 4.6.15
 		 *
 		 * @param bool $service_supports_batch_push Whether the Service supports batch pushing or not.
 		 * @param Tribe__Events__Aggregator__Record__Abstract $this
@@ -1504,7 +1504,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 						 * record information; returning a non `null` value here will short-circuit the
 						 * check Event Aggregator would make.
 						 *
-						 * @since TBD
+						 * @since 4.6.15
 						 *
 						 * @param int|null $venue_id The matching venue ID if any
 						 * @param array $venue The venue data from the record.
@@ -1689,7 +1689,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 								 * record information; returning a non `null` value here will short-circuit the
 								 * check Event Aggregator would make.
 								 *
-								 * @since TBD
+								 * @since 4.6.15
 								 *
 								 * @param int|null $organizer_id The matching organizer ID if any
 								 * @param array $organizer The venue data from the record.
@@ -2494,7 +2494,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	/**
 	 * Returns this record last child record or the record itself if no children are found.
 	 *
-	 * @since TBD
+	 * @since 4.6.15
 	 *
 	 * @return Tribe__Events__Aggregator__Record__Abstract
 	 */
@@ -2509,7 +2509,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	/**
 	 * Returns this record last child post object.
 	 *
-	 * @since TBD
+	 * @since 4.6.15
 	 *
 	 * @param bool $force Whether to use the the last child cached value or refetch it.
 	 *
@@ -2542,7 +2542,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	/**
 	 * Whether this record failed before a specific time.
 	 *
-	 * @since TBD
+	 * @since 4.6.15
 	 *
 	 * @param string|int $time A timestamp or a string parseable by the `strtotime` function.
 	 *
@@ -2566,7 +2566,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * Whether the record has its own last import status stored in the meta or
 	 * it should be read from its last child record.
 	 *
-	 * @since TBD
+	 * @since 4.6.15
 	 *
 	 * @return bool
 	 */
@@ -2577,7 +2577,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	/**
 	 * Returns the default retry interval depending on this record frequency.
 	 *
-	 * @since TBD
+	 * @since 4.6.15
 	 *
 	 * @return int
 	 */
@@ -2594,7 +2594,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		/**
 		 * Filters the retry interval between a failure and a retry for a scheduled record.
 		 *
-		 * @since TBD
+		 * @since 4.6.15
 		 *
 		 * @param int $retry_interval An interval in seconds; defaults to the record frequency / 2.
 		 * @param Tribe__Events__Aggregator__Record__Abstract $this
@@ -2605,7 +2605,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	/**
 	 * Returns the record retry timestamp.
 	 *
-	 * @since TBD
+	 * @since 4.6.15
 	 *
 	 * @return int|bool Either the record retry timestamp or `false` if the record will
 	 *                  not retry to import.
@@ -2631,7 +2631,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		/**
 		 * Filters the retry timestamp for a scheduled record.
 		 *
-		 * @since TBD
+		 * @since 4.6.15
 		 *
 		 * @param int $retry_time A timestamp.
 		 * @param Tribe__Events__Aggregator__Record__Abstract $this
@@ -2643,7 +2643,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * Whether the record will try to fetch the import data polling EA Service or
 	 * expecting batches of data being pushed to it by EA Service.
 	 *
-	 * @since TBD
+	 * @since 4.6.15
 	 *
 	 * @return bool
 	 */
@@ -2653,7 +2653,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		/**
 		 * Whether the current record is a Service polling one or not.
 		 *
-		 * @since TBD
+		 * @since 4.6.15
 		 *
 		 * @param bool $is_polling
 		 * @param Tribe__Events__Aggregator__Record__Abstract $record
@@ -2667,7 +2667,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	*
 	 * Generates the hash that will be expected in the for the next batch of events.
 	 *
-	 * @since TBD
+	 * @since 4.6.15
 	 *
 	 * @return string
 	 */

@@ -127,7 +127,7 @@ class Tribe__Events__Aggregator__CLI__Command {
 	 *      wp event-aggregator import-from ics /Users/moi/events.ics
 	 *
 	 *
-	 * @since      TBD
+	 * @since      4.6.15
 	 *
 	 * @subcommand import-from
 	 *
@@ -152,7 +152,7 @@ class Tribe__Events__Aggregator__CLI__Command {
 	/**
 	 * Check the timeout parameter if set.
 	 *
-	 * @since TBD
+	 * @since 4.6.15
 	 */
 	protected function ensure_timeout( array $assoc_args ) {
 		if ( isset( $assoc_args['timeout'] ) && ! is_numeric( $assoc_args['timeout'] ) ) {
@@ -163,7 +163,7 @@ class Tribe__Events__Aggregator__CLI__Command {
 	/**
 	 * Creates a new record.
 	 *
-	 * @since TBD
+	 * @since 4.6.15
 	 *
 	 * @param array $assoc_args
 	 * @param string $origin
@@ -282,7 +282,7 @@ class Tribe__Events__Aggregator__CLI__Command {
 	/**
 	 * Fetches the data from the Service and processes it.
 	 *
-	 * @since TBD
+	 * @since 4.6.15
 	 *
 	 * @param array $assoc_args
 	 * @param Tribe__Events__Aggregator__Record__Abstract $record
@@ -349,7 +349,7 @@ class Tribe__Events__Aggregator__CLI__Command {
 	 * other imports. Mind that CSV source files should have their columns in exactly the same order and named
 	 * exactly as those found in the UI.
 	 *
-	 * @since TBD
+	 * @since 4.6.15
 	 *
 	 * @param Tribe__Events__Aggregator__Record__CSV $record
 	 * @param array $record_meta
@@ -545,7 +545,7 @@ class Tribe__Events__Aggregator__CLI__Command {
 	 *      wp event-aggregator run-import 2389
 	 *      wp event-aggregator run-import 2389 --timeout=180
 	 *
-	 * @since      TBD
+	 * @since      4.6.15
 	 *
 	 * @subcommand run-import
 	 *
@@ -594,7 +594,7 @@ class Tribe__Events__Aggregator__CLI__Command {
 	/**
 	 * Checks the associative arguments to make sure the column map is provided for CSV imports.
 	 *
-	 * @since TBD
+	 * @since 4.6.15
 	 *
 	 * @param array $assoc_args
 	 */
