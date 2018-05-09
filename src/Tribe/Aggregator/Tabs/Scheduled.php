@@ -332,7 +332,7 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 			$child->update_meta( 'import_id', $status->data->import_id );
 
 			$child->finalize();
-			$child->process_posts();
+			$child->process_posts( array(), true );
 			$success[ $record->id ] = $record;
 		}
 
