@@ -44,8 +44,16 @@ class Tribe__Events__Aggregator__Record__Async_Queue
 	 * @return Tribe__Process__Queue
 	 */
 	protected function init_queue( $items ) {
-		if ( ! is_array( $items ) ) {
-			$items = array();
+		$items_initially_not_available = empty( $items ) || ! is_array( $items );
+
+		if ( $items_initially_not_available ) {
+			$items = $this->record->prep_import_data();
+		}
+
+		$items_still_not_available = empty( $items ) || ! is_array( $items );
+
+		if ( $items_still_not_available ) {
+			return;
 		}
 
 		$transitional_id = substr( md5( uniqid( '', true ) ), 0, 8 );
