@@ -342,6 +342,7 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 
 			$child->finalize();
 			$child->process_posts();
+
 			$success[ $record->id ] = $record;
 		}
 

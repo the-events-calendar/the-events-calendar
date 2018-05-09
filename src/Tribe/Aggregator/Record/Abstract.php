@@ -2488,7 +2488,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 *
 	 * @return WP_Post|false Either the last child post object or `false` on failure.
 	 */
-	protected function get_last_child_post( $force = false ) {
+	public function get_last_child_post( $force = false ) {
 		if ( $this->post->post_parent ) {
 			return $this->post;
 		}
