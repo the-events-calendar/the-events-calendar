@@ -1233,7 +1233,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		$queue = Tribe__Events__Aggregator__Record__Queue_Processor::build_queue( $this, $items );
 
-		if ( $start_immediately ) {
+		if ( $start_immediately && is_array( $items ) ) {
 			$queue->process();
 		}
 
