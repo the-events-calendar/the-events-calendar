@@ -110,11 +110,13 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 	/**
 	 * Queues events, venues, and organizers for insertion
 	 *
-	 * @param array $data Import data
+	 * @param array $data   Import data
+	 * @param bool $ignored This parameter is, de facto, ignored when processing CSV files: all
+	 *                      imports are immediately started.
 	 *
 	 * @return array|WP_Error
 	 */
-	public function process_posts( $data = array() ) {
+	public function process_posts( $data = array(), $ignored = false ) {
 		if (
 			'csv' !== $data['origin']
 			|| empty( $data['csv']['content_type'] )
