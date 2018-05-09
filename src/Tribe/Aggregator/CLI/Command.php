@@ -292,12 +292,14 @@ class Tribe__Events__Aggregator__CLI__Command {
 	 */
 	protected function fetch_and_process( array $assoc_args, $record, $is_csv ) {
 		$queue_import_args         = array();
+
 		// remove anything that cannot be serialized
 		foreach ( $record->meta as $key => $value ) {
 			if ( is_array( $value ) || is_scalar( $value ) ) {
 				$queue_import_args[ $key ] = $value;
 			}
 		}
+
 		$queue_result = $record->queue_import( $queue_import_args );
 
 		$record->finalize();
