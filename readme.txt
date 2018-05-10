@@ -217,7 +217,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 = [TBD] 2018-05-29 =
 
-* Fix - Fixed error with  (props to @natureslens for reporting this) [105116]
+* Fix - Fixed linked post type ordering logic, which could cause `tribe_get_linked_posts_by_post_type()` to return empty (props to @natureslens for reporting this) [105116]
 
 = [4.6.14.1] 2018-04-18 =
 
