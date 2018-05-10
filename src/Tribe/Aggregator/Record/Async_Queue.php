@@ -56,7 +56,7 @@ class Tribe__Events__Aggregator__Record__Async_Queue
 			return;
 		}
 
-		$transitional_id = substr( md5( uniqid( '', true ) ), 0, 8 );
+		$transitional_id = $this->generate_transitional_id();
 
 		/** @var Tribe__Events__Aggregator__Record__Items $record_items */
 		$record_items = tribe( 'events-aggregator.record-items' );
@@ -175,19 +175,27 @@ class Tribe__Events__Aggregator__Record__Async_Queue
 			$this->record->update_meta( 'in_progress', true );
 			$this->queue_process->dispatch();
 		}
+
+		return $this;
 	}
 
 	/**
 	 * Initializes the async queue process if required.
 	 *
 	 * @since TBD
+	 *
+	 * @return bool Whether the queue needed to be initialized or not.
 	 */
 	protected function maybe_init_queue() {
 		if ( null === $this->queue_process ) {
 			$this->queue_process = new Tribe__Events__Aggregator__Processes__Import_Events();
 			$this->queue_process->set_id( $this->record->meta['queue_id'] );
 			$this->queue_process->set_record_id( $this->record->id );
+
+			return true;
 		}
+
+		return false;
 	}
 
 	/**
@@ -257,5 +265,17 @@ class Tribe__Events__Aggregator__Record__Async_Queue
 		}
 
 		return $item_type;
+	}
+
+	/**
+	 * Generates a transitional id that will be used to uniquely identify dependencies in the
+	 * context of an import.
+	 *
+	 * @since TBD
+	 *
+	 * @return string An 8 char long unique ID.
+	 */
+	protected function generate_transitional_id() {
+		return substr( md5( uniqid( '', true ) ), 0, 8 );
 	}
 }

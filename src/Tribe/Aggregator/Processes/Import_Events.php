@@ -220,9 +220,10 @@ class Tribe__Events__Aggregator__Processes__Import_Events extends Tribe__Process
 	 * @since TBD
 	 *
 	 * @param int $record_id
-	 * @param array $data
+	 * @param object $data
 	 *
-	 * @return Tribe__Events__Aggregator__Record__Activity
+	 * @return Tribe__Events__Aggregator__Record__Activity|bool Either the resulting activity or `false`
+	 *                                                          if the record could not be found.
 	 */
 	protected function insert_event( $record_id, $data ) {
 		$record = $this->get_record( $record_id );

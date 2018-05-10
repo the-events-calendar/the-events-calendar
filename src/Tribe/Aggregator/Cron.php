@@ -575,7 +575,7 @@ class Tribe__Events__Aggregator__Cron {
 	 *
 	 * @since TBD
 	 *
-	 * @param $Tribe__Events__Aggregator__Record__Abstract $record
+	 * @param Tribe__Events__Aggregator__Record__Abstract $record
 	 */
 	protected function maybe_process_immediately( Tribe__Events__Aggregator__Record__Abstract $record ) {
 		$import_data = $record->prep_import_data();
