@@ -2,7 +2,7 @@
 namespace Tribe\Events;
 
 use Tribe__Events__Timezones as Timezones;
-use Tribe\Events\Tests\Factories\Event;
+use Tribe\Events\Test\Factories\Event;
 use Spatie\Snapshots\MatchesSnapshots;
 use tad\WPBrowser\Snapshot\WPHtmlOutputDriver;
 

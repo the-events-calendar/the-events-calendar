@@ -1,5 +1,5 @@
 <?php
-namespace TEC\Tests\Utils;
+namespace TEC\Test\Utils;
 
 class Id_GeneratorTest extends \Codeception\TestCase\WPTestCase {
 

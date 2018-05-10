@@ -3,9 +3,9 @@
 namespace Tribe\Events\REST\V1\Endpoints;
 
 use Prophecy\Prophecy\ObjectProphecy;
-use Tribe\Events\Tests\Factories\Event;
-use Tribe\Events\Tests\Factories\Organizer;
-use Tribe\Events\Tests\Factories\Venue;
+use Tribe\Events\Test\Factories\Event;
+use Tribe\Events\Test\Factories\Organizer;
+use Tribe\Events\Test\Factories\Venue;
 use Tribe__Events__Main as Main;
 use Tribe__Events__REST__V1__Endpoints__Archive_Event as Archive;
 

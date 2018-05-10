@@ -1,8 +1,8 @@
 <?php
 
-namespace Tribe\Events\Tests\Factories\REST\V1;
+namespace Tribe\Events\Test\Factories\REST\V1;
 
-use Tribe\Events\Tests\Factories\Organizer;
+use Tribe\Events\Test\Factories\Organizer;
 
 class Organizer_Response extends Organizer {
 

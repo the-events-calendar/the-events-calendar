@@ -190,7 +190,7 @@ class Tribe__Events__Linked_Posts {
 		 * This allows for things like Extensions to hook in here and return their own key
 		 * See '_EventOrganizerID_Order' above for an example
 		 *
-		 * @since TBD
+		 * @since 4.6.14
 		 *
 		 * @param bool false (not linked)
 		 * @param string $post_type current (potentially linked) post type
@@ -411,7 +411,7 @@ class Tribe__Events__Linked_Posts {
 			// Sort by drag-n-drop order
 			$linked_ids_order = get_post_meta( $post_id, $linked_ids_order_key, true );
 			if ( ! empty( $linked_ids_order ) ) {
-				$args['post__in'] = $linked_ids_order;
+				$args['post__in'] = $linked_post_ids;
 				$args['orderby'] = 'post__in';
 			}
 		}
@@ -716,7 +716,7 @@ class Tribe__Events__Linked_Posts {
 		}
 
 		if ( ! isset( $submission[ $linked_post_type_id_field ] ) ) {
-			$submission[ $linked_post_type_id_field ] = array( 0 );
+			$submission[ $linked_post_type_id_field ] = array();
 		}
 
 		$temp_submission = $submission;
@@ -791,7 +791,7 @@ class Tribe__Events__Linked_Posts {
 		}
 
 		// if we allow multiples and there is more then one save current order
-		if ( $this->allow_multiple( $linked_post_type ) && count( $linked_posts ) > 1 ) {
+		if ( $this->allow_multiple( $linked_post_type ) ) {
 			$this->order_linked_posts( $event_id, $linked_post_type, $submission[ $linked_post_type_id_field ] );
 		}
 
