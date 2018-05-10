@@ -25,7 +25,7 @@ Looking for additional functionality including recurring events, ticket sales, p
 <strong>Check out [Events Calendar PRO](http://m.tri.be/mj) and [other add-ons](http://m.tri.be/2a)</strong>
 
 ><strong>New Import Tool!</strong>
->We’ve made bulk event imports easier to manage than ever. This add-on service for The Events Calendar allows you to import events from your favorite sources, including Facebook, Meetup, Google Calendar, iCalendar, CSV, and ICS.
+>We’ve made bulk event imports easier to manage than ever. This add-on service for The Events Calendar allows you to import events from your favorite sources, including Meetup, Google Calendar, iCalendar, CSV, and ICS.
 >[Check out Event Aggregator now](http://m.tri.be/197u).
 
 = Built solid & supported =
@@ -135,7 +135,7 @@ Absolutely. If you're not finding your questions answered on the product pages, 
 The following add-ons are available for The Events Calendar:
 
 * [Events Calendar PRO](http://m.tri.be/18wi), for adding premium calendar features like recurring events, advanced views, cool widgets, shortcodes, additional fields, and more!
-* [Event Aggregator](http://m.tri.be/197u), a service that effortlessly fills your calendar with events from Facebook, Meetup, Google Calendar, iCalendar, CSV, and ICS.
+* [Event Aggregator](http://m.tri.be/197u), a service that effortlessly fills your calendar with events from Meetup, Google Calendar, iCalendar, CSV, and ICS.
 * [Event Tickets](http://m.tri.be/18wj) (free), which allows you to collect RSVPs to events. It can run alongside The Events Calendar or as a standalone plugin that adds RSVP functionality to WordPress posts and pages.
 * [Event Tickets Plus](http://m.tri.be/18wk), which allows you to sell tickets for your events using your favorite e-commerce platform.
 * [Community Events](http://m.tri.be/2g), for allowing frontend event submission from your readers.
@@ -215,13 +215,18 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
-= [4.6.15] TBD =
+= [4.6.15] 2018-05-09 =
 
-* Fix - Remove organizers when an event has multiple organizers [103715]
-* Fix - Fixed the `[tribe_events]` month view pagination without the bar, and when using plain permalinks [95720]
-* Fix - Prevent `url_to_postid` to run if on the main events page to avoid query conflicts. [94328]
-* Fix - Navigation to the past on Recurring List [43925]
-* Fix - Make the `[tribe_events]` scroll to top when using the list view. [81509]
+* Feature - Added wp-cli command to import events from a source with Event Aggregator. See `wp event-aggregator import-from --help` to know more [104426]
+* Feature - Added wp-cli command to run scheduled imports with Event Aggregator. See `wp event-aggregator run-import --help` to know more [104426]
+* Fix - Ensure that organizers can be deleted when an event has multiple organizers [103715]
+* Fix - Fixed a bug where the `[tribe_events]` Month View pagination would fail when no Tribe Bar was visible and plain permalinks were being used [95720]
+* Fix - Prevent `url_to_postid` from running when on the main events page to avoid query conflicts [94328]
+* Fix - Prevent 404s and malformed URLs that would sometimes arise when navigating to a past-events view from the "All"-events view on a single recurring event [43925]
+* Fix - Make the `[tribe_events]` shortcode's output scroll to top when using the List View to match the non-shortcode List View  [81509]
+* Fix - Ensure that default venue and address values are used throughout various venue-creation forms [63915]
+* Tweak - Honor the return types for `tribe_has_next_event` and `tribe_has_previous_event` when the global query is null
+* Language - 28 new strings added, 290 updated, 29 fuzzied, and 7 obsoleted
 
 = [4.6.14.1] 2018-04-18 =
 
@@ -240,6 +245,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - Fixed some imported-event handling so that events with no time and that aren't all-day events do not display on the front-end [93979]
 * Fix - Changed the HTTP status codes of empty event, venue, organizer, category, and tag archives from 404 to 200 and return empty arrays to stick with WP REST API standard [102283]
 * Fix - Better "guessing" on column mapping during the import of CSV file (thanks to April in our Help Desk for flagging this problem!) [96162]
+* Fix - Add new `tribe_events_linked_post_type_meta_key` filter, required to be set for each custom linked post type, to output custom linked post types in their drag-and-drop order (thanks @natureslens for highlighting the issue) [100733]
 * Tweak - Added the `tribe_aggregator_find_matching_organizer` and `tribe_aggregator_find_matching_venue` filters in Events Aggregator to allow the definition of custom Venue and Organizer match criteria [97292]
 * Tweak - Display the retry time for a failed Event Aggregator scheduled import in the Scheduled tab [102489]
 * Tweak - Add new filter, `tribe_events_import_event_duplicate_matches`, to determine if an event is part of the duplicates matches [77956]
@@ -252,6 +258,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 * Feature - Added facilities allowing users to trash or permanently delete expired events [98826]
 * Fix - Corrected the behavior of the previous/next event links rendered on single event pages (props to @jeremyfelt for fixing this) [101757]
+* Fix - Save order of organizers as displayed in the admin (thanks to JobInfo and others for report) [79126]
 * Tweak - Added Gutenberg compatibility for the Gutenberg Extension plugin
 * Tweak - Added new filter `tribe_tickets_venue_action_links_edit_url` to modify the venue edit link for the sales and attendee reports [93923]
 * Tweak - Altered day view to start at 00:00:00 and not 00:00:01 [99641]

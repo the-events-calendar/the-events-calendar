@@ -1,5 +1,5 @@
 <?php
-_deprecated_file( __FILE__, 'TBD', 'Tribe__Events__Front_Page_View' );
+_deprecated_file( __FILE__, '4.6.15', 'Tribe__Events__Front_Page_View' );
 
 /**
  * The Events Calendar Customizer

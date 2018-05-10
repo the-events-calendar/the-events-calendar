@@ -335,6 +335,7 @@ class Tribe__Events__Aggregator__Cron {
 
 			// Creating the child records based on this Parent
 			$child = $record->create_child_record();
+
 			tribe( 'logger' )->log_debug( sprintf( 'Creating child record %d for %d', $child->id, $record->id ), 'EA Cron' );
 
 			if ( ! is_wp_error( $child ) ) {
@@ -342,7 +343,9 @@ class Tribe__Events__Aggregator__Cron {
 
 				// Creates on the Service a Queue to Fetch the events
 				$response = $child->queue_import();
+
 				tribe( 'logger' )->log_debug( sprintf( 'Queueing import on EA Service for %d (child of %d)', $child->id, $record->id ), 'EA Cron' );
+
 				if ( ! empty( $response->status ) ) {
 					tribe( 'logger' )->log_debug( sprintf( '%s — %s (%s)', $response->status, $response->message, $response->data->import_id ),
 						'EA Cron' );
@@ -392,9 +395,21 @@ class Tribe__Events__Aggregator__Cron {
 			'posts_per_page' => - 1,
 			'order'          => 'ASC',
 			'meta_query'     => array(
-				array(
-					'key'     => '_tribe_aggregator_origin',
-					'value'   => 'csv',
+				'origin-not-csv' => array(
+					'key' => '_tribe_aggregator_origin',
+					'value' => 'csv',
+					'compare' => '!=',
+				),
+				// if not specified then assume batch push is not supported
+				'no-batch-push-support-specified' => array(
+					'key' => '_tribe_aggregator_allow_batch_push',
+					'value' => 'bug #23268',
+					'compare' => 'NOT EXISTS',
+				),
+				// if specified and not `1` then batch push is not supported
+				'explicit-no-batch-push-support' => array(
+					'key' => '_tribe_aggregator_allow_batch_push',
+					'value' => '1',
 					'compare' => '!=',
 				),
 			),

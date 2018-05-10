@@ -9,7 +9,7 @@ class Tribe__Events__Front_Page_View {
 	 * The ID used to identify the virtual page, using a -10 for no particular reason, but avoding -1 as is regular
 	 * used as infinite or any other popular reference.
 	 *
-	 * @since TBD
+	 * @since 4.6.15
 	 *
 	 * @var int
 	 */
@@ -76,7 +76,7 @@ class Tribe__Events__Front_Page_View {
 	 * Parse the query when the customizer sends request to preview specifc page to avoid 404 pages
 	 * or the wrong page.
 	 *
-	 * @since TBD
+	 * @since 4.6.15
 	 *
 	 * @param WP_Query $query
 	 */
@@ -198,7 +198,7 @@ class Tribe__Events__Front_Page_View {
 	 * Return the $original_value to avoid convert to a positive integer if the $original_value is the same as
 	 * the ID of the virtual page.
 	 *
-	 * @since TBD
+	 * @since 4.6.15
 	 *
 	 * @param $value
 	 * @param $option
@@ -218,7 +218,7 @@ class Tribe__Events__Front_Page_View {
 	/**
 	 * Add "Main Events Page" option to the Customizer's "Homepage Settings" and the reading settings of the admin
 	 *
-	 * @since TBD
+	 * @since 4.6.15
 	 *
 	 * @param string $output HTML output for drop down list of pages.
 	 * @param array  $args   The parsed arguments array.
@@ -253,7 +253,7 @@ class Tribe__Events__Front_Page_View {
 	 *
 	 * if only the value for show_on_front is changed.
 	 *
-	 * @since TBD
+	 * @since 4.6.15
 	 *
 	 * @param $value
 	 *
@@ -273,7 +273,7 @@ class Tribe__Events__Front_Page_View {
 	/**
 	 * Make sure to set the correct values if we need to update old versions using the previous logic.
 	 *
-	 * @since TBD
+	 * @since 4.6.15
 	 * @return boolean
 	 */
 	public function backwards_compatible() {
@@ -294,7 +294,7 @@ class Tribe__Events__Front_Page_View {
 	/**
 	 * Returns `true` if the 'front_page_event_archive' is `true` and the `page_on_front` is same as the virtual page ID
 	 *
-	 * @since TBD
+	 * @since 4.6.15
 	 *
 	 * @return bool
 	 */
@@ -305,7 +305,7 @@ class Tribe__Events__Front_Page_View {
 	/**
 	 * Returns `true` if the `front_page_event_archive` is `true` otherwise `false`
 	 *
-	 * @since TBD
+	 * @since 4.6.15
 	 *
 	 * @return bool
 	 */
@@ -316,7 +316,7 @@ class Tribe__Events__Front_Page_View {
 	/**
 	 * Compares the value of the setting `page_on_front` is same as the one used for the virtual page ID.
 	 *
-	 * @since TBD
+	 * @since 4.6.15
 	 *
 	 * @return bool
 	 */
@@ -328,7 +328,7 @@ class Tribe__Events__Front_Page_View {
 	 * Compare a value with the value used on the virtual page ID and converts the var $compare to an integer
 	 * to make sure the strict comparision is done correctly between two integers.
 	 *
-	 * @since TBD
+	 * @since 4.6.15
 	 *
 	 * @param $compare
 	 *
@@ -341,7 +341,7 @@ class Tribe__Events__Front_Page_View {
 	/**
 	 * Return the ID of the virtual page.
 	 *
-	 * @since TBD
+	 * @since 4.6.15
 	 *
 	 * @return int
 	 */

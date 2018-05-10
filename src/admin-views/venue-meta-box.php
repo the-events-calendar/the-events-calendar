@@ -94,14 +94,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 </tr>
 <tr class="venue tribe-linked-type-venue-state-province">
 	<?php
-	if ( 'auto-draft' === get_post_status()	&& empty( $_VenueStateProvince ) ) {
-		$currentState = tribe_get_default_value( 'state' );
+	if ( 'auto-draft' === get_post_status() && empty( $_VenueStateProvince ) ) {
+		$currentState    = tribe_get_default_value( 'state' );
 		$currentProvince = tribe_get_default_value( 'province' );
 	} else {
 		$currentProvince = $_VenueProvince;
-		$currentState    = $_VenueStateProvince;
+		$currentState    = $_VenueState;
 	}
-
 	?>
 	<td class='tribe-table-field-label'><?php esc_html_e( 'State or Province:', 'the-events-calendar' ); ?></td>
 	<td>
@@ -123,10 +122,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<option value=""><?php esc_html_e( 'Select a State:', 'the-events-calendar' ); ?></option>
 			<?php
 			foreach ( Tribe__View_Helpers::loadStates() as $abbr => $fullname ) {
-				$state = -1 !== $_VenueStateProvince ? $_VenueStateProvince : $currentState;
 				// support matching by state abbreviation OR fullname.
 				// NOTE: converts to abbreviation on save
-				echo '<option value="' . esc_attr( $abbr ) . '"' . selected( ( $state === $abbr || $state === $fullname ), true, false ) . '>' . esc_html( $fullname ) . '</option>';
+				$selected = selected( ( $currentState === $abbr || $currentState === $fullname ), true, false );
+				echo '<option value="' . esc_attr( $abbr ) . '" ' . $selected . '>' . esc_html( $fullname ) . '</option>';
 			}
 			?>
 		</select>

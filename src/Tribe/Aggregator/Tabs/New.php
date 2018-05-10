@@ -100,6 +100,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		// mark the record creation as a preview record
 		$meta['preview'] = true;
 
+
 		if ( ! empty( $post_data['import_id'] ) ) {
 			$this->handle_import_finalize( $post_data );
 			return;
@@ -236,6 +237,13 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		}
 	}
 
+	/**
+	 * Parses the queue for errors and informations.
+	 *
+	 * @param Tribe__Events__Aggregator__Record__Queue $queue
+	 *
+	 * @return array
+	 */
 	public function get_result_messages( $queue ) {
 		$messages = array();
 

@@ -62,7 +62,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		/**
 		 * Add an option to change the $matches that are duplicates.
 		 *
-		 * @since TBD
+		 * @since 4.6.15
 		 *
 		 * @param array $matches Array with the duplicate matches
 		 * @param array $query_args Array with the arguments used to get the posts.
