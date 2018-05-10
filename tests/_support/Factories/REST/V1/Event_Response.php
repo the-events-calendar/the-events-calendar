@@ -1,8 +1,8 @@
 <?php
 
-namespace Tribe\Events\Tests\Factories\REST\V1;
+namespace Tribe\Events\Test\Factories\REST\V1;
 
-use Tribe\Events\Tests\Factories\Event;
+use Tribe\Events\Test\Factories\Event;
 
 class Event_Response extends Event {
 

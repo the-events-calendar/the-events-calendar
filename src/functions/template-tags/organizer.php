@@ -50,6 +50,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	function tribe_get_organizer_ids( $event_id = null ) {
 		$event_id = Tribe__Events__Main::postIdHelper( $event_id );
 		$organizer_ids = array();
+
 		if ( is_numeric( $event_id ) && $event_id > 0 ) {
 			if ( Tribe__Events__Main::instance()->isOrganizer( $event_id ) ) {
 				$organizer_ids[] = $event_id;
@@ -63,11 +64,44 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		}
 		// if there are linked post order use that instead of the current linked post to change the order
 		$organizer_ids_order = get_post_meta( $event_id, '_EventOrganizerID_Order', true );
-		if ( ! empty( $organizer_ids_order ) ) {
-			$organizer_ids = $organizer_ids_order;
-		}
+		$organizer_ids = tribe_sanitize_organizers( $organizer_ids, $organizer_ids_order );
 
 		return apply_filters( 'tribe_get_organizer_ids', $organizer_ids, $event_id );
+	}
+
+	/**
+	 * An organizers can have two sources the list of ordered items and the meta field associated with organizers,
+	 * where the meta field takes precedence we need to respect the order of the meta order only when the present items
+	 * on the meta field.
+	 *
+	 * @since 4.6.15
+	 *
+	 * @param array $current
+	 * @param array $ordered
+	 *
+	 * @return array
+	 */
+	function tribe_sanitize_organizers( $current = array(), $ordered = array() ) {
+
+		if ( empty( $ordered ) ) {
+			return $current;
+		}
+
+		$order    = array();
+		$excluded = array();
+		foreach ( (array) $current as $post_id ) {
+			$key = array_search( $post_id, $ordered );
+			if ( false === $key ) {
+				$excluded[] = $post_id;
+			} else {
+				$order[ $key ] = $post_id;
+			}
+		}
+
+		// Make sure before the merge the order is ordered by the keys
+		ksort( $order );
+;
+		return array_merge( $order, $excluded );
 	}
 
 	/**

@@ -976,7 +976,7 @@ Date.prototype.format = function( mask, utc ) {
 				var $tip;
 
 				if ( is_month_view ) { // Cal View Tooltips
-					bottomPad = $this.find( 'a' ).outerHeight() + 18;
+					bottomPad = $this.find( 'a' ).outerHeight() + 16;
 				} else if ( is_single || is_day_view || is_list_view ) { // Single/List View Recurring Tooltips
 					bottomPad = $this.outerHeight() + 12;
 				} else if ( is_photo_view ) { // Photo View
@@ -1009,7 +1009,7 @@ Date.prototype.format = function( mask, utc ) {
 						}
 
 						// Look for the distance between top of tooltip and top of visible viewport.
-						var dist_to_top = $this.offset().top - ( $( window ).scrollTop() + 50 ); // The +50 is some padding for a more aesthetically-pleasing view. 
+						var dist_to_top = $this.offset().top - ( $( window ).scrollTop() + 50 ); // The +50 is some padding for a more aesthetically-pleasing view.
 						var tip_height  = $tip.outerHeight();
 
 						// If true, tooltip is near top of viewport, so tweak some values to keep the tooltip fully in-view.
@@ -1018,9 +1018,9 @@ Date.prototype.format = function( mask, utc ) {
 							$tip.addClass( 'tribe-events-tooltip-flipdown' );
 						}
 
-						$tip.css( 'bottom', bottomPad ).show();
+						$tip.css( 'bottom', bottomPad ).stop( true, false ).show();
 					} else {
-						$this.find( '.tribe-events-tooltip' ).css( 'bottom', bottomPad ).show();
+						$this.find( '.tribe-events-tooltip' ).css( 'bottom', bottomPad ).stop( true, false ).show();
 					}
 				}
 
@@ -1028,7 +1028,7 @@ Date.prototype.format = function( mask, utc ) {
 
 				var $tip = $( this ).find( '.tribe-events-tooltip' );
 
-				$tip.stop( true, false ).fadeOut( 200, function() {
+				$tip.stop( true, false ).fadeOut( 500, function() {
 					$tip.removeClass( 'tribe-events-tooltip-flipdown' );
 				} );
 
@@ -1326,7 +1326,7 @@ Date.prototype.format = function( mask, utc ) {
 		var resize_timer;
 
 		$tribe_events.removeClass( 'tribe-no-js' );
-		
+
 		ts.category   = tf.get_category();
 		td.base_url   = tf.get_base_url();
 		ts.page_title = document.title;
@@ -1408,6 +1408,15 @@ Date.prototype.format = function( mask, utc ) {
 					}
 				}
 			}
+
+			if ( 'month' === ts.view && ! $( '#tribe-events-bar' ).length ) {
+				if ( ! td.default_permalinks ) {
+					ts.url_params = 'tribe-bar-date=' + tribeDateFormat( ts.mdate, "tribeMonthQuery" );
+				} else {
+					tribe_ev.state.url_params += 'tribe-bar-date=' + tribeDateFormat( ts.mdate, "tribeMonthQuery" );
+				}
+			}
+
 		} );
 
 		/**
@@ -1501,7 +1510,7 @@ Date.prototype.format = function( mask, utc ) {
 			if ( 'undefined' !== typeof tribe_js_config.force_filtered_ical_link ) {
 				should_overwrite = ! tribe_js_config.force_filtered_ical_link;
 			}
-			
+
 			if ( should_overwrite ) {
 				var url       = document.URL;
 				var separator = '?';
