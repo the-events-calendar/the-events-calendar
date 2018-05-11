@@ -83,7 +83,7 @@ class Tribe__Events__Linked_Posts {
 	 */
 	public function register_default_linked_post_types() {
 		$default_post_types = array(
-			Tribe__Events__Main::VENUE_POST_TYPE,
+			Tribe__Events__Venue::POSTTYPE,
 			Tribe__Events__Main::ORGANIZER_POST_TYPE,
 		);
 
@@ -161,7 +161,7 @@ class Tribe__Events__Linked_Posts {
 	 * @return string
 	 */
 	public function get_meta_key( $post_type ) {
-		if ( Tribe__Events__Main::VENUE_POST_TYPE === $post_type ) {
+		if ( Tribe__Events__Venue::POSTTYPE === $post_type ) {
 			return '_EventVenueID';
 		}
 
