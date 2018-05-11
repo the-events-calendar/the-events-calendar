@@ -41,9 +41,9 @@ class Tribe__Events__Integrations__WPML__Meta {
 	public function translate_post_id( $value, $object_id, $meta_key ) {
 		global $wpdb;
 
-		if ( '_EventOrganizerID' !== $meta_key &&
-			 '_EventOrganizerID_Order' !== $meta_key &&
-			 '_EventVenueID' !== $meta_key ) {
+		$accepted_values = [ '_EventOrganizerID', '_EventOrganizerID_Order', '_EventVenueID' ];
+
+		if ( ! in_array( $meta_key, $accepted_values ) ) {
 			return $value;
 		}
 
@@ -63,7 +63,7 @@ class Tribe__Events__Integrations__WPML__Meta {
 
 		foreach ( $value as & $post_id ) {
 			if ( is_serialized( $post_id ) ) {
-				$array = unserialize( $post_id );
+				$array = (array) unserialize( $post_id );
 				foreach ( $array as & $id ) {
 					$id = apply_filters( 'wpml_object_id', $id, $type, true );
 				}
