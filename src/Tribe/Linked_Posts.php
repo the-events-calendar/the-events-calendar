@@ -84,7 +84,7 @@ class Tribe__Events__Linked_Posts {
 	public function register_default_linked_post_types() {
 		$default_post_types = array(
 			Tribe__Events__Venue::POSTTYPE,
-			Tribe__Events__Main::ORGANIZER_POST_TYPE,
+			Tribe__Events__Organizer::POSTTYPE,
 		);
 
 		/**
@@ -165,7 +165,7 @@ class Tribe__Events__Linked_Posts {
 			return '_EventVenueID';
 		}
 
-		if ( Tribe__Events__Main::ORGANIZER_POST_TYPE === $post_type ) {
+		if ( Tribe__Events__Organizer::POSTTYPE === $post_type ) {
 			return '_EventOrganizerID';
 		}
 
@@ -182,7 +182,7 @@ class Tribe__Events__Linked_Posts {
 	 * @return bool|string
 	 */
 	public function get_order_meta_key( $post_type ) {
-		if ( Tribe__Events__Main::ORGANIZER_POST_TYPE === $post_type ) {
+		if ( Tribe__Events__Organizer::POSTTYPE === $post_type ) {
 			return '_EventOrganizerID_Order';
 		}
 
