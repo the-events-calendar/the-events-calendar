@@ -62,15 +62,24 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	/**
 	 * Month view conditional tag
 	 *
-	 * Returns true if the current view is Month
+	 * Returns true when on the "real" Month View itself, but not in other secondary instances of the
+	 * Month View like instance of the [tribe_events] shortcode.
 	 *
 	 * @return bool
 	 */
 	function tribe_is_month() {
 		$tribe_ecp = Tribe__Events__Main::instance();
-		$output    = ( $tribe_ecp->displaying == 'month' ) ? true : false;
+		$is_month  = ( 'month' === $tribe_ecp->displaying ) ? true : false;
 
-		return apply_filters( 'tribe_is_month', $output );
+		/**
+		 * Allows filtering of the tribe_is_month boolean value.
+		 *
+		 * @since 4.6.15 Added inline documentation for this filter.
+		 *
+		 * @param boolean $is_month Whether you're on the main Month View or not
+		 * @param Tribe__Events__Main $tribe_ecp The current Tribe__Events__Main instance.
+		 */
+		return apply_filters( 'tribe_is_month', $is_month, $tribe_ecp );
 	}
 
 	/**

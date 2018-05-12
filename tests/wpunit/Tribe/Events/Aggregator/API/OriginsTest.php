@@ -3,7 +3,7 @@
 namespace Tribe\Events\Aggregator\API;
 
 use Prophecy\Argument;
-use Tribe\Events\Tests\Testcases\Aggregator\V1\Aggregator_TestCase;
+use Tribe\Events\Test\Testcases\Aggregator\V1\Aggregator_TestCase;
 use Tribe__Events__Aggregator__API__Origins as Origins;
 use Tribe__Events__Aggregator__Service as Service;
 

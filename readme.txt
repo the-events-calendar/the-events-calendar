@@ -4,7 +4,7 @@ Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.5
-Stable tag: 4.6.14.1
+Stable tag: 4.6.15
 Tested up to: 4.9.5
 Requires PHP: 5.2.4
 License: GPLv2 or later
@@ -215,6 +215,19 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
+= [4.6.15] 2018-05-09 =
+
+* Feature - Added wp-cli command to import events from a source with Event Aggregator. See `wp event-aggregator import-from --help` to know more [104426]
+* Feature - Added wp-cli command to run scheduled imports with Event Aggregator. See `wp event-aggregator run-import --help` to know more [104426]
+* Fix - Ensure that organizers can be deleted when an event has multiple organizers [103715]
+* Fix - Fixed a bug where the `[tribe_events]` Month View pagination would fail when no Tribe Bar was visible and plain permalinks were being used [95720]
+* Fix - Prevent `url_to_postid` from running when on the main events page to avoid query conflicts [94328]
+* Fix - Prevent 404s and malformed URLs that would sometimes arise when navigating to a past-events view from the "All"-events view on a single recurring event [43925]
+* Fix - Make the `[tribe_events]` shortcode's output scroll to top when using the List View to match the non-shortcode List View  [81509]
+* Fix - Ensure that default venue and address values are used throughout various venue-creation forms [63915]
+* Tweak - Honor the return types for `tribe_has_next_event` and `tribe_has_previous_event` when the global query is null
+* Language - 28 new strings added, 290 updated, 29 fuzzied, and 7 obsoleted
+
 = [4.6.14.1] 2018-04-18 =
 
 * Fix - Fixed fatal error that would sometimes arise when The Events Calendar was set to display on the front page
@@ -232,6 +245,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - Fixed some imported-event handling so that events with no time and that aren't all-day events do not display on the front-end [93979]
 * Fix - Changed the HTTP status codes of empty event, venue, organizer, category, and tag archives from 404 to 200 and return empty arrays to stick with WP REST API standard [102283]
 * Fix - Better "guessing" on column mapping during the import of CSV file (thanks to April in our Help Desk for flagging this problem!) [96162]
+* Fix - Add new `tribe_events_linked_post_type_meta_key` filter, required to be set for each custom linked post type, to output custom linked post types in their drag-and-drop order (thanks @natureslens for highlighting the issue) [100733]
 * Tweak - Added the `tribe_aggregator_find_matching_organizer` and `tribe_aggregator_find_matching_venue` filters in Events Aggregator to allow the definition of custom Venue and Organizer match criteria [97292]
 * Tweak - Display the retry time for a failed Event Aggregator scheduled import in the Scheduled tab [102489]
 * Tweak - Add new filter, `tribe_events_import_event_duplicate_matches`, to determine if an event is part of the duplicates matches [77956]
@@ -244,6 +258,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 * Feature - Added facilities allowing users to trash or permanently delete expired events [98826]
 * Fix - Corrected the behavior of the previous/next event links rendered on single event pages (props to @jeremyfelt for fixing this) [101757]
+* Fix - Save order of organizers as displayed in the admin (thanks to JobInfo and others for report) [79126]
 * Tweak - Added Gutenberg compatibility for the Gutenberg Extension plugin
 * Tweak - Added new filter `tribe_tickets_venue_action_links_edit_url` to modify the venue edit link for the sales and attendee reports [93923]
 * Tweak - Altered day view to start at 00:00:00 and not 00:00:01 [99641]
