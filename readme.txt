@@ -218,6 +218,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 = [4.6.16] TBD =
 
 * Tweak - Add tribe_redirected parameter to enable a visitor to select another view after default mobile redirect, thanks to Marcella for notifying us [102743]
+* Fix - Add a warning when the site Timezone is set to UTC [105217]
 
 = [4.6.15] 2018-05-09 =
 
