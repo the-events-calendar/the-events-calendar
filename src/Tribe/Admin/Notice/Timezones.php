@@ -5,7 +5,7 @@
  */
 class Tribe__Events__Admin__Notice__Timezones {
 
-	public function __construct() {
+	public function hook() {
 
 		// Bail if the site isn't using UTC
 		if ( ! $this->is_utc_timezone() ) {
