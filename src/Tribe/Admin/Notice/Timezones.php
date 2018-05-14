@@ -38,14 +38,8 @@ class Tribe__Events__Admin__Notice__Timezones {
 	 */
 	public function is_utc_timezone() {
 
-		// timezone_string
-		$timezone_string = get_option( 'timezone_string' );
-
-		// GMT offset
-		$gmt_offset      = get_option( 'gmt_offset' );
-
 		// If the site is using UTC or UTC manual offset
-		return 'UTC' === $timezone_string || ( '' === $timezone_string && '' !== $gmt_offset );
+		return strpos( Tribe__Timezones::wp_timezone_string(), 'UTC' ) !== false;
 	}
 
 	/**
