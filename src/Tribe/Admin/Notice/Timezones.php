@@ -45,14 +45,7 @@ class Tribe__Events__Admin__Notice__Timezones {
 		$gmt_offset      = get_option( 'gmt_offset' );
 
 		// If the site is using UTC or UTC manual offset
-		if (
-			'UTC' === $timezone_string
-			|| ( '' === $timezone_string && '' !== $gmt_offset )
-		) {
-			return true;
-		}
-
-		return false;
+		return 'UTC' === $timezone_string || ('' === $timezone_string && '' !== $gmt_offset );
 	}
 
 	/**
@@ -70,14 +63,7 @@ class Tribe__Events__Admin__Notice__Timezones {
 
 		// It should display if we're on a TEC page or
 		// over Settings > General
-		if (
-			! $admin_helpers->is_screen()
-			|| 'options-general.php' === $pagenow
-		) {
-			return true;
-		}
-
-		return false;
+		return ! $admin_helpers->is_screen() || 'options-general.php' === $pagenow;
 	}
 
 	/**
