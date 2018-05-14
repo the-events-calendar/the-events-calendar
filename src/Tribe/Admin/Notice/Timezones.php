@@ -45,7 +45,7 @@ class Tribe__Events__Admin__Notice__Timezones {
 		$gmt_offset      = get_option( 'gmt_offset' );
 
 		// If the site is using UTC or UTC manual offset
-		return 'UTC' === $timezone_string || ('' === $timezone_string && '' !== $gmt_offset );
+		return 'UTC' === $timezone_string || ( '' === $timezone_string && '' !== $gmt_offset );
 	}
 
 	/**
