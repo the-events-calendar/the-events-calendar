@@ -416,10 +416,10 @@ class Tribe__Events__Linked_Posts {
 			}
 		}
 
-		if ( ! empty( $linked_ids_order ) ) {
-			$linked_post_ids = $linked_ids_order;
-		} else {
+		if ( empty( $linked_ids_order ) ) {
 			$linked_post_ids = get_post_meta( $post_id, $this->get_meta_key( $post_type ) );
+		} else {
+			$linked_post_ids = $linked_ids_order;
 		}
 
 		$result = $this->get_linked_post_info( $post_type, $args, $linked_post_ids );
