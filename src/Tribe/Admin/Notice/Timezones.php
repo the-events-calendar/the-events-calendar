@@ -7,16 +7,6 @@ class Tribe__Events__Admin__Notice__Timezones {
 
 	public function hook() {
 
-		// Bail if the site isn't using UTC
-		if ( ! $this->is_utc_timezone() ) {
-			return;
-		}
-
-		// Bail if we're not on TEC pages or WordPress General Settings
-		if ( ! $this->should_display() ) {
-			return;
-		}
-
 		tribe_notice(
 			'tribe-events-utc-timezone',
 			array( $this, 'notice' ),
@@ -24,22 +14,10 @@ class Tribe__Events__Admin__Notice__Timezones {
 				'type'    => 'warning',
 				'dismiss' => 1,
 				'wrap'    => 'p',
-			)
+			),
+			array( $this, 'should_display' )
 		);
 
-	}
-
-	/**
-	 * Checks if the site is using UTC Timezone Options
-	 *
-	 * @since  TBD
-	 *
-	 * @return boolean
-	 */
-	public function is_utc_timezone() {
-
-		// If the site is using UTC or UTC manual offset
-		return strpos( Tribe__Timezones::wp_timezone_string(), 'UTC' ) !== false;
 	}
 
 	/**
@@ -53,11 +31,27 @@ class Tribe__Events__Admin__Notice__Timezones {
 	public function should_display() {
 		global $pagenow;
 
-		$admin_helpers = Tribe__Admin__Helpers::instance();
+		// Bail if the site isn't using UTC
+		if ( ! $this->is_utc_timezone() ) {
+			return false;
+		}
 
 		// It should display if we're on a TEC page or
 		// over Settings > General
-		return ! $admin_helpers->is_screen() || 'options-general.php' === $pagenow;
+		return tribe( 'admin.helpers' )->is_screen() || 'options-general.php' === $pagenow;
+	}
+
+	/**
+	 * Checks if the site is using UTC Timezone Options
+	 *
+	 * @since  TBD
+	 *
+	 * @return boolean
+	 */
+	public function is_utc_timezone() {
+
+		// If the site is using UTC or UTC manual offset
+		return strpos( Tribe__Timezones::wp_timezone_string(), 'UTC' ) !== false;
 	}
 
 	/**
