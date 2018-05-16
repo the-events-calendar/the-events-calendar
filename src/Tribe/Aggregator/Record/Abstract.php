@@ -1988,7 +1988,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			 * @param  array $item    Raw version of the data sent from EA
 			 * @param  self  $record  The record we are dealing with
 			 */
-			do_action( 'tribe_aggregator_after_insert_post', $event, $this, $item );
+			do_action( 'tribe_aggregator_after_insert_post', $event, $item, $this );
 		}
 
 		remove_filter( 'tribe-post-origin', array( Tribe__Events__Aggregator__Records::instance(), 'filter_post_origin' ), 10 );
