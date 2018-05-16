@@ -16,7 +16,7 @@ abstract class Tribe__Events__Importer__File_Importer {
 	private $updated  = 0;
 	private $created  = 0;
 	private $encoding = array();
-	private $log      = array();
+	protected $log    = array();
 
 	protected $skipped      = array();
 	protected $inverted_map = array();
