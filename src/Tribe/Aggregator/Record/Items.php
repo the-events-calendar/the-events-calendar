@@ -3,7 +3,7 @@
 /**
  * Class Tribe__Events__Aggregator__Record__Items
  *
- * @since TBD
+ * @since 4.6.16
  */
 class Tribe__Events__Aggregator__Record__Items {
 	/**
@@ -19,7 +19,7 @@ class Tribe__Events__Aggregator__Record__Items {
 	/**
 	 * Tribe__Events__Aggregator__Record__Items constructor.
 	 *
-	 * @since TBD
+	 * @since 4.6.16
 	 *
 	 * @param array $items A list of items to process, the format should be the one used by EA Service
 	 */
@@ -31,7 +31,7 @@ class Tribe__Events__Aggregator__Record__Items {
 	/**
 	 * Returns the items as modified by the class.
 	 *
-	 * @since TBD
+	 * @since 4.6.16
 	 *
 	 * @return array
 	 */
@@ -42,7 +42,7 @@ class Tribe__Events__Aggregator__Record__Items {
 	/**
 	 * Resets, or sets, the items the class should handle.
 	 *
-	 * @since TBD
+	 * @since 4.6.16
 	 *
 	 * @param array $items
 	 */
@@ -55,7 +55,7 @@ class Tribe__Events__Aggregator__Record__Items {
 	 * Parses the items to find those that depend on linked posts defined by other items
 	 * and marks them as dependent.
 	 *
-	 * @since TBD
+	 * @since 4.6.16
 	 *
 	 * @return $this
 	 */
@@ -115,7 +115,7 @@ class Tribe__Events__Aggregator__Record__Items {
 	/**
 	 * Returns the items originally set via the constructor the `set_items` method.
 	 *
-	 * @since TBD
+	 * @since 4.6.16
 	 *
 	 * @return array
 	 */

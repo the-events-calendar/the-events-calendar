@@ -21,7 +21,7 @@ class Tribe__Events__Aggregator__Record__Async_Queue
 	/**
 	 * Tribe__Events__Aggregator__Record__Async_Queue constructor.
 	 *
-	 * @since TBD
+	 * @since 4.6.16
 	 *
 	 * @param Tribe__Events__Aggregator__Record__Abstract $record
 	 * @param array $items
@@ -37,7 +37,7 @@ class Tribe__Events__Aggregator__Record__Async_Queue
 	/**
 	 * Initializes the async queue.
 	 *
-	 * @since TBD
+	 * @since 4.6.16
 	 *
 	 * @param $items
 	 *
@@ -87,7 +87,7 @@ class Tribe__Events__Aggregator__Record__Async_Queue
 	/**
 	 * Magic method override.
 	 *
-	 * @since TBD
+	 * @since 4.6.16
 	 *
 	 * @param string $key
 	 *
@@ -106,7 +106,7 @@ class Tribe__Events__Aggregator__Record__Async_Queue
 	 *
 	 * In this implementation really stored on the record.
 	 *
-	 * @since TBD
+	 * @since 4.6.16
 	 *
 	 * @return Tribe__Events__Aggregator__Record__Activity
 	 */
@@ -117,7 +117,7 @@ class Tribe__Events__Aggregator__Record__Async_Queue
 	/**
 	 * Shortcut to check if this queue is empty.
 	 *
-	 * @since TBD
+	 * @since 4.6.16
 	 *
 	 * @return boolean `true` if this queue instance has acquired the lock and
 	 *                 the count is 0, `false` otherwise.
@@ -129,7 +129,7 @@ class Tribe__Events__Aggregator__Record__Async_Queue
 	/**
 	 * Shortcut to check how many items are going to be processed next
 	 *
-	 * @since TBD
+	 * @since 4.6.16
 	 *
 	 * @return int
 	 */
@@ -144,7 +144,7 @@ class Tribe__Events__Aggregator__Record__Async_Queue
 	/**
 	 * Returns the process status of the queue, read from the queue meta.
 	 *
-	 * @since TBD
+	 * @since 4.6.16
 	 *
 	 * @return array
 	 */
@@ -164,7 +164,7 @@ class Tribe__Events__Aggregator__Record__Async_Queue
 	 *
 	 * The `batch_size` is ignored in async mode.
 	 *
-	 * @since TBD
+	 * @since 4.6.16
 	 *
 	 * @return Tribe__Events__Aggregator__Record__Async_Queue
 	 */
@@ -182,7 +182,7 @@ class Tribe__Events__Aggregator__Record__Async_Queue
 	/**
 	 * Initializes the async queue process if required.
 	 *
-	 * @since TBD
+	 * @since 4.6.16
 	 *
 	 * @return bool Whether the queue needed to be initialized or not.
 	 */
@@ -201,7 +201,7 @@ class Tribe__Events__Aggregator__Record__Async_Queue
 	/**
 	 * Indicates if the queue for the current event is actively being processed.
 	 *
-	 * @since TBD
+	 * @since 4.6.16
 	 *
 	 * @return bool
 	 */
@@ -214,7 +214,7 @@ class Tribe__Events__Aggregator__Record__Async_Queue
 	 *
 	 * No-op as the async queue has its own lock system.
 	 *
-	 * @since TBD
+	 * @since 4.6.16
 	 */
 	public function set_in_progress_flag() {
 		// no-op
@@ -225,7 +225,7 @@ class Tribe__Events__Aggregator__Record__Async_Queue
 	 *
 	 * No-op as the async queue has its own lock system.
 	 *
-	 * @since TBD
+	 * @since 4.6.16
 	 */
 	public function clear_in_progress_flag() {
 		// no-op
@@ -234,7 +234,7 @@ class Tribe__Events__Aggregator__Record__Async_Queue
 	/**
 	 * Returns the total progress made on processing the queue so far as a percentage.
 	 *
-	 * @since TBD
+	 * @since 4.6.16
 	 *
 	 * @return int
 	 */
@@ -253,7 +253,7 @@ class Tribe__Events__Aggregator__Record__Async_Queue
 	/**
 	 * Returns the primary post type the queue is processing
 	 *
-	 * @since TBD
+	 * @since 4.6.16
 	 *
 	 * @return string
 	 */
@@ -271,7 +271,7 @@ class Tribe__Events__Aggregator__Record__Async_Queue
 	 * Generates a transitional id that will be used to uniquely identify dependencies in the
 	 * context of an import.
 	 *
-	 * @since TBD
+	 * @since 4.6.16
 	 *
 	 * @return string An 8 char long unique ID.
 	 */

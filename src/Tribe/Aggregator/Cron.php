@@ -573,7 +573,7 @@ class Tribe__Events__Aggregator__Cron {
 	/**
 	 * Tries to fetch the data for the scheduled import and immediately process it.
 	 *
-	 * @since TBD
+	 * @since 4.6.16
 	 *
 	 * @param Tribe__Events__Aggregator__Record__Abstract $record
 	 */

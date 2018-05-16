@@ -3,14 +3,14 @@
 /**
  * Class Tribe__Events__Aggregator__Processes__Service_Provider
  *
- * @since TBD
+ * @since 4.6.16
  */
 class Tribe__Events__Aggregator__Processes__Service_Provider extends tad_DI52_ServiceProvider {
 
 	/**
 	 * Binds and sets up implementations.
 	 *
-	 * @since TBD
+	 * @since 4.6.16
 	 */
 	public function register() {
 		tribe_register( 'events-aggregator.record-items', 'Tribe__Events__Aggregator__Record__Items' );
@@ -22,7 +22,7 @@ class Tribe__Events__Aggregator__Processes__Service_Provider extends tad_DI52_Se
 	/**
 	 * Registers the event import background process.
 	 *
-	 * @since TBD
+	 * @since 4.6.16
 	 *
 	 * @param array $queues
 	 *

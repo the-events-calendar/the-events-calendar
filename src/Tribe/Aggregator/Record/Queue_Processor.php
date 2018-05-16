@@ -254,7 +254,7 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 	/**
 	 * Builds the correct class of queue.
 	 *
-	 * @since TBD
+	 * @since 4.6.16
 	 *
 	 * @param int|Tribe__Events__Aggregator__Record__Abstract $record A record object or ID
 	 * @param array|string $items
@@ -287,7 +287,7 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 		 *
 		 * This filter can also return a fully built queue object.
 		 *
-		 * @since TBD
+		 * @since 4.6.16
 		 *
 		 * @param string $class
 		 * @param Tribe__Events__Aggregator__Record__Abstract $record

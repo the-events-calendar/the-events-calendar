@@ -5,7 +5,7 @@
  *
  * Imports events in an async queue.
  *
- * @since TBD
+ * @since 4.6.16
  */
 class Tribe__Events__Aggregator__Processes__Import_Events extends Tribe__Process__Queue {
 	/**
@@ -31,7 +31,7 @@ class Tribe__Events__Aggregator__Processes__Import_Events extends Tribe__Process
 	/**
 	 * Returns the async process action name.
 	 *
-	 * @since TBD
+	 * @since 4.6.16
 	 *
 	 * @return string
 	 */
@@ -42,7 +42,7 @@ class Tribe__Events__Aggregator__Processes__Import_Events extends Tribe__Process
 	/**
 	 * Adds transitional data, used to check dependencies, to an event linked posts.
 	 *
-	 * @since TBD
+	 * @since 4.6.16
 	 *
 	 * @param array $event
 	 */
@@ -65,7 +65,7 @@ class Tribe__Events__Aggregator__Processes__Import_Events extends Tribe__Process
 	 * Returns the `meta_key` that will be used to store the transitional data
 	 * in linked post for this import process.
 	 *
-	 * @since TBD
+	 * @since 4.6.16
 	 *
 	 * @param null $transitional_id
 	 *
@@ -83,7 +83,7 @@ class Tribe__Events__Aggregator__Processes__Import_Events extends Tribe__Process
 	 * Sets the final part `meta_key` that should be used to store transitional
 	 * information for this import process.
 	 *
-	 * @since TBD
+	 * @since 4.6.16
 	 *
 	 * @param string $transitional_id
 	 */
@@ -94,7 +94,7 @@ class Tribe__Events__Aggregator__Processes__Import_Events extends Tribe__Process
 	/**
 	 * Overrides the parent `save` method to save some additonal data.
 	 *
-	 * @since TBD
+	 * @since 4.6.16
 	 *
 	 * @return Tribe__Events__Aggregator__Processes__Import_Events
 	 */
@@ -107,7 +107,7 @@ class Tribe__Events__Aggregator__Processes__Import_Events extends Tribe__Process
 	/**
 	 * Overrides the parent `update` method to save some additonal data.
 	 *
-	 * @since TBD
+	 * @since 4.6.16
 	 *
 	 * @return Tribe__Events__Aggregator__Processes__Import_Events
 	 */
@@ -120,7 +120,7 @@ class Tribe__Events__Aggregator__Processes__Import_Events extends Tribe__Process
 	/**
 	 * Saves some additional data on the record to keep track of the progress.
 	 *
-	 * @since TBD
+	 * @since 4.6.16
 	 *
 	 * @param array $save_data
 	 *
@@ -135,7 +135,7 @@ class Tribe__Events__Aggregator__Processes__Import_Events extends Tribe__Process
 	/**
 	 * Returns this import process record post ID.
 	 *
-	 * @since TBD
+	 * @since 4.6.16
 	 *
 	 * @return int
 	 */
@@ -146,7 +146,7 @@ class Tribe__Events__Aggregator__Processes__Import_Events extends Tribe__Process
 	/**
 	 * Sets this import process record ID.
 	 *
-	 * @since TBD
+	 * @since 4.6.16
 	 *
 	 * @param int $record_id
 	 */
@@ -160,7 +160,7 @@ class Tribe__Events__Aggregator__Processes__Import_Events extends Tribe__Process
 	 * In short: if an event has dependencies and those are not yet all in place then the event
 	 * will be re-queued; otherwise it's inserted.
 	 *
-	 * @since TBD
+	 * @since 4.6.16
 	 *
 	 * @param array $item
 	 *
@@ -197,7 +197,7 @@ class Tribe__Events__Aggregator__Processes__Import_Events extends Tribe__Process
 	/**
 	 * Parses the Event Venue and Organizer dependencies.
 	 *
-	 * @since TBD
+	 * @since 4.6.16
 	 *
 	 * @param array $data
 	 *
@@ -217,7 +217,7 @@ class Tribe__Events__Aggregator__Processes__Import_Events extends Tribe__Process
 	/**
 	 * Inserts an event.
 	 *
-	 * @since TBD
+	 * @since 4.6.16
 	 *
 	 * @param int $record_id
 	 * @param object $data
@@ -247,7 +247,7 @@ class Tribe__Events__Aggregator__Processes__Import_Events extends Tribe__Process
 	/**
 	 * Returns this import process record.
 	 *
-	 * @since TBD
+	 * @since 4.6.16
 	 *
 	 * @param int $record_id
 	 *
@@ -264,7 +264,7 @@ class Tribe__Events__Aggregator__Processes__Import_Events extends Tribe__Process
 	/**
 	 * Checks the database to make sure all the dependencies are available.
 	 *
-	 * @since TBD
+	 * @since 4.6.16
 	 *
 	 * @param $dependencies
 	 *
@@ -289,7 +289,7 @@ class Tribe__Events__Aggregator__Processes__Import_Events extends Tribe__Process
 			FROM {$wpdb->postmeta} pm
 			JOIN {$wpdb->posts} p
 			ON p.ID = pm.post_id
-			WHERE meta_key = %s 
+			WHERE meta_key = %s
 			AND meta_value IN ({$meta_values})",
 			$this->get_transitional_meta_key()
 		);
@@ -304,7 +304,7 @@ class Tribe__Events__Aggregator__Processes__Import_Events extends Tribe__Process
 	/**
 	 * Replaces, in the event data, the unique ids of the linked posts with their post IDs.
 	 *
-	 * @since TBD
+	 * @since 4.6.16
 	 *
 	 * @param array $data
 	 * @param array $dependencies_ids

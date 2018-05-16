@@ -1955,7 +1955,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			 * Fires after a single event has been created/updated, and  with it its linked
 			 * posts, with import data.
 			 *
-			 * @since TBD
+			 * @since 4.6.16
 			 *
 			 * @param array $event The final event data.
 			 * @param self $this
