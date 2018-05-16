@@ -258,12 +258,11 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 	 *
 	 * @param int|Tribe__Events__Aggregator__Record__Abstract $record A record object or ID
 	 * @param array|string $items
+	 * @param bool $use_legacy                                        Whether to use the legacy queue processor or not.
 	 *
 	 * @return Tribe__Events__Aggregator__Record__Queue_Interface
 	 */
-	public static function build_queue( $record, $items = null ) {
-		$use_legacy = false;
-
+	public static function build_queue( $record, $items = null, $use_legacy = false ) {
 		if (
 			( defined( 'TRIBE_EA_QUEUE_USE_LEGACY' ) && TRIBE_EA_QUEUE_USE_LEGACY )
 			|| (bool) getenv( 'TRIBE_EA_QUEUE_USE_LEGACY' )
