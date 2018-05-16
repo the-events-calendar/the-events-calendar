@@ -452,14 +452,6 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 				$this->save_meta( $venue_id, $data );
 
 				/**
-				 * Runs right after a successful creation of a venue (including its meta being saved).
-				 *
-				 * @param int $venue_id The ID of the venue being created.
-				 * @param array $data The full array of data that was used to create the venue.
-				 */
-				do_action( 'tribe_events_venue_created', $venue_id, $data );
-
-				/**
 				 * Fires immediately after a venue has been created.
 				 *
 				 * @param int   $venue_id The updated venue post ID.

@@ -215,6 +215,11 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
+= [4.6.16] 2018-05-16 =
+
+* Tweak - Replaced the Aggregator queue processing system to run independently of WP Cron (not for CSV) [105650]
+* Fix - Prevents notices for Events Community when handling State and Province fields [106415]
+
 = [4.6.15] 2018-05-09 =
 
 * Feature - Added wp-cli command to import events from a source with Event Aggregator. See `wp event-aggregator import-from --help` to know more [104426]
