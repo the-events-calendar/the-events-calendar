@@ -142,7 +142,7 @@ if ( ! $_POST && is_admin() ) {
 			type='text'
 			name=''
 			size='25'
-			value='<?php echo esc_attr( $_VenueProvince ); ?>'
+			value='<?php echo isset( $_VenueProvince ) ? esc_attr( $_VenueProvince ) : ''; ?>'
 			aria-label="<?php esc_html_e( 'Venue State', 'the-events-calendar' ); ?>"
 		 />
 		<select
@@ -155,7 +155,7 @@ if ( ! $_POST && is_admin() ) {
 			<option value=""><?php esc_html_e( 'Select a State:', 'the-events-calendar' ); ?></option>
 			<?php
 			foreach ( Tribe__View_Helpers::loadStates() as $abbr => $fullname ) {
-				$selected = selected( ( $_VenueState === $abbr || $_VenueState === $fullname ), true, false );
+				$selected = selected( ( isset( $_VenueState ) && ( $_VenueState === $abbr || $_VenueState === $fullname ) ), true, false );
 				echo '<option value="' . esc_attr( $abbr ) . '" ' . $selected . '>' . esc_html( $fullname ) . '</option>';
 			}
 			?>

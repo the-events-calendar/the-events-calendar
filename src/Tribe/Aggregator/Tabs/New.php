@@ -219,9 +219,11 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		$record->update_meta( 'interactive', true );
 
 		if ( 'csv' === $data['origin'] ) {
+            // here generate a global_id for the data
 			$result = $record->process_posts( $data );
 		} else {
-			$result = $record->process_posts();
+			// let the record fetch the data and start immediately if possible
+			$result = $record->process_posts( array(), true );
 		}
 
 		$result->record = $record;
@@ -240,7 +242,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 	/**
 	 * Parses the queue for errors and informations.
 	 *
-	 * @param Tribe__Events__Aggregator__Record__Queue $queue
+	 * @param Tribe__Events__Aggregator__Record__Queue_Interface|WP_Error $queue
 	 *
 	 * @return array
 	 */

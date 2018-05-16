@@ -102,6 +102,8 @@ before_script:
 
   # export a dump of the just installed database to the _data folder
   - wp db export $PLUGIN_DIR/tests/_data/dump.sql
+  # do the same for the starting database fixture for the `aggregatorv1` suite
+  - wp db export $PLUGIN_DIR/tests/_data/aggregator-dump.sql
 
   # get back to the plugin dir
   - cd $PLUGIN_DIR
