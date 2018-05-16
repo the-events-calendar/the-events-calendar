@@ -39,7 +39,6 @@ class Tribe__Events__Integrations__WPML__Meta {
 	 * @return string The translated id for _EventOrganizerID & _EventVenueID.
 	 */
 	public function translate_post_id( $value, $object_id, $meta_key ) {
-		global $wpdb;
 
 		$accepted_values = array( '_EventOrganizerID', '_EventOrganizerID_Order', '_EventVenueID' );
 
@@ -47,11 +46,7 @@ class Tribe__Events__Integrations__WPML__Meta {
 			return $value;
 		}
 
-		$value = $wpdb->get_col( $wpdb->prepare(
-			"SELECT meta_value FROM $wpdb->postmeta WHERE post_id = %d AND meta_key = %s",
-			$object_id,
-			$meta_key
-		) );
+		$value = $this->get_post_meta( $object_id, $meta_key );
 
 		if ( empty( $value ) ) {
 			return false;
@@ -74,6 +69,23 @@ class Tribe__Events__Integrations__WPML__Meta {
 		}
 
 		return $value;
+	}
+
+	/**
+	 * Get meta value skipping filters (using direct DB query).
+	 *
+	 * @param type $post_id
+	 * @param type $meta_key
+	 * @return type
+	 */
+	private function get_post_meta( $post_id, $meta_key ) {
+		global $wpdb;
+
+		return $wpdb->get_col( $wpdb->prepare(
+			"SELECT meta_value FROM $wpdb->postmeta WHERE post_id = %d AND meta_key = %s",
+			$post_id,
+			$meta_key
+		) );
 	}
 
 	/**
