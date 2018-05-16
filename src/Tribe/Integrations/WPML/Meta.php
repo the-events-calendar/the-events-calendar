@@ -41,7 +41,7 @@ class Tribe__Events__Integrations__WPML__Meta {
 	public function translate_post_id( $value, $object_id, $meta_key ) {
 		global $wpdb;
 
-		$accepted_values = [ '_EventOrganizerID', '_EventOrganizerID_Order', '_EventVenueID' ];
+		$accepted_values = array( '_EventOrganizerID', '_EventOrganizerID_Order', '_EventVenueID' );
 
 		if ( ! in_array( $meta_key, $accepted_values ) ) {
 			return $value;
