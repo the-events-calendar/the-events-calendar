@@ -26,28 +26,32 @@ class Unticketed_Cost_Formatting_Test extends Events_TestCase {
 
 	public function costs_and_currency_positions() {
 		return [
-			[ '4,92',             'prefix', '$4,92' ],
-			[ '4,92',             'suffix', '4,92$' ],
-			[ '180.067',          'prefix', '$180.067' ],
-			[ '180.067',          'suffix', '180.067$' ],
-			[ 'Free',             'prefix', 'Free' ],
-			[ 'Free',             'suffix', 'Free' ],
-			// [ 'd0 l33t sp35k',    'prefix', 'd0 l33t sp35k' ], @todo Will currently return "Free - $35", need to fix.
-			// [ 'd0 l33t sp35k',    'suffix', 'd0 l33t sp35k' ], @todo Will currently return "Free - 35$", need to fix.
-			[ '*&^$@#%@',         'prefix', '*&amp;^$@#%@' ],
-			[ '*&^$@#%@',         'suffix', '*&amp;^$@#%@' ],
-			[ '東京は都会です',     'prefix', '東京は都会です' ],
-			[ '東京は都会です',     'suffix', '東京は都会です' ],
-			[ '3.00 8.00 125.95', 'prefix', '$3.00 - $125.95' ],
-			[ '3.00 8.00 125.95', 'suffix', '3.00$ - 125.95$' ],
-			[ '125.95 3 8.00',    'prefix', '$3 - $125.95' ],
-			[ '125.95 3 8.00',    'suffix', '3$ - 125.95$' ],
-			[ null,               'prefix', '' ],
-			[ null,               'suffix', '' ],
-			[ 0,                  'prefix', 'Free' ],
-			[ 0,                  'suffix', 'Free' ],
-			[ '0',                'prefix', 'Free' ],
-			[ '0',                'suffix', 'Free' ],
+			[ '4,92',               'prefix', '$4,92' ],
+			[ '4,92',               'suffix', '4,92$' ],
+			[ '£5',                 'prefix', '$5' ], // Mixed chars and numbers not allowed!
+			[ '£5',                 'suffix', '5$' ],
+			[ '180.067',            'prefix', '$180.067' ],
+			[ '180.067',            'suffix', '180.067$' ],
+			[ 'Free',               'prefix', 'Free' ],
+			[ 'Free',               'suffix', 'Free' ],
+			[ 'Testing out words.', 'prefix', 'Testing out words.' ],
+			[ 'Testing out words.', 'suffix', 'Testing out words.' ],
+			[ 'd0 l33t sp35k',      'prefix', 'Free - $35' ], // Mixed letters and numbers aren't allowed!
+			[ 'd0 l33t sp35k',      'suffix', 'Free - 35$' ],
+			[ '*&^$@#%@',           'prefix', '*&amp;^$@#%@' ],
+			[ '*&^$@#%@',           'suffix', '*&amp;^$@#%@' ],
+			[ '東京は都会です',       'prefix', '東京は都会です' ],
+			[ '東京は都会です',       'suffix', '東京は都会です' ],
+			[ '3.00 8.00 125.95',   'prefix', '$3.00 - $125.95' ],
+			[ '3.00 8.00 125.95',   'suffix', '3.00$ - 125.95$' ],
+			[ '125.95 3 8.00',      'prefix', '$3 - $125.95' ],
+			[ '125.95 3 8.00',      'suffix', '3$ - 125.95$' ],
+			[ null,                 'prefix', '' ],
+			[ null,                 'suffix', '' ],
+			[ 0,                    'prefix', 'Free' ],
+			[ 0,                    'suffix', 'Free' ],
+			[ '0',                  'prefix', 'Free' ],
+			[ '0',                  'suffix', 'Free' ],
 		];
 	}
 
@@ -72,19 +76,10 @@ class Unticketed_Cost_Formatting_Test extends Events_TestCase {
 			'meta_input' => [
 				'_EventCost'             => $cost_input,
 				'_EventCurrencyPosition' => $currency_position,
-			]
+				'_EventCurrencySymbol'   => '$',
+			],
 		] );
 
 		$this->assertEquals( $output, tribe_get_cost( $event_id, true ) );
 	}
-
-	/**
-	 * Test to ensure the "currency follows value" option in Tribe General Settings is the default
-	 * currency symbol position choice when making a new event, but *also* that if the event's
-	 * currency symbol position is set to something else, it is respected and overrides the
-	 * "currency follows value" option.
-  	 *
-	 * @todo
-	 */
-	//public function test_inheritance_of_currency_symbol_position_option() {}
 }
