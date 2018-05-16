@@ -86,12 +86,18 @@ class Tribe__Events__Integrations__WPML__Meta {
 	public function include_all_languages( $q ) {
 		$keys = array( 'venue', 'organizer' );
 		foreach ( $keys as $key ) {
-			if ( isset( $q->query_vars[ $key ] ) && is_int( $q->query_vars[ $key ] ) ) {
-				$var = $q->query_vars[ $key ];
-				$trid = apply_filters( 'wpml_element_trid', null, $var, "post_tribe_{$key}" );
-				$translations = apply_filters( 'wpml_get_element_translations', null, $trid, "post_tribe_{$key}" );
-				$q->query_vars[ $key ] = wp_list_pluck( $translations, 'element_id' );
+			if ( ! isset( $q->query_vars[ $key ] ) ) {
+				continue;
 			}
+
+			if ( ! is_int( $q->query_vars[ $key ] ) ) {
+				continue;
+			}
+
+			$var = $q->query_vars[ $key ];
+			$trid = apply_filters( 'wpml_element_trid', null, $var, "post_tribe_{$key}" );
+			$translations = apply_filters( 'wpml_get_element_translations', null, $trid, "post_tribe_{$key}" );
+			$q->query_vars[ $key ] = wp_list_pluck( $translations, 'element_id' );
 		}
 	}
 
