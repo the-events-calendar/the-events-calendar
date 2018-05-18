@@ -580,9 +580,15 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @return boolean|Tribe_Error|Tribe__Events__Aggregator__Record__Abstract
 	 */
 	public function create_child_record() {
+		$frequency_id = 'on_demand';
+
+		if ( ! empty( $this->meta['frequency'] ) ) {
+			$frequency_id = $this->meta['frequency'];
+		}
+
 		$post = array(
 			// Stores the Key under `post_title` which is a very forgiving type of column on `wp_post`
-			'post_title'     => $this->generate_title( $this->type, $this->origin, $this->meta['frequency'], $this->post->ID ),
+			'post_title'     => $this->generate_title( $this->type, $this->origin, $frequency_id, $this->post->ID ),
 			'post_type'      => $this->post->post_type,
 			'ping_status'    => $this->post->ping_status,
 			'post_mime_type' => $this->post->post_mime_type,
@@ -604,7 +610,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		// initialize the queue meta entry and set its status to fetching
 		$post['meta_input'][ self::$meta_key_prefix . Tribe__Events__Aggregator__Record__Queue::$queue_key ] = 'fetch';
 
-		$frequency = Tribe__Events__Aggregator__Cron::instance()->get_frequency( array( 'id' => $this->meta['frequency'] ) );
+		$frequency = Tribe__Events__Aggregator__Cron::instance()->get_frequency( array( 'id' => $frequency_id ) );
 		if ( ! $frequency ) {
 			return tribe_error( 'core:aggregator:invalid-record-frequency', $post['meta_input'] );
 		}
