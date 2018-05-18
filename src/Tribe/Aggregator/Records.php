@@ -561,8 +561,18 @@ Tribe__Events__Aggregator__Records {
 			return wp_send_json_error();
 		}
 
-		// Actually import things
-		$record->process_posts( $request );
+		if ( ! empty( $_GET['trigger_new'] ) ) {
+			$_GET['tribe_queue_sync'] = true;
+
+			$record->update_meta( 'in_progress', null );
+			$record->update_meta( 'queue_id', null );
+
+			$record->set_status_as_pending();
+			$record->process_posts( $request, true );
+			$record->set_status_as_success();
+		} else {
+			$record->process_posts( $request, true );
+		}
 
 		return wp_send_json_success();
 	}

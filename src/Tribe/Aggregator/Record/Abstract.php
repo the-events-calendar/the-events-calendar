@@ -580,9 +580,15 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @return boolean|Tribe_Error|Tribe__Events__Aggregator__Record__Abstract
 	 */
 	public function create_child_record() {
+		$frequency_id = 'on_demand';
+
+		if ( ! empty( $this->meta['frequency'] ) ) {
+			$frequency_id = $this->meta['frequency'];
+		}
+
 		$post = array(
 			// Stores the Key under `post_title` which is a very forgiving type of column on `wp_post`
-			'post_title'     => $this->generate_title( $this->type, $this->origin, $this->meta['frequency'], $this->post->ID ),
+			'post_title'     => $this->generate_title( $this->type, $this->origin, $frequency_id, $this->post->ID ),
 			'post_type'      => $this->post->post_type,
 			'ping_status'    => $this->post->ping_status,
 			'post_mime_type' => $this->post->post_mime_type,
@@ -604,7 +610,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		// initialize the queue meta entry and set its status to fetching
 		$post['meta_input'][ self::$meta_key_prefix . Tribe__Events__Aggregator__Record__Queue::$queue_key ] = 'fetch';
 
-		$frequency = Tribe__Events__Aggregator__Cron::instance()->get_frequency( array( 'id' => $this->meta['frequency'] ) );
+		$frequency = Tribe__Events__Aggregator__Cron::instance()->get_frequency( array( 'id' => $frequency_id ) );
 		if ( ! $frequency ) {
 			return tribe_error( 'core:aggregator:invalid-record-frequency', $post['meta_input'] );
 		}
@@ -1237,7 +1243,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @return array|WP_Error|Tribe__Events__Aggregator__Record__Queue
 	 */
 	public function process_posts( $data = array(), $start_immediately = false ) {
-		if ( 'manual' === $this->type ) {
+		if ( ! $start_immediately && 'manual' === $this->type ) {
 			/** @var Tribe__Events__Aggregator__Service $service */
 			$service = tribe( 'events-aggregator.service' );
 			$service->confirm_import( $this->meta );
@@ -1245,7 +1251,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		// if this is a batch push record then set its queue to fetching
 		// to feed the UI something coherent
-		if ( ! $this->is_polling() ) {
+		if ( ! $start_immediately && ! $this->is_polling() ) {
 			// @todo let's revisit this to return when more UI is exposed
 			$queue = new Tribe__Events__Aggregator__Record__Queue( $this, 'fetch' );
 
@@ -1361,8 +1367,12 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$expected_created_events = $initial_created_events + count( $items );
 
 		$args = array(
-			'post_status' => $this->meta['post_status'],
+			'post_status' => 'draft',
 		);
+
+		if ( ! empty( $this->meta['post_status'] ) ) {
+			$args['post_status'] = $this->meta['post_status'];
+		}
 
 		$unique_field = $this->get_unique_field();
 		$existing_ids = $this->get_existing_ids_from_import_data( $items );
