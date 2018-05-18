@@ -561,8 +561,24 @@ Tribe__Events__Aggregator__Records {
 			return wp_send_json_error();
 		}
 
-		// Actually import things
-		$record->process_posts( $request );
+		if ( ! empty( $_GET['trigger_new'] ) ) {
+			$child_record = $record->create_child_record();
+
+			if ( ! $child_record instanceof Tribe__Events__Aggregator__Record__Abstract ) {
+				if ( $child_record instanceof WP_Error ) {
+					wp_send_json_error( "Could not create child record for record {$record->id}: " . $child_record->get_error_message() );
+				} else {
+					wp_send_json_error( "Could not create child record for record {$record->id}." );
+				}
+			}
+
+			$child_record->update_meta( 'callback_bypass', 1 );
+			$child_record->process_posts( $request, true );
+			$child_record->set_status_as_success();
+		} else {
+			// Actually import things
+			$record->process_posts( $request, true );
+		}
 
 		return wp_send_json_success();
 	}
