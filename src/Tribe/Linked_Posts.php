@@ -401,8 +401,6 @@ class Tribe__Events__Linked_Posts {
 	 * @return array
 	 */
 	public function get_linked_posts_by_post_type( $post_id, $post_type ) {
-		$result = array();
-
 		$args = array();
 
 		$linked_ids_order_key = $this->get_order_meta_key( $post_type );
@@ -796,7 +794,9 @@ class Tribe__Events__Linked_Posts {
 		}
 
 		$currently_linked_posts = $this->get_linked_posts_by_post_type( $event_id, $linked_post_type );
-		$currently_linked_posts = wp_list_pluck( $currently_linked_posts, 'ID' );
+		$currently_linked_posts = ! empty( $currently_linked_posts ) && is_array( $currently_linked_posts )
+			? wp_list_pluck( $currently_linked_posts, 'ID' )
+			: array();
 
 		$posts_to_add    = array_diff( $linked_posts, $currently_linked_posts );
 		$posts_to_remove = array_diff( $currently_linked_posts, $linked_posts );
