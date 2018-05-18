@@ -409,7 +409,7 @@ class Tribe__Events__Linked_Posts {
 			// Sort by drag-n-drop order
 			$linked_ids_order = get_post_meta( $post_id, $linked_ids_order_key, true );
 			if ( ! empty( $linked_ids_order ) ) {
-				$args['post__in'] = $linked_post_ids;
+				$args['post__in'] = $linked_ids_order;
 				$args['orderby'] = 'post__in';
 			}
 		}
