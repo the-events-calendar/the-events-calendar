@@ -1243,7 +1243,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @return array|WP_Error|Tribe__Events__Aggregator__Record__Queue
 	 */
 	public function process_posts( $data = array(), $start_immediately = false ) {
-		if ( 'manual' === $this->type ) {
+		if ( ! $start_immediately && 'manual' === $this->type ) {
 			/** @var Tribe__Events__Aggregator__Service $service */
 			$service = tribe( 'events-aggregator.service' );
 			$service->confirm_import( $this->meta );
@@ -1251,7 +1251,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		// if this is a batch push record then set its queue to fetching
 		// to feed the UI something coherent
-		if ( ! $this->is_polling() ) {
+		if ( ! $start_immediately && ! $this->is_polling() ) {
 			// @todo let's revisit this to return when more UI is exposed
 			$queue = new Tribe__Events__Aggregator__Record__Queue( $this, 'fetch' );
 
@@ -1367,8 +1367,12 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$expected_created_events = $initial_created_events + count( $items );
 
 		$args = array(
-			'post_status' => $this->meta['post_status'],
+			'post_status' => 'draft',
 		);
+
+		if ( ! empty( $this->meta['post_status'] ) ) {
+			$args['post_status'] = $this->meta['post_status'];
+		}
 
 		$unique_field = $this->get_unique_field();
 		$existing_ids = $this->get_existing_ids_from_import_data( $items );
