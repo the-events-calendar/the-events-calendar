@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Test to make sure that only past non recurring events are purged
+ * Test that only past events are purged
  */
 
 use Tribe__Events__Event_Cleaner_Scheduler as Scheduler;
