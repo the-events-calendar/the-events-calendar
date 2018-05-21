@@ -515,7 +515,7 @@ class AbstractTest extends Events_TestCase {
 		$updated_organizers = $activity->get( \Tribe__Events__Organizer::POSTTYPE, 'updated' );
 		$this->assertCount( 1, $created_events );
 		$this->assertCount( 3, $updated_organizers );
-		$this->assertEquals( $organizer_ids, get_post_meta( $created_events[0], '_EventOrganizerID' ) );
+		$this->assertEquals( $organizer_ids, get_post_meta( $created_events[0], '_EventOrganizerID_Order', true ) );
 	}
 	
 	/**
