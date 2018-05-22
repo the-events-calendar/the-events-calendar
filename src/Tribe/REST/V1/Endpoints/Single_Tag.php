@@ -20,7 +20,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Tag
 		return array(
 			'name'        => array(
 				'required'          => true,
-				'validate_callback' => array( $this->validator, 'is_string' ),
+				'validate_callback' => array( $this->validator, 'is_string_not_empty' ),
 				'type'              => 'string',
 				'description'       => __( 'The event tag name', 'the-events-calendar' ),
 			),
