@@ -191,16 +191,13 @@ class Tribe__Events__Aggregator__Processes__Import_Events extends Tribe__Process
 		$data                  = (array) $item['data'];
 		$this->transitional_id = filter_var( $item['transitional_id'], FILTER_SANITIZE_STRING );
 
-		$never_requeued          = empty( $item['requeued'] );
-		$requeued_too_many_times = (int) $item['requeued'] < $this->requeue_limit;
-
 		/**
 		 * To avoid deadlocks when dealing with circular dependencies an item can be requeued only
 		 * so many times.
 		 * Dependency checks are in place to avoid DB-related critical paths: moving forward to
 		 * resolve a circular dependency after a reasonable time is a reasonable step.
 		 */
-		if ( $never_requeued || $requeued_too_many_times ) {
+		if ( empty( $item['requeued'] ) || ( (int) $item['requeued'] < $this->requeue_limit ) ) {
 			$dependencies = $this->parse_linked_post_dependencies( $data );
 		}
 
