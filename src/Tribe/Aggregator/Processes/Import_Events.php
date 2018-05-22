@@ -56,7 +56,7 @@ class Tribe__Events__Aggregator__Processes__Import_Events extends Tribe__Process
 		 * @param int $requeue_limit
 		 * @param Tribe__Events__Aggregator__Processes__Import_Events $this
 		 */
-		$this->requeue_limit = apply_filters( "tribe_aggregator_import_process_requeue_limit", $this->requeue_limit, $this );
+		$this->requeue_limit = apply_filters( 'tribe_aggregator_import_process_requeue_limit', $this->requeue_limit, $this );
 	}
 
 	/**
