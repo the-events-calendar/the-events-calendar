@@ -120,7 +120,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Tag
 			),
 			'search'     => array(
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_string' ),
+				'validate_callback' => array( $this->validator, 'is_string_not_empty' ),
 				'description'       => __( 'Limit results to those matching a string', 'the-events-calendar' ),
 				'type'              => 'string',
 			),
@@ -140,13 +140,13 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Tag
 			),
 			'order'      => array(
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_string' ),
+				'validate_callback' => array( $this->validator, 'is_string_not_empty' ),
 				'description'       => __( 'Order sort attribute ascending or descending', 'the-events-calendar' ),
 				'type'              => 'string',
 			),
 			'orderby'    => array(
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_string' ),
+				'validate_callback' => array( $this->validator, 'is_string_not_empty' ),
 				'description'       => __( 'Sort collection by term attribute', 'the-events-calendar' ),
 				'type'              => 'string',
 			),
@@ -171,7 +171,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Tag
 			),
 			'slug'       => array(
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_string' ),
+				'validate_callback' => array( $this->validator, 'is_string_not_empty' ),
 				'description'       => __( 'Limit result set to terms with a specific slug', 'the-events-calendar' ),
 				'type'              => 'string',
 			),

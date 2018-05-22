@@ -67,8 +67,6 @@ class TagInsertionCest extends BaseRestCest {
 	 *
 	 * @test
 	 * @example ["name", ""]
-	 * @example ["description", ""]
-	 * @example ["slug", ""]
 	 */
 	public function should_return_bad_request_if_passing_bad_request_parameters( Tester $I, Example $example ) {
 		$I->generate_nonce_for_role( 'editor' );

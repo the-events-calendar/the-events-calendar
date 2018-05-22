@@ -71,8 +71,6 @@ class TagUpdateCest extends BaseRestCest {
 	 *
 	 * @test
 	 * @example ["name", ""]
-	 * @example ["description", ""]
-	 * @example ["slug", ""]
 	 */
 	public function should_return_bad_request_if_passing_bad_request_parameters( Tester $I, Example $example ) {
 		list( $id ) = $I->haveTermInDatabase( 'old-foo', 'post_tag' );
