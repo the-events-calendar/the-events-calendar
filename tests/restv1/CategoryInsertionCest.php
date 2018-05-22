@@ -73,8 +73,6 @@ class CategoryInsertionCest extends BaseRestCest {
 	 *
 	 * @test
 	 * @example ["name", ""]
-	 * @example ["description", ""]
-	 * @example ["slug", ""]
 	 * @example ["parent", ""]
 	 * @example ["parent", "2389"]
 	 * @example ["parent", "foo"]
