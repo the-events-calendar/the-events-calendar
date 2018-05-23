@@ -27,7 +27,10 @@ class Tribe__Events__Admin__Notice__Marketing {
 	 * @return bool
 	 */
 	public function should_display() {
-		return tribe( 'admin.helpers' )->is_screen()
+		/** @var Tribe__Admin__Helpers */
+		$admin_helpers = tribe( 'admin.helpers' );
+
+		return ( $admin_helpers->is_screen() || $admin_helpers->is_post_type_screen() )
 			&& date_create()->format( 'Y-m-d' ) < '2018-06-08';
 	}
 
