@@ -62,11 +62,12 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 	 */
 	public function get_event_data( $event_id, $context = '' ) {
 		$event = get_post( $event_id );
-		$event_id = $event->ID;
 
 		if ( empty( $event ) || ! tribe_is_event( $event ) ) {
 			return new WP_Error( 'event-not-found', $this->messages->get_message( 'event-not-found' ) );
 		}
+
+		$event_id = $event->ID;
 
 		$meta = array_map( 'reset', get_post_custom( $event_id ) );
 
