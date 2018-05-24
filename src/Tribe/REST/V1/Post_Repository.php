@@ -52,15 +52,17 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 	/**
 	 * Returns an array representation of an event.
 	 *
-	 * @param int    $event_id An event post ID.
-	 * @param string $context  Context of data.
+	 * @param int|WP_Post $event_id An event post object or ID.
+	 * @param string      $context  Context of data.
 	 *
 	 * @return array|WP_Error Either the array representation of an event or an error object.
 	 *
 	 * @since 4.6 Added $context param
+	 * @since TBD Allow $event_id param to be a `WP_Post` object.
 	 */
 	public function get_event_data( $event_id, $context = '' ) {
 		$event = get_post( $event_id );
+		$event_id = $event->ID;
 
 		if ( empty( $event ) || ! tribe_is_event( $event ) ) {
 			return new WP_Error( 'event-not-found', $this->messages->get_message( 'event-not-found' ) );
@@ -81,7 +83,6 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			'date_utc'               => $event->post_date_gmt,
 			'modified'               => $event->post_modified,
 			'modified_utc'           => $event->post_modified_gmt,
-			'status'                 => $event->post_status,
 			'url'                    => get_the_permalink( $event_id ),
 			'rest_url'               => tribe_events_rest_url( 'events/' . $event_id ),
 			'title'                  => trim( apply_filters( 'the_title', $event->post_title ) ),
