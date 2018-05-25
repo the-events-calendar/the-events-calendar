@@ -24,7 +24,7 @@ class Tribe__Events__Admin__Notice__Timezones {
 	 * Checks if we are in an TEC page or over
 	 * the WordPress > Settings > General
 	 *
-	 * @since  4.6.16
+	 * @since  4.6.17
 	 *
 	 * @return boolean
 	 */
@@ -44,7 +44,7 @@ class Tribe__Events__Admin__Notice__Timezones {
 	/**
 	 * Checks if the site is using UTC Timezone Options
 	 *
-	 * @since  4.6.16
+	 * @since  4.6.17
 	 *
 	 * @return boolean
 	 */
@@ -57,7 +57,7 @@ class Tribe__Events__Admin__Notice__Timezones {
 	/**
 	 * HTML for the notice for sites using UTC Timezones.
 	 *
-	 * @since  4.6.16
+	 * @since  4.6.17
 	 *
 	 * @return string
 	 */
