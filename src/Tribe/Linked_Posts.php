@@ -407,11 +407,8 @@ class Tribe__Events__Linked_Posts {
 		if ( $linked_post_ids = get_post_meta( $post_id, $this->get_meta_key( $post_type ) ) ) {
 			$args = array();
 			// Sort by drag-n-drop order
-			$linked_ids_order_meta_key = $this->get_order_meta_key( $post_type );
-			$linked_ids_order          = empty( $linked_ids_order_meta_key )
-				? false
-				: get_post_meta( $post_id, $linked_ids_order_meta_key, true );
-			$linked_post_ids           = tribe_sanitize_organizers( $linked_post_ids, $linked_ids_order );
+			$linked_ids_order = get_post_meta( $post_id, $this->get_order_meta_key( $post_type ), true );
+			$linked_post_ids = tribe_sanitize_organizers( $linked_post_ids, $linked_ids_order );
 			if ( ! empty( $linked_ids_order ) ) {
 				$args['post__in'] = $linked_post_ids;
 				$args['orderby'] = 'post__in';
@@ -707,16 +704,25 @@ class Tribe__Events__Linked_Posts {
 			return;
 		}
 
-		if ( ! isset( $submission[ $linked_post_type_id_field ] ) ) {
-			$submission[ $linked_post_type_id_field ] = array();
-		}
-
 		$temp_submission = $submission;
 		$submission = array();
 
 		// make sure all elements are arrays
 		foreach ( $temp_submission as $key => $value ) {
 			$submission[ $key ] = is_array( $value ) ? $value : array( $value );
+		}
+
+		// setup key(s) if all new post(s)
+		if ( ! isset( $submission[ $linked_post_type_id_field ] ) ) {
+			$first_item                               = current( $submission );
+			$multiple_posts                           = is_array( $first_item ) ? count( $first_item ) - 1 : 0;
+			$submission[ $linked_post_type_id_field ] = array();
+			$post_count                               = 0;
+
+			do {
+				$submission[ $linked_post_type_id_field ][] = '';
+				$post_count ++;
+			} while ( $multiple_posts > $post_count );
 		}
 
 		$fields = array_keys( $submission );
