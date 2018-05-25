@@ -43,13 +43,16 @@ $current_url = tribe_events_get_current_filter_url();
 					<h3 class="tribe-events-visuallyhidden"><?php printf( esc_html__( '%s Views Navigation', 'the-events-calendar' ), tribe_get_event_label_singular() ); ?></h3>
 					<label><?php esc_html_e( 'View As', 'the-events-calendar' ); ?></label>
 					<select
-						class="tribe-bar-views-select tribe-no-param tribe-accessible-js-hidden"
+						class="tribe-bar-views-select tribe-no-param"
 						name="tribe-bar-view"
-						tabindex="0"
-						aria-label="<?php esc_attr_e( 'View As', 'the-events-calendar' ); ?>"
+						aria-label="<?php printf( esc_attr__( 'View %s As', 'the-events-calendar' ), tribe_get_event_label_plural() ); ?>"
 					>
 						<?php foreach ( $views as $view ) : ?>
-							<option <?php echo tribe_is_view( $view['displaying'] ) ? 'selected' : 'tribe-inactive' ?> value="<?php echo esc_attr( $view['url'] ); ?>" data-view="<?php echo esc_attr( $view['displaying'] ); ?>">
+							<option
+								<?php echo tribe_is_view( $view['displaying'] ) ? 'selected' : 'tribe-inactive' ?>
+								value="<?php echo esc_attr( $view['url'] ); ?>"
+								data-view="<?php echo esc_attr( $view['displaying'] ); ?>"
+							>
 								<?php echo $view['anchor']; ?>
 							</option>
 						<?php endforeach; ?>

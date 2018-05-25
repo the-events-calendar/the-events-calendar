@@ -177,6 +177,9 @@ var tribe_events_bar_action;
 
 		$currentli.prependTo( $tribebarviews ).addClass( 'tribe-bar-active' );
 
+		// Disable the select
+		$tribebarselect.hide();
+
 		// toggle the views dropdown
 		$tribebar.on( 'click', '#tribe-bar-views', function( e ) {
 			e.stopPropagation();
