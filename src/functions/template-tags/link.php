@@ -385,12 +385,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		$post_id = ( is_object( $event ) && isset( $event->tribe_is_event ) && $event->tribe_is_event ) ? $event->ID : $event;
 		$post_id = ( ! empty( $post_id ) || empty( $GLOBALS['post'] ) ) ? $post_id : get_the_ID();
 		$url     = tribe_get_event_meta( $post_id, '_EventURL', true );
-		if ( ! empty( $url ) ) {
-			$parseUrl = parse_url( $url );
-			if ( empty( $parseUrl['scheme'] ) ) {
-				$url = "http://$url";
-			}
-		}
 
 		return apply_filters( 'tribe_get_event_website_url', $url, $post_id );
 	}

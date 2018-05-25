@@ -47,7 +47,7 @@ $time_formatted = apply_filters( 'tribe_events_single_event_time_formatted', $ti
  */
 $time_title = apply_filters( 'tribe_events_single_event_time_title', __( 'Time:', 'the-events-calendar' ), $event_id );
 
-$cost = tribe_get_formatted_cost();
+$cost    = tribe_get_formatted_cost();
 $website = tribe_get_event_website_link();
 ?>
 

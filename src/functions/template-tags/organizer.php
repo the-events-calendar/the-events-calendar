@@ -74,7 +74,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * where the meta field takes precedence we need to respect the order of the meta order only when the present items
 	 * on the meta field.
 	 *
-	 * @since TBD
+	 * @since 4.6.15
 	 *
 	 * @param array $current
 	 * @param array $ordered

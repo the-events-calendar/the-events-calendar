@@ -3,7 +3,7 @@
 /**
  * Class Tribe__Events__Aggregator__REST__V1__Endpoints__Batch
  *
- * @since TBD
+ * @since 4.6.15
  *
  * An endpoint dedicated to processing events in batches.
  */
@@ -34,7 +34,7 @@ class Tribe__Events__Aggregator__REST__V1__Endpoints__Batch
 	/**
 	 * Handles a batch processing request sent by the server.
 	 *
-	 * @since TBD
+	 * @since 4.6.15
 	 *
 	 * @param WP_REST_Request $request
 	 * @param bool $return_id
@@ -72,7 +72,7 @@ class Tribe__Events__Aggregator__REST__V1__Endpoints__Batch
 		 * Allows filtering the interval between a finished batch process and the closest push of the next one
 		 * from the server.
 		 *
-		 * @since TBD
+		 * @since 4.6.15
 		 *
 		 * @param int $interval A value in seconds; defaults to 10.
 		 * @param WP_REST_Request The current batch import request.
@@ -147,7 +147,7 @@ class Tribe__Events__Aggregator__REST__V1__Endpoints__Batch
 		/**
 		 * Whether batch imports are allowed or not.
 		 *
-		 * @since TBD
+		 * @since 4.6.15
 		 *
 		 * @param bool $can_create
 		 */
@@ -158,7 +158,7 @@ class Tribe__Events__Aggregator__REST__V1__Endpoints__Batch
 	/**
 	 * Validates the status information sent by the server.
 	 *
-	 * @since TBD
+	 * @since 4.6.15
 	 *
 	 * @param object $status
 	 *

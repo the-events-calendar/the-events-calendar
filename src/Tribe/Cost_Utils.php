@@ -117,7 +117,7 @@ class Tribe__Events__Cost_Utils extends Tribe__Cost_Utils {
 		if ( $relevant_costs['min'] == $relevant_costs['max'] ) {
 			$formatted = $relevant_costs['min'];
 		} else {
-			$formatted = $relevant_costs['min'] . _x( ' - ',
+			$formatted = $relevant_costs['min'] . _x( ' – ',
 					'Cost range separator',
 					'the-events-calendar' ) . $relevant_costs['max'];
 		}
@@ -148,13 +148,13 @@ class Tribe__Events__Cost_Utils extends Tribe__Cost_Utils {
 			LEFT JOIN {$wpdb->postmeta}
 			          ON ( post_id = ID AND meta_key = '_EventCost' )
 
-			WHERE post_type = %s 
-			      AND ( 
+			WHERE post_type = %s
+			      AND (
 			          LENGTH( meta_value ) = 0
 			          OR meta_value IS NULL
 			      )
 			      AND post_status NOT IN ( 'auto-draft', 'revision' )
-			      
+
 			LIMIT 1
 		", Tribe__Events__Main::POSTTYPE ) );
 
