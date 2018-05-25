@@ -6470,35 +6470,6 @@ msgid "Slovenia"
 msgstr "Slowenien"
 
 #: common/src/Tribe/Languages/Locations.php:253
-msgid "SlovLanguages/Locations.php:260
-msgid "Sri Lanka"
-msgstr "Sri Lanka"
-
-#: common/src/Tribe/Languages/Locations.php:259
-msgid "Spain"
-msgstr "Spanien"
-
-#: common/src/Tribe/Languages/Locations.php:258
-msgid "South Georgia, South Sandwich Islands"
-msgstr "Südgeorgien und die Südlichen Sandwichinseln"
-
-#: common/src/Tribe/Languages/Locations.php:257
-msgid "South Africa"
-msgstr "Südafrika"
-
-#: common/src/Tribe/Languages/Locations.php:256
-msgid "Somalia"
-msgstr "Somalia"
-
-#: common/src/Tribe/Languages/Locations.php:255
-msgid "Solomon Islands"
-msgstr "Salomonen"
-
-#: common/src/Tribe/Languages/Locations.php:254
-msgid "Slovenia"
-msgstr "Slowenien"
-
-#: common/src/Tribe/Languages/Locations.php:253
 msgid "Slovakia (Slovak Republic)"
 msgstr "Slowakei"
 
@@ -7216,7 +7187,39 @@ msgid "Armenia"
 msgstr "Armenien"
 
 #: common/src/Tribe/Languages/Locations.php:66
-msgid "Argen"
+msgid "Argentina"
+msgstr "Argentinien"
+
+#: common/src/Tribe/Languages/Locations.php:65
+msgid "Antigua and Barbuda"
+msgstr "Antigua und Barbuda"
+
+#: common/src/Tribe/Languages/Locations.php:64
+msgid "Antarctica"
+msgstr "Antarktika"
+
+#: common/src/Tribe/Languages/Locations.php:63
+msgid "Anguilla"
+msgstr "Anguilla"
+
+#: common/src/Tribe/Languages/Locations.php:62
+msgid "Angola"
+msgstr "Angola"
+
+#: common/src/Tribe/Languages/Locations.php:61
+msgid "Andorra"
+msgstr "Andorra"
+
+#: common/src/Tribe/Languages/Locations.php:60
+msgid "American Samoa"
+msgstr "Amerikanisch-Samoa"
+
+#: common/src/Tribe/Languages/Locations.php:59
+msgid "Algeria"
+msgstr "Algerien"
+
+#: common/src/Tribe/Languages/Locations.php:58
+msgid "Albania"
 msgstr "Albanien"
 
 #: common/src/Tribe/Languages/Locations.php:56
