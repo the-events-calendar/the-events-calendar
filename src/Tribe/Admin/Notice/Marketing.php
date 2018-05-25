@@ -6,7 +6,7 @@ class Tribe__Events__Admin__Notice__Marketing {
 	/**
 	 * Register marketing notices.
 	 *
-	 * @since TBD
+	 * @since 4.6.16
 	 */
 	public function hook() {
 		tribe_notice(
@@ -22,7 +22,7 @@ class Tribe__Events__Admin__Notice__Marketing {
 	}
 
 	/**
-	 * @since TBD
+	 * @since 4.6.16
 	 *
 	 * @return bool
 	 */
@@ -37,7 +37,7 @@ class Tribe__Events__Admin__Notice__Marketing {
 	/**
 	 * HTML for the notice for sites using UTC Timezones.
 	 *
-	 * @since TBD
+	 * @since 4.6.16
 	 *
 	 * @return string
 	 */
