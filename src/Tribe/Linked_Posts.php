@@ -407,8 +407,11 @@ class Tribe__Events__Linked_Posts {
 		if ( $linked_post_ids = get_post_meta( $post_id, $this->get_meta_key( $post_type ) ) ) {
 			$args = array();
 			// Sort by drag-n-drop order
-			$linked_ids_order = get_post_meta( $post_id, $this->get_order_meta_key( $post_type ), true );
-			$linked_post_ids = tribe_sanitize_organizers( $linked_post_ids, $linked_ids_order );
+			$linked_ids_order_meta_key = $this->get_order_meta_key( $post_type );
+			$linked_ids_order          = empty( $linked_ids_order_meta_key )
+				? false
+				: get_post_meta( $post_id, $linked_ids_order_meta_key, true );
+			$linked_post_ids           = tribe_sanitize_organizers( $linked_post_ids, $linked_ids_order );
 			if ( ! empty( $linked_ids_order ) ) {
 				$args['post__in'] = $linked_post_ids;
 				$args['orderby'] = 'post__in';
