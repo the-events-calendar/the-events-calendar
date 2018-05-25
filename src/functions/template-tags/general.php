@@ -1185,8 +1185,10 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				}
 
 				$category_classes = tribe_events_event_classes( $event->ID, false );
+				$day              = tribe_events_week_get_current_day();
+				$event_id         = "{$event->ID}-{$day['day_number']}";
 
-				$json['eventId']         = $event->ID;
+				$json['eventId']         = $event_id;
 				$json['title']           = wp_kses_post( apply_filters( 'the_title', $event->post_title, $event->ID ) );
 				$json['permalink']       = tribe_get_event_link( $event->ID );
 				$json['imageSrc']        = $image_src;
