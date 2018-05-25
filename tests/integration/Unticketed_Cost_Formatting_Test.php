@@ -9,7 +9,7 @@ class Unticketed_Cost_Formatting_Test extends Events_TestCase {
 	/**
 	 * Set some default/common event meta to be used across test events.
 	 *
-	 * @since 4.6.16
+	 * @since 4.6.17
 	 */
 	public function setUp() {
 		parent::setUp();
@@ -18,7 +18,7 @@ class Unticketed_Cost_Formatting_Test extends Events_TestCase {
 	/**
 	 * Teardown upon test completion.
 	 *
-	 * @since 4.6.16
+	 * @since 4.6.17
  	 */
 	public function tearDown() {
 		parent::tearDown();
@@ -58,7 +58,7 @@ class Unticketed_Cost_Formatting_Test extends Events_TestCase {
 	/**
 	 * Formatting methods rely on Cost Utils heavily, so ensure it exists.
 	 *
-	 * @since 4.6.16
+	 * @since 4.6.17
 	 */
 	public function test_cost_utils_exists() {
 		$this->assertTrue( class_exists( 'Tribe__Events__Cost_Utils' ), 'Check that Tribe__Events__Cost_Utils exists' );
