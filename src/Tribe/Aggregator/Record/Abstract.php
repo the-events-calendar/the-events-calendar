@@ -1205,10 +1205,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * Queues events, venues, and organizers for insertion
 	 *
 	 * @param array $data Import data
+	 * @param bool $start_immediately Whether the data processing should start immediately or not.
 	 *
 	 * @return array|WP_Error|Tribe__Events__Aggregator__Record__Queue
 	 */
-	public function process_posts( $data = array() ) {
+	public function process_posts( $data = array(), $start_immediately = false ) {
 		if ( 'manual' === $this->type ) {
 			/** @var Tribe__Events__Aggregator__Service $service */
 			$service = tribe( 'events-aggregator.service' );
@@ -1224,20 +1225,19 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			return $queue;
 		}
 
-		if ( $this->has_queue() ) {
-			$queue = new Tribe__Events__Aggregator__Record__Queue( $this );
-			return $queue->process();
-		}
-
 		$items = $this->prep_import_data( $data );
 
 		if ( is_wp_error( $items ) ) {
 			return $items;
 		}
 
-		$queue = new Tribe__Events__Aggregator__Record__Queue( $this, $items );
+		$queue = Tribe__Events__Aggregator__Record__Queue_Processor::build_queue( $this, $items );
 
-		return $queue->process();
+		if ( $start_immediately && is_array( $items ) ) {
+			$queue->process();
+		}
+
+		return $queue->activity();
 	}
 
 	/**
@@ -1624,6 +1624,15 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				}
 
 				foreach ( $event['Organizer'] as $key => $organizer_data ) {
+					// if provided a valid Organizer ID right away use it
+					if ( ! empty( $organizer_data['OrganizerID'] ) ) {
+						if ( tribe_is_organizer( $organizer_data['OrganizerID'] ) ) {
+							$event_organizers[] = (int) $organizer_data['OrganizerID'];
+							continue;
+						}
+						unset( $organizer_data['OrganizerID'] );
+					}
+
 					//if we should create an organizer or use existing
 					if ( ! empty( $organizer_data['Organizer'] ) ) {
 						$organizer_data['Organizer'] = trim( $organizer_data['Organizer'] );
@@ -1941,6 +1950,17 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 					'meta_value' => $event[ $unique_field['target'] ],
 				);
 			}
+
+			/**
+			 * Fires after a single event has been created/updated, and  with it its linked
+			 * posts, with import data.
+			 *
+			 * @since 4.6.16
+			 *
+			 * @param array $event The final event data.
+			 * @param self $this
+			 */
+			do_action( 'tribe_aggregator_after_insert_post', $event, $this );
 		}
 
 		remove_filter( 'tribe-post-origin', array( Tribe__Events__Aggregator__Records::instance(), 'filter_post_origin' ), 10 );

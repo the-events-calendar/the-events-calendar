@@ -351,6 +351,8 @@ class Tribe__Events__Aggregator__Cron {
 						'EA Cron' );
 
 					$record->update_meta( 'last_import_status', 'success:queued' );
+
+					$this->maybe_process_immediately( $record );
 				} elseif ( is_numeric( $response ) ) {
 					// it's the post ID of a rescheduled record
 					tribe( 'logger' )->log_debug( sprintf( 'rescheduled — %s', $response ), 'EA Cron' );
@@ -450,10 +452,10 @@ class Tribe__Events__Aggregator__Cron {
 			$queue = $record->process_posts();
 
 			if ( ! is_wp_error( $queue ) ) {
-				/** @var Tribe__Events__Aggregator__Record__Queue $queue */
+				/** @var Tribe__Events__Aggregator__Record__Queue_Interface $queue */
 				tribe( 'logger' )->log_debug( sprintf( 'Record (%d) has processed queue ', $record->id ), 'EA Cron' );
 
-				if ( $queue instanceof Tribe__Events__Aggregator__Record__Queue ) {
+				if ( $queue instanceof Tribe__Events__Aggregator__Record__Queue_Interface ) {
 					$activity = $queue->activity()->get();
 				} else {
 					// if fetching or on error
@@ -566,5 +568,23 @@ class Tribe__Events__Aggregator__Cron {
 					'EA Cron' );
 			}
 		}
+	}
+
+	/**
+	 * Tries to fetch the data for the scheduled import and immediately process it.
+	 *
+	 * @since 4.6.16
+	 *
+	 * @param Tribe__Events__Aggregator__Record__Abstract $record
+	 */
+	protected function maybe_process_immediately( Tribe__Events__Aggregator__Record__Abstract $record ) {
+		$import_data = $record->prep_import_data();
+
+		if ( empty( $import_data ) || $import_data instanceof WP_Error || ! is_array( $import_data ) ) {
+			return;
+		}
+
+		tribe( 'logger' )->log_debug( sprintf( 'Import %s data available: processing immediately', $record->id ) );
+		$record->process_posts( $import_data, true );
 	}
 }
