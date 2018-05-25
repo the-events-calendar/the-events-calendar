@@ -26,6 +26,8 @@ $current_url = tribe_events_get_current_filter_url();
 <?php do_action( 'tribe_events_bar_before_template' ) ?>
 <div id="tribe-events-bar">
 
+	<h2 class="tribe-events-visuallyhidden"><?php printf( esc_html__( '%s Search and Views Navigation', 'the-events-calendar' ), tribe_get_event_label_plural() ); ?></h2>
+
 	<form id="tribe-bar-form" class="tribe-clearfix" name="tribe-bar-form" method="post" action="<?php echo esc_attr( $current_url ); ?>">
 
 		<!-- Mobile Filters Toggle -->
@@ -38,7 +40,7 @@ $current_url = tribe_events_get_current_filter_url();
 		<?php if ( count( $views ) > 1 ) { ?>
 			<div id="tribe-bar-views">
 				<div class="tribe-bar-views-inner tribe-clearfix">
-					<h3 class="tribe-events-visuallyhidden"><?php esc_html_e( 'Event Views Navigation', 'the-events-calendar' ) ?></h3>
+					<h3 class="tribe-events-visuallyhidden"><?php printf( esc_html__( '%s Views Navigation', 'the-events-calendar' ), tribe_get_event_label_singular() ); ?></h3>
 					<label><?php esc_html_e( 'View As', 'the-events-calendar' ); ?></label>
 					<select
 						class="tribe-bar-views-select tribe-no-param tribe-accessible-js-hidden"
@@ -60,6 +62,7 @@ $current_url = tribe_events_get_current_filter_url();
 		<?php if ( ! empty( $filters ) ) { ?>
 			<div class="tribe-bar-filters">
 				<div class="tribe-bar-filters-inner tribe-clearfix">
+					<h3 class="tribe-events-visuallyhidden"><?php printf( esc_html__( '%s Search', 'the-events-calendar' ), tribe_get_event_label_plural() ); ?></h3>
 					<?php foreach ( $filters as $filter ) : ?>
 						<div class="<?php echo esc_attr( $filter['name'] ) ?>-filter">
 							<label class="label-<?php echo esc_attr( $filter['name'] ) ?>" for="<?php echo esc_attr( $filter['name'] ) ?>"><?php echo $filter['caption'] ?></label>

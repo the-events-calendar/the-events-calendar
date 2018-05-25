@@ -34,7 +34,7 @@ $current_timeslot = null;
 	<!-- .tribe-events-day-time-slot -->
 
 	<div class="tribe-events-day-time-slot">
-		<h5><?php echo $current_timeslot; ?></h5>
+		<h2 class="tribe-events-day-time-slot-heading"><?php echo $current_timeslot; ?></h2>
 		<?php endif; ?>
 
 		<!-- Event  -->
