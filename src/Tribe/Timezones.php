@@ -101,7 +101,7 @@ class Tribe__Events__Timezones extends Tribe__Timezones {
 	 * @param int    $event_id
 	 * @param string $timezone
 	 *
-	 * @return int
+	 * @return int|WP_Post
 	 */
 	public static function event_start_timestamp( $event_id, $timezone = null ) {
 		return self::get_event_timestamp( $event_id, 'Start', $timezone );
