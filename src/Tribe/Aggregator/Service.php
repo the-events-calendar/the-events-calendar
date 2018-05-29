@@ -328,7 +328,7 @@ class Tribe__Events__Aggregator__Service {
 	/**
 	 * Get Eventbrite Arguments for EA
 	 *
-	 * @since TBD
+	 * @since 4.6.18
 	 *
 	 * @return mixed|void
 	 */
@@ -352,7 +352,7 @@ class Tribe__Events__Aggregator__Service {
 	/**
 	 * Fetch Eventbrite Extended Token from the Service
 	 *
-	 * @since TBD
+	 * @since 4.6.18
 	 *
 	 *  @return stdClass|WP_Error
 	 */
@@ -373,7 +373,7 @@ class Tribe__Events__Aggregator__Service {
 	/**
 	 * Disconnect Eventbrite Token on EA
 	 *
-	 * @since TBD
+	 * @since 4.6.18
 	 *
 	 * @return stdClass|WP_Error
 	 */
