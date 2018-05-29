@@ -217,6 +217,8 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 = [4.6.18] TBD =
 
+* Fix - Make the date picker respect the "Start of the week" Setting. Thanks to @websource, @dsb and others for flagging this! [76320]
+
 = [4.6.17] 2018-05-29 =
 
 * Tweak - Add tribe_redirected parameter to enable a visitor to select another view after default mobile redirect, thanks to Marcella for notifying us [102743]
