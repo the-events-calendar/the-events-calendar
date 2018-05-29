@@ -129,7 +129,7 @@ class Tribe__Events__Aggregator__Record__Eventbrite extends Tribe__Events__Aggre
 	/**
 	 * Add Site URL for Eventbrite Requets
 	 *
-	 * @since TBD
+	 * @since 4.6.18
 	 *
 	 * @param array $args EA REST arguments
 	 * @param Tribe__Events__Aggregator__Record__Abstract $record Aggregator Import Record

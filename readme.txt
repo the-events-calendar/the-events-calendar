@@ -4,7 +4,7 @@ Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.5
-Stable tag: 4.6.17
+Stable tag: 4.6.18
 Tested up to: 4.9.6
 Requires PHP: 5.2.4
 License: GPLv2 or later
@@ -214,6 +214,20 @@ Some things to consider before posting on the forum:
 Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to [@TheEventsCal](https://twitter.com/TheEventsCal) and tell us why. We'll do what we can to make it right.
 
 == Changelog ==
+
+= [4.6.18] 2018-05-30 =
+
+* Add - Eventbrite to Event Aggregator import origins [61172]
+* Add - Priority attribute to Import Setting fields to be able to customize order of fields [61173]
+* Add - Default category and change authority for Eventbrite Imports [61173]
+* Add - Ability to schedule Eventbrite imports through Event Aggregator [35454]
+* Add - Preview for Eventbrite events in the import screen ordered from farthest future event to closest [70130]
+* Add - Import Eventbrite events using the Other URL import origin [81825]
+* Add - Ability to preview and import multiple Eventbrite events using the Organizer URL [94284]
+* Add - Import from Eventbrite Location Search URL, i.e. https://www.eventbrite.com/d/or--portland/events/ [94588]
+* Tweak - Move Eventbrite settings from Legacy Import to Settings Import Tab [94388]
+* Tweak - Add Eventbrite imports to the Import History Tab [81826]
+* Tweak - Remove Legacy Imports UI [81829]
 
 = [4.6.17] 2018-05-29 =
 

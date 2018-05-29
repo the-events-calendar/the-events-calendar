@@ -163,7 +163,7 @@ class Tribe__Events__Aggregator__Settings {
 	/**
 	 * Get EB Security Key
 	 *
-	 * @since TBD
+	 * @since 4.6.18
 	 *
 	 */
 	public function get_eb_security_key() {
@@ -177,7 +177,7 @@ class Tribe__Events__Aggregator__Settings {
 	/**
 	 * Check if Security Key
 	 *
-	 * @since TBD
+	 * @since 4.6.18
 	 *
 	 */
 	public function has_eb_security_key() {
@@ -189,7 +189,7 @@ class Tribe__Events__Aggregator__Settings {
 	/**
 	 * Handle Checking if there is a Security Key and Saving It
 	 *
-	 * @since TBD
+	 * @since 4.6.18
 	 *
 	 * @param object $eb_authorized object from EA service for EB Validation
 	 *
@@ -215,7 +215,7 @@ class Tribe__Events__Aggregator__Settings {
 	/**
 	 * Disconnect Eventbrite from EA
 	 *
-	 * @since TBD
+	 * @since 4.6.18
 	 *
 	 */
 	public function clear_eb_credentials() {

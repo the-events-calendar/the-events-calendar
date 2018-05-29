@@ -170,7 +170,7 @@ abstract class Tribe__Events__Importer__File_Importer {
 		/**
 		 *  Filter Encoding Status Option for CSV Imports
 		 *
-		 * @since TBD
+		 * @since 4.6.18
 		 *
 		 * @param  $encoding_status array an array to encode
 		 * @param [ 'csv' => 'encode' ] array the default value to enable encoding to UTF8
