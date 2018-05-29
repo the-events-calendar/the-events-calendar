@@ -95,7 +95,7 @@ abstract class Tribe__Events__Importer__File_Importer {
 	public function do_import() {
 		$this->reader->set_row( $this->offset );
 		for ( $i = 0; $i < $this->limit && ! $this->import_complete(); $i ++ ) {
-			set_time_limit( 30 );
+			tribe_set_time_limit( 30 );
 			$this->import_next_row();
 		}
 	}
@@ -105,7 +105,7 @@ abstract class Tribe__Events__Importer__File_Importer {
 
 		$this->reader->set_row( $this->offset );
 		for ( $i = 0; $i < $this->limit && ! $this->import_complete(); $i ++ ) {
-			set_time_limit( 30 );
+			tribe_set_time_limit( 30 );
 			$rows[] = $this->import_next_row( false, true );
 		}
 
@@ -165,6 +165,7 @@ abstract class Tribe__Events__Importer__File_Importer {
 		$record = $this->reader->read_next_row();
 		$row    = $this->reader->get_last_line_number_read() + 1;
 
+		//Check if option to encode is active
 		$encoding_option = Tribe__Settings_Manager::get_option( 'imported_encoding_status', array( 'csv' => 'encode' ) );
 		/**
 		 *  Filter Encoding Status Option for CSV Imports
@@ -176,7 +177,6 @@ abstract class Tribe__Events__Importer__File_Importer {
 		 */
 		$encoding_option = apply_filters( 'tribe_import_setting_imported_encoding_status', $encoding_option, array( 'csv' => 'encode' ) );
 
-		//Check if option to encode is active
 		if ( isset( $encoding_option['csv'] ) && 'encode' == $encoding_option['csv'] ) {
 			$encoded       = ForceUTF8__Encoding::toUTF8( $record );
 			$encoding_diff = array_diff( $encoded, $record );
