@@ -2643,7 +2643,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				case 'day':
 					$eventUrl = add_query_arg( array( 'tribe_event_display' => $type ), $eventUrl );
 					if ( $secondary ) {
-						$eventUrl = add_query_arg( array( 'date' => $secondary ), $eventUrl );
+						$eventUrl = add_query_arg( array( 'eventDate' => $secondary ), $eventUrl );
 					}
 					break;
 				case 'week':
