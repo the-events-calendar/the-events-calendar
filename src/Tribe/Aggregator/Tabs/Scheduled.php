@@ -293,7 +293,7 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 	/**
 	 * Run Imports for a given set of Records
 	 *
-	 * @since  TBD
+	 * @since 4.6.18
 	 *
 	 * @param  array  $records
 	 *

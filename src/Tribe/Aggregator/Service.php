@@ -342,7 +342,7 @@ class Tribe__Events__Aggregator__Service {
 		/**
 		 *	Allow filtering for which params we are sending to EA for Token callback
 		 *
-		 * @since  TBD
+		 * @since 4.6.18
 		 *
 		 * @param array $args Which arguments are sent to Token Callback
 		 */
@@ -431,7 +431,7 @@ class Tribe__Events__Aggregator__Service {
 		/**
 		 * Allows filtering to add a PUE key to be passed to the EA service
 		 *
-		 * @since  TBD
+		 * @since 4.6.18
 		 *
 		 * @param  bool|string $pue_key PUE key
 		 * @param  array       $args    Arguments to queue the import
@@ -520,7 +520,7 @@ class Tribe__Events__Aggregator__Service {
 		/**
 		 * Allow filtering of the Image data Request Args
 		 *
-		 * @since  TBD
+		 * @since 4.6.18
 		 *
 		 * @param  array  $data      Which Arguments
 		 * @param  strng  $image_id  Image ID

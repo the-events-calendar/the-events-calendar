@@ -215,7 +215,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
-= [4.6.18] 2018-05-31 =
+= [4.5] 2018-06-04 =
 
 * Add - Eventbrite to Event Aggregator import origins [61172]
 * Add - Priority attribute to Import Setting fields to be able to customize order of fields [61173]
