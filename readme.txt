@@ -218,6 +218,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 = [4.6.18] TBD =
 
 * Fix - Make the date picker respect the "Start of the week" Setting. Thanks to @websource, @dsb and others for flagging this! [76320]
+* Fix - Correct the "View All" link when using the events month view and plain permalinks. props to Kay and Robert for notifying us [72544]
 
 = [4.6.17] 2018-05-29 =
 
