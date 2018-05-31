@@ -2650,7 +2650,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				case 'month':
 					$eventUrl = add_query_arg( array( 'tribe_event_display' => $type ), $eventUrl );
 					if ( is_string( $secondary ) ) {
-						$eventUrl = add_query_arg( array( 'date' => $secondary ), $eventUrl );
+						$eventUrl = add_query_arg( array( 'eventDate' => $secondary ), $eventUrl );
 					} elseif ( is_array( $secondary ) ) {
 						$eventUrl = add_query_arg( $secondary, $eventUrl );
 					}
