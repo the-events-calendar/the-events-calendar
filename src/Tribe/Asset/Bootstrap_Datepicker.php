@@ -26,6 +26,7 @@ class Tribe__Events__Asset__Bootstrap_Datepicker extends Tribe__Events__Asset__A
 			'clear'       => esc_attr__( 'Clear', 'the-events-calendar' ),
 			'today'       => esc_attr__( 'Today', 'the-events-calendar' ),
 			'titleFormat' => esc_attr( 'MM yyyy' ),
+			'firstDay'    => get_option( 'start_of_week' ),
 		);
 		wp_localize_script( $handle, 'tribe_bootstrap_datepicker_strings', array( 'dates' => $localized_datepicker_array ) );
 	}

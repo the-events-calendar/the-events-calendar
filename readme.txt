@@ -215,6 +215,11 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
+= [4.6.19] TBD =
+
+* Fix - Make the date picker respect the "Start of the week" Setting. Thanks to @websource, @dsb and others for flagging this! [76320]
+
+
 = [4.6.18] 2018-05-30 =
 
 * Add - Eventbrite to Event Aggregator import origins [61172]
