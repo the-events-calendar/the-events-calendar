@@ -82,10 +82,10 @@ if ( ! class_exists( 'Tribe__Events__Template__List' ) ) {
 
 			// check & set display
 			if ( isset( $_POST['tribe_event_display'] ) ) {
-				if ( $_POST['tribe_event_display'] == 'past' ) {
+				if ( 'past' === $_POST['tribe_event_display'] ) {
 					$args['eventDisplay'] = 'past';
 					$args['order'] = 'DESC';
-				} elseif ( 'all' == $_POST['tribe_event_display'] ) {
+				} elseif ( 'all' === $_POST['tribe_event_display'] ) {
 					$args['eventDisplay'] = 'all';
 				}
 			}
