@@ -139,7 +139,7 @@ if ( ! class_exists( 'Tribe__Events__Template__List' ) ) {
 
 			Tribe__Events__Main::instance()->displaying = apply_filters( 'tribe_events_listview_ajax_event_display', 'list', $args );
 
-			if ( ! empty( $_POST['tribe_event_display'] ) && $_POST['tribe_event_display'] == 'past' ){
+			if ( ! empty( $_POST['tribe_event_display'] ) && 'past' === $_POST['tribe_event_display'] ) {
 				$response['view'] = 'past';
 			}
 
