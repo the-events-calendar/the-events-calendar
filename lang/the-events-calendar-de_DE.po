@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-05-23 20:24:26+0000\n"
+"PO-Revision-Date: 2018-05-31 11:27:49+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1240,7 +1240,7 @@ msgstr "ungefähr um"
 #: src/admin-views/aggregator/origins/limit.php:19
 #: src/admin-views/aggregator/origins/url.php:89
 msgid "Event Aggregator will try to fetch events starting within the next %s from the current date or the specified date;"
-msgstr ""
+msgstr "Der Event Aggregator versucht, Veranstaltungen ab dem aktuellen Datum oder dem angegebenen Datum innerhalb der nächsten %s abzurufen."
 
 #: src/admin-views/aggregator/origins/url.php:83
 msgid "example.com/"
