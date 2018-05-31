@@ -495,10 +495,11 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		private static function view_more_link( $date ) {
 			$day_link       = tribe_get_day_link( $date );
 			$tribe_bar_args = self::get_tribe_bar_args();
+
 			if ( ! empty( $tribe_bar_args ) ) {
+				unset( $tribe_bar_args['tribe_event_display'] );
 				$day_link = add_query_arg( $tribe_bar_args, $day_link );
 			}
-
 			return esc_url_raw( $day_link );
 		}
 

@@ -95,7 +95,7 @@ abstract class Tribe__Events__Importer__File_Importer {
 	public function do_import() {
 		$this->reader->set_row( $this->offset );
 		for ( $i = 0; $i < $this->limit && ! $this->import_complete(); $i ++ ) {
-			set_time_limit( 30 );
+			tribe_set_time_limit( 30 );
 			$this->import_next_row();
 		}
 	}
@@ -105,7 +105,7 @@ abstract class Tribe__Events__Importer__File_Importer {
 
 		$this->reader->set_row( $this->offset );
 		for ( $i = 0; $i < $this->limit && ! $this->import_complete(); $i ++ ) {
-			set_time_limit( 30 );
+			tribe_set_time_limit( 30 );
 			$rows[] = $this->import_next_row( false, true );
 		}
 

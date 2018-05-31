@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-05-05 09:51:58+0000\n"
+"PO-Revision-Date: 2018-05-22 22:30:03+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -114,7 +114,7 @@ msgstr "Página %s principal"
 
 #: common/src/Tribe/Plugins_API.php:71
 msgid "Event Tickets Plus allows you to sell tickets to your events using WooCommerce, Easy Digital Downloads, or our built in Tribe Commerce tool. Add tickets to your posts and pages, or add %1$sThe Events Calendar%2$s and sell tickets from your event listings. Create custom registration forms, manage attendees, use custom capacity options, and more. Tickets have QR codes for easy check in at the door."
-msgstr ""
+msgstr "Event Tickets Plus te permite vender tickets de tus eventos usando WooCommerce, Easy Digital Downloads o nuestra herramienta Tribe Commerce. Añade tickets en tus entradas, páginas o en %1$sThe Events Calendar%2$s y vende entradas de tu listado de eventos. Crea formularios de registro, gestiona asistentes, con opciones de personalización y mucho más... Los tickets tienen códigos QR para gestionar rápidamente el acceso"
 
 #: src/admin-views/tribe-options-general.php:31
 msgid "The number of events per page on the List, Photo, and Map Views. Does not affect other views."
@@ -397,19 +397,19 @@ msgstr "El usuario no esta autorizado para crear etiquetas de eventos"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Tag.php:90
 msgid "Returns the data of the created event tag"
-msgstr ""
+msgstr "Devuelve los datos de la etiqueta del evento creado"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Tag.php:84
 msgid "Returns the data of the updated event tag"
-msgstr ""
+msgstr "Devuelve los datos de la etiqueta del evento actualizado"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Tag.php:72
 msgid "The event tag term ID is missing."
-msgstr ""
+msgstr "No se encuentra la ID de la etiqueta del evento"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Tag.php:66
 msgid "Returns the data of the event tag with the specified term ID"
-msgstr ""
+msgstr "Devuelve los datos de la etiqueta del evento con la ID indicada"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Tag.php:37
 msgid "The event tag slug"
@@ -430,7 +430,7 @@ msgstr "Nombre de la entrada del organizador"
 #: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:281
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:310
 msgid "The organizer featured image ID or URL"
-msgstr ""
+msgstr "ID  o URL de la imagen destacada del organizador"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:275
 msgid "The organizer e-mail address"
@@ -474,7 +474,7 @@ msgstr "El ID de la entrada del organizador falta o no existe."
 
 #: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:169
 msgid "Deletes an organizer and returns its data"
-msgstr ""
+msgstr "Borra un organizador y devuelve sus datos"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:161
 msgid "The user is not authorized to create organizers"
@@ -482,7 +482,7 @@ msgstr "El usuario no está autorizado a crear organizadores"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:152
 msgid "Returns the data of the created organizer"
-msgstr ""
+msgstr "Devuelve los datos del organizador creado"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:137
 msgid "The organizer post ID is missing."
@@ -490,7 +490,7 @@ msgstr "Falta la ID de la entrada del organizador "
 
 #: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:131
 msgid "Returns the data of the organizer with the specified post ID"
-msgstr ""
+msgstr "Devuelve los datos del organizador con el ID indicado"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event_Slug.php:36
 msgid "the event post name"
@@ -506,23 +506,23 @@ msgstr "El ID o data del lugar del evento"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:324
 msgid "Whether the event should be featured on the site or not"
-msgstr ""
+msgstr "Si el evento debe aparecer destacado en el sitio o no"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:319
 msgid "Whether the event should be sticky in the calendar view or not"
-msgstr ""
+msgstr "Si el evento debe ser fijado en la vista de calendario o no"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:314
 msgid "Whether events should be hidden in the calendar view or not"
-msgstr ""
+msgstr "Si el evento debe ser ocultado en la vista de calendario o no"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:309
 msgid "Whether the event should show a map link or not"
-msgstr ""
+msgstr "Si el evento debe mostrar un enlace al mapa o no"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:304
 msgid "Whether the event should show a map or not"
-msgstr ""
+msgstr "Si el evento debe mostrar un mapa o no"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:292
 msgid "The event cost"
@@ -530,7 +530,7 @@ msgstr "Coste del evento"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:287
 msgid "The event featured image ID or URL"
-msgstr ""
+msgstr "La URL o ID de la imagen destacada del evento"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:281
 msgid "The event end date and time"
@@ -542,7 +542,7 @@ msgstr "Comienzo del evento: fecha y hora"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:269
 msgid "Whether the event lasts the whole day or not"
-msgstr ""
+msgstr "Si el evento dura todo el día o no"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:263
 msgid "The event time zone"
@@ -590,7 +590,7 @@ msgstr "La ID de la entrada del evento falta o no existe. "
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:162
 msgid "Deletes an event and returns its data"
-msgstr ""
+msgstr "Borra un evento y devuelve sus datos"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:154
 msgid "The user is not authorized to create events"
@@ -598,23 +598,23 @@ msgstr "El usuario no está autorizado a crear eventos"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:145
 msgid "Returns the data of the created event"
-msgstr ""
+msgstr "Devuelve los datos del evento creado"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:139
 msgid "Returns the data of the updated event"
-msgstr ""
+msgstr "Devuelve los datos del evento actualizado"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Category.php:148
 msgid "the event category term ID"
-msgstr ""
+msgstr "el ID de la categoría del evento"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Category.php:128
 msgid "The event category with the specified term ID could not be deleted."
-msgstr ""
+msgstr "La categoría de evento con el ID de término especificado no se pudo eliminar."
 
 #: src/Tribe/REST/V1/Endpoints/Single_Category.php:125
 msgid "The event category with the specified term ID has been deleted already."
-msgstr ""
+msgstr "La categoría de evento con el ID de término especificado ya se ha eliminado."
 
 #: src/Tribe/REST/V1/Endpoints/Single_Category.php:122
 msgid "The current user cannot delete the event category with the specified term ID."
@@ -874,7 +874,7 @@ msgstr ""
 
 #: src/Tribe/Linked_Posts.php:1098
 msgid "Find a Venue"
-msgstr ""
+msgstr "Encontrar un local"
 
 #: src/Tribe/Linked_Posts.php:1097
 msgid "Create or Find a Venue"
@@ -892,7 +892,7 @@ msgstr ""
 
 #: src/Tribe/Linked_Posts.php:1070
 msgid "Find an Organizer"
-msgstr ""
+msgstr "Encontrar un organizador"
 
 #: src/Tribe/Linked_Posts.php:1069
 msgid "Create or Find an Organizer"
@@ -918,7 +918,7 @@ msgstr "Pincha aquí para editar"
 
 #: src/Tribe/Aggregator/Settings.php:300
 msgid "Do not limit (not recommended)"
-msgstr ""
+msgstr "No limitar (no recomendado)"
 
 #: src/Tribe/Aggregator/Settings.php:299
 msgid "By number of events"
@@ -6823,7 +6823,7 @@ msgstr "Iraq"
 
 #: common/src/Tribe/Languages/Locations.php:160
 msgid "Iran, Islamic Republic of"
-msgstr ""
+msgstr "República Islámica de Irán"
 
 #: common/src/Tribe/Languages/Locations.php:159
 msgid "Indonesia"
