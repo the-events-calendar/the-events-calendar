@@ -497,9 +497,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			$tribe_bar_args = self::get_tribe_bar_args();
 
 			if ( ! empty( $tribe_bar_args ) ) {
-				if ( isset( $tribe_bar_args['tribe_event_display'] ) ) {
-					unset( $tribe_bar_args['tribe_event_display'] );
-				}
+				unset( $tribe_bar_args['tribe_event_display'] );
 				$day_link = add_query_arg( $tribe_bar_args, $day_link );
 			}
 			return esc_url_raw( $day_link );
