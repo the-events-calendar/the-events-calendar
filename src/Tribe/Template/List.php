@@ -106,6 +106,7 @@ if ( ! class_exists( 'Tribe__Events__Template__List' ) ) {
 			$hash['paged']      = null;
 			$hash['start_date'] = null;
 			$hash['end_date']   = null;
+			$hash['search_orderby_title'] = null;
 			$hash_str           = md5( maybe_serialize( $hash ) );
 
 			if ( ! empty( $_POST['hash'] ) && $hash_str !== $_POST['hash'] ) {
