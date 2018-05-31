@@ -180,16 +180,21 @@
 
 		function tribe_mobile_month_setup() {
 
-			var $today          = $wrapper.find( '.tribe-events-present' );
+			var $active_day       = $wrapper.find( '.mobile-active' );
 			var $mobile_trigger = $wrapper.find( '.mobile-trigger' );
 			var $tribe_grid     = $wrapper.find( document.getElementById( 'tribe-events-content' ) ).find( '.tribe-events-calendar'  );
+
+			// If for some reason we don't have a "$active_day" selected, default to today.
+			if ( !$active_day.length ) {
+				var $active_day = $wrapper.find( '.tribe-events-present' );
+			}
 
 			if ( ! $( document.getElementById( 'tribe-mobile-container' ) ).length ) {
 				$( '<div id="tribe-mobile-container" />' ).insertAfter( $tribe_grid );
 			}
 
-			if ( $today.length && $today.is( '.tribe-events-thismonth' ) ) {
-				tribe_mobile_setup_day( $today );
+			if ( $active_day.length && $active_day.is( '.tribe-events-thismonth' ) ) {
+				tribe_mobile_setup_day( $active_day );
 			}
 			else {
 				var $first_current_day = $mobile_trigger.filter( '.tribe-events-thismonth' ).first();
