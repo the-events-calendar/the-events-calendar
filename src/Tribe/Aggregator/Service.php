@@ -428,6 +428,22 @@ class Tribe__Events__Aggregator__Service {
 
 		$args = $this->apply_import_limit( $args );
 
+		/**
+		 * Allows filtering to add a PUE key to be passed to the EA service
+		 *
+		 * @since  TBD
+		 *
+		 * @param  bool|string $pue_key PUE key
+		 * @param  array       $args    Arguments to queue the import
+		 * @param  self        $record  Which record we are dealing with
+		 */
+		$licenses = apply_filters( 'tribe_aggregator_service_post_pue_licenses', array(), $args, $this );
+
+		// If we have a key we add that to the Arguments
+		if ( ! empty( $licenses ) ) {
+			$args['licenses'] = $licenses;
+		}
+
 		$request_args = array(
 			'body' => $args,
 		);
@@ -485,22 +501,6 @@ class Tribe__Events__Aggregator__Service {
 			);
 		} else {
 			$args = $request_args;
-		}
-
-		/**
-		 * Allows filtering to add a PUE key to be passed to the EA service
-		 *
-		 * @since  TBD
-		 *
-		 * @param  bool|string $pue_key PUE key
-		 * @param  array       $args    Arguments to queue the import
-		 * @param  self        $record  Which record we are dealing with
-		 */
-		$licenses = apply_filters( 'tribe_aggregator_service_post_pue_licenses', array(), $request_args['body'], $this );
-
-		// If we have a key we add that to the Arguments
-		if ( ! empty( $licenses ) ) {
-			$args['body']['licenses'] = $licenses;
 		}
 
 		$response = $this->post( 'import', $args );
