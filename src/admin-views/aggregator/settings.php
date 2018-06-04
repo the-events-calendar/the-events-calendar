@@ -17,9 +17,10 @@ preg_match_all( '!\<option.*value="([^"]+)"[^\>]*\>(.*)\</option\>!m', $category
 $categories = array(
 	'' => __( 'No default category', 'the-events-calendar' ),
 );
+$events_aggregator_is_active = tribe( 'events-aggregator.main' )->is_service_active();
 
 $origin_categories = array(
-	'' => $use_global_settings_phrase,
+	'' => $events_aggregator_is_active ? $use_global_settings_phrase : esc_html__( 'None', 'the-events-calendar' ),
 );
 
 foreach ( $matches[1] as $key => $match ) {
@@ -28,7 +29,7 @@ foreach ( $matches[1] as $key => $match ) {
 }
 
 $yes_no_options = array(
-	'no' => __( 'No', 'the-events-calendar' ),
+	'no'  => __( 'No', 'the-events-calendar' ),
 	'yes' => __( 'Yes', 'the-events-calendar' ),
 );
 
@@ -44,14 +45,14 @@ $change_authority = array(
 		'html' => '<p>' . esc_html__( 'You can make changes to imported events via The Events Calendar and see those changes reflected on your site’s calendar. The owner of the original event source (e.g. the iCalendar feed or Facebook group) might also make changes to their event. If you choose to re-import an altered event (manually or via a scheduled import), any changes made at the source or on your calendar will need to be addressed.', 'the-events-calendar' ) . '</p>',
 	),
 	'tribe_aggregator_default_update_authority' => array(
-		'type' => 'radio',
-		'label' => esc_html__( 'Event Update Authority', 'the-events-calendar' ),
+		'type'            => 'radio',
+		'label'           => esc_html__( 'Event Update Authority', 'the-events-calendar' ),
 		'validation_type' => 'options',
-		'default' => Tribe__Events__Aggregator__Settings::$default_update_authority,
-		'parent_option' => Tribe__Events__Main::OPTIONNAME,
-		'options' => array(
-			'overwrite' => __( 'Overwrite my event with any changes from the original source.', 'the-events-calendar' ),
-			'retain' => __( 'Do not re-import events. Changes made locally will be preserved.', 'the-events-calendar' ),
+		'default'         => Tribe__Events__Aggregator__Settings::$default_update_authority,
+		'parent_option'   => Tribe__Events__Main::OPTIONNAME,
+		'options'         => array(
+			'overwrite'        => __( 'Overwrite my event with any changes from the original source.', 'the-events-calendar' ),
+			'retain'           => __( 'Do not re-import events. Changes made locally will be preserved.', 'the-events-calendar' ),
 			'preserve_changes' => __( 'Import events but preserve local changes to event fields.', 'the-events-calendar' ),
 		),
 	),
@@ -63,26 +64,26 @@ $csv = array(
 		'html' => '<h3 id="tribe-import-csv-settings">' . esc_html__( 'CSV Import Settings', 'the-events-calendar' ) . '</h3>',
 	),
 	'tribe_aggregator_default_csv_post_status' => array(
-		'type' => 'dropdown',
-		'label' => esc_html__( 'Default Status', 'the-events-calendar' ),
-		'tooltip' => esc_html__( 'The default post status for events imported via CSV', 'the-events-calendar' ),
-		'size' => 'medium',
+		'type'            => 'dropdown',
+		'label'           => esc_html__( 'Default Status', 'the-events-calendar' ),
+		'tooltip'         => esc_html__( 'The default post status for events imported via CSV', 'the-events-calendar' ),
+		'size'            => 'medium',
 		'validation_type' => 'options',
-		'default' => '',
-		'can_be_empty' => true,
-		'parent_option' => Tribe__Events__Main::OPTIONNAME,
-		'options' => $origin_post_statuses,
+		'default'         => $events_aggregator_is_active ? '' : 'publish',
+		'can_be_empty'    => true,
+		'parent_option'   => Tribe__Events__Main::OPTIONNAME,
+		'options'         => $origin_post_statuses,
 	),
 	'tribe_aggregator_default_csv_category' => array(
-		'type' => 'dropdown',
-		'label' => esc_html__( 'Default Event Category', 'the-events-calendar' ),
-		'tooltip' => esc_html__( 'The default event category for events imported via CSV', 'the-events-calendar' ),
-		'size' => 'medium',
+		'type'            => 'dropdown',
+		'label'           => esc_html__( 'Default Event Category', 'the-events-calendar' ),
+		'tooltip'         => esc_html__( 'The default event category for events imported via CSV', 'the-events-calendar' ),
+		'size'            => 'medium',
 		'validation_type' => 'options',
-		'default' => '',
-		'can_be_empty' => true,
-		'parent_option' => Tribe__Events__Main::OPTIONNAME,
-		'options' => $origin_categories,
+		'default'         => $events_aggregator_is_active ? '' : '',
+		'can_be_empty'    => true,
+		'parent_option'   => Tribe__Events__Main::OPTIONNAME,
+		'options'         => $origin_categories,
 	),
 );
 
