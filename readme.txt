@@ -135,7 +135,7 @@ Absolutely. If you're not finding your questions answered on the product pages, 
 The following add-ons are available for The Events Calendar:
 
 * [Events Calendar PRO](http://m.tri.be/18wi), for adding premium calendar features like recurring events, advanced views, cool widgets, shortcodes, additional fields, and more!
-* [Event Aggregator](http://m.tri.be/197u), a service that effortlessly fills your calendar with events from Meetup, Google Calendar, iCalendar, CSV, and ICS.
+* [Event Aggregator](http://m.tri.be/197u), a service that effortlessly fills your calendar with events from Meetup, Google Calendar, iCalendar, Eventbrite, CSV, and ICS.
 * [Event Tickets](http://m.tri.be/18wj) (free), which allows you to collect RSVPs to events. It can run alongside The Events Calendar or as a standalone plugin that adds RSVP functionality to WordPress posts and pages.
 * [Event Tickets Plus](http://m.tri.be/18wk), which allows you to sell tickets for your events using your favorite e-commerce platform.
 * [Community Events](http://m.tri.be/2g), for allowing frontend event submission from your readers.
