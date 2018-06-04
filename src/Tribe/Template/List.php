@@ -82,10 +82,10 @@ if ( ! class_exists( 'Tribe__Events__Template__List' ) ) {
 
 			// check & set display
 			if ( isset( $_POST['tribe_event_display'] ) ) {
-				if ( $_POST['tribe_event_display'] == 'past' ) {
+				if ( 'past' === $_POST['tribe_event_display'] ) {
 					$args['eventDisplay'] = 'past';
 					$args['order'] = 'DESC';
-				} elseif ( 'all' == $_POST['tribe_event_display'] ) {
+				} elseif ( 'all' === $_POST['tribe_event_display'] ) {
 					$args['eventDisplay'] = 'all';
 				}
 			}
@@ -106,6 +106,7 @@ if ( ! class_exists( 'Tribe__Events__Template__List' ) ) {
 			$hash['paged']      = null;
 			$hash['start_date'] = null;
 			$hash['end_date']   = null;
+			$hash['search_orderby_title'] = null;
 			$hash_str           = md5( maybe_serialize( $hash ) );
 
 			if ( ! empty( $_POST['hash'] ) && $hash_str !== $_POST['hash'] ) {
@@ -139,7 +140,7 @@ if ( ! class_exists( 'Tribe__Events__Template__List' ) ) {
 
 			Tribe__Events__Main::instance()->displaying = apply_filters( 'tribe_events_listview_ajax_event_display', 'list', $args );
 
-			if ( ! empty( $_POST['tribe_event_display'] ) && $_POST['tribe_event_display'] == 'past' ){
+			if ( ! empty( $_POST['tribe_event_display'] ) && 'past' === $_POST['tribe_event_display'] ) {
 				$response['view'] = 'past';
 			}
 
