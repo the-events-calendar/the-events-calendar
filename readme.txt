@@ -215,7 +215,11 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
-= [4.6.18] TBD =
+= [4.6.19] TBD =
+
+* Tweak - Added venue google map link to events in Day view [91610]
+
+= [4.6.18] 2018-06-04 =
 
 * Fix - Improve Event Import message responses from Event Aggregator for certain cases where "Unknown service message" would be returned [107606]
 * Fix - Make the date picker respect the "Start of the week" Setting. Thanks to @websource, @dsb and others for flagging this! [76320]
