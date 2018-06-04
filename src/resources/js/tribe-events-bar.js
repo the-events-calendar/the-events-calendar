@@ -362,6 +362,12 @@ var tribe_events_bar_action;
 				}
 			} );
 
+			// setup redirected param to prevent after initial redirect
+			var redirected = $( '.tribe-bar-views-option-' + td.default_mobile_view ).data( 'redirected' );
+			if ( td.redirected_view || redirected ) {
+				ts.url_params['tribe_redirected'] = true;
+			}
+
 			ts.url_params = $.param( ts.url_params );
 
 			/**

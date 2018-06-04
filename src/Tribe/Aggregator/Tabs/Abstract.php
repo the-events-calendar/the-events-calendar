@@ -84,6 +84,16 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract extends Tribe__Tabbed_V
 
 		$data = $post_data[ $post_data['origin'] ];
 
+		// If we are dealing with Other URL made
+		if ( 'url' === $post_data['origin'] ) {
+			$new_origin = tribe( 'events-aggregator.settings' )->match_source_origin( $data['source'] );
+
+			// If we found a valid new origin we overwrite
+			if ( false !== $new_origin ) {
+				$post_data['origin'] = $new_origin;
+			}
+		}
+
 		$record = Tribe__Events__Aggregator__Records::instance()->get_by_origin( $post_data['origin'] );
 
 		$meta = array(
@@ -97,10 +107,16 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract extends Tribe__Tabbed_V
 			'end'           => ! isset( $data['end'] ) ? null : trim( $data['end'] ),
 			'radius'        => empty( $data['radius'] ) ? null : $data['radius'],
 			'source'        => empty( $data['source'] ) ? null : $data['source'],
+			'source_type'   => empty( $data['source_type'] ) ? null : $data['source_type'],
 			'content_type'  => empty( $data['content_type'] ) ? null : $data['content_type'],
 			'schedule_day'  => empty( $data['schedule_day'] ) ? null : $data['schedule_day'],
 			'schedule_time' => empty( $data['schedule_time'] ) ? null : $data['schedule_time'],
 		);
+
+		// Special source types can override source (Eventbrite current profile URL)
+		if ( ! empty( $meta['source_type'] ) ) {
+			$meta['source'] = $meta['source_type'];
+		}
 
 		// Only apply this verification when dealing with Creating new items
 		if ( ! empty( $post_data['action'] ) && 'new' === $post_data['action'] ) {
@@ -149,7 +165,6 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract extends Tribe__Tabbed_V
 	/**
 	 * Validates the meta in relation to the origin.
 	 *
-	 *
 	 * @param string $origin
 	 * @param array  $meta
 	 *
@@ -166,12 +181,17 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract extends Tribe__Tabbed_V
 				}
 				break;
 			case 'facebook':
-				if ( empty( $meta['source'] ) || ! preg_match( '!(https?://)?(www\.)?facebook\.com!', $meta['source'] ) ) {
+				if ( empty( $meta['source'] ) || ! preg_match( '/' . Tribe__Events__Aggregator__Record__Facebook::get_source_regexp() . '/', $meta['source'] ) ) {
 					$result = new WP_Error( 'not-facebook-url', __( 'Please provide a Facebook URL when importing from Facebook.', 'the-events-calendar' ) );
 				}
 				break;
+			case 'eventbrite':
+				if ( empty( $meta['source'] ) || ! preg_match( '/' . Tribe__Events__Aggregator__Record__Eventbrite::get_source_regexp() . '/', $meta['source'] ) ) {
+					$result = new WP_Error( 'not-eventbrite-url', __( 'Please provide a Eventbrite URL when importing from Eventbrite.', 'the-events-calendar' ) );
+				}
+				break;
 			case 'meetup':
-				if ( empty( $meta['source'] ) || ! preg_match( '!(https?://)?(www\.)?meetup\.com!', $meta['source'] ) ) {
+				if ( empty( $meta['source'] ) || ! preg_match( '/' . Tribe__Events__Aggregator__Record__Meetup::get_source_regexp() . '/', $meta['source'] ) ) {
 					$result = new WP_Error( 'not-meetup-url', __( 'Please provide a Meetup URL when importing from Meetup.', 'the-events-calendar' ) );
 				}
 				break;

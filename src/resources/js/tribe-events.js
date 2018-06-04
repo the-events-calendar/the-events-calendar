@@ -763,6 +763,9 @@ Date.prototype.format = function( mask, utc ) {
 		maybe_default_view_change   : function() {
 			// if we don't these we can't do anything
 			if (
+				// if we already redirected do not do it again to enable user to change views
+				tribe_ev.data.redirected_view ||
+
 				// There is no default View set
 				! tribe_ev.data.default_view ||
 
@@ -791,6 +794,7 @@ Date.prototype.format = function( mask, utc ) {
 			var $views             = $( '.tribe-bar-views-option' );
 			var view_class_filter  = '.tribe-bar-views-option-' + tribe_ev.data.default_mobile_view;
 			var $default_view_link = $views.filter( view_class_filter );
+			$( view_class_filter ).data( 'redirected', true );
 
 			// Actually do the Changing View
 			$default_view_link.trigger( 'click' );
@@ -1252,6 +1256,7 @@ Date.prototype.format = function( mask, utc ) {
 		initial_url         : tribe_ev.fn.url_path( document.URL ),
 		mobile_break        : 768,
 		default_mobile_view : null,
+		redirected_view     : null,
 		default_view        : null,
 		params              : tribe_ev.fn.get_params(),
 		v_height            : 0,
@@ -1462,6 +1467,7 @@ Date.prototype.format = function( mask, utc ) {
 				// Remember, when using jQuery.data and dash separated variables they become CamelCase separated
 				td.default_mobile_view = $mobile_view_holder.data( 'defaultMobileView' );
 				td.default_view = $mobile_view_holder.data( 'defaultView' );
+				td.redirected_view = $mobile_view_holder.data( 'redirectedView' );
 			}
 		}
 

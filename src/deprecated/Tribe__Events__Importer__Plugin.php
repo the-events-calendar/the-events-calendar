@@ -1,4 +1,6 @@
 <?php
+_deprecated_file( __FILE__, '4.5', 'CSV Import settings moved to Event Aggregator' );
+
 /**
  * Class Tribe__Events__Importer__Plugin
  */

@@ -151,7 +151,7 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 		$args = array(
 			'tab'    => $this->get_slug(),
 			'action' => $data->action,
-			'ids'     => implode( ',', array_keys( $success ) ),
+			'ids'    => implode( ',', array_keys( $success ) ),
 		);
 
 		if ( ! empty( $errors ) ) {
@@ -290,7 +290,16 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 		return array( $success, $errors );
 	}
 
-	private function action_run_import( $records = array() ) {
+	/**
+	 * Run Imports for a given set of Records
+	 *
+	 * @since 4.6.18
+	 *
+	 * @param  array  $records
+	 *
+	 * @return array
+	 */
+	public function action_run_import( $records = array() ) {
 		$service = tribe( 'events-aggregator.service' );
 		$record_obj = Tribe__Events__Aggregator__Records::instance()->get_post_type();
 		$records = array_filter( (array) $records, 'is_numeric' );
@@ -333,6 +342,7 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 
 			$child->finalize();
 			$child->process_posts( array(), true );
+
 			$success[ $record->id ] = $record;
 		}
 

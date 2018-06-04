@@ -63,6 +63,7 @@ class Tribe__Events__Aggregator__Errors {
 		tribe_register_error( 'core:aggregator:invalid-record-post_type', __( 'Unable to get a post of the correct type.', 'the-events-calendar' ) );
 		tribe_register_error( 'core:aggregator:invalid-service-key', __( 'You must enter an Event Aggregator license key in Events > Settings > Licenses before using this service.', 'the-events-calendar' ) );
 		tribe_register_error( 'core:aggregator:invalid-service-response', __( 'There may be an issue with the Event Aggregator server. Please try your import again later.', 'the-events-calendar' ) );
+		tribe_register_error( 'core:aggregator:invalid-json-response', __( 'There is an JSON error with the Event Aggregator server. Please try your import again later.', 'the-events-calendar' ) );
 
 		tribe_register_error( 'core:aggregator:missing-csv-column-map', __( 'You must map columns from the CSV file to specific fields in order to perform a CSV import.', 'the-events-calendar' ) );
 		tribe_register_error( 'core:aggregator:missing-csv-file', __( 'The CSV file cannot be found. You may need to re-upload the file.', 'the-events-calendar' ) );
