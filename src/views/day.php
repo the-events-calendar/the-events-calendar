@@ -17,7 +17,7 @@ do_action( 'tribe_events_before_template' );
 ?>
 
 	<!-- Title Bar -->
-<?php tribe_get_template_part( 'day/titlebar' ); ?>
+<?php tribe_get_template_part( 'day/title-bar' ); ?>
 
 <!-- Tribe Bar -->
 <?php tribe_get_template_part( 'modules/bar' ); ?>

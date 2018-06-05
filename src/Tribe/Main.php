@@ -4500,12 +4500,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$datepicker_format = tribe_get_option( 'datepickerFormat' );
 
 			$caption = esc_html__( 'Date', 'the-events-calendar' );
-			$format  = isset( $formats_full[ $datepicker_format ] ) ? $formats_full[ $datepicker_format ] : $formats_full[0];
+			$format= Tribe__Utils__Array::get( $formats_full, $datepicker_format, $formats_full[0] );
 			$label   = sprintf( esc_html__( 'Search for %s by Date. Please use the format %s.', 'the-events-calendar' ), $this->plural_event_label, $format );
 
 			if ( tribe_is_month() ) {
 				$caption = sprintf( esc_html__( '%s In', 'the-events-calendar' ), $this->plural_event_label );
-				$format  = isset( $formats_month[ $datepicker_format ] ) ? $formats_month[ $datepicker_format ] : $formats_month[0];
+				$format  = Tribe__Utils__Array::get( $formats_month, $datepicker_format, $formats_month[0] );
 				$label   = sprintf( esc_html__( 'Search for %s by month. Please use the format %s.', 'the-events-calendar' ), $this->plural_event_label, $format );
 			} elseif ( tribe_is_list_view() ) {
 				$caption = sprintf( esc_html__( '%s From', 'the-events-calendar' ), $this->plural_event_label );
