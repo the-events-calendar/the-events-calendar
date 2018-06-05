@@ -4500,7 +4500,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$datepicker_format = tribe_get_option( 'datepickerFormat' );
 
 			$caption = esc_html__( 'Date', 'the-events-calendar' );
-			$format= Tribe__Utils__Array::get( $formats_full, $datepicker_format, $formats_full[0] );
+			$format  = Tribe__Utils__Array::get( $formats_full, $datepicker_format, $formats_full[0] );
 			$label   = sprintf( esc_html__( 'Search for %s by Date. Please use the format %s.', 'the-events-calendar' ), $this->plural_event_label, $format );
 
 			if ( tribe_is_month() ) {
