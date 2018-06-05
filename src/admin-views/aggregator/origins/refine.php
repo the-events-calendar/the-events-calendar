@@ -7,6 +7,7 @@ $start_date              = new stdClass;
 $start_date->placeholder = __( 'Date', 'the-events-calendar' );
 $radius                  = new stdClass;
 $radius->placeholder     = sprintf( _x( 'Radius (%s)', 'Radius with abbreviation', 'the-events-calendar' ), Tribe__Events__Utils__Radius::get_abbreviation() );
+$depends_condition       = 'data-condition-not-empty';
 
 switch ( $origin_slug ) {
 	case 'ics':
@@ -25,6 +26,16 @@ switch ( $origin_slug ) {
 		$depends = "#tribe-ea-field-{$origin_slug}_import_type";
 		$radius->help = __( 'Use the filters to narrow down which events are fetched from Facebook.', 'the-events-calendar' );
 		break;
+	case 'eventbrite':
+		$depends = "#tribe-ea-field-{$origin_slug}_import_source";
+		$depends_condition = 'data-condition=source_type_url';
+		$radius->help = __( 'Use the filters to narrow down which events are fetched from Eventbrite.', 'the-events-calendar' );
+		// Only new events
+		if ( empty( $record->meta['start'] ) ) {
+			$record->meta['start'] = date_i18n( 'Y-m-d' );
+		}
+
+		break;
 	case 'ical':
 	default:
 		$depends = "#tribe-ea-field-{$origin_slug}_import_type";
@@ -32,7 +43,7 @@ switch ( $origin_slug ) {
 		break;
 }
 ?>
-<tr class="tribe-dependent tribe-refine-filters" data-depends="<?php echo esc_attr( $depends ); ?>" data-condition-not-empty>
+<tr class="tribe-dependent tribe-refine-filters" data-depends="<?php echo esc_attr( $depends ); ?>" <?php echo esc_attr( $depends_condition ); ?>>
 	<th scope="row">
 		<label for="tribe-ea-field-refine_keywords"><?php echo __( 'Refine:', 'the-events-calendar' ); ?></label>
 	</th>

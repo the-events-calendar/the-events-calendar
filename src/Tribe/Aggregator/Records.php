@@ -561,8 +561,18 @@ Tribe__Events__Aggregator__Records {
 			return wp_send_json_error();
 		}
 
-		// Actually import things
-		$record->process_posts( $request );
+		if ( ! empty( $_GET['trigger_new'] ) ) {
+			$_GET['tribe_queue_sync'] = true;
+
+			$record->update_meta( 'in_progress', null );
+			$record->update_meta( 'queue_id', null );
+
+			$record->set_status_as_pending();
+			$record->process_posts( $request, true );
+			$record->set_status_as_success();
+		} else {
+			$record->process_posts( $request, true );
+		}
 
 		return wp_send_json_success();
 	}
@@ -671,6 +681,9 @@ Tribe__Events__Aggregator__Records {
 
 		// Edit Link Filter
 		add_filter( 'get_edit_post_link', array( $this, 'filter_edit_link' ), 15, 3 );
+
+		// Filter Eventbrite to Add Site to URL
+		add_filter( 'tribe_aggregator_get_import_data_args', array( 'Tribe__Events__Aggregator__Record__Eventbrite', 'filter_add_site_get_import_data' ), 10, 2 );
 
 		// Filter ical events to preserve some fields that aren't supported by iCalendar
 		add_filter( 'tribe_aggregator_before_update_event', array( 'Tribe__Events__Aggregator__Record__iCal', 'filter_event_to_preserve_fields' ), 10, 2 );
