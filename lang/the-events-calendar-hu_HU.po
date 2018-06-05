@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-04-05 20:07:26+0000\n"
+"PO-Revision-Date: 2018-05-11 21:56:49+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -16,15 +16,15 @@ msgstr ""
 #: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:67
 #: src/Tribe/REST/V1/Endpoints/Archive_Venue.php:64
 msgid "The requested page was not found."
-msgstr ""
+msgstr "A keresett oldal nem található."
 
 #: src/Tribe/Aggregator/Settings.php:348
 msgid "one month"
-msgstr ""
+msgstr "egy hónap"
 
 #: src/Tribe/Aggregator/Settings.php:336
 msgid "one week"
-msgstr ""
+msgstr "egy hét"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:570
 msgctxt "when the retry will happen, a date"
@@ -1024,15 +1024,15 @@ msgstr ""
 
 #: common/src/Tribe/Main.php:265
 msgid "Clear Selection."
-msgstr ""
+msgstr "Kiválasztás törlése."
 
 #: common/src/Tribe/Main.php:264
 msgid "Select all pages"
-msgstr ""
+msgstr "Minden oldal kiválasztása"
 
 #: common/src/Tribe/Main.php:263
 msgid "All items on this page were selected. "
-msgstr ""
+msgstr "Az összes elem ki lett választva ezen az oldalon."
 
 #: src/admin-views/aggregator/tabs/import-form.php:101
 msgid "Add more sources"
@@ -1240,7 +1240,7 @@ msgstr "körülbelül"
 #: src/admin-views/aggregator/origins/limit.php:19
 #: src/admin-views/aggregator/origins/url.php:89
 msgid "Event Aggregator will try to fetch events starting within the next %s from the current date or the specified date;"
-msgstr ""
+msgstr "Az Event Aggregator megpróbálja a következő %s alatt kezdődő eseményeket letölteni a mai vagy a beállított dátummal kezdődően;"
 
 #: src/admin-views/aggregator/origins/url.php:83
 msgid "example.com/"
@@ -1489,7 +1489,7 @@ msgstr ""
 
 #: src/Tribe/REST/V1/EA_Messages.php:14
 msgid "Events could not be imported. The URL provided could be reached and has The Events Calendar REST API enabled, but returned malformed data."
-msgstr ""
+msgstr "Nem lehetett eseményeket importálni. A megadott URL-t el lehetett érni és a The Events Calendar API engedélyezve van, de rosszul formázott adatot adott vissza."
 
 #: src/Tribe/REST/V1/EA_Messages.php:15
 msgid "Events could not be imported. The URL provided could be reached and has The Events Calendar REST API enabled, but there was an error while fetching the archive control data."
@@ -1501,11 +1501,11 @@ msgstr "Nem lehetett eseményeket importálni. A megadott URL elérhető és a T
 
 #: src/Tribe/REST/V1/EA_Messages.php:17
 msgid "Events could not be imported. The URL provided could be reached and has The Events Calendar REST API enabled, but returned malformed data in regard to the total number of events."
-msgstr ""
+msgstr "Nem lehetett eseményeket importálni. A megadott URL-t el lehetett érni és a The Events Calendar API engedélyezve van, de rosszul formázott adatot adott vissza az összes események számára vonatkozóan."
 
 #: src/Tribe/REST/V1/EA_Messages.php:19
 msgid "Events could not be imported. The URL provided could be reached and has The Events Calendar REST API enabled, but returned an empty archive page."
-msgstr ""
+msgstr "Nem lehetett eseményeket importálni. A megadott URL-t el lehetett érni és a The Events Calendar API engedélyezve van, de üres archív oldalt adott vissza."
 
 #: src/Tribe/REST/V1/EA_Messages.php:20
 msgid "Events could not be imported. The URL provided could be reached and has The Events Calendar REST API enabled, but there was an error while fetching the event data."
@@ -1668,7 +1668,7 @@ msgstr "Nem lehetett eseményeket importálni. A megadott URL elérhető és a T
 
 #: src/Tribe/REST/V1/EA_Messages.php:21
 msgid "Events could not be imported. The URL provided could be reached and has The Events Calendar REST API enabled, but returned empty event data."
-msgstr ""
+msgstr "Nem lehetett eseményeket importálni. A megadott URL-t el lehetett érni és a The Events Calendar API engedélyezve van, de üres esemény adatokat adott vissza."
 
 #: src/Tribe/REST/V1/EA_Messages.php:58
 msgid "Try to adjust your import settings and try again."
@@ -1701,7 +1701,7 @@ msgstr "ezt a beállítást itt változtathatod meg."
 
 #: src/Tribe/Aggregator/Service.php:556
 msgid "Events could not be imported. The URL provided could not be reached."
-msgstr ""
+msgstr "Nem lehetett eseményeket importálni. A megadott URL-t nem lehetett elérni."
 
 #: src/Tribe/Aggregator/API/Origins.php:66
 msgid "Other URL (beta)"
@@ -1791,7 +1791,7 @@ msgstr "három hét"
 
 #: src/Tribe/Aggregator/Service.php:543
 msgid "Events could not be imported. The URL provided did not have events in the proper format."
-msgstr ""
+msgstr "Nem lehetett eseményeket importálni. A megadott URL-en az események nem voltak megfelelő formátumúak."
 
 #: src/Tribe/Venue.php:234
 msgctxt "Metabox title"
@@ -2483,7 +2483,7 @@ msgstr ""
 
 #: src/admin-views/tribe-options-addons-api.php:52
 msgid "Connect to Facebook"
-msgstr "Csatlakozás a Facebookhoz"
+msgstr "Kapcsolódás a Facebook-hoz"
 
 #: src/admin-views/tribe-options-addons-api.php:51
 msgid "You need to connect to Facebook for Event Aggregator to work properly"
@@ -2491,7 +2491,7 @@ msgstr "Kapcsólódni kell a Facebook-hoz, hogy az Event Aggregator rendesen mű
 
 #: src/admin-views/tribe-options-addons-api.php:46
 msgid "Facebook Token"
-msgstr ""
+msgstr "Facebook Token"
 
 #: src/admin-views/aggregator/tabs/import-form.php:267
 msgid "Events will be imported with the time zone defined by the source. If no time zone is specified, events will be assigned your site's default time zone (see %1$sSettings > General%2$s)."
@@ -2529,7 +2529,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/tabs/import-form.php:149
 msgid "When you save this scheduled import, the events above will begin importing."
-msgstr ""
+msgstr "Amikor elmented ezt az időzített importálást, megkezdődik a fenti események importálása."
 
 #: src/admin-views/aggregator/tabs/import-form.php:147
 msgid "Select the Event Field that best matches your CSV file column. The contents of that column will then be mapped to the specified event field when the event is created."
@@ -2569,7 +2569,7 @@ msgstr "Nincs további kategória"
 
 #: src/admin-views/aggregator/status.php:197
 msgid "Enter your API key"
-msgstr ""
+msgstr "Add meg az API kulcsodat"
 
 #: src/admin-views/aggregator/status.php:195
 msgid "You have not entered a Meetup API key"
@@ -2590,7 +2590,7 @@ msgstr ""
 #: src/admin-views/aggregator/status.php:171
 msgctxt "link for connecting facebook"
 msgid "Connect to Facebook"
-msgstr "Kapcsolódás a Facebookhoz"
+msgstr "Kapcsolódás a Facebook-hoz"
 
 #: src/admin-views/aggregator/status.php:169
 msgid "You have not connected Event Aggregator to Facebook"
@@ -2683,7 +2683,7 @@ msgstr "Érvényes licensz"
 
 #: src/admin-views/aggregator/status.php:14
 msgid "License &amp; Usage"
-msgstr ""
+msgstr "Licensz &amp; használat"
 
 #: src/admin-views/admin-update-message.php:55
 #: src/admin-views/aggregator/settings.php:524
@@ -2949,19 +2949,19 @@ msgstr "pelda.com/url.ics"
 
 #: src/admin-views/aggregator/origins/gcal.php:89
 msgid "Copy the provided url into this field to import the events into your WordPress site."
-msgstr ""
+msgstr "Másold ki a kiválasztott URL-t ebbe a mezőbe az események WordPress oldaladba való importálásához."
 
 #: src/admin-views/aggregator/origins/gcal.php:88
 msgid "Scroll down to Calendar Address and click the iCal button (note: if your calendar is private, you'll need to click the iCal button next to the Private Address header instead)."
-msgstr ""
+msgstr "Görgess le a Naptár integrálása szakaszhoz és válaszd ki az URL-t a 'Nyilvános cím iCal formátumban' mezőből. (Megjegyzés, ha a naptárad nem nyilvános, akkor az 'iCal formátumú naptár címének kiválasztása' mezőből kell kiválasztanod az URL-t.)"
 
 #: src/admin-views/aggregator/origins/gcal.php:87
 msgid "Go to Settings &gt; Calendars and select the calendar you wish to import."
-msgstr ""
+msgstr "Menj a Beállítások &gt; Naptárakhoz és válaszd ki a naptárt, amit importálni szeretnél."
 
 #: src/admin-views/aggregator/origins/gcal.php:85
 msgid "You can find the url you need in your Google Calendar settings."
-msgstr ""
+msgstr "A szükséges url-t a Google Naptárad beállításainál találod meg."
 
 #: src/admin-views/aggregator/origins/gcal.php:83
 msgid "Enter the url for the Google Calendar feed you wish to import."
@@ -3039,7 +3039,7 @@ msgstr "Az egyszeri importálásba az összes jelenleg listázott elkövetkező 
 #: src/admin-views/aggregator/origins/meetup.php:6
 #: src/admin-views/aggregator/origins/url.php:6
 msgid "Select Import Type"
-msgstr "Importálás típus kiválasztása"
+msgstr "Típus kiválasztása"
 
 #: src/admin-views/aggregator/origins/eventbrite.php:23
 msgid "Enter an Eventbrite event URL, e.g. https://www.eventbrite.com/e/example-12345"
@@ -3311,15 +3311,15 @@ msgstr "Végleges törlés"
 
 #: src/Tribe/Aggregator.php:422
 msgid "Renew your Event Aggregator Facebook token"
-msgstr ""
+msgstr "Újítsd meg az Event Aggregator Facebook tokenedet"
 
 #: src/Tribe/Aggregator.php:417
 msgid "Your Event Aggregator Facebook token will expire %s."
-msgstr ""
+msgstr "Az Event Aggregator Facebook tokened %s napon le fog járni."
 
 #: src/Tribe/Aggregator.php:415
 msgid "Your Event Aggregator Facebook token expired %s."
-msgstr ""
+msgstr "Az Event Aggregator tokened lejárt %s."
 
 #: src/Tribe/Aggregator.php:367
 msgid "Successfully connected Event Aggregator to Facebook"
@@ -3347,7 +3347,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Tabs/Scheduled.php:256
 msgid "Successfully %s %d scheduled import"
-msgstr ""
+msgstr "%d ütemezett importálás sikeresen %s"
 
 #: src/Tribe/Aggregator/Tabs/Scheduled.php:246
 msgid "Error: %d scheduled import was not %s."
@@ -3367,7 +3367,7 @@ msgstr "törlés"
 
 #: src/Tribe/Aggregator/Tabs/Scheduled.php:181
 msgid "queued"
-msgstr "sorban áll"
+msgstr "sorba állítva"
 
 #: src/Tribe/Aggregator/Tabs/Scheduled.php:94
 msgid "Scheduled Imports"
@@ -3440,7 +3440,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Tabs/New.php:380
 msgid "Your scheduled import was saved and the first import is complete!"
-msgstr ""
+msgstr "Az ütemezett importálás el lett mentve és az első importálás kész!"
 
 #: src/Tribe/Aggregator/Tabs/New.php:355
 msgid "View your event categories"
@@ -3495,8 +3495,8 @@ msgstr[1] ""
 #: src/Tribe/Aggregator/Tabs/New.php:281
 msgid "%1$d existing %2$s was updated."
 msgid_plural "%1$d existing %2$s were updated."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1$d létező %2$s frissítve lett."
+msgstr[1] "%1$d létező %2$s frissítve lett."
 
 #: src/Tribe/Aggregator/Tabs/New.php:269
 msgid "%1$d new %2$s was imported."
@@ -3575,11 +3575,11 @@ msgstr "Importálás befejezve"
 
 #: src/Tribe/Aggregator/Service.php:553
 msgid "Successfully loaded import origins"
-msgstr ""
+msgstr "Import források sikeresen betöltve"
 
 #: src/Tribe/Aggregator/Service.php:552
 msgid "Successfully fetched Facebook Token"
-msgstr ""
+msgstr "Facebook Token sikeresen beszerezve"
 
 #: src/Tribe/Aggregator/Service.php:551
 msgid "Import created"
@@ -3623,11 +3623,11 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Service.php:539
 msgid "The URL provided failed to load."
-msgstr ""
+msgstr "A megadott URL nem töltődött be."
 
 #: src/Tribe/Aggregator/Service.php:538
 msgid "The URL provided could not be reached."
-msgstr ""
+msgstr "A megadott URL-t nem lehetett elérni."
 
 #: src/Tribe/Aggregator/Service.php:536
 msgid "Events cannot be imported because Facebook has returned an error. This could mean that the event ID does not exist, the event or source is marked as Private, or the event or source has been otherwise restricted by Facebook. You can <a href=\"https://theeventscalendar.com/knowledgebase/import-errors/\" target=\"_blank\">read more about Facebook restrictions in our knowledgebase</a>."
@@ -3653,8 +3653,8 @@ msgstr "Vázlat"
 msgctxt "event aggregator status"
 msgid "Pending <span class=\"count\">(%s)</span>"
 msgid_plural "Pending <span class=\"count\">(%s)</span>"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Függőben <span class=\"count\">(%s)</span>"
+msgstr[1] "Függőben <span class=\"count\">(%s)</span>"
 
 #: src/Tribe/Aggregator/Records.php:246
 msgctxt "event aggregator status"
@@ -3808,7 +3808,7 @@ msgstr "Utolsó importálás:"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:615
 msgid "all time"
-msgstr ""
+msgstr "a kezdetek óta"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:589
 msgid "One Time"
@@ -3909,8 +3909,8 @@ msgstr "Forrás"
 msgctxt "records"
 msgid "All <span class=\"count\">(%s)</span>"
 msgid_plural "All <span class=\"count\">(%s)</span>"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Összes <span class=\"count\">(%s)</span>"
+msgstr[1] "Összes <span class=\"count\">(%s)</span>"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:244
 msgid "Apply"
@@ -3919,7 +3919,7 @@ msgstr "Alkalmaz"
 #: src/Tribe/Aggregator/Record/List_Table.php:228
 #: src/Tribe/Aggregator/Record/List_Table.php:229
 msgid "Bulk Actions"
-msgstr ""
+msgstr "Csoportművelet"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:181
 msgid "Filter"
@@ -4004,7 +4004,7 @@ msgstr "Ütemezett importálás mentése"
 
 #: src/Tribe/Aggregator/Page.php:87
 msgid "Import Checked (%d)"
-msgstr ""
+msgstr "Kiválasztottak importálása (%d)"
 
 #: src/Tribe/Aggregator/Page.php:86
 msgid "Import All"
@@ -4139,7 +4139,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Errors.php:57
 msgid "We received an invalid Facebook Token from the Service."
-msgstr ""
+msgstr "Egy érvénytelen Facebook Tokent kaptunk a szolgáltatástól."
 
 #: src/Tribe/Aggregator/Errors.php:56
 msgid "The Event Aggregator API responded with bad data. Please <a href=\"https://theeventscalendar.com/support/post/\" target=\"_blank\">contact support</a>."
@@ -4296,7 +4296,7 @@ msgstr "Elefántcsontpart"
 
 #: common/src/Tribe/Support.php:372
 msgid "Unique System Info Key Generated"
-msgstr ""
+msgstr "Egyedi Rendszerinformáció kulcs létrehozva"
 
 #: common/src/Tribe/Support.php:358 common/src/Tribe/Support.php:384
 msgid "Permission Error"
@@ -4312,7 +4312,7 @@ msgstr ""
 
 #: common/src/Tribe/Support.php:305
 msgid "Yes, automatically share my system information with the Modern Tribe support team"
-msgstr ""
+msgstr "Igen, automatikusan megosztom a rendszerinformációmat a Modern Tribe támogatási csapatával"
 
 #: common/src/Tribe/PUE/Notices.php:383
 msgctxt "formatted plugin list"
@@ -4651,7 +4651,7 @@ msgstr ""
 
 #: common/src/Tribe/Support/Template_Checker_Report.php:82
 msgid "Templates introduced or updated with this release (%s):"
-msgstr ""
+msgstr "Az ebben a verzióban (%s) bevezetett vagy frissített sablonok:"
 
 #: common/src/Tribe/Support/Template_Checker_Report.php:78
 msgid "No notable changes detected"
@@ -4953,7 +4953,7 @@ msgstr "Tudásbázis"
 
 #: common/src/admin-views/tribe-options-help.php:15
 msgid "Our website’s %s is a great place to find tips and tricks for using and customizing our plugins."
-msgstr "A honlapunkon lévő %s egy remek hely, ahol a bővítményeink használatához és testre szabásához találsz tippeket és trükköket."
+msgstr "A honlapunkon lévő %s egy remek hely, ahol a bővítményeink használatához és testreszabásához találsz tippeket és trükköket."
 
 #: common/src/admin-views/tribe-options-help.php:14
 msgid "Getting Support"
@@ -4969,7 +4969,7 @@ msgstr ""
 
 #: common/src/admin-views/tribe-options-general.php:10
 msgid "Thank you for using Event Tickets! All of us at Modern Tribe sincerely appreciate your support and we're excited to see you using our plugins. Check out our handy %1$sNew User Primer%2$s to get started."
-msgstr ""
+msgstr "Köszönjük, hogy az Event Tickets bővítményt használod! Mi a Modern Tribe-nál mindannyian őszintén értékeljük a támogatásodat és örömmel látjuk, hogy a bővítményeinket használod. Kezdetnek olvasd el a praktikus %1$sKezdő lépések új felhasználóknak%2$s cikket."
 
 #: src/admin-views/tribe-options-display.php:72
 msgid "Enter the format to use for displaying dates with the year. Used when displaying a date in a future year."

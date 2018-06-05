@@ -38,7 +38,9 @@ class Tribe__Events__Aggregator__API__Requests {
 			$args['headers'] = array_merge( $args['headers'], $site_headers );
 		}
 
-		return wp_remote_get( $url, $args );
+		$response = wp_remote_get( $url, $args );
+
+		return $response;
 	}
 
 	/**
@@ -60,6 +62,8 @@ class Tribe__Events__Aggregator__API__Requests {
 			$args['headers'] = array_merge( $args['headers'], $site_headers );
 		}
 
-		return wp_remote_post( $url, $args );
+		$response = wp_remote_post( $url, $args );
+
+		return $response;
 	}
 }

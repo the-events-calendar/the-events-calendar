@@ -32,6 +32,7 @@ class Tribe__Events__Aggregator__Service {
 	 *     @type string     $version     Which version of we are dealing with
 	 *     @type string     $domain      Domain in which the API lies
 	 *     @type string     $path        Path of the API on the domain above
+	 *     @type array      $licenses    Array with plugins and licenses that we will pass to EA
 	 * }
 	 */
 	public $api = array(
@@ -39,6 +40,7 @@ class Tribe__Events__Aggregator__Service {
 		'version' => 'v1',
 		'domain' => 'https://ea.theeventscalendar.com/',
 		'path' => 'api/aggregator/',
+		'licenses' => array(),
 	);
 
 	/**
@@ -85,9 +87,30 @@ class Tribe__Events__Aggregator__Service {
 
 		/**
 		 * Creates a clean way to filter and redirect to another API domain/path
-		 * @var stdClass
+		 * @param  stdClass API object
 		 */
 		$api = (object) apply_filters( 'tribe_aggregator_api', $api );
+
+		// Allows Eventbrite and others to skip ea license check
+		if ( ! empty( $api->licenses ) ) {
+			foreach ( $api->licenses as $plugin => $key ) {
+				// If empty Key was passed we skip
+				if ( empty( $key ) ) {
+					continue;
+				}
+
+				$aggregator = tribe( 'events-aggregator.main' );
+				$plugin_name = $aggregator->filter_pue_plugin_name( '', $plugin );
+
+				$pue_notices = Tribe__Main::instance()->pue_notices();
+				$has_notice = $pue_notices->has_notice( $plugin_name );
+
+				// Means that we have a license and no notice - Valid Key
+				if ( ! $has_notice ) {
+					return $api;
+				}
+			}
+		}
 
 		// The user doesn't have a license key
 		if ( empty( $api->key ) ) {
@@ -234,15 +257,24 @@ class Tribe__Events__Aggregator__Service {
 			$args = $data;
 		}
 
+		// if not timeout was set we pass it as 15 seconds
+		if ( ! isset( $args['timeout'] ) ) {
+			$args['timeout'] = 15;
+		}
+
 		$response = $this->requests->post( esc_url_raw( $url ), $args );
 
 		if ( is_wp_error( $response ) ) {
 			return $response;
 		}
 
-		$response = json_decode( wp_remote_retrieve_body( $response ) );
+		$json = json_decode( wp_remote_retrieve_body( $response ) );
 
-		return $response;
+		if ( empty( $json ) ) {
+			return tribe_error( 'core:aggregator:invalid-json-response', array( 'response' => $response ), array( 'response' => $response ) );
+		}
+
+		return $json;
 	}
 
 	/**
@@ -294,6 +326,72 @@ class Tribe__Events__Aggregator__Service {
 	}
 
 	/**
+	 * Get Eventbrite Arguments for EA
+	 *
+	 * @since 4.6.18
+	 *
+	 * @return mixed|void
+	 */
+	public function get_eventbrite_args( ) {
+		$args = array(
+			'referral'   => urlencode( home_url() ),
+			'url'        => urlencode( site_url() ),
+			'secret_key' => tribe( 'events-aggregator.settings' )->get_eb_security_key()->security_key,
+		);
+
+		/**
+		 *	Allow filtering for which params we are sending to EA for Token callback
+		 *
+		 * @since 4.6.18
+		 *
+		 * @param array $args Which arguments are sent to Token Callback
+		 */
+		return apply_filters( 'tribe_aggregator_eventbrite_token_callback_args', $args );
+	}
+
+	/**
+	 * Fetch Eventbrite Extended Token from the Service
+	 *
+	 * @since 4.6.18
+	 *
+	 *  @return stdClass|WP_Error
+	 */
+	public function has_eventbrite_authorized() {
+
+		$args = $this->get_eventbrite_args();
+
+		$response = $this->get( 'eventbrite/validate', $args );
+
+		// If we have an WP_Error we return only CSV
+		if ( is_wp_error( $response ) ) {
+			return tribe_error( 'core:aggregator:invalid-eventbrite-token', array(), array( 'response' => $response ) );
+		}
+
+		return $response;
+	}
+
+	/**
+	 * Disconnect Eventbrite Token on EA
+	 *
+	 * @since 4.6.18
+	 *
+	 * @return stdClass|WP_Error
+	 */
+	public function disconnect_eventbrite_token() {
+
+		$args = $this->get_eventbrite_args();
+
+		$response = $this->get( 'eventbrite/disconnect', $args );
+
+		// If we have an WP_Error we return only CSV
+		if ( is_wp_error( $response ) ) {
+			return tribe_error( 'core:aggregator:invalid-eventbrite-token', array(), array( 'response' => $response ) );
+		}
+
+		return $response;
+	}
+
+	/**
 	 * Fetch import data from service
 	 *
 	 * @param string   $import_id   ID of the Import Record
@@ -329,6 +427,22 @@ class Tribe__Events__Aggregator__Service {
 		}
 
 		$args = $this->apply_import_limit( $args );
+
+		/**
+		 * Allows filtering to add a PUE key to be passed to the EA service
+		 *
+		 * @since 4.6.18
+		 *
+		 * @param  bool|string $pue_key PUE key
+		 * @param  array       $args    Arguments to queue the import
+		 * @param  self        $record  Which record we are dealing with
+		 */
+		$licenses = apply_filters( 'tribe_aggregator_service_post_pue_licenses', array(), $args, $this );
+
+		// If we have a key we add that to the Arguments
+		if ( ! empty( $licenses ) ) {
+			$args['licenses'] = $licenses;
+		}
 
 		$request_args = array(
 			'body' => $args,
@@ -398,11 +512,22 @@ class Tribe__Events__Aggregator__Service {
 	 * Fetches an image from the Event Aggregator service
 	 *
 	 * @param string $image_id Image ID to fetch
+	 * @param  Tribe__Events__Aggregator__Record__Abstract $record    Record Object
 	 *
 	 * @return stdClass|WP_Error
 	 */
-	public function get_image( $image_id ) {
-		$response = $this->get( 'image/' . $image_id );
+	public function get_image( $image_id, $record ) {
+		/**
+		 * Allow filtering of the Image data Request Args
+		 *
+		 * @since 4.6.18
+		 *
+		 * @param  array  $data      Which Arguments
+		 * @param  strng  $image_id  Image ID
+		 */
+		$data = apply_filters( 'tribe_aggregator_get_image_data_args', array(), $record, $image_id );
+
+		$response = $this->get( 'image/' . $image_id, $data );
 
 		return $response;
 	}
@@ -536,6 +661,8 @@ class Tribe__Events__Aggregator__Service {
 			'error:create-import-invalid-params' => __( 'Events could not be imported. The import parameters were invalid.', 'the-events-calendar' ),
 			'error:fb-permissions' => __( 'Events cannot be imported because Facebook has returned an error. This could mean that the event ID does not exist, the event or source is marked as Private, or the event or source has been otherwise restricted by Facebook. You can <a href="https://theeventscalendar.com/knowledgebase/import-errors/" target="_blank">read more about Facebook restrictions in our knowledgebase</a>.', 'the-events-calendar' ),
 			'error:fb-no-results' => __( 'No upcoming Facebook events found.', 'the-events-calendar' ),
+			'error:eb-permissions' => __( 'Events cannot be imported because Eventbrite has returned an error. This could mean that the event ID does not exist, the event or source is marked as Private, or the event or source has been otherwise restricted by Eventbrite. You can <a href="https://theeventscalendar.com/knowledgebase/import-errors/" target="_blank">read more about Eventbrite restrictions in our knowledgebase</a>.', 'the-events-calendar' ),
+			'error:eb-no-results' => __( 'No upcoming Eventbrite events found.', 'the-events-calendar' ),
 			'error:fetch-404' => __( 'The URL provided could not be reached.', 'the-events-calendar' ),
 			'error:fetch-failed' => __( 'The URL provided failed to load.', 'the-events-calendar' ),
 			'error:get-image' => __( 'The image associated with your event could not be imported.', 'the-events-calendar' ),
@@ -551,6 +678,7 @@ class Tribe__Events__Aggregator__Service {
 			'success' => __( 'Success', 'the-events-calendar' ),
 			'success:create-import' => __( 'Import created', 'the-events-calendar' ),
 			'success:facebook-get-token' => __( 'Successfully fetched Facebook Token', 'the-events-calendar' ),
+			'success:eventbrite-get-token' => __( 'Successfully fetched Eventbrite Token', 'the-events-calendar' ),
 			'success:get-origin' => __( 'Successfully loaded import origins', 'the-events-calendar' ),
 			'success:import-complete' => __( 'Import is complete', 'the-events-calendar' ),
 			'success:queued' => __( 'Import queued', 'the-events-calendar' ),
@@ -602,9 +730,16 @@ class Tribe__Events__Aggregator__Service {
 		$keys = array_combine( $keys, $keys );
 		$confirmation_args = array_intersect_key( $args, $keys );
 		$confirmation_args = array_merge( $confirmation_args, array(
-			'facebook_token' => '1',
-			'meetup_api_key' => '1',
+			'facebook_token'   => '1',
+			'eventbrite_token' => '1',
+			'meetup_api_key'   => '1',
 		) );
+
+		// Set site for origin(s) that need it for new token handling.
+		if ( 'eventbrite' === $confirmation_args['origin'] ) {
+			$confirmation_args['site'] = site_url();
+		}
+
 		$response = $this->post_import( $confirmation_args );
 
 		$confirmed = ! empty( $response->status ) && 0 !== strpos( $response->status, 'error' );

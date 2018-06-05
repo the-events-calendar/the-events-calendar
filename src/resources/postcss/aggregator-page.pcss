@@ -14,6 +14,16 @@
 			tr {
 				position: relative;
 			}
+
+			.eb-url-row {
+				th[scope="row"] {
+					padding: 0;
+				}
+
+				td {
+					padding: 0 10px;
+				}
+			}
 		}
 
 		.subsubsub {
@@ -276,6 +286,10 @@
 		color: gray;
 	}
 
+	.tribe-ea-inline-label {
+		padding-top: 7px;
+	}
+
 	.tribe-notice-tribe-missing-aggregator-license {
 		background: url(../images/aggregator/ea-upsell-bkg.svg) transparent no-repeat;
 		background-size: cover;
@@ -382,7 +396,8 @@
 		margin-bottom: .25em;
 	}
 
-	.tribe-ea-facebook-button {
+	.tribe-ea-facebook-button,
+	.tribe-ea-eventbrite-button {
 		margin-left: 2rem;
 		margin-top: 1rem;
 	}
@@ -557,12 +572,6 @@
 }
 
 .tribe-ea-form {
-	&[data-origin="eventbrite"] {
-		.tribe-finalize-container {
-			display: block;
-		}
-	}
-
 	&[data-origin="csv"] {
 		.dataTables_length,
 		.dataTables_info,
@@ -601,6 +610,11 @@
 	.tribe-timezone-message {
 		font-style: italic;
 		padding-top: .5rem;
+	}
+	.tribe-limits-message {
+		font-style: italic;
+		padding: 0;
+		margin: 1em 0 -1.5em;
 	}
 }
 
