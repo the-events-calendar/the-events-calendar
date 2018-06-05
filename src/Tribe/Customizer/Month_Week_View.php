@@ -122,7 +122,6 @@ final class Tribe__Events__Customizer__Month_Week_View extends Tribe__Customizer
 				$settings['cell_inactive_header_bg_color'] = '#' . $table_bg_color->darken( 15 );
 				$settings['cell_header_bg_color'] = '#' . $table_bg_color->darken( 30 );
 			}
-
 		}
 
 		if ( ! empty( $settings['highlight_color'] ) ) {
