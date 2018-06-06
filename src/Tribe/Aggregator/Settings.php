@@ -597,7 +597,7 @@ class Tribe__Events__Aggregator__Settings {
 	/**
 	 * Gets all the possible regular-exp for external url sources
 	 *
-	 * @since  TBD
+	 * @since 4.6.18
 	 *
 	 * @return array
 	 */
@@ -611,7 +611,7 @@ class Tribe__Events__Aggregator__Settings {
 		/**
 		 * Allows external plugins to filter which are the source Regular EXP
 		 *
-		 * @since  TBD
+		 * @since 4.6.18
 		 *
 		 * @param  array $origins Which origins already exist
 		 */
@@ -621,7 +621,7 @@ class Tribe__Events__Aggregator__Settings {
 	/**
 	 * Matches which other origin this source url might be
 	 *
-	 * @since  TBD
+	 * @since 4.6.18
 	 *
 	 * @param  string $source Which source we are testing against
 	 *

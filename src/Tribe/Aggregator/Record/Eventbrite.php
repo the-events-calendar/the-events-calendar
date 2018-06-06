@@ -22,7 +22,7 @@ class Tribe__Events__Aggregator__Record__Eventbrite extends Tribe__Events__Aggre
 	/**
 	 * Gets the Regular Expression string to match a source URL
 	 *
-	 * @since  TBD
+	 * @since 4.6.18
 	 *
 	 * @return string
 	 */

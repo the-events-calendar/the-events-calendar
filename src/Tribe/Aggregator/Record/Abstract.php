@@ -852,7 +852,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		/**
 		 * Allow filtering of the Import data Request Args
 		 *
-		 * @since  TBD
+		 * @since 4.6.18
 		 *
 		 * @param  array                                        $data   Which Arguments
 		 * @param  Tribe__Events__Aggregator__Record__Abstract  $record Record we are dealing with

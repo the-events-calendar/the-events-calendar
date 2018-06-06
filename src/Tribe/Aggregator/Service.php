@@ -342,7 +342,7 @@ class Tribe__Events__Aggregator__Service {
 		/**
 		 *	Allow filtering for which params we are sending to EA for Token callback
 		 *
-		 * @since  TBD
+		 * @since 4.6.18
 		 *
 		 * @param array $args Which arguments are sent to Token Callback
 		 */
@@ -428,6 +428,22 @@ class Tribe__Events__Aggregator__Service {
 
 		$args = $this->apply_import_limit( $args );
 
+		/**
+		 * Allows filtering to add a PUE key to be passed to the EA service
+		 *
+		 * @since 4.6.18
+		 *
+		 * @param  bool|string $pue_key PUE key
+		 * @param  array       $args    Arguments to queue the import
+		 * @param  self        $record  Which record we are dealing with
+		 */
+		$licenses = apply_filters( 'tribe_aggregator_service_post_pue_licenses', array(), $args, $this );
+
+		// If we have a key we add that to the Arguments
+		if ( ! empty( $licenses ) ) {
+			$args['licenses'] = $licenses;
+		}
+
 		$request_args = array(
 			'body' => $args,
 		);
@@ -487,22 +503,6 @@ class Tribe__Events__Aggregator__Service {
 			$args = $request_args;
 		}
 
-		/**
-		 * Allows filtering to add a PUE key to be passed to the EA service
-		 *
-		 * @since  TBD
-		 *
-		 * @param  bool|string $pue_key PUE key
-		 * @param  array       $args    Arguments to queue the import
-		 * @param  self        $record  Which record we are dealing with
-		 */
-		$licenses = apply_filters( 'tribe_aggregator_service_post_pue_licenses', array(), $request_args['body'], $this );
-
-		// If we have a key we add that to the Arguments
-		if ( ! empty( $licenses ) ) {
-			$args['body']['licenses'] = $licenses;
-		}
-
 		$response = $this->post( 'import', $args );
 
 		return $response;
@@ -520,7 +520,7 @@ class Tribe__Events__Aggregator__Service {
 		/**
 		 * Allow filtering of the Image data Request Args
 		 *
-		 * @since  TBD
+		 * @since 4.6.18
 		 *
 		 * @param  array  $data      Which Arguments
 		 * @param  strng  $image_id  Image ID
@@ -545,7 +545,19 @@ class Tribe__Events__Aggregator__Service {
 	 */
 	public function get_service_message( $key, $args = array(), $default = null ) {
 		if ( empty( $this->service_messages[ $key ] ) ) {
-			return ! empty( $default ) ? $default : $this->get_unknow_message();
+			// Get error message if this is a registered Tribe_Error key.
+			$error = tribe_error( $key );
+
+			if ( is_wp_error( $error ) && 'unknown' !== $error->get_error_code() ) {
+				return $error->get_error_message();
+			}
+
+			// Use default message if set.
+			if ( null !== $default ) {
+				return $default;
+			}
+
+			return $this->get_unknow_message();
 		}
 
 		return vsprintf( $this->service_messages[ $key ], $args );

@@ -4,7 +4,7 @@ Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.5
-Stable tag: 4.6.19
+Stable tag: 4.6.18
 Tested up to: 4.9.6
 Requires PHP: 5.2.4
 License: GPLv2 or later
@@ -135,7 +135,7 @@ Absolutely. If you're not finding your questions answered on the product pages, 
 The following add-ons are available for The Events Calendar:
 
 * [Events Calendar PRO](http://m.tri.be/18wi), for adding premium calendar features like recurring events, advanced views, cool widgets, shortcodes, additional fields, and more!
-* [Event Aggregator](http://m.tri.be/197u), a service that effortlessly fills your calendar with events from Meetup, Google Calendar, iCalendar, CSV, and ICS.
+* [Event Aggregator](http://m.tri.be/197u), a service that effortlessly fills your calendar with events from Meetup, Google Calendar, iCalendar, Eventbrite, CSV, and ICS.
 * [Event Tickets](http://m.tri.be/18wj) (free), which allows you to collect RSVPs to events. It can run alongside The Events Calendar or as a standalone plugin that adds RSVP functionality to WordPress posts and pages.
 * [Event Tickets Plus](http://m.tri.be/18wk), which allows you to sell tickets for your events using your favorite e-commerce platform.
 * [Community Events](http://m.tri.be/2g), for allowing frontend event submission from your readers.
@@ -217,10 +217,18 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 = [4.6.19] TBD =
 
+* Add - CSV importer now supports a featured event column [72376]
 * Fix - Make the date picker respect the "Start of the week" Setting. Thanks to @websource, @dsb and others for flagging this! [76320]
+* Fix - Improve Event Import message responses from Event Aggregator for certain cases where "Unknown service message" would be returned [107606]
+* Fix - Make the date picker respect the "Start of the week" Setting. Thanks to @websource, @dsb and others for flagging this! [76320]
+* Fix - Correct the "View All" link when using the events month view and plain permalinks. props to Kay and Robert for notifying us [72544]
+* Fix - Correct the pagination in list view when a keyword is being searched. Thanks to @versi, @akr and Mary for reporting this! [94613]
+* Tweak - Modify the default values for the CSV settings if there's no EA license [94426]
+* Tweak - Added classes to meta output in Single Event meta templates to facilitate customization [62704]
 * Tweak - Enable only url imports for Eventbrite when that plugin is not active [107415]
+* Tweak - Added venue google map link to events in Day view [91610]
 
-= [4.6.18] 2018-05-30 =
+= [4.6.18] 2018-06-04 =
 
 * Add - Eventbrite to Event Aggregator import origins [61172]
 * Add - Priority attribute to Import Setting fields to be able to customize order of fields [61173]

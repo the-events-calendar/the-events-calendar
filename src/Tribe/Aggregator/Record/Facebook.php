@@ -23,7 +23,7 @@ class Tribe__Events__Aggregator__Record__Facebook extends Tribe__Events__Aggrega
 	/**
 	 * Gets the Regular Expression string to match a source URL
 	 *
-	 * @since  TBD
+	 * @since 4.6.18
 	 *
 	 * @return string
 	 */
