@@ -159,9 +159,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		$start_date = strtotime( $this->get_event_start_date( $record ) );
 		$end_date   = strtotime( $this->get_event_end_date( $record ) );
 
-		if ( empty( $this->is_aggregator ) ) {
-			$post_status_setting = Tribe__Events__Importer__Options::get_default_post_status( 'csv' );
-		} elseif ( $this->default_post_status ) {
+		if ( $this->default_post_status ) {
 			$post_status_setting = $this->default_post_status;
 		} else {
 			$post_status_setting = tribe( 'events-aggregator.settings' )->default_post_status( 'csv' );
@@ -193,6 +191,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 			'EventCurrencySymbol'   => $this->get_value_by_key( $record, 'event_currency_symbol' ),
 			'EventCurrencyPosition' => $this->get_currency_position( $record ),
 			'EventTimezone'         => $this->get_timezone( $this->get_value_by_key( $record, 'event_timezone' ) ),
+			'feature_event'         => $this->get_boolean_value_by_key( $record, 'feature_event', '1', '' ),
 		);
 
 		if ( $organizer_id = $this->find_matching_organizer_id( $record ) ) {

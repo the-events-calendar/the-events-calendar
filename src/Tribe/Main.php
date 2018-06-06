@@ -32,9 +32,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '4.6.17';
+		const VERSION             = '4.6.18';
 		const MIN_ADDON_VERSION   = '4.4';
-		const MIN_COMMON_VERSION  = '4.7.14';
+		const MIN_COMMON_VERSION  = '4.7.15';
 
 		const WP_PLUGIN_URL       = 'https://wordpress.org/extend/plugins/the-events-calendar/';
 
@@ -485,9 +485,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Tribe common resources
 			require_once $this->plugin_path . 'vendor/tribe-common-libraries/tribe-common-libraries.class.php';
-
-			// Load CSV importer
-			require_once $this->plugin_path . 'src/io/csv/ecp-events-importer.php';
 
 			// Load Template Tags
 			require_once $this->plugin_path . 'src/functions/template-tags/query.php';

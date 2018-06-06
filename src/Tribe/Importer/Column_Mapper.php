@@ -72,6 +72,7 @@ class Tribe__Events__Importer__Column_Mapper {
 			'event_all_day'           => esc_html__( 'All Day Event', 'the-events-calendar' ),
 			'event_hide'              => esc_html__( 'Hide Event From Event Listings', 'the-events-calendar' ),
 			'event_sticky'            => esc_html__( 'Event Sticky in Month View', 'the-events-calendar' ),
+			'feature_event'           => esc_html__( 'Feature Event', 'the-events-calendar' ),
 			'event_venue_name'        => esc_html__( 'Event Venue Name', 'the-events-calendar' ),
 			'event_organizer_name'    => esc_html__( 'Event Organizer Name(s) or ID(s)', 'the-events-calendar' ),
 			'event_show_map_link'     => esc_html__( 'Event Show Map Link', 'the-events-calendar' ),
