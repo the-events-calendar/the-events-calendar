@@ -288,7 +288,7 @@
 
 				ts.date = $this.data( "month" );
 				ts.mdate = ts.date + '-01';
-				if ( ts.datepicker_format !== '0' ) {
+				if ( '0' !== ts.datepicker_format ) {
 					tf.update_picker( tribeDateFormat( ts.mdate, maskKey ) );
 				}
 				else {
