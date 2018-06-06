@@ -1,5 +1,6 @@
 <?php
 $tab                = $this->tabs->get_active();
+$service            = tribe( 'events-aggregator.service' );
 $origin_slug        = 'eventbrite';
 $field              = (object) array();
 $field->label       = __( 'Import Type:', 'the-events-calendar' );
@@ -7,10 +8,14 @@ $field->placeholder = __( 'Select Import Type', 'the-events-calendar' );
 $field->help        = __( 'One-time imports include all currently listed events, while scheduled imports automatically grab new events and updates from Eventbrite on a set schedule. Single events can be added via a one-time import.', 'the-events-calendar' );
 $field->source      = 'eventbrite_import_type';
 
+
 $frequency              = (object) array();
-$frequency->placeholder = __( 'Import from your Eventbrite account', 'the-events-calendar' );
-$frequency->help        = __( 'Select how often you would like events to be automatically imported.', 'the-events-calendar' );
-$frequency->source      = 'eventbrite_import_frequency';
+$frequency->placeholder = __( 'Import from Eventbrite', 'the-events-calendar' );
+if ( ! empty( $service->api()->licenses['tribe-eventbrite'] ) ) {
+	$frequency->placeholder = __( 'Import from your Eventbrite account', 'the-events-calendar' );
+}
+$frequency->help   = __( 'Select how often you would like events to be automatically imported.', 'the-events-calendar' );
+$frequency->source = 'eventbrite_import_frequency';
 
 $cron = Tribe__Events__Aggregator__Cron::instance();
 $frequencies = $cron->get_frequency();
@@ -109,10 +114,14 @@ $field              = (object) array();
 $field->label       = __( 'Import Source', 'the-events-calendar' );
 $field->placeholder = __( 'Select Source', 'the-events-calendar' );
 $field->help        = __( 'Import events directly from your connected Eventbrite.com account or from a public Eventbrite.com url.', 'the-events-calendar' );
-$field->options[] = array(
-	'id'   => 'https://www.eventbrite.com/me',
-	'text' => __( 'Import from your Eventbrite account', 'the-events-calendar' ),
-);
+$default_eb_source  = 'source_type_url';
+if ( ! empty( $service->api()->licenses['tribe-eventbrite'] ) ) {
+	$field->options[]  = array(
+		'id'   => 'https://www.eventbrite.com/me',
+		'text' => __( 'Import from your Eventbrite account', 'the-events-calendar' ),
+	);
+	$default_eb_source = 'https://www.eventbrite.com/me';
+}
 $field->options[] = array(
 	'id'   => 'source_type_url',
 	'text' => __( 'Import from Eventbrite.com url', 'the-events-calendar' ),
@@ -131,7 +140,7 @@ $field->options[] = array(
 			data-hide-search
 			data-prevent-clear
 			data-options="<?php echo esc_attr( json_encode( $field->options ) ); ?>"
-			value="https://www.eventbrite.com/me"
+			value="<?php echo esc_attr( $default_eb_source ); ?>"
 		/>
 		<span class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help" data-bumpdown="<?php echo esc_attr( $field->help ); ?>" data-width-rule="all-triggers"></span>
 	</td>
