@@ -55,6 +55,9 @@ class Tribe__Events__Aggregator__Page {
 		add_action( 'current_screen', array( $this, 'action_request' ) );
 		add_action( 'init', array( $this, 'init' ) );
 
+		// check if the license is valid each time the page is accessed
+		add_action( 'tribe_aggregator_page_request', array( $this, 'check_for_updates' ) );
+
 		// filter the plupload default settings to remove mime type restrictions
 		add_filter( 'plupload_default_settings', array( $this, 'filter_plupload_default_settings' ) );
 
@@ -198,6 +201,21 @@ class Tribe__Events__Aggregator__Page {
 	 */
 	public function is_screen() {
 		return ! empty( $this->ID ) && Tribe__Admin__Helpers::instance()->is_screen( $this->ID );
+	}
+
+	/**
+	 * Checks if the license is still valid once the aggregator page
+	 * is accessed.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function check_for_updates() {
+
+		$aggregator = tribe( 'events-aggregator.main' );
+		$aggregator->pue_checker->check_for_updates();
+
 	}
 
 	/**
