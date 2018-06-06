@@ -48,7 +48,7 @@
 
 		var dateFormat = 'yyyy-mm';
 
-		if ( ts.datepicker_format !== '0' ) {
+		if ( '0' !== ts.datepicker_format ) {
 
 			// we are not using the default query date format, lets grab it from the data array
 
@@ -288,7 +288,7 @@
 
 				ts.date = $this.data( "month" );
 				ts.mdate = ts.date + '-01';
-				if ( ts.datepicker_format !== '0' ) {
+				if ( '0' !== ts.datepicker_format ) {
 					tf.update_picker( tribeDateFormat( ts.mdate, maskKey ) );
 				}
 				else {
@@ -358,7 +358,7 @@
 					return;
 				}
 				if ( $tribedate.val().length ) {
-					if ( ts.datepicker_format !== '0' ) {
+					if ( '0' !== ts.datepicker_format ) {
 						ts.date = tribeDateFormat( $tribedate.bootstrapDatepicker( 'getDate' ), 'tribeMonthQuery' );
 					}
 					else {
