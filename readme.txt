@@ -227,6 +227,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Tweak - Added classes to meta output in Single Event meta templates to facilitate customization [62704]
 * Tweak - Enable only url imports for Eventbrite when that plugin is not active [107415]
 * Tweak - Added venue google map link to events in Day view [91610]
+* Tweak - The EB 4.5 migration process to better detect events for migration and insure all fields are migrated [106623]
 
 = [4.6.18] 2018-06-04 =
 

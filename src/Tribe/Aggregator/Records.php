@@ -705,5 +705,8 @@ Tribe__Events__Aggregator__Records {
 
 		// Filter meetup events to preserve some fields that aren't supported by Meetup
 		add_filter( 'tribe_aggregator_before_update_event', array( 'Tribe__Events__Aggregator__Record__Meetup', 'filter_event_to_preserve_fields' ), 10, 2 );
+
+		// Filter eventbrite events to preserve some fields that aren't supported by Eventbrite
+		add_filter( 'tribe_aggregator_before_update_event', array( 'Tribe__Events__Aggregator__Record__Eventbrite', 'filter_event_to_preserve_fields' ), 10, 2 );
 	}
 }
