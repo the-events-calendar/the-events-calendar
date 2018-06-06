@@ -48,7 +48,7 @@
 
 		var dateFormat = 'yyyy-mm';
 
-		if ( ts.datepicker_format !== '0' ) {
+		if ( '0' !== ts.datepicker_format ) {
 
 			// we are not using the default query date format, lets grab it from the data array
 
