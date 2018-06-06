@@ -298,7 +298,7 @@ var tribe_events_bar_action;
 				var dp_date = $tribedate.val();
 				var day     = tf.get_day();
 
-				if ( '0' !== ts.datepicker_format ) {
+				if ( '0' != ts.datepicker_format ) {
 					dp_date = tribeDateFormat( $tribedate.bootstrapDatepicker( 'getDate' ), 'tribeMonthQuery' );
 					$tribedate.val( dp_date + day );
 				}
