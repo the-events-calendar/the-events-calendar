@@ -219,6 +219,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 * Tweak - Added venue google map link to events in Day view [91610]
 * Feature - CSV importer now supports a featured event column [72376]
+* Fix - Display the correct Import Settings when Eventbrite Tickets is enabled [106947]
 
 = [4.6.18] 2018-06-04 =
 

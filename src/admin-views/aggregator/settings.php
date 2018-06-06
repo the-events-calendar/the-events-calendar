@@ -112,7 +112,7 @@ $ea_disable = array(
 
 $global = $ical = $ics = $facebook = $gcal = $meetup = $url = array();
 // if there's an Event Aggregator license key, add the Global settings, Facebook, iCal, and Meetup fields
-if ( Tribe__Events__Aggregator::is_service_active() ) {
+if ( Tribe__Events__Aggregator::is_service_active() && ! empty( get_option( 'pue_install_key_event_aggregator' ) ) ) {
 	$global = array(
 		'import-defaults' => array(
 			'type' => 'html',
