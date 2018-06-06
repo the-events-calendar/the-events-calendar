@@ -217,6 +217,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 = [4.6.19] TBD =
 
+* Fix - More robust handling of errors and exceptions during Event Aggregator imports [107929]
 * Tweak - Added venue google map link to events in Day view [91610]
 * Feature - CSV importer now supports a featured event column [72376]
 
