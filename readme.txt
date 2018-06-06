@@ -223,6 +223,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Tweak - Added venue google map link to events in Day view [91610]
 * Tweak - Renamed the Time zone mode option "Use the local time zones for each event" to "Use manual timezones for each event" (thanks @hikeitbaby for the suggestion) [67148]
 * Feature - CSV importer now supports a featured event column [72376]
+* Fix - Resolved customizer inconsistencies with month/week views and full styles [69758]
 
 = [4.6.18] 2018-06-04 =
 
