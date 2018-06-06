@@ -56,7 +56,7 @@ class Tribe__Events__Aggregator__Page {
 		add_action( 'init', array( $this, 'init' ) );
 
 		// check if the license is valid each time the page is accessed
-		add_action( 'tribe_aggregator_page_request', array( $this, 'check_for_updates' ) );
+		add_action( 'tribe_aggregator_page_request', array( $this, 'check_for_license_updates' ) );
 
 		// filter the plupload default settings to remove mime type restrictions
 		add_filter( 'plupload_default_settings', array( $this, 'filter_plupload_default_settings' ) );
@@ -211,7 +211,7 @@ class Tribe__Events__Aggregator__Page {
 	 *
 	 * @return void
 	 */
-	public function check_for_updates() {
+	public function check_for_license_updates() {
 
 		$aggregator = tribe( 'events-aggregator.main' );
 		$aggregator->pue_checker->check_for_updates();
