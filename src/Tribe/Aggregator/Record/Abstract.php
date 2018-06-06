@@ -40,6 +40,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			'source' => 'meetup_id',
 			'target' => 'EventMeetupID',
 		),
+		'eventbrite' => array(
+			'source' => 'eventbrite_id',
+			'target' => 'EventBriteID',
+		),
 		'ical' => array(
 			'source' => 'uid',
 			'target' => 'uid',
@@ -70,6 +74,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			'source' => 'meetup_id',
 			'target' => 'VenueMeetupID',
 		),
+		'eventbrite'   => array(
+			'source' => 'eventbrite_id',
+			'target' => 'VenueEventBriteID',
+		),
 	);
 
 	/**
@@ -83,6 +91,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		'meetup'   => array(
 			'source' => 'meetup_id',
 			'target' => 'OrganizerMeetupID',
+		),
+		'eventbrite'   => array(
+			'source' => 'eventbrite_id',
+			'target' => 'OrganizerEventBriteID',
 		),
 	);
 
@@ -568,9 +580,15 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @return boolean|Tribe_Error|Tribe__Events__Aggregator__Record__Abstract
 	 */
 	public function create_child_record() {
+		$frequency_id = 'on_demand';
+
+		if ( ! empty( $this->meta['frequency'] ) ) {
+			$frequency_id = $this->meta['frequency'];
+		}
+
 		$post = array(
 			// Stores the Key under `post_title` which is a very forgiving type of column on `wp_post`
-			'post_title'     => $this->generate_title( $this->type, $this->origin, $this->meta['frequency'], $this->post->ID ),
+			'post_title'     => $this->generate_title( $this->type, $this->origin, $frequency_id, $this->post->ID ),
 			'post_type'      => $this->post->post_type,
 			'ping_status'    => $this->post->ping_status,
 			'post_mime_type' => $this->post->post_mime_type,
@@ -592,7 +610,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		// initialize the queue meta entry and set its status to fetching
 		$post['meta_input'][ self::$meta_key_prefix . Tribe__Events__Aggregator__Record__Queue::$queue_key ] = 'fetch';
 
-		$frequency = Tribe__Events__Aggregator__Cron::instance()->get_frequency( array( 'id' => $this->meta['frequency'] ) );
+		$frequency = Tribe__Events__Aggregator__Cron::instance()->get_frequency( array( 'id' => $frequency_id ) );
 		if ( ! $frequency ) {
 			return tribe_error( 'core:aggregator:invalid-record-frequency', $post['meta_input'] );
 		}
@@ -725,6 +743,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				: date( Tribe__Date_Utils::DBDATETIMEFORMAT, $args['end'] );
 		}
 
+		// Set site for origin(s) that need it for new token handling.
+		if ( 'eventbrite' === $args['origin'] ) {
+			$args['site'] = site_url();
+		}
+
 		// create the import on the Event Aggregator service
 		$response = $aggregator->api( 'import' )->create( $args );
 
@@ -825,6 +848,16 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		if ( empty( $this->meta['import_id'] ) ) {
 			return tribe_error( 'core:aggregator:record-not-finalized' );
 		}
+
+		/**
+		 * Allow filtering of the Import data Request Args
+		 *
+		 * @since 4.6.18
+		 *
+		 * @param  array                                        $data   Which Arguments
+		 * @param  Tribe__Events__Aggregator__Record__Abstract  $record Record we are dealing with
+		 */
+		$data = apply_filters( 'tribe_aggregator_get_import_data_args', $data, $this );
 
 		$import_data = $import_api->get( $this->meta['import_id'], $data );
 
@@ -1210,7 +1243,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @return array|WP_Error|Tribe__Events__Aggregator__Record__Queue
 	 */
 	public function process_posts( $data = array(), $start_immediately = false ) {
-		if ( 'manual' === $this->type ) {
+		if ( ! $start_immediately && 'manual' === $this->type ) {
 			/** @var Tribe__Events__Aggregator__Service $service */
 			$service = tribe( 'events-aggregator.service' );
 			$service->confirm_import( $this->meta );
@@ -1218,7 +1251,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		// if this is a batch push record then set its queue to fetching
 		// to feed the UI something coherent
-		if ( ! $this->is_polling() ) {
+		if ( ! $start_immediately && ! $this->is_polling() ) {
 			// @todo let's revisit this to return when more UI is exposed
 			$queue = new Tribe__Events__Aggregator__Record__Queue( $this, 'fetch' );
 
@@ -1334,8 +1367,12 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$expected_created_events = $initial_created_events + count( $items );
 
 		$args = array(
-			'post_status' => $this->meta['post_status'],
+			'post_status' => 'draft',
 		);
+
+		if ( ! empty( $this->meta['post_status'] ) ) {
+			$args['post_status'] = $this->meta['post_status'];
+		}
 
 		$unique_field = $this->get_unique_field();
 		$existing_ids = $this->get_existing_ids_from_import_data( $items );
@@ -1624,6 +1661,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				}
 
 				foreach ( $event['Organizer'] as $key => $organizer_data ) {
+
 					// if provided a valid Organizer ID right away use it
 					if ( ! empty( $organizer_data['OrganizerID'] ) ) {
 						if ( tribe_is_organizer( $organizer_data['OrganizerID'] ) ) {
@@ -1775,7 +1813,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 								}
 							}
 						}
-
 					}
 				}
 
@@ -1957,10 +1994,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			 *
 			 * @since 4.6.16
 			 *
-			 * @param array $event The final event data.
-			 * @param self $this
+			 * @param  array $event   Which Event data was sent
+			 * @param  array $item    Raw version of the data sent from EA
+			 * @param  self  $record  The record we are dealing with
 			 */
-			do_action( 'tribe_aggregator_after_insert_post', $event, $this );
+			do_action( 'tribe_aggregator_after_insert_post', $event, $item, $this );
 		}
 
 		remove_filter( 'tribe-post-origin', array( Tribe__Events__Aggregator__Records::instance(), 'filter_post_origin' ), 10 );
@@ -2129,7 +2167,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
      */
 	public function import_aggregator_image( $event ) {
 		// Attempt to grab the event image
-		$image_import = tribe( 'events-aggregator.main' )->api( 'image' )->get( $event['image']->id );
+		$image_import = tribe( 'events-aggregator.main' )->api( 'image' )->get( $event['image']->id, $this );
 
 		/**
 		 * Filters the returned event image url
@@ -2481,7 +2519,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			$image = $this->import_image( $event );
 		}
 
-		if ( ! empty( $image ) || ! is_wp_error( $image ) && ! empty( $image->post_id ) ) {
+		if ( $image && ! is_wp_error( $image ) && ! empty( $image->post_id ) ) {
+
 			// Set as featured image
 			$featured_status = $this->set_post_thumbnail( $event['ID'], $image->post_id );
 
@@ -2520,7 +2559,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 *
 	 * @return WP_Post|false Either the last child post object or `false` on failure.
 	 */
-	protected function get_last_child_post( $force = false ) {
+	public function get_last_child_post( $force = false ) {
 		if ( $this->post->post_parent ) {
 			return $this->post;
 		}

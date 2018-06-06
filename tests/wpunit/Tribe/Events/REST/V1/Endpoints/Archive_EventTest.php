@@ -125,6 +125,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$response = $sut->get( $request );
 
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
+
 		$this->assertCount( 6, $response->get_data()['events'] );
 	}
 

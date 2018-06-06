@@ -17,9 +17,10 @@ preg_match_all( '!\<option.*value="([^"]+)"[^\>]*\>(.*)\</option\>!m', $category
 $categories = array(
 	'' => __( 'No default category', 'the-events-calendar' ),
 );
+$events_aggregator_is_active = tribe( 'events-aggregator.main' )->is_service_active();
 
 $origin_categories = array(
-	'' => $use_global_settings_phrase,
+	'' => $events_aggregator_is_active ? $use_global_settings_phrase : esc_html__( 'None', 'the-events-calendar' ),
 );
 
 foreach ( $matches[1] as $key => $match ) {
@@ -28,7 +29,7 @@ foreach ( $matches[1] as $key => $match ) {
 }
 
 $yes_no_options = array(
-	'no' => __( 'No', 'the-events-calendar' ),
+	'no'  => __( 'No', 'the-events-calendar' ),
 	'yes' => __( 'Yes', 'the-events-calendar' ),
 );
 
@@ -38,22 +39,25 @@ $change_authority = array(
 	'import-defaults-update_authority' => array(
 		'type' => 'html',
 		'html' => '<h3 id="tribe-import-update-authority">' . esc_html__( 'Event Update Authority', 'the-events-calendar' ) . '</h3>',
+		'priority' => 1.1,
 	),
 	'info-update_authority' => array(
 		'type' => 'html',
 		'html' => '<p>' . esc_html__( 'You can make changes to imported events via The Events Calendar and see those changes reflected on your site’s calendar. The owner of the original event source (e.g. the iCalendar feed or Facebook group) might also make changes to their event. If you choose to re-import an altered event (manually or via a scheduled import), any changes made at the source or on your calendar will need to be addressed.', 'the-events-calendar' ) . '</p>',
+		'priority' => 1.2,
 	),
 	'tribe_aggregator_default_update_authority' => array(
-		'type' => 'radio',
-		'label' => esc_html__( 'Event Update Authority', 'the-events-calendar' ),
+		'type'            => 'radio',
+		'label'           => esc_html__( 'Event Update Authority', 'the-events-calendar' ),
 		'validation_type' => 'options',
-		'default' => Tribe__Events__Aggregator__Settings::$default_update_authority,
-		'parent_option' => Tribe__Events__Main::OPTIONNAME,
-		'options' => array(
-			'overwrite' => __( 'Overwrite my event with any changes from the original source.', 'the-events-calendar' ),
-			'retain' => __( 'Do not re-import events. Changes made locally will be preserved.', 'the-events-calendar' ),
+		'default'         => Tribe__Events__Aggregator__Settings::$default_update_authority,
+		'parent_option'   => Tribe__Events__Main::OPTIONNAME,
+		'options'         => array(
+			'overwrite'        => __( 'Overwrite my event with any changes from the original source.', 'the-events-calendar' ),
+			'retain'           => __( 'Do not re-import events. Changes made locally will be preserved.', 'the-events-calendar' ),
 			'preserve_changes' => __( 'Import events but preserve local changes to event fields.', 'the-events-calendar' ),
 		),
+		'priority' => 1.3,
 	),
 );
 
@@ -61,28 +65,31 @@ $csv = array(
 	'csv-defaults' => array(
 		'type' => 'html',
 		'html' => '<h3 id="tribe-import-csv-settings">' . esc_html__( 'CSV Import Settings', 'the-events-calendar' ) . '</h3>',
+		'priority' => 10.1,
 	),
 	'tribe_aggregator_default_csv_post_status' => array(
-		'type' => 'dropdown',
-		'label' => esc_html__( 'Default Status', 'the-events-calendar' ),
-		'tooltip' => esc_html__( 'The default post status for events imported via CSV', 'the-events-calendar' ),
-		'size' => 'medium',
+		'type'            => 'dropdown',
+		'label'           => esc_html__( 'Default Status', 'the-events-calendar' ),
+		'tooltip'         => esc_html__( 'The default post status for events imported via CSV', 'the-events-calendar' ),
+		'size'            => 'medium',
 		'validation_type' => 'options',
-		'default' => '',
-		'can_be_empty' => true,
-		'parent_option' => Tribe__Events__Main::OPTIONNAME,
-		'options' => $origin_post_statuses,
+		'default'         => $events_aggregator_is_active ? '' : 'publish',
+		'can_be_empty'    => true,
+		'parent_option'   => Tribe__Events__Main::OPTIONNAME,
+		'options'         => $origin_post_statuses,
+		'priority' => 10.2,
 	),
 	'tribe_aggregator_default_csv_category' => array(
-		'type' => 'dropdown',
-		'label' => esc_html__( 'Default Event Category', 'the-events-calendar' ),
-		'tooltip' => esc_html__( 'The default event category for events imported via CSV', 'the-events-calendar' ),
-		'size' => 'medium',
+		'type'            => 'dropdown',
+		'label'           => esc_html__( 'Default Event Category', 'the-events-calendar' ),
+		'tooltip'         => esc_html__( 'The default event category for events imported via CSV', 'the-events-calendar' ),
+		'size'            => 'medium',
 		'validation_type' => 'options',
-		'default' => '',
-		'can_be_empty' => true,
-		'parent_option' => Tribe__Events__Main::OPTIONNAME,
-		'options' => $origin_categories,
+		'default'         => $events_aggregator_is_active ? '' : '',
+		'can_be_empty'    => true,
+		'parent_option'   => Tribe__Events__Main::OPTIONNAME,
+		'options'         => $origin_categories,
+		'priority' => 10.3,
 	),
 );
 
@@ -90,6 +97,7 @@ $ea_disable = array(
 	'tribe_aggregator_disable_header' => array(
 		'type' => 'html',
 		'html' => '<h3 id="tribe-import-ea-disable">' . esc_html__( 'Event Aggregator Control', 'the-events-calendar' ) . '</h3>',
+		'priority' => 50.1,
 	),
 	'tribe_aggregator_disable'               => array(
 		'type'            => 'checkbox_bool',
@@ -98,6 +106,7 @@ $ea_disable = array(
 		'default'         => false,
 		'parent_option'   => Tribe__Events__Main::OPTIONNAME,
 		'validation_type' => 'boolean',
+		'priority' => 50.2,
 	),
 );
 
@@ -108,6 +117,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 		'import-defaults' => array(
 			'type' => 'html',
 			'html' => '<h3 id="tribe-import-global-settings">' . esc_html__( 'Global Import Settings', 'the-events-calendar' ) . '</h3>',
+			'priority' => 5.1,
 		),
 		'tribe_aggregator_default_post_status' => array(
 			'type' => 'dropdown',
@@ -119,6 +129,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 			'can_be_empty' => true,
 			'parent_option' => Tribe__Events__Main::OPTIONNAME,
 			'options' => $post_statuses,
+			'priority' => 5.2,
 		),
 		'tribe_aggregator_default_category' => array(
 			'type' => 'dropdown',
@@ -130,6 +141,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 			'can_be_empty' => true,
 			'parent_option' => Tribe__Events__Main::OPTIONNAME,
 			'options' => $categories,
+			'priority' => 5.3,
 		),
 		'tribe_aggregator_default_show_map' => array(
 			'type' => 'dropdown',
@@ -141,6 +153,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 			'can_be_empty' => true,
 			'parent_option' => Tribe__Events__Main::OPTIONNAME,
 			'options' => $yes_no_options,
+			'priority' => 5.4,
 		),
 		'tribe_aggregator_default_import_limit_type' => array(
 			'type' => 'dropdown',
@@ -153,6 +166,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 			'can_be_empty' => false,
 			'parent_option' => Tribe__Events__Main::OPTIONNAME,
 			'options' => tribe( 'events-aggregator.settings' )->get_import_limit_type_options(),
+			'priority' => 5.5,
 		),
 		'tribe_aggregator_default_import_limit_range' => array(
 			'type' => 'dropdown',
@@ -169,6 +183,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 				'data-depends'   => '#tribe_aggregator_default_import_limit_type-select',
 				'data-condition' => 'range',
 			),
+			'priority' => 5.6,
 		),
 		'tribe_aggregator_default_import_limit_number' => array(
 			'type' => 'dropdown',
@@ -185,6 +200,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 				'data-depends'   => '#tribe_aggregator_default_import_limit_type-select',
 				'data-condition' => 'count',
 			),
+			'priority' => 5.7,
 		),
 	);
 
@@ -192,6 +208,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 		'ical-defaults' => array(
 			'type' => 'html',
 			'html' => '<h3 id="tribe-import-ical-settings">' . esc_html__( 'iCalendar Import Settings', 'the-events-calendar' ) . '</h3>',
+			'priority' => 20.1,
 		),
 		'tribe_aggregator_default_ical_post_status' => array(
 			'type' => 'dropdown',
@@ -203,6 +220,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 			'can_be_empty' => true,
 			'parent_option' => Tribe__Events__Main::OPTIONNAME,
 			'options' => $origin_post_statuses,
+			'priority' => 20.2,
 		),
 		'tribe_aggregator_default_ical_category' => array(
 			'type' => 'dropdown',
@@ -214,6 +232,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 			'can_be_empty' => true,
 			'parent_option' => Tribe__Events__Main::OPTIONNAME,
 			'options' => $origin_categories,
+			'priority' => 20.3,
 		),
 		'tribe_aggregator_default_ical_show_map' => array(
 			'type' => 'dropdown',
@@ -225,6 +244,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 			'can_be_empty' => true,
 			'parent_option' => Tribe__Events__Main::OPTIONNAME,
 			'options' => $origin_show_map_options,
+			'priority' => 20.4,
 		),
 	);
 
@@ -232,6 +252,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 		'ics-defaults' => array(
 			'type' => 'html',
 			'html' => '<h3 id="tribe-import-ics-settings">' . esc_html__( 'ICS File Import Settings', 'the-events-calendar' ) . '</h3>',
+			'priority' => 25.1,
 		),
 		'tribe_aggregator_default_ics_post_status' => array(
 			'type' => 'dropdown',
@@ -243,6 +264,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 			'can_be_empty' => true,
 			'parent_option' => Tribe__Events__Main::OPTIONNAME,
 			'options' => $origin_post_statuses,
+			'priority' => 25.2,
 		),
 		'tribe_aggregator_default_ics_category' => array(
 			'type' => 'dropdown',
@@ -254,6 +276,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 			'can_be_empty' => true,
 			'parent_option' => Tribe__Events__Main::OPTIONNAME,
 			'options' => $origin_categories,
+			'priority' => 25.3,
 		),
 		'tribe_aggregator_default_ics_show_map' => array(
 			'type' => 'dropdown',
@@ -265,6 +288,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 			'can_be_empty' => true,
 			'parent_option' => Tribe__Events__Main::OPTIONNAME,
 			'options' => $origin_show_map_options,
+			'priority' => 25.4,
 		),
 	);
 
@@ -272,6 +296,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 		'facebook-defaults' => array(
 			'type' => 'html',
 			'html' => '<h3 id="tribe-import-facebook-settings">' . esc_html__( 'Facebook Import Settings', 'the-events-calendar' ) . '</h3>',
+			'priority' => 30.1,
 		),
 		'tribe_aggregator_default_facebook_post_status' => array(
 			'type' => 'dropdown',
@@ -283,6 +308,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 			'can_be_empty' => true,
 			'parent_option' => Tribe__Events__Main::OPTIONNAME,
 			'options' => $origin_post_statuses,
+			'priority' => 30.2,
 		),
 		'tribe_aggregator_default_facebook_category' => array(
 			'type' => 'dropdown',
@@ -294,6 +320,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 			'can_be_empty' => true,
 			'parent_option' => Tribe__Events__Main::OPTIONNAME,
 			'options' => $origin_categories,
+			'priority' => 30.3,
 		),
 		'tribe_aggregator_default_facebook_show_map' => array(
 			'type' => 'dropdown',
@@ -305,6 +332,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 			'can_be_empty' => true,
 			'parent_option' => Tribe__Events__Main::OPTIONNAME,
 			'options' => $origin_show_map_options,
+			'priority' => 30.4,
 		),
 	);
 
@@ -312,6 +340,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 		'gcal-defaults' => array(
 			'type' => 'html',
 			'html' => '<h3 id="tribe-import-google-settings">' . esc_html__( 'Google Calendar Import Settings', 'the-events-calendar' ) . '</h3>',
+			'priority' => 35.1,
 		),
 		'tribe_aggregator_default_gcal_post_status' => array(
 			'type' => 'dropdown',
@@ -323,6 +352,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 			'can_be_empty' => true,
 			'parent_option' => Tribe__Events__Main::OPTIONNAME,
 			'options' => $origin_post_statuses,
+			'priority' => 35.2,
 		),
 		'tribe_aggregator_default_gcal_category' => array(
 			'type' => 'dropdown',
@@ -334,6 +364,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 			'can_be_empty' => true,
 			'parent_option' => Tribe__Events__Main::OPTIONNAME,
 			'options' => $origin_categories,
+			'priority' => 35.3,
 		),
 		'tribe_aggregator_default_gcal_show_map' => array(
 			'type' => 'dropdown',
@@ -345,6 +376,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 			'can_be_empty' => true,
 			'parent_option' => Tribe__Events__Main::OPTIONNAME,
 			'options' => $origin_show_map_options,
+			'priority' => 35.4,
 		),
 	);
 
@@ -352,6 +384,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 		'meetup-defaults' => array(
 			'type' => 'html',
 			'html' => '<h3 id="tribe-import-meetup-settings">' . esc_html__( 'Meetup Import Settings', 'the-events-calendar' ) . '</h3>',
+			'priority' => 40.1,
 		),
 		'meetup-defaults-info' => array(
 			'type' => 'html',
@@ -363,6 +396,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 				'<a href="' . admin_url( Tribe__Settings::$parent_page . '&page=tribe-common&tab=addons' ) . '">',
 				'</a>'
 			). '</p>',
+			'priority' => 40.2,
 		),
 		'tribe_aggregator_default_meetup_post_status' => array(
 			'type' => 'dropdown',
@@ -374,6 +408,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 			'can_be_empty' => true,
 			'parent_option' => Tribe__Events__Main::OPTIONNAME,
 			'options' => $origin_post_statuses,
+			'priority' => 40.3,
 		),
 		'tribe_aggregator_default_meetup_category' => array(
 			'type' => 'dropdown',
@@ -385,6 +420,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 			'can_be_empty' => true,
 			'parent_option' => Tribe__Events__Main::OPTIONNAME,
 			'options' => $origin_categories,
+			'priority' => 40.4,
 		),
 		'tribe_aggregator_default_meetup_show_map' => array(
 			'type' => 'dropdown',
@@ -396,6 +432,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 			'can_be_empty' => true,
 			'parent_option' => Tribe__Events__Main::OPTIONNAME,
 			'options' => $origin_show_map_options,
+			'priority' => 40.5,
 		),
 	);
 
@@ -403,6 +440,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 		'url-defaults' => array(
 			'type' => 'html',
 			'html' => '<h3 id="tribe-import-url-settings">' . esc_html__( 'Other URL Import Settings', 'the-events-calendar' ) . '</h3>',
+			'priority' => 45.1,
 		),
 		'tribe_aggregator_default_url_post_status' => array(
 			'type' => 'dropdown',
@@ -414,6 +452,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 			'can_be_empty' => true,
 			'parent_option' => Tribe__Events__Main::OPTIONNAME,
 			'options' => $origin_post_statuses,
+			'priority' => 45.2,
 		),
 		'tribe_aggregator_default_url_category' => array(
 			'type' => 'dropdown',
@@ -425,6 +464,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 			'can_be_empty' => true,
 			'parent_option' => Tribe__Events__Main::OPTIONNAME,
 			'options' => $origin_categories,
+			'priority' => 45.3,
 		),
 		'tribe_aggregator_default_url_show_map' => array(
 			'type' => 'dropdown',
@@ -436,6 +476,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 			'can_be_empty' => true,
 			'parent_option' => Tribe__Events__Main::OPTIONNAME,
 			'options' => $origin_show_map_options,
+			'priority' => 45.4,
 		),
 		'tribe_aggregator_default_url_import_range' => array(
 			'type' => 'dropdown',
@@ -447,6 +488,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 			'can_be_empty' => false,
 			'parent_option' => Tribe__Events__Main::OPTIONNAME,
 			'options' => tribe( 'events-aggregator.settings' )->get_url_import_range_options( true ),
+			'priority' => 45.5,
 		),
 		'tribe_aggregator_default_url_import_event_settings' => array(
 			'type' => 'dropdown',
@@ -458,6 +500,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 			'can_be_empty' => true,
 			'parent_option' => Tribe__Events__Main::OPTIONNAME,
 			'options' => $yes_no_options,
+			'priority' => 45.6,
 		),
 	);
 }
@@ -475,9 +518,81 @@ $internal = array_merge(
 	$ea_disable
 );
 
-$internal = apply_filters( 'tribe_aggregator_fields', $internal );
+/**
+ * Filter the Aggregator Setting Fields
+ *
+ * @since TDB
+ *
+ * @param $internal array an array of aggregator fields
+ * @param $origin_post_statuses array an array of post statuses
+ * @param $origin_categories array an array of event categories
+ */
+$internal = apply_filters( 'tribe_aggregator_fields', $internal, $origin_post_statuses, $origin_categories );
+
+/**
+ * Sort Fields by Priority
+ */
+if ( get_bloginfo( 'version' ) >= 4.7 ) {
+	$internal = wp_list_sort( $internal, 'priority', 'ASC', true );
+}
 
 if ( tribe( 'events-aggregator.main' )->is_service_active() ) {
+
+	$import_setting_links = array(
+		'update-authority'  => array(
+			'name'     => __( 'Update Authority', 'the-events-calendar' ),
+			'priority' => 5,
+		),
+		'global-settings'   => array(
+			'name'     => __( 'Global', 'the-events-calendar' ),
+			'priority' => 10,
+		),
+		'csv-settings'      => array(
+			'name'     => __( 'CSV', 'the-events-calendar' ),
+			'priority' => 15,
+		),
+		'ical-settings'     => array(
+			'name'     => __( 'iCalendar', 'the-events-calendar' ),
+			'priority' => 20,
+		),
+		'ics-settings'      => array(
+			'name'     => __( 'ICS File', 'the-events-calendar' ),
+			'priority' => 25,
+		),
+		'facebook-settings' => array(
+			'name'     => __( 'Facebook', 'the-events-calendar' ),
+			'priority' => 30,
+		),
+		'google-settings'   => array(
+			'name'     => __( 'Google Calendar', 'the-events-calendar' ),
+			'priority' => 35,
+		),
+		'meetup-settings'   => array(
+			'name'     => __( 'Meetup', 'the-events-calendar' ),
+			'priority' => 40,
+		),
+		'url-settings'      => array(
+			'name'     => __( 'Other URLs', 'the-events-calendar' ),
+			'priority' => 45,
+		),
+	);
+
+	/**
+	 * Filter the Import Setting Links on the Import Tab
+	 *
+	 * @since TDB
+	 *
+	 * @param $import_setting_links array an array of import setting anchor links
+	 */
+	$import_setting_links = apply_filters( 'tribe_aggregator_setting_links', $import_setting_links );
+
+	/**
+	 * Sort Header List Order
+	 */
+	if ( get_bloginfo( 'version' ) >= 4.7 ) {
+		$import_setting_links = wp_list_sort( $import_setting_links, 'priority', 'ASC', true );
+	}
+
 	ob_start();
 	?>
 	<p>
@@ -492,15 +607,15 @@ if ( tribe( 'events-aggregator.main' )->is_service_active() ) {
 		?>
 	</p>
 	<div>
-		<a href="#tribe-import-update-authority"><?php esc_html_e( 'Update Authority', 'the-events-calendar' ); ?></a> |
-		<a href="#tribe-import-global-settings"><?php esc_html_e( 'Global', 'the-events-calendar' ); ?></a> |
-		<a href="#tribe-import-csv-settings"><?php esc_html_e( 'CSV', 'the-events-calendar' ); ?></a> |
-		<a href="#tribe-import-ical-settings"><?php esc_html_e( 'iCalendar', 'the-events-calendar' ); ?></a> |
-		<a href="#tribe-import-ics-settings"><?php esc_html_e( 'ICS File', 'the-events-calendar' ); ?></a> |
-		<a href="#tribe-import-facebook-settings"><?php esc_html_e( 'Facebook', 'the-events-calendar' ); ?></a> |
-		<a href="#tribe-import-google-settings"><?php esc_html_e( 'Google Calendar', 'the-events-calendar' ); ?></a> |
-		<a href="#tribe-import-meetup-settings"><?php esc_html_e( 'Meetup', 'the-events-calendar' ); ?></a> |
-		<a href="#tribe-import-url-settings"><?php esc_html_e( 'Other URLs', 'the-events-calendar' ); ?></a>
+		<?php
+		foreach ( $import_setting_links as $anchor => $information ) {
+			$separator = '';
+			if ( $information !== end( $import_setting_links ) ) {
+				$separator = ' | ';
+			}
+			echo '<a href="#tribe-import-' . esc_attr( $anchor ) . '">' . esc_attr( $information['name'] ) . '</a>' . esc_attr( $separator );
+		}
+		?>
 	</div>
 	<?php
 	$import_instructions = ob_get_clean();
