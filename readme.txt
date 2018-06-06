@@ -217,6 +217,9 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 = [4.6.19] TBD =
 
+* Fix - More robust handling of errors and exceptions during Event Aggregator imports [107929]
+* Tweak - Add the `tribe_aggregator_async_insert_event` filter to allow overriding the Event Aggregator asynchronous event insertion [107929]
+* Tweak - Add the `'tribe_aggregator_async_import_event_task` filter to allow overriding the Event Aggregator asynchronous import task [107929]
 * Tweak - Added venue google map link to events in Day view [91610]
 * Tweak - Renamed the Time zone mode option "Use the local time zones for each event" to "Use manual timezones for each event" (thanks @hikeitbaby for the suggestion) [67148]
 * Feature - CSV importer now supports a featured event column [72376]
