@@ -4,7 +4,7 @@ Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.5
-Stable tag: 4.6.17
+Stable tag: 4.6.18
 Tested up to: 4.9.6
 Requires PHP: 5.2.4
 License: GPLv2 or later
@@ -135,7 +135,7 @@ Absolutely. If you're not finding your questions answered on the product pages, 
 The following add-ons are available for The Events Calendar:
 
 * [Events Calendar PRO](http://m.tri.be/18wi), for adding premium calendar features like recurring events, advanced views, cool widgets, shortcodes, additional fields, and more!
-* [Event Aggregator](http://m.tri.be/197u), a service that effortlessly fills your calendar with events from Meetup, Google Calendar, iCalendar, CSV, and ICS.
+* [Event Aggregator](http://m.tri.be/197u), a service that effortlessly fills your calendar with events from Meetup, Google Calendar, iCalendar, Eventbrite, CSV, and ICS.
 * [Event Tickets](http://m.tri.be/18wj) (free), which allows you to collect RSVPs to events. It can run alongside The Events Calendar or as a standalone plugin that adds RSVP functionality to WordPress posts and pages.
 * [Event Tickets Plus](http://m.tri.be/18wk), which allows you to sell tickets for your events using your favorite e-commerce platform.
 * [Community Events](http://m.tri.be/2g), for allowing frontend event submission from your readers.
@@ -219,6 +219,20 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 * Tweak - Added venue google map link to events in Day view [91610]
 * Feature - CSV importer now supports a featured event column [72376]
+
+= [4.6.18] 2018-06-04 =
+
+* Add - Eventbrite to Event Aggregator import origins [61172]
+* Add - Priority attribute to Import Setting fields to be able to customize order of fields [61173]
+* Add - Default category and change authority for Eventbrite Imports [61173]
+* Add - Ability to schedule Eventbrite imports through Event Aggregator [35454]
+* Add - Preview for Eventbrite events in the import screen ordered from farthest future event to closest [70130]
+* Add - Import Eventbrite events using the Other URL import origin [81825]
+* Add - Ability to preview and import multiple Eventbrite events using the Organizer URL [94284]
+* Add - Import from Eventbrite Location Search URL, i.e. https://www.eventbrite.com/d/or--portland/events/ [94588]
+* Tweak - Move Eventbrite settings from Legacy Import to Settings Import Tab [94388]
+* Tweak - Add Eventbrite imports to the Import History Tab [81826]
+* Tweak - Remove Legacy Imports UI [81829]
 
 = [4.6.18] 2018-06-04 =
 

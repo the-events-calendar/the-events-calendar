@@ -79,6 +79,7 @@ class Import_EventsTest extends Aggregator_TestCase {
 		$sut->save();
 		$result = $sut->sync_process();
 
+		$data['requeued'] = 1;
 		$this->assertEquals( $data, $result[0] );
 	}
 

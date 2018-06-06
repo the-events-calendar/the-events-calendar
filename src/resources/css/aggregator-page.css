@@ -23,6 +23,14 @@
 	position: relative;
 }
 
+.tribe-ea .tribe-ea-tab .form-table .eb-url-row th[scope="row"] {
+	padding: 0;
+}
+
+.tribe-ea .tribe-ea-tab .form-table .eb-url-row td {
+	padding: 0 10px;
+}
+
 .tribe-ea .tribe-ea-tab .subsubsub li {
 	font-weight: bold;
 }
@@ -282,6 +290,10 @@
 	color: gray;
 }
 
+.tribe-ea .tribe-ea-inline-label {
+	padding-top: 7px;
+}
+
 .tribe-ea .tribe-notice-tribe-missing-aggregator-license {
 	background: url(../images/aggregator/ea-upsell-bkg.svg) transparent no-repeat;
 	background-size: cover;
@@ -392,7 +404,8 @@
 	margin-bottom: .25em;
 }
 
-.tribe-ea .tribe-ea-facebook-button {
+.tribe-ea .tribe-ea-facebook-button,
+	.tribe-ea .tribe-ea-eventbrite-button {
 	margin-left: 32px;
 	margin-left: 2rem;
 	margin-top: 16px;
@@ -552,10 +565,6 @@
 	display: inline-block;
 }
 
-.tribe-ea-form[data-origin="eventbrite"] .tribe-finalize-container {
-	display: block;
-}
-
 .tribe-ea-form[data-origin="csv"] .dataTables_length,
 		.tribe-ea-form[data-origin="csv"] .dataTables_info,
 		.tribe-ea-form[data-origin="csv"] .dataTables_paginate,
@@ -590,6 +599,12 @@
 	font-style: italic;
 	padding-top: 8px;
 	padding-top: .5rem;
+}
+
+.tribe-finalize-container .tribe-limits-message {
+	font-style: italic;
+	padding: 0;
+	margin: 1em 0 -1.5em;
 }
 
 .tribe-message-loader {

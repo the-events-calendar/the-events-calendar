@@ -29,6 +29,11 @@ class Tribe__Events__Aggregator__Processes__Import_Events extends Tribe__Process
 	protected $activities = array();
 
 	/**
+	 * @var int The maximum number of times and item should be requed due to unmet dependencies.
+	 */
+	protected $requeue_limit = 5;
+
+	/**
 	 * Returns the async process action name.
 	 *
 	 * @since 4.6.16
@@ -37,6 +42,21 @@ class Tribe__Events__Aggregator__Processes__Import_Events extends Tribe__Process
 	 */
 	public static function action() {
 		return 'ea_import_events';
+	}
+
+	public function __construct() {
+		parent::__construct();
+
+		/**
+		 * Filters how many times an item can be requeued due to unmet dependencies.
+		 *
+		 * This is work-around for circular dependencies so higher number mean more safety and more
+		 * processing time and smaller numbers mean less safety but reduced processing times.
+		 *
+		 * @param int $requeue_limit
+		 * @param Tribe__Events__Aggregator__Processes__Import_Events $this
+		 */
+		$this->requeue_limit = apply_filters( 'tribe_aggregator_import_process_requeue_limit', $this->requeue_limit, $this );
 	}
 
 	/**
@@ -171,7 +191,15 @@ class Tribe__Events__Aggregator__Processes__Import_Events extends Tribe__Process
 		$data                  = (array) $item['data'];
 		$this->transitional_id = filter_var( $item['transitional_id'], FILTER_SANITIZE_STRING );
 
-		$dependencies = $this->parse_linked_post_dependencies( $data );
+		/**
+		 * To avoid deadlocks when dealing with circular dependencies an item can be requeued only
+		 * so many times.
+		 * Dependency checks are in place to avoid DB-related critical paths: moving forward to
+		 * resolve a circular dependency after a reasonable time is a reasonable step.
+		 */
+		if ( empty( $item['requeued'] ) || ( (int) $item['requeued'] < $this->requeue_limit ) ) {
+			$dependencies = $this->parse_linked_post_dependencies( $data );
+		}
 
 		if ( empty( $dependencies ) ) {
 			$this->has_dependencies = false;
@@ -191,8 +219,12 @@ class Tribe__Events__Aggregator__Processes__Import_Events extends Tribe__Process
 			return $this->doing_sync ? $activity : false;
 		}
 
+		// keep track of how many times the item was requeued due to unmet dependencies
+		$item['requeued'] = isset( $item['requeued'] ) ? (int) ( $item['requeued'] ) + 1 : 1;
+
 		return $item;
 	}
+
 
 	/**
 	 * Parses the Event Venue and Organizer dependencies.
