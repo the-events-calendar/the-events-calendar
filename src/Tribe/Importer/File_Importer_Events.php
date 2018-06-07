@@ -240,13 +240,13 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	}
 
 	/**
-	 * Allows user to customize the separator used for organizers
+	 * Filter allows user to customize the separator used for organizers
 	 * @since TBD
 	 *
 	 * @return mixed
 	 */
 	private function get_separator() {
-		return apply_filters( 'tribe_get_event_import_organizer_separator', ',');
+		return apply_filters( 'tribe_get_event_import_organizer_separator', ',' );
 	}
 
 	/**
@@ -263,13 +263,13 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		$separator = $this->get_separator(); // We allow this to be filtered
 		$skip      = false; // For concatenation checks
 
-		for( $i = 0; $i < $len; $i++ ) {
+		for ( $i = 0; $i < $len; $i++ ) {
 			if ( $skip ) {
 				$skip = false;
 				continue;
 			}
 
-			$potential_match = $this->find_matching_post_id( trim( $organizers[$i] ), Tribe__Events__Organizer::POSTTYPE, 'any' );
+			$potential_match = $this->find_matching_post_id( trim( $organizers[ $i ] ), Tribe__Events__Organizer::POSTTYPE, 'any' );
 
 			// We've got a match so we add it and move on
 			if ( ! empty( $potential_match ) ) {
@@ -279,7 +279,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 			}
 
 			// No match - test for separator in name by grabbing the next item and concatenating
-			$test_organizer  = trim( $organizers[$i] ) . $separator . ' ' . trim( $organizers[$i+1] );
+			$test_organizer  = trim( $organizers[ $i ] ) . $separator . ' ' . trim( $organizers[ $i + 1 ] );
 			$potential_match = $this->find_matching_post_id( $test_organizer, Tribe__Events__Organizer::POSTTYPE, 'any' );
 
 			// Still no match, skip this item and move on
