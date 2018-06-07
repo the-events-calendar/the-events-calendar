@@ -242,26 +242,36 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	private function find_matching_organizer_id( $record ) {
 		$name = $this->get_value_by_key( $record, 'event_organizer_name' );
 
-		// organizer name is a list of IDs either space or comma separated
-		if ( preg_match( '/[\\s,]+/', $name ) && is_numeric( preg_replace( '/[\\s,]+/', '', $name ) ) ) {
-			$split = preg_split( '/[\\s,]+/', $name );
-			$match = array();
-			foreach ( $split as $possible_id_match ) {
-				$match[] = $this->find_matching_post_id( $possible_id_match, Tribe__Events__Organizer::POSTTYPE, 'any' );
+		// Test for comma- or space-separated lists
+		if ( false !== stripos( $name, ',' ) || preg_match( '/\s+/', $name ) ) {
+			if ( is_numeric( preg_replace( '/\s+/', '', $name ) ) ) {
+			     // event_organizer_name is a list of space-separated IDs
+				$split = preg_split( '/\s+/', $name );
+			} else if ( false !== stripos( $name, ',' ) ) {
+				// event_organizer_name is a list of comma-separated names and/or IDs
+				// Names can contain spaces, so should always be separated with commas!
+				$split = preg_split( '/,+/', $name );
 			}
 
-			$match = array_unique( $match );
+			//Make sure we've got something here - otherwise it's a single ID/name (or a single name with spaces)
+			if (! empty( $split ) ) {
+				$match = array();
+				foreach ( $split as $possible_id_match ) {
+					$potential_match = $this->find_matching_post_id( trim( $possible_id_match ), Tribe__Events__Organizer::POSTTYPE, 'any' );
+					$match[] = $potential_match;
+				}
+				$match = array_unique( $match );
 
-			if ( count( array_filter( $match ) ) == count( $split ) ) {
-				$organizer_ids = array(
-					'OrganizerID' => array(),
-				);
-				foreach ( $match as $m ) {
-					$organizer_ids['OrganizerID'][] = $m;
+				if ( count( array_filter( $match ) ) == count( $split ) ) {
+					$organizer_ids = array( 'OrganizerID' => array(), );
+					foreach ( $match as $m ) {
+						$organizer_ids[ 'OrganizerID' ][] = $m;
+					}
+
+					return $organizer_ids;
 				}
 
-				return $organizer_ids;
-			} else {
+				// We have a count mismatch!
 				return array();
 			}
 		}
