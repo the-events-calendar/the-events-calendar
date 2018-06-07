@@ -234,6 +234,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Tweak - Add the `'tribe_aggregator_async_import_event_task` filter to allow overriding the Event Aggregator asynchronous import task [107929]
 * Tweak - Added venue google map link to events in Day view [91610]
 * Tweak - Renamed the Time zone mode option "Use the local time zones for each event" to "Use manual timezones for each event" (thanks @hikeitbaby for the suggestion) [67148]
+* Tweak - Enable only url imports for Eventbrite when that plugin is not active [107415]
 
 = [4.6.18] 2018-06-04 =
 
