@@ -443,7 +443,6 @@ jQuery( document ).ready( function( $ ) {
 			changeMonth     : true,
 			changeYear      : true,
 			numberOfMonths  : get_datepicker_num_months(),
-			firstDay        : startofweek,
 			showButtonPanel : false,
 			beforeShow      : function( element, object ) {
 				object.input.datepicker( 'option', 'numberOfMonths', get_datepicker_num_months() );

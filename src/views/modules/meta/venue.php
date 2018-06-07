@@ -37,13 +37,13 @@ $website = tribe_get_venue_website_link();
 		<?php endif; ?>
 
 		<?php if ( ! empty( $phone ) ): ?>
-			<dt> <?php esc_html_e( 'Phone:', 'the-events-calendar' ) ?> </dt>
+			<dt class="tribe-venue-tel-label"> <?php esc_html_e( 'Phone:', 'the-events-calendar' ) ?> </dt>
 			<dd class="tribe-venue-tel"> <?php echo $phone ?> </dd>
 		<?php endif ?>
 
 		<?php if ( ! empty( $website ) ): ?>
-			<dt> <?php esc_html_e( 'Website:', 'the-events-calendar' ) ?> </dt>
-			<dd class="url"> <?php echo $website ?> </dd>
+			<dt class="tribe-venue-url-label"> <?php esc_html_e( 'Website:', 'the-events-calendar' ) ?> </dt>
+			<dd class="tribe-venue-url"> <?php echo $website ?> </dd>
 		<?php endif ?>
 
 		<?php do_action( 'tribe_events_single_meta_venue_section_end' ) ?>

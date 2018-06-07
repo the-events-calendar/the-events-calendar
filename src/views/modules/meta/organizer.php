@@ -39,7 +39,7 @@ $website = tribe_get_organizer_website_link();
 		if ( ! $multiple ) { // only show organizer details if there is one
 			if ( ! empty( $phone ) ) {
 				?>
-				<dt>
+				<dt class="tribe-organizer-tel-label">
 					<?php esc_html_e( 'Phone:', 'the-events-calendar' ) ?>
 				</dt>
 				<dd class="tribe-organizer-tel">
@@ -50,7 +50,7 @@ $website = tribe_get_organizer_website_link();
 
 			if ( ! empty( $email ) ) {
 				?>
-				<dt>
+				<dt class="tribe-organizer-email-label">
 					<?php esc_html_e( 'Email:', 'the-events-calendar' ) ?>
 				</dt>
 				<dd class="tribe-organizer-email">
@@ -61,7 +61,7 @@ $website = tribe_get_organizer_website_link();
 
 			if ( ! empty( $website ) ) {
 				?>
-				<dt>
+				<dt class="tribe-organizer-url-label">
 					<?php esc_html_e( 'Website:', 'the-events-calendar' ) ?>
 				</dt>
 				<dd class="tribe-organizer-url">

@@ -215,16 +215,25 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
-= [TBD] TBD =
+= [4.6.19] TBD =
 
 * Add - Accessibility repair: new title-bar template for loop views included above the filter bar and content containing the page title in a `h1` tag.
 * Fix - Accessibility repair: adjust main content container element from `div` to `main`.
+* Fix - More robust handling of errors and exceptions during Event Aggregator imports [107929]
+* Fix - Ensure that the "Export Events" button is properly displayed in month view when paginating. Thanks to @linpleva, Steven, Will and others for flagging this! [104751]
+* Fix - Month view pagination for datepicker formats: YYYY.MM.DD, MM.DD.YYYY, and DD.MM.YYYY. Thanks @netzwerk, @wdburgdorf, @oliverwick and others for notifying us! [105443]
+* Fix - Resolved customizer inconsistencies with month/week views and full styles [69758]
+* Tweak - Add the `tribe_aggregator_async_insert_event` filter to allow overriding the Event Aggregator asynchronous event insertion [107929]
+* Tweak - Add the `'tribe_aggregator_async_import_event_task` filter to allow overriding the Event Aggregator asynchronous import task [107929]
+* Tweak - Added venue google map link to events in Day view [91610]
+* Tweak - Renamed the Time zone mode option "Use the local time zones for each event" to "Use manual timezones for each event" (thanks @hikeitbaby for the suggestion) [67148]
 * Tweak - Accessibility repair: heading hierarchy improvements throughout.
 * Tweak - Accessibility repair: make sure all elements have unique `id` attributes.
 * Tweak - Accessibility repair: remove redundant tab stops on feature image links.
 * Tweak - Accessibility repair: filter bar view selector adjustments.
 * Tweak - Accessibility repair: provide meaningful aria labels for filter bar inputs.
 * Tweak - Accessibility repair: hide Google Map embeds from screen readers.
+* Feature - CSV importer now supports a featured event column [72376]
 
 = [4.6.18] 2018-06-04 =
 
@@ -239,6 +248,17 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Tweak - Move Eventbrite settings from Legacy Import to Settings Import Tab [94388]
 * Tweak - Add Eventbrite imports to the Import History Tab [81826]
 * Tweak - Remove Legacy Imports UI [81829]
+
+= [4.6.18] 2018-06-04 =
+
+* Fix - Improve Event Import message responses from Event Aggregator for certain cases where "Unknown service message" would be returned [107606]
+* Fix - Make the date picker respect the "Start of the week" Setting. Thanks to @websource, @dsb and others for flagging this! [76320]
+* Fix - Correct the "View All" link when using the events month view and plain permalinks. props to Kay and Robert for notifying us [72544]
+* Fix - Keep filter bar date when changing from month to list view, with all datepicker formats. Thanks to Caio for reporting this! [83018]
+* Fix - Correct the pagination in list view when a keyword is being searched. Thanks to @versi, @akr and Mary for reporting this! [94613]
+* Tweak - Modify the default values for the CSV settings if there's no EA license [94426]
+* Tweak - Added classes to meta output in Single Event meta templates to facilitate customization [62704]
+* Fix - Split linked posts (Organizers and Venues) by ownership, for all users [71349]
 
 = [4.6.17] 2018-05-29 =
 

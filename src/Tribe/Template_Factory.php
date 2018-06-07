@@ -269,8 +269,10 @@ class Tribe__Events__Template_Factory extends Tribe__Template_Factory {
 		} elseif ( ! empty( $_REQUEST['tribe-bar-geoloc'] ) ) {
 			$geographic_term = $_REQUEST['tribe-bar-geoloc'];
 		}
-		if ( is_tax( $tribe->get_event_taxonomy() ) ) {
-			$tax_term = get_term_by( 'slug', get_query_var( 'term' ), $tribe->get_event_taxonomy() );
+
+		$maybe_term = get_query_var( 'term' );
+		if ( is_tax( $tribe->get_event_taxonomy() ) && ! empty( $maybe_term ) ) {
+			$tax_term = get_term_by( 'slug', $maybe_term, $tribe->get_event_taxonomy() );
 			$tax_term = esc_html( $tax_term->name );
 		}
 
