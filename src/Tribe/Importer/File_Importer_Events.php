@@ -239,13 +239,48 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		return $event;
 	}
 
+	/**
+	 * Find organizer matches from space- or comma-separatred string
+	 * @since TBD
+	 * @param $organizers
+	 *
+	 * @return array
+	 */
+	private function match_organizers( $organizers ) {
+		$match = array();
+		foreach ( $organizers as $possible_id_match ) {
+			$potential_match = $this->find_matching_post_id( trim( $possible_id_match ), Tribe__Events__Organizer::POSTTYPE, 'any' );
+			$match[] = $potential_match;
+		}
+		$match = array_filter( array_unique( $match ) );
+
+		// If we get something outlandish - like no organizers or more organizers than expected, bail
+		if ( empty( $match ) || count( $match ) > count( $organizers ) ) {
+			return array();
+		}
+
+		$organizer_ids = array( 'OrganizerID' => array() );
+		foreach ( $match as $m ) {
+			$organizer_ids[ 'OrganizerID' ][] = $m;
+		}
+
+		return $organizer_ids;
+	}
+
+	/**
+	 * Handle finding the matching organizer(s) for the event
+	 * @since TBD
+	 * @param $record - the event record from the import
+	 *
+	 * @return array
+	 */
 	private function find_matching_organizer_id( $record ) {
 		$name = $this->get_value_by_key( $record, 'event_organizer_name' );
 
 		// Test for comma- or space-separated lists
 		if ( false !== stripos( $name, ',' ) || preg_match( '/\s+/', $name ) ) {
 			if ( is_numeric( preg_replace( '/\s+/', '', $name ) ) ) {
-			     // event_organizer_name is a list of space-separated IDs
+				// event_organizer_name is a list of space-separated IDs
 				$split = preg_split( '/\s+/', $name );
 			} elseif ( false !== stripos( $name, ',' ) ) {
 				// event_organizer_name is a list of comma-separated names and/or IDs
@@ -255,24 +290,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 
 			//Make sure we've got something here - otherwise it's a single ID/name (or a single name with spaces)
 			if ( ! empty( $split ) ) {
-				$match = array();
-				foreach ( $split as $possible_id_match ) {
-					$potential_match = $this->find_matching_post_id( trim( $possible_id_match ), Tribe__Events__Organizer::POSTTYPE, 'any' );
-					$match[] = $potential_match;
-				}
-				$match = array_unique( $match );
-
-				if ( count( array_filter( $match ) ) == count( $split ) ) {
-					$organizer_ids = array( 'OrganizerID' => array() );
-					foreach ( $match as $m ) {
-						$organizer_ids[ 'OrganizerID' ][] = $m;
-					}
-
-					return $organizer_ids;
-				}
-
-				// We have a count mismatch!
-				return array();
+				return $this->match_organizers( $split );
 			}
 		}
 
