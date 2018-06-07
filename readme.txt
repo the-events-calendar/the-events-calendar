@@ -215,6 +215,17 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Add - Accessibility repair: new title-bar template for loop views included above the filter bar and content containing the page title in a `h1` tag.
+* Fix - Accessibility repair: adjust main content container element from `div` to `main`.
+* Tweak - Accessibility repair: heading hierarchy improvements throughout.
+* Tweak - Accessibility repair: make sure all elements have unique `id` attributes.
+* Tweak - Accessibility repair: remove redundant tab stops on feature image links.
+* Tweak - Accessibility repair: filter bar view selector adjustments.
+* Tweak - Accessibility repair: provide meaningful aria labels for filter bar inputs.
+* Tweak - Accessibility repair: hide Google Map embeds from screen readers.
+
 = [4.6.18] 2018-06-04 =
 
 * Add - Eventbrite to Event Aggregator import origins [61172]
