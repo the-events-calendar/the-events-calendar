@@ -186,13 +186,25 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	}
 
 	/**
-	 * Returns whether there are any events in the month
+	 * Returns whether there are any events in the specific month.
+	 * Independently if there are filters or not.
 	 *
 	 * @return bool
 	 * @see Tribe__Events__Template__Month::get_daily_counts()
 	 **/
 	function tribe_events_month_has_events() {
 		return apply_filters( 'tribe_events_month_has_events', false );
+	}
+
+	/**
+	 * Returns whether there are any events in the month,
+	 * with the filtered results.
+	 *
+	 * @return bool
+	 * @see Tribe__Events__Template__Month::has_events_filtered()
+	 **/
+	function tribe_events_month_has_events_filtered() {
+		return apply_filters( 'tribe_events_month_has_events_filtered', Tribe__Events__Template__Month::has_events_filtered() );
 	}
 
 
