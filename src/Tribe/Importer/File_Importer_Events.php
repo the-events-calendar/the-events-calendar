@@ -206,7 +206,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 
 		if ( $this->is_aggregator && ! empty( $this->default_category ) ) {
 			$cats = $cats ? $cats . ',' . $this->default_category : $this->default_category;
-		} else if ( $category_setting = tribe( 'events-aggregator.settings' )->default_category( 'csv' ) ) {
+		} elseif ( $category_setting = tribe( 'events-aggregator.settings' )->default_category( 'csv' ) ) {
 			$cats = $cats ? $cats . ',' . $category_setting : $category_setting;
 		}
 
@@ -247,7 +247,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 			if ( is_numeric( preg_replace( '/\s+/', '', $name ) ) ) {
 			     // event_organizer_name is a list of space-separated IDs
 				$split = preg_split( '/\s+/', $name );
-			} else if ( false !== stripos( $name, ',' ) ) {
+			} elseif ( false !== stripos( $name, ',' ) ) {
 				// event_organizer_name is a list of comma-separated names and/or IDs
 				// Names can contain spaces, so should always be separated with commas!
 				$split = preg_split( '/,+/', $name );
@@ -263,7 +263,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 				$match = array_unique( $match );
 
 				if ( count( array_filter( $match ) ) == count( $split ) ) {
-					$organizer_ids = array( 'OrganizerID' => array(), );
+					$organizer_ids = array( 'OrganizerID' => array() );
 					foreach ( $match as $m ) {
 						$organizer_ids[ 'OrganizerID' ][] = $m;
 					}
