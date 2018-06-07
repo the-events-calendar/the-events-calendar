@@ -2139,6 +2139,15 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$event_post = get_post( $event['ID'] );
 		$post_meta = Tribe__Events__API::get_and_flatten_event_meta( $event['ID'] );
 
+		//preserve show map
+		if ( isset( $post_meta['_EventShowMap'] ) && tribe_is_truthy( $post_meta['_EventShowMap'] ) ) {
+			$event['EventShowMap'] = $post_meta['_EventShowMap'];
+		}
+		//preserve map link
+		if ( isset( $post_meta['_EventShowMapLink'] ) && tribe_is_truthy( $post_meta['_EventShowMapLink'] ) ) {
+			$event['EventShowMapLink'] = $post_meta['_EventShowMapLink'];
+		}
+
 		// we want to preserve this option if not explicitly being overridden
 		if ( ! isset( $event['EventHideFromUpcoming'] ) && isset( $post_meta['_EventHideFromUpcoming'] ) ) {
 			$event['EventHideFromUpcoming'] = $post_meta['_EventHideFromUpcoming'];
