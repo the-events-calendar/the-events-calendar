@@ -222,6 +222,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - Ensure that the "Export Events" button is properly displayed in month view when paginating. Thanks to @linpleva, Steven, Will and others for flagging this! [104751]
 * Fix - Month view pagination for datepicker formats: YYYY.MM.DD, MM.DD.YYYY, and DD.MM.YYYY. Thanks @netzwerk, @wdburgdorf, @oliverwick and others for notifying us! [105443]
 * Fix - Resolved customizer inconsistencies with month/week views and full styles [69758]
+* Fix - Check the Events Aggregator license each time the page is accessed [67864]
 * Fix - Improve Event Import message responses from Event Aggregator for certain cases where "Unknown service message" would be returned [107606]
 * Fix - Make the date picker respect the "Start of the week" Setting. Thanks to @websource, @dsb and others for flagging this! [76320]
 * Fix - Correct the "View All" link when using the events month view and plain permalinks. props to Kay and Robert for notifying us [72544]
@@ -234,6 +235,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Tweak - Add the `'tribe_aggregator_async_import_event_task` filter to allow overriding the Event Aggregator asynchronous import task [107929]
 * Tweak - Added venue google map link to events in Day view [91610]
 * Tweak - Renamed the Time zone mode option "Use the local time zones for each event" to "Use manual timezones for each event" (thanks @hikeitbaby for the suggestion) [67148]
+* Tweak - Enable only url imports for Eventbrite when that plugin is not active [107415]
 * Tweak - The EB 4.5 migration process to better detect events for migration and insure all fields are migrated [106623]
 
 = [4.6.18] 2018-06-04 =
