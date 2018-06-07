@@ -206,7 +206,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 
 		if ( $this->is_aggregator && ! empty( $this->default_category ) ) {
 			$cats = $cats ? $cats . ',' . $this->default_category : $this->default_category;
-		} elseif ( $category_setting = tribe( 'events-aggregator.settings' )->default_category( 'csv' ) ) {
+		} else if ( $category_setting = tribe( 'events-aggregator.settings' )->default_category( 'csv' ) ) {
 			$cats = $cats ? $cats . ',' . $category_setting : $category_setting;
 		}
 
@@ -254,7 +254,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 			}
 
 			//Make sure we've got something here - otherwise it's a single ID/name (or a single name with spaces)
-			if (! empty( $split ) ) {
+			if ( ! empty( $split ) ) {
 				$match = array();
 				foreach ( $split as $possible_id_match ) {
 					$potential_match = $this->find_matching_post_id( trim( $possible_id_match ), Tribe__Events__Organizer::POSTTYPE, 'any' );
