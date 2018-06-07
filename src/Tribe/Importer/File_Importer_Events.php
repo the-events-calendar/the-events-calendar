@@ -240,27 +240,68 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	}
 
 	/**
-	 * Find organizer matches from space- or comma-separatred string
+	 * Allows user to customize the separator used for organizers
+	 * @since TBD
+	 *
+	 * @return mixed
+	 */
+	private function get_separator() {
+		return apply_filters( 'tribe_get_event_import_organizer_separator', ',');
+	}
+
+	/**
+	 * Find organizer matches from space- or comma-separated string
+	 * Attempts to compensate for names with separators in them - Like "Woodhouse, Chelsea S."
 	 * @since TBD
 	 * @param $organizers
 	 *
 	 * @return array
 	 */
 	private function match_organizers( $organizers ) {
-		$match = array();
-		foreach ( $organizers as $possible_id_match ) {
-			$potential_match = $this->find_matching_post_id( trim( $possible_id_match ), Tribe__Events__Organizer::POSTTYPE, 'any' );
-			$match[] = $potential_match;
+		$matches   = array();
+		$len       = count( $organizers );
+		$separator = $this->get_separator(); // We allow this to be filtered
+		$skip      = false; // For concatenation checks
+
+		for( $i = 0; $i < $len; $i++ ) {
+			if ( $skip ) {
+				$skip = false;
+				continue;
+			}
+
+			$potential_match = $this->find_matching_post_id( trim( $organizers[$i] ), Tribe__Events__Organizer::POSTTYPE, 'any' );
+
+			// We've got a match so we add it and move on
+			if ( ! empty( $potential_match ) ) {
+				$matches[] = $potential_match;
+				$skip      = false;
+				continue;
+			}
+
+			// No match - test for separator in name by grabbing the next item and concatenating
+			$test_organizer  = trim( $organizers[$i] ) . $separator . ' ' . trim( $organizers[$i+1] );
+			$potential_match = $this->find_matching_post_id( $test_organizer, Tribe__Events__Organizer::POSTTYPE, 'any' );
+
+			// Still no match, skip this item and move on
+			if ( empty( $potential_match ) ) {
+				$skip = false;
+				continue;
+			}
+
+			// we got a match when combined with the next, so we flag to skip the next item
+			$skip       = true;
+			$matches[] = $potential_match;
 		}
-		$match = array_filter( array_unique( $match ) );
+
+		$matches = array_filter( array_unique( $matches ) );
 
 		// If we get something outlandish - like no organizers or more organizers than expected, bail
-		if ( empty( $match ) || count( $match ) > count( $organizers ) ) {
+		if ( empty( $matches ) || count( $matches ) > count( $organizers ) ) {
 			return array();
 		}
 
 		$organizer_ids = array( 'OrganizerID' => array() );
-		foreach ( $match as $m ) {
+		foreach ( $matches as $m ) {
 			$organizer_ids[ 'OrganizerID' ][] = $m;
 		}
 
@@ -275,7 +316,9 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	 * @return array
 	 */
 	private function find_matching_organizer_id( $record ) {
-		$name = $this->get_value_by_key( $record, 'event_organizer_name' );
+		$name      = $this->get_value_by_key( $record, 'event_organizer_name' );
+		$separator = $this->get_separator(); // We allow this to be filtered
+		$pattern   = '/' . $separator . '+/'; // build our regex pattern
 
 		// Test for comma- or space-separated lists
 		if ( false !== stripos( $name, ',' ) || preg_match( '/\s+/', $name ) ) {
@@ -284,8 +327,8 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 				$split = preg_split( '/\s+/', $name );
 			} elseif ( false !== stripos( $name, ',' ) ) {
 				// event_organizer_name is a list of comma-separated names and/or IDs
-				// Names can contain spaces, so should always be separated with commas!
-				$split = preg_split( '/,+/', $name );
+				// Names can contain spaces, so should always be separated with $separator!
+				$split = preg_split( $pattern, $name );
 			}
 
 			//Make sure we've got something here - otherwise it's a single ID/name (or a single name with spaces)
@@ -294,6 +337,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 			}
 		}
 
+		// We've got a single item - either a number or a name (with optional spaces)
 		$matching_post_ids = $this->find_matching_post_id( $name, Tribe__Events__Organizer::POSTTYPE, 'any' );
 
 		if ( ! is_array( $matching_post_ids ) ) {
