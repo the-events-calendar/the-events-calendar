@@ -885,37 +885,35 @@ class Tribe__Events__Linked_Posts {
 		 */
 		$options->available['text'] = apply_filters( 'tribe_events_saved_linked_post_dropdown_optgroup', $options->available['text'], $post_type );
 
-		if ( 0 != $current_user->ID ) {
-			$my_linked_posts = $this->get_linked_post_info(
-				$post_type,
-				array(
-					'post_status' => array(
-						'publish',
-						'draft',
-						'private',
-						'pending',
-					),
-					'author' => $current_user->ID,
-				)
-			);
+		$my_linked_posts = $this->get_linked_post_info(
+			$post_type,
+			array(
+				'post_status' => array(
+					'publish',
+					'draft',
+					'private',
+					'pending',
+				),
+				'author' => $current_user->ID,
+			)
+		);
 
-			if ( ! empty( $my_linked_posts ) ) {
-				foreach ( $my_linked_posts as $my_linked_post ) {
-					$my_linked_post_ids[] = $my_linked_post->ID;
+		if ( ! empty( $my_linked_posts ) ) {
+			foreach ( $my_linked_posts as $my_linked_post ) {
+				$my_linked_post_ids[] = $my_linked_post->ID;
 
-					$new_child = array(
-						'id' => $my_linked_post->ID,
-						'text' => wp_kses( get_the_title( $my_linked_post->ID ), array() ),
-					);
+				$new_child = array(
+					'id' => $my_linked_post->ID,
+					'text' => wp_kses( get_the_title( $my_linked_post->ID ), array() ),
+				);
 
-					$edit_link = get_edit_post_link( $my_linked_post );
+				$edit_link = get_edit_post_link( $my_linked_post );
 
-					if ( ! empty( $edit_link ) ) {
-						$new_child['edit'] = $edit_link;
-					}
-
-					$options->available['children'][] = $new_child;
+				if ( ! empty( $edit_link ) ) {
+					$new_child['edit'] = $edit_link;
 				}
+
+				$options->owned['children'][] = $new_child;
 			}
 		}
 
