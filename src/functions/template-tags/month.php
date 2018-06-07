@@ -191,6 +191,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * @return bool
 	 * @see Tribe__Events__Template__Month::get_daily_counts()
+	 * @since 3.1.1
 	 **/
 	function tribe_events_month_has_events() {
 		return apply_filters( 'tribe_events_month_has_events', false );
