@@ -222,6 +222,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - Ensure that the "Export Events" button is properly displayed in month view when paginating. Thanks to @linpleva, Steven, Will and others for flagging this! [104751]
 * Fix - Month view pagination for datepicker formats: YYYY.MM.DD, MM.DD.YYYY, and DD.MM.YYYY. Thanks @netzwerk, @wdburgdorf, @oliverwick and others for notifying us! [105443]
 * Fix - Resolved customizer inconsistencies with month/week views and full styles [69758]
+* Fix - Check the Events Aggregator license each time the page is accessed [67864]
 * Fix - Improve Event Import message responses from Event Aggregator for certain cases where "Unknown service message" would be returned [107606]
 * Fix - Make the date picker respect the "Start of the week" Setting. Thanks to @websource, @dsb and others for flagging this! [76320]
 * Fix - Correct the "View All" link when using the events month view and plain permalinks. props to Kay and Robert for notifying us [72544]
