@@ -301,8 +301,8 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		}
 
 		$organizer_ids = array( 'OrganizerID' => array() );
-		foreach ( $matches as $m ) {
-			$organizer_ids[ 'OrganizerID' ][] = $m;
+		foreach ( $matches as $id ) {
+			$organizer_ids[ 'OrganizerID' ][] = $id;
 		}
 
 		return $organizer_ids;
@@ -320,13 +320,13 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		$separator = $this->get_separator(); // We allow this to be filtered
 		$pattern   = '/' . $separator . '+/'; // build our regex pattern
 
-		// Test for comma- or space-separated lists
+		// Test for $separator- or space-separated lists
 		if ( false !== stripos( $name, ',' ) || preg_match( '/\s+/', $name ) ) {
 			if ( is_numeric( preg_replace( '/\s+/', '', $name ) ) ) {
 				// event_organizer_name is a list of space-separated IDs
 				$split = preg_split( '/\s+/', $name );
 			} elseif ( false !== stripos( $name, ',' ) ) {
-				// event_organizer_name is a list of comma-separated names and/or IDs
+				// event_organizer_name is a list of $separator-separated names and/or IDs
 				// Names can contain spaces, so should always be separated with $separator!
 				$split = preg_split( $pattern, $name );
 			}
