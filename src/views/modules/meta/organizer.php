@@ -6,7 +6,7 @@
  * [your-theme]/tribe-events/modules/meta/organizer.php
  *
  * @package TribeEventsCalendar
- * @version 4.4
+ * @version TBD
  */
 
 $organizer_ids = tribe_get_organizer_ids();
