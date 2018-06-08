@@ -126,7 +126,7 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 		}
 
 		// IDs only and drop the order to avoid wasting time on something we'll account for later
-		$sub_query_args = array_merge( $args, array( 'fields' => 'ids', 'order' => false ) );
+		$sub_query_args = array_merge( $args, array( 'fields' => 'ids', 'orderby' => false ) );
 
 		$linked_posts_ids = $this->get_current_language_linked_posts_ids( $sub_query_args );
 
