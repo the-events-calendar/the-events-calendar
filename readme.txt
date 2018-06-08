@@ -239,6 +239,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Tweak - Renamed the Time zone mode option "Use the local time zones for each event" to "Use manual timezones for each event" (thanks @hikeitbaby for the suggestion) [67148]
 * Tweak - Enable only url imports for Eventbrite when that plugin is not active [107415]
 * Tweak - The EB 4.5 migration process to better detect events for migration and insure all fields are migrated [106623]
+* Tweak - Add `tribe_events_month_has_events_filtered` function and filter to see if there are events on a certain month, with filters (categories, search) [67607]
 
 = [4.6.18] 2018-06-04 =
 
