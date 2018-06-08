@@ -23,7 +23,7 @@ global $post;
  * in.
  */
 $day      = tribe_events_get_current_month_day();
-$event_id = "{$post->ID}-{$day['daynum']}";
+$event_id = "{$post->ID}-{$day['date']}";
 $link     = tribe_get_event_link( $post );
 $title    = get_the_title( $post );
 

@@ -4423,10 +4423,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			if ( tribe_get_option( 'tribeDisableTribeBar', false ) == false ) {
+				$label = sprintf( esc_html__( 'Search for %s by Keyword.', 'the-events-calendar' ), $this->plural_event_label );
 				$filters['tribe-bar-search'] = array(
-					'name'    => 'tribe-bar-search',
-					'caption' => esc_html__( 'Search', 'the-events-calendar' ),
-					'html'    => '<input type="text" name="tribe-bar-search" id="tribe-bar-search" value="' . esc_attr( $value ) . '" placeholder="' . esc_attr__( 'Keyword', 'the-events-calendar' ) . '">',
+					'name'       => 'tribe-bar-search',
+					'caption'    => esc_html__( 'Search', 'the-events-calendar' ),
+					'html'       => '<input type="text" name="tribe-bar-search" id="tribe-bar-search" aria-label="' . esc_attr( $label ) . '" value="' . esc_attr( $value ) . '" placeholder="' . esc_attr__( 'Keyword', 'the-events-calendar' ) . '">',
 				);
 			}
 
@@ -4441,6 +4442,36 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return array The modified filters array.
 		 */
 		public function setup_date_search_in_bar( $filters ) {
+
+			$formats_full = array(
+				'0'  => __( '4 digit year hyphen 2 digit month hyphen 2 digit day', 'the-events-calendar' ),
+				'1'  => __( '1 digit month slash 1 digit day slash 4 digit year', 'the-events-calendar' ),
+				'2'  => __( '2 digit month slash 2 digit day slash 4 digit year', 'the-events-calendar' ),
+				'3'  => __( '1 digit day slash 1 digit month slash 4 digit year', 'the-events-calendar' ),
+				'4'  => __( '2 digit day slash 2 digit month slash 4 digit year', 'the-events-calendar' ),
+				'5'  => __( '1 digit month hyphen 1 digit day hyphen 4 digit year', 'the-events-calendar' ),
+				'6'  => __( '1 digit month hyphen 2 digit day hyphen 4 digit year', 'the-events-calendar' ),
+				'7'  => __( '1 digit day hyphen 1 digit month hyphen 4 digit year', 'the-events-calendar' ),
+				'8'  => __( '2 digit day hyphen 2 digit month hyphen 4 digit year', 'the-events-calendar' ),
+				'9'  => __( '4 digit year dot 2 digit month dot 2 digit day', 'the-events-calendar' ),
+				'10' => __( '2 digit month dot 2 digit day dot 4 digit year', 'the-events-calendar' ),
+				'11' => __( '2 digit day dot 2 digit month dot 4 digit year', 'the-events-calendar' ),
+			);
+
+			$formats_month = array(
+				'0'  => __( '4 digit year hyphen 2 digit month', 'the-events-calendar' ),
+				'1'  => __( '1 digit month slash 4 digit year', 'the-events-calendar' ),
+				'2'  => __( '2 digit month slash 4 digit year', 'the-events-calendar' ),
+				'3'  => __( '1 digit month slash 4 digit year', 'the-events-calendar' ),
+				'4'  => __( '2 digit month slash 4 digit year', 'the-events-calendar' ),
+				'5'  => __( '1 digit month hyphen 4 digit year', 'the-events-calendar' ),
+				'6'  => __( '1 digit month hyphen 4 digit year', 'the-events-calendar' ),
+				'7'  => __( '1 digit month hyphen 4 digit year', 'the-events-calendar' ),
+				'8'  => __( '2 digit month hyphen 4 digit year', 'the-events-calendar' ),
+				'9'  => __( '4 digit year dot 2 digit month', 'the-events-calendar' ),
+				'10' => __( '2 digit month dot 4 digit year', 'the-events-calendar' ),
+				'11' => __( '2 digit month dot 4 digit year', 'the-events-calendar' ),
+			);
 
 			if ( ! $wp_query = tribe_get_global_query_object() ) {
 				return;
@@ -4466,10 +4497,16 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$value = $_REQUEST['tribe-bar-date'];
 			}
 
+			$datepicker_format = tribe_get_option( 'datepickerFormat' );
+
 			$caption = esc_html__( 'Date', 'the-events-calendar' );
+			$format  = Tribe__Utils__Array::get( $formats_full, $datepicker_format, $formats_full[0] );
+			$label   = sprintf( esc_html__( 'Search for %s by Date. Please use the format %s.', 'the-events-calendar' ), $this->plural_event_label, $format );
 
 			if ( tribe_is_month() ) {
 				$caption = sprintf( esc_html__( '%s In', 'the-events-calendar' ), $this->plural_event_label );
+				$format  = Tribe__Utils__Array::get( $formats_month, $datepicker_format, $formats_month[0] );
+				$label   = sprintf( esc_html__( 'Search for %s by month. Please use the format %s.', 'the-events-calendar' ), $this->plural_event_label, $format );
 			} elseif ( tribe_is_list_view() ) {
 				$caption = sprintf( esc_html__( '%s From', 'the-events-calendar' ), $this->plural_event_label );
 			} elseif ( tribe_is_day() ) {
@@ -4487,7 +4524,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$filters['tribe-bar-date'] = array(
 				'name'    => 'tribe-bar-date',
 				'caption' => $caption,
-				'html'    => '<input type="text" name="tribe-bar-date" style="position: relative;" id="tribe-bar-date" value="' . esc_attr( $value ) . '" placeholder="' . esc_attr__( 'Date', 'the-events-calendar' ) . '"><input type="hidden" name="tribe-bar-date-day" id="tribe-bar-date-day" class="tribe-no-param" value="">',
+				'html'    => '<input type="text" name="tribe-bar-date" style="position: relative;" id="tribe-bar-date" aria-label="' . esc_attr( $label ) . '" value="' . esc_attr( $value ) . '" placeholder="' . esc_attr__( 'Date', 'the-events-calendar' ) . '"><input type="hidden" name="tribe-bar-date-day" id="tribe-bar-date-day" class="tribe-no-param" value="">',
 			);
 
 			return $filters;

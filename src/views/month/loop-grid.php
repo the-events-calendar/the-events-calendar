@@ -20,7 +20,11 @@ global $wp_locale;
 ?>
 
 <?php do_action( 'tribe_events_before_the_grid' ) ?>
-	<table class="tribe-events-calendar">
+
+	<h2 class="tribe-events-visuallyhidden"><?php printf( esc_html__( 'Calendar of %s', 'the-events-calendar' ), tribe_get_event_label_plural() ); ?></h2>
+
+	<table class="tribe-events-calendar" aria-describedby="tribe-events-calendar-heading">
+		<caption class="tribe-events-visuallyhidden"><?php printf( esc_html__( 'Calendar of %s', 'the-events-calendar' ), tribe_get_event_label_plural() ); ?></caption>
 		<thead>
 		<tr>
 			<?php foreach ( $days_of_week as $day ) : ?>

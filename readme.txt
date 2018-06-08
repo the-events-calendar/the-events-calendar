@@ -219,6 +219,8 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 * Feature - CSV importer now supports a featured event column [72376]
 * Add - Add Eventbrite Icon to Third Party Accounts on the help page [105388]
+* Add - Accessibility repair: new title-bar template for loop views included above the filter bar and content containing the page title in a `h1` tag.
+* Fix - Accessibility repair: adjust main content container element from `div` to `main`.
 * Fix - More robust handling of errors and exceptions during Event Aggregator imports [107929]
 * Fix - Ensure that the "Export Events" button is properly displayed in month view when paginating. Thanks to @linpleva, Steven, Will and others for flagging this! [104751]
 * Fix - Month view pagination for datepicker formats: YYYY.MM.DD, MM.DD.YYYY, and DD.MM.YYYY. Thanks @netzwerk, @wdburgdorf, @oliverwick and others for notifying us! [105443]
@@ -237,6 +239,12 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Tweak - Add the `'tribe_aggregator_async_import_event_task` filter to allow overriding the Event Aggregator asynchronous import task [107929]
 * Tweak - Added venue google map link to events in Day view [91610]
 * Tweak - Renamed the Time zone mode option "Use the local time zones for each event" to "Use manual timezones for each event" (thanks @hikeitbaby for the suggestion) [67148]
+* Tweak - Accessibility repair: heading hierarchy improvements throughout.
+* Tweak - Accessibility repair: make sure all elements have unique `id` attributes.
+* Tweak - Accessibility repair: remove redundant tab stops on feature image links.
+* Tweak - Accessibility repair: filter bar view selector adjustments.
+* Tweak - Accessibility repair: provide meaningful aria labels for filter bar inputs.
+* Tweak - Accessibility repair: hide Google Map embeds from screen readers.
 * Tweak - Enable only url imports for Eventbrite when that plugin is not active [107415]
 * Tweak - The EB 4.5 migration process to better detect events for migration and insure all fields are migrated [106623]
 * Tweak - Add `tribe_events_month_has_events_filtered` function and filter to see if there are events on a certain month, with filters (categories, search) [67607]

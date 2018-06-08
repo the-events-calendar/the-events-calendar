@@ -407,7 +407,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			 *
 			 */
 			if ( $wp_query->current_post === 0 || ( $prev_event_month != $event_month || ( $prev_event_month == $event_month && $prev_event_year != $event_year ) ) ) {
-				$html .= sprintf( "<span class='tribe-events-list-separator-month'><span>%s</span></span>", tribe_get_start_date( $post, false, $month_year_format ) );
+				$html .= sprintf( "<h2 class='tribe-events-list-separator-month'><span>%s</span></h2>", tribe_get_start_date( $post, false, $month_year_format ) );
 			}
 
 			echo apply_filters( 'tribe_events_list_the_date_headers', $html, $event_month, $event_year );
