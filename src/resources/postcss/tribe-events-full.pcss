@@ -527,11 +527,11 @@ a.tribe-events-gcal {
 /* IE7 Tweaks */
 * + html {
 	.events-archive {
-		h2.tribe-events-page-title {
+		.tribe-events-page-title {
 			padding-bottom: 30px;
 		}
 
-		.tribe-events-list h2.tribe-events-page-title {
+		.tribe-events-list .tribe-events-page-title {
 			padding-bottom: 0;
 		}
 	}
@@ -542,7 +542,7 @@ a.tribe-events-gcal {
 }
 
 /* General Template Headers */
-h2.tribe-events-page-title {
+.tribe-events-page-title {
 	clear: none;
 	font-size: 24px;
 	font-weight: normal;
@@ -550,16 +550,14 @@ h2.tribe-events-page-title {
 	position: relative;
 	text-align: center;
 	z-index: 0;
-}
 
-/* don't float on filter view */
-.tribe-events-filter-view  .tribe-events-list h2.tribe-events-page-title {
-	float: none;
-	width: 100%;
-}
+	/* don't float on filter list view */
+	.tribe-events-filter-view.events-list & {
+		width: 100%;
+		float: none;
+	}
 
-h2 {
-	&.tribe-events-page-title a {
+	a {
 		color: #000;
 
 		&:hover,
@@ -726,12 +724,6 @@ select.tribe-events-dropdown {
 
 		.tribe-events-content {
 			width: 100%;
-		}
-	}
-
-	h2 {
-		&.tribe-events-page-title {
-			margin-bottom: 15px;
 		}
 	}
 
@@ -1115,7 +1107,7 @@ select.tribe-events-dropdown {
 =============================================*/
 .tribe-events-day {
 	.tribe-events-day-time-slot {
-		h5 {
+		.tribe-events-day-time-slot-heading {
 			background-color: #eee;
 			font-size: 14px;
 			font-weight: bold;
@@ -1967,8 +1959,10 @@ input[name*='tribe-bar-']:-moz-placeholder {
 		float: left;
 		left: auto;
 		width: 30%;
+
 		& + .tribe-bar-filters {
 			clear: both;
+			display: none;
 			left: auto;
 			margin-top: 5px;
 			overflow: hidden;
@@ -2355,7 +2349,7 @@ input[name*='tribe-bar-']:-moz-placeholder {
 		}
 	}
 
-	h2.tribe-events-list-event-title {
+	.tribe-events-list-event-title {
 		clear: none;
 	}
 }

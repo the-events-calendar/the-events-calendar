@@ -283,7 +283,10 @@ tribeDateFormat.masks = {
 	"m5":              'm-yyyy',
 	"m6":              'mm-yyyy',
 	"m7":              'm-yyyy',
-	"m8":              'mm-yyyy'
+	"m8":              'mm-yyyy',
+	"m9":              'yyyy.mm',
+	"m10":             'mm.yyyy',
+	"m11":             'mm.yyyy'
 };
 
 tribeDateFormat.i18n = {
