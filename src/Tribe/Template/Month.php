@@ -1234,5 +1234,51 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			return (bool) $this->events_in_month;
 		}
 
+		/**
+		 * Check if the month has events when all the filters have been applied.
+		 *
+		 * @since TBD
+		 *
+		 * @return bool
+		 */
+		public function has_events_filtered() {
+
+			if ( 'month' !== Tribe__Events__Main::instance()->displaying ) {
+				return false;
+			}
+
+			if ( ! $wp_query = tribe_get_global_query_object() ) {
+				return false;
+			}
+
+			// Get the date from the main query
+			$event_date = $wp_query->get( 'eventDate' );
+
+			// If we don't have the date, get the current date
+			$month = empty( $event_date )
+				? tribe_get_month_view_date()
+				: $wp_query->get( 'eventDate' );
+
+			// prepare the args for this month
+			$args = array(
+				'eventDisplay'   => 'custom',
+				'start_date'     => self::calculate_first_cell_date( $month ),
+				'end_date'       => self::calculate_final_cell_date( $month ),
+				'posts_per_page' => -1,
+				'hide_upcoming'  => true,
+			);
+
+			// check if we should take care of taxonomy
+			if ( $wp_query->get( Tribe__Events__Main::TAXONOMY, false ) !== false ) {
+				$args[ Tribe__Events__Main::TAXONOMY ] = $wp_query->get( Tribe__Events__Main::TAXONOMY );
+			}
+
+			// See if we have events for
+			$events = tribe_get_events( $args );
+
+			return (bool) $events;
+
+		}
+
 	} // class Tribe__Events__Template__Month
 }

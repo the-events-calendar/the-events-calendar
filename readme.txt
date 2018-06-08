@@ -218,6 +218,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 = [4.6.19] TBD =
 
 * Feature - CSV importer now supports a featured event column [72376]
+* Add - Add Eventbrite Icon to Third Party Accounts on the help page [105388]
 * Add - Accessibility repair: new title-bar template for loop views included above the filter bar and content containing the page title in a `h1` tag.
 * Fix - Accessibility repair: adjust main content container element from `div` to `main`.
 * Fix - More robust handling of errors and exceptions during Event Aggregator imports [107929]
@@ -231,6 +232,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - Keep filter bar date when changing from month to list view, with all datepicker formats. Thanks to Caio for reporting this! [83018]
 * Fix - Correct the pagination in list view when a keyword is being searched. Thanks to @versi, @akr and Mary for reporting this! [94613]
 * Fix - Split linked posts (Organizers and Venues) by ownership, for all users [71349]
+* Fix - The connected status for Eventbrite under Third Party Accounts on the Help page [106868]
 * Tweak - Modify the default values for the CSV settings if there's no EA license [94426]
 * Tweak - Added classes to meta output in Single Event meta templates to facilitate customization [62704]
 * Tweak - Add the `tribe_aggregator_async_insert_event` filter to allow overriding the Event Aggregator asynchronous event insertion [107929]
@@ -245,6 +247,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Tweak - Accessibility repair: hide Google Map embeds from screen readers.
 * Tweak - Enable only url imports for Eventbrite when that plugin is not active [107415]
 * Tweak - The EB 4.5 migration process to better detect events for migration and insure all fields are migrated [106623]
+* Tweak - Add `tribe_events_month_has_events_filtered` function and filter to see if there are events on a certain month, with filters (categories, search) [67607]
 
 = [4.6.18] 2018-06-04 =
 
