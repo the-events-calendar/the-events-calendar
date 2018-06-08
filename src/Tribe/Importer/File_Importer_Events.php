@@ -321,12 +321,11 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	}
 
 	private function maybe_organizer_is_separated_list( $organizer ) {
-		error_log('maybe_organizer_is_separated_list');
 		$separator = $this->get_separator();
 
 		// When we require php > 5.5 we can combine these
 		$cleared_separator = trim( $separator );// clear whitespace
-		$pattern           = !empty( $cleared_separator ) ? '/' . $cleared_separator . '+/' : '/\s+/';
+		$pattern           = ! empty( $cleared_separator ) ? '/' . $cleared_separator . '+/' : '/\s+/';
 
 		// event_organizer_name is a list of $separator-separated names and/or IDs
 		if ( false !== stripos( $organizer, $separator ) ) {
@@ -345,8 +344,6 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	 */
 	private function find_matching_organizer_id( $record ) {
 		$organizer = $this->get_value_by_key( $record, 'event_organizer_name' );
-		error_log($organizer);
-
 
 		// Test for space-separated IDs separately
 		if ( $maybe_spaced_organizers = $this->organizer_is_space_separated_ids( $organizer ) ) {
@@ -354,7 +351,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		}
 
 		// Check for $separator list
-		if ($maybe_separated_organizers = $this->maybe_organizer_is_separated_list( $organizer ) ) {
+		if ( $maybe_separated_organizers = $this->maybe_organizer_is_separated_list( $organizer ) ) {
 			return $this->match_organizers( $maybe_separated_organizers );
 		}
 
