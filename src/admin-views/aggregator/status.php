@@ -191,7 +191,7 @@ $show_third_party_accounts = ! is_network_admin();
 		$text = 'Connected';
 
 		if ( tribe( 'events-aggregator.main' )->api( 'origins' )->is_oauth_enabled( 'eventbrite' ) ) {
-			if ( ! tribe( 'events-aggregator.settings' )->is_fb_credentials_valid() ) {
+			if ( ! tribe( 'events-aggregator.settings' )->has_eb_security_key() ) {
 				$indicator = 'warning';
 				$text = __( 'You have not connected Event Aggregator to Eventbrite', 'the-events-calendar' );
 				$eventbrite_auth_url = Tribe__Events__Aggregator__Record__Eventbrite::get_auth_url( array( 'back' => 'settings' ) );
