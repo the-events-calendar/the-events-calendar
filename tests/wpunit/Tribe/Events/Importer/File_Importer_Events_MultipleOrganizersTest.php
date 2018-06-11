@@ -102,7 +102,7 @@ class File_Importer_Events_MultipleOrganizersTest extends File_Importer_EventsTe
 
 	/**
 	 * @test
-	 * it should import a space separated list of organizer IDs
+	 * it should import a comma separated list of organizer IDs
 	 */
 	public function it_should_import_a_comma_separated_list_of_organizer_ids() {
 		$organizer_ids = $this->factory()->post->create_many( 3, [ 'post_type' => Main::ORGANIZER_POST_TYPE ] );
@@ -140,7 +140,7 @@ class File_Importer_Events_MultipleOrganizersTest extends File_Importer_EventsTe
 
 	/**
 	 * @test
-	 * it should allow for organizers with comma in name to be imported as one
+	 * it should allow for single organizer with comma in name to be imported as one
 	 */
 	public function it_should_allow_for_single_organizer_with_comma_in_name_to_be_imported_as_one() {
 		$organizer_id = $this->factory()->post->create( [ 'post_type' => Main::ORGANIZER_POST_TYPE, 'post_title' => 'Bond, James' ] );
@@ -158,7 +158,7 @@ class File_Importer_Events_MultipleOrganizersTest extends File_Importer_EventsTe
 
 	/**
 	 * @test
-	 * it should allow for organizers with comma in name to be imported as one
+	 * it should import a list of organizer names with filtered separator
 	 */
 	public function it_should_import_a_list_of_organizer_names_with_filtered_separator() {
 		$separator = ';';
@@ -197,7 +197,7 @@ class File_Importer_Events_MultipleOrganizersTest extends File_Importer_EventsTe
 
 	/**
 	 * @test
-	 * it should allow for organizers with comma in name to be imported as one
+	 * it should import a comma separated list of organizer names
 	 */
 	public function it_should_import_a_comma_separated_list_of_organizer_names() {
 		$organizers = array(
@@ -228,7 +228,7 @@ class File_Importer_Events_MultipleOrganizersTest extends File_Importer_EventsTe
 
 	/**
 	 * @test
-	 * it should allow for organizers with comma in name to be imported as one
+	 * it should allow for multiple organizers with comma in names to be imported
 	 */
 	public function it_should_allow_for_multiple_organizers_with_comma_in_names_to_be_imported() {
 		$organizers = array(
@@ -259,7 +259,7 @@ class File_Importer_Events_MultipleOrganizersTest extends File_Importer_EventsTe
 
 	/**
 	 * @test
-	 * it should allow for organizers with comma in name to be imported as one
+	 * it should import a mixed list list of organizer names and ids
 	 */
 	public function it_should_import_a_mixed_list_list_of_organizer_names_and_ids() {
 		$organizers = array(
