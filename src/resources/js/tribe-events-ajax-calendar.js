@@ -511,10 +511,6 @@
 						}
 						// @endif
 
-						// @TODO: We need to D.R.Y. this assignment and the following if statement about shortcodes/do_string
-						// Ensure that the base URL is, in fact, the URL we want
-						td.cur_url = tf.get_base_url();
-
 						var $theContent = '';
 						if ( $.isFunction( $.fn.parseHTML ) ) {
 							$theContent = $.parseHTML( response.html );
@@ -536,6 +532,8 @@
 								$( '#tribe-events.tribe-events-shortcode' ).length
 								|| ts.do_string
 						) {
+							// we only want the URL to be the base URL for these cases
+							td.cur_url = tf.get_base_url();
 							if ( td.default_permalinks ) {
 								td.cur_url = td.cur_url + '&' + ts.url_params;
 							} else {
