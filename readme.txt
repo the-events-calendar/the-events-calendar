@@ -234,6 +234,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - Split linked posts (Organizers and Venues) by ownership, for all users [71349]
 * Fix - The connected status for Eventbrite under Third Party Accounts on the Help page [106868]
 * Fix - Resolved the datepicker losing state after visiting an event and hitting the "back" button on month view. [69707]
+* Fix - Fixed linked post type ordering logic, which could cause `tribe_get_linked_posts_by_post_type()` to return empty (props to @natureslens for reporting this) [105116]
 * Tweak - Modify the default values for the CSV settings if there's no EA license [94426]
 * Tweak - Added classes to meta output in Single Event meta templates to facilitate customization [62704]
 * Tweak - Add the `tribe_aggregator_async_insert_event` filter to allow overriding the Event Aggregator asynchronous event insertion [107929]
