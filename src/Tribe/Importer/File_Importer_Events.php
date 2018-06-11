@@ -308,6 +308,12 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		return $organizer_ids;
 	}
 
+	/**
+	 * Determine if organizer is a list of space-separated IDs
+	 * @param $organizer
+	 *
+	 * @return array[]|bool|false|string[]
+	 */
 	private function organizer_is_space_separated_ids( $organizer ) {
 		$pattern = '/\s+/';
 		if (
@@ -320,6 +326,12 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		return false;
 	}
 
+	/**
+	 * * Determine if organizer is a list of $separator-separated IDs
+	 * @param $organizer
+	 *
+	 * @return array[]|bool|false|string[]
+	 */
 	private function maybe_organizer_is_separated_list( $organizer ) {
 		$separator = $this->get_separator();
 
