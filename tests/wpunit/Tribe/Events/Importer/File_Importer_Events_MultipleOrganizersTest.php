@@ -140,25 +140,6 @@ class File_Importer_Events_MultipleOrganizersTest extends File_Importer_EventsTe
 
 	/**
 	 * @test
-	 * it should import a space separated list of organizer IDs if not all are organizers
-	 */
-	public function it_should_not_import_a_space_separated_list_of_organizers_if_not_all_are_organizers() {
-		$organizer_ids    = $this->factory()->post->create_many( 3, [ 'post_type' => Main::ORGANIZER_POST_TYPE ] );
-		$non_organizer_id = $this->factory()->post->create();
-		$organizer_ids[]  = $non_organizer_id;
-		$this->data       = [
-			'organizer_1' => implode( ' ', $organizer_ids ),
-		];
-
-		$sut = $this->make_instance( 'multiple-organizers' );
-
-		$post_id = $sut->import_next_row();
-
-		$this->assertEmpty( get_post_meta( $post_id, '_EventOrganizerID', false ) );
-	}
-
-	/**
-	 * @test
 	 * it should allow for organizers with comma in name to be imported as one
 	 */
 	public function it_should_allow_for_single_organizer_with_comma_in_name_to_be_imported_as_one() {
@@ -179,7 +160,7 @@ class File_Importer_Events_MultipleOrganizersTest extends File_Importer_EventsTe
 	 * @test
 	 * it should allow for organizers with comma in name to be imported as one
 	 */
-	public function it_should_allow_for_multiple_organizers_with_comma_in_names_to_be_imported() {
+	public function it_should_import_a_comma_separated_list_of_organizer_names() {
 		$organizers = array(
 			'Bond James',
 			'Moneypenny Miss',
@@ -190,10 +171,11 @@ class File_Importer_Events_MultipleOrganizersTest extends File_Importer_EventsTe
 			$organizer_ids[] = $this->factory()->post->create( [ 'post_type' => Main::ORGANIZER_POST_TYPE, 'post_title' => $organizers[$i] ] );
 		}
 
-		fwrite(STDERR, print_r($organizer_ids, TRUE));
+		$this->assertCount( count($organizer_ids), $organizers );
 
+		// Note: we imported above to create IDs, but we use the names here!
 		$this->data   = [
-			'organizer_1' => implode( ', ', $organizer_ids ),
+			'organizer_1' => '"' . implode( ', ', $organizers ) . '"',
 		];
 
 		$sut = $this->make_instance( 'multiple-organizers' );
@@ -201,9 +183,92 @@ class File_Importer_Events_MultipleOrganizersTest extends File_Importer_EventsTe
 		$post_id = $sut->import_next_row();
 
 		$stored_organizer_ids = get_post_meta( $post_id, '_EventOrganizerID', false );
-		fwrite(STDERR, print_r($stored_organizer_ids, TRUE));
 		$this->assertCount( 3, $stored_organizer_ids );
 		$this->assertEqualSets( $organizer_ids, $stored_organizer_ids );
+	}
+
+	/**
+	 * @test
+	 * it should allow for organizers with comma in name to be imported as one
+	 */
+	public function it_should_allow_for_multiple_organizers_with_comma_in_names_to_be_imported() {
+		$organizers = array(
+			'Bond, James',
+			'Moneypenny, Miss',
+			'Leiter, Felix',
+		);
+
+		for( $i =0; $i < 3; $i++ ) {
+			$organizer_ids[] = $this->factory()->post->create( [ 'post_type' => Main::ORGANIZER_POST_TYPE, 'post_title' => $organizers[$i] ] );
+		}
+
+		$this->assertCount( count($organizer_ids), $organizers );
+
+		// Note: we imported above to create IDs, but we use the names here!
+		$this->data   = [
+			'organizer_1' => '"' . implode( ', ', $organizers ) . '"',
+		];
+
+		$sut = $this->make_instance( 'multiple-organizers' );
+
+		$post_id = $sut->import_next_row();
+
+		$stored_organizer_ids = get_post_meta( $post_id, '_EventOrganizerID', false );
+		$this->assertCount( 3, $stored_organizer_ids );
+		$this->assertEqualSets( $organizer_ids, $stored_organizer_ids );
+	}
+
+	/**
+	 * @test
+	 * it should allow for organizers with comma in name to be imported as one
+	 */
+	public function it_should_import_a_mixed_list_list_of_organizer_names_and_ids() {
+		$organizers = array(
+			'Bond, James',
+			'Moneypenny, Miss',
+			'Felix Leiter',
+		);
+
+		for( $i =0; $i < 3; $i++ ) {
+			$organizer_ids[] = $this->factory()->post->create( [ 'post_type' => Main::ORGANIZER_POST_TYPE, 'post_title' => $organizers[$i] ] );
+		}
+
+		$this->assertCount( count($organizer_ids), $organizers );
+
+		$mixed_list = $organizers;
+		$mixed_list[1] = $organizer_ids[1];
+
+		// Note: we imported above to create IDs, but we use the names here!
+		$this->data   = [
+			'organizer_1' => '"' . implode( ', ', $mixed_list ) . '"',
+		];
+
+		$sut = $this->make_instance( 'multiple-organizers' );
+
+		$post_id = $sut->import_next_row();
+
+		$stored_organizer_ids = get_post_meta( $post_id, '_EventOrganizerID', false );
+		$this->assertCount( 3, $stored_organizer_ids );
+		$this->assertEqualSets( $organizer_ids, $stored_organizer_ids );
+	}
+
+	/**
+	 * @test
+	 * it should import a space separated list of organizer IDs if not all are organizers
+	 */
+	public function it_should_not_import_a_space_separated_list_of_organizers_if_not_all_are_organizers() {
+		$organizer_ids    = $this->factory()->post->create_many( 3, [ 'post_type' => Main::ORGANIZER_POST_TYPE ] );
+		$non_organizer_id = $this->factory()->post->create();
+		$organizer_ids[]  = $non_organizer_id;
+		$this->data       = [
+			'organizer_1' => implode( ' ', $organizer_ids ),
+		];
+
+		$sut = $this->make_instance( 'multiple-organizers' );
+
+		$post_id = $sut->import_next_row();
+
+		$this->assertEmpty( get_post_meta( $post_id, '_EventOrganizerID', false ) );
 	}
 
 }
