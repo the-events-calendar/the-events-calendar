@@ -160,10 +160,49 @@ class File_Importer_Events_MultipleOrganizersTest extends File_Importer_EventsTe
 	 * @test
 	 * it should allow for organizers with comma in name to be imported as one
 	 */
+	public function it_should_import_a_list_of_organizer_names_with_filtered_separator() {
+		$separator = ';';
+		add_filter(
+			'tribe_get_event_import_organizer_separator',
+			function( $default_separator ) {
+				return ! empty( $separator ) ? $separator : $default_separator;
+			}
+		);
+
+		$organizers = array(
+			'Bond James',
+			'Miss Moneypenny',
+			'Leiter Felix',
+		);
+
+		for( $i =0; $i < 3; $i++ ) {
+			$organizer_ids[] = $this->factory()->post->create( [ 'post_type' => Main::ORGANIZER_POST_TYPE, 'post_title' => $organizers[$i] ] );
+		}
+
+		$this->assertCount( count($organizer_ids), $organizers );
+
+		// Note: we imported above to create IDs, but we use the names here!
+		$this->data   = [
+			'organizer_1' => '"' . implode( ', ', $organizers ) . '"',
+		];
+
+		$sut = $this->make_instance( 'multiple-organizers' );
+
+		$post_id = $sut->import_next_row();
+
+		$stored_organizer_ids = get_post_meta( $post_id, '_EventOrganizerID', false );
+		$this->assertCount( 3, $stored_organizer_ids );
+		$this->assertEqualSets( $organizer_ids, $stored_organizer_ids );
+	}
+
+	/**
+	 * @test
+	 * it should allow for organizers with comma in name to be imported as one
+	 */
 	public function it_should_import_a_comma_separated_list_of_organizer_names() {
 		$organizers = array(
 			'Bond James',
-			'Moneypenny Miss',
+			'Miss Moneypenny',
 			'Leiter Felix',
 		);
 
