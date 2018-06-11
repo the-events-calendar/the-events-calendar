@@ -165,7 +165,7 @@ class Tribe__Events__Linked_Posts {
 			return '_EventVenueID';
 		}
 
-		if ( Tribe__Events__Venue::POSTTYPE === $post_type ) {
+		if ( Tribe__Events__Organizer::POSTTYPE === $post_type ) {
 			return '_EventOrganizerID';
 		}
 
