@@ -182,8 +182,7 @@ class Tribe__Events__Linked_Posts {
 	 * @return bool|string
 	 */
 	public function get_order_meta_key( $post_type ) {
-
-		if ( Tribe__Events__Venue::POSTTYPE === $post_type ) {
+		if ( Tribe__Events__Organizer::POSTTYPE === $post_type ) {
 			return '_EventOrganizerID_Order';
 		}
 
