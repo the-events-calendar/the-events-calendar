@@ -133,10 +133,10 @@ div.tribe-events-notices > ul > li {
 }
 
 /* IE7 Tweaks */
-* + html .events-archive h2.tribe-events-page-title {
+* + html .events-archive .tribe-events-page-title {
 	padding-bottom: 30px;
 }
-* + html .events-archive .tribe-events-list h2.tribe-events-page-title {
+* + html .events-archive .tribe-events-list .tribe-events-page-title {
 	padding-bottom: 0;
 }
 * + html #tribe-events-header {
@@ -144,25 +144,26 @@ div.tribe-events-notices > ul > li {
 }
 
 /* General Template Headers */
-h2.tribe-events-page-title {
+.tribe-events-page-title {
 	position: relative;
 	z-index: 0;
 	text-align: center;
-}
 
-/* don't float on filter view */
-.tribe-events-filter-view  .tribe-events-list h2.tribe-events-page-title {
-	width: 100%;
-	float: none;
-}
+	/* don't float on filter list view */
+	.tribe-events-filter-view.events-list & {
+		width: 100%;
+		float: none;
+	}
 
-h2.tribe-events-page-title a {
-	color: #000;
-}
-h2.tribe-events-page-title a:hover,
-h2.tribe-events-page-title a:focus {
-	color: #333;
-	text-decoration: underline;
+	a {
+		color: #000;
+
+		&:hover,
+		&:focus {
+			color: #333;
+			text-decoration: underline;
+		}
+	}
 }
 
 /* General Template Header/Footer Nav */
@@ -271,7 +272,7 @@ select.tribe-events-dropdown {
 /* = Day Grid Template Styles
    @ Template: day.php
 =============================================*/
-.tribe-events-day .tribe-events-day-time-slot h5 {
+.tribe-events-day .tribe-events-day-time-slot .tribe-events-day-time-slot-heading {
 	text-transform: uppercase;
 	font-weight: bold;
 	font-size: 14px;
@@ -296,9 +297,6 @@ select.tribe-events-dropdown {
 /* = List View Template Styles
    @ Template: list.php
 =============================================*/
-.tribe-events-list h2.tribe-events-page-title {
-	margin-bottom: 15px;
-}
 
 #tribe-events-content.tribe-events-list {
 	margin-bottom: 60px;
@@ -308,7 +306,7 @@ select.tribe-events-dropdown {
 	padding-top: 0;
 }
 
-.tribe-events-list .type-tribe_events h2 {
+.tribe-events-list .type-tribe_events .tribe-events-list-event-title {
 	padding: 0;
 	line-height: 1.2;
 }

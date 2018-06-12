@@ -187,6 +187,23 @@ class Tribe__Events__Aggregator__Processes__Import_Events extends Tribe__Process
 	 * @return array|false Either the event data to requeue or `false` if done.
 	 */
 	protected function task( $item ) {
+		/**
+		 * Allows replacing the event data import task completely.
+		 *
+		 * Returning a non `null` value here will replace the built in functionality with
+		 * the one implemented by the filtering function.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool|null $done
+		 * @param array|stdClass $item An object or array containing the raw data for this
+		 *                             event.
+		 */
+		$done = apply_filters( 'tribe_aggregator_async_import_event_task', null, $item );
+		if ( null !== $done ) {
+			return $done;
+		}
+
 		$record_id             = $this->record_id = $item['record_id'];
 		$data                  = (array) $item['data'];
 		$this->transitional_id = filter_var( $item['transitional_id'], FILTER_SANITIZE_STRING );
@@ -258,18 +275,45 @@ class Tribe__Events__Aggregator__Processes__Import_Events extends Tribe__Process
 	 *                                                          if the record could not be found.
 	 */
 	protected function insert_event( $record_id, $data ) {
-		$record = $this->get_record( $record_id );
+		try {
+			$record = $this->get_record( $record_id );
 
-		if ( empty( $record ) || $record instanceof WP_Error ) {
-			// no point in going on
-			return false;
+			/**
+			 * Allows replacing the event data insertion completely.
+			 *
+			 * Returning a non `null` value here will replace the built in functionality with
+			 * the one implemented by the filtering function.
+			 *
+			 * @since TBD
+			 *
+			 * @param null|Tribe__Events__Aggregator__Record__Activity $activity The activity resulting
+			 *                                                                   from the event insertion.
+			 * @param Tribe__Events__Aggregator__Record__Abstract $record        The current import record
+			 * @param array|stdClass $data                                       An object or array containing the raw data for this
+			 *                                                                   event.
+			 */
+			$activity = apply_filters( 'tribe_aggregator_async_insert_event', null, $record, $data );
+			if ( null !== $activity ) {
+				return $activity;
+			}
+
+			if ( empty( $record ) || $record instanceof WP_Error ) {
+				// no point in going on
+				return false;
+			}
+
+			if ( ! $this->has_dependencies ) {
+				add_action( 'tribe_aggregator_after_insert_post', array( $this, 'add_transitional_data' ) );
+			}
+
+			$activity = $record->insert_posts( array( $data ) );
+		} catch ( Exception $e ) {
+			$activity         = new Tribe__Events__Aggregator__Record__Activity();
+			$data             = (array) $data;
+			$event_identifier = Tribe__Utils__Array::get( $data, 'global_id', reset( $data ) );
+			$activity->add( 'event', 'skipped', array( $event_identifier ) );
 		}
 
-		if ( ! $this->has_dependencies ) {
-			add_action( 'tribe_aggregator_after_insert_post', array( $this, 'add_transitional_data' ) );
-		}
-
-		$activity = $record->insert_posts( array( $data ) );
 		$record->activity()->merge( $activity );
 		$record->update_meta( 'activity', $record->activity() );
 

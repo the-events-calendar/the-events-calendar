@@ -39,7 +39,7 @@ return array(
 		'validation_type' => 'options',
 		'size'            => 'large',
 		'options'         => array(
-			'event' => esc_html__( 'Use the local time zones for each event', 'the-events-calendar' ),
+			'event' => esc_html__( 'Use manual time zones for each event', 'the-events-calendar' ),
 			'site'  => esc_html__( 'Use the site-wide time zone everywhere', 'the-events-calendar' ),
 		),
 	),

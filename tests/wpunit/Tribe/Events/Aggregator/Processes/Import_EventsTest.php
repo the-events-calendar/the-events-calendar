@@ -218,4 +218,37 @@ class Import_EventsTest extends Aggregator_TestCase {
 			$this->assertEmpty( $meta );
 		}
 	}
+
+	/**
+	 * It should skip the import of an event that generates an exception
+	 *
+	 * @test
+	 */
+	public function should_skip_the_import_of_an_event_that_generates_an_exception() {
+		$item = $this->factory()->import_record->create_and_get_event_record();
+		unset( $item->venue, $item->organizer );
+		$record = new Record();
+		$record->create( 'manual', [], [ 'origin' => 'ical', 'post_status' => 'draft' ] );
+		$data = [
+			'record_id'       => $record->id,
+			'data'            => (array) $item,
+			'transitional_id' => 'foo-bar',
+			'user_id'         => $this->factory()->user->create(),
+		];
+		add_filter( 'tribe_aggregator_async_insert_event', function () {
+			throw new \RuntimeException( 'Something happened while importing the event' );
+		} );
+
+		$sut = $this->make_instance();
+		$sut->push_to_queue( $data );
+		$sut->save();
+		$result = $sut->sync_process();
+
+		/** @var Activity $activity */
+		$activity = $result[0];
+		$this->assertInstanceOf( Activity::class, $activity );
+		$this->assertEquals( 1, $activity->count( Main::POSTTYPE ) );
+		$skipped_event_identifier = $activity->get( Main::POSTTYPE, 'skipped' )[0];
+		$this->assertEquals( $item->global_id, $skipped_event_identifier );
+	}
 }

@@ -122,7 +122,7 @@ class Tribe__Events__iCal {
 			return;
 		}
 
-		if ( is_single() || empty( $wp_query->posts ) ) {
+		if ( ! tribe_is_month() && ( is_single() || empty( $wp_query->posts ) ) ) {
 			return;
 		}
 

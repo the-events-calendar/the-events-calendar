@@ -6,7 +6,7 @@
  * [your-theme]/tribe-events/modules/meta/organizer.php
  *
  * @package TribeEventsCalendar
- * @version 4.4
+ * @version TBD
  */
 
 $organizer_ids = tribe_get_organizer_ids();
@@ -18,7 +18,7 @@ $website = tribe_get_organizer_website_link();
 ?>
 
 <div class="tribe-events-meta-group tribe-events-meta-group-organizer">
-	<h3 class="tribe-events-single-section-title"><?php echo tribe_get_organizer_label( ! $multiple ); ?></h3>
+	<h2 class="tribe-events-single-section-title"><?php echo tribe_get_organizer_label( ! $multiple ); ?></h2>
 	<dl>
 		<?php
 		do_action( 'tribe_events_single_meta_organizer_section_start' );
