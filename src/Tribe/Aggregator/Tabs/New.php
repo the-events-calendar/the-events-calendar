@@ -567,6 +567,9 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 	 * @return string
 	 */
 	public function maybe_display_eventbrite_upsell() {
+		if ( defined( 'TRIBE_HIDE_UPSELL' ) ) {
+			return;
+		}
 
 		if ( ! tribe( 'events-aggregator.main' )->is_service_active() ) {
 			return;
@@ -577,22 +580,8 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		}
 
 		ob_start();
-		?>
-		<div class="tribe-dependent tribe-banner tribe-banner-eventbrite-tickets" data-depends="#tribe-ea-field-origin" data-condition="eventbrite">
 
-			<img src="<?php echo esc_url( tribe_events_resource_url( 'images/aggregator/eventbrite-tickets.svg' ) ) ; ?>">
-
-			<h3><?php esc_html_e( 'Do more with Eventbrite Tickets', 'the-events-calendar' ); ?></h3>
-
-			<a href="http://m.tri.be/1a4d" class="tribe-license-link tribe-button tribe-button-primary" target="_blank">
-				<?php esc_html_e( 'Learn more', 'the-events-calendar' ); ?>
-				<span class="screen-reader-text">
-					<?php esc_html_e( 'opens in a new window', 'the-events-calendar' ); ?>
-				</span>
-			</a>
-
-		</div>
-		<?php
+		include_once Tribe__Events__Main::instance()->pluginPath . 'src/admin-views/aggregator/banners/eventbrite-upsell.php';
 
 		return ob_get_clean();
 	}
