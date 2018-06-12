@@ -212,7 +212,9 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @since TBD
 		 */
-		return apply_filters( 'tribe_events_month_has_events_filtered', Tribe__Events__Template__Month::has_events_filtered() );
+		$tribe_month = new Tribe__Events__Template__Month();
+		$has_events  = $tribe_month->has_events_filtered();
+		return apply_filters( 'tribe_events_month_has_events_filtered', $has_events );
 	}
 
 
