@@ -408,21 +408,7 @@ class Tribe__Events__REST__V1__Post_Repository
 	protected function get_cost_values( $event_id ) {
 		$cost_couples = tribe( 'tec.cost-utils' )->get_event_costs( $event_id );
 
-		global $wp_locale;
-		$cost_values = array();
-		foreach ( $cost_couples as $key => $value ) {
-			$value = str_replace( $wp_locale->number_format['decimal_point'], '.', '' . $value );
-			$value = str_replace( $wp_locale->number_format['thousands_sep'], '', $value );
-			if ( is_numeric( $value ) ) {
-				$cost_values[] = $value;
-			} else {
-				$cost_values[] = $key;
-			}
-		}
-
-		sort( $cost_values, SORT_NUMERIC );
-
-		return $cost_values;
+		return $this->format_and_sort_cost_couples( $cost_couples );
 	}
 
 	/**
