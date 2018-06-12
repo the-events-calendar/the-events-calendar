@@ -30,9 +30,9 @@ class File_Importer_Events_MultipleOrganizersTest extends File_Importer_EventsTe
 		$post_id_2 = $sut->import_next_row();
 		$post_id_3 = $sut->import_next_row();
 
-		$this->assertEquals( $organizer_id, get_post_meta( $post_id_1, '_EventOrganizerID', true )[0] );
-		$this->assertEquals( $organizer_id, get_post_meta( $post_id_2, '_EventOrganizerID', true )[0] );
-		$this->assertEquals( $organizer_id, get_post_meta( $post_id_3, '_EventOrganizerID', true )[0] );
+		$this->assertEquals( $organizer_id, get_post_meta( $post_id_1, '_EventOrganizerID', true ) );
+		$this->assertEquals( $organizer_id, get_post_meta( $post_id_2, '_EventOrganizerID', true ) );
+		$this->assertEquals( $organizer_id, get_post_meta( $post_id_3, '_EventOrganizerID', true ) );
 	}
 
 	/**
@@ -54,13 +54,13 @@ class File_Importer_Events_MultipleOrganizersTest extends File_Importer_EventsTe
 		$post_id_2 = $sut->import_next_row();
 		$post_id_3 = $sut->import_next_row();
 
-		$this->assertCount( 1, get_post_meta( $post_id_1, '_EventOrganizerID', true ) );
-		$this->assertCount( 1, get_post_meta( $post_id_2, '_EventOrganizerID', true ) );
-		$this->assertCount( 1, get_post_meta( $post_id_3, '_EventOrganizerID', true ) );
+		$this->assertCount( 1, get_post_meta( $post_id_1, '_EventOrganizerID', false ) );
+		$this->assertCount( 1, get_post_meta( $post_id_2, '_EventOrganizerID', false ) );
+		$this->assertCount( 1, get_post_meta( $post_id_3, '_EventOrganizerID', false ) );
 
-		$this->assertEquals( $organizer_id, get_post_meta( $post_id_1, '_EventOrganizerID', true )[0] );
-		$this->assertEquals( $organizer_id, get_post_meta( $post_id_2, '_EventOrganizerID', true )[0] );
-		$this->assertEquals( $organizer_id, get_post_meta( $post_id_3, '_EventOrganizerID', true )[0] );
+		$this->assertEquals( $organizer_id, get_post_meta( $post_id_1, '_EventOrganizerID', true ) );
+		$this->assertEquals( $organizer_id, get_post_meta( $post_id_2, '_EventOrganizerID', true ) );
+		$this->assertEquals( $organizer_id, get_post_meta( $post_id_3, '_EventOrganizerID', true ) );
 	}
 
 	/**
@@ -77,7 +77,7 @@ class File_Importer_Events_MultipleOrganizersTest extends File_Importer_EventsTe
 
 		$post_id = $sut->import_next_row();
 
-		$this->assertEquals( $organizer_id, get_post_meta( $post_id, '_EventOrganizerID', true )[0] );
+		$this->assertEquals( $organizer_id, get_post_meta( $post_id, '_EventOrganizerID', true ) );
 	}
 
 	/**
@@ -94,7 +94,8 @@ class File_Importer_Events_MultipleOrganizersTest extends File_Importer_EventsTe
 
 		$post_id = $sut->import_next_row();
 
-		$stored_organizer_ids = get_post_meta( $post_id, '_EventOrganizerID', true );
+		$stored_organizer_ids = get_post_meta( $post_id, '_EventOrganizerID', false );
+		$this->assertCount( 3, $stored_organizer_ids );
 		$this->assertEqualSets( $organizer_ids, $stored_organizer_ids );
 	}
 
@@ -132,7 +133,7 @@ class File_Importer_Events_MultipleOrganizersTest extends File_Importer_EventsTe
 		$post_id = $sut->import_next_row();
 
 		$this->assertCount( 1, get_post_meta( $post_id, '_EventOrganizerID', true ) );
-		$this->assertEquals( $organizer_id, get_post_meta( $post_id, '_EventOrganizerID', true )[0] );
+		$this->assertEquals( $organizer_id, get_post_meta( $post_id, '_EventOrganizerID', true ) );
 	}
 
 	/**
