@@ -630,7 +630,7 @@ class Tribe__Events__Aggregator__Service {
 	 * @return int
 	 */
 	public function get_limit_usage( $ignore_cache = false ) {
-		$limits = $this->get_usage( 'import', $ignore_cache );
+		$limits = (object) $this->get_usage( 'import', $ignore_cache );
 
 		if ( isset( $limits->used ) ) {
 			return $limits->used;
@@ -647,7 +647,7 @@ class Tribe__Events__Aggregator__Service {
 	 * @return int
 	 */
 	public function get_limit_remaining( $ignore_cache = false ) {
-		$limits = $this->get_usage( 'import', $ignore_cache );
+		$limits = (object) $this->get_usage( 'import', $ignore_cache );
 
 		if ( isset( $limits->remaining ) ) {
 			return $limits->remaining;
