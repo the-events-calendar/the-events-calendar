@@ -43,5 +43,7 @@
   "vendor/php-date-formatter/js/*.js",
   "vendor/jquery-placeholder/*.js",
   "vendor/jquery-resize/*.js",
-  "vendor/tribe-common-libraries/**/*"
+  "vendor/tribe-common-libraries/**/*",
+  "data_collection_disclosure.html",
+  "site_owner_data_collection_disclosure.html"
 ]
