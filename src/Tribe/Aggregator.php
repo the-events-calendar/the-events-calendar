@@ -305,7 +305,7 @@ class Tribe__Events__Aggregator {
 	 *
 	 * @since TBD
 	 */
-	public static function has_license_key() {
+	public function has_license_key() {
 		$key = get_option( 'pue_install_key_event_aggregator' );
 		if ( is_multisite() ) {
 			$network_key = get_network_option( null, 'pue_install_key_event_aggregator' );
