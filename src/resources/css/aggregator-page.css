@@ -333,6 +333,41 @@
 	color: #cbe1e8;
 }
 
+.tribe-ea .tribe-banner {
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-align: center;
+	    align-items: center;
+	-ms-flex-pack: center;
+	    justify-content: center;
+	-ms-flex: 1 1 auto;
+	    flex: 1 1 auto;
+}
+
+.tribe-ea .tribe-banner.tribe-active.tribe-dependent {
+	display: -ms-flexbox;
+	display: flex;
+}
+
+.tribe-ea .tribe-banner.tribe-banner-eventbrite-tickets {
+	background-image: linear-gradient(135deg, #0178ba 0%, #0178ba 25%, #01bdac 65%, #01bdac 100%);
+	background-size: cover;
+	padding: 0;
+	text-align: center;
+}
+
+.tribe-ea .tribe-banner.tribe-banner-eventbrite-tickets h3 {
+	color: #fff;
+	font-size: 26px;
+	letter-spacing: 1px;
+	font-weight: normal;
+	padding: 0 45px;
+}
+
+.tribe-ea .tribe-banner.tribe-banner-eventbrite-tickets img {
+	max-width: 165px;
+}
+
 .tribe-ea .tribe-button {
 	border: 1px solid;
 	border-radius: 3px;

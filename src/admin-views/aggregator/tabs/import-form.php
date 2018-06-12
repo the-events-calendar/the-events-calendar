@@ -300,6 +300,7 @@ $scheduled_save_help = esc_html__( 'When you save this scheduled import, the eve
 			?>
 		</p>
 	</div>
+	<?php echo Tribe__Events__Aggregator__Tabs__New::instance()->maybe_display_eventbrite_upsell(); ?>
 </div>
 <?php
 echo Tribe__Events__Aggregator__Tabs__New::instance()->maybe_display_aggregator_upsell();
