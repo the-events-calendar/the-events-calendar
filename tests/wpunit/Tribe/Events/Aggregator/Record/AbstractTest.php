@@ -517,7 +517,7 @@ class AbstractTest extends Events_TestCase {
 		$this->assertCount( 3, $updated_organizers );
 		$this->assertEquals( $organizer_ids, get_post_meta( $created_events[0], '_EventOrganizerID' ) );
 	}
-
+	
 	/**
 	 * It should reschedule a failed import again at half its frequency
 	 *
