@@ -57,7 +57,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 		 */
 		$avoid_duplicates = apply_filters( 'tribe_events_rest_organizer_insert_avoid_duplicates', true, $postarr );
 
-		$id = Tribe__Events__Organizer::instance()->create( array_filter( $postarr ), $postarr['post_status'], $avoid_duplicates );
+		$id = Tribe__Events__Organizer::instance()->create( $postarr, $postarr['post_status'], $avoid_duplicates );
 
 		if ( empty( $id ) ) {
 			$message = $this->messages->get_message( 'could-not-create-organizer' );
@@ -223,36 +223,42 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_user_id' ),
 				'type'              => 'integer',
+				'default'           => null,
 				'description'       => __( 'The organizer author ID', 'the-events-calendar' ),
 			),
 			'date'        => array(
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_time' ),
 				'type'              => 'string',
+				'default'           => null,
 				'description'       => __( 'The organizer publication date', 'the-events-calendar' ),
 			),
 			'date_utc'    => array(
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_time' ),
 				'type'              => 'string',
+				'default'           => null,
 				'description'       => __( 'The organizer publication date (UTC time zone)', 'the-events-calendar' ),
 			),
 			'organizer'   => array(
 				'required'          => true,
 				'validate_callback' => array( $this->validator, 'is_string' ),
 				'type'              => 'string',
+				'default'           => null,
 				'description'       => __( 'The organizer name', 'the-events-calendar' ),
 			),
 			'description' => array(
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_string' ),
 				'type'              => 'string',
+				'default'           => null,
 				'description'       => __( 'The organizer description', 'the-events-calendar' ),
 			),
 			'status'      => array(
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_post_status' ),
 				'type'              => 'string',
+				'default'           => null,
 				'description'       => __( 'The organizer post status', 'the-events-calendar' ),
 			),
 			// Organizer meta fields
@@ -260,24 +266,28 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_string' ),
 				'type'              => 'string',
+				'default'           => null,
 				'description'       => __( 'The organizer phone number', 'the-events-calendar' ),
 			),
 			'website'     => array(
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_url' ),
 				'type'              => 'string',
+				'default'           => null,
 				'description'       => __( 'The organizer website', 'the-events-calendar' ),
 			),
 			'email'       => array(
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_string' ),
 				'type'              => 'string',
+				'default'           => null,
 				'description'       => __( 'The organizer e-mail address', 'the-events-calendar' ),
 			),
 			'image'       => array(
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_image' ),
 				'type'              => 'string',
+				'default'           => null,
 				'description'       => __( 'The organizer featured image ID or URL', 'the-events-calendar' ),
 			),
 		);
@@ -333,6 +343,8 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 		 * @since 4.6.9
 		 */
 		$postarr = apply_filters( 'tribe_events_rest_organizer_prepare_postarr', $postarr, $request );
+
+		$postarr = array_filter( $postarr, array( $this->validator, 'is_not_null' ) );
 
 		return $postarr;
 	}
@@ -440,7 +452,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 	public function update( WP_REST_Request $request ) {
 		$postarr = $this->prepare_postarr( $request );
 
-		$id = Tribe__Events__Organizer::instance()->update( $request['id'], array_filter( $postarr ) );
+		$id = Tribe__Events__Organizer::instance()->update( $request['id'], $postarr );
 
 		if ( empty( $id ) ) {
 			$message = $this->messages->get_message( 'could-not-update-organizer' );
