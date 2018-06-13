@@ -156,6 +156,61 @@ class OrganizerUpdateCest extends BaseRestCest {
 	}
 
 	/**
+	 * It should allow updating optional meta as empty along with the organizer
+	 *
+	 * @test
+	 */
+	public function it_should_allow_updating_optional_meta_as_empty_along_with_the_organizer( Tester $I ) {
+		$organizer_id = $I->haveOrganizerInDatabase();
+
+		$I->generate_nonce_for_role( 'administrator' );
+
+		$I->sendPOST( $this->organizers_url . "/{$organizer_id}", [
+			'organizer' => 'A organizer',
+			'email'     => '',
+			'phone'     => '',
+			'website'   => '',
+		] );
+
+		$I->seeResponseCodeIs( 200 );
+		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse(), true );
+		$I->assertArrayHasKey( 'id', $response );
+		$I->assertArrayHasKey( 'organizer', $response );
+		$I->assertArrayNotHasKey( 'email', $response );
+		$I->assertArrayNotHasKey( 'phone', $response );
+		$I->assertArrayNotHasKey( 'website', $response );
+
+		$I->assertEquals( 'A organizer', $response['organizer'] );
+	}
+
+	/**
+	 * It should allow updating without optional meta along with the organizer
+	 *
+	 * @test
+	 */
+	public function it_should_allow_updating_without_optional_meta_along_with_the_organizer( Tester $I ) {
+		$organizer_id = $I->haveOrganizerInDatabase();
+
+		$I->generate_nonce_for_role( 'administrator' );
+
+		$I->sendPOST( $this->organizers_url . "/{$organizer_id}", [
+			'organizer' => 'A organizer',
+		] );
+
+		$I->seeResponseCodeIs( 200 );
+		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse(), true );
+		$I->assertArrayHasKey( 'id', $response );
+		$I->assertArrayHasKey( 'organizer', $response );
+		$I->assertArrayHasKey( 'email', $response );
+		$I->assertArrayHasKey( 'phone', $response );
+		$I->assertArrayHasKey( 'website', $response );
+
+		$I->assertEquals( 'A organizer', $response['organizer'] );
+	}
+
+	/**
 	 * It should allow updating the image as an attachment ID along with the organizer
 	 *
 	 * @test
