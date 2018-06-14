@@ -110,7 +110,7 @@ $ea_disable = array(
 	),
 );
 
-$global = $ical = $ics = $facebook = $gcal = $meetup = $url = array();
+$global = $ical = $ics = $facebook = $gcal = $meetup = $url = $eb_fields = array();
 // if there's an Event Aggregator license key, add the Global settings, Facebook, iCal, and Meetup fields
 if ( Tribe__Events__Aggregator::is_service_active() && tribe( 'events-aggregator.main' )->has_license_key() ) {
 	$global = array(
@@ -503,6 +503,50 @@ if ( Tribe__Events__Aggregator::is_service_active() && tribe( 'events-aggregator
 			'priority' => 45.6,
 		),
 	);
+
+	$eb_fields = array(
+		'eventbrite-defaults' => array(
+			'type' => 'html',
+			'html' => '<h3 id="tribe-import-eventbrite-settings">' . esc_html__( 'Eventbrite Import Settings', 'tribe-eventbrite' ) . '</h3>',
+			'priority' => 17.1,
+		),
+		'tribe_aggregator_default_eventbrite_post_status' => array(
+			'type'            => 'dropdown',
+			'label'           => esc_html__( 'Default Status', 'tribe-eventbrite' ),
+			'tooltip'         => esc_html__( 'The default post status for events imported via Eventbrite', 'tribe-eventbrite' ),
+			'size'            => 'medium',
+			'validation_type' => 'options',
+			'default'         => '',
+			'can_be_empty'    => true,
+			'parent_option'   => Tribe__Events__Main::OPTIONNAME,
+			'options'         => $origin_post_statuses,
+			'priority'        => 17.2,
+		),
+		'tribe_aggregator_default_eventbrite_category' => array(
+			'type'            => 'dropdown',
+			'label'           => esc_html__( 'Default Event Category', 'tribe-eventbrite' ),
+			'tooltip'         => esc_html__( 'The default event category for events imported via Eventbrite', 'tribe-eventbrite' ),
+			'size'            => 'medium',
+			'validation_type' => 'options',
+			'default'         => '',
+			'can_be_empty'    => true,
+			'parent_option'   => Tribe__Events__Main::OPTIONNAME,
+			'options'         => $origin_categories,
+			'priority'        => 17.3,
+		),
+		'tribe_aggregator_default_eventbrite_show_map' => array(
+			'type'            => 'dropdown',
+			'label'           => esc_html__( 'Show Google Map', 'tribe-eventbrite' ),
+			'tooltip'         => esc_html__( 'Show Google Map by default on imported event and venues', 'tribe-eventbrite' ),
+			'size'            => 'medium',
+			'validation_type' => 'options',
+			'default'         => 'no',
+			'can_be_empty'    => true,
+			'parent_option'   => Tribe__Events__Main::OPTIONNAME,
+			'options'         => $origin_show_map_options,
+			'priority'        => 17.4,
+		),
+	);
 }
 
 $internal = array_merge(
@@ -515,6 +559,7 @@ $internal = array_merge(
 	$gcal,
 	$meetup,
 	$url,
+	$eb_fields,
 	$ea_disable
 );
 
@@ -575,7 +620,20 @@ if ( tribe( 'events-aggregator.main' )->is_service_active() ) {
 			'name'     => __( 'Other URLs', 'the-events-calendar' ),
 			'priority' => 45,
 		),
+		'eventbrite-settings' => array(
+			'name'     => __( 'Eventbrite', 'the-events-calendar' ),
+			'priority' => 17,
+		),
 	);
+
+	/**
+	 * If the user doesn't have a valid EA license key, the $import_setting_links should be an empty array
+	 *
+	 * @since TBD
+	 */
+	if ( ! tribe( 'events-aggregator.main' )->has_license_key() ) {
+		$import_setting_links = array();
+	}
 
 	/**
 	 * Filter the Import Setting Links on the Import Tab
