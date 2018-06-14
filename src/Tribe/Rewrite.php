@@ -113,6 +113,7 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 			->archive( array( '{{ featured }}', '(feed|rdf|rss|rss2|atom)' ), array( 'featured' => true, 'eventDisplay' => 'list', 'feed' => '%1' ) )
 			->archive( array( '{{ month }}' ), array( 'eventDisplay' => 'month' ) )
 			->archive( array( '{{ month }}', '{{ featured }}' ), array( 'eventDisplay' => 'month', 'featured' => true ) )
+			->archive( array( '{{ month }}', '(\d{4}-\d{2})' ), array( 'eventDisplay' => 'month', 'eventDate' => '%1' ) )
 			->archive( array( '{{ list }}', '{{ page }}', '(\d+)' ), array( 'eventDisplay' => 'list', 'paged' => '%1' ) )
 			->archive( array( '{{ list }}', '{{ featured }}', '{{ page }}', '(\d+)' ), array( 'eventDisplay' => 'list', 'featured' => true, 'paged' => '%1' ) )
 			->archive( array( '{{ list }}' ), array( 'eventDisplay' => 'list' ) )
