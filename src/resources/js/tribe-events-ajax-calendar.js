@@ -518,6 +518,10 @@
 							$theContent = response.html;
 						}
 
+						// @TODO: We need to D.R.Y. this assignment and the following if statement about shortcodes/do_string
+						// Ensure that the base URL is, in fact, the URL we want
+						td.cur_url = tf.get_base_url();
+
 						$( '#tribe-events-content' ).replaceWith( $theContent );
 
 						tribe_month_view_init( true );
@@ -532,8 +536,6 @@
 								$( '#tribe-events.tribe-events-shortcode' ).length
 								|| ts.do_string
 						) {
-							// we only want the URL to be the base URL for these cases
-							td.cur_url = tf.get_base_url();
 							if ( td.default_permalinks ) {
 								td.cur_url = td.cur_url + '&' + ts.url_params;
 							} else {
@@ -555,7 +557,7 @@
 							history.pushState( {
 								"tribe_date"  : ts.date,
 								"tribe_params": ts.params
-							}, ts.page_title, td.cur_url );
+							}, ts.page_title, td.cur_url  + '?' + ts.params );
 						}
 
 						$( te ).trigger( 'tribe_ev_ajaxSuccess' ).trigger( 'tribe_ev_monthView_ajaxSuccess' );
