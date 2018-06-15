@@ -6,7 +6,7 @@
  * [your-theme]/tribe-events/modules/meta/venue.php
  *
  * @package TribeEventsCalendar
- * @version TBD
+ * @version 4.6.19
  */
 
 if ( ! tribe_get_venue_id() ) {

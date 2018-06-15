@@ -2,7 +2,7 @@
 /**
  * Tests venue creation functionality
  *
- * @since TBD
+ * @since 4.6.19
  */
 class Venue_Creation_Test extends \Codeception\TestCase\WPTestCase {
 	protected $post_example_settings;
@@ -27,7 +27,7 @@ class Venue_Creation_Test extends \Codeception\TestCase\WPTestCase {
 	 * Check to make sure that the post object is created from a returned post ID.
 	 *
 	 * @uses $post_example_settings
-	 * @since TBD
+	 * @since 4.6.19
 	 */
 	public function test_tribe_create_venue_template_tag_post_object_created() {
 		$post = get_post( tribe_create_venue( $this->post_example_settings ) );
@@ -39,7 +39,7 @@ class Venue_Creation_Test extends \Codeception\TestCase\WPTestCase {
 	 * Check to make sure that the venue data is saved properly.
 	 *
 	 * @uses $post_example_settings
-	 * @since TBD
+	 * @since 4.6.19
 	 */
 	public function test_tribe_create_venue_template_tag_meta_information() {
 		$post = get_post( tribe_create_venue( $this->post_example_settings ) );
@@ -53,7 +53,7 @@ class Venue_Creation_Test extends \Codeception\TestCase\WPTestCase {
 	 * Check to make sure that the post object is created from a returned post ID.
 	 *
 	 * @uses $post_example_settings
-	 * @since TBD
+	 * @since 4.6.19
 	 */
 	public function test_tribe_create_venue_API_post_object_created() {
 		$post = get_post( Tribe__Events__API::createVenue( $this->post_example_settings ) );
@@ -63,7 +63,7 @@ class Venue_Creation_Test extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Check to make sure that the venue data is saved properly.
 	 *
-	 * @since TBD
+	 * @since 4.6.19
 	 */
 	public function test_tribe_create_venue_API_meta_information() {
 		$post = get_post( Tribe__Events__API::createVenue( $this->post_example_settings ) );

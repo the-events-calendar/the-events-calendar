@@ -2,7 +2,7 @@
 /**
  * Eventbrite Upsell Banner
  *
- * @since TBD
+ * @since 4.6.19
  *
  * @see Tribe__Events__Aggregator__Tabs__New::maybe_display_eventbrite_upsell()
  */
