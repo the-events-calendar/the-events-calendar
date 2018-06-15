@@ -565,8 +565,6 @@ $internal = array_merge(
 
 /**
  * If Eventbrite Tickets is enabled and Event Aggregator is disabled, display the correct import settings
- *
- * @since TBD
  */
 if ( class_exists( 'Tribe__Events__Tickets__Eventbrite__Main' ) && ! tribe( 'events-aggregator.main' )->has_license_key() ) {
 	$internal = array_merge(
@@ -642,8 +640,6 @@ if ( tribe( 'events-aggregator.main' )->is_service_active() ) {
 
 	/**
 	 * If Eventbrite Tickets is enabled and Event Aggregator is disabled, display the correct import links
-	 *
-	 * @since TBD
 	 */
 	if ( class_exists( 'Tribe__Events__Tickets__Eventbrite__Main' ) && ! tribe( 'events-aggregator.main' )->has_license_key() ) {
 		$ea_keys = array(
@@ -656,7 +652,7 @@ if ( tribe( 'events-aggregator.main' )->is_service_active() ) {
 		);
 
 		foreach ( $ea_keys as $key ) {
-			unset ( $import_setting_links[ $key ] );
+			unset( $import_setting_links[ $key ] );
 		}
 	}
 
