@@ -562,7 +562,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 	/**
 	 * Renders the "Eventbrite Tickets" upsell
 	 *
-	 * @since TBD
+	 * @since 4.6.19
 	 *
 	 * @return string
 	 */

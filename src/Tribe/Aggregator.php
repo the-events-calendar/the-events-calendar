@@ -303,7 +303,7 @@ class Tribe__Events__Aggregator {
 	 *
 	 * @return boolean
 	 *
-	 * @since TBD
+	 * @since 4.6.19
 	 */
 	public function has_license_key() {
 		$key = get_option( 'pue_install_key_event_aggregator' );

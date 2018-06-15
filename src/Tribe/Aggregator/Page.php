@@ -207,7 +207,7 @@ class Tribe__Events__Aggregator__Page {
 	 * Checks if the license is still valid once the aggregator page
 	 * is accessed.
 	 *
-	 * @since TBD
+	 * @since 4.6.19
 	 *
 	 * @return void
 	 */

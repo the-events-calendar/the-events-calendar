@@ -193,7 +193,7 @@ class Tribe__Events__Aggregator__Processes__Import_Events extends Tribe__Process
 		 * Returning a non `null` value here will replace the built in functionality with
 		 * the one implemented by the filtering function.
 		 *
-		 * @since TBD
+		 * @since 4.6.19
 		 *
 		 * @param bool|null $done
 		 * @param array|stdClass $item An object or array containing the raw data for this
@@ -284,7 +284,7 @@ class Tribe__Events__Aggregator__Processes__Import_Events extends Tribe__Process
 			 * Returning a non `null` value here will replace the built in functionality with
 			 * the one implemented by the filtering function.
 			 *
-			 * @since TBD
+			 * @since 4.6.19
 			 *
 			 * @param null|Tribe__Events__Aggregator__Record__Activity $activity The activity resulting
 			 *                                                                   from the event insertion.

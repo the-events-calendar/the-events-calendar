@@ -3,19 +3,19 @@
 /**
  * Translate post ids in Event meta data.
  *
- * @since TBD
+ * @since 4.6.19
  */
 class Tribe__Events__Integrations__WPML__Meta {
 
 	/**
-	 * @since TBD
+	 * @since 4.6.19
 	 *
 	 * @var Tribe__Events__Integrations__WPML__Meta
 	 */
 	protected static $instance;
 
 	/**
-	 * @since TBD
+	 * @since 4.6.19
 	 *
 	 * @return Tribe__Events__Integrations__WPML__Meta
 	 */
@@ -30,7 +30,7 @@ class Tribe__Events__Integrations__WPML__Meta {
 	/**
 	 * Translates post id in the Event meta data.
 	 *
-	 * @since TBD
+	 * @since 4.6.19
 	 *
 	 * @param string $value
 	 * @param int    $object_id
@@ -91,7 +91,7 @@ class Tribe__Events__Integrations__WPML__Meta {
 	/**
 	 * Query all translations of organizer or venue to fetch events.
 	 *
-	 * @since TBD
+	 * @since 4.6.19
 	 *
 	 * @param object $q
 	 */
