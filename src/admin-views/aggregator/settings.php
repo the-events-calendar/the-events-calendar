@@ -569,6 +569,7 @@ $internal = array_merge(
 if ( class_exists( 'Tribe__Events__Tickets__Eventbrite__Main' ) && ! tribe( 'events-aggregator.main' )->has_license_key() ) {
 	$internal = array_merge(
 		$change_authority,
+		$global,
 		$csv,
 		$eb_fields,
 		$ea_disable
