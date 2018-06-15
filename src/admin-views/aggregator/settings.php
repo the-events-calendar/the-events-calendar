@@ -112,7 +112,7 @@ $ea_disable = array(
 
 $global = $ical = $ics = $facebook = $gcal = $meetup = $url = $eb_fields = array();
 // if there's an Event Aggregator license key, add the Global settings, Facebook, iCal, and Meetup fields
-if ( Tribe__Events__Aggregator::is_service_active() && tribe( 'events-aggregator.main' )->has_license_key() ) {
+if ( Tribe__Events__Aggregator::is_service_active() ) {
 	$global = array(
 		'import-defaults' => array(
 			'type' => 'html',
@@ -507,13 +507,13 @@ if ( Tribe__Events__Aggregator::is_service_active() && tribe( 'events-aggregator
 	$eb_fields = array(
 		'eventbrite-defaults' => array(
 			'type' => 'html',
-			'html' => '<h3 id="tribe-import-eventbrite-settings">' . esc_html__( 'Eventbrite Import Settings', 'tribe-eventbrite' ) . '</h3>',
+			'html' => '<h3 id="tribe-import-eventbrite-settings">' . esc_html__( 'Eventbrite Import Settings', 'the-events-calendar' ) . '</h3>',
 			'priority' => 17.1,
 		),
 		'tribe_aggregator_default_eventbrite_post_status' => array(
 			'type'            => 'dropdown',
-			'label'           => esc_html__( 'Default Status', 'tribe-eventbrite' ),
-			'tooltip'         => esc_html__( 'The default post status for events imported via Eventbrite', 'tribe-eventbrite' ),
+			'label'           => esc_html__( 'Default Status', 'the-events-calendar' ),
+			'tooltip'         => esc_html__( 'The default post status for events imported via Eventbrite', 'the-events-calendar' ),
 			'size'            => 'medium',
 			'validation_type' => 'options',
 			'default'         => '',
@@ -524,8 +524,8 @@ if ( Tribe__Events__Aggregator::is_service_active() && tribe( 'events-aggregator
 		),
 		'tribe_aggregator_default_eventbrite_category' => array(
 			'type'            => 'dropdown',
-			'label'           => esc_html__( 'Default Event Category', 'tribe-eventbrite' ),
-			'tooltip'         => esc_html__( 'The default event category for events imported via Eventbrite', 'tribe-eventbrite' ),
+			'label'           => esc_html__( 'Default Event Category', 'the-events-calendar' ),
+			'tooltip'         => esc_html__( 'The default event category for events imported via Eventbrite', 'the-events-calendar' ),
 			'size'            => 'medium',
 			'validation_type' => 'options',
 			'default'         => '',
@@ -536,8 +536,8 @@ if ( Tribe__Events__Aggregator::is_service_active() && tribe( 'events-aggregator
 		),
 		'tribe_aggregator_default_eventbrite_show_map' => array(
 			'type'            => 'dropdown',
-			'label'           => esc_html__( 'Show Google Map', 'tribe-eventbrite' ),
-			'tooltip'         => esc_html__( 'Show Google Map by default on imported event and venues', 'tribe-eventbrite' ),
+			'label'           => esc_html__( 'Show Google Map', 'the-events-calendar' ),
+			'tooltip'         => esc_html__( 'Show Google Map by default on imported event and venues', 'the-events-calendar' ),
 			'size'            => 'medium',
 			'validation_type' => 'options',
 			'default'         => 'no',
@@ -562,6 +562,20 @@ $internal = array_merge(
 	$eb_fields,
 	$ea_disable
 );
+
+/**
+ * If Eventbrite Tickets is enabled and Event Aggregator is disabled, display the correct import settings
+ *
+ * @since TBD
+ */
+if ( class_exists( 'Tribe__Events__Tickets__Eventbrite__Main' ) && ! tribe( 'events-aggregator.main' )->has_license_key() ) {
+	$internal = array_merge(
+		$change_authority,
+		$csv,
+		$eb_fields,
+		$ea_disable
+	);
+}
 
 /**
  * Filter the Aggregator Setting Fields
@@ -627,12 +641,23 @@ if ( tribe( 'events-aggregator.main' )->is_service_active() ) {
 	);
 
 	/**
-	 * If the user doesn't have a valid EA license key, the $import_setting_links should be an empty array
+	 * If Eventbrite Tickets is enabled and Event Aggregator is disabled, display the correct import links
 	 *
 	 * @since TBD
 	 */
-	if ( ! tribe( 'events-aggregator.main' )->has_license_key() ) {
-		$import_setting_links = array();
+	if ( class_exists( 'Tribe__Events__Tickets__Eventbrite__Main' ) && ! tribe( 'events-aggregator.main' )->has_license_key() ) {
+		$ea_keys = array(
+			'ical-settings',
+			'ics-settings',
+			'facebook-settings',
+			'google-settings',
+			'meetup-settings',
+			'url-settings',
+		);
+
+		foreach ( $ea_keys as $key ) {
+			unset ( $import_setting_links[ $key ] );
+		}
 	}
 
 	/**
