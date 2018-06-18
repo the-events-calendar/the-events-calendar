@@ -6,7 +6,6 @@
 $internal = array();
 $use_global_settings_phrase = __( 'Use global import settings', 'the-events-calendar' );
 $post_statuses = get_post_statuses( array() );
-$origin_post_statuses = array( '' => $use_global_settings_phrase ) + $post_statuses;
 $category_dropdown = wp_dropdown_categories( array(
 	'echo'       => false,
 	'hide_empty' => false,
@@ -18,6 +17,10 @@ $categories = array(
 	'' => __( 'No default category', 'the-events-calendar' ),
 );
 $events_aggregator_is_active = tribe( 'events-aggregator.main' )->is_service_active();
+
+$origin_post_statuses = $events_aggregator_is_active
+	? array( '' => $use_global_settings_phrase ) + $post_statuses
+	: $post_statuses;
 
 $origin_categories = array(
 	'' => $events_aggregator_is_active ? $use_global_settings_phrase : esc_html__( 'None', 'the-events-calendar' ),
