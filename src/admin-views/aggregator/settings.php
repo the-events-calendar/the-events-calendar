@@ -18,7 +18,9 @@ $categories = array(
 );
 $events_aggregator_is_active = tribe( 'events-aggregator.main' )->is_service_active();
 
-$origin_post_statuses = $events_aggregator_is_active ? array( '' => $use_global_settings_phrase ) + $post_statuses : $post_statuses;
+$origin_post_statuses = $events_aggregator_is_active
+	? array( '' => $use_global_settings_phrase ) + $post_statuses
+	: $post_statuses;
 
 $origin_categories = array(
 	'' => $events_aggregator_is_active ? $use_global_settings_phrase : esc_html__( 'None', 'the-events-calendar' ),
