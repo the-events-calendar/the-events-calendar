@@ -2937,7 +2937,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				 * @var $meta
 				 * @var $single
 				 */
-				$value = apply_filters( "tribe_get_meta_default_value_{ $filter }", $default, $id, $meta, $single );
+				$value = apply_filters( "tribe_get_meta_default_value_{$filter}", $default, $id, $meta, $single );
 			}
 			return $value;
 		}
