@@ -5,7 +5,7 @@
  *
  *     [your-theme]/tribe-events/modules/map.php
  *
- * @version 4.6.9
+ * @version 4.6.19
  *
  * @var $index
  * @var $width
