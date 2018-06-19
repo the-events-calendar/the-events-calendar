@@ -557,7 +557,7 @@
 							history.pushState( {
 								"tribe_date"  : ts.date,
 								"tribe_params": ts.params
-							}, ts.page_title, td.cur_url  + '?' + ts.params );
+							}, ts.page_title, td.cur_url );
 						}
 
 						$( te ).trigger( 'tribe_ev_ajaxSuccess' ).trigger( 'tribe_ev_monthView_ajaxSuccess' );
