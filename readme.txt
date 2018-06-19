@@ -215,7 +215,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
-= [4.6.19] 2018-06-19 =
+= [4.6.19] 2018-06-20 =
 
 * Feature - CSV importer now supports a featured event column [72376]
 * Add - Add Eventbrite Icon to Third Party Accounts on the help page [105388]
