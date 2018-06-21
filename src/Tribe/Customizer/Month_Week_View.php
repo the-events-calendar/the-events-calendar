@@ -213,7 +213,7 @@ final class Tribe__Events__Customizer__Month_Week_View extends Tribe__Customizer
 	/**
 	 * Set default values according to the selected stylesheet
 	 *
-	 * @since TBD
+	 * @since 4.6.19
 	 *
 	 * @return void
 	 */

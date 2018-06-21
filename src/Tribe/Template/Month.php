@@ -1237,7 +1237,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		/**
 		 * Check if the month has events when all the filters have been applied.
 		 *
-		 * @since TBD
+		 * @since 4.6.19
 		 *
 		 * @return bool
 		 */

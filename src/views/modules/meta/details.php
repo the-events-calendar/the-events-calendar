@@ -6,7 +6,7 @@
  * [your-theme]/tribe-events/modules/meta/details.php
  *
  * @package TribeEventsCalendar
- * @version TBD
+ * @version 4.6.19
  */
 
 

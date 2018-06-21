@@ -2,7 +2,7 @@
 /**
  * Tests organizer creation functionality
  *
- * @since TBD
+ * @since 4.6.19
  */
 class Organizer_Creation_Test extends \Codeception\TestCase\WPTestCase {
 	protected $post_example_settings;
@@ -23,7 +23,7 @@ class Organizer_Creation_Test extends \Codeception\TestCase\WPTestCase {
 	 * Check to make sure that the post object is created from a returned post ID.
 	 *
 	 * @uses $post_example_settings
-	 * @since TBD
+	 * @since 4.6.19
 	 */
 	public function test_tribe_create_organizer_template_tag_post_object_created() {
 		$post = get_post( tribe_create_organizer( $this->post_example_settings ) );
@@ -35,7 +35,7 @@ class Organizer_Creation_Test extends \Codeception\TestCase\WPTestCase {
 	 * Check to make sure that the organizer data is saved properly.
 	 *
 	 * @uses $post_example_settings
-	 * @since TBD
+	 * @since 4.6.19
 	 */
 	public function test_tribe_create_organizer_template_tag_meta_information() {
 		$post = get_post( tribe_create_organizer( $this->post_example_settings ) );
@@ -49,7 +49,7 @@ class Organizer_Creation_Test extends \Codeception\TestCase\WPTestCase {
 	 * Check to make sure that the post object is created from a returned post ID.
 	 *
 	 * @uses $post_example_settings
-	 * @since TBD
+	 * @since 4.6.19
 	 */
 	public function test_tribe_create_organizer_API_post_object_created() {
 		$post = get_post( Tribe__Events__API::createOrganizer( $this->post_example_settings ) );
@@ -59,7 +59,7 @@ class Organizer_Creation_Test extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Check to make sure that the organizer data is saved properly.
 	 *
-	 * @since TBD
+	 * @since 4.6.19
 	 */
 	public function test_tribe_create_organizer_API_meta_information() {
 		$post = get_post( Tribe__Events__API::createOrganizer( $this->post_example_settings ) );

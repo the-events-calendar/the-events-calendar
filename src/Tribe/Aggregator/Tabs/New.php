@@ -560,6 +560,34 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 	}
 
 	/**
+	 * Renders the "Eventbrite Tickets" upsell
+	 *
+	 * @since 4.6.19
+	 *
+	 * @return string
+	 */
+	public function maybe_display_eventbrite_upsell() {
+		if ( defined( 'TRIBE_HIDE_UPSELL' ) ) {
+			return;
+		}
+
+		if ( ! tribe( 'events-aggregator.main' )->is_service_active() ) {
+			return;
+		}
+
+		if ( class_exists( 'Tribe__Events__Tickets__Eventbrite__Main' ) ) {
+			return;
+		}
+
+		ob_start();
+
+		include_once Tribe__Events__Main::instance()->pluginPath . 'src/admin-views/aggregator/banners/eventbrite-upsell.php';
+
+		return ob_get_clean();
+	}
+
+
+	/**
 	 * Renders the "Expired Aggregator License" notice
 	 *
 	 * @return string

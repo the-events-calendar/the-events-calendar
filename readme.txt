@@ -4,7 +4,7 @@ Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.5
-Stable tag: 4.6.18
+Stable tag: 4.6.19
 Tested up to: 4.9.6
 Requires PHP: 5.2.4
 License: GPLv2 or later
@@ -215,7 +215,10 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
-= [4.6.19] TBD =
+= [4.6.20] TBD =
+* Fix - Fixed linked post type ordering logic, which could cause `tribe_get_linked_posts_by_post_type()` to return empty (props to @natureslens for reporting this) [105116]
+
+= [4.6.19] 2018-06-20 =
 
 * Feature - CSV importer now supports a featured event column [72376]
 * Add - Add Eventbrite Icon to Third Party Accounts on the help page [105388]
@@ -233,9 +236,12 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - Correct the pagination in list view when a keyword is being searched. Thanks to @versi, @akr and Mary for reporting this! [94613]
 * Fix - Split linked posts (Organizers and Venues) by ownership, for all users [71349]
 * Fix - The connected status for Eventbrite under Third Party Accounts on the Help page [106868]
+<<<<<<< HEAD
 * Fix - Resolved the datepicker losing state after visiting an event and hitting the "back" button on month view. [69707]
-* Fix - Fixed linked post type ordering logic, which could cause `tribe_get_linked_posts_by_post_type()` to return empty (props to @natureslens for reporting this) [105116]
+=======
+>>>>>>> release/M18.10
 * Fix - Fixed two PHP 5.2 errors on the Events > Help page [108338]
+* Fix - Display the correct Import Settings when Eventbrite Tickets is enabled [106947]
 * Tweak - Modify the default values for the CSV settings if there's no EA license [94426]
 * Tweak - Added classes to meta output in Single Event meta templates to facilitate customization [62704]
 * Tweak - Add the `tribe_aggregator_async_insert_event` filter to allow overriding the Event Aggregator asynchronous event insertion [107929]
@@ -251,6 +257,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Tweak - Enable only url imports for Eventbrite when that plugin is not active [107415]
 * Tweak - The EB 4.5 migration process to better detect events for migration and insure all fields are migrated [106623]
 * Tweak - Add `tribe_events_month_has_events_filtered` function and filter to see if there are events on a certain month, with filters (categories, search) [67607]
+* Language - 68 new strings added, 406 updated, 3 fuzzied, and 37 obsoleted
 
 = [4.6.18] 2018-06-04 =
 
