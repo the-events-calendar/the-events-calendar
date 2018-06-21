@@ -471,7 +471,7 @@
 			if ( tt.pushstate && !ts.filter_cats ) {
 
 				// @ifdef DEBUG
-				dbug && debug.time( 'Month View Ajax Timer' );
+				dbug && tec_debug.time( 'Month View Ajax Timer' );
 				// @endif
 
 				$( te ).trigger( 'tribe_ev_ajaxStart' ).trigger( 'tribe_ev_monthView_AjaxStart' );
@@ -502,7 +502,7 @@
 
 						// @ifdef DEBUG
 						if ( dbug && response.html === 0 ) {
-							debug.warn( 'Month view ajax had an error in the query and returned 0.' );
+							tec_debug.warn( 'Month view ajax had an error in the query and returned 0.' );
 						}
 						// @endif
 
@@ -557,7 +557,7 @@
 						$( te ).trigger( 'ajax-success.tribe' ).trigger( 'tribe_ev_monthView_ajaxSuccess' );
 
 						// @ifdef DEBUG
-						dbug && debug.timeEnd( 'Month View Ajax Timer' );
+						dbug && tec_debug.timeEnd( 'Month View Ajax Timer' );
 						// @endif
 					}
 				);
@@ -574,8 +574,8 @@
 		}
 
 		// @ifdef DEBUG
-		dbug && debug.info( 'TEC Debug: tribe-events-ajax-calendar.js successfully loaded, Tribe Events Init finished' );
-		dbug && debug.timeEnd( 'Tribe JS Init Timer' );
+		dbug && tec_debug.info( 'TEC Debug: tribe-events-ajax-calendar.js successfully loaded, Tribe Events Init finished' );
+		dbug && tec_debug.timeEnd( 'Tribe JS Init Timer' );
 		// @endif
 	} );
 
