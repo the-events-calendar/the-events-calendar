@@ -1535,6 +1535,9 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$GLOBALS['post'] = $global_post;
 		}
 
+		// Setup post data to be able to use WP template tags
+		setup_postdata($post);
+
 		/**
 		 * Filter the event excerpt used in various views.
 		 *
