@@ -236,10 +236,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - Correct the pagination in list view when a keyword is being searched. Thanks to @versi, @akr and Mary for reporting this! [94613]
 * Fix - Split linked posts (Organizers and Venues) by ownership, for all users [71349]
 * Fix - The connected status for Eventbrite under Third Party Accounts on the Help page [106868]
-<<<<<<< HEAD
 * Fix - Resolved the datepicker losing state after visiting an event and hitting the "back" button on month view. [69707]
-=======
->>>>>>> release/M18.10
 * Fix - Fixed two PHP 5.2 errors on the Events > Help page [108338]
 * Fix - Display the correct Import Settings when Eventbrite Tickets is enabled [106947]
 * Tweak - Modify the default values for the CSV settings if there's no EA license [94426]
