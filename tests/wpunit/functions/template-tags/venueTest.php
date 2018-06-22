@@ -2,7 +2,7 @@
 
 namespace Tribe\Events\functions\templateTags;
 
-use Tribe\Events\Tests\Testcases\Events_TestCase;
+use Tribe\Events\Test\Testcases\Events_TestCase;
 
 class venueTest extends Events_TestCase {
 	protected $posts = [];

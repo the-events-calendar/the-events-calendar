@@ -335,6 +335,7 @@ class Tribe__Events__Aggregator__Cron {
 
 			// Creating the child records based on this Parent
 			$child = $record->create_child_record();
+
 			tribe( 'logger' )->log_debug( sprintf( 'Creating child record %d for %d', $child->id, $record->id ), 'EA Cron' );
 
 			if ( ! is_wp_error( $child ) ) {
@@ -342,12 +343,16 @@ class Tribe__Events__Aggregator__Cron {
 
 				// Creates on the Service a Queue to Fetch the events
 				$response = $child->queue_import();
+
 				tribe( 'logger' )->log_debug( sprintf( 'Queueing import on EA Service for %d (child of %d)', $child->id, $record->id ), 'EA Cron' );
+
 				if ( ! empty( $response->status ) ) {
 					tribe( 'logger' )->log_debug( sprintf( '%s — %s (%s)', $response->status, $response->message, $response->data->import_id ),
 						'EA Cron' );
 
 					$record->update_meta( 'last_import_status', 'success:queued' );
+
+					$this->maybe_process_immediately( $record );
 				} elseif ( is_numeric( $response ) ) {
 					// it's the post ID of a rescheduled record
 					tribe( 'logger' )->log_debug( sprintf( 'rescheduled — %s', $response ), 'EA Cron' );
@@ -392,9 +397,21 @@ class Tribe__Events__Aggregator__Cron {
 			'posts_per_page' => - 1,
 			'order'          => 'ASC',
 			'meta_query'     => array(
-				array(
-					'key'     => '_tribe_aggregator_origin',
-					'value'   => 'csv',
+				'origin-not-csv' => array(
+					'key' => '_tribe_aggregator_origin',
+					'value' => 'csv',
+					'compare' => '!=',
+				),
+				// if not specified then assume batch push is not supported
+				'no-batch-push-support-specified' => array(
+					'key' => '_tribe_aggregator_allow_batch_push',
+					'value' => 'bug #23268',
+					'compare' => 'NOT EXISTS',
+				),
+				// if specified and not `1` then batch push is not supported
+				'explicit-no-batch-push-support' => array(
+					'key' => '_tribe_aggregator_allow_batch_push',
+					'value' => '1',
 					'compare' => '!=',
 				),
 			),
@@ -435,10 +452,10 @@ class Tribe__Events__Aggregator__Cron {
 			$queue = $record->process_posts();
 
 			if ( ! is_wp_error( $queue ) ) {
-				/** @var Tribe__Events__Aggregator__Record__Queue $queue */
+				/** @var Tribe__Events__Aggregator__Record__Queue_Interface $queue */
 				tribe( 'logger' )->log_debug( sprintf( 'Record (%d) has processed queue ', $record->id ), 'EA Cron' );
 
-				if ( $queue instanceof Tribe__Events__Aggregator__Record__Queue ) {
+				if ( $queue instanceof Tribe__Events__Aggregator__Record__Queue_Interface ) {
 					$activity = $queue->activity()->get();
 				} else {
 					// if fetching or on error
@@ -551,5 +568,23 @@ class Tribe__Events__Aggregator__Cron {
 					'EA Cron' );
 			}
 		}
+	}
+
+	/**
+	 * Tries to fetch the data for the scheduled import and immediately process it.
+	 *
+	 * @since 4.6.16
+	 *
+	 * @param Tribe__Events__Aggregator__Record__Abstract $record
+	 */
+	protected function maybe_process_immediately( Tribe__Events__Aggregator__Record__Abstract $record ) {
+		$import_data = $record->prep_import_data();
+
+		if ( empty( $import_data ) || $import_data instanceof WP_Error || ! is_array( $import_data ) ) {
+			return;
+		}
+
+		tribe( 'logger' )->log_debug( sprintf( 'Import %s data available: processing immediately', $record->id ) );
+		$record->process_posts( $import_data, true );
 	}
 }

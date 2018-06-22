@@ -21,6 +21,17 @@ class Tribe__Events__Aggregator__Record__Facebook extends Tribe__Events__Aggrega
 	}
 
 	/**
+	 * Gets the Regular Expression string to match a source URL
+	 *
+	 * @since 4.6.18
+	 *
+	 * @return string
+	 */
+	public static function get_source_regexp() {
+		return '^(https?:\/\/)?(www\.)?facebook\.com(\.[a-z]{2})?\/';
+	}
+
+	/**
 	 * Returns the Facebook authorization token generation URL.
 	 *
 	 * @param array $args

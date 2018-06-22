@@ -100,6 +100,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		// mark the record creation as a preview record
 		$meta['preview'] = true;
 
+
 		if ( ! empty( $post_data['import_id'] ) ) {
 			$this->handle_import_finalize( $post_data );
 			return;
@@ -218,9 +219,11 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		$record->update_meta( 'interactive', true );
 
 		if ( 'csv' === $data['origin'] ) {
+            // here generate a global_id for the data
 			$result = $record->process_posts( $data );
 		} else {
-			$result = $record->process_posts();
+			// let the record fetch the data and start immediately if possible
+			$result = $record->process_posts( array(), true );
 		}
 
 		$result->record = $record;
@@ -236,6 +239,13 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		}
 	}
 
+	/**
+	 * Parses the queue for errors and informations.
+	 *
+	 * @param Tribe__Events__Aggregator__Record__Queue_Interface|WP_Error $queue
+	 *
+	 * @return array
+	 */
 	public function get_result_messages( $queue ) {
 		$messages = array();
 
@@ -548,6 +558,34 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 
 		return ob_get_clean();
 	}
+
+	/**
+	 * Renders the "Eventbrite Tickets" upsell
+	 *
+	 * @since 4.6.19
+	 *
+	 * @return string
+	 */
+	public function maybe_display_eventbrite_upsell() {
+		if ( defined( 'TRIBE_HIDE_UPSELL' ) ) {
+			return;
+		}
+
+		if ( ! tribe( 'events-aggregator.main' )->is_service_active() ) {
+			return;
+		}
+
+		if ( class_exists( 'Tribe__Events__Tickets__Eventbrite__Main' ) ) {
+			return;
+		}
+
+		ob_start();
+
+		include_once Tribe__Events__Main::instance()->pluginPath . 'src/admin-views/aggregator/banners/eventbrite-upsell.php';
+
+		return ob_get_clean();
+	}
+
 
 	/**
 	 * Renders the "Expired Aggregator License" notice

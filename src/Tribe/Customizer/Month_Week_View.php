@@ -36,7 +36,6 @@ final class Tribe__Events__Customizer__Month_Week_View extends Tribe__Customizer
 			$template .= '
 				#tribe-events .tribe-events-calendar td.tribe-events-othermonth,
 				#tribe-events .tribe-grid-allday,
-				#tribe-events .tribe-week-today,
 				#tribe-events .tribe-events-calendar td:hover {
 					background-color: <%= month_week_view.cell_inactive_bg_color %>;
 				}
@@ -104,18 +103,25 @@ final class Tribe__Events__Customizer__Month_Week_View extends Tribe__Customizer
 	}
 
 	public function create_ghost_settings( $settings = array() ) {
+
+		// Retrieve the stylesheet option to set the proper defaults
+		$style_option = tribe_get_option( 'stylesheetOption', 'tribe' );
+
 		if ( ! empty( $settings['table_bg_color'] ) ) {
 			$table_bg_color = new Tribe__Utils__Color( $settings['table_bg_color'] );
-
-			$settings['table_header_bg_color'] = '#' . $table_bg_color->darken( 70 );
+			$settings['table_header_bg_color'] = '#' . $table_bg_color->darken( 13 );
+			$settings['cell_inactive_header_bg_color'] = '#' . $table_bg_color->darken( 4 );
+			$settings['cell_header_bg_color'] = '#' . $table_bg_color->darken( 4 );
 
 			$settings['border_light_color'] = '#' . $table_bg_color->darken( 8 );
 			$settings['border_dark_color'] = '#' . $table_bg_color->darken( 15 );
 
-			$settings['cell_inactive_bg_color'] = '#' . $table_bg_color->darken( 3 );
-			$settings['cell_inactive_header_bg_color'] = '#' . $table_bg_color->darken( 15 );
-			$settings['cell_header_bg_color'] = '#' . $table_bg_color->darken( 30 );
-
+			if ( 'full' !== $style_option ) {
+				$settings['table_header_bg_color'] = '#' . $table_bg_color->darken( 70 );
+				$settings['cell_inactive_bg_color'] = '#' . $table_bg_color->darken( 3 );
+				$settings['cell_inactive_header_bg_color'] = '#' . $table_bg_color->darken( 15 );
+				$settings['cell_header_bg_color'] = '#' . $table_bg_color->darken( 30 );
+			}
 		}
 
 		if ( ! empty( $settings['highlight_color'] ) ) {
@@ -133,10 +139,8 @@ final class Tribe__Events__Customizer__Month_Week_View extends Tribe__Customizer
 	 * @return array
 	 */
 	public function setup() {
-		$this->defaults = array(
-			'table_bg_color' => '#f9f9f9',
-			'highlight_color' => '#21759b',
-		);
+
+		$this->set_defaults();
 
 		$this->arguments = array(
 			'priority'    => 30,
@@ -204,6 +208,35 @@ final class Tribe__Events__Customizer__Month_Week_View extends Tribe__Customizer
 		// Introduced to make Selective Refresh have less code duplication
 		$customizer->add_setting_name( $customizer->get_setting_name( 'table_bg_color', $section ) );
 		$customizer->add_setting_name( $customizer->get_setting_name( 'highlight_color', $section ) );
+	}
+
+	/**
+	 * Set default values according to the selected stylesheet
+	 *
+	 * @since 4.6.19
+	 *
+	 * @return void
+	 */
+	public function set_defaults() {
+
+		// Retrieve the stylesheet option to set the proper defaults
+		$style_option = tribe_get_option( 'stylesheetOption', 'tribe' );
+
+		switch ( $style_option ) {
+			case 'full': // Full styles
+				$this->defaults = array(
+					'table_bg_color'  => '#fff',
+					'highlight_color' => '#666',
+				);
+				break;
+			case 'skeleton': // Skeleton styles
+			default:         // tribe styles is the default so add full and theme (tribe)
+				$this->defaults = array(
+					'table_bg_color'  => '#f9f9f9',
+					'highlight_color' => '#21759b',
+				);
+				break;
+		}
 	}
 
 }

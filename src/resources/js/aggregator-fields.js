@@ -10,6 +10,7 @@ tribe_aggregator.fields = {
 		fields                  : '.tribe-ea-field',
 		dropdown                : '.tribe-ea-dropdown',
 		origin_field            : '#tribe-ea-field-origin',
+		field_url_source        : '#tribe-ea-field-url_source',
 		import_type_field       : '.tribe-import-type',
 		media_button            : '.tribe-ea-media_button',
 		datepicker              : '.tribe-datepicker',
@@ -122,15 +123,73 @@ tribe_aggregator.fields = {
 				$( '.tribe-bumpdown:visible' ).hide();
 
 				// reset all the select2 fields other than the origin
-				$( '.tribe-ea-tab-new .tribe-ea-dropdown:not([id$="tribe-ea-field-origin"])' ).select2( 'val', '' ).change();
+				// $( '.tribe-ea-tab-new .tribe-ea-dropdown:not([id$="tribe-ea-field-origin"])' ).select2( 'val', '' ).change();
 
 				// reset all the inputs to default values
-				$( '.tribe-ea-tab-new .tribe-ea-form input' ).val( function() { return this.defaultValue; } ).change();
+				// $( '.tribe-ea-tab-new .tribe-ea-form input' ).val( function() { return this.defaultValue; } ).change();
 
 				if ( 'redirect' === $( this ).val() ) {
 					window.open( 'https://theeventscalendar.com/wordpress-event-aggregator/?utm_source=importoptions&utm_medium=plugin-tec&utm_campaign=in-app','_blank' );
 					location.reload();
 				}
+			} )
+			.on( 'change', obj.selector.field_url_source, function( e ) {
+				var $field = $( this );
+				var value = $field.val();
+				var origin = null;
+
+				if ( ! value ) {
+					return;
+				}
+
+				_.each( ea.source_origin_regexp, function( regularExpression, key ) {
+					var exp = new RegExp( regularExpression, 'g' );
+					var match = exp.exec( value );
+
+					if ( null === match ) {
+						return;
+					}
+
+					origin = key;
+				} );
+
+				if ( null == origin ) {
+					return;
+				}
+
+				var $origin = $( obj.selector.origin_field );
+
+				// Prevent Changing when dealing with Non-Existant Origin
+				if ( ! $origin.find( 'option[value="' + origin + '"]' ).length ) {
+					return;
+				}
+
+				var $type = $( '#tribe-ea-field-url_import_type' );
+				var typeValue = $type.val();
+				var frequencyValue = null;
+				if ( 'schedule' === typeValue ) {
+					frequencyValue = $( '#tribe-ea-field-url_import_frequency' ).val();
+				}
+
+				// Reset type value to avoid bugs
+				$type.val( '' );
+
+				// Change the Origin to what ever matched
+				$origin.val( origin ).trigger( 'change' );
+
+				// Change the frequency accordingly
+				$( '#tribe-ea-field-' + origin + '_import_type' ).val( typeValue ).trigger( 'change' );
+				if ( 'schedule' === typeValue ) {
+					$( '#tribe-ea-field-' + origin + '_import_frequency' ).val( frequencyValue ).trigger( 'change' );
+				}
+
+				if ( 'eventbrite' === origin ) {
+					$( '#tribe-ea-field-' + origin + '_source_type_url' ).trigger( 'click' );
+					$( '#tribe-ea-field-' + origin + '_import_source' ).val( 'source_type_url' ).trigger( 'change' );
+				}
+
+				// Change the Source URL accordingly
+				$( '#tribe-ea-field-' + origin + '_source' ).val( value ).trigger( 'change' );
 			} );
 
 		$( '.tribe-dependency' ).change();
@@ -151,7 +210,19 @@ tribe_aggregator.fields = {
 	/**
 	 * Send an Ajax request to preview the import
 	 */
-	obj.preview_import = function() {
+	obj.preview_import = function( event ) {
+		event.preventDefault();
+
+		var $form = $( '.tribe-ea-form.tribe-validation' );
+
+		// Makes sure we have validation
+		$form.trigger( 'validation.tribe' );
+
+		// Prevent anything from happening when there are errors
+		if ( tribe.validation.hasErrors( $form ) ) {
+			return;
+		}
+
 		obj.reset_polling_counter();
 
 		// clear the warning area
@@ -264,11 +335,17 @@ tribe_aggregator.fields = {
 	 */
 	obj.handle_preview_create_results = function( response ) {
 		if ( ! response.success ) {
+			var error = response.data;
+
+			if ( ! _.isString( error ) ) {
+				error = error.message;
+			}
+
 			obj.display_fetch_error( [
 				'<b>',
 					ea.l10n.preview_fetch_error_prefix,
 				'</b>',
-				' ' + response.data.message
+				' ' + error
 			].join( ' ' ) );
 			return;
 		}
@@ -362,6 +439,7 @@ tribe_aggregator.fields = {
 
 		var origin = $( obj.selector.origin_field ).val();
 		var is_csv = 'csv' === origin;
+		var is_eventbrite = 'eventbrite' === origin;
 
 		var $import_type = $( '[id$="import_type"]:visible' );
 		var import_type = 'manual';
@@ -458,6 +536,13 @@ tribe_aggregator.fields = {
 			],
 			data: rows
 		};
+
+		// if eb then reverse the order of events
+		if ( is_eventbrite ) {
+			args.order = [
+				[ 1, 'desc' ]
+			];
+		}
 
 		if ( 'undefined' !== typeof data.columns ) {
 			args.columns = [
@@ -650,11 +735,6 @@ tribe_aggregator.fields = {
 		var $table = $( '.dataTable' );
 		var table = window.tribe_data_table;
 
-		if ( 'eventbrite' === origin ) {
-			obj.$.form.submit();
-			return;
-		}
-
 		if ( $table.hasClass( 'display-checkboxes' ) ) {
 			var row_selection = table.rows( { selected: true } );
 			if ( ! row_selection[0].length ) {
@@ -674,6 +754,8 @@ tribe_aggregator.fields = {
 				unique_id_field = 'facebook_id';
 			} else if ( 'meetup' === origin ) {
 				unique_id_field = 'meetup_id';
+			} else if ( 'eventbrite' === origin ) {
+				unique_id_field = 'eventbrite_id';
 			} else if ( 'ical' === origin || 'ics' === origin || 'gcal' === origin ) {
 				unique_id_field = 'uid';
 			} else if ( 'url' === origin ) {
@@ -733,195 +815,25 @@ tribe_aggregator.fields = {
 	 * @return {jQuery}         Affected fields
 	 */
 	obj.construct.dropdown = function( $fields ) {
-		var $elements = $fields.filter( obj.selector.dropdown ).not( '.select2-offscreen, .select2-container' );
+		var upsellFormatter = function( option ) {
+			var $option = $( option.element );
 
-		$elements.each(function(){
-			var $select = $(this),
-				args = {};
-
-			if ( ! $select.is( 'select' ) ) {
-				// Better Method for finding the ID
-				args.id = obj.search_id;
+			if ( 'string' === typeof $option.data( 'subtitle' ) ) {
+				option.text = option.text + '<br><span class="tribe-dropdown-subtitle">' + $option.data( 'subtitle' ) + '</span>';
 			}
 
-			// By default we allow The field to be cleared
-			args.allowClear = true;
-			if ( $select.is( '[data-prevent-clear]' ) ) {
-				args.allowClear = false;
-			}
+			return option.text;
+		};
+		var args = {
+			formatResult: upsellFormatter,
+			formatSelection: upsellFormatter,
+			escapeMarkup: function( m ) {return m; },
+		};
 
-			// If we are dealing with a Input Hidden we need to set the Data for it to work
-			if ( $select.is( '[data-options]' ) ) {
-				args.data = $select.data( 'options' );
-			}
-
-			// Prevents the Search box to show
-			if ( $select.is( '[data-hide-search]' ) ) {
-				args.minimumResultsForSearch = Infinity;
-			}
-
-			args.upsellFormatter = function( option ) {
-				var $option = $( option.element );
-
-				if ( 'string' === typeof $option.data( 'subtitle' ) ) {
-					option.text = option.text + '<br><span class="tribe-dropdown-subtitle">' + $option.data( 'subtitle' ) + '</span>';
-				}
-
-				return option.text;
-			}
-
-			if ( 'tribe-ea-field-origin' === $select.attr( 'id' ) ) {
-				args.formatResult = args.upsellFormatter,
-    			args.formatSelection = args.upsellFormatter,
-    			args.escapeMarkup = function(m) { return m; };
-			}
-
-			if ( $select.is( '[multiple]' ) ) {
-				args.multiple = true;
-
-				if ( ! _.isArray( $select.data( 'separator' ) ) ) {
-					args.tokenSeparators = [ $select.data( 'separator' ) ];
-				} else {
-					args.tokenSeparators = $select.data( 'separator' );
-				}
-				args.separator = $select.data( 'separator' );
-
-				// Define the regular Exp based on
-				args.regexSeparatorElements = [ '^(' ];
-				args.regexSplitElements = [ '(?:' ];
-				$.each( args.tokenSeparators, function ( i, token ) {
-					args.regexSeparatorElements.push( '[^' + token + ']+' );
-					args.regexSplitElements.push( '[' + token + ']' );
-				} );
-				args.regexSeparatorElements.push( ')$' );
-				args.regexSplitElements.push( ')' );
-
-				args.regexSeparatorString = args.regexSeparatorElements.join( '' );
-				args.regexSplitString = args.regexSplitElements.join( '' );
-
-				args.regexToken = new RegExp( args.regexSeparatorString, 'ig' );
-				args.regexSplit = new RegExp( args.regexSplitString, 'ig' );
-			}
-
-			/**
-			 * Better way of matching results
-			 *
-			 * @param  {string} term Which term we are searching for
-			 * @param  {string} text Search here
-			 * @return {boolean}
-			 */
-			args.matcher = function( term, text ) {
-				var result = text.toUpperCase().indexOf( term.toUpperCase() ) == 0;
-
-				if ( ! result && 'undefined' !== typeof args.tags ){
-					var possible = _.where( args.tags, { text: text } );
-					if ( args.tags.length > 0  && _.isObject( possible ) ){
-						var test_value = obj.search_id( possible[0] );
-						result = test_value.toUpperCase().indexOf( term.toUpperCase() ) == 0;
-					}
-				}
-
-				return result;
-			};
-
-			// Select also allows Tags, so we go with that too
-			if ( $select.is( '[data-tags]' ) ){
-				args.tags = $select.data( 'options' );
-
-				args.initSelection = function ( element, callback ) {
-					var data = [];
-					$( element.val().split( args.regexSplit ) ).each( function () {
-						var obj = { id: this, text: this };
-						if ( args.tags.length > 0  && _.isObject( args.tags[0] ) ) {
-							var _obj = _.where( args.tags, { value: this } );
-							if ( _obj.length > 0 ){
-								obj = _obj[0];
-								obj = {
-									id: obj.value,
-									text: obj.text,
-								};
-							}
-						}
-
-						data.push( obj );
-
-					} );
-					callback( data );
-				};
-
-				args.createSearchChoice = function(term, data) {
-					if ( term.match( args.regexToken ) ) {
-						return { id: term, text: term };
-					}
-				};
-
-				if ( 0 === args.tags.length ){
-					args.formatNoMatches = function(){
-						return $select.attr( 'placeholder' );
-					};
-				}
-			}
-
-			// When we have a source, we do an AJAX call
-			if ( $select.is( '[data-source]' ) ) {
-				var source = $select.data( 'source' );
-
-				// For AJAX we reset the data
-				args.data = { results: [] };
-
-				// Allows HTML from Select2 AJAX calls
-				args.escapeMarkup = function (m) {
-					return m;
-				};
-
-				args.ajax = { // instead of writing the function to execute the request we use Select2's convenient helper
-					dataType: 'json',
-					type: 'POST',
-					url: window.ajaxurl,
-					results: function ( data ) { // parse the results into the format expected by Select2.
-						return data.data;
-					}
-				};
-
-				// By default only send the source
-				args.ajax.data = function( search, page ) {
-					return {
-						action: 'tribe_aggregator_dropdown_' + source,
-					};
-				};
-			}
-
-			$select.select2( args );
-		})
-		.on( 'change', function( event ) {
-			var $select = $(this),
-				data = $( this ).data( 'value' );
-
-			if ( ! $select.is( '[multiple]' ) ){
-				return;
-			}
-			if ( ! $select.is( '[data-source]' ) ){
-				return;
-			}
-
-			if ( event.added ){
-				if ( _.isArray( data ) ) {
-					data.push( event.added );
-				} else {
-					data = [ event.added ];
-				}
-			} else {
-				if ( _.isArray( data ) ) {
-					data = _.without( data, event.removed );
-				} else {
-					data = [];
-				}
-			}
-			$select.data( 'value', data ).attr( 'data-value', JSON.stringify( data ) );
-		} );
+		tribe_dropdowns.dropdown( $fields.filter( '.tribe-ea-dropdown' ), args );
 
 		// return to be able to chain jQuery calls
-		return $elements;
+		return $fields;
 	};
 
 	/**
@@ -1014,7 +926,7 @@ tribe_aggregator.fields = {
 	obj.events.suppress_submission = function( e ) {
 		var origin = $( '#tribe-ea-field-origin' ).val();
 
-		if ( $( '#tribe-selected-rows' ).val().length || 'eventbrite' === origin ) {
+		if ( $( '#tribe-selected-rows' ).val().length ) {
 			return true;
 		}
 

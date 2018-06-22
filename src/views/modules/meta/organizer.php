@@ -6,7 +6,7 @@
  * [your-theme]/tribe-events/modules/meta/organizer.php
  *
  * @package TribeEventsCalendar
- * @version 4.4
+ * @version 4.6.19
  */
 
 $organizer_ids = tribe_get_organizer_ids();
@@ -18,7 +18,7 @@ $website = tribe_get_organizer_website_link();
 ?>
 
 <div class="tribe-events-meta-group tribe-events-meta-group-organizer">
-	<h3 class="tribe-events-single-section-title"><?php echo tribe_get_organizer_label( ! $multiple ); ?></h3>
+	<h2 class="tribe-events-single-section-title"><?php echo tribe_get_organizer_label( ! $multiple ); ?></h2>
 	<dl>
 		<?php
 		do_action( 'tribe_events_single_meta_organizer_section_start' );
@@ -39,7 +39,7 @@ $website = tribe_get_organizer_website_link();
 		if ( ! $multiple ) { // only show organizer details if there is one
 			if ( ! empty( $phone ) ) {
 				?>
-				<dt>
+				<dt class="tribe-organizer-tel-label">
 					<?php esc_html_e( 'Phone:', 'the-events-calendar' ) ?>
 				</dt>
 				<dd class="tribe-organizer-tel">
@@ -50,7 +50,7 @@ $website = tribe_get_organizer_website_link();
 
 			if ( ! empty( $email ) ) {
 				?>
-				<dt>
+				<dt class="tribe-organizer-email-label">
 					<?php esc_html_e( 'Email:', 'the-events-calendar' ) ?>
 				</dt>
 				<dd class="tribe-organizer-email">
@@ -61,7 +61,7 @@ $website = tribe_get_organizer_website_link();
 
 			if ( ! empty( $website ) ) {
 				?>
-				<dt>
+				<dt class="tribe-organizer-url-label">
 					<?php esc_html_e( 'Website:', 'the-events-calendar' ) ?>
 				</dt>
 				<dd class="tribe-organizer-url">

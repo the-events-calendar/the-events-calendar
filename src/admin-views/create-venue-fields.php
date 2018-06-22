@@ -5,17 +5,35 @@ $post_id = Tribe__Events__Main::postIdHelper();
 $is_auto_draft = get_post_status( $post_id ) === 'auto-draft';
 
 // If not $_POST and if this is not an auto-draft then get the current values to edit
-if ( ! $_POST && ! $is_auto_draft ) {
+if ( ! $_POST && is_admin() ) {
 
 	$venue_name             = tribe_get_venue();
-	$_VenuePhone            = tribe_get_phone();
-	$_VenueURL              = strip_tags( tribe_get_venue_website_link( null, null ) );
-	$_VenueAddress          = tribe_get_address();
-	$_VenueCity             = tribe_get_city();
-	$_VenueProvince         = tribe_get_province();
-	$_VenueState            = tribe_get_state();
-	$_VenueCountry          = tribe_get_country();
-	$_VenueZip              = tribe_get_zip();
+
+	if ( null === $venue_name ) {
+
+		$defaults = Tribe__Events__Main::instance()->defaults();
+
+		$_VenuePhone            = $defaults->phone();
+		$_VenueURL              = strip_tags( $defaults->url() );
+		$_VenueAddress          = $defaults->address();
+		$_VenueCity             = $defaults->city();
+		$_VenueProvince         = $defaults->province();
+		$_VenueState            = $defaults->state();
+		$_VenueCountry          = $defaults->country();
+		$_VenueZip              = $defaults->zip();
+
+	} else {
+		$_VenuePhone            = tribe_get_phone();
+		$_VenueURL              = strip_tags( tribe_get_venue_website_link( null, null ) );
+		$_VenueAddress          = tribe_get_address();
+		$_VenueCity             = tribe_get_city();
+		$_VenueProvince         = tribe_get_province();
+		$_VenueState            = tribe_get_state();
+		$_VenueCountry          = tribe_get_country();
+		$_VenueZip              = tribe_get_zip();
+
+	}
+
 	$google_map_link_toggle = get_post_meta( $post_id, '_EventShowMapLink', true );
 	$google_map_toggle      = tribe_embed_google_map( $post_id );
 
@@ -107,7 +125,7 @@ if ( ! $_POST && ! $is_auto_draft ) {
 				if ( $abbr == '' ) {
 					echo '<option value="">' . esc_html( $fullname ) . '</option>';
 				} else {
-					echo '<option value="' . esc_attr( $fullname ) . '">' . esc_html( $fullname ) . '</option>';
+					echo '<option value="' . esc_attr( $fullname ) . '"' . selected( ( $current == $fullname ), true, false ) . '>' . esc_html( $fullname ) . '</option>';
 				}
 			}
 			?>
@@ -115,16 +133,18 @@ if ( ! $_POST && ! $is_auto_draft ) {
 	</td>
 </tr>
 <tr class="linked-post venue tribe-linked-type-venue-state-province">
-	<?php
-	if ( ! isset( $_VenueStateProvince ) || $_VenueStateProvince == '' ) {
-		$_VenueStateProvince = - 1;
-	}
-	$currentState = ( $_VenueStateProvince == - 1 ) ? '' : $_VenueStateProvince;
-	$currentProvince = empty( $_VenueProvince ) ? '' : $_VenueProvince;
-	?>
 	<td class='tribe-table-field-label'><?php esc_html_e( 'State or Province:', 'the-events-calendar' ); ?></td>
 	<td>
-		<input tabindex="<?php tribe_events_tab_index(); ?>" id="StateProvinceText" name="venue[Province][]" type='text' name='' size='25' value='<?php echo esc_attr( $currentProvince ); ?>' aria-label="<?php esc_html_e( 'Venue State', 'the-events-calendar' ); ?>" />
+		<input
+			tabindex="<?php tribe_events_tab_index(); ?>"
+			id="StateProvinceText"
+			name="venue[Province][]"
+			type='text'
+			name=''
+			size='25'
+			value='<?php echo isset( $_VenueProvince ) ? esc_attr( $_VenueProvince ) : ''; ?>'
+			aria-label="<?php esc_html_e( 'Venue State', 'the-events-calendar' ); ?>"
+		 />
 		<select
 			class="tribe-dropdown"
 			tabindex="<?php tribe_events_tab_index(); ?>"
@@ -135,7 +155,8 @@ if ( ! $_POST && ! $is_auto_draft ) {
 			<option value=""><?php esc_html_e( 'Select a State:', 'the-events-calendar' ); ?></option>
 			<?php
 			foreach ( Tribe__View_Helpers::loadStates() as $abbr => $fullname ) {
-				echo '<option value="' . esc_attr( $abbr ) . '">' . esc_html( $fullname ) . '</option>';
+				$selected = selected( ( isset( $_VenueState ) && ( $_VenueState === $abbr || $_VenueState === $fullname ) ), true, false );
+				echo '<option value="' . esc_attr( $abbr ) . '" ' . $selected . '>' . esc_html( $fullname ) . '</option>';
 			}
 			?>
 		</select>

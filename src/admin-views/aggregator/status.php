@@ -185,6 +185,33 @@ $show_third_party_accounts = ! is_network_admin();
             <td><?php echo $notes; ?></td>
         </tr>
 		<?php
+		// Eventbrite status section
+		$indicator = 'good';
+		$notes = '&nbsp;';
+		$text = 'Connected';
+
+		if ( tribe( 'events-aggregator.main' )->api( 'origins' )->is_oauth_enabled( 'eventbrite' ) ) {
+			if ( ! tribe( 'events-aggregator.settings' )->has_eb_security_key() ) {
+				$indicator = 'warning';
+				$text = __( 'You have not connected Event Aggregator to Eventbrite', 'the-events-calendar' );
+				$eventbrite_auth_url = Tribe__Events__Aggregator__Record__Eventbrite::get_auth_url( array( 'back' => 'settings' ) );
+				$notes = '<a href="' . esc_url( $eventbrite_auth_url ). '">' . esc_html_x( 'Connect to Eventbrite', 'link for connecting eventbrite', 'the-events-calendar' ) . '</a>';
+			}
+		} else {
+			$indicator = 'warning';
+			$text = __( 'Limited connectivity with Eventbrite', 'the-events-calendar' );
+			$notes = esc_html__( 'The service has disabled oAuth. Some types of events may not import.', 'the-events-calendar' );
+		}
+		?>
+        <tr>
+            <td class="label">
+                <img src="<?php echo tribe_events_resource_url( 'images/aggregator/eventbrite.png' ); ?>" /><span><?php esc_html_e( 'Eventbrite', 'the-events-calendar' ); ?></span>
+            </td>
+            <td class="indicator <?php esc_attr_e( $indicator ); ?>"><span class="dashicons dashicons-<?php echo esc_attr( $indicator_icons[ $indicator ] ); ?>"></span></td>
+            <td><?php echo esc_html( $text ); ?></td>
+            <td><?php echo $notes; ?></td>
+        </tr>
+		<?php
 		// Meetup status section
 		$indicator = 'good';
 		$notes = '&nbsp;';

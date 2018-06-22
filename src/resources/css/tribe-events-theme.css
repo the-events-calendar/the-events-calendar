@@ -100,17 +100,12 @@ ul.tribe-events-sub-nav a,
 
 /* General Template Headers */
 
-h2.tribe-events-page-title,
-#tribe-geo-results h2.tribe-events-page-title {
+.tribe-events-page-title {
 	font-size: 30px;
 	font-weight: bold;
 }
 
 /* General Template Header/Footer Nav */
-
-#tribe-events-header .tribe-events-sub-nav .tribe-events-nav-next {
-	display: block;
-}
 
 .single-tribe_events #tribe-events-footer,
 .tribe-events-day #tribe-events-footer,
@@ -131,7 +126,7 @@ h2.tribe-events-page-title,
    @ Template: day.php
 =============================================*/
 
-.tribe-events-day .tribe-events-day-time-slot h5 {
+.tribe-events-day .tribe-events-day-time-slot .tribe-events-day-time-slot-heading {
 	font-size: 21px;
 	margin: 1.5em 0 .25em;
 	background-color: transparent;
@@ -159,7 +154,7 @@ h2.tribe-events-page-title,
 	margin-top: 2rem;
 }
 
-.tribe-events-list .type-tribe_events h2 {
+.tribe-events-list .type-tribe_events .tribe-events-list-event-title {
 	font-size: 1.6em;
 }
 

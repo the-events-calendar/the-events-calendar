@@ -7,6 +7,7 @@
  * Override this template in your own theme by creating a file at [your-theme]/tribe-events/default-template.php
  *
  * @package TribeEventsCalendar
+ * @version 4.6.19
  *
  */
 
@@ -16,10 +17,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 get_header();
 ?>
-<div id="tribe-events-pg-template" class="tribe-events-pg-template">
+<main id="tribe-events-pg-template" class="tribe-events-pg-template">
 	<?php tribe_events_before_html(); ?>
 	<?php tribe_get_view(); ?>
 	<?php tribe_events_after_html(); ?>
-</div> <!-- #tribe-events-pg-template -->
+</main> <!-- #tribe-events-pg-template -->
 <?php
 get_footer();

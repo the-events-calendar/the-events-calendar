@@ -402,3 +402,22 @@ function tribe_display_meta( $meta_id ) {
 
 	echo apply_filters( 'tribe_display_meta', tribe_get_meta( $meta_id ) );
 }
+
+/**
+ *  Load Legacy Imports
+ *
+ * @deprecated 4.6.18
+ */
+if ( ! function_exists( 'Tribe_Events_Importer_Load' ) ) {
+
+	function Tribe_Events_Importer_Load() {
+		_deprecated_function( __FUNCTION__, '4.5' );
+
+		Tribe__Events__Importer__Plugin::set_plugin_basename( plugin_basename( __FILE__ ) );
+		if ( is_admin() ) {
+			add_action( 'init', array( 'Tribe__Events__Importer__Plugin', 'initialize_admin' ), 10, 0 );
+			add_action( 'init', array( 'Tribe__Events__Importer__Options', 'process_general_form_submission' ) );
+		}
+	}
+
+}

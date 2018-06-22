@@ -2,7 +2,7 @@
 
 namespace Tribe\Events\REST\V1\Validator;
 
-use Tribe\Events\Tests\Testcases\REST\V1\Events_Testcase;
+use Tribe\Events\Test\Testcases\REST\V1\Events_Testcase;
 use Tribe__Events__REST__V1__Validator__Base as Validator;
 
 class BaseTest extends Events_Testcase {
