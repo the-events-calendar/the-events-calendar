@@ -293,7 +293,7 @@ class File_Importer_Events_MultipleOrganizersTest extends File_Importer_EventsTe
 
 	/**
 	 * @test
-	 * it should import a space separated list of organizer IDs if not all are organizers
+	 * it should not import a space separated list of organizer IDs if not all are organizers
 	 */
 	public function it_should_not_import_a_space_separated_list_of_organizers_if_not_all_are_organizers() {
 		$organizer_ids    = $this->factory()->post->create_many( 3, [ 'post_type' => Main::ORGANIZER_POST_TYPE ] );
