@@ -740,7 +740,7 @@ class Tribe__Events__Linked_Posts {
 
 		foreach ( $submission[ $linked_post_type_id_field ] as $key => $id ) {
 			if ( ! empty( $id ) ) {
-				$linked_posts[] = intval( $id );
+				$linked_posts[] = absint( $id );
 				continue;
 			}
 
@@ -799,7 +799,7 @@ class Tribe__Events__Linked_Posts {
 			$linked_posts = array( $linked_posts[0] );
 		}
 
-		// if we allow multiples and there is more then one save current order
+		// if we allow multiples and there is more then one, save current order
 		if ( $this->allow_multiple( $linked_post_type ) ) {
 			$this->order_linked_posts( $event_id, $linked_post_type, $submission[ $linked_post_type_id_field ] );
 		}
