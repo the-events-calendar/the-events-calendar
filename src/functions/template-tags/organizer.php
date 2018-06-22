@@ -74,6 +74,9 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * where the meta field takes precedence we need to respect the order of the meta order only when the present items
 	 * on the meta field.
 	 *
+	 * @deprecated since TBD
+	 * @todo Remove on 4.7
+	 *
 	 * @since 4.6.15
 	 *
 	 * @param array $current
@@ -82,6 +85,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return array
 	 */
 	function tribe_sanitize_organizers( $current = array(), $ordered = array() ) {
+		_deprecated_function( __METHOD__, 'TBD', 'No longer needed after removing reliance on a separate postmeta field to store the ordering.' );
 
 		if ( empty( $ordered ) ) {
 			return $current;

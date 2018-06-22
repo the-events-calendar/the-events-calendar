@@ -175,6 +175,9 @@ class Tribe__Events__Linked_Posts {
 	/**
 	 * Returns the meta key for linked post order
 	 *
+	 * @deprecated since TBD
+	 * @todo Remove on 4.7
+	 *
 	 * @since 4.6.13
 	 *
 	 * @param string $post_type Post Type
@@ -182,6 +185,8 @@ class Tribe__Events__Linked_Posts {
 	 * @return bool|string
 	 */
 	public function get_order_meta_key( $post_type ) {
+		_deprecated_function( __METHOD__, 'TBD', 'We do not use a separate postmeta field to store the ordering.' );
+
 		if ( Tribe__Events__Organizer::POSTTYPE === $post_type ) {
 			return '_EventOrganizerID_Order';
 		}
