@@ -494,6 +494,8 @@ class Tribe__Events__Linked_Posts {
 			$defaults['p'] = $linked_post_ids;
 		}
 
+		$args = wp_parse_args( $args, $defaults );
+
 		/**
 		 * The WP_Query arguments used when getting information per Linked Post.
 		 *
@@ -504,8 +506,6 @@ class Tribe__Events__Linked_Posts {
 		 * @return array
 		 */
 		$args = apply_filters( 'tribe_events_get_linked_post_info_args', array(), $linked_post_type, $linked_post_ids );
-
-		$args = wp_parse_args( $args, $defaults );
 
 		/**
 		 * Filters the linked posts query allowing third-party plugins to replace it.
