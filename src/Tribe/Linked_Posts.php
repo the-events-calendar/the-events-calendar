@@ -396,42 +396,70 @@ class Tribe__Events__Linked_Posts {
 	}
 
 	/**
+	 * Returns an array of linked post ID(s) of the specified post type.
+	 *
+	 * @since TBD
+	 *
+	 * @param int    $post_id   Post ID of the object.
+	 * @param string $post_type Post type of linked posts to look for.
+	 *
+	 * @return array
+	 */
+	public function get_linked_post_ids_by_post_type( $post_id, $post_type ) {
+		$linked_post_meta_key = $this->get_meta_key( $post_type );
+
+		$linked_post_ids = get_post_meta( $post_id, $linked_post_meta_key );
+
+		if (
+			empty( $linked_post_ids )
+			|| ! is_array( $linked_post_ids )
+		) {
+			$linked_post_ids = array();
+		}
+
+		$linked_post_ids = array_map( 'absint', $linked_post_ids );
+
+		$linked_post_ids = array_filter( $linked_post_ids );
+
+		$linked_post_ids = array_unique( $linked_post_ids );
+
+		/**
+		 * Filters the linked post ID(s) of a given type for the given post.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $linked_post_ids Linked post ID(s).
+		 * @param int $post_id Post ID being looked at.
+		 * @param string $post_type Post type of linked posts.
+		 */
+		return apply_filters( 'tribe_events_get_linked_post_ids_by_post_type', $linked_post_ids, $post_id, $post_type );
+	}
+
+	/**
 	 * Returns an array of linked WP_Post objects of the specified post type.
 	 *
 	 * @since 4.2
 	 *
-	 * @param int $post_id Post ID of the object
-	 * @param string $post_type Post type of linked posts to look for
+	 * @see Tribe__Events__Linked_Posts::get_linked_post_ids_by_post_type
+	 *
+	 * @param int    $post_id   Post ID of the object.
+	 * @param string $post_type Post type of linked posts to look for.
 	 *
 	 * @return array
 	 */
 	public function get_linked_posts_by_post_type( $post_id, $post_type ) {
-		$result = array();
+		$existing_linked_post_ids = $this->get_linked_post_ids_by_post_type( $post_id, $post_type );
 
-		if ( $linked_post_ids = get_post_meta( $post_id, $this->get_meta_key( $post_type ) ) ) {
-			$args = array();
-			// Sort by drag-n-drop order
-			$linked_ids_order_meta_key = $this->get_order_meta_key( $post_type );
-			$linked_ids_order          = empty( $linked_ids_order_meta_key )
-				? false
-				: get_post_meta( $post_id, $linked_ids_order_meta_key, true );
-			$linked_post_ids           = tribe_sanitize_organizers( $linked_post_ids, $linked_ids_order );
-			if ( ! empty( $linked_ids_order ) ) {
-				$args['post__in'] = $linked_post_ids;
-				$args['orderby'] = 'post__in';
-			}
-
-			$result = $this->get_linked_post_info( $post_type, $args, $linked_post_ids );
-		}
+		$result = $this->get_linked_post_info( $post_type, array(), $existing_linked_post_ids );
 
 		/**
 		 * Filters the linked posts of a given type for the given post
 		 *
 		 * @since 4.2
 		 *
-		 * @param array Linked posts for the given post by the given post type
-		 * @param int Post ID being looked at
-		 * @param string Post type of linked posts
+		 * @param array  $result    Linked posts for the given post by the given post type.
+		 * @param int    $post_id   Post ID being looked at.
+		 * @param string $post_type Post type of linked posts.
 		 */
 		return apply_filters( 'tribe_events_get_linked_posts_by_post_type', $result, $post_id, $post_type );
 	}
