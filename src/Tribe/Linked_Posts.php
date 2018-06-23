@@ -527,9 +527,9 @@ class Tribe__Events__Linked_Posts {
 		/**
 		 * The WP_Query arguments used when getting information per Linked Post.
 		 *
-		 * @param array  $args             The WP_Query arguments.
-		 * @param string $linked_post_type The post type key.
-		 * @param int    $linked_post_ids  The linked Post ID(s).
+		 * @param array     $args             The WP_Query arguments.
+		 * @param string    $linked_post_type The post type key.
+		 * @param int|array $linked_post_ids  A single Linked Post ID or an array of Linked Post IDs.
 		 *
 		 * @return array
 		 */
@@ -599,7 +599,7 @@ class Tribe__Events__Linked_Posts {
 	 * @param int $target_post_id Post ID of post to add linked post to
 	 * @param int $subject_post_id Post ID of post to add as a linked post to the target
 	 *
-	 * @return boolean
+	 * @return int|false The result of `add_metadata()` - the meta ID on success, false on failure.
 	 */
 	public function link_post( $target_post_id, $subject_post_id ) {
 		$linked_posts      = false;
