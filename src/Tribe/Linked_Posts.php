@@ -656,6 +656,8 @@ class Tribe__Events__Linked_Posts {
 
 	/**
 	 * Save Order of Linked Posts
+	 * @deprecated since TBD
+	 * @todo Remove on 4.7
 	 *
 	 * @since 4.6.13
 	 *
@@ -664,6 +666,8 @@ class Tribe__Events__Linked_Posts {
 	 * @param array $current_order an array of the linked post ids being saved
 	 */
 	public function order_linked_posts( $target_post_id, $post_type, $current_order ) {
+		_deprecated_function( __METHOD__, 'TBD', 'Linked posts are ordered by `meta_id` by default via `get_post_meta()`.' );
+
 		$linked_ids_order_key = $this->get_order_meta_key( $post_type );
 
 		if ( $linked_ids_order_key ) {
