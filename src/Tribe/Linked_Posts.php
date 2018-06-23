@@ -676,7 +676,7 @@ class Tribe__Events__Linked_Posts {
 	}
 
 	/**
-	 * Unlinks two posts from eachother
+	 * Unlinks two posts from each other.
 	 *
 	 * @since 4.2
 	 *
