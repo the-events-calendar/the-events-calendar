@@ -418,9 +418,7 @@ class Tribe__Events__Linked_Posts {
 		}
 
 		$linked_post_ids = array_map( 'absint', $linked_post_ids );
-
 		$linked_post_ids = array_filter( $linked_post_ids );
-
 		$linked_post_ids = array_unique( $linked_post_ids );
 
 		/**
@@ -738,9 +736,9 @@ class Tribe__Events__Linked_Posts {
 	 *
 	 * @since 4.2
 	 *
-	 * @param int $event_id Submitted Event ID
-	 * @param int $post_type Post type of linked post
-	 * @param array $submission Submitted form data
+	 * @param int   $event_id   Submitted Event ID.
+	 * @param int   $post_type  Post type of linked post.
+	 * @param array $submission Submitted form data.
 	 */
 	public function handle_submission_by_post_type( $event_id, $linked_post_type, $submission ) {
 		// if the submission isn't an array, bail
@@ -750,7 +748,7 @@ class Tribe__Events__Linked_Posts {
 
 		$linked_post_type_object   = get_post_type_object( $linked_post_type );
 		$linked_post_type_id_field = $this->get_post_type_id_field_index( $linked_post_type );
-		$linked_posts              = array();
+		$post_ids_to_link          = array();
 		$event_post_status         = get_post_status( $event_id );
 
 		// Prevents Revisons from been Linked
@@ -759,12 +757,14 @@ class Tribe__Events__Linked_Posts {
 		}
 
 		$temp_submission = $submission;
-		$submission = array();
+		$submission      = array();
 
 		// make sure all elements are arrays
 		foreach ( $temp_submission as $key => $value ) {
 			$submission[ $key ] = is_array( $value ) ? $value : array( $value );
 		}
+		// Cleanup
+		unset( $temp_submission, $key, $value );
 
 		// setup key(s) if all new post(s)
 		if ( ! isset( $submission[ $linked_post_type_id_field ] ) ) {
@@ -778,16 +778,18 @@ class Tribe__Events__Linked_Posts {
 				$post_count ++;
 			} while ( $multiple_posts > $post_count );
 		}
+		// Cleanup
+		unset( $first_item, $multiple_posts, $post_count );
 
 		$fields = array_keys( $submission );
 
 		foreach ( $submission[ $linked_post_type_id_field ] as $key => $id ) {
 			if ( ! empty( $id ) ) {
-				$linked_posts[] = absint( $id );
+				$post_ids_to_link[] = absint( $id );
 				continue;
 			}
 
-			// if the user doesn't have permission to create this type of post, don't allow for creation
+			// If the user doesn't have permission to create this type of post, don't allow for creation.
 			if (
 				empty( $linked_post_type_object->cap->create_posts )
 				|| ! current_user_can( $linked_post_type_object->cap->create_posts )
@@ -797,12 +799,11 @@ class Tribe__Events__Linked_Posts {
 
 			$data = array();
 			foreach ( $fields as $field_name ) {
-				// If allow_multiple := true then each submission field may be an array
 				if ( is_array( $submission[ $field_name ] ) ) {
+					// If allow_multiple is true then each submission field may be an array.
 					$data[ $field_name ] = isset( $submission[ $field_name ][ $key ] ) ? $submission[ $field_name ][ $key ] : null;
-				}
-				// In other cases, such as if multiple := false each submission field will contain a single value
-				else {
+				} else {
+					// In other cases, such as if multiple is false each submission field will contain a single value
 					$data[ $field_name ] = isset( $submission[ $field_name ] ) ? $submission[ $field_name ] : null;
 				}
 			}
@@ -811,56 +812,87 @@ class Tribe__Events__Linked_Posts {
 			$post_status = $event_post_status;
 
 			/**
-			 * Filters the ID (default null) for creating posts from the event edit page
+			 * Filters the ID (default null) for creating posts from the event edit page.
 			 *
-			 * @param string $id Post type id index
-			 * @param array $data Data for submission
-			 * @param string $linked_post_type Post type
-			 * @param string $post_status Post status
-			 * @param int $event_id Post ID of the post the post type is attached to
+			 * @param string $id               Post type ID index.
+			 * @param array  $data             Data for submission.
+			 * @param string $linked_post_type Post type.
+			 * @param string $post_status      Post status.
+			 * @param int    $event_id         Post ID of the Event the Linked Post is attached to.
 			 */
 			$id = apply_filters( 'tribe_events_linked_post_create_' . $linked_post_type, null, $data, $linked_post_type, $post_status, $event_id );
 
 			/**
-			 * Filters the ID (default null) for creating posts from the event edit page
+			 * Filters the ID (default null) for creating posts from the event edit page.
 			 *
-			 * @param string $id Post type id index
-			 * @param array $data Data for submission
-			 * @param string $linked_post_type Post type
-			 * @param string $post_status Post status
-			 * @param int $event_id Post ID of the post the post type is attached to
+			 * @param string $id               Post type id index.
+			 * @param array  $data             Data for submission.
+			 * @param string $linked_post_type Post type.
+			 * @param string $post_status      Post status.
+			 * @param int    $event_id         Post ID of the Event the Linked Post is attached to.
 			 */
 			$id = apply_filters( 'tribe_events_linked_post_create', $id, $data, $linked_post_type, $post_status, $event_id );
 
-			if ( $id ) {
-				$linked_posts[] = $id;
+			if ( ! empty( $id ) ) {
+				$post_ids_to_link[] = $id;
 			}
 		}
 
-		// if we don't allow multiples, make sure there's only 1
-		if ( ! $this->allow_multiple( $linked_post_type ) && count( $linked_posts ) > 1 ) {
-			$linked_posts = array( $linked_posts[0] );
+		$post_ids_to_link = array_map( 'absint', $post_ids_to_link );
+		$post_ids_to_link = array_filter( $post_ids_to_link );
+		$post_ids_to_link = array_unique( $post_ids_to_link );
+
+		// If we do not allow multiples for this post type, ignore all but the first.
+		if (
+			! $this->allow_multiple( $linked_post_type )
+			&& 1 < count( $post_ids_to_link )
+		) {
+			$post_ids_to_link = array( $post_ids_to_link[0] );
 		}
 
-		// if we allow multiples and there is more then one, save current order
-		if ( $this->allow_multiple( $linked_post_type ) ) {
-			$this->order_linked_posts( $event_id, $linked_post_type, $submission[ $linked_post_type_id_field ] );
-		}
+		$prior_linked_posts = $this->get_linked_post_ids_by_post_type( $event_id, $linked_post_type );
 
-		$currently_linked_posts = $this->get_linked_posts_by_post_type( $event_id, $linked_post_type );
-		$currently_linked_posts = ! empty( $currently_linked_posts ) && is_array( $currently_linked_posts )
-			? wp_list_pluck( $currently_linked_posts, 'ID' )
-			: array();
+		$linked_post_type_meta_key = $this->get_meta_key( $linked_post_type );
 
-		$posts_to_add    = array_diff( $linked_posts, $currently_linked_posts );
-		$posts_to_remove = array_diff( $currently_linked_posts, $linked_posts );
+		if ( $prior_linked_posts === $post_ids_to_link ) {
+			// If the array values match type and value and are in the same order, no need to touch postmeta.
+			return;
+		} else {
+			$sorted_priors = $prior_linked_posts;
+			sort( $sorted_priors, SORT_NUMERIC );
 
-		foreach ( $posts_to_remove as $linked_post_id ) {
-			$this->unlink_post( $event_id, $linked_post_id );
-		}
+			$sorted_to_link = $post_ids_to_link;
+			sort( $sorted_to_link, SORT_NUMERIC );
 
-		foreach ( $posts_to_add as $linked_post_id ) {
-			$this->link_post( $event_id, $linked_post_id );
+			if ( $sorted_priors === $sorted_to_link ) {
+				// If the post IDs are the same (none new nor removed) but not in the same order.
+				// We do not run our own unlink/link methods because we are not doing that, just re-ordering via `meta_id` by removing all and re-adding in the desired order.
+				delete_post_meta_by_key( $linked_post_type_meta_key );
+
+				foreach ( $post_ids_to_link as $linked_post_id ) {
+					add_post_meta( $event_id, $linked_post_type_meta_key, $linked_post_id );
+				}
+			} else {
+				// We have different Linked Post IDs (adding and/or removing one or more) so possibly need to run through our own methods to trigger those hooks.
+				$posts_to_remove = array_diff( $prior_linked_posts, $post_ids_to_link );
+
+				foreach ( $posts_to_remove as $unlinked_post_id ) {
+					$this->unlink_post( $event_id, $unlinked_post_id );
+				}
+
+				// Remove all to start fresh (for `meta_id` ordering purposes)
+				delete_post_meta_by_key( $linked_post_type_meta_key );
+
+				foreach ( $post_ids_to_link as $linked_post_id ) {
+					if ( in_array( $linked_post_id, $prior_linked_posts ) ) {
+						// Re-add pre-existing ones without our own method because we do not want to trigger those hooks.
+						add_post_meta( $event_id, $linked_post_type_meta_key, $linked_post_id );
+					} else {
+						// Add newly-linked ones via our own method in order to trigger such hooks.
+						$this->link_post( $event_id, $linked_post_id );
+					}
+				}
+			}
 		}
 	}
 
