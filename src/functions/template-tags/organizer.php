@@ -104,7 +104,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 		// Make sure before the merge the order is ordered by the keys
 		ksort( $order );
-;
+
 		return array_merge( $order, $excluded );
 	}
 
