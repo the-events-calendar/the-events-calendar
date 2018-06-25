@@ -215,6 +215,10 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
+= [4.6.20] TBD =
+
+* Feature - Add featured event column support for CLI imports [108027]
+
 = [4.6.19] 2018-06-20 =
 
 * Feature - CSV importer now supports a featured event column [72376]
