@@ -215,6 +215,10 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
+= [4.6.20] TBD =
+
+* Tweak - Added event ID parameter to `tribe_events_event_classes` filter to make it more useful [64807]
+
 = [4.6.19] 2018-06-20 =
 
 * Feature - CSV importer now supports a featured event column [72376]
