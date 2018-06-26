@@ -218,6 +218,8 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 = [4.6.20] TBD =
 
 * Feature - Add featured event column support for CLI imports [108027]
+* Fix - Display the exact search term in the "no results" notice on the events page [106991]
+* Tweak - Added event ID parameter to `tribe_events_event_classes` filter to make it more useful [64807]
 
 = [4.6.19] 2018-06-20 =
 
