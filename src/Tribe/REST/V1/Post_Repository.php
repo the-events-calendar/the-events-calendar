@@ -1,7 +1,9 @@
 <?php
 
 
-class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__Interfaces__Post_Repository {
+class Tribe__Events__REST__V1__Post_Repository
+	extends Tribe__REST__Post_Repository
+	implements Tribe__Events__REST__Interfaces__Post_Repository {
 
 	/**
 	 * A post type to get data request handler map.
@@ -258,33 +260,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			return false;
 		}
 
-		$full_url = get_the_post_thumbnail_url( $id, 'full' );
-		$file = get_attached_file( $thumbnail_id );
-
-		$data = array(
-			'url'       => $full_url,
-			'id'        => $thumbnail_id,
-			'extension' => pathinfo( $file, PATHINFO_EXTENSION ),
-		);
-
-		$metadata = wp_get_attachment_metadata( $thumbnail_id );
-
-		if (
-			false !== $metadata
-			&& isset( $metadata['image_meta'] )
-			&& isset( $metadata['file'] )
-			&& isset( $metadata['sizes'] )
-		) {
-			unset( $metadata['image_meta'], $metadata['file'] );
-
-			foreach ( $metadata['sizes'] as $size => &$meta ) {
-				$size_image_src = wp_get_attachment_image_src( $thumbnail_id, $size );
-				$meta['url'] = ! empty( $size_image_src[0] ) ? $size_image_src[0] : '';
-				unset( $meta['file'] );
-			}
-
-			$data = array_filter( array_merge( $data, $metadata ) );
-		}
+		$data = $this->get_image_data( $thumbnail_id );
 
 		/**
 		 * Filters the data that will returned for an event featured image if set.
@@ -423,24 +399,6 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 	}
 
 	/**
-	 * @param string $date A date string in a format `strtotime` can parse.
-	 *
-	 * @return array
-	 */
-	protected function get_date_details( $date ) {
-		$time = strtotime( $date );
-
-		return array(
-			'year'    => date( 'Y', $time ),
-			'month'   => date( 'm', $time ),
-			'day'     => date( 'd', $time ),
-			'hour'    => date( 'H', $time ),
-			'minutes' => date( 'i', $time ),
-			'seconds' => date( 's', $time ),
-		);
-	}
-
-	/**
 	 * Returns an ASC array of event costs.
 	 *
 	 * @param int|WP_Post $event_id The event post or the post ID.
@@ -450,21 +408,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 	protected function get_cost_values( $event_id ) {
 		$cost_couples = tribe( 'tec.cost-utils' )->get_event_costs( $event_id );
 
-		global $wp_locale;
-		$cost_values = array();
-		foreach ( $cost_couples as $key => $value ) {
-			$value = str_replace( $wp_locale->number_format['decimal_point'], '.', '' . $value );
-			$value = str_replace( $wp_locale->number_format['thousands_sep'], '', $value );
-			if ( is_numeric( $value ) ) {
-				$cost_values[] = $value;
-			} else {
-				$cost_values[] = $key;
-			}
-		}
-
-		sort( $cost_values, SORT_NUMERIC );
-
-		return $cost_values;
+		return $this->format_and_sort_cost_couples( $cost_couples );
 	}
 
 	/**
