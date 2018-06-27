@@ -472,7 +472,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 			return $postarr;
 		}
 
-		$id = Tribe__Events__API::updateEvent( $request['id'], array_filter( $postarr ) );
+		$id = Tribe__Events__API::updateEvent( $request['id'], $postarr );
 
 		if ( is_wp_error( $id ) ) {
 			/** @var WP_Error $id */
