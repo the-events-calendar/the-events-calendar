@@ -610,6 +610,8 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 		 */
 		$postarr = apply_filters( 'tribe_events_rest_event_prepare_postarr', $postarr, $request );
 
+		$postarr = array_filter( $postarr, array( $this->validator, 'is_not_null' ) );
+
 		return $postarr;
 	}
 }
