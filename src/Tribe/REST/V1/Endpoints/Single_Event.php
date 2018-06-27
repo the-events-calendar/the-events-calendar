@@ -326,6 +326,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 			// Linked Posts
 			'venue'              => array(
 				'required'          => false,
+				'default'           => null,
 				'validate_callback' => array( $this->validator, 'is_venue_id_or_entry_or_empty' ),
 				'swagger_type'      => 'array',
 				'items'             => array( 'type' => 'integer' ),
@@ -333,6 +334,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 			),
 			'organizer'          => array(
 				'required'          => false,
+				'default'           => null,
 				'validate_callback' => array( $this->validator, 'is_organizer_id_or_entry_or_empty' ),
 				'swagger_type'      => 'array',
 				'items'             => array( 'type' => 'integer' ),
