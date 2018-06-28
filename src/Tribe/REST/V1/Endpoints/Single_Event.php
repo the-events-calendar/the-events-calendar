@@ -574,21 +574,25 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 			$postarr['EventTimezoneAbbr'] = '';
 		}
 
-		$venue = $this->venue_endpoint->insert( $request['venue'] );
+		if ( null !== $request['venue'] ) {
+			$venue = $this->venue_endpoint->insert( $request['venue'] );
 
-		if ( is_wp_error( $venue ) ) {
-			return $venue;
+			if ( is_wp_error( $venue ) ) {
+				return $venue;
+			}
+
+			$postarr['venue'] = $venue;
 		}
 
-		$postarr['venue'] = $venue;
+		if ( null !== $request['organizer'] ) {
+			$organizer = $this->organizer_endpoint->insert( $request['organizer'] );
 
-		$organizer = $this->organizer_endpoint->insert( $request['organizer'] );
+			if ( is_wp_error( $organizer ) ) {
+				return $organizer;
+			}
 
-		if ( is_wp_error( $organizer ) ) {
-			return $organizer;
+			$postarr['organizer'] = $organizer;
 		}
-
-		$postarr['organizer'] = $organizer;
 
 		// Event presentation data
 		$postarr['EventShowMap']          = tribe_is_truthy( $request['show_map'] );
