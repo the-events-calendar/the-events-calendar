@@ -919,7 +919,7 @@ class Tribe__Events__Linked_Posts {
 						$new_child['edit'] = $edit_link;
 					}
 
-					$options->available['children'][] = $new_child;
+					$options->owned['children'][] = $new_child;
 				}
 			}
 		}
