@@ -867,8 +867,9 @@ class Tribe__Events__Linked_Posts {
 
 			if ( $sorted_priors === $sorted_to_link ) {
 				// If the post IDs are the same (none new nor removed) but not in the same order.
+
 				// We do not run our own unlink/link methods because we are not doing that, just re-ordering via `meta_id` by removing all and re-adding in the desired order.
-				delete_post_meta_by_key( $linked_post_type_meta_key );
+				delete_post_meta( $event_id, $linked_post_type_meta_key );
 
 				foreach ( $post_ids_to_link as $linked_post_id ) {
 					add_post_meta( $event_id, $linked_post_type_meta_key, $linked_post_id );
@@ -882,7 +883,7 @@ class Tribe__Events__Linked_Posts {
 				}
 
 				// Remove all to start fresh (for `meta_id` ordering purposes)
-				delete_post_meta_by_key( $linked_post_type_meta_key );
+				delete_post_meta( $event_id, $linked_post_type_meta_key );
 
 				foreach ( $post_ids_to_link as $linked_post_id ) {
 					if ( in_array( $linked_post_id, $prior_linked_posts ) ) {
