@@ -1106,7 +1106,7 @@ class EventUpdateCest extends BaseRestCest
 		$params['organizer'] = [];
 
 		// Remove unneeded changes
-		unset( $params['description'], $params['start_date'], $params['end_date'] );
+		unset( $params['description'] );
 
 		$I->sendPOST( $this->events_url . "/{$event_id}", $params );
 
