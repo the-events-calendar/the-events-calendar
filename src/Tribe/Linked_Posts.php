@@ -708,7 +708,7 @@ class Tribe__Events__Linked_Posts {
 			return;
 		}
 
-		if ( ! isset( $submission[ $linked_post_type_id_field ] ) ) {
+		if ( ! isset( $submission[ $linked_post_type_id_field ] ) || false === $submission[ $linked_post_type_id_field ] ) {
 			$submission[ $linked_post_type_id_field ] = array( 0 );
 		}
 
