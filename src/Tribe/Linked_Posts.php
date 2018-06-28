@@ -508,7 +508,6 @@ class Tribe__Events__Linked_Posts {
 				'private',
 				'pending',
 			),
-			'orderby'              => 'title',
 			'order'                => 'ASC',
 			'ignore_sticky_posts ' => true,
 			'nopaging'             => true,
@@ -524,6 +523,8 @@ class Tribe__Events__Linked_Posts {
 
 		/**
 		 * The WP_Query arguments used when getting information per Linked Post.
+		 *
+		 * Useful if you want to add `orderby` or override existing arguments.
 		 *
 		 * @param array     $args             The WP_Query arguments.
 		 * @param string    $linked_post_type The post type key.
