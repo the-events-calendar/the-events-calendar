@@ -41,6 +41,10 @@ abstract class Tribe__Events__REST__V1__Endpoints__Linked_Post_Base
 	 */
 	public function insert( $data ) {
 		if ( empty( $data ) ) {
+			if ( is_numeric( $data ) ) {
+				return array();
+			}
+
 			return false;
 		}
 
