@@ -1084,7 +1084,7 @@ class EventUpdateCest extends BaseRestCest
 		$params = [
 			'title'       => 'An event',
 			'description' => 'An event content',
-			'venue'       => $event_id,
+			'venue'       => $venue_id,
 			'organizer'   => $organizer_id,
 		];
 
