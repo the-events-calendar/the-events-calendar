@@ -1070,6 +1070,58 @@ class EventUpdateCest extends BaseRestCest
 	}
 
 	/**
+	 * It should allow removing the linked posts
+	 *
+	 * @test
+	 */
+	public function it_should_allow_removing_the_linked_posts( Tester $I ) {
+		$event_id     = $I->haveEventInDatabase();
+		$organizer_id = $I->haveOrganizerInDatabase();
+		$venue_id     = $I->haveVenueInDatabase();
+
+		$I->generate_nonce_for_role( 'administrator' );
+
+		$params = [
+			'title'       => 'An event',
+			'description' => 'An event content',
+			'venue'       => $venue_id,
+			'organizer'   => $organizer_id,
+		];
+
+		$I->sendPOST( $this->events_url . "/{$event_id}", $params );
+
+		$I->seeResponseCodeIs( 200 );
+		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse(), true );
+		$I->assertArrayHasKey( 'venue', $response );
+		$venue_response = $response['venue'];
+		$I->assertEquals( $venue_id, $venue_response['id'] );
+		$I->assertArrayHasKey( 'organizer', $response );
+		$organizer_response = $response['organizer'];
+		$I->assertCount( 1, $organizer_response );
+		$I->assertEquals( $organizer_id, $organizer_response[0]['id'] );
+
+		// Remove venue and organizer now
+		$params['venue'] = 0;
+		$params['organizer'] = [];
+
+		// Remove unneeded changes
+		unset( $params['description'], $params['start_date'], $params['end_date'] );
+
+		$I->sendPOST( $this->events_url . "/{$event_id}", $params );
+
+		$I->seeResponseCodeIs( 200 );
+		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse(), true );
+		$I->assertArrayHasKey( 'venue', $response );
+		$venue_response = $response['venue'];
+		$I->assertEmpty( $venue_response );
+		$I->assertArrayHasKey( 'organizer', $response );
+		$organizer_response = $response['organizer'];
+		$I->assertEmpty( $organizer_response );
+	}
+
+	/**
 	 * It should allow assigning existing event categories to an inserted event
 	 *
 	 * @test

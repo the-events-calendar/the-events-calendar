@@ -326,6 +326,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 			// Linked Posts
 			'venue'              => array(
 				'required'          => false,
+				'default'           => null,
 				'validate_callback' => array( $this->validator, 'is_venue_id_or_entry_or_empty' ),
 				'swagger_type'      => 'array',
 				'items'             => array( 'type' => 'integer' ),
@@ -333,6 +334,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 			),
 			'organizer'          => array(
 				'required'          => false,
+				'default'           => null,
 				'validate_callback' => array( $this->validator, 'is_organizer_id_or_entry_or_empty' ),
 				'swagger_type'      => 'array',
 				'items'             => array( 'type' => 'integer' ),
@@ -472,7 +474,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 			return $postarr;
 		}
 
-		$id = Tribe__Events__API::updateEvent( $request['id'], array_filter( $postarr ) );
+		$id = Tribe__Events__API::updateEvent( $request['id'], $postarr );
 
 		if ( is_wp_error( $id ) ) {
 			/** @var WP_Error $id */
@@ -572,21 +574,25 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 			$postarr['EventTimezoneAbbr'] = '';
 		}
 
-		$venue = $this->venue_endpoint->insert( $request['venue'] );
+		if ( null !== $request['venue'] ) {
+			$venue = $this->venue_endpoint->insert( $request['venue'] );
 
-		if ( is_wp_error( $venue ) ) {
-			return $venue;
+			if ( is_wp_error( $venue ) ) {
+				return $venue;
+			}
+
+			$postarr['venue'] = $venue;
 		}
 
-		$postarr['venue'] = $venue;
+		if ( null !== $request['organizer'] ) {
+			$organizer = $this->organizer_endpoint->insert( $request['organizer'] );
 
-		$organizer = $this->organizer_endpoint->insert( $request['organizer'] );
+			if ( is_wp_error( $organizer ) ) {
+				return $organizer;
+			}
 
-		if ( is_wp_error( $organizer ) ) {
-			return $organizer;
+			$postarr['organizer'] = $organizer;
 		}
-
-		$postarr['organizer'] = $organizer;
 
 		// Event presentation data
 		$postarr['EventShowMap']          = tribe_is_truthy( $request['show_map'] );
@@ -609,6 +615,8 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 		 * @since 4.6
 		 */
 		$postarr = apply_filters( 'tribe_events_rest_event_prepare_postarr', $postarr, $request );
+
+		$postarr = array_filter( $postarr, array( $this->validator, 'is_not_null' ) );
 
 		return $postarr;
 	}

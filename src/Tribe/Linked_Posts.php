@@ -191,7 +191,7 @@ class Tribe__Events__Linked_Posts {
 		 * This allows for things like Extensions to hook in here and return their own key
 		 * See '_EventOrganizerID_Order' above for an example
 		 *
-		 * @since TBD
+		 * @since 4.6.14
 		 *
 		 * @param bool false (not linked)
 		 * @param string $post_type current (potentially linked) post type
@@ -407,10 +407,13 @@ class Tribe__Events__Linked_Posts {
 		if ( $linked_post_ids = get_post_meta( $post_id, $this->get_meta_key( $post_type ) ) ) {
 			$args = array();
 			// Sort by drag-n-drop order
-			$linked_ids_order = get_post_meta( $post_id, $this->get_order_meta_key( $post_type ), true );
+			$linked_ids_order_meta_key = $this->get_order_meta_key( $post_type );
+			$linked_ids_order          = empty( $linked_ids_order_meta_key )
+				? false
+				: get_post_meta( $post_id, $linked_ids_order_meta_key, true );
+			$linked_post_ids           = tribe_sanitize_organizers( $linked_post_ids, $linked_ids_order );
 			if ( ! empty( $linked_ids_order ) ) {
-				$linked_post_ids = $linked_ids_order;
-				$args['post__in'] = $linked_ids_order;
+				$args['post__in'] = $linked_post_ids;
 				$args['orderby'] = 'post__in';
 			}
 
@@ -689,6 +692,7 @@ class Tribe__Events__Linked_Posts {
 	 * @param array $submission Submitted form data
 	 */
 	public function handle_submission_by_post_type( $event_id, $linked_post_type, $submission ) {
+
 		// if the submission isn't an array, bail
 		if ( ! is_array( $submission ) ) {
 			return;
@@ -704,7 +708,7 @@ class Tribe__Events__Linked_Posts {
 			return;
 		}
 
-		if ( ! isset( $submission[ $linked_post_type_id_field ] ) ) {
+		if ( ! isset( $submission[ $linked_post_type_id_field ] ) || false === $submission[ $linked_post_type_id_field ] ) {
 			$submission[ $linked_post_type_id_field ] = array( 0 );
 		}
 
@@ -714,6 +718,19 @@ class Tribe__Events__Linked_Posts {
 		// make sure all elements are arrays
 		foreach ( $temp_submission as $key => $value ) {
 			$submission[ $key ] = is_array( $value ) ? $value : array( $value );
+		}
+
+		// setup key(s) if all new post(s)
+		if ( ! isset( $submission[ $linked_post_type_id_field ] ) ) {
+			$first_item                               = current( $submission );
+			$multiple_posts                           = is_array( $first_item ) ? count( $first_item ) - 1 : 0;
+			$submission[ $linked_post_type_id_field ] = array();
+			$post_count                               = 0;
+
+			do {
+				$submission[ $linked_post_type_id_field ][] = '';
+				$post_count ++;
+			} while ( $multiple_posts > $post_count );
 		}
 
 		$fields = array_keys( $submission );
@@ -902,7 +919,7 @@ class Tribe__Events__Linked_Posts {
 						$new_child['edit'] = $edit_link;
 					}
 
-					$options->available['children'][] = $new_child;
+					$options->owned['children'][] = $new_child;
 				}
 			}
 		}
