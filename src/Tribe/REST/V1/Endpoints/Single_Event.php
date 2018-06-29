@@ -326,14 +326,16 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 			// Linked Posts
 			'venue'              => array(
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_venue_id_or_entry' ),
+				'default'           => null,
+				'validate_callback' => array( $this->validator, 'is_venue_id_or_entry_or_empty' ),
 				'swagger_type'      => 'array',
 				'items'             => array( 'type' => 'integer' ),
 				'description'       => __( 'The event venue ID or data', 'the-events-calendar' ),
 			),
 			'organizer'          => array(
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_organizer_id_or_entry' ),
+				'default'           => null,
+				'validate_callback' => array( $this->validator, 'is_organizer_id_or_entry_or_empty' ),
 				'swagger_type'      => 'array',
 				'items'             => array( 'type' => 'integer' ),
 				'description'       => __( 'The event organizer IDs or data', 'the-events-calendar' ),
@@ -472,7 +474,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 			return $postarr;
 		}
 
-		$id = Tribe__Events__API::updateEvent( $request['id'], array_filter( $postarr ) );
+		$id = Tribe__Events__API::updateEvent( $request['id'], $postarr );
 
 		if ( is_wp_error( $id ) ) {
 			/** @var WP_Error $id */
@@ -609,6 +611,8 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 		 * @since 4.6
 		 */
 		$postarr = apply_filters( 'tribe_events_rest_event_prepare_postarr', $postarr, $request );
+
+		$postarr = array_filter( $postarr, array( $this->validator, 'is_not_null' ) );
 
 		return $postarr;
 	}

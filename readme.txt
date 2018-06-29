@@ -209,11 +209,18 @@ Some things to consider before posting on the forum:
 
 * Look through existing threads before posting a new one and check that there isn't already a discussion going on for your issue.
 * Your issue will be solved more quickly if you run a few checks before making a support request. Deactivate your plugins one by one - if the issue is fixed by deactivating a plugin you know you've got a plugin conflict. To test your Theme, revert to the default Twenty Twelve Theme to see if you are still experiencing the problem. If not, your Theme is the issue. Please provide this information when making your support request.
-* Sometimes, just resetting your permalinks can fix the issue. Visit Events -> Settings -> Permalinks, save your permalinks with a different option and then save with your preferred choice again. This can solve events-related problems and can is worth a shot before creating a new thread.
+* Sometimes, just resetting your permalinks can fix the issue. Visit Events -> Settings -> Permalinks, save your permalinks with a different option and then save with your preferred choice again. This can solve events-related problems and is worth a shot before creating a new thread.
 
 Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to [@TheEventsCal](https://twitter.com/TheEventsCal) and tell us why. We'll do what we can to make it right.
 
 == Changelog ==
+
+= [4.6.20] TBD =
+
+* Feature - Add featured event column support for CLI imports [108027]
+* Fix - Display the exact search term in the "no results" notice on the events page [106991]
+* Fix - Allow venue and organizer fields to be intentionally empty on Event Singular REST API calls [109482]
+* Tweak - Added event ID parameter to `tribe_events_event_classes` filter to make it more useful [64807]
 
 = [4.6.19] 2018-06-20 =
 
