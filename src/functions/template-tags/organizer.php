@@ -50,13 +50,13 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	function tribe_get_organizer_ids( $event_id = null ) {
 		$event_id = Tribe__Events__Main::postIdHelper( $event_id );
 
+		$organizer_ids = array();
+
 		if ( Tribe__Events__Main::instance()->isEvent( $event_id ) ) {
 			$organizer_ids = tribe_get_event_meta( $event_id, '_EventOrganizerID', false );
 
 			// Protect against storing array items that render false, such as `0`.
 			$organizer_ids = array_filter( (array) $organizer_ids );
-		} else {
-			$organizer_ids = array();
 		}
 
 		return apply_filters( 'tribe_get_organizer_ids', $organizer_ids, $event_id );

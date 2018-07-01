@@ -855,10 +855,9 @@ class Tribe__Events__Linked_Posts {
 
 		$linked_post_type_meta_key = $this->get_meta_key( $linked_post_type );
 
-		if ( $prior_linked_posts === $post_ids_to_link ) {
-			// If the array values match type and value and are in the same order, no need to touch postmeta.
-			return;
-		} else {
+		// If the array values match both type and value and ordering, no need to touch postmeta.
+		// Re-save postmeta if not matching all these conditions.
+		if ( $prior_linked_posts !== $post_ids_to_link ) {
 			$sorted_priors = $prior_linked_posts;
 			sort( $sorted_priors, SORT_NUMERIC );
 
