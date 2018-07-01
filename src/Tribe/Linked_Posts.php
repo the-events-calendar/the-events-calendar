@@ -912,7 +912,6 @@ class Tribe__Events__Linked_Posts {
 		$my_linked_post_ids         = array();
 		$current_user               = wp_get_current_user();
 		$can_edit_others_posts      = current_user_can( $post_type_object->cap->edit_others_posts );
-		$my_linked_posts            = false;
 
 		$plural_name             = $this->linked_post_types[ $post_type ]['name'];
 		$singular_name           = ! empty( $this->linked_post_types[ $post_type ]['singular_name'] ) ? $this->linked_post_types[ $post_type ]['singular_name'] : $plural_name;
