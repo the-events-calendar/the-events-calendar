@@ -295,8 +295,8 @@ class Tribe__Events__Linked_Posts {
 		$post_id_post_type = get_post_type( $post_id );
 
 		$args = array(
-			'p' => $post_id,
-			'post_type' => $post_id_post_type,
+			'p'          => $post_id,
+			'post_type'  => $post_id_post_type,
 			'meta_query' => array(),
 		);
 
@@ -901,8 +901,8 @@ class Tribe__Events__Linked_Posts {
 	/**
 	 * Helper function for displaying dropdowns for linked post types
 	 *
-	 * @param string $post_type Post type to display dropdown for
-	 * @param mixed  $current the current saved linked post item
+	 * @param string $post_type Post type to display dropdown for.
+	 * @param mixed  $current   The current saved linked post item.
 	 */
 	public function saved_linked_post_dropdown( $post_type, $current = null ) {
 		$post_type_object           = get_post_type_object( $post_type );
@@ -918,12 +918,12 @@ class Tribe__Events__Linked_Posts {
 		$singular_name_lowercase = ! empty( $this->linked_post_types[ $post_type ]['singular_name_lowercase'] ) ? $this->linked_post_types[ $post_type ]['singular_name_lowercase'] : $singular_name;
 
 		$options = (object) array(
-			'owned' => array(
-				'text' => sprintf( esc_html__( 'My %s', 'the-events-calendar' ), $plural_name ),
+			'owned'     => array(
+				'text'     => sprintf( esc_html__( 'My %s', 'the-events-calendar' ), $plural_name ),
 				'children' => array(),
 			),
 			'available' => array(
-				'text' => sprintf( esc_html__( 'Available %s', 'the-events-calendar' ), $plural_name ),
+				'text'     => sprintf( esc_html__( 'Available %s', 'the-events-calendar' ), $plural_name ),
 				'children' => array(),
 			),
 		);
