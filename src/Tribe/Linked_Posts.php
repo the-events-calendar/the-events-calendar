@@ -127,11 +127,11 @@ class Tribe__Events__Linked_Posts {
 		}
 
 		$default_args = array(
-			'name'           => $post_type_object->labels->name,
-			'singular_name'  => $post_type_object->labels->singular_name,
+			'name'                    => $post_type_object->labels->name,
+			'singular_name'           => $post_type_object->labels->singular_name,
 			'singular_name_lowercase' => $post_type_object->labels->singular_name_lowercase,
-			'allow_multiple' => true,
-			'allow_creation' => false,
+			'allow_multiple'          => true,
+			'allow_creation'          => false,
 		);
 
 		$args = wp_parse_args( $args, $default_args );
