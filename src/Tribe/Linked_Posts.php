@@ -655,6 +655,7 @@ class Tribe__Events__Linked_Posts {
 
 	/**
 	 * Save Order of Linked Posts
+	 *
 	 * @deprecated since TBD
 	 * @todo Remove on 4.7
 	 *
