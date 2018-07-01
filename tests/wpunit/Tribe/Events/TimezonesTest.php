@@ -99,6 +99,9 @@ class TimezonesTest extends \Codeception\TestCase\WPTestCase
 			'when' => '2018-07-01 08:00:00',
 		] );
 
+		// to overcome factory creating a default value
+		delete_post_meta( $event_id, '_EventTimezone' );
+
 		update_option( 'timezone_string', 'America/New_York' );
 
 		// Local event timezone
