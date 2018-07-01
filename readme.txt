@@ -216,6 +216,8 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 == Changelog ==
 
 = [4.6.20] TBD =
+
+* Feature - Add featured event column support for CLI imports [108027]
 * Fix - Fixed linking post types (e.g. Organizers and custom post types) to reflect drag-and-drop ordering and `tribe_get_linked_posts_by_post_type()` returning empty in error. Deprecated the functions added in version 4.6.13 that previously attempted to fix this issue but was not done in a backwards-compatible way: `get_order_meta_key()` and `tribe_sanitize_organizers()`. We no longer rely on a separate postmeta value dedicated to ordering linked posts (e.g. '_EventOrganizerID_Order'), and you may want to remove all such values from your database after re-saving any Events that have linked posts and their ordering is important. (props to @natureslens for reporting this) [105116]
 * Fix - Display the exact search term in the "no results" notice on the events page [106991]
 * Fix - Allow venue and organizer fields to be intentionally empty on Event Singular REST API calls [109482]
