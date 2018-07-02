@@ -696,9 +696,17 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			// Now process all but the meridians
 			foreach ( $args as $key => &$value ) {
 				if ( 'EventStartHour' === $key ) {
-					$value = self::sanitize_hour_meta_value( $value, ! empty( $args['EventStartMeridian'] ) );
+					if ( empty( $args['EventStartMeridian'] ) ) {
+						$value = self::sanitize_hour_meta_value( $value );
+					} else {
+						$value = self::sanitize_hour_meta_value( $value, true );
+					}
 				} elseif ( 'EventEndHour' === $key ) {
-					$value = self::sanitize_hour_meta_value( $value, ! empty( $args['EventEndMeridian'] ) );
+					if ( empty( $args['EventEndMeridian'] ) ) {
+						$value = self::sanitize_hour_meta_value( $value );
+					} else {
+						$value = self::sanitize_hour_meta_value( $value, true );
+					}
 				} elseif (
 					'EventStartMinute' === $key
 					|| 'EventEndMinute' === $key
