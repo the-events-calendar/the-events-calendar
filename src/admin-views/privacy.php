@@ -8,8 +8,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-$suggested_text = $descr ? '<strong>' . esc_html__( 'Suggested text:', 'the-events-calendar' ) . ' </strong>' : '';
-
 ?>
 <div class="tribe-events-privacy">
 	<p class="privacy-policy-tutorial"><?php esc_html_e( 'Hello,', 'the-events-calendar' ); ?></p>
@@ -21,7 +19,7 @@ $suggested_text = $descr ? '<strong>' . esc_html__( 'Suggested text:', 'the-even
 
 	<h3><?php esc_html_e( 'Event, Venue, and Organizer Information', 'the-events-calendar' ); ?></h3>
 	<p class="privacy-policy-tutorial"><?php esc_html_e( 'Through the usage of The Events Calendar, Events Calendar PRO, The Events Calendar Filter Bar, Eventbrite Tickets, and Community Events plugins, as well as our Event Aggregator Import service (contained within The Events Calendar plugin), information may be collected and stored within your website’s database.', 'the-events-calendar' ); ?></p>
-	<p class="privacy-policy-tutorial"><?php echo $suggested_text; ?></p>
+	<p class="privacy-policy-tutorial"><strong><?php esc_html_e( 'Suggested text:', 'event-tickets' ); ?></strong></p>
 	<p><?php esc_html_e( 'If you create, submit, import, save, or publish Event, Venue, or Organizer information, such information is retained in the local database:', 'the-events-calendar' ); ?></p>
 
 	<ol>
@@ -46,7 +44,7 @@ $suggested_text = $descr ? '<strong>' . esc_html__( 'Suggested text:', 'the-even
 
 	<p class="privacy-policy-tutorial"><?php esc_html_e( 'The Events Calendar suite offers the use of third-party API keys. The primary functions are to enhance the features we\'ve built in, some of which use Google Maps, PayPal, Eventbrite, Meetup, and Facebook. These API keys are not supplied by Modern Tribe.', 'the-events-calendar' ); ?></p>
 
-	<p class="privacy-policy-tutorial"><?php echo $suggested_text; ?></p>
+	<p class="privacy-policy-tutorial"><strong><?php esc_html_e( 'Suggested text:', 'event-tickets' ); ?></strong></p>
 
 	<p><?php esc_html_e( 'We make use of certain API keys, in order to provide specific features.', 'the-events-calendar' ); ?></p>
 
