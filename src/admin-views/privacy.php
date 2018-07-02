@@ -21,7 +21,7 @@ $suggested_text = $descr ? '<strong>' . esc_html__( 'Suggested text:', 'the-even
 
 	<h3><?php esc_html_e( 'Event, Venue, and Organizer Information', 'the-events-calendar' ); ?></h3>
 	<p><?php esc_html_e( 'Through the usage of The Events Calendar, Events Calendar PRO, The Events Calendar Filter Bar, Eventbrite Tickets, and Community Events plugins, as well as our Event Aggregator Import service (contained within The Events Calendar plugin), information may be collected and stored within your website’s database.', 'the-events-calendar' ); ?></p>
-	<p><?php echo $suggested_text . __( 'If you create, submit, import, save, or publish Event, Venue, or Organizer information, such information is retained in the local database:', 'the-events-calendar' ); ?></p>
+	<p><?php echo $suggested_text . esc_html__( 'If you create, submit, import, save, or publish Event, Venue, or Organizer information, such information is retained in the local database:', 'the-events-calendar' ); ?></p>
 
 	<ol>
 		<li><?php esc_html_e( 'Venue information: name, address, city, country, state, postal code, phone, website, geographical coordinates (latitude and longitude)', 'the-events-calendar' ); ?></li>
