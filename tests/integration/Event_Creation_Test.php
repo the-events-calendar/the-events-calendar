@@ -46,6 +46,134 @@ class Event_Creation_Test extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
+	 * Check to make sure that an event is not successfully created if an invalid start hour meta value is detected.
+	 *
+	 * @uses $post_example_settings
+	 */
+	public function test_tribe_create_event_false_if_invalid_meta_detected_start_hour() {
+		$post_settings = $this->post_example_settings;
+
+		$post_settings['EventStartHour'] = 24; // greater than 23
+
+		$event_result = tribe_create_event( $post_settings );
+
+		$this->assertFalse( $event_result );
+	}
+
+	/**
+	 * Check to make sure that an event is not successfully created if an invalid start minute meta value is detected.
+	 *
+	 * @uses $post_example_settings
+	 */
+	public function test_tribe_create_event_false_if_invalid_meta_detected_start_minute() {
+		$post_settings = $this->post_example_settings;
+
+		$post_settings['EventStartMinute'] = 60; // greater than 59
+
+		$event_result = tribe_create_event( $post_settings );
+
+		$this->assertFalse( $event_result );
+	}
+
+	/**
+	 * Check to make sure that an event is not successfully created if an invalid end hour meta value is detected.
+	 *
+	 * @uses $post_example_settings
+	 */
+	public function test_tribe_create_event_false_if_invalid_meta_detected_end_hour() {
+		$post_settings = $this->post_example_settings;
+
+		$post_settings['EventEndHour'] = 24; // greater than 23
+
+		$event_result = tribe_create_event( $post_settings );
+
+		$this->assertFalse( $event_result );
+	}
+
+	/**
+	 * Check to make sure that an event is not successfully created if an invalid end minute meta value is detected.
+	 *
+	 * @uses $post_example_settings
+	 */
+	public function test_tribe_create_event_false_if_invalid_meta_detected_end_minute() {
+		$post_settings = $this->post_example_settings;
+
+		$post_settings['EventEndMinute'] = 60; // greater than 59
+
+		$event_result = tribe_create_event( $post_settings );
+
+		$this->assertFalse( $event_result );
+	}
+
+	/**
+	 * Check to make sure that an event is not successfully updated if an invalid start hour meta value is detected.
+	 *
+	 * @uses $post_example_settings
+	 */
+	public function test_tribe_update_event_false_if_invalid_meta_detected_start_hour() {
+		$post_settings = $this->post_example_settings;
+
+		$event_id = tribe_create_event( $post_settings );
+
+		$post_settings['EventStartHour'] = 24; // greater than 23
+
+		$event_result = tribe_update_event( $event_id, $post_settings );
+
+		$this->assertFalse( $event_result );
+	}
+
+	/**
+	 * Check to make sure that an event is not successfully updated if an invalid start minute meta value is detected.
+	 *
+	 * @uses $post_example_settings
+	 */
+	public function test_tribe_update_event_false_if_invalid_meta_detected_start_minute() {
+		$post_settings = $this->post_example_settings;
+
+		$event_id = tribe_create_event( $post_settings );
+
+		$post_settings['EventStartMinute'] = 60; // greater than 59
+
+		$event_result = tribe_update_event( $event_id, $post_settings );
+
+		$this->assertFalse( $event_result );
+	}
+
+	/**
+	 * Check to make sure that an event is not successfully updated if an invalid end hour meta value is detected.
+	 *
+	 * @uses $post_example_settings
+	 */
+	public function test_tribe_update_event_false_if_invalid_meta_detected_end_hour() {
+		$post_settings = $this->post_example_settings;
+
+		$event_id = tribe_create_event( $post_settings );
+
+		$post_settings['EventEndHour'] = 24; // greater than 23
+
+		$event_result = tribe_update_event( $event_id, $post_settings );
+
+		$this->assertFalse( $event_result );
+	}
+
+	/**
+	 * Check to make sure that an event is not successfully updated if an invalid end minute meta value is detected.
+	 *
+	 * @uses $post_example_settings
+	 */
+	public function test_tribe_update_event_false_if_invalid_meta_detected_end_minute() {
+		$post_settings = $this->post_example_settings;
+
+		$event_id = tribe_create_event( $post_settings );
+
+		$post_settings['EventEndMinute'] = 60; // greater than 59
+
+		$event_result = tribe_update_event( $event_id, $post_settings );
+
+		$this->assertFalse( $event_result );
+	}
+
+	/**
 	 * Check to make sure that the event data is saved properly.
 	 *
 	 */
