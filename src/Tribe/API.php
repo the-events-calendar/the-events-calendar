@@ -671,8 +671,13 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			// Could enhance this with more comprehensive checks in the future.
 
 			// Process meridian fields before hour fields to determine if hours are to be in the 12-hour or 24-hour format.
-			$args['EventStartMeridian'] = self::sanitize_meridian_meta_value( $args['EventStartMeridian'] );
-			$args['EventEndMeridian']   = self::sanitize_meridian_meta_value( $args['EventEndMeridian'] );
+			if ( ! empty( $args['EventStartMeridian'] ) ) {
+				$args['EventStartMeridian'] = self::sanitize_meridian_meta_value( $args['EventStartMeridian'] );
+			}
+
+			if ( ! empty( $args['EventEndMeridian'] ) ) {
+				$args['EventEndMeridian'] = self::sanitize_meridian_meta_value( $args['EventEndMeridian'] );
+			}
 
 			// If meridian is set but we can pretty easily guess the hour is a valid 24-hour format, discard meridian in attempt to be smarter/flexible, thus setting "14pm" (invalid) to "14" (equivalent to 2pm).
 			// We take this approach instead of just minus `12` from the integer value of the hour because meridian may be set by defaults.
