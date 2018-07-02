@@ -21,10 +21,12 @@ class Tribe__Events__Privacy {
 	 */
 	public function privacy_policy_content() {
 
-		if ( function_exists( 'wp_add_privacy_policy_content' ) ) {
-			$content = $this->default_privacy_policy_content( true );
-			wp_add_privacy_policy_content( __( 'The Events Calendar', 'the-events-calendar' ), $content );
+		if ( ! function_exists( 'wp_add_privacy_policy_content' ) ) {
+			return false;
 		}
+
+		$content = $this->default_privacy_policy_content( true );
+		wp_add_privacy_policy_content( __( 'The Events Calendar', 'the-events-calendar' ), $content );
 	}
 
 	/**
