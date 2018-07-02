@@ -22,11 +22,11 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * - EventStartDate date string (required) - Start date of the Event.
 	 * - EventEndDate date string (required) - End date of the Event.
 	 * - EventAllDay bool - Set to true if event has no start / end time and should run all day.
-	 * - EventStartHour string - Event start hour (01 - 12 if `EventStartMeridian` is also passed, else 00-23).
-	 * - EventStartMinute string - Event start minute (00 - 59).
+	 * - EventStartHour string - Event start hour (01-12 if `EventStartMeridian` is also passed, else 00-23).
+	 * - EventStartMinute string - Event start minute (00-59).
 	 * - EventStartMeridian string - Event start meridian (am or pm).
-	 * - EventEndHour string - Event end hour (01 - 12 if `EventEndMeridian` is also passed, else 00-23).
-	 * - EventEndMinute string - Event end minute (00 - 59).
+	 * - EventEndHour string - Event end hour (01-12 if `EventEndMeridian` is also passed, else 00-23).
+	 * - EventEndMinute string - Event end minute (00-59).
 	 * - EventEndMeridian string - Event end meridian (am or pm).
 	 * - EventHideFromUpcoming bool - Set to true to hide this Event from the upcoming list view.
 	 * - EventShowMapLink bool - Set to true to display a link to the map in the Event view.
