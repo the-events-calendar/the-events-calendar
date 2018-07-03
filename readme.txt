@@ -218,7 +218,12 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 = [4.6.20] TBD =
 
 * Feature - Add featured event column support for CLI imports [108027]
-* Fix - Linked post types (e.g. Organizers and custom post types) now correctly save in their drag-and-drop order, and `tribe_get_linked_posts_by_post_type()` no longer returns empty in error. Deprecated the functions added in version 4.6.13 that previously attempted to fix this issue but was not done in a backwards-compatible way: `get_order_meta_key()` and `tribe_sanitize_organizers()`. We no longer rely on a separate postmeta value dedicated to ordering linked posts (e.g. '_EventOrganizerID_Order'), and you may want to remove all such values from your database after re-saving any Events that have linked posts and their ordering is important. (props to @natureslens for reporting this) [105116]
+* Fix - Multiple fixes regarding linked post types (e.g. Organizers and custom post types) - props to @natureslens and others for reporting these [105116]:
+  * Now correctly saves in their drag-and-drop order
+  * Deprecated the functions added in version 4.6.13 that previously attempted to fix ordering logic but was not done in a backwards-compatible way: `get_order_meta_key()` and `tribe_sanitize_organizers()`
+  * We no longer rely on a separate postmeta value dedicated to ordering linked posts (e.g. `_EventOrganizerID_Order`), and you may want to remove all such values from your database after re-saving any events that have linked posts and their ordering is important
+  * `tribe_get_linked_posts_by_post_type()` no longer returns empty in error
+  * Editing an existing event no longer loses the linked posts just because they were not part of the submission. Example: If organizers are editable in the wp-admin event edit screen but not on the Community Events "event edit" form (via template override or other custom code), all pre-existing organizers were removed in error.
 * Fix - Display the exact search term in the "no results" notice on the events page [106991]
 * Fix - Allow venue and organizer fields to be intentionally empty on Event Singular REST API calls [109482]
 * Tweak - Added event ID parameter to `tribe_events_event_classes` filter to make it more useful [64807]

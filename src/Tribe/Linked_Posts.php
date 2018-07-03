@@ -743,7 +743,9 @@ class Tribe__Events__Linked_Posts {
 	 * @param array $submission Submitted form data.
 	 */
 	public function handle_submission_by_post_type( $event_id, $linked_post_type, $submission ) {
-		// if the submission isn't an array, bail
+		// If the submission isn't an array, bail
+		// This is here to avoid unexpected data
+		// And also to avoid errantly removing linked posts just because they were not part of the submission, in which case this will be `false` from `$this->get_linked_post_type_data()`
 		if ( ! is_array( $submission ) ) {
 			return;
 		}
@@ -854,7 +856,17 @@ class Tribe__Events__Linked_Posts {
 
 		$prior_linked_posts = $this->get_linked_post_ids_by_post_type( $event_id, $linked_post_type );
 
+		$temp_prior_linked_posts = $prior_linked_posts;
+
 		$linked_post_type_meta_key = $this->get_meta_key( $linked_post_type );
+
+		// If no pre-existing posts and no new posts to add, bail.
+		if (
+			empty( $prior_linked_posts )
+			&& empty( $post_ids_to_link )
+		) {
+			return;
+		}
 
 		// If the array values match both type and value and ordering, no need to touch postmeta.
 		// Re-save postmeta if not matching all these conditions.
@@ -878,12 +890,15 @@ class Tribe__Events__Linked_Posts {
 				// We have different Linked Post IDs (adding and/or removing one or more) so possibly need to run through our own methods to trigger those hooks.
 				$posts_to_remove = array_diff( $prior_linked_posts, $post_ids_to_link );
 
-				foreach ( $posts_to_remove as $unlinked_post_id ) {
+				foreach ( $posts_to_remove as $key => $unlinked_post_id ) {
 					$this->unlink_post( $event_id, $unlinked_post_id );
+					unset( $temp_prior_linked_posts[ $key ] );
 				}
 
-				// Remove all to start fresh (for `meta_id` ordering purposes)
-				delete_post_meta( $event_id, $linked_post_type_meta_key );
+				// Remove all pre-existing (and non-removed) linked posts to start fresh by re-adding below (for `meta_id` ordering purposes)
+				if ( ! empty( $temp_prior_linked_posts ) ) {
+					delete_post_meta( $event_id, $linked_post_type_meta_key );
+				}
 
 				foreach ( $post_ids_to_link as $linked_post_id ) {
 					if ( in_array( $linked_post_id, $prior_linked_posts ) ) {
@@ -1222,17 +1237,23 @@ class Tribe__Events__Linked_Posts {
 	}
 
 	/**
+	 * Get the data from a submission that is specific to a single linked post type.
+	 *
 	 * @param $submission
 	 * @param $linked_post_type
 	 *
-	 * @return array
+	 * @return bool|array False if linked post type is not part of thissubmission but linked posts exist prior to this
+	 *                    submission. Else an array of the data specific to this linked post type, which may be empty.
 	 */
 	private function get_linked_post_type_data( $submission, $linked_post_type ) {
 		$linked_post_type_container = $this->get_post_type_container( $linked_post_type );
 
 		// Allow for the post type container to have first letter in uppercase form.
 		// e.g. `venue` and `Venue` should both be valid.
-		$linked_post_type_containers_candidates = array( $linked_post_type_container, ucfirst( $linked_post_type_container ) );
+		$linked_post_type_containers_candidates = array(
+			$linked_post_type_container,
+			ucfirst( $linked_post_type_container ),
+		);
 
 		$post_type_container = false;
 
@@ -1246,7 +1267,22 @@ class Tribe__Events__Linked_Posts {
 		if ( false === $post_type_container ) {
 			$data = array();
 		} else {
+			// may be an empty array
 			$data = $submission[ $post_type_container ];
+		}
+
+		// If the reason for the empty array is because this linked post type is not part of the submission
+		// Which is possible even if `$post_type_container` is not `false`
+		if ( empty( $data ) ) {
+			if ( ! empty( $submission['ID'] ) ) {
+				$existing_posts = $this->get_linked_posts_by_post_type( $submission['ID'], $linked_post_type );
+			}
+
+			if ( ! empty( $existing_posts ) ) {
+				// False signals to `$this->handle_submission_by_post_type()` that this linked post type is not part of the submission but existing linked posts exist, and we shouldn't drop them, which is what would happen if we passed an empty array.
+				// Example: We shouldn't remove all pre-existing Organizers from an event just because editing Organizers is available in the wp-admin event edit screen but not available in the Community Events form.
+				$data = false;
+			}
 		}
 
 		return $data;
