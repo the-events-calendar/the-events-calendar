@@ -800,9 +800,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 				return new WP_Error( 'invalid-tribe-events-24-hour-meta-value', $error_message );
 			}
 
-			$new_value = str_pad( $new_value, 2, '0', STR_PAD_LEFT );
-
-			return $new_value;
+			return str_pad( $new_value, 2, '0', STR_PAD_LEFT );
 		}
 
 		/**
@@ -843,9 +841,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 				return new WP_Error( 'invalid-tribe-events-minutes-meta-value', $error_message );
 			}
 
-			$new_value = str_pad( $new_value, 2, '0', STR_PAD_LEFT );
-
-			return $new_value;
+			return str_pad( $new_value, 2, '0', STR_PAD_LEFT );
 		}
 	}
 }
