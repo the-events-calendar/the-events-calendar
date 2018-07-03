@@ -489,7 +489,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 * @return mixed
 		 */
 		private static function saveEventOrganizer( $data, $post = null, $post_status = 'publish' ) {
-			$organzier_id = ! empty( $data['OrganizerID'] ) ? $data['OrganizerID'] : null;
+			$organizer_id = ! empty( $data['OrganizerID'] ) ? $data['OrganizerID'] : null;
 			return Tribe__Events__Organizer::instance()->save( $organizer_id, $data, Tribe__Events__Organizer::POSTTYPE, $post_status );
 		}
 
