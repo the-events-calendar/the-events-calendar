@@ -767,8 +767,6 @@ class Tribe__Events__Linked_Posts {
 		foreach ( $temp_submission as $key => $value ) {
 			$submission[ $key ] = is_array( $value ) ? $value : array( $value );
 		}
-		// Cleanup
-		unset( $temp_submission, $key, $value );
 
 		// setup key(s) if all new post(s)
 		if ( ! isset( $submission[ $linked_post_type_id_field ] ) ) {
@@ -782,8 +780,6 @@ class Tribe__Events__Linked_Posts {
 				$post_count ++;
 			} while ( $multiple_posts > $post_count );
 		}
-		// Cleanup
-		unset( $first_item, $multiple_posts, $post_count );
 
 		$fields = array_keys( $submission );
 
