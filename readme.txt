@@ -220,6 +220,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Feature - Add featured event column support for CLI imports [108027]
 * Fix - Display the exact search term in the "no results" notice on the events page [106991]
 * Fix - Allow venue and organizer fields to be intentionally empty on Event Singular REST API calls [109482]
+* Fix - Added basic checks to prevent saving obviously-invalid event meta values, such as sending `EventStartMinute` of `60` (since it should be 0-59) to `tribe_create_event()`. This prevents falling back to "zero" values (e.g. Unix Epoch) when another value was intended. Thanks to @compton-bob for flagging this via our Help Desk. [109722]
 * Fix - Add Privacy Policy guide for The Events Calendar [108454]
 * Tweak - Added event ID parameter to `tribe_events_event_classes` filter to make it more useful [64807]
 
