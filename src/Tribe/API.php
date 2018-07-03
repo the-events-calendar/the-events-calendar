@@ -682,16 +682,16 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			// Watch out for sending "12pm" or "12am" as the meridian (12-hour format) will take precedence if it exists.
 			if (
 				! empty( $args['EventStartMeridian'] )
-				&& 12 < absint( $args['EventStartHour'] )
-				&& 24 > absint( $args['EventStartHour'] )
+				&& absint( $args['EventStartHour'] ) > 12
+				&& absint( $args['EventStartHour'] ) < 24
 			) {
 				$args['EventStartMeridian'] = '';
 			}
 
 			if (
 				! empty( $args['EventEndMeridian'] )
-				&& 12 < absint( $args['EventEndHour'] )
-				&& 24 > absint( $args['EventEndHour'] )
+				&& absint( $args['EventEndHour'] ) > 12
+				&& absint( $args['EventEndHour'] ) < 24
 			) {
 				$args['EventEndMeridian'] = '';
 			}
@@ -781,8 +781,8 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			if (
 				$twelve_hour
 				&& (
-					1 > $new_value
-					|| 12 < $new_value
+					$new_value < 1
+					|| $new_value > 12
 				)
 			) {
 				$error_message = sprintf(
@@ -791,7 +791,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 				);
 
 				return new WP_Error( 'invalid-tribe-events-12-hour-meta-value', $error_message );
-			} elseif ( 23 < $new_value ) {
+			} elseif ( $new_value > 23 ) {
 				$error_message = sprintf(
 					esc_html__( 'An event having a post meta value of `%s` hour (24-hour) is not valid. Make sure it is from 0 to 23.', 'the-events-calendar' ),
 					$value
@@ -834,7 +834,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 
 			$new_value = absint( $value );
 
-			if ( 59 < $new_value ) {
+			if ( $new_value > 59 ) {
 				$error_message = sprintf(
 					esc_html__( 'An event having a post meta value of `%s` minutes is not valid. Make sure it is from 0 to 59.', 'the-events-calendar' ),
 					$value
