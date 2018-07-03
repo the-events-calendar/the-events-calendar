@@ -131,8 +131,6 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 				do_action( 'tribe_events_event_save_failed_invalid_meta', $event_id, $raw_data, $event );
 
 				return false;
-			} else {
-				unset( $raw_data );
 			}
 
 			if ( empty( $data['EventHideFromUpcoming'] ) ) {
@@ -660,9 +658,9 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 */
 		public static function sanitize_event_post_create_update_args( $args ) {
 			if (
-				empty( $args['post_type'] )
+				! is_array( $args )
+				|| empty( $args['post_type'] )
 				|| Tribe__Events__Main::POSTTYPE !== $args['post_type']
-				|| ! is_array( $args )
 			) {
 				return $args;
 			}
@@ -701,17 +699,11 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			// Now process all but the meridians
 			foreach ( $args as $key => &$value ) {
 				if ( 'EventStartHour' === $key ) {
-					if ( empty( $args['EventStartMeridian'] ) ) {
-						$value = self::sanitize_hour_meta_value( $value );
-					} else {
-						$value = self::sanitize_hour_meta_value( $value, true );
-					}
+					$twelve_hour = ! empty( $args['EventStartMeridian'] );
+					$value       = self::sanitize_hour_meta_value( $value, $twelve_hour );
 				} elseif ( 'EventEndHour' === $key ) {
-					if ( empty( $args['EventEndMeridian'] ) ) {
-						$value = self::sanitize_hour_meta_value( $value );
-					} else {
-						$value = self::sanitize_hour_meta_value( $value, true );
-					}
+					$twelve_hour = ! empty( $args['EventEndMeridian'] );
+					$value       = self::sanitize_hour_meta_value( $value, $twelve_hour );
 				} elseif (
 					'EventStartMinute' === $key
 					|| 'EventEndMinute' === $key
@@ -743,23 +735,20 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			// lower-case to match the `a` PHP date format used elsewhere
 			$new_value = strtolower( trim( $value ) );
 
-			if (
-				'am' !== $new_value
-				&& 'pm' !== $new_value
-			) {
-				if ( $empty_if_invalid ) {
-					$new_value = '';
-				} else {
-					$error_message = sprintf(
-						esc_html__( 'An event having a post meta value of `%s` meridian is not valid. Make sure it is either `am` or `pm`, or remove it entirely if using the 24-hour format.', 'the-events-calendar' ),
-						$value
-					);
+			$is_valid = 'am' === $new_value || 'pm' === $new_value;
 
-					return new WP_Error( 'invalid-tribe-events-meridian-meta-value', $error_message );
-				}
+			$invalid_value = '';
+
+			if ( ! $empty_if_invalid ) {
+				$error_message = sprintf(
+					esc_html__( 'An event having a post meta value of `%s` meridian is not valid. Make sure it is either `am` or `pm`, or remove it entirely if using the 24-hour format.', 'the-events-calendar' ),
+					$value
+				);
+
+				$invalid_value = new WP_Error( 'invalid-tribe-events-meridian-meta-value', $error_message );
 			}
 
-			return $new_value;
+			return $is_valid ? $new_value : $invalid_value;
 		}
 
 		/**
@@ -789,27 +778,26 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 
 			$new_value = absint( $value );
 
-			if ( $twelve_hour ) {
-				if (
+			if (
+				$twelve_hour
+				&& (
 					1 > $new_value
 					|| 12 < $new_value
-				) {
-					$error_message = sprintf(
-						esc_html__( 'An event having a post meta value of `%s` hour (12-hour) is not valid. Make sure it is from 1 to 12.', 'the-events-calendar' ),
-						$value
-					);
+				)
+			) {
+				$error_message = sprintf(
+					esc_html__( 'An event having a post meta value of `%s` hour (12-hour) is not valid. Make sure it is from 1 to 12.', 'the-events-calendar' ),
+					$value
+				);
 
-					return new WP_Error( 'invalid-tribe-events-12-hour-meta-value', $error_message );
-				}
-			} else {
-				if ( 23 < $new_value ) {
-					$error_message = sprintf(
-						esc_html__( 'An event having a post meta value of `%s` hour (24-hour) is not valid. Make sure it is from 0 to 23.', 'the-events-calendar' ),
-						$value
-					);
+				return new WP_Error( 'invalid-tribe-events-12-hour-meta-value', $error_message );
+			} elseif ( 23 < $new_value ) {
+				$error_message = sprintf(
+					esc_html__( 'An event having a post meta value of `%s` hour (24-hour) is not valid. Make sure it is from 0 to 23.', 'the-events-calendar' ),
+					$value
+				);
 
-					return new WP_Error( 'invalid-tribe-events-24-hour-meta-value', $error_message );
-				}
+				return new WP_Error( 'invalid-tribe-events-24-hour-meta-value', $error_message );
 			}
 
 			$new_value = str_pad( $new_value, 2, '0', STR_PAD_LEFT );
@@ -832,7 +820,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			$value = (string) $value;
 
 			if ( '' === trim( $value ) ) {
-				return trim( $value );
+				return '';
 			}
 
 			if ( ! is_numeric( $value ) ) {

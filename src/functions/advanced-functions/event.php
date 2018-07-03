@@ -58,11 +58,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		$args['post_type'] = Tribe__Events__Main::POSTTYPE;
 		$postId            = Tribe__Events__API::createEvent( $args );
 
-		if ( is_wp_error( $postId ) ) {
-			return false;
-		} else {
-			return $postId;
-		}
+		return is_wp_error( $postId ) ? false : $postId;
 	}
 
 	/**
@@ -80,11 +76,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	function tribe_update_event( $postId, $args ) {
 		$postId = Tribe__Events__API::updateEvent( $postId, $args );
 
-		if ( is_wp_error( $postId ) ) {
-			return false;
-		} else {
-			return $postId;
-		}
+		return is_wp_error( $postId ) ? false : $postId;
 	}
 
 	/**
