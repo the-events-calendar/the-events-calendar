@@ -175,7 +175,7 @@ class Tribe__Events__Linked_Posts {
 	/**
 	 * Returns the meta key for linked post order
 	 *
-	 * @deprecated since TBD
+	 * @deprecated TBD
 	 * @todo Remove on 4.7
 	 *
 	 * @since 4.6.13
@@ -656,7 +656,7 @@ class Tribe__Events__Linked_Posts {
 	/**
 	 * Save Order of Linked Posts
 	 *
-	 * @deprecated since TBD
+	 * @deprecated TBD
 	 * @todo Remove on 4.7
 	 *
 	 * @since 4.6.13
