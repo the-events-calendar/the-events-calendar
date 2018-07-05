@@ -2132,9 +2132,9 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		 *
 		 * @since TBD
 		 *
-		 * @param int $id     The Record post ID
+		 * @param int   $id   The Record post ID
 		 * @param array $meta An array of meta for the record
-		 * @param $this       $this The Record object itself
+		 * @param self  $this The Record object itself
 		 */
 		do_action( 'tribe_aggregator_record_finalized', $this->id, $this->meta, $this );
 	}
