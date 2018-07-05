@@ -8,7 +8,7 @@ class Tribe__Events__Privacy {
 	/**
 	 * Class initialization
 	 *
-	 * @since TBD
+	 * @since 4.6.20
 	 */
 	public function hook() {
 		add_action( 'admin_init', array( $this, 'privacy_policy_content' ), 20 );
@@ -17,7 +17,7 @@ class Tribe__Events__Privacy {
 	/**
 	 * Add the suggested privacy policy text to the policy postbox.
 	 *
-	 * @since TBD
+	 * @since 4.6.20
 	 */
 	public function privacy_policy_content() {
 
@@ -34,7 +34,7 @@ class Tribe__Events__Privacy {
 	 *
 	 * @param bool $descr Whether to include the descriptions under the section headings. Default false.
 	 *
-	 * @since TBD
+	 * @since 4.6.20
 	 *
 	 * @return string The default policy content.
 	 */
@@ -47,7 +47,7 @@ class Tribe__Events__Privacy {
 		/**
 		 * Filters the default content suggested for inclusion in a privacy policy.
 		 *
-		 * @since TBD
+		 * @since 4.6.20
 		 *
 		 * @param $content string The default policy content.
 		 */

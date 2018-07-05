@@ -126,7 +126,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 				 * @param array   $raw_data The meta fields we tried to send.
 				 * @param WP_Post $event    The event itself.
 				 *
-				 * @since TBD
+				 * @since 4.6.20
 				 */
 				do_action( 'tribe_events_event_save_failed_invalid_meta', $event_id, $raw_data, $event );
 
@@ -646,7 +646,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 *
 		 * Use this prior to sending arguments to post create/update function.
 		 *
-		 * @since TBD
+		 * @since 4.6.20
 		 *
 		 * @see Tribe__Events__API::sanitize_meridian_meta_value
 		 * @see Tribe__Events__API::sanitize_hour_meta_value
@@ -724,7 +724,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 *
 		 * Use this prior to sending value to the database.
 		 *
-		 * @since TBD
+		 * @since 4.6.20
 		 *
 		 * @param string $value            The post meta value to be checked, such as 'am'.
 		 * @param bool   $empty_if_invalid If true, set an invalid value to an empty string, else generate WP_Error.
@@ -757,7 +757,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 *
 		 * Use this prior to sending value to the database.
 		 *
-		 * @since TBD
+		 * @since 4.6.20
 		 *
 		 * @param string $value       The post meta value to be checked, such as '07'.
 		 * @param bool   $twelve_hour If false, allow 0-23. If true, only allow 1-12.
@@ -808,7 +808,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 *
 		 * Use this prior to sending value to the database.
 		 *
-		 * @since TBD
+		 * @since 4.6.20
 		 *
 		 * @param string $value The post meta value to be checked, such as '30'.
 		 *

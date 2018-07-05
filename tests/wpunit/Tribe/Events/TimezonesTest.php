@@ -60,16 +60,16 @@ class TimezonesTest extends \Codeception\TestCase\WPTestCase
 
         // Local event timezone
         tribe_update_option( 'tribe_events_timezone_mode', 'event' );
-        
+
         $output = Timezones::append_timezone( '', $event_id );
-        
+
         $this->assertMatchesSnapshot( $output, $this->driver );
     }
 
 	/**
 	 * Event time zone string should be returned, not site-wide time zone.
 	 *
-	 * @since TBD
+	 * @since 4.6.20
 	 */
 	public function test_get_event_timezone_string_should_return_event_meta_time_zone_if_set() {
 		$event_id = $this->factory()->event->create( [
@@ -92,7 +92,7 @@ class TimezonesTest extends \Codeception\TestCase\WPTestCase
 	/**
 	 * Event time zone string should fallback to site-wide time zone if event's is not set.
 	 *
-	 * @since TBD
+	 * @since 4.6.20
 	 */
 	public function test_get_event_timezone_string_should_return_site_time_zone_if_event_meta_time_zone_not_set() {
 		$event_id = $this->factory()->event->create( [
