@@ -673,7 +673,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Filters the event wrapper classes before they are returned
 		 *
-		 * @since TBD added the $event_id parameter
+		 * @since 4.6.20 added the $event_id parameter
 		 *
 		 * @param array $classes  The classes that will be returned
 		 * @param int   $event_id Current event ID

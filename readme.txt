@@ -4,7 +4,7 @@ Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.5
-Stable tag: 4.6.19
+Stable tag: 4.6.20
 Tested up to: 4.9.6
 Requires PHP: 5.2.4
 License: GPLv2 or later
@@ -215,7 +215,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
-= [4.6.20] TBD =
+= [4.6.20] 2018-07-10 =
 
 * Feature - Add featured event column support for CLI imports [108027]
 * Fix - Display the exact search term in the "no results" notice on the events page [106991]
