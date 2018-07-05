@@ -223,6 +223,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - Added basic checks to prevent saving obviously-invalid event meta values, such as sending `EventStartMinute` of `60` (since it should be 0-59) to `tribe_create_event()`. This prevents falling back to "zero" values (e.g. Unix Epoch) when another value was intended. Thanks to @compton-bob for flagging this via our Help Desk. [109722]
 * Fix - Add Privacy Policy guide for The Events Calendar [108454]
 * Tweak - Added event ID parameter to `tribe_events_event_classes` filter to make it more useful [64807]
+* Tweak - Added the `tribe_aggregator_record_finalized` action to allow developers to act before Event Aggregator imports start [109938]
 
 = [4.6.19] 2018-06-20 =
 
