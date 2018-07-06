@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-06-14 13:19:27+0000\n"
+"PO-Revision-Date: 2018-06-18 22:00:55+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -37,11 +37,11 @@ msgstr "Réglages > Général"
 
 #: src/admin-views/aggregator/tabs/import-form.php:286
 msgid "The number of events available in the preview may be limited by your %1$sImport Settings.%2$s"
-msgstr ""
+msgstr "Le nombre d’évènements disponible dans l’aperçu peut être limité par vos %1$sréglages d’import.%2$s"
 
 #: src/admin-views/aggregator/tabs/import-form.php:279
 msgid "to change how the actual time is displayed on your calendar."
-msgstr ""
+msgstr "pour changer l’affichage de l'heure actuelle dans votre calendrier."
 
 #: src/admin-views/aggregator/tabs/import-form.php:277
 msgid "timezone settings"
@@ -49,15 +49,15 @@ msgstr "réglages du fuseau horaire"
 
 #: src/admin-views/aggregator/tabs/import-form.php:275
 msgid "Events will be imported with the same timezone as defined on eventbrite.com. You can make use of The Events Calendar's"
-msgstr ""
+msgstr "Les évènements seront importés avec le fuseau horaire défini sur eventbrite.com. Vous pouvez utiliser celui de The Events Calendar"
 
 #: src/admin-views/aggregator/tabs/import-form.php:268
 msgid "Eventbrite imports can fetch up to 50 events from your source."
-msgstr ""
+msgstr "Eventbrite peut importer jusqu’à 50 évènements de votre source."
 
 #: src/admin-views/aggregator/status.php:202
 msgid "Limited connectivity with Eventbrite"
-msgstr ""
+msgstr "Connectivité limitée à Eventbrite"
 
 #: src/admin-views/aggregator/status.php:198
 msgctxt "link for connecting eventbrite"
@@ -66,11 +66,11 @@ msgstr "Se connecter à Eventbrite"
 
 #: src/admin-views/aggregator/status.php:196
 msgid "You have not connected Event Aggregator to Eventbrite"
-msgstr ""
+msgstr "Vous n’avez pas connecté Event Aggregator à Eventbrite"
 
 #: src/admin-views/aggregator/origins/refine.php:32
 msgid "Use the filters to narrow down which events are fetched from Eventbrite."
-msgstr ""
+msgstr "Utilisez les filtres pour affiner les évènements extraits d’Eventbrite."
 
 #: src/admin-views/aggregator/origins/meetup.php:154
 msgid "Invalid Meetup URL"
@@ -94,7 +94,7 @@ msgstr "Importer depuis une URL Eventbrite.com"
 
 #: src/admin-views/aggregator/origins/eventbrite.php:111
 msgid "Import events directly from your connected Eventbrite.com account or from a public Eventbrite.com url."
-msgstr ""
+msgstr "Importe des évènements directement depuis votre compte connecté à Eventbrite.com, ou depuis une autre URL publique d’Eventbrite.com."
 
 #: src/admin-views/aggregator/origins/eventbrite.php:110
 msgid "Select Source"
@@ -131,7 +131,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Service.php:665
 msgid "No upcoming Eventbrite events found."
-msgstr ""
+msgstr "Aucun évènement Eventbrite à venir trouvé."
 
 #: src/Tribe/Aggregator/Service.php:664
 msgid "Events cannot be imported because Eventbrite has returned an error. This could mean that the event ID does not exist, the event or source is marked as Private, or the event or source has been otherwise restricted by Eventbrite. You can <a href=\"https://theeventscalendar.com/knowledgebase/import-errors/\" target=\"_blank\">read more about Eventbrite restrictions in our knowledgebase</a>."
@@ -156,11 +156,11 @@ msgstr ""
 #: src/Tribe/Aggregator/REST/V1/Endpoints/Batch.php:132
 #: src/Tribe/Aggregator/REST/V1/Endpoints/State.php:84
 msgid "The percentage of import completed."
-msgstr ""
+msgstr "Pourcentage de l’import réalisé"
 
 #: src/Tribe/Aggregator/REST/V1/Endpoints/Batch.php:126
 msgid "The current status of the import."
-msgstr ""
+msgstr "État courant de l’import"
 
 #: src/Tribe/Aggregator/REST/V1/Endpoints/Batch.php:120
 #: src/Tribe/Aggregator/REST/V1/Endpoints/State.php:62
@@ -204,7 +204,7 @@ msgstr ""
 
 #: common/src/admin-views/tribe-options-help.php:33
 msgid "Search our support help desk"
-msgstr ""
+msgstr "Recherchez notre service d’assistance"
 
 #: src/Tribe/REST/V1/Endpoints/Archive_Category.php:39
 #: src/Tribe/REST/V1/Endpoints/Archive_Event.php:369
