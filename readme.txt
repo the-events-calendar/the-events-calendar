@@ -215,6 +215,10 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
+= [4.6.20.1] TBD =
+
+* Fix - Fix an issue where Event Aggregator imports might get blocked at 1% progress [110258]
+
 = [4.6.20] 2018-07-09 =
 
 * Feature - Add featured event column support for CLI imports [108027]
