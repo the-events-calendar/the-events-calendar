@@ -449,5 +449,6 @@ class Tribe__Events__Aggregator__Processes__Import_Events extends Tribe__Process
 
 		$record->set_status_as_success();
 		$record->delete_meta( 'queue' );
+		$record->delete_meta( 'in_progress' );
 	}
 }
