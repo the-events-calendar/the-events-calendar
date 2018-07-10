@@ -397,7 +397,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 				$args = array(
 					'post_type'    => Tribe__Events__Main::POSTTYPE,
 					'eventDisplay' => 'month',
-					'eventDate'    => $_POST['eventDate'],
+					'eventDate'    => is_array( $_POST['eventDate'] ) ? Tribe__Utils__Array::get( $_POST, array( 'eventDate', 0 ) ) : $_POST['eventDate'],
 					'post_status'  => $post_status,
 					'featured'     => tribe( 'tec.featured_events' )->featured_events_requested(),
 				);
