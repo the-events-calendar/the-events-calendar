@@ -219,6 +219,11 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 * Fix - Ensure no console errors are being displayed if there's no Google Maps API key present. Thanks Greg for flagging this [95312]
 
+= [4.6.20.1] 2018-07-10 =
+
+* Fix - Fix an issue where Event Aggregator imports might get blocked at 1% progress [110258]
+* Fix - Fix the error displayed when navigating the month view via shortcode. Thanks Lam, @ltcalendar, Disk and others for flagging this! [109589]
+
 = [4.6.20] 2018-07-09 =
 
 * Feature - Add featured event column support for CLI imports [108027]
