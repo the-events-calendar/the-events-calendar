@@ -215,9 +215,10 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
-= [4.6.20.1] TBD =
+= [4.6.20.1] 2018-07-10 =
 
 * Fix - Fix an issue where Event Aggregator imports might get blocked at 1% progress [110258]
+* Fix - Fix the error displayed when navigating the month view via shortcode. Thanks Lam, @ltcalendar, Disk and others for flagging this! [109589]
 
 = [4.6.20] 2018-07-09 =
 
