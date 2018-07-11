@@ -28,6 +28,21 @@ class Import_EventsTest extends Aggregator_TestCase {
 	}
 
 	/**
+	 * Leveraging PHP 7.0+ anonymous classes and method opening
+	 * extend the `Import_Events` with one that "opens" the `complete`
+	 * method making it public.
+	 */
+	private function make_instance_opening_complete() {
+		$opening = new class extends Import_Events {
+			public function complete() {
+				return parent::complete();
+			}
+		};
+
+		return new $opening;
+	}
+
+	/**
 	 * It should create the event if the data does not contain linked posts
 	 *
 	 * @test
@@ -195,7 +210,7 @@ class Import_EventsTest extends Aggregator_TestCase {
 	 * @test
 	 */
 	public function should_remove_the_transitional_meta_from_all_posts_when_complete() {
-		$sut = $this->make_instance();
+		$sut = $this->make_instance_opening_complete();
 		$sut->set_transitional_id( 'foo-bar' );
 		$transitional_meta_key = $sut->get_transitional_meta_key( 'foo-bar' );
 		$venue_id              = $this->factory()->venue->create( [ 'meta_input' => [ $transitional_meta_key => 'venue-global-id' ] ] );
@@ -206,11 +221,7 @@ class Import_EventsTest extends Aggregator_TestCase {
 			$this->assertNotEmpty( get_post_meta( $id, $transitional_meta_key ) );
 		}
 
-		// we are not *really* supposed to trigger it directly...
-		$reflection = new \ReflectionClass( Import_Events::class );
-		$complete = $reflection->getMethod( 'complete' );
-		$complete->setAccessible( true );
-		$complete->invoke( $sut );
+		$sut->complete();
 
 		foreach ( $ids as $id ) {
 			wp_cache_delete( $id, 'post_meta' );
@@ -250,5 +261,45 @@ class Import_EventsTest extends Aggregator_TestCase {
 		$this->assertEquals( 1, $activity->count( Main::POSTTYPE ) );
 		$skipped_event_identifier = $activity->get( Main::POSTTYPE, 'skipped' )[0];
 		$this->assertEquals( $item->global_id, $skipped_event_identifier );
+	}
+
+	/**
+	 * It should complete in clear state on first run
+	 *
+	 * Here we check that, upon completion, the queue will properly set/unset
+	 * queue-related flags on the Record.
+	 *
+	 * @test
+	 */
+	public function should_complete_in_clear_state_on_first_run() {
+		$item = $this->factory()->import_record->create_and_get_event_record();
+		unset( $item->venue, $item->organizer );
+		$record = new Record();
+		$record->create( 'manual', [], [ 'origin' => 'ical', 'post_status' => 'draft' ] );
+		// let's set, on the record, the flags the queue processor would set
+		$record->meta['in_progress'] = true;
+		$record->meta['queue']       = 'something';
+		/** @var Import_Events $sut */
+		$sut = $this->make_instance_opening_complete();
+		$sut->set_record_id( $record->id );
+		$sut->save();
+
+		$sut->complete();
+
+		$this->assertEmpty(
+			get_post_meta( Record::$meta_key_prefix . 'in_progress', true ),
+			'After completion the Record `in_progress` flag should be unset.'
+		);
+		$this->assertEmpty(
+			get_post_meta( Record::$meta_key_prefix . 'queue', true ),
+			'After completion the Record `queue` flag should be unset.'
+		);
+
+		/**
+		 * Mind that we do NOT check on the queue status.done key, in the transient, after
+		 * completion as "completed", from the point of view of the queue, means just that
+		 * it's done processing either because items have been all processed or because
+		 * the user interrupted the processing.
+		 */
 	}
 }

@@ -8,7 +8,7 @@ class Tribe__Events__REST__V1__Validator__Base
 	/**
 	 * Determine if a value is a Venue ID, entry, or empty.
 	 *
-	 * @since TBD
+	 * @since 4.6.20
 	 *
 	 * @param string|array $venue Venue ID or entry.
 	 *
@@ -48,7 +48,7 @@ class Tribe__Events__REST__V1__Validator__Base
 	/**
 	 * Determine if a value is a Organizer ID, entry, or empty.
 	 *
-	 * @since TBD
+	 * @since 4.6.20
 	 *
 	 * @param string|array $organizer Organizer ID or entry.
 	 *

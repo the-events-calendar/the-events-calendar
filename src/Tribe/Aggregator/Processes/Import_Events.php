@@ -308,6 +308,17 @@ class Tribe__Events__Aggregator__Processes__Import_Events extends Tribe__Process
 
 			$activity = $record->insert_posts( array( $data ) );
 		} catch ( Exception $e ) {
+			/** @var Tribe__Log $logger */
+			$logger = tribe( 'logger' );
+			$logger->log_error(
+				sprintf(
+					"Error while importing an event for the record %d: %s\nData: %s",
+					$record_id,
+					$e->getMessage(),
+					json_encode( $data )
+				),
+				'Event Aggregator Import'
+			);
 			$activity         = new Tribe__Events__Aggregator__Record__Activity();
 			$data             = (array) $data;
 			$event_identifier = Tribe__Utils__Array::get( $data, 'global_id', reset( $data ) );
@@ -438,5 +449,6 @@ class Tribe__Events__Aggregator__Processes__Import_Events extends Tribe__Process
 
 		$record->set_status_as_success();
 		$record->delete_meta( 'queue' );
+		$record->delete_meta( 'in_progress' );
 	}
 }
