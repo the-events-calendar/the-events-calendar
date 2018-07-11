@@ -245,6 +245,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @param string $key Meta key
 	 */
 	public function delete_meta( $key ) {
+		unset( $this->meta[ $key ] );
 		return delete_post_meta( $this->post->ID, self::$meta_key_prefix . $key );
 	}
 
