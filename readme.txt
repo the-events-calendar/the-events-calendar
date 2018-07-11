@@ -215,6 +215,10 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
+= [4.6.21] TBD =
+
+* Fix - Fixed an issue where saving Event Aggregator scheduled imports with an empty preview would generate PHP notices [110311]
+
 = [4.6.20] 2018-07-09 =
 
 * Feature - Add featured event column support for CLI imports [108027]
