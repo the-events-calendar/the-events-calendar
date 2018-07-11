@@ -219,6 +219,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 * Fix - Ensure no console errors are being displayed if there's no Google Maps API key present. Thanks Greg for flagging this [95312]
 * Fix - Fixed an issue where saving Event Aggregator scheduled imports with an empty preview would generate PHP notices [110311]
+* Add - Make global $post obj available to tribe_events_get_the_excerpt() with setup_postdata($post) [108043]
 
 = [4.6.20.1] 2018-07-10 =
 
