@@ -54,7 +54,18 @@ class Tribe__Events__Aggregator__Record__Async_Queue
 
 		$items_still_not_available = empty( $items ) || ! is_array( $items );
 
-		if ( $items_still_not_available ) {
+		if ( $items_still_not_available  ) {
+			if ( is_array( $items ) ) {
+				/**
+				 * It means that there are actually no items to process.
+				 * No need to go further.
+				 */
+				$this->record->delete_meta( 'in_progress' );
+				$this->record->delete_meta( 'queue' );
+				$this->record->delete_meta( 'queue_id' );
+				$this->record->set_status_as_success();
+			}
+
 			return null;
 		}
 
