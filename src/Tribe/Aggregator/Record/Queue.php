@@ -439,5 +439,25 @@ class Tribe__Events__Aggregator__Record__Queue implements Tribe__Events__Aggrega
 
 		return true;
 	}
+
+	/**
+	 * Whether the current queue process is stuck or not.
+	 *
+	 * @since TBD
+	 *
+	 * @return mixed
+	 */
+	public function is_stuck() {
+		return false;
+	}
+
+	/**
+	 * Orderly closes the queue process.
+	 *
+	 * @return bool
+	 */
+	public function kill_queue() {
+		return true;
+	}
 }
 

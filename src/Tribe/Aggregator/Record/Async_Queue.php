@@ -307,4 +307,44 @@ class Tribe__Events__Aggregator__Record__Async_Queue
 	protected function generate_transitional_id() {
 		return substr( md5( uniqid( '', true ) ), 0, 8 );
 	}
+
+	/**
+	 * Whether the current queue process is stuck or not.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function is_stuck() {
+		if ( ! empty( $this->record->meta['queue_id'] ) ) {
+			$queue_id = $this->record->meta['queue_id'];
+
+			return Tribe__Process__Queue::is_stuck( $queue_id );
+		}
+
+		return false;
+	}
+
+	/**
+	 * Orderly closes the queue process.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function kill_queue() {
+		if ( ! $this->record ) {
+			return false;
+		}
+
+		if ( ! empty( $this->record->meta['queue_id'] ) ) {
+			Tribe__Process__Queue::delete_queue( $this->record->meta['queue_id'] );
+		}
+		$this->record->delete_meta( 'in_progress' );
+		$this->record->delete_meta( 'queue' );
+		$this->record->delete_meta( 'queue_id' );
+		$this->record->set_status_as_failed();
+
+		return true;
+	}
 }

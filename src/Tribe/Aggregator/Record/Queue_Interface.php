@@ -61,4 +61,18 @@ interface Tribe__Events__Aggregator__Record__Queue_Interface {
 	 * @return string
 	 */
 	public function get_queue_type();
+
+	/**
+	 * Whether the current queue process is stuck or not.
+	 *
+	 * @return bool
+	 */
+	public function is_stuck();
+
+	/**
+	 * Orderly closes the queue process.
+	 *
+	 * @return bool
+	 */
+	public function kill_queue();
 }
