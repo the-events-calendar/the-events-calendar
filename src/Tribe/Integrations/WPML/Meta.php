@@ -78,6 +78,8 @@ class Tribe__Events__Integrations__WPML__Meta {
 	/**
 	 * Get meta value skipping filters (using direct DB query).
 	 *
+	 * @since TBD
+	 *
 	 * @param type $post_id
 	 * @param type $meta_key
 	 * @return type
