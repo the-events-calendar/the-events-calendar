@@ -65,6 +65,8 @@ interface Tribe__Events__Aggregator__Record__Queue_Interface {
 	/**
 	 * Whether the current queue process is stuck or not.
 	 *
+	 * @since TBD
+	 *
 	 * @return bool
 	 */
 	public function is_stuck();
@@ -72,7 +74,27 @@ interface Tribe__Events__Aggregator__Record__Queue_Interface {
 	/**
 	 * Orderly closes the queue process.
 	 *
+	 * @since TBD
+	 *
 	 * @return bool
 	 */
 	public function kill_queue();
+
+	/**
+	 * Whether the current queue process failed or not.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function has_errors();
+
+	/**
+	 * Returns the queue error message.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	public function get_error_message();
 }

@@ -999,7 +999,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 *
 	 * @return bool
 	 */
-	public function log_error( $error ) {
+	public function log_error( WP_Error $error ) {
 		$today = getdate();
 		$args = array(
 			'number' => 1,
