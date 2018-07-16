@@ -670,7 +670,15 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$classes[] = 'tribe-event-featured';
 		}
 
-		$classes = apply_filters( 'tribe_events_event_classes', $classes );
+		/**
+		 * Filters the event wrapper classes before they are returned
+		 *
+		 * @since 4.6.20 added the $event_id parameter
+		 *
+		 * @param array $classes  The classes that will be returned
+		 * @param int   $event_id Current event ID
+		 */
+		$classes = apply_filters( 'tribe_events_event_classes', $classes, $event_id );
 
 		if ( $echo ) {
 			echo implode( ' ', $classes );

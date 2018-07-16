@@ -32,9 +32,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '4.6.19';
+		const VERSION             = '4.6.20';
 		const MIN_ADDON_VERSION   = '4.4';
-		const MIN_COMMON_VERSION  = '4.7.15';
+		const MIN_COMMON_VERSION  = '4.7.16';
 
 		const WP_PLUGIN_URL       = 'https://wordpress.org/extend/plugins/the-events-calendar/';
 
@@ -457,6 +457,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe_singleton( 'tec.admin.notice.timezones', 'Tribe__Events__Admin__Notice__Timezones', array( 'hook' ) );
 			tribe_singleton( 'tec.admin.notice.marketing', 'Tribe__Events__Admin__Notice__Marketing', array( 'hook' ) );
 
+			// GDPR Privacy
+			tribe_singleton( 'tec.privacy', 'Tribe__Events__Privacy', array( 'hook' ) );
+
 			/**
 			 * Allows other plugins and services to override/change the bound implementations.
 			 */
@@ -728,6 +731,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe( 'tec.gutenberg' );
 			tribe( 'tec.admin.notice.timezones' );
 			tribe( 'tec.admin.notice.marketing' );
+			tribe( 'tec.privacy' );
 		}
 
 		/**

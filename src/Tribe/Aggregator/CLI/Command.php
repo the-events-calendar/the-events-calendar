@@ -68,7 +68,6 @@ class Tribe__Events__Aggregator__CLI__Command {
 	 * Either a value in seconds if the `--limit_type` is range or a number if `--limit_type` is set to `count`.
 	 * When importing CSV files this limit will NOT apply.
 	 *
-	 *
 	 * [--timeout=<timeout>]
 	 * : How long should the command wait for the data from EA Service in seconds
 	 * ---
@@ -104,7 +103,7 @@ class Tribe__Events__Aggregator__CLI__Command {
 	 * list where the order counts.
 	 * For events the available columns are: name, description, excerpt, start_date, start_time, end_date, end_time,
 	 * timezone, all_day, hide, sticky, venue_name, organizer_name, show_map_link, show_map, cost, currency_symbol,
-	 * currency_position, category, tags, website, comment_status, ping_status, featured_image
+	 * currency_position, category, tags, website, comment_status, ping_status, featured_image, feature_event
 	 * For venues the available columns are: name, description, country, address, address2, city, state, zip, phone,
 	 * url, featured_image
 	 * For organizers the available columns are: name, description, email, website, phone, featured_image
@@ -381,7 +380,7 @@ class Tribe__Events__Aggregator__CLI__Command {
 		$prefix = Tribe__Utils__Array::get( $map, $record->meta['content_type'], 'event' );
 
 		$column_map = array_map( function ( $key ) use ( $prefix ) {
-			return $key === 'featured_image' ? $key : $prefix . '_' . $key;
+			return $key === 'featured_image' || $key === 'feature_event' ? $key : $prefix . '_' . $key;
 		}, $column_map );
 
 		$data = array(
