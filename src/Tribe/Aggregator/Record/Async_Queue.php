@@ -19,6 +19,11 @@ class Tribe__Events__Aggregator__Record__Async_Queue
 	protected $queue_process;
 
 	/**
+	 * @var string
+	 */
+	protected $error;
+
+	/**
 	 * Tribe__Events__Aggregator__Record__Async_Queue constructor.
 	 *
 	 * @since 4.6.16
@@ -306,5 +311,69 @@ class Tribe__Events__Aggregator__Record__Async_Queue
 	 */
 	protected function generate_transitional_id() {
 		return substr( md5( uniqid( '', true ) ), 0, 8 );
+	}
+
+	/**
+	 * Whether the current queue process is stuck or not.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function is_stuck() {
+		if ( ! empty( $this->record->meta['queue_id'] ) ) {
+			$queue_id = $this->record->meta['queue_id'];
+
+			return Tribe__Process__Queue::is_stuck( $queue_id );
+		}
+
+		return false;
+	}
+
+	/**
+	 * Orderly closes the queue process.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function kill_queue() {
+		if ( ! $this->record ) {
+			return false;
+		}
+
+		if ( ! empty( $this->record->meta['queue_id'] ) ) {
+			Tribe__Process__Queue::delete_queue( $this->record->meta['queue_id'] );
+		}
+		$this->error = __( 'Unable to process this import - a breakage or conflict may have resulted in the import halting.', 'the-events-calendar' );
+
+		$this->record->delete_meta( 'in_progress' );
+		$this->record->delete_meta( 'queue' );
+		$this->record->delete_meta( 'queue_id' );
+		$this->record->set_status_as_failed( new WP_Error( 'stuck-queue', $this->error ) );
+
+		return true;
+	}
+
+	/**
+	 * Whether the current queue process failed or not.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function has_errors() {
+		return ! empty( $this->error );
+	}
+
+	/**
+	 * Returns the queue error message.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	public function get_error_message() {
+		return $this->error;
 	}
 }
