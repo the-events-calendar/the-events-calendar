@@ -21,7 +21,7 @@ class Tribe__Events__Integrations__WPML__Meta {
 	 * @param int    $object_id
 	 * @param string $meta_key
 	 *
-	 * @return string The translated id for _EventOrganizerID & _EventVenueID.
+	 * @return mixed The translated id for _EventOrganizerID & _EventVenueID or false.
 	 */
 	public function translate_post_id( $value, $object_id, $meta_key ) {
 
