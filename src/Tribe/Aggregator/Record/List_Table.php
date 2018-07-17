@@ -391,6 +391,13 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 		return $this->row_actions( $actions );
 	}
 
+	/**
+     * Returns the status icon HTML
+     *
+	 * @param Tribe__Events__Aggregator__Record__Abstract $record
+	 *
+	 * @return array|string
+	 */
 	private function get_status_icon( $record ) {
 		$post = $record->post;
 

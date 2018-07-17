@@ -1024,7 +1024,12 @@ tribe_aggregator.fields = {
 			}
 		}
 
-		if ( data.complete ) {
+		if ( data.error ) {
+			obj.progress.$.notice.find( '.tribe-message' ).html( data.error_text );
+			obj.progress.$.tracker.remove();
+			obj.progress.$.notice.find( '.progress-container' ).remove();
+			obj.progress.$.notice.removeClass( 'warning' ).addClass( 'error' );
+		} else if ( data.complete ) {
 			obj.progress.$.notice.find( '.tribe-message' ).html( data.complete_text );
 			obj.progress.$.tracker.remove();
 			obj.progress.$.notice.find( '.progress-container' ).remove();

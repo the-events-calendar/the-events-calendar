@@ -187,6 +187,7 @@ class Tribe__Events__Aggregator__Processes__Import_Events extends Tribe__Process
 	 * @return array|false Either the event data to requeue or `false` if done.
 	 */
 	protected function task( $item ) {
+
 		/**
 		 * Allows replacing the event data import task completely.
 		 *
