@@ -77,9 +77,9 @@ class Tribe__Events__Integrations__WPML__Meta {
 	 *
 	 * @since TBD
 	 *
-	 * @param type $post_id
-	 * @param type $meta_key
-	 * @return type
+	 * @param int $post_id
+	 * @param string $meta_key
+	 * @return array
 	 */
 	private function get_post_meta( $post_id, $meta_key ) {
 		global $wpdb;
