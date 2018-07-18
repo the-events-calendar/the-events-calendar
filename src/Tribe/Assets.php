@@ -248,7 +248,7 @@ class Tribe__Events__Assets {
 			$plugin,
 			'tribe-events-calendar-style',
 			$this->get_style_file(),
-			array( 'tribe-events-custom-jquery-styles', 'tribe-events-full-calendar-style' ),
+			array( 'tribe-events-custom-jquery-styles', 'tribe-events-full-calendar-style', 'tribe-events-bootstrap-datepicker-css' ),
 			'wp_enqueue_scripts',
 			array(
 				'groups'       => array( 'events-styles' ),
