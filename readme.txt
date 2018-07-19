@@ -221,6 +221,12 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - Fixed an issue where saving Event Aggregator scheduled imports with an empty preview would generate PHP notices [110311]
 * Add - Make global $post obj available to tribe_events_get_the_excerpt() with setup_postdata($post) [108043]
 * Fix - Escape each closing html element in month view tooltip to prevent PHP parser from exposing html, thanks to Karen for a solution [64834]
+* Fix - Multiple fixes regarding linked post types (e.g. Organizers and custom post types) - props to @natureslens and others for reporting these [105116]:
+  * Now correctly saves in their drag-and-drop order
+  * Deprecated the functions added in version 4.6.13 that previously attempted to fix ordering logic but was not done in a backwards-compatible way: `get_order_meta_key()` and `tribe_sanitize_organizers()`
+  * We no longer rely on a separate postmeta value dedicated to ordering linked posts (e.g. `_EventOrganizerID_Order`), and you may want to remove all such values from your database after re-saving any events that have linked posts and their ordering is important
+  * `tribe_get_linked_posts_by_post_type()` no longer returns empty in error
+  * Editing an existing event no longer loses the linked posts just because they were not part of the submission. Example: If organizers are editable in the wp-admin event edit screen but not on the Community Events "event edit" form (via template override or other custom code), all pre-existing organizers were removed in error.
 * Add - Added WPML metadata improvements for Organizers and Venue. Thanks to David Garcia Watkins and the entire WPML team for their contribution [106798]
 
 = [4.6.20.1] 2018-07-10 =
@@ -231,12 +237,6 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 = [4.6.20] 2018-07-09 =
 
 * Feature - Add featured event column support for CLI imports [108027]
-* Fix - Multiple fixes regarding linked post types (e.g. Organizers and custom post types) - props to @natureslens and others for reporting these [105116]:
-  * Now correctly saves in their drag-and-drop order
-  * Deprecated the functions added in version 4.6.13 that previously attempted to fix ordering logic but was not done in a backwards-compatible way: `get_order_meta_key()` and `tribe_sanitize_organizers()`
-  * We no longer rely on a separate postmeta value dedicated to ordering linked posts (e.g. `_EventOrganizerID_Order`), and you may want to remove all such values from your database after re-saving any events that have linked posts and their ordering is important
-  * `tribe_get_linked_posts_by_post_type()` no longer returns empty in error
-  * Editing an existing event no longer loses the linked posts just because they were not part of the submission. Example: If organizers are editable in the wp-admin event edit screen but not on the Community Events "event edit" form (via template override or other custom code), all pre-existing organizers were removed in error.
 * Fix - Display the exact search term in the "no results" notice on the events page [106991]
 * Fix - Allow venue and organizer fields to be intentionally empty on Event Singular REST API calls [109482]
 * Fix - Added basic checks to prevent saving obviously-invalid event meta values, such as sending `EventStartMinute` of `60` (since it should be 0-59) to `tribe_create_event()`. This prevents falling back to "zero" values (e.g. Unix Epoch) when another value was intended. Thanks to @compton-bob for flagging this via our Help Desk. [109722]
