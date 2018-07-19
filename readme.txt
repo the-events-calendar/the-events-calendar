@@ -4,8 +4,8 @@ Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.5
-Stable tag: 4.6.19
-Tested up to: 4.9.6
+Stable tag: 4.6.21
+Tested up to: 4.9.7
 Requires PHP: 5.2.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -215,7 +215,20 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
-= [4.6.20] TBD =
+= [4.6.21] TBD =
+
+* Fix - Ensure no console errors are being displayed if there's no Google Maps API key present. Thanks Greg for flagging this [95312]
+* Fix - Fixed an issue where saving Event Aggregator scheduled imports with an empty preview would generate PHP notices [110311]
+* Add - Make global $post obj available to tribe_events_get_the_excerpt() with setup_postdata($post) [108043]
+* Fix - Escape each closing html element in month view tooltip to prevent PHP parser from exposing html, thanks to Karen for a solution [64834]
+* Add - Added WPML metadata improvements for Organizers and Venue. Thanks to David Garcia Watkins and the entire WPML team for their contribution [106798]
+
+= [4.6.20.1] 2018-07-10 =
+
+* Fix - Fix an issue where Event Aggregator imports might get blocked at 1% progress [110258]
+* Fix - Fix the error displayed when navigating the month view via shortcode. Thanks Lam, @ltcalendar, Disk and others for flagging this! [109589]
+
+= [4.6.20] 2018-07-09 =
 
 * Feature - Add featured event column support for CLI imports [108027]
 * Fix - Multiple fixes regarding linked post types (e.g. Organizers and custom post types) - props to @natureslens and others for reporting these [105116]:
@@ -226,7 +239,10 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
   * Editing an existing event no longer loses the linked posts just because they were not part of the submission. Example: If organizers are editable in the wp-admin event edit screen but not on the Community Events "event edit" form (via template override or other custom code), all pre-existing organizers were removed in error.
 * Fix - Display the exact search term in the "no results" notice on the events page [106991]
 * Fix - Allow venue and organizer fields to be intentionally empty on Event Singular REST API calls [109482]
+* Fix - Added basic checks to prevent saving obviously-invalid event meta values, such as sending `EventStartMinute` of `60` (since it should be 0-59) to `tribe_create_event()`. This prevents falling back to "zero" values (e.g. Unix Epoch) when another value was intended. Thanks to @compton-bob for flagging this via our Help Desk. [109722]
+* Fix - Add Privacy Policy guide for The Events Calendar [108454]
 * Tweak - Added event ID parameter to `tribe_events_event_classes` filter to make it more useful [64807]
+* Tweak - Added the `tribe_aggregator_record_finalized` action to allow developers to act before Event Aggregator imports start [109938]
 
 = [4.6.19] 2018-06-20 =
 

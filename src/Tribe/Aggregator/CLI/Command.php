@@ -380,7 +380,7 @@ class Tribe__Events__Aggregator__CLI__Command {
 		$prefix = Tribe__Utils__Array::get( $map, $record->meta['content_type'], 'event' );
 
 		$column_map = array_map( function ( $key ) use ( $prefix ) {
-			return $key === 'featured_image' || 'feature_event' ? $key : $prefix . '_' . $key;
+			return $key === 'featured_image' || $key === 'feature_event' ? $key : $prefix . '_' . $key;
 		}, $column_map );
 
 		$data = array(

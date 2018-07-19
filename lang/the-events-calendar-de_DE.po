@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-06-06 21:34:24+0000\n"
+"PO-Revision-Date: 2018-06-25 12:34:32+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,23 +13,23 @@ msgstr ""
 
 #: src/admin-views/tribe-options-addons-api.php:152
 msgid "You need to connect Event Aggregator to Eventbrite to import your events from Eventbrite."
-msgstr ""
+msgstr "Sie müssen Event Aggregator mit dem Eventbrite verbinden, um Ihre Veranstaltungen von Eventbrite importieren zu können."
 
 #: src/admin-views/tribe-options-addons-api.php:130
 msgid "Refresh your connection to Eventbrite"
-msgstr ""
+msgstr "Verbindung zu Eventbrite aktualisieren"
 
 #: src/admin-views/tribe-options-addons-api.php:128
 msgid "Connect to Eventbrite"
-msgstr "Zu Eventbrite verbinden"
+msgstr "Verbindung zu Eventbrite erstellen"
 
 #: src/admin-views/tribe-options-addons-api.php:127
 msgid "You need to connect to Eventbrite for Event Aggregator to work properly"
-msgstr ""
+msgstr "Sie müssen eine Verbindung zu Eventbrite erstellen, damit Event Aggregator richtig funktionieren kann."
 
 #: src/admin-views/tribe-options-addons-api.php:123
 msgid "Eventbrite Token"
-msgstr ""
+msgstr "Eventbrite Token"
 
 #: src/admin-views/aggregator/tabs/import-form.php:297
 msgid "Settings > General"
