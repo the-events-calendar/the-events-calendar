@@ -228,6 +228,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
   * `tribe_get_linked_posts_by_post_type()` no longer returns empty in error
   * Editing an existing event no longer loses the linked posts just because they were not part of the submission. Example: If organizers are editable in the wp-admin event edit screen but not on the Community Events "event edit" form (via template override or other custom code), all pre-existing organizers were removed in error.
 * Add - Added WPML metadata improvements for Organizers and Venue. Thanks to David Garcia Watkins and the entire WPML team for their contribution [106798]
+* Fix - Sending empty 'categories' and 'tags' for the REST API event endpoints when inserting and updating events [109627]
 
 = [4.6.20.1] 2018-07-10 =
 
