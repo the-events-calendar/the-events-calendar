@@ -1044,6 +1044,30 @@ class EventInsertionCest extends BaseRestCest {
 	}
 
 	/**
+	 * It should allow no event categories while inserting an event
+	 *
+	 * @test
+	 */
+	public function it_should_allow_no_event_categories_while_inserting_an_event( Tester $I ) {
+		$I->generate_nonce_for_role( 'administrator' );
+
+		$params = [
+			'title'       => 'An event',
+			'description' => 'An event content',
+			'start_date'  => 'tomorrow 9am',
+			'end_date'    => 'tomorrow 11am',
+			'categories'  => '',
+		];
+
+		$I->sendPOST( $this->events_url, $params );
+
+		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse(), true );
+		$I->assertEmpty( $response['categories'] );
+	}
+
+	/**
 	 * It should allow assigning existing categories and creating new categories while inserting an event
 	 *
 	 * @test
@@ -1128,6 +1152,30 @@ class EventInsertionCest extends BaseRestCest {
 		$response = json_decode( $I->grabResponse(), true );
 		$I->assertNotEmpty( $response['tags'] );
 		$I->assertCount( 2, $response['tags'] );
+	}
+
+	/**
+	 * It should allow no event tags while inserting an event
+	 *
+	 * @test
+	 */
+	public function it_should_allow_no_event_tags_while_inserting_an_event( Tester $I ) {
+		$I->generate_nonce_for_role( 'administrator' );
+
+		$params = [
+			'title'       => 'An event',
+			'description' => 'An event content',
+			'start_date'  => 'tomorrow 9am',
+			'end_date'    => 'tomorrow 11am',
+			'tags'        => '',
+		];
+
+		$I->sendPOST( $this->events_url, $params );
+
+		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse(), true );
+		$I->assertEmpty( $response['tags'] );
 	}
 
 	/**
