@@ -565,19 +565,19 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 
 		// Check if categories is provided (allowing for empty array to remove categories).
 		if ( isset( $request['categories'] ) ) {
-			$postarr[ $events_cat ] = array();
+			$postarr['tax_input'][ $events_cat ] = array();
 
 			if ( ! empty( $request['categories'] ) ) {
-				$postarr[ $events_cat ] = Tribe__Terms::translate_terms_to_ids( $request['categories'], $events_cat );
+				$postarr['tax_input'][ $events_cat ] = Tribe__Terms::translate_terms_to_ids( $request['categories'], $events_cat );
 			}
 		}
 
 		// Check if tags is provided (allowing for empty array to remove tags).
 		if ( isset( $request['tags'] ) ) {
-			$postarr['post_tag'] = array();
+			$postarr['tax_input']['post_tag'] = array();
 
 			if ( ! empty( $request['tags'] ) ) {
-				$postarr['post_tag'] = Tribe__Terms::translate_terms_to_ids( $request['tags'], 'post_tag' );
+				$postarr['tax_input']['post_tag'] = Tribe__Terms::translate_terms_to_ids( $request['tags'], 'post_tag' );
 			}
 		}
 
