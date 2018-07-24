@@ -25,7 +25,7 @@ class Tribe__Events__Integrations__WPML__Meta {
 	 */
 	public function translate_post_id( $value, $object_id, $meta_key ) {
 
-		if ( isset( $_POST ) ) {
+		if ( isset( $_POST ) && ! empty( $_POST ) ) {
 			return $value;
 		}
 
