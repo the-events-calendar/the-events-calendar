@@ -67,9 +67,11 @@ var tribe_events_bar_action;
 			}
 			if ( tribeBarWidth < 728 ) {
 				$tribebar.removeClass( 'tribe-bar-mini' ).addClass( 'tribe-bar-collapse' );
+				closeFiltersToggle($('#tribe-bar-collapse-toggle'));
 			}
 			else {
 				$tribebar.removeClass( 'tribe-bar-collapse' );
+				openFiltersToggle($('#tribe-bar-collapse-toggle'));
 			}
 		}
 
@@ -190,7 +192,7 @@ var tribe_events_bar_action;
 		// change views
 		$tribebar.on( 'click', '.tribe-bar-views-option', function( e ) {
 			e.preventDefault();
-			
+
 			var $this = $( this );
 
 			if ( ! $this.is( '.tribe-bar-active' ) ) {
@@ -211,7 +213,7 @@ var tribe_events_bar_action;
 		// change views with select (for skeleton styles)
 		$tribebar.on( 'change', '.tribe-bar-views-select', function( e ) {
 			e.preventDefault();
-			
+
 			var $this  = $( 'option:selected', this );
 			var target = $this.data( 'view' );
 
@@ -222,10 +224,58 @@ var tribe_events_bar_action;
 			tribe_events_bar_change_view();
 		} );
 
-		$tribebar.on( 'click', '#tribe-bar-collapse-toggle', function() {
-			$( this ).toggleClass( 'tribe-bar-filters-open' );
-			$( '.tribe-bar-filters' ).slideToggle( 'fast' );
+		function openFiltersToggle($toggle) {
+			var label_shown = $toggle.attr('data-label-shown');
+			$toggle.attr('aria-expanded', 'true');
+			$toggle.find('.tribe-bar-toggle-text').html(label_shown);
+			$toggle.addClass( 'tribe-bar-filters-open' );
+			$( '.tribe-bar-filters' ).slideDown( 'fast' ).attr('aria-hidden', 'false');
+		}
+
+		function closeFiltersToggle($toggle) {
+			var label_hidden = $toggle.attr('data-label-hidden');
+			$( '.tribe-bar-filters' ).slideUp( 'fast' ).attr('aria-hidden', 'true');
+			$toggle.removeClass( 'tribe-bar-filters-open' );
+			$toggle.find('.tribe-bar-toggle-text').html(label_hidden);
+			$toggle.attr('aria-expanded', 'false');
+		}
+
+		$tribebar.on( 'click', '#tribe-bar-collapse-toggle', function(e) {
+			e.preventDefault();
+			var $this = $( this );
+			if ( $this.hasClass( 'tribe-bar-filters-open' ) ) {
+				closeFiltersToggle($this);
+			} else {
+				openFiltersToggle($this);
+			}
 		} );
+
+		// Tab Key
+		$(document).on('keyup', function(e) {
+			if (e.which !== 9) {
+				return;
+			}
+
+			// Close Event Filters if open and tabbed outside
+			var $filters_toggle = $('#tribe-bar-collapse-toggle');
+			if ($tribebar.hasClass('tribe-bar-collapse') && $filters_toggle.hasClass('tribe-bar-filters-open') && ! $.contains(document.getElementById('tribe-bar-filters-wrap'), e.target)) {
+				closeFiltersToggle($filters_toggle);
+			}
+		});
+
+		// Escape Key
+		$(document).on('keyup', function(e) {
+			if (e.which !== 27) {
+				return;
+			}
+
+			// Close Event Filters if open and escaped;
+			var $filters_toggle = $('#tribe-bar-collapse-toggle');
+			if ($tribebar.hasClass('tribe-bar-collapse') && $filters_toggle.hasClass('tribe-bar-filters-open')) {
+				closeFiltersToggle($filters_toggle);
+				$filters_toggle.focus();
+			}
+		});
 
 		// Wrap date inputs with a parent container
 		$( 'label[for="tribe-bar-date"], input[name="tribe-bar-date"]' ).wrapAll( '<div id="tribe-bar-dates" />' );
