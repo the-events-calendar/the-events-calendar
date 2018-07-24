@@ -32,9 +32,9 @@ $current_url = tribe_events_get_current_filter_url();
 
 		<!-- Mobile Filters Toggle -->
 
-		<div id="tribe-bar-collapse-toggle" <?php if ( count( $views ) == 1 ) { ?> class="tribe-bar-collapse-toggle-full-width"<?php } ?>>
+		<button id="tribe-bar-collapse-toggle" <?php if ( count( $views ) == 1 ) { ?> class="tribe-bar-collapse-toggle-full-width"<?php } ?>>
 			<?php printf( esc_html__( 'Find %s', 'the-events-calendar' ), tribe_get_event_label_plural() ); ?><span class="tribe-bar-toggle-arrow"></span>
-		</div>
+		</button>
 
 		<!-- Views -->
 		<?php if ( count( $views ) > 1 ) { ?>
