@@ -22,11 +22,11 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * - EventStartDate date string (required) - Start date of the Event.
 	 * - EventEndDate date string (required) - End date of the Event.
 	 * - EventAllDay bool - Set to true if event has no start / end time and should run all day.
-	 * - EventStartHour string - Event start hour (01 - 12).
-	 * - EventStartMinute string - Event start minute (01 - 60).
+	 * - EventStartHour string - Event start hour (01-12 if `EventStartMeridian` is also passed, else 00-23).
+	 * - EventStartMinute string - Event start minute (00-59).
 	 * - EventStartMeridian string - Event start meridian (am or pm).
-	 * - EventEndHour string - Event end hour (01 - 12).
-	 * - EventEndMinute string - Event end minute (01 - 60).
+	 * - EventEndHour string - Event end hour (01-12 if `EventEndMeridian` is also passed, else 00-23).
+	 * - EventEndMinute string - Event end minute (00-59).
 	 * - EventEndMeridian string - Event end meridian (am or pm).
 	 * - EventHideFromUpcoming bool - Set to true to hide this Event from the upcoming list view.
 	 * - EventShowMapLink bool - Set to true to display a link to the map in the Event view.
@@ -47,7 +47,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * @param array $args Elements that make up post to insert.
 	 *
-	 * @return int ID of the event that was created. False if insert failed.
+	 * @return int|bool ID of the event that was created. False if insert failed.
 	 * @link     http://codex.wordpress.org/Function_Reference/wp_insert_post
 	 * @see      wp_insert_post()
 	 * @see      tribe_create_venue()
@@ -56,18 +56,18 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 */
 	function tribe_create_event( $args ) {
 		$args['post_type'] = Tribe__Events__Main::POSTTYPE;
-		$postId = Tribe__Events__API::createEvent( $args );
+		$postId            = Tribe__Events__API::createEvent( $args );
 
-		return $postId;
+		return is_wp_error( $postId ) ? false : $postId;
 	}
 
 	/**
 	 * Update an Event
 	 *
-	 * @param int   $postId ID of the event to be modified.
+	 * @param int|bool   $postId ID of the event to be modified.
 	 * @param array $args   Args for updating the post. See {@link tribe_create_event()} for more info.
 	 *
-	 * @return int ID of the event that was created. False if update failed.
+	 * @return int|bool ID of the event that was created. False if update failed.
 	 * @link     http://codex.wordpress.org/Function_Reference/wp_update_post
 	 * @see      wp_update_post()
 	 * @see      tribe_create_event()
@@ -76,7 +76,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	function tribe_update_event( $postId, $args ) {
 		$postId = Tribe__Events__API::updateEvent( $postId, $args );
 
-		return $postId;
+		return is_wp_error( $postId ) ? false : $postId;
 	}
 
 	/**

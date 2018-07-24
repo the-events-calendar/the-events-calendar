@@ -1070,6 +1070,58 @@ class EventUpdateCest extends BaseRestCest
 	}
 
 	/**
+	 * It should allow removing the linked posts
+	 *
+	 * @test
+	 */
+	public function it_should_allow_removing_the_linked_posts( Tester $I ) {
+		$event_id     = $I->haveEventInDatabase();
+		$organizer_id = $I->haveOrganizerInDatabase();
+		$venue_id     = $I->haveVenueInDatabase();
+
+		$I->generate_nonce_for_role( 'administrator' );
+
+		$params = [
+			'title'       => 'An event',
+			'description' => 'An event content',
+			'venue'       => $venue_id,
+			'organizer'   => $organizer_id,
+		];
+
+		$I->sendPOST( $this->events_url . "/{$event_id}", $params );
+
+		$I->seeResponseCodeIs( 200 );
+		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse(), true );
+		$I->assertArrayHasKey( 'venue', $response );
+		$venue_response = $response['venue'];
+		$I->assertEquals( $venue_id, $venue_response['id'] );
+		$I->assertArrayHasKey( 'organizer', $response );
+		$organizer_response = $response['organizer'];
+		$I->assertCount( 1, $organizer_response );
+		$I->assertEquals( $organizer_id, $organizer_response[0]['id'] );
+
+		// Remove venue and organizer now
+		$params['venue'] = 0;
+		$params['organizer'] = [];
+
+		// Remove unneeded changes
+		unset( $params['description'] );
+
+		$I->sendPOST( $this->events_url . "/{$event_id}", $params );
+
+		$I->seeResponseCodeIs( 200 );
+		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse(), true );
+		$I->assertArrayHasKey( 'venue', $response );
+		$venue_response = $response['venue'];
+		$I->assertEmpty( $venue_response );
+		$I->assertArrayHasKey( 'organizer', $response );
+		$organizer_response = $response['organizer'];
+		$I->assertEmpty( $organizer_response );
+	}
+
+	/**
 	 * It should allow assigning existing event categories to an inserted event
 	 *
 	 * @test
@@ -1128,6 +1180,36 @@ class EventUpdateCest extends BaseRestCest
 		$response = json_decode( $I->grabResponse(), true );
 		$I->assertNotEmpty( $response['categories'] );
 		$I->assertCount( 2, $response['categories'] );
+	}
+
+	/**
+	 * It should allow no event categories while inserting an event
+	 *
+	 * @test
+	 */
+	public function it_should_allow_no_event_categories_while_inserting_an_event( Tester $I ) {
+		$event_id = $I->haveEventInDatabase( [
+			'tax_input' => [
+				'tribe_events_cat' => [ 'category-1', 'category-2' ],
+			],
+		] );
+
+		$I->generate_nonce_for_role( 'administrator' );
+
+		$params = [
+			'title'       => 'An event',
+			'description' => 'An event content',
+			'start_date'  => 'tomorrow 9am',
+			'end_date'    => 'tomorrow 11am',
+			'categories'  => '',
+		];
+
+		$I->sendPOST( $this->events_url . "/{$event_id}", $params );
+
+		$I->seeResponseCodeIs( 200 );
+		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse(), true );
+		$I->assertEmpty( $response['categories'] );
 	}
 
 	/**
@@ -1221,6 +1303,36 @@ class EventUpdateCest extends BaseRestCest
 		$response = json_decode( $I->grabResponse(), true );
 		$I->assertNotEmpty( $response['tags'] );
 		$I->assertCount( 2, $response['tags'] );
+	}
+
+	/**
+	 * It should allow no event tags while inserting an event
+	 *
+	 * @test
+	 */
+	public function it_should_allow_no_event_tags_while_inserting_an_event( Tester $I ) {
+		$event_id = $I->haveEventInDatabase( [
+			'tax_input' => [
+				'post_tag' => [ 'tag-1', 'tag-2' ],
+			],
+		] );
+
+		$I->generate_nonce_for_role( 'administrator' );
+
+		$params = [
+			'title'       => 'An event',
+			'description' => 'An event content',
+			'start_date'  => 'tomorrow 9am',
+			'end_date'    => 'tomorrow 11am',
+			'tags'        => '',
+		];
+
+		$I->sendPOST( $this->events_url . "/{$event_id}", $params );
+
+		$I->seeResponseCodeIs( 200 );
+		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse(), true );
+		$I->assertEmpty( $response['tags'] );
 	}
 
 	/**

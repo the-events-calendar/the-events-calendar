@@ -197,12 +197,15 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 		$is_event_queue = $queue_type === Tribe__Events__Main::POSTTYPE;
 		$activity = $queue->activity();
 
-		$data = array(
+		$error = $queue->has_errors();
+
+		$data   = array(
 			'html'          => false,
 			'progress'      => $percentage,
 			'progress_text' => sprintf( __( '%d%% complete', 'the-events-calendar' ), $percentage ),
 			'continue'      => ! $done,
 			'complete'      => $done,
+			'error'        => $error,
 			'counts'        => array(
 				'total'      => $activity->count( $queue_type ),
 				'created'    => $activity->count( $queue_type, 'created' ),
@@ -216,8 +219,11 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 			),
 		);
 
-		if ( $done ) {
-			$messages = Tribe__Events__Aggregator__Tabs__New::instance()->get_result_messages( $queue );
+		if ( $error ) {
+			$messages           = Tribe__Events__Aggregator__Tabs__New::instance()->get_result_messages( $queue );
+			$data['error_text'] = '<p>' . implode( ' ', $messages['error'] ) . '</p>';
+		} elseif ( $done ) {
+			$messages              = Tribe__Events__Aggregator__Tabs__New::instance()->get_result_messages( $queue );
 			$data['complete_text'] = '<p>' . implode( ' ', $messages['success'] ) . '</p>';
 		}
 

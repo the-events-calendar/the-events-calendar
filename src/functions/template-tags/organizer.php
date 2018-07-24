@@ -41,7 +41,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	}
 
 	/**
-	 * Get the IDs of all organizers associated with an event
+	 * Get the IDs of all organizers associated with an event.
 	 *
 	 * @param int $event_id The event post ID. Defaults to the current event.
 	 *
@@ -49,22 +49,15 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 */
 	function tribe_get_organizer_ids( $event_id = null ) {
 		$event_id = Tribe__Events__Main::postIdHelper( $event_id );
+
 		$organizer_ids = array();
 
-		if ( is_numeric( $event_id ) && $event_id > 0 ) {
-			if ( Tribe__Events__Main::instance()->isOrganizer( $event_id ) ) {
-				$organizer_ids[] = $event_id;
-			} else {
-				$organizer_ids = tribe_get_event_meta( $event_id, '_EventOrganizerID', false );
+		if ( Tribe__Events__Main::instance()->isEvent( $event_id ) ) {
+			$organizer_ids = tribe_get_event_meta( $event_id, '_EventOrganizerID', false );
 
-				// for some reason we store a blank "0" element in this array.
-				// let's scrub this garbage out
-				$organizer_ids = array_filter( (array) $organizer_ids );
-			}
+			// Protect against storing array items that render false, such as `0`.
+			$organizer_ids = array_filter( (array) $organizer_ids );
 		}
-		// if there are linked post order use that instead of the current linked post to change the order
-		$organizer_ids_order = get_post_meta( $event_id, '_EventOrganizerID_Order', true );
-		$organizer_ids = tribe_sanitize_organizers( $organizer_ids, $organizer_ids_order );
 
 		return apply_filters( 'tribe_get_organizer_ids', $organizer_ids, $event_id );
 	}
@@ -74,6 +67,9 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * where the meta field takes precedence we need to respect the order of the meta order only when the present items
 	 * on the meta field.
 	 *
+	 * @deprecated TBD
+	 * @todo Remove on 4.7
+	 *
 	 * @since 4.6.15
 	 *
 	 * @param array $current
@@ -82,6 +78,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return array
 	 */
 	function tribe_sanitize_organizers( $current = array(), $ordered = array() ) {
+		_deprecated_function( __METHOD__, 'TBD', 'No longer needed after removing reliance on a separate postmeta field to store the ordering.' );
 
 		if ( empty( $ordered ) ) {
 			return $current;
@@ -100,7 +97,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 		// Make sure before the merge the order is ordered by the keys
 		ksort( $order );
-;
+
 		return array_merge( $order, $excluded );
 	}
 
