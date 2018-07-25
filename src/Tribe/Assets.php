@@ -120,7 +120,12 @@ class Tribe__Events__Assets {
 				array(
 					'tribe-events-admin-ui',
 					'events-admin.css',
-					array( 'jquery-ui-datepicker', 'tribe-jquery-timepicker-css', 'tribe-select2-css', 'dashicons', 'thickbox' ),
+					array(
+						'tribe-jquery-timepicker-css',
+						'tribe-select2-css',
+						'dashicons',
+						'thickbox',
+					),
 				),
 			),
 			'admin_enqueue_scripts',
