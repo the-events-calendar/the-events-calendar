@@ -221,12 +221,6 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - Fixed an issue where saving Event Aggregator scheduled imports with an empty preview would generate PHP notices [110311]
 * Add - Make global $post obj available to tribe_events_get_the_excerpt() with setup_postdata($post) [108043]
 * Fix - Escape each closing html element in month view tooltip to prevent PHP parser from exposing html, thanks to Karen for a solution [64834]
-* Fix - Multiple fixes regarding linked post types (e.g. Organizers and custom post types) - props to @natureslens and others for reporting these [105116]:
-  * Now correctly saves in their drag-and-drop order
-  * Deprecated the functions added in version 4.6.13 that previously attempted to fix ordering logic but was not done in a backwards-compatible way: `get_order_meta_key()` and `tribe_sanitize_organizers()`
-  * We no longer rely on a separate postmeta value dedicated to ordering linked posts (e.g. `_EventOrganizerID_Order`), and you may want to remove all such values from your database after re-saving any events that have linked posts and their ordering is important
-  * `tribe_get_linked_posts_by_post_type()` no longer returns empty in error
-  * Editing an existing event no longer loses the linked posts just because they were not part of the submission. Example: If organizers are editable in the wp-admin event edit screen but not on the Community Events "event edit" form (via template override or other custom code), all pre-existing organizers were removed in error.
 * Add - Added WPML metadata improvements for Organizers and Venue. Thanks to David Garcia Watkins and the entire WPML team for their contribution [106798]
 * Fix - Sending empty 'categories' and 'tags' for the REST API event endpoints when inserting and updating events [109627]
 * Tweak - Manage plugin assets via `tribe_assets()` [40267]
@@ -264,7 +258,6 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - Correct the pagination in list view when a keyword is being searched. Thanks to @versi, @akr and Mary for reporting this! [94613]
 * Fix - Split linked posts (Organizers and Venues) by ownership, for all users [71349]
 * Fix - The connected status for Eventbrite under Third Party Accounts on the Help page [106868]
-* Fix - Resolved the datepicker losing state after visiting an event and hitting the "back" button on month view. [69707]
 * Fix - Fixed two PHP 5.2 errors on the Events > Help page [108338]
 * Fix - Display the correct Import Settings when Eventbrite Tickets is enabled [106947]
 * Tweak - Modify the default values for the CSV settings if there's no EA license [94426]
