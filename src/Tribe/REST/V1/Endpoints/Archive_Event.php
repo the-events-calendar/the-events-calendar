@@ -65,7 +65,12 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 			Tribe__Timezones::localize_date( $date_format, $request['end_date'] )
 			: false;
 		$args['s'] = $request['search'];
-		$args['post__in'] = $request['include'];
+
+		if ( $post__in = $request['include'] ) {
+			$args['post__in']                  = $request['include'];
+			$args['tribe_remove_date_filters'] = true;
+		}
+
 		$args['post_parent'] = $request['post_parent'];
 
 		/**
@@ -120,6 +125,13 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 			$args['tribe_geoloc'] = 1;
 			$args['tribe_geoloc_lat'] = isset( $request['geoloc_lat'] ) ? $request['geoloc_lat'] : '';
 			$args['tribe_geoloc_lng'] = isset( $request['geoloc_lng'] ) ? $request['geoloc_lng'] : '';
+		}
+
+		// When including specific posts date queries will be voided
+		if ( isset( $args['post__in'] ) ) {
+			unset( $args['start_date'], $args['end_date'] );
+			$args['orderby'] = Tribe__Utils__Array::get( $args, 'orderby', array( 'date', 'ID' ) );
+			$args['order']   = Tribe__Utils__Array::get( $args, 'order', 'ASC' );
 		}
 
 		$args = $this->parse_args( $args, $request->get_default_params() );
@@ -483,7 +495,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 			),
 			'include' => array(
 				'required'          => false,
-				'description'       => __( 'Include events with one of the post IDs specified in the array of CSV list.', 'the-events-calendar' ),
+				'description'       => __( 'Include events with one of the post IDs specified in the array of CSV list, date filters will be ignored.', 'the-events-calendar' ),
 				'swagger_type'      => 'array',
 				'items'             => array( 'type' => 'integer' ),
 				'collectionFormat'  => 'csv',
