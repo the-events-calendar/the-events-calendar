@@ -2663,7 +2663,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function fullAddressString( $postId = null ) {
 			$address = '';
+			if ( tribe_get_venue( $postId ) ) {
+				$address .= tribe_get_venue( $postId );
+			}
+
 			if ( tribe_get_address( $postId ) ) {
+				if ( $address != '' ) {
+					$address .= ', ';
+				}
 				$address .= tribe_get_address( $postId );
 			}
 
