@@ -67,8 +67,6 @@ class organizerTest extends Events_TestCase {
 	 * @since 4.6.15
 	 */
 	public function test_tribe_sanitize_organizers() {
-		$this->expected_deprecated[] = 'tribe_sanitize_organizers';
-
 		// Test empty values
 		$this->assertEquals( [], tribe_sanitize_organizers() );
 		$this->assertEquals( [], tribe_sanitize_organizers( [], [] ) );
