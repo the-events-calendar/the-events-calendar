@@ -8,20 +8,22 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 	 * @var array An array mapping the REST request supported query vars to the args used in a TEC WP_Query.
 	 */
 	protected $supported_query_vars = array(
-		'page'       => 'paged',
-		'per_page'   => 'posts_per_page',
-		'start_date' => 'start_date',
-		'end_date'   => 'end_date',
-		'search'     => 's',
-		'categories' => 'categories',
-		'tags'       => 'tags',
-		'venue'      => 'venue',
-		'organizer'  => 'organizer',
-		'featured'   => 'featured',
-		'geoloc'     => 'tribe_geoloc',
-		'geoloc_lat' => 'tribe_geoloc_lat',
-		'geoloc_lng' => 'tribe_geoloc_lng',
-		'status'     => 'post_status',
+		'page'        => 'paged',
+		'per_page'    => 'posts_per_page',
+		'start_date'  => 'start_date',
+		'end_date'    => 'end_date',
+		'search'      => 's',
+		'categories'  => 'categories',
+		'tags'        => 'tags',
+		'venue'       => 'venue',
+		'organizer'   => 'organizer',
+		'featured'    => 'featured',
+		'geoloc'      => 'tribe_geoloc',
+		'geoloc_lat'  => 'tribe_geoloc_lat',
+		'geoloc_lng'  => 'tribe_geoloc_lng',
+		'status'      => 'post_status',
+		'post_parent' => 'post_parent',
+		'include'     => 'post__in',
 	);
 
 	/**
@@ -63,6 +65,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 			Tribe__Timezones::localize_date( $date_format, $request['end_date'] )
 			: false;
 		$args['s'] = $request['search'];
+		$args['post__in'] = $request['include'];
 		$args['post_parent'] = $request['post_parent'];
 
 		/**
@@ -477,6 +480,15 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 				'swagger_type' => 'number',
 				'format'       => 'double',
 				'description'  => __( 'Requires Events Calendar Pro. Events should be filtered by their venue longitude location, must also provide geoloc_lat', 'the-events-calendar' ),
+			),
+			'include' => array(
+				'required'          => false,
+				'description'       => __( 'Include events with one of the post IDs specified in the array of CSV list.', 'the-events-calendar' ),
+				'swagger_type'      => 'array',
+				'items'             => array( 'type' => 'integer' ),
+				'collectionFormat'  => 'csv',
+				'validate_callback' => array( $this->validator, 'is_positive_int_list' ),
+				'sanitize_callback' => array( 'Tribe__Utils__Array', 'list_to_array' ),
 			),
 			'post_parent' => array(
 				'required'          => false,
