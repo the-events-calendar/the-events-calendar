@@ -81,7 +81,36 @@ class Tribe__Events__REST__V1__Headers__Base implements Tribe__REST__Headers__Ba
 	 */
 	public function get_rest_url() {
 		if ( is_single() && tribe_is_event() ) {
-			return tribe_events_rest_url( 'events/' . Tribe__Main::post_id_helper() );
+			$this_post_id = Tribe__Main::post_id_helper();
+
+			/**
+			 * We are dealing with an /all kind of query.
+			 * The root URL has to be modified to include the
+			 * post parent and its children post IDs.
+			 */
+			if (
+				( $wp_query = tribe_get_global_query_object() )
+				&& ( $post_parent = $wp_query->get( 'post_parent' ) )
+				&& $post_parent == $this_post_id
+			) {
+				$all      = array( $post_parent );
+				$children = get_posts( array(
+					'post_type'      => Tribe__Events__Main::POSTTYPE,
+					'fields'         => 'ids',
+					'posts_per_page' => - 1,
+					'post_parent'    => $post_parent,
+				) );
+				if ( ! empty( $children ) && is_array( $children ) ) {
+					sort( $children );
+					$all = array_merge( $all, $children );
+				}
+
+				return add_query_arg( array(
+					'include' => Tribe__Utils__Array::to_list( $all ),
+				), tribe_events_rest_url( '/events' ) );
+			}
+
+			return tribe_events_rest_url( 'events/' . $this_post_id );
 		}
 
 		/** @var WP_Query $wp_query */
