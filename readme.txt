@@ -4,7 +4,7 @@ Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.5
-Stable tag: 4.6.21
+Stable tag: 4.6.22
 Tested up to: 4.9.7
 Requires PHP: 5.2.4
 License: GPLv2 or later
@@ -214,6 +214,11 @@ Some things to consider before posting on the forum:
 Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to [@TheEventsCal](https://twitter.com/TheEventsCal) and tell us why. We'll do what we can to make it right.
 
 == Changelog ==
+
+= [4.6.22] TBD =
+
+* Fix - Only show admin notice when it is a top-level page with the event slug, thanks to MikeNGarrett for the code fix! [111186]
+* Fix - redirect_past_upcoming_view_urls(), which incorrectly calls trim() on an array, thanks to barryceelen for the fix [110463]
 
 = [4.6.21] TBD =
 
