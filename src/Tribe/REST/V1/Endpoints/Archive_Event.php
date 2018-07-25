@@ -63,6 +63,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 			Tribe__Timezones::localize_date( $date_format, $request['end_date'] )
 			: false;
 		$args['s'] = $request['search'];
+		$args['post_parent'] = $request['post_parent'];
 
 		/**
 		 * Allows users to override "inclusive" start and end dates and  make the REST API use a
@@ -476,6 +477,12 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 				'swagger_type' => 'number',
 				'format'       => 'double',
 				'description'  => __( 'Requires Events Calendar Pro. Events should be filtered by their venue longitude location, must also provide geoloc_lat', 'the-events-calendar' ),
+			),
+			'post_parent' => array(
+				'required'          => false,
+				'type'              => 'integer',
+				'description'       => __( 'Events should be filtered by their post_parent being the specified one.', 'the-events-calendar' ),
+				'validate_callback' => array( $this->validator, 'is_event_id' ),
 			),
 		);
 	}

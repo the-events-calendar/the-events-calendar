@@ -18,7 +18,7 @@ abstract class Tribe__Events__REST__V1__Endpoints__Archive_Base
 	protected $repository;
 
 	/**
-	 * @var Tribe__Validator__Interface
+	 * @var Tribe__Events__Validator__Interface
 	 */
 	protected $validator;
 	/**
