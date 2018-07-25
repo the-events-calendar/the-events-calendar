@@ -231,6 +231,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - Sending empty 'categories' and 'tags' for the REST API event endpoints when inserting and updating events [109627]
 * Tweak - Manage plugin assets via `tribe_assets()` [40267]
 * Add - Allow filtering events, in REST API requests, by `post_parent` [94326]
+* Add - Allow filtering events, in REST API requests, by their post ID with `include` [94326]
 
 = [4.6.20.1] 2018-07-10 =
 
