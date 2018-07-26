@@ -219,6 +219,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 * Fix - Only show admin notice when it is a top-level page with the event slug, thanks to MikeNGarrett for the code fix! [111186]
 * Fix - redirect_past_upcoming_view_urls(), which incorrectly calls trim() on an array, thanks to barryceelen for the fix [110463]
+* Tweak - Namespace javascript debug function to prevent conflicts causing a function found, thanks to Tom-Mulvey for the fix [110462]
 
 = [4.6.21] TBD =
 
