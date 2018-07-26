@@ -93,11 +93,28 @@ class Tribe__Events__REST__V1__Headers__Base implements Tribe__REST__Headers__Ba
 				&& ( $post_parent = $wp_query->get( 'post_parent' ) )
 				&& $post_parent == $this_post_id
 			) {
-				$all      = array( $post_parent );
-				$children = get_posts( array(
+				/**
+				 * Filters the `posts_per_page` value that should be used to fetch children
+				 * posts to the currently queried one.
+				 *
+				 * This is typically happening when generating the root REST URL for a recurring event
+				 * (from The Events Calendar PRO). The children post IDs are fetched to build an `include`
+				 * request for The Events Calendar REST API and the REST API will deal with pagination.
+				 *
+				 * @since TBD
+				 *
+				 * @param int $posts_per_page How many children posts to include in the query at the most;
+				 *                            defaults to `-1` to fetch them all.
+				 * @param int $post_parent The post ID of the queried event.
+				 * @param WP_Query The current WP_Query object.
+				 */
+				$posts_per_page = apply_filters( 'tribe_rest_event_parent_include_per_page', - 1, $post_parent, $wp_query );
+
+				$all            = array( $post_parent );
+				$children       = get_posts( array(
 					'post_type'      => Tribe__Events__Main::POSTTYPE,
 					'fields'         => 'ids',
-					'posts_per_page' => - 1,
+					'posts_per_page' => $posts_per_page,
 					'post_parent'    => $post_parent,
 				) );
 				if ( ! empty( $children ) && is_array( $children ) ) {
