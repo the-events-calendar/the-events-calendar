@@ -53,7 +53,7 @@ if ( 'undefined' !== typeof tribe_js_config.tribe_disable_debug ) {
  * http://paulirish.com/
  */
 
-window.debug = (function() {
+window.tec_debug = (function() {
 	var window = this,
 		aps = Array.prototype.slice,
 		con = window.console,

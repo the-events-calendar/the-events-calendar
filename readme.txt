@@ -218,7 +218,6 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 = [4.6.22] TBD =
 
 * Fix - Only show admin notice when it is a top-level page with the event slug, thanks to MikeNGarrett for the code fix! [111186]
-* Fix - redirect_past_upcoming_view_urls(), which incorrectly calls trim() on an array, thanks to barryceelen for the fix [110463]
 * Tweak - Namespace javascript debug function to prevent conflicts causing a function found, thanks to Tom-Mulvey for the fix [110462]
 * Tweak - Add venue name to address string for iCal and gCal export, thanks for the coding from sylviavanos [110464]
 * Tweak -  Drop the order from the query WPML linked query as it is set later in the method, thanks to dgwatkins for the PR [110459]
