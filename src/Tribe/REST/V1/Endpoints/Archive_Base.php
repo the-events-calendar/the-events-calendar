@@ -18,7 +18,7 @@ abstract class Tribe__Events__REST__V1__Endpoints__Archive_Base
 	protected $repository;
 
 	/**
-	 * @var Tribe__Validator__Interface
+	 * @var Tribe__Events__Validator__Interface
 	 */
 	protected $validator;
 	/**
@@ -106,6 +106,13 @@ abstract class Tribe__Events__REST__V1__Endpoints__Archive_Base
 			$parameters = array_fill_keys( array_values( $keys ), '' );
 			foreach ( $keys as $key => $value ) {
 				$parameters[ $value ] = $args[ $key ];
+			}
+
+			// transform array arguments into CSV lists
+			foreach ( $parameters as $key => &$value ) {
+				if ( is_array( $value ) ) {
+					$value = Tribe__Utils__Array::to_list( $value, ',' );
+				}
 			}
 
 			$url = add_query_arg( $parameters, $url );
