@@ -1741,6 +1741,10 @@ input[name*='tribe-bar-']:-moz-placeholder {
 	text-align: left;
 	width: 100%;
 
+	&:focus {
+		outline: 1px dotted;
+	}
+
 	&:hover,
 	&:focus {
 		background: #cacaca;
@@ -1792,14 +1796,14 @@ input[name*='tribe-bar-']:-moz-placeholder {
 	}
 
 	.tribe-bar-views-option {
+		display: block;
 		color: #444;
 		line-height: 14px;
-		list-style: none;
 		margin: 0;
 		padding: 6px 15px;
 
-		&:hover,
-		&:focus {
+		&:hover {
+			cursor: pointer;
 			background: #cacaca;
 		}
 

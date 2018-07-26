@@ -150,6 +150,10 @@ var tribe_events_bar_action;
 
 		var $tribebarviews = $( '.tribe-bar-views-list' );
 
+		function getCurrentViewItem() {
+			return $tribebarviews.find( 'li[data-view=' + $tribebarselect.find( ':selected' ).data( 'view' ) + ']' );
+		}
+
 		// Create list from select options
 		$tribebarselect.find( 'option' ).each( function( i ) {
 			var $view = $( this );
@@ -160,27 +164,27 @@ var tribe_events_bar_action;
 				'id'                  : unique_c,
 				'class'               : 'tribe-bar-views-option',
 				'role'                : 'option',
+				'tabindex'            : '-1',
 				'data-tribe-bar-order': i,
-				'data-view'           : displaying
+				'data-view'           : displaying,
+				'aria-labelledby'     : 'tribe-bar-views-label ' + unique_c,
 			} ).html( '<span class="tribe-icon-' + displaying + '" aria-hidden="true" role="none"></span>' + $view.text() ).appendTo( '.tribe-bar-views-list' );
 
 		} );
 
 		//find the current view and select it in the bar
-		var currentview = $tribebarselect.find( ':selected' ).data( 'view' );
-		var $currentli  = $tribebarviews.find( 'li[data-view=' + currentview + ']' );
+		var $currentli = getCurrentViewItem();
 
 		// Se a class on the current view element
-		$currentli.addClass('tribe-bar-active');
-
-		// Set the correct view as the listbox active descendant
-		$tribebarviews.attr( 'aria-activedescendant', $currentli.attr( 'id' ) );
+		$currentli.addClass( 'tribe-bar-active' );
 
 		// Create the listbox toggle button
 		var $tribebarviewstoggle = $( '<button>', {
 			'id'              : 'tribe-bar-views-toggle',
 			'class'           : 'tribe-bar-views-toggle',
-			'aria-labelledby' : 'tribe-bar-views-label ' + $currentli.attr( 'id' ),
+			'data-view'       : $currentli.data( 'view' ),
+			'aria-haspopup'   : 'listbox',
+			'aria-labelledby' : 'tribe-bar-views-label tribe-bar-views-toggle',
 		} );
 
 		$tribebarviewstoggle.html( $currentli.html() ).insertBefore( $tribebarviews );
@@ -188,33 +192,111 @@ var tribe_events_bar_action;
 		// Disable the select
 		$tribebarselect.hide();
 
-		// toggle the views dropdown
-		$tribebar.on( 'click', '#tribe-bar-views', function( e ) {
-			e.stopPropagation();
+		function openViewsToggle() {
+			var $currentli = getCurrentViewItem();
+			$tribebarviews
+				.slideDown( 'fast' )
+				.attr( 'aria-activedescendant', $currentli.attr( 'id' ) )
+				.focus();
+			$tribebar.addClass( 'tribe-bar-views-open' );
+			$tribebarviewstoggle.attr( 'aria-expanded', 'true' );
+		}
 
-			$( this ).toggleClass( 'tribe-bar-views-open' );
-		} );
+		function closeViewsToggle() {
+			var $currentli = getCurrentViewItem();
+			$tribebarviewstoggle.removeAttr( 'aria-expanded' );
+			$tribebar.removeClass('tribe-bar-views-open');
+			$tribebarviews
+				.slideUp( 'fast' )
+				.removeAttr( 'aria-activedescendant' )
+				.find( '.tribe-bar-views-option' ).removeClass( 'tribe-bar-active' );
+			$currentli.addClass( 'tribe-bar-active' );
+		}
 
-		// change views
-		$tribebar.on( 'click', '.tribe-bar-views-option', function( e ) {
+		function triggerViewsChange( e, el ) {
 			e.preventDefault();
 
-			var $this = $( this );
+			var $this = $( el );
 
-			if ( ! $this.is( '.tribe-bar-active' ) ) {
+			// If the new selection is the same as the current view, just close the drop-down and bail.
+			if ( $this.data( 'view' ) === $tribebarviewstoggle.data( 'view' ) ) {
+				$tribebarviewstoggle.focus();
+				closeViewsToggle();
+				return;
+			}
 
-				var target = $this.data( 'view' );
+			// Otherwise, update the page with the selected view and trigger the change
+			$tribebarviewstoggle.html( $this.html() ).focus();
+			closeViewsToggle();
 
-				ts.cur_url              = $( 'option[data-view=' + target + ']' ).val();
-				ts.view_target          = $( 'select[name=tribe-bar-view] option[value="' + ts.cur_url + '"]' ).data( 'view' );
-				tribe_events_bar_action = 'change_view';
+			ts.cur_url              = $( 'option[data-view=' + $this.data( 'view' ) + ']' ).val();
+			ts.view_target          = $( 'select[name=tribe-bar-view] option[value="' + ts.cur_url + '"]' ).data( 'view' );
+			tribe_events_bar_action = 'change_view';
 
-				tribe_events_bar_change_view();
+			tribe_events_bar_change_view();
+		}
+
+		// toggle the views dropdown
+		$tribebar.on( 'click', '#tribe-bar-views-toggle', function( e ) {
+			e.preventDefault();
+
+			if ( $tribebar.hasClass( 'tribe-bar-views-open' ) ) {
+				closeViewsToggle();
+			} else {
+				openViewsToggle();
 			}
 		} );
 
-		// Trigger Mobile Change
-		tf.maybe_default_view_change();
+		// change views via click
+		$tribebar.on( 'click', '.tribe-bar-views-option', function( e ) {
+			triggerViewsChange( e, this );
+		} );
+
+		// Arrow Keys
+		$( document ).on( 'keydown', function ( e ) {
+			if ( e.which !== 38 && e.which !== 40 ) {
+				return;
+			}
+
+			if ( ! $tribebar.hasClass( 'tribe-bar-views-open' ) ) {
+				return;
+			}
+
+			e.preventDefault();
+
+			var key  = e.which;
+			var $new = null;
+			var $old = $tribebarviews.find( 'li.tribe-bar-active' );
+
+			// Up Arrow
+			if ( key === 38 && $old.prev( '.tribe-bar-views-option' ) ) {
+				$new = $old.prev( '.tribe-bar-views-option' );
+			}
+
+			// Down arrow
+			if ( key === 40 && $old.next( '.tribe-bar-views-option' ) ) {
+				$new = $old.next( '.tribe-bar-views-option' );
+			}
+
+			if ( $new.length ) {
+				$tribebarviews.attr( 'aria-activedescendant', $new.attr( 'id' ) );
+				$old.removeClass( 'tribe-bar-active' );
+				$new.addClass( 'tribe-bar-active' ).focus();
+			}
+		} );
+
+		// Enter Key
+		$tribebar.on( 'keyup', '.tribe-bar-views-option', function( e ) {
+			if ( e.which !== 13 ) {
+				return;
+			}
+
+			if ( ! $tribebar.hasClass( 'tribe-bar-views-open' ) ) {
+				return;
+			}
+
+			triggerViewsChange( e, this );
+		} );
 
 		// change views with select (for skeleton styles)
 		$tribebar.on( 'change', '.tribe-bar-views-select', function( e ) {
@@ -230,58 +312,74 @@ var tribe_events_bar_action;
 			tribe_events_bar_change_view();
 		} );
 
-		function openFiltersToggle($toggle) {
-			var label_shown = $toggle.attr('data-label-shown');
-			$toggle.attr('aria-expanded', 'true');
-			$toggle.find('.tribe-bar-toggle-text').html(label_shown);
+		// Trigger Mobile Change
+		tf.maybe_default_view_change();
+
+		function openFiltersToggle( $toggle ) {
+			var label_shown = $toggle.attr( 'data-label-shown' );
+			$toggle.attr( 'aria-expanded', 'true' );
+			$toggle.find( '.tribe-bar-toggle-text' ).html( label_shown );
 			$toggle.addClass( 'tribe-bar-filters-open' );
-			$( '.tribe-bar-filters' ).slideDown( 'fast' ).attr('aria-hidden', 'false');
+			$( '.tribe-bar-filters' ).slideDown( 'fast' ).attr( 'aria-hidden', 'false' );
 		}
 
-		function closeFiltersToggle($toggle) {
-			var label_hidden = $toggle.attr('data-label-hidden');
-			$( '.tribe-bar-filters' ).slideUp( 'fast' ).attr('aria-hidden', 'true');
+		function closeFiltersToggle( $toggle ) {
+			var label_hidden = $toggle.attr( 'data-label-hidden' );
+			$( '.tribe-bar-filters' ).slideUp( 'fast' ).attr( 'aria-hidden', 'true' );
 			$toggle.removeClass( 'tribe-bar-filters-open' );
-			$toggle.find('.tribe-bar-toggle-text').html(label_hidden);
-			$toggle.attr('aria-expanded', 'false');
+			$toggle.find( '.tribe-bar-toggle-text' ).html( label_hidden );
+			$toggle.attr( 'aria-expanded', 'false' );
 		}
 
-		$tribebar.on( 'click', '#tribe-bar-collapse-toggle', function(e) {
+		$tribebar.on( 'click', '#tribe-bar-collapse-toggle', function( e ) {
 			e.preventDefault();
 			var $this = $( this );
 			if ( $this.hasClass( 'tribe-bar-filters-open' ) ) {
-				closeFiltersToggle($this);
+				closeFiltersToggle( $this );
 			} else {
-				openFiltersToggle($this);
+				openFiltersToggle( $this );
 			}
 		} );
 
 		// Tab Key
-		$(document).on('keyup', function(e) {
-			if (e.which !== 9) {
+		$( document ).on( 'keyup', function( e ) {
+			if ( e.which !== 9 ) {
 				return;
 			}
 
 			// Close Event Filters if open and tabbed outside
-			var $filters_toggle = $('#tribe-bar-collapse-toggle');
-			if ($tribebar.hasClass('tribe-bar-collapse') && $filters_toggle.hasClass('tribe-bar-filters-open') && ! $.contains(document.getElementById('tribe-bar-filters-wrap'), e.target)) {
-				closeFiltersToggle($filters_toggle);
+			var $filters_toggle = $( '#tribe-bar-collapse-toggle' );
+			if ( $tribebar.hasClass( 'tribe-bar-collapse' ) && $filters_toggle.hasClass( 'tribe-bar-filters-open' ) && ! $.contains( document.getElementById( 'tribe-bar-filters-wrap' ), e.target ) ) {
+				closeFiltersToggle( $filters_toggle );
 			}
-		});
+
+			// Close Event Views if open and tabbed past
+			var $views_toggle = $( '#tribe-bar-views-toggle' );
+			if ( $tribebar.hasClass( 'tribe-bar-views-open' ) && $views_toggle.not( ':focus' ) ) {
+				closeViewsToggle();
+			}
+		} );
 
 		// Escape Key
-		$(document).on('keyup', function(e) {
-			if (e.which !== 27) {
+		$( document ).on( 'keyup', function( e ) {
+			if ( e.which !== 27 ) {
 				return;
 			}
 
-			// Close Event Filters if open and escaped;
-			var $filters_toggle = $('#tribe-bar-collapse-toggle');
-			if ($tribebar.hasClass('tribe-bar-collapse') && $filters_toggle.hasClass('tribe-bar-filters-open')) {
-				closeFiltersToggle($filters_toggle);
+			// Close Event Filters if open and escaped
+			var $filters_toggle = $( '#tribe-bar-collapse-toggle' );
+			if ( $tribebar.hasClass( 'tribe-bar-collapse' ) && $filters_toggle.hasClass( 'tribe-bar-filters-open' ) ) {
+				closeFiltersToggle( $filters_toggle );
 				$filters_toggle.focus();
 			}
-		});
+
+			// Close Event Views is open and escaped
+			var $views_toggle = $( '#tribe-bar-views-toggle' );
+			if ( $tribebar.hasClass( 'tribe-bar-views-open' ) ) {
+				closeViewsToggle();
+				$views_toggle.focus();
+			}
+		} );
 
 		// Wrap date inputs with a parent container
 		$( 'label[for="tribe-bar-date"], input[name="tribe-bar-date"]' ).wrapAll( '<div id="tribe-bar-dates" />' );
@@ -447,12 +545,25 @@ var tribe_events_bar_action;
 			return false
 		} );
 
-		$( document ).click( function() {
-			$( document.getElementById( 'tribe-bar-views' ) ).removeClass( 'tribe-bar-views-open' );
+		$( document ).click( function( e ) {
+			// Close the Event Views if open
+			if ( $tribebar.hasClass( 'tribe-bar-views-open' ) && ! $.contains( document.getElementById( 'tribe-bar-views' ), e.target ) ) {
+				closeViewsToggle();
+				$tribebarviewstoggle.focus();
+			}
+
+			// Close the Event Filters if open
+			var $filters_toggle = $( '#tribe-bar-collapse-toggle' );
+			if ( $tribebar.hasClass( 'tribe-bar-collapse' ) && $filters_toggle.hasClass( 'tribe-bar-filters-open' ) && ! $.contains( document.getElementById( 'tribe-bar-filters-wrap' ), e.target ) ) {
+				closeFiltersToggle( $filters_toggle );
+				$filters_toggle.focus();
+			}
+
 			if ( $tribeDropToggle.hasClass( 'open' ) ) {
 				$tribeDropToggle.removeClass( 'open' );
 				$tribeDropToggleEl.hide();
 			}
+
 		} );
 
 		$tribeDropToggleEl.click( function( e ) {
