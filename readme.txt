@@ -226,6 +226,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Tweak - Manage plugin assets via `tribe_assets()` [40267]
 * Add - Allow filtering events, in REST API requests, by `post_parent` [94326]
 * Add - Allow filtering events, in REST API requests, by their post ID with `include` [94326]
+* Fix - Prevent selection of past dates when setting up Scheduled Other URL Imports in Event Aggregator [111227]
 
 = [4.6.20.1] 2018-07-10 =
 
