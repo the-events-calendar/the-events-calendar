@@ -142,16 +142,11 @@ var tribe_events_bar_action;
 			$( document.getElementById( 'tribe-events-bar' ) ).addClass( 'tribe-has-datepicker' );
 		}
 
-		// Implement views links
-		function format( view ) {
-			return '<span class="tribe-icon-' + $.trim( view.text.toLowerCase() ) + '">' + view.text + '</span>';
-		}
-
 		// Implement placeholder
 		$( 'input[name*="tribe-bar-"]' ).placeholder();
 
 		// Create list
-		$( '<ul class="tribe-bar-views-list" />' ).insertAfter( $tribebarselect );
+		$( '<ul class="tribe-bar-views-list" tabindex="-1" role="listbox" aria-labelledby="tribe-bar-views-label" />' ).insertAfter( $tribebarselect );
 
 		var $tribebarviews = $( '.tribe-bar-views-list' );
 
@@ -162,14 +157,12 @@ var tribe_events_bar_action;
 			// build list items and append them
 			var unique_c = 'tribe-bar-views-option-' + $view.data( 'view' );
 			$( '<li></li>', {
-				'class'               : 'tribe-bar-views-option ' + unique_c,
+				'id'                  : unique_c,
+				'class'               : 'tribe-bar-views-option',
+				'role'                : 'option',
 				'data-tribe-bar-order': i,
 				'data-view'           : displaying
-			} ).html( [
-				'   <a href="#">',
-				'   <span class="tribe-icon-' + displaying + '">' + $view.text() + '</span>',
-				'</a>'].join( "" )
-			).appendTo( '.tribe-bar-views-list' );
+			} ).html( '<span class="tribe-icon-' + displaying + '" aria-hidden="true" role="none"></span>' + $view.text() ).appendTo( '.tribe-bar-views-list' );
 
 		} );
 
@@ -177,7 +170,20 @@ var tribe_events_bar_action;
 		var currentview = $tribebarselect.find( ':selected' ).data( 'view' );
 		var $currentli  = $tribebarviews.find( 'li[data-view=' + currentview + ']' );
 
-		$currentli.prependTo( $tribebarviews ).addClass( 'tribe-bar-active' );
+		// Se a class on the current view element
+		$currentli.addClass('tribe-bar-active');
+
+		// Set the correct view as the listbox active descendant
+		$tribebarviews.attr( 'aria-activedescendant', $currentli.attr( 'id' ) );
+
+		// Create the listbox toggle button
+		var $tribebarviewstoggle = $( '<button>', {
+			'id'              : 'tribe-bar-views-toggle',
+			'class'           : 'tribe-bar-views-toggle',
+			'aria-labelledby' : 'tribe-bar-views-label ' + $currentli.attr( 'id' ),
+		} );
+
+		$tribebarviewstoggle.html( $currentli.html() ).insertBefore( $tribebarviews );
 
 		// Disable the select
 		$tribebarselect.hide();

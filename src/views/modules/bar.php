@@ -84,24 +84,27 @@ if ( count( $views ) > 1 ) {
 
 		<!-- Views -->
 		<?php if ( count( $views ) > 1 ) { ?>
-			<div id="tribe-bar-views">
+			<div id="tribe-bar-views" class="tribe-bar-views">
 				<div class="tribe-bar-views-inner tribe-clearfix">
 					<h3 class="tribe-events-visuallyhidden"><?php printf( esc_html__( '%s Views Navigation', 'the-events-calendar' ), tribe_get_event_label_singular() ); ?></h3>
-					<label><?php esc_html_e( 'View As', 'the-events-calendar' ); ?></label>
+					<label id="tribe-bar-views-label" aria-label="<?php printf( esc_html__( 'View %s As', 'the-events-calendar' ), tribe_get_event_label_plural() ); ?>">
+						<?php esc_html_e( 'View As', 'the-events-calendar' ); ?>
+					</label>
 					<select
 						class="tribe-bar-views-select tribe-no-param"
 						name="tribe-bar-view"
 						aria-label="<?php printf( esc_attr__( 'View %s As', 'the-events-calendar' ), tribe_get_event_label_plural() ); ?>"
 					>
-						<?php foreach ( $views as $view ) : ?>
-							<option
-								<?php echo tribe_is_view( $view['displaying'] ) ? 'selected' : 'tribe-inactive' ?>
-								value="<?php echo esc_attr( $view['url'] ); ?>"
-								data-view="<?php echo esc_attr( $view['displaying'] ); ?>"
-							>
-								<?php echo $view['anchor']; ?>
-							</option>
-						<?php endforeach; ?>
+						<?php foreach ( $views as $view ) {
+							printf(
+								'<option value="%1$s" data-view="%2$s"%3$s>%4$s</option>',
+								esc_attr( $view['url'] ),
+								esc_attr( $view['displaying'] ),
+								tribe_is_view( $view['displaying'] ) ? ' selected' : '',
+								esc_html( $view['anchor'] )
+							);
+						}
+						?>
 					</select>
 				</div>
 				<!-- .tribe-bar-views-inner -->
