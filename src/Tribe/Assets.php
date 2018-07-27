@@ -601,6 +601,17 @@ class Tribe__Events__Assets {
 			$js_config_array['force_filtered_ical_link'] = true;
 		}
 
+		/**
+		 * Filter Debug Statements in Javascript
+		 *
+		 * @since TDB
+		 *
+		 * @param boolean $force Defaults to false; when true, debug is disabled in scripts
+		 */
+		if ( apply_filters( 'tribe_events_disable_js_debug', false ) ) {
+			$js_config_array['tribe_disable_debug'] = true;
+		}
+
 		return $js_config_array;
 	}
 
