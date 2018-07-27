@@ -229,6 +229,7 @@ class Tribe__Events__Assets {
 			array(
 				'media'        => 'only screen and (max-width: ' . tribe_get_mobile_breakpoint() . 'px)',
 				'groups'       => array( 'events-styles' ),
+				'priority'     => 7,
 				'conditionals' => array(
 					'operator' => 'AND',
 					array( $this, 'is_mobile_breakpoint' ),
