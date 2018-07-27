@@ -323,6 +323,19 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 				'type'        => 'boolean',
 				'description' => __( 'Whether the event should be featured on the site or not', 'the-events-calendar' ),
 			),
+			// Taxonomies
+			'categories'         => array(
+				'required'     => false,
+				'default'      => null,
+				'swagger_type' => 'array',
+				'description'  => __( 'The event category ID or name', 'the-events-calendar' ),
+			),
+			'tags'               => array(
+				'required'     => false,
+				'default'      => null,
+				'swagger_type' => 'array',
+				'description'  => __( 'The event tag ID or name', 'the-events-calendar' ),
+			),
 			// Linked Posts
 			'venue'              => array(
 				'required'          => false,
