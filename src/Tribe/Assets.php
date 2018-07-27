@@ -2,14 +2,14 @@
 /**
  * Registers and Enqueues the assets
  *
- * @since  TBD
+ * @since  4.6.21
  */
 class Tribe__Events__Assets {
 
 	/**
 	 * Hooks any required filters and action
 	 *
-	 * @since  TBD
+	 * @since  4.6.21
 	 *
 	 * @return void
 	 */
@@ -21,7 +21,7 @@ class Tribe__Events__Assets {
 	/**
 	 * Registers and Enqueues the assets
 	 *
-	 * @since  TBD
+	 * @since  4.6.21
 	 *
 	 * @return void
 	 */
@@ -330,7 +330,7 @@ class Tribe__Events__Assets {
 	/**
 	 * Add admin scripts and styles
 	 *
-	 * @since  TBD
+	 * @since  4.6.21
 	 */
 	public function load_admin() {
 		$admin_helpers = Tribe__Admin__Helpers::instance();
@@ -359,7 +359,7 @@ class Tribe__Events__Assets {
 	 * Needs to execute late enough during admin_enqueue_scripts that the items we are removing
 	 * have already been registered and enqueued.
 	 *
-	 * @since  TBD
+	 * @since  4.6.21
 	 *
 	 * @see https://github.com/easydigitaldownloads/easy-digital-downloads/issues/3033
 	 */
@@ -375,7 +375,7 @@ class Tribe__Events__Assets {
 	/**
 	 * Checks if we should enqueue on frontend and backend on our pages
 	 *
-	 * @since  TBD
+	 * @since  4.6.21
 	 *
 	 * @return bool
 	 */
@@ -390,7 +390,7 @@ class Tribe__Events__Assets {
 	/**
 	 * Checks if we should enqueue frontend assets
 	 *
-	 * @since  TBD
+	 * @since  4.6.21
 	 *
 	 * @return bool
 	 */
@@ -408,7 +408,7 @@ class Tribe__Events__Assets {
 		/**
 		 * Allow filtering of where the base Frontend Assets will be loaded
 		 *
-		 * @since  TBD
+		 * @since  4.6.21
 		 *
 		 * @param bool $should_enqueue
 		 */
@@ -418,7 +418,7 @@ class Tribe__Events__Assets {
 	/**
 	 * Checks if we should enqueue full styles assets
 	 *
-	 * @since  TBD
+	 * @since  4.6.21
 	 *
 	 * @return bool
 	 */
@@ -428,7 +428,7 @@ class Tribe__Events__Assets {
 		/**
 		 * Allow filtering of where the base Full Style Assets will be loaded
 		 *
-		 * @since  TBD
+		 * @since  4.6.21
 		 *
 		 * @param bool $should_enqueue
 		 */
@@ -438,7 +438,7 @@ class Tribe__Events__Assets {
 	/**
 	 * Checks if we are on the correct admin pages to enqueue admin
 	 *
-	 * @since  TBD
+	 * @since  4.6.21
 	 *
 	 * @return bool
 	 */
@@ -453,7 +453,7 @@ class Tribe__Events__Assets {
 		/**
 		 * Allow filtering of where the base Admin Assets will be loaded
 		 *
-		 * @since  TBD
+		 * @since  4.6.21
 		 *
 		 * @param bool $should_enqueue
 		 */
@@ -463,7 +463,7 @@ class Tribe__Events__Assets {
 	/**
 	 * Checks if we have a mobile Breakpoint
 	 *
-	 * @since  TBD
+	 * @since  4.6.21
 	 *
 	 * @return bool
 	 */
@@ -480,7 +480,7 @@ class Tribe__Events__Assets {
 	/**
 	 * Checks if we are using Tribe setting for Style
 	 *
-	 * @since  TBD
+	 * @since  4.6.21
 	 *
 	 * @return bool
 	 */
@@ -492,7 +492,7 @@ class Tribe__Events__Assets {
 	/**
 	 * Checks if we are on the correct admin settings page
 	 *
-	 * @since  TBD
+	 * @since  4.6.21
 	 *
 	 * @return bool
 	 */
@@ -503,7 +503,7 @@ class Tribe__Events__Assets {
 	/**
 	 * Playing ping-pong with WooCommerce. They keep changing their script.
 	 *
-	 * @since TBD
+	 * @since 4.6.21
 	 *
 	 * @see https://github.com/woothemes/woocommerce/issues/3623
 	 *
@@ -529,7 +529,7 @@ class Tribe__Events__Assets {
 	 * Due to how we define which style we use based on an Option on the Administration
 	 * we need to determine this file.
 	 *
-	 * @since  TBD
+	 * @since  4.6.21
 	 *
 	 * @return string
 	 */
@@ -553,7 +553,7 @@ class Tribe__Events__Assets {
 		/**
 		 * Allows filtering of the Stylesheet file for Events Calendar Pro
 		 *
-		 * @deprecated  TBD
+		 * @deprecated  4.6.21
 		 *
 		 * @param string $file Which file we are loading
 		 * @param string $name Option from the DB of style we are using
@@ -565,7 +565,7 @@ class Tribe__Events__Assets {
 	/**
 	 * Gets the Localize variable for TEC admin JS
 	 *
-	 * @since  TBD
+	 * @since  4.6.21
 	 *
 	 * @return array
 	 */
@@ -582,7 +582,7 @@ class Tribe__Events__Assets {
 	/**
 	 * Gets the Localize variable for Calendar Script JS
 	 *
-	 * @since  TBD
+	 * @since  4.6.21
 	 *
 	 * @return array
 	 */
@@ -611,7 +611,7 @@ class Tribe__Events__Assets {
 	/**
 	 * Gets the Localize variable for Dynamic JS
 	 *
-	 * @since  TBD
+	 * @since  4.6.21
 	 *
 	 * @return array
 	 */

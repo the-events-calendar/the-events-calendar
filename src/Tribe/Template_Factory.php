@@ -482,7 +482,7 @@ class Tribe__Events__Template_Factory extends Tribe__Template_Factory {
 	/**
 	 * Asset calls for vendor packages
 	 *
-	 * @deprecated TBD
+	 * @deprecated 4.6.21
 	 *
 	 * @param string $name
 	 * @param array  $deps Dependents
@@ -501,7 +501,7 @@ class Tribe__Events__Template_Factory extends Tribe__Template_Factory {
 	/**
 	 * Handles an asset package request.
 	 *
-	 * @deprecated TBD
+	 * @deprecated 4.6.21
 	 *
 	 * @param string      $name       The asset name in the `hyphen-separated-format`
 	 * @param array       $deps       An array of dependency handles
@@ -519,7 +519,7 @@ class Tribe__Events__Template_Factory extends Tribe__Template_Factory {
 	/**
 	 * Retrieves the appropriate asset factory instance
 	 *
-	 * @deprecated TBD
+	 * @deprecated 4.6.21
 	 */
 	protected static function get_asset_factory_instance( $name ) {
 		$asset = Tribe__Events__Asset__Factory::instance()->make_for_name( $name );
