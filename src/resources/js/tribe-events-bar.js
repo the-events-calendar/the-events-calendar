@@ -67,11 +67,11 @@ var tribe_events_bar_action;
 			}
 			if ( tribeBarWidth < 728 ) {
 				$tribebar.removeClass( 'tribe-bar-mini' ).addClass( 'tribe-bar-collapse' );
-				closeFiltersToggle($('#tribe-bar-collapse-toggle'));
+				closeFiltersToggle( $( '#tribe-bar-collapse-toggle' ) );
 			}
 			else {
 				$tribebar.removeClass( 'tribe-bar-collapse' );
-				openFiltersToggle($('#tribe-bar-collapse-toggle'));
+				openFiltersToggle( $( '#tribe-bar-collapse-toggle' ) );
 			}
 		}
 
@@ -254,7 +254,7 @@ var tribe_events_bar_action;
 
 		// Arrow Keys
 		$( document ).on( 'keydown', function ( e ) {
-			if ( e.which !== 38 && e.which !== 40 ) {
+			if ( 38 !== e.which && 40 !== e.which ) {
 				return;
 			}
 
@@ -269,12 +269,12 @@ var tribe_events_bar_action;
 			var $old = $tribebarviews.find( 'li.tribe-bar-active' );
 
 			// Up Arrow
-			if ( key === 38 && $old.prev( '.tribe-bar-views-option' ) ) {
+			if ( 38 === key && $old.prev( '.tribe-bar-views-option' ) ) {
 				$new = $old.prev( '.tribe-bar-views-option' );
 			}
 
 			// Down arrow
-			if ( key === 40 && $old.next( '.tribe-bar-views-option' ) ) {
+			if ( 40 === key && $old.next( '.tribe-bar-views-option' ) ) {
 				$new = $old.next( '.tribe-bar-views-option' );
 			}
 
@@ -287,7 +287,7 @@ var tribe_events_bar_action;
 
 		// Enter Key
 		$tribebar.on( 'keyup', '.tribe-bar-views-option', function( e ) {
-			if ( e.which !== 13 ) {
+			if ( 13 !== e.which ) {
 				return;
 			}
 
@@ -343,7 +343,7 @@ var tribe_events_bar_action;
 
 		// Tab Key
 		$( document ).on( 'keyup', function( e ) {
-			if ( e.which !== 9 ) {
+			if ( 9 !== e.which ) {
 				return;
 			}
 
@@ -362,7 +362,7 @@ var tribe_events_bar_action;
 
 		// Escape Key
 		$( document ).on( 'keyup', function( e ) {
-			if ( e.which !== 27 ) {
+			if ( 27 !== e.which ) {
 				return;
 			}
 
