@@ -224,8 +224,6 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Add - Added WPML metadata improvements for Organizers and Venue. Thanks to David Garcia Watkins and the entire WPML team for their contribution [106798]
 * Fix - Sending empty 'categories' and 'tags' for the REST API event endpoints when inserting and updating events [109627]
 * Tweak - Manage plugin assets via `tribe_assets()` [40267]
-* Add - Allow filtering events, in REST API requests, by `post_parent` [94326]
-* Add - Allow filtering events, in REST API requests, by their post ID with `include` [94326]
 * Fix - Prevent selection of past dates when setting up Scheduled Other URL Imports in Event Aggregator [111227]
 
 = [4.6.20.1] 2018-07-10 =
