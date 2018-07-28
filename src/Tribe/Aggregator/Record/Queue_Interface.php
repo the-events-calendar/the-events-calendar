@@ -65,7 +65,7 @@ interface Tribe__Events__Aggregator__Record__Queue_Interface {
 	/**
 	 * Whether the current queue process is stuck or not.
 	 *
-	 * @since TBD
+	 * @since 4.6.21
 	 *
 	 * @return bool
 	 */
@@ -74,7 +74,7 @@ interface Tribe__Events__Aggregator__Record__Queue_Interface {
 	/**
 	 * Orderly closes the queue process.
 	 *
-	 * @since TBD
+	 * @since 4.6.21
 	 *
 	 * @return bool
 	 */
@@ -83,7 +83,7 @@ interface Tribe__Events__Aggregator__Record__Queue_Interface {
 	/**
 	 * Whether the current queue process failed or not.
 	 *
-	 * @since TBD
+	 * @since 4.6.21
 	 *
 	 * @return bool
 	 */
@@ -92,7 +92,7 @@ interface Tribe__Events__Aggregator__Record__Queue_Interface {
 	/**
 	 * Returns the queue error message.
 	 *
-	 * @since TBD
+	 * @since 4.6.21
 	 *
 	 * @return string
 	 */
