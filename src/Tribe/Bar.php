@@ -15,7 +15,7 @@ class Tribe__Events__Bar {
 	/**
 	 * Hooking the required Filters and Actions for this Class
 	 *
-	 * @since  TBD
+	 * @since  4.6.21
 	 *
 	 * @return void
 	 */
@@ -105,7 +105,7 @@ class Tribe__Events__Bar {
 	}
 
 	/**
-	 * @deprecated TBD
+	 * @deprecated 4.6.21
 	 *
 	 * @return Tribe__Events__Bar
 	 */

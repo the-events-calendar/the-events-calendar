@@ -223,7 +223,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Tweak - Add venue name to address string for iCal and gCal export, thanks for the coding from sylviavanos [110464]
 * Tweak -  Drop the order from the query WPML linked query as it is set later in the method, thanks to dgwatkins for the PR [110459]
 
-= [4.6.21] TBD =
+= [4.6.21] 2018-07-31 =
 
 * Fix - Ensure no console errors are being displayed if there's no Google Maps API key present. Thanks Greg for flagging this [95312]
 * Fix - Fixed an issue where saving Event Aggregator scheduled imports with an empty preview would generate PHP notices [110311]
@@ -232,6 +232,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Add - Added WPML metadata improvements for Organizers and Venue. Thanks to David Garcia Watkins and the entire WPML team for their contribution [106798]
 * Fix - Sending empty 'categories' and 'tags' for the REST API event endpoints when inserting and updating events [109627]
 * Tweak - Manage plugin assets via `tribe_assets()` [40267]
+* Fix - Prevent selection of past dates when setting up Scheduled Other URL Imports in Event Aggregator [111227]
 
 = [4.6.20.1] 2018-07-10 =
 

@@ -433,6 +433,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe_singleton( 'tec.customizer.single-event', new Tribe__Events__Customizer__Single_Event() );
 			tribe_singleton( 'tec.customizer.widget', new Tribe__Events__Customizer__Widget() );
 
+			// Tribe Bar
+			tribe_singleton( 'tec.bar', 'Tribe__Events__Bar', array( 'hook' ) );
+
 			// iCal
 			tribe_singleton( 'tec.iCal', 'Tribe__Events__iCal', array( 'hook' ) );
 
@@ -4433,7 +4436,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Make sure we are loading a style for all logged-in users when we have the admin menu
 		 *
-		 * @deprecated TBD
+		 * @deprecated 4.6.21
 		 *
 		 * @return void
 		 */
@@ -4441,33 +4444,33 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			_deprecated_function(
 				__METHOD__,
 				'We are now using `Assets.php` class to load all CSS files',
-				'TBD'
+				'4.6.21'
 			);
 		}
 
 		/**
 		 * Load asset packages.
 		 *
-		 * @deprecated TBD
+		 * @deprecated 4.6.21
 		 */
 		public function loadStyle() {
 			_deprecated_function(
 				__METHOD__,
 				'We are now using `Assets.php` class to load all CSS files',
-				'TBD'
+				'4.6.21'
 			);
 		}
 
 		/**
 		 * Add admin scripts and styles
 		 *
-		 * @deprecated TBD
+		 * @deprecated 4.6.21
 		 */
 		public function add_admin_assets() {
 			_deprecated_function(
 				__METHOD__,
 				'tribe( "tec.assets" )->load_admin()',
-				'TBD'
+				'4.6.21'
 			);
 			tribe( 'tec.assets' )->load_admin();
 		}
@@ -4479,7 +4482,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Needs to execute late enough during admin_enqueue_scripts that the items we are removing
 		 * have already been registered and enqueued.
 		 *
-		 * @deprecated TBD
+		 * @deprecated 4.6.21
 		 *
 		 * @see https://github.com/easydigitaldownloads/easy-digital-downloads/issues/3033
 		 */
@@ -4487,7 +4490,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			_deprecated_function(
 				__METHOD__,
 				'tribe( "tec.assets" )->dequeue_incompatible()',
-				'TBD'
+				'4.6.21'
 			);
 
 			tribe( 'tec.assets' )->dequeue_incompatible();
@@ -4496,7 +4499,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Localize admin.
 		 *
-		 * @deprecated TBD
+		 * @deprecated 4.6.21
 		 *
 		 * @return array
 		 */
@@ -4504,7 +4507,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			_deprecated_function(
 				__METHOD__,
 				'We are now using `Assets.php` class to load all JS localization',
-				'TBD'
+				'4.6.21'
 			);
 			$bits = array(
 				'ajaxurl' => esc_url_raw( admin_url( 'admin-ajax.php', ( is_ssl() || FORCE_SSL_ADMIN ? 'https' : 'http' ) ) ),
@@ -4516,13 +4519,13 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Output localized admin javascript
 		 *
-		 * @deprecated TBD
+		 * @deprecated 4.6.21
 		 */
 		public function printLocalizedAdmin() {
 			_deprecated_function(
 				__METHOD__,
 				'We are now using `Assets.php` class to load all JS localization',
-				'TBD'
+				'4.6.21'
 			);
 			wp_localize_script( 'tribe-events-admin', 'TEC', $this->localizeAdmin() );
 		}
@@ -4530,7 +4533,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Modify the post type args to set Dashicon if we're in WP 3.8+
 		 *
-		 * @deprecated TBD
+		 * @deprecated 4.6.21
 		 *
 		 * @return array post type args
 		 **/
@@ -4538,7 +4541,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			_deprecated_function(
 				__METHOD__,
 				'We add `menu_icon` goes into the base arguments',
-				'TBD'
+				'4.6.21'
 			);
 
 			global $wp_version;

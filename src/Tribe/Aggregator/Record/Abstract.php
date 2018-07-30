@@ -2131,7 +2131,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		/**
 		 * Fires after a record has been finalized and right before it starts importing.
 		 *
-		 * @since TBD
+		 * @since 4.6.21
 		 *
 		 * @param int   $id   The Record post ID
 		 * @param array $meta An array of meta for the record
