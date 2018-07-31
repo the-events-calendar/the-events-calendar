@@ -215,7 +215,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
-= [4.6.21] 2018-07-31 =
+= [4.6.21] 2018-08-01 =
 
 * Fix - Ensure no console errors are being displayed if there's no Google Maps API key present. Thanks Greg for flagging this [95312]
 * Fix - Fixed an issue where saving Event Aggregator scheduled imports with an empty preview would generate PHP notices [110311]
