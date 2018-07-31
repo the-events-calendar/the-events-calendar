@@ -585,16 +585,18 @@ class AbstractTest extends Events_TestCase {
 	 */
 	public function should_correctly_create_and_link_new_organizers_to_events() {
 		$test_record           = new class extends Base {
-			public $origin = 'ics';
+			public $origin = 'ical';
 
 			public function get_label() {
 				return 'test';
 			}
 		};
-		$event_data            = $this->factory()->import_record->create_and_get_event_record( 'ics' );
-		$event_data->organizer = (object) [
-			'organizer' => 'Organizer-1',
-			'email'     => 'foo@bar.com',
+		$event_data = $this->factory()->import_record->create_and_get_event_record( 'ical' );
+		$event_data->organizer = [
+			(object) [
+				'organizer' => 'Organizer-1',
+				'email'     => 'foo@bar.com',
+			],
 		];
 		$id                    = null;
 		add_action( 'tribe_aggregator_after_insert_post', function ( $event ) use ( &$id ) {
