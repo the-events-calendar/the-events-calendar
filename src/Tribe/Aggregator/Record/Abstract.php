@@ -1819,6 +1819,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 				// Update the organizer submission data
 				$event['Organizer']['OrganizerID'] = $event_organizers;
+
+				// Let's remove this Organizer from the Event information if we found it
+				if ( isset( $key ) && is_numeric( $key ) ) {
+					unset( $event['Organizer'][ $key ] );
+				}
 			}
 
 			/**
