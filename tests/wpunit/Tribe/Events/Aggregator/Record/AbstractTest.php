@@ -575,4 +575,41 @@ class AbstractTest extends Events_TestCase {
 			$this->assertFalse( $record->get_retry_time() );
 		}
 	}
+
+	/**
+	 * It should correctly create and link new organizers to events
+	 *
+	 * When an organizer UID is not provided
+	 *
+	 * @test
+	 */
+	public function should_correctly_create_and_link_new_organizers_to_events() {
+		$test_record           = new class extends Base {
+			public $origin = 'ics';
+
+			public function get_label() {
+				return 'test';
+			}
+		};
+		$event_data            = $this->factory()->import_record->create_and_get_event_record( 'ics' );
+		$event_data->organizer = (object) [
+			'organizer' => 'Organizer-1',
+			'email'     => 'foo@bar.com',
+		];
+		$id                    = null;
+		add_action( 'tribe_aggregator_after_insert_post', function ( $event ) use ( &$id ) {
+			$id = $event['ID'];
+		} );
+
+		/** @var Base $record */
+		$record = new $test_record;
+		$record->insert_posts( [ $event_data ] );
+
+		$this->assertNotEmpty( get_post( $id ) );
+		$organizers = get_post_meta( $id, '_EventOrganizerID_Order', true );
+		$this->assertNotEmpty( $organizers );
+		$organizer = get_post( reset( $organizers ) );
+		$this->assertEquals( 'Organizer-1', $organizer->post_title );
+		$this->assertEquals( 'foo@bar.com', get_post_meta( $organizer->ID, '_OrganizerEmail', true ) );
+	}
 }
