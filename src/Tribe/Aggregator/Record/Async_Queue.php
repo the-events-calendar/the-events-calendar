@@ -229,7 +229,7 @@ class Tribe__Events__Aggregator__Record__Async_Queue
 			return true;
 		}
 
-		return false;
+		return true;
 	}
 
 	/**
