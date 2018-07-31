@@ -8,20 +8,22 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 	 * @var array An array mapping the REST request supported query vars to the args used in a TEC WP_Query.
 	 */
 	protected $supported_query_vars = array(
-		'page'       => 'paged',
-		'per_page'   => 'posts_per_page',
-		'start_date' => 'start_date',
-		'end_date'   => 'end_date',
-		'search'     => 's',
-		'categories' => 'categories',
-		'tags'       => 'tags',
-		'venue'      => 'venue',
-		'organizer'  => 'organizer',
-		'featured'   => 'featured',
-		'geoloc'     => 'tribe_geoloc',
-		'geoloc_lat' => 'tribe_geoloc_lat',
-		'geoloc_lng' => 'tribe_geoloc_lng',
-		'status'     => 'post_status',
+		'page'        => 'paged',
+		'per_page'    => 'posts_per_page',
+		'start_date'  => 'start_date',
+		'end_date'    => 'end_date',
+		'search'      => 's',
+		'categories'  => 'categories',
+		'tags'        => 'tags',
+		'venue'       => 'venue',
+		'organizer'   => 'organizer',
+		'featured'    => 'featured',
+		'geoloc'      => 'tribe_geoloc',
+		'geoloc_lat'  => 'tribe_geoloc_lat',
+		'geoloc_lng'  => 'tribe_geoloc_lng',
+		'status'      => 'post_status',
+		'post_parent' => 'post_parent',
+		'include'     => 'post__in',
 	);
 
 	/**
@@ -63,6 +65,13 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 			Tribe__Timezones::localize_date( $date_format, $request['end_date'] )
 			: false;
 		$args['s'] = $request['search'];
+
+		if ( $post__in = $request['include'] ) {
+			$args['post__in']                  = $request['include'];
+			$args['tribe_remove_date_filters'] = true;
+		}
+
+		$args['post_parent'] = $request['post_parent'];
 
 		/**
 		 * Allows users to override "inclusive" start and end dates and  make the REST API use a
@@ -116,6 +125,13 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 			$args['tribe_geoloc'] = 1;
 			$args['tribe_geoloc_lat'] = isset( $request['geoloc_lat'] ) ? $request['geoloc_lat'] : '';
 			$args['tribe_geoloc_lng'] = isset( $request['geoloc_lng'] ) ? $request['geoloc_lng'] : '';
+		}
+
+		// When including specific posts date queries will be voided
+		if ( isset( $args['post__in'] ) ) {
+			unset( $args['start_date'], $args['end_date'] );
+			$args['orderby'] = Tribe__Utils__Array::get( $args, 'orderby', array( 'date', 'ID' ) );
+			$args['order']   = Tribe__Utils__Array::get( $args, 'order', 'ASC' );
 		}
 
 		$args = $this->parse_args( $args, $request->get_default_params() );
@@ -476,6 +492,21 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 				'swagger_type' => 'number',
 				'format'       => 'double',
 				'description'  => __( 'Requires Events Calendar Pro. Events should be filtered by their venue longitude location, must also provide geoloc_lat', 'the-events-calendar' ),
+			),
+			'include' => array(
+				'required'          => false,
+				'description'       => __( 'Include events with one of the post IDs specified in the array of CSV list, date filters will be ignored.', 'the-events-calendar' ),
+				'swagger_type'      => 'array',
+				'items'             => array( 'type' => 'integer' ),
+				'collectionFormat'  => 'csv',
+				'validate_callback' => array( $this->validator, 'is_positive_int_list' ),
+				'sanitize_callback' => array( 'Tribe__Utils__Array', 'list_to_array' ),
+			),
+			'post_parent' => array(
+				'required'          => false,
+				'type'              => 'integer',
+				'description'       => __( 'Events should be filtered by their post_parent being the specified one.', 'the-events-calendar' ),
+				'validate_callback' => array( $this->validator, 'is_event_id' ),
 			),
 		);
 	}
