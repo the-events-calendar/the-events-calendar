@@ -12,6 +12,12 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 	class Tribe__Events__Query {
 
 		/**
+		 * @var array The WP_Query arguments used in the last `getEvents` method
+		 *            query.
+		 */
+		protected static $last_query_args;
+
+		/**
 		 * Initialize The Events Calendar query filters and post processing.
 		 */
 		public static function init() {
@@ -1121,6 +1127,8 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			$args = array_filter( $args, array( __CLASS__, 'filter_args' ) );
 			ksort( $args );
 
+			self::$last_query_args = $args;
+
 			$cache     = new Tribe__Cache();
 			$cache_key = 'get_events_' . get_current_user_id() . serialize( $args );
 
@@ -1193,6 +1201,31 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			}
 
 			return $postmeta_table;
+		}
+
+		/**
+		 * Reruns the last query used to `getEvents` to fetch
+		 * all the found IDs.
+		 *
+		 * Pagination is ignored; this methods provides a way to
+		 * not only count the found posts but to get their ID too.
+		 *
+		 * @since TBD
+		 *
+		 * @return array
+		 */
+		public static function last_found_ids() {
+			$last_query_args = self::$last_query_args;
+
+			if ( empty( $last_query_args ) ) {
+				return null;
+			}
+
+			$last_query_args['fields'] = 'ids';
+			$last_query_args['posts_per_page'] = '-1';
+			$query = new WP_Query( $last_query_args );
+
+			return $query->get_posts();
 		}
 
 		/**
