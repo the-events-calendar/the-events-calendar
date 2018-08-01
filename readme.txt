@@ -226,16 +226,16 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Add - Allow filtering events, in REST API requests, by their post ID with `include` [94326]
 * Fix - Correctly import and set Organizers for iCal and ICS files Event Aggregator imports [96059]
 
-= [4.6.21] 2018-07-31 =
+= [4.6.21] 2018-08-01 =
 
+* Add - Make global $post obj available to tribe_events_get_the_excerpt() with setup_postdata($post) [108043]
+* Add - Added WPML metadata improvements for Organizers and Venue. Thanks to David Garcia Watkins and the entire WPML team for their contribution [106798]
 * Fix - Ensure no console errors are being displayed if there's no Google Maps API key present. Thanks Greg for flagging this [95312]
 * Fix - Fixed an issue where saving Event Aggregator scheduled imports with an empty preview would generate PHP notices [110311]
-* Add - Make global $post obj available to tribe_events_get_the_excerpt() with setup_postdata($post) [108043]
 * Fix - Escape each closing html element in month view tooltip to prevent PHP parser from exposing html, thanks to Karen for a solution [64834]
-* Add - Added WPML metadata improvements for Organizers and Venue. Thanks to David Garcia Watkins and the entire WPML team for their contribution [106798]
 * Fix - Sending empty 'categories' and 'tags' for the REST API event endpoints when inserting and updating events [109627]
-* Tweak - Manage plugin assets via `tribe_assets()` [40267]
 * Fix - Prevent selection of past dates when setting up Scheduled Other URL Imports in Event Aggregator [111227]
+* Tweak - Manage plugin assets via `tribe_assets()` [40267]
 
 = [4.6.20.1] 2018-07-10 =
 
