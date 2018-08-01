@@ -264,24 +264,24 @@ var tribe_events_bar_action;
 
 			e.preventDefault();
 
-			var key  = e.which;
-			var $new = null;
-			var $old = $tribebarviews.find( 'li.tribe-bar-active' );
+			var key      = e.which;
+			var $newView = null;
+			var $oldView = $tribebarviews.find( 'li.tribe-bar-active' );
 
 			// Up Arrow
-			if ( 38 === key && $old.prev( '.tribe-bar-views-option' ) ) {
-				$new = $old.prev( '.tribe-bar-views-option' );
+			if ( 38 === key && $oldView.prev( '.tribe-bar-views-option' ) ) {
+				$newView = $oldView.prev( '.tribe-bar-views-option' );
 			}
 
 			// Down arrow
-			if ( 40 === key && $old.next( '.tribe-bar-views-option' ) ) {
-				$new = $old.next( '.tribe-bar-views-option' );
+			if ( 40 === key && $oldView.next( '.tribe-bar-views-option' ) ) {
+				$newView = $oldView.next( '.tribe-bar-views-option' );
 			}
 
-			if ( $new.length ) {
-				$tribebarviews.attr( 'aria-activedescendant', $new.attr( 'id' ) );
-				$old.removeClass( 'tribe-bar-active' );
-				$new.addClass( 'tribe-bar-active' ).focus();
+			if ( $newView.length ) {
+				$tribebarviews.attr( 'aria-activedescendant', $newView.attr( 'id' ) );
+				$oldView.removeClass( 'tribe-bar-active' );
+				$newView.addClass( 'tribe-bar-active' ).focus();
 			}
 		} );
 

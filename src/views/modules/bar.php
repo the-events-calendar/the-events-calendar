@@ -20,7 +20,7 @@
 $filters     = tribe_events_get_filters();
 $views       = tribe_events_get_views();
 $current_url = tribe_events_get_current_filter_url();
-$classes     = [ 'tribe-clearfix' ];
+$classes     = array( 'tribe-clearfix' );
 
 if ( ! empty( $filters ) ) {
 	$classes[] = 'tribe-events-bar--has-filters';
@@ -39,7 +39,7 @@ if ( count( $views ) > 1 ) {
 
 	<form id="tribe-bar-form" class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>" name="tribe-bar-form" method="post" action="<?php echo esc_attr( $current_url ); ?>">
 
-		<?php if ( ! empty( $filters ) ) { ?>
+		<?php if ( ! empty( $filters ) ) : ?>
 			<div id="tribe-bar-filters-wrap">
 
 				<!-- Mobile Filters Toggle -->
@@ -80,10 +80,10 @@ if ( count( $views ) > 1 ) {
 				</div><!-- .tribe-bar-filters -->
 			</div><!-- .tribe-bar-filters-wrap -->
 
-		<?php } // if ( !empty( $filters ) ) ?>
+		<?php endif; // if ( !empty( $filters ) ) ?>
 
 		<!-- Views -->
-		<?php if ( count( $views ) > 1 ) { ?>
+		<?php if ( count( $views ) > 1 ) : ?>
 			<div id="tribe-bar-views" class="tribe-bar-views">
 				<div class="tribe-bar-views-inner tribe-clearfix">
 					<h3 class="tribe-events-visuallyhidden"><?php printf( esc_html__( '%s Views Navigation', 'the-events-calendar' ), tribe_get_event_label_singular() ); ?></h3>
@@ -95,7 +95,8 @@ if ( count( $views ) > 1 ) {
 						name="tribe-bar-view"
 						aria-label="<?php printf( esc_attr__( 'View %s As', 'the-events-calendar' ), tribe_get_event_label_plural() ); ?>"
 					>
-						<?php foreach ( $views as $view ) {
+						<?php
+						foreach ( $views as $view ) {
 							printf(
 								'<option value="%1$s" data-view="%2$s"%3$s>%4$s</option>',
 								esc_attr( $view['url'] ),
@@ -109,7 +110,7 @@ if ( count( $views ) > 1 ) {
 				</div>
 				<!-- .tribe-bar-views-inner -->
 			</div><!-- .tribe-bar-views -->
-		<?php } // if ( count( $views ) > 1 ) ?>
+		<?php endif; // if ( count( $views ) > 1 ) ?>
 
 	</form>
 	<!-- #tribe-bar-form -->
