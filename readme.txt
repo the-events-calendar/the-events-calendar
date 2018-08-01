@@ -225,6 +225,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Add - Allow filtering events, in REST API requests, by `post_parent` [94326]
 * Add - Allow filtering events, in REST API requests, by their post ID with `include` [94326]
 * Fix - Correctly import and set Organizers for iCal and ICS files Event Aggregator imports [96059]
+* Tweak - Display JS debug messages only if setting is set or through the `tribe_events_js_debug` filter. Thanks to Rob, @aand and others for flagging this! [82781]
 
 = [4.6.21] 2018-08-01 =
 

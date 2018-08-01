@@ -594,6 +594,15 @@ class Tribe__Events__Assets {
 		);
 
 		/**
+		 * Allow filtering if we should display JS debug messages
+		 *
+		 * @since  TBD
+		 *
+		 * @param bool
+		 */
+		$js_config_array['debug'] = apply_filters( 'tribe_events_js_debug', tribe_get_option( 'debugEvents' ) );
+
+		/**
 		 * Allows for easier filtering of the "Export Events" iCal link URL.
 		 *
 		 * @since 4.6.5
@@ -603,17 +612,6 @@ class Tribe__Events__Assets {
 		 */
 		if ( apply_filters( 'tribe_events_force_filtered_ical_link', false ) ) {
 			$js_config_array['force_filtered_ical_link'] = true;
-		}
-
-		/**
-		 * Filter Debug Statements in Javascript
-		 *
-		 * @since TDB
-		 *
-		 * @param boolean $force Defaults to false; when true, debug is disabled in scripts
-		 */
-		if ( apply_filters( 'tribe_events_disable_js_debug', false ) ) {
-			$js_config_array['tribe_disable_debug'] = true;
 		}
 
 		return $js_config_array;
