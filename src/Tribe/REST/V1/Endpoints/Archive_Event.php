@@ -139,6 +139,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 		}
 
 		$events = tribe_get_events( $args );
+		$found_events = Tribe__Events__Query::last_found_ids();
 
 		$page = $this->parse_page( $request ) ? $this->parse_page( $request ) : 1;
 
@@ -166,6 +167,8 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 
 		$data['total'] = $total = $this->get_total( $args );
 		$data['total_pages'] = $this->get_total_pages( $total, $args['posts_per_page'] );
+		$data['page_checksum'] = tribe_posts_checksum( $events );
+		$data['request_checksum'] = tribe_posts_checksum( $found_events );
 
 		/**
 		 * Filters the data that will be returned for an events archive request.
