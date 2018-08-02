@@ -76,7 +76,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 
 		$data = array(
 			'id'                     => $event_id,
-			'checksum'               => tribe_post_checksum( $event_id ),
+			'checksum'               => tribe_post_checksum( $event ),
 			'global_id'              => false,
 			'global_id_lineage'      => array(),
 			'author'                 => $event->post_author,
