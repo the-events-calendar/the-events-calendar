@@ -1676,7 +1676,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 					if ( ! empty( $organizer_data['Organizer'] ) ) {
 						$organizer_data['Organizer'] = trim( $organizer_data['Organizer'] );
 
-						if ( ! empty( $item->organizer[ $key ]->global_id ) || in_array( $this->origin, array( 'ics', 'csv', 'gcal' ) ) ) {
+						if (
+							! empty( $item->organizer[ $key ]->global_id )
+							|| in_array( $this->origin, array( 'ics', 'ical', 'csv', 'gcal' ) )
+						) {
 							// Pre-set for ICS based imports
 							$organizer = false;
 							if ( ! empty( $item->organizer[ $key ]->global_id ) ) {
@@ -1819,6 +1822,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 				// Update the organizer submission data
 				$event['Organizer']['OrganizerID'] = $event_organizers;
+
+				// Let's remove this Organizer from the Event information if we found it
+				if ( isset( $key ) && is_numeric( $key ) ) {
+					unset( $event['Organizer'][ $key ] );
+				}
 			}
 
 			/**
