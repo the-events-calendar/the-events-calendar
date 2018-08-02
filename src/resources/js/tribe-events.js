@@ -29,15 +29,11 @@ var tribe_ev = window.tribe_ev || {};
  *        tribe_debug && tec_debug.info('tribe-events.js successfully loaded');
  */
 
-var tribe_debug = true;
+var tribe_debug = tribe_js_config.debug;
 
 /*!
  * this debug code is stripped out by closure compiler so it is not present in the .min versions.
  */
-
-if ( 'undefined' !== typeof tribe_js_config.tribe_disable_debug ) {
-	tribe_debug = false;
-}
 
 // @ifdef DEBUG
 
