@@ -118,7 +118,7 @@ class Tribe__Events__REST__V1__Documentation__Event_Definition_Provider
 				'utc_start_date_details' => array(
 					'type'        => 'array',
 					'description' => __( 'An array of each component of the event start date in UTC time', 'the-events-calendar' ),
-					'$ref'        => '#/definitions/DateDetails'
+					'$ref'        => '#/definitions/DateDetails',
 				),
 				'utc_end_date'           => array(
 					'type'        => 'string',
@@ -127,7 +127,7 @@ class Tribe__Events__REST__V1__Documentation__Event_Definition_Provider
 				'utc_end_date_details'   => array(
 					'type'        => 'array',
 					'description' => __( 'An array of each component of the event end date in UTC time', 'the-events-calendar' ),
-					'$ref'        => '#/definitions/DateDetails'
+					'$ref'        => '#/definitions/DateDetails',
 				),
 				'timezone'               => array(
 					'type'        => 'string',
