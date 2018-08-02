@@ -330,15 +330,6 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 								$query->set( 'eventDate', $query->get( 'eventDate' ) );
 							}
 							break;
-						case 'future':
-							$event_date = ( $query->get( 'eventDate' ) != '' )
-								? $query->get( 'eventDate' )
-								: date_i18n( Tribe__Date_Utils::DBDATETIMEFORMAT );
-							$query->set( 'start_date', ( '' != $query->get( 'eventDate' ) ? tribe_beginning_of_day( $event_date ) : tribe_format_date( current_time( 'timestamp' ), true, 'Y-m-d H:i:00' ) ) );
-							$query->set( 'order', self::set_order( 'ASC', $query ) );
-							$query->set( 'orderby', self::set_orderby( null, $query ) );
-							$query->set( 'hide_upcoming', $maybe_hide_events );
-							break;
 						case 'all':
 						case 'list':
 						default: // default display query
@@ -678,9 +669,6 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 					$end_clause    = $wpdb->prepare( "($event_end_date >= %s AND $event_start_date <= %s )", $start_date, $end_date );
 					$within_clause = $wpdb->prepare( "($event_start_date < %s AND $event_end_date >= %s )", $start_date, $end_date );
 					$where_sql .= " AND ($start_clause OR $end_clause OR $within_clause)";
-				} elseif ( 'future' === $query->get( 'eventDisplay' ) && $start_date != '' ) {
-					$start_clause = $wpdb->prepare( "{$postmeta_table}.meta_value >= %s", $start_date );
-					$where_sql   .= " AND ($start_clause)";
 				} else {
 					if ( $start_date != '' ) {
 						$start_clause  = $wpdb->prepare( "{$postmeta_table}.meta_value >= %s", $start_date );
