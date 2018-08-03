@@ -227,6 +227,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Tweak -  Drop the order from the query WPML linked query as it is set later in the method, thanks to dgwatkins for the PR [110459]
 * Tweak - Display JS debug messages only if setting is set or through the `tribe_events_js_debug` filter. Thanks to Rob, @aand and others for flagging this! [82781]
 * Add - Allow filtering events, in REST API requests, by their post ID with `include` [94326]
+* Add - Enable future event display to get all events in the future that have not started [70769]
 
 = [4.6.21] 2018-08-01 =
 
