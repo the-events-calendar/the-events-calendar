@@ -245,6 +245,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @param string $key Meta key
 	 */
 	public function delete_meta( $key ) {
+		unset( $this->meta[ $key ] );
 		return delete_post_meta( $this->post->ID, self::$meta_key_prefix . $key );
 	}
 
@@ -998,7 +999,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 *
 	 * @return bool
 	 */
-	public function log_error( $error ) {
+	public function log_error( WP_Error $error ) {
 		$today = getdate();
 		$args = array(
 			'number' => 1,
@@ -1675,7 +1676,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 					if ( ! empty( $organizer_data['Organizer'] ) ) {
 						$organizer_data['Organizer'] = trim( $organizer_data['Organizer'] );
 
-						if ( ! empty( $item->organizer[ $key ]->global_id ) || in_array( $this->origin, array( 'ics', 'csv', 'gcal' ) ) ) {
+						if (
+							! empty( $item->organizer[ $key ]->global_id )
+							|| in_array( $this->origin, array( 'ics', 'ical', 'csv', 'gcal' ) )
+						) {
 							// Pre-set for ICS based imports
 							$organizer = false;
 							if ( ! empty( $item->organizer[ $key ]->global_id ) ) {
@@ -1818,6 +1822,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 				// Update the organizer submission data
 				$event['Organizer']['OrganizerID'] = $event_organizers;
+
+				// Let's remove this Organizer from the Event information if we found it
+				if ( isset( $key ) && is_numeric( $key ) ) {
+					unset( $event['Organizer'][ $key ] );
+				}
 			}
 
 			/**
@@ -2130,7 +2139,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		/**
 		 * Fires after a record has been finalized and right before it starts importing.
 		 *
-		 * @since TBD
+		 * @since 4.6.21
 		 *
 		 * @param int   $id   The Record post ID
 		 * @param array $meta An array of meta for the record
