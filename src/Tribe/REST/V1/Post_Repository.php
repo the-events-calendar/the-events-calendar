@@ -142,7 +142,7 @@ class Tribe__Events__REST__V1__Post_Repository
 		$data = $this->add_global_id_fields( $data, $event_id );
 
 		/**
-		 * Filters the data that will be returnedf for a single event.
+		 * Filters the data that will be returned for a single event.
 		 *
 		 * @param array   $data  The data that will be returned in the response.
 		 * @param WP_Post $event The requested event.
