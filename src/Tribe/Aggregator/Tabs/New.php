@@ -242,7 +242,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 	/**
 	 * Parses the queue for errors and informations.
 	 *
-	 * @param Tribe__Events__Aggregator__Record__Queue_Interface|WP_Error $queue
+	 * @param Tribe__Events__Aggregator__Record__Queue_Interface|WP_Error|Tribe__Events__Aggregator__Record__Activity $queue
 	 *
 	 * @return array
 	 */
@@ -251,6 +251,18 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 
 		if ( is_wp_error( $queue ) ) {
 			$messages[ 'error' ][] = $queue->get_error_message();
+
+			tribe_notice( 'tribe-aggregator-import-failed', array( $this, 'render_notice_import_failed' ), 'type=error' );
+
+			return $messages;
+		}
+
+		if (
+			$queue instanceof Tribe__Events__Aggregator__Record__Queue_Interface
+			&& $queue->has_errors()
+		) {
+			/** @var Tribe__Events__Aggregator__Record__Queue_Interface $queue */
+			$messages['error'][] = $queue->get_error_message();
 
 			tribe_notice( 'tribe-aggregator-import-failed', array( $this, 'render_notice_import_failed' ), 'type=error' );
 
@@ -558,6 +570,34 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 
 		return ob_get_clean();
 	}
+
+	/**
+	 * Renders the "Eventbrite Tickets" upsell
+	 *
+	 * @since 4.6.19
+	 *
+	 * @return string
+	 */
+	public function maybe_display_eventbrite_upsell() {
+		if ( defined( 'TRIBE_HIDE_UPSELL' ) ) {
+			return;
+		}
+
+		if ( ! tribe( 'events-aggregator.main' )->is_service_active() ) {
+			return;
+		}
+
+		if ( class_exists( 'Tribe__Events__Tickets__Eventbrite__Main' ) ) {
+			return;
+		}
+
+		ob_start();
+
+		include_once Tribe__Events__Main::instance()->pluginPath . 'src/admin-views/aggregator/banners/eventbrite-upsell.php';
+
+		return ob_get_clean();
+	}
+
 
 	/**
 	 * Renders the "Expired Aggregator License" notice

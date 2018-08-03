@@ -242,7 +242,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	/**
 	 * Filter allowing user to customize the separator used for organizers
 	 * Defaults to comma ','
-	 * @since TBD
+	 * @since 4.6.19
 	 *
 	 * @return mixed
 	 */
@@ -253,7 +253,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	/**
 	 * Find organizer matches from separated string
 	 * Attempts to compensate for names with separators in them - Like "Woodhouse, Chelsea S."
-	 * @since TBD
+	 * @since 4.6.19
 	 * @param $organizers
 	 *
 	 * @return array
@@ -349,7 +349,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 
 	/**
 	 * Handle finding the matching organizer(s) for the event
-	 * @since TBD
+	 * @since 4.6.19
 	 * @param $record - the event record from the import
 	 *
 	 * @return array

@@ -323,17 +323,32 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 				'type'        => 'boolean',
 				'description' => __( 'Whether the event should be featured on the site or not', 'the-events-calendar' ),
 			),
+			// Taxonomies
+			'categories'         => array(
+				'required'     => false,
+				'default'      => null,
+				'swagger_type' => 'array',
+				'description'  => __( 'The event category ID or name', 'the-events-calendar' ),
+			),
+			'tags'               => array(
+				'required'     => false,
+				'default'      => null,
+				'swagger_type' => 'array',
+				'description'  => __( 'The event tag ID or name', 'the-events-calendar' ),
+			),
 			// Linked Posts
 			'venue'              => array(
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_venue_id_or_entry' ),
+				'default'           => null,
+				'validate_callback' => array( $this->validator, 'is_venue_id_or_entry_or_empty' ),
 				'swagger_type'      => 'array',
 				'items'             => array( 'type' => 'integer' ),
 				'description'       => __( 'The event venue ID or data', 'the-events-calendar' ),
 			),
 			'organizer'          => array(
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_organizer_id_or_entry' ),
+				'default'           => null,
+				'validate_callback' => array( $this->validator, 'is_organizer_id_or_entry_or_empty' ),
 				'swagger_type'      => 'array',
 				'items'             => array( 'type' => 'integer' ),
 				'description'       => __( 'The event organizer IDs or data', 'the-events-calendar' ),
@@ -472,7 +487,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 			return $postarr;
 		}
 
-		$id = Tribe__Events__API::updateEvent( $request['id'], array_filter( $postarr ) );
+		$id = Tribe__Events__API::updateEvent( $request['id'], $postarr );
 
 		if ( is_wp_error( $id ) ) {
 			/** @var WP_Error $id */
@@ -558,11 +573,26 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 			'EventCurrencySymbol'   => tribe( 'cost-utils' )->parse_currency_symbol( $request['cost'] ),
 			'EventURL'              => filter_var( $request['website'], FILTER_SANITIZE_URL ),
 			// Taxonomies
-			'tax_input'             => array_filter( array(
-				$events_cat => Tribe__Terms::translate_terms_to_ids( $request['categories'], $events_cat ),
-				'post_tag'  => Tribe__Terms::translate_terms_to_ids( $request['tags'], 'post_tag' ),
-			) ),
+			'tax_input'             => array(),
 		);
+
+		// Check if categories is provided (allowing for empty array to remove categories).
+		if ( isset( $request['categories'] ) ) {
+			$postarr['tax_input'][ $events_cat ] = array();
+
+			if ( ! empty( $request['categories'] ) ) {
+				$postarr['tax_input'][ $events_cat ] = Tribe__Terms::translate_terms_to_ids( $request['categories'], $events_cat );
+			}
+		}
+
+		// Check if tags is provided (allowing for empty array to remove tags).
+		if ( isset( $request['tags'] ) ) {
+			$postarr['tax_input']['post_tag'] = array();
+
+			if ( ! empty( $request['tags'] ) ) {
+				$postarr['tax_input']['post_tag'] = Tribe__Terms::translate_terms_to_ids( $request['tags'], 'post_tag' );
+			}
+		}
 
 		// If an empty EventTimezone was passed, lets unset it so it can be unset during event meta save
 		if ( empty( $postarr['EventTimezone'] ) ) {
@@ -609,6 +639,8 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 		 * @since 4.6
 		 */
 		$postarr = apply_filters( 'tribe_events_rest_event_prepare_postarr', $postarr, $request );
+
+		$postarr = array_filter( $postarr, array( $this->validator, 'is_not_null' ) );
 
 		return $postarr;
 	}

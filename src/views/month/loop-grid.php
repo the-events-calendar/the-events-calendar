@@ -6,6 +6,7 @@
  * Override this template in your own theme by creating a file at [your-theme]/tribe-events/month/loop-grid.php
  *
  * @package TribeEventsCalendar
+ * @version 4.6.19
  *
  */
 
@@ -23,7 +24,7 @@ global $wp_locale;
 
 	<h2 class="tribe-events-visuallyhidden"><?php printf( esc_html__( 'Calendar of %s', 'the-events-calendar' ), tribe_get_event_label_plural() ); ?></h2>
 
-	<table class="tribe-events-calendar" aria-describedby="tribe-events-calendar-heading">
+	<table class="tribe-events-calendar">
 		<caption class="tribe-events-visuallyhidden"><?php printf( esc_html__( 'Calendar of %s', 'the-events-calendar' ), tribe_get_event_label_plural() ); ?></caption>
 		<thead>
 		<tr>

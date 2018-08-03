@@ -164,7 +164,12 @@ class Tribe__Events__Embedded_Maps {
 		$api_url = 'https://maps.google.com/maps/api/js';
 		$api_key = tribe_get_option( 'google_maps_js_api_key' );
 
-		if ( ! empty( $api_key ) && is_string( $api_key ) ) {
+		// bail if we don't have an API key
+		if ( empty( $api_key ) ) {
+			return;
+		}
+
+		if ( is_string( $api_key ) ) {
 			$api_url = sprintf( 'https://maps.googleapis.com/maps/api/js?key=%s', trim( $api_key ) );
 		}
 

@@ -103,7 +103,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		 * Static asset packages required for month view functionality
 		 * @var array
 		 */
-		protected $asset_packages = array( 'ajax-calendar' );
+		protected $asset_packages = array();
 
 		/**
 		 * HTML cache holder
@@ -272,6 +272,8 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		protected function hooks() {
 			parent::hooks();
 
+			tribe_asset_enqueue( 'the-events-calendar' );
+
 			// Since we set is_post_type_archive to true on month view, this prevents 'Events' from being added to the page title
 			add_filter( 'post_type_archive_title', '__return_false', 10 );
 
@@ -397,7 +399,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 				$args = array(
 					'post_type'    => Tribe__Events__Main::POSTTYPE,
 					'eventDisplay' => 'month',
-					'eventDate'    => $_POST['eventDate'],
+					'eventDate'    => is_array( $_POST['eventDate'] ) ? Tribe__Utils__Array::get( $_POST, array( 'eventDate', 0 ) ) : $_POST['eventDate'],
 					'post_status'  => $post_status,
 					'featured'     => tribe( 'tec.featured_events' )->featured_events_requested(),
 				);
@@ -454,7 +456,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 
 			if ( ! empty( $search_term ) ) {
 				Tribe__Notices::set_notice( 'event-search-no-results', sprintf( esc_html__( 'There were no results found for %s this month. Try searching next month.', 'the-events-calendar' ),
-					'<strong>"' . esc_html( $search_term ) . '"</strong>' ) );
+					'<strong>"' . esc_html( urldecode( stripslashes( $search_term ) ) ) . '"</strong>' ) );
 			} // if attempting to view a category archive.
 			elseif ( ! empty( $tax_term ) ) {
 				Tribe__Notices::set_notice( 'events-not-found', sprintf( esc_html__( 'No matching %1$s listed under %2$s. Please try viewing the full calendar for a complete list of events.', 'the-events-calendar' ), $events_label_plural_lowercase, $tax_term ) );
@@ -1237,7 +1239,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		/**
 		 * Check if the month has events when all the filters have been applied.
 		 *
-		 * @since TBD
+		 * @since 4.6.19
 		 *
 		 * @return bool
 		 */

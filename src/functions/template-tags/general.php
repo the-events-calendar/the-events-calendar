@@ -670,7 +670,15 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$classes[] = 'tribe-event-featured';
 		}
 
-		$classes = apply_filters( 'tribe_events_event_classes', $classes );
+		/**
+		 * Filters the event wrapper classes before they are returned
+		 *
+		 * @since 4.6.20 added the $event_id parameter
+		 *
+		 * @param array $classes  The classes that will be returned
+		 * @param int   $event_id Current event ID
+		 */
+		$classes = apply_filters( 'tribe_events_event_classes', $classes, $event_id );
 
 		if ( $echo ) {
 			echo implode( ' ', $classes );
@@ -1535,13 +1543,20 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$GLOBALS['post'] = $global_post;
 		}
 
+		// Setup post data to be able to use WP template tags
+		setup_postdata( $post );
+
 		/**
 		 * Filter the event excerpt used in various views.
 		 *
 		 * @param string  $excerpt
 		 * @param WP_Post $post
 		 */
-		return apply_filters( 'tribe_events_get_the_excerpt', wpautop( $excerpt ), $post );
+		$excerpt = apply_filters( 'tribe_events_get_the_excerpt', wpautop( $excerpt ), $post );
+
+		wp_reset_postdata();
+
+		return $excerpt;
 	}
 
 	/**

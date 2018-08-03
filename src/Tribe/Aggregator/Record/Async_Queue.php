@@ -19,6 +19,11 @@ class Tribe__Events__Aggregator__Record__Async_Queue
 	protected $queue_process;
 
 	/**
+	 * @var string
+	 */
+	protected $error;
+
+	/**
 	 * Tribe__Events__Aggregator__Record__Async_Queue constructor.
 	 *
 	 * @since 4.6.16
@@ -41,9 +46,11 @@ class Tribe__Events__Aggregator__Record__Async_Queue
 	 *
 	 * @param $items
 	 *
-	 * @return Tribe__Process__Queue
-	 */
-	protected function init_queue( $items ) {
+	 * @return Tribe__Process__Queue|null Either a built and ready queue process or `null`
+	 *                                    if the queue process was not built as not needed;
+	 *                                    the latter will happen when there are no items to
+	 *                                    process.
+	 */ protected function init_queue( $items ) {
 		$items_initially_not_available = empty( $items ) || ! is_array( $items );
 
 		if ( $items_initially_not_available ) {
@@ -52,8 +59,19 @@ class Tribe__Events__Aggregator__Record__Async_Queue
 
 		$items_still_not_available = empty( $items ) || ! is_array( $items );
 
-		if ( $items_still_not_available ) {
-			return;
+		if ( $items_still_not_available  ) {
+			if ( is_array( $items ) ) {
+				/**
+				 * It means that there are actually no items to process.
+				 * No need to go further.
+				 */
+				$this->record->delete_meta( 'in_progress' );
+				$this->record->delete_meta( 'queue' );
+				$this->record->delete_meta( 'queue_id' );
+				$this->record->set_status_as_success();
+			}
+
+			return null;
 		}
 
 		$transitional_id = $this->generate_transitional_id();
@@ -169,9 +187,9 @@ class Tribe__Events__Aggregator__Record__Async_Queue
 	 * @return Tribe__Events__Aggregator__Record__Async_Queue
 	 */
 	public function process( $batch_size = null ) {
-		$this->maybe_init_queue();
+		$initialized = $this->maybe_init_queue();
 
-		if ( ! $this->is_in_progress() ) {
+		if ( $initialized && ! $this->is_in_progress() ) {
 			$this->record->update_meta( 'in_progress', true );
 			$this->queue_process->dispatch();
 		}
@@ -184,12 +202,28 @@ class Tribe__Events__Aggregator__Record__Async_Queue
 	 *
 	 * @since 4.6.16
 	 *
-	 * @return bool Whether the queue needed to be initialized or not.
+	 * @return bool Whether the queue needed and was correctly initialized or not.
 	 */
 	protected function maybe_init_queue() {
 		if ( null === $this->queue_process ) {
+			$queue_id = Tribe__Utils__Array::get( $this->record->meta, 'queue_id', false );
+
+			if ( false === $queue_id ) {
+				/**
+				 * If there are no items to process then no queue process will have
+				 * been built.
+				 * But in this case it's fine: we're done and the process should be marked
+				 * as successfully completed.
+				 */
+				$this->record->delete_meta( 'queue' );
+				$this->record->delete_meta( 'in_progress' );
+				$this->record->set_status_as_success();
+
+				return false;
+			}
+
 			$this->queue_process = new Tribe__Events__Aggregator__Processes__Import_Events();
-			$this->queue_process->set_id( $this->record->meta['queue_id'] );
+			$this->queue_process->set_id( $queue_id );
 			$this->queue_process->set_record_id( $this->record->id );
 
 			return true;
@@ -277,5 +311,69 @@ class Tribe__Events__Aggregator__Record__Async_Queue
 	 */
 	protected function generate_transitional_id() {
 		return substr( md5( uniqid( '', true ) ), 0, 8 );
+	}
+
+	/**
+	 * Whether the current queue process is stuck or not.
+	 *
+	 * @since 4.6.21
+	 *
+	 * @return bool
+	 */
+	public function is_stuck() {
+		if ( ! empty( $this->record->meta['queue_id'] ) ) {
+			$queue_id = $this->record->meta['queue_id'];
+
+			return Tribe__Process__Queue::is_stuck( $queue_id );
+		}
+
+		return false;
+	}
+
+	/**
+	 * Orderly closes the queue process.
+	 *
+	 * @since 4.6.21
+	 *
+	 * @return bool
+	 */
+	public function kill_queue() {
+		if ( ! $this->record ) {
+			return false;
+		}
+
+		if ( ! empty( $this->record->meta['queue_id'] ) ) {
+			Tribe__Process__Queue::delete_queue( $this->record->meta['queue_id'] );
+		}
+		$this->error = __( 'Unable to process this import - a breakage or conflict may have resulted in the import halting.', 'the-events-calendar' );
+
+		$this->record->delete_meta( 'in_progress' );
+		$this->record->delete_meta( 'queue' );
+		$this->record->delete_meta( 'queue_id' );
+		$this->record->set_status_as_failed( new WP_Error( 'stuck-queue', $this->error ) );
+
+		return true;
+	}
+
+	/**
+	 * Whether the current queue process failed or not.
+	 *
+	 * @since 4.6.21
+	 *
+	 * @return bool
+	 */
+	public function has_errors() {
+		return ! empty( $this->error );
+	}
+
+	/**
+	 * Returns the queue error message.
+	 *
+	 * @since 4.6.21
+	 *
+	 * @return string
+	 */
+	public function get_error_message() {
+		return $this->error;
 	}
 }

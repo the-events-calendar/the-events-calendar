@@ -5,8 +5,6 @@
  */
 class Tribe__Events__Bar {
 
-	private static $instance;
-
 	// Each row should be an associative array with three fields: name, caption and html (html is the markup of the field)
 	private $filters = array();
 
@@ -15,9 +13,13 @@ class Tribe__Events__Bar {
 	private $views = array();
 
 	/**
-	 * Class constructor.
+	 * Hooking the required Filters and Actions for this Class
+	 *
+	 * @since  4.6.21
+	 *
+	 * @return void
 	 */
-	public function __construct() {
+	public function hook() {
 		add_filter( 'wp_enqueue_scripts', array( $this, 'load_script' ), 9 );
 		add_filter( 'body_class', array( $this, 'body_class' ) );
 		add_action( 'tribe_events_bar_before_template', array( $this, 'disabled_bar_before' ) );
@@ -37,18 +39,17 @@ class Tribe__Events__Bar {
 	 *
 	 */
 	public function should_show() {
-
 		if ( ! $wp_query = tribe_get_global_query_object() ) {
 			return;
 		}
 
-		$show_bar_filter = in_array(
-			get_post_type(), array(
-				Tribe__Events__Main::VENUE_POST_TYPE,
-				Tribe__Events__Main::ORGANIZER_POST_TYPE,
-			)
-		) ? false : true;
-		$is_tribe_view   = ( ! empty( $wp_query->tribe_is_event_query ) && ! is_single() && $show_bar_filter );
+		$disallowed_types = array(
+			Tribe__Events__Organizer::POSTTYPE,
+			Tribe__Events__Venue::POSTTYPE,
+		);
+
+		$in_disallowed_type = in_array( get_post_type(), $disallowed_types );
+		$is_tribe_view   = ( ! empty( $wp_query->tribe_is_event_query ) && ! is_single() && ! $in_disallowed_type );
 
 		return apply_filters( 'tribe-events-bar-should-show', $is_tribe_view );
 	}
@@ -91,30 +92,24 @@ class Tribe__Events__Bar {
 	}
 
 	/**
-	 *    Load the CSSs and JSs only if the Bar will be shown
+	 * Load the CSSs and JSs only if the Bar will be shown
 	 */
 	public function load_script() {
-
-		if ( $this->should_show() ) {
-			Tribe__Events__Template_Factory::asset_package( 'jquery-placeholder' );
-			Tribe__Events__Template_Factory::asset_package( 'bootstrap-datepicker' );
-			Tribe__Events__Template_Factory::asset_package( 'tribe-events-bar' );
-
-			do_action( 'tribe-events-bar-enqueue-scripts' );
+		if ( ! $this->should_show() ) {
+			return false;
 		}
+
+		tribe_asset_enqueue( 'tribe-events-bar' );
+
+		do_action( 'tribe-events-bar-enqueue-scripts' );
 	}
 
 	/**
-	 * @static
+	 * @deprecated 4.6.21
+	 *
 	 * @return Tribe__Events__Bar
 	 */
 	public static function instance() {
-		if ( ! isset( self::$instance ) ) {
-			$className = __CLASS__;
-			self::$instance = new $className;
-		}
-
-		return self::$instance;
+		return tribe( 'tec.bar' );
 	}
-
 }

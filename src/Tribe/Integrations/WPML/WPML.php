@@ -34,6 +34,8 @@ class Tribe__Events__Integrations__WPML__WPML {
 		// the WPML API is not included by default
 		require_once ICL_PLUGIN_PATH . '/inc/wpml-api.php';
 
+		tribe_singleton( 'tec.integrations.wpml.meta', 'Tribe__Events__Integrations__WPML__Meta' );
+
 		$this->hook_actions();
 		$this->hook_filters();
 	}
@@ -65,6 +67,10 @@ class Tribe__Events__Integrations__WPML__WPML {
 
 		$language_switcher = Tribe__Events__Integrations__WPML__Language_Switcher::instance();
 		add_filter( 'icl_ls_languages', array( $language_switcher, 'filter_icl_ls_languages' ), 5 );
+
+		$meta = tribe( 'tec.integrations.wpml.meta' );
+		add_filter( 'get_post_metadata', tribe_callback( $meta, 'translate_post_id' ), 10, 3 );
+		add_filter( 'pre_get_posts', tribe_callback( $meta, 'include_all_languages' ) );
 
 		// Disable month view caching when WPML is activated for now, until we
 		// fully implement multilingual support for the month view cache.

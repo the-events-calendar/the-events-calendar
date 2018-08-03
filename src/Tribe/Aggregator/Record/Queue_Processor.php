@@ -235,6 +235,12 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 			return false;
 		}
 
+		if ( $this->current_queue->is_stuck() ) {
+			$this->current_queue->kill_queue();
+
+			return false;
+		}
+
 		return $this->current_queue->is_empty() ? false : true;
 	}
 

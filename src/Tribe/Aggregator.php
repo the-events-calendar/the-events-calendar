@@ -299,6 +299,27 @@ class Tribe__Events__Aggregator {
 	}
 
 	/**
+	 * Verifies if user has a license key
+	 *
+	 * @return boolean
+	 *
+	 * @since 4.6.19
+	 */
+	public function has_license_key() {
+		$key = get_option( 'pue_install_key_event_aggregator' );
+		if ( is_multisite() ) {
+			$network_key = get_network_option( null, 'pue_install_key_event_aggregator' );
+			$key         = ! empty( $key ) && $network_key !== $key ? $key : $network_key;
+		}
+
+		if ( empty( $key ) ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
 	 * Returns the daily import limit
 	 *
 	 * @return int
