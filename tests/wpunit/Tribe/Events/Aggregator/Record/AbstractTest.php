@@ -594,7 +594,6 @@ class AbstractTest extends Events_TestCase {
 	 * @test
 	 */
 	public function should_correctly_create_and_link_new_organizers_to_events() {
-		$test_record = $this->extend_base_w_origin( 'ical' );
 		$event_data = $this->factory()->import_record->create_and_get_event_record( 'ical' );
 		$event_data->organizer = [
 			(object) [
@@ -606,7 +605,7 @@ class AbstractTest extends Events_TestCase {
 		$this->track_last_inserted_or_updated();
 
 		/** @var Base $record */
-		$record = new $test_record;
+		$record = $this->extend_base_w_origin( 'ical' );
 		$record->insert_posts( [ $event_data ] );
 
 		$this->assertNotEmpty( get_post( $this->last_inserted_or_updated ) );
@@ -623,15 +622,13 @@ class AbstractTest extends Events_TestCase {
 	 * @test I should
 	 */
 	public function should_not_track_modified_fields_when_creating_events_no_matter_the_authority() {
-		$authority = 'overwrite';
-
-		tribe_update_option( 'tribe_aggregator_default_gcal_update_authority', $authority );
-		$record = $this->extend_base_w_origin( 'gcal' );
+		tribe_update_option( 'tribe_aggregator_default_gcal_update_authority', 'overwrite' );
 
 		$event_data = $this->factory()->import_record->create_and_get_event_record( 'gcal' );
 		$this->track_last_inserted_or_updated();
 
 		/** @var Base $record */
+		$record = $this->extend_base_w_origin( 'gcal' );
 		$record->insert_posts( [ $event_data ] );
 
 		$post_id = $this->last_inserted_or_updated;
