@@ -17,6 +17,16 @@ use Tribe__Events__Main as Main;
 
 class AbstractTest extends Events_TestCase {
 
+	/**
+	 * @var int The post ID of the last inserted event.
+	 */
+	protected $last_inserted_or_updated;
+
+	/**
+	 * @var int The post ID of the last updated event.
+	 */
+	protected $last_updated;
+
 	function setUp() {
 		parent::setUp();
 		$this->factory()->import_record = new Import_Record();
@@ -584,13 +594,6 @@ class AbstractTest extends Events_TestCase {
 	 * @test
 	 */
 	public function should_correctly_create_and_link_new_organizers_to_events() {
-		$test_record           = new class extends Base {
-			public $origin = 'ical';
-
-			public function get_label() {
-				return 'test';
-			}
-		};
 		$event_data = $this->factory()->import_record->create_and_get_event_record( 'ical' );
 		$event_data->organizer = [
 			(object) [
@@ -598,20 +601,77 @@ class AbstractTest extends Events_TestCase {
 				'email'     => 'foo@bar.com',
 			],
 		];
-		$id                    = null;
-		add_action( 'tribe_aggregator_after_insert_post', function ( $event ) use ( &$id ) {
-			$id = $event['ID'];
-		} );
+
+		$this->track_last_inserted_or_updated();
 
 		/** @var Base $record */
-		$record = new $test_record;
+		$record = $this->extend_base_w_origin( 'ical' );
 		$record->insert_posts( [ $event_data ] );
 
-		$this->assertNotEmpty( get_post( $id ) );
-		$organizers = get_post_meta( $id, '_EventOrganizerID_Order', true );
+		$this->assertNotEmpty( get_post( $this->last_inserted_or_updated ) );
+		$organizers = get_post_meta( $this->last_inserted_or_updated, '_EventOrganizerID_Order', true );
 		$this->assertNotEmpty( $organizers );
 		$organizer = get_post( reset( $organizers ) );
 		$this->assertEquals( 'Organizer-1', $organizer->post_title );
 		$this->assertEquals( 'foo@bar.com', get_post_meta( $organizer->ID, '_OrganizerEmail', true ) );
 	}
+
+	/**
+	 * It should not track modified fields when creating events no matter the authority
+	 *
+	 * @test I should
+	 */
+	public function should_not_track_modified_fields_when_creating_events_no_matter_the_authority() {
+		tribe_update_option( 'tribe_aggregator_default_gcal_update_authority', 'overwrite' );
+
+		$event_data = $this->factory()->import_record->create_and_get_event_record( 'gcal' );
+		$this->track_last_inserted_or_updated();
+
+		/** @var Base $record */
+		$record = $this->extend_base_w_origin( 'gcal' );
+		$record->insert_posts( [ $event_data ] );
+
+		$post_id = $this->last_inserted_or_updated;
+
+		$this->assertEmpty( get_post_meta( $post_id, \Tribe__Tracker::$field_key, true ) );
+
+		// run the import a second time ot update the event
+		/** @var Base $record */
+		$record_2 = $this->extend_base_w_origin( 'gcal' );
+		$record_2->insert_posts( [ $event_data ] );
+
+		$this->assertEmpty( get_post_meta( $post_id, \Tribe__Tracker::$field_key, true ) );
+	}
+
+	/**
+	 * Hooks on the action fired right after an event has been inserted/updated by Event Aggregator
+	 * to keep track of its post ID.
+	 */
+	protected function track_last_inserted_or_updated() {
+		add_action( 'tribe_aggregator_after_insert_post', function ( $event ) use ( &$id ) {
+			$this->last_inserted_or_updated = $event['ID'];
+		} );
+	}
+
+	/**
+	 * Extends the abstract, base Record class with one with the specified origin.
+	 *
+	 * @param string $origin
+	 *
+	 * @return Base
+	 */
+	protected function extend_base_w_origin( string $origin ) {
+		$test_record = new class( $origin ) extends Base {
+			public function __construct( $origin ) {
+				$this->origin = $origin;
+			}
+
+			public function get_label() {
+				return 'test';
+			}
+		};
+
+		return $test_record;
+	}
+
 }
