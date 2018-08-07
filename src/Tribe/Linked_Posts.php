@@ -521,7 +521,7 @@ class Tribe__Events__Linked_Posts {
 		// Display no results. An empty array will actually display all posts, per https://core.trac.wordpress.org/ticket/28099
 		if (
 			empty( $linked_post_ids )
-			&& ! $return_all_if_none
+			&& empty( $return_all_if_none )
 		) {
 			$linked_post_ids = array( -1 );
 		}
