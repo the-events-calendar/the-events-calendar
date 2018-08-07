@@ -244,7 +244,6 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - Ensure no console errors are being displayed if there's no Google Maps API key present. Thanks Greg for flagging this [95312]
 * Fix - Fixed an issue where saving Event Aggregator scheduled imports with an empty preview would generate PHP notices [110311]
 * Fix - Escape each closing html element in month view tooltip to prevent PHP parser from exposing html, thanks to Karen for a solution [64834]
-* Add - Added WPML metadata improvements for Organizers and Venue. Thanks to David Garcia Watkins and the entire WPML team for their contribution [106798]
 * Fix - Sending empty 'categories' and 'tags' for the REST API event endpoints when inserting and updating events [109627]
 * Fix - Prevent selection of past dates when setting up Scheduled Other URL Imports in Event Aggregator [111227]
 * Tweak - Manage plugin assets via `tribe_assets()` [40267]
