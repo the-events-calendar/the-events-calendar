@@ -484,6 +484,10 @@ class Tribe__Events__Linked_Posts {
 			'nopaging'             => true,
 		);
 
+		if ( empty( $linked_post_ids ) ) {
+			$linked_post_ids = array( 0 );
+		}
+
 		if ( is_array( $linked_post_ids ) ) {
 			$defaults['post__in'] = $linked_post_ids;
 		} else {
