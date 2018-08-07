@@ -962,7 +962,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				'update_post_meta_cache' => false,
 				'update_post_term_cache' => false,
 				'posts_per_page'         => 1,
-				'post_partent'           => 0,
+				'post_parent'            => 0,
 			) );
 
 			if ( ! $conflict_query->have_posts() ) {
