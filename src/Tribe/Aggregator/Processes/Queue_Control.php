@@ -17,7 +17,9 @@ class Tribe__Events__Aggregator__Processes__Queue_Control {
 	 *                              to use the current location.
 	 */
 	public function clear_queues_and_redirect( $location = null ) {
-		if ( empty( tribe_get_request_var( 'clear_queues', false ) ) ) {
+		$clear_queues = tribe_get_request_var( 'clear_queues', false );
+
+		if ( empty( $clear_queues ) ) {
 			return;
 		}
 
