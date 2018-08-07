@@ -487,13 +487,18 @@ class Tribe__Events__Linked_Posts {
 	/**
 	 * Get Linked Post info
 	 *
-	 * @param string    $linked_post_type Post type of linked post
-	 * @param array     $args             Extra WP Query args.
-	 * @param array|int $linked_post_id   Post ID(s).
+	 * @since TBD Added the $return_all_if_none parameter.
+	 *
+	 * @param string    $linked_post_type   Post type of linked post
+	 * @param array     $args               Extra WP Query args.
+	 * @param array|int $linked_post_id     Post ID(s).
+	 * @param bool      $return_all_if_none True if you want all posts returned if none are found
+	 *                                      (e.g. creating a drop-down). False if you want none
+	 *                                      returned if none are found.
 	 *
 	 * @return array
 	 */
-	public function get_linked_post_info( $linked_post_type, $args = array(), $linked_post_ids = null ) {
+	public function get_linked_post_info( $linked_post_type, $args = array(), $linked_post_ids = null, $return_all_if_none = false ) {
 		$func_args = func_get_args();
 		$cache_key = $this->cache->make_key( $func_args, 'linked_post_info_' );
 		if ( isset( $this->cache[ $cache_key ] ) ) {
@@ -513,14 +518,18 @@ class Tribe__Events__Linked_Posts {
 			'nopaging'             => true,
 		);
 
-		if ( empty( $linked_post_ids ) ) {
-			$linked_post_ids = array( 0 );
+		// Display no results. An empty array will actually display all posts, per https://core.trac.wordpress.org/ticket/28099
+		if (
+			empty( $linked_post_ids )
+			&& ! $return_all_if_none
+		) {
+			$linked_post_ids = array( -1 );
 		}
 
 		if ( is_array( $linked_post_ids ) ) {
 			$defaults['post__in'] = $linked_post_ids;
-		} else {
-			$defaults['p'] = $linked_post_ids;
+		} elseif ( 0 < absint( $linked_post_ids ) ) {
+			$defaults['p'] = absint( $linked_post_ids );
 		}
 
 		$args = wp_parse_args( $args, $defaults );
@@ -996,7 +1005,9 @@ class Tribe__Events__Linked_Posts {
 					'pending',
 				),
 				'author' => $current_user->ID,
-			)
+			),
+			null,
+			true
 		);
 
 		if ( ! empty( $my_linked_posts ) ) {
