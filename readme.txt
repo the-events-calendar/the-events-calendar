@@ -230,6 +230,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Add - Enable future event display to get all events in the future that have not started [70769]
 * Fix - Prevent subsequent CSV imports from duplicating events in some instances [102745]
 * Fix - The "Import events but preserve local changes to event fields" Event Aggregator change authority setting will now behave as expected [87443]
+* Fix - Handle the case where Event Aggregator import queues might get stuck when deleting import records [111856]
 
 = [4.6.21] 2018-08-01 =
 
