@@ -236,6 +236,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
   * We no longer rely on a separate postmeta value dedicated to ordering linked posts (e.g. `_EventOrganizerID_Order`), and you may want to remove all such values from your database after re-saving any events that have linked posts and their ordering is important
   * `tribe_get_linked_posts_by_post_type()` no longer returns empty in error
   * Editing an existing event no longer loses the linked posts just because they were not part of the submission. Example: If organizers are editable in the wp-admin event edit screen but not on the Community Events "event edit" form (via template override or other custom code), all pre-existing organizers were removed in error.
+* Fix - Handle the case where Event Aggregator import queues might get stuck when deleting import records [111856]
 
 = [4.6.21] 2018-08-01 =
 
