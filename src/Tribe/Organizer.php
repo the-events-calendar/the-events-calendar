@@ -257,7 +257,10 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 	 * @return array
 	 */
 	public function filter_out_invalid_organizer_ids( $organizer_ids, $post_id ) {
-		return array_map( 'absint', (array) $organizer_ids );
+		$organizer_ids = array_map( 'absint', (array) $organizer_ids );
+		$organizer_ids = array_unique( $organizer_ids, SORT_NUMERIC );
+
+		return $organizer_ids;
 	}
 
 	/**

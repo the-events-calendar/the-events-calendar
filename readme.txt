@@ -230,6 +230,12 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Add - Enable future event display to get all events in the future that have not started [70769]
 * Fix - Prevent subsequent CSV imports from duplicating events in some instances [102745]
 * Fix - The "Import events but preserve local changes to event fields" Event Aggregator change authority setting will now behave as expected [87443]
+* Fix - Multiple fixes regarding linked post types (e.g. Organizers and custom post types) - props to @natureslens and others for reporting these [105116]:
+  * Now correctly saves in their drag-and-drop order
+  * Deprecated the functions added in version 4.6.13 that previously attempted to fix ordering logic but was not done in a backwards-compatible way: `get_order_meta_key()` and `tribe_sanitize_organizers()`
+  * We no longer rely on a separate postmeta value dedicated to ordering linked posts (e.g. `_EventOrganizerID_Order`), and you may want to remove all such values from your database after re-saving any events that have linked posts and their ordering is important
+  * `tribe_get_linked_posts_by_post_type()` no longer returns empty in error
+  * Editing an existing event no longer loses the linked posts just because they were not part of the submission. Example: If organizers are editable in the wp-admin event edit screen but not on the Community Events "event edit" form (via template override or other custom code), all pre-existing organizers were removed in error.
 
 = [4.6.21] 2018-08-01 =
 
@@ -238,6 +244,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - Ensure no console errors are being displayed if there's no Google Maps API key present. Thanks Greg for flagging this [95312]
 * Fix - Fixed an issue where saving Event Aggregator scheduled imports with an empty preview would generate PHP notices [110311]
 * Fix - Escape each closing html element in month view tooltip to prevent PHP parser from exposing html, thanks to Karen for a solution [64834]
+* Add - Added WPML metadata improvements for Organizers and Venue. Thanks to David Garcia Watkins and the entire WPML team for their contribution [106798]
 * Fix - Sending empty 'categories' and 'tags' for the REST API event endpoints when inserting and updating events [109627]
 * Fix - Prevent selection of past dates when setting up Scheduled Other URL Imports in Event Aggregator [111227]
 * Tweak - Manage plugin assets via `tribe_assets()` [40267]
