@@ -508,7 +508,7 @@ class Tribe__Events__Linked_Posts {
 				'private',
 				'pending',
 			),
-			'order'                => 'ASC',
+			'orderby'              => 'post__in',
 			'ignore_sticky_posts ' => true,
 			'nopaging'             => true,
 		);
