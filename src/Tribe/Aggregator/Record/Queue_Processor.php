@@ -181,7 +181,6 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 			),
 		);
 
-
 		if ( $interactive_only ) {
 			$args['meta_query'][] = array(
 				'key' => Tribe__Events__Aggregator__Record__Abstract::$meta_key_prefix . 'interactive',
