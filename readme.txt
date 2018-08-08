@@ -226,7 +226,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - The "Import events but preserve local changes to event fields" Event Aggregator change authority setting will now behave as expected [87443]
 * Fix - Handle the case where Event Aggregator import queues might get stuck when deleting import records [111856]
 * Fix - Prevent subsequent CSV imports from duplicating events in some instances [102745]
-* Fix - Fix the classic header option not working [111672]
+* Fix - Fix the classic header option not working. Thanks @hanemac, David Luyendyk and others for flagging this! [111672]
 * Tweak - Namespace javascript debug function to prevent conflicts causing a function found, thanks to Tom-Mulvey for the fix [110462]
 * Tweak - Add venue name to address string for iCal and gCal export, thanks for the coding from sylviavanos [110464]
 * Tweak -  Drop the order from the query WPML linked query as it is set later in the method, thanks to dgwatkins for the PR [110459]
