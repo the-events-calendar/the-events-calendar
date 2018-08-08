@@ -41,11 +41,11 @@ class PostTest extends \Codeception\TestCase\WPTestCase {
 
 	public function post_types() {
 		return [
-			[ 'post', 'Tribe__Events__Revisions__Post' ],
-			[ 'page', 'Tribe__Events__Revisions__Post' ],
-			[ 'tribe_events', 'Tribe__Events__Revisions__Event' ],
-			[ 'tribe_venue', 'Tribe__Events__Revisions__Venue' ],
-			[ 'tribe_organizer', 'Tribe__Events__Revisions__Organizer' ],
+//			'post'      => [ 'post', 'Tribe__Events__Revisions__Post' ],
+//			'page'      => [ 'page', 'Tribe__Events__Revisions__Post' ],
+			'event'     => [ 'tribe_events', 'Tribe__Events__Revisions__Event' ],
+//			'venue'     => [ 'tribe_venue', 'Tribe__Events__Revisions__Venue' ],
+//			'organizer' => [ 'tribe_organizer', 'Tribe__Events__Revisions__Organizer' ],
 		];
 	}
 
@@ -59,8 +59,12 @@ class PostTest extends \Codeception\TestCase\WPTestCase {
 		if ( in_array( $post_type, [ Main::ORGANIZER_POST_TYPE, Main::VENUE_POST_TYPE ] ) ) {
 			$this->markTestSkipped( ucfirst( str_replace( 'tribe_', '', $post_type ) ) . ' revisions are not suported yet!' );
 		}
-		$id       = $this->factory()->post->create( [ 'post_type' => $post_type, 'post_status' => 'publish' ] );
-		$revision = get_post( wp_save_post_revision( $id ) );
+		$id          = $this->factory()->post->create( [ 'post_type' => $post_type, 'post_status' => 'publish' ] );
+		global $wpdb;
+		$wpdb->update( $wpdb->posts, [ 'post_title' => 'Update' ], [ 'ID' => $id ] );
+		clean_post_cache( $id );
+		$revision_id = wp_save_post_revision( $id );
+		$revision    = get_post( $revision_id );
 
 		$this->assertInstanceOf( $expected_class, Post::new_from_post( $revision ) );
 	}
