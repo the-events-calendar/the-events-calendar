@@ -454,6 +454,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Gutenberg Extension
 			tribe_singleton( 'tec.gutenberg', 'Tribe__Events__Gutenberg', array( 'hook' ) );
 
+			// Providers
+			tribe_register_provider( 'Tribe__Events__Service_Providers__Tracker' );
+
 			/**
 			 * Allows other plugins and services to override/change the bound implementations.
 			 */
@@ -595,9 +598,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( 'plugins_loaded', array( 'Tribe__Cache_Listener', 'instance' ) );
 			add_action( 'plugins_loaded', array( 'Tribe__Cache', 'setup' ) );
 			add_action( 'plugins_loaded', array( 'Tribe__Support', 'getInstance' ) );
-
-			add_filter( 'tribe_tracker_post_types', array( $this, 'filter_tracker_event_post_types' ) );
-			add_filter( 'tribe_tracker_taxonomies', array( $this, 'filter_tracker_event_taxonomies' ) );
 
 			if ( ! tribe( 'context' )->doing_ajax() ) {
 				add_action( 'current_screen', array( $this, 'init_admin_list_screen' ) );
@@ -1001,39 +1001,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function do_addons_api_settings_tab() {
 			include_once $this->plugin_path . 'src/admin-views/tribe-options-addons-api.php';
-		}
-
-		/**
-		 * By default Tribe__Tracker won't track Event Post Types, so we add them here.
-		 *
-		 * @since  4.5
-		 *
-		 * @param  array $post_types
-		 *
-		 * @return array
-		 */
-		public function filter_tracker_event_post_types( array $post_types ) {
-			$post_types[] = self::POSTTYPE;
-			$post_types[] = Tribe__Events__Venue::POSTTYPE;
-			$post_types[] = Tribe__Events__Organizer::POSTTYPE;
-
-			return $post_types;
-		}
-
-		/**
-		 * By default Tribe__Tracker won't track our Post Types taxonomies, so we add them here.
-		 *
-		 * @since  4.5
-		 *
-		 * @param  array $taxonomies
-		 *
-		 * @return array
-		 */
-		public function filter_tracker_event_taxonomies( array $taxonomies ) {
-			$taxonomies[] = 'post_tag';
-			$taxonomies[] = self::TAXONOMY;
-
-			return $taxonomies;
 		}
 
 		/**
