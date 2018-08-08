@@ -179,7 +179,7 @@ class Tribe__Events__Meta__Save {
 	 * @return bool
 	 */
 	protected function is_series() {
-		if ( ! class_exists( 'Tribe__Events__Pro__Series' ) ) {
+		if ( ! class_exists( 'Tribe__Events__Pro__Series', false ) ) {
 			return false;
 		}
 		return $this->post->post_type === Tribe__Events__Pro__Series::POST_TYPE;
