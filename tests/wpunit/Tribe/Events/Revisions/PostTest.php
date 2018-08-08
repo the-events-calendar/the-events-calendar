@@ -10,13 +10,14 @@ class PostTest extends \Codeception\TestCase\WPTestCase {
 		// before
 		parent::setUp();
 
-		// your set up methods here
+		// unhook the tracker to avoid issues during the factory post creations
+		tribe( 'tracker' )->unhook();
 	}
 
 	public function tearDown() {
-		// your tear down methods here
-
-		// then
+		// and re-hook the tracker after the tests
+		tribe( 'tracker' )->hook();
+// then
 		parent::tearDown();
 	}
 
@@ -60,6 +61,8 @@ class PostTest extends \Codeception\TestCase\WPTestCase {
 			$this->markTestSkipped( ucfirst( str_replace( 'tribe_', '', $post_type ) ) . ' revisions are not suported yet!' );
 		}
 		$id          = $this->factory()->post->create( [ 'post_type' => $post_type, 'post_status' => 'publish' ] );
+		// re-hook the tracker to have a real world scenario
+		tribe( 'tracker' )->hook();
 		global $wpdb;
 		$wpdb->update( $wpdb->posts, [ 'post_title' => 'Update' ], [ 'ID' => $id ] );
 		clean_post_cache( $id );
