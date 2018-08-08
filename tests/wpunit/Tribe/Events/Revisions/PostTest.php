@@ -41,11 +41,11 @@ class PostTest extends \Codeception\TestCase\WPTestCase {
 
 	public function post_types() {
 		return [
-//			'post'      => [ 'post', 'Tribe__Events__Revisions__Post' ],
-//			'page'      => [ 'page', 'Tribe__Events__Revisions__Post' ],
+			'post'      => [ 'post', 'Tribe__Events__Revisions__Post' ],
+			'page'      => [ 'page', 'Tribe__Events__Revisions__Post' ],
 			'event'     => [ 'tribe_events', 'Tribe__Events__Revisions__Event' ],
-//			'venue'     => [ 'tribe_venue', 'Tribe__Events__Revisions__Venue' ],
-//			'organizer' => [ 'tribe_organizer', 'Tribe__Events__Revisions__Organizer' ],
+			'venue'     => [ 'tribe_venue', 'Tribe__Events__Revisions__Venue' ],
+			'organizer' => [ 'tribe_organizer', 'Tribe__Events__Revisions__Organizer' ],
 		];
 	}
 
