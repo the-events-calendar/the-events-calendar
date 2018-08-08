@@ -218,20 +218,19 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 = [4.6.22] TBD =
 
 * Add - Allow filtering events, in REST API requests, by their post ID with `include` [94326]
+* Add - Enable future event display to get all events in the future that have not started [70769]
 * Fix - Only show admin notice when it is a top-level page with the event slug, thanks to MikeNGarrett for the code fix! [111186]
 * Fix - Change template_redirect to an action for some legacy view redirects, thanks barryceelen! [110463]
 * Fix - Correctly import and set Organizers for iCal and ICS files Event Aggregator imports [96059]
 * Fix - Retain category title in month view and month view shortcode, thanks corthoover for the first report [108258]
+* Fix - The "Import events but preserve local changes to event fields" Event Aggregator change authority setting will now behave as expected [87443]
+* Fix - Handle the case where Event Aggregator import queues might get stuck when deleting import records [111856]
+* Fix - Prevent subsequent CSV imports from duplicating events in some instances [102745]
+* Fix - Fix the classic header option not working [111672]
 * Tweak - Namespace javascript debug function to prevent conflicts causing a function found, thanks to Tom-Mulvey for the fix [110462]
 * Tweak - Add venue name to address string for iCal and gCal export, thanks for the coding from sylviavanos [110464]
 * Tweak -  Drop the order from the query WPML linked query as it is set later in the method, thanks to dgwatkins for the PR [110459]
 * Tweak - Display JS debug messages only if setting is set or through the `tribe_events_js_debug` filter. Thanks to Rob, @aand and others for flagging this! [82781]
-* Add - Allow filtering events, in REST API requests, by their post ID with `include` [94326]
-* Add - Enable future event display to get all events in the future that have not started [70769]
-* Fix - Prevent subsequent CSV imports from duplicating events in some instances [102745]
-* Fix - The "Import events but preserve local changes to event fields" Event Aggregator change authority setting will now behave as expected [87443]
-* Fix - Handle the case where Event Aggregator import queues might get stuck when deleting import records [111856]
-* Fix - Fix the classic header option not working [111672]
 
 = [4.6.21] 2018-08-01 =
 
