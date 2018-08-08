@@ -187,13 +187,15 @@ class Event_TrackerTest extends \Codeception\TestCase\WPTestCase {
 		$fresh_event        = get_post( $event->ID );
 		$modified_diff      = strtotime( $fresh_event->post_modified ) - strtotime( $event->post_modified );
 		$gmt_modified_diff  = strtotime( $fresh_event->post_modified_gmt ) - strtotime( $event->post_modified_gmt );
-		$modified_timestamp = ( new \DateTime( $fresh_event->post_modified_gmt, new \DateTimeZone( 'UTC' ) ) )->getTimestamp();
+		$utc                = new \DateTimeZone( 'UTC' );
+		$modified_timestamp = ( new \DateTime( $fresh_event->post_modified_gmt, $utc ) )->getTimestamp();
+		$utc_now            = new \DateTime( 'now', $utc );
 		/**
 		 * Let's allow for 10 seconds delta to take processing time into account.
 		 * Since the event should have been modified a day ago then this should not
 		 * cause any trouble.
 		 */
-		$this->assertEquals( time(), $modified_timestamp, "The `post_modified_gmt` date should be about now, is {$fresh_event->post_modified_gmt}.", 10 );
+		$this->assertEquals( $utc_now->getTimestamp(), $modified_timestamp, "The `post_modified_gmt` date should be about now ({$utc_now->format('Y-m-d H:i:s')}), is {$fresh_event->post_modified_gmt}.", 10 );
 		$this->assertGreaterThan( 0, $modified_diff, "The event `post_modified` date did not change as expected, was {$event->post_modified}, is {$fresh_event->post_modified}." );
 		$this->assertGreaterThan( 0, $gmt_modified_diff, "The event `post_modified_gmt` date did not change as expected, was {$event->post_modified_gmt}, is {$fresh_event->post_modified_gmt}." );
 		$this->assertEquals( $modified_diff, $gmt_modified_diff, "The event `post_modified` and `post_modified_gmt` fields did not change by the same amount: `post_modified` changed by {$modified_diff} seconds, `post_modified_gmt` changed by {$gmt_modified_diff} seconds." );
