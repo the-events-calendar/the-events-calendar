@@ -4,8 +4,8 @@ Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.5
-Stable tag: 4.6.20.1
-Tested up to: 4.9.6
+Stable tag: 4.6.21
+Tested up to: 4.9.7
 Requires PHP: 5.2.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -214,6 +214,44 @@ Some things to consider before posting on the forum:
 Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to [@TheEventsCal](https://twitter.com/TheEventsCal) and tell us why. We'll do what we can to make it right.
 
 == Changelog ==
+
+= [4.6.21] 2018-08-01 =
+
+* Add - Make global $post obj available to tribe_events_get_the_excerpt() with setup_postdata($post) [108043]
+* Add - Added WPML metadata improvements for Organizers and Venue. Thanks to David Garcia Watkins and the entire WPML team for their contribution [106798]
+* Fix - Ensure no console errors are being displayed if there's no Google Maps API key present. Thanks Greg for flagging this [95312]
+* Fix - Fixed an issue where saving Event Aggregator scheduled imports with an empty preview would generate PHP notices [110311]
+* Fix - Escape each closing html element in month view tooltip to prevent PHP parser from exposing html, thanks to Karen for a solution [64834]
+* Fix - Sending empty 'categories' and 'tags' for the REST API event endpoints when inserting and updating events [109627]
+* Fix - Prevent selection of past dates when setting up Scheduled Other URL Imports in Event Aggregator [111227]
+* Tweak - Manage plugin assets via `tribe_assets()` [40267]
+* Deprecated - Tribe__Events__Asset__Abstract_Asset in favor of using `tribe_asset`
+* Deprecated - Tribe__Events__Asset__Abstract_Events_Css in favor of using `tribe_asset`
+* Deprecated - Tribe__Events__Asset__Admin_Menu in favor of using `tribe_asset`
+* Deprecated - Tribe__Events__Asset__Admin_Ui in favor of using `tribe_asset`
+* Deprecated - Tribe__Events__Asset__Admin in favor of using `tribe_asset`
+* Deprecated - Tribe__Events__Asset__Ajax_Calendar in favor of using `tribe_asset`
+* Deprecated - Tribe__Events__Asset__Ajax_Dayview in favor of using `tribe_asset`
+* Deprecated - Tribe__Events__Asset__Ajax_List in favor of using `tribe_asset`
+* Deprecated - Tribe__Events__Asset__Bootstrap_Datepicker in favor of using `tribe_asset`
+* Deprecated - Tribe__Events__Asset__Calendar_Script in favor of using `tribe_asset`
+* Deprecated - Tribe__Events__Asset__Chosen in favor of using `tribe_asset`
+* Deprecated - Tribe__Events__Asset__Datepicker in favor of using `tribe_asset`
+* Deprecated - Tribe__Events__Asset__Dialog in favor of using `tribe_asset`
+* Deprecated - Tribe__Events__Asset__Dynamic in favor of using `tribe_asset`
+* Deprecated - Tribe__Events__Asset__Ecp_Plugins in favor of using `tribe_asset`
+* Deprecated - Tribe__Events__Asset__Events_Css_Default in favor of using `tribe_asset`
+* Deprecated - Tribe__Events__Asset__Events_Css_Full in favor of using `tribe_asset`
+* Deprecated - Tribe__Events__Asset__Events_Css_Skeleton in favor of using `tribe_asset`
+* Deprecated - Tribe__Events__Asset__Events_Css in favor of using `tribe_asset`
+* Deprecated - Tribe__Events__Asset__Factory in favor of using `tribe_asset`
+* Deprecated - Tribe__Events__Asset__Jquery_Placeholder in favor of using `tribe_asset`
+* Deprecated - Tribe__Events__Asset__Jquery_Resize in favor of using `tribe_asset`
+* Deprecated - Tribe__Events__Asset__PHP_Date_Formatter in favor of using `tribe_asset`
+* Deprecated - Tribe__Events__Asset__Settings in favor of using `tribe_asset`
+* Deprecated - Tribe__Events__Asset__Smoothness in favor of using `tribe_asset`
+* Deprecated - Tribe__Events__Asset__Tribe_Events_Bar in favor of using `tribe_asset`
+* Deprecated - Tribe__Events__Asset__Tribe_Select2 in favor of using `tribe_asset`
 
 = [4.6.20.1] 2018-07-10 =
 

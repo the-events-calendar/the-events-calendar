@@ -80,6 +80,14 @@ tribe_aggregator.fields = {
 		// Setup the preview container
 		obj.$.preview_container = $( obj.selector.preview_container );
 
+		// setup some variables we might reuse
+		obj.origin = $( '#tribe-ea-field-origin' );
+		obj.importType = $( '#tribe-ea-field-url_import_type' );
+		obj.urlImport = {
+			startDate: $( '#tribe-ea-field-url_start' ),
+			originalMinDate: $( '#tribe-ea-field-url_start' ).datepicker( 'option', 'minDate' ) || '',
+		};
+
 		// Setup each type of field
 		$.each( obj.construct, function( key, callback ){
 			callback( obj.$.fields );
@@ -109,13 +117,18 @@ tribe_aggregator.fields = {
 				var $this = $( this ),
 				    $frequency = $( this ).next( obj.selector.fields );
 
-				$frequency.select2( 'val', ( 'schedule' === $this.val() ? 'daily' : '' ) ).change();
+				var importType = $this.val();
+
+				$frequency.select2( 'val', ( 'schedule' === importType ? 'daily' : '' ) ).change();
 
 				// set a data attribute on the form indicating the schedule type
-				obj.$.form.attr( 'data-type', $this.val() );
+				obj.$.form.attr( 'data-type', importType );
+
+				obj.maybeLimitUrlStartDate()
 			} )
 			.on( 'change'     , obj.selector.origin_field              , function() {
-				obj.$.form.attr( 'data-origin', $( this ).val() );
+				var origin = $( this ).val();
+				obj.$.form.attr( 'data-origin', origin );
 				obj.reset_preview();
 
 				// reset all bumpdowns
@@ -129,9 +142,11 @@ tribe_aggregator.fields = {
 				// $( '.tribe-ea-tab-new .tribe-ea-form input' ).val( function() { return this.defaultValue; } ).change();
 
 				if ( 'redirect' === $( this ).val() ) {
-					window.open( 'https://theeventscalendar.com/wordpress-event-aggregator/?utm_source=importoptions&utm_medium=plugin-tec&utm_campaign=in-app','_blank' );
+					window.open( 'https://theeventscalendar.com/wordpress-event-aggregator/?utm_source=importoptions&utm_medium=plugin-tec&utm_campaign=in-app', '_blank' );
 					location.reload();
 				}
+
+				obj.maybeLimitUrlStartDate()
 			} )
 			.on( 'change', obj.selector.field_url_source, function( e ) {
 				var $field = $( this );
@@ -1024,7 +1039,12 @@ tribe_aggregator.fields = {
 			}
 		}
 
-		if ( data.complete ) {
+		if ( data.error ) {
+			obj.progress.$.notice.find( '.tribe-message' ).html( data.error_text );
+			obj.progress.$.tracker.remove();
+			obj.progress.$.notice.find( '.progress-container' ).remove();
+			obj.progress.$.notice.removeClass( 'warning' ).addClass( 'error' );
+		} else if ( data.complete ) {
 			obj.progress.$.notice.find( '.tribe-message' ).html( data.complete_text );
 			obj.progress.$.tracker.remove();
 			obj.progress.$.notice.find( '.progress-container' ).remove();
@@ -1117,6 +1137,20 @@ tribe_aggregator.fields = {
 		}
 
 		jQuery( '#tribe-date-helper-date-' + origin ).html( selected_date );
+	};
+
+	obj.maybeLimitUrlStartDate = function() {
+		if( 'url' !== obj.origin.val() ){
+			return;
+		}
+
+		if( 'schedule' === obj.importType.val() ){
+			obj.urlImport.startDate.data( 'datepicker-min-date', 'today' );
+
+			return;
+		}
+
+		obj.urlImport.startDate.data( 'datepicker-min-date', null );
 	};
 
 	// Run Init on Document Ready

@@ -245,6 +245,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @param string $key Meta key
 	 */
 	public function delete_meta( $key ) {
+		unset( $this->meta[ $key ] );
 		return delete_post_meta( $this->post->ID, self::$meta_key_prefix . $key );
 	}
 
@@ -998,7 +999,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 *
 	 * @return bool
 	 */
-	public function log_error( $error ) {
+	public function log_error( WP_Error $error ) {
 		$today = getdate();
 		$args = array(
 			'number' => 1,
@@ -2130,7 +2131,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		/**
 		 * Fires after a record has been finalized and right before it starts importing.
 		 *
-		 * @since TBD
+		 * @since 4.6.21
 		 *
 		 * @param int   $id   The Record post ID
 		 * @param array $meta An array of meta for the record
