@@ -215,6 +215,10 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
+= [4.6.23] TBD =
+
+* Fix - Modify resource url function to work in mu-plugin directory, thanks to Doug for reporting it  [86104]
+
 = [4.6.22] TBD =
 
 * Add - Allow filtering events, in REST API requests, by their post ID with `include` [94326]
