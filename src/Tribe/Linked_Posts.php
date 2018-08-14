@@ -683,9 +683,11 @@ class Tribe__Events__Linked_Posts {
 
 		$linked_ids_order_key = $this->get_order_meta_key( $post_type );
 
-		if ( $linked_ids_order_key ) {
-			update_post_meta( $target_post_id, $linked_ids_order_key, $current_order );
+		if ( ! $linked_ids_order_key ) {
+			return;
 		}
+
+		update_post_meta( $target_post_id, $linked_ids_order_key, $current_order );
 	}
 
 	/**
