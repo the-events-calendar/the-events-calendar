@@ -609,7 +609,7 @@ class AbstractTest extends Events_TestCase {
 		$record->insert_posts( [ $event_data ] );
 
 		$this->assertNotEmpty( get_post( $this->last_inserted_or_updated ) );
-		$organizers = get_post_meta( $this->last_inserted_or_updated, '_EventOrganizerID_Order', true );
+		$organizers = (array) get_post_meta( $this->last_inserted_or_updated, '_EventOrganizerID', true );
 		$this->assertNotEmpty( $organizers );
 		$organizer = get_post( reset( $organizers ) );
 		$this->assertEquals( 'Organizer-1', $organizer->post_title );

@@ -1672,7 +1672,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 						unset( $organizer_data['OrganizerID'] );
 					}
 
-					//if we should create an organizer or use existing
+					// if we should create an organizer or use existing
 					if ( ! empty( $organizer_data['Organizer'] ) ) {
 						$organizer_data['Organizer'] = trim( $organizer_data['Organizer'] );
 
