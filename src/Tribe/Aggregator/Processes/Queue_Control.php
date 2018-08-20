@@ -3,7 +3,7 @@
 /**
  * Class Tribe__Events__Aggregator__Processes__Queue_Control
  *
- * @since TBD
+ * @since 4.6.22
  */
 class Tribe__Events__Aggregator__Processes__Queue_Control {
 
@@ -11,7 +11,7 @@ class Tribe__Events__Aggregator__Processes__Queue_Control {
 	 * Clears the queues, in whatever state they are, related to Event Aggregator imports
 	 * and redirects the user to the current page or a specified location.
 	 *
-	 * @since TBD
+	 * @since 4.6.22
 	 *
 	 * @param null|string $location The location the user should be redirected to or null
 	 *                              to use the current location.
@@ -34,7 +34,7 @@ class Tribe__Events__Aggregator__Processes__Queue_Control {
 	/**
 	 * Clears the queues, in whatever state they are, related to Event Aggregator imports.
 	 *
-	 * @since TBD
+	 * @since 4.6.22
 	 */
 	public function clear_queues() {
 		Tribe__Process__Queue::delete_all_queues( 'tribe_queue_ea_import_events' );

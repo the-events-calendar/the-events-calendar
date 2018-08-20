@@ -398,7 +398,7 @@ class Tribe__Events__Linked_Posts {
 	/**
 	 * Returns an array of linked post ID(s) of the specified post type.
 	 *
-	 * @since TBD
+	 * @since 4.6.22
 	 *
 	 * @param int    $post_id   Post ID of the object.
 	 * @param string $post_type Post type of linked posts to look for.
@@ -424,7 +424,7 @@ class Tribe__Events__Linked_Posts {
 		/**
 		 * Filters the linked post ID(s) of a given type for the given post.
 		 *
-		 * @since TBD
+		 * @since 4.6.22
 		 *
 		 * @param array $linked_post_ids Linked post ID(s).
 		 * @param int $post_id Post ID being looked at.
@@ -503,7 +503,7 @@ class Tribe__Events__Linked_Posts {
 		/**
 		 * Whether to return all linked posts if the args actually find no linked posts.
 		 *
-		 * @since TBD
+		 * @since 4.6.22
 		 *
 		 * @param bool      $return_all_if_none True if you want all posts returned if none
 		 *                                      are found (e.g. creating a drop-down).

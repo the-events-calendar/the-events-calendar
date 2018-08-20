@@ -101,7 +101,7 @@ class Tribe__Events__REST__V1__Headers__Base implements Tribe__REST__Headers__Ba
 				 * (from The Events Calendar PRO). The children post IDs are fetched to build an `include`
 				 * request for The Events Calendar REST API and the REST API will deal with pagination.
 				 *
-				 * @since TBD
+				 * @since 4.6.22
 				 *
 				 * @param int $posts_per_page How many children posts to include in the query at the most;
 				 *                            defaults to `-1` to fetch them all.
