@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-07-20 07:15:05+0000\n"
+"PO-Revision-Date: 2018-08-18 17:13:55+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -41,11 +41,11 @@ msgstr "Búsqueda y navegació de vistas de %s"
 
 #: src/admin-views/privacy.php:63
 msgid "If you have extended our plugin(s) to send data to a third-party service such as Eventbrite, Google Maps, or PayPal, user information may be passed to these external services. These services may be located abroad."
-msgstr ""
+msgstr "Si has extendido nuestro(s) plugin(s) para enviar datos a servicios de terceros como Eventbrite, Google Maps o PayPal, la información del usuario puede ser enviada a estos servicios externos. Estos servicios pueden estar ubicados en el extranjero."
 
 #: src/admin-views/privacy.php:61
 msgid "Modern Tribe does not send any user data outside of your website by default."
-msgstr ""
+msgstr "Por defecto, Modern Tribe no envía datos de usuarios fuera de tu sitio."
 
 #: src/admin-views/privacy.php:59
 msgid "Where We Send Your Data"
@@ -57,7 +57,7 @@ msgstr ""
 
 #: src/admin-views/privacy.php:55
 msgid "All information (data) is retained in the local database indefinitely, unless otherwise deleted."
-msgstr ""
+msgstr "Toda la información (datos) es almacenada en la base de datos local de forma indefinida, salvo que sea eliminada."
 
 #: src/admin-views/privacy.php:53
 msgid "How Long You Retain this Data"
@@ -65,11 +65,11 @@ msgstr "Durante cuánto tiempo retienes esta Información"
 
 #: src/admin-views/privacy.php:51
 msgid "These API keys may include the following third party services: Google Maps, Facebook, Meetup, PayPal, and Eventbrite (API key, auth URL and Client Secret)."
-msgstr ""
+msgstr "Estas claves API pueden incluir los siguientes servicios de terceros: Gooble Maps, Facebook, Meetup, PayPal y Eventbrite (clave API, URL de autenticación y contraseña del cliente)."
 
 #: src/admin-views/privacy.php:49
 msgid "We make use of certain API keys, in order to provide specific features."
-msgstr ""
+msgstr "Hacemos uso de ciertas claves API para proporcionar características específicas."
 
 #: src/admin-views/privacy.php:45
 msgid "The Events Calendar suite offers the use of third-party API keys. The primary functions are to enhance the features we've built in, some of which use Google Maps, PayPal, Eventbrite, Meetup, and Facebook. These API keys are not supplied by Modern Tribe."
@@ -77,7 +77,7 @@ msgstr ""
 
 #: src/admin-views/privacy.php:43
 msgid "API Keys"
-msgstr ""
+msgstr "Claves API"
 
 #: src/admin-views/privacy.php:41
 msgid "When purchasing Eventbrite Tickets, attendee, purchaser, and order information are stored and managed by Eventbrite."
@@ -101,11 +101,11 @@ msgstr ""
 
 #: src/admin-views/privacy.php:31
 msgid "Importing Events, Venues, and Organizers:"
-msgstr ""
+msgstr "Importación de eventos, lugares de encuentro y organizadores:"
 
 #: src/admin-views/privacy.php:28
 msgid "Event information: website, cost, description, date, time, image"
-msgstr ""
+msgstr "Información del evento: sitio web, precio, descripción, fecha, hora, imagen"
 
 #: src/admin-views/privacy.php:27
 msgid "Organizer information: name, phone, website, email"
@@ -129,11 +129,11 @@ msgstr ""
 
 #: src/admin-views/privacy.php:20
 msgid "Event, Venue, and Organizer Information"
-msgstr ""
+msgstr "Evento, lugar de encuentro e información de la organización"
 
 #: src/admin-views/privacy.php:18
 msgid "What personal data we collect and why we collect it"
-msgstr ""
+msgstr "Qué información personal recopilamos y para qué"
 
 #: src/admin-views/privacy.php:16
 msgid "This information is only for guidance and not to be considered as legal advice."
@@ -157,15 +157,15 @@ msgstr "Hola,"
 
 #: src/admin-views/aggregator/settings.php:531
 msgid "The default event category for events imported via Eventbrite"
-msgstr ""
+msgstr "Categoría por defecto para eventos importados a través de Eventbrite"
 
 #: src/admin-views/aggregator/settings.php:519
 msgid "The default post status for events imported via Eventbrite"
-msgstr ""
+msgstr "Estado de la entrada por defecto para eventos importados a través de Eventbrite"
 
 #: src/admin-views/aggregator/settings.php:513
 msgid "Eventbrite Import Settings"
-msgstr ""
+msgstr "Ajustes de importación de Eventbrite"
 
 #: src/admin-views/aggregator/settings.php:26
 msgid "None"
@@ -173,7 +173,7 @@ msgstr "Ninguno"
 
 #: src/admin-views/aggregator/origins/eventbrite.php:13
 msgid "Import from Eventbrite"
-msgstr ""
+msgstr "Importar de Eventbrite"
 
 #: src/admin-views/aggregator/banners/eventbrite-upsell.php:17
 msgid "Learn more"
@@ -398,7 +398,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/origins/eventbrite.php:38
 msgid "Please log in to enable event imports from Eventbrite."
-msgstr ""
+msgstr "Por favor, accede para activar la importación de eventos desde Eventbrite"
 
 #: src/admin-views/aggregator/origins/eventbrite.php:15
 #: src/admin-views/aggregator/origins/eventbrite.php:121
@@ -1113,7 +1113,7 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Endpoints/Single_Category.php:105
 msgid "The user is not authorized to create event categories"
-msgstr ""
+msgstr "El usuario no tiene autorización para crear categorías de eventos"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Category.php:102
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:151
@@ -1121,15 +1121,15 @@ msgstr ""
 #: src/Tribe/REST/V1/Endpoints/Single_Tag.php:96
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:141
 msgid "A required parameter is missing or an input parameter is in the wrong format"
-msgstr ""
+msgstr "Falta un parámetro requerido o un parámetro introducido está en un formato incorrecto"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Category.php:96
 msgid "Returns the data of the created event category"
-msgstr ""
+msgstr "Devuelve los datos de la categoría del evento creado."
 
 #: src/Tribe/REST/V1/Endpoints/Single_Category.php:90
 msgid "Returns the data of the updated event category"
-msgstr ""
+msgstr "Devuelve los datos de la categoría de evento actualizada"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Category.php:81
 msgid "An event category with the specified term ID does not exist."
@@ -7697,7 +7697,7 @@ msgstr "No hay %s anteriores."
 
 #: src/Tribe/Template_Factory.php:304 src/Tribe/Template_Factory.php:309
 msgid "No matching %1$s listed under %2$s. Please try viewing the full calendar for a complete list of %3$s."
-msgstr "No hay %1$s así listado en %2$s. Favor de ver el calendario por una lista de %3$s."
+msgstr "No hay %1$s en %2$s. Accede al calendario completo para ver una lista de %3$s."
 
 #: src/Tribe/Template_Factory.php:302
 msgid "No upcoming %1$s listed under %2$s. Check out upcoming %3$s for this category or view the full calendar."

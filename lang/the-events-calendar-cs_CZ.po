@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-06-06 12:30:07+0000\n"
+"PO-Revision-Date: 2018-08-03 08:59:09+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,11 +13,11 @@ msgstr ""
 
 #: src/views/month/single-day.php:57
 msgid "%s for %s"
-msgstr ""
+msgstr "%s pro %s"
 
 #: src/views/month/loop-grid.php:25 src/views/month/loop-grid.php:28
 msgid "Calendar of %s"
-msgstr ""
+msgstr "Kalendář z %s"
 
 #: src/views/modules/bar.php:80
 msgid "Submit %s search"
@@ -77,7 +77,7 @@ msgstr ""
 
 #: src/admin-views/privacy.php:43
 msgid "API Keys"
-msgstr ""
+msgstr "API klíče"
 
 #: src/admin-views/privacy.php:41
 msgid "When purchasing Eventbrite Tickets, attendee, purchaser, and order information are stored and managed by Eventbrite."
@@ -153,7 +153,7 @@ msgstr ""
 
 #: src/admin-views/privacy.php:13
 msgid "Hello,"
-msgstr ""
+msgstr "Ahoj,"
 
 #: src/admin-views/aggregator/settings.php:531
 msgid "The default event category for events imported via Eventbrite"
@@ -177,7 +177,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/banners/eventbrite-upsell.php:17
 msgid "Learn more"
-msgstr ""
+msgstr "Vědět více"
 
 #: src/admin-views/aggregator/banners/eventbrite-upsell.php:14
 msgid "Do more with Eventbrite Tickets"
@@ -321,7 +321,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/tabs/import-form.php:297
 msgid "Settings > General"
-msgstr ""
+msgstr "Nastavení > Základní"
 
 #: src/admin-views/aggregator/tabs/import-form.php:286
 msgid "The number of events available in the preview may be limited by your %1$sImport Settings.%2$s"
@@ -333,7 +333,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/tabs/import-form.php:277
 msgid "timezone settings"
-msgstr ""
+msgstr "nastavení časové zóny"
 
 #: src/admin-views/aggregator/tabs/import-form.php:275
 msgid "Events will be imported with the same timezone as defined on eventbrite.com. You can make use of The Events Calendar's"
@@ -386,11 +386,11 @@ msgstr ""
 
 #: src/admin-views/aggregator/origins/eventbrite.php:115
 msgid "Select Source"
-msgstr ""
+msgstr "Vybrat zdroj"
 
 #: src/admin-views/aggregator/origins/eventbrite.php:114
 msgid "Import Source"
-msgstr ""
+msgstr "Nahrání zdroje"
 
 #: src/admin-views/aggregator/origins/eventbrite.php:44
 msgid "Log into Eventbrite"
@@ -503,11 +503,11 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Settings.php:491
 msgid "one month"
-msgstr ""
+msgstr "jeden měsíc"
 
 #: src/Tribe/Aggregator/Settings.php:479
 msgid "one week"
-msgstr ""
+msgstr "jeden týden"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:570
 msgctxt "when the retry will happen, a date"
@@ -610,7 +610,7 @@ msgstr ""
 #: src/Tribe/Rewrite.php:265
 msgctxt "The \"/page/\" URL string component."
 msgid "page"
-msgstr ""
+msgstr "stránka"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:143
 msgid "An organizer with the specified event does not exist."
@@ -642,7 +642,7 @@ msgstr ""
 
 #: common/src/Tribe/Validate.php:184
 msgid "%s must not be empty"
-msgstr ""
+msgstr "%s nesmí být prázdný"
 
 #: src/functions/template-tags/general.php:1345
 msgid "Calendar powered by %s"
@@ -720,7 +720,7 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Messages.php:39
 msgid "The event could not be updated"
-msgstr ""
+msgstr "Událost nelze upravit"
 
 #: src/Tribe/REST/V1/Messages.php:38
 msgid "The organizer is already trashed"
@@ -740,11 +740,11 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Messages.php:34
 msgid "The event is already trashed"
-msgstr ""
+msgstr "Událost je již smazaná"
 
 #: src/Tribe/REST/V1/Messages.php:33
 msgid "The event could not be deleted"
-msgstr ""
+msgstr "Událost nelze smazat"
 
 #: src/Tribe/REST/V1/Messages.php:32
 msgid "The requested organizer is not accessible"
