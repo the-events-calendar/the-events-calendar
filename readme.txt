@@ -217,6 +217,8 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 = [4.6.23] TBD =
 
+* Fix - Fixed the "Full Styles" mobile view. Thanks Matthew, Laura and others for flagging this! [112301]
+
 = [4.6.22] TBD =
 
 * Add - Allow filtering events, in REST API requests, by their post ID with `include` [94326]
