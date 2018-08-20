@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 4.5
 Stable tag: 4.6.22
-Tested up to: 4.9.7
+Tested up to: 4.9.8
 Requires PHP: 5.2.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -215,7 +215,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
-= [4.6.22] TBD =
+= [4.6.22] 2018-08-21 =
 
 * Add - Allow filtering events, in REST API requests, by their post ID with `include` [94326]
 * Add - Enable future event display to get all events in the future that have not started [70769]
