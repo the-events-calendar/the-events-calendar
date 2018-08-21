@@ -215,7 +215,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
-= [4.6.22] 2018-08-21 =
+= [4.6.22] 2018-08-22 =
 
 * Add - Allow filtering events, in REST API requests, by their post ID with `include` [94326]
 * Add - Enable future event display to get all events in the future that have not started [70769]
