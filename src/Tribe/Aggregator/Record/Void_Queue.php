@@ -3,7 +3,7 @@
 /**
  * Class Tribe__Events__Aggregator__Record__Void_Queue
  *
- * @since TBD
+ * @since 4.6.22
  */
 class Tribe__Events__Aggregator__Record__Void_Queue
 	implements Tribe__Events__Aggregator__Record__Queue_Interface {
@@ -142,7 +142,7 @@ class Tribe__Events__Aggregator__Record__Void_Queue
 	/**
 	 * Returns the `WP_Error` instance used to build this void queue, if any.
 	 *
-	 * @since TBD
+	 * @since 4.6.22
 	 *
 	 * @return WP_Error|null The `WP_Error` used to build this void queue or `null`
 	 *                       if no `WP_Error` object was used to build this void queue.

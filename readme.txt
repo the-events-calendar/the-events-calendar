@@ -219,7 +219,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 * Fix - Fixed the "Full Styles" mobile view. Thanks Matthew, Laura and others for flagging this! [112301]
 
-= [4.6.22] TBD =
+= [4.6.22] 2018-08-22 =
 
 * Add - Allow filtering events, in REST API requests, by their post ID with `include` [94326]
 * Add - Enable future event display to get all events in the future that have not started [70769]

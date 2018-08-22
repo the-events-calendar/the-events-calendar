@@ -17,7 +17,7 @@ class CommonTest extends Events_TestCase {
 	 * Common should be loaded
 	 *
 	 * @test
-	 * @since TBD
+	 * @since 4.6.22
 	 */
 	public function it_is_loading_common() {
 
@@ -31,7 +31,7 @@ class CommonTest extends Events_TestCase {
 	 * Common must be, at least in MIN_COMMON_VERSION
 	 *
 	 * @test
-	 * @since TBD
+	 * @since 4.6.22
 	*/
 	public function it_is_loading_common_required_version() {
 
