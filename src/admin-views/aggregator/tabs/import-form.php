@@ -1,6 +1,6 @@
 <?php
 $has_license_key = tribe( 'events-aggregator.main' )->is_service_active();
-$hide_upsell = false || defined( 'TRIBE_HIDE_UPSELL' );
+$hide_upsell     = false || defined( 'TRIBE_HIDE_UPSELL' );
 
 if ( 'edit' === $aggregator_action ) {
 	$default_post_status = get_post_meta( $record->post->ID, Tribe__Events__Aggregator__Record__Abstract::$meta_key_prefix . 'post_status', true );
@@ -40,6 +40,8 @@ wp_nonce_field( 'tribe-aggregator-save-import', 'tribe_aggregator_nonce' );
 		$field->help = esc_attr__( 'Choose where you are importing from.', 'the-events-calendar' );
 		$field->options = tribe( 'events-aggregator.main' )->api( 'origins' )->get();
 		$field->upsell_options = array();
+
+		pre_dump( $field->options, 'options' );
 
 		foreach ( $field->options as $key => $option ) {
 			$option->disabled = isset( $option->disabled ) ? $option->disabled : null;

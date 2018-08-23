@@ -122,55 +122,55 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		return $result;
 	}
 
-	// public function handle_facebook_credentials() {
-	// 	/**
-	// 	 * Verify that we are dealing with a FB token Request
-	// 	 */
-	// 	if ( ! isset( $_GET['ea-fb-token'] ) ) {
-	// 		return false;
-	// 	}
+	public function handle_facebook_credentials() {
+		/**
+		 * Verify that we are dealing with a FB token Request
+		 */
+		if ( ! isset( $_GET['ea-fb-token'] ) ) {
+			return false;
+		}
 
-	// 	/**
-	// 	 * @todo  include a way to handle errors on the Send back URL
-	// 	 */
-	// 	$api      = tribe( 'events-aggregator.service' )->api();
-	// 	$response = tribe( 'events-aggregator.service' )->get_facebook_token();
-	// 	$type     = $_GET['ea-fb-token'];
+		/**
+		 * @todo  include a way to handle errors on the Send back URL
+		 */
+		$api      = tribe( 'events-aggregator.service' )->api();
+		$response = tribe( 'events-aggregator.service' )->get_facebook_token();
+		$type     = $_GET['ea-fb-token'];
 
-	// 	if ( is_wp_error( $response ) ) {
-	// 		return false;
-	// 	}
+		if ( is_wp_error( $response ) ) {
+			return false;
+		}
 
-	// 	if ( empty( $response->data ) ) {
-	// 		return false;
-	// 	}
+		if ( empty( $response->data ) ) {
+			return false;
+		}
 
-	// 	if ( empty( $response->data->expires ) ||  empty( $response->data->token ) || empty( $response->data->scopes ) ) {
-	// 		return false;
-	// 	}
+		if ( empty( $response->data->expires ) ||  empty( $response->data->token ) || empty( $response->data->scopes ) ) {
+			return false;
+		}
 
-	// 	$url_map = array(
-	// 		'new'      => Tribe__Events__Aggregator__Page::instance()->get_url( array( 'tab' => $this->get_slug(), 'ea-auth' => 'facebook' ) ),
-	// 		'settings' => Tribe__Settings::instance()->get_url( array( 'tab' => 'addons', 'ea-auth' => 'facebook' ) ),
-	// 	);
+		$url_map = array(
+			'new'      => Tribe__Events__Aggregator__Page::instance()->get_url( array( 'tab' => $this->get_slug(), 'ea-auth' => 'facebook' ) ),
+			'settings' => Tribe__Settings::instance()->get_url( array( 'tab' => 'addons', 'ea-auth' => 'facebook' ) ),
+		);
 
-	// 	if ( ! isset( $url_map[ $type ] ) ) {
-	// 		return false;
-	// 	}
+		if ( ! isset( $url_map[ $type ] ) ) {
+			return false;
+		}
 
-	// 	// Calculate when will this Token Expire
-	// 	$expires = absint( trim( preg_replace( '/[^0-9]/', '', $response->data->expires ) ) );
-	// 	$expires += time();
+		// Calculate when will this Token Expire
+		$expires = absint( trim( preg_replace( '/[^0-9]/', '', $response->data->expires ) ) );
+		$expires += time();
 
-	// 	// Save the Options
-	// 	tribe_update_option( 'fb_token', trim( preg_replace( '/[^a-zA-Z0-9]/', '', $response->data->token ) ) );
-	// 	tribe_update_option( 'fb_token_expires', $expires );
-	// 	tribe_update_option( 'fb_token_scopes', trim( preg_replace( '/[^a-zA-Z0-9\,_-]/', '', $response->data->scopes ) ) );
+		// Save the Options
+		tribe_update_option( 'fb_token', trim( preg_replace( '/[^a-zA-Z0-9]/', '', $response->data->token ) ) );
+		tribe_update_option( 'fb_token_expires', $expires );
+		tribe_update_option( 'fb_token_scopes', trim( preg_replace( '/[^a-zA-Z0-9\,_-]/', '', $response->data->scopes ) ) );
 
-	// 	// Send it back to the Given Url
-	// 	wp_redirect( $url_map[ $type ] );
-	// 	exit;
-	// }
+		// Send it back to the Given Url
+		wp_redirect( $url_map[ $type ] );
+		exit;
+	}
 
 	public function handle_import_finalize( $data ) {
 		$this->messages = array(
