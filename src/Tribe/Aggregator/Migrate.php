@@ -40,7 +40,10 @@ class Tribe__Events__Aggregator__Migrate {
 		$plugin = Tribe__Events__Main::instance();
 
 		// Hook the AJAX methods
-		add_action( 'wp_ajax_tribe_convert_legacy_facebook_settings', array( $this, 'ajax_convert_facebook_settings' ) );
+
+		// @deprecated TBD
+		// add_action( 'wp_ajax_tribe_convert_legacy_facebook_settings', array( $this, 'ajax_convert_facebook_settings' ) );
+
 		add_action( 'wp_ajax_tribe_convert_legacy_ical_settings', array( $this, 'ajax_convert_ical_settings' ) );
 
 		// Hook the Notice for the Migration
