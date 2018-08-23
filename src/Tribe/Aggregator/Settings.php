@@ -560,7 +560,7 @@ class Tribe__Events__Aggregator__Settings {
 	 * @param WP_Screen $screen
 	 */
 	public function maybe_clear_fb_credentials( $screen ) {
-		_deprecated_function( __FUNCTION__, '', 'TBD' );
+		_deprecated_function( __FUNCTION__, 'TBD', 'Importing from Facebook is no longer supported in Event Aggregator.' );
 
 		if ( 'tribe_events_page_tribe-common' !== $screen->base ) {
 			return;
@@ -593,7 +593,7 @@ class Tribe__Events__Aggregator__Settings {
 	 * @deprecated TBD
 	 */
 	public function get_fb_credentials() {
-		_deprecated_function( __FUNCTION__, '', 'TBD' );
+		_deprecated_function( __FUNCTION__, 'TBD', 'Importing from Facebook is no longer supported in Event Aggregator.' );
 
 		$args = array(
 			'token'   => tribe_get_option( 'fb_token' ),
@@ -608,7 +608,7 @@ class Tribe__Events__Aggregator__Settings {
 	 * @deprecated TBD
 	 */
 	public function has_fb_credentials() {
-		_deprecated_function( __FUNCTION__, '', 'TBD' );
+		_deprecated_function( __FUNCTION__, 'TBD', 'Importing from Facebook is no longer supported in Event Aggregator.' );
 
 		$credentials = $this->get_fb_credentials();
 		return ! empty( $credentials->token ) && ! empty( $credentials->expires ) && ! empty( $credentials->scopes );
@@ -618,7 +618,7 @@ class Tribe__Events__Aggregator__Settings {
 	 * @deprecated TBD
 	 */
 	public function clear_fb_credentials() {
-		_deprecated_function( __FUNCTION__, '', 'TBD' );
+		_deprecated_function( __FUNCTION__, 'TBD', 'Importing from Facebook is no longer supported in Event Aggregator.' );
 
 		tribe_update_option( 'fb_token', null );
 		tribe_update_option( 'fb_token_expires', null );
@@ -635,7 +635,7 @@ class Tribe__Events__Aggregator__Settings {
 	 * @return string
 	 */
 	public function build_disconnect_facebook_url( $url ) {
-		_deprecated_function( __FUNCTION__, '', 'TBD' );
+		_deprecated_function( __FUNCTION__, 'TBD', 'Importing from Facebook is no longer supported in Event Aggregator.' );
 
 		return wp_nonce_url(
 			add_query_arg(
@@ -651,7 +651,7 @@ class Tribe__Events__Aggregator__Settings {
 	 * @deprecated TBD
 	 */
 	public function is_fb_credentials_valid( $time = null ) {
-		_deprecated_function( __FUNCTION__, '', 'TBD' );
+		_deprecated_function( __FUNCTION__, 'TBD', 'Importing from Facebook is no longer supported in Event Aggregator.' );
 
 		// if the service hasn't enabled oauth for facebook, always assume it is valid
 		if ( ! tribe( 'events-aggregator.main' )->api( 'origins' )->is_oauth_enabled( 'facebook' ) ) {

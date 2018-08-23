@@ -825,7 +825,7 @@ class Tribe__Events__Aggregator__Service {
 	 * @return array
 	 */
 	public function get_facebook_token() {
-		_deprecated_function( __FUNCTION__, '', 'TBD' );
+		_deprecated_function( __FUNCTION__, 'TBD', 'Importing from Facebook is no longer supported in Event Aggregator.' );
 
 		$args = array(
 			'referral' => urlencode( home_url() ),
