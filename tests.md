@@ -14,7 +14,7 @@ Create a `codeception.yml` file in the plugin root folder with this content:
 
 ```yaml
 params:
-	- .env.local
+  - .env.local
 ```
 
 Codeception will process configuration files in a cascading way, think of CSS, so the `codeception.dist.yml` file will be read first and whatever you set in `codeception.yml` will be applied on top of it.  
