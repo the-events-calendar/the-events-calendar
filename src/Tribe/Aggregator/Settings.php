@@ -36,98 +36,6 @@ class Tribe__Events__Aggregator__Settings {
 	}
 
 	/**
-	 * Hooked to current_screen, this method identifies whether or not fb credentials should be cleared
-	 *
-	 * @param WP_Screen $screen
-	 */
-	public function maybe_clear_fb_credentials( $screen ) {
-		if ( 'tribe_events_page_tribe-common' !== $screen->base ) {
-			return;
-		}
-
-		if ( ! isset( $_GET['tab'] ) || 'addons' !== $_GET['tab'] ) {
-			return;
-		}
-
-		if (
-			! (
-				isset( $_GET['action'] )
-				&& isset( $_GET['_wpnonce'] )
-				&& 'disconnect-facebook' === $_GET['action']
-				&& wp_verify_nonce( $_GET['_wpnonce'], 'disconnect-facebook' )
-			)
-		) {
-			return;
-		}
-
-		$this->clear_fb_credentials();
-
-		wp_redirect(
-			Tribe__Settings::instance()->get_url( array( 'tab' => 'addons' ) )
-		);
-		die;
-	}
-
-	public function get_fb_credentials() {
-		$args = array(
-			'token'   => tribe_get_option( 'fb_token' ),
-			'expires' => tribe_get_option( 'fb_token_expires' ),
-			'scopes'  => tribe_get_option( 'fb_token_scopes' ),
-		);
-
-		return (object) $args;
-	}
-
-	public function has_fb_credentials() {
-		$credentials = $this->get_fb_credentials();
-		return ! empty( $credentials->token ) && ! empty( $credentials->expires ) && ! empty( $credentials->scopes );
-	}
-
-	public function clear_fb_credentials() {
-		tribe_update_option( 'fb_token', null );
-		tribe_update_option( 'fb_token_expires', null );
-		tribe_update_option( 'fb_token_scopes', null );
-	}
-
-	/**
-	 * Given a URL, tack on the parts of the URL that gets used to disconnect Facebook
-	 *
-	 * @param string $url
-	 *
-	 * @return string
-	 */
-	public function build_disconnect_facebook_url( $url ) {
-		return wp_nonce_url(
-			add_query_arg(
-				'action',
-				'disconnect-facebook',
-				$url
-			),
-			'disconnect-facebook'
-		);
-	}
-
-	public function is_fb_credentials_valid( $time = null ) {
-		// if the service hasn't enabled oauth for facebook, always assume it is valid
-		if ( ! tribe( 'events-aggregator.main' )->api( 'origins' )->is_oauth_enabled( 'facebook' ) ) {
-			return true;
-		}
-
-		if ( ! $this->has_fb_credentials() ) {
-			return false;
-		}
-
-		$credentials = $this->get_fb_credentials();
-
-		// Allow passing comparing time
-		if ( is_null( $time ) ) {
-			$time = time();
-		}
-
-		return $credentials->expires > $time;
-	}
-
-	/**
 	 * Hooked to current_screen, this method identifies whether or not eb credentials should be cleared
 	 *
 	 * @param WP_Screen $screen
@@ -643,5 +551,126 @@ class Tribe__Events__Aggregator__Settings {
 
 		return false;
 	}
+
+	/**
+	 * Hooked to current_screen, this method identifies whether or not fb credentials should be cleared
+	 *
+	 * @deprecated TBD
+	 *
+	 * @param WP_Screen $screen
+	 */
+	public function maybe_clear_fb_credentials( $screen ) {
+		_deprecated_function( __FUNCTION__, '', 'TBD' );
+
+		if ( 'tribe_events_page_tribe-common' !== $screen->base ) {
+			return;
+		}
+
+		if ( ! isset( $_GET['tab'] ) || 'addons' !== $_GET['tab'] ) {
+			return;
+		}
+
+		if (
+			! (
+				isset( $_GET['action'] )
+				&& isset( $_GET['_wpnonce'] )
+				&& 'disconnect-facebook' === $_GET['action']
+				&& wp_verify_nonce( $_GET['_wpnonce'], 'disconnect-facebook' )
+			)
+		) {
+			return;
+		}
+
+		$this->clear_fb_credentials();
+
+		wp_redirect(
+			Tribe__Settings::instance()->get_url( array( 'tab' => 'addons' ) )
+		);
+		die;
+	}
+
+	/**
+	 * @deprecated TBD
+	 */
+	public function get_fb_credentials() {
+		_deprecated_function( __FUNCTION__, '', 'TBD' );
+
+		$args = array(
+			'token'   => tribe_get_option( 'fb_token' ),
+			'expires' => tribe_get_option( 'fb_token_expires' ),
+			'scopes'  => tribe_get_option( 'fb_token_scopes' ),
+		);
+
+		return (object) $args;
+	}
+
+	/**
+	 * @deprecated TBD
+	 */
+	public function has_fb_credentials() {
+		_deprecated_function( __FUNCTION__, '', 'TBD' );
+
+		$credentials = $this->get_fb_credentials();
+		return ! empty( $credentials->token ) && ! empty( $credentials->expires ) && ! empty( $credentials->scopes );
+	}
+
+	/**
+	 * @deprecated TBD
+	 */
+	public function clear_fb_credentials() {
+		_deprecated_function( __FUNCTION__, '', 'TBD' );
+
+		tribe_update_option( 'fb_token', null );
+		tribe_update_option( 'fb_token_expires', null );
+		tribe_update_option( 'fb_token_scopes', null );
+	}
+
+	/**
+	 * Given a URL, tack on the parts of the URL that gets used to disconnect Facebook
+	 *
+	 * @deprecated TBD
+	 *
+	 * @param string $url
+	 *
+	 * @return string
+	 */
+	public function build_disconnect_facebook_url( $url ) {
+		_deprecated_function( __FUNCTION__, '', 'TBD' );
+
+		return wp_nonce_url(
+			add_query_arg(
+				'action',
+				'disconnect-facebook',
+				$url
+			),
+			'disconnect-facebook'
+		);
+	}
+
+	/**
+	 * @deprecated TBD
+	 */
+	public function is_fb_credentials_valid( $time = null ) {
+		_deprecated_function( __FUNCTION__, '', 'TBD' );
+
+		// if the service hasn't enabled oauth for facebook, always assume it is valid
+		if ( ! tribe( 'events-aggregator.main' )->api( 'origins' )->is_oauth_enabled( 'facebook' ) ) {
+			return true;
+		}
+
+		if ( ! $this->has_fb_credentials() ) {
+			return false;
+		}
+
+		$credentials = $this->get_fb_credentials();
+
+		// Allow passing comparing time
+		if ( is_null( $time ) ) {
+			$time = time();
+		}
+
+		return $credentials->expires > $time;
+	}
+
 
 }
