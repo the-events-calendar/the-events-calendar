@@ -1210,9 +1210,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 
 				Tribe__Events__Main::instance()->displaying = 'month';
 
-				if ( ! $wp_query = tribe_get_global_query_object() ) {
-					return;
-				}
+				global $wp_query;
 
 				$wp_query = tribe_get_events( $this->args, true );
 

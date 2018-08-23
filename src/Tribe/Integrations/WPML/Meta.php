@@ -29,7 +29,7 @@ class Tribe__Events__Integrations__WPML__Meta {
 			return $value;
 		}
 
-		$accepted_values = array( '_EventOrganizerID', '_EventOrganizerID_Order', '_EventVenueID' );
+		$accepted_values = array( '_EventOrganizerID', '_EventVenueID' );
 
 		if ( ! in_array( $meta_key, $accepted_values ) ) {
 			return $value;

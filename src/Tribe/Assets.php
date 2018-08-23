@@ -594,6 +594,15 @@ class Tribe__Events__Assets {
 		);
 
 		/**
+		 * Allow filtering if we should display JS debug messages
+		 *
+		 * @since  TBD
+		 *
+		 * @param bool
+		 */
+		$js_config_array['debug'] = apply_filters( 'tribe_events_js_debug', tribe_get_option( 'debugEvents' ) );
+
+		/**
 		 * Allows for easier filtering of the "Export Events" iCal link URL.
 		 *
 		 * @since 4.6.5

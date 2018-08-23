@@ -7,6 +7,15 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 
 	protected $required_fields = array( 'event_name', 'event_start_date' );
 
+	/**
+	 * Searches the database for an existing event matching the one described
+	 * by the specified record.
+	 *
+	 * @param array $record An array of values from the Events CSV file.
+	 *
+	 * @return int An event matching the one described by the record or `0` if no matching
+	 *            events are found.
+	 */
 	protected function match_existing_post( array $record ) {
 		$start_date = $this->get_event_start_date( $record );
 		$end_date   = $this->get_event_end_date( $record );
@@ -19,6 +28,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 			'fields'           => 'ids',
 			'posts_per_page'   => 1,
 			'suppress_filters' => false,
+			'post_status'      => 'any',
 		);
 
 		// When trying to find matches for all day events, the comparison should only be against the date

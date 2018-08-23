@@ -181,7 +181,6 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 			),
 		);
 
-
 		if ( $interactive_only ) {
 			$args['meta_query'][] = array(
 				'key' => Tribe__Events__Aggregator__Record__Abstract::$meta_key_prefix . 'interactive',
@@ -235,7 +234,7 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 			return false;
 		}
 
-		if ( $this->current_queue->is_stuck() ) {
+		if ( $this->current_queue->is_stuck() || $this->current_queue->has_errors() ) {
 			$this->current_queue->kill_queue();
 
 			return false;
@@ -279,6 +278,14 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 
 		if ( is_numeric( $record ) ) {
 			$record = tribe( 'events-aggregator.records' )->get_by_post_id( $record );
+		}
+
+		if ( ! $record instanceof Tribe__Events__Aggregator__Record__Abstract ) {
+			if ( $record instanceof WP_Error ) {
+				return new Tribe__Events__Aggregator__Record__Void_Queue( $record );
+			}
+
+			return new Tribe__Events__Aggregator__Record__Void_Queue( __( 'There was an error building the record queue: ' . print_r( $record, true ) ) );
 		}
 
 		$class = 'Tribe__Events__Aggregator__Record__Async_Queue';

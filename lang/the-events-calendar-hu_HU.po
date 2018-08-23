@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-07-09 07:17:27+0000\n"
+"PO-Revision-Date: 2018-08-02 23:11:11+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -45,7 +45,7 @@ msgstr ""
 
 #: src/admin-views/privacy.php:61
 msgid "Modern Tribe does not send any user data outside of your website by default."
-msgstr ""
+msgstr "A Modern Tribe nem küld semmilyen felhasználói adatot a weboldaladon kívülre."
 
 #: src/admin-views/privacy.php:59
 msgid "Where We Send Your Data"
@@ -77,7 +77,7 @@ msgstr ""
 
 #: src/admin-views/privacy.php:43
 msgid "API Keys"
-msgstr ""
+msgstr "API kulcsok"
 
 #: src/admin-views/privacy.php:41
 msgid "When purchasing Eventbrite Tickets, attendee, purchaser, and order information are stored and managed by Eventbrite."
@@ -153,19 +153,19 @@ msgstr ""
 
 #: src/admin-views/privacy.php:13
 msgid "Hello,"
-msgstr ""
+msgstr "Szia,"
 
 #: src/admin-views/aggregator/settings.php:531
 msgid "The default event category for events imported via Eventbrite"
-msgstr ""
+msgstr "Az Eventbrite-ról importált események alapértelmezett kategóriája"
 
 #: src/admin-views/aggregator/settings.php:519
 msgid "The default post status for events imported via Eventbrite"
-msgstr ""
+msgstr "Az Eventbrite-ról importált események alapértelmezett állapota"
 
 #: src/admin-views/aggregator/settings.php:513
 msgid "Eventbrite Import Settings"
-msgstr ""
+msgstr "Eventbrite importálási beállítások"
 
 #: src/admin-views/aggregator/settings.php:26
 msgid "None"
@@ -173,11 +173,11 @@ msgstr ""
 
 #: src/admin-views/aggregator/origins/eventbrite.php:13
 msgid "Import from Eventbrite"
-msgstr ""
+msgstr "Importálás az Eventbrite-ról"
 
 #: src/admin-views/aggregator/banners/eventbrite-upsell.php:17
 msgid "Learn more"
-msgstr ""
+msgstr "Tudj meg többet"
 
 #: src/admin-views/aggregator/banners/eventbrite-upsell.php:14
 msgid "Do more with Eventbrite Tickets"
@@ -193,79 +193,79 @@ msgstr ""
 
 #: src/Tribe/Main.php:4476 src/Tribe/Main.php:4477
 msgid "2 digit month dot 4 digit year"
-msgstr ""
+msgstr "2 számjegyű hónap pont 4 számjegyű év"
 
 #: src/Tribe/Main.php:4475
 msgid "4 digit year dot 2 digit month"
-msgstr ""
+msgstr "4 számjegyű év pont 2 számjegyű hónap"
 
 #: src/Tribe/Main.php:4474
 msgid "2 digit month hyphen 4 digit year"
-msgstr ""
+msgstr "2 számjegyű hónap kötőjel 4 számjegyű év"
 
 #: src/Tribe/Main.php:4471 src/Tribe/Main.php:4472 src/Tribe/Main.php:4473
 msgid "1 digit month hyphen 4 digit year"
-msgstr ""
+msgstr "1 számjegyű hónap kötőjel 4 számjegyű év"
 
 #: src/Tribe/Main.php:4468 src/Tribe/Main.php:4470
 msgid "2 digit month slash 4 digit year"
-msgstr ""
+msgstr "2 számjegyű hónap perjel 4 számjegyű év"
 
 #: src/Tribe/Main.php:4467 src/Tribe/Main.php:4469
 msgid "1 digit month slash 4 digit year"
-msgstr ""
+msgstr "1 számjegyű hónap perjel 4 számjegyű év"
 
 #: src/Tribe/Main.php:4466
 msgid "4 digit year hyphen 2 digit month"
-msgstr ""
+msgstr "4 számjegyű év kötőjel 2 számjegyű hónap"
 
 #: src/Tribe/Main.php:4462
 msgid "2 digit day dot 2 digit month dot 4 digit year"
-msgstr ""
+msgstr "2 számjegyű nap pont 2 számjegyű hónap pont 4 számjegyű év"
 
 #: src/Tribe/Main.php:4461
 msgid "2 digit month dot 2 digit day dot 4 digit year"
-msgstr ""
+msgstr "2 számjegyű hónap pont 2 számjegyű nap pont 4 számjegyű év"
 
 #: src/Tribe/Main.php:4460
 msgid "4 digit year dot 2 digit month dot 2 digit day"
-msgstr ""
+msgstr "4 számjegyű év pont 2 számjegyű hónap pont 2 számjegyű nap"
 
 #: src/Tribe/Main.php:4459
 msgid "2 digit day hyphen 2 digit month hyphen 4 digit year"
-msgstr ""
+msgstr "2 számjegyű nap kötőjel 2 számjegyű hónap kötőjel 4 számjegyű év"
 
 #: src/Tribe/Main.php:4458
 msgid "1 digit day hyphen 1 digit month hyphen 4 digit year"
-msgstr ""
+msgstr "1 számjegyű nap kötőjel 1 számjegyű hónap kötőjel 4 számjegyű év"
 
 #: src/Tribe/Main.php:4457
 msgid "1 digit month hyphen 2 digit day hyphen 4 digit year"
-msgstr ""
+msgstr "1 számjegyű hónap kötőjel 2 számjegyű nap kötőjel 4 számjegyű év"
 
 #: src/Tribe/Main.php:4456
 msgid "1 digit month hyphen 1 digit day hyphen 4 digit year"
-msgstr ""
+msgstr "1 számjegyű hónap kötőjel 1 számjegyű nap kötőjel 4 számjegyű év"
 
 #: src/Tribe/Main.php:4455
 msgid "2 digit day slash 2 digit month slash 4 digit year"
-msgstr ""
+msgstr "2 számjegyű nap perjel 2 számjegyű hónap perjel 4 számjegyű év"
 
 #: src/Tribe/Main.php:4454
 msgid "1 digit day slash 1 digit month slash 4 digit year"
-msgstr ""
+msgstr "1 számjegyű nap perjel 1 számjegyű hónap perjel 4 számjegyű év"
 
 #: src/Tribe/Main.php:4453
 msgid "2 digit month slash 2 digit day slash 4 digit year"
-msgstr ""
+msgstr "2 számjegyű hónap perjel 2 számjegyű nap perjel 4 számjegyű év"
 
 #: src/Tribe/Main.php:4452
 msgid "1 digit month slash 1 digit day slash 4 digit year"
-msgstr ""
+msgstr "1 számjegyű hónap perjel 1 számjegyű nap perjel 4 számjegyű év"
 
 #: src/Tribe/Main.php:4451
 msgid "4 digit year hyphen 2 digit month hyphen 2 digit day"
-msgstr ""
+msgstr "4 számjegyű év kötőjel 2 számjegyű hónap kötőjel 2 számjegyű nap"
 
 #: src/Tribe/Main.php:4430
 msgid "Search for %s by Keyword."
@@ -301,31 +301,31 @@ msgstr ""
 
 #: src/admin-views/tribe-options-addons-api.php:152
 msgid "You need to connect Event Aggregator to Eventbrite to import your events from Eventbrite."
-msgstr ""
+msgstr "Az Event Aggregatort össze kell kapcsolni az Eventbrite-al, hogy eseményeket importálhass az Eventbrite oldalról."
 
 #: src/admin-views/tribe-options-addons-api.php:130
 msgid "Refresh your connection to Eventbrite"
-msgstr ""
+msgstr "Eventbrite kapcsolat frissítése"
 
 #: src/admin-views/tribe-options-addons-api.php:128
 msgid "Connect to Eventbrite"
-msgstr ""
+msgstr "Kapcsolódás az Eventbrite-hoz"
 
 #: src/admin-views/tribe-options-addons-api.php:127
 msgid "You need to connect to Eventbrite for Event Aggregator to work properly"
-msgstr ""
+msgstr "Kapcsólódni kell az Eventbrite-hoz, hogy az Event Aggregator rendesen működjön. "
 
 #: src/admin-views/tribe-options-addons-api.php:123
 msgid "Eventbrite Token"
-msgstr ""
+msgstr "Eventbrite Token"
 
 #: src/admin-views/aggregator/tabs/import-form.php:297
 msgid "Settings > General"
-msgstr ""
+msgstr "Beállítások > Általános"
 
 #: src/admin-views/aggregator/tabs/import-form.php:286
 msgid "The number of events available in the preview may be limited by your %1$sImport Settings.%2$s"
-msgstr ""
+msgstr "Az előnézetben elérhető események számát az %1$sImportálási beállítások%2$s korlátozhatják."
 
 #: src/admin-views/aggregator/tabs/import-form.php:279
 msgid "to change how the actual time is displayed on your calendar."
@@ -350,27 +350,27 @@ msgstr ""
 #: src/admin-views/aggregator/status.php:198
 msgctxt "link for connecting eventbrite"
 msgid "Connect to Eventbrite"
-msgstr ""
+msgstr "Kapcsolódás az Eventbrite-hoz"
 
 #: src/admin-views/aggregator/status.php:196
 msgid "You have not connected Event Aggregator to Eventbrite"
-msgstr ""
+msgstr "Még nem csatlakoztattad az Event Aggregatort az Eventbrite-hoz"
 
 #: src/admin-views/aggregator/origins/refine.php:32
 msgid "Use the filters to narrow down which events are fetched from Eventbrite."
-msgstr ""
+msgstr "A szűrőkkel leszűkítheted, hogy mely események legyenek letöltve az Eventbrite-ról. "
 
 #: src/admin-views/aggregator/origins/meetup.php:154
 msgid "Invalid Meetup URL"
-msgstr ""
+msgstr "Érvénytelen Meetup URL"
 
 #: src/admin-views/aggregator/origins/facebook.php:126
 msgid "Invalid Facebook URL"
-msgstr ""
+msgstr "Érvénytelen Facebook URL"
 
 #: src/admin-views/aggregator/origins/eventbrite.php:183
 msgid "Invalid Eventbrite URL"
-msgstr ""
+msgstr "Érvénytelen Eventbrite URL"
 
 #: src/admin-views/aggregator/origins/eventbrite.php:153
 msgid "eventbrite.com/e/example-12345"
@@ -386,19 +386,19 @@ msgstr ""
 
 #: src/admin-views/aggregator/origins/eventbrite.php:115
 msgid "Select Source"
-msgstr ""
+msgstr "Forrás választása"
 
 #: src/admin-views/aggregator/origins/eventbrite.php:114
 msgid "Import Source"
-msgstr ""
+msgstr "Importálási forrás"
 
 #: src/admin-views/aggregator/origins/eventbrite.php:44
 msgid "Log into Eventbrite"
-msgstr ""
+msgstr "Bejelentkezés az Eventbrite-ra"
 
 #: src/admin-views/aggregator/origins/eventbrite.php:38
 msgid "Please log in to enable event imports from Eventbrite."
-msgstr ""
+msgstr "Jelentkezz be az Eventbrite-ról való események importálásának engedélyezéséhez. "
 
 #: src/admin-views/aggregator/origins/eventbrite.php:15
 #: src/admin-views/aggregator/origins/eventbrite.php:121
@@ -415,7 +415,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Service.php:693
 msgid "Successfully fetched Eventbrite Token"
-msgstr ""
+msgstr "Eventbrite token beszerzése sikeres"
 
 #: src/Tribe/Aggregator/Service.php:677
 msgid "No upcoming Eventbrite events found."
@@ -2155,7 +2155,7 @@ msgstr "Nem lehetett eseményeket importálni. A megadott URL-t el lehetett érn
 
 #: src/Tribe/REST/V1/EA_Messages.php:58
 msgid "Try to adjust your import settings and try again."
-msgstr ""
+msgstr "Próbáld meg finomítani az importálási beállításokat és próbáld újra."
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:124
 msgid "The event post ID is missing."
@@ -2954,7 +2954,7 @@ msgstr "Szétkapcsolás"
 
 #: src/admin-views/tribe-options-addons-api.php:59
 msgid "Refresh your connection to Facebook"
-msgstr ""
+msgstr "Facebook kapcsolat frissítése"
 
 #: src/admin-views/tribe-options-addons-api.php:57
 msgid "Your Event Aggregator Facebook connection will expire %s."
@@ -4747,15 +4747,15 @@ msgstr "Összes %s"
 
 #: common/src/admin-views/tribe-options-licenses.php:30
 msgid "Not seeing an update but expecting one? In WordPress, go to %1$sDashboard > Updates%2$s and click \"Check Again\"."
-msgstr ""
+msgstr "Nem látsz egy frissítést, de számítasz egyre? A WordPressben menj a %1$sVezérlőpult > Frissítések%2$s oldalra, és kattints az \"Ismételt ellenőrzés\" gombra."
 
 #: common/src/admin-views/tribe-options-licenses.php:25
 msgid "If you're seeing a red message telling you that your key isn't valid or is out of installs, visit %1$s to manage your installs or renew / upgrade your license."
-msgstr ""
+msgstr "Ha egy piros üzenetet kapsz, hogy a kulcsod nem érvényes, vagy nincs több telepítési lehetőséged, akkor látogass el a %1$s oldalra az telepítéseid kezeléséhez vagy a licenszed megújításához vagy licensz váltáshoz."
 
 #: common/src/admin-views/tribe-options-licenses.php:22
 msgid "Each paid add-on has its own unique license key. Simply paste the key into its appropriate field below, and give it a moment to validate. You know you're set when a green expiration date appears alongside a \"valid\" message."
-msgstr ""
+msgstr "Minden fizetős kiegészítőnek saját egyedi licensz kulcsa van. Egyszerűen másold be a kulcsot a megfelelő mezőbe és várj egy pár másodpercet, amíg az ellenőrzés lefut. Akkor jársz sikerrel, ha az \"érvényes\" üzenet mellett egy zöld lejárati dátum is megjelenik."
 
 #: common/src/admin-views/tribe-options-licenses.php:15
 msgid "The license key you received when completing your purchase from %1$s will grant you access to support and updates until it expires. You do not need to enter the key below for the plugins to work, but you will need to enter it to get automatic updates. %3$sFind your license keys at %2$s%4$s."
@@ -5783,7 +5783,7 @@ msgstr "Használja az oldal időzónáját mindenhol"
 
 #: src/admin-views/tribe-options-timezones.php:42
 msgid "Use manual time zones for each event"
-msgstr ""
+msgstr "Használja az egyes eseményekhez megadott időzónát"
 
 #: src/admin-views/tribe-options-timezones.php:38
 msgid "Time zone mode"
@@ -7474,7 +7474,7 @@ msgstr "Botswana"
 
 #: common/src/Tribe/Languages/Locations.php:83
 msgid "Bosnia and Herzegovina"
-msgstr ""
+msgstr "Bosznia-Hercegovina"
 
 #: common/src/Tribe/Languages/Locations.php:82
 msgid "Bolivia"

@@ -81,7 +81,53 @@ class Tribe__Events__REST__V1__Headers__Base implements Tribe__REST__Headers__Ba
 	 */
 	public function get_rest_url() {
 		if ( is_single() && tribe_is_event() ) {
-			return tribe_events_rest_url( 'events/' . Tribe__Main::post_id_helper() );
+			$this_post_id = Tribe__Main::post_id_helper();
+
+			/**
+			 * We are dealing with an /all kind of query.
+			 * The root URL has to be modified to include the
+			 * post parent and its children post IDs.
+			 */
+			if (
+				( $wp_query = tribe_get_global_query_object() )
+				&& ( $post_parent = $wp_query->get( 'post_parent' ) )
+				&& $post_parent == $this_post_id
+			) {
+				/**
+				 * Filters the `posts_per_page` value that should be used to fetch children
+				 * posts to the currently queried one.
+				 *
+				 * This is typically happening when generating the root REST URL for a recurring event
+				 * (from The Events Calendar PRO). The children post IDs are fetched to build an `include`
+				 * request for The Events Calendar REST API and the REST API will deal with pagination.
+				 *
+				 * @since 4.6.22
+				 *
+				 * @param int $posts_per_page How many children posts to include in the query at the most;
+				 *                            defaults to `-1` to fetch them all.
+				 * @param int $post_parent The post ID of the queried event.
+				 * @param WP_Query The current WP_Query object.
+				 */
+				$posts_per_page = apply_filters( 'tribe_rest_event_parent_include_per_page', - 1, $post_parent, $wp_query );
+
+				$all            = array( $post_parent );
+				$children       = get_posts( array(
+					'post_type'      => Tribe__Events__Main::POSTTYPE,
+					'fields'         => 'ids',
+					'posts_per_page' => $posts_per_page,
+					'post_parent'    => $post_parent,
+				) );
+				if ( ! empty( $children ) && is_array( $children ) ) {
+					sort( $children );
+					$all = array_merge( $all, $children );
+				}
+
+				return add_query_arg( array(
+					'include' => Tribe__Utils__Array::to_list( $all ),
+				), tribe_events_rest_url( '/events' ) );
+			}
+
+			return tribe_events_rest_url( 'events/' . $this_post_id );
 		}
 
 		/** @var WP_Query $wp_query */

@@ -32,7 +32,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '4.6.21';
+		const VERSION             = '4.6.22';
 		const MIN_ADDON_VERSION   = '4.4';
 		const MIN_COMMON_VERSION  = '4.7.18';
 
@@ -561,7 +561,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_filter( 'nav_menu_items_' . self::POSTTYPE, array( $this, 'add_events_checkbox_to_menu' ), null, 3 );
 			add_filter( 'wp_nav_menu_objects', array( $this, 'add_current_menu_item_class_to_events' ), null, 2 );
 
-			add_filter( 'template_redirect', array( $this, 'redirect_past_upcoming_view_urls' ), 9 );
+			add_action( 'template_redirect', array( $this, 'redirect_past_upcoming_view_urls' ), 9 );
 
 			/* Setup Tribe Events Bar */
 			add_filter( 'tribe-events-bar-views', array( $this, 'setup_listview_in_bar' ), 1, 1 );
@@ -653,6 +653,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( 'plugins_loaded', array( $this, 'init_day_view' ), 2 );
 
 			add_action( 'plugins_loaded', array( 'Tribe__Events__Templates', 'init' ) );
+			tribe( 'tec.bar' );
 
 			add_action( 'init', array( $this, 'filter_cron_schedules' ) );
 
@@ -962,6 +963,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				'update_post_meta_cache' => false,
 				'update_post_term_cache' => false,
 				'posts_per_page'         => 1,
+				'post_parent'            => 0,
 			) );
 
 			if ( ! $conflict_query->have_posts() ) {
@@ -2665,7 +2667,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function fullAddressString( $postId = null ) {
 			$address = '';
+			if ( tribe_get_venue( $postId ) ) {
+				$address .= tribe_get_venue( $postId );
+			}
+
 			if ( tribe_get_address( $postId ) ) {
+				if ( $address != '' ) {
+					$address .= ', ';
+				}
 				$address .= tribe_get_address( $postId );
 			}
 
