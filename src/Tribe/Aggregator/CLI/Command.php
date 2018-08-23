@@ -173,12 +173,12 @@ class Tribe__Events__Aggregator__CLI__Command {
 		$is_csv = 'csv' === $origin;
 
 		$types = array(
-			'ical'   => 'Tribe__Events__Aggregator__Record__iCal',
-			'gcal'   => 'Tribe__Events__Aggregator__Record__gCal',
-			'csv'    => 'Tribe__Events__Aggregator__Record__CSV',
-			'ics'    => 'Tribe__Events__Aggregator__Record__ICS',
+			'ical' => 'Tribe__Events__Aggregator__Record__iCal',
+			'gcal' => 'Tribe__Events__Aggregator__Record__gCal',
+			'csv' => 'Tribe__Events__Aggregator__Record__CSV',
+			'ics' => 'Tribe__Events__Aggregator__Record__ICS',
 			'meetup' => 'Tribe__Events__Aggregator__Record__Meetup',
-			'url'    => 'Tribe__Events__Aggregator__Record__Url',
+			'url' => 'Tribe__Events__Aggregator__Record__Url',
 		);
 
 		$record_class = Tribe__Utils__Array::get( $types, $origin, reset( $types ) );

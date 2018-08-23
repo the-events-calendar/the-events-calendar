@@ -105,9 +105,9 @@ class Tribe__Events__Importer__Options {
 		$options = self::getOption( 'imported_post_status', array( $type => 'publish' ) );
 
 		// Legacy for Facebook Status
-		// if ( 'facebook' === $type && empty( $options['facebook'] ) ){
-		// 	$options['facebook'] = Tribe__Settings_Manager::get_option( 'fb_default_status', 'publish' );
-		// }
+		if ( 'facebook' === $type && empty( $options['facebook'] ) ){
+			$options['facebook'] = Tribe__Settings_Manager::get_option( 'fb_default_status', 'publish' );
+		}
 
 		// A way to handle the legacy `imported_post_status`
 		if ( is_string( $options ) ) {
