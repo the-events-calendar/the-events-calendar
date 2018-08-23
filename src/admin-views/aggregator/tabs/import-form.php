@@ -33,19 +33,17 @@ wp_nonce_field( 'tribe-aggregator-save-import', 'tribe_aggregator_nonce' );
 	<tbody>
 
 		<?php
-		$field = (object) array();
-		$field->source = 'origins';
-		$field->label = esc_html__( 'Import Origin:', 'the-events-calendar' );
-		$field->placeholder = esc_attr__( 'Select Origin', 'the-events-calendar' );
-		$field->help = esc_attr__( 'Choose where you are importing from.', 'the-events-calendar' );
-		$field->options = tribe( 'events-aggregator.main' )->api( 'origins' )->get();
+		$field                 = (object) array();
+		$field->source         = 'origins';
+		$field->label          = esc_html__( 'Import Origin:', 'the-events-calendar' );
+		$field->placeholder    = esc_attr__( 'Select Origin', 'the-events-calendar' );
+		$field->help           = esc_attr__( 'Choose where you are importing from.', 'the-events-calendar' );
+		$field->options        = tribe( 'events-aggregator.main' )->api( 'origins' )->get();
 		$field->upsell_options = array();
-
-		pre_dump( $field->options, 'options' );
 
 		foreach ( $field->options as $key => $option ) {
 			$option->disabled = isset( $option->disabled ) ? $option->disabled : null;
-			$option->upsell = isset( $option->upsell ) ? $option->upsell : false;
+			$option->upsell   = isset( $option->upsell ) ? $option->upsell : false;
 
 			$option->is_selected = false;
 
