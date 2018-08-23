@@ -129,7 +129,6 @@ wp_nonce_field( 'tribe-aggregator-save-import', 'tribe_aggregator_nonce' );
 			$this->template( 'origins/ics', array( 'record' => $record, 'aggregator_action' => $aggregator_action ) );
 			$this->template( 'origins/ical', array( 'record' => $record, 'aggregator_action' => $aggregator_action ) );
 			$this->template( 'origins/gcal', array( 'record' => $record, 'aggregator_action' => $aggregator_action ) );
-			$this->template( 'origins/facebook', array( 'record' => $record, 'aggregator_action' => $aggregator_action ) );
 			$this->template( 'origins/meetup', array( 'record' => $record, 'aggregator_action' => $aggregator_action ) );
 			$this->template( 'origins/eventbrite', array( 'record' => $record, 'aggregator_action' => $aggregator_action ) );
 			$this->template( 'origins/url', array( 'record' => $record, 'aggregator_action' => $aggregator_action ) );
@@ -252,13 +251,6 @@ $scheduled_save_help = esc_html__( 'When you save this scheduled import, the eve
 		class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
 		data-bumpdown="<?php echo esc_attr( $scheduled_save_help ); ?>"
 		data-depends="#tribe-ea-field-meetup_import_type"
-		data-condition="schedule"
-		data-width-rule="all-triggers"
-	></span>
-	<span
-		class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
-		data-bumpdown="<?php echo esc_attr( $scheduled_save_help ); ?>"
-		data-depends="#tribe-ea-field-facebook_import_type"
 		data-condition="schedule"
 		data-width-rule="all-triggers"
 	></span>

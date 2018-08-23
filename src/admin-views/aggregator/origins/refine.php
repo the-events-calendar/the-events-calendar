@@ -22,10 +22,6 @@ switch ( $origin_slug ) {
 		$depends = "#tribe-ea-field-{$origin_slug}_import_type";
 		$radius->help = __( 'Use the filters to narrow down which events are fetched from this site.', 'the-events-calendar' );
 		break;
-	case 'facebook':
-		$depends = "#tribe-ea-field-{$origin_slug}_import_type";
-		$radius->help = __( 'Use the filters to narrow down which events are fetched from Facebook.', 'the-events-calendar' );
-		break;
 	case 'eventbrite':
 		$depends = "#tribe-ea-field-{$origin_slug}_import_source";
 		$depends_condition = 'data-condition=source_type_url';

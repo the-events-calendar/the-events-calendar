@@ -279,7 +279,6 @@ class Tribe__Events__Aggregator__Settings {
 			'ical',
 			'ics',
 			'eventbrite',
-			'facebook',
 			'meetup',
 			'url',
 		);
@@ -604,8 +603,7 @@ class Tribe__Events__Aggregator__Settings {
 	public function get_source_origin_regexp() {
 		$origins = array(
 			'eventbrite' => Tribe__Events__Aggregator__Record__Eventbrite::get_source_regexp(),
-			'facebook' => Tribe__Events__Aggregator__Record__Facebook::get_source_regexp(),
-			'meetup' => Tribe__Events__Aggregator__Record__Meetup::get_source_regexp(),
+			'meetup'     => Tribe__Events__Aggregator__Record__Meetup::get_source_regexp(),
 		);
 
 		/**
