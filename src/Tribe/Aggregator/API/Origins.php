@@ -31,12 +31,6 @@ class Tribe__Events__Aggregator__API__Origins extends Tribe__Events__Aggregator_
 				'name' => __( 'CSV File', 'the-events-calendar' ),
 				'disabled' => false,
 			),
-			'facebook' => (object) array(
-				'id' => 'facebook',
-				'name' => __( 'Facebook', 'the-events-calendar' ),
-				'disabled' => true,
-				'upsell' => true,
-			),
 			'eventbrite' => (object) array(
 				'id' => 'eventbrite',
 				'name' => __( 'Eventbrite', 'the-events-calendar' ),
