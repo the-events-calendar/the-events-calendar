@@ -493,7 +493,7 @@ class Tribe__Events__Linked_Posts {
 	 *
 	 * @return array
 	 */
-	public function get_linked_post_info( $linked_post_type, $args = array(), $linked_post_ids = null, $return_all_if_none = false ) {
+	public function get_linked_post_info( $linked_post_type, $args = array(), $linked_post_ids = null ) {
 		$func_args = func_get_args();
 		$cache_key = $this->cache->make_key( $func_args, 'linked_post_info_' );
 		if ( isset( $this->cache[ $cache_key ] ) ) {
@@ -1024,14 +1024,6 @@ class Tribe__Events__Linked_Posts {
 			)
 		);
 
-		if ( 'tribe_venue' === $post_type ) {
-			error_log('MY LINKED POSTS');
-			error_log(print_r($my_linked_posts, true));
-		}
-
-
-		remove_filter( 'tribe_events_return_all_linked_posts_if_none', '__return_true' );
-
 		if ( ! empty( $my_linked_posts ) ) {
 			foreach ( $my_linked_posts as $my_linked_post ) {
 				$my_linked_post_ids[] = $my_linked_post->ID;
@@ -1078,10 +1070,7 @@ class Tribe__Events__Linked_Posts {
 			);
 		}
 
-		if ( 'tribe_venue' === $post_type ) {
-			error_log('LINKED POSTS');
-			error_log(print_r($linked_posts, true));
-		}
+		remove_filter( 'tribe_events_return_all_linked_posts_if_none', '__return_true' );
 
 		if ( $linked_posts ) {
 			foreach ( $linked_posts as $linked_post ) {
