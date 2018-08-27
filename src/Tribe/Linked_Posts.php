@@ -493,7 +493,7 @@ class Tribe__Events__Linked_Posts {
 	 *
 	 * @return array
 	 */
-	public function get_linked_post_info( $linked_post_type, $args = array(), $linked_post_ids = null ) {
+	public function get_linked_post_info( $linked_post_type, $args = array(), $linked_post_ids = null, $return_all_if_none = false ) {
 		$func_args = func_get_args();
 		$cache_key = $this->cache->make_key( $func_args, 'linked_post_info_' );
 		if ( isset( $this->cache[ $cache_key ] ) ) {
@@ -515,7 +515,7 @@ class Tribe__Events__Linked_Posts {
 		 *
 		 * @return bool
 		 */
-		$return_all_if_none = (bool) apply_filters( 'tribe_events_return_all_linked_posts_if_none', false, $linked_post_type, $args, $linked_post_ids );
+		$return_all_if_none = (bool) apply_filters( 'tribe_events_return_all_linked_posts_if_none', $return_all_if_none, $linked_post_type, $args, $linked_post_ids );
 
 		// Explicitly force zero results if appropriate. Necessary because passing an empty array will actually display all posts, per https://core.trac.wordpress.org/ticket/28099
 		if (
@@ -1024,6 +1024,12 @@ class Tribe__Events__Linked_Posts {
 			)
 		);
 
+		if ( 'tribe_venue' === $post_type ) {
+			error_log('MY LINKED POSTS');
+			error_log(print_r($my_linked_posts, true));
+		}
+
+
 		remove_filter( 'tribe_events_return_all_linked_posts_if_none', '__return_true' );
 
 		if ( ! empty( $my_linked_posts ) ) {
@@ -1056,7 +1062,9 @@ class Tribe__Events__Linked_Posts {
 						'pending',
 					),
 					'post__not_in' => $my_linked_post_ids,
-				)
+				),
+				null,
+				true
 			);
 		} else {
 			$linked_posts = $this->get_linked_post_info(
@@ -1064,8 +1072,15 @@ class Tribe__Events__Linked_Posts {
 				array(
 					'post_status'  => 'publish',
 					'post__not_in' => $my_linked_post_ids,
-				)
+				),
+				null,
+				true
 			);
+		}
+
+		if ( 'tribe_venue' === $post_type ) {
+			error_log('LINKED POSTS');
+			error_log(print_r($linked_posts, true));
 		}
 
 		if ( $linked_posts ) {
