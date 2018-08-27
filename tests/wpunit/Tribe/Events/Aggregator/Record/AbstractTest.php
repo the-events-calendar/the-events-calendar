@@ -283,6 +283,8 @@ class AbstractTest extends Events_TestCase {
 	 * Test import_organizer_image
 	 */
 	public function test_import_organizer_image() {
+		$this->markTestSkipped( 'Facebook is no longer supported in Aggregator, so skip this FB-related test indefinitely.' );
+
 		$sut = new FB_Record();
 		$service_image = $this->factory()->attachment->create_and_get( [ 'file' => codecept_data_dir( 'images/featured-image.jpg' ) ] );
 		$organizer_id = $this->factory()->organizer->create();
@@ -296,6 +298,8 @@ class AbstractTest extends Events_TestCase {
 	 * Test import_organizer_image with non URL
 	 */
 	public function test_import_organizer_image_with_non_url() {
+		$this->markTestSkipped( 'Facebook is no longer supported in Aggregator, so skip this FB-related test indefinitely.' );
+
 		$sut = new FB_Record();
 		$service_image = $this->factory()->attachment->create_and_get( [ 'file' => codecept_data_dir( 'images/featured-image.jpg' ) ] );
 		$organizer_id = $this->factory()->organizer->create();
@@ -309,6 +313,8 @@ class AbstractTest extends Events_TestCase {
 	 * Test import_organizer_image with empty organizer
 	 */
 	public function test_import_organizer_image_with_empty_organizer() {
+		$this->markTestSkipped( 'Facebook is no longer supported in Aggregator, so skip this FB-related test indefinitely.' );
+
 		$sut = new FB_Record();
 		$organizer_id = '';
 		$activity = $this->prophesize( Activity::class );
@@ -321,6 +327,8 @@ class AbstractTest extends Events_TestCase {
 	 * Test import_organizer_image with not an organizer
 	 */
 	public function test_import_organizer_image_with_not_an_organizer() {
+		$this->markTestSkipped( 'Facebook is no longer supported in Aggregator, so skip this FB-related test indefinitely.' );
+
 		$sut = new FB_Record();
 		$organizer_id = $this->factory()->post->create();
 		$activity = $this->prophesize( Activity::class );
@@ -333,6 +341,8 @@ class AbstractTest extends Events_TestCase {
 	 * Test import_venue_image
 	 */
 	public function test_import_venue_image() {
+		$this->markTestSkipped( 'Facebook is no longer supported in Aggregator, so skip this FB-related test indefinitely.' );
+
 		$sut = new FB_Record();
 		$service_image = $this->factory()->attachment->create_and_get( [ 'file' => codecept_data_dir( 'images/featured-image.jpg' ) ] );
 		$venue_id = $this->factory()->venue->create();
@@ -346,6 +356,8 @@ class AbstractTest extends Events_TestCase {
 	 * Test import_venue_image with non URL
 	 */
 	public function test_import_venue_image_with_non_url() {
+		$this->markTestSkipped( 'Facebook is no longer supported in Aggregator, so skip this FB-related test indefinitely.' );
+
 		$sut = new FB_Record();
 		$service_image = $this->factory()->attachment->create_and_get( [ 'file' => codecept_data_dir( 'images/featured-image.jpg' ) ] );
 		$venue_id = $this->factory()->venue->create();
@@ -359,6 +371,8 @@ class AbstractTest extends Events_TestCase {
 	 * Test import_venue_image with empty venue
 	 */
 	public function test_import_venue_image_with_empty_venue() {
+		$this->markTestSkipped( 'Facebook is no longer supported in Aggregator, so skip this FB-related test indefinitely.' );
+
 		$sut = new FB_Record();
 		$venue_id = '';
 		$activity = $this->prophesize( Activity::class );
@@ -371,6 +385,8 @@ class AbstractTest extends Events_TestCase {
 	 * Test import_venue_image with not an venue
 	 */
 	public function test_import_venue_image_with_not_an_venue() {
+		$this->markTestSkipped( 'Facebook is no longer supported in Aggregator, so skip this FB-related test indefinitely.' );
+
 		$sut = new FB_Record();
 		$venue_id = $this->factory()->post->create();
 		$activity = $this->prophesize( Activity::class );
@@ -383,6 +399,8 @@ class AbstractTest extends Events_TestCase {
 	 * Test venue image import can be blocked with filter
 	 */
 	public function test_venue_image_import_can_be_blocked_with_filter() {
+		$this->markTestSkipped( 'Facebook is no longer supported in Aggregator, so skip this FB-related test indefinitely.' );
+
 		add_filter( 'tribe_aggregator_import_venue_image', '__return_false' );
 		$sut           = new FB_Record();
 		$service_image = $this->factory()->attachment->create_and_get( [ 'file' => codecept_data_dir( 'images/featured-image.jpg' ) ] );
@@ -397,6 +415,8 @@ class AbstractTest extends Events_TestCase {
 	 * Test organizer image import can be blocked with filter
 	 */
 	public function test_organizer_image_import_can_be_blocked_with_filter() {
+		$this->markTestSkipped( 'Facebook is no longer supported in Aggregator, so skip this FB-related test indefinitely.' );
+
 		add_filter( 'tribe_aggregator_import_organizer_image', '__return_false' );
 		$sut           = new FB_Record();
 		$service_image = $this->factory()->attachment->create_and_get( [ 'file' => codecept_data_dir( 'images/featured-image.jpg' ) ] );
@@ -410,6 +430,8 @@ class AbstractTest extends Events_TestCase {
 	 * Test import_event_image
 	 */
 	public function test_import_event_image() {
+		$this->markTestSkipped( 'Facebook is no longer supported in Aggregator, so skip this FB-related test indefinitely.' );
+
 		$sut = new FB_Record();
 		$service_image = $this->factory()->attachment->create_and_get( [ 'file' => codecept_data_dir( 'images/featured-image.jpg' ) ] );
 		$event = (array)$this->factory()->event->create_and_get();
@@ -424,6 +446,8 @@ class AbstractTest extends Events_TestCase {
 	 * Test import_event_image with non URL
 	 */
 	public function test_import_event_image_with_non_url() {
+		$this->markTestSkipped( 'Facebook is no longer supported in Aggregator, so skip this FB-related test indefinitely.' );
+
 		$sut = new FB_Record();
 		$service_image = $this->factory()->attachment->create_and_get( [ 'file' => codecept_data_dir( 'images/featured-image.jpg' ) ] );
 		$event = (array)$this->factory()->event->create_and_get();
@@ -438,6 +462,8 @@ class AbstractTest extends Events_TestCase {
 	 * Test import_event_image with empty event
 	 */
 	public function test_import_event_image_with_empty_event() {
+		$this->markTestSkipped( 'Facebook is no longer supported in Aggregator, so skip this FB-related test indefinitely.' );
+
 		$sut = new FB_Record();
 		$event = [];
 		$activity = $this->prophesize( Activity::class );
@@ -450,6 +476,8 @@ class AbstractTest extends Events_TestCase {
 	 * Test import_event_image with not an event
 	 */
 	public function test_import_event_image_with_not_an_event() {
+		$this->markTestSkipped( 'Facebook is no longer supported in Aggregator, so skip this FB-related test indefinitely.' );
+
 		$sut = new FB_Record();
 		$service_image = $this->factory()->attachment->create_and_get( [ 'file' => codecept_data_dir( 'images/featured-image.jpg' ) ] );
 		$event = (array)$this->factory()->post->create_and_get();
@@ -464,6 +492,8 @@ class AbstractTest extends Events_TestCase {
 	 * Test event image import can be blocked with filter
 	 */
 	public function test_event_image_import_can_be_blocked_with_filter() {
+		$this->markTestSkipped( 'Facebook is no longer supported in Aggregator, so skip this FB-related test indefinitely.' );
+
 		add_filter( 'tribe_aggregator_import_event_image', '__return_false' );
 		$sut           = new FB_Record();
 		$service_image = $this->factory()->attachment->create_and_get( [ 'file' => codecept_data_dir( 'images/featured-image.jpg' ) ] );
@@ -527,7 +557,7 @@ class AbstractTest extends Events_TestCase {
 		$this->assertCount( 3, $updated_organizers );
 		$this->assertEquals( $organizer_ids, get_post_meta( $created_events[0], '_EventOrganizerID' ) );
 	}
-	
+
 	/**
 	 * It should reschedule a failed import again at half its frequency
 	 *
