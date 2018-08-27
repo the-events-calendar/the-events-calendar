@@ -215,6 +215,10 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
+= [4.6.23] 2018-08-27 =
+
+* Fix - allow user to choose venues not created by them. Props to @integrity and @nomadadmin for who reporting this! [113147]
+
 = [4.6.22] 2018-08-22 =
 
 * Add - Allow filtering events, in REST API requests, by their post ID with `include` [94326]
