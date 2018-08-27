@@ -515,7 +515,7 @@ class Tribe__Events__Linked_Posts {
 		 *
 		 * @return bool
 		 */
-		$return_all_if_none = (bool) apply_filters( 'tribe_events_return_all_linked_posts_if_none', $return_all_if_none, $linked_post_type, $args, $linked_post_ids );
+		$return_all_if_none = (bool) apply_filters( 'tribe_events_return_all_linked_posts_if_none', false, $linked_post_type, $args, $linked_post_ids );
 
 		// Explicitly force zero results if appropriate. Necessary because passing an empty array will actually display all posts, per https://core.trac.wordpress.org/ticket/28099
 		if (
