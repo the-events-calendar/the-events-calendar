@@ -1054,9 +1054,7 @@ class Tribe__Events__Linked_Posts {
 						'pending',
 					),
 					'post__not_in' => $my_linked_post_ids,
-				),
-				null,
-				true
+				)
 			);
 		} else {
 			$linked_posts = $this->get_linked_post_info(
@@ -1064,9 +1062,7 @@ class Tribe__Events__Linked_Posts {
 				array(
 					'post_status'  => 'publish',
 					'post__not_in' => $my_linked_post_ids,
-				),
-				null,
-				true
+				)
 			);
 		}
 
