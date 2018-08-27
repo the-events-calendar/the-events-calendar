@@ -309,8 +309,8 @@ class Tribe__Events__Aggregator__Migrate {
 		if ( ! empty( $ids ) ) {
 			// Clean and Break into multiple Items
 			$ids = str_replace( "\r", '', $ids );
-			$ids = array_unique( array_filter( explode( "\n" , $ids ) ) );
-			$ids = array_map( 'trim',  $ids );
+			$ids = array_unique( array_filter( explode( "\n", $ids ) ) );
+			$ids = array_map( 'trim', $ids );
 
 			foreach ( $ids as $id ) {
 				if ( is_numeric( $id ) ) {
