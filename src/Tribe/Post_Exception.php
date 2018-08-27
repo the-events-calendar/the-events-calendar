@@ -17,9 +17,9 @@ if ( ! class_exists( 'Tribe__Events__Post_Exception' ) ) {
 		 */
 		public static function displayMessage( $postId ) {
 			if ( $error = get_post_meta( $postId, Tribe__Events__Main::EVENTSERROROPT, true ) ) : ?>
-				<script type="text/javascript">
+				<script>
 					jQuery('#tribe-events-post-error')
-						.append('<h3><?php esc_html_e( 'Error', 'tribe-events-calendar' ); ?></h3><p>' + '<?php echo $error; ?>' + '</p>')
+						.append('<h2><?php esc_html_e( 'Error', 'the-events-calendar' ); ?></h2><p>' + '<?php echo $error; ?>' + '</p>')
 						.show();
 				</script>
 			<?php endif;

@@ -26,7 +26,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @param array  $args          query args to pass to the month view
 	 * @param string $template_path template to use, defaults to the full month view
 	 *
-	 * @return void
 	 **/
 	function tribe_show_month( $args = array(), $template_path = 'month/content' ) {
 
@@ -56,20 +55,31 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				$_REQUEST[ $key ] = $value;
 			}
 		}
+
+		return $month_class->get_events_in_month_ids();
 	}
 
 	/**
 	 * Month view conditional tag
 	 *
-	 * Returns true if the current view is Month
+	 * Returns true when on the "real" Month View itself, but not in other secondary instances of the
+	 * Month View like instance of the [tribe_events] shortcode.
 	 *
 	 * @return bool
 	 */
 	function tribe_is_month() {
 		$tribe_ecp = Tribe__Events__Main::instance();
-		$output    = ( $tribe_ecp->displaying == 'month' ) ? true : false;
+		$is_month  = ( 'month' === $tribe_ecp->displaying ) ? true : false;
 
-		return apply_filters( 'tribe_is_month', $output );
+		/**
+		 * Allows filtering of the tribe_is_month boolean value.
+		 *
+		 * @since 4.6.15 Added inline documentation for this filter.
+		 *
+		 * @param boolean $is_month Whether you're on the main Month View or not
+		 * @param Tribe__Events__Main $tribe_ecp The current Tribe__Events__Main instance.
+		 */
+		return apply_filters( 'tribe_is_month', $is_month, $tribe_ecp );
 	}
 
 	/**
@@ -107,7 +117,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * ?>
 	 * </ code >
 	 *
-	 * @return void
 	 * @see Tribe__Events__Template__Month::the_day()
 	 **/
 	function tribe_events_the_month_day() {
@@ -160,7 +169,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * Used in the month loop.
 	 * Outputs classes for the current month day, including special classes for past / present / future days
 	 *
-	 * @return void
 	 * @see Tribe__Events__Template__Month::day_classes()
 	 **/
 	function tribe_events_the_month_day_classes() {
@@ -171,7 +179,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * Used in the month loop.
 	 * Outputs classes for the current single event in the month loop
 	 *
-	 * @return void
 	 * @see Tribe__Events__Template__Month::event_classes()
 	 **/
 	function tribe_events_the_month_single_event_classes() {
@@ -179,13 +186,36 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	}
 
 	/**
-	 * Returns whether there are any events in the month
+	 * Returns whether there are any events in the specific month.
+	 * Independently if there are filters or not.
 	 *
 	 * @return bool
 	 * @see Tribe__Events__Template__Month::get_daily_counts()
+	 * @since 3.1.1
 	 **/
 	function tribe_events_month_has_events() {
 		return apply_filters( 'tribe_events_month_has_events', false );
+	}
+
+	/**
+	 * Returns whether there are any events in the month,
+	 * with the filtered results.
+	 *
+	 * @return bool
+	 *
+	 * @since 4.6.19
+	 * @see Tribe__Events__Template__Month::has_events_filtered()
+	 **/
+	function tribe_events_month_has_events_filtered() {
+		$tribe_month = new Tribe__Events__Template__Month();
+		$has_events  = $tribe_month->has_events_filtered();
+
+		/**
+		 * Filter the result for the check if the month has events after the filters.
+		 *
+		 * @since 4.6.19
+		 */
+		return apply_filters( 'tribe_events_month_has_events_filtered', $has_events );
 	}
 
 
@@ -211,9 +241,12 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string Date currently queried
 	 */
 	function tribe_get_month_view_date() {
-		global $wp_query;
 
-		$today = date_i18n( Tribe__Events__Date_Utils::DBDATEFORMAT, strtotime( date( 'Y-m-01', current_time( 'timestamp' ) ) ) );
+		if ( ! $wp_query = tribe_get_global_query_object() ) {
+			return;
+		}
+
+		$today = date_i18n( Tribe__Date_Utils::DBDATEFORMAT, strtotime( date( 'Y-m-01', current_time( 'timestamp' ) ) ) );
 		$date  = $today;
 
 		if ( ! empty( $_REQUEST['tribe-bar-date'] ) ) {
@@ -245,15 +278,16 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * No link will be returned if the link is to a month that precedes any existing
 	 * events.
 	 *
-	 * @return void
 	 * @uses tribe_get_previous_month_text()
 	 **/
 	function tribe_events_the_previous_month_link() {
 		$html = '';
 		$url  = tribe_get_previous_month_link();
 		$date = Tribe__Events__Main::instance()->previousMonth( tribe_get_month_view_date() );
+		$earliest_event_date = tribe_events_earliest_date( Tribe__Date_Utils::DBYEARMONTHTIMEFORMAT );
 
-		if ( $date >= tribe_events_earliest_date( Tribe__Events__Date_Utils::DBYEARMONTHTIMEFORMAT ) ) {
+		// Only form the link if a) we have a known earliest event date and b) the previous month date is the same or later
+		if ( $earliest_event_date && $date >= $earliest_event_date ) {
 			$text = tribe_get_previous_month_text();
 			$html = '<a data-month="' . $date . '" href="' . esc_url( $url ) . '" rel="prev"><span>&laquo;</span> ' . $text . ' </a>';
 		}
@@ -264,7 +298,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	/**
 	 * Display an html link to the next month. Used in the month navigation.
 	 *
-	 * @return void
 	 * @uses tribe_get_next_month_text()
 	 **/
 	function tribe_events_the_next_month_link() {
@@ -275,7 +308,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		// Check if $url is populated (an empty string may indicate the date was out-of-bounds, ie on 32bit servers)
 		if ( ! empty( $url ) ) {
 			$date = Tribe__Events__Main::instance()->nextMonth( tribe_get_month_view_date() );
-			if ( $date <= tribe_events_latest_date( Tribe__Events__Date_Utils::DBYEARMONTHTIMEFORMAT ) ) {
+			if ( $date <= tribe_events_latest_date( Tribe__Date_Utils::DBYEARMONTHTIMEFORMAT ) ) {
 				$html = '<a data-month="' . $date . '" href="' . esc_url( $url ) . '" rel="next">' . $text . ' <span>&raquo;</span></a>';
 			}
 		}
@@ -291,7 +324,11 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string URL
 	 */
 	function tribe_get_previous_month_link() {
-		global $wp_query;
+
+		if ( ! $wp_query = tribe_get_global_query_object() ) {
+			return;
+		}
+
 		$term      = null;
 		$tribe_ecp = Tribe__Events__Main::instance();
 		if ( isset( $wp_query->query_vars[ Tribe__Events__Main::TAXONOMY ] ) ) {
@@ -324,7 +361,11 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string URL
 	 */
 	function tribe_get_next_month_link() {
-		global $wp_query;
+
+		if ( ! $wp_query = tribe_get_global_query_object() ) {
+			return;
+		}
+
 		$term      = null;
 		$tribe_ecp = Tribe__Events__Main::instance();
 		if ( isset( $wp_query->query_vars[ Tribe__Events__Main::TAXONOMY ] ) ) {

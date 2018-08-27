@@ -296,6 +296,22 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			return tribe_get_events( $numResults, $catName );
 		}
 	}
+	if ( ! function_exists( 'tribe_event_link' ) ) {
+		/**
+		 * @deprecated
+		 *
+		 * Display link to a single event
+		 *
+		 * @param null|int $post Optional post ID
+		 *
+		 * @return string Link html
+		 */
+		function tribe_event_link( $post = null ) {
+			_deprecated_function( __FUNCTION__, '4.0', 'tribe_get_event_link()' );
+
+			echo apply_filters( 'tribe_event_link', tribe_get_event_link( $post ) );
+		}
+	}
 	if ( ! function_exists( 'events_displaying_past' ) ) {
 		/**
 		 * @deprecated
@@ -1280,11 +1296,11 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				'before'       => '<dd class="tribe-event-categories">',
 				'sep'          => ', ',
 				'after'        => '</dd>',
-				'label'        => __( 'Category', 'tribe-events-calendar' ),
+				'label'        => esc_attr__( 'Category', 'the-events-calendar' ),
 				'label_before' => '<dt>',
 				'label_after'  => '</dt>',
 				'wrap_before'  => '',
-				'wrap_after'   => ''
+				'wrap_after'   => '',
 			);
 			echo apply_filters( 'tribe_meta_event_cats', tribe_get_event_categories( get_the_ID(), $args ) );
 		}
@@ -1444,5 +1460,69 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		_deprecated_function( __FUNCTION__, '3.0' );
 	}
 
+	/**
+	 * Formatted Date
+	 *
+	 * Returns formatted date
+	 *
+	 * @category Events
+	 * @see http://php.net/manual/en/function.date.php
+	 *
+	 * @param string $date        String representing the datetime, assumed to be UTC (relevant if timezone conversion is used)
+	 * @param bool   $displayTime If true shows date and time, if false only shows date
+	 * @param string $dateFormat  Allows date and time formating using standard php syntax
+	 *
+	 * @return string
+	 */
+	function tribe_event_format_date( $date, $displayTime = true, $dateFormat = '' ) {
+		_deprecated_function( __FUNCTION__, '4.0', 'tribe_format_date' );
+		return tribe_format_date( $date, $displayTime, $dateFormat );
+	}
 
+	/**
+	 * Returns formatted date for the official beginning of the day according to the Multi-day cutoff time option
+	 *
+	 * @category Events
+	 * @see http://php.net/manual/en/function.date.php
+	 *
+	 * @param string $date   The date to find the beginning of the day, defaults to today
+	 * @param string $format Allows date and time formating using standard php syntax
+	 *
+	 * @return string
+	 */
+	function tribe_event_beginning_of_day( $date = null, $format = 'Y-m-d H:i:s' ) {
+		_deprecated_function( __FUNCTION__, '4.0', 'tribe_beginning_of_day' );
+		return tribe_beginning_of_day( $date, $format );
+	}
+
+	/**
+	 * Returns formatted date for the official end of the day according to the Multi-day cutoff time option
+	 *
+	 * @category Events
+	 * @see http://php.net/manual/en/function.date.php
+	 *
+	 * @param string $date   The date to find the end of the day, defaults to today
+	 * @param string $format Allows date and time formating using standard php syntax
+	 *
+	 * @return string
+	 */
+	function tribe_event_end_of_day( $date = null, $format = 'Y-m-d H:i:s' ) {
+		_deprecated_function( __FUNCTION__, '4.0', 'tribe_end_of_day' );
+		return tribe_end_of_day( $date, $format );
+	}
+
+	/**
+	 * Generates html for any notices that have been queued on the current view
+	 *
+	 * @category Events
+	 *
+	 * @param bool $echo Whether or not to echo the notices html
+	 *
+	 * @return string
+	 * @see Tribe__Notices::get()
+	 **/
+	function tribe_events_the_notices( $echo = true ) {
+		_deprecated_function( __FUNCTION__, '4.0', 'tribe_the_notices' );
+		return tribe_the_notices( $echo );
+	}
 }

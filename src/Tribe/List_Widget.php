@@ -27,7 +27,7 @@ class Tribe__Events__List_Widget extends WP_Widget {
 		$widget_options = array_merge(
 			array(
 				'classname'   => 'tribe-events-list-widget',
-				'description' => __( 'A widget that displays upcoming events.', 'tribe-events-calendar' ),
+				'description' => esc_html__( 'A widget that displays upcoming events.', 'the-events-calendar' ),
 			),
 			$widget_options
 		);
@@ -35,7 +35,7 @@ class Tribe__Events__List_Widget extends WP_Widget {
 		$control_options = array_merge( array( 'id_base' => 'tribe-events-list-widget' ), $control_options );
 
 		$id_base = empty( $id_base ) ? 'tribe-events-list-widget' : $id_base;
-		$name    = empty( $name ) ? __( 'Events List', 'tribe-events-calendar' ) : $name;
+		$name    = empty( $name ) ? esc_html__( 'Events List', 'the-events-calendar' ) : $name;
 
 		parent::__construct( $id_base, $name, $widget_options, $control_options );
 	}
@@ -63,7 +63,12 @@ class Tribe__Events__List_Widget extends WP_Widget {
 	 * @param string $pluginPath    The pluginpath so we can locate the template stuff.
 	 */
 	public function widget_output( $args, $instance, $template_name = 'widgets/list-widget' ) {
-		global $wp_query, $tribe_ecp, $post;
+		global $tribe_ecp;
+		global $post;
+
+		if ( ! $wp_query = tribe_get_global_query_object() ) {
+			return;
+		}
 
 		$instance = wp_parse_args(
 			$instance, array(
@@ -83,6 +88,10 @@ class Tribe__Events__List_Widget extends WP_Widget {
 		 */
 		extract( $args, EXTR_SKIP );
 		extract( $instance, EXTR_SKIP );
+
+		if ( ! isset( $no_upcoming_events ) ) {
+			$no_upcoming_events = true;
+		}
 
 		// Temporarily unset the tribe bar params so they don't apply
 		$hold_tribe_bar_args = array();
@@ -106,6 +115,9 @@ class Tribe__Events__List_Widget extends WP_Widget {
 				'tribe_events_list_widget_query_args', array(
 					'eventDisplay'   => 'list',
 					'posts_per_page' => self::$limit,
+					'is_tribe_widget' => true,
+					'tribe_render_context' => 'widget',
+					'featured' => empty( $instance['featured_events_only'] ) ? false : (bool) $instance['featured_events_only'],
 				)
 			)
 		);
@@ -131,6 +143,27 @@ class Tribe__Events__List_Widget extends WP_Widget {
 		echo $after_widget;
 		wp_reset_query();
 
+		$jsonld_enable = isset( $jsonld_enable ) ? $jsonld_enable : true;
+
+		/**
+		 * Filters whether JSON LD information should be printed to the page or not for this widget type.
+		 *
+		 * @param bool $jsonld_enable Whether JSON-LD should be printed to the page or not; default `true`.
+		 */
+		$jsonld_enable = apply_filters( 'tribe_events_' . $this->id_base . '_jsonld_enabled', $jsonld_enable );
+
+
+		/**
+		 * Filters whether JSON LD information should be printed to the page for any widget type.
+		 *
+		 * @param bool $jsonld_enable Whether JSON-LD should be printed to the page or not; default `true`.
+		 */
+		$jsonld_enable = apply_filters( 'tribe_events_widget_jsonld_enabled', $jsonld_enable );
+
+		if ( $jsonld_enable ) {
+			Tribe__Events__JSON_LD__Event::instance()->markup( self::$posts );
+		}
+
 		// Reinstate the tribe bar params
 		if ( ! empty( $hold_tribe_bar_args ) ) {
 			foreach ( $hold_tribe_bar_args as $key => $value ) {
@@ -149,11 +182,19 @@ class Tribe__Events__List_Widget extends WP_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
+		$new_instance = $this->default_instance_args( $new_instance );
 
 		/* Strip tags (if needed) and update the widget settings. */
-		$instance['title']              = strip_tags( $new_instance['title'] );
-		$instance['limit']              = $new_instance['limit'];
-		$instance['no_upcoming_events'] = $new_instance['no_upcoming_events'];
+		$instance['title']                = strip_tags( $new_instance['title'] );
+		$instance['limit']                = $new_instance['limit'];
+		$instance['no_upcoming_events']   = $new_instance['no_upcoming_events'];
+		$instance['featured_events_only'] = $new_instance['featured_events_only'];
+
+		if ( isset( $new_instance['jsonld_enable'] ) && $new_instance['jsonld_enable'] == true ) {
+			$instance['jsonld_enable'] = 1;
+		} else {
+			$instance['jsonld_enable'] = 0;
+		}
 
 		return $instance;
 	}
@@ -166,14 +207,25 @@ class Tribe__Events__List_Widget extends WP_Widget {
 	 * @return string The output for the admin widget form.
 	 */
 	public function form( $instance ) {
-		/* Set up default widget settings. */
-		$defaults  = array(
-			'title'              => __( 'Upcoming Events', 'tribe-events-calendar' ),
-			'limit'              => '5',
-			'no_upcoming_events' => false,
-		);
-		$instance  = wp_parse_args( (array) $instance, $defaults );
+		$instance  = $this->default_instance_args( $instance );
 		$tribe_ecp = Tribe__Events__Main::instance();
 		include( $tribe_ecp->pluginPath . 'src/admin-views/widget-admin-list.php' );
+	}
+
+	/**
+	 * Accepts and returns the widget's instance array - ensuring any missing
+	 * elements are generated and set to their default value.
+	 *
+	 * @param array $instance
+	 *
+	 * @return array
+	 */
+	protected function default_instance_args( array $instance ) {
+		return wp_parse_args( $instance, array(
+			'title'                => esc_html__( 'Upcoming Events', 'the-events-calendar' ),
+			'limit'                => '5',
+			'no_upcoming_events'   => false,
+			'featured_events_only' => false,
+		) );
 	}
 }

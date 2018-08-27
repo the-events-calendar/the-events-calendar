@@ -63,6 +63,10 @@
 				params = params + '&tribe_event_category=' + ts.category;
 			}
 
+			if ( tf.is_featured() ) {
+				params = params + '&featured=1';
+			}
+
 			history.replaceState( {
 				"tribe_params"    : params,
 				"tribe_url_params": td.params
@@ -171,11 +175,11 @@
 
 		}
 
-		$( te ).on( "tribe_ev_runAjax", function() {
+		$( te ).on( 'tribe_ev_runAjax', function() {
 			tribe_events_day_ajax_post();
 		} );
 
-		$( te ).on( "tribe_ev_updatingRecurrence", function() {
+		$( te ).on( 'tribe_ev_updatingRecurrence', function() {
 			if ( ts.filter_cats ) {
 				td.cur_url = ( td.default_permalinks ) ? base_url + '=' + td.cur_date : base_url + td.cur_date + '/';
 			}
@@ -208,12 +212,18 @@
 
 				ts.params = {
 					action   : 'tribe_event_day',
-					eventDate: ts.date
+					eventDate: ts.date,
+					featured : tf.is_featured()
 				};
 
 				ts.url_params = {
 					action: 'tribe_event_day'
 				};
+
+				// add shortcode display value
+				if ( ! ts.url_params.hasOwnProperty( 'tribe_event_display' ) ) {
+					ts.url_params['tribe_event_display'] = ts.view;
+				}
 
 				if ( ts.category ) {
 					ts.params['tribe_event_category'] = ts.category;
@@ -250,9 +260,11 @@
 			if ( tt.pushstate && !ts.filter_cats ) {
 
 				// @ifdef DEBUG
-				dbug && debug.time( 'Day View Ajax Timer' );
+				dbug && tec_debug.time( 'Day View Ajax Timer' );
 				// @endif
+
 				$( te ).trigger( 'tribe_ev_ajaxStart' ).trigger( 'tribe_ev_dayView_AjaxStart' );
+
 				$( '#tribe-events-content .tribe-events-loop' ).tribe_spin();
 
 				$.post(
@@ -285,13 +297,27 @@
 							$( '.tribe-events-promo' ).next( '.tribe-events-promo' ).remove();
 
 							ts.page_title = $( '#tribe-events-header' ).data( 'title' );
+							ts.view_title = $( '#tribe-events-header' ).data( 'viewtitle' );
 							document.title = ts.page_title;
+							$( '.tribe-events-page-title' ).html(ts.view_title);
+
+							// @TODO: We need to D.R.Y. this assignment and the following if statement about shortcodes/do_string
+							// Ensure that the base URL is, in fact, the URL we want
+							td.cur_url = tf.get_base_url();
+
+							// we only want to add query args for Shortcodes and ugly URL sites
+							if (
+									$( '#tribe-events.tribe-events-shortcode' ).length
+									|| ts.do_string
+							) {
+								if ( -1 !== td.cur_url.indexOf( '?' ) ) {
+									td.cur_url = td.cur_url.split( '?' )[0];
+								}
+
+								td.cur_url = td.cur_url + '?' + ts.url_params;
+							}
 
 							if ( ts.do_string ) {
-								if(td.cur_url.indexOf('?') !== -1){
-									td.cur_url = td.cur_url.split("?")[0];
-								}
-								td.cur_url = td.cur_url + '?' + ts.url_params;
 								history.pushState( {
 									"tribe_date"  : ts.date,
 									"tribe_params": ts.params
@@ -308,9 +334,10 @@
 							tribe_day_add_classes();
 
 							$( te ).trigger( 'tribe_ev_ajaxSuccess' ).trigger( 'tribe_ev_dayView_AjaxSuccess' );
+							$( te ).trigger( 'ajax-success.tribe' ).trigger( 'tribe_ev_dayView_AjaxSuccess' );
 
 							// @ifdef DEBUG
-							dbug && debug.timeEnd( 'Day View Ajax Timer' );
+							dbug && tec_debug.timeEnd( 'Day View Ajax Timer' );
 							// @endif
 
 						}
@@ -329,8 +356,8 @@
 		}
 
 		// @ifdef DEBUG
-		dbug && debug.info( 'TEC Debug: tribe-events-ajax-day.js successfully loaded' );
-		ts.view && dbug && debug.timeEnd( 'Tribe JS Init Timer' );
+		dbug && tec_debug.info( 'TEC Debug: tribe-events-ajax-day.js successfully loaded' );
+		ts.view && dbug && tec_debug.timeEnd( 'Tribe JS Init Timer' );
 		// @endif
 
 	} );

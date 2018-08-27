@@ -6,8 +6,12 @@
  * $filters and $views variables are loaded in and coming from
  * the show funcion in: lib/Bar.php
  *
- * @package TribeEventsCalendar
+ * Override this template in your own theme by creating a file at:
  *
+ *     [your-theme]/tribe-events/modules/bar.php
+ *
+ * @package  TribeEventsCalendar
+ * @version 4.6.19
  */
 ?>
 
@@ -22,23 +26,33 @@ $current_url = tribe_events_get_current_filter_url();
 <?php do_action( 'tribe_events_bar_before_template' ) ?>
 <div id="tribe-events-bar">
 
+	<h2 class="tribe-events-visuallyhidden"><?php printf( esc_html__( '%s Search and Views Navigation', 'the-events-calendar' ), tribe_get_event_label_plural() ); ?></h2>
+
 	<form id="tribe-bar-form" class="tribe-clearfix" name="tribe-bar-form" method="post" action="<?php echo esc_attr( $current_url ); ?>">
 
 		<!-- Mobile Filters Toggle -->
 
 		<div id="tribe-bar-collapse-toggle" <?php if ( count( $views ) == 1 ) { ?> class="tribe-bar-collapse-toggle-full-width"<?php } ?>>
-			<?php printf( __( 'Find %s', 'tribe-events-calendar' ), tribe_get_event_label_plural() ); ?><span class="tribe-bar-toggle-arrow"></span>
+			<?php printf( esc_html__( 'Find %s', 'the-events-calendar' ), tribe_get_event_label_plural() ); ?><span class="tribe-bar-toggle-arrow"></span>
 		</div>
 
 		<!-- Views -->
 		<?php if ( count( $views ) > 1 ) { ?>
 			<div id="tribe-bar-views">
 				<div class="tribe-bar-views-inner tribe-clearfix">
-					<h3 class="tribe-events-visuallyhidden"><?php esc_html_e( 'Event Views Navigation', 'tribe-events-calendar' ) ?></h3>
-					<label><?php esc_html_e( 'View As', 'tribe-events-calendar' ); ?></label>
-					<select class="tribe-bar-views-select tribe-no-param" name="tribe-bar-view">
+					<h3 class="tribe-events-visuallyhidden"><?php printf( esc_html__( '%s Views Navigation', 'the-events-calendar' ), tribe_get_event_label_singular() ); ?></h3>
+					<label><?php esc_html_e( 'View As', 'the-events-calendar' ); ?></label>
+					<select
+						class="tribe-bar-views-select tribe-no-param"
+						name="tribe-bar-view"
+						aria-label="<?php printf( esc_attr__( 'View %s As', 'the-events-calendar' ), tribe_get_event_label_plural() ); ?>"
+					>
 						<?php foreach ( $views as $view ) : ?>
-							<option <?php echo tribe_is_view( $view['displaying'] ) ? 'selected' : 'tribe-inactive' ?> value="<?php echo esc_attr( $view['url'] ); ?>" data-view="<?php echo esc_attr( $view['displaying'] ); ?>">
+							<option
+								<?php echo tribe_is_view( $view['displaying'] ) ? 'selected' : 'tribe-inactive' ?>
+								value="<?php echo esc_attr( $view['url'] ); ?>"
+								data-view="<?php echo esc_attr( $view['displaying'] ); ?>"
+							>
 								<?php echo $view['anchor']; ?>
 							</option>
 						<?php endforeach; ?>
@@ -51,6 +65,7 @@ $current_url = tribe_events_get_current_filter_url();
 		<?php if ( ! empty( $filters ) ) { ?>
 			<div class="tribe-bar-filters">
 				<div class="tribe-bar-filters-inner tribe-clearfix">
+					<h3 class="tribe-events-visuallyhidden"><?php printf( esc_html__( '%s Search', 'the-events-calendar' ), tribe_get_event_label_plural() ); ?></h3>
 					<?php foreach ( $filters as $filter ) : ?>
 						<div class="<?php echo esc_attr( $filter['name'] ) ?>-filter">
 							<label class="label-<?php echo esc_attr( $filter['name'] ) ?>" for="<?php echo esc_attr( $filter['name'] ) ?>"><?php echo $filter['caption'] ?></label>
@@ -58,7 +73,13 @@ $current_url = tribe_events_get_current_filter_url();
 						</div>
 					<?php endforeach; ?>
 					<div class="tribe-bar-submit">
-						<input class="tribe-events-button tribe-no-param" type="submit" name="submit-bar" value="<?php echo esc_attr( sprintf( __( 'Find %s', 'tribe-events-calendar' ), tribe_get_event_label_plural() ) ); ?>" />
+						<input
+							class="tribe-events-button tribe-no-param"
+							type="submit"
+							name="submit-bar"
+							aria-label="<?php printf( esc_attr__( 'Submit %s search', 'the-events-calendar' ), tribe_get_event_label_plural() ); ?>"
+							value="<?php printf( esc_attr__( 'Find %s', 'the-events-calendar' ), tribe_get_event_label_plural() ); ?>"
+						/>
 					</div>
 					<!-- .tribe-bar-submit -->
 				</div>

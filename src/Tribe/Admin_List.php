@@ -17,42 +17,37 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 		/**
 		 * The init function for this class, adds actions and filters.
 		 *
-		 * @return void
 		 */
 		public static function init() {
-			if ( is_admin() && ! ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
-				add_filter( 'tribe_events_query_posts_orderby', array( __CLASS__, 'override_tribe_events_query_orderby' ) );
+			if ( is_admin() ) {
+				if ( ! tribe( 'context' )->doing_ajax() ) {
+					// Logic for sorting events by event category or tags
+					add_filter( 'posts_clauses', array( __CLASS__, 'sort_by_tax' ), 10, 2 );
 
-				// Logic for sorting events by event category or tags
-				add_filter( 'posts_clauses', array( __CLASS__, 'sort_by_tax' ), 10, 2 );
+					// Logic for sorting events by start or end date
+					add_filter( 'posts_clauses', array( __CLASS__, 'sort_by_event_date' ), 11, 2 );
 
-				// Logic for sorting events by start or end date
-				add_filter( 'posts_clauses', array( __CLASS__, 'sort_by_event_date' ), 11, 2 );
+					add_filter( 'posts_fields', array( __CLASS__, 'events_search_fields' ), 10, 2 );
 
-				add_filter( 'posts_fields', array( __CLASS__, 'events_search_fields' ), 10, 2 );
+					// Pagination
+					add_filter( 'post_limits', array( __CLASS__, 'events_search_limits' ), 10, 2 );
 
-				// Pagination
-				add_filter( 'post_limits', array( __CLASS__, 'events_search_limits' ), 10, 2 );
+					add_filter( 'tribe_apm_headers_' . Tribe__Events__Main::POSTTYPE, array( __CLASS__, 'column_headers_check' ) );
 
-				add_filter( 'manage_' . Tribe__Events__Main::POSTTYPE . '_posts_columns', array( __CLASS__, 'column_headers' ) );
-				add_filter( 'tribe_apm_headers_' . Tribe__Events__Main::POSTTYPE, array( __CLASS__, 'column_headers_check' ) );
+					add_filter( 'views_edit-tribe_events', array( __CLASS__, 'update_event_counts' ) );
+				}
 
-				add_filter( 'views_edit-tribe_events', array( __CLASS__, 'update_event_counts' ) );
-
-				// Registers custom event columns category/start date/end date
+				/**
+				 * The following actions will need to be fired on AJAX calls, the logic above is required.
+				 *
+				 * Registers custom event columns category/start date/end date
+				 */
 				add_action( 'manage_posts_custom_column', array( __CLASS__, 'custom_columns' ), 10, 2 );
+				add_filter( 'manage_' . Tribe__Events__Main::POSTTYPE . '_posts_columns', array( __CLASS__, 'column_headers' ) );
 
 				// Registers event start/end date as sortable columns
 				add_action( 'manage_edit-' . Tribe__Events__Main::POSTTYPE . '_sortable_columns', array( __CLASS__, 'register_sortable_columns' ), 10, 2 );
 			}
-		}
-
-		/**
-		 * Override the orderby that is set up in Tribe__Events__Query. The dashboard event list has its own
-		 * orderby rules
-		 */
-		public static function override_tribe_events_query_orderby( $orderby ) {
-			return '';
 		}
 
 		/**
@@ -95,26 +90,39 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 		 * @return  Array                   Modified SQL clauses
 		 */
 		public static function sort_by_event_date( Array $clauses, WP_Query $wp_query ) {
+			// bail if this is not a query for event post type
+			if ( $wp_query->get( 'post_type' ) !== Tribe__Events__Main::POSTTYPE ) {
+				return $clauses;
+			}
+
 			global $wpdb;
 
 			$sort_direction = self::get_sort_direction( $wp_query );
 
 			// only add the start meta query if it is missing
 			if ( ! preg_match( '/tribe_event_start_date/', $clauses['join'] ) ) {
-				$clauses['join'] .= "LEFT JOIN {$wpdb->postmeta} AS tribe_event_start_date ON {$wpdb->posts}.ID = tribe_event_start_date.post_id AND tribe_event_start_date.meta_key = '_EventStartDate' ";
+				$clauses['join'] .= " LEFT JOIN {$wpdb->postmeta} AS tribe_event_start_date ON {$wpdb->posts}.ID = tribe_event_start_date.post_id AND tribe_event_start_date.meta_key = '_EventStartDate' ";
 			}
 
 			// only add the end meta query if it is missing
 			if ( ! preg_match( '/tribe_event_end_date/', $clauses['join'] ) ) {
-				$clauses['join'] .= "LEFT JOIN {$wpdb->postmeta} AS tribe_event_end_date ON {$wpdb->posts}.ID = tribe_event_end_date.post_id AND tribe_event_end_date.meta_key = '_EventEndDate' ";
+				$clauses['join'] .= " LEFT JOIN {$wpdb->postmeta} AS tribe_event_end_date ON {$wpdb->posts}.ID = tribe_event_end_date.post_id AND tribe_event_end_date.meta_key = '_EventEndDate' ";
 			}
 
+			$append_orderby   = false;
+			$original_orderby = null;
+
 			if ( ! empty( $clauses['orderby'] ) ) {
-				$clauses['orderby'] .= ',';
+				$original_orderby = $clauses['orderby'];
+
+				// if the ONLY orderby clause is the post date, then let's move that toss move that to the
+				// end of the orderby. This will forever make post_date play second fiddle to the event start/end dates
+				// and that's ok
+				$append_orderby = preg_match( '/^[a-zA-Z0-9\-_]+\.post_date (DESC|ASC)$/i', $original_orderby );
 			}
 
 			$start_orderby = "tribe_event_start_date.meta_value {$sort_direction}";
-			$end_orderby = "tribe_event_end_date.meta_value {$sort_direction}";
+			$end_orderby   = "tribe_event_end_date.meta_value {$sort_direction}";
 
 			$date_orderby = "{$start_orderby}, {$end_orderby}";
 
@@ -122,7 +130,16 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 				$date_orderby = "{$end_orderby}, {$start_orderby}";
 			}
 
-			$clauses['orderby'] .= $date_orderby;
+			// Add the date orderby rules *before* any pre-existing orderby rules (to stop them being "trumped")
+			if ( empty( $original_orderby ) ) {
+				$revised_orderby = $date_orderby;
+			} elseif ( $append_orderby ) {
+				$revised_orderby = "$date_orderby, $original_orderby";
+			} else {
+				$revised_orderby = "$original_orderby, $date_orderby";
+			}
+
+			$clauses['orderby'] = $revised_orderby;
 
 			return $clauses;
 		}
@@ -159,17 +176,17 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 			// collect the terms in the desired taxonomy for the given post into a single string
 			$smashed_terms_sql = "
 				SELECT
-					GROUP_CONCAT( wp_terms.name ORDER BY name ASC ) smashed_terms
+					GROUP_CONCAT( $wpdb->terms.name ORDER BY name ASC ) smashed_terms
 				FROM
-					wp_term_relationships
-					LEFT JOIN wp_term_taxonomy ON (
-						wp_term_relationships.term_taxonomy_id = wp_term_taxonomy.term_taxonomy_id
+					$wpdb->term_relationships
+					LEFT JOIN $wpdb->term_taxonomy ON (
+						$wpdb->term_relationships.term_taxonomy_id = $wpdb->term_taxonomy.term_taxonomy_id
 						AND taxonomy = '%s'
 					)
-					LEFT JOIN wp_terms ON (
-						wp_term_taxonomy.term_id = wp_terms.term_id
+					LEFT JOIN $wpdb->terms ON (
+						$wpdb->term_taxonomy.term_id = $wpdb->terms.term_id
 					)
-				WHERE wp_term_relationships.object_id = wp_posts.ID
+				WHERE $wpdb->term_relationships.object_id = $wpdb->posts.ID
 			";
 
 			$smashed_terms_sql = $wpdb->prepare( $smashed_terms_sql, $taxonomy );
@@ -226,14 +243,14 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 			foreach ( (array) $columns as $key => $value ) {
 				$mycolumns[ $key ] = $value;
 				if ( $key == 'author' ) {
-					$mycolumns['events-cats'] = sprintf( __( '%s Categories', 'tribe-events-calendar' ), $events_label_singular );
+					$mycolumns['events-cats'] = sprintf( esc_html__( '%s Categories', 'the-events-calendar' ), $events_label_singular );
 				}
 			}
 			$columns = $mycolumns;
 
 			unset( $columns['date'] );
-			$columns['start-date'] = __( 'Start Date', 'tribe-events-calendar' );
-			$columns['end-date']   = __( 'End Date', 'tribe-events-calendar' );
+			$columns['start-date'] = esc_html__( 'Start Date', 'the-events-calendar' );
+			$columns['end-date']   = esc_html__( 'End Date', 'the-events-calendar' );
 
 			return $columns;
 		}
@@ -274,13 +291,18 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 		 * @param string $column_id The custom column id.
 		 * @param int    $post_id   The post id for the data.
 		 *
-		 * @return void
 		 */
 		public static function custom_columns( $column_id, $post_id ) {
 			switch ( $column_id ) {
 				case 'events-cats':
-					$event_cats = get_the_term_list( $post_id, Tribe__Events__Main::TAXONOMY, '', ', ', '' );
-					echo ( $event_cats ) ? strip_tags( $event_cats ) : '—';
+					$event_cats = wp_get_post_terms( $post_id, Tribe__Events__Main::TAXONOMY, array(
+						'fields' => 'names',
+					) );
+					$categories_list = '-';
+					if ( is_array( $event_cats ) ) {
+						$categories_list = implode( ', ', $event_cats );
+					}
+					echo esc_html( $categories_list );
 				break;
 
 				case 'start-date':
@@ -288,7 +310,7 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 				break;
 
 				case 'end-date':
-					echo tribe_get_end_date( $post_id, false );
+					echo tribe_get_display_end_date( $post_id, false );
 				break;
 			}
 		}
@@ -311,7 +333,7 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 				$total_posts -= $num_posts->$state;
 			}
 
-			$counts['all'] = "<a href='edit.php?post_type=tribe_events' class='current'>" . sprintf( __( 'All %s', 'tribe-events-calendar' ), "<span class='count'>({$total_posts})</span>" ) . '</a>';
+			$counts['all'] = "<a href='edit.php?post_type=tribe_events' class='current'>" . sprintf( esc_html_x( 'All %s', '%s Event count in admin list', 'the-events-calendar' ), "<span class='count'>({$total_posts})</span>" ) . '</a>';
 
 			foreach ( get_post_stati( array( 'show_in_admin_status_list' => true ), 'objects' ) as $status ) {
 				$class = '';
@@ -352,7 +374,6 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 			$cache_key = $type;
 
 			$query = "SELECT post_status, COUNT( * ) AS num_posts FROM {$wpdb->posts}";
-			$query .= " LEFT JOIN {$wpdb->postmeta} as eventStart ON( {$wpdb->posts}.ID = eventStart.post_id AND eventStart.meta_key = '_EventStartDate') ";
 			$query .= ' WHERE post_type = %s';
 			if ( 'readable' == $perm && is_user_logged_in() ) {
 				$post_type_object = get_post_type_object( $type );

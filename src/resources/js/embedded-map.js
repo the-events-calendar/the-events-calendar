@@ -10,15 +10,20 @@ if ( "function" === typeof jQuery ) jQuery( document ).ready( function( $ ) {
 	    venueTitle;
 
 	// The tribeEventsSingleMap object must be accessible (as it contains the venue address data etc)
-	if ( "undefined" === typeof tribeEventsSingleMap ) return;
+	if ( 'undefined' === typeof tribeEventsSingleMap ) {
+		return;
+	}
 
 	/**
 	 * Determine whether to use long/lat coordinates (these are preferred) or the venue's street
 	 * address.
 	 */
 	function prepare() {
-		if ( false !== venueCoords ) useCoords();
-		else useAddress();
+		if ( false !== venueCoords ) {
+			useCoords();
+		} else {
+			useAddress();
+		}
 	}
 
 	/**
@@ -60,17 +65,39 @@ if ( "function" === typeof jQuery ) jQuery( document ).ready( function( $ ) {
 	 * on an map-by-map basis.
 	 */
 	function initialize() {
-		venueObject.map = new google.maps.Map( mapHolder, {
+		var mapOptions = {
 			zoom     : parseInt( tribeEventsSingleMap.zoom ),
 			center   : position,
 			mapTypeId: google.maps.MapTypeId.ROADMAP
-		} );
+		}
+		venueObject.map = new google.maps.Map( mapHolder, mapOptions );
 
-		new google.maps.Marker( {
+		var marker = {
 			map     : venueObject.map,
 			title   : venueTitle,
 			position: position
-		} );
+		};
+
+		/**
+		 * Trigger a new event when the Map is created in order to allow Users option to customize the map by listening
+		 * to the correct event and having an instance of the Map variable avialable to modify if required.
+		 *
+		 * @param {Object} map An instance of the Google Map.
+		 * @param {Element} el The DOM Element where the map is attached.
+		 * @param {Object} options The initial set of options for the map.
+		 *
+		 * @since 4.6.10
+		 *
+		 */
+		$( 'body' ).trigger( 'map-created.tribe', [ venueObject.map, mapHolder, mapOptions ] );
+
+
+		// If we have a Map Pin set, we use it
+		if ( 'undefined' !== tribeEventsSingleMap.pin_url && tribeEventsSingleMap.pin_url ) {
+			marker.icon = tribeEventsSingleMap.pin_url;
+		}
+
+		new google.maps.Marker( marker );
 	}
 
 	// Iterate through available addresses and set up the map for each

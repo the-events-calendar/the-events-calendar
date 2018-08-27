@@ -5,7 +5,7 @@
  */
 class Tribe__Events__Backcompat {
 
-	private static $instance = NULL;
+	private static $instance = null;
 
 	public static function init() {
 		self::instance()->add_hooks();
@@ -72,13 +72,14 @@ class Tribe__Events__Backcompat {
 	 * @return array
 	 */
 	public function filter_enabled_views( $enabled_views, $default, $option ) {
-		if ( $option == 'tribeEnableViews' ) {
-			foreach ( $enabled_views as &$view ) {
-				if ( $view == 'upcoming' ) {
-					$view = 'list';
-				}
+		if ( 'tribeEnableViews' === $option ) {
+			if ( ! ( ! empty( $enabled_views ) && in_array( 'upcoming', $enabled_views ) ) ) {
+				return $enabled_views;
 			}
+
+			$enabled_views[ array_search( 'upcoming', $enabled_views ) ] = 'list';
 		}
+
 		return $enabled_views;
 	}
 

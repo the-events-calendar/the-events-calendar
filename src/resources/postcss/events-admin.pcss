@@ -1,0 +1,557 @@
+@custom-media --tablet (max-width: 782px);
+
+/* = Post Type Listing
+=============================================*/
+.events-cal {
+	.tablenav select[name=m],
+	#post-query-submit {
+		display: none;
+	}
+}
+
+.fixed {
+	.column-start-date,
+	.column-end-date,
+	.column-events-cats {
+		width: 14%;
+	}
+}
+
+#additional-field-table {
+	input,
+	select,
+	textarea {
+		width: 200px;
+	}
+
+	tbody tr {
+		height: 72px;
+	}
+}
+
+.tribe-restore-link + a {
+	display: none;
+}
+
+/* = Post Type Editing
+=============================================*/
+.eventForm {
+	margin-top: -20px;
+
+	td {
+		font-size: 12px;
+		padding: 0 6px 10px 0;
+		vertical-align: middle;
+
+		input,
+		select {
+			/* Add extra separation between form inputs when left aligned */
+			&.alignleft {
+				margin-right: 0.3rem;
+			}
+		}
+	}
+
+	#EventURL {
+		width: 70%;
+	}
+
+	#event-meta {
+		td {
+			vertical-align: top;
+
+			&:first-child {
+				line-height: 30px;
+			}
+
+			div {
+				margin-bottom: 10px;
+
+				&:last-child {
+					margin-bottom: 20px;
+				}
+			}
+		}
+	}
+
+	textarea {
+		width: 100%;
+	}
+
+	h4 {
+		font-size: 1.2em;
+		margin: 1em 0 1em;
+
+		&.event-time {
+			margin-top: 0;
+		}
+	}
+
+	.tribe_sectionheader {
+		padding-bottom: 5px;
+	}
+
+	p {
+		margin: 0 0 10px 0;
+	}
+
+	input[type="text"],
+	input[type="password"],
+	input[type="color"],
+	input[type="date"],
+	input[type="datetime"],
+	input[type="datetime-local"],
+	input[type="email"],
+	input[type="month"],
+	input[type="number"],
+	input[type="search"],
+	input[type="tel"],
+	input[type="text"],
+	input[type="time"],
+	input[type="url"],
+	input[type="week"] {
+		background-image: none;
+		border: 1px solid #ccc;
+		border-radius: 3px;
+		line-height: 20px;
+		margin-left: 0;
+	}
+
+	.event-dynamic-helper-text {
+		color: #999;
+		font-style: italic;
+		padding: 0;
+	}
+
+	.tribe-datetime-block {
+		.tribe-allday {
+			margin: 10px 0 0;
+		}
+
+		.tribe-field-start_date,
+		.tribe-field-start_time,
+		.tribe-field-end_date,
+		.tribe-field-end_time {
+			height: 28px;
+		}
+
+		.tribe-field-start_date,
+		.tribe-field-end_date {
+			width: 100px;
+			@media (--tablet) {
+				width: 63%;
+				display: inline-block;
+			}
+		}
+
+		.tribe-field-start_time,
+		.tribe-field-end_time {
+			width: 80px;
+			@media (--tablet) {
+				width: 35%;
+				display: inline-block;
+			}
+		}
+
+		.tribe-datetime-separator {
+			@media (--tablet) {
+				width: 100%;
+				display: block;
+				text-align: center;
+				padding: 5px 0;
+			}
+		}
+
+		.tribe-field-timezone {
+			width: 100%;
+		  	@media( min-width: 1193px ) {
+			  width: calc(100% - 400px);
+			}
+
+ 		  	max-width: 199px;
+		  	min-width: 100px;
+			margin-top: -2px;
+			display: none;
+
+			&.select2-container {
+				display: inline-block;
+				margin-top: -4px;
+
+				@media (--tablet) {
+					display: table;
+					margin: 10px auto 0;
+				}
+			}
+		}
+
+		.tribe-change-timezone {
+			white-space: nowrap;
+			@media (--tablet) {
+				width: 100%;
+				display: block;
+				text-align: center;
+				padding: 5px 0;
+			}
+		}
+	}
+
+	.tribe-datetime-label {
+		vertical-align: top;
+		padding-top: 5px;
+	}
+}
+
+/* Apply a grey highlight to 'today' */
+.ui-datepicker-calendar .ui-datepicker-today {
+	a {
+		background: linear-gradient(354deg, #ccc 0%, #eee 100%);
+		color: black;
+	}
+
+	/* If today is also the current selected day, prefer the default blue highlight */
+	&.ui-datepicker-current-day a {
+		background: linear-gradient( 354deg, rgba( 10,85,160,1.00 ) 0%, rgba( 18,136,235,1.00 ) 100% );
+		color: #fff;
+	}
+}
+
+.ui-datepicker select.ui-datepicker-month {
+	width: 8rem;
+}
+
+.tribe-community-event-info {
+	width: 100%;
+	margin: 10px;
+}
+
+.eventtable,
+#EventInfo {
+	width: 100%;
+	margin: 0;
+	padding-top: 0;
+}
+
+#event_tickets,
+.eventtable.ticket_list.eventForm {
+	table-layout: fixed;
+}
+
+#ticket_start_date,
+#ticket_end_date {
+	width: 100px;
+}
+
+.form-table form input {
+	border: none;
+}
+
+#submitLabel {
+	display: block;
+
+	input {
+		display: block;
+		padding: 0;
+	}
+}
+
+#EventBriteDetailDiv h4,
+.tribe-community-event-info h4,
+.eventForm .tribe_sectionheader h4 {
+	padding-bottom: 6px;
+	text-transform: uppercase;
+	border-bottom: 1px solid #e5e5e5;
+}
+
+.tribe-events-error {
+	display: none;
+}
+
+.tribe-events-multi-event-day {
+	color: #0f81bb;
+}
+
+.ui-front {
+	z-index: 1000000;
+}
+
+.events-cal .ui-widget-overlay.ui-front {
+	z-index: 90;
+}
+
+.edit-linked-post-link {
+	display: inline-block;
+	margin-left: 10px;
+}
+
+.linked-post-wrapper {
+	tbody + tbody tr.saved_linked-post td,
+	tbody + tfoot tr td {
+		margin-top: 1em;
+		padding-top: 1em;
+	}
+
+	.linked-post td:first-child {
+		padding-left: 30px;
+	}
+}
+
+.move-linked-post-group {
+	padding-right: .5em;
+	cursor: move;
+}
+
+.tribe-delete-this {
+	float: right;
+	color: #444;
+
+	&:hover,
+	&.hover-state {
+		color: #a00;
+	}
+
+	&.tribe-confirm-delete-this {
+		display : none;
+	}
+}
+
+.tribe_community_edit {
+	.edit-linked-post-link {
+		a {
+			display: none;
+		}
+	}
+}
+
+.tribe-linked-post-error.error {
+	display: inline;
+	margin-left: 5px;
+	padding: 5px 10px;
+}
+
+/* = Eventbrite
+=============================================*/
+.tribe-community-event-info small,
+#EventBriteDetailDiv small {
+	font-size: 10px;
+	color: #a3a3a3;
+}
+
+#eventBriteTicketing,
+#mainDonateRow {
+	margin: -11px 6px 0;
+	padding: 10px 15px;
+	border: 1px solid #e2e2e2;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	-webkit-border-top-left-radius: 0;
+	-moz-border-radius-topleft: 0;
+	-webkit-border-top-right-radius: 0;
+	-moz-border-radius-topright: 0;
+	-khtml-border-radius: 3px;
+	background: url(../images/bg_fade.png) repeat-x top left;
+	background-color: #fff;
+}
+
+#eventBriteTicketing h2 {
+	height: 80px;
+	margin: 0;
+	background: url(../images/eb_press_little.gif) no-repeat top right;
+}
+
+.tribe-community-event-info,
+table.eventForm {
+	width: 100%;
+}
+
+/* = Recurrence
+=============================================*/
+#custom-recurrence-weeks label {
+	display: block;
+	float: left;
+	width: 45px;
+	margin-bottom: 3px;
+}
+
+#custom-recurrence-frequency input {
+	width: 30px;
+}
+
+#custom-recurrence-years label {
+	display: block;
+	float: left;
+	width: 50px;
+	margin-bottom: 3px;
+}
+
+#recurrence-changed-row {
+	display: none;
+	color: red;
+}
+
+#rec-end-error {
+	color: red;
+}
+
+#rec-days-error {
+	color: red;
+}
+
+.rec-error {
+	display: none;
+}
+
+#recurrence-pattern-description {
+	font-style: italic;
+}
+
+.recurrence-pattern-description-row {
+	display: none;
+}
+
+/* = Chosen
+=============================================*/
+.chosen,
+.tribe-chosen,
+.chzn-container {
+	margin-right: 10px!important;
+}
+
+.events-dropdown,
+#eventsDefaultState,
+#defaultCountry,
+#StateProvinceSelect {
+	min-width: 220px;
+}
+
+.multi-day-cutoff-dropdown {
+	width: 100px !important;
+}
+
+/* fix for widgets + chosen support */
+.widget-liquid-right .widget,
+.inactive-sidebar .widget,
+.widget-liquid-right .sidebar-description {
+	overflow: visible !important;
+}
+
+.tribe-aggregator-import-details {
+	overflow: hidden;
+
+	dt {
+		clear: left;
+		float: left;
+		margin-right: .25rem;
+	}
+
+	dd {
+		margin-left: 0;
+	}
+
+	.tribe-value {
+		font-weight: bold;
+	}
+}
+
+.tribe-ea-facebook-disconnect,
+.tribe-ea-eventbrite-disconnect {
+	color: #a00;
+	display: inline-block;
+	margin-left: 1rem;
+
+	&:active,
+	&:hover {
+		color: #f00;
+	}
+}
+
+.tribe-ea-facebook-button,
+.tribe-ea-eventbrite-button {
+	border-radius: 3px;
+	color: #fff;
+	display: inline-block;
+	padding: .5rem 1.5rem;
+	text-decoration: none;
+	transition: background-color 0.5s ease;
+
+	&:active,
+	&:hover {
+		color: #fff;
+		cursor: pointer;
+	}
+}
+
+.tribe-ea-facebook-button {
+	background: #3d599b;
+
+	&:active,
+	&:hover,
+	&:focus {
+		background: #32497e;
+	}
+}
+
+.tribe-ea-eventbrite-button {
+	background: #f6682f;
+
+	&:active,
+	&:hover,
+	&:focus {
+		background: #c85b2f;
+	}
+}
+
+
+
+/* = Event Aggregator Status
+=============================================*/
+
+.event-aggregator-status {
+	background-color: #fff;
+	width: 100%;
+	border: 2px solid #e4e5e6;
+	border-spacing: 0;
+	margin-bottom: 16px;
+
+	tbody tr:nth-child(even) td {
+		background-color: #f9f9f9;
+	}
+
+	th {
+		text-align: left;
+		border-bottom: 1px solid #e4e5e6;
+	}
+
+	th, td {
+		padding: 8px 12px;
+		background-color: #fff;
+	}
+
+	td.label {
+		width: 220px;
+		/* @todo: responsive breakpoint? */
+	}
+
+	td.label img {
+		width: 18px;
+		height: 18px;
+		margin-right: 6px;
+		float: left;
+	}
+
+	td.indicator {
+		width: 20px;
+	}
+
+	td.indicator.good {
+		color: #38b042;
+	}
+
+	td.indicator.bad {
+		color: #ed5047;
+	}
+
+	td.indicator.warning {
+		color: #f3ae46;
+	}
+}

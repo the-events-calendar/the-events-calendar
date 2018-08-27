@@ -1,0 +1,28 @@
+/**
+ * This CSS file was auto-generated via PostCSS
+ *
+ * Contributors should avoid editing this file, but instead edit the associated
+ * src/resources/postcss/ file. For more information, check out our engineering
+ * docs on how we handle CSS in our engineering docs.
+ *
+ * @see: http://moderntribe.github.io/products-engineering/css/
+ */
+
+/**
+ * This has to be loaded on all pages
+ */
+
+#wpadminbar #wp-admin-bar-tribe-events .ab-group-container > .ab-submenu {
+
+    padding: 0;
+}
+
+#wpadminbar #wp-admin-bar-tribe-events #wp-admin-bar-tribe-events-group {
+
+    padding-bottom: 0;
+}
+
+#wpadminbar #wp-admin-bar-tribe-events #wp-admin-bar-tribe-events-settings-group {
+
+    padding-top: 0;
+}

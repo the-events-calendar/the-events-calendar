@@ -26,10 +26,10 @@ var tribe_ev = window.tribe_ev || {};
  * @desc Setup safe enhanced console logging. See the link to get the available methods, then prefix with this short circuit: 'tribe_debug && '. tribe_debug is aliased in all tribe js doc readys as 'dbug'.
  * @link http://benalman.com/code/projects/javascript-debug/docs/files/ba-debug-js.html
  * @example <caption>EG: Place this at the very bottom of the doc ready for tribe-events.js. ALWAYS short circuit with 'tribe_debug && ' or 'dbug &&' if aliased as such.</caption> *
- *        tribe_debug && debug.info('tribe-events.js successfully loaded');
+ *        tribe_debug && tec_debug.info('tribe-events.js successfully loaded');
  */
 
-var tribe_debug = true;
+var tribe_debug = tribe_js_config.debug;
 
 /*!
  * this debug code is stripped out by closure compiler so it is not present in the .min versions.
@@ -37,104 +37,104 @@ var tribe_debug = true;
 
 // @ifdef DEBUG
 
-	/*!
-	 * JavaScript Debug - v0.4 - 6/22/2010
-	 * http://benalman.com/projects/javascript-debug-console-log/
-	 *
-	 * Copyright (c) 2010 "Cowboy" Ben Alman
-	 * Dual licensed under the MIT and GPL licenses.
-	 * http://benalman.com/about/license/
-	 *
-	 * With lots of help from Paul Irish!
-	 * http://paulirish.com/
-	 */
+/*!
+ * JavaScript Debug - v0.4 - 6/22/2010
+ * http://benalman.com/projects/javascript-debug-console-log/
+ *
+ * Copyright (c) 2010 "Cowboy" Ben Alman
+ * Dual licensed under the MIT and GPL licenses.
+ * http://benalman.com/about/license/
+ *
+ * With lots of help from Paul Irish!
+ * http://paulirish.com/
+ */
 
-	window.debug = (function() {
-		var window = this,
-			aps = Array.prototype.slice,
-			con = window.console,
-			that = {},
-			callback_func,
-			callback_force,
-			log_level = 9,
-			log_methods = [ 'error', 'warn', 'info', 'debug', 'log' ],
-			pass_methods = 'assert clear count dir dirxml exception group groupCollapsed groupEnd profile profileEnd table time timeEnd trace'.split( ' ' ),
-			idx = pass_methods.length,
-			logs = [];
+window.tec_debug = (function() {
+	var window = this,
+		aps = Array.prototype.slice,
+		con = window.console,
+		that = {},
+		callback_func,
+		callback_force,
+		log_level = 9,
+		log_methods = [ 'error', 'warn', 'info', 'debug', 'log' ],
+		pass_methods = 'assert clear count dir dirxml exception group groupCollapsed groupEnd profile profileEnd table time timeEnd trace'.split( ' ' ),
+		idx = pass_methods.length,
+		logs = [];
 
-		while ( --idx >= 0 ) {
-			(function( method ) {
+	while ( --idx >= 0 ) {
+		(function( method ) {
 
-				that[ method ] = function() {
-					log_level !== 0 && con && con[ method ]
-					&& con[ method ].apply( con, arguments );
+			that[ method ] = function() {
+				log_level !== 0 && con && con[ method ]
+				&& con[ method ].apply( con, arguments );
+			}
+
+		})( pass_methods[idx] );
+	}
+
+	idx = log_methods.length;
+	while ( --idx >= 0 ) {
+		(function( idx, level ) {
+
+			that[ level ] = function() {
+				var args = aps.call( arguments ),
+					log_arr = [ level ].concat( args );
+
+				logs.push( log_arr );
+				exec_callback( log_arr );
+
+				if ( !con || !is_level( idx ) ) {
+					return;
 				}
 
-			})( pass_methods[idx] );
-		}
+				con.firebug ? con[ level ].apply( window, args )
+					: con[ level ] ? con[ level ]( args )
+					: con.log( args );
+			};
 
-		idx = log_methods.length;
-		while ( --idx >= 0 ) {
-			(function( idx, level ) {
-
-				that[ level ] = function() {
-					var args = aps.call( arguments ),
-						log_arr = [ level ].concat( args );
-
-					logs.push( log_arr );
-					exec_callback( log_arr );
-
-					if ( !con || !is_level( idx ) ) {
-						return;
-					}
-
-					con.firebug ? con[ level ].apply( window, args )
-						: con[ level ] ? con[ level ]( args )
-						: con.log( args );
-				};
-
-			})( idx, log_methods[idx] );
-		}
-
-		function exec_callback( args ) {
-			if ( callback_func && (callback_force || !con || !con.log) ) {
-				callback_func.apply( window, args );
-			}
-		}
-
-		that.setLevel = function( level ) {
-			log_level = typeof level === 'number' ? level : 9;
-		};
-
-		function is_level( level ) {
-			return log_level > 0
-				? log_level > level
-				: log_methods.length + log_level <= level;
-		}
-
-		that.setCallback = function() {
-			var args = aps.call( arguments ),
-				max = logs.length,
-				i = max;
-
-			callback_func = args.shift() || null;
-			callback_force = typeof args[0] === 'boolean' ? args.shift() : false;
-
-			i -= typeof args[0] === 'number' ? args.shift() : max;
-
-			while ( i < max ) {
-				exec_callback( logs[i++] );
-			}
-		};
-
-		return that;
-	})();
-
-	if ( Object.prototype.hasOwnProperty.call( window, 'tribe_ev' ) ) {
-		tribe_ev.diagnostics = {
-			init: []
-		};
+		})( idx, log_methods[idx] );
 	}
+
+	function exec_callback( args ) {
+		if ( callback_func && (callback_force || !con || !con.log) ) {
+			callback_func.apply( window, args );
+		}
+	}
+
+	that.setLevel = function( level ) {
+		log_level = typeof level === 'number' ? level : 9;
+	};
+
+	function is_level( level ) {
+		return log_level > 0
+			? log_level > level
+			: log_methods.length + log_level <= level;
+	}
+
+	that.setCallback = function() {
+		var args = aps.call( arguments ),
+			max = logs.length,
+			i = max;
+
+		callback_func = args.shift() || null;
+		callback_force = typeof args[0] === 'boolean' ? args.shift() : false;
+
+		i -= typeof args[0] === 'number' ? args.shift() : max;
+
+		while ( i < max ) {
+			exec_callback( logs[i++] );
+		}
+	};
+
+	return that;
+})();
+
+if ( Object.prototype.hasOwnProperty.call( window, 'tribe_ev' ) ) {
+	tribe_ev.diagnostics = {
+		init: []
+	};
+}
 // @endif
 
 /**
@@ -155,6 +155,7 @@ try {
 	tribe_storage.removeItem( t_uid );
 	t_fail && (tribe_storage = false);
 } catch ( e ) {
+	tribe_storage = false;
 }
 
 /*
@@ -259,28 +260,33 @@ var tribeDateFormat = function() {
 }();
 
 tribeDateFormat.masks = {
-	"default"        : "ddd mmm dd yyyy HH:MM:ss",
-	"tribeQuery"     : "yyyy-mm-dd",
+	"default":         "ddd mmm dd yyyy HH:MM:ss",
+	"tribeQuery":      "yyyy-mm-dd",
 	"tribeMonthQuery": "yyyy-mm",
-	"0"              : 'yyyy-mm-dd',
-	"1"              : 'm/d/yyyy',
-	"2"              : 'mm/dd/yyyy',
-	"3"              : 'd/m/yyyy',
-	"4"              : 'dd/mm/yyyy',
-	"5"              : 'm-d-yyyy',
-	"6"              : 'mm-dd-yyyy',
-	"7"              : 'd-m-yyyy',
-	"8"              : 'dd-mm-yyyy',
-	"m0"             : 'yyyy-mm',
-	"m1"             : 'm/yyyy',
-	"m2"             : 'mm/yyyy',
-	"m3"             : 'm/yyyy',
-	"m4"             : 'mm/yyyy',
-	"m5"             : 'm-yyyy',
-	"m6"             : 'mm-yyyy',
-	"m7"             : 'm-yyyy',
-	"m8"             : 'mm-yyyy'
-
+	"0":               'yyyy-mm-dd',
+	"1":               'm/d/yyyy',
+	"2":               'mm/dd/yyyy',
+	"3":               'd/m/yyyy',
+	"4":               'dd/mm/yyyy',
+	"5":               'm-d-yyyy',
+	"6":               'mm-dd-yyyy',
+	"7":               'd-m-yyyy',
+	"8":               'dd-mm-yyyy',
+	"9":               'yyyy.mm.dd',
+	"10":              'mm.dd.yyyy',
+	"11":              'dd.mm.yyyy',
+	"m0":              'yyyy-mm',
+	"m1":              'm/yyyy',
+	"m2":              'mm/yyyy',
+	"m3":              'm/yyyy',
+	"m4":              'mm/yyyy',
+	"m5":              'm-yyyy',
+	"m6":              'mm-yyyy',
+	"m7":              'm-yyyy',
+	"m8":              'mm-yyyy',
+	"m9":              'yyyy.mm',
+	"m10":             'mm.yyyy',
+	"m11":             'mm.yyyy'
 };
 
 tribeDateFormat.i18n = {
@@ -292,6 +298,31 @@ tribeDateFormat.i18n = {
 		"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
 		"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
 	]
+};
+
+/**
+ * A collection of utility functions.
+ *
+ * @type {{getQueryVars: tribeUtils.getQueryVars}}
+ */
+var tribeUtils = {
+	/**
+	 * Searches a URL, or the current page URL, for query vars and returns an object listing
+	 * them where each query var name is a property associated to its value(s).
+	 *
+	 * @param string location Def. to `location`, an optional URL to scan for query vars.
+	 *
+	 * @returns {{}} An array containing the query vars as properties.
+	 */
+	'getQueryVars': function ( url ) {
+		var queryVars = {},
+			url = url || location;
+		url.search.substr( 1 ).split( '&' ).forEach( function ( queryVar ) {
+			queryVars[ queryVar.split( '=' )[0] ] = queryVar.split( '=' )[1];
+		} );
+
+		return queryVars;
+	}
 };
 
 Date.prototype.format = function( mask, utc ) {
@@ -318,22 +349,22 @@ Date.prototype.format = function( mask, utc ) {
 				var name = id, string = /^[\w\-]+$/.test( id ) ? me.get( id ) : (name = 'template(string)', id); // no warnings
 				var line = 1, body = (
 					"try { " +
-						(me.variable ? "var " + me.variable + " = this.stash;" : "with (this.stash) { ") +
-						"this.ret += '" +
-						string.
-							replace( /\[\[/g, '\x11' ).replace( /\]\]/g, '\x13' ). // if you want other tag, just edit this line
-							replace( /'(?![^\x11\x13]+?\x13)/g, '\\x27' ).
-							replace( /^\s*|\s*$/g, '' ).
-							replace( /\n/g,function() {
-								return "';\nthis.line = " + (++line) + "; this.ret += '\\n"
-							} ).
-							replace( /\x11=raw(.+?)\x13/g, "' + ($1) + '" ).
-							replace( /\x11=(.+?)\x13/g, "' + this.escapeHTML($1) + '" ).
-							replace( /\x11(.+?)\x13/g, "'; $1; this.ret += '" ) +
-						"'; " + (me.variable ? "" : "}") + "return this.ret;" +
-						"} catch (e) { throw 'TemplateError: ' + e + ' (on " + name + "' + ' line ' + this.line + ')'; } " +
-						"//@ sourceURL=" + name + "\n" // source map
-					).replace( /this\.ret \+= '';/g, '' );
+					(me.variable ? "var " + me.variable + " = this.stash;" : "with (this.stash) { ") +
+					"this.ret += '" +
+					string.
+					replace( /\[\[/g, '\x11' ).replace( /\]\]/g, '\x13' ). // if you want other tag, just edit this line
+					replace( /'(?![^\x11\x13]+?\x13)/g, '\\x27' ).
+					replace( /^\s*|\s*$/g, '' ).
+					replace( /\n/g,function() {
+						return "';\nthis.line = " + (++line) + "; this.ret += '\\n"
+					} ).
+					replace( /\x11=raw(.+?)\x13/g, "' + ($1) + '" ).
+					replace( /\x11=(.+?)\x13/g, "' + this.escapeHTML($1) + '" ).
+					replace( /\x11(.+?)\x13/g, "'; $1; this.ret += '" ) +
+					"'; " + (me.variable ? "" : "}") + "return this.ret;" +
+					"} catch (e) { throw 'TemplateError: ' + e + ' (on " + name + "' + ' line ' + this.line + ')'; } " +
+					"//@ sourceURL=" + name + "\n" // source map
+				).replace( /this\.ret \+= '';/g, '' );
 				var func = new Function( body );
 				var map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '\x22': '&#x22;', '\x27': '&#x27;' };
 				var escapeHTML = function( string ) {
@@ -456,7 +487,7 @@ Date.prototype.format = function( mask, utc ) {
 	 */
 	$.fn.tribe_spin = function() {
 		var $loadingImg = $( '.tribe-events-ajax-loading:first' ).clone().addClass( 'tribe-events-active-spinner' );
-		$loadingImg.prependTo( '#tribe-events-content' );
+		$loadingImg.prependTo( document.getElementById( 'tribe-events-content' ) );
 		$( this ).addClass( 'tribe-events-loading' ).css( 'opacity', .25 )
 	};
 
@@ -558,7 +589,12 @@ Date.prototype.format = function( mask, utc ) {
 			tribe_ev.fn.update_viewport_variables();
 			if ( prev_width !== tribe_ev.data.v_width ) {
 				tribe_ev.fn.mobile_class();
+
+				/**
+				 * DEPRECATED: tribe_ev_resizeComplete has been deprecated in 4.0. Use resize-complete.tribe instead
+				 */
 				$( tribe_ev.events ).trigger( 'tribe_ev_resizeComplete' );
+				$( tribe_ev.events ).trigger( 'resize-complete.tribe' );
 			}
 
 		},
@@ -569,12 +605,38 @@ Date.prototype.format = function( mask, utc ) {
 		 * @example var base_url = tribe_ev.fn.get_base_url();
 		 */
 		get_base_url          : function() {
-			var base_url = '',
-				$event_header = $( '#tribe-events-header' );
-			if ( $event_header.length ) {
+			var base_url      = '';
+			var $event_header = $( document.getElementById( 'tribe-events-header' ) );
+			var $canonical    = $( 'link[rel="canonical"]' );
+
+			if ( $canonical.length ) {
+				// use the canonical URL if it is available (it should be)
+				base_url = $canonical.attr( 'href' );
+			} else if ( $event_header.length ) {
+				// failover to the baseurl of the event header
 				base_url = $event_header.data( 'baseurl' );
+			} else {
+				// use the current URL as a last ditch effort
+				base_url = window.location.origin + window.location.path;
 			}
+
 			return base_url;
+		},
+		/**
+		 * @function tribe_ev.fn.update_base_url
+		 * @desc tribe_ev.fn.update_base_url can be used on any events view to update base_url for that view
+		 */
+		update_base_url: function( url ) {
+			var $event_header = $( document.getElementById( 'tribe-events-header' ) );
+			var $canonical    = $( 'link[rel="canonical"]' );
+
+			if ( $canonical.length ) {
+				// use the canonical URL if it is available (it should be)
+				$canonical.attr( 'href', url );
+			} else if ( $event_header.length ) {
+				// failover to the baseurl of the event header
+				$event_header.data( 'baseurl', url ).attr( 'data-baseurl', url );
+			}
 		},
 		/**
 		 * @function tribe_ev.fn.get_category
@@ -584,7 +646,7 @@ Date.prototype.format = function( mask, utc ) {
 		 */
 		get_category          : function() {
 			if ( tribe_ev.fn.is_category() ) {
-				return $( '#tribe-events' ).data( 'category' );
+				return $( document.getElementById( 'tribe-events' ) ).data( 'category' );
 			}
 			else {
 				return '';
@@ -598,11 +660,11 @@ Date.prototype.format = function( mask, utc ) {
 		 */
 		get_day               : function() {
 			var dp_day = '';
-			if ( $( '#tribe-bar-date' ).length ) {
-				dp_day = $( '#tribe-bar-date-day' ).val();
+			if ( $( document.getElementById( 'tribe-bar-date' ) ).length ) {
+				dp_day = $( document.getElementById( 'tribe-bar-date-day' ) ).val();
 			}
 			// @ifdef DEBUG
-			dbug && debug.info( 'TEC Debug: tribe_ev.fn.get_day returned this date: "' + dp_day + '".' );
+			dbug && tec_debug.info( 'TEC Debug: tribe_ev.fn.get_day returned this date: "' + dp_day + '".' );
 			// @endif
 			return dp_day;
 		},
@@ -669,9 +731,19 @@ Date.prototype.format = function( mask, utc ) {
 		 * @example if (tribe_ev.fn.is_category()){ true } else { false }
 		 */
 		is_category           : function() {
-			var $tribe_events = $( '#tribe-events' );
+			var $tribe_events = $( document.getElementById( 'tribe-events' ) );
 			return ($tribe_events.length && $tribe_events.tribe_has_attr( 'data-category' ) && $tribe_events.data( 'category' ) !== '') ? true : false;
 		},
+
+		/**
+		 * Indicates if the current view is a featured events archive.
+		 *
+		 * @return {boolean}
+		 */
+		is_featured: function() {
+			return $( document.getElementById( 'tribe-events' ) ).data( 'featured' ) == '1';
+		},
+
 		/**
 		 * @function tribe_ev.fn.mobile_class
 		 * @desc tribe_ev.fn.mobile_class adds or removes a mobile class from the body element based on the mobile breakpoint.
@@ -681,11 +753,56 @@ Date.prototype.format = function( mask, utc ) {
 
 			if ( tribe_ev.data.v_width <= tribe_ev.data.mobile_break ) {
 				$body.addClass( 'tribe-mobile' );
-			}
-			else {
+			} else {
 				$body.removeClass( 'tribe-mobile' );
 			}
+
 		},
+
+		/**
+		 * @function tribe_ev.fn.mobile_view_redirect
+		 * @desc tribe_ev.fn.mobile_view_redirect Will redirect mobile users to the correct default view, this will only work if used after events-bar is loaded
+		 */
+		maybe_default_view_change   : function() {
+			// if we don't these we can't do anything
+			if (
+				// if we already redirected do not do it again to enable user to change views
+				tribe_ev.data.redirected_view ||
+
+				// There is no default View set
+				! tribe_ev.data.default_view ||
+
+				// There is no default mobile View set
+				! tribe_ev.data.default_mobile_view ||
+
+				// The mobile and normal default views are the same
+				tribe_ev.data.default_view == tribe_ev.data.default_mobile_view ||
+
+				// There is no View set
+				! tribe_ev.state.view ||
+
+				// We are on the default mobile view
+				tribe_ev.data.default_mobile_view == tribe_ev.state.view
+			) {
+				return false;
+			}
+
+			var $body = $( 'body' );
+
+			// Not a Mobile Call
+			if ( ! $body.hasClass( 'tribe-mobile' ) ) {
+				return false;
+			}
+
+			var $views             = $( '.tribe-bar-views-option' );
+			var view_class_filter  = '.tribe-bar-views-option-' + tribe_ev.data.default_mobile_view;
+			var $default_view_link = $views.filter( view_class_filter );
+			$( view_class_filter ).data( 'redirected', true );
+
+			// Actually do the Changing View
+			$default_view_link.trigger( 'click' );
+		},
+
 		/**
 		 * @function tribe_ev.fn.parse_string
 		 * @desc tribe_ev.fn.parse_string converts a string to an object.
@@ -699,7 +816,7 @@ Date.prototype.format = function( mask, utc ) {
 				(map[key] = map[key] || []).push( value );
 			} );
 			// @ifdef DEBUG
-			dbug && debug.info( 'TEC Debug: tribe_ev.fn.parse_string returned this map:', map );
+			dbug && tec_debug.info( 'TEC Debug: tribe_ev.fn.parse_string returned this map:', map );
 			// @endif
 			return map;
 		},
@@ -737,7 +854,7 @@ Date.prototype.format = function( mask, utc ) {
 			var params = $( form ).serialize();
 			tribe_ev.fn.disable_inputs( form, type );
 			// @ifdef DEBUG
-			dbug && params && debug.info( 'TEC Debug: tribe_ev.fn.serialize returned these params: "' + params );
+			dbug && params && tec_debug.info( 'TEC Debug: tribe_ev.fn.serialize returned these params: "' + params );
 			// @endif
 			return params;
 		},
@@ -757,7 +874,7 @@ Date.prototype.format = function( mask, utc ) {
 		 */
 		set_form              : function( params ) {
 			var $body = $( 'body' ),
-				$tribe_bar = $( '#tribe-bar-form' );
+				$tribe_bar = $( document.getElementById( 'tribe-bar-form' ) );
 
 			$body.addClass( 'tribe-reset-on' );
 
@@ -769,9 +886,13 @@ Date.prototype.format = function( mask, utc ) {
 
 			$.each( params, function( key, value ) {
 				if ( key !== 'action' ) {
-					var name = decodeURI( key ),
+					var name = decodeURIComponent( key ),
 						$target = '';
 					if ( value.length === 1 ) {
+						if ( Array.isArray( value ) ) {
+						  value = value[0];
+						}
+						value = decodeURIComponent( value.replace( /\+/g, '%20' ) );
 						if ( $( '[name="' + name + '"]' ).is( 'input[type="text"], input[type="hidden"]' ) ) {
 							$( '[name="' + name + '"]' ).val( value );
 						}
@@ -798,7 +919,7 @@ Date.prototype.format = function( mask, utc ) {
 
 			$body.removeClass( 'tribe-reset-on' );
 			// @ifdef DEBUG
-			dbug && debug.info( 'TEC Debug: tribe_ev.fn.set_form fired these params: "' + params );
+			dbug && tec_debug.info( 'TEC Debug: tribe_ev.fn.set_form fired these params: "' + params );
 			// @endif
 		},
 		/**
@@ -818,7 +939,7 @@ Date.prototype.format = function( mask, utc ) {
 					callback();
 				}, timer );
 				// @ifdef DEBUG
-				dbug && debug.info( 'TEC Debug: tribe_ev.fn.setup_ajax_timer fired with a timeout of "' + timer + '" ms' );
+				dbug && tec_debug.info( 'TEC Debug: tribe_ev.fn.setup_ajax_timer fired with a timeout of "' + timer + '" ms' );
 				// @endif
 			}
 		},
@@ -845,21 +966,27 @@ Date.prototype.format = function( mask, utc ) {
 		 *        tribe_ev.fn.tooltips();
 		 */
 		tooltips                 : function() {
+			var $container    = $( document.getElementById( 'tribe-events' ) );
+			var $body         = $( 'body' );
+			var is_shortcode  = $container.hasClass( 'tribe-events-shortcode' );
+			var is_month_view = $container.hasClass( 'view-month' ) || $body.hasClass( 'events-gridview' );
+			var is_week_view  = $container.hasClass( 'view-week' ) || $body.hasClass( 'tribe-events-week' );
+			var is_photo_view = $container.hasClass( 'view-photo' ) || $body.hasClass( 'tribe-events-photo' );
+			var is_day_view   = $container.hasClass( 'view-day' ) || $body.hasClass( 'tribe-events-day' );
+			var is_list_view  = $container.hasClass( 'view-list' ) || $body.hasClass( 'events-list' );
+			var is_map_view   = $container.hasClass( 'view-map' ) || $body.hasClass( 'tribe-events-map' );
+			var is_single     = $body.hasClass( 'single-tribe_events' );
 
-			$( '#tribe-events' ).on( 'mouseenter', 'div[id*="tribe-events-event-"], div.event-is-recurring',function() {
+			$container.on( 'mouseenter', 'div[id*="tribe-events-event-"], div.event-is-recurring', function() {
+				var bottomPad = 0;
+				var $this     = $( this );
+				var $tip;
 
-				var bottomPad = 0,
-					$this = $( this ),
-					$body = $( 'body' ),
-					$tip;
-
-				if ( $body.hasClass( 'events-gridview' ) ) { // Cal View Tooltips
-					bottomPad = $this.find( 'a' ).outerHeight() + 18;
-				}
-				else if ( $body.is( '.single-tribe_events, .events-list, .tribe-events-day' ) ) { // Single/List View Recurring Tooltips
+				if ( is_month_view ) { // Cal View Tooltips
+					bottomPad = $this.find( 'a' ).outerHeight() + 16;
+				} else if ( is_single || is_day_view || is_list_view ) { // Single/List View Recurring Tooltips
 					bottomPad = $this.outerHeight() + 12;
-				}
-				else if ( $body.is( '.tribe-events-photo' ) ) { // Photo View
+				} else if ( is_photo_view ) { // Photo View
 					bottomPad = $this.outerHeight() + 10;
 				}
 
@@ -867,35 +994,51 @@ Date.prototype.format = function( mask, utc ) {
 				if ( $this.parents( '.tribe-events-calendar-widget' ).length ) {
 					bottomPad = $this.outerHeight() - 6;
 				}
-				if ( !$body.hasClass( 'tribe-events-week' ) ) {
-					if ( $body.hasClass( 'events-gridview' ) ) {
+
+				if ( ! is_week_view || is_shortcode ) {
+					if ( is_month_view || is_shortcode ) {
 						$tip = $this.find( '.tribe-events-tooltip' );
 
-						if ( !$tip.length ) {
+						if ( ! $tip.length ) {
 							var data = $this.data( 'tribejson' );
 
 							if ( typeof data == 'string' ) {
 								data = $.parseJSON( data );
 							}
 
-							$this
-								.append( tribe_tmpl( 'tribe_tmpl_tooltip', data ) );
+							var tooltip_template = $this.hasClass( 'tribe-event-featured' )
+									? 'tribe_tmpl_tooltip_featured'
+									: 'tribe_tmpl_tooltip';
+
+							$this.append( tribe_tmpl( tooltip_template, data ) );
 
 							$tip = $this.find( '.tribe-events-tooltip' );
+						}
 
-							$tip.css( 'bottom', bottomPad ).show();
+						// Look for the distance between top of tooltip and top of visible viewport.
+						var dist_to_top = $this.offset().top - ( $( window ).scrollTop() + 50 ); // The +50 is some padding for a more aesthetically-pleasing view.
+						var tip_height  = $tip.outerHeight();
+
+						// If true, tooltip is near top of viewport, so tweak some values to keep the tooltip fully in-view.
+						if ( dist_to_top < tip_height ) {
+							bottomPad = -tip_height;
+							$tip.addClass( 'tribe-events-tooltip-flipdown' );
 						}
-						else {
-							$tip.css( 'bottom', bottomPad ).show();
-						}
-					}
-					else {
-						$this.find( '.tribe-events-tooltip' ).css( 'bottom', bottomPad ).show();
+
+						$tip.css( 'bottom', bottomPad ).stop( true, false ).show();
+					} else {
+						$this.find( '.tribe-events-tooltip' ).css( 'bottom', bottomPad ).stop( true, false ).show();
 					}
 				}
 
 			} ).on( 'mouseleave', 'div[id*="tribe-events-event-"], div[id*="tribe-events-daynum-"]:has(a), div.event-is-recurring', function() {
-				$( this ).find( '.tribe-events-tooltip' ).stop( true, false ).fadeOut( 200 );
+
+				var $tip = $( this ).find( '.tribe-events-tooltip' );
+
+				$tip.stop( true, false ).fadeOut( 500, function() {
+					$tip.removeClass( 'tribe-events-tooltip-flipdown' );
+				} );
+
 			} );
 		},
 		/**
@@ -923,18 +1066,18 @@ Date.prototype.format = function( mask, utc ) {
 				$bar_date.bootstrapDatepicker( "setDate", date );
 				tribe_ev.state.updating_picker = false;
 				// @ifdef DEBUG
-				dbug && debug.info( 'TEC Debug: tribe_ev.fn.update_picker sent "' + date + '" to the boostrapDatepicker' );
+				dbug && tec_debug.info( 'TEC Debug: tribe_ev.fn.update_picker sent "' + date + '" to the boostrapDatepicker' );
 				// @endif
 			}
 			else if ( $bar_date.length ) {
 				$bar_date.val( date );
 				// @ifdef DEBUG
-				dbug && debug.warn( 'TEC Debug: tribe_ev.fn.update_picker sent "' + date + '" to ' + $bar_date );
+				dbug && tec_debug.warn( 'TEC Debug: tribe_ev.fn.update_picker sent "' + date + '" to ' + $bar_date );
 				// @endif
 			}
 			else {
 				// @ifdef DEBUG
-				dbug && debug.warn( 'TEC Debug: tribe_ev.fn.update_picker couldnt send "' + date + '" to any object.' );
+				dbug && tec_debug.warn( 'TEC Debug: tribe_ev.fn.update_picker couldnt send "' + date + '" to any object.' );
 				// @endif
 			}
 		},
@@ -1000,7 +1143,7 @@ Date.prototype.format = function( mask, utc ) {
 		 * }
 		 */
 		live_ajax     : function() {
-			var $tribe_events = $( '#tribe-events' );
+			var $tribe_events = $( document.getElementById( 'tribe-events' ) );
 			return ($tribe_events.length && $tribe_events.tribe_has_attr( 'data-live_ajax' ) && $tribe_events.data( 'live_ajax' ) == '1') ? true : false;
 		},
 		/**
@@ -1012,7 +1155,7 @@ Date.prototype.format = function( mask, utc ) {
 		 * )
 		 */
 		map_view      : function() {
-			return ( typeof GeoLoc !== 'undefined' && GeoLoc.map_view ) ? true : false;
+			return typeof GeoLoc !== 'undefined' && GeoLoc.map_view;
 		},
 		/**
 		 * @function tribe_ev.tests.no_bar
@@ -1077,21 +1220,50 @@ Date.prototype.format = function( mask, utc ) {
 	 */
 
 	tribe_ev.data = {
-		ajax_response     : {},
-		base_url          : '',
-		cur_url           : tribe_ev.fn.url_path( document.URL ),
-		cur_date          : tribe_ev.fn.current_date(),
+		ajax_response       : {},
+		base_url            : '',
+		cur_url             : tribe_ev.fn.url_path( document.URL ),
+		cur_date            : tribe_ev.fn.current_date(),
 		datepicker_formats: {
-			'main' : ['yyyy-mm-dd', 'm/d/yyyy', 'mm/dd/yyyy', 'd/m/yyyy', 'dd/mm/yyyy', 'm-d-yyyy', 'mm-dd-yyyy', 'd-m-yyyy', 'dd-mm-yyyy'],
-			'month': ['yyyy-mm', 'm/yyyy', 'mm/yyyy', 'm/yyyy', 'mm/yyyy', 'm-yyyy', 'mm-yyyy', 'm-yyyy', 'mm-yyyy']
+			'main': [
+				'yyyy-mm-dd',
+				'm/d/yyyy',
+				'mm/dd/yyyy',
+				'd/m/yyyy',
+				'dd/mm/yyyy',
+				'm-d-yyyy',
+				'mm-dd-yyyy',
+				'd-m-yyyy',
+				'dd-mm-yyyy',
+				'yyyy.mm.dd',
+				'mm.dd.yyyy',
+				'dd.mm.yyyy'
+			],
+			'month': [
+				'yyyy-mm',
+				'm/yyyy',
+				'mm/yyyy',
+				'm/yyyy',
+				'mm/yyyy',
+				'm-yyyy',
+				'mm-yyyy',
+				'm-yyyy',
+				'mm-yyyy',
+				'yyyy.mm',
+				'mm.yyyy',
+				'mm.yyyy'
+			]
 		},
-		datepicker_opts   : {},
-		default_permalinks: (!config.permalink_settings.length),
-		initial_url       : tribe_ev.fn.url_path( document.URL ),
-		mobile_break      : 768,
-		params            : tribe_ev.fn.get_params(),
-		v_height          : 0,
-		v_width           : 0
+		datepicker_opts     : {},
+		default_permalinks  : (!config.permalink_settings.length),
+		initial_url         : tribe_ev.fn.url_path( document.URL ),
+		mobile_break        : 768,
+		default_mobile_view : null,
+		redirected_view     : null,
+		default_view        : null,
+		params              : tribe_ev.fn.get_params(),
+		v_height            : 0,
+		v_width             : 0
 	};
 
 	/**
@@ -1114,6 +1286,7 @@ Date.prototype.format = function( mask, utc ) {
 		date             : '',
 		datepicker_format: '0',
 		do_string        : false,
+		featured         : false,
 		filters          : false,
 		filter_cats      : false,
 		initial_load     : true,
@@ -1149,21 +1322,21 @@ Date.prototype.format = function( mask, utc ) {
 	$( document ).ready( function() {
 
 		// @ifdef DEBUG
-		dbug && debug.info( 'TEC Debug: Tribe Events JS init, Init Timer started from tribe-events.js.' );
+		dbug && tec_debug.info( 'TEC Debug: Tribe Events JS init, Init Timer started from tribe-events.js.' );
 		// @endif
 
 		tf.update_viewport_variables();
 
-		var $body = $( 'body' ),
-			$tribe_events = $( '#tribe-events' ),
-			$tribe_content = $( '#tribe-events-content' ),
-			$tribe_events_header = $( '#tribe-events-header' ),
-			resize_timer;
-
+		var $body                = $( 'body' );
+		var $tribe_events        = $( document.getElementById( 'tribe-events' ) );
+		var $tribe_content       = $( document.getElementById( 'tribe-events-content' ) );
+		var $tribe_events_header = $( document.getElementById( 'tribe-events-header' ) );
+		var resize_timer;
 
 		$tribe_events.removeClass( 'tribe-no-js' );
-		ts.category = tf.get_category();
-		td.base_url = tf.get_base_url();
+
+		ts.category   = tf.get_category();
+		td.base_url   = tf.get_base_url();
 		ts.page_title = document.title;
 
 		var tribe_display = tf.get_url_param( 'tribe_event_display' );
@@ -1175,26 +1348,130 @@ Date.prototype.format = function( mask, utc ) {
 			ts.view = $tribe_events_header.data( 'view' );
 		}
 
-		if ( $tribe_events.tribe_has_attr( 'data-datepicker_format' ) && $tribe_events.attr( 'data-datepicker_format' ).length === 1 ) {
+		if ( $tribe_events.tribe_has_attr( 'data-datepicker_format' ) && $tribe_events.attr( 'data-datepicker_format' ).length >= 1 ) {
 			ts.datepicker_format = $tribe_events.attr( 'data-datepicker_format' );
 		}
 
 		// @ifdef DEBUG
-		ts.view && dbug && debug.time( 'Tribe JS Init Timer' );
+		ts.view && dbug && tec_debug.time( 'Tribe JS Init Timer' );
 		// @endif
+
+		$( te ).on( 'tribe_ev_collectParams', function() {
+			// maybe add a baseurl to the Ajax request if we are attempting to navigate events. This helps with
+			// our shortcode pagination
+			if (
+				'undefined' === typeof tribe_ev.state
+				|| 'undefined' === typeof tribe_ev.state.params
+			) {
+				return;
+			}
+
+			if (
+				-1 === tribe_ev.fn.in_params( tribe_ev.state.params, 'eventdate' )
+				&& -1 === tribe_ev.fn.in_params( tribe_ev.state.params, 'tribe_event_display' )
+			) {
+				return;
+			}
+
+			// We only want to manipulate shortcode params. Bail otherwise
+			if ( ! $( document.getElementById( 'tribe-events' ) ).is( '.tribe-events-shortcode' ) ) {
+				return;
+			}
+
+			var $header = $( document.getElementById( 'tribe-events-header' ) );
+			var $canonical = $( 'link[rel="canonical"]' );
+			var url = null;
+
+			if ( $canonical.length ) {
+				// use the canonical URL if it is available (it should be)
+				url = $canonical.attr( 'href' );
+			} else if ( $header.length ) {
+				// failover to the baseurl of the event header
+				url = $header.data( 'baseurl' );
+			} else {
+				// use the current URL as a last ditch effort
+				url = window.location.origin + window.location.path;
+			}
+
+			tribe_ev.state.params += '&baseurl=' + url;
+
+			if ( $header.length ) {
+				var cat = /tribe_events_cat=([^&]*)/ig.exec( $header.data( 'baseurl' ) );
+
+				if ( cat && 'undefined' !== typeof cat[1] ) {
+					cat = cat[1];
+				} else {
+					cat = null;
+				}
+
+				if ( cat ) {
+					var cat_regexp = new RegExp( 'tribe_event_category=' + cat );
+
+					if ( ! tribe_ev.state.params.match( cat_regexp ) ) {
+						tribe_ev.state.params += '&tribe_event_category=' + cat;
+					}
+
+					if ( 'string' === typeof tribe_ev.state.url_params && ! tribe_ev.state.url_params.match( cat_regexp ) ) {
+						tribe_ev.state.url_params += '&tribe_event_category=' + cat;
+					}
+				}
+			}
+
+			if ( 'month' === ts.view && ! $( '#tribe-events-bar' ).length ) {
+				if ( ! td.default_permalinks ) {
+					ts.url_params = 'tribe-bar-date=' + tribeDateFormat( ts.mdate, "tribeMonthQuery" );
+				} else {
+					tribe_ev.state.url_params += 'tribe-bar-date=' + tribeDateFormat( ts.mdate, "tribeMonthQuery" );
+				}
+			}
+
+		} );
 
 		/**
 		 *
-		 * Themers can override the mobile break with an override in function.php
+		 * Themers can override the mobile break with an override in functions.php
 		 *
-		 add_action( 'tribe_events_mobile_breakpoint', 'mobile_breakpoint' );
-		 function mobile_breakpoint() {
-					return 500;
-				}
+		 *************************************************************************
+
+			add_action( 'tribe_events_mobile_breakpoint', 'mobile_breakpoint' );
+
+			function mobile_breakpoint() {
+				return 500;
+			}
+
+		 *************************************************************************
 		 */
 
-		if ( $tribe_events.length && $tribe_events.tribe_has_attr( 'data-mobilebreak' ) ) {
-			td.mobile_break = parseInt( $tribe_events.attr( 'data-mobilebreak' ) );
+		if ( $tribe_events.length ) {
+			var $breakpoint_holder = $tribe_events.tribe_has_attr( 'data-mobilebreak' );
+
+			if ( false === $breakpoint_holder ) {
+				$breakpoint_holder = $tribe_events.find( '[data-mobilebreak]' ).eq( 0 );
+			} else {
+				$breakpoint_holder = $tribe_events;
+			}
+
+			if ( $breakpoint_holder.length ) {
+				td.mobile_break = parseInt( $breakpoint_holder.data( 'mobilebreak' ), 10 );
+			}
+
+			/**
+			 * Deal with the Mobile View when we have a breakpoint
+			 */
+			var $mobile_view_holder = $tribe_events.tribe_has_attr( 'data-default-mobile-view' );
+
+			if ( false === $mobile_view_holder ) {
+				$mobile_view_holder = $tribe_events.find( '[data-default-mobile-view]' ).eq( 0 );
+			} else {
+				$mobile_view_holder = $tribe_events;
+			}
+
+			if ( $mobile_view_holder.length ) {
+				// Remember, when using jQuery.data and dash separated variables they become CamelCase separated
+				td.default_mobile_view = $mobile_view_holder.data( 'defaultMobileView' );
+				td.default_view = $mobile_view_holder.data( 'defaultView' );
+				td.redirected_view = $mobile_view_holder.data( 'redirectedView' );
+			}
 		}
 
 		if ( $tribe_events.length && td.mobile_break > 0 ) {
@@ -1233,23 +1510,31 @@ Date.prototype.format = function( mask, utc ) {
 
 		/**
 		 * @function tribe_ical_url
-		 * @desc tribe_ical_url This function adds required params to the ical url. Runs on doc ready, and hooks into 'tribe_ev_ajaxSuccess' also.
+		 * @desc tribe_ical_url This function adds required params to the ical url. Runs on doc ready, and hooks into 'ajax-success.tribe' also.
 		 */
-
 		function tribe_ical_url() {
-			var url = document.URL,
-				separator = '?';
+			var should_overwrite = true;
 
-			if ( url.indexOf( '?' ) > 0 ) {
-				separator = '&';
+			// If the "force filtered iCal link" option is set, we should not overwrite.
+			if ( 'undefined' !== typeof tribe_js_config.force_filtered_ical_link ) {
+				should_overwrite = ! tribe_js_config.force_filtered_ical_link;
 			}
 
-			var new_link = url + separator + 'ical=1' + '&' + 'tribe_display=' + ts.view;
+			if ( should_overwrite ) {
+				var url       = document.URL;
+				var separator = '?';
 
-			$( 'a.tribe-events-ical' ).attr( 'href', new_link );
+				if ( url.indexOf( '?' ) > 0 ) {
+					separator = '&';
+				}
+
+				var new_link = url + separator + 'ical=1' + '&' + 'tribe_display=' + ts.view;
+
+				$( 'a.tribe-events-ical' ).attr( 'href', new_link );
+			}
 		}
 
-		$( te ).on( "tribe_ev_ajaxSuccess", function() {
+		$( te ).on( 'tribe_ev_ajaxSuccess', function() {
 			tribe_ical_url();
 		} );
 
@@ -1265,13 +1550,13 @@ Date.prototype.format = function( mask, utc ) {
 
 		// @ifdef DEBUG
 		if ( dbug ) {
-			debug.groupCollapsed( 'TEC Debug: Browser and events settings information:' );
-			debug.log( 'User agent reported as: "' + navigator.userAgent );
-			debug.log( 'Live ajax returned its state as: "' + tt.live_ajax() );
-			ts.view && debug.log( 'Tribe js detected the view to be: "' + ts.view );
-			debug.log( 'Supports pushstate: "' + tt.pushstate );
-			debug.groupEnd();
-			debug.info( 'TEC Debug: tribe-events.js successfully loaded' );
+			tec_debug.groupCollapsed( 'TEC Debug: Browser and events settings information:' );
+			tec_debug.log( 'User agent reported as: "' + navigator.userAgent );
+			tec_debug.log( 'Live ajax returned its state as: "' + tt.live_ajax() );
+			ts.view && tec_debug.log( 'Tribe js detected the view to be: "' + ts.view );
+			tec_debug.log( 'Supports pushstate: "' + tt.pushstate );
+			tec_debug.groupEnd();
+			tec_debug.info( 'TEC Debug: tribe-events.js successfully loaded' );
 		}
 		// @endif
 	} );

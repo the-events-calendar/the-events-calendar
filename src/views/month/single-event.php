@@ -6,6 +6,7 @@
  * Override this template in your own theme by creating a file at [your-theme]/tribe-events/month/single-event.php
  *
  * @package TribeEventsCalendar
+ * @version 4.6.21
  *
  */
 
@@ -23,7 +24,7 @@ global $post;
  * in.
  */
 $day      = tribe_events_get_current_month_day();
-$event_id = "{$post->ID}-{$day['daynum']}";
+$event_id = "{$post->ID}-{$day['date']}";
 $link     = tribe_get_event_link( $post );
 $title    = get_the_title( $post );
 
@@ -121,25 +122,25 @@ $title    = get_the_title( $post );
  *
  *	<script type="text/html" id="tribe_tmpl_tooltip">
  *		<div id="tribe-events-tooltip-[[=eventId]]" class="tribe-events-tooltip">
- *			<h4 class="entry-title summary">[[=title]]</h4>
+ *			<h4 class="tribe-event-title">[[=title]]<\/h4>
  *			<div class="tribe-events-event-body">
- *				<div class="duration">
- *					<abbr class="tribe-events-abbr updated published dtstart">[[=startTime]] </abbr>
+ *				<div class="tribe-event-duration">
+ *					<abbr class="tribe-events-abbr tribe-event-date-start">[[=startTime]] <\/abbr>
  *			[[ if(endTime.length) { ]]
- *					-<abbr class="tribe-events-abbr dtend"> [[=endTime]]</abbr>
+ *					-<abbr class="tribe-events-abbr tribe-event-date-end"> [[=endTime]]<\/abbr>
  *			[[ } ]]
- *				</div>
+ *				<\/div>
  *			[[ if(imageTooltipSrc.length) { ]]
  *				<div class="tribe-events-event-thumb">
- *					<img src="[[=imageTooltipSrc]]" alt="[[=title]]" />
- *				</div>
+ *					<img src="[[=imageTooltipSrc]]" alt="[[=title]]" \/>
+ *				<\/div>
  *			[[ } ]]
  *			[[ if(excerpt.length) { ]]
- *				<p class="entry-summary description">[[=raw excerpt]]</p>
+ *				<p class="entry-summary description">[[=raw excerpt]]<\/p>
  *			[[ } ]]
- *				<span class="tribe-events-arrow"></span>
- *			</div>
- *		</div>
+ *				<span class="tribe-events-arrow"><\/span>
+ *			<\/div>
+ *		<\/div>
  *	</script>
  *
  *
@@ -193,6 +194,6 @@ $title    = get_the_title( $post );
 ?>
 
 <div id="tribe-events-event-<?php echo esc_attr( $event_id ); ?>" class="<?php tribe_events_event_classes() ?>" data-tribejson='<?php echo esc_attr( tribe_events_template_data( $post ) ); ?>'>
-	<h3 class="tribe-events-month-event-title entry-title summary"><a href="<?php echo esc_url( $link ) ?>" class="url"><?php echo $title ?></a></h3>
+	<h3 class="tribe-events-month-event-title"><a href="<?php echo esc_url( $link ) ?>" class="url"><?php echo $title ?></a></h3>
 </div><!-- #tribe-events-event-# -->
 

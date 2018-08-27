@@ -1,6 +1,7 @@
 <?php
 
 class Tribe__Events__Capabilities {
+	public $set_initial_caps = false;
 	private $cap_aliases = array(
 		'editor' => array( // full permissions to a post type
 			'read',
@@ -40,25 +41,29 @@ class Tribe__Events__Capabilities {
 	 * @param string $role_id The role receiving the caps
 	 * @param string $level The capability level to grant (see the list of caps above)
 	 *
-	 * @return bool FALSE if the action failed for some reason, otherwise TRUE
+	 * @return bool false if the action failed for some reason, otherwise true
 	 */
 	public function register_post_type_caps( $post_type, $role_id, $level = '' ) {
 		if ( empty( $level ) ) {
 			$level = $role_id;
 		}
-		if ( $level == 'administrator' ) {
+
+		if ( 'administrator' === $level ) {
 			$level = 'editor';
 		}
+
 		if ( ! isset( $this->cap_aliases[ $level ] ) ) {
-			return FALSE;
+			return false;
 		}
+
 		$role = get_role( $role_id );
 		if ( ! $role ) {
-			return FALSE;
+			return false;
 		}
+
 		$pto = get_post_type_object( $post_type );
 		if ( empty( $pto ) ) {
-			return FALSE;
+			return false;
 		}
 
 		foreach ( $this->cap_aliases[ $level ] as $alias ) {
@@ -66,7 +71,8 @@ class Tribe__Events__Capabilities {
 				$role->add_cap( $pto->cap->$alias );
 			}
 		}
-		return TRUE;
+
+		return true;
 	}
 
 	/**
@@ -75,20 +81,20 @@ class Tribe__Events__Capabilities {
 	 * @param string $post_type The post type to remove caps for
 	 * @param string $role_id The role which is losing caps
 	 *
-	 * @return bool FALSE if the action failed for some reason, otherwise TRUE
+	 * @return bool false if the action failed for some reason, otherwise true
 	 */
 	public function remove_post_type_caps( $post_type, $role_id ) {
 		$role = get_role( $role_id );
 		if ( ! $role ) {
-			return FALSE;
+			return false;
 		}
 		foreach ( $role->capabilities as $cap => $has ) {
-			if ( strpos( $cap, $post_type ) !== FALSE ) {
+			if ( strpos( $cap, $post_type ) !== false ) {
 				$role->remove_cap( $cap );
 			}
 		}
 
-		return TRUE;
+		return true;
 	}
 
 	/**
@@ -97,10 +103,13 @@ class Tribe__Events__Capabilities {
 	 * @return void
 	 */
 	public function set_initial_caps() {
+		// this is a flag for testing purposes to make sure this function is firing
+		$this->set_initial_caps = true;
 		foreach ( array( 'administrator', 'editor', 'author', 'contributor', 'subscriber' ) as $role ) {
 			$this->register_post_type_caps( Tribe__Events__Main::POSTTYPE, $role );
-			$this->register_post_type_caps( Tribe__Events__Main::ORGANIZER_POST_TYPE, $role );
 			$this->register_post_type_caps( Tribe__Events__Main::VENUE_POST_TYPE, $role );
+			$this->register_post_type_caps( Tribe__Events__Main::ORGANIZER_POST_TYPE, $role );
+			$this->register_post_type_caps( Tribe__Events__Aggregator__Records::$post_type, $role );
 		}
 	}
 
@@ -112,8 +121,9 @@ class Tribe__Events__Capabilities {
 	public function remove_all_caps() {
 		foreach ( array( 'administrator', 'editor', 'author', 'contributor', 'subscriber' ) as $role ) {
 			$this->remove_post_type_caps( Tribe__Events__Main::POSTTYPE, $role );
-			$this->remove_post_type_caps( Tribe__Events__Main::ORGANIZER_POST_TYPE, $role );
 			$this->remove_post_type_caps( Tribe__Events__Main::VENUE_POST_TYPE, $role );
+			$this->remove_post_type_caps( Tribe__Events__Main::ORGANIZER_POST_TYPE, $role );
+			$this->remove_post_type_caps( Tribe__Events__Aggregator__Records::$post_type, $role );
 		}
 	}
 }

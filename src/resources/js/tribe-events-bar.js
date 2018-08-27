@@ -28,20 +28,20 @@ var tribe_events_bar_action;
 		// @ifdef DEBUG
 		if ( dbug ) {
 			if ( !$().bootstrapDatepicker ) {
-				debug.warn( 'TEC Debug: vendor bootstrapDatepicker was not loaded before its dependant file tribe-events-bar.js' );
+				tec_debug.warn( 'TEC Debug: vendor bootstrapDatepicker was not loaded before its dependant file tribe-events-bar.js' );
 			}
 			if ( !$().placeholder ) {
-				debug.warn( 'TEC Debug: vendor placeholder was not loaded before its dependant file tribe-events-bar.js' );
+				tec_debug.warn( 'TEC Debug: vendor placeholder was not loaded before its dependant file tribe-events-bar.js' );
 			}
 		}
 		// @endif
 
-		var $tribebar = $( '#tribe-bar-form' ),
-			$tribedate = $( '#tribe-bar-date' ),
-			$tribe_events = $( '#tribe-events' ),
-			$tribe_header = $( '#tribe-events-header' ),
-			start_day = 0,
-			$tribebarselect = $( 'select[name=tribe-bar-view]' );
+		var $tribebar       = $( document.getElementById( 'tribe-bar-form' ) );
+		var $tribedate      = $( document.getElementById( 'tribe-bar-date' ) );
+		var $tribe_events   = $( document.getElementById( 'tribe-events' ) );
+		var $tribe_header   = $( document.getElementById( 'tribe-events-header' ) );
+		var start_day       = 0;
+		var $tribebarselect = $( 'select[name=tribe-bar-view]' );
 
 		if ( $tribe_header.length ) {
 			start_day = $tribe_header.data( 'startofweek' );
@@ -79,7 +79,7 @@ var tribe_events_bar_action;
 			eventsBarWidth( $tribebar );
 		} );
 
-		if ( !$( '.tribe-events-week-grid' ).length ) {
+		if ( ! $( '.tribe-events-week-grid' ).length ) {
 
 			if ( ts.view !== 'month' ) {
 
@@ -91,7 +91,7 @@ var tribe_events_bar_action;
 
 					// we are not using the default query date format, lets grab it from the data array
 
-					date_format = td.datepicker_formats.main[ts.datepicker_format];
+					date_format = td.datepicker_formats.main[ ts.datepicker_format ];
 
 					var url_date = tf.get_url_param( 'tribe-bar-date' );
 
@@ -107,34 +107,37 @@ var tribe_events_bar_action;
 				}
 
 				// @ifdef DEBUG
-				dbug && debug.info( 'TEC Debug: bootstrapDatepicker was just initialized in "tribe-events-bar.js" on:', $tribedate );
+				dbug && tec_debug.info( 'TEC Debug: bootstrapDatepicker was just initialized in "tribe-events-bar.js" on:', $tribedate );
 				// @endif
 
 				td.datepicker_opts = {
-					weekStart         : start_day,
-					format   : date_format,
-					autoclose: true
+					weekStart : start_day,
+					format    : date_format,
+					autoclose : true
 				};
 
-				$tribedate
-					.bootstrapDatepicker( td.datepicker_opts );
+				$tribedate.bootstrapDatepicker( td.datepicker_opts );
 			}
 		}
 
 		$tribedate.blur( function() {
 			if ( $tribedate.val() === '' && $( '.datepicker.dropdown-menu' ).is( ':hidden' ) && tt.live_ajax() && tt.pushstate ) {
-				ts.date = td.cur_date;
+				ts.date    = td.cur_date;
 				td.cur_url = td.base_url;
+				/**
+				 * DEPRECATED: tribe_ev_runAjax has been deprecated in 4.0. Use run-ajax.tribe instead
+				 */
 				$( te ).trigger( 'tribe_ev_runAjax' );
+				$( te ).trigger( 'run-ajax.tribe' );
 			}
 		} );
 
 		// Add some classes
 		if ( $( '.tribe-bar-settings' ).length ) {
-			$( '#tribe-events-bar' ).addClass( 'tribe-has-settings' );
+			$( document.getElementById( 'tribe-events-bar' ) ).addClass( 'tribe-has-settings' );
 		}
 		if ( $( '#tribe-events-bar .hasDatepicker' ).length ) {
-			$( '#tribe-events-bar' ).addClass( 'tribe-has-datepicker' );
+			$( document.getElementById( 'tribe-events-bar' ) ).addClass( 'tribe-has-datepicker' );
 		}
 
 		// Implement views links
@@ -161,54 +164,62 @@ var tribe_events_bar_action;
 				'data-tribe-bar-order': i,
 				'data-view'           : displaying
 			} ).html( [
-					'   <a href="#">',
-					'   <span class="tribe-icon-' + displaying + '">' + $view.text() + '</span>',
-					'</a>'].join( "" )
-				).appendTo( '.tribe-bar-views-list' );
+				'   <a href="#">',
+				'   <span class="tribe-icon-' + displaying + '">' + $view.text() + '</span>',
+				'</a>'].join( "" )
+			).appendTo( '.tribe-bar-views-list' );
 
 		} );
 
 		//find the current view and select it in the bar
-		var currentview = $tribebarselect.find( ':selected' ).data( 'view' ),
-			$currentli = $tribebarviews.find( 'li[data-view=' + currentview + ']' );
+		var currentview = $tribebarselect.find( ':selected' ).data( 'view' );
+		var $currentli  = $tribebarviews.find( 'li[data-view=' + currentview + ']' );
 
 		$currentli.prependTo( $tribebarviews ).addClass( 'tribe-bar-active' );
 
-		// toggle the views dropdown	
+		// Disable the select
+		$tribebarselect.hide();
+
+		// toggle the views dropdown
 		$tribebar.on( 'click', '#tribe-bar-views', function( e ) {
 			e.stopPropagation();
-			var $this = $( this );
-			$this.toggleClass( 'tribe-bar-views-open' );
+
+			$( this ).toggleClass( 'tribe-bar-views-open' );
 		} );
 
 		// change views
 		$tribebar.on( 'click', '.tribe-bar-views-option', function( e ) {
 			e.preventDefault();
+			
 			var $this = $( this );
-			if ( !$this.is( '.tribe-bar-active' ) ) {
+
+			if ( ! $this.is( '.tribe-bar-active' ) ) {
 
 				var target = $this.data( 'view' );
 
-				ts.cur_url = $( 'option[data-view=' + target + ']' ).val();
-				ts.view_target = $( 'select[name=tribe-bar-view] option[value="' + ts.cur_url + '"]' ).data( 'view' );
+				ts.cur_url              = $( 'option[data-view=' + target + ']' ).val();
+				ts.view_target          = $( 'select[name=tribe-bar-view] option[value="' + ts.cur_url + '"]' ).data( 'view' );
 				tribe_events_bar_action = 'change_view';
-				tribe_events_bar_change_view();
 
+				tribe_events_bar_change_view();
 			}
 		} );
+
+		// Trigger Mobile Change
+		tf.maybe_default_view_change();
 
 		// change views with select (for skeleton styles)
 		$tribebar.on( 'change', '.tribe-bar-views-select', function( e ) {
 			e.preventDefault();
-			var $this = $( "option:selected", this );
-
+			
+			var $this  = $( 'option:selected', this );
 			var target = $this.data( 'view' );
 
-			ts.cur_url = $( 'option[data-view=' + target + ']' ).val();
-			ts.view_target = $( 'select[name=tribe-bar-view] option[value="' + ts.cur_url + '"]' ).data( 'view' );
+			ts.cur_url              = $( 'option[data-view=' + target + ']' ).val();
+			ts.view_target          = $( 'select[name=tribe-bar-view] option[value="' + ts.cur_url + '"]' ).data( 'view' );
 			tribe_events_bar_action = 'change_view';
-			tribe_events_bar_change_view();
 
+			tribe_events_bar_change_view();
 		} );
 
 		$tribebar.on( 'click', '#tribe-bar-collapse-toggle', function() {
@@ -220,20 +231,28 @@ var tribe_events_bar_action;
 		$( 'label[for="tribe-bar-date"], input[name="tribe-bar-date"]' ).wrapAll( '<div id="tribe-bar-dates" />' );
 
 		// Add our date bits outside of our filter container
-		$( '#tribe-bar-filters' ).before( $( '#tribe-bar-dates' ) );
+		$( document.getElementById( 'tribe-bar-filters' ) ).before( $( document.getElementById( 'tribe-bar-dates' ) ) );
 
-		$( te ).on( "tribe_ev_serializeBar", function() {
+		$( te ).on( 'tribe_ev_serializeBar', function() {
 			$( 'form#tribe-bar-form input, form#tribe-bar-form select, #tribeHideRecurrence' ).each( function() {
 				var $this = $( this );
 				if ( $this.is( '#tribe-bar-date' ) ) {
-					if ( $this.val().length ) {
+					var this_val = $this.val();
+
+					if ( this_val.length ) {
 						if ( ts.view === 'month' ) {
 							ts.params[$this.attr( 'name' )] = tribeDateFormat( ts.mdate, "tribeMonthQuery" );
 							ts.url_params[$this.attr( 'name' )] = tribeDateFormat( ts.mdate, "tribeMonthQuery" );
 						}
+						// If this is not month view, but we came from there, the value of #tribe-bar-date will
+						// describe a year and a month: preserve this if so to ensure accuracy of pagination
+						else if ( this_val.match( /[0-9]{4}-[0-9]{2}/ ) ) {
+							ts.params[ $this.attr( 'name') ] = ts.url_params[ $this.attr( 'name' ) ] = this_val;
+						}
+						// In all other cases, pull the date from the datepicker
 						else {
-							ts.params[$this.attr( 'name' )] = tribeDateFormat( $this.bootstrapDatepicker( 'getDate' ), "tribeQuery" );
-							ts.url_params[$this.attr( 'name' )] = tribeDateFormat( $this.bootstrapDatepicker( 'getDate' ), "tribeQuery" );
+							ts.params[ $this.attr( 'name' ) ]     = tribeDateFormat( $this.bootstrapDatepicker( 'getDate' ), 'tribeQuery' );
+							ts.url_params[ $this.attr( 'name' ) ] = tribeDateFormat( $this.bootstrapDatepicker( 'getDate' ), 'tribeQuery' );
 						}
 					}
 					else if ( $this.is( '.placeholder' ) && $this.is( '.bd-updated' ) ) {
@@ -278,22 +297,16 @@ var tribe_events_bar_action;
 
 			tribe_events_bar_action = 'change_view';
 
-			if ( ts.view === 'month' && $tribedate.length ) {
-				var dp_date = $tribedate.val(),
-					day = tf.get_day();
+			if ( 'month' === ts.view && $tribedate.length ) {
+				var dp_date = $tribedate.val();
+				var day     = tf.get_day();
 
-				if ( ts.datepicker_format !== '0' ) {
-					if ( day.length ) {
-						dp_date = tribeDateFormat( $tribedate.bootstrapDatepicker( 'getDate' ), 'tribeMonthQuery' );
-						$tribedate.val( dp_date + day );
-					}
-					else {
-						$tribedate.val( '' );
-					}
-
+				if ( '0' != ts.datepicker_format ) {
+					dp_date = tribeDateFormat( $tribedate.bootstrapDatepicker( 'getDate' ), 'tribeMonthQuery' );
+					$tribedate.val( dp_date + day );
 				}
 				else {
-					if ( dp_date.length === 7 ) {
+					if ( 7 === dp_date.length ) {
 						$tribedate.val( dp_date + day );
 					}
 				}
@@ -302,32 +315,63 @@ var tribe_events_bar_action;
 
 			ts.url_params = {};
 
+			/**
+			 * DEPRECATED: tribe_ev_preCollectBarParams has been deprecated in 4.0. Use pre-collect-bar-params.tribe instead
+			 */
 			$( te ).trigger( 'tribe_ev_preCollectBarParams' );
+			$( te ).trigger( 'pre-collect-bar-params.tribe' );
 
-			$( '#tribe-bar-form input, #tribe-bar-form select' ).each( function() {
+			// Select all the required fields
+			// Normal Form + Filter Bar
+			var $forms  = $( document.getElementById( 'tribe-bar-form' ) ).add( document.getElementById( 'tribe_events_filters_wrapper' ) );
+			var $inputs = $forms.find( 'input, select' );
+
+			$inputs.each( function() {
 				var $this = $( this );
-				if ( $this.val().length && !$this.hasClass( 'tribe-no-param' ) ) {
-					if ( ts.view !== 'month' && ts.datepicker_format !== '0' && $this.is( $tribedate ) ) {
+				if ( $this.val() && $this.val().length && ! $this.hasClass( 'tribe-no-param' ) ) {
+					if ( 'month' !== ts.view  && '0' !== ts.datepicker_format && $this.is( $tribedate ) ) {
 
-						ts.url_params[$this.attr( 'name' )] = tribeDateFormat( $this.bootstrapDatepicker( 'getDate' ), 'tribeQuery' );
+						ts.url_params[ $this.attr( 'name' ) ] = tribeDateFormat( $this.bootstrapDatepicker( 'getDate' ), 'tribeQuery' );
 
 					}
 					else {
 						if ( $this.is( ':checkbox' ) ) {
 							if ( $this.is( ':checked' ) ) {
+
+								// if checkbox and not defined setup as an array
+								if ( 'undefined' === typeof ts.url_params[ $this.attr( 'name' ) ] ) {
+									ts.url_params[$this.attr( 'name' )] = [];
+								}
+
+								// add value to array
+								ts.url_params[ $this.attr( 'name' ) ].push( $this.val() );
+							}
+						}
+						else if ( 'radio' === $this.attr( 'type' ) ) {
+							if ( $this.is( ':checked' ) ) {
 								ts.url_params[$this.attr( 'name' )] = $this.val();
 							}
 						}
-						else {
-							ts.url_params[$this.attr( 'name' )] = $this.val();
+						else if ( 'undefined' !== typeof $this.attr( 'name' ) ) {
+							ts.url_params[ $this.attr( 'name' ) ] = $this.val();
 						}
 					}
 				}
 			} );
 
+			// setup redirected param to prevent after initial redirect
+			var redirected = $( '.tribe-bar-views-option-' + td.default_mobile_view ).data( 'redirected' );
+			if ( td.redirected_view || redirected ) {
+				ts.url_params['tribe_redirected'] = true;
+			}
+
 			ts.url_params = $.param( ts.url_params );
 
+			/**
+			 * DEPRECATED: tribe_ev_postCollectBarParams has been deprecated in 4.0. Use post-collect-bar-params.tribe instead
+			 */
 			$( te ).trigger( 'tribe_ev_postCollectBarParams' );
+			$( te ).trigger( 'post-collect-bar-params.tribe' );
 
 			if ( ts.url_params.length ) {
 				ts.cur_url += tt.starting_delim() + ts.url_params;
@@ -348,7 +392,7 @@ var tribe_events_bar_action;
 		} );
 
 		$( document ).click( function() {
-			$( '#tribe-bar-views' ).removeClass( 'tribe-bar-views-open' );
+			$( document.getElementById( 'tribe-bar-views' ) ).removeClass( 'tribe-bar-views-open' );
 			if ( $tribeDropToggle.hasClass( 'open' ) ) {
 				$tribeDropToggle.removeClass( 'open' );
 				$tribeDropToggleEl.hide();
@@ -360,7 +404,7 @@ var tribe_events_bar_action;
 		} );
 
 		// @ifdef DEBUG
-		dbug && debug.info( 'TEC Debug: tribe-events-bar.js successfully loaded' );
+		dbug && tec_debug.info( 'TEC Debug: tribe-events-bar.js successfully loaded' );
 		// @endif
 	} );
 

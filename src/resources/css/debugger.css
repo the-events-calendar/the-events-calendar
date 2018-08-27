@@ -1,82 +1,75 @@
-/* Debug Bar and Support Form */
+/**
+ * This CSS file was auto-generated via PostCSS
+ *
+ * Contributors should avoid editing this file, but instead edit the associated
+ * src/resources/postcss/ file. For more information, check out our engineering
+ * docs on how we handle CSS in our engineering docs.
+ *
+ * @see: http://moderntribe.github.io/products-engineering/css/
+ */
 
-div#debug-bar-tribe ul {
+/* Debug Bar and Support Form */
+#debug-bar-tribe ul {
 	list-style: none;
 	margin: 0px;
 	padding: 0px;
 }
-
-div#debug-bar-tribe li {
-	padding: 0px;
+#debug-bar-tribe li {
+	background-color: #f4f4f4;
+	border: #eee solid 1px;
 	display: block;
 	margin-bottom: 6px;
-	background-color: #F4F4F4;
-	border: #eee solid 1px;
+	padding: 0px;
 }
-
-div#debug-bar-tribe li div.tribe-debug-entry-title {
-	font-weight: bold;
-	padding: 10px;
-	margin: 0;
-	background-color: #eee;
-}
-
-div#debug-bar-tribe li div.tribe-debug-entry-data {
-	padding: 10px;
-}
-
-div#debug-bar-tribe li.tribe-debug-log {
-}
-
-div#debug-bar-tribe li.tribe-debug-warning,
-div#debug-bar-tribe li.tribe-debug-notice {
+#debug-bar-tribe li.tribe-debug-warning,
+		#debug-bar-tribe li.tribe-debug-notice {
 	background-color: #fffcee;
-	border: #E6DB55 solid 1px;
+	border: #e6db55 solid 1px;
 }
-
-div#debug-bar-tribe li.tribe-debug-warning div.tribe-debug-entry-title,
-div#debug-bar-tribe li.tribe-debug-notice div.tribe-debug-entry-title {
-	background-color: #E6DB55;
+#debug-bar-tribe li.tribe-debug-warning .tribe-debug-entry-title, #debug-bar-tribe li.tribe-debug-notice .tribe-debug-entry-title {
+	background-color: #e6db55;
 }
-
-div#debug-bar-tribe li.tribe-debug-error {
+#debug-bar-tribe li.tribe-debug-error {
 	background-color: #fee;
-	border: #D66 solid 1px;
+	border: #d66 solid 1px;
 }
-
-div#debug-bar-tribe li.tribe-debug-error div.tribe-debug-entry-title {
-	background-color: #D66;
+#debug-bar-tribe li.tribe-debug-error .tribe-debug-entry-title {
+	background-color: #d66;
 }
-
-div.tribe-support-form{
-	width: 98%;
-	border: #eee solid 1px;
-	background-color: #efefef;
+#debug-bar-tribe li .tribe-debug-entry-title {
+	background-color: #eee;
+	font-weight: bold;
+	margin: 0;
 	padding: 10px;
 }
-
-div.tribe-support-form-description textarea {
-	width: 100%;
-	height: 200px;
+#debug-bar-tribe li .tribe-debug-entry-data {
+	padding: 10px;
 }
-
-div.tribe-support-form-submit input {
+#debug-bar-tribe li .tribe-support-form {
+	background: none;
+	border: none;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+}
+#debug-bar-tribe li .tribe-support-form h3 {
+	background-color: #eee;
+	font-weight: bold;
+	margin-bottom: 10px;
+	margin: -10px;
+	padding: 10px;
+}
+.tribe-support-form {
+	background-color: #efefef;
+	border: #eee solid 1px;
+	padding: 10px;
+	width: 98%;
+}
+.tribe-support-form-description textarea {
+	height: 200px;
+	width: 100%;
+}
+.tribe-support-form-submit input {
 	margin-top: 10px;
 	padding: 10px;
-}
-
-div#debug-bar-tribe li div.tribe-support-form {
-	width: 100%;
-	border: none;
-	padding: 0;
-	margin: 0;
-	background: none;
-}
-
-div#debug-bar-tribe li div.tribe-support-form h3 {
-	background-color: #eee;
-	padding: 10px;
-	margin: -10px;
-	margin-bottom: 10px;
-	font-weight: bold;
 }

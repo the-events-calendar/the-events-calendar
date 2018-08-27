@@ -1,0 +1,34 @@
+{
+  "name": "the-events-calendar",
+  "version": "4.6.22",
+  "repository": "git@github.com:moderntribe/the-events-calendar.git",
+  "_zipname": "the-events-calendar",
+  "_zipfoldername": "the-events-calendar",
+  "_resourcepath": "src/resources",
+  "_domainPath": "lang",
+  "_textDomain": "the-events-calendar",
+  "_glotPressUrl": "https://translate.wordpress.org",
+  "_glotPressSlug": "wp-plugins/the-events-calendar/stable",
+  "_glotPressFileFormat": "%textdomain%-%wp_locale%.%format%",
+  "_glotPressFormats": [
+    "po",
+    "mo"
+  ],
+  "_glotPressFilter": {
+    "translation_sets": false,
+    "minimum_percentage": 30,
+    "waiting_strings": false
+  },
+  "engines": {
+    "node": "0.10.30",
+    "npm": "1.4.23"
+  },
+  "devDependencies": {
+    "archiver": "^0.10.1",
+    "glob": "~4.0.5",
+    "gulp": "^3.9.1",
+    "gulp-sourcemaps": "^2.1.1",
+    "product-taskmaster": "git+https://github.com/moderntribe/product-taskmaster.git",
+    "require-dir": "^0.3.0"
+  }
+}

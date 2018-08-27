@@ -1,0 +1,58 @@
+/**
+ * This CSS file was auto-generated via PostCSS
+ *
+ * Contributors should avoid editing this file, but instead edit the associated
+ * src/resources/postcss/ file. For more information, check out our engineering
+ * docs on how we handle CSS in our engineering docs.
+ *
+ * @see: http://moderntribe.github.io/products-engineering/css/
+ */
+
+.tribe-embed {
+	padding: 25px 22px;
+}
+.tribe-embed .wp-embed-featured-image.rectangle,
+	.tribe-embed .wp-embed-featured-image.square {
+	margin-right: 18px;
+	max-width: 100%;
+}
+.tribe-embed .wp-embed-heading {
+	font-size: 18px;
+	margin-top: -6px;
+	margin-bottom: 10px;
+}
+.tribe-embed .tribe-events-event-cost {
+	color: #636466;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+.tribe-embed .tribe-event-schedule-details {
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+.tribe-embed .tribe-events-venue-details {
+	font-style: italic;
+	margin-bottom: 5px;
+}
+.tribe-embed .tribe-events-content {
+	padding-top: 8px;
+}
+.tribe-embed .wp-embed-footer {
+	margin-top: 20px;
+}
+@media (min-width: 440px) {
+	.tribe-embed .wp-embed-featured-image.rectangle,
+	.tribe-embed .wp-embed-featured-image.square {
+		max-width: 35%;
+	}
+	.tribe-embed .tribe-events-event-cost {
+		float: right;
+		margin-left: 18px;
+	}
+}
+@media (min-width: 800px) {
+	.tribe-embed .wp-embed-featured-image.rectangle,
+	.tribe-embed .wp-embed-featured-image.square {
+		max-width: 265px;
+	}
+}

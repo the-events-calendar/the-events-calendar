@@ -25,7 +25,7 @@ class Tribe__Events__Importer__File_Uploader {
 
 	private function validate_temporary_file() {
 		if ( ! file_exists( $this->tmp_name ) ) {
-			throw new RuntimeException( sprintf( __( 'Temporary file not found. Could not save %s.', 'tribe-events-calendar' ), $this->name ) );
+			throw new RuntimeException( sprintf( esc_html__( 'Temporary file not found. Could not save %s.', 'the-events-calendar' ), $this->name ) );
 		}
 	}
 
@@ -33,7 +33,7 @@ class Tribe__Events__Importer__File_Uploader {
 		self::clear_old_files();
 		$moved = move_uploaded_file( $this->tmp_name, self::get_file_path() );
 		if ( ! $moved ) {
-			throw new RuntimeException( sprintf( __( 'Could not save %s.', 'tribe-events-calendar' ), $this->name ) );
+			throw new RuntimeException( sprintf( esc_html__( 'Could not save %s.', 'the-events-calendar' ), $this->name ) );
 		}
 	}
 
@@ -52,6 +52,17 @@ class Tribe__Events__Importer__File_Uploader {
 		$path .= 'tribe-import.csv';
 
 		return $path;
+	}
+
+	/**
+	 * Indicates if the file returned by self::get_file_path() (still) exists
+	 * and is readable.
+	 *
+	 * @return bool
+	 */
+	public static function has_valid_csv_file() {
+		$csv_file = self::get_file_path();
+		return file_exists( $csv_file ) && is_readable( $csv_file );
 	}
 
 	private static function get_upload_directory() {

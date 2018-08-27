@@ -88,7 +88,7 @@ class Tribe__Events__Embedded_Maps {
 
 		$this->embedded_maps[] = array(
 			'address' => $this->address,
-			'title'   => tribe_get_venue( $this->venue_id ),
+			'title'   => esc_html( get_the_title( $this->venue_id ) ),
 		);
 
 		end( $this->embedded_maps );
@@ -104,6 +104,7 @@ class Tribe__Events__Embedded_Maps {
 		) );
 
 		$this->setup_scripts();
+
 		do_action( 'tribe_events_map_embedded', $index, $this->venue_id );
 		return apply_filters( 'tribe_get_embedded_map', ob_get_clean() );
 	}
@@ -111,7 +112,7 @@ class Tribe__Events__Embedded_Maps {
 	protected function get_ids( $post_id ) {
 		$post_id = $post_id = Tribe__Events__Main::postIdHelper( $post_id );
 		$this->event_id = tribe_is_event( $post_id ) ? $post_id : 0;
-		$this->venue_id  = tribe_is_venue( $post_id ) ? $post_id : tribe_get_venue_id( $post_id );
+		$this->venue_id = tribe_is_venue( $post_id ) ? $post_id : tribe_get_venue_id( $post_id );
 	}
 
 	protected function form_address() {
@@ -126,9 +127,9 @@ class Tribe__Events__Embedded_Maps {
 			}
 		}
 
-		if ( class_exists( 'Tribe__Events__Pro__Geo_Loc' ) && empty( $this->address ) ){
+		if ( class_exists( 'Tribe__Events__Pro__Geo_Loc' ) && empty( $this->address ) ) {
 			$overwrite = (int) get_post_meta( $this->venue_id, Tribe__Events__Pro__Geo_Loc::OVERWRITE, true );
-			if ( $overwrite ){
+			if ( $overwrite ) {
 				$lat = get_post_meta( $this->venue_id, Tribe__Events__Pro__Geo_Loc::LAT, true );
 				$lng = get_post_meta( $this->venue_id, Tribe__Events__Pro__Geo_Loc::LNG, true );
 				$this->address = $lat . ',' . $lng;
@@ -153,13 +154,32 @@ class Tribe__Events__Embedded_Maps {
 		// Provide address data
 		wp_localize_script( self::MAP_HANDLE, 'tribeEventsSingleMap', array(
 			'addresses' => $this->embedded_maps,
-			'zoom' => apply_filters( 'tribe_events_single_map_zoom_level', (int) tribe_get_option( 'embedGoogleMapsZoom', 8 ) ),
+			'zoom'      => apply_filters( 'tribe_events_single_map_zoom_level', (int) tribe_get_option( 'embedGoogleMapsZoom', 8 ) ),
+			'pin_url'   => Tribe__Customizer::instance()->get_option( array( 'global_elements', 'map_pin' ), false ),
 		) );
 	}
 
 	protected function enqueue_map_scripts() {
-		// Setup Google Maps API
-		$url = apply_filters( 'tribe_events_google_maps_api', '//maps.googleapis.com/maps/api/js' );
+
+		$api_url = 'https://maps.google.com/maps/api/js';
+		$api_key = tribe_get_option( 'google_maps_js_api_key' );
+
+		// bail if we don't have an API key
+		if ( empty( $api_key ) ) {
+			return;
+		}
+
+		if ( is_string( $api_key ) ) {
+			$api_url = sprintf( 'https://maps.googleapis.com/maps/api/js?key=%s', trim( $api_key ) );
+		}
+
+		/**
+		 * Allows for filtering the embedded Google Maps API URL.
+		 *
+		 * @param string $api_url The Google Maps API URL.
+		 */
+		$url = apply_filters( 'tribe_events_google_maps_api', $api_url );
+
 		wp_enqueue_script( 'tribe_events_google_maps_api', $url, array(), false, true );
 
 		// Setup our own script used to initialize each map

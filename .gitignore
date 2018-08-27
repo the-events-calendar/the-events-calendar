@@ -1,28 +1,29 @@
+# Vendor dependencies - ignore all by default...
+vendor
+# ...but do not ignore the ones below; add to the whitelist as the need arises
+!vendor/bootstrap-datepicker
+!vendor/chosen
+!vendor/jquery
+!vendor/jquery-placeholder
+!vendor/jquery-resize
+!vendor/tickets
+!vendor/tribe-common-libraries
+!vendor/ForceUTF8
+!vendor/php-date-formatter
 
-# /tests/PHPUnit/wordpress-tests/
-/tests/PHPUnit/wordpress-tests/unittests-config.php
+# Tests - local config files
+codeception.yml
+tests/*.suite.yml
+.env.local
 
-# /vendor/
+# Tests - local output files
+tests/_output
+
+# General Purpose Ingored Files
 .DS_Store
 .idea
-
-# build files for js minification
-
+node_modules
 compiler.jar
 *.ps1
 
-phpunit.xml
-codeception.yml
-tests/codeception/_output
-vendor/badcow
-vendor/bin
-vendor/codeception
-vendor/composer
-vendor/facebook
-vendor/guzzlehttp
-vendor/lucatume
-vendor/ocramius
-vendor/phpunit
-vendor/sebastian
-vendor/symfony
-vendor/autoload.php
+wpml-config.xml

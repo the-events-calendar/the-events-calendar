@@ -22,21 +22,31 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 */
 	function tribe_is_new_event_day() {
 		global $post;
+
 		$tribe_ecp = Tribe__Events__Main::instance();
 		$retval    = false;
 		$now       = time();
+
 		if ( isset( $post->EventStartDate ) ) {
 			$postTimestamp = strtotime( $post->EventStartDate, $now );
-			$postTimestamp = strtotime( date( Tribe__Events__Date_Utils::DBDATEFORMAT, $postTimestamp ), $now ); // strip the time
+			$postTimestamp = strtotime( date( Tribe__Date_Utils::DBDATEFORMAT, $postTimestamp ), $now ); // strip the time
+
 			if ( $postTimestamp != $tribe_ecp->currentPostTimestamp ) {
 				$retval = true;
 			}
+
 			$tribe_ecp->currentPostTimestamp = $postTimestamp;
 			$return                          = $retval;
 		} else {
 			$return = true;
 		}
 
+		/**
+		 * Allows for customization of the result of whether the current event is on a different day
+		 * from the one preceding it. Defaults to "true" for first event in the loop.
+		 *
+		 * @param bool $return Whether the current event is on a different day than its antecedent.
+		 */
 		return apply_filters( 'tribe_is_new_event_day', $return );
 	}
 
@@ -48,9 +58,18 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return bool
 	 */
 	function tribe_is_past() {
-		global $wp_query;
+
+		if ( ! $wp_query = tribe_get_global_query_object() ) {
+			return;
+		}
+
 		$is_past = ! empty( $wp_query->tribe_is_past ) && ! tribe_is_showing_all() ? $wp_query->tribe_is_past : false;
 
+		/**
+		 * Allows for customization of the result of whether the current view shows past events.
+		 *
+		 * @param bool $is_past Whether the current view shows upcoming past or not.
+		 */
 		return apply_filters( 'tribe_is_past', $is_past );
 	}
 
@@ -62,9 +81,18 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return bool
 	 */
 	function tribe_is_upcoming() {
-		global $wp_query;
+
+		if ( ! $wp_query = tribe_get_global_query_object() ) {
+			return;
+		}
+
 		$is_upcoming = ( tribe_is_list_view() && ! tribe_is_past() ) ? true : false;
 
+		/**
+		 * Allows for customization of the result of whether the current view shows upcoming events.
+		 *
+		 * @param bool $is_upcoming Whether the current view shows upcoming events or not.
+		 */
 		return apply_filters( 'tribe_is_upcoming', $is_upcoming );
 	}
 
@@ -79,10 +107,16 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	function tribe_is_showing_all() {
 		$tribe_ecp            = Tribe__Events__Main::instance();
 		$tribe_is_showing_all = ( $tribe_ecp->displaying == 'all' ) ? true : false;
+
 		if ( $tribe_is_showing_all ) {
 			add_filter( 'tribe_events_recurrence_tooltip', '__return_false' );
 		}
 
+		/**
+		 * Allows for customization of the result of whether the current view shows all events.
+		 *
+		 * @param bool $tribe_is_showing_all Whether the current view shows all events or not.
+		 */
 		return apply_filters( 'tribe_is_showing_all', $tribe_is_showing_all );
 	}
 
@@ -96,7 +130,11 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	function tribe_is_by_date() {
 		$tribe_ecp        = Tribe__Events__Main::instance();
 		$tribe_is_by_date = ( $tribe_ecp->displaying == 'bydate' ) ? true : false;
-
+		/**
+		 * Allows for customization of the result of whether or not a "bydate" view is being viewed.
+		 *
+		 * @param bool $tribe_is_by_date Whether a "bydate" calendar view is currently being displayed.
+		 */
 		return apply_filters( 'tribe_is_by_date', $tribe_is_by_date );
 	}
 
@@ -108,7 +146,13 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @param bool $depth include linked title
 	 */
 	function tribe_events_title( $depth = true ) {
-		echo apply_filters( 'tribe_events_title', tribe_get_events_title( $depth ) );
+		/**
+		 * Allows for customization of the title on the main "Events" page.
+		 *
+		 * @param string $title The events title as a result of the tribe_get_events_title() template tag.
+		 * @param bool $depth Whether to include the linked title or not.
+		 */
+		echo apply_filters( 'tribe_events_title', tribe_get_events_title( $depth ), $depth );
 	}
 
 	/**
@@ -122,43 +166,56 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @todo move logic to template classes
 	 */
 	function tribe_get_events_title( $depth = true ) {
+
+		if ( ! $wp_query = tribe_get_global_query_object() ) {
+			return;
+		}
+
 		$events_label_plural = tribe_get_event_label_plural();
 
-		global $wp_query;
+		if ( $wp_query->get( 'featured' ) ) {
+			$events_label_plural = sprintf( _x( 'Featured %s', 'featured events title', 'the-events-calendar'), $events_label_plural );
+		}
 
 		$tribe_ecp = Tribe__Events__Main::instance();
 
-		$title = sprintf( __( 'Upcoming %s', 'tribe-events-calendar' ), $events_label_plural );
+		if ( is_single() && tribe_is_event() ) {
+			// For single events, the event title itself is required
+			$title = get_the_title();
+		} else {
+			// For all other cases, start with 'upcoming events'
+			$title = sprintf( esc_html__( 'Upcoming %s', 'the-events-calendar' ), $events_label_plural );
+		}
 
 		// If there's a date selected in the tribe bar, show the date range of the currently showing events
 		if ( isset( $_REQUEST['tribe-bar-date'] ) && $wp_query->have_posts() ) {
+			$first_returned_date = tribe_get_start_date( $wp_query->posts[0], false, Tribe__Date_Utils::DBDATEFORMAT );
+			$first_event_date    = tribe_get_start_date( $wp_query->posts[0], false );
+			$last_event_date     = tribe_get_end_date( $wp_query->posts[ count( $wp_query->posts ) - 1 ], false );
 
-			if ( $wp_query->get( 'paged' ) > 1 ) {
-				// if we're on page 1, show the selected tribe-bar-date as the first date in the range
-				$first_event_date = tribe_get_start_date( $wp_query->posts[0], false );
-			} else {
-				//otherwise show the start date of the first event in the results
-				$first_event_date = tribe_event_format_date( $_REQUEST['tribe-bar-date'], false );
+			// If we are on page 1 then we may wish to use the *selected* start date in place of the
+			// first returned event date
+			if ( 1 == $wp_query->get( 'paged' ) && $_REQUEST['tribe-bar-date'] < $first_returned_date ) {
+				$first_event_date = tribe_format_date( $_REQUEST['tribe-bar-date'], false );
 			}
 
-			$last_event_date = tribe_get_end_date( $wp_query->posts[ count( $wp_query->posts ) - 1 ], false );
-			$title = sprintf( __( '%1$s for %2$s - %3$s', 'tribe-events-calendar' ), $events_label_plural, $first_event_date, $last_event_date );
+			$title = sprintf( __( '%1$s for %2$s - %3$s', 'the-events-calendar' ), $events_label_plural, $first_event_date, $last_event_date );
 		} elseif ( tribe_is_past() ) {
-			$title = sprintf( __( 'Past %s', 'tribe-events-calendar' ), $events_label_plural );
+			$title = sprintf( esc_html__( 'Past %s', 'the-events-calendar' ), $events_label_plural );
 		}
 
 		if ( tribe_is_month() ) {
 			$title = sprintf(
-				__( '%1$s for %2$s', 'tribe-events-calendar' ),
+				esc_html_x( '%1$s for %2$s', 'month view', 'the-events-calendar' ),
 				$events_label_plural,
-				date_i18n( tribe_get_option( 'monthAndYearFormat', 'F Y' ), strtotime( tribe_get_month_view_date() ) )
+				date_i18n( tribe_get_date_option( 'monthAndYearFormat', 'F Y' ), strtotime( tribe_get_month_view_date() ) )
 			);
 		}
 
 		// day view title
 		if ( tribe_is_day() ) {
 			$title = sprintf(
-				__( '%1$s for %2$s', 'tribe-events-calendar' ),
+				esc_html_x( '%1$s for %2$s', 'day_view', 'the-events-calendar' ),
 				$events_label_plural,
 				date_i18n( tribe_get_date_format( true ), strtotime( $wp_query->get( 'start_date' ) ) )
 			);
@@ -170,6 +227,12 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$title .= ' &#8250; ' . $cat->name;
 		}
 
+		/**
+		 * Allows for customization of the "Events" page title.
+		 *
+		 * @param string $title The "Events" page title as it's been generated thus far.
+		 * @param bool $depth Whether to include the linked title or not.
+		 */
 		return apply_filters( 'tribe_get_events_title', $title, $depth );
 	}
 
@@ -193,9 +256,13 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return bool
 	 */
 	function tribe_has_previous_event() {
-		global $wp_query;
-
+		$wp_query = tribe_get_global_query_object();
 		$has_previous = false;
+
+		if ( null === $wp_query ) {
+			return apply_filters( 'tribe_has_previous_event', $has_previous );
+		}
+
 		$past         = tribe_is_past();
 		$upcoming     = ! $past;
 		$cur_page     = (int) $wp_query->get( 'paged' );
@@ -217,7 +284,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Indicate we're interested in past events
 			$args['tribe_is_past'] = true;
-
 			// Make some efficiency savings
 			$args['no_paging']      = true;
 			$args['no_found_rows']  = true;
@@ -236,9 +302,14 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return bool
 	 */
 	function tribe_has_next_event() {
-		global $wp_query;
 
+		$wp_query = tribe_get_global_query_object();
 		$has_next  = false;
+
+		if ( null === $wp_query ) {
+			return apply_filters( 'tribe_has_next_event', $has_next );
+		}
+
 		$past      = tribe_is_past();
 		$upcoming  = ! $past;
 		$cur_page  = (int) $wp_query->get( 'paged' );
@@ -306,7 +377,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	/**
 	 * Used in list loop, displays the date headers between events in the loop when the month / year has changed
 	 *
-	 * @return void
 	 **/
 	function tribe_events_list_the_date_headers() {
 
@@ -322,7 +392,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 			$event_year        = tribe_get_start_date( $post, false, 'Y' );
 			$event_month       = tribe_get_start_date( $post, false, 'm' );
-			$month_year_format = tribe_get_option( 'monthAndYearFormat', 'F Y' );
+			$month_year_format = tribe_get_date_option( 'monthAndYearFormat', 'F Y' );
 
 			if ( $wp_query->current_post > 0 ) {
 				$prev_post = $wp_query->posts[ $wp_query->current_post - 1 ];
@@ -337,7 +407,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			 *
 			 */
 			if ( $wp_query->current_post === 0 || ( $prev_event_month != $event_month || ( $prev_event_month == $event_month && $prev_event_year != $event_year ) ) ) {
-				$html .= sprintf( "<span class='tribe-events-list-separator-month'><span>%s</span></span>", tribe_get_start_date( $post, false, $month_year_format ) );
+				$html .= sprintf( "<h2 class='tribe-events-list-separator-month'><span>%s</span></h2>", tribe_get_start_date( $post, false, $month_year_format ) );
 			}
 
 			echo apply_filters( 'tribe_events_list_the_date_headers', $html, $event_month, $event_year );
@@ -354,7 +424,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		$classes     = array();
 		$tribe_paged = ( ! empty( $_REQUEST['tribe_paged'] ) ) ? $_REQUEST['tribe_paged'] : 1;
 
-		$classes['direction'] = tribe_is_upcoming() ? 'tribe-events-nav-previous' : 'tribe-events-nav-next';
+		$classes['direction'] = 'tribe-events-nav-previous';
 		$classes['side']      = 'tribe-events-nav-left';
 
 		if ( tribe_is_past() || ( ( tribe_is_upcoming() && $tribe_paged == 1 ) ) ) {
@@ -375,7 +445,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		$classes     = array();
 		$tribe_paged = ( ! empty( $_REQUEST['tribe_paged'] ) ) ? $_REQUEST['tribe_paged'] : 1;
 
-		$classes['direction'] = tribe_is_upcoming() ? 'tribe-events-nav-next' : 'tribe-events-nav-previous';
+		$classes['direction'] = 'tribe-events-nav-next';
 		$classes['side']      = 'tribe-events-nav-right';
 
 		if ( tribe_is_past() && $tribe_paged > 1 ) {
