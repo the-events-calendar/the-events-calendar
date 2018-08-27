@@ -1024,8 +1024,6 @@ class Tribe__Events__Linked_Posts {
 			)
 		);
 
-		remove_filter( 'tribe_events_return_all_linked_posts_if_none', '__return_true' );
-
 		if ( ! empty( $my_linked_posts ) ) {
 			foreach ( $my_linked_posts as $my_linked_post ) {
 				$my_linked_post_ids[] = $my_linked_post->ID;
@@ -1067,6 +1065,8 @@ class Tribe__Events__Linked_Posts {
 				)
 			);
 		}
+
+		remove_filter( 'tribe_events_return_all_linked_posts_if_none', '__return_true' );
 
 		if ( $linked_posts ) {
 			foreach ( $linked_posts as $linked_post ) {
