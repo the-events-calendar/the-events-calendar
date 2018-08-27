@@ -217,7 +217,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 = [4.6.23] 2018-08-27 =
 
-* Fix - allow user to choose venues not created by them. Props to @integrity and @nomadadmin for who reporting this! [113147]
+* Fix - allow user to choose venues not created by them. Props to @integrity, @nomadadmin, and many others for reporting this! [113147]
 
 = [4.6.22] 2018-08-22 =
 
