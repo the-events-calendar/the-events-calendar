@@ -9,7 +9,7 @@
 ?>
 <div class="tribe-dependent" data-depends="#tribe-ea-field-origin" data-condition="eventbrite">
 	<div class="tribe-banner tribe-banner-eventbrite-tickets">
-		<img src="<?php echo esc_url( tribe_events_resource_url( 'images/aggregator/eventbrite-tickets.svg' ) ) ; ?>">
+		<img src="<?php echo esc_url( tribe_resource_url( 'images/aggregator/eventbrite-tickets.svg' ) ) ; ?>">
 
 		<h3><?php esc_html_e( 'Do more with Eventbrite Tickets', 'the-events-calendar' ); ?></h3>
 
