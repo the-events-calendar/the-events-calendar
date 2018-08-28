@@ -269,7 +269,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$this->plugin_file = TRIBE_EVENTS_FILE;
 			$this->pluginPath = $this->plugin_path = trailingslashit( dirname( $this->plugin_file ) );
 			$this->pluginDir  = $this->plugin_dir = trailingslashit( basename( $this->plugin_path ) );
-			$this->pluginUrl  = $this->plugin_url = plugins_url( $this->plugin_dir );
+			$this->pluginUrl  = $this->plugin_url = plugins_url( $this->plugin_dir, TRIBE_EVENTS_FILE );
 
 			// Set common lib information, needs to happen file load
 			$this->maybe_set_common_lib_info();
