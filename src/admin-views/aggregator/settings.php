@@ -46,7 +46,7 @@ $change_authority = array(
 	),
 	'info-update_authority' => array(
 		'type' => 'html',
-		'html' => '<p>' . esc_html__( 'You can make changes to imported events via The Events Calendar and see those changes reflected on your site’s calendar. The owner of the original event source (e.g. the iCalendar feed or Facebook group) might also make changes to their event. If you choose to re-import an altered event (manually or via a scheduled import), any changes made at the source or on your calendar will need to be addressed.', 'the-events-calendar' ) . '</p>',
+		'html' => '<p>' . esc_html__( 'You can make changes to imported events via The Events Calendar and see those changes reflected on your site’s calendar. The owner of the original event source (e.g. the iCalendar feed or Meetup group) might also make changes to their event. If you choose to re-import an altered event (manually or via a scheduled import), any changes made at the source or on your calendar will need to be addressed.', 'the-events-calendar' ) . '</p>',
 		'priority' => 1.2,
 	),
 	'tribe_aggregator_default_update_authority' => array(
@@ -113,8 +113,8 @@ $ea_disable = array(
 	),
 );
 
-$global = $ical = $ics = $facebook = $gcal = $meetup = $url = $eb_fields = array();
-// if there's an Event Aggregator license key, add the Global settings, Facebook, iCal, and Meetup fields
+$global = $ical = $ics = $gcal = $meetup = $url = $eb_fields = array();
+// if there's an Event Aggregator license key, add the Global settings, iCal, and Meetup fields
 if ( Tribe__Events__Aggregator::is_service_active() ) {
 	$global = array(
 		'import-defaults' => array(
@@ -292,50 +292,6 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 			'parent_option' => Tribe__Events__Main::OPTIONNAME,
 			'options' => $origin_show_map_options,
 			'priority' => 25.4,
-		),
-	);
-
-	$facebook = array(
-		'facebook-defaults' => array(
-			'type' => 'html',
-			'html' => '<h3 id="tribe-import-facebook-settings">' . esc_html__( 'Facebook Import Settings', 'the-events-calendar' ) . '</h3>',
-			'priority' => 30.1,
-		),
-		'tribe_aggregator_default_facebook_post_status' => array(
-			'type' => 'dropdown',
-			'label' => esc_html__( 'Default Status', 'the-events-calendar' ),
-			'tooltip' => esc_html__( 'The default post status for events imported via Facebook', 'the-events-calendar' ),
-			'size' => 'medium',
-			'validation_type' => 'options',
-			'default' => '',
-			'can_be_empty' => true,
-			'parent_option' => Tribe__Events__Main::OPTIONNAME,
-			'options' => $origin_post_statuses,
-			'priority' => 30.2,
-		),
-		'tribe_aggregator_default_facebook_category' => array(
-			'type' => 'dropdown',
-			'label' => esc_html__( 'Default Event Category', 'the-events-calendar' ),
-			'tooltip' => esc_html__( 'The default event category for events imported via Facebook', 'the-events-calendar' ),
-			'size' => 'medium',
-			'validation_type' => 'options',
-			'default' => '',
-			'can_be_empty' => true,
-			'parent_option' => Tribe__Events__Main::OPTIONNAME,
-			'options' => $origin_categories,
-			'priority' => 30.3,
-		),
-		'tribe_aggregator_default_facebook_show_map' => array(
-			'type' => 'dropdown',
-			'label' => esc_html__( 'Show Google Map', 'the-events-calendar' ),
-			'tooltip' => esc_html__( 'Show Google Map by default on imported event and venues', 'the-events-calendar' ),
-			'size' => 'medium',
-			'validation_type' => 'options',
-			'default' => '',
-			'can_be_empty' => true,
-			'parent_option' => Tribe__Events__Main::OPTIONNAME,
-			'options' => $origin_show_map_options,
-			'priority' => 30.4,
 		),
 	);
 
@@ -558,7 +514,6 @@ $internal = array_merge(
 	$csv,
 	$ical,
 	$ics,
-	$facebook,
 	$gcal,
 	$meetup,
 	$url,
@@ -620,10 +575,6 @@ if ( tribe( 'events-aggregator.main' )->is_service_active() ) {
 			'name'     => __( 'ICS File', 'the-events-calendar' ),
 			'priority' => 25,
 		),
-		'facebook-settings' => array(
-			'name'     => __( 'Facebook', 'the-events-calendar' ),
-			'priority' => 30,
-		),
 		'google-settings'   => array(
 			'name'     => __( 'Google Calendar', 'the-events-calendar' ),
 			'priority' => 35,
@@ -649,7 +600,6 @@ if ( tribe( 'events-aggregator.main' )->is_service_active() ) {
 		$ea_keys = array(
 			'ical-settings',
 			'ics-settings',
-			'facebook-settings',
 			'google-settings',
 			'meetup-settings',
 			'url-settings',

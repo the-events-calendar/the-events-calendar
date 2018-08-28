@@ -41,7 +41,7 @@ $video_url = 'https://vimeo.com/108805711';
 		<p><a href="https://m.tri.be/no" target="_blank"><?php esc_html_e( 'Check out the New User Primer &amp; Tutorials', 'the-events-calendar' ); ?></a></p>
 
 		<h4><?php esc_html_e( 'Looking for More Features?', 'the-events-calendar' ); ?></h4>
-		<p><a href="https://m.tri.be/np" target="_blank"><?php esc_html_e( 'Addons for Community, Tickets, Filters, Facebook and more.', 'the-events-calendar' ); ?></a></p>
+		<p><a href="https://m.tri.be/np" target="_blank"><?php esc_html_e( 'Addons for Community, Tickets, Filters, and more.', 'the-events-calendar' ); ?></a></p>
 
 		<h4><?php esc_html_e( 'Support Resources', 'the-events-calendar' ); ?></h4>
 		<p><a href="https://m.tri.be/nq" target="_blank"><?php esc_html_e( 'FAQs, Documentation, Tutorials and Forums', 'the-events-calendar' ); ?></a></p>

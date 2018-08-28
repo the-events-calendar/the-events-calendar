@@ -42,13 +42,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<h3><?php esc_html_e( 'API Keys', 'the-events-calendar' ); ?></h3>
 
-	<p class="privacy-policy-tutorial"><?php esc_html_e( 'The Events Calendar suite offers the use of third-party API keys. The primary functions are to enhance the features we\'ve built in, some of which use Google Maps, PayPal, Eventbrite, Meetup, and Facebook. These API keys are not supplied by Modern Tribe.', 'the-events-calendar' ); ?></p>
+	<p class="privacy-policy-tutorial"><?php esc_html_e( 'The Events Calendar suite offers the use of third-party API keys. The primary functions are to enhance the features we\'ve built in, some of which use Google Maps, PayPal, Eventbrite, and Meetup. These API keys are not supplied by Modern Tribe.', 'the-events-calendar' ); ?></p>
 
 	<p class="privacy-policy-tutorial"><strong><?php esc_html_e( 'Suggested text:', 'event-tickets' ); ?></strong></p>
 
 	<p><?php esc_html_e( 'We make use of certain API keys, in order to provide specific features.', 'the-events-calendar' ); ?></p>
 
-	<p><?php esc_html_e( 'These API keys may include the following third party services: Google Maps, Facebook, Meetup, PayPal, and Eventbrite (API key, auth URL and Client Secret).', 'the-events-calendar' ); ?></p>
+	<p><?php esc_html_e( 'These API keys may include the following third party services: Google Maps, Meetup, PayPal, and Eventbrite (API key, auth URL and Client Secret).', 'the-events-calendar' ); ?></p>
 
 	<h3 class="privacy-policy-tutorial"><?php esc_html_e( 'How Long You Retain this Data', 'the-events-calendar' ); ?></h3>
 

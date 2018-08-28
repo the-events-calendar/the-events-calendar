@@ -1,4 +1,7 @@
 <?php
+
+_deprecated_file( __FILE__, 'TBD', 'Deprecated along with Event Aggregator support for Facebook in light of Facebook API changes.' );
+
 // Don't load directly
 defined( 'WPINC' ) or die;
 
