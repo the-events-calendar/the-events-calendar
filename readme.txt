@@ -222,6 +222,10 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - Remove references to and settings for Facebook importing in Event Aggregator [112432]
 * Deprecated - `Tribe__Events__Aggregator__Record__Facebook`
 
+= [4.6.22.1] 2018-08-27 =
+
+* Fix - Allow user to choose venues not created by them. Props to @integrity, @nomadadmin, and many others for reporting this! [113147]
+
 = [4.6.22] 2018-08-22 =
 
 * Add - Allow filtering events, in REST API requests, by their post ID with `include` [94326]

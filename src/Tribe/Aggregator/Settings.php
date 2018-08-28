@@ -31,7 +31,6 @@ class Tribe__Events__Aggregator__Settings {
 	 */
 	public function __construct() {
 		add_action( 'tribe_settings_do_tabs', array( $this, 'do_import_settings_tab' ) );
-		add_action( 'current_screen', array( $this, 'maybe_clear_fb_credentials' ) );
 		add_action( 'current_screen', array( $this, 'maybe_clear_eb_credentials' ) );
 	}
 
