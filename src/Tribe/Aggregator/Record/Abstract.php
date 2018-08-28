@@ -481,7 +481,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 */
 	public function generate_title() {
 		$parts = func_get_args();
-		return __( 'Record: ', 'the-events-calendar' ) . implode( ' ', array_filter( $parts ) );
+		return __( 'Record:', 'the-events-calendar' ) . ' ' . implode( ' ', array_filter( $parts ) );
 	}
 
 	/**

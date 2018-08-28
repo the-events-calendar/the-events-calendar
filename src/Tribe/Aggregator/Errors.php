@@ -53,7 +53,7 @@ class Tribe__Events__Aggregator__Errors {
 		tribe_register_error( 'core:aggregator:invalid-csv-parameters', __( 'Invalid data provided for CSV import.', 'the-events-calendar' ) );
 		tribe_register_error( 'core:aggregator:invalid-edit-record-type', __( 'Only scheduled import records can be edited.', 'the-events-calendar' ) );
 		tribe_register_error( 'core:aggregator:invalid-event-id', __( 'Unable to find an event with the ID of %s.', 'the-events-calendar' ) );
-		tribe_register_error( 'core:aggregator:invalid-event-json', __( 'The Event Aggregator API responded with bad data. Please <a href="https://theeventscalendar.com/support/post/" target="_blank">contact support</a>.', 'the-events-calendar' ) );
+		tribe_register_error( 'core:aggregator:invalid-event-json', sprintf( __( 'The Event Aggregator API responded with bad data. Please <a href="%s" target="_blank">contact support</a>.', 'the-events-calendar' ), 'https://theeventscalendar.com/support/post/' ) );
 		tribe_register_error( 'core:aggregator:invalid-facebook-token', __( 'We received an invalid Facebook Token from the Service.', 'the-events-calendar' ) );
 		tribe_register_error( 'core:aggregator:invalid-import-id', __( 'Unable to find an import record with the ID of %s.', 'the-events-calendar' ) );
 		tribe_register_error( 'core:aggregator:invalid-image-path', __( 'Unable to attach an image to the event', 'the-events-calendar' ) );

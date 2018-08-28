@@ -53,7 +53,7 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 			'check'        => $this->get_ajax_nonce(),
 			'completeMsg'  => __( 'Completed!', 'the-events-calendar' ),
 			'progress'     => $progress,
-			'progressText' => sprintf( __( '%d%% complete', 'the-events-calendar' ), $progress ),
+			'progressText' => sprintf( _x( '%d%% complete', 'The "percent complete" of a process, e.g. "45% complete"', 'the-events-calendar' ), $progress ),
 		);
 
 		wp_localize_script( 'tribe-ea-fields', 'tribe_aggregator_save', $data );
@@ -97,7 +97,7 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 			<li class="tracked-item track-skipped"><strong><?php esc_html_e( 'Skipped:', 'the-events-calendar' ); ?></strong> <span class="value"></span></li>
 		</ul>
 		<div class="progress-container">
-			<div class="progress" title="<?php echo esc_html( sprintf( __( '%d%% complete', 'the-events-calendar' ), $percent ) ); ?>">
+			<div class="progress" title="<?php echo esc_html( sprintf( _x( '%d%% complete', 'The "percent complete" of a process, e.g. "45% complete"', 'the-events-calendar' ), $percent ) ); ?>">
 				<div class="bar"></div>
 			</div>
 			<img src="<?php echo esc_url( get_admin_url( null, '/images/spinner.gif' ) ); ?>">
@@ -200,14 +200,14 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 		$queue_type = $queue->get_queue_type();
 
 		$is_event_queue = $queue_type === Tribe__Events__Main::POSTTYPE;
-		$activity = $queue->activity();
+		$activity       = $queue->activity();
 
 		$error = $queue->has_errors();
 
 		$data   = array(
 			'html'          => false,
 			'progress'      => $percentage,
-			'progress_text' => sprintf( __( '%d%% complete', 'the-events-calendar' ), $percentage ),
+			'progress_text' => sprintf( _x( '%d%% complete', 'The "percent complete" of a process, e.g. "45% complete"', 'the-events-calendar' ), $percentage ),
 			'continue'      => ! $done,
 			'complete'      => $done,
 			'error'        => $error,

@@ -230,7 +230,7 @@ class Tribe__Events__Aggregator {
 			return $plugin_name;
 		}
 
-		return __( 'Event Aggregator', 'the-events-calendar' );
+		return 'Event Aggregator';
 	}
 
 	/**

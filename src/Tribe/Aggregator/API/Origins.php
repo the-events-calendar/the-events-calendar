@@ -33,19 +33,19 @@ class Tribe__Events__Aggregator__API__Origins extends Tribe__Events__Aggregator_
 			),
 			'eventbrite' => (object) array(
 				'id' => 'eventbrite',
-				'name' => __( 'Eventbrite', 'the-events-calendar' ),
+				'name' => 'Eventbrite',
 				'disabled' => true,
 				'upsell' => true,
 			),
 			'gcal' => (object) array(
 				'id' => 'gcal',
-				'name' => __( 'Google Calendar', 'the-events-calendar' ),
+				'name' => 'Google Calendar',
 				'disabled' => true,
 				'upsell' => true,
 			),
 			'ical' => (object) array(
 				'id' => 'ical',
-				'name' => __( 'iCalendar', 'the-events-calendar' ),
+				'name' => 'iCalendar',
 				'disabled' => true,
 				'upsell' => true,
 			),
@@ -57,7 +57,7 @@ class Tribe__Events__Aggregator__API__Origins extends Tribe__Events__Aggregator_
 			),
 			'meetup' => (object) array(
 				'id' => 'meetup',
-				'name' => __( 'Meetup', 'the-events-calendar' ),
+				'name' => 'Meetup',
 				'disabled' => true,
 				'upsell' => true,
 			),
@@ -232,7 +232,7 @@ class Tribe__Events__Aggregator__API__Origins extends Tribe__Events__Aggregator_
 		$this->get();
 
 		if ( empty( $this->origins[ $id ] ) ) {
-			return __( 'Event Aggregator', 'the-events-calendar' );
+			return 'Event Aggregator';
 		}
 		return $this->origins[ $id ]->name;
 	}
