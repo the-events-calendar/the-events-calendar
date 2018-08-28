@@ -398,7 +398,7 @@ class Tribe__Events__Linked_Posts {
 	/**
 	 * Returns an array of linked post ID(s) of the specified post type.
 	 *
-	 * @since TBD
+	 * @since 4.6.22
 	 *
 	 * @param int    $post_id   Post ID of the object.
 	 * @param string $post_type Post type of linked posts to look for.
@@ -424,7 +424,7 @@ class Tribe__Events__Linked_Posts {
 		/**
 		 * Filters the linked post ID(s) of a given type for the given post.
 		 *
-		 * @since TBD
+		 * @since 4.6.22
 		 *
 		 * @param array $linked_post_ids Linked post ID(s).
 		 * @param int $post_id Post ID being looked at.
@@ -487,9 +487,9 @@ class Tribe__Events__Linked_Posts {
 	/**
 	 * Get Linked Post info
 	 *
-	 * @param string    $linked_post_type Post type of linked post
-	 * @param array     $args             Extra WP Query args.
-	 * @param array|int $linked_post_id   Post ID(s).
+	 * @param string    $linked_post_type   Post type of linked post.
+	 * @param array     $args               Extra WP Query args.
+	 * @param array|int $linked_post_ids    Post ID(s).
 	 *
 	 * @return array
 	 */
@@ -498,6 +498,31 @@ class Tribe__Events__Linked_Posts {
 		$cache_key = $this->cache->make_key( $func_args, 'linked_post_info_' );
 		if ( isset( $this->cache[ $cache_key ] ) ) {
 			return $this->cache[ $cache_key ];
+		}
+
+		/**
+		 * Whether to return all linked posts if the args actually find no linked posts.
+		 *
+		 * @since 4.6.22
+		 *
+		 * @param bool      $return_all_if_none True if you want all posts returned if none
+		 *                                      are found (e.g. creating a drop-down).
+		 *                                      False if you want none returned if none are
+		 *                                      found (e.g. actually querying for matches).
+		 * @param string    $linked_post_type   Post type of linked post.
+		 * @param array     $args               WP Query args before merging with defaults.
+		 * @param array|int $linked_post_ids    Post ID(s).
+		 *
+		 * @return bool
+		 */
+		$return_all_if_none = (bool) apply_filters( 'tribe_events_return_all_linked_posts_if_none', false, $linked_post_type, $args, $linked_post_ids );
+
+		// Explicitly force zero results if appropriate. Necessary because passing an empty array will actually display all posts, per https://core.trac.wordpress.org/ticket/28099
+		if (
+			empty( $linked_post_ids )
+			&& false === $return_all_if_none
+		) {
+			$linked_post_ids = array( -1 );
 		}
 
 		$defaults = array(
@@ -513,14 +538,10 @@ class Tribe__Events__Linked_Posts {
 			'nopaging'             => true,
 		);
 
-		if ( empty( $linked_post_ids ) ) {
-			$linked_post_ids = array( 0 );
-		}
-
 		if ( is_array( $linked_post_ids ) ) {
 			$defaults['post__in'] = $linked_post_ids;
-		} else {
-			$defaults['p'] = $linked_post_ids;
+		} elseif ( 0 < absint( $linked_post_ids ) ) {
+			$defaults['p'] = absint( $linked_post_ids );
 		}
 
 		$args = wp_parse_args( $args, $defaults );
@@ -674,9 +695,11 @@ class Tribe__Events__Linked_Posts {
 
 		$linked_ids_order_key = $this->get_order_meta_key( $post_type );
 
-		if ( $linked_ids_order_key ) {
-			update_post_meta( $target_post_id, $linked_ids_order_key, $current_order );
+		if ( ! $linked_ids_order_key ) {
+			return;
 		}
+
+		update_post_meta( $target_post_id, $linked_ids_order_key, $current_order );
 	}
 
 	/**
@@ -986,6 +1009,8 @@ class Tribe__Events__Linked_Posts {
 		 */
 		$options->available['text'] = apply_filters( 'tribe_events_saved_linked_post_dropdown_optgroup', $options->available['text'], $post_type );
 
+		add_filter( 'tribe_events_return_all_linked_posts_if_none', '__return_true' );
+
 		$my_linked_posts = $this->get_linked_post_info(
 			$post_type,
 			array(
@@ -1040,6 +1065,8 @@ class Tribe__Events__Linked_Posts {
 				)
 			);
 		}
+
+		remove_filter( 'tribe_events_return_all_linked_posts_if_none', '__return_true' );
 
 		if ( $linked_posts ) {
 			foreach ( $linked_posts as $linked_post ) {

@@ -59,4 +59,18 @@ interface Tribe__Events__Validator__Interface extends Tribe__Validator__Interfac
 	 * @return bool
 	 */
 	public function is_event_slug( $event_slug );
+
+	/**
+	 * Whether a list or array of event post IDs only contains valid event IDs or not.
+	 *
+	 * @since 4.6.22
+	 *
+	 * @param  string|array $events A list of event post IDs separated by the specified separator or an array
+	 *                                  of event post IDs.
+	 * @param string $sep The separator used in the list to separate the event post IDs; ignored if
+	 *                                  the input value is an array.
+	 *
+	 * @return bool
+	 */
+	public function is_event_id_list( $events, $sep = ',' );
 }

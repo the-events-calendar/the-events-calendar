@@ -201,4 +201,25 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 
 		return ! empty( $venues ) && count( $valid ) === count( $venues );
 	}
+
+	/**
+	 * Whether a list or array of event post IDs only contains valid event IDs or not.
+	 *
+	 * @since 4.6.22
+	 *
+	 * @param  string|array $events A list of event post IDs separated by the specified separator or an array
+	 *                                  of event post IDs.
+	 * @param string        $sep        The separator used in the list to separate the event post IDs; ignored if
+	 *                                  the input value is an array.
+	 *
+	 * @return bool
+	 */
+	public function is_event_id_list( $events, $sep = ',' ) {
+		$sep    = is_string( $sep ) ? $sep : ',';
+		$events = Tribe__Utils__Array::list_to_array( $events, $sep );
+
+		$valid = array_filter( $events, array( $this, 'is_event_id' ) );
+
+		return ! empty( $events ) && count( $valid ) === count( $events );
+	}
 }

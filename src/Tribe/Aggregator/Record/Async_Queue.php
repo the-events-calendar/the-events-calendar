@@ -229,7 +229,7 @@ class Tribe__Events__Aggregator__Record__Async_Queue
 			return true;
 		}
 
-		return false;
+		return true;
 	}
 
 	/**
@@ -316,7 +316,7 @@ class Tribe__Events__Aggregator__Record__Async_Queue
 	/**
 	 * Whether the current queue process is stuck or not.
 	 *
-	 * @since TBD
+	 * @since 4.6.21
 	 *
 	 * @return bool
 	 */
@@ -333,7 +333,7 @@ class Tribe__Events__Aggregator__Record__Async_Queue
 	/**
 	 * Orderly closes the queue process.
 	 *
-	 * @since TBD
+	 * @since 4.6.21
 	 *
 	 * @return bool
 	 */
@@ -358,7 +358,7 @@ class Tribe__Events__Aggregator__Record__Async_Queue
 	/**
 	 * Whether the current queue process failed or not.
 	 *
-	 * @since TBD
+	 * @since 4.6.21
 	 *
 	 * @return bool
 	 */
@@ -369,7 +369,7 @@ class Tribe__Events__Aggregator__Record__Async_Queue
 	/**
 	 * Returns the queue error message.
 	 *
-	 * @since TBD
+	 * @since 4.6.21
 	 *
 	 * @return string
 	 */

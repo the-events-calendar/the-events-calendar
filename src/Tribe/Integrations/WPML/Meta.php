@@ -2,12 +2,12 @@
 /**
  * Translate post ids in Event meta data.
  *
- * @since TBD
+ * @since 4.6.21
  */
 class Tribe__Events__Integrations__WPML__Meta {
 
 	/**
-	 * @since TBD
+	 * @since 4.6.21
 	 *
 	 */
 	public function hook() {}
@@ -15,7 +15,7 @@ class Tribe__Events__Integrations__WPML__Meta {
 	/**
 	 * Translates post id in the Event meta data.
 	 *
-	 * @since TBD
+	 * @since 4.6.21
 	 *
 	 * @param string $value
 	 * @param int    $object_id
@@ -29,7 +29,7 @@ class Tribe__Events__Integrations__WPML__Meta {
 			return $value;
 		}
 
-		$accepted_values = array( '_EventOrganizerID', '_EventOrganizerID_Order', '_EventVenueID' );
+		$accepted_values = array( '_EventOrganizerID', '_EventVenueID' );
 
 		if ( ! in_array( $meta_key, $accepted_values ) ) {
 			return $value;
@@ -75,7 +75,7 @@ class Tribe__Events__Integrations__WPML__Meta {
 	/**
 	 * Get meta value skipping filters (using direct DB query).
 	 *
-	 * @since TBD
+	 * @since 4.6.21
 	 *
 	 * @param int $post_id
 	 * @param string $meta_key
@@ -94,7 +94,7 @@ class Tribe__Events__Integrations__WPML__Meta {
 	/**
 	 * Query all translations of organizer or venue to fetch events.
 	 *
-	 * @since TBD
+	 * @since 4.6.21
 	 *
 	 * @param object $q
 	 */
