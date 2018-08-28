@@ -26,7 +26,17 @@ function tribe_display_current_events_slug() {
  * @return string, the string to display
  */
 function tribe_display_current_single_event_slug() {
-	echo '<p class="tribe-field-indent tribe-field-description description">' . sprintf( esc_html_x( 'You %1$scannot%2$s use the same slug as above. The above should ideally be plural, and this singular.%3$sYour single Event URL is like: %4$s', 'Link HTML will be inserted at the conversion specifications.', 'the-events-calendar' ), '<strong>', '</strong>', '<br>', '<code>' . trailingslashit( home_url() ) . tribe_get_option( 'singleEventSlug', 'event' ) . '/single-post-name/</code>' ) . '</p>';
+	echo '<p class="tribe-field-indent tribe-field-description description">' . sprintf(
+		esc_html_x(
+			'You %1$scannot%2$s use the same slug as above. The above should ideally be plural, and this singular.%3$sYour single Event URL is like: %4$s',
+			'Various HTML will be inserted at the conversion specifications.',
+			'the-events-calendar'
+		),
+		'<strong>',
+		'</strong>',
+		'<br>',
+		'<code>' . trailingslashit( home_url() ) . tribe_get_option( 'singleEventSlug', 'event' ) . '/single-post-name/</code>'
+	) . '</p>';
 }
 
 /**
