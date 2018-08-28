@@ -220,6 +220,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - Fixed the "Full Styles" mobile view. Thanks Matthew, Laura and others for flagging this! [112301]
 * Fix - Remove references to and settings for Facebook importing in Event Aggregator [112432]
 * Deprecated - `Tribe__Events__Aggregator__Record__Facebook`
+* Fix - Allow venue location fields to be intentionally empty on Venue Singular REST API calls [108834]
 
 = [4.6.22.1] 2018-08-27 =
 
