@@ -29,8 +29,9 @@ $missing_meetup_credentials = ! $meetup_api_key;
 				<span class="dashicons dashicons-warning"></span>
 				<?php
 				printf(
-					esc_html__(
+					esc_html_x(
 						'Enter your Meetup API key to import Meetup events. %1$sClick here to get your Meetup API key%2$s. You only need to do this once, it will be saved under %3$sEvents &gt; Settings &gt; APIs%4$s',
+						'Link HTML will be inserted at the conversion specifications.',
 						'the-events-calendar'
 					),
 					'<a href="https://secure.meetup.com/meetup_api/key/">',
@@ -44,8 +45,9 @@ $missing_meetup_credentials = ! $meetup_api_key;
 				<span class="dashicons dashicons-yes"></span>
 				<?php
 				printf(
-					esc_html__(
+					esc_html_x(
 						'Your Meetup API key has been saved to %1$sEvents &gt; Settings &gt; APIs%2$s',
+						'Link HTML will be inserted at the conversion specifications.',
 						'the-events-calendar'
 					),
 					'<a href="' . esc_url( Tribe__Settings::instance()->get_url( array( 'tab' => 'addons' ) ) ) . '">',
@@ -134,13 +136,13 @@ if ( 'edit' === $tab->get_slug() ) {
 
 <?php
 $field              = (object) array();
-$field->label       = __( 'URL:', 'the-events-calendar' );
+$field->label       = __( 'URL', 'the-events-calendar' );
 $field->placeholder = __( 'meetup.com/example', 'the-events-calendar' );
-$field->help        = __( 'Enter the url for a Meetup group, page, or individual. You can also enter the url of a single Meetup event.', 'the-events-calendar' );
+$field->help        = __( 'Enter the URL for a Meetup group, page, or individual. You can also enter the URL of a single Meetup event.', 'the-events-calendar' );
 ?>
 <tr class="tribe-dependent" data-depends="#tribe-ea-field-meetup_import_type" data-condition-not-empty>
 	<th scope="row">
-		<label for="tribe-ea-field-file"><?php echo esc_html( $field->label ); ?></label>
+		<label for="tribe-ea-field-file"><?php echo esc_html( $field->label ); ?>:</label>
 	</th>
 	<td>
 		<input

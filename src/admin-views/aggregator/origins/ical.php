@@ -80,7 +80,7 @@ if ( 'edit' === $tab->get_slug() ) {
 <?php
 $field              = (object) array();
 $field->label       = __( 'URL:', 'the-events-calendar' );
-$field->placeholder = __( 'example.com/url.ics', 'the-events-calendar' );
+$field->placeholder = _x( 'example.com/url.ics', 'This URL is translatable so that it could be translated to a TLD that better suits your locale, e.g. example.ca/url.ics', 'the-events-calendar' );
 $field->help        = __( 'Enter the url for the iCalendar feed you wish to import, e.g. https://central.wordcamp.org/calendar.ics', 'the-events-calendar' );
 ?>
 <tr class="tribe-dependent" data-depends="#tribe-ea-field-ical_import_type" data-condition-not-empty>

@@ -1293,7 +1293,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					), 'upgrade-plugin_' . $plugin_short_path
 				);
 				$output .= '<div class="error">';
-				$output .= '<p>' . sprintf( esc_html__( 'Your version of The Events Calendar is not up-to-date with one of your The Events Calendar add-ons. Please %supdate now.%s', 'the-events-calendar' ), '<a href="' . esc_url( $upgrade_path ) . '">', '</a>' ) . '</p>';
+				$output .= '<p>' . sprintf( esc_html__( 'Your version of The Events Calendar is not up-to-date with one of your The Events Calendar add-ons. Please %1$supdate now.%2$s', 'the-events-calendar' ), '<a href="' . esc_url( $upgrade_path ) . '">', '</a>' ) . '</p>';
 				$output .= '</div>';
 			} elseif ( ! empty( $out_of_date_addons ) ) {
 				// Otherwise, if the addons are out of date, generate the proper messaging.

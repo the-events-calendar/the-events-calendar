@@ -79,7 +79,7 @@ if ( 'edit' === $tab->get_slug() ) {
 
 <?php
 $field              = (object) array();
-$field->label       = __( 'URL:', 'the-events-calendar' );
+$field->label       = __( 'URL', 'the-events-calendar' );
 $field->placeholder = __( 'example.com/', 'the-events-calendar' );
 $field->help        = __( 'Enter the url for the calendar, website, or event you would like to import. Event Aggregator will attempt to import events at that location.', 'the-events-calendar' );
 
@@ -92,7 +92,7 @@ $field->range_message = $range_message . ' ' . sprintf( '<a href="%s" target="_b
 ?>
 <tr class="tribe-dependent" data-depends="#tribe-ea-field-url_import_type" data-condition-not-empty>
 	<th scope="row">
-		<label for="tribe-ea-field-file"><?php echo esc_html( $field->label ); ?></label>
+		<label for="tribe-ea-field-file"><?php echo esc_html( $field->label ); ?>:</label>
 	</th>
 	<td>
 		<input

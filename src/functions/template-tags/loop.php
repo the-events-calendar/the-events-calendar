@@ -199,14 +199,14 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				$first_event_date = tribe_format_date( $_REQUEST['tribe-bar-date'], false );
 			}
 
-			$title = sprintf( __( '%1$s for %2$s - %3$s', 'the-events-calendar' ), $events_label_plural, $first_event_date, $last_event_date );
+			$title = sprintf( _x( '%1$s for %2$s - %3$s', 'Title text for events in a specific date range', 'the-events-calendar' ), $events_label_plural, $first_event_date, $last_event_date );
 		} elseif ( tribe_is_past() ) {
 			$title = sprintf( esc_html__( 'Past %s', 'the-events-calendar' ), $events_label_plural );
 		}
 
 		if ( tribe_is_month() ) {
 			$title = sprintf(
-				esc_html_x( '%1$s for %2$s', 'month view', 'the-events-calendar' ),
+				esc_html_x( '%1$s for %2$s', 'Month View title text, e.g. "Events for August 2018" in English', 'the-events-calendar' ),
 				$events_label_plural,
 				date_i18n( tribe_get_date_option( 'monthAndYearFormat', 'F Y' ), strtotime( tribe_get_month_view_date() ) )
 			);
@@ -215,7 +215,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		// day view title
 		if ( tribe_is_day() ) {
 			$title = sprintf(
-				esc_html_x( '%1$s for %2$s', 'day_view', 'the-events-calendar' ),
+				esc_html_x( '%1$s for %2$s', 'Day View title text, e.g. "Events for August 29 2018" in English', 'the-events-calendar' ),
 				$events_label_plural,
 				date_i18n( tribe_get_date_format( true ), strtotime( $wp_query->get( 'start_date' ) ) )
 			);

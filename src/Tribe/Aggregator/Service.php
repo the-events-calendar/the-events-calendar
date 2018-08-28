@@ -190,7 +190,7 @@ class Tribe__Events__Aggregator__Service {
 
 		if ( is_wp_error( $response ) ) {
 			if ( isset( $response->errors['http_request_failed'] ) ) {
-				$response->errors['http_request_failed'][0] = __( 'Connection timed out while transferring the feed. If you are dealing with large feeds you may need to customize the tribe_aggregator_connection_timeout filter.', 'the-events-calendar' );
+				$response->errors['http_request_failed'][0] = sprintf( __( 'Connection timed out while transferring the feed. If you are dealing with large feeds you may need to customize the %1$s filter.', 'the-events-calendar' ), 'tribe_aggregator_connection_timeout' );
 			}
 
 			return $response;
@@ -652,7 +652,7 @@ class Tribe__Events__Aggregator__Service {
 		$this->service_messages = array(
 			'error:create-import-failed' => __( 'Sorry, but something went wrong. Please try again.', 'the-events-calendar' ),
 			'error:create-import-invalid-params' => __( 'Events could not be imported. The import parameters were invalid.', 'the-events-calendar' ),
-			'error:eb-permissions' => __( 'Events cannot be imported because Eventbrite has returned an error. This could mean that the event ID does not exist, the event or source is marked as Private, or the event or source has been otherwise restricted by Eventbrite. You can <a href="https://theeventscalendar.com/knowledgebase/import-errors/" target="_blank">read more about Eventbrite restrictions in our knowledgebase</a>.', 'the-events-calendar' ),
+			'error:eb-permissions' => sprintf( __( 'Events cannot be imported because Eventbrite has returned an error. This could mean that the event ID does not exist, the event or source is marked as Private, or the event or source has been otherwise restricted by Eventbrite. You can <a href="%1$s" target="_blank">read more about Eventbrite restrictions in our knowledgebase</a>.', 'the-events-calendar' ), 'https://theeventscalendar.com/knowledgebase/import-errors/' ),
 			'error:eb-no-results' => __( 'No upcoming Eventbrite events found.', 'the-events-calendar' ),
 			'error:fetch-404' => __( 'The URL provided could not be reached.', 'the-events-calendar' ),
 			'error:fetch-failed' => __( 'The URL provided failed to load.', 'the-events-calendar' ),
