@@ -344,8 +344,6 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 			'FeaturedImage'       => tribe_upload_image( $request['image'] ),
 		);
 
-		$postarr = array_filter( $postarr );
-
 		if ( isset( $request['show_map'] ) ) {
 			$postarr['ShowMap'] = tribe_is_truthy( $request['show_map'] ) ? '1' : 'false';
 		}
@@ -362,6 +360,8 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 		 * @since 4.6.9
 		 */
 		$postarr = apply_filters( 'tribe_events_rest_venue_prepare_postarr', $postarr, $request );
+
+		$postarr = array_filter( $postarr, array( $this->validator, 'is_not_null' ) );
 
 		return $postarr;
 	}
