@@ -219,6 +219,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 * Fix - Fixed the "Full Styles" mobile view. Thanks Matthew, Laura and others for flagging this! [112301]
 * Fix - Remove references to and settings for Facebook importing in Event Aggregator [112432]
+* Tweak - Improved a number of translatable strings to make them better comply with WordPress' recommendations [106989]
 * Deprecated - `Tribe__Events__Aggregator__Record__Facebook`
 
 = [4.6.22.1] 2018-08-27 =
