@@ -293,8 +293,9 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 			),
 			'website'            => array(
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_url' ),
+				'validate_callback' => array( $this->validator, 'is_url_or_empty' ),
 				'swagger_type'      => 'string',
+				'default'           => null,
 				'description'       => __( 'The event website URL', 'the-events-calendar' ),
 			),
 			// Event presentation data
