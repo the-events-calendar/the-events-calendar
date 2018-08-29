@@ -271,7 +271,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 			),
 			'website'     => array(
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_url' ),
+				'validate_callback' => array( $this->validator, 'is_url_or_empty' ),
 				'type'              => 'string',
 				'default'           => null,
 				'description'       => __( 'The organizer website', 'the-events-calendar' ),
