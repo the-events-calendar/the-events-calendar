@@ -20,19 +20,19 @@ class Tribe__Events__REST__V1__Endpoints__Single_Category
 		return array(
 			'name'             => array(
 				'required'          => true,
-				'validate_callback' => array( $this->validator, 'is_string_not_empty' ),
+				'validate_callback' => array( $this->validator, 'is_string' ),
 				'type'              => 'string',
 				'description'       => __( 'The event category name', 'the-events-calendar' ),
 			),
 			'description'             => array(
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_string' ),
+				'validate_callback' => array( $this->validator, 'is_string_or_empty' ),
 				'type'              => 'string',
 				'description'       => __( 'The event category description', 'the-events-calendar' ),
 			),
 			'slug'             => array(
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_string' ),
+				'validate_callback' => array( $this->validator, 'is_string_or_empty' ),
 				'type'              => 'string',
 				'description'       => __( 'The event category slug', 'the-events-calendar' ),
 			),

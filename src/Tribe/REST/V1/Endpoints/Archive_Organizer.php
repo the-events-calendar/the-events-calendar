@@ -204,7 +204,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 			),
 			'search'             => array(
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_string_not_empty' ),
+				'validate_callback' => array( $this->validator, 'is_string' ),
 				'description'       => __( 'Organizers should contain the specified string in the title, description or custom fields', 'the-events-calendar' ),
 				'type'              => 'string',
 			),
