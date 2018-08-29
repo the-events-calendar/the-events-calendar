@@ -249,7 +249,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 			),
 			'description' => array(
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_string' ),
+				'validate_callback' => array( $this->validator, 'is_string_or_empty' ),
 				'type'              => 'string',
 				'default'           => null,
 				'description'       => __( 'The organizer description', 'the-events-calendar' ),
@@ -264,7 +264,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 			// Organizer meta fields
 			'phone'       => array(
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_string' ),
+				'validate_callback' => array( $this->validator, 'is_string_or_empty' ),
 				'type'              => 'string',
 				'default'           => null,
 				'description'       => __( 'The organizer phone number', 'the-events-calendar' ),
@@ -278,14 +278,14 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 			),
 			'email'       => array(
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_string' ),
+				'validate_callback' => array( $this->validator, 'is_string_or_empty' ),
 				'type'              => 'string',
 				'default'           => null,
 				'description'       => __( 'The organizer e-mail address', 'the-events-calendar' ),
 			),
 			'image'       => array(
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_image' ),
+				'validate_callback' => array( $this->validator, 'is_image_or_empty' ),
 				'type'              => 'string',
 				'default'           => null,
 				'description'       => __( 'The organizer featured image ID or URL', 'the-events-calendar' ),
