@@ -782,6 +782,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			Tribe__Credits::init();
 			Tribe__Events__Timezones::init();
 			$this->registerPostType();
+			tribe( 'tec.admin.event-meta-box' )->display_wp_custom_fields_metabox();
 
 			Tribe__Debug::debug( sprintf( esc_html__( 'Initializing Tribe Events on %s', 'the-events-calendar' ), date( 'M, jS \a\t h:m:s a' ) ) );
 			$this->maybeSetTECVersion();
