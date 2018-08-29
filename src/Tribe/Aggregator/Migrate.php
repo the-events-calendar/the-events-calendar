@@ -39,11 +39,6 @@ class Tribe__Events__Aggregator__Migrate {
 	private function __construct() {
 		$plugin = Tribe__Events__Main::instance();
 
-		// Hook the AJAX methods
-
-		// @deprecated TBD
-		// add_action( 'wp_ajax_tribe_convert_legacy_facebook_settings', array( $this, 'ajax_convert_facebook_settings' ) );
-
 		add_action( 'wp_ajax_tribe_convert_legacy_ical_settings', array( $this, 'ajax_convert_ical_settings' ) );
 
 		// Hook the Notice for the Migration
@@ -64,20 +59,13 @@ class Tribe__Events__Aggregator__Migrate {
 			return false;
 		}
 
-		if (
-			( $this->is_facebook_migrated() || ! $this->has_facebook_setting() )
-			&& ( $this->is_ical_migrated() || ! $this->has_ical_setting() )
-		) {
+		if ( $this->is_ical_migrated() || ! $this->has_ical_setting() ) {
 			return false;
 		}
 
 		$aggregator = tribe( 'events-aggregator.main' );
 
 		$html = '<p>' . esc_html__( 'Thanks for activating Event Aggregator! It looks like you have some settings and imports configured on our legacy importer plugins. To complete your transition, we need to transfer those options to our new system.', 'the-events-calendar' );
-
-		if ( ! $this->is_facebook_migrated() && $this->has_facebook_setting() ) {
-			$html .= '<p style="display:inline-block;">' . get_submit_button( esc_html__( 'Migrate Facebook Events settings', 'the-events-calendar' ), 'secondary', 'tribe-migrate-facebook-settings', false ) . '<span class="spinner"></span></p>';
-		}
 
 		if ( ! $this->is_ical_migrated() && $this->has_ical_setting() ) {
 			$html .= '<p style="display:inline-block;">' . get_submit_button( esc_html__( 'Migrate iCal Importer settings', 'the-events-calendar' ), 'secondary', 'tribe-migrate-ical-settings', false ) . '<span class="spinner"></span></p>';

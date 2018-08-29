@@ -7,6 +7,30 @@ $internal = array();
 
 $current_url = Tribe__Settings::instance()->get_url( array( 'tab' => 'addons' ) );
 
+// if there's an Event Aggregator license key, add the Meetup.com API fields
+if ( get_option( 'pue_install_key_event_aggregator' ) ) {
+
+	$internal = array(
+		'meetup-start' => array(
+			'type' => 'html',
+			'html' => '<h3>' . esc_html__( 'Meetup', 'the-events-calendar' ) . '</h3>',
+		),
+		'meetup-info-box' => array(
+			'type' => 'html',
+			'html' => '<p>' . esc_html__( 'You need a Meetup API Key to import your events from Meetup.', 'the-events-calendar' ) . '</p>',
+		),
+		'meetup_api_key' => array(
+			'type'            => 'text',
+			'label'           => esc_html__( 'Meetup API Key', 'the-events-calendar' ),
+			'tooltip'         => sprintf( __( '%s to view your Meetup API Key', 'the-events-calendar' ), '<a href="https://secure.meetup.com/meetup_api/key/" target="_blank">' . __( 'Click here', 'the-events-calendar' ) . '</a>' ),
+			'size'            => 'medium',
+			'validation_type' => 'alpha_numeric',
+			'can_be_empty'    => true,
+			'parent_option'   => Tribe__Events__Main::OPTIONNAME,
+		),
+	);
+}
+
 /**
  * Show Eventbrite API Connection only if Eventbrite Plugin is Active or Event Aggregator license key has a license key
  */
