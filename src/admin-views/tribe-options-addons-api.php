@@ -13,7 +13,7 @@ if ( get_option( 'pue_install_key_event_aggregator' ) ) {
 	$internal = array(
 		'meetup-start' => array(
 			'type' => 'html',
-			'html' => '<h3>Meetup</h3>',
+			'html' => '<h3>' . esc_html__( 'Meetup', 'the-events-calendar' ) . '</h3>',
 		),
 		'meetup-info-box' => array(
 			'type' => 'html',
