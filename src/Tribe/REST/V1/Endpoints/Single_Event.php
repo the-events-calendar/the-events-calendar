@@ -227,25 +227,25 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 			),
 			'title'              => array(
 				'required'          => true,
-				'validate_callback' => array( $this->validator, 'is_string_not_empty' ),
+				'validate_callback' => array( $this->validator, 'is_string' ),
 				'type'              => 'string',
 				'description'       => __( 'The event title', 'the-events-calendar' ),
 			),
 			'description'        => array(
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_string' ),
+				'validate_callback' => array( $this->validator, 'is_string_or_empty' ),
 				'type'              => 'string',
 				'description'       => __( 'The event description', 'the-events-calendar' ),
 			),
 			'slug'               => array(
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_string' ),
+				'validate_callback' => array( $this->validator, 'is_string_or_empty' ),
 				'type'              => 'string',
 				'description'       => __( 'The event slug', 'the-events-calendar' ),
 			),
 			'excerpt'            => array(
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_string' ),
+				'validate_callback' => array( $this->validator, 'is_string_or_empty' ),
 				'type'              => 'string',
 				'description'       => __( 'The event excerpt', 'the-events-calendar' ),
 			),
@@ -282,7 +282,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 			),
 			'image'              => array(
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_image' ),
+				'validate_callback' => array( $this->validator, 'is_image_or_empty' ),
 				'type'              => 'string',
 				'description'       => __( 'The event featured image ID or URL', 'the-events-calendar' ),
 			),
@@ -293,8 +293,9 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 			),
 			'website'            => array(
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_url' ),
+				'validate_callback' => array( $this->validator, 'is_url_or_empty' ),
 				'swagger_type'      => 'string',
+				'default'           => null,
 				'description'       => __( 'The event website URL', 'the-events-calendar' ),
 			),
 			// Event presentation data
@@ -322,6 +323,19 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 				'required'    => false,
 				'type'        => 'boolean',
 				'description' => __( 'Whether the event should be featured on the site or not', 'the-events-calendar' ),
+			),
+			// Taxonomies
+			'categories'         => array(
+				'required'     => false,
+				'default'      => null,
+				'swagger_type' => 'array',
+				'description'  => __( 'The event category ID or name', 'the-events-calendar' ),
+			),
+			'tags'               => array(
+				'required'     => false,
+				'default'      => null,
+				'swagger_type' => 'array',
+				'description'  => __( 'The event tag ID or name', 'the-events-calendar' ),
 			),
 			// Linked Posts
 			'venue'              => array(

@@ -415,27 +415,6 @@ class EventInsertionCest extends BaseRestCest {
 	}
 
 	/**
-	 * It should return bad request if trying to set image to non supported MIME type
-	 *
-	 * @test
-	 */
-	public function it_should_return_bad_request_if_trying_to_set_image_to_non_supported_image_type( Tester $I ) {
-		$I->generate_nonce_for_role( 'administrator' );
-
-		$I->sendPOST( $this->events_url, [
-			'title'       => 'An event',
-			'description' => 'An event content',
-			'all_day'     => true,
-			'start_date'  => 'tomorrow 9am',
-			'end_date'    => 'tomorrow 11am',
-			'image'       => ( new Image( codecept_data_dir( 'images/featured-image.raw' ) ) )->upload_and_get_attachment_id(),
-		] );
-
-		$I->seeResponseCodeIs( 400 );
-		$I->seeResponseIsJson();
-	}
-
-	/**
 	 * It should return bad request if trying to set image to ID of non attachment
 	 *
 	 * @test
