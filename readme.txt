@@ -221,6 +221,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - Modify resource url function to work in mu-plugin directory, thanks to Doug for reporting it  [86104]
 * Fix - Remove references to and settings for Facebook importing in Event Aggregator [112432]
 * Deprecated - `Tribe__Events__Aggregator__Record__Facebook`
+* Fix - Allow venue location fields to be intentionally empty on Venue Singular REST API calls [108834]
 
 = [4.6.22.1] 2018-08-27 =
 
