@@ -85,7 +85,7 @@ class Tribe__Events__Aggregator__Record__Eventbrite extends Tribe__Events__Aggre
 	 * @return string
 	 */
 	public function get_label() {
-		return __( 'Eventbrite', 'the-events-calendar' );
+		return 'Eventbrite';
 	}
 
 	/**

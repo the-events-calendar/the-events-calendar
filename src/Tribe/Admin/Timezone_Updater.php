@@ -84,7 +84,7 @@ class Tribe__Events__Admin__Timezone_Updater {
 		}
 
 		if ( $progress >= 0 ) {
-			$percent = sprintf( __( '%d%% complete', 'the-events-calendar' ), $progress );
+			$percent = sprintf( _x( '%d%% complete', 'The "percent complete" of a process, e.g. "45% complete"', 'the-events-calendar' ), $progress );
 			$update .= '<div class="tribe-update-bar"> <div class="progress" title="' . $percent . '"> <div class="bar" style="width: ' . $progress . '%"></div> </div>' . $spinner . '</div>';
 		}
 

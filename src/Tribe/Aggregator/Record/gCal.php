@@ -11,7 +11,7 @@ class Tribe__Events__Aggregator__Record__gCal extends Tribe__Events__Aggregator_
 	 * @return string
 	 */
 	public function get_label() {
-		return __( 'Google Calendar', 'the-events-calendar' );
+		return 'Google Calendar';
 	}
 
 	/**

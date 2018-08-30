@@ -18,8 +18,8 @@ class Tribe__Events__Aggregator__CLI__Service_Provider extends tad_DI52_ServiceP
 			'event-aggregator',
 			'Tribe__Events__Aggregator__CLI__Command',
 			array(
-				'shortdesc' => __( 'Create, run and manage Event Aggregator imports.', 'the-events-calendar' ),
-				'longdesc' => __( 'If required the commands will use the API keys and licenses set for the current site.' ),
+				'shortdesc' => __( 'Create, run, and manage Event Aggregator imports.', 'the-events-calendar' ),
+				'longdesc' => __( 'If required, the commands will use the API keys and licenses set for the current site.' ),
 			)
 		);
 	}

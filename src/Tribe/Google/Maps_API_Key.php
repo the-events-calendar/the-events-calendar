@@ -60,8 +60,7 @@ class Tribe__Events__Google__Maps_API_Key {
 			$this->api_key_option_name => array(
 				'type'            => 'text',
 				'label'           => esc_html__( 'Google Maps API key', 'the-events-calendar' ),
-				'tooltip'         => sprintf( __( '<p>%s to create your Google Maps API key.', 'the-events-calendar' ),
-					'<a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank"></p>' . __( 'Click here', 'the-events-calendar' ) . '</a>' ),
+				'tooltip'         => '<p><a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank">' . esc_html__( 'Click here', 'the-events-calendar' ) . '</a> ' . esc_html_x( 'to create your Google Maps API key.', 'preceded by "Click here"', 'the-events-calendar' ) . '</p>',
 				'size'            => 'medium',
 				'validation_type' => 'alpha_numeric_with_dashes_and_underscores',
 				'can_be_empty'    => true,

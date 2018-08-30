@@ -37,7 +37,7 @@ class Tribe__Events__Aggregator__Record__Meetup extends Tribe__Events__Aggregato
 	 * @return string
 	 */
 	public function get_label() {
-		return __( 'Meetup', 'the-events-calendar' );
+		return 'Meetup';
 	}
 
 	/**

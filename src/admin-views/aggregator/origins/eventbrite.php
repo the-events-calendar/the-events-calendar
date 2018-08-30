@@ -150,7 +150,7 @@ $field->options[] = array(
 <?php
 $field              = (object) array();
 $field->label       = __( 'URL:', 'the-events-calendar' );
-$field->placeholder = __( 'eventbrite.com/e/example-12345', 'the-events-calendar' );
+$field->placeholder = _x( 'eventbrite.com/e/example-12345', 'This URL is left translatable so that you could change it to an Eventbrite TLD that better suits your locale, e.g. eventbrite.co.uk', 'the-events-calendar' );
 $field->help        = __( 'Enter an Eventbrite event URL, e.g. https://www.eventbrite.com/e/example-12345', 'the-events-calendar' );
 ?>
 <tr

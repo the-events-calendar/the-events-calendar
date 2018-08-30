@@ -568,7 +568,7 @@ if ( tribe( 'events-aggregator.main' )->is_service_active() ) {
 			'priority' => 15,
 		),
 		'ical-settings'     => array(
-			'name'     => __( 'iCalendar', 'the-events-calendar' ),
+			'name'     => 'iCalendar',
 			'priority' => 20,
 		),
 		'ics-settings'      => array(
@@ -576,11 +576,11 @@ if ( tribe( 'events-aggregator.main' )->is_service_active() ) {
 			'priority' => 25,
 		),
 		'google-settings'   => array(
-			'name'     => __( 'Google Calendar', 'the-events-calendar' ),
+			'name'     => 'Google Calendar',
 			'priority' => 35,
 		),
 		'meetup-settings'   => array(
-			'name'     => __( 'Meetup', 'the-events-calendar' ),
+			'name'     => 'Meetup',
 			'priority' => 40,
 		),
 		'url-settings'      => array(
@@ -588,7 +588,7 @@ if ( tribe( 'events-aggregator.main' )->is_service_active() ) {
 			'priority' => 45,
 		),
 		'eventbrite-settings' => array(
-			'name'     => __( 'Eventbrite', 'the-events-calendar' ),
+			'name'     => 'Eventbrite',
 			'priority' => 17,
 		),
 	);

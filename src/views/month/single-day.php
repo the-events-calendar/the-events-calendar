@@ -54,7 +54,7 @@ $date_label = date_i18n( tribe_get_date_option( 'dateWithoutYearFormat', 'F j' )
 				$events_label
 			);
 
-			$view_all_aria_label = sprintf( __( '%s for %s', 'the-events-calendar' ), $view_all_label, $date_label );
+			$view_all_aria_label = sprintf( _x( '%s for %s', 'The HTML label text for the "View More" link on individual days in the Month View grid, e.g. "View All 4 Events for August 29" in English.', 'the-events-calendar' ), $view_all_label, $date_label );
 		?>
 		<a href="<?php echo esc_url( $day['view_more'] ); ?>" aria-label="<?php echo esc_attr( $view_all_aria_label ); ?>">
 			<?php echo $view_all_label ?> &raquo;
