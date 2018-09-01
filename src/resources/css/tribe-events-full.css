@@ -25,12 +25,10 @@
 /* Cost */
 
 .tribe-events-event-cost {
-	display: -webkit-flex;
 	display: -ms-flexbox;
 	display: flex;
-	-webkit-align-items: center;
-	    -ms-flex-align: center;
-	        align-items: center;
+	-ms-flex-align: center;
+	    align-items: center;
 	float: none;
 	margin: 0 0 15px;
 }
@@ -688,12 +686,10 @@ select.tribe-events-dropdown {
 /* Cost */
 
 .tribe-events-list .tribe-events-loop .tribe-event-featured .tribe-events-event-cost {
-	display: -webkit-flex;
 	display: -ms-flexbox;
 	display: flex;
-	-webkit-align-items: center;
-	    -ms-flex-align: center;
-	        align-items: center;
+	-ms-flex-align: center;
+	    align-items: center;
 	float: none;
 	margin: 30px 0;
 }
@@ -1207,12 +1203,10 @@ select.tribe-events-dropdown {
 /* Cost */
 
 .tribe-events-day .tribe-event-featured .tribe-events-event-cost {
-	display: -webkit-flex;
 	display: -ms-flexbox;
 	display: flex;
-	-webkit-align-items: center;
-	    -ms-flex-align: center;
-	        align-items: center;
+	-ms-flex-align: center;
+	    align-items: center;
 	float: none;
 	margin: 30px 0;
 }
@@ -1837,8 +1831,11 @@ input[name*='tribe-bar-']:-moz-placeholder {
 #tribe-bar-views-toggle {
 	border: 0;
 	background: transparent;
+	color: #333;
 	display: block;
-	line-height: 14px;
+	font-size: 16px;
+	font-weight: normal;
+	line-height: 1;
 	padding: 6px 15px;
 	position: relative;
 	text-align: left;
@@ -1982,6 +1979,7 @@ input[name*='tribe-bar-']:-moz-placeholder {
 
 #tribe-bar-collapse-toggle {
 	background: #f5f5f5;
+	color: #333;
 	display: none;
 	width: 100%;
 	font-size: 13px;
@@ -2086,8 +2084,10 @@ input[name*='tribe-bar-']:-moz-placeholder {
 	width: auto;
 }
 
-.tribe-bar-disabled .tribe-bar-filters {
+.tribe-bar-disabled #tribe-bar-filters-wrap {
 	float: left;
+	min-width: 120px;
+	width: auto;
 }
 
 .tribe-bar-disabled .tribe-bar-filters .tribe-bar-date-filter {
@@ -2102,35 +2102,27 @@ input[name*='tribe-bar-']:-moz-placeholder {
 	border: none;
 	display: block;
 	font-size: 13px;
-	line-height: 15px;
-	margin: 0;
-	padding: 0;
-	width: 85px;
+	line-height: 1;
+	margin: 10px 0 0 0;
+	padding: 3px 0 0 0;
+	width: 100px;
 }
 
 .tribe-bar-disabled #tribe-bar-form #tribe-bar-views {
-	float: left;
+	float: right;
 	font-size: 16px;
 	left: 50%;
+	min-width: 130px;
 	padding: 0;
 	right: auto;
 	width: 50%;
 }
 
-.tribe-bar-disabled #tribe-bar-form #tribe-bar-views + .tribe-bar-filters {
-	left: auto;
-	right: 50%;
-	width: 50%;
-}
-
-.tribe-bar-disabled #tribe-bar-form .tribe-bar-views-inner label {
-	padding: 0 10px;
-}
-
 .tribe-bar-disabled .tribe-bar-views-inner {
 	border-radius: 0 3px 3px 0;
 	min-width: 100px;
-	padding: 5px 0 25px 0;
+	padding: 5px 0 0;
+	position: relative;
 }
 
 .tribe-bar-disabled #tribe-bar-views .tribe-bar-views-list,
