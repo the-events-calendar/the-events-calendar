@@ -42,7 +42,6 @@ if ( count( $views ) > 1 ) {
 		<?php if ( ! empty( $filters ) ) : ?>
 			<div id="tribe-bar-filters-wrap">
 
-				<!-- Mobile Filters Toggle -->
 				<button
 					id="tribe-bar-collapse-toggle"
 					aria-expanded="false"
@@ -74,15 +73,12 @@ if ( count( $views ) > 1 ) {
 								value="<?php printf( esc_attr__( 'Find %s', 'the-events-calendar' ), tribe_get_event_label_plural() ); ?>"
 							/>
 						</div>
-						<!-- .tribe-bar-submit -->
 					</div>
-					<!-- .tribe-bar-filters-inner -->
-				</div><!-- .tribe-bar-filters -->
-			</div><!-- .tribe-bar-filters-wrap -->
+				</div>
+			</div>
 
-		<?php endif; // if ( !empty( $filters ) ) ?>
+		<?php endif; ?>
 
-		<!-- Views -->
 		<?php if ( count( $views ) > 1 ) : ?>
 			<div id="tribe-bar-views" class="tribe-bar-views">
 				<div class="tribe-bar-views-inner tribe-clearfix">
@@ -108,13 +104,11 @@ if ( count( $views ) > 1 ) {
 						?>
 					</select>
 				</div>
-				<!-- .tribe-bar-views-inner -->
-			</div><!-- .tribe-bar-views -->
-		<?php endif; // if ( count( $views ) > 1 ) ?>
+			</div>
+		<?php endif; ?>
 
 	</form>
-	<!-- #tribe-bar-form -->
 
-</div><!-- #tribe-events-bar -->
+</div>
 <?php
 do_action( 'tribe_events_bar_after_template' );
