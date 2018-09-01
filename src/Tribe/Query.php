@@ -497,19 +497,21 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		 * @return boolean
 		 */
 		public static function should_remove_date_filters( $query ) {
+			// if the query flag to remove date filters is explicitly set then remove them
+			if ( true === $query->get( 'tribe_remove_date_filters', false ) ) {
+				return true;
+			}
+
 			// if we're doing ajax, let's keep the date filters
 			if ( tribe( 'context' )->doing_ajax() ) {
 				return false;
 			}
 
 			// otherwise, let's remove the date filters if we're in the admin dashboard and the query is
-			// and event query on the tribe_events edit page
-			return (
-				is_admin()
+			// an event query on the tribe_events edit page
+			return is_admin()
 				&& $query->tribe_is_event_query
-				&& Tribe__Admin__Helpers::instance()->is_screen( 'edit-' . Tribe__Events__Main::POSTTYPE )
-			)
-			|| true === $query->get( 'tribe_remove_date_filters', false );
+				&& Tribe__Admin__Helpers::instance()->is_screen( 'edit-' . Tribe__Events__Main::POSTTYPE );
 		}
 
 		/**

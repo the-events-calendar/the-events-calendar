@@ -63,7 +63,7 @@ interface Tribe__Events__Validator__Interface extends Tribe__Validator__Interfac
 	/**
 	 * Whether a list or array of event post IDs only contains valid event IDs or not.
 	 *
-	 * @since TBD
+	 * @since 4.6.22
 	 *
 	 * @param  string|array $events A list of event post IDs separated by the specified separator or an array
 	 *                                  of event post IDs.

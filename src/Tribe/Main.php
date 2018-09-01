@@ -32,7 +32,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '4.6.22';
+		const VERSION             = '4.6.22.1';
 		const MIN_ADDON_VERSION   = '4.4';
 		const MIN_COMMON_VERSION  = '4.7.18';
 
@@ -653,6 +653,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( 'plugins_loaded', array( $this, 'init_day_view' ), 2 );
 
 			add_action( 'plugins_loaded', array( 'Tribe__Events__Templates', 'init' ) );
+			tribe( 'tec.bar' );
 
 			add_action( 'init', array( $this, 'filter_cron_schedules' ) );
 
@@ -962,7 +963,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				'update_post_meta_cache' => false,
 				'update_post_term_cache' => false,
 				'posts_per_page'         => 1,
-				'post_partent'           => 0,
+				'post_parent'            => 0,
 			) );
 
 			if ( ! $conflict_query->have_posts() ) {

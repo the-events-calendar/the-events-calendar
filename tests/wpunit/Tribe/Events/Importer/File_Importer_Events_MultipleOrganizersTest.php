@@ -37,7 +37,7 @@ class File_Importer_Events_MultipleOrganizersTest extends File_Importer_EventsTe
 
 	/**
 	 * @test
-	 * it should import a space separated list of organizers a the name of a single organizer
+	 * it should import a space-separated list of organizers as the name of a single organizer
 	 */
 	public function it_should_import_a_space_separated_list_of_organizers_as_the_name_of_a_single_organizer() {
 		$organizer_name = 'Zach Matt Gustavo';
@@ -83,7 +83,7 @@ class File_Importer_Events_MultipleOrganizersTest extends File_Importer_EventsTe
 
 	/**
 	 * @test
-	 * it should import a space separated list of organizer IDs
+	 * it should import a space-separated list of organizer IDs
 	 */
 	public function it_should_import_a_space_separated_list_of_organizer_ids() {
 		$organizer_ids = $this->factory()->post->create_many( 3, [ 'post_type' => Main::ORGANIZER_POST_TYPE ] );
@@ -102,7 +102,7 @@ class File_Importer_Events_MultipleOrganizersTest extends File_Importer_EventsTe
 
 	/**
 	 * @test
-	 * it should import a comma separated list of organizer IDs
+	 * it should import a comma-separated list of organizer IDs
 	 */
 	public function it_should_import_a_comma_separated_list_of_organizer_ids() {
 		$organizer_ids = $this->factory()->post->create_many( 3, [ 'post_type' => Main::ORGANIZER_POST_TYPE ] );
@@ -121,7 +121,7 @@ class File_Importer_Events_MultipleOrganizersTest extends File_Importer_EventsTe
 
 	/**
 	 * @test
-	 * it should import a tight comma separated list for organizer ids
+	 * it should import a tight comma-separated list for organizer ids
 	 */
 	public function it_should_import_a_tight_comma_separated_list_of_organizer_ids() {
 		$organizer_ids = $this->factory()->post->create_many( 3, [ 'post_type' => Main::ORGANIZER_POST_TYPE ] );
@@ -197,7 +197,7 @@ class File_Importer_Events_MultipleOrganizersTest extends File_Importer_EventsTe
 
 	/**
 	 * @test
-	 * it should import a comma separated list of organizer names
+	 * it should import a comma-separated list of organizer names
 	 */
 	public function it_should_import_a_comma_separated_list_of_organizer_names() {
 		$organizers = array(
@@ -293,7 +293,7 @@ class File_Importer_Events_MultipleOrganizersTest extends File_Importer_EventsTe
 
 	/**
 	 * @test
-	 * it should import a space separated list of organizer IDs if not all are organizers
+	 * it should not import a space-separated list of organizer IDs if not all are organizers
 	 */
 	public function it_should_not_import_a_space_separated_list_of_organizers_if_not_all_are_organizers() {
 		$organizer_ids    = $this->factory()->post->create_many( 3, [ 'post_type' => Main::ORGANIZER_POST_TYPE ] );

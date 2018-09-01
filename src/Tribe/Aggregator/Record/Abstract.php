@@ -1390,6 +1390,14 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$import_settings = tribe( 'events-aggregator.settings' )->default_settings_import( $origin );
 		$should_import_settings = tribe_is_truthy( $import_settings ) ? true : false;
 
+		/**
+		 * When an event/venue/organizer is being updated/inserted in the context of an import then any change
+		 * should not be tracked as if made by the user. So doing would result results in posts
+		 * "locked", under the "Import events but preserve local changes to event fields" event
+		 * authority, after an update/insertion.
+		 */
+		add_filter( 'tribe_tracker_enabled', '__return_false' );
+
 		foreach ( $items as $item ) {
 			$event = Tribe__Events__Aggregator__Event::translate_service_data( $item );
 
@@ -1529,15 +1537,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 								$venue_data = Tribe__Events__Aggregator__Event::preserve_changed_fields( $venue_data );
 							}
 
-							add_filter( 'tribe_tracker_enabled', '__return_false' );
-
 							// Update the Venue
 							Tribe__Events__Venue::instance()->update( $venue->ID, $venue_data );
 
 							// Tell that we updated the Venue to the activity tracker
 							$activity->add( 'venue', 'updated', $venue->ID );
-
-							remove_filter( 'tribe_tracker_enabled', '__return_false' );
 						}
 					} else {
 						/**
@@ -1625,15 +1629,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 									$venue_data = Tribe__Events__Aggregator__Event::preserve_changed_fields( $venue_data );
 								}
 
-								add_filter( 'tribe_tracker_enabled', '__return_false' );
-
 								// Update the Venue
 								Tribe__Events__Venue::instance()->update( $venue_id, $venue_data );
 
 								// Tell that we updated the Venue to the activity tracker
 								$activity->add( 'venue', 'updated', $venue_id );
-
-								remove_filter( 'tribe_tracker_enabled', '__return_false' );
 							}
 						}
 					}
@@ -1672,7 +1672,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 						unset( $organizer_data['OrganizerID'] );
 					}
 
-					//if we should create an organizer or use existing
+					// if we should create an organizer or use existing
 					if ( ! empty( $organizer_data['Organizer'] ) ) {
 						$organizer_data['Organizer'] = trim( $organizer_data['Organizer'] );
 
@@ -1718,12 +1718,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 										$organizer_data = Tribe__Events__Aggregator__Event::preserve_changed_fields( $organizer_data );
 									}
 
-									add_filter( 'tribe_tracker_enabled', '__return_false' );
-
 									// Update the Organizer
 									Tribe__Events__Organizer::instance()->update( $organizer->ID, $organizer_data );
-
-									remove_filter( 'tribe_tracker_enabled', '__return_false' );
 
 									// Tell that we updated the Organizer to the activity tracker
 									$activity->add( 'organizer', 'updated', $organizer->ID );
@@ -1804,12 +1800,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 											$organizer_data = Tribe__Events__Aggregator__Event::preserve_changed_fields( $organizer_data );
 										}
 
-										add_filter( 'tribe_tracker_enabled', '__return_false' );
-
 										// Update the Organizer
 										Tribe__Events__Organizer::instance()->update( $organizer_id, $organizer_data );
-
-										remove_filter( 'tribe_tracker_enabled', '__return_false' );
 
 										// Tell that we updated the Organizer to the activity tracker
 										$activity->add( 'organizer', 'updated', $organizer_id );
@@ -1853,6 +1845,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				$event = apply_filters( 'tribe_aggregator_before_update_event', $event, $this );
 
 				$event['ID'] = tribe_update_event( $event['ID'], $event );
+				remove_filter( 'tribe_tracker_enabled', '__return_false' );
 
 				// since the Event API only supports the _setting_ of these meta fields, we need to manually
 				// delete them rather than relying on Tribe__Events__API::saveEventMeta()
@@ -1863,8 +1856,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				if ( isset( $event['EventShowMapLink'] ) && ! tribe_is_truthy( $event['EventShowMapLink'] ) ) {
 					delete_post_meta( $event['ID'], '_EventShowMapLink' );
 				}
-
-				remove_filter( 'tribe_tracker_enabled', '__return_false' );
 
 				// Log that this event was updated
 				$activity->add( 'event', 'updated', $event['ID'] );
@@ -1888,6 +1879,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				 * @param Tribe__Events__Aggregator__Record__Abstract $record Importer record
 				 */
 				$event = apply_filters( 'tribe_aggregator_before_insert_event', $event, $this );
+
 				$event['ID'] = tribe_create_event( $event );
 
 				// Log this event was created
@@ -2022,6 +2014,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		 * @param Tribe__Events__Aggregator__Record__Activity $activity The record insertion activity report.
 		 */
 		do_action( 'tribe_aggregator_after_insert_posts', $items, $this->meta, $activity );
+
+		/**
+		 * Finally resume tracking changes when all events, and linked posts, have been updated/inserted.
+		 */
+		remove_filter( 'tribe_tracker_enabled', '__return_false' );
 
 		$final_created_events = (int) $activity->count( Tribe__Events__Main::POSTTYPE );
 
