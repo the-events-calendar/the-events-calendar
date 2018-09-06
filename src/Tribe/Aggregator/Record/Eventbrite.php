@@ -27,7 +27,7 @@ class Tribe__Events__Aggregator__Record__Eventbrite extends Tribe__Events__Aggre
 	 * @return string
 	 */
 	public static function get_source_regexp() {
-		return '^(https?:\/\/)?(www\.)?eventbrite\.com(\.[a-z]{2})?\/';
+		return '^(https?:\/\/)?(www\.)?eventbrite\.[a-z]{2,3}(\.[a-z]{2})?\/';
 	}
 
 	/**
