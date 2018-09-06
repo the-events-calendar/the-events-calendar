@@ -288,7 +288,9 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 			return new Tribe__Events__Aggregator__Record__Void_Queue( __( 'There was an error building the record queue: ' . print_r( $record, true ) ) );
 		}
 
-		$class = 'Tribe__Events__Aggregator__Record__Async_Queue';
+		/** @var Tribe__Events__Aggregator__Settings $settings */
+		$settings = tribe( 'events-aggregator.settings' );
+		$class    = $settings->get_import_process_class();
 
 		// Force the use of the Legacy Queue for CSV Imports
 		if ( $record instanceof Tribe__Events__Aggregator__Record__CSV || $use_legacy ) {
@@ -302,9 +304,11 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 		 *
 		 * @since 4.6.16
 		 *
-		 * @param string $class
-		 * @param Tribe__Events__Aggregator__Record__Abstract $record
-		 * @param array|string $items
+		 * @param string $class                                       The import process class that will be used to process
+		 *                                                            import records.
+		 * @param Tribe__Events__Aggregator__Record__Abstract $record The current record being processed.
+		 * @param array|string $items                                 Either an array of the record items to process or a string
+		 *                                                            to indicate pre-process states like fetch or on-hold.
 		 */
 		$class = apply_filters( 'tribe_aggregator_queue_class', $class, $record, $items );
 

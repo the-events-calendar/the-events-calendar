@@ -671,5 +671,120 @@ class Tribe__Events__Aggregator__Settings {
 		return $credentials->expires > $time;
 	}
 
+	/**
+	 * Returns a filtered map of import process slugs to classes.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $pretty Whether to return human-readable and "pretty" name for the process
+	 *                     or the class names.
+	 *
+	 * @return array A map of import process slugs to classes or names in the shape
+	 *               [ <slug> => <class_or_name> ].
+	 */
+	public function get_import_process_options( $pretty = false ) {
+		$options = array(
+			'async' => array(
+				'class' => 'Tribe__Events__Aggregator__Record__Async_Queue',
+				'name'  => __( 'Asynchronous', 'the-events-calendar' ),
+			),
+			'cron'  => array(
+				'class' => 'Tribe__Events__Aggregator__Record__Queue',
+				'name'  => __( 'Cron-based', 'the-events-calendar' ),
+			),
+		);
 
+		/**
+		 * Filters the map of available import process options.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $options A map of import process options to import process classes
+		 *                       in the shape [ <slug> => [ 'class' => <class>, 'name' => <name> ] ].
+		 * @param bool $pretty Whether to return human-readable and "pretty" names for the options (`true`)
+		 *                     or the class names ('false').
+		 */
+		$options = apply_filters( 'tribe_aggregator_import_process_options', $options, $pretty );
+
+		if ( $pretty ) {
+			return array_combine( array_keys( $options ), wp_list_pluck( $options, 'name' ) );
+		}
+
+		return array_combine( array_keys( $options ), wp_list_pluck( $options, 'class' ) );
+	}
+
+	/**
+	 * Returns the filtered default import process slug or class.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $return_class Whether to return the import process class (`true`) or
+	 *                           slug (`false`).
+	 *
+	 * @return string The default import process slug or class.
+	 */
+	public function get_import_process_default( $return_class = true ) {
+		$available = $this->get_import_process_options();
+
+		if ( $return_class ) {
+			$default = reset( $available );
+		} else {
+			$keys    = array_keys( $available );
+			$default = reset( $keys );
+		}
+
+		/**
+		 * Filters the default import process class or slug.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $default    The default import process class (if `$return_class` is `true`) or
+		 *                           slug (if `$return_class` is `false`).
+		 * @param bool $return_class Whether to return the default import process class (`true`) or
+		 *                           slug (`false`).
+		 * @param array $available   A map, in the shape [ <slug> => <class> ], of available import processes.
+		 */
+		$default = apply_filters( 'tribe_aggregator_import_process_default', $default, $return_class, $available );
+
+		return $default;
+	}
+
+	/**
+	 * Returns the currently selected, or a specific, import process class.
+	 *
+	 * @since TBD
+	 *
+	 * @param null|string $slug The slug of the import process class to return; if not specified
+	 *                          then the default import process class will be returned. If the
+	 *                          slug is not available then the default class will be returned.
+	 *
+	 * @return string The import process class for the specified slug or the default class if the
+	 *                slug was not specified or is not available.
+	 */
+	public function get_import_process_class( $slug = null ) {
+		$default_slug  = $this->get_import_process_default( false );
+		$default_class = $this->get_import_process_default();
+
+		$available = $this->get_import_process_options();
+		if ( null === $slug ) {
+			$slug = tribe_get_option( 'tribe_aggregator_import_process_system', $default_slug );
+		}
+
+		$class = Tribe__Utils__Array::get( $available, $slug, $default_class );
+
+		/**
+		 * Filters the import process class that will be returned for an import process slug.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $class     The import process slug for the slug or the default class if the
+		 *                          slug was not specified or the specified slug is not available.
+		 * @param string|null $slug The specified slug or `null` if not specified.
+		 * @param array $available  A map of available process classes in the shape
+		 *                          [ <slug> => <class> ].
+		 */
+		$class = apply_filters( 'tribe_aggregator_import_process', $class, $slug, $available );
+
+		return $class;
+	}
 }

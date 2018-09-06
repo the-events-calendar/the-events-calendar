@@ -205,6 +205,18 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 			),
 			'priority' => 5.7,
 		),
+		'tribe_aggregator_import_process_system'=> array(
+			'type' => 'dropdown',
+			'label' => esc_html__( 'Import Process System', 'the-events-calendar' ),
+			'tooltip' => esc_html__( 'The Asynchronous import process is faster and does not rely on WordPress Cron but might not work correctly in all WordPress installations, try switching to the Cron-based process for maximum compatibility.', 'the-events-calendar' ),
+			'size' => 'medium',
+			'validation_type' => 'options',
+			'default' => tribe( 'events-aggregator.settings' )->get_import_process_default( false ),
+			'can_be_empty' => false,
+			'parent_option' => Tribe__Events__Main::OPTIONNAME,
+			'options' => tribe( 'events-aggregator.settings' )->get_import_process_options( true ),
+			'priority' => 5.8,
+		),
 	);
 
 	$ical = array(
