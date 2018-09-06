@@ -19,9 +19,13 @@ class Tribe__Events__Aggregator__Processes__Service_Provider extends tad_DI52_Se
 
 		add_filter( 'tribe_process_queues', array( $this, 'filter_tribe_process_queues' ) );
 
-		if ( tribe_get_request_var( 'clear_queues', false ) ) {
+		if (
+			tribe_get_request_var( Tribe__Events__Aggregator__Processes__Queue_Control::CLEAR_PROCESSES, false )
+			&& is_admin()
+			&& current_user_can( 'manage_options' )
+		) {
 			$clear_queues = tribe_callback( 'events-aggregator.queue-control', 'clear_queues_and_redirect' );
-			add_action( 'tribe_aggregator_page_request', $clear_queues, 9, 0 );
+			add_action( 'admin_init', $clear_queues, 9, 0 );
 		}
 	}
 
