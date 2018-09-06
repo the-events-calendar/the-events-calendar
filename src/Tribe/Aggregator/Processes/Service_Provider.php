@@ -20,7 +20,7 @@ class Tribe__Events__Aggregator__Processes__Service_Provider extends tad_DI52_Se
 		add_filter( 'tribe_process_queues', array( $this, 'filter_tribe_process_queues' ) );
 		add_filter( 'tribe_settings_save_field_value', array(
 			$this,
-			'filter_tribe_settings_save_field_value'
+			'filter_tribe_settings_save_field_value',
 		), 10, 2 );
 
 		$this->handle_clear_request();
