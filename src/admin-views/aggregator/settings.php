@@ -118,7 +118,7 @@ $global = $ical = $ics = $gcal = $meetup = $url = $eb_fields = array();
 if ( Tribe__Events__Aggregator::is_service_active() ) {
 
 	$stop_running_processes_message = sprintf(
-		__( 'If you want to stop current import processes or remove them %1$s.', 'the-events-calendar' ),
+		__( 'If you want to stop current asynchronous import processes or remove them %1$s.', 'the-events-calendar' ),
 		sprintf( '<a href="' . add_query_arg( array( Tribe__Events__Aggregator__Processes__Queue_Control::CLEAR_PROCESSES => 1 ) ) . '">%s</a>',
 			esc_html__( 'click here', 'the-events-calendar' )
 		)
