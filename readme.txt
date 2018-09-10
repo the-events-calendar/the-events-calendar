@@ -215,6 +215,10 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
+= [4.6.24] TBD =
+
+* Fix - Only load widget assets when widget is active on the page [113141]
+
 = [4.6.23] TBD =
 
 * Fix - Fixed the "Full Styles" mobile view. Thanks Matthew, Laura and others for flagging this! [112301]

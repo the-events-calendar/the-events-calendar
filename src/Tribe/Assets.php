@@ -402,7 +402,6 @@ class Tribe__Events__Assets {
 			tribe_is_event_query()
 			|| tribe_is_event_organizer()
 			|| tribe_is_event_venue()
-			|| is_active_widget( false, false, 'tribe-events-list-widget' )
 			|| ( $post instanceof WP_Post && has_shortcode( $post->post_content, 'tribe_events' ) )
 		);
 

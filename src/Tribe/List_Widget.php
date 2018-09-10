@@ -38,6 +38,11 @@ class Tribe__Events__List_Widget extends WP_Widget {
 		$name    = empty( $name ) ? esc_html__( 'Events List', 'the-events-calendar' ) : $name;
 
 		parent::__construct( $id_base, $name, $widget_options, $control_options );
+
+		// Do not enqueue if the widget is inactive
+		if ( is_active_widget( false, false, $this->id_base, true ) || is_customize_preview() ) {
+			add_action( 'tribe_events_widget_render', array( $this, 'enqueue_widget_styles' ), 100 );
+		}
 	}
 
 	/**
@@ -76,6 +81,19 @@ class Tribe__Events__List_Widget extends WP_Widget {
 				'title' => '',
 			)
 		);
+
+		/**
+		 * Do things pre-render like: optionally enqueue assets if we're not in a sidebar
+		 * This has to be done in widget() because we have to be able to access
+		 * the queried object for some plugins
+		 *
+		 * @since TBD
+		 *
+		 * @param string __CLASS__ the widget class
+		 * @param array  $args     the widget args
+		 * @param array  $instance the widget instance
+		 */
+		do_action( 'tribe_events_widget_render', __CLASS__, $args, $instance );
 
 		/**
 		 * @var $after_title
@@ -227,5 +245,16 @@ class Tribe__Events__List_Widget extends WP_Widget {
 			'no_upcoming_events'   => false,
 			'featured_events_only' => false,
 		) );
+	}
+
+	/**
+	 * Enqueue the appropriate CSS for the list widget
+	 *
+	 * @since TBD
+	 */
+	public static function enqueue_widget_styles() {
+
+		tribe_asset_enqueue( 'tribe-events-calendar-style' );
+
 	}
 }
