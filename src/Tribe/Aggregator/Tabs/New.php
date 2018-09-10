@@ -595,10 +595,10 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 	}
 
 	/**
-	 * @deprecated TBD
+	 * @deprecated 4.6.23
 	 */
 	public function handle_facebook_credentials() {
-		_deprecated_function( __FUNCTION__, 'TBD', 'Importing from Facebook is no longer supported in Event Aggregator.' );
+		_deprecated_function( __FUNCTION__, '4.6.23', 'Importing from Facebook is no longer supported in Event Aggregator.' );
 
 		/**
 		 * Verify that we are dealing with a FB token Request

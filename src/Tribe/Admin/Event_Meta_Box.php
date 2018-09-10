@@ -338,7 +338,7 @@ class Tribe__Events__Admin__Event_Meta_Box {
 	/**
 	 * Disable WordPress Custom Fields in Events
 	 *
-	 * @since TBD
+	 * @since 4.6.23
 	 */
 	public function display_wp_custom_fields_metabox() {
 		$show_box = tribe_get_option( 'disable_metabox_custom_fields' );

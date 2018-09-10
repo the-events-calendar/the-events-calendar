@@ -45,7 +45,7 @@ class Tribe__Events__Aggregator__Processes__Service_Provider extends tad_DI52_Se
 	/**
 	 * Handles requests to clear queue processes.
 	 *
-	 * @since TBD
+	 * @since 4.6.23
 	 */
 	protected function handle_clear_request() {
 		if (
@@ -61,7 +61,7 @@ class Tribe__Events__Aggregator__Processes__Service_Provider extends tad_DI52_Se
 	/**
 	 * Handles requests to show the queue processes clearing results.
 	 *
-	 * @since TBD
+	 * @since 4.6.23
 	 */
 	protected function handle_clear_result() {
 		// `0` removed queue processes is still something we would want to notify users about
@@ -95,7 +95,7 @@ class Tribe__Events__Aggregator__Processes__Service_Provider extends tad_DI52_Se
 	 * To prevent this from creating issues all asynchronous queue processes will be cleared before
 	 * the switch.
 	 *
-	 * @since TBD
+	 * @since 4.6.23
 	 *
 	 * @param string $value    The new setting value.
 	 * @param string $field_id The setting field id.

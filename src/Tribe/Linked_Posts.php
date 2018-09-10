@@ -175,7 +175,7 @@ class Tribe__Events__Linked_Posts {
 	/**
 	 * Returns the meta key for linked post order
 	 *
-	 * @deprecated TBD
+	 * @deprecated 4.6.23
 	 * @todo Remove on 4.7
 	 *
 	 * @since 4.6.13
@@ -185,7 +185,7 @@ class Tribe__Events__Linked_Posts {
 	 * @return bool|string
 	 */
 	public function get_order_meta_key( $post_type ) {
-		_deprecated_function( __METHOD__, 'TBD', 'We do not use a separate postmeta field to store the ordering.' );
+		_deprecated_function( __METHOD__, '4.6.23', 'We do not use a separate postmeta field to store the ordering.' );
 
 		if ( Tribe__Events__Organizer::POSTTYPE === $post_type ) {
 			return '_EventOrganizerID_Order';
@@ -681,7 +681,7 @@ class Tribe__Events__Linked_Posts {
 	/**
 	 * Save Order of Linked Posts
 	 *
-	 * @deprecated TBD
+	 * @deprecated 4.6.23
 	 * @todo Remove on 4.7
 	 *
 	 * @since 4.6.13
@@ -691,7 +691,7 @@ class Tribe__Events__Linked_Posts {
 	 * @param array $current_order an array of the linked post ids being saved
 	 */
 	public function order_linked_posts( $target_post_id, $post_type, $current_order ) {
-		_deprecated_function( __METHOD__, 'TBD', 'Linked posts are ordered by `meta_id` by default via `get_post_meta()`.' );
+		_deprecated_function( __METHOD__, '4.6.23', 'Linked posts are ordered by `meta_id` by default via `get_post_meta()`.' );
 
 		$linked_ids_order_key = $this->get_order_meta_key( $post_type );
 

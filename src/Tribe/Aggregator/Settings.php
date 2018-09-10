@@ -554,12 +554,12 @@ class Tribe__Events__Aggregator__Settings {
 	/**
 	 * Hooked to current_screen, this method identifies whether or not fb credentials should be cleared
 	 *
-	 * @deprecated TBD
+	 * @deprecated 4.6.23
 	 *
 	 * @param WP_Screen $screen
 	 */
 	public function maybe_clear_fb_credentials( $screen ) {
-		_deprecated_function( __FUNCTION__, 'TBD', 'Importing from Facebook is no longer supported in Event Aggregator.' );
+		_deprecated_function( __FUNCTION__, '4.6.23', 'Importing from Facebook is no longer supported in Event Aggregator.' );
 
 		if ( 'tribe_events_page_tribe-common' !== $screen->base ) {
 			return;
@@ -589,10 +589,10 @@ class Tribe__Events__Aggregator__Settings {
 	}
 
 	/**
-	 * @deprecated TBD
+	 * @deprecated 4.6.23
 	 */
 	public function get_fb_credentials() {
-		_deprecated_function( __FUNCTION__, 'TBD', 'Importing from Facebook is no longer supported in Event Aggregator.' );
+		_deprecated_function( __FUNCTION__, '4.6.23', 'Importing from Facebook is no longer supported in Event Aggregator.' );
 
 		$args = array(
 			'token'   => tribe_get_option( 'fb_token' ),
@@ -604,20 +604,20 @@ class Tribe__Events__Aggregator__Settings {
 	}
 
 	/**
-	 * @deprecated TBD
+	 * @deprecated 4.6.23
 	 */
 	public function has_fb_credentials() {
-		_deprecated_function( __FUNCTION__, 'TBD', 'Importing from Facebook is no longer supported in Event Aggregator.' );
+		_deprecated_function( __FUNCTION__, '4.6.23', 'Importing from Facebook is no longer supported in Event Aggregator.' );
 
 		$credentials = $this->get_fb_credentials();
 		return ! empty( $credentials->token ) && ! empty( $credentials->expires ) && ! empty( $credentials->scopes );
 	}
 
 	/**
-	 * @deprecated TBD
+	 * @deprecated 4.6.23
 	 */
 	public function clear_fb_credentials() {
-		_deprecated_function( __FUNCTION__, 'TBD', 'Importing from Facebook is no longer supported in Event Aggregator.' );
+		_deprecated_function( __FUNCTION__, '4.6.23', 'Importing from Facebook is no longer supported in Event Aggregator.' );
 
 		tribe_update_option( 'fb_token', null );
 		tribe_update_option( 'fb_token_expires', null );
@@ -627,14 +627,14 @@ class Tribe__Events__Aggregator__Settings {
 	/**
 	 * Given a URL, tack on the parts of the URL that gets used to disconnect Facebook
 	 *
-	 * @deprecated TBD
+	 * @deprecated 4.6.23
 	 *
 	 * @param string $url
 	 *
 	 * @return string
 	 */
 	public function build_disconnect_facebook_url( $url ) {
-		_deprecated_function( __FUNCTION__, 'TBD', 'Importing from Facebook is no longer supported in Event Aggregator.' );
+		_deprecated_function( __FUNCTION__, '4.6.23', 'Importing from Facebook is no longer supported in Event Aggregator.' );
 
 		return wp_nonce_url(
 			add_query_arg(
@@ -647,10 +647,10 @@ class Tribe__Events__Aggregator__Settings {
 	}
 
 	/**
-	 * @deprecated TBD
+	 * @deprecated 4.6.23
 	 */
 	public function is_fb_credentials_valid( $time = null ) {
-		_deprecated_function( __FUNCTION__, 'TBD', 'Importing from Facebook is no longer supported in Event Aggregator.' );
+		_deprecated_function( __FUNCTION__, '4.6.23', 'Importing from Facebook is no longer supported in Event Aggregator.' );
 
 		// if the service hasn't enabled oauth for facebook, always assume it is valid
 		if ( ! tribe( 'events-aggregator.main' )->api( 'origins' )->is_oauth_enabled( 'facebook' ) ) {
@@ -674,7 +674,7 @@ class Tribe__Events__Aggregator__Settings {
 	/**
 	 * Returns a filtered map of import process slugs to classes.
 	 *
-	 * @since TBD
+	 * @since 4.6.23
 	 *
 	 * @param bool $pretty Whether to return human-readable and "pretty" name for the process
 	 *                     or the class names.
@@ -697,7 +697,7 @@ class Tribe__Events__Aggregator__Settings {
 		/**
 		 * Filters the map of available import process options.
 		 *
-		 * @since TBD
+		 * @since 4.6.23
 		 *
 		 * @param array $options A map of import process options to import process classes
 		 *                       in the shape [ <slug> => [ 'class' => <class>, 'name' => <name> ] ].
@@ -716,7 +716,7 @@ class Tribe__Events__Aggregator__Settings {
 	/**
 	 * Returns the filtered default import process slug or class.
 	 *
-	 * @since TBD
+	 * @since 4.6.23
 	 *
 	 * @param bool $return_class Whether to return the import process class (`true`) or
 	 *                           slug (`false`).
@@ -736,7 +736,7 @@ class Tribe__Events__Aggregator__Settings {
 		/**
 		 * Filters the default import process class or slug.
 		 *
-		 * @since TBD
+		 * @since 4.6.23
 		 *
 		 * @param string $default    The default import process class (if `$return_class` is `true`) or
 		 *                           slug (if `$return_class` is `false`).
@@ -752,7 +752,7 @@ class Tribe__Events__Aggregator__Settings {
 	/**
 	 * Returns the currently selected, or a specific, import process class.
 	 *
-	 * @since TBD
+	 * @since 4.6.23
 	 *
 	 * @param null|string $slug The slug of the import process class to return; if not specified
 	 *                          then the default import process class will be returned. If the
@@ -775,7 +775,7 @@ class Tribe__Events__Aggregator__Settings {
 		/**
 		 * Filters the import process class that will be returned for an import process slug.
 		 *
-		 * @since TBD
+		 * @since 4.6.23
 		 *
 		 * @param string $class     The import process slug for the slug or the default class if the
 		 *                          slug was not specified or the specified slug is not available.
