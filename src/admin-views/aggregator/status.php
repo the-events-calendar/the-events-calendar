@@ -178,7 +178,7 @@ $show_third_party_accounts = ! is_network_admin();
 		?>
         <tr>
             <td class="label">
-                <img src="<?php echo esc_url( tribe_resource_url( 'images/aggregator/eventbrite.png' ) ); ?>" /><span><?php esc_html_e( 'Eventbrite', 'the-events-calendar' ); ?></span>
+                <img src="<?php echo esc_url( tribe_events_resource_url( 'images/aggregator/eventbrite.png' ) ); ?>" /><span><?php esc_html_e( 'Eventbrite', 'the-events-calendar' ); ?></span>
             </td>
             <td class="indicator <?php esc_attr_e( $indicator ); ?>"><span class="dashicons dashicons-<?php echo esc_attr( $indicator_icons[ $indicator ] ); ?>"></span></td>
             <td><?php echo esc_html( $text ); ?></td>
@@ -200,7 +200,7 @@ $show_third_party_accounts = ! is_network_admin();
 		?>
         <tr>
             <td class="label">
-                <img src="<?php echo esc_url( tribe_resource_url( 'images/aggregator/meetup.png' ) ); ?>" /><span><?php esc_html_e( 'Meetup', 'the-events-calendar' ); ?></span>
+                <img src="<?php echo esc_url( tribe_events_resource_url( 'images/aggregator/meetup.png' ) ); ?>" /><span><?php esc_html_e( 'Meetup', 'the-events-calendar' ); ?></span>
             </td>
             <td class="indicator <?php esc_attr_e( $indicator ); ?>"><span class="dashicons dashicons-<?php echo esc_attr( $indicator_icons[ $indicator ] ); ?>"></span></td>
             <td><?php echo esc_html( $text ); ?></td>
