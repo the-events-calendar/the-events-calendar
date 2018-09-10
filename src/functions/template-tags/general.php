@@ -1686,7 +1686,10 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 		$path = $resource_path . $resource;
 
-		$url  = plugins_url( Tribe__Events__Main::instance()->plugin_dir . $path );
+		$file = wp_normalize_path( Tribe__Events__Main::instance()->plugin_path . $path );
+
+		// Turn the Path into a URL
+		$url = plugins_url( basename( $file ), $file );
 
 		/**
 		 * Deprecated the tribe_events_resource_url filter in 4.0 in favor of tribe_resource_url. Remove in 5.0
