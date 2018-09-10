@@ -592,7 +592,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		$before = wpautop( $before );
 		$before = do_shortcode( stripslashes( shortcode_unautop( $before ) ) );
 		$before = '<div class="tribe-events-before-html">' . $before . '</div>';
-		$before = $before . '<span class="tribe-events-ajax-loading"><img class="tribe-events-spinner-medium" src="' . esc_url( tribe_resource_url( 'images/tribe-loading.gif' ) ) . '" alt="' . sprintf( esc_attr__( 'Loading %s', 'the-events-calendar' ), $events_label_plural ) . '" /></span>';
+		$before = $before . '<span class="tribe-events-ajax-loading"><img class="tribe-events-spinner-medium" src="' . esc_url( tribe_events_resource_url( 'images/tribe-loading.gif' ) ) . '" alt="' . sprintf( esc_attr__( 'Loading %s', 'the-events-calendar' ), $events_label_plural ) . '" /></span>';
 
 		echo apply_filters( 'tribe_events_before_html', $before );
 	}
@@ -1665,7 +1665,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		$extension = pathinfo( $resource, PATHINFO_EXTENSION );
 
 		if ( 'src' !== $root_dir ) {
-			return tribe_resource_url( $resource, $echo, $root_dir );
+			return tribe_events_resource_url( $resource, $echo, $root_dir );
 		}
 
 		$resources_path = $root_dir . '/resources/';
@@ -1689,7 +1689,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		$url  = plugins_url( Tribe__Events__Main::instance()->plugin_dir . $path );
 
 		/**
-		 * Deprecated the tribe_events_resource_url filter in 4.0 in favor of tribe_resource_url. Remove in 5.0
+		 * Deprecated the tribe_events_resource_url filter in 4.0 in favor of tribe_events_resource_url. Remove in 5.0
 		 */
 		$url = apply_filters( 'tribe_events_resource_url', $url, $resource );
 
