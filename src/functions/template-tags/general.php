@@ -1665,7 +1665,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		$extension = pathinfo( $resource, PATHINFO_EXTENSION );
 
 		if ( 'src' !== $root_dir ) {
-			return tribe_events_resource_url( $resource, $echo, $root_dir );
+			return tribe_resource_url( $resource, $echo, $root_dir );
 		}
 
 		$resources_path = $root_dir . '/resources/';
@@ -1689,7 +1689,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		$url  = plugins_url( Tribe__Events__Main::instance()->plugin_dir . $path );
 
 		/**
-		 * Deprecated the tribe_events_resource_url filter in 4.0 in favor of tribe_events_resource_url. Remove in 5.0
+		 * Deprecated the tribe_events_resource_url filter in 4.0 in favor of tribe_resource_url. Remove in 5.0
 		 */
 		$url = apply_filters( 'tribe_events_resource_url', $url, $resource );
 
