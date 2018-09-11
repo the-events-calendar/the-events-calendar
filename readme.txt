@@ -228,6 +228,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Tweak - Add the WordPress Custom Fields Metabox show|hide settings from the Events Calendar Pro [109815]
 * Deprecated - `Tribe__Events__Aggregator__Record__Facebook`
 * Fix - Allow venue location fields to be intentionally empty on Venue Singular REST API calls [108834]
+* Fix - Correct the Google Maps API link [112322]
 
 = [4.6.22.1] 2018-08-27 =
 
