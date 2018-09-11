@@ -281,6 +281,7 @@ class Event_TrackerTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_update_the_event_modified_date_when_the_venue_is_updated() {
+		add_filter( 'tribe_tracker_post_update_links', '__return_true' );
 		$venue_id = $this->factory()->venue->create();
 		$event    = $this->create_event_modified_yesterday( [
 			'meta_input' => [
@@ -300,6 +301,7 @@ class Event_TrackerTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_update_the_event_modified_date_when_an_organizer_is_updated() {
+		add_filter( 'tribe_tracker_post_update_links', '__return_true' );
 		$organizer_ids = $this->factory()->organizer->create_many( 2 );
 		$event         = $this->create_event_modified_yesterday( [
 			'meta_input' => [
