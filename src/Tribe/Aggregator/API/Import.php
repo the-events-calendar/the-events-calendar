@@ -74,8 +74,8 @@ class Tribe__Events__Aggregator__API__Import extends Tribe__Events__Aggregator__
 					'message_code' => 'queued',
 					'message'      => tribe( 'events-aggregator.service' )->get_service_message( 'queued' ),
 					'data'         => (object) array(
-						'import_id' => $import_id
-					)
+						'import_id' => $import_id,
+					),
 				);
 			}
 

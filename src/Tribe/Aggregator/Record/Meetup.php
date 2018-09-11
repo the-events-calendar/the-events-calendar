@@ -21,6 +21,17 @@ class Tribe__Events__Aggregator__Record__Meetup extends Tribe__Events__Aggregato
 	}
 
 	/**
+	 * Gets the Regular Expression string to match a source URL
+	 *
+	 * @since 4.6.18
+	 *
+	 * @return string
+	 */
+	public static function get_source_regexp() {
+		return '^(https?:\/\/)?(www\.)?meetup\.com(\.[a-z]{2})?\/';
+	}
+
+	/**
 	 * Public facing Label for this Origin
 	 *
 	 * @return string
