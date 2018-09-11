@@ -215,7 +215,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
-= [4.6.23] 2018-09-11 =
+= [4.6.23] 2018-09-12 =
 
 * Fix - Fixed the "Full Styles" mobile view. Thanks Matthew, Laura and others for flagging this! [112301]
 * Fix - Modify resource url function to work in mu-plugin directory, thanks to Doug for reporting it  [86104]
