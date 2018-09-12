@@ -158,33 +158,6 @@ $show_third_party_accounts = ! is_network_admin();
         </thead>
         <tbody>
 		<?php
-		// Facebook status section
-		$indicator = 'good';
-		$notes = '&nbsp;';
-		$text = 'Connected';
-
-		if ( tribe( 'events-aggregator.main' )->api( 'origins' )->is_oauth_enabled( 'facebook' ) ) {
-			if ( ! tribe( 'events-aggregator.settings' )->is_fb_credentials_valid() ) {
-				$indicator = 'warning';
-				$text = __( 'You have not connected Event Aggregator to Facebook', 'the-events-calendar' );
-				$facebook_auth_url = Tribe__Events__Aggregator__Record__Facebook::get_auth_url( array( 'back' => 'settings' ) );
-				$notes = '<a href="' . esc_url( $facebook_auth_url ). '">' . esc_html_x( 'Connect to Facebook', 'link for connecting facebook', 'the-events-calendar' ) . '</a>';
-			}
-		} else {
-			$indicator = 'warning';
-			$text = __( 'Limited connectivity with Facebook', 'the-events-calendar' );
-			$notes = esc_html__( 'The service has disabled oAuth. Some types of events may not import.', 'the-events-calendar' );
-		}
-		?>
-        <tr>
-            <td class="label">
-                <img src="<?php echo tribe_events_resource_url( 'images/aggregator/facebook.png' ); ?>" /><span><?php esc_html_e( 'Facebook', 'the-events-calendar' ); ?></span>
-            </td>
-            <td class="indicator <?php esc_attr_e( $indicator ); ?>"><span class="dashicons dashicons-<?php echo esc_attr( $indicator_icons[ $indicator ] ); ?>"></span></td>
-            <td><?php echo esc_html( $text ); ?></td>
-            <td><?php echo $notes; ?></td>
-        </tr>
-		<?php
 		// Eventbrite status section
 		$indicator = 'good';
 		$notes = '&nbsp;';
@@ -205,7 +178,7 @@ $show_third_party_accounts = ! is_network_admin();
 		?>
         <tr>
             <td class="label">
-                <img src="<?php echo tribe_events_resource_url( 'images/aggregator/eventbrite.png' ); ?>" /><span><?php esc_html_e( 'Eventbrite', 'the-events-calendar' ); ?></span>
+                <img src="<?php echo esc_url( tribe_events_resource_url( 'images/aggregator/eventbrite.png' ) ); ?>" /><span><?php esc_html_e( 'Eventbrite', 'the-events-calendar' ); ?></span>
             </td>
             <td class="indicator <?php esc_attr_e( $indicator ); ?>"><span class="dashicons dashicons-<?php echo esc_attr( $indicator_icons[ $indicator ] ); ?>"></span></td>
             <td><?php echo esc_html( $text ); ?></td>
@@ -227,7 +200,7 @@ $show_third_party_accounts = ! is_network_admin();
 		?>
         <tr>
             <td class="label">
-                <img src="<?php echo tribe_events_resource_url( 'images/aggregator/meetup.png' ); ?>" /><span><?php esc_html_e( 'Meetup', 'the-events-calendar' ); ?></span>
+                <img src="<?php echo esc_url( tribe_events_resource_url( 'images/aggregator/meetup.png' ) ); ?>" /><span><?php esc_html_e( 'Meetup', 'the-events-calendar' ); ?></span>
             </td>
             <td class="indicator <?php esc_attr_e( $indicator ); ?>"><span class="dashicons dashicons-<?php echo esc_attr( $indicator_icons[ $indicator ] ); ?>"></span></td>
             <td><?php echo esc_html( $text ); ?></td>

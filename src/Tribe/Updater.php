@@ -82,7 +82,8 @@ class Tribe__Events__Updater {
 			'2.0.6'  => array( $this, 'migrate_from_sp_options' ),
 			'3.10a4' => array( $this, 'set_enabled_views' ),
 			'3.10a5' => array( $this, 'remove_30_min_eod_cutoffs' ),
-			'4.2'  => array( $this, 'migrate_import_option' ),
+			'4.2'    => array( $this, 'migrate_import_option' ),
+			'4.6.23' => array( $this, 'migrate_wordpress_custom_field_option' ),
 		);
 	}
 
@@ -263,5 +264,20 @@ class Tribe__Events__Updater {
 
 		update_option( 'tribe_events_import_column_mapping_' . $type, $legacy_option );
 		delete_option( 'tribe_events_import_column_mapping' );
+	}
+
+	/**
+	 * Update WordPress Custom Field Setting moved from Pro
+	 * only update setting if show|hide
+	 *
+	 * @since 4.6.23
+	 */
+	public function migrate_wordpress_custom_field_option() {
+		$show_box = tribe_get_option( 'disable_metabox_custom_fields' );
+		if ( 'show' === $show_box ) {
+			tribe_update_option( 'disable_metabox_custom_fields', true );
+		} elseif ( 'hide' === $show_box ) {
+			tribe_update_option( 'disable_metabox_custom_fields', false );
+		}
 	}
 }

@@ -119,7 +119,6 @@ class Tribe__Events__Aggregator__CLI__Command {
 	 *      wp event-aggregator import-from ical https://some-ical-source/feed.ics --limit_type=count --limit=20
 	 *      wp event-aggregator import-from ical https://some-ical-source/feed.ics --location="Toronto" --radius=50
 	 *      wp event-aggregator import-from ical https://some-ical-source/feed.ics --keywords=Party
-	 *      wp event-aggregator import-from facebook https://www.facebook.com/ModernTribeInc/
 	 *      wp event-aggregator import-from meetup https://www.meetup.com/wordpress-ile-de-france/
 	 *      wp event-aggregator import-from gcal https://calendar.google.com/calendar/ical/me/public/basic.ics
 	 *      wp event-aggregator import-from csv /Users/moi/events.csv --content_type=events --column_map=name,description,start_date,start_time,end_date,end_time
@@ -178,7 +177,6 @@ class Tribe__Events__Aggregator__CLI__Command {
 			'gcal' => 'Tribe__Events__Aggregator__Record__gCal',
 			'csv' => 'Tribe__Events__Aggregator__Record__CSV',
 			'ics' => 'Tribe__Events__Aggregator__Record__ICS',
-			'facebook' => 'Tribe__Events__Aggregator__Record__Facebook',
 			'meetup' => 'Tribe__Events__Aggregator__Record__Meetup',
 			'url' => 'Tribe__Events__Aggregator__Record__Url',
 		);

@@ -216,6 +216,7 @@ class Tribe__Events__Assets {
 					'operator' => 'AND',
 					array( $this, 'is_mobile_breakpoint' ),
 					array( $this, 'should_enqueue_frontend' ),
+					array( $this, 'is_style_option_tribe' ),
 				),
 			)
 		);
@@ -243,7 +244,7 @@ class Tribe__Events__Assets {
 			$plugin,
 			'tribe-events-full-calendar-style',
 			'tribe-events-full.css',
-			array(),
+			array( 'tribe-accessibility-css' ),
 			'wp_enqueue_scripts',
 			array(
 				'groups'       => array( 'events-styles' ),
@@ -423,7 +424,7 @@ class Tribe__Events__Assets {
 	 * @return bool
 	 */
 	public function should_enqueue_full_styles() {
-		$should_enqueue = $this->is_style_option_tribe();
+		$should_enqueue = $this->is_style_option_full() || $this->is_style_option_tribe();
 
 		/**
 		 * Allow filtering of where the base Full Style Assets will be loaded
@@ -487,6 +488,18 @@ class Tribe__Events__Assets {
 	public function is_style_option_tribe() {
 		$style_option = tribe_get_option( 'stylesheetOption', 'tribe' );
 		return 'tribe' === $style_option;
+	}
+
+	/**
+	 * Checks if we are using "Full Styles" setting for Style
+	 *
+	 * @since  4.6.23
+	 *
+	 * @return bool
+	 */
+	public function is_style_option_full() {
+		$style_option = tribe_get_option( 'stylesheetOption', 'tribe' );
+		return 'full' === $style_option;
 	}
 
 	/**
@@ -596,7 +609,7 @@ class Tribe__Events__Assets {
 		/**
 		 * Allow filtering if we should display JS debug messages
 		 *
-		 * @since  TBD
+		 * @since  4.6.23
 		 *
 		 * @param bool
 		 */

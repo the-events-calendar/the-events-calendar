@@ -1,4 +1,7 @@
 <?php
+
+_deprecated_file( __FILE__, '4.6.23', 'Deprecated along with Event Aggregator support for Facebook in light of Facebook API changes.' );
+
 $tab                = $this->tabs->get_active();
 $origin_slug        = 'facebook';
 $field              = (object) array();

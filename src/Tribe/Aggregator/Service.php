@@ -307,25 +307,6 @@ class Tribe__Events__Aggregator__Service {
 	}
 
 	/**
-	 * Fetch Facebook Extended Token from the Service
-	 *
-	 * @return array
-	 */
-	public function get_facebook_token() {
-		$args = array(
-			'referral' => urlencode( home_url() ),
-		);
-		$response = $this->get( 'facebook/token', $args );
-
-		// If we have an WP_Error we return only CSV
-		if ( is_wp_error( $response ) ) {
-			return tribe_error( 'core:aggregator:invalid-facebook-token', array(), array( 'response' => $response ) );
-		}
-
-		return $response;
-	}
-
-	/**
 	 * Get Eventbrite Arguments for EA
 	 *
 	 * @since 4.6.18
@@ -671,8 +652,6 @@ class Tribe__Events__Aggregator__Service {
 		$this->service_messages = array(
 			'error:create-import-failed' => __( 'Sorry, but something went wrong. Please try again.', 'the-events-calendar' ),
 			'error:create-import-invalid-params' => __( 'Events could not be imported. The import parameters were invalid.', 'the-events-calendar' ),
-			'error:fb-permissions' => __( 'Events cannot be imported because Facebook has returned an error. This could mean that the event ID does not exist, the event or source is marked as Private, or the event or source has been otherwise restricted by Facebook. You can <a href="https://theeventscalendar.com/knowledgebase/import-errors/" target="_blank">read more about Facebook restrictions in our knowledgebase</a>.', 'the-events-calendar' ),
-			'error:fb-no-results' => __( 'No upcoming Facebook events found.', 'the-events-calendar' ),
 			'error:eb-permissions' => __( 'Events cannot be imported because Eventbrite has returned an error. This could mean that the event ID does not exist, the event or source is marked as Private, or the event or source has been otherwise restricted by Eventbrite. You can <a href="https://theeventscalendar.com/knowledgebase/import-errors/" target="_blank">read more about Eventbrite restrictions in our knowledgebase</a>.', 'the-events-calendar' ),
 			'error:eb-no-results' => __( 'No upcoming Eventbrite events found.', 'the-events-calendar' ),
 			'error:fetch-404' => __( 'The URL provided could not be reached.', 'the-events-calendar' ),
@@ -689,7 +668,6 @@ class Tribe__Events__Aggregator__Service {
 			'queued' => __( 'The import will be starting soon.', 'the-events-calendar' ),
 			'success' => __( 'Success', 'the-events-calendar' ),
 			'success:create-import' => __( 'Import created', 'the-events-calendar' ),
-			'success:facebook-get-token' => __( 'Successfully fetched Facebook Token', 'the-events-calendar' ),
 			'success:eventbrite-get-token' => __( 'Successfully fetched Eventbrite Token', 'the-events-calendar' ),
 			'success:get-origin' => __( 'Successfully loaded import origins', 'the-events-calendar' ),
 			'success:import-complete' => __( 'Import is complete', 'the-events-calendar' ),
@@ -742,7 +720,6 @@ class Tribe__Events__Aggregator__Service {
 		$keys = array_combine( $keys, $keys );
 		$confirmation_args = array_intersect_key( $args, $keys );
 		$confirmation_args = array_merge( $confirmation_args, array(
-			'facebook_token'   => '1',
 			'eventbrite_token' => '1',
 			'meetup_api_key'   => '1',
 		) );
@@ -838,5 +815,28 @@ class Tribe__Events__Aggregator__Service {
 		}
 
 		return $args;
+	}
+
+	/**
+	 * Fetch Facebook Extended Token from the Service
+	 *
+	 * @deprecated 4.6.23
+	 *
+	 * @return array
+	 */
+	public function get_facebook_token() {
+		_deprecated_function( __FUNCTION__, '4.6.23', 'Importing from Facebook is no longer supported in Event Aggregator.' );
+
+		$args = array(
+			'referral' => urlencode( home_url() ),
+		);
+		$response = $this->get( 'facebook/token', $args );
+
+		// If we have an WP_Error we return only CSV
+		if ( is_wp_error( $response ) ) {
+			return tribe_error( 'core:aggregator:invalid-facebook-token', array(), array( 'response' => $response ) );
+		}
+
+		return $response;
 	}
 }

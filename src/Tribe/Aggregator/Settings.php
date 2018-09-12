@@ -31,100 +31,7 @@ class Tribe__Events__Aggregator__Settings {
 	 */
 	public function __construct() {
 		add_action( 'tribe_settings_do_tabs', array( $this, 'do_import_settings_tab' ) );
-		add_action( 'current_screen', array( $this, 'maybe_clear_fb_credentials' ) );
 		add_action( 'current_screen', array( $this, 'maybe_clear_eb_credentials' ) );
-	}
-
-	/**
-	 * Hooked to current_screen, this method identifies whether or not fb credentials should be cleared
-	 *
-	 * @param WP_Screen $screen
-	 */
-	public function maybe_clear_fb_credentials( $screen ) {
-		if ( 'tribe_events_page_tribe-common' !== $screen->base ) {
-			return;
-		}
-
-		if ( ! isset( $_GET['tab'] ) || 'addons' !== $_GET['tab'] ) {
-			return;
-		}
-
-		if (
-			! (
-				isset( $_GET['action'] )
-				&& isset( $_GET['_wpnonce'] )
-				&& 'disconnect-facebook' === $_GET['action']
-				&& wp_verify_nonce( $_GET['_wpnonce'], 'disconnect-facebook' )
-			)
-		) {
-			return;
-		}
-
-		$this->clear_fb_credentials();
-
-		wp_redirect(
-			Tribe__Settings::instance()->get_url( array( 'tab' => 'addons' ) )
-		);
-		die;
-	}
-
-	public function get_fb_credentials() {
-		$args = array(
-			'token'   => tribe_get_option( 'fb_token' ),
-			'expires' => tribe_get_option( 'fb_token_expires' ),
-			'scopes'  => tribe_get_option( 'fb_token_scopes' ),
-		);
-
-		return (object) $args;
-	}
-
-	public function has_fb_credentials() {
-		$credentials = $this->get_fb_credentials();
-		return ! empty( $credentials->token ) && ! empty( $credentials->expires ) && ! empty( $credentials->scopes );
-	}
-
-	public function clear_fb_credentials() {
-		tribe_update_option( 'fb_token', null );
-		tribe_update_option( 'fb_token_expires', null );
-		tribe_update_option( 'fb_token_scopes', null );
-	}
-
-	/**
-	 * Given a URL, tack on the parts of the URL that gets used to disconnect Facebook
-	 *
-	 * @param string $url
-	 *
-	 * @return string
-	 */
-	public function build_disconnect_facebook_url( $url ) {
-		return wp_nonce_url(
-			add_query_arg(
-				'action',
-				'disconnect-facebook',
-				$url
-			),
-			'disconnect-facebook'
-		);
-	}
-
-	public function is_fb_credentials_valid( $time = null ) {
-		// if the service hasn't enabled oauth for facebook, always assume it is valid
-		if ( ! tribe( 'events-aggregator.main' )->api( 'origins' )->is_oauth_enabled( 'facebook' ) ) {
-			return true;
-		}
-
-		if ( ! $this->has_fb_credentials() ) {
-			return false;
-		}
-
-		$credentials = $this->get_fb_credentials();
-
-		// Allow passing comparing time
-		if ( is_null( $time ) ) {
-			$time = time();
-		}
-
-		return $credentials->expires > $time;
 	}
 
 	/**
@@ -279,7 +186,6 @@ class Tribe__Events__Aggregator__Settings {
 			'ical',
 			'ics',
 			'eventbrite',
-			'facebook',
 			'meetup',
 			'url',
 		);
@@ -604,8 +510,7 @@ class Tribe__Events__Aggregator__Settings {
 	public function get_source_origin_regexp() {
 		$origins = array(
 			'eventbrite' => Tribe__Events__Aggregator__Record__Eventbrite::get_source_regexp(),
-			'facebook' => Tribe__Events__Aggregator__Record__Facebook::get_source_regexp(),
-			'meetup' => Tribe__Events__Aggregator__Record__Meetup::get_source_regexp(),
+			'meetup'     => Tribe__Events__Aggregator__Record__Meetup::get_source_regexp(),
 		);
 
 		/**
@@ -646,4 +551,240 @@ class Tribe__Events__Aggregator__Settings {
 		return false;
 	}
 
+	/**
+	 * Hooked to current_screen, this method identifies whether or not fb credentials should be cleared
+	 *
+	 * @deprecated 4.6.23
+	 *
+	 * @param WP_Screen $screen
+	 */
+	public function maybe_clear_fb_credentials( $screen ) {
+		_deprecated_function( __FUNCTION__, '4.6.23', 'Importing from Facebook is no longer supported in Event Aggregator.' );
+
+		if ( 'tribe_events_page_tribe-common' !== $screen->base ) {
+			return;
+		}
+
+		if ( ! isset( $_GET['tab'] ) || 'addons' !== $_GET['tab'] ) {
+			return;
+		}
+
+		if (
+			! (
+				isset( $_GET['action'] )
+				&& isset( $_GET['_wpnonce'] )
+				&& 'disconnect-facebook' === $_GET['action']
+				&& wp_verify_nonce( $_GET['_wpnonce'], 'disconnect-facebook' )
+			)
+		) {
+			return;
+		}
+
+		$this->clear_fb_credentials();
+
+		wp_redirect(
+			Tribe__Settings::instance()->get_url( array( 'tab' => 'addons' ) )
+		);
+		die;
+	}
+
+	/**
+	 * @deprecated 4.6.23
+	 */
+	public function get_fb_credentials() {
+		_deprecated_function( __FUNCTION__, '4.6.23', 'Importing from Facebook is no longer supported in Event Aggregator.' );
+
+		$args = array(
+			'token'   => tribe_get_option( 'fb_token' ),
+			'expires' => tribe_get_option( 'fb_token_expires' ),
+			'scopes'  => tribe_get_option( 'fb_token_scopes' ),
+		);
+
+		return (object) $args;
+	}
+
+	/**
+	 * @deprecated 4.6.23
+	 */
+	public function has_fb_credentials() {
+		_deprecated_function( __FUNCTION__, '4.6.23', 'Importing from Facebook is no longer supported in Event Aggregator.' );
+
+		$credentials = $this->get_fb_credentials();
+		return ! empty( $credentials->token ) && ! empty( $credentials->expires ) && ! empty( $credentials->scopes );
+	}
+
+	/**
+	 * @deprecated 4.6.23
+	 */
+	public function clear_fb_credentials() {
+		_deprecated_function( __FUNCTION__, '4.6.23', 'Importing from Facebook is no longer supported in Event Aggregator.' );
+
+		tribe_update_option( 'fb_token', null );
+		tribe_update_option( 'fb_token_expires', null );
+		tribe_update_option( 'fb_token_scopes', null );
+	}
+
+	/**
+	 * Given a URL, tack on the parts of the URL that gets used to disconnect Facebook
+	 *
+	 * @deprecated 4.6.23
+	 *
+	 * @param string $url
+	 *
+	 * @return string
+	 */
+	public function build_disconnect_facebook_url( $url ) {
+		_deprecated_function( __FUNCTION__, '4.6.23', 'Importing from Facebook is no longer supported in Event Aggregator.' );
+
+		return wp_nonce_url(
+			add_query_arg(
+				'action',
+				'disconnect-facebook',
+				$url
+			),
+			'disconnect-facebook'
+		);
+	}
+
+	/**
+	 * @deprecated 4.6.23
+	 */
+	public function is_fb_credentials_valid( $time = null ) {
+		_deprecated_function( __FUNCTION__, '4.6.23', 'Importing from Facebook is no longer supported in Event Aggregator.' );
+
+		// if the service hasn't enabled oauth for facebook, always assume it is valid
+		if ( ! tribe( 'events-aggregator.main' )->api( 'origins' )->is_oauth_enabled( 'facebook' ) ) {
+			return true;
+		}
+
+		if ( ! $this->has_fb_credentials() ) {
+			return false;
+		}
+
+		$credentials = $this->get_fb_credentials();
+
+		// Allow passing comparing time
+		if ( is_null( $time ) ) {
+			$time = time();
+		}
+
+		return $credentials->expires > $time;
+	}
+
+	/**
+	 * Returns a filtered map of import process slugs to classes.
+	 *
+	 * @since 4.6.23
+	 *
+	 * @param bool $pretty Whether to return human-readable and "pretty" name for the process
+	 *                     or the class names.
+	 *
+	 * @return array A map of import process slugs to classes or names in the shape
+	 *               [ <slug> => <class_or_name> ].
+	 */
+	public function get_import_process_options( $pretty = false ) {
+		$options = array(
+			'async' => array(
+				'class' => 'Tribe__Events__Aggregator__Record__Async_Queue',
+				'name'  => __( 'Asynchronous', 'the-events-calendar' ),
+			),
+			'cron'  => array(
+				'class' => 'Tribe__Events__Aggregator__Record__Queue',
+				'name'  => __( 'Cron-based', 'the-events-calendar' ),
+			),
+		);
+
+		/**
+		 * Filters the map of available import process options.
+		 *
+		 * @since 4.6.23
+		 *
+		 * @param array $options A map of import process options to import process classes
+		 *                       in the shape [ <slug> => [ 'class' => <class>, 'name' => <name> ] ].
+		 * @param bool $pretty Whether to return human-readable and "pretty" names for the options (`true`)
+		 *                     or the class names ('false').
+		 */
+		$options = apply_filters( 'tribe_aggregator_import_process_options', $options, $pretty );
+
+		if ( $pretty ) {
+			return array_combine( array_keys( $options ), wp_list_pluck( $options, 'name' ) );
+		}
+
+		return array_combine( array_keys( $options ), wp_list_pluck( $options, 'class' ) );
+	}
+
+	/**
+	 * Returns the filtered default import process slug or class.
+	 *
+	 * @since 4.6.23
+	 *
+	 * @param bool $return_class Whether to return the import process class (`true`) or
+	 *                           slug (`false`).
+	 *
+	 * @return string The default import process slug or class.
+	 */
+	public function get_import_process_default( $return_class = true ) {
+		$available = $this->get_import_process_options();
+
+		if ( $return_class ) {
+			$default = reset( $available );
+		} else {
+			$keys    = array_keys( $available );
+			$default = reset( $keys );
+		}
+
+		/**
+		 * Filters the default import process class or slug.
+		 *
+		 * @since 4.6.23
+		 *
+		 * @param string $default    The default import process class (if `$return_class` is `true`) or
+		 *                           slug (if `$return_class` is `false`).
+		 * @param bool $return_class Whether to return the default import process class (`true`) or
+		 *                           slug (`false`).
+		 * @param array $available   A map, in the shape [ <slug> => <class> ], of available import processes.
+		 */
+		$default = apply_filters( 'tribe_aggregator_import_process_default', $default, $return_class, $available );
+
+		return $default;
+	}
+
+	/**
+	 * Returns the currently selected, or a specific, import process class.
+	 *
+	 * @since 4.6.23
+	 *
+	 * @param null|string $slug The slug of the import process class to return; if not specified
+	 *                          then the default import process class will be returned. If the
+	 *                          slug is not available then the default class will be returned.
+	 *
+	 * @return string The import process class for the specified slug or the default class if the
+	 *                slug was not specified or is not available.
+	 */
+	public function get_import_process_class( $slug = null ) {
+		$default_slug  = $this->get_import_process_default( false );
+		$default_class = $this->get_import_process_default();
+
+		$available = $this->get_import_process_options();
+		if ( null === $slug ) {
+			$slug = tribe_get_option( 'tribe_aggregator_import_process_system', $default_slug );
+		}
+
+		$class = Tribe__Utils__Array::get( $available, $slug, $default_class );
+
+		/**
+		 * Filters the import process class that will be returned for an import process slug.
+		 *
+		 * @since 4.6.23
+		 *
+		 * @param string $class     The import process slug for the slug or the default class if the
+		 *                          slug was not specified or the specified slug is not available.
+		 * @param string|null $slug The specified slug or `null` if not specified.
+		 * @param array $available  A map of available process classes in the shape
+		 *                          [ <slug> => <class> ].
+		 */
+		$class = apply_filters( 'tribe_aggregator_import_process', $class, $slug, $available );
+
+		return $class;
+	}
 }

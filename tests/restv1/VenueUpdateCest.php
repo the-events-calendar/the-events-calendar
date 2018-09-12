@@ -172,6 +172,51 @@ class VenueUpdateCest extends BaseRestCest {
 	}
 
 	/**
+	 * It should allow updating optional meta as empty along with the venue
+	 *
+	 * @test
+	 */
+	public function it_should_allow_updating_optional_meta_as_empty_along_with_the_venue( Tester $I ) {
+		$venue_id = $I->haveVenueInDatabase();
+
+		$I->generate_nonce_for_role( 'administrator' );
+
+		$I->sendPOST( $this->venues_url . "/{$venue_id}", [
+			'venue'         => 'A venue',
+			'show_map'      => 'false',
+			'show_map_link' => 'false',
+			'address'       => '',
+			'city'          => '',
+			'country'       => '',
+			'province'      => '',
+			'state'         => '',
+			'zip'           => '',
+			'phone'         => '',
+			'stateprovince' => '',
+			'website'       => '',
+		] );
+
+		$I->seeResponseCodeIs( 200 );
+		$I->seeResponseIsJson();
+		$I->canSeeResponseContainsJson( [
+			'venue'         => 'A venue',
+			'show_map'      => false,
+			'show_map_link' => false,
+		] );
+		$response = json_decode( $I->grabResponse(), true );
+		$I->assertArrayHasKey( 'id', $response );
+		$I->assertArrayNotHasKey( 'address', $response );
+		$I->assertArrayNotHasKey( 'city', $response );
+		$I->assertArrayNotHasKey( 'country', $response );
+		$I->assertArrayNotHasKey( 'province', $response );
+		$I->assertArrayNotHasKey( 'state', $response );
+		$I->assertArrayNotHasKey( 'zip', $response );
+		$I->assertArrayNotHasKey( 'phone', $response );
+		$I->assertArrayNotHasKey( 'stateprovince', $response );
+		$I->assertArrayNotHasKey( 'website', $response );
+	}
+
+	/**
 	 * It should allow updating the image as an attachment ID along with the venue
 	 *
 	 * @test
@@ -219,7 +264,7 @@ class VenueUpdateCest extends BaseRestCest {
 		$I->assertArrayHasKey( 'image', $response );
 		$I->assertEquals( $image_id, $response['image']['id'] );
 	}
-	
+
 	/**
 	 * It should allow updating a venue to match an existing one
 	 * @test

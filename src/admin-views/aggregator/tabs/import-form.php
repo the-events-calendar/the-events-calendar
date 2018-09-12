@@ -1,6 +1,6 @@
 <?php
 $has_license_key = tribe( 'events-aggregator.main' )->is_service_active();
-$hide_upsell = false || defined( 'TRIBE_HIDE_UPSELL' );
+$hide_upsell     = false || defined( 'TRIBE_HIDE_UPSELL' );
 
 if ( 'edit' === $aggregator_action ) {
 	$default_post_status = get_post_meta( $record->post->ID, Tribe__Events__Aggregator__Record__Abstract::$meta_key_prefix . 'post_status', true );
@@ -33,17 +33,17 @@ wp_nonce_field( 'tribe-aggregator-save-import', 'tribe_aggregator_nonce' );
 	<tbody>
 
 		<?php
-		$field = (object) array();
-		$field->source = 'origins';
-		$field->label = esc_html__( 'Import Origin:', 'the-events-calendar' );
-		$field->placeholder = esc_attr__( 'Select Origin', 'the-events-calendar' );
-		$field->help = esc_attr__( 'Choose where you are importing from.', 'the-events-calendar' );
-		$field->options = tribe( 'events-aggregator.main' )->api( 'origins' )->get();
+		$field                 = (object) array();
+		$field->source         = 'origins';
+		$field->label          = esc_html__( 'Import Origin:', 'the-events-calendar' );
+		$field->placeholder    = esc_attr__( 'Select Origin', 'the-events-calendar' );
+		$field->help           = esc_attr__( 'Choose where you are importing from.', 'the-events-calendar' );
+		$field->options        = tribe( 'events-aggregator.main' )->api( 'origins' )->get();
 		$field->upsell_options = array();
 
 		foreach ( $field->options as $key => $option ) {
 			$option->disabled = isset( $option->disabled ) ? $option->disabled : null;
-			$option->upsell = isset( $option->upsell ) ? $option->upsell : false;
+			$option->upsell   = isset( $option->upsell ) ? $option->upsell : false;
 
 			$option->is_selected = false;
 
@@ -129,7 +129,6 @@ wp_nonce_field( 'tribe-aggregator-save-import', 'tribe_aggregator_nonce' );
 			$this->template( 'origins/ics', array( 'record' => $record, 'aggregator_action' => $aggregator_action ) );
 			$this->template( 'origins/ical', array( 'record' => $record, 'aggregator_action' => $aggregator_action ) );
 			$this->template( 'origins/gcal', array( 'record' => $record, 'aggregator_action' => $aggregator_action ) );
-			$this->template( 'origins/facebook', array( 'record' => $record, 'aggregator_action' => $aggregator_action ) );
 			$this->template( 'origins/meetup', array( 'record' => $record, 'aggregator_action' => $aggregator_action ) );
 			$this->template( 'origins/eventbrite', array( 'record' => $record, 'aggregator_action' => $aggregator_action ) );
 			$this->template( 'origins/url', array( 'record' => $record, 'aggregator_action' => $aggregator_action ) );
@@ -252,13 +251,6 @@ $scheduled_save_help = esc_html__( 'When you save this scheduled import, the eve
 		class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
 		data-bumpdown="<?php echo esc_attr( $scheduled_save_help ); ?>"
 		data-depends="#tribe-ea-field-meetup_import_type"
-		data-condition="schedule"
-		data-width-rule="all-triggers"
-	></span>
-	<span
-		class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
-		data-bumpdown="<?php echo esc_attr( $scheduled_save_help ); ?>"
-		data-depends="#tribe-ea-field-facebook_import_type"
 		data-condition="schedule"
 		data-width-rule="all-triggers"
 	></span>

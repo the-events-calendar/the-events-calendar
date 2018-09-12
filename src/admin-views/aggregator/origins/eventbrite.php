@@ -124,7 +124,7 @@ if ( ! empty( $service->api()->licenses['tribe-eventbrite'] ) ) {
 }
 $field->options[] = array(
 	'id'   => 'source_type_url',
-	'text' => __( 'Import from Eventbrite.com url', 'the-events-calendar' ),
+	'text' => __( 'Import from Eventbrite URL', 'the-events-calendar' ),
 );
 ?>
 <tr class="tribe-dependent" data-depends="#tribe-ea-field-eventbrite_import_type" data-condition-not-empty>
