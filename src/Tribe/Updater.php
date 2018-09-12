@@ -270,7 +270,7 @@ class Tribe__Events__Updater {
 	 * Update WordPress Custom Field Setting moved from Pro
 	 * only update setting if show|hide
 	 *
-	 * @since TBD
+	 * @since 4.6.23
 	 */
 	public function migrate_wordpress_custom_field_option() {
 		$show_box = tribe_get_option( 'disable_metabox_custom_fields' );

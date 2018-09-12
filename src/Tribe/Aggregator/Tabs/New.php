@@ -494,7 +494,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		<div class="notice inline notice-info tribe-dependent tribe-notice-tribe-missing-aggregator-license" data-ref="tribe-missing-aggregator-license" data-depends="#tribe-ea-field-origin" data-condition-empty>
 
 			<div class="upsell-banner">
-				<img src="<?php echo esc_url( tribe_resource_url( 'images/aggregator/upsell-banner.png' ) ) ; ?>">
+				<img src="<?php echo esc_url( tribe_events_resource_url( 'images/aggregator/upsell-banner.png' ) ) ; ?>">
 			</div>
 
 			<h3><?php esc_html_e( 'Import Using Event Aggregator', 'the-events-calendar' ); ?></h3>
@@ -595,10 +595,10 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 	}
 
 	/**
-	 * @deprecated TBD
+	 * @deprecated 4.6.23
 	 */
 	public function handle_facebook_credentials() {
-		_deprecated_function( __FUNCTION__, 'TBD', 'Importing from Facebook is no longer supported in Event Aggregator.' );
+		_deprecated_function( __FUNCTION__, '4.6.23', 'Importing from Facebook is no longer supported in Event Aggregator.' );
 
 		/**
 		 * Verify that we are dealing with a FB token Request

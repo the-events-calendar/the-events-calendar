@@ -34,7 +34,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 		const VERSION             = '4.6.23';
 		const MIN_ADDON_VERSION   = '4.4';
-		const MIN_COMMON_VERSION  = '4.7.18';
+		const MIN_COMMON_VERSION  = '4.7.20';
 
 		const WP_PLUGIN_URL       = 'https://wordpress.org/extend/plugins/the-events-calendar/';
 
@@ -269,7 +269,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$this->plugin_file = TRIBE_EVENTS_FILE;
 			$this->pluginPath = $this->plugin_path = trailingslashit( dirname( $this->plugin_file ) );
 			$this->pluginDir  = $this->plugin_dir = trailingslashit( basename( $this->plugin_path ) );
-			$this->pluginUrl  = $this->plugin_url = plugins_url( $this->plugin_dir, TRIBE_EVENTS_FILE );
+			$this->pluginUrl  = $this->plugin_url = str_replace( basename( $this->plugin_file ), '', plugins_url( basename( $this->plugin_file ), $this->plugin_file ) );
 
 			// Set common lib information, needs to happen file load
 			$this->maybe_set_common_lib_info();
