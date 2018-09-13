@@ -52,7 +52,7 @@ class Tribe__Events__Google__Maps_API_Key {
 						'We highly recommend that you specify a valid %1$s for The Events Calendar to use. Doing this will help prevent problems with maps, especially for sites that receive a lot of traffic. Visit %2$s for a detailed explanation in how to do it.',
 						'the-events-calendar'
 					),
-					'<a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank" rel="noopener noreferrer">' . __( 'Google Maps API key', 'the-events-calendar' ) . '</a>',
+					'<a href="https://developers.google.com/maps/documentation/javascript/geocoding" target="_blank" rel="noopener noreferrer">' . __( 'Google Maps API key', 'the-events-calendar' ) . '</a>',
 					'<a href="https://theeventscalendar.com/knowledgebase/setting-up-your-google-maps-api-key/" target="_blank" rel="noopener noreferrer">' . __( 'our guide', 'the-events-calendar' ) . '</a>'
 				) . '</p>',
 			),
