@@ -270,14 +270,14 @@ class Tribe__Events__Aggregator__Migrate {
 	/**
 	 * Gets one or all the Facebook legacy settings
 	 *
-	 * @deprecated TBD
+	 * @deprecated 4.6.23
 	 *
 	 * @param string|null $index If null will return a Object with all the legacy settings
 	 *
 	 * @return mixed
 	 */
 	public function get_facebook_setting( $index = null ) {
-		_deprecated_function( __FUNCTION__, 'TBD', 'Importing from Facebook is no longer supported in Event Aggregator.' );
+		_deprecated_function( __FUNCTION__, '4.6.23', 'Importing from Facebook is no longer supported in Event Aggregator.' );
 
 		// It's important only to use values here that are true for the `empty()` function
 		$data = (object) array(
@@ -328,14 +328,14 @@ class Tribe__Events__Aggregator__Migrate {
 	/**
 	 * Checks if one or any Facebook settings exists
 	 *
-	 * @deprecated TBD
+	 * @deprecated 4.6.23
 	 *
 	 * @param string|null $index If null will return a Object with all the legacy settings
 	 *
 	 * @return bool
 	 */
 	public function has_facebook_setting( $index = null ) {
-		_deprecated_function( __FUNCTION__, 'TBD', 'Importing from Facebook is no longer supported in Event Aggregator.' );
+		_deprecated_function( __FUNCTION__, '4.6.23', 'Importing from Facebook is no longer supported in Event Aggregator.' );
 
 
 		$original_values = (array) $this->get_facebook_setting( $index );
@@ -348,12 +348,12 @@ class Tribe__Events__Aggregator__Migrate {
 	/**
 	 * Checks if legacy Facebook settings were migrated
 	 *
-	 * @deprecated TBD
+	 * @deprecated 4.6.23
 	 *
 	 * @return bool
 	 */
 	public function is_facebook_migrated() {
-		_deprecated_function( __FUNCTION__, 'TBD', 'Importing from Facebook is no longer supported in Event Aggregator.' );
+		_deprecated_function( __FUNCTION__, '4.6.23', 'Importing from Facebook is no longer supported in Event Aggregator.' );
 
 
 		$records = Tribe__Events__Aggregator__Records::instance();
@@ -381,12 +381,12 @@ class Tribe__Events__Aggregator__Migrate {
 	 * Method that Handles the AJAX converting of Legacy Facebook Settings
 	 * AJAX methods will not return anything, only print a JSON string
 	 *
-	 * @deprecated TBD
+	 * @deprecated 4.6.23
 	 *
 	 * @return void
 	 */
 	public function ajax_convert_facebook_settings() {
-		_deprecated_function( __FUNCTION__, 'TBD', 'Importing from Facebook is no longer supported in Event Aggregator.' );
+		_deprecated_function( __FUNCTION__, '4.6.23', 'Importing from Facebook is no longer supported in Event Aggregator.' );
 
 		$response = (object) array(
 			'status' => false,
@@ -469,13 +469,13 @@ class Tribe__Events__Aggregator__Migrate {
 	/**
 	 * Get the Facebook frequency and convert to EA
 	 *
-	 * @deprecated TBD
+	 * @deprecated 4.6.23
 	 *
 	 * @param  string $frequency Facebook Frequency
 	 * @return string            EA Frequency
 	 */
 	private function convert_facebook_frequency( $frequency ) {
-		_deprecated_function( __FUNCTION__, 'TBD', 'Importing from Facebook is no longer supported in Event Aggregator.' );
+		_deprecated_function( __FUNCTION__, '4.6.23', 'Importing from Facebook is no longer supported in Event Aggregator.' );
 
 		$results = Tribe__Events__Aggregator__Cron::instance()->get_frequency( array( 'id' => $frequency ) );
 

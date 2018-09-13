@@ -492,7 +492,7 @@ class Tribe__Events__Assets {
 	/**
 	 * Checks if we are using "Full Styles" setting for Style
 	 *
-	 * @since  TBD
+	 * @since  4.6.23
 	 *
 	 * @return bool
 	 */
@@ -608,7 +608,7 @@ class Tribe__Events__Assets {
 		/**
 		 * Allow filtering if we should display JS debug messages
 		 *
-		 * @since  TBD
+		 * @since  4.6.23
 		 *
 		 * @param bool
 		 */

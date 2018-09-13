@@ -4,7 +4,7 @@ Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.5
-Stable tag: 4.6.23
+Stable tag: 4.6.24
 Tested up to: 4.9.8
 Requires PHP: 5.2.4
 License: GPLv2 or later
@@ -219,16 +219,19 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 * Fix - Only load widget assets when widget is active on the page [113141]
 
-= [4.6.23] TBD =
+= [4.6.23] 2018-09-12 =
 
 * Fix - Fixed the "Full Styles" mobile view. Thanks Matthew, Laura and others for flagging this! [112301]
 * Fix - Modify resource url function to work in mu-plugin directory, thanks to Doug for reporting it  [86104]
 * Fix - Remove references to and settings for Facebook importing in Event Aggregator [112432]
 * Fix - Ensure Event Aggregator allows for importing events from Eventbrite sites other than eventbrite.com, including but not limited to eventbrite.ca, .co.uk, and .co.nz [107821]
+* Fix - Allow venue location fields to be intentionally empty on Venue Singular REST API calls [108834]
 * Tweak - Add the WordPress Custom Fields Metabox show|hide settings from the Events Calendar Pro [109815]
+* Tweak - Allow changing Event Aggregator import process system between the asynchronous and the cron-based one; previously only available as a filter [113418, 113475]
+* Tweak - Allow stopping and clearing asynchronous queue processes from the admin UI [113418, 113475]
 * Deprecated - `Tribe__Events__Aggregator__Record__Facebook`
 * Fix - Allow venue location fields to be intentionally empty on Venue Singular REST API calls [108834]
-* Fix - Correct the Google Maps API link [112322]
+* Fix - Correct the Google Maps API link in the Settings help text to point to the correct API page [112322]
 
 = [4.6.22.1] 2018-08-27 =
 

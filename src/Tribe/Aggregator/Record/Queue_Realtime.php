@@ -136,7 +136,7 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 		 * @var \Tribe__Events__Aggregator__Record__Queue_Interface $current_queue
 		 */
 		$current_queue = $this->queue_processor->current_queue;
-		$done          = $current_queue->is_empty();
+		$done = $current_queue->is_empty() && empty( $current_queue->is_fetching );
 		$percentage    = $current_queue->progress_percentage();
 
  		$this->ajax_operations->exit_data( $this->get_progress_message_data( $current_queue, $percentage, $done ) );
