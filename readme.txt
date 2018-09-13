@@ -218,6 +218,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 = [4.6.24] TBD =
 
 * Fix - Only load widget assets when widget is active on the page [113141]
+* Fix - Ensure that venue, organizer, and meta information doesn't show on password-protected events [102643]
 * Tweak - Move Google Maps API loading to tribe_assets and only load once on single views when PRO is active, thanks to info2grow first reporting [112221]
 
 = [4.6.23] 2018-09-12 =
