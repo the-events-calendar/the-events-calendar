@@ -219,6 +219,8 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 * Fix - Only load widget assets when widget is active on the page [113141]
 * Fix - Ensure that venue, organizer, and meta information doesn't show on password-protected events [102643]
+* Fix - Correct the Google Maps API link in the Settings help text to point to the correct API page [112322]
+* Tweak - Move Google Maps API loading to tribe_assets and only load once on single views when PRO is active, thanks to info2grow first reporting [112221]
 
 = [4.6.23] 2018-09-12 =
 
@@ -231,8 +233,6 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Tweak - Allow changing Event Aggregator import process system between the asynchronous and the cron-based one; previously only available as a filter [113418, 113475]
 * Tweak - Allow stopping and clearing asynchronous queue processes from the admin UI [113418, 113475]
 * Deprecated - `Tribe__Events__Aggregator__Record__Facebook`
-* Fix - Allow venue location fields to be intentionally empty on Venue Singular REST API calls [108834]
-* Fix - Correct the Google Maps API link in the Settings help text to point to the correct API page [112322]
 
 = [4.6.22.1] 2018-08-27 =
 

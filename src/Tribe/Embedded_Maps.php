@@ -161,7 +161,6 @@ class Tribe__Events__Embedded_Maps {
 
 	protected function enqueue_map_scripts() {
 
-		$api_url = 'https://maps.google.com/maps/api/js';
 		$api_key = tribe_get_option( 'google_maps_js_api_key' );
 
 		// bail if we don't have an API key
@@ -169,22 +168,8 @@ class Tribe__Events__Embedded_Maps {
 			return;
 		}
 
-		if ( is_string( $api_key ) ) {
-			$api_url = sprintf( 'https://maps.googleapis.com/maps/api/js?key=%s', trim( $api_key ) );
-		}
-
-		/**
-		 * Allows for filtering the embedded Google Maps API URL.
-		 *
-		 * @param string $api_url The Google Maps API URL.
-		 */
-		$url = apply_filters( 'tribe_events_google_maps_api', $api_url );
-
-		wp_enqueue_script( 'tribe_events_google_maps_api', $url, array(), false, true );
-
-		// Setup our own script used to initialize each map
-		$url = Tribe__Events__Template_Factory::getMinFile( tribe_events_resource_url( 'embedded-map.js' ), true );
-		wp_enqueue_script( self::MAP_HANDLE, $url, array( 'tribe_events_google_maps_api' ), false, true );
+		tribe_asset_enqueue( 'tribe_events_google_maps_api' );
+		tribe_asset_enqueue(  self::MAP_HANDLE );
 
 		$this->map_script_enqueued = true;
 	}
