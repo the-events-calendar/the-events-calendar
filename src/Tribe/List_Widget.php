@@ -40,7 +40,7 @@ class Tribe__Events__List_Widget extends WP_Widget {
 		parent::__construct( $id_base, $name, $widget_options, $control_options );
 
 		// Do not enqueue if the widget is inactive
-		if ( is_active_widget( false, false, $this->id_base, true ) || is_customize_preview() ) {
+		if ( is_active_widget( false, false, 'tribe-events-list-widget', true ) || is_customize_preview() ) {
 			add_action( 'tribe_events_widget_render', array( $this, 'enqueue_widget_styles' ), 100 );
 		}
 	}
