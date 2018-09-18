@@ -825,6 +825,10 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		 * @return WP_Query
 		 */
 		private function get_daily_events( $date ) {
+			$daily_events = apply_filters( 'tribe_events_month_daily_events', null, $date );
+			if ( null !== $daily_events ) {
+				return $daily_events;
+			}
 
 			$beginning_of_day           = $this->get_cutoff_details( $date, 'beginning' );
 			$beginning_of_day_timestamp = $this->get_cutoff_details( $date, 'beginning_timestamp' );
