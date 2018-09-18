@@ -162,4 +162,26 @@ class File_ImporterTest extends \Codeception\TestCase\WPTestCase {
 			$xoop
 		], 'term_id' ), $importer->created_terms( 'post_tag' )->getArrayCopy() );
 	}
+
+	/**
+	 * It should not log term creation twice
+	 *
+	 * @test
+	 */
+	public function should_not_log_term_creation_twice() {
+		$importer = $this->make_instance();
+		$importer->watch_term_creation();
+		$importer->watch_term_creation();
+		$importer->watch_term_creation();
+
+		$foo = wp_create_term( 'foo', 'post_tag' );
+		$bar = wp_create_term( 'bar', 'post_tag' );
+
+		$foo_and_bar = array_column( [
+			$foo,
+			$bar
+		], 'term_id' );
+
+		$this->assertEquals( $foo_and_bar, $importer->created_terms( 'post_tag' )->getArrayCopy() );
+	}
 }
