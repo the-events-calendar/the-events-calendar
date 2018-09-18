@@ -6,6 +6,14 @@
 abstract class Tribe__Events__Importer__File_Importer {
 	protected $required_fields = array();
 
+	/**
+	 * An array that keeps tracks of the terms created for a taxonomy in the shape
+	 * [ <taxonomy> => ArrayIterator( [ <term_id>, ... ] ) ].
+	 *
+	 * @var array
+	 */
+	protected $created_terms = array();
+
 	/** @var Tribe__Events__Importer__File_Reader */
 	private $reader   = null;
 	private $map      = array();
@@ -270,6 +278,23 @@ abstract class Tribe__Events__Importer__File_Importer {
 		return $record[ $this->inverted_map[ $key ] ];
 	}
 
+	/**
+	 * Hooks on term creation to log it.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $term_id The newly created term ID.
+	 * @param int $tt_id The newly created term taxonomy ID.
+	 * @param string $taxonomy The current taxonomy.
+	 */
+	public function on_created_term( $term_id, $tt_id, $taxonomy ) {
+		if ( ! isset( $this->created_terms[ $taxonomy ] ) ) {
+			$this->created_terms[ $taxonomy ] = new ArrayIterator();
+		}
+
+		$this->created_terms[ $taxonomy ]->append( $term_id );
+	}
+
 	protected function find_matching_post_id( $name, $post_type, $post_status = 'publish' ) {
 		if ( empty( $name ) ) {
 			return 0;
@@ -377,5 +402,35 @@ abstract class Tribe__Events__Importer__File_Importer {
 			return $featured_image;
 
 		}
+	}
+
+	/**
+	 * Returns an iterator to iterate over the last created terms.
+	 *
+	 * @since TBD
+	 *
+	 * By default a NoRewindIterator will be returned, this will allow successive calls from iterating code,
+	 * e.g. a `foreach`, to resume from the previously last position.
+	 *
+	 * @param string $taxonomy
+	 * @param bool $rewind Whether to return a rewinding iterator (`true`) or a NoRewind one (`false`);
+	 *                     defaults to `false`.
+	 *
+	 * @return ArrayIterator|NoRewindIterator An ArrayIterator built on the term IDs created for the taxonomy
+	 *                                        or a NoRewindIterator built on top of it.
+	 */
+	public function created_terms( $taxonomy, $rewind = false ) {
+		$iterator = Tribe__Utils__Array::get( $this->created_terms, $taxonomy, new ArrayIterator() );
+
+		return $rewind ? $iterator : new NoRewindIterator( $iterator );
+	}
+
+	/**
+	 * Hooks on the term creation to watch for any newly created terms.
+	 *
+	 * @since TBD
+	 */
+	public function watch_term_creation() {
+		add_action( 'created_term', array( $this, 'on_created_term' ), 10, 3 );
 	}
 }
