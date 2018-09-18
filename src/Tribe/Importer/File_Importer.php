@@ -410,6 +410,10 @@ abstract class Tribe__Events__Importer__File_Importer {
 	 * @since TBD
 	 */
 	public function watch_term_creation() {
+		if ( has_action( 'created_term', array( $this, 'on_created_term' ) ) ) {
+			return;
+		}
+
 		add_action( 'created_term', array( $this, 'on_created_term' ), 10, 3 );
 	}
 
