@@ -125,4 +125,41 @@ class File_ImporterTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertEquals( $expected_second_count, $second_count );
 	}
+
+	/**
+	 * It should allow stop and resume watching for term creation
+	 *
+	 * @test
+	 */
+	public function should_allow_stop_and_resume_watching_for_term_creation() {
+		$importer = $this->make_instance();
+		$importer->watch_term_creation();
+
+		$foo = wp_create_term( 'foo', 'post_tag' );
+		$bar = wp_create_term( 'bar', 'post_tag' );
+
+		$foo_and_bar = array_column( [
+			$foo,
+			$bar
+		], 'term_id' );
+
+		$this->assertEquals( $foo_and_bar, $importer->created_terms( 'post_tag' )->getArrayCopy() );
+
+		$importer->stop_watching_term_creation();
+
+		$baz = wp_create_term( 'baz', 'post_tag' );
+		$woot = wp_create_term( 'woot', 'post_tag' );
+
+		$this->assertEquals( $foo_and_bar, $importer->created_terms( 'post_tag' )->getArrayCopy() );
+
+		$importer->watch_term_creation();
+
+		$xoop = wp_create_term( 'xoop', 'post_tag' );
+
+		$this->assertEquals( array_column( [
+			$foo,
+			$bar,
+			$xoop
+		], 'term_id' ), $importer->created_terms( 'post_tag' )->getArrayCopy() );
+	}
 }

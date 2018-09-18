@@ -418,6 +418,19 @@ abstract class Tribe__Events__Importer__File_Importer {
 	}
 
 	/**
+	 * Stops watching for term creation and logging.
+	 *
+	 * @since TBD
+	 */
+	public function stop_watching_term_creation() {
+		if ( ! has_action( 'created_term', array( $this, 'on_created_term' ) ) ) {
+			return;
+		}
+
+		remove_action( 'created_term', array( $this, 'on_created_term' ) );
+	}
+
+	/**
 	 * Returns an iterator to iterate over the last created terms.
 	 *
 	 * @since TBD

@@ -101,6 +101,8 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 				$this->aggregator_record->meta['activity']->add( 'event', 'skipped', $post_id );
 			}
 
+			$this->stop_watching_term_creation();
+
 			return false;
 		}
 
@@ -112,6 +114,8 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		add_filter( 'tribe_tracker_enabled', '__return_false' );
 
 		Tribe__Events__API::updateEvent( $post_id, $event );
+
+		$this->stop_watching_term_creation();
 
 		if ( $this->is_aggregator && ! empty( $this->aggregator_record ) ) {
 			$this->aggregator_record->meta['activity']->add( 'event', 'updated', $post_id );
@@ -134,6 +138,8 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		$event = $this->build_event_array( false, $record );
 
 		$id = Tribe__Events__API::createEvent( $event );
+
+		$this->stop_watching_term_creation();
 
 		if ( $this->is_aggregator && ! empty( $this->aggregator_record ) ) {
 			Tribe__Events__Aggregator__Records::instance()->add_record_to_event( $id, $this->aggregator_record->id, 'csv' );
