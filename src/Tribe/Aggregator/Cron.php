@@ -584,7 +584,7 @@ class Tribe__Events__Aggregator__Cron {
 			return;
 		}
 
-		tribe( 'logger' )->log_debug( sprintf( 'Import %s data available: processing immediately', $record->id ) );
+		tribe( 'logger' )->log_debug( sprintf( 'Import %s data available: processing immediately', $record->id ), 'EA Cron' );
 		$record->process_posts( $import_data, true );
 	}
 }
