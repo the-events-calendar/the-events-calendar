@@ -211,7 +211,7 @@ class Tribe__Events__List_Widget extends WP_Widget {
 		if ( isset( $new_instance['jsonld_enable'] ) && $new_instance['jsonld_enable'] == true ) {
 			$instance['jsonld_enable'] = 1;
 		} else {
-			$instance['jsonld_enable'] = 0;
+			$instance['jsonld_enable'] = false;
 		}
 
 		return $instance;
@@ -239,11 +239,13 @@ class Tribe__Events__List_Widget extends WP_Widget {
 	 * @return array
 	 */
 	protected function default_instance_args( array $instance ) {
+
 		return wp_parse_args( $instance, array(
 			'title'                => esc_html__( 'Upcoming Events', 'the-events-calendar' ),
 			'limit'                => '5',
 			'no_upcoming_events'   => false,
 			'featured_events_only' => false,
+			'jsonld_enable'        => false,
 		) );
 	}
 
