@@ -25,7 +25,7 @@ Looking for additional functionality including recurring events, ticket sales, p
 <strong>Check out [Events Calendar PRO](http://m.tri.be/mj) and [other add-ons](http://m.tri.be/2a)</strong>
 
 ><strong>New Import Tool!</strong>
->We’ve made bulk event imports easier to manage than ever. This add-on service for The Events Calendar allows you to import events from your favorite sources, including Meetup, Google Calendar, iCalendar, CSV, and ICS.
+>We’ve made bulk event imports easier to manage than ever. This add-on service for The Events Calendar allows you to import events from your favorite sources, including Meetup, Google Calendar, iCalendar, CSV, ICS and Other URLs (beta).
 >[Check out Event Aggregator now](http://m.tri.be/197u).
 
 = Built solid & supported =
