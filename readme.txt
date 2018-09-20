@@ -223,6 +223,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - Restores the event categories and tags creation summary in CSV imports [105888]
 * Fix - Updated the Events Gutenberg extension install check to show only when the extension is not active [114577]
 * Fix - Stop potential fatal errors from debug logging when running EA import actions from command line [114555]
+* Tweak - Added the `tribe_events_month_daily_events` filter to the Month view [114041]
 * Tweak - Move Google Maps API loading to tribe_assets and only load once on single views when PRO is active, thanks to info2grow first reporting [112221]
 
 = [4.6.23] 2018-09-12 =
