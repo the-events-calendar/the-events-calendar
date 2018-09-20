@@ -199,7 +199,7 @@ class Tribe__Events__List_Widget extends WP_Widget {
 	 * @return array The new widget settings.
 	 */
 	public function update( $new_instance, $old_instance ) {
-		$instance = $old_instance;
+		$instance     = $old_instance;
 		$new_instance = $this->default_instance_args( $new_instance );
 
 		/* Strip tags (if needed) and update the widget settings. */
@@ -253,8 +253,6 @@ class Tribe__Events__List_Widget extends WP_Widget {
 	 * @since TBD
 	 */
 	public static function enqueue_widget_styles() {
-
 		tribe_asset_enqueue( 'tribe-events-calendar-style' );
-
 	}
 }
