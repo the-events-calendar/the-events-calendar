@@ -220,9 +220,10 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - Only load widget assets when widget is active on the page [113141]
 * Fix - Ensure that venue, organizer, and meta information doesn't show on password-protected events [102643]
 * Fix - Correct the Google Maps API link in the Settings help text to point to the correct API page [112322]
-* Tweak - Move Google Maps API loading to tribe_assets and only load once on single views when PRO is active, thanks to info2grow first reporting [112221]
 * Fix - Restores the event categories and tags creation summary in CSV imports [105888]
 * Fix - Updated the Events Gutenberg extension install check to show only when the extension is not active [114577]
+* Fix - Stop potential fatal errors from debug logging when running EA import actions from command line [114555]
+* Tweak - Move Google Maps API loading to tribe_assets and only load once on single views when PRO is active, thanks to info2grow first reporting [112221]
 
 = [4.6.23] 2018-09-12 =
 
