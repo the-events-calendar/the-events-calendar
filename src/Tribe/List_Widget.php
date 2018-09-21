@@ -204,8 +204,8 @@ class Tribe__Events__List_Widget extends WP_Widget {
 		/* Strip tags (if needed) and update the widget settings. */
 		$instance['title']                = strip_tags( $new_instance['title'] );
 		$instance['limit']                = $new_instance['limit'];
-		$instance['no_upcoming_events']   = $new_instance['no_upcoming_events'];
-		$instance['featured_events_only'] = $new_instance['featured_events_only'];
+		$instance['no_upcoming_events']   = isset( $new_instance['no_upcoming_events'] ) && $new_instance['no_upcoming_events'] ? true : false;
+		$instance['featured_events_only'] = isset( $new_instance['featured_events_only'] ) && $new_instance['featured_events_only'] ? true : false;
 		$instance['jsonld_enable']        = $new_instance['jsonld_enable'];
 
 		return $instance;
