@@ -199,20 +199,14 @@ class Tribe__Events__List_Widget extends WP_Widget {
 	 * @return array The new widget settings.
 	 */
 	public function update( $new_instance, $old_instance ) {
-		$instance     = $old_instance;
-		$new_instance = $this->default_instance_args( $new_instance );
+		$instance = $old_instance;
 
 		/* Strip tags (if needed) and update the widget settings. */
 		$instance['title']                = strip_tags( $new_instance['title'] );
 		$instance['limit']                = $new_instance['limit'];
 		$instance['no_upcoming_events']   = $new_instance['no_upcoming_events'];
 		$instance['featured_events_only'] = $new_instance['featured_events_only'];
-
-		if ( isset( $new_instance['jsonld_enable'] ) && $new_instance['jsonld_enable'] == true ) {
-			$instance['jsonld_enable'] = 1;
-		} else {
-			$instance['jsonld_enable'] = false;
-		}
+		$instance['jsonld_enable']        = $new_instance['jsonld_enable'];
 
 		return $instance;
 	}
@@ -227,6 +221,7 @@ class Tribe__Events__List_Widget extends WP_Widget {
 	public function form( $instance ) {
 		$instance  = $this->default_instance_args( $instance );
 		$tribe_ecp = Tribe__Events__Main::instance();
+
 		include( $tribe_ecp->pluginPath . 'src/admin-views/widget-admin-list.php' );
 	}
 
@@ -245,7 +240,7 @@ class Tribe__Events__List_Widget extends WP_Widget {
 			'limit'                => '5',
 			'no_upcoming_events'   => false,
 			'featured_events_only' => false,
-			'jsonld_enable'        => false,
+			'jsonld_enable'        => true,
 		) );
 	}
 
