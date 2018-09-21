@@ -113,7 +113,11 @@ class Tribe__Events__Google__Maps_API_Key {
 	 */
 	public function populate_field_with_default_api_key( $value_string, $value ) {
 
-		if ( isset( $value ) && self::instance()->api_key_option_name === $value ) {
+		if ( ! isset( $value ) || self::instance()->api_key_option_name !== $value ) {
+			return $value_string;
+		}
+
+		if ( empty( $value_string ) ) {
 			$value_string = self::$default_api_key;
 		}
 
