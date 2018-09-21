@@ -14,6 +14,15 @@ class Tribe__Events__Google__Maps_API_Key {
 	protected $api_key_option_name = 'google_maps_js_api_key';
 
 	/**
+	 * The Events Calendar's default Google Maps API Key, which supports the Basic Embed API.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	protected static $default_api_key = 'AIzaSyDkIctLJYEb6oYMOq5elQ-oGEh05ybHwSU';
+
+	/**
 	 * @var static
 	 */
 	protected static $instance;
@@ -88,7 +97,26 @@ class Tribe__Events__Google__Maps_API_Key {
 		return $js_maps_api_url;
 	}
 
-	public function filter_tribe_events_pro_google_maps_api($js_maps_api_url  ) {
+	public function filter_tribe_events_pro_google_maps_api( $js_maps_api_url ) {
 
+	}
+
+	/**
+	 * Ensures the Google Maps API Key field in Settings > APIs is always populated with TEC's
+	 * default API key if no user-supplied key is present.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $value_string The original HTML string for the input's value attribute.
+	 * @param string $value The literal value of the field itself; falls back to the option name if no value present.
+	 * @return string The default license key as the input's new value.
+	 */
+	public function populate_field_with_default_api_key( $value_string, $value ) {
+
+		if ( isset( $value ) && self::instance()->api_key_option_name === $value ) {
+			$value_string = self::$default_api_key;
+		}
+
+		return $value_string;
 	}
 }
