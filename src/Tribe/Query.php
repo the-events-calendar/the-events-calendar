@@ -1217,7 +1217,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		 * @return bool
 		 **/
 		private static function filter_args( $arg ) {
-			if ( empty( $arg ) && $arg !== false ) {
+			if ( empty( $arg ) && $arg !== false && 0 !== $arg ) {
 				return false;
 			}
 
