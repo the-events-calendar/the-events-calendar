@@ -25,6 +25,10 @@
 		var $tribedate   = $( document.getElementById( 'tribe-bar-date' ) );
 		var dateMod     = false;
 
+		if ( 1 > $wrapper.length ) {
+			return;
+		}
+
 		var baseUrl = '/';
 
 		if ( 'undefined' !== typeof config.events_base ) {
@@ -152,6 +156,11 @@
 		function tribe_mobile_setup_day( $date ) {
 
 			var data  = $date.data( 'tribejson' );
+
+			if ( 'undefined' === typeof $date.attr( 'data-day' ) ) {
+				return;
+			}
+
 			data.date = $date.attr( 'data-day' );
 
 			var $calendar  = $date.parents( '.tribe-events-calendar' );
