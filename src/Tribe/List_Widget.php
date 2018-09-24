@@ -206,7 +206,7 @@ class Tribe__Events__List_Widget extends WP_Widget {
 		$instance['limit']                = $new_instance['limit'];
 		$instance['no_upcoming_events']   = isset( $new_instance['no_upcoming_events'] ) && $new_instance['no_upcoming_events'] ? true : false;
 		$instance['featured_events_only'] = isset( $new_instance['featured_events_only'] ) && $new_instance['featured_events_only'] ? true : false;
-		$instance['jsonld_enable']        = $new_instance['jsonld_enable'];
+		$instance['jsonld_enable']        = isset( $new_instance['jsonld_enable'] ) && $new_instance['jsonld_enable'] ? true : false;
 
 		return $instance;
 	}
