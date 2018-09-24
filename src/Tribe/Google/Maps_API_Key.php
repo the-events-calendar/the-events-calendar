@@ -11,7 +11,7 @@ class Tribe__Events__Google__Maps_API_Key {
 	/**
 	 * @var string
 	 */
-	protected $api_key_option_name = 'google_maps_js_api_key';
+	public static $api_key_option_name = 'google_maps_js_api_key';
 
 	/**
 	 * The Events Calendar's default Google Maps API Key, which supports the Basic Embed API.
@@ -20,7 +20,7 @@ class Tribe__Events__Google__Maps_API_Key {
 	 *
 	 * @var string
 	 */
-	protected static $default_api_key = 'AIzaSyDkIctLJYEb6oYMOq5elQ-oGEh05ybHwSU';
+	public static $default_api_key = 'AIzaSyDkIctLJYEb6oYMOq5elQ-oGEh05ybHwSU';
 
 	/**
 	 * @var static
@@ -66,7 +66,7 @@ class Tribe__Events__Google__Maps_API_Key {
 				) . '</p>',
 			),
 
-			$this->api_key_option_name => array(
+			self::$api_key_option_name => array(
 				'type'            => 'text',
 				'label'           => esc_html__( 'Google Maps API key', 'the-events-calendar' ),
 				'tooltip'         => sprintf( __( '<p>%s to create your Google Maps API key.', 'the-events-calendar' ),
@@ -89,7 +89,8 @@ class Tribe__Events__Google__Maps_API_Key {
 	 * @return string
 	 */
 	public function filter_tribe_events_google_maps_api( $js_maps_api_url ) {
-		$key = tribe_get_option( $this->api_key_option_name );
+		$key = tribe_get_option( self::$api_key_option_name, self::$default_api_key );
+
 		if ( ! empty( $key ) ) {
 			$js_maps_api_url = add_query_arg( 'key', $key, $js_maps_api_url );
 		}
@@ -113,12 +114,18 @@ class Tribe__Events__Google__Maps_API_Key {
 	 */
 	public function populate_field_with_default_api_key( $value_string, $value ) {
 
-		if ( ! isset( $value ) || self::instance()->api_key_option_name !== $value ) {
+		if ( ! isset( $value ) || self::$api_key_option_name !== $value ) {
 			return $value_string;
 		}
 
 		if ( empty( $value_string ) ) {
+			remove_filter( 'tribe_field_value', array( $this, 'populate_field_with_default_api_key' ), 10, 2 );
+
 			$value_string = self::$default_api_key;
+
+			tribe_update_option( self::$api_key_option_name, self::$default_api_key );
+
+			add_filter( 'tribe_field_value', array( $this, 'populate_field_with_default_api_key' ), 10, 2 );
 		}
 
 		return $value_string;
