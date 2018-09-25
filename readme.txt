@@ -25,7 +25,7 @@ Looking for additional functionality including recurring events, ticket sales, p
 <strong>Check out [Events Calendar PRO](http://m.tri.be/mj) and [other add-ons](http://m.tri.be/2a)</strong>
 
 ><strong>New Import Tool!</strong>
->We’ve made bulk event imports easier to manage than ever. This add-on service for The Events Calendar allows you to import events from your favorite sources, including Meetup, Google Calendar, iCalendar, CSV, and ICS.
+>We’ve made bulk event imports easier to manage than ever. This add-on service for The Events Calendar allows you to import events from your favorite sources, including Meetup, Google Calendar, iCalendar, CSV, ICS and Other URLs (beta).
 >[Check out Event Aggregator now](http://m.tri.be/197u).
 
 = Built solid & supported =
@@ -223,8 +223,11 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - Restores the event categories and tags creation summary in CSV imports [105888]
 * Fix - Updated the Events Gutenberg extension install check to show only when the extension is not active [114577]
 * Fix - Stop potential fatal errors from debug logging when running EA import actions from command line [114555]
+* Fix - Fixed a bug where it was often not possible to un-check the "Enable JSON-LD" option in the Events List Widget (thanks to @myrunningresource and @craigwilcox for reporting this!) [113541]
+* Fix - Added checks to prevent JS Type Error in mobile view. Thanks szenenight, agrilife and others for flagging this! [113524]
 * Tweak - Added the `tribe_events_month_daily_events` filter to the Month view [114041]
 * Tweak - Move Google Maps API loading to tribe_assets and only load once on single views when PRO is active, thanks to info2grow first reporting [112221]
+* Tweak - Accept 0 as an argument in tribe_get_events() so that `'post_parent' => 0` works, thanks Cy for the detailed report [111518]
 * Tweak - Added the `tribe_aggregator_record_by_origin` filter to allow new EA origins [114652]
 * Tweak - Added the `tribe_aggregator_service_post_import_args` filter to allow new EA origins [114652]
 * Tweak - Added the `tribe_aggregator_import_validate_meta_by_origin` filter to allow new EA origins [114652]
