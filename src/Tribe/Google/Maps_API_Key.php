@@ -20,7 +20,7 @@ class Tribe__Events__Google__Maps_API_Key {
 	 *
 	 * @var string
 	 */
-	public static $default_api_key = 'AIzaSyDkIctLJYEb6oYMOq5elQ-oGEh05ybHwSU';
+	public static $default_api_key = 'AIzaSyDNsicAsP6-VuGtAb1O9riI3oc_NOb7IOU';
 
 	/**
 	 * @var static

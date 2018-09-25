@@ -11,25 +11,23 @@
  *
  * @version TBD
  *
- * @var $index
- * @var $width
- * @var $height
+ * @var string $embed_url The full embed URL.
+ * @var string $raw_address The venue's raw, unmodified address as entered by the user.
+ * @var string $address The URL-encoded version of the venue's address.
+ * @var int $index The array key associated with this map; will usually be 0 unless there's multiple maps on the page.
+ * @var string|int $width The map's width in percent or pixels; defaults to '100%'.
+ * @var string|int $height The map's height in percent or pixels; defaults to '350px'.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-
-// @todo: Send this from the class calling it...
-$api_key = tribe_get_option( Tribe__Events__Google__Maps_API_Key::$api_key_option_name, Tribe__Events__Google__Maps_API_Key::$default_api_key );
-
 ?>
 
 <iframe
-  width="<?php echo $width; ?>"
-  height="<?php echo $height; ?>"
+  width="<?php echo esc_attr( $width ); ?>"
+  height="<?php echo esc_attr( $height ); ?>"
   frameborder="0" style="border:0"
-  src="https://www.google.com/maps/embed/v1/place?key=<?php echo $api_key; ?>
-    &q=Space+Needle,Seattle+WA" allowfullscreen>
+  src="<?php echo esc_url( $embed_url ); ?>" allowfullscreen>
 </iframe>

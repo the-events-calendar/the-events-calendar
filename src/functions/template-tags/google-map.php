@@ -24,8 +24,8 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return boolean
 	 */
 	function tribe_is_using_basic_gmaps_api() {
-		$user_api_key = tribe_get_option( Tribe__Events__Google__Maps_API_Key::$api_key_option_name );
-		$tec_api_key  = Tribe__Events__Google__Maps_API_Key::$default_api_key;
+		$user_api_key = (string) tribe_get_option( Tribe__Events__Google__Maps_API_Key::$api_key_option_name );
+		$tec_api_key  = (string) Tribe__Events__Google__Maps_API_Key::$default_api_key;
 
 		/**
 		 * Filters whether or not only basic Google Maps Embed API requests are allowed on this site, which happens
