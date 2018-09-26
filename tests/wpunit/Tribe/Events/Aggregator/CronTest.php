@@ -36,6 +36,7 @@ class CronTest extends \Codeception\TestCase\WPTestCase {
 		$record_post = $this->factory()->post->create( [
 			'post_type'      => Records::$post_type,
 			'post_status'    => Records::$status->schedule,
+			'ping_status'    => 'schedule',
 			'post_mime_type' => 'ea/foo-bar'
 		] );
 
