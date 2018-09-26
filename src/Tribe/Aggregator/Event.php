@@ -134,6 +134,36 @@ class Tribe__Events__Aggregator__Event {
 			'website'       => 'Website',
 		);
 
+		/**
+		 * Allows filtering to add other field mapping values.
+		 *
+		 * @since TBD
+		 *
+		 * @param array  $field_map Field map for event object.
+		 * @param object $item      Item being translated.
+		 */
+		$field_map = apply_filters( 'tribe_aggregator_event_translate_service_data_field_map', $field_map, $item );
+
+		/**
+		 * Allows filtering to add other field mapping values.
+		 *
+		 * @since TBD
+		 *
+		 * @param array  $venue_field_map Field map for venue object.
+		 * @param object $item            Item being translated.
+		 */
+		$venue_field_map = apply_filters( 'tribe_aggregator_event_translate_service_data_venue_field_map', $venue_field_map, $item );
+
+		/**
+		 * Allows filtering to add other field mapping values.
+		 *
+		 * @since TBD
+		 *
+		 * @param array  $organizer_field_map Field map for organizer object.
+		 * @param object $item                Item being translated.
+		 */
+		$organizer_field_map = apply_filters( 'tribe_aggregator_event_translate_service_data_organizer_field_map', $organizer_field_map, $item );
+
 		foreach ( $field_map as $origin_field => $target_field ) {
 			if ( ! isset( $item->$origin_field ) ) {
 				continue;
