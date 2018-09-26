@@ -69,7 +69,7 @@ class Tribe__Events__Google__Maps_API_Key {
 			self::$api_key_option_name => array(
 				'type'            => 'text',
 				'label'           => esc_html__( 'Google Maps API key', 'the-events-calendar' ),
-				'tooltip'         => sprintf( __( '<p>%s to create your Google Maps API key.', 'the-events-calendar' ),
+				'tooltip'         => sprintf( __( '<p>%s to create your Google Maps API key. If you do not add your own API key, a default API key will always populate this field.', 'the-events-calendar' ),
 					'<a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank"></p>' . __( 'Click here', 'the-events-calendar' ) . '</a>' ),
 				'size'            => 'medium',
 				'validation_type' => 'alpha_numeric_with_dashes_and_underscores',

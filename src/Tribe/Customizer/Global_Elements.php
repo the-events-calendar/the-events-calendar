@@ -200,7 +200,6 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 				array(
 					'default'              => $this->get_default( 'map_pin' ),
 					'type'                 => 'option',
-
 					'sanitize_callback'    => 'esc_url_raw',
 				)
 			);
