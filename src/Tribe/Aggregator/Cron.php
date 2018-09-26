@@ -314,12 +314,12 @@ class Tribe__Events__Aggregator__Cron {
 				continue;
 			}
 
-			if ( null === $record ) {
+			if ( $record instanceof Tribe__Events__Aggregator__Record__Unsupported ) {
 				/**
 				 * This means the record post exists but the origin is not currently supported.
 				 * To avoid re-looping on this let's trash this post and continue.
 				 */
-				wp_delete_post( $post->ID );
+				$record->delete( );
 				continue;
 			}
 
