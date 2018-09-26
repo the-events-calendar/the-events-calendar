@@ -290,11 +290,14 @@ Tribe__Events__Aggregator__Records {
 	}
 
 	/**
-	 * Returns an appropriate Record object for the given origin
+	 * Returns an appropriate Record object for the given origin.
 	 *
-	 * @param string $origin Import origin
+	 * @param string $origin The record import origin.
+	 * @param int|WP_Post The record post or post ID.
 	 *
-	 * @return Tribe__Events__Aggregator__Record__Abstract|null
+	 * @return Tribe__Events__Aggregator__Record__Abstract An instance of the correct record class
+	 *                                                     for the origin or an unsupported record
+	 *                                                     instance.
 	 */
 	public function get_by_origin( $origin, $post = null ) {
 		$record = null;
@@ -327,6 +330,10 @@ Tribe__Events__Aggregator__Records {
 			case 'url':
 			case 'ea/url':
 				$record = new Tribe__Events__Aggregator__Record__Url( $post );
+				break;
+			default:
+				// If there is no match then the record type is unsupported.
+				$record = new Tribe__Events__Aggregator__Record__Unsupported( $post );
 				break;
 		}
 
