@@ -19,11 +19,15 @@
 	$( document ).ready( function() {
 
 		var $body        = $( 'body' );
-		var $navLink    = $( '[class^="tribe-events-nav-"] a' );
-		var initialDate = tf.get_url_param( 'tribe-bar-date' );
+		var $navLink     = $( '[class^="tribe-events-nav-"] a' );
+		var initialDate  = tf.get_url_param( 'tribe-bar-date' );
 		var $wrapper     = $( document.getElementById( 'tribe-events' ) );
 		var $tribedate   = $( document.getElementById( 'tribe-bar-date' ) );
-		var dateMod     = false;
+		var dateMod      = false;
+
+		if ( 1 > $wrapper.length ) {
+			return;
+		}
 
 		var baseUrl = '/';
 
@@ -152,6 +156,11 @@
 		function tribe_mobile_setup_day( $date ) {
 
 			var data  = $date.data( 'tribejson' );
+
+			if ( 'undefined' === typeof $date.attr( 'data-day' ) ) {
+				return;
+			}
+
 			data.date = $date.attr( 'data-day' );
 
 			var $calendar  = $date.parents( '.tribe-events-calendar' );
@@ -181,11 +190,11 @@
 		function tribe_mobile_month_setup() {
 
 			var $activeDay       = $wrapper.find( '.mobile-active' );
-			var $mobileTrigger = $wrapper.find( '.mobile-trigger' );
-			var $tribeGrid     = $wrapper.find( document.getElementById( 'tribe-events-content' ) ).find( '.tribe-events-calendar'  );
+			var $mobileTrigger   = $wrapper.find( '.mobile-trigger' );
+			var $tribeGrid       = $wrapper.find( document.getElementById( 'tribe-events-content' ) ).find( '.tribe-events-calendar'  );
 
 			// If for some reason we don't have a "$activeDay" selected, default to today.
-			if ( !$activeDay.length ) {
+			if ( ! $activeDay.length ) {
 				var $activeDay = $wrapper.find( '.tribe-events-present' );
 			}
 

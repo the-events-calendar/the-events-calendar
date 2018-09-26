@@ -104,7 +104,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 *
 	 * @var string
 	 */
-	protected $origin;
+	public $origin;
 
 	/**
 	 * Setup all the hooks and filters
