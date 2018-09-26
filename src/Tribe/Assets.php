@@ -158,10 +158,10 @@ class Tribe__Events__Assets {
 				'conditionals' => array( $admin_helpers, 'is_screen' ),
 			)
 		);
-		
+
 		// Some Google Maps API-specific scripts that should only load when a non-default API key is present.
 		if ( ! tribe_is_using_basic_gmaps_api() ) {
-	
+
 			// FrontEnd
 			$api_url = 'https://maps.google.com/maps/api/js';
 			$api_key = tribe_get_option( 'google_maps_js_api_key', Tribe__Events__Google__Maps_API_Key::$default_api_key );
@@ -190,7 +190,7 @@ class Tribe__Events__Assets {
 
 			// Setup our own script used to initialize each map
 			$embedded_map_url = Tribe__Events__Template_Factory::getMinFile( tribe_events_resource_url( 'embedded-map.js' ), true );
-			
+
 			tribe_asset(
 				$plugin,
 				Tribe__Events__Embedded_Maps::MAP_HANDLE,

@@ -99,7 +99,7 @@ class Tribe__Events__Embedded_Maps {
 		if ( tribe_is_using_basic_gmaps_api() ) {
 
 			$api_key = tribe_get_option( Tribe__Events__Google__Maps_API_Key::$api_key_option_name, Tribe__Events__Google__Maps_API_Key::$default_api_key );
-			
+
 			$embed_url_args = array(
 				'key' => $api_key,
 				'q'   => urlencode( $this->address ),
@@ -109,7 +109,7 @@ class Tribe__Events__Embedded_Maps {
 				/**
 				 * Allows filtering the URL parameters passed to the basic Google Maps embed URL via add_query_arg().
 				 * See https://developers.google.com/maps/documentation/embed/guide for all available URL parameters.
-				 * 
+				 *
 				 * @since TBD
 				 *
 				 * @param array $embed_url_args The URL parameters being passed to the Google Maps embed URL
@@ -118,14 +118,14 @@ class Tribe__Events__Embedded_Maps {
 				/**
 				 * Allows filtering the root Google Maps URL used for the basic map embeds; determines what Map Mode is used.
 				 * See https://developers.google.com/maps/documentation/embed/guide for available map modes.
-				 * 
+				 *
 				 * @since TBD
 				 *
 				 * @param string $gmaps_embed_url The root Google Maps embed URL.
 				 */
 				apply_filters( 'tribe_basic_gmaps_embed_url', 'https://www.google.com/maps/embed/v1/place' )
 			);
-			
+
 			// Get a basic embed that doesn't use the JavaScript API
 			tribe_get_template_part( 'modules/map-basic', null, array(
 				'embed_url'   => trim( $embed_url ),
