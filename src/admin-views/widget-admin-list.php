@@ -35,8 +35,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<label for="<?php echo esc_attr( $this->get_field_id( 'featured_events_only' ) ); ?>"><?php echo esc_html_x( 'Limit to featured events only', 'events list widget setting', 'the-events-calendar' ); ?></label>
 </p>
 <p>
-	<input id="<?php echo esc_attr( $this->get_field_id( 'jsonld_enable' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'jsonld_enable' ) ); ?>" type="checkbox" <?php checked( $instance['jsonld_enable'], 1 ); ?> value="1" />
-	<label for="<?php echo esc_attr( $this->get_field_id( 'jsonld_enable' ) ); ?>"><?php esc_html_e( 'Generate JSON-LD data', 'the-events-calendar' ); ?></label>
+	<input class="checkbox" type="checkbox" value="1" <?php checked( $instance['jsonld_enable'], true ); ?>
+	       id="<?php echo esc_attr( $this->get_field_id( 'jsonld_enable' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'jsonld_enable' ) ); ?>"/>
+	<label for="<?php echo esc_attr( $this->get_field_id( 'jsonld_enable' ) ); ?>"><?php esc_html_e( 'Generate JSON-LD data', 'the-events-calendar-pro' ); ?></label>
 </p>
 
 <br>

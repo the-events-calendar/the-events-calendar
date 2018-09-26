@@ -51,7 +51,18 @@ class Tribe__Events__Bar {
 		$in_disallowed_type = in_array( get_post_type(), $disallowed_types );
 		$is_tribe_view   = ( ! empty( $wp_query->tribe_is_event_query ) && ! is_single() && ! $in_disallowed_type );
 
-		return apply_filters( 'tribe-events-bar-should-show', $is_tribe_view );
+		/**
+		 * Allows for forcefully overriding whether the Tribe Bar should be added to TEC-generated views.
+		 *
+		 * @param bool $is_tribe_view True if on a TEC-generated view, on which the bar should show by default.
+		 */
+		$should_show = (bool) apply_filters( 'tribe-events-bar-should-show', $is_tribe_view );
+
+		if ( ! $should_show ) {
+			add_filter( 'tribe_get_template_part_path_modules/bar.php', '__return_false' );
+		}
+
+		return $should_show;
 	}
 
 	/**
@@ -95,6 +106,7 @@ class Tribe__Events__Bar {
 	 * Load the CSSs and JSs only if the Bar will be shown
 	 */
 	public function load_script() {
+
 		if ( ! $this->should_show() ) {
 			return false;
 		}
