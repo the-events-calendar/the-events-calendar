@@ -123,7 +123,7 @@ $display_tab_fields = Tribe__Main::array_insert_after_key(
 	)
 );
 
-$tribe_enable_views_tooltip = __( 'You must select at least one view.', 'the-events-calendar' );
+$tribe_enable_views_tooltip = esc_html__( 'You must select at least one view.', 'the-events-calendar' );
 
 if ( tribe_is_using_basic_gmaps_api() && class_exists( 'Tribe__Events__Pro__Main' ) ) {
 	$tribe_enable_views_tooltip .= ' ' . sprintf(

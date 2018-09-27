@@ -173,6 +173,8 @@ class Tribe__Events__Assets {
 			/**
 			 * Allows for filtering the embedded Google Maps API URL.
 			 *
+			 * @since ??
+			 *
 			 * @param string $api_url The Google Maps API URL.
 			 */
 			$google_maps_js_url = apply_filters( 'tribe_events_google_maps_api', $api_url );
