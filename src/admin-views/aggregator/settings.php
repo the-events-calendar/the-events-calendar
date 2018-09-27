@@ -561,15 +561,16 @@ if ( class_exists( 'Tribe__Events__Tickets__Eventbrite__Main' ) && ! tribe( 'eve
 }
 
 /**
- * Filter the Aggregator Setting Fields
+ * Filter the Aggregator Setting Fields.
  *
  * @since TDB
  *
- * @param $internal array an array of aggregator fields
- * @param $origin_post_statuses array an array of post statuses
- * @param $origin_categories array an array of event categories
+ * @param array $internal                List of aggregator fields.
+ * @param array $origin_post_statuses    List of post statuses.
+ * @param array $origin_categories       List of event categories.
+ * @param array $origin_show_map_options List of show map options.
  */
-$internal = apply_filters( 'tribe_aggregator_fields', $internal, $origin_post_statuses, $origin_categories );
+$internal = apply_filters( 'tribe_aggregator_fields', $internal, $origin_post_statuses, $origin_categories, $origin_show_map_options );
 
 /**
  * Sort Fields by Priority
