@@ -217,6 +217,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 = [4.6.24] TBD =
 
+* Fix - Prevent broken and low-resolution Google Maps if user has not provided a Google Maps API key of their own by providing our own fallback API key [114442]
 * Fix - Only load widget assets when widget is active on the page [113141]
 * Fix - Ensure that venue, organizer, and meta information doesn't show on password-protected events [102643]
 * Fix - Correct the Google Maps API link in the Settings help text to point to the correct API page [112322]
@@ -226,6 +227,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - Fixed a bug where it was often not possible to un-check the "Enable JSON-LD" option in the Events List Widget (thanks to @myrunningresource and @craigwilcox for reporting this!) [113541]
 * Fix - Ensure that the `tribe-events-bar-should-show` filter functions as aspected; if `__return_false` is passed, the Tribe Bar will be totally hidden (thanks @debranettles for reporting this!) [112260]
 * Fix - Added checks to prevent JS Type Error in mobile view. Thanks szenenight, agrilife and others for flagging this! [113524]
+* Tweak - Added new filters for customizing the fallback Google Maps embeds: `tribe_is_using_basic_gmaps_api`, `tribe_get_basic_gmap_embed_url`, and `tribe_get_basic_gmap_embed_url_args` [114442]
 * Tweak - Fixed the handling of the global $post variable in some Month View templates to make it easier for themers to customize those templates [113283]
 * Tweak - Ensure linked posts are listed alphabetically in metabox dropdowns, as they are in all other admin locations [108120]
 * Tweak - Added the `tribe_events_month_daily_events` filter to the Month view [114041]
