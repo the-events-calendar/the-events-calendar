@@ -608,9 +608,9 @@ class Tribe__Events__Aggregator {
 		<p>
 			<?php
 			if ( $passed > 0 ) {
-				printf( esc_html__( 'Your Event Aggregator Facebook token expired %s.', 'the-events-calendar' ), $time );
+				printf( esc_html__( 'Your Event Aggregator Facebook token expired %s.', 'the-events-calendar' ), esc_html( $time ) );
 			} else {
-				printf( esc_html__( 'Your Event Aggregator Facebook token will expire %s.', 'the-events-calendar' ), $time );
+				printf( esc_html__( 'Your Event Aggregator Facebook token will expire %s.', 'the-events-calendar' ), esc_html( $time ) );
 			}
 			?>
 		</p>
