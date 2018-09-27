@@ -217,12 +217,14 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 = [4.6.24] TBD =
 
+* Fix - Prevent broken and low-resolution Google Maps if user has not provided a Google Maps API key of their own by providing our own fallback API key [114442]
 * Fix - Only load widget assets when widget is active on the page [113141]
 * Fix - Ensure that venue, organizer, and meta information doesn't show on password-protected events [102643]
 * Fix - Correct the Google Maps API link in the Settings help text to point to the correct API page [112322]
 * Fix - Restores the event categories and tags creation summary in CSV imports [105888]
 * Fix - Updated the Events Gutenberg extension install check to show only when the extension is not active [114577]
 * Fix - Stop potential fatal errors from debug logging when running EA import actions from command line [114555]
+* Tweak - Added new filters for customizing the fallback Google Maps embeds: `tribe_is_using_basic_gmaps_api`, `tribe_get_basic_gmap_embed_url`, and `tribe_get_basic_gmap_embed_url_args` [114442]
 * Tweak - Added the `tribe_events_month_daily_events` filter to the Month view [114041]
 * Tweak - Move Google Maps API loading to tribe_assets and only load once on single views when PRO is active, thanks to info2grow first reporting [112221]
 
