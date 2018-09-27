@@ -418,7 +418,6 @@ table.eventForm {
 	font-weight: bold;
 }
 
-.tribe-ea-facebook-disconnect,
 .tribe-ea-eventbrite-disconnect {
 	color: #a00;
 	display: inline-block;
@@ -426,14 +425,11 @@ table.eventForm {
 	margin-left: 1rem;
 }
 
-.tribe-ea-facebook-disconnect:active,
-	.tribe-ea-facebook-disconnect:hover,
-	.tribe-ea-eventbrite-disconnect:active,
+.tribe-ea-eventbrite-disconnect:active,
 	.tribe-ea-eventbrite-disconnect:hover {
 	color: #f00;
 }
 
-.tribe-ea-facebook-button,
 .tribe-ea-eventbrite-button {
 	border-radius: 3px;
 	color: #fff;
@@ -444,22 +440,10 @@ table.eventForm {
 	transition: background-color 0.5s ease;
 }
 
-.tribe-ea-facebook-button:active,
-	.tribe-ea-facebook-button:hover,
-	.tribe-ea-eventbrite-button:active,
+.tribe-ea-eventbrite-button:active,
 	.tribe-ea-eventbrite-button:hover {
 	color: #fff;
 	cursor: pointer;
-}
-
-.tribe-ea-facebook-button {
-	background: #3d599b;
-}
-
-.tribe-ea-facebook-button:active,
-	.tribe-ea-facebook-button:hover,
-	.tribe-ea-facebook-button:focus {
-	background: #32497e;
 }
 
 .tribe-ea-eventbrite-button {

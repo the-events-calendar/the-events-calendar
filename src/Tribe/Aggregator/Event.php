@@ -84,7 +84,6 @@ class Tribe__Events__Aggregator__Event {
 			'url'                => 'EventURL',
 			'all_day'            => 'EventAllDay',
 			'image'              => 'image',
-			'facebook_id'        => 'EventFacebookID',
 			'meetup_id'          => 'EventMeetupID',
 			'eventbrite_id'      => 'EventBriteID',
 			'eventbrite'         => 'eventbrite',
@@ -106,7 +105,6 @@ class Tribe__Events__Aggregator__Event {
 
 		$venue_field_map = array(
 			'_venue_id'             => 'VenueID',
-			'facebook_id'           => 'VenueFacebookID',
 			'meetup_id'             => 'VenueMeetupID',
 			'eventbrite_id'         => 'VenueEventBriteID',
 			'venue'                 => 'Venue',
@@ -125,7 +123,6 @@ class Tribe__Events__Aggregator__Event {
 
 		$organizer_field_map = array(
 			'_organizer_id' => 'OrganizerID',
-			'facebook_id'   => 'OrganizerFacebookID',
 			'meetup_id'     => 'OrganizerMeetupID',
 			'eventbrite_id' => 'OrganizerEventBriteID',
 			'organizer'     => 'Organizer',

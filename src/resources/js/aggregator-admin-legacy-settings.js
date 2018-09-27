@@ -8,16 +8,14 @@ var tribe_aggregator = tribe_aggregator || {};
 	 * Migration for Lagacy Ignored Event
 	 */
 	$document.ready( function() {
-		$( '#tribe-migrate-facebook-settings, #tribe-migrate-ical-settings' ).on( 'click', function() {
+		$( '#tribe-migrate-ical-settings' ).on( 'click', function() {
 			var $this = $( this ),
 			    $spinner = $this.next( '.spinner' ),
 			    $dismiss = $this.parents( '.notice' ).eq( 0 ).find( '.notice-dismiss' ),
 			    $container = $this.parent(),
 			    action;
 
-			if ( 'tribe-migrate-facebook-settings' === $this.attr( 'id' ) ) {
-				action = 'tribe_convert_legacy_facebook_settings';
-			} else if ( 'tribe-migrate-ical-settings' === $this.attr( 'id' ) ) {
+			if ( 'tribe-migrate-ical-settings' === $this.attr( 'id' ) ) {
 				action = 'tribe_convert_legacy_ical_settings';
 			}
 
