@@ -155,4 +155,46 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 		return apply_filters( 'tribe_show_google_map_link', $output );
 	}
+
+	/**
+	 * Gets a full URL for a basic Google Maps embed.
+	 * See https://developers.google.com/maps/documentation/embed/guide for more info.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $address_string The full address for the marker to be shown on the map (e.g. an event venue).
+	 */
+	function tribe_get_basic_gmap_embed_url( $address_string ) {
+
+		$api_key = tribe_get_option( Tribe__Events__Google__Maps_API_Key::$api_key_option_name, Tribe__Events__Google__Maps_API_Key::$default_api_key );
+
+		$embed_url_args = array(
+			'key' => $api_key,
+			'q'   => urlencode( $address_string ),
+		);
+
+		$embed_url = add_query_arg(
+			/**
+			 * Allows filtering the URL parameters passed to the basic Google Maps embed URL via add_query_arg().
+			 * See https://developers.google.com/maps/documentation/embed/guide for all available URL parameters.
+			 *
+			 * @since TBD
+			 *
+			 * @param array $embed_url_args The URL parameters being passed to the Google Maps embed URL
+			 */
+			apply_filters( 'tribe_get_basic_gmap_embed_url_args', $embed_url_args ),
+			/**
+			 * Allows filtering the root Google Maps URL used for the basic map embeds; determines what Map Mode is used.
+			 * See https://developers.google.com/maps/documentation/embed/guide for available map modes.
+			 *
+			 * @since TBD
+			 *
+			 * @param string $gmaps_embed_url The root Google Maps embed URL.
+			 */
+			apply_filters( 'tribe_get_basic_gmap_embed_url', 'https://www.google.com/maps/embed/v1/place' )
+		);
+
+		return $embed_url;
+	}
+
 }

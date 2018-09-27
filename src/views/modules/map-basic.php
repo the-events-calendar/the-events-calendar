@@ -12,8 +12,7 @@
  * @version TBD
  *
  * @var string $embed_url The full embed URL.
- * @var string $raw_address The venue's raw, unmodified address as entered by the user.
- * @var string $address The URL-encoded version of the venue's address.
+ * @var string $address The venue's address as entered by the user.
  * @var int $index The array key associated with this map; will usually be 0 unless there's multiple maps on the page.
  * @var string|int $width The map's width in percent or pixels; defaults to '100%'.
  * @var string|int $height The map's height in percent or pixels; defaults to '350px'.
