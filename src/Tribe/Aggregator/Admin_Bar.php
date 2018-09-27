@@ -80,7 +80,7 @@ class Tribe__Events__Aggregator__Admin_Bar {
 			return;
 		}
 
-		$transient_key = tribe( 'events-aggregator.main' )->KEY_CACHE_SERVICES;
+		$transient_key    = tribe( 'events-aggregator.main' )->KEY_CACHE_SERVICES;
 		$service_response = get_transient( $transient_key );
 
 		// Save HTTP request into a transient
