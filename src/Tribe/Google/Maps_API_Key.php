@@ -48,6 +48,19 @@ class Tribe__Events__Google__Maps_API_Key {
 	 * @return array
 	 */
 	public function filter_tribe_addons_tab_fields( array $addon_fields ) {
+
+		$tooltip = sprintf(
+			__( '<p><strong>You are using a custom Google Maps API key.</strong></p><br><p>%1$s to learn more about using it with The Events Calendar.</p>', 'the-events-calendar' ),
+			'<a href="https://theeventscalendar.com/knowledgebase/setting-up-your-google-maps-api-key/" target="_blank"></p>' . esc_html__( 'Click here', 'the-events-calendar' ) . '</a>'
+		);
+
+		if ( tribe_is_using_basic_gmaps_api() ) {
+			$tooltip = sprintf(
+				__( '<p><strong>You are using The Events Calendar\'s built-in Google Maps API key.</strong></p><br><p>If you do not add your own API key, the built-in API key will always populate this field and some map-related functionality will be limited.</p><br><br><p>%1$s to create your own free Google Maps API key.</p>', 'the-events-calendar' ),
+				'<a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank"></p>' . esc_html__( 'Click here', 'the-events-calendar' ) . '</a>'
+			);
+		}
+
 		$gmaps_api_fields = array(
 			'gmaps-js-api-start' => array(
 				'type' => 'html',
@@ -69,8 +82,7 @@ class Tribe__Events__Google__Maps_API_Key {
 			self::$api_key_option_name => array(
 				'type'            => 'text',
 				'label'           => esc_html__( 'Google Maps API key', 'the-events-calendar' ),
-				'tooltip'         => sprintf( __( '<p>%s to create your Google Maps API key. If you do not add your own API key, a default API key will always populate this field.', 'the-events-calendar' ),
-					'<a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank"></p>' . __( 'Click here', 'the-events-calendar' ) . '</a>' ),
+				'tooltip'         => $tooltip,
 				'size'            => 'medium',
 				'validation_type' => 'alpha_numeric_with_dashes_and_underscores',
 				'can_be_empty'    => true,
@@ -119,6 +131,7 @@ class Tribe__Events__Google__Maps_API_Key {
 		}
 
 		if ( empty( $value_string ) ) {
+
 			remove_filter( 'tribe_field_value', array( $this, 'populate_field_with_default_api_key' ), 10, 2 );
 
 			$value_string = self::$default_api_key;
