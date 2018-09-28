@@ -9,7 +9,7 @@
  *
  *     [your-theme]/tribe-events/modules/map-basic.php
  *
- * @version TBD
+ * @version 4.6.24
  *
  * @var string $embed_url The full embed URL.
  * @var string $address The venue's address as entered by the user.
