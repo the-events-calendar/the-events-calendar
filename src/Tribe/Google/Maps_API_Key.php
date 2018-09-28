@@ -90,6 +90,13 @@ class Tribe__Events__Google__Maps_API_Key {
 		return array_merge( (array) $addon_fields, $gmaps_api_fields );
 	}
 
+	/**
+	 * Generates the tooltip text for when The Events Calendar's fallback API key is being used instead of a custom one.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
 	public function get_basic_embed_api_tooltip() {
 		return sprintf(
 			__( '<p><strong>You are using The Events Calendar\'s built-in Google Maps API key.</strong></p><p>If you do not add your own API key, the built-in API key will always populate this field and some map-related functionality will be limited.</p><br><p>%1$s to create your own free Google Maps API key.</p>', 'the-events-calendar' ),
