@@ -101,8 +101,9 @@ class Tribe__Events__Google__Maps_API_Key {
 	 */
 	public function get_basic_embed_api_tooltip() {
 		return sprintf(
-			'<p><strong>%1$s</strong></p><p><a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank">%2$s</a> %3$s</p>',
+			'<p><strong>%1$s</strong></p><p>%2$s</p><p><a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank">%3$s</a> %4$s</p>',
 			esc_html__( 'You are using The Events Calendar\'s built-in Google Maps API key.', 'the-events-calendar' ),
+			esc_html__( 'If you do not add your own API key, the built-in API key will always populate this field and some map-related functionality will be limited.', 'the-events-calendar' ),
 			esc_html__( 'Click here', 'the-events-calendar' ),
 			esc_html__( 'to create your own free Google Maps API key.', 'the-events-calendar' )
 		);
