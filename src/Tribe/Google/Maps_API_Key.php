@@ -50,12 +50,10 @@ class Tribe__Events__Google__Maps_API_Key {
 	public function filter_tribe_addons_tab_fields( array $addon_fields ) {
 
 		$tooltip = sprintf(
-			esc_html__( '%1$sYou are using a custom Google Maps API key.%2$s %3$sClick here%4$s to learn more about using it with The Events Calendar.%5$s', 'the-events-calendar' ),
-			'<p><strong>',
-			'</strong></p>',
-			'<p><a href="https://theeventscalendar.com/knowledgebase/setting-up-your-google-maps-api-key/" target="_blank">',
-			'</a>',
-			'</p>'
+			'<p><strong>%1$s</strong></p><p><a href="https://theeventscalendar.com/knowledgebase/setting-up-your-google-maps-api-key/" target="_blank">%2$s</a> %3$s',
+			esc_html__( 'You are using a custom Google Maps API key.', 'the-events-calendar' ),
+			esc_html__( 'Click here', 'the-events-calendar' ),
+			esc_html__( 'to learn more about using it with The Events Calendar', 'the-events-calendar' )
 		);
 
 		if ( tribe_is_using_basic_gmaps_api() ) {
@@ -103,12 +101,10 @@ class Tribe__Events__Google__Maps_API_Key {
 	 */
 	public function get_basic_embed_api_tooltip() {
 		return sprintf(
-			esc_html__( '%1$sYou are using The Events Calendar\'s built-in Google Maps API key.%2$s If you do not add your own API key, the built-in API key will always populate this field and some map-related functionality will be limited. %3$sClick here%4$s to create your own free Google Maps API key.%5$s', 'the-events-calendar' ),
-			'<p><strong>',
-			'</strong></p><p>',
-			'</p><br><p><a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank">',
-			'</a>',
-			'</p>'
+			'<p><strong>%1$s</strong></p><p><a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank">%2$s</a> %3$s</p>',
+			esc_html__( 'You are using The Events Calendar\'s built-in Google Maps API key.', 'the-events-calendar' ),
+			esc_html__( 'Click here', 'the-events-calendar' ),
+			esc_html__( 'to create your own free Google Maps API key.', 'the-events-calendar' )
 		);
 	}
 
