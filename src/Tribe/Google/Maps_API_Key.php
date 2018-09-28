@@ -50,15 +50,14 @@ class Tribe__Events__Google__Maps_API_Key {
 	public function filter_tribe_addons_tab_fields( array $addon_fields ) {
 
 		$tooltip = sprintf(
-			__( '<p><strong>You are using a custom Google Maps API key.</strong></p><br><p>%1$s to learn more about using it with The Events Calendar.</p>', 'the-events-calendar' ),
-			'<a href="https://theeventscalendar.com/knowledgebase/setting-up-your-google-maps-api-key/" target="_blank"></p>' . esc_html__( 'Click here', 'the-events-calendar' ) . '</a>'
+			'<p><strong>%1$s</strong></p><p><a href="https://theeventscalendar.com/knowledgebase/setting-up-your-google-maps-api-key/" target="_blank">%2$s</a> %3$s',
+			esc_html__( 'You are using a custom Google Maps API key.', 'the-events-calendar' ),
+			esc_html__( 'Click here', 'the-events-calendar' ),
+			esc_html__( 'to learn more about using it with The Events Calendar', 'the-events-calendar' )
 		);
 
 		if ( tribe_is_using_basic_gmaps_api() ) {
-			$tooltip = sprintf(
-				__( '<p><strong>You are using The Events Calendar\'s built-in Google Maps API key.</strong></p><br><p>If you do not add your own API key, the built-in API key will always populate this field and some map-related functionality will be limited.</p><br><br><p>%1$s to create your own free Google Maps API key.</p>', 'the-events-calendar' ),
-				'<a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank"></p>' . esc_html__( 'Click here', 'the-events-calendar' ) . '</a>'
-			);
+			$tooltip = $this->get_basic_embed_api_tooltip();
 		}
 
 		$gmaps_api_fields = array(
@@ -94,6 +93,23 @@ class Tribe__Events__Google__Maps_API_Key {
 	}
 
 	/**
+	 * Generates the tooltip text for when The Events Calendar's fallback API key is being used instead of a custom one.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	public function get_basic_embed_api_tooltip() {
+		return sprintf(
+			'<p><strong>%1$s</strong></p><p>%2$s</p><p><a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank">%3$s</a> %4$s</p>',
+			esc_html__( 'You are using The Events Calendar\'s built-in Google Maps API key.', 'the-events-calendar' ),
+			esc_html__( 'If you do not add your own API key, the built-in API key will always populate this field and some map-related functionality will be limited.', 'the-events-calendar' ),
+			esc_html__( 'Click here', 'the-events-calendar' ),
+			esc_html__( 'to create your own free Google Maps API key.', 'the-events-calendar' )
+		);
+	}
+
+	/**
 	 * Adds the browser key api key to the Google Maps JavaScript API url if set by the user.
 	 *
 	 * @param string $js_maps_api_url
@@ -121,12 +137,12 @@ class Tribe__Events__Google__Maps_API_Key {
 	 * @since TBD
 	 *
 	 * @param string $value_string The original HTML string for the input's value attribute.
-	 * @param string $value The literal value of the field itself; falls back to the option name if no value present.
+	 * @param string $field_name The name of the field; usually the key of the option it's associated with.
 	 * @return string The default license key as the input's new value.
 	 */
-	public function populate_field_with_default_api_key( $value_string, $value ) {
+	public function populate_field_with_default_api_key( $value_string, $field_name ) {
 
-		if ( ! isset( $value ) || self::$api_key_option_name !== $value ) {
+		if ( ! isset( $field_name ) || self::$api_key_option_name !== $field_name ) {
 			return $value_string;
 		}
 
@@ -142,5 +158,30 @@ class Tribe__Events__Google__Maps_API_Key {
 		}
 
 		return $value_string;
+	}
+
+	/**
+	 * Ensures the Google Maps API Key field in Settings > APIs shows the correct tooltip text, especially when
+	 * the auto-populating of the field is done via populate_field_with_default_api_key().
+	 *
+	 * @since TBD
+	 *
+	 * @param string $tooltip_string The original HTML string for the input's tooltip attribute.
+	 * @param string $field_name The name of the field; usually the key of the option it's associated with.
+	 * @return string The default license key as the input's new value.
+	 */
+	public function populate_field_tooltip_with_helper_text( $tooltip_string, $field_name ) {
+
+		if ( ! isset( $field_name ) || self::$api_key_option_name !== $field_name ) {
+			return $tooltip_string;
+		}
+
+		$api_key = tribe_get_option( self::$api_key_option_name, self::$default_api_key );
+
+		if ( empty( $api_key ) || self::$default_api_key === $api_key ) {
+			$tooltip_string = $this->get_basic_embed_api_tooltip();
+		}
+
+		return $tooltip_string;
 	}
 }
