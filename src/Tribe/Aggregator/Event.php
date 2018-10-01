@@ -134,7 +134,7 @@ class Tribe__Events__Aggregator__Event {
 		/**
 		 * Allows filtering to add other field mapping values.
 		 *
-		 * @since TBD
+		 * @since 4.6.24
 		 *
 		 * @param array  $field_map Field map for event object.
 		 * @param object $item      Item being translated.
@@ -144,7 +144,7 @@ class Tribe__Events__Aggregator__Event {
 		/**
 		 * Allows filtering to add other field mapping values.
 		 *
-		 * @since TBD
+		 * @since 4.6.24
 		 *
 		 * @param array  $venue_field_map Field map for venue object.
 		 * @param object $item            Item being translated.
@@ -154,7 +154,7 @@ class Tribe__Events__Aggregator__Event {
 		/**
 		 * Allows filtering to add other field mapping values.
 		 *
-		 * @since TBD
+		 * @since 4.6.24
 		 *
 		 * @param array  $organizer_field_map Field map for organizer object.
 		 * @param object $item                Item being translated.

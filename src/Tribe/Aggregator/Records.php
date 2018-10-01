@@ -333,7 +333,7 @@ Tribe__Events__Aggregator__Records {
 		/**
 		 * Allows filtering of Record object for custom origins and overrides.
 		 *
-		 * @since TBD
+		 * @since 4.6.24
 		 *
 		 * @param Tribe__Events__Aggregator__Record__Abstract|null $record Record object for given origin.
 		 * @param string                                           $origin Import origin.

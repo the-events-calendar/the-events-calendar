@@ -239,7 +239,7 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract extends Tribe__Tabbed_V
 		/**
 		 * Filters the validation result for custom validations and overrides.
 		 *
-		 * @since TBD
+		 * @since 4.6.24
 		 *
 		 * @param array|WP_Error $result The updated/validated meta array or A `WP_Error` if the validation failed.
 		 * @param string         $origin Origin name.

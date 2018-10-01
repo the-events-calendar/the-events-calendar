@@ -552,7 +552,7 @@ class Tribe__Events__Aggregator {
 	}
 
 	public function notice_facebook_oauth_feedback() {
-		_deprecated_function( __FUNCTION__, 'TBD', 'Importing from Facebook is no longer supported in Event Aggregator.' );
+		_deprecated_function( __FUNCTION__, '4.6.24', 'Importing from Facebook is no longer supported in Event Aggregator.' );
 
 		if ( empty( $_GET['ea-auth'] ) || 'facebook' !== $_GET['ea-auth'] ) {
 			return false;
@@ -564,7 +564,7 @@ class Tribe__Events__Aggregator {
 	}
 
 	public function notice_facebook_token_expired() {
-		_deprecated_function( __FUNCTION__, 'TBD', 'Importing from Facebook is no longer supported in Event Aggregator.' );
+		_deprecated_function( __FUNCTION__, '4.6.24', 'Importing from Facebook is no longer supported in Event Aggregator.' );
 
 		if ( ! Tribe__Admin__Helpers::instance()->is_screen() ) {
 			return false;

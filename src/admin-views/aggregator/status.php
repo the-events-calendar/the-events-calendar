@@ -212,7 +212,7 @@ $show_third_party_accounts = ! is_network_admin();
 		 *
 		 * HTML outputted here should be wrapped in a table row (<tr>) that contains 2 cells (<td>s).
 		 *
-		 * @since TBD
+		 * @since 4.6.24
 		 *
 		 * @param array $indicator_icons List of indicator icons.
 		 */

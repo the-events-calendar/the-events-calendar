@@ -120,7 +120,7 @@ class Tribe__Events__Aggregator__Admin_Bar {
 	 * Facebook is no longer supported in EA, so ensure that it doesn't show up in the list of available
 	 * services.
 	 *
-	 * @since TBD
+	 * @since 4.6.24
 	 *
 	 * @param array $service_response The array of EA import origins.
 	 * @return array The array of EA import origins with Facebook removed.

@@ -144,7 +144,7 @@ wp_nonce_field( 'tribe-aggregator-save-import', 'tribe_aggregator_nonce' );
 		 *
 		 * HTML outputted here should be wrapped in a table row (<tr>) that contains one <th> and one <td>.
 		 *
-		 * @since TBD
+		 * @since 4.6.24
 		 *
 		 * @param string $aggregator_action Aggregator action (new or edit).
 		 * @param array  $form_args         Form arguments.

@@ -42,7 +42,7 @@ switch ( $origin_slug ) {
 /**
  * Allow filtering of origins excluded from refining EA results by keyword.
  *
- * @since TBD
+ * @since 4.6.24
  *
  * @param array $keyword_exclusions List of origins excluded.
  */
@@ -52,7 +52,7 @@ $keyword_exclusions = json_encode( $keyword_exclusions );
 /**
  * Allow filtering of origins excluded from refining EA results by location.
  *
- * @since TBD
+ * @since 4.6.24
  *
  * @param array $location_exclusions List of origins excluded.
  */

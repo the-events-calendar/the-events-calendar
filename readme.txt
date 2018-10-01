@@ -215,7 +215,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
-= [4.6.24] TBD =
+= [4.6.24] 2018-10-02 =
 
 * Fix - Prevent broken and low-resolution Google Maps if user has not provided a Google Maps API key of their own by providing our own fallback API key [114442]
 * Fix - Only load widget assets when widget is active on the page [113141]

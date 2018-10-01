@@ -16,7 +16,7 @@ class Tribe__Events__Google__Maps_API_Key {
 	/**
 	 * The Events Calendar's default Google Maps API Key, which supports the Basic Embed API.
 	 *
-	 * @since TBD
+	 * @since 4.6.24
 	 *
 	 * @var string
 	 */
@@ -95,7 +95,7 @@ class Tribe__Events__Google__Maps_API_Key {
 	/**
 	 * Generates the tooltip text for when The Events Calendar's fallback API key is being used instead of a custom one.
 	 *
-	 * @since TBD
+	 * @since 4.6.24
 	 *
 	 * @return string
 	 */
@@ -134,7 +134,7 @@ class Tribe__Events__Google__Maps_API_Key {
 	 * Ensures the Google Maps API Key field in Settings > APIs is always populated with TEC's
 	 * default API key if no user-supplied key is present.
 	 *
-	 * @since TBD
+	 * @since 4.6.24
 	 *
 	 * @param string $value_string The original HTML string for the input's value attribute.
 	 * @param string $field_name The name of the field; usually the key of the option it's associated with.
@@ -164,7 +164,7 @@ class Tribe__Events__Google__Maps_API_Key {
 	 * Ensures the Google Maps API Key field in Settings > APIs shows the correct tooltip text, especially when
 	 * the auto-populating of the field is done via populate_field_with_default_api_key().
 	 *
-	 * @since TBD
+	 * @since 4.6.24
 	 *
 	 * @param string $tooltip_string The original HTML string for the input's tooltip attribute.
 	 * @param string $field_name The name of the field; usually the key of the option it's associated with.

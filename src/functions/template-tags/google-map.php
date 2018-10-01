@@ -19,7 +19,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * See https://developers.google.com/maps/documentation/embed/usage-and-billing#embed for
 	 * more info.
 	 *
-	 * @since TBD
+	 * @since 4.6.24
 	 *
 	 * @return boolean
 	 */
@@ -31,7 +31,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 * Filters whether or not only basic Google Maps Embed API requests are allowed on this site, which happens
 		 * when the site is using The Events Calendar's default Google Maps API key.
 		 *
-		 * @since TBD
+		 * @since 4.6.24
 		 *
 		 * @param boolean $using_basic_maps_api Whether basic Google Maps Embed API requests are allowed on this site.
 		 * @param string $user_api_key The value of the Google Maps API Key setting in TEC.
@@ -160,7 +160,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * Gets a full URL for a basic Google Maps embed.
 	 * See https://developers.google.com/maps/documentation/embed/guide for more info.
 	 *
-	 * @since TBD
+	 * @since 4.6.24
 	 *
 	 * @param string $address_string The full address for the marker to be shown on the map (e.g. an event venue).
 	 */
@@ -178,7 +178,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			 * Allows filtering the URL parameters passed to the basic Google Maps embed URL via add_query_arg().
 			 * See https://developers.google.com/maps/documentation/embed/guide for all available URL parameters.
 			 *
-			 * @since TBD
+			 * @since 4.6.24
 			 *
 			 * @param array $embed_url_args The URL parameters being passed to the Google Maps embed URL
 			 */
@@ -187,7 +187,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			 * Allows filtering the root Google Maps URL used for the basic map embeds; determines what Map Mode is used.
 			 * See https://developers.google.com/maps/documentation/embed/guide for available map modes.
 			 *
-			 * @since TBD
+			 * @since 4.6.24
 			 *
 			 * @param string $gmaps_embed_url The root Google Maps embed URL.
 			 */

@@ -428,7 +428,7 @@ class Tribe__Events__Aggregator__Service {
 		/**
 		 * Allows filtering to add other arguments to be passed to the EA service.
 		 *
-		 * @since TBD
+		 * @since 4.6.24
 		 *
 		 * @param array $args   Arguments to queue the import.
 		 * @param self  $record Which record we are dealing with.
