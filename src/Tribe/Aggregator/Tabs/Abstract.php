@@ -236,6 +236,17 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract extends Tribe__Tabbed_V
 				break;
 		}
 
+		/**
+		 * Filters the validation result for custom validations and overrides.
+		 *
+		 * @since 4.6.24
+		 *
+		 * @param array|WP_Error $result The updated/validated meta array or A `WP_Error` if the validation failed.
+		 * @param string         $origin Origin name.
+		 * @param array          $meta   Import meta.
+		 */
+		$result = apply_filters( 'tribe_aggregator_import_validate_meta_by_origin', $result, $origin, $meta );
+
 		return $result;
 	}
 
