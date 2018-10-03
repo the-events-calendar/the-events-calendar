@@ -215,6 +215,10 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
+= [4.6.25] TBD =
+
+* Fix - List only enabled views on the "Default View" option. Thanks to wescole, John Meuse and others for reporting! [114807]
+
 = [4.6.24] TBD =
 
 * Fix - Only load widget assets when widget is active on the page [113141]
@@ -226,7 +230,6 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - Fixed a bug where it was often not possible to un-check the "Enable JSON-LD" option in the Events List Widget (thanks to @myrunningresource and @craigwilcox for reporting this!) [113541]
 * Fix - Added checks to prevent JS Type Error in mobile view. Thanks szenenight, agrilife and others for flagging this! [113524]
 * Fix - Handle left-over Facebook scheduled imports and notices [114831]
-* Fix - List only enabled views on the "Default View" option. Thanks to wescole, John Meuse and others for reporting! [114807]
 * Tweak - Added the `tribe_events_month_daily_events` filter to the Month view [114041]
 * Tweak - Move Google Maps API loading to tribe_assets and only load once on single views when PRO is active, thanks to info2grow first reporting [112221]
 * Tweak - Accept 0 as an argument in tribe_get_events() so that `'post_parent' => 0` works, thanks Cy for the detailed report [111518]
