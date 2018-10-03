@@ -229,6 +229,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Tweak - Move Google Maps API loading to tribe_assets and only load once on single views when PRO is active, thanks to info2grow first reporting [112221]
 * Tweak - Accept 0 as an argument in tribe_get_events() so that `'post_parent' => 0` works, thanks Cy for the detailed report [111518]
 * Fix - handle left-over Facebook scheduled imports and notices [114831]
+* Tweak - Avoid unnecessary HTTP callls in the Settings screens [114013]
 
 = [4.6.23] 2018-09-12 =
 
