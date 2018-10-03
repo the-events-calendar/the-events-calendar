@@ -341,12 +341,22 @@ class Tribe__Events__Aggregator__Service {
 
 		$args = $this->get_eventbrite_args();
 
+		$cached_response = get_transient( 'tribe_aggregator_has_eventbrite_authorized_response' );
+
+		if ( false !== $cached_response ) {
+			return $cached_response;
+		}
+
 		$response = $this->get( 'eventbrite/validate', $args );
 
+
 		// If we have an WP_Error we return only CSV
-		if ( is_wp_error( $response ) ) {
-			return tribe_error( 'core:aggregator:invalid-eventbrite-token', array(), array( 'response' => $response ) );
+		if ( $response instanceof WP_Error) {
+			$response= tribe_error( 'core:aggregator:invalid-eventbrite-token', array(), array( 'response' => $response ) );
 		}
+
+		// Check this each 15 minutes.
+		set_transient( 'tribe_aggregator_has_eventbrite_authorized_response', $response, 900 );
 
 		return $response;
 	}
