@@ -351,8 +351,8 @@ class Tribe__Events__Aggregator__Service {
 
 
 		// If we have an WP_Error we return only CSV
-		if ( $response instanceof WP_Error) {
-			$response= tribe_error( 'core:aggregator:invalid-eventbrite-token', array(), array( 'response' => $response ) );
+		if ( $response instanceof WP_Error ) {
+			$response = tribe_error( 'core:aggregator:invalid-eventbrite-token', array(), array( 'response' => $response ) );
 		}
 
 		// Check this each 15 minutes.
