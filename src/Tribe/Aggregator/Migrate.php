@@ -11,12 +11,6 @@ class Tribe__Events__Aggregator__Migrate {
 	protected static $instance;
 
 	/**
-	 * Option key for tracking that legacy facebook migration has completed
-	 * @var string
-	 */
-	protected static $migrated_facebook_key = 'tribe-aggregator-legacy-facebook-migrated';
-
-	/**
 	 * Option key for tracking that legacy ical migration has completed
 	 * @var string
 	 */
