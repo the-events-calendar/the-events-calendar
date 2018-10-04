@@ -425,6 +425,16 @@ class Tribe__Events__Aggregator__Service {
 			$args['licenses'] = $licenses;
 		}
 
+		/**
+		 * Allows filtering to add other arguments to be passed to the EA service.
+		 *
+		 * @since 4.6.24
+		 *
+		 * @param array $args   Arguments to queue the import.
+		 * @param self  $record Which record we are dealing with.
+		 */
+		$args = apply_filters( 'tribe_aggregator_service_post_import_args', $args, $this );
+
 		$request_args = array(
 			'body' => $args,
 		);

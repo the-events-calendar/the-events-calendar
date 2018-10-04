@@ -330,6 +330,17 @@ Tribe__Events__Aggregator__Records {
 				break;
 		}
 
+		/**
+		 * Allows filtering of Record object for custom origins and overrides.
+		 *
+		 * @since 4.6.24
+		 *
+		 * @param Tribe__Events__Aggregator__Record__Abstract|null $record Record object for given origin.
+		 * @param string                                           $origin Import origin.
+		 * @param WP_Post|null                                     $post   Record post data.
+		 */
+		$record = apply_filters( 'tribe_aggregator_record_by_origin', $record, $origin, $post );
+
 		return $record;
 	}
 
