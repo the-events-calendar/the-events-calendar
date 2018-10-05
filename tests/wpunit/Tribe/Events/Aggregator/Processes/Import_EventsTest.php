@@ -48,7 +48,7 @@ class Import_EventsTest extends Aggregator_TestCase {
 	 * @test
 	 */
 	public function should_create_the_event_if_the_data_does_not_contain_linked_posts() {
-		$item = $this->factory()->import_record->create_and_get_event_record();
+		$item = $this->factory()->import_record->create_and_get_event_data();
 		unset( $item->venue, $item->organizer );
 		$record = new Record();
 		$record->create( 'manual', [], [ 'origin' => 'ical', 'post_status' => 'draft' ] );
@@ -78,7 +78,7 @@ class Import_EventsTest extends Aggregator_TestCase {
 	 * @test
 	 */
 	public function should_not_insert_the_event_if_the_event_is_dependent_on_a_linked_post() {
-		$item             = $this->factory()->import_record->create_and_get_event_record();
+		$item             = $this->factory()->import_record->create_and_get_event_data();
 		$item->depends_on = [ 'some-linked-post-global-id' ];
 		$record           = new Record();
 		$record->create( 'manual', [], [ 'origin' => 'ical', 'post_status' => 'draft' ] );
@@ -104,7 +104,7 @@ class Import_EventsTest extends Aggregator_TestCase {
 	 * @test
 	 */
 	public function should_set_the_transitional_meta_on_a_venue_when_inserting_non_dependent_event() {
-		$item   = $this->factory()->import_record->create_and_get_event_record();
+		$item   = $this->factory()->import_record->create_and_get_event_data();
 		$record = new Record();
 		$record->create( 'manual', [], [ 'origin' => 'ical', 'post_status' => 'draft' ] );
 		$data = [
@@ -135,7 +135,7 @@ class Import_EventsTest extends Aggregator_TestCase {
 	 * @test
 	 */
 	public function should_set_the_transitional_meta_on_organizers_when_inserting_non_dependent_events() {
-		$item   = $this->factory()->import_record->create_and_get_event_record();
+		$item   = $this->factory()->import_record->create_and_get_event_data();
 		$record = new Record();
 		$record->create( 'manual', [], [ 'origin' => 'ical', 'post_status' => 'draft' ] );
 		$data = [
@@ -170,7 +170,7 @@ class Import_EventsTest extends Aggregator_TestCase {
 	 * @test
 	 */
 	public function should_insert_dependent_items_when_their_dependencies_are_in_db() {
-		$item                  = $this->factory()->import_record->create_and_get_event_record();
+		$item                  = $this->factory()->import_record->create_and_get_event_data();
 		$sut                   = $this->make_instance();
 		$transitional_meta_key = $sut->get_transitional_meta_key( 'foo-bar' );
 		$venue_id              = $this->factory()->venue->create( [ 'meta_input' => [ $transitional_meta_key => 'venue-global-id' ] ] );
@@ -236,7 +236,7 @@ class Import_EventsTest extends Aggregator_TestCase {
 	 * @test
 	 */
 	public function should_skip_the_import_of_an_event_that_generates_an_exception() {
-		$item = $this->factory()->import_record->create_and_get_event_record();
+		$item = $this->factory()->import_record->create_and_get_event_data();
 		unset( $item->venue, $item->organizer );
 		$record = new Record();
 		$record->create( 'manual', [], [ 'origin' => 'ical', 'post_status' => 'draft' ] );
@@ -272,7 +272,7 @@ class Import_EventsTest extends Aggregator_TestCase {
 	 * @test
 	 */
 	public function should_complete_in_clear_state_on_first_run() {
-		$item = $this->factory()->import_record->create_and_get_event_record();
+		$item = $this->factory()->import_record->create_and_get_event_data();
 		unset( $item->venue, $item->organizer );
 		$record = new Record();
 		$record->create( 'manual', [], [ 'origin' => 'ical', 'post_status' => 'draft' ] );

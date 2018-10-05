@@ -245,6 +245,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Tweak - Added the `tribe_events_status_third_party` action to allow new EA origins [114652]
 * Tweak - Added the `tribe_events_aggregator_import_form` action to allow new EA origins [114652]
 * Tweak - Added `$origin_show_map_options` parameter to the `tribe_aggregator_fields` filter to allow new EA origins to make use of them [114652]
+* Fix - Fixed an issue where a fatal error could be generated when trying to save a new Event Aggregator scheduled import [115339]
 
 = [4.6.23] 2018-09-12 =
 
