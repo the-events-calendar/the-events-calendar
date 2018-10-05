@@ -30,7 +30,7 @@ class ForcedImportStatusCest {
 
 		$previous_hash = $data['batch_hash'];
 		$meta          = [ 'next_batch_hash' => $previous_hash ];
-		$record        = $this->make_record( $import_id, $meta, 'pending' );
+		$record        = $this->make_manual_record( $import_id, $meta, 'pending' );
 
 		$I->sendPOST( "import/{$import_id}/state", $data );
 
@@ -77,7 +77,7 @@ class ForcedImportStatusCest {
 
 		$previous_hash = $data['batch_hash'];
 		$meta          = [ 'next_batch_hash' => $previous_hash ];
-		$this->make_record( $import_id, $meta, 'pending' );
+		$this->make_manual_record( $import_id, $meta, 'pending' );
 
 		$I->sendPOST( "import/{$import_id}/state", $data );
 

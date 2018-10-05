@@ -40,7 +40,7 @@ class ItemsTest extends Aggregator_TestCase {
 	 */
 	public function should_return_items_unchanged_when_no_linked_post_is_duplicated() {
 		$items = array_map( function () {
-			return $this->factory()->import_record->create_and_get_event_record();
+			return $this->factory()->import_record->create_and_get_event_data();
 		}, range( 1, 3 ) );
 		$sut   = $this->make_instance();
 		$sut->set_items( $items );
@@ -57,7 +57,7 @@ class ItemsTest extends Aggregator_TestCase {
 	 */
 	public function should_mark_items_as_dependent_when_venue_is_used_by_more_than_one() {
 		$items = array_map( function () {
-			return $this->factory()->import_record->create_and_get_event_record();
+			return $this->factory()->import_record->create_and_get_event_data();
 		}, range( 1, 3 ) );
 
 		$item_0_venue    = $items[0]->venue;
@@ -83,7 +83,7 @@ class ItemsTest extends Aggregator_TestCase {
 	 */
 	public function should_mark_items_as_dependent_when_organizer_is_used_by_more_than_one() {
 		$items = array_map( function () {
-			return $this->factory()->import_record->create_and_get_event_record();
+			return $this->factory()->import_record->create_and_get_event_data();
 		}, range( 1, 3 ) );
 
 		$item_0_organizer    = $items[0]->organizer;
@@ -109,7 +109,7 @@ class ItemsTest extends Aggregator_TestCase {
 	 */
 	public function should_mark_items_as_dependent_when_one_organizer_is_used_by_more_than_one() {
 		$items = array_map( function () {
-			return $this->factory()->import_record->create_and_get_event_record();
+			return $this->factory()->import_record->create_and_get_event_data();
 		}, range( 1, 3 ) );
 
 		$item_0_organizer_0     = $items[0]->organizer[0];
@@ -135,7 +135,7 @@ class ItemsTest extends Aggregator_TestCase {
 	 */
 	public function should_mark_items_as_dependent_when_venue_and_organizer_are_used_by_more_than_one() {
 		$items = array_map( function () {
-			return $this->factory()->import_record->create_and_get_event_record();
+			return $this->factory()->import_record->create_and_get_event_data();
 		}, range( 1, 3 ) );
 
 		$item_0_venue           = $items[0]->venue;
