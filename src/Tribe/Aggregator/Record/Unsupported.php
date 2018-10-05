@@ -83,8 +83,7 @@ class Tribe__Events__Aggregator__Record__Unsupported extends Tribe__Events__Aggr
 	 *
 	 * @return string The record fixed hash.
 	 */
-	public function
-	get_data_hash() {
+	public function get_data_hash() {
 		return 'unsupported';
 	}
 
