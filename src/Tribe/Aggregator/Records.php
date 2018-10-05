@@ -713,6 +713,16 @@ class Tribe__Events__Aggregator__Records {
 		add_filter( 'tribe_aggregator_before_update_event', array( 'Tribe__Events__Aggregator__Record__Eventbrite', 'filter_event_to_preserve_fields' ), 10, 2 );
 	}
 
+	/**
+	 * Filter records by source and data hash.
+	 *
+	 * @param string $source    Source value.
+	 * @param string $data_hash Data hash.
+	 *
+	 * @since TBD
+	 *
+	 * @return Tribe__Events__Aggregator__Record__Abstract|false Record object or false if not found.
+	 */
 	public function find_by_data_hash( $source, $data_hash ) {
 		/** @var WP_Query $matches */
 		$matches = $this->query( array(
