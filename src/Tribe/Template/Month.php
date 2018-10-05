@@ -831,7 +831,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			 * If the value returned from this filter is not `null` then the method will bail
 			 * and return the filter return value.
 			 *
-			 * @since TBD
+			 * @since 4.6.24
 			 *
 			 * @param WP_Query|null $daily_events The WP_Query object the template will loop on
 			 *                                    to print the daily events; initially `null`.

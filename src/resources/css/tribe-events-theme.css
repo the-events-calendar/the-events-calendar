@@ -502,6 +502,65 @@ ul.tribe-events-sub-nav a,
 	min-width: 250px;
 }
 
+/* = Events List Widget Styles (Sidebar)
+   @ Template: widgets/list-widget.php
+=============================================*/
+
+.tribe-events-list-widget ol li {
+	list-style: none;
+	margin-bottom: 8px;
+	margin-bottom: .5rem;
+}
+
+.tribe-events-list-widget .tribe-list-widget {
+	margin-left: 0;
+}
+
+.tribe-events-list-widget .tribe-events-list-widget-events {
+	padding: 0 24px;
+	padding: 0 1.5rem;
+	margin-bottom: 20px;
+	margin-bottom: 1.25rem;
+}
+
+.tribe-events-list-widget .tribe-event-title {
+	margin-bottom: 4px;
+	margin-bottom: .25rem;
+	margin-top: 0;
+}
+
+.tribe-events-list-widget .duration {
+	font-weight: bold;
+}
+
+.tribe-events-list-widget .tribe-event-featured {
+	background: var(--featured-event-bg);
+	padding-bottom: 12px;
+	padding-bottom: .75rem;
+}
+
+.tribe-events-list-widget .tribe-event-featured .tribe-event-title {
+	margin-top: 12px;
+	margin-top: .75rem;
+}
+
+.tribe-events-list-widget .tribe-event-featured .tribe-event-title a {
+	color: white;
+}
+
+.tribe-events-list-widget .tribe-event-featured .tribe-event-image {
+	line-height: 0;
+	margin-left: -24px;
+	margin-left: -1.5rem;
+	margin-right: -24px;
+	margin-right: -1.5rem;
+	overflow: hidden;
+}
+
+.tribe-events-list-widget .tribe-event-featured .tribe-event-duration {
+	color: white;
+}
+
 /* = Twenty* overrides
 =============================================*/
 

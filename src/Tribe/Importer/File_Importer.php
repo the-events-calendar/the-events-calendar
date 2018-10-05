@@ -390,7 +390,7 @@ abstract class Tribe__Events__Importer__File_Importer {
 	/**
 	 * Hooks on term creation to log it.
 	 *
-	 * @since TBD
+	 * @since 4.6.24
 	 *
 	 * @param int    $term_id  The newly created term ID.
 	 * @param int    $tt_id    The newly created term taxonomy ID.
@@ -407,7 +407,7 @@ abstract class Tribe__Events__Importer__File_Importer {
 	/**
 	 * Hooks on the term creation to watch for any newly created terms.
 	 *
-	 * @since TBD
+	 * @since 4.6.24
 	 */
 	public function watch_term_creation() {
 		if ( has_action( 'created_term', array( $this, 'on_created_term' ) ) ) {
@@ -420,7 +420,7 @@ abstract class Tribe__Events__Importer__File_Importer {
 	/**
 	 * Stops watching for term creation and logging.
 	 *
-	 * @since TBD
+	 * @since 4.6.24
 	 */
 	public function stop_watching_term_creation() {
 		if ( ! has_action( 'created_term', array( $this, 'on_created_term' ) ) ) {
@@ -433,7 +433,7 @@ abstract class Tribe__Events__Importer__File_Importer {
 	/**
 	 * Returns an iterator to iterate over the last created terms.
 	 *
-	 * @since TBD
+	 * @since 4.6.24
 	 *
 	 * By default a NoRewindIterator will be returned, this will allow successive calls from iterating code,
 	 * e.g. a `foreach`, to resume from the previously last position.

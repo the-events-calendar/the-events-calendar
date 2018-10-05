@@ -104,7 +104,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 *
 	 * @var string
 	 */
-	protected $origin;
+	public $origin;
 
 	/**
 	 * Setup all the hooks and filters
@@ -1147,7 +1147,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			}
 
 			$via = $this->get_label();
-			if ( in_array( $this->origin, array( 'facebook', 'meetup' ) ) ) {
+			if ( in_array( $this->origin, array( 'meetup' ) ) ) {
 				$via = '<a href="' . esc_url( $this->meta['source'] ) . '" target="_blank">' . esc_html( $via ) . '<span class="screen-reader-text">' . __( ' (opens in a new window)', 'the-events-calendar' ) . '</span></a>';
 			}
 		}

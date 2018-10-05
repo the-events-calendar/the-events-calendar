@@ -87,7 +87,7 @@ class Tribe__Events__List_Widget extends WP_Widget {
 		 * This has to be done in widget() because we have to be able to access
 		 * the queried object for some plugins
 		 *
-		 * @since TBD
+		 * @since 4.6.24
 		 *
 		 * @param string __CLASS__ the widget class
 		 * @param array  $args     the widget args
@@ -247,7 +247,7 @@ class Tribe__Events__List_Widget extends WP_Widget {
 	/**
 	 * Enqueue the appropriate CSS for the list widget
 	 *
-	 * @since TBD
+	 * @since 4.6.24
 	 */
 	public static function enqueue_widget_styles() {
 		tribe_asset_enqueue( 'tribe-events-calendar-style' );
