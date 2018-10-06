@@ -275,7 +275,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$this->maybe_set_common_lib_info();
 
 			// let's initialize tec silly-early to avoid fatals with upgrades from 3.x to 4.x
-			add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ), 0 );
+			//add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ), 0 );
+
+			add_action( 'tribe_common_loaded', array( $this, 'tribe_common_textdomain' ), 0 );
 		}
 
 		/**
@@ -316,6 +318,16 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 		}
 
+		public function tribe_common_textdomain() {
+
+			/**
+			 * We need Common to be able to load text domains correctly.
+			 * With that in mind we initialize Common passing the plugin Main class as the context
+			 */
+			Tribe__Main::instance( $this )->load_text_domain( 'the-events-calendar', $this->plugin_dir . 'lang/' );
+
+		}
+
 		/**
 		 * Plugins shouldn't include their functions before `plugins_loaded` because this will allow
 		 * better compatibility with the autoloader methods.
@@ -333,12 +345,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			if ( version_compare( Tribe__Main::VERSION, self::MIN_COMMON_VERSION, '<' ) ) {
 				return;
 			}
-
-			/**
-			 * We need Common to be able to load text domains correctly.
-			 * With that in mind we initialize Common passing the plugin Main class as the context
-			 */
-			Tribe__Main::instance( $this )->load_text_domain( 'the-events-calendar', $this->plugin_dir . 'lang/' );
 
 			if ( self::supportedVersion( 'wordpress' ) && self::supportedVersion( 'php' ) ) {
 				$this->bind_implementations();
