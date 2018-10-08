@@ -22,10 +22,6 @@ switch ( $origin_slug ) {
 		$depends = "#tribe-ea-field-{$origin_slug}_import_type";
 		$radius->help = __( 'Use the filters to narrow down which events are fetched from this site.', 'the-events-calendar' );
 		break;
-	case 'facebook':
-		$depends = "#tribe-ea-field-{$origin_slug}_import_type";
-		$radius->help = __( 'Use the filters to narrow down which events are fetched from Facebook.', 'the-events-calendar' );
-		break;
 	case 'eventbrite':
 		$depends = "#tribe-ea-field-{$origin_slug}_import_source";
 		$depends_condition = 'data-condition=source_type_url';
@@ -42,13 +38,33 @@ switch ( $origin_slug ) {
 		$radius->help = __( 'Use the filters to narrow down which events are fetched from this iCalendar feed.', 'the-events-calendar' );
 		break;
 }
+
+/**
+ * Allow filtering of origins excluded from refining EA results by keyword.
+ *
+ * @since 4.6.24
+ *
+ * @param array $keyword_exclusions List of origins excluded.
+ */
+$keyword_exclusions = apply_filters( 'tribe_events_aggregator_refine_keyword_exclusions', array( 'facebook' ) );
+$keyword_exclusions = json_encode( $keyword_exclusions );
+
+/**
+ * Allow filtering of origins excluded from refining EA results by location.
+ *
+ * @since 4.6.24
+ *
+ * @param array $location_exclusions List of origins excluded.
+ */
+$location_exclusions = apply_filters( 'tribe_events_aggregator_refine_location_exclusions', array( 'url', 'facebook' ) );
+$location_exclusions = json_encode( $location_exclusions );
 ?>
 <tr class="tribe-dependent tribe-refine-filters" data-depends="<?php echo esc_attr( $depends ); ?>" <?php echo esc_attr( $depends_condition ); ?>>
 	<th scope="row">
 		<label for="tribe-ea-field-refine_keywords"><?php echo __( 'Refine:', 'the-events-calendar' ); ?></label>
 	</th>
 	<td>
-		<div class="tribe-refine tribe-dependent" data-depends="#tribe-ea-field-origin" data-condition-not="facebook">
+		<div class="tribe-refine tribe-dependent" data-depends="#tribe-ea-field-origin" data-condition-not="<?php echo esc_attr( $keyword_exclusions ); ?>">
 			<input
 				name="aggregator[<?php echo esc_attr( $origin_slug ); ?>][keywords]"
 				type="text"
@@ -84,7 +100,7 @@ switch ( $origin_slug ) {
 			</span>
 		</div>
 		<div class="tribe-refine tribe-dependent" data-depends="#tribe-ea-field-origin"
-		     data-condition-relation="and" data-condition-not='["url","facebook"]'>
+		     data-condition-relation="and" data-condition-not="<?php echo esc_attr( $location_exclusions ); ?>">
 			<input
 				name="aggregator[<?php echo esc_attr( $origin_slug ); ?>][location]"
 				type="text"

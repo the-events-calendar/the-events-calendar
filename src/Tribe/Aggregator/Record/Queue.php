@@ -302,6 +302,16 @@ class Tribe__Events__Aggregator__Record__Queue implements Tribe__Events__Aggrega
 				$batch_size = apply_filters( 'tribe_aggregator_batch_size', Tribe__Events__Aggregator__Record__Queue_Processor::$batch_size );
 			}
 
+			/*
+			 * If the queue system is switched mid-imports this might happen.
+			 * In that case we conservatively stop (kill) the queue process.
+			 */
+			if ( ! is_array( $this->items ) ) {
+				$this->kill_queue();
+
+				return $this;
+			}
+
 			// Every time we are about to process we reset the next var
 			$this->next = array_splice( $this->items, 0, $batch_size );
 

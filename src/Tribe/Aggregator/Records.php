@@ -320,10 +320,6 @@ Tribe__Events__Aggregator__Records {
 			case 'ea/ics':
 				$record = new Tribe__Events__Aggregator__Record__ICS( $post );
 				break;
-			case 'facebook':
-			case 'ea/facebook':
-				$record = new Tribe__Events__Aggregator__Record__Facebook( $post );
-				break;
 			case 'meetup':
 			case 'ea/meetup':
 				$record = new Tribe__Events__Aggregator__Record__Meetup( $post );
@@ -333,6 +329,17 @@ Tribe__Events__Aggregator__Records {
 				$record = new Tribe__Events__Aggregator__Record__Url( $post );
 				break;
 		}
+
+		/**
+		 * Allows filtering of Record object for custom origins and overrides.
+		 *
+		 * @since 4.6.24
+		 *
+		 * @param Tribe__Events__Aggregator__Record__Abstract|null $record Record object for given origin.
+		 * @param string                                           $origin Import origin.
+		 * @param WP_Post|null                                     $post   Record post data.
+		 */
+		$record = apply_filters( 'tribe_aggregator_record_by_origin', $record, $origin, $post );
 
 		return $record;
 	}
@@ -693,12 +700,6 @@ Tribe__Events__Aggregator__Records {
 
 		// Filter gcal events to preserve some fields that aren't supported by Google Calendar
 		add_filter( 'tribe_aggregator_before_update_event', array( 'Tribe__Events__Aggregator__Record__gCal', 'filter_event_to_preserve_fields' ), 10, 2 );
-
-		// Filter facebook events to force an event URL
-		add_filter( 'tribe_aggregator_before_save_event', array( 'Tribe__Events__Aggregator__Record__Facebook', 'filter_event_to_force_url' ), 10, 2 );
-
-		// Filter facebook events to preserve some fields that aren't supported by Facebook
-		add_filter( 'tribe_aggregator_before_update_event', array( 'Tribe__Events__Aggregator__Record__Facebook', 'filter_event_to_preserve_fields' ), 10, 2 );
 
 		// Filter meetup events to force an event URL
 		add_filter( 'tribe_aggregator_before_save_event', array( 'Tribe__Events__Aggregator__Record__Meetup', 'filter_event_to_force_url' ), 10, 2 );

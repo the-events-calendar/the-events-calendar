@@ -136,7 +136,6 @@ class Tribe__Events__Aggregator__Page {
 						'tribe-dependency',
 						'tribe-select2',
 						'tribe-events-admin',
-						'tribe-ea-facebook-login',
 					),
 				),
 				array( 'tribe-ea-page', 'aggregator-page.css', array( 'datatables-css' ) ),
@@ -149,8 +148,6 @@ class Tribe__Events__Aggregator__Page {
 				'localize' => (object) $localize_data,
 			)
 		);
-
-		tribe_asset( $plugin, 'tribe-ea-facebook-login', 'aggregator-facebook-login.js', array( 'jquery', 'underscore', 'tribe-dependency' ), 'admin_enqueue_scripts' );
 	}
 
 	/**

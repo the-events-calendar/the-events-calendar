@@ -592,7 +592,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		$before = wpautop( $before );
 		$before = do_shortcode( stripslashes( shortcode_unautop( $before ) ) );
 		$before = '<div class="tribe-events-before-html">' . $before . '</div>';
-		$before = $before . '<span class="tribe-events-ajax-loading"><img class="tribe-events-spinner-medium" src="' . tribe_events_resource_url( 'images/tribe-loading.gif' ) . '" alt="' . sprintf( esc_html__( 'Loading %s', 'the-events-calendar' ), $events_label_plural ) . '" /></span>';
+		$before = $before . '<span class="tribe-events-ajax-loading"><img class="tribe-events-spinner-medium" src="' . esc_url( tribe_events_resource_url( 'images/tribe-loading.gif' ) ) . '" alt="' . sprintf( esc_attr__( 'Loading %s', 'the-events-calendar' ), $events_label_plural ) . '" /></span>';
 
 		echo apply_filters( 'tribe_events_before_html', $before );
 	}
@@ -1202,7 +1202,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				$json['imageSrc']        = $image_src;
 				$json['dateDisplay']     = $date_display;
 				$json['imageTooltipSrc'] = $image_tool_src;
-				$json['excerpt']         = tribe_events_get_the_excerpt( $event );
+				$json['excerpt']         = tribe_events_get_the_excerpt( $event, null, true );
 				$json['categoryClasses'] = $category_classes;
 
 				/**
@@ -1428,12 +1428,13 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * @category Events
 	 *
-	 * @param  WP_Post|int|null $post The Post Object|ID, if null defaults to `get_the_ID()`
-	 * @param  array $allowed_html The wp_kses compatible array
+	 * @param WP_Post|int|null $post The Post Object|ID, if null defaults to `get_the_ID()`
+	 * @param array $allowed_html The wp_kses compatible array
+	 * @param boolean $skip_postdata_manipulation Optional. Defaults to false. When true, the resetting of global $post variable is disabled. (Useful for some contexts like month view.)
 	 *
 	 * @return string|null Will return null on Bad Post Instances
 	 */
-	function tribe_events_get_the_excerpt( $post = null, $allowed_html = null ) {
+	function tribe_events_get_the_excerpt( $post = null, $allowed_html = null, $skip_postdata_manipulation = false ) {
 		// If post is not numeric or instance of WP_Post it defaults to the current Post ID
 		if ( ! is_numeric( $post ) && ! $post instanceof WP_Post ) {
 			$post = get_the_ID();
@@ -1543,8 +1544,10 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$GLOBALS['post'] = $global_post;
 		}
 
-		// Setup post data to be able to use WP template tags
-		setup_postdata( $post );
+		if ( ! $skip_postdata_manipulation ) {
+			// Setup post data to be able to use WP template tags
+			setup_postdata( $post );
+		}
 
 		/**
 		 * Filter the event excerpt used in various views.
@@ -1554,7 +1557,9 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		$excerpt = apply_filters( 'tribe_events_get_the_excerpt', wpautop( $excerpt ), $post );
 
-		wp_reset_postdata();
+		if ( ! $skip_postdata_manipulation ) {
+			wp_reset_postdata();
+		}
 
 		return $excerpt;
 	}
@@ -1686,7 +1691,10 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 		$path = $resource_path . $resource;
 
-		$url  = plugins_url( Tribe__Events__Main::instance()->plugin_dir . $path );
+		$file = wp_normalize_path( Tribe__Events__Main::instance()->plugin_path . $path );
+
+		// Turn the Path into a URL
+		$url = plugins_url( basename( $file ), $file );
 
 		/**
 		 * Deprecated the tribe_events_resource_url filter in 4.0 in favor of tribe_resource_url. Remove in 5.0

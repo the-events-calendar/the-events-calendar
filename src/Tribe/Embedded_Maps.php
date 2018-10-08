@@ -94,14 +94,27 @@ class Tribe__Events__Embedded_Maps {
 		end( $this->embedded_maps );
 		$index = key( $this->embedded_maps );
 
-		// Generate the HTML used to "house" the map
 		ob_start();
 
-		tribe_get_template_part( 'modules/map', null, array(
-			'index'  => $index,
-			'width'  => null === $width  ? apply_filters( 'tribe_events_single_map_default_width', '100%' ) : $width,
-			'height' => null === $height ? apply_filters( 'tribe_events_single_map_default_height', '350px' ) : $height,
-		) );
+		if ( tribe_is_using_basic_gmaps_api() ) {
+
+			// Get a basic embed that doesn't use the JavaScript API
+			tribe_get_template_part( 'modules/map-basic', null, array(
+				'embed_url'   => tribe_get_basic_gmap_embed_url( $this->address ),
+				'address'     => $this->address,
+				'index'       => $index,
+				'width'       => null === $width  ? apply_filters( 'tribe_events_single_map_default_width', '100%' ) : $width,
+				'height'      => null === $height ? apply_filters( 'tribe_events_single_map_default_height', '350px' ) : $height,
+			) );
+
+		 } else {
+		 	// Generate the HTML used to "house" the JavaScript API-enabled map
+		 	tribe_get_template_part( 'modules/map', null, array(
+		 		'index'  => $index,
+		 		'width'  => null === $width  ? apply_filters( 'tribe_events_single_map_default_width', '100%' ) : $width,
+		 		'height' => null === $height ? apply_filters( 'tribe_events_single_map_default_height', '350px' ) : $height,
+		 	) );
+		 }
 
 		$this->setup_scripts();
 
@@ -161,30 +174,15 @@ class Tribe__Events__Embedded_Maps {
 
 	protected function enqueue_map_scripts() {
 
-		$api_url = 'https://maps.google.com/maps/api/js';
-		$api_key = tribe_get_option( 'google_maps_js_api_key' );
+		$api_key = tribe_get_option( 'google_maps_js_api_key', Tribe__Events__Google__Maps_API_Key::$default_api_key );
 
 		// bail if we don't have an API key
 		if ( empty( $api_key ) ) {
 			return;
 		}
 
-		if ( is_string( $api_key ) ) {
-			$api_url = sprintf( 'https://maps.googleapis.com/maps/api/js?key=%s', trim( $api_key ) );
-		}
-
-		/**
-		 * Allows for filtering the embedded Google Maps API URL.
-		 *
-		 * @param string $api_url The Google Maps API URL.
-		 */
-		$url = apply_filters( 'tribe_events_google_maps_api', $api_url );
-
-		wp_enqueue_script( 'tribe_events_google_maps_api', $url, array(), false, true );
-
-		// Setup our own script used to initialize each map
-		$url = Tribe__Events__Template_Factory::getMinFile( tribe_events_resource_url( 'embedded-map.js' ), true );
-		wp_enqueue_script( self::MAP_HANDLE, $url, array( 'tribe_events_google_maps_api' ), false, true );
+		tribe_asset_enqueue( 'tribe_events_google_maps_api' );
+		tribe_asset_enqueue(  self::MAP_HANDLE );
 
 		$this->map_script_enqueued = true;
 	}

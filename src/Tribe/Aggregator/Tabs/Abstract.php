@@ -180,11 +180,6 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract extends Tribe__Tabbed_V
 					$result = new WP_Error( 'missing-file', __( 'Please provide the file that you wish to import.', 'the-events-calendar' ) );
 				}
 				break;
-			case 'facebook':
-				if ( empty( $meta['source'] ) || ! preg_match( '/' . Tribe__Events__Aggregator__Record__Facebook::get_source_regexp() . '/', $meta['source'] ) ) {
-					$result = new WP_Error( 'not-facebook-url', __( 'Please provide a Facebook URL when importing from Facebook.', 'the-events-calendar' ) );
-				}
-				break;
 			case 'eventbrite':
 				if ( empty( $meta['source'] ) || ! preg_match( '/' . Tribe__Events__Aggregator__Record__Eventbrite::get_source_regexp() . '/', $meta['source'] ) ) {
 					$result = new WP_Error( 'not-eventbrite-url', __( 'Please provide a Eventbrite URL when importing from Eventbrite.', 'the-events-calendar' ) );
@@ -240,6 +235,17 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract extends Tribe__Tabbed_V
 				}
 				break;
 		}
+
+		/**
+		 * Filters the validation result for custom validations and overrides.
+		 *
+		 * @since 4.6.24
+		 *
+		 * @param array|WP_Error $result The updated/validated meta array or A `WP_Error` if the validation failed.
+		 * @param string         $origin Origin name.
+		 * @param array          $meta   Import meta.
+		 */
+		$result = apply_filters( 'tribe_aggregator_import_validate_meta_by_origin', $result, $origin, $meta );
 
 		return $result;
 	}

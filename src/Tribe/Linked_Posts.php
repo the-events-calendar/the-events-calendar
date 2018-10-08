@@ -175,7 +175,7 @@ class Tribe__Events__Linked_Posts {
 	/**
 	 * Returns the meta key for linked post order
 	 *
-	 * @deprecated TBD
+	 * @deprecated 4.6.23
 	 * @todo Remove on 4.7
 	 *
 	 * @since 4.6.13
@@ -185,7 +185,7 @@ class Tribe__Events__Linked_Posts {
 	 * @return bool|string
 	 */
 	public function get_order_meta_key( $post_type ) {
-		_deprecated_function( __METHOD__, 'TBD', 'We do not use a separate postmeta field to store the ordering.' );
+		_deprecated_function( __METHOD__, '4.6.23', 'We do not use a separate postmeta field to store the ordering.' );
 
 		if ( Tribe__Events__Organizer::POSTTYPE === $post_type ) {
 			return '_EventOrganizerID_Order';
@@ -533,7 +533,8 @@ class Tribe__Events__Linked_Posts {
 				'private',
 				'pending',
 			),
-			'orderby'              => 'post__in',
+			'order'                => 'ASC',
+			'orderby'              => 'post__in post_title',
 			'ignore_sticky_posts ' => true,
 			'nopaging'             => true,
 		);
@@ -681,7 +682,7 @@ class Tribe__Events__Linked_Posts {
 	/**
 	 * Save Order of Linked Posts
 	 *
-	 * @deprecated TBD
+	 * @deprecated 4.6.23
 	 * @todo Remove on 4.7
 	 *
 	 * @since 4.6.13
@@ -691,7 +692,7 @@ class Tribe__Events__Linked_Posts {
 	 * @param array $current_order an array of the linked post ids being saved
 	 */
 	public function order_linked_posts( $target_post_id, $post_type, $current_order ) {
-		_deprecated_function( __METHOD__, 'TBD', 'Linked posts are ordered by `meta_id` by default via `get_post_meta()`.' );
+		_deprecated_function( __METHOD__, '4.6.23', 'Linked posts are ordered by `meta_id` by default via `get_post_meta()`.' );
 
 		$linked_ids_order_key = $this->get_order_meta_key( $post_type );
 
@@ -1086,7 +1087,7 @@ class Tribe__Events__Linked_Posts {
 		}
 
 		// Clean Both Options
-		$options->owned['children'] = array_filter( $options->owned['children'] );
+		$options->owned['children']     = array_filter( $options->owned['children'] );
 		$options->available['children'] = array_filter( $options->available['children'] );
 
 		// When Owned is empty, we only use Available
@@ -1102,8 +1103,8 @@ class Tribe__Events__Linked_Posts {
 			$data = array_values( (array) $options );
 		}
 
-		$user_can_create         = ( ! empty( $post_type_object->cap->create_posts ) && current_user_can( $post_type_object->cap->create_posts ) );
-		$allowed_creation        = ( ! empty( $this->linked_post_types[ $post_type ]['allow_creation'] ) && $this->linked_post_types[ $post_type ]['allow_creation'] );
+		$user_can_create  = ( ! empty( $post_type_object->cap->create_posts ) && current_user_can( $post_type_object->cap->create_posts ) );
+		$allowed_creation = ( ! empty( $this->linked_post_types[ $post_type ]['allow_creation'] ) && $this->linked_post_types[ $post_type ]['allow_creation'] );
 
 		/**
 		 * Controls whether the UI to create new linked posts should be displayed.

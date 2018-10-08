@@ -159,7 +159,52 @@ class Tribe__Events__Assets {
 			)
 		);
 
-		// FrontEnd
+		// Some Google Maps API-specific scripts that should only load when a non-default API key is present.
+		if ( ! tribe_is_using_basic_gmaps_api() ) {
+
+			// FrontEnd
+			$api_url = 'https://maps.google.com/maps/api/js';
+			$api_key = tribe_get_option( 'google_maps_js_api_key', Tribe__Events__Google__Maps_API_Key::$default_api_key );
+
+			if ( ! empty( $api_key ) && is_string( $api_key ) ) {
+				$api_url = sprintf( 'https://maps.googleapis.com/maps/api/js?key=%s', trim( $api_key ) );
+			}
+
+			/**
+			 * Allows for filtering the embedded Google Maps API URL.
+			 *
+			 * @since ??
+			 *
+			 * @param string $api_url The Google Maps API URL.
+			 */
+			$google_maps_js_url = apply_filters( 'tribe_events_google_maps_api', $api_url );
+
+			tribe_asset(
+				$plugin,
+				'tribe-events-google-maps',
+				$google_maps_js_url,
+				null,
+				null,
+				array(
+					'type' => 'js',
+				)
+			);
+
+			// Setup our own script used to initialize each map
+			$embedded_map_url = Tribe__Events__Template_Factory::getMinFile( tribe_events_resource_url( 'embedded-map.js' ), true );
+
+			tribe_asset(
+				$plugin,
+				Tribe__Events__Embedded_Maps::MAP_HANDLE,
+				$embedded_map_url,
+				array( 'tribe-events-google-maps' ),
+				null,
+				array(
+					'type' => 'js',
+				)
+			);
+		}
+
 		tribe_asset(
 			$plugin,
 			'tribe-events-dynamic',
@@ -216,6 +261,7 @@ class Tribe__Events__Assets {
 					'operator' => 'AND',
 					array( $this, 'is_mobile_breakpoint' ),
 					array( $this, 'should_enqueue_frontend' ),
+					array( $this, 'is_style_option_tribe' ),
 				),
 			)
 		);
@@ -243,7 +289,7 @@ class Tribe__Events__Assets {
 			$plugin,
 			'tribe-events-full-calendar-style',
 			'tribe-events-full.css',
-			array(),
+			array( 'tribe-accessibility-css' ),
 			'wp_enqueue_scripts',
 			array(
 				'groups'       => array( 'events-styles' ),
@@ -401,7 +447,6 @@ class Tribe__Events__Assets {
 			tribe_is_event_query()
 			|| tribe_is_event_organizer()
 			|| tribe_is_event_venue()
-			|| is_active_widget( false, false, 'tribe-events-list-widget' )
 			|| ( $post instanceof WP_Post && has_shortcode( $post->post_content, 'tribe_events' ) )
 		);
 
@@ -423,7 +468,7 @@ class Tribe__Events__Assets {
 	 * @return bool
 	 */
 	public function should_enqueue_full_styles() {
-		$should_enqueue = $this->is_style_option_tribe();
+		$should_enqueue = $this->is_style_option_full() || $this->is_style_option_tribe();
 
 		/**
 		 * Allow filtering of where the base Full Style Assets will be loaded
@@ -487,6 +532,18 @@ class Tribe__Events__Assets {
 	public function is_style_option_tribe() {
 		$style_option = tribe_get_option( 'stylesheetOption', 'tribe' );
 		return 'tribe' === $style_option;
+	}
+
+	/**
+	 * Checks if we are using "Full Styles" setting for Style
+	 *
+	 * @since  4.6.23
+	 *
+	 * @return bool
+	 */
+	public function is_style_option_full() {
+		$style_option = tribe_get_option( 'stylesheetOption', 'tribe' );
+		return 'full' === $style_option;
 	}
 
 	/**
@@ -596,7 +653,7 @@ class Tribe__Events__Assets {
 		/**
 		 * Allow filtering if we should display JS debug messages
 		 *
-		 * @since  TBD
+		 * @since  4.6.23
 		 *
 		 * @param bool
 		 */

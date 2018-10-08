@@ -228,8 +228,9 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 			),
 			'description'   => array(
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_string' ),
+				'validate_callback' => array( $this->validator, 'is_string_or_empty' ),
 				'type'              => 'string',
+				'default'           => null,
 				'description'       => __( 'The venue description', 'the-events-calendar' ),
 			),
 			'status'        => array(
@@ -242,71 +243,83 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 			'show_map'      => array(
 				'required'    => false,
 				'type'        => 'string',
+				'default'     => null,
 				'description' => __( 'Whether events linked to the venue should show a map or not', 'the-events-calendar' ),
 			),
 			'show_map_link' => array(
 				'required'    => false,
 				'type'        => 'string',
+				'default'     => null,
 				'description' => __( 'Whether events linked to the venue should show a map link or not', 'the-events-calendar' ),
 			),
 			'address'       => array(
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_string' ),
+				'validate_callback' => array( $this->validator, 'is_string_or_empty' ),
 				'type'              => 'string',
+				'default'           => null,
 				'description'       => __( 'The venue address', 'the-events-calendar' ),
 			),
 			'city'          => array(
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_string' ),
+				'validate_callback' => array( $this->validator, 'is_string_or_empty' ),
 				'type'              => 'string',
+				'default'           => null,
 				'description'       => __( 'The venue city', 'the-events-calendar' ),
 			),
 			'country'       => array(
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_string' ),
+				'validate_callback' => array( $this->validator, 'is_string_or_empty' ),
 				'type'              => 'string',
+				'default'           => null,
 				'description'       => __( 'The venue country', 'the-events-calendar' ),
 			),
 			'province'      => array(
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_string' ),
+				'validate_callback' => array( $this->validator, 'is_string_or_empty' ),
 				'type'              => 'string',
+				'default'           => null,
 				'description'       => __( 'The venue province', 'the-events-calendar' ),
 			),
 			'state'         => array(
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_string' ),
+				'validate_callback' => array( $this->validator, 'is_string_or_empty' ),
 				'type'              => 'string',
+				'default'           => null,
 				'description'       => __( 'The venue state', 'the-events-calendar' ),
 			),
 			'zip'           => array(
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_string' ),
+				'validate_callback' => array( $this->validator, 'is_string_or_empty' ),
 				'type'              => 'string',
+				'default'           => null,
 				'description'       => __( 'The venue ZIP code', 'the-events-calendar' ),
 			),
 			'phone'         => array(
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_string' ),
+				'validate_callback' => array( $this->validator, 'is_string_or_empty' ),
 				'type'              => 'string',
+				'default'           => null,
 				'description'       => __( 'The venue phone number', 'the-events-calendar' ),
 			),
 			'stateprovince' => array(
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_string' ),
+				'validate_callback' => array( $this->validator, 'is_string_or_empty' ),
 				'type'              => 'string',
+				'default'           => null,
 				'description'       => __( 'The venue state and province', 'the-events-calendar' ),
 			),
 			'website'       => array(
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_url' ),
+				'validate_callback' => array( $this->validator, 'is_url_or_empty' ),
 				'type'              => 'string',
+				'default'           => null,
 				'description'       => __( 'The venue website URL', 'the-events-calendar' ),
 			),
 			'image'         => array(
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_image' ),
+				'validate_callback' => array( $this->validator, 'is_image_or_empty' ),
 				'type'              => 'string',
+				'default'           => null,
 				'description'       => __( 'The organizer featured image ID or URL', 'the-events-calendar' ),
 			),
 		);
@@ -344,8 +357,6 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 			'FeaturedImage'       => tribe_upload_image( $request['image'] ),
 		);
 
-		$postarr = array_filter( $postarr );
-
 		if ( isset( $request['show_map'] ) ) {
 			$postarr['ShowMap'] = tribe_is_truthy( $request['show_map'] ) ? '1' : 'false';
 		}
@@ -362,6 +373,8 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 		 * @since 4.6.9
 		 */
 		$postarr = apply_filters( 'tribe_events_rest_venue_prepare_postarr', $postarr, $request );
+
+		$postarr = array_filter( $postarr, array( $this->validator, 'is_not_null' ) );
 
 		return $postarr;
 	}

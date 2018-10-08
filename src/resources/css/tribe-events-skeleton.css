@@ -819,8 +819,7 @@ select.tribe-events-dropdown {
 	border-radius: 0;
 	background: transparent;
 	background-image: none;
-	-webkit-filter: none;
-	        filter: none;
+	filter: none;
 	border-left: 0;
 }
 
