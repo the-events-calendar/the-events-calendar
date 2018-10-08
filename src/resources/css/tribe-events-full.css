@@ -1834,11 +1834,13 @@ input[name*='tribe-bar-']:-moz-placeholder {
 	color: #333;
 	display: block;
 	font-size: 16px;
+	font-family: inherit;
 	font-weight: normal;
 	line-height: 1;
 	padding: 6px 15px;
 	position: relative;
 	text-align: left;
+	text-transform: none;
 	width: 100%;
 }
 
@@ -2036,7 +2038,7 @@ input[name*='tribe-bar-']:-moz-placeholder {
 
 #tribe-bar-form.tribe-bar-collapse .tribe-bar-filters {
 	position: absolute;
-	z-index: 3;
+	z-index: 21;
 	float: none;
 	display: none;
 	left: auto;
