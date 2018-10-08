@@ -219,6 +219,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 * Fix - Fixed an issue where a fatal error could be generated when trying to save a new Event Aggregator scheduled import [115339]
 * Fix - Handle left-over Facebook scheduled imports and notices [114831]
+* Tweak - Added the `tribe_aggregator_import_setting_origins` filter to the origins available for default import settings [115551]
 
 = [4.6.24] 2018-10-03 =
 
