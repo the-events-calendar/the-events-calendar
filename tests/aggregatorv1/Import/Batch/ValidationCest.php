@@ -39,7 +39,7 @@ class ValidationCest {
 		$batch_data         = $this->make_batch_data();
 
 		$overrides = [ 'next_batch_hash' => $batch_data['batch_hash'] ];
-		$this->make_record( $existing_import_id, $overrides, $status );
+		$this->make_manual_record( $existing_import_id, $overrides, $status );
 
 		$I->sendPOST( "import/{$existing_import_id}/batch", $batch_data );
 
@@ -60,7 +60,7 @@ class ValidationCest {
 		$batch_data         = $this->make_batch_data();
 
 		$overrides = [ 'next_batch_hash' => $batch_data['batch_hash'] ];
-		$this->make_record( $existing_import_id, $overrides, $status );
+		$this->make_manual_record( $existing_import_id, $overrides, $status );
 
 		unset( $batch_data['batch_hash'] );
 		$I->sendPOST( "import/{$existing_import_id}/batch", $batch_data );
@@ -82,7 +82,7 @@ class ValidationCest {
 		$batch_data         = $this->make_batch_data();
 
 		$overrides = [ 'next_batch_hash' => $batch_data['batch_hash'] ];
-		$this->make_record( $existing_import_id, $overrides, $status );
+		$this->make_manual_record( $existing_import_id, $overrides, $status );
 
 		$batch_data['batch_hash'] = 'unexpected';
 		$I->sendPOST( "import/{$existing_import_id}/batch", $batch_data );
