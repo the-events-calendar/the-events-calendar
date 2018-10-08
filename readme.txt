@@ -215,7 +215,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
-= [4.6.24.1] 2018-10-05 =
+= [4.6.24.1] 2018-10-08 =
 
 * Fix - Fixed an issue where a fatal error could be generated when trying to save a new Event Aggregator scheduled import [115339]
 * Fix - handle left-over Facebook scheduled imports and notices [114831]
