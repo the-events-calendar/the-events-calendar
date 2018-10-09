@@ -215,6 +215,10 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
+= [4.6.25] TBD =
+
+* Tweak - Add notice for the Gutenberg extension and eBook download [115543]
+
 = [4.6.24] 2018-10-03 =
 
 * Fix - Prevent broken and low-resolution Google Maps if user has not provided a Google Maps API key of their own by providing our own fallback API key [114442]
