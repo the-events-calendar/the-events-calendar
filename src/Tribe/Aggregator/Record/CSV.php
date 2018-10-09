@@ -101,7 +101,7 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 		$empty_counter = 1;
 		foreach ( $headers as $key => &$header ) {
 			if ( empty( $header ) ) {
-				$header = __( 'Empty header ', 'the-events-calendar' ) . $empty_counter ++;
+				$header = __( 'Unknown Column ', 'the-events-calendar' ) . $empty_counter ++;
 			}
 		}
 
