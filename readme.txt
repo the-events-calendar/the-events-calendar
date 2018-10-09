@@ -217,6 +217,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 = [4.6.25] TBD =
 
+* Fix - Fixed event navigation when the mini calendar widget was on the event page. Props to Matt and wescole for flagging this [114359]
 * Tweak - Add notice for the Gutenberg extension and eBook download [115543]
 
 = [4.6.24] 2018-10-03 =
