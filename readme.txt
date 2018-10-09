@@ -238,6 +238,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Tweak - Added the `tribe_events_month_daily_events` filter to the Month view [114041]
 * Tweak - Move Google Maps API loading to tribe_assets and only load once on single views when PRO is active, thanks to info2grow first reporting [112221]
 * Tweak - Accept 0 as an argument in tribe_get_events() so that `'post_parent' => 0` works, thanks Cy for the detailed report [111518]
+* Fix - Ensure columns without headers are handled in CSV imports [114199]
 * Fix - handle left-over Facebook scheduled imports and notices [114831]
 * Tweak - Added the `tribe_aggregator_record_by_origin` filter to allow new EA origins [114652]
 * Tweak - Added the `tribe_aggregator_service_post_import_args` filter to allow new EA origins [114652]
