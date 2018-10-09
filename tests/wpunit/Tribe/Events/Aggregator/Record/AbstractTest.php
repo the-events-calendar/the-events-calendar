@@ -285,7 +285,7 @@ class AbstractTest extends Events_TestCase {
 	 * @test
 	 */
 	public function should_allow_filtering_the_venue_id_when_global_id_does_not_provide_a_match() {
-		$item = $this->factory()->import_record->create_and_get_event_record(
+		$item = $this->factory()->import_record->create_and_get_event_data(
 			'url',
 			[
 				'venue' =>
@@ -315,7 +315,7 @@ class AbstractTest extends Events_TestCase {
 	 * @test
 	 */
 	public function should_allow_filtering_the_organizer_id_when_global_id_does_not_provide_a_match() {
-		$item = $this->factory()->import_record->create_and_get_event_record( 'url', [ 'organizer_count' => 3, ] );
+		$item = $this->factory()->import_record->create_and_get_event_data( 'url', [ 'organizer_count' => 3, ] );
 		$organizer_ids = $this->factory()->organizer->create_many(3);
 		$i =0;
 		add_filter( 'tribe_aggregator_find_matching_organizer', function ( $_ = null, $organizer_data ) use ( $organizer_ids, &$i ) {
@@ -398,7 +398,7 @@ class AbstractTest extends Events_TestCase {
 	 * @test
 	 */
 	public function should_correctly_create_and_link_new_organizers_to_events() {
-		$event_data = $this->factory()->import_record->create_and_get_event_record( 'ical' );
+		$event_data = $this->factory()->import_record->create_and_get_event_data( 'ical' );
 		$event_data->organizer = [
 			(object) [
 				'organizer' => 'Organizer-1',
@@ -428,7 +428,7 @@ class AbstractTest extends Events_TestCase {
 	public function should_not_track_modified_fields_when_creating_events_no_matter_the_authority() {
 		tribe_update_option( 'tribe_aggregator_default_gcal_update_authority', 'overwrite' );
 
-		$event_data = $this->factory()->import_record->create_and_get_event_record( 'gcal' );
+		$event_data = $this->factory()->import_record->create_and_get_event_data( 'gcal' );
 		$this->track_last_inserted_or_updated();
 
 		/** @var Base $record */
