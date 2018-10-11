@@ -86,7 +86,7 @@ wp_nonce_field( 'tribe-aggregator-save-import', 'tribe_aggregator_nonce' );
 						data-hide-search
 						data-prevent-clear
 					>
-						<option value=""></option>
+						<option></option>
 						<?php foreach ( $field->options as $option ) : ?>
 							<option
 								value="<?php echo esc_attr( $option->id ); ?>"

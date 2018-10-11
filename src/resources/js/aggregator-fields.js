@@ -119,7 +119,7 @@ tribe_aggregator.fields = {
 
 				var importType = $this.val();
 
-				$frequency.select2( 'val', ( 'schedule' === importType ? 'daily' : '' ) ).change();
+				$frequency.val( ( 'schedule' === importType ? 'daily' : '' ) ).change();
 
 				// set a data attribute on the form indicating the schedule type
 				obj.$.form.attr( 'data-type', importType );
@@ -127,7 +127,8 @@ tribe_aggregator.fields = {
 				obj.maybeLimitUrlStartDate()
 			} )
 			.on( 'change'     , obj.selector.origin_field              , function() {
-				var origin = $( this ).val();
+				var selectData = $( this ).select2( 'data' );
+				var origin  = selectData[0] !== undefined ? selectData[0].id : null;
 				obj.$.form.attr( 'data-origin', origin );
 				obj.reset_preview();
 
@@ -150,7 +151,8 @@ tribe_aggregator.fields = {
 			} )
 			.on( 'change', obj.selector.field_url_source, function( e ) {
 				var $field = $( this );
-				var value = $field.val();
+				var selectData = $field.select2( 'data' );
+				var value  = selectData[0] !== undefined ? selectData[0].id : null;
 				var origin = null;
 
 				if ( ! value ) {
