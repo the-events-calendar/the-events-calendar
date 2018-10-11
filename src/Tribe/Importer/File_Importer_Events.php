@@ -90,6 +90,8 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	protected function update_post( $post_id, array $record ) {
 		$update_authority_setting = tribe( 'events-aggregator.settings' )->default_update_authority( 'csv' );
 
+		$this->watch_term_creation();
+
 		$event = $this->build_event_array( $post_id, $record );
 
 		if ( 'retain' === $update_authority_setting ) {
@@ -98,6 +100,8 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 			if ( $this->is_aggregator && ! empty( $this->aggregator_record ) ) {
 				$this->aggregator_record->meta['activity']->add( 'event', 'skipped', $post_id );
 			}
+
+			$this->stop_watching_term_creation();
 
 			return false;
 		}
@@ -111,20 +115,43 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 
 		Tribe__Events__API::updateEvent( $post_id, $event );
 
+		$this->stop_watching_term_creation();
+
 		if ( $this->is_aggregator && ! empty( $this->aggregator_record ) ) {
 			$this->aggregator_record->meta['activity']->add( 'event', 'updated', $post_id );
+
+			foreach ( $this->created_terms( Tribe__Events__Main::TAXONOMY ) as $term_id ) {
+				$this->aggregator_record->meta['activity']->add( 'category', 'created', $term_id );
+			}
+
+			foreach ( $this->created_terms( 'post_tag' ) as $term_id ) {
+				$this->aggregator_record->meta['activity']->add( 'tag', 'created', $term_id );
+			}
 		}
 
 		remove_filter( 'tribe_tracker_enabled', '__return_false' );
 	}
 
 	protected function create_post( array $record ) {
+		$this->watch_term_creation();
+
 		$event = $this->build_event_array( false, $record );
-		$id    = Tribe__Events__API::createEvent( $event );
+
+		$id = Tribe__Events__API::createEvent( $event );
+
+		$this->stop_watching_term_creation();
 
 		if ( $this->is_aggregator && ! empty( $this->aggregator_record ) ) {
 			Tribe__Events__Aggregator__Records::instance()->add_record_to_event( $id, $this->aggregator_record->id, 'csv' );
 			$this->aggregator_record->meta['activity']->add( 'event', 'created', $id );
+
+			foreach ( $this->created_terms( Tribe__Events__Main::TAXONOMY ) as $term_id ) {
+				$this->aggregator_record->meta['activity']->add( 'category', 'created', $term_id );
+			}
+
+			foreach ( $this->created_terms( 'post_tag' ) as $term_id ) {
+				$this->aggregator_record->meta['activity']->add( 'tag', 'created', $term_id );
+			}
 		}
 
 		return $id;

@@ -35,7 +35,7 @@ class Tribe__Events__Gutenberg {
 	 * @return boolean
 	 */
 	public function is_extension_active() {
-		return class_exists( 'Tribe__Events_Gutenberg__Plugin' );
+		return class_exists( 'Tribe__Gutenberg__Plugin' );
 	}
 
 	/**

@@ -314,6 +314,15 @@ class Tribe__Events__Aggregator__Cron {
 				continue;
 			}
 
+			if ( $record instanceof Tribe__Events__Aggregator__Record__Unsupported ) {
+				/**
+				 * This means the record post exists but the origin is not currently supported.
+				 * To avoid re-looping on this let's trash this post and continue.
+				 */
+				$record->delete( );
+				continue;
+			}
+
 			if ( ! $record->is_schedule_time() ) {
 				tribe( 'logger' )->log_debug( sprintf( 'Record (%d) skipped, not scheduled time', $record->id ), 'EA Cron' );
 				continue;
@@ -584,7 +593,7 @@ class Tribe__Events__Aggregator__Cron {
 			return;
 		}
 
-		tribe( 'logger' )->log_debug( sprintf( 'Import %s data available: processing immediately', $record->id ) );
+		tribe( 'logger' )->log_debug( sprintf( 'Import %s data available: processing immediately', $record->id ), 'EA Cron' );
 		$record->process_posts( $import_data, true );
 	}
 }

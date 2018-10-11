@@ -533,7 +533,8 @@ class Tribe__Events__Linked_Posts {
 				'private',
 				'pending',
 			),
-			'orderby'              => 'post__in',
+			'order'                => 'ASC',
+			'orderby'              => 'post__in post_title',
 			'ignore_sticky_posts ' => true,
 			'nopaging'             => true,
 		);
@@ -1086,7 +1087,7 @@ class Tribe__Events__Linked_Posts {
 		}
 
 		// Clean Both Options
-		$options->owned['children'] = array_filter( $options->owned['children'] );
+		$options->owned['children']     = array_filter( $options->owned['children'] );
 		$options->available['children'] = array_filter( $options->available['children'] );
 
 		// When Owned is empty, we only use Available
@@ -1102,8 +1103,8 @@ class Tribe__Events__Linked_Posts {
 			$data = array_values( (array) $options );
 		}
 
-		$user_can_create         = ( ! empty( $post_type_object->cap->create_posts ) && current_user_can( $post_type_object->cap->create_posts ) );
-		$allowed_creation        = ( ! empty( $this->linked_post_types[ $post_type ]['allow_creation'] ) && $this->linked_post_types[ $post_type ]['allow_creation'] );
+		$user_can_create  = ( ! empty( $post_type_object->cap->create_posts ) && current_user_can( $post_type_object->cap->create_posts ) );
+		$allowed_creation = ( ! empty( $this->linked_post_types[ $post_type ]['allow_creation'] ) && $this->linked_post_types[ $post_type ]['allow_creation'] );
 
 		/**
 		 * Controls whether the UI to create new linked posts should be displayed.

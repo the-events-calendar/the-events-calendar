@@ -750,7 +750,7 @@ tribe_aggregator.fields = {
 	obj.finalize_manual_import = function() {
 		var origin = $( '#tribe-ea-field-origin' ).val();
 		var $table = $( '.dataTable' );
-		var table = window.tribe_data_table;
+		var table  = window.tribe_data_table;
 
 		if ( $table.hasClass( 'display-checkboxes' ) ) {
 			var row_selection = table.rows( { selected: true } );
@@ -763,13 +763,11 @@ tribe_aggregator.fields = {
 				return;
 			}
 
-			var data = row_selection.data();
+			var data  = row_selection.data();
 			var items = [];
 			var unique_id_field = null;
 
-			if ( 'facebook' === origin ) {
-				unique_id_field = 'facebook_id';
-			} else if ( 'meetup' === origin ) {
+			if ( 'meetup' === origin ) {
 				unique_id_field = 'meetup_id';
 			} else if ( 'eventbrite' === origin ) {
 				unique_id_field = 'eventbrite_id';

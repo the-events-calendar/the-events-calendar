@@ -2,8 +2,7 @@
 // Don't load directly
 defined( 'WPINC' ) or die;
 
-class
-Tribe__Events__Aggregator__Records {
+class Tribe__Events__Aggregator__Records {
 	/**
 	 * Slug of the Post Type used for Event Aggregator Records
 	 *
@@ -290,11 +289,14 @@ Tribe__Events__Aggregator__Records {
 	}
 
 	/**
-	 * Returns an appropriate Record object for the given origin
+	 * Returns an appropriate Record object for the given origin.
 	 *
-	 * @param string $origin Import origin
+	 * @param string $origin The record import origin.
+	 * @param int|WP_Post The record post or post ID.
 	 *
-	 * @return Tribe__Events__Aggregator__Record__Abstract|null
+	 * @return Tribe__Events__Aggregator__Record__Abstract An instance of the correct record class
+	 *                                                     for the origin or an unsupported record
+	 *                                                     instance.
 	 */
 	public function get_by_origin( $origin, $post = null ) {
 		$record = null;
@@ -328,7 +330,22 @@ Tribe__Events__Aggregator__Records {
 			case 'ea/url':
 				$record = new Tribe__Events__Aggregator__Record__Url( $post );
 				break;
+			default:
+				// If there is no match then the record type is unsupported.
+				$record = new Tribe__Events__Aggregator__Record__Unsupported( $post );
+				break;
 		}
+
+		/**
+		 * Allows filtering of Record object for custom origins and overrides.
+		 *
+		 * @since 4.6.24
+		 *
+		 * @param Tribe__Events__Aggregator__Record__Abstract|null $record Record object for given origin.
+		 * @param string                                           $origin Import origin.
+		 * @param WP_Post|null                                     $post   Record post data.
+		 */
+		$record = apply_filters( 'tribe_aggregator_record_by_origin', $record, $origin, $post );
 
 		return $record;
 	}
@@ -421,8 +438,17 @@ Tribe__Events__Aggregator__Records {
 
 	}
 
+	/**
+	 * Returns a WP_Query object built using some default arguments for records.
+	 *
+	 * @param array $args An array of arguments to override the default ones.
+	 *
+	 * @return WP_Query The built WP_Query object; since it's built with arguments
+	 *                  the query will run, actually hitting the database, before
+	 *                  returning.
+	 */
 	public function query( $args = array() ) {
-		$statuses = Tribe__Events__Aggregator__Records::$status;
+		$statuses = self::$status;
 		$defaults = array(
 			'post_status' => array( $statuses->success, $statuses->failed, $statuses->pending ),
 			'orderby'     => 'modified',
@@ -445,13 +471,11 @@ Tribe__Events__Aggregator__Records {
 
 		$args = (object) wp_parse_args( $args, $defaults );
 
-		// Enforce the Post Type
+		// Enforce the post type.
 		$args->post_type = self::$post_type;
 
-		// Do the actual Query
-		$query = new WP_Query( $args );
-
-		return $query;
+		// Run and return the query.
+		return new WP_Query( $args );
 	}
 
 	/**
@@ -698,5 +722,47 @@ Tribe__Events__Aggregator__Records {
 
 		// Filter eventbrite events to preserve some fields that aren't supported by Eventbrite
 		add_filter( 'tribe_aggregator_before_update_event', array( 'Tribe__Events__Aggregator__Record__Eventbrite', 'filter_event_to_preserve_fields' ), 10, 2 );
+	}
+
+	/**
+	 * Filter records by source and data hash.
+	 *
+	 * @param string $source    Source value.
+	 * @param string $data_hash Data hash.
+	 *
+	 * @since TBD
+	 *
+	 * @return Tribe__Events__Aggregator__Record__Abstract|false Record object or false if not found.
+	 */
+	public function find_by_data_hash( $source, $data_hash ) {
+		/** @var WP_Query $matches */
+		$matches = $this->query( array(
+			'post_status' => $this->get_status( 'schedule' )->name,
+			'meta_query'  => array(
+				array(
+					'key'   => $this->prefix_meta( 'source' ),
+					'value' => $source,
+				),
+			),
+			'fields'      => 'ids',
+		) );
+
+		if ( empty( $matches->posts ) ) {
+			return false;
+		}
+
+		foreach ( $matches->posts as $post_id ) {
+			$this_record = $this->get_by_post_id( $post_id );
+
+			if ( ! $this_record instanceof Tribe__Events__Aggregator__Record__Abstract ) {
+				continue;
+			}
+
+			if ( $data_hash === $this_record->get_data_hash() ) {
+				return $this_record;
+			}
+		}
+
+		return false;
 	}
 }

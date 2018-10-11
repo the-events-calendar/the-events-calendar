@@ -121,18 +121,35 @@ wp_nonce_field( 'tribe-aggregator-save-import', 'tribe_aggregator_nonce' );
 		</tr>
 
 		<?php
+		$form_args = array(
+			'record'            => $record,
+			'aggregator_action' => $aggregator_action,
+		);
+
 		if ( 'edit' === $aggregator_action ) {
-			$this->template( 'origins/' . $record->meta['origin'], array( 'record' => $record, 'aggregator_action' => $aggregator_action ) );
+			$this->template( 'origins/' . $record->meta['origin'], $form_args );
 		} else {
-			$this->template( 'origins/limit', array( 'record' => $record, 'aggregator_action' => $aggregator_action ) );
-			$this->template( 'origins/csv', array( 'record' => $record, 'aggregator_action' => $aggregator_action ) );
-			$this->template( 'origins/ics', array( 'record' => $record, 'aggregator_action' => $aggregator_action ) );
-			$this->template( 'origins/ical', array( 'record' => $record, 'aggregator_action' => $aggregator_action ) );
-			$this->template( 'origins/gcal', array( 'record' => $record, 'aggregator_action' => $aggregator_action ) );
-			$this->template( 'origins/meetup', array( 'record' => $record, 'aggregator_action' => $aggregator_action ) );
-			$this->template( 'origins/eventbrite', array( 'record' => $record, 'aggregator_action' => $aggregator_action ) );
-			$this->template( 'origins/url', array( 'record' => $record, 'aggregator_action' => $aggregator_action ) );
+			$this->template( 'origins/limit', $form_args );
+			$this->template( 'origins/csv', $form_args );
+			$this->template( 'origins/ics', $form_args );
+			$this->template( 'origins/ical', $form_args );
+			$this->template( 'origins/gcal', $form_args );
+			$this->template( 'origins/meetup', $form_args );
+			$this->template( 'origins/eventbrite', $form_args );
+			$this->template( 'origins/url', $form_args );
 		}
+
+		/**
+		 * Fires below the origin template output.
+		 *
+		 * HTML outputted here should be wrapped in a table row (<tr>) that contains one <th> and one <td>.
+		 *
+		 * @since 4.6.24
+		 *
+		 * @param string $aggregator_action Aggregator action (new or edit).
+		 * @param array  $form_args         Form arguments.
+		 */
+		do_action( 'tribe_events_aggregator_import_form', $aggregator_action, $form_args );
 		?>
 
 	</tbody>

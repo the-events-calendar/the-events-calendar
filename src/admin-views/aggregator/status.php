@@ -206,6 +206,18 @@ $show_third_party_accounts = ! is_network_admin();
             <td><?php echo esc_html( $text ); ?></td>
             <td><?php echo $notes; // Escaping handled above ?></td>
         </tr>
+		<?php
+		/**
+		 * Fires below the rows in the third party status table.
+		 *
+		 * HTML outputted here should be wrapped in a table row (<tr>) that contains 2 cells (<td>s).
+		 *
+		 * @since 4.6.24
+		 *
+		 * @param array $indicator_icons List of indicator icons.
+		 */
+		do_action( 'tribe_events_status_third_party', $indicator_icons );
+		?>
         </tbody>
     </table>
 <?php endif; ?>

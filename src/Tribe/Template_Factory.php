@@ -408,6 +408,9 @@ class Tribe__Events__Template_Factory extends Tribe__Template_Factory {
 			add_filter( 'tribe_event_meta_venue_address', '__return_empty_string' );
 			add_filter( 'tribe_event_featured_image', '__return_empty_string' );
 			add_filter( 'tribe_get_venue', '__return_empty_string' );
+			add_filter( 'the_title', '__return_empty_string' );
+			add_filter( 'tribe_get_cost', '__return_empty_string' );
+			add_filter( 'tribe_get_template_part_templates', '__return_empty_array' );
 		} else {
 			remove_filter( 'tribe_events_event_schedule_details', '__return_empty_string' );
 			remove_filter( 'tribe_events_recurrence_tooltip', '__return_false' );
@@ -415,6 +418,9 @@ class Tribe__Events__Template_Factory extends Tribe__Template_Factory {
 			remove_filter( 'tribe_event_meta_venue_address', '__return_empty_string' );
 			remove_filter( 'tribe_event_featured_image', '__return_empty_string' );
 			remove_filter( 'tribe_get_venue', '__return_empty_string' );
+			remove_filter( 'the_title', '__return_empty_string' );
+			remove_filter( 'tribe_get_cost', '__return_empty_string' );
+			remove_filter( 'tribe_get_template_part_templates', '__return_empty_array' );
 		}
 	}
 

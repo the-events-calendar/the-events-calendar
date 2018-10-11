@@ -190,7 +190,17 @@ class Tribe__Events__Aggregator__Settings {
 			'url',
 		);
 
+		/**
+		 * Filters the origins available for the default import settings handling.
+		 *
+		 * @since 4.6.24.1
+		 *
+		 * @param array $origins List of origins that support import settings.
+		 */
+		$origins = apply_filters( 'tribe_aggregator_import_setting_origins', $origins );
+
 		$settings = array();
+
 		foreach ( $origins as $origin ) {
 			$settings[ $origin ] = array(
 				'post_status' => $this->default_post_status( $origin ),
