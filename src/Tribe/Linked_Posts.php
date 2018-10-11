@@ -1120,7 +1120,7 @@ class Tribe__Events__Linked_Posts {
 		$label = $this->get_create_or_find_labels( $post_type, $creation_enabled );
 
 		if ( $linked_posts || $my_linked_posts ) {
-			echo '<input
+			echo '<select
 				type="hidden"
 				class="tribe-dropdown linked-post-dropdown"
 				name="' . esc_attr( $name ) . '"
@@ -1133,7 +1133,7 @@ class Tribe__Events__Linked_Posts {
 				data-create-choice-template="' . __( 'Create: <b><%= term %></b>', 'the-events-calendar' ) . '" data-allow-html ' : '' ) .
 				'data-options="' . esc_attr( json_encode( $data ) ) . '"' .
 				( empty( $current ) ? '' : ' value="' . esc_attr( $current ) . '"' ) .
-			'>';
+			'></select>';
 		} else {
 			echo '<p class="nosaved">' . sprintf( esc_attr__( 'No saved %s exists.', 'the-events-calendar' ), $singular_name_lowercase ) . '</p>';
 			printf( '<input type="hidden" name="%s" value="%d"/>', esc_attr( $name ), 0 );

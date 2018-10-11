@@ -369,11 +369,12 @@ jQuery( document ).ready( function( $ ) {
 	};
 
 	var toggle_linked_post_fields = function( event ) {
+
 		var $select    = $( this );
 		var selectData = $select.select2( 'data' );
 		var $group     = $select.closest( 'tbody' );
 		var $edit      = $group.find( '.edit-linked-post-link a' );
-		var choice     = 'undefined' === typeof event.added ? {} : event.added;
+		var choice     = 'undefined' === typeof selectData[0] ? {} : selectData[0];
 		var editLink   = '';
 
 		if ( null !== selectData && 'string' === typeof selectData.edit ) {
