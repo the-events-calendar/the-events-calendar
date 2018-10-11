@@ -1121,8 +1121,7 @@ class Tribe__Events__Linked_Posts {
 
 		if ( $linked_posts || $my_linked_posts ) {
 			echo '<select
-				type="hidden"
-				class="tribe-dropdown linked-post-dropdown"
+				class="tribe-dropdown linked-post-dropdown hide-before-select2-init"
 				name="' . esc_attr( $name ) . '"
 				id="saved_' . esc_attr( $post_type ) . '"
 				data-placeholder="' . $label . '"
