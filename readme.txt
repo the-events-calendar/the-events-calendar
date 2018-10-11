@@ -4,7 +4,7 @@ Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.5
-Stable tag: 4.6.24
+Stable tag: 4.6.24.1
 Tested up to: 4.9.8
 Requires PHP: 5.2.4
 License: GPLv2 or later
@@ -214,6 +214,12 @@ Some things to consider before posting on the forum:
 Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to [@TheEventsCal](https://twitter.com/TheEventsCal) and tell us why. We'll do what we can to make it right.
 
 == Changelog ==
+
+= [4.6.24.1] 2018-10-08 =
+
+* Fix - Fixed an issue where a fatal error could be generated when trying to save a new Event Aggregator scheduled import [115339]
+* Fix - Handle left-over Facebook scheduled imports and notices [114831]
+* Tweak - Added the `tribe_aggregator_import_setting_origins` filter to the origins available for default import settings [115704]
 
 = [4.6.24] 2018-10-03 =
 
