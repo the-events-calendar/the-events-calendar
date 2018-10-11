@@ -17,7 +17,6 @@ class Tribe__Events__Aggregator__API__Import extends Tribe__Events__Aggregator__
 		'url'               => 'EventURL',
 		'parent_id'         => 'parent_id',
 		'uid'               => 'uid',
-		'facebook_id'       => 'facebook_id',
 		'dev_start'         => 'dev_start',
 		'dev_end'           => 'dev_end',
 		'all_day'           => 'EventAllDay',
@@ -30,7 +29,6 @@ class Tribe__Events__Aggregator__API__Import extends Tribe__Events__Aggregator__
 	);
 
 	public $organizer_field_map = array(
-		'facebook_id' => 'FacebookID',
 		'organizer'   => 'Organizer',
 		'phone'       => 'Phone',
 		'website'     => 'Website',
@@ -38,7 +36,6 @@ class Tribe__Events__Aggregator__API__Import extends Tribe__Events__Aggregator__
 	);
 
 	public $venue_field_map = array(
-		'facebook_id'           => 'FacebookID',
 		'venue'                 => 'Venue',
 		'address'               => 'Address',
 		'city'                  => 'City',

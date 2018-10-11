@@ -125,26 +125,16 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract extends Tribe__Tabbed_V
 			// remove non-needed data from the Hash of the Record
 			unset( $hash['schedule_day'], $hash['schedule_time'] );
 			ksort( $hash );
-			$hash = maybe_serialize( $hash );
-			$hash = md5( $hash );
+			$hash = md5( maybe_serialize( $hash ) );
 
-			$matches = Tribe__Events__Aggregator__Records::instance()->query( array(
-				'post_status' => Tribe__Events__Aggregator__Records::instance()->get_status( 'schedule' )->name,
-				'meta_query' => array(
-					Tribe__Events__Aggregator__Records::instance()->prefix_meta( 'source' ) => $meta['source'],
-				),
-				'fields' => 'ids',
-			) );
+			/** @var Tribe__Events__Aggregator__Record__Abstract $match */
+			$match = tribe( 'events-aggregator.records' )->find_by_data_hash( $meta['source'], $hash );
 
-			foreach ( $matches->posts as $post_id ) {
-				$matching_hash = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $post_id )->get_data_hash();
-
-				if ( $matching_hash == $hash ) {
-					$url = get_edit_post_link( $post_id );
-					$anchor = '<a href="' . esc_url( $url ) . '">' . esc_attr__( 'click here to edit it', 'the-events-calendar' ) .  '</a>';
-					$message = sprintf( __( 'A record already exists with these settings, %1$s.', 'the-events-calendar' ), $anchor );
-					wp_send_json_error( array( 'message' => $message ) );
-				}
+			if ( $match instanceof Tribe__Events__Aggregator__Record__Abstract ) {
+				$url     = get_edit_post_link( $match->id );
+				$anchor  = '<a href="' . esc_url( $url ) . '">' . esc_attr__( 'click here to edit it', 'the-events-calendar' ) . '</a>';
+				$message = sprintf( __( 'A record already exists with these settings, %1$s.', 'the-events-calendar' ), $anchor );
+				wp_send_json_error( array( 'message' => $message ) );
 			}
 		}
 
@@ -235,6 +225,17 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract extends Tribe__Tabbed_V
 				}
 				break;
 		}
+
+		/**
+		 * Filters the validation result for custom validations and overrides.
+		 *
+		 * @since 4.6.24
+		 *
+		 * @param array|WP_Error $result The updated/validated meta array or A `WP_Error` if the validation failed.
+		 * @param string         $origin Origin name.
+		 * @param array          $meta   Import meta.
+		 */
+		$result = apply_filters( 'tribe_aggregator_import_validate_meta_by_origin', $result, $origin, $meta );
 
 		return $result;
 	}
