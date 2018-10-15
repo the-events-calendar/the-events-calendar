@@ -186,14 +186,14 @@ tribe_aggregator.fields = {
 				obj.maybeLimitUrlStartDate()
 			} )
 			.on( 'change', obj.selector.eventbrite_url_source, function ( e ) {
+				// Show all UI controls at first, even if we bail the user will have a full UI.
+				$( obj.eventbrite.refineControls ).show();
+
 				var type = obj.eventbrite.detect_type( $( '#tribe-ea-field-eventbrite_source' ).val() );
 
 				if ( ! type ) {
 					return;
 				}
-
-				// Show all UI controls at first.
-				$( obj.eventbrite.refineControls ).show();
 
 				// And then hide the ones that should be hidden for this import type if there are any.
 				var controlsToHide = obj.eventbrite.refineControlsHideMap[ type ];
