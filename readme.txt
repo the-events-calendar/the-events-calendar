@@ -224,6 +224,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Tweak - Add notice for the Gutenberg extension and eBook download [115543]
 * Tweak - Avoid unnecessary HTTP calls in the Settings screens [114013]
 * Tweak - Show only applicable refinements for the Eventbrite source types in Event Aggregator imports [107009]
+* Tweak - Added `tribe_aggregator_resolve_geolocation` filter to allow for disabling of Geocoding using the EA service [114171]
 
 = [4.6.24] 2018-10-03 =
 
