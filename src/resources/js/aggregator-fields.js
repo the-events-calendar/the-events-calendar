@@ -11,6 +11,7 @@ tribe_aggregator.fields = {
 		dropdown                : '.tribe-ea-dropdown',
 		origin_field            : '#tribe-ea-field-origin',
 		field_url_source        : '#tribe-ea-field-url_source',
+		eventbrite_url_source   : '#tribe-ea-field-eventbrite_source',
 		import_type_field       : '.tribe-import-type',
 		media_button            : '.tribe-ea-media_button',
 		datepicker              : '.tribe-datepicker',
@@ -57,7 +58,43 @@ tribe_aggregator.fields = {
 		20000
 	],
 
-	progress: {}
+	progress: {},
+
+	// A "module" of sorts related to Eventbrite only imports.
+	eventbrite: {
+		refineControls: '.tribe-refine-filters.eventbrite, .tribe-refine-filters.eventbrite .tribe-refine',
+		refineControlsHideMap: {
+			'event': 'tr.tribe-refine-filters',
+			'organizer': ''
+		},
+		detect_type: function ( url ) {
+			if ( ! tribe_aggregator.source_origin_regexp.eventbrite ) {
+				return null;
+			}
+
+			var baseRegex = tribe_aggregator.source_origin_regexp.eventbrite;
+			var type_regexps = {
+				// E.g. https://www.eventbrite.fr/e/some-event
+				'event': baseRegex + 'e\/[A-z0-9_-]+',
+				// E.g. https://www.eventbrite.fr/o/some-organizer
+				'organizer': baseRegex + 'o\/[A-z0-9_-]+'
+			};
+			var type = undefined;
+
+			_.each( type_regexps, function ( regularExpression, key ) {
+				var exp = new RegExp( regularExpression, 'g' );
+				var match = exp.exec( url );
+
+				if ( null === match ) {
+					return;
+				}
+
+				type = key;
+			} );
+
+			return type;
+		}
+	}
 };
 
 ( function( $, _, obj, ea ) {
@@ -147,6 +184,22 @@ tribe_aggregator.fields = {
 				}
 
 				obj.maybeLimitUrlStartDate()
+			} )
+			.on( 'change', obj.selector.eventbrite_url_source, function ( e ) {
+				// Show all UI controls at first, even if we bail the user will have a full UI.
+				$( obj.eventbrite.refineControls ).show();
+
+				var type = obj.eventbrite.detect_type( $( '#tribe-ea-field-eventbrite_source' ).val() );
+
+				if ( ! type ) {
+					return;
+				}
+
+				// And then hide the ones that should be hidden for this import type if there are any.
+				var controlsToHide = obj.eventbrite.refineControlsHideMap[ type ];
+				if ( controlsToHide ) {
+					$( controlsToHide ).hide();
+				}
 			} )
 			.on( 'change', obj.selector.field_url_source, function( e ) {
 				var $field = $( this );
