@@ -193,7 +193,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			 * An event is considered multi-day when the end date is not the same as the start date when
 			 * using the "natural" end-of-day cutoff.
 			 */
-			$compare = $multiday ? '!=' : '==';
+			$compare = $multiday ? '!=' : '=';
 			$this->filter_query->where(
 				"DATE( multiday_end_date.meta_value ) {$compare} DATE( multiday_start_date.meta_value )"
 			);

@@ -128,21 +128,18 @@ class FetchTest extends \Codeception\TestCase\WPTestCase {
 		                                              ->lasting( 2 * HOUR_IN_SECONDS )
 		                                              ->create();
 
-//		$this->assertEqualSets( [
-//			$same_day,
-//			$multi_day,
-//			$many_day_multi_day,
-//			$not_multiday_in_utc
-//		], tribe_events()->get_ids() );
-		global $wpdb;
-		define( 'SAVEQUERIES', true );
-		$actual = tribe_events()->where( 'multiday', true )->get_ids();
+		$this->assertEqualSets( [
+			$same_day,
+			$multi_day,
+			$many_day_multi_day,
+			$not_multiday_in_utc
+		], tribe_events()->get_ids() );
 		$this->assertEqualSets( [
 			$multi_day,
 			$many_day_multi_day,
 			$not_multiday_in_utc
-		], $actual );
-//		$this->assertEqualSets( [ $same_day ], tribe_events()->where( 'multiday', false )->get_ids() );
+		], tribe_events()->where( 'multiday', true )->get_ids() );
+		$this->assertEqualSets( [ $same_day ], tribe_events()->where( 'multiday', false )->get_ids() );
 	}
 
 	/**
@@ -152,22 +149,22 @@ class FetchTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function should_handle_multi_day_with_after_midnight_cutoff() {
 		tribe_update_option( 'multiDayCutoff', '06:00' );
-		$same_day  = $this->factory()->event->starting_on( '2018-01-10 16:00:00' )
-		                                    ->with_timezone( 'America/New_York' )
-		                                    ->lasting( 4 * HOUR_IN_SECONDS )
-		                                    ->create();
+		$same_day                     = $this->factory()->event->starting_on( '2018-01-10 16:00:00' )
+		                                                       ->with_timezone( 'America/New_York' )
+		                                                       ->lasting( 4 * HOUR_IN_SECONDS )
+		                                                       ->create();
 		$cross_midnight_before_cutoff = $this->factory()->event->starting_on( '2018-01-10 23:00:00' )
-		                                    ->with_timezone( 'America/New_York' )
-		                                    ->lasting( 4 * HOUR_IN_SECONDS )
-		                                    ->create();
-		$multi_day_till_cutoff = $this->factory()->event->starting_on( '2018-01-10 23:00:00' )
-		                                    ->with_timezone( 'America/New_York' )
-		                                    ->lasting( 7 * HOUR_IN_SECONDS )
-		                                    ->create();
-		$multi_day = $this->factory()->event->starting_on( '2018-01-10 23:00:00' )
-		                                    ->with_timezone( 'America/New_York' )
-		                                    ->lasting( 8 * HOUR_IN_SECONDS )
-		                                    ->create();
+		                                                       ->with_timezone( 'America/New_York' )
+		                                                       ->lasting( 4 * HOUR_IN_SECONDS )
+		                                                       ->create();
+		$multi_day_till_cutoff        = $this->factory()->event->starting_on( '2018-01-10 23:00:00' )
+		                                                       ->with_timezone( 'America/New_York' )
+		                                                       ->lasting( 7 * HOUR_IN_SECONDS )
+		                                                       ->create();
+		$multi_day                    = $this->factory()->event->starting_on( '2018-01-10 23:00:00' )
+		                                                       ->with_timezone( 'America/New_York' )
+		                                                       ->lasting( 8 * HOUR_IN_SECONDS )
+		                                                       ->create();
 
 		$this->assertEqualSets( [
 			$same_day,
@@ -179,6 +176,9 @@ class FetchTest extends \Codeception\TestCase\WPTestCase {
 			$multi_day_till_cutoff,
 			$multi_day,
 		], tribe_events()->where( 'multiday', true )->get_ids() );
-		$this->assertEqualSets( [ $same_day, $cross_midnight_before_cutoff ], tribe_events()->where( 'multiday', false )->get_ids() );
+		$this->assertEqualSets( [
+			$same_day,
+			$cross_midnight_before_cutoff
+		], tribe_events()->where( 'multiday', false )->get_ids() );
 	}
 }
