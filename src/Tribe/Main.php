@@ -467,6 +467,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// GDPR Privacy
 			tribe_singleton( 'tec.privacy', 'Tribe__Events__Privacy', array( 'hook' ) );
 
+			// The ORM/Repository service provider.
+			tribe_register_provider( 'Tribe__Events__Service_Providers__ORM' );
+
 			/**
 			 * Allows other plugins and services to override/change the bound implementations.
 			 */
