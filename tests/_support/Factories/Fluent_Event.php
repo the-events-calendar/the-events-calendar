@@ -100,6 +100,7 @@ class Fluent_Event {
 				'_EventStartDateUTC' => $start->setTimezone( $utc )->format( 'Y-m-d H:i:s' ),
 				'_EventEndDateUTC'   => $end->setTimezone( $utc )->format( 'Y-m-d H:i:s' ),
 				'_EventDuration'     => $this->duration,
+				'_EventTimezone'     => $this->timezone,
 			],
 		];
 

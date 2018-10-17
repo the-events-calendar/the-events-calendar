@@ -37,11 +37,17 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		);
 
 		$this->schema = array_merge( $this->schema, array(
-			'all_day'      => array( $this, 'filter_by_all_day' ),
-			'ends_before'  => array( $this, 'filter_by_ends_before' ),
-			'ends_after'   => array( $this, 'filter_by_ends_after' ),
-			'ends_between' => array( $this, 'filter_by_ends_between' ),
-			'multiday'     => array( $this, 'filter_by_multiday' ),
+			'starts_before'    => array( $this, 'filter_by_starts_before' ),
+			'starts_after'     => array( $this, 'filter_by_starts_after' ),
+			'starts_between'   => array( $this, 'filter_by_starts_between' ),
+			'ends_before'      => array( $this, 'filter_by_ends_before' ),
+			'ends_after'       => array( $this, 'filter_by_ends_after' ),
+			'ends_between'     => array( $this, 'filter_by_ends_between' ),
+			'runs_between'     => array( $this, 'filter_by_runs_between' ),
+			'all_day'          => array( $this, 'filter_by_all_day' ),
+			'multiday'         => array( $this, 'filter_by_multiday' ),
+			'on_calendar_grid' => array( $this, 'filter_by_on_calendar_grid' ),
+			'timezone'         => array( $this, 'filter_by_timezone' ),
 		) );
 	}
 
@@ -81,6 +87,35 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	}
 
 	/**
+	 * Filters events whose start date occurs before the provided date; fetch is not inclusive.
+	 *
+	 * @since TBD
+	 *
+	 * @param string|DateTime|int $datetime A `strtotime` parse-able string, a DateTime object or
+	 *                                      a timestamp.
+	 * @param string|DateTimeZone $timezone A timezone string, UTC offset or DateTimeZone object;
+	 *                                      defaults to the site timezone; this parameter is ignored
+	 *                                      if the `$datetime` parameter is a DatTime object.
+	 *
+	 * @return array An array of arguments that should be added to the WP_Query object.
+	 */
+	public function filter_by_starts_before( $datetime, $timezone = null ) {
+		$date = Tribe__Date_Utils::build_date_object( $datetime, $timezone )
+		                         ->setTimezone( new DateTimeZone( 'UTC' ) );
+
+		return array(
+			'meta_query' => array(
+				'ends-before' => array(
+					'key'     => '_EventStartDateUTC',
+					'compare' => '<',
+					'value'   => $date->format( 'Y-m-d H:i:s' ),
+					'type'    => 'DATETIME',
+				),
+			),
+		);
+	}
+
+	/**
 	 * Filters events whose end date occurs before the provided date; fetch is not inclusive.
 	 *
 	 * @since TBD
@@ -102,6 +137,35 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 				'ends-before' => array(
 					'key'     => '_EventEndDateUTC',
 					'compare' => '<',
+					'value'   => $date->format( 'Y-m-d H:i:s' ),
+					'type'    => 'DATETIME',
+				),
+			),
+		);
+	}
+
+	/**
+	 * Filters events whose start date occurs after the provided date; fetch is not inclusive.
+	 *
+	 * @since TBD
+	 *
+	 * @param string|DateTime|int $datetime A `strtotime` parse-able string, a DateTime object or
+	 *                                      a timestamp.
+	 * @param string|DateTimeZone $timezone A timezone string, UTC offset or DateTimeZone object;
+	 *                                      defaults to the site timezone; this parameter is ignored
+	 *                                      if the `$datetime` parameter is a DatTime object.
+	 *
+	 * @return array An array of arguments that should be added to the WP_Query object.
+	 */
+	public function filter_by_starts_after( $datetime, $timezone = null ) {
+		$date = Tribe__Date_Utils::build_date_object( $datetime, $timezone )
+		                         ->setTimezone( new DateTimeZone( 'UTC' ) );
+
+		return array(
+			'meta_query' => array(
+				'ends-after' => array(
+					'key'     => '_EventStartDateUTC',
+					'compare' => '>',
 					'value'   => $date->format( 'Y-m-d H:i:s' ),
 					'type'    => 'DATETIME',
 				),
@@ -136,6 +200,31 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 				),
 			),
 		);
+	}
+
+	/**
+	 * Filters events whose start date occurs between a set of dates; fetch is inclusive.
+	 *
+	 * @since TBD
+	 *
+	 * @param string|DateTime|int $start_datetime A `strtotime` parse-able string, a DateTime object or
+	 *                                            a timestamp.
+	 * @param string|DateTime|int $end_datetime   A `strtotime` parse-able string, a DateTime object or
+	 *                                            a timestamp.
+	 * @param string|DateTimeZone $timezone       A timezone string, UTC offset or DateTimeZone object;
+	 *                                            defaults to the site timezone; this parameter is ignored
+	 *                                            if the `$datetime` parameter is a DatTime object.
+	 */
+	public function filter_by_starts_between( $start_datetime, $end_datetime, $timezone = null ) {
+		$utc = new DateTimeZone( 'UTC' );
+
+		$lower = Tribe__Date_Utils::build_date_object( $start_datetime, $timezone )->setTimezone( $utc );
+		$upper = Tribe__Date_Utils::build_date_object( $end_datetime, $timezone )->setTimezone( $utc );
+
+		$this->by( 'meta_between', '_EventStartDateUTC', array(
+			$lower->format( 'Y-m-d H:i:s' ),
+			$upper->format( 'Y-m-d H:i:s' )
+		), 'DATETIME' );
 	}
 
 	/**
@@ -207,5 +296,127 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 				"multiday_end_date.meta_value {$compare} DATE_FORMAT( DATE_ADD( multiday_start_date.meta_value, INTERVAL 1 DAY ) , '%Y-%m-%d {$end_of_day_cutoff}' )"
 			);
 		}
+	}
+
+	/**
+	 * Filters events to include only those events that appear on the given month’s calendar grid.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $month The month to display.
+	 * @param int $year  The year to display.
+	 *
+	 * @return array|null An array of arguments that should be added to the query or `null`
+	 *                    if the arguments are not valid (thus the filter will be ignored).
+	 */
+	public function filter_by_on_calendar_grid( $month, $year ) {
+		$year_month_string = "{$year}-{$month}";
+
+		if ( ! Tribe__Date_Utils::is_valid_date( $year_month_string ) ) {
+			/*
+			 * Months and years are known but, at runtime, the client code might get, or pass,
+			 * them wrong. In that case this filter will not be applied.
+			 */
+			return null;
+		}
+
+		$start = Tribe__Events__Template__Month::calculate_first_cell_date( $year_month_string );
+		$end   = Tribe__Events__Template__Month::calculate_final_cell_date( $year_month_string );
+
+		return $this->filter_by_runs_between( $start, tribe_end_of_day( $end ) );
+	}
+
+	/**
+	 * Filters events to include only those events that are running between two dates.
+	 *
+	 * An event is running between two dates when its start date or end date are between
+	 * the two dates.
+	 *
+	 * @since TBD
+	 *
+	 * @param string|DateTime|int $start_datetime A `strtotime` parse-able string, a DateTime object or
+	 *                                            a timestamp.
+	 * @param string|DateTime|int $end_datetime   A `strtotime` parse-able string, a DateTime object or
+	 *                                            a timestamp.
+	 * @param string|DateTimeZone $timezone       A timezone string, UTC offset or DateTimeZone object;
+	 *                                            defaults to the site timezone; this parameter is ignored
+	 *                                            if the `$datetime` parameter is a DatTime object.
+	 *
+	 * @return array An array of arguments that should be added to the WP_Query object.
+	 */
+	public function filter_by_runs_between( $start_datetime, $end_datetime, $timezone = null ) {
+		$start_date = Tribe__Date_Utils::build_date_object( $start_datetime, $timezone )
+		                               ->setTimezone( new DateTimeZone( 'UTC' ) )
+		                               ->format( 'Y-m-d H:i:s' );
+		$end_date   = Tribe__Date_Utils::build_date_object( $end_datetime, $timezone )
+		                               ->setTimezone( new DateTimeZone( 'UTC' ) )
+		                               ->format( 'Y-m-d H:i:s' );
+
+		return array(
+			'meta_query' => array(
+				'runs-between' => array(
+					'starts'   => array(
+						'after-the-start' => array(
+							'key'     => '_EventStartDateUTC',
+							'value'   => $start_date,
+							'compare' => '>=',
+							'type'    => 'DATETIME',
+						),
+						'relation'        => 'AND',
+						'before-the-end'  => array(
+							'key'     => '_EventStartDateUTC',
+							'value'   => $end_date,
+							'compare' => '<=',
+							'type'    => 'DATETIME',
+						)
+					),
+					'relation' => 'OR',
+					'ends'     => array(
+						'after-the-start' => array(
+							'key'     => '_EventEndDateUTC',
+							'value'   => $start_date,
+							'compare' => '>=',
+							'type'    => 'DATETIME',
+						),
+						'relation'        => 'AND',
+						'before-the-end'  => array(
+							'key'     => '_EventEndDateUTC',
+							'value'   => $end_date,
+							'compare' => '<=',
+							'type'    => 'DATETIME',
+						),
+					),
+				),
+			),
+		);
+	}
+
+	public function filter_by_timezone( $timezone ) {
+		if ( $timezone instanceof DateTimeZone ) {
+			$timezone = $timezone->getName();
+		}
+
+		$is_utc = preg_match( '/^UTC((\\+|-)0)*$/i', $timezone );
+
+		if ( $is_utc ) {
+			return array(
+				'meta_query' => array(
+					'by-timezone' => array(
+						'key'     => '_EventTimezone',
+						'compare' => 'IN',
+						'value'   => array( 'UTC', 'UTC+0', 'UTC-0' ),
+					),
+				),
+			);
+		}
+
+		return array(
+			'meta_query' => array(
+				'by-timezone' => array(
+					'key'   => '_EventTimezone',
+					'value' => $timezone,
+				),
+			),
+		);
 	}
 }
