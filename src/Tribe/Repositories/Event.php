@@ -73,14 +73,14 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 					'not-exists' => array(
 						'key'     => '_EventAllDay',
 						'compare' => 'NOT EXISTS',
-						'value'   => '#'
+						'value'   => '#',
 					),
 					'relation'   => 'OR',
 					'is-not-yes' => array(
 						'key'     => '_EventAllDay',
 						'compare' => '!=',
 						'value'   => 'yes',
-					)
+					),
 				),
 			),
 		);
@@ -223,7 +223,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 
 		$this->by( 'meta_between', '_EventStartDateUTC', array(
 			$lower->format( 'Y-m-d H:i:s' ),
-			$upper->format( 'Y-m-d H:i:s' )
+			$upper->format( 'Y-m-d H:i:s' ),
 		), 'DATETIME' );
 	}
 
@@ -248,7 +248,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 
 		$this->by( 'meta_between', '_EventEndDateUTC', array(
 			$lower->format( 'Y-m-d H:i:s' ),
-			$upper->format( 'Y-m-d H:i:s' )
+			$upper->format( 'Y-m-d H:i:s' ),
 		), 'DATETIME' );
 	}
 
@@ -267,12 +267,12 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	public function filter_by_multiday( $multiday = true ) {
 		global $wpdb;
 
-		$this->filter_query->join( "LEFT JOIN {$wpdb->postmeta} multiday_start_date "
-		                           . "ON ( {$wpdb->posts}.ID = multiday_start_date.post_id AND "
-		                           . "multiday_start_date.meta_key = '_EventStartDate' )" );
-		$this->filter_query->join( "LEFT JOIN {$wpdb->postmeta} multiday_end_date "
-		                           . "ON ( {$wpdb->posts}.ID = multiday_end_date.post_id AND "
-		                           . "multiday_end_date.meta_key = '_EventEndDate' )" );
+		$this->filter_query->join( "LEFT JOIN {$wpdb->postmeta} multiday_start_date
+			ON ( {$wpdb->posts}.ID = multiday_start_date.post_id 
+			AND multiday_start_date.meta_key = '_EventStartDate' )" );
+		$this->filter_query->join( "LEFT JOIN {$wpdb->postmeta} multiday_end_date 
+			ON ( {$wpdb->posts}.ID = multiday_end_date.post_id
+			AND multiday_end_date.meta_key = '_EventEndDate' )" );
 
 		// We're interested in the time only.
 		$end_of_day_cutoff = tribe_end_of_day( 'today', 'H:i:s' );
@@ -368,7 +368,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 							'value'   => $end_date,
 							'compare' => '<=',
 							'type'    => 'DATETIME',
-						)
+						),
 					),
 					'relation' => 'OR',
 					'ends'     => array(
@@ -391,6 +391,17 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		);
 	}
 
+	/**
+	 * Filters events the given timezone.
+	 *
+	 * UTC, UTC+0, and UTC-0 should be parsed as the same timezone.
+	 *
+	 * @since TBD
+	 *
+	 * @param string|DateTimeZone $timezone A timezone string or object.
+	 *
+	 * @return array An array of arguments to apply to the query.
+	 */
 	public function filter_by_timezone( $timezone ) {
 		if ( $timezone instanceof DateTimeZone ) {
 			$timezone = $timezone->getName();
