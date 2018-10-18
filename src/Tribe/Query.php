@@ -69,7 +69,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		 */
 		public static function parse_query( $query ) {
 			// If this is set then the class will bail out of any filtering.
-			if ( $query->get( 'tribe_suppress_filters', false ) ) {
+			if ( $query->get( 'tribe_suppress_query_filters', false ) ) {
 				return $query;
 			}
 
@@ -206,7 +206,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		 */
 		public static function pre_get_posts( $query ) {
 			// If this is set then the class will bail out of any filtering.
-			if ( $query->get( 'tribe_suppress_filters', false ) ) {
+			if ( $query->get( 'tribe_suppress_query_filters', false ) ) {
 				return $query;
 			}
 
