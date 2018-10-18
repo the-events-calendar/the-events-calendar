@@ -215,6 +215,9 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
+= [4.6.26] TBD =
+* Add - the `tribe_events()` function as entry-point to the Events ORM and the supporting filter code [116356, 115579]
+
 = [4.6.25] TBD =
 
 * Fix - List only enabled views on the "Default View" option. Thanks to wescole, John Meuse and others for reporting! [114807]
