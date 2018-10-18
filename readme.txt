@@ -215,6 +215,9 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
+= [4.6.26] TBD =
+* Add - the `tribe_events()` function as entry-point to the Events ORM and the supporting filter code [116356, 115579]
+
 = [4.6.25] TBD =
 
 * Fix - List only enabled views on the "Default View" option. Thanks to wescole, John Meuse and others for reporting! [114807]
@@ -223,6 +226,8 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - Ensure columns without headers are handled in CSV imports [114199]
 * Tweak - Add notice for the Gutenberg extension and eBook download [115543]
 * Tweak - Avoid unnecessary HTTP calls in the Settings screens [114013]
+* Tweak - Show only applicable refinements for the Eventbrite source types in Event Aggregator imports [107009]
+* Tweak - Added `tribe_aggregator_resolve_geolocation` filter to allow for disabling of Geocoding using the EA service [114171]
 
 = [4.6.24] 2018-10-03 =
 

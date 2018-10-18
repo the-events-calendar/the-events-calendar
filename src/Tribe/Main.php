@@ -3190,7 +3190,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			global $post;
 			$options = '';
 			$style   = '';
-			$event    = $post;
+			$event   = $post;
 
 			if ( $post->post_type == Tribe__Events__Venue::POSTTYPE ) {
 
@@ -3417,7 +3417,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				'normal',
 				'high',
 				array(
-					'__back_compat_meta_box' => true,
+					'__back_compat_meta_box' => tribe( 'tec.gutenberg' )->should_display() || ! class_exists( 'Tribe__Events__Pro__Main' ),
 				)
 			);
 
