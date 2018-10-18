@@ -37,17 +37,18 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		);
 
 		$this->schema = array_merge( $this->schema, array(
-			'starts_before'    => array( $this, 'filter_by_starts_before' ),
-			'starts_after'     => array( $this, 'filter_by_starts_after' ),
-			'starts_between'   => array( $this, 'filter_by_starts_between' ),
-			'ends_before'      => array( $this, 'filter_by_ends_before' ),
-			'ends_after'       => array( $this, 'filter_by_ends_after' ),
-			'ends_between'     => array( $this, 'filter_by_ends_between' ),
-			'runs_between'     => array( $this, 'filter_by_runs_between' ),
-			'all_day'          => array( $this, 'filter_by_all_day' ),
-			'multiday'         => array( $this, 'filter_by_multiday' ),
-			'on_calendar_grid' => array( $this, 'filter_by_on_calendar_grid' ),
-			'timezone'         => array( $this, 'filter_by_timezone' ),
+			'starts_before'           => array( $this, 'filter_by_starts_before' ),
+			'starts_after'            => array( $this, 'filter_by_starts_after' ),
+			'starts_between'          => array( $this, 'filter_by_starts_between' ),
+			'ends_before'             => array( $this, 'filter_by_ends_before' ),
+			'ends_after'              => array( $this, 'filter_by_ends_after' ),
+			'ends_between'            => array( $this, 'filter_by_ends_between' ),
+			'starts_and_ends_between' => array( $this, 'filter_by_starts_and_ends_between' ),
+			'runs_between'            => array( $this, 'filter_by_runs_between' ),
+			'all_day'                 => array( $this, 'filter_by_all_day' ),
+			'multiday'                => array( $this, 'filter_by_multiday' ),
+			'on_calendar_grid'        => array( $this, 'filter_by_on_calendar_grid' ),
+			'timezone'                => array( $this, 'filter_by_timezone' ),
 		) );
 	}
 
@@ -426,6 +427,54 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 				'by-timezone' => array(
 					'key'   => '_EventTimezone',
 					'value' => $timezone,
+				),
+			),
+		);
+	}
+
+	/**
+	 * Filters events whose start and end dates occur between a set of dates.
+	 *
+	 * Fetch is inclusive.
+	 *
+	 * @since TBD
+	 *
+	 * @param string|DateTime|int $start_datetime A `strtotime` parse-able string, a DateTime object or
+	 *                                            a timestamp.
+	 * @param string|DateTime|int $end_datetime   A `strtotime` parse-able string, a DateTime object or
+	 *                                            a timestamp.
+	 * @param string|DateTimeZone $timezone       A timezone string, UTC offset or DateTimeZone object;
+	 *                                            defaults to the site timezone; this parameter is ignored
+	 *                                            if the `$datetime` parameter is a DatTime object.
+	 *
+	 * @return array An array of arguments that should be added to the WP_Query object.
+	 */
+	public function filter_by_starts_and_ends_between( $start_datetime, $end_datetime, $timezone = null ) {
+		$start_date = Tribe__Date_Utils::build_date_object( $start_datetime, $timezone )
+		                               ->setTimezone( new DateTimeZone( 'UTC' ) )
+		                               ->format( 'Y-m-d H:i:s' );
+		$end_date   = Tribe__Date_Utils::build_date_object( $end_datetime, $timezone )
+		                               ->setTimezone( new DateTimeZone( 'UTC' ) )
+		                               ->format( 'Y-m-d H:i:s' );
+
+		$interval = array( $start_date, $end_date );
+
+		return array(
+			'meta_query' => array(
+				'starts-ends-between' => array(
+					'starts-between' => array(
+						'key'     => '_EventStartDateUTC',
+						'value'   => $interval,
+						'compare' => 'BETWEEN',
+						'type'    => 'DATETIME',
+					),
+					'relation'       => 'AND',
+					'ends-between'   => array(
+						'key'     => '_EventEndDateUTC',
+						'value'   => $interval,
+						'compare' => 'BETWEEN',
+						'type'    => 'DATETIME',
+					),
 				),
 			),
 		);

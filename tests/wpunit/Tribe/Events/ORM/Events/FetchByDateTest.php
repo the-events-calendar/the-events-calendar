@@ -271,7 +271,7 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_allow_filtering_events_by_calendar_grid() {
-		$dates = [
+		extract( $this->create_events_from_dates( [
 			'july_29th'                           => [ '2018-07-29 09:00:00', 2 * HOUR_IN_SECONDS ],
 			'july_30th'                           => [ '2018-07-30 09:00:00', 2 * HOUR_IN_SECONDS ],
 			'starts_in_july_ends_in_august'       => [ '2018-07-28 09:00:00', WEEK_IN_SECONDS ],
@@ -288,16 +288,7 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 			'september_30th'                      => [ '2018-09-30 09:00:00', 2 * HOUR_IN_SECONDS ],
 			'starts_in_september_ends_in_october' => [ '2018-09-28 09:00:00', WEEK_IN_SECONDS ],
 			'october_1st'                         => [ '2018-10-01 09:00:00', 2 * HOUR_IN_SECONDS ],
-		];
-
-		extract( array_combine( array_keys( $dates ), array_map( function ( $payload ) {
-			list( $date, $duration ) = $payload;
-
-			return $this->factory()->event->starting_on( $date )
-			                              ->with_timezone( 'America/New_York' )
-			                              ->lasting( $duration )
-			                              ->create();
-		}, $dates ) ) );
+		], 'America/New_York' ) );
 
 		$events = tribe_events()->where( 'on_calendar_grid', 8, 2018 )->get_ids();
 		$this->assertEqualSets( [
@@ -325,6 +316,26 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 			$september_30th,
 			$starts_in_september_ends_in_october,
 		], $events );
+	}
+
+	/**
+	 * Creates a set of event from an array specifying the event names, start dates
+	 * and durations.
+	 *
+	 * @param array $dates An array in the shape [ <var_name> => [ <start_date>, <duration> ] ].
+	 * @param string The timezone string to use.
+	 *
+	 * @return array An array of event variable names mapped to theirs IDs, ready to be `extract`ed.
+	 */
+	protected function create_events_from_dates( $dates, $timezone = 'America/New_York' ) {
+		return array_combine( array_keys( $dates ), array_map( function ( $payload ) use ( $timezone ) {
+			list( $date, $duration ) = $payload;
+
+			return $this->factory()->event->starting_on( $date )
+			                              ->with_timezone( $timezone )
+			                              ->lasting( $duration )
+			                              ->create();
+		}, $dates ) );
 	}
 
 	/**
@@ -360,5 +371,35 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( [ $ny_event ], tribe_events()->where( 'timezone', 'America/New_York' )->get_ids() );
 
 		$this->assertEquals( [ $offset_event ], tribe_events()->where( 'timezone', 'UTC+3' )->get_ids() );
+	}
+
+	/**
+	 * It should allow filtering events by start and end date
+	 *
+	 * @test
+	 */
+	public function should_allow_filtering_events_by_start_and_end_date() {
+		$ny_timezone_string    = 'America/New_York';
+		$paris_timezone_string = 'Europe/Paris';
+		$ny                    = new \DateTimeZone( $ny_timezone_string );
+		$start                 = new \DateTime( '2018-01-10 16:00:00', $ny );
+		$end                   = new \DateTime( '2018-01-17 16:00:00', $ny );
+		extract( $this->create_events_from_dates( [
+			'starts_before_ends_after_period' => [ '2018-01-01 10:00:00', 2 * MONTH_IN_SECONDS ],
+			'starts_before_ends_before_start' => [ '2018-01-10 10:00:00', 2 * HOUR_IN_SECONDS ],
+			'starts_before_ends_on_start'     => [ '2018-01-10 14:00:00', 2 * HOUR_IN_SECONDS ],
+			'starts_on_start_ends_after'      => [ '2018-01-10 16:00:00', 2 * HOUR_IN_SECONDS ],
+			'starts_before_ends_before_end'   => [ '2018-01-15 15:00:00', 2 * HOUR_IN_SECONDS ],
+			'starts_before_ends_on_end'       => [ '2018-01-17 14:00:00', 2 * HOUR_IN_SECONDS ],
+			'starts_before_ends_after_end'    => [ '2018-01-17 15:00:00', 2 * HOUR_IN_SECONDS ],
+			'starts_on_end_ends_after_end'    => [ '2018-01-17 16:00:00', 2 * HOUR_IN_SECONDS ],
+			'starts_after_ends_after_end'     => [ '2018-01-19 14:00:00', 2 * HOUR_IN_SECONDS ],
+		], $ny_timezone_string ) );
+
+		$this->assertEqualSets( [
+			$starts_on_start_ends_after,
+			$starts_before_ends_before_end,
+			$starts_before_ends_on_end,
+		], tribe_events()->where( 'starts_and_ends_between', $start, $end, $ny_timezone_string )->get_ids() );
 	}
 }
