@@ -217,6 +217,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 = [4.6.26] TBD =
 * Add - the `tribe_events()` function as entry-point to the Events ORM and the supporting filter code [116356, 115579]
+* Add support for the `tribe_suppress_query_filters` query variable to prevent the plugin own query filters from applying [116356, 115579]
 
 = [4.6.25] TBD =
 
