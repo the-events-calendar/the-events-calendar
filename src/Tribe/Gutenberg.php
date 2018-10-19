@@ -69,7 +69,7 @@ class Tribe__Events__Gutenberg {
 	 * Currently only used for fields that we want to hide because they
 	 * already have a block to replace.
 	 *
-	 * @since  TBD
+	 * @since  4.6.25
 	 *
 	 * @return boolean
 	 */

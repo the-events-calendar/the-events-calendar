@@ -740,7 +740,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		/**
 		 * Allows customizing whether to resolve geolocation for events by the EA service.
 		 *
-		 * @since TBD
+		 * @since 4.6.25
 		 *
 		 * @param boolean $resolve_geolocation Whether the EA Geocode Address API is enabled for geocoding addresses.
 		 * @param array   $args                Queued record import arguments to be sent to EA service.

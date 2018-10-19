@@ -48,7 +48,7 @@ class Tribe__Events__Admin__Notice__Marketing {
 
 	/**
 	 * Check if we should display the Gutenberg notice
-	 * @since TBD
+	 * @since 4.6.25
 	 *
 	 * @return bool
 	 */
@@ -83,7 +83,7 @@ class Tribe__Events__Admin__Notice__Marketing {
 	/**
 	 * HTML for the Gutenberg Notice
 	 *
-	 * @since TBD
+	 * @since 4.6.25
 	 *
 	 * @return string
 	 */
