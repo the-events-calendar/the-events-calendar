@@ -26,8 +26,17 @@ foreach ( array_keys( $templates ) as $template ) {
  */
 $views = apply_filters( 'tribe-events-bar-views', array(), false );
 
-$views_options = array();
+$enabled_views = tribe_get_option( 'tribeEnableViews', array() );
+
+$views_options         = array();
+$enabled_views_options = array();
+
 foreach ( $views as $view ) {
+	// Only include the enabled views on the default views array
+	if ( in_array( $view['displaying'], $enabled_views ) ) {
+		$enabled_views_options[ $view['displaying'] ] = $view['anchor'];
+	}
+
 	$views_options[ $view['displaying'] ] = $view['anchor'];
 }
 
@@ -181,10 +190,10 @@ $display_tab_fields = Tribe__Main::array_insert_before_key(
 		'viewOption'                         => array(
 			'type'            => 'dropdown',
 			'label'           => __( 'Default view', 'the-events-calendar' ),
-			'validation_type' => 'options',
+			'validation_type' => 'not_empty',
 			'size'            => 'large',
 			'default'         => 'month',
-			'options'         => $views_options,
+			'options'         => $enabled_views_options,
 		),
 		'tribeDisableTribeBar'               => array(
 			'type'            => 'checkbox_bool',
