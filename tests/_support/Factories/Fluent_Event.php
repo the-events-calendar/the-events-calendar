@@ -83,26 +83,32 @@ class Fluent_Event {
 	/**
 	 * Builds and returns the data in a format suitable for use in a post factory creation method.
 	 *
+	 * @param array $overrides An array of generation definitions to override the defaults.
+	 *
 	 * @return int The ID of the post created using the parameters by the factory.
 	 *
 	 * @throws \Exception If the duration is not valid.
 	 */
-	public function create(): int {
+	public function create( array $overrides = [] ): int {
 		$start = new \DateTime( $this->start_date, new \DateTimeZone( $this->timezone ) );
 		$end   = clone $start;
 		$end->add( new \DateInterval( "PT{$this->duration}S" ) );
 		$utc = new \DateTimeZone( 'UTC' );
 
-		$overrides = [
-			'meta_input' => [
-				'_EventStartDAte'    => $start->format( 'Y-m-d H:i:s' ),
-				'_EventEndDate'      => $end->format( 'Y-m-d H:i:s' ),
-				'_EventStartDateUTC' => $start->setTimezone( $utc )->format( 'Y-m-d H:i:s' ),
-				'_EventEndDateUTC'   => $end->setTimezone( $utc )->format( 'Y-m-d H:i:s' ),
-				'_EventDuration'     => $this->duration,
-				'_EventTimezone'     => $this->timezone,
-			],
-		];
+		$meta_input = array_merge( $overrides['meta_input'] ?? [], [
+			'_EventStartDAte'    => $start->format( 'Y-m-d H:i:s' ),
+			'_EventEndDate'      => $end->format( 'Y-m-d H:i:s' ),
+			'_EventStartDateUTC' => $start->setTimezone( $utc )->format( 'Y-m-d H:i:s' ),
+			'_EventEndDateUTC'   => $end->setTimezone( $utc )->format( 'Y-m-d H:i:s' ),
+			'_EventDuration'     => $this->duration,
+			'_EventTimezone'     => $this->timezone,
+		] );
+
+		unset( $overrides['meta_input'] );
+
+		$overrides = array_merge( $overrides, [
+			'meta_input' => $meta_input,
+		] );
 
 		return $this->factory->create( $overrides );
 	}
