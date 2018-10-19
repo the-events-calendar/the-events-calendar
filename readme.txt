@@ -215,12 +215,6 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
-= [4.6.24.1] 2018-10-08 =
-
-* Fix - Fixed an issue where a fatal error could be generated when trying to save a new Event Aggregator scheduled import [115339]
-* Fix - Handle left-over Facebook scheduled imports and notices [114831]
-* Tweak - Added the `tribe_aggregator_import_setting_origins` filter to the origins available for default import settings [115704]
-
 = [4.6.25] 2018-10-23 =
 
 * Fix - List only enabled views on the "Default View" option. Thanks to wescole, John Meuse and others for reporting! [114807]
@@ -232,6 +226,12 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Tweak - Show only applicable refinements for the Eventbrite source types in Event Aggregator imports [107009]
 * Tweak - Added `tribe_aggregator_resolve_geolocation` filter to allow for disabling of Geocoding using the EA service [114171]
 * Tweak - Added `tribe_aggregator_clean_unsupported` filter to specify whether unsupported origin records should be removed or not
+
+= [4.6.24.1] 2018-10-08 =
+
+* Fix - Fixed an issue where a fatal error could be generated when trying to save a new Event Aggregator scheduled import [115339]
+* Fix - Handle left-over Facebook scheduled imports and notices [114831]
+* Tweak - Added the `tribe_aggregator_import_setting_origins` filter to the origins available for default import settings [115704]
 
 = [4.6.24] 2018-10-03 =
 
