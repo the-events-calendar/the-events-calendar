@@ -7,6 +7,21 @@ use Tribe__Events__Main as Main;
 class Event extends \WP_UnitTest_Factory_For_Post {
 
 	/**
+	 * Returns a fluent event instance to start building an event meta information
+	 * using readable syntax.
+	 *
+	 * @param string $start_date The event start date in string form.
+	 *
+	 * @return Fluent_Event The "head" of the fluent event.
+	 */
+	public function starting_on( string $start_date ) {
+		$fluent_event = new Fluent_Event( $start_date );
+		$fluent_event->set_factory($this);
+
+		return $fluent_event;
+	}
+
+	/**
 	 * Inserts an event in the database.
 	 *
 	 * @param array $args      An array of values to override the default arguments.

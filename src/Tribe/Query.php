@@ -68,6 +68,11 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		 * @param WP_Query $query
 		 */
 		public static function parse_query( $query ) {
+			// If this is set then the class will bail out of any filtering.
+			if ( $query->get( 'tribe_suppress_query_filters', false ) ) {
+				return $query;
+			}
+
 			$helper = Tribe__Admin__Helpers::instance();
 
 			// set paged
@@ -200,7 +205,13 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		 * @return object $query (modified)
 		 */
 		public static function pre_get_posts( $query ) {
+			// If this is set then the class will bail out of any filtering.
+			if ( $query->get( 'tribe_suppress_query_filters', false ) ) {
+				return $query;
+			}
+
 			$admin_helpers = Tribe__Admin__Helpers::instance();
+
 
 			if ( $query->is_main_query() && is_home() ) {
 				/**
@@ -486,6 +497,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			if ( tribe( 'tec.front-page-view' )->is_page_on_front() ) {
 				remove_filter( 'option_page_on_front', array( __CLASS__, 'default_page_on_front' ) );
 			}
+
 			return $posts;
 		}
 
