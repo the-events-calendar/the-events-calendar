@@ -221,10 +221,11 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - Handle left-over Facebook scheduled imports and notices [114831]
 * Fix - Fixed event navigation when the mini calendar widget was on the event page. Props to Matt and wescole for flagging this [114359]
 * Fix - Ensure columns without headers are handled in CSV imports [114199]
-* Tweak - Add notice for the Gutenberg extension and eBook download [115543]
+* Tweak - Added notice for the Events Gutenberg extension and eBook download [115543]
 * Tweak - Avoid unnecessary HTTP calls in the Settings screens [114013]
 * Tweak - Show only applicable refinements for the Eventbrite source types in Event Aggregator imports [107009]
 * Tweak - Added `tribe_aggregator_resolve_geolocation` filter to allow for disabling of Geocoding using the EA service [114171]
+* Tweak - Added `tribe_aggregator_clean_unsupported` filter to specify whether unsupported origin records should be removed or not
 
 = [4.6.24] 2018-10-03 =
 
