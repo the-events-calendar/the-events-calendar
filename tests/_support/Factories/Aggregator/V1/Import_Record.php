@@ -21,7 +21,7 @@ class Import_Record {
 	 *
 	 * @return array|object
 	 */
-	public function create_and_get_event_record( $origin = 'ical', array $overrides = [], bool $with_image = false ) {
+	public function create_and_get_event_data( $origin = 'ical', array $overrides = [], bool $with_image = false ) {
 		$uniqid = uniqid( 'record-', true );
 
 		$event_unique_id_key = $this->get_event_unique_id_field( $origin );
@@ -73,11 +73,11 @@ class Import_Record {
 		$record = array_merge( $record, $overrides );
 
 		if ( $with_image ) {
-			$record ['image'] = $this->create_and_get_image_record( $origin, $image_overrides );
+			$record ['image'] = $this->create_and_get_image_data( $origin, $image_overrides );
 		}
 
-		$record['organizer'] = $this->create_and_get_many_organizers_record( $origin, $organizer_count, $organizer_overrides );
-		$record['venue']     = (object) $this->create_and_get_venue_record( $origin, $venue_overrides );
+		$record['organizer'] = $this->create_and_get_many_organizers_data( $origin, $organizer_count, $organizer_overrides );
+		$record['venue']     = (object) $this->create_and_get_venue_data( $origin, $venue_overrides );
 
 		return (object) $record;
 	}
@@ -106,7 +106,7 @@ class Import_Record {
 	 *
 	 * @return string|array An image URL of an EA Image data array.
 	 */
-	public function create_and_get_image_record( $origin, array $image_overrides = [] ) {
+	public function create_and_get_image_data( $origin, array $image_overrides = [] ) {
 		$attachment_factory = new \WP_UnitTest_Factory_For_Attachment();
 		$image_id           = $attachment_factory->create_upload_object( codecept_data_dir( 'images/featured-image.jpg' ) );
 		$image              = get_post( $image_id );
@@ -123,9 +123,9 @@ class Import_Record {
 	 *
 	 * @return array
 	 */
-	public function create_and_get_many_organizers_record( $origin, $count, $overrides = [] ) {
+	public function create_and_get_many_organizers_data( $origin, $count, $overrides = [] ) {
 		return array_map( function () use ( $origin, $overrides ) {
-			return (object) $this->create_and_get_organizer_record( $origin, $overrides );
+			return (object) $this->create_and_get_organizer_data( $origin, $overrides );
 		}, range( 1, $count ) );
 	}
 
@@ -137,7 +137,7 @@ class Import_Record {
 	 *
 	 * @return array
 	 */
-	public function create_and_get_organizer_record( $origin, array $overrides = [] ) {
+	public function create_and_get_organizer_data( $origin, array $overrides = [] ) {
 		$uniqid = uniqid( 'organizer-', true );
 
 		return array_merge( [
@@ -172,7 +172,7 @@ class Import_Record {
 	 *
 	 * @return array
 	 */
-	public function create_and_get_venue_record( $origin, array $overrides ) {
+	public function create_and_get_venue_data( $origin, array $overrides ) {
 		$uniqid = uniqid( 'venue-', true );
 
 		return array_merge( [

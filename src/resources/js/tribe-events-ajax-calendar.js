@@ -29,6 +29,11 @@
 			return;
 		}
 
+		// Bail if we're on single event page
+		if ( $body.hasClass( 'single-tribe_events' ) ) {
+			return;
+		}
+
 		var baseUrl = '/';
 
 		if ( 'undefined' !== typeof config.events_base ) {

@@ -19,7 +19,7 @@ trait BatchDataMaker {
 		}
 
 		for ( $i = 0; $i < $events_count; $i ++ ) {
-			$events[] = $import_data->create_and_get_event_record( $origin );
+			$events[] = $import_data->create_and_get_event_data( $origin );
 		}
 
 		return array_merge( [

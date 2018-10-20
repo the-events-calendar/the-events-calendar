@@ -234,7 +234,7 @@ $general_tab_fields = Tribe__Main::array_insert_before_key(
 	'tribeEventsMiscellaneousTitle',
 	$general_tab_fields,
 	array(
-		'tribeEventsDisplayTitle'       => array(
+		'tribeGoogleMapsSettings' => array(
 			'type' => 'html',
 			'html' => '<h3>' . esc_html__( 'Map Settings', 'the-events-calendar' ) . '</h3>',
 		),
