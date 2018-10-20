@@ -266,6 +266,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Initializes plugin variables and sets up WordPress hooks/actions.
 		 */
 		protected function __construct() {
+		log_me('construct main');
+			log_me( current_filter());
 			$this->plugin_file = TRIBE_EVENTS_FILE;
 			$this->pluginPath = $this->plugin_path = trailingslashit( dirname( $this->plugin_file ) );
 			$this->pluginDir  = $this->plugin_dir = trailingslashit( basename( $this->plugin_path ) );
@@ -277,7 +279,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// let's initialize tec silly-early to avoid fatals with upgrades from 3.x to 4.x
 			add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ), 0 );
 
-			add_action( 'tribe_common_loaded', array( $this, 'tribe_common_textdomain' ), 0 );
+			add_action( 'tribe_common_loaded', array( $this, 'bootstrap' ), 0 );
 
 			add_action( 'tribe_common_loaded', array( $this, 'register_addon' ), 5 );
 
@@ -335,17 +337,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 */
 			$this->init_autoloading();
 
-			// Safety check: if Tribe Common is not at a certain minimum version, bail out
-			if ( version_compare( Tribe__Main::VERSION, self::MIN_COMMON_VERSION, '<' ) ) {
-				return;
-			}
-
-			if ( self::supportedVersion( 'wordpress' ) && self::supportedVersion( 'php' ) ) {
-				Tribe__Main::instance();
-			} else {
-				// Either PHP or WordPress version is inadequate so we simply return an error.
-				add_action( 'admin_head', array( $this, 'notSupportedError' ) );
-			}
 		}
 
 		/**
@@ -354,9 +345,25 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @since TBD
 		 *
 		 */
-		public function tribe_common_textdomain() {
-
+		public function bootstrap() {
+			log_me('bootstrap');
 			Tribe__Main::instance( $this )->load_text_domain( 'the-events-calendar', $this->plugin_dir . 'lang/' );
+
+			// Safety check: if Tribe Common is not at a certain minimum version, bail out
+			if ( version_compare( Tribe__Main::VERSION, self::MIN_COMMON_VERSION, '<' ) ) {
+				return;
+			}
+
+			if ( self::supportedVersion( 'wordpress' ) && self::supportedVersion( 'php' ) ) {
+				$this->bind_implementations();
+				$this->loadLibraries();
+				$this->addHooks();
+				$this->register_active_plugin();
+			} else {
+				// Either PHP or WordPress version is inadequate so we simply return an error.
+				add_action( 'admin_head', array( $this, 'notSupportedError' ) );
+			}
+
 
 		}
 
@@ -374,8 +381,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 		public function load_addon() {
 
-			log_me('tec load_addon');
-			log_me($this->registered);
+			//log_me('tec load_addon');
+			//log_me($this->registered);
 
 		}
 
