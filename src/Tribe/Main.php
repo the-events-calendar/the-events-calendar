@@ -266,8 +266,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Initializes plugin variables and sets up WordPress hooks/actions.
 		 */
 		protected function __construct() {
-		log_me('construct main');
-			log_me( current_filter());
 			$this->plugin_file = TRIBE_EVENTS_FILE;
 			$this->pluginPath = $this->plugin_path = trailingslashit( dirname( $this->plugin_file ) );
 			$this->pluginDir  = $this->plugin_dir = trailingslashit( basename( $this->plugin_path ) );
@@ -337,6 +335,20 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 */
 			$this->init_autoloading();
 
+			// Safety check: if Tribe Common is not at a certain minimum version, bail out
+			if ( version_compare( Tribe__Main::VERSION, self::MIN_COMMON_VERSION, '<' ) ) {
+				return;
+			}
+
+			if ( self::supportedVersion( 'wordpress' ) && self::supportedVersion( 'php' ) ) {
+				// Start Up Common
+				Tribe__Main::instance();
+			} else {
+				// Either PHP or WordPress version is inadequate so we simply return an error.
+				add_action( 'admin_head', array( $this, 'notSupportedError' ) );
+			}
+
+
 		}
 
 		/**
@@ -346,24 +358,13 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 */
 		public function bootstrap() {
-			log_me('bootstrap');
+
 			Tribe__Main::instance( $this )->load_text_domain( 'the-events-calendar', $this->plugin_dir . 'lang/' );
 
-			// Safety check: if Tribe Common is not at a certain minimum version, bail out
-			if ( version_compare( Tribe__Main::VERSION, self::MIN_COMMON_VERSION, '<' ) ) {
-				return;
-			}
-
-			if ( self::supportedVersion( 'wordpress' ) && self::supportedVersion( 'php' ) ) {
-				$this->bind_implementations();
-				$this->loadLibraries();
-				$this->addHooks();
-				$this->register_active_plugin();
-			} else {
-				// Either PHP or WordPress version is inadequate so we simply return an error.
-				add_action( 'admin_head', array( $this, 'notSupportedError' ) );
-			}
-
+			$this->bind_implementations();
+			$this->loadLibraries();
+			$this->addHooks();
+			$this->register_active_plugin();
 
 		}
 
@@ -381,24 +382,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 		public function load_addon() {
 
-			//log_me('tec load_addon');
-			//log_me($this->registered);
+			log_me('tec load_addon');
+			log_me(current_filter());
+			log_me(Tribe__Dependency::instance());
 
-		}
-
-
-		public function old_plugins_loaded() {
-
-
-			if ( self::supportedVersion( 'wordpress' ) && self::supportedVersion( 'php' ) ) {
-				$this->bind_implementations();
-				$this->loadLibraries();
-				$this->addHooks();
-				$this->register_active_plugin();
-			} else {
-				// Either PHP or WordPress version is inadequate so we simply return an error.
-				add_action( 'admin_head', array( $this, 'notSupportedError' ) );
-			}
 		}
 
 		/**
@@ -527,13 +514,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Registers this plugin as being active for other tribe plugins and extensions
 		 */
 		protected function register_active_plugin() {
-			if ( class_exists( 'Tribe__Dependency' ) ) {
-				Tribe__Dependency::instance()->add_active_plugin(
-					__CLASS__,
-					self::VERSION,
-					$this->plugin_file
-				);
-			}
+			$this->registered = new Tribe__Events__Plugin_Register();
 		}
 
 		/**
