@@ -215,7 +215,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
-= [4.6.25] 2018-10-23 =
+= [4.6.25] 2018-10-22 =
 
 * Fix - List only enabled views on the "Default View" option. Thanks to wescole, John Meuse and others for reporting! [114807]
 * Fix - Handle left-over Facebook scheduled imports and notices [114831]
