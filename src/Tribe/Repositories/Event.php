@@ -31,12 +31,17 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		parent::__construct();
 
 		$this->default_args = array(
-			'post_type'              => Tribe__Events__Main::POSTTYPE,
+			'post_type'                    => Tribe__Events__Main::POSTTYPE,
 			// We'll be handling the dates, let's mark the query as a non-filtered one.
 			'tribe_suppress_query_filters' => true,
 		);
+	}
 
-		$this->schema = array_merge( $this->schema, array(
+	/**
+	 * {@inheritdoc}
+	 */
+	public function setup_schema() {
+		return array(
 			'starts_before'           => array( $this, 'filter_by_starts_before' ),
 			'starts_after'            => array( $this, 'filter_by_starts_after' ),
 			'starts_between'          => array( $this, 'filter_by_starts_between' ),
@@ -49,7 +54,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			'multiday'                => array( $this, 'filter_by_multiday' ),
 			'on_calendar_grid'        => array( $this, 'filter_by_on_calendar_grid' ),
 			'timezone'                => array( $this, 'filter_by_timezone' ),
-		) );
+		);
 	}
 
 	/**
