@@ -32,7 +32,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '4.6.24.1';
+		const VERSION             = '4.6.25';
 		const MIN_ADDON_VERSION   = '4.4';
 		const MIN_COMMON_VERSION  = '4.7.20';
 
@@ -3187,7 +3187,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			global $post;
 			$options = '';
 			$style   = '';
-			$event    = $post;
+			$event   = $post;
 
 			if ( $post->post_type == Tribe__Events__Venue::POSTTYPE ) {
 
@@ -3414,7 +3414,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				'normal',
 				'high',
 				array(
-					'__back_compat_meta_box' => true,
+					'__back_compat_meta_box' => tribe( 'tec.gutenberg' )->should_display() || ! class_exists( 'Tribe__Events__Pro__Main' ),
 				)
 			);
 

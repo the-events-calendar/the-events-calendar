@@ -91,7 +91,20 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 		$this->update_meta( 'source_name', basename( $file_path ) );
 
 		$rows    = $importer->do_import_preview();
+
 		$headers = array_shift( $rows );
+
+		/*
+		 * To avoid empty columns from collapsing onto each other we provide
+		 * each column without an header a generated one.
+		 */
+		$empty_counter = 1;
+		foreach ( $headers as $key => &$header ) {
+			if ( empty( $header ) ) {
+				$header = __( 'Unknown Column ', 'the-events-calendar' ) . $empty_counter ++;
+			}
+		}
+
 		$data    = array();
 
 		foreach ( $rows as $row ) {

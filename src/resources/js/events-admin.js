@@ -720,10 +720,11 @@ jQuery( document ).ready( function( $ ) {
 
 					if ( $this.is( ':checked' ) ) {
 						var value = $this.val();
+						var label = value.substr( 0, 1 ).toUpperCase() + value.substr( 1 );
 						$default_view_select
-							.append( '<option value="' + value + '">' + view_options[value] + '</option>' );
+							.append( '<option value="' + value + '">' + label + '</option>' );
 						$default_mobile_view_select
-							.append( '<option value="' + value + '">' + view_options[value] + '</option>' );
+							.append( '<option value="' + value + '">' + label + '</option>' );
 					}
 				} );
 

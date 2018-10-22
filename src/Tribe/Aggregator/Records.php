@@ -730,7 +730,7 @@ class Tribe__Events__Aggregator__Records {
 	 * @param string $source    Source value.
 	 * @param string $data_hash Data hash.
 	 *
-	 * @since TBD
+	 * @since 4.6.25
 	 *
 	 * @return Tribe__Events__Aggregator__Record__Abstract|false Record object or false if not found.
 	 */
