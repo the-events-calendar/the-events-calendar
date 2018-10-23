@@ -281,7 +281,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			add_action( 'tribe_common_loaded', array( $this, 'register_addon' ), 5 );
 
-			add_action( 'tribe_common_loaded', array( $this, 'load_addon' ), 10 );
 		}
 
 		/**
@@ -377,14 +376,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public function register_addon() {
 
 			$this->registered = new Tribe__Events__Plugin_Register();
-
-		}
-
-		public function load_addon() {
-
-			log_me('tec load_addon');
-			log_me(current_filter());
-			log_me(Tribe__Dependency::instance());
 
 		}
 
