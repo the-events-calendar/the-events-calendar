@@ -31,7 +31,7 @@ class Tribe__Events__Repositories__Venue extends Tribe__Repository {
 		parent::__construct();
 
 		$this->default_args = array(
-			'post_type'                    => Tribe__Events__Main::POSTTYPE,
+			'post_type'                    => Tribe__Events__Venue::POSTTYPE,
 			// We'll be handling the dates, let's mark the query as a non-filtered one.
 			'tribe_suppress_query_filters' => true,
 		);
