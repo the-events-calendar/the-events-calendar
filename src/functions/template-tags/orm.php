@@ -37,9 +37,9 @@ if ( ! function_exists( 'tribe_events' ) ) {
 	}
 }
 
-if ( ! function_exists( 'tribe_linked_posts' ) ) {
+if ( ! function_exists( 'tribe_organizers' ) ) {
 	/**
-	 * Builds and returns the correct linked posts repository.
+	 * Builds and returns the correct organizer repository.
 	 *
 	 * @since TBD
 	 *
@@ -48,20 +48,20 @@ if ( ! function_exists( 'tribe_linked_posts' ) ) {
 	 * @return Tribe__Repository__Interface An instance of the requested repository
 	 *                                      class.
 	 */
-	function tribe_linked_posts( $repository = 'default' ) {
+	function tribe_organizers( $repository = 'default' ) {
 		$map = array(
-			'default' => 'events.linked-posts-repository',
+			'default' => 'events.organizer-repository',
 		);
 
 		/**
-		 * Filters the map relating linked posts repository slugs to service container bindings.
+		 * Filters the map relating organizer repository slugs to service container bindings.
 		 *
 		 * @since TBD
 		 *
 		 * @param array  $map        A map in the shape [ <repository_slug> => <service_name> ]
 		 * @param string $repository The currently requested implementation.
 		 */
-		$map = apply_filters( 'tribe_events_linked_posts_repository_map', $map, $repository );
+		$map = apply_filters( 'tribe_events_organizer_repository_map', $map, $repository );
 
 		return tribe( Tribe__Utils__Array::get( $map, $repository, $map['default'] ) );
 	}
