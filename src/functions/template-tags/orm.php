@@ -66,3 +66,33 @@ if ( ! function_exists( 'tribe_organizers' ) ) {
 		return tribe( Tribe__Utils__Array::get( $map, $repository, $map['default'] ) );
 	}
 }
+
+if ( ! function_exists( 'tribe_venues' ) ) {
+	/**
+	 * Builds and returns the correct venue repository.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $repository The slug of the repository to build/return.
+	 *
+	 * @return Tribe__Repository__Interface An instance of the requested repository
+	 *                                      class.
+	 */
+	function tribe_venues( $repository = 'default' ) {
+		$map = array(
+			'default' => 'events.venue-repository',
+		);
+
+		/**
+		 * Filters the map relating venue repository slugs to service container bindings.
+		 *
+		 * @since TBD
+		 *
+		 * @param array  $map        A map in the shape [ <repository_slug> => <service_name> ]
+		 * @param string $repository The currently requested implementation.
+		 */
+		$map = apply_filters( 'tribe_events_venue_repository_map', $map, $repository );
+
+		return tribe( Tribe__Utils__Array::get( $map, $repository, $map['default'] ) );
+	}
+}
