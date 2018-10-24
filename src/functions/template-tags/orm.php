@@ -37,3 +37,32 @@ if ( ! function_exists( 'tribe_events' ) ) {
 	}
 }
 
+if ( ! function_exists( 'tribe_organizers' ) ) {
+	/**
+	 * Builds and returns the correct organizer repository.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $repository The slug of the repository to build/return.
+	 *
+	 * @return Tribe__Repository__Interface An instance of the requested repository
+	 *                                      class.
+	 */
+	function tribe_organizers( $repository = 'default' ) {
+		$map = array(
+			'default' => 'events.organizer-repository',
+		);
+
+		/**
+		 * Filters the map relating organizer repository slugs to service container bindings.
+		 *
+		 * @since TBD
+		 *
+		 * @param array  $map        A map in the shape [ <repository_slug> => <service_name> ]
+		 * @param string $repository The currently requested implementation.
+		 */
+		$map = apply_filters( 'tribe_events_organizer_repository_map', $map, $repository );
+
+		return tribe( Tribe__Utils__Array::get( $map, $repository, $map['default'] ) );
+	}
+}
