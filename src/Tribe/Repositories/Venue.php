@@ -49,6 +49,12 @@ class Tribe__Events__Repositories__Venue extends Tribe__Repository {
 		) );
 	}
 
+	/**
+	 * Filter by LIKE or REGEX string.
+	 *
+	 * @param string $meta_key Meta key to filter by.
+	 * @param string $value    MySQL compatible LIKE or REGEX string.
+	 */
 	public function filter_by_like_regex( $meta_key, $value ) {
 		if ( tribe_is_regex( $value ) ) {
 			$this->by( 'meta_regexp', $meta_key, tribe_unfenced_regex( $value ) );
@@ -65,8 +71,6 @@ class Tribe__Events__Repositories__Venue extends Tribe__Repository {
 	 * @since TBD
 	 *
 	 * @param string $value MySQL compatible LIKE or REGEX string.
-	 *
-	 * @return array|null An array of query arguments or null if modified with internal methods.
 	 */
 	public function filter_by_address( $value ) {
 		$meta_key = '_VenueAddress';
@@ -80,8 +84,6 @@ class Tribe__Events__Repositories__Venue extends Tribe__Repository {
 	 * @since TBD
 	 *
 	 * @param string $value MySQL compatible LIKE or REGEX string.
-	 *
-	 * @return array|null An array of query arguments or null if modified with internal methods.
 	 */
 	public function filter_by_city( $value ) {
 		$meta_key = '_VenueCity';
@@ -95,8 +97,6 @@ class Tribe__Events__Repositories__Venue extends Tribe__Repository {
 	 * @since TBD
 	 *
 	 * @param string $value MySQL compatible LIKE or REGEX string.
-	 *
-	 * @return array|null An array of query arguments or null if modified with internal methods.
 	 */
 	public function filter_by_country( $value ) {
 		$meta_key = '_VenueCountry';
@@ -110,8 +110,6 @@ class Tribe__Events__Repositories__Venue extends Tribe__Repository {
 	 * @since TBD
 	 *
 	 * @param string $value MySQL compatible LIKE or REGEX string.
-	 *
-	 * @return array|null An array of query arguments or null if modified with internal methods.
 	 */
 	public function filter_by_phone( $value ) {
 		$meta_key = '_VenuePhone';
@@ -125,8 +123,6 @@ class Tribe__Events__Repositories__Venue extends Tribe__Repository {
 	 * @since TBD
 	 *
 	 * @param string $value MySQL compatible LIKE or REGEX string.
-	 *
-	 * @return array|null An array of query arguments or null if modified with internal methods.
 	 */
 	public function filter_by_postal_code( $value ) {
 		$meta_key = '_VenueZip';
@@ -140,8 +136,6 @@ class Tribe__Events__Repositories__Venue extends Tribe__Repository {
 	 * @since TBD
 	 *
 	 * @param string $value MySQL compatible LIKE or REGEX string.
-	 *
-	 * @return array|null An array of query arguments or null if modified with internal methods.
 	 */
 	public function filter_by_province( $value ) {
 		$this->filter_by_state_province( $value );
@@ -153,8 +147,6 @@ class Tribe__Events__Repositories__Venue extends Tribe__Repository {
 	 * @since TBD
 	 *
 	 * @param string $value MySQL compatible LIKE or REGEX string.
-	 *
-	 * @return array|null An array of query arguments or null if modified with internal methods.
 	 */
 	public function filter_by_state( $value ) {
 		$this->filter_by_state_province( $value );
@@ -166,8 +158,6 @@ class Tribe__Events__Repositories__Venue extends Tribe__Repository {
 	 * @since TBD
 	 *
 	 * @param string $value MySQL compatible LIKE or REGEX string.
-	 *
-	 * @return array|null An array of query arguments or null if modified with internal methods.
 	 */
 	public function filter_by_state_province( $value ) {
 		$meta_key = '_VenueStateProvince';
@@ -181,8 +171,6 @@ class Tribe__Events__Repositories__Venue extends Tribe__Repository {
 	 * @since TBD
 	 *
 	 * @param string $value MySQL compatible LIKE or REGEX string.
-	 *
-	 * @return array|null An array of query arguments or null if modified with internal methods.
 	 */
 	public function filter_by_website( $value ) {
 		$meta_key = '_VenueURL';
