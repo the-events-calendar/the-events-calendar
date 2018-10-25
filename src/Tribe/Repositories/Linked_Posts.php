@@ -42,22 +42,6 @@ class Tribe__Events__Repositories__Linked_Posts extends Tribe__Repository {
 	}
 
 	/**
-	 * Filter by LIKE or REGEX string.
-	 *
-	 * @param string $meta_key Meta key to filter by.
-	 * @param string $value    MySQL compatible LIKE or REGEX string.
-	 */
-	public function filter_by_like_regex( $meta_key, $value ) {
-		if ( tribe_is_regex( $value ) ) {
-			$this->by( 'meta_regexp', $meta_key, tribe_unfenced_regex( $value ) );
-
-			return;
-		}
-
-		$this->by( 'meta_like', $meta_key, $value );
-	}
-
-	/**
 	 * Filters linked post types by a specific event of set of events.
 	 *
 	 * @since TBD
