@@ -170,8 +170,8 @@ class FetchTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertEqualSets( [ $matching[0] ], tribe_venues()->where( 'event', $events[0] )->get_ids() );
 		$this->assertEqualSets( [ $matching[0] ], tribe_venues()->where( 'event', get_post( $events[0] ) )->get_ids() );
-		$this->assertEqualSets( [ $matching ], tribe_venues()->where( 'event', $events )->get_ids() );
-		$this->assertEqualSets( [ $matching ], tribe_venues()->where( 'event', array_map( 'get_post', $events ) )->get_ids() );
+		$this->assertEqualSets( $matching, tribe_venues()->where( 'event', $events )->get_ids() );
+		$this->assertEqualSets( $matching, tribe_venues()->where( 'event', array_map( 'get_post', $events ) )->get_ids() );
 		$this->assertEqualSets( [], tribe_venues()->where( 'event', $no_venue_events[0] )->get_ids() );
 		$this->assertCount( 5, tribe_venues()->get_ids() );
 	}

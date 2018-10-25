@@ -94,8 +94,8 @@ class FetchTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertEqualSets( [ $matching[0] ], tribe_organizers()->where( 'event', $events[0] )->get_ids() );
 		$this->assertEqualSets( [ $matching[0] ], tribe_organizers()->where( 'event', get_post( $events[0] ) )->get_ids() );
-		$this->assertEqualSets( [ $matching ], tribe_organizers()->where( 'event', $events )->get_ids() );
-		$this->assertEqualSets( [ $matching ], tribe_organizers()->where( 'event', array_map( 'get_post', $events ) )->get_ids() );
+		$this->assertEqualSets( $matching, tribe_organizers()->where( 'event', $events )->get_ids() );
+		$this->assertEqualSets( $matching, tribe_organizers()->where( 'event', array_map( 'get_post', $events ) )->get_ids() );
 		$this->assertEqualSets( [], tribe_organizers()->where( 'event', $no_organizer_events[0] )->get_ids() );
 		$this->assertCount( 5, tribe_organizers()->get_ids() );
 	}
