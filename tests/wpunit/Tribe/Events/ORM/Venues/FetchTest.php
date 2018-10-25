@@ -70,7 +70,7 @@ class FetchTest extends \Codeception\TestCase\WPTestCase {
 		$this->factory()->venue->create_many( 3 );
 
 		$this->assertEqualSets( $matching, tribe_venues()->where( 'phone', '123' )->get_ids() );
-		$this->assertEqualSets( $matching, tribe_venues()->where( 'phone', '/\d+-555-\d+/' )->get_ids() );
+		$this->assertEqualSets( $matching, tribe_venues()->where( 'phone', '/\d+\-555\-\d+/' )->get_ids() );
 		$this->assertCount( 5, tribe_venues()->get_ids() );
 	}
 
