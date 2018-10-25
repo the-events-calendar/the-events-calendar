@@ -217,6 +217,8 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 = [4.6.26] TBD =
 
+* Tweak - Clarified a number of maps-related settings strings [114865]
+
 = [4.6.25] 2018-10-22 =
 
 * Fix - List only enabled views on the "Default View" option. Thanks to wescole, John Meuse and others for reporting! [114807]
