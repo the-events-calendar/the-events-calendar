@@ -21,6 +21,13 @@ class Tribe__Events__Repositories__Linked_Posts extends Tribe__Repository {
 	protected $filter_name = 'linked_posts';
 
 	/**
+	 * Meta key used to store the Linked Post ID.
+	 *
+	 * @var string
+	 */
+	protected $linked_id_meta_key;
+
+	/**
 	 * Tribe__Events__Repositories__Linked_Posts constructor.
 	 *
 	 * Sets up the repository default parameters and schema.
@@ -49,6 +56,10 @@ class Tribe__Events__Repositories__Linked_Posts extends Tribe__Repository {
 	 * @param int|WP_Post|array $event Post ID, Post Object, or an array of Post IDs or Objects.
 	 */
 	public function filter_by_event( $event ) {
+		if ( ! $this->linked_id_meta_key ) {
+			return;
+		}
+
 		$events = (array) $event;
 
 		$post_ids = array();

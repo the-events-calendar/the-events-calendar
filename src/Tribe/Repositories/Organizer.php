@@ -11,7 +11,7 @@
  *
  * @since TBD
  */
-class Tribe__Events__Repositories__Organizer extends Tribe__Repository {
+class Tribe__Events__Repositories__Organizer extends Tribe__Events__Repositories__Linked_Posts {
 
 	/**
 	 * The unique fragment that will be used to identify this repository filters.
@@ -36,41 +36,15 @@ class Tribe__Events__Repositories__Organizer extends Tribe__Repository {
 			'tribe_suppress_query_filters' => true,
 		);
 
+		$this->linked_id_meta_key = '_EventOrganizerID';
+
 		$this->schema = array_merge( $this->schema, array(
-			'email'   => array( $this, 'filter_by_email' ),
-			'name'    => array( $this, 'filter_by_name' ),
-			'phone'   => array( $this, 'filter_by_phone' ),
-			'website' => array( $this, 'filter_by_website' ),
+			'name' => array( $this, 'filter_by_name' ),
 		) );
-	}
 
-	/**
-	 * Filter by LIKE or REGEX string.
-	 *
-	 * @param string $meta_key Meta key to filter by.
-	 * @param string $value    MySQL compatible LIKE or REGEX string.
-	 */
-	public function filter_by_like_regex( $meta_key, $value ) {
-		if ( tribe_is_regex( $value ) ) {
-			$this->by( 'meta_regexp', $meta_key, tribe_unfenced_regex( $value ) );
-
-			return;
-		}
-
-		$this->by( 'meta_like', $meta_key, $value );
-	}
-
-	/**
-	 * Filters organizers to include organizers that have a specified email.
-	 *
-	 * @since TBD
-	 *
-	 * @param string $value MySQL compatible LIKE or REGEX string.
-	 */
-	public function filter_by_email( $value ) {
-		$meta_key = '_OrganizerEmail';
-
-		$this->filter_by_like_regex( $meta_key, $value );
+		$this->add_simple_meta_schema_entry( 'email', '_OrganizerEmail' );
+		$this->add_simple_meta_schema_entry( 'phone', '_OrganizerPhone' );
+		$this->add_simple_meta_schema_entry( 'website', '_OrganizerWebsite' );
 	}
 
 	/**
@@ -78,36 +52,10 @@ class Tribe__Events__Repositories__Organizer extends Tribe__Repository {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $value MySQL compatible LIKE or REGEX string.
+	 * @param string $value String to search with.
 	 */
 	public function filter_by_name( $value ) {
 		$this->search( $value );
-	}
-
-	/**
-	 * Filters organizers by a specific phone.
-	 *
-	 * @since TBD
-	 *
-	 * @param string $value MySQL compatible LIKE or REGEX string.
-	 */
-	public function filter_by_phone( $value ) {
-		$meta_key = '_OrganizerPhone';
-
-		$this->filter_by_like_regex( $meta_key, $value );
-	}
-
-	/**
-	 * Filters organizers by a specific website.
-	 *
-	 * @since TBD
-	 *
-	 * @param string $value MySQL compatible LIKE or REGEX string.
-	 */
-	public function filter_by_website( $value ) {
-		$meta_key = 'OrganizerWebsite';
-
-		$this->filter_by_like_regex( $meta_key, $value );
 	}
 
 }
