@@ -21,5 +21,7 @@ class Tribe__Events__Service_Providers__ORM extends tad_DI52_ServiceProvider {
 
 		// Not bound as a singleton to leverage the repository instance properties and to allow decoration and injection.
 		$this->container->bind( 'events.event-repository', 'Tribe__Events__Repositories__Event' );
+		$this->container->bind( 'events.organizer-repository', 'Tribe__Events__Repositories__Organizer' );
+		$this->container->bind( 'events.venue-repository', 'Tribe__Events__Repositories__Venue' );
 	}
 }
