@@ -43,8 +43,8 @@ class Tribe__Events__Repositories__Venue extends Tribe__Events__Repositories__Li
 		$this->add_simple_meta_schema_entry( 'country', '_VenueCountry' );
 		$this->add_simple_meta_schema_entry( 'phone', '_VenuePhone' );
 		$this->add_simple_meta_schema_entry( 'postal_code', '_VenueZip' );
-		$this->add_simple_meta_schema_entry( 'province', '_VenueProvince' );
-		$this->add_simple_meta_schema_entry( 'state', '_VenueState' );
+		$this->add_simple_meta_schema_entry( 'province', '_VenueStateProvince' );
+		$this->add_simple_meta_schema_entry( 'state', '_VenueStateProvince' );
 		$this->add_simple_meta_schema_entry( 'state_province', '_VenueStateProvince' );
 		$this->add_simple_meta_schema_entry( 'website', '_VenueURL' );
 	}

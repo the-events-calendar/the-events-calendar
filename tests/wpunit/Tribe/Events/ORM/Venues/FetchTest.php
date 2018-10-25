@@ -97,7 +97,7 @@ class FetchTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_allow_getting_venues_by_province() {
-		$matching = $this->factory()->venue->create_many( 2, [ 'meta_input' => [ '_VenueProvince' => 'New Brunswick' ] ] );
+		$matching = $this->factory()->venue->create_many( 2, [ 'meta_input' => [ '_VenueStateProvince' => 'New Brunswick' ] ] );
 
 		$this->factory()->venue->create_many( 3 );
 
@@ -112,7 +112,7 @@ class FetchTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_allow_getting_venues_by_state() {
-		$matching = $this->factory()->venue->create_many( 2, [ 'meta_input' => [ '_VenueState' => 'New York' ] ] );
+		$matching = $this->factory()->venue->create_many( 2, [ 'meta_input' => [ '_VenueStateProvince' => 'New York' ] ] );
 
 		$this->factory()->venue->create_many( 3 );
 
