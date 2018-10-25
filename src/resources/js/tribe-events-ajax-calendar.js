@@ -371,7 +371,7 @@
 				if ( ts.ajax_running ) {
 					return;
 				}
-				if ( $tribedate.val().length ) {
+				if ( $tribedate.length ) {
 					if ( '0' !== ts.datepicker_format ) {
 						ts.date = tribeDateFormat( $tribedate.bootstrapDatepicker( 'getDate' ), 'tribeMonthQuery' );
 					}
