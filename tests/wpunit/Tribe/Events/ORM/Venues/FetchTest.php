@@ -25,7 +25,7 @@ class FetchTest extends \Codeception\TestCase\WPTestCase {
 		$this->factory()->venue->create_many( 3 );
 
 		$this->assertEqualSets( $matching, tribe_venues()->where( 'address', 'Common' )->get_ids() );
-		$this->assertEqualSets( $matching, tribe_venues()->where( 'address', '/[:digit:]+ Common [:alnum:]+ St/' )->get_ids() );
+		$this->assertEqualSets( $matching, tribe_venues()->where( 'address', '/[[:digit:]]+ Common [[:alnum:]]+ St/' )->get_ids() );
 		$this->assertCount( 5, tribe_venues()->get_ids() );
 	}
 
@@ -40,7 +40,7 @@ class FetchTest extends \Codeception\TestCase\WPTestCase {
 		$this->factory()->venue->create_many( 3 );
 
 		$this->assertEqualSets( $matching, tribe_venues()->where( 'city', 'Rainbow' )->get_ids() );
-		$this->assertEqualSets( $matching, tribe_venues()->where( 'city', '/[:alnum:]+ Rainbow [:alnum:]+/' )->get_ids() );
+		$this->assertEqualSets( $matching, tribe_venues()->where( 'city', '/[[:alnum:]]+ Rainbow [[:alnum:]]+/' )->get_ids() );
 		$this->assertCount( 5, tribe_venues()->get_ids() );
 	}
 
@@ -55,7 +55,7 @@ class FetchTest extends \Codeception\TestCase\WPTestCase {
 		$this->factory()->venue->create_many( 3 );
 
 		$this->assertEqualSets( $matching, tribe_venues()->where( 'country', 'States' )->get_ids() );
-		$this->assertEqualSets( $matching, tribe_venues()->where( 'country', '/[:alnum:]+ States [:alnum:]+ America/' )->get_ids() );
+		$this->assertEqualSets( $matching, tribe_venues()->where( 'country', '/[[:alnum:]]+ States [[:alnum:]]+ America/' )->get_ids() );
 		$this->assertCount( 5, tribe_venues()->get_ids() );
 	}
 
@@ -70,7 +70,7 @@ class FetchTest extends \Codeception\TestCase\WPTestCase {
 		$this->factory()->venue->create_many( 3 );
 
 		$this->assertEqualSets( $matching, tribe_venues()->where( 'phone', '123' )->get_ids() );
-		$this->assertEqualSets( $matching, tribe_venues()->where( 'phone', '/[:digit:]+\-555\-[:digit:]+/' )->get_ids() );
+		$this->assertEqualSets( $matching, tribe_venues()->where( 'phone', '/[[:digit:]]+\-555\-[[:digit:]]+/' )->get_ids() );
 		$this->assertCount( 5, tribe_venues()->get_ids() );
 	}
 
@@ -85,7 +85,7 @@ class FetchTest extends \Codeception\TestCase\WPTestCase {
 		$this->factory()->venue->create_many( 3 );
 
 		$this->assertEqualSets( $matching, tribe_venues()->where( 'postal_code', '25' )->get_ids() );
-		$this->assertEqualSets( $matching, tribe_venues()->where( 'postal_code', '/1[:digit:]+25/' )->get_ids() );
+		$this->assertEqualSets( $matching, tribe_venues()->where( 'postal_code', '/1[[:digit:]]+25/' )->get_ids() );
 		$this->assertCount( 5, tribe_venues()->get_ids() );
 	}
 
@@ -100,7 +100,7 @@ class FetchTest extends \Codeception\TestCase\WPTestCase {
 		$this->factory()->venue->create_many( 3 );
 
 		$this->assertEqualSets( $matching, tribe_venues()->where( 'state', 'New' )->get_ids() );
-		$this->assertEqualSets( $matching, tribe_venues()->where( 'state', '/New [:alnum:]+/' )->get_ids() );
+		$this->assertEqualSets( $matching, tribe_venues()->where( 'state', '/New [[:alnum:]]+/' )->get_ids() );
 		$this->assertCount( 5, tribe_venues()->get_ids() );
 	}
 
@@ -115,7 +115,7 @@ class FetchTest extends \Codeception\TestCase\WPTestCase {
 		$this->factory()->venue->create_many( 3 );
 
 		$this->assertEqualSets( $matching, tribe_venues()->where( 'state', 'New' )->get_ids() );
-		$this->assertEqualSets( $matching, tribe_venues()->where( 'state', '/New [:alnum:]+/' )->get_ids() );
+		$this->assertEqualSets( $matching, tribe_venues()->where( 'state', '/New [[:alnum:]]+/' )->get_ids() );
 		$this->assertCount( 5, tribe_venues()->get_ids() );
 	}
 
@@ -130,7 +130,7 @@ class FetchTest extends \Codeception\TestCase\WPTestCase {
 		$this->factory()->venue->create_many( 3 );
 
 		$this->assertEqualSets( $matching, tribe_venues()->where( 'state_province', 'New' )->get_ids() );
-		$this->assertEqualSets( $matching, tribe_venues()->where( 'state_province', '/New [:alnum:]+/' )->get_ids() );
+		$this->assertEqualSets( $matching, tribe_venues()->where( 'state_province', '/New [[:alnum:]]+/' )->get_ids() );
 		$this->assertCount( 5, tribe_venues()->get_ids() );
 	}
 
