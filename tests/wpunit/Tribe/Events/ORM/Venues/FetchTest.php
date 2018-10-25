@@ -25,7 +25,6 @@ class FetchTest extends \Codeception\TestCase\WPTestCase {
 		$this->factory()->venue->create_many( 3 );
 
 		$this->assertEqualSets( $matching, tribe_venues()->where( 'address', 'Common' )->get_ids() );
-		$this->assertEqualSets( $matching, tribe_venues()->where( 'address', '%Common%' )->get_ids() );
 		$this->assertEqualSets( $matching, tribe_venues()->where( 'address', '/\d+ Common \w+ St/' )->get_ids() );
 		$this->assertCount( 5, tribe_venues()->get_ids() );
 	}
@@ -41,7 +40,6 @@ class FetchTest extends \Codeception\TestCase\WPTestCase {
 		$this->factory()->venue->create_many( 3 );
 
 		$this->assertEqualSets( $matching, tribe_venues()->where( 'city', 'Rainbow' )->get_ids() );
-		$this->assertEqualSets( $matching, tribe_venues()->where( 'city', '%Rainbow%' )->get_ids() );
 		$this->assertEqualSets( $matching, tribe_venues()->where( 'city', '/\w+ Rainbow \w+/' )->get_ids() );
 		$this->assertCount( 5, tribe_venues()->get_ids() );
 	}
@@ -57,7 +55,6 @@ class FetchTest extends \Codeception\TestCase\WPTestCase {
 		$this->factory()->venue->create_many( 3 );
 
 		$this->assertEqualSets( $matching, tribe_venues()->where( 'country', 'States' )->get_ids() );
-		$this->assertEqualSets( $matching, tribe_venues()->where( 'country', '%States%' )->get_ids() );
 		$this->assertEqualSets( $matching, tribe_venues()->where( 'country', '/\w+ States \w+ America/' )->get_ids() );
 		$this->assertCount( 5, tribe_venues()->get_ids() );
 	}
@@ -73,7 +70,6 @@ class FetchTest extends \Codeception\TestCase\WPTestCase {
 		$this->factory()->venue->create_many( 3 );
 
 		$this->assertEqualSets( $matching, tribe_venues()->where( 'phone', '123' )->get_ids() );
-		$this->assertEqualSets( $matching, tribe_venues()->where( 'phone', '%123%' )->get_ids() );
 		$this->assertEqualSets( $matching, tribe_venues()->where( 'phone', '/\d+-555-\d+/' )->get_ids() );
 		$this->assertCount( 5, tribe_venues()->get_ids() );
 	}
@@ -89,7 +85,6 @@ class FetchTest extends \Codeception\TestCase\WPTestCase {
 		$this->factory()->venue->create_many( 3 );
 
 		$this->assertEqualSets( $matching, tribe_venues()->where( 'postal_code', '25' )->get_ids() );
-		$this->assertEqualSets( $matching, tribe_venues()->where( 'postal_code', '1%25' )->get_ids() );
 		$this->assertEqualSets( $matching, tribe_venues()->where( 'postal_code', '/1\d+25/' )->get_ids() );
 		$this->assertCount( 5, tribe_venues()->get_ids() );
 	}
@@ -105,7 +100,6 @@ class FetchTest extends \Codeception\TestCase\WPTestCase {
 		$this->factory()->venue->create_many( 3 );
 
 		$this->assertEqualSets( $matching, tribe_venues()->where( 'state', 'New' )->get_ids() );
-		$this->assertEqualSets( $matching, tribe_venues()->where( 'state', 'New%' )->get_ids() );
 		$this->assertEqualSets( $matching, tribe_venues()->where( 'state', '/New \w+/' )->get_ids() );
 		$this->assertCount( 5, tribe_venues()->get_ids() );
 	}
@@ -121,7 +115,6 @@ class FetchTest extends \Codeception\TestCase\WPTestCase {
 		$this->factory()->venue->create_many( 3 );
 
 		$this->assertEqualSets( $matching, tribe_venues()->where( 'state', 'New' )->get_ids() );
-		$this->assertEqualSets( $matching, tribe_venues()->where( 'state', 'New%' )->get_ids() );
 		$this->assertEqualSets( $matching, tribe_venues()->where( 'state', '/New \w+/' )->get_ids() );
 		$this->assertCount( 5, tribe_venues()->get_ids() );
 	}
@@ -137,7 +130,6 @@ class FetchTest extends \Codeception\TestCase\WPTestCase {
 		$this->factory()->venue->create_many( 3 );
 
 		$this->assertEqualSets( $matching, tribe_venues()->where( 'state_province', 'New' )->get_ids() );
-		$this->assertEqualSets( $matching, tribe_venues()->where( 'state_province', 'New%' )->get_ids() );
 		$this->assertEqualSets( $matching, tribe_venues()->where( 'state_province', '/New \w+/' )->get_ids() );
 		$this->assertCount( 5, tribe_venues()->get_ids() );
 	}
@@ -153,7 +145,6 @@ class FetchTest extends \Codeception\TestCase\WPTestCase {
 		$this->factory()->venue->create_many( 3 );
 
 		$this->assertEqualSets( $matching, tribe_venues()->where( 'website', '://twitter.com/' )->get_ids() );
-		$this->assertEqualSets( $matching, tribe_venues()->where( 'website', '%://twitter.com/%' )->get_ids() );
 		$this->assertEqualSets( $matching, tribe_venues()->where( 'website', '/.*:\/\/twitter.com\/.*/' )->get_ids() );
 		$this->assertCount( 5, tribe_venues()->get_ids() );
 	}

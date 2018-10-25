@@ -15,22 +15,6 @@ class FetchTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * It should allow getting organizers by email
-	 *
-	 * @test
-	 */
-	public function should_allow_getting_organizers_by_email() {
-		$matching = $this->factory()->organizer->create_many( 2, [ 'meta_input' => [ '_OrganizerEmail' => 'rob@organizingbyemail.com' ] ] );
-
-		$this->factory()->organizer->create_many( 3 );
-
-		$this->assertEqualSets( $matching, tribe_organizers()->where( 'email', 'rob' )->get_ids() );
-		$this->assertEqualSets( $matching, tribe_organizers()->where( 'email', 'rob%.com' )->get_ids() );
-		$this->assertEqualSets( $matching, tribe_organizers()->where( 'email', '/rob.*\.com/' )->get_ids() );
-		$this->assertCount( 5, tribe_organizers()->get_ids() );
-	}
-
-	/**
 	 * It should allow getting organizers by name
 	 *
 	 * @test
@@ -41,8 +25,21 @@ class FetchTest extends \Codeception\TestCase\WPTestCase {
 		$this->factory()->organizer->create_many( 3 );
 
 		$this->assertEqualSets( $matching, tribe_organizers()->where( 'name', 'Izer' )->get_ids() );
-		$this->assertEqualSets( $matching, tribe_organizers()->where( 'name', '%Izer%' )->get_ids() );
-		$this->assertEqualSets( $matching, tribe_organizers()->where( 'name', '/\w+ Izer \w+/' )->get_ids() );
+		$this->assertCount( 5, tribe_organizers()->get_ids() );
+	}
+
+	/**
+	 * It should allow getting organizers by email
+	 *
+	 * @test
+	 */
+	public function should_allow_getting_organizers_by_email() {
+		$matching = $this->factory()->organizer->create_many( 2, [ 'meta_input' => [ '_OrganizerEmail' => 'rob@organizingbyemail.com' ] ] );
+
+		$this->factory()->organizer->create_many( 3 );
+
+		$this->assertEqualSets( $matching, tribe_organizers()->where( 'email', 'rob' )->get_ids() );
+		$this->assertEqualSets( $matching, tribe_organizers()->where( 'email', '/rob.*\.com/' )->get_ids() );
 		$this->assertCount( 5, tribe_organizers()->get_ids() );
 	}
 
@@ -57,7 +54,6 @@ class FetchTest extends \Codeception\TestCase\WPTestCase {
 		$this->factory()->organizer->create_many( 3 );
 
 		$this->assertEqualSets( $matching, tribe_organizers()->where( 'phone', '123' )->get_ids() );
-		$this->assertEqualSets( $matching, tribe_organizers()->where( 'phone', '%123%' )->get_ids() );
 		$this->assertEqualSets( $matching, tribe_organizers()->where( 'phone', '/\d+-555-\d+/' )->get_ids() );
 		$this->assertCount( 5, tribe_organizers()->get_ids() );
 	}
@@ -73,7 +69,6 @@ class FetchTest extends \Codeception\TestCase\WPTestCase {
 		$this->factory()->organizer->create_many( 3 );
 
 		$this->assertEqualSets( $matching, tribe_organizers()->where( 'website', '://twitter.com/' )->get_ids() );
-		$this->assertEqualSets( $matching, tribe_organizers()->where( 'website', '%://twitter.com/%' )->get_ids() );
 		$this->assertEqualSets( $matching, tribe_organizers()->where( 'website', '/.*:\/\/twitter.com\/.*/' )->get_ids() );
 		$this->assertCount( 5, tribe_organizers()->get_ids() );
 	}
