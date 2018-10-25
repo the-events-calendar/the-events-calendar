@@ -76,7 +76,31 @@ class Tribe__Events__Repositories__Linked_Posts extends Tribe__Repository {
 
 		$post_ids = array_unique( $post_ids );
 
-		// @todo Figure out logic.
+		if ( empty( $post_ids ) ) {
+			return;
+		}
+
+		$in_pattern = array_fill( 0, count( $post_ids ), '%d' );
+		$in_pattern = implode( ', ', $in_pattern );
+
+		global $wpdb;
+
+		$this->filter_query->join(
+			$wpdb->prepare(
+				"
+					JOIN {$wpdb->postmeta} linked_posts_event
+					ON ( {$wpdb->posts}.ID = linked_posts_event.meta_value AND linked_posts_event.meta_key = %s )
+				",
+				$this->linked_id_meta_key
+			)
+		);
+
+		$this->filter_query->where(
+			$wpdb->prepare(
+				"linked_posts_event.post_id IN ( {$in_pattern} )",
+				$post_ids
+			)
+		);
 	}
 
 }

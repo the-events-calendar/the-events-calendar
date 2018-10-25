@@ -2,6 +2,7 @@
 
 namespace Tribe\Events\ORM\Venues;
 
+use Tribe\Events\Test\Factories\Event;
 use Tribe\Events\Test\Factories\Venue;
 
 class FetchTest extends \Codeception\TestCase\WPTestCase {
@@ -11,6 +12,7 @@ class FetchTest extends \Codeception\TestCase\WPTestCase {
 		parent::setUp();
 
 		// your set up methods here
+		$this->factory()->event = new Event();
 		$this->factory()->venue = new Venue();
 	}
 
@@ -99,8 +101,8 @@ class FetchTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->factory()->venue->create_many( 3 );
 
-		$this->assertEqualSets( $matching, tribe_venues()->where( 'state', 'New' )->get_ids() );
-		$this->assertEqualSets( $matching, tribe_venues()->where( 'state', '/New [[:alnum:]]+/' )->get_ids() );
+		$this->assertEqualSets( $matching, tribe_venues()->where( 'province', 'New' )->get_ids() );
+		$this->assertEqualSets( $matching, tribe_venues()->where( 'province', '/New [[:alnum:]]+/' )->get_ids() );
 		$this->assertCount( 5, tribe_venues()->get_ids() );
 	}
 
@@ -146,6 +148,29 @@ class FetchTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertEqualSets( $matching, tribe_venues()->where( 'website', '://twitter.com/' )->get_ids() );
 		$this->assertEqualSets( $matching, tribe_venues()->where( 'website', '/.*:\/\/twitter.com\/.*/' )->get_ids() );
+		$this->assertCount( 5, tribe_venues()->get_ids() );
+	}
+
+	/**
+	 * It should allow getting venues by events
+	 *
+	 * @test
+	 */
+	public function should_allow_getting_venues_by_events() {
+		$matching = $this->factory()->venue->create_many( 2 );
+
+		$events  = $this->factory()->event->create_many( 2, [ 'meta_input' => [ '_EventVenueID' => $matching[0] ] ] );
+		$events += $this->factory()->event->create_many( 2, [ 'meta_input' => [ '_EventVenueID' => $matching[1] ] ] );
+
+		$no_venue_events = $this->factory()->event->create_many( 2 );
+
+		$this->factory()->venue->create_many( 3 );
+
+		$this->assertEqualSets( [ $matching[0] ], tribe_venues()->where( 'event', $events[0] )->get_ids() );
+		$this->assertEqualSets( [ $matching[0] ], tribe_venues()->where( 'event', get_post( $events[0] ) )->get_ids() );
+		$this->assertEqualSets( [ $matching ], tribe_venues()->where( 'event', $events )->get_ids() );
+		$this->assertEqualSets( [ $matching ], tribe_venues()->where( 'event', array_map( 'get_post', $events ) )->get_ids() );
+		$this->assertEqualSets( [], tribe_venues()->where( 'event', $no_venue_events[0] )->get_ids() );
 		$this->assertCount( 5, tribe_venues()->get_ids() );
 	}
 
