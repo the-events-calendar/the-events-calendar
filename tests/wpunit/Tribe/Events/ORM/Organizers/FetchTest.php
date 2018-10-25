@@ -83,8 +83,10 @@ class FetchTest extends \Codeception\TestCase\WPTestCase {
 	public function should_allow_getting_organizers_by_events() {
 		$matching = $this->factory()->organizer->create_many( 2 );
 
-		$events  = $this->factory()->event->create_many( 2, [ 'meta_input' => [ '_EventOrganizerID' => $matching[0] ] ] );
-		$events += $this->factory()->event->create_many( 2, [ 'meta_input' => [ '_EventOrganizerID' => $matching[1] ] ] );
+		$events = array_merge(
+			$this->factory()->event->create_many( 2, [ 'meta_input' => [ '_EventOrganizerID' => $matching[0] ] ] ),
+			$this->factory()->event->create_many( 2, [ 'meta_input' => [ '_EventOrganizerID' => $matching[1] ] ] )
+		);
 
 		$no_organizer_events = $this->factory()->event->create_many( 2 );
 

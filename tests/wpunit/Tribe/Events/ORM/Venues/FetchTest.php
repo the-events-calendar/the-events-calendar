@@ -159,8 +159,10 @@ class FetchTest extends \Codeception\TestCase\WPTestCase {
 	public function should_allow_getting_venues_by_events() {
 		$matching = $this->factory()->venue->create_many( 2 );
 
-		$events  = $this->factory()->event->create_many( 2, [ 'meta_input' => [ '_EventVenueID' => $matching[0] ] ] );
-		$events += $this->factory()->event->create_many( 2, [ 'meta_input' => [ '_EventVenueID' => $matching[1] ] ] );
+		$events = array_merge(
+			$this->factory()->event->create_many( 2, [ 'meta_input' => [ '_EventVenueID' => $matching[0] ] ] ),
+			$this->factory()->event->create_many( 2, [ 'meta_input' => [ '_EventVenueID' => $matching[1] ] ] )
+		);
 
 		$no_venue_events = $this->factory()->event->create_many( 2 );
 
