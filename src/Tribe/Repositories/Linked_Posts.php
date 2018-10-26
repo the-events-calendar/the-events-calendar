@@ -62,18 +62,8 @@ class Tribe__Events__Repositories__Linked_Posts extends Tribe__Repository {
 
 		$events = (array) $event;
 
-		$post_ids = array();
-
-		foreach ( $events as $event_id_or_object ) {
-			$post_id = Tribe__Events__Main::postIdHelper( $event_id_or_object );
-
-			if ( ! $post_id ) {
-				continue;
-			}
-
-			$post_ids[] = $post_id;
-		}
-
+		$post_ids = array_map( array( 'Tribe__Main', 'post_id_helper' ), $events );
+		$post_ids = array_filter( $post_ids );
 		$post_ids = array_unique( $post_ids );
 
 		if ( empty( $post_ids ) ) {

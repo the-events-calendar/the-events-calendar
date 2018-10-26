@@ -21,6 +21,13 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	protected $filter_name = 'events';
 
 	/**
+	 * The menu_order override used in pre_get_posts to support negative menu_order lookups for Sticky Events.
+	 *
+	 * @var int
+	 */
+	protected $menu_order = 0;
+
+	/**
 	 * Tribe__Events__Repositories__Event constructor.
 	 *
 	 * Sets up the repository default parameters and schema.
@@ -49,12 +56,25 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			'multiday'                => array( $this, 'filter_by_multiday' ),
 			'on_calendar_grid'        => array( $this, 'filter_by_on_calendar_grid' ),
 			'timezone'                => array( $this, 'filter_by_timezone' ),
+			'featured'                => array( $this, 'filter_by_featured' ),
+			'hidden'                  => array( $this, 'filter_by_hidden' ),
+			'linked_post'             => array( $this, 'filter_by_linked_post' ),
+			'organizer'               => array( $this, 'filter_by_organizer' ),
+			'sticky'                  => array( $this, 'filter_by_sticky' ),
+			'venue'                   => array( $this, 'filter_by_venue' ),
 			'cost_currency_symbol'    => array( $this, 'filter_by_cost_currency_symbol' ),
 			'cost'                    => array( $this, 'filter_by_cost' ),
 			'cost_between'            => array( $this, 'filter_by_cost_between' ),
 			'cost_less_than'          => array( $this, 'filter_by_cost_less_than' ),
 			'cost_greater_than'       => array( $this, 'filter_by_cost_greater_than' ),
 		) );
+
+		$this->add_simple_meta_schema_entry( 'website', '_EventURL' );
+
+		$this->add_simple_tax_schema_entry( 'event_category', Tribe__Events__Main::TAXONOMY );
+		$this->add_simple_tax_schema_entry( 'event_category_not_in', Tribe__Events__Main::TAXONOMY, 'term_not_in' );
+		$this->add_simple_tax_schema_entry( 'tag', 'post_tag' );
+		$this->add_simple_tax_schema_entry( 'tag_not_in', 'post_tag', 'term_not_in' );
 	}
 
 	/**
@@ -486,6 +506,97 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	}
 
 	/**
+	 * Filters events to include only those that match the provided featured state.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $featured Whether the events should be featured or not.
+	 */
+	public function filter_by_featured( $featured = true ) {
+		$this->by( (bool) $featured ? 'meta_exists' : 'meta_not_exists', Tribe__Events__Featured_Events::FEATURED_EVENT_KEY, '#' );
+	}
+
+	/**
+	 * Filters events to include only those that match the provided hidden state.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $hidden Whether the events should be hidden or not.
+	 */
+	public function filter_by_hidden( $hidden = true ) {
+		$this->by( (bool) $hidden ? 'meta_exists' : 'meta_not_exists', '_EventHideFromUpcoming', '#' );
+	}
+
+	/**
+	 * Filters events to include only those that match the provided hidden state.
+	 *
+	 * @since TBD
+	 *
+	 * @param string            $linked_post_meta_key The linked post type meta key.
+	 * @param int|WP_Post|array $linked_post          Linked post(s).
+	 */
+	public function filter_by_linked_post( $linked_post_meta_key, $linked_post ) {
+		$linked_posts = (array) $linked_post;
+
+		$post_ids = array_map( array( 'Tribe__Main', 'post_id_helper' ), $linked_posts );
+		$post_ids = array_filter( $post_ids );
+		$post_ids = array_unique( $post_ids );
+
+		$this->by( 'meta_in', $linked_post_meta_key, $post_ids );
+	}
+
+	/**
+	 * Filters events by specific event organizer(s).
+	 *
+	 * @since TBD
+	 *
+	 * @param int|WP_Post|array $organizer Organizer(s).
+	 */
+	public function filter_by_organizer( $organizer ) {
+		$this->filter_by_linked_post( '_EventOrganizerID', $organizer );
+	}
+
+	/**
+	 * Filters events to include only those that match the provided sticky state.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $sticky Whether the events should be sticky or not.
+	 */
+	public function filter_by_sticky( $sticky = true ) {
+		// Support negative menu_order lookups.
+		add_action( 'pre_get_posts', array( $this, 'support_negative_menu_order' ) );
+
+		$this->menu_order = (bool) $sticky ? - 1 : 0;
+
+		$this->by( 'menu_order', $this->menu_order );
+	}
+
+	/**
+	 * Filters events by specific event venue(s).
+	 *
+	 * @since TBD
+	 *
+	 * @param int|WP_Post|array $venue Venue(s).
+	 */
+	public function filter_by_venue( $venue ) {
+		$this->filter_by_linked_post( '_EventVenueID', $venue );
+	}
+
+	/**
+	 * Hook into WP_Query pre_get_posts and support negative menu_order values.
+	 *
+	 * @param WP_Query $query Query object.
+	 */
+	public function support_negative_menu_order( $query ) {
+		// Send in the unmodified menu_order.
+		$query->query_vars['menu_order'] = (int) $this->menu_order;
+
+		// Remove hook.
+		remove_action( 'pre_get_posts', array( $this, 'support_negative_menu_order' ) );
+	}
+
+	/**
 	 * Filters events that have a specific cost currency symbol.
 	 *
 	 * Events with a cost of `0` but a currency symbol set will be fetched when fetching
@@ -617,6 +728,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 *
 	 * @return array An array of query arguments that will be added to the main query.
 	 */
+	 
 	public function filter_by_cost_greater_than( $value, $symbol = null ) {
 		return $this->by( 'cost', $value, '>', $symbol );
 	}
