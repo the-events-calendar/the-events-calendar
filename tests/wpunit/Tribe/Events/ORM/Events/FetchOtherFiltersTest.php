@@ -138,6 +138,9 @@ class FetchOtherFiltersTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_allow_getting_events_by_event_category() {
+		// needed to assign terms
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+
 		$terms = $this->factory()->term->create_many( 4, [ 'taxonomy' => \Tribe__Events__Main::TAXONOMY ] );
 
 		$matching  = $this->factory()->event->create_many( 2, [ 'tax_input' => [ \Tribe__Events__Main::TAXONOMY => [ $terms[0] ] ] ] );
@@ -170,6 +173,9 @@ class FetchOtherFiltersTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_allow_getting_events_by_tag() {
+		// needed to assign terms
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+
 		$terms = $this->factory()->term->create_many( 4, [ 'taxonomy' => 'post_tag' ] );
 
 		$matching  = $this->factory()->event->create_many( 2, [ 'tax_input' => [ 'post_tag' => [ $terms[0] ] ] ] );
