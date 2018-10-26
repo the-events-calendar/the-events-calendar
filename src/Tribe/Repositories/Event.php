@@ -31,7 +31,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		parent::__construct();
 
 		$this->default_args = array(
-			'post_type'              => Tribe__Events__Main::POSTTYPE,
+			'post_type'                    => Tribe__Events__Main::POSTTYPE,
 			// We'll be handling the dates, let's mark the query as a non-filtered one.
 			'tribe_suppress_query_filters' => true,
 		);
@@ -49,6 +49,11 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			'multiday'                => array( $this, 'filter_by_multiday' ),
 			'on_calendar_grid'        => array( $this, 'filter_by_on_calendar_grid' ),
 			'timezone'                => array( $this, 'filter_by_timezone' ),
+			'cost_currency_symbol'    => array( $this, 'filter_by_cost_currency_symbol' ),
+			'cost'                    => array( $this, 'filter_by_cost' ),
+			'cost_between'            => array( $this, 'filter_by_cost_between' ),
+			'cost_less_than'          => array( $this, 'filter_by_cost_less_than' ),
+			'cost_greater_than'       => array( $this, 'filter_by_cost_greater_than' ),
 		) );
 	}
 
@@ -478,5 +483,159 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 				),
 			),
 		);
+	}
+
+	/**
+	 * Filters events that have a specific cost currency symbol.
+	 *
+	 * Events with a cost of `0` but a currency symbol set will be fetched when fetching
+	 * by their symbols.
+	 *
+	 * @since TBD
+	 *
+	 * @param string|array $symbol One or more currency symbols or currency ISO codes. E.g.
+	 *                             "$" and "USD".
+	 *
+	 * @return array An array of arguments that will be added to the current query.
+	 */
+	public function filter_by_cost_currency_symbol( $symbol ) {
+		return array(
+			'meta_query' => array(
+				'by-cost-currency-symbol' => array(
+					'key'     => '_EventCurrencySymbol',
+					'value'   => array_unique( (array) $symbol ),
+					'compare' => 'IN'
+				)
+			)
+		);
+	}
+
+	/**
+	 * Filters events that have a cost relative to the given value based on the $comparator.
+	 * If Event Tickets is active, rather than looking at the event cost, all tickets attached
+	 * to the event should used to reference cost; the event cost meta will be ignored.
+	 *
+	 * Providing the symbol parameter should limit event results to only those events whose cost is relative to
+	 * the value AND the currency symbol matches. This way you can select posts that have a cost of 5 USD and
+	 * not accidentally get events with 5 EUR.
+	 *
+	 * @since TBD
+	 *
+	 * @param float|array $value       The cost to use for the comparison; in the case of `BETWEEN`, `NOT BETWEEN`,
+	 *                                 `IN` and `NOT IN` operators this value should be an array.
+	 * @param string      $operator    Teh comparison operator to use for the comparison, one of `<`, `<=`, `>`, `>=`,
+	 *                                 `=`, `BETWEEN`, `NOT BETWEEN`, `IN`, `NOT IN`.
+	 * @param string      $symbol      The desired currency symbol or symbols; this symbol can be a currency ISO code,
+	 *                                 e.g. "USD" for U.S. dollars, or a currency symbol, e.g. "$".
+	 *                                 In the latter case results will include any event with the matching currency
+	 *                                 symbol, this might lead to ambiguous results.
+	 *
+	 * @return array An array of query arguments that will be added to the main query.
+	 *
+	 * @throws Tribe__Repository__Usage_Error If the comparison operator is not supported of is using the `BETWEEN`,
+	 *                                        `NOT BETWEEN` operators without passing a two element array `$value`.
+	 */
+	public function filter_by_cost( $value, $operator = '=', $symbol = null ) {
+		if ( ! in_array( $operator, array(
+			'<',
+			'<=',
+			'>',
+			'>=',
+			'=',
+			'!=',
+			'BETWEEN',
+			'NOT BETWEEN',
+			'IN',
+			'NOT IN'
+		) ) ) {
+			throw Tribe__Repository__Usage_Error::because_this_comparison_operator_is_not_supported( $operator, 'filter_by_cost' );
+		}
+
+		if ( in_array( $operator, array(
+				'BETWEEN',
+				'NOT BETWEEN'
+			) ) && ! ( is_array( $value ) && 2 === count( $value ) ) ) {
+			throw Tribe__Repository__Usage_Error::because_this_comparison_operator_requires_an_value_of_type( $operator, 'filter_by_cost', 'array' );
+		}
+
+		if ( in_array( $operator, array( 'IN', 'NOT IN' ) ) ) {
+			$value = (array) $value;
+		}
+
+		$operator_name  = Tribe__Utils__Array::get( self::$comparison_operators, $operator, '' );
+		$meta_query_key = 'by-cost-' . $operator_name;
+
+		$meta_query_entry = array(
+			$meta_query_key => array(
+				'key'     => '_EventCost',
+				'value'   => $value,
+				'compare' => $operator,
+				'type'    => 'NUMERIC',
+			)
+		);
+
+		if ( null !== $symbol ) {
+			$meta_query_entry = array_merge( $meta_query_entry, $this->filter_by_cost_currency_symbol( $symbol ) );
+		}
+
+		return array( 'meta_query' => $meta_query_entry );
+	}
+
+	/**
+	 * Filters events that have a cost between two given values.
+	 *
+	 * Cost search is inclusive.
+	 *
+	 * @since TBD
+	 *
+	 * @param      float $low    The lower value of the search interval.
+	 * @param      float $high   The high value of the search interval.
+	 * @param string     $symbol The desired currency symbol or symbols; this symbol can be a currency ISO code,
+	 *                           e.g. "USD" for U.S. dollars, or a currency symbol, e.g. "$".
+	 *                           In the latter case results will include any event with the matching currency symbol,
+	 *                           this might lead to ambiguous results.
+	 *
+	 * @return array An array of query arguments that will be added to the main query.
+	 */
+	public function filter_by_cost_between( $low, $high, $symbol = null ) {
+		return $this->by( 'cost', array( $low, $high ), 'BETWEEN', $symbol );
+	}
+
+	/**
+	 * Filters events that have a cost greater than the given value.
+	 *
+	 * Cost search is NOT inclusive.
+	 *
+	 * @since TBD
+	 *
+	 * @param float  $value      The cost to use for the comparison.
+	 * @param string $symbol     The desired currency symbol or symbols; this symbol can be a currency ISO code,
+	 *                           e.g. "USD" for U.S. dollars, or a currency symbol, e.g. "$".
+	 *                           In the latter case results will include any event with the matching currency symbol,
+	 *                           this might lead to ambiguous results.
+	 *
+	 * @return array An array of query arguments that will be added to the main query.
+	 */
+	public function filter_by_cost_greater_than( $value, $symbol = null ) {
+		return $this->by( 'cost', $value, '>', $symbol );
+	}
+
+	/**
+	 * Filters events that have a cost less than the given value.
+	 *
+	 * Cost search is NOT inclusive.
+	 *
+	 * @since TBD
+	 *
+	 * @param float  $value      The cost to use for the comparison.
+	 * @param string $symbol     The desired currency symbol or symbols; this symbol can be a currency ISO code,
+	 *                           e.g. "USD" for U.S. dollars, or a currency symbol, e.g. "$".
+	 *                           In the latter case results will include any event with the matching currency symbol,
+	 *                           this might lead to ambiguous results.
+	 *
+	 * @return array An array of query arguments that will be added to the main query.
+	 */
+	public function filter_by_cost_less_than( $value, $symbol = null ) {
+		return $this->by( 'cost', $value, '<', $symbol );
 	}
 }
