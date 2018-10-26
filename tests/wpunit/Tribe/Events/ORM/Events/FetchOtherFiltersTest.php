@@ -66,8 +66,8 @@ class FetchOtherFiltersTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_allow_getting_events_by_linked_post() {
-		$linked_post  = $this->factory()->event->create();
-		$linked_post2 = $this->factory()->event->create();
+		$linked_post  = $this->factory()->post->create();
+		$linked_post2 = $this->factory()->post->create();
 
 		$matching     = $this->factory()->event->create_many( 2, [ 'meta_input' => [ '_EventCustomRelatedID' => $linked_post ] ] );
 		$matching2    = $this->factory()->event->create_many( 2, [ 'meta_input' => [ '_EventCustomRelatedID' => $linked_post2 ] ] );
