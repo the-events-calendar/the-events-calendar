@@ -586,5 +586,8 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	public function support_negative_menu_order( $query ) {
 		// Send in the unmodified menu_order.
 		$query->query_vars['menu_order'] = (int) $this->menu_order;
+
+		// Remove hook.
+		remove_action( 'pre_get_posts', array( $this, 'support_negative_menu_order' ) );
 	}
 }
