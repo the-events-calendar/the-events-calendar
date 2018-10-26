@@ -562,9 +562,9 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		// Support negative menu_order lookups.
 		add_action( 'pre_get_posts', array( $this, 'support_negative_menu_order' ) );
 
-		self::$menu_order = (bool) $sticky ? - 1 : 0;
+		$this->menu_order = (bool) $sticky ? - 1 : 0;
 
-		$this->by( 'menu_order', self::$menu_order );
+		$this->by( 'menu_order', $this->menu_order );
 	}
 
 	/**
