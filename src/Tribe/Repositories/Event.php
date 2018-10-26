@@ -559,23 +559,24 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		}
 
 		if ( in_array( $operator, array( 'IN', 'NOT IN' ) ) ) {
-			$value = (array) $value;
+			$value = array_map( 'floatval', (array) $value );
 		}
 
 		$operator_name  = Tribe__Utils__Array::get( self::$comparison_operators, $operator, '' );
 		$meta_query_key = 'by-cost-' . $operator_name;
 
+		// Do not add ANY spacing in the type: WordPress will only accept this format!
 		$meta_query_entry = array(
 			$meta_query_key => array(
 				'key'     => '_EventCost',
-				'value'   => $value,
+				'value'   => is_array( $value ) ? $value : (float) $value,
 				'compare' => $operator,
-				'type'    => 'NUMERIC',
+				'type'    => 'DECIMAL(10,5)',
 			),
 		);
 
 		if ( null !== $symbol ) {
-			$meta_query_entry = array_merge( $meta_query_entry, $this->filter_by_cost_currency_symbol( $symbol ) );
+			$meta_query_entry = array_merge( $meta_query_entry, $this->filter_by_cost_currency_symbol( $symbol )['meta_query'] );
 		}
 
 		return array( 'meta_query' => $meta_query_entry );

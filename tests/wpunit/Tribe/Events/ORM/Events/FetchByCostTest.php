@@ -254,6 +254,9 @@ class FetchByCostTest extends \Codeception\TestCase\WPTestCase {
 	public function should_allow_filtering_events_by_cost_less_than_and_greater_than() {
 		$this->create_test_events( 3, 1.5 );
 
+		$this->assertEmpty(
+			tribe_events()->per_page( - 1 )->where( 'cost_greater_than', 10 )->get_ids()
+		);
 		$this->assertEqualSets(
 			$this->events['with_cost'],
 			tribe_events()->per_page( - 1 )->where( 'cost_greater_than', 0 )->get_ids()
