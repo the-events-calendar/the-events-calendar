@@ -504,7 +504,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 				'by-cost-currency-symbol' => array(
 					'key'     => '_EventCurrencySymbol',
 					'value'   => array_unique( (array) $symbol ),
-					'compare' => 'IN'
+					'compare' => 'IN',
 				),
 			),
 		);
