@@ -21,6 +21,13 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	protected $filter_name = 'events';
 
 	/**
+	 * The menu_order override used in pre_get_posts to support negative menu_order lookups for Sticky Events.
+	 *
+	 * @var int
+	 */
+	protected $menu_order = 0;
+
+	/**
 	 * Tribe__Events__Repositories__Event constructor.
 	 *
 	 * Sets up the repository default parameters and schema.
@@ -552,7 +559,12 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 * @param bool $sticky Whether the events should be sticky or not.
 	 */
 	public function filter_by_sticky( $sticky = true ) {
-		$this->by( 'menu_order', (bool) $sticky ? - 1 : 0 );
+		// Support negative menu_order lookups.
+		add_action( 'pre_get_posts', array( $this, 'support_negative_menu_order' ) );
+
+		self::$menu_order = (bool) $sticky ? - 1 : 0;
+
+		$this->by( 'menu_order', self::$menu_order );
 	}
 
 	/**
@@ -564,5 +576,15 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 */
 	public function filter_by_venue( $venue ) {
 		$this->filter_by_linked_post( '_EventVenueID', $venue );
+	}
+
+	/**
+	 * Hook into WP_Query pre_get_posts and support negative menu_order values.
+	 *
+	 * @param WP_Query $query Query object.
+	 */
+	public function support_negative_menu_order( $query ) {
+		// Send in the unmodified menu_order.
+		$query->query_vars['menu_order'] = (int) $this->menu_order;
 	}
 }
