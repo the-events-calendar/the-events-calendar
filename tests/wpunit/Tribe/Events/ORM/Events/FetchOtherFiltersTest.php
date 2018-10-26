@@ -24,7 +24,7 @@ class FetchOtherFiltersTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_allow_getting_events_by_featured_status() {
-		$matching     = $this->factory()->event->create_many( 2, [ 'meta_input' => [ Tribe__Events__Featured_Events::FEATURED_EVENT_KEY => 'yes' ] ] );
+		$matching     = $this->factory()->event->create_many( 2, [ 'meta_input' => [ \Tribe__Events__Featured_Events::FEATURED_EVENT_KEY => 'yes' ] ] );
 		$not_matching = $this->factory()->event->create_many( 3 );
 
 		$this->assertEqualSets( $matching, tribe_events()->where( 'featured', true )->get_ids() );
@@ -69,9 +69,9 @@ class FetchOtherFiltersTest extends \Codeception\TestCase\WPTestCase {
 		$linked_post  = $this->factory()->event->create();
 		$linked_post2 = $this->factory()->event->create();
 
-		$matching      = $this->factory()->event->create_many( 2, [ '_EventCustomRelatedID' => $linked_post ] );
-		$matching2     = $this->factory()->event->create_many( 2, [ '_EventCustomRelatedID' => $linked_post2 ] );
-		$not_matching  = $this->factory()->event->create_many( 3 );
+		$matching     = $this->factory()->event->create_many( 2, [ 'meta_input' => [ '_EventCustomRelatedID' => $linked_post ] ] );
+		$matching2    = $this->factory()->event->create_many( 2, [ 'meta_input' => [ '_EventCustomRelatedID' => $linked_post2 ] ] );
+		$not_matching = $this->factory()->event->create_many( 3 );
 
 		$this->assertEqualSets( $matching, tribe_events()->where( 'linked_post', '_EventCustomRelatedID', $linked_post )->get_ids() );
 		$this->assertEqualSets( $matching, tribe_events()->where( 'linked_post', '_EventCustomRelatedID', get_post( $linked_post ) )->get_ids() );
@@ -88,9 +88,9 @@ class FetchOtherFiltersTest extends \Codeception\TestCase\WPTestCase {
 		$linked_post  = $this->factory()->organizer->create();
 		$linked_post2 = $this->factory()->organizer->create();
 
-		$matching      = $this->factory()->event->create_many( 2, [ '_EventOrganizerID' => $linked_post ] );
-		$matching2     = $this->factory()->event->create_many( 2, [ '_EventOrganizerID' => $linked_post2 ] );
-		$not_matching  = $this->factory()->event->create_many( 3 );
+		$matching     = $this->factory()->event->create_many( 2, [ 'meta_input' => [ '_EventOrganizerID' => $linked_post ] ] );
+		$matching2    = $this->factory()->event->create_many( 2, [ 'meta_input' => [ '_EventOrganizerID' => $linked_post2 ] ] );
+		$not_matching = $this->factory()->event->create_many( 3 );
 
 		$this->assertEqualSets( $matching, tribe_events()->where( 'organizer', $linked_post )->get_ids() );
 		$this->assertEqualSets( $matching, tribe_events()->where( 'organizer', get_post( $linked_post ) )->get_ids() );
@@ -107,9 +107,9 @@ class FetchOtherFiltersTest extends \Codeception\TestCase\WPTestCase {
 		$linked_post  = $this->factory()->venue->create();
 		$linked_post2 = $this->factory()->venue->create();
 
-		$matching      = $this->factory()->event->create_many( 2, [ '_EventVenueID' => $linked_post ] );
-		$matching2     = $this->factory()->event->create_many( 2, [ '_EventVenueID' => $linked_post2 ] );
-		$not_matching  = $this->factory()->event->create_many( 3 );
+		$matching     = $this->factory()->event->create_many( 2, [ 'meta_input' => [ '_EventVenueID' => $linked_post ] ] );
+		$matching2    = $this->factory()->event->create_many( 2, [ 'meta_input' => [ '_EventVenueID' => $linked_post2 ] ] );
+		$not_matching = $this->factory()->event->create_many( 3 );
 
 		$this->assertEqualSets( $matching, tribe_events()->where( 'venue', $linked_post )->get_ids() );
 		$this->assertEqualSets( $matching, tribe_events()->where( 'venue', get_post( $linked_post ) )->get_ids() );
@@ -140,8 +140,8 @@ class FetchOtherFiltersTest extends \Codeception\TestCase\WPTestCase {
 	public function should_allow_getting_events_by_event_category() {
 		$terms = $this->factory()->term->create_many( 4, [ 'taxonomy' => \Tribe__Events__Main::TAXONOMY ] );
 
-		$matching  = $this->factory()->event->create_many( 2, [ 'tax_input' => [ \Tribe__Events__Main::TAXONOMY => $terms[0] ] ] );
-		$matching2 = $this->factory()->event->create_many( 2, [ 'tax_input' => [ \Tribe__Events__Main::TAXONOMY => $terms[1] ] ] );
+		$matching  = $this->factory()->event->create_many( 2, [ 'tax_input' => [ \Tribe__Events__Main::TAXONOMY => [ $terms[0] ] ] ] );
+		$matching2 = $this->factory()->event->create_many( 2, [ 'tax_input' => [ \Tribe__Events__Main::TAXONOMY => [ $terms[1] ] ] ] );
 
 		$not_matching = $this->factory()->event->create_many( 3 );
 
@@ -172,8 +172,8 @@ class FetchOtherFiltersTest extends \Codeception\TestCase\WPTestCase {
 	public function should_allow_getting_events_by_tag() {
 		$terms = $this->factory()->term->create_many( 4, [ 'taxonomy' => 'post_tag' ] );
 
-		$matching  = $this->factory()->event->create_many( 2, [ 'tax_input' => [ 'post_tag' => $terms[0] ] ] );
-		$matching2 = $this->factory()->event->create_many( 2, [ 'tax_input' => [ 'post_tag' => $terms[1] ] ] );
+		$matching  = $this->factory()->event->create_many( 2, [ 'tax_input' => [ 'post_tag' => [ $terms[0] ] ] ] );
+		$matching2 = $this->factory()->event->create_many( 2, [ 'tax_input' => [ 'post_tag' => [ $terms[1] ] ] ] );
 
 		$not_matching = $this->factory()->event->create_many( 3 );
 
