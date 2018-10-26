@@ -157,12 +157,12 @@ class FetchOtherFiltersTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEqualSets( $matching, tribe_events()->where( 'event_category', $term_1->term_id )->get_ids() );
 		$this->assertEqualSets( $matching, tribe_events()->where( 'event_category', $term_1->slug )->get_ids() );
 		$this->assertEqualSets( array_merge( $matching, $matching2 ), tribe_events()->where( 'event_category', [ $term_1->slug, $term_2 ] )->get_ids() );
+		$this->assertEqualSets( [], tribe_events()->where( 'event_category', [ $term_3->slug, $term_4 ] )->get_ids() );
 
 		$this->assertEqualSets( array_merge( $not_matching, $matching ), tribe_events()->where( 'event_category_not_in', $term_2 )->get_ids() );
 		$this->assertEqualSets( array_merge( $not_matching, $matching ), tribe_events()->where( 'event_category_not_in', $term_2->term_id )->get_ids() );
 		$this->assertEqualSets( array_merge( $not_matching, $matching ), tribe_events()->where( 'event_category_not_in', $term_2->slug )->get_ids() );
 		$this->assertEqualSets( $not_matching, tribe_events()->where( 'event_category_not_in', [ $term_1->slug, $term_2 ] )->get_ids() );
-		$this->assertEqualSets( [], tribe_events()->where( 'event_category_not_in', [ $term_4->term_id, $term_3 ] )->get_ids() );
 
 		$this->assertCount( 7, tribe_events()->get_ids() );
 	}
@@ -192,12 +192,12 @@ class FetchOtherFiltersTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEqualSets( $matching, tribe_events()->where( 'tag', $term_1->term_id )->get_ids() );
 		$this->assertEqualSets( $matching, tribe_events()->where( 'tag', $term_1->slug )->get_ids() );
 		$this->assertEqualSets( array_merge( $matching, $matching2 ), tribe_events()->where( 'tag', [ $term_1->slug, $term_2 ] )->get_ids() );
+		$this->assertEqualSets( [], tribe_events()->where( 'tag', [ $term_3->slug, $term_4 ] )->get_ids() );
 
 		$this->assertEqualSets( array_merge( $not_matching, $matching ), tribe_events()->where( 'tag_not_in', $term_2 )->get_ids() );
 		$this->assertEqualSets( array_merge( $not_matching, $matching ), tribe_events()->where( 'tag_not_in', $term_2->term_id )->get_ids() );
 		$this->assertEqualSets( array_merge( $not_matching, $matching ), tribe_events()->where( 'tag_not_in', $term_2->slug )->get_ids() );
 		$this->assertEqualSets( $not_matching, tribe_events()->where( 'tag_not_in', [ $term_1->slug, $term_2 ] )->get_ids() );
-		$this->assertEqualSets( [], tribe_events()->where( 'tag_not_in', [ $term_4->term_id, $term_3 ] )->get_ids() );
 
 		$this->assertCount( 7, tribe_events()->get_ids() );
 	}
