@@ -728,7 +728,6 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 *
 	 * @return array An array of query arguments that will be added to the main query.
 	 */
-	 
 	public function filter_by_cost_greater_than( $value, $symbol = null ) {
 		return $this->by( 'cost', $value, '>', $symbol );
 	}
