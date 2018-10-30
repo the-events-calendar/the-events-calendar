@@ -61,23 +61,19 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 	 * @since TBD Allow $event_id param to be a `WP_Post` object.
 	 */
 	public function get_event_data( $event_id, $context = '' ) {
-		if ( $event_id instanceof WP_Post ) {
-			$event_id = $event_id->ID;
+		$event = get_post( $event_id );
+
+		if ( empty( $event ) || ! tribe_is_event( $event ) ) {
+			return new WP_Error( 'event-not-found', $this->messages->get_message( 'event-not-found' ) );
 		}
 
-		$cache     = new Tribe__Cache();
-		$cache_key = 'rest_get_event_data_' . ( is_user_logged_in() ? get_current_user_id() : 0 ) . '_' . $event_id . '_' . $context;
+		$cache     = tribe( 'cache' );
+		$cache_key = 'rest_get_event_data_' . ( is_user_logged_in() ? get_current_user_id() : 0 ) . '_' . $event->ID . '_' . $context;
 
 		$data = $cache->get( $cache_key, 'save_post' );
 
 		if ( is_array( $data ) ) {
 			return $data;
-		}
-
-		$event = get_post( $event_id );
-
-		if ( empty( $event ) || ! tribe_is_event( $event ) ) {
-			return new WP_Error( 'event-not-found', $this->messages->get_message( 'event-not-found' ) );
 		}
 
 		$event_id = $event->ID;
@@ -179,19 +175,6 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 	 * @since 4.6 Added $context param
 	 */
 	public function get_venue_data( $event_or_venue_id, $context = '' ) {
-		if ( $event_or_venue_id instanceof WP_Post ) {
-			$event_or_venue_id = tribe_get_venue_id( $event_or_venue_id->ID );
-		}
-
-		$cache     = new Tribe__Cache();
-		$cache_key = 'rest_get_venue_data_' . ( is_user_logged_in() ? get_current_user_id() : 0 ) . '_' . $event_or_venue_id . '_' . $context;
-
-		$data = $cache->get( $cache_key, 'save_post' );
-
-		if ( is_array( $data ) ) {
-			return $data;
-		}
-
 		if ( tribe_is_event( $event_or_venue_id ) ) {
 			$venue = get_post( tribe_get_venue_id( $event_or_venue_id ) );
 			if ( empty( $venue ) ) {
@@ -201,6 +184,15 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			$venue = get_post( $event_or_venue_id );
 		} else {
 			return new WP_Error( 'venue-not-found', $this->messages->get_message( 'venue-not-found' ) );
+		}
+
+		$cache     = tribe( 'cache' );
+		$cache_key = 'rest_get_venue_data_' . ( is_user_logged_in() ? get_current_user_id() : 0 ) . '_' . $venue->ID . '_' . $context;
+
+		$data = $cache->get( $cache_key, 'save_post' );
+
+		if ( is_array( $data ) ) {
+			return $data;
 		}
 
 		$meta = array_map( 'reset', get_post_custom( $venue->ID ) );
@@ -381,7 +373,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 
 		$data = array();
 
-		$cache = new Tribe__Cache();
+		$cache = tribe( 'cache' );
 
 		foreach ( $organizers as $organizer_id ) {
 			$cache_key = 'rest_get_organizer_data_' . ( is_user_logged_in() ? get_current_user_id() : 0 ) . '_' . $organizer_id . '_' . $context;
