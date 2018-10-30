@@ -67,6 +67,15 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			return new WP_Error( 'event-not-found', $this->messages->get_message( 'event-not-found' ) );
 		}
 
+		$cache     = tribe( 'cache' );
+		$cache_key = 'rest_get_event_data_' . ( is_user_logged_in() ? get_current_user_id() : 0 ) . '_' . $event->ID . '_' . $context;
+
+		$data = $cache->get( $cache_key, 'save_post' );
+
+		if ( is_array( $data ) ) {
+			return $data;
+		}
+
 		$event_id = $event->ID;
 
 		$meta = array_map( 'reset', get_post_custom( $event_id ) );
@@ -150,6 +159,8 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		 */
 		$data = apply_filters( 'tribe_rest_event_data', $data, $event );
 
+		$cache->set( $cache_key, $data, Tribe__Cache::NON_PERSISTENT, 'save_post' );
+
 		return $data;
 	}
 
@@ -173,6 +184,15 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			$venue = get_post( $event_or_venue_id );
 		} else {
 			return new WP_Error( 'venue-not-found', $this->messages->get_message( 'venue-not-found' ) );
+		}
+
+		$cache     = tribe( 'cache' );
+		$cache_key = 'rest_get_venue_data_' . ( is_user_logged_in() ? get_current_user_id() : 0 ) . '_' . $venue->ID . '_' . $context;
+
+		$data = $cache->get( $cache_key, 'save_post' );
+
+		if ( is_array( $data ) ) {
+			return $data;
 		}
 
 		$meta = array_map( 'reset', get_post_custom( $venue->ID ) );
@@ -250,6 +270,8 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		 * @param WP_Post|null $event The requested event, if event ID was used.
 		 */
 		$data = apply_filters( 'tribe_rest_venue_data', $data, $venue, $event );
+
+		$cache->set( $cache_key, $data, Tribe__Cache::NON_PERSISTENT, 'save_post' );
 
 		return $data;
 	}
@@ -351,10 +373,22 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 
 		$data = array();
 
+		$cache = tribe( 'cache' );
+
 		foreach ( $organizers as $organizer_id ) {
 			$organizer = get_post( $organizer_id );
 
 			if ( empty( $organizer ) ) {
+				continue;
+			}
+
+			$cache_key = 'rest_get_organizer_data_' . ( is_user_logged_in() ? get_current_user_id() : 0 ) . '_' . $organizer->ID . '_' . $context;
+
+			$this_data = $cache->get( $cache_key, 'save_post' );
+
+			if ( is_array( $this_data ) ) {
+				$data[] = $this_data;
+
 				continue;
 			}
 
@@ -407,6 +441,8 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			 * @param WP_Post $event The requested organizer.
 			 */
 			$this_data = apply_filters( 'tribe_rest_organizer_data', array_filter( $this_data ), $organizer );
+
+			$cache->set( $cache_key, $this_data, Tribe__Cache::NON_PERSISTENT, 'save_post' );
 
 			$data[] = $this_data;
 		}
