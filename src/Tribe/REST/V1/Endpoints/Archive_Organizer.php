@@ -129,7 +129,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 		}
 
 		$cache     = new Tribe__Cache();
-		$cache_key = 'rest_get_organizers_data_' . get_current_user_id() . '_' . wp_json_encode( $args );
+		$cache_key = 'rest_get_organizers_data_' . ( is_user_logged_in() ? get_current_user_id() : 0 ) . '_' . wp_json_encode( $args );
 
 		$data = $cache->get( $cache_key, 'save_post' );
 
