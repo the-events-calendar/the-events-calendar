@@ -1127,7 +1127,6 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		 */
 		public static function getEvents( $args = array(), $full = false ) {
 			$defaults = array(
-				'post_type'            => Tribe__Events__Main::POSTTYPE,
 				'orderby'              => 'event_date',
 				'order'                => 'ASC',
 				'posts_per_page'       => tribe_get_option( 'postsPerPage', 10 ),
@@ -1151,14 +1150,30 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			$cache_key = 'get_events_' . get_current_user_id() . serialize( $args );
 
 			$result = $cache->get( $cache_key, 'save_post' );
-			if ( $result && $result instanceof WP_Query ) {
+
+			if (
+				false !== $result
+				&& (
+					$result instanceof WP_Query
+					|| (
+						$return_found_posts
+						&& is_int( $result )
+					)
+				)
+			) {
 				do_action( 'log', 'cache hit', 'tribe-events-cache', $args );
 			} else {
 				do_action( 'log', 'no cache hit', 'tribe-events-cache', $args );
-				$result = new WP_Query( $args );
+
+				/** @var Tribe__Events__Repositories__Event $event_orm */
+				$event_orm = tribe( 'events.event-repository' );
+
+				$event_orm->by_args( $args );
 
 				if ( $return_found_posts ) {
-					$result = $result->found_posts;
+					$result = $event_orm->found();
+				} else {
+					$result = $event_orm->get_query();
 				}
 
 				$cache->set( $cache_key, $result, Tribe__Cache::NON_PERSISTENT, 'save_post' );
@@ -1171,18 +1186,16 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			if ( ! empty( $result->posts ) ) {
 				if ( $full ) {
 					return $result;
-				} else {
-					$posts = $result->posts;
+				}
 
-					return $posts;
-				}
-			} else {
-				if ( $full ) {
-					return $result;
-				} else {
-					return array();
-				}
+				return $result->posts;
 			}
+
+			if ( $full ) {
+				return $result;
+			}
+
+			return array();
 		}
 
 		/**
