@@ -69,6 +69,11 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			'cost_greater_than'       => array( $this, 'filter_by_cost_greater_than' ),
 		) );
 
+		// Add backcompat aliases.
+		$this->schema['hide_upcoming'] = array( $this, 'filter_by_hidden' );
+		$this->schema['start_date']    = array( $this, 'filter_by_starts_after' );
+		$this->schema['end_date']      = array( $this, 'filter_by_ends_before' );
+
 		$this->add_simple_meta_schema_entry( 'website', '_EventURL' );
 
 		$this->add_simple_tax_schema_entry( 'event_category', Tribe__Events__Main::TAXONOMY );
