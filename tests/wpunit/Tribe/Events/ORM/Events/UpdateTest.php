@@ -13,13 +13,13 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 
 	public function meta_key_aliases() {
 		return [
-//			'start_date'     => [ 'start_date', '_EventStartDate', '2018-09-30 09:00:00' ],
-//			'start_date_utc' => [ 'start_date_utc', '_EventStartDateUTC', '2018-10-01 09:00:00' ],
+			'start_date'     => [ 'start_date', '_EventStartDate', '2018-09-30 09:00:00' ],
+			'start_date_utc' => [ 'start_date_utc', '_EventStartDateUTC', '2018-10-01 09:00:00' ],
 			'end_date'       => [ 'end_date', '_EventEndDate', '2018-10-31 11:00:00' ],
-//			'end_date_utc'   => [ 'end_date_utc', '_EventEndDateUTC', '2018-10-31 11:00:00' ],
-//			'duration'       => [ 'duration', '_EventDuration', '14400' ],
-//			'all_day'        => [ 'all_day', '_EventAllDay', 'yes' ],
-//			'timezone'       => [ 'timezone', '_EventTimezone', 'Europe/Paris' ],
+			'end_date_utc'   => [ 'end_date_utc', '_EventEndDateUTC', '2018-10-31 11:00:00' ],
+			'duration'       => [ 'duration', '_EventDuration', '14400' ],
+			'all_day'        => [ 'all_day', '_EventAllDay', 'yes' ],
+			'timezone'       => [ 'timezone', '_EventTimezone', 'Europe/Paris' ],
 		];
 	}
 
@@ -30,7 +30,7 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 	 * @dataProvider meta_key_aliases
 	 */
 	public function should_allow_updating_some_event_meta_with_aliases( $alias, $meta_key, $value ) {
-		$event = $this->factory()->event->create();
+		$event = $this->factory()->event->create( [ 'when' => '2018-01-12 09:00:00', 'duration' => YEAR_IN_SECONDS ] );
 
 		tribe_events()->set( $alias, $value )->save();
 
