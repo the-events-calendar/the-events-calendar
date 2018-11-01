@@ -791,7 +791,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 */
 	protected function filter_meta_input( array $postarr, $post_id ) {
 		$postarr = $this->update_date_meta( $postarr, $post_id );
-		$postarr = $this->update_linked_post_meta( $postarr, $post_id );
+		$postarr = $this->update_linked_post_meta( $postarr );
 
 		return $postarr;
 	}
@@ -827,11 +827,11 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			 * If only one is provided the other one will be calculated and updated.
 			 */
 			foreach ( array( 'Start', 'End' ) as $check ) {
-				if ( isset( $meta["_Event{$check}Date"] ) ) {
-					$date     = new DateTimeImmutable( $meta["_Event{$check}Date"], $timezone );
+				if ( isset( $meta[ "_Event{$check}Date" ] ) ) {
+					$date     = new DateTimeImmutable( $meta[ "_Event{$check}Date" ], $timezone );
 					$utc_date = $date->setTimezone( $utc );
 					// Set the UTC date/time from local date/time and timezone; if provided override it.
-					$postarr['meta_input']["_Event{$check}DateUTC"] = $utc_date->format( 'Y-m-d H:i:s' );
+					$postarr[ 'meta_input' ][ "_Event{$check}DateUTC" ] = $utc_date->format( 'Y-m-d H:i:s' );
 					$dates_changed[ $check ]                        = $utc_date;
 				}
 
@@ -839,9 +839,9 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 				 * If the UTC date is provided in place of the local date/time then build the
 				 * local date/time.
 				 */
-				if ( isset( $meta["_Event{$check}DateUTC"] ) && empty( $utc_date ) ) {
-					$utc_date                                    = new DateTimeImmutable( $meta["_Event{$check}DateUTC"], $utc );
-					$postarr['meta_input']["_Event{$check}Date"] = $utc_date->setTimezone( $timezone )->format( 'Y-m-d H:i:s' );
+				if ( isset( $meta[ "_Event{$check}DateUTC" ] ) && empty( $utc_date ) ) {
+					$utc_date                                    = new DateTimeImmutable( $meta[ "_Event{$check}DateUTC" ], $utc );
+					$postarr[ 'meta_input' ][ "_Event{$check}Date" ] = $utc_date->setTimezone( $timezone )->format( 'Y-m-d H:i:s' );
 					$dates_changed[ $check ]                     = $utc_date;
 				}
 			}
@@ -929,11 +929,10 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 * @since TBD
 	 *
 	 * @param array $postarr The update post array.
-	 * @param       $post_id The post ID of the event to update.
 	 *
 	 * @return array The filtered event post array.
 	 */
-	protected function update_linked_post_meta( array $postarr, $post_id ) {
+	protected function update_linked_post_meta( array $postarr ) {
 		// @todo crete linked posts here?! Using ORM?
 		if ( isset( $postarr['meta_input']['_EventVenueID'] ) && ! tribe_is_venue( $postarr['meta_input']['_EventVenueID'] ) ) {
 			unset( $postarr['meta_input']['_EventVenueID'] );
