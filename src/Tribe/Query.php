@@ -1127,10 +1127,11 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		 */
 		public static function getEvents( $args = array(), $full = false ) {
 			$defaults = array(
-				'orderby'              => 'event_date',
-				'order'                => 'ASC',
-				'posts_per_page'       => tribe_get_option( 'postsPerPage', 10 ),
-				'tribe_render_context' => 'default',
+				'orderby'                      => 'event_date',
+				'order'                        => 'ASC',
+				'posts_per_page'               => tribe_get_option( 'postsPerPage', 10 ),
+				'tribe_render_context'         => 'default',
+				'tribe_suppress_query_filters' => false,
 			);
 
 			$args = wp_parse_args( $args, $defaults );
