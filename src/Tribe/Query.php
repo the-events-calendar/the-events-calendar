@@ -1129,7 +1129,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			$defaults = array(
 				'orderby'              => 'event_date',
 				'order'                => 'ASC',
-				'posts_per_page'       => tribe_get_option( 'postsPerPage', get_option( 'posts_per_page', 10 ) ),
+				'posts_per_page'       => tribe_get_option( 'posts_per_page', tribe_get_option( 'postsPerPage', get_option( 'posts_per_page', 10 ) ) ),
 				'tribe_render_context' => 'default',
 			);
 
@@ -1169,7 +1169,11 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				$event_orm = tribe( 'events.event-repository' );
 
 				// Backcompat defaults.
-				$event_orm->by( 'hidden', true );
+				if ( isset( $args['hide_upcoming'] ) && false === $args['hide_upcoming'] ) {
+					unset( $args['hide_upcoming'] );
+				} else {
+					$event_orm->by( 'hidden', true );
+				}
 
 				$event_orm->by_args( $args );
 
