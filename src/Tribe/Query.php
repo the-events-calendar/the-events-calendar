@@ -1168,6 +1168,9 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				/** @var Tribe__Events__Repositories__Event $event_orm */
 				$event_orm = tribe( 'events.event-repository' );
 
+				// Backcompat defaults.
+				$event_orm->by( 'hidden', true );
+
 				$event_orm->by_args( $args );
 
 				if ( $return_found_posts ) {
