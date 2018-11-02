@@ -1166,7 +1166,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				do_action( 'log', 'no cache hit', 'tribe-events-cache', $args );
 
 				/** @var Tribe__Events__Repositories__Event $event_orm */
-				$event_orm = tribe( 'events.event-repository' );
+				$event_orm = tribe_events();
 
 				// Backcompat defaults.
 				if ( isset( $args['hide_upcoming'] ) && false === $args['hide_upcoming'] ) {
