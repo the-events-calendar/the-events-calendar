@@ -1138,6 +1138,8 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			$return_found_posts = ! empty( $args['found_posts'] );
 
 			if ( $return_found_posts ) {
+				unset( $args['found_posts'] );
+
 				$args['posts_per_page'] = 1;
 				$args['paged']          = 1;
 			}
@@ -1168,11 +1170,28 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				/** @var Tribe__Events__Repositories__Event $event_orm */
 				$event_orm = tribe_events();
 
+				$hidden = false;
+
 				// Backcompat defaults.
-				if ( isset( $args['hide_upcoming'] ) && false === $args['hide_upcoming'] ) {
+				if ( isset( $args['hide_upcoming'] ) ) {
+					// Negate the hide_upcoming for $hidden
+					if ( true !== (boolean) $args['hide_upcoming'] ) {
+						$hidden = null;
+					}
+
 					unset( $args['hide_upcoming'] );
-				} else {
-					$event_orm->by( 'hidden', true );
+				}
+
+				if ( isset( $args['start_date'] ) && false === $args['start_date'] ) {
+					unset( $args['start_date'] );
+				}
+
+				if ( isset( $args['end_date'] ) && false === $args['end_date'] ) {
+					unset( $args['end_date'] );
+				}
+
+				if ( null !== $hidden ) {
+					$event_orm->by( 'hidden', $hidden );
 				}
 
 				$event_orm->by_args( $args );
@@ -1181,6 +1200,9 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 					$result = $event_orm->found();
 				} else {
 					$result = $event_orm->get_query();
+
+					// Run the query.
+					$result->get_posts();
 				}
 
 				$cache->set( $cache_key, $result, Tribe__Cache::NON_PERSISTENT, 'save_post' );
