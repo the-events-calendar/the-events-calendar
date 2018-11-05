@@ -45,22 +45,25 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 
 		// Add event specific aliases.
 		$this->update_fields_aliases = array_merge( $this->update_fields_aliases, array(
-			'start_date'        => '_EventStartDate',
-			'end_date'          => '_EventEndDate',
-			'start_date_utc'    => '_EventStartDateUTC',
-			'end_date_utc'      => '_EventEndDateUTC',
-			'duration'          => '_EventDuration',
-			'all_day'           => '_EventAllDay',
-			'timezone'          => '_EventTimezone',
-			'venue'             => '_EventVenueID',
-			'organizer'         => '_EventOrganizerID',
-			'category'          => Tribe__Events__Main::TAXONOMY,
-			'cost'              => '_EventCost',
-			'currency_symbol'   => '_EventCurrencySymbol',
-			'currency_position' => '_EventCurrencyPosition',
-			'show_map'          => '_EventShowMap',
-			'show_map_link'     => '_EventShowMapLink',
-			'url'               => '_EventURL',
+			'start_date'         => '_EventStartDate',
+			'end_date'           => '_EventEndDate',
+			'start_date_utc'     => '_EventStartDateUTC',
+			'end_date_utc'       => '_EventEndDateUTC',
+			'duration'           => '_EventDuration',
+			'all_day'            => '_EventAllDay',
+			'timezone'           => '_EventTimezone',
+			'venue'              => '_EventVenueID',
+			'organizer'          => '_EventOrganizerID',
+			'category'           => Tribe__Events__Main::TAXONOMY,
+			'cost'               => '_EventCost',
+			'currency_symbol'    => '_EventCurrencySymbol',
+			'currency_position'  => '_EventCurrencyPosition',
+			'show_map'           => '_EventShowMap',
+			'show_map_link'      => '_EventShowMapLink',
+			'url'                => '_EventURL',
+			'hide_from_upcoming' => '_EventHideFromUpcoming',
+			// Where is "sticky"? It's handled in the meta filtering by setting `menu_order`.
+			'featured'           => '_tribe_featured',
 		) );
 
 		$this->default_args = array(
@@ -1026,6 +1029,31 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		     && ! in_array( $postarr['meta_input']['_EventCurrencyPosition'], $currency_symbol_positions, true )
 		) {
 			$postarr['meta_input']['_EventCurrencyPosition'] = 'prefix';
+		}
+
+		if ( isset( $postarr['meta_input']['_EventHideFromUpcoming'] ) ) {
+			if ( tribe_is_truthy( $postarr['meta_input']['_EventHideFromUpcoming'] ) ) {
+				$postarr['meta_input']['_EventHideFromUpcoming'] = 'yes';
+			} else {
+				unset( $postarr['meta_input']['_EventHideFromUpcoming'] );
+			}
+		}
+
+		if ( isset( $postarr['meta_input']['sticky'] ) ) {
+			if ( tribe_is_truthy( $postarr['meta_input']['sticky'] ) ) {
+				$postarr['menu_order'] = - 1;
+			} else {
+				$postarr['menu_order'] = 0;
+			}
+			unset( $postarr['meta_input']['sticky'] );
+		}
+
+		if ( isset( $postarr['meta_input']['_tribe_featured'] ) ) {
+			if ( tribe_is_truthy( $postarr['meta_input']['_tribe_featured'] ) ) {
+				$postarr['meta_input']['_tribe_featured'] = true;
+			} else {
+				unset( $postarr['meta_input']['_tribe_featured'] );
+			}
 		}
 
 		return $postarr;

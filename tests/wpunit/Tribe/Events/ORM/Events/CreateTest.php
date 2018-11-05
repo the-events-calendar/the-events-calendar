@@ -278,4 +278,58 @@ class CreateTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertEquals( 'http://the-event.com', get_post_meta( $event->ID, '_EventURL', true ) );
 	}
+
+	/**
+	 * It should allow marking an event as hidden from month view
+	 *
+	 * @test
+	 */
+	public function should_allow_marking_an_event_as_hidden_from_month_view() {
+		$args  = [
+			'start_date'         => '2018-03-04 09:00:00',
+			'end_date'           => '2018-03-06 11:00:00',
+			'timezone'           => 'Australia/Darwin',
+			'title'              => 'A test event',
+			'hide_from_upcoming' => true
+		];
+		$event = tribe_events()->set_args( $args )->create();
+
+		$this->assertEquals( 'yes', get_post_meta( $event->ID, '_EventHideFromUpcoming', true ) );
+	}
+
+	/**
+	 * It should allow setting an event menu order/sticky status
+	 *
+	 * @test
+	 */
+	public function should_allow_setting_an_event_menu_order_sticky_status() {
+		$args  = [
+			'start_date' => '2018-03-04 09:00:00',
+			'end_date'   => '2018-03-06 11:00:00',
+			'timezone'   => 'Australia/Darwin',
+			'title'      => 'A test event',
+			'sticky'        => true,
+		];
+		$event = tribe_events()->set_args( $args )->create();
+
+		$this->assertEquals( -1, get_post_field( 'menu_order', $event->ID ) );
+	}
+
+	/**
+	 * It should allow featuring an event
+	 *
+	 * @test
+	 */
+	public function should_allow_featuring_an_event() {
+		$args  = [
+			'start_date' => '2018-03-04 09:00:00',
+			'end_date'   => '2018-03-06 11:00:00',
+			'timezone'   => 'Australia/Darwin',
+			'title'      => 'A test event',
+			'featured'        => true,
+		];
+		$event = tribe_events()->set_args( $args )->create();
+
+		$this->assertEquals( '1', get_post_meta( $event->ID, '_tribe_featured', true ) );
+	}
 }
