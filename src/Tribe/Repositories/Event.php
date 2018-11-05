@@ -847,11 +847,11 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			 */
 			$datetime_format = 'Y-m-d H:i:s';
 			foreach ( array( 'Start', 'End' ) as $check ) {
-				if ( isset( $meta["_Event{$check}Date"] ) ) {
-					$date     = new DateTimeImmutable( $meta["_Event{$check}Date"], $timezone );
+				if ( isset( $meta[ "_Event{$check}Date" ] ) ) {
+					$date     = new DateTimeImmutable( $meta[ "_Event{$check}Date" ], $timezone );
 					$utc_date = $date->setTimezone( $utc );
 					// Set the UTC date/time from local date/time and timezone; if provided override it.
-					$postarr['meta_input']["_Event{$check}DateUTC"] = $utc_date->format( $datetime_format );
+					$postarr[ 'meta_input' ][ "_Event{$check}DateUTC" ] = $utc_date->format( $datetime_format );
 					$dates_changed[ $check ]                        = $utc_date;
 				}
 
@@ -859,9 +859,9 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 				 * If the UTC date is provided in place of the local date/time then build the
 				 * local date/time.
 				 */
-				if ( isset( $meta["_Event{$check}DateUTC"] ) && empty( $utc_date ) ) {
-					$utc_date                                    = new DateTimeImmutable( $meta["_Event{$check}DateUTC"], $utc );
-					$postarr['meta_input']["_Event{$check}Date"] = $utc_date->setTimezone( $timezone )->format( $datetime_format );
+				if ( isset( $meta[ "_Event{$check}DateUTC" ] ) && empty( $utc_date ) ) {
+					$utc_date                                    = new DateTimeImmutable( $meta[ "_Event{$check}DateUTC" ], $utc );
+					$postarr[ 'meta_input' ][ "_Event{$check}Date" ] = $utc_date->setTimezone( $timezone )->format( $datetime_format );
 					$dates_changed[ $check ]                     = $utc_date;
 				}
 			}
