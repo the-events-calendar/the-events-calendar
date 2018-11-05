@@ -341,8 +341,11 @@ jQuery( document ).ready( function( $ ) {
 
 		section.on( 'click', '.tribe-delete-this', function(e) {
 			e.preventDefault();
-			var group = $( this ).closest( 'tbody' );
-			group.fadeOut( 500, function() {
+			var $group = $( this ).closest( 'tbody' );
+
+			$group.parents( '.tribe-section' ).removeClass( 'tribe-is-creating-linked-post' );
+
+			$group.fadeOut( 500, function() {
 				$( this ).remove();
 			} );
 		});
@@ -395,9 +398,14 @@ jQuery( document ).ready( function( $ ) {
 			$group
 				.find( '.linked-post' ).not( '[data-hidden]' ).show()
 				.find( '.tribe-dropdown' ).trigger( 'change' );
+
+			$group.parents( '.tribe-section' ).addClass( 'tribe-is-creating-linked-post' );
+
 		} else {
 			// Hide all fields and remove their values
 			$group.find( '.linked-post' ).hide().find( 'input' ).val( '' );
+
+			$group.parents( '.tribe-section' ).removeClass( 'tribe-is-creating-linked-post' );
 
 			// Modify and Show edit link
 			if ( ! _.isEmpty( editLink ) ) {
