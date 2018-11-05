@@ -28,23 +28,6 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	protected $menu_order = 0;
 
 	/**
-	 * A map of aliases that can be used to set an event custom fields.
-	 *
-	 * @var array
-	 */
-	protected $update_fields_aliases = array(
-		'start_date'     => '_EventStartDate',
-		'end_date'       => '_EventEndDate',
-		'start_date_utc' => '_EventStartDateUTC',
-		'end_date_utc'   => '_EventEndDateUTC',
-		'duration'       => '_EventDuration',
-		'all_day'        => '_EventAllDay',
-		'timezone'       => '_EventTimezone',
-		'venue'          => '_EventVenueID',
-		'organizer'      => '_EventOrganizerID',
-	);
-
-	/**
 	 * Tribe__Events__Repositories__Event constructor.
 	 *
 	 * Sets up the repository default parameters and schema.
@@ -53,6 +36,32 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 */
 	public function __construct() {
 		parent::__construct();
+
+		$this->create_args['post_type'] = Tribe__Events__Main::POSTTYPE;
+		$this->taxonomies               = array(
+			Tribe__Events__Main::TAXONOMY,
+			'post_tag',
+		);
+
+		// Add event specific aliases.
+		$this->update_fields_aliases = array_merge( $this->update_fields_aliases, array(
+			'start_date'        => '_EventStartDate',
+			'end_date'          => '_EventEndDate',
+			'start_date_utc'    => '_EventStartDateUTC',
+			'end_date_utc'      => '_EventEndDateUTC',
+			'duration'          => '_EventDuration',
+			'all_day'           => '_EventAllDay',
+			'timezone'          => '_EventTimezone',
+			'venue'             => '_EventVenueID',
+			'organizer'         => '_EventOrganizerID',
+			'category'          => Tribe__Events__Main::TAXONOMY,
+			'cost'              => '_EventCost',
+			'currency_symbol'   => '_EventCurrencySymbol',
+			'currency_position' => '_EventCurrencyPosition',
+			'show_map'          => '_EventShowMap',
+			'show_map_link'     => '_EventShowMapLink',
+			'url'               => '_EventURL',
+		) );
 
 		$this->default_args = array(
 			'post_type'                    => Tribe__Events__Main::POSTTYPE,
@@ -545,6 +554,17 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	}
 
 	/**
+	 * Filters events by specific event organizer(s).
+	 *
+	 * @since TBD
+	 *
+	 * @param int|WP_Post|array $organizer Organizer(s).
+	 */
+	public function filter_by_organizer( $organizer ) {
+		$this->filter_by_linked_post( '_EventOrganizerID', $organizer );
+	}
+
+	/**
 	 * Filters events to include only those that match the provided hidden state.
 	 *
 	 * @since TBD
@@ -560,17 +580,6 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		$post_ids = array_unique( $post_ids );
 
 		$this->by( 'meta_in', $linked_post_meta_key, $post_ids );
-	}
-
-	/**
-	 * Filters events by specific event organizer(s).
-	 *
-	 * @since TBD
-	 *
-	 * @param int|WP_Post|array $organizer Organizer(s).
-	 */
-	public function filter_by_organizer( $organizer ) {
-		$this->filter_by_linked_post( '_EventOrganizerID', $organizer );
 	}
 
 	/**
@@ -611,31 +620,6 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 
 		// Remove hook.
 		remove_action( 'pre_get_posts', array( $this, 'support_negative_menu_order' ) );
-	}
-
-	/**
-	 * Filters events that have a specific cost currency symbol.
-	 *
-	 * Events with a cost of `0` but a currency symbol set will be fetched when fetching
-	 * by their symbols.
-	 *
-	 * @since TBD
-	 *
-	 * @param string|array $symbol One or more currency symbols or currency ISO codes. E.g.
-	 *                             "$" and "USD".
-	 *
-	 * @return array An array of arguments that will be added to the current query.
-	 */
-	public function filter_by_cost_currency_symbol( $symbol ) {
-		return array(
-			'meta_query' => array(
-				'by-cost-currency-symbol' => array(
-					'key'     => '_EventCurrencySymbol',
-					'value'   => array_unique( (array) $symbol ),
-					'compare' => 'IN',
-				),
-			),
-		);
 	}
 
 	/**
@@ -708,6 +692,31 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		}
 
 		return array( 'meta_query' => $meta_query_entry );
+	}
+
+	/**
+	 * Filters events that have a specific cost currency symbol.
+	 *
+	 * Events with a cost of `0` but a currency symbol set will be fetched when fetching
+	 * by their symbols.
+	 *
+	 * @since TBD
+	 *
+	 * @param string|array $symbol One or more currency symbols or currency ISO codes. E.g.
+	 *                             "$" and "USD".
+	 *
+	 * @return array An array of arguments that will be added to the current query.
+	 */
+	public function filter_by_cost_currency_symbol( $symbol ) {
+		return array(
+			'meta_query' => array(
+				'by-cost-currency-symbol' => array(
+					'key'     => '_EventCurrencySymbol',
+					'value'   => array_unique( (array) $symbol ),
+					'compare' => 'IN',
+				),
+			),
+		);
 	}
 
 	/**
@@ -789,9 +798,10 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 *
 	 * @return array The filtered postarr array.
 	 */
-	protected function filter_meta_input( array $postarr, $post_id ) {
+	protected function filter_meta_input( array $postarr, $post_id = null ) {
 		$postarr = $this->update_date_meta( $postarr, $post_id );
 		$postarr = $this->update_linked_post_meta( $postarr );
+		$postarr = $this->update_accessory_meta( $postarr, $post_id );
 
 		return $postarr;
 	}
@@ -806,8 +816,17 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 *
 	 * @return array
 	 */
-	protected function update_date_meta( array $postarr, $post_id ) {
+	protected function update_date_meta( array $postarr, $post_id = null ) {
 		set_error_handler( array( $this, 'cast_error_to_exception' ) );
+
+		$was_all_day = (bool) get_post_meta( $post_id, '_EventAllDay', true );
+		$is_all_day  = false;
+		if ( isset( $postarr['meta_input']['_EventAllDay'] ) && tribe_is_truthy( $postarr['meta_input']['_EventAllDay'] ) ) {
+			$postarr['meta_input']['_EventAllDay'] = 'yes';
+			$is_all_day                            = true;
+		} else {
+			unset( $postarr['meta_input']['_EventAllDay'] );
+		}
 
 		try {
 			$meta                          = $postarr['meta_input'];
@@ -826,12 +845,13 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			 * If both local date/time and UTC date/time are provided then the local one overrides the UTC one.
 			 * If only one is provided the other one will be calculated and updated.
 			 */
+			$datetime_format = 'Y-m-d H:i:s';
 			foreach ( array( 'Start', 'End' ) as $check ) {
-				if ( isset( $meta[ "_Event{$check}Date" ] ) ) {
-					$date     = new DateTimeImmutable( $meta[ "_Event{$check}Date" ], $timezone );
+				if ( isset( $meta["_Event{$check}Date"] ) ) {
+					$date     = new DateTimeImmutable( $meta["_Event{$check}Date"], $timezone );
 					$utc_date = $date->setTimezone( $utc );
 					// Set the UTC date/time from local date/time and timezone; if provided override it.
-					$postarr[ 'meta_input' ][ "_Event{$check}DateUTC" ] = $utc_date->format( 'Y-m-d H:i:s' );
+					$postarr['meta_input']["_Event{$check}DateUTC"] = $utc_date->format( $datetime_format );
 					$dates_changed[ $check ]                        = $utc_date;
 				}
 
@@ -839,9 +859,9 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 				 * If the UTC date is provided in place of the local date/time then build the
 				 * local date/time.
 				 */
-				if ( isset( $meta[ "_Event{$check}DateUTC" ] ) && empty( $utc_date ) ) {
-					$utc_date                                    = new DateTimeImmutable( $meta[ "_Event{$check}DateUTC" ], $utc );
-					$postarr[ 'meta_input' ][ "_Event{$check}Date" ] = $utc_date->setTimezone( $timezone )->format( 'Y-m-d H:i:s' );
+				if ( isset( $meta["_Event{$check}DateUTC"] ) && empty( $utc_date ) ) {
+					$utc_date                                    = new DateTimeImmutable( $meta["_Event{$check}DateUTC"], $utc );
+					$postarr['meta_input']["_Event{$check}Date"] = $utc_date->setTimezone( $timezone )->format( $datetime_format );
 					$dates_changed[ $check ]                     = $utc_date;
 				}
 			}
@@ -851,13 +871,13 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 				$end_string                                  = get_post_meta( $post_id, '_EventEndDate', true );
 				$start_date                                  = Tribe__Date_Utils::build_date_object( $start_string, $timezone );
 				$end_date                                    = Tribe__Date_Utils::build_date_object( $end_string, $timezone );
-				$postarr['meta_input']['_EventStartDateUTC'] = $start_date->setTimezone( $utc )->format( 'Y-m-d H:i:s' );
-				$postarr['meta_input']['_EventEndDateUTC']   = $end_date->setTimezone( $utc )->format( 'Y-m-d H:i:s' );
+				$postarr['meta_input']['_EventStartDateUTC'] = $start_date->setTimezone( $utc )->format( $datetime_format );
+				$postarr['meta_input']['_EventEndDateUTC']   = $end_date->setTimezone( $utc )->format( $datetime_format );
 			}
 
 			// Sanity check, an event should end after its start.
-			$start = Tribe__Utils__Array::get( $postarr['meta_input'], '_EventStartDate', get_post_meta( $post_id, '_EventStartDate', true ) );
-			$end   = Tribe__Utils__Array::get( $postarr['meta_input'], '_EventEndDate', get_post_meta( $post_id, '_EventEndDate', true ) );
+			$start = $this->get_from_postarr_or_meta( $postarr, '_EventStartDate', $post_id );
+			$end   = $this->get_from_postarr_or_meta( $postarr, '_EventEndDate', $post_id );
 
 			$dates_make_sense = true;
 
@@ -886,21 +906,43 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 					$date_interval                             = new DateInterval( 'PTS' . $meta['_EventDuration'] );
 					$postarr['meta_input']['_EventEndDate']    = $dates_changed['Start']
 						->add( $date_interval )
-						->format( 'Y-m-d H:i:s' );
+						->format( $datetime_format );
 					$postarr['meta_input']['_EventEndDateUTC'] = $dates_changed['Start']
 						->add( $date_interval )
-						->format( 'Y-m-d H:i:s' );
+						->format( $datetime_format );
 				} elseif ( isset( $dates_changed['End'] ) ) {
 					// If we have a duration and the end changed update the start.
 					$date_interval                               = new DateInterval( 'PTS' . $meta['_EventDuration'] );
 					$postarr['meta_input']['_EventStartDate']    = $dates_changed['End']
 						->sub( $date_interval )
-						->format( 'Y-m-d H:i:s' );
+						->format( $datetime_format );
 					$postarr['meta_input']['_EventStartDateUTC'] = $dates_changed['End']
 						->sub( $date_interval )
-						->format( 'Y-m-d H:i:s' );
+						->format( $datetime_format );
 				}
 			}
+
+			// After all this, if the event is all day recalculate start and end.
+			if ( $is_all_day && ! $was_all_day ) {
+				// Create the start date object and set it to the end of day.
+				$event_start_date = $this->get_from_postarr_or_meta( $postarr, '_EventStartDate', $post_id );
+				$event_end_date   = $this->get_from_postarr_or_meta( $postarr, '_EventEndDate', $post_id );
+				$start            = new DateTime( tribe_end_of_day( $event_start_date ), $timezone );
+				// Then subtract one day from it to set it correctly.
+				$one_day    = new DateInterval( 'P1D' );
+				$one_second = new DateInterval( 'PT1S' );
+				$start->sub( $one_day )->add( $one_second );
+				$postarr['meta_input']['_EventStartDate']    = $start->format( $datetime_format );
+				$postarr['meta_input']['_EventStartDateUTC'] = $start->setTimezone( $utc )->format( $datetime_format );
+				$end                                         = new DateTime( tribe_end_of_day( $event_end_date ), $timezone );
+				$postarr['meta_input']['_EventEndDate']      = $end->format( $datetime_format );
+				$postarr['meta_input']['_EventEndDateUTC']   = $end->setTimezone( $utc )->format( $datetime_format );
+			}
+
+			$postarr['meta_input']['_EventTimezoneAbbr'] = Tribe__Timezones::abbr(
+				$this->get_from_postarr_or_meta( $postarr, '_EventStartDate' ),
+				$timezone->getName()
+			);
 		} catch ( Exception $e ) {
 			tribe( 'logger' )->log(
 				'There was an error updating the dates for event ' . $post_id . ': ' . $e->getMessage(),
@@ -914,7 +956,8 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 				$postarr['meta_input']['_EventEndDate'],
 				$postarr['meta_input']['_EventEndDateUTC'],
 				$postarr['meta_input']['_EventDuration'],
-				$postarr['meta_input']['_EventTimezone']
+				$postarr['meta_input']['_EventTimezone'],
+				$postarr['meta_input']['_EventAllDay']
 			);
 		}
 
@@ -955,5 +998,52 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		}
 
 		return $postarr;
+	}
+
+	/**
+	 * Updates an event accessory meta and attributes.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $postarr The candidate post array for the update or insertion.
+	 * @param int   $post_id The ID of the event that is being updated.
+	 *
+	 * @return array The updated post array for update or insertion.
+	 */
+	protected function update_accessory_meta( array $postarr, $post_id ) {
+		$postarr['meta_input']['_EventOrigin'] = 'events-calendar';
+
+		// Set the map-related settings, default to `true` for new events.
+		foreach ( array( '_EventShowMap', '_EventShowMapLink' ) as $meta_key ) {
+			$new_value = tribe_is_truthy( $this->get_from_postarr_or_meta( $postarr, $meta_key, $post_id, true ) );
+			if ( $new_value !== tribe_is_truthy( get_post_meta( $post_id, $meta_key, true ) ) ) {
+				$postarr['meta_input'][ $meta_key ] = $new_value;
+			}
+		}
+
+		$currency_symbol_positions = array( 'prefix', 'postfix' );
+		if ( isset( $postarr['meta_input']['_EventCurrencyPosition'] )
+		     && ! in_array( $postarr['meta_input']['_EventCurrencyPosition'], $currency_symbol_positions, true )
+		) {
+			$postarr['meta_input']['_EventCurrencyPosition'] = 'prefix';
+		}
+
+		return $postarr;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function filter_postarr_for_create( array $postarr ) {
+		// Require some minimum fields.
+		if ( ! isset(
+			$postarr['post_title'],
+			$postarr['meta_input']['_EventEndDate'],
+			$postarr['meta_input']['_EventTimezone']
+		) ) {
+			return false;
+		}
+
+		return parent::filter_postarr_for_create( $this->filter_meta_input( $postarr ) );
 	}
 }
