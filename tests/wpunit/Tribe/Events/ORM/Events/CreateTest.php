@@ -104,23 +104,21 @@ class CreateTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_allow_setting_events_categories_and_tags() {
-		$cat_1 = $this->factory()->term->create( [ 'taxonomy' => Main::TAXONOMY ] );
-		$cat_2 = $this->factory()->term->create( [ 'taxonomy' => Main::TAXONOMY ] );
-		$tag_1 = $this->factory()->tag->create();
-		$tag_2 = $this->factory()->tag->create();
+		$cat   = $this->factory()->term->create( [ 'taxonomy' => Main::TAXONOMY ] );
+		$tag   = $this->factory()->tag->create();
 		$args  = [
 			'start_date' => '2018-01-01 09:00:00',
 			'end_date'   => '2018-01-01 11:00:00',
 			'timezone'   => 'Europe/Paris',
 			'title'      => 'A test event',
-			'category'   => $cat_1,
-			'tag'        => $tag_1,
+			'category'   => $cat,
+			'tag'        => $tag,
 		];
 		$event = tribe_events()->set_args( $args )->create();
 
 		$this->assertInstanceOf( \WP_Post::class, $event );
-		$this->assertEquals( [ $cat_1 ], wp_get_object_terms( $event->ID, Main::TAXONOMY, [ 'fields' => 'ids' ] ) );
-		$this->assertEquals( [ $tag_1 ], wp_get_object_terms( $event->ID, 'post_tag', [ 'fields' => 'ids' ] ) );
+		$this->assertEquals( [ $cat ], wp_get_object_terms( $event->ID, Main::TAXONOMY, [ 'fields' => 'ids' ] ) );
+		$this->assertEquals( [ $tag ], wp_get_object_terms( $event->ID, 'post_tag', [ 'fields' => 'ids' ] ) );
 	}
 
 	/**
