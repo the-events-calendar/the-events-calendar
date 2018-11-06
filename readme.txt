@@ -218,6 +218,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 = [4.6.26] TBD =
 
 * Fix - Fixed the setting-up of strings in the Tribe Bar datepicker to ensure they're translatable into languages other than English [115286]
+* Tweak - Improved the legibility of text in Featured Events that are in the Event List widget [116702]
 * Tweak - Clarified a number of maps-related settings strings [114865]
 
 = [4.6.25] 2018-10-22 =
