@@ -37,6 +37,35 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	public function __construct() {
 		parent::__construct();
 
+		$this->create_args['post_type'] = Tribe__Events__Main::POSTTYPE;
+		$this->taxonomies               = array(
+			Tribe__Events__Main::TAXONOMY,
+			'post_tag',
+		);
+
+		// Add event specific aliases.
+		$this->update_fields_aliases = array_merge( $this->update_fields_aliases, array(
+			'start_date'         => '_EventStartDate',
+			'end_date'           => '_EventEndDate',
+			'start_date_utc'     => '_EventStartDateUTC',
+			'end_date_utc'       => '_EventEndDateUTC',
+			'duration'           => '_EventDuration',
+			'all_day'            => '_EventAllDay',
+			'timezone'           => '_EventTimezone',
+			'venue'              => '_EventVenueID',
+			'organizer'          => '_EventOrganizerID',
+			'category'           => Tribe__Events__Main::TAXONOMY,
+			'cost'               => '_EventCost',
+			'currency_symbol'    => '_EventCurrencySymbol',
+			'currency_position'  => '_EventCurrencyPosition',
+			'show_map'           => '_EventShowMap',
+			'show_map_link'      => '_EventShowMapLink',
+			'url'                => '_EventURL',
+			'hide_from_upcoming' => '_EventHideFromUpcoming',
+			// Where is "sticky"? It's handled in the meta filtering by setting `menu_order`.
+			'featured'           => '_tribe_featured',
+		) );
+
 		$this->default_args = array(
 			'post_type'                    => Tribe__Events__Main::POSTTYPE,
 			// We'll be handling the dates, let's mark the query as a non-filtered one.
@@ -533,6 +562,17 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	}
 
 	/**
+	 * Filters events by specific event organizer(s).
+	 *
+	 * @since TBD
+	 *
+	 * @param int|WP_Post|array $organizer Organizer(s).
+	 */
+	public function filter_by_organizer( $organizer ) {
+		$this->filter_by_linked_post( '_EventOrganizerID', $organizer );
+	}
+
+	/**
 	 * Filters events to include only those that match the provided hidden state.
 	 *
 	 * @since TBD
@@ -548,17 +588,6 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		$post_ids = array_unique( $post_ids );
 
 		$this->by( 'meta_in', $linked_post_meta_key, $post_ids );
-	}
-
-	/**
-	 * Filters events by specific event organizer(s).
-	 *
-	 * @since TBD
-	 *
-	 * @param int|WP_Post|array $organizer Organizer(s).
-	 */
-	public function filter_by_organizer( $organizer ) {
-		$this->filter_by_linked_post( '_EventOrganizerID', $organizer );
 	}
 
 	/**
@@ -599,31 +628,6 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 
 		// Remove hook.
 		remove_action( 'pre_get_posts', array( $this, 'support_negative_menu_order' ) );
-	}
-
-	/**
-	 * Filters events that have a specific cost currency symbol.
-	 *
-	 * Events with a cost of `0` but a currency symbol set will be fetched when fetching
-	 * by their symbols.
-	 *
-	 * @since TBD
-	 *
-	 * @param string|array $symbol One or more currency symbols or currency ISO codes. E.g.
-	 *                             "$" and "USD".
-	 *
-	 * @return array An array of arguments that will be added to the current query.
-	 */
-	public function filter_by_cost_currency_symbol( $symbol ) {
-		return array(
-			'meta_query' => array(
-				'by-cost-currency-symbol' => array(
-					'key'     => '_EventCurrencySymbol',
-					'value'   => array_unique( (array) $symbol ),
-					'compare' => 'IN',
-				),
-			),
-		);
 	}
 
 	/**
@@ -699,6 +703,31 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	}
 
 	/**
+	 * Filters events that have a specific cost currency symbol.
+	 *
+	 * Events with a cost of `0` but a currency symbol set will be fetched when fetching
+	 * by their symbols.
+	 *
+	 * @since TBD
+	 *
+	 * @param string|array $symbol One or more currency symbols or currency ISO codes. E.g.
+	 *                             "$" and "USD".
+	 *
+	 * @return array An array of arguments that will be added to the current query.
+	 */
+	public function filter_by_cost_currency_symbol( $symbol ) {
+		return array(
+			'meta_query' => array(
+				'by-cost-currency-symbol' => array(
+					'key'     => '_EventCurrencySymbol',
+					'value'   => array_unique( (array) $symbol ),
+					'compare' => 'IN',
+				),
+			),
+		);
+	}
+
+	/**
 	 * Filters events that have a cost between two given values.
 	 *
 	 * Cost search is inclusive.
@@ -753,7 +782,302 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 * @return array An array of query arguments that will be added to the main query.
 	 */
 	public function filter_by_cost_less_than( $value, $symbol = null ) {
-		return $this->by( 'cost', $value, '<', $symbol );
+		$this->by( 'cost', $value, '<', $symbol );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function filter_postarr_for_update( array $postarr, $post_id ) {
+		if ( isset( $postarr['meta_input'] ) ) {
+			$postarr = $this->filter_meta_input( $postarr, $post_id );
+		}
+
+		return parent::filter_postarr_for_update( $postarr, $post_id );
+	}
+
+	/**
+	 * Filters and updates the event meta to make sure it makes sense.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $postarr The update post array, passed entirely for context purposes.
+	 * @param  int  $post_id The ID of the event that's being updated.
+	 *
+	 * @return array The filtered postarr array.
+	 */
+	protected function filter_meta_input( array $postarr, $post_id = null ) {
+		$postarr = $this->update_date_meta( $postarr, $post_id );
+		$postarr = $this->update_linked_post_meta( $postarr );
+		$postarr = $this->update_accessory_meta( $postarr, $post_id );
+
+		return $postarr;
+	}
+
+	/**
+	 *
+	 *
+	 * @since TBD
+	 *
+	 * @param array $postarr
+	 * @param       $post_id
+	 *
+	 * @return array
+	 */
+	protected function update_date_meta( array $postarr, $post_id = null ) {
+		set_error_handler( array( $this, 'cast_error_to_exception' ) );
+
+		$was_all_day = (bool) get_post_meta( $post_id, '_EventAllDay', true );
+		$is_all_day  = false;
+		if ( isset( $postarr['meta_input']['_EventAllDay'] ) && tribe_is_truthy( $postarr['meta_input']['_EventAllDay'] ) ) {
+			$postarr['meta_input']['_EventAllDay'] = 'yes';
+			$is_all_day                            = true;
+		} else {
+			unset( $postarr['meta_input']['_EventAllDay'] );
+		}
+
+		try {
+			$meta                          = $postarr['meta_input'];
+			$current_event_timezone_string = Tribe__Events__Timezones::get_event_timezone_string( $post_id );
+			$input_timezone                = Tribe__Utils__Array::get(
+				$meta,
+				'_EventTimezone',
+				$current_event_timezone_string
+			);
+			$timezone                      = Tribe__Timezones::build_timezone_object( $input_timezone );
+			$timezone_changed              = $input_timezone !== $current_event_timezone_string;
+			$utc                           = new DateTimeZone( 'UTC' );
+			$dates_changed                 = array();
+
+			/**
+			 * If both local date/time and UTC date/time are provided then the local one overrides the UTC one.
+			 * If only one is provided the other one will be calculated and updated.
+			 */
+			$datetime_format = 'Y-m-d H:i:s';
+			foreach ( array( 'Start', 'End' ) as $check ) {
+				if ( isset( $meta[ "_Event{$check}Date" ] ) ) {
+					$date     = new DateTimeImmutable( $meta[ "_Event{$check}Date" ], $timezone );
+					$utc_date = $date->setTimezone( $utc );
+					// Set the UTC date/time from local date/time and timezone; if provided override it.
+					$postarr[ 'meta_input' ][ "_Event{$check}DateUTC" ] = $utc_date->format( $datetime_format );
+					$dates_changed[ $check ]                        = $utc_date;
+				}
+
+				/*
+				 * If the UTC date is provided in place of the local date/time then build the
+				 * local date/time.
+				 */
+				if ( isset( $meta[ "_Event{$check}DateUTC" ] ) && empty( $utc_date ) ) {
+					$utc_date                                    = new DateTimeImmutable( $meta[ "_Event{$check}DateUTC" ], $utc );
+					$postarr[ 'meta_input' ][ "_Event{$check}Date" ] = $utc_date->setTimezone( $timezone )->format( $datetime_format );
+					$dates_changed[ $check ]                     = $utc_date;
+				}
+			}
+
+			if ( $timezone_changed && ! count( $dates_changed ) ) {
+				$start_string                                = get_post_meta( $post_id, '_EventStartDate', true );
+				$end_string                                  = get_post_meta( $post_id, '_EventEndDate', true );
+				$start_date                                  = Tribe__Date_Utils::build_date_object( $start_string, $timezone );
+				$end_date                                    = Tribe__Date_Utils::build_date_object( $end_string, $timezone );
+				$postarr['meta_input']['_EventStartDateUTC'] = $start_date->setTimezone( $utc )->format( $datetime_format );
+				$postarr['meta_input']['_EventEndDateUTC']   = $end_date->setTimezone( $utc )->format( $datetime_format );
+			}
+
+			// Sanity check, an event should end after its start.
+			$start = $this->get_from_postarr_or_meta( $postarr, '_EventStartDate', $post_id );
+			$end   = $this->get_from_postarr_or_meta( $postarr, '_EventEndDate', $post_id );
+
+			$dates_make_sense = true;
+
+			if ( Tribe__Date_Utils::build_date_object( $end ) <= Tribe__Date_Utils::build_date_object( $start ) ) {
+				unset(
+					$postarr['meta_input']['_EventStartDate'],
+					$postarr['meta_input']['_EventStartDateUTC'],
+					$postarr['meta_input']['_EventEndDate'],
+					$postarr['meta_input']['_EventEndDateUTC'],
+					$postarr['meta_input']['_EventDuration'],
+					$postarr['meta_input']['_EventTimezone']
+				);
+				$dates_make_sense = false;
+			}
+
+			if ( $dates_make_sense && 2 === count( $dates_changed ) ) {
+				/*
+				 * If the dates are changed then update the duration to the new one; if the duration is set
+				 * in the postarr it will be overridden.
+				 */
+				list( $start, $end ) = array_values( $dates_changed );
+				$postarr['meta_input']['_EventDuration'] = $end->getTimestamp() - $start->getTimestamp();
+			} elseif ( isset( $meta['_EventDuration'] ) ) {
+				if ( isset( $dates_changed['Start'] ) ) {
+					// If we have a duration and the start changed update the end.
+					$date_interval                             = new DateInterval( 'PTS' . $meta['_EventDuration'] );
+					$postarr['meta_input']['_EventEndDate']    = $dates_changed['Start']
+						->add( $date_interval )
+						->format( $datetime_format );
+					$postarr['meta_input']['_EventEndDateUTC'] = $dates_changed['Start']
+						->add( $date_interval )
+						->format( $datetime_format );
+				} elseif ( isset( $dates_changed['End'] ) ) {
+					// If we have a duration and the end changed update the start.
+					$date_interval                               = new DateInterval( 'PTS' . $meta['_EventDuration'] );
+					$postarr['meta_input']['_EventStartDate']    = $dates_changed['End']
+						->sub( $date_interval )
+						->format( $datetime_format );
+					$postarr['meta_input']['_EventStartDateUTC'] = $dates_changed['End']
+						->sub( $date_interval )
+						->format( $datetime_format );
+				}
+			}
+
+			// After all this, if the event is all day recalculate start and end.
+			if ( $is_all_day && ! $was_all_day ) {
+				// Create the start date object and set it to the end of day.
+				$event_start_date = $this->get_from_postarr_or_meta( $postarr, '_EventStartDate', $post_id );
+				$event_end_date   = $this->get_from_postarr_or_meta( $postarr, '_EventEndDate', $post_id );
+				$start            = new DateTime( tribe_end_of_day( $event_start_date ), $timezone );
+				// Then subtract one day from it to set it correctly.
+				$one_day    = new DateInterval( 'P1D' );
+				$one_second = new DateInterval( 'PT1S' );
+				$start->sub( $one_day )->add( $one_second );
+				$postarr['meta_input']['_EventStartDate']    = $start->format( $datetime_format );
+				$postarr['meta_input']['_EventStartDateUTC'] = $start->setTimezone( $utc )->format( $datetime_format );
+				$end                                         = new DateTime( tribe_end_of_day( $event_end_date ), $timezone );
+				$postarr['meta_input']['_EventEndDate']      = $end->format( $datetime_format );
+				$postarr['meta_input']['_EventEndDateUTC']   = $end->setTimezone( $utc )->format( $datetime_format );
+			}
+
+			$postarr['meta_input']['_EventTimezoneAbbr'] = Tribe__Timezones::abbr(
+				$this->get_from_postarr_or_meta( $postarr, '_EventStartDate' ),
+				$timezone->getName()
+			);
+		} catch ( Exception $e ) {
+			tribe( 'logger' )->log(
+				'There was an error updating the dates for event ' . $post_id . ': ' . $e->getMessage(),
+				Tribe__Log::ERROR,
+				__CLASS__
+			);
+			// Something went wrong, let's not update dates at all.
+			unset(
+				$postarr['meta_input']['_EventStartDate'],
+				$postarr['meta_input']['_EventStartDateUTC'],
+				$postarr['meta_input']['_EventEndDate'],
+				$postarr['meta_input']['_EventEndDateUTC'],
+				$postarr['meta_input']['_EventDuration'],
+				$postarr['meta_input']['_EventTimezone'],
+				$postarr['meta_input']['_EventAllDay']
+			);
+		}
+
+		restore_error_handler();
+
+		return $postarr;
+	}
+
+	/**
+	 * Filters the post array to make sure linked posts meta makes sense.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $postarr The update post array.
+	 *
+	 * @return array The filtered event post array.
+	 */
+	protected function update_linked_post_meta( array $postarr ) {
+		// @todo crete linked posts here?! Using ORM?
+		if ( isset( $postarr['meta_input']['_EventVenueID'] ) && ! tribe_is_venue( $postarr['meta_input']['_EventVenueID'] ) ) {
+			unset( $postarr['meta_input']['_EventVenueID'] );
+		}
+
+		if ( isset( $postarr['meta_input']['_EventOrganizerID'] ) ) {
+			$postarr['meta_input']['_EventOrganizerID'] = (array) $postarr['meta_input']['_EventOrganizerID'];
+			$valid                                      = array();
+			foreach ( $postarr['meta_input']['_EventOrganizerID'] as $organizer ) {
+				if ( ! tribe_is_organizer( $organizer ) ) {
+					continue;
+				}
+				$valid[] = $organizer;
+			}
+			if ( ! count( $valid ) ) {
+				unset( $postarr['meta_input']['_EventOrganizerID'] );
+			} else {
+				$postarr['meta_input']['_EventOrganizerID'] = $valid;
+			}
+		}
+
+		return $postarr;
+	}
+
+	/**
+	 * Updates an event accessory meta and attributes.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $postarr The candidate post array for the update or insertion.
+	 * @param int   $post_id The ID of the event that is being updated.
+	 *
+	 * @return array The updated post array for update or insertion.
+	 */
+	protected function update_accessory_meta( array $postarr, $post_id ) {
+		$postarr['meta_input']['_EventOrigin'] = 'events-calendar';
+
+		// Set the map-related settings, default to `true` for new events.
+		foreach ( array( '_EventShowMap', '_EventShowMapLink' ) as $meta_key ) {
+			$new_value = tribe_is_truthy( $this->get_from_postarr_or_meta( $postarr, $meta_key, $post_id, true ) );
+			if ( $new_value !== tribe_is_truthy( get_post_meta( $post_id, $meta_key, true ) ) ) {
+				$postarr['meta_input'][ $meta_key ] = $new_value;
+			}
+		}
+
+		$currency_symbol_positions = array( 'prefix', 'postfix' );
+		if ( isset( $postarr['meta_input']['_EventCurrencyPosition'] )
+		     && ! in_array( $postarr['meta_input']['_EventCurrencyPosition'], $currency_symbol_positions, true )
+		) {
+			$postarr['meta_input']['_EventCurrencyPosition'] = 'prefix';
+		}
+
+		if ( isset( $postarr['meta_input']['_EventHideFromUpcoming'] ) ) {
+			if ( tribe_is_truthy( $postarr['meta_input']['_EventHideFromUpcoming'] ) ) {
+				$postarr['meta_input']['_EventHideFromUpcoming'] = 'yes';
+			} else {
+				unset( $postarr['meta_input']['_EventHideFromUpcoming'] );
+			}
+		}
+
+		if ( isset( $postarr['meta_input']['sticky'] ) ) {
+			if ( tribe_is_truthy( $postarr['meta_input']['sticky'] ) ) {
+				$postarr['menu_order'] = - 1;
+			} else {
+				$postarr['menu_order'] = 0;
+			}
+			unset( $postarr['meta_input']['sticky'] );
+		}
+
+		if ( isset( $postarr['meta_input']['_tribe_featured'] ) ) {
+			if ( tribe_is_truthy( $postarr['meta_input']['_tribe_featured'] ) ) {
+				$postarr['meta_input']['_tribe_featured'] = true;
+			} else {
+				unset( $postarr['meta_input']['_tribe_featured'] );
+			}
+		}
+
+		return $postarr;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function filter_postarr_for_create( array $postarr ) {
+		// Require some minimum fields.
+		if ( ! isset(
+			$postarr['post_title'],
+			$postarr['meta_input']['_EventEndDate'],
+			$postarr['meta_input']['_EventTimezone']
+		) ) {
+			return false;
+		}
+
+		return parent::filter_postarr_for_create( $this->filter_meta_input( $postarr ) );
 	}
 
 	/**
