@@ -169,4 +169,26 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( '2018-01-15 10:00:00', get_post_meta( $event, '_EventEndDateUTC', true ) );
 		$this->assertEquals( 3 * HOUR_IN_SECONDS, get_post_meta( $event, '_EventDuration', true ) );
 	}
+
+	/**
+	 * It should allow updating an event map settings
+	 *
+	 * @test
+	 */
+	public function should_allow_updating_an_event_map_settings() {
+		$event_id = $this->factory()->event->create( [
+			'meta_input' => [
+				'_EventShowMap'     => '1',
+				'_EventShowMapLink' => '',
+			]
+		] );
+
+		tribe_events()->where( 'post__in', [ $event_id ] )
+		              ->set( 'show_map', false )
+		              ->set( 'show_map_link', true )
+		              ->save();
+
+		$this->assertEquals( '', get_post_meta( $event_id, '_EventShowMap', true ) );
+		$this->assertEquals( '1', get_post_meta( $event_id, '_EventShowMapLink', true ) );
+	}
 }
