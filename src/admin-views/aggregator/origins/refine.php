@@ -59,7 +59,7 @@ $keyword_exclusions = json_encode( $keyword_exclusions );
 $location_exclusions = apply_filters( 'tribe_events_aggregator_refine_location_exclusions', array( 'url', 'facebook' ) );
 $location_exclusions = json_encode( $location_exclusions );
 ?>
-<tr class="tribe-dependent tribe-refine-filters" data-depends="<?php echo esc_attr( $depends ); ?>" <?php echo esc_attr( $depends_condition ); ?>>
+<tr class="tribe-dependent tribe-refine-filters <?php echo esc_attr( $origin_slug ) ?>" data-depends="<?php echo esc_attr( $depends ); ?>" <?php echo esc_attr( $depends_condition ); ?>>
 	<th scope="row">
 		<label for="tribe-ea-field-refine_keywords"><?php echo __( 'Refine:', 'the-events-calendar' ); ?></label>
 	</th>
