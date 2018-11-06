@@ -28,6 +28,23 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	protected $menu_order = 0;
 
 	/**
+	 * A map of aliases that can be used to set an event custom fields.
+	 *
+	 * @var array
+	 */
+	protected $update_fields_aliases = array(
+		'start_date'     => '_EventStartDate',
+		'end_date'       => '_EventEndDate',
+		'start_date_utc' => '_EventStartDateUTC',
+		'end_date_utc'   => '_EventEndDateUTC',
+		'duration'       => '_EventDuration',
+		'all_day'        => '_EventAllDay',
+		'timezone'       => '_EventTimezone',
+		'venue'          => '_EventVenueID',
+		'organizer'      => '_EventOrganizerID',
+	);
+
+	/**
 	 * Tribe__Events__Repositories__Event constructor.
 	 *
 	 * Sets up the repository default parameters and schema.
@@ -748,6 +765,195 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 * @return array An array of query arguments that will be added to the main query.
 	 */
 	public function filter_by_cost_less_than( $value, $symbol = null ) {
-		return $this->by( 'cost', $value, '<', $symbol );
+		$this->by( 'cost', $value, '<', $symbol );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function filter_postarr_for_update( array $postarr, $post_id ) {
+		if ( isset( $postarr['meta_input'] ) ) {
+			$postarr = $this->filter_meta_input( $postarr, $post_id );
+		}
+
+		return parent::filter_postarr_for_update( $postarr, $post_id );
+	}
+
+	/**
+	 * Filters and updates the event meta to make sure it makes sense.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $postarr The update post array, passed entirely for context purposes.
+	 * @param  int  $post_id The ID of the event that's being updated.
+	 *
+	 * @return array The filtered postarr array.
+	 */
+	protected function filter_meta_input( array $postarr, $post_id ) {
+		$postarr = $this->update_date_meta( $postarr, $post_id );
+		$postarr = $this->update_linked_post_meta( $postarr );
+
+		return $postarr;
+	}
+
+	/**
+	 *
+	 *
+	 * @since TBD
+	 *
+	 * @param array $postarr
+	 * @param       $post_id
+	 *
+	 * @return array
+	 */
+	protected function update_date_meta( array $postarr, $post_id ) {
+		set_error_handler( array( $this, 'cast_error_to_exception' ) );
+
+		try {
+			$meta                          = $postarr['meta_input'];
+			$current_event_timezone_string = Tribe__Events__Timezones::get_event_timezone_string( $post_id );
+			$input_timezone                = Tribe__Utils__Array::get(
+				$meta,
+				'_EventTimezone',
+				$current_event_timezone_string
+			);
+			$timezone                      = Tribe__Timezones::build_timezone_object( $input_timezone );
+			$timezone_changed              = $input_timezone !== $current_event_timezone_string;
+			$utc                           = new DateTimeZone( 'UTC' );
+			$dates_changed                 = array();
+
+			/**
+			 * If both local date/time and UTC date/time are provided then the local one overrides the UTC one.
+			 * If only one is provided the other one will be calculated and updated.
+			 */
+			foreach ( array( 'Start', 'End' ) as $check ) {
+				if ( isset( $meta[ "_Event{$check}Date" ] ) ) {
+					$date     = new DateTimeImmutable( $meta[ "_Event{$check}Date" ], $timezone );
+					$utc_date = $date->setTimezone( $utc );
+					// Set the UTC date/time from local date/time and timezone; if provided override it.
+					$postarr[ 'meta_input' ][ "_Event{$check}DateUTC" ] = $utc_date->format( 'Y-m-d H:i:s' );
+					$dates_changed[ $check ]                        = $utc_date;
+				}
+
+				/*
+				 * If the UTC date is provided in place of the local date/time then build the
+				 * local date/time.
+				 */
+				if ( isset( $meta[ "_Event{$check}DateUTC" ] ) && empty( $utc_date ) ) {
+					$utc_date                                    = new DateTimeImmutable( $meta[ "_Event{$check}DateUTC" ], $utc );
+					$postarr[ 'meta_input' ][ "_Event{$check}Date" ] = $utc_date->setTimezone( $timezone )->format( 'Y-m-d H:i:s' );
+					$dates_changed[ $check ]                     = $utc_date;
+				}
+			}
+
+			if ( $timezone_changed && ! count( $dates_changed ) ) {
+				$start_string                                = get_post_meta( $post_id, '_EventStartDate', true );
+				$end_string                                  = get_post_meta( $post_id, '_EventEndDate', true );
+				$start_date                                  = Tribe__Date_Utils::build_date_object( $start_string, $timezone );
+				$end_date                                    = Tribe__Date_Utils::build_date_object( $end_string, $timezone );
+				$postarr['meta_input']['_EventStartDateUTC'] = $start_date->setTimezone( $utc )->format( 'Y-m-d H:i:s' );
+				$postarr['meta_input']['_EventEndDateUTC']   = $end_date->setTimezone( $utc )->format( 'Y-m-d H:i:s' );
+			}
+
+			// Sanity check, an event should end after its start.
+			$start = Tribe__Utils__Array::get( $postarr['meta_input'], '_EventStartDate', get_post_meta( $post_id, '_EventStartDate', true ) );
+			$end   = Tribe__Utils__Array::get( $postarr['meta_input'], '_EventEndDate', get_post_meta( $post_id, '_EventEndDate', true ) );
+
+			$dates_make_sense = true;
+
+			if ( Tribe__Date_Utils::build_date_object( $end ) <= Tribe__Date_Utils::build_date_object( $start ) ) {
+				unset(
+					$postarr['meta_input']['_EventStartDate'],
+					$postarr['meta_input']['_EventStartDateUTC'],
+					$postarr['meta_input']['_EventEndDate'],
+					$postarr['meta_input']['_EventEndDateUTC'],
+					$postarr['meta_input']['_EventDuration'],
+					$postarr['meta_input']['_EventTimezone']
+				);
+				$dates_make_sense = false;
+			}
+
+			if ( $dates_make_sense && 2 === count( $dates_changed ) ) {
+				/*
+				 * If the dates are changed then update the duration to the new one; if the duration is set
+				 * in the postarr it will be overridden.
+				 */
+				list( $start, $end ) = array_values( $dates_changed );
+				$postarr['meta_input']['_EventDuration'] = $end->getTimestamp() - $start->getTimestamp();
+			} elseif ( isset( $meta['_EventDuration'] ) ) {
+				if ( isset( $dates_changed['Start'] ) ) {
+					// If we have a duration and the start changed update the end.
+					$date_interval                             = new DateInterval( 'PTS' . $meta['_EventDuration'] );
+					$postarr['meta_input']['_EventEndDate']    = $dates_changed['Start']
+						->add( $date_interval )
+						->format( 'Y-m-d H:i:s' );
+					$postarr['meta_input']['_EventEndDateUTC'] = $dates_changed['Start']
+						->add( $date_interval )
+						->format( 'Y-m-d H:i:s' );
+				} elseif ( isset( $dates_changed['End'] ) ) {
+					// If we have a duration and the end changed update the start.
+					$date_interval                               = new DateInterval( 'PTS' . $meta['_EventDuration'] );
+					$postarr['meta_input']['_EventStartDate']    = $dates_changed['End']
+						->sub( $date_interval )
+						->format( 'Y-m-d H:i:s' );
+					$postarr['meta_input']['_EventStartDateUTC'] = $dates_changed['End']
+						->sub( $date_interval )
+						->format( 'Y-m-d H:i:s' );
+				}
+			}
+		} catch ( Exception $e ) {
+			tribe( 'logger' )->log(
+				'There was an error updating the dates for event ' . $post_id . ': ' . $e->getMessage(),
+				Tribe__Log::ERROR,
+				__CLASS__
+			);
+			// Something went wrong, let's not update dates at all.
+			unset(
+				$postarr['meta_input']['_EventStartDate'],
+				$postarr['meta_input']['_EventStartDateUTC'],
+				$postarr['meta_input']['_EventEndDate'],
+				$postarr['meta_input']['_EventEndDateUTC'],
+				$postarr['meta_input']['_EventDuration'],
+				$postarr['meta_input']['_EventTimezone']
+			);
+		}
+
+		restore_error_handler();
+
+		return $postarr;
+	}
+
+	/**
+	 * Filters the post array to make sure linked posts meta makes sense.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $postarr The update post array.
+	 *
+	 * @return array The filtered event post array.
+	 */
+	protected function update_linked_post_meta( array $postarr ) {
+		// @todo crete linked posts here?! Using ORM?
+		if ( isset( $postarr['meta_input']['_EventVenueID'] ) && ! tribe_is_venue( $postarr['meta_input']['_EventVenueID'] ) ) {
+			unset( $postarr['meta_input']['_EventVenueID'] );
+		}
+
+		if ( isset( $postarr['meta_input']['_EventOrganizerID'] ) ) {
+			$postarr['meta_input']['_EventOrganizerID'] = (array) $postarr['meta_input']['_EventOrganizerID'];
+			$valid                                      = array();
+			foreach ( $postarr['meta_input']['_EventOrganizerID'] as $organizer ) {
+				if ( ! tribe_is_organizer( $organizer ) ) {
+					continue;
+				}
+				$valid[] = $organizer;
+			}
+			if ( ! count( $valid ) ) {
+				unset( $postarr['meta_input']['_EventOrganizerID'] );
+			} else {
+				$postarr['meta_input']['_EventOrganizerID'] = $valid;
+			}
+		}
+
+		return $postarr;
 	}
 }
