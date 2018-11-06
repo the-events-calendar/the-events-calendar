@@ -116,6 +116,9 @@ var tribe_events_bar_action;
 					autoclose : true
 				};
 
+				// Set up some specific strings for datepicker i18n.
+				tribe_ev.fn.ensure_datepicker_i18n();
+
 				$tribedate.bootstrapDatepicker( td.datepicker_opts );
 			}
 		}
@@ -190,7 +193,7 @@ var tribe_events_bar_action;
 		// change views
 		$tribebar.on( 'click', '.tribe-bar-views-option', function( e ) {
 			e.preventDefault();
-			
+
 			var $this = $( this );
 
 			if ( ! $this.is( '.tribe-bar-active' ) ) {
@@ -211,7 +214,7 @@ var tribe_events_bar_action;
 		// change views with select (for skeleton styles)
 		$tribebar.on( 'change', '.tribe-bar-views-select', function( e ) {
 			e.preventDefault();
-			
+
 			var $this  = $( 'option:selected', this );
 			var target = $this.data( 'view' );
 
