@@ -769,7 +769,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			$check_orderby = explode( ' ', $check_orderby );
 		}
 
-		$timestamp_key = "TIMESTAMP(mt1.meta_value)";
+		$timestamp_key = 'TIMESTAMP(mt1.meta_value)';
 
 		if ( isset( $check_orderby['event_date'] ) || in_array( 'event_date', $check_orderby, true ) ) {
 			$check_orderby  = 'event_date';
