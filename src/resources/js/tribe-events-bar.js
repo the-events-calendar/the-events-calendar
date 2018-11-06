@@ -381,13 +381,15 @@ var tribe_events_bar_action;
 			}
 		} );
 
-		// Wrap date inputs with a parent container
-		$( 'label[for="tribe-bar-date"], input[name="tribe-bar-date"]' ).wrapAll( '<div id="tribe-bar-dates" />' );
-
-		// Add our date bits outside of our filter container
-		$( document.getElementById( 'tribe-bar-filters' ) ).before( $( document.getElementById( 'tribe-bar-dates' ) ) );
-
 		$( te ).on( 'tribe_ev_serializeBar', function() {
+
+			// Close Event Filters if open
+			var $filters_toggle = $( '#tribe-bar-collapse-toggle' );
+			if ( $tribebar.hasClass( 'tribe-bar-collapse' ) && $filters_toggle.hasClass( 'tribe-bar-filters-open' ) ) {
+				closeFiltersToggle( $filters_toggle );
+				$filters_toggle.focus();
+			}
+
 			$( 'form#tribe-bar-form input, form#tribe-bar-form select, #tribeHideRecurrence' ).each( function() {
 				var $this = $( this );
 				if ( $this.is( '#tribe-bar-date' ) ) {

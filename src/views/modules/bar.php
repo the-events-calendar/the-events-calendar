@@ -45,6 +45,7 @@ if ( count( $views ) > 1 ) {
 				<button
 					id="tribe-bar-collapse-toggle"
 					aria-expanded="false"
+					type="button"
 					aria-controls="tribe-bar-filters"
 					data-label-hidden="<?php printf( esc_html__( 'Show %s Search', 'the-events-calendar' ), tribe_get_event_label_plural() ); ?>"
 					data-label-shown="<?php printf( esc_html__( 'Hide %s Search', 'the-events-calendar' ), tribe_get_event_label_plural() ); ?>"
@@ -55,7 +56,7 @@ if ( count( $views ) > 1 ) {
 					<span class="tribe-bar-toggle-arrow"></span>
 				</button>
 
-				<div class="tribe-bar-filters" aria-hidden="true">
+				<div id="tribe-bar-filters" class="tribe-bar-filters" aria-hidden="true">
 					<div class="tribe-bar-filters-inner tribe-clearfix">
 						<h3 class="tribe-events-visuallyhidden"><?php printf( esc_html__( '%s Search', 'the-events-calendar' ), tribe_get_event_label_plural() ); ?></h3>
 						<?php foreach ( $filters as $filter ) : ?>
