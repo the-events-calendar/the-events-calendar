@@ -765,7 +765,13 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 
 		$check_orderby = $order_by;
 
-		if ( 'event_date' === $check_orderby || ( is_array( $check_orderby ) && isset( $check_orderby['event_date'] ) ) ) {
+		if ( ! is_array( $check_orderby ) ) {
+			$check_orderby = explode( ' ', $check_orderby );
+		}
+
+		$timestamp_key = "TIMESTAMP(mt1.meta_value)";
+
+		if ( isset( $check_orderby['event_date'] ) || in_array( 'event_date', $check_orderby, true ) ) {
 			$check_orderby  = 'event_date';
 			$postmeta_table = "orderby_{$check_orderby}_meta";
 
@@ -795,8 +801,8 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			", $meta_key ) );
 			$this->filter_query->orderby( $check_orderby );
 			$this->filter_query->fields( "MIN( {$postmeta_table}.meta_value ) AS {$check_orderby}" );
-		} elseif ( 'organizer' === $check_orderby || ( is_array( $check_orderby ) && isset( $check_orderby['organizer'] ) ) ) {
-			$check_orderby  = 'event_date';
+		} elseif ( isset( $check_orderby['organizer'] ) || in_array( 'organizer', $check_orderby, true ) ) {
+			$check_orderby  = 'organizer';
 			$postmeta_table = "orderby_{$check_orderby}_meta";
 			$posts_table    = "orderby_{$check_orderby}_posts";
 
@@ -813,8 +819,8 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			", $meta_key ) );
 			$this->filter_query->orderby( $check_orderby );
 			$this->filter_query->fields( "{$posts_table}.post_title AS {$check_orderby}" );
-		} elseif ( 'venue' === $check_orderby || ( is_array( $check_orderby ) && isset( $check_orderby['venue'] ) ) ) {
-			$check_orderby  = 'event_date';
+		} elseif ( isset( $check_orderby['venue'] ) || in_array( 'venue', $check_orderby, true ) ) {
+			$check_orderby  = 'venue';
 			$postmeta_table = "orderby_{$check_orderby}_meta";
 			$posts_table    = "orderby_{$check_orderby}_posts";
 
@@ -831,6 +837,8 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			", $meta_key ) );
 			$this->filter_query->orderby( $check_orderby );
 			$this->filter_query->fields( "{$posts_table}.post_title AS {$check_orderby}" );
+		} elseif ( isset( $check_orderby[ $timestamp_key ] ) || in_array( $timestamp_key, $check_orderby, true ) ) {
+			$this->filter_query->orderby( $timestamp_key );
 		}
 
 		return parent::order_by( $order_by );

@@ -3676,12 +3676,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$args = array(
 				'post__not_in'   => array( $post->ID ),
 				'order'          => $order,
-				'orderby'        => "TIMESTAMP( $wpdb->postmeta.meta_value ) ID",
+				'orderby'        => "TIMESTAMP(mt1.meta_value) ID",
 				'posts_per_page' => 1,
 				'meta_query'     => array(
 					array(
 						'key'     => '_EventStartDate',
-						'value'   => $post->EventStartDate,
+						'value'   => get_post_meta( $post->ID, '_EventStartDate', true ),
 						'type'    => 'DATETIME',
 						'compare' => $direction,
 					),

@@ -1190,6 +1190,12 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 					unset( $args['end_date'] );
 				}
 
+				if ( ! empty( $args['orderby'] ) ) {
+					$event_orm->order_by( $args['orderby'] );
+
+					unset( $args['orderby'] );
+				}
+
 				if ( null !== $hidden ) {
 					$event_orm->by( 'hidden', $hidden );
 				}
