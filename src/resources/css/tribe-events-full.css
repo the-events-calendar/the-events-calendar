@@ -2419,6 +2419,10 @@ input[name*='tribe-bar-']:-moz-placeholder {
 	.single-tribe_events .secondary .tribe-events-venue-map {
 		width: 90%;
 	}
+
+	.tribe-bar-submit {
+		margin-left: 0;
+	}
 }
 
 @media screen and (min-width: 44.375em) {
