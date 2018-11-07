@@ -1127,10 +1127,9 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		 */
 		public static function getEvents( $args = array(), $full = false ) {
 			$defaults = array(
-				'post_type'            => Tribe__Events__Main::POSTTYPE,
 				'orderby'              => 'event_date',
 				'order'                => 'ASC',
-				'posts_per_page'       => tribe_get_option( 'postsPerPage', 10 ),
+				'posts_per_page'       => tribe_get_option( 'posts_per_page', tribe_get_option( 'postsPerPage', get_option( 'posts_per_page', 10 ) ) ),
 				'tribe_render_context' => 'default',
 			);
 
@@ -1139,6 +1138,8 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			$return_found_posts = ! empty( $args['found_posts'] );
 
 			if ( $return_found_posts ) {
+				unset( $args['found_posts'] );
+
 				$args['posts_per_page'] = 1;
 				$args['paged']          = 1;
 			}
@@ -1151,14 +1152,63 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			$cache_key = 'get_events_' . get_current_user_id() . serialize( $args );
 
 			$result = $cache->get( $cache_key, 'save_post' );
-			if ( $result && $result instanceof WP_Query ) {
+
+			if (
+				false !== $result
+				&& (
+					$result instanceof WP_Query
+					|| (
+						$return_found_posts
+						&& is_int( $result )
+					)
+				)
+			) {
 				do_action( 'log', 'cache hit', 'tribe-events-cache', $args );
 			} else {
 				do_action( 'log', 'no cache hit', 'tribe-events-cache', $args );
-				$result = new WP_Query( $args );
+
+				/** @var Tribe__Events__Repositories__Event $event_orm */
+				$event_orm = tribe_events();
+
+				$hidden = false;
+
+				// Backcompat defaults.
+				if ( isset( $args['hide_upcoming'] ) ) {
+					// Negate the hide_upcoming for $hidden
+					if ( true !== (boolean) $args['hide_upcoming'] ) {
+						$hidden = null;
+					}
+
+					unset( $args['hide_upcoming'] );
+				}
+
+				if ( isset( $args['start_date'] ) && false === $args['start_date'] ) {
+					unset( $args['start_date'] );
+				}
+
+				if ( isset( $args['end_date'] ) && false === $args['end_date'] ) {
+					unset( $args['end_date'] );
+				}
+
+				if ( ! empty( $args['orderby'] ) ) {
+					$event_orm->order_by( $args['orderby'] );
+
+					unset( $args['orderby'] );
+				}
+
+				if ( null !== $hidden ) {
+					$event_orm->by( 'hidden', $hidden );
+				}
+
+				$event_orm->by_args( $args );
 
 				if ( $return_found_posts ) {
-					$result = $result->found_posts;
+					$result = $event_orm->found();
+				} else {
+					$result = $event_orm->get_query();
+
+					// Run the query.
+					$result->get_posts();
 				}
 
 				$cache->set( $cache_key, $result, Tribe__Cache::NON_PERSISTENT, 'save_post' );
@@ -1171,18 +1221,16 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			if ( ! empty( $result->posts ) ) {
 				if ( $full ) {
 					return $result;
-				} else {
-					$posts = $result->posts;
+				}
 
-					return $posts;
-				}
-			} else {
-				if ( $full ) {
-					return $result;
-				} else {
-					return array();
-				}
+				return $result->posts;
 			}
+
+			if ( $full ) {
+				return $result;
+			}
+
+			return array();
 		}
 
 		/**

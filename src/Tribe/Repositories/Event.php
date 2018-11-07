@@ -98,6 +98,11 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			'cost_greater_than'       => array( $this, 'filter_by_cost_greater_than' ),
 		) );
 
+		// Add backcompat aliases.
+		$this->schema['hide_upcoming'] = array( $this, 'filter_by_hidden' );
+		$this->schema['start_date']    = array( $this, 'filter_by_starts_after' );
+		$this->schema['end_date']      = array( $this, 'filter_by_ends_before' );
+
 		$this->add_simple_meta_schema_entry( 'website', '_EventURL' );
 
 		$this->add_simple_tax_schema_entry( 'event_category', Tribe__Events__Main::TAXONOMY );
@@ -1073,5 +1078,93 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		}
 
 		return parent::filter_postarr_for_create( $this->filter_meta_input( $postarr ) );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function order_by( $order_by ) {
+		/** @var \wpdb $wpdb */
+		global $wpdb;
+
+		$check_orderby = $order_by;
+
+		if ( ! is_array( $check_orderby ) ) {
+			$check_orderby = explode( ' ', $check_orderby );
+		}
+
+		$timestamp_key = 'TIMESTAMP(mt1.meta_value)';
+
+		if ( isset( $check_orderby['event_date'] ) || in_array( 'event_date', $check_orderby, true ) ) {
+			$check_orderby  = 'event_date';
+			$postmeta_table = "orderby_{$check_orderby}_meta";
+
+			$meta_key = '_EventStartDate';
+
+			/**
+			 * When the "Use site timezone everywhere" option is checked in events settings,
+			 * the UTC time for event start and end times will be used. This filter allows the
+			 * disabling of that in certain contexts, so that local (not UTC) event times are used.
+			 *
+			 * @since 4.6.10
+			 *
+			 * @param boolean $force_local_tz Whether to force the local TZ.
+			 */
+			$force_local_tz = apply_filters( 'tribe_events_query_force_local_tz', false );
+
+			if ( ! $force_local_tz && Tribe__Events__Timezones::is_mode( 'site' ) ) {
+				$event_start_key .= 'UTC';
+			}
+
+			$this->filter_query->join( $wpdb->prepare( "
+				LEFT JOIN {$wpdb->postmeta} AS {$postmeta_table}
+					ON (
+						{$postmeta_table}.post_id = {$wpdb->posts}.ID
+						AND {$postmeta_table}.meta_key = %s
+					)
+			", $meta_key ) );
+			$this->filter_query->orderby( $check_orderby );
+			$this->filter_query->fields( "MIN( {$postmeta_table}.meta_value ) AS {$check_orderby}" );
+		} elseif ( isset( $check_orderby['organizer'] ) || in_array( 'organizer', $check_orderby, true ) ) {
+			$check_orderby  = 'organizer';
+			$postmeta_table = "orderby_{$check_orderby}_meta";
+			$posts_table    = "orderby_{$check_orderby}_posts";
+
+			$meta_key = '_EventOrganizerID';
+
+			$this->filter_query->join( $wpdb->prepare( "
+				LEFT JOIN {$wpdb->postmeta} AS {$postmeta_table}
+					ON (
+						{$postmeta_table}.post_id = {$wpdb->posts}.ID 
+						AND {$postmeta_table}.meta_key = %s
+					)
+				LEFT JOIN {$wpdb->posts} AS {$posts_table}
+					ON {$wpdb->posts}.ID = {$postmeta_table}.meta_value
+			", $meta_key ) );
+			$this->filter_query->orderby( $check_orderby );
+			$this->filter_query->fields( "{$posts_table}.post_title AS {$check_orderby}" );
+		} elseif ( isset( $check_orderby['venue'] ) || in_array( 'venue', $check_orderby, true ) ) {
+			$check_orderby  = 'venue';
+			$postmeta_table = "orderby_{$check_orderby}_meta";
+			$posts_table    = "orderby_{$check_orderby}_posts";
+
+			$meta_key = '_EventVenueID';
+
+			$this->filter_query->join( $wpdb->prepare( "
+				LEFT JOIN {$wpdb->postmeta} AS {$postmeta_table}
+					ON (
+						{$postmeta_table}.post_id = {$wpdb->posts}.ID 
+						AND {$postmeta_table}.meta_key = %s
+					)
+				LEFT JOIN {$wpdb->posts} AS {$posts_table}
+					ON {$wpdb->posts}.ID = {$postmeta_table}.meta_value
+			", $meta_key ) );
+			$this->filter_query->orderby( $check_orderby );
+			$this->filter_query->fields( "{$posts_table}.post_title AS {$check_orderby}" );
+		} elseif ( isset( $check_orderby[ $timestamp_key ] ) || in_array( $timestamp_key, $check_orderby, true ) ) {
+			$this->filter_query->orderby( $timestamp_key );
+		}
+
+		return parent::order_by( $order_by );
 	}
 }
