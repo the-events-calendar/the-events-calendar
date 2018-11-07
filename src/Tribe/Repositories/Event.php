@@ -68,7 +68,8 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 
 		$this->default_args = array(
 			'post_type'                    => Tribe__Events__Main::POSTTYPE,
-			'order'                        => 'meta_value',
+			'order'                        => 'ASC',
+			'order_by'                     => 'meta_value',
 			'meta_key'                     => '_EventStartDate',
 			// We'll be handling the dates, let's mark the query as a non-filtered one.
 			'tribe_suppress_query_filters' => true,
