@@ -68,6 +68,8 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 
 		$this->default_args = array(
 			'post_type'                    => Tribe__Events__Main::POSTTYPE,
+			'order'                        => 'ASC',
+			'order_by'                     => 'event_date',
 			// We'll be handling the dates, let's mark the query as a non-filtered one.
 			'tribe_suppress_query_filters' => true,
 		);
@@ -1071,8 +1073,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		// Require some minimum fields.
 		if ( ! isset(
 			$postarr['post_title'],
-			$postarr['meta_input']['_EventEndDate'],
-			$postarr['meta_input']['_EventTimezone']
+			$postarr['meta_input']['_EventEndDate']
 		) ) {
 			return false;
 		}
