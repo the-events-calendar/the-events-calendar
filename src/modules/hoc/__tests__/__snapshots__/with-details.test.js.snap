@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HOC - With Details Should match the dispatched actions 1`] = `
+Array [
+  Object {
+    "payload": Object {
+      "id": "event",
+      "postType": undefined,
+    },
+    "type": "@@MT/EVENTS/SET_DETAILS_POST_TYPE",
+  },
+  Object {
+    "meta": Object {
+      "actions": Object {
+        "error": [Function],
+        "start": [Function],
+        "success": [Function],
+      },
+      "path": "tribe_events/event",
+    },
+    "type": "@@MT/COMMON/WP_REQUEST",
+  },
+]
+`;
+
+exports[`HOC - With Details Should render a component 1`] = `
+<div>
+  With Details!
+</div>
+`;

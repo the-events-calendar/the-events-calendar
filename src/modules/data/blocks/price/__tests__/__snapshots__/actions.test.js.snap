@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[STORE] - Price actions Should set initial state 1`] = `
+Object {
+  "payload": Object {},
+  "type": "@@MT/EVENTS/PRICE_BLOCK/SET_INITIAL_STATE",
+}
+`;
+
+exports[`[STORE] - Price actions Should set the cost 1`] = `
+Object {
+  "payload": Object {
+    "cost": 10,
+  },
+  "type": "@@MT/EVENTS/SET_PRICE_COST",
+}
+`;
+
+exports[`[STORE] - Price actions Should set the position of the symbol 1`] = `
+Object {
+  "payload": Object {
+    "position": "suffix",
+  },
+  "type": "@@MT/EVENTS/SET_PRICE_POSITION",
+}
+`;
+
+exports[`[STORE] - Price actions Should set the price description 1`] = `
+Object {
+  "payload": Object {
+    "description": "My description",
+  },
+  "type": "@@MT/EVENTS/SET_PRICE_DESCRIPTION",
+}
+`;
+
+exports[`[STORE] - Price actions Should set the symbol 1`] = `
+Object {
+  "payload": Object {
+    "symbol": "€",
+  },
+  "type": "@@MT/EVENTS/SET_PRICE_SYMBOL",
+}
+`;
+
+exports[`[STORE] - Price actions Should toggle the prefix 1`] = `
+Object {
+  "payload": Object {
+    "position": "prefix",
+  },
+  "type": "@@MT/EVENTS/SET_PRICE_POSITION",
+}
+`;
+
+exports[`[STORE] - Price actions Should toggle the prefix 2`] = `
+Object {
+  "payload": Object {
+    "position": "suffix",
+  },
+  "type": "@@MT/EVENTS/SET_PRICE_POSITION",
+}
+`;

@@ -1,0 +1,78 @@
+/**
+ * Venue block view styles
+ *
+ * @since  0.2.4-alpha
+ */
+.tribe-block__venue {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	position: relative;
+
+	&__meta {
+		width: 100%;
+		flex-basis: 100%;
+	}
+
+	&.tribe-block__venue--has-map {
+
+		.tribe-block__venue__meta,
+		.tribe-block__venue__map {
+			width: 49%;
+			flex-basis: 49%;
+		}
+	}
+
+	.tribe-block__venue__meta {
+		.tribe-block__venue__name {
+			display: flex;
+			h3 {
+				font-size: 1.3125rem;
+				font-weight: bold;
+				margin-top: 0;
+				margin-bottom: 4px;
+			}
+		}
+
+		.tribe-block__venue__address {
+			font-style: normal;
+			margin-bottom: 20px;
+
+			a {
+				color: #009FD4;
+				display: block;
+
+				&:hover {
+					text-decoration: none;
+				}
+			}
+		}
+
+		.tribe-block__venue__phone {
+			margin-bottom: 20px;
+		}
+
+		.tribe-block__venue__phone,
+		.tribe-block__venue__website {
+			display: inline-block;
+		}
+
+		.tribe-block__venue__address,
+		.tribe-block__venue__phone,
+		.tribe-block__venue__website {
+			color: #545D66;
+			font-size: 1rem;
+			line-height: 1.5;
+			letter-spacing: 0.13px;
+		}
+	}
+
+	.tribe-block__venue__map {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+		position: relative;
+		min-height: 270px;
+	}
+}

@@ -1,0 +1,130 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[STORE] - Search actions Should add a block 1`] = `
+Object {
+  "payload": Object {
+    "id": 1,
+  },
+  "type": "@@MT/EVENTS/ADD_BLOCK",
+}
+`;
+
+exports[`[STORE] - Search actions Should add results 1`] = `
+Object {
+  "payload": Object {
+    "id": 1,
+    "results": Array [
+      2,
+    ],
+  },
+  "type": "@@MT/EVENTS/ADD_RESULTS",
+}
+`;
+
+exports[`[STORE] - Search actions Should clear the block 1`] = `
+Object {
+  "payload": Object {
+    "id": 1,
+  },
+  "type": "@@MT/EVENTS/CLEAR_BLOCK",
+}
+`;
+
+exports[`[STORE] - Search actions Should disable loading 1`] = `
+Object {
+  "payload": Object {
+    "id": 1,
+    "isLoading": false,
+  },
+  "type": "@@MT/EVENTS/SET_SEARCH_IS_LOADING",
+}
+`;
+
+exports[`[STORE] - Search actions Should enable loading 1`] = `
+Object {
+  "payload": Object {
+    "id": 1,
+    "isLoading": true,
+  },
+  "type": "@@MT/EVENTS/SET_SEARCH_IS_LOADING",
+}
+`;
+
+exports[`[STORE] - Search actions Should set the page 1`] = `
+Object {
+  "payload": Object {
+    "id": 1,
+    "page": 2,
+  },
+  "type": "@@MT/EVENTS/SET_PAGE",
+}
+`;
+
+exports[`[STORE] - Search actions Should set the post type 1`] = `
+Object {
+  "payload": Object {
+    "id": 1,
+    "postType": "post",
+  },
+  "type": "@@MT/EVENTS/SET_SEARCH_POST_TYPE",
+}
+`;
+
+exports[`[STORE] - Search actions Should set the results 1`] = `
+Object {
+  "payload": Object {
+    "id": 1,
+    "results": Array [
+      2,
+    ],
+  },
+  "type": "@@MT/EVENTS/SET_RESULTS",
+}
+`;
+
+exports[`[STORE] - Search actions Should set the term 1`] = `
+Object {
+  "payload": Object {
+    "id": 1,
+    "term": "lorem",
+  },
+  "type": "@@MT/EVENTS/SET_TERM",
+}
+`;
+
+exports[`[STORE] - Search actions Should set total pages 1`] = `
+Object {
+  "payload": Object {
+    "id": 1,
+    "totalPages": 10,
+  },
+  "type": "@@MT/EVENTS/SET_TOTAL_PAGES",
+}
+`;
+
+exports[`[STORE] - Search thunk actions Should clear the block 1`] = `
+Array [
+  Object {
+    "payload": Object {
+      "id": "post",
+    },
+    "type": "@@MT/EVENTS/CLEAR_BLOCK",
+  },
+]
+`;
+
+exports[`[STORE] - Search thunk actions Should request action 1`] = `
+Array [
+  Object {
+    "meta": Object {
+      "actions": Object {
+        "error": [Function],
+        "start": [Function],
+        "success": [Function],
+      },
+      "path": "tribe_events?orderby=relevance&status=draft%2Cpublish&order=asc&page=1&per_page=50&search=Modern",
+    },
+    "type": "@@MT/COMMON/WP_REQUEST",
+  },
+]
+`;

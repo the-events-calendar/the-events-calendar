@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EditLink element Should render the component 1`] = `
+<a
+  className="tribe-editor__edit-link"
+  href="http://localhost//wp-admin/post.php?post=100&action=edit"
+  rel="noreferrer noopener"
+  target="_blank"
+>
+  Edit
+</a>
+`;
+
+exports[`EditLink element Should set the label for the edit link 1`] = `
+<a
+  className="tribe-editor__edit-link"
+  href="http://localhost//wp-admin/post.php?post=102&action=edit"
+  rel="noreferrer noopener"
+  target="_blank"
+>
+  Modern Tribe
+</a>
+`;
+
+exports[`EditLink element Should set the target attribute 1`] = `
+<a
+  className="tribe-editor__edit-link"
+  href="http://localhost//wp-admin/post.php?post=101&action=edit"
+  target="_self"
+>
+  Edit
+</a>
+`;

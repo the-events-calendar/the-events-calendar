@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "target": "ES6",
+        "module": "commonjs",
+        "jsx": "react",
+        "allowSyntheticDefaultImports": true,
+        "baseUrl": "./plugins",
+        "paths": {
+            "@moderntribe/*": ["./*/src/modules"]
+        }
+    },
+    "include": [
+        "plugins"
+    ],
+    "exclude": [
+        "**/node_modules/*",
+    ]
+}

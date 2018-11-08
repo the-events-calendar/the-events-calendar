@@ -1,0 +1,122 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[STORE] - search reducer Should add the results 1`] = `
+Object {
+  "isLoading": false,
+  "page": 1,
+  "postType": "tribe_events",
+  "results": Array [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+  ],
+  "term": "",
+  "totalPages": 0,
+}
+`;
+
+exports[`[STORE] - search reducer Should clear the block to the initial state keeping only the type 1`] = `
+Object {
+  "isLoading": false,
+  "page": 1,
+  "postType": "tribe_events",
+  "results": Array [],
+  "term": "",
+  "totalPages": 0,
+}
+`;
+
+exports[`[STORE] - search reducer Should enable loading 1`] = `
+Object {
+  "isLoading": true,
+  "page": 1,
+  "postType": "tribe_events",
+  "results": Array [],
+  "term": "",
+  "totalPages": 0,
+}
+`;
+
+exports[`[STORE] - search reducer Should enable loading 2`] = `
+Object {
+  "isLoading": false,
+  "page": 1,
+  "postType": "tribe_events",
+  "results": Array [],
+  "term": "",
+  "totalPages": 0,
+}
+`;
+
+exports[`[STORE] - search reducer Should return default state on add block 1`] = `
+Object {
+  "isLoading": false,
+  "page": 1,
+  "postType": "tribe_events",
+  "results": Array [],
+  "term": "",
+  "totalPages": 0,
+}
+`;
+
+exports[`[STORE] - search reducer Should set the page 1`] = `
+Object {
+  "isLoading": false,
+  "page": 2,
+  "postType": "tribe_events",
+  "results": Array [],
+  "term": "",
+  "totalPages": 0,
+}
+`;
+
+exports[`[STORE] - search reducer Should set the post type 1`] = `
+Object {
+  "isLoading": false,
+  "page": 1,
+  "postType": "tribe_organizer",
+  "results": Array [],
+  "term": "",
+  "totalPages": 0,
+}
+`;
+
+exports[`[STORE] - search reducer Should set the results 1`] = `
+Object {
+  "isLoading": false,
+  "page": 1,
+  "postType": "tribe_events",
+  "results": Array [
+    1,
+    2,
+    3,
+  ],
+  "term": "",
+  "totalPages": 0,
+}
+`;
+
+exports[`[STORE] - search reducer Should set the search term 1`] = `
+Object {
+  "isLoading": false,
+  "page": 1,
+  "postType": "tribe_events",
+  "results": Array [],
+  "term": "Modern Tribe",
+  "totalPages": 0,
+}
+`;
+
+exports[`[STORE] - search reducer Should set the total pages 1`] = `
+Object {
+  "isLoading": false,
+  "page": 1,
+  "postType": "tribe_events",
+  "results": Array [],
+  "term": "",
+  "totalPages": 10,
+}
+`;

@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[STORE] - details reducer Should enable the loading 1`] = `
+Object {
+  "details": Object {},
+  "isLoading": true,
+  "postType": "tribe_events",
+}
+`;
+
+exports[`[STORE] - details reducer Should set the details 1`] = `
+Object {
+  "details": Object {
+    "title": "Modern Tribe",
+  },
+  "isLoading": false,
+  "postType": "tribe_events",
+}
+`;
+
+exports[`[STORE] - details reducer Should set the post type 1`] = `
+Object {
+  "details": Object {},
+  "isLoading": false,
+  "postType": "tribe_organizers",
+}
+`;
