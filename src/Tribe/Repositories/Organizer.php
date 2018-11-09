@@ -36,6 +36,14 @@ class Tribe__Events__Repositories__Organizer extends Tribe__Events__Repositories
 			'tribe_suppress_query_filters' => true,
 		);
 
+		// Add organizer specific aliases.
+		$this->update_fields_aliases = array_merge( $this->update_fields_aliases, array(
+			'organizer' => 'post_title',
+			'phone'     => '_OrganizerPhone',
+			'website'   => '_OrganizerWebsite',
+			'email'     => '_OrganizerEmail',
+		) );
+
 		$this->linked_id_meta_key = '_EventOrganizerID';
 
 		$this->schema = array_merge( $this->schema, array(

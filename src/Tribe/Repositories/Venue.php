@@ -36,6 +36,20 @@ class Tribe__Events__Repositories__Venue extends Tribe__Events__Repositories__Li
 			'tribe_suppress_query_filters' => true,
 		);
 
+		// Add venue specific aliases.
+		$this->update_fields_aliases = array_merge( $this->update_fields_aliases, array(
+			'venue'         => 'post_title',
+			'address'       => '_VenueAddress',
+			'city'          => '_VenueCity',
+			'country'       => '_VenueCountry',
+			'province'      => '_VenueProvince',
+			'state'         => '_VenueState',
+			'zip'           => '_VenueZip',
+			'phone'         => '_VenuePhone',
+			'website'       => '_VenueURL',
+			'stateprovince' => '_VenueStateProvince',
+		) );
+
 		$this->linked_id_meta_key = '_EventVenueID';
 
 		$this->add_simple_meta_schema_entry( 'address', '_VenueAddress' );
