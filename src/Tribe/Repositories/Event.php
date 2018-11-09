@@ -857,7 +857,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			 */
 			$datetime_format = 'Y-m-d H:i:s';
 			foreach ( array( 'Start', 'End' ) as $check ) {
-				if ( isset( $meta["_Event{$check}Date"] ) ) {
+				if ( isset( $meta[ "_Event{$check}Date" ] ) ) {
 					$meta_value = $meta[ "_Event{$check}Date" ];
 
 					if ( $meta_value instanceof DateTime || $meta_value instanceof DateTimeImmutable ) {
@@ -865,7 +865,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 						$postarr[ 'meta_input' ][ "_Event{$check}Date" ] = $meta_value;
 					}
 
-					$date = new DateTimeImmutable( $meta_value , $timezone );
+					$date = new DateTimeImmutable( $meta_value, $timezone );
 
 					$utc_date = $date->setTimezone( $utc );
 					// Set the UTC date/time from local date/time and timezone; if provided override it.
@@ -1185,7 +1185,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 *
 	 * @return array The filtered list of filters that are leveraging the event start and/or end dates
 	 */
-	public function get_date_filters(): array {
+	public function get_date_filters() {
 		$date_filters = array(
 			'starts_before',
 			'starts_after',
