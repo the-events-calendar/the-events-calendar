@@ -12,7 +12,7 @@ class Tribe__Events__Editor__Provider extends tad_DI52_ServiceProvider {
 		// Setup to check if gutenberg is active
 		$this->container->singleton( 'events.editor', 'Tribe__Events__Editor' );
 
-		if ( ! tribe( 'common.editor' )->should_load_blocks() ) {
+		if ( ! tribe( 'editor' )->should_load_blocks() ) {
 			return;
 		}
 
