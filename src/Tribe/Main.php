@@ -1428,12 +1428,22 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		$plugin_dir = preg_replace( '!(.*)[\\/]events-calendar-pro.php!', '$1', $plugin_short_path );
-		$path_to_class = wp_normalize_path( WP_PLUGIN_DIR . "/{$plugin_dir}/src/Tribe/Main.php" );
-		if ( ! file_exists( $path_to_class ) ) {
-			return;
-		}
 
-		include_once $path_to_class;
+		// files for handling messaging and deactivation
+		$files_to_include = array(
+			'Main.php',
+			'Deactivation.php',
+			'Updater.php',
+		);
+
+		foreach ( $files_to_include as $file ) {
+			$path_to_class = wp_normalize_path( WP_PLUGIN_DIR . "/{$plugin_dir}/src/Tribe/{$file}" );
+			if ( ! file_exists( $path_to_class ) ) {
+				continue;
+			}
+
+			include_once $path_to_class;
+		}
 	}
 
 		/**
