@@ -30,6 +30,8 @@ class Tribe__Events__Repositories__Organizer extends Tribe__Events__Repositories
 	public function __construct() {
 		parent::__construct();
 
+		$this->create_args['post_type'] = Tribe__Events__Organizer::POSTTYPE;
+
 		$this->default_args = array(
 			'post_type'                    => Tribe__Events__Organizer::POSTTYPE,
 			// We'll be handling the dates, let's mark the query as a non-filtered one.
@@ -64,6 +66,18 @@ class Tribe__Events__Repositories__Organizer extends Tribe__Events__Repositories
 	 */
 	public function filter_by_name( $value ) {
 		$this->search( $value );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function filter_postarr_for_create( array $postarr ) {
+		// Require some minimum fields.
+		if ( ! isset( $postarr['post_title'] ) ) {
+			return false;
+		}
+
+		return parent::filter_postarr_for_create( $postarr );
 	}
 
 }
