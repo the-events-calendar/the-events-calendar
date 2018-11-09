@@ -1172,6 +1172,14 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 
 				$hidden = false;
 
+				if ( isset( $args['tribe_render_context'] ) ) {
+					$event_orm->set_render_context( $args['tribe_render_context'] );
+				}
+
+				if ( isset( $args['eventDisplay'] ) ) {
+					$event_orm->set_display_context( $args['eventDisplay'] );
+				}
+
 				// Backcompat defaults.
 				if ( isset( $args['hide_upcoming'] ) ) {
 					// Negate the hide_upcoming for $hidden
