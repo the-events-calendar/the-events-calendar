@@ -534,7 +534,7 @@ ul.tribe-events-sub-nav a,
 }
 
 .tribe-events-list-widget .tribe-event-featured {
-	background: var(--featured-event-bg);
+	background: #0ea0d7;
 	padding-bottom: 12px;
 	padding-bottom: .75rem;
 }

@@ -240,7 +240,7 @@ $general_tab_fields = Tribe__Main::array_insert_before_key(
 		),
 		'embedGoogleMaps'               => array(
 			'type'            => 'checkbox_bool',
-			'label'           => esc_html__( 'Enable Google Maps', 'the-events-calendar' ),
+			'label'           => esc_html__( 'Enable Maps', 'the-events-calendar' ),
 			'tooltip'         => esc_html__( 'Check to enable maps for events and venues.', 'the-events-calendar' ),
 			'default'         => true,
 			'class'           => 'google-embed-size',
