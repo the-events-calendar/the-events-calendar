@@ -8,7 +8,7 @@ import { isEmpty } from 'lodash';
  */
 import * as actions from './actions';
 import * as selectors from './selectors';
-import { actions as requestActions } from '@moderntribe/common/store/middlewares/request';
+import { middlewares } from '@moderntribe/common/store';
 
 export const fetchDetails = ( id ) => ( dispatch, getState ) => {
 	const state = getState();
@@ -33,5 +33,5 @@ export const fetchDetails = ( id ) => ( dispatch, getState ) => {
 		},
 	};
 
-	dispatch( requestActions.wpRequest( options ) );
+	dispatch( middlewares.wpRequest.actions.wpRequest( options ) );
 };

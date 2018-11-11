@@ -12,7 +12,7 @@ import { toVenue } from '@moderntribe/events/elements';
 import { withStore, withSaveData, withForm } from '@moderntribe/common/hoc';
 import { withDetails } from '@moderntribe/events/hoc';
 import { actions, selectors } from '@moderntribe/events/data/blocks/venue';
-import { VENUE } from '@moderntribe/common/data/editor/post-types';
+import { editor } from '@moderntribe/common/data';
 
 /**
  * Module Code
@@ -76,7 +76,7 @@ const mapDispatchToProps = ( dispatch, ownProps ) => ( {
 } );
 
 export default compose(
-	withStore( { postType: VENUE } ),
+	withStore( { postType: editor.VENUE } ),
 	connect( mapStateToProps ),
 	withDetails( 'venue' ),
 	withForm( ( props ) => props.name ),

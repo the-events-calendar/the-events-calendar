@@ -1,13 +1,13 @@
 /**
  * Internal dependencies
  */
-import { EVENT } from '@moderntribe/common/data/editor/post-types';
+import { editor } from '@moderntribe/common/data';
 import { types } from '@moderntribe/events/data/details';
 
 export const DEFAULT_STATE = {
 	isLoading: false,
 	details: {},
-	postType: EVENT,
+	postType: editor.EVENT,
 };
 
 export default ( state = DEFAULT_STATE, action ) => {
