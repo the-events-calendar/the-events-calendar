@@ -12,7 +12,7 @@ import { withDetails } from '@moderntribe/events/hoc';
 import { actions, selectors } from '@moderntribe/events/data/blocks/organizers';
 import { actions as detailsActions } from '@moderntribe/events/data/details';
 import { actions as formActions } from '@moderntribe/common/data/forms';
-import { ORGANIZER } from '@moderntribe/common/data/editor/post-types';
+import { editor } from '@moderntribe/common/data';
 import EventOrganizer from './template';
 import { toOrganizer } from '@moderntribe/events/elements/organizer-form/utils';
 
@@ -103,7 +103,7 @@ const mergeProps = ( stateProps, dispatchProps, ownProps ) => {
 };
 
 export default compose(
-	withStore( { isolated: true, postType: ORGANIZER } ),
+	withStore( { isolated: true, postType: editor.ORGANIZER } ),
 	withForm( ( props ) => props.clientId ),
 	connect( mapStateToProps ),
 	withDetails( 'organizer' ),

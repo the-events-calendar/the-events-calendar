@@ -2,7 +2,7 @@
  * Internal dependencies
  */
 import { types } from '@moderntribe/events/data/search';
-import { EVENT } from '@moderntribe/common/data/editor/post-types';
+import { editor } from '@moderntribe/common/data';
 
 export const DEFAULT_STATE = {
 	term: '',
@@ -10,7 +10,7 @@ export const DEFAULT_STATE = {
 	page: 1,
 	totalPages: 0,
 	isLoading: false,
-	postType: EVENT,
+	postType: editor.EVENT,
 };
 
 export default ( state = DEFAULT_STATE, action ) => {
