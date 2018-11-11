@@ -8,7 +8,7 @@ trait RecordMaker {
 	/**
 	 * Creates an Event Aggregator post for a manual record.
 	 *
-	 * @since TBD
+	 * @since 4.6.26
 	 *
 	 * @param string $import_id The record import ID, should be a unique string.
 	 * @param array  $meta_overrides An array of overrides of the default meta.
@@ -35,7 +35,7 @@ trait RecordMaker {
 	/**
 	 * Creates an Event Aggregator post for a schedule record.
 	 *
-	 * @since TBD
+	 * @since 4.6.26
 	 *
 	 * @param string $import_id The record import ID, should be a unique string.
 	 * @param array  $meta_overrides An array of overrides of the default meta.

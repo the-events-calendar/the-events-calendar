@@ -89,7 +89,7 @@ class Tribe__Events__Gutenberg {
 	/**
 	 * Checks if we are on the classic editor page
 	 *
-	 * @since  TBD
+	 * @since  4.6.26
 	 *
 	 * @return boolean
 	 */
