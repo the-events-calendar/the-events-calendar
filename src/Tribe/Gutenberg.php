@@ -69,7 +69,7 @@ class Tribe__Events__Gutenberg {
 	 * Currently only used for fields that we want to hide because they
 	 * already have a block to replace.
 	 *
-	 * @since  TBD
+	 * @since  4.6.25
 	 *
 	 * @return boolean
 	 */
@@ -84,6 +84,24 @@ class Tribe__Events__Gutenberg {
 		}
 
 		return true;
+	}
+
+	/**
+	 * Checks if we are on the classic editor page
+	 *
+	 * @since  4.6.26
+	 *
+	 * @return boolean
+	 */
+	public function is_classic_editor_page() {
+		$on_classic_editor_page = tribe_get_request_var( 'classic-editor', false );
+
+		// Bail if in classic editor
+		if ( '' === $on_classic_editor_page || $on_classic_editor_page ) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**

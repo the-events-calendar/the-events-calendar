@@ -4,7 +4,7 @@ Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.5
-Stable tag: 4.6.25
+Stable tag: 4.6.26
 Tested up to: 4.9.8
 Requires PHP: 5.2.4
 License: GPLv2 or later
@@ -215,20 +215,36 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
-= [4.6.26] TBD =
+= [4.6.27] TBD =
+
 * Add - the `tribe_events()` function as entry-point to the Events ORM and the supporting filter code [116356, 115579]
+* Add - the `tribe_venues()` function as entry-point to the Venues ORM and the supporting filter code [116356, 115579]
+* Add - the `tribe_organizers()` function as entry-point to the Organizers ORM and the supporting filter code [116356, 115579]
 * Add support for the `tribe_suppress_query_filters` query variable to prevent the plugin own query filters from applying [116356, 115579]
 
-= [4.6.25] TBD =
+= [4.6.26] 2018-11-13 =
+
+* Fix - Fixed the setting-up of strings in the Tribe Bar datepicker to ensure they're translatable into languages other than English [115286]
+* Tweak - Improved the legibility of text in Featured Events that are in the Event List widget [116702]
+* Tweak - Clarified a number of maps-related settings strings [114865]
+
+= [4.6.25] 2018-10-22 =
 
 * Fix - List only enabled views on the "Default View" option. Thanks to wescole, John Meuse and others for reporting! [114807]
 * Fix - Handle left-over Facebook scheduled imports and notices [114831]
 * Fix - Fixed event navigation when the mini calendar widget was on the event page. Props to Matt and wescole for flagging this [114359]
 * Fix - Ensure columns without headers are handled in CSV imports [114199]
-* Tweak - Add notice for the Gutenberg extension and eBook download [115543]
+* Tweak - Added notice for the Events Gutenberg extension and eBook download [115543]
 * Tweak - Avoid unnecessary HTTP calls in the Settings screens [114013]
 * Tweak - Show only applicable refinements for the Eventbrite source types in Event Aggregator imports [107009]
 * Tweak - Added `tribe_aggregator_resolve_geolocation` filter to allow for disabling of Geocoding using the EA service [114171]
+* Tweak - Added `tribe_aggregator_clean_unsupported` filter to specify whether unsupported origin records should be removed or not
+
+= [4.6.24.1] 2018-10-08 =
+
+* Fix - Fixed an issue where a fatal error could be generated when trying to save a new Event Aggregator scheduled import [115339]
+* Fix - Handle left-over Facebook scheduled imports and notices [114831]
+* Tweak - Added the `tribe_aggregator_import_setting_origins` filter to the origins available for default import settings [115704]
 
 = [4.6.24] 2018-10-03 =
 

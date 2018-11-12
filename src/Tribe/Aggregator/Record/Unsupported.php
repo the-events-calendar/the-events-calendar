@@ -4,13 +4,13 @@
  *
  * Passing around an instance of an unsupported origin record should not break the code.
  *
- * @since TBD
+ * @since 4.6.25
  */
 
 /**
  * Class Tribe__Events__Aggregator__Record__Unsupported
  *
- * @since TBD
+ * @since 4.6.25
  */
 class Tribe__Events__Aggregator__Record__Unsupported extends Tribe__Events__Aggregator__Record__Abstract {
 	/**
@@ -29,7 +29,7 @@ class Tribe__Events__Aggregator__Record__Unsupported extends Tribe__Events__Aggr
 		 *
 		 * If set to `true` then the post will be deleted on shutdown.
 		 *
-		 * @since TBD
+		 * @since 4.6.25
 		 *
 		 * @param bool $should_delete Whether the unsupported post should be deleted or not; defaults
 		 *                            to `true`.
@@ -50,7 +50,7 @@ class Tribe__Events__Aggregator__Record__Unsupported extends Tribe__Events__Aggr
 	/**
 	 * Public facing Label for this Origin
 	 *
-	 * @since TBD
+	 * @since 4.6.25
 	 *
 	 * @return string
 	 */
@@ -62,7 +62,7 @@ class Tribe__Events__Aggregator__Record__Unsupported extends Tribe__Events__Aggr
 	 * Overrides the base method short-circuiting the check for the
 	 * schedule time to return false.
 	 *
-	 * @since TBD
+	 * @since 4.6.25
 	 *
 	 * @return bool An indication that it's never time for an unsupported record to run.
 	 */
@@ -79,7 +79,7 @@ class Tribe__Events__Aggregator__Record__Unsupported extends Tribe__Events__Aggr
 	 * is returned. Since the hash is usually compared to strings built
 	 * the same way the returned fixed hash will never match.
 	 *
-	 * @since TBD
+	 * @since 4.6.25
 	 *
 	 * @return string The record fixed hash.
 	 */
@@ -90,7 +90,7 @@ class Tribe__Events__Aggregator__Record__Unsupported extends Tribe__Events__Aggr
 	/**
 	 * Deletes the base post for this record.
 	 *
-	 * @since TBD
+	 * @since 4.6.25
 	 */
 	public function delete_post() {
 		$this->delete();
