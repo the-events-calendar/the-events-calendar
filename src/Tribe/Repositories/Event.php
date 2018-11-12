@@ -858,7 +858,15 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			$datetime_format = 'Y-m-d H:i:s';
 			foreach ( array( 'Start', 'End' ) as $check ) {
 				if ( isset( $meta[ "_Event{$check}Date" ] ) ) {
-					$date     = new DateTimeImmutable( $meta[ "_Event{$check}Date" ], $timezone );
+					$meta_value = $meta[ "_Event{$check}Date" ];
+
+					if ( $meta_value instanceof DateTime || $meta_value instanceof DateTimeImmutable ) {
+						$meta_value                 = $meta_value->format( 'Y-m-d H:i:s' );
+						$postarr[ 'meta_input' ][ "_Event{$check}Date" ] = $meta_value;
+					}
+
+					$date = new DateTimeImmutable( $meta_value, $timezone );
+
 					$utc_date = $date->setTimezone( $utc );
 					// Set the UTC date/time from local date/time and timezone; if provided override it.
 					$postarr[ 'meta_input' ][ "_Event{$check}DateUTC" ] = $utc_date->format( $datetime_format );
@@ -1167,5 +1175,56 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		}
 
 		return parent::order_by( $order_by );
+	}
+
+	/**
+	 * Returns a filtered list of filters that are leveraging the event start and/or
+	 * end dates.
+	 *
+	 * @since TBD
+	 *
+	 * @return array The filtered list of filters that are leveraging the event start and/or end dates
+	 */
+	public function get_date_filters() {
+		$date_filters = array(
+			'starts_before',
+			'starts_after',
+			'starts_between',
+			'ends_before',
+			'ends_after',
+			'ends_between',
+			'starts_and_ends_between',
+			'runs_between',
+		);
+
+		/**
+		 * Filters the list of filters that should be considered related to an event start and/or end
+		 * dates.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $date_filters The list of filters that should be considered related to an event start and/or end
+		 *                            dates.
+		 * @param Tribe__Events__Repositories__Event This repository instance.
+		 */
+		return apply_filters( "tribe_repository_{$this->filter_name}_date_filters", $date_filters, $this );
+	}
+
+	/**
+	 * Whether the repository read operations have any kind of date-related filter
+	 * applied or not.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool Whether the repository read operations have any kind of date-related filter applied or not.
+	 */
+	public function has_date_filters() {
+		foreach ( $this->get_date_filters() as $filter ) {
+			if ( $this->has_filter( $filter ) ) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 }
