@@ -279,8 +279,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			add_action( 'tribe_common_loaded', array( $this, 'bootstrap' ), 0 );
 
-			add_action( 'tribe_common_loaded', array( $this, 'register_addon' ), 5 );
-
 		}
 
 		/**
@@ -364,18 +362,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$this->loadLibraries();
 			$this->addHooks();
 			$this->register_active_plugin();
-
-		}
-
-		/**
-		 *
-		 *
-		 * @since TBD
-		 *
-		 */
-		public function register_addon() {
-
-			$this->registered = new Tribe__Events__Plugin_Register();
 
 		}
 
