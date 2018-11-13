@@ -30,7 +30,7 @@ import {
 	GoogleMap,
 	EditLink,
 } from '@moderntribe/events/elements';
-import { VENUE } from '@moderntribe/common/data/editor/post-types';
+import { editor } from '@moderntribe/common/data';
 import VenueDetails from './venue-details';
 import { Venue as VenueIcon } from '@moderntribe/events/icons';
 import { Close as CloseIcon } from '@moderntribe/common/icons';
@@ -152,7 +152,7 @@ class EventVenue extends Component {
 				icon={ <VenueIcon /> }
 				store={ store }
 				isSelected={ isSelected }
-				postType={ VENUE }
+				postType={ editor.VENUE }
 				onItemSelect={ onItemSelect }
 				onCreateNew={ onCreateNew }
 				placeholder={ __( 'Add or find a venue', 'events-gutenberg' ) }

@@ -16,7 +16,7 @@ import { Dropdown, IconButton, Dashicon } from '@wordpress/components';
  */
 import { OrganizerForm, SearchPosts } from '@moderntribe/events/elements';
 import EventDetailsOrganizer from './event-details-organizer/container';
-import { ORGANIZER } from '@moderntribe/common/data/editor/post-types';
+import { editor } from '@moderntribe/common/data';
 
 const EventDetailsOrganizers = ( props ) => {
 	const renderDropdownToggle = ( { onToggle } ) => (
@@ -47,7 +47,7 @@ const EventDetailsOrganizers = ( props ) => {
 							organizerId={ id }
 							block={ block }
 							key={ id }
-							postType={ ORGANIZER }
+							postType={ editor.ORGANIZER }
 							onRemoveClick={ removeOrganizer }
 						/>
 					) ) }

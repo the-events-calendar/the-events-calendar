@@ -9,8 +9,7 @@ import { bindActionCreators, compose } from 'redux';
  * Internal dependencies
  */
 import { dom, range } from '@moderntribe/common/utils';
-import withSaveData from '@moderntribe/common/hoc/with-save-data';
-import { withStore } from '@moderntribe/common/hoc';
+import { withStore, withSaveData } from '@moderntribe/common/hoc';
 import {
 	actions as priceActions,
 	selectors as priceSelectors,

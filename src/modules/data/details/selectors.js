@@ -7,7 +7,7 @@ import { isEmpty, difference } from 'lodash';
  * External dependencies
  */
 import { createSelector } from 'reselect';
-import { selectors as formsSelectors } from '@moderntribe/common/data/forms';
+import { forms } from '@moderntribe/common/data';
 import { DEFAULT_STATE } from './reducers/details';
 
 export const blockSelector = ( state, props ) => state.events.details[ props.name ];
@@ -28,7 +28,7 @@ export const getDetails = createSelector(
 );
 
 export const getVolatile = createSelector(
-	[ getDetails, formsSelectors.getVolatile ],
+	[ getDetails, forms.selectors.getVolatile ],
 	( details, volatileGroup ) => {
 		if ( isEmpty( details ) ) {
 			return false;
