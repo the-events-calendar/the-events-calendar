@@ -79,3 +79,17 @@ export const setDateInputVisibility = ( show ) => ( {
 		show,
 	},
 } );
+
+export const allowEdits = () => ( {
+	type: types.SET_DATETIME_BLOCK_EDITABLE_STATE,
+	payload: {
+		isEditable: true,
+	},
+} );
+
+export const disableEdits = () => ( {
+	type: types.SET_DATETIME_BLOCK_EDITABLE_STATE,
+	payload: {
+		isEditable: false,
+	},
+} );

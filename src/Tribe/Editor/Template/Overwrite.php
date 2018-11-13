@@ -14,6 +14,21 @@ class Tribe__Events__Editor__Template__Overwrite {
 	 * @return void
 	 */
 	public function hook() {
+		/**
+		 * @todo remove filter if WP 5.0 patches this function and filter
+		 */
+		if ( ! function_exists( 'gutenberg_disable_editor_settings_wpautop' ) ) {
+			add_filter( 'wp_editor_settings', array( $this, 'disable_editor_settings_wpautop' ), 10, 2 );
+		}
+
+		/**
+		 * @todo remove filter if WP 5.0 patches this function and filter
+		 */
+		if ( ! function_exists( 'gutenberg_wpautop' ) ) {
+			remove_filter( 'the_content', 'wpautop' );
+			add_filter( 'the_content', array( $this, 'wpautop' ), 6 );
+		}
+
 		add_filter( 'tribe_events_template_single-event.php', array( $this, 'silence' ) );
 		add_filter( 'tribe_events_before_view', array( $this, 'include_blocks' ), 1, PHP_INT_MAX );
 	}
@@ -76,7 +91,7 @@ class Tribe__Events__Editor__Template__Overwrite {
 
 		$post_id = get_the_ID();
 
-		// Prevent printing for posts that doens't have Blocks
+		// Prevent printing for posts that doesn't have Blocks
 		if ( ! has_blocks( $post_id ) ) {
 			return $silence;
 		}
@@ -90,6 +105,44 @@ class Tribe__Events__Editor__Template__Overwrite {
 		tribe( 'events.editor.template' )->add_template_globals( $args );
 
 		return tribe( 'events.editor.template' )->template( 'single-event' );
+	}
+
+	/**
+	 * If function gutenberg_disable_editor_settings_wpautop() does not exist, use this to
+	 * disable wpautop in classic editor if blocks exist.
+	 *
+	 * @todo This function is a copy of gutenberg_disable_editor_settings_wpautop() from the
+	 * gutenberg plugin. If WP 5.0 patches this, this function should be removed.
+	 *
+	 * @since TBD
+	 *
+	 * @param  array  $settings  Original editor settings.
+	 * @param  string $editor_id ID for the editor instance.
+	 *
+	 * @return array             Filtered settings.
+	 */
+	public function disable_editor_settings_wpautop( $settings, $editor_id ) {
+		$post = get_post();
+		if ( 'content' === $editor_id && is_object( $post ) && has_blocks( $post ) ) {
+			$settings['wpautop'] = false;
+		}
+		return $settings;
+	}
+
+	/**
+	 * If function gutengerg_wpautop() does not exist, use this to disable wpautop.
+	 *
+	 * @todo This function is a copy of gutenberg_wpautop() from the gutenberg plugin.
+	 * If WP 5.0 patches this, this function should be removed.
+	 *
+	 * @param  string $content Post content.
+	 * @return string          Paragraph-converted text if non-block content.
+	 */
+	public function wpautop( $content ) {
+		if ( has_blocks( $content ) ) {
+			return $content;
+		}
+		return wpautop( $content );
 	}
 
 }

@@ -64,4 +64,8 @@ describe( '[STORE] - Datetime reducer', () => {
 		expect( reducer( DEFAULT_STATE, actions.setDateInputVisibility( true ) ) ).toMatchSnapshot();
 		expect( reducer( DEFAULT_STATE, actions.setDateInputVisibility( false ) ) ).toMatchSnapshot();
 	} );
+	it( 'Should set the editability', () => {
+		expect( reducer( DEFAULT_STATE, actions.allowEdits() ) ).toMatchSnapshot();
+		expect( reducer( DEFAULT_STATE, actions.disableEdits() ) ).toMatchSnapshot();
+	} );
 } );

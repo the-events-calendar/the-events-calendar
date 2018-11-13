@@ -134,3 +134,21 @@ Object {
   "type": "@@MT/EVENTS/SET_NATURAL_LANGUAGE_LABEL",
 }
 `;
+
+exports[`[STORE] - Datetime actions Set editable 1`] = `
+Object {
+  "payload": Object {
+    "isEditable": true,
+  },
+  "type": "@@MT/EVENTS/SET_DATETIME_BLOCK_EDITABLE_STATE",
+}
+`;
+
+exports[`[STORE] - Datetime actions Set editable 2`] = `
+Object {
+  "payload": Object {
+    "isEditable": false,
+  },
+  "type": "@@MT/EVENTS/SET_DATETIME_BLOCK_EDITABLE_STATE",
+}
+`;

@@ -14,5 +14,7 @@
     ],
     "exclude": [
         "**/node_modules/*",
+        "**/resources/*",
+        "**/Tribe/*"
     ]
 }

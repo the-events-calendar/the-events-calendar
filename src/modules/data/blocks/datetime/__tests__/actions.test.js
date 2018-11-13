@@ -51,4 +51,8 @@ describe( '[STORE] - Datetime actions', () => {
 		expect( actions.setDateInputVisibility( true ) ).toMatchSnapshot();
 		expect( actions.setDateInputVisibility( false ) ).toMatchSnapshot();
 	} );
+	test( 'Set editable', () => {
+		expect( actions.allowEdits() ).toMatchSnapshot();
+		expect( actions.disableEdits() ).toMatchSnapshot();
+	} );
 } );

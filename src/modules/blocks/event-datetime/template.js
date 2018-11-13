@@ -35,6 +35,7 @@ import {
 import { editor, settings, editorConstants } from '@moderntribe/common/utils/globals';
 import './style.pcss';
 import HumanReadableInput from './human-readable-input/container';
+import PluginDateTimeBlockHooks from './hooks';
 
 /**
  * Module Code
@@ -89,6 +90,7 @@ class EventDateTime extends Component {
 		onTimeZoneVisibilityChange: PropTypes.func,
 		onDateTimeLabelClick: PropTypes.func,
 		visibleMonth: PropTypes.instanceOf( Date ),
+		isEditable: PropTypes.bool.isRequired,
 	};
 
 	componentDidMount() {
@@ -271,6 +273,7 @@ class EventDateTime extends Component {
 								{ this.renderMultiDayToggle() }
 							</div>
 						</div>
+						<PluginDateTimeBlockHooks />
 						{ ! hideUpsell && <Upsell /> }
 					</footer>
 				</Fragment>
@@ -312,7 +315,7 @@ class EventDateTime extends Component {
 			allDay,
 			multiDay,
 			onStartTimePickerChange,
-			onStartTimePickerClick
+			onStartTimePickerClick,
 		} = this.props;
 		const startMoment = toMoment( start );
 		const endMoment = toMoment( end );
@@ -375,7 +378,6 @@ class EventDateTime extends Component {
 			allDay,
 		};
 
-
 		if ( ! multiDay ) {
 			// if the start time has less than half an hour left in the day
 			if ( endMoment.clone().add( 1, 'days' ).startOf( 'day' ).diff( startMoment, 'seconds' ) <= time.HALF_HOUR_IN_SECONDS ) {
@@ -422,6 +424,7 @@ class EventDateTime extends Component {
 			allDay,
 			showDateInput,
 			onDateTimeLabelClick,
+			isEditable,
 		} = this.props;
 
 		return (
@@ -430,28 +433,29 @@ class EventDateTime extends Component {
 				className="tribe-editor__subtitle tribe-editor__date-time"
 			>
 				{
-					showDateInput
-					? (
-						<HumanReadableInput after={ this.renderExtras() } />
-					)
-					: (
-						<h2 className="tribe-editor__subtitle__headline">
-							<button
-								className="tribe-editor__btn--label"
-								onClick={ onDateTimeLabelClick }
-							>
-								{ this.renderStartDate() }
-								{ this.renderStartTime() }
-								{ ( multiDay || ! allDay ) && this.renderSeparator( 'time-range' ) }
-								{ this.renderEndDate() }
-								{ this.renderEndTime() }
-								{ allDay && this.renderSeparator( 'all-day' ) }
-							</button>
-							{ this.renderExtras() }
-						</h2>
-					)
+					showDateInput && isEditable
+						? (
+							<HumanReadableInput after={ this.renderExtras() } />
+						)
+						: (
+							<h2 className="tribe-editor__subtitle__headline">
+								<button
+									className="tribe-editor__btn--label"
+									onClick={ onDateTimeLabelClick }
+									disabled={ ! isEditable }
+								>
+									{ this.renderStartDate() }
+									{ this.renderStartTime() }
+									{ ( multiDay || ! allDay ) && this.renderSeparator( 'time-range' ) }
+									{ this.renderEndDate() }
+									{ this.renderEndTime() }
+									{ allDay && this.renderSeparator( 'all-day' ) }
+								</button>
+								{ this.renderExtras() }
+							</h2>
+						)
 				}
-				{ this.renderDashboard() }
+				{ isEditable && this.renderDashboard() }
 			</section>
 		);
 	}
@@ -509,7 +513,10 @@ class EventDateTime extends Component {
 	}
 
 	render() {
-		return [ this.renderBlock(), this.renderControls() ];
+		return [
+			this.renderBlock(),
+			this.props.isEditable && this.renderControls(),
+		];
 	}
 }
 

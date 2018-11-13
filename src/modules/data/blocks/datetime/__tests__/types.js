@@ -20,5 +20,7 @@ describe( '[STORE] - Datetime types', () => {
 			.toBe( `${ PREFIX_EVENTS_STORE }/SET_NATURAL_LANGUAGE_LABEL` );
 		expect( types.SET_DATE_INPUT_VISIBILITY )
 			.toBe( `${ PREFIX_EVENTS_STORE }/SET_DATE_INPUT_VISIBILITY` );
+		expect( types.SET_DATETIME_BLOCK_EDITABLE_STATE )
+			.toBe( `${ PREFIX_EVENTS_STORE }/SET_DATETIME_BLOCK_EDITABLE_STATE` );
 	} );
 } );

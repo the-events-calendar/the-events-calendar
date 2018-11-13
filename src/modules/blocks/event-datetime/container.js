@@ -21,54 +21,17 @@ import {
 	actions as priceActions,
 } from '@moderntribe/events/data/blocks/price';
 import { moment, dom } from '@moderntribe/common/utils';
-import { withStore, withSaveData } from '@moderntribe/common/hoc';
+import { withStore, withSaveData, withBlockCloser } from '@moderntribe/common/hoc';
 import EventDateTime from './template';
 
 /**
  * Module Code
  */
 
-const ESCAPE_KEY = 27;
-
-const isTargetInBlock = ( target ) => (
-	dom.searchParent( target, ( testNode ) => {
-		if ( testNode.classList.contains( 'editor-block-list__block' ) ) {
-			return Boolean( testNode.querySelector( '.tribe-editor__date-time' ) );
-		}
-		return false;
-	} )
-);
-
-const isTargetInParents = ( target, parents ) => (
-	dom.searchParent( target, ( testNode ) => dom.hasClass( testNode, parents ) )
-);
-
-const onKeyDown = ( dispatchProps ) => ( e ) => {
+const onClose = ( dispatchProps ) => ( e ) => {
 	const { setDateInputVisibility, closeDashboardDateTime } = dispatchProps;
-
-	if ( e.keyCode === ESCAPE_KEY ) {
-		setDateInputVisibility( false );
-		closeDashboardDateTime();
-	}
-};
-
-const onClick = ( dispatchProps ) => ( e ) => {
-	const { setDateInputVisibility, closeDashboardDateTime } = dispatchProps;
-	const { target } = e;
-	const parents = [
-		'tribe-editor__timepicker__dialog',
-		'edit-post-sidebar',
-		'trigger-dashboard-datetime',
-		'tribe-editor__btn--label',
-	];
-
-	if (
-		! isTargetInBlock( target ) &&
-		! isTargetInParents( target, parents )
-	) {
-		setDateInputVisibility( false );
-		closeDashboardDateTime();
-	}
+	setDateInputVisibility( false );
+	closeDashboardDateTime();
 };
 
 const onSelectDay = ( stateProps, dispatchProps ) => ( { from, to } ) => {
@@ -163,7 +126,9 @@ const onDateTimeLabelClick = ( dispatch ) => () => {
 
 const mapStateToProps = ( state ) => ( {
 	isDashboardOpen: UISelectors.getDashboardDateTimeOpen( state ),
+	isOpen: UISelectors.getDashboardDateTimeOpen( state ),
 	visibleMonth: UISelectors.getVisibleMonth( state ),
+	isEditable: dateTimeSelectors.isEditable( state ),
 	start: dateTimeSelectors.getStart( state ),
 	end: dateTimeSelectors.getEnd( state ),
 	naturalLanguageLabel: dateTimeSelectors.getNaturalLanguageLabel( state ),
@@ -198,8 +163,7 @@ const mergeProps = ( stateProps, dispatchProps, ownProps ) => ( {
 	...ownProps,
 	...stateProps,
 	...dispatchProps,
-	onKeyDown: onKeyDown( dispatchProps ),
-	onClick: onClick( dispatchProps ),
+	onClose: onClose( dispatchProps ),
 	onSelectDay: onSelectDay( stateProps, dispatchProps ),
 	onStartTimePickerChange: onStartTimePickerChange( stateProps, dispatchProps ),
 	onStartTimePickerClick: onStartTimePickerClick( stateProps, dispatchProps ),
@@ -212,4 +176,5 @@ export default compose(
 	withStore(),
 	connect( mapStateToProps, mapDispatchToProps, mergeProps ),
 	withSaveData(),
+	withBlockCloser,
 )( EventDateTime );

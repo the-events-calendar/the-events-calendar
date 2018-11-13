@@ -58,4 +58,9 @@ export const getNaturalLanguageLabel = createSelector(
 export const getDateInputVisibility = createSelector(
 	[ datetimeSelector ],
 	( datetime ) => datetime.showDateInput,
-)
+);
+
+export const isEditable = createSelector(
+	[ datetimeSelector ],
+	( datetime ) => datetime.isEditable,
+);

@@ -61,4 +61,7 @@ describe( '[STORE] - Datetime selectors', () => {
 		expect( selectors.getDateInputVisibility( state ) ).toBe( DEFAULT_STATE.showDateInput );
 	} );
 
+	it( 'Should return the editable', () => {
+		expect( selectors.isEditable( state ) ).toBe( DEFAULT_STATE.isEditable );
+	} );
 } );

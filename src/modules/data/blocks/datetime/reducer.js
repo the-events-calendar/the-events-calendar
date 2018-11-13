@@ -27,10 +27,16 @@ export const DEFAULT_STATE = {
 	timeZoneLabel: date.FORMATS.TIMEZONE.string,
 	showTimeZone: false,
 	showDateInput: false,
+	isEditable: true,
 };
 
 export default ( state = DEFAULT_STATE, action ) => {
 	switch ( action.type ) {
+		case types.SET_DATETIME_BLOCK_EDITABLE_STATE:
+			return {
+				...state,
+				isEditable: action.payload.isEditable,
+			};
 		case types.SET_START_DATE_TIME:
 			return {
 				...state,
