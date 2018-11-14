@@ -384,6 +384,12 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		$cache = tribe( 'cache' );
 
 		foreach ( $organizers as $organizer_id ) {
+			if ( is_object( $organizer_id ) ) {
+				$organizer = $organizer_id;
+
+				$organizer_id = $organizer->ID;
+			}
+
 			$cache_key = 'rest_get_organizer_data_' . get_current_user_id() . '_' . $organizer_id . '_' . $context;
 
 			$this_data = $cache->get( $cache_key, 'save_post' );

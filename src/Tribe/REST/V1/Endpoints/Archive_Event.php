@@ -136,10 +136,6 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 
 		$args = $this->parse_args( $args, $request->get_default_params() );
 
-		$data = array( 'events' => array() );
-
-		$data['rest_url'] = $this->get_current_rest_url( $args, $extra_rest_args );
-
 		if ( null === $request['status'] ) {
 			$cap                 = get_post_type_object( Tribe__Events__Main::POSTTYPE )->cap->edit_posts;
 			$args['post_status'] = current_user_can( $cap ) ? 'any' : 'publish';
@@ -161,6 +157,10 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 		$data = $cache->get( $cache_key, 'save_post' );
 
 		if ( ! is_array( $data ) ) {
+			$data = array( 'events' => array() );
+
+			$data['rest_url'] = $this->get_current_rest_url( $args, $extra_rest_args );
+
 			$events = tribe_get_events( $args );
 
 			$page = $this->parse_page( $request ) ? $this->parse_page( $request ) : 1;
