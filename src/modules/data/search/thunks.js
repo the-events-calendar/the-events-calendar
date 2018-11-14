@@ -4,9 +4,13 @@
 import * as actions from './actions';
 import * as selectors from './selectors';
 import {
-	actions as requestActions,
-	utils as requestUtils,
-} from '@moderntribe/common/store/middlewares/request';
+	middlewares
+} from '@moderntribe/common/store';
+
+const { request: {
+	actions:requestActions,
+	utils:requestUtils,
+} } = middlewares;
 
 // TODO: There is a lot of logic in this thunk that should be moved into
 // each specific call instead. Given the function name and location,
