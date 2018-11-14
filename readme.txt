@@ -215,6 +215,10 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Add - Added additional caching to TEC REST API archives and the Post Repository event/venue/organizer responses [117159]
+
 = [4.6.26] 2018-11-13 =
 
 * Fix - Fixed the setting-up of strings in the Tribe Bar datepicker to ensure they're translatable into languages other than English [115286]
