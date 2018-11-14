@@ -5,6 +5,8 @@ import reducer from './reducers';
 
 import { plugins } from '@moderntribe/common/data';
 import { store } from '@moderntribe/common/store';
+import * as blocks from './blocks';
+import './sagas';
 
 export const initStore = () => {
 	const { dispatch, injectReducers } = store;
@@ -14,3 +16,5 @@ export const initStore = () => {
 };
 
 export const getStore = () => store;
+
+export { blocks };

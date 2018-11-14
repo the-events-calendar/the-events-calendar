@@ -1,7 +1,7 @@
 /**
  * Internal dependencies
  */
-import reducer from './reducer';
-import './sagas';
+import * as datetime from './datetime';
 
-export default reducer;
+export { datetime };
+export { default } from './reducer';
