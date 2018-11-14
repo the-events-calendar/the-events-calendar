@@ -87,6 +87,24 @@ class Tribe__Events__Gutenberg {
 	}
 
 	/**
+	 * Checks if we are on the classic editor page
+	 *
+	 * @since  4.6.26
+	 *
+	 * @return boolean
+	 */
+	public function is_classic_editor_page() {
+		$on_classic_editor_page = tribe_get_request_var( 'classic-editor', false );
+
+		// Bail if in classic editor
+		if ( '' === $on_classic_editor_page || $on_classic_editor_page ) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
 	 * HTML for the notice from Gutenberg Extension download
 	 *
 	 * @since  4.6.13

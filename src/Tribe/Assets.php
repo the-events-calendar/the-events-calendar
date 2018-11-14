@@ -114,7 +114,6 @@ class Tribe__Events__Assets {
 						'tribe-timepicker',
 						'tribe-attrchange',
 						'tribe-select2',
-						'ecp-plugins',
 					),
 				),
 				array(
@@ -152,7 +151,7 @@ class Tribe__Events__Assets {
 			$plugin,
 			'tribe-events-settings',
 			'tribe-settings.js',
-			array( 'dashicons', 'tribe-select2', 'thickbox' ),
+			array( 'tribe-select2', 'thickbox' ),
 			'admin_enqueue_scripts',
 			array(
 				'conditionals' => array( $admin_helpers, 'is_screen' ),
