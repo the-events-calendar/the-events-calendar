@@ -49,7 +49,7 @@ extends Tribe__Editor__Blocks__Abstract {
 		// Add the rendering attributes into global context
 		tribe( 'events.editor.template' )->add_template_globals( $args );
 
-		$html = tribe( 'events.editor.template' )->template( array( 'blocks', $this->slug() ), $args, false );
+		$html = tribe( 'events.editor.template' )->template( array( 'editor', 'blocks', $this->slug() ), $args, false );
 
 		remove_filter( 'the_content', 'strip_dynamic_blocks', 1 );
 
