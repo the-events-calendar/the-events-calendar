@@ -20,7 +20,7 @@ import {
 	selectors as priceSelectors,
 	actions as priceActions,
 } from '@moderntribe/events/data/blocks/price';
-import { moment, dom } from '@moderntribe/common/utils';
+import { moment } from '@moderntribe/common/utils';
 import { withStore, withSaveData, withBlockCloser } from '@moderntribe/common/hoc';
 import EventDateTime from './template';
 

@@ -425,7 +425,20 @@ class Tribe__Events__Editor extends Tribe__Editor {
 				'priority' => 1
 			)
 		);
-		
+
+		tribe_asset(
+			$plugin,
+			'tribe-the-events-calendar-data',
+			'app/data.js',
+			array(),
+			'enqueue_block_editor_assets',
+			array(
+				'in_footer' => false,
+				'localize'  => array(),
+				'conditionals' => array( $this, 'is_events_post_type' ),
+				'priority'  => 101,
+			)
+		);
 		tribe_asset(
 			$plugin,
 			'tribe-the-events-calendar-editor',
