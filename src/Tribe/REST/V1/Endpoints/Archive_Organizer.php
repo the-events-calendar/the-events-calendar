@@ -145,7 +145,11 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 			$data = array( 'organizers' => array() );
 
 			foreach ( $ids as $organizer_id ) {
-				$data['organizers'][] = $this->repository->get_organizer_data( $organizer_id );
+				$organizer = $this->repository->get_organizer_data( $organizer_id );
+
+				if ( $organizer && ! is_wp_error( $organizer ) ) {
+					$data['organizers'][] = $organizer;
+				}
 			}
 
 			$data['rest_url'] = $this->get_current_rest_url( $args );

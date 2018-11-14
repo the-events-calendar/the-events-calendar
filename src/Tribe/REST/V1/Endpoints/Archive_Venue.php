@@ -143,7 +143,11 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 			$data = array( 'venues' => array() );
 
 			foreach ( $ids as $venue_id ) {
-				$data['venues'][] = $this->repository->get_venue_data( $venue_id );
+				$venue = $this->repository->get_venue_data( $venue_id );
+
+				if ( $venue && ! is_wp_error( $venue ) ) {
+					$data['venues'][] = $venue;
+				}
 			}
 
 			$data['rest_url'] = $this->get_current_rest_url( $args );
