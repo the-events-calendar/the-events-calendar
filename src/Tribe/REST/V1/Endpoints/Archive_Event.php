@@ -164,7 +164,11 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 			}
 
 			foreach ( $events as $event_id ) {
-				$data['events'][] = $this->repository->get_event_data( $event_id );
+				$event = $this->repository->get_event_data( $event_id );
+
+				if ( $event && ! is_wp_error( $event ) ) {
+					$data['events'][] = $event;
+				}
 			}
 
 			$data['total']            = $total = $this->get_total( $args );
