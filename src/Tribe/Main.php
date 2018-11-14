@@ -245,6 +245,15 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public static $tribeEventsMuDefaults;
 
 		/**
+		 * Where in the themes we will look for templates
+		 *
+		 * @since TBD
+		 *
+		 * @var string
+		 */
+		public $template_namespace = 'events';
+
+		/**
 		 * Static Singleton Holder
 		 * @var self
 		 */
