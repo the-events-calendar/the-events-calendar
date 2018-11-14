@@ -68,7 +68,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		}
 
 		$cache     = tribe( 'cache' );
-		$cache_key = 'rest_get_event_data_' . ( is_user_logged_in() ? get_current_user_id() : 0 ) . '_' . $event->ID . '_' . $context;
+		$cache_key = 'rest_get_event_data_' . $event->ID . '_' . $context;
 
 		$data = $cache->get( $cache_key, 'save_post' );
 
@@ -187,7 +187,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		}
 
 		$cache     = tribe( 'cache' );
-		$cache_key = 'rest_get_venue_data_' . ( is_user_logged_in() ? get_current_user_id() : 0 ) . '_' . $venue->ID . '_' . $context;
+		$cache_key = 'rest_get_venue_data_' . $venue->ID . '_' . $context;
 
 		$data = $cache->get( $cache_key, 'save_post' );
 
@@ -382,7 +382,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 				continue;
 			}
 
-			$cache_key = 'rest_get_organizer_data_' . ( is_user_logged_in() ? get_current_user_id() : 0 ) . '_' . $organizer->ID . '_' . $context;
+			$cache_key = 'rest_get_organizer_data_' . $organizer->ID . '_' . $context;
 
 			$this_data = $cache->get( $cache_key, 'save_post' );
 
