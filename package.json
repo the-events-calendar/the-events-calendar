@@ -25,6 +25,7 @@
     "bootstrap": "./scripts/linkDependencies",
     "build:webpack": "cross-env NODE_ENV=production webpack -p --progress",
     "build:gulp": "cross-env NODE_ENV=production gulp",
+    "prebuild": "cd common && npm run build",
     "build": "npm run build:webpack && npm run build:gulp",
     "dev": "cross-env NODE_ENV=development webpack -d --watch",
     "gettext-strings": "cross-env BABEL_ENV=gettext webpack",
