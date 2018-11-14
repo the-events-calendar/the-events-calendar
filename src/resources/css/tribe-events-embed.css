@@ -8,51 +8,53 @@
  * @see: http://moderntribe.github.io/products-engineering/css/
  */
 
+@custom-media --embed-small-viewport (min-width: 440px);
+@custom-media --embed-medium-viewport (min-width: 800px);
 .tribe-embed {
 	padding: 25px 22px;
 }
 .tribe-embed .wp-embed-featured-image.rectangle,
 	.tribe-embed .wp-embed-featured-image.square {
-	margin-right: 18px;
-	max-width: 100%;
-}
+		margin-right: 18px;
+		max-width: 100%;
+	}
 .tribe-embed .wp-embed-heading {
-	font-size: 18px;
-	margin-top: -6px;
-	margin-bottom: 10px;
-}
+		font-size: 18px;
+		margin-top: -6px;
+		margin-bottom: 10px;
+	}
 .tribe-embed .tribe-events-event-cost {
-	color: #636466;
-	font-weight: bold;
-	margin-bottom: 5px;
-}
+		color: #636466;
+		font-weight: bold;
+		margin-bottom: 5px;
+	}
 .tribe-embed .tribe-event-schedule-details {
-	font-weight: bold;
-	margin-bottom: 5px;
-}
+		font-weight: bold;
+		margin-bottom: 5px;
+	}
 .tribe-embed .tribe-events-venue-details {
-	font-style: italic;
-	margin-bottom: 5px;
-}
+		font-style: italic;
+		margin-bottom: 5px;
+	}
 .tribe-embed .tribe-events-content {
-	padding-top: 8px;
-}
+		padding-top: 8px;
+	}
 .tribe-embed .wp-embed-footer {
-	margin-top: 20px;
-}
-@media (min-width: 440px) {
-	.tribe-embed .wp-embed-featured-image.rectangle,
+		margin-top: 20px;
+	}
+@media (--embed-small-viewport) {
+.tribe-embed .wp-embed-featured-image.rectangle,
 	.tribe-embed .wp-embed-featured-image.square {
-		max-width: 35%;
+			max-width: 35%
 	}
-	.tribe-embed .tribe-events-event-cost {
-		float: right;
-		margin-left: 18px;
+.tribe-embed .tribe-events-event-cost {
+			float: right;
+			margin-left: 18px
 	}
-}
-@media (min-width: 800px) {
-	.tribe-embed .wp-embed-featured-image.rectangle,
+		}
+@media (--embed-medium-viewport) {
+.tribe-embed .wp-embed-featured-image.rectangle,
 	.tribe-embed .wp-embed-featured-image.square {
-		max-width: 265px;
+			max-width: 265px
 	}
-}
+		}
