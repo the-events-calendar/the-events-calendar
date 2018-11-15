@@ -1,6 +1,7 @@
 /*
  * External Dependencies
  */
+import React from 'react';
 import { get } from 'lodash';
 import { __ } from '@wordpress/i18n';
 
@@ -8,6 +9,8 @@ import { __ } from '@wordpress/i18n';
  * Internal dependencies
  */
 import { globals, date } from '@moderntribe/common/utils';
+import { DateTime } from '@moderntribe/events/icons';
+
 /**
  * Internal dependencies
  */
@@ -25,7 +28,7 @@ export default {
 	category: 'tribe-events',
 	keywords: [ 'event', 'events-gutenberg', 'tribe' ],
 	parent: [ 'tribe/event-datetime' ],
-
+	icon: <DateTime />,
 	supports: {
 		html: false,
 	},

@@ -5,12 +5,14 @@
 /**
  * WordPress dependencies
  */
+import React from 'react';
 import { __ } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
  */
 import EventDateTimeDashboard from './container';
+import { DateTime } from '@moderntribe/events/icons';
 
 export default {
 	id: 'event-datetime-dashboard',
@@ -22,7 +24,7 @@ export default {
 	category: 'tribe-events',
 	keywords: [ 'event', 'events-gutenberg', 'tribe' ],
 	parent: [ 'tribe/event-datetime' ],
-
+	icon: <DateTime />,
 	supports: {
 		html: false,
 	},
