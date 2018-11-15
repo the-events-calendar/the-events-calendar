@@ -12,11 +12,14 @@ import { PluginBlockHooks } from '@moderntribe/common/components';
 
 const PLUGIN_TEMPLATES = {
 	[ constants.EVENTS_PRO_PLUGIN ]: [
-		[ 'tribe/event-pro-recurrence-description', {}],
+		[ 'tribe/event-pro-recurrence', {}, [
+			[ 'tribe/event-pro-recurrence-rule', {}],
+			[ 'tribe/event-pro-recurrence-exception', {}],
+		] ],
 	],
 };
 
-const PluginDescriptionBlockHooks = () => {
+const DashboardHook = () => {
 	return (
 		<PluginBlockHooks
 			pluginTemplates={ PLUGIN_TEMPLATES }
@@ -25,6 +28,6 @@ const PluginDescriptionBlockHooks = () => {
 	);
 };
 
-PluginDescriptionBlockHooks.propTypes = {};
+DashboardHook.propTypes = {};
 
-export default PluginDescriptionBlockHooks;
+export default DashboardHook;

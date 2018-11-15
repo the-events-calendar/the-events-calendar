@@ -27,7 +27,7 @@ import {
 	time,
 	globals,
 } from '@moderntribe/common/utils';
-import { DateTimePluginBlockHook } from '../../hooks';
+import DashboardHook from './hook';
 
 /**
  * Module Code
@@ -224,7 +224,7 @@ export default class EventDateTimeDashboard extends PureComponent {
 								{ this.renderMultiDayToggle() }
 							</div>
 						</div>
-						<DateTimePluginBlockHook />
+						<DashboardHook />
 						{ ! this.shouldHideUpsell && <Upsell /> }
 					</footer>
 				</Fragment>

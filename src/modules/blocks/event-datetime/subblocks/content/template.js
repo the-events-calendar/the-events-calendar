@@ -34,7 +34,7 @@ import {
 } from '@moderntribe/common/utils';
 import { editor, settings, editorConstants } from '@moderntribe/common/utils/globals';
 import HumanReadableInput from '../../human-readable-input/container';
-import { DateTimePluginBlockHook, DescriptionPluginBlockHook } from '../../hooks';
+import ContentHook from './hook';
 
 /**
  * Module Code
@@ -273,7 +273,7 @@ class EventDateTimeContent extends Component {
 							</button>
 							{ this.renderExtras() }
 						</h2>
-						<DescriptionPluginBlockHook />
+						<ContentHook />
 					</Fragment>
 				)
 		);
