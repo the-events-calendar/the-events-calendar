@@ -57,7 +57,7 @@ const EventDetailsOrganizers = ( props ) => {
 				<SearchPosts
 					key="organizer-search-dropdown"
 					name="search-organizers-classic"
-					postType={ ORGANIZER }
+					postType={ editor.ORGANIZER }
 					searchLabel={ __( 'Search for an organizer', 'events-gutenberg' ) }
 					iconLabel={ __( 'Add existing Organizer', 'events-gutenberg' ) }
 					onItemSelect={ addOrganizer }
