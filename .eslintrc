@@ -118,7 +118,7 @@
         "children": true
       }
     ],
-    "react/no-unused-prop-types": false,
+    "react/no-unused-prop-types": 0,
     "wpcalypso/import-docblock": "warn",
     "wpcalypso/jsx-classname-namespace": "warn"
   },
