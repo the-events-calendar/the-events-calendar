@@ -84,6 +84,9 @@
 			autoclose   : true
 		};
 
+		// Set up some specific strings for datepicker i18n.
+		tribe_ev.fn.ensure_datepicker_i18n();
+
 		$tribedate
 			.bootstrapDatepicker( td.datepicker_opts )
 			.on( 'changeDate', function( e ) {

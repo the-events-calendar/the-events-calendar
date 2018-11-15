@@ -646,7 +646,8 @@ select.tribe-events-dropdown {
 
 .tribe-events-tooltip.tribe-events-tooltip-flipdown .tribe-events-arrow {
 	top: -11px;
-	transform: rotate(180deg);
+	-ms-transform: rotate(180deg);
+	    transform: rotate(180deg);
 }
 
 /* Recurring info tooltip */
