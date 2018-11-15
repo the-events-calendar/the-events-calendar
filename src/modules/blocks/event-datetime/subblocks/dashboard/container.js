@@ -8,18 +8,12 @@ import { compose, bindActionCreators } from 'redux';
  * Internal dependencies
  */
 import {
-	actions as dateTimeActions,
-	thunks as dateTimeThunks,
 	selectors as dateTimeSelectors,
 } from '@moderntribe/events/data/blocks/datetime';
 import {
 	actions as UIActions,
 	selectors as UISelectors,
 } from '@moderntribe/events/data/ui';
-import {
-	selectors as priceSelectors,
-	actions as priceActions,
-} from '@moderntribe/events/data/blocks/price';
 import { moment } from '@moderntribe/common/utils';
 import { withStore, withSaveData, withBlockCloser } from '@moderntribe/common/hoc';
 import EventDateTimeDashboard from './template';
@@ -113,6 +107,7 @@ const mapStateToProps = ( state ) => ( {
 	allDay: dateTimeSelectors.getAllDay( state ),
 	isDashboardOpen: UISelectors.getDashboardDateTimeOpen( state ),
 	multiDay: dateTimeSelectors.getMultiDay( state ),
+	separatorTime: dateTimeSelectors.getTimeSeparator( state ),
 	visibleMonth: UISelectors.getVisibleMonth( state ),
 } );
 

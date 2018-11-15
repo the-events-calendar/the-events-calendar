@@ -3,6 +3,7 @@
  */
 import React, { PureComponent, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 /**
  * WordPress dependencies
@@ -58,6 +59,7 @@ export default class EventDateTimeDashboard extends PureComponent {
 		onSelectDay: PropTypes.func,
 		onStartTimePickerChange: PropTypes.func,
 		onStartTimePickerClick: PropTypes.func,
+		separatorTime: PropTypes.string,
 		setVisibleMonth: PropTypes.func,
 		start: PropTypes.string,
 		visibleMonth: PropTypes.instanceOf( Date ),
@@ -180,6 +182,7 @@ export default class EventDateTimeDashboard extends PureComponent {
 			visibleMonth,
 			setVisibleMonth,
 			onSelectDay,
+			separatorTime,
 		} = this.props;
 
 		const monthProps = {
@@ -200,7 +203,7 @@ export default class EventDateTimeDashboard extends PureComponent {
 	}
 
 	render() {
-		const { multiDay, allDay, isDashboardOpen } = this.props;
+		const { multiDay, allDay, separatorTime, isDashboardOpen } = this.props;
 
 		return (
 			<Dashboard isOpen={ isDashboardOpen }>
@@ -213,10 +216,11 @@ export default class EventDateTimeDashboard extends PureComponent {
 							<div className="tribe-editor__subtitle__time-pickers">
 								{ this.renderStartTimePicker() }
 								{
-									// TODO: Fix
-									// ( multiDay || ! allDay ) && (
-									// 	this.renderSeparator( 'time-range', 'tribe-editor__time-picker__separator' )
-									// )
+									( multiDay || ! allDay ) && (
+										<span className={ classNames( 'tribe-editor__separator', 'tribe-editor__time-picker__separator' ) }>
+											{ ' '.concat( separatorTime, ' ' ) }
+										</span>
+									)
 								}
 								{ this.renderEndTimePicker() }
 							</div>
