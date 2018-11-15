@@ -1,37 +1,30 @@
-/**
- * External dependencies
+/*
+ * External Dependencies
  */
-
-/**
- * WordPress dependencies
- */
-import { __ } from '@wordpress/i18n';
 import { get } from 'lodash';
+import { __ } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
  */
-import EventDateTime from './container';
-import { DateTime } from '@moderntribe/events/icons';
-import { date, globals } from '@moderntribe/common/utils';
-import './subblocks';
-
+import { globals, date } from '@moderntribe/common/utils';
 /**
- * Module Code
+ * Internal dependencies
  */
+import EventDateTimeContent from './container';
 
 const timeZone = get( globals.config(), 'timeZone', {} );
 
 export default {
-	id: 'event-datetime',
-	title: __( 'Event Date Time', 'events-gutenberg' ),
+	id: 'event-datetime-content',
+	title: __( 'Event Date Time Content', 'events-gutenberg' ),
 	description: __(
 		'Define the date, time, and duration for your event.',
 		'events-gutenberg'
 	),
-	icon: <DateTime/>,
 	category: 'tribe-events',
 	keywords: [ 'event', 'events-gutenberg', 'tribe' ],
+	parent: [ 'tribe/event-datetime' ],
 
 	supports: {
 		html: false,
@@ -94,7 +87,7 @@ export default {
 		},
 	},
 
-	edit: EventDateTime,
+	edit: EventDateTimeContent,
 
 	save( props ) {
 		return null;
