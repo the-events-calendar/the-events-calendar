@@ -33,5 +33,5 @@ export const fetchDetails = ( id ) => ( dispatch, getState ) => {
 		},
 	};
 
-	dispatch( middlewares.wpRequest.actions.wpRequest( options ) );
+	dispatch( middlewares.request.actions.wpRequest( options ) );
 };
