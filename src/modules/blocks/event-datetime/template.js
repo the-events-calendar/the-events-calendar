@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
  * WordPress dependencies
  */
 import { InnerBlocks } from '@wordpress/editor';
-import Controls from './subblocks/controls';
+import Controls from './controls';
 
 /**
  * Internal dependencies
