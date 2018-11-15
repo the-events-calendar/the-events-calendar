@@ -35,7 +35,7 @@ import {
 import { editor, settings, editorConstants } from '@moderntribe/common/utils/globals';
 import './style.pcss';
 import HumanReadableInput from './human-readable-input/container';
-import PluginDateTimeBlockHooks from './hooks';
+import { DateTimePluginBlockHook, DescriptionPluginBlockHook } from './hooks';
 
 /**
  * Module Code
@@ -273,7 +273,7 @@ class EventDateTime extends Component {
 								{ this.renderMultiDayToggle() }
 							</div>
 						</div>
-						<PluginDateTimeBlockHooks />
+						<DateTimePluginBlockHook />
 						{ ! hideUpsell && <Upsell /> }
 					</footer>
 				</Fragment>
@@ -438,21 +438,24 @@ class EventDateTime extends Component {
 							<HumanReadableInput after={ this.renderExtras() } />
 						)
 						: (
-							<h2 className="tribe-editor__subtitle__headline">
-								<button
-									className="tribe-editor__btn--label"
-									onClick={ onDateTimeLabelClick }
-									disabled={ ! isEditable }
-								>
-									{ this.renderStartDate() }
-									{ this.renderStartTime() }
-									{ ( multiDay || ! allDay ) && this.renderSeparator( 'time-range' ) }
-									{ this.renderEndDate() }
-									{ this.renderEndTime() }
-									{ allDay && this.renderSeparator( 'all-day' ) }
-								</button>
-								{ this.renderExtras() }
-							</h2>
+							<Fragment>
+								<h2 className="tribe-editor__subtitle__headline">
+									<button
+										className="tribe-editor__btn--label"
+										onClick={ onDateTimeLabelClick }
+										disabled={ ! isEditable }
+									>
+										{ this.renderStartDate() }
+										{ this.renderStartTime() }
+										{ ( multiDay || ! allDay ) && this.renderSeparator( 'time-range' ) }
+										{ this.renderEndDate() }
+										{ this.renderEndTime() }
+										{ allDay && this.renderSeparator( 'all-day' ) }
+									</button>
+									{ this.renderExtras() }
+								</h2>
+								<DescriptionPluginBlockHook />
+							</Fragment>
 						)
 				}
 				{ isEditable && this.renderDashboard() }

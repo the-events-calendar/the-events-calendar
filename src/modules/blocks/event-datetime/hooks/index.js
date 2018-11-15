@@ -1,1 +1,2 @@
-export { default } from './blocks';
+export { default as DateTimePluginBlockHook } from './datetime';
+export { default as DescriptionPluginBlockHook } from './description';
