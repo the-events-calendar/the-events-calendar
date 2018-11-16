@@ -8,31 +8,20 @@ import classNames from 'classnames';
 /**
  * WordPress dependencies
  */
-import {
-	PanelBody,
-	SelectControl,
-	TextControl,
-	ToggleControl,
-} from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { InnerBlocks, PlainText } from '@wordpress/editor';
+import { PlainText } from '@wordpress/editor';
 
 /**
  * Internal dependencies
  */
-import { TimePicker } from '@moderntribe/common/elements';
 import {
-	Dashboard,
-	Month,
-	Upsell,
 	TimeZone,
 } from '@moderntribe/events/elements';
 import {
 	date,
 	moment as momentUtil,
-	time,
 } from '@moderntribe/common/utils';
-import { editor, settings, editorConstants } from '@moderntribe/common/utils/globals';
+import { editor, settings } from '@moderntribe/common/utils/globals';
 import HumanReadableInput from '../../human-readable-input/container';
 import ContentHook from './hook';
 
@@ -40,9 +29,8 @@ import ContentHook from './hook';
  * Module Code
  */
 
-const { FORMATS, TODAY, timezonesAsSelectData } = date;
+const { FORMATS, TODAY } = date;
 const {
-	roundTime,
 	toMoment,
 	toDate,
 	toDateNoYear,
@@ -56,40 +44,22 @@ FORMATS.date = settings() && settings().dateWithYearFormat
 class EventDateTimeContent extends Component {
 	static propTypes = {
 		allDay: PropTypes.bool,
-		multiDay: PropTypes.bool,
-		isDashboardOpen: PropTypes.bool,
 		cost: PropTypes.string,
-		start: PropTypes.string,
-		end: PropTypes.string,
-		separatorDate: PropTypes.string,
-		separatorTime: PropTypes.string,
-		timeZone: PropTypes.string,
-		showTimeZone: PropTypes.bool,
-		timeZoneLabel: PropTypes.string,
-		showDateInput: PropTypes.bool,
-		setTimeZoneLabel: PropTypes.func,
 		currencyPosition: PropTypes.oneOf( [ 'prefix', 'suffix', '' ] ),
 		currencySymbol: PropTypes.string,
-		naturalLanguageLabel: PropTypes.string,
-		setInitialState: PropTypes.func,
-		setCost: PropTypes.func,
-		setTimeZone: PropTypes.func,
-		setSeparatorTime: PropTypes.func,
-		setSeparatorDate: PropTypes.func,
-		setVisibleMonth: PropTypes.func,
-		setNaturalLanguageLabel: PropTypes.func,
-		onKeyDown: PropTypes.func,
-		onClick: PropTypes.func,
-		onSelectDay: PropTypes.func,
-		onStartTimePickerChange: PropTypes.func,
-		onStartTimePickerClick: PropTypes.func,
-		onEndTimePickerChange: PropTypes.func,
-		onEndTimePickerClick: PropTypes.func,
-		onMultiDayToggleChange: PropTypes.func,
-		onTimeZoneVisibilityChange: PropTypes.func,
+		end: PropTypes.string,
+		isEditable: PropTypes.bool,
+		multiDay: PropTypes.bool,
 		onDateTimeLabelClick: PropTypes.func,
-		visibleMonth: PropTypes.instanceOf( Date ),
-		isEditable: PropTypes.bool.isRequired,
+		separatorDate: PropTypes.string,
+		separatorTime: PropTypes.string,
+		setCost: PropTypes.func,
+		setTimeZoneLabel: PropTypes.func,
+		showDateInput: PropTypes.bool,
+		showTimeZone: PropTypes.bool,
+		start: PropTypes.string,
+		timeZone: PropTypes.string,
+		timeZoneLabel: PropTypes.string,
 	};
 
 	renderPrice = () => {
