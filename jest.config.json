@@ -9,7 +9,7 @@
       ],
       "testEnvironment": "jest-environment-jsdom-global",
       "testMatch": [
-        "<rootDir>/plugins/common/**/__tests__/**/*.js?(x)"
+        "<rootDir>/common/src/modules/**/__tests__/**/*.js?(x)"
       ],
       "testURL": "http://localhost/",
       "moduleNameMapper": {
@@ -24,52 +24,7 @@
       ],
       "testEnvironment": "jest-environment-jsdom-global",
       "testMatch": [
-        "<rootDir>/plugins/events/**/__tests__/**/*.js?(x)"
-      ],
-      "testURL": "http://localhost/",
-      "moduleNameMapper": {
-        "\\.(css|pcss)$": "identity-obj-proxy",
-        "\\.(svg)$": "<rootDir>/__mocks__/icons.js"
-      }
-    },
-    {
-      "displayName": "events-pro",
-      "setupFiles": [
-        "<rootDir>/jest.setup.js"
-      ],
-      "testEnvironment": "jest-environment-jsdom-global",
-      "testMatch": [
-        "<rootDir>/plugins/events-pro/**/__tests__/**/*.js?(x)"
-      ],
-      "testURL": "http://localhost/",
-      "moduleNameMapper": {
-        "\\.(css|pcss)$": "identity-obj-proxy",
-        "\\.(svg)$": "<rootDir>/__mocks__/icons.js"
-      }
-    },
-    {
-      "displayName": "tickets",
-      "setupFiles": [
-        "<rootDir>/jest.setup.js"
-      ],
-      "testEnvironment": "jest-environment-jsdom-global",
-      "testMatch": [
-        "<rootDir>/plugins/tickets/**/__tests__/**/*.js?(x)"
-      ],
-      "testURL": "http://localhost/",
-      "moduleNameMapper": {
-        "\\.(css|pcss)$": "identity-obj-proxy",
-        "\\.(svg)$": "<rootDir>/__mocks__/icons.js"
-      }
-    },
-    {
-      "displayName": "events-pro",
-      "setupFiles": [
-        "<rootDir>/jest.setup.js"
-      ],
-      "testEnvironment": "jest-environment-jsdom-global",
-      "testMatch": [
-        "<rootDir>/plugins/events-pro/**/__tests__/**/*.js?(x)"
+        "<rootDir>/src/modules/**/__tests__/**/*.js?(x)"
       ],
       "testURL": "http://localhost/",
       "moduleNameMapper": {
