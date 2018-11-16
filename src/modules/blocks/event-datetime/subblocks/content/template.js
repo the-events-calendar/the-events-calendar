@@ -190,7 +190,7 @@ class EventDateTimeContent extends Component {
 				);
 			case 'all-day':
 				return (
-					<span className={ classNames( 'tribe-editor__separator', className ) }>{ __( 'ALL DAY', 'events-gutenberg' ) }</span>
+					<span className={ classNames( 'tribe-editor__separator', className ) }>{ __( 'All Day', 'events-gutenberg' ) }</span>
 				);
 			default:
 				return null;
