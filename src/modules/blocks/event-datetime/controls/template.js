@@ -59,7 +59,6 @@ class EventDateTimeControls extends PureComponent {
 			timeZone,
 		} = this.props;
 
-		// @todo: modify so this code does not fire unless the block is selected
 		return (
 			<InspectorControls key="inspector">
 				<PanelBody title={ __( 'Date Time Settings', 'events-gutenberg' ) }>
