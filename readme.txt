@@ -217,7 +217,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 = [4.7] TBD =
 
-
+* Fix - Allow for earlier dates to be selected in date time block
 
 = [4.6.26] 2018-11-13 =
 
