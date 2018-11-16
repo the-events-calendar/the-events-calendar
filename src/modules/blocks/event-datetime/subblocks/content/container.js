@@ -54,15 +54,9 @@ const mapDispatchToProps = ( dispatch ) => ( {
 	onDateTimeLabelClick: onDateTimeLabelClick( dispatch ),
 } );
 
-const mergeProps = ( stateProps, dispatchProps, ownProps ) => ( {
-	...ownProps,
-	...stateProps,
-	...dispatchProps,
-} );
-
 export default compose(
 	withStore(),
-	connect( mapStateToProps, mapDispatchToProps, mergeProps ),
+	connect( mapStateToProps, mapDispatchToProps ),
 	withSaveData(),
 	withBlockCloser,
 )( EventDateTimeContent );
