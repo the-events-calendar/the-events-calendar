@@ -79,10 +79,11 @@ class Tribe__Events__Editor extends Tribe__Editor {
 			return false;
 		}
 
-		$on_classic_editor_page = tribe_get_request_var( 'classic-editor', false );
+		/** @var Tribe__Editor $editor */
+		$editor = tribe( 'editor' );
 
 		// Bail if in classic editor
-		if ( '' === $on_classic_editor_page || $on_classic_editor_page ) {
+		if ( $editor->is_classic_editor() ) {
 			return false;
 		}
 
