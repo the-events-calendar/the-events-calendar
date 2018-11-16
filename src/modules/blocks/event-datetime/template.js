@@ -39,8 +39,8 @@ class EventDateTime extends PureComponent {
 
 	get template() {
 		return [
-			[ 'tribe/event-datetime-content', {}],
 			[ 'tribe/event-datetime-dashboard', {}],
+			[ 'tribe/event-datetime-content', {}],
 		];
 	}
 
