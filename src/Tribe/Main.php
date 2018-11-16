@@ -32,9 +32,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '4.6.26';
+		const VERSION             = '4.7-beta1';
 		const MIN_ADDON_VERSION   = '4.4';
-		const MIN_COMMON_VERSION  = '4.7.20';
+		const MIN_COMMON_VERSION  = '4.8-beta';
 
 		const WP_PLUGIN_URL       = 'https://wordpress.org/extend/plugins/the-events-calendar/';
 
@@ -254,6 +254,17 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public $template_namespace = 'events';
 
 		/**
+		 * List of plugin dependencies
+		 *
+		 * @TODO: remove when we have a better dependency checking solution in place
+		 *
+		 * @var array
+		 */
+		protected $addon_dependencies = array(
+			'events-pro' => '4.5beta',
+		);
+
+		/**
 		 * Static Singleton Holder
 		 * @var self
 		 */
@@ -357,6 +368,23 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			} else {
 				// Either PHP or WordPress version is inadequate so we simply return an error.
 				add_action( 'admin_head', array( $this, 'notSupportedError' ) );
+			}
+
+			/**
+			 * Safety check to prevent fatals with mismatched dependencies
+			 *
+			 * @TODO: remove the following call and the subsequent if statement when we have
+			 * dependency checking logic in place
+			 */
+			$this->maybe_include_pro_class();
+
+			if (
+				class_exists( 'Tribe__Events__Pro__Main' )
+				&& version_compare( Tribe__Events__Pro__Main::VERSION, $this->addon_dependencies['events-pro'], '<' )
+			) {
+				add_action( 'admin_notices', array( $this, 'pro_compatibility_notice' ) );
+				remove_action( 'plugins_loaded', 'Tribe_ECP_Load', 2 );
+				return;
 			}
 		}
 
@@ -1326,6 +1354,107 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				echo apply_filters( 'tribe_add_on_compatibility_errors', $output );
 			}
 		}
+
+	/**
+	 * Hooked to admin_notices, this error is thrown when TEC is run alongside a version of
+	 * PRO that is too old
+	 *
+	 * @since TBD
+	 */
+	public function pro_compatibility_notice() {
+		echo $this->premium_addon_compatibility_notice(
+			'events-calendar-pro.php',
+			'Events Calendar PRO',
+			$this->addon_dependencies['events-pro']
+		);
+	}
+
+
+	/**
+	 * Hooked to admin_notices, this error is thrown when TEC is run alongside a version of
+	 * PRO that is too old
+	 *
+	 * @since TBD
+	 *
+	 * @param string $bootstrap_file Filename for the plugin bootstrap
+	 * @param string $plugin_name Friendly plugin name
+	 * @param string $required_version Version number that is required for activation
+	 *
+	 * @return string
+	 */
+	private function premium_addon_compatibility_notice( $bootstrap_file, $plugin_name, $required_version ) {
+		$active_plugins = get_option( 'active_plugins' );
+		$plugin_short_path = null;
+		foreach ( $active_plugins as $plugin ) {
+			if ( false !== strstr( $plugin, $bootstrap_file ) ) {
+				$plugin_short_path = $plugin;
+				break;
+			}
+		}
+
+		$upgrade_path = 'https://theeventscalendar.com/knowledgebase/manual-updates/';
+
+		$message = sprintf(
+			__( 'When running version %1$s of The Events Calendar alongside %2$s, %2$s must be version %3$s or greater. Please %4$smanually update now.%5$s', 'the-events-calendar' ),
+			self::VERSION,
+			$plugin_name,
+			$required_version,
+			'<a href="' . esc_url( $upgrade_path ) . '" target="_blank">',
+			'</a>'
+		);
+
+		$output = '<div class="error">';
+		$output .= '<p>' . $message . '</p>';
+		$output .= '</div>';
+		return $output;
+	}
+
+	/**
+	 * Include PRO Main class file as a patch-work solution
+	 *
+	 * This is a patch-work solution to help avoid fatals while we wait for the dependency
+	 * checking feature to complete.
+	 *
+	 * @todo eliminate this method when dependency checking is complete
+	 *
+	 * @since TBD
+	 */
+	private function maybe_include_pro_class() {
+		if ( class_exists( 'Tribe__Events__Pro__Main' ) ) {
+			return;
+		}
+
+		$active_plugins    = get_option( 'active_plugins' );
+		$plugin_short_path = null;
+		foreach ( $active_plugins as $plugin ) {
+			if ( false !== strstr( $plugin, 'events-calendar-pro.php' ) ) {
+				$plugin_short_path = $plugin;
+				break;
+			}
+		}
+
+		if ( ! $plugin_short_path ) {
+			return;
+		}
+
+		$plugin_dir = preg_replace( '!(.*)[\\/]events-calendar-pro.php!', '$1', $plugin_short_path );
+
+		// files for handling messaging and deactivation
+		$files_to_include = array(
+			'Main.php',
+			'Deactivation.php',
+			'Updater.php',
+		);
+
+		foreach ( $files_to_include as $file ) {
+			$path_to_class = wp_normalize_path( WP_PLUGIN_DIR . "/{$plugin_dir}/src/Tribe/{$file}" );
+			if ( ! file_exists( $path_to_class ) ) {
+				continue;
+			}
+
+			include_once $path_to_class;
+		}
+	}
 
 		/**
 		 * Trigger is_404 on single event if no events are found
