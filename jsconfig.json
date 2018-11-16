@@ -4,13 +4,15 @@
         "module": "commonjs",
         "jsx": "react",
         "allowSyntheticDefaultImports": true,
-        "baseUrl": "./plugins",
+        "baseUrl": "./",
         "paths": {
-            "@moderntribe/*": ["./*/src/modules"]
+            "@moderntribe/events": ["./src/modules"],
+            "@moderntribe/common": ["./common/src/modules"],
         }
     },
     "include": [
-        "plugins"
+        "src/modules",
+        "common/src/modules",
     ],
     "exclude": [
         "**/node_modules/*",

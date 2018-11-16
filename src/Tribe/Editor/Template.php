@@ -16,6 +16,8 @@ class Tribe__Events__Editor__Template extends Tribe__Template {
 		// todo: update to the plugins directory only
 		$this->set_template_folder( 'src/views' );
 
+		$this->set_notices();
+
 		// Configures this templating class extract variables
 		$this->set_template_context_extract( true );
 
@@ -52,6 +54,21 @@ class Tribe__Events__Editor__Template extends Tribe__Template {
 
 		return $attribute;
 
+	}
+
+	/**
+	 * Set notices
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function set_notices() {
+		$events_label_singular_lowercase = tribe_get_event_label_singular_lowercase();
+
+		if ( ! tribe_is_showing_all() && tribe_is_past_event() ) {
+			Tribe__Notices::set_notice( 'event-past', sprintf( esc_html__( 'This %s has passed.', 'the-events-calendar' ), $events_label_singular_lowercase ) );
+		}
 	}
 }
 
