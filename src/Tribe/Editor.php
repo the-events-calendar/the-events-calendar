@@ -139,7 +139,17 @@ class Tribe__Events__Editor extends Tribe__Editor {
 
 		foreach ( $blocks as $key => $block_param ) {
 			$slug = reset( $block_param );
-			$params = end( $block_param );
+			/**
+			 * Add an opportunity to set the default params of a block when migrating from classic into
+			 * blocks editor.
+			 *
+			 * @since TBD
+			 *
+			 * @param mixed $params Either array if set to values or slug string
+			 * @param string $slug Name of the block edited
+			 * @param WP_Post $post Post that is being affected
+			 */
+			$params = apply_filters( 'tribe_blocks_editor_update_classic_content_params', end( $block_param ), $slug, $post );
 			$json_param = false;
 
 			// Checks for Params to attach to the tag
