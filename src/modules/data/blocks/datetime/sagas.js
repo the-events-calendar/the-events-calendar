@@ -232,18 +232,24 @@ export function* preventStartTimeAfterEndTime() {
 			end: moments.end.set( time.end ),
 		};
 
+		console.warn( 'prevent start', seconds );
+
 		yield put( thunks.setDateTime( dates ) );
 	}
 }
 
 export function* handleStartDateTimeChange( action ) {
 	yield call( setHumanReadableFromDate, action );
-	yield call( preventEndTimeBeforeStartTime );
+	if ( ! ( yield select( selectors.getMultiDay ) ) ) {
+		yield call( preventEndTimeBeforeStartTime );
+	}
 }
 
 export function* handleEndDateTimeChange( action ) {
 	yield call( setHumanReadableFromDate, action );
-	yield call( preventStartTimeAfterEndTime );
+	if ( ! ( yield select( selectors.getMultiDay ) ) ) {
+		yield call( preventStartTimeAfterEndTime );
+	}
 }
 
 /**
