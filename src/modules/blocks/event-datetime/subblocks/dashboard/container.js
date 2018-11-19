@@ -106,6 +106,8 @@ const onMultiDayToggleChange = ( stateProps, dispatchProps ) => ( isMultiDay ) =
 
 const mapStateToProps = ( state ) => ( {
 	allDay: dateTimeSelectors.getAllDay( state ),
+	start: dateTimeSelectors.getStart( state ),
+	end: dateTimeSelectors.getEnd( state ),
 	isDashboardOpen: UISelectors.getDashboardDateTimeOpen( state ),
 	multiDay: dateTimeSelectors.getMultiDay( state ),
 	separatorTime: dateTimeSelectors.getTimeSeparator( state ),
