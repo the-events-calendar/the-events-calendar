@@ -8,6 +8,7 @@
 }
 
 .tribe-editor__subtitle__headline {
+	display: flex;
 	font-size: 19px;
 	font-style: normal;
 	font-family: Helvetica, sans-serif, arial;
@@ -16,6 +17,11 @@
 	margin-bottom: 0;
 	margin-top: 0;
 	color: red;
+
+	> * {
+		flex: 0 1 auto;
+		align-self: center;
+	}
 
 	.button-link {
 		color: #060606;
@@ -31,24 +37,17 @@
 .tribe-editor__subtitle {
 
 	.tribe-editor__event-cost {
-		display: inline-block;
 		margin-left: 15px;
-		vertical-align: middle;
-
-		span {
-			display: inline-block;
-			margin-right: 5px;
-		}
-
 		textarea {
+			font-size: 18px;
 			width: 110px;
-			display: inline-block;
 		}
 	}
 
 	.tribe-editor__btn--label {
 		font-size: 19px;
 		text-align: left;
+		flex: 1 1 100%;
 
 		&:disabled {
 			cursor: not-allowed;
