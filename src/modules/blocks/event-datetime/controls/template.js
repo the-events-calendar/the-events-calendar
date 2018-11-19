@@ -42,12 +42,7 @@ class EventDateTimeControls extends PureComponent {
 		timeZone: PropTypes.string,
 	};
 
-	/**
-	 * Controls being rendered on the sidebar.
-	 *
-	 * @returns {ReactDOM} A React Dom Element null if none.
-	 */
-	renderControls = () => {
+	render() {
 		const {
 			onTimeZoneVisibilityChange,
 			separatorDate,
@@ -57,9 +52,10 @@ class EventDateTimeControls extends PureComponent {
 			setTimeZone,
 			showTimeZone,
 			timeZone,
+			isEditable,
 		} = this.props;
 
-		return (
+		return isEditable && (
 			<InspectorControls key="inspector">
 				<PanelBody title={ __( 'Date Time Settings', 'events-gutenberg' ) }>
 					<TextControl
@@ -90,11 +86,7 @@ class EventDateTimeControls extends PureComponent {
 					/>
 				</PanelBody>
 			</InspectorControls>
-		);
-	}
-
-	render() {
-		return this.props.isEditable && this.renderControls();
+		)
 	}
 }
 
