@@ -8,6 +8,7 @@ import { compose, bindActionCreators } from 'redux';
  * Internal dependencies
  */
 import {
+	thunks as dateTimeThunks,
 	selectors as dateTimeSelectors,
 } from '@moderntribe/events/data/blocks/datetime';
 import {
@@ -113,6 +114,7 @@ const mapStateToProps = ( state ) => ( {
 
 const mapDispatchToProps = ( dispatch ) => ( {
 	...bindActionCreators( UIActions, dispatch ),
+	...bindActionCreators( dateTimeThunks, dispatch ),
 } );
 
 const mergeProps = ( stateProps, dispatchProps, ownProps ) => ( {
