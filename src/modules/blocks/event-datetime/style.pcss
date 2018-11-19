@@ -16,6 +16,11 @@
 	margin-bottom: 0;
 	margin-top: 0;
 
+	> * {
+		flex: 0 1 auto;
+		align-self: center;
+	}
+
 	.button-link {
 		color: #060606;
 		font-size: 1.1em;
@@ -30,18 +35,10 @@
 .tribe-editor__subtitle {
 
 	.tribe-editor__event-cost {
-		display: inline-block;
 		margin-left: 15px;
-		vertical-align: middle;
-
-		span {
-			display: inline-block;
-			margin-right: 5px;
-		}
-
 		textarea {
+			font-size: 18px;
 			width: 110px;
-			display: inline-block;
 		}
 	}
 
