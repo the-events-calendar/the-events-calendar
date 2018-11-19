@@ -24,6 +24,7 @@ import {
 import { editor, settings } from '@moderntribe/common/utils/globals';
 import HumanReadableInput from '../../human-readable-input/container';
 import ContentHook from './hook';
+import Controls from '../../controls';
 
 /**
  * Module Code
@@ -220,8 +221,8 @@ class EventDateTimeContent extends Component {
 			isEditable,
 		} = this.props;
 
-		return (
-
+		return [
+			<Controls />,
 			showDateInput && isEditable
 				? (
 					<HumanReadableInput after={ this.renderExtras() } />
@@ -245,8 +246,8 @@ class EventDateTimeContent extends Component {
 						</h2>
 						<ContentHook />
 					</Fragment>
-				)
-		);
+				),
+		];
 	}
 }
 
