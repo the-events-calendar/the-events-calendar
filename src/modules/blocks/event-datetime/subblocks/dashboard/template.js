@@ -29,6 +29,7 @@ import {
 	globals,
 } from '@moderntribe/common/utils';
 import DashboardHook from './hook';
+import Controls from '../../controls';
 
 /**
  * Module Code
@@ -78,8 +79,8 @@ export default class EventDateTimeDashboard extends PureComponent {
 			onStartTimePickerChange,
 			onStartTimePickerClick,
 		} = this.props;
+
 		const startMoment = toMoment( start );
-		const endMoment = toMoment( end );
 
 		const timePickerProps = {
 			current: startMoment.format( 'HH:mm' ),
@@ -91,12 +92,6 @@ export default class EventDateTimeDashboard extends PureComponent {
 			showAllDay: true,
 			allDay,
 		};
-
-		if ( ! multiDay ) {
-			const max = endMoment.clone().subtract( 1, 'minutes' );
-			timePickerProps.end = roundTime( max ).format( 'HH:mm' );
-			timePickerProps.max = max.format( 'HH:mm' );
-		}
 
 		let startDate = toDate( toMoment( start ) );
 		if ( isSameYear( start, end ) && isSameYear( start, TODAY ) ) {
@@ -152,12 +147,6 @@ export default class EventDateTimeDashboard extends PureComponent {
 		};
 
 		if ( ! multiDay ) {
-		// if the start time has less than half an hour left in the day
-			if ( endMoment.clone().add( 1, 'days' ).startOf( 'day' ).diff( startMoment, 'seconds' ) <= time.HALF_HOUR_IN_SECONDS ) {
-				timePickerProps.start = endMoment.clone().endOf( 'day' ).format( 'HH:mm' );
-			} else {
-				timePickerProps.start = roundTime( startMoment ).add( 30, 'minutes' ).format( 'HH:mm' );
-			}
 			timePickerProps.min = startMoment.clone().add( 1, 'minutes' ).format( 'HH:mm' );
 		}
 
@@ -205,34 +194,38 @@ export default class EventDateTimeDashboard extends PureComponent {
 	render() {
 		const { multiDay, allDay, separatorTime, isDashboardOpen } = this.props;
 
-		return (
-			<Dashboard isOpen={ isDashboardOpen }>
-				<Fragment>
-					<section className="tribe-editor__calendars">
-						{ this.renderCalendars() }
-					</section>
-					<footer className="tribe-editor__subtitle__footer">
-						<div className="tribe-editor__subtitle__footer-date">
-							<div className="tribe-editor__subtitle__time-pickers">
-								{ this.renderStartTimePicker() }
-								{
-									( multiDay || ! allDay ) && (
-										<span className={ classNames( 'tribe-editor__separator', 'tribe-editor__time-picker__separator' ) }>
-											{ ' '.concat( separatorTime, ' ' ) }
-										</span>
-									)
-								}
-								{ this.renderEndTimePicker() }
+		return [
+			<Controls />,
+			(
+				<Dashboard isOpen={ isDashboardOpen }>
+					<Fragment>
+						<section className="tribe-editor__calendars">
+							{ this.renderCalendars() }
+						</section>
+						<footer className="tribe-editor__subtitle__footer">
+							<div className="tribe-editor__subtitle__footer-date">
+								<div className="tribe-editor__subtitle__time-pickers">
+									{ this.renderStartTimePicker() }
+									{
+										( multiDay || ! allDay ) && (
+											<span className={ classNames( 'tribe-editor__separator', 'tribe-editor__time-picker__separator' ) }>
+												{ ' '.concat( separatorTime, ' ' ) }
+											</span>
+										)
+									}
+									{ this.renderEndTimePicker() }
+								</div>
+								<div className="tribe-editor__subtitle__footer-multiday">
+									{ this.renderMultiDayToggle() }
+								</div>
 							</div>
-							<div className="tribe-editor__subtitle__footer-multiday">
-								{ this.renderMultiDayToggle() }
-							</div>
-						</div>
-						<DashboardHook />
-						{ ! this.shouldHideUpsell && <Upsell /> }
-					</footer>
-				</Fragment>
-			</Dashboard>
-		);
+							<DashboardHook />
+							{ ! this.shouldHideUpsell && <Upsell /> }
+						</footer>
+					</Fragment>
+				</Dashboard>
+
+			),
+		];
 	}
 }
