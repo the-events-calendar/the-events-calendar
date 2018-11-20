@@ -318,16 +318,6 @@ export function* handleEndTimeChange( action ) {
 	}
 }
 
-export function* handleStartDateTimeChange( action ) {
-	yield call( setHumanReadableFromDate, action );
-	yield call( preventEndTimeBeforeStartTime, action );
-}
-
-export function* handleEndDateTimeChange( action ) {
-	yield call( setHumanReadableFromDate, action );
-	yield call( preventStartTimeAfterEndTime, action );
-}
-
 export function* handler( action ) {
 	switch ( action.type ) {
 		case types.SET_TIME_ZONE:
@@ -335,25 +325,30 @@ export function* handler( action ) {
 			break;
 
 		case types.SET_START_DATE_TIME:
-			yield call( handleStartDateTimeChange, action );
+			yield call( preventEndTimeBeforeStartTime, action );
+			yield call( setHumanReadableFromDate, action );
 			break;
 
 		case types.SET_END_DATE_TIME:
-			yield call( handleEndDateTimeChange, action );
+			yield call( preventStartTimeAfterEndTime, action );
+			yield call( setHumanReadableFromDate, action );
 			break;
 
 		case types.SET_START_TIME:
 			yield call( handleStartTimeChange, action );
 			yield call( preventEndTimeBeforeStartTime, action );
+			yield call( resetNaturalLanguageLabel );
 			break;
 
 		case types.SET_END_TIME:
 			yield call( handleEndTimeChange, action );
 			yield call( preventStartTimeAfterEndTime, action );
+			yield call( resetNaturalLanguageLabel );
 			break;
 
 		case types.SET_MULTI_DAY:
 			yield call( handleMultiDay, action );
+			yield call( resetNaturalLanguageLabel );
 			break;
 
 		default:
