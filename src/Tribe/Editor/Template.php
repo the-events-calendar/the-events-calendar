@@ -16,13 +16,13 @@ class Tribe__Events__Editor__Template extends Tribe__Template {
 		// todo: update to the plugins directory only
 		$this->set_template_folder( 'src/views' );
 
-		$this->set_notices();
-
 		// Configures this templating class extract variables
 		$this->set_template_context_extract( true );
 
 		// Uses the public folders
 		$this->set_template_folder_lookup( true );
+
+		add_action( 'tribe_events_before_view', array( $this, 'set_notices' ), 0 );
 	}
 
 	/**

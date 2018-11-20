@@ -41,7 +41,7 @@ $website = tribe_get_organizer_website_link();
 			if ( ! empty( $phone ) ) {
 				?>
 				<dt>
-					<?php esc_html_e( 'Phone:', 'events-gutenberg' ) ?>
+					<?php esc_html_e( 'Phone:', 'the-events-calendar' ) ?>
 				</dt>
 				<dd class="tribe-organizer-tel">
 					<?php echo esc_html( $phone ); ?>
@@ -52,7 +52,7 @@ $website = tribe_get_organizer_website_link();
 			if ( ! empty( $email ) ) {
 				?>
 				<dt>
-					<?php esc_html_e( 'Email:', 'events-gutenberg' ) ?>
+					<?php esc_html_e( 'Email:', 'the-events-calendar' ) ?>
 				</dt>
 				<dd class="tribe-organizer-email">
 					<?php echo esc_html( $email ); ?>
@@ -63,7 +63,7 @@ $website = tribe_get_organizer_website_link();
 			if ( ! empty( $website ) ) {
 				?>
 				<dt>
-					<?php esc_html_e( 'Website:', 'events-gutenberg' ) ?>
+					<?php esc_html_e( 'Website:', 'the-events-calendar' ) ?>
 				</dt>
 				<dd class="tribe-organizer-url">
 					<?php echo $website; ?>
