@@ -1,9 +1,4 @@
 /**
- * WordPress dependencies
- */
-import { applyFilters } from '@wordpress/hooks';
-
-/**
  * Internal dependencies
  */
 import {
@@ -20,29 +15,13 @@ import {
 } from './actions';
 import { DEFAULT_STATE } from './reducer';
 import { maybeBulkDispatch } from '@moderntribe/events/data/utils';
-import { date, moment, time } from '@moderntribe/common/utils';
+import { date, moment } from '@moderntribe/common/utils';
 
 const {
 	isSameDay,
 	parseFormats,
-	replaceDate,
 	toDateTime,
-	toMoment,
-	adjustStart,
 } = moment;
-
-export const setDates = ( { start, end, from, to } ) => ( dispatch ) => {
-	const startMoment = toMoment( start );
-	const endMoment = toMoment( end );
-
-	const result = adjustStart(
-		replaceDate( startMoment, toMoment( from ) ),
-		replaceDate( endMoment, toMoment( to || from ) ),
-	);
-
-	dispatch( setStartDateTime( toDateTime( result.start ) ) );
-	dispatch( setEndDateTime( toDateTime( result.end ) ) );
-};
 
 export const setInitialState = ( { get, attributes } ) => ( dispatch ) => {
 	const timeZone = get( 'timeZone', DEFAULT_STATE.timeZone );

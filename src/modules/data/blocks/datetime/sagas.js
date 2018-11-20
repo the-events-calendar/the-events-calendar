@@ -191,6 +191,41 @@ export function* onTimeZoneChange( action ) {
 }
 
 /**
+ * Handle date range changes on calendar
+ *
+ * @export
+ * @since 4.7.0-beta1
+ * @param {Object} action Payload with to and from
+ */
+export function* handleDateRangeChange( action ) {
+	const { to, from } = action.payload;
+	const moments = yield call( deriveMomentsFromDates );
+
+	const rangeMoments = yield all( {
+		from: call( momentUtil.toMoment, from ),
+		to: call( momentUtil.toMoment, to || from ),
+	} );
+
+	// NOTE: Mutation
+	yield all( {
+		start: call( momentUtil.replaceDate, moments.start, rangeMoments.from ),
+		end: call( momentUtil.replaceDate, moments.end, rangeMoments.to ),
+	} );
+
+	const result = yield call( momentUtil.adjustStart, moments.start, moments.end );
+
+	const dates = yield all( {
+		start: call( momentUtil.toDateTime, result.start ),
+		end: call( momentUtil.toDateTime, result.end ),
+	} );
+
+	yield all( [
+		put( actions.setStartDateTime( dates.start ) ),
+		put( actions.setEndDateTime( dates.end ) ),
+	] );
+}
+
+/**
  * Prevents end time from being before start time.
  * Should only prevent when not a multi-day event.
  *
@@ -400,6 +435,11 @@ export function* handler( action ) {
 			yield call( onTimeZoneChange, action );
 			break;
 
+		case types.SET_DATE_RANGE:
+			yield call( handleDateRangeChange, action );
+			yield call( resetNaturalLanguageLabel );
+			break;
+
 		case types.SET_START_DATE_TIME:
 			yield call( preventEndTimeBeforeStartTime, action );
 			yield call( setHumanReadableFromDate, action );
@@ -453,6 +493,7 @@ export default function* watchers() {
 	// prevent changes from looping infinitely
 	while ( true ) {
 		const action = yield take( [
+			types.SET_DATE_RANGE,
 			types.SET_START_DATE_TIME,
 			types.SET_END_DATE_TIME,
 			types.SET_START_TIME,

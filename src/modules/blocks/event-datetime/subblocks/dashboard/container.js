@@ -25,9 +25,7 @@ import EventDateTimeDashboard from './template';
  */
 
 const onSelectDay = ( stateProps, dispatchProps ) => ( { from, to } ) => {
-	const { start, end } = stateProps;
-	const { setDates } = dispatchProps;
-	setDates( { start, end, from, to } );
+	dispatchProps.setDateRange( { from, to } );
 };
 
 const onStartTimePickerChange = ( stateProps, dispatchProps ) => ( e ) => {
