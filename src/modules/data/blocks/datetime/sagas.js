@@ -13,7 +13,11 @@ import {
 	actions,
 	thunks,
 } from '@moderntribe/events/data/blocks/datetime';
-import { date as dateUtil, moment as momentUtil, time as timeUtil } from '@moderntribe/common/utils';
+import {
+	date as dateUtil,
+	moment as momentUtil,
+	time as timeUtil,
+} from '@moderntribe/common/utils';
 
 const {
 	HALF_HOUR_IN_SECONDS,
@@ -151,40 +155,10 @@ export function* deriveSecondsFromDates() {
 }
 
 /**
- * Convert current start and end seconds into time object
- *
- * @export
- * @returns {Object} {start, end}
- */
-export function* deriveTimeFromSeconds( { start, end } ) {
-	const startTime = yield call( timeUtil.fromSeconds, start, timeUtil.TIME_FORMAT_HH_MM_SS );
-	const endTime = yield call( timeUtil.fromSeconds, end, timeUtil.TIME_FORMAT_HH_MM_SS );
-
-	const [ startHour, startMinute, startSecond ] = yield call( [ startTime, 'split' ], ':' );
-	const [ endHour, endMinute, endSecond ] = yield call( [ endTime, 'split' ], ':' );
-
-	return {
-		start: {
-			hour: startHour,
-			minute: startMinute,
-			second: startSecond,
-		},
-		end: {
-			hour: endHour,
-			minute: endMinute,
-			second: endSecond,
-		},
-	};
-}
-
-/**
  * Prevents end time from being before start time.
  * Should only prevent when not a multi-day event.
  *
  * @export
- * @param {Object} { actions } Actions for syncing
- * @param {Object} { startTime, endTime } Start and end time
- * @param {Object} action Action received
  */
 export function* preventEndTimeBeforeStartTime() {
 	const seconds = yield call( deriveSecondsFromDates );
@@ -198,14 +172,17 @@ export function* preventEndTimeBeforeStartTime() {
 
 		seconds.end = seconds.start + HALF_HOUR_IN_SECONDS;
 
-		const time = yield call( deriveTimeFromSeconds, seconds );
 		const moments = yield call( deriveMomentsFromDates );
-		const dates = {
-			start: moments.start.set( time.start ),
-			end: moments.end.set( time.end ),
-		};
 
-		yield put( thunks.setDateTime( dates ) );
+		const dates = yield all( {
+			start: call( momentUtil.setTimeInSeconds, moments.start, seconds.start ),
+			end: call( momentUtil.setTimeInSeconds, moments.ends, seconds.end ),
+		} );
+
+		yield all( [
+			put( actions.setStartDateTime( dates.start ) ),
+			put( actions.setEndDateTime( dates.end ) ),
+		] );
 	}
 }
 
@@ -214,9 +191,6 @@ export function* preventEndTimeBeforeStartTime() {
  * Should only prevent when not a multi-day event.
  *
  * @export
- * @param {Object} { actions } Actions for syncing
- * @param {Object} { startTime, endTime } Start and end time
- * @param {Object} action Action received
  */
 export function* preventStartTimeAfterEndTime() {
 	const seconds = yield call( deriveSecondsFromDates );
@@ -225,16 +199,16 @@ export function* preventStartTimeAfterEndTime() {
 		seconds.start = Math.max( seconds.end - HALF_HOUR_IN_SECONDS, 0 );
 		seconds.end = Math.max( seconds.start + MINUTE_IN_SECONDS, seconds.end );
 
-		const time = yield call( deriveTimeFromSeconds, seconds );
 		const moments = yield call( deriveMomentsFromDates );
-		const dates = {
-			start: moments.start.set( time.start ),
-			end: moments.end.set( time.end ),
-		};
+		const dates = yield all( {
+			start: call( momentUtil.setTimeInSeconds, moments.start, seconds.start ),
+			end: call( momentUtil.setTimeInSeconds, moments.ends, seconds.end ),
+		} );
 
-		console.warn( 'prevent start', seconds );
-
-		yield put( thunks.setDateTime( dates ) );
+		yield all( [
+			put( actions.setStartDateTime( dates.start ) ),
+			put( actions.setEndDateTime( dates.end ) ),
+		] );
 	}
 }
 
