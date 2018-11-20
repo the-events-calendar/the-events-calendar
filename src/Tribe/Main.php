@@ -261,7 +261,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @var array
 		 */
 		protected $addon_dependencies = array(
-			'events-pro' => '4.5beta',
+			'events-pro' => '4.5-beta',
 		);
 
 		/**
