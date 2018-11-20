@@ -51,7 +51,7 @@ export const setAllDay = ( { start, end, isAllDay } ) => ( dispatch ) => {
 	}
 
 	dispatch( setAllDayAction( isAllDay ) );
-}
+};
 
 export const setDates = ( { start, end, from, to } ) => ( dispatch ) => {
 	const startMoment = toMoment( start );
@@ -76,7 +76,7 @@ export const setDateTime = ( { start, end } ) => ( dispatch ) => {
 	dispatch( setStartDateTime( toDateTime( result.start ) ) );
 	dispatch( setEndDateTime( toDateTime( result.end ) ) );
 	dispatch( setMultiDayAction( isMultiDay ) );
-}
+};
 
 export const setMultiDay = ( { start, end, isMultiDay } ) => ( dispatch ) => {
 	if ( isMultiDay ) {
