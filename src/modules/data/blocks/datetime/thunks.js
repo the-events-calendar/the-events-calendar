@@ -33,68 +33,68 @@ const {
 } = moment;
 
 export const setStartTime = ( { start, seconds } ) => ( dispatch ) => {
-	const startDateTime = toDateTime( setTimeInSeconds( toMoment( start ), seconds ) );
-	dispatch( setStartDateTime( startDateTime ) );
+	// const startDateTime = toDateTime( setTimeInSeconds( toMoment( start ), seconds ) );
+	// dispatch( setStartDateTime( startDateTime ) );
 };
 
 export const setEndTime = ( { end, seconds } ) => ( dispatch ) => {
-	const endDateTime = toDateTime( setTimeInSeconds( toMoment( end ), seconds ) );
-	dispatch( setEndDateTime( endDateTime ) );
+	// const endDateTime = toDateTime( setTimeInSeconds( toMoment( end ), seconds ) );
+	// dispatch( setEndDateTime( endDateTime ) );
 };
 
 export const setAllDay = ( { start, end, isAllDay } ) => ( dispatch ) => {
-	if ( isAllDay ) {
-		const startDateTime = toDateTime( setTimeInSeconds( toMoment( start ), 0 ) );
-		const endDateTime = toDateTime( setTimeInSeconds( toMoment( end ), time.DAY_IN_SECONDS - 1 ) );
-		dispatch( setStartDateTime( startDateTime ) );
-		dispatch( setEndDateTime( endDateTime ) );
-	}
+	// if ( isAllDay ) {
+	// 	const startDateTime = toDateTime( setTimeInSeconds( toMoment( start ), 0 ) );
+	// 	const endDateTime = toDateTime( setTimeInSeconds( toMoment( end ), time.DAY_IN_SECONDS - 1 ) );
+	// 	dispatch( setStartDateTime( startDateTime ) );
+	// 	dispatch( setEndDateTime( endDateTime ) );
+	// }
 
-	dispatch( setAllDayAction( isAllDay ) );
+	// dispatch( setAllDayAction( isAllDay ) );
 };
 
 export const setDates = ( { start, end, from, to } ) => ( dispatch ) => {
-	const startMoment = toMoment( start );
-	const endMoment = toMoment( end );
+	// const startMoment = toMoment( start );
+	// const endMoment = toMoment( end );
 
-	const result = adjustStart(
-		replaceDate( startMoment, toMoment( from ) ),
-		replaceDate( endMoment, toMoment( to || from ) ),
-	);
+	// const result = adjustStart(
+	// 	replaceDate( startMoment, toMoment( from ) ),
+	// 	replaceDate( endMoment, toMoment( to || from ) ),
+	// );
 
-	dispatch( setStartDateTime( toDateTime( result.start ) ) );
-	dispatch( setEndDateTime( toDateTime( result.end ) ) );
+	// dispatch( setStartDateTime( toDateTime( result.start ) ) );
+	// dispatch( setEndDateTime( toDateTime( result.end ) ) );
 };
 
 export const setDateTime = ( { start, end } ) => ( dispatch ) => {
-	const result = adjustStart(
-		toMoment( start ),
-		toMoment( end || start ),
-	);
+	// const result = adjustStart(
+	// 	toMoment( start ),
+	// 	toMoment( end || start ),
+	// );
 
-	const isMultiDay = ! isSameDay( result.start, result.end );
-	dispatch( setStartDateTime( toDateTime( result.start ) ) );
-	dispatch( setEndDateTime( toDateTime( result.end ) ) );
-	dispatch( setMultiDayAction( isMultiDay ) );
+	// const isMultiDay = ! isSameDay( result.start, result.end );
+	// dispatch( setStartDateTime( toDateTime( result.start ) ) );
+	// dispatch( setEndDateTime( toDateTime( result.end ) ) );
+	// dispatch( setMultiDayAction( isMultiDay ) );
 };
 
 export const setMultiDay = ( { start, end, isMultiDay } ) => ( dispatch ) => {
-	if ( isMultiDay ) {
-		const RANGE_DAYS = applyFilters( 'tec.datetime.defaultRange', 3 );
-		const endMoment = toMoment( end ).clone().add( RANGE_DAYS, 'days' );
-		dispatch( setEndDateTime( toDateTime( endMoment ) ) );
-	} else {
-		const startMoment = toMoment( start );
-		const result = adjustStart(
-			startMoment,
-			replaceDate( toMoment( end ), startMoment ),
-		);
+	// if ( isMultiDay ) {
+	// 	const RANGE_DAYS = applyFilters( 'tec.datetime.defaultRange', 3 );
+	// 	const endMoment = toMoment( end ).clone().add( RANGE_DAYS, 'days' );
+	// 	dispatch( setEndDateTime( toDateTime( endMoment ) ) );
+	// } else {
+	// 	const startMoment = toMoment( start );
+	// 	const result = adjustStart(
+	// 		startMoment,
+	// 		replaceDate( toMoment( end ), startMoment ),
+	// 	);
 
-		dispatch( setStartDateTime( toDateTime( result.start ) ) );
-		dispatch( setEndDateTime( toDateTime( result.end ) ) );
-	}
+	// 	dispatch( setStartDateTime( toDateTime( result.start ) ) );
+	// 	dispatch( setEndDateTime( toDateTime( result.end ) ) );
+	// }
 
-	dispatch( setMultiDayAction( isMultiDay ) );
+	// dispatch( setMultiDayAction( isMultiDay ) );
 };
 
 export const setInitialState = ( { get, attributes } ) => ( dispatch ) => {

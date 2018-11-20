@@ -20,6 +20,7 @@ import {
 	selectors as priceSelectors,
 	actions as priceActions,
 } from '@moderntribe/events/data/blocks/price';
+import { time } from '@moderntribe/common/utils';
 import { withStore, withSaveData, withBlockCloser } from '@moderntribe/common/hoc';
 import EventDateTimeDashboard from './template';
 
@@ -34,8 +35,8 @@ const onSelectDay = ( stateProps, dispatchProps ) => ( { from, to } ) => {
 };
 
 const onStartTimePickerChange = ( stateProps, dispatchProps ) => ( e ) => {
-	console.warn( 'start', e.target.value );
-	dispatchProps.setStartTime( e.target.value );
+	const seconds = time.toSeconds( e.target.value );
+	dispatchProps.setStartTime( seconds );
 	// const { start, end } = stateProps;
 	// const { setStartTime } = dispatchProps;
 	// const [ hour, minute ] = e.target.value.split( ':' );
@@ -72,8 +73,8 @@ const onStartTimePickerClick = ( stateProps, dispatchProps ) => ( value, onClose
 };
 
 const onEndTimePickerChange = ( stateProps, dispatchProps ) => ( e ) => {
-	console.warn( 'end', e.target.value );
-	dispatchProps.setEndTime( e.target.value );
+	const seconds = time.toSeconds( e.target.value );
+	dispatchProps.setEndTime( seconds );
 
 	// const { start, end } = stateProps;
 	// const { setEndTime } = dispatchProps;
@@ -106,8 +107,7 @@ const onEndTimePickerClick = ( stateProps, dispatchProps ) => ( value, onClose )
 };
 
 const onMultiDayToggleChange = ( stateProps, dispatchProps ) => ( isMultiDay ) => {
-	const { start, end } = stateProps;
-	dispatchProps.setMultiDay( { start, end, isMultiDay } );
+	dispatchProps.setMultiDay( isMultiDay );
 };
 
 const mapStateToProps = ( state ) => ( {

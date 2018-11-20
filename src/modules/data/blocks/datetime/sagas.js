@@ -3,6 +3,7 @@
  */
 import { put, takeEvery, select, takeLatest, call, all } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
+import { applyFilters } from '@wordpress/hooks';
 
 /**
  * Internal dependencies
@@ -176,7 +177,7 @@ export function* preventEndTimeBeforeStartTime() {
 
 		const dates = yield all( {
 			start: call( momentUtil.setTimeInSeconds, moments.start, seconds.start ),
-			end: call( momentUtil.setTimeInSeconds, moments.ends, seconds.end ),
+			end: call( momentUtil.setTimeInSeconds, moments.end, seconds.end ),
 		} );
 
 		yield all( [
@@ -200,15 +201,93 @@ export function* preventStartTimeAfterEndTime() {
 		seconds.end = Math.max( seconds.start + MINUTE_IN_SECONDS, seconds.end );
 
 		const moments = yield call( deriveMomentsFromDates );
-		const dates = yield all( {
+
+		// NOTE: Mutation
+		yield all( {
 			start: call( momentUtil.setTimeInSeconds, moments.start, seconds.start ),
-			end: call( momentUtil.setTimeInSeconds, moments.ends, seconds.end ),
+			end: call( momentUtil.setTimeInSeconds, moments.end, seconds.end ),
+		} );
+
+		const dates = yield all( {
+			start: call( momentUtil.toDateTime, moments.start ),
+			end: call( momentUtil.toDateTime, moments.end ),
 		} );
 
 		yield all( [
 			put( actions.setStartDateTime( dates.start ) ),
 			put( actions.setEndDateTime( dates.end ) ),
 		] );
+	}
+}
+
+export function* setAllDay() {
+	const moments = yield call( deriveMomentsFromDates );
+
+	// NOTE: Mutation
+	yield all( {
+		start: call( momentUtil.setTimeInSeconds, moments.start, 0 ),
+		end: call( momentUtil.setTimeInSeconds, moments.end, timeUtil.DAY_IN_SECONDS - 1 ),
+	} );
+
+	const dates = yield all( {
+		start: call( momentUtil.toDateTime, moments.start ),
+		end: call( momentUtil.toDateTime, moments.end ),
+	} );
+
+	yield all( [
+		put( actions.setStartDateTime( dates.start ) ),
+		put( actions.setEndDateTime( dates.end ) ),
+		put( actions.setAllDay( true ) ),
+	] );
+}
+
+export function* handleMultiDay( action ) {
+	const isMultiDay = action.payload.multiDay;
+	const { start, end } = yield call( deriveMomentsFromDates );
+
+	if ( isMultiDay ) {
+		const RANGE_DAYS = yield call( applyFilters, 'tec.datetime.defaultRange', 3 );
+		// NOTE: Mutation
+		yield call( [ end, 'add' ], RANGE_DAYS, 'days' );
+		const endDate = yield call( momentUtil.toDateTime, end );
+		yield put( actions.setEndDateTime( endDate ) );
+	} else {
+		const newEnd = yield call( momentUtil.replaceDate, end, start );
+		const result = yield call( momentUtil.adjustStart, start, newEnd );
+
+		const dates = yield all( {
+			start: call( momentUtil.toDateTime, result.start ),
+			end: call( momentUtil.toDateTime, result.end ),
+		} );
+
+		yield all( [
+			put( actions.setStartDateTime( dates.start ) ),
+			put( actions.setEndDateTime( dates.end ) ),
+		] );
+	}
+}
+
+export function* handleStartTimeChange( action ) {
+	if ( action.payload.start === 'all-day' ) {
+		yield call( setAllDay );
+	} else {
+		const { start } = yield call( deriveMomentsFromDates );
+		// NOTE: Mutation
+		yield call( momentUtil.setTimeInSeconds, start, action.payload.start );
+		const startDate = yield call( momentUtil.toDateTime, start );
+		yield put( actions.setStartDateTime( startDate ) );
+	}
+}
+
+export function* handleEndTimeChange( action ) {
+	if ( action.payload.end === 'all-day' ) {
+		yield call( setAllDay );
+	} else {
+		const { end } = yield call( deriveMomentsFromDates );
+		// NOTE: Mutation
+		yield call( momentUtil.setTimeInSeconds, end, action.payload.end );
+		const endDate = yield call( momentUtil.toDateTime, end );
+		yield put( actions.setEndDateTime( endDate ) );
 	}
 }
 
@@ -226,6 +305,37 @@ export function* handleEndDateTimeChange( action ) {
 	}
 }
 
+export function* handler( action ) {
+	switch ( action.type ) {
+		case types.SET_TIME_ZONE:
+			yield call( onTimeZoneChange, action );
+			break;
+
+		case types.SET_START_DATE_TIME:
+			yield call( handleStartDateTimeChange, action );
+			break;
+
+		case types.SET_END_DATE_TIME:
+			yield call( handleEndDateTimeChange, action );
+			break;
+
+		case types.SET_START_TIME:
+			yield call( handleStartTimeChange, action );
+			break;
+
+		case types.SET_END_TIME:
+			yield call( handleEndTimeChange, action );
+			break;
+
+		case types.SET_MULTI_DAY:
+			yield call( handleMultiDay, action );
+			break;
+
+		default:
+			break;
+	}
+}
+
 /**
  * Watchers of actions and act accordingly to each.
  *
@@ -234,8 +344,14 @@ export function* handleEndDateTimeChange( action ) {
  * @returns {IterableIterator<*|ForkEffect>}
  */
 export default function* watchers() {
-	yield takeEvery( types.SET_START_DATE_TIME, handleStartDateTimeChange );
-	yield takeEvery( types.SET_END_DATE_TIME, handleEndDateTimeChange );
-	yield takeEvery( types.SET_TIME_ZONE, onTimeZoneChange );
 	yield takeLatest( types.SET_NATURAL_LANGUAGE_LABEL, onHumanReadableChange );
+
+	yield takeEvery( [
+		types.SET_START_DATE_TIME,
+		types.SET_END_DATE_TIME,
+		types.SET_START_TIME,
+		types.SET_END_TIME,
+		types.SET_MULTI_DAY,
+		types.SET_TIME_ZONE,
+	], handler );
 }
