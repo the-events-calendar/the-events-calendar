@@ -20,7 +20,7 @@ import {
 } from './actions';
 import { DEFAULT_STATE } from './reducer';
 import { maybeBulkDispatch } from '@moderntribe/events/data/utils';
-import { date, moment } from '@moderntribe/common/utils';
+import { date, moment, time } from '@moderntribe/common/utils';
 
 const {
 	isSameDay,

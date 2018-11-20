@@ -16,10 +16,6 @@ import {
 	actions as UIActions,
 	selectors as UISelectors,
 } from '@moderntribe/events/data/ui';
-import {
-	selectors as priceSelectors,
-	actions as priceActions,
-} from '@moderntribe/events/data/blocks/price';
 import { time } from '@moderntribe/common/utils';
 import { withStore, withSaveData, withBlockCloser } from '@moderntribe/common/hoc';
 import EventDateTimeDashboard from './template';

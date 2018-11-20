@@ -1,7 +1,7 @@
 /**
  * External Dependencies
  */
-import { put, take, select, takeLatest, call, all } from 'redux-saga/effects';
+import { put, fork, take, select, takeLatest, call, all } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
 import { applyFilters } from '@wordpress/hooks';
 
@@ -104,12 +104,30 @@ export function* onHumanReadableChange() {
 	yield call( delay, 700 );
 
 	const label = yield select( selectors.getNaturalLanguageLabel );
-	const dates = dateUtil.labelToDate( label );
+	const { start, end } = dateUtil.labelToDate( label );
 
-	if ( dates.start === null && dates.end === null ) {
+	if ( start === null && end === null ) {
 		yield call( resetNaturalLanguageLabel );
 	} else {
-		yield put( thunks.setDateTime( dates ) );
+		const moments = yield all( {
+			start: call( momentUtil.toMoment, start ),
+			end: call( momentUtil.toMoment, end || start ),
+		} );
+
+		const result = yield call( momentUtil.adjustStart, moments.start, moments.end );
+
+		const isMultiDay = ! ( yield call( momentUtil.isSameDay, result.start, result.end ) );
+
+		const dates = yield all( {
+			start: call( momentUtil.toDateTime, result.start ),
+			end: call( momentUtil.toDateTime, result.end ),
+		} );
+
+		yield all( [
+			put( actions.setStartDateTime( dates.start ) ),
+			put( actions.setEndDateTime( dates.end ) ),
+			put( actions.setMultiDay( isMultiDay ) ),
+		] );
 	}
 }
 
@@ -351,8 +369,28 @@ export function* handler( action ) {
 			yield call( resetNaturalLanguageLabel );
 			break;
 
+		case types.SET_NATURAL_LANGUAGE_LABEL:
+			yield call( onHumanReadableChange, action );
+			break;
+
 		default:
 			break;
+	}
+}
+
+export function* changeWatcher() {
+	// prevent changes from looping infinitely
+	while ( true ) {
+		const action = yield take( [
+			types.SET_START_DATE_TIME,
+			types.SET_END_DATE_TIME,
+			types.SET_START_TIME,
+			types.SET_END_TIME,
+			types.SET_MULTI_DAY,
+			types.SET_TIME_ZONE,
+			types.SET_NATURAL_LANGUAGE_LABEL,
+		] );
+		yield call( handler, action );
 	}
 }
 
@@ -364,17 +402,5 @@ export function* handler( action ) {
  * @returns {IterableIterator<*|ForkEffect>}
  */
 export default function* watchers() {
-	yield takeLatest( types.SET_NATURAL_LANGUAGE_LABEL, onHumanReadableChange );
-
-	while ( true ) {
-		const action = yield take( [
-			types.SET_START_DATE_TIME,
-			types.SET_END_DATE_TIME,
-			types.SET_START_TIME,
-			types.SET_END_TIME,
-			types.SET_MULTI_DAY,
-			types.SET_TIME_ZONE,
-		] );
-		yield call( handler, action );
-	}
+	yield fork( changeWatcher );
 }
