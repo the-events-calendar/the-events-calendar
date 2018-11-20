@@ -63,7 +63,7 @@ $is_same_day      = $formatted_start_date == $formatted_end_date;
 				<?php echo $formatted_start_time; ?>
 			</span>
 		<?php elseif ( $is_same_day ) : ?>
-			<span class="tribe-events-schedule__all-day"><?php echo __( 'All day', 'events-gutenberg' ); ?></span>
+			<span class="tribe-events-schedule__all-day"><?php echo __( 'All day', 'the-events-calendar' ); ?></span>
 		<?php endif; ?>
 
 		<?php if ( ! $is_all_day || ! $is_same_day ) : ?>

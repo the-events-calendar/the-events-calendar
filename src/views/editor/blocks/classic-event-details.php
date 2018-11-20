@@ -35,7 +35,7 @@ $time_formatted = apply_filters( 'tribe_events_single_event_time_formatted', $ti
  * @var string Time title
  * @var int Event post id
  */
-$time_title = apply_filters( 'tribe_events_single_event_time_title', __( 'Time:', 'events-gutenberg' ), $event_id );
+$time_title = apply_filters( 'tribe_events_single_event_time_title', __( 'Time:', 'the-events-calendar' ), $event_id );
 
 $website = tribe_get_event_website_link();
 ?>
