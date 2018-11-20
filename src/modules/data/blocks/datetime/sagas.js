@@ -1,7 +1,7 @@
 /**
  * External Dependencies
  */
-import { put, takeEvery, select, takeLatest, call, all } from 'redux-saga/effects';
+import { put, take, select, takeLatest, call, all } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
 import { applyFilters } from '@wordpress/hooks';
 
@@ -150,8 +150,8 @@ export function* deriveSecondsFromDates() {
 	const moments = yield call( deriveMomentsFromDates );
 
 	return yield all( {
-		start: yield call( timeUtil.toSeconds, moments.start.format( timeUtil.TIME_FORMAT_HH_MM_SS ) ),
-		end: yield call( timeUtil.toSeconds, moments.end.format( timeUtil.TIME_FORMAT_HH_MM_SS ) ),
+		start: yield call( timeUtil.toSeconds, moments.start.format( 'HH:mm:ss' ) ),
+		end: yield call( timeUtil.toSeconds, moments.end.format( 'HH:mm:ss' ) ),
 	} );
 }
 
@@ -161,8 +161,15 @@ export function* deriveSecondsFromDates() {
  *
  * @export
  */
-export function* preventEndTimeBeforeStartTime() {
+export function* preventEndTimeBeforeStartTime( action ) {
+	const isMultiDay = yield select( selectors.getMultiDay );
+	if ( isMultiDay ) {
+		return;
+	}
+
 	const seconds = yield call( deriveSecondsFromDates );
+	// NOTE: Mutation
+	yield call( [ Object, 'assign' ], seconds, action.payload );
 
 	// 	// If end time is earlier than start time, fix time
 	if ( seconds.end <= seconds.start ) {
@@ -193,8 +200,15 @@ export function* preventEndTimeBeforeStartTime() {
  *
  * @export
  */
-export function* preventStartTimeAfterEndTime() {
+export function* preventStartTimeAfterEndTime( action ) {
+	const isMultiDay = yield select( selectors.getMultiDay );
+	if ( isMultiDay ) {
+		return;
+	}
+
 	const seconds = yield call( deriveSecondsFromDates );
+	// NOTE: Mutation
+	yield call( [ Object, 'assign' ], seconds, action.payload );
 
 	if ( seconds.start >= seconds.end ) {
 		seconds.start = Math.max( seconds.end - HALF_HOUR_IN_SECONDS, 0 );
@@ -293,16 +307,12 @@ export function* handleEndTimeChange( action ) {
 
 export function* handleStartDateTimeChange( action ) {
 	yield call( setHumanReadableFromDate, action );
-	if ( ! ( yield select( selectors.getMultiDay ) ) ) {
-		yield call( preventEndTimeBeforeStartTime );
-	}
+	yield call( preventEndTimeBeforeStartTime, action );
 }
 
 export function* handleEndDateTimeChange( action ) {
 	yield call( setHumanReadableFromDate, action );
-	if ( ! ( yield select( selectors.getMultiDay ) ) ) {
-		yield call( preventStartTimeAfterEndTime );
-	}
+	yield call( preventStartTimeAfterEndTime, action );
 }
 
 export function* handler( action ) {
@@ -321,10 +331,12 @@ export function* handler( action ) {
 
 		case types.SET_START_TIME:
 			yield call( handleStartTimeChange, action );
+			yield call( preventEndTimeBeforeStartTime, action );
 			break;
 
 		case types.SET_END_TIME:
 			yield call( handleEndTimeChange, action );
+			yield call( preventStartTimeAfterEndTime, action );
 			break;
 
 		case types.SET_MULTI_DAY:
@@ -346,12 +358,15 @@ export function* handler( action ) {
 export default function* watchers() {
 	yield takeLatest( types.SET_NATURAL_LANGUAGE_LABEL, onHumanReadableChange );
 
-	yield takeEvery( [
-		types.SET_START_DATE_TIME,
-		types.SET_END_DATE_TIME,
-		types.SET_START_TIME,
-		types.SET_END_TIME,
-		types.SET_MULTI_DAY,
-		types.SET_TIME_ZONE,
-	], handler );
+	while ( true ) {
+		const action = yield take( [
+			types.SET_START_DATE_TIME,
+			types.SET_END_DATE_TIME,
+			types.SET_START_TIME,
+			types.SET_END_TIME,
+			types.SET_MULTI_DAY,
+			types.SET_TIME_ZONE,
+		] );
+		yield call( handler, action );
+	}
 }
