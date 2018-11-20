@@ -1,7 +1,7 @@
 /**
  * External Dependencies
  */
-import { put, fork, take, select, takeLatest, call, all } from 'redux-saga/effects';
+import { put, take, select, takeLatest, call, all } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
 import { applyFilters } from '@wordpress/hooks';
 
@@ -12,7 +12,6 @@ import {
 	types,
 	selectors,
 	actions,
-	thunks,
 } from '@moderntribe/events/data/blocks/datetime';
 import {
 	date as dateUtil,
@@ -26,6 +25,53 @@ const {
 	HOUR_IN_SECONDS,
 	MINUTE_IN_SECONDS,
 } = timeUtil;
+
+//
+// ──────────────────────────────────────────────────── I ──────────
+//   :::::: D E R I V E : :  :   :    :     :        :          :
+// ──────────────────────────────────────────────────────────────
+//
+
+/**
+ * Convert current start and end date into seconds
+ *
+ * @export
+ * @since 4.7.0-beta1
+ * @returns {Object} {start, end}
+ */
+export function* deriveMomentsFromDates() {
+	const dates = yield all( {
+		start: select( selectors.getStart ),
+		end: select( selectors.getEnd ),
+	} );
+
+	return yield all( {
+		start: yield call( momentUtil.toMoment, dates.start ),
+		end: yield call( momentUtil.toMoment, dates.end ),
+	} );
+}
+
+/**
+ * Convert current start and end date into seconds
+ *
+ * @export
+ * @since 4.7.0-beta1
+ * @returns {Object} {start, end}
+ */
+export function* deriveSecondsFromDates() {
+	const moments = yield call( deriveMomentsFromDates );
+
+	return yield all( {
+		start: yield call( timeUtil.toSeconds, moments.start.format( 'HH:mm:ss' ) ),
+		end: yield call( timeUtil.toSeconds, moments.end.format( 'HH:mm:ss' ) ),
+	} );
+}
+
+//
+// ──────────────────────────────────────────────────────────────────── II ──────────
+//   :::::: H U M A N   R E A D A B L E : :  :   :    :     :        :          :
+// ──────────────────────────────────────────────────────────────────────────────
+//
 
 /**
  * Set the human readable label into the store, based on a start and end date to generate a new label based on those
@@ -100,9 +146,6 @@ export function* resetNaturalLanguageLabel() {
  * @returns {IterableIterator<*>}
  */
 export function* onHumanReadableChange() {
-	// Wait in case there's a new change on the input
-	yield call( delay, 700 );
-
 	const label = yield select( selectors.getNaturalLanguageLabel );
 	const { start, end } = dateUtil.labelToDate( label );
 
@@ -131,46 +174,20 @@ export function* onHumanReadableChange() {
 	}
 }
 
+//
+// ────────────────────────────────────────────────────────────────────── III ──────────
+//   :::::: C H A N G E   H A N D L E R S : :  :   :    :     :        :          :
+// ────────────────────────────────────────────────────────────────────────────────
+//
+
 /**
  * Set timezone label on timezone change
  *
  * @since 0.3.5-alpha
+ * @param {Object} action Payload with timeZone
  */
 export function* onTimeZoneChange( action ) {
 	yield put( actions.setTimeZoneLabel( action.payload.timeZone ) );
-}
-
-/**
- * Convert current start and end date into seconds
- *
- * @export
- * @returns {Object} {start, end}
- */
-export function* deriveMomentsFromDates() {
-	const dates = yield all( {
-		start: select( selectors.getStart ),
-		end: select( selectors.getEnd ),
-	} );
-
-	return yield all( {
-		start: yield call( momentUtil.toMoment, dates.start ),
-		end: yield call( momentUtil.toMoment, dates.end ),
-	} );
-}
-
-/**
- * Convert current start and end date into seconds
- *
- * @export
- * @returns {Object} {start, end}
- */
-export function* deriveSecondsFromDates() {
-	const moments = yield call( deriveMomentsFromDates );
-
-	return yield all( {
-		start: yield call( timeUtil.toSeconds, moments.start.format( 'HH:mm:ss' ) ),
-		end: yield call( timeUtil.toSeconds, moments.end.format( 'HH:mm:ss' ) ),
-	} );
 }
 
 /**
@@ -178,15 +195,18 @@ export function* deriveSecondsFromDates() {
  * Should only prevent when not a multi-day event.
  *
  * @export
+ * @since 4.7.0-beta1
+ * @param {Object} action Payload with seconds in start or end key (when time change)
  */
 export function* preventEndTimeBeforeStartTime( action ) {
 	const isMultiDay = yield select( selectors.getMultiDay );
+	// Do not proceed when multi-day
 	if ( isMultiDay ) {
 		return;
 	}
 
 	const seconds = yield call( deriveSecondsFromDates );
-
+	// Prevent only date changes from using payload
 	if ( [ types.SET_END_TIME, types.SET_START_TIME ].includes( action.type ) ) {
 		// Update seconds to use payload
 		// NOTE: Mutation
@@ -227,14 +247,19 @@ export function* preventEndTimeBeforeStartTime( action ) {
  * Should only prevent when not a multi-day event.
  *
  * @export
+ * @since 4.7.0-beta1
+ * @param {Object} action Payload with seconds in start or end key (when time change)
  */
 export function* preventStartTimeAfterEndTime( action ) {
 	const isMultiDay = yield select( selectors.getMultiDay );
+	// Do not proceed when multi-day
 	if ( isMultiDay ) {
 		return;
 	}
 
 	const seconds = yield call( deriveSecondsFromDates );
+
+	// Prevent only date changes from using payload
 	if ( [ types.SET_END_TIME, types.SET_START_TIME ].includes( action.type ) ) {
 		// Update seconds to use payload
 		// NOTE: Mutation
@@ -264,7 +289,12 @@ export function* preventStartTimeAfterEndTime( action ) {
 		] );
 	}
 }
-
+/**
+ * Handles all-day payloads. Set start and end time to be `00:00` and `23:59`
+ *
+ * @export
+ * @since 4.7.0-beta1
+ */
 export function* setAllDay() {
 	const moments = yield call( deriveMomentsFromDates );
 
@@ -286,6 +316,13 @@ export function* setAllDay() {
 	] );
 }
 
+/**
+ * Handles multi-day toggling
+ *
+ * @export
+ * @since 4.7.0-beta1
+ * @param {Object} action Payload with multiDay
+ */
 export function* handleMultiDay( action ) {
 	const isMultiDay = action.payload.multiDay;
 	const { start, end } = yield call( deriveMomentsFromDates );
@@ -312,6 +349,13 @@ export function* handleMultiDay( action ) {
 	}
 }
 
+/**
+ * Handles event start time changes
+ *
+ * @export
+ * @since 4.7.0-beta1
+ * @param {Object} action Payload with start of `all-day` or seconds
+ */
 export function* handleStartTimeChange( action ) {
 	if ( action.payload.start === 'all-day' ) {
 		yield call( setAllDay );
@@ -324,6 +368,13 @@ export function* handleStartTimeChange( action ) {
 	}
 }
 
+/**
+ * Handles event end time changes
+ *
+ * @export
+ * @since 4.7.0-beta1
+ * @param {Object} action Payload with end of `all-day` or seconds
+ */
 export function* handleEndTimeChange( action ) {
 	if ( action.payload.end === 'all-day' ) {
 		yield call( setAllDay );
@@ -336,6 +387,13 @@ export function* handleEndTimeChange( action ) {
 	}
 }
 
+/**
+ * Handle flow changes based on action type
+ *
+ * @export
+ * @since 4.7.0-beta1
+ * @param {Object} action Action taken
+ */
 export function* handler( action ) {
 	switch ( action.type ) {
 		case types.SET_TIME_ZONE:
@@ -378,7 +436,20 @@ export function* handler( action ) {
 	}
 }
 
-export function* changeWatcher() {
+//
+// ──────────────────────────────────────────────────────── IV ──────────
+//   :::::: W A T C H E R S : :  :   :    :     :        :          :
+// ──────────────────────────────────────────────────────────────────
+//
+
+/**
+ * Watchers of actions and act accordingly to each.
+ *
+ * @since 0.3.1-alpha
+ *
+ * @returns {IterableIterator<*|ForkEffect>}
+ */
+export default function* watchers() {
 	// prevent changes from looping infinitely
 	while ( true ) {
 		const action = yield take( [
@@ -392,15 +463,4 @@ export function* changeWatcher() {
 		] );
 		yield call( handler, action );
 	}
-}
-
-/**
- * Watchers of actions and act accordingly to each.
- *
- * @since 0.3.1-alpha
- *
- * @returns {IterableIterator<*|ForkEffect>}
- */
-export default function* watchers() {
-	yield fork( changeWatcher );
 }
