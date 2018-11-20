@@ -14,6 +14,11 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 	 * @return void
 	 */
 	public function register() {
+
+		// Provide backwards compatibility for meta data
+		$post_type = Tribe__Events__Main::POSTTYPE;
+		add_filter( "rest_prepare_{$post_type}", array( $this, 'meta_backwards_compatibility' ), 10, 3 );
+
 		register_meta( 'post', '_EventAllDay', $this->boolean() );
 		register_meta( 'post', '_EventTimezone', $this->text() );
 		register_meta( 'post', '_EventStartDate', $this->text() );
@@ -87,5 +92,28 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 		register_meta( 'post', '_VenueStateProvince', $this->text() );
 		register_meta( 'post', '_VenueLat', $this->text() );
 		register_meta( 'post', '_VenueLng', $this->text() );
+	}
+
+	/**
+	 * Make sure we make the REST response backwards compatible.
+	 *
+	 * @since TBD
+	 *
+	 * @param WP_REST_Response $data
+	 * @param WP_Post          $post    Post object.
+	 * @param WP_REST_Request  $request Request object.
+	 *
+	 * @return WP_REST_Response $data
+	 */
+	public function meta_backwards_compatibility( $data, $post, $request ) {
+
+		$all_day = get_post_meta( $post->ID, '_EventAllDay', true );
+
+		if ( $all_day ) {
+			// transform `yes` and `no` to booleans
+			$data->data['meta']['_EventAllDay'] = tribe_is_truthy( $all_day );
+		}
+
+		return $data;
 	}
 }
