@@ -19,7 +19,7 @@ const PLUGIN_TEMPLATES = {
 	],
 };
 
-const PluginDateTimeBlockHooks = () => {
+const DashboardHook = () => {
 	return (
 		<PluginBlockHooks
 			pluginTemplates={ PLUGIN_TEMPLATES }
@@ -28,6 +28,6 @@ const PluginDateTimeBlockHooks = () => {
 	);
 };
 
-PluginDateTimeBlockHooks.propTypes = {};
+DashboardHook.propTypes = {};
 
-export default PluginDateTimeBlockHooks;
+export default DashboardHook;
