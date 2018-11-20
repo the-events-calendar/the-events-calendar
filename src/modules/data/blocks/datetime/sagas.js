@@ -168,8 +168,12 @@ export function* preventEndTimeBeforeStartTime( action ) {
 	}
 
 	const seconds = yield call( deriveSecondsFromDates );
-	// NOTE: Mutation
-	yield call( [ Object, 'assign' ], seconds, action.payload );
+
+	if ( [ types.SET_END_TIME, types.SET_START_TIME ].includes( action.type ) ) {
+		// Update seconds to use payload
+		// NOTE: Mutation
+		yield call( [ Object, 'assign' ], seconds, action.payload );
+	}
 
 	// 	// If end time is earlier than start time, fix time
 	if ( seconds.end <= seconds.start ) {
@@ -182,9 +186,15 @@ export function* preventEndTimeBeforeStartTime( action ) {
 
 		const moments = yield call( deriveMomentsFromDates );
 
-		const dates = yield all( {
+		// NOTE: Mutation
+		yield all( {
 			start: call( momentUtil.setTimeInSeconds, moments.start, seconds.start ),
 			end: call( momentUtil.setTimeInSeconds, moments.end, seconds.end ),
+		} );
+
+		const dates = yield all( {
+			start: call( momentUtil.toDateTime, moments.start ),
+			end: call( momentUtil.toDateTime, moments.end ),
 		} );
 
 		yield all( [
@@ -207,8 +217,11 @@ export function* preventStartTimeAfterEndTime( action ) {
 	}
 
 	const seconds = yield call( deriveSecondsFromDates );
-	// NOTE: Mutation
-	yield call( [ Object, 'assign' ], seconds, action.payload );
+	if ( [ types.SET_END_TIME, types.SET_START_TIME ].includes( action.type ) ) {
+		// Update seconds to use payload
+		// NOTE: Mutation
+		yield call( [ Object, 'assign' ], seconds, action.payload );
+	}
 
 	if ( seconds.start >= seconds.end ) {
 		seconds.start = Math.max( seconds.end - HALF_HOUR_IN_SECONDS, 0 );
