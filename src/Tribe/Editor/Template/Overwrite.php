@@ -104,7 +104,7 @@ class Tribe__Events__Editor__Template__Overwrite {
 		// Set globals to allow better usage of render method for each block
 		tribe( 'events.editor.template' )->add_template_globals( $args );
 
-		return tribe( 'events.editor.template' )->template( 'single-event' );
+		return tribe( 'events.editor.template' )->template( array( 'editor', 'single-event' ) );
 	}
 
 	/**
