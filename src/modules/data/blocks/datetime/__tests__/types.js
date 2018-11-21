@@ -6,8 +6,11 @@ import { PREFIX_EVENTS_STORE } from '@moderntribe/events/data/utils';
 
 describe( '[STORE] - Datetime types', () => {
 	it( 'Should return the types values', () => {
+		expect( types.SET_DATE_RANGE ).toBe( `${ PREFIX_EVENTS_STORE }/SET_DATE_RANGE` );
 		expect( types.SET_END_DATE_TIME ).toBe( `${ PREFIX_EVENTS_STORE }/SET_END_DATE_TIME` );
 		expect( types.SET_START_DATE_TIME ).toBe( `${ PREFIX_EVENTS_STORE }/SET_START_DATE_TIME` );
+		expect( types.SET_END_TIME ).toBe( `${ PREFIX_EVENTS_STORE }/SET_END_TIME` );
+		expect( types.SET_START_TIME ).toBe( `${ PREFIX_EVENTS_STORE }/SET_START_TIME` );
 		expect( types.SET_ALL_DAY ).toBe( `${ PREFIX_EVENTS_STORE }/SET_ALL_DAY` );
 		expect( types.SET_TIME_ZONE ).toBe( `${ PREFIX_EVENTS_STORE }/SET_TIME_ZONE` );
 		expect( types.SET_MULTI_DAY ).toBe( `${ PREFIX_EVENTS_STORE }/SET_MULTI_DAY` );

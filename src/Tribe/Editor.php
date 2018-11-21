@@ -42,6 +42,55 @@ class Tribe__Events__Editor extends Tribe__Editor {
 
 		// Make sure Events supports 'custom-fields'
 		add_action( 'init', array( $this, 'add_event_custom_field_support' ), 11 );
+
+		/**
+		 * @todo Move away from the generic to the new filter once it's introduced
+		 *       See: https://core.trac.wordpress.org/ticket/45275
+		 *
+		 *       E.g.: `use_block_editor_for_{post_type}`
+		 */
+		add_filter( 'use_block_editor_for_post_type', array( $this, 'deactivate_blocks_editor_venue' ), 10, 2 );
+		add_filter( 'use_block_editor_for_post_type', array( $this, 'deactivate_blocks_editor_organizer' ), 10, 2 );
+	}
+
+	/**
+	 * For now we dont use Blocks editor on the Post Type for Organizers
+	 *
+	 * @todo  see https://core.trac.wordpress.org/ticket/45275
+	 *
+	 * @since  TBD
+	 *
+	 * @param  boolean $is_enabled
+	 * @param  string  $post_type
+	 *
+	 * @return boolean
+	 */
+	public function deactivate_blocks_editor_organizer( $is_enabled, $post_type ) {
+		if ( Tribe__Events__Organizer::POSTTYPE === $post_type ) {
+			return false;
+		}
+
+		return $is_enabled;
+	}
+
+	/**
+	 * For now we dont use Blocks editor on the Post Type for Venues
+	 *
+	 * @todo  see https://core.trac.wordpress.org/ticket/45275
+	 *
+	 * @since  TBD
+	 *
+	 * @param  boolean $is_enabled
+	 * @param  string  $post_type
+	 *
+	 * @return boolean
+	 */
+	public function deactivate_blocks_editor_venue( $is_enabled, $post_type ) {
+		if ( Tribe__Events__Venue::POSTTYPE === $post_type ) {
+			return false;
+		}
+
+		return $is_enabled;
 	}
 
 	/**

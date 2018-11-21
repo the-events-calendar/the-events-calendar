@@ -22,7 +22,8 @@ import './style.pcss';
 const today = new Date();
 const currentYear = today.getFullYear();
 const currentMonth = today.getMonth();
-const fromMonth = new Date( currentYear, currentMonth );
+const yearsBack = 5;
+const fromMonth = new Date( currentYear - yearsBack, currentMonth );
 const toMonth = new Date( currentYear + 10, 11 );
 
 export default class Month extends Component {

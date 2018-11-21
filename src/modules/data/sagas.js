@@ -14,7 +14,7 @@ import * as website from '@moderntribe/events/data/blocks/website';
 import * as sharing from '@moderntribe/events/data/blocks/sharing';
 import * as classic from '@moderntribe/events/data/blocks/classic';
 
-[
+export default () => [
 	price.sagas,
 	venue.sagas,
 	website.sagas,
