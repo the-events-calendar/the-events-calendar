@@ -55,6 +55,7 @@ class EventDateTime extends PureComponent {
 					<InnerBlocks
 						template={ this.template }
 						templateLock="all"
+						templateInsertUpdatesSelection={ false }
 					/>
 				</section>
 			),
