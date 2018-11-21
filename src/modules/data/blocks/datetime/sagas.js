@@ -246,7 +246,7 @@ export function* preventEndTimeBeforeStartTime( action ) {
 		yield call( [ Object, 'assign' ], seconds, action.payload );
 	}
 
-	// 	// If end time is earlier than start time, fix time
+	// If end time is earlier than start time, fix time
 	if ( seconds.end <= seconds.start ) {
 		// If there is less than half an hour left in the day, roll back one hour
 		if ( seconds.start + HALF_HOUR_IN_SECONDS >= DAY_IN_SECONDS ) {
