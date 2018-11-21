@@ -69,18 +69,21 @@ describe( 'Event Date time Block sagas', () => {
 			);
 
 			const moments = {
-				start: {
-					format: jest.fn( () => 1 ),
-				},
-				end: {
-					format: jest.fn( () => 2 ),
-				},
+				start: 1,
+				end: 2,
 			};
 
 			expect( gen.next( moments ).value ).toEqual(
 				all( {
-					start: call( timeUtil.toSeconds, 1 ),
-					end: call( timeUtil.toSeconds, 2 ),
+					start: call( momentUtil.toDatabaseTime, moments.start ),
+					end: call( momentUtil.toDatabaseTime, moments.end ),
+				} )
+			);
+
+			expect( gen.next( { start: '01:00:00', end: '02:00:00' } ).value ).toEqual(
+				all( {
+					start: call( timeUtil.toSeconds, '01:00:00' ),
+					end: call( timeUtil.toSeconds, '02:00:00' ),
 				} )
 			);
 		} );

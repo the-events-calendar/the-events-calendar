@@ -60,9 +60,14 @@ export function* deriveMomentsFromDates() {
 export function* deriveSecondsFromDates() {
 	const moments = yield call( deriveMomentsFromDates );
 
+	const time = yield all( {
+		start: call( momentUtil.toDatabaseTime, moments.start ),
+		end: call( momentUtil.toDatabaseTime, moments.end ),
+	} );
+
 	return yield all( {
-		start: call( timeUtil.toSeconds, moments.start.format( 'HH:mm:ss' ) ),
-		end: call( timeUtil.toSeconds, moments.end.format( 'HH:mm:ss' ) ),
+		start: call( timeUtil.toSeconds, time.start ),
+		end: call( timeUtil.toSeconds, time.end ),
 	} );
 }
 
