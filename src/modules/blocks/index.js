@@ -7,6 +7,7 @@ import { registerBlockType } from '@wordpress/blocks';
  * Internal Dependencies
  */
 import classicEventDetails from '@moderntribe/events/blocks/classic-event-details';
+import EventDateTimeControls from '@moderntribe/events/blocks/event-datetime/controls';
 import eventDateTime from '@moderntribe/events/blocks/event-datetime';
 import eventVenue from '@moderntribe/events/blocks/event-venue';
 import eventOrganizer from '@moderntribe/events/blocks/event-organizer';
@@ -18,6 +19,11 @@ import eventWebsite from '@moderntribe/events/blocks/event-website';
 import FeaturedImage from '@moderntribe/events/blocks/featured-image';
 import { initStore } from '@moderntribe/events/data';
 import './style.pcss';
+
+// Used by events-pro blocks
+export const controls = {
+	EventDateTimeControls,
+};
 
 const blocks = [
 	classicEventDetails,
@@ -43,4 +49,3 @@ blocks.forEach( block => {
 initStore();
 
 export default blocks;
-
