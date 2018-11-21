@@ -599,7 +599,9 @@ Date.prototype.format = function( mask, utc ) {
 			$.fn.bootstrapDatepicker.dates['en'].daysMin     = datepickeri18n.dayNamesMin;
 			$.fn.bootstrapDatepicker.dates['en'].months      = datepickeri18n.monthNames;
 			// Provide a fallback as it might not be always available
-			$.fn.bootstrapDatepicker.dates['en'].monthsShort = datepickeri18n.monthNamesMin || [];
+			if ( datepickeri18n.monthNamesMin ) {
+				$.fn.bootstrapDatepicker.dates[ 'en' ].monthsShort = datepickeri18n.monthNamesMin;
+			}
 			$.fn.bootstrapDatepicker.dates['en'].today       = datepickeri18n.today;
 			$.fn.bootstrapDatepicker.dates['en'].clear       = datepickeri18n.clear;
 		},
