@@ -10,6 +10,11 @@ export const setNaturalLanguageLabel = ( label ) => ( {
 	},
 } );
 
+export const setDateRange = ( payload ) => ( {
+	type: types.SET_DATE_RANGE,
+	payload,
+} );
+
 export const setStartDateTime = ( start ) => ( {
 	type: types.SET_START_DATE_TIME,
 	payload: {
@@ -19,6 +24,20 @@ export const setStartDateTime = ( start ) => ( {
 
 export const setEndDateTime = ( end ) => ( {
 	type: types.SET_END_DATE_TIME,
+	payload: {
+		end,
+	},
+} );
+
+export const setStartTime = ( start ) => ( {
+	type: types.SET_START_TIME,
+	payload: {
+		start,
+	},
+} );
+
+export const setEndTime = ( end ) => ( {
+	type: types.SET_END_TIME,
 	payload: {
 		end,
 	},

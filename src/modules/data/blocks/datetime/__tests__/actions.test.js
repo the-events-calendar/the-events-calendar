@@ -55,4 +55,14 @@ describe( '[STORE] - Datetime actions', () => {
 		expect( actions.allowEdits() ).toMatchSnapshot();
 		expect( actions.disableEdits() ).toMatchSnapshot();
 	} );
+
+	test( 'setStartTime', () => {
+		expect( actions.setStartTime( 6000 ) ).toMatchSnapshot();
+	} );
+	test( 'setEndTime', () => {
+		expect( actions.setEndTime( 6000 ) ).toMatchSnapshot();
+	} );
+	test( 'setDateRange', () => {
+		expect( actions.setDateRange( { from: 0, to: 1 } ) ).toMatchSnapshot();
+	} );
 } );
