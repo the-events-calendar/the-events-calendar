@@ -1,8 +1,7 @@
 /**
  * External Dependencies
  */
-import { put, take, select, takeLatest, call, all } from 'redux-saga/effects';
-import { delay } from 'redux-saga';
+import { put, take, select, call, all } from 'redux-saga/effects';
 import { applyFilters } from '@wordpress/hooks';
 
 /**
@@ -46,8 +45,8 @@ export function* deriveMomentsFromDates() {
 	} );
 
 	return yield all( {
-		start: yield call( momentUtil.toMoment, dates.start ),
-		end: yield call( momentUtil.toMoment, dates.end ),
+		start: call( momentUtil.toMoment, dates.start ),
+		end: call( momentUtil.toMoment, dates.end ),
 	} );
 }
 
@@ -62,8 +61,8 @@ export function* deriveSecondsFromDates() {
 	const moments = yield call( deriveMomentsFromDates );
 
 	return yield all( {
-		start: yield call( timeUtil.toSeconds, moments.start.format( 'HH:mm:ss' ) ),
-		end: yield call( timeUtil.toSeconds, moments.end.format( 'HH:mm:ss' ) ),
+		start: call( timeUtil.toSeconds, moments.start.format( 'HH:mm:ss' ) ),
+		end: call( timeUtil.toSeconds, moments.end.format( 'HH:mm:ss' ) ),
 	} );
 }
 
@@ -137,8 +136,7 @@ export function* resetNaturalLanguageLabel() {
 }
 
 /**
- * Fired when the Human Readable has a change() event fired on the input, in combination with takeLatest and delay
- * simulates the debounce functionality as gets executed every WAIT_PERIOD_IN_MILLISECONDS to prevent doing work
+ * Fired when the Human Readable has a change() event fired on the input
  * when the input is handling a new change() events
  *
  * @since 0.3.1-alpha
@@ -147,7 +145,7 @@ export function* resetNaturalLanguageLabel() {
  */
 export function* onHumanReadableChange() {
 	const label = yield select( selectors.getNaturalLanguageLabel );
-	const { start, end } = dateUtil.labelToDate( label );
+	const { start, end } = yield call( dateUtil.labelToDate, label );
 
 	if ( start === null && end === null ) {
 		yield call( resetNaturalLanguageLabel );
