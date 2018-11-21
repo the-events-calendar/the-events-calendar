@@ -217,7 +217,8 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 = [TBD] TBD =
 
-* Add - Added additional caching to TEC REST API archives and the Post Repository event/venue/organizer responses [117159]
+* Feature - Added additional caching to TEC REST API archives and the Post Repository event/venue/organizer responses [117159]
+* Feature - Added new `tribe_events_set_month_view_events_from_cache` action to make it easier to listen for when Month View events are retrieved from the Month View cache [116124]
 
 = [4.6.26] 2018-11-13 =
 
