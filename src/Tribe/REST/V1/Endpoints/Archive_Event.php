@@ -53,18 +53,18 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 	 * @return WP_Error|WP_REST_Response An array containing the data on success or a WP_Error instance on failure.
 	 */
 	public function get( WP_REST_Request $request ) {
-		$args = array();
+		$args        = array();
 		$date_format = Tribe__Date_Utils::DBDATETIMEFORMAT;
 
-		$args['paged'] = $request['page'];
+		$args['paged']          = $request['page'];
 		$args['posts_per_page'] = $request['per_page'];
-		$args['start_date'] = isset( $request['start_date'] ) ?
+		$args['start_date']     = isset( $request['start_date'] ) ?
 			Tribe__Timezones::localize_date( $date_format, $request['start_date'] )
 			: false;
-		$args['end_date'] = isset( $request['end_date'] ) ?
+		$args['end_date']       = isset( $request['end_date'] ) ?
 			Tribe__Timezones::localize_date( $date_format, $request['end_date'] )
 			: false;
-		$args['s'] = $request['search'];
+		$args['s']              = $request['search'];
 
 		if ( $post__in = $request['include'] ) {
 			$args['post__in']                  = $request['include'];
@@ -122,7 +122,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 
 		// Filter by geoloc
 		if ( ! empty( $request['geoloc'] ) ) {
-			$args['tribe_geoloc'] = 1;
+			$args['tribe_geoloc']     = 1;
 			$args['tribe_geoloc_lat'] = isset( $request['geoloc_lat'] ) ? $request['geoloc_lat'] : '';
 			$args['tribe_geoloc_lng'] = isset( $request['geoloc_lng'] ) ? $request['geoloc_lng'] : '';
 		}
@@ -136,12 +136,8 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 
 		$args = $this->parse_args( $args, $request->get_default_params() );
 
-		$data = array( 'events' => array() );
-
-		$data['rest_url'] = $this->get_current_rest_url( $args, $extra_rest_args );
-
 		if ( null === $request['status'] ) {
-			$cap = get_post_type_object( Tribe__Events__Main::POSTTYPE )->cap->edit_posts;
+			$cap                 = get_post_type_object( Tribe__Events__Main::POSTTYPE )->cap->edit_posts;
 			$args['post_status'] = current_user_can( $cap ) ? 'any' : 'publish';
 		} else {
 			$args['post_status'] = $this->filter_post_status_list( $request['status'] );
@@ -154,34 +150,52 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 			$args['posts_per_page'] = $this->get_default_posts_per_page();
 		}
 
-		$events = tribe_get_events( $args );
+		/** @var Tribe__Cache $cache */
+		$cache     = tribe( 'cache' );
+		$cache_key = 'rest_get_events_data_' . get_current_user_id() . '_' . wp_json_encode( $args );
 
-		$page = $this->parse_page( $request ) ? $this->parse_page( $request ) : 1;
+		$data = $cache->get( $cache_key, 'save_post' );
 
-		if ( empty( $events ) && (int) $page > 1 ) {
-			$message = $this->messages->get_message( 'event-archive-page-not-found' );
+		if ( ! is_array( $data ) ) {
+			$data = array( 'events' => array() );
 
-			return new WP_Error( 'event-archive-page-not-found', $message, array( 'status' => 404 ) );
+			$data['rest_url'] = $this->get_current_rest_url( $args, $extra_rest_args );
+
+			$events = tribe_get_events( $args );
+
+			$page = $this->parse_page( $request ) ? $this->parse_page( $request ) : 1;
+
+			if ( empty( $events ) && (int) $page > 1 ) {
+				$message = $this->messages->get_message( 'event-archive-page-not-found' );
+
+				return new WP_Error( 'event-archive-page-not-found', $message, array( 'status' => 404 ) );
+			}
+
+			$events = wp_list_pluck( $events, 'ID' );
+
+			unset( $args['fields'] );
+
+			if ( $this->has_next( $args, $page ) ) {
+				$data['next_rest_url'] = $this->get_next_rest_url( $data['rest_url'], $page );
+			}
+
+			if ( $this->has_previous( $page, $args ) ) {
+				$data['previous_rest_url'] = $this->get_previous_rest_url( $data['rest_url'], $page );;
+			}
+
+			foreach ( $events as $event_id ) {
+				$event = $this->repository->get_event_data( $event_id );
+
+				if ( $event && ! is_wp_error( $event ) ) {
+					$data['events'][] = $event;
+				}
+			}
+
+			$data['total']       = $total = $this->get_total( $args );
+			$data['total_pages'] = $this->get_total_pages( $total, $args['posts_per_page'] );
+
+			$cache->set( $cache_key, $data, Tribe__Cache::NON_PERSISTENT, 'save_post' );
 		}
-
-		$events = wp_list_pluck( $events, 'ID' );
-
-		unset( $args['fields'] );
-
-		if ( $this->has_next( $args, $page ) ) {
-			$data['next_rest_url'] = $this->get_next_rest_url( $data['rest_url'], $page );
-		}
-
-		if ( $this->has_previous( $page, $args ) ) {
-			$data['previous_rest_url'] = $this->get_previous_rest_url( $data['rest_url'], $page );;
-		}
-
-		foreach ( $events as $event_id ) {
-			$data['events'][] = $this->repository->get_event_data( $event_id );
-		}
-
-		$data['total'] = $total = $this->get_total( $args );
-		$data['total_pages'] = $this->get_total_pages( $total, $args['posts_per_page'] );
 
 		/**
 		 * Filters the data that will be returned for an events archive request.

@@ -215,8 +215,9 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
-= [4.6.27] TBD =
+= [TBD] TBD =
 
+* Add - Added additional caching to TEC REST API archives and the Post Repository event/venue/organizer responses [117159]
 * Add - the `tribe_events()` function as entry-point to the Events ORM and the supporting filter code [116356, 115579]
 * Add - the `tribe_venues()` function as entry-point to the Venues ORM and the supporting filter code [116356, 115579]
 * Add - the `tribe_organizers()` function as entry-point to the Organizers ORM and the supporting filter code [116356, 115579]

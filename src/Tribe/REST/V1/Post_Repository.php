@@ -60,6 +60,20 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 	 * @since 4.6 Added $context param
 	 */
 	public function get_event_data( $event_id, $context = '' ) {
+		if ( $event_id instanceof WP_Post ) {
+			$event_id = $event_id->ID;
+		}
+
+		/** @var Tribe__Cache $cache */
+		$cache     = tribe( 'cache' );
+		$cache_key = 'rest_get_event_data_' . get_current_user_id() . '_' . $event_id . '_' . $context;
+
+		$data = $cache->get( $cache_key, 'save_post' );
+
+		if ( is_array( $data ) ) {
+			return $data;
+		}
+
 		$event = get_post( $event_id );
 
 		if ( empty( $event ) || ! tribe_is_event( $event ) ) {
@@ -147,6 +161,8 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		 */
 		$data = apply_filters( 'tribe_rest_event_data', $data, $event );
 
+		$cache->set( $cache_key, $data, Tribe__Cache::NON_PERSISTENT, 'save_post' );
+
 		return $data;
 	}
 
@@ -161,6 +177,20 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 	 * @since 4.6 Added $context param
 	 */
 	public function get_venue_data( $event_or_venue_id, $context = '' ) {
+		if ( $event_or_venue_id instanceof WP_Post ) {
+			$event_or_venue_id = tribe_get_venue_id( $event_or_venue_id->ID );
+		}
+
+		/** @var Tribe__Cache $cache */
+		$cache     = tribe( 'cache' );
+		$cache_key = 'rest_get_venue_data_' . get_current_user_id() . '_' . $event_or_venue_id . '_' . $context;
+
+		$data = $cache->get( $cache_key, 'save_post' );
+
+		if ( is_array( $data ) ) {
+			return $data;
+		}
+
 		if ( tribe_is_event( $event_or_venue_id ) ) {
 			$venue = get_post( tribe_get_venue_id( $event_or_venue_id ) );
 			if ( empty( $venue ) ) {
@@ -247,6 +277,8 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		 * @param WP_Post|null $event The requested event, if event ID was used.
 		 */
 		$data = apply_filters( 'tribe_rest_venue_data', $data, $venue, $event );
+
+		$cache->set( $cache_key, $data, Tribe__Cache::NON_PERSISTENT, 'save_post' );
 
 		return $data;
 	}
@@ -348,7 +380,26 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 
 		$data = array();
 
+		/** @var Tribe__Cache $cache */
+		$cache = tribe( 'cache' );
+
 		foreach ( $organizers as $organizer_id ) {
+			if ( is_object( $organizer_id ) ) {
+				$organizer = $organizer_id;
+
+				$organizer_id = $organizer->ID;
+			}
+
+			$cache_key = 'rest_get_organizer_data_' . get_current_user_id() . '_' . $organizer_id . '_' . $context;
+
+			$this_data = $cache->get( $cache_key, 'save_post' );
+
+			if ( is_array( $this_data ) ) {
+				$data[] = $this_data;
+
+				continue;
+			}
+
 			$organizer = get_post( $organizer_id );
 
 			if ( empty( $organizer ) ) {
@@ -404,6 +455,8 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			 * @param WP_Post $event The requested organizer.
 			 */
 			$this_data = apply_filters( 'tribe_rest_organizer_data', array_filter( $this_data ), $organizer );
+
+			$cache->set( $cache_key, $this_data, Tribe__Cache::NON_PERSISTENT, 'save_post' );
 
 			$data[] = $this_data;
 		}

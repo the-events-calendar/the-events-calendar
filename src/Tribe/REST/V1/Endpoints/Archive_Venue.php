@@ -105,9 +105,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 		 */
 		$default_only_with_upcoming = apply_filters( 'tribe_rest_venue_default_only_with_upcoming', false );
 
-		$only_with_upcoming = isset( $request['only_with_upcoming'] )
-			? tribe_is_truthy( $request['only_with_upcoming'] )
-			: $default_only_with_upcoming;
+		$only_with_upcoming = isset( $request['only_with_upcoming'] ) ? tribe_is_truthy( $request['only_with_upcoming'] ) : $default_only_with_upcoming;
 		unset( $args['only_with_upcoming'] );
 
 		if ( ! empty( $args['s'] ) ) {
@@ -128,41 +126,53 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 			}
 		}
 
-		$posts_per_page = Tribe__Utils__Array::get( $args, 'posts_per_page', $this->get_default_posts_per_page() );
-		$venues = isset( $venues )
-			? $venues
-			: tribe_get_venues( $only_with_upcoming, $posts_per_page, true, $args );
+		/** @var Tribe__Cache $cache */
+		$cache     = tribe( 'cache' );
+		$cache_key = 'rest_get_venues_data_' . get_current_user_id() . '_' . wp_json_encode( $args );
 
-		unset( $args['fields'] );
+		$data = $cache->get( $cache_key, 'save_post' );
 
-		$ids = wp_list_pluck( $venues, 'ID' );
+		if ( ! is_array( $data ) ) {
+			$posts_per_page = Tribe__Utils__Array::get( $args, 'posts_per_page', $this->get_default_posts_per_page() );
+			$venues         = isset( $venues ) ? $venues : tribe_get_venues( $only_with_upcoming, $posts_per_page, true, $args );
 
-		$data = array( 'venues' => array() );
+			unset( $args['fields'] );
 
-		foreach ( $ids as $venue_id ) {
-			$data['venues'][] = $this->repository->get_venue_data( $venue_id );
+			$ids = wp_list_pluck( $venues, 'ID' );
+
+			$data = array( 'venues' => array() );
+
+			foreach ( $ids as $venue_id ) {
+				$venue = $this->repository->get_venue_data( $venue_id );
+
+				if ( $venue && ! is_wp_error( $venue ) ) {
+					$data['venues'][] = $venue;
+				}
+			}
+
+			$data['rest_url'] = $this->get_current_rest_url( $args );
+
+			$page = Tribe__Utils__Array::get( $args, 'paged', 1 );
+
+			if ( empty( $venues ) && (int) $page > 1 ) {
+				$message = $this->messages->get_message( 'venue-archive-page-not-found' );
+
+				return new WP_Error( 'venue-archive-page-not-found', $message, array( 'status' => 404 ) );
+			}
+
+			if ( $this->has_next( $args, $page, $only_with_upcoming ) ) {
+				$data['next_rest_url'] = $this->get_next_rest_url( $data['rest_url'], $page );
+			}
+
+			if ( $this->has_previous( $page, $args, $only_with_upcoming ) ) {
+				$data['previous_rest_url'] = $this->get_previous_rest_url( $data['rest_url'], $page );;
+			}
+
+			$data['total']       = $total = $this->get_total( $args, $only_with_upcoming );
+			$data['total_pages'] = $this->get_total_pages( $total, $posts_per_page );
+
+			$cache->set( $cache_key, $data, Tribe__Cache::NON_PERSISTENT, 'save_post' );
 		}
-
-		$data['rest_url'] = $this->get_current_rest_url( $args );
-
-		$page = Tribe__Utils__Array::get( $args, 'paged', 1 );
-
-		if ( empty( $venues ) && (int) $page > 1 ) {
-			$message = $this->messages->get_message( 'venue-archive-page-not-found' );
-
-			return new WP_Error( 'venue-archive-page-not-found', $message, array( 'status' => 404 ) );
-		}
-
-		if ( $this->has_next( $args, $page, $only_with_upcoming ) ) {
-			$data['next_rest_url'] = $this->get_next_rest_url( $data['rest_url'], $page );
-		}
-
-		if ( $this->has_previous( $page, $args, $only_with_upcoming ) ) {
-			$data['previous_rest_url'] = $this->get_previous_rest_url( $data['rest_url'], $page );;
-		}
-
-		$data['total']       = $total = $this->get_total( $args, $only_with_upcoming );
-		$data['total_pages'] = $this->get_total_pages( $total, $posts_per_page );
 
 		$response = new WP_REST_Response( $data );
 
