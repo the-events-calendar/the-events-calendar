@@ -217,7 +217,9 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 = [4.7] TBD =
 
+= [4.6.26.1] 2018-11-21 =
 
+* Fix - Resolved a compatibility issue with WordPress version 4.7.11 and earlier (our thanks to @placer69 and @earthnutvt for flagging this) [118627]
 
 = [4.6.26] 2018-11-13 =
 
