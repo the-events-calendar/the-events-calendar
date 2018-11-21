@@ -152,3 +152,31 @@ Object {
   "type": "@@MT/EVENTS/SET_DATETIME_BLOCK_EDITABLE_STATE",
 }
 `;
+
+exports[`[STORE] - Datetime actions setDateRange 1`] = `
+Object {
+  "payload": Object {
+    "from": 0,
+    "to": 1,
+  },
+  "type": "@@MT/EVENTS/SET_DATE_RANGE",
+}
+`;
+
+exports[`[STORE] - Datetime actions setEndTime 1`] = `
+Object {
+  "payload": Object {
+    "end": 6000,
+  },
+  "type": "@@MT/EVENTS/SET_END_TIME",
+}
+`;
+
+exports[`[STORE] - Datetime actions setStartTime 1`] = `
+Object {
+  "payload": Object {
+    "start": 6000,
+  },
+  "type": "@@MT/EVENTS/SET_START_TIME",
+}
+`;
