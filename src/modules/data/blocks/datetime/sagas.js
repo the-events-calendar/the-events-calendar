@@ -32,7 +32,7 @@ const {
 //
 
 /**
- * Convert current start and end date into seconds
+ * Convert current start and end date into moments
  *
  * @export
  * @since 4.7.0-beta1
