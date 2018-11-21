@@ -35,7 +35,7 @@ const {
  * Convert current start and end date into moments
  *
  * @export
- * @since 4.7.0-beta1
+ * @since TBD
  * @returns {Object} {start, end}
  */
 export function* deriveMomentsFromDates() {
@@ -54,7 +54,7 @@ export function* deriveMomentsFromDates() {
  * Convert current start and end date into seconds
  *
  * @export
- * @since 4.7.0-beta1
+ * @since TBD
  * @returns {Object} {start, end}
  */
 export function* deriveSecondsFromDates() {
@@ -197,7 +197,7 @@ export function* onTimeZoneChange( action ) {
  * Handle date range changes on calendar
  *
  * @export
- * @since 4.7.0-beta1
+ * @since TBD
  * @param {Object} action Payload with to and from
  */
 export function* handleDateRangeChange( action ) {
@@ -233,7 +233,7 @@ export function* handleDateRangeChange( action ) {
  * Should only prevent when not a multi-day event.
  *
  * @export
- * @since 4.7.0-beta1
+ * @since TBD
  * @param {Object} action Payload with seconds in start or end key (when time change)
  */
 export function* preventEndTimeBeforeStartTime( action ) {
@@ -285,7 +285,7 @@ export function* preventEndTimeBeforeStartTime( action ) {
  * Should only prevent when not a multi-day event.
  *
  * @export
- * @since 4.7.0-beta1
+ * @since TBD
  * @param {Object} action Payload with seconds in start or end key (when time change)
  */
 export function* preventStartTimeAfterEndTime( action ) {
@@ -331,7 +331,7 @@ export function* preventStartTimeAfterEndTime( action ) {
  * Handles all-day payloads. Set start and end time to be `00:00` and `23:59`
  *
  * @export
- * @since 4.7.0-beta1
+ * @since TBD
  */
 export function* setAllDay() {
 	const moments = yield call( deriveMomentsFromDates );
@@ -358,7 +358,7 @@ export function* setAllDay() {
  * Handles multi-day toggling
  *
  * @export
- * @since 4.7.0-beta1
+ * @since TBD
  * @param {Object} action Payload with multiDay
  */
 export function* handleMultiDay( action ) {
@@ -391,7 +391,7 @@ export function* handleMultiDay( action ) {
  * Handles event start time changes
  *
  * @export
- * @since 4.7.0-beta1
+ * @since TBD
  * @param {Object} action Payload with start of `all-day` or seconds
  */
 export function* handleStartTimeChange( action ) {
@@ -410,7 +410,7 @@ export function* handleStartTimeChange( action ) {
  * Handles event end time changes
  *
  * @export
- * @since 4.7.0-beta1
+ * @since TBD
  * @param {Object} action Payload with end of `all-day` or seconds
  */
 export function* handleEndTimeChange( action ) {
@@ -429,7 +429,7 @@ export function* handleEndTimeChange( action ) {
  * Handle flow changes based on action type
  *
  * @export
- * @since 4.7.0-beta1
+ * @since TBD
  * @param {Object} action Action taken
  */
 export function* handler( action ) {
