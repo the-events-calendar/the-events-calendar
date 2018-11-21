@@ -24,31 +24,31 @@ import EventDateTimeDashboard from './template';
  * Module Code
  */
 
-const onSelectDay = ( stateProps, dispatchProps ) => ( { from, to } ) => {
+const onSelectDay = ( dispatchProps ) => ( { from, to } ) => {
 	dispatchProps.setDateRange( { from, to } );
 };
 
-const onStartTimePickerChange = ( stateProps, dispatchProps ) => ( e ) => {
+const onStartTimePickerChange = ( dispatchProps ) => ( e ) => {
 	const seconds = time.toSeconds( e.target.value, time.TIME_FORMAT_HH_MM );
 	dispatchProps.setStartTime( seconds );
 };
 
-const onStartTimePickerClick = ( stateProps, dispatchProps ) => ( value, onClose ) => {
+const onStartTimePickerClick = ( dispatchProps ) => ( value, onClose ) => {
 	dispatchProps.setStartTime( value );
 	onClose();
 };
 
-const onEndTimePickerChange = ( stateProps, dispatchProps ) => ( e ) => {
+const onEndTimePickerChange = ( dispatchProps ) => ( e ) => {
 	const seconds = time.toSeconds( e.target.value, time.TIME_FORMAT_HH_MM );
 	dispatchProps.setEndTime( seconds );
 };
 
-const onEndTimePickerClick = ( stateProps, dispatchProps ) => ( value, onClose ) => {
+const onEndTimePickerClick = ( dispatchProps ) => ( value, onClose ) => {
 	dispatchProps.setEndTime( value );
 	onClose();
 };
 
-const onMultiDayToggleChange = ( stateProps, dispatchProps ) => ( isMultiDay ) => {
+const onMultiDayToggleChange = ( dispatchProps ) => ( isMultiDay ) => {
 	dispatchProps.setMultiDay( isMultiDay );
 };
 
@@ -77,12 +77,12 @@ const mergeProps = ( stateProps, dispatchProps, ownProps ) => ( {
 	...ownProps,
 	...stateProps,
 	...dispatchProps,
-	onSelectDay: onSelectDay( stateProps, dispatchProps ),
-	onStartTimePickerChange: onStartTimePickerChange( stateProps, dispatchProps ),
-	onStartTimePickerClick: onStartTimePickerClick( stateProps, dispatchProps ),
-	onEndTimePickerChange: onEndTimePickerChange( stateProps, dispatchProps ),
-	onEndTimePickerClick: onEndTimePickerClick( stateProps, dispatchProps ),
-	onMultiDayToggleChange: onMultiDayToggleChange( stateProps, dispatchProps ),
+	onSelectDay: onSelectDay( dispatchProps ),
+	onStartTimePickerChange: onStartTimePickerChange( dispatchProps ),
+	onStartTimePickerClick: onStartTimePickerClick( dispatchProps ),
+	onEndTimePickerChange: onEndTimePickerChange( dispatchProps ),
+	onEndTimePickerClick: onEndTimePickerClick( dispatchProps ),
+	onMultiDayToggleChange: onMultiDayToggleChange( dispatchProps ),
 } );
 
 export default compose(
