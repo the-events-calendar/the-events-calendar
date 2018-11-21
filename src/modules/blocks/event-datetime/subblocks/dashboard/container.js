@@ -29,7 +29,7 @@ const onSelectDay = ( stateProps, dispatchProps ) => ( { from, to } ) => {
 };
 
 const onStartTimePickerChange = ( stateProps, dispatchProps ) => ( e ) => {
-	const seconds = time.toSeconds( e.target.value );
+	const seconds = time.toSeconds( e.target.value, time.TIME_FORMAT_HH_MM );
 	dispatchProps.setStartTime( seconds );
 };
 
@@ -39,7 +39,7 @@ const onStartTimePickerClick = ( stateProps, dispatchProps ) => ( value, onClose
 };
 
 const onEndTimePickerChange = ( stateProps, dispatchProps ) => ( e ) => {
-	const seconds = time.toSeconds( e.target.value );
+	const seconds = time.toSeconds( e.target.value, time.TIME_FORMAT_HH_MM );
 	dispatchProps.setEndTime( seconds );
 };
 
