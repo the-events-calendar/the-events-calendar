@@ -629,7 +629,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 				'time'       => get_option( 'time_format', __( 'g:i a', 'default' ) ),
 				'date'       => get_option( 'date_format', __( 'F j, Y', 'default' ) ),
 				'dateNoYear' => __( 'F j', 'default' ),
-				'datetime'   => __( 'F j, Y g:i a', 'default' ),
+				'datetime'   => get_option( 'date_format', __( 'F j, Y', 'default' ) ) . ' ' . get_option( 'time_format', __( 'g:i a', 'default' ) ),
 			),
 			'timezone' => array(
 				'offset' => get_option( 'gmt_offset', 0 ),
