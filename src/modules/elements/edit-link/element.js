@@ -17,7 +17,7 @@ import { common } from '@moderntribe/common/utils/globals';
 import './style.pcss';
 
 const EditLink = ( { postId, label, target } ) => {
-	const admin = get( common(), 'admin_url', '' );
+	const admin = get( common(), 'adminUrl', '' );
 	if ( ! admin || ! postId ) {
 		return null;
 	}

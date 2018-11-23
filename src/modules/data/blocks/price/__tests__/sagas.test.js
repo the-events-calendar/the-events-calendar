@@ -33,9 +33,9 @@ describe( 'Price Block sagas', () => {
 				),
 			} };
 			settings = {
-				is_new_event: 'true',
+				isNewEvent: 'true',
 				default_currency: 'USD',
-				default_currency_position: 'prefix',
+				defaultCurrencyPosition: 'prefix',
 			};
 		} );
 
@@ -46,12 +46,12 @@ describe( 'Price Block sagas', () => {
 			);
 			clone = gen.clone();
 			expect( gen.next( settings ).value ).toEqual(
-				call( isTruthy, settings.is_new_event )
+				call( isTruthy, settings.isNewEvent )
 			);
 			expect( gen.next( true ).value ).toEqual(
 				all( [
-					put( actions.setPosition( settings.default_currency_position ) ),
-					put( actions.setSymbol( settings.default_currency_symbol ) ),
+					put( actions.setPosition( settings.defaultCurrencyPosition ) ),
+					put( actions.setSymbol( settings.defaultCurrencySymbol ) ),
 					put( actions.setCost( action.payload.get( 'cost', DEFAULT_STATE.cost ) ) ),
 					put( actions.setDescription(
 						action.payload.get( 'costDescription', DEFAULT_STATE.description ) )
@@ -61,9 +61,9 @@ describe( 'Price Block sagas', () => {
 			expect( gen.next().done ).toEqual( true );
 		} );
 		it( 'should handle existing events', () => {
-			settings.is_new_event = 'false';
+			settings.isNewEvent = 'false';
 			expect( clone.next( settings ).value ).toEqual(
-				call( isTruthy, settings.is_new_event )
+				call( isTruthy, settings.isNewEvent )
 			);
 			expect( clone.next( false ).value ).toEqual(
 				all( [

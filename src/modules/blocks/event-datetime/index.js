@@ -70,7 +70,7 @@ export default {
 		},
 		showTimeZone: {
 			type: 'boolean',
-			default: get( timeZone, 'show_time_zone', false ),
+			default: get( timeZone, 'showTimeZone', false ),
 		},
 		timeZoneLabel: {
 			type: 'string',

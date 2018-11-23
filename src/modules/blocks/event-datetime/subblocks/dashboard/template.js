@@ -67,7 +67,7 @@ export default class EventDateTimeDashboard extends PureComponent {
 	};
 
 	get shouldHideUpsell() {
-		return globals.editorConstants().hide_upsell === 'true';
+		return globals.editorConstants().hideUpsell;
 	}
 
 	renderStartTimePicker = () => {

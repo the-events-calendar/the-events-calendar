@@ -15,14 +15,14 @@ import { priceSettings } from '@moderntribe/common/utils/globals';
 export function* setInitialState( action ) {
 	const { get } = action.payload;
 	const settings = yield call( priceSettings );
-	const isNewEvent = yield call( isTruthy, settings.is_new_event );
+	const isNewEvent = yield call( isTruthy, settings.isNewEvent );
 
 	const currencySymbol = isNewEvent
-		? settings.default_currency_symbol
+		? settings.defaultCurrencySymbol
 		: get( 'currencySymbol', DEFAULT_STATE.symbol );
 
 	const currencyPosition = isNewEvent
-		? settings.default_currency_position
+		? settings.defaultCurrencyPosition
 		: get( 'currencyPosition', DEFAULT_STATE.position );
 
 	yield all( [
