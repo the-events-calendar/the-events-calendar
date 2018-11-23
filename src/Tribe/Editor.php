@@ -531,7 +531,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 					'is_new_event' => tribe( 'context' )->is_new_post(),
 				),
 				'editor' => array(
-					'is_classic' => $is_classic_editor
+					'is_classic' => $is_classic_editor,
 				),
 				'google_map' => array(
 					'zoom' => apply_filters( 'tribe_events_single_map_zoom_level', (int) tribe_get_option( 'embedGoogleMapsZoom', 8 ) ),
