@@ -98,8 +98,7 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 		$formatted_rows = array();
 
 		foreach ( $rows as $row ) {
-			$row              = array_map( 'trim', $row );
-			$formatted_rows[] = $row;
+			$formatted_rows[] = array_map( 'trim', $row );
 		}
 
 		$rows    = $formatted_rows;
