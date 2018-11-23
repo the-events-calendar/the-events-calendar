@@ -51,7 +51,6 @@ class Tribe__Events__Editor extends Tribe__Editor {
 		 */
 		add_filter( 'use_block_editor_for_post_type', array( $this, 'deactivate_blocks_editor_venue' ), 10, 2 );
 		add_filter( 'use_block_editor_for_post_type', array( $this, 'deactivate_blocks_editor_organizer' ), 10, 2 );
-		add_filter( 'tribe_editor_js_config', array( $this, 'tec_js_config' ) );
 	}
 
 	/**
@@ -503,44 +502,6 @@ class Tribe__Events__Editor extends Tribe__Editor {
 				'conditionals' => array( $this, 'is_events_post_type' ),
 			)
 		);
-	}
-
-	/**
-	 * Localize variables into the editor using `tribe_editor_js_config` for TEC
-	 *
-	 * @since TBD
-	 *
-	 * @param $editor_js_config
-	 *
-	 * @return mixed
-	 */
-	public function tec_js_config( $editor_js_config ) {
-		$tec = empty( $editor_js_config['events'] ) ? array() : $editor_js_config['events'];
-		$is_classic_editor = $this->post_is_from_classic_editor( tribe_get_request_var( 'post', 0 ) );
-
-		$editor_js_config['events'] = array_merge(
-			(array) $tec,
-			array(
-				'settings' => tribe( 'events.editor.settings' )->get_options(),
-				'timezone_html' => tribe_events_timezone_choice( Tribe__Events__Timezones::get_event_timezone_string() ),
-				'price_settings' => array(
-					'default_currency_symbol'   => tribe_get_option( 'defaultCurrencySymbol', '$' ),
-					'default_currency_position' => (
-						tribe_get_option( 'reverseCurrencyPosition', false ) ? 'suffix' : 'prefix'
-					),
-					'is_new_event' => tribe( 'context' )->is_new_post(),
-				),
-				'editor' => array(
-					'is_classic' => $is_classic_editor,
-				),
-				'google_map' => array(
-					'zoom' => apply_filters( 'tribe_events_single_map_zoom_level', (int) tribe_get_option( 'embedGoogleMapsZoom', 8 ) ),
-					'key' => tribe_get_option( 'google_maps_js_api_key' ),
-				),
- 			)
-		);
-
-		return $editor_js_config;
 	}
 
 	/**

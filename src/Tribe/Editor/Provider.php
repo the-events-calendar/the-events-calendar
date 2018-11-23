@@ -21,6 +21,7 @@ class Tribe__Events__Editor__Provider extends tad_DI52_ServiceProvider {
 		$this->container->singleton( 'events.editor.i18n', 'Tribe__Events__Editor__I18n', array( 'hook' ) );
 		$this->container->singleton( 'events.editor.template', 'Tribe__Events__Editor__Template' );
 		$this->container->singleton( 'events.editor.template.overwrite', 'Tribe__Events__Editor__Template__Overwrite', array( 'hook' ) );
+		$this->container->singleton( 'events.editor.configuration', 'Tribe__Events__Editor__Configuration', array( 'hook' ) );
 
 		$this->container->singleton( 'events.editor.blocks.classic-event-details', 'Tribe__Events__Editor__Blocks__Classic_Event_Details' );
 		$this->container->singleton( 'events.editor.blocks.event-datetime', 'Tribe__Events__Editor__Blocks__Event_Datetime' );
@@ -40,6 +41,7 @@ class Tribe__Events__Editor__Provider extends tad_DI52_ServiceProvider {
 		 */
 		tribe( 'events.editor.i18n' );
 		tribe( 'events.editor.template.overwrite' );
+		tribe( 'events.editor.configuration' );
 	}
 
 	/**
