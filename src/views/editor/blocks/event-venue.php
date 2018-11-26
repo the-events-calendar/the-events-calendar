@@ -1,10 +1,18 @@
 <?php
 /**
- * Renders the event Venue block
+ * Block: Event Venue
  *
- * @version 0.3.0-alpha
+ * Override this template in your own theme by creating a file at:
+ * [your-theme]/tribe/events/editor/blocks/event-venue.php
+ *
+ * See more documentation about our Blocks Editor templating system.
+ *
+ * @link {INSERT_ARTCILE_LINK_HERE}
+ *
+ * @version TBD
  *
  */
+
 $event_id = $this->get( 'post_id' );
 
 $map = tribe_get_embedded_map() ? 'tribe-block__venue--has-map' : '';
