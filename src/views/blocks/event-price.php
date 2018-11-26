@@ -1,10 +1,18 @@
 <?php
 /**
- * Renders the event price block
+ * Block: Event Price
  *
- * @version 0.3.0-alpha
+ * Override this template in your own theme by creating a file at:
+ * [your-theme]/tribe/events/blocks/event-price.php
+ *
+ * See more documentation about our Blocks Editor templating system.
+ *
+ * @link {INSERT_ARTCILE_LINK_HERE}
+ *
+ * @version TBD
  *
  */
+
 $cost             = $this->attr( 'cost' );
 $cost_description = $this->attr( 'costDescription' );
 ?>
