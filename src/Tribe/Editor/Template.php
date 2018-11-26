@@ -13,7 +13,7 @@ class Tribe__Events__Editor__Template extends Tribe__Template {
 	 */
 	public function __construct() {
 		$this->set_template_origin( tribe( 'tec.main' ) );
-		// todo: update to the plugins directory only
+
 		$this->set_template_folder( 'src/views' );
 
 		// Configures this templating class extract variables
