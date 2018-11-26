@@ -3,7 +3,7 @@
  * Block: Event Links
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/editor/blocks/event-links.php
+ * [your-theme]/tribe/events/blocks/event-links.php
  *
  * See more documentation about our Blocks Editor templating system.
  *

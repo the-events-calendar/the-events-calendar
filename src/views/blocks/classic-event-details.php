@@ -3,7 +3,7 @@
  * Block: Classic Event Details
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/editor/blocks/classic-event-details.php
+ * [your-theme]/tribe/events/blocks/classic-event-details.php
  *
  * See more documentation about our Blocks Editor templating system.
  *
@@ -56,8 +56,8 @@ $website = tribe_get_event_website_link();
 <div class="tribe-events-single-section tribe-events-event-meta primary tribe-clearfix">
 	<?php do_action( 'tribe_events_single_event_meta_primary_section_start' ); ?>
 
-	<?php $this->template( 'editor/blocks/parts/details' ); ?>
-	<?php $this->template( 'editor/blocks/parts/organizer' ); ?>
+	<?php $this->template( 'blocks/parts/details' ); ?>
+	<?php $this->template( 'blocks/parts/organizer' ); ?>
 
 	<?php do_action( 'tribe_events_single_event_meta_primary_section_end' ); ?>
 </div>

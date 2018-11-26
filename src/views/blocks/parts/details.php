@@ -3,7 +3,7 @@
  * Details template part for the Block Classic Event Details
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/editor/blocks/parts/details.php
+ * [your-theme]/tribe/events/blocks/parts/details.php
  *
  * See more documentation about our Blocks Editor templating system.
  *
