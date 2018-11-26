@@ -5,6 +5,7 @@
  * @version 0.3.0-alpha
  *
  */
+
 // don't show on password protected posts
 if ( post_password_required() ) {
 	return;
