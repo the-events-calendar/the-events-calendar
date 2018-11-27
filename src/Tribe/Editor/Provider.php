@@ -11,7 +11,7 @@ class Tribe__Events__Editor__Provider extends tad_DI52_ServiceProvider {
 	public function register() {
 		// Setup to check if gutenberg is active
 		$this->container->singleton( 'events.editor', 'Tribe__Events__Editor' );
-		$this->container->singleton( 'events.editor.compatibility', 'Tribe__Events__Editor__Compatibility' );
+		$this->container->singleton( 'events.editor.compatibility', 'Tribe__Events__Editor__Compatibility', array( 'hook' ) );
 
 		if (
 			! tribe( 'editor' )->should_load_blocks()
@@ -57,6 +57,12 @@ class Tribe__Events__Editor__Provider extends tad_DI52_ServiceProvider {
 	 *
 	 */
 	protected function hook() {
+		// Prevents loading of blocks if gutenberg plugin is active
+		// We wil deactivate this plugin right after after `admin_init`
+		if ( class_exists( 'Tribe__Gutenberg__Plugin' ) ) {
+			return false;
+		}
+
 		// Setup the Meta registration
 		add_action( 'init', tribe_callback( 'events.editor.meta', 'register' ), 15 );
 
