@@ -217,6 +217,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 = [4.6.27] TBD =
 
+* Feature - Introduce support for having two Google Maps API Keys: One for the Google Maps JavaScript API, one for the Google Geocoding API. This will allow folks to correctly apply API key restrictions to their keys, which was not previously possible [110008]
 * Feature - Added additional caching to TEC REST API archives and the Post Repository event/venue/organizer responses [117159]
 * Feature - Added new `tribe_events_set_month_view_events_from_cache` action to make it easier to listen for when Month View events are retrieved from the Month View cache [116124]
 * Fix - Importing CSV files with whitespace at the beginning of the rows won't remove headers and skip columns on Preview [117236]
