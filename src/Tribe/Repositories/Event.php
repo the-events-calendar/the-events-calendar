@@ -1228,4 +1228,42 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 
 		return false;
 	}
+
+	/**
+	 * Returns an array of the date filters applied by the repository and their values.
+	 *
+	 * @since TBD
+	 *
+	 * @return array A map of applied date filters and their values.
+	 */
+	public function get_applied_date_filters() {
+		$applied = array();
+		foreach ( $this->get_date_filters() as $filter ) {
+			if ( $this->has_filter( $filter ) ) {
+				$applied[ $filter ] = $this->current_filters[ $filter ];
+			}
+		}
+
+		return $applied;
+	}
+
+	/**
+	 * Overrides the base method to attach the `date_filters` property to the query
+	 * object.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $use_query_builder Whether to use the query builder or not.
+	 *
+	 * @return WP_Query The built query object with the `date_filters` property set.
+	 */
+	public function build_query( $use_query_builder = true ) {
+		$query = parent::build_query( $use_query_builder );
+
+		if ( ! $use_query_builder || $this->query_builder === null ) {
+			$query->date_filters = $this->get_applied_date_filters();
+		}
+
+		return $query;
+	}
 }
