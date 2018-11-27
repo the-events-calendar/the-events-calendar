@@ -30,7 +30,7 @@ class Tribe__Events__Editor__Template__Overwrite {
 		}
 
 		add_filter( 'tribe_events_template_single-event.php', array( $this, 'silence' ) );
-		add_filter( 'tribe_events_before_view', array( $this, 'include_blocks' ), 1, PHP_INT_MAX );
+		add_action( 'tribe_events_before_view', array( $this, 'include_blocks' ), 1, PHP_INT_MAX );
 	}
 
 	/**
