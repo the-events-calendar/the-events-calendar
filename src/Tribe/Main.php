@@ -2863,6 +2863,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			self::flushRewriteRules();
 
+			tribe( 'events.editor.compatibility' )->deactivate_gutenberg_extension_plugin();
+
 			if ( ! is_network_admin() && ! isset( $_GET['activate-multi'] ) ) {
 				set_transient( '_tribe_events_activation_redirect', 1, 30 );
 			}
