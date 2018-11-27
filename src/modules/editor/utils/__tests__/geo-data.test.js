@@ -5,16 +5,20 @@ import * as geo from '@moderntribe/events/editor/utils/geo-data';
 
 describe( 'Tests for geo-data.js', () => {
 	beforeAll( () => {
-		window.tribe_data_countries = {
-			LB: 'Lebanon',
-			LC: 'Saint Lucia',
-			LI: 'Liechtenstein',
-			US: 'United States',
-		};
-		window.tribe_data_us_states = {
-			DC: 'District of Columbia',
-			DE: 'Delaware',
-			FL: 'Florida',
+		window.tribe_editor_config = {
+			common: {
+				countries: {
+					LB: 'Lebanon',
+					LC: 'Saint Lucia',
+					LI: 'Liechtenstein',
+					US: 'United States',
+				},
+				usStates: {
+					DC: 'District of Columbia',
+					DE: 'Delaware',
+					FL: 'Florida',
+				}
+			}
 		};
 	} );
 

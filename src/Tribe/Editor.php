@@ -368,7 +368,6 @@ class Tribe__Events__Editor extends Tribe__Editor {
 		 *
 		 * @param string $api_url The Google Maps API URL.
 		 */
-		$gmaps_api_zoom = apply_filters( 'tribe_events_single_map_zoom_level', (int) tribe_get_option( 'embedGoogleMapsZoom', 8 ) );
 		$gmaps_api_key = tribe_get_option( 'google_maps_js_api_key' );
 		$gmaps_api_url = 'https://maps.googleapis.com/maps/api/js';
 
@@ -385,31 +384,6 @@ class Tribe__Events__Editor extends Tribe__Editor {
 		 */
 		$gmaps_api_url = apply_filters( 'tribe_events_google_maps_api', $gmaps_api_url );
 
-		$js_config = array(
-			'admin_url' => admin_url(),
-			'timeZone' => array(
-				'show_time_zone' => false,
-				'label' => $this->get_timezone_label(),
-			),
-			'rest' => array(
-				'url' => get_rest_url(),
-				'nonce' => array(
-					'wp_rest' => wp_create_nonce( 'wp_rest' ),
-					'add_ticket_nonce' => wp_create_nonce( 'add_ticket_nonce' ),
-					'edit_ticket_nonce' => wp_create_nonce( 'edit_ticket_nonce' ),
-					'remove_ticket_nonce' => wp_create_nonce( 'remove_ticket_nonce' ),
-				),
-				'namespaces' => array(
-					'core' => 'wp/v2',
-				),
-			),
-		);
-
-		$is_classic_editor = $this->post_is_from_classic_editor( tribe_get_request_var( 'post', 0 ) );
-
-		/**
-		 * @todo: Put js config into common
-		 */
 		tribe_asset(
 			$plugin,
 			'tribe-events-editor-blocks-gmaps-api',
@@ -419,68 +393,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 			array(
 				'type'         => 'js',
 				'in_footer'    => false,
-				'localize'     => array(
-					array(
-						'name' => 'tribe_blocks_editor_google_maps_api',
-						'data' => array(
-							'zoom' => $gmaps_api_zoom,
-							'key' => $gmaps_api_key,
-						),
-					),
-					array(
-						'name' => 'tribe_js_config',
-						/**
-						 * Array used to setup the FE with custom variables from the BE
-						 *
-						 * @since TBD
-						 *
-						 * @param array An array with the variables to be localized
-						 */
-						'data' => apply_filters( 'tribe_events_editor_js_config', $js_config ),
-					),
-					array(
-						'name' => 'tribe_blocks_editor_settings',
-						'data' => tribe( 'events.editor.settings' )->get_options(),
-					),
-					array(
-						'name' => 'tribe_blocks_editor_timezone_html',
-						'data' => tribe_events_timezone_choice( Tribe__Events__Timezones::get_event_timezone_string() ),
-					),
-					array(
-						'name' => 'tribe_blocks_editor_price_settings',
-						'data' => array(
-							'default_currency_symbol'   => tribe_get_option( 'defaultCurrencySymbol', '$' ),
-							'default_currency_position' => (
-								tribe_get_option( 'reverseCurrencyPosition', false ) ? 'suffix' : 'prefix'
-							),
-							'is_new_event'              => tribe( 'context' )->is_new_post(),
-						),
-					),
-					array(
-						'name' => 'tribe_blocks_editor_constants',
-						'data' => array(
-							'hide_upsell' => ( defined( 'TRIBE_HIDE_UPSELL' ) && TRIBE_HIDE_UPSELL ) ? 'true' : 'false',
-						),
-					),
-					array(
-						'name' => 'tribe_blocks_editor',
-						'data' => array(
-							'is_classic' => $is_classic_editor,
-						),
-					),
-					array(
-						'name' => 'tribe_date_settings',
-						'data' => array( $this, 'get_date_settings' ),
-					),
-					array(
-						'name' => 'tribe_data_countries',
-						'data' => tribe( 'languages.locations' )->get_countries(),
-					),
-					array(
-						'name' => 'tribe_data_us_states',
-						'data' => Tribe__View_Helpers::loadStates(),
-					),
-				),
+				'localize'     => array(),
 				'conditionals' => array( $this, 'is_events_post_type' ),
 				'priority' => 1
 			)
@@ -599,56 +512,6 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	 */
 	public function deregister_scripts() {
 		wp_deregister_script( 'tribe_events_google_maps_api' );
-	}
-
-	/**
-	 * Get Localization data for Date settings
-	 *
-	 * @since TBD
-	 *
-	 * @return array
-	 */
-	public function get_date_settings() {
-		global $wp_locale;
-		return array(
-			'l10n'     => array(
-				'locale'        => get_user_locale(),
-				'months'        => array_values( $wp_locale->month ),
-				'monthsShort'   => array_values( $wp_locale->month_abbrev ),
-				'weekdays'      => array_values( $wp_locale->weekday ),
-				'weekdaysShort' => array_values( $wp_locale->weekday_abbrev ),
-				'meridiem'      => (object) $wp_locale->meridiem,
-				'relative'      => array(
-					/* translators: %s: duration */
-					'future' => __( '%s from now', 'default' ),
-					/* translators: %s: duration */
-					'past'   => __( '%s ago', 'default' ),
-				),
-			),
-			'formats'  => array(
-				'time'       => get_option( 'time_format', __( 'g:i a', 'default' ) ),
-				'date'       => get_option( 'date_format', __( 'F j, Y', 'default' ) ),
-				'dateNoYear' => __( 'F j', 'default' ),
-				'datetime'   => __( 'F j, Y g:i a', 'default' ),
-			),
-			'timezone' => array(
-				'offset' => get_option( 'gmt_offset', 0 ),
-				'string' => $this->get_timezone_label(),
-			),
-		);
-	}
-
-	/**
-	 * Returns the site timezone as a string
-	 *
-	 * @since TBD
-	 *
-	 * @return string
-	 */
-	public function get_timezone_label() {
-		return class_exists( 'Tribe__Timezones' )
-			? Tribe__Timezones::wp_timezone_string()
-			: get_option( 'timezone_string', 'UTC' );
 	}
 
 	/**

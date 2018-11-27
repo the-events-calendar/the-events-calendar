@@ -67,7 +67,7 @@ class EventDateTimeContent extends Component {
 		const { cost, currencyPosition, currencySymbol, setCost } = this.props;
 
 		// Bail when not classic
-		if ( ! editor() || ! editor().is_classic ) {
+		if ( ! editor() || ! editor().isClassic ) {
 			return null;
 		}
 

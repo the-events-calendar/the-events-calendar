@@ -13,11 +13,11 @@ import { __ } from '@wordpress/i18n';
 /**
  * Internal dependencies
  */
-import { config } from '@moderntribe/common/utils/globals';
+import { globals } from '@moderntribe/common/utils';
 import './style.pcss';
 
 const EditLink = ( { postId, label, target } ) => {
-	const admin = get( config(), 'admin_url', '' );
+	const admin = get( globals.common(), 'adminUrl', '' );
 	if ( ! admin || ! postId ) {
 		return null;
 	}
