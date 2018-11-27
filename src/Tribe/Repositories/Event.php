@@ -1195,6 +1195,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			'ends_between',
 			'starts_and_ends_between',
 			'runs_between',
+			'on_calendar_grid',
 		);
 
 		/**
