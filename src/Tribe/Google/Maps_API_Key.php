@@ -54,7 +54,7 @@ class Tribe__Events__Google__Maps_API_Key {
 	public function filter_tribe_addons_tab_fields( array $addon_fields ) {
 
 		$tooltip = sprintf(
-			'<p><strong>%1$s</strong></p> <p><a href="https://theeventscalendar.com/knowledgebase/setting-up-your-google-maps-api-key/" target="_blank">%2$s</a> %3$s',
+			'<p><strong>%1$s</strong></p> <p><a href="https://theeventscalendar.com/knowledgebase/setting-up-your-google-maps-api-key/" target="_blank">%2$s</a> %3$s</p>',
 			esc_html__( 'You are using a custom Google Maps API key.', 'the-events-calendar' ),
 			esc_html__( 'Click here', 'the-events-calendar' ),
 			esc_html__( 'to learn more about using it with The Events Calendar', 'the-events-calendar' )
@@ -67,17 +67,17 @@ class Tribe__Events__Google__Maps_API_Key {
 		$gmaps_api_fields = array(
 			'gmaps-js-api-start' => array(
 				'type' => 'html',
-				'html' => '<h3>' . esc_html__( 'Google Maps API', 'the-events-calendar' ) . '</h3>',
+				'html' => '<h3>' . esc_html__( 'Google Maps JavaScript API', 'the-events-calendar' ) . '</h3>',
 			),
 
 			'gmaps-js-api-info-box' => array(
 				'type' => 'html',
 				'html' => '<p>' . sprintf(
 					__(
-						'The Events Calendar comes with an API key for basic maps functionality. If you’d like to use more advanced features like custom map pins or dynamic map loads, you’ll need to get your own %1$s. %2$s.',
+						'The Events Calendar comes with a Google Maps JavaScript API key for basic maps functionality. If you’d like to use more advanced features like custom map pins or dynamic map loads, you’ll need to get your own %1$s. %2$s.',
 						'the-events-calendar'
 					),
-					'<a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank" rel="noopener noreferrer">' . esc_html__( 'Google Maps API key', 'the-events-calendar' ) . '</a>',
+					'<a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank" rel="noopener noreferrer">' . esc_html__( 'Google Maps JavaScript API key', 'the-events-calendar' ) . '</a>',
 					'<a href="https://theeventscalendar.com/knowledgebase/setting-up-your-google-maps-api-key/" target="_blank" rel="noopener noreferrer">' . esc_html__( 'Read More', 'the-events-calendar' ) . '</a>'
 				) . '</p>',
 			),
@@ -95,7 +95,7 @@ class Tribe__Events__Google__Maps_API_Key {
 			self::$google_geocoding_api_key_option => array(
 				'type'            => 'text',
 				'label'           => esc_html__( 'Google Maps Geocoding API Key', 'the-events-calendar' ),
-				'tooltip'         => $tooltip,
+				'tooltip'         => sprintf( '<p>%s</p>', esc_html__( 'A separate Google Maps API Key that uses the Google Geocoding API. This is used for Geolocation features like finding a venue\'s latitude and longitude', 'the-events-calendar' ) ),
 				'size'            => 'medium',
 				'validation_type' => 'alpha_numeric_with_dashes_and_underscores',
 				'can_be_empty'    => true,
