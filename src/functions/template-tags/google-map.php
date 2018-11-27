@@ -24,7 +24,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return boolean
 	 */
 	function tribe_is_using_basic_gmaps_api() {
-		$user_api_key = (string) tribe_get_option( Tribe__Events__Google__Maps_API_Key::$api_key_option_name );
+		$user_api_key = (string) tribe_get_option( Tribe__Events__Google__Maps_API_Key::$maps_js_api_key_option );
 		$tec_api_key  = (string) Tribe__Events__Google__Maps_API_Key::$default_api_key;
 
 		/**
@@ -166,7 +166,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 */
 	function tribe_get_basic_gmap_embed_url( $address_string ) {
 
-		$api_key = tribe_get_option( Tribe__Events__Google__Maps_API_Key::$api_key_option_name, Tribe__Events__Google__Maps_API_Key::$default_api_key );
+		$api_key = tribe_get_option( Tribe__Events__Google__Maps_API_Key::$maps_js_api_key_option, Tribe__Events__Google__Maps_API_Key::$default_api_key );
 
 		$embed_url_args = array(
 			'key' => $api_key,

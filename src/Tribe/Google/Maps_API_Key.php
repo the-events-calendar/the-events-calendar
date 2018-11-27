@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * Class Tribe__Events__Google__Maps_API_Key
  *
@@ -11,7 +10,12 @@ class Tribe__Events__Google__Maps_API_Key {
 	/**
 	 * @var string
 	 */
-	public static $api_key_option_name = 'google_maps_js_api_key';
+	public static $maps_js_api_key_option = 'google_maps_js_api_key';
+
+	/**
+	 * @var string
+	 */
+	public static $google_geocoding_api_key_option = 'google_geocoding_api_key';
 
 	/**
 	 * The Events Calendar's default Google Maps API Key, which supports the Basic Embed API.
@@ -50,7 +54,7 @@ class Tribe__Events__Google__Maps_API_Key {
 	public function filter_tribe_addons_tab_fields( array $addon_fields ) {
 
 		$tooltip = sprintf(
-			'<p><strong>%1$s</strong></p><p><a href="https://theeventscalendar.com/knowledgebase/setting-up-your-google-maps-api-key/" target="_blank">%2$s</a> %3$s',
+			'<p><strong>%1$s</strong></p> <p><a href="https://theeventscalendar.com/knowledgebase/setting-up-your-google-maps-api-key/" target="_blank">%2$s</a> %3$s',
 			esc_html__( 'You are using a custom Google Maps API key.', 'the-events-calendar' ),
 			esc_html__( 'Click here', 'the-events-calendar' ),
 			esc_html__( 'to learn more about using it with The Events Calendar', 'the-events-calendar' )
@@ -78,9 +82,19 @@ class Tribe__Events__Google__Maps_API_Key {
 				) . '</p>',
 			),
 
-			self::$api_key_option_name => array(
+			self::$maps_js_api_key_option => array(
 				'type'            => 'text',
-				'label'           => esc_html__( 'Google Maps API key', 'the-events-calendar' ),
+				'label'           => esc_html__( 'Google Maps JavaScript API Key', 'the-events-calendar' ),
+				'tooltip'         => $tooltip,
+				'size'            => 'medium',
+				'validation_type' => 'alpha_numeric_with_dashes_and_underscores',
+				'can_be_empty'    => true,
+				'parent_option'   => Tribe__Events__Main::OPTIONNAME,
+			),
+
+			self::$google_geocoding_api_key_option => array(
+				'type'            => 'text',
+				'label'           => esc_html__( 'Google Maps Geocoding API Key', 'the-events-calendar' ),
 				'tooltip'         => $tooltip,
 				'size'            => 'medium',
 				'validation_type' => 'alpha_numeric_with_dashes_and_underscores',
@@ -102,11 +116,11 @@ class Tribe__Events__Google__Maps_API_Key {
 	public function get_basic_embed_api_tooltip() {
 		return sprintf(
 			'<p><strong>%1$s</strong></p><p>%2$s <a href="https://theeventscalendar.com/knowledgebase/setting-up-your-google-maps-api-key/">%3$s</a>.</p><p><a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank">%4$s</a> %5$s</p>',
-			esc_html__( 'You are using The Events Calendar\'s built-in Google Maps API key.', 'the-events-calendar' ),
+			esc_html__( 'You are using The Events Calendar\'s built-in Google Maps JavaScript API key.', 'the-events-calendar' ),
 			esc_html__( 'If you do not add your own API key, the built-in API key will always populate this field and some map-related functionality will be limited ', 'the-events-calendar' ),
 			esc_html__( '(click here for details)', 'the-events-calendar' ),
 			esc_html__( 'Click here', 'the-events-calendar' ),
-			esc_html__( 'to create your own free Google Maps API key.', 'the-events-calendar' )
+			esc_html__( 'to create your own free Google Maps JavaScript API key.', 'the-events-calendar' )
 		);
 	}
 
@@ -118,7 +132,7 @@ class Tribe__Events__Google__Maps_API_Key {
 	 * @return string
 	 */
 	public function filter_tribe_events_google_maps_api( $js_maps_api_url ) {
-		$key = tribe_get_option( self::$api_key_option_name, self::$default_api_key );
+		$key = tribe_get_option( self::$maps_js_api_key_option, self::$default_api_key );
 
 		if ( ! empty( $key ) ) {
 			$js_maps_api_url = add_query_arg( 'key', $key, $js_maps_api_url );
@@ -143,7 +157,7 @@ class Tribe__Events__Google__Maps_API_Key {
 	 */
 	public function populate_field_with_default_api_key( $value_string, $field_name ) {
 
-		if ( ! isset( $field_name ) || self::$api_key_option_name !== $field_name ) {
+		if ( ! isset( $field_name ) || self::$maps_js_api_key_option !== $field_name ) {
 			return $value_string;
 		}
 
@@ -153,7 +167,7 @@ class Tribe__Events__Google__Maps_API_Key {
 
 			$value_string = self::$default_api_key;
 
-			tribe_update_option( self::$api_key_option_name, self::$default_api_key );
+			tribe_update_option( self::$maps_js_api_key_option, self::$default_api_key );
 
 			add_filter( 'tribe_field_value', array( $this, 'populate_field_with_default_api_key' ), 10, 2 );
 		}
@@ -173,11 +187,11 @@ class Tribe__Events__Google__Maps_API_Key {
 	 */
 	public function populate_field_tooltip_with_helper_text( $tooltip_string, $field_name ) {
 
-		if ( ! isset( $field_name ) || self::$api_key_option_name !== $field_name ) {
+		if ( ! isset( $field_name ) || self::$maps_js_api_key_option !== $field_name ) {
 			return $tooltip_string;
 		}
 
-		$api_key = tribe_get_option( self::$api_key_option_name, self::$default_api_key );
+		$api_key = tribe_get_option( self::$maps_js_api_key_option, self::$default_api_key );
 
 		if ( empty( $api_key ) || self::$default_api_key === $api_key ) {
 			$tooltip_string = $this->get_basic_embed_api_tooltip();
