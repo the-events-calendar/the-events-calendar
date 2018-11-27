@@ -1,4 +1,3 @@
-
 <?php
 /**
  * Events Editor Compatibility
