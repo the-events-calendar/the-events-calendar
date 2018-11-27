@@ -59,8 +59,8 @@ class Tribe__Events__Editor__Compatibility {
 		$insert_data = array(
 			$this->get_toggle_blocks_editor_key() => array(
 				'type'            => 'checkbox_bool',
-				'label'           => esc_html__( 'Activate Blocks Editor', 'the-events-calendar' ),
-				'tooltip'         => esc_html__( 'Check this box to use the Blocks Editor (aka: Gutenberg) to manage Events single Page.', 'the-events-calendar' ),
+				'label'           => esc_html__( 'Activate Block Editor for Events', 'the-events-calendar' ),
+				'tooltip'         => esc_html__( 'Enable early access to the new Gutenberg block editor interface for creating events.', 'the-events-calendar' ),
 				'default'         => false,
 				'validation_type' => 'boolean',
 				'attributes'      => array( 'id' => 'tribe-blocks-editor-toggle-field' ),
