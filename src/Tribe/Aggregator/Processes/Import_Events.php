@@ -209,6 +209,35 @@ class Tribe__Events__Aggregator__Processes__Import_Events extends Tribe__Process
 		$data                  = (array) $item['data'];
 		$this->transitional_id = filter_var( $item['transitional_id'], FILTER_SANITIZE_STRING );
 
+		/*
+		 * Make sure the import is happening in the context of the same site that started it.
+		 * This deals with mis-handling and orphaned calls to the the `switch_to_blog` function.
+		 */
+		$current_blog_id = is_multisite() ? get_current_blog_id() : 1;
+		$task_blog_id = isset( $item['blog_id'] ) ? (int) $item['blog_id'] : $current_blog_id;
+
+		if ( $current_blog_id !== $task_blog_id ) {
+			/*
+			 * Requeue this task and log an error. For whatever reason the blog id context of this task is not
+			 * the expected one.
+			 * We do not switch to the correct task blog to avoid potentially causing more issues: this is an issue
+			 * already so let's log an error.
+			 */
+			/** @var Tribe__Log $logger */
+			$logger = tribe( 'logger' );
+			$logger->log_error(
+				sprintf(
+					'Event Aggregator import task supposed to run in context of blog %d, running instead in blog %d: not importing.',
+					$task_blog_id,
+					$current_blog_id
+				),
+				'Event Aggregator Import'
+			);
+
+			// Return the item to indicate the task should be re-queued.
+			return $item;
+		}
+
 		/**
 		 * To avoid deadlocks when dealing with circular dependencies an item can be requeued only
 		 * so many times.
