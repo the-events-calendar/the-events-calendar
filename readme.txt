@@ -220,6 +220,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 = [4.6.26.1] 2018-11-21 =
 
 * Fix - Resolved a compatibility issue with WordPress version 4.7.11 and earlier (our thanks to @placer69 and @earthnutvt for flagging this) [118627]
+* Language - 11 new strings added, 0 updated, 0 fuzzied, and 30 obsoleted
 
 = [4.6.26] 2018-11-13 =
 
