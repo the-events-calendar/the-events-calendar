@@ -218,6 +218,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 = [4.7.1] TBD =
 
 * Fix - Make the Date Time block respect the timezone settings [118682]
+* Fix - Remove Price block dashboard gap [118683]
 
 = [4.7] 2018-11-29 =
 
