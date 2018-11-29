@@ -5,7 +5,7 @@ extends Tribe__Editor__Blocks__Abstract {
 	/**
 	 * Which is the name/slug of this block
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 *
 	 * @return string
 	 */
@@ -16,7 +16,7 @@ extends Tribe__Editor__Blocks__Abstract {
 	/**
 	 * Set the default attributes of this block
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 *
 	 * @return string
 	 */
@@ -32,7 +32,7 @@ extends Tribe__Editor__Blocks__Abstract {
 	/**
 	 * Since we are dealing with a Dynamic type of Block we need a PHP method to render it
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 *
 	 * @param  array $attributes
 	 *
@@ -50,7 +50,7 @@ extends Tribe__Editor__Blocks__Abstract {
 	/**
 	 * Register the Assets for when this block is active
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 *
 	 * @return void
 	 */

@@ -2,13 +2,13 @@
 /**
  * Fetch the Tribe Settings to use on the JS side
  *
- * @since TBD
+ * @since 4.7
  */
 class Tribe__Events__Editor__Settings {
 	/**
 	 * Hook into the required places to make it work
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 *
 	 * @return void
 	 */
@@ -19,7 +19,7 @@ class Tribe__Events__Editor__Settings {
 	/**
 	 * Based on a set of rules determines if a Tribe Option is private or not
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 *
 	 * @param string $key Which key we are checking against
 	 *
@@ -43,7 +43,7 @@ class Tribe__Events__Editor__Settings {
 	/**
 	 * Get all Public options of Tribe Options
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 *
 	 * @todo   move the filtering into Core Tribe__Settings_Manager::get_options
 	 *
