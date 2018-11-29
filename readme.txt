@@ -215,6 +215,10 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
+= [4.7.1] TBD =
+
+* Fix - Make the Date Time block respect the timezone settings [118682]
+
 = [4.7] 2018-11-29 =
 
 * Feature - added new setting to activate the block editor on events for users running the WordPress 5.0 beta.
