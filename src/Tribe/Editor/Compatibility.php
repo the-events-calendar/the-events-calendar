@@ -2,7 +2,7 @@
 /**
  * Events Editor Compatibility
  *
- * @since TBD
+ * @since 4.7
  */
 class Tribe__Events__Editor__Compatibility {
 
@@ -11,7 +11,7 @@ class Tribe__Events__Editor__Compatibility {
 	 *
 	 * In place of delegating the hooking responsibility to the single classes they are all hooked here.
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 *
 	 * @return void
 	 */
@@ -23,7 +23,7 @@ class Tribe__Events__Editor__Compatibility {
 	 * On any administration page that we see the Gutenberg Extension plugin we deactivate and redirect
 	 * to the Plugins page so the user can't do anything weird.
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 *
 	 * @return void
 	 */
@@ -54,7 +54,7 @@ class Tribe__Events__Editor__Compatibility {
 	/**
 	 * Gets if user toggled blocks editor on the settings
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 *
 	 * @return bool
 	 */
@@ -67,7 +67,7 @@ class Tribe__Events__Editor__Compatibility {
 	/**
 	 * Gets the option key for toggling Blocks Editor active
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 *
 	 * @return string
 	 */
@@ -78,7 +78,7 @@ class Tribe__Events__Editor__Compatibility {
 	/**
 	 * Gets the option key for the Hidden Field of toggling blocks editor
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 *
 	 * @return string
 	 */
@@ -89,7 +89,7 @@ class Tribe__Events__Editor__Compatibility {
 	/**
 	 * Inserts the Toggle and Hidden Field for the Activation of Blocks Editor
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 *
 	 * @param array $fields Fields from Options General
 	 *

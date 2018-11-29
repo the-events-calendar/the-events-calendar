@@ -3,14 +3,14 @@
 /**
  * Initialize Gutenberg editor blocks and styles
  *
- * @since TBD
+ * @since 4.7
  */
 class Tribe__Events__Editor extends Tribe__Editor {
 
 	/**
 	 * Hooks actions from the editor into the correct places
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 *
 	 * @return bool
 	 */
@@ -58,7 +58,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	 *
 	 * @todo  see https://core.trac.wordpress.org/ticket/45275
 	 *
-	 * @since  TBD
+	 * @since  4.7
 	 *
 	 * @param  boolean $is_enabled
 	 * @param  string  $post_type
@@ -78,7 +78,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	 *
 	 * @todo  see https://core.trac.wordpress.org/ticket/45275
 	 *
-	 * @since  TBD
+	 * @since  4.7
 	 *
 	 * @param  boolean $is_enabled
 	 * @param  string  $post_type
@@ -100,7 +100,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	 *
 	 * @todo  Block that option once the user has Gutenberg active
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 *
 	 * @return void
 	 */
@@ -111,7 +111,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	/**
 	 * When initially loading a post in gutenberg flags if came from classic editor
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 *
 	 * @return bool
 	 */
@@ -161,7 +161,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 			/**
 			 * Flags when we are coming from a Classic editor into Blocks
 			 *
-			 * @since TBD
+			 * @since 4.7
 			 *
 			 * @param  int $post Which post is getting updated
 			 */
@@ -174,7 +174,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	/**
 	 * Making sure we have correct post content for blocks after going into Gutenberg
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 *
 	 * @param  int $post Which post we will migrate
 	 *
@@ -192,7 +192,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 			 * Add an opportunity to set the default params of a block when migrating from classic into
 			 * blocks editor.
 			 *
-			 * @since TBD
+			 * @since 4.7
 			 *
 			 * @param mixed $params Either array if set to values or slug string
 			 * @param string $slug Name of the block edited
@@ -225,7 +225,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 		/**
 		 * Allow filtering of the Content updated
 		 *
-		 * @since TBD
+		 * @since 4.7
 		 *
 		 * @param  string  $content Content that will be updated
 		 * @param  WP_Post $post    Which post we will migrate
@@ -244,7 +244,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	/**
 	 * Gets the classic template, used for migration and setup new events with classic look
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 *
 	 * @return array
 	 */
@@ -265,7 +265,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 		/**
 		 * Allow modifying the default classic template for Events
 		 *
-		 * @since TBD
+		 * @since 4.7
 		 *
 		 * @param  array   $template   Array of all the templates used by default
 		 *
@@ -278,7 +278,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	/**
 	 * Adds the required blocks into the Events Post Type
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 *
 	 * @param  array $args Arguments used to setup the CPT template
 	 *
@@ -311,7 +311,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 		/**
 		 * Allow modifying the default template for Events
 		 *
-		 * @since TBD
+		 * @since 4.7
 		 *
 		 * @param  array   $template   Array of all the templates used by default
 		 * @param  string  $post_type  Which post type we are filtering
@@ -327,7 +327,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	 * Prevents us from using `init` to register our own blocks, allows us to move
 	 * it when the proper place shows up
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 *
 	 * @return void
 	 */
@@ -335,7 +335,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 		/**
 		 * Internal Action used to register blocks for Events
 		 *
-		 * @since TBD
+		 * @since 4.7
 		 */
 		do_action( 'tribe_events_editor_register_blocks' );
 	}
@@ -343,7 +343,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	/**
 	 * Check if current admin page is post type `tribe_events`
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 *
 	 * @return bool
 	 */
@@ -354,7 +354,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	/**
 	 * @todo   Move this into the Block PHP files
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 *
 	 * @return void
 	 */
@@ -364,7 +364,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 		/**
 		 * Allows for filtering the embedded Google Maps API URL.
 		 *
-		 * @since TBD
+		 * @since 4.7
 		 *
 		 * @param string $api_url The Google Maps API URL.
 		 */
@@ -378,7 +378,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 		/**
 		 * Allows for filtering the embedded Google Maps API URL.
 		 *
-		 * @since TBD
+		 * @since 4.7
 		 *
 		 * @param string $api_url The Google Maps API URL.
 		 */
@@ -508,7 +508,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	 * Remove scripts that are not relevant for the Gutenberg editor or conflict with the scripts
 	 * used on gutenberg
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 */
 	public function deregister_scripts() {
 		wp_deregister_script( 'tribe_events_google_maps_api' );
@@ -517,7 +517,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	/**
 	 * Add "Event Blocks" category to the editor
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 *
 	 * @return array
 	 */
@@ -546,7 +546,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	/**
 	 * Adds the required blocks into the Events Post Type
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 * @deprecated 0.1.3-alpha
 	 *
 	 * @param  array $args Arguments used to setup the CPT template
@@ -565,7 +565,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	 *
 	 * Code is located at: https://github.com/moderntribe/the-events-calendar/blob/f8af49bc41048e8632372fc8da77202d9cb98d86/src/Tribe/Admin/Event_Meta_Box.php#L345
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 * @deprecated 0.3.2-alpha
 	 *
 	 * @param $value

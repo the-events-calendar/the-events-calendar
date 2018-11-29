@@ -2,14 +2,14 @@
 /**
  * Class Tribe__Events__Editor__Configuration
  *
- * @since TBD
+ * @since 4.7
  */
 class Tribe__Events__Editor__Configuration implements Tribe__Editor__Configuration_Interface  {
 
 	/**
 	 * Hook used to attach actions / filters
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 */
 	public function hook() {
 		add_filter( 'tribe_editor_config', array( $this, 'editor_config' ) );
@@ -18,7 +18,7 @@ class Tribe__Events__Editor__Configuration implements Tribe__Editor__Configurati
 	/**
 	 * Add custom variables to be localized
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 *
 	 * @param array $editor_config
 	 * @return array
@@ -32,7 +32,7 @@ class Tribe__Events__Editor__Configuration implements Tribe__Editor__Configurati
 	/**
 	 * Return the variables to be localized
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 *
 	 * @return array
 	 */
@@ -46,6 +46,9 @@ class Tribe__Events__Editor__Configuration implements Tribe__Editor__Configurati
 					tribe_get_option( 'reverseCurrencyPosition', false ) ? 'suffix' : 'prefix'
 				),
 				'isNewEvent' => tribe( 'context' )->is_new_post(),
+			),
+			'dateSettings'  => array(
+				'datepickerFormat' => Tribe__Date_Utils::datepicker_formats( tribe_get_option( 'datepickerFormat' ) ),
 			),
 			'editor'        => array(
 				'isClassic' => $this->post_is_from_classic_editor( tribe_get_request_var( 'post', 0 ) ),
@@ -65,7 +68,7 @@ class Tribe__Events__Editor__Configuration implements Tribe__Editor__Configurati
 	/**
 	 * Check if post is from classic editor
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 *
 	 * @param int|WP_Post $post
 	 *
