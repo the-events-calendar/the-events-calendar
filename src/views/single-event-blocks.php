@@ -22,8 +22,6 @@ $is_recurring = '';
 if ( ! empty( $event_id ) && function_exists( 'tribe_is_recurring_event' ) ) {
 	$is_recurring = tribe_is_recurring_event( $event_id );
 }
-
-var_dump($is_recurring);
 ?>
 
 <div id="tribe-events-content" class="tribe-events-single tribe-blocks-editor">
