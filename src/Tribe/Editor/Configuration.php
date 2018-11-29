@@ -45,7 +45,6 @@ class Tribe__Events__Editor__Configuration implements Tribe__Editor__Configurati
 				'defaultCurrencyPosition' => (
 					tribe_get_option( 'reverseCurrencyPosition', false ) ? 'suffix' : 'prefix'
 				),
-				'isNewEvent' => tribe( 'context' )->is_new_post(),
 			),
 			'editor'        => array(
 				'isClassic' => $this->post_is_from_classic_editor( tribe_get_request_var( 'post', 0 ) ),
