@@ -54,6 +54,10 @@ class Tribe__Events__Editor__Configuration implements Tribe__Editor__Configurati
 				'zoom' => apply_filters( 'tribe_events_single_map_zoom_level', (int) tribe_get_option( 'embedGoogleMapsZoom', 8 ) ),
 				'key'  => tribe_get_option( 'google_maps_js_api_key' ),
 			),
+			'timeZone'     => array(
+				'showTimeZone' => tribe_get_option( 'tribe_events_timezones_show_zone', false ),
+				'label'        => $this->get_timezone_label(),
+			),
 		);
 	}
 
@@ -79,5 +83,18 @@ class Tribe__Events__Editor__Configuration implements Tribe__Editor__Configurati
 		/** @var Tribe__Editor $editor */
 		$editor = tribe( 'editor' );
 		return tribe_is_truthy( get_post_meta( $post->ID, $editor->key_flag_classic_editor, true ) );
+	}
+
+	/**
+	 * Returns the site timezone as a string
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	public function get_timezone_label() {
+		return class_exists( 'Tribe__Timezones' )
+			? Tribe__Timezones::wp_timezone_string()
+			: get_option( 'timezone_string', 'UTC' );
 	}
 }
