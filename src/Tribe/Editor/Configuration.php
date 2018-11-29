@@ -47,6 +47,9 @@ class Tribe__Events__Editor__Configuration implements Tribe__Editor__Configurati
 				),
 				'isNewEvent' => tribe( 'context' )->is_new_post(),
 			),
+			'dateSettings'  => array(
+				'datepickerFormat' => Tribe__Date_Utils::datepicker_formats( tribe_get_option( 'datepickerFormat' ) ),
+			),
 			'editor'        => array(
 				'isClassic' => $this->post_is_from_classic_editor( tribe_get_request_var( 'post', 0 ) ),
 			),
