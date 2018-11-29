@@ -1,4 +1,9 @@
 /**
+ * WordPress dependencies
+ */
+import { select } from '@wordpress/data';
+
+/**
  * Internal dependencies
  */
 import {
@@ -15,7 +20,7 @@ import {
 } from './actions';
 import { DEFAULT_STATE } from './reducer';
 import { maybeBulkDispatch } from '@moderntribe/events/data/utils';
-import { date, moment } from '@moderntribe/common/utils';
+import { globals, date, moment } from '@moderntribe/common/utils';
 
 const {
 	isSameDay,
@@ -47,13 +52,18 @@ export const setInitialState = ( { get, attributes } ) => ( dispatch ) => {
 		values.start = toDateTime( parseFormats( attributes.start ) );
 		dispatch( setStartDateTime( values.start ) );
 	}
-
 	if ( attributes.end ) {
 		values.end = toDateTime( parseFormats( attributes.end ) );
 		dispatch( setEndDateTime( values.end ) );
 	}
 
 	dispatch( setNaturalLanguageLabel( date.rangeToNaturalLanguage( values.start, values.end ) ) );
-
 	dispatch( setMultiDayAction( ! isSameDay( values.start, values.end ) ) );
+
+	const isNewEvent = select( 'core/editor' ).isEditedPostNew();
+	if ( isNewEvent ) {
+		const { dateTimeSeparator, timeRangeSeparator } = globals.settings();
+		dispatch( setSeparatorDate( dateTimeSeparator ) );
+		dispatch( setSeparatorTime( timeRangeSeparator ) );
+	}
 };
