@@ -3,13 +3,13 @@
 /**
  * Initialize Gutenberg Event Meta fields
  *
- * @since TBD
+ * @since 4.7
  */
 class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 	/**
 	 * Register the required Meta fields for good Gutenberg saving
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 *
 	 * @return void
 	 */
@@ -30,7 +30,7 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 		register_meta( 'post', '_EventCostDescription', $this->text() );
 		register_meta( 'post', '_EventCurrencySymbol', $this->text() );
 		register_meta( 'post', '_EventCurrencyPosition', $this->text() );
-		
+
 		// Use sanitize_textarea_field to allow whitespaces
 		register_meta(
 			'post',
@@ -62,7 +62,7 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 				)
 			)
 		);
-		
+
 		register_meta(
 			'post',
 			'_EventVenueID',
@@ -75,12 +75,12 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 				'show_in_rest'      => true,
 			)
 		);
-		
+
 		// Organizers Meta
 		register_meta( 'post', '_OrganizerEmail', $this->text() );
 		register_meta( 'post', '_OrganizerPhone', $this->text() );
 		register_meta( 'post', '_OrganizerWebsite', $this->text() );
-		
+
 		// Venue Meta
 		register_meta( 'post', '_VenueAddress', $this->text() );
 		register_meta( 'post', '_VenueCity', $this->text() );
@@ -97,7 +97,7 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 	/**
 	 * Make sure we make the REST response backwards compatible.
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 *
 	 * @param WP_REST_Response $data
 	 * @param WP_Post          $post    Post object.

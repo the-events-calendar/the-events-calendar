@@ -247,7 +247,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Where in the themes we will look for templates
 		 *
-		 * @since TBD
+		 * @since 4.7
 		 *
 		 * @var string
 		 */
@@ -1359,7 +1359,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 	 * Hooked to admin_notices, this error is thrown when TEC is run alongside a version of
 	 * PRO that is too old
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 */
 	public function pro_compatibility_notice() {
 		echo $this->premium_addon_compatibility_notice(
@@ -1374,7 +1374,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 	 * Hooked to admin_notices, this error is thrown when TEC is run alongside a version of
 	 * PRO that is too old
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 *
 	 * @param string $bootstrap_file Filename for the plugin bootstrap
 	 * @param string $plugin_name Friendly plugin name
@@ -1417,7 +1417,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * @todo eliminate this method when dependency checking is complete
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 */
 	private function maybe_include_pro_class() {
 		if ( class_exists( 'Tribe__Events__Pro__Main' ) ) {

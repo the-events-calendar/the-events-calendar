@@ -5,7 +5,7 @@ class Tribe__Events__Editor__Provider extends tad_DI52_ServiceProvider {
 	/**
 	 * Binds and sets up implementations.
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 *
 	 */
 	public function register() {
@@ -53,7 +53,7 @@ class Tribe__Events__Editor__Provider extends tad_DI52_ServiceProvider {
 	 *
 	 * In place of delegating the hooking responsibility to the single classes they are all hooked here.
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 *
 	 */
 	protected function hook() {
@@ -84,7 +84,7 @@ class Tribe__Events__Editor__Provider extends tad_DI52_ServiceProvider {
 	/**
 	 * Binds and sets up implementations at boot time.
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 */
 	public function boot() {
 		// no ops
