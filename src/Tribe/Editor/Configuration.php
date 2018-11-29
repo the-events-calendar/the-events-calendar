@@ -2,14 +2,14 @@
 /**
  * Class Tribe__Events__Editor__Configuration
  *
- * @since TBD
+ * @since 4.7
  */
 class Tribe__Events__Editor__Configuration implements Tribe__Editor__Configuration_Interface  {
 
 	/**
 	 * Hook used to attach actions / filters
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 */
 	public function hook() {
 		add_filter( 'tribe_editor_config', array( $this, 'editor_config' ) );
@@ -18,7 +18,7 @@ class Tribe__Events__Editor__Configuration implements Tribe__Editor__Configurati
 	/**
 	 * Add custom variables to be localized
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 *
 	 * @param array $editor_config
 	 * @return array
@@ -32,7 +32,7 @@ class Tribe__Events__Editor__Configuration implements Tribe__Editor__Configurati
 	/**
 	 * Return the variables to be localized
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 *
 	 * @return array
 	 */
@@ -46,12 +46,19 @@ class Tribe__Events__Editor__Configuration implements Tribe__Editor__Configurati
 					tribe_get_option( 'reverseCurrencyPosition', false ) ? 'suffix' : 'prefix'
 				),
 			),
+			'dateSettings'  => array(
+				'datepickerFormat' => Tribe__Date_Utils::datepicker_formats( tribe_get_option( 'datepickerFormat' ) ),
+			),
 			'editor'        => array(
 				'isClassic' => $this->post_is_from_classic_editor( tribe_get_request_var( 'post', 0 ) ),
 			),
 			'googleMap'     => array(
 				'zoom' => apply_filters( 'tribe_events_single_map_zoom_level', (int) tribe_get_option( 'embedGoogleMapsZoom', 8 ) ),
 				'key'  => tribe_get_option( 'google_maps_js_api_key' ),
+			),
+			'timeZone'     => array(
+				'showTimeZone' => tribe_get_option( 'tribe_events_timezones_show_zone', false ),
+				'label'        => $this->get_timezone_label(),
 			),
 		);
 	}
@@ -60,7 +67,7 @@ class Tribe__Events__Editor__Configuration implements Tribe__Editor__Configurati
 	/**
 	 * Check if post is from classic editor
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 *
 	 * @param int|WP_Post $post
 	 *
@@ -78,5 +85,18 @@ class Tribe__Events__Editor__Configuration implements Tribe__Editor__Configurati
 		/** @var Tribe__Editor $editor */
 		$editor = tribe( 'editor' );
 		return tribe_is_truthy( get_post_meta( $post->ID, $editor->key_flag_classic_editor, true ) );
+	}
+
+	/**
+	 * Returns the site timezone as a string
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	public function get_timezone_label() {
+		return class_exists( 'Tribe__Timezones' )
+			? Tribe__Timezones::wp_timezone_string()
+			: get_option( 'timezone_string', 'UTC' );
 	}
 }

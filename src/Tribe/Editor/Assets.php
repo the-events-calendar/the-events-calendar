@@ -2,12 +2,12 @@
 /**
  * Events Gutenberg Assets
  *
- * @since TBD
+ * @since 4.7
  */
 class Tribe__Events__Editor__Assets {
 	/**
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 *
 	 * @return void
 	 */
@@ -18,7 +18,7 @@ class Tribe__Events__Editor__Assets {
 	/**
 	 * Registers and Enqueues the assets
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 *
 	 * @param string $key Which key we are checking against
 	 *
@@ -44,7 +44,7 @@ class Tribe__Events__Editor__Assets {
 	/**
 	 * Checks if we should enqueue frontend assets
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 *
 	 * @return bool
 	 */
@@ -59,7 +59,7 @@ class Tribe__Events__Editor__Assets {
 		/**
 		 * Allow filtering of where the base Frontend Assets will be loaded
 		 *
-		 * @since TBD
+		 * @since 4.7
 		 *
 		 * @param bool $should_enqueue
 		 */
