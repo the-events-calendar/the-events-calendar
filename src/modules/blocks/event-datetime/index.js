@@ -20,7 +20,7 @@ import './subblocks';
  * Module Code
  */
 
-const timeZone = get( globals.common(), 'timeZone', {} );
+const timeZone = get( globals.tec(), 'timeZone', {} );
 
 export default {
 	id: 'event-datetime',

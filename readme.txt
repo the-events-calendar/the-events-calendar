@@ -215,6 +215,10 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
+= [4.7.1] TBD =
+
+* Fix - Make the Date Time block respect the timezone settings [118682]
+
 = [4.7] TBD =
 
 = [4.6.26.1] 2018-11-21 =

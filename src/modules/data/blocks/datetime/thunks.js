@@ -25,7 +25,7 @@ const {
 
 export const setInitialState = ( { get, attributes } ) => ( dispatch ) => {
 	const timeZone = get( 'timeZone', DEFAULT_STATE.timeZone );
-	const defaultTimeZone = get( 'timeZoneLabel', timeZone );
+	const timeZoneLabel = get( 'timeZoneLabel', timeZone );
 
 	maybeBulkDispatch( attributes, dispatch )( [
 		[ setStartDateTime, 'start', DEFAULT_STATE.start ],
@@ -33,8 +33,8 @@ export const setInitialState = ( { get, attributes } ) => ( dispatch ) => {
 		[ setAllDayAction, 'allDay', DEFAULT_STATE.allDay ],
 		[ setSeparatorDate, 'separatorDate', DEFAULT_STATE.dateTimeSeparator ],
 		[ setSeparatorTime, 'separatorTime', DEFAULT_STATE.timeRangeSeparator ],
-		[ setTimeZone, 'timeZone', DEFAULT_STATE.timeZone ],
-		[ setTimeZoneLabel, 'timeZoneLabel', defaultTimeZone ],
+		[ setTimeZone, 'timeZone', timeZoneLabel ],
+		[ setTimeZoneLabel, 'timeZoneLabel', timeZoneLabel ],
 		[ setTimeZoneVisibility, 'showTimeZone', DEFAULT_STATE.showTimeZone ],
 	] );
 
