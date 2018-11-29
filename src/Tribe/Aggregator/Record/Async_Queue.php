@@ -84,12 +84,16 @@ class Tribe__Events__Aggregator__Record__Async_Queue
 		/** @var Tribe__Process__Queue $import_queue */
 		$import_queue = tribe( 'events-aggregator.processes.import-events' );
 
+		// Fetch and store the current blog ID to make sure each task knows the blog context it should happen into.
+		$current_blog_id = is_multisite() ? get_current_blog_id() : 1;
+
 		foreach ( $items as $item ) {
-			$item_data = array(
+			$item_data           = array(
 				'user_id'         => get_current_user_id(),
 				'record_id'       => $this->record->id,
 				'data'            => $item,
 				'transitional_id' => $transitional_id,
+				'blog_id'         => $current_blog_id,
 			);
 			$import_queue->push_to_queue( $item_data );
 		}
