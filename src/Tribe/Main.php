@@ -245,6 +245,15 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public static $tribeEventsMuDefaults;
 
 		/**
+		 * Key for the transient flag for a delayed activation
+		 *
+		 * @since 4.7
+		 *
+		 * @var string
+		 */
+		public $key_delayed_activation_outdated_common = 'tribe_delayed_activation_outdated_common';
+
+		/**
 		 * Where in the themes we will look for templates
 		 *
 		 * @since 4.7
@@ -322,7 +331,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$common_version = $matches[1];
 
 			/**
-			 * If we don't have a version of Common or an Older version of the Lib
+			 * If we don't have a version of Common or a Older version of the Lib
 			 * overwrite what should be loaded by the auto-loader
 			 */
 			if (
@@ -337,12 +346,60 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
+		 * Fetches and verify if we had a delayed activation
+		 *
+		 * @since  4.7
+		 *
+		 * @return boolean [description]
+		 */
+		public function is_delayed_activation() {
+			return (bool) get_transient( $this->key_delayed_activation_outdated_common );
+		}
+
+		/**
+		 * Checks if currently loaded Common Lib version is incompatible with The Events Calendar
+		 * Sets a transient flag for us to be able to trigger plugin activation hooks on a later request
+		 *
+		 * @since  4.7
+		 *
+		 * @return bool
+		 */
+		public function maybe_delay_activation_if_outdated_common() {
+			// Only if Common is loaded correctly
+			if ( ! class_exists( 'Tribe__Main' ) ) {
+				return false;
+			}
+
+			$common_version = Tribe__Main::VERSION;
+
+			// We need tribe-common-info to be loaded to test
+			if ( empty( $GLOBALS['tribe-common-info'] ) ) {
+				return false;
+			}
+
+			// Only when this common lib is newer than the loaded one on activation we bail
+			if ( ! version_compare( $GLOBALS['tribe-common-info']['version'], $common_version, '>' ) ) {
+				return false;
+			}
+
+			// Set a transient forever to flag delayed activation
+			set_transient( $this->key_delayed_activation_outdated_common, 1, 0 );
+
+			return true;
+		}
+
+		/**
 		 * Plugins shouldn't include their functions before `plugins_loaded` because this will allow
 		 * better compatibility with the autoloader methods.
 		 *
 		 * @return void
 		 */
 		public function plugins_loaded() {
+			// Bail when we have outdated common
+			if ( $this->maybe_delay_activation_if_outdated_common() ) {
+				return false;
+			}
+
 			/**
 			 * Before any methods from this plugin are called, we initialize our Autoloading
 			 * After this method we can use any `Tribe__` classes
@@ -385,6 +442,15 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				add_action( 'admin_notices', array( $this, 'pro_compatibility_notice' ) );
 				remove_action( 'plugins_loaded', 'Tribe_ECP_Load', 2 );
 				return;
+			}
+
+			/**
+			 * We need to trigger a delayed activate if we have the flag
+			 *
+			 * @todo  we might need to move this into a better place, or smarter activation
+			 */
+			if ( $this->is_delayed_activation() ) {
+				add_action( 'admin_init', array( __CLASS__, 'activate' ) );
 			}
 		}
 
@@ -2858,8 +2924,17 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param bool $network_deactivating
 		 */
 		public static function activate() {
+			// Bail when we have outdated common
+			if ( self::instance()->maybe_delay_activation_if_outdated_common() ) {
+				return false;
+			}
 
-			self::instance()->plugins_loaded();
+			// Cant use tribe_is_truthy due to common versions
+			$is_delayed_activation = self::instance()->is_delayed_activation();
+
+			if ( ! $is_delayed_activation ) {
+				self::instance()->plugins_loaded();
+			}
 
 			self::flushRewriteRules();
 
@@ -2868,6 +2943,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			if ( ! is_network_admin() && ! isset( $_GET['activate-multi'] ) ) {
 				set_transient( '_tribe_events_activation_redirect', 1, 30 );
 			}
+
+			delete_transient( self::instance()->key_delayed_activation_outdated_common );
 		}
 
 		/**
