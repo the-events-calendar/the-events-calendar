@@ -15,9 +15,14 @@ import {
 import { settings } from '@moderntribe/common/utils/globals';
 import * as types from './types';
 
+const defaultStartTime = '08:00';
+const defaultEndTime = '17:00';
+const defaultStartTimeSeconds = time.toSeconds( defaultStartTime, time.TIME_FORMAT_HH_MM );
+const defaultEndTimeSeconds = time.toSeconds( defaultEndTime, time.TIME_FORMAT_HH_MM );
+
 export const DEFAULT_STATE = {
-	start: momentUtil.toDateTime( momentUtil.roundTime( moment() ) ),
-	end: momentUtil.toDateTime( momentUtil.roundTime( moment() ).add( time.HALF_HOUR_IN_SECONDS, 'seconds' ) ),
+	start: momentUtil.toDateTime( moment().seconds( defaultStartTimeSeconds ) ),
+	end: momentUtil.toDateTime( moment().seconds( defaultEndTimeSeconds ) ),
 	naturalLanguage: '',
 	dateTimeSeparator: settings() && settings().dateTimeSeparator ? settings().dateTimeSeparator : __( '@', 'events-gutenberg' ),
 	timeRangeSeparator: settings() && settings().timeRangeSeparator ? settings().timeRangeSeparator : __( '-', 'events-gutenberg' ),
