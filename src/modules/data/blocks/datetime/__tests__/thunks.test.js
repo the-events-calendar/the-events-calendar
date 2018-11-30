@@ -8,7 +8,6 @@ import thunk from 'redux-thunk';
 /**
  * Internal dependencies
  */
-import { PREFIX_EVENTS_STORE } from '@moderntribe/events/data/utils';
 import { thunks } from '@moderntribe/events/data/blocks/datetime';
 
 const middlewares = [ thunk ];
@@ -16,6 +15,12 @@ const mockStore = configureStore( middlewares );
 
 let initialState = {};
 let store;
+
+jest.mock( '@wordpress/data', () => ( {
+	select: () => ( {
+		isEditedPostNew: () => {},
+	} ),
+} ) );
 
 describe( '[STORE] - Datetime thunks', () => {
 	beforeEach( () => {
