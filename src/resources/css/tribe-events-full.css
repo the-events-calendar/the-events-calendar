@@ -952,6 +952,26 @@ select.tribe-events-dropdown {
 	padding: 0;
 }
 
+.single-tribe_events .tribe-events-single-event-recurrence-description {
+	align-items: center;
+	display: flex;
+	font-size: 1em;
+	margin: 0.5em 0 1.5em;
+}
+
+.single-tribe_events .tribe-events-single-event-recurrence-description > img {
+		height: 1em;
+	}
+
+.single-tribe_events .tribe-events-single-event-recurrence-description > a {
+		color: #009fd4;
+		font-size: 0.8125em;
+	}
+
+.single-tribe_events .tribe-events-single-event-recurrence-description > * {
+		margin-right: 0.4375em;
+	}
+
 #tribe-events-content .tribe-events-single-event-description  .attachment-post-thumbnail {
 	display: block;
 	margin-left: auto;
