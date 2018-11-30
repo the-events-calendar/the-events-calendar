@@ -24,7 +24,7 @@
 	<span><?php echo $recurrence_description ?></span>
 
 	<a href="<?php echo esc_url( tribe_all_occurences_link( $post_id, false ) ) ?>">
-		<?php echo __( 'see all', 'tribe-events-calendar-pro' ) ?>
+		<?php echo __( 'see all', 'the-events-calendar' ) ?>
 	</a>
 
 </div>
