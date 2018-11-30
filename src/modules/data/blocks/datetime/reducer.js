@@ -21,8 +21,8 @@ const defaultStartTimeSeconds = time.toSeconds( defaultStartTime, time.TIME_FORM
 const defaultEndTimeSeconds = time.toSeconds( defaultEndTime, time.TIME_FORMAT_HH_MM );
 
 export const DEFAULT_STATE = {
-	start: momentUtil.toDateTime( moment().seconds( defaultStartTimeSeconds ) ),
-	end: momentUtil.toDateTime( moment().seconds( defaultEndTimeSeconds ) ),
+	start: momentUtil.toDateTime( moment().startOf( 'day' ).seconds( defaultStartTimeSeconds ) ),
+	end: momentUtil.toDateTime( moment().startOf( 'day' ).seconds( defaultEndTimeSeconds ) ),
 	naturalLanguage: '',
 	dateTimeSeparator: settings() && settings().dateTimeSeparator ? settings().dateTimeSeparator : __( '@', 'events-gutenberg' ),
 	timeRangeSeparator: settings() && settings().timeRangeSeparator ? settings().timeRangeSeparator : __( '-', 'events-gutenberg' ),
