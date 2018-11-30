@@ -15,6 +15,9 @@ import {
 import { settings } from '@moderntribe/common/utils/globals';
 import * as types from './types';
 
+/**
+ * @todo: add in admin-defined default start and end times
+ */
 const defaultStartTime = '08:00';
 const defaultEndTime = '17:00';
 const defaultStartTimeSeconds = time.toSeconds( defaultStartTime, time.TIME_FORMAT_HH_MM );
