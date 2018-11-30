@@ -19,19 +19,20 @@
 	}
 
 	input {
-		color: #009FD4;
-		font-family: 'Helvetica', 'sans-serif';
-		font-weight: bold;
-		font-size: 1rem;
-		max-width: calc(100% - 12px);
+
+		/* extra class to override WP 5.0 styles */
+		.editor-styles-wrapper & {
+			color: #009FD4;
+			font-family: 'Helvetica', 'sans-serif';
+			font-weight: bold;
+			font-size: 1rem;
+			max-width: calc(100% - 12px);
+			border: none;
+		}
 
 		& * [data-mce-selected="inline-boundary"] {
 			background: transparent;
 		}
-	}
-
-	input {
-		border: none;
 	}
 
 	svg {
