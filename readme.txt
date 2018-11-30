@@ -219,6 +219,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 * Fix - Update common library to maximize compatibility with earlier PHP versions (our thanks to @megabit81 for highlighting this problem) [119073]
 * Fix - Update common library to ensure better compatibility with addons running inside multisite networks [119044]
+* Language - 0 new strings added, 141 updated, 0 fuzzied, and 0 obsoleted
 
 = [4.7] 2018-11-29 =
 
