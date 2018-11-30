@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-07-12 19:43:49+0000\n"
+"PO-Revision-Date: 2018-11-23 02:49:04+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -3369,7 +3369,7 @@ msgstr "Overwrite my event with any changes from the original source."
 
 #: src/admin-views/aggregator/settings.php:49
 msgid "You can make changes to imported events via The Events Calendar and see those changes reflected on your site’s calendar. The owner of the original event source (e.g. the iCalendar feed or Meetup group) might also make changes to their event. If you choose to re-import an altered event (manually or via a scheduled import), any changes made at the source or on your calendar will need to be addressed."
-msgstr ""
+msgstr "You can make changes to imported events via The Events Calendar and see those changes reflected on your site’s calendar. The owner of the original event source (e.g. the iCalendar feed or Meetup group) might also make changes to their event. If you choose to re-import an altered event (manually or via a scheduled import), any changes made at the source or on your calendar will need to be addressed."
 
 #: src/admin-views/aggregator/settings.php:44
 #: src/admin-views/aggregator/settings.php:54
@@ -3895,7 +3895,7 @@ msgstr "Renew your Event Aggregator licence"
 
 #: src/Tribe/Aggregator/Tabs/New.php:561
 msgid "Renew your license in order to import events from iCalendar, Google, or Meetup."
-msgstr ""
+msgstr "Renew your licence in order to import events from iCalendar, Google, or Meetup."
 
 #: src/Tribe/Aggregator/Tabs/New.php:560
 msgid "Your Event Aggregator license is expired."
@@ -3916,7 +3916,7 @@ msgstr "Buy It Now"
 
 #: src/Tribe/Aggregator/Tabs/New.php:502
 msgid "With Event Aggregator, you can import events from iCalendar, Google, and Meetup.com in a jiffy."
-msgstr ""
+msgstr "With Event Aggregator, you can import events from iCalendar, Google, and Meetup.com in a jiffy."
 
 #: src/Tribe/Aggregator/Tabs/New.php:500
 msgid "Import Using Event Aggregator"
@@ -6334,7 +6334,7 @@ msgstr "Support Resources"
 
 #: src/admin-views/admin-welcome-message.php:44
 msgid "Addons for Community, Tickets, Filters, and more."
-msgstr ""
+msgstr "Addons for Community, Tickets, Filters, and more."
 
 #: src/admin-views/admin-welcome-message.php:43
 msgid "Looking for More Features?"

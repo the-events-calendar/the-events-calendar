@@ -1,0 +1,106 @@
+/**
+ * Reset our Width of the Gutenberg Editor
+ */
+.gutenberg-editor-page.post-type-tribe_events {
+
+	.editor-block-inspector__card-icon {
+		padding: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		min-width: 36px;
+		min-height: 36px;
+	}
+
+	.edit-post-visual-editor {
+
+		.editor-post-title__block {
+			@media screen and (min-width: 1300px) {
+				width: 100%;
+				padding: 0;
+				max-width: initial;
+			}
+		}
+
+		.editor-block-list__block-edit {
+			margin-top: 18px;
+			margin-bottom: 18px;
+		}
+
+		[data-type^="tribe/"] {
+			.editor-block-contextual-toolbar {
+				transform: translateY(-34px);
+			}
+		}
+
+		/**
+		 * On our elements we want 900px instead of the default
+		 * possibly keep an eye to how to do it on PHP
+		 */
+		.editor-block-list__block,
+		.editor-default-block-appender,
+		.editor-post-title__block {
+			max-width: calc( 100% - 60px );
+
+			@media screen and (min-width: 1060px) {
+				max-width: 636px;
+			}
+
+			@media screen and (min-width: 1300px) {
+				max-width: 700px;
+			}
+
+			@media screen and (min-width: 1400px) {
+				max-width: 800px;
+			}
+
+			@media screen and (min-width: 1500px) {
+				max-width: 900px;
+			}
+		}
+
+		/**
+		 * Resets padding and move it to margin
+		 */
+		.editor-post-permalink {
+			padding-left: 0;
+			padding-right: 0;
+		}
+	}
+}
+
+.tribe-editor__btn {
+	display: inline-block;
+
+	&.components-icon-button {
+		border-radius: 4px;
+		padding-bottom: 4px;
+		padding-left: 4px;
+	}
+}
+
+#tribetickets {
+	* {
+		box-sizing: border-box;
+	}
+}
+
+.edit-post-meta-boxes-area {
+	#tribe_events_event_options {
+		h2 {
+			&.hndle {
+				border-bottom: none;
+				span {
+					color: #191e23;
+					font-size: 13px;
+				}
+			}
+		}
+
+		.handlediv {
+			.toggle-indicator {
+				color: #191e23;
+			}
+		}
+	}
+}

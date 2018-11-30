@@ -1,0 +1,64 @@
+.tribe-editor__dashboard__container {
+	pointer-events: none;
+	display: none;
+	position: relative;
+
+	&--open {
+		display: block;
+		pointer-events: auto;
+		width: 100%;
+	}
+}
+
+.tribe-editor__dashboard {
+	background-color: #F8F9F9;
+	border: 1px solid #E3E4E8;
+	left: 0;
+	margin-left: -29px;
+	margin-right: -29px;
+	position: absolute;
+	right: 0;
+	z-index: 100;
+
+	&:before {
+		content: '';
+		display: block;
+		height: 50px;
+		top: -34px;
+		left: 0;
+		right: 0;
+		position: absolute;
+		z-index: 2;
+	}
+
+	&:after {
+		height: 20px;
+		left: 0;
+		right: 0;
+		position: absolute;
+		content: '';
+		bottom: -20px;
+	}
+
+	.tribe-editor__time-picker__separator {
+		color: #545D66;
+		margin-left: 8px;
+		margin-right: 6px;
+	}
+
+	.tribe-editor__time-picker__label {
+		color: #545D66;
+		font-family: Helvetica, Arial, sans-serif;
+		font-size: 16px;
+		font-weight: normal;
+		margin-right: 8px;
+	}
+
+	.tribe-editor__dashboard__container--up & {
+		bottom: -50px;
+	}
+
+	.tribe-editor__dashboard__container--down & {
+		top: 50px;
+	}
+}

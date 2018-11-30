@@ -21,7 +21,7 @@ class Tribe__Events__Admin__Notice__Marketing {
 		);
 
 		tribe_notice(
-			'tribe-events-gutenberg',
+			'tribe-events-editor',
 			array( $this, 'notice_gutenberg' ),
 			array(
 				'dismiss' => 1,
