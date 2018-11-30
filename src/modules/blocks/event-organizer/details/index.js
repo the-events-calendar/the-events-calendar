@@ -54,7 +54,10 @@ export default class OrganizerDetails extends Component {
 		return (
 			<Fragment>
 				<div className="tribe-editor__organizer__title">
-					<h3 onClick={ this.maybeEdit }>{ decode( title ) }</h3> { this.renderEdit() }
+					<h3 className="tribe-editor__organizer__title-heading" onClick={ this.maybeEdit }>
+						{ decode( title ) }
+					</h3>
+					{ this.renderEdit() }
 				</div>
 				{ phone && <p>{ phone }</p> }
 				{ website && <p>{ website }</p> }
