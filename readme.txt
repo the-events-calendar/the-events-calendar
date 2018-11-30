@@ -215,7 +215,24 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
-= [4.7] TBD =
+= [4.7.1] TBD =
+
+* Fix - Make the Date Time block respect the timezone settings [118682]
+
+= [4.7] 2018-11-29 =
+
+* Feature - added new setting to activate the block editor on events for users running the WordPress 5.0 beta.
+* Feature - added an Event Date Time block to add and display the event date and time
+* Feature - added an Event Price block to add and display the event price and optional event description
+* Feature - added an Event Organizer block to add and display an organizer on an event single
+* Feature - added an Event Venue block to add and display the event venue information including optional link or map
+* Feature - added an Event Website block to add and display an external website link as a button with custom label
+* Feature - added an Event Sharing block to display event export options and allow for more customization
+* Feature - added an Event Details Classic block to maintain a combined content display as in the classic editor
+* Feature - added a Featured Image block to display an event’s featured image in the editor content
+* Feature - added a Tags block to display an event’s tags in the editor content
+* Feature - added an Event Categories block to display an event’s categories in the editor content
+* Feature - added a new Events Blocks section to the block inserter
 
 = [4.6.26.1] 2018-11-21 =
 

@@ -2,14 +2,14 @@
 /**
  * Initialize template overwrite for block single pages
  *
- * @since TBD
+ * @since 4.7
  */
 class Tribe__Events__Editor__Template__Overwrite {
 
 	/**
 	 * Hook into the Events Template single page to allow Blocks to be properly reordered
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 *
 	 * @return void
 	 */
@@ -36,7 +36,7 @@ class Tribe__Events__Editor__Template__Overwrite {
 	/**
 	 * Gets the file path in Gutenberg Ext
 	 *
- 	 * @since TBD
+ 	 * @since 4.7
 	 *
 	 * @param  array|string  $slug  Which file we want to include
 	 *
@@ -57,7 +57,7 @@ class Tribe__Events__Editor__Template__Overwrite {
 	 * Silence the actual templating and lets use an action to prevent Old Stuff to have any sort of interactions
 	 * with what we are constructing here.
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 *
 	 * @param string $file Which file would be loaded
 	 *
@@ -77,7 +77,7 @@ class Tribe__Events__Editor__Template__Overwrite {
 	/**
 	 * After `tribe_events_before_view` we will include the blocks template for Single Events
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 *
 	 * @param string $silence Unused file path, since it's always the same for Blocks editor
 	 *
@@ -114,7 +114,7 @@ class Tribe__Events__Editor__Template__Overwrite {
 	 * @todo This function is a copy of gutenberg_disable_editor_settings_wpautop() from the
 	 * gutenberg plugin. If WP 5.0 patches this, this function should be removed.
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 *
 	 * @param  array  $settings  Original editor settings.
 	 * @param  string $editor_id ID for the editor instance.
