@@ -223,6 +223,12 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - Importing CSV files with whitespace at the beginning of the rows won't remove headers and skip columns on Preview [117236]
 * Fix - Prevent JavaScript error in Month View when the Date filter is removed from the Tribe Bar (thank you to @tyrann0us on GitHub for submitting this fix!) [116995]
 
+= [4.7.0.1] 2018-11-30 =
+
+* Fix - Update common library to maximize compatibility with earlier PHP versions (our thanks to @megabit81 for highlighting this problem) [119073]
+* Fix - Update common library to ensure better compatibility with addons running inside multisite networks [119044]
+* Language - 0 new strings added, 141 updated, 0 fuzzied, and 0 obsoleted
+
 = [4.7] 2018-11-29 =
 
 * Feature - added new setting to activate the block editor on events for users running the WordPress 5.0 beta.
