@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-11-28 06:56:24+0000\n"
+"PO-Revision-Date: 2018-12-03 14:35:18+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,51 +13,51 @@ msgstr ""
 
 #: src/resources/js/app/blocks.js:48214
 msgid "Edit Organizer"
-msgstr ""
+msgstr "Modifier l’organisateur"
 
 #: src/resources/js/app/blocks.js:48211
 msgid "Organizer Settings"
-msgstr ""
+msgstr "Réglages de l’organisateur"
 
 #: src/resources/js/app/blocks.js:48137
 msgid "Add or find an organizer"
-msgstr ""
+msgstr "Ajouter ou chercher un organisateur"
 
 #: src/resources/js/app/blocks.js:47979
 msgid "Add email"
-msgstr ""
+msgstr "Ajouter l’e-mail"
 
 #: src/resources/js/app/blocks.js:47972
 msgid "Add website"
-msgstr ""
+msgstr "Ajouter un site web"
 
 #: src/resources/js/app/blocks.js:47965
 msgid "Add Phone"
-msgstr ""
+msgstr "Ajouter le téléphone"
 
 #: src/resources/js/app/blocks.js:47394
 msgid "Venue Settings"
-msgstr ""
+msgstr "Réglages du lieu"
 
 #: src/resources/js/app/blocks.js:47272
 msgid "Add or find a venue"
-msgstr ""
+msgstr "Ajouter une chercher un lieu"
 
 #: src/resources/js/app/blocks.js:46934
 msgid "(Untitled Venue)"
-msgstr ""
+msgstr "(Lieu sans titre)"
 
 #: src/resources/js/app/blocks.js:46387
 msgid "Multi-Day"
-msgstr ""
+msgstr "Plusieurs jours"
 
 #: src/resources/js/app/blocks.js:45448
 msgid "Show Time Zone"
-msgstr ""
+msgstr "Afficher le fuseau horaire"
 
 #: src/resources/js/app/blocks.js:45441
 msgid "Time Zone"
-msgstr ""
+msgstr "Fuseau horaire"
 
 #: src/resources/js/app/blocks.js:45434
 msgid "Time Range Separator"
@@ -69,27 +69,27 @@ msgstr ""
 
 #: src/resources/js/app/blocks.js:13219 src/resources/js/app/elements.js:9845
 msgid "Add or Find"
-msgstr ""
+msgstr "Ajouter ou chercher"
 
 #: src/resources/js/app/blocks.js:12598 src/resources/js/app/elements.js:9224
 msgid "A Google Map API KEY is required to view the map"
-msgstr ""
+msgstr "Une clé API Google Maps est nécessaire pour afficher la carte."
 
 #: src/resources/js/app/blocks.js:12479 src/resources/js/app/elements.js:9105
 msgid "The map does not have valid coordinates nor a valid address"
-msgstr ""
+msgstr "Les coordonnées ou l'adresse de cette carte ne sont pas valides"
 
 #: src/resources/js/app/blocks.js:12389 src/resources/js/app/elements.js:9015
 msgid "Make sure Google Maps Library is included on this page."
-msgstr ""
+msgstr "Assurez-vous que la Librairie Google Maps est bien incluse sur cette page."
 
 #: src/resources/js/app/blocks.js:11712 src/resources/js/app/elements.js:8338
 msgid "Country"
-msgstr ""
+msgstr "Pays"
 
 #: src/resources/js/app/blocks.js:11444 src/resources/js/app/elements.js:8070
 msgid "Name:"
-msgstr ""
+msgstr "Nom :"
 
 #: src/modules/blocks/event-datetime/subblocks/content/index.js:23
 #: src/resources/js/app/blocks.js:46184
@@ -107,7 +107,7 @@ msgstr ""
 #: src/resources/js/app/blocks.js:46185 src/resources/js/app/blocks.js:46660
 #: src/resources/js/app/blocks.js:46745
 msgid "Define the date, time, and duration for your event."
-msgstr ""
+msgstr "Définissez une date, une heure et une durée pour votre évènement."
 
 #: src/modules/blocks/event-datetime/index.js:27
 #: src/resources/js/app/blocks.js:46744
@@ -117,27 +117,27 @@ msgstr ""
 #: src/modules/blocks/event-website/index.js:22
 #: src/resources/js/app/blocks.js:49446
 msgid "Is there another website for this event? Link to it with a button!"
-msgstr ""
+msgstr "Y a-t-il un autre site internet pour cet évènement ? Affichez un bouton avec un lien vers ce site !"
 
 #: src/modules/blocks/event-website/template.js:26
 #: src/resources/js/app/blocks.js:49305
 msgid "Add Event Website"
-msgstr ""
+msgstr "Ajouter un site web de l’évènement"
 
 #: src/modules/blocks/event-links/index.js:22
 #: src/resources/js/app/blocks.js:48614
 msgid "Encourage visitors to add your event to their calendars with handy sharing buttons."
-msgstr ""
+msgstr "Encouragez vos visiteurs à ajouter votre évènement à leur agenda avec des boutons de partage très pratiques."
 
 #: src/modules/blocks/event-links/index.js:21
 #: src/resources/js/app/blocks.js:48613
 msgid "Event Sharing"
-msgstr ""
+msgstr "Partage d’évènement"
 
 #: src/modules/blocks/event-links/template.js:108
 #: src/resources/js/app/blocks.js:48532
 msgid "iCal"
-msgstr ""
+msgstr "iCal"
 
 #: src/resources/js/app/blocks.js:47401
 msgid "Show Google Maps Embed"
@@ -146,27 +146,27 @@ msgstr ""
 #: src/modules/blocks/event-category/index.js:22
 #: src/resources/js/app/blocks.js:49143
 msgid "Show assigned event categories as links to their respective archives."
-msgstr ""
+msgstr "Afficher les Catégories d'évènements en tant que liens vers leurs archives respectives."
 
 #: src/modules/blocks/event-category/index.js:21
 #: src/resources/js/app/blocks.js:49142
 msgid "Event Categories"
-msgstr ""
+msgstr "Catégorie d’évènement"
 
 #: src/modules/blocks/event-category/block.js:46
 #: src/resources/js/app/blocks.js:49112
 msgid "Add Event Categories in document settings"
-msgstr ""
+msgstr "Ajouter les Catégories d'évènements dans les réglages du document."
 
 #: src/modules/blocks/featured-image/index.js:22
 #: src/resources/js/app/blocks.js:49610
 msgid "Display the featured image in the post content."
-msgstr ""
+msgstr "Afficher l'image à la Une dans le contenu de l'article."
 
 #: src/modules/blocks/featured-image/block.js:80
 #: src/resources/js/app/blocks.js:49562
 msgid "Loading the Image"
-msgstr ""
+msgstr "Chargement de l’image"
 
 #: src/modules/blocks/featured-image/block.js:65
 #: src/resources/js/app/blocks.js:49551
@@ -177,7 +177,7 @@ msgstr ""
 #: src/modules/blocks/featured-image/index.js:21
 #: src/resources/js/app/blocks.js:49542 src/resources/js/app/blocks.js:49609
 msgid "Featured Image"
-msgstr ""
+msgstr "Image à la une"
 
 #: src/modules/blocks/event-tags/index.js:22
 #: src/resources/js/app/blocks.js:49255
@@ -193,74 +193,74 @@ msgstr ""
 #: src/modules/blocks/event-tags/index.js:21
 #: src/resources/js/app/blocks.js:49223 src/resources/js/app/blocks.js:49254
 msgid "Tags"
-msgstr ""
+msgstr "Étiquettes"
 
 #: src/modules/blocks/event-venue/index.js:18
 #: src/resources/js/app/blocks.js:47617
 msgid "Where is this event happening? Select or create a location."
-msgstr ""
+msgstr "Où cet évènement a-t-il lieu ? Sélectionnez ou créez un lieu."
 
 #: src/modules/blocks/event-venue/index.js:17
 #: src/resources/js/app/blocks.js:47616
 msgid "Event Venue"
-msgstr ""
+msgstr "Lieu de l'évènement"
 
 #: src/modules/blocks/event-price/index.js:18
 #: src/resources/js/app/blocks.js:49019
 msgid "Let visitors know the cost of this event or if it’s free to attend."
-msgstr ""
+msgstr "Indiquez le prix de cet évènement, ou si il est gratuit."
 
 #: src/modules/blocks/event-price/index.js:17
 #: src/resources/js/app/blocks.js:49018
 msgid "Event Price"
-msgstr ""
+msgstr "Prix de l’évènement"
 
 #: src/modules/blocks/event-price/template.js:156
 #: src/resources/js/app/blocks.js:48830
 msgid "Currency symbol follows price"
-msgstr ""
+msgstr "Le symbole monétaire suit le prix"
 
 #: src/modules/blocks/event-price/template.js:123
 #: src/resources/js/app/blocks.js:48791
 msgid "enter 0 as price for free events"
-msgstr ""
+msgstr "Indiquez 0 en tant que prix pour les évènements gratuits"
 
 #: src/modules/blocks/event-price/template.js:117
 #: src/resources/js/app/blocks.js:48783
 msgid "Description"
-msgstr ""
+msgstr "Description"
 
 #: src/modules/blocks/event-price/template.js:109
 #: src/resources/js/app/blocks.js:48775
 msgid "Fixed Price or Range"
-msgstr ""
+msgstr "Prix fixe ou fourchette de prix"
 
 #: src/modules/blocks/event-price/template.js:43
 #: src/resources/js/app/blocks.js:48696
 msgid "Add Price"
-msgstr ""
+msgstr "Ajouter un prix"
 
 #: src/modules/blocks/classic-event-details/event-details-organizers/event-details-organizer/template.js:40
 #: src/resources/js/app/blocks.js:44712
 msgid "Remove Organizer"
-msgstr ""
+msgstr "Retirer l’organisateur"
 
 #: src/modules/blocks/classic-event-details/event-details-organizers/template.js:62
 #: src/resources/js/app/blocks.js:44842
 msgid "Add existing Organizer"
-msgstr ""
+msgstr "Ajouter un organisateur existant"
 
 #: src/modules/blocks/classic-event-details/event-details-organizers/template.js:61
 #: src/resources/js/app/blocks.js:44841
 msgid "Search for an organizer"
-msgstr ""
+msgstr "Rechercher un organisateur"
 
 #: src/modules/blocks/classic-event-details/event-details-organizers/template.js:25
 #: src/resources/js/app/blocks.js:11429 src/resources/js/app/blocks.js:11538
 #: src/resources/js/app/blocks.js:44791 src/resources/js/app/elements.js:8055
 #: src/resources/js/app/elements.js:8164
 msgid "Create Organizer"
-msgstr ""
+msgstr "Créer un organisateur"
 
 #: src/modules/blocks/classic-event-details/index.js:22
 #: src/resources/js/app/blocks.js:45285
@@ -276,64 +276,64 @@ msgstr ""
 #: src/modules/blocks/event-price/template.js:152
 #: src/resources/js/app/blocks.js:45170 src/resources/js/app/blocks.js:48826
 msgid "E.g.: $"
-msgstr ""
+msgstr "Exemple : $"
 
 #: src/modules/blocks/classic-event-details/template.js:191
 #: src/modules/blocks/event-price/template.js:150
 #: src/resources/js/app/blocks.js:45168 src/resources/js/app/blocks.js:48824
 msgid " Currency Symbol"
-msgstr ""
+msgstr "Symbole monétaire"
 
 #: src/modules/blocks/classic-event-details/template.js:186
 #: src/resources/js/app/blocks.js:45163
 msgid "Show symbol before"
-msgstr ""
+msgstr "Afficher le symbole avant"
 
 #: src/modules/blocks/classic-event-details/template.js:184
 #: src/modules/blocks/event-price/template.js:147
 #: src/resources/js/app/blocks.js:45161 src/resources/js/app/blocks.js:48821
 msgid "Price Settings"
-msgstr ""
+msgstr "Réglages du prix"
 
 #: src/modules/blocks/classic-event-details/template.js:179
 #: src/resources/js/app/blocks.js:45154
 msgid "Is All Day Event"
-msgstr ""
+msgstr "Est-ce  un évènement qui dure la journée ?"
 
 #: src/modules/blocks/classic-event-details/template.js:177
 #: src/resources/js/app/blocks.js:45152 src/resources/js/app/blocks.js:45425
 msgid "Date Time Settings"
-msgstr ""
+msgstr "Réglages de la date"
 
 #: src/modules/blocks/classic-event-details/template.js:156
 #: src/resources/js/app/blocks.js:45129
 msgid "Event Category:"
-msgstr ""
+msgstr "Catégorie de l’évènement :"
 
 #: src/modules/blocks/classic-event-details/template.js:122
 #: src/resources/js/app/blocks.js:45091 src/resources/js/app/blocks.js:45895
 msgid "Enter price"
-msgstr ""
+msgstr "Saisir le prix"
 
 #: src/modules/blocks/classic-event-details/template.js:101
 #: src/resources/js/app/blocks.js:45060
 msgid "Enter url"
-msgstr ""
+msgstr "Saisissez l’url"
 
 #: src/modules/blocks/classic-event-details/template.js:97
 #: src/resources/js/app/blocks.js:45054
 msgid "Website: "
-msgstr ""
+msgstr "Site Web :"
 
 #: src/modules/blocks/classic-event-details/template.js:79
 #: src/resources/js/app/blocks.js:45022
 msgid "End: "
-msgstr ""
+msgstr "Fin : "
 
 #: src/modules/blocks/classic-event-details/template.js:57
 #: src/resources/js/app/blocks.js:44982
 msgid "Start: "
-msgstr ""
+msgstr "Début : "
 
 #: src/modules/blocks/event-organizer/index.js:17
 #: src/resources/js/app/blocks.js:48388
@@ -343,34 +343,34 @@ msgstr ""
 #: src/modules/blocks/event-organizer/index.js:16
 #: src/resources/js/app/blocks.js:48387
 msgid "Event Organizer"
-msgstr ""
+msgstr "Organisateur de l’évènement"
 
 #: src/modules/data/blocks/price/reducer.js:23
 #: src/resources/js/app/data.js:9364 src/resources/js/app/blocks.js:10508
 msgid "$"
-msgstr ""
+msgstr "$"
 
 #: src/modules/data/blocks/datetime/reducer.js:23
 #: src/resources/js/app/data.js:6796 src/resources/js/app/blocks.js:6842
 msgid "-"
-msgstr ""
+msgstr "-"
 
 #: src/modules/data/blocks/datetime/reducer.js:22
 #: src/resources/js/app/data.js:6795 src/resources/js/app/blocks.js:6841
 msgid "@"
-msgstr ""
+msgstr "@"
 
 #: src/modules/elements/terms-list/element.js:128
 #: src/resources/js/app/blocks.js:11214 src/resources/js/app/elements.js:7840
 msgid ", "
-msgstr ""
+msgstr ", "
 
 #: src/modules/elements/terms-list/element.js:45
 #: src/modules/blocks/classic-event-details/event-details-organizers/event-details-organizer/template.js:26
 #: src/resources/js/app/blocks.js:11083 src/resources/js/app/blocks.js:44700
 #: src/resources/js/app/elements.js:7709
 msgid "(Untitled)"
-msgstr ""
+msgstr "(sans titre)"
 
 #: src/modules/elements/upsell/element.js:33
 #: src/resources/js/app/blocks.js:13490 src/resources/js/app/elements.js:10116
@@ -387,19 +387,19 @@ msgstr ""
 #: common/src/resources/js/app/elements.js:9791
 #: common/src/resources/js/app/utils.js:7339
 msgid "at"
-msgstr ""
+msgstr "à"
 
 #: src/views/blocks/event-datetime.php:80
 msgid "All day"
-msgstr ""
+msgstr "Toute la journée"
 
 #: src/views/modules/bar.php:51
 msgid "Hide %s Search"
-msgstr ""
+msgstr "Masquer %s la Recherche"
 
 #: src/views/modules/bar.php:50 src/views/modules/bar.php:54
 msgid "Show %s Search"
-msgstr ""
+msgstr "Afficher %s la Recherche"
 
 #: src/admin-views/aggregator/settings.php:159
 #: src/admin-views/aggregator/settings.php:268
@@ -409,33 +409,33 @@ msgstr ""
 #: src/admin-views/aggregator/settings.php:456
 #: src/admin-views/aggregator/settings.php:524
 msgid "Show Map"
-msgstr ""
+msgstr "Afficher la carte"
 
 #: src/admin-views/tribe-options-general.php:243
 msgid "Enable Maps"
-msgstr ""
+msgstr "Activer les cartes"
 
 #: src/admin-views/create-venue-fields.php:257
 msgid "Show Map Link?"
-msgstr ""
+msgstr "Afficher le lien vers la Google Map ?"
 
 #: src/admin-views/create-venue-fields.php:248
 #: src/admin-views/create-venue-fields.php:285
 #: src/admin-views/venue-meta-box.php:202
 #: src/admin-views/venue-meta-box.php:238
 msgid "Show Map Link:"
-msgstr ""
+msgstr "Afficher le lien vers la Google Map :"
 
 #: src/admin-views/create-venue-fields.php:239
 msgid "Show Map?"
-msgstr ""
+msgstr "Afficher la carte ?"
 
 #: src/admin-views/create-venue-fields.php:230
 #: src/admin-views/create-venue-fields.php:268
 #: src/admin-views/venue-meta-box.php:185
 #: src/admin-views/venue-meta-box.php:221
 msgid "Show Map:"
-msgstr ""
+msgstr "Afficher la carte :"
 
 #: src/Tribe/Editor/Compatibility.php:118
 msgid "Hidden Blocks Editor Config"
@@ -447,7 +447,7 @@ msgstr ""
 
 #: src/Tribe/Editor/Compatibility.php:110
 msgid "Activate Block Editor for Events"
-msgstr ""
+msgstr "Activer l'éditeur de blocs pour les évènements."
 
 #: src/Tribe/Editor/Blocks/Event_Website.php:26
 msgid "Add Button Text"
@@ -455,11 +455,11 @@ msgstr ""
 
 #: src/Tribe/Editor/Meta.php:61 src/Tribe/Editor/Meta.php:70
 msgid "Event Organizers"
-msgstr ""
+msgstr "organisateurs de l’évènement"
 
 #: src/Tribe/Aggregator/Record/CSV.php:104
 msgid "Unknown Column "
-msgstr ""
+msgstr "Colonne inconnue"
 
 #: src/Tribe/Aggregator/Record/Queue_Processor.php:288
 msgid "There was an error building the record queue: "
@@ -467,11 +467,11 @@ msgstr ""
 
 #: src/Tribe/Admin/Notice/Marketing.php:114
 msgid "Try Events Gutenberg"
-msgstr ""
+msgstr "Essayez Events pour Gutenberg"
 
 #: src/Tribe/Admin/Notice/Marketing.php:106
 msgid "Download the eBook"
-msgstr ""
+msgstr "Télécharger le eBook"
 
 #: src/Tribe/Admin/Notice/Marketing.php:100
 msgid "Get up to speed with our comprehensive Guide to Gutenberg ebook, then see how events and tickets will behave in the block editor by installing our free Events Gutenberg extension."
@@ -479,11 +479,11 @@ msgstr ""
 
 #: src/Tribe/Admin/Notice/Marketing.php:95
 msgid "WordPress 5.0 is coming soon, and with it, the arrival of the new block editor interface."
-msgstr ""
+msgstr "WordPress 5.0 arrive bientôt, et avec lui, l'nterface avec le nouvel éditeur de bloc."
 
 #: src/Tribe/Admin/Notice/Marketing.php:91
 msgid "<strong>The Events Calendar & Gutenberg</strong>"
-msgstr ""
+msgstr "<strong>The Events Calendar & Gutenberg</strong>"
 
 #: src/Tribe/Main.php:1464
 msgid "When running version %1$s of The Events Calendar alongside %2$s, %2$s must be version %3$s or greater. Please %4$smanually update now.%5$s"
@@ -491,37 +491,37 @@ msgstr ""
 
 #: src/Tribe/Google/Maps_API_Key.php:107
 msgid "(click here for details)"
-msgstr ""
+msgstr "(Cliquez ici pour plus de datails)"
 
 #: src/Tribe/Editor.php:534
 msgid "Event Blocks"
-msgstr ""
+msgstr "Blocks Évènements"
 
 #: src/Tribe/Editor.php:258 src/Tribe/Editor.php:301
 msgid "Add Description..."
-msgstr ""
+msgstr "Ajouter une description..."
 
 #: common/src/Tribe/Editor/Configuration.php:97
 msgid "F j, Y g:i a"
-msgstr ""
+msgstr "F j, Y g:i a"
 
 #: common/src/Tribe/Editor/Configuration.php:96
 #: src/resources/js/app/blocks.js:45852 src/resources/js/app/blocks.js:46326
 msgid "F j"
-msgstr ""
+msgstr "F j"
 
 #: common/src/Tribe/Editor/Configuration.php:95
 msgid "F j, Y"
-msgstr ""
+msgstr "F j, Y"
 
 #: common/src/Tribe/Editor/Configuration.php:94
 msgid "g:i a"
-msgstr ""
+msgstr "g:i a"
 
 #. translators: %s: duration
 #: common/src/Tribe/Editor/Configuration.php:90
 msgid "%s ago"
-msgstr ""
+msgstr "Il y a %s"
 
 #. translators: %s: duration
 #: common/src/Tribe/Editor/Configuration.php:88
@@ -530,7 +530,7 @@ msgstr ""
 
 #: common/src/Tribe/Editor/Blocks/Abstract.php:127
 msgid "Problem loading the block, please remove this block to restart."
-msgstr ""
+msgstr "Problème lors du chargement du bloc, veuillez supprimer ce bloc pour recommencer."
 
 #: common/src/Tribe/Editor/Meta.php:123
 msgid "Text Array"
@@ -542,11 +542,11 @@ msgstr ""
 
 #: src/admin-views/tribe-options-general.php:69
 msgid "Enable WordPress Custom Fields on Events."
-msgstr ""
+msgstr "Activer les champs personnalisés de WordPress pour les évènements."
 
 #: src/admin-views/tribe-options-general.php:68
 msgid "Show Custom Fields metabox"
-msgstr ""
+msgstr "Afficher la boîte de méta pour les champs personnalisés"
 
 #: src/admin-views/tribe-options-display.php:139
 msgid "Please note that you are using The Events Calendar's default Google Maps API key, which will limit the Map View's functionality. Visit %sthe API Settings page%s to learn more and add your own Google Maps API key."
@@ -554,7 +554,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/settings.php:230
 msgid "Stop current processes"
-msgstr ""
+msgstr "Arrêter les process en cours"
 
 #: src/admin-views/aggregator/settings.php:219
 msgid "The Asynchronous import process is faster and does not rely on WordPress Cron but might not work correctly in all WordPress installations, try switching to the Cron-based process for maximum compatibility."
@@ -574,11 +574,11 @@ msgstr ""
 
 #: src/admin-views/aggregator/origins/eventbrite.php:127
 msgid "Import from Eventbrite URL"
-msgstr ""
+msgstr "Import depuis une URL Eventbrite"
 
 #: src/Tribe/Google/Maps_API_Key.php:109
 msgid "to create your own free Google Maps API key."
-msgstr ""
+msgstr "pour créer votre propre clé API Google Maps gratuite."
 
 #: src/Tribe/Google/Maps_API_Key.php:106
 msgid "If you do not add your own API key, the built-in API key will always populate this field and some map-related functionality will be limited "
@@ -586,7 +586,7 @@ msgstr ""
 
 #: src/Tribe/Google/Maps_API_Key.php:105
 msgid "You are using The Events Calendar's built-in Google Maps API key."
-msgstr ""
+msgstr "Vous utilisez la clé API Google Maps intégrée à The Events Calendar."
 
 #: src/Tribe/Google/Maps_API_Key.php:77
 msgid "Read More"
@@ -1281,7 +1281,7 @@ msgstr "L'URL actuelle de votre page d'événements est %1$s.<br><br>Vous ne pou
 
 #: src/admin-views/tribe-options-display.php:61
 msgid "There are going to be situations where no out-of-the-box template is 100&#37; perfect. Check out our <a href=\"%s\">our themer's guide</a> for instructions on custom modifications."
-msgstr "Il va y avoir des situations où aucun modèle prédéfinis n’est parfait à 100%. Consultez notre <a href=\"\"%s\"\">Guide d’instructions</a> sur les modifications personnalisées."
+msgstr "Il va y avoir des situations où aucun modèle prédéfini n’est parfait à 100%. Consultez notre <a href=\"\"%s\"\">Guide d’instructions</a> sur les modifications personnalisées."
 
 #: src/admin-views/tribe-options-display.php:58
 msgid "The settings below control the display of your calendar. If things don't look right, try switching between the three style sheet options or pick a page template from your theme."
@@ -2236,7 +2236,7 @@ msgstr "Autres URL"
 
 #: src/admin-views/aggregator/settings.php:481
 msgid "Fetch source event's settings (e.g. Show Maps Link or Sticky in Month View) when importing from another site using The Events Calendar."
-msgstr ""
+msgstr "Récupérez la configuration des évènements d’une autre source (ex. Show Google Maps Link ou Sticky in Month View) lors d’import d’un autre site en utilisant The Events Calendar."
 
 #: src/admin-views/aggregator/settings.php:480
 msgid "Import Event Settings"
@@ -3829,7 +3829,7 @@ msgstr "Réglages de l’import iCalendar"
 #: src/admin-views/aggregator/settings.php:457
 #: src/admin-views/aggregator/settings.php:525
 msgid "Show map by default on imported event and venues"
-msgstr ""
+msgstr "Afficher Google Map par défaut sur les évènements et les lieux importés"
 
 #: src/admin-views/aggregator/settings.php:148
 msgid "The default event category for events"
@@ -6145,7 +6145,7 @@ msgstr "Import d’évènements"
 #: src/modules/blocks/event-links/template.js:101
 #: src/resources/js/app/blocks.js:48525
 msgid "Share Settings"
-msgstr ""
+msgstr "Partager les réglages"
 
 #: src/deprecated/Tribe__Events__Importer__Options.php:136
 msgid "Draft"
@@ -6266,7 +6266,7 @@ msgstr "Titre :"
 
 #: src/resources/js/app/blocks.js:47396
 msgid "Show Google Maps Link"
-msgstr ""
+msgstr "Afficher le lien Google Maps :"
 
 #: src/admin-views/create-venue-fields.php:166
 #: src/admin-views/venue-meta-box.php:136
@@ -6721,12 +6721,12 @@ msgstr "Thème par défaut des évènements"
 #: src/modules/blocks/classic-event-details/template.js:117
 #: src/resources/js/app/blocks.js:45080
 msgid "Price: "
-msgstr ""
+msgstr "Prix :"
 
 #: common/src/modules/elements/image-upload/element.js:46
 #: common/src/resources/js/app/elements.js:59497
 msgid "remove"
-msgstr ""
+msgstr "Supprimer"
 
 #: common/src/admin-views/event-log.php:65
 msgid "View"
@@ -8634,7 +8634,7 @@ msgstr "Ajouter un %s"
 
 #: src/Tribe/Main.php:1967 src/Tribe/Venue.php:110 src/Tribe/Organizer.php:91
 msgid "Add New"
-msgstr "Ajouter un"
+msgstr "Ajouter un évènement"
 
 #: src/Tribe/Main.php:1934 src/Tribe/Main.php:2373
 msgid "tag"
