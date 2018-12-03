@@ -62,7 +62,7 @@ class Tribe__Events__Editor__Configuration implements Tribe__Editor__Configurati
 				'showTimeZone' => tribe_get_option( 'tribe_events_timezones_show_zone', false ),
 				'label'        => $this->get_timezone_label(),
 			),
-			'default_time' => array(
+			'defaultTimes' => array(
 				'start' => $events_meta_box->get_timepicker_default( 'start' ),
 				'end' => $events_meta_box->get_timepicker_default( 'end' ),
 			),
