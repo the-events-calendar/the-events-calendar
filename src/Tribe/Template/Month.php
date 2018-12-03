@@ -572,7 +572,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 				/**
 				 * A simple utility to listen for when events have been successfully pulled from cache.
 				 *
-				 * @since TBD
+				 * @since 4.7.1
 				 *
 				 * @param array $cached_events The array of event data pulled from cache.
 				 */
