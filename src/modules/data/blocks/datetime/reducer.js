@@ -12,16 +12,11 @@ import {
 	moment as momentUtil,
 	time,
 } from '@moderntribe/common/utils';
-import { settings } from '@moderntribe/common/utils/globals';
+import { settings, defaultTimes } from '@moderntribe/common/utils/globals';
 import * as types from './types';
 
-/**
- * @todo: add in admin-defined default start and end times
- */
-const defaultStartTime = '08:00';
-const defaultEndTime = '17:00';
-const defaultStartTimeSeconds = time.toSeconds( defaultStartTime, time.TIME_FORMAT_HH_MM );
-const defaultEndTimeSeconds = time.toSeconds( defaultEndTime, time.TIME_FORMAT_HH_MM );
+const defaultStartTimeSeconds = time.toSeconds( defaultTimes().start, time.TIME_FORMAT_HH_MM_SS );
+const defaultEndTimeSeconds = time.toSeconds( defaultTimes().end, time.TIME_FORMAT_HH_MM_SS );
 
 export const DEFAULT_STATE = {
 	start: momentUtil.toDateTime( moment().startOf( 'day' ).seconds( defaultStartTimeSeconds ) ),
