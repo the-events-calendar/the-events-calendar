@@ -3,6 +3,7 @@
  */
 import { connect } from 'react-redux';
 import { compose, bindActionCreators } from 'redux';
+import moment from 'moment';
 
 /**
  * Internal dependencies
@@ -13,10 +14,14 @@ import {
 	selectors as dateTimeSelectors,
 } from '@moderntribe/events/data/blocks/datetime';
 import {
+	defaultStartMoment,
+	defaultEndMoment,
+} from '@moderntribe/events/data/blocks/datetime/reducer';
+import {
 	actions as UIActions,
 	selectors as UISelectors,
 } from '@moderntribe/events/data/ui';
-import { time } from '@moderntribe/common/utils';
+import { moment as momentUtil } from '@moderntribe/common/utils';
 import { withStore, withSaveData, withBlockCloser } from '@moderntribe/common/hoc';
 import EventDateTimeDashboard from './template';
 
@@ -28,20 +33,36 @@ const onSelectDay = ( dispatchProps ) => ( { from, to } ) => {
 	dispatchProps.setDateRange( { from, to } );
 };
 
-const onStartTimePickerChange = ( dispatchProps ) => ( e ) => {
-	const seconds = time.toSeconds( e.target.value, time.TIME_FORMAT_HH_MM );
+const onStartTimePickerBlur = ( dispatchProps ) => ( e ) => {
+	let startTimeMoment = moment( e.target.value, momentUtil.TIME_FORMAT );
+	if ( ! startTimeMoment.isValid() ) {
+		startTimeMoment = defaultStartMoment;
+	}
+	const seconds = momentUtil.totalSeconds( startTimeMoment );
 	dispatchProps.setStartTime( seconds );
 };
+
+const onStartTimePickerChange = ( dispatchProps ) => ( e ) => (
+	dispatchProps.setStartTimeInput( e.target.value )
+);
 
 const onStartTimePickerClick = ( dispatchProps ) => ( value, onClose ) => {
 	dispatchProps.setStartTime( value );
 	onClose();
 };
 
-const onEndTimePickerChange = ( dispatchProps ) => ( e ) => {
-	const seconds = time.toSeconds( e.target.value, time.TIME_FORMAT_HH_MM );
+const onEndTimePickerBlur = ( dispatchProps ) => ( e ) => {
+	let endTimeMoment = moment( e.target.value, momentUtil.TIME_FORMAT );
+	if ( ! endTimeMoment.isValid() ) {
+		endTimeMoment = defaultEndMoment;
+	}
+	const seconds = momentUtil.totalSeconds( endTimeMoment );
 	dispatchProps.setEndTime( seconds );
 };
+
+const onEndTimePickerChange = ( dispatchProps ) => ( e ) => (
+	dispatchProps.setEndTimeInput( e.target.value )
+);
 
 const onEndTimePickerClick = ( dispatchProps ) => ( value, onClose ) => {
 	dispatchProps.setEndTime( value );
@@ -78,8 +99,10 @@ const mergeProps = ( stateProps, dispatchProps, ownProps ) => ( {
 	...stateProps,
 	...dispatchProps,
 	onSelectDay: onSelectDay( dispatchProps ),
+	onStartTimePickerBlur: onStartTimePickerBlur( dispatchProps ),
 	onStartTimePickerChange: onStartTimePickerChange( dispatchProps ),
 	onStartTimePickerClick: onStartTimePickerClick( dispatchProps ),
+	onEndTimePickerBlur: onEndTimePickerBlur( dispatchProps ),
 	onEndTimePickerChange: onEndTimePickerChange( dispatchProps ),
 	onEndTimePickerClick: onEndTimePickerClick( dispatchProps ),
 	onMultiDayToggleChange: onMultiDayToggleChange( dispatchProps ),

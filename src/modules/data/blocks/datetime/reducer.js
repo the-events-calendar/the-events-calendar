@@ -8,19 +8,20 @@ import moment from 'moment/moment';
  * Internal dependencies
  */
 import {
+	globals,
 	date,
 	moment as momentUtil,
 	time,
 } from '@moderntribe/common/utils';
-import { globals } from '@moderntribe/common/utils';
 import * as types from './types';
 
 const defaultStartTime = globals.defaultTimes().start ? globals.defaultTimes().start : '08:00:00';
 const defaultEndTime = globals.defaultTimes().end ? globals.defaultTimes().end : '17:00:00';
 const defaultStartTimeSeconds = time.toSeconds( defaultStartTime, time.TIME_FORMAT_HH_MM_SS );
 const defaultEndTimeSeconds = time.toSeconds( defaultEndTime, time.TIME_FORMAT_HH_MM_SS );
-const defaultStartMoment = moment().startOf( 'day' ).seconds( defaultStartTimeSeconds );
-const defaultEndMoment = moment().startOf( 'day' ).seconds( defaultEndTimeSeconds );
+
+export const defaultStartMoment = moment().startOf( 'day' ).seconds( defaultStartTimeSeconds );
+export const defaultEndMoment = moment().startOf( 'day' ).seconds( defaultEndTimeSeconds );
 
 export const DEFAULT_STATE = {
 	start: momentUtil.toDateTime( defaultStartMoment ),
