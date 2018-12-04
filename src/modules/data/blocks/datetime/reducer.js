@@ -12,18 +12,28 @@ import {
 	moment as momentUtil,
 	time,
 } from '@moderntribe/common/utils';
-import { settings, defaultTimes } from '@moderntribe/common/utils/globals';
+import { globals } from '@moderntribe/common/utils';
 import * as types from './types';
 
-const defaultStartTimeSeconds = time.toSeconds( defaultTimes().start, time.TIME_FORMAT_HH_MM_SS );
-const defaultEndTimeSeconds = time.toSeconds( defaultTimes().end, time.TIME_FORMAT_HH_MM_SS );
+const defaultStartTime = globals.defaultTimes().start ? globals.defaultTimes().start : '08:00:00';
+const defaultEndTime = globals.defaultTimes().end ? globals.defaultTimes().end : '17:00:00';
+const defaultStartTimeSeconds = time.toSeconds( defaultStartTime, time.TIME_FORMAT_HH_MM_SS );
+const defaultEndTimeSeconds = time.toSeconds( defaultEndTime, time.TIME_FORMAT_HH_MM_SS );
+const defaultStartMoment = moment().startOf( 'day' ).seconds( defaultStartTimeSeconds );
+const defaultEndMoment = moment().startOf( 'day' ).seconds( defaultEndTimeSeconds );
 
 export const DEFAULT_STATE = {
-	start: momentUtil.toDateTime( moment().startOf( 'day' ).seconds( defaultStartTimeSeconds ) ),
-	end: momentUtil.toDateTime( moment().startOf( 'day' ).seconds( defaultEndTimeSeconds ) ),
+	start: momentUtil.toDateTime( defaultStartMoment ),
+	end: momentUtil.toDateTime( defaultEndMoment ),
+	startTimeInput: momentUtil.toTime( defaultStartMoment ),
+	endTimeInput: momentUtil.toTime( defaultEndMoment ),
 	naturalLanguage: '',
-	dateTimeSeparator: settings() && settings().dateTimeSeparator ? settings().dateTimeSeparator : __( '@', 'events-gutenberg' ),
-	timeRangeSeparator: settings() && settings().timeRangeSeparator ? settings().timeRangeSeparator : __( '-', 'events-gutenberg' ),
+	dateTimeSeparator: globals.settings().dateTimeSeparator
+		? globals.settings().dateTimeSeparator
+		: __( '@', 'events-gutenberg' ),
+	timeRangeSeparator: globals.settings().timeRangeSeparator
+		? globals.settings().timeRangeSeparator
+		: __( '-', 'events-gutenberg' ),
 	allDay: false,
 	multiDay: false,
 	timeZone: date.FORMATS.TIMEZONE.string,
@@ -49,6 +59,16 @@ export default ( state = DEFAULT_STATE, action ) => {
 			return {
 				...state,
 				end: action.payload.end,
+			};
+		case types.SET_START_TIME_INPUT:
+			return {
+				...state,
+				startTimeInput: action.payload.startTimeInput,
+			};
+		case types.SET_END_TIME_INPUT:
+			return {
+				...state,
+				endTimeInput: action.payload.endTimeInput,
 			};
 		case types.SET_NATURAL_LANGUAGE_LABEL:
 			return {
