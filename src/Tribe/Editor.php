@@ -515,59 +515,6 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	}
 
 	/**
-<<<<<<< HEAD
-	 * Get Localization data for Date settings
-	 *
-	 * @since TBD
-	 *
-	 * @return array
-	 */
-	public function get_date_settings() {
-		global $wp_locale;
-		return array(
-			'l10n'     => array(
-				'locale'        => get_user_locale(),
-				'months'        => array_values( $wp_locale->month ),
-				'monthsShort'   => array_values( $wp_locale->month_abbrev ),
-				'weekdays'      => array_values( $wp_locale->weekday ),
-				'weekdaysShort' => array_values( $wp_locale->weekday_abbrev ),
-				'meridiem'      => (object) $wp_locale->meridiem,
-				'relative'      => array(
-					/* translators: %s: duration */
-					'future' => __( '%s from now', 'default' ),
-					/* translators: %s: duration */
-					'past'   => __( '%s ago', 'default' ),
-				),
-			),
-			'formats'  => array(
-				'time'       => get_option( 'time_format', __( 'g:i a', 'default' ) ),
-				'date'       => get_option( 'date_format', __( 'F j, Y', 'default' ) ),
-				'dateNoYear' => __( 'F j', 'default' ),
-				'datetime'   => get_option( 'date_format', __( 'F j, Y', 'default' ) ) . ' ' . get_option( 'time_format', __( 'g:i a', 'default' ) ),
-			),
-			'timezone' => array(
-				'offset' => get_option( 'gmt_offset', 0 ),
-				'string' => $this->get_timezone_label(),
-			),
-		);
-	}
-
-	/**
-	 * Returns the site timezone as a string
-	 *
-	 * @since TBD
-	 *
-	 * @return string
-	 */
-	public function get_timezone_label() {
-		return class_exists( 'Tribe__Timezones' )
-			? Tribe__Timezones::wp_timezone_string()
-			: get_option( 'timezone_string', 'UTC' );
-	}
-
-	/**
-=======
->>>>>>> release/M18.18
 	 * Add "Event Blocks" category to the editor
 	 *
 	 * @since 4.7
