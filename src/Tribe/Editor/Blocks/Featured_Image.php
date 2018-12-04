@@ -5,7 +5,7 @@ extends Tribe__Editor__Blocks__Abstract {
 	/**
 	 * Which is the name/slug of this block
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 *
 	 * @return string
 	 */
@@ -16,7 +16,7 @@ extends Tribe__Editor__Blocks__Abstract {
 	/**
 	 * Since we are dealing with a Dynamic type of Block we need a PHP method to render it
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 *
 	 * @param  array $attributes
 	 *
@@ -28,13 +28,13 @@ extends Tribe__Editor__Blocks__Abstract {
 		// Add the rendering attributes into global context
 		tribe( 'events.editor.template' )->add_template_globals( $args );
 
-		return tribe( 'events.editor.template' )->template( array( 'editor', 'blocks', $this->slug() ), $args, false );
+		return tribe( 'events.editor.template' )->template( array( 'blocks', $this->slug() ), $args, false );
 	}
 
 	/**
 	 * Register the Assets for when this block is active
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 *
 	 * @return void
 	 */

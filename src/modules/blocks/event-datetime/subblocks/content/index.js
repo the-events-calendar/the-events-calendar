@@ -16,7 +16,7 @@ import { DateTime } from '@moderntribe/events/icons';
  */
 import EventDateTimeContent from './container';
 
-const timeZone = get( globals.config(), 'timeZone', {} );
+const timeZone = get( globals.tec(), 'timeZone', {} );
 
 export default {
 	id: 'event-datetime-content',
@@ -66,7 +66,7 @@ export default {
 		},
 		showTimeZone: {
 			type: 'boolean',
-			default: get( timeZone, 'show_time_zone', false ),
+			default: get( timeZone, 'showtimeZone', false ),
 		},
 		timeZoneLabel: {
 			type: 'string',

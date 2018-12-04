@@ -5,14 +5,18 @@ class Tribe__Events__Editor__Provider extends tad_DI52_ServiceProvider {
 	/**
 	 * Binds and sets up implementations.
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 *
 	 */
 	public function register() {
 		// Setup to check if gutenberg is active
 		$this->container->singleton( 'events.editor', 'Tribe__Events__Editor' );
+		$this->container->singleton( 'events.editor.compatibility', 'Tribe__Events__Editor__Compatibility', array( 'hook' ) );
 
-		if ( ! tribe( 'editor' )->should_load_blocks() ) {
+		if (
+			! tribe( 'editor' )->should_load_blocks()
+			|| ! tribe( 'events.editor.compatibility' )->is_blocks_editor_toggled_on()
+		) {
 			return;
 		}
 
@@ -21,6 +25,7 @@ class Tribe__Events__Editor__Provider extends tad_DI52_ServiceProvider {
 		$this->container->singleton( 'events.editor.i18n', 'Tribe__Events__Editor__I18n', array( 'hook' ) );
 		$this->container->singleton( 'events.editor.template', 'Tribe__Events__Editor__Template' );
 		$this->container->singleton( 'events.editor.template.overwrite', 'Tribe__Events__Editor__Template__Overwrite', array( 'hook' ) );
+		$this->container->singleton( 'events.editor.configuration', 'Tribe__Events__Editor__Configuration', array( 'hook' ) );
 
 		$this->container->singleton( 'events.editor.blocks.classic-event-details', 'Tribe__Events__Editor__Blocks__Classic_Event_Details' );
 		$this->container->singleton( 'events.editor.blocks.event-datetime', 'Tribe__Events__Editor__Blocks__Event_Datetime' );
@@ -40,6 +45,7 @@ class Tribe__Events__Editor__Provider extends tad_DI52_ServiceProvider {
 		 */
 		tribe( 'events.editor.i18n' );
 		tribe( 'events.editor.template.overwrite' );
+		tribe( 'events.editor.configuration' );
 	}
 
 	/**
@@ -47,10 +53,16 @@ class Tribe__Events__Editor__Provider extends tad_DI52_ServiceProvider {
 	 *
 	 * In place of delegating the hooking responsibility to the single classes they are all hooked here.
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 *
 	 */
 	protected function hook() {
+		// Prevents loading of blocks if gutenberg plugin is active
+		// We wil deactivate this plugin right after after `admin_init`
+		if ( class_exists( 'Tribe__Gutenberg__Plugin' ) ) {
+			return false;
+		}
+
 		// Setup the Meta registration
 		add_action( 'init', tribe_callback( 'events.editor.meta', 'register' ), 15 );
 
@@ -72,7 +84,7 @@ class Tribe__Events__Editor__Provider extends tad_DI52_ServiceProvider {
 	/**
 	 * Binds and sets up implementations at boot time.
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 */
 	public function boot() {
 		// no ops

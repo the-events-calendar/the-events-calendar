@@ -4,7 +4,7 @@ Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.5
-Stable tag: 4.7-beta2
+Stable tag: 4.7
 Tested up to: 4.9.8
 Requires PHP: 5.2.4
 License: GPLv2 or later
@@ -215,7 +215,29 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
-= [4.7] TBD =
+= [4.7.1] TBD =
+
+* Fix - Make the Date Time block respect the timezone settings [118682]
+* Fix - Remove Price block dashboard gap [118683]
+
+= [4.7] 2018-11-29 =
+
+* Feature - added new setting to activate the block editor on events for users running the WordPress 5.0 beta.
+* Feature - added an Event Date Time block to add and display the event date and time
+* Feature - added an Event Price block to add and display the event price and optional event description
+* Feature - added an Event Organizer block to add and display an organizer on an event single
+* Feature - added an Event Venue block to add and display the event venue information including optional link or map
+* Feature - added an Event Website block to add and display an external website link as a button with custom label
+* Feature - added an Event Sharing block to display event export options and allow for more customization
+* Feature - added an Event Details Classic block to maintain a combined content display as in the classic editor
+* Feature - added a Featured Image block to display an event’s featured image in the editor content
+* Feature - added a Tags block to display an event’s tags in the editor content
+* Feature - added an Event Categories block to display an event’s categories in the editor content
+* Feature - added a new Events Blocks section to the block inserter
+* Tweak - Added filters: `tribe_blocks_editor_update_classic_content_params`, `tribe_blocks_editor_update_classic_content`, `tribe_events_editor_default_classic_template`, `tribe_events_editor_default_template`, `tribe_events_google_maps_api`, `tribe_events_editor_assets_should_enqueue_frontend`, `tribe_events_single_map_zoom_level`, `tribe_events_single_event_time_formatted`, `tribe_events_single_event_time_title`, `tribe_events_event_block_datetime_use_yearless_format`, `tribe_get_event_website_link_target`, `tribe_events_single_event_time_formatted`, `tribe_events_single_event_time_title`
+* Tweak - Added actions: `tribe_blocks_editor_flag_post_classic_editor`, `tribe_events_editor_register_blocks`, `tribe_events_single_event_meta_primary_section_start`, `tribe_events_single_event_meta_primary_section_end`, `tribe_events_single_event_meta_secondary_section_start`, `tribe_events_single_event_meta_secondary_section_end`, `tribe_events_single_meta_details_section_start`, `tribe_events_single_meta_details_section_end`, `tribe_events_single_meta_map_section_start`, `tribe_events_single_meta_map_section_end`, `tribe_events_single_meta_organizer_section_start`, `tribe_events_single_meta_organizer_section_end`, `tribe_events_single_meta_venue_section_start`, `tribe_events_single_meta_venue_section_end`
+* Tweak - Changed views: `blocks/classic-event-details`, `blocks/event-category`, `blocks/event-datetime`, `blocks/event-links`, `blocks/event-organizer`, `blocks/event-price`, `blocks/event-tags`, `blocks/event-venue`, `blocks/event-website`, `blocks/featured-image`, `blocks/parts/details`, `blocks/parts/map`, `blocks/parts/organizer`, `blocks/parts/venue`, `silence`, `single-event-blocks`, `single-event`, `single-event/back-link`, `single-event/comments`, `single-event/content`, `single-event/footer`, `single-event/notices`, `single-event/title`
+* Language - 11 new strings added, 0 updated, 0 fuzzied, and 30 obsoleted
 
 = [4.6.26.1] 2018-11-21 =
 

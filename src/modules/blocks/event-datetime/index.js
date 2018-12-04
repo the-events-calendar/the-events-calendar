@@ -20,7 +20,7 @@ import './subblocks';
  * Module Code
  */
 
-const timeZone = get( globals.config(), 'timeZone', {} );
+const timeZone = get( globals.tec(), 'timeZone', {} );
 
 export default {
 	id: 'event-datetime',
@@ -70,7 +70,7 @@ export default {
 		},
 		showTimeZone: {
 			type: 'boolean',
-			default: get( timeZone, 'show_time_zone', false ),
+			default: get( timeZone, 'showTimeZone', false ),
 		},
 		timeZoneLabel: {
 			type: 'string',

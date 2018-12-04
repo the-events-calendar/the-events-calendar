@@ -15,11 +15,11 @@ const position = string.isTruthy( settings() && settings().reverseCurrencyPositi
 	: 'prefix';
 
 export const DEFAULT_STATE = {
-	position: priceSettings() && priceSettings().default_currency_position
-		? priceSettings().default_currency_position
+	position: priceSettings() && priceSettings().defaultCurrencyPosition
+		? priceSettings().defaultCurrencyPosition
 		: position,
-	symbol: priceSettings() && priceSettings().default_currency_symbol
-		? priceSettings().default_currency_symbol
+	symbol: priceSettings() && priceSettings().defaultCurrencySymbol
+		? priceSettings().defaultCurrencySymbol
 		: __( '$', 'events-gutenberg' ),
 	cost: '',
 	description: '',

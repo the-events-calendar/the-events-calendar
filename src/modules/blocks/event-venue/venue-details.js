@@ -72,7 +72,7 @@ export default class VenueDetails extends Component {
 		return (
 			<div className="tribe-editor__venue__name">
 				{ beforeTitle }
-				<h3 onClick={ maybeEdit }>
+				<h3 className="tribe-editor__venue__name-heading" onClick={ maybeEdit }>
 					{ decode( this.getVenueName() ) }
 				</h3>
 				{ afterTitle }
@@ -104,17 +104,24 @@ export default class VenueDetails extends Component {
 		return (
 			<address className="tribe-editor__venue__address">
 				<span className="tribe-venue__street-address">{ street }</span>
-				<br />
-				{ city && <span className="tribe-venue__locality">{ city }</span> }
+				{
+					city && (
+						<Fragment>
+							<br />
+							<span className="tribe-venue__locality">{ city }</span>
+						</Fragment>
+					)
+				}
 				{ city && <span className="tribe-venue__delimiter">, </span> }
 				{ province && <span className="tribe-venue__region">{ province }</span> }
 				{ zip && <span className="tribe-venue__postal-code"> { zip }</span> }
 				{
-					country &&
-					<Fragment>
-						<br />
-						<span className="tribe-venue__country-name"> { country }</span>
-					</Fragment>
+					country && (
+						<Fragment>
+							<br />
+							<span className="tribe-venue__country-name"> { country }</span>
+						</Fragment>
+					)
 				}
 				{ this.renderGoogleMapLink() }
 			</address>

@@ -11,12 +11,11 @@
 	display: flex;
 	font-size: 19px;
 	font-style: normal;
-	font-family: Helvetica, sans-serif, arial;
+	font-family: Helvetica, Arial, sans-serif;
 	font-weight: bold;
 	line-height: normal;
 	margin-bottom: 0;
 	margin-top: 0;
-	color: red;
 
 	> * {
 		flex: 0 1 auto;
@@ -27,6 +26,10 @@
 		color: #060606;
 		font-size: 1.1em;
 		text-decoration: none;
+	}
+
+	.tribe-editor__date-time & {
+		padding: 0;
 	}
 }
 
@@ -45,7 +48,9 @@
 	}
 
 	.tribe-editor__btn--label {
+		font-family: Helvetica, Arial, sans-serif;
 		font-size: 19px;
+		font-weight: bold;
 		text-align: left;
 		flex: 1 1 100%;
 

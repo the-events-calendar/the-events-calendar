@@ -3,17 +3,17 @@
 /**
  * Allow including of Gutenberg Template
  *
- * @since TBD
+ * @since 4.7
  */
 class Tribe__Events__Editor__Template extends Tribe__Template {
 	/**
 	 * Building of the Class template configuration
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 */
 	public function __construct() {
 		$this->set_template_origin( tribe( 'tec.main' ) );
-		// todo: update to the plugins directory only
+
 		$this->set_template_folder( 'src/views' );
 
 		// Configures this templating class extract variables
@@ -28,7 +28,7 @@ class Tribe__Events__Editor__Template extends Tribe__Template {
 	/**
 	 * Return the attributes of the template
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 *
 	 * @param array $default_attributes
 	 * @return array
@@ -43,7 +43,7 @@ class Tribe__Events__Editor__Template extends Tribe__Template {
 	/**
 	 * Return a specific attribute
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 *
 	 * @param  mixed $default
 	 * @return mixed
@@ -59,7 +59,7 @@ class Tribe__Events__Editor__Template extends Tribe__Template {
 	/**
 	 * Set notices
 	 *
-	 * @since TBD
+	 * @since 4.7
 	 *
 	 * @return void
 	 */

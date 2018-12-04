@@ -2,7 +2,11 @@
  * External dependencies
  */
 import { takeEvery, put, call, all } from 'redux-saga/effects';
-import { cloneableGenerator } from 'redux-saga/utils';
+
+/**
+ * WordPress dependencies
+ */
+import { select } from '@wordpress/data';
 
 /**
  * Internal Dependencies
@@ -10,9 +14,17 @@ import { cloneableGenerator } from 'redux-saga/utils';
 import * as types from '../types';
 import { DEFAULT_STATE } from '../reducer';
 import * as actions from '../actions';
-import { isTruthy } from '@moderntribe/common/utils/string';
 import { priceSettings } from '@moderntribe/common/utils/globals';
 import watchers, * as sagas from '../sagas';
+
+jest.mock( '@wordpress/data', () => {
+	const isEditedPostNew = () => {};
+	return {
+		select: () => ( {
+			isEditedPostNew,
+		} ),
+	};
+} );
 
 describe( 'Price Block sagas', () => {
 	describe( 'watchers', () => {
@@ -25,7 +37,7 @@ describe( 'Price Block sagas', () => {
 		} );
 	} );
 	describe( 'setInitialState', () => {
-		let action, settings, clone;
+		let action, settings;
 		beforeEach( () => {
 			action = { payload: {
 				get: jest.fn(
@@ -33,25 +45,23 @@ describe( 'Price Block sagas', () => {
 				),
 			} };
 			settings = {
-				is_new_event: 'true',
 				default_currency: 'USD',
-				default_currency_position: 'prefix',
+				defaultCurrencyPosition: 'prefix',
 			};
 		} );
 
 		it( 'should handle new events', () => {
-			const gen = cloneableGenerator( sagas.setInitialState )( action );
+			const gen = sagas.setInitialState( action );
 			expect( gen.next().value ).toEqual(
 				call( priceSettings )
 			);
-			clone = gen.clone();
 			expect( gen.next( settings ).value ).toEqual(
-				call( isTruthy, settings.is_new_event )
+				call( [ select( 'core/editor' ), 'isEditedPostNew' ] )
 			);
 			expect( gen.next( true ).value ).toEqual(
 				all( [
-					put( actions.setPosition( settings.default_currency_position ) ),
-					put( actions.setSymbol( settings.default_currency_symbol ) ),
+					put( actions.setPosition( settings.defaultCurrencyPosition ) ),
+					put( actions.setSymbol( settings.defaultCurrencySymbol ) ),
 					put( actions.setCost( action.payload.get( 'cost', DEFAULT_STATE.cost ) ) ),
 					put( actions.setDescription(
 						action.payload.get( 'costDescription', DEFAULT_STATE.description ) )
@@ -61,11 +71,14 @@ describe( 'Price Block sagas', () => {
 			expect( gen.next().done ).toEqual( true );
 		} );
 		it( 'should handle existing events', () => {
-			settings.is_new_event = 'false';
-			expect( clone.next( settings ).value ).toEqual(
-				call( isTruthy, settings.is_new_event )
+			const gen = sagas.setInitialState( action );
+			expect( gen.next().value ).toEqual(
+				call( priceSettings )
 			);
-			expect( clone.next( false ).value ).toEqual(
+			expect( gen.next( settings ).value ).toEqual(
+				call( [ select( 'core/editor' ), 'isEditedPostNew' ] )
+			);
+			expect( gen.next( false ).value ).toEqual(
 				all( [
 					put( actions.setPosition(
 						action.payload.get( 'currencyPosition', DEFAULT_STATE.position )
@@ -79,7 +92,7 @@ describe( 'Price Block sagas', () => {
 					),
 				] )
 			);
-			expect( clone.next().done ).toEqual( true );
+			expect( gen.next().done ).toEqual( true );
 		} );
 	} );
 } );
