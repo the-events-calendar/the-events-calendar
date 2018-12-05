@@ -3,7 +3,6 @@
  */
 import { connect } from 'react-redux';
 import { compose, bindActionCreators } from 'redux';
-import moment from 'moment';
 
 /**
  * Internal dependencies
@@ -34,7 +33,7 @@ const onSelectDay = ( dispatchProps ) => ( { from, to } ) => {
 };
 
 const onStartTimePickerBlur = ( dispatchProps ) => ( e ) => {
-	let startTimeMoment = moment( e.target.value, momentUtil.TIME_FORMAT );
+	let startTimeMoment = momentUtil.toMoment( e.target.value, momentUtil.TIME_FORMAT, false );
 	if ( ! startTimeMoment.isValid() ) {
 		startTimeMoment = defaultStartMoment;
 	}
@@ -52,7 +51,7 @@ const onStartTimePickerClick = ( dispatchProps ) => ( value, onClose ) => {
 };
 
 const onEndTimePickerBlur = ( dispatchProps ) => ( e ) => {
-	let endTimeMoment = moment( e.target.value, momentUtil.TIME_FORMAT );
+	let endTimeMoment = momentUtil.toMoment( e.target.value, momentUtil.TIME_FORMAT, false );
 	if ( ! endTimeMoment.isValid() ) {
 		endTimeMoment = defaultEndMoment;
 	}
@@ -77,6 +76,8 @@ const mapStateToProps = ( state ) => ( {
 	allDay: dateTimeSelectors.getAllDay( state ),
 	start: dateTimeSelectors.getStart( state ),
 	end: dateTimeSelectors.getEnd( state ),
+	startTimeInput: dateTimeSelectors.getStartTimeInput( state ),
+	endTimeInput: dateTimeSelectors.getEndTimeInput( state ),
 	isDashboardOpen: UISelectors.getDashboardDateTimeOpen( state ),
 	multiDay: dateTimeSelectors.getMultiDay( state ),
 	separatorTime: dateTimeSelectors.getTimeSeparator( state ),

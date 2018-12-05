@@ -51,6 +51,7 @@ export default class EventDateTimeDashboard extends PureComponent {
 	static propTypes = {
 		allDay: PropTypes.bool,
 		end: PropTypes.string,
+		endTimeInput: PropTypes.string,
 		isDashboardOpen: PropTypes.bool,
 		multiDay: PropTypes.bool,
 		onEndTimePickerBlur: PropTypes.func,
@@ -64,6 +65,7 @@ export default class EventDateTimeDashboard extends PureComponent {
 		separatorTime: PropTypes.string,
 		setVisibleMonth: PropTypes.func,
 		start: PropTypes.string,
+		startTimeInput: PropTypes.string,
 		visibleMonth: PropTypes.instanceOf( Date ),
 	};
 
@@ -75,16 +77,15 @@ export default class EventDateTimeDashboard extends PureComponent {
 		const {
 			start,
 			end,
+			startTimeInput,
 			allDay,
 			onStartTimePickerBlur,
 			onStartTimePickerChange,
 			onStartTimePickerClick,
 		} = this.props;
 
-		const startMoment = toMoment( start );
-
 		const timePickerProps = {
-			current: startMoment.format( 'HH:mm' ),
+			current: startTimeInput,
 			start: time.START_OF_DAY,
 			end: time.END_OF_DAY,
 			onBlur: onStartTimePickerBlur,
@@ -124,6 +125,7 @@ export default class EventDateTimeDashboard extends PureComponent {
 		const {
 			start,
 			end,
+			endTimeInput,
 			multiDay,
 			allDay,
 			onEndTimePickerBlur,
@@ -135,10 +137,8 @@ export default class EventDateTimeDashboard extends PureComponent {
 			return null;
 		}
 
-		const endMoment = toMoment( end );
-
 		const timePickerProps = {
-			current: endMoment.format( 'HH:mm' ),
+			current: endTimeInput,
 			start: time.START_OF_DAY,
 			end: time.END_OF_DAY,
 			onBlur: onEndTimePickerBlur,
@@ -170,7 +170,6 @@ export default class EventDateTimeDashboard extends PureComponent {
 			visibleMonth,
 			setVisibleMonth,
 			onSelectDay,
-			separatorTime,
 		} = this.props;
 
 		const monthProps = {
