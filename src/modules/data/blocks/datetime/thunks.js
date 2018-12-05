@@ -59,11 +59,4 @@ export const setInitialState = ( { get, attributes } ) => ( dispatch ) => {
 
 	dispatch( setNaturalLanguageLabel( date.rangeToNaturalLanguage( values.start, values.end ) ) );
 	dispatch( setMultiDayAction( ! isSameDay( values.start, values.end ) ) );
-
-	const isNewEvent = select( 'core/editor' ).isEditedPostNew();
-	if ( isNewEvent ) {
-		const { dateTimeSeparator, timeRangeSeparator } = globals.settings();
-		dispatch( setSeparatorDate( dateTimeSeparator ) );
-		dispatch( setSeparatorTime( timeRangeSeparator ) );
-	}
 };
