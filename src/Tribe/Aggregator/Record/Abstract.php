@@ -733,7 +733,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		// Set site for origin(s) that need it for new token handling.
-		if ( \in_array( $args['origin'], array( 'eventbrite', 'facebook-dev' ), true ) ) {
+		if ( in_array( $args['origin'], array( 'eventbrite', 'facebook-dev' ), true ) ) {
 			$args['site'] = site_url();
 		}
 

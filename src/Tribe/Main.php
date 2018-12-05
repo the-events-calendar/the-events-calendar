@@ -32,7 +32,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '4.7.0.1';
+		const VERSION             = '4.7.1';
 		const MIN_ADDON_VERSION   = '4.4';
 		const MIN_COMMON_VERSION  = '4.8';
 
@@ -439,6 +439,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				class_exists( 'Tribe__Events__Pro__Main' )
 				&& version_compare( Tribe__Events__Pro__Main::VERSION, $this->addon_dependencies['events-pro'], '<' )
 			) {
+				$pue = new Tribe__Events__Pro__PUE( EVENTS_CALENDAR_PRO_DIR . '/events-calendar-pro.php' );
+				$pue->load_plugin_update_engine();
+
 				add_action( 'admin_notices', array( $this, 'pro_compatibility_notice' ) );
 				remove_action( 'plugins_loaded', 'Tribe_ECP_Load', 2 );
 				return;
@@ -1510,6 +1513,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			'Main.php',
 			'Deactivation.php',
 			'Updater.php',
+			'PUE.php',
 		);
 
 		foreach ( $files_to_include as $file ) {
