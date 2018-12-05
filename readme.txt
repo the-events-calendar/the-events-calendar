@@ -12,6 +12,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 The Events Calendar is a carefully crafted, extensible plugin that lets you easily manage and share events. Beautiful. Solid. Awesome.
 
+* Fix - Making sure all Blocks Editor code for Meta saving is PHP 5.2 compatible
 == Description ==
 
 Create an events calendar and manage it with ease. The Events Calendar plugin provides professional-level quality and features backed by a team you can trust.
@@ -221,6 +222,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - Remove dependency from PRO when calling `tribe_events_template_data`
 * Fix - Make the Date Time block respect the timezone settings [118682]
 * Fix - Remove Price block dashboard gap [118683]
+* Fix - Making sure all Blocks Editor code for Meta saving is PHP 5.2 compatible
 
 = [4.7.1] 2018-12-05 =
 
