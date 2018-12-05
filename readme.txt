@@ -223,6 +223,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - Make the Date Time block respect the timezone settings [118682]
 * Fix - Remove Price block dashboard gap [118683]
 * Fix - Making sure all Blocks Editor code for Meta saving is PHP 5.2 compatible
+* Fix - Prevent `undefined` from been displayed at the Date Time separators [119337]
 
 = [4.7.1] 2018-12-05 =
 
