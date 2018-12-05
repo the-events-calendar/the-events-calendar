@@ -217,6 +217,8 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 = [4.7.2] TBD =
 
+* Feature - Add new action `tribe_events_before_event_template_data_date_display` and `tribe_events_after_event_template_data_date_display`
+* Fix - Remove dependency from PRO when calling `tribe_events_template_data`
 * Fix - Make the Date Time block respect the timezone settings [118682]
 * Fix - Remove Price block dashboard gap [118683]
 
