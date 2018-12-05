@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[STORE] - Organizers selectors Should return the mapped organizers 1`] = `
+Array [
+  Object {
+    "block": false,
+    "id": 98,
+  },
+  Object {
+    "block": false,
+    "id": 99,
+  },
+  Object {
+    "block": true,
+    "id": 100,
+  },
+]
+`;

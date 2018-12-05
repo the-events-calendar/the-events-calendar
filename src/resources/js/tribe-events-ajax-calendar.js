@@ -84,6 +84,9 @@
 			autoclose   : true
 		};
 
+		// Set up some specific strings for datepicker i18n.
+		tribe_ev.fn.ensure_datepicker_i18n();
+
 		$tribedate
 			.bootstrapDatepicker( td.datepicker_opts )
 			.on( 'changeDate', function( e ) {
@@ -371,7 +374,8 @@
 				if ( ts.ajax_running ) {
 					return;
 				}
-				if ( $tribedate.val().length ) {
+
+				if ( $tribedate.length ) {
 					if ( '0' !== ts.datepicker_format ) {
 						ts.date = tribeDateFormat( $tribedate.bootstrapDatepicker( 'getDate' ), 'tribeMonthQuery' );
 					}
@@ -379,6 +383,7 @@
 						ts.date = $tribedate.val();
 					}
 				}
+
 				else {
 					if ( !dateMod ) {
 						ts.date = td.cur_date.slice( 0, -3 );

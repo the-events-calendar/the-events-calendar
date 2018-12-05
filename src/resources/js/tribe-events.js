@@ -579,6 +579,33 @@ Date.prototype.format = function( mask, utc ) {
 				} );
 			}
 		},
+
+		/**
+		 * @function tribe_ev.fn.ensure_datepicker_i18n
+		 * @desc tribe_ev.fn.ensure_datepicker_i18n Ensures some specific strings for Bootstrap Datepicker are translatable. We manually enforce strings in this way because
+		 * we do not use locales for the datepicker other than the default 'en' locale, since we provide the strings via PHP and don't use the datepicker library's versions of
+		 * non-English locales.
+		 * @see https://bootstrap-datepicker.readthedocs.io/en/latest/i18n.html
+		 */
+		ensure_datepicker_i18n : function() {
+
+			if ( 'undefined' == typeof $.fn.bootstrapDatepicker ) {
+				return;
+			}
+			var tribe_l10n = window.tribe_l10n_datatables || {};
+			var datepickeri18n = tribe_l10n.datepicker || {};
+			$.fn.bootstrapDatepicker.dates['en'].days        = datepickeri18n.dayNames;
+			$.fn.bootstrapDatepicker.dates['en'].daysShort   = datepickeri18n.dayNamesShort;
+			$.fn.bootstrapDatepicker.dates['en'].daysMin     = datepickeri18n.dayNamesMin;
+			$.fn.bootstrapDatepicker.dates['en'].months      = datepickeri18n.monthNames;
+			// Provide a fallback as it might not be always available
+			if ( datepickeri18n.monthNamesMin ) {
+				$.fn.bootstrapDatepicker.dates[ 'en' ].monthsShort = datepickeri18n.monthNamesMin;
+			}
+			$.fn.bootstrapDatepicker.dates['en'].today       = datepickeri18n.today;
+			$.fn.bootstrapDatepicker.dates['en'].clear       = datepickeri18n.clear;
+		},
+
 		/**
 		 * @function tribe_ev.fn.execute_resize
 		 * @desc tribe_ev.fn.execute_resize groups together functions that should execute at the end of the window resize event.
