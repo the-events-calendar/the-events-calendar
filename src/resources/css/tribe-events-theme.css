@@ -21,6 +21,10 @@
  *
  */
 
+:root {
+	--featured-event-bg: #0ea0d7;
+}
+
 /* = Global & Miscellaneous Styles
 =============================================*/
 
@@ -143,14 +147,12 @@ ul.tribe-events-sub-nav a,
 
 .tribe-events-list .type-tribe_events {
 	border-bottom: 0;
-	margin-bottom: 32px;
 	margin-bottom: 2rem;
 	padding: 0;
 	position: relative;
 }
 
 .tribe-events-list .type-tribe_events:first-of-type {
-	margin-top: 32px;
 	margin-top: 2rem;
 }
 
@@ -334,7 +336,7 @@ ul.tribe-events-sub-nav a,
 
 #tribe-events-content .tribe-events-calendar td:hover {
 	background: #f7f7f7;
-	box-shadow: rgba(0, 0, 0, .2) 0 0 10px;
+	box-shadow: rgba(0,0,0, .2) 0 0 10px;
 }
 
 #tribe-events-content .tribe-events-calendar td.tribe-events-othermonth {
@@ -390,7 +392,7 @@ ul.tribe-events-sub-nav a,
 	background-color: #fff;
 	color: #606060;
 	padding: .75em 1em 0;
-	box-shadow: 3px 4px 21px rgba(0, 0, 0, .38);
+	box-shadow: 3px 4px 21px rgba(0,0,0,.38);
 }
 
 .tribe-events-tooltip .tribe-events-arrow {
@@ -467,9 +469,9 @@ ul.tribe-events-sub-nav a,
 }
 
 .tribe-events-tooltip.tribe-events-tooltip-flipdown::before {
-	border-bottom-color: #fff;
-	top: -20px;/* Normally it's -21px, but -20px works better in Tribe Events theme because of tooltip box-shadow. */
-}
+		border-bottom-color: #fff;
+		top: -20px; /* Normally it's -21px, but -20px works better in Tribe Events theme because of tooltip box-shadow. */
+	}
 
 /**
  * Shortcode specific CSS
@@ -507,59 +509,52 @@ ul.tribe-events-sub-nav a,
 =============================================*/
 
 .tribe-events-list-widget ol li {
-	list-style: none;
-	margin-bottom: 8px;
-	margin-bottom: .5rem;
-}
+		list-style: none;
+		margin-bottom: .5rem;
+	}
 
 .tribe-events-list-widget .tribe-list-widget {
-	margin-left: 0;
-}
+		margin-left: 0;
+	}
 
 .tribe-events-list-widget .tribe-events-list-widget-events {
-	padding: 0 24px;
-	padding: 0 1.5rem;
-	margin-bottom: 20px;
-	margin-bottom: 1.25rem;
-}
+		padding: 0 1.5rem;
+		margin-bottom: 1.25rem;
+	}
 
 .tribe-events-list-widget .tribe-event-title {
-	margin-bottom: 4px;
-	margin-bottom: .25rem;
-	margin-top: 0;
-}
+		margin-bottom: .25rem;
+		margin-top: 0;
+	}
 
 .tribe-events-list-widget .duration {
-	font-weight: bold;
-}
+		font-weight: bold;
+	}
 
 .tribe-events-list-widget .tribe-event-featured {
-	background: var(--featured-event-bg);
-	padding-bottom: 12px;
-	padding-bottom: .75rem;
-}
+		background: #0ea0d7;
+		background: var(--featured-event-bg);
+		padding-bottom: .75rem;
+	}
 
 .tribe-events-list-widget .tribe-event-featured .tribe-event-title {
-	margin-top: 12px;
-	margin-top: .75rem;
-}
+			margin-top: .75rem;
+		}
 
 .tribe-events-list-widget .tribe-event-featured .tribe-event-title a {
-	color: white;
-}
+				color: white;
+			}
 
 .tribe-events-list-widget .tribe-event-featured .tribe-event-image {
-	line-height: 0;
-	margin-left: -24px;
-	margin-left: -1.5rem;
-	margin-right: -24px;
-	margin-right: -1.5rem;
-	overflow: hidden;
-}
+			line-height: 0;
+			margin-left: -1.5rem;
+			margin-right: -1.5rem;
+			overflow: hidden;
+		}
 
 .tribe-events-list-widget .tribe-event-featured .tribe-event-duration {
-	color: white;
-}
+			color: white;
+		}
 
 /* = Twenty* overrides
 =============================================*/
@@ -577,7 +572,6 @@ ul.tribe-events-sub-nav a,
 
 @media
 (min--moz-device-pixel-ratio: 2), (-o-min-device-pixel-ratio: 2/1), (-webkit-min-device-pixel-ratio: 2), (min-device-pixel-ratio: 2) {
-
 	.tribe-events-tooltip .tribe-events-arrow {
 		background-image: url(../images/tribe-theme/tribe-theme-tooltips@2x.png);
 	}

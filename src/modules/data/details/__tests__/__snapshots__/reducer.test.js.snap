@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[STORE] - Details reducer Should set the details 1`] = `
+Object {
+  "20": Object {
+    "details": Object {},
+    "isLoading": false,
+    "postType": "tribe_events",
+  },
+}
+`;

@@ -1,0 +1,45 @@
+{
+  "verbose": true,
+  "testURL": "http://localhost/",
+  "projects": [
+    {
+      "displayName": "common",
+      "setupFiles": [
+        "<rootDir>/jest.setup.js"
+      ],
+      "testEnvironment": "jest-environment-jsdom-global",
+      "testMatch": [
+        "<rootDir>/common/src/modules/**/__tests__/**/*.js?(x)"
+      ],
+      "testURL": "http://localhost/",
+      "moduleNameMapper": {
+        "\\.(css|pcss)$": "identity-obj-proxy",
+        "\\.(svg)$": "<rootDir>/__mocks__/icons.js"
+      }
+    },
+    {
+      "displayName": "events",
+      "setupFiles": [
+        "<rootDir>/jest.setup.js"
+      ],
+      "testEnvironment": "jest-environment-jsdom-global",
+      "testMatch": [
+        "<rootDir>/src/modules/**/__tests__/**/*.js?(x)"
+      ],
+      "testURL": "http://localhost/",
+      "moduleNameMapper": {
+        "\\.(css|pcss)$": "identity-obj-proxy",
+        "\\.(svg)$": "<rootDir>/__mocks__/icons.js"
+      }
+    }
+  ],
+  "testEnvironment": "jest-environment-jsdom-global",
+  "testPathIgnorePatterns": [
+    "/node_modules/",
+    "/lang/",
+    "/i18n/",
+    "/src/views",
+    "/src/Tribe",
+    "/src/resources"
+  ]
+}

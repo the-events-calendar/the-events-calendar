@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[STORE] - Website reducer Should set the website label 1`] = `
+Object {
+  "label": "Modern Tribe",
+  "url": undefined,
+}
+`;
+
+exports[`[STORE] - Website reducer Should set the website value 1`] = `
+Object {
+  "label": "",
+  "url": "https://tri.be/",
+}
+`;

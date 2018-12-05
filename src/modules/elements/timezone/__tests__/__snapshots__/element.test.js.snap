@@ -1,0 +1,168 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TimeZone element Should add the class name into the component 1`] = `
+<div
+  className="my-custom-class-name"
+  style={
+    Object {
+      "display": "inline-block",
+    }
+  }
+>
+  <input
+    onChange={[Function]}
+    placeholder=""
+    style={
+      Object {
+        "boxSizing": "content-box",
+        "width": "1px",
+      }
+    }
+    value=""
+  />
+  <div
+    style={
+      Object {
+        "height": 0,
+        "left": 0,
+        "overflow": "scroll",
+        "position": "absolute",
+        "top": 0,
+        "visibility": "hidden",
+        "whiteSpace": "pre",
+      }
+    }
+  >
+    
+  </div>
+</div>
+`;
+
+exports[`TimeZone element Should render the component 1`] = `
+<div
+  className="tribe-editor__timezone-input"
+  style={
+    Object {
+      "display": "inline-block",
+    }
+  }
+>
+  <input
+    onChange={[Function]}
+    placeholder=""
+    style={
+      Object {
+        "boxSizing": "content-box",
+        "width": "1px",
+      }
+    }
+    value=""
+  />
+  <div
+    style={
+      Object {
+        "height": 0,
+        "left": 0,
+        "overflow": "scroll",
+        "position": "absolute",
+        "top": 0,
+        "visibility": "hidden",
+        "whiteSpace": "pre",
+      }
+    }
+  >
+    
+  </div>
+</div>
+`;
+
+exports[`TimeZone element Should render the placeholder on the input 1`] = `
+<div
+  className="tribe-editor__timezone-input"
+  style={
+    Object {
+      "display": "inline-block",
+    }
+  }
+>
+  <input
+    onChange={[Function]}
+    placeholder="Love this tribe ! "
+    style={
+      Object {
+        "boxSizing": "content-box",
+        "width": "1px",
+      }
+    }
+    value=""
+  />
+  <div
+    style={
+      Object {
+        "height": 0,
+        "left": 0,
+        "overflow": "scroll",
+        "position": "absolute",
+        "top": 0,
+        "visibility": "hidden",
+        "whiteSpace": "pre",
+      }
+    }
+  >
+    
+  </div>
+  <div
+    style={
+      Object {
+        "height": 0,
+        "left": 0,
+        "overflow": "scroll",
+        "position": "absolute",
+        "top": 0,
+        "visibility": "hidden",
+        "whiteSpace": "pre",
+      }
+    }
+  >
+    Love this tribe ! 
+  </div>
+</div>
+`;
+
+exports[`TimeZone element Should render the value on the input 1`] = `
+<div
+  className="tribe-editor__timezone-input"
+  style={
+    Object {
+      "display": "inline-block",
+    }
+  }
+>
+  <input
+    onChange={[Function]}
+    placeholder=""
+    style={
+      Object {
+        "boxSizing": "content-box",
+        "width": "1px",
+      }
+    }
+    value="Modern Tribe"
+  />
+  <div
+    style={
+      Object {
+        "height": 0,
+        "left": 0,
+        "overflow": "scroll",
+        "position": "absolute",
+        "top": 0,
+        "visibility": "hidden",
+        "whiteSpace": "pre",
+      }
+    }
+  >
+    Modern Tribe
+  </div>
+</div>
+`;
