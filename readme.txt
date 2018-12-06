@@ -215,6 +215,10 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
+= [4.7.2] TBD =
+
+* Fix - Password protected events breaking the month view. Thanks to Lindsay, Simon and others for flagging this out! [117385]
+
 = [4.7.1] TBD =
 
 * Fix - Make the Date Time block respect the timezone settings [118682]
