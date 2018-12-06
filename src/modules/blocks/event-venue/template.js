@@ -155,7 +155,7 @@ class EventVenue extends Component {
 				postType={ editor.VENUE }
 				onItemSelect={ onItemSelect }
 				onCreateNew={ onCreateNew }
-				placeholder={ __( 'Add or find a venue', 'events-gutenberg' ) }
+				placeholder={ __( 'Add or find a venue', 'the-events-calendar' ) }
 			/>
 		);
 	}
@@ -249,20 +249,20 @@ class EventVenue extends Component {
 
 		return (
 			<InspectorControls key="inspector">
-				<PanelBody title={ __( 'Venue Settings', 'events-gutenberg' ) }>
+				<PanelBody title={ __( 'Venue Settings', 'the-events-calendar' ) }>
 					<ToggleControl
-						label={ __( 'Show Google Maps Link', 'events-gutenberg' ) }
+						label={ __( 'Show Google Maps Link', 'the-events-calendar' ) }
 						checked={ showMapLink }
 						onChange={ toggleVenueMapLink }
 					/>
 					<ToggleControl
-						label={ __( 'Show Google Maps Embed', 'events-gutenberg' ) }
+						label={ __( 'Show Google Maps Embed', 'the-events-calendar' ) }
 						checked={ showMap }
 						onChange={ toggleVenueMap }
 					/>
 				<EditLink
 					postId={ venue }
-					label={ __( 'Edit Venue', 'events-gutenberg' ) }
+					label={ __( 'Edit Venue', 'the-events-calendar' ) }
 				/>
 				</PanelBody>
 			</InspectorControls>

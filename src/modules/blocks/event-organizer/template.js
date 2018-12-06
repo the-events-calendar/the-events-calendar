@@ -103,7 +103,7 @@ class EventOrganizer extends Component {
 				postType={ postType }
 				isSelected={ isSelected }
 				icon={ <OrganizerIcon /> }
-				placeholder={ __( 'Add or find an organizer', 'events-gutenberg' ) }
+				placeholder={ __( 'Add or find an organizer', 'the-events-calendar' ) }
 				onItemSelect={ onItemSelect }
 				onCreateNew={ onCreateNew }
 				exclude={ organizers }
@@ -188,10 +188,10 @@ class EventOrganizer extends Component {
 			isSelected &&
 			organizer &&
 			<InspectorControls key="inspector">
-				<PanelBody title={ __( 'Organizer Settings', 'events-gutenberg' ) }>
+				<PanelBody title={ __( 'Organizer Settings', 'the-events-calendar' ) }>
 					<EditLink
 						postId={ organizer }
-						label={ __( 'Edit Organizer', 'events-gutenberg' ) }
+						label={ __( 'Edit Organizer', 'the-events-calendar' ) }
 					/>
 				</PanelBody>
 			</InspectorControls>

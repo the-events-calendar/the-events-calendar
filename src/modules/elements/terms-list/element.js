@@ -42,7 +42,7 @@ const getTermListItemClassName = ( level = 0 ) => (
 const termName = ( term = {} ) => {
 	return term.name
 		? unescape( term.name ).trim()
-		: __( '(Untitled)', 'events-gutenberg' );
+		: __( '(Untitled)', 'the-events-calendar' );
 }
 
 const Label = ( { text } ) => (
@@ -125,7 +125,7 @@ export const TaxonomiesElement = ( { className, slug, label, renderEmpty, isRequ
 };
 
 TaxonomiesElement.defaultProps = {
-	termSeparator: __( ', ', 'events-gutenberg' ),
+	termSeparator: __( ', ', 'the-events-calendar' ),
 	className: '',
 	terms: [],
 	isRequesting: false,

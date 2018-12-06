@@ -14,10 +14,10 @@ import { Price } from '@moderntribe/events/icons';
  */
 export default {
 	id: 'event-price',
-	title: __( 'Event Price', 'events-gutenberg' ),
+	title: __( 'Event Price', 'the-events-calendar' ),
 	description: __(
 		'Let visitors know the cost of this event or if it’s free to attend.',
-		'events-gutenberg'
+		'the-events-calendar'
 	),
 	icon: <Price/>,
 	category: 'tribe-events',

@@ -46,7 +46,7 @@ const {
 
 FORMATS.date = globals.settings() && globals.settings().dateWithYearFormat
 	? globals.settings().dateWithYearFormat
-	: __( 'F j', 'events-gutenberg' );
+	: __( 'F j', 'the-events-calendar' );
 
 export default class EventDateTimeDashboard extends PureComponent {
 	static propTypes = {
@@ -111,7 +111,7 @@ export default class EventDateTimeDashboard extends PureComponent {
 
 		return (
 			<ToggleControl
-				label={ __( 'Multi-Day', 'events-gutenberg' ) }
+				label={ __( 'Multi-Day', 'the-events-calendar' ) }
 				checked={ multiDay }
 				onChange={ onMultiDayToggleChange }
 			/>

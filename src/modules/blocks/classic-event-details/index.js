@@ -18,10 +18,10 @@ import { Classic } from '@moderntribe/events/icons';
  */
 export default {
 	id: 'classic-event-details',
-	title: __( 'Event Details Classic', 'events-gutenberg' ),
+	title: __( 'Event Details Classic', 'the-events-calendar' ),
 	description: __(
 		'Display your event info together in one place — just like in the Classic Editor.',
-		'events-gutenberg'
+		'the-events-calendar'
 	),
 	icon: <Classic/>,
 	category: 'tribe-events',

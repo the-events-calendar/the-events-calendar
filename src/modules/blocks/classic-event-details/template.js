@@ -39,7 +39,7 @@ const ClassicEventDetails = ( props ) => {
 			<AutosizeInput
 				className="tribe-editor__events-section__headline trigger-dashboard-datetime"
 				value={ detailsTitle }
-				placeholder={ __( 'Details', 'events-gutenberg' ) }
+				placeholder={ __( 'Details', 'the-events-calendar' ) }
 				onChange={ input.sendValue( setDetailsTitle ) }
 			/>
 		);
@@ -54,7 +54,7 @@ const ClassicEventDetails = ( props ) => {
 					className="tribe-editor__btn--label trigger-dashboard-datetime"
 					onClick={ toggleDashboardDateTime }
 				>
-					<strong>{ __( 'Start: ', 'events-gutenberg' ) }</strong>
+					<strong>{ __( 'Start: ', 'the-events-calendar' ) }</strong>
 					{ toDate( toMoment( start ), date.FORMATS.WP.date ) }
 					{ ! allDay && (
 						<Fragment>
@@ -76,7 +76,7 @@ const ClassicEventDetails = ( props ) => {
 					className="tribe-editor__btn--label trigger-dashboard-datetime"
 					onClick={ toggleDashboardDateTime }
 				>
-					<strong>{ __( 'End: ', 'events-gutenberg' ) }</strong>
+					<strong>{ __( 'End: ', 'the-events-calendar' ) }</strong>
 					{ toDate( toMoment( end ), date.FORMATS.WP.date ) }
 					{ ! allDay && (
 						<Fragment>
@@ -94,11 +94,11 @@ const ClassicEventDetails = ( props ) => {
 
 		return (
 			<div>
-				<strong>{ __( 'Website: ', 'events-gutenberg' ) }</strong><br />
+				<strong>{ __( 'Website: ', 'the-events-calendar' ) }</strong><br />
 				<PlainText
 					id="tribe-event-url"
 					value={ url }
-					placeholder={ __( 'Enter url', 'events-gutenberg' ) }
+					placeholder={ __( 'Enter url', 'the-events-calendar' ) }
 					onChange={ setWebsite }
 				/>
 			</div>
@@ -114,12 +114,12 @@ const ClassicEventDetails = ( props ) => {
 
 		return (
 			<div className="tribe-editor__event-cost">
-				<strong>{ __( 'Price: ', 'events-gutenberg' ) }</strong><br />
+				<strong>{ __( 'Price: ', 'the-events-calendar' ) }</strong><br />
 				{ 'prefix' === currencyPosition && <span>{ currencySymbol }</span> }
 				<PlainText
 					className={ textClassName }
 					value={ cost }
-					placeholder={ __( 'Enter price', 'events-gutenberg' ) }
+					placeholder={ __( 'Enter price', 'the-events-calendar' ) }
 					onChange={ setCost }
 				/>
 				{ 'suffix' === currencyPosition && <span>{ currencySymbol }</span> }
@@ -153,18 +153,18 @@ const ClassicEventDetails = ( props ) => {
 					{ renderCost() }
 					<TermsList
 						slug="tribe_events_cat"
-						label={ __( 'Event Category:', 'events-gutenberg' ) }
+						label={ __( 'Event Category:', 'the-events-calendar' ) }
 					/>
 					<TermsList
 						slug="post_tag"
-						label={ __( 'Event Tags:', 'events-gutenberg' ) }
+						label={ __( 'Event Tags:', 'the-events-calendar' ) }
 					/>
 				</MetaGroup>
 				<MetaGroup groupKey="organizer">
 					<AutosizeInput
 						className="tribe-editor__events-section__headline"
 						value={ organizerTitle }
-						placeholder={ __( 'Organizer', 'events-gutenberg' ) }
+						placeholder={ __( 'Organizer', 'the-events-calendar' ) }
 						onChange={ input.sendValue( setOrganizerTitle ) }
 					/>
 					<EventDetailsOrganizers />
@@ -174,23 +174,23 @@ const ClassicEventDetails = ( props ) => {
 		(
 			isSelected &&
 			<InspectorControls key="inspector">
-				<PanelBody title={ __( 'Date Time Settings', 'events-gutenberg' ) }>
+				<PanelBody title={ __( 'Date Time Settings', 'the-events-calendar' ) }>
 					<ToggleControl
-						label={ __( 'Is All Day Event', 'events-gutenberg' ) }
+						label={ __( 'Is All Day Event', 'the-events-calendar' ) }
 						checked={ allDay }
 						onChange={ setAllDay }
 					/>
 				</PanelBody>
-				<PanelBody title={ __( 'Price Settings', 'events-gutenberg' ) }>
+				<PanelBody title={ __( 'Price Settings', 'the-events-calendar' ) }>
 					<ToggleControl
-						label={ __( 'Show symbol before', 'events-gutenberg' ) }
+						label={ __( 'Show symbol before', 'the-events-calendar' ) }
 						checked={ 'prefix' === currencyPosition }
 						onChange={ togglePosition }
 					/>
 					<TextControl
-						label={ __( ' Currency Symbol', 'events-gutenberg' ) }
+						label={ __( ' Currency Symbol', 'the-events-calendar' ) }
 						value={ currencySymbol }
-						placeholder={ __( 'E.g.: $', 'events-gutenberg' ) }
+						placeholder={ __( 'E.g.: $', 'the-events-calendar' ) }
 						onChange={ setSymbol }
 					/>
 				</PanelBody>
