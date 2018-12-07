@@ -61,7 +61,7 @@ const Empty = ( { renderEmpty = null, id, label } ) => (
 	)
 );
 
-const List = ( { terms = [], termSeparator = ' ', isLoading = false, id = '', className = '' } ) => {
+const List = ( { terms = [], termSeparator = ', ', isLoading = false, id = '', className = '' } ) => {
 	if ( isLoading ) {
 		return <Loading id={ id } className={ className } />;
 	}
@@ -80,7 +80,7 @@ const List = ( { terms = [], termSeparator = ' ', isLoading = false, id = '', cl
 	);
 };
 
-const Separator = ( { delimiter, isLast } ) => ! isLast && <span>{ delimiter }</span>;
+const Separator = ( { delimiter, isLast } ) => ! isLast ? <span>{ delimiter }</span> : '';
 
 const Item = ( { separator, term, isLast } ) => {
 	return (
@@ -93,8 +93,7 @@ const Item = ( { separator, term, isLast } ) => {
 			>
 				{ termName( term ) }
 			</a>
-			<Separator delimiter={ separator } />
-			{ separator }
+			<Separator delimiter={ separator } isLast={ isLast } />
 		</li>
 	);
 }
