@@ -31,10 +31,10 @@ export const DEFAULT_STATE = {
 	naturalLanguage: '',
 	dateTimeSeparator: globals.settings().dateTimeSeparator
 		? globals.settings().dateTimeSeparator
-		: __( '@', 'events-gutenberg' ),
+		: __( '@', 'the-events-calendar' ),
 	timeRangeSeparator: globals.settings().timeRangeSeparator
 		? globals.settings().timeRangeSeparator
-		: __( '-', 'events-gutenberg' ),
+		: __( '-', 'the-events-calendar' ),
 	allDay: false,
 	multiDay: false,
 	timeZone: date.FORMATS.TIMEZONE.string,

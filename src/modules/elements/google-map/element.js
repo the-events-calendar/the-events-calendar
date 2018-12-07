@@ -206,7 +206,7 @@ export default class GoogleMap extends Component {
 					isLoading: false,
 					error: __(
 						'The map does not have valid coordinates nor a valid address',
-						'events-gutenberg',
+						'the-events-calendar',
 					),
 				} );
 				return;
@@ -269,7 +269,7 @@ export default class GoogleMap extends Component {
 		if ( this.tries >= this.MAX_TRIES ) {
 			this.setState( {
 				isLoading: false,
-				error: __( 'Make sure Google Maps Library is included on this page.', 'events-gutenberg' ),
+				error: __( 'Make sure Google Maps Library is included on this page.', 'the-events-calendar' ),
 			} );
 			return;
 		}
@@ -323,7 +323,7 @@ export default class GoogleMap extends Component {
 
 		if ( ! apiKey ) {
 			return (
-				<h4> { __( 'A Google Map API KEY is required to view the map', 'events-gutenberg' ) }</h4>
+				<h4> { __( 'A Google Map API KEY is required to view the map', 'the-events-calendar' ) }</h4>
 			);
 		}
 

@@ -22,7 +22,7 @@ class SearchOrCreate extends Component {
 	static defaultProps = {
 		isSelected: false,
 		term: '',
-		placeholder: __( 'Add or Find', 'events-gutenberg' ),
+		placeholder: __( 'Add or Find', 'the-events-calendar' ),
 		name: '',
 		icon: null,
 		posts: [],

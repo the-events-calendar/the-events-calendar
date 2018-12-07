@@ -18,10 +18,10 @@ import { Sharing } from '@moderntribe/events/icons';
  */
 export default {
 	id: 'event-links',
-	title: __( 'Event Sharing', 'events-gutenberg' ),
+	title: __( 'Event Sharing', 'the-events-calendar' ),
 	description: __(
 		'Encourage visitors to add your event to their calendars with handy sharing buttons.',
-		'events-gutenberg'
+		'the-events-calendar'
 	),
 	icon: <Sharing/>,
 	category: 'tribe-events',
@@ -34,11 +34,11 @@ export default {
 	attributes: {
 		googleCalendarLabel: {
 			type: 'html',
-			default: __( 'Google Calendar', 'events-gutenberg' ),
+			default: __( 'Google Calendar', 'the-events-calendar' ),
 		},
 		iCalLabel: {
 			type: 'html',
-			default: __( 'iCal Export', 'events-gutenberg' ),
+			default: __( 'iCal Export', 'the-events-calendar' ),
 		},
 		hasiCal: {
 			type: 'html',

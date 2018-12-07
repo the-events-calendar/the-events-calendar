@@ -14,10 +14,10 @@ import { Venue } from '@moderntribe/events/icons';
  */
 export default {
 	id: 'event-venue',
-	title: __( 'Event Venue', 'events-gutenberg' ),
+	title: __( 'Event Venue', 'the-events-calendar' ),
 	description: __(
 		'Where is this event happening? Select or create a location.',
-		'events-gutenberg'
+		'the-events-calendar'
 	),
 	icon: <Venue/>,
 	category: 'tribe-events',

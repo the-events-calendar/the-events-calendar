@@ -149,11 +149,11 @@ class OrganizerForm extends Component {
 				<p
 					className="description"
 				>
-					{ __( 'The e-mail address will be obfuscated on your site to avoid it getting harvested by spammers.', 'events-gutenberg' ) }
+					{ __( 'The e-mail address will be obfuscated on your site to avoid it getting harvested by spammers.', 'the-events-calendar' ) }
 				</p>
 				<dl>
 					<dt onClick={ this.focus( 'organizer[name]' ) }>
-						{ __( 'Name:', 'events-gutenberg' ) }
+						{ __( 'Name:', 'the-events-calendar' ) }
 						{ ' ' }
 					</dt>
 					<dd>
@@ -167,7 +167,7 @@ class OrganizerForm extends Component {
 						/>
 					</dd>
 					<dt onClick={ this.focus( 'organizer[phone]' ) }>
-						{ __( 'Phone:', 'events-gutenberg' ) }
+						{ __( 'Phone:', 'the-events-calendar' ) }
 						{ ' ' }
 					</dt>
 					<dd>
@@ -181,7 +181,7 @@ class OrganizerForm extends Component {
 						/>
 					</dd>
 					<dt onClick={ this.focus( 'organizer[website]' ) }>
-						{ __( 'Website:', 'events-gutenberg' ) }
+						{ __( 'Website:', 'the-events-calendar' ) }
 						{ ' ' }
 					</dt>
 					<dd>
@@ -195,7 +195,7 @@ class OrganizerForm extends Component {
 						/>
 					</dd>
 					<dt onClick={ this.focus( 'organizer[email]' ) }>
-						{ __( 'Email:', 'events-gutenberg' ) }
+						{ __( 'Email:', 'the-events-calendar' ) }
 						{ ' ' }
 					</dt>
 					<dd>
@@ -216,7 +216,7 @@ class OrganizerForm extends Component {
 					onClick={ this.onSubmit }
 					disabled={ ! this.isValid() }
 				>
-					{ __( 'Create Organizer', 'events-gutenberg' ) }
+					{ __( 'Create Organizer', 'the-events-calendar' ) }
 				</button>
 			</div>,
 		];
