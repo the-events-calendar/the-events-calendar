@@ -216,6 +216,12 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
+= [4.7.4] TBD =
+
+* Fix - Display the tags block delimiter in the editor [119393]
+
+= [4.7.3] TBD =
+
 = [4.7.2] TBD =
 
 * Feature - Add new action `tribe_events_before_event_template_data_date_display` and `tribe_events_after_event_template_data_date_display`
