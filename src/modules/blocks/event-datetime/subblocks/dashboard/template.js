@@ -37,7 +37,6 @@ import Controls from '../../controls';
 
 const { FORMATS, TODAY } = date;
 const {
-	roundTime,
 	toMoment,
 	toDate,
 	toDateNoYear,
@@ -52,17 +51,21 @@ export default class EventDateTimeDashboard extends PureComponent {
 	static propTypes = {
 		allDay: PropTypes.bool,
 		end: PropTypes.string,
+		endTimeInput: PropTypes.string,
 		isDashboardOpen: PropTypes.bool,
 		multiDay: PropTypes.bool,
+		onEndTimePickerBlur: PropTypes.func,
 		onEndTimePickerChange: PropTypes.func,
 		onEndTimePickerClick: PropTypes.func,
 		onMultiDayToggleChange: PropTypes.func,
 		onSelectDay: PropTypes.func,
+		onStartTimePickerBlur: PropTypes.func,
 		onStartTimePickerChange: PropTypes.func,
 		onStartTimePickerClick: PropTypes.func,
 		separatorTime: PropTypes.string,
 		setVisibleMonth: PropTypes.func,
 		start: PropTypes.string,
+		startTimeInput: PropTypes.string,
 		visibleMonth: PropTypes.instanceOf( Date ),
 	};
 
@@ -74,18 +77,18 @@ export default class EventDateTimeDashboard extends PureComponent {
 		const {
 			start,
 			end,
+			startTimeInput,
 			allDay,
-			multiDay,
+			onStartTimePickerBlur,
 			onStartTimePickerChange,
 			onStartTimePickerClick,
 		} = this.props;
 
-		const startMoment = toMoment( start );
-
 		const timePickerProps = {
-			current: startMoment.format( 'HH:mm' ),
+			current: startTimeInput,
 			start: time.START_OF_DAY,
 			end: time.END_OF_DAY,
+			onBlur: onStartTimePickerBlur,
 			onChange: onStartTimePickerChange,
 			onClick: onStartTimePickerClick,
 			timeFormat: FORMATS.WP.time,
@@ -122,8 +125,10 @@ export default class EventDateTimeDashboard extends PureComponent {
 		const {
 			start,
 			end,
+			endTimeInput,
 			multiDay,
 			allDay,
+			onEndTimePickerBlur,
 			onEndTimePickerChange,
 			onEndTimePickerClick,
 		} = this.props;
@@ -132,23 +137,17 @@ export default class EventDateTimeDashboard extends PureComponent {
 			return null;
 		}
 
-		const startMoment = toMoment( start );
-		const endMoment = toMoment( end );
-
 		const timePickerProps = {
-			current: endMoment.format( 'HH:mm' ),
+			current: endTimeInput,
 			start: time.START_OF_DAY,
 			end: time.END_OF_DAY,
+			onBlur: onEndTimePickerBlur,
 			onChange: onEndTimePickerChange,
 			onClick: onEndTimePickerClick,
 			timeFormat: FORMATS.WP.time,
 			showAllDay: true,
 			allDay,
 		};
-
-		if ( ! multiDay ) {
-			timePickerProps.min = startMoment.clone().add( 1, 'minutes' ).format( 'HH:mm' );
-		}
 
 		let endDate = toDate( toMoment( end ) );
 		if ( isSameYear( start, end ) && isSameYear( start, TODAY ) ) {
@@ -171,7 +170,6 @@ export default class EventDateTimeDashboard extends PureComponent {
 			visibleMonth,
 			setVisibleMonth,
 			onSelectDay,
-			separatorTime,
 		} = this.props;
 
 		const monthProps = {
@@ -224,7 +222,6 @@ export default class EventDateTimeDashboard extends PureComponent {
 						</footer>
 					</Fragment>
 				</Dashboard>
-
 			),
 		];
 	}

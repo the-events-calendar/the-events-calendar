@@ -43,6 +43,20 @@ export const setEndTime = ( end ) => ( {
 	},
 } );
 
+export const setStartTimeInput = ( startTimeInput ) => ( {
+	type: types.SET_START_TIME_INPUT,
+	payload: {
+		startTimeInput,
+	},
+} );
+
+export const setEndTimeInput = ( endTimeInput ) => ( {
+	type: types.SET_END_TIME_INPUT,
+	payload: {
+		endTimeInput,
+	},
+} );
+
 export const setSeparatorDate = ( separator ) => ( {
 	type: types.SET_SEPARATOR_DATE,
 	payload: {

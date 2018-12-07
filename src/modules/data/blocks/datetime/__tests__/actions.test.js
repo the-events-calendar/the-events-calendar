@@ -65,4 +65,10 @@ describe( '[STORE] - Datetime actions', () => {
 	test( 'setDateRange', () => {
 		expect( actions.setDateRange( { from: 0, to: 1 } ) ).toMatchSnapshot();
 	} );
+	test( 'setStartTimeInput', () => {
+		expect( actions.setStartTimeInput( '18:00' ) ).toMatchSnapshot();
+	} );
+	test( 'setEndTimeInput', () => {
+		expect( actions.setEndTimeInput( '18:00' ) ).toMatchSnapshot();
+	} );
 } );
