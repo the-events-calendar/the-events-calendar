@@ -6,7 +6,7 @@
  *
  *     [your-theme]/tribe-events/month/mobile.php
  *
- * @version  4.6.21
+ * @version  4.7.1
  */
 ?>
 
@@ -17,7 +17,7 @@
 </script>
 
 <script type="text/html" id="tribe_tmpl_month_mobile">
-	<div class="frhhhhhhhr tribe-events-mobile tribe-clearfix tribe-events-mobile-event-[[=eventId]][[ if(categoryClasses.length) { ]] [[= categoryClasses]][[ } ]]">
+	<div class="tribe-events-mobile tribe-clearfix tribe-events-mobile-event-[[=eventId]][[ if(categoryClasses.length) { ]] [[= categoryClasses]][[ } ]]">
 		<h4 class="summary">
 			<a class="url" href="[[=permalink]]" title="[[=title]]" rel="bookmark">[[=raw title]]<\/a>
 		<\/h4>

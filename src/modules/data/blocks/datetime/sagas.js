@@ -426,6 +426,30 @@ export function* handleEndTimeChange( action ) {
 }
 
 /**
+ * Sets start time input
+ *
+ * @export
+ * @since 4.7.2
+ */
+export function* setStartTimeInput() {
+	const { start } = yield call( deriveMomentsFromDates );
+	const startInput = yield call( momentUtil.toTime, start );
+	yield put( actions.setStartTimeInput( startInput ) );
+}
+
+/**
+ * Sets end time input
+ *
+ * @export
+ * @since 4.7.2
+ */
+export function* setEndTimeInput() {
+	const { end } = yield call( deriveMomentsFromDates );
+	const endInput = yield call( momentUtil.toTime, end );
+	yield put( actions.setEndTimeInput( endInput ) );
+}
+
+/**
  * Handle flow changes based on action type
  *
  * @export
@@ -456,12 +480,14 @@ export function* handler( action ) {
 		case types.SET_START_TIME:
 			yield call( handleStartTimeChange, action );
 			yield call( preventEndTimeBeforeStartTime, action );
+			yield call( setStartTimeInput );
 			yield call( resetNaturalLanguageLabel );
 			break;
 
 		case types.SET_END_TIME:
 			yield call( handleEndTimeChange, action );
 			yield call( preventStartTimeAfterEndTime, action );
+			yield call( setEndTimeInput );
 			yield call( resetNaturalLanguageLabel );
 			break;
 

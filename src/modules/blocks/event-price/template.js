@@ -120,7 +120,7 @@ const renderDashboard = ({
 				/>
 			</section>
 			<footer className="tribe-editor__event-price__dashboard__footer">
-				{ __( 'enter 0 as price for free events', 'the-events-calendar' ) }
+				{ __( 'Enter 0 as price for free events', 'the-events-calendar' ) }
 			</footer>
 		</Fragment>
 	</Dashboard>
