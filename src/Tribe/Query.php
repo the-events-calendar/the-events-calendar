@@ -210,9 +210,6 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				return $query;
 			}
 
-			$admin_helpers = Tribe__Admin__Helpers::instance();
-
-
 			if ( $query->is_main_query() && is_home() ) {
 				/**
 				 * The following filter will remove the virtual page from the option page and return a 0 as it's not
@@ -397,7 +394,8 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				 *
 				 * @since TBD
 				 */
-				if ( apply_filters( 'tribe_events_query_event_start_hack', true ) && ! Tribe__Admin__Helpers::instance()->is_screen( 'edit-tribe_events' ) ) {
+				$start_hack = apply_filters('tribe_events_query_event_start_hack', true);
+				if ( $start_hack && ! tribe( 'context' )->is_editing_post( Tribe__Events__Main::POSTTYPE ) ) {
 					$event_start_key = Tribe__Events__Timezones::is_mode( 'site' )
 						? '_EventStartDateUTC'
 						: '_EventStartDate';
