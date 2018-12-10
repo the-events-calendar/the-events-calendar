@@ -390,8 +390,14 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				// Only add the postmeta hack if it's not the main admin events list
 				// Because this method filters out drafts without EventStartDate.
 				// For this screen we're doing the JOIN manually in Tribe__Events__Admin_List
-
-				if ( ! Tribe__Admin__Helpers::instance()->is_screen( 'edit-tribe_events' ) ) {
+				/**
+				 * Filters whether or not to use the Start Date hack to include meta table.
+				 *
+				 * @param boolean $use_hack Whether to use the hack.
+				 *
+				 * @since TBD
+				 */
+				if ( apply_filters( 'tribe_events_query_event_start_hack', true ) && ! Tribe__Admin__Helpers::instance()->is_screen( 'edit-tribe_events' ) ) {
 					$event_start_key = Tribe__Events__Timezones::is_mode( 'site' )
 						? '_EventStartDateUTC'
 						: '_EventStartDate';
