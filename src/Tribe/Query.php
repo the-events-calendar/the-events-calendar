@@ -394,7 +394,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				 *
 				 * @since TBD
 				 */
-				$start_hack = apply_filters('tribe_events_query_event_start_hack', true);
+				$start_hack = apply_filters( 'tribe_events_query_event_start_hack', true );
 				if ( $start_hack && ! tribe( 'context' )->is_editing_post( Tribe__Events__Main::POSTTYPE ) ) {
 					$event_start_key = Tribe__Events__Timezones::is_mode( 'site' )
 						? '_EventStartDateUTC'
