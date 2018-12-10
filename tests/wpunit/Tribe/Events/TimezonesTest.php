@@ -1,10 +1,10 @@
 <?php
 namespace Tribe\Events;
 
+use tad\WP\Snapshots\WPHtmlOutputDriver;
 use Tribe__Events__Timezones as Timezones;
 use Tribe\Events\Test\Factories\Event;
 use Spatie\Snapshots\MatchesSnapshots;
-use tad\WPBrowser\Snapshot\WPHtmlOutputDriver;
 
 class TimezonesTest extends \Codeception\TestCase\WPTestCase
 {

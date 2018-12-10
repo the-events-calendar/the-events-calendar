@@ -13,7 +13,8 @@
     "xamin/handlebars.php": "^0.10.3",
     "mikey179/vfsStream": "^1.6",
     "vlucas/phpdotenv": "^2.4",
-    "spatie/phpunit-snapshot-assertions": "^1.2"
+    "spatie/phpunit-snapshot-assertions": "^1.2",
+    "lucatume/wp-snaphot-assertions" : "^1.0"
   },
   "minimum-stability": "stable",
   "prefer-stable": true,
