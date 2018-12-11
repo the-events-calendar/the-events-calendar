@@ -304,6 +304,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$this->pluginDir  = $this->plugin_dir = trailingslashit( basename( $this->plugin_path ) );
 			$this->pluginUrl  = $this->plugin_url = str_replace( basename( $this->plugin_file ), '', plugins_url( basename( $this->plugin_file ), $this->plugin_file ) );
 
+			// early check for an older version of Event Tickets to prevent fatal error
+			if (
+				class_exists( 'Tribe__Tickets__Main' ) &&
+				! version_compare( Tribe__Tickets__Main::VERSION, $this->min_et_version, '>=' )
+			) {
+				add_action( 'admin_notices', array( $this, 'tec_compatibility_notice' ) );
+				return;
+			}
 			// Set common lib information, needs to happen file load
 			$this->maybe_set_common_lib_info();
 
@@ -376,15 +384,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				return;
 			}
 
-			if (
-				class_exists( 'Tribe__Tickets__Main' ) &&
-				! version_compare( Tribe__Tickets__Main::VERSION, $this->min_et_version, '>=' )
-			) {
-				//todo add error notice
-				//add_action( 'admin_notices', array( $this, 'tec_compatibility_notice' ) );
-				return;
-			}
-
 			Tribe__Main::instance();
 			add_action( 'tribe_common_loaded', array( $this, 'bootstrap' ), 0 );
 		}
@@ -404,8 +403,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$this->addHooks();
 			$this->register_active_plugin();
 
-			// on older versions of Events Calendar PRO remove loading function to prevent conflict and force update message
-			remove_action( 'plugins_loaded', 'Tribe_ECP_Load', 2 );
 		}
 
 		/**
