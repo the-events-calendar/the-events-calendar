@@ -40,16 +40,22 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 		/**
 		 * Min Version of WordPress
+		 *
+		 * @since TBD
 		 */
 		protected $min_wordpress = '4.5';
 
 		/**
 		 * Min Version of PHP
+		 *
+		 * @since TBD
 		 */
 		protected $min_php = '5.2.17';
 
 		/**
 		 * Min Version of Event Tickets
+		 *
+		 * @since TBD
 		 */
 		protected $min_et_version = '4.9.1';
 
@@ -309,15 +315,18 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				class_exists( 'Tribe__Tickets__Main' ) &&
 				! version_compare( Tribe__Tickets__Main::VERSION, $this->min_et_version, '>=' )
 			) {
-				add_action( 'admin_notices', array( $this, 'tec_compatibility_notice' ) );
+				add_action( 'admin_notices', array( $this, 'compatibility_notice' ) );
+				add_action( 'network_admin_notices', array( $this, 'compatibility_notice' ) );
+
 				return;
 			}
+
 			// Set common lib information, needs to happen file load
 			$this->maybe_set_common_lib_info();
 
-			// let's initialize tec silly-early to avoid fatals with upgrades from 3.x to 4.x
+			// let's initialize tec
 			add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ), 0 );
-			//add_action( 'tribe_common_loaded', array( $this, 'bootstrap' ), 0 );
+
 		}
 
 		/**
@@ -377,12 +386,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 * After this method we can use any `Tribe__` classes
 			 */
 			$this->init_autoloading();
-
-			// Safety check: if Tribe Common is not at a certain minimum version, bail out
-			if ( version_compare( Tribe__Main::VERSION, self::MIN_COMMON_VERSION, '<' ) ) {
-				//todo add error notice
-				return;
-			}
 
 			Tribe__Main::instance();
 			add_action( 'tribe_common_loaded', array( $this, 'bootstrap' ), 0 );
@@ -1277,94 +1280,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 		}
 
-
-	/**
-	 * Hooked to admin_notices, this error is thrown when TEC is run alongside a version of
-	 * PRO that is too old
-	 *
-	 * @since 4.7
-	 *
-	 * @param string $bootstrap_file Filename for the plugin bootstrap
-	 * @param string $plugin_name Friendly plugin name
-	 * @param string $required_version Version number that is required for activation
-	 *
-	 * @return string
-	 */
-	private function premium_addon_compatibility_notice( $bootstrap_file, $plugin_name, $required_version ) {
-		$active_plugins = get_option( 'active_plugins' );
-		$plugin_short_path = null;
-		foreach ( $active_plugins as $plugin ) {
-			if ( false !== strstr( $plugin, $bootstrap_file ) ) {
-				$plugin_short_path = $plugin;
-				break;
-			}
-		}
-
-		$upgrade_path = 'https://theeventscalendar.com/knowledgebase/manual-updates/';
-
-		$message = sprintf(
-			__( 'When running version %1$s of The Events Calendar alongside %2$s, %2$s must be version %3$s or greater. Please %4$smanually update now.%5$s', 'the-events-calendar' ),
-			self::VERSION,
-			$plugin_name,
-			$required_version,
-			'<a href="' . esc_url( $upgrade_path ) . '" target="_blank">',
-			'</a>'
-		);
-
-		$output = '<div class="error">';
-		$output .= '<p>' . $message . '</p>';
-		$output .= '</div>';
-		return $output;
-	}
-
-	/**
-	 * Include PRO Main class file as a patch-work solution
-	 *
-	 * This is a patch-work solution to help avoid fatals while we wait for the dependency
-	 * checking feature to complete.
-	 *
-	 * @todo eliminate this method when dependency checking is complete
-	 *
-	 * @since 4.7
-	 */
-	private function maybe_include_pro_class() {
-		if ( class_exists( 'Tribe__Events__Pro__Main' ) ) {
-			return;
-		}
-
-		$active_plugins    = get_option( 'active_plugins' );
-		$plugin_short_path = null;
-		foreach ( $active_plugins as $plugin ) {
-			if ( false !== strstr( $plugin, 'events-calendar-pro.php' ) ) {
-				$plugin_short_path = $plugin;
-				break;
-			}
-		}
-
-		if ( ! $plugin_short_path ) {
-			return;
-		}
-
-		$plugin_dir = preg_replace( '!(.*)[\\/]events-calendar-pro.php!', '$1', $plugin_short_path );
-
-		// files for handling messaging and deactivation
-		$files_to_include = array(
-			'Main.php',
-			'Deactivation.php',
-			'Updater.php',
-			'PUE.php',
-		);
-
-		foreach ( $files_to_include as $file ) {
-			$path_to_class = wp_normalize_path( WP_PLUGIN_DIR . "/{$plugin_dir}/src/Tribe/{$file}" );
-			if ( ! file_exists( $path_to_class ) ) {
-				continue;
-			}
-
-			include_once $path_to_class;
-		}
-	}
-
 		/**
 		 * Trigger is_404 on single event if no events are found
 		 */
@@ -1514,6 +1429,43 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			if ( ! self::supportedVersion( 'php' ) ) {
 				echo '<div class="error"><p>' . sprintf( esc_html__( 'Sorry, The Events Calendar requires PHP %s or higher. Talk to your Web host about moving you to a newer version of PHP.', 'the-events-calendar' ), $this->min_php ) . '</p></div>';
 			}
+		}
+
+		/**
+		 *
+		 *
+		 * @since TBD
+		 *
+		 */
+		public function compatibility_notice() {
+
+			$mopath = $this->pluginDir . 'lang/';
+			$domain = 'the-events-calendar';
+
+			// If we don't have Common classes load the old fashioned way
+			if ( ! class_exists( 'Tribe__Main' ) ) {
+				load_plugin_textdomain( $domain, false, $mopath );
+			} else {
+				// This will load `wp-content/languages/plugins` files first
+				Tribe__Main::instance()->load_text_domain( $domain, $mopath );
+			}
+
+			$url = add_query_arg( array(
+				'tab'       => 'plugin-information',
+				'plugin'    => 'event-tickets',
+				'TB_iframe' => 'true',
+			), admin_url( 'plugin-install.php' ) );
+
+			echo '<div class="error"><p>'
+			. sprintf(
+				'%1s <a href="%2s" class="thickbox" title="%3s">%4s</a>.',
+				esc_html__( 'To continue using The Events Calendar, please install the latest version of', 'the-events-calendar' ),
+				esc_url( $url ),
+				esc_html__( 'Event Tickets', 'the-events-calendar' ),
+				esc_html__( 'Event Tickets', 'the-events-calendar' )
+				) .
+			'</p></div>';
+
 		}
 
 		/**
