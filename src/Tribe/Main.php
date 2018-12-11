@@ -34,7 +34,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 		const VERSION             = '4.7.2';
 		const MIN_ADDON_VERSION   = '4.4';
-		const MIN_COMMON_VERSION  = '4.8-dev';
+		const MIN_COMMON_VERSION  = '4.8.2-dev';
 
 		const WP_PLUGIN_URL       = 'https://wordpress.org/extend/plugins/the-events-calendar/';
 
