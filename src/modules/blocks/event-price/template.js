@@ -40,7 +40,7 @@ const renderCurrency = ({ showCurrencySymbol, currencySymbol }) => (
 );
 
 const renderPlaceholder = ({ showCost, currencySymbol, currencyPosition }) => {
-	let placeholder = __( 'Add Price', 'events-gutenberg' );
+	let placeholder = __( 'Add Price', 'the-events-calendar' );
 
 	placeholder = ( 'prefix' === currencyPosition )
 		? currencySymbol + ' ' + placeholder
@@ -58,7 +58,7 @@ const renderCost = ({ showCost, isFree, cost }) => {
 	let value = parsed;
 
 	if ( isFree ) {
-		value = __( 'Free', 'events-gutenberg' );
+		value = __( 'Free', 'the-events-calendar' );
 	}
 
 	return showCost && (
@@ -106,7 +106,7 @@ const renderDashboard = ({
 					className={ classNames( 'tribe-editor__event-price__input', 'tribe-editor__event-price__input--price' ) }
 					name="description"
 					type="text"
-					placeholder={ __( 'Fixed Price or Range', 'events-gutenberg' ) }
+					placeholder={ __( 'Fixed Price or Range', 'the-events-calendar' ) }
 					onChange={ inputUtil.sendValue( setCost ) }
 					value={ cost }
 				/>
@@ -114,13 +114,13 @@ const renderDashboard = ({
 					className={ classNames( 'tribe-editor__event-price__input', 'tribe-editor__event-price__input--description' ) }
 					name="description"
 					type="text"
-					placeholder={ __( 'Description', 'events-gutenberg' ) }
+					placeholder={ __( 'Description', 'the-events-calendar' ) }
 					onChange={ inputUtil.sendValue( setDescription ) }
 					value={ costDescription }
 				/>
 			</section>
 			<footer className="tribe-editor__event-price__dashboard__footer">
-				{ __( 'enter 0 as price for free events', 'events-gutenberg' ) }
+				{ __( 'Enter 0 as price for free events', 'the-events-calendar' ) }
 			</footer>
 		</Fragment>
 	</Dashboard>
@@ -144,16 +144,16 @@ const renderControls = ({
 }) => (
 	isSelected && (
 		<InspectorControls key="inspector">
-			<PanelBody title={ __( 'Price Settings', 'events-gutenberg' ) }>
+			<PanelBody title={ __( 'Price Settings', 'the-events-calendar' ) }>
 				<TextControl
 					className="tribe-editor__event-price__currency-symbol-setting"
-					label={ __( ' Currency Symbol', 'events-gutenberg' ) }
+					label={ __( ' Currency Symbol', 'the-events-calendar' ) }
 					value={ currencySymbol }
-					placeholder={ __( 'E.g.: $', 'events-gutenberg' ) }
+					placeholder={ __( 'E.g.: $', 'the-events-calendar' ) }
 					onChange={ setSymbol }
 				/>
 				<CheckboxControl
-					label={ __( 'Currency symbol follows price', 'events-gutenberg' ) }
+					label={ __( 'Currency symbol follows price', 'the-events-calendar' ) }
 					checked={ 'suffix' === currencyPosition }
 					onChange={ setCurrencyPosition }
 				/>

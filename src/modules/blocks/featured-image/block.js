@@ -51,7 +51,7 @@ class FeaturedImage extends Component {
 		}
 
 		return (
-			<img src={ image.source_url } alt={ __( 'Featured Image', 'events-gutenberg' ) } />
+			<img src={ image.source_url } alt={ __( 'Featured Image', 'the-events-calendar' ) } />
 		);
 	}
 
@@ -64,7 +64,7 @@ class FeaturedImage extends Component {
 				instructions={
 					__(
 						'Add a Featured Image from the Document Settings sidebar',
-						'events-gutenberg'
+						'the-events-calendar'
 					)
 				}
 			>
@@ -77,7 +77,7 @@ class FeaturedImage extends Component {
 			<Placeholder
 				style={ { minHeight: 150 } }
 				key="placeholder"
-				instructions={ __( 'Loading the Image', 'events-gutenberg' ) }
+				instructions={ __( 'Loading the Image', 'the-events-calendar' ) }
 			>
 				<Spinner />
 			</Placeholder>

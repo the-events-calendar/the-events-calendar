@@ -40,7 +40,7 @@ const {
 } = momentUtil;
 FORMATS.date = settings() && settings().dateWithYearFormat
 	? settings().dateWithYearFormat
-	: __( 'F j', 'events-gutenberg' );
+	: __( 'F j', 'the-events-calendar' );
 
 class EventDateTimeContent extends Component {
 	static propTypes = {
@@ -80,7 +80,7 @@ class EventDateTimeContent extends Component {
 				<PlainText
 					className={ classNames( 'tribe-editor__event-cost__value', `tribe-editor-cost-symbol-position-${ currencyPosition }` ) }
 					value={ cost }
-					placeholder={ __( 'Enter price', 'events-gutenberg' ) }
+					placeholder={ __( 'Enter price', 'the-events-calendar' ) }
 					onChange={ setCost }
 				/>
 				{ 'suffix' === currencyPosition && <span>{ currencySymbol }</span> }
@@ -191,7 +191,7 @@ class EventDateTimeContent extends Component {
 				);
 			case 'all-day':
 				return (
-					<span className={ classNames( 'tribe-editor__separator', className ) }>{ __( 'All Day', 'events-gutenberg' ) }</span>
+					<span className={ classNames( 'tribe-editor__separator', className ) }>{ __( 'All Day', 'the-events-calendar' ) }</span>
 				);
 			default:
 				return null;
