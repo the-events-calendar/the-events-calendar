@@ -395,6 +395,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$this->addHooks();
 			$this->register_active_plugin();
 
+			// on older versions of Events Calendar PRO remove loading function to prevent conflict and force update message
+			remove_action( 'plugins_loaded', 'Tribe_ECP_Load', 2 );
 		}
 
 		/**
