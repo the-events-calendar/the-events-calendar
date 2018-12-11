@@ -260,6 +260,15 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public static $tribeEventsMuDefaults;
 
 		/**
+		 * Key for the transient flag for a delayed activation
+		 *
+		 * @since 4.7
+		 *
+		 * @var string
+		 */
+		public $key_delayed_activation_outdated_common = 'tribe_delayed_activation_outdated_common';
+
+		/**
 		 * Where in the themes we will look for templates
 		 *
 		 * @since 4.7
@@ -2760,7 +2769,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public static function activate() {
 			// Bail when we have outdated common
-			if ( self::instance()->maybe_delay_activation_if_outdated_common() ) {
+/*			if ( self::instance()->maybe_delay_activation_if_outdated_common() ) {
 				return false;
 			}
 
@@ -2769,17 +2778,20 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			if ( ! $is_delayed_activation ) {
 				self::instance()->plugins_loaded();
-			}
+			}*/
+
+			self::instance()->plugins_loaded();
 
 			self::flushRewriteRules();
 
-			tribe( 'events.editor.compatibility' )->deactivate_gutenberg_extension_plugin();
+			$editor_compatibility = new Tribe__Events__Editor__Compatibility();
+			$editor_compatibility->deactivate_gutenberg_extension_plugin();
 
 			if ( ! is_network_admin() && ! isset( $_GET['activate-multi'] ) ) {
 				set_transient( '_tribe_events_activation_redirect', 1, 30 );
 			}
 
-			delete_transient( self::instance()->key_delayed_activation_outdated_common );
+			//delete_transient( self::instance()->key_delayed_activation_outdated_common );
 		}
 
 		/**
@@ -4859,11 +4871,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return boolean [description]
 		 */
 		public function is_delayed_activation() {
-			_deprecated_function(
+/*			_deprecated_function(
 				__METHOD__,
 				'',
 				'TBD'
-			);
+			);*/
 
 			return (bool) get_transient( $this->key_delayed_activation_outdated_common );
 		}
@@ -4879,11 +4891,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return bool
 		 */
 		public function maybe_delay_activation_if_outdated_common() {
-			_deprecated_function(
+/*			_deprecated_function(
 				__METHOD__,
 				'',
 				'TBD'
-			);
+			);*/
 
 			// Only if Common is loaded correctly
 			if ( ! class_exists( 'Tribe__Main' ) ) {
