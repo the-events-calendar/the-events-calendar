@@ -1432,7 +1432,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 *
+		 * Display Notice if Event Tickets is Running an Older Version
 		 *
 		 * @since TBD
 		 *
