@@ -1,11 +1,7 @@
 <?php
-
 /**
  * The template that displays the welcome message when the plugin is first activated.
  */
-
-$video_url = 'https://vimeo.com/108805711';
-
 ?>
 
 <p class="tribe-welcome-version"><?php printf( '<strong>%1$s %2$s</strong>', esc_html__( 'Version', 'the-events-calendar' ), Tribe__Events__Main::VERSION ); ?></p>

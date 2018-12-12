@@ -225,6 +225,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - Remove Price block dashboard gap [118683]
 * Fix - Making sure all Blocks Editor code for Meta saving is PHP 5.2 compatible
 * Fix - Prevent `undefined` from been displayed at the Date Time separators [119337]
+* Tweak - Adjusted content in the admin welcome page that users are brought to upon newly activating Event Tickets [117795]
 
 = [4.7.1] 2018-12-05 =
 
