@@ -23,7 +23,7 @@ import './style.pcss';
  * Module Code
  */
 
-const placeholder = __( 'Add Event Website', 'events-gutenberg' );
+const placeholder = __( 'Add Event Website', 'the-events-calendar' );
 
 const renderUrlInput = ({ isSelected, url, setWebsite }) => (
 	isSelected && (

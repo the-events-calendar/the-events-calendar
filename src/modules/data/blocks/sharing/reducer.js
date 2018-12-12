@@ -9,8 +9,8 @@ import { __ } from '@wordpress/i18n';
 import * as types from './types';
 
 export const DEFAULT_STATE = {
-	googleCalendarLabel: __( 'Google Calendar', 'events-gutenberg' ),
-	iCalLabel: __( 'iCal Export', 'events-gutenberg' ),
+	googleCalendarLabel: __( 'Google Calendar', 'the-events-calendar' ),
+	iCalLabel: __( 'iCal Export', 'the-events-calendar' ),
 	hasiCal: true,
 	hasGoogleCalendar: true,
 };

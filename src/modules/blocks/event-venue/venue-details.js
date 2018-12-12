@@ -83,7 +83,7 @@ export default class VenueDetails extends Component {
 	getVenueName( venue = this.props.venue ) {
 		// if we still don't have venue we don't have an address
 		const { title = {} } = venue;
-		const { rendered = __( '(Untitled Venue)', 'events-gutenberg' ) } = title;
+		const { rendered = __( '(Untitled Venue)', 'the-events-calendar' ) } = title;
 		return rendered;
 	}
 
@@ -140,11 +140,11 @@ export default class VenueDetails extends Component {
 				<br />
 				<a
 					href={ mapLink( address ) }
-					title={ __( 'Click to view a Google Map', 'events-gutenberg' ) }
+					title={ __( 'Click to view a Google Map', 'the-events-calendar' ) }
 					target="_blank"
 					rel="noopener noreferrer"
 				>
-					{ __( '+ Google Map', 'events-gutenberg' ) }
+					{ __( '+ Google Map', 'the-events-calendar' ) }
 				</a>
 			</Fragment>
 		);
