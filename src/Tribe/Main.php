@@ -1976,11 +1976,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				'search_items'             => sprintf( esc_html__( 'Search %s', 'the-events-calendar' ), $this->plural_event_label ),
 				'not_found'                => sprintf( esc_html__( 'No %s found', 'the-events-calendar' ), $this->plural_event_label_lowercase ),
 				'not_found_in_trash'       => sprintf( esc_html__( 'No %s found in Trash', 'the-events-calendar' ), $this->plural_event_label_lowercase ),
-				'item_published'           => __( 'Post published.' ),
-				'item_published_privately' => __( 'Post published privately.' ),
-				'item_reverted_to_draft'   => __( 'Post reverted to draft.' ),
-				'item_scheduled'           => __( 'Post scheduled.' ),
-				'item_updated'             => __( 'Post updated.' )
+				'item_published'           => sprintf( esc_html__( '%s published.', 'the-events-calendar' ), $this->singular_event_label ),
+				'item_published_privately' => sprintf( esc_html__( '%s published privately.', 'the-events-calendar' ), $this->singular_event_label ),
+				'item_reverted_to_draft'   => sprintf( esc_html__( '%s reverted to draft.', 'the-events-calendar' ), $this->singular_event_label ),
+				'item_scheduled'           => sprintf( esc_html__( '%s scheduled.', 'the-events-calendar' ), $this->singular_event_label ),
+				'item_updated'             => sprintf( esc_html__( '%s updated.', 'the-events-calendar' ), $this->singular_event_label ),
 			) );
 
 			/**
