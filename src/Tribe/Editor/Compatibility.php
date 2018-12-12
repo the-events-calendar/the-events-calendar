@@ -93,9 +93,6 @@ extends Tribe__Template {
 			return false;
 		}
 
-		/** @var Tribe__Editor $editor */
-		$editor = tribe( 'editor' );
-
 		// Bail if not an event (might need to be removed later)
 		if ( ! tribe_is_event( $post ) ) {
 			return false;
@@ -109,7 +106,12 @@ extends Tribe__Template {
 		// Fetch WP_Post
 		$post = get_post( $post );
 
-		$post_content = preg_replace( '/\<\!\-\- \/?wp\:.*\/?-->/i', '', $post->post_content );
+		$match_blocks_exp = '/\<\!\-\- \/?wp\:tribe.*\/?-->/i';
+		if ( ! preg_match( $match_blocks_exp, $post->post_content ) ) {
+			return false;
+		}
+
+		$post_content = preg_replace( $match_blocks_exp, '', $post->post_content );
 		$update_args = array(
 			'ID' => $post->ID,
 			'post_content' => $post_content,
