@@ -90,12 +90,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 		public static $dotOrgSupportUrl = 'https://wordpress.org/support/plugin/the-events-calendar';
 
-		public $rewriteSlug = 'events';
+		public $rewriteSlug         = 'events';
 		public $rewriteSlugSingular = 'event';
-		public $category_slug = 'category';
-		public $tag_slug = 'tag';
-		public $monthSlug = 'month';
-		public $featured_slug = 'featured';
+		public $category_slug       = 'category';
+		public $tag_slug            = 'tag';
+		public $monthSlug           = 'month';
+		public $featured_slug       = 'featured';
 
 		/**
 		 * @deprecated 4.5.8 use `Tribe__Events__Pro__Main::instance()->all_slug` instead
@@ -121,11 +121,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 		// @todo remove in 4.0
 		public $upcomingSlug = 'upcoming';
-		public $pastSlug = 'past';
+		public $pastSlug     = 'past';
 
-		public $listSlug = 'list';
-		public $daySlug = 'day';
-		public $todaySlug = 'today';
+		public $listSlug               = 'list';
+		public $daySlug                = 'day';
+		public $todaySlug              = 'today';
 		protected $postExceptionThrown = false;
 
 		/**
@@ -296,9 +296,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		protected function __construct() {
 			$this->plugin_file = TRIBE_EVENTS_FILE;
-			$this->pluginPath = $this->plugin_path = trailingslashit( dirname( $this->plugin_file ) );
-			$this->pluginDir  = $this->plugin_dir = trailingslashit( basename( $this->plugin_path ) );
-			$this->pluginUrl  = $this->plugin_url = str_replace( basename( $this->plugin_file ), '', plugins_url( basename( $this->plugin_file ), $this->plugin_file ) );
+			$this->pluginPath  = $this->plugin_path = trailingslashit( dirname( $this->plugin_file ) );
+			$this->pluginDir   = $this->plugin_dir = trailingslashit( basename( $this->plugin_path ) );
+			$this->pluginUrl   = $this->plugin_url = str_replace( basename( $this->plugin_file ), '', plugins_url( basename( $this->plugin_file ), $this->plugin_file ) );
 
 			// Set common lib information, needs to happen file load
 			$this->maybe_set_common_lib_info();
@@ -1966,16 +1966,21 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 * @var array
 			 */
 			$this->postTypeArgs['labels'] = apply_filters( 'tribe_events_register_event_post_type_labels', array(
-				'name'               => $this->plural_event_label,
-				'singular_name'      => $this->singular_event_label,
-				'add_new'            => esc_html__( 'Add New', 'the-events-calendar' ),
-				'add_new_item'       => sprintf( esc_html__( 'Add New %s', 'the-events-calendar' ), $this->singular_event_label ),
-				'edit_item'          => sprintf( esc_html__( 'Edit %s', 'the-events-calendar' ), $this->singular_event_label ),
-				'new_item'           => sprintf( esc_html__( 'New %s', 'the-events-calendar' ), $this->singular_event_label ),
-				'view_item'          => sprintf( esc_html__( 'View %s', 'the-events-calendar' ), $this->singular_event_label ),
-				'search_items'       => sprintf( esc_html__( 'Search %s', 'the-events-calendar' ), $this->plural_event_label ),
-				'not_found'          => sprintf( esc_html__( 'No %s found', 'the-events-calendar' ), $this->plural_event_label_lowercase ),
-				'not_found_in_trash' => sprintf( esc_html__( 'No %s found in Trash', 'the-events-calendar' ), $this->plural_event_label_lowercase ),
+				'name'                     => $this->plural_event_label,
+				'singular_name'            => $this->singular_event_label,
+				'add_new'                  => esc_html__( 'Add New', 'the-events-calendar' ),
+				'add_new_item'             => sprintf( esc_html__( 'Add New %s', 'the-events-calendar' ), $this->singular_event_label ),
+				'edit_item'                => sprintf( esc_html__( 'Edit %s', 'the-events-calendar' ), $this->singular_event_label ),
+				'new_item'                 => sprintf( esc_html__( 'New %s', 'the-events-calendar' ), $this->singular_event_label ),
+				'view_item'                => sprintf( esc_html__( 'View %s', 'the-events-calendar' ), $this->singular_event_label ),
+				'search_items'             => sprintf( esc_html__( 'Search %s', 'the-events-calendar' ), $this->plural_event_label ),
+				'not_found'                => sprintf( esc_html__( 'No %s found', 'the-events-calendar' ), $this->plural_event_label_lowercase ),
+				'not_found_in_trash'       => sprintf( esc_html__( 'No %s found in Trash', 'the-events-calendar' ), $this->plural_event_label_lowercase ),
+				'item_published'           => __( 'Post published.' ),
+				'item_published_privately' => __( 'Post published privately.' ),
+				'item_reverted_to_draft'   => __( 'Post reverted to draft.' ),
+				'item_scheduled'           => __( 'Post scheduled.' ),
+				'item_updated'             => __( 'Post updated.' )
 			) );
 
 			/**
