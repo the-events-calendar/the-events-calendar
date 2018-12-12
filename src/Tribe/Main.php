@@ -951,9 +951,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					'version'               => self::VERSION,
 					'plugin_path'           => $this->plugin_dir . 'the-events-calendar.php',
 					'version_history_slug'  => 'previous_ecp_versions',
-					'update_page_title'    => __( 'Welcome to The Events Calendar', 'the-events-calendar' ),
-					'update_page_template' => $this->plugin_path . 'src/admin-views/admin-update-message.php',
-					'welcome_page_title'    => __( 'Welcome to The Events Calendar', 'the-events-calendar' ),
+					'update_page_title'     => __( 'Welcome to The Events Calendar!', 'the-events-calendar' ),
+					'update_page_template'  => $this->plugin_path . 'src/admin-views/admin-update-message.php',
+					'welcome_page_title'    => __( 'Welcome to The Events Calendar!', 'the-events-calendar' ),
 					'welcome_page_template' => $this->plugin_path . 'src/admin-views/admin-welcome-message.php',
 				) );
 			}

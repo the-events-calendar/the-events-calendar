@@ -225,6 +225,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - Remove Price block dashboard gap [118683]
 * Fix - Making sure all Blocks Editor code for Meta saving is PHP 5.2 compatible
 * Fix - Prevent `undefined` from been displayed at the Date Time separators [119337]
+* Tweak - Adjusted content in the admin welcome page that users are brought to upon newly activating Event Tickets [117795]
 * Tweak - Tweak the registration of the Event, Venue, and Organizer post types so they use some new post type labels introduced in WordPress 5.0 like `item_updated`, `item_scheduled`, etc. [119451]
 
 = [4.7.1] 2018-12-05 =
