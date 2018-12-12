@@ -68,9 +68,9 @@ extends Tribe__Template {
 		if ( 'purge-event-blocks' !== $action ) {
 			return false;
 		}
-		$post = absint( tribe_get_request_var( 'post' ) );
+		$post_id = absint( tribe_get_request_var( 'post' ) );
 
-		return $this->purge_blocks( $post );
+		return $this->purge_blocks( $post_id );
 	}
 
 	/**
