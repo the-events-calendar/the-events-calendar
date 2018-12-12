@@ -48,7 +48,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Args for the event post type
 		 * @var array
 		 */
-		protected $postTypeArgs = array(
+		protected $post_type_args = array(
 			'public'          => true,
 			'rewrite'         => array( 'slug' => 'event', 'with_front' => false ),
 			'menu_position'   => 6,
@@ -880,7 +880,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$this->singular_event_label_lowercase             = tribe_get_event_label_singular_lowercase();
 			$this->plural_event_label_lowercase               = tribe_get_event_label_plural_lowercase();
 
-			$this->postTypeArgs['rewrite']['slug']            = $rewrite->prepare_slug( $this->rewriteSlugSingular, self::POSTTYPE, false );
+			$this->post_type_args['rewrite']['slug']            = $rewrite->prepare_slug( $this->rewriteSlugSingular, self::POSTTYPE, false );
 			$this->currentDay                                 = '';
 			$this->errors                                     = '';
 
@@ -1837,7 +1837,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public function registerPostType() {
 			$this->generatePostTypeLabels();
 
-			$post_type_args = $this->postTypeArgs;
+			$post_type_args = $this->post_type_args;
 
 			/**
 			 * Filter the event post type arguments used in register_post_type.
@@ -1965,7 +1965,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 *
 			 * @var array
 			 */
-			$this->postTypeArgs['labels'] = apply_filters( 'tribe_events_register_event_post_type_labels', array(
+			$this->post_type_args['labels'] = apply_filters( 'tribe_events_register_event_post_type_labels', array(
 				'name'                     => $this->plural_event_label,
 				'singular_name'            => $this->singular_event_label,
 				'add_new'                  => esc_html__( 'Add New', 'the-events-calendar' ),
@@ -2414,8 +2414,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$tec = self::instance();
 
 			// reregister custom post type to make sure slugs are updated
-			$tec->postTypeArgs['rewrite']['slug'] = sanitize_title( $tec->getRewriteSlugSingular() );
-			register_post_type( self::POSTTYPE, apply_filters( 'tribe_events_register_event_type_args', $tec->postTypeArgs ) );
+			$tec->post_type_args['rewrite']['slug'] = sanitize_title( $tec->getRewriteSlugSingular() );
+			register_post_type( self::POSTTYPE, apply_filters( 'tribe_events_register_event_type_args', $tec->post_type_args ) );
 
 			add_action( 'shutdown', 'flush_rewrite_rules' );
 		}
