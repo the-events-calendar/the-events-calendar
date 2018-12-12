@@ -1,0 +1,87 @@
+.tribe-editor__event-price {
+	.tribe-editor__dashboard__container--down .tribe-editor__dashboard {
+		top: 14px;
+	}
+}
+
+.tribe-editor__event-price__price {
+	display: flex;
+	align-items: center;
+	font-family: 'Helvetica', 'sans-serif';
+	font-weight: bold;
+}
+
+.tribe-editor__event-price__currency {
+	flex: none;
+	color: #000;
+	font-size: 1.3125rem;
+
+	.tribe-editor__event-price__price--prefix & {
+		margin-right: 8px;
+	}
+
+	.tribe-editor__event-price__price--suffix & {
+		margin-left: 8px;
+		order: 2;
+	}
+}
+
+.tribe-editor__event-price__label {
+	flex: none;
+	color: #8D949B;
+	font-size: 1.125rem;
+}
+
+.tribe-editor__event-price__cost {
+	flex: none;
+	font-size: 1.3125rem;
+	font-weight: bold;
+}
+
+.tribe-editor__event-price__description,
+.tribe-editor__event-price__cost {
+	color: #000;
+}
+
+.tribe-editor__event-price__description {
+	flex: auto;
+	font-size: 1rem;
+	font-weight: normal;
+	line-height: 1.2;
+	order: 4;
+	margin-left: 12px;
+}
+
+.tribe-editor__event-price__dashboard {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin: 24px 22px 0;
+
+	input.tribe-editor__event-price__input {
+		border: 1px solid #E1E3E6;
+		border-radius: 4px;
+		font-size: 1rem;
+		color: #8D949B;
+		padding: 10px 15px;
+
+		&:focus {
+			color: #545d66;
+		}
+	}
+
+	&__footer {
+		color: #8D949B;
+		font-size: 0.75rem;
+		padding: 4px 11px;
+		margin: 0 22px 20px;
+	}
+}
+
+.tribe-editor__event-price__input--price {
+	width: 37.74%;
+}
+
+.tribe-editor__event-price__input--description {
+	width: 59.96%;
+}

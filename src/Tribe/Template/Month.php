@@ -569,6 +569,15 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			$cached_events = $cache->$cache_getter( $cache_key, 'save_post' );
 
 			if ( $cached_events !== false ) {
+				/**
+				 * A simple utility to listen for when events have been successfully pulled from cache.
+				 *
+				 * @since 4.7.1
+				 *
+				 * @param array $cached_events The array of event data pulled from cache.
+				 */
+				do_action( 'tribe_events_set_month_view_events_from_cache', $cached_events );
+
 				$this->events_in_month = $cached_events;
 				return;
 			}

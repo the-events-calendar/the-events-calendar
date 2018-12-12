@@ -732,7 +732,7 @@ class Tribe__Events__Assets {
 				__( 'Nov' ),
 				__( 'Dec' ),
 			),
-			'msgs'              => json_encode( array(
+			'msgs' => json_encode( array(
 				__( 'This event is from %%starttime%% to %%endtime%% on %%startdatewithyear%%.', 'the-events-calendar' ),
 				__( 'This event is at %%starttime%% on %%startdatewithyear%%.', 'the-events-calendar' ),
 				__( 'This event is all day on %%startdatewithyear%%.', 'the-events-calendar' ),

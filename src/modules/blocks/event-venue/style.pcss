@@ -1,0 +1,160 @@
+.tribe-editor__venue {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	position: relative;
+
+	&--current {
+		width: 100%;
+		flex-basis: 100%;
+	}
+}
+
+.tribe-editor__venue--has-map {
+
+	.tribe-editor__venue--current {
+		width: 49%;
+		flex-basis: 49%;
+	}
+}
+
+.tribe-editor__map {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	position: relative;
+
+	.trie-editor__spinner__container {
+		z-index: 1;
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+}
+
+.tribe-editor__venue__actions {
+	position: absolute;
+	right: 17px;
+	z-index: 10;
+	top: 27px;
+
+	&--close {
+		svg {
+			width: 16px;
+		}
+	}
+
+	svg,
+	path {
+		fill: #8D949B;
+	}
+
+	button {
+		background-color: #FFF;
+		border: none;
+		padding: 5px 7px;
+		cursor: pointer;
+
+		&:hover {
+			svg,
+			path {
+				fill: #009FD4;
+			}
+		}
+	}
+}
+
+.tribe-editor__venue__name {
+	display: flex;
+
+	button {
+		background: transparent;
+		border: none;
+		cursor: pointer;
+
+		svg,
+		path {
+			fill: #8D949B;
+		}
+
+		&:hover {
+			svg,
+			path {
+				fill: #009FD4;
+			}
+		}
+	}
+}
+
+h3.tribe-editor__venue__name-heading {
+
+	/* extra classes to override WP 5.0 styles */
+	.tribe-editor__venue .tribe-editor__venue__name & {
+		font-size: 1.3125rem;
+		font-weight: bold;
+		padding: 0;
+		margin-top: 0;
+		margin-bottom: 4px;
+		font-family: 'Helvetica', 'Arial', 'sans-serif';
+	}
+}
+
+.tribe-editor__venue__address {
+	font-style: normal;
+	margin-bottom: 20px;
+
+	a {
+		color: #009FD4;
+
+		&:hover {
+			text-decoration: none;
+		}
+	}
+}
+
+.tribe-editor__venue__phone {
+	margin-bottom: 20px;
+}
+
+.tribe-editor__venue__phone,
+.tribe-editor__venue__website {
+	display: inline-block;
+}
+
+.tribe-editor__venue__address,
+.tribe-editor__venue__phone,
+.tribe-editor__venue__website {
+	color: #545D66;
+	font-family: 'Helvetica', 'Arial', 'sans-serif';
+	font-size: 1rem;
+	line-height: 1.5;
+	letter-spacing: 0.13px;
+}
+
+.tribe-editor__organizer__title {
+	display: flex;
+
+	button {
+		background: transparent;
+		border: none;
+		cursor: pointer;
+
+		svg,
+		path {
+			fill: #8D949B;
+		}
+
+		&:hover {
+			svg,
+			path {
+				fill: #009FD4;
+			}
+		}
+	}
+}

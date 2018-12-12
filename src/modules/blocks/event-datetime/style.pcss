@@ -1,0 +1,141 @@
+.tribe-editor__separator {
+	color: #B9BEC2;
+	font-size: 15px;
+	font-weight: 500;
+	margin-left: 5px;
+	margin-right: 5px;
+	text-transform: uppercase;
+}
+
+.tribe-editor__subtitle__headline {
+	display: flex;
+	font-size: 19px;
+	font-style: normal;
+	font-family: Helvetica, Arial, sans-serif;
+	font-weight: bold;
+	line-height: normal;
+	margin-bottom: 0;
+	margin-top: 0;
+
+	> * {
+		flex: 0 1 auto;
+		align-self: center;
+	}
+
+	.button-link {
+		color: #060606;
+		font-size: 1.1em;
+		text-decoration: none;
+	}
+
+	.tribe-editor__date-time & {
+		padding: 0;
+	}
+}
+
+.tribe-editor__subtitle__headline-date {
+	font-size: 21px;
+}
+
+.tribe-editor__subtitle {
+
+	.tribe-editor__event-cost {
+		margin-left: 15px;
+		textarea {
+			font-size: 18px;
+			width: 110px;
+		}
+	}
+
+	.tribe-editor__btn--label {
+		font-family: Helvetica, Arial, sans-serif;
+		font-size: 19px;
+		font-weight: bold;
+		text-align: left;
+		flex: 1 1 100%;
+
+		&:disabled {
+			cursor: not-allowed;
+		}
+	}
+}
+
+.tribe-editor__subtitle__footer-date {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin: 0 22px 11px;
+}
+
+.tribe-editor__subtitle__footer-time-pickers {
+	flex: 1;
+}
+
+.tribe-editor__subtitle__footer-multiday {
+	flex: none;
+
+	.components-toggle-control {
+		margin: 0;
+	}
+
+	.components-toggle-control .components-base-control__field {
+		align-items: center;
+		font-family: Helvetica, Arial, sans-serif;
+	}
+
+	.components-base-control__label {
+		margin-right: 8px;
+		margin-bottom: 0;
+	}
+
+	.components-form-toggle {
+		line-height: 18px;
+	}
+}
+
+.tribe-editor__calendars {
+	background-color: #FFF;
+	border: 1px solid #E1E3E6;
+	border-radius: 3px;
+	margin: 24px 22px 9px;
+	padding: 20px 18px;
+}
+
+.tribe-editor__date-time__date-time-separator-setting,
+.tribe-editor__date-time__time-range-separator-setting {
+
+	.components-base-control__field {
+		display: flex;
+		align-items: center;
+	}
+
+	.components-base-control__label {
+		flex: auto;
+		margin-bottom: 0;
+	}
+
+	.components-text-control__input {
+		flex: none;
+	}
+}
+
+.tribe-editor__date-time__date-time-separator-setting,
+.tribe-editor__date-time__time-range-separator-setting {
+
+	.components-text-control__input {
+		width: 42px;
+	}
+}
+
+.tribe-editor__date-time {
+	.tribe-editor__dashboard {
+		&:before {
+			display: none;
+		}
+	}
+}
+
+.tribe-editor__date-input__container {
+	display: flex;
+	align-items: center;
+}

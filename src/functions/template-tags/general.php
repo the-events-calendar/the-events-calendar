@@ -1171,20 +1171,24 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				$has_image      = false;
 				$image_src      = '';
 				$image_tool_src = '';
-				$date_display   = '';
 
-				//Disable recurring event info in tooltip
-				if ( class_exists( 'Tribe__Events__Pro__Main' ) ) {
-					$ecp = Tribe__Events__Pro__Main::instance();
-					$ecp->disable_recurring_info_tooltip();
-
-					$date_display = strip_tags( tribe_events_event_schedule_details( $event ) );
-
-					// Re-enable recurring event info
-					$ecp->enable_recurring_info_tooltip();
-				} else {
-					$date_display = strip_tags( tribe_events_event_schedule_details( $event ) );
-				}
+				/**
+				 * Fires before the $date_display is called
+				 *
+				 * @since TBD
+				 *
+				 * @param $event
+				 */
+				do_action( 'tribe_events_before_event_template_data_date_display', $event );
+				$date_display = strip_tags( tribe_events_event_schedule_details( $event ) );
+				/**
+				 * Fires after the $date_display is called
+				 *
+				 * @since TBD
+				 *
+				 * @param $event
+				 */
+				do_action( 'tribe_events_after_event_template_data_date_display', $event );
 
 				if ( function_exists( 'has_post_thumbnail' ) && has_post_thumbnail( $event->ID ) ) {
 					$has_image      = true;
@@ -1202,7 +1206,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				$json['imageSrc']        = $image_src;
 				$json['dateDisplay']     = $date_display;
 				$json['imageTooltipSrc'] = $image_tool_src;
-				$json['excerpt']         = tribe_events_get_the_excerpt( $event, null, true );
+				$json['excerpt']         = ! post_password_required( $event ) ? tribe_events_get_the_excerpt( $event, null, true ) : '';
 				$json['categoryClasses'] = $category_classes;
 
 				/**

@@ -27,3 +27,4 @@ compiler.jar
 *.ps1
 
 wpml-config.xml
+src/resources/**/app
