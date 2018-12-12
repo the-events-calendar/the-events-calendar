@@ -1102,6 +1102,16 @@ class Tribe__Events__Linked_Posts {
 		} else {
 			$data = array_values( (array) $options );
 		}
+		
+		/**
+		 * Filters the linked post dropdown data
+		 *
+		 * @since
+		 *
+		 * @param array $data The options for the linked post type dropdown
+		 * @param string $post_type Post type of the linked post
+		 */
+		$data = apply_filters('tribe_events_saved_linked_post_dropdown_data', $data, $post_type);
 
 		$user_can_create  = ( ! empty( $post_type_object->cap->create_posts ) && current_user_can( $post_type_object->cap->create_posts ) );
 		$allowed_creation = ( ! empty( $this->linked_post_types[ $post_type ]['allow_creation'] ) && $this->linked_post_types[ $post_type ]['allow_creation'] );
