@@ -96,11 +96,11 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 			'search_items'             => sprintf( esc_html__( 'Search %s', 'the-events-calendar' ), $this->plural_organizer_label ),
 			'not_found'                => sprintf( esc_html__( 'No %s found', 'the-events-calendar' ), strtolower( $this->plural_organizer_label ) ),
 			'not_found_in_trash'       => sprintf( esc_html__( 'No %s found in Trash', 'the-events-calendar' ), strtolower( $this->plural_organizer_label ) ),
-			'item_published'           => __( 'Post published.' ),
-			'item_published_privately' => __( 'Post published privately.' ),
-			'item_reverted_to_draft'   => __( 'Post reverted to draft.' ),
-			'item_scheduled'           => __( 'Post scheduled.' ),
-			'item_updated'             => __( 'Post updated.' )
+			'item_published'           => sprintf( esc_html__( '%s published.', 'the-events-calendar' ), $this->singular_organizer_label ),
+			'item_published_privately' => sprintf( esc_html__( '%s published privately.', 'the-events-calendar' ), $this->singular_organizer_label ),
+			'item_reverted_to_draft'   => sprintf( esc_html__( '%s reverted to draft.', 'the-events-calendar' ), $this->singular_organizer_label ),
+			'item_scheduled'           => sprintf( esc_html__( '%s scheduled.', 'the-events-calendar' ), $this->singular_organizer_label ),
+			'item_updated'             => sprintf( esc_html__( '%s updated.', 'the-events-calendar' ), $this->singular_organizer_label ),
 		) );
 
 		$this->register_post_type();
