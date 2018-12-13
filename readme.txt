@@ -4,7 +4,7 @@ Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.5
-Stable tag: 4.7.1
+Stable tag: 4.7.2
 Tested up to: 5.0
 Requires PHP: 5.2.4
 License: GPLv2 or later
@@ -12,6 +12,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 The Events Calendar is a carefully crafted, extensible plugin that lets you easily manage and share events. Beautiful. Solid. Awesome.
 
+* Fix - Making sure all Blocks Editor code for Meta saving is PHP 5.2 compatible
 == Description ==
 
 Create an events calendar and manage it with ease. The Events Calendar plugin provides professional-level quality and features backed by a team you can trust.
@@ -214,6 +215,15 @@ Some things to consider before posting on the forum:
 Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to [@TheEventsCal](https://twitter.com/TheEventsCal) and tell us why. We'll do what we can to make it right.
 
 == Changelog ==
+
+= [4.7.2] 2018-12-13 =
+
+* Feature - Add new action `tribe_events_before_event_template_data_date_display` and `tribe_events_after_event_template_data_date_display`
+* Fix - Remove dependency from PRO when calling `tribe_events_template_data`
+* Fix - Make the Date Time block respect the timezone settings [118682]
+* Fix - Remove Price block dashboard gap [118683]
+* Fix - Making sure all Blocks Editor code for Meta saving is PHP 5.2 compatible
+* Fix - Prevent `undefined` from been displayed at the Date Time separators [119337]
 
 = [4.7.1] 2018-12-05 =
 
