@@ -41,6 +41,26 @@
 /* = Post Type Editing
 =============================================*/
 
+.tribe-events-editor-compatibility-purge-events-confirm {
+	position: absolute;
+	top: -5px;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-color: rgba( 255, 255, 255, 0.6 );
+}
+
+.tribe-events-editor-compatibility-purge-events-confirm-container {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 100%;
+	}
+
+.tribe-events-editor-compatibility-purge-events-confirm-container .button {
+			margin-right: 10px;
+		}
+
 .eventForm {
 	margin-top: -20px;
 }
