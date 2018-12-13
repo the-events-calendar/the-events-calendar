@@ -1175,7 +1175,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				/**
 				 * Fires before the $date_display is called
 				 *
-				 * @since TBD
+				 * @since 4.7.2
 				 *
 				 * @param $event
 				 */
@@ -1184,7 +1184,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				/**
 				 * Fires after the $date_display is called
 				 *
-				 * @since TBD
+				 * @since 4.7.2
 				 *
 				 * @param $event
 				 */
