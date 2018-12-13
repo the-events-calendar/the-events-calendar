@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[STORE] - Venue reducer Should remove the venue 1`] = `
+Object {
+  "showMap": true,
+  "showMapLink": true,
+  "venue": undefined,
+}
+`;
+
+exports[`[STORE] - Venue reducer Should set the showMap 1`] = `
+Object {
+  "showMap": true,
+  "showMapLink": true,
+  "venue": undefined,
+}
+`;
+
+exports[`[STORE] - Venue reducer Should set the showMap 2`] = `
+Object {
+  "showMap": false,
+  "showMapLink": true,
+  "venue": undefined,
+}
+`;
+
+exports[`[STORE] - Venue reducer Should set the showMapLink 1`] = `
+Object {
+  "showMap": true,
+  "showMapLink": true,
+  "venue": undefined,
+}
+`;
+
+exports[`[STORE] - Venue reducer Should set the showMapLink 2`] = `
+Object {
+  "showMap": true,
+  "showMapLink": false,
+  "venue": undefined,
+}
+`;
+
+exports[`[STORE] - Venue reducer Should set the venue 1`] = `
+Object {
+  "showMap": true,
+  "showMapLink": true,
+  "venue": 99,
+}
+`;
+
+exports[`[STORE] - Venue reducer Should toggle the venue map 1`] = `
+Object {
+  "showMap": false,
+  "showMapLink": true,
+  "venue": undefined,
+}
+`;
+
+exports[`[STORE] - Venue reducer Should toggle the venue map link 1`] = `
+Object {
+  "showMap": true,
+  "showMapLink": false,
+  "venue": undefined,
+}
+`;

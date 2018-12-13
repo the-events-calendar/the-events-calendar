@@ -258,4 +258,6 @@ $general_tab_fields = Tribe__Main::array_insert_before_key(
 	)
 );
 
+$general_tab_fields = tribe( 'events.editor.compatibility' )->insert_toggle_blocks_editor_field( $general_tab_fields );
+
 return $general_tab_fields;

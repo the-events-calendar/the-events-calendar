@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[STORE] - Sharing actions Should set if has the google calendar 1`] = `
+Object {
+  "payload": Object {
+    "hasGoogleCalendar": true,
+  },
+  "type": "@@MT/EVENTS/SET_HAS_GOOGLE_CALENDAR",
+}
+`;
+
+exports[`[STORE] - Sharing actions Should set if has the google calendar 2`] = `
+Object {
+  "payload": Object {
+    "hasGoogleCalendar": false,
+  },
+  "type": "@@MT/EVENTS/SET_HAS_GOOGLE_CALENDAR",
+}
+`;
+
+exports[`[STORE] - Sharing actions Should set if has the iCal Calendar 1`] = `
+Object {
+  "payload": Object {
+    "hasiCal": true,
+  },
+  "type": "@@MT/EVENTS/SET_HAS_ICAL",
+}
+`;
+
+exports[`[STORE] - Sharing actions Should set if has the iCal Calendar 2`] = `
+Object {
+  "payload": Object {
+    "hasiCal": false,
+  },
+  "type": "@@MT/EVENTS/SET_HAS_ICAL",
+}
+`;
+
+exports[`[STORE] - Sharing actions Should set initial state 1`] = `
+Object {
+  "payload": Object {},
+  "type": "@@MT/EVENTS/SHARING_BLOCK/SET_INITIAL_STATE",
+}
+`;
+
+exports[`[STORE] - Sharing actions Should set the Google calendar label 1`] = `
+Object {
+  "payload": Object {
+    "label": "Modern Tribe Google Calendar",
+  },
+  "type": "@@MT/EVENTS/SET_GOOGLE_CALENDAR_LABEL",
+}
+`;
+
+exports[`[STORE] - Sharing actions Should set the iCal Label 1`] = `
+Object {
+  "payload": Object {
+    "label": "Modern Tribe iCal",
+  },
+  "type": "@@MT/EVENTS/SET_ICAL_LABEL",
+}
+`;
+
+exports[`[STORE] - Sharing actions Should toggle if has the google label 1`] = `
+Object {
+  "type": "@@MT/EVENTS/TOGGLE_GOOGLE_CALENDAR",
+}
+`;
+
+exports[`[STORE] - Sharing actions Should toggle if has the iCal label 1`] = `
+Object {
+  "type": "@@MT/EVENTS/TOGGLE_ICAL",
+}
+`;

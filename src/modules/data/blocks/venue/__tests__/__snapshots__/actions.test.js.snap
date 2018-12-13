@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[STORE] - Venue actions action to set initial state 1`] = `
+Object {
+  "payload": undefined,
+  "type": "@@MT/EVENTS/VENUE_BLOCK/SET_INITIAL_STATE",
+}
+`;
+
+exports[`[STORE] - Venue actions action to set the showMap 1`] = `
+Object {
+  "payload": Object {
+    "showMap": false,
+  },
+  "type": "@@MT/EVENTS/SET_VENUE_MAP",
+}
+`;
+
+exports[`[STORE] - Venue actions action to set the showMap 2`] = `
+Object {
+  "payload": Object {
+    "showMap": true,
+  },
+  "type": "@@MT/EVENTS/SET_VENUE_MAP",
+}
+`;
+
+exports[`[STORE] - Venue actions action to set the showMapLink 1`] = `
+Object {
+  "payload": Object {
+    "showMapLink": true,
+  },
+  "type": "@@MT/EVENTS/SET_VENUE_MAP_LINK",
+}
+`;
+
+exports[`[STORE] - Venue actions action to set the showMapLink 2`] = `
+Object {
+  "payload": Object {
+    "showMapLink": false,
+  },
+  "type": "@@MT/EVENTS/SET_VENUE_MAP_LINK",
+}
+`;
+
+exports[`[STORE] - Venue actions action to set the venue 1`] = `
+Object {
+  "payload": Object {
+    "venue": 99,
+  },
+  "type": "@@MT/EVENTS/SET_VENUE",
+}
+`;
+
+exports[`[STORE] - Venue actions action to set the venue removal 1`] = `
+Object {
+  "payload": Object {
+    "venue": undefined,
+  },
+  "type": "@@MT/EVENTS/SET_VENUE",
+}
+`;
+
+exports[`[STORE] - Venue actions action to toggle the venue map 1`] = `
+Object {
+  "type": "@@MT/EVENTS/TOGGLE_VENUE_MAP",
+}
+`;
+
+exports[`[STORE] - Venue actions action to toggle the venueMapLink 1`] = `
+Object {
+  "type": "@@MT/EVENTS/TOGGLE_VENUE_MAP_LINK",
+}
+`;

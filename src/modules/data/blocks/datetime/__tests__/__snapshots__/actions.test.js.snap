@@ -1,0 +1,200 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[STORE] - Datetime actions Action to set all day 1`] = `
+Object {
+  "payload": Object {
+    "allDay": true,
+  },
+  "type": "@@MT/EVENTS/SET_ALL_DAY",
+}
+`;
+
+exports[`[STORE] - Datetime actions Action to set all day 2`] = `
+Object {
+  "payload": Object {
+    "allDay": false,
+  },
+  "type": "@@MT/EVENTS/SET_ALL_DAY",
+}
+`;
+
+exports[`[STORE] - Datetime actions Action to set the date input visibility 1`] = `
+Object {
+  "payload": Object {
+    "show": true,
+  },
+  "type": "@@MT/EVENTS/SET_DATE_INPUT_VISIBILITY",
+}
+`;
+
+exports[`[STORE] - Datetime actions Action to set the date input visibility 2`] = `
+Object {
+  "payload": Object {
+    "show": false,
+  },
+  "type": "@@MT/EVENTS/SET_DATE_INPUT_VISIBILITY",
+}
+`;
+
+exports[`[STORE] - Datetime actions Action to set the multi day 1`] = `
+Object {
+  "payload": Object {
+    "multiDay": true,
+  },
+  "type": "@@MT/EVENTS/SET_MULTI_DAY",
+}
+`;
+
+exports[`[STORE] - Datetime actions Action to set the multi day 2`] = `
+Object {
+  "payload": Object {
+    "multiDay": false,
+  },
+  "type": "@@MT/EVENTS/SET_MULTI_DAY",
+}
+`;
+
+exports[`[STORE] - Datetime actions Action to set the separator date 1`] = `
+Object {
+  "payload": Object {
+    "separator": " -  ",
+  },
+  "type": "@@MT/EVENTS/SET_SEPARATOR_DATE",
+}
+`;
+
+exports[`[STORE] - Datetime actions Action to set the separator time 1`] = `
+Object {
+  "payload": Object {
+    "separator": " @ ",
+  },
+  "type": "@@MT/EVENTS/SET_SEPARATOR_TIME",
+}
+`;
+
+exports[`[STORE] - Datetime actions Action to set the start time 1`] = `
+Object {
+  "payload": Object {
+    "start": "June 5, 2018 5:00 pm",
+  },
+  "type": "@@MT/EVENTS/SET_START_DATE_TIME",
+}
+`;
+
+exports[`[STORE] - Datetime actions Action to set the start time 2`] = `
+Object {
+  "payload": Object {
+    "end": "June 25, 2018 4:00 pm",
+  },
+  "type": "@@MT/EVENTS/SET_END_DATE_TIME",
+}
+`;
+
+exports[`[STORE] - Datetime actions Action to set the time zone 1`] = `
+Object {
+  "payload": Object {
+    "timeZone": "UTC",
+  },
+  "type": "@@MT/EVENTS/SET_TIME_ZONE",
+}
+`;
+
+exports[`[STORE] - Datetime actions Action to set the time zone label 1`] = `
+Object {
+  "payload": Object {
+    "label": "Modern Tribe",
+  },
+  "type": "@@MT/EVENTS/SET_TIMEZONE_LABEL",
+}
+`;
+
+exports[`[STORE] - Datetime actions Action to set the visibility of the time zone 1`] = `
+Object {
+  "payload": Object {
+    "show": true,
+  },
+  "type": "@@MT/EVENTS/SET_TIMEZONE_VISIBILITY",
+}
+`;
+
+exports[`[STORE] - Datetime actions Action to set the visibility of the time zone 2`] = `
+Object {
+  "payload": Object {
+    "show": false,
+  },
+  "type": "@@MT/EVENTS/SET_TIMEZONE_VISIBILITY",
+}
+`;
+
+exports[`[STORE] - Datetime actions Set Natural Language Label 1`] = `
+Object {
+  "payload": Object {
+    "label": "2 weeks from now",
+  },
+  "type": "@@MT/EVENTS/SET_NATURAL_LANGUAGE_LABEL",
+}
+`;
+
+exports[`[STORE] - Datetime actions Set editable 1`] = `
+Object {
+  "payload": Object {
+    "isEditable": true,
+  },
+  "type": "@@MT/EVENTS/SET_DATETIME_BLOCK_EDITABLE_STATE",
+}
+`;
+
+exports[`[STORE] - Datetime actions Set editable 2`] = `
+Object {
+  "payload": Object {
+    "isEditable": false,
+  },
+  "type": "@@MT/EVENTS/SET_DATETIME_BLOCK_EDITABLE_STATE",
+}
+`;
+
+exports[`[STORE] - Datetime actions setDateRange 1`] = `
+Object {
+  "payload": Object {
+    "from": 0,
+    "to": 1,
+  },
+  "type": "@@MT/EVENTS/SET_DATE_RANGE",
+}
+`;
+
+exports[`[STORE] - Datetime actions setEndTime 1`] = `
+Object {
+  "payload": Object {
+    "end": 6000,
+  },
+  "type": "@@MT/EVENTS/SET_END_TIME",
+}
+`;
+
+exports[`[STORE] - Datetime actions setEndTimeInput 1`] = `
+Object {
+  "payload": Object {
+    "endTimeInput": "18:00",
+  },
+  "type": "@@MT/EVENTS/SET_END_TIME_INPUT",
+}
+`;
+
+exports[`[STORE] - Datetime actions setStartTime 1`] = `
+Object {
+  "payload": Object {
+    "start": 6000,
+  },
+  "type": "@@MT/EVENTS/SET_START_TIME",
+}
+`;
+
+exports[`[STORE] - Datetime actions setStartTimeInput 1`] = `
+Object {
+  "payload": Object {
+    "startTimeInput": "18:00",
+  },
+  "type": "@@MT/EVENTS/SET_START_TIME_INPUT",
+}
+`;

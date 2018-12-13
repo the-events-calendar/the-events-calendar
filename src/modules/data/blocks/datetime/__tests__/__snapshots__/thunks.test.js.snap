@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[STORE] - Datetime thunks Initial set of state 1`] = `
+Array [
+  Object {
+    "payload": Object {
+      "start": "June 5, 2018 5:00 pm",
+    },
+    "type": "@@MT/EVENTS/SET_START_DATE_TIME",
+  },
+  Object {
+    "payload": Object {
+      "end": "June 5, 2018 5:30 pm",
+    },
+    "type": "@@MT/EVENTS/SET_END_DATE_TIME",
+  },
+  Object {
+    "payload": Object {
+      "allDay": false,
+    },
+    "type": "@@MT/EVENTS/SET_ALL_DAY",
+  },
+  Object {
+    "payload": Object {
+      "timeZone": "UTC",
+    },
+    "type": "@@MT/EVENTS/SET_TIME_ZONE",
+  },
+  Object {
+    "payload": Object {
+      "start": "2018-06-05 17:00:00",
+    },
+    "type": "@@MT/EVENTS/SET_START_DATE_TIME",
+  },
+  Object {
+    "payload": Object {
+      "startTimeInput": "5:00 pm",
+    },
+    "type": "@@MT/EVENTS/SET_START_TIME_INPUT",
+  },
+  Object {
+    "payload": Object {
+      "end": "2018-06-05 17:30:00",
+    },
+    "type": "@@MT/EVENTS/SET_END_DATE_TIME",
+  },
+  Object {
+    "payload": Object {
+      "endTimeInput": "5:30 pm",
+    },
+    "type": "@@MT/EVENTS/SET_END_TIME_INPUT",
+  },
+  Object {
+    "payload": Object {
+      "label": "June 5 2018 at 5:00 pm - 5:30 pm",
+    },
+    "type": "@@MT/EVENTS/SET_NATURAL_LANGUAGE_LABEL",
+  },
+  Object {
+    "payload": Object {
+      "multiDay": false,
+    },
+    "type": "@@MT/EVENTS/SET_MULTI_DAY",
+  },
+]
+`;

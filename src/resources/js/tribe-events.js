@@ -592,14 +592,18 @@ Date.prototype.format = function( mask, utc ) {
 			if ( 'undefined' == typeof $.fn.bootstrapDatepicker ) {
 				return;
 			}
-
-			$.fn.bootstrapDatepicker.dates['en'].days        = tribe_l10n_datatables.datepicker.dayNames;
-			$.fn.bootstrapDatepicker.dates['en'].daysShort   = tribe_l10n_datatables.datepicker.dayNamesShort;
-			$.fn.bootstrapDatepicker.dates['en'].daysMin     = tribe_l10n_datatables.datepicker.dayNamesMin;
-			$.fn.bootstrapDatepicker.dates['en'].months      = tribe_l10n_datatables.datepicker.monthNames;
-			$.fn.bootstrapDatepicker.dates['en'].monthsShort = tribe_l10n_datatables.datepicker.monthNamesMin;
-			$.fn.bootstrapDatepicker.dates['en'].today       = tribe_l10n_datatables.datepicker.today;
-			$.fn.bootstrapDatepicker.dates['en'].clear       = tribe_l10n_datatables.datepicker.clear;
+			var tribe_l10n = window.tribe_l10n_datatables || {};
+			var datepickeri18n = tribe_l10n.datepicker || {};
+			$.fn.bootstrapDatepicker.dates['en'].days        = datepickeri18n.dayNames;
+			$.fn.bootstrapDatepicker.dates['en'].daysShort   = datepickeri18n.dayNamesShort;
+			$.fn.bootstrapDatepicker.dates['en'].daysMin     = datepickeri18n.dayNamesMin;
+			$.fn.bootstrapDatepicker.dates['en'].months      = datepickeri18n.monthNames;
+			// Provide a fallback as it might not be always available
+			if ( datepickeri18n.monthNamesMin ) {
+				$.fn.bootstrapDatepicker.dates[ 'en' ].monthsShort = datepickeri18n.monthNamesMin;
+			}
+			$.fn.bootstrapDatepicker.dates['en'].today       = datepickeri18n.today;
+			$.fn.bootstrapDatepicker.dates['en'].clear       = datepickeri18n.clear;
 		},
 
 		/**

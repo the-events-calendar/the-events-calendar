@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[STORE] - Details actions Disable isLoading action 1`] = `
+Object {
+  "payload": Object {
+    "id": "events",
+    "isLoading": false,
+  },
+  "type": "@@MT/EVENTS/SET_DETAILS_IS_LOADING",
+}
+`;
+
+exports[`[STORE] - Details actions Enable isLoading action 1`] = `
+Object {
+  "payload": Object {
+    "id": "events",
+    "isLoading": true,
+  },
+  "type": "@@MT/EVENTS/SET_DETAILS_IS_LOADING",
+}
+`;
+
+exports[`[STORE] - Details actions Set details actions 1`] = `
+Object {
+  "payload": Object {
+    "details": Object {
+      "id": 20,
+      "title": "Modern Tribe",
+    },
+    "id": "events",
+  },
+  "type": "@@MT/EVENTS/SET_DETAILS",
+}
+`;
+
+exports[`[STORE] - Details actions Set post type action 1`] = `
+Object {
+  "payload": Object {
+    "id": "events",
+    "postType": "tribe_events",
+  },
+  "type": "@@MT/EVENTS/SET_DETAILS_POST_TYPE",
+}
+`;
