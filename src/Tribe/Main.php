@@ -310,20 +310,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$this->pluginDir  = $this->plugin_dir = trailingslashit( basename( $this->plugin_path ) );
 			$this->pluginUrl  = $this->plugin_url = str_replace( basename( $this->plugin_file ), '', plugins_url( basename( $this->plugin_file ), $this->plugin_file ) );
 
-			// early check for an older version of Event Tickets to prevent fatal error
-			if (
-				class_exists( 'Tribe__Tickets__Main' ) &&
-				! version_compare( Tribe__Tickets__Main::VERSION, $this->min_et_version, '>=' )
-			) {
-				add_action( 'admin_notices', array( $this, 'compatibility_notice' ) );
-				add_action( 'network_admin_notices', array( $this, 'compatibility_notice' ) );
-
-				return;
-			}
-
-			// Set common lib information, needs to happen file load
-			$this->maybe_set_common_lib_info();
-
 			// let's initialize tec
 			add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ), 0 );
 
@@ -375,11 +361,25 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function plugins_loaded() {
 
+			// early check for an older version of Event Tickets to prevent fatal error
+			if (
+				class_exists( 'Tribe__Tickets__Main' ) &&
+				! version_compare( Tribe__Tickets__Main::VERSION, $this->min_et_version, '>=' )
+			) {
+				add_action( 'admin_notices', array( $this, 'compatibility_notice' ) );
+				add_action( 'network_admin_notices', array( $this, 'compatibility_notice' ) );
+
+				return;
+			}
+
 			// WordPress and PHP Version Check
 			if ( ! self::supportedVersion( 'wordpress' ) || ! self::supportedVersion( 'php' ) ) {
 				add_action( 'admin_notices', array( $this, 'notSupportedError' ) );
 				return;
 			}
+
+			// Set common lib information, needs to happen file load
+			$this->maybe_set_common_lib_info();
 
 			/**
 			 * Before any methods from this plugin are called, we initialize our Autoloading
@@ -388,6 +388,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$this->init_autoloading();
 
 			Tribe__Main::instance();
+
 			add_action( 'tribe_common_loaded', array( $this, 'bootstrap' ), 0 );
 		}
 
