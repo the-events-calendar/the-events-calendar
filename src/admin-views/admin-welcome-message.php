@@ -28,7 +28,8 @@
 		<ul>
 			<li><a href="http://m.tri.be/1aa6" target="_blank"><?php esc_html_e( 'Search the Knowledgebase', 'the-events-calendar' ); ?></a></li>
 			<li><a href="http://m.tri.be/1aa7" target="_blank"><?php esc_html_e( 'Available Translations', 'the-events-calendar' ); ?></a></li>
-			<li><a href="http://m.tri.be/1aa8" target="_blank"><?php esc_html_e( 'Submit a Help Desk Request', 'the-events-calendar' ); ?></a></li>
+			<li><a href="http://m.tri.be/1ac4" target="_blank"><?php esc_html_e( 'Submit a Support Thread on WordPress.org', 'the-events-calendar' ); ?></a></li>
+			<li><strong><?php esc_html_e( 'Events Calendar PRO Users:', 'the-events-calendar' ); ?></strong> <a href="http://m.tri.be/1aa8" target="_blank"><?php esc_html_e( 'Submit a Help Desk Request', 'the-events-calendar' ); ?></a></li>
 		</ul>
 	</div>
 </div>
