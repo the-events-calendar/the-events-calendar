@@ -5,7 +5,7 @@ import * as types from './types';
 import { editorDefaults } from '@moderntribe/common/utils/globals';
 
 export const DEFAULT_STATE = {
-	venue: editorDefaults().venue ? editorDefaults().venue : undefined,
+	venue: editorDefaults().venue ? editorDefaults().venue : 0,
 	showMap: true,
 	showMapLink: true,
 };

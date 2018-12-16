@@ -12,12 +12,15 @@ import {
 	moment as momentUtil,
 	time,
 } from '@moderntribe/common/utils';
-import { settings } from '@moderntribe/common/utils/globals';
+import { settings, defaultTimes } from '@moderntribe/common/utils/globals';
 import * as types from './types';
 
+const defaultStartTimeSeconds = time.toSeconds( defaultTimes().start, time.TIME_FORMAT_HH_MM_SS );
+const defaultEndTimeSeconds = time.toSeconds( defaultTimes().end, time.TIME_FORMAT_HH_MM_SS );
+
 export const DEFAULT_STATE = {
-	start: momentUtil.toDateTime( momentUtil.roundTime( moment() ) ),
-	end: momentUtil.toDateTime( momentUtil.roundTime( moment() ).add( time.HALF_HOUR_IN_SECONDS, 'seconds' ) ),
+	start: momentUtil.toDateTime( moment().startOf( 'day' ).seconds( defaultStartTimeSeconds ) ),
+	end: momentUtil.toDateTime( moment().startOf( 'day' ).seconds( defaultEndTimeSeconds ) ),
 	naturalLanguage: '',
 	dateTimeSeparator: settings() && settings().dateTimeSeparator ? settings().dateTimeSeparator : __( '@', 'events-gutenberg' ),
 	timeRangeSeparator: settings() && settings().timeRangeSeparator ? settings().timeRangeSeparator : __( '-', 'events-gutenberg' ),
