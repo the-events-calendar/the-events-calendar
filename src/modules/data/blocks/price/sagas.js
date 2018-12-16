@@ -4,18 +4,22 @@
 import { call, put, all, takeEvery } from 'redux-saga/effects';
 
 /**
+ * WordPress dependencies
+ */
+import { select } from '@wordpress/data';
+
+/**
  * Internal dependencies
  */
 import * as types from './types';
 import { DEFAULT_STATE } from './reducer';
 import * as actions from './actions';
-import { isTruthy } from '@moderntribe/common/utils/string';
 import { priceSettings } from '@moderntribe/common/utils/globals';
 
 export function* setInitialState( action ) {
 	const { get } = action.payload;
 	const settings = yield call( priceSettings );
-	const isNewEvent = yield call( isTruthy, settings.isNewEvent );
+	const isNewEvent = yield call( [ select( 'core/editor' ), 'isEditedPostNew' ] );
 
 	const currencySymbol = isNewEvent
 		? settings.defaultCurrencySymbol
