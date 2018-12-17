@@ -12,7 +12,6 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 The Events Calendar is a carefully crafted, extensible plugin that lets you easily manage and share events. Beautiful. Solid. Awesome.
 
-* Fix - Making sure all Blocks Editor code for Meta saving is PHP 5.2 compatible
 == Description ==
 
 Create an events calendar and manage it with ease. The Events Calendar plugin provides professional-level quality and features backed by a team you can trust.
@@ -218,12 +217,17 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 = [4.7.2] 2018-12-13 =
 
-* Feature - Add new action `tribe_events_before_event_template_data_date_display` and `tribe_events_after_event_template_data_date_display`
-* Fix - Remove dependency from PRO when calling `tribe_events_template_data`
-* Fix - Make the Date Time block respect the timezone settings [118682]
-* Fix - Remove Price block dashboard gap [118683]
-* Fix - Making sure all Blocks Editor code for Meta saving is PHP 5.2 compatible
-* Fix - Prevent `undefined` from been displayed at the Date Time separators [119337]
+* Feature - Added new action `tribe_events_before_event_template_data_date_display` and `tribe_events_after_event_template_data_date_display`
+* Tweak - Corrected font on time picker components in Event Date Time block [116907]
+* Tweak - Adjusted padding on the Event Date Time block [118697]
+* Tweak - Set default start time to 8:00am and default end time to 5:00pm in Event Date Time block [118112]
+* Fix - Corrected an issue where feature detection of async-process support would fire too many requests [118876]
+* Fix - Removed tribe_events_template_data()'s dependency on Events Calendar PRO, which could lead to a fatal error under some conditions [119263]
+* Fix - Made the Event Date Time block respect the timezone settings [118682]
+* Fix - Removed Price block dashboard gap [118683]
+* Fix - Made sure all block editor code for Meta saving is PHP 5.2 compatible
+* Fix - Prevented `undefined` from been displayed at the Event Date Time separator fields [119337]
+* Fix - Solved 500 error when trying to update an event [118058]
 
 = [4.7.1] 2018-12-05 =
 
