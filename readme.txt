@@ -225,6 +225,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - Correct text domain and remove old `events-gutenberg` [118656]
 * Fix - Properly display recurrence description on Blocks Editor view [119354]
 * Fix - Point support links to the correct places [117795]
+* Language - 27 new strings added, 106 updated, 0 fuzzied, and 13 obsoleted
 
 = [4.7.2] 2018-12-13 =
 
