@@ -32,9 +32,15 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '4.7.2';
-		const MIN_ADDON_VERSION   = '4.4';
-		const MIN_COMMON_VERSION  = '4.8.2-dev';
+		const VERSION             = '4.8';
+
+		/**
+		 * Min Pro Addon
+		 * @deprecated TBD
+		 */
+		const MIN_ADDON_VERSION   = '4.6';
+
+		const MIN_COMMON_VERSION  = '4.9';
 
 		const WP_PLUGIN_URL       = 'https://wordpress.org/extend/plugins/the-events-calendar/';
 
@@ -43,7 +49,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @since TBD
 		 */
-		protected $min_wordpress = '4.5';
+		protected $min_wordpress = '4.7';
 
 		/**
 		 * Min Version of PHP
@@ -57,7 +63,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @since TBD
 		 */
-		protected $min_et_version = '4.9.1';
+		protected $min_et_version = '4.10';
 
 		/**
 		 * Maybe display data wrapper
