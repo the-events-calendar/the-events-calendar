@@ -36,12 +36,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 		/**
 		 * Min Pro Addon
+		 *
 		 * @deprecated TBD
 		 */
 		const MIN_ADDON_VERSION   = '4.6';
 
 		/**
 		 * Min Common
+		 *
 		 * @deprecated TBD
 		 */
 		const MIN_COMMON_VERSION  = '4.9';
