@@ -40,6 +40,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		const MIN_ADDON_VERSION   = '4.6';
 
+		/**
+		 * Min Common
+		 * @deprecated TBD
+		 */
 		const MIN_COMMON_VERSION  = '4.9';
 
 		const WP_PLUGIN_URL       = 'https://wordpress.org/extend/plugins/the-events-calendar/';
@@ -270,15 +274,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		private $default_values = null;
 
 		public static $tribeEventsMuDefaults;
-
-		/**
-		 * Key for the transient flag for a delayed activation
-		 *
-		 * @since 4.7
-		 *
-		 * @var string
-		 */
-		public $key_delayed_activation_outdated_common = 'tribe_delayed_activation_outdated_common';
 
 		/**
 		 * Where in the themes we will look for templates
@@ -2726,18 +2721,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param bool $network_deactivating
 		 */
 		public static function activate() {
-			// Bail when we have outdated common
-/*			if ( self::instance()->maybe_delay_activation_if_outdated_common() ) {
-				return false;
-			}
-
-			// Cant use tribe_is_truthy due to common versions
-			$is_delayed_activation = self::instance()->is_delayed_activation();
-
-			if ( ! $is_delayed_activation ) {
-				self::instance()->plugins_loaded();
-			}*/
-
 			self::instance()->plugins_loaded();
 
 			self::flushRewriteRules();
@@ -2748,8 +2731,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			if ( ! is_network_admin() && ! isset( $_GET['activate-multi'] ) ) {
 				set_transient( '_tribe_events_activation_redirect', 1, 30 );
 			}
-
-			//delete_transient( self::instance()->key_delayed_activation_outdated_common );
 		}
 
 		/**
