@@ -2515,6 +2515,10 @@ input[name*='tribe-bar-']:-moz-placeholder {
 				content: none;
 			}
 
+.tribe-theme-twentynineteen h2.tribe-events-day-time-slot-heading:before {
+			content: none;
+		}
+
 /* = Events Retina
 =============================================*/
 
