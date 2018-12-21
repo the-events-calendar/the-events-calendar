@@ -2423,6 +2423,10 @@ input[name*='tribe-bar-']:-moz-placeholder {
 		font-family: var(--twentynineteen_font__heading);
 	}
 
+.tribe-theme-twentynineteen .tribe-bar-views-inner {
+		padding: 19px 0;
+	}
+
 /* = Events Retina
 =============================================*/
 
