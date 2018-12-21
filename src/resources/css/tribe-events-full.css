@@ -2495,6 +2495,26 @@ input[name*='tribe-bar-']:-moz-placeholder {
 		font-size: 0.75rem;
 	}
 
+.tribe-theme-twentynineteen .tribe-events-tooltip .tribe-event-duration {
+			font-family: "NonBreakingSpaceOverride", "Hoefler Text", "Baskerville Old Face", Garamond, "Times New Roman", serif;
+			font-family: var(--twentynineteen_font__body);
+			font-size: 0.85rem;
+		}
+
+.tribe-theme-twentynineteen .tribe-events-tooltip .tribe-event-description {
+			font-family: "NonBreakingSpaceOverride", "Hoefler Text", "Baskerville Old Face", Garamond, "Times New Roman", serif;
+			font-family: var(--twentynineteen_font__body);
+			font-size: 0.65rem;
+		}
+
+.tribe-theme-twentynineteen .tribe-events-tooltip h3.entry-title {
+			font-size: 1rem;
+		}
+
+.tribe-theme-twentynineteen .tribe-events-tooltip h3.entry-title:before {
+				content: none;
+			}
+
 /* = Events Retina
 =============================================*/
 
