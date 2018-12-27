@@ -218,6 +218,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 = [4.7.4] TBD =
 
 * Fix - Display the tags block delimiter in the editor [119393]
+* Fix - Date/time block conflicts when clicking to open the block options [119413]
 
 = [4.7.3] 2018-12-18 =
 
