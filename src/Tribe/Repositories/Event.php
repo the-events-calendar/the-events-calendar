@@ -1092,7 +1092,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	/**
 	 * {@inheritdoc}
 	 */
-	public function order_by( $order_by ) {
+	public function order_by( $order_by, $order = 'ASC' ) {
 		/** @var \wpdb $wpdb */
 		global $wpdb;
 
@@ -1174,7 +1174,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			$this->filter_query->orderby( $timestamp_key );
 		}
 
-		return parent::order_by( $order_by );
+		return parent::order_by( $order_by, $order );
 	}
 
 	/**
