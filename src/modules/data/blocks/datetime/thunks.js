@@ -1,14 +1,11 @@
 /**
- * WordPress dependencies
- */
-import { select } from '@wordpress/data';
-
-/**
  * Internal dependencies
  */
 import {
 	setStartDateTime,
 	setEndDateTime,
+	setStartTimeInput,
+	setEndTimeInput,
 	setAllDay as setAllDayAction,
 	setMultiDay as setMultiDayAction,
 	setSeparatorDate,
@@ -20,18 +17,22 @@ import {
 } from './actions';
 import { DEFAULT_STATE } from './reducer';
 import { maybeBulkDispatch } from '@moderntribe/events/data/utils';
-import { globals, date, moment } from '@moderntribe/common/utils';
+import { date, moment } from '@moderntribe/common/utils';
 
 const {
 	isSameDay,
 	parseFormats,
 	toDateTime,
+	toTime,
 } = moment;
 
 export const setInitialState = ( { get, attributes } ) => ( dispatch ) => {
 	const timeZone = get( 'timeZone', DEFAULT_STATE.timeZone );
 	const timeZoneLabel = get( 'timeZoneLabel', timeZone );
 
+	/**
+	 * @todo: remove maybeBuildDispatch, dispatch declaratively instead
+	 */
 	maybeBulkDispatch( attributes, dispatch )( [
 		[ setStartDateTime, 'start', DEFAULT_STATE.start ],
 		[ setEndDateTime, 'end', DEFAULT_STATE.end ],
@@ -49,12 +50,18 @@ export const setInitialState = ( { get, attributes } ) => ( dispatch ) => {
 	};
 
 	if ( attributes.start ) {
-		values.start = toDateTime( parseFormats( attributes.start ) );
+		const startMoment = parseFormats( attributes.start );
+		values.start = toDateTime( startMoment );
+		const startTimeInput = toTime( startMoment );
 		dispatch( setStartDateTime( values.start ) );
+		dispatch( setStartTimeInput( startTimeInput ) );
 	}
 	if ( attributes.end ) {
-		values.end = toDateTime( parseFormats( attributes.end ) );
+		const endMoment = parseFormats( attributes.end );
+		values.end = toDateTime( endMoment );
+		const endTimeInput = toTime( endMoment );
 		dispatch( setEndDateTime( values.end ) );
+		dispatch( setEndTimeInput( endTimeInput ) );
 	}
 
 	dispatch( setNaturalLanguageLabel( date.rangeToNaturalLanguage( values.start, values.end ) ) );

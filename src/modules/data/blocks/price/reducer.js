@@ -20,7 +20,7 @@ export const DEFAULT_STATE = {
 		: position,
 	symbol: priceSettings() && priceSettings().defaultCurrencySymbol
 		? priceSettings().defaultCurrencySymbol
-		: __( '$', 'events-gutenberg' ),
+		: __( '$', 'the-events-calendar' ),
 	cost: '',
 	description: '',
 };

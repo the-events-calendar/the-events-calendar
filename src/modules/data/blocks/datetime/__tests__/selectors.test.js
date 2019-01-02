@@ -29,6 +29,14 @@ describe( '[STORE] - Datetime selectors', () => {
 		expect( selectors.getEnd( state ) ).toBe( DEFAULT_STATE.end );
 	} );
 
+	it( 'Should return the start time input', () => {
+		expect( selectors.getStartTimeInput( state ) ).toBe( DEFAULT_STATE.startTimeInput );
+	} );
+
+	it( 'Should return the end time input', () => {
+		expect( selectors.getEndTimeInput( state ) ).toBe( DEFAULT_STATE.endTimeInput );
+	} );
+
 	it( 'Should return the timezone', () => {
 		expect( selectors.getTimeZone( state ) ).toBe( DEFAULT_STATE.timeZone );
 	} );

@@ -73,21 +73,21 @@ export default class OrganizerForm extends Component {
 						type="tel"
 						name="phone"
 						value={ phone }
-						placeholder={ __( 'Add Phone', 'events-gutenberg' ) }
+						placeholder={ __( 'Add Phone', 'the-events-calendar' ) }
 						onChange={ this.saveEventField( 'phone' ) }
 					/>
 					<input
 						type="url"
 						name="website"
 						value={ website }
-						placeholder={ __( 'Add website', 'events-gutenberg' ) }
+						placeholder={ __( 'Add website', 'the-events-calendar' ) }
 						onChange={ this.saveEventField( 'website' ) }
 					/>
 					<input
 						type="email"
 						name="email"
 						value={ email }
-						placeholder={ __( 'Add email', 'events-gutenberg' ) }
+						placeholder={ __( 'Add email', 'the-events-calendar' ) }
 						onChange={ this.saveEventField( 'email' ) }
 					/>
 				</div>

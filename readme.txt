@@ -3,9 +3,9 @@
 Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, cliffpaulick, courane01, faction23, GeoffBel, geoffgraham, ggwicz, jbrinley, jentheo, leahkoerper, lucatume, mastromktg, MZAWeb, neillmcshea, nicosantos, patriciahillebrandt, peterchester, reid.peifer, roblagatta, ryancurban, shane.pearlman, tribecari, vicskf, zbtirrell
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
-Requires at least: 4.5
-Stable tag: 4.7.2
-Tested up to: 5.0
+Requires at least: 4.7
+Stable tag: 4.7.3
+Tested up to: 5.0.2
 Requires PHP: 5.2.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -215,6 +215,17 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
+= [4.7.3] 2018-12-19 =
+
+* Tweak - Tweak the registration of the Event, Venue, and Organizer post types so they use some new post type labels introduced in WordPress 5.0 like `item_updated`, `item_scheduled`, etc. [119451]
+* Fix - Password protected events breaking the month view. Thanks to Lindsay, Simon and others for flagging this out! [117385]
+* Fix - Add proper capitalization for Event Price for Blocks Editor [119140]
+* Fix - Make sure Datetime Format for Datepickers are respected on the Blocks Editor [117428]
+* Fix - Correct text domain and remove old `events-gutenberg` [118656]
+* Fix - Properly display recurrence description on Blocks Editor view [119354]
+* Fix - Point support links to the correct places [117795]
+* Language - 27 new strings added, 106 updated, 0 fuzzied, and 13 obsoleted
+
 = [4.7.2] 2018-12-13 =
 
 * Feature - Added new action `tribe_events_before_event_template_data_date_display` and `tribe_events_after_event_template_data_date_display`
@@ -227,7 +238,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - Removed Price block dashboard gap [118683]
 * Fix - Made sure all block editor code for Meta saving is PHP 5.2 compatible
 * Fix - Prevented `undefined` from been displayed at the Event Date Time separator fields [119337]
-* Fix - Solved 500 error when trying to update an event [118058]
+* Fix - Solved 500 error when trying to update an event [118058]s
 
 = [4.7.1] 2018-12-05 =
 

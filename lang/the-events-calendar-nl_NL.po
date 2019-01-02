@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-11-26 19:02:18+0000\n"
+"PO-Revision-Date: 2018-12-13 20:52:43+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,51 +13,51 @@ msgstr ""
 
 #: src/resources/js/app/blocks.js:48214
 msgid "Edit Organizer"
-msgstr ""
+msgstr "Bewerk organisator"
 
 #: src/resources/js/app/blocks.js:48211
 msgid "Organizer Settings"
-msgstr ""
+msgstr "Organisator-instellingen"
 
 #: src/resources/js/app/blocks.js:48137
 msgid "Add or find an organizer"
-msgstr ""
+msgstr "Een organisator toevoegen of zoeken"
 
 #: src/resources/js/app/blocks.js:47979
 msgid "Add email"
-msgstr ""
+msgstr "E-mail toevoegen"
 
 #: src/resources/js/app/blocks.js:47972
 msgid "Add website"
-msgstr ""
+msgstr "Website toevoegen"
 
 #: src/resources/js/app/blocks.js:47965
 msgid "Add Phone"
-msgstr ""
+msgstr "Telefoon toevoegen"
 
 #: src/resources/js/app/blocks.js:47394
 msgid "Venue Settings"
-msgstr ""
+msgstr "Locatie-instellingen"
 
 #: src/resources/js/app/blocks.js:47272
 msgid "Add or find a venue"
-msgstr ""
+msgstr "Een locatie toevoegen of zoeken"
 
 #: src/resources/js/app/blocks.js:46934
 msgid "(Untitled Venue)"
-msgstr ""
+msgstr "(Naamloze locatie)"
 
 #: src/resources/js/app/blocks.js:46387
 msgid "Multi-Day"
-msgstr ""
+msgstr "Meerdere dagen"
 
 #: src/resources/js/app/blocks.js:45448
 msgid "Show Time Zone"
-msgstr ""
+msgstr "Toon tijdzone"
 
 #: src/resources/js/app/blocks.js:45441
 msgid "Time Zone"
-msgstr ""
+msgstr "Tijdzone"
 
 #: src/resources/js/app/blocks.js:45434
 msgid "Time Range Separator"
@@ -69,15 +69,15 @@ msgstr ""
 
 #: src/resources/js/app/blocks.js:13219 src/resources/js/app/elements.js:9845
 msgid "Add or Find"
-msgstr ""
+msgstr "Toevoegen of zoeken"
 
 #: src/resources/js/app/blocks.js:12598 src/resources/js/app/elements.js:9224
 msgid "A Google Map API KEY is required to view the map"
-msgstr ""
+msgstr "Een Google Map API-sleutel is vereist om de kaart te bekijken"
 
 #: src/resources/js/app/blocks.js:12479 src/resources/js/app/elements.js:9105
 msgid "The map does not have valid coordinates nor a valid address"
-msgstr ""
+msgstr "De kaart heeft geen geldige coördinaten noch een geldig adres"
 
 #: src/resources/js/app/blocks.js:12389 src/resources/js/app/elements.js:9015
 msgid "Make sure Google Maps Library is included on this page."
@@ -85,11 +85,11 @@ msgstr ""
 
 #: src/resources/js/app/blocks.js:11712 src/resources/js/app/elements.js:8338
 msgid "Country"
-msgstr ""
+msgstr "Land"
 
 #: src/resources/js/app/blocks.js:11444 src/resources/js/app/elements.js:8070
 msgid "Name:"
-msgstr ""
+msgstr "Naam:"
 
 #: src/modules/blocks/event-datetime/subblocks/content/index.js:23
 #: src/resources/js/app/blocks.js:46184
@@ -137,7 +137,7 @@ msgstr ""
 #: src/modules/blocks/event-links/template.js:108
 #: src/resources/js/app/blocks.js:48532
 msgid "iCal"
-msgstr ""
+msgstr "iCal"
 
 #: src/resources/js/app/blocks.js:47401
 msgid "Show Google Maps Embed"
@@ -177,7 +177,7 @@ msgstr ""
 #: src/modules/blocks/featured-image/index.js:21
 #: src/resources/js/app/blocks.js:49542 src/resources/js/app/blocks.js:49609
 msgid "Featured Image"
-msgstr ""
+msgstr "Uitgelichte afbeelding"
 
 #: src/modules/blocks/event-tags/index.js:22
 #: src/resources/js/app/blocks.js:49255
@@ -193,27 +193,27 @@ msgstr ""
 #: src/modules/blocks/event-tags/index.js:21
 #: src/resources/js/app/blocks.js:49223 src/resources/js/app/blocks.js:49254
 msgid "Tags"
-msgstr ""
+msgstr "Tags"
 
 #: src/modules/blocks/event-venue/index.js:18
 #: src/resources/js/app/blocks.js:47617
 msgid "Where is this event happening? Select or create a location."
-msgstr ""
+msgstr "Waar speelt dit evenement af? Selecteer of maak een locatie."
 
 #: src/modules/blocks/event-venue/index.js:17
 #: src/resources/js/app/blocks.js:47616
 msgid "Event Venue"
-msgstr ""
+msgstr "Evenement locatie"
 
 #: src/modules/blocks/event-price/index.js:18
 #: src/resources/js/app/blocks.js:49019
 msgid "Let visitors know the cost of this event or if it’s free to attend."
-msgstr ""
+msgstr "Laat je bezoekers de kosten van dit evenement weten of dat het gratis toegankelijk is."
 
 #: src/modules/blocks/event-price/index.js:17
 #: src/resources/js/app/blocks.js:49018
 msgid "Event Price"
-msgstr ""
+msgstr "Evenement prijs"
 
 #: src/modules/blocks/event-price/template.js:156
 #: src/resources/js/app/blocks.js:48830
@@ -228,7 +228,7 @@ msgstr ""
 #: src/modules/blocks/event-price/template.js:117
 #: src/resources/js/app/blocks.js:48783
 msgid "Description"
-msgstr ""
+msgstr "Beschrijving"
 
 #: src/modules/blocks/event-price/template.js:109
 #: src/resources/js/app/blocks.js:48775
@@ -323,17 +323,17 @@ msgstr ""
 #: src/modules/blocks/classic-event-details/template.js:97
 #: src/resources/js/app/blocks.js:45054
 msgid "Website: "
-msgstr ""
+msgstr "Website: "
 
 #: src/modules/blocks/classic-event-details/template.js:79
 #: src/resources/js/app/blocks.js:45022
 msgid "End: "
-msgstr ""
+msgstr "Einde:"
 
 #: src/modules/blocks/classic-event-details/template.js:57
 #: src/resources/js/app/blocks.js:44982
 msgid "Start: "
-msgstr ""
+msgstr "Aanvang: "
 
 #: src/modules/blocks/event-organizer/index.js:17
 #: src/resources/js/app/blocks.js:48388
@@ -387,11 +387,11 @@ msgstr ""
 #: common/src/resources/js/app/elements.js:9791
 #: common/src/resources/js/app/utils.js:7339
 msgid "at"
-msgstr ""
+msgstr "om"
 
 #: src/views/blocks/event-datetime.php:80
 msgid "All day"
-msgstr ""
+msgstr "Gehele dag"
 
 #: src/views/modules/bar.php:51
 msgid "Hide %s Search"
@@ -409,33 +409,33 @@ msgstr ""
 #: src/admin-views/aggregator/settings.php:456
 #: src/admin-views/aggregator/settings.php:524
 msgid "Show Map"
-msgstr ""
+msgstr "Toon kaart"
 
 #: src/admin-views/tribe-options-general.php:243
 msgid "Enable Maps"
-msgstr ""
+msgstr "Kaarten inschakelen"
 
 #: src/admin-views/create-venue-fields.php:257
 msgid "Show Map Link?"
-msgstr ""
+msgstr "Toon kaart link?"
 
 #: src/admin-views/create-venue-fields.php:248
 #: src/admin-views/create-venue-fields.php:285
 #: src/admin-views/venue-meta-box.php:202
 #: src/admin-views/venue-meta-box.php:238
 msgid "Show Map Link:"
-msgstr ""
+msgstr "Toon kaart link:"
 
 #: src/admin-views/create-venue-fields.php:239
 msgid "Show Map?"
-msgstr ""
+msgstr "Toon kaart?"
 
 #: src/admin-views/create-venue-fields.php:230
 #: src/admin-views/create-venue-fields.php:268
 #: src/admin-views/venue-meta-box.php:185
 #: src/admin-views/venue-meta-box.php:221
 msgid "Show Map:"
-msgstr ""
+msgstr "Toon kaart:"
 
 #: src/Tribe/Editor/Compatibility.php:118
 msgid "Hidden Blocks Editor Config"
@@ -459,7 +459,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Record/CSV.php:104
 msgid "Unknown Column "
-msgstr ""
+msgstr "Onbekende kolom"
 
 #: src/Tribe/Aggregator/Record/Queue_Processor.php:288
 msgid "There was an error building the record queue: "
@@ -471,7 +471,7 @@ msgstr ""
 
 #: src/Tribe/Admin/Notice/Marketing.php:106
 msgid "Download the eBook"
-msgstr ""
+msgstr "Download het e-Boek"
 
 #: src/Tribe/Admin/Notice/Marketing.php:100
 msgid "Get up to speed with our comprehensive Guide to Gutenberg ebook, then see how events and tickets will behave in the block editor by installing our free Events Gutenberg extension."
@@ -483,7 +483,7 @@ msgstr ""
 
 #: src/Tribe/Admin/Notice/Marketing.php:91
 msgid "<strong>The Events Calendar & Gutenberg</strong>"
-msgstr ""
+msgstr "<strong>The Events Calendar & Gutenberg</strong>"
 
 #: src/Tribe/Main.php:1464
 msgid "When running version %1$s of The Events Calendar alongside %2$s, %2$s must be version %3$s or greater. Please %4$smanually update now.%5$s"
@@ -491,15 +491,15 @@ msgstr ""
 
 #: src/Tribe/Google/Maps_API_Key.php:107
 msgid "(click here for details)"
-msgstr ""
+msgstr "(klik hier voor details)"
 
 #: src/Tribe/Editor.php:534
 msgid "Event Blocks"
-msgstr ""
+msgstr "Evenement blokken"
 
 #: src/Tribe/Editor.php:258 src/Tribe/Editor.php:301
 msgid "Add Description..."
-msgstr ""
+msgstr "Beschrijving toevoegen..."
 
 #: common/src/Tribe/Editor/Configuration.php:97
 msgid "F j, Y g:i a"
@@ -521,12 +521,12 @@ msgstr ""
 #. translators: %s: duration
 #: common/src/Tribe/Editor/Configuration.php:90
 msgid "%s ago"
-msgstr ""
+msgstr "%s geleden"
 
 #. translators: %s: duration
 #: common/src/Tribe/Editor/Configuration.php:88
 msgid "%s from now"
-msgstr ""
+msgstr "%s vanaf nu"
 
 #: common/src/Tribe/Editor/Blocks/Abstract.php:127
 msgid "Problem loading the block, please remove this block to restart."
@@ -1196,7 +1196,7 @@ msgstr "3 maanden"
 
 #: src/admin-views/tribe-options-general.php:173
 msgid "This option allows you to automatically move past events to trash."
-msgstr ""
+msgstr "Deze optie geeft je de mogelijkheid om oude evenementen automatisch in de prullenbak te plaatsen."
 
 #: src/admin-views/tribe-options-general.php:172
 msgid "Move to trash events older than"
@@ -1325,7 +1325,7 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Messages.php:43
 msgid "The requested organizer archive page does not exist"
-msgstr ""
+msgstr "De gevraagde archiefpagina van de organisator bestaat niet"
 
 #: src/Tribe/REST/V1/Messages.php:42
 msgid "The requested venue archive page does not exist"
@@ -1441,7 +1441,7 @@ msgstr "De huidige gebruiker kan de locatie met opgegeven ID niet verwijderen."
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:158
 msgid "The venue post ID is missing or does not exist."
-msgstr ""
+msgstr "Het bericht ID van de locatie mist of bestaat niet."
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:152
 msgid "Deletes a venue and returns its data"
@@ -1449,7 +1449,7 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:144
 msgid "The user is not authorized to create venues"
-msgstr ""
+msgstr "De gebruiker is niet gemachtigd om locaties te maken"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:135
 msgid "Returns the data of the created venue"
@@ -1461,11 +1461,11 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:120
 msgid "A venue with the specified post ID does not exist."
-msgstr ""
+msgstr "Een locatie met het opgegeven bericht ID bestaat niet."
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:114
 msgid "The venue post ID is missing."
-msgstr ""
+msgstr "Het bericht ID van de locatie mist."
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:108
 msgid "Returns the data of the venue with the specified post ID"
@@ -1698,7 +1698,7 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:154
 msgid "The user is not authorized to create events"
-msgstr ""
+msgstr "De gebruiker is niet gemachtigd om evenementen te maken"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:145
 msgid "Returns the data of the created event"
@@ -3827,7 +3827,7 @@ msgstr "iCalendar importinstellingen"
 #: src/admin-views/aggregator/settings.php:457
 #: src/admin-views/aggregator/settings.php:525
 msgid "Show map by default on imported event and venues"
-msgstr ""
+msgstr "Toon kaart standaard bij geïmporteerd evenement en locaties"
 
 #: src/admin-views/aggregator/settings.php:148
 msgid "The default event category for events"
@@ -6143,7 +6143,7 @@ msgstr "Evenementen importeren"
 #: src/modules/blocks/event-links/template.js:101
 #: src/resources/js/app/blocks.js:48525
 msgid "Share Settings"
-msgstr ""
+msgstr "Delen-instellingen"
 
 #: src/deprecated/Tribe__Events__Importer__Options.php:136
 msgid "Draft"
@@ -6264,7 +6264,7 @@ msgstr "Titel:"
 
 #: src/resources/js/app/blocks.js:47396
 msgid "Show Google Maps Link"
-msgstr ""
+msgstr "Toon Google Maps link"
 
 #: src/admin-views/create-venue-fields.php:166
 #: src/admin-views/venue-meta-box.php:136
@@ -6719,12 +6719,12 @@ msgstr "Standaard evenementen template"
 #: src/modules/blocks/classic-event-details/template.js:117
 #: src/resources/js/app/blocks.js:45080
 msgid "Price: "
-msgstr ""
+msgstr "Prijs:"
 
 #: common/src/modules/elements/image-upload/element.js:46
 #: common/src/resources/js/app/elements.js:59497
 msgid "remove"
-msgstr ""
+msgstr "verwijder"
 
 #: common/src/admin-views/event-log.php:65
 msgid "View"

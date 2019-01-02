@@ -172,11 +172,29 @@ Object {
 }
 `;
 
+exports[`[STORE] - Datetime actions setEndTimeInput 1`] = `
+Object {
+  "payload": Object {
+    "endTimeInput": "18:00",
+  },
+  "type": "@@MT/EVENTS/SET_END_TIME_INPUT",
+}
+`;
+
 exports[`[STORE] - Datetime actions setStartTime 1`] = `
 Object {
   "payload": Object {
     "start": 6000,
   },
   "type": "@@MT/EVENTS/SET_START_TIME",
+}
+`;
+
+exports[`[STORE] - Datetime actions setStartTimeInput 1`] = `
+Object {
+  "payload": Object {
+    "startTimeInput": "18:00",
+  },
+  "type": "@@MT/EVENTS/SET_START_TIME_INPUT",
 }
 `;
