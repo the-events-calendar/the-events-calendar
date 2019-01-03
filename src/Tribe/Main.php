@@ -3789,13 +3789,44 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @return string
 		 */
-		public function get_closest_event_where( $where_sql ) {
-			if ( ! isset( $this->_where_direction, $this->_where_post_id ) ) {
+		public function get_closest_event_where( $where_sql, WP_Query $query ) {
+			// If we're here the temporary properties should be set, but let's check and bail if not.
+			if ( ! isset( $this->_where_direction, $this->_where_compare, $this->_where_post_id, $this->_where_start_date ) ) {
+				return $where_sql;
+			}
+
+			// Find out the `postmeta` table alias from the Meta Query; use  the comparison operator to discriminate.
+			$meta_query = $query->meta_query;
+			$start_date = null;
+			foreach ( $meta_query->get_clauses() as $clause ) {
+				if ( '_EventStartDate' === $clause['key'] && $this->_where_compare === $clause['compare'] ) {
+					$start_date = $clause['alias'];
+					break;
+				}
+			}
+
+			if ( null === $start_date ) {
+				// This is weird but some other filtering might be working here, bail.
 				return $where_sql;
 			}
 
 			global $wpdb;
-			$where_sql .= "\nAND {$wpdb->posts}.ID {$this->_where_direction} {$this->_where_post_id}";
+			/*
+			 * If a post has the same date and time as the one we restrict the posts.ID direction.
+			 * If the date is the same pick one with a smaller (prev) or bigger (next) posts.ID; if not then
+			 * use just the date.
+			 */
+			$where_sql .= $wpdb->prepare( "\nAND ( 
+					( 
+						{$start_date}.meta_value = %s 
+						AND {$wpdb->posts}.ID {$this->_where_direction} {$this->_where_post_id} 
+					)
+					OR
+					{$start_date}.meta_value {$this->_where_direction} %s
+				)",
+				$this->_where_start_date,
+				$this->_where_start_date
+			);
 
 			return $where_sql;
 		}
@@ -3820,18 +3851,21 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$mode       = 'next';
 			}
 
-			// This property and the `_where_direction` one are temporary by design to get around 5.2 lack of closures.
+			// This property and the `_where_x` ones are temporary by design to get around 5.2 lack of closures.
+			$this->_where_compare = $direction;
 			$this->_where_post_id   = $post->ID;
+			$start_date = get_post_meta( $post->ID, '_EventStartDate', true );
+			$this->_where_start_date = $start_date;
 
-			$args = array(
+			$args       = array(
 				'post__not_in'   => array( $post->ID ),
-				'meta_key' => '_EventStartDate',
-				'orderby'        => array( 'meta_key_datetime' => $order, 'ID' => $order ),
+				'meta_key'       => '_EventStartDate',
+				'orderby'        => array( '_EventStartDate' => $order, 'ID' => $order ),
 				'posts_per_page' => 1,
 				'meta_query'     => array(
 					array(
 						'key'     => '_EventStartDate',
-						'value'   => get_post_meta( $post->ID, '_EventStartDate', true ),
+						'value'   => $start_date,
 						'compare' => $direction,
 					),
 					array(
@@ -3850,10 +3884,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 * @var WP_Post $post
 			 */
 			$args = (array) apply_filters( "tribe_events_get_{$mode}_event_link", $args, $post );
-			add_filter( 'posts_where', array( $this, 'get_closest_event_where' ) );
+			add_filter( 'posts_where', array( $this, 'get_closest_event_where' ), 10, 2 );
 			$results = tribe_get_events( $args );
 			remove_filter( 'posts_where', array( $this, 'get_closest_event_where' ) );
-			unset( $this->_where_direction, $this->_where_post_id );
+			// Unset the temporary properties we set to get around lack of closure support in PHP 5.2.
+			unset( $this->_where_direction, $this->_where_compare, $this->_where_post_id, $this->_where_start_date );
 
 			$event = null;
 
