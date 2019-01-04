@@ -52,7 +52,7 @@ export default class VenueDetails extends Component {
 	}
 
 	renderVenue = () => {
-		const { venue } = this.props;
+		const { venue, removeVenue } = this.props;
 
 		return (
 			<div
@@ -63,6 +63,7 @@ export default class VenueDetails extends Component {
 				{ this.renderAddress() }
 				{ this.renderPhone() }
 				{ this.renderWebsite() }
+				{ removeVenue }
 			</div>
 		);
 	}
