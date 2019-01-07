@@ -219,7 +219,6 @@ class EventVenue extends Component {
 					className="tribe-editor__venue__actions--close"
 					onClick={ removeVenue }
 				>
-					<Dashicon icon="no-alt" />
 					{ __( 'Remove venue', 'the-events-calendar' ) }
 				</button>
 			</div>
