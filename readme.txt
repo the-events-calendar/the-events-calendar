@@ -218,6 +218,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 = [4.7.4] TBD =
 
 * Fix - Display the tags block delimiter in the editor [119393]
+* Tweak - Ensure we don't re-apply wpautop to content that has had it removed [120562]
 
 = [4.7.3] 2018-12-18 =
 
