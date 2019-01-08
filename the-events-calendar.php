@@ -36,23 +36,3 @@ Tribe__Events__Main::instance();
 
 register_activation_hook( __FILE__, array( 'Tribe__Events__Main', 'activate' ) );
 register_deactivation_hook( __FILE__, array( 'Tribe__Events__Main', 'deactivate' ) );
-
-// include Freemius SDK.
-require_once dirname( __FILE__ ) . '/common/vendor/freemius/start.php';
-fs_dynamic_init( array(
-	'id' => '3069',
-	'slug' => 'the-events-calendar',
-	'type' => 'plugin',
-	'public_key' => 'pk_e32061abc28cfedf231f3e5c4e626',
-	'is_premium' => false,
-	'has_addons' => false,
-	'has_paid_plans' => false,
-	'menu' => array(
-		'slug' => 'edit.php?post_type=tribe_events',
-		'first-path' => 'edit.php?post_type=tribe_events&page=tribe-common&welcome-message-the-events-calendar=1',
-		'account' => false,
-		'contact' => false,
-		'support' => false,
-	),
-) );
-do_action( 'tec_fs_loaded' );
