@@ -218,7 +218,9 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 = [4.7.4] TBD =
 
 * Fix - Display the tags block delimiter in the editor [119393]
-* Fix - Improve the Venue UX, by relocating the "Remove venue" button [120267]
+* Fix - Moved the "Remove venue" button for a better user experience when removing venues from an event [120267]
+* Fix - Fixed a number of small layout bugs with the new Twenty Nineteen core theme [119689]
+* Tweak - Ensure we don't re-apply `wpautop()` to content that has had it removed [120562]
 
 = [4.7.3] 2018-12-18 =
 
