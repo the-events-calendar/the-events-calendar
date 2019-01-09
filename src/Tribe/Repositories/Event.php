@@ -98,6 +98,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			'cost_between'            => array( $this, 'filter_by_cost_between' ),
 			'cost_less_than'          => array( $this, 'filter_by_cost_less_than' ),
 			'cost_greater_than'       => array( $this, 'filter_by_cost_greater_than' ),
+			'on_date'                 => array( $this, 'filter_by_on_date' ),
 		) );
 
 		// Add backcompat aliases.
@@ -1226,5 +1227,35 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		}
 
 		return false;
+	}
+
+	/**
+	 * Filters events to include only those that start on a specific date.
+	 *
+	 * This method is a wrapper for the `filter_by_starts_between` one.
+	 *
+	 * @since TBD
+	 *
+	 * @param      int|string|\DateTime $date A date and time timestamp, string or object.
+	 * @param null $timezone The timezone that should be used to filter events, if not passed
+	 *                        the site one will be used. This paramenter will be ignored if the
+	 *                       `$date` parameter is an object.
+	 */
+	public function filter_by_on_date( $date, $timezone = null ) {
+		$timezone = Tribe__Timezones::build_timezone_object( $timezone );
+		$date     = DateTimeImmutable::createFromMutable( Tribe__Date_Utils::build_date_object( $date, $timezone ) );
+
+		$format = 'Y-m-d H:i:s';
+		$prev_day = $date->sub( new DateInterval( 'P1D' ) );
+		$prev_day_end = tribe_end_of_day( $prev_day->format( $format ), $format );
+		// Re-calculate using the cutoff time.
+		$prev_day = Tribe__Date_Utils::build_date_object( $prev_day_end, $timezone );
+		$one_second = new DateInterval( 'PT1S' );
+
+		// Add on second to the previous day to get the start of this day.
+		$this->filter_by_starts_between(
+			$prev_day->add( $one_second ),
+			tribe_end_of_day( $date->format( $format ) )
+		);
 	}
 }

@@ -184,7 +184,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Day' ) ) {
 				if ( isset( $_POST['tribe_event_category'] ) ) {
 					$args[ Tribe__Events__Main::TAXONOMY ] = $_POST['tribe_event_category'];
 				}
-
+global $wpdb;
 				$query = tribe_get_events( $args, true );
 
 				global $post;

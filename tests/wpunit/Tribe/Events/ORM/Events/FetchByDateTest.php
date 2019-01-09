@@ -402,4 +402,32 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 			$starts_before_ends_on_end,
 		], tribe_events()->where( 'starts_and_ends_between', $start, $end, $ny_timezone_string )->get_ids() );
 	}
+
+	/**
+	 * It should allow fetching events by on date
+	 *
+	 * @test
+	 */
+	public function should_allow_fetching_events_by_on_date() {
+		$ny_timezone_string    = 'America/New_York';
+		extract( $this->create_events_from_dates( [
+			'one'   => [ '2018-01-01 10:00:00', 2 * HOUR_IN_SECONDS ],
+			'two'   => [ '2018-01-10 10:00:00', 2 * HOUR_IN_SECONDS ],
+			'three' => [ '2018-01-10 14:00:00', 2 * HOUR_IN_SECONDS ],
+			'four'  => [ '2018-01-15 15:00:00', 2 * HOUR_IN_SECONDS ],
+			'five'  => [ '2018-01-17 14:00:00', 2 * HOUR_IN_SECONDS ],
+			'six'   => [ '2018-01-19 14:00:00', 2 * HOUR_IN_SECONDS ],
+			'seven' => [ '2018-01-11 02:00:00', 2 * HOUR_IN_SECONDS ],
+		], $ny_timezone_string ) );
+
+		$this->assertEquals( [
+			'2018-01-10 10:00:00',
+			'2018-01-10 14:00:00',
+		], tribe_events()->where( 'on_date', '2018-01-10' )->pluck( 'start_date' ) );
+
+		$this->assertEquals( [
+			'2018-01-10 10:00:00',
+			'2018-01-10 14:00:00',
+		], tribe_events()->where( 'on_date', '2018-01-10', 'Asia/Taipei' )->pluck( 'start_date' ) );
+	}
 }

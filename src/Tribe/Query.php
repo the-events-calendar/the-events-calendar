@@ -1208,6 +1208,11 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 					unset( $args['end_date'] );
 				}
 
+				if ( isset( $args['eventDate'] ) ) {
+					$args['on_date'] = $args['eventDate'];
+					unset( $args['eventDate'] );
+				}
+
 				if ( ! empty( $args['orderby'] ) ) {
 					$event_orm->order_by( $args['orderby'] );
 
