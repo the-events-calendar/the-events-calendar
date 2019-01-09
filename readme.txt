@@ -218,6 +218,8 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 = [4.7.4] TBD =
 
 * Fix - Display the tags block delimiter in the editor [119393]
+* Fix - Give the ability to switch back from all day events in date time block [120266]
+* Tweak - Ensure we don't re-apply wpautop to content that has had it removed [120562]
 * Fix - Properly align the search or create results [120460]
 * Fix - Fix iCal export content for events created with the block editor [118679]
 * Fix - Moved the "Remove venue" button for a better user experience when removing venues from an event [120267]
