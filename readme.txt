@@ -218,6 +218,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 = [4.7.4] TBD =
 
 * Fix - Display the tags block delimiter in the editor [119393]
+* Fix - Properly align the search or create results [120460]
 * Fix - Fix iCal export content for events created with the block editor [118679]
 * Fix - Moved the "Remove venue" button for a better user experience when removing venues from an event [120267]
 * Fix - Date/time block conflicts when clicking to open the block options [119413]
