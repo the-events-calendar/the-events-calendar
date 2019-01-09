@@ -211,7 +211,7 @@ class Tribe__Events__Meta__Save {
 		if ( $event instanceof WP_Post ) {
 			if (
 				isset( $data['EventShowInCalendar'] )
-				&& $data['EventShowInCalendar'] == 'yes'
+				&& tribe_is_truthy( $data['EventShowInCalendar'] )
 				&& $event->menu_order != '-1'
 			) {
 				$update_event = array(
