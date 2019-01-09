@@ -14,10 +14,10 @@
 
 :root {
 	--featured-event-bg: #0ea0d7;
-	--twentynineteen_font__body: "NonBreakingSpaceOverride", "Hoefler Text", "Baskerville Old Face", Garamond, "Times New Roman", serif;
-	--twentynineteen_font__heading: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-	--twentynineteen_font__code: Menlo, monaco, Consolas, Lucida Console, monospace;
-	--twentynineteen_font__pre: "Courier 10 Pitch", Courier, monospace;
+	--twentynineteen-font--body: "NonBreakingSpaceOverride", "Hoefler Text", "Baskerville Old Face", Garamond, "Times New Roman", serif;
+	--twentynineteen-font--heading: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+	--twentynineteen-font--code: Menlo, monaco, Consolas, Lucida Console, monospace;
+	--twentynineteen-font--pre: "Courier 10 Pitch", Courier, monospace;
 }
 
 @define-mixin featured-list-styles {
@@ -2372,16 +2372,17 @@ input[name*='tribe-bar-']:-moz-placeholder {
 ========================================================================== */
 .tribe-theme-twentynineteen {
 
-	h1.tribe-events-page-title::before {
-		content: none;
-	}
-
-	h2.tribe-events-list-separator-month::before {
+	/* Removing the dash above headers in a number of specific places. */
+	h1.tribe-events-page-title::before,
+	h2.tribe-events-list-separator-month::before,
+	h2.tribe-events-day-time-slot-heading::before,
+	.tribe-events-schedule h2::before,
+	.tribe-events-tooltip h3.entry-title::before {
 		content: none;
 	}
 
 	#tribe-bar-form label {
-		font-family: var(--twentynineteen_font__heading);
+		font-family: var(--twentynineteen-font--heading);
 	}
 
 	.tribe-bar-views-inner {
@@ -2389,7 +2390,7 @@ input[name*='tribe-bar-']:-moz-placeholder {
 	}
 
 	#tribe-events .tribe-events-button {
-		font-family: var(--twentynineteen_font__heading);
+		font-family: var(--twentynineteen-font--heading);
 	}
 
 	&.single-tribe_events {
@@ -2408,7 +2409,7 @@ input[name*='tribe-bar-']:-moz-placeholder {
 			border: 0 none;
 
 			dt {
-				font-family: var(--twentynineteen_font__heading);
+				font-family: var(--twentynineteen-font--heading);
 			}
 
 			.tribe-events-meta-group {
@@ -2431,10 +2432,6 @@ input[name*='tribe-bar-']:-moz-placeholder {
 
 		h2 {
 			margin-top: 0;
-
-			&::before {
-				content: none;
-			}
 		}
 	}
 
@@ -2447,34 +2444,24 @@ input[name*='tribe-bar-']:-moz-placeholder {
 
 	.tribe-bar-views-option,
 	#tribe-bar-views-toggle {
-		font-family: var(--twentynineteen_font__heading);
+		font-family: var(--twentynineteen-font--heading);
 		font-size: 0.75rem;
 	}
 
 	.tribe-events-tooltip {
 
 		.tribe-event-duration {
-			font-family: var(--twentynineteen_font__body);
+			font-family: var(--twentynineteen-font--body);
 			font-size: 0.85rem;
 		}
 
 		.tribe-event-description {
-			font-family: var(--twentynineteen_font__body);
+			font-family: var(--twentynineteen-font--body);
 			font-size: 0.65rem;
 		}
 
 		h3.entry-title {
 			font-size: 1rem;
-
-			&:before {
-				content: none;
-			}
-		}
-	}
-
-	h2.tribe-events-day-time-slot-heading {
-		&:before {
-			content: none;
 		}
 	}
 }

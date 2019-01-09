@@ -24,10 +24,10 @@
 
 :root {
 	--featured-event-bg: #0ea0d7;
-	--twentynineteen_font__body: "NonBreakingSpaceOverride", "Hoefler Text", "Baskerville Old Face", Garamond, "Times New Roman", serif;
-	--twentynineteen_font__heading: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-	--twentynineteen_font__code: Menlo, monaco, Consolas, Lucida Console, monospace;
-	--twentynineteen_font__pre: "Courier 10 Pitch", Courier, monospace;
+	--twentynineteen-font--body: "NonBreakingSpaceOverride", "Hoefler Text", "Baskerville Old Face", Garamond, "Times New Roman", serif;
+	--twentynineteen-font--heading: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+	--twentynineteen-font--code: Menlo, monaco, Consolas, Lucida Console, monospace;
+	--twentynineteen-font--pre: "Courier 10 Pitch", Courier, monospace;
 }
 
 /* Cost */
@@ -2418,17 +2418,19 @@ input[name*='tribe-bar-']:-moz-placeholder {
 /* Twenty Nineteen
 ========================================================================== */
 
-.tribe-theme-twentynineteen h1.tribe-events-page-title::before {
-		content: none;
-	}
+/* Removing the dash above headers in a number of specific places. */
 
-.tribe-theme-twentynineteen h2.tribe-events-list-separator-month::before {
+.tribe-theme-twentynineteen h1.tribe-events-page-title::before,
+	.tribe-theme-twentynineteen h2.tribe-events-list-separator-month::before,
+	.tribe-theme-twentynineteen h2.tribe-events-day-time-slot-heading::before,
+	.tribe-theme-twentynineteen .tribe-events-schedule h2::before,
+	.tribe-theme-twentynineteen .tribe-events-tooltip h3.entry-title::before {
 		content: none;
 	}
 
 .tribe-theme-twentynineteen #tribe-bar-form label {
 		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-		font-family: var(--twentynineteen_font__heading);
+		font-family: var(--twentynineteen-font--heading);
 	}
 
 .tribe-theme-twentynineteen .tribe-bar-views-inner {
@@ -2437,7 +2439,7 @@ input[name*='tribe-bar-']:-moz-placeholder {
 
 .tribe-theme-twentynineteen #tribe-events .tribe-events-button {
 		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-		font-family: var(--twentynineteen_font__heading);
+		font-family: var(--twentynineteen-font--heading);
 	}
 
 .tribe-theme-twentynineteen.single-tribe_events #tribe-events-content {
@@ -2456,7 +2458,7 @@ input[name*='tribe-bar-']:-moz-placeholder {
 
 .tribe-theme-twentynineteen.single-tribe_events .tribe-events-event-meta dt {
 				font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-				font-family: var(--twentynineteen_font__heading);
+				font-family: var(--twentynineteen-font--heading);
 			}
 
 .tribe-theme-twentynineteen.single-tribe_events .tribe-events-event-meta .tribe-events-meta-group {
@@ -2480,10 +2482,6 @@ input[name*='tribe-bar-']:-moz-placeholder {
 			margin-top: 0;
 		}
 
-.tribe-theme-twentynineteen .tribe-events-schedule h2::before {
-				content: none;
-			}
-
 .tribe-theme-twentynineteen .tribe-events-loop .tribe-events-event-meta {
 			font-size: 0.9rem;
 		}
@@ -2491,32 +2489,24 @@ input[name*='tribe-bar-']:-moz-placeholder {
 .tribe-theme-twentynineteen .tribe-bar-views-option,
 	.tribe-theme-twentynineteen #tribe-bar-views-toggle {
 		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-		font-family: var(--twentynineteen_font__heading);
+		font-family: var(--twentynineteen-font--heading);
 		font-size: 0.75rem;
 	}
 
 .tribe-theme-twentynineteen .tribe-events-tooltip .tribe-event-duration {
 			font-family: "NonBreakingSpaceOverride", "Hoefler Text", "Baskerville Old Face", Garamond, "Times New Roman", serif;
-			font-family: var(--twentynineteen_font__body);
+			font-family: var(--twentynineteen-font--body);
 			font-size: 0.85rem;
 		}
 
 .tribe-theme-twentynineteen .tribe-events-tooltip .tribe-event-description {
 			font-family: "NonBreakingSpaceOverride", "Hoefler Text", "Baskerville Old Face", Garamond, "Times New Roman", serif;
-			font-family: var(--twentynineteen_font__body);
+			font-family: var(--twentynineteen-font--body);
 			font-size: 0.65rem;
 		}
 
 .tribe-theme-twentynineteen .tribe-events-tooltip h3.entry-title {
 			font-size: 1rem;
-		}
-
-.tribe-theme-twentynineteen .tribe-events-tooltip h3.entry-title:before {
-				content: none;
-			}
-
-.tribe-theme-twentynineteen h2.tribe-events-day-time-slot-heading:before {
-			content: none;
 		}
 
 /* = Events Retina
