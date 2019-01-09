@@ -139,7 +139,7 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 	 * @return \stdClass The post insertion/update payload with an added `meta_input` entry if
 	 *                   the insertion/update of UTC dates is required.
 	 */
-	public function add_utc_dates($post_data, WP_REST_Request $request) {
+	public function add_utc_dates( $post_data, WP_REST_Request $request ) {
 		$json_params = $request->get_json_params();
 		$meta = Tribe__Utils__Array::get( $json_params, 'meta', array() );
 
