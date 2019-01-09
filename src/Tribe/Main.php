@@ -4829,11 +4829,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return boolean [description]
 		 */
 		public function is_delayed_activation() {
-/*			_deprecated_function(
+			_deprecated_function(
 				__METHOD__,
 				'',
 				'TBD'
-			);*/
+			);
 
 			return (bool) get_transient( $this->key_delayed_activation_outdated_common );
 		}
@@ -4849,11 +4849,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return bool
 		 */
 		public function maybe_delay_activation_if_outdated_common() {
-/*			_deprecated_function(
+			_deprecated_function(
 				__METHOD__,
 				'',
 				'TBD'
-			);*/
+			);
 
 			// Only if Common is loaded correctly
 			if ( ! class_exists( 'Tribe__Main' ) ) {
@@ -4887,7 +4887,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public function checkAddOnCompatibility() {
 			_deprecated_function(
 				__METHOD__,
-				'',
+				'Use Tribe__Dependency Class instead.',
 				'TBD'
 			);
 
