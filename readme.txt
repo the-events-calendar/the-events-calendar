@@ -216,6 +216,10 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
+= [4.8] TBD =
+
+* Feature - add system to check plugin versions to inform you to update and prevent site breaking errors [116841]
+
 = [4.7.2] 2018-12-13 =
 
 * Feature - Add new action `tribe_events_before_event_template_data_date_display` and `tribe_events_after_event_template_data_date_display`
