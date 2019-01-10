@@ -44,20 +44,19 @@
 	<div class="tribe-half-column">
 		<h2 data-tribe-icon="dashicons-megaphone"><?php esc_html_e( 'Don\'t Miss Out', 'the-events-calendar' ); ?></h2>
 		<p><?php esc_html_e( 'Get the latest on The Events Calendar, occasional discounts, and hilarious gifs delivered straight to your inbox.', 'the-events-calendar' ); ?></p>
-		<form id="subForm" class="js-cm-form" action="https://www.createsend.com/t/subscribeerror?description=" method="post" data-id="5B5E7037DA78A748374AD499497E309E4B5B9EDD1E951EF147AAADB4A3E12D9E9787C0F45F75858066CA86E8304E95F49CDB57115BC93CCF66450D4FDD3CEF5B">
-		<p>
-		    <input id="fieldEmail" name="cm-athqh-athqh" placeholder="<?php esc_attr_e( 'Email', 'the-events-calendar' ); ?>" type="email" class="js-cm-email-input medium-text" required />
-		</p>
-		<div>
-		    <input id="cm-privacy-consent" name="cm-privacy-consent" required type="checkbox" role="checkbox" aria-checked="false" />
-		    <label for="cm-privacy-consent"><?php esc_html_e( 'Add me to the list', 'the-events-calendar' ); ?></label>
-		    <input id="cm-privacy-consent-hidden" name="cm-privacy-consent-hidden" type="hidden" value="true" />
-		</div>
-		<p>
-		    <button class="js-cm-submit-button button button-primary" type="submit"><?php esc_html_e( 'Subscribe', 'the-events-calendar' ); ?></button>
-		</p>
+
+		<form action="https://moderntribe.createsend.com/t/r/s/athqh/" method="post">
+			<p><input id="fieldEmail" class="regular-text" name="cm-athqh-athqh" type="email" placeholder="<?php esc_attr_e( 'Email', 'the-events-calendar' ); ?>" required /></p>
+			<div>
+				<input id="cm-privacy-consent" name="cm-privacy-consent" required type="checkbox" role="checkbox" aria-checked="false" />
+				<label for="cm-privacy-consent"><?php esc_html_e( 'Add me to the list', 'the-events-calendar' ); ?></label>
+		   		<input id="cm-privacy-consent-hidden" name="cm-privacy-consent-hidden" type="hidden" value="true" />
+			</div>
+			<p>
+				<button type="submit" class="button-primary"><?php esc_html_e( 'Sign Up', 'the-events-calendar' ); ?></button>
+			</p>
 		</form>
-		<script type="text/javascript" src="https://js.createsend1.com/javascript/copypastesubscribeformlogic.js"></script>
+
 	</div>
 </div>
 
