@@ -98,7 +98,10 @@ class Tribe__Events__Meta__Save {
 	 */
 	public function save() {
 
-		if ( tribe( 'tec.gutenberg' )->should_display() ) {
+		if (
+			tribe( 'tec.gutenberg' )->should_display()
+			&& tribe( 'events.editor.compatibility' )->is_blocks_editor_toggled_on()
+		) {
 			return $this->save_block_editor_metadata( $this->post_id, $_POST, $this->post );
 		}
 
