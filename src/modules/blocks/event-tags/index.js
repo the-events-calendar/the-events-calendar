@@ -18,8 +18,8 @@ import { Tags } from '@moderntribe/events/icons';
  */
 export default {
 	id: 'event-tags',
-	title: __( 'Tags', 'events-gutenberg' ),
-	description: __( 'Add keywords by displaying linked tags.', 'events-gutenberg' ),
+	title: __( 'Tags', 'the-events-calendar' ),
+	description: __( 'Add keywords by displaying linked tags.', 'the-events-calendar' ),
 	icon: <Tags/>,
 	category: 'common',
 	keywords: [ 'event', 'events-gutenberg', 'tribe' ],

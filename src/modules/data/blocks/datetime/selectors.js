@@ -7,27 +7,37 @@ export const datetimeSelector = ( state ) => state.events.blocks.datetime;
 
 export const getStart = createSelector(
 	[ datetimeSelector ],
-	( datetime ) => datetime.start
+	( datetime ) => datetime.start,
 );
 
 export const getEnd = createSelector(
 	[ datetimeSelector ],
-	( datetime ) => datetime.end
+	( datetime ) => datetime.end,
+);
+
+export const getStartTimeInput = createSelector(
+	[ datetimeSelector ],
+	( datetime ) => datetime.startTimeInput,
+);
+
+export const getEndTimeInput = createSelector(
+	[ datetimeSelector ],
+	( datetime ) => datetime.endTimeInput,
 );
 
 export const getAllDay = createSelector(
 	[ datetimeSelector ],
-	( datetime ) => datetime.allDay
+	( datetime ) => datetime.allDay,
 );
 
 export const getMultiDay = createSelector(
 	[ datetimeSelector ],
-	( datetime ) => datetime.multiDay
+	( datetime ) => datetime.multiDay,
 );
 
 export const getDateSeparator = createSelector(
 	[ datetimeSelector ],
-	( datetime ) => datetime.dateTimeSeparator
+	( datetime ) => datetime.dateTimeSeparator,
 );
 
 export const getTimeSeparator = createSelector(

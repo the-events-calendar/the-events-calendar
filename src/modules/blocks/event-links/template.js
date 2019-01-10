@@ -23,8 +23,8 @@ import './style.pcss';
  * Module Code
  */
 
-const googleCalendarPlaceholder = __( 'Google Calendar', 'events-gutenberg' );
-const iCalExportPlaceholder = __( 'iCal Export', 'events-gutenberg' );
+const googleCalendarPlaceholder = __( 'Google Calendar', 'the-events-calendar' );
+const iCalExportPlaceholder = __( 'iCal Export', 'the-events-calendar' );
 
 const renderPlaceholder= ( label ) => (
 	<button className="tribe-editor__btn--link tribe-editor__btn--placeholder" disabled>
@@ -98,14 +98,14 @@ const renderControls = ({
 }) => (
 	isSelected && (
 		<InspectorControls key="inspector">
-			<PanelBody title={ __( 'Share Settings', 'events-gutenberg' ) }>
+			<PanelBody title={ __( 'Share Settings', 'the-events-calendar' ) }>
 				<ToggleControl
-					label={ __( 'Google Calendar', 'events-gutenberg' ) }
+					label={ __( 'Google Calendar', 'the-events-calendar' ) }
 					checked={ hasGoogleCalendar }
 					onChange={ toggleGoogleCalendar }
 				/>
 				<ToggleControl
-					label={ __( 'iCal', 'events-gutenberg' ) }
+					label={ __( 'iCal', 'the-events-calendar' ) }
 					checked={ hasiCal }
 					onChange={ toggleIcalLabel }
 				/>

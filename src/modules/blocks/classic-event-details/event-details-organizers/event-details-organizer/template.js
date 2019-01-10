@@ -23,7 +23,7 @@ import './style.pcss';
 
 const EventDetailsOrganizer = ( props ) => {
 	const getOrganizerName = ( { title } ) => {
-		const { rendered = __( '(Untitled)', 'events-gutenberg' ) } = title;
+		const { rendered = __( '(Untitled)', 'the-events-calendar' ) } = title;
 		return trim( unescape( rendered ) );
 	};
 
@@ -37,7 +37,7 @@ const EventDetailsOrganizer = ( props ) => {
 		&& (
 			<IconButton
 				className="tribe-editor__btn tribe-editor__btn--action"
-				label={ __( 'Remove Organizer', 'events-gutenberg' ) }
+				label={ __( 'Remove Organizer', 'the-events-calendar' ) }
 				onClick={ onRemoveClick( organizerId ) }
 				icon={ <Dashicon icon="no" /> }
 			/>
