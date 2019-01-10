@@ -18,13 +18,13 @@
 		<ul>
 			<li><a href="http://m.tri.be/1aa3" target="_blank"><?php esc_html_e( 'New User Primer', 'the-events-calendar' ); ?></a></li>
 			<li><a href="http://m.tri.be/1aa4" target="_blank"><?php esc_html_e( 'Settings Overview', 'the-events-calendar' ); ?></a></li>
-			<li><a href="http://m.tri.be/1aa5" target="_blank"><?php esc_html_e( 'Themer\'s Guide', 'the-events-calendar' ); ?></a></li>
+			<li><a href="http://m.tri.be/1aa5" target="_blank"><?php esc_html_e( "Themer's Guide", 'the-events-calendar' ); ?></a></li>
 		</ul>
 	</div>
 
 	<div class="tribe-half-column">
 		<h2 data-tribe-icon="dashicons-sos"><?php esc_html_e( 'Resources and Support', 'the-events-calendar' ); ?></h2>
-		<p><?php esc_html_e( 'We’ve got your back every step of the way.', 'the-events-calendar' ); ?></p>
+		<p><?php esc_html_e( "We've got your back every step of the way.", 'the-events-calendar' ); ?></p>
 		<ul>
 			<li><a href="http://m.tri.be/1aa6" target="_blank"><?php esc_html_e( 'Search the Knowledgebase', 'the-events-calendar' ); ?></a></li>
 			<li><a href="http://m.tri.be/1aa7" target="_blank"><?php esc_html_e( 'Available Translations', 'the-events-calendar' ); ?></a></li>
@@ -42,7 +42,7 @@
 	</div>
 
 	<div class="tribe-half-column">
-		<h2 data-tribe-icon="dashicons-megaphone"><?php esc_html_e( 'Don\'t Miss Out', 'the-events-calendar' ); ?></h2>
+		<h2 data-tribe-icon="dashicons-megaphone"><?php esc_html_e( "Don't Miss Out", 'the-events-calendar' ); ?></h2>
 		<p><?php esc_html_e( 'Get the latest on The Events Calendar, occasional discounts, and hilarious gifs delivered straight to your inbox.', 'the-events-calendar' ); ?></p>
 
 		<form action="https://moderntribe.createsend.com/t/r/s/athqh/" method="post">
