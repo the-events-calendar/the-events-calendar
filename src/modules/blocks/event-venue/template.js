@@ -33,7 +33,6 @@ import {
 import { editor } from '@moderntribe/common/data';
 import VenueDetails from './venue-details';
 import { Venue as VenueIcon } from '@moderntribe/events/icons';
-import { Close as CloseIcon } from '@moderntribe/common/icons';
 import { utils } from '@moderntribe/events/data/blocks/venue';
 import { google, mapsAPI } from '@moderntribe/common/utils/globals';
 import './style.pcss';
@@ -138,6 +137,7 @@ class EventVenue extends Component {
 				showMapLink={ showMapLink }
 				afterTitle={ this.renderEditAction() }
 				maybeEdit={ this.maybeEdit }
+				removeVenue={ this.renderRemoveAction() }
 			/>
 		);
 	}
@@ -219,7 +219,7 @@ class EventVenue extends Component {
 					className="tribe-editor__venue__actions--close"
 					onClick={ removeVenue }
 				>
-					<CloseIcon />
+					{ __( 'Remove venue', 'the-events-calendar' ) }
 				</button>
 			</div>
 		);
@@ -235,7 +235,6 @@ class EventVenue extends Component {
 			<div key="event-venue-box" className={ containerClass }>
 				{ this.renderContainer() }
 				{ this.renderMap() }
-				{ this.renderRemoveAction() }
 			</div>
 		);
 	}
