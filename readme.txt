@@ -218,6 +218,8 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 = [4.7.4] TBD =
 
 * Fix - Display the tags block delimiter in the editor [119393]
+* Fix - Fixed a number of small layout bugs with the new Twenty Nineteen core theme [119689]
+* Fix - Save the "Event Options" when using the block editor [120168]
 * Fix - Filter correctly when in Classic Editor page [120137]
 * Fix - Give the ability to switch back from all day events in date time block [120266]
 * Fix - Properly align the search or create results [120460]
