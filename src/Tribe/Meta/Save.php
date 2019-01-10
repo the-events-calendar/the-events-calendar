@@ -209,9 +209,10 @@ class Tribe__Events__Meta__Save {
 
 		// Set sticky state for calendar view.
 		if ( $event instanceof WP_Post ) {
+			$show_in_cal = Tribe__Utils__Array::get( $data, array( 'EventShowInCalendar' ), false );
 			if (
-				isset( $data['EventShowInCalendar'] )
-				&& tribe_is_truthy( $data['EventShowInCalendar'] )
+				$show_in_cal
+				&& tribe_is_truthy( $show_in_cal )
 				&& $event->menu_order != '-1'
 			) {
 				$update_event = array(
@@ -221,10 +222,10 @@ class Tribe__Events__Meta__Save {
 				wp_update_post( $update_event );
 			} elseif (
 				(
-					! isset( $data['EventShowInCalendar'] )
-					|| 'yes' !== $data['EventShowInCalendar']
+					! $show_in_cal
+					|| ! tribe_is_truthy( $show_in_cal )
 				)
-				&& $event->menu_order === '-1'
+				&& $event->menu_order == '-1'
 			) {
 				$update_event = array(
 					'ID'         => $event_id,
