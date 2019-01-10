@@ -27,6 +27,7 @@
   "common/vendor/tribe-select2/*.js",
   "common/vendor/tribe-select2/*.gif",
   "common/vendor/tribe-select2/*.png",
+  "common/vendor/freemius/*",
   "common/vendor/attrchange/js/*.js",
   "lang/**/*",
   "license.txt",
