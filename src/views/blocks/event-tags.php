@@ -16,5 +16,5 @@
 $event_id = $this->get( 'post_id' );
 ?>
 <div class="tribe-events-single-section tribe-events-section-tags tribe-clearfix">
-	<?php echo tribe_meta_event_tags( sprintf( esc_html__( '%s Tags:', 'the-events-calendar' ), tribe_get_event_label_singular() ), ', ', false ) ?>
+	<?php echo tribe_meta_event_tags( esc_html__( 'Tags', 'the-events-calendar' ), ', ', false ) ?>
 </div>
