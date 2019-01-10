@@ -121,8 +121,8 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 		$utc = new DateTimeZone( 'UTC' );
 		$utc_start_date = Tribe__Date_Utils::build_date_object( $data->data['meta']['_EventStartDate'], $timezone );
 		$utc_end_date = Tribe__Date_Utils::build_date_object( $data->data['meta']['_EventEndDate'], $timezone );
-		$data->data['meta']['_EventStartDateUTC'] = $utc_start_date->setTimezone( $utc )->format( 'Y-m-d H:I:s' );
-		$data->data['meta']['_EventEndDateUTC'] = $utc_end_date->setTimezone( $utc )->format( 'Y-m-d H:I:s' );
+		$data->data['meta']['_EventStartDateUTC'] = $utc_start_date->setTimezone( $utc )->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
+		$data->data['meta']['_EventEndDateUTC'] = $utc_end_date->setTimezone( $utc )->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
 
 		return $data;
 	}
