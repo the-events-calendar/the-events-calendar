@@ -1105,8 +1105,10 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 
 		$timestamp_key = 'TIMESTAMP(mt1.meta_value)';
 
-		if ( isset( $check_orderby['event_date'] ) || in_array( 'event_date', $check_orderby, true ) ) {
-			$check_orderby  = 'event_date';
+		$by_event_start_date = isset( $check_orderby['event_date'] ) || in_array( 'event_date', $check_orderby, true );
+		$by_event_start_date_utc = isset( $check_orderby['event_date_utc'] ) || in_array( 'event_date_utc', $check_orderby, true );
+		if ( $by_event_start_date || $by_event_start_date_utc  ) {
+			$check_orderby  = $by_event_start_date ? 'event_date' : 'event_date_utc';
 			$postmeta_table = "orderby_{$check_orderby}_meta";
 
 			$meta_key = '_EventStartDate';
@@ -1122,8 +1124,11 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			 */
 			$force_local_tz = apply_filters( 'tribe_events_query_force_local_tz', false );
 
-			if ( ! $force_local_tz && Tribe__Events__Timezones::is_mode( 'site' ) ) {
-				$event_start_key .= 'UTC';
+			if (
+				$by_event_start_date_utc
+				|| ( ! $force_local_tz && Tribe__Events__Timezones::is_mode( 'site' ) )
+			) {
+				$meta_key .= 'UTC';
 			}
 
 			$this->filter_query->join( $wpdb->prepare( "

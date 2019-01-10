@@ -417,17 +417,56 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 			'four'  => [ '2018-01-15 15:00:00', 2 * HOUR_IN_SECONDS ],
 			'five'  => [ '2018-01-17 14:00:00', 2 * HOUR_IN_SECONDS ],
 			'six'   => [ '2018-01-19 14:00:00', 2 * HOUR_IN_SECONDS ],
-			'seven' => [ '2018-01-11 02:00:00', 2 * HOUR_IN_SECONDS ],
+			'seven' => [ '2018-01-09 23:00:00', 2 * HOUR_IN_SECONDS ],
 		], $ny_timezone_string ) );
+		$events = tribe_events()
+			->per_page( - 1 )
+			->order_by( 'event_date_utc', 'ASC' )
+			->collect();
+		codecept_debug( 'Event dates in ASC UTC date order: '
+		                . implode( PHP_EOL, $events->pluck_meta( '_EventStartDateUTC' ) ) );
 
+		$utc_matches = tribe_events()
+			->where( 'on_date', '2018-01-10' )
+			->order_by( 'event_date', 'DESC' )
+			->collect();
 		$this->assertEquals( [
-			'2018-01-10 10:00:00',
 			'2018-01-10 14:00:00',
-		], tribe_events()->where( 'on_date', '2018-01-10' )->pluck( 'start_date' ) );
+			'2018-01-10 10:00:00',
+			'2018-01-09 23:00:00',
+		], $utc_matches->pluck_meta( '_EventStartDate' ) );
 
+		$to_taipei_tz = function ( \WP_Post $p ) {
+			$utc_start = get_post_meta( $p->ID, '_EventStartDateUTC', true );
+
+			return ( new \DateTime( $utc_start, new \DateTimeZone( 'UTC' ) ) )
+				->setTimezone( new \DateTimeZone( 'Asia/Taipei' ) )
+				->format( 'Y-m-d H:i:s' );
+		};
+
+		codecept_debug( 'Event dates in ASC Asia/Taipei date order: '
+		                . implode( PHP_EOL, $events->map( $to_taipei_tz ) ) );
+
+		$taipei_matches = tribe_events()
+			->where( 'on_date', '2018-01-10', 'Asia/Taipei' )
+			->order_by( 'event_date', 'DESC' )
+			->collect();
 		$this->assertEquals( [
-			'2018-01-10 10:00:00',
 			'2018-01-10 14:00:00',
-		], tribe_events()->where( 'on_date', '2018-01-10', 'Asia/Taipei' )->pluck( 'start_date' ) );
+			'2018-01-10 10:00:00',
+			'2018-01-09 23:00:00',
+		], $taipei_matches->pluck_meta( '_EventStartDate' ) );
+
+		codecept_debug( 'Event dates in ASC America/New_York date order: '
+		                . implode( PHP_EOL, $events->pluck_meta( '_EventStartDate' ) ) );
+
+		$ny_matches = tribe_events()
+			->where( 'on_date', '2018-01-10', 'America/New_York' )
+			->order_by( 'event_date', 'DESC' )
+			->collect();
+		$this->assertEquals( [
+			'2018-01-10 14:00:00',
+			'2018-01-10 10:00:00',
+		], $ny_matches->pluck_meta( '_EventStartDate' ) );
 	}
 }
