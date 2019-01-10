@@ -165,10 +165,10 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 		$end_date        = Tribe__Utils__Array::get( $meta, '_EventEndDate', $end_date );
 		$utc_start_date  = Tribe__Date_Utils::build_date_object( $start_date, $timezone )
 											->setTimezone( $utc )
-											->format( 'Y-m-d H:i:s' );
+											->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
 		$utc_end_date    = Tribe__Date_Utils::build_date_object( $end_date, $timezone )
 											->setTimezone( $utc )
-											->format( 'Y-m-d H:i:s' );
+											->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
 		$post_data->meta_input['_EventStartDateUTC'] = $utc_start_date;
 		$post_data->meta_input['_EventEndDateUTC'] = $utc_end_date;
 
