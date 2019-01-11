@@ -1200,6 +1200,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 					unset( $args['hide_upcoming'] );
 				}
 
+
 				if ( isset( $args['start_date'] ) && false === $args['start_date'] ) {
 					unset( $args['start_date'] );
 				}
@@ -1219,8 +1220,28 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 					unset( $args['orderby'] );
 				}
 
+				if ( ! empty( $args['tribe_is_past'] ) ) {
+					$args['order'] = 'DESC';
+					$pivot_date    = tribe_get_request_var( 'tribe-bar-date', 'today' );
+					$date          = Tribe__Date_Utils::build_date_object( $pivot_date );
+					// Remove any existing date meta queries.
+					if ( isset( $args['meta_query'] ) ) {
+						$args['meta_query'] = tribe_filter_meta_query(
+							$args['meta_query'],
+							array( 'key' => '/_Event(Start|End)Date(UTC)/' )
+						);
+					}
+					$args['starts_before'] = tribe_beginning_of_day( $date->format( 'Y-m-d H:i:s' ) );
+				}
+
 				if ( null !== $hidden ) {
 					$event_orm->by( 'hidden', $hidden );
+					if ( isset( $args['meta_query'] ) ) {
+						$args['meta_query'] = tribe_filter_meta_query(
+							$args['meta_query'],
+							array( 'key' => '_EventHideFromUpcoming' )
+						);
+					}
 				}
 
 				$event_orm->by_args( $args );
@@ -1326,8 +1347,5 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		public static function default_page_on_front( $value ) {
 			return tribe( 'tec.front-page-view' )->is_virtual_page_id( $value ) ? 0 : $value;
 		}
-
-
 	}
-
 }

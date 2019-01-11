@@ -70,27 +70,32 @@ if ( ! class_exists( 'Tribe__Events__Template__List' ) ) {
 			Tribe__Events__Query::init();
 
 			$tribe_paged = ( ! empty( $_POST['tribe_paged'] ) ) ? intval( $_POST['tribe_paged'] ) : 1;
+			$display = tribe_get_request_var( 'tribe_event_display', 'list' );
+
 			$post_status = array( 'publish' );
 			if ( is_user_logged_in() ) {
 				$post_status[] = 'private';
 			}
 
 			$args = array(
-				'eventDisplay' => 'list',
+				'eventDisplay' => $display,
 				'post_type'    => Tribe__Events__Main::POSTTYPE,
 				'post_status'  => $post_status,
 				'paged'        => $tribe_paged,
 				'featured'     => tribe( 'tec.featured_events' )->featured_events_requested(),
 			);
 
-			// check & set display
-			if ( isset( $_POST['tribe_event_display'] ) ) {
-				if ( 'past' === $_POST['tribe_event_display'] ) {
-					$args['eventDisplay'] = 'past';
-					$args['order'] = 'DESC';
-				} elseif ( 'all' === $_POST['tribe_event_display'] ) {
-					$args['eventDisplay'] = 'all';
-				}
+			// Apply display and date.
+			$date = tribe_get_request_var( 'tribe-bar-date', 'now' );
+
+			$args['eventDisplay'] = $display;
+
+			if ( 'list' === $display ) {
+				$args['starts_after'] = $date;
+				$args['order']        = 'ASC';
+			} elseif ( 'past' === $display ) {
+				$args['starts_before'] = $date;
+				$args['order']         = 'DESC';
 			}
 
 			// check & set event category
