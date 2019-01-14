@@ -31,7 +31,7 @@
   "lang/**/*",
   "license.txt",
   "readme.txt",
-  "site_owner_data_collection_statement.html"
+  "site_owner_data_collection_statement.html",
   "src/**/*",
   "the-events-calendar.php",
   "vendor/bootstrap-datepicker/css/*.css",
@@ -46,5 +46,5 @@
   "vendor/jquery/smoothness/*.css",
   "vendor/jquery/smoothness/images/*.png",
   "vendor/php-date-formatter/js/*.js",
-  "vendor/tribe-common-libraries/**/*",
+  "vendor/tribe-common-libraries/**/*"
 ]
