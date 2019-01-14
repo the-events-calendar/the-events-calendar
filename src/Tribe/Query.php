@@ -1143,6 +1143,10 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			);
 
 			$args = wp_parse_args( $args, $defaults );
+			$event_display = tribe_get_request_var(
+				'tribe_event_display',
+				Tribe__Utils__Array::get( $args, 'eventDisplay', false )
+			);
 
 			$return_found_posts = ! empty( $args['found_posts'] );
 
@@ -1186,8 +1190,8 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 					$event_orm->set_render_context( $args['tribe_render_context'] );
 				}
 
-				if ( isset( $args['eventDisplay'] ) ) {
-					$event_orm->set_display_context( $args['eventDisplay'] );
+				if ( ! empty( $event_display ) ) {
+					$event_orm->set_display_context( $event_display );
 				}
 
 				// Backcompat defaults.
@@ -1222,7 +1226,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 
 				if ( ! empty( $args['tribe_is_past'] ) ) {
 					$args['order'] = 'DESC';
-					$pivot_date    = tribe_get_request_var( 'tribe-bar-date', 'today' );
+					$pivot_date    = tribe_get_request_var( 'tribe-bar-date', 'now' );
 					$date          = Tribe__Date_Utils::build_date_object( $pivot_date );
 					// Remove any existing date meta queries.
 					if ( isset( $args['meta_query'] ) ) {
