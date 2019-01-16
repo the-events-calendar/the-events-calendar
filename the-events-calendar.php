@@ -35,7 +35,7 @@ require_once dirname( TRIBE_EVENTS_FILE ) . '/src/functions/php-min-version.php'
 /**
  * Verifies if we need to warn the user about min PHP version and bail to avoid fatals
  */
-if ( tribe_events_is_not_min_php_version( PHP_VERSION ) ) {
+if ( tribe_events_is_not_min_php_version() ) {
 	tribe_events_not_php_version_textdomain();
 	add_action( 'admin_notices', 'tribe_events_not_php_version_notice' );
 	return false;
