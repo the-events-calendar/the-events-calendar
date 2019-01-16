@@ -38,9 +38,9 @@ function tribe_events_not_php_version_message() {
 			tribe_events_get_php_min_version()
 		) ) .
 		'<br />' .
-		esc_attr__( 'To allow better control over dates, advanced security improvements and performance gain.', 'the-events-calendar' ) .
+		esc_html__( 'To allow better control over dates, advanced security improvements and performance gain.', 'the-events-calendar' ) .
 		'<br />' .
-		esc_attr( sprintf(
+		esc_html( sprintf(
 			__( 'Contact your Hosting or your system administrator and ask to Upgrade to version %1$s of PHP.', 'the-events-calendar' ),
 			tribe_events_get_php_min_version()
 		) );
