@@ -29,10 +29,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 define( 'TRIBE_EVENTS_FILE', __FILE__ );
 
-// the main plugin class
-require_once dirname( __FILE__ ) . '/src/Tribe/Main.php';
+// Load the required php min version functions
+require_once dirname( TRIBE_EVENTS_FILE ) . '/src/functions/php-min-version.php';
+
+/**
+ * Verifies if we need to warn the user about min PHP version and bail to avoid fatals
+ */
+if ( tribe_events_is_not_min_php_version( PHP_VERSION ) ) {
+	tribe_events_not_php_version_textdomain();
+	add_action( 'admin_notices', 'tribe_events_not_php_version_notice' );
+	return false;
+}
+
+/**
+ * Loads the action plugin
+ */
+require_once dirname( TRIBE_EVENTS_FILE ) . '/src/Tribe/Main.php';
 
 Tribe__Events__Main::instance();
 
-register_activation_hook( __FILE__, array( 'Tribe__Events__Main', 'activate' ) );
-register_deactivation_hook( __FILE__, array( 'Tribe__Events__Main', 'deactivate' ) );
+register_activation_hook( TRIBE_EVENTS_FILE, array( 'Tribe__Events__Main', 'activate' ) );
+register_deactivation_hook( TRIBE_EVENTS_FILE, array( 'Tribe__Events__Main', 'deactivate' ) );
+
