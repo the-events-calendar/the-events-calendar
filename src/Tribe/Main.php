@@ -371,6 +371,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			) {
 				add_action( 'admin_notices', array( $this, 'compatibility_notice' ) );
 				add_action( 'network_admin_notices', array( $this, 'compatibility_notice' ) );
+				add_filter( 'tribe_ecp_to_run_or_not_to_run', array( $this, 'disable_pro' ) );
 
 				return;
 			}
@@ -1470,6 +1471,15 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				) .
 			'</p></div>';
 
+		}
+
+		/**
+		 * Disable Pro from Running if TEC shutsdown because Event Tickets is an older version
+		 *
+		 * @return bool
+		 */
+		public function disable_pro() {
+			return false;
 		}
 
 		/**
