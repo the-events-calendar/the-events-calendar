@@ -231,7 +231,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Tweak - Ensure we don't re-apply `wpautop()` to content that has had it removed [120562]
 * Tweak - Adjusted content in the admin welcome page that users are brought to upon newly activating The Events Calendar [117795]
 
-= [4.7.3] 2018-12-18 =
+= [4.7.3] 2018-12-19 =
 
 * Tweak - Tweak the registration of the Event, Venue, and Organizer post types so they use some new post type labels introduced in WordPress 5.0 like `item_updated`, `item_scheduled`, etc. [119451]
 * Fix - Password protected events breaking the month view. Thanks to Lindsay, Simon and others for flagging this out! [117385]
