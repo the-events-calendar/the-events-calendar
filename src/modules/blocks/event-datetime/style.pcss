@@ -8,7 +8,6 @@
 }
 
 .tribe-editor__subtitle__headline {
-	display: flex;
 	font-size: 19px;
 	font-style: normal;
 	font-family: Helvetica, Arial, sans-serif;
@@ -16,11 +15,8 @@
 	line-height: normal;
 	margin-bottom: 0;
 	margin-top: 0;
-
-	> * {
-		flex: 0 1 auto;
-		align-self: center;
-	}
+	position: relative;
+	z-index: 20;
 
 	.button-link {
 		color: #060606;
@@ -30,6 +26,15 @@
 
 	.tribe-editor__date-time & {
 		padding: 0;
+	}
+}
+
+.tribe-editor__subtitle__headline-content {
+	display: flex;
+
+	> * {
+		flex: 0 1 auto;
+		align-self: center;
 	}
 }
 
