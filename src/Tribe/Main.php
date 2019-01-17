@@ -33,10 +33,43 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
 		const VERSION             = '4.8';
-		const MIN_ADDON_VERSION   = '4.4';
-		const MIN_COMMON_VERSION  = '4.8.4-dev';
+
+		/**
+		 * Min Pro Addon
+		 *
+		 * @deprecated TBD
+		 */
+		const MIN_ADDON_VERSION   = '4.6-dev';
+
+		/**
+		 * Min Common
+		 *
+		 * @deprecated TBD
+		 */
+		const MIN_COMMON_VERSION  = '4.9-dev';
 
 		const WP_PLUGIN_URL       = 'https://wordpress.org/extend/plugins/the-events-calendar/';
+
+		/**
+		 * Min Version of WordPress
+		 *
+		 * @since TBD
+		 */
+		protected $min_wordpress = '4.7';
+
+		/**
+		 * Min Version of PHP
+		 *
+		 * @since TBD
+		 */
+		protected $min_php = '5.2.17';
+
+		/**
+		 * Min Version of Event Tickets
+		 *
+		 * @since TBD
+		 */
+		protected $min_et_version = '4.10-dev';
 
 		/**
 		 * Maybe display data wrapper
@@ -280,13 +313,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$this->pluginDir   = $this->plugin_dir = trailingslashit( basename( $this->plugin_path ) );
 			$this->pluginUrl   = $this->plugin_url = str_replace( basename( $this->plugin_file ), '', plugins_url( basename( $this->plugin_file ), $this->plugin_file ) );
 
-			// Set common lib information, needs to happen file load
-			$this->maybe_set_common_lib_info();
-
-			// let's initialize tec silly-early to avoid fatals with upgrades from 3.x to 4.x
+			// let's initialize tec
 			add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ), 0 );
-
-			add_action( 'tribe_common_loaded', array( $this, 'bootstrap' ), 0 );
 
 		}
 
@@ -329,59 +357,33 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * Fetches and verify if we had a delayed activation
-		 *
-		 * @since  4.7
-		 *
-		 * @return boolean [description]
-		 */
-		public function is_delayed_activation() {
-			return (bool) get_transient( $this->key_delayed_activation_outdated_common );
-		}
-
-		/**
-		 * Checks if currently loaded Common Lib version is incompatible with The Events Calendar
-		 * Sets a transient flag for us to be able to trigger plugin activation hooks on a later request
-		 *
-		 * @since  4.7
-		 *
-		 * @return bool
-		 */
-		public function maybe_delay_activation_if_outdated_common() {
-			// Only if Common is loaded correctly
-			if ( ! class_exists( 'Tribe__Main' ) ) {
-				return false;
-			}
-
-			$common_version = Tribe__Main::VERSION;
-
-			// We need tribe-common-info to be loaded to test
-			if ( empty( $GLOBALS['tribe-common-info'] ) ) {
-				return false;
-			}
-
-			// Only when this common lib is newer than the loaded one on activation we bail
-			if ( ! version_compare( $GLOBALS['tribe-common-info']['version'], $common_version, '>' ) ) {
-				return false;
-			}
-
-			// Set a transient forever to flag delayed activation
-			set_transient( $this->key_delayed_activation_outdated_common, 1, 0 );
-
-			return true;
-		}
-
-		/**
 		 * Plugins shouldn't include their functions before `plugins_loaded` because this will allow
 		 * better compatibility with the autoloader methods.
 		 *
 		 * @return void
 		 */
 		public function plugins_loaded() {
-			// Bail when we have outdated common
-			if ( $this->maybe_delay_activation_if_outdated_common() ) {
-				return false;
+
+			// early check for an older version of Event Tickets to prevent fatal error
+			if (
+				class_exists( 'Tribe__Tickets__Main' ) &&
+				! version_compare( Tribe__Tickets__Main::VERSION, $this->min_et_version, '>=' )
+			) {
+				add_action( 'admin_notices', array( $this, 'compatibility_notice' ) );
+				add_action( 'network_admin_notices', array( $this, 'compatibility_notice' ) );
+				add_filter( 'tribe_ecp_to_run_or_not_to_run', array( $this, 'disable_pro' ) );
+
+				return;
 			}
+
+			// WordPress and PHP Version Check
+			if ( ! self::supportedVersion( 'wordpress' ) || ! self::supportedVersion( 'php' ) ) {
+				add_action( 'admin_notices', array( $this, 'notSupportedError' ) );
+				return;
+			}
+
+			// Set common lib information, needs to happen file load
+			$this->maybe_set_common_lib_info();
 
 			/**
 			 * Before any methods from this plugin are called, we initialize our Autoloading
@@ -389,20 +391,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 */
 			$this->init_autoloading();
 
-			// Safety check: if Tribe Common is not at a certain minimum version, bail out
-			if ( version_compare( Tribe__Main::VERSION, self::MIN_COMMON_VERSION, '<' ) ) {
-				return;
-			}
+			Tribe__Main::instance();
 
-			if ( self::supportedVersion( 'wordpress' ) && self::supportedVersion( 'php' ) ) {
-				// Start Up Common
-				Tribe__Main::instance();
-			} else {
-				// Either PHP or WordPress version is inadequate so we simply return an error.
-				add_action( 'admin_head', array( $this, 'notSupportedError' ) );
-			}
-
-
+			add_action( 'tribe_common_loaded', array( $this, 'bootstrap' ), 0 );
 		}
 
 		/**
@@ -1294,94 +1285,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 		}
 
-
-	/**
-	 * Hooked to admin_notices, this error is thrown when TEC is run alongside a version of
-	 * PRO that is too old
-	 *
-	 * @since 4.7
-	 *
-	 * @param string $bootstrap_file Filename for the plugin bootstrap
-	 * @param string $plugin_name Friendly plugin name
-	 * @param string $required_version Version number that is required for activation
-	 *
-	 * @return string
-	 */
-	private function premium_addon_compatibility_notice( $bootstrap_file, $plugin_name, $required_version ) {
-		$active_plugins = get_option( 'active_plugins' );
-		$plugin_short_path = null;
-		foreach ( $active_plugins as $plugin ) {
-			if ( false !== strstr( $plugin, $bootstrap_file ) ) {
-				$plugin_short_path = $plugin;
-				break;
-			}
-		}
-
-		$upgrade_path = 'https://theeventscalendar.com/knowledgebase/manual-updates/';
-
-		$message = sprintf(
-			__( 'When running version %1$s of The Events Calendar alongside %2$s, %2$s must be version %3$s or greater. Please %4$smanually update now.%5$s', 'the-events-calendar' ),
-			self::VERSION,
-			$plugin_name,
-			$required_version,
-			'<a href="' . esc_url( $upgrade_path ) . '" target="_blank">',
-			'</a>'
-		);
-
-		$output = '<div class="error">';
-		$output .= '<p>' . $message . '</p>';
-		$output .= '</div>';
-		return $output;
-	}
-
-	/**
-	 * Include PRO Main class file as a patch-work solution
-	 *
-	 * This is a patch-work solution to help avoid fatals while we wait for the dependency
-	 * checking feature to complete.
-	 *
-	 * @todo eliminate this method when dependency checking is complete
-	 *
-	 * @since 4.7
-	 */
-	private function maybe_include_pro_class() {
-		if ( class_exists( 'Tribe__Events__Pro__Main' ) ) {
-			return;
-		}
-
-		$active_plugins    = get_option( 'active_plugins' );
-		$plugin_short_path = null;
-		foreach ( $active_plugins as $plugin ) {
-			if ( false !== strstr( $plugin, 'events-calendar-pro.php' ) ) {
-				$plugin_short_path = $plugin;
-				break;
-			}
-		}
-
-		if ( ! $plugin_short_path ) {
-			return;
-		}
-
-		$plugin_dir = preg_replace( '!(.*)[\\/]events-calendar-pro.php!', '$1', $plugin_short_path );
-
-		// files for handling messaging and deactivation
-		$files_to_include = array(
-			'Main.php',
-			'Deactivation.php',
-			'Updater.php',
-			'PUE.php',
-		);
-
-		foreach ( $files_to_include as $file ) {
-			$path_to_class = wp_normalize_path( WP_PLUGIN_DIR . "/{$plugin_dir}/src/Tribe/{$file}" );
-			if ( ! file_exists( $path_to_class ) ) {
-				continue;
-			}
-
-			include_once $path_to_class;
-		}
-	}
-
 		/**
 		 * Trigger is_404 on single event if no events are found
 		 */
@@ -1508,10 +1411,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			} else {
 				switch ( strtolower( $system ) ) {
 					case 'wordpress' :
-						$supported = version_compare( get_bloginfo( 'version' ), '3.0', '>=' );
+						$supported = version_compare( get_bloginfo( 'version' ), $this->min_wordpress, '>=' );
 						break;
 					case 'php' :
-						$supported = version_compare( phpversion(), '5.2', '>=' );
+						$supported = version_compare( phpversion(), $this->min_php, '>=' );
 						break;
 				}
 				$supported = apply_filters( 'tribe_events_supported_version', $supported, $system );
@@ -1526,11 +1429,57 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function notSupportedError() {
 			if ( ! self::supportedVersion( 'wordpress' ) ) {
-				echo '<div class="error"><p>' . sprintf( esc_html__( 'Sorry, The Events Calendar requires WordPress %s or higher. Please upgrade your WordPress install.', 'the-events-calendar' ), '3.0' ) . '</p></div>';
+				echo '<div class="error"><p>' . sprintf( esc_html__( 'Sorry, The Events Calendar requires WordPress %s or higher. Please upgrade your WordPress install.', 'the-events-calendar' ), $this->min_wordpress ) . '</p></div>';
 			}
 			if ( ! self::supportedVersion( 'php' ) ) {
-				echo '<div class="error"><p>' . sprintf( esc_html__( 'Sorry, The Events Calendar requires PHP %s or higher. Talk to your Web host about moving you to a newer version of PHP.', 'the-events-calendar' ), '5.2' ) . '</p></div>';
+				echo '<div class="error"><p>' . sprintf( esc_html__( 'Sorry, The Events Calendar requires PHP %s or higher. Talk to your Web host about moving you to a newer version of PHP.', 'the-events-calendar' ), $this->min_php ) . '</p></div>';
 			}
+		}
+
+		/**
+		 * Display Notice if Event Tickets is Running an Older Version
+		 *
+		 * @since TBD
+		 *
+		 */
+		public function compatibility_notice() {
+
+			$mopath = $this->pluginDir . 'lang/';
+			$domain = 'the-events-calendar';
+
+			// If we don't have Common classes load the old fashioned way
+			if ( ! class_exists( 'Tribe__Main' ) ) {
+				load_plugin_textdomain( $domain, false, $mopath );
+			} else {
+				// This will load `wp-content/languages/plugins` files first
+				Tribe__Main::instance()->load_text_domain( $domain, $mopath );
+			}
+
+			$url = add_query_arg( array(
+				'tab'       => 'plugin-information',
+				'plugin'    => 'event-tickets',
+				'TB_iframe' => 'true',
+			), admin_url( 'plugin-install.php' ) );
+
+			echo '<div class="error"><p>'
+			. sprintf(
+				'%1s <a href="%2s" class="thickbox" title="%3s">%4s</a>.',
+				esc_html__( 'To continue using The Events Calendar, please install the latest version of', 'the-events-calendar' ),
+				esc_url( $url ),
+				esc_html__( 'Event Tickets', 'the-events-calendar' ),
+				esc_html__( 'Event Tickets', 'the-events-calendar' )
+				) .
+			'</p></div>';
+
+		}
+
+		/**
+		 * Disable Pro from Running if TEC shutsdown because Event Tickets is an older version
+		 *
+		 * @return bool
+		 */
+		public function disable_pro() {
+			return false;
 		}
 
 		/**
@@ -2789,27 +2738,16 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param bool $network_deactivating
 		 */
 		public static function activate() {
-			// Bail when we have outdated common
-			if ( self::instance()->maybe_delay_activation_if_outdated_common() ) {
-				return false;
-			}
-
-			// Cant use tribe_is_truthy due to common versions
-			$is_delayed_activation = self::instance()->is_delayed_activation();
-
-			if ( ! $is_delayed_activation ) {
-				self::instance()->plugins_loaded();
-			}
+			self::instance()->plugins_loaded();
 
 			self::flushRewriteRules();
 
-			tribe( 'events.editor.compatibility' )->deactivate_gutenberg_extension_plugin();
+			$editor_compatibility = new Tribe__Events__Editor__Compatibility();
+			$editor_compatibility->deactivate_gutenberg_extension_plugin();
 
 			if ( ! is_network_admin() && ! isset( $_GET['activate-multi'] ) ) {
 				set_transient( '_tribe_events_activation_redirect', 1, 30 );
 			}
-
-			delete_transient( self::instance()->key_delayed_activation_outdated_common );
 		}
 
 		/**
@@ -4880,16 +4818,74 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * Check add-ons to make sure they are supported by currently running TEC version.
-		 * @deprecated
+		 * Fetches and verify if we had a delayed activation
 		 *
-		 * @since TBD
+		 * @deprecated TBD
+		 *
+		 * @since  4.7
+		 *
+		 * @return boolean [description]
+		 */
+		public function is_delayed_activation() {
+			_deprecated_function(
+				__METHOD__,
+				'',
+				'TBD'
+			);
+
+			return (bool) get_transient( $this->key_delayed_activation_outdated_common );
+		}
+
+		/**
+		 * Checks if currently loaded Common Lib version is incompatible with The Events Calendar
+		 * Sets a transient flag for us to be able to trigger plugin activation hooks on a later request
+		 *
+		 * @deprecated TBD
+		 *
+		 * @since  4.7
+		 *
+		 * @return bool
+		 */
+		public function maybe_delay_activation_if_outdated_common() {
+			_deprecated_function(
+				__METHOD__,
+				'',
+				'TBD'
+			);
+
+			// Only if Common is loaded correctly
+			if ( ! class_exists( 'Tribe__Main' ) ) {
+				return false;
+			}
+
+			$common_version = Tribe__Main::VERSION;
+
+			// We need tribe-common-info to be loaded to test
+			if ( empty( $GLOBALS['tribe-common-info'] ) ) {
+				return false;
+			}
+
+			// Only when this common lib is newer than the loaded one on activation we bail
+			if ( ! version_compare( $GLOBALS['tribe-common-info']['version'], $common_version, '>' ) ) {
+				return false;
+			}
+
+			// Set a transient forever to flag delayed activation
+			set_transient( $this->key_delayed_activation_outdated_common, 1, 0 );
+
+			return true;
+		}
+
+		/**
+		 * Check add-ons to make sure they are supported by currently running TEC version.
+		 *
+		 * @deprecated TBD
 		 *
 		 */
 		public function checkAddOnCompatibility() {
 			_deprecated_function(
 				__METHOD__,
-				'',
+				'Use Tribe__Dependency Class instead.',
 				'TBD'
 			);
 
