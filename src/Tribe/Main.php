@@ -245,15 +245,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public static $tribeEventsMuDefaults;
 
 		/**
-		 * Key for the transient flag for a delayed activation
-		 *
-		 * @since 4.7
-		 *
-		 * @var string
-		 */
-		public $key_delayed_activation_outdated_common = 'tribe_delayed_activation_outdated_common';
-
-		/**
 		 * Where in the themes we will look for templates
 		 *
 		 * @since 4.7
@@ -261,17 +252,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @var string
 		 */
 		public $template_namespace = 'events';
-
-		/**
-		 * List of plugin dependencies
-		 *
-		 * @TODO: remove when we have a better dependency checking solution in place
-		 *
-		 * @var array
-		 */
-		protected $addon_dependencies = array(
-			'events-pro' => '4.5-dev',
-		);
 
 		/**
 		 * Static Singleton Holder
@@ -305,6 +285,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// let's initialize tec silly-early to avoid fatals with upgrades from 3.x to 4.x
 			add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ), 0 );
+
+			add_action( 'tribe_common_loaded', array( $this, 'bootstrap' ), 0 );
+
 		}
 
 		/**
@@ -411,50 +394,32 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				return;
 			}
 
-			/**
-			 * We need Common to be able to load text domains correctly.
-			 * With that in mind we initialize Common passing the plugin Main class as the context
-			 */
-			Tribe__Main::instance( $this )->load_text_domain( 'the-events-calendar', $this->plugin_dir . 'lang/' );
-
 			if ( self::supportedVersion( 'wordpress' ) && self::supportedVersion( 'php' ) ) {
-				$this->bind_implementations();
-				$this->loadLibraries();
-				$this->addHooks();
-				$this->register_active_plugin();
+				// Start Up Common
+				Tribe__Main::instance();
 			} else {
 				// Either PHP or WordPress version is inadequate so we simply return an error.
 				add_action( 'admin_head', array( $this, 'notSupportedError' ) );
 			}
 
-			/**
-			 * Safety check to prevent fatals with mismatched dependencies
-			 *
-			 * @TODO: remove the following call and the subsequent if statement when we have
-			 * dependency checking logic in place
-			 */
-			$this->maybe_include_pro_class();
 
-			if (
-				class_exists( 'Tribe__Events__Pro__Main' )
-				&& version_compare( Tribe__Events__Pro__Main::VERSION, $this->addon_dependencies['events-pro'], '<' )
-			) {
-				$pue = new Tribe__Events__Pro__PUE( EVENTS_CALENDAR_PRO_DIR . '/events-calendar-pro.php' );
-				$pue->load_plugin_update_engine();
+		}
 
-				add_action( 'admin_notices', array( $this, 'pro_compatibility_notice' ) );
-				remove_action( 'plugins_loaded', 'Tribe_ECP_Load', 2 );
-				return;
-			}
+		/**
+		 * Load Text Domain on tribe_common_loaded as it requires common
+		 *
+		 * @since TBD
+		 *
+		 */
+		public function bootstrap() {
 
-			/**
-			 * We need to trigger a delayed activate if we have the flag
-			 *
-			 * @todo  we might need to move this into a better place, or smarter activation
-			 */
-			if ( $this->is_delayed_activation() ) {
-				add_action( 'admin_init', array( __CLASS__, 'activate' ) );
-			}
+			Tribe__Main::instance( $this )->load_text_domain( 'the-events-calendar', $this->plugin_dir . 'lang/' );
+
+			$this->bind_implementations();
+			$this->loadLibraries();
+			$this->addHooks();
+			$this->register_active_plugin();
+
 		}
 
 		/**
@@ -584,13 +549,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Registers this plugin as being active for other tribe plugins and extensions
 		 */
 		protected function register_active_plugin() {
-			if ( class_exists( 'Tribe__Dependency' ) ) {
-				Tribe__Dependency::instance()->add_active_plugin(
-					__CLASS__,
-					self::VERSION,
-					$this->plugin_file
-				);
-			}
+			$this->registered = new Tribe__Events__Plugin_Register();
 		}
 
 		/**
@@ -731,13 +690,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( 'tribe_settings_after_save', array( $this, 'flushRewriteRules' ) );
 
 			add_action( 'update_option_' . Tribe__Main::OPTIONNAME, array( $this, 'fix_all_day_events' ), 10, 2 );
-
-			// add-on compatibility
-			if ( is_multisite() ) {
-				add_action( 'network_admin_notices', array( $this, 'checkAddOnCompatibility' ) );
-			} else {
-				add_action( 'admin_notices', array( $this, 'checkAddOnCompatibility' ) );
-			}
 
 			add_action( 'wp_before_admin_bar_render', array( $this, 'add_toolbar_items' ), 10 );
 			add_action( 'all_admin_notices', array( $this, 'addViewCalendar' ) );
@@ -1341,102 +1293,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				Tribe__Settings_Manager::set_option( 'latest_ecp_version', self::VERSION );
 			}
 		}
-
-		/**
-		 * Check add-ons to make sure they are supported by currently running TEC version.
-		 */
-		public function checkAddOnCompatibility() {
-
-			// Variable for storing output to admin notices.
-			$output = '';
-
-			// Array to store any plugins that are out of date.
-			$out_of_date_addons = array();
-
-			// Array to store all addons and their required CORE versions.
-			$tec_addons_required_versions = array();
-
-			// Is Core the thing that is out of date?
-			$tec_out_of_date = false;
-
-			// Get the addon information.
-			$tec_addons_required_versions = (array) apply_filters( 'tribe_tec_addons', $tec_addons_required_versions );
-
-			// Foreach addon, make sure that it is compatible with current version of core.
-			foreach ( $tec_addons_required_versions as $plugin ) {
-				// we're not going to check addons that we can't
-				if ( empty( $plugin['required_version'] ) || empty( $plugin['current_version'] ) ) {
-					continue;
-				}
-
-				// check if TEC is out of date
-				if ( version_compare( $plugin['required_version'], self::VERSION, '>' ) ) {
-					$tec_out_of_date = true;
-					break;
-				}
-
-				// check if the add-on is out of date
-				if ( version_compare( $plugin['current_version'], self::MIN_ADDON_VERSION, '<' ) ) {
-					// don't throw notices for the 4.2 legacy versions of Facebook and iCal
-					if (
-						(
-							false !== strpos( $plugin['plugin_dir_file'], 'the-events-calendar-facebook-importer.php' )
-							|| false !== strpos( $plugin['plugin_dir_file'], 'the-events-calendar-ical-importer.php' )
-						)
-						&& version_compare( $plugin['current_version'], '4.2', '>=' )
-					) {
-						continue;
-					}
-
-					$out_of_date_addons[] = $plugin['plugin_name'] . ' ' . $plugin['current_version'];
-				}
-			}
-			// If Core is out of date, generate the proper message.
-			if ( $tec_out_of_date == true ) {
-				$plugin_short_path = basename( dirname( dirname( __FILE__ ) ) ) . '/the-events-calendar.php';
-				$upgrade_path      = wp_nonce_url(
-					add_query_arg(
-						array(
-							'action' => 'upgrade-plugin',
-							'plugin' => $plugin_short_path,
-						), get_admin_url() . 'update.php'
-					), 'upgrade-plugin_' . $plugin_short_path
-				);
-				$output .= '<div class="error">';
-				$output .= '<p>' . sprintf( esc_html__( 'Your version of The Events Calendar is not up-to-date with one of your The Events Calendar add-ons. Please %supdate now.%s', 'the-events-calendar' ), '<a href="' . esc_url( $upgrade_path ) . '">', '</a>' ) . '</p>';
-				$output .= '</div>';
-			} elseif ( ! empty( $out_of_date_addons ) ) {
-				// Otherwise, if the addons are out of date, generate the proper messaging.
-				$output .= '<div class="error">';
-				$link = add_query_arg(
-					array(
-						'utm_campaign' => 'in-app',
-						'utm_medium'   => 'plugin-tec',
-						'utm_source'   => 'notice',
-						), self::$tecUrl . 'knowledgebase/version-compatibility/'
-				);
-				$output .= '<p>' . sprintf( esc_html__( 'The following plugins are out of date: %1$s. All add-ons contain dependencies on The Events Calendar and will not function properly unless paired with the right version. %2$sLearn More%3$s.', 'the-events-calendar' ), '<b>' . join( $out_of_date_addons, ', ' ) . '</b>', "<a href='" . esc_url( $link ) . "' target='_blank'>", '</a>' ) . '</p>';
-				$output .= '</div>';
-			}
-			// Make sure only to show the message if the user has the permissions necessary.
-			if ( current_user_can( 'edit_plugins' ) ) {
-				echo apply_filters( 'tribe_add_on_compatibility_errors', $output );
-			}
-		}
-
-	/**
-	 * Hooked to admin_notices, this error is thrown when TEC is run alongside a version of
-	 * PRO that is too old
-	 *
-	 * @since 4.7
-	 */
-	public function pro_compatibility_notice() {
-		echo $this->premium_addon_compatibility_notice(
-			'events-calendar-pro.php',
-			'Events Calendar PRO',
-			$this->addon_dependencies['events-pro']
-		);
-	}
 
 
 	/**
@@ -4154,7 +4010,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				return;
 			}
 
-			$current_hidden_boxes = array();
 			$current_hidden_boxes = get_user_option( 'metaboxhidden_nav-menus', $user_id );
 
 			if ( $array_key = array_search( 'add-' . self::POSTTYPE, $current_hidden_boxes ) ) {
@@ -5021,6 +4876,97 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// In some cases, one must clear the _EventOrganizerID before it's regenerated.
 			if ( $delete_meta ) {
 				delete_post_meta( $event_id, '_EventOrganizerID' );
+			}
+		}
+
+		/**
+		 * Check add-ons to make sure they are supported by currently running TEC version.
+		 * @deprecated
+		 *
+		 * @since TBD
+		 *
+		 */
+		public function checkAddOnCompatibility() {
+			_deprecated_function(
+				__METHOD__,
+				'',
+				'TBD'
+			);
+
+			// Variable for storing output to admin notices.
+			$output = '';
+
+			// Array to store any plugins that are out of date.
+			$out_of_date_addons = array();
+
+			// Array to store all addons and their required CORE versions.
+			$tec_addons_required_versions = array();
+
+			// Is Core the thing that is out of date?
+			$tec_out_of_date = false;
+
+			// Get the addon information.
+			$tec_addons_required_versions = (array) apply_filters( 'tribe_tec_addons', $tec_addons_required_versions );
+
+			// Foreach addon, make sure that it is compatible with current version of core.
+			foreach ( $tec_addons_required_versions as $plugin ) {
+				// we're not going to check addons that we can't
+				if ( empty( $plugin['required_version'] ) || empty( $plugin['current_version'] ) ) {
+					continue;
+				}
+
+				// check if TEC is out of date
+				if ( version_compare( $plugin['required_version'], self::VERSION, '>' ) ) {
+					$tec_out_of_date = true;
+					break;
+				}
+
+				// check if the add-on is out of date
+				if ( version_compare( $plugin['current_version'], self::MIN_ADDON_VERSION, '<' ) ) {
+					// don't throw notices for the 4.2 legacy versions of Facebook and iCal
+					if (
+						(
+							false !== strpos( $plugin['plugin_dir_file'], 'the-events-calendar-facebook-importer.php' )
+							|| false !== strpos( $plugin['plugin_dir_file'], 'the-events-calendar-ical-importer.php' )
+						)
+						&& version_compare( $plugin['current_version'], '4.2', '>=' )
+					) {
+						continue;
+					}
+
+					$out_of_date_addons[] = $plugin['plugin_name'] . ' ' . $plugin['current_version'];
+				}
+			}
+			// If Core is out of date, generate the proper message.
+			if ( $tec_out_of_date == true ) {
+				$plugin_short_path = basename( dirname( dirname( __FILE__ ) ) ) . '/the-events-calendar.php';
+				$upgrade_path      = wp_nonce_url(
+					add_query_arg(
+						array(
+							'action' => 'upgrade-plugin',
+							'plugin' => $plugin_short_path,
+						), get_admin_url() . 'update.php'
+					), 'upgrade-plugin_' . $plugin_short_path
+				);
+				$output .= '<div class="error">';
+				$output .= '<p>' . sprintf( esc_html__( 'Your version of The Events Calendar is not up-to-date with one of your The Events Calendar add-ons. Please %supdate now.%s', 'the-events-calendar' ), '<a href="' . esc_url( $upgrade_path ) . '">', '</a>' ) . '</p>';
+				$output .= '</div>';
+			} elseif ( ! empty( $out_of_date_addons ) ) {
+				// Otherwise, if the addons are out of date, generate the proper messaging.
+				$output .= '<div class="error">';
+				$link = add_query_arg(
+					array(
+						'utm_campaign' => 'in-app',
+						'utm_medium'   => 'plugin-tec',
+						'utm_source'   => 'notice',
+						), self::$tecUrl . 'knowledgebase/version-compatibility/'
+				);
+				$output .= '<p>' . sprintf( esc_html__( 'The following plugins are out of date: %1$s. All add-ons contain dependencies on The Events Calendar and will not function properly unless paired with the right version. %2$sLearn More%3$s.', 'the-events-calendar' ), '<b>' . join( $out_of_date_addons, ', ' ) . '</b>', "<a href='" . esc_url( $link ) . "' target='_blank'>", '</a>' ) . '</p>';
+				$output .= '</div>';
+			}
+			// Make sure only to show the message if the user has the permissions necessary.
+			if ( current_user_can( 'edit_plugins' ) ) {
+				echo apply_filters( 'tribe_add_on_compatibility_errors', $output );
 			}
 		}
 
