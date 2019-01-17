@@ -58,8 +58,8 @@ const EventDetailsOrganizers = ( props ) => {
 					key="organizer-search-dropdown"
 					name="search-organizers-classic"
 					postType={ editor.ORGANIZER }
-					searchLabel={ __( 'Search for an organizer', 'events-gutenberg' ) }
-					iconLabel={ __( 'Add existing Organizer', 'events-gutenberg' ) }
+					searchLabel={ __( 'Search for an organizer', 'the-events-calendar' ) }
+					iconLabel={ __( 'Add existing Organizer', 'the-events-calendar' ) }
 					onItemSelect={ addOrganizer }
 					exclude={ organizers.map( ( { id } ) => id ) }
 				/>

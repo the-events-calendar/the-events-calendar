@@ -39,14 +39,13 @@
 }
 
 .tribe-editor__venue__actions {
-	position: absolute;
-	right: 17px;
-	z-index: 10;
-	top: 27px;
+	margin-top: 1.2em;
 
 	&--close {
 		svg {
-			width: 16px;
+			width: 24px;
+			margin-right: 5px;
+			vertical-align: text-top;
 		}
 	}
 
@@ -58,8 +57,13 @@
 	button {
 		background-color: #FFF;
 		border: none;
-		padding: 5px 7px;
+		padding: 5px 7px 5px 0;
+		color: #b52727;
 		cursor: pointer;
+
+		.editor-styles-wrapper & {
+			font-size: 13px;
+		}
 
 		&:hover {
 			svg,
@@ -95,7 +99,7 @@
 h3.tribe-editor__venue__name-heading {
 
 	/* extra classes to override WP 5.0 styles */
-	.edit-post-visual-editor .editor-block-list__block & {
+	.tribe-editor__venue .tribe-editor__venue__name & {
 		font-size: 1.3125rem;
 		font-weight: bold;
 		padding: 0;

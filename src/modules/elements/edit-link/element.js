@@ -46,7 +46,7 @@ EditLink.propTypes = {
 
 EditLink.defaultProps = {
 	postId: 0,
-	label: __( 'Edit', 'events-gutenberg' ),
+	label: __( 'Edit', 'the-events-calendar' ),
 	target: '_blank',
 };
 

@@ -29,6 +29,8 @@ describe( '[STORE] - Datetime thunks', () => {
 				datetime: {
 					start: '2018-06-05 17:00:00',
 					end: '2018-06-05 17:30:00',
+					startTimeInput: '17:00',
+					endTimeInput: '17:30',
 					dateTimeSeparator: ' @ ',
 					timeRangeSeparator: ' - ',
 					allDay: false,

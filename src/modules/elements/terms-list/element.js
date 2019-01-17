@@ -42,7 +42,7 @@ const getTermListItemClassName = ( level = 0 ) => (
 const termName = ( term = {} ) => {
 	return term.name
 		? unescape( term.name ).trim()
-		: __( '(Untitled)', 'events-gutenberg' );
+		: __( '(Untitled)', 'the-events-calendar' );
 }
 
 const Label = ( { text } ) => (
@@ -61,7 +61,7 @@ const Empty = ( { renderEmpty = null, id, label } ) => (
 	)
 );
 
-const List = ( { terms = [], termSeparator = ' ', isLoading = false, id = '', className = '' } ) => {
+const List = ( { terms = [], termSeparator = ', ', isLoading = false, id = '', className = '' } ) => {
 	if ( isLoading ) {
 		return <Loading id={ id } className={ className } />;
 	}
@@ -80,7 +80,7 @@ const List = ( { terms = [], termSeparator = ' ', isLoading = false, id = '', cl
 	);
 };
 
-const Separator = ( { delimiter, isLast } ) => ! isLast && <span>{ delimiter }</span>;
+const Separator = ( { delimiter, isLast } ) => ! isLast ? <span>{ delimiter }</span> : '';
 
 const Item = ( { separator, term, isLast } ) => {
 	return (
@@ -93,8 +93,7 @@ const Item = ( { separator, term, isLast } ) => {
 			>
 				{ termName( term ) }
 			</a>
-			<Separator delimiter={ separator } />
-			{ separator }
+			<Separator delimiter={ separator } isLast={ isLast } />
 		</li>
 	);
 }
@@ -125,7 +124,7 @@ export const TaxonomiesElement = ( { className, slug, label, renderEmpty, isRequ
 };
 
 TaxonomiesElement.defaultProps = {
-	termSeparator: __( ', ', 'events-gutenberg' ),
+	termSeparator: __( ', ', 'the-events-calendar' ),
 	className: '',
 	terms: [],
 	isRequesting: false,

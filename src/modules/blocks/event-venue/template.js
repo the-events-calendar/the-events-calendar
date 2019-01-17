@@ -33,7 +33,6 @@ import {
 import { editor } from '@moderntribe/common/data';
 import VenueDetails from './venue-details';
 import { Venue as VenueIcon } from '@moderntribe/events/icons';
-import { Close as CloseIcon } from '@moderntribe/common/icons';
 import { utils } from '@moderntribe/events/data/blocks/venue';
 import { google, mapsAPI } from '@moderntribe/common/utils/globals';
 import './style.pcss';
@@ -138,6 +137,7 @@ class EventVenue extends Component {
 				showMapLink={ showMapLink }
 				afterTitle={ this.renderEditAction() }
 				maybeEdit={ this.maybeEdit }
+				removeVenue={ this.renderRemoveAction() }
 			/>
 		);
 	}
@@ -155,7 +155,7 @@ class EventVenue extends Component {
 				postType={ editor.VENUE }
 				onItemSelect={ onItemSelect }
 				onCreateNew={ onCreateNew }
-				placeholder={ __( 'Add or find a venue', 'events-gutenberg' ) }
+				placeholder={ __( 'Add or find a venue', 'the-events-calendar' ) }
 			/>
 		);
 	}
@@ -219,7 +219,7 @@ class EventVenue extends Component {
 					className="tribe-editor__venue__actions--close"
 					onClick={ removeVenue }
 				>
-					<CloseIcon />
+					{ __( 'Remove venue', 'the-events-calendar' ) }
 				</button>
 			</div>
 		);
@@ -235,7 +235,6 @@ class EventVenue extends Component {
 			<div key="event-venue-box" className={ containerClass }>
 				{ this.renderContainer() }
 				{ this.renderMap() }
-				{ this.renderRemoveAction() }
 			</div>
 		);
 	}
@@ -249,20 +248,20 @@ class EventVenue extends Component {
 
 		return (
 			<InspectorControls key="inspector">
-				<PanelBody title={ __( 'Venue Settings', 'events-gutenberg' ) }>
+				<PanelBody title={ __( 'Venue Settings', 'the-events-calendar' ) }>
 					<ToggleControl
-						label={ __( 'Show Google Maps Link', 'events-gutenberg' ) }
+						label={ __( 'Show Google Maps Link', 'the-events-calendar' ) }
 						checked={ showMapLink }
 						onChange={ toggleVenueMapLink }
 					/>
 					<ToggleControl
-						label={ __( 'Show Google Maps Embed', 'events-gutenberg' ) }
+						label={ __( 'Show Google Maps Embed', 'the-events-calendar' ) }
 						checked={ showMap }
 						onChange={ toggleVenueMap }
 					/>
 				<EditLink
 					postId={ venue }
-					label={ __( 'Edit Venue', 'events-gutenberg' ) }
+					label={ __( 'Edit Venue', 'the-events-calendar' ) }
 				/>
 				</PanelBody>
 			</InspectorControls>

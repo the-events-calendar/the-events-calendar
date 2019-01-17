@@ -2,17 +2,15 @@
  * External dependencies
  */
 import { put, call, select, take, all } from 'redux-saga/effects';
-import { delay } from 'redux-saga';
 import { applyFilters } from '@wordpress/hooks';
 
 /**
  * Internal Dependencies
  */
-import { types, actions, selectors, thunks } from '@moderntribe/events/data/blocks/datetime';
+import { types, actions, selectors } from '@moderntribe/events/data/blocks/datetime';
 import watchers, * as sagas from '@moderntribe/events/data/blocks/datetime/sagas';
 import moment from 'moment';
 import { toDateTime } from '@moderntribe/common/utils/moment';
-import { rangeToNaturalLanguage, labelToDate } from '@moderntribe/common/utils/date';
 import {
 	date as dateUtil,
 	moment as momentUtil,
@@ -98,7 +96,7 @@ describe( 'Event Date time Block sagas', () => {
 			);
 
 			expect( gen.next().value ).toEqual(
-				call( rangeToNaturalLanguage, undefined, undefined ),
+				call( dateUtil.rangeToNaturalLanguage, undefined, undefined ),
 			);
 
 			expect( gen.next().done ).toEqual( true );
@@ -116,7 +114,7 @@ describe( 'Event Date time Block sagas', () => {
 			);
 
 			expect( gen.next().value ).toEqual(
-				call( rangeToNaturalLanguage, dates.start, dates.end ),
+				call( dateUtil.rangeToNaturalLanguage, dates.start, dates.end ),
 			);
 
 			const expected = 'December 25 2017 at 12:00 am - December 25 2018 at 12:00 am';
@@ -191,7 +189,7 @@ describe( 'Event Date time Block sagas', () => {
 				);
 
 				expect( gen.next( label ).value ).toEqual(
-					call( labelToDate, label )
+					call( dateUtil.labelToDate, label )
 				);
 
 				expect( gen.next( label ).value ).toEqual(
@@ -216,7 +214,7 @@ describe( 'Event Date time Block sagas', () => {
 				);
 
 				expect( gen.next( label ).value ).toEqual(
-					call( labelToDate, label )
+					call( dateUtil.labelToDate, label )
 				);
 
 				expect( gen.next( label ).value ).toEqual(
@@ -685,6 +683,42 @@ describe( 'Event Date time Block sagas', () => {
 		} );
 	} );
 
+	describe( 'setStartTimeInput', () => {
+		it( 'should set start time input', () => {
+			const start = 'January 1, 2018';
+			const gen = sagas.setStartTimeInput();
+
+			expect( gen.next().value ).toEqual(
+				call( sagas.deriveMomentsFromDates )
+			);
+			expect( gen.next( { start } ).value ).toEqual(
+				call( momentUtil.toTime, start )
+			);
+			expect( gen.next( start ).value ).toEqual(
+				put( actions.setStartTimeInput( start ) )
+			);
+			expect( gen.next().done ).toEqual( true );
+		} );
+	} );
+
+	describe( 'setEndTimeInput', () => {
+		it( 'should set end time input', () => {
+			const end = 'January 1, 2018';
+			const gen = sagas.setEndTimeInput();
+
+			expect( gen.next().value ).toEqual(
+				call( sagas.deriveMomentsFromDates )
+			);
+			expect( gen.next( { end } ).value ).toEqual(
+				call( momentUtil.toTime, end )
+			);
+			expect( gen.next( end ).value ).toEqual(
+				put( actions.setEndTimeInput( end ) )
+			);
+			expect( gen.next().done ).toEqual( true );
+		} );
+	} );
+
 	describe( 'handler', () => {
 		let action;
 
@@ -747,6 +781,9 @@ describe( 'Event Date time Block sagas', () => {
 				call( sagas.preventEndTimeBeforeStartTime, action )
 			);
 			expect( gen.next().value ).toEqual(
+				call( sagas.setStartTimeInput )
+			);
+			expect( gen.next().value ).toEqual(
 				call( sagas.resetNaturalLanguageLabel )
 			);
 			expect( gen.next().done ).toEqual( true );
@@ -760,6 +797,9 @@ describe( 'Event Date time Block sagas', () => {
 			);
 			expect( gen.next().value ).toEqual(
 				call( sagas.preventStartTimeAfterEndTime, action )
+			);
+			expect( gen.next().value ).toEqual(
+				call( sagas.setEndTimeInput )
 			);
 			expect( gen.next().value ).toEqual(
 				call( sagas.resetNaturalLanguageLabel )
