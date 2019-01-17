@@ -139,9 +139,15 @@ class Tribe__Events__Editor__Template__Overwrite {
 	 * @return string          Paragraph-converted text if non-block content.
 	 */
 	public function wpautop( $content ) {
+		// don't bother if wpautop isn't applied
+		if ( ! has_filter( 'the_content', 'wpautop' ) ) {
+			return $content;
+		}
+
 		if ( has_blocks( $content ) ) {
 			return $content;
 		}
+
 		return wpautop( $content );
 	}
 
