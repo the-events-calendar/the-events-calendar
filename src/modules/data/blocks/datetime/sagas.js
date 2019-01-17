@@ -164,6 +164,8 @@ export function* onHumanReadableChange() {
 
 		const isMultiDay = ! ( yield call( momentUtil.isSameDay, result.start, result.end ) );
 
+		const isAllDay = ! isMultiDay && ( '00:00' === moments.start.format( 'HH:mm' ) && '23:59' === moments.end.format( 'HH:mm' ) );
+
 		const dates = yield all( {
 			start: call( momentUtil.toDateTime, result.start ),
 			end: call( momentUtil.toDateTime, result.end ),
@@ -173,6 +175,7 @@ export function* onHumanReadableChange() {
 			put( actions.setStartDateTime( dates.start ) ),
 			put( actions.setEndDateTime( dates.end ) ),
 			put( actions.setMultiDay( isMultiDay ) ),
+			put( actions.setAllDay( isAllDay ) ),
 		] );
 	}
 }
@@ -398,6 +401,10 @@ export function* handleStartTimeChange( action ) {
 	if ( action.payload.start === 'all-day' ) {
 		yield call( setAllDay );
 	} else {
+
+		// Set All day to false in case they're editing.
+		yield put( actions.setAllDay( false ) );
+
 		const { start } = yield call( deriveMomentsFromDates );
 		// NOTE: Mutation
 		yield call( momentUtil.setTimeInSeconds, start, action.payload.start );
@@ -417,12 +424,40 @@ export function* handleEndTimeChange( action ) {
 	if ( action.payload.end === 'all-day' ) {
 		yield call( setAllDay );
 	} else {
+
+		// Set All day to false in case they're editing.
+		yield put( actions.setAllDay( false ) );
+
 		const { end } = yield call( deriveMomentsFromDates );
 		// NOTE: Mutation
 		yield call( momentUtil.setTimeInSeconds, end, action.payload.end );
 		const endDate = yield call( momentUtil.toDateTime, end );
 		yield put( actions.setEndDateTime( endDate ) );
 	}
+}
+
+/**
+ * Sets start time input
+ *
+ * @export
+ * @since 4.7.2
+ */
+export function* setStartTimeInput() {
+	const { start } = yield call( deriveMomentsFromDates );
+	const startInput = yield call( momentUtil.toTime, start );
+	yield put( actions.setStartTimeInput( startInput ) );
+}
+
+/**
+ * Sets end time input
+ *
+ * @export
+ * @since 4.7.2
+ */
+export function* setEndTimeInput() {
+	const { end } = yield call( deriveMomentsFromDates );
+	const endInput = yield call( momentUtil.toTime, end );
+	yield put( actions.setEndTimeInput( endInput ) );
 }
 
 /**
@@ -456,12 +491,14 @@ export function* handler( action ) {
 		case types.SET_START_TIME:
 			yield call( handleStartTimeChange, action );
 			yield call( preventEndTimeBeforeStartTime, action );
+			yield call( setStartTimeInput );
 			yield call( resetNaturalLanguageLabel );
 			break;
 
 		case types.SET_END_TIME:
 			yield call( handleEndTimeChange, action );
 			yield call( preventStartTimeAfterEndTime, action );
+			yield call( setEndTimeInput );
 			yield call( resetNaturalLanguageLabel );
 			break;
 

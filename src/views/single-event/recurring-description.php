@@ -3,7 +3,7 @@
  * Single Recurring Description Template Part
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/single-event/notices.php
+ * [your-theme]/tribe/events/single-event/recurring-description.php
  *
  * See more documentation about our Blocks Editor templating system.
  *
@@ -12,10 +12,9 @@
  * @version 4.7.2
  *
  */
-?>
 
-<?php
-	$recurrence_description = tribe_get_recurrence_text( $post_id );
+$recurrence_data = get_post_meta( $post_id, '_EventRecurrence', true );
+$recurrence_description = $recurrence_data['description'] ? $recurrence_data['description'] : esc_html__( 'Recurring event', 'the-events-calendar' );
 ?>
 
 <div class="tribe-events-single-event-recurrence-description">

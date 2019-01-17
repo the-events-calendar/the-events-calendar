@@ -22,7 +22,7 @@ const Upsell = () => (
 		<p className="tribe-editor__subtitle__footer-upsell-text">
 			{ __(
 				'Turbocharge your events with our premium calendar and ticketing add-ons. ',
-				'events-gutenberg'
+				'the-events-calendar'
 			) }
 			<a
 				href="http://m.tri.be/1a8q"
@@ -30,7 +30,7 @@ const Upsell = () => (
 				target="_blank"
 				rel="noopener noreferrer"
 			>
-				{ _x( 'Check \'em out!', 'linked text for plugin add-ons', 'events-gutenberg' ) }
+				{ _x( 'Check \'em out!', 'linked text for plugin add-ons', 'the-events-calendar' ) }
 			</a>
 		</p>
 	</div>

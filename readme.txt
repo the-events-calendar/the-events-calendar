@@ -3,16 +3,15 @@
 Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, cliffpaulick, courane01, faction23, GeoffBel, geoffgraham, ggwicz, jbrinley, jentheo, leahkoerper, lucatume, mastromktg, MZAWeb, neillmcshea, nicosantos, patriciahillebrandt, peterchester, reid.peifer, roblagatta, ryancurban, shane.pearlman, tribecari, vicskf, zbtirrell
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
-Requires at least: 4.5
-Stable tag: 4.7.2
-Tested up to: 5.0
+Requires at least: 4.7
+Stable tag: 4.8
+Tested up to: 5.0.3
 Requires PHP: 5.2.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 The Events Calendar is a carefully crafted, extensible plugin that lets you easily manage and share events. Beautiful. Solid. Awesome.
 
-* Fix - Making sure all Blocks Editor code for Meta saving is PHP 5.2 compatible
 == Description ==
 
 Create an events calendar and manage it with ease. The Events Calendar plugin provides professional-level quality and features backed by a team you can trust.
@@ -216,14 +215,48 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
+= [4.8] TBD =
+
+= [4.7.4] TBD =
+
+* Fix - Display the tags block delimiter in the editor [119393]
+* Fix - Fixed a number of small layout bugs with the new Twenty Nineteen core theme [119689]
+* Fix - Save the "Event Options" when using the block editor [120168]
+* Fix - Filter correctly when in Classic Editor page [120137]
+* Fix - Give the ability to switch back from all day events in date time block [120266]
+* Fix - Properly align the search or create results [120460]
+* Fix - iCal export content for events created with the block editor [118679]
+* Fix - Moved the "Remove venue" button for a better user experience when removing venues from an event [120267]
+* Fix - Date/time block conflicts when clicking to open the block options [119413]
+* Fix - Layout bugs with the new Twenty Nineteen core theme [119689]
+* Fix - Include UTC dates meta on the event creation from the block editor [120399]
+* Tweak - Ensure we don't re-apply `wpautop()` to content that has had it removed [120562]
+* Tweak - Adjusted content in the admin welcome page that users are brought to upon newly activating The Events Calendar [117795]
+
+= [4.7.3] 2018-12-19 =
+
+* Tweak - Tweak the registration of the Event, Venue, and Organizer post types so they use some new post type labels introduced in WordPress 5.0 like `item_updated`, `item_scheduled`, etc. [119451]
+* Fix - Password protected events breaking the month view. Thanks to Lindsay, Simon and others for flagging this out! [117385]
+* Fix - Add proper capitalization for Event Price for Blocks Editor [119140]
+* Fix - Make sure Datetime Format for Datepickers are respected on the Blocks Editor [117428]
+* Fix - Correct text domain and remove old `events-gutenberg` [118656]
+* Fix - Properly display recurrence description on Blocks Editor view [119354]
+* Fix - Point support links to the correct places [117795]
+* Language - 27 new strings added, 106 updated, 0 fuzzied, and 13 obsoleted
+
 = [4.7.2] 2018-12-13 =
 
-* Feature - Add new action `tribe_events_before_event_template_data_date_display` and `tribe_events_after_event_template_data_date_display`
-* Fix - Remove dependency from PRO when calling `tribe_events_template_data`
-* Fix - Make the Date Time block respect the timezone settings [118682]
-* Fix - Remove Price block dashboard gap [118683]
-* Fix - Making sure all Blocks Editor code for Meta saving is PHP 5.2 compatible
-* Fix - Prevent `undefined` from been displayed at the Date Time separators [119337]
+* Feature - Added new action `tribe_events_before_event_template_data_date_display` and `tribe_events_after_event_template_data_date_display`
+* Tweak - Corrected font on time picker components in Event Date Time block [116907]
+* Tweak - Adjusted padding on the Event Date Time block [118697]
+* Tweak - Set default start time to 8:00am and default end time to 5:00pm in Event Date Time block [118112]
+* Fix - Corrected an issue where feature detection of async-process support would fire too many requests [118876]
+* Fix - Removed tribe_events_template_data()'s dependency on Events Calendar PRO, which could lead to a fatal error under some conditions [119263]
+* Fix - Made the Event Date Time block respect the timezone settings [118682]
+* Fix - Removed Price block dashboard gap [118683]
+* Fix - Made sure all block editor code for Meta saving is PHP 5.2 compatible
+* Fix - Prevented `undefined` from been displayed at the Event Date Time separator fields [119337]
+* Fix - Solved 500 error when trying to update an event [118058]s
 
 = [4.7.1] 2018-12-05 =
 

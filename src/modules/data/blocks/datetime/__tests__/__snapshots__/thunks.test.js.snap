@@ -34,9 +34,21 @@ Array [
   },
   Object {
     "payload": Object {
+      "startTimeInput": "5:00 pm",
+    },
+    "type": "@@MT/EVENTS/SET_START_TIME_INPUT",
+  },
+  Object {
+    "payload": Object {
       "end": "2018-06-05 17:30:00",
     },
     "type": "@@MT/EVENTS/SET_END_DATE_TIME",
+  },
+  Object {
+    "payload": Object {
+      "endTimeInput": "5:30 pm",
+    },
+    "type": "@@MT/EVENTS/SET_END_TIME_INPUT",
   },
   Object {
     "payload": Object {

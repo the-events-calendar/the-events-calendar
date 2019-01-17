@@ -117,7 +117,7 @@ export default class VenueForm extends Component {
 		const { country } = this.state;
 		const placeholder = country ? null : (
 			<option value="" disabled>
-				{ __( 'Country', 'events-gutenberg' ) }
+				{ __( 'Country', 'the-events-calendar' ) }
 			</option>
 		);
 

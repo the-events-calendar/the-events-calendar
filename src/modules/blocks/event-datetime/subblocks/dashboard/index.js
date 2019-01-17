@@ -16,10 +16,10 @@ import { DateTime } from '@moderntribe/events/icons';
 
 export default {
 	id: 'event-datetime-dashboard',
-	title: __( 'Event Date Time Dashboard', 'events-gutenberg' ),
+	title: __( 'Event Date Time Dashboard', 'the-events-calendar' ),
 	description: __(
 		'Define the date, time, and duration for your event.',
-		'events-gutenberg'
+		'the-events-calendar'
 	),
 	category: 'tribe-events',
 	keywords: [ 'event', 'events-gutenberg', 'tribe' ],
