@@ -1224,37 +1224,32 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 					unset( $args['orderby'] );
 				}
 
+				if ( 'all' === $event_display && empty( $args['post_parent'] ) ) {
+					// Make sure the `post_parent` ID is set in /all requests.
+					$parent_name = Tribe__Utils__Array::get(
+						$args,
+						'name',
+						Tribe__Utils__Array::get( 'tribe_events', false )
+					);
+
+					if ( ! empty( $parent_name ) ) {
+						$post_parent         = tribe_events()->where( 'name', $parent_name )->fields( 'ids' )->first();
+						$args['post_parent'] = $post_parent;
+					}
+				}
+
 				if ( ! empty( $args['tribe_is_past'] ) ) {
 					$args['order'] = 'DESC';
-					if ( 'all' === $event_display ) {
-						/*
-						 * When searching past events do no apply a date filter if we're displaying all
-						 * events of a series but make sure the parent post ID is set.
-						 */
-						if ( empty( $args['post_parent'] ) ) {
-							$parent_name = Tribe__Utils__Array::get(
-								$args,
-								'name',
-								Tribe__Utils__Array::get( 'tribe_events', false )
-							);
-
-							if ( ! empty( $parent_name ) ) {
-								$post_parent = tribe_events()->where( 'name', $parent_name )->fields( 'ids' )->first();
-								$args['post_parent'] = $post_parent;
-							}
-						}
-					} else {
-						$pivot_date = tribe_get_request_var( 'tribe-bar-date', 'now' );
-						$date       = Tribe__Date_Utils::build_date_object( $pivot_date );
-						// Remove any existing date meta queries.
-						if ( isset( $args['meta_query'] ) ) {
-							$args['meta_query'] = tribe_filter_meta_query(
-								$args['meta_query'],
-								array( 'key' => '/_Event(Start|End)Date(UTC)/' )
-							);
-						}
-						$args['starts_before'] = tribe_beginning_of_day( $date->format( 'Y-m-d H:i:s' ) );
+					$pivot_date = tribe_get_request_var( 'tribe-bar-date', 'now' );
+					$date       = Tribe__Date_Utils::build_date_object( $pivot_date );
+					// Remove any existing date meta queries.
+					if ( isset( $args['meta_query'] ) ) {
+						$args['meta_query'] = tribe_filter_meta_query(
+							$args['meta_query'],
+							array( 'key' => '/_Event(Start|End)Date(UTC)/' )
+						);
 					}
+					$args['starts_before'] = tribe_beginning_of_day( $date->format( 'Y-m-d H:i:s' ) );
 				}
 
 				if ( null !== $hidden ) {

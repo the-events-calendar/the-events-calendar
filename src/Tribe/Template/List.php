@@ -91,11 +91,14 @@ if ( ! class_exists( 'Tribe__Events__Template__List' ) ) {
 			$args['eventDisplay'] = $display;
 
 			if ( 'list' === $display ) {
-				$args['starts_after'] = $date;
-				$args['order']        = 'ASC';
+				$args['start_date'] = $date;
+				$args['order']      = 'ASC';
 			} elseif ( 'past' === $display ) {
 				$args['starts_before'] = $date;
 				$args['order']         = 'DESC';
+			} elseif ( 'all' === $display ) {
+				$args['start_date'] = tribe_beginning_of_day( $date );
+				$args['order']      = 'ASC';
 			}
 
 			// check & set event category
