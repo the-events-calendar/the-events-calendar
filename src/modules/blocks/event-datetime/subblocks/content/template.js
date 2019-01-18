@@ -221,35 +221,37 @@ class EventDateTimeContent extends Component {
 			isEditable,
 		} = this.props;
 
-		return [
-			<Controls />,
-			showDateInput && isEditable
-				? (
-					<HumanReadableInput after={ this.renderExtras() } />
-				)
-				: (
-					<Fragment>
-						<h2 className="tribe-editor__subtitle__headline">
-							<div className="tribe-editor__subtitle__headline-content">
-								<button
-									className="tribe-editor__btn--label"
-									onClick={ onDateTimeLabelClick }
-									disabled={ ! isEditable }
-								>
-									{ this.renderStartDate() }
-									{ this.renderStartTime() }
-									{ ( multiDay || ! allDay ) && this.renderSeparator( 'time-range' ) }
-									{ this.renderEndDate() }
-									{ this.renderEndTime() }
-									{ allDay && this.renderSeparator( 'all-day' ) }
-								</button>
-								{ this.renderExtras() }
-							</div>
-						</h2>
-						<ContentHook />
-					</Fragment>
-				),
-		];
+		return (
+			<Fragment>
+				<Controls />
+				{
+					showDateInput && isEditable
+						? <HumanReadableInput after={ this.renderExtras() } />
+						: (
+							<Fragment>
+								<h2 className="tribe-editor__subtitle__headline">
+									<div className="tribe-editor__subtitle__headline-content">
+										<button
+											className="tribe-editor__btn--label"
+											onClick={ onDateTimeLabelClick }
+											disabled={ ! isEditable }
+										>
+											{ this.renderStartDate() }
+											{ this.renderStartTime() }
+											{ ( multiDay || ! allDay ) && this.renderSeparator( 'time-range' ) }
+											{ this.renderEndDate() }
+											{ this.renderEndTime() }
+											{ allDay && this.renderSeparator( 'all-day' ) }
+										</button>
+										{ this.renderExtras() }
+									</div>
+								</h2>
+								<ContentHook />
+							</Fragment>
+						)
+				}
+			</Fragment>
+		);
 	}
 }
 
