@@ -46,7 +46,7 @@ class EventDateTime extends PureComponent {
 
 	render = () => {
 		return [
-			<Controls />,
+			<Controls key="event-datetime-controls" />,
 			(
 				<section
 					key="event-datetime"
