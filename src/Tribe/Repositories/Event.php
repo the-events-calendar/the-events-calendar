@@ -168,7 +168,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 
 		return array(
 			'meta_query' => array(
-				'ends-before' => array(
+				'starts-before' => array(
 					'key'     => '_EventStartDateUTC',
 					'compare' => '<',
 					'value'   => $date->format( 'Y-m-d H:i:s' ),
