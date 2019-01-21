@@ -215,9 +215,11 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
-= [4.8] TBD =
+= [4.8.1] TBD =
 
 * Fix - Fix console warnings for keys [121198]
+
+= [4.8] TBD =
 
 = [4.7.4] TBD =
 
