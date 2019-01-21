@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-12-06 15:41:11+0000\n"
+"PO-Revision-Date: 2019-01-11 20:07:05+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -41,7 +41,7 @@ msgstr "Réglages du lieu"
 
 #: src/resources/js/app/blocks.js:47272
 msgid "Add or find a venue"
-msgstr "Ajouter une chercher un lieu"
+msgstr "Ajouter ou chercher un lieu"
 
 #: src/resources/js/app/blocks.js:46934
 msgid "(Untitled Venue)"
@@ -61,11 +61,11 @@ msgstr "Fuseau horaire"
 
 #: src/resources/js/app/blocks.js:45434
 msgid "Time Range Separator"
-msgstr ""
+msgstr "Séparateur de plage horaire"
 
 #: src/resources/js/app/blocks.js:45427
 msgid "Date Time Separator"
-msgstr ""
+msgstr "Séparateur de dates"
 
 #: src/resources/js/app/blocks.js:13219 src/resources/js/app/elements.js:9845
 msgid "Add or Find"
@@ -112,7 +112,7 @@ msgstr "Définissez une date, une heure et une durée pour votre évènement."
 #: src/modules/blocks/event-datetime/index.js:27
 #: src/resources/js/app/blocks.js:46744
 msgid "Event Date Time"
-msgstr ""
+msgstr "Heure de l’évènnement"
 
 #: src/modules/blocks/event-website/index.js:22
 #: src/resources/js/app/blocks.js:49446
@@ -141,7 +141,7 @@ msgstr "iCal"
 
 #: src/resources/js/app/blocks.js:47401
 msgid "Show Google Maps Embed"
-msgstr ""
+msgstr "Afficher la carte Google embarquée"
 
 #: src/modules/blocks/event-category/index.js:22
 #: src/resources/js/app/blocks.js:49143
@@ -187,7 +187,7 @@ msgstr ""
 #: src/modules/blocks/event-tags/block.js:55
 #: src/resources/js/app/blocks.js:49224
 msgid "Add tags in document settings"
-msgstr ""
+msgstr "Ajouter des étiquettes dans les réglages du document."
 
 #: src/modules/blocks/event-tags/block.js:54
 #: src/modules/blocks/event-tags/index.js:21
@@ -338,7 +338,7 @@ msgstr "Début : "
 #: src/modules/blocks/event-organizer/index.js:17
 #: src/resources/js/app/blocks.js:48388
 msgid "List a host or coordinator for this event."
-msgstr ""
+msgstr "Afficher un hôte ou un coordinateur pour cette évènement."
 
 #: src/modules/blocks/event-organizer/index.js:16
 #: src/resources/js/app/blocks.js:48387
@@ -451,7 +451,7 @@ msgstr "Activer l'éditeur de blocs pour les évènements."
 
 #: src/Tribe/Editor/Blocks/Event_Website.php:26
 msgid "Add Button Text"
-msgstr ""
+msgstr "Ajouter un texte au bouton"
 
 #: src/Tribe/Editor/Meta.php:61 src/Tribe/Editor/Meta.php:70
 msgid "Event Organizers"
@@ -526,7 +526,7 @@ msgstr "Il y a %s"
 #. translators: %s: duration
 #: common/src/Tribe/Editor/Configuration.php:88
 msgid "%s from now"
-msgstr ""
+msgstr "%s jusqu’à maintenant"
 
 #: common/src/Tribe/Editor/Blocks/Abstract.php:127
 msgid "Problem loading the block, please remove this block to restart."
@@ -534,11 +534,11 @@ msgstr "Problème lors du chargement du bloc, veuillez supprimer ce bloc pour re
 
 #: common/src/Tribe/Editor/Meta.php:123
 msgid "Text Array"
-msgstr ""
+msgstr "Tableau de texte"
 
 #: common/src/Tribe/Editor/Meta.php:105
 msgid "Numeric Array"
-msgstr ""
+msgstr "Tableau Numérique"
 
 #: src/admin-views/tribe-options-general.php:69
 msgid "Enable WordPress Custom Fields on Events."
@@ -606,7 +606,7 @@ msgstr "Vous utilisez une clé API Google Maps personnalisée."
 
 #: src/Tribe/Aggregator/Settings.php:703
 msgid "Cron-based"
-msgstr ""
+msgstr "Basé sur une tache Cron"
 
 #: src/Tribe/Aggregator/Settings.php:699
 msgid "Asynchronous"
@@ -5716,7 +5716,7 @@ msgstr "Aucun résultat n’a été trouvé pour %s ce mois-ci. Essayez avec le 
 
 #: src/Tribe/Template/Day.php:154
 msgid "No %1$s scheduled for %2$s. Please try another day."
-msgstr "Aucun %1$s prévu pour %2$s. Veuillez essayer avec une autre date."
+msgstr "Aucun %1$ prévu pour %2$s. Veuillez essayer avec une autre date."
 
 #: src/Tribe/Main.php:4076
 msgid "Check out the %savailable add-ons%s."
