@@ -1236,6 +1236,9 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 						$post_parent         = tribe_events()->where( 'name', $parent_name )->fields( 'ids' )->first();
 						$args['post_parent'] = $post_parent;
 					}
+
+					// Make sure these are unset to avoid 'post_name' comparisons.
+					unset( $args['name'], $args['post_name'] );
 				}
 
 				if ( ! empty( $args['tribe_is_past'] ) ) {
