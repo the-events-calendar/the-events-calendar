@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-12-12 23:58:30+0000\n"
+"PO-Revision-Date: 2018-12-20 23:42:05+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -542,7 +542,7 @@ msgstr ""
 
 #: src/admin-views/tribe-options-general.php:69
 msgid "Enable WordPress Custom Fields on Events."
-msgstr ""
+msgstr "Abilita i campi personalizzati di WordPress sugli eventi."
 
 #: src/admin-views/tribe-options-general.php:68
 msgid "Show Custom Fields metabox"
@@ -8243,7 +8243,7 @@ msgstr "Non ci sono %s precedenti"
 
 #: src/Tribe/Template_Factory.php:235 src/Tribe/Template_Factory.php:240
 msgid "No matching %1$s listed under %2$s. Please try viewing the full calendar for a complete list of %3$s."
-msgstr "Nessuna corrispondenza %1$s in elenco sotto %2$s. Prova a guardare il calendario completo per una lista di %3$s."
+msgstr "Non ci sono %1$s corrispondenti elencati in %2$s. Prova a visualizzare il calendario per un elenco completo degli %3$s."
 
 #: src/Tribe/Template_Factory.php:233
 msgid "No upcoming %1$s listed under %2$s. Check out upcoming %3$s for this category or view the full calendar."
