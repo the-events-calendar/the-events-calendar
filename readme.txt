@@ -217,7 +217,9 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 = [4.8] TBD =
 
-= [4.7.4] TBD =
+
+
+= [4.7.4] 2019-01-21 =
 
 * Fix - Display the tags block delimiter in the editor [119393]
 * Fix - Fixed a number of small layout bugs with the new Twenty Nineteen core theme [119689]
@@ -232,6 +234,8 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - Include UTC dates meta on the event creation from the block editor [120399]
 * Tweak - Ensure we don't re-apply `wpautop()` to content that has had it removed [120562]
 * Tweak - Adjusted content in the admin welcome page that users are brought to upon newly activating The Events Calendar [117795]
+* Tweak - Changed views: `blocks/event-tags`
+* Language - 3 new strings added, 21 updated, 1 fuzzied, and 5 obsoleted
 
 = [4.7.3] 2018-12-19 =
 

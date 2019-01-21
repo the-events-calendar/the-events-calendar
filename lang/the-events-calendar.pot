@@ -1,15 +1,15 @@
-# Copyright (C) 2018 Modern Tribe
+# Copyright (C) 2019 Modern Tribe
 # This file is distributed under the same license as the The Events Calendar package.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 4.7.3\n"
+"Project-Id-Version: The Events Calendar 4.7.4\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/the-events-"
 "calendar\n"
-"POT-Creation-Date: 2018-12-18 16:42:25+00:00\n"
+"POT-Creation-Date: 2019-01-21 11:40:24+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2018-12-18 16:42\n"
+"PO-Revision-Date: 2019-01-21 11:40\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -114,7 +114,7 @@ msgid "Try Events Gutenberg"
 msgstr ""
 
 #: src/Tribe/Admin/Notice/Timezones.php:74
-#: src/Tribe/Editor/Compatibility.php:104
+#: src/Tribe/Editor/Compatibility.php:122
 msgid "Read more"
 msgstr ""
 
@@ -1873,21 +1873,21 @@ msgstr ""
 msgid "Add Button Text"
 msgstr ""
 
-#: src/Tribe/Editor/Compatibility.php:110
+#: src/Tribe/Editor/Compatibility.php:128
 msgid "Activate Block Editor for Events"
 msgstr ""
 
-#: src/Tribe/Editor/Compatibility.php:111
+#: src/Tribe/Editor/Compatibility.php:129
 msgid ""
 "Enable early access to the new Gutenberg block editor interface for creating "
 "events."
 msgstr ""
 
-#: src/Tribe/Editor/Compatibility.php:118
+#: src/Tribe/Editor/Compatibility.php:136
 msgid "Hidden Blocks Editor Config"
 msgstr ""
 
-#: src/Tribe/Editor/Meta.php:61 src/Tribe/Editor/Meta.php:70
+#: src/Tribe/Editor/Meta.php:64 src/Tribe/Editor/Meta.php:73
 msgid "Event Organizers"
 msgstr ""
 
@@ -2472,7 +2472,7 @@ msgstr ""
 msgid "Upcoming Events"
 msgstr ""
 
-#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 4.7.3)  #-#-#-#-#
+#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 4.7.4)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: src/Tribe/Main.php:858 src/Tribe/Main.php:1202 src/Tribe/Privacy.php:29
 #: src/functions/template-tags/general.php:1349
@@ -4539,7 +4539,7 @@ msgid ""
 msgstr ""
 
 #: src/admin-views/admin-update-message.php:34
-#: src/admin-views/admin-welcome-message.php:70
+#: src/admin-views/admin-welcome-message.php:68
 msgid "Rate It"
 msgstr ""
 
@@ -4552,6 +4552,7 @@ msgid "We send out discounts to our core users via our newsletter."
 msgstr ""
 
 #: src/admin-views/admin-update-message.php:43
+#: src/admin-views/admin-welcome-message.php:56
 msgid "Sign Up"
 msgstr ""
 
@@ -4623,7 +4624,7 @@ msgid "Resources and Support"
 msgstr ""
 
 #: src/admin-views/admin-welcome-message.php:27
-msgid "We’ve got your back every step of the way."
+msgid "We've got your back every step of the way."
 msgstr ""
 
 #: src/admin-views/admin-welcome-message.php:29
@@ -4635,70 +4636,58 @@ msgid "Available Translations"
 msgstr ""
 
 #: src/admin-views/admin-welcome-message.php:31
-msgid "Submit a Support Thread on WordPress.org"
+msgid "WordPress.org Support Forums"
 msgstr ""
 
-#: src/admin-views/admin-welcome-message.php:32
-msgid "Events Calendar PRO Users:"
-msgstr ""
-
-#: src/admin-views/admin-welcome-message.php:32
-msgid "Submit a Help Desk Request"
-msgstr ""
-
-#: src/admin-views/admin-welcome-message.php:40
+#: src/admin-views/admin-welcome-message.php:39
 msgid "The Latest and Greatest"
 msgstr ""
 
-#: src/admin-views/admin-welcome-message.php:41
+#: src/admin-views/admin-welcome-message.php:40
 msgid "Frequent maintenance releases keep your ticket sales running smoothly."
 msgstr ""
 
-#: src/admin-views/admin-welcome-message.php:41
+#: src/admin-views/admin-welcome-message.php:40
 msgid "View the latest changelog"
 msgstr ""
 
-#: src/admin-views/admin-welcome-message.php:42
+#: src/admin-views/admin-welcome-message.php:41
 msgid "Gearing up with Gutenberg?"
 msgstr ""
 
-#: src/admin-views/admin-welcome-message.php:42
+#: src/admin-views/admin-welcome-message.php:41
 msgid "Get the latest block editor news"
 msgstr ""
 
-#: src/admin-views/admin-welcome-message.php:46
+#: src/admin-views/admin-welcome-message.php:45
 msgid "Don't Miss Out"
 msgstr ""
 
-#: src/admin-views/admin-welcome-message.php:47
+#: src/admin-views/admin-welcome-message.php:46
 msgid ""
 "Get the latest on The Events Calendar, occasional discounts, and hilarious "
 "gifs delivered straight to your inbox."
 msgstr ""
 
-#: src/admin-views/admin-welcome-message.php:50
+#: src/admin-views/admin-welcome-message.php:49
 msgid "Email"
 msgstr ""
 
-#: src/admin-views/admin-welcome-message.php:54
+#: src/admin-views/admin-welcome-message.php:52
 msgid "Add me to the list"
 msgstr ""
 
-#: src/admin-views/admin-welcome-message.php:58
-msgid "Subscribe"
-msgstr ""
-
-#: src/admin-views/admin-welcome-message.php:67
+#: src/admin-views/admin-welcome-message.php:65
 msgid "We Need Your Help"
 msgstr ""
 
-#: src/admin-views/admin-welcome-message.php:68
+#: src/admin-views/admin-welcome-message.php:66
 msgid ""
 "Your ratings keep us focused on making our plugins as useful as possible so "
 "we can help other WordPress users just like you."
 msgstr ""
 
-#: src/admin-views/admin-welcome-message.php:69
+#: src/admin-views/admin-welcome-message.php:67
 msgid "Rate us today!"
 msgstr ""
 
@@ -6360,7 +6349,7 @@ msgid "Show Custom Fields metabox"
 msgstr ""
 
 #: src/admin-views/tribe-options-general.php:69
-msgid "Enable WordPress Custom Fields on Events."
+msgid "Enable WordPress Custom Fields on events in the classic editor."
 msgstr ""
 
 #: src/admin-views/tribe-options-general.php:75
@@ -6878,13 +6867,17 @@ msgstr ""
 msgid "All day"
 msgstr ""
 
-#: src/views/blocks/event-tags.php:19 src/views/blocks/parts/details.php:153
-#: src/views/modules/meta/details.php:143
-msgid "%s Tags:"
+#: src/views/blocks/event-tags.php:19
+msgid "Tags"
 msgstr ""
 
 #: src/views/blocks/parts/details.php:61 src/views/modules/meta/details.php:56
 msgid "Details"
+msgstr ""
+
+#: src/views/blocks/parts/details.php:153
+#: src/views/modules/meta/details.php:143
+msgid "%s Tags:"
 msgstr ""
 
 #: src/views/day/nav.php:17
