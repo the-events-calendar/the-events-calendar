@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-07-19 15:23:21+0000\n"
+"PO-Revision-Date: 2019-01-16 08:58:19+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,63 +13,63 @@ msgstr ""
 
 #: src/resources/js/app/blocks.js:48214
 msgid "Edit Organizer"
-msgstr ""
+msgstr "Edita l'organitzador"
 
 #: src/resources/js/app/blocks.js:48211
 msgid "Organizer Settings"
-msgstr ""
+msgstr "Configuració de l'organitzador"
 
 #: src/resources/js/app/blocks.js:48137
 msgid "Add or find an organizer"
-msgstr ""
+msgstr "Afegeix o troba un organitzador"
 
 #: src/resources/js/app/blocks.js:47979
 msgid "Add email"
-msgstr ""
+msgstr "Afegeix un correu electrònic"
 
 #: src/resources/js/app/blocks.js:47972
 msgid "Add website"
-msgstr ""
+msgstr "Afegeix una pàgina web"
 
 #: src/resources/js/app/blocks.js:47965
 msgid "Add Phone"
-msgstr ""
+msgstr "Afegeix un telèfon"
 
 #: src/resources/js/app/blocks.js:47394
 msgid "Venue Settings"
-msgstr ""
+msgstr "Configuració del lloc"
 
 #: src/resources/js/app/blocks.js:47272
 msgid "Add or find a venue"
-msgstr ""
+msgstr "Afegeix o troba un lloc"
 
 #: src/resources/js/app/blocks.js:46934
 msgid "(Untitled Venue)"
-msgstr ""
+msgstr "(Lloc sense títol)"
 
 #: src/resources/js/app/blocks.js:46387
 msgid "Multi-Day"
-msgstr ""
+msgstr "Múltiples Dies"
 
 #: src/resources/js/app/blocks.js:45448
 msgid "Show Time Zone"
-msgstr ""
+msgstr "Mostra la zona horària"
 
 #: src/resources/js/app/blocks.js:45441
 msgid "Time Zone"
-msgstr ""
+msgstr "Zona horària"
 
 #: src/resources/js/app/blocks.js:45434
 msgid "Time Range Separator"
-msgstr ""
+msgstr "Separador del rang de temps"
 
 #: src/resources/js/app/blocks.js:45427
 msgid "Date Time Separator"
-msgstr ""
+msgstr "Separador de la data i l'hora"
 
 #: src/resources/js/app/blocks.js:13219 src/resources/js/app/elements.js:9845
 msgid "Add or Find"
-msgstr ""
+msgstr "Afeix o troba"
 
 #: src/resources/js/app/blocks.js:12598 src/resources/js/app/elements.js:9224
 msgid "A Google Map API KEY is required to view the map"
@@ -85,7 +85,7 @@ msgstr ""
 
 #: src/resources/js/app/blocks.js:11712 src/resources/js/app/elements.js:8338
 msgid "Country"
-msgstr ""
+msgstr "País"
 
 #: src/resources/js/app/blocks.js:11444 src/resources/js/app/elements.js:8070
 msgid "Name:"
@@ -151,7 +151,7 @@ msgstr ""
 #: src/modules/blocks/event-category/index.js:21
 #: src/resources/js/app/blocks.js:49142
 msgid "Event Categories"
-msgstr ""
+msgstr "Categories de l'esdeveniment"
 
 #: src/modules/blocks/event-category/block.js:46
 #: src/resources/js/app/blocks.js:49112
@@ -161,7 +161,7 @@ msgstr ""
 #: src/modules/blocks/featured-image/index.js:22
 #: src/resources/js/app/blocks.js:49610
 msgid "Display the featured image in the post content."
-msgstr ""
+msgstr "Mostra la imatge destacada en el contingut de la publicació."
 
 #: src/modules/blocks/featured-image/block.js:80
 #: src/resources/js/app/blocks.js:49562
@@ -177,7 +177,7 @@ msgstr ""
 #: src/modules/blocks/featured-image/index.js:21
 #: src/resources/js/app/blocks.js:49542 src/resources/js/app/blocks.js:49609
 msgid "Featured Image"
-msgstr ""
+msgstr "Imatge destacada"
 
 #: src/modules/blocks/event-tags/index.js:22
 #: src/resources/js/app/blocks.js:49255
@@ -193,7 +193,7 @@ msgstr ""
 #: src/modules/blocks/event-tags/index.js:21
 #: src/resources/js/app/blocks.js:49223 src/resources/js/app/blocks.js:49254
 msgid "Tags"
-msgstr ""
+msgstr "Etiquetes"
 
 #: src/modules/blocks/event-venue/index.js:18
 #: src/resources/js/app/blocks.js:47617
@@ -203,7 +203,7 @@ msgstr ""
 #: src/modules/blocks/event-venue/index.js:17
 #: src/resources/js/app/blocks.js:47616
 msgid "Event Venue"
-msgstr ""
+msgstr "Adreça de l'esdeveniment"
 
 #: src/modules/blocks/event-price/index.js:18
 #: src/resources/js/app/blocks.js:49019
@@ -213,7 +213,7 @@ msgstr ""
 #: src/modules/blocks/event-price/index.js:17
 #: src/resources/js/app/blocks.js:49018
 msgid "Event Price"
-msgstr ""
+msgstr "Preu de l'esdeveniment"
 
 #: src/modules/blocks/event-price/template.js:156
 #: src/resources/js/app/blocks.js:48830
@@ -566,7 +566,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/settings.php:123
 msgid "click here"
-msgstr ""
+msgstr "feu clic aquí"
 
 #: src/admin-views/aggregator/settings.php:121
 msgid "If you want to stop and clear current asynchronous import processes %1$s."
@@ -653,11 +653,11 @@ msgstr ""
 
 #: src/views/month/single-day.php:57
 msgid "%s for %s"
-msgstr ""
+msgstr "%s per %s"
 
 #: src/views/month/loop-grid.php:25 src/views/month/loop-grid.php:28
 msgid "Calendar of %s"
-msgstr ""
+msgstr "Calendari de %s"
 
 #: src/views/modules/bar.php:73
 msgid "Submit %s search"
@@ -669,7 +669,7 @@ msgstr ""
 
 #: src/views/modules/bar.php:87 src/views/modules/bar.php:93
 msgid "View %s As"
-msgstr ""
+msgstr "Mostra %s com"
 
 #: src/views/modules/bar.php:86
 msgid "%s Views Navigation"
@@ -1140,11 +1140,11 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Settings.php:407
 msgid "one month"
-msgstr ""
+msgstr "un mes"
 
 #: src/Tribe/Aggregator/Settings.php:395
 msgid "one week"
-msgstr ""
+msgstr "una setmana"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:577
 msgctxt "when the retry will happen, a date"
@@ -1167,32 +1167,32 @@ msgstr ""
 #: src/admin-views/tribe-options-general.php:184
 #: src/admin-views/tribe-options-general.php:201
 msgid "3 years"
-msgstr ""
+msgstr "3 anys"
 
 #: src/admin-views/tribe-options-general.php:183
 #: src/admin-views/tribe-options-general.php:200
 msgid "2 years"
-msgstr ""
+msgstr "2 anys"
 
 #: src/admin-views/tribe-options-general.php:182
 #: src/admin-views/tribe-options-general.php:199
 msgid "1 year"
-msgstr ""
+msgstr "1 any"
 
 #: src/admin-views/tribe-options-general.php:181
 #: src/admin-views/tribe-options-general.php:198
 msgid "9 months"
-msgstr ""
+msgstr "9 mesos"
 
 #: src/admin-views/tribe-options-general.php:180
 #: src/admin-views/tribe-options-general.php:197
 msgid "6 months"
-msgstr ""
+msgstr "6 mesos"
 
 #: src/admin-views/tribe-options-general.php:179
 #: src/admin-views/tribe-options-general.php:196
 msgid "3 months"
-msgstr ""
+msgstr "3 mesos"
 
 #: src/admin-views/tribe-options-general.php:173
 msgid "This option allows you to automatically move past events to trash."
@@ -1234,7 +1234,7 @@ msgstr ""
 
 #: src/admin-views/tribe-options-general.php:31
 msgid "The number of events per page on the List, Photo, and Map Views. Does not affect other views."
-msgstr ""
+msgstr "El nombre d'esdeveniments per pàgina a la llista, foto, i visualització de mapes, No afecta a altres visualitzacions."
 
 #: src/admin-views/tribe-options-general.php:28
 msgid "The number of events per page on the List View. Does not affect other views."
@@ -1243,7 +1243,7 @@ msgstr ""
 #: src/Tribe/Rewrite.php:265
 msgctxt "The \"/page/\" URL string component."
 msgid "page"
-msgstr ""
+msgstr "pagina"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:143
 msgid "An organizer with the specified event does not exist."
@@ -2101,25 +2101,25 @@ msgstr ""
 #: src/admin-views/organizer-meta-box.php:45
 #: src/admin-views/create-organizer-fields.php:19
 msgid "The e-mail address will be obfuscated on this site to avoid it getting harvested by spammers."
-msgstr ""
+msgstr "L'adreça de correu electrònic serà amagada en aquest lloc per evitar que els generadors de brossa el recoŀlectin."
 
 #: src/Tribe/Main.php:1103
 msgid "edit Events settings."
-msgstr ""
+msgstr "edita la configuració dels esdeveniments"
 
 #: src/Tribe/Main.php:1094
 msgid "Edit the %s slug"
-msgstr ""
+msgstr "Edita l'URL %s"
 
 #: src/Tribe/Linked_Posts.php:1178
 msgctxt "Indefinite article for the phrase \"Find a {post type name}\" when the {post type name} starts with a vowel, e.g. \"Find an Organizer\"."
 msgid "an"
-msgstr ""
+msgstr "un"
 
 #: src/Tribe/Linked_Posts.php:1171
 msgctxt "Indefinite article for the phrase \"Find a {post type name}. Will be replaced with \"an\" if the {post type name} starts with a vowel."
 msgid "a"
-msgstr ""
+msgstr "un"
 
 #. translators: %s: post title
 #: src/Tribe/Ignored_Events.php:396
@@ -2919,7 +2919,7 @@ msgstr ""
 #: src/Tribe/Main.php:869
 msgctxt "all events slug"
 msgid "all"
-msgstr ""
+msgstr "tots"
 
 #: common/src/Tribe/Validate.php:248
 msgid "%s must be a whole number."
@@ -3098,7 +3098,7 @@ msgstr ""
 
 #: src/Tribe/iCal.php:141
 msgid "Export Events"
-msgstr ""
+msgstr "Exporta esdeveniments"
 
 #: src/Tribe/Main.php:868
 msgctxt "featured events slug"
@@ -3489,7 +3489,7 @@ msgstr ""
 #: common/src/Tribe/Admin/Notice/Plugin_Download.php:92
 msgctxt "the final separator in a list of two or more items"
 msgid " and "
-msgstr ""
+msgstr "i"
 
 #: common/src/Tribe/Admin/Notice/Php_Version.php:59
 #: common/src/Tribe/Admin/Notice/Plugin_Download.php:91
@@ -5372,7 +5372,7 @@ msgstr ""
 
 #: common/src/Tribe/Main.php:255
 msgid "Previous"
-msgstr ""
+msgstr "Anterior"
 
 #: common/src/Tribe/Main.php:253
 msgid "All"
@@ -5442,7 +5442,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Page.php:400
 msgid "iCal Importer"
-msgstr ""
+msgstr "Importador iCal"
 
 #: common/src/Tribe/Plugins_API.php:116
 msgid "The Eventbrite Tickets add-on allows you to create & sell tickets through The Events Calendar using the power of %1$sEventbrite%2$s. Whether you’re creating your ticket on the WordPress dashboard or importing the details of an already-existing event from %1$sEventbrite.com%2$s, this add-on brings the power of the Eventbrite API to your calendar."
@@ -5686,7 +5686,7 @@ msgstr "Següent dia"
 
 #: src/functions/template-tags/day.php:106
 msgid "Previous Day"
-msgstr ""
+msgstr "Dia anterior"
 
 #: src/admin-views/venue-meta-box.php:272
 msgid "%s Name already exists"
@@ -5694,7 +5694,7 @@ msgstr ""
 
 #: src/admin-views/venue-meta-box.php:267
 msgid "%s Name can not be empty"
-msgstr ""
+msgstr "El nom de %s no pot estar buit"
 
 #: src/admin-views/admin-update-message.php:32
 msgid "Keep the Core Plugin %sFREE%s!"
@@ -5970,7 +5970,7 @@ msgstr ""
 
 #: common/src/Tribe/Admin/Help_Page.php:828
 msgid "Rating:"
-msgstr ""
+msgstr "Valoració:"
 
 #: common/src/Tribe/Admin/Help_Page.php:825
 msgid "Active Users:"
@@ -5978,7 +5978,7 @@ msgstr "Usuaris Actius:"
 
 #: common/src/Tribe/Admin/Help_Page.php:802
 msgid "Install Plugin"
-msgstr ""
+msgstr "Instaŀla l'extensió"
 
 #: common/src/Tribe/Admin/Help_Page.php:802
 msgid "Install %s"
@@ -6046,11 +6046,11 @@ msgstr[1] ""
 
 #: src/Tribe/Aggregator/Record/Queue_Realtime.php:54
 msgid "Completed!"
-msgstr ""
+msgstr "Completat!"
 
 #: src/Tribe/Organizer.php:198
 msgid "organizers"
-msgstr ""
+msgstr "organitzadors"
 
 #: src/admin-views/aggregator/origins/url.php:122
 #: src/admin-views/aggregator/origins/gcal.php:117
@@ -6062,19 +6062,19 @@ msgstr "Cancel·lar"
 
 #: common/src/Tribe/Validate.php:214
 msgid "%s must be a positive number or percent."
-msgstr ""
+msgstr "%s ha de ser un nombre positiu o percentatge."
 
 #: src/Tribe/Main.php:1106
 msgid "%1$s or %2$s"
-msgstr ""
+msgstr "%1$s o %2$s"
 
 #. Author URI of the plugin
 msgid "http://m.tri.be/1x"
-msgstr ""
+msgstr "http://m.tri.be/1x"
 
 #. Author of the plugin
 msgid "Modern Tribe, Inc."
-msgstr ""
+msgstr "Modern Tribe, Inc."
 
 #. Description of the plugin
 msgid "The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events. Beautiful. Solid. Awesome."
@@ -6143,7 +6143,7 @@ msgstr "Importació d'esdeveniments"
 #: src/modules/blocks/event-links/template.js:101
 #: src/resources/js/app/blocks.js:48525
 msgid "Share Settings"
-msgstr ""
+msgstr "Comparteix la configuració"
 
 #: src/deprecated/Tribe__Events__Importer__Options.php:136
 msgid "Draft"
@@ -6163,7 +6163,7 @@ msgstr "Configuració de la importació"
 
 #: src/functions/template-tags/options.php:29
 msgid "You %1$scannot%2$s use the same slug as above. The above should ideally be plural, and this singular.%3$sYour single Event URL is like: %4$s"
-msgstr ""
+msgstr "%1$sNo podeu%2$s utilitzar el mateix url d'abans. L'anterior hauria de ser idealment en plural, i aquesta en singular.%3$sL'URL per a un únic esdeveniment és com: %4$s"
 
 #: src/functions/template-tags/options.php:20
 msgid "Your current Events URL is %s"
@@ -6212,8 +6212,8 @@ msgstr "Etiquetes:"
 msgctxt "category list label"
 msgid "%s Category"
 msgid_plural "%s Categories"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Categoria d'%s"
+msgstr[1] "Categories d'%s"
 
 #: src/functions/template-tags/deprecated.php:1299
 msgid "Category"
@@ -6252,7 +6252,7 @@ msgstr "Detalls"
 
 #: src/admin-views/widget-admin-list.php:31
 msgid "Show widget only if there are upcoming events"
-msgstr ""
+msgstr "Mostra el giny només si hi ha esdeveniments programats"
 
 #: src/admin-views/widget-admin-list.php:18
 msgid "Show:"
@@ -6264,7 +6264,7 @@ msgstr "Títol:"
 
 #: src/resources/js/app/blocks.js:47396
 msgid "Show Google Maps Link"
-msgstr ""
+msgstr "Mostra l'enllaç de Google Maps"
 
 #: src/admin-views/create-venue-fields.php:166
 #: src/admin-views/venue-meta-box.php:136
@@ -6297,23 +6297,23 @@ msgstr ""
 
 #: src/admin-views/tribe-options-timezones.php:48
 msgid "Show time zone"
-msgstr ""
+msgstr "Mostra la zona horària"
 
 #: src/admin-views/tribe-options-timezones.php:43
 msgid "Use the site-wide time zone everywhere"
-msgstr ""
+msgstr "Utilitza la zona horària del lloc web a tot arreu"
 
 #: src/admin-views/tribe-options-timezones.php:42
 msgid "Use manual time zones for each event"
-msgstr ""
+msgstr "Utilitza la zona horària manual per a cada esdeveniment"
 
 #: src/admin-views/tribe-options-timezones.php:38
 msgid "Time zone mode"
-msgstr ""
+msgstr "Mode de zona horària"
 
 #: src/admin-views/tribe-options-timezones.php:30
 msgid "Time Zone Settings"
-msgstr ""
+msgstr "Configuració de la zona horària"
 
 #: src/admin-views/tribe-options-timezones.php:10
 msgid "Click this button to update your database and take advantage of additional time zone capabilities. Please <a href=\"%s\" target=\"_blank\">configure WordPress</a> to use the correct time zone before clicking this button!"
@@ -6321,11 +6321,11 @@ msgstr ""
 
 #: src/admin-views/tribe-options-timezones.php:9
 msgid "Update Time Zone Data"
-msgstr ""
+msgstr "Actualitza les dades de la zona horària"
 
 #: src/admin-views/tribe-options-timezones.php:7
 msgid "Enable Time Zone support"
-msgstr ""
+msgstr "Habilita el suport de zona horària"
 
 #: common/src/admin-views/tribe-options-network.php:27
 msgid "Hide the following settings tabs on every site:"
@@ -6341,7 +6341,7 @@ msgstr "Configuració de xarxa"
 
 #: common/src/admin-views/tribe-options-licenses.php:38
 msgid "%1$s Using our plugins in a multisite network? %2$s Please note that your license key will be applied to the entire network, not just this site."
-msgstr ""
+msgstr "%1$s Utilitzeu les extensions en una xarxa multilloc? %2$s Recordeu que la clau de llicència s'aplicarà a tota la xarxa, no només en aquest lloc."
 
 #: common/src/admin-views/tribe-options-help.php:74
 msgid "News and Tutorials"
@@ -6371,7 +6371,7 @@ msgstr "Més..."
 #: common/src/Tribe/Plugins_API.php:43 common/src/Tribe/Admin/Help_Page.php:194
 #: src/Tribe/Main.php:1212
 msgid "Events Calendar PRO"
-msgstr ""
+msgstr "The Events Calendar PRO"
 
 #: common/src/Tribe/Admin/Help_Page.php:413
 #: common/src/Tribe/Admin/Help_Page.php:788
@@ -6719,12 +6719,12 @@ msgstr "Plantilla d'esdeveniments predeterminada"
 #: src/modules/blocks/classic-event-details/template.js:117
 #: src/resources/js/app/blocks.js:45080
 msgid "Price: "
-msgstr ""
+msgstr "Preu:"
 
 #: common/src/modules/elements/image-upload/element.js:46
 #: common/src/resources/js/app/elements.js:59497
 msgid "remove"
-msgstr ""
+msgstr "suprimeix"
 
 #: common/src/admin-views/event-log.php:65
 msgid "View"
@@ -6825,7 +6825,7 @@ msgstr "Web de l'%s"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:509
 msgid "Location:"
-msgstr ""
+msgstr "Ubicació:"
 
 #: src/admin-views/events-meta-box.php:89
 #: src/admin-views/events-meta-box.php:128
@@ -6874,7 +6874,7 @@ msgstr "Recursos de suport"
 
 #: src/admin-views/admin-welcome-message.php:44
 msgid "Addons for Community, Tickets, Filters, and more."
-msgstr ""
+msgstr "Complements per comunitats, tiquets, filtres, Facebook i més."
 
 #: src/admin-views/admin-welcome-message.php:43
 msgid "Looking for More Features?"
@@ -7207,7 +7207,7 @@ msgstr "Sàhara Occidental"
 
 #: common/src/Tribe/Languages/Locations.php:293
 msgid "Wallis and Futuna Islands"
-msgstr ""
+msgstr "Wallis i Futuna"
 
 #: common/src/Tribe/Languages/Locations.php:292
 msgid "Virgin Islands (U.S.)"
@@ -7263,7 +7263,7 @@ msgstr "Tuvalu"
 
 #: common/src/Tribe/Languages/Locations.php:279
 msgid "Turks and Caicos Islands"
-msgstr ""
+msgstr "Illes Turks i Caicos"
 
 #: common/src/Tribe/Languages/Locations.php:278
 msgid "Turkmenistan"
@@ -7279,7 +7279,7 @@ msgstr "Tunísia"
 
 #: common/src/Tribe/Languages/Locations.php:275
 msgid "Trinidad and Tobago"
-msgstr ""
+msgstr "Trinitat i Tobago"
 
 #: common/src/Tribe/Languages/Locations.php:274
 msgid "Tonga"
@@ -7299,7 +7299,7 @@ msgstr "Tailàndia"
 
 #: common/src/Tribe/Languages/Locations.php:270
 msgid "Tanzania, United Republic of"
-msgstr ""
+msgstr "Tanzània, República Unida de"
 
 #: common/src/Tribe/Languages/Locations.php:269
 msgid "Tajikistan"
@@ -7327,7 +7327,7 @@ msgstr "Swazilàndia"
 
 #: common/src/Tribe/Languages/Locations.php:263
 msgid "Svalbard and Jan Mayen Islands"
-msgstr ""
+msgstr "Svalbard i Jan Mayen"
 
 #: common/src/Tribe/Languages/Locations.php:262
 msgid "Suriname"
@@ -7339,7 +7339,7 @@ msgstr "Sudan"
 
 #: common/src/Tribe/Languages/Locations.php:241
 msgid "Saint Pierre and Miquelon"
-msgstr ""
+msgstr "Saint-Pierre i Miquelon"
 
 #: common/src/Tribe/Languages/Locations.php:260
 msgid "Sri Lanka"
@@ -7407,7 +7407,7 @@ msgstr "Samoa"
 
 #: common/src/Tribe/Languages/Locations.php:242
 msgid "Saint Vincent and The Grenadines"
-msgstr ""
+msgstr "Saint Vincent i les Grenadines"
 
 #: common/src/Tribe/Languages/Locations.php:240
 msgid "Saint Lucia"
@@ -7415,7 +7415,7 @@ msgstr "Saint Lucia"
 
 #: common/src/Tribe/Languages/Locations.php:239
 msgid "Saint Kitts and Nevis"
-msgstr ""
+msgstr "Saint Christopher i Nevis"
 
 #: common/src/Tribe/Languages/Locations.php:236
 msgid "Rwanda"
@@ -7567,11 +7567,11 @@ msgstr "Mònaco"
 
 #: common/src/Tribe/Languages/Locations.php:199
 msgid "Moldova, Republic of"
-msgstr ""
+msgstr "Moldàvia, República de"
 
 #: common/src/Tribe/Languages/Locations.php:198
 msgid "Micronesia, Federated States of"
-msgstr ""
+msgstr "Micronèsia, Estats Federats de"
 
 #: common/src/Tribe/Languages/Locations.php:197
 msgid "Mexico"
@@ -7675,11 +7675,11 @@ msgstr "Kuwait"
 
 #: common/src/Tribe/Languages/Locations.php:172
 msgid "Korea, Republic of"
-msgstr ""
+msgstr "Corea, República de"
 
 #: common/src/Tribe/Languages/Locations.php:171
 msgid "Korea, Democratic People's Republic of"
-msgstr ""
+msgstr "Corea, República Popular Democràtica de"
 
 #: common/src/Tribe/Languages/Locations.php:170
 msgid "Kiribati"
@@ -7723,7 +7723,7 @@ msgstr "Iraq"
 
 #: common/src/Tribe/Languages/Locations.php:160
 msgid "Iran, Islamic Republic of"
-msgstr ""
+msgstr "Iran (República Islàmica de l')"
 
 #: common/src/Tribe/Languages/Locations.php:159
 msgid "Indonesia"
@@ -7755,7 +7755,7 @@ msgstr "Santa Seu (Ciutat del Vaticà)"
 
 #: common/src/Tribe/Languages/Locations.php:152
 msgid "Heard and McDonald Islands"
-msgstr ""
+msgstr "Illes Heard i McDonald"
 
 #: common/src/Tribe/Languages/Locations.php:151
 msgid "Haiti"
@@ -7928,7 +7928,7 @@ msgstr "Illes Cook"
 
 #: common/src/Tribe/Languages/Locations.php:107
 msgid "Congo, Democratic Republic of the"
-msgstr ""
+msgstr "Congo, La República Democràtica del"
 
 #: common/src/Tribe/Languages/Locations.php:106
 msgid "Congo"
@@ -8020,7 +8020,7 @@ msgstr "Botswana"
 
 #: common/src/Tribe/Languages/Locations.php:83
 msgid "Bosnia and Herzegovina"
-msgstr ""
+msgstr "Bòsnia i Hercegovina"
 
 #: common/src/Tribe/Languages/Locations.php:82
 msgid "Bolivia"
@@ -8092,7 +8092,7 @@ msgstr "Argentina"
 
 #: common/src/Tribe/Languages/Locations.php:65
 msgid "Antigua and Barbuda"
-msgstr ""
+msgstr "Antigua i Barbuda"
 
 #: common/src/Tribe/Languages/Locations.php:64
 msgid "Antarctica"
@@ -8476,19 +8476,19 @@ msgstr "Data fora de rang."
 
 #: src/Tribe/Main.php:2378
 msgid "all"
-msgstr ""
+msgstr "tots"
 
 #: src/Tribe/Main.php:2377 src/functions/template-tags/general.php:111
 msgid "events"
-msgstr ""
+msgstr "esdeveniments"
 
 #: src/Tribe/Main.php:2376 src/functions/template-tags/general.php:79
 msgid "event"
-msgstr ""
+msgstr "esdeveniment"
 
 #: src/Tribe/Main.php:2375
 msgid "page"
-msgstr ""
+msgstr "pàgina"
 
 #: common/src/Tribe/Settings_Manager.php:219
 msgid "Network"
@@ -8852,7 +8852,7 @@ msgstr "Web de l'esdeveniment"
 
 #: src/Tribe/Importer/Column_Mapper.php:84
 msgid "Event Tags"
-msgstr ""
+msgstr "Etiquetes de l'esdeveniment"
 
 #: src/Tribe/Importer/Column_Mapper.php:83
 #: src/modules/blocks/event-category/block.js:45
@@ -8862,11 +8862,11 @@ msgstr "Categoria de l'esdeveniment"
 
 #: src/Tribe/Importer/Column_Mapper.php:82
 msgid "Event Currency Position"
-msgstr ""
+msgstr "Posició de la moneda de l'esdeveniment"
 
 #: src/Tribe/Importer/Column_Mapper.php:81
 msgid "Event Currency Symbol"
-msgstr ""
+msgstr "Símbol monetari de l'esdeveniment"
 
 #: src/Tribe/Importer/Column_Mapper.php:80
 msgid "Event Cost"
@@ -8920,7 +8920,7 @@ msgstr "No importar"
 #: src/Tribe/Aggregator/Record/CSV.php:211
 #: src/deprecated/Tribe__Events__Importer__Admin_Page.php:358
 msgid "The following fields are required for a successful import:"
-msgstr ""
+msgstr "<p>Els següents camps són obligatoris per a una importació correcta:</p>"
 
 #: src/deprecated/Tribe__Events__Importer__Admin_Page.php:317
 msgid "We were unable to process your request. Please try again."
@@ -8970,7 +8970,7 @@ msgstr "Gratuït"
 #: src/Tribe/Cost_Utils.php:120
 msgctxt "Cost range separator"
 msgid " – "
-msgstr ""
+msgstr " - "
 
 #: common/src/Tribe/App_Shop.php:50 common/src/Tribe/App_Shop.php:51
 #: common/src/Tribe/App_Shop.php:72
@@ -9028,22 +9028,22 @@ msgstr "Categories d'%s"
 
 #: src/Tribe/Admin/Timezone_Updater.php:105
 msgid "A problem stopped the time zone update process from completing. Please refresh and try again."
-msgstr ""
+msgstr "Un problema ha provocat l'aturada del procés d'actualització de la zona horària abans d'hora. Actualitzeu la pàgina i proveu-ho de nou."
 
 #: src/Tribe/Admin/Timezone_Updater.php:87
 #: src/Tribe/Aggregator/Record/Queue_Realtime.php:56
 #: src/Tribe/Aggregator/Record/Queue_Realtime.php:100
 #: src/Tribe/Aggregator/Record/Queue_Realtime.php:210
 msgid "%d%% complete"
-msgstr ""
+msgstr "%d%% completat"
 
 #: src/Tribe/Admin/Timezone_Updater.php:78
 msgid "Update complete: time zone data has been added to all events in the database."
-msgstr ""
+msgstr "Actualització completada: la informació de zona horària s'ha afegit a tots els esdeveniments de la base de dades."
 
 #: src/Tribe/Admin/Timezone_Updater.php:77
 msgid "Please wait while time zone data is added to your events."
-msgstr ""
+msgstr "Espereu mentre la informació de la zona horària s'afegeix als esdeveniments."
 
 #: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:211 src/Tribe/Main.php:1969
 #: src/Tribe/Main.php:5064 src/Tribe/Main.php:5111

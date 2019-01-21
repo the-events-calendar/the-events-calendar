@@ -55,7 +55,7 @@ class Tribe__Events__Editor__Compatibility {
 	/**
 	 * Filter when we are in the classic editor page
 	 *
-	 * @since  TBD
+	 * @since  4.7.4
 	 *
 	 * @param  boolean $pre
 	 *
