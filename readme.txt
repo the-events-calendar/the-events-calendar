@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 4.7
 Stable tag: 4.7.4
-Tested up to: 5.0.2
+Tested up to: 5.0.3
 Requires PHP: 5.2.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -215,7 +215,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
-= [4.7.4] TBD =
+= [4.7.4] 2019-01-21 =
 
 * Fix - Display the tags block delimiter in the editor [119393]
 * Fix - Fixed a number of small layout bugs with the new Twenty Nineteen core theme [119689]
