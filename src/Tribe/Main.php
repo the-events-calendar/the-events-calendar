@@ -2738,9 +2738,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param bool $network_deactivating
 		 */
 		public static function activate() {
+
 			self::instance()->plugins_loaded();
 
 			self::flushRewriteRules();
+
+			if ( ! class_exists( 'Tribe__Events__Editor__Compatibility' ) ) {
+				require_once dirname( __FILE__ ) . '/Editor/Compatibility.php';
+			}
 
 			$editor_compatibility = new Tribe__Events__Editor__Compatibility();
 			$editor_compatibility->deactivate_gutenberg_extension_plugin();
@@ -2757,6 +2762,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param bool $network_deactivating
 		 */
 		public static function deactivate( $network_deactivating ) {
+
+			if ( ! class_exists( 'Tribe__Events__Deactivation' ) ) {
+				require_once dirname( __FILE__ ) . '/Deactivation.php';
+			}
+
 			$deactivation = new Tribe__Events__Deactivation( $network_deactivating );
 			add_action( 'shutdown', array( $deactivation, 'deactivate' ) );
 		}
