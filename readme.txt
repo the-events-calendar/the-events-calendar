@@ -230,6 +230,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - Include UTC dates meta on the event creation from the block editor [120399]
 * Tweak - Ensure we don't re-apply `wpautop()` to content that has had it removed [120562]
 * Tweak - Adjusted content in the admin welcome page that users are brought to upon newly activating The Events Calendar [117795]
+* Tweak - Changed views: `blocks/event-tags`
 
 = [4.7.3] 2018-12-19 =
 
