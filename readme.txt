@@ -217,6 +217,8 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 = [4.8] TBD =
 
+* Fix - fix console warnings for keys [121198]
+
 = [4.7.4] TBD =
 
 * Fix - Display the tags block delimiter in the editor [119393]
