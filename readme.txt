@@ -215,6 +215,10 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
+= [4.8.1] TBD =
+
+* Fix - Apply block closer to price block [120108]
+
 = [4.8] TBD =
 
 = [4.7.4] TBD =
