@@ -3,7 +3,7 @@
   "lang/**/*",
   "license.txt",
   "readme.txt",
-  "site_owner_data_collection_statement.html"
+  "site_owner_data_collection_statement.html",
   "src/**/*",
   "the-events-calendar.php",
   "vendor/bootstrap-datepicker/css/*.css",
