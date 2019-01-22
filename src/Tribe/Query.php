@@ -1238,7 +1238,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 					}
 
 					// Make sure these are unset to avoid 'post_name' comparisons.
-					unset( $args['name'], $args['post_name'] );
+					unset( $args['name'], $args['post_name'], $args['tribe_events'] );
 				}
 
 				if ( ! empty( $args['tribe_is_past'] ) ) {
