@@ -18,5 +18,5 @@
   "vendor/jquery/smoothness/*.css",
   "vendor/jquery/smoothness/images/*.png",
   "vendor/php-date-formatter/js/*.js",
-  "vendor/tribe-common-libraries/**/*",
+  "vendor/tribe-common-libraries/**/*"
 ]
