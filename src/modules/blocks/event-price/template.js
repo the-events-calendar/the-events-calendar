@@ -164,18 +164,6 @@ const renderControls = ({
 
 class EventPrice extends Component {
 
-	componentDidMount() {
-		const { onKeyDown, onClick } = this.props;
-		document.addEventListener( 'keydown', onKeyDown );
-		document.addEventListener( 'click', onClick );
-	}
-
-	componentWillUnmount() {
-		const { onKeyDown, onClick } = this.props;
-		document.removeEventListener( 'keydown', onKeyDown );
-		document.removeEventListener( 'click', onClick );
-	}
-
 	render() {
 		return [
 			renderUI( this.props ),
