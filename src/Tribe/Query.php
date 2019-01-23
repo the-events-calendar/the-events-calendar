@@ -1224,21 +1224,30 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 					unset( $args['orderby'] );
 				}
 
-				if ( 'all' === $event_display && empty( $args['post_parent'] ) ) {
-					// Make sure the `post_parent` ID is set in /all requests.
-					$parent_name = Tribe__Utils__Array::get(
-						$args,
-						'name',
-						Tribe__Utils__Array::get( 'tribe_events', false )
-					);
+				if ( 'all' === $event_display  ) {
+					if ( empty( $args['post_parent'] ) ) {
+						// Make sure the `post_parent` ID is set in /all requests.
+						$parent_name = Tribe__Utils__Array::get(
+							$args,
+							'name',
+							Tribe__Utils__Array::get( 'tribe_events', false )
+						);
 
-					if ( ! empty( $parent_name ) ) {
-						$post_parent         = tribe_events()->where( 'name', $parent_name )->fields( 'ids' )->first();
-						$args['post_parent'] = $post_parent;
+						if ( ! empty( $parent_name ) ) {
+							$post_parent         = tribe_events()->where( 'name', $parent_name )->fields( 'ids' )
+							                                     ->first();
+							$args['post_parent'] = $post_parent;
+						}
+
+						// Make sure these are unset to avoid 'post_name' comparisons.
+						unset( $args['name'], $args['post_name'], $args['tribe_events'] );
 					}
 
-					// Make sure these are unset to avoid 'post_name' comparisons.
-					unset( $args['name'], $args['post_name'], $args['tribe_events'] );
+					if ( class_exists( 'Tribe__Events__Pro__Recurrence__Event_Query' ) ) {
+						$recurrence_query = new Tribe__Events__Pro__Recurrence__Event_Query();
+						$recurrence_query->set_parent_event( get_post( $args['post_parent'] ) );
+						add_filter( 'posts_where', array( $recurrence_query, 'include_parent_event' ), 100 );
+					}
 				}
 
 				if ( ! empty( $args['tribe_is_past'] ) ) {
