@@ -1213,7 +1213,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 					unset( $args['end_date'] );
 				}
 
-				if ( isset( $args['eventDate'] ) ) {
+				if ( isset( $args['eventDate'] ) && ! isset( $args['start_date'], $args['end_date'] ) ) {
 					$args['on_date'] = $args['eventDate'];
 					unset( $args['eventDate'] );
 				}
