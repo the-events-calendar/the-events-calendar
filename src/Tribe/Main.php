@@ -373,6 +373,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				add_action( 'network_admin_notices', array( $this, 'compatibility_notice' ) );
 				add_filter( 'tribe_ecp_to_run_or_not_to_run', array( $this, 'disable_pro' ) );
 
+				//Disable Older Versions of Community Events to Prevent Fatal Error
+				remove_action( 'plugins_loaded', 'Tribe_CE_Load', 2 );
+
 				return;
 			}
 
