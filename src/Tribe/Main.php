@@ -2763,7 +2763,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public static function deactivate( $network_deactivating ) {
 
+			/**
+			 * If Deactivation Class not found manually load all classes to deactivate
+			 */
 			if ( ! class_exists( 'Tribe__Events__Deactivation' ) ) {
+				require_once dirname( __FILE__ ) . '/Capabilities.php';
+				require_once dirname( __FILE__ ) . '/Aggregator/Records.php';
 				require_once dirname( __FILE__ ) . '/Deactivation.php';
 			}
 
