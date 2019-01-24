@@ -96,7 +96,7 @@ class Tribe__Events__Editor__Configuration implements Tribe__Editor__Configurati
 	/**
 	 * Returns the site timezone as a string
 	 *
-	 * @since TBD
+	 * @since 4.7.2
 	 *
 	 * @return string
 	 */

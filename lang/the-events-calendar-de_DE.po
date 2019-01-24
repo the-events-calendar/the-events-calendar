@@ -9100,7 +9100,105 @@ msgstr "Vereinigte Staaten"
 
 #: src/Tribe/Venue.php:386
 msgid "Unnamed Venue"
-msgstr "Unbenannter Veranstaltungsort"/Tribe/Importer/File_Uploader.php:28
+msgstr "Unbenannter Veranstaltungsort". %2$sMehr erfahren%3$s."
+
+#: src/Tribe/Main.php:1403
+msgid "Your version of The Events Calendar is not up-to-date with one of your The Events Calendar add-ons. Please %supdate now.%s"
+msgstr "Deine Version des Events Calendar ist nicht aktuell genug, um dieses Add-On zu nutzen. Bitte %supdate jetzt.%s."
+
+#: src/Tribe/Main.php:893
+msgid "Initializing Tribe Events on %s"
+msgstr "Tribe Events wird eingerichtet für %s"
+
+#: src/Tribe/Main.php:867
+msgid "today"
+msgstr "heute"
+
+#: src/Tribe/Main.php:866
+msgid "day"
+msgstr "Tag"
+
+#: src/Tribe/Main.php:865
+msgid "past"
+msgstr "vergangen"
+
+#: src/Tribe/Main.php:864
+msgid "upcoming"
+msgstr "anstehende"
+
+#: src/Tribe/Main.php:863
+msgid "list"
+msgstr "list"
+
+#: src/Tribe/Main.php:862
+msgid "month"
+msgstr "Monat"
+
+#. Plugin Name of the plugin
+#: common/src/Tribe/Plugins_API.php:25 common/src/Tribe/Customizer.php:642
+#: common/src/Tribe/Admin/Help_Page.php:59 src/Tribe/Privacy.php:29
+#: src/Tribe/Main.php:855 src/Tribe/Main.php:1199
+#: src/functions/template-tags/general.php:1345
+msgid "The Events Calendar"
+msgstr "The Events Calendar"
+
+#: src/Tribe/Main.php:1269 src/admin-views/aggregator/tabs/import-form.php:201
+#: src/admin-views/aggregator/tabs/import-form.php:213
+#: src/functions/template-tags/general.php:63
+msgid "Event"
+msgstr "Veranstaltung"
+
+#: common/src/Tribe/Settings.php:177 common/src/Tribe/Settings.php:241
+#: common/src/Tribe/Settings.php:242 src/Tribe/Main.php:1261
+#: src/deprecated/Tribe__Events__Importer__Admin_Page.php:207
+#: src/functions/template-tags/general.php:95
+msgid "Events"
+msgstr "Veranstaltungen"
+
+#: src/Tribe/Organizer.php:157 src/functions/template-tags/organizer.php:112
+#: src/modules/blocks/classic-event-details/template.js:167
+#: src/resources/js/app/blocks.js:45142
+msgid "Organizer"
+msgstr "Veranstalter"
+
+#: src/Tribe/Organizer.php:171
+#: src/deprecated/Tribe__Events__Importer__Admin_Page.php:206
+#: src/functions/template-tags/organizer.php:123
+msgid "Organizers"
+msgstr "Veranstalter"
+
+#: src/Tribe/Venue.php:168 src/functions/template-tags/venue.php:57
+msgid "Venue"
+msgstr "Veranstaltungsort"
+
+#: src/Tribe/Venue.php:177
+#: src/deprecated/Tribe__Events__Importer__Admin_Page.php:205
+#: src/functions/template-tags/venue.php:76
+msgid "Venues"
+msgstr "Veranstaltungsorte"
+
+#: src/Tribe/List_Widget.php:239
+msgid "Upcoming Events"
+msgstr "Anstehende Veranstaltungen"
+
+#: src/Tribe/List_Widget.php:38
+msgid "Events List"
+msgstr "Veranstaltungsliste"
+
+#: src/Tribe/List_Widget.php:30
+msgid "A widget that displays upcoming events."
+msgstr "Ein Widget, das die bevorstehenden Veranstaltungen anzeigt."
+
+#: common/src/Tribe/Settings.php:643
+#: src/deprecated/Tribe__Events__Importer__Options.php:55
+msgid "Settings saved."
+msgstr "Die Einstellungen wurden gespeichert."
+
+#: src/Tribe/Importer/File_Uploader.php:36
+msgid "Could not save %s."
+msgstr "Konnte %s nicht speichern."
+
+#: src/Tribe/Importer/File_Uploader.php:28
 msgid "Temporary file not found. Could not save %s."
 msgstr "Temporäre Datei nicht gefunden. Konnte %s nicht speichern."
 
