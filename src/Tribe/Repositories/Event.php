@@ -98,6 +98,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			'cost_between'            => array( $this, 'filter_by_cost_between' ),
 			'cost_less_than'          => array( $this, 'filter_by_cost_less_than' ),
 			'cost_greater_than'       => array( $this, 'filter_by_cost_greater_than' ),
+			'on_date'                 => array( $this, 'filter_by_on_date' ),
 		) );
 
 		// Add backcompat aliases.
@@ -167,7 +168,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 
 		return array(
 			'meta_query' => array(
-				'ends-before' => array(
+				'starts-before' => array(
 					'key'     => '_EventStartDateUTC',
 					'compare' => '<',
 					'value'   => $date->format( 'Y-m-d H:i:s' ),
@@ -225,7 +226,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 
 		return array(
 			'meta_query' => array(
-				'ends-after' => array(
+				'starts-after' => array(
 					'key'     => '_EventStartDateUTC',
 					'compare' => '>',
 					'value'   => $date->format( 'Y-m-d H:i:s' ),
@@ -860,14 +861,16 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 				if ( isset( $meta[ "_Event{$check}Date" ] ) ) {
 					$meta_value = $meta[ "_Event{$check}Date" ];
 
-					if ( $meta_value instanceof DateTime || $meta_value instanceof DateTimeImmutable ) {
+					$is_object = $meta_value instanceof DateTime
+					             || ( class_exists( 'DateTimeImmutable' ) && $meta_value instanceof DateTimeImmutable );
+					if ( $is_object ) {
 						$meta_value                 = $meta_value->format( 'Y-m-d H:i:s' );
 						$postarr[ 'meta_input' ][ "_Event{$check}Date" ] = $meta_value;
 					}
 
-					$date = new DateTimeImmutable( $meta_value, $timezone );
-
+					$date = new DateTime( $meta_value, $timezone );
 					$utc_date = $date->setTimezone( $utc );
+
 					// Set the UTC date/time from local date/time and timezone; if provided override it.
 					$postarr[ 'meta_input' ][ "_Event{$check}DateUTC" ] = $utc_date->format( $datetime_format );
 					$dates_changed[ $check ]                        = $utc_date;
@@ -877,9 +880,11 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 				 * If the UTC date is provided in place of the local date/time then build the
 				 * local date/time.
 				 */
-				if ( isset( $meta[ "_Event{$check}DateUTC" ] ) && empty( $utc_date ) ) {
-					$utc_date                                    = new DateTimeImmutable( $meta[ "_Event{$check}DateUTC" ], $utc );
-					$postarr[ 'meta_input' ][ "_Event{$check}Date" ] = $utc_date->setTimezone( $timezone )->format( $datetime_format );
+				if ( empty( $utc_date ) && isset( $meta[ "_Event{$check}DateUTC" ] ) ) {
+					$utc_date = new DateTime( $meta[ "_Event{$check}DateUTC" ], $utc );
+					$the_date = clone $utc_date;
+					$the_date->setTimezone( $timezone )->format( $datetime_format );
+					$postarr[ 'meta_input' ][ "_Event{$check}Date" ]  = $the_date;
 					$dates_changed[ $check ]                     = $utc_date;
 				}
 			}
@@ -921,21 +926,23 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			} elseif ( isset( $meta['_EventDuration'] ) ) {
 				if ( isset( $dates_changed['Start'] ) ) {
 					// If we have a duration and the start changed update the end.
-					$date_interval                             = new DateInterval( 'PTS' . $meta['_EventDuration'] );
-					$postarr['meta_input']['_EventEndDate']    = $dates_changed['Start']
-						->add( $date_interval )
-						->format( $datetime_format );
-					$postarr['meta_input']['_EventEndDateUTC'] = $dates_changed['Start']
-						->add( $date_interval )
+					$end_timestamp = $dates_changed['Start']->getTimestamp() + $meta['_EventDuration'];
+					$the_end       = clone $dates_changed['Start'];
+					$the_end->setTimestamp( $end_timestamp );
+
+					$postarr['meta_input']['_EventEndDate'] = $the_end->format( $datetime_format );
+					$postarr['meta_input']['_EventEndDateUTC'] = $the_end
+						->setTimezone( $utc )
 						->format( $datetime_format );
 				} elseif ( isset( $dates_changed['End'] ) ) {
 					// If we have a duration and the end changed update the start.
-					$date_interval                               = new DateInterval( 'PTS' . $meta['_EventDuration'] );
-					$postarr['meta_input']['_EventStartDate']    = $dates_changed['End']
-						->sub( $date_interval )
-						->format( $datetime_format );
-					$postarr['meta_input']['_EventStartDateUTC'] = $dates_changed['End']
-						->sub( $date_interval )
+					$start_timestamp = $dates_changed['End']->getTimestamp() - $meta['_EventDuration'];
+					$the_start       = clone $dates_changed['End'];
+					$the_start->setTimestamp( $start_timestamp );
+
+					$postarr['meta_input']['_EventStartDate']    = $the_start->format( $datetime_format );
+					$postarr['meta_input']['_EventStartDateUTC'] = $the_start
+						->setTimezone( $utc )
 						->format( $datetime_format );
 				}
 			}
@@ -945,14 +952,12 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 				// Create the start date object and set it to the end of day.
 				$event_start_date = $this->get_from_postarr_or_meta( $postarr, '_EventStartDate', $post_id );
 				$event_end_date   = $this->get_from_postarr_or_meta( $postarr, '_EventEndDate', $post_id );
-				$start            = new DateTime( tribe_end_of_day( $event_start_date ), $timezone );
-				// Then subtract one day from it to set it correctly.
-				$one_day    = new DateInterval( 'P1D' );
-				$one_second = new DateInterval( 'PT1S' );
-				$start->sub( $one_day )->add( $one_second );
+
+				$start = new DateTime( tribe_beginning_of_day( $event_start_date ), $timezone );
+				$end   = new DateTime( tribe_end_of_day( $event_end_date ), $timezone );
+
 				$postarr['meta_input']['_EventStartDate']    = $start->format( $datetime_format );
 				$postarr['meta_input']['_EventStartDateUTC'] = $start->setTimezone( $utc )->format( $datetime_format );
-				$end                                         = new DateTime( tribe_end_of_day( $event_end_date ), $timezone );
 				$postarr['meta_input']['_EventEndDate']      = $end->format( $datetime_format );
 				$postarr['meta_input']['_EventEndDateUTC']   = $end->setTimezone( $utc )->format( $datetime_format );
 			}
@@ -1104,8 +1109,10 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 
 		$timestamp_key = 'TIMESTAMP(mt1.meta_value)';
 
-		if ( isset( $check_orderby['event_date'] ) || in_array( 'event_date', $check_orderby, true ) ) {
-			$check_orderby  = 'event_date';
+		$by_event_start_date = isset( $check_orderby['event_date'] ) || in_array( 'event_date', $check_orderby, true );
+		$by_event_start_date_utc = isset( $check_orderby['event_date_utc'] ) || in_array( 'event_date_utc', $check_orderby, true );
+		if ( $by_event_start_date || $by_event_start_date_utc  ) {
+			$check_orderby  = $by_event_start_date ? 'event_date' : 'event_date_utc';
 			$postmeta_table = "orderby_{$check_orderby}_meta";
 
 			$meta_key = '_EventStartDate';
@@ -1121,8 +1128,11 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			 */
 			$force_local_tz = apply_filters( 'tribe_events_query_force_local_tz', false );
 
-			if ( ! $force_local_tz && Tribe__Events__Timezones::is_mode( 'site' ) ) {
-				$event_start_key .= 'UTC';
+			if (
+				$by_event_start_date_utc
+				|| ( ! $force_local_tz && Tribe__Events__Timezones::is_mode( 'site' ) )
+			) {
+				$meta_key .= 'UTC';
 			}
 
 			$this->filter_query->join( $wpdb->prepare( "
@@ -1226,5 +1236,30 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		}
 
 		return false;
+	}
+
+	/**
+	 * Filters events to include only those that start on a specific date.
+	 *
+	 * This method is a wrapper for the `filter_by_starts_between` one.
+	 *
+	 * @since TBD
+	 *
+	 * @param      int|string|\DateTime $date     A date and time timestamp, string or object.
+	 * @param null                      $timezone The timezone that should be used to filter events, if not passed
+	 *                                            the site one will be used. This paramenter will be ignored if the
+	 *                                            `$date` parameter is an object.
+	 *
+	 * @throws Exception If the date and/or timezone provided for the filtering are not valid.
+	 */
+	public function filter_by_on_date( $date, $timezone = null ) {
+		$timezone = Tribe__Timezones::build_timezone_object( $timezone );
+		$date     = Tribe__Date_Utils::build_date_object( $date, $timezone );
+
+		$begin = new DateTime( tribe_beginning_of_day( $date->format( Tribe__Date_Utils::DBDATETIMEFORMAT ) ), $timezone );
+		$end   = new DateTime( tribe_end_of_day( $date->format( Tribe__Date_Utils::DBDATETIMEFORMAT ) ), $timezone );
+
+		// Add on second to the previous day to get the start of this day.
+		$this->filter_by_starts_between( $begin, $end );
 	}
 }

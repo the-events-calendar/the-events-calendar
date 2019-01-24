@@ -19,7 +19,7 @@ modules:
             cleanup: true
             url: '%WP_URL%'
             tablePrefix: wp_
-            waitlock: 0
+            waitlock: 10
         WPBrowser:
             url: '%WP_URL%'
             adminUsername: %WP_ADMIN_USERNAME%

@@ -1143,6 +1143,10 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			);
 
 			$args = wp_parse_args( $args, $defaults );
+			$event_display = tribe_get_request_var(
+				'tribe_event_display',
+				Tribe__Utils__Array::get( $args, 'eventDisplay', false )
+			);
 
 			$return_found_posts = ! empty( $args['found_posts'] );
 
@@ -1186,8 +1190,8 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 					$event_orm->set_render_context( $args['tribe_render_context'] );
 				}
 
-				if ( isset( $args['eventDisplay'] ) ) {
-					$event_orm->set_display_context( $args['eventDisplay'] );
+				if ( ! empty( $event_display ) ) {
+					$event_orm->set_display_context( $event_display );
 				}
 
 				// Backcompat defaults.
@@ -1200,6 +1204,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 					unset( $args['hide_upcoming'] );
 				}
 
+
 				if ( isset( $args['start_date'] ) && false === $args['start_date'] ) {
 					unset( $args['start_date'] );
 				}
@@ -1208,14 +1213,65 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 					unset( $args['end_date'] );
 				}
 
+				if ( isset( $args['eventDate'] ) && ! isset( $args['start_date'], $args['end_date'] ) ) {
+					$args['on_date'] = $args['eventDate'];
+					unset( $args['eventDate'] );
+				}
+
 				if ( ! empty( $args['orderby'] ) ) {
 					$event_orm->order_by( $args['orderby'] );
 
 					unset( $args['orderby'] );
 				}
 
+				if ( 'all' === $event_display  ) {
+					if ( empty( $args['post_parent'] ) ) {
+						// Make sure the `post_parent` ID is set in /all requests.
+						$parent_name = Tribe__Utils__Array::get(
+							$args,
+							'name',
+							Tribe__Utils__Array::get( 'tribe_events', false )
+						);
+
+						if ( ! empty( $parent_name ) ) {
+							$post_parent         = tribe_events()->where( 'name', $parent_name )->fields( 'ids' )
+							                                     ->first();
+							$args['post_parent'] = $post_parent;
+						}
+
+						// Make sure these are unset to avoid 'post_name' comparisons.
+						unset( $args['name'], $args['post_name'], $args['tribe_events'] );
+					}
+
+					if ( class_exists( 'Tribe__Events__Pro__Recurrence__Event_Query' ) ) {
+						$recurrence_query = new Tribe__Events__Pro__Recurrence__Event_Query();
+						$recurrence_query->set_parent_event( get_post( $args['post_parent'] ) );
+						add_filter( 'posts_where', array( $recurrence_query, 'include_parent_event' ), 100 );
+					}
+				}
+
+				if ( ! empty( $args['tribe_is_past'] ) ) {
+					$args['order'] = 'DESC';
+					$pivot_date = tribe_get_request_var( 'tribe-bar-date', 'now' );
+					$date       = Tribe__Date_Utils::build_date_object( $pivot_date );
+					// Remove any existing date meta queries.
+					if ( isset( $args['meta_query'] ) ) {
+						$args['meta_query'] = tribe_filter_meta_query(
+							$args['meta_query'],
+							array( 'key' => '/_Event(Start|End)Date(UTC)/' )
+						);
+					}
+					$args['starts_before'] = tribe_beginning_of_day( $date->format( 'Y-m-d H:i:s' ) );
+				}
+
 				if ( null !== $hidden ) {
 					$event_orm->by( 'hidden', $hidden );
+					if ( isset( $args['meta_query'] ) ) {
+						$args['meta_query'] = tribe_filter_meta_query(
+							$args['meta_query'],
+							array( 'key' => '_EventHideFromUpcoming' )
+						);
+					}
 				}
 
 				$event_orm->by_args( $args );
@@ -1321,8 +1377,5 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		public static function default_page_on_front( $value ) {
 			return tribe( 'tec.front-page-view' )->is_virtual_page_id( $value ) ? 0 : $value;
 		}
-
-
 	}
-
 }
