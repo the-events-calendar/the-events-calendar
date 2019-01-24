@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-12-03 14:35:18+0000\n"
+"PO-Revision-Date: 2018-12-06 15:41:11+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1281,7 +1281,7 @@ msgstr "L'URL actuelle de votre page d'événements est %1$s.<br><br>Vous ne pou
 
 #: src/admin-views/tribe-options-display.php:61
 msgid "There are going to be situations where no out-of-the-box template is 100&#37; perfect. Check out our <a href=\"%s\">our themer's guide</a> for instructions on custom modifications."
-msgstr "Il va y avoir des situations où aucun modèle prédéfini n’est parfait à 100%. Consultez notre <a href=\"\"%s\"\">Guide d’instructions</a> sur les modifications personnalisées."
+msgstr "Il va y avoir des situations où aucun modèle prédéfini n’est parfait à 100&#37;. Consultez notre <a href=\"%s\">Guide d’instructions</a> sur les modifications personnalisées."
 
 #: src/admin-views/tribe-options-display.php:58
 msgid "The settings below control the display of your calendar. If things don't look right, try switching between the three style sheet options or pick a page template from your theme."
