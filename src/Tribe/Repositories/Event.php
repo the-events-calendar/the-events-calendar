@@ -884,7 +884,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 					$utc_date = new DateTime( $meta[ "_Event{$check}DateUTC" ], $utc );
 					$the_date = clone $utc_date;
 					$the_date->setTimezone( $timezone )->format( $datetime_format );
-					$postarr[ 'meta_input' ][ "_Event{$check}Date"]  = $the_date;
+					$postarr[ 'meta_input' ][ "_Event{$check}Date" ]  = $the_date;
 					$dates_changed[ $check ]                     = $utc_date;
 				}
 			}
