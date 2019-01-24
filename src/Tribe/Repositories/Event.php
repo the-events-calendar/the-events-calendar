@@ -1245,19 +1245,21 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 *
 	 * @since TBD
 	 *
-	 * @param      int|string|\DateTime $date A date and time timestamp, string or object.
-	 * @param null $timezone The timezone that should be used to filter events, if not passed
-	 *                        the site one will be used. This paramenter will be ignored if the
-	 *                       `$date` parameter is an object.
+	 * @param      int|string|\DateTime $date     A date and time timestamp, string or object.
+	 * @param null                      $timezone The timezone that should be used to filter events, if not passed
+	 *                                            the site one will be used. This paramenter will be ignored if the
+	 *                                            `$date` parameter is an object.
+	 *
+	 * @throws Exception If the date and/or timezone provided for the filtering are not valid.
 	 */
 	public function filter_by_on_date( $date, $timezone = null ) {
 		$timezone = Tribe__Timezones::build_timezone_object( $timezone );
 		$date     = Tribe__Date_Utils::build_date_object( $date, $timezone );
 
+		$begin = new DateTime( tribe_beginning_of_day( $date->format( 'Y-m-d H:i:s' ) ), $timezone );
+		$end   = new DateTime( tribe_end_of_day( $date->format( 'Y-m-d H:i:s' ) ), $timezone );
+
 		// Add on second to the previous day to get the start of this day.
-		$this->filter_by_starts_between(
-			tribe_beginning_of_day( $date->format( 'Y-m-d H:i:s' ) ),
-			tribe_end_of_day( $date->format( 'Y-m-d H:i:s' ) )
-		);
+		$this->filter_by_starts_between( $begin, $end );
 	}
 }

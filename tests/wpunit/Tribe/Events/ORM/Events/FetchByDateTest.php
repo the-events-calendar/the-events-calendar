@@ -452,7 +452,6 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 			->order_by( 'event_date', 'DESC' )
 			->collect();
 		$this->assertEquals( [
-			'2018-01-10 14:00:00',
 			'2018-01-10 10:00:00',
 			'2018-01-09 23:00:00',
 		], $taipei_matches->pluck_meta( '_EventStartDate' ) );
