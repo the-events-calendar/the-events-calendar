@@ -61,17 +61,19 @@ function tribe_not_php_version_message() {
 	}
 
 	return wp_kses_post( sprintf(
-			__( '<b>%1$s</b> requires <b>PHP %2$s</b> or higher.', 'the-events-calendar' ),
+			_n(
+				'<b>%1$s</b> requires <b>PHP %2$s</b> or higher.',
+				'<b>%1$s</b> require <b>PHP %2$s</b> or higher.',
+				$count_names,
+				'the-events-calendar'
+			),
 			esc_html( $label_names ),
 			tribe_get_php_min_version()
 		) ) .
 		'<br />' .
 		esc_html__( 'To allow better control over dates, advanced security improvements and performance gain.', 'the-events-calendar' ) .
 		'<br />' .
-		esc_html( sprintf(
-			__( 'Contact your Hosting or your system administrator and ask to Upgrade to version %1$s of PHP.', 'the-events-calendar' ),
-			tribe_get_php_min_version()
-		) );
+		esc_html__( 'Contact your Host or your system administrator and ask to upgrade to the latest version of PHP.', 'the-events-calendar' );
 }
 
 /**
