@@ -2744,6 +2744,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			self::instance()->plugins_loaded();
 
+			//check if class is available before continuing
+			if ( ! class_exists( 'Tribe__Settings_Manager' ) ) {
+				return;
+			}
+
 			self::flushRewriteRules();
 
 			if ( ! class_exists( 'Tribe__Events__Editor__Compatibility' ) ) {
