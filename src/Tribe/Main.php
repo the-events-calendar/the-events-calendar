@@ -37,14 +37,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Min Pro Addon
 		 *
-		 * @deprecated TBD
+		 * @deprecated 4.8
 		 */
 		const MIN_ADDON_VERSION   = '4.6-dev';
 
 		/**
 		 * Min Common
 		 *
-		 * @deprecated TBD
+		 * @deprecated 4.8
 		 */
 		const MIN_COMMON_VERSION  = '4.9-dev';
 
@@ -53,21 +53,21 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Min Version of WordPress
 		 *
-		 * @since TBD
+		 * @since 4.8
 		 */
 		protected $min_wordpress = '4.7';
 
 		/**
 		 * Min Version of PHP
 		 *
-		 * @since TBD
+		 * @since 4.8
 		 */
 		protected $min_php = '5.2.17';
 
 		/**
 		 * Min Version of Event Tickets
 		 *
-		 * @since TBD
+		 * @since 4.8
 		 */
 		protected $min_et_version = '4.10-dev';
 
@@ -402,7 +402,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Load Text Domain on tribe_common_loaded as it requires common
 		 *
-		 * @since TBD
+		 * @since 4.8
 		 *
 		 */
 		public function bootstrap() {
@@ -1442,7 +1442,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Display Notice if Event Tickets is Running an Older Version
 		 *
-		 * @since TBD
+		 * @since 4.8
 		 *
 		 */
 		public function compatibility_notice() {
@@ -4843,7 +4843,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Fetches and verify if we had a delayed activation
 		 *
-		 * @deprecated TBD
+		 * @deprecated 4.8
 		 *
 		 * @since  4.7
 		 *
@@ -4853,7 +4853,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			_deprecated_function(
 				__METHOD__,
 				'',
-				'TBD'
+				'4.8'
 			);
 
 			return (bool) get_transient( $this->key_delayed_activation_outdated_common );
@@ -4863,7 +4863,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Checks if currently loaded Common Lib version is incompatible with The Events Calendar
 		 * Sets a transient flag for us to be able to trigger plugin activation hooks on a later request
 		 *
-		 * @deprecated TBD
+		 * @deprecated 4.8
 		 *
 		 * @since  4.7
 		 *
@@ -4873,7 +4873,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			_deprecated_function(
 				__METHOD__,
 				'',
-				'TBD'
+				'4.8'
 			);
 
 			// Only if Common is loaded correctly
@@ -4902,14 +4902,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Check add-ons to make sure they are supported by currently running TEC version.
 		 *
-		 * @deprecated TBD
+		 * @deprecated 4.8
 		 *
 		 */
 		public function checkAddOnCompatibility() {
 			_deprecated_function(
 				__METHOD__,
 				'Use Tribe__Dependency Class instead.',
-				'TBD'
+				'4.8'
 			);
 
 			// Variable for storing output to admin notices.
