@@ -215,7 +215,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
-= [4.8] TBD =
+= [4.8] 2019-02-01 =
 
 * Feature - Add check and enforce PHP 5.6 as the minimum version [116282]
 * Feature - add system to check plugin versions to inform you to update and prevent site breaking errors [116841]
