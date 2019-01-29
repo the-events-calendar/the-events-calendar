@@ -1,6 +1,6 @@
 === The Events Calendar ===
 
-Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, cliffpaulick, courane01, faction23, GeoffBel, geoffgraham, ggwicz, jbrinley, jentheo, leahkoerper, lucatume, mastromktg, MZAWeb, neillmcshea, nicosantos, patriciahillebrandt, peterchester, reid.peifer, roblagatta, ryancurban, shane.pearlman, tribecari, vicskf, zbtirrell
+Contributors: ModernTribe
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.7
