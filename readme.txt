@@ -218,8 +218,9 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 = [4.8] 2019-02-04 =
 
 * Feature - Add check and enforce PHP 5.6 as the minimum version [116282]
-* Feature - add system to check plugin versions to inform you to update and prevent site breaking errors [116841]
-* Deprecated - constants MIN_ET_VERSION and MIN_COMMON_VERSION in Tribe__Events__Main, use $min_et_version property and no replacement for MIN_COMMON_VERSION
+* Feature - Add system to check plugin versions to inform you to update and prevent site breaking errors [116841]
+* Tweak - Added filters: `tribe_not_php_version_names`
+* Deprecated - Constants MIN_ET_VERSION and MIN_COMMON_VERSION in Tribe__Events__Main, use $min_et_version property and no replacement for MIN_COMMON_VERSION
 * Deprecated - The `is_delayed_activation()`, `maybe_delay_activation_if_outdated_common()`, and `checkAddOnCompatibility()` method has been deprecated in `Tribe__Events__Main` in favor of new Dependency Checking System
 * Language - 7 new strings added, 139 updated, 0 fuzzied, and 1 obsoleted
 
