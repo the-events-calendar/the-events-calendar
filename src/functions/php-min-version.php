@@ -19,7 +19,7 @@ if ( ! function_exists( 'tribe_get_php_min_version' ) ) :
  *
  * @param  string  $version  Which PHP version we are checking against
  *
- * @since  TBD
+ * @since  4.8
  *
  * @return bool
  */
@@ -30,7 +30,7 @@ function tribe_is_not_min_php_version( $version = PHP_VERSION ) {
 /**
  * Which is our required PHP min version
  *
- * @since  TBD
+ * @since  4.8
  *
  * @return string
  */
@@ -41,7 +41,7 @@ function tribe_get_php_min_version() {
 /**
  * Returns the error message when php version min doesnt check
  *
- * @since  TBD
+ * @since  4.8
  *
  * @return string
  */
@@ -79,7 +79,7 @@ function tribe_not_php_version_message() {
 /**
  * Fetches the name of the plugins that are not compatible with current PHP version
  *
- * @since  TBD
+ * @since  4.8
  *
  * @return array
  */
@@ -87,7 +87,7 @@ function tribe_not_php_version_names() {
 	/**
 	 * Allow us to include more plugins without increasing the number of notices
 	 *
-	 * @since  TBD
+	 * @since  4.8
 	 *
 	 * @param array $names Name of the plugins that are not compatible
 	 */
@@ -97,7 +97,7 @@ function tribe_not_php_version_names() {
 /**
  * Echoes out the error for the PHP min version as a WordPress admin Notice
  *
- * @since  TBD
+ * @since  4.8
  *
  * @return void
  */
@@ -108,7 +108,7 @@ function tribe_not_php_version_notice() {
 /**
  * Loads the Text domain for non-compatible PHP versions
  *
- * @since  TBD
+ * @since  4.8
  *
  * @param string $domain Which domain we will try to translate to
  * @param string $file   Where to look for the lang folder
