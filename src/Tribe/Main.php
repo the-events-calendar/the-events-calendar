@@ -2771,6 +2771,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public static function deactivate( $network_deactivating ) {
 
+			// We cannot run deactivation logic because the tribe-common loaded is not compatible.
+			if ( ! class_exists( 'Tribe__Abstract_Deactivation' ) ) {
+				return;
+			}
+
 			/**
 			 * If Deactivation Class not found manually load all classes to deactivate
 			 */
