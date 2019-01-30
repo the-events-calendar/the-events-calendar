@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2019-01-11 20:07:05+0000\n"
+"PO-Revision-Date: 2019-01-25 18:36:33+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -94,7 +94,7 @@ msgstr "Nom :"
 #: src/modules/blocks/event-datetime/subblocks/content/index.js:23
 #: src/resources/js/app/blocks.js:46184
 msgid "Event Date Time Content"
-msgstr ""
+msgstr "Date et heure de l'évènement"
 
 #: src/modules/blocks/event-datetime/subblocks/dashboard/index.js:19
 #: src/resources/js/app/blocks.js:46659
@@ -171,7 +171,7 @@ msgstr "Chargement de l’image"
 #: src/modules/blocks/featured-image/block.js:65
 #: src/resources/js/app/blocks.js:49551
 msgid "Add a Featured Image from the Document Settings sidebar"
-msgstr ""
+msgstr "Ajouter une image à la une à partir des réglages de la colonne latérale"
 
 #: src/modules/blocks/featured-image/block.js:54
 #: src/modules/blocks/featured-image/index.js:21
@@ -182,7 +182,7 @@ msgstr "Image à la une"
 #: src/modules/blocks/event-tags/index.js:22
 #: src/resources/js/app/blocks.js:49255
 msgid "Add keywords by displaying linked tags."
-msgstr ""
+msgstr "Ajouter des mots-clés en affichant des liens vers des étiquettes."
 
 #: src/modules/blocks/event-tags/block.js:55
 #: src/resources/js/app/blocks.js:49224
@@ -376,7 +376,7 @@ msgstr "(sans titre)"
 #: src/resources/js/app/blocks.js:13490 src/resources/js/app/elements.js:10116
 msgctxt "linked text for plugin add-ons"
 msgid "Check 'em out!"
-msgstr ""
+msgstr "Aller les découvrir !"
 
 #: src/modules/elements/upsell/element.js:23
 #: src/resources/js/app/blocks.js:13481 src/resources/js/app/elements.js:10107
@@ -395,11 +395,11 @@ msgstr "Toute la journée"
 
 #: src/views/modules/bar.php:51
 msgid "Hide %s Search"
-msgstr "Masquer %s la Recherche"
+msgstr "Masquer la recherche %s "
 
 #: src/views/modules/bar.php:50 src/views/modules/bar.php:54
 msgid "Show %s Search"
-msgstr "Afficher %s la Recherche"
+msgstr "Afficher la recherche %s"
 
 #: src/admin-views/aggregator/settings.php:159
 #: src/admin-views/aggregator/settings.php:268
@@ -491,7 +491,7 @@ msgstr ""
 
 #: src/Tribe/Google/Maps_API_Key.php:107
 msgid "(click here for details)"
-msgstr "(Cliquez ici pour plus de datails)"
+msgstr "(Cliquez ici pour plus de détails)"
 
 #: src/Tribe/Editor.php:534
 msgid "Event Blocks"
@@ -550,7 +550,7 @@ msgstr "Afficher la boîte de méta pour les champs personnalisés"
 
 #: src/admin-views/tribe-options-display.php:139
 msgid "Please note that you are using The Events Calendar's default Google Maps API key, which will limit the Map View's functionality. Visit %sthe API Settings page%s to learn more and add your own Google Maps API key."
-msgstr ""
+msgstr "Veuillez noter que vous utilisez la clé d'API Google Maps par défaut de The Events Calendar, qui limitera les fonctionnalités de la carte. Rendez-vous sur la %spage des paramètres de l'API%s pour en savoir plus et ajouter votre propre clé d'API Google Maps."
 
 #: src/admin-views/aggregator/settings.php:230
 msgid "Stop current processes"
@@ -570,7 +570,7 @@ msgstr "Cliquez ici"
 
 #: src/admin-views/aggregator/settings.php:121
 msgid "If you want to stop and clear current asynchronous import processes %1$s."
-msgstr ""
+msgstr "Si vous souhaitez arrêter et effacer les processus d'importation asynchrones en cours %1$s."
 
 #: src/admin-views/aggregator/origins/eventbrite.php:127
 msgid "Import from Eventbrite URL"
@@ -5716,7 +5716,7 @@ msgstr "Aucun résultat n’a été trouvé pour %s ce mois-ci. Essayez avec le 
 
 #: src/Tribe/Template/Day.php:154
 msgid "No %1$s scheduled for %2$s. Please try another day."
-msgstr "Aucun %1$ prévu pour %2$s. Veuillez essayer avec une autre date."
+msgstr "Aucun %1$s prévu pour %2$s. Veuillez essayer avec une autre date."
 
 #: src/Tribe/Main.php:4076
 msgid "Check out the %savailable add-ons%s."
@@ -6110,7 +6110,7 @@ msgstr "Options d’affichage"
 
 #: src/views/modules/bar.php:74
 msgid "Find %s"
-msgstr "Trouver les %s"
+msgstr "Chercher"
 
 #: src/views/list/nav.php:22
 msgid "%s List Navigation"
