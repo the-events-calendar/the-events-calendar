@@ -218,6 +218,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 = [4.7.5] TBD =
 
 * Fix - Make sure the setting for "Default mobile view" is respected. Thanks to Kathleen, Tim and others for reporting this! [119271]
+* Fix - Apply block closer to price block [120108]
 
 = [4.7.4] TBD =
 
