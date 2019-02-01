@@ -15,17 +15,61 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * It should allow getting events by all-day status
+	 * It should get events by all day status yes
 	 *
 	 * @test
 	 */
-	public function should_allow_getting_events_by_all_day_status() {
-		$all_day     = $this->factory()->event->create_many( 2, [ 'meta_input' => [ '_EventAllDay' => 'yes' ] ] );
-		$not_all_day = $this->factory()->event->create_many( 3 );
+	public function should_get_events_by_all_day_status_yes() {
+		$all_day_yes = $this->factory()->event->create_many( 1, [ 'meta_input' => [ '_EventAllDay' => 'yes' ] ] );
+		$not_all_day = $this->factory()->event->create_many( 2 );
 
-		$this->assertEqualSets( $all_day, tribe_events()->where( 'all_day', true )->get_ids() );
-		$this->assertEqualSets( $not_all_day, tribe_events()->where( 'all_day', false )->get_ids() );
-		$this->assertCount( 5, tribe_events()->get_ids() );
+		$this->assertEqualSets( $all_day_yes, tribe_events()->where( 'all_day', true )->get_ids() );
+		$this->assertCount( 3, tribe_events()->get_ids() );
+	}
+
+	/**
+	 * It should get events by all day status one
+	 *
+	 * @test
+	 */
+	public function should_get_events_by_all_day_status_one() {
+		$all_day_one = $this->factory()->event->create_many( 1, [ 'meta_input' => [ '_EventAllDay' => '1' ] ] );
+		$not_all_day = $this->factory()->event->create_many( 2 );
+
+		$this->assertEqualSets( $all_day_one, tribe_events()->where( 'all_day', true )->get_ids() );
+		$this->assertCount( 3, tribe_events()->get_ids() );
+	}
+
+	/**
+	 * It should get events by not all day status no
+	 *
+	 * @test
+	 */
+	public function should_get_events_by_not_all_day_status_no() {
+		$not_all_day_dont_exist = $this->factory()->event->create_many( 1 );
+		$not_all_day_no = $this->factory()->event->create_many( 1, [ 'meta_input' => [ '_EventAllDay' => 'no' ] ] );
+
+		$this->assertEqualSets(
+			$not_all_day_no + $not_all_day_dont_exist,
+			tribe_events()->where( 'all_day', false )->get_ids()
+		);
+		$this->assertCount( 2, tribe_events()->get_ids() );
+	}
+
+	/**
+	 * It should get events by not all day status zero
+	 *
+	 * @test
+	 */
+	public function should_get_events_by_not_all_day_status_zero() {
+		$not_all_day_dont_exist = $this->factory()->event->create_many( 1 );
+		$not_all_day_zero = $this->factory()->event->create_many( 1, [ 'meta_input' => [ '_EventAllDay' => '0' ] ] );
+
+		$this->assertEqualSets(
+			$not_all_day_zero + $not_all_day_dont_exist,
+			tribe_events()->where( 'all_day', false )->get_ids()
+		);
+		$this->assertCount( 2, tribe_events()->get_ids() );
 	}
 
 	/**
