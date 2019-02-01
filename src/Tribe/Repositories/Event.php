@@ -74,39 +74,42 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			'tribe_suppress_query_filters' => true,
 		);
 
-		$this->schema = array_merge( $this->schema, array(
-			'starts_before'           => array( $this, 'filter_by_starts_before' ),
-			'starts_after'            => array( $this, 'filter_by_starts_after' ),
-			'starts_on_or_after'      => array( $this, 'filter_by_starts_on_or_after' ),
-			'starts_between'          => array( $this, 'filter_by_starts_between' ),
-			'ends_before'             => array( $this, 'filter_by_ends_before' ),
-			'ends_on_or_before'       => array( $this, 'filter_by_ends_on_or_before' ),
-			'ends_after'              => array( $this, 'filter_by_ends_after' ),
-			'ends_between'            => array( $this, 'filter_by_ends_between' ),
-			'starts_and_ends_between' => array( $this, 'filter_by_starts_and_ends_between' ),
-			'runs_between'            => array( $this, 'filter_by_runs_between' ),
-			'all_day'                 => array( $this, 'filter_by_all_day' ),
-			'multiday'                => array( $this, 'filter_by_multiday' ),
-			'on_calendar_grid'        => array( $this, 'filter_by_on_calendar_grid' ),
-			'timezone'                => array( $this, 'filter_by_timezone' ),
-			'featured'                => array( $this, 'filter_by_featured' ),
-			'hidden'                  => array( $this, 'filter_by_hidden' ),
-			'linked_post'             => array( $this, 'filter_by_linked_post' ),
-			'organizer'               => array( $this, 'filter_by_organizer' ),
-			'sticky'                  => array( $this, 'filter_by_sticky' ),
-			'venue'                   => array( $this, 'filter_by_venue' ),
-			'cost_currency_symbol'    => array( $this, 'filter_by_cost_currency_symbol' ),
-			'cost'                    => array( $this, 'filter_by_cost' ),
-			'cost_between'            => array( $this, 'filter_by_cost_between' ),
-			'cost_less_than'          => array( $this, 'filter_by_cost_less_than' ),
-			'cost_greater_than'       => array( $this, 'filter_by_cost_greater_than' ),
-			'on_date'                 => array( $this, 'filter_by_on_date' ),
-		) );
+		$this->schema = array_merge(
+			$this->schema,
+			[
+				'starts_before'           => [ $this, 'filter_by_starts_before' ],
+				'starts_after'            => [ $this, 'filter_by_starts_after' ],
+				'starts_on_or_after'      => [ $this, 'filter_by_starts_on_or_after' ],
+				'starts_between'          => [ $this, 'filter_by_starts_between' ],
+				'ends_before'             => [ $this, 'filter_by_ends_before' ],
+				'ends_on_or_before'       => [ $this, 'filter_by_ends_on_or_before' ],
+				'ends_after'              => [ $this, 'filter_by_ends_after' ],
+				'ends_between'            => [ $this, 'filter_by_ends_between' ],
+				'starts_and_ends_between' => [ $this, 'filter_by_starts_and_ends_between' ],
+				'runs_between'            => [ $this, 'filter_by_runs_between' ],
+				'all_day'                 => [ $this, 'filter_by_all_day' ],
+				'multiday'                => [ $this, 'filter_by_multiday' ],
+				'on_calendar_grid'        => [ $this, 'filter_by_on_calendar_grid' ],
+				'timezone'                => [ $this, 'filter_by_timezone' ],
+				'featured'                => [ $this, 'filter_by_featured' ],
+				'hidden'                  => [ $this, 'filter_by_hidden' ],
+				'linked_post'             => [ $this, 'filter_by_linked_post' ],
+				'organizer'               => [ $this, 'filter_by_organizer' ],
+				'sticky'                  => [ $this, 'filter_by_sticky' ],
+				'venue'                   => [ $this, 'filter_by_venue' ],
+				'cost_currency_symbol'    => [ $this, 'filter_by_cost_currency_symbol' ],
+				'cost'                    => [ $this, 'filter_by_cost' ],
+				'cost_between'            => [ $this, 'filter_by_cost_between' ],
+				'cost_less_than'          => [ $this, 'filter_by_cost_less_than' ],
+				'cost_greater_than'       => [ $this, 'filter_by_cost_greater_than' ],
+				'on_date'                 => [ $this, 'filter_by_on_date' ],
+			]
+		);
 
 		// Add backcompat aliases.
-		$this->schema['hide_upcoming'] = array( $this, 'filter_by_hidden' );
-		$this->schema['start_date']    = array( $this, 'filter_by_starts_on_or_after' );
-		$this->schema['end_date']      = array( $this, 'filter_by_ends_on_or_before' );
+		$this->schema['hide_upcoming'] = [ $this, 'filter_by_hidden' ];
+		$this->schema['start_date']    = [ $this, 'filter_by_starts_on_or_after' ];
+		$this->schema['end_date']      = [ $this, 'filter_by_ends_on_or_before' ];
 
 		$this->add_simple_meta_schema_entry( 'website', '_EventURL' );
 

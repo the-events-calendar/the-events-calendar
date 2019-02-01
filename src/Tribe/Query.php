@@ -1148,6 +1148,13 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				Tribe__Utils__Array::get( $args, 'eventDisplay', false )
 			);
 
+			$search = tribe_get_request_var( 'tribe-bar-search' );
+
+			// if a user provides a search term we want to use that in the search params
+			if ( ! empty( $search ) ) {
+				$args['s'] = $search;
+			}
+
 			$return_found_posts = ! empty( $args['found_posts'] );
 
 			if ( $return_found_posts ) {
