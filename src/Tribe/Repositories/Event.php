@@ -77,8 +77,10 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		$this->schema = array_merge( $this->schema, array(
 			'starts_before'           => array( $this, 'filter_by_starts_before' ),
 			'starts_after'            => array( $this, 'filter_by_starts_after' ),
+			'starts_on_or_after'      => array( $this, 'filter_by_starts_on_or_after' ),
 			'starts_between'          => array( $this, 'filter_by_starts_between' ),
 			'ends_before'             => array( $this, 'filter_by_ends_before' ),
+			'ends_on_or_before'       => array( $this, 'filter_by_ends_on_or_before' ),
 			'ends_after'              => array( $this, 'filter_by_ends_after' ),
 			'ends_between'            => array( $this, 'filter_by_ends_between' ),
 			'starts_and_ends_between' => array( $this, 'filter_by_starts_and_ends_between' ),
@@ -103,8 +105,8 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 
 		// Add backcompat aliases.
 		$this->schema['hide_upcoming'] = array( $this, 'filter_by_hidden' );
-		$this->schema['start_date']    = array( $this, 'filter_by_starts_after' );
-		$this->schema['end_date']      = array( $this, 'filter_by_ends_before' );
+		$this->schema['start_date']    = array( $this, 'filter_by_starts_on_or_after' );
+		$this->schema['end_date']      = array( $this, 'filter_by_ends_on_or_before' );
 
 		$this->add_simple_meta_schema_entry( 'website', '_EventURL' );
 
@@ -125,7 +127,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 */
 	public function filter_by_all_day( $all_day = true ) {
 		if ( (bool) $all_day ) {
-			$this->by( 'meta_equals', '_EventAllDay', 'yes' );
+			$this->by( 'meta_in', '_EventAllDay', [ 'yes', '1' ] );
 
 			return null;
 		}
@@ -141,8 +143,8 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 					'relation'   => 'OR',
 					'is-not-yes' => array(
 						'key'     => '_EventAllDay',
-						'compare' => '!=',
-						'value'   => 'yes',
+						'compare' => 'NOT IN',
+						'value'   => [ 'yes', '1' ],
 					),
 				),
 			),
@@ -171,7 +173,36 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 				'starts-before' => array(
 					'key'     => '_EventStartDateUTC',
 					'compare' => '<',
-					'value'   => $date->format( 'Y-m-d H:i:s' ),
+					'value'   => $date->format( Tribe__Date_Utils::DBDATETIMEFORMAT ),
+					'type'    => 'DATETIME',
+				),
+			),
+		);
+	}
+
+	/**
+	 * Filters events whose end date occurs before the provided date; fetch is not inclusive.
+	 *
+	 * @since TBD
+	 *
+	 * @param string|DateTime|int $datetime A `strtotime` parse-able string, a DateTime object or
+	 *                                      a timestamp.
+	 * @param string|DateTimeZone $timezone A timezone string, UTC offset or DateTimeZone object;
+	 *                                      defaults to the site timezone; this parameter is ignored
+	 *                                      if the `$datetime` parameter is a DatTime object.
+	 *
+	 * @return array An array of arguments that should be added to the WP_Query object.
+	 */
+	public function filter_by_ends_on_or_before( $datetime, $timezone = null ) {
+		$date = Tribe__Date_Utils::build_date_object( $datetime, $timezone )
+		                         ->setTimezone( new DateTimeZone( 'UTC' ) );
+
+		return array(
+			'meta_query' => array(
+				'ends-before' => array(
+					'key'     => '_EventEndDateUTC',
+					'compare' => '<=',
+					'value'   => $date->format( Tribe__Date_Utils::DBDATETIMEFORMAT ),
 					'type'    => 'DATETIME',
 				),
 			),
@@ -200,7 +231,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 				'ends-before' => array(
 					'key'     => '_EventEndDateUTC',
 					'compare' => '<',
-					'value'   => $date->format( 'Y-m-d H:i:s' ),
+					'value'   => $date->format( Tribe__Date_Utils::DBDATETIMEFORMAT ),
 					'type'    => 'DATETIME',
 				),
 			),
@@ -229,7 +260,36 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 				'starts-after' => array(
 					'key'     => '_EventStartDateUTC',
 					'compare' => '>',
-					'value'   => $date->format( 'Y-m-d H:i:s' ),
+					'value'   => $date->format( Tribe__Date_Utils::DBDATETIMEFORMAT ),
+					'type'    => 'DATETIME',
+				),
+			),
+		);
+	}
+
+	/**
+	 * Filters events whose start date occurs after the provided date; fetch is not inclusive.
+	 *
+	 * @since TBD
+	 *
+	 * @param string|DateTime|int $datetime A `strtotime` parse-able string, a DateTime object or
+	 *                                      a timestamp.
+	 * @param string|DateTimeZone $timezone A timezone string, UTC offset or DateTimeZone object;
+	 *                                      defaults to the site timezone; this parameter is ignored
+	 *                                      if the `$datetime` parameter is a DatTime object.
+	 *
+	 * @return array An array of arguments that should be added to the WP_Query object.
+	 */
+	public function filter_by_starts_on_or_after( $datetime, $timezone = null ) {
+		$date = Tribe__Date_Utils::build_date_object( $datetime, $timezone )
+		                         ->setTimezone( new DateTimeZone( 'UTC' ) );
+
+		return array(
+			'meta_query' => array(
+				'starts-after' => array(
+					'key'     => '_EventStartDateUTC',
+					'compare' => '>=',
+					'value'   => $date->format( Tribe__Date_Utils::DBDATETIMEFORMAT ),
 					'type'    => 'DATETIME',
 				),
 			),
@@ -258,7 +318,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 				'ends-after' => array(
 					'key'     => '_EventEndDateUTC',
 					'compare' => '>',
-					'value'   => $date->format( 'Y-m-d H:i:s' ),
+					'value'   => $date->format( Tribe__Date_Utils::DBDATETIMEFORMAT ),
 					'type'    => 'DATETIME',
 				),
 			),
@@ -285,8 +345,8 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		$upper = Tribe__Date_Utils::build_date_object( $end_datetime, $timezone )->setTimezone( $utc );
 
 		$this->by( 'meta_between', '_EventStartDateUTC', array(
-			$lower->format( 'Y-m-d H:i:s' ),
-			$upper->format( 'Y-m-d H:i:s' ),
+			$lower->format( Tribe__Date_Utils::DBDATETIMEFORMAT ),
+			$upper->format( Tribe__Date_Utils::DBDATETIMEFORMAT ),
 		), 'DATETIME' );
 	}
 
@@ -310,8 +370,8 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		$upper = Tribe__Date_Utils::build_date_object( $end_datetime, $timezone )->setTimezone( $utc );
 
 		$this->by( 'meta_between', '_EventEndDateUTC', array(
-			$lower->format( 'Y-m-d H:i:s' ),
-			$upper->format( 'Y-m-d H:i:s' ),
+			$lower->format( Tribe__Date_Utils::DBDATETIMEFORMAT ),
+			$upper->format( Tribe__Date_Utils::DBDATETIMEFORMAT ),
 		), 'DATETIME' );
 	}
 
@@ -331,9 +391,9 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		global $wpdb;
 
 		$this->filter_query->join( "LEFT JOIN {$wpdb->postmeta} multiday_start_date
-			ON ( {$wpdb->posts}.ID = multiday_start_date.post_id 
+			ON ( {$wpdb->posts}.ID = multiday_start_date.post_id
 			AND multiday_start_date.meta_key = '_EventStartDate' )" );
-		$this->filter_query->join( "LEFT JOIN {$wpdb->postmeta} multiday_end_date 
+		$this->filter_query->join( "LEFT JOIN {$wpdb->postmeta} multiday_end_date
 			ON ( {$wpdb->posts}.ID = multiday_end_date.post_id
 			AND multiday_end_date.meta_key = '_EventEndDate' )" );
 
@@ -410,10 +470,10 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	public function filter_by_runs_between( $start_datetime, $end_datetime, $timezone = null ) {
 		$start_date = Tribe__Date_Utils::build_date_object( $start_datetime, $timezone )
 		                               ->setTimezone( new DateTimeZone( 'UTC' ) )
-		                               ->format( 'Y-m-d H:i:s' );
+		                               ->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
 		$end_date   = Tribe__Date_Utils::build_date_object( $end_datetime, $timezone )
 		                               ->setTimezone( new DateTimeZone( 'UTC' ) )
-		                               ->format( 'Y-m-d H:i:s' );
+		                               ->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
 
 		return array(
 			'meta_query' => array(
@@ -514,10 +574,10 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	public function filter_by_starts_and_ends_between( $start_datetime, $end_datetime, $timezone = null ) {
 		$start_date = Tribe__Date_Utils::build_date_object( $start_datetime, $timezone )
 		                               ->setTimezone( new DateTimeZone( 'UTC' ) )
-		                               ->format( 'Y-m-d H:i:s' );
+		                               ->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
 		$end_date   = Tribe__Date_Utils::build_date_object( $end_datetime, $timezone )
 		                               ->setTimezone( new DateTimeZone( 'UTC' ) )
-		                               ->format( 'Y-m-d H:i:s' );
+		                               ->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
 
 		$interval = array( $start_date, $end_date );
 
@@ -856,7 +916,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			 * If both local date/time and UTC date/time are provided then the local one overrides the UTC one.
 			 * If only one is provided the other one will be calculated and updated.
 			 */
-			$datetime_format = 'Y-m-d H:i:s';
+			$datetime_format = Tribe__Date_Utils::DBDATETIMEFORMAT;
 			foreach ( array( 'Start', 'End' ) as $check ) {
 				if ( isset( $meta[ "_Event{$check}Date" ] ) ) {
 					$meta_value = $meta[ "_Event{$check}Date" ];
@@ -864,7 +924,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 					$is_object = $meta_value instanceof DateTime
 					             || ( class_exists( 'DateTimeImmutable' ) && $meta_value instanceof DateTimeImmutable );
 					if ( $is_object ) {
-						$meta_value                 = $meta_value->format( 'Y-m-d H:i:s' );
+						$meta_value                 = $meta_value->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
 						$postarr[ 'meta_input' ][ "_Event{$check}Date" ] = $meta_value;
 					}
 
@@ -1154,7 +1214,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			$this->filter_query->join( $wpdb->prepare( "
 				LEFT JOIN {$wpdb->postmeta} AS {$postmeta_table}
 					ON (
-						{$postmeta_table}.post_id = {$wpdb->posts}.ID 
+						{$postmeta_table}.post_id = {$wpdb->posts}.ID
 						AND {$postmeta_table}.meta_key = %s
 					)
 				LEFT JOIN {$wpdb->posts} AS {$posts_table}
@@ -1172,7 +1232,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			$this->filter_query->join( $wpdb->prepare( "
 				LEFT JOIN {$wpdb->postmeta} AS {$postmeta_table}
 					ON (
-						{$postmeta_table}.post_id = {$wpdb->posts}.ID 
+						{$postmeta_table}.post_id = {$wpdb->posts}.ID
 						AND {$postmeta_table}.meta_key = %s
 					)
 				LEFT JOIN {$wpdb->posts} AS {$posts_table}

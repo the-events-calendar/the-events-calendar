@@ -903,7 +903,6 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		 *
 		 */
 		public function setup_view() {
-
 			if ( $this->use_cache && $this->html_cache->get() !== false ) {
 				return;
 			}

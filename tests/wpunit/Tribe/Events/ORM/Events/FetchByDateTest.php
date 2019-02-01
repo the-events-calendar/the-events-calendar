@@ -15,25 +15,69 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * It should allow getting events by all-day status
+	 * It should get events by all day status yes
 	 *
 	 * @test
 	 */
-	public function should_allow_getting_events_by_all_day_status() {
-		$all_day     = $this->factory()->event->create_many( 2, [ 'meta_input' => [ '_EventAllDay' => 'yes' ] ] );
-		$not_all_day = $this->factory()->event->create_many( 3 );
+	public function should_get_events_by_all_day_status_yes() {
+		$all_day_yes = $this->factory()->event->create_many( 1, [ 'meta_input' => [ '_EventAllDay' => 'yes' ] ] );
+		$not_all_day = $this->factory()->event->create_many( 2 );
 
-		$this->assertEqualSets( $all_day, tribe_events()->where( 'all_day', true )->get_ids() );
-		$this->assertEqualSets( $not_all_day, tribe_events()->where( 'all_day', false )->get_ids() );
-		$this->assertCount( 5, tribe_events()->get_ids() );
+		$this->assertEqualSets( $all_day_yes, tribe_events()->where( 'all_day', true )->get_ids() );
+		$this->assertCount( 3, tribe_events()->get_ids() );
 	}
 
 	/**
-	 * It should allow filtering events by start date
+	 * It should get events by all day status one
 	 *
 	 * @test
 	 */
-	public function should_allow_filtering_events_by_start_date() {
+	public function should_get_events_by_all_day_status_one() {
+		$all_day_one = $this->factory()->event->create_many( 1, [ 'meta_input' => [ '_EventAllDay' => '1' ] ] );
+		$not_all_day = $this->factory()->event->create_many( 2 );
+
+		$this->assertEqualSets( $all_day_one, tribe_events()->where( 'all_day', true )->get_ids() );
+		$this->assertCount( 3, tribe_events()->get_ids() );
+	}
+
+	/**
+	 * It should get events by not all day status no
+	 *
+	 * @test
+	 */
+	public function should_get_events_by_not_all_day_status_no() {
+		$not_all_day_dont_exist = $this->factory()->event->create_many( 1 );
+		$not_all_day_no = $this->factory()->event->create_many( 1, [ 'meta_input' => [ '_EventAllDay' => 'no' ] ] );
+
+		$this->assertEqualSets(
+			array_merge( $not_all_day_no, $not_all_day_dont_exist ),
+			tribe_events()->where( 'all_day', false )->get_ids()
+		);
+		$this->assertCount( 2, tribe_events()->get_ids() );
+	}
+
+	/**
+	 * It should get events by not all day status zero
+	 *
+	 * @test
+	 */
+	public function should_get_events_by_not_all_day_status_zero() {
+		$not_all_day_dont_exist = $this->factory()->event->create_many( 1 );
+		$not_all_day_zero = $this->factory()->event->create_many( 1, [ 'meta_input' => [ '_EventAllDay' => '0' ] ] );
+
+		$this->assertEqualSets(
+			array_merge( $not_all_day_zero, $not_all_day_dont_exist ),
+			tribe_events()->where( 'all_day', false )->get_ids()
+		);
+		$this->assertCount( 2, tribe_events()->get_ids() );
+	}
+
+	/**
+	 * It should allow filtering events by starts after
+	 *
+	 * @test
+	 */
+	public function should_allow_filtering_events_by_starts_after() {
 		$site_timezone      = 'Europe/Paris';
 		$ny_timezone_string = 'America/New_York';
 		update_option( 'timezone_string', $site_timezone );
@@ -77,7 +121,41 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEqualSets( [
 			$starts_after_ends_after,
 		], tribe_events()->where( 'starts_after', $date->getTimestamp() )->get_ids() );
+	}
 
+	/**
+	 * It should allow filtering events by starts before
+	 *
+	 * @test
+	 */
+	public function should_allow_filtering_events_by_starts_before() {
+		$site_timezone      = 'Europe/Paris';
+		$ny_timezone_string = 'America/New_York';
+		update_option( 'timezone_string', $site_timezone );
+		$ny    = new \DateTimeZone( $ny_timezone_string );
+		$paris = new \DateTimeZone( $site_timezone );
+		$date  = new \DateTime( '2018-01-15 16:00:00', $ny );
+
+		$starts_before_ends_before  = $this->factory()->event->starting_on( '2018-01-10 10:00:00' )
+		                                                     ->with_timezone( $ny_timezone_string )
+		                                                     ->lasting( 2 * HOUR_IN_SECONDS )
+		                                                     ->create();
+		$starts_before_ends_on_date = $this->factory()->event->starting_on( '2018-01-15 15:00:00' )
+		                                                     ->with_timezone( $ny_timezone_string )
+		                                                     ->lasting( HOUR_IN_SECONDS )
+		                                                     ->create();
+		$starts_before_ends_after   = $this->factory()->event->starting_on( '2018-01-15 15:00:00' )
+		                                                     ->with_timezone( $ny_timezone_string )
+		                                                     ->lasting( 2 * HOUR_IN_SECONDS )
+		                                                     ->create();
+		$starts_on_date_ends_after  = $this->factory()->event->starting_on( '2018-01-15 16:00:00' )
+		                                                     ->with_timezone( $ny_timezone_string )
+		                                                     ->lasting( 2 * HOUR_IN_SECONDS )
+		                                                     ->create();
+		$starts_after_ends_after    = $this->factory()->event->starting_on( '2018-01-17 15:00:00' )
+		                                                     ->with_timezone( $ny_timezone_string )
+		                                                     ->lasting( 2 * HOUR_IN_SECONDS )
+		                                                     ->create();
 		$this->assertEqualSets( [
 			$starts_before_ends_before,
 			$starts_before_ends_after,
@@ -96,7 +174,41 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 			$starts_before_ends_on_date,
 			$starts_before_ends_after,
 		], tribe_events()->where( 'starts_before', $date->getTimestamp() )->get_ids() );
+	}
 
+	/**
+	 * It should allow filtering events by starts between
+	 *
+	 * @test
+	 */
+	public function should_allow_filtering_events_by_starts_between() {
+		$site_timezone      = 'Europe/Paris';
+		$ny_timezone_string = 'America/New_York';
+		update_option( 'timezone_string', $site_timezone );
+		$ny    = new \DateTimeZone( $ny_timezone_string );
+		$paris = new \DateTimeZone( $site_timezone );
+		$date  = new \DateTime( '2018-01-15 16:00:00', $ny );
+
+		$starts_before_ends_before  = $this->factory()->event->starting_on( '2018-01-10 10:00:00' )
+		                                                     ->with_timezone( $ny_timezone_string )
+		                                                     ->lasting( 2 * HOUR_IN_SECONDS )
+		                                                     ->create();
+		$starts_before_ends_on_date = $this->factory()->event->starting_on( '2018-01-15 15:00:00' )
+		                                                     ->with_timezone( $ny_timezone_string )
+		                                                     ->lasting( HOUR_IN_SECONDS )
+		                                                     ->create();
+		$starts_before_ends_after   = $this->factory()->event->starting_on( '2018-01-15 15:00:00' )
+		                                                     ->with_timezone( $ny_timezone_string )
+		                                                     ->lasting( 2 * HOUR_IN_SECONDS )
+		                                                     ->create();
+		$starts_on_date_ends_after  = $this->factory()->event->starting_on( '2018-01-15 16:00:00' )
+		                                                     ->with_timezone( $ny_timezone_string )
+		                                                     ->lasting( 2 * HOUR_IN_SECONDS )
+		                                                     ->create();
+		$starts_after_ends_after    = $this->factory()->event->starting_on( '2018-01-17 15:00:00' )
+		                                                     ->with_timezone( $ny_timezone_string )
+		                                                     ->lasting( 2 * HOUR_IN_SECONDS )
+		                                                     ->create();
 		$this->assertEqualSets( [
 			$starts_on_date_ends_after,
 		], tribe_events()->where( 'starts_between', $date->format( 'Y-m-d H:i:s' ), '2018-01-16 23:00:00', $ny_timezone_string )->get_ids() );
@@ -112,11 +224,11 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * It should allow filtering events by end date
+	 * It should allow filtering events by ends after
 	 *
 	 * @test
 	 */
-	public function should_allow_filtering_events_by_end_date() {
+	public function should_allow_filtering_events_by_ends_after() {
 		$site_timezone      = 'Europe/Paris';
 		$ny_timezone_string = 'America/New_York';
 		update_option( 'timezone_string', $site_timezone );
@@ -143,21 +255,53 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertEqualSets( [
 			$starts_before_ends_after,
-			$starts_after_ends_after
+			$starts_after_ends_after,
 		], tribe_events()->where( 'ends_after', $date->format( 'Y-m-d H:i:s' ), $ny_timezone_string )->get_ids() );
 		$this->assertEqualSets( [
 			$starts_before_ends_on_date,
 			$starts_before_ends_after,
-			$starts_after_ends_after
+			$starts_after_ends_after,
 		], tribe_events()->where( 'ends_after', $date->format( 'Y-m-d H:i:s' ), $paris )->get_ids() );
 		$this->assertEqualSets( [
 			$starts_before_ends_after,
-			$starts_after_ends_after
+			$starts_after_ends_after,
 		], tribe_events()->where( 'ends_after', $date, 'UTC' )->get_ids() );
 		$this->assertEqualSets( [
 			$starts_before_ends_after,
-			$starts_after_ends_after
+			$starts_after_ends_after,
 		], tribe_events()->where( 'ends_after', $date->getTimestamp() )->get_ids() );
+
+	}
+
+	/**
+	 * It should allow filtering events by ends before
+	 *
+	 * @test
+	 */
+	public function should_allow_filtering_events_by_ends_before() {
+		$site_timezone      = 'Europe/Paris';
+		$ny_timezone_string = 'America/New_York';
+		update_option( 'timezone_string', $site_timezone );
+		$ny    = new \DateTimeZone( $ny_timezone_string );
+		$paris = new \DateTimeZone( $site_timezone );
+		$date  = new \DateTime( '2018-01-15 16:00:00', $ny );
+
+		$start_before_ends_before   = $this->factory()->event->starting_on( '2018-01-10 10:00:00' )
+		                                                     ->with_timezone( $ny_timezone_string )
+		                                                     ->lasting( 2 * HOUR_IN_SECONDS )
+		                                                     ->create();
+		$starts_before_ends_on_date = $this->factory()->event->starting_on( '2018-01-15 15:00:00' )
+		                                                     ->with_timezone( $ny_timezone_string )
+		                                                     ->lasting( HOUR_IN_SECONDS )
+		                                                     ->create();
+		$starts_before_ends_after   = $this->factory()->event->starting_on( '2018-01-15 15:00:00' )
+		                                                     ->with_timezone( $ny_timezone_string )
+		                                                     ->lasting( 2 * HOUR_IN_SECONDS )
+		                                                     ->create();
+		$starts_after_ends_after    = $this->factory()->event->starting_on( '2018-01-17 15:00:00' )
+		                                                     ->with_timezone( $ny_timezone_string )
+		                                                     ->lasting( 2 * HOUR_IN_SECONDS )
+		                                                     ->create();
 
 		$this->assertEqualSets( [
 			$start_before_ends_before,
@@ -171,6 +315,37 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEqualSets( [
 			$start_before_ends_before,
 		], tribe_events()->where( 'ends_before', $date->getTimestamp() )->get_ids() );
+	}
+
+	/**
+	 * It should allow filtering events by ends between
+	 *
+	 * @test
+	 */
+	public function should_allow_filtering_events_by_ends_between() {
+		$site_timezone      = 'Europe/Paris';
+		$ny_timezone_string = 'America/New_York';
+		update_option( 'timezone_string', $site_timezone );
+		$ny    = new \DateTimeZone( $ny_timezone_string );
+		$paris = new \DateTimeZone( $site_timezone );
+		$date  = new \DateTime( '2018-01-15 16:00:00', $ny );
+
+		$start_before_ends_before   = $this->factory()->event->starting_on( '2018-01-10 10:00:00' )
+		                                                     ->with_timezone( $ny_timezone_string )
+		                                                     ->lasting( 2 * HOUR_IN_SECONDS )
+		                                                     ->create();
+		$starts_before_ends_on_date = $this->factory()->event->starting_on( '2018-01-15 15:00:00' )
+		                                                     ->with_timezone( $ny_timezone_string )
+		                                                     ->lasting( HOUR_IN_SECONDS )
+		                                                     ->create();
+		$starts_before_ends_after   = $this->factory()->event->starting_on( '2018-01-15 15:00:00' )
+		                                                     ->with_timezone( $ny_timezone_string )
+		                                                     ->lasting( 2 * HOUR_IN_SECONDS )
+		                                                     ->create();
+		$starts_after_ends_after    = $this->factory()->event->starting_on( '2018-01-17 15:00:00' )
+		                                                     ->with_timezone( $ny_timezone_string )
+		                                                     ->lasting( 2 * HOUR_IN_SECONDS )
+		                                                     ->create();
 
 		$this->assertEqualSets( [
 			$starts_before_ends_on_date,
@@ -215,12 +390,12 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 			$same_day,
 			$multi_day,
 			$many_day_multi_day,
-			$not_multiday_in_utc
+			$not_multiday_in_utc,
 		], tribe_events()->get_ids() );
 		$this->assertEqualSets( [
 			$multi_day,
 			$many_day_multi_day,
-			$not_multiday_in_utc
+			$not_multiday_in_utc,
 		], tribe_events()->where( 'multiday', true )->get_ids() );
 		$this->assertEqualSets( [ $same_day ], tribe_events()->where( 'multiday', false )->get_ids() );
 	}
@@ -261,7 +436,7 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 		], tribe_events()->where( 'multiday', true )->get_ids() );
 		$this->assertEqualSets( [
 			$same_day,
-			$cross_midnight_before_cutoff
+			$cross_midnight_before_cutoff,
 		], tribe_events()->where( 'multiday', false )->get_ids() );
 	}
 
