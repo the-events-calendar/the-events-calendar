@@ -1150,6 +1150,9 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 
 			$search = tribe_get_request_var( 'tribe-bar-search' );
 
+			/**
+			 * @todo Move this to each one of the views and their ajax requests
+			 */
 			// if a user provides a search term we want to use that in the search params
 			if ( ! empty( $search ) ) {
 				$args['s'] = $search;
