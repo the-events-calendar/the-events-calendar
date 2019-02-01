@@ -50,7 +50,7 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 		$not_all_day_no = $this->factory()->event->create_many( 1, [ 'meta_input' => [ '_EventAllDay' => 'no' ] ] );
 
 		$this->assertEqualSets(
-			$not_all_day_no + $not_all_day_dont_exist,
+			array_merge( $not_all_day_no, $not_all_day_dont_exist ),
 			tribe_events()->where( 'all_day', false )->get_ids()
 		);
 		$this->assertCount( 2, tribe_events()->get_ids() );
@@ -66,7 +66,7 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 		$not_all_day_zero = $this->factory()->event->create_many( 1, [ 'meta_input' => [ '_EventAllDay' => '0' ] ] );
 
 		$this->assertEqualSets(
-			$not_all_day_zero + $not_all_day_dont_exist,
+			array_merge( $not_all_day_zero, $not_all_day_dont_exist ),
 			tribe_events()->where( 'all_day', false )->get_ids()
 		);
 		$this->assertCount( 2, tribe_events()->get_ids() );
