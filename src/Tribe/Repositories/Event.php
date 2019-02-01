@@ -181,7 +181,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	}
 
 	/**
-	 * Filters events whose end date occurs before the provided date; fetch is not inclusive.
+	 * Filters events whose end date occurs on or before the provided date; fetch is not inclusive.
 	 *
 	 * @since TBD
 	 *
@@ -210,7 +210,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	}
 
 	/**
-	 * Filters events whose end date occurs before the provided date; fetch is not inclusive.
+	 * Filters events whose end date occurs before the provided date; fetch is inclusive.
 	 *
 	 * @since TBD
 	 *
@@ -268,7 +268,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	}
 
 	/**
-	 * Filters events whose start date occurs after the provided date; fetch is not inclusive.
+	 * Filters events whose start date occurs on or after the provided date; fetch is inclusive.
 	 *
 	 * @since TBD
 	 *
