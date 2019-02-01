@@ -903,7 +903,6 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		 *
 		 */
 		public function setup_view() {
-
 			if ( $this->use_cache && $this->html_cache->get() !== false ) {
 				return;
 			}
@@ -955,6 +954,8 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			if ( ! isset( $this->current_month_ends ) ) {
 				$this->current_month_ends = count( $days ) - 1;
 			}
+
+			var_dump( $days );
 
 			// store set of found days for use in calendar loop functions
 			self::$calendar_days = $days;

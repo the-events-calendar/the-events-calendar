@@ -125,7 +125,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 */
 	public function filter_by_all_day( $all_day = true ) {
 		if ( (bool) $all_day ) {
-			$this->by( 'meta_equals', '_EventAllDay', 'yes' );
+			$this->by( 'meta_in', '_EventAllDay', [ 'yes', '1' ] );
 
 			return null;
 		}
@@ -141,8 +141,8 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 					'relation'   => 'OR',
 					'is-not-yes' => array(
 						'key'     => '_EventAllDay',
-						'compare' => '!=',
-						'value'   => 'yes',
+						'compare' => 'NOT IN',
+						'value'   => [ 'yes', '1' ],
 					),
 				),
 			),
@@ -199,7 +199,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			'meta_query' => array(
 				'ends-before' => array(
 					'key'     => '_EventEndDateUTC',
-					'compare' => '<',
+					'compare' => '<=',
 					'value'   => $date->format( 'Y-m-d H:i:s' ),
 					'type'    => 'DATETIME',
 				),
@@ -228,7 +228,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			'meta_query' => array(
 				'starts-after' => array(
 					'key'     => '_EventStartDateUTC',
-					'compare' => '>',
+					'compare' => '>=',
 					'value'   => $date->format( 'Y-m-d H:i:s' ),
 					'type'    => 'DATETIME',
 				),
@@ -331,9 +331,9 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		global $wpdb;
 
 		$this->filter_query->join( "LEFT JOIN {$wpdb->postmeta} multiday_start_date
-			ON ( {$wpdb->posts}.ID = multiday_start_date.post_id 
+			ON ( {$wpdb->posts}.ID = multiday_start_date.post_id
 			AND multiday_start_date.meta_key = '_EventStartDate' )" );
-		$this->filter_query->join( "LEFT JOIN {$wpdb->postmeta} multiday_end_date 
+		$this->filter_query->join( "LEFT JOIN {$wpdb->postmeta} multiday_end_date
 			ON ( {$wpdb->posts}.ID = multiday_end_date.post_id
 			AND multiday_end_date.meta_key = '_EventEndDate' )" );
 
@@ -1154,7 +1154,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			$this->filter_query->join( $wpdb->prepare( "
 				LEFT JOIN {$wpdb->postmeta} AS {$postmeta_table}
 					ON (
-						{$postmeta_table}.post_id = {$wpdb->posts}.ID 
+						{$postmeta_table}.post_id = {$wpdb->posts}.ID
 						AND {$postmeta_table}.meta_key = %s
 					)
 				LEFT JOIN {$wpdb->posts} AS {$posts_table}
@@ -1172,7 +1172,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			$this->filter_query->join( $wpdb->prepare( "
 				LEFT JOIN {$wpdb->postmeta} AS {$postmeta_table}
 					ON (
-						{$postmeta_table}.post_id = {$wpdb->posts}.ID 
+						{$postmeta_table}.post_id = {$wpdb->posts}.ID
 						AND {$postmeta_table}.meta_key = %s
 					)
 				LEFT JOIN {$wpdb->posts} AS {$posts_table}
