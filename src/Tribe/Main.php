@@ -32,7 +32,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '4.8';
+		const VERSION             = '4.8.1';
 
 		/**
 		 * Min Pro Addon
@@ -3643,10 +3643,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 * If the date is the same pick one with a smaller (prev) or bigger (next) posts.ID; if not then
 			 * use just the date.
 			 */
-			$where_sql .= $wpdb->prepare( "\nAND ( 
-					( 
-						{$start_date}.meta_value = %s 
-						AND {$wpdb->posts}.ID {$this->_where_direction} {$this->_where_post_id} 
+			$where_sql .= $wpdb->prepare( "\nAND (
+					(
+						{$start_date}.meta_value = %s
+						AND {$wpdb->posts}.ID {$this->_where_direction} {$this->_where_post_id}
 					)
 					OR
 					{$start_date}.meta_value {$this->_where_direction} %s
