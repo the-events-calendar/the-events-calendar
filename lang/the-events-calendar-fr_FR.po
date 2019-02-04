@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-12-06 15:41:11+0000\n"
+"PO-Revision-Date: 2019-01-25 18:36:33+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -41,7 +41,7 @@ msgstr "Réglages du lieu"
 
 #: src/resources/js/app/blocks.js:47272
 msgid "Add or find a venue"
-msgstr "Ajouter une chercher un lieu"
+msgstr "Ajouter ou chercher un lieu"
 
 #: src/resources/js/app/blocks.js:46934
 msgid "(Untitled Venue)"
@@ -61,11 +61,11 @@ msgstr "Fuseau horaire"
 
 #: src/resources/js/app/blocks.js:45434
 msgid "Time Range Separator"
-msgstr ""
+msgstr "Séparateur de plage horaire"
 
 #: src/resources/js/app/blocks.js:45427
 msgid "Date Time Separator"
-msgstr ""
+msgstr "Séparateur de dates"
 
 #: src/resources/js/app/blocks.js:13219 src/resources/js/app/elements.js:9845
 msgid "Add or Find"
@@ -94,7 +94,7 @@ msgstr "Nom :"
 #: src/modules/blocks/event-datetime/subblocks/content/index.js:23
 #: src/resources/js/app/blocks.js:46184
 msgid "Event Date Time Content"
-msgstr ""
+msgstr "Date et heure de l'évènement"
 
 #: src/modules/blocks/event-datetime/subblocks/dashboard/index.js:19
 #: src/resources/js/app/blocks.js:46659
@@ -112,7 +112,7 @@ msgstr "Définissez une date, une heure et une durée pour votre évènement."
 #: src/modules/blocks/event-datetime/index.js:27
 #: src/resources/js/app/blocks.js:46744
 msgid "Event Date Time"
-msgstr ""
+msgstr "Heure de l’évènnement"
 
 #: src/modules/blocks/event-website/index.js:22
 #: src/resources/js/app/blocks.js:49446
@@ -141,7 +141,7 @@ msgstr "iCal"
 
 #: src/resources/js/app/blocks.js:47401
 msgid "Show Google Maps Embed"
-msgstr ""
+msgstr "Afficher la carte Google embarquée"
 
 #: src/modules/blocks/event-category/index.js:22
 #: src/resources/js/app/blocks.js:49143
@@ -171,7 +171,7 @@ msgstr "Chargement de l’image"
 #: src/modules/blocks/featured-image/block.js:65
 #: src/resources/js/app/blocks.js:49551
 msgid "Add a Featured Image from the Document Settings sidebar"
-msgstr ""
+msgstr "Ajouter une image à la une à partir des réglages de la colonne latérale"
 
 #: src/modules/blocks/featured-image/block.js:54
 #: src/modules/blocks/featured-image/index.js:21
@@ -182,12 +182,12 @@ msgstr "Image à la une"
 #: src/modules/blocks/event-tags/index.js:22
 #: src/resources/js/app/blocks.js:49255
 msgid "Add keywords by displaying linked tags."
-msgstr ""
+msgstr "Ajouter des mots-clés en affichant des liens vers des étiquettes."
 
 #: src/modules/blocks/event-tags/block.js:55
 #: src/resources/js/app/blocks.js:49224
 msgid "Add tags in document settings"
-msgstr ""
+msgstr "Ajouter des étiquettes dans les réglages du document."
 
 #: src/modules/blocks/event-tags/block.js:54
 #: src/modules/blocks/event-tags/index.js:21
@@ -338,7 +338,7 @@ msgstr "Début : "
 #: src/modules/blocks/event-organizer/index.js:17
 #: src/resources/js/app/blocks.js:48388
 msgid "List a host or coordinator for this event."
-msgstr ""
+msgstr "Afficher un hôte ou un coordinateur pour cette évènement."
 
 #: src/modules/blocks/event-organizer/index.js:16
 #: src/resources/js/app/blocks.js:48387
@@ -376,7 +376,7 @@ msgstr "(sans titre)"
 #: src/resources/js/app/blocks.js:13490 src/resources/js/app/elements.js:10116
 msgctxt "linked text for plugin add-ons"
 msgid "Check 'em out!"
-msgstr ""
+msgstr "Aller les découvrir !"
 
 #: src/modules/elements/upsell/element.js:23
 #: src/resources/js/app/blocks.js:13481 src/resources/js/app/elements.js:10107
@@ -395,11 +395,11 @@ msgstr "Toute la journée"
 
 #: src/views/modules/bar.php:51
 msgid "Hide %s Search"
-msgstr "Masquer %s la Recherche"
+msgstr "Masquer la recherche %s "
 
 #: src/views/modules/bar.php:50 src/views/modules/bar.php:54
 msgid "Show %s Search"
-msgstr "Afficher %s la Recherche"
+msgstr "Afficher la recherche %s"
 
 #: src/admin-views/aggregator/settings.php:159
 #: src/admin-views/aggregator/settings.php:268
@@ -451,7 +451,7 @@ msgstr "Activer l'éditeur de blocs pour les évènements."
 
 #: src/Tribe/Editor/Blocks/Event_Website.php:26
 msgid "Add Button Text"
-msgstr ""
+msgstr "Ajouter un texte au bouton"
 
 #: src/Tribe/Editor/Meta.php:61 src/Tribe/Editor/Meta.php:70
 msgid "Event Organizers"
@@ -491,7 +491,7 @@ msgstr ""
 
 #: src/Tribe/Google/Maps_API_Key.php:107
 msgid "(click here for details)"
-msgstr "(Cliquez ici pour plus de datails)"
+msgstr "(Cliquez ici pour plus de détails)"
 
 #: src/Tribe/Editor.php:534
 msgid "Event Blocks"
@@ -526,7 +526,7 @@ msgstr "Il y a %s"
 #. translators: %s: duration
 #: common/src/Tribe/Editor/Configuration.php:88
 msgid "%s from now"
-msgstr ""
+msgstr "%s jusqu’à maintenant"
 
 #: common/src/Tribe/Editor/Blocks/Abstract.php:127
 msgid "Problem loading the block, please remove this block to restart."
@@ -534,11 +534,11 @@ msgstr "Problème lors du chargement du bloc, veuillez supprimer ce bloc pour re
 
 #: common/src/Tribe/Editor/Meta.php:123
 msgid "Text Array"
-msgstr ""
+msgstr "Tableau de texte"
 
 #: common/src/Tribe/Editor/Meta.php:105
 msgid "Numeric Array"
-msgstr ""
+msgstr "Tableau Numérique"
 
 #: src/admin-views/tribe-options-general.php:69
 msgid "Enable WordPress Custom Fields on Events."
@@ -550,7 +550,7 @@ msgstr "Afficher la boîte de méta pour les champs personnalisés"
 
 #: src/admin-views/tribe-options-display.php:139
 msgid "Please note that you are using The Events Calendar's default Google Maps API key, which will limit the Map View's functionality. Visit %sthe API Settings page%s to learn more and add your own Google Maps API key."
-msgstr ""
+msgstr "Veuillez noter que vous utilisez la clé d'API Google Maps par défaut de The Events Calendar, qui limitera les fonctionnalités de la carte. Rendez-vous sur la %spage des paramètres de l'API%s pour en savoir plus et ajouter votre propre clé d'API Google Maps."
 
 #: src/admin-views/aggregator/settings.php:230
 msgid "Stop current processes"
@@ -570,7 +570,7 @@ msgstr "Cliquez ici"
 
 #: src/admin-views/aggregator/settings.php:121
 msgid "If you want to stop and clear current asynchronous import processes %1$s."
-msgstr ""
+msgstr "Si vous souhaitez arrêter et effacer les processus d'importation asynchrones en cours %1$s."
 
 #: src/admin-views/aggregator/origins/eventbrite.php:127
 msgid "Import from Eventbrite URL"
@@ -606,7 +606,7 @@ msgstr "Vous utilisez une clé API Google Maps personnalisée."
 
 #: src/Tribe/Aggregator/Settings.php:703
 msgid "Cron-based"
-msgstr ""
+msgstr "Basé sur une tache Cron"
 
 #: src/Tribe/Aggregator/Settings.php:699
 msgid "Asynchronous"
@@ -6110,7 +6110,7 @@ msgstr "Options d’affichage"
 
 #: src/views/modules/bar.php:74
 msgid "Find %s"
-msgstr "Trouver les %s"
+msgstr "Chercher"
 
 #: src/views/list/nav.php:22
 msgid "%s List Navigation"

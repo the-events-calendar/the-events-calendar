@@ -164,6 +164,8 @@ export function* onHumanReadableChange() {
 
 		const isMultiDay = ! ( yield call( momentUtil.isSameDay, result.start, result.end ) );
 
+		const isAllDay = ! isMultiDay && ( '00:00' === moments.start.format( 'HH:mm' ) && '23:59' === moments.end.format( 'HH:mm' ) );
+
 		const dates = yield all( {
 			start: call( momentUtil.toDateTime, result.start ),
 			end: call( momentUtil.toDateTime, result.end ),
@@ -173,6 +175,7 @@ export function* onHumanReadableChange() {
 			put( actions.setStartDateTime( dates.start ) ),
 			put( actions.setEndDateTime( dates.end ) ),
 			put( actions.setMultiDay( isMultiDay ) ),
+			put( actions.setAllDay( isAllDay ) ),
 		] );
 	}
 }
@@ -398,6 +401,10 @@ export function* handleStartTimeChange( action ) {
 	if ( action.payload.start === 'all-day' ) {
 		yield call( setAllDay );
 	} else {
+
+		// Set All day to false in case they're editing.
+		yield put( actions.setAllDay( false ) );
+
 		const { start } = yield call( deriveMomentsFromDates );
 		// NOTE: Mutation
 		yield call( momentUtil.setTimeInSeconds, start, action.payload.start );
@@ -417,6 +424,10 @@ export function* handleEndTimeChange( action ) {
 	if ( action.payload.end === 'all-day' ) {
 		yield call( setAllDay );
 	} else {
+
+		// Set All day to false in case they're editing.
+		yield put( actions.setAllDay( false ) );
+
 		const { end } = yield call( deriveMomentsFromDates );
 		// NOTE: Mutation
 		yield call( momentUtil.setTimeInSeconds, end, action.payload.end );

@@ -97,6 +97,14 @@ class Tribe__Events__Meta__Save {
 	 * @return bool `true` if event meta was updated, `false` otherwise.
 	 */
 	public function save() {
+
+		if (
+			tribe( 'tec.gutenberg' )->should_display()
+			&& tribe( 'events.editor.compatibility' )->is_blocks_editor_toggled_on()
+		) {
+			return $this->save_block_editor_metadata( $this->post_id, $_POST, $this->post );
+		}
+
 		if ( ! $this->context->has_nonce() ) {
 			return false;
 		}
@@ -179,6 +187,63 @@ class Tribe__Events__Meta__Save {
 	 */
 	protected function is_event() {
 		return $this->post->post_type === Tribe__Events__Main::POSTTYPE;
+	}
+
+	/**
+	 * Used to save the event meta for events created in the block editor
+	 *
+	 * @param int     $event_id The event ID we are modifying meta for.
+	 * @param array   $data     The post data
+	 * @param WP_Post $event    The event post, itself.
+	 *
+	 * @return bool
+	 */
+	public function save_block_editor_metadata( $event_id, $data, $event = null ) {
+
+		if ( ! $this->context->current_user_can_edit_events() ) {
+			return false;
+		}
+
+		if ( empty( $data['EventHideFromUpcoming'] ) ) {
+			delete_metadata( 'post', $event_id, '_EventHideFromUpcoming' );
+		} else {
+			update_metadata( 'post', $event_id, '_EventHideFromUpcoming', $data['EventHideFromUpcoming'] );
+		}
+
+		// Set sticky state for calendar view.
+		if ( $event instanceof WP_Post ) {
+			$show_in_cal = Tribe__Utils__Array::get( $data, array( 'EventShowInCalendar' ), false );
+			if (
+				$show_in_cal
+				&& tribe_is_truthy( $show_in_cal )
+				&& $event->menu_order != '-1'
+			) {
+				$update_event = array(
+					'ID'         => $event_id,
+					'menu_order' => '-1',
+				);
+				wp_update_post( $update_event );
+			} elseif (
+				(
+					! $show_in_cal
+					|| ! tribe_is_truthy( $show_in_cal )
+				)
+				&& $event->menu_order == '-1'
+			) {
+				$update_event = array(
+					'ID'         => $event_id,
+					'menu_order' => '0',
+				);
+				wp_update_post( $update_event );
+			}
+		}
+
+		// Set featured status
+		empty( $data['feature_event'] )
+			? tribe( 'tec.featured_events' )->unfeature( $event_id )
+			: tribe( 'tec.featured_events' )->feature( $event_id );
+
+		return true;
 	}
 
 }
