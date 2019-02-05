@@ -41,7 +41,7 @@ class Tribe__Events__Meta__Context {
 	/**
 	 * @return false|int
 	 */
-	public function verify_nonce( ) {
+	public function verify_nonce() {
 		return wp_verify_nonce( $_POST['ecp_nonce'], Tribe__Events__Main::POSTTYPE );
 	}
 

@@ -18,11 +18,14 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 		// Provide backwards compatibility for meta data
 		$post_type = Tribe__Events__Main::POSTTYPE;
 		add_filter( "rest_prepare_{$post_type}", array( $this, 'meta_backwards_compatibility' ), 10, 3 );
+		add_filter( "rest_pre_insert_{$post_type}", array( $this, 'add_utc_dates' ), 10, 2 );
 
 		register_meta( 'post', '_EventAllDay', $this->boolean() );
 		register_meta( 'post', '_EventTimezone', $this->text() );
 		register_meta( 'post', '_EventStartDate', $this->text() );
 		register_meta( 'post', '_EventEndDate', $this->text() );
+		register_meta( 'post', '_EventStartDateUTC', $this->text() );
+		register_meta( 'post', '_EventEndDateUTC', $this->text() );
 		register_meta( 'post', '_EventShowMap', $this->boolean() );
 		register_meta( 'post', '_EventShowMapLink', $this->boolean() );
 		register_meta( 'post', '_EventURL', $this->text() );
@@ -114,6 +117,58 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 			$data->data['meta']['_EventAllDay'] = tribe_is_truthy( $all_day );
 		}
 
+		$timezone_string = get_post_meta( $post->ID, '_EventTimezone', true );
+
+		if ( ! $timezone_string ) {
+			$timezone_string = Tribe__Events__Timezones::wp_timezone_string();
+		}
+
+		$data->data['meta']['_EventStartDateUTC'] = Tribe__Events__Timezones::to_utc( $data->data['meta']['_EventStartDate'], $timezone_string );
+		$data->data['meta']['_EventEndDateUTC']   = Tribe__Events__Timezones::to_utc( $data->data['meta']['_EventEndDate'], $timezone_string );
+
 		return $data;
+	}
+
+	/**
+	 * Adds, triggering their updates, the UTC start and end dates to the post insertion or
+	 * update REST payload.
+	 *
+	 * @since 4.7.4
+	 *
+	 * @param             \stdClass     $post_data The post insertion/update payload.
+	 * @param \WP_REST_Request $request The current insertion or update request object.
+	 *
+	 * @return \stdClass The post insertion/update payload with an added `meta_input` entry if
+	 *                   the insertion/update of UTC dates is required.
+	 */
+	public function add_utc_dates( $post_data, WP_REST_Request $request ) {
+		$json_params = $request->get_json_params();
+		$meta = Tribe__Utils__Array::get( $json_params, 'meta', array() );
+
+		// No changes to start and end? No need to update UTC dates.
+		if ( ! ( isset( $meta['_EventStartDate'] ) && isset( $meta['_EventEndDate'] ) ) ) {
+			return $post_data;
+		}
+
+		if ( ! isset( $post_data->meta_input ) ) {
+			$post_data->meta_input = array();
+		}
+
+		$post_id          = $request->get_param( 'id' );
+		$event_start_date = isset( $meta['_EventStartDate'] ) ? $meta['_EventStartDate'] : get_post_meta( $post_id, '_EventStartDate', true );
+		$event_end_date   = isset( $meta['_EventEndDate'] ) ? $meta['_EventEndDate'] : get_post_meta( $post_id, '_EventEndDate', true );
+		$timezone_string  = Tribe__Events__Timezones::get_event_timezone_string( $post_id );
+		$timezone_string  = Tribe__Utils__Array::get( $meta, '_EventTimezone', $timezone_string );
+
+		// If a specific timezone was not specified, default to the sitewide timezone
+		if ( empty( $timezone_string ) ) {
+			$timezone_string = Tribe__Events__Timezones::wp_timezone_string();
+		}
+
+		$post_data->meta_input['_EventTimezone']     = $timezone_string;
+		$post_data->meta_input['_EventStartDateUTC'] = Tribe__Events__Timezones::to_utc( $event_start_date, $timezone_string );
+		$post_data->meta_input['_EventEndDateUTC']   = Tribe__Events__Timezones::to_utc( $event_end_date, $timezone_string );
+
+		return $post_data;
 	}
 }

@@ -39,14 +39,13 @@
 }
 
 .tribe-editor__venue__actions {
-	position: absolute;
-	right: 17px;
-	z-index: 10;
-	top: 27px;
+	margin-top: 1.2em;
 
 	&--close {
 		svg {
-			width: 16px;
+			width: 24px;
+			margin-right: 5px;
+			vertical-align: text-top;
 		}
 	}
 
@@ -58,8 +57,13 @@
 	button {
 		background-color: #FFF;
 		border: none;
-		padding: 5px 7px;
+		padding: 5px 7px 5px 0;
+		color: #b52727;
 		cursor: pointer;
+
+		.editor-styles-wrapper & {
+			font-size: 13px;
+		}
 
 		&:hover {
 			svg,

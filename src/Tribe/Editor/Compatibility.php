@@ -17,6 +17,7 @@ class Tribe__Events__Editor__Compatibility {
 	 */
 	public function hook() {
 		add_action( 'admin_init', array( $this, 'deactivate_gutenberg_extension_plugin' ) );
+		add_action( 'tribe_editor_classic_is_active', array( $this, 'filter_is_classic_editor' ) );
 	}
 
 	/**
@@ -49,6 +50,23 @@ class Tribe__Events__Editor__Compatibility {
 			wp_safe_redirect( admin_url( 'plugins.php' ) );
 			tribe_exit();
 		}
+	}
+
+	/**
+	 * Filter when we are in the classic editor page
+	 *
+	 * @since  4.7.4
+	 *
+	 * @param  boolean $pre
+	 *
+	 * @return boolean
+	 */
+	public function filter_is_classic_editor( $is_classic_editor = false ) {
+		if ( ! $this->is_blocks_editor_toggled_on() ) {
+			return true;
+		}
+
+		return $is_classic_editor;
 	}
 
 	/**
