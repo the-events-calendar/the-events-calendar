@@ -4,7 +4,7 @@ Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.7
-Stable tag: 4.7.4
+Stable tag: 4.8
 Tested up to: 5.0.3
 Requires PHP: 5.2.4
 License: GPLv2 or later
@@ -214,6 +214,15 @@ Some things to consider before posting on the forum:
 Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to [@TheEventsCal](https://twitter.com/TheEventsCal) and tell us why. We'll do what we can to make it right.
 
 == Changelog ==
+
+= [4.8] 2019-02-05 =
+
+* Feature - Add check and enforce PHP 5.6 as the minimum version [116282]
+* Feature - Add system to check plugin versions to inform you to update and prevent site breaking errors [116841]
+* Tweak - Added filters: `tribe_not_php_version_names`
+* Deprecated - Constants MIN_ET_VERSION and MIN_COMMON_VERSION in Tribe__Events__Main, use $min_et_version property and no replacement for MIN_COMMON_VERSION
+* Deprecated - The `is_delayed_activation()`, `maybe_delay_activation_if_outdated_common()`, and `checkAddOnCompatibility()` method has been deprecated in `Tribe__Events__Main` in favor of new Dependency Checking System
+* Language - 7 new strings added, 139 updated, 0 fuzzied, and 1 obsoleted
 
 = [4.7.4] 2019-01-21 =
 

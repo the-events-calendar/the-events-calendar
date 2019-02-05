@@ -366,7 +366,7 @@ msgid ", "
 msgstr ", "
 
 #: src/modules/elements/terms-list/element.js:45
-#: src/modules/blocks/classic-event-details/event-details-organizers/event-details-organizer/te: commons:26
+#: src/modules/blocks/classic-event-details/event-details-organizers/event-details-organizer/template.js:26
 #: src/resources/js/app/blocks.js:11083 src/resources/js/app/blocks.js:44700
 #: src/resources/js/app/elements.js:7709
 msgid "(Untitled)"
