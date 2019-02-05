@@ -174,7 +174,6 @@ if ( ! class_exists( 'Tribe__Events__Template__Day' ) ) {
 
 				$args = array(
 					'post_status'  => $post_status,
-					'eventDate'    => $_POST['eventDate'],
 					'eventDisplay' => 'day',
 					'featured'     => tribe( 'tec.featured_events' )->featured_events_requested(),
 				);
@@ -185,13 +184,35 @@ if ( ! class_exists( 'Tribe__Events__Template__Day' ) ) {
 					$args[ Tribe__Events__Main::TAXONOMY ] = $_POST['tribe_event_category'];
 				}
 
-				/** @var WP_Query query */
-				$query = tribe_get_events( $args, true );
+				$event_date = tribe_get_request_var( 'eventDate', '' );
+				if ( empty( $event_date ) ) {
+					$event_date = date( 'Y-m-d', current_time( 'timestamp' ) );
+				}
 
-				$query->set( 'start_date', tribe_get_request_var( 'eventDate', '' ) );
+				$args['posts_per_page'] = - 1; // show ALL day posts
+
+				$events_orm = tribe_events();
+				$events_orm->by( 'date_overlaps', tribe_beginning_of_day( $event_date ), tribe_end_of_day( $event_date ) );
+				$events_orm->by_args( $args );
+
+				$query = $events_orm->get_query();
+
+				/**
+				 * @todo  we might need to check on the Order By and hide_upcoming
+				 */
+				// $args['hide_upcoming'] = $maybe_hide_events;
+				// $args['order'] = self::set_order( 'ASC', $query );
+
+				// Fetch the posts
+				$query->get_posts();
 
 				global $post;
 				global $wp_query;
+
+				// Reset for working navigation due to how it depends on query_vars
+				$query->query_vars['eventDate'] = $event_date;
+				$query->query_vars['start_date'] = tribe_beginning_of_day( $event_date );
+				$query->query_vars['end_date'] = tribe_end_of_day( $event_date );
 
 				$wp_query = $query;
 
