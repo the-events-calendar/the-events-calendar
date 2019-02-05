@@ -489,8 +489,8 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 		),
 	);
 
-	$eventbrite_origin_post_statuses  = array( 'do_not_override' => esc_html__( '(do not override)', 'the-events-calendar' ) );
-	$eventbrite_origin_post_statuses += $origin_post_statuses;
+	// Ensure that "(do not override)" is set up for Eventbrite import statuses, and "Published" is not.
+	$eventbrite_origin_post_statuses = array( 'do_not_override' => esc_html__( '(do not override)', 'the-events-calendar' ) ) + $origin_post_statuses;
 
 	unset( $eventbrite_origin_post_statuses['publish'] );
 

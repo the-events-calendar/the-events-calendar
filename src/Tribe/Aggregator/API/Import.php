@@ -138,6 +138,8 @@ class Tribe__Events__Aggregator__API__Import extends Tribe__Events__Aggregator__
 
 		$event['post_status'] = tribe( 'events-aggregator.settings' )->default_post_status( $json->origin );
 
+		write_log( $event, 'event from import.php' );
+
 		// translate json key/value pairs to event array key/value pairs
 		foreach ( get_object_vars( $json ) as $key => $value ) {
 			// venues and organizers are a bit more complex. We'll handle those later
