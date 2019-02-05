@@ -343,7 +343,6 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 *                                            defaults to the site timezone; this parameter is ignored
 	 *                                            if the `$datetime` parameter is a DatTime object.
 	 *
-	 * @return array An array of arguments that should be added to the WP_Query object.
 	 */
 	public function filter_by_date_overlaps( $start_datetime, $end_datetime, $timezone = null ) {
 		global $wpdb;
@@ -370,7 +369,6 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			ON ( {$wpdb->posts}.ID = {$join_end_key}.post_id
 			AND {$join_end_key}.meta_key = '{$end_key}' )"
 		);
-
 
 		$this->filter_query->where(
 			"
