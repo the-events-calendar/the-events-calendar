@@ -252,7 +252,6 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - Properly display recurrence description on Blocks Editor view [119354]
 * Fix - Point support links to the correct places [117795]
 * Language - 27 new strings added, 106 updated, 0 fuzzied, and 13 obsoleted
->>>>>>> d4969a938fe4ca87e5d9caa3da8c71d8492c4782
 
 = [4.7.2] 2018-12-13 =
 
