@@ -48,7 +48,7 @@ wp_nonce_field( 'tribe-aggregator-save-import', 'tribe_aggregator_nonce' );
 
 			$option->is_selected = false;
 
-			// Ensure the "(do not override)" is set up for Eventbrite imports, and "Published" is removed.
+			// Ensure the "(do not override)" status is set up for Eventbrite imports, and "Published" is removed.
 			if ( 'eventbrite' === $option->id ) {
 
 				$post_statuses = array( 'do_not_override' => esc_html__( '(do not override)', 'the-events-calendar' ) ) + $post_statuses;
