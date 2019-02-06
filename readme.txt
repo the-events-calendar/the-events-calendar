@@ -4,7 +4,7 @@ Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.7
-Stable tag: 4.8
+Stable tag: 4.8.0.1
 Tested up to: 5.0.3
 Requires PHP: 5.2.4
 License: GPLv2 or later
@@ -214,6 +214,10 @@ Some things to consider before posting on the forum:
 Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to [@TheEventsCal](https://twitter.com/TheEventsCal) and tell us why. We'll do what we can to make it right.
 
 == Changelog ==
+
+= [4.8.0.1] 2019-02-06 =
+
+* Fix - Modify extension dependency checking with new system to determine if it can load [122368]
 
 = [4.8] 2019-02-05 =
 
