@@ -372,7 +372,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				add_action( 'admin_notices', array( $this, 'compatibility_notice' ) );
 				add_action( 'network_admin_notices', array( $this, 'compatibility_notice' ) );
 				add_filter( 'tribe_ecp_to_run_or_not_to_run', array( $this, 'disable_pro' ) );
-				add_action( 'tribe_plugins_loaded', array( $this, 'remove_fb_importer_ext' ), 0 );
+				add_action( 'tribe_plugins_loaded', array( $this, 'remove_exts' ), 0 );
 
 				//Disable Older Versions of Community Events to Prevent Fatal Error
 				remove_action( 'plugins_loaded', 'Tribe_CE_Load', 2 );
@@ -1487,18 +1487,23 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * Prevents Facebook Importer Ext from Running if ET is on an Older Version
+		 * Prevents Certain Extensions from running if ET is on an Older Version
 		 *
 		 * @since 4.10.0.1
 		 *
 		 */
-		public function remove_fb_importer_ext() {
+		public function remove_exts() {
 
-			if ( ! class_exists( 'Tribe\Extensions\EA_FB\Facebook_Dev_Origin' ) ) {
-				return;
+			if ( class_exists( 'Tribe\Extensions\EA_FB\Facebook_Dev_Origin' ) ) {
+				remove_action( 'tribe_plugins_loaded', array( Tribe\Extensions\EA_FB\Facebook_Dev_Origin::instance(), 'register' ) );
 			}
 
-			remove_action( 'tribe_plugins_loaded', array( Tribe\Extensions\EA_FB\Facebook_Dev_Origin::instance(), 'register' ) );
+
+			if ( class_exists( 'Tribe__Extension__Instructor_Linked_Post_Type' ) ) {
+				remove_action( 'tribe_plugins_loaded', array( Tribe__Extension__Instructor_Linked_Post_Type::instance(), 'register' ) );
+			}
+
+
 		}
 
 		/**
