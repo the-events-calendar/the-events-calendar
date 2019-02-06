@@ -4,7 +4,7 @@
  * @var array
  */
 $internal = array();
-$use_global_settings_phrase = __( 'Use global import settings', 'the-events-calendar' );
+$use_global_settings_phrase = esc_html__( 'Use global import settings', 'the-events-calendar' );
 $post_statuses = get_post_statuses( array() );
 $category_dropdown = wp_dropdown_categories( array(
 	'echo'       => false,
@@ -489,10 +489,21 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 		),
 	);
 
+	// Ensure that "(do not override)" is set up for Eventbrite import statuses, and "Published" is not.
+	$eventbrite_origin_post_statuses = array( 'do_not_override' => esc_html__( '(do not override)', 'the-events-calendar' ) );
+	$eventbrite_origin_post_statuses = $eventbrite_origin_post_statuses + $origin_post_statuses;
+
+	unset( $eventbrite_origin_post_statuses['publish'] );
+
+	// Unset EA's "Use global import settings" option if it's there.
+	if ( $events_aggregator_is_active ) {
+		unset( $eventbrite_origin_post_statuses[''] );
+	}
+
 	$eb_fields = array(
 		'eventbrite-defaults' => array(
-			'type' => 'html',
-			'html' => '<h3 id="tribe-import-eventbrite-settings">' . esc_html__( 'Eventbrite Import Settings', 'the-events-calendar' ) . '</h3>',
+			'type'     => 'html',
+			'html'     => '<h3 id="tribe-import-eventbrite-settings">' . esc_html__( 'Eventbrite Import Settings', 'the-events-calendar' ) . '</h3>',
 			'priority' => 17.1,
 		),
 		'tribe_aggregator_default_eventbrite_post_status' => array(
@@ -504,7 +515,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 			'default'         => '',
 			'can_be_empty'    => true,
 			'parent_option'   => Tribe__Events__Main::OPTIONNAME,
-			'options'         => $origin_post_statuses,
+			'options'         => $eventbrite_origin_post_statuses,
 			'priority'        => 17.2,
 		),
 		'tribe_aggregator_default_eventbrite_category' => array(

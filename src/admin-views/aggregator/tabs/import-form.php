@@ -42,10 +42,20 @@ wp_nonce_field( 'tribe-aggregator-save-import', 'tribe_aggregator_nonce' );
 		$field->upsell_options = array();
 
 		foreach ( $field->options as $key => $option ) {
+
 			$option->disabled = isset( $option->disabled ) ? $option->disabled : null;
 			$option->upsell   = isset( $option->upsell ) ? $option->upsell : false;
 
 			$option->is_selected = false;
+
+			// Ensure the "(do not override)" status is set up for Eventbrite imports, and "Published" is removed.
+			if ( 'eventbrite' === $option->id ) {
+
+				$do_not_override_status = array( 'do_not_override' => esc_html__( '(do not override)', 'the-events-calendar' ) );
+				$post_statuses          = $do_not_override_status + $post_statuses;
+
+				unset( $post_statuses['publish'] );
+			}
 
 			if (
 				// Used on the EA Authorization

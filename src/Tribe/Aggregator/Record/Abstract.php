@@ -1373,7 +1373,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			'post_status' => 'draft',
 		);
 
-		if ( ! empty( $this->meta['post_status'] ) ) {
+		if ( ! empty( $this->meta['post_status'] ) && 'do_not_override' !== $this->meta['post_status'] ) {
 			$args['post_status'] = $this->meta['post_status'];
 		}
 
