@@ -1487,22 +1487,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * Prevents Certain Extensions from running if ET is on an Older Version
+		 * Prevents Extensions from running if ET is on an Older Version
 		 *
 		 * @since 4.10.0.1
 		 *
 		 */
 		public function remove_exts() {
 
-			if ( class_exists( 'Tribe\Extensions\EA_FB\Facebook_Dev_Origin' ) ) {
-				remove_action( 'tribe_plugins_loaded', array( Tribe\Extensions\EA_FB\Facebook_Dev_Origin::instance(), 'register' ) );
-			}
-
-
-			if ( class_exists( 'Tribe__Extension__Instructor_Linked_Post_Type' ) ) {
-				remove_action( 'tribe_plugins_loaded', array( Tribe__Extension__Instructor_Linked_Post_Type::instance(), 'register' ) );
-			}
-
+			remove_all_actions( 'tribe_plugins_loaded', 10);
 
 		}
 
