@@ -372,6 +372,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				add_action( 'admin_notices', array( $this, 'compatibility_notice' ) );
 				add_action( 'network_admin_notices', array( $this, 'compatibility_notice' ) );
 				add_filter( 'tribe_ecp_to_run_or_not_to_run', array( $this, 'disable_pro' ) );
+				add_action( 'tribe_plugins_loaded', array( $this, 'remove_exts' ), 0 );
 
 				//Disable Older Versions of Community Events to Prevent Fatal Error
 				remove_action( 'plugins_loaded', 'Tribe_CE_Load', 2 );
@@ -1483,6 +1484,18 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function disable_pro() {
 			return false;
+		}
+
+		/**
+		 * Prevents Extensions from running if ET is on an Older Version
+		 *
+		 * @since 4.10.0.1
+		 *
+		 */
+		public function remove_exts() {
+
+			remove_all_actions( 'tribe_plugins_loaded', 10 );
+
 		}
 
 		/**
