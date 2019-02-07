@@ -1494,7 +1494,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function remove_exts() {
 
-			remove_all_actions( 'tribe_plugins_loaded', 10);
+			remove_all_actions( 'tribe_plugins_loaded', 10 );
 
 		}
 
