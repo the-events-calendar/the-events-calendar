@@ -189,7 +189,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Day' ) ) {
 					$event_date = date( 'Y-m-d', current_time( 'timestamp' ) );
 				}
 
-				$args['posts_per_page'] = - 1; // show ALL day posts
+				$args['posts_per_page'] = -1; // show ALL day posts
 
 				$events_orm = tribe_events();
 				$events_orm->by( 'date_overlaps', tribe_beginning_of_day( $event_date ), tribe_end_of_day( $event_date ) );
