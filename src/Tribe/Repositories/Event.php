@@ -85,6 +85,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 				'ends_on_or_before'       => [ $this, 'filter_by_ends_on_or_before' ],
 				'ends_after'              => [ $this, 'filter_by_ends_after' ],
 				'ends_between'            => [ $this, 'filter_by_ends_between' ],
+				'date_overlaps'           => [ $this, 'filter_by_date_overlaps' ],
 				'starts_and_ends_between' => [ $this, 'filter_by_starts_and_ends_between' ],
 				'runs_between'            => [ $this, 'filter_by_runs_between' ],
 				'all_day'                 => [ $this, 'filter_by_all_day' ],
@@ -326,6 +327,64 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 				),
 			),
 		);
+	}
+
+	/**
+	 * Filters events whose duration overlaps a given Start and End date; fetch is inclusive
+	 * Will include multi-day events.
+	 *
+	 * @since TBD
+	 *
+	 * @param string|DateTime|int $start_datetime A `strtotime` parse-able string, a DateTime object or
+	 *                                            a timestamp.
+	 * @param string|DateTime|int $end_datetime   A `strtotime` parse-able string, a DateTime object or
+	 *                                            a timestamp.
+	 * @param string|DateTimeZone $timezone       A timezone string, UTC offset or DateTimeZone object;
+	 *                                            defaults to the site timezone; this parameter is ignored
+	 *                                            if the `$datetime` parameter is a DatTime object.
+	 *
+	 */
+	public function filter_by_date_overlaps( $start_datetime, $end_datetime, $timezone = null ) {
+		global $wpdb;
+		$utc = new DateTimeZone( 'UTC' );
+
+		$lower = Tribe__Date_Utils::build_date_object( $start_datetime, $timezone )->setTimezone( $utc );
+		$upper = Tribe__Date_Utils::build_date_object( $end_datetime, $timezone )->setTimezone( $utc );
+		$lower_string = $lower->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
+		$upper_string = $upper->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
+		$start_key = '_EventStartDateUTC';
+		$end_key = '_EventEndDateUTC';
+
+		$join_start_key = 'tribe_start_date_utc';
+		$join_end_key = 'tribe_end_date_utc';
+
+		$this->filter_query->join(
+			"LEFT JOIN {$wpdb->postmeta} {$join_start_key}
+			ON ( {$wpdb->posts}.ID = {$join_start_key}.post_id
+			AND {$join_start_key}.meta_key = '{$start_key}' )"
+		);
+
+		$this->filter_query->join(
+			"LEFT JOIN {$wpdb->postmeta} {$join_end_key}
+			ON ( {$wpdb->posts}.ID = {$join_end_key}.post_id
+			AND {$join_end_key}.meta_key = '{$end_key}' )"
+		);
+
+		$this->filter_query->where(
+			"
+			(
+				CAST({$join_start_key}.meta_value AS DATETIME) >= '{$lower_string}'
+				AND CAST({$join_start_key}.meta_value AS DATETIME) <= '{$upper_string}'
+			) OR (
+				CAST({$join_end_key}.meta_value AS DATETIME) >= '{$lower_string}'
+				AND CAST({$join_start_key}.meta_value AS DATETIME) <= '{$upper_string}'
+			) OR (
+				CAST({$join_start_key}.meta_value AS DATETIME) < '{$lower_string}'
+				AND CAST({$join_end_key}.meta_value AS DATETIME) >= '{$upper_string}'
+			)
+			"
+		);
+
 	}
 
 	/**
