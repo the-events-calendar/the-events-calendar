@@ -116,6 +116,7 @@ script:
   - codecept run integration
   - codecept run muintegration
   - codecept run wpunit
-  - codecept run aggregatorv1
   # Travis CI will fail for "too many open files" notice; skip this for the time being
+  # We need to figure out a good way to run these RestAPI tests...
+  # - codecept run aggregatorv1
   # - codecept run restv1
