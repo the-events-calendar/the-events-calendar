@@ -1434,6 +1434,12 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				$event['post_status'] = Tribe__Utils__Array::get( $args, 'post_status', $this->meta['post_status'] );
 			}
 
+			write_log( $event, 'the $event before filtered by test_hell_yeah' );
+
+			$event['post_status'] = apply_filters( 'tribe_aggregator_setup_do_not_override_status', $event['post_status'], $event, $this->meta );
+
+			write_log( $event, 'the $event after filtered by test_hell_yeah' );
+
 			/**
 			 * Should events that have previously been imported be overwritten?
 			 *
@@ -1601,7 +1607,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 						if ( ! $venue_id ) {
 							$event['Venue']['ShowMap']     = $show_map_setting;
 							$event['Venue']['ShowMapLink'] = $show_map_setting;
-							$venue_id = $event['EventVenueID'] = Tribe__Events__Venue::instance()->create( $event['Venue'], $this->meta['post_status'] );
+							$venue_id = $event['EventVenueID'] = Tribe__Events__Venue::instance()->create( $event['Venue'], $event['post_status'] );
 
 							$found_venues[ $event['EventVenueID'] ] = $event['Venue']['Venue'];
 
@@ -1767,9 +1773,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 								// We didn't find any matching Organizer for the provided one
 								if ( ! $organizer_id ) {
-									$organizer_id = $event_organizers[] = Tribe__Events__Organizer::instance()
-									                                                              ->create( $organizer_data,
-										                                                              $this->meta['post_status'] );
+									$organizer_id = $event_organizers[] = Tribe__Events__Organizer::instance()>create( $organizer_data, $event['post_status'] );
 
 									$found_organizers[ $organizer_id ] = $organizer_data['Organizer'];
 
