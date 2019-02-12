@@ -1433,16 +1433,16 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				$event['post_status'] = Tribe__Utils__Array::get( $args, 'post_status', $this->meta['post_status'] );
 			}
 
-            /**
- 			 * Allows services to provide their own filtering of event post statuses before import, especially
- 			 * to handle the (do not override) status.
- 			 *
- 			 * @since TBD
- 			 *
- 			 * @param string $post_status The event's post status before being filtered.
- 			 * @param array $event The WP event data about to imported and saved to the DB.
- 			 * @param Tribe__Events__Aggregator__Record__Abstract $record The import's EA Import Record.
- 			 */
+			/**
+			 * Allows services to provide their own filtering of event post statuses before import, especially
+			 * to handle the (do not override) status.
+			 *
+			 * @since TBD
+			 *
+			 * @param string $post_status The event's post status before being filtered.
+			 * @param array $event The WP event data about to imported and saved to the DB.
+			 * @param Tribe__Events__Aggregator__Record__Abstract $record The import's EA Import Record.
+			 */
 			$event['post_status'] = apply_filters( 'tribe_aggregator_event_post_status_before_import', $event['post_status'], $event, $this );
 
 			/**
