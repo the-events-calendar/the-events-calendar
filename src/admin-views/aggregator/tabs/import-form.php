@@ -25,8 +25,6 @@ $category_dropdown = preg_replace( '!\<select!', '<select data-hide-search', $ca
 $category_dropdown = preg_replace( '!(\<select[^\>]*\>)!', '$1<option value="">' . __( 'No Additional Categories', 'the-events-calendar' ) . '</option>', $category_dropdown );
 $category_dropdown = preg_replace( '!(value="' . $default_category . '")!', '$1 selected', $category_dropdown );
 
-write_log( $default_post_status, 'default_post_status' );
-
 wp_nonce_field( 'tribe-aggregator-save-import', 'tribe_aggregator_nonce' );
 ?>
 <input type="hidden" name="aggregator[action]" id="tribe-action" value="<?php echo esc_attr( $aggregator_action ); ?>">
