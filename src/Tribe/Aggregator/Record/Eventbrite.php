@@ -156,7 +156,7 @@ class Tribe__Events__Aggregator__Record__Eventbrite extends Tribe__Events__Aggre
 	 * @param Tribe__Events__Aggregator__Record__Abstract $record The import's EA Import Record.
 	 * @return array
 	 */
-	public function filter_setup_do_not_override_post_status( $post_status, $event, $record ) {
+	public static function filter_setup_do_not_override_post_status( $post_status, $event, $record ) {
 
 		if ( ! isset( $event['eventbrite']->status ) || ! isset( $record->meta['post_status'] ) ) {
 			return $post_status;
@@ -182,7 +182,7 @@ class Tribe__Events__Aggregator__Record__Eventbrite extends Tribe__Events__Aggre
 	 *
 	 * @return string The key for the "(do not override)" option.
 	 */
-	public function filter_set_default_post_status() {
+	public static function filter_set_default_post_status() {
 		return 'do_not_override';
 	}
 }
