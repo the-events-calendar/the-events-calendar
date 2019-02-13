@@ -8,7 +8,7 @@ if ( 'edit' === $aggregator_action ) {
 }
 
 $default_post_status = empty( $default_post_status ) ? tribe_get_option( 'tribe_aggregator_default_post_status', 'draft' ) : $default_post_status;
-$default_category    = empty( $default_category ) ? tribe_get_option( 'tribe_aggregator_default_category', '' ) : $default_category;
+$default_category = empty( $default_category ) ? tribe_get_option( 'tribe_aggregator_default_category', '' ) : $default_category;
 
 $post_statuses = get_post_statuses( array() );
 $category_dropdown = array();
