@@ -722,6 +722,10 @@ class Tribe__Events__Aggregator__Records {
 
 		// Filter eventbrite events to preserve some fields that aren't supported by Eventbrite
 		add_filter( 'tribe_aggregator_before_update_event', array( 'Tribe__Events__Aggregator__Record__Eventbrite', 'filter_event_to_preserve_fields' ), 10, 2 );
+
+		add_filter( 'tribe_aggregator_default_eventbrite_post_status', array( 'Tribe__Events__Aggregator__Record__Eventbrite', 'filter_set_default_post_status' ) );
+
+		add_filter( 'tribe_aggregator_new_event_post_status_before_import', array( 'Tribe__Events__Aggregator__Record__Eventbrite', 'filter_setup_do_not_override_post_status' ), 10, 3 );
 	}
 
 	/**
