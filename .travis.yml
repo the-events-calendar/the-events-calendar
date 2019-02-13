@@ -116,6 +116,6 @@ script:
   - codecept run integration
   - codecept run muintegration
   - codecept run wpunit
-  - codecept run aggregatorv1
-  # Travis CI will fail for "too many open files" notice; skip this for the time being
+  # The following suites are skipped due to CI + web-server issue for the time being.
+  # - codecept run aggregatorv1
   # - codecept run restv1
