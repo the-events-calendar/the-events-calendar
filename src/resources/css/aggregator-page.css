@@ -537,6 +537,7 @@
 
 .tribe-default-settings {
 	display: none;
+	overflow: hidden;
 	padding-bottom: 1rem;
 	padding-top: 1rem;
 }
@@ -688,6 +689,14 @@
 			.tribe-aggregator-inactive .tribe-ea-tab-scheduled .widefat ul {
 				color: #ccc;
 			}
+
+.tribe-ea-field-wrapper-post_status {
+	min-width: 275px;
+}
+
+.tribe-ea-field-wrapper-post_status.tribe-active {
+		float: left;
+	}
 
 @media screen and (max-width: 782px) {
 		/**
