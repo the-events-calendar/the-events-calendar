@@ -635,7 +635,7 @@ class Tribe__Events__Assets {
 		/**
 		 * Makes the localize variable for TEC admin JS filterable.
 		 *
-		 * @since TBD
+		 * @since 4.8.1
 		 *
 		 * @param array $data {
 	     *     These items exist on the TEC object in admin JS.
