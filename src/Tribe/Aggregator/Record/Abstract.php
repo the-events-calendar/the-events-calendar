@@ -1446,9 +1446,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				$event['post_status'] = apply_filters( 'tribe_aggregator_new_event_post_status_before_import', $event['post_status'], $event, $this );
 			}
 
-			write_log( $event, 'event' );
-			write_log( $this, '$this' );
-
 			/**
 			 * Should events that have previously been imported be overwritten?
 			 *
