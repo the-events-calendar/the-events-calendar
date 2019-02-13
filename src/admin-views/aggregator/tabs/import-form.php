@@ -7,10 +7,16 @@ if ( 'edit' === $aggregator_action ) {
 	$default_category = get_post_meta( $record->post->ID, Tribe__Events__Aggregator__Record__Abstract::$meta_key_prefix . 'category', true );
 }
 
+// Set up the generic default post statuses and category.
 $default_post_status = empty( $default_post_status ) ? tribe_get_option( 'tribe_aggregator_default_post_status', 'draft' ) : $default_post_status;
-$default_category = empty( $default_category ) ? tribe_get_option( 'tribe_aggregator_default_category', '' ) : $default_category;
+$default_category    = empty( $default_category ) ? tribe_get_option( 'tribe_aggregator_default_category', '' ) : $default_category;
+$post_statuses       = get_post_statuses( array() );
 
-$post_statuses = get_post_statuses( array() );
+// Ensure the "(do not override)" status is set up for Eventbrite imports, and "Published" is removed.
+$do_not_override_status   = array( 'do_not_override' => esc_html__( '(do not override)', 'the-events-calendar' ) );
+$eventbrite_post_statuses = $do_not_override_status + $post_statuses;
+unset( $eventbrite_post_statuses['publish'] );
+
 $category_dropdown = array();
 $category_dropdown = wp_dropdown_categories( array(
 	'echo'       => false,
@@ -40,12 +46,6 @@ wp_nonce_field( 'tribe-aggregator-save-import', 'tribe_aggregator_nonce' );
 		$field->help           = esc_attr__( 'Choose where you are importing from.', 'the-events-calendar' );
 		$field->options        = tribe( 'events-aggregator.main' )->api( 'origins' )->get();
 		$field->upsell_options = array();
-
-		// Ensure the "(do not override)" status is set up for Eventbrite imports, and "Published" is removed.
-		$do_not_override_status   = array( 'do_not_override' => esc_html__( '(do not override)', 'the-events-calendar' ) );
-		$eventbrite_post_statuses = $do_not_override_status + $post_statuses;
-
-		unset( $eventbrite_post_statuses['publish'] );
 
 		foreach ( $field->options as $key => $option ) {
 

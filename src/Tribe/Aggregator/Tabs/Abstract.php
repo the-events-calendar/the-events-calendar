@@ -55,7 +55,6 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract extends Tribe__Tabbed_V
 	}
 
 	public function handle_submit() {
-
 		$data = array(
 			'message' => __( 'There was a problem processing your import. Please try again.', 'the-events-calendar' ),
 		);
