@@ -225,7 +225,7 @@ $scheduled_save_help = esc_html__( 'When you save this scheduled import, the eve
 
 	<div class="tribe-default-settings">
 
-		<div class="tribe-dependent" data-depends="#tribe-ea-field-origin" data-condition="eventbrite">
+		<div class="tribe-dependent tribe-ea-field-wrapper-post_status" data-depends="#tribe-ea-field-origin" data-condition="eventbrite">
 
 			<label for="tribe-ea-field-post_status"><?php esc_html_e( 'Status:', 'the-events-calendar' ); ?></label>
 			<select
@@ -241,7 +241,7 @@ $scheduled_save_help = esc_html__( 'When you save this scheduled import, the eve
 			</select>
 		</div>
 
-		<div class="tribe-dependent" data-depends="#tribe-ea-field-origin" data-condition-not="eventbrite">
+		<div class="tribe-dependent tribe-ea-field-wrapper-post_status" data-depends="#tribe-ea-field-origin" data-condition-not="eventbrite">
 
 			<label for="tribe-ea-field-post_status"><?php esc_html_e( 'Status:', 'the-events-calendar' ); ?></label>
 			<select
