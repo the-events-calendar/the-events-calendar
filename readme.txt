@@ -215,12 +215,13 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
-= [4.8.1] TBD =
+= [4.8.1] 2019-02-14 =
 
 * Feature - Introduced new "(do not override)" default post status for Eventbrite imports in Event Aggregator. This preserves events' original statuses from Eventbrite.com upon import (e.g., "draft" events will not be automatically set to "publish" upon import) [112346]
 * Fix - Make sure the setting for "Default mobile view" is respected. Thanks to Kathleen, Tim and others for reporting this! [119271]
 * Fix - Apply block closer to price block [120108]
 * Tweak - Added new filter `tribe_aggregator_new_event_post_status_before_import` to allow for custom handling of an event's post status before EA an import is completed [112648]
+* Tweak - Added filters: `tribe_events_admin_js_ajax_url_data`
 
 = [4.8] 2019-02-05 =
 
