@@ -225,6 +225,11 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Tweak - Unload Image Widget Plus version 1.0.2 or older to Prevent it from creating fatals on The Events Calendar
 * Language - 2 new strings added, 150 updated, 1 fuzzied, and 0 obsoleted
 
+= [4.8.0.1] 2019-02-07 =
+
+* Fix - Modify extension dependency checking with new system to determine if it can load [122368]
+* Tweak - Prevent most extensions from loading if Event Tickets is on an older version to prevent conflicts [122368]
+
 = [4.8] 2019-02-05 =
 
 * Feature - Add check and enforce PHP 5.6 as the minimum version [116282]
