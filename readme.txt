@@ -222,6 +222,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - Apply block closer to price block [120108]
 * Tweak - Added new filter `tribe_aggregator_new_event_post_status_before_import` to allow for custom handling of an event's post status before EA an import is completed [112648]
 * Tweak - Added filters: `tribe_events_admin_js_ajax_url_data`
+* Language - 2 new strings added, 150 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.8] 2019-02-05 =
 
