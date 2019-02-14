@@ -10,6 +10,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
+use Tribe__Date_Utils as Dates;
+
 class Tribe__Events__List_Widget extends WP_Widget {
 
 	private static $limit = 5;
@@ -135,7 +137,8 @@ class Tribe__Events__List_Widget extends WP_Widget {
 					'posts_per_page' => self::$limit,
 					'is_tribe_widget' => true,
 					'tribe_render_context' => 'widget',
-					'featured' => empty( $instance['featured_events_only'] ) ? false : (bool) $instance['featured_events_only'],
+					'featured' => empty( $instance['featured_events_only'] ) ? null : (bool) $instance['featured_events_only'],
+					'start_date' => Dates::build_date_object( 'now' ),
 				)
 			)
 		);

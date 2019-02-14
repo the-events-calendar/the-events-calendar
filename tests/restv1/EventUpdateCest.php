@@ -1,5 +1,6 @@
 <?php
 
+use PHPUnit\Framework\Assert;
 use Step\Restv1\RestGuy as Tester;
 use Tribe__Image__Uploader as Image;
 use Tribe__Timezones as Timezones;
@@ -641,7 +642,7 @@ class EventUpdateCest extends BaseRestCest
 		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 		$I->seeResponseContainsJson( [
-			'cost'         => 'Free - 30$',
+			'cost'         => 'Free – 30$',
 			'cost_details' => [
 				'currency_symbol'   => '$',
 				'currency_position' => 'postfix',
@@ -1101,8 +1102,8 @@ class EventUpdateCest extends BaseRestCest
 		$I->assertCount( 1, $organizer_response );
 		$I->assertEquals( $organizer_id, $organizer_response[0]['id'] );
 
-		// Remove venue and organizer now
-		$params['venue'] = 0;
+		// Remove venue and organizer now.
+		$params['venue'] = [];
 		$params['organizer'] = [];
 
 		// Remove unneeded changes
