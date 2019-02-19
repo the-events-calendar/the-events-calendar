@@ -28,7 +28,7 @@ define('SECURE_AUTH_SALT', 'M3uV8dVP7hOXhSihD9Hk2QUtJYTy0HAAL/G2b+Q8T8u29w5Nklad
 define('LOGGED_IN_SALT',   'VSalEn41BRoHc9dQMmse1B3/hWBYhLBt46AL7TqMSzfVDH9K6wpUVjwDN/ZrJRDFIximTt3XMFUwad7yV19kdQ==');
 define('NONCE_SALT',       'YEtlkdHXTqBcv4nB0jR7EE0ayy3UelLxcYCZcS0B+HdS5fQWvDEuplMxs3A697yo5iywYzaM6f5y/OuqRmi3ig==');
 
-$table_prefix = '${WP_TABLE_PREFI}';
+$table_prefix = '${WP_TABLE_PREFIX}';
 
 /** Absolute path to the WordPress directory. */
 if ( ! defined( 'ABSPATH' ) )
