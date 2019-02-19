@@ -55,7 +55,7 @@ install:
   - export PATH=${TRAVIS_BUILD_DIR}/vendor/bin:$PATH
 
   # Create the WordPress root folder.
-  - mkdir -p $WP_ROOT_FOLDER
+  - mkdir -p ${WP_ROOT_FOLDER}
 
   # Download, configure and install WordPress in the `wordpress` folder.
   # To configure WordPress we use the configuration parameters that will be used by the Docker container.
@@ -73,6 +73,7 @@ install:
 
   # Create the database we'll use in integration tests accessing the database container.
   - mysql --user=root --host=127.0.0.1 --port=${WP_DB_PORT} -e "create database ${WP_TEST_DB_NAME}";
+  - mysql --user=root --host=127.0.0.1 --port=${WP_DB_PORT} -e "show databases";
 
   # Get back to the build folder, the one where the plugin has been cloned by the CI.
   - cd ${TRAVIS_BUILD_DIR}
@@ -81,13 +82,13 @@ install:
   # We also set two variables:
   # `PLUGIN_BASENAME` is the name of the plugin folder, e.g. `the-events-calendar` or `events-pro`.
   # `PLUGIN_DIR` is the absolute path to the plugin folder in the WordPress installation, e.g. `/tmp/wordpress/wp-content/plugins/the-events-calendar`.
-  - export PLUGIN_BASENAME=$(basename "$(pwd)")
+  - export PLUGIN_BASENAME=$(basename "$(pwd)") && echoc "PLUGIN_BASENAME=${PLUGIN_BASENAME}"
   - cp -r ${TRAVIS_BUILD_DIR} ${WP_ROOT_FOLDER}/wp-content/plugins/${PLUGIN_BASENAME}
-  - export PLUGIN_DIR="${WP_ROOT_FOLDER}/wp-content/plugins/${PLUGIN_BASENAME}"
+  - export PLUGIN_DIR="${WP_ROOT_FOLDER}/wp-content/plugins/${PLUGIN_BASENAME}" && echo "PLUGIN_DIR=${PLUGIN_DIR}"
 
 before_script:
   # Activate the plugin in WordPress.
-  - cd $WP_ROOT_FOLDER
+  - cd ${WP_ROOT_FOLDER}; echo "pwd=$(pwd)"
   - wp plugin activate ${PLUGIN_BASENAME}
 
   # Skip any welcome screen.
