@@ -49,6 +49,7 @@ install:
 
   # The installation will include wp-cli as well as it's a requirement of wp-browser.
   - composer update --prefer-dist
+  - ls -la vendor/bin
 
   # Tweak the path to look for binaries in `vendor/bin` first.
   # Binaries installed in the `vendor/bin` folder, like `wp` and `codecept`, will be available system-wide.
