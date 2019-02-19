@@ -82,8 +82,16 @@ if ( ! class_exists( 'Tribe__Events__Template__List' ) ) {
 				'post_type'    => Tribe__Events__Main::POSTTYPE,
 				'post_status'  => $post_status,
 				'paged'        => $tribe_paged,
-				'featured'     => tribe( 'tec.featured_events' )->featured_events_requested(),
 			);
+
+			// If the request is false or not set we assume the request is for all events, not just featured ones.
+			if ( tribe_is_truthy( tribe_get_request_var( 'featured', false ) ) ) {
+				$args['featured'] = true;
+			}
+
+			if ( (bool) tribe_get_request_var( 'tribeHideRecurrence' ) ) {
+				$args['hide_subsequent_recurrences'] = true;
+			}
 
 			// Apply display and date.
 			$date = tribe_get_request_var( 'tribe-bar-date', 'now' );
@@ -91,10 +99,10 @@ if ( ! class_exists( 'Tribe__Events__Template__List' ) ) {
 			$args['eventDisplay'] = $display;
 
 			if ( 'list' === $display ) {
-				$args['start_date'] = $date;
+				$args['start_date'] = tribe_beginning_of_day( $date );
 				$args['order']      = 'ASC';
 			} elseif ( 'past' === $display ) {
-				$args['starts_before'] = tribe_beginning_of_day( $date );
+				$args['starts_before'] = Tribe__Date_Utils::build_date_object( 'now' );
 				$args['order']         = 'DESC';
 			} elseif ( 'all' === $display ) {
 				$args['start_date'] = tribe_beginning_of_day( $date );
