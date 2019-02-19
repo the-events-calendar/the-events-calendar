@@ -31,7 +31,7 @@ cache:
 
 before_install:
   # Sourcing the .env file will make sure we use, in the environment configuration, the same variables the tests are using.
-  - source .env
+  - set -o allexport; source .env; set +o allexport;
 
   # Spin up the `db` container from the test stack.
   # Between initialization and creation of the test database it might take
@@ -64,7 +64,7 @@ install:
   - wp core download --version=${WP_VERSION}
   # Let's generate the wp-config.php file for the WordPress installation from a template.
   - echo "WP_DB_NAME=${WP_DB_NAME} WP_DB_PORT=${WP_DB_PORT} WP_TABLE_PREFIX=${WP_TABLE_PREFIX}"
-  - envsubst < ${TRAVIS_BUILD_DIR}/dev/docker/wp-config.template > ./wp-config.php
+  - envsubst '${WP_DB_NAME},${WP_DB_PORT},${WP_TABLE_PREFIX}' < ${TRAVIS_BUILD_DIR}/dev/docker/wp-config.template > ./wp-config.php
   - cat ./wp-config.php
   - wp core install --url="${WP_URL}" --title="Tribe Tests" --admin_user="${WP_ADMIN_USERNAME}" --admin_password="${WP_ADMIN_PASSWORD}" --admin_email="admin@tribe.localhost" --skip-email
 
