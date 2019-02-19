@@ -49,12 +49,10 @@ install:
 
   # The installation will include wp-cli as well as it's a requirement of wp-browser.
   - composer update --prefer-dist
-  - ls -la vendor/bin
 
   # Tweak the path to look for binaries in `vendor/bin` first.
   # Binaries installed in the `vendor/bin` folder, like `wp` and `codecept`, will be available system-wide.
   - export PATH=${TRAVIS_BUILD_DIR}/vendor/bin:$PATH
-  - echo "${PATH}"
 
   # Create the WordPress root folder.
   - mkdir -p $WP_ROOT_FOLDER
@@ -66,6 +64,7 @@ install:
   - wp core download --version=${WP_VERSION}
   # Let's generate the wp-config.php file for the WordPress installation from a template.
   - envsubst < ${TRAVIS_BUILD_DIR}/dev/docker/wp-config.template > ./wp-config.php
+  - cat ./wp-config.php
   - wp core install --url="${WP_URL}" --title="Tribe Tests" --admin_user="${WP_ADMIN_USERNAME}" --admin_password="${WP_ADMIN_PASSWORD}" --admin_email="admin@tribe.localhost" --skip-email
 
   # Now that's configured start the WordPress Docker container to have WordPress.
