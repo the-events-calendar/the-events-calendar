@@ -71,8 +71,8 @@ install:
   # Now that's configured start the WordPress Docker container to have WordPress.
   - docker-compose -f ${TRAVIS_BUILD_DIR}/dev/docker/ci-compose.yml up -d wordpress
 
-  # Create the database we'll use in integration tests.
-  - wp db create tests
+  # Create the database we'll use in integration tests accessing the database container.
+  - mysql --user=root --host=127.0.0.1 --port=${WP_DB_PORT} -e "create database ${WP_TEST_DB_NAME}";
 
   # Get back to the build folder, the one where the plugin has been cloned by the CI.
   - cd ${TRAVIS_BUILD_DIR}
