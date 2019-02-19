@@ -37,7 +37,7 @@ before_install:
   # Between initialization and creation of the test database it might take
   # some time (seconds); if we spin it up now it should be ready to run by
   # the time we need it.
-  - docker-compose -f dev/docker/ci-compose.yml up db -d
+  - docker-compose -f ${TRAVIS_BUILD_DIR}/dev/docker/ci-compose.yml up db -d
 
   # Tweak git to correctly work with submodules.
   - sed -i 's/git@github.com:/git:\/\/github.com\//' .gitmodules
@@ -67,7 +67,7 @@ install:
   - wp core install --url="${WP_URL}" --title="Tribe Tests" --admin_user="${WP_ADMIN_USERNAME}" --admin_password="${WP_ADMIN_PASSWORD}" --admin_email="admin@tribe.localhost" --skip-email
 
   # Now that's configured start the WordPress Docker container to have WordPress.
-  - docker-compose -f dev/docker/ci-compose.yml up wp -d
+  - docker-compose -f ${TRAVIS_BUILD_DIR}/dev/docker/ci-compose.yml up wp -d
 
   # Create the database we'll use in integration tests.
   - wp db create tests

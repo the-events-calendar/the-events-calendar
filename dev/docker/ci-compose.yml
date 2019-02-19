@@ -43,4 +43,4 @@ services:
       MYSQL_PASSWORD: wordpress
       # To avoid having to enter a password in CLI scripts let's not protect the root user
       # with a password at all; in this context it's not an issue.
-      MYSQL_ALLOW_EMPTY_PASSWORD: yes
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
