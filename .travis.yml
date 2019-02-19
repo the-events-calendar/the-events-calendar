@@ -54,6 +54,7 @@ install:
   # Tweak the path to look for binaries in `vendor/bin` first.
   # Binaries installed in the `vendor/bin` folder, like `wp` and `codecept`, will be available system-wide.
   - export PATH=vendor/bin:$PATH
+  - echo "${PATH}"
 
   # Create the WordPress root folder.
   - mkdir -p $WP_ROOT_FOLDER
