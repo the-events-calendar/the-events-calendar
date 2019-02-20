@@ -9,7 +9,8 @@ define( 'DB_USER', 'root' );
 define( 'DB_PASSWORD', '' );
 
 // Depending on whether we are handling a container or wp-cli request the db host is different.
-define( 'DB_HOST', defined( 'WP_CLI' ) ? '127.0.0.1:${WP_DB_PORT}' : 'db' );
+// The format is "wonky" to keep the WordPress Docker image entrypoint from modifying it.
+define( 'DB_' . 'HOST', defined( 'WP_CLI' ) ? '127.0.0.1:${WP_DB_PORT}' : 'db' );
 
 define( 'DB_CHARSET', 'utf8' );
 define( 'DB_COLLATE', '' );
