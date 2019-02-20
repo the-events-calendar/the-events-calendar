@@ -8,12 +8,12 @@ define( 'DB_NAME', '${WP_DB_NAME}' );
 define( 'DB_USER', 'root' );
 define( 'DB_PASSWORD', '' );
 
-if ( defined( 'WP_CLI' ) ) {
-	// In the context of a wp-cli request.
-	define( 'DB_HOST', '127.0.0.1:${WP_DB_PORT}' );
-} else {
+if ( ! defined( 'WP_CLI' ) ) {
 	// From within the container.
 	define( 'DB_HOST', 'db' );
+} else {
+	// In the context of a wp-cli request.
+	define( 'DB_HOST', '127.0.0.1:${WP_DB_PORT}' );
 }
 
 define( 'DB_CHARSET', 'utf8' );
