@@ -316,6 +316,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// let's initialize tec
 			add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ), 0 );
 
+			// Prevents Image Widget Plus from been problematic
+			$this->compatibility_unload_iwplus_v102();
 		}
 
 		/**
@@ -372,6 +374,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				add_action( 'admin_notices', array( $this, 'compatibility_notice' ) );
 				add_action( 'network_admin_notices', array( $this, 'compatibility_notice' ) );
 				add_filter( 'tribe_ecp_to_run_or_not_to_run', array( $this, 'disable_pro' ) );
+				add_action( 'tribe_plugins_loaded', array( $this, 'remove_exts' ), 0 );
 
 				//Disable Older Versions of Community Events to Prevent Fatal Error
 				remove_action( 'plugins_loaded', 'Tribe_CE_Load', 2 );
@@ -582,6 +585,32 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			if ( ! defined( 'TRIBE_DISABLE_DEPRECATED_TAGS' ) ) {
 				require_once $this->plugin_path . 'src/functions/template-tags/deprecated.php';
 			}
+		}
+
+		/**
+		 * Prevents Image Widget Plus weird version of Tribe Common Lib to
+		 * conflict with The Events Calendar
+		 *
+		 * It will make IW+ not load on version 1.0.2
+		 *
+		 * @since   4.8.1
+		 *
+		 * @return  void
+		 */
+		private function compatibility_unload_iwplus_v102() {
+			if ( ! class_exists( 'Tribe__Image__Plus__Main' ) ) {
+				return;
+			}
+
+			if ( ! defined( 'Tribe__Image__Plus__Main::VERSION' ) ) {
+				return;
+			}
+
+			if ( ! version_compare( Tribe__Image__Plus__Main::VERSION, '1.0.2', '<=' ) ) {
+				return;
+			}
+
+			remove_action( 'plugins_loaded', array( Tribe__Image__Plus__Main::instance(), 'plugins_loaded' ), 0 );
 		}
 
 		/**
@@ -1483,6 +1512,18 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function disable_pro() {
 			return false;
+		}
+
+		/**
+		 * Prevents Extensions from running if ET is on an Older Version
+		 *
+		 * @since 4.10.0.1
+		 *
+		 */
+		public function remove_exts() {
+
+			remove_all_actions( 'tribe_plugins_loaded', 10 );
+
 		}
 
 		/**
