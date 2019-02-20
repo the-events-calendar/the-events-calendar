@@ -86,9 +86,11 @@ install:
   - cp -r ${TRAVIS_BUILD_DIR} ${WP_ROOT_FOLDER}/wp-content/plugins/${PLUGIN_BASENAME}
   - export PLUGIN_DIR="${WP_ROOT_FOLDER}/wp-content/plugins/${PLUGIN_BASENAME}" && echo "PLUGIN_DIR=${PLUGIN_DIR}"
 
+  # Get back to the WordPress installation root folder.
+  - cd ${WP_ROOT_FOLDER}; echo "pwd=$(pwd)"
+
 before_script:
   # Activate the plugin in WordPress.
-  - cd ${WP_ROOT_FOLDER}; echo "pwd=$(pwd)"
   - wp plugin activate ${PLUGIN_BASENAME}
 
   # Skip any welcome screen.
