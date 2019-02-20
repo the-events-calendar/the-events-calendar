@@ -68,12 +68,6 @@ install:
   - cat ./wp-config.php
   - wp core install --url="${WP_URL}" --title="Tribe Tests" --admin_user="${WP_ADMIN_USERNAME}" --admin_password="${WP_ADMIN_PASSWORD}" --admin_email="admin@tribe.localhost" --skip-email
 
-  # Why are we doing this?
-  # The official WordPress docker image entrypoint script (https://github.com/docker-library/wordpress/blob/master/php7.2/apache/docker-entrypoint.sh)
-  # will modify the `wp-config.php` file, thus overriding our modifications, only if all the expected environment variables are set.
-  # Among those variables is the `WP_DB_HOST` one: by unsetting it we'll prevent the entrypoint script from modifying the `wp-config.php` file.
-  - unset WP_DB_HOST
-
   # Now that it is we've got a wp-config.php in place start the WordPress Docker container to have WordPress.
   - docker-compose -f ${TRAVIS_BUILD_DIR}/dev/docker/ci-compose.yml up -d wordpress
   - cat ./wp-config.php

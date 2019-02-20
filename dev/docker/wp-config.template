@@ -8,13 +8,8 @@ define( 'DB_NAME', '${WP_DB_NAME}' );
 define( 'DB_USER', 'root' );
 define( 'DB_PASSWORD', '' );
 
-if ( ! defined( 'WP_CLI' ) ) {
-	// From within the container.
-	define( 'DB_HOST', 'db' );
-} else {
-	// In the context of a wp-cli request.
-	define( 'DB_HOST', '127.0.0.1:${WP_DB_PORT}' );
-}
+// Depending on whether we are handling a container or wp-cli request the db host is different.
+define( 'DB_HOST', defined( 'WP_CLI' ) ? '127.0.0.1:${WP_DB_PORT}' : 'db' );
 
 define( 'DB_CHARSET', 'utf8' );
 define( 'DB_COLLATE', '' );
