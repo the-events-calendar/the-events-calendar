@@ -6,7 +6,7 @@ Donate link: http://m.tri.be/29
 Requires at least: 4.7
 Stable tag: 4.8.1
 Tested up to: 5.0.3
-Requires PHP: 5.2.4
+Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -217,6 +217,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 = [4.8.1] TBD =
 
+* Feature - Introduced new "(do not override)" default post status for Eventbrite imports in Event Aggregator. This preserves events' original statuses from Eventbrite.com upon import (e.g., "draft" events will not be automatically set to "publish" upon import) [112346]
 * Fix - Make sure the setting for "Default mobile view" is respected. Thanks to Kathleen, Tim and others for reporting this! [119271]
 * Add - Added additional caching to TEC REST API archives and the Post Repository event/venue/organizer responses [117159]
 * Add - the `tribe_events()` function as entry-point to the Events ORM and the supporting filter code [116356, 115579]
@@ -225,8 +226,16 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Add support for the `tribe_suppress_query_filters` query variable to prevent the plugin own query filters from applying [116356, 115579]
 * Feature - Add new action `tribe_events_before_event_template_data_date_display` and `tribe_events_after_event_template_data_date_display`
 * Fix - Apply block closer to price block [120108]
+* Tweak - Added new filter `tribe_aggregator_new_event_post_status_before_import` to allow for custom handling of an event's post status before EA an import is completed [112648]
 
 = [4.8] 2019-02-04 =
+
+* Feature - Introduced new "(do not override)" default post status for Eventbrite imports in Event Aggregator. This preserves events' original statuses from Eventbrite.com upon import (e.g., "draft" events will not be automatically set to "publish" upon import) [112346]
+* Fix - Make sure the setting for "Default mobile view" is respected. Thanks to Kathleen, Tim and others for reporting this! [119271]
+* Fix - Apply block closer to price block [120108]
+* Tweak - Added new filter `tribe_aggregator_new_event_post_status_before_import` to allow for custom handling of an event's post status before EA an import is completed [112648]
+
+= [4.8] 2019-02-05 =
 
 * Feature - Add check and enforce PHP 5.6 as the minimum version [116282]
 * Feature - Add system to check plugin versions to inform you to update and prevent site breaking errors [116841]
