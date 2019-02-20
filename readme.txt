@@ -4,9 +4,9 @@ Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.7
-Stable tag: 4.8
+Stable tag: 4.8.1
 Tested up to: 5.0.3
-Requires PHP: 5.2.4
+Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -215,13 +215,35 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
-= [4.8.1] TBD =
+= [4.8.2] TBD =
 
 * Fix - Fix console warnings for keys [121198]
 
-= [4.8] TBD =
+= [4.8.1] 2019-02-14 =
 
-= [4.7.4] TBD =
+* Feature - Introduced new "(do not override)" default post status for Eventbrite imports in Event Aggregator. This preserves events' original statuses from Eventbrite.com upon import (e.g., "draft" events will not be automatically set to "publish" upon import) [112346]
+* Fix - Make sure the setting for "Default mobile view" is respected. Thanks to Kathleen, Tim and others for reporting this! [119271]
+* Fix - Apply block closer to price block [120108]
+* Tweak - Added new filter `tribe_aggregator_new_event_post_status_before_import` to allow for custom handling of an event's post status before EA an import is completed [112648]
+* Tweak - Added filters: `tribe_events_admin_js_ajax_url_data`
+* Tweak - Unload Image Widget Plus version 1.0.2 or older to Prevent it from creating fatals on The Events Calendar
+* Language - 2 new strings added, 150 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.8.0.1] 2019-02-07 =
+
+* Fix - Modify extension dependency checking with new system to determine if it can load [122368]
+* Tweak - Prevent most extensions from loading if Event Tickets is on an older version to prevent conflicts [122368]
+
+= [4.8] 2019-02-05 =
+
+* Feature - Add check and enforce PHP 5.6 as the minimum version [116282]
+* Feature - Add system to check plugin versions to inform you to update and prevent site breaking errors [116841]
+* Tweak - Added filters: `tribe_not_php_version_names`
+* Deprecated - Constants MIN_ET_VERSION and MIN_COMMON_VERSION in Tribe__Events__Main, use $min_et_version property and no replacement for MIN_COMMON_VERSION
+* Deprecated - The `is_delayed_activation()`, `maybe_delay_activation_if_outdated_common()`, and `checkAddOnCompatibility()` method has been deprecated in `Tribe__Events__Main` in favor of new Dependency Checking System
+* Language - 7 new strings added, 139 updated, 0 fuzzied, and 1 obsoleted
+
+= [4.7.4] 2019-01-21 =
 
 * Fix - Display the tags block delimiter in the editor [119393]
 * Fix - Fixed a number of small layout bugs with the new Twenty Nineteen core theme [119689]
@@ -235,7 +257,10 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - Layout bugs with the new Twenty Nineteen core theme [119689]
 * Fix - Include UTC dates meta on the event creation from the block editor [120399]
 * Tweak - Ensure we don't re-apply `wpautop()` to content that has had it removed [120562]
+* Tweak - Added `tribe_events_admin_js_ajax_url_data` filter to make filtering the JS vars of TEC's admin JS easier [116973]
 * Tweak - Adjusted content in the admin welcome page that users are brought to upon newly activating The Events Calendar [117795]
+* Tweak - Changed views: `blocks/event-tags`
+* Language - 3 new strings added, 21 updated, 1 fuzzied, and 5 obsoleted
 
 = [4.7.3] 2018-12-19 =
 

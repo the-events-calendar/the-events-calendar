@@ -20,23 +20,6 @@ import './style.pcss';
  */
 
 class EventDateTime extends PureComponent {
-	static propTypes = {
-		onClick: PropTypes.func,
-		onKeyDown: PropTypes.func,
-	};
-
-	componentDidMount() {
-		const { onKeyDown, onClick } = this.props;
-		document.addEventListener( 'keydown', onKeyDown );
-		document.addEventListener( 'click', onClick );
-	}
-
-	componentWillUnmount() {
-		const { onKeyDown, onClick } = this.props;
-		document.removeEventListener( 'keydown', onKeyDown );
-		document.removeEventListener( 'click', onClick );
-	}
-
 	get template() {
 		return [
 			[ 'tribe/event-datetime-dashboard', {}],

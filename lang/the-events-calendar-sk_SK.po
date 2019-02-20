@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-09-10 09:25:27+0000\n"
+"PO-Revision-Date: 2019-02-12 16:27:39+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,93 +13,93 @@ msgstr ""
 
 #: src/resources/js/app/blocks.js:48214
 msgid "Edit Organizer"
-msgstr ""
+msgstr "Upraviť organizátor"
 
 #: src/resources/js/app/blocks.js:48211
 msgid "Organizer Settings"
-msgstr ""
+msgstr "Nastavenia organizátora"
 
 #: src/resources/js/app/blocks.js:48137
 msgid "Add or find an organizer"
-msgstr ""
+msgstr "Pridať alebo hľadať organizátora"
 
 #: src/resources/js/app/blocks.js:47979
 msgid "Add email"
-msgstr ""
+msgstr "Pridať e-mailovú adresu"
 
 #: src/resources/js/app/blocks.js:47972
 msgid "Add website"
-msgstr ""
+msgstr "Pridať webovú stránku"
 
 #: src/resources/js/app/blocks.js:47965
 msgid "Add Phone"
-msgstr ""
+msgstr "Pridať telefón"
 
 #: src/resources/js/app/blocks.js:47394
 msgid "Venue Settings"
-msgstr ""
+msgstr "Nastavenia miesta podujatia"
 
 #: src/resources/js/app/blocks.js:47272
 msgid "Add or find a venue"
-msgstr ""
+msgstr "Pridať alebo nájsť miesto podujatia"
 
 #: src/resources/js/app/blocks.js:46934
 msgid "(Untitled Venue)"
-msgstr ""
+msgstr "(Nepomenované miesto podujatia)"
 
 #: src/resources/js/app/blocks.js:46387
 msgid "Multi-Day"
-msgstr ""
+msgstr "Viacdňový"
 
 #: src/resources/js/app/blocks.js:45448
 msgid "Show Time Zone"
-msgstr ""
+msgstr "Ukázať časovú zónu"
 
 #: src/resources/js/app/blocks.js:45441
 msgid "Time Zone"
-msgstr ""
+msgstr "Časová zóna"
 
 #: src/resources/js/app/blocks.js:45434
 msgid "Time Range Separator"
-msgstr ""
+msgstr "Oddeľovač rozsahu času"
 
 #: src/resources/js/app/blocks.js:45427
 msgid "Date Time Separator"
-msgstr ""
+msgstr "Oddeľaovač dátumu a času"
 
 #: src/resources/js/app/blocks.js:13219 src/resources/js/app/elements.js:9845
 msgid "Add or Find"
-msgstr ""
+msgstr "Pridať alebo nájsť"
 
 #: src/resources/js/app/blocks.js:12598 src/resources/js/app/elements.js:9224
 msgid "A Google Map API KEY is required to view the map"
-msgstr ""
+msgstr "Vyžaduje sa kľúč API služby Mapy Google, aby ste videli mapu"
 
 #: src/resources/js/app/blocks.js:12479 src/resources/js/app/elements.js:9105
 msgid "The map does not have valid coordinates nor a valid address"
-msgstr ""
+msgstr "Mapa neobsahuje platné súradnice ani adresu."
 
 #: src/resources/js/app/blocks.js:12389 src/resources/js/app/elements.js:9015
 msgid "Make sure Google Maps Library is included on this page."
-msgstr ""
+msgstr "Uistite sa, že Knižnica služby Mapy Google sa nachádza na stránke."
 
 #: src/resources/js/app/blocks.js:11712 src/resources/js/app/elements.js:8338
 msgid "Country"
-msgstr ""
+msgstr "Krajina"
 
 #: src/resources/js/app/blocks.js:11444 src/resources/js/app/elements.js:8070
 msgid "Name:"
-msgstr ""
+msgstr "Meno:"
 
 #: src/modules/blocks/event-datetime/subblocks/content/index.js:23
 #: src/resources/js/app/blocks.js:46184
 msgid "Event Date Time Content"
-msgstr ""
+msgstr "Obsah dátum a čas udalosti"
 
 #: src/modules/blocks/event-datetime/subblocks/dashboard/index.js:19
 #: src/resources/js/app/blocks.js:46659
 msgid "Event Date Time Dashboard"
-msgstr ""
+msgstr "Nástenka udalosti dátum a čas"
 
 #: src/modules/blocks/event-datetime/index.js:28
 #: src/modules/blocks/event-datetime/subblocks/dashboard/index.js:20
@@ -107,118 +107,118 @@ msgstr ""
 #: src/resources/js/app/blocks.js:46185 src/resources/js/app/blocks.js:46660
 #: src/resources/js/app/blocks.js:46745
 msgid "Define the date, time, and duration for your event."
-msgstr ""
+msgstr "Definovať dátum, čas a trvanie udalosti. "
 
 #: src/modules/blocks/event-datetime/index.js:27
 #: src/resources/js/app/blocks.js:46744
 msgid "Event Date Time"
-msgstr ""
+msgstr "Dátum a čas udalosti"
 
 #: src/modules/blocks/event-website/index.js:22
 #: src/resources/js/app/blocks.js:49446
 msgid "Is there another website for this event? Link to it with a button!"
-msgstr ""
+msgstr "Existuje iná webová stránka pre túto udalosť? Prepojte sa na ňu jedným talčidlom!"
 
 #: src/modules/blocks/event-website/template.js:26
 #: src/resources/js/app/blocks.js:49305
 msgid "Add Event Website"
-msgstr ""
+msgstr "PRidať webovú stránku udalosti"
 
 #: src/modules/blocks/event-links/index.js:22
 #: src/resources/js/app/blocks.js:48614
 msgid "Encourage visitors to add your event to their calendars with handy sharing buttons."
-msgstr ""
+msgstr "Podporte návštevníkov, aby si pridali vašu udalosť do kalendárov s užitočnými tlačidlami zdieľania."
 
 #: src/modules/blocks/event-links/index.js:21
 #: src/resources/js/app/blocks.js:48613
 msgid "Event Sharing"
-msgstr ""
+msgstr "Zdieľanie udalosti"
 
 #: src/modules/blocks/event-links/template.js:108
 #: src/resources/js/app/blocks.js:48532
 msgid "iCal"
-msgstr ""
+msgstr "iCal"
 
 #: src/resources/js/app/blocks.js:47401
 msgid "Show Google Maps Embed"
-msgstr ""
+msgstr "Ukázať vložene Magy Google"
 
 #: src/modules/blocks/event-category/index.js:22
 #: src/resources/js/app/blocks.js:49143
 msgid "Show assigned event categories as links to their respective archives."
-msgstr ""
+msgstr "Ukázať priradené kategórie udalosti ako odkazy do ich príslušných archívov."
 
 #: src/modules/blocks/event-category/index.js:21
 #: src/resources/js/app/blocks.js:49142
 msgid "Event Categories"
-msgstr ""
+msgstr "Kategórie udalosti"
 
 #: src/modules/blocks/event-category/block.js:46
 #: src/resources/js/app/blocks.js:49112
 msgid "Add Event Categories in document settings"
-msgstr ""
+msgstr "Pridať Kategórie udalosti v nastaveniach dokumentu"
 
 #: src/modules/blocks/featured-image/index.js:22
 #: src/resources/js/app/blocks.js:49610
 msgid "Display the featured image in the post content."
-msgstr ""
+msgstr "Zobraziť hlavný obrázok v obsahu článku."
 
 #: src/modules/blocks/featured-image/block.js:80
 #: src/resources/js/app/blocks.js:49562
 msgid "Loading the Image"
-msgstr ""
+msgstr "Načítavanie obrázku"
 
 #: src/modules/blocks/featured-image/block.js:65
 #: src/resources/js/app/blocks.js:49551
 msgid "Add a Featured Image from the Document Settings sidebar"
-msgstr ""
+msgstr "Pridať Hlavný obrázok z bočného panelu Nastavenia dokumentu."
 
 #: src/modules/blocks/featured-image/block.js:54
 #: src/modules/blocks/featured-image/index.js:21
 #: src/resources/js/app/blocks.js:49542 src/resources/js/app/blocks.js:49609
 msgid "Featured Image"
-msgstr ""
+msgstr "Hlavný obrázok"
 
 #: src/modules/blocks/event-tags/index.js:22
 #: src/resources/js/app/blocks.js:49255
 msgid "Add keywords by displaying linked tags."
-msgstr ""
+msgstr "Pridať kľúčové slová zobrazovaním prepojených značiek."
 
 #: src/modules/blocks/event-tags/block.js:55
 #: src/resources/js/app/blocks.js:49224
 msgid "Add tags in document settings"
-msgstr ""
+msgstr "Pridať značky v nastaveniach dokumnetu"
 
 #: src/modules/blocks/event-tags/block.js:54
 #: src/modules/blocks/event-tags/index.js:21
 #: src/resources/js/app/blocks.js:49223 src/resources/js/app/blocks.js:49254
 msgid "Tags"
-msgstr ""
+msgstr "Značky"
 
 #: src/modules/blocks/event-venue/index.js:18
 #: src/resources/js/app/blocks.js:47617
 msgid "Where is this event happening? Select or create a location."
-msgstr ""
+msgstr "Kde sa koná udalosť? Vyberte alevo vytvorte polohu."
 
 #: src/modules/blocks/event-venue/index.js:17
 #: src/resources/js/app/blocks.js:47616
 msgid "Event Venue"
-msgstr ""
+msgstr "Miesto konania udalosti"
 
 #: src/modules/blocks/event-price/index.js:18
 #: src/resources/js/app/blocks.js:49019
 msgid "Let visitors know the cost of this event or if it’s free to attend."
-msgstr ""
+msgstr "Upovedomte návštevníkov, či je udalosť spoplatnená alebo nie."
 
 #: src/modules/blocks/event-price/index.js:17
 #: src/resources/js/app/blocks.js:49018
 msgid "Event Price"
-msgstr ""
+msgstr "Cena udalosti"
 
 #: src/modules/blocks/event-price/template.js:156
 #: src/resources/js/app/blocks.js:48830
 msgid "Currency symbol follows price"
-msgstr ""
+msgstr "Symbol meny nasleduje po cene"
 
 #: src/modules/blocks/event-price/template.js:123
 #: src/resources/js/app/blocks.js:48791
@@ -228,39 +228,39 @@ msgstr ""
 #: src/modules/blocks/event-price/template.js:117
 #: src/resources/js/app/blocks.js:48783
 msgid "Description"
-msgstr ""
+msgstr "Popis"
 
 #: src/modules/blocks/event-price/template.js:109
 #: src/resources/js/app/blocks.js:48775
 msgid "Fixed Price or Range"
-msgstr ""
+msgstr "Opravená cena alebo rozsah"
 
 #: src/modules/blocks/event-price/template.js:43
 #: src/resources/js/app/blocks.js:48696
 msgid "Add Price"
-msgstr ""
+msgstr "Pridať cenu"
 
 #: src/modules/blocks/classic-event-details/event-details-organizers/event-details-organizer/template.js:40
 #: src/resources/js/app/blocks.js:44712
 msgid "Remove Organizer"
-msgstr ""
+msgstr "Odstrániť organizátora"
 
 #: src/modules/blocks/classic-event-details/event-details-organizers/template.js:62
 #: src/resources/js/app/blocks.js:44842
 msgid "Add existing Organizer"
-msgstr ""
+msgstr "Pridať existujúceho organizátora"
 
 #: src/modules/blocks/classic-event-details/event-details-organizers/template.js:61
 #: src/resources/js/app/blocks.js:44841
 msgid "Search for an organizer"
-msgstr ""
+msgstr "Vyhľadávať organizátora"
 
 #: src/modules/blocks/classic-event-details/event-details-organizers/template.js:25
 #: src/resources/js/app/blocks.js:11429 src/resources/js/app/blocks.js:11538
 #: src/resources/js/app/blocks.js:44791 src/resources/js/app/elements.js:8055
 #: src/resources/js/app/elements.js:8164
 msgid "Create Organizer"
-msgstr ""
+msgstr "Vytvoriť organizátor"
 
 #: src/modules/blocks/classic-event-details/index.js:22
 #: src/resources/js/app/blocks.js:45285
@@ -276,101 +276,101 @@ msgstr ""
 #: src/modules/blocks/event-price/template.js:152
 #: src/resources/js/app/blocks.js:45170 src/resources/js/app/blocks.js:48826
 msgid "E.g.: $"
-msgstr ""
+msgstr "Napr.: $"
 
 #: src/modules/blocks/classic-event-details/template.js:191
 #: src/modules/blocks/event-price/template.js:150
 #: src/resources/js/app/blocks.js:45168 src/resources/js/app/blocks.js:48824
 msgid " Currency Symbol"
-msgstr ""
+msgstr "Symbol meny"
 
 #: src/modules/blocks/classic-event-details/template.js:186
 #: src/resources/js/app/blocks.js:45163
 msgid "Show symbol before"
-msgstr ""
+msgstr "Zobraziť symbol ksôr"
 
 #: src/modules/blocks/classic-event-details/template.js:184
 #: src/modules/blocks/event-price/template.js:147
 #: src/resources/js/app/blocks.js:45161 src/resources/js/app/blocks.js:48821
 msgid "Price Settings"
-msgstr ""
+msgstr "Nastavenia ceny"
 
 #: src/modules/blocks/classic-event-details/template.js:179
 #: src/resources/js/app/blocks.js:45154
 msgid "Is All Day Event"
-msgstr ""
+msgstr "Celodenná udalosť"
 
 #: src/modules/blocks/classic-event-details/template.js:177
 #: src/resources/js/app/blocks.js:45152 src/resources/js/app/blocks.js:45425
 msgid "Date Time Settings"
-msgstr ""
+msgstr "Nastavenia času a dátumu"
 
 #: src/modules/blocks/classic-event-details/template.js:156
 #: src/resources/js/app/blocks.js:45129
 msgid "Event Category:"
-msgstr ""
+msgstr "Kategória udalosti:"
 
 #: src/modules/blocks/classic-event-details/template.js:122
 #: src/resources/js/app/blocks.js:45091 src/resources/js/app/blocks.js:45895
 msgid "Enter price"
-msgstr ""
+msgstr "Zadať cenu"
 
 #: src/modules/blocks/classic-event-details/template.js:101
 #: src/resources/js/app/blocks.js:45060
 msgid "Enter url"
-msgstr ""
+msgstr "Zadať URL adresu"
 
 #: src/modules/blocks/classic-event-details/template.js:97
 #: src/resources/js/app/blocks.js:45054
 msgid "Website: "
-msgstr ""
+msgstr "Webová stránka:"
 
 #: src/modules/blocks/classic-event-details/template.js:79
 #: src/resources/js/app/blocks.js:45022
 msgid "End: "
-msgstr ""
+msgstr "Koniec:"
 
 #: src/modules/blocks/classic-event-details/template.js:57
 #: src/resources/js/app/blocks.js:44982
 msgid "Start: "
-msgstr ""
+msgstr "Začiatok"
 
 #: src/modules/blocks/event-organizer/index.js:17
 #: src/resources/js/app/blocks.js:48388
 msgid "List a host or coordinator for this event."
-msgstr ""
+msgstr "Zadať hostiteľa alebo spoluorganizátora udalosti."
 
 #: src/modules/blocks/event-organizer/index.js:16
 #: src/resources/js/app/blocks.js:48387
 msgid "Event Organizer"
-msgstr ""
+msgstr "Organizátor udalosti"
 
 #: src/modules/data/blocks/price/reducer.js:23
 #: src/resources/js/app/data.js:9364 src/resources/js/app/blocks.js:10508
 msgid "$"
-msgstr ""
+msgstr "$"
 
 #: src/modules/data/blocks/datetime/reducer.js:23
 #: src/resources/js/app/data.js:6796 src/resources/js/app/blocks.js:6842
 msgid "-"
-msgstr ""
+msgstr "-"
 
 #: src/modules/data/blocks/datetime/reducer.js:22
 #: src/resources/js/app/data.js:6795 src/resources/js/app/blocks.js:6841
 msgid "@"
-msgstr ""
+msgstr "@"
 
 #: src/modules/elements/terms-list/element.js:128
 #: src/resources/js/app/blocks.js:11214 src/resources/js/app/elements.js:7840
 msgid ", "
-msgstr ""
+msgstr ", "
 
 #: src/modules/elements/terms-list/element.js:45
 #: src/modules/blocks/classic-event-details/event-details-organizers/event-details-organizer/template.js:26
 #: src/resources/js/app/blocks.js:11083 src/resources/js/app/blocks.js:44700
 #: src/resources/js/app/elements.js:7709
 msgid "(Untitled)"
-msgstr ""
+msgstr "(Bez názvu)"
 
 #: src/modules/elements/upsell/element.js:33
 #: src/resources/js/app/blocks.js:13490 src/resources/js/app/elements.js:10116
@@ -439,7 +439,7 @@ msgstr ""
 
 #: src/Tribe/Editor/Compatibility.php:118
 msgid "Hidden Blocks Editor Config"
-msgstr ""
+msgstr "Konfigurácia editoru ukrytých blokov"
 
 #: src/Tribe/Editor/Compatibility.php:111
 msgid "Enable early access to the new Gutenberg block editor interface for creating events."
@@ -542,7 +542,7 @@ msgstr ""
 
 #: src/admin-views/tribe-options-general.php:69
 msgid "Enable WordPress Custom Fields on Events."
-msgstr ""
+msgstr "Povoliť vlastné polia programu WordPress na udalostiach."
 
 #: src/admin-views/tribe-options-general.php:68
 msgid "Show Custom Fields metabox"
@@ -629,11 +629,11 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:338
 msgid "The event tag ID or name"
-msgstr ""
+msgstr "Tag udalosti ID, alebo názov"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:332
 msgid "The event category ID or name"
-msgstr ""
+msgstr "Tag kategórie udalosti ID, alebo názov"
 
 #: src/Tribe/REST/V1/Endpoints/Archive_Event.php:508
 msgid "Events should be filtered by their post_parent being the specified one."
@@ -654,27 +654,27 @@ msgstr ""
 
 #: src/views/month/single-day.php:57
 msgid "%s for %s"
-msgstr ""
+msgstr "%s pre %s"
 
 #: src/views/month/loop-grid.php:25 src/views/month/loop-grid.php:28
 msgid "Calendar of %s"
-msgstr ""
+msgstr "Kalendár z %s"
 
 #: src/views/modules/bar.php:73
 msgid "Submit %s search"
-msgstr ""
+msgstr "Pridať %s hľadanie"
 
 #: src/views/modules/bar.php:61
 msgid "%s Search"
-msgstr ""
+msgstr "%s Hľadať"
 
 #: src/views/modules/bar.php:87 src/views/modules/bar.php:93
 msgid "View %s As"
-msgstr ""
+msgstr "Zobraziť %s Ako"
 
 #: src/views/modules/bar.php:86
 msgid "%s Views Navigation"
-msgstr ""
+msgstr "%s Navigácie Zobrazení"
 
 #: src/views/modules/bar.php:38
 msgid "%s Search and Views Navigation"
@@ -794,7 +794,7 @@ msgstr ""
 
 #: src/admin-views/privacy.php:13
 msgid "Hello,"
-msgstr ""
+msgstr "Ahojte,"
 
 #: src/admin-views/aggregator/settings.php:513
 msgid "The default event category for events imported via Eventbrite"
@@ -826,7 +826,7 @@ msgstr ""
 
 #: src/Tribe/Main.php:4335
 msgid "Search for %s by month. Please use the format %s."
-msgstr ""
+msgstr "Hľadať %s podľa mesiaca. Prosím použite formát %s."
 
 #: src/Tribe/Main.php:4330
 msgid "Search for %s by Date. Please use the format %s."
@@ -962,7 +962,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/tabs/import-form.php:306
 msgid "Settings > General"
-msgstr ""
+msgstr "Nastavenia > Všeobecné"
 
 #: src/admin-views/aggregator/tabs/import-form.php:295
 msgid "The number of events available in the preview may be limited by your %1$sImport Settings.%2$s"
@@ -974,7 +974,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/tabs/import-form.php:286
 msgid "timezone settings"
-msgstr ""
+msgstr "nastavenia časového pásma"
 
 #: src/admin-views/aggregator/tabs/import-form.php:284
 msgid "Events will be imported with the same timezone as defined on eventbrite.com. You can make use of The Events Calendar's"
@@ -1023,11 +1023,11 @@ msgstr ""
 
 #: src/admin-views/aggregator/origins/eventbrite.php:115
 msgid "Select Source"
-msgstr ""
+msgstr "Vybrať Zdroj"
 
 #: src/admin-views/aggregator/origins/eventbrite.php:114
 msgid "Import Source"
-msgstr ""
+msgstr "Importovať Zdroj"
 
 #: src/admin-views/aggregator/origins/eventbrite.php:44
 msgid "Log into Eventbrite"
@@ -1227,7 +1227,7 @@ msgstr "Stiahnite si naše Events Gutenberg rozšírenie a začnite používať 
 #: src/deprecated/Tribe__Events__Customizer__Front_Page_View.php:55
 msgctxt "Customizer static front page setting"
 msgid "Main %s Page"
-msgstr ""
+msgstr "Hlavná %s Stránka"
 
 #: common/src/Tribe/Plugins_API.php:71
 msgid "Event Tickets Plus allows you to sell tickets to your events using WooCommerce, Easy Digital Downloads, or our built in Tribe Commerce tool. Add tickets to your posts and pages, or add %1$sThe Events Calendar%2$s and sell tickets from your event listings. Create custom registration forms, manage attendees, use custom capacity options, and more. Guest check in is easy with QR codes and our custom scanning app."
@@ -1318,7 +1318,7 @@ msgstr ""
 #: src/Tribe/iCal.php:438
 msgctxt "iCal feed description"
 msgid "Events for %s"
-msgstr ""
+msgstr "Udalosti pre %s"
 
 #: src/Tribe/REST/V1/Messages.php:45
 msgid "The requested event term archive page does not exist"
@@ -2908,12 +2908,12 @@ msgstr ""
 #: src/functions/template-tags/loop.php:218
 msgctxt "day_view"
 msgid "%1$s for %2$s"
-msgstr ""
+msgstr "%1$s %2$s"
 
 #: src/functions/template-tags/loop.php:209
 msgctxt "month view"
 msgid "%1$s for %2$s"
-msgstr ""
+msgstr "%1$s %2$s"
 
 #: src/admin-views/tribe-options-display.php:208
 msgid "Change the default 3 events per day in month view. To impose no limit, you may specify -1. Please note there may be performance issues if you allow too many events per day. <a href=\"%s\">Read more</a>."
@@ -2922,7 +2922,7 @@ msgstr ""
 #: src/Tribe/Main.php:869
 msgctxt "all events slug"
 msgid "all"
-msgstr ""
+msgstr "všetky"
 
 #: common/src/Tribe/Validate.php:248
 msgid "%s must be a whole number."
@@ -3101,7 +3101,7 @@ msgstr ""
 
 #: src/Tribe/iCal.php:141
 msgid "Export Events"
-msgstr ""
+msgstr "Export udalostí"
 
 #: src/Tribe/Main.php:868
 msgctxt "featured events slug"
@@ -3531,7 +3531,7 @@ msgstr ""
 #: src/views/single-event.php:28 src/views/single-event/back-link.php:18
 msgctxt "%s Events plural label"
 msgid "All %s"
-msgstr ""
+msgstr "Všetky %s"
 
 #: src/admin-views/widget-admin-list.php:40
 msgid "Generate JSON-LD data"
@@ -3931,7 +3931,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/origins/refine.php:3
 msgid "Keyword(s)"
-msgstr ""
+msgstr "Kľúčové slovo(á)"
 
 #: src/admin-views/aggregator/origins/meetup.php:139
 msgid "Enter the url for a Meetup group, page, or individual. You can also enter the url of a single Meetup event."
@@ -4780,7 +4780,7 @@ msgstr ""
 #: src/Tribe/Aggregator/Records.php:131
 msgctxt "record"
 msgid "Add New"
-msgstr ""
+msgstr "Pridať nový"
 
 #: src/Tribe/Aggregator/Records.php:130
 msgctxt "add new on admin bar"
@@ -4880,7 +4880,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Record/List_Table.php:496
 msgid "Keywords:"
-msgstr ""
+msgstr "Kľúčové slová:"
 
 #: src/Tribe/Ignored_Events.php:337
 #: src/Tribe/Aggregator/Record/List_Table.php:483
@@ -4951,9 +4951,9 @@ msgstr ""
 msgctxt "records"
 msgid "All <span class=\"count\">(%s)</span>"
 msgid_plural "All <span class=\"count\">(%s)</span>"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Všetky <span class=\"count\">(%s)</span>"
+msgstr[1] "Všetky <span class=\"count\">(%s)</span>"
+msgstr[2] "Všetky <span class=\"count\">(%s)</span>"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:244
 msgid "Apply"
@@ -5233,7 +5233,7 @@ msgstr ""
 #: src/Tribe/Aggregator/Cron.php:118
 msgctxt "aggregator schedule frequency"
 msgid "Monthly"
-msgstr ""
+msgstr "Mesačne"
 
 #: src/Tribe/Aggregator/Cron.php:113
 msgctxt "aggregator schedule frequency"
@@ -5287,7 +5287,7 @@ msgstr ""
 #: src/Tribe/Admin_List.php:336
 msgctxt "%s Event count in admin list"
 msgid "All %s"
-msgstr ""
+msgstr "Všetky %s"
 
 #: common/src/admin-views/tribe-options-licenses.php:30
 msgid "Not seeing an update but expecting one? In WordPress, go to %1$sDashboard > Updates%2$s and click \"Check Again\"."
@@ -5404,7 +5404,7 @@ msgstr ""
 
 #: common/src/Tribe/Main.php:253
 msgid "All"
-msgstr ""
+msgstr "Všetky"
 
 #: common/src/Tribe/Main.php:248
 msgid "Search:"
@@ -5565,7 +5565,7 @@ msgstr ""
 
 #: src/Tribe/Importer/Column_Mapper.php:71
 msgid "Event Time Zone"
-msgstr ""
+msgstr "Časová Zóna Udalosti"
 
 #: src/Tribe/Importer/Column_Mapper.php:66
 msgid "Event Excerpt"
@@ -5623,7 +5623,7 @@ msgstr ""
 #: common/src/Tribe/Log.php:373 src/admin-views/tribe-options-general.php:178
 #: src/admin-views/tribe-options-general.php:195
 msgid "Disabled"
-msgstr ""
+msgstr "Zakázané"
 
 #: common/src/Tribe/Log.php:274
 msgid "Cannot set %s as the current logging engine"
@@ -5635,17 +5635,17 @@ msgstr ""
 
 #: common/src/Tribe/Log/File_Logger.php:128
 msgid "Default (uses temporary files)"
-msgstr ""
+msgstr "Defaultné (využíva dočasné súbory)"
 
 #: common/src/Tribe/Log/Admin.php:148
 msgctxt "log engines"
 msgid "None currently available"
-msgstr ""
+msgstr "Žiadne momentálne dostupné"
 
 #: common/src/Tribe/Log/Admin.php:133
 msgctxt "log selector"
 msgid "None currently available"
-msgstr ""
+msgstr "Žiadne momentálne dostupné"
 
 #: common/src/admin-views/tribe-options-help.php:52
 msgid "Recent Template Changes"
@@ -5702,19 +5702,19 @@ msgstr "Upraviť miesto konania"
 
 #: src/views/list/nav.php:36
 msgid "Next %s"
-msgstr ""
+msgstr "Ďalší %s"
 
 #: src/views/list/nav.php:28
 msgid "Previous %s"
-msgstr ""
+msgstr "Predchádzajúci %s"
 
 #: src/functions/template-tags/day.php:108
 msgid "Next Day"
-msgstr ""
+msgstr "Ďalší deň"
 
 #: src/functions/template-tags/day.php:106
 msgid "Previous Day"
-msgstr ""
+msgstr "Predchádzajúci deň"
 
 #: src/admin-views/venue-meta-box.php:272
 msgid "%s Name already exists"
@@ -5734,15 +5734,15 @@ msgstr ""
 
 #: src/Tribe/Template_Factory.php:229
 msgid "There were no results found for %s."
-msgstr ""
+msgstr "Pre %s sa nenašli žiadne výsledky."
 
 #: src/Tribe/Template/Month.php:458
 msgid "There were no results found for %s this month. Try searching next month."
-msgstr ""
+msgstr "Pre udalosť %s sa pre tento mesiac nenašli žiadne výsledky. Skúste prosím ďalší mesiac."
 
 #: src/Tribe/Template/Day.php:154
 msgid "No %1$s scheduled for %2$s. Please try another day."
-msgstr ""
+msgstr "Žiadne %1$s plánované na %2$s. Prosím skúste iný deň."
 
 #: src/Tribe/Main.php:4076
 msgid "Check out the %savailable add-ons%s."
@@ -5754,7 +5754,7 @@ msgstr ""
 
 #: src/Tribe/Main.php:2061 src/Tribe/Main.php:2081
 msgid "%1$s scheduled for: %2$s."
-msgstr ""
+msgstr "%1$s plánované na: %2$s."
 
 #: src/Tribe/Main.php:2042
 msgid "%1$s draft updated. %2$sPreview %3$s"
@@ -5762,7 +5762,7 @@ msgstr ""
 
 #: src/Tribe/Main.php:2033
 msgid "%1$s scheduled for: %2$s. %3$sPreview %4$s"
-msgstr ""
+msgstr "%1$s plánované na: %2$s. %3$sPozri %4$s"
 
 #: src/Tribe/Main.php:2027
 msgid "%1$s submitted. %2$sPreview %3$s"
@@ -5898,7 +5898,7 @@ msgstr "Jasné"
 
 #: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:257
 msgid "Add another %s"
-msgstr ""
+msgstr "Pridať iný %s"
 
 #: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:170
 msgid "Create New %s"
@@ -6069,9 +6069,9 @@ msgstr ""
 #: src/views/month/single-day.php:47
 msgid "View %1$s %2$s"
 msgid_plural "View All %1$s %2$s"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Zobraziť %1$s %2$s"
+msgstr[1] "Zobraziť Všetko %1$s %2$s"
+msgstr[2] "Zobraziť Všetko %1$s %2$s"
 
 #: src/Tribe/Aggregator/Record/Queue_Realtime.php:54
 msgid "Completed!"
@@ -6095,7 +6095,7 @@ msgstr ""
 
 #: src/Tribe/Main.php:1106
 msgid "%1$s or %2$s"
-msgstr ""
+msgstr "%1$s alebo %2$s"
 
 #. Author URI of the plugin
 msgid "http://m.tri.be/1x"
@@ -6111,7 +6111,7 @@ msgstr ""
 
 #: src/views/widgets/list-widget.php:118
 msgid "There are no upcoming %s at this time."
-msgstr ""
+msgstr "Nie sú žiadne nadchádzajúce %s v tomto momente."
 
 #: src/views/widgets/list-widget.php:112
 msgid "View All %s"
@@ -6120,7 +6120,7 @@ msgstr "Zobraziť všetky %s"
 #: src/views/single-event.php:46 src/views/single-event.php:80
 #: src/views/single-event/footer.php:21
 msgid "%s Navigation"
-msgstr ""
+msgstr "%s Navigácia"
 
 #: src/views/month/nav.php:19
 msgid "Calendar Month Navigation"
@@ -6129,7 +6129,7 @@ msgstr "Navigácia pre mesiace v kalendári"
 #: src/views/modules/meta/details.php:143
 #: src/views/blocks/parts/details.php:153 src/views/blocks/event-tags.php:19
 msgid "%s Tags:"
-msgstr ""
+msgstr "%s Značky:"
 
 #: src/views/modules/bar.php:88
 msgid "View As"
@@ -6167,12 +6167,12 @@ msgstr "Typ importu:"
 
 #: src/Tribe/Aggregator/Page.php:272
 msgid "Events Import"
-msgstr ""
+msgstr "Import Udalostí"
 
 #: src/modules/blocks/event-links/template.js:101
 #: src/resources/js/app/blocks.js:48525
 msgid "Share Settings"
-msgstr ""
+msgstr "Uložiť nastavenia"
 
 #: src/deprecated/Tribe__Events__Importer__Options.php:136
 msgid "Draft"
@@ -6180,15 +6180,15 @@ msgstr "Koncept"
 
 #: src/deprecated/Tribe__Events__Importer__Options.php:135
 msgid "Pending"
-msgstr ""
+msgstr "Čaká"
 
 #: src/deprecated/Tribe__Events__Importer__Options.php:134
 msgid "Published"
-msgstr ""
+msgstr "Publikované"
 
 #: src/deprecated/Tribe__Events__Importer__Admin_Page.php:238
 msgid "Import Settings"
-msgstr ""
+msgstr "Importovanie nastavení"
 
 #: src/functions/template-tags/options.php:29
 msgid "You %1$scannot%2$s use the same slug as above. The above should ideally be plural, and this singular.%3$sYour single Event URL is like: %4$s"
@@ -6200,7 +6200,7 @@ msgstr "Vaša súčasná URL udalosti je %s"
 
 #: src/functions/template-tags/loop.php:204
 msgid "Past %s"
-msgstr ""
+msgstr "Uplynulé %s"
 
 #: src/functions/template-tags/loop.php:202
 msgid "%1$s for %2$s - %3$s"
@@ -6230,7 +6230,7 @@ msgstr "Zobraziť viac »"
 
 #: src/functions/template-tags/general.php:595
 msgid "Loading %s"
-msgstr ""
+msgstr "Nahrávam %s"
 
 #: src/functions/template-tags/general.php:483
 msgid "Tags:"
@@ -6241,9 +6241,9 @@ msgstr "Tagy:"
 msgctxt "category list label"
 msgid "%s Category"
 msgid_plural "%s Categories"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%s Kategória"
+msgstr[1] "%s Kategórie"
+msgstr[2] "%s Kategórií"
 
 #: src/functions/template-tags/deprecated.php:1299
 msgid "Category"
@@ -6263,7 +6263,7 @@ msgstr ""
 
 #: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:171
 msgid "%s:"
-msgstr ""
+msgstr "%s:"
 
 #: src/admin-views/aggregator/meta-box.php:2
 msgid "Origin:"
@@ -6282,7 +6282,7 @@ msgstr "Podrobnosti"
 
 #: src/admin-views/widget-admin-list.php:31
 msgid "Show widget only if there are upcoming events"
-msgstr ""
+msgstr "Ukázať widget len ak existujú budúce udalosti"
 
 #: src/admin-views/widget-admin-list.php:18
 msgid "Show:"
@@ -6335,15 +6335,15 @@ msgstr ""
 
 #: src/admin-views/tribe-options-timezones.php:42
 msgid "Use manual time zones for each event"
-msgstr ""
+msgstr "Nastavovať časovú zónu pre každú udalosť"
 
 #: src/admin-views/tribe-options-timezones.php:38
 msgid "Time zone mode"
-msgstr ""
+msgstr "Režim Časovej zóny"
 
 #: src/admin-views/tribe-options-timezones.php:30
 msgid "Time Zone Settings"
-msgstr ""
+msgstr "Nastavenia Časových Zón"
 
 #: src/admin-views/tribe-options-timezones.php:10
 msgid "Click this button to update your database and take advantage of additional time zone capabilities. Please <a href=\"%s\" target=\"_blank\">configure WordPress</a> to use the correct time zone before clicking this button!"
@@ -6668,7 +6668,7 @@ msgstr ""
 
 #: src/admin-views/tribe-options-display.php:215
 msgid "Enable the Month View Cache"
-msgstr ""
+msgstr "Povoliť Cache pre Mesačné Zobrazenie"
 
 #: src/admin-views/tribe-options-display.php:207
 msgid "Month view events per day"
@@ -6774,7 +6774,7 @@ msgstr "Adresa:"
 #: src/admin-views/organizer-meta-box.php:75
 #: src/admin-views/linked-post-meta-box.php:49
 msgid "%s Name Already Exists"
-msgstr ""
+msgstr "%s Meno už existuje"
 
 #: src/admin-views/organizer-meta-box.php:43
 #: src/admin-views/create-organizer-fields.php:15
@@ -6838,7 +6838,7 @@ msgstr "Symbol meny:"
 
 #: src/admin-views/events-meta-box.php:220
 msgid "%s Cost"
-msgstr ""
+msgstr "%s Cena"
 
 #: src/deprecated/facebook.php:112 src/admin-views/events-meta-box.php:189
 #: src/admin-views/aggregator/origins/eventbrite.php:152
@@ -6851,7 +6851,7 @@ msgstr "URL:"
 
 #: src/admin-views/events-meta-box.php:186
 msgid "%s Website"
-msgstr ""
+msgstr "%s Stránka"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:509
 msgid "Location:"
@@ -6968,7 +6968,7 @@ msgstr "Ohodnotiť"
 
 #: src/admin-views/admin-update-message.php:33
 msgid "Every time you rate %s5 stars%s, a fairy is born. Okay maybe not, but more happy users mean more contributions and help on the forums. The community NEEDS your voice."
-msgstr ""
+msgstr "Zakaždým, keď nás ohodnotíte %s5 hviezdičkami%s, zrodí sa víla. Dobre, možno nie, ale šťastní užívatelia znamenajú viac príspevkov a viac pomoci na fóre. Naša komunita potrebuje váš hlas."
 
 #: src/admin-views/admin-update-message.php:9
 #: src/admin-views/admin-welcome-message.php:11
@@ -8269,11 +8269,11 @@ msgstr "Prepísaná šablóna by mala byť presunutá do správneho podadresára
 
 #: src/Tribe/Template_Factory.php:237
 msgid "No previous %s "
-msgstr ""
+msgstr "Žiadny predchádzajúci %s"
 
 #: src/Tribe/Template_Factory.php:235 src/Tribe/Template_Factory.php:240
 msgid "No matching %1$s listed under %2$s. Please try viewing the full calendar for a complete list of %3$s."
-msgstr ""
+msgstr "Žiadna zhoda %1$s uvedená pod %2$s. Prosím skúste zhliadnuť celý kalendár pre kompletný zoznam %3$s."
 
 #: src/Tribe/Template_Factory.php:233
 msgid "No upcoming %1$s listed under %2$s. Check out upcoming %3$s for this category or view the full calendar."
@@ -8282,7 +8282,7 @@ msgstr ""
 #: src/Tribe/Template/Embed.php:59 src/Tribe/Template/Single_Event.php:119
 #: src/Tribe/Editor/Template.php:70
 msgid "This %s has passed."
-msgstr ""
+msgstr "Táto %s už prebehla."
 
 #: src/Tribe/Template/Month.php:971
 msgid "The requested date \"%s\" was not valid &ndash; showing the current month instead"
@@ -8294,11 +8294,11 @@ msgstr "Nenašli sa žiadne výsledky."
 
 #: src/Tribe/Template/Month.php:462
 msgid "No matching %1$s listed under %2$s. Please try viewing the full calendar for a complete list of events."
-msgstr ""
+msgstr "Žiadna zhoda %1$s uvedená pod %2$s. Prosím skúste zhliadnuť celý kalendár pre kompletný zoznam udalostí."
 
 #: src/Tribe/Template/Day.php:152
 msgid "No matching %1$s listed under %2$s scheduled for %3$s. Please try another day."
-msgstr ""
+msgstr "Žiadna zhoda %1$s uvedená pod %2$s plánovaná na %3$s. Skúste prosím iný deň."
 
 #: src/Tribe/Template/Day.php:118 src/Tribe/Template/Day.php:134
 msgid "Ongoing"
@@ -8375,7 +8375,7 @@ msgstr "Nastavenia udalostí"
 
 #: common/src/Tribe/PUE/Checker.php:896
 msgid "Hmmm... something's wrong with this validator. Please contact %ssupport%s."
-msgstr ""
+msgstr "Hmmm... niečo nie je v poriadku s validátorom. Prosím kontaktujte %stechnickú podporu%s."
 
 #: common/src/Tribe/PUE/Checker.php:935
 msgid "Valid Key! Expires on %s"
@@ -8387,7 +8387,7 @@ msgstr "Ľutujeme, server pre validáciu kľúča je nedostupný."
 
 #: common/src/Tribe/PUE/Checker.php:909
 msgid "unknown date"
-msgstr ""
+msgstr "neznámy dátum"
 
 #: common/src/Tribe/PUE/Checker.php:650
 msgid "License key(s) updated."
@@ -8408,7 +8408,7 @@ msgstr "Chyba"
 
 #: src/Tribe/Main.php:4419
 msgid "Once Every 30 Mins"
-msgstr ""
+msgstr "Každých 30 minút"
 
 #: src/Tribe/Main.php:4339
 msgid "Day Of"
@@ -8416,11 +8416,11 @@ msgstr "Deň"
 
 #: src/Tribe/Main.php:4337
 msgid "%s From"
-msgstr ""
+msgstr "%s od"
 
 #: src/Tribe/Main.php:4333
 msgid "%s In"
-msgstr ""
+msgstr "%s v"
 
 #: src/Tribe/Main.php:4328 src/Tribe/Main.php:4353
 #: src/admin-views/aggregator/origins/refine.php:7
@@ -8461,7 +8461,7 @@ msgstr "CSV"
 
 #: src/Tribe/Admin/Bar/Default_Configurator.php:53
 msgid "Add %s"
-msgstr ""
+msgstr "Pridať %s"
 
 #: src/Tribe/Main.php:4128 src/Tribe/Admin/Bar/Default_Configurator.php:45
 msgid "View Calendar"
@@ -8497,7 +8497,7 @@ msgstr "%s informácie"
 
 #: src/Tribe/Main.php:3641
 msgid "%s Options"
-msgstr ""
+msgstr "%s Možnosti"
 
 #: src/Tribe/Main.php:3564 src/Tribe/Main.php:3599
 #: src/functions/template-tags/day.php:157
@@ -8507,7 +8507,7 @@ msgstr "Dátum mimo rozsah."
 
 #: src/Tribe/Main.php:2378
 msgid "all"
-msgstr ""
+msgstr "všetky"
 
 #: src/Tribe/Main.php:2377 src/functions/template-tags/general.php:111
 msgid "events"
@@ -8537,7 +8537,7 @@ msgstr "Dnes"
 
 #: common/src/Tribe/Main.php:272
 msgid "Prev"
-msgstr "Predchádzajúci"
+msgstr "Predchádzajúce"
 
 #: common/src/Tribe/Main.php:254 common/src/Tribe/Main.php:271
 msgid "Next"
@@ -8625,7 +8625,7 @@ msgstr ""
 
 #: src/Tribe/Main.php:1986
 msgid "All %s Categories"
-msgstr ""
+msgstr "Všetky %s kategórie"
 
 #: src/Tribe/Main.php:1985
 msgid "Search %s Categories"
@@ -8633,7 +8633,7 @@ msgstr ""
 
 #: src/Tribe/Main.php:1984
 msgid "%s Category"
-msgstr ""
+msgstr "%s Kategória"
 
 #: src/Tribe/Main.php:1974 src/Tribe/Venue.php:117 src/Tribe/Organizer.php:98
 msgid "No %s found in Trash"
@@ -8951,7 +8951,7 @@ msgstr "Neimportovať"
 #: src/Tribe/Aggregator/Record/CSV.php:211
 #: src/deprecated/Tribe__Events__Importer__Admin_Page.php:358
 msgid "The following fields are required for a successful import:"
-msgstr ""
+msgstr "Nasledovné polia sú povinné pre úspešný import:"
 
 #: src/deprecated/Tribe__Events__Importer__Admin_Page.php:317
 msgid "We were unable to process your request. Please try again."
@@ -9055,7 +9055,7 @@ msgstr "Dátum začiatku"
 
 #: src/Tribe/Admin_List.php:246 src/Tribe/Main.php:1983
 msgid "%s Categories"
-msgstr ""
+msgstr "%s Kategórie"
 
 #: src/Tribe/Admin/Timezone_Updater.php:105
 msgid "A problem stopped the time zone update process from completing. Please refresh and try again."
@@ -9097,7 +9097,7 @@ msgstr ""
 
 #: src/deprecated/Tribe__Events__Activation_Page.php:215
 msgid "Thanks for Updating The Events Calendar"
-msgstr "Ďakujeme za aktualizáciu Kalendára udalosti"
+msgstr "Ďakujeme za aktualizáciu Kalendára udalostí"
 
 #: src/Tribe/Main.php:951 src/Tribe/Main.php:953
 #: src/deprecated/Tribe__Events__Activation_Page.php:195

@@ -626,12 +626,25 @@ class Tribe__Events__Assets {
 	 * @return array
 	 */
 	public function get_ajax_url_data() {
-		$bits = array(
-			'ajaxurl' => esc_url_raw( admin_url( 'admin-ajax.php', ( is_ssl() || FORCE_SSL_ADMIN ? 'https' : 'http' ) ) ),
+
+		$data = array(
+			'ajaxurl'   => esc_url_raw( admin_url( 'admin-ajax.php', ( is_ssl() || FORCE_SSL_ADMIN ? 'https' : 'http' ) ) ),
 			'post_type' => Tribe__Events__Main::POSTTYPE,
 		);
 
-		return $bits;
+		/**
+		 * Makes the localize variable for TEC admin JS filterable.
+		 *
+		 * @since 4.8.1
+		 *
+		 * @param array $data {
+	     *     These items exist on the TEC object in admin JS.
+	     *
+	     *     @type string ajaxurl The default URL to wp-admin's AJAX endpoint.
+	     *     @type string post_type The Event post type.
+		 * }
+		 */
+		return apply_filters( 'tribe_events_admin_js_ajax_url_data', $data );
 	}
 
 

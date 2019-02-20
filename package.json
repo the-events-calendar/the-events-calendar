@@ -1,6 +1,6 @@
 {
   "name": "the-events-calendar",
-  "version": "4.8.0",
+  "version": "4.8.1",
   "repository": "git@github.com:moderntribe/the-events-calendar.git",
   "_zipname": "the-events-calendar",
   "_zipfoldername": "the-events-calendar",
@@ -89,7 +89,7 @@
     "postcss-mixins": "^4.0.1",
     "postcss-nested": "^1.0.0",
     "postcss-preset-env": "^6.0.10",
-    "product-taskmaster": "github:moderntribe/product-taskmaster#spotfix/prevent-common-whitelist-duplicates",
+    "product-taskmaster": "github:moderntribe/product-taskmaster",
     "react-svg-loader": "^2.1.0",
     "react-test-renderer": "^16.5.2",
     "redux-devtools-extension": "^2.13.7",
