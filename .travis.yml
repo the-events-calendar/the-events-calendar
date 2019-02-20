@@ -82,7 +82,7 @@ install:
   # We also set two variables:
   # `PLUGIN_BASENAME` is the name of the plugin folder, e.g. `the-events-calendar` or `events-pro`.
   # `PLUGIN_DIR` is the absolute path to the plugin folder in the WordPress installation, e.g. `/tmp/wordpress/wp-content/plugins/the-events-calendar`.
-  - export PLUGIN_BASENAME=$(basename "$(pwd)") && echoc "PLUGIN_BASENAME=${PLUGIN_BASENAME}"
+  - export PLUGIN_BASENAME=$(basename "$(pwd)") && echo "PLUGIN_BASENAME=${PLUGIN_BASENAME}"
   - cp -r ${TRAVIS_BUILD_DIR} ${WP_ROOT_FOLDER}/wp-content/plugins/${PLUGIN_BASENAME}
   - export PLUGIN_DIR="${WP_ROOT_FOLDER}/wp-content/plugins/${PLUGIN_BASENAME}" && echo "PLUGIN_DIR=${PLUGIN_DIR}"
 
