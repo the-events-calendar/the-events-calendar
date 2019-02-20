@@ -19,6 +19,10 @@ addons:
       - libjpeg-dev
       - libpng12-dev
 
+# Disable the default submodule logic.
+git:
+  submodules: false
+
 cache:
   directories:
     - vendor
@@ -34,6 +38,10 @@ before_install:
   # some time (seconds); if we spin it up now it should be ready to run by
   # the time we need it.
   - docker-compose -f ${TRAVIS_BUILD_DIR}/dev/docker/ci-compose.yml up -d db
+
+  # Tweak git to correctly work with submodules.
+  - sed -i 's/git@github.com:/git:\/\/github.com\//' .gitmodules
+  - git submodule update --init --recursive
 
 install:
   # Disable XDebug to speed up the tests.
