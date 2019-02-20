@@ -12,6 +12,7 @@ tribe_aggregator.fields = {
 		origin_field            : '#tribe-ea-field-origin',
 		field_url_source        : '#tribe-ea-field-url_source',
 		eventbrite_url_source   : '#tribe-ea-field-eventbrite_source',
+		post_status             : '.tribe-ea-field-post_status',
 		import_type_field       : '.tribe-import-type',
 		media_button            : '.tribe-ea-media_button',
 		datepicker              : '.tribe-datepicker',
@@ -181,6 +182,14 @@ tribe_aggregator.fields = {
 				if ( 'redirect' === $( this ).val() ) {
 					window.open( 'https://theeventscalendar.com/wordpress-event-aggregator/?utm_source=importoptions&utm_medium=plugin-tec&utm_campaign=in-app', '_blank' );
 					location.reload();
+				}
+
+				// A "reset" of the Post Status select2 selector when an origin is selected.
+				if ( '' !== origin ) {
+					$( obj.selector.post_status )
+						.val( ea.default_settings[ origin ][ 'post_status' ] )
+						.select2( 'val', ea.default_settings[ origin ][ 'post_status' ] )
+						.trigger( 'change' );
 				}
 
 				obj.maybeLimitUrlStartDate()
