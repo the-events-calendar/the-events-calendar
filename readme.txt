@@ -215,6 +215,10 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
+= [4.8.2] TBD =
+
+* Fix - Fix console warnings for keys [121198]
+
 = [4.8.1] 2019-02-14 =
 
 * Feature - Introduced new "(do not override)" default post status for Eventbrite imports in Event Aggregator. This preserves events' original statuses from Eventbrite.com upon import (e.g., "draft" events will not be automatically set to "publish" upon import) [112346]

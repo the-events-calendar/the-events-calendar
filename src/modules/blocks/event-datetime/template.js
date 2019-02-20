@@ -1,7 +1,8 @@
 /**
  * External dependencies
  */
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
+import PropTypes from 'prop-types';
 
 /**
  * WordPress dependencies
@@ -27,11 +28,10 @@ class EventDateTime extends PureComponent {
 	}
 
 	render = () => {
-		return [
-			<Controls />,
-			(
+		return (
+			<Fragment>
+				<Controls />
 				<section
-					key="event-datetime"
 					className="tribe-editor__subtitle tribe-editor__date-time tribe-common__plugin-block-hook"
 				>
 					<InnerBlocks
@@ -40,8 +40,8 @@ class EventDateTime extends PureComponent {
 						templateInsertUpdatesSelection={ false }
 					/>
 				</section>
-			),
-		];
+			</Fragment>
+		);
 	}
 }
 
