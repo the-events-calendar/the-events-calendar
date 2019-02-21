@@ -40,6 +40,8 @@ before_install:
   - docker-compose -f ${TRAVIS_BUILD_DIR}/dev/docker/ci-compose.yml up -d db
 
   # Tweak git to correctly work with submodules.
+  - git submodule deinit --all
+  - sed -i 's/git@github.com:/git:\/\/github.com\//' .gitmodules
   - git submodule update --init --recursive
 
 install:
