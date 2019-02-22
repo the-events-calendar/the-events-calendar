@@ -12,7 +12,8 @@
     "lucatume/wp-browser": "^2.2.1",
     "xamin/handlebars.php": "^0.10.3",
     "mikey179/vfsStream": "^1.6",
-    "spatie/phpunit-snapshot-assertions": "^1.2"
+    "spatie/phpunit-snapshot-assertions": "^1.2",
+    "lucatume/wp-snaphot-assertions": "1.0.0"
   },
   "minimum-stability": "stable",
   "prefer-stable": true,
