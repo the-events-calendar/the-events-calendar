@@ -25,7 +25,6 @@ git:
 
 cache:
   directories:
-    - vendor
     - $HOME/.composer/cache
     - /tmp
 
