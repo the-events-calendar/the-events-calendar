@@ -27,8 +27,6 @@ cache:
   directories:
     # The composer user-level cache.
     - $HOME/.composer/cache
-    # Our cache, the one we manage.
-    - $HOME/cache
 
 before_install:
   # Sourcing the .env file will make sure we use, in the environment configuration, the same variables the tests are using.
@@ -55,11 +53,6 @@ install:
   # Binaries installed in the `vendor/bin` folder, like `wp` and `codecept`, will be available system-wide.
   - export PATH=${TRAVIS_BUILD_DIR}/vendor/bin:$PATH
 
-  # Prepare our cache folder.
-  - mkdir -p ${HOME}/cache
-  # Allow the world to rwx from the cache.
-  - chown -R 0777 ${HOME}/cache
-
   # Create the WordPress root folder.
   - mkdir -p ${WP_ROOT_FOLDER}
 
@@ -67,10 +60,7 @@ install:
   # To configure WordPress we use the configuration parameters that will be used by the Docker container.
   # See `dev/docker/ci-compose.yml` for more information.
   - cd ${WP_ROOT_FOLDER}
-  # WordPress might have been cached, let's check first and copy it if that's the case.
-  - if [ ! -d ${HOME}/cache/wordpress-${WP_VERSION} ]; then mkdir -p ${HOME}/cache/wordpress-${WP_VERSION} && cd ${HOME}/cache/wordpress-${WP_VERSION} && wp core download --version=${WP_VERSION}; fi
-  - cp -r ${HOME}/cache/wordpress-${WP_VERSION} ${WP_ROOT_FOLDER}
-  # To avoid any caching issues let's regenerate the configuration files; it's fast and cheap.
+  - wp core download --version=${WP_VERSION}
   # Let's generate the wp-config.php file for the WordPress installation from a template.
   - echo "WP_DB_NAME=${WP_DB_NAME} WP_DB_PORT=${WP_DB_PORT} WP_TABLE_PREFIX=${WP_TABLE_PREFIX}"
   - envsubst '${WP_DB_NAME},${WP_DB_PORT},${WP_TABLE_PREFIX}' < ${TRAVIS_BUILD_DIR}/dev/docker/wp-config.template > ./wp-config.php
@@ -122,5 +112,5 @@ script:
   - codecept run integration
   - codecept run muintegration
   - codecept run wpunit
-  #  - codecept run aggregatorv1
-  #  - codecept run restv1
+  - codecept run aggregatorv1
+  - codecept run restv1
