@@ -67,6 +67,8 @@ install:
   # Reset the WordPress installation database if set and then  re-install it.
   - wp db reset --yes
   - wp core install --url="${WP_URL}" --title="Tribe Tests" --admin_user="${WP_ADMIN_USERNAME}" --admin_password="${WP_ADMIN_PASSWORD}" --admin_email="admin@tribe.localhost" --skip-email
+  # Create a wp-cli configuration file to allow it to write an .htaccess file.
+  - echo -e "apache_modules:\n\t- mod_rewrite" > wp-cli.yml
 
   # Now that it is we've got a wp-config.php in place start the WordPress Docker container to have WordPress.
   - docker-compose -f ${TRAVIS_BUILD_DIR}/dev/docker/ci-compose.yml up -d wordpress

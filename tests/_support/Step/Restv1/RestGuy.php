@@ -13,11 +13,6 @@ class RestGuy extends \Restv1Tester {
 	 * @param string $url
 	 */
 	public function see_response_contains_url( $index, $url ) {
-		// Normalize the URL to remove /index.php if present.
-		if ( false !== strpos( $url, '/index.php' ) ) {
-			$url = str_replace( '/index.php', '', $url );
-		}
-
 		$response = $this->grabResponse();
 		$decoded = json_decode( $response );
 		$components = parse_url( $url );
