@@ -57,6 +57,8 @@ install:
 
   # Prepare our cache folder.
   - mkdir -p ${HOME}/cache
+  # Allow the world to rwx from the cache.
+  - chown -R 0777 ${HOME}/cache
 
   # Create the WordPress root folder.
   - mkdir -p ${WP_ROOT_FOLDER}
