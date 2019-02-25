@@ -26,7 +26,6 @@ git:
 cache:
   directories:
     - $HOME/.composer/cache
-    - /tmp
 
 before_install:
   # Sourcing the .env file will make sure we use, in the environment configuration, the same variables the tests are using.
