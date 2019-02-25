@@ -27,7 +27,7 @@ modules:
             adminUrl: /wp-admin
         REST:
             depends: WPBrowser
-            url: '%WP_URL%/wp-json/tribe/event-aggregator/v1/'
+            url: '%WP_URL%/index.php/wp-json/tribe/event-aggregator/v1/'
         WPLoader:
             # just load WordPress using the same db as WPDb
             loadOnly: true
