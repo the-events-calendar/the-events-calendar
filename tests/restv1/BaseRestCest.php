@@ -53,8 +53,9 @@ class BaseRestCest {
 	protected $documentation_url;
 
 	public function _before( Restv1Tester $I ) {
-		$this->site_url          = $I->grabSiteUrl();
-		$this->rest_url          = $this->site_url . '/wp-json/tribe/events/v1/';
+		$config                  = Configuration::suiteSettings( 'restv1', Configuration::config() );
+		$this->site_url          = $config['modules']['config']['WPBrowser']['url'];
+		$this->rest_url          = $config['modules']['config']['REST']['url'];
 		$this->events_url        = $this->rest_url . 'events';
 		$this->venues_url        = $this->rest_url . 'venues';
 		$this->organizers_url    = $this->rest_url . 'organizers';
