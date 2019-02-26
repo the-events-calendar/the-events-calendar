@@ -422,16 +422,13 @@ class EventInsertionCest extends BaseRestCest {
 	public function it_should_return_bad_request_if_trying_to_set_image_to_non_supported_image_type( Tester $I ) {
 		$I->generate_nonce_for_role( 'administrator' );
 
-		$image_url = ( new Image( codecept_data_dir( 'images/featured-image.raw' ) ) )->upload_and_get_attachment_id();
-		$image_url = $this->remove_url_port( $image_url );
-
 		$I->sendPOST( $this->events_url, [
 			'title'       => 'An event',
 			'description' => 'An event content',
 			'all_day'     => true,
 			'start_date'  => 'tomorrow 9am',
 			'end_date'    => 'tomorrow 11am',
-			'image'       => $image_url,
+			'image'       => ( new Image( codecept_data_dir( 'images/featured-image.raw' ) ) )->upload_and_get_attachment_id(),
 		] );
 
 		$I->seeResponseCodeIs( 400 );
@@ -499,16 +496,13 @@ class EventInsertionCest extends BaseRestCest {
 		require_once( ABSPATH . 'wp-admin/includes/image.php' );
 		$attachment_id = $I->factory()->attachment->create_upload_object( $image_path );
 
-		$image_url = wp_get_attachment_url( $attachment_id );
-		$image_url = $this->remove_url_port( $image_url );
-
 		$I->sendPOST( $this->events_url, [
 			'title'       => 'An event',
 			'description' => 'An event content',
 			'all_day'     => true,
 			'start_date'  => 'tomorrow 9am',
 			'end_date'    => 'tomorrow 11am',
-			'image'       => $image_url,
+			'image'       => wp_get_attachment_url( $attachment_id ),
 		] );
 
 		$I->seeResponseCodeIs( 201 );
@@ -960,25 +954,18 @@ class EventInsertionCest extends BaseRestCest {
 		$I->assertNotEquals( $attachment_id_1, $attachment_id_3 );
 		$I->assertNotEquals( $attachment_id_2, $attachment_id_3 );
 
-		$attachment_1_image_url = wp_get_attachment_url( $attachment_id_1 );
-		$attachment_1_image_url = $this->remove_url_port($attachment_1_image_url);
-		$attachment_2_image_url = wp_get_attachment_url( $attachment_id_2 );
-		$attachment_2_image_url = $this->remove_url_port($attachment_2_image_url);
-		$attachment_3_image_url = wp_get_attachment_url( $attachment_id_3 );
-		$attachment_3_image_url = $this->remove_url_port($attachment_3_image_url);
-
-		$params                = [
+		$params = [
 			'title'       => 'An event',
 			'description' => 'An event content',
 			'start_date'  => 'tomorrow 9am',
 			'end_date'    => 'tomorrow 11am',
 			'venue'       => [
 				'venue' => 'A venue',
-				'image' => $attachment_1_image_url
+				'image' => wp_get_attachment_url( $attachment_id_1 )
 			],
 			'organizer'   => [
-				[ 'organizer' => 'Organizer A', 'image' => $attachment_2_image_url ],
-				[ 'organizer' => 'Organizer C', 'image' => $attachment_3_image_url ],
+				[ 'organizer' => 'Organizer A', 'image' => wp_get_attachment_url( $attachment_id_2 ) ],
+				[ 'organizer' => 'Organizer C', 'image' => wp_get_attachment_url( $attachment_id_3 ) ],
 			],
 		];
 
@@ -989,7 +976,7 @@ class EventInsertionCest extends BaseRestCest {
 		$I->assertArrayHasKey( 'venue', $response );
 		$venue_response = $response['venue'];
 		$I->assertNotEmpty( $venue_response['image'] );
-		$I->assertEquals( $attachment_1_image_url, $venue_response['image']['url'] );
+		$I->assertEquals( wp_get_attachment_url( $attachment_id_1 ), $venue_response['image']['url'] );
 		$I->assertArrayHasKey( 'organizer', $response );
 		$organizer_response = $response['organizer'];
 		$I->assertCount( 2, $organizer_response );
