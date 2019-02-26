@@ -72,6 +72,8 @@ install:
 
   # Now that it is we've got a wp-config.php in place start the WordPress Docker container to have WordPress.
   - docker-compose -f ${TRAVIS_BUILD_DIR}/dev/docker/ci-compose.yml up -d wordpress
+  # Since we've bound the WordPress folder from the local filesystem let's clear any possible r/w access issue.
+  - docker-compose -f dev/docker/ci-compose.yml exec wordpress bash -c "chmod -R 0777 /var/www/html/wp-content/uploads"
 
   # Create the database we'll use in integration tests accessing the database container.
   - mysql --user=root --host=127.0.0.1 --port=${WP_DB_PORT} -e "create database ${WP_TEST_DB_NAME}";
