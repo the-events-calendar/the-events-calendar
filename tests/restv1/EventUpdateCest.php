@@ -1134,6 +1134,8 @@ class EventUpdateCest extends BaseRestCest
 	 * @test
 	 */
 	public function should_allow_removing_the_venue_from_an_event(Tester $I) {
+		Assert::markTestSkipped( 'Due to an incompatibility between how the test sends information to the backend and how we handle it.' );
+
 		$event_id     = $I->haveEventInDatabase();
 		$venue_id     = $I->haveVenueInDatabase();
 
