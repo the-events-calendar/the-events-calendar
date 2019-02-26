@@ -355,7 +355,7 @@ class Tribe__Events__Aggregator__Service {
 		$response = $this->get( 'eventbrite/validate', $args );
 
 		// If we have an WP_Error we return only CSV
-		if ( is_wp_error( $response ) ) {
+		if ( $response instanceof WP_Error ) {
 			$response = tribe_error( 'core:aggregator:invalid-eventbrite-token', array(), array( 'response' => $response ) );
 		} elseif (
 			false === $cached_response
