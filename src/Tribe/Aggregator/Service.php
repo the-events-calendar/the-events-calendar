@@ -355,11 +355,13 @@ class Tribe__Events__Aggregator__Service {
 		$response = $this->get( 'eventbrite/validate', $args );
 
 		// If we have an WP_Error we return only CSV
-		if ( $response instanceof WP_Error ) {
+		if ( is_wp_error( $response ) ) {
 			$response = tribe_error( 'core:aggregator:invalid-eventbrite-token', array(), array( 'response' => $response ) );
-		}
-
-		if ( false === $cached_response && 'error' !== $response->status ) {
+		} elseif (
+			false === $cached_response
+			&& isset( $response->status )
+			&& 'error' !== $response->status
+		) {
 			// Check this each 15 minutes.
 			set_transient( self::$auth_transient, $response, 900 );
 		}
