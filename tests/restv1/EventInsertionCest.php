@@ -561,7 +561,7 @@ class EventInsertionCest extends BaseRestCest {
 		$I->seeResponseCodeIs( 201 );
 		$I->seeResponseIsJson();
 		$I->seeResponseContainsJson( [
-			'cost'         => 'Free - 30$',
+			'cost'         => 'Free – 30$',
 			'cost_details' => [
 				'currency_symbol'   => '$',
 				'currency_position' => 'postfix',
