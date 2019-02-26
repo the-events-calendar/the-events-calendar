@@ -247,6 +247,8 @@ class OrganizerUpdateCest extends BaseRestCest {
 		$image_id = $I->factory()->attachment->create_upload_object( codecept_data_dir( 'images/featured-image.jpg' ) );
 		$image_url = wp_get_attachment_url( $image_id );
 
+		$image_url = $this->remove_url_port( $image_url );
+
 		$I->sendPOST( $this->organizers_url . "/{$organizer_id}", [
 			'organizer' => 'A organizer',
 			'image'     => $image_url,

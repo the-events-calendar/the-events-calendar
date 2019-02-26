@@ -64,4 +64,26 @@ class BaseRestCest {
 		$this->documentation_url = $this->rest_url . 'doc';
 		wp_cache_flush();
 	}
+
+	/**
+	 * Removes the port from a URL.
+	 *
+	 * This is useful when serving WordPress on localhost:port; if the port is not
+	 * removed then, internally, WordPress will not be able to reach itself.
+	 *
+	 * @param string $url The original image URL.
+	 *
+	 * @return string The URL with the port removed, or the original URL if it did not contain a
+	 *                port to begin with.
+	 */
+	protected function remove_url_port( $url ) {
+		codecept_debug( "Original URL: {$url}" );
+		$port = parse_url( $url, PHP_URL_PORT );
+		if ( ! empty( $port ) ) {
+			$url = str_replace( ":{$port}", '', $url );
+		}
+		codecept_debug( "Modified URL: {$url}" );
+
+		return $url;
+	}
 }

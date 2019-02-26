@@ -190,6 +190,8 @@ class VenueInsertionCest extends BaseRestCest {
 		$image_id = $I->factory()->attachment->create_upload_object( codecept_data_dir( 'images/featured-image.jpg' ) );
 		$image_url = wp_get_attachment_url( $image_id );
 
+		$image_url = $this->remove_url_port( $image_url );
+
 		$I->sendPOST( $this->venues_url, [
 			'venue' => 'A venue',
 			'image' => $image_url,
