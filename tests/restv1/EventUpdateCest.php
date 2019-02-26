@@ -146,7 +146,7 @@ class EventUpdateCest extends BaseRestCest
 	 *
 	 * @example ["tomorrow 9am", "tomorrow 11am", "America/New_York"]
 	 * @example ["tomorrow 11am", "tomorrow 1pm", "UTC"]
-	 * @example ["next wednesday 4pm", "next wednesday 5pm","Australia/Darwin"]
+	 * @example ["2018-01-01 4pm", "2018-01-01 5pm","Asia/Hong_Kong"]
 	 * @example ["next wednesday 4pm", "next wednesday 5pm","Europe/Rome"]
 	 */
 	public function it_should_allow_specifying_the_timezone_of_the_event_to_update( Tester $I, \Codeception\Example $data ) {
