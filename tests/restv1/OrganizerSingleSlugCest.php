@@ -69,7 +69,7 @@ class OrganizerSingleSlugCest extends BaseRestCest {
 
 		$I->sendGET( $this->organizers_url . "/by-slug/{$post->post_name}" );
 
-		$I->seeResponseCodeIs( 401 );
+		$I->seeResponseCodeIs( 403 );
 		$I->seeResponseIsJson();
 	}
 
