@@ -192,9 +192,9 @@ export default class EventDateTimeDashboard extends PureComponent {
 	render() {
 		const { multiDay, allDay, separatorTime, isDashboardOpen } = this.props;
 
-		return [
-			<Controls />,
-			(
+		return (
+			<Fragment>
+				<Controls />
 				<Dashboard isOpen={ isDashboardOpen }>
 					<Fragment>
 						<section className="tribe-editor__calendars">
@@ -222,7 +222,7 @@ export default class EventDateTimeDashboard extends PureComponent {
 						</footer>
 					</Fragment>
 				</Dashboard>
-			),
-		];
+			</Fragment>
+		);
 	}
 }

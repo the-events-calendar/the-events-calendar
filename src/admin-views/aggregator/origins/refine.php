@@ -89,6 +89,10 @@ $location_exclusions = json_encode( $location_exclusions );
 				class="tribe-ea-field tribe-ea-size-medium tribe-datepicker"
 				placeholder="<?php echo esc_attr( $start_date->placeholder ); ?>"
 				value="<?php echo esc_attr( $start ); ?>"
+				<?php if ( 'eventbrite' === $origin_slug ) : ?>
+					data-validation-is-required
+					data-validation-error="<?php esc_attr_e( 'Start date for Eventbrite Tickets is Required', 'the-events-calendar' ); ?>"
+				<?php endif; ?>
 			>
 			<span
 				class="tribe-dependent tribe-date-helper"

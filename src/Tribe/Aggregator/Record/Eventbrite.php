@@ -145,4 +145,44 @@ class Tribe__Events__Aggregator__Record__Eventbrite extends Tribe__Events__Aggre
 
 		return $args;
 	}
+
+	/**
+	 * When "(do not override)" status option is used, this ensures the imported event's status matches its original Eventbrite.com status.
+	 *
+	 * @since 4.8.1
+	 *
+	 * @param string $post_status The event's post status before being filtered.
+	 * @param array $event The WP event data about to imported and saved to the DB.
+	 * @param Tribe__Events__Aggregator__Record__Abstract $record The import's EA Import Record.
+	 * @return array
+	 */
+	public static function filter_setup_do_not_override_post_status( $post_status, $event, $record ) {
+
+		if ( ! isset( $event['eventbrite']->status ) || ! isset( $record->meta['post_status'] ) ) {
+			return $post_status;
+		}
+
+		// We're only interested in the "(do not override)" post status.
+		if ( 'do_not_override' !== $record->meta['post_status'] ) {
+			return $post_status;
+		}
+
+		// Currently, 'live' is the only Eventbrite.com status that needs mapping to a WP post status.
+		if ( 'live' === $event['eventbrite']->status ) {
+			return 'publish';
+		}
+
+		return $post_status;
+	}
+
+	/**
+	 * Helps to ensure that post status selection UIs always default to "(do not override)" for Eventbrite imports.
+	 *
+	 * @since 4.8.1
+	 *
+	 * @return string The key for the "(do not override)" option.
+	 */
+	public static function filter_set_default_post_status() {
+		return 'do_not_override';
+	}
 }
