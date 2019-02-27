@@ -27,7 +27,7 @@ class Tribe__Events__Admin__Notice__Timezones {
 		$should_reset = apply_filters( 'tribe_events_admin_notice_daylight_savings_reset_notice', true );
 
 		// If we have a date append to the Slug
-		if ( $date ) {
+		if ( $should_reset && $date ) {
 			$slug .= '-' . $date;
 		}
 
