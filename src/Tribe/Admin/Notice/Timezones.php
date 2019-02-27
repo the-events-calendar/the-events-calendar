@@ -148,7 +148,7 @@ class Tribe__Events__Admin__Notice__Timezones {
 			esc_html__( 'Read more', 'the-events-calendar' )
 		);
 
-		$text[] = __( 'When using The Events Calendar, we recommend that you geographic timezone such as "America/Los_Angeles" and avoid using a UTC timezone offset such as “%2$s”.', 'the-events-calendar' );
+		$text[] = __( 'When using The Events Calendar, we recommend that you use a geographic timezone such as "America/Los_Angeles" and avoid using a UTC timezone offset such as “%2$s”.', 'the-events-calendar' );
 		$text[] = __( 'Choosing a UTC timezone for your site or individual events may cause problems when importing events or with Daylight Saving Time. %1$s', 'the-events-calendar' );
 
 		return sprintf( implode( '<br />', $text ), $link, $current_utc );
