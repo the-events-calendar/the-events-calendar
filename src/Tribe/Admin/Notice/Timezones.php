@@ -17,6 +17,14 @@ class Tribe__Events__Admin__Notice__Timezones {
 	public function hook() {
 		$date = $this->get_current_reset_date();
 		$slug = $this->slug;
+		/**
+		 * Allows users to completely deactivate the resetting of the Day Light savings notice
+		 *
+		 * @since  TBD
+		 *
+		 * @param  bool
+		 */
+		$should_reset = apply_filters( 'tribe_events_admin_notice_daylight_savings_reset_notice', true );
 
 		// If we have a date append to the Slug
 		if ( $date ) {
@@ -133,6 +141,4 @@ class Tribe__Events__Admin__Notice__Timezones {
 		return sprintf( implode( '<br />', $text ), $link, $current_utc );
 
 	}
-
-
 }

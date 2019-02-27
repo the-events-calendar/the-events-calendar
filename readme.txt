@@ -219,6 +219,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 * Fix - Resolve console warnings around React key usage for Blocks Editor [121198]
 * Fix - Change ordering for Eventbrite Tickets on Event Aggregator, Ascending order by date is now the default [121979]
+* Tweak - Day light savings notice will now reset 4 times per year when using any UTC Timezone [123221]
 * Tweak - Start date for Event Aggregator is now required on Eventbrite Tickets [121979]
 
 = [4.8.1] 2019-02-14 =
