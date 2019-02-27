@@ -1,5 +1,8 @@
 <?php
 use Tribe__Date_Utils as Date;
+use Tribe__Timezones as Timezones;
+use Tribe__Events__Timezones as Event_Timezones;
+
 /**
  * Shows an admin notice for Timezones
  * (When using UTC and on TEC Pages or WordPress > General Settings)
@@ -73,9 +76,7 @@ class Tribe__Events__Admin__Notice__Timezones {
 	 */
 	public function get_reset_dates() {
 		$dates[] = date( Date::DBDATEFORMAT, strtotime( 'last sunday of february' ) );
-		$dates[] = date( Date::DBDATEFORMAT, strtotime( 'third sunday of march' ) );
 		$dates[] = date( Date::DBDATEFORMAT, strtotime( 'third sunday of october' ) );
-		$dates[] = date( Date::DBDATEFORMAT, strtotime( 'second sunday of november' ) );
 		return $dates;
 	}
 
@@ -89,6 +90,13 @@ class Tribe__Events__Admin__Notice__Timezones {
 	 */
 	public function should_display() {
 		global $pagenow;
+
+		if (
+			'post.php' === $pagenow
+			&& ! $this->is_utc_timezone( (int) tribe_get_request_var( 'post' ) )
+		) {
+			return false;
+		}
 
 		// Bail if the site isn't using UTC
 		if ( ! $this->is_utc_timezone() ) {
@@ -107,9 +115,14 @@ class Tribe__Events__Admin__Notice__Timezones {
 	 *
 	 * @return boolean
 	 */
-	public function is_utc_timezone() {
+	public function is_utc_timezone( $event = 0 ) {
+		$timezone = Timezones::wp_timezone_string();
+		if ( $event ) {
+			$timezone = Event_Timezones::get_event_timezone_string( $event );
+		}
+
 		// If the site is using UTC or UTC manual offset
-		return strpos( Tribe__Timezones::wp_timezone_string(), 'UTC' ) !== false;
+		return strpos( $timezone, 'UTC' ) !== false;
 	}
 
 	/**
@@ -126,7 +139,7 @@ class Tribe__Events__Admin__Notice__Timezones {
 		}
 
 		$text = [];
-		$current_utc = Tribe__Timezones::wp_timezone_string();
+		$current_utc = Timezones::wp_timezone_string();
 
 		$url = 'http://m.tri.be/1acz';
 		$link = sprintf(
@@ -135,8 +148,8 @@ class Tribe__Events__Admin__Notice__Timezones {
 			esc_html__( 'Read more', 'the-events-calendar' )
 		);
 
-		$text[] = __( 'Daylight Saving Time could impact your events! To show the right time for your location, be sure to correctly configure each event as well as WordPress itself.', 'the-events-calendar' );
-		$text[] = __( 'For best results, we recommend you use a geographic timezone such as "America/Los Angeles" instead of an offset such as "%2$s". %1$s', 'the-events-calendar' );
+		$text[] = __( 'When using The Events Calendar, we recommend that you geographic timezone such as "America/Los Angeles" and avoid using a UTC timezone offset such as “%2$s”.', 'the-events-calendar' );
+		$text[] = __( 'Choosing a UTC timezone for your site or individual events may cause problems when importing events or with Daylight Saving Time. %1$s', 'the-events-calendar' );
 
 		return sprintf( implode( '<br />', $text ), $link, $current_utc );
 
