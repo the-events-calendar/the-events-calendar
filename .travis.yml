@@ -113,7 +113,6 @@ before_script:
   # Get back to the plugin dir.
   - cd ${PLUGIN_DIR}
 
-
 script:
   - codecept run integration
   - codecept run muintegration
