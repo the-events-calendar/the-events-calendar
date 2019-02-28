@@ -141,7 +141,7 @@ class Tribe__Events__Admin__Notice__Timezones {
 		$text = [];
 		$current_utc = Timezones::wp_timezone_string();
 
-		$url = 'http://m.tri.be/1acz';
+		$url = 'http://m.tri.be/1ad3';
 		$link = sprintf(
 			'<a href="%1$s" target="_blank">%2$s</a>',
 			esc_url( $url ),
