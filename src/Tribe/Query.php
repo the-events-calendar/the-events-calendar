@@ -72,7 +72,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 
 			// set paged
 			if ( $query->is_main_query() && isset( $_GET['tribe_paged'] ) ) {
-				$query->set( 'paged', $_REQUEST['tribe_paged'] );
+				$query->set( 'paged', absint( tribe_get_request_var( 'tribe_paged' ) ) );
 			}
 
 			// Return early as we don't want to change a post that is not part of the valid group of event post types.
