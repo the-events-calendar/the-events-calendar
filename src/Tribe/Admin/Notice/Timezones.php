@@ -91,11 +91,12 @@ class Tribe__Events__Admin__Notice__Timezones {
 	public function should_display() {
 		global $pagenow;
 
+		// Display when dealing with UTC but the negative still needs to test the global
 		if (
 			'post.php' === $pagenow
-			&& ! $this->is_utc_timezone( (int) tribe_get_request_var( 'post' ) )
+			&& $this->is_utc_timezone( (int) tribe_get_request_var( 'post' ) )
 		) {
-			return false;
+			return true;
 		}
 
 		// Bail if the site isn't using UTC
