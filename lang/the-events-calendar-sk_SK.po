@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2019-02-12 16:27:39+0000\n"
+"PO-Revision-Date: 2019-03-01 14:52:51+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -376,7 +376,7 @@ msgstr "(Bez názvu)"
 #: src/resources/js/app/blocks.js:13490 src/resources/js/app/elements.js:10116
 msgctxt "linked text for plugin add-ons"
 msgid "Check 'em out!"
-msgstr ""
+msgstr "Skontrolujte ich!"
 
 #: src/modules/elements/upsell/element.js:23
 #: src/resources/js/app/blocks.js:13481 src/resources/js/app/elements.js:10107
@@ -387,19 +387,19 @@ msgstr ""
 #: common/src/resources/js/app/elements.js:9791
 #: common/src/resources/js/app/utils.js:7339
 msgid "at"
-msgstr ""
+msgstr "o"
 
 #: src/views/blocks/event-datetime.php:80
 msgid "All day"
-msgstr ""
+msgstr "Celý deň"
 
 #: src/views/modules/bar.php:51
 msgid "Hide %s Search"
-msgstr ""
+msgstr "Skryť %s Vyhľadávanie"
 
 #: src/views/modules/bar.php:50 src/views/modules/bar.php:54
 msgid "Show %s Search"
-msgstr ""
+msgstr "Zobraziť %s Vyhľadávanie"
 
 #: src/admin-views/aggregator/settings.php:159
 #: src/admin-views/aggregator/settings.php:268
@@ -409,33 +409,33 @@ msgstr ""
 #: src/admin-views/aggregator/settings.php:456
 #: src/admin-views/aggregator/settings.php:524
 msgid "Show Map"
-msgstr ""
+msgstr "Zobraziť mapu"
 
 #: src/admin-views/tribe-options-general.php:243
 msgid "Enable Maps"
-msgstr ""
+msgstr "Povoliť mapy"
 
 #: src/admin-views/create-venue-fields.php:257
 msgid "Show Map Link?"
-msgstr ""
+msgstr "Zobraziť odkaz mapy? "
 
 #: src/admin-views/create-venue-fields.php:248
 #: src/admin-views/create-venue-fields.php:285
 #: src/admin-views/venue-meta-box.php:202
 #: src/admin-views/venue-meta-box.php:238
 msgid "Show Map Link:"
-msgstr ""
+msgstr "Zobraziť odkaz mapy:"
 
 #: src/admin-views/create-venue-fields.php:239
 msgid "Show Map?"
-msgstr ""
+msgstr "Zobraziť mapu?"
 
 #: src/admin-views/create-venue-fields.php:230
 #: src/admin-views/create-venue-fields.php:268
 #: src/admin-views/venue-meta-box.php:185
 #: src/admin-views/venue-meta-box.php:221
 msgid "Show Map:"
-msgstr ""
+msgstr "Zobraziť mapu:"
 
 #: src/Tribe/Editor/Compatibility.php:118
 msgid "Hidden Blocks Editor Config"
@@ -447,19 +447,19 @@ msgstr ""
 
 #: src/Tribe/Editor/Compatibility.php:110
 msgid "Activate Block Editor for Events"
-msgstr ""
+msgstr "Aktivovať Editor blokov pre Udalosti"
 
 #: src/Tribe/Editor/Blocks/Event_Website.php:26
 msgid "Add Button Text"
-msgstr ""
+msgstr "Pridať text tlačidla"
 
 #: src/Tribe/Editor/Meta.php:61 src/Tribe/Editor/Meta.php:70
 msgid "Event Organizers"
-msgstr ""
+msgstr "Organizátori udalosti"
 
 #: src/Tribe/Aggregator/Record/CSV.php:104
 msgid "Unknown Column "
-msgstr ""
+msgstr "Neznámy stĺpec"
 
 #: src/Tribe/Aggregator/Record/Queue_Processor.php:288
 msgid "There was an error building the record queue: "
@@ -467,11 +467,11 @@ msgstr ""
 
 #: src/Tribe/Admin/Notice/Marketing.php:114
 msgid "Try Events Gutenberg"
-msgstr ""
+msgstr "Skúsiť Events Gutenberg"
 
 #: src/Tribe/Admin/Notice/Marketing.php:106
 msgid "Download the eBook"
-msgstr ""
+msgstr "Stiahnuť e-knihu"
 
 #: src/Tribe/Admin/Notice/Marketing.php:100
 msgid "Get up to speed with our comprehensive Guide to Gutenberg ebook, then see how events and tickets will behave in the block editor by installing our free Events Gutenberg extension."
@@ -479,11 +479,11 @@ msgstr ""
 
 #: src/Tribe/Admin/Notice/Marketing.php:95
 msgid "WordPress 5.0 is coming soon, and with it, the arrival of the new block editor interface."
-msgstr ""
+msgstr "Čoskoro vyjde verzia WordPress 5.0 a spolu s ňou aj nové rozhranie editora blockov."
 
 #: src/Tribe/Admin/Notice/Marketing.php:91
 msgid "<strong>The Events Calendar & Gutenberg</strong>"
-msgstr ""
+msgstr "<strong>Kalendár udalostí a Gutenberg</strong>"
 
 #: src/Tribe/Main.php:1464
 msgid "When running version %1$s of The Events Calendar alongside %2$s, %2$s must be version %3$s or greater. Please %4$smanually update now.%5$s"
@@ -491,42 +491,42 @@ msgstr ""
 
 #: src/Tribe/Google/Maps_API_Key.php:107
 msgid "(click here for details)"
-msgstr ""
+msgstr "(kliknite tu pre viac informácií)"
 
 #: src/Tribe/Editor.php:534
 msgid "Event Blocks"
-msgstr ""
+msgstr "Bloky udalosti"
 
 #: src/Tribe/Editor.php:258 src/Tribe/Editor.php:301
 msgid "Add Description..."
-msgstr ""
+msgstr "Pridať popis ...."
 
 #: common/src/Tribe/Editor/Configuration.php:97
 msgid "F j, Y g:i a"
-msgstr ""
+msgstr "j. F, Y G:i"
 
 #: common/src/Tribe/Editor/Configuration.php:96
 #: src/resources/js/app/blocks.js:45852 src/resources/js/app/blocks.js:46326
 msgid "F j"
-msgstr ""
+msgstr "j. F"
 
 #: common/src/Tribe/Editor/Configuration.php:95
 msgid "F j, Y"
-msgstr ""
+msgstr "j. F, Y"
 
 #: common/src/Tribe/Editor/Configuration.php:94
 msgid "g:i a"
-msgstr ""
+msgstr "G:i"
 
 #. translators: %s: duration
 #: common/src/Tribe/Editor/Configuration.php:90
 msgid "%s ago"
-msgstr ""
+msgstr "Pred %s"
 
 #. translators: %s: duration
 #: common/src/Tribe/Editor/Configuration.php:88
 msgid "%s from now"
-msgstr ""
+msgstr "%s odteraz"
 
 #: common/src/Tribe/Editor/Blocks/Abstract.php:127
 msgid "Problem loading the block, please remove this block to restart."
@@ -534,11 +534,11 @@ msgstr ""
 
 #: common/src/Tribe/Editor/Meta.php:123
 msgid "Text Array"
-msgstr ""
+msgstr "Textové pole"
 
 #: common/src/Tribe/Editor/Meta.php:105
 msgid "Numeric Array"
-msgstr ""
+msgstr "Číselné pole"
 
 #: src/admin-views/tribe-options-general.php:69
 msgid "Enable WordPress Custom Fields on Events."
@@ -554,23 +554,23 @@ msgstr ""
 
 #: src/admin-views/aggregator/settings.php:230
 msgid "Stop current processes"
-msgstr ""
+msgstr "Zastaviť aktuálne procesy"
 
 #: src/admin-views/aggregator/settings.php:219
 msgid "The Asynchronous import process is faster and does not rely on WordPress Cron but might not work correctly in all WordPress installations, try switching to the Cron-based process for maximum compatibility."
-msgstr ""
+msgstr "Asynchrónny import procesu je rýchlejší a nezávislý od cronu WordPress, no môže sa stať, že nebude pracovať správne vo všetkých inštaláciách WordPress. Pre maximálnu kompatibilitu skúste prepnúť na proces založený na crone."
 
 #: src/admin-views/aggregator/settings.php:218
 msgid "Import Process System"
-msgstr ""
+msgstr "Importovať systém procesu"
 
 #: src/admin-views/aggregator/settings.php:123
 msgid "click here"
-msgstr ""
+msgstr "kliknite sem"
 
 #: src/admin-views/aggregator/settings.php:121
 msgid "If you want to stop and clear current asynchronous import processes %1$s."
-msgstr ""
+msgstr "Keď chcete zastaviť a vyčistiť aktuálne asynchrónne procesy importu %1$s."
 
 #: src/admin-views/aggregator/origins/eventbrite.php:127
 msgid "Import from Eventbrite URL"
@@ -606,15 +606,15 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Settings.php:703
 msgid "Cron-based"
-msgstr ""
+msgstr "Založené na crone"
 
 #: src/Tribe/Aggregator/Settings.php:699
 msgid "Asynchronous"
-msgstr ""
+msgstr "Asynchrónny"
 
 #: src/Tribe/Aggregator/Record/Unsupported.php:58
 msgid "Unsupported"
-msgstr ""
+msgstr "Nepodporovaný"
 
 #: src/Tribe/Aggregator/Processes/Service_Provider.php:74
 msgid "Successfully stopped and cleared 1 asynchronous queue process."
@@ -702,7 +702,7 @@ msgstr ""
 
 #: src/admin-views/privacy.php:53
 msgid "How Long You Retain this Data"
-msgstr ""
+msgstr "Ako dlho ponechávate tieto dáta uložené"
 
 #: src/admin-views/privacy.php:51
 msgid "These API keys may include the following third party services: Google Maps, Meetup, PayPal, and Eventbrite (API key, auth URL and Client Secret)."
@@ -730,7 +730,7 @@ msgstr ""
 
 #: src/admin-views/privacy.php:36
 msgid "Eventbrite Ticket information: name, description, cost, type, quantity"
-msgstr ""
+msgstr "Informácie o lístkoch Eventbrite: názov, popis, cena, typ, množstvo"
 
 #: src/admin-views/privacy.php:35
 msgid "Import origin data (URL from where events are being imported—such as Eventbrite, MeetUp, other compatible URL sources, and more, which can include similar or same data as listed above)"
@@ -750,11 +750,11 @@ msgstr ""
 
 #: src/admin-views/privacy.php:27
 msgid "Organizer information: name, phone, website, email"
-msgstr ""
+msgstr "Informácie o organizátorovi: meno, telefónne číslo, webová stránka, e-mailová adresa"
 
 #: src/admin-views/privacy.php:26
 msgid "Venue information: name, address, city, country, state, postal code, phone, website, geographical coordinates (latitude and longitude)"
-msgstr ""
+msgstr "Informácie o mieste konania: názov, adresa, mesto, krajina, štát, poštové smerové číslo, telefónne číslo, webová stránka, zemepisné súradnice (šírka a dĺžka)"
 
 #: src/admin-views/privacy.php:23
 msgid "If you create, submit, import, save, or publish Event, Venue, or Organizer information, such information is retained in the local database:"
@@ -770,7 +770,7 @@ msgstr ""
 
 #: src/admin-views/privacy.php:20
 msgid "Event, Venue, and Organizer Information"
-msgstr ""
+msgstr "Informácie o udalosti, mieste konania a organizátorovi"
 
 #: src/admin-views/privacy.php:18
 msgid "What personal data we collect and why we collect it"
@@ -782,7 +782,7 @@ msgstr ""
 
 #: src/admin-views/privacy.php:16
 msgid "Disclaimer:"
-msgstr ""
+msgstr "Vyhlásenie:"
 
 #: src/admin-views/privacy.php:15
 msgid "You should include the information below in the correct sections of you privacy policy."
@@ -802,15 +802,15 @@ msgstr ""
 
 #: src/admin-views/aggregator/settings.php:501
 msgid "The default post status for events imported via Eventbrite"
-msgstr ""
+msgstr "Predvolený status článku pre udalosti importované prostredníctvom platformy Eventbrite"
 
 #: src/admin-views/aggregator/settings.php:495
 msgid "Eventbrite Import Settings"
-msgstr ""
+msgstr "Nastavenia importovania Eventbrite"
 
 #: src/admin-views/aggregator/settings.php:26
 msgid "None"
-msgstr ""
+msgstr "Žiadne"
 
 #: src/admin-views/aggregator/origins/eventbrite.php:13
 msgid "Import from Eventbrite"
@@ -822,7 +822,7 @@ msgstr "Dozvedieť sa viac"
 
 #: src/admin-views/aggregator/banners/eventbrite-upsell.php:14
 msgid "Do more with Eventbrite Tickets"
-msgstr ""
+msgstr "Spravte viac s Eventbrite lístkami"
 
 #: src/Tribe/Main.php:4335
 msgid "Search for %s by month. Please use the format %s."
@@ -830,83 +830,83 @@ msgstr "Hľadať %s podľa mesiaca. Prosím použite formát %s."
 
 #: src/Tribe/Main.php:4330
 msgid "Search for %s by Date. Please use the format %s."
-msgstr ""
+msgstr "Vyhľadávať %s podľa Dátum. Prosím použite formát %s."
 
 #: src/Tribe/Main.php:4298 src/Tribe/Main.php:4299
 msgid "2 digit month dot 4 digit year"
-msgstr ""
+msgstr "2 čísla mesiaca bodka 4 čísla roku"
 
 #: src/Tribe/Main.php:4297
 msgid "4 digit year dot 2 digit month"
-msgstr ""
+msgstr "4 čísla roku bodka 2 čísla mesiaca"
 
 #: src/Tribe/Main.php:4296
 msgid "2 digit month hyphen 4 digit year"
-msgstr ""
+msgstr "2 čísla mesiaca pomlčka 4 čísla roku"
 
 #: src/Tribe/Main.php:4293 src/Tribe/Main.php:4294 src/Tribe/Main.php:4295
 msgid "1 digit month hyphen 4 digit year"
-msgstr ""
+msgstr "1 číslo mesiaca pomlčka 4 čísla roku"
 
 #: src/Tribe/Main.php:4290 src/Tribe/Main.php:4292
 msgid "2 digit month slash 4 digit year"
-msgstr ""
+msgstr "2 čísla mesiaca lomítko 4 čísla roku"
 
 #: src/Tribe/Main.php:4289 src/Tribe/Main.php:4291
 msgid "1 digit month slash 4 digit year"
-msgstr ""
+msgstr "1 číslo mesiaca lomítko 4 čísla roku"
 
 #: src/Tribe/Main.php:4288
 msgid "4 digit year hyphen 2 digit month"
-msgstr ""
+msgstr "4 čísla roku pomlčka 2 čísla mesiaca"
 
 #: src/Tribe/Main.php:4284
 msgid "2 digit day dot 2 digit month dot 4 digit year"
-msgstr ""
+msgstr "2 čísla dňa bodka 2 čísla mesiaca bodka 4 čísla roku"
 
 #: src/Tribe/Main.php:4283
 msgid "2 digit month dot 2 digit day dot 4 digit year"
-msgstr ""
+msgstr "2 čísla mesiaca bodka 2 čísla dňa bodka 4 čísla roku"
 
 #: src/Tribe/Main.php:4282
 msgid "4 digit year dot 2 digit month dot 2 digit day"
-msgstr ""
+msgstr "4 čísla roku bodka 2 čísla mesiaca bodka 2 čísla dňa"
 
 #: src/Tribe/Main.php:4281
 msgid "2 digit day hyphen 2 digit month hyphen 4 digit year"
-msgstr ""
+msgstr "2 čísla dňa pomlčka 2 čísla mesiaca pomlčka 4 čísla roku"
 
 #: src/Tribe/Main.php:4280
 msgid "1 digit day hyphen 1 digit month hyphen 4 digit year"
-msgstr ""
+msgstr "1 číslo dňa pomlčka 1 číslo mesiaca pomlčka 4 čísla roku"
 
 #: src/Tribe/Main.php:4279
 msgid "1 digit month hyphen 2 digit day hyphen 4 digit year"
-msgstr ""
+msgstr "1 číslo mesiaca pomlčka 2 čísla dňa pomlčka 4 čísla roku"
 
 #: src/Tribe/Main.php:4278
 msgid "1 digit month hyphen 1 digit day hyphen 4 digit year"
-msgstr ""
+msgstr "1 číslo mesiaca pomlčka 1 číslo dňa pomlčka 4 čísla roku"
 
 #: src/Tribe/Main.php:4277
 msgid "2 digit day slash 2 digit month slash 4 digit year"
-msgstr ""
+msgstr "2 čísla dňa lomítko 2 čísla mesiaca lomítko 4 čísla roku"
 
 #: src/Tribe/Main.php:4276
 msgid "1 digit day slash 1 digit month slash 4 digit year"
-msgstr ""
+msgstr "1 číslo dňa lomítko 1 číslo mesiaca lomítko 4 čísla roku"
 
 #: src/Tribe/Main.php:4275
 msgid "2 digit month slash 2 digit day slash 4 digit year"
-msgstr ""
+msgstr "2 čísla mesiaca lomítko 2 čísla dňa lomítko 4 čísla roku"
 
 #: src/Tribe/Main.php:4274
 msgid "1 digit month slash 1 digit day slash 4 digit year"
-msgstr ""
+msgstr "1 číslo mesiaca lomítko 1 číslo dňa lomítko 4 čísla roku"
 
 #: src/Tribe/Main.php:4273
 msgid "4 digit year hyphen 2 digit month hyphen 2 digit day"
-msgstr ""
+msgstr "4 čísla roku pomlčka 2 čísla mesiaca pomlčka 2 čísla dňa"
 
 #: src/Tribe/Main.php:4252
 msgid "Search for %s by Keyword."
@@ -914,7 +914,7 @@ msgstr ""
 
 #: src/Tribe/API.php:826 src/Tribe/API.php:837
 msgid "An event having a post meta value of `%s` minutes is not valid. Make sure it is from 0 to 59."
-msgstr ""
+msgstr "Udalosť, ktorá má meta hodnotu príspevku `%s` minút, je neplatná. Uistite sa, že hodnota je od 0 do 59."
 
 #: src/Tribe/API.php:796
 msgid "An event having a post meta value of `%s` hour (24-hour) is not valid. Make sure it is from 0 to 23."
@@ -1007,7 +1007,7 @@ msgstr ""
 
 #: src/deprecated/facebook.php:129
 msgid "Invalid Facebook URL"
-msgstr ""
+msgstr "Neplatná URL Facebook adresa"
 
 #: src/admin-views/aggregator/origins/eventbrite.php:183
 msgid "Invalid Eventbrite URL"
@@ -1015,7 +1015,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/origins/eventbrite.php:153
 msgid "eventbrite.com/e/example-12345"
-msgstr ""
+msgstr "eventbrite.com/e/example-12345"
 
 #: src/admin-views/aggregator/origins/eventbrite.php:116
 msgid "Import events directly from your connected Eventbrite.com account or from a public Eventbrite.com url."
@@ -6192,7 +6192,7 @@ msgstr "Importovanie nastavení"
 
 #: src/functions/template-tags/options.php:29
 msgid "You %1$scannot%2$s use the same slug as above. The above should ideally be plural, and this singular.%3$sYour single Event URL is like: %4$s"
-msgstr ""
+msgstr "%1$sNemôžete%2$s používať rovnaký slug ako je vyššie uvedený. Vyššie uvedené by v ideálnom prípade malo byť množné číslo a toto jedinečné.%3$sVaše URL samotnej udalosti je ako: %4$s"
 
 #: src/functions/template-tags/options.php:20
 msgid "Your current Events URL is %s"
@@ -6294,7 +6294,7 @@ msgstr "Titulok:"
 
 #: src/resources/js/app/blocks.js:47396
 msgid "Show Google Maps Link"
-msgstr ""
+msgstr "Ukázať Google Maps odkaz"
 
 #: src/admin-views/create-venue-fields.php:166
 #: src/admin-views/venue-meta-box.php:136
@@ -6749,12 +6749,12 @@ msgstr "Predvolená šablóna udalosti"
 #: src/modules/blocks/classic-event-details/template.js:117
 #: src/resources/js/app/blocks.js:45080
 msgid "Price: "
-msgstr ""
+msgstr "Cena:"
 
 #: common/src/modules/elements/image-upload/element.js:46
 #: common/src/resources/js/app/elements.js:59497
 msgid "remove"
-msgstr ""
+msgstr "odstrániť"
 
 #: common/src/admin-views/event-log.php:65
 msgid "View"
@@ -6904,7 +6904,7 @@ msgstr "Možnosti podpory"
 
 #: src/admin-views/admin-welcome-message.php:44
 msgid "Addons for Community, Tickets, Filters, and more."
-msgstr ""
+msgstr "Doplnky pre komunitu, vstupenky, filtre a viac."
 
 #: src/admin-views/admin-welcome-message.php:43
 msgid "Looking for More Features?"
@@ -7293,7 +7293,7 @@ msgstr "Tuvalu"
 
 #: common/src/Tribe/Languages/Locations.php:279
 msgid "Turks and Caicos Islands"
-msgstr ""
+msgstr "Turks a Caicos"
 
 #: common/src/Tribe/Languages/Locations.php:278
 msgid "Turkmenistan"
@@ -7309,7 +7309,7 @@ msgstr "Tunisko"
 
 #: common/src/Tribe/Languages/Locations.php:275
 msgid "Trinidad and Tobago"
-msgstr ""
+msgstr "Trinidad a Tobago"
 
 #: common/src/Tribe/Languages/Locations.php:274
 msgid "Tonga"
@@ -7329,7 +7329,7 @@ msgstr "Thajsko"
 
 #: common/src/Tribe/Languages/Locations.php:270
 msgid "Tanzania, United Republic of"
-msgstr ""
+msgstr "Tanzánia, Spojené kráľovstvo"
 
 #: common/src/Tribe/Languages/Locations.php:269
 msgid "Tajikistan"
@@ -7357,7 +7357,7 @@ msgstr "Svazijsko"
 
 #: common/src/Tribe/Languages/Locations.php:263
 msgid "Svalbard and Jan Mayen Islands"
-msgstr ""
+msgstr "Ostrovy Svalbard a Jan Mayen"
 
 #: common/src/Tribe/Languages/Locations.php:262
 msgid "Suriname"
@@ -7369,7 +7369,7 @@ msgstr "Sudán"
 
 #: common/src/Tribe/Languages/Locations.php:241
 msgid "Saint Pierre and Miquelon"
-msgstr ""
+msgstr "Saint Pierre a Miquelon"
 
 #: common/src/Tribe/Languages/Locations.php:260
 msgid "Sri Lanka"
@@ -7437,7 +7437,7 @@ msgstr "Samoa"
 
 #: common/src/Tribe/Languages/Locations.php:242
 msgid "Saint Vincent and The Grenadines"
-msgstr ""
+msgstr "Svätý Vincent a Grenadíny"
 
 #: common/src/Tribe/Languages/Locations.php:240
 msgid "Saint Lucia"
@@ -7445,7 +7445,7 @@ msgstr "Svätá Lucia"
 
 #: common/src/Tribe/Languages/Locations.php:239
 msgid "Saint Kitts and Nevis"
-msgstr ""
+msgstr "Svätý Krištof a Nevis"
 
 #: common/src/Tribe/Languages/Locations.php:236
 msgid "Rwanda"
@@ -7597,11 +7597,11 @@ msgstr "Monako"
 
 #: common/src/Tribe/Languages/Locations.php:199
 msgid "Moldova, Republic of"
-msgstr ""
+msgstr "Moldavsko"
 
 #: common/src/Tribe/Languages/Locations.php:198
 msgid "Micronesia, Federated States of"
-msgstr ""
+msgstr "Mikronézia"
 
 #: common/src/Tribe/Languages/Locations.php:197
 msgid "Mexico"
@@ -7705,11 +7705,11 @@ msgstr "Kuwajt"
 
 #: common/src/Tribe/Languages/Locations.php:172
 msgid "Korea, Republic of"
-msgstr ""
+msgstr "Kórejská republika"
 
 #: common/src/Tribe/Languages/Locations.php:171
 msgid "Korea, Democratic People's Republic of"
-msgstr ""
+msgstr "Kórejská ľudovodemokratická republika"
 
 #: common/src/Tribe/Languages/Locations.php:170
 msgid "Kiribati"
@@ -7753,7 +7753,7 @@ msgstr "Irak"
 
 #: common/src/Tribe/Languages/Locations.php:160
 msgid "Iran, Islamic Republic of"
-msgstr ""
+msgstr "Irán"
 
 #: common/src/Tribe/Languages/Locations.php:159
 msgid "Indonesia"
@@ -7785,7 +7785,7 @@ msgstr "Svätá stolica (Vatikán)"
 
 #: common/src/Tribe/Languages/Locations.php:152
 msgid "Heard and McDonald Islands"
-msgstr ""
+msgstr "Heardov a McDonald ostrovy"
 
 #: common/src/Tribe/Languages/Locations.php:151
 msgid "Haiti"
@@ -7958,7 +7958,7 @@ msgstr "Cookove ostrovy"
 
 #: common/src/Tribe/Languages/Locations.php:107
 msgid "Congo, Democratic Republic of the"
-msgstr ""
+msgstr "Kongo, demokratická republika"
 
 #: common/src/Tribe/Languages/Locations.php:106
 msgid "Congo"
@@ -8050,7 +8050,7 @@ msgstr "Botswana"
 
 #: common/src/Tribe/Languages/Locations.php:83
 msgid "Bosnia and Herzegovina"
-msgstr ""
+msgstr "Bosna a Hercegovina"
 
 #: common/src/Tribe/Languages/Locations.php:82
 msgid "Bolivia"
@@ -8122,7 +8122,7 @@ msgstr "Argentína"
 
 #: common/src/Tribe/Languages/Locations.php:65
 msgid "Antigua and Barbuda"
-msgstr ""
+msgstr "Antigua a Barbuda"
 
 #: common/src/Tribe/Languages/Locations.php:64
 msgid "Antarctica"

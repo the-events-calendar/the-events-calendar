@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-10-18 19:31:26+0000\n"
+"PO-Revision-Date: 2019-03-03 15:48:41+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,67 +13,67 @@ msgstr ""
 
 #: src/resources/js/app/blocks.js:48214
 msgid "Edit Organizer"
-msgstr ""
+msgstr "Szervező szerkesztése"
 
 #: src/resources/js/app/blocks.js:48211
 msgid "Organizer Settings"
-msgstr ""
+msgstr "Szervező beállítások"
 
 #: src/resources/js/app/blocks.js:48137
 msgid "Add or find an organizer"
-msgstr ""
+msgstr "Szervező hozzáadása vagy keresése"
 
 #: src/resources/js/app/blocks.js:47979
 msgid "Add email"
-msgstr ""
+msgstr "Email hozzáadása"
 
 #: src/resources/js/app/blocks.js:47972
 msgid "Add website"
-msgstr ""
+msgstr "Honlap hozzáadása"
 
 #: src/resources/js/app/blocks.js:47965
 msgid "Add Phone"
-msgstr ""
+msgstr "Telefon hozzáadása"
 
 #: src/resources/js/app/blocks.js:47394
 msgid "Venue Settings"
-msgstr ""
+msgstr "Helyszín beállítások"
 
 #: src/resources/js/app/blocks.js:47272
 msgid "Add or find a venue"
-msgstr ""
+msgstr "Helyszín hozzáadása vagy keresése"
 
 #: src/resources/js/app/blocks.js:46934
 msgid "(Untitled Venue)"
-msgstr ""
+msgstr "(Névtelen helyszín)"
 
 #: src/resources/js/app/blocks.js:46387
 msgid "Multi-Day"
-msgstr ""
+msgstr "Többnapos"
 
 #: src/resources/js/app/blocks.js:45448
 msgid "Show Time Zone"
-msgstr ""
+msgstr "Időzóna megjelenítése"
 
 #: src/resources/js/app/blocks.js:45441
 msgid "Time Zone"
-msgstr ""
+msgstr "Időzóna"
 
 #: src/resources/js/app/blocks.js:45434
 msgid "Time Range Separator"
-msgstr ""
+msgstr "Időtartomány elválasztó"
 
 #: src/resources/js/app/blocks.js:45427
 msgid "Date Time Separator"
-msgstr ""
+msgstr "Dátum-idő elválasztó"
 
 #: src/resources/js/app/blocks.js:13219 src/resources/js/app/elements.js:9845
 msgid "Add or Find"
-msgstr ""
+msgstr "Hozzáadás vagy keresés"
 
 #: src/resources/js/app/blocks.js:12598 src/resources/js/app/elements.js:9224
 msgid "A Google Map API KEY is required to view the map"
-msgstr ""
+msgstr "Egy Google Map API kulcs szükséges a térkép megjelenítéséhez"
 
 #: src/resources/js/app/blocks.js:12479 src/resources/js/app/elements.js:9105
 msgid "The map does not have valid coordinates nor a valid address"
@@ -85,21 +85,21 @@ msgstr ""
 
 #: src/resources/js/app/blocks.js:11712 src/resources/js/app/elements.js:8338
 msgid "Country"
-msgstr ""
+msgstr "Ország"
 
 #: src/resources/js/app/blocks.js:11444 src/resources/js/app/elements.js:8070
 msgid "Name:"
-msgstr ""
+msgstr "Név:"
 
 #: src/modules/blocks/event-datetime/subblocks/content/index.js:23
 #: src/resources/js/app/blocks.js:46184
 msgid "Event Date Time Content"
-msgstr ""
+msgstr "Esemény dátum és idő adatai"
 
 #: src/modules/blocks/event-datetime/subblocks/dashboard/index.js:19
 #: src/resources/js/app/blocks.js:46659
 msgid "Event Date Time Dashboard"
-msgstr ""
+msgstr "Esemény dátum-idő vezérlőpult"
 
 #: src/modules/blocks/event-datetime/index.js:28
 #: src/modules/blocks/event-datetime/subblocks/dashboard/index.js:20
@@ -107,22 +107,22 @@ msgstr ""
 #: src/resources/js/app/blocks.js:46185 src/resources/js/app/blocks.js:46660
 #: src/resources/js/app/blocks.js:46745
 msgid "Define the date, time, and duration for your event."
-msgstr ""
+msgstr "Határozza meg az eseményének a dátumát, időpontját és időtartamát."
 
 #: src/modules/blocks/event-datetime/index.js:27
 #: src/resources/js/app/blocks.js:46744
 msgid "Event Date Time"
-msgstr ""
+msgstr "Eseménye dátuma időpontja"
 
 #: src/modules/blocks/event-website/index.js:22
 #: src/resources/js/app/blocks.js:49446
 msgid "Is there another website for this event? Link to it with a button!"
-msgstr ""
+msgstr "Ennek az eseménynek van másik honlapja is? Linkelje be egy gombbal!"
 
 #: src/modules/blocks/event-website/template.js:26
 #: src/resources/js/app/blocks.js:49305
 msgid "Add Event Website"
-msgstr ""
+msgstr "Esemény honlapjának hozzáadása"
 
 #: src/modules/blocks/event-links/index.js:22
 #: src/resources/js/app/blocks.js:48614
@@ -132,12 +132,12 @@ msgstr ""
 #: src/modules/blocks/event-links/index.js:21
 #: src/resources/js/app/blocks.js:48613
 msgid "Event Sharing"
-msgstr ""
+msgstr "Esemény megosztása"
 
 #: src/modules/blocks/event-links/template.js:108
 #: src/resources/js/app/blocks.js:48532
 msgid "iCal"
-msgstr ""
+msgstr "iCal"
 
 #: src/resources/js/app/blocks.js:47401
 msgid "Show Google Maps Embed"
@@ -151,12 +151,12 @@ msgstr ""
 #: src/modules/blocks/event-category/index.js:21
 #: src/resources/js/app/blocks.js:49142
 msgid "Event Categories"
-msgstr ""
+msgstr "Esemény kategóriák"
 
 #: src/modules/blocks/event-category/block.js:46
 #: src/resources/js/app/blocks.js:49112
 msgid "Add Event Categories in document settings"
-msgstr ""
+msgstr "Eseménykategóriák hozzáadása a dokumentum beállításoknál"
 
 #: src/modules/blocks/featured-image/index.js:22
 #: src/resources/js/app/blocks.js:49610
@@ -166,7 +166,7 @@ msgstr ""
 #: src/modules/blocks/featured-image/block.js:80
 #: src/resources/js/app/blocks.js:49562
 msgid "Loading the Image"
-msgstr ""
+msgstr "Kép betöltése"
 
 #: src/modules/blocks/featured-image/block.js:65
 #: src/resources/js/app/blocks.js:49551
@@ -177,7 +177,7 @@ msgstr ""
 #: src/modules/blocks/featured-image/index.js:21
 #: src/resources/js/app/blocks.js:49542 src/resources/js/app/blocks.js:49609
 msgid "Featured Image"
-msgstr ""
+msgstr "Kiemelt kép"
 
 #: src/modules/blocks/event-tags/index.js:22
 #: src/resources/js/app/blocks.js:49255
@@ -203,7 +203,7 @@ msgstr ""
 #: src/modules/blocks/event-venue/index.js:17
 #: src/resources/js/app/blocks.js:47616
 msgid "Event Venue"
-msgstr ""
+msgstr "Esemény helyszíne"
 
 #: src/modules/blocks/event-price/index.js:18
 #: src/resources/js/app/blocks.js:49019
@@ -213,127 +213,127 @@ msgstr ""
 #: src/modules/blocks/event-price/index.js:17
 #: src/resources/js/app/blocks.js:49018
 msgid "Event Price"
-msgstr ""
+msgstr "Esemény ára"
 
 #: src/modules/blocks/event-price/template.js:156
 #: src/resources/js/app/blocks.js:48830
 msgid "Currency symbol follows price"
-msgstr ""
+msgstr "A pénznem az ár után jelenik meg"
 
 #: src/modules/blocks/event-price/template.js:123
 #: src/resources/js/app/blocks.js:48791
 msgid "enter 0 as price for free events"
-msgstr ""
+msgstr "Írjon 0-át az ingyenes eseményekhez"
 
 #: src/modules/blocks/event-price/template.js:117
 #: src/resources/js/app/blocks.js:48783
 msgid "Description"
-msgstr ""
+msgstr "Leírás"
 
 #: src/modules/blocks/event-price/template.js:109
 #: src/resources/js/app/blocks.js:48775
 msgid "Fixed Price or Range"
-msgstr ""
+msgstr "Fix ár vagy tartomány"
 
 #: src/modules/blocks/event-price/template.js:43
 #: src/resources/js/app/blocks.js:48696
 msgid "Add Price"
-msgstr ""
+msgstr "Ár hozzáadása"
 
 #: src/modules/blocks/classic-event-details/event-details-organizers/event-details-organizer/template.js:40
 #: src/resources/js/app/blocks.js:44712
 msgid "Remove Organizer"
-msgstr ""
+msgstr "Szervező eltávolítása"
 
 #: src/modules/blocks/classic-event-details/event-details-organizers/template.js:62
 #: src/resources/js/app/blocks.js:44842
 msgid "Add existing Organizer"
-msgstr ""
+msgstr "Létező szervező hozzáadása"
 
 #: src/modules/blocks/classic-event-details/event-details-organizers/template.js:61
 #: src/resources/js/app/blocks.js:44841
 msgid "Search for an organizer"
-msgstr ""
+msgstr "Szervező keresése"
 
 #: src/modules/blocks/classic-event-details/event-details-organizers/template.js:25
 #: src/resources/js/app/blocks.js:11429 src/resources/js/app/blocks.js:11538
 #: src/resources/js/app/blocks.js:44791 src/resources/js/app/elements.js:8055
 #: src/resources/js/app/elements.js:8164
 msgid "Create Organizer"
-msgstr ""
+msgstr "Szervező létrehozása"
 
 #: src/modules/blocks/classic-event-details/index.js:22
 #: src/resources/js/app/blocks.js:45285
 msgid "Display your event info together in one place — just like in the Classic Editor."
-msgstr ""
+msgstr "Az eseményinformációk megjelenítése egyetlen helyen - mint a klasszikus szerkesztőben."
 
 #: src/modules/blocks/classic-event-details/index.js:21
 #: src/resources/js/app/blocks.js:45284
 msgid "Event Details Classic"
-msgstr ""
+msgstr "'Classic' eseményrészletek"
 
 #: src/modules/blocks/classic-event-details/template.js:193
 #: src/modules/blocks/event-price/template.js:152
 #: src/resources/js/app/blocks.js:45170 src/resources/js/app/blocks.js:48826
 msgid "E.g.: $"
-msgstr ""
+msgstr "Pl.: $"
 
 #: src/modules/blocks/classic-event-details/template.js:191
 #: src/modules/blocks/event-price/template.js:150
 #: src/resources/js/app/blocks.js:45168 src/resources/js/app/blocks.js:48824
 msgid " Currency Symbol"
-msgstr ""
+msgstr "Pénznem szimbólum"
 
 #: src/modules/blocks/classic-event-details/template.js:186
 #: src/resources/js/app/blocks.js:45163
 msgid "Show symbol before"
-msgstr ""
+msgstr "Pénznem megjelenítése elől"
 
 #: src/modules/blocks/classic-event-details/template.js:184
 #: src/modules/blocks/event-price/template.js:147
 #: src/resources/js/app/blocks.js:45161 src/resources/js/app/blocks.js:48821
 msgid "Price Settings"
-msgstr ""
+msgstr "Árbeállítások"
 
 #: src/modules/blocks/classic-event-details/template.js:179
 #: src/resources/js/app/blocks.js:45154
 msgid "Is All Day Event"
-msgstr ""
+msgstr "Egész napos esemény"
 
 #: src/modules/blocks/classic-event-details/template.js:177
 #: src/resources/js/app/blocks.js:45152 src/resources/js/app/blocks.js:45425
 msgid "Date Time Settings"
-msgstr ""
+msgstr "Dátum-idő beállítások"
 
 #: src/modules/blocks/classic-event-details/template.js:156
 #: src/resources/js/app/blocks.js:45129
 msgid "Event Category:"
-msgstr ""
+msgstr "Eseménykategória:"
 
 #: src/modules/blocks/classic-event-details/template.js:122
 #: src/resources/js/app/blocks.js:45091 src/resources/js/app/blocks.js:45895
 msgid "Enter price"
-msgstr ""
+msgstr "Adja meg az árat"
 
 #: src/modules/blocks/classic-event-details/template.js:101
 #: src/resources/js/app/blocks.js:45060
 msgid "Enter url"
-msgstr ""
+msgstr "Adja meg az url-t"
 
 #: src/modules/blocks/classic-event-details/template.js:97
 #: src/resources/js/app/blocks.js:45054
 msgid "Website: "
-msgstr ""
+msgstr "Honlap:"
 
 #: src/modules/blocks/classic-event-details/template.js:79
 #: src/resources/js/app/blocks.js:45022
 msgid "End: "
-msgstr ""
+msgstr "Vége:"
 
 #: src/modules/blocks/classic-event-details/template.js:57
 #: src/resources/js/app/blocks.js:44982
 msgid "Start: "
-msgstr ""
+msgstr "Kezdés:"
 
 #: src/modules/blocks/event-organizer/index.js:17
 #: src/resources/js/app/blocks.js:48388
@@ -343,40 +343,40 @@ msgstr ""
 #: src/modules/blocks/event-organizer/index.js:16
 #: src/resources/js/app/blocks.js:48387
 msgid "Event Organizer"
-msgstr ""
+msgstr "Esemény szervezője"
 
 #: src/modules/data/blocks/price/reducer.js:23
 #: src/resources/js/app/data.js:9364 src/resources/js/app/blocks.js:10508
 msgid "$"
-msgstr ""
+msgstr "$"
 
 #: src/modules/data/blocks/datetime/reducer.js:23
 #: src/resources/js/app/data.js:6796 src/resources/js/app/blocks.js:6842
 msgid "-"
-msgstr ""
+msgstr "-"
 
 #: src/modules/data/blocks/datetime/reducer.js:22
 #: src/resources/js/app/data.js:6795 src/resources/js/app/blocks.js:6841
 msgid "@"
-msgstr ""
+msgstr "@"
 
 #: src/modules/elements/terms-list/element.js:128
 #: src/resources/js/app/blocks.js:11214 src/resources/js/app/elements.js:7840
 msgid ", "
-msgstr ""
+msgstr ", "
 
 #: src/modules/elements/terms-list/element.js:45
 #: src/modules/blocks/classic-event-details/event-details-organizers/event-details-organizer/template.js:26
 #: src/resources/js/app/blocks.js:11083 src/resources/js/app/blocks.js:44700
 #: src/resources/js/app/elements.js:7709
 msgid "(Untitled)"
-msgstr ""
+msgstr "(Névtelen)"
 
 #: src/modules/elements/upsell/element.js:33
 #: src/resources/js/app/blocks.js:13490 src/resources/js/app/elements.js:10116
 msgctxt "linked text for plugin add-ons"
 msgid "Check 'em out!"
-msgstr ""
+msgstr "Nézze meg őket!"
 
 #: src/modules/elements/upsell/element.js:23
 #: src/resources/js/app/blocks.js:13481 src/resources/js/app/elements.js:10107
@@ -391,15 +391,15 @@ msgstr ""
 
 #: src/views/blocks/event-datetime.php:80
 msgid "All day"
-msgstr ""
+msgstr "Egész nap"
 
 #: src/views/modules/bar.php:51
 msgid "Hide %s Search"
-msgstr ""
+msgstr "%s keresésének elrejtése"
 
 #: src/views/modules/bar.php:50 src/views/modules/bar.php:54
 msgid "Show %s Search"
-msgstr ""
+msgstr "%s keresésének megjelenítése"
 
 #: src/admin-views/aggregator/settings.php:159
 #: src/admin-views/aggregator/settings.php:268
@@ -409,37 +409,37 @@ msgstr ""
 #: src/admin-views/aggregator/settings.php:456
 #: src/admin-views/aggregator/settings.php:524
 msgid "Show Map"
-msgstr ""
+msgstr "Térkép megjelenítése"
 
 #: src/admin-views/tribe-options-general.php:243
 msgid "Enable Maps"
-msgstr ""
+msgstr "Térképek bekapcsolása"
 
 #: src/admin-views/create-venue-fields.php:257
 msgid "Show Map Link?"
-msgstr ""
+msgstr "Megjelenjen a térkép linkje?"
 
 #: src/admin-views/create-venue-fields.php:248
 #: src/admin-views/create-venue-fields.php:285
 #: src/admin-views/venue-meta-box.php:202
 #: src/admin-views/venue-meta-box.php:238
 msgid "Show Map Link:"
-msgstr ""
+msgstr "Térkép linkjének megjelenítése:"
 
 #: src/admin-views/create-venue-fields.php:239
 msgid "Show Map?"
-msgstr ""
+msgstr "Megjelenjen a térkép?"
 
 #: src/admin-views/create-venue-fields.php:230
 #: src/admin-views/create-venue-fields.php:268
 #: src/admin-views/venue-meta-box.php:185
 #: src/admin-views/venue-meta-box.php:221
 msgid "Show Map:"
-msgstr ""
+msgstr "Térkép megjelenítése:"
 
 #: src/Tribe/Editor/Compatibility.php:118
 msgid "Hidden Blocks Editor Config"
-msgstr ""
+msgstr "Rejtett blokkszerkesztő beállítás vezérlő"
 
 #: src/Tribe/Editor/Compatibility.php:111
 msgid "Enable early access to the new Gutenberg block editor interface for creating events."
@@ -447,31 +447,31 @@ msgstr ""
 
 #: src/Tribe/Editor/Compatibility.php:110
 msgid "Activate Block Editor for Events"
-msgstr ""
+msgstr "Blokkszerkesztő bekapcsolása az eseményekhez"
 
 #: src/Tribe/Editor/Blocks/Event_Website.php:26
 msgid "Add Button Text"
-msgstr ""
+msgstr "Gomb szöveg hiányzik"
 
 #: src/Tribe/Editor/Meta.php:61 src/Tribe/Editor/Meta.php:70
 msgid "Event Organizers"
-msgstr ""
+msgstr "Eseményszervezők"
 
 #: src/Tribe/Aggregator/Record/CSV.php:104
 msgid "Unknown Column "
-msgstr ""
+msgstr "Ismeretlen oszlop"
 
 #: src/Tribe/Aggregator/Record/Queue_Processor.php:288
 msgid "There was an error building the record queue: "
-msgstr ""
+msgstr "Hiba történt a rögzítési folyamat során"
 
 #: src/Tribe/Admin/Notice/Marketing.php:114
 msgid "Try Events Gutenberg"
-msgstr ""
+msgstr "Próbálja ki az 'Events Gutenberg'-et"
 
 #: src/Tribe/Admin/Notice/Marketing.php:106
 msgid "Download the eBook"
-msgstr ""
+msgstr "eBook letöltése"
 
 #: src/Tribe/Admin/Notice/Marketing.php:100
 msgid "Get up to speed with our comprehensive Guide to Gutenberg ebook, then see how events and tickets will behave in the block editor by installing our free Events Gutenberg extension."
@@ -491,15 +491,15 @@ msgstr ""
 
 #: src/Tribe/Google/Maps_API_Key.php:107
 msgid "(click here for details)"
-msgstr ""
+msgstr "(kattintson ide a részletekért)"
 
 #: src/Tribe/Editor.php:534
 msgid "Event Blocks"
-msgstr ""
+msgstr "Esemény blokkok"
 
 #: src/Tribe/Editor.php:258 src/Tribe/Editor.php:301
 msgid "Add Description..."
-msgstr ""
+msgstr "Leírás hozzáadása..."
 
 #: common/src/Tribe/Editor/Configuration.php:97
 msgid "F j, Y g:i a"
@@ -534,19 +534,19 @@ msgstr ""
 
 #: common/src/Tribe/Editor/Meta.php:123
 msgid "Text Array"
-msgstr ""
+msgstr "Szöveges tömb"
 
 #: common/src/Tribe/Editor/Meta.php:105
 msgid "Numeric Array"
-msgstr ""
+msgstr "Numerikus tömb"
 
 #: src/admin-views/tribe-options-general.php:69
 msgid "Enable WordPress Custom Fields on Events."
-msgstr ""
+msgstr "Wordpress Egyedi mezők engedélyezése az eseményekhez"
 
 #: src/admin-views/tribe-options-general.php:68
 msgid "Show Custom Fields metabox"
-msgstr ""
+msgstr "Egyedi mezők metaablak megjelenítése"
 
 #: src/admin-views/tribe-options-display.php:139
 msgid "Please note that you are using The Events Calendar's default Google Maps API key, which will limit the Map View's functionality. Visit %sthe API Settings page%s to learn more and add your own Google Maps API key."
@@ -665,7 +665,7 @@ msgstr ""
 
 #: src/views/modules/bar.php:61
 msgid "%s Search"
-msgstr ""
+msgstr "%s keresése"
 
 #: src/views/modules/bar.php:87 src/views/modules/bar.php:93
 msgid "View %s As"
@@ -701,7 +701,7 @@ msgstr ""
 
 #: src/admin-views/privacy.php:53
 msgid "How Long You Retain this Data"
-msgstr ""
+msgstr "Amennyi ideig ezt az adatot tárolja "
 
 #: src/admin-views/privacy.php:51
 msgid "These API keys may include the following third party services: Google Maps, Meetup, PayPal, and Eventbrite (API key, auth URL and Client Secret)."
@@ -741,27 +741,27 @@ msgstr ""
 
 #: src/admin-views/privacy.php:31
 msgid "Importing Events, Venues, and Organizers:"
-msgstr ""
+msgstr "Események, helyszínek és szervezőek importálása:"
 
 #: src/admin-views/privacy.php:28
 msgid "Event information: website, cost, description, date, time, image"
-msgstr ""
+msgstr "Esemény információk: honlap, költség, leírás, dátum, idő, kép"
 
 #: src/admin-views/privacy.php:27
 msgid "Organizer information: name, phone, website, email"
-msgstr ""
+msgstr "Szervező információk: név, telefon, honlap, email"
 
 #: src/admin-views/privacy.php:26
 msgid "Venue information: name, address, city, country, state, postal code, phone, website, geographical coordinates (latitude and longitude)"
-msgstr ""
+msgstr "Helyszín információk: név, cím, város, ország, állam, irányítószám, telefon, honlap, földrajzi koordináták (szélesség és hosszúság)"
 
 #: src/admin-views/privacy.php:23
 msgid "If you create, submit, import, save, or publish Event, Venue, or Organizer information, such information is retained in the local database:"
-msgstr ""
+msgstr "Amikor esemény, helyszín vagy szervező adatokat hoz létre, küldd el, importál, ment vagy tesz közzé, akkor ezek az információk a helyi adatbázisban mentésre kerülnek:"
 
 #: src/admin-views/privacy.php:22 src/admin-views/privacy.php:47
 msgid "Suggested text:"
-msgstr ""
+msgstr "Javasolt szöveg:"
 
 #: src/admin-views/privacy.php:21
 msgid "Through the usage of The Events Calendar, Events Calendar PRO, The Events Calendar Filter Bar, Eventbrite Tickets, and Community Events plugins, as well as our Event Aggregator Import service (contained within The Events Calendar plugin), information may be collected and stored within your website’s database."
@@ -769,19 +769,19 @@ msgstr ""
 
 #: src/admin-views/privacy.php:20
 msgid "Event, Venue, and Organizer Information"
-msgstr ""
+msgstr "Esemény, helyszín és szervező információk"
 
 #: src/admin-views/privacy.php:18
 msgid "What personal data we collect and why we collect it"
-msgstr ""
+msgstr "Milyen személyes adatokat gyűjtünk és miért gyűjtjük azokat"
 
 #: src/admin-views/privacy.php:16
 msgid "This information is only for guidance and not to be considered as legal advice."
-msgstr ""
+msgstr "Ez az információ csak tájékoztató jellegű, és nem tekinthető jogi tanácsadásnak."
 
 #: src/admin-views/privacy.php:16
 msgid "Disclaimer:"
-msgstr ""
+msgstr "Jogi nyilatkozat:"
 
 #: src/admin-views/privacy.php:15
 msgid "You should include the information below in the correct sections of you privacy policy."
@@ -809,7 +809,7 @@ msgstr "Eventbrite importálási beállítások"
 
 #: src/admin-views/aggregator/settings.php:26
 msgid "None"
-msgstr ""
+msgstr "Egyik sem"
 
 #: src/admin-views/aggregator/origins/eventbrite.php:13
 msgid "Import from Eventbrite"
@@ -973,7 +973,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/tabs/import-form.php:286
 msgid "timezone settings"
-msgstr ""
+msgstr "időzóna beállítások"
 
 #: src/admin-views/aggregator/tabs/import-form.php:284
 msgid "Events will be imported with the same timezone as defined on eventbrite.com. You can make use of The Events Calendar's"
@@ -1014,7 +1014,7 @@ msgstr "Érvénytelen Eventbrite URL"
 
 #: src/admin-views/aggregator/origins/eventbrite.php:153
 msgid "eventbrite.com/e/example-12345"
-msgstr ""
+msgstr "eventbrite.com/e/pelda-12345"
 
 #: src/admin-views/aggregator/origins/eventbrite.php:116
 msgid "Import events directly from your connected Eventbrite.com account or from a public Eventbrite.com url."
@@ -1071,7 +1071,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/REST/V1/Endpoints/State.php:68
 msgid "The new status of the import."
-msgstr ""
+msgstr "Az importálás új állapota."
 
 #: src/Tribe/Aggregator/REST/V1/Endpoints/Batch.php:138
 msgid "The current interval, in seconds, between the end of a batch process and the start of the next; as set on the server."
@@ -1080,7 +1080,7 @@ msgstr ""
 #: src/Tribe/Aggregator/REST/V1/Endpoints/Batch.php:132
 #: src/Tribe/Aggregator/REST/V1/Endpoints/State.php:84
 msgid "The percentage of import completed."
-msgstr ""
+msgstr "Az importálás százalékos készenléti állapota."
 
 #: src/Tribe/Aggregator/REST/V1/Endpoints/Batch.php:126
 msgid "The current status of the import."
@@ -1538,7 +1538,7 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:284
 msgid "The organizer e-mail address"
-msgstr ""
+msgstr "A szervező email címe"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:255
 msgid "The organizer description"
@@ -1630,7 +1630,7 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:292
 msgid "The event cost"
-msgstr ""
+msgstr "Az esemény költsége"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:287
 msgid "The event featured image ID or URL"
@@ -1650,23 +1650,23 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:263
 msgid "The event time zone"
-msgstr ""
+msgstr "Az esemény időzónája"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:250
 msgid "The event excerpt"
-msgstr ""
+msgstr "Az esemény kivonata"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:238
 msgid "The event description"
-msgstr ""
+msgstr "Az esemény leírása"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:232
 msgid "The event title"
-msgstr ""
+msgstr "Az esemény címe"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:226
 msgid "The event publication date (UTC time zone)"
-msgstr ""
+msgstr "Az esemény létrehozásának dátuma (UTC időzóna)"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:220
 msgid "The event publication date"
@@ -1935,11 +1935,11 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:136
 msgid "The venue geo longitude"
-msgstr ""
+msgstr "A helyszín földrajzi hosszúsága"
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:131
 msgid "The venue geo latitude"
-msgstr ""
+msgstr "A helyszín földrajzi szélessége"
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:77
 msgid "The venue slug"
@@ -1947,7 +1947,7 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:57
 msgid "The venue status"
-msgstr ""
+msgstr "A helyszín állapota"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:77
 msgid "The organizer slug"
@@ -1964,7 +1964,7 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:57
 msgid "The event status"
-msgstr ""
+msgstr "Az esemény állapota"
 
 #: src/Tribe/Linked_Posts.php:1255
 msgctxt "The \"Create or Find {post type name}\" label for custom linked post types that are *not* Venues or Organizers"
@@ -1996,7 +1996,7 @@ msgstr ""
 
 #: src/Tribe/Linked_Posts.php:1209
 msgid "Find an Organizer"
-msgstr ""
+msgstr "Szervező keresése"
 
 #: src/Tribe/Linked_Posts.php:1208
 msgid "Create or Find an Organizer"
@@ -2018,7 +2018,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Tabs/Abstract.php:135
 msgid "click here to edit it"
-msgstr ""
+msgstr "kattintson ide a módosításhoz"
 
 #: src/Tribe/Aggregator/Settings.php:359
 msgid "Do not limit (not recommended)"
@@ -2234,7 +2234,7 @@ msgstr "Egyéb URL"
 
 #: src/admin-views/aggregator/settings.php:481
 msgid "Fetch source event's settings (e.g. Show Maps Link or Sticky in Month View) when importing from another site using The Events Calendar."
-msgstr ""
+msgstr "A forrás esemény beállításainak importálása (pl. Google térkép hivatkozás megjelenítése, vagy Ragadós hónap nézetben), amikor egy másik The Events Calendar-t futtató oldalról importálunk."
 
 #: src/admin-views/aggregator/settings.php:480
 msgid "Import Event Settings"
@@ -3143,7 +3143,7 @@ msgstr ""
 
 #: src/Tribe/Customizer/Single_Event.php:78
 msgid "Single Event"
-msgstr ""
+msgstr "Egyetlen esemény"
 
 #: src/Tribe/Customizer/Month_Week_View.php:202
 msgid "Calendar Highlight Color"
@@ -3184,7 +3184,7 @@ msgstr ""
 
 #: src/Tribe/Customizer/Global_Elements.php:113
 msgid "Global Elements"
-msgstr ""
+msgstr "Globális elemek"
 
 #: src/Tribe/Customizer/General_Theme.php:402
 msgid "Custom"
@@ -3200,15 +3200,15 @@ msgstr ""
 
 #: src/Tribe/Customizer/General_Theme.php:384
 msgid "Malachite"
-msgstr ""
+msgstr "Malachit"
 
 #: src/Tribe/Customizer/General_Theme.php:378
 msgid "Lagoon"
-msgstr ""
+msgstr "Lagúna"
 
 #: src/Tribe/Customizer/General_Theme.php:372
 msgid "Evergreen"
-msgstr ""
+msgstr "Örökzöld"
 
 #: src/Tribe/Customizer/General_Theme.php:366
 msgid "Default"
@@ -3220,7 +3220,7 @@ msgstr "Mélytengeri"
 
 #: src/Tribe/Customizer/General_Theme.php:354
 msgid "Blue Steel"
-msgstr ""
+msgstr "Kék acél"
 
 #: src/Tribe/Customizer/General_Theme.php:334
 msgid "If the Featured highlight color is set to Custom, the following color will be used:"
@@ -3642,7 +3642,7 @@ msgstr "Nem adtál meg Meetup API kulcsot"
 
 #: src/admin-views/aggregator/status.php:191
 msgid "API key entered"
-msgstr ""
+msgstr "API kulcs megadva"
 
 #: src/admin-views/aggregator/status.php:176
 msgid "The service has disabled oAuth. Some types of events may not import."
@@ -3827,7 +3827,7 @@ msgstr "iCalendar importálási beállítások"
 #: src/admin-views/aggregator/settings.php:457
 #: src/admin-views/aggregator/settings.php:525
 msgid "Show map by default on imported event and venues"
-msgstr ""
+msgstr "Mutassa a Google Térképet az importált eseményeknél és helyszíneknél"
 
 #: src/admin-views/aggregator/settings.php:148
 msgid "The default event category for events"
@@ -4386,11 +4386,11 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Tabs/Scheduled.php:193
 msgid "deactivated"
-msgstr ""
+msgstr "kikapcsolva"
 
 #: src/Tribe/Aggregator/Tabs/Scheduled.php:189
 msgid "reactivated"
-msgstr ""
+msgstr "újraaktiválva"
 
 #: src/Tribe/Aggregator/Tabs/Scheduled.php:185
 msgid "delete"
@@ -4439,11 +4439,11 @@ msgstr "Importáljon eseményeket az Event Aggregatorral"
 
 #: src/Tribe/Aggregator/Tabs/New.php:413
 msgid "Unable to save credentials"
-msgstr ""
+msgstr "A hitelesítő adatok mentése sikertelen volt"
 
 #: src/Tribe/Aggregator/Tabs/New.php:406
 msgid "Credentials have been saved"
-msgstr ""
+msgstr "A hitelesítő adatok mentése sikerült"
 
 #: src/Tribe/Aggregator/Tabs/New.php:397
 msgid "The Meetup API key is required."
@@ -4455,7 +4455,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Tabs/New.php:378
 msgid "Invalid credential save request"
-msgstr ""
+msgstr "Érvénytelen hitelesítő adat mentési kérelem"
 
 #: src/Tribe/Aggregator/Tabs/New.php:366
 msgid "View your scheduled imports."
@@ -4655,7 +4655,7 @@ msgstr "A megadott URL-t nem lehetett elérni."
 
 #: src/Tribe/Aggregator/Service.php:681
 msgid "Sorry, but something went wrong. Please try again."
-msgstr ""
+msgstr "Elnézést kérünk, de valami félre ment. Kérjük, próbálja újra."
 
 #: src/Tribe/Aggregator/Records.php:218
 msgctxt "event aggregator status"
@@ -4836,7 +4836,7 @@ msgstr "Egyszeri"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:593
 msgid "Invalid Frequency"
-msgstr ""
+msgstr "Érvénytelen gyakoriság"
 
 #: src/Tribe/Ignored_Events.php:357 src/Tribe/Aggregator.php:601
 #: src/Tribe/Aggregator/Record/List_Table.php:563
@@ -5501,11 +5501,11 @@ msgstr "API-k"
 
 #: src/deprecated/Tribe__Events__Importer__Options.php:184
 msgid "Do Not Encode Contents"
-msgstr ""
+msgstr "Ne kódolja a tartalmakat"
 
 #: src/deprecated/Tribe__Events__Importer__Options.php:183
 msgid "Encode contents"
-msgstr ""
+msgstr "Tartalom kódolása"
 
 #: src/Tribe/Importer/Column_Mapper.php:125
 msgid "Organizer Description"
@@ -6143,7 +6143,7 @@ msgstr "Események importálása"
 #: src/modules/blocks/event-links/template.js:101
 #: src/resources/js/app/blocks.js:48525
 msgid "Share Settings"
-msgstr ""
+msgstr "Beállítások megosztása"
 
 #: src/deprecated/Tribe__Events__Importer__Options.php:136
 msgid "Draft"
@@ -6264,7 +6264,7 @@ msgstr "Cím:"
 
 #: src/resources/js/app/blocks.js:47396
 msgid "Show Google Maps Link"
-msgstr ""
+msgstr "Google Térkép link megjelenítése"
 
 #: src/admin-views/create-venue-fields.php:166
 #: src/admin-views/venue-meta-box.php:136
@@ -6719,12 +6719,12 @@ msgstr "Alapértelmezett esemény sablon"
 #: src/modules/blocks/classic-event-details/template.js:117
 #: src/resources/js/app/blocks.js:45080
 msgid "Price: "
-msgstr ""
+msgstr "Ár:"
 
 #: common/src/modules/elements/image-upload/element.js:46
 #: common/src/resources/js/app/elements.js:59497
 msgid "remove"
-msgstr ""
+msgstr "eltávolítás"
 
 #: common/src/admin-views/event-log.php:65
 msgid "View"

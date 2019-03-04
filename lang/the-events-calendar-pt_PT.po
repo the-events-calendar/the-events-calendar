@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-04-26 15:44:40+0000\n"
+"PO-Revision-Date: 2019-02-21 15:01:39+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -6341,7 +6341,7 @@ msgstr "Definições de rede"
 
 #: common/src/admin-views/tribe-options-licenses.php:38
 msgid "%1$s Using our plugins in a multisite network? %2$s Please note that your license key will be applied to the entire network, not just this site."
-msgstr "%1$s Utiliza os nossos plugins numa rede multisite? %2$s Saiba que a sua chave de licença será aplicada a toda a rede, não apenas a este site."
+msgstr "%1$s Utiliza os nossos plugins numa rede multissite? %2$s Saiba que a sua chave de licença será aplicada a toda a rede, não apenas a este site."
 
 #: common/src/admin-views/tribe-options-help.php:74
 msgid "News and Tutorials"

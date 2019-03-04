@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-07-11 20:41:04+0000\n"
+"PO-Revision-Date: 2019-03-01 01:18:00+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,93 +13,93 @@ msgstr ""
 
 #: src/resources/js/app/blocks.js:48214
 msgid "Edit Organizer"
-msgstr ""
+msgstr "Правка организатора"
 
 #: src/resources/js/app/blocks.js:48211
 msgid "Organizer Settings"
-msgstr ""
+msgstr "Настройки организатора"
 
 #: src/resources/js/app/blocks.js:48137
 msgid "Add or find an organizer"
-msgstr ""
+msgstr "Добавить или найти организатора"
 
 #: src/resources/js/app/blocks.js:47979
 msgid "Add email"
-msgstr ""
+msgstr "Добавить Email"
 
 #: src/resources/js/app/blocks.js:47972
 msgid "Add website"
-msgstr ""
+msgstr "Добавить сайт"
 
 #: src/resources/js/app/blocks.js:47965
 msgid "Add Phone"
-msgstr ""
+msgstr "Добавить телефон"
 
 #: src/resources/js/app/blocks.js:47394
 msgid "Venue Settings"
-msgstr ""
+msgstr "Настройки места проведения"
 
 #: src/resources/js/app/blocks.js:47272
 msgid "Add or find a venue"
-msgstr ""
+msgstr "Добавьте или найдите место проведения"
 
 #: src/resources/js/app/blocks.js:46934
 msgid "(Untitled Venue)"
-msgstr ""
+msgstr "(Место проведения без названия)"
 
 #: src/resources/js/app/blocks.js:46387
 msgid "Multi-Day"
-msgstr ""
+msgstr "Мульти-день"
 
 #: src/resources/js/app/blocks.js:45448
 msgid "Show Time Zone"
-msgstr ""
+msgstr "Показывать часовой пояс"
 
 #: src/resources/js/app/blocks.js:45441
 msgid "Time Zone"
-msgstr ""
+msgstr "Часовой пояс"
 
 #: src/resources/js/app/blocks.js:45434
 msgid "Time Range Separator"
-msgstr ""
+msgstr "Разделитель диапазона времени"
 
 #: src/resources/js/app/blocks.js:45427
 msgid "Date Time Separator"
-msgstr ""
+msgstr "Разделитель Даты и времени"
 
 #: src/resources/js/app/blocks.js:13219 src/resources/js/app/elements.js:9845
 msgid "Add or Find"
-msgstr ""
+msgstr "Добавить или найти"
 
 #: src/resources/js/app/blocks.js:12598 src/resources/js/app/elements.js:9224
 msgid "A Google Map API KEY is required to view the map"
-msgstr ""
+msgstr "Для отображения карты, необходим API-ключ Карт Google"
 
 #: src/resources/js/app/blocks.js:12479 src/resources/js/app/elements.js:9105
 msgid "The map does not have valid coordinates nor a valid address"
-msgstr ""
+msgstr "Карта не получила корректных координат или верного адреса"
 
 #: src/resources/js/app/blocks.js:12389 src/resources/js/app/elements.js:9015
 msgid "Make sure Google Maps Library is included on this page."
-msgstr ""
+msgstr "Убедитесь, что библиотека Карт Google включена в эту страницу."
 
 #: src/resources/js/app/blocks.js:11712 src/resources/js/app/elements.js:8338
 msgid "Country"
-msgstr ""
+msgstr "Страна"
 
 #: src/resources/js/app/blocks.js:11444 src/resources/js/app/elements.js:8070
 msgid "Name:"
-msgstr ""
+msgstr "Название:"
 
 #: src/modules/blocks/event-datetime/subblocks/content/index.js:23
 #: src/resources/js/app/blocks.js:46184
 msgid "Event Date Time Content"
-msgstr ""
+msgstr "Содержимое даты и времени события"
 
 #: src/modules/blocks/event-datetime/subblocks/dashboard/index.js:19
 #: src/resources/js/app/blocks.js:46659
 msgid "Event Date Time Dashboard"
-msgstr ""
+msgstr "Панель управления датой и временем события"
 
 #: src/modules/blocks/event-datetime/index.js:28
 #: src/modules/blocks/event-datetime/subblocks/dashboard/index.js:20
@@ -107,41 +107,41 @@ msgstr ""
 #: src/resources/js/app/blocks.js:46185 src/resources/js/app/blocks.js:46660
 #: src/resources/js/app/blocks.js:46745
 msgid "Define the date, time, and duration for your event."
-msgstr ""
+msgstr "Укажите дату, время и продолжительность события."
 
 #: src/modules/blocks/event-datetime/index.js:27
 #: src/resources/js/app/blocks.js:46744
 msgid "Event Date Time"
-msgstr ""
+msgstr "Дата и время события"
 
 #: src/modules/blocks/event-website/index.js:22
 #: src/resources/js/app/blocks.js:49446
 msgid "Is there another website for this event? Link to it with a button!"
-msgstr ""
+msgstr "Есть другой сайт об этом событии? Добавьте ссылку на него при помощи кнопки!"
 
 #: src/modules/blocks/event-website/template.js:26
 #: src/resources/js/app/blocks.js:49305
 msgid "Add Event Website"
-msgstr ""
+msgstr "Добавить сайт события"
 
 #: src/modules/blocks/event-links/index.js:22
 #: src/resources/js/app/blocks.js:48614
 msgid "Encourage visitors to add your event to their calendars with handy sharing buttons."
-msgstr ""
+msgstr "Стимулируйте посетителей добавлять ваши события в их календари при помощи удобных кнопок."
 
 #: src/modules/blocks/event-links/index.js:21
 #: src/resources/js/app/blocks.js:48613
 msgid "Event Sharing"
-msgstr ""
+msgstr "Обмен событиями"
 
 #: src/modules/blocks/event-links/template.js:108
 #: src/resources/js/app/blocks.js:48532
 msgid "iCal"
-msgstr ""
+msgstr "iCal"
 
 #: src/resources/js/app/blocks.js:47401
 msgid "Show Google Maps Embed"
-msgstr ""
+msgstr "Отображать встроенные карты Google"
 
 #: src/modules/blocks/event-category/index.js:22
 #: src/resources/js/app/blocks.js:49143
@@ -270,118 +270,118 @@ msgstr ""
 #: src/modules/blocks/classic-event-details/index.js:21
 #: src/resources/js/app/blocks.js:45284
 msgid "Event Details Classic"
-msgstr ""
+msgstr "Классические детали события"
 
 #: src/modules/blocks/classic-event-details/template.js:193
 #: src/modules/blocks/event-price/template.js:152
 #: src/resources/js/app/blocks.js:45170 src/resources/js/app/blocks.js:48826
 msgid "E.g.: $"
-msgstr ""
+msgstr "Например: ₽"
 
 #: src/modules/blocks/classic-event-details/template.js:191
 #: src/modules/blocks/event-price/template.js:150
 #: src/resources/js/app/blocks.js:45168 src/resources/js/app/blocks.js:48824
 msgid " Currency Symbol"
-msgstr ""
+msgstr "Символ валюты"
 
 #: src/modules/blocks/classic-event-details/template.js:186
 #: src/resources/js/app/blocks.js:45163
 msgid "Show symbol before"
-msgstr ""
+msgstr "Отображать символ перед значением"
 
 #: src/modules/blocks/classic-event-details/template.js:184
 #: src/modules/blocks/event-price/template.js:147
 #: src/resources/js/app/blocks.js:45161 src/resources/js/app/blocks.js:48821
 msgid "Price Settings"
-msgstr ""
+msgstr "Настройки цены"
 
 #: src/modules/blocks/classic-event-details/template.js:179
 #: src/resources/js/app/blocks.js:45154
 msgid "Is All Day Event"
-msgstr ""
+msgstr "Это событие на весь день"
 
 #: src/modules/blocks/classic-event-details/template.js:177
 #: src/resources/js/app/blocks.js:45152 src/resources/js/app/blocks.js:45425
 msgid "Date Time Settings"
-msgstr ""
+msgstr "Настройки даты и времени"
 
 #: src/modules/blocks/classic-event-details/template.js:156
 #: src/resources/js/app/blocks.js:45129
 msgid "Event Category:"
-msgstr ""
+msgstr "Категория мероприятия:"
 
 #: src/modules/blocks/classic-event-details/template.js:122
 #: src/resources/js/app/blocks.js:45091 src/resources/js/app/blocks.js:45895
 msgid "Enter price"
-msgstr ""
+msgstr "Введите цену"
 
 #: src/modules/blocks/classic-event-details/template.js:101
 #: src/resources/js/app/blocks.js:45060
 msgid "Enter url"
-msgstr ""
+msgstr "Введите URL"
 
 #: src/modules/blocks/classic-event-details/template.js:97
 #: src/resources/js/app/blocks.js:45054
 msgid "Website: "
-msgstr ""
+msgstr "Сайт:"
 
 #: src/modules/blocks/classic-event-details/template.js:79
 #: src/resources/js/app/blocks.js:45022
 msgid "End: "
-msgstr ""
+msgstr "Конец:"
 
 #: src/modules/blocks/classic-event-details/template.js:57
 #: src/resources/js/app/blocks.js:44982
 msgid "Start: "
-msgstr ""
+msgstr "Начало:"
 
 #: src/modules/blocks/event-organizer/index.js:17
 #: src/resources/js/app/blocks.js:48388
 msgid "List a host or coordinator for this event."
-msgstr ""
+msgstr "Укажите хозяина или координатора этого события."
 
 #: src/modules/blocks/event-organizer/index.js:16
 #: src/resources/js/app/blocks.js:48387
 msgid "Event Organizer"
-msgstr ""
+msgstr "Организатор мероприятия"
 
 #: src/modules/data/blocks/price/reducer.js:23
 #: src/resources/js/app/data.js:9364 src/resources/js/app/blocks.js:10508
 msgid "$"
-msgstr ""
+msgstr "₽"
 
 #: src/modules/data/blocks/datetime/reducer.js:23
 #: src/resources/js/app/data.js:6796 src/resources/js/app/blocks.js:6842
 msgid "-"
-msgstr ""
+msgstr "-"
 
 #: src/modules/data/blocks/datetime/reducer.js:22
 #: src/resources/js/app/data.js:6795 src/resources/js/app/blocks.js:6841
 msgid "@"
-msgstr ""
+msgstr "@"
 
 #: src/modules/elements/terms-list/element.js:128
 #: src/resources/js/app/blocks.js:11214 src/resources/js/app/elements.js:7840
 msgid ", "
-msgstr ""
+msgstr ", "
 
 #: src/modules/elements/terms-list/element.js:45
 #: src/modules/blocks/classic-event-details/event-details-organizers/event-details-organizer/template.js:26
 #: src/resources/js/app/blocks.js:11083 src/resources/js/app/blocks.js:44700
 #: src/resources/js/app/elements.js:7709
 msgid "(Untitled)"
-msgstr ""
+msgstr "(Без названия)"
 
 #: src/modules/elements/upsell/element.js:33
 #: src/resources/js/app/blocks.js:13490 src/resources/js/app/elements.js:10116
 msgctxt "linked text for plugin add-ons"
 msgid "Check 'em out!"
-msgstr ""
+msgstr "Проверьте их!"
 
 #: src/modules/elements/upsell/element.js:23
 #: src/resources/js/app/blocks.js:13481 src/resources/js/app/elements.js:10107
 msgid "Turbocharge your events with our premium calendar and ticketing add-ons. "
-msgstr ""
+msgstr "Форсируйте ваши мероприятия при помощи наших премиум аддонов для календаря и продажи билетов."
 
 #: common/src/modules/utils/date.js:103
 #: common/src/resources/js/app/elements.js:9791
