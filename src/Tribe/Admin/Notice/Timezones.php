@@ -12,7 +12,7 @@ class Tribe__Events__Admin__Notice__Timezones {
 	/**
 	 * Notice Slug on the user options
 	 *
-	 * @since  TBD
+	 * @since  4.8.2
 	 * @var string
 	 */
 	private $slug = 'events-utc-timezone';
@@ -23,7 +23,7 @@ class Tribe__Events__Admin__Notice__Timezones {
 		/**
 		 * Allows users to completely deactivate the resetting of the Day Light savings notice
 		 *
-		 * @since  TBD
+		 * @since  4.8.2
 		 *
 		 * @param  bool
 		 */
@@ -50,7 +50,7 @@ class Tribe__Events__Admin__Notice__Timezones {
 	/**
 	 * Fetches the date in which the Notice had it's reset
 	 *
-	 * @since  TBD
+	 * @since  4.8.2
 	 *
 	 * @return string|null
 	 */
@@ -70,7 +70,7 @@ class Tribe__Events__Admin__Notice__Timezones {
 	/**
 	 * Which dates this Notice gets reset
 	 *
-	 * @since  TBD
+	 * @since  4.8.2
 	 *
 	 * @return array
 	 */
