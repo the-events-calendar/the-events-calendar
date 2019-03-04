@@ -218,7 +218,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 = [4.8.2] 2019-03-04 =
 
 * Fix - Resolve console warnings around React key usage for Blocks Editor [121198]
-* Fix - Improve our `tribe_paged` sanitization, preventing themes to print the variable without and causing XSS security issues [123616]
+Fix - Improve our `tribe_paged` URL parameter sanitization, preventing themes from printing the variable and causing XSS security issues [123616]
 * Fix - Change ordering for Eventbrite Tickets on Event Aggregator, Ascending order by date is now the default [121979]
 * Tweak - Day light savings notice will now reset 4 times per year when using any UTC Timezone [123221]
 * Tweak - Start date for Event Aggregator is now required on Eventbrite Tickets [121979]
