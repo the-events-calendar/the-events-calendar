@@ -4,8 +4,8 @@ Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.7
-Stable tag: 4.8.1
-Tested up to: 5.0.3
+Stable tag: 4.8.2
+Tested up to: 5.1
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -215,13 +215,14 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
-= [4.8.2] TBD =
+= [4.8.2] 2019-03-04 =
 
 * Fix - Resolve console warnings around React key usage for Blocks Editor [121198]
 * Fix - Improve our `tribe_paged` sanitization, preventing themes to print the variable without and causing XSS security issues [123616]
 * Fix - Change ordering for Eventbrite Tickets on Event Aggregator, Ascending order by date is now the default [121979]
 * Tweak - Day light savings notice will now reset 4 times per year when using any UTC Timezone [123221]
 * Tweak - Start date for Event Aggregator is now required on Eventbrite Tickets [121979]
+* Language - 3 new strings added, 172 updated, 0 fuzzied, and 1 obsoleted
 
 = [4.8.1] 2019-02-14 =
 
