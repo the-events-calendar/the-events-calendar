@@ -5,6 +5,8 @@
  * @since TBD
  */
 
+use Tribe__Timezones as Timezones;
+
 /**
  * Class Tribe__Events__Repositories__Event
  *
@@ -1088,6 +1090,13 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 				$this->get_from_postarr_or_meta( $postarr, '_EventStartDate' ),
 				$timezone->getName()
 			);
+
+			// Let's make sure the timezone is always a string.
+			if ( isset( $postarr['meta_input']['_EventTimezone'] ) ) {
+				$postarr['meta_input']['_EventTimezone'] = Timezones::build_timezone_object(
+					$postarr['meta_input']['_EventTimezone']
+				)->getName();
+			}
 		} catch ( Exception $e ) {
 			tribe( 'logger' )->log(
 				'There was an error updating the dates for event ' . $post_id . ': ' . $e->getMessage(),
