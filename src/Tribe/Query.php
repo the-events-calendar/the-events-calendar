@@ -68,6 +68,11 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		 * @param WP_Query $query
 		 */
 		public static function parse_query( $query ) {
+			// If this is set then the class will bail out of any filtering.
+			if ( $query->get( 'tribe_suppress_query_filters', false ) ) {
+				return $query;
+			}
+
 			$helper = Tribe__Admin__Helpers::instance();
 
 			// set paged
@@ -200,7 +205,10 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		 * @return object $query (modified)
 		 */
 		public static function pre_get_posts( $query ) {
-			$admin_helpers = Tribe__Admin__Helpers::instance();
+			// If this is set then the class will bail out of any filtering.
+			if ( $query->get( 'tribe_suppress_query_filters', false ) ) {
+				return $query;
+			}
 
 			if ( $query->is_main_query() && is_home() ) {
 				/**
@@ -379,8 +387,15 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				// Only add the postmeta hack if it's not the main admin events list
 				// Because this method filters out drafts without EventStartDate.
 				// For this screen we're doing the JOIN manually in Tribe__Events__Admin_List
-
-				if ( ! Tribe__Admin__Helpers::instance()->is_screen( 'edit-tribe_events' ) ) {
+				/**
+				 * Filters whether or not to use the Start Date hack to include meta table.
+				 *
+				 * @param boolean $use_hack Whether to use the hack.
+				 *
+				 * @since TBD
+				 */
+				$start_hack = apply_filters( 'tribe_events_query_event_start_hack', true );
+				if ( $start_hack && ! tribe( 'context' )->is_editing_post( Tribe__Events__Main::POSTTYPE ) ) {
 					$event_start_key = Tribe__Events__Timezones::is_mode( 'site' )
 						? '_EventStartDateUTC'
 						: '_EventStartDate';
@@ -486,6 +501,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			if ( tribe( 'tec.front-page-view' )->is_page_on_front() ) {
 				remove_filter( 'option_page_on_front', array( __CLASS__, 'default_page_on_front' ) );
 			}
+
 			return $posts;
 		}
 
@@ -1120,18 +1136,33 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		 */
 		public static function getEvents( $args = array(), $full = false ) {
 			$defaults = array(
-				'post_type'            => Tribe__Events__Main::POSTTYPE,
 				'orderby'              => 'event_date',
 				'order'                => 'ASC',
-				'posts_per_page'       => tribe_get_option( 'postsPerPage', 10 ),
+				'posts_per_page'       => tribe_get_option( 'posts_per_page', tribe_get_option( 'postsPerPage', get_option( 'posts_per_page', 10 ) ) ),
 				'tribe_render_context' => 'default',
 			);
 
 			$args = wp_parse_args( $args, $defaults );
+			$event_display = tribe_get_request_var(
+				'tribe_event_display',
+				Tribe__Utils__Array::get( $args, 'eventDisplay', false )
+			);
+
+			$search = tribe_get_request_var( 'tribe-bar-search' );
+
+			/**
+			 * @todo Move this to each one of the views and their ajax requests
+			 */
+			// if a user provides a search term we want to use that in the search params
+			if ( ! empty( $search ) ) {
+				$args['s'] = $search;
+			}
 
 			$return_found_posts = ! empty( $args['found_posts'] );
 
 			if ( $return_found_posts ) {
+				unset( $args['found_posts'] );
+
 				$args['posts_per_page'] = 1;
 				$args['paged']          = 1;
 			}
@@ -1145,14 +1176,123 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			$cache_key = 'get_events_' . get_current_user_id() . serialize( $args );
 
 			$result = $cache->get( $cache_key, 'save_post' );
-			if ( $result && $result instanceof WP_Query ) {
+
+			if (
+				false !== $result
+				&& (
+					$result instanceof WP_Query
+					|| (
+						$return_found_posts
+						&& is_int( $result )
+					)
+				)
+			) {
 				do_action( 'log', 'cache hit', 'tribe-events-cache', $args );
 			} else {
 				do_action( 'log', 'no cache hit', 'tribe-events-cache', $args );
-				$result = new WP_Query( $args );
+
+				/** @var Tribe__Events__Repositories__Event $event_orm */
+				$event_orm = tribe_events();
+
+				$hidden = false;
+
+				if ( isset( $args['tribe_render_context'] ) ) {
+					$event_orm->set_render_context( $args['tribe_render_context'] );
+				}
+
+				if ( ! empty( $event_display ) ) {
+					$event_orm->set_display_context( $event_display );
+				}
+
+				// Backcompat defaults.
+				if ( isset( $args['hide_upcoming'] ) ) {
+					// Negate the hide_upcoming for $hidden
+					if ( true !== (boolean) $args['hide_upcoming'] ) {
+						$hidden = null;
+					}
+
+					unset( $args['hide_upcoming'] );
+				}
+
+
+				if ( isset( $args['start_date'] ) && false === $args['start_date'] ) {
+					unset( $args['start_date'] );
+				}
+
+				if ( isset( $args['end_date'] ) && false === $args['end_date'] ) {
+					unset( $args['end_date'] );
+				}
+
+				if ( isset( $args['eventDate'] ) && ! isset( $args['start_date'], $args['end_date'] ) ) {
+					$args['on_date'] = $args['eventDate'];
+					unset( $args['eventDate'] );
+				}
+
+				if ( ! empty( $args['orderby'] ) ) {
+					$event_orm->order_by( $args['orderby'] );
+
+					unset( $args['orderby'] );
+				}
+
+				if ( 'all' === $event_display  ) {
+					if ( empty( $args['post_parent'] ) ) {
+						// Make sure the `post_parent` ID is set in /all requests.
+						$parent_name = Tribe__Utils__Array::get(
+							$args,
+							'name',
+							Tribe__Utils__Array::get( 'tribe_events', false )
+						);
+
+						if ( ! empty( $parent_name ) ) {
+							$post_parent         = tribe_events()->where( 'name', $parent_name )->fields( 'ids' )
+							                                     ->first();
+							$args['post_parent'] = $post_parent;
+						}
+
+						// Make sure these are unset to avoid 'post_name' comparisons.
+						unset( $args['name'], $args['post_name'], $args['tribe_events'] );
+					}
+
+					if ( class_exists( 'Tribe__Events__Pro__Recurrence__Event_Query' ) ) {
+						$recurrence_query = new Tribe__Events__Pro__Recurrence__Event_Query();
+						$recurrence_query->set_parent_event( get_post( $args['post_parent'] ) );
+						add_filter( 'posts_where', array( $recurrence_query, 'include_parent_event' ), 100 );
+					}
+				}
+
+				if ( ! empty( $args['tribe_is_past'] ) ) {
+					$args['order'] = 'DESC';
+					$pivot_date = tribe_get_request_var( 'tribe-bar-date', 'now' );
+					$date       = Tribe__Date_Utils::build_date_object( $pivot_date );
+					// Remove any existing date meta queries.
+					if ( isset( $args['meta_query'] ) ) {
+						$args['meta_query'] = tribe_filter_meta_query(
+							$args['meta_query'],
+							array( 'key' => '/_Event(Start|End)Date(UTC)/' )
+						);
+					}
+					$args['starts_before'] = tribe_beginning_of_day( $date->format( 'Y-m-d H:i:s' ) );
+				}
+
+				if ( null !== $hidden ) {
+					$event_orm->by( 'hidden', $hidden );
+					if ( isset( $args['meta_query'] ) ) {
+						$args['meta_query'] = tribe_filter_meta_query(
+							$args['meta_query'],
+							array( 'key' => '_EventHideFromUpcoming' )
+						);
+					}
+				}
+
+				$event_orm->by_args( $args );
 
 				if ( $return_found_posts ) {
-					$result = $result->found_posts;
+					$result = $event_orm->found();
+				} else {
+					$result = $event_orm->get_query();
+
+					// Run the query.
+					$result->get_posts();
 				}
 
 				$cache->set( $cache_key, $result, Tribe__Cache::NON_PERSISTENT, 'save_post' );
@@ -1165,18 +1305,16 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			if ( ! empty( $result->posts ) ) {
 				if ( $full ) {
 					return $result;
-				} else {
-					$posts = $result->posts;
+				}
 
-					return $posts;
-				}
-			} else {
-				if ( $full ) {
-					return $result;
-				} else {
-					return array();
-				}
+				return $result->posts;
 			}
+
+			if ( $full ) {
+				return $result;
+			}
+
+			return array();
 		}
 
 		/**
@@ -1249,8 +1387,5 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		public static function default_page_on_front( $value ) {
 			return tribe( 'tec.front-page-view' )->is_virtual_page_id( $value ) ? 0 : $value;
 		}
-
-
 	}
-
 }

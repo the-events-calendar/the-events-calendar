@@ -771,8 +771,8 @@ class Tribe__Events__Linked_Posts {
 	 * @param array $submission Submitted form data.
 	 */
 	public function handle_submission_by_post_type( $event_id, $linked_post_type, $submission ) {
-		// If the submission isn't an array, bail
-		// This is here to avoid unexpected data
+		// If the submission isn't an array, bail.
+		// This is here to avoid unexpected data.
 		// And also to avoid errantly removing linked posts just because they were not part of the submission, in which case this will be `false` from `$this->get_linked_post_type_data()`
 		if ( ! is_array( $submission ) ) {
 			return;
@@ -1307,8 +1307,13 @@ class Tribe__Events__Linked_Posts {
 			}
 
 			if ( ! empty( $existing_posts ) ) {
-				// False signals to `$this->handle_submission_by_post_type()` that this linked post type is not part of the submission but existing linked posts exist, and we shouldn't drop them, which is what would happen if we passed an empty array.
-				// Example: We shouldn't remove all pre-existing Organizers from an event just because editing Organizers is available in the wp-admin event edit screen but not available in the Community Events form.
+				/**
+				 * False signals to `$this->handle_submission_by_post_type()` that this linked post type is not part of
+				 * the submission but existing linked posts exist, and we shouldn't drop them, which is what would
+				 * happen if we passed an empty array.
+				 * Example: We shouldn't remove all pre-existing Organizers from an event just because editing
+				 * Organizers is available in the wp-admin event edit screen but not available in the Community Events form.
+				 */
 				$data = false;
 			}
 		}

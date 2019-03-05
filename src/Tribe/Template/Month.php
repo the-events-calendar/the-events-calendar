@@ -867,7 +867,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			// this  will skip updating term and meta caches - those were already
 			// updated in $this->set_events_in_month()
 			// expected order of events: sticky events, ongoing multi day events, all day events, then by start time
-			$args   = wp_parse_args(
+			$args = wp_parse_args(
 				array(
 					'eventDisplay'           => 'month',
 					'posts_per_page'         => $this->events_per_day,
@@ -892,9 +892,6 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			  */
 			 $args = apply_filters( 'tribe_events_month_daily_events_query_args', $args );
 
-			// we don't need this join since we already checked it
-			unset ( $args[ Tribe__Events__Main::TAXONOMY ] );
-
 			return tribe_get_events( $args, true );
 		}
 
@@ -903,7 +900,6 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		 *
 		 */
 		public function setup_view() {
-
 			if ( $this->use_cache && $this->html_cache->get() !== false ) {
 				return;
 			}

@@ -1099,6 +1099,9 @@ class EventUpdateCest extends BaseRestCest
 		$I->assertCount( 1, $organizer_response );
 		$I->assertEquals( $organizer_id, $organizer_response[0]['id'] );
 
+		// Remove venue and organizer now.
+		$params['venue'] = [];
+
 		// Remove the organizer now.
 		$params['organizer'] = [];
 

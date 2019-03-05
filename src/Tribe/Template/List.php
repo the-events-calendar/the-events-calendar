@@ -69,6 +69,7 @@ if ( ! class_exists( 'Tribe__Events__Template__List' ) ) {
 
 			Tribe__Events__Query::init();
 
+
 			$tribe_paged = absint( tribe_get_request_var( 'tribe_paged', 1 ) );
 			$post_status = [ 'publish' ];
 			if ( is_user_logged_in() ) {
@@ -76,21 +77,35 @@ if ( ! class_exists( 'Tribe__Events__Template__List' ) ) {
 			}
 
 			$args = array(
-				'eventDisplay' => 'list',
+				'eventDisplay' => $display,
 				'post_type'    => Tribe__Events__Main::POSTTYPE,
 				'post_status'  => $post_status,
 				'paged'        => $tribe_paged,
-				'featured'     => tribe( 'tec.featured_events' )->featured_events_requested(),
 			);
 
-			// check & set display
-			if ( isset( $_POST['tribe_event_display'] ) ) {
-				if ( 'past' === $_POST['tribe_event_display'] ) {
-					$args['eventDisplay'] = 'past';
-					$args['order'] = 'DESC';
-				} elseif ( 'all' === $_POST['tribe_event_display'] ) {
-					$args['eventDisplay'] = 'all';
-				}
+			// If the request is false or not set we assume the request is for all events, not just featured ones.
+			if ( tribe_is_truthy( tribe_get_request_var( 'featured', false ) ) ) {
+				$args['featured'] = true;
+			}
+
+			if ( (bool) tribe_get_request_var( 'tribeHideRecurrence' ) ) {
+				$args['hide_subsequent_recurrences'] = true;
+			}
+
+			// Apply display and date.
+			$date = tribe_get_request_var( 'tribe-bar-date', 'now' );
+
+			$args['eventDisplay'] = $display;
+
+			if ( 'list' === $display ) {
+				$args['start_date'] = tribe_beginning_of_day( $date );
+				$args['order']      = 'ASC';
+			} elseif ( 'past' === $display ) {
+				$args['starts_before'] = Tribe__Date_Utils::build_date_object( 'now' );
+				$args['order']         = 'DESC';
+			} elseif ( 'all' === $display ) {
+				$args['start_date'] = tribe_beginning_of_day( $date );
+				$args['order']      = 'ASC';
 			}
 
 			// check & set event category

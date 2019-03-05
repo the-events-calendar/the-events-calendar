@@ -117,14 +117,12 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 			$data->data['meta']['_EventAllDay'] = tribe_is_truthy( $all_day );
 		}
 
-		$timezone_string = get_post_meta( $post->ID, '_EventTimezone', true );
-
-		if ( ! $timezone_string ) {
-			$timezone_string = Tribe__Events__Timezones::wp_timezone_string();
-		}
-
-		$data->data['meta']['_EventStartDateUTC'] = Tribe__Events__Timezones::to_utc( $data->data['meta']['_EventStartDate'], $timezone_string );
-		$data->data['meta']['_EventEndDateUTC']   = Tribe__Events__Timezones::to_utc( $data->data['meta']['_EventEndDate'], $timezone_string );
+		$timezone = Tribe__Timezones::build_timezone_object( $data->data['meta']['_EventTimezone'] );
+		$utc = new DateTimeZone( 'UTC' );
+		$utc_start_date = Tribe__Date_Utils::build_date_object( $data->data['meta']['_EventStartDate'], $timezone );
+		$utc_end_date = Tribe__Date_Utils::build_date_object( $data->data['meta']['_EventEndDate'], $timezone );
+		$data->data['meta']['_EventStartDateUTC'] = $utc_start_date->setTimezone( $utc )->format( 'Y-m-d H:I:s' );
+		$data->data['meta']['_EventEndDateUTC'] = $utc_end_date->setTimezone( $utc )->format( 'Y-m-d H:I:s' );
 
 		return $data;
 	}
@@ -133,7 +131,7 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 	 * Adds, triggering their updates, the UTC start and end dates to the post insertion or
 	 * update REST payload.
 	 *
-	 * @since 4.7.4
+	 * @since TBD
 	 *
 	 * @param             \stdClass     $post_data The post insertion/update payload.
 	 * @param \WP_REST_Request $request The current insertion or update request object.
@@ -145,8 +143,8 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 		$json_params = $request->get_json_params();
 		$meta = Tribe__Utils__Array::get( $json_params, 'meta', array() );
 
-		// No changes to start and end? No need to update UTC dates.
-		if ( ! ( isset( $meta['_EventStartDate'] ) && isset( $meta['_EventEndDate'] ) ) ) {
+		// No changes to start or end? No need to update UTC dates.
+		if ( ! ( isset( $meta['_EventStartDate'] ) || isset( $meta['_EventEndDate'] ) ) ) {
 			return $post_data;
 		}
 
@@ -154,20 +152,25 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 			$post_data->meta_input = array();
 		}
 
-		$post_id          = $request->get_param( 'id' );
-		$event_start_date = isset( $meta['_EventStartDate'] ) ? $meta['_EventStartDate'] : get_post_meta( $post_id, '_EventStartDate', true );
-		$event_end_date   = isset( $meta['_EventEndDate'] ) ? $meta['_EventEndDate'] : get_post_meta( $post_id, '_EventEndDate', true );
-		$timezone_string  = Tribe__Events__Timezones::get_event_timezone_string( $post_id );
-		$timezone_string  = Tribe__Utils__Array::get( $meta, '_EventTimezone', $timezone_string );
+		$post_id         = $request->get_param( 'id' );
 
-		// If a specific timezone was not specified, default to the sitewide timezone
-		if ( empty( $timezone_string ) ) {
-			$timezone_string = Tribe__Events__Timezones::wp_timezone_string();
-		}
+		$timezone_string = Tribe__Events__Timezones::get_event_timezone_string( $post_id );
+		$timezone_string = Tribe__Utils__Array::get( $meta, '_EventTimezone', $timezone_string );
+		$timezone        = Tribe__Timezones::build_timezone_object( $timezone_string );
+		$utc             = new DateTimeZone( 'UTC' );
 
-		$post_data->meta_input['_EventTimezone']     = $timezone_string;
-		$post_data->meta_input['_EventStartDateUTC'] = Tribe__Events__Timezones::to_utc( $event_start_date, $timezone_string );
-		$post_data->meta_input['_EventEndDateUTC']   = Tribe__Events__Timezones::to_utc( $event_end_date, $timezone_string );
+		$start_date      = get_post_meta( $post_id, '_EventStartDate', true );
+		$start_date      = Tribe__Utils__Array::get( $meta, '_EventStartDate', $start_date );
+		$end_date        = get_post_meta( $post_id, '_EventEndDate', true );
+		$end_date        = Tribe__Utils__Array::get( $meta, '_EventEndDate', $end_date );
+		$utc_start_date  = Tribe__Date_Utils::build_date_object( $start_date, $timezone )
+											->setTimezone( $utc )
+											->format( 'Y-m-d H:i:s' );
+		$utc_end_date    = Tribe__Date_Utils::build_date_object( $end_date, $timezone )
+											->setTimezone( $utc )
+											->format( 'Y-m-d H:i:s' );
+		$post_data->meta_input['_EventStartDateUTC'] = $utc_start_date;
+		$post_data->meta_input['_EventEndDateUTC'] = $utc_end_date;
 
 		return $post_data;
 	}

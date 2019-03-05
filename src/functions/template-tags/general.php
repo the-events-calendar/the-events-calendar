@@ -226,10 +226,12 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 *		@see  get_posts()  for more params
 	 * }
-	 * @param bool  $full (optional) if the full query object is required or just an array of event posts
 	 *
-	 * @return array List of posts.
+	 * @param bool $full Whether to return an array of event posts (default) or the query object
+	 *                   to fetch them.
 	 *
+	 * @return array|WP_Query A list of event posts matching the query arguments or a WP_Query instance
+	 *                        if the `$full` argument is set to `true`.
 	 */
 	function tribe_get_events( $args = array(), $full = false ) {
 		if ( empty ( $args['eventDisplay'] ) ) {
