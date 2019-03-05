@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-12-02 22:12:10+0000\n"
+"PO-Revision-Date: 2019-02-28 16:33:07+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -17,7 +17,7 @@ msgstr ""
 
 #: src/resources/js/app/blocks.js:48211
 msgid "Organizer Settings"
-msgstr ""
+msgstr "Nastavení pořadatele"
 
 #: src/resources/js/app/blocks.js:48137
 msgid "Add or find an organizer"
@@ -25,15 +25,15 @@ msgstr ""
 
 #: src/resources/js/app/blocks.js:47979
 msgid "Add email"
-msgstr ""
+msgstr "Přidat email"
 
 #: src/resources/js/app/blocks.js:47972
 msgid "Add website"
-msgstr ""
+msgstr "Přidat webovou adresu"
 
 #: src/resources/js/app/blocks.js:47965
 msgid "Add Phone"
-msgstr ""
+msgstr "Přidat telefon"
 
 #: src/resources/js/app/blocks.js:47394
 msgid "Venue Settings"
@@ -57,7 +57,7 @@ msgstr ""
 
 #: src/resources/js/app/blocks.js:45441
 msgid "Time Zone"
-msgstr ""
+msgstr "Časové pásmo"
 
 #: src/resources/js/app/blocks.js:45434
 msgid "Time Range Separator"
@@ -85,11 +85,11 @@ msgstr ""
 
 #: src/resources/js/app/blocks.js:11712 src/resources/js/app/elements.js:8338
 msgid "Country"
-msgstr ""
+msgstr "Země"
 
 #: src/resources/js/app/blocks.js:11444 src/resources/js/app/elements.js:8070
 msgid "Name:"
-msgstr ""
+msgstr "Jméno:"
 
 #: src/modules/blocks/event-datetime/subblocks/content/index.js:23
 #: src/resources/js/app/blocks.js:46184
@@ -213,7 +213,7 @@ msgstr ""
 #: src/modules/blocks/event-price/index.js:17
 #: src/resources/js/app/blocks.js:49018
 msgid "Event Price"
-msgstr ""
+msgstr "Cena"
 
 #: src/modules/blocks/event-price/template.js:156
 #: src/resources/js/app/blocks.js:48830
@@ -228,7 +228,7 @@ msgstr ""
 #: src/modules/blocks/event-price/template.js:117
 #: src/resources/js/app/blocks.js:48783
 msgid "Description"
-msgstr ""
+msgstr "Popis"
 
 #: src/modules/blocks/event-price/template.js:109
 #: src/resources/js/app/blocks.js:48775
@@ -276,7 +276,7 @@ msgstr ""
 #: src/modules/blocks/event-price/template.js:152
 #: src/resources/js/app/blocks.js:45170 src/resources/js/app/blocks.js:48826
 msgid "E.g.: $"
-msgstr ""
+msgstr "Např: Kč"
 
 #: src/modules/blocks/classic-event-details/template.js:191
 #: src/modules/blocks/event-price/template.js:150
@@ -323,17 +323,17 @@ msgstr ""
 #: src/modules/blocks/classic-event-details/template.js:97
 #: src/resources/js/app/blocks.js:45054
 msgid "Website: "
-msgstr ""
+msgstr "Web:"
 
 #: src/modules/blocks/classic-event-details/template.js:79
 #: src/resources/js/app/blocks.js:45022
 msgid "End: "
-msgstr ""
+msgstr "Konec:"
 
 #: src/modules/blocks/classic-event-details/template.js:57
 #: src/resources/js/app/blocks.js:44982
 msgid "Start: "
-msgstr ""
+msgstr "Začátek:"
 
 #: src/modules/blocks/event-organizer/index.js:17
 #: src/resources/js/app/blocks.js:48388
@@ -409,11 +409,11 @@ msgstr ""
 #: src/admin-views/aggregator/settings.php:456
 #: src/admin-views/aggregator/settings.php:524
 msgid "Show Map"
-msgstr ""
+msgstr "Ukázat mapu"
 
 #: src/admin-views/tribe-options-general.php:243
 msgid "Enable Maps"
-msgstr ""
+msgstr "Povolit mapy"
 
 #: src/admin-views/create-venue-fields.php:257
 msgid "Show Map Link?"
@@ -566,7 +566,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/settings.php:123
 msgid "click here"
-msgstr ""
+msgstr "klikněte zde"
 
 #: src/admin-views/aggregator/settings.php:121
 msgid "If you want to stop and clear current asynchronous import processes %1$s."
@@ -590,7 +590,7 @@ msgstr ""
 
 #: src/Tribe/Google/Maps_API_Key.php:77
 msgid "Read More"
-msgstr ""
+msgstr "Více"
 
 #: src/Tribe/Google/Maps_API_Key.php:72
 msgid "The Events Calendar comes with an API key for basic maps functionality. If you’d like to use more advanced features like custom map pins or dynamic map loads, you’ll need to get your own %1$s. %2$s."
@@ -818,7 +818,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/banners/eventbrite-upsell.php:17
 msgid "Learn more"
-msgstr "Vědět více"
+msgstr ""
 
 #: src/admin-views/aggregator/banners/eventbrite-upsell.php:14
 msgid "Do more with Eventbrite Tickets"
@@ -1159,7 +1159,7 @@ msgstr ""
 
 #: src/admin-views/tribe-options-general.php:190
 msgid "This option allows you to bulk delete past events. Be careful and backup your database before removing your events as there is no way to reverse the changes."
-msgstr "Toto nastavení vám umožní dávkové smazání uplynulých akcí. Buďte opatrní a zálohujte si svou databázi před smazáním akcí, tento krok je nevratný."
+msgstr ""
 
 #: src/admin-views/tribe-options-general.php:189
 msgid "Permanently delete events older than"
@@ -1201,7 +1201,7 @@ msgstr "Toto nastavení vám umožní automaticky přesunout uplynulé akce do k
 
 #: src/admin-views/tribe-options-general.php:172
 msgid "Move to trash events older than"
-msgstr "Přesunout do koše události starší než"
+msgstr ""
 
 #: src/admin-views/tribe-options-general.php:53
 msgid "Instantly updates the calendar view when searching for or filtering events."
@@ -1227,7 +1227,7 @@ msgstr ""
 #: src/deprecated/Tribe__Events__Customizer__Front_Page_View.php:55
 msgctxt "Customizer static front page setting"
 msgid "Main %s Page"
-msgstr "Hlavní %s stránka"
+msgstr ""
 
 #: common/src/Tribe/Plugins_API.php:71
 msgid "Event Tickets Plus allows you to sell tickets to your events using WooCommerce, Easy Digital Downloads, or our built in Tribe Commerce tool. Add tickets to your posts and pages, or add %1$sThe Events Calendar%2$s and sell tickets from your event listings. Create custom registration forms, manage attendees, use custom capacity options, and more. Guest check in is easy with QR codes and our custom scanning app."
@@ -1244,7 +1244,7 @@ msgstr ""
 #: src/Tribe/Rewrite.php:265
 msgctxt "The \"/page/\" URL string component."
 msgid "page"
-msgstr "stránka"
+msgstr "stranka"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:143
 msgid "An organizer with the specified event does not exist."
@@ -1342,7 +1342,7 @@ msgstr "Místo konání by nemělo být upravováno"
 
 #: src/Tribe/REST/V1/Messages.php:39
 msgid "The event could not be updated"
-msgstr "Událost nelze upravit"
+msgstr ""
 
 #: src/Tribe/REST/V1/Messages.php:38
 msgid "The organizer is already trashed"
@@ -1362,11 +1362,11 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Messages.php:34
 msgid "The event is already trashed"
-msgstr "Událost je již smazaná"
+msgstr ""
 
 #: src/Tribe/REST/V1/Messages.php:33
 msgid "The event could not be deleted"
-msgstr "Událost nelze smazat"
+msgstr ""
 
 #: src/Tribe/REST/V1/Messages.php:32
 msgid "The requested organizer is not accessible"
@@ -2137,7 +2137,7 @@ msgstr ""
 
 #: common/src/Tribe/Main.php:249
 msgid "All items on this page were selected. "
-msgstr ""
+msgstr "Všechny položky na stránce byly vybrány."
 
 #: src/admin-views/aggregator/tabs/import-form.php:101
 msgid "Add more sources"
@@ -5610,7 +5610,7 @@ msgstr "%s se musí skládat pouze z číslic, písmen, pomlček a podtržítek"
 
 #: common/src/Tribe/Log.php:376
 msgid "Full debug (all events)"
-msgstr "Plný debug (všechny události)"
+msgstr ""
 
 #: common/src/Tribe/Log.php:375
 msgid "Warnings and errors"

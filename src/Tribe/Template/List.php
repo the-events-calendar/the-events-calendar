@@ -69,10 +69,9 @@ if ( ! class_exists( 'Tribe__Events__Template__List' ) ) {
 
 			Tribe__Events__Query::init();
 
-			$tribe_paged = ( ! empty( $_POST['tribe_paged'] ) ) ? intval( $_POST['tribe_paged'] ) : 1;
-			$display = tribe_get_request_var( 'tribe_event_display', 'list' );
 
-			$post_status = array( 'publish' );
+			$tribe_paged = absint( tribe_get_request_var( 'tribe_paged', 1 ) );
+			$post_status = [ 'publish' ];
 			if ( is_user_logged_in() ) {
 				$post_status[] = 'private';
 			}
@@ -155,7 +154,7 @@ if ( ! class_exists( 'Tribe__Events__Template__List' ) ) {
 				$post = $query->posts[0];
 			}
 
-			$paged = $tribe_paged;
+			$paged = absint( $tribe_paged );
 
 			Tribe__Events__Main::instance()->displaying = apply_filters( 'tribe_events_listview_ajax_event_display', 'list', $args );
 

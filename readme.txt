@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 4.7
 Stable tag: 4.8.2
-Tested up to: 5.0.3
+Tested up to: 5.1
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -215,7 +215,16 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
-= [4.8.1] TBD =
+= [4.8.2] 2019-03-04 =
+
+* Fix - Resolve console warnings around React key usage for Blocks Editor [121198]
+* Fix - Improve our `tribe_paged` URL parameter sanitization, preventing themes from printing the variable and causing XSS security issues [123616]
+* Fix - Change ordering for Eventbrite Tickets on Event Aggregator, Ascending order by date is now the default [121979]
+* Tweak - Day light savings notice will now reset 4 times per year when using any UTC Timezone [123221]
+* Tweak - Start date for Event Aggregator is now required on Eventbrite Tickets [121979]
+* Language - 3 new strings added, 172 updated, 0 fuzzied, and 1 obsoleted
+
+= [4.8.1] 2019-02-14 =
 
 * Feature - Introduced new "(do not override)" default post status for Eventbrite imports in Event Aggregator. This preserves events' original statuses from Eventbrite.com upon import (e.g., "draft" events will not be automatically set to "publish" upon import) [112346]
 * Fix - Make sure the setting for "Default mobile view" is respected. Thanks to Kathleen, Tim and others for reporting this! [119271]
@@ -234,6 +243,14 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - Make sure the setting for "Default mobile view" is respected. Thanks to Kathleen, Tim and others for reporting this! [119271]
 * Fix - Apply block closer to price block [120108]
 * Tweak - Added new filter `tribe_aggregator_new_event_post_status_before_import` to allow for custom handling of an event's post status before EA an import is completed [112648]
+* Tweak - Added filters: `tribe_events_admin_js_ajax_url_data`
+* Tweak - Unload Image Widget Plus version 1.0.2 or older to Prevent it from creating fatals on The Events Calendar
+* Language - 2 new strings added, 150 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.8.0.1] 2019-02-07 =
+
+* Fix - Modify extension dependency checking with new system to determine if it can load [122368]
+* Tweak - Prevent most extensions from loading if Event Tickets is on an older version to prevent conflicts [122368]
 
 = [4.8] 2019-02-05 =
 

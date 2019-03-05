@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-12-03 10:34:43+0000\n"
+"PO-Revision-Date: 2019-02-08 07:03:36+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -57,7 +57,7 @@ msgstr ""
 
 #: src/resources/js/app/blocks.js:45441
 msgid "Time Zone"
-msgstr ""
+msgstr "Ζώνη ώρας"
 
 #: src/resources/js/app/blocks.js:45434
 msgid "Time Range Separator"
@@ -85,7 +85,7 @@ msgstr ""
 
 #: src/resources/js/app/blocks.js:11712 src/resources/js/app/elements.js:8338
 msgid "Country"
-msgstr ""
+msgstr "Χώρα"
 
 #: src/resources/js/app/blocks.js:11444 src/resources/js/app/elements.js:8070
 msgid "Name:"
@@ -107,7 +107,7 @@ msgstr ""
 #: src/resources/js/app/blocks.js:46185 src/resources/js/app/blocks.js:46660
 #: src/resources/js/app/blocks.js:46745
 msgid "Define the date, time, and duration for your event."
-msgstr ""
+msgstr "Όρισε την ημερομηνία, την ώρα και τη διάρκεια της εκδήλωσης."
 
 #: src/modules/blocks/event-datetime/index.js:27
 #: src/resources/js/app/blocks.js:46744
@@ -122,7 +122,7 @@ msgstr ""
 #: src/modules/blocks/event-website/template.js:26
 #: src/resources/js/app/blocks.js:49305
 msgid "Add Event Website"
-msgstr ""
+msgstr "Πρόσθεση Ιστοτόπου Εκδήλωσης"
 
 #: src/modules/blocks/event-links/index.js:22
 #: src/resources/js/app/blocks.js:48614
@@ -132,12 +132,12 @@ msgstr ""
 #: src/modules/blocks/event-links/index.js:21
 #: src/resources/js/app/blocks.js:48613
 msgid "Event Sharing"
-msgstr ""
+msgstr "Κοινοποίηση Εκδήλωσης"
 
 #: src/modules/blocks/event-links/template.js:108
 #: src/resources/js/app/blocks.js:48532
 msgid "iCal"
-msgstr ""
+msgstr "iCal"
 
 #: src/resources/js/app/blocks.js:47401
 msgid "Show Google Maps Embed"
@@ -228,7 +228,7 @@ msgstr ""
 #: src/modules/blocks/event-price/template.js:117
 #: src/resources/js/app/blocks.js:48783
 msgid "Description"
-msgstr ""
+msgstr "Περιγραφή"
 
 #: src/modules/blocks/event-price/template.js:109
 #: src/resources/js/app/blocks.js:48775
@@ -323,7 +323,7 @@ msgstr ""
 #: src/modules/blocks/classic-event-details/template.js:97
 #: src/resources/js/app/blocks.js:45054
 msgid "Website: "
-msgstr ""
+msgstr "Ιστότοπος:"
 
 #: src/modules/blocks/classic-event-details/template.js:79
 #: src/resources/js/app/blocks.js:45022

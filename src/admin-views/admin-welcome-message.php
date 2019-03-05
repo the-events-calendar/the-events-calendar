@@ -13,7 +13,7 @@
 <div class="tribe-row">
 
 	<div class="tribe-half-column">
-		<h2 data-tribe-icon="dashicons-welcome-learn-more"><?php esc_html_e( 'Getting Started', 'the-events-calendar' ); ?></h2>
+		<h4 data-tribe-icon="dashicons-welcome-learn-more"><?php esc_html_e( 'Getting Started', 'the-events-calendar' ); ?></h4>
 		<p><?php esc_html_e( 'Start strong with these helpful resources.', 'the-events-calendar' ); ?></p>
 		<ul>
 			<li><a href="http://m.tri.be/1aa3" target="_blank"><?php esc_html_e( 'New User Primer', 'the-events-calendar' ); ?></a></li>
@@ -23,7 +23,7 @@
 	</div>
 
 	<div class="tribe-half-column">
-		<h2 data-tribe-icon="dashicons-sos"><?php esc_html_e( 'Resources and Support', 'the-events-calendar' ); ?></h2>
+		<h4 data-tribe-icon="dashicons-sos"><?php esc_html_e( 'Resources and Support', 'the-events-calendar' ); ?></h4>
 		<p><?php esc_html_e( "We've got your back every step of the way.", 'the-events-calendar' ); ?></p>
 		<ul>
 			<li><a href="http://m.tri.be/1aa6" target="_blank"><?php esc_html_e( 'Search the Knowledgebase', 'the-events-calendar' ); ?></a></li>
@@ -36,13 +36,13 @@
 <div class="tribe-row">
 
 	<div class="tribe-half-column">
-		<h2><?php esc_html_e( 'The Latest and Greatest', 'the-events-calendar' ); ?></h2>
+		<h4><?php esc_html_e( 'The Latest and Greatest', 'the-events-calendar' ); ?></h4>
 		<p><?php esc_html_e( 'Frequent maintenance releases keep your ticket sales running smoothly.', 'the-events-calendar' ); ?> <a href="http://m.tri.be/1aa9" target="_blank"><?php esc_html_e( 'View the latest changelog', 'the-events-calendar' ); ?></a>.</p>
 		<p><?php esc_html_e( 'Gearing up with Gutenberg?', 'the-events-calendar' ); ?> <a href="http://m.tri.be/1aaa" target="_blank"><?php esc_html_e( 'Get the latest block editor news', 'the-events-calendar' ); ?></a>.</p>
 	</div>
 
 	<div class="tribe-half-column">
-		<h2 data-tribe-icon="dashicons-megaphone"><?php esc_html_e( "Don't Miss Out", 'the-events-calendar' ); ?></h2>
+		<h4 data-tribe-icon="dashicons-megaphone"><?php esc_html_e( "Don't Miss Out", 'the-events-calendar' ); ?></h4>
 		<p><?php esc_html_e( 'Get the latest on The Events Calendar, occasional discounts, and hilarious gifs delivered straight to your inbox.', 'the-events-calendar' ); ?></p>
 
 		<form action="https://moderntribe.createsend.com/t/r/s/athqh/" method="post">
@@ -62,7 +62,7 @@
 
 <div class="tribe-row">
 	<div class="tribe-half-column">
-		<h2 data-tribe-icon="dashicons-heart"><?php esc_html_e( 'We Need Your Help', 'the-events-calendar' ); ?></h2>
+		<h4 data-tribe-icon="dashicons-heart"><?php esc_html_e( 'We Need Your Help', 'the-events-calendar' ); ?></h4>
 		<p><?php esc_html_e( 'Your ratings keep us focused on making our plugins as useful as possible so we can help other WordPress users just like you.', 'the-events-calendar' ); ?></p>
 		<p><strong><?php esc_html_e( 'Rate us today!', 'the-events-calendar' ); ?></strong> <a class="tribe-rating-link" href="https://wordpress.org/support/plugin/the-events-calendar/reviews/?filter=5" target="_blank">&#9733;&#9733;&#9733;&#9733;&#9733;</a></p>
 		<a href="https://wordpress.org/support/plugin/the-events-calendar/reviews/?filter=5" target="_blank" class="button-primary"><?php esc_html_e( 'Rate It', 'the-events-calendar' ); ?></a>

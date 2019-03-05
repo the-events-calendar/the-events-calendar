@@ -79,7 +79,7 @@ class OrganizerSingleCest extends BaseRestCest {
 
 		$I->sendGET( $this->organizers_url . "/{$organizer_id}" );
 
-		$I->seeResponseCodeIs( 401 );
+		$I->seeResponseCodeIs( 403 );
 		$I->seeResponseIsJson();
 	}
 

@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2019-01-05 18:55:19+0000\n"
+"PO-Revision-Date: 2019-02-23 15:27:05+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -17,7 +17,7 @@ msgstr "Redigera arrangör"
 
 #: src/resources/js/app/blocks.js:48211
 msgid "Organizer Settings"
-msgstr ""
+msgstr "Inställningar för arrangör"
 
 #: src/resources/js/app/blocks.js:48137
 msgid "Add or find an organizer"
@@ -61,23 +61,23 @@ msgstr "Tidszon"
 
 #: src/resources/js/app/blocks.js:45434
 msgid "Time Range Separator"
-msgstr ""
+msgstr "Avgränsare för tidsintervall"
 
 #: src/resources/js/app/blocks.js:45427
 msgid "Date Time Separator"
-msgstr ""
+msgstr "Avgränsare för datum och klockslag"
 
 #: src/resources/js/app/blocks.js:13219 src/resources/js/app/elements.js:9845
 msgid "Add or Find"
-msgstr ""
+msgstr "Lägg till eller hitta"
 
 #: src/resources/js/app/blocks.js:12598 src/resources/js/app/elements.js:9224
 msgid "A Google Map API KEY is required to view the map"
-msgstr ""
+msgstr "En nyckel för Google Maps API krävs för att visa kartan"
 
 #: src/resources/js/app/blocks.js:12479 src/resources/js/app/elements.js:9105
 msgid "The map does not have valid coordinates nor a valid address"
-msgstr ""
+msgstr "Kartan har inga giltiga koordinater eller en giltig adress"
 
 #: src/resources/js/app/blocks.js:12389 src/resources/js/app/elements.js:9015
 msgid "Make sure Google Maps Library is included on this page."
@@ -94,12 +94,12 @@ msgstr "Namn:"
 #: src/modules/blocks/event-datetime/subblocks/content/index.js:23
 #: src/resources/js/app/blocks.js:46184
 msgid "Event Date Time Content"
-msgstr ""
+msgstr "Innehåll för evenemangets datum och klockslag"
 
 #: src/modules/blocks/event-datetime/subblocks/dashboard/index.js:19
 #: src/resources/js/app/blocks.js:46659
 msgid "Event Date Time Dashboard"
-msgstr ""
+msgstr "Adminpanel för evenemangets datum och klockslag"
 
 #: src/modules/blocks/event-datetime/index.js:28
 #: src/modules/blocks/event-datetime/subblocks/dashboard/index.js:20
@@ -107,32 +107,32 @@ msgstr ""
 #: src/resources/js/app/blocks.js:46185 src/resources/js/app/blocks.js:46660
 #: src/resources/js/app/blocks.js:46745
 msgid "Define the date, time, and duration for your event."
-msgstr ""
+msgstr "Ange datum, klockslag och varaktighet för ditt evenemang."
 
 #: src/modules/blocks/event-datetime/index.js:27
 #: src/resources/js/app/blocks.js:46744
 msgid "Event Date Time"
-msgstr ""
+msgstr "Evenemangs datum och klockslag"
 
 #: src/modules/blocks/event-website/index.js:22
 #: src/resources/js/app/blocks.js:49446
 msgid "Is there another website for this event? Link to it with a button!"
-msgstr ""
+msgstr "Finns det en annan webbplats för detta evenemang? Länka dit med en knapp."
 
 #: src/modules/blocks/event-website/template.js:26
 #: src/resources/js/app/blocks.js:49305
 msgid "Add Event Website"
-msgstr ""
+msgstr "Lägg till evenemangs webbplats"
 
 #: src/modules/blocks/event-links/index.js:22
 #: src/resources/js/app/blocks.js:48614
 msgid "Encourage visitors to add your event to their calendars with handy sharing buttons."
-msgstr ""
+msgstr "Uppmana besökare att lägga till ditt evenemang i sina kalendrar genom de enkla delningsknapparna."
 
 #: src/modules/blocks/event-links/index.js:21
 #: src/resources/js/app/blocks.js:48613
 msgid "Event Sharing"
-msgstr ""
+msgstr "Evenemangsdelning"
 
 #: src/modules/blocks/event-links/template.js:108
 #: src/resources/js/app/blocks.js:48532
@@ -141,37 +141,37 @@ msgstr "iCal"
 
 #: src/resources/js/app/blocks.js:47401
 msgid "Show Google Maps Embed"
-msgstr ""
+msgstr "Visa Google Maps inbäddat"
 
 #: src/modules/blocks/event-category/index.js:22
 #: src/resources/js/app/blocks.js:49143
 msgid "Show assigned event categories as links to their respective archives."
-msgstr ""
+msgstr "Visa tilldelade evenemangskategorier som länkar till deras respektive arkiv."
 
 #: src/modules/blocks/event-category/index.js:21
 #: src/resources/js/app/blocks.js:49142
 msgid "Event Categories"
-msgstr ""
+msgstr "Evenemangskategorier"
 
 #: src/modules/blocks/event-category/block.js:46
 #: src/resources/js/app/blocks.js:49112
 msgid "Add Event Categories in document settings"
-msgstr ""
+msgstr "Lägg till evenemangskategorier i dokumentinställningar"
 
 #: src/modules/blocks/featured-image/index.js:22
 #: src/resources/js/app/blocks.js:49610
 msgid "Display the featured image in the post content."
-msgstr ""
+msgstr "Visa den utvalda bilden i inläggets innehåll."
 
 #: src/modules/blocks/featured-image/block.js:80
 #: src/resources/js/app/blocks.js:49562
 msgid "Loading the Image"
-msgstr ""
+msgstr "Laddar bilden"
 
 #: src/modules/blocks/featured-image/block.js:65
 #: src/resources/js/app/blocks.js:49551
 msgid "Add a Featured Image from the Document Settings sidebar"
-msgstr ""
+msgstr "Lägg till en utvald bild från sidopanelen dokumentinställningar"
 
 #: src/modules/blocks/featured-image/block.js:54
 #: src/modules/blocks/featured-image/index.js:21
@@ -182,18 +182,18 @@ msgstr "Utvald bild"
 #: src/modules/blocks/event-tags/index.js:22
 #: src/resources/js/app/blocks.js:49255
 msgid "Add keywords by displaying linked tags."
-msgstr ""
+msgstr "Lägg till nyckelord genom att visa länkade taggar."
 
 #: src/modules/blocks/event-tags/block.js:55
 #: src/resources/js/app/blocks.js:49224
 msgid "Add tags in document settings"
-msgstr ""
+msgstr "Lägg till taggar i dokumentinställningar"
 
 #: src/modules/blocks/event-tags/block.js:54
 #: src/modules/blocks/event-tags/index.js:21
 #: src/resources/js/app/blocks.js:49223 src/resources/js/app/blocks.js:49254
 msgid "Tags"
-msgstr ""
+msgstr "Taggar"
 
 #: src/modules/blocks/event-venue/index.js:18
 #: src/resources/js/app/blocks.js:47617
@@ -8594,11 +8594,11 @@ msgstr "Förälder %s Kategori"
 
 #: src/Tribe/Main.php:1986
 msgid "All %s Categories"
-msgstr "Alla %s kategorier"
+msgstr "Alla %skategorier"
 
 #: src/Tribe/Main.php:1985
 msgid "Search %s Categories"
-msgstr "Sök %s Kategorier"
+msgstr "Sök %skategorier"
 
 #: src/Tribe/Main.php:1984
 msgid "%s Category"
@@ -9024,7 +9024,7 @@ msgstr "Startdatum"
 
 #: src/Tribe/Admin_List.php:246 src/Tribe/Main.php:1983
 msgid "%s Categories"
-msgstr "%s Kategorier"
+msgstr "%skategorier"
 
 #: src/Tribe/Admin/Timezone_Updater.php:105
 msgid "A problem stopped the time zone update process from completing. Please refresh and try again."

@@ -126,7 +126,7 @@ class Tribe__Events__Editor__Compatibility {
 			$this->get_toggle_blocks_editor_key() => array(
 				'type'            => 'checkbox_bool',
 				'label'           => esc_html__( 'Activate Block Editor for Events', 'the-events-calendar' ),
-				'tooltip'         => esc_html__( 'Enable early access to the new Gutenberg block editor interface for creating events.', 'the-events-calendar' ) . $read_more_link,
+				'tooltip'         => esc_html__( 'Enable the Gutenberg block editor interface for creating events.', 'the-events-calendar' ) . $read_more_link,
 				'default'         => false,
 				'validation_type' => 'boolean',
 				'attributes'      => array( 'id' => 'tribe-blocks-editor-toggle-field' ),

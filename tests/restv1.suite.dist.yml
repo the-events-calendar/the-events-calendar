@@ -10,14 +10,14 @@ modules:
         - WPLoader
     config:
         WPDb:
-            dsn: 'mysql:host=%DB_HOST%;dbname=%DB_NAME%'
-            user: %DB_USER%
-            password: %DB_PASSWORD%
+            dsn: 'mysql:host=%WP_DB_HOST%;dbname=%WP_DB_NAME%'
+            user: %WP_DB_USER%
+            password: %WP_DB_PASSWORD%
             dump: tests/_data/dump.sql
             populate: true
             cleanup: true
             url: '%WP_URL%'
-            tablePrefix: wp_
+            tablePrefix: '%WP_TABLE_PREFIX%'
             waitlock: 10
         WPBrowser:
             url: '%WP_URL%'
@@ -31,8 +31,8 @@ modules:
             # just load WordPress using the same db as WPDb
             loadOnly: true
             wpRootFolder: %WP_ROOT_FOLDER%
-            dbName: %DB_NAME%
-            dbHost: %DB_HOST%
-            dbUser: %DB_USER%
-            dbPassword: '%DB_PASSWORD%'
+            dbName: %WP_DB_NAME%
+            dbHost: %WP_DB_HOST%
+            dbUser: %WP_DB_USER%
+            dbPassword: '%WP_DB_PASSWORD%'
 
