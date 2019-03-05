@@ -134,6 +134,10 @@ class OrganizerByUpcomingArchiveCest extends BaseRestCest {
 		sort( $response_ids );
 		$I->assertEquals( [ $organizer_1 ], $response_ids );
 
+		/*
+		 * Editors can see drafts and pending posts, hence the editor will see all upcoming
+		 * events and, with them, all organizers attached to them.
+		 */
 		$I->generate_nonce_for_role( 'editor' );
 		$I->sendGET( $this->organizers_url, [
 			'only_with_upcoming' => 'true',
@@ -142,9 +146,9 @@ class OrganizerByUpcomingArchiveCest extends BaseRestCest {
 		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 		$response = json_decode( $I->grabResponse(), true );
-		$I->assertCount( 1, $response['organizers'] );
+		$I->assertCount( 3, $response['organizers'] );
 		$response_ids = array_column( $response['organizers'], 'id' );
 		sort( $response_ids );
-		$I->assertEquals( [ $organizer_1 ], $response_ids );
+		$I->assertEquals( [ $organizer_1, $organizer_2, $organizer_3 ], $response_ids );
 	}
 }
