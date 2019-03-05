@@ -90,7 +90,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 		);
 
 		if ( null === $request['status'] ) {
-			$cap                 = get_post_type_object( Tribe__Events__Main::VENUE_POST_TYPE )->cap->edit_posts;
+			$cap                 = get_post_type_object( Tribe__Events__Main::ORGANIZER_POST_TYPE )->cap->edit_posts;
 			$args['post_status'] = current_user_can( $cap ) ? 'any' : 'publish';
 		} else {
 			$args['post_status'] = $this->filter_post_status_list( $request['status'] );
