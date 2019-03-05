@@ -197,7 +197,23 @@ class Tribe__Events__Aggregator__Page {
 	 * @return boolean
 	 */
 	public function is_screen() {
-		return ! empty( $this->ID ) && Tribe__Admin__Helpers::instance()->is_screen( $this->ID );
+		global $current_screen;
+
+		// Not in the admin we don't even care
+		if ( ! is_admin() ) {
+			return false;
+		}
+
+		// Doing AJAX? bail.
+		if ( tribe( 'context' )->doing_ajax() ) {
+			return false;
+		}
+
+		if ( ! ( $current_screen instanceof WP_Screen ) ) {
+			return false;
+		}
+
+		return ! empty( $this->ID ) && $current_screen->id === $this->ID;
 	}
 
 	/**
