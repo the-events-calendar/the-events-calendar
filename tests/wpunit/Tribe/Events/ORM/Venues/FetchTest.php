@@ -81,7 +81,7 @@ class FetchTest extends \Codeception\TestCase\WPTestCase {
 	 *
 	 * @test
 	 */
-	public function jhould_allow_getting_venues_by_postal_code() {
+	public function should_allow_getting_venues_by_postal_code() {
 		$matching = $this->factory()->venue->create_many( 2, [ 'meta_input' => [ '_VenueZip' => '10025' ] ] );
 		$this->factory()->venue->create_many( 3, [ 'meta_input' => [ '_VenueZip' => '2389' ] ] );
 
