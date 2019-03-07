@@ -76,6 +76,8 @@ if ( ! class_exists( 'Tribe__Events__Template__List' ) ) {
 				$post_status[] = 'private';
 			}
 
+			$display = tribe( 'context' )->get( 'event_display' );
+
 			$args = array(
 				'eventDisplay' => $display,
 				'post_type'    => Tribe__Events__Main::POSTTYPE,
