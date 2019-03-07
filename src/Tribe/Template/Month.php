@@ -852,10 +852,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			}
 
 			$beginning_of_day           = $this->get_cutoff_details( $date, 'beginning' );
-			$beginning_of_day_timestamp = $this->get_cutoff_details( $date, 'beginning_timestamp' );
-
 			$end_of_day           = $this->get_cutoff_details( $date, 'end' );
-			$end_of_day_timestamp = $this->get_cutoff_details( $date, 'end_timestamp' );
 
 			$event_ids_on_date = $this->get_event_ids_by_day( $date );
 
@@ -872,8 +869,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 					'eventDisplay'           => 'month',
 					'posts_per_page'         => $this->events_per_day,
 					'post__in'               => $event_ids_on_date,
-					'start_date'             => $beginning_of_day,
-					'end_date'               => $end_of_day,
+					'date_overlaps'          => [ $beginning_of_day, $end_of_day ],
 					'update_post_term_cache' => false,
 					'update_post_meta_cache' => false,
 					'no_found_rows'          => false,
