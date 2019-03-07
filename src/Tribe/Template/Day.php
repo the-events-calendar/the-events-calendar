@@ -175,8 +175,17 @@ if ( ! class_exists( 'Tribe__Events__Template__Day' ) ) {
 				$args = array(
 					'post_status'  => $post_status,
 					'eventDisplay' => 'day',
-					'featured'     => tribe( 'tec.featured_events' )->featured_events_requested(),
 				);
+
+				/*
+				 * In this context a `false` value means "return all events, not just featured ones".
+				 * A `true` value means "only return featured events". Only in this latter case we'll apply the
+				 * `featured` filter.
+				 */
+				$featured_events_requested = tribe( 'tec.featured_events' )->featured_events_requested();
+				if ( $featured_events_requested ) {
+					$args['featured'] = true;
+				}
 
 				Tribe__Events__Main::instance()->displaying = 'day';
 
