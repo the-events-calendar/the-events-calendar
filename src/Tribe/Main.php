@@ -2608,7 +2608,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Fetch the
 			$location = trim( $this->fullAddressString( $post->ID ) );
 
-			$event_details = apply_filters( 'the_content', get_the_content( $post->ID ) );
+			$event_details = apply_filters( 'the_content', $post->post_content );
 
 			// Hack: Add space after paragraph
 			// Normally Google Cal understands the newline character %0a
