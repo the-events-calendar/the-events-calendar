@@ -15,7 +15,7 @@ class JSON_LD__OrganizerTest extends \Codeception\TestCase\WPTestCase {
 	public function tearDown() {
 		// your tear down methods here
 
-		JSON_LD__Event::unregister_all();
+		JSON_LD__Organizer::unregister_all();
 
 		// then
 		parent::tearDown();

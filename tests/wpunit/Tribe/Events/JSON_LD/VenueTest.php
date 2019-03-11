@@ -15,7 +15,7 @@ class JSON_LD__VenueTest extends \Codeception\TestCase\WPTestCase {
 	public function tearDown() {
 		// your tear down methods here
 
-		JSON_LD__Event::unregister_all();
+		JSON_LD__Venue::unregister_all();
 
 		// then
 		parent::tearDown();
