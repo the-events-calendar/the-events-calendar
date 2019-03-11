@@ -851,9 +851,6 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 				return $daily_events;
 			}
 
-			$beginning_of_day           = $this->get_cutoff_details( $date, 'beginning' );
-			$end_of_day           = $this->get_cutoff_details( $date, 'end' );
-
 			$event_ids_on_date = $this->get_event_ids_by_day( $date );
 
 			// post__in doesn't work when it's empty, so just don't run the query if there are no IDs
@@ -861,21 +858,29 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 				return new WP_Query();
 			}
 
-			// this  will skip updating term and meta caches - those were already
-			// updated in $this->set_events_in_month()
-			// expected order of events: sticky events, ongoing multi day events, all day events, then by start time
+			/**
+			 * Since we've already got the post IDs of the events fitting the search criteria
+			 * we can unset this to avoid furhter date-based filtering from happening.
+			 */
+			unset( $this->args['eventDate'] );
+
+			/*
+			 * This  will skip updating term and meta caches - those were already
+			 * updated in `$this->set_events_in_month()`.
+			 * We run another query to make sure the ordering applies correctly.
+			 * Expected order of events: sticky events, ongoing multi day events, all day events, then by start time.
+			 */
 			$args = wp_parse_args(
 				array(
 					'eventDisplay'           => 'month',
 					'posts_per_page'         => $this->events_per_day,
 					'post__in'               => $event_ids_on_date,
-					'date_overlaps'          => [ $beginning_of_day, $end_of_day ],
 					'update_post_term_cache' => false,
 					'update_post_meta_cache' => false,
 					'no_found_rows'          => false,
 					'do_not_inject_date'     => true,
 
-					// Don't replace `orderby` without taking in cosideration `menu_order`
+					// Don't replace `orderby` without taking in cosideration `menu_order`.
 					'orderby'                => 'post__in',
 				), $this->args
 			);
