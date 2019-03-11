@@ -958,12 +958,22 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				return $html;
 			}
 
-			$tec = self::instance();
+			/*
+			 * The category might come from a query for a taxonomy archive or as
+			 * an additional query variable: let's check both.
+			 */
+			$event_taxonomy = self::instance()->get_event_taxonomy();
+			$category       = '';
+			if ( is_tax( $event_taxonomy ) ) {
+				$category = get_query_var( 'term' );
+			} elseif ( $tribe_cat = $wp_query->get( $event_taxonomy, false ) ) {
+				$category = $tribe_cat;
+			}
 
 			$data_attributes = array(
 				'live_ajax'         => tribe_get_option( 'liveFiltersUpdate', true ) ? 1 : 0,
 				'datepicker_format' => tribe_get_option( 'datepickerFormat' ),
-				'category'          => is_tax( $tec->get_event_taxonomy() ) ? get_query_var( 'term' ) : '',
+				'category'          => $category,
 				'featured'          => tribe( 'tec.featured_events' )->is_featured_query(),
 			);
 			// allow data attributes to be filtered before display
