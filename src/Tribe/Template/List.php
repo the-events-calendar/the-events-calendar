@@ -69,7 +69,6 @@ if ( ! class_exists( 'Tribe__Events__Template__List' ) ) {
 
 			Tribe__Events__Query::init();
 
-
 			$tribe_paged = absint( tribe_get_request_var( 'tribe_paged', 1 ) );
 			$post_status = [ 'publish' ];
 			if ( is_user_logged_in() ) {
@@ -103,14 +102,14 @@ if ( ! class_exists( 'Tribe__Events__Template__List' ) ) {
 				$args['start_date'] = tribe_beginning_of_day( $date );
 				$args['order']      = 'ASC';
 			} elseif ( 'past' === $display ) {
-				$args['starts_before'] = Tribe__Date_Utils::build_date_object( 'now' );
+				$args['starts_before'] = tribe_beginning_of_day( $date );
 				$args['order']         = 'DESC';
 			} elseif ( 'all' === $display ) {
 				$args['start_date'] = tribe_beginning_of_day( $date );
 				$args['order']      = 'ASC';
 			}
 
-			// check & set event category
+			// Check & set event category.
 			if ( isset( $_POST['tribe_event_category'] ) ) {
 				$args[ Tribe__Events__Main::TAXONOMY ] = $_POST['tribe_event_category'];
 			}
@@ -119,14 +118,20 @@ if ( ! class_exists( 'Tribe__Events__Template__List' ) ) {
 
 			$query = tribe_get_events( $args, true );
 
-			// $hash is used to detect whether the primary arguments in the query have changed (i.e. due to a filter bar request)
-			// if they have, we want to go back to page 1
+			/*
+			 * The hash is used to detect whether the primary arguments in the query have changed (i.e. due to a filter bar request).
+			 * If they have, we want to go back to page 1.
+			 */
 			$hash = $query->query_vars;
 
-			$hash['paged']      = null;
-			$hash['start_date'] = null;
-			$hash['end_date']   = null;
-			$hash['search_orderby_title'] = null;
+			unset(
+				$hash['paged'],
+				$hash['start_date'],
+				$hash['end_date'],
+				$hash['starts_before'],
+				$hash['search_orderby_title']
+			);
+
 			$hash_str           = md5( maybe_serialize( $hash ) );
 
 			if ( ! empty( $_POST['hash'] ) && $hash_str !== $_POST['hash'] ) {
@@ -134,7 +139,6 @@ if ( ! class_exists( 'Tribe__Events__Template__List' ) ) {
 				$args['paged'] = 1;
 				$query         = tribe_get_events( $args, true );
 			}
-
 
 			$response = array(
 				'html'        => '',
