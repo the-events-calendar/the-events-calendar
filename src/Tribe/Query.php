@@ -1284,6 +1284,18 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 					}
 				}
 
+				/**
+				 * Some key arguments have been passed as arrays but will require unpacking.
+				 * Due to the dynamic nature of the ORM implementation this is a curated list
+				 * that should be updated here. Do not try to move this conditional unpacking logic
+				 * in the ORM: this is an issue the proxy function should handle ad-hoc.
+				 */
+				$requiring_unpack = [ 'date_overlaps' ];
+				foreach ( array_intersect( array_keys( $args ), $requiring_unpack ) as $key ) {
+					$event_orm->by( $key, ...$args[ $key ] );
+					unset( $args[ $key ] );
+				}
+
 				$event_orm->by_args( $args );
 
 				if ( $return_found_posts ) {
