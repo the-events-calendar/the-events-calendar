@@ -215,6 +215,10 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
+= [4.8.3] TBD =
+
+* Fix - Include second param for the `the_title` for Events, Venue and Organizer Rest API endpoints, prevent warnings (Props to Alex) [123317]
+
 = [4.8.2] 2019-03-04 =
 
 * Fix - Resolve console warnings around React key usage for Blocks Editor [121198]
