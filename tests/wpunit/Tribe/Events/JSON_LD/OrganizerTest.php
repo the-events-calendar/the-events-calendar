@@ -44,7 +44,7 @@ class JSON_LD__OrganizerTest extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * @test
-	 * it should return array with one post in it if trying to get data for one event
+	 * it should return array with one post in it if trying to get data for one organizer
 	 *
 	 * @since TBD
 	 */
