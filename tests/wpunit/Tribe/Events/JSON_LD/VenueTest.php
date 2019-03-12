@@ -42,6 +42,23 @@ class JSON_LD__VenueTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
+	 * @test
+	 * it should return array with one post in it if trying to get data for one event
+	 *
+	 * @since TBD
+	 */
+	public function it_should_return_array_with_one_post_in_it_if_trying_to_get_data_for_one_post() {
+		$post = $this->factory()->post->create();
+
+		$sut  = $this->make_instance();
+		$data = $sut->get_data( $post );
+
+		$this->assertInternalType( 'array', $data );
+		$this->assertCount( 1, $data );
+		$this->assertContainsOnly( 'stdClass', $data );
+	}
+
+	/**
 	 * @return Tribe__Events__JSON_LD__Venue
 	 *
 	 * @since TBD
