@@ -6,11 +6,14 @@ use Tribe__Events__JSON_LD__Organizer as JSON_LD__Organizer;
 
 class JSON_LD__OrganizerTest extends \Codeception\TestCase\WPTestCase {
 
+	protected $organizer;
+
 	public function setUp() {
 		// before
 		parent::setUp();
 
 		// your set up methods here
+		$this->create_test_data();
 	}
 
 	public function tearDown() {
@@ -20,6 +23,25 @@ class JSON_LD__OrganizerTest extends \Codeception\TestCase\WPTestCase {
 
 		// then
 		parent::tearDown();
+	}
+
+	/**
+	 * Create test data
+	 *
+	 * @since TBD
+	 * @return void
+	*/
+	public function create_test_data() {
+
+		$this->organizer = $this->factory()->post->create_and_get( [
+				'post_type' => Main::ORGANIZER_POST_TYPE,
+				'post_title' => 'Leo Messi',
+				'meta_input' => [
+					'_OrganizerPhone'   => '+1 888 8888',
+					'_OrganizerWebsite' => 'http://messi.com',
+					'_OrganizerEmail'   => 'leo@messi.com',
+				],
+			] );
 	}
 
 	/**
@@ -57,6 +79,28 @@ class JSON_LD__OrganizerTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertInternalType( 'array', $data );
 		$this->assertCount( 1, $data );
 		$this->assertContainsOnly( 'stdClass', $data );
+	}
+
+	/**
+	 * @test
+	 * Check that the data for the JSON_LD is populated correctly
+	 *
+	 * @since TBD
+	 */
+	public function it_should_return_correct_data() {
+
+		$sut          = $this->make_instance();
+		$organizer_id = $this->organizer->ID;
+
+		$data    = $sut->get_data( $organizer_id );
+		$json_ld = $data[ $organizer_id ];
+
+		// Organizer assertions
+		$this->assertEquals( $json_ld->{ '@type' }, 'Person' );
+		$this->assertEquals( $json_ld->name, get_the_title( $organizer_id ) );
+		$this->assertEquals( $json_ld->telephone, tribe_get_organizer_phone( $organizer_id ) );
+		$this->assertEquals( $json_ld->sameAs, tribe_get_organizer_website_url( $organizer_id ) );
+
 	}
 
 	/**
