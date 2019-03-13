@@ -6,11 +6,14 @@ use Tribe__Events__JSON_LD__Venue as JSON_LD__Venue;
 
 class JSON_LD__VenueTest extends \Codeception\TestCase\WPTestCase {
 
+	protected $venue;
+
 	public function setUp() {
 		// before
 		parent::setUp();
 
 		// your set up methods here
+		$this->create_test_data();
 	}
 
 	public function tearDown() {
@@ -20,6 +23,29 @@ class JSON_LD__VenueTest extends \Codeception\TestCase\WPTestCase {
 
 		// then
 		parent::tearDown();
+	}
+
+	/**
+	 * Create test data
+	 *
+	 * @since TBD
+	 * @return void
+	*/
+	public function create_test_data() {
+
+		$this->venue = $this->factory()->post->create_and_get( [
+				'post_type' => Main::VENUE_POST_TYPE,
+				'post_title' => 'Camp Nou',
+				'meta_input' => [
+					'_VenueAddress'       => "C. d'Aristides Maillol, 12",
+					'_VenueCity'          => 'Barcelona',
+					'_VenueCountry'       => 'Spain',
+					'_VenueProvince'      => 'Barcelona',
+					'_VenueURL'           => 'http://fcbarcelona.com',
+					'_VenueStateProvince' => 'Barcelona',
+					'_VenueZip'           => '08028',
+				],
+			] );
 	}
 
 	/**
@@ -57,6 +83,35 @@ class JSON_LD__VenueTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertInternalType( 'array', $data );
 		$this->assertCount( 1, $data );
 		$this->assertContainsOnly( 'stdClass', $data );
+	}
+
+	/**
+	 * @test
+	 * Check that the data for the JSON_LD is populated correctly
+	 *
+	 * @since TBD
+	 */
+	public function it_should_return_correct_data() {
+
+		$sut          = $this->make_instance();
+		$venue_id     = $this->venue->ID;
+
+		$data    = $sut->get_data( $venue_id );
+		$json_ld = $data[ $venue_id ];
+
+		// Venue assertions
+		$this->assertEquals( $json_ld->{ '@type' }, 'Place' );
+		$this->assertEquals( $json_ld->name, get_the_title( $venue_id ) );
+		$this->assertEquals( $json_ld->telephone, tribe_get_phone( $venue_id ) );
+		$this->assertEquals( $json_ld->sameAs, tribe_get_venue_website_url( $venue_id ) );
+
+		$this->assertEquals( $json_ld->address->{ '@type' }, 'PostalAddress' );
+		$this->assertEquals( $json_ld->address->streetAddress, tribe_get_address( $venue_id ) );
+		$this->assertEquals( $json_ld->address->addressLocality, tribe_get_city( $venue_id ) );
+		$this->assertEquals( $json_ld->address->addressRegion, tribe_get_region( $venue_id ) );
+		$this->assertEquals( $json_ld->address->postalCode, tribe_get_zip( $venue_id ) );
+		$this->assertEquals( $json_ld->address->addressCountry, tribe_get_country( $venue_id ) );
+
 	}
 
 	/**
