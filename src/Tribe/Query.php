@@ -608,8 +608,25 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 
 			$postmeta_table = self::postmeta_table( $query );
 
-			$event_start_key = '_EventStartDate';
-			$event_end_key   = '_EventEndDate';
+			/**
+			 * Which param will be queried in the Database for Events Date Start
+			 *
+			 * @since  1.0
+			 * @since  TBD  We moved into using ORM so we only use UTC dates now
+			 *
+			 * @var string
+			 */
+			$event_start_key = '_EventStartDateUTC';
+
+			/**
+			 * Which param will be queried in the Database for Events Date End
+			 *
+			 * @since  1.0
+			 * @since  TBD  We moved into using ORM so we only use UTC dates now
+			 *
+			 * @var string
+			 */
+			$event_end_key   = '_EventEndDateUTC';
 
 			/**
 			 * When the "Use site timezone everywhere" option is checked in events settings,
@@ -617,15 +634,18 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			 * disabling of that in certain contexts, so that local (not UTC) event times are used.
 			 *
 			 * @since 4.6.10
+			 * @since TBD    Commented out these lines below to always use UTC fields
 			 *
 			 * @param boolean $force_local_tz Whether to force the local TZ.
 			 */
+			/*
 			$force_local_tz = apply_filters( 'tribe_events_query_force_local_tz', false );
 
 			if ( Tribe__Events__Timezones::is_mode( 'site' ) && ! $force_local_tz ) {
 				$event_start_key .= 'UTC';
 				$event_end_key   .= 'UTC';
 			}
+			*/
 
 			// if it's a true event query then we want create a join for where conditions
 			if ( $query->tribe_is_event || $query->tribe_is_event_category || $query->tribe_is_multi_posttype ) {
