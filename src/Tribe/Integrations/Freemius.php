@@ -57,7 +57,6 @@ class Tribe__Events__Integrations__Freemius {
 		}
 
 		$slug = 'the-events-calendar';
-		add_action( "fs_templates/connect.php_{$slug}", [ $this, 'get_connect_template' ] );
 
 		$this->instance = tribe( 'freemius' )->initialize(
 			$slug,
@@ -76,18 +75,28 @@ class Tribe__Events__Integrations__Freemius {
 		);
 
 		tribe_asset( Tribe__Events__Main::instance(), 'tribe-events-freemius', 'freemius.css', [], 'admin_enqueue_scripts' );
+
+		$this->instance->add_filter( 'connect_message_on_update', [ $this, 'filter_connect_message_on_update' ], 10, 6 );
+		$this->instance->add_filter( 'connect_message', [ $this, 'filter_connect_message' ], 10, 6 );
 	}
 
-	public function get_connect_template( $html ) {
-		if ( ! function_exists( 'fs_get_template' ) ) {
-			return $html;
-		}
-
-        $context = [ 'id' => $this->freemius_id ];
-
-		// fs_get_template( 'connect.php', $vars )
-
-		return $html;
+	public function filter_connect_message_on_update(
+		$message,
+		$user_first_name,
+		$product_title,
+		$user_login,
+		$site_link,
+		$freemius_link
+	) {
+		return sprintf(
+			__( 'Hey %1$s', 'my-text-domain' ) . ',<br>' .
+			__( 'Please help us improve %2$s! If you opt-in, some data about your usage of %2$s will be sent to %5$s. If you skip this, that\'s okay! %2$s will still work just fine.', 'my-text-domain' ),
+			$user_first_name,
+			'<b>' . $product_title . '</b>',
+			'<b>' . $user_login . '</b>',
+			$site_link,
+			$freemius_link
+		);
 	}
 
 	/**
