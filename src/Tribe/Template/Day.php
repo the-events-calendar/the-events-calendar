@@ -167,15 +167,20 @@ if ( ! class_exists( 'Tribe__Events__Template__Day' ) ) {
 
 				Tribe__Events__Query::init();
 
-				$post_status = array( 'publish' );
+				$post_status = [ 'publish' ];
 				if ( is_user_logged_in() ) {
 					$post_status[] = 'private';
 				}
 
-				$args = array(
+				$args = [
 					'post_status'  => $post_status,
 					'eventDisplay' => 'day',
-				);
+				];
+
+				$search = tribe_get_request_var( 'tribe-bar-search' );
+				if ( $search ) {
+					$args['s'] = $search;
+				}
 
 				/*
 				 * In this context a `false` value means "return all events, not just featured ones".
