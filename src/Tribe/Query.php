@@ -396,9 +396,14 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				 */
 				$start_hack = apply_filters( 'tribe_events_query_event_start_hack', true );
 				if ( $start_hack && ! tribe( 'context' )->is_editing_post( Tribe__Events__Main::POSTTYPE ) ) {
-					$event_start_key = Tribe__Events__Timezones::is_mode( 'site' )
-						? '_EventStartDateUTC'
-						: '_EventStartDate';
+					/**
+					 * We stopped using `_EventStartDate` due to problems with inconsistency with timezones
+					 *
+					 * It was based on the Tribe__Events__Timezones::is_mode( 'site' ) definition
+					 *
+					 * @since TBD
+					 */
+					$event_start_key = '_EventStartDateUTC';
 
 					$meta_query[] = array(
 						'key'  => $event_start_key,
