@@ -24,6 +24,15 @@ class Tribe__Events__Integrations__Freemius {
 	private $freemius_id = '3069';
 
 	/**
+	 * Stores the slug for the Freemius application
+	 *
+	 * @since  TBD
+	 *
+	 * @var string
+	 */
+	private $slug = 'the-events-calendar';
+
+	/**
 	 * Performs setup for the Freemius integration singleton.
 	 *
 	 * @since  TBD
@@ -32,6 +41,7 @@ class Tribe__Events__Integrations__Freemius {
 	 */
 	public function __construct() {
 		$page = tribe_get_request_var( 'page' );
+
 		$valid_page = [
 			Tribe__Settings::$parent_slug,
 			Tribe__App_Shop::MENU_SLUG,
@@ -56,10 +66,8 @@ class Tribe__Events__Integrations__Freemius {
 			return;
 		}
 
-		$slug = 'the-events-calendar';
-
 		$this->instance = tribe( 'freemius' )->initialize(
-			$slug,
+			$this->slug,
 			$this->freemius_id,
 			'pk_e32061abc28cfedf231f3e5c4e626',
 			[
@@ -76,7 +84,36 @@ class Tribe__Events__Integrations__Freemius {
 
 		tribe_asset( Tribe__Events__Main::instance(), 'tribe-events-freemius', 'freemius.css', [], 'admin_enqueue_scripts' );
 
+		add_action( 'admin_init', [ $this, 'action_skip_activation' ] );
+
 		$this->instance->add_filter( 'connect_message_on_update', [ $this, 'filter_connect_message_on_update' ], 10, 6 );
+	}
+
+	/**
+	 * Action to skip activation since freemius doesnt do their job correctly hre
+	 *
+	 * @since  TBD
+	 *
+	 * @return bool|void
+	 */
+	public function action_skip_activation() {
+		$fs_action = tribe_get_request_var( 'fs_action' );
+
+		// Prevent Fatals
+		if ( ! function_exists( 'fs_redirect' ) || ! function_exists( 'fs_is_network_admin' ) ) {
+			return false;
+		}
+
+		// Actually do the Skipping of connection, since their code doesnt
+		if ( $this->slug . '_skip_activation' !== $fs_action ) {
+			return false;
+		}
+
+		check_admin_referer( $this->slug . '_skip_activation' );
+
+		$this->instance->skip_connection( null, fs_is_network_admin() );
+
+		fs_redirect( $this->instance->get_after_activation_url( 'after_skip_url' ) );
 	}
 
 	/**
@@ -119,6 +156,9 @@ class Tribe__Events__Integrations__Freemius {
 			$plugin_name
 		);
 		$html .= '</p>';
+
+		// Powered by HTML
+		$html .= '<div class="tribe-powered-by-freemius">' . __( 'Powered by', 'the-events-calendar' ) . '</div>';
 
 		return $title . $html;
 	}
