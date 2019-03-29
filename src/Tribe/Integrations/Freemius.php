@@ -77,9 +77,22 @@ class Tribe__Events__Integrations__Freemius {
 		tribe_asset( Tribe__Events__Main::instance(), 'tribe-events-freemius', 'freemius.css', [], 'admin_enqueue_scripts' );
 
 		$this->instance->add_filter( 'connect_message_on_update', [ $this, 'filter_connect_message_on_update' ], 10, 6 );
-		$this->instance->add_filter( 'connect_message', [ $this, 'filter_connect_message' ], 10, 6 );
 	}
 
+	/**
+	 * Filter the content for the Freemius Popup
+	 *
+	 * @since  TBD
+	 *
+	 * @param  string $message
+	 * @param  string $user_first_name
+	 * @param  string $product_title
+	 * @param  string $user_login
+	 * @param  string $site_link
+	 * @param  string $freemius_link
+	 *
+	 * @return string
+	 */
 	public function filter_connect_message_on_update(
 		$message,
 		$user_first_name,
@@ -88,15 +101,26 @@ class Tribe__Events__Integrations__Freemius {
 		$site_link,
 		$freemius_link
 	) {
-		return sprintf(
-			__( 'Hey %1$s', 'my-text-domain' ) . ',<br>' .
-			__( 'Please help us improve %2$s! If you opt-in, some data about your usage of %2$s will be sent to %5$s. If you skip this, that\'s okay! %2$s will still work just fine.', 'my-text-domain' ),
+		$plugin_name = 'The Events Calendar';
+		$title = '<h3>' . sprintf( __( 'We hope you love %1$s', 'the-events-calendar' ), $plugin_name ) . '</h3>';
+		$html = '';
+
+		$html .= '<p>';
+		$html .= sprintf(
+			__( 'Hi, %1$s! This is an invitation to help %2$s community. If you opt-in, some data about your usage of %2$s will be shared with our teams (so they can work their butts off to improve). We will also share some helpful info on events management. WordPress, and our products from time to time.', 'the-events-calendar' ),
 			$user_first_name,
-			'<b>' . $product_title . '</b>',
-			'<b>' . $user_login . '</b>',
-			$site_link,
-			$freemius_link
+			$plugin_name
 		);
+		$html .= '</p>';
+
+		$html .= '<p>';
+		$html .= sprintf(
+			__( 'And if you skip this, that\'s okay! %1$s will still work just fine.', 'the-events-calendar' ),
+			$plugin_name
+		);
+		$html .= '</p>';
+
+		return $title . $html;
 	}
 
 	/**

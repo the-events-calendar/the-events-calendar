@@ -100,6 +100,20 @@
 			padding: 20px 35px;
 		}
 
+		.events-cal #fs_connect .fs-content h3 {
+				font-size: 1.7em;
+				margin-top: 0;
+			}
+
+		.events-cal #fs_connect .fs-content p {
+				margin-bottom: 20px;
+			}
+
+		.events-cal #fs_connect .fs-content p:first-child,
+				.events-cal #fs_connect .fs-content p:last-child {
+					margin-bottom: 0;
+				}
+
 		.events-cal #fs_connect .fs-actions {
 			padding: 20px 35px;
 			background-color: #f3f3f3;
