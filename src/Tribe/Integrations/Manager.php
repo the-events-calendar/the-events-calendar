@@ -43,6 +43,8 @@ class Tribe__Events__Integrations__Manager {
 	/**
 	 * Loads our Events Freemius integration
 	 *
+	 * @since TBD
+	 *
 	 * @return bool
 	 */
 	private function load_freemius() {
