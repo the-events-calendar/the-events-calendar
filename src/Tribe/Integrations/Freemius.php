@@ -158,7 +158,7 @@ class Tribe__Events__Integrations__Freemius {
 		$html .= '</p>';
 
 		// Powered by HTML
-		$html .= '<div class="tribe-powered-by-freemius">' . __( 'Powered by', 'the-events-calendar' ) . '</div>';
+		$html .= '<div class="tribe-powered-by-freemius">' . esc_html__( 'Powered by', 'the-events-calendar' ) . '</div>';
 
 		return $title . $html;
 	}
