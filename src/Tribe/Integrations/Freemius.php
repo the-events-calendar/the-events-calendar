@@ -152,7 +152,7 @@ class Tribe__Events__Integrations__Freemius {
 
 		$html .= '<p>';
 		$html .= sprintf(
-			__( 'And if you skip this, that\'s okay! %1$s will still work just fine.', 'the-events-calendar' ),
+			esc_html__( 'And if you skip this, that\'s okay! %1$s will still work just fine.', 'the-events-calendar' ),
 			$plugin_name
 		);
 		$html .= '</p>';
