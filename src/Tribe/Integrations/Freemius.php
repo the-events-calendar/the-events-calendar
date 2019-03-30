@@ -139,7 +139,7 @@ class Tribe__Events__Integrations__Freemius {
 		$freemius_link
 	) {
 		$plugin_name = 'The Events Calendar';
-		$title = '<h3>' . sprintf( __( 'We hope you love %1$s', 'the-events-calendar' ), $plugin_name ) . '</h3>';
+		$title = '<h3>' . sprintf( esc_html__( 'We hope you love %1$s', 'the-events-calendar' ), $plugin_name ) . '</h3>';
 		$html = '';
 
 		$html .= '<p>';
