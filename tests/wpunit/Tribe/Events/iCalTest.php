@@ -99,7 +99,7 @@ class iCalTest extends \Codeception\TestCase\WPTestCase {
 		global $wp_query;
 
 		// run the query, simulates what would happen on the page
-		$wp_query = new \WP_Query( [ 'post_type' => $post_type, 'posts_per_page' => $posts_per_page ] );
+		$wp_query = tribe_get_events( [ 'posts_per_page' => $posts_per_page ], true );
 
 		$sut = $this->make_instance();
 		$sut->set_feed_default_export_count( $default_export_count );
