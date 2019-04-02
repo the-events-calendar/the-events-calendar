@@ -1296,7 +1296,15 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 							array( 'key' => '/_Event(Start|End)Date(UTC)/' )
 						);
 					}
-					$args['starts_before'] = tribe_beginning_of_day( $date->format( 'Y-m-d H:i:s' ) );
+
+					/**
+					 * We used to use the `tribe_beginning_of_day` for part of the query.
+					 *
+					 * Intentionally changed the behavior here to use "now" as part of the code
+					 *
+					 * @link https://central.tri.be/issues/123950
+					 */
+					$args['starts_before'] = $date->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
 				}
 
 				if ( null !== $hidden ) {
