@@ -151,7 +151,7 @@ class iCalTest extends \Codeception\TestCase\WPTestCase {
 		global $wp_query;
 
 		// run the query, simulates what would happen on the page
-		$wp_query = tribe_get_events( [ 'posts_per_page' => $posts_per_page ] );
+		$wp_query = tribe_get_events( [ 'posts_per_page' => $posts_per_page ], true );
 
 		add_filter(
 			'tribe_ical_feed_posts_per_page', function () use ( $filter_count ) {
@@ -194,7 +194,7 @@ class iCalTest extends \Codeception\TestCase\WPTestCase {
 		global $wp_query;
 
 		// run the query, simulates what would happen on the page
-		$wp_query = tribe_get_events( [ 'posts_per_page' => $posts_per_page ] );
+		$wp_query = tribe_get_events( [ 'posts_per_page' => $posts_per_page ], true );
 
 		add_filter(
 			'tribe_ical_feed_posts_per_page', function () use ( $filter_count ) {
