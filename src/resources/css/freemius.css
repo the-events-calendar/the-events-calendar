@@ -8,7 +8,10 @@
  * @see: http://moderntribe.github.io/products-engineering/css/
  */
 
-#toplevel_page_tribe-common.menu-top {
+#toplevel_page_tribe-common.menu-top,
+#toplevel_page_aggregator.menu-top,
+#toplevel_page_tribe-help.menu-top,
+#toplevel_page_tribe-app-shop.menu-top {
 	display: none;
 }
 
