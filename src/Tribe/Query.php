@@ -394,7 +394,8 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				 * For this screen we're doing the JOIN manually in `Tribe__Events__Admin_List`.
 				 *
 				 * @param boolean $use_hack Whether to include the UTC start date or not.
-				 * @param \WP_Query $query The query that is currently being filtered.
+				 * @param \WP_Query|null $query The query that is currently being filtered or `null` if no query is
+				 *                              being filtered.
 				 *
 				 * @since TBD
 				 */
