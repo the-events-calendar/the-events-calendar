@@ -232,22 +232,22 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			}
 
 			// Default to always caching the current month
-			if ( ! isset( $this->args[ 'eventDate' ] ) ) {
+			if ( ! isset( $this->args['eventDate'] ) ) {
 				return true;
 			}
 
 			// If the eventDate argument is not in the expected format then do not cache
-			if ( ! preg_match( '/^[0-9]{4}-[0-9]{1,2}$/', $this->args[ 'eventDate' ] ) ) {
+			if ( ! preg_match( '/^[0-9]{4}-[0-9]{1,2}$/', $this->args['eventDate'] ) ) {
 				return false;
 			}
 
 			// If the requested month is more than 2 months in the past, do not cache
-			if ( $this->args[ 'eventDate' ] < date_i18n( 'Y-m', Tribe__Date_Utils::wp_strtotime( '-2 months' ) ) ) {
+			if ( $this->args['eventDate'] < date_i18n( 'Y-m', Tribe__Date_Utils::wp_strtotime( '-2 months' ) ) ) {
 				return false;
 			}
 
 			// If the requested month is more than 1yr in the future, do not cache
-			if ( $this->args[ 'eventDate' ] > date_i18n( 'Y-m', Tribe__Date_Utils::wp_strtotime( '+1 year' ) ) ) {
+			if ( $this->args['eventDate'] > date_i18n( 'Y-m', Tribe__Date_Utils::wp_strtotime( '+1 year' ) ) ) {
 				return false;
 			}
 
@@ -401,7 +401,6 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 					'eventDisplay' => 'month',
 					'eventDate'    => is_array( $_POST['eventDate'] ) ? Tribe__Utils__Array::get( $_POST, array( 'eventDate', 0 ) ) : $_POST['eventDate'],
 					'post_status'  => $post_status,
-					'featured'     => tribe( 'tec.featured_events' )->featured_events_requested(),
 				);
 			}
 
