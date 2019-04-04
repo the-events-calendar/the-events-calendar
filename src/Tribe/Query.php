@@ -384,31 +384,31 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 					);
 				}
 
-				// Only add the postmeta hack if it's not the main admin events list
-				// Because this method filters out drafts without EventStartDate.
-				// For this screen we're doing the JOIN manually in Tribe__Events__Admin_List
 				/**
-				 * Filters whether or not to use the Start Date hack to include meta table.
+				 * Filters whether or not to use the UTC Start Date hack to include meta table.
 				 *
-				 * @param boolean $use_hack Whether to use the hack.
+				 * We stopped using `_EventStartDate` due to problems with inconsistency with timezones.
+				 * It was based on the Tribe__Events__Timezones::is_mode( 'site' ) definition.
+				 * We only add the `postmeta` hack if it's not the main admin events list
+				 * because this method filters out drafts without EventStartDate.
+				 * For this screen we're doing the JOIN manually in `Tribe__Events__Admin_List`.
+				 *
+				 * @param boolean $use_hack Whether to include the UTC start date or not.
+				 * @param \WP_Query $query The query that is currently being filtered.
 				 *
 				 * @since TBD
 				 */
-				$start_hack = apply_filters( 'tribe_events_query_event_start_hack', true );
-				if ( $start_hack && ! tribe( 'context' )->is_editing_post( Tribe__Events__Main::POSTTYPE ) ) {
-					/**
-					 * We stopped using `_EventStartDate` due to problems with inconsistency with timezones
-					 *
-					 * It was based on the Tribe__Events__Timezones::is_mode( 'site' ) definition
-					 *
-					 * @since TBD
-					 */
-					$event_start_key = '_EventStartDateUTC';
-
+				$include_utc_start_date = apply_filters( 'tribe_events_query_event_utc_start_date', true, $query );
+				if (
+					$include_utc_start_date
+					&& ! tribe( 'context' )->is_editing_post( Tribe__Events__Main::POSTTYPE )
+				) {
 					$meta_query[] = array(
-						'key'  => $event_start_key,
+						'key'  => '_EventStartDateUTC',
 						'type' => 'DATETIME',
 					);
+
+					$query->set( 'tribe_use_utc', true );
 				}
 			}
 
@@ -696,8 +696,15 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 
 				$start_date = $query->get( 'start_date' );
 				$end_date   = $query->get( 'end_date' );
-				$use_utc    = Tribe__Events__Timezones::is_mode( 'site' );
-				$site_tz    = $use_utc ? Tribe__Events__Timezones::wp_timezone_string() : null;
+				/*
+				 * While in the `\Tribe__Events__Query::pre_get_posts()` we default to `true` here we want to default
+				 * to `false` not to interfere with all queries indiscriminately.
+				 *
+				 * @see \Tribe__Events__Query::pre_get_posts().
+				 */
+				$use_utc = $query->get( 'tribe_use_utc', false );
+				$use_utc = $use_utc || Tribe__Events__Timezones::is_mode( 'site' );
+				$site_tz = $use_utc ? Tribe__Events__Timezones::wp_timezone_string() : null;
 
 				// Sitewide timezone mode: convert the start date - if set - to UTC
 				if ( $use_utc && ! empty( $start_date ) ) {

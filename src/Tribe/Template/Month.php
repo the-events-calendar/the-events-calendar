@@ -603,7 +603,18 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			 */
 			$events_in_month = apply_filters( 'tribe_events_month_get_events_in_month', null, $start_date, $end_date );
 
+
 			if ( null === $events_in_month ) {
+				/**
+				 * Documented in the `\Tribe__Events__Query::pre_get_posts` method.
+				 *
+				 * @see   \Tribe__Events__Query::pre_get_posts()
+				 *
+				 * @since TBD
+				 */
+				$use_utc = apply_filters( 'tribe_events_query_event_utc_start_date', true );
+				$start_date_key = $use_utc ? '_EventStartDateUTC' : '_EventStartDate';
+
 				$start_date_sql = esc_sql( $start_date );
 				$end_date_sql = esc_sql( $end_date );
 
@@ -613,7 +624,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 					FROM $wpdb->postmeta AS tribe_event_start
 					LEFT JOIN $wpdb->posts ON tribe_event_start.post_id = $wpdb->posts.ID
 					LEFT JOIN $wpdb->postmeta as tribe_event_end_date ON ( tribe_event_start.post_id = tribe_event_end_date.post_id AND tribe_event_end_date.meta_key = '_EventEndDate' )
-					WHERE $ignore_hidden_events_AND tribe_event_start.meta_key = '_EventStartDate'
+					WHERE $ignore_hidden_events_AND tribe_event_start.meta_key = '{$start_date_key}'
 					AND (
 						(
 							tribe_event_start.meta_value >= '{$start_date_sql}'
