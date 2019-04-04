@@ -142,7 +142,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 		tribe_singleton( 'tec.rest-v1.endpoints.documentation', $endpoint );
 
 		if ( $register_routes ) {
-			register_rest_route( $this->get_events_route_namespace(), '/doc', array(
+			tribe_register_rest_route( $this->get_events_route_namespace(), '/doc', array(
 				'methods'  => WP_REST_Server::READABLE,
 				'callback' => array( $endpoint, 'get' ),
 			) );
@@ -199,7 +199,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 		tribe_singleton( 'tec.rest-v1.endpoints.archive-event', $endpoint );
 
 		if ( $register_routes ) {
-			register_rest_route( $this->get_events_route_namespace(), '/events', array(
+			tribe_register_rest_route( $this->get_events_route_namespace(), '/events', array(
 				'methods'  => WP_REST_Server::READABLE,
 				'callback' => array( $endpoint, 'get' ),
 				'args'     => $endpoint->READ_args(),
@@ -230,7 +230,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 		$namespace = $this->get_events_route_namespace();
 
 		if ( $register_routes ) {
-			register_rest_route(
+			tribe_register_rest_route(
 				$namespace,
 				'/events/(?P<id>\\d+)',
 				array(
@@ -254,7 +254,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 				)
 			);
 
-			register_rest_route(
+			tribe_register_rest_route(
 				$namespace,
 				'/events', array(
 					'methods'             => WP_REST_Server::CREATABLE,
@@ -289,7 +289,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 		$namespace = $this->get_events_route_namespace();
 
 		if ( $register_routes ) {
-			register_rest_route(
+			tribe_register_rest_route(
 				$namespace,
 				'/events/by-slug/(?P<slug>[^/]+)',
 				array(
@@ -417,7 +417,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 		$namespace = $this->get_events_route_namespace();
 
 		if ( $register_routes ) {
-			register_rest_route(
+			tribe_register_rest_route(
 				$namespace,
 				'/venues/(?P<id>\\d+)',
 				array(
@@ -441,7 +441,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 				)
 			);
 
-			register_rest_route(
+			tribe_register_rest_route(
 				$namespace,
 				'/venues',
 				array(
@@ -475,7 +475,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 		$namespace = $this->get_events_route_namespace();
 
 		if ( $register_routes ) {
-			register_rest_route(
+			tribe_register_rest_route(
 				$namespace,
 				'/venues/by-slug/(?P<slug>[^/]+)',
 				array(
@@ -522,7 +522,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 		$namespace = $this->get_events_route_namespace();
 
 		if ( $register_routes ) {
-			register_rest_route(
+			tribe_register_rest_route(
 				$namespace,
 				'/organizers/(?P<id>\\d+)',
 				array(
@@ -546,7 +546,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 				)
 			);
 
-			register_rest_route(
+			tribe_register_rest_route(
 				$namespace,
 				'/organizers',
 				array(
@@ -580,7 +580,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 		$namespace = $this->get_events_route_namespace();
 
 		if ( $register_routes ) {
-			register_rest_route(
+			tribe_register_rest_route(
 				$namespace,
 				'/organizers/by-slug/(?P<slug>[^/]+)',
 				array(
@@ -624,7 +624,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 		tribe_singleton( 'tec.rest-v1.endpoints.archive-venue', $endpoint );
 
 		if ( $register_routes ) {
-			register_rest_route( $this->get_events_route_namespace(), '/venues', array(
+			tribe_register_rest_route( $this->get_events_route_namespace(), '/venues', array(
 				'methods'  => WP_REST_Server::READABLE,
 				'callback' => array( $endpoint, 'get' ),
 				'args'     => $endpoint->READ_args(),
@@ -650,7 +650,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 		tribe_singleton( 'tec.rest-v1.endpoints.archive-organizer', $endpoint );
 
 		if ( $register_routes ) {
-			register_rest_route( $this->get_events_route_namespace(), '/organizers', array(
+			tribe_register_rest_route( $this->get_events_route_namespace(), '/organizers', array(
 				'methods'  => WP_REST_Server::READABLE,
 				'callback' => array( $endpoint, 'get' ),
 				'args'     => $endpoint->READ_args(),
@@ -680,7 +680,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 		if ( $register_routes ) {
 			$namespace = $this->get_events_route_namespace();
 
-			register_rest_route(
+			tribe_register_rest_route(
 				$namespace,
 				'/categories',
 				array(
@@ -698,7 +698,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 				)
 			);
 
-			register_rest_route(
+			tribe_register_rest_route(
 				$namespace,
 				'/categories/(?P<id>\\d+)',
 				array(
@@ -748,7 +748,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 		if ( $register_routes ) {
 			$namespace = $this->get_events_route_namespace();
 
-			register_rest_route(
+			tribe_register_rest_route(
 				$namespace,
 				'/tags',
 				array(
@@ -766,7 +766,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 				)
 			);
 
-			register_rest_route(
+			tribe_register_rest_route(
 				$namespace,
 				'/tags/(?P<id>\\d+)',
 				array(
