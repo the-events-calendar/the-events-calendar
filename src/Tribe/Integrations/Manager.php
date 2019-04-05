@@ -57,11 +57,11 @@ class Tribe__Events__Integrations__Manager {
 		 */
 		$should_load = apply_filters( 'tribe_events_integrations_should_load_freemius', true );
 
-		tribe_singleton( 'events.integrations.freemius', new Tribe__Events__Integrations__Freemius );
-
 		if ( ! $should_load ) {
 			return false;
 		}
+
+		tribe_singleton( 'events.integrations.freemius', new Tribe__Events__Integrations__Freemius );
 
 		return true;
 	}
