@@ -895,6 +895,14 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 				), $this->args
 			);
 
+			// If the request is false or not set we assume the request is for all events, not just featured ones.
+			if (
+				tribe_is_truthy( tribe_get_request_var( 'featured', false ) )
+				|| tribe_is_truthy( tribe_get_request_var( 'tribe_featuredevent', false ) )
+			) {
+				$args['featured'] = true;
+			}
+
 			/**
 			  * Filter Daily Events Query Arguments.
 			  *
