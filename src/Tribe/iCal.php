@@ -498,7 +498,8 @@ class Tribe__Events__iCal {
 		}
 
 		$list = array();
-		if ( $count > $query_posts_per_page ) {
+		// When `posts_per_page` is set to `-1` we can slice.
+		if ( $query_posts_per_page >= 0 && $count > $query_posts_per_page ) {
 			$args['posts_per_page'] = $count;
 			$events_query = tribe_get_events( wp_parse_args( $args, [ 'posts_per_page' => $this->feed_posts_per_page() ] ), true );
 			$list = $events_query->get_posts();
