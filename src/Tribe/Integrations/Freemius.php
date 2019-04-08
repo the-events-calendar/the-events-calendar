@@ -53,6 +53,11 @@ class Tribe__Events__Integrations__Freemius {
 			return;
 		}
 
+		// if the common that loaded doesn't include Freemius, let's bail
+		if ( ! tribe()->offsetExists( 'freemius' ) ) {
+			return;
+		}
+
 		/**
 		 * Allows third-party disabling of The Events Calendar integration
 		 *
