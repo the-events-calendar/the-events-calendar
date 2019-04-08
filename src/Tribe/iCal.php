@@ -268,7 +268,14 @@ class Tribe__Events__iCal {
 				return;
 			}
 
-			$events_posts = $this->get_events_list( $wp_query->query, $wp_query );
+			$args = $wp_query->query_vars;
+
+			if ( 'list' === $args['eventDisplay'] ) {
+				// Whe producing a List view iCal feed the `eventDate` is misleading.
+				unset( $args['eventDate'] );
+			}
+
+			$events_posts = $this->get_events_list( $args, $wp_query );
 		}
 
 		$event_ids = wp_list_pluck( $events_posts, 'ID' );
