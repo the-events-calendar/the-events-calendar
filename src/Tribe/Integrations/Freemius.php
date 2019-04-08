@@ -54,7 +54,7 @@ class Tribe__Events__Integrations__Freemius {
 		}
 
 		// if the common that loaded doesn't include Freemius, let's bail
-		if ( ! class_exists( 'Tribe__Freemius' ) ) {
+		if ( ! tribe()->offsetExists( 'freemius' ) ) {
 			return;
 		}
 
