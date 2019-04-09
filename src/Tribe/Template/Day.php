@@ -205,7 +205,9 @@ if ( ! class_exists( 'Tribe__Events__Template__Day' ) ) {
 
 				$args['posts_per_page'] = -1; // show ALL day posts
 
+				/** @var \Tribe__Events__Repositories__Event $events_orm */
 				$events_orm = tribe_events();
+
 				$events_orm->by( 'date_overlaps', tribe_beginning_of_day( $event_date ), tribe_end_of_day( $event_date ) );
 				$events_orm->by_args( $args );
 

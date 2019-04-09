@@ -605,14 +605,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 
 
 			if ( null === $events_in_month ) {
-				/**
-				 * Documented in the `\Tribe__Events__Query::pre_get_posts` method.
-				 *
-				 * @see   \Tribe__Events__Query::pre_get_posts()
-				 *
-				 * @since TBD
-				 */
-				$use_utc = apply_filters( 'tribe_events_query_event_utc_start_date', true );
+				$use_utc = Tribe__Timezones::is_mode( 'site' );
 				$start_date_key = $use_utc ? '_EventStartDateUTC' : '_EventStartDate';
 
 				$start_date_sql = esc_sql( $start_date );
