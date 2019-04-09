@@ -206,6 +206,9 @@ if ( ! class_exists( 'Tribe__Events__Template__Day' ) ) {
 
 				$args['posts_per_page'] = -1; // show ALL day posts
 
+				// By default do not show hidden events.
+				$args['hidden'] = false;
+
 				/** @var \Tribe__Events__Repositories__Event $events_orm */
 				$events_orm = tribe_events();
 
