@@ -190,6 +190,11 @@ class Tribe__Events__Integrations__Freemius {
 	 */
 	public function maybe_remove_activation_complete_notice() {
 
+		// Bail if the is_pending_activation() method doesn't exist
+		if ( ! method_exists( $this->instance, 'is_pending_activation' ) ) {
+			return;
+		}
+
 		// Bail if it's still pending activation
 		if ( $this->instance->is_pending_activation() ) {
 			return;
