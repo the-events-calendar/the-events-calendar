@@ -175,6 +175,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Day' ) ) {
 				$args = [
 					'post_status'  => $post_status,
 					'eventDisplay' => 'day',
+					'order' => 'ASC',
 				];
 
 				$search = tribe_get_request_var( 'tribe-bar-search' );
