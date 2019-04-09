@@ -1286,7 +1286,8 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 					}
 				}
 
-				if ( ! empty( $args['tribe_is_past'] ) ) {
+				$is_past = ! empty( $args['tribe_is_past'] ) || 'past' === $event_display;
+				if ( $is_past ) {
 					$args['order'] = 'DESC';
 					$pivot_date = tribe_get_request_var( 'tribe-bar-date', 'now' );
 					$date       = Tribe__Date_Utils::build_date_object( $pivot_date );
