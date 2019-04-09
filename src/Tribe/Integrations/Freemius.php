@@ -92,6 +92,8 @@ class Tribe__Events__Integrations__Freemius {
 		add_action( 'admin_init', [ $this, 'action_skip_activation' ] );
 
 		$this->instance->add_filter( 'connect_message_on_update', [ $this, 'filter_connect_message_on_update' ], 10, 6 );
+
+		$this->maybe_remove_activation_complete_notice();
 	}
 
 	/**
@@ -177,5 +179,35 @@ class Tribe__Events__Integrations__Freemius {
 	 */
 	public function get() {
 		return $this->instance;
+	}
+
+	/**
+	 * Method to remove the sticky message when the plugin is active for freemius
+	 *
+	 * @since  TBD
+	 *
+	 * @return void
+	 */
+	public function maybe_remove_activation_complete_notice() {
+
+		// Bail if it's still pending activation
+		if ( $this->instance->is_pending_activation() ) {
+			return;
+		}
+
+		$admin_notices = FS_Admin_Notices::instance(
+				$this->slug,
+				'The Events Calendar',
+				$this->instance->get_unique_affix()
+			);
+
+		// Bail if it doesn't have the activation complete notice
+		if ( ! $admin_notices->has_sticky( 'activation_complete' ) ) {
+			return;
+		}
+
+		// Remove the sticky notice for activation complete
+		$admin_notices->remove_sticky( 'activation_complete' );
+
 	}
 }
