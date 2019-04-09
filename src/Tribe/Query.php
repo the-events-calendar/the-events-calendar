@@ -385,31 +385,33 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				}
 
 				/**
-				 * Filters whether or not to use the UTC Start Date hack to include meta table.
+				 * Filters whether or not to use the Start Date meta hack to include meta table.
 				 *
-				 * We stopped using `_EventStartDate` due to problems with inconsistency with timezones.
-				 * It was based on the Tribe__Events__Timezones::is_mode( 'site' ) definition.
 				 * We only add the `postmeta` hack if it's not the main admin events list
 				 * because this method filters out drafts without EventStartDate.
 				 * For this screen we're doing the JOIN manually in `Tribe__Events__Admin_List`.
 				 *
-				 * @param boolean $use_hack Whether to include the UTC start date or not.
+				 * @param boolean $use_hack Whether to include the start date meta or not.
 				 * @param \WP_Query|null $query The query that is currently being filtered or `null` if no query is
 				 *                              being filtered.
 				 *
 				 * @since TBD
 				 */
-				$include_utc_start_date = apply_filters( 'tribe_events_query_event_utc_start_date', true, $query );
+				$include_date_meta = apply_filters( 'tribe_events_query_include_start_date_meta', true, $query );
 				if (
-					$include_utc_start_date
+					$include_date_meta
 					&& ! tribe( 'context' )->is_editing_post( Tribe__Events__Main::POSTTYPE )
 				) {
+					$date_meta_key = Tribe__Events__Timezones::is_mode( 'site' )
+						? '_EventStartDateUTC'
+						: '_EventStartDate';
+
 					$meta_query[] = array(
-						'key'  => '_EventStartDateUTC',
+						'key'  => $date_meta_key,
 						'type' => 'DATETIME',
 					);
 
-					$query->set( 'tribe_use_utc', true );
+					$query->set( 'tribe_include_date_meta', true );
 				}
 			}
 
@@ -615,24 +617,22 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			$postmeta_table = self::postmeta_table( $query );
 
 			/**
-			 * Which param will be queried in the Database for Events Date Start
+			 * Which param will be queried in the Database for Events Date Start.
 			 *
 			 * @since  1.0
-			 * @since  TBD  We moved into using ORM so we only use UTC dates now
 			 *
 			 * @var string
 			 */
-			$event_start_key = '_EventStartDateUTC';
+			$event_start_key = Tribe__Events__Timezones::is_mode( 'site' ) ? '_EventStartDateUTC' : '_EventStartDate';
 
 			/**
-			 * Which param will be queried in the Database for Events Date End
+			 * Which param will be queried in the Database for Events Date End.
 			 *
 			 * @since  1.0
-			 * @since  TBD  We moved into using ORM so we only use UTC dates now
 			 *
 			 * @var string
 			 */
-			$event_end_key   = '_EventEndDateUTC';
+			$event_end_key = Tribe__Events__Timezones::is_mode( 'site' ) ? '_EventEndDateUTC' : '_EventStartDate';
 
 			/**
 			 * When the "Use site timezone everywhere" option is checked in events settings,
@@ -696,15 +696,8 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				$postmeta_table = self::postmeta_table( $query );
 
 				$start_date = $query->get( 'start_date' );
-				$end_date   = $query->get( 'end_date' );
-				/*
-				 * While in the `\Tribe__Events__Query::pre_get_posts()` we default to `true` here we want to default
-				 * to `false` not to interfere with all queries indiscriminately.
-				 *
-				 * @see \Tribe__Events__Query::pre_get_posts().
-				 */
-				$use_utc = $query->get( 'tribe_use_utc', false );
-				$use_utc = $use_utc || Tribe__Events__Timezones::is_mode( 'site' );
+				$end_date = $query->get( 'end_date' );
+				$use_utc = Tribe__Events__Timezones::is_mode( 'site' );
 				$site_tz = $use_utc ? Tribe__Events__Timezones::wp_timezone_string() : null;
 
 				// Sitewide timezone mode: convert the start date - if set - to UTC
@@ -1293,7 +1286,8 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 					}
 				}
 
-				if ( ! empty( $args['tribe_is_past'] ) ) {
+				$is_past = ! empty( $args['tribe_is_past'] ) || 'past' === $event_display;
+				if ( $is_past ) {
 					$args['order'] = 'DESC';
 					$pivot_date = tribe_get_request_var( 'tribe-bar-date', 'now' );
 					$date       = Tribe__Date_Utils::build_date_object( $pivot_date );
