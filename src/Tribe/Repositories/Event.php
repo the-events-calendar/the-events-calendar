@@ -1457,6 +1457,8 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 * @param bool $use_utc Whether ot use the UTC dates and times to read events or not. If `true` then the
 	 *                      `_EventStartDateUTC` and `_EventEndDateUTC` meta keys will be used, if `false` then the
 	 *                      `_EventStartDate` and `_EventEndDate` meta keys will be used.
+	 *
+	 * @return static This repository instance.
 	 */
 	public function use_utc( $use_utc ) {
 		$this->normal_timezone = $use_utc ?
@@ -1464,5 +1466,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			: Timezones::build_timezone_object();
 		$this->start_meta_key = $use_utc ? '_EventStartDateUTC' : '_EventStartDate';
 		$this->end_meta_key = $use_utc ? '_EventEndDateUTC' : '_EventEndDate';
+
+		return $this;
 	}
 }
