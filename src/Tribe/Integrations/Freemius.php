@@ -93,7 +93,7 @@ class Tribe__Events__Integrations__Freemius {
 
 		$this->instance->add_filter( 'connect_message_on_update', [ $this, 'filter_connect_message_on_update' ], 10, 6 );
 
-		$this->maybe_remove_activation_complete_notice();
+		add_action( 'admin_init', [ $this, 'maybe_remove_activation_complete_notice' ] );
 	}
 
 	/**
