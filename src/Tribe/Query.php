@@ -1338,6 +1338,11 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				} else {
 					$result = $event_orm->get_query();
 
+					// Set the event display, if any, for back-compatibility purposes.
+					if ( ! empty( $event_display ) ) {
+						$result->set( 'eventDisplay', $event_display );
+					}
+
 					// Run the query.
 					$result->get_posts();
 				}
