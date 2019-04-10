@@ -65,7 +65,7 @@ class Tribe__Events__Integrations__Freemius {
 		 *
 		 * @param  bool  $should_load
 		 */
-		$should_load = apply_filters( 'tribe_events_integrations_should_load_freemius', true );
+		$should_load = apply_filters( 'tribe_events_integrations_should_load_freemius', $this->should_load( 10 ) );
 
 		if ( ! $should_load ) {
 			return;
@@ -94,6 +94,51 @@ class Tribe__Events__Integrations__Freemius {
 		$this->instance->add_filter( 'connect_message_on_update', [ $this, 'filter_connect_message_on_update' ], 10, 6 );
 
 		add_action( 'admin_init', [ $this, 'maybe_remove_activation_complete_notice' ] );
+	}
+
+	/**
+	 * When should we load Freemius to users
+	 *
+	 * @since  TBD
+	 *
+	 * @param  integer $threshold Percentage of which we will load Freemius
+	 *
+	 * @return boolean
+	 */
+	public function should_load( $threshold = 10 ) {
+		$previous_versions = Tribe__Settings_Manager::get_option( 'previous_ecp_versions', [] );
+
+		/**
+		 * Should only if it a new install.
+		 *
+		 * @see Tribe__Admin__Activation_Page::is_new_install Based on protected method from Common.
+		 */
+		if ( ! empty( $previous_versions ) && '0' != end( $previous_versions ) ) {
+			return false;
+		}
+
+		// If we have the option we use it
+		$seed = tribe_get_option( 'freemius_random_seed', null );
+
+		if ( ! $seed ) {
+			$seed = rand( 1, 100 );
+
+			// On PHP 7.2 and above we have access to a better Randomizer method
+			if ( function_exists( 'random_int' ) ) {
+				$seed = random_int( 1, 100 );
+			}
+
+			// After getting a new seed save it to the DB
+			tribe_update_option( 'freemius_random_seed', $seed );
+		}
+
+		// If the seed falls in the Threshold we should load
+		if ( $threshold >= $seed ) {
+			return true;
+		}
+
+		// If we got here we shouldnt load
+		return false;
 	}
 
 	/**
@@ -213,6 +258,5 @@ class Tribe__Events__Integrations__Freemius {
 
 		// Remove the sticky notice for activation complete
 		$admin_notices->remove_sticky( 'activation_complete' );
-
 	}
 }
