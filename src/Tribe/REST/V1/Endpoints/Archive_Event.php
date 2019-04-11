@@ -162,6 +162,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 			$data['rest_url'] = $this->get_current_rest_url( $args, $extra_rest_args );
 
 			$events = tribe_get_events( $args );
+			$found_events = Tribe__Events__Query::last_found_events();
 
 			$page = $this->parse_page( $request ) ? $this->parse_page( $request ) : 1;
 
@@ -193,6 +194,10 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 
 			$data['total']       = $total = $this->get_total( $args );
 			$data['total_pages'] = $this->get_total_pages( $total, $args['posts_per_page'] );
+			$data['page_checksum'] = tribe_posts_checksum( $events );
+			$data['request_checksum'] = tribe_posts_checksum( array_map( function( $event ) {
+				return $event->ID;
+			}, $found_events ) );
 
 			$cache->set( $cache_key, $data, Tribe__Cache::NON_PERSISTENT, 'save_post' );
 		}

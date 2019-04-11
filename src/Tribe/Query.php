@@ -10,6 +10,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 	class Tribe__Events__Query {
+		/**
+		 * @var array The WP_Query arguments used in the last `getEvents` method
+		 *            query.
+		 */
+		protected static $last_result;
 
 		/**
 		 * Initialize The Events Calendar query filters and post processing.
@@ -1335,6 +1340,8 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				$cache->set( $cache_key, $result, Tribe__Cache::NON_PERSISTENT, 'save_post' );
 			}
 
+			self::$last_result = empty( $result->posts ) ? [] : $result->posts;
+
 			if ( $return_found_posts ) {
 				return $result;
 			}
@@ -1423,6 +1430,21 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		 */
 		public static function default_page_on_front( $value ) {
 			return tribe( 'tec.front-page-view' )->is_virtual_page_id( $value ) ? 0 : $value;
+		}
+
+		/**
+		 * Reruns the last query used to `getEvents` to fetch
+		 * all the found IDs.
+		 *
+		 * Pagination is ignored; this methods provides a way to
+		 * not only count the found posts but to get their ID too.
+		 *
+		 * @since TBD
+		 *
+		 * @return array
+		 */
+		public static function last_found_events() {
+			return self::$last_result;
 		}
 	}
 }
