@@ -197,7 +197,9 @@ class Tribe__Events__Template_Factory extends Tribe__Template_Factory {
 			$search_term = $wp_query->query_vars['s'];
 		} elseif ( ! empty( $_REQUEST['tribe-bar-search'] ) ) {
 			$search_term = $_REQUEST['tribe-bar-search'];
-		} elseif ( ! empty( $_REQUEST['tribe-bar-geoloc'] ) ) {
+		}
+
+		if ( ! empty( $_REQUEST['tribe-bar-geoloc'] ) ) {
 			$geographic_term = $_REQUEST['tribe-bar-geoloc'];
 		}
 
