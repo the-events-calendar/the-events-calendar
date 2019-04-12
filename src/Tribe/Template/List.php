@@ -11,6 +11,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
+use Tribe__Date_Utils as Dates;
+
 if ( ! class_exists( 'Tribe__Events__Template__List' ) ) {
 	/**
 	 * List view template class
@@ -93,8 +95,24 @@ if ( ! class_exists( 'Tribe__Events__Template__List' ) ) {
 				$args['hide_subsequent_recurrences'] = true;
 			}
 
+
 			// Apply display and date.
 			$date = tribe_get_request_var( 'tribe-bar-date', 'now' );
+
+			if ( 'now' === $date ) {
+				/*
+				 * When defaulting to "now" let's round down to the lower half hour.
+				 * This way we avoid invalidating the hash on requests following each other
+				 * in reasonable (30') time.
+				 */
+				$date = Dates::build_date_object( 'now' );
+				$minutes = $date->format( 'm' );
+				$date->setTime(
+					$date->format( 'H' ),
+					$minutes - ( $minutes % 30 )
+				);
+				$date = $date->format( Dates::DBDATETIMEFORMAT );
+			}
 
 			$args['eventDisplay'] = $display;
 
