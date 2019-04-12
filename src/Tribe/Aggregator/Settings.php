@@ -62,7 +62,7 @@ class Tribe__Events__Aggregator__Settings {
 		$this->clear_eb_credentials();
 
 		wp_redirect(
-			Tribe__Settings::instance()->get_url( array( 'tab' => 'addons' ) )
+			Tribe__Settings::instance()->get_url( [ 'tab' => 'addons' ] )
 		);
 		die;
 	}
@@ -74,9 +74,9 @@ class Tribe__Events__Aggregator__Settings {
 	 *
 	 */
 	public function get_eb_security_key() {
-		$args = array(
+		$args = [
 			'security_key' => tribe_get_option( 'eb_security_key' ),
-		);
+		];
 
 		return (object) $args;
 	}
@@ -180,7 +180,7 @@ class Tribe__Events__Aggregator__Settings {
 	}
 
 	public function get_all_default_settings() {
-		$origins = array(
+		$origins = [
 			'csv',
 			'gcal',
 			'ical',
@@ -188,7 +188,7 @@ class Tribe__Events__Aggregator__Settings {
 			'eventbrite',
 			'meetup',
 			'url',
-		);
+		];
 
 		/**
 		 * Filters the origins available for the default import settings handling.
@@ -202,11 +202,11 @@ class Tribe__Events__Aggregator__Settings {
 		$settings = array();
 
 		foreach ( $origins as $origin ) {
-			$settings[ $origin ] = array(
+			$settings[ $origin ] = [
 				'post_status' => $this->default_post_status( $origin ),
 				'category'    => $this->default_category( $origin ),
 				'map'         => $this->default_map( $origin ),
-			);
+			];
 		}
 
 		return $settings;
@@ -353,11 +353,11 @@ class Tribe__Events__Aggregator__Settings {
 	 *               format.
 	 */
 	public function get_import_limit_type_options(  ) {
-		$options = array(
+		$options = [
 			'range'    => __( 'By date range', 'the-events-calendar' ),
 			'count'    => __( 'By number of events', 'the-events-calendar' ),
 			'no_limit' => __( 'Do not limit (not recommended)', 'the-events-calendar' ),
-		);
+		];
 
 		/**
 		 * Filters the options available for the default import limit options.
@@ -382,38 +382,38 @@ class Tribe__Events__Aggregator__Settings {
 	 */
 	protected function get_range_options() {
 		return array(
-			DAY_IN_SECONDS          => array(
+			DAY_IN_SECONDS          => [
 				'title' => __( '24 hours', 'the-events-calendar' ),
 				'range' => __( '24 hours', 'the-events-calendar' ),
-			),
-			3 * DAY_IN_SECONDS      => array(
+			],
+			3 * DAY_IN_SECONDS      => [
 				'title' => __( '72 hours', 'the-events-calendar' ),
 				'range' => __( '72 hours', 'the-events-calendar' ),
-			),
-			WEEK_IN_SECONDS         => array(
+			],
+			WEEK_IN_SECONDS         => [
 				'title' => __( 'One week', 'the-events-calendar' ),
 				'range' => __( 'one week', 'the-events-calendar' ),
-			),
-			2 * WEEK_IN_SECONDS     => array(
+			],
+			2 * WEEK_IN_SECONDS     => [
 				'title' => __( 'Two weeks', 'the-events-calendar' ),
 				'range' => __( 'two weeks', 'the-events-calendar' ),
-			),
-			3 * WEEK_IN_SECONDS     => array(
+			],
+			3 * WEEK_IN_SECONDS     => [
 				'title' => __( 'Three weeks', 'the-events-calendar' ),
 				'range' => __( 'three weeks', 'the-events-calendar' ),
-			),
-			30 * DAY_IN_SECONDS     => array(
+			],
+			30 * DAY_IN_SECONDS     => [
 				'title' => __( 'One month', 'the-events-calendar' ),
 				'range' => __( 'one month', 'the-events-calendar' ),
-			),
-			2 * 30 * DAY_IN_SECONDS => array(
+			],
+			2 * 30 * DAY_IN_SECONDS => [
 				'title' => __( 'Two months', 'the-events-calendar' ),
 				'range' => __( 'two months', 'the-events-calendar' ),
-			),
-			3 * 30 * DAY_IN_SECONDS => array(
+			],
+			3 * 30 * DAY_IN_SECONDS => [
 				'title' => __( 'Three months', 'the-events-calendar' ),
 				'range' => __( 'three months', 'the-events-calendar' ),
-			),
+			],
 		);
 	}
 
@@ -457,7 +457,7 @@ class Tribe__Events__Aggregator__Settings {
 	 * @return array $options An array of arrays in the format [ <number> => <number> ].
 	 */
 	public function get_import_limit_count_options() {
-		$numbers = array( 50, 100, 200, 300, 500, 750, 1000, 1500, 2000, 2500, 3000, 3500, 4000 );
+		$numbers = [ 50, 100, 200, 300, 500, 750, 1000, 1500, 2000, 2500, 3000, 3500, 4000 ];
 
 		$options = array_combine( $numbers, $numbers );
 
@@ -518,10 +518,10 @@ class Tribe__Events__Aggregator__Settings {
 	 * @return array
 	 */
 	public function get_source_origin_regexp() {
-		$origins = array(
+		$origins = [
 			'eventbrite' => Tribe__Events__Aggregator__Record__Eventbrite::get_source_regexp(),
 			'meetup'     => Tribe__Events__Aggregator__Record__Meetup::get_source_regexp(),
-		);
+		];
 
 		/**
 		 * Allows external plugins to filter which are the source Regular EXP
@@ -593,7 +593,7 @@ class Tribe__Events__Aggregator__Settings {
 		$this->clear_fb_credentials();
 
 		wp_redirect(
-			Tribe__Settings::instance()->get_url( array( 'tab' => 'addons' ) )
+			Tribe__Settings::instance()->get_url( [ 'tab' => 'addons' ] )
 		);
 		die;
 	}
@@ -604,11 +604,11 @@ class Tribe__Events__Aggregator__Settings {
 	public function get_fb_credentials() {
 		_deprecated_function( __FUNCTION__, '4.6.23', 'Importing from Facebook is no longer supported in Event Aggregator.' );
 
-		$args = array(
+		$args = [
 			'token'   => tribe_get_option( 'fb_token' ),
 			'expires' => tribe_get_option( 'fb_token_expires' ),
 			'scopes'  => tribe_get_option( 'fb_token_scopes' ),
-		);
+		];
 
 		return (object) $args;
 	}
