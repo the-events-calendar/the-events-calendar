@@ -666,7 +666,11 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 			'la_ten_event'  => [ '2019-04-10 14:30:00', 2 * HOUR_IN_SECONDS ],
 		], 'America/Los_Angeles' ) );
 
-		$nine_events = tribe_events()->use_utc( false )->where( 'on_date', '2019-04-09' )->collect();
+		$nine_events = tribe_events()
+			->use_utc( false )
+			->where( 'on_date', '2019-04-09' )
+			->order_by( 'event_date' )
+			->collect();
 		codecept_debug(
 			'4/9 events UTC dates: ' . implode( PHP_EOL, $nine_events->pluck_meta( '_EventStartDateUTC' ) )
 		);
@@ -682,7 +686,11 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 			'America/Los_Angeles',
 		], $nine_events->pluck_meta( '_EventTimezone' ) );
 
-		$ten_events = tribe_events()->use_utc( false )->where( 'on_date', '2019-04-10' )->collect();
+		$ten_events = tribe_events()
+			->use_utc( false )
+			->where( 'on_date', '2019-04-10' )
+			->order_by( 'event_date' )
+			->collect();
 		codecept_debug(
 			'4/10 events UTC dates: ' . implode( PHP_EOL, $ten_events->pluck_meta( '_EventStartDateUTC' ) )
 		);
@@ -696,7 +704,11 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 			'America/Los_Angeles',
 		], $ten_events->pluck_meta( '_EventTimezone' ) );
 
-		$ten_utc_events = tribe_events()->use_utc( true )->where( 'on_date', '2019-04-10' )->collect();
+		$ten_utc_events = tribe_events()
+			->use_utc( true )
+			->where( 'on_date', '2019-04-10' )
+			->order_by( 'event_date' )
+			->collect();
 		codecept_debug(
 			'4/10 events Europe/Paris dates: ' . implode( PHP_EOL, array_map( function ( $utc_date ) {
 				return ( new \DateTime( $utc_date, new \DateTimeZone( 'UTC' ) ) )
@@ -706,13 +718,13 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 		);
 
 		$this->assertEquals( [
-			'2019-04-10 11:00:00',
 			'2019-04-09 16:30:00',
+			'2019-04-10 11:00:00',
 			'2019-04-10 14:30:00',
 		], $ten_utc_events->pluck_meta( '_EventStartDate' ) );
 		$this->assertEquals( [
-			'Europe/Paris',
 			'America/Los_Angeles',
+			'Europe/Paris',
 			'America/Los_Angeles',
 		], $ten_utc_events->pluck_meta( '_EventTimezone' ) );
 	}

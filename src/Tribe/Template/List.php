@@ -119,20 +119,17 @@ if ( ! class_exists( 'Tribe__Events__Template__List' ) ) {
 			$query = tribe_get_events( $args, true );
 
 			/*
-			 * The hash is used to detect whether the primary arguments in the query have changed (i.e. due to a filter bar request).
-			 * If they have, we want to go back to page 1.
+			 * The hash is used to detect whether the primary arguments in the query have changed (i.e. due to a filter
+			 * bar request); if they have, we want to go back to page 1.
 			 */
-			$hash = $query->query_vars;
-
-			unset(
-				$hash['paged'],
-				$hash['start_date'],
-				$hash['end_date'],
-				$hash['starts_before'],
-				$hash['search_orderby_title']
-			);
-
-			$hash_str           = md5( maybe_serialize( $hash ) );
+			$hash_str = $query->builder->hash( [
+				'exclude' => [
+					'paged',
+					'start_date',
+					'ends_before',
+					'ends_after',
+				],
+			], $query );
 
 			if ( ! empty( $_POST['hash'] ) && $hash_str !== $_POST['hash'] ) {
 				$tribe_paged   = 1;
