@@ -101,15 +101,15 @@ if ( ! class_exists( 'Tribe__Events__Template__List' ) ) {
 
 			if ( 'now' === $date ) {
 				/*
-				 * When defaulting to "now" let's round down to the lower quarter.
+				 * When defaulting to "now" let's round down to the lower half hour.
 				 * This way we avoid invalidating the hash on requests following each other
-				 * in reasonable (15') time.
+				 * in reasonable (30') time.
 				 */
 				$date = Dates::build_date_object( 'now' );
 				$minutes = $date->format( 'm' );
 				$date->setTime(
 					$date->format( 'H' ),
-					$minutes - ( $minutes % 15 )
+					$minutes - ( $minutes % 30 )
 				);
 				$date = $date->format( 'Y-m-d H:i:s' );
 			}
