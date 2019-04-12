@@ -210,7 +210,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 				'data-depends'   => '#tribe_aggregator_default_import_limit_type-select',
 				'data-condition' => 'count',
 			],
-			'priority'         => 5.7,
+			'priority'        => 5.7,
 		],
 		'tribe_aggregator_import_process_system' => [
 			'type'            => 'dropdown',
