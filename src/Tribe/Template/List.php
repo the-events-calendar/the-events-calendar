@@ -111,7 +111,7 @@ if ( ! class_exists( 'Tribe__Events__Template__List' ) ) {
 					$date->format( 'H' ),
 					$minutes - ( $minutes % 30 )
 				);
-				$date = $date->format( 'Y-m-d H:i:s' );
+				$date = $date->format( Dates::DBDATETIMEFORMAT );
 			}
 
 			$args['eventDisplay'] = $display;
