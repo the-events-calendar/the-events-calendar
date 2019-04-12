@@ -5,21 +5,21 @@
  */
 $internal = array();
 
-$current_url = Tribe__Settings::instance()->get_url( array( 'tab' => 'addons' ) );
+$current_url = Tribe__Settings::instance()->get_url( [ 'tab' => 'addons' ] );
 
 // if there's an Event Aggregator license key, add the Meetup.com API fields
 if ( get_option( 'pue_install_key_event_aggregator' ) ) {
 
-	$internal = array(
-		'meetup-start' => array(
+	$internal = [
+		'meetup-start' => [
 			'type' => 'html',
 			'html' => '<h3>' . esc_html__( 'Meetup', 'the-events-calendar' ) . '</h3>',
-		),
-		'meetup-info-box' => array(
+		],
+		'meetup-info-box' => [
 			'type' => 'html',
-			'html' => '<p>' . esc_html__( 'You need a Meetup API Key to import your events from Meetup.', 'the-events-calendar' ) . '</p>',
-		),
-		'meetup_api_key' => array(
+			'html' => '<p>' . esc_html__( 'You need to connect Event Aggregator to Meetup to import your events from Meetup.', 'the-events-calendar' ) . '</p>',
+		],
+		'meetup_api_key' => [
 			'type'            => 'text',
 			'label'           => esc_html__( 'Meetup API Key', 'the-events-calendar' ),
 			'tooltip'         => sprintf( __( '%s to view your Meetup API Key', 'the-events-calendar' ), '<a href="https://secure.meetup.com/meetup_api/key/" target="_blank">' . __( 'Click here', 'the-events-calendar' ) . '</a>' ),
@@ -27,8 +27,8 @@ if ( get_option( 'pue_install_key_event_aggregator' ) ) {
 			'validation_type' => 'alpha_numeric',
 			'can_be_empty'    => true,
 			'parent_option'   => Tribe__Events__Main::OPTIONNAME,
-		),
-	);
+		],
+	];
 }
 
 /**
@@ -54,7 +54,7 @@ if ( class_exists( 'Tribe__Events__Tickets__Eventbrite__Main' ) || get_option( '
 				$eventbrite_disconnect_url   = tribe( 'events-aggregator.settings' )->build_disconnect_eventbrite_url( $current_url );
 			}
 			?>
-			<a target="_blank" class="tribe-ea-eventbrite-button" href="<?php echo esc_url( Tribe__Events__Aggregator__Record__Eventbrite::get_auth_url( array( 'back' => 'settings' ) ) ); ?>"><?php esc_html_e( $eventbrite_button_label ); ?></a>
+			<a target="_blank" class="tribe-ea-eventbrite-button" href="<?php echo esc_url( Tribe__Events__Aggregator__Record__Eventbrite::get_auth_url( [ 'back' => 'settings' ] ) ); ?>"><?php esc_html_e( $eventbrite_button_label ); ?></a>
 			<?php if ( ! $missing_eb_credentials ) : ?>
 				<a href="<?php echo esc_url( $eventbrite_disconnect_url ); ?>" class="tribe-ea-eventbrite-disconnect"><?php echo esc_html( $eventbrite_disconnect_label ); ?></a>
 			<?php endif; ?>
@@ -64,20 +64,20 @@ if ( class_exists( 'Tribe__Events__Tickets__Eventbrite__Main' ) || get_option( '
 	<?php
 	$eventbrite_token_html = ob_get_clean();
 
-	$internal2 = array(
-		'eb-start'        => array(
+	$internal2 = [
+		'eb-start'        => [
 			'type' => 'html',
 			'html' => '<h3>' . esc_html__( 'Eventbrite', 'the-events-calendar' ) . '</h3>',
-		),
-		'eb-info-box'     => array(
+		],
+		'eb-info-box'     => [
 			'type' => 'html',
 			'html' => '<p>' . esc_html__( 'You need to connect Event Aggregator to Eventbrite to import your events from Eventbrite.', 'the-events-calendar' ) . '</p>',
-		),
-		'eb_token_button' => array(
+		],
+		'eb_token_button' => [
 			'type' => 'html',
 			'html' => $eventbrite_token_html,
-		),
-	);
+		],
+	];
 
 	$internal = array_merge( $internal, $internal2 );
 }
@@ -85,35 +85,35 @@ if ( class_exists( 'Tribe__Events__Tickets__Eventbrite__Main' ) || get_option( '
 $internal = apply_filters( 'tribe_addons_tab_fields', $internal );
 
 $fields = array_merge(
-	array(
-		'addons-box-start' => array(
+	[
+		'addons-box-start' => [
 			'type' => 'html',
 			'html' => '<div id="modern-tribe-info">',
-		),
-		'addons-box-title' => array(
+		],
+		'addons-box-title' => [
 			'type' => 'html',
 			'html' => '<h2>' . esc_html__( 'APIs', 'the-events-calendar' ) . '</h2>',
-		),
-		'addons-box-description' => array(
+		],
+		'addons-box-description' => [
 			'type' => 'html',
 			'html' => '<p>' . __( 'Some features and add-ons require you to enter an API key or log into a third-party website so that The Events Calendar can communicate with an outside source.', 'the-events-calendar' ) . '</p>',
-		),
-		'addons-box-end' => array(
+		],
+		'addons-box-end' => [
 			'type' => 'html',
 			'html' => '</div>',
-		),
-		'addons-form-content-start' => array(
+		],
+		'addons-form-content-start' => [
 			'type' => 'html',
 			'html' => '<div class="tribe-settings-form-wrap">',
-		),
-	),
+		],
+	],
 	$internal,
-	array(
-		'addons-form-content-end' => array(
+	[
+		'addons-form-content-end' => [
 			'type' => 'html',
 			'html' => '</div>',
-		),
-	)
+		],
+	]
 );
 
 /**
@@ -124,10 +124,10 @@ $fields = array_merge(
  */
 $addons = apply_filters(
 	'tribe_addons_tab',
-	array(
+	[
 		'priority' => 50,
 		'fields'   => $fields,
-	)
+	]
 );
 
 // Only create the Add-ons Tab if there is any
