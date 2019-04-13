@@ -52,6 +52,13 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			}
 
 			/**
+			 * When using the ORM we cannot use EventStartDate injection
+			 */
+			if ( isset( $query->builder ) && $query->builder instanceof Tribe__Repository ) {
+				$can_inject = false;
+			}
+
+			/**
 			 * Determine whether a date field can be injected into various parts of a query.
 			 *
 			 * @param boolean  $can_inject Whether the date field can be injected
