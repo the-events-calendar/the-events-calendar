@@ -211,7 +211,7 @@ class Tribe__Events__Adjacent_Events {
 		$args = array(
 			'post__not_in'   => array( $this->current_event_id ),
 			'order'          => $order,
-			'orderby'        => 'TIMESTAMP(mt1.meta_value) ID',
+			'orderby'        => 'TIMESTAMP(wp_postmeta.meta_value) ID',
 			'posts_per_page' => 1,
 			'meta_query'     => array(
 				array(
