@@ -218,6 +218,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 = [4.8.3] TBD =
 
 * Fix - Include second param for the `the_title` for Events, Venue and Organizer Rest API endpoints, prevent warnings (Props to Alex) [123317]
+* Tweak - Add the `tribe_events_has_next_args` and `tribe_events_has_previous_args` filters to allow filtering the arguments that will be used to check if next/previous archive pages or events are available [123950]
 
 = [4.8.2] 2019-03-04 =
 

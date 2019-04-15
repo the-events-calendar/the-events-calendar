@@ -1296,7 +1296,12 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				$is_past = ! empty( $args['tribe_is_past'] ) || 'past' === $event_display;
 				if ( $is_past ) {
 					$args['order'] = 'DESC';
-					$pivot_date = tribe_get_request_var( 'tribe-bar-date', 'now' );
+					/*
+					 * If in the context of a "past" view let's try to use, as limit, the same
+					 * end date limit passed, if any.
+					 */
+					$now = isset( $args['ends_before'] ) ? $args['ends_before'] : 'now';
+					$pivot_date = tribe_get_request_var( 'tribe-bar-date', $now );
 					$date       = Tribe__Date_Utils::build_date_object( $pivot_date );
 					// Remove any existing date meta queries.
 					if ( isset( $args['meta_query'] ) ) {
