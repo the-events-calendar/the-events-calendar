@@ -56,7 +56,7 @@ class Tribe__Events__Service_Providers__ORM extends tad_DI52_ServiceProvider {
 
 		$args['meta_query'] = tribe_filter_meta_query(
 			$args['meta_query'],
-			array( 'key' => '/_Event(Start|End)Date(UTC)*/' )
+			[ 'key' => '/_Event(Start|End)Date(UTC)*/' ]
 		);
 
 		return $args;
