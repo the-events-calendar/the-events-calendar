@@ -215,10 +215,21 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
-= [4.9] TBD =
+= [4.9] 2019-04-17 =
 
-* Fix - Include second param for the `the_title` for Events, Venue and Organizer Rest API endpoints, prevent warnings (Props to Alex) [123317]
+* Feature - Refactor the Database Connection to start using a Object Relational Mapping tool for a better tested codebase
+* Feature - the `tribe_events()` function as entry-point to the Events ORM and the supporting filter code [116356, 115579]
+* Feature - the `tribe_venues()` function as entry-point to the Venues ORM and the supporting filter code [116356, 115579]
+* Feature - the `tribe_organizers()` function as entry-point to the Organizers ORM and the supporting filter code [116356, 115579]
+* Feature - Added additional caching to The Events Calendar REST API archives and the Post Repository event/venue/organizer responses [117159]
+* Feature - Included Freemius integration on The Events Calendar only loading for 10% of our customers
+* Tweak - Setting the site of Timezones will trigger queries using UTC to equilize event dates on Views
+* Tweak - Filter to allow deactivating Freemius `tribe_events_integrations_should_load_freemius`
+* Tweak - Include a way for third-party to handle Known Range rebuilding of events `tribe_events_rebuild_known_range`
+* Tweak - All new handling granular handling for UTC and Timezone saving on the Classic editor
+* Tweak - support for the `tribe_suppress_query_filters` query variable to prevent the plugin own query filters from applying [116356, 115579]
 * Tweak - Add the `tribe_events_has_next_args` and `tribe_events_has_previous_args` filters to allow filtering the arguments that will be used to check if next/previous archive pages or events are available [123950]
+* Fix - Include second param for the `the_title` for Events, Venue and Organizer Rest API endpoints, prevent warnings (Props to Alex) [123317]
 
 = [4.8.2] 2019-03-04 =
 
@@ -233,14 +244,11 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 * Feature - Introduced new "(do not override)" default post status for Eventbrite imports in Event Aggregator. This preserves events' original statuses from Eventbrite.com upon import (e.g., "draft" events will not be automatically set to "publish" upon import) [112346]
 * Fix - Make sure the setting for "Default mobile view" is respected. Thanks to Kathleen, Tim and others for reporting this! [119271]
-* Add - Added additional caching to TEC REST API archives and the Post Repository event/venue/organizer responses [117159]
-* Add - the `tribe_events()` function as entry-point to the Events ORM and the supporting filter code [116356, 115579]
-* Add - the `tribe_venues()` function as entry-point to the Venues ORM and the supporting filter code [116356, 115579]
-* Add - the `tribe_organizers()` function as entry-point to the Organizers ORM and the supporting filter code [116356, 115579]
-* Add support for the `tribe_suppress_query_filters` query variable to prevent the plugin own query filters from applying [116356, 115579]
-* Feature - Add new action `tribe_events_before_event_template_data_date_display` and `tribe_events_after_event_template_data_date_display`
 * Fix - Apply block closer to price block [120108]
 * Tweak - Added new filter `tribe_aggregator_new_event_post_status_before_import` to allow for custom handling of an event's post status before EA an import is completed [112648]
+* Tweak - Added filters: `tribe_events_admin_js_ajax_url_data`
+* Tweak - Unload Image Widget Plus version 1.0.2 or older to Prevent it from creating fatals on The Events Calendar
+* Language - 2 new strings added, 150 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.8] 2019-02-04 =
 
