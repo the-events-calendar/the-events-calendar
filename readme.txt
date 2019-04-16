@@ -217,19 +217,19 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 = [4.9] 2019-04-17 =
 
-* Feature - Refactor the Database Connection to start using a Object Relational Mapping tool for a better tested codebase
-* Feature - The `tribe_events()` function as entry-point to the Events ORM and the supporting filter code [116356, 115579]
-* Feature - The `tribe_venues()` function as entry-point to the Venues ORM and the supporting filter code [116356, 115579]
-* Feature - The `tribe_organizers()` function as entry-point to the Organizers ORM and the supporting filter code [116356, 115579]
-* Feature - Added additional caching to The Events Calendar REST API archives and the Post Repository event/venue/organizer responses [117159]
-* Feature - Included Freemius integration on The Events Calendar only loading for 10% of our customers
+* Feature - Refactor the Database Connection to start using an Object Relational Mapping tool for a better tested codebase
+* Feature - Add the `tribe_events()` function as entry-point to the Events ORM and the supporting filter code [116356, 115579]
+* Feature - Add the `tribe_venues()` function as entry-point to the Venues ORM and the supporting filter code [116356, 115579]
+* Feature - Add the `tribe_organizers()` function as entry-point to the Organizers ORM and the supporting filter code [116356, 115579]
+* Feature - Add additional caching to The Events Calendar REST API archives and the Post Repository event/venue/organizer responses [117159]
+* Feature - Include Freemius integration on to allow opt-in information collection for 10% of new users
 * Tweak - Setting the site of Timezones will trigger queries using UTC to equalize event dates on Views
-* Tweak - Filter to allow deactivating Freemius `tribe_events_integrations_should_load_freemius`
+* Tweak - Add filter to allow deactivating Freemius `tribe_events_integrations_should_load_freemius`
 * Tweak - Include a way for third-party to handle Known Range rebuilding of events `tribe_events_rebuild_known_range`
-* Tweak - All new handling granular handling for UTC and Timezone saving on the Classic editor
-* Tweak - support for the `tribe_suppress_query_filters` query variable to prevent the plugin own query filters from applying [116356, 115579]
-* Tweak - Add the `tribe_events_has_next_args` and `tribe_events_has_previous_args` filters to allow filtering the arguments that will be used to check if next/previous archive pages or events are available [123950]
-* Fix - Include second param for the `the_title` for Events, Venue and Organizer Rest API endpoints, prevent warnings (Props to Alex) [123317]
+* Tweak - All new granular handling for UTC and Timezone saving on the Classic editor
+* Tweak - Add support for the `tribe_suppress_query_filters` query variable to prevent the plugin's own query filters from applying [116356, 115579]
+* Tweak - Add the `tribe_events_has_next_args` and `tribe_events_has_previous_args` filters to allow filtering the arguments that check if next/previous archive pages or events are available [123950]
+* Fix - Include second param for the `the_title` for Events, Venue and Organizer Rest API endpoints amd prevent warnings (Props to Alex) [123317]
 * Language - 5 new strings added, 167 updated, 0 fuzzied, and 1 obsoleted
 
 = [4.8.2] 2019-03-04 =
