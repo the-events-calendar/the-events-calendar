@@ -4,7 +4,7 @@ Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.7
-Stable tag: 4.8.3
+Stable tag: 4.9
 Tested up to: 5.1
 Requires PHP: 5.6
 License: GPLv2 or later
@@ -215,7 +215,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
-= [4.8.3] TBD =
+= [4.9] TBD =
 
 * Fix - Include second param for the `the_title` for Events, Venue and Organizer Rest API endpoints, prevent warnings (Props to Alex) [123317]
 * Tweak - Add the `tribe_events_has_next_args` and `tribe_events_has_previous_args` filters to allow filtering the arguments that will be used to check if next/previous archive pages or events are available [123950]

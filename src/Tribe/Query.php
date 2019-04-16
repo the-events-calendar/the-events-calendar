@@ -402,7 +402,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				 * @param \WP_Query|null $query The query that is currently being filtered or `null` if no query is
 				 *                              being filtered.
 				 *
-				 * @since TBD
+				 * @since 4.9
 				 */
 				$include_date_meta = apply_filters( 'tribe_events_query_include_start_date_meta', true, $query );
 				if (
@@ -647,7 +647,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			 * disabling of that in certain contexts, so that local (not UTC) event times are used.
 			 *
 			 * @since 4.6.10
-			 * @since TBD    Commented out these lines below to always use UTC fields
+			 * @since 4.9    Commented out these lines below to always use UTC fields
 			 *
 			 * @param boolean $force_local_tz Whether to force the local TZ.
 			 */

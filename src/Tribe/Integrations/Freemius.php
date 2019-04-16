@@ -2,13 +2,13 @@
 /**
  * Facilitates smoother integration with the Freemius.
  *
- * @since TBD
+ * @since 4.9
  */
 class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Stores the instance for the Freemius
 	 *
-	 * @since  TBD
+	 * @since  4.9
 	 *
 	 * @var Freemius
 	 */
@@ -17,7 +17,7 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Stores the ID for the Freemius application
 	 *
-	 * @since  TBD
+	 * @since  4.9
 	 *
 	 * @var string
 	 */
@@ -26,7 +26,7 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Stores the slug for the Freemius application
 	 *
-	 * @since  TBD
+	 * @since  4.9
 	 *
 	 * @var string
 	 */
@@ -35,7 +35,7 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Performs setup for the Freemius integration singleton.
 	 *
-	 * @since  TBD
+	 * @since  4.9
 	 *
 	 * @return void
 	 */
@@ -61,7 +61,7 @@ class Tribe__Events__Integrations__Freemius {
 		/**
 		 * Allows third-party disabling of The Events Calendar integration
 		 *
-		 * @since  TBD
+		 * @since  4.9
 		 *
 		 * @param  bool  $should_load
 		 */
@@ -99,7 +99,7 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * When should we load Freemius to users
 	 *
-	 * @since  TBD
+	 * @since  4.9
 	 *
 	 * @param  integer $threshold Percentage of which we will load Freemius
 	 *
@@ -151,7 +151,7 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Action to skip activation since freemius doesnt do their job correctly hre
 	 *
-	 * @since  TBD
+	 * @since  4.9
 	 *
 	 * @return bool|void
 	 */
@@ -178,7 +178,7 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Filter the content for the Freemius Popup
 	 *
-	 * @since  TBD
+	 * @since  4.9
 	 *
 	 * @param  string $message
 	 * @param  string $user_first_name
@@ -225,7 +225,7 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Returns The Events Calendar instance of Freemius plugin
 	 *
-	 * @since  TBD
+	 * @since  4.9
 	 *
 	 * @return Freemius
 	 */
@@ -236,7 +236,7 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Method to remove the sticky message when the plugin is active for freemius
 	 *
-	 * @since  TBD
+	 * @since  4.9
 	 *
 	 * @return void
 	 */

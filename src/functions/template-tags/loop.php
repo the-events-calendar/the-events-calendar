@@ -292,7 +292,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			/**
 			 * Filters the arguments that will be used to check if there is a previous page/event.
 			 *
-			 * @since TBD
+			 * @since 4.9
 			 *
 			 * @param array $args An array of arguments that will be used to check if a previous page/event
 			 *                    is present.
@@ -348,7 +348,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			/**
 			 * Filters the arguments that will be used to check if there is a next page/event.
 			 *
-			 * @since TBD
+			 * @since 4.9
 			 *
 			 * @param array $args An array of arguments that will be used to check if a next page/event
 			 *                    is present.

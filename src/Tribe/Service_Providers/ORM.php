@@ -3,13 +3,13 @@
  * Hooks and registers the functions and implementations needed to provide
  * the ORM/Repository classes.
  *
- * @since TBD
+ * @since 4.9
  */
 
 /**
  * Class Tribe__Events__Service_Providers__ORM
  *
- * @since TBD
+ * @since 4.9
  */
 class Tribe__Events__Service_Providers__ORM extends tad_DI52_ServiceProvider {
 
@@ -36,7 +36,7 @@ class Tribe__Events__Service_Providers__ORM extends tad_DI52_ServiceProvider {
 	 * meta queries that will, in turn, return wrong results.
 	 * The arguments will be already set in the arguments of the query.
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 *
 	 * @param array          $args An array of query arguments that will be used to check if there are next or previous
 	 *                             events.
