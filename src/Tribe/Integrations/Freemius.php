@@ -106,6 +106,13 @@ class Tribe__Events__Integrations__Freemius {
 	 * @return boolean
 	 */
 	public function should_load( $threshold = 10 ) {
+		if (
+			defined( 'TRIBE_EVENTS_INTEGRATIONS_SHOULD_LOAD_FREEMIUS' )
+			&& TRIBE_EVENTS_INTEGRATIONS_SHOULD_LOAD_FREEMIUS
+		) {
+			return TRIBE_EVENTS_INTEGRATIONS_SHOULD_LOAD_FREEMIUS;
+		}
+
 		$previous_versions = Tribe__Settings_Manager::get_option( 'previous_ecp_versions', [] );
 
 		/**
