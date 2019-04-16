@@ -229,7 +229,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Tweak - All new granular handling for UTC and Timezone saving on the Classic editor
 * Tweak - Add support for the `tribe_suppress_query_filters` query variable to prevent the plugin's own query filters from applying [116356, 115579]
 * Tweak - Add the `tribe_events_has_next_args` and `tribe_events_has_previous_args` filters to allow filtering the arguments that check if next/previous archive pages or events are available [123950]
-* Fix - Include second param for the `the_title` for Events, Venue and Organizer Rest API endpoints amd prevent warnings (Props to Alex) [123317]
+* Fix - Include second param for the `the_title` for Events, Venue and Organizer Rest API endpoints amd prevent warnings. Props to Alex [123317]
 * Language - 5 new strings added, 167 updated, 0 fuzzied, and 1 obsoleted
 
 = [4.8.2] 2019-03-04 =
