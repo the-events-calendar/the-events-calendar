@@ -4,7 +4,7 @@ Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.7
-Stable tag: 4.9
+Stable tag: 4.9.0
 Tested up to: 5.1
 Requires PHP: 5.6
 License: GPLv2 or later
@@ -215,7 +215,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
-= [4.9] 2019-04-17 =
+= [4.9.0] 2019-04-17 =
 
 * Feature - Refactor the Database Connection to start using a Object Relational Mapping tool for a better tested codebase
 * Feature - the `tribe_events()` function as entry-point to the Events ORM and the supporting filter code [116356, 115579]
