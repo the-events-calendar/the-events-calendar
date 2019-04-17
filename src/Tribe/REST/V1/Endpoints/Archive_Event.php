@@ -195,9 +195,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 			$data['total']       = $total = $this->get_total( $args );
 			$data['total_pages'] = $this->get_total_pages( $total, $args['posts_per_page'] );
 			$data['page_checksum'] = tribe_posts_checksum( $events );
-			$data['request_checksum'] = tribe_posts_checksum( array_map( function( $event ) {
-				return $event->ID;
-			}, $found_events ) );
+			$data['request_checksum'] = tribe_posts_checksum( wp_list_pluck( $found_events, 'ID' ) );
 
 			$cache->set( $cache_key, $data, Tribe__Cache::NON_PERSISTENT, 'save_post' );
 		}

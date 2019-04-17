@@ -11,6 +11,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 	class Tribe__Events__Query {
 		/**
+		 * @since TBD
+		 *
 		 * @var array The WP_Query arguments used in the last `getEvents` method
 		 *            query.
 		 */
