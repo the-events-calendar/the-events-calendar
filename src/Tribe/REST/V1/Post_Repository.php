@@ -64,6 +64,13 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			$event_id = $event_id->ID;
 		}
 
+		/**
+		 * @param $event_id int The ID of the event
+		 *
+		 * @since TBD
+		 */
+		do_action( 'tribe_rest_before_event_data', $event_id );
+
 		/** @var Tribe__Cache $cache */
 		$cache     = tribe( 'cache' );
 		$cache_key = 'rest_get_event_data_' . get_current_user_id() . '_' . $event_id . '_' . $context;
@@ -74,7 +81,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			return $data;
 		}
 
-		$event = tribe_events()->where( 'post_id', $event_id )->first();
+		$event = get_post( $event_id );
 
 		if ( empty( $event ) || ! tribe_is_event( $event ) ) {
 			return new WP_Error( 'event-not-found', $this->messages->get_message( 'event-not-found' ) );
