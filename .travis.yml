@@ -119,3 +119,5 @@ script:
   - codecept run wpunit
   - codecept run aggregatorv1
   - codecept run restv1
+  - codecept run views_rest
+  - codecept run views_integration

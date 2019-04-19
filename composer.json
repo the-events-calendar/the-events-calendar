@@ -9,7 +9,7 @@
   "homepage": "http://tri.be/shop/wordpress-events-calendar/",
   "license": "GPL-2.0",
   "require-dev": {
-    "lucatume/wp-browser": "^2.2.1",
+    "lucatume/wp-browser": "^2.2.4",
     "xamin/handlebars.php": "^0.10.3",
     "mikey179/vfsStream": "^1.6",
     "spatie/phpunit-snapshot-assertions": "^1.2",
@@ -19,6 +19,11 @@
   "prefer-stable": true,
   "config": {
     "preferred-install": "dist"
+  },
+  "autoload": {
+    "psr-4": {
+      "Tribe\\Events\\" : "src/Tribe"
+    }
   },
   "autoload-dev": {
     "psr-4": {

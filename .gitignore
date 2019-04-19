@@ -28,3 +28,4 @@ compiler.jar
 
 wpml-config.xml
 src/resources/**/app
+.env.testing
