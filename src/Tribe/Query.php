@@ -1247,6 +1247,17 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 					unset( $args['hide_upcoming'] );
 				}
 
+				// Support for `eventDisplay = 'upcoming'` for backwards compatibility
+				if ( isset( $args['eventDisplay'] ) && 'upcoming' === $args['eventDisplay'] ) {
+					$args['start_date'] = 'now';
+					unset( $args['eventDisplay'] );
+				}
+
+				// Support `tribeHideRecurrence` old param
+				if ( isset( $args['tribeHideRecurrence'] ) ) {
+					$args['hide_subsequent_recurrences'] = $args['tribeHideRecurrence'];
+					unset( $args['tribeHideRecurrence'] );
+				}
 
 				if ( isset( $args['start_date'] ) && false === $args['start_date'] ) {
 					unset( $args['start_date'] );
