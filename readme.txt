@@ -215,9 +215,10 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
-= [4.9.0.1] 2019-04-22 =
+= [4.9.0.1] 2019-04-23 =
 
 * Fix - Backwards compatibility for `'eventDisplay' => 'upcoming'` on `tribe_get_events()`. Thanks @softwebteam, @mrwweb and @karks88 [126124]
+* Fix - Single navigation to next and previous events using the Object Relational Mapping classes [126144]
 
 = [4.9.0] 2019-04-17 =
 
