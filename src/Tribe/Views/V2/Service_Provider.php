@@ -24,6 +24,9 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	public function register() {
 		add_action( 'rest_api_init', [ $this, 'register_rest_endpoints' ] );
 		View::set_container( $this->container );
+
+		$this->container->singleton( 'tec.views.kitchen-sink', Kitchen_Sink::class, [ 'hook' ] );
+		tribe( 'tec.views.kitchen-sink' );
 	}
 
 	public function register_rest_endpoints() {
