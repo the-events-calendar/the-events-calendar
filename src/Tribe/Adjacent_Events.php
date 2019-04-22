@@ -246,11 +246,7 @@ class Tribe__Events__Adjacent_Events {
 		// Fetch the posts
 		$query->get_posts();
 
-		// add_filter( 'posts_where', array( $this, 'get_closest_event_where' ) );
-
 		$results = $query->posts;
-
-		// remove_filter( 'posts_where', array( $this, 'get_closest_event_where' ) );
 
 		$event = null;
 
