@@ -9,6 +9,7 @@
 namespace Tribe\Events\Views\V2;
 
 use Tribe__Container as Container;
+use Tribe__Context as Context;
 use Tribe__Utils__Array as Arr;
 
 /**
@@ -32,6 +33,13 @@ class View implements View_Interface {
 	 * @var string
 	 */
 	protected $not_found_slug;
+
+	/**
+	 * An instance of the context the View will use to render, if any.
+	 *
+	 * @var Context
+	 */
+	protected $context;
 
 	/**
 	 *
@@ -63,18 +71,7 @@ class View implements View_Interface {
 	 *
 	 */
 	public static function make( $view = 'default' ) {
-		/**
-		 * Filters the list of views available.
-		 *
-		 * Both classes and built objects can be associated with a slug; if bound in the container the classes
-		 * will be built according to the binding rules; objects will be returned as they are.
-		 *
-		 * @param array $views An associative  array of views in the shape `[ <slug> => <class> ]`.
-		 *
-		 * @since TBD
-		 *
-		 */
-		$views = apply_filters( 'tribe_events_views', [] );
+		$views = self::get_registered_views();
 		$view_class = class_exists( $view ) ? $view : Arr::get( $views, $view, false );
 
 		if ( $view_class ) {
@@ -97,6 +94,46 @@ class View implements View_Interface {
 	 */
 	public static function set_container( Container $container ) {
 		static::$container = $container;
+	}
+
+	/**
+	 * Returns the slug currently associated to a View class, if any.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $view The view fully qualified class name.
+	 *
+	 * @return int|string|false The slug currently associated to a View class if it is found, `false` otherwise.
+	 */
+	public static function get_view_slug( string $view ) {
+		$views = self::get_registered_views();
+
+		return array_search( $view, $views, true );
+	}
+
+	/**
+	 * Returns an associative array of Views currently registered.
+	 *
+	 * @since TBD
+	 *
+	 * @return array An array in the shape `[ <slug> => <View Class> ]`.
+	 *
+	 */
+	public static function get_registered_views() {
+		/**
+		 * Filters the list of views available.
+		 *
+		 * Both classes and built objects can be associated with a slug; if bound in the container the classes
+		 * will be built according to the binding rules; objects will be returned as they are.
+		 *
+		 * @param array $views An associative  array of views in the shape `[ <slug> => <class> ]`.
+		 *
+		 * @since TBD
+		 *
+		 */
+		$views = apply_filters( 'tribe_events_views', [] );
+
+		return (array) $views;
 	}
 
 	/**
@@ -130,5 +167,19 @@ class View implements View_Interface {
 		$html = null === $html ? $this->get_html() : $html;
 		echo $html;
 		tribe_exit( 200 );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_context() {
+		return null !== $this->context ? $this->context : tribe_context();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function set_context( Context $context = null ) {
+		$this->context = $context;
 	}
 }

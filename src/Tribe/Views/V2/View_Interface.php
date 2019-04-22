@@ -8,6 +8,8 @@
 
 namespace Tribe\Events\Views\V2;
 
+use Tribe__Context as Context;
+
 /**
  * Interface View_Interface
  *
@@ -35,4 +37,26 @@ interface View_Interface {
 	 * @return string The view slug.
 	 */
 	public function get_slug(  );
+
+	/**
+	 * Returns the context instance the view will render from.
+	 *
+	 * Views that have not been explicitly assigned a Context will use, and return here,
+	 * the global one.
+	 *
+	 * @since TBD
+	 *
+	 * @return Context The View current Context instance or the global context if the view
+	 *                 has not been assigned a context.
+	 */
+	public function get_context();
+
+	/**
+	 * Sets, or unset, the View context.
+	 *
+	 * @since TBD
+	 *
+	 * @param \Tribe__Context|null $context Either a context instance or null to make the View use the global one.
+	 */
+	public function set_context( Context $context = null );
 }

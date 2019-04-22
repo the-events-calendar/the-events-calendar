@@ -2,23 +2,11 @@
 
 namespace Tribe\Events\Views\V2;
 
+use Tribe__Context as Context;
+
 require_once codecept_data_dir( 'Views/V2/classes/Test_View.php' );
 
 class ViewTest extends \Codeception\TestCase\WPTestCase {
-
-	public function setUp() {
-		// before
-		parent::setUp();
-
-		// your set up methods here
-	}
-
-	public function tearDown() {
-		// your tear down methods here
-
-		// then
-		parent::tearDown();
-	}
 
 	/**
 	 * @test
@@ -115,5 +103,64 @@ class ViewTest extends \Codeception\TestCase\WPTestCase {
 		$view->send_html( 'Alice in Wonderland' );
 
 		$this->expectOutputString( 'Alice in Wonderland' );
+	}
+
+	/**
+	 * It should allow getting the slug currently associated to a View
+	 *
+	 * @test
+	 */
+	public function should_allow_getting_the_slug_currently_associated_to_a_view() {
+		add_filter( 'tribe_events_views', function () {
+			return [];
+		} );
+		$this->assertFalse( View::get_view_slug( Test_View::class ) );
+
+		add_filter( 'tribe_events_views', function () {
+			return [ 'test' => Test_View::class ];
+		} );
+		$this->assertEquals( 'test', View::get_view_slug( Test_View::class ) );
+
+		add_filter( 'tribe_events_views', function () {
+			return [];
+		} );
+		$this->assertFalse( View::get_view_slug( Test_View::class ) );
+	}
+
+	/**
+	 * It should use the global context if not assigned one
+	 *
+	 * @test
+	 */
+	public function should_use_the_global_context_if_not_assigned_one() {
+		add_filter( 'tribe_events_views', function () {
+			return [ 'test' => Test_View::class ];
+		} );
+		$view = View::make( Test_View::class );
+
+		$view_context = $view->get_context();
+		$this->assertInstanceOf( Context::class, $view_context );
+		$this->assertSame( tribe_context(), $view_context );
+	}
+
+	/**
+	 * It should return the assigned context if assigned one.
+	 *
+	 * @test
+	 */
+	public function should_return_the_assigned_context_if_assigned_one() {
+		add_filter( 'tribe_events_views', function () {
+			return [ 'test' => Test_View::class ];
+		} );
+		$view = View::make( Test_View::class );
+
+		$view->set_context( tribe_context()->alter( [
+			'view_data' => [
+				'venue' => '23',
+			],
+		] ) );
+		$view_context = $view->get_context();
+		$this->assertInstanceOf( Context::class, $view_context );
+		$this->assertNotSame( tribe_context(), $view_context );
 	}
 }
