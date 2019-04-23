@@ -14,15 +14,16 @@ class MainQueryRenderCest {
 	 *
 	 * @test
 	 */
-	public function should_correctly_render_the_default_main_query_view(Tester $I) {
+	public function should_correctly_render_the_default_main_query_view( Tester $I ) {
 		$slug = 'main-query-render-1';
-		tribe_update_option( View::OPTION_DEFAULT, $slug );
+		$I->setTribeOption( View::OPTION_DEFAULT, $slug );
 		$code = file_get_contents( codecept_data_dir( 'Views/V2/mu-plugins/MainQueryRenderCest-1.php' ) );
 		$I->haveMuPlugin( 'main-query-render-1.php', $code );
 		$I->wait_for_container_to_sync_files();
 
 		$I->amOnPage( '/events' );
 
-		$I->seeElement( '.tribe-view .tribe-view--' . $slug );
+		$I->seeElement( '.tribe-view' );
+		$I->seeElement( '.tribe-view--' . $slug );
 	}
 }

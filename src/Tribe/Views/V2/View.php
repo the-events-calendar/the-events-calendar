@@ -176,6 +176,11 @@ class View implements View_Interface {
 		static::$container = $container;
 	}
 
+	public static function locate_template( $template ) {
+		$template = locate_template( [ 'tribe/views/v2/router.php' ] );
+
+	}
+
 	/**
 	 * {@inheritDoc}
 	 *
