@@ -62,7 +62,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	 *
 	 * @return string The Views router file if required or the input template.
 	 */
-	public function filter_template_include($template) {
+	public function filter_template_include( $template ) {
 		global $wp_the_query;
 
 		if ( [ TEC::POSTTYPE ] !== (array) $wp_the_query->get( 'post_type' ) ) {
