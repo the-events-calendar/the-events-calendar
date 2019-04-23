@@ -156,8 +156,12 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 				$data['EventCost'] = reset( $data['EventCost'] );
 			}
 
-			if ( isset( $data['FeaturedImage'] ) && ! empty( $data['FeaturedImage'] ) ) {
-				update_metadata( 'post', $event_id, '_thumbnail_id', $data['FeaturedImage'] );
+			if ( isset( $data['FeaturedImage'] ) ) {
+				if ( empty( $data['FeaturedImage'] ) ) {
+					delete_post_meta( $event_id, '_thumbnail_id' );
+				} else {
+					update_metadata( 'post', $event_id, '_thumbnail_id', $data['FeaturedImage'] );
+				}
 				unset( $data['FeaturedImage'] );
 			}
 
