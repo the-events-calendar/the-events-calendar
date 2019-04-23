@@ -1,4 +1,4 @@
-<?php return '<script type="text/javascript">var dump = {
+<?php return '<script type="text/javascript">const dump = {
     "posts_per_page": "10",
     "view": "test",
     "view_data": {

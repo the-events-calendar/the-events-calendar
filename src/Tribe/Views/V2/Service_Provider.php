@@ -22,6 +22,12 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	 * Binds and sets up implementations.
 	 */
 	public function register() {
+		$enabled = (bool) tribe_get_option( View::OPTION_ENABLED, true );
+
+		if ( ! $enabled ) {
+			return;
+		}
+
 		add_action( 'rest_api_init', [ $this, 'register_rest_endpoints' ] );
 		View::set_container( $this->container );
 	}

@@ -129,12 +129,10 @@ class ContextMocker {
 	 * Builds and returns an altered version of the current global context.
 	 *
 	 * @return Context An altered clone of the current global Context.
-	 *
 	 */
 	protected function get_context(): Context {
 		$this->did_mock = true;
 
-		return tribe_context()
-			->alter( $this->values );
+		return tribe_context()->alter( $this->values );
 	}
 }

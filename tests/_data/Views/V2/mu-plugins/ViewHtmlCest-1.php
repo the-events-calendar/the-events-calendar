@@ -1,11 +1,6 @@
 <?php
 add_action( 'plugins_loaded', static function () {
 	class Test_View_1 extends Tribe\Events\Views\V2\View {
-
-		public function get_slug() {
-			return 'test-view-1';
-		}
-
 		public function get_html() {
 			return '<p>Test View 1 HTML output</p>';
 		}

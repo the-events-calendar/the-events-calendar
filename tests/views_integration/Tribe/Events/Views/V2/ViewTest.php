@@ -163,4 +163,34 @@ class ViewTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertInstanceOf( Context::class, $view_context );
 		$this->assertNotSame( tribe_context(), $view_context );
 	}
+
+	/**
+	 * It should assign a built view instance the slug it was registered with.
+	 *
+	 * @test
+	 */
+	public function should_assign_a_built_view_instance_the_slug_it_was_registered_with() {
+		add_filter( 'tribe_events_views', static function () {
+			return [ 'test' => Test_View::class ];
+		} );
+
+		$view = View::make( 'test' );
+
+		$this->assertEquals( 'test', $view->get_slug() );
+	}
+
+	/**
+	 * It should set a default template instance on the view when building it.
+	 *
+	 * @test
+	 */
+	public function should_set_a_default_template_instance_on_the_view_when_building_it() {
+		add_filter( 'tribe_events_views', static function () {
+			return [ 'test' => Test_View::class ];
+		} );
+
+		$view = View::make( 'test' );
+
+		$this->assertInstanceOf( Template::class, $view->get_template() );
+	}
 }

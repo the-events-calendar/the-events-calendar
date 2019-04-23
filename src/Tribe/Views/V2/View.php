@@ -20,6 +20,10 @@ use Tribe__Utils__Array as Arr;
  */
 class View implements View_Interface {
 
+	const OPTION_ENABLED = 'views_v2_enabled';
+
+	const OPTION_DEFAULT = 'views_v2_default_view';
+
 	/**
 	 * An instance of the DI container.
 	 *
@@ -40,6 +44,22 @@ class View implements View_Interface {
 	 * @var Context
 	 */
 	protected $context;
+
+	/**
+	 * The slug of the View instance, usually the one it was registered with in the `tribe_events_views`filter.
+	 *
+	 * This value will be set by the `View::make()` method while building a View instance.
+	 *
+	 * @var string
+	 */
+	protected $slug = '';
+
+	/**
+	 * The Template instance the view will use to locate, manage and render its template.
+	 *
+	 * @var \Tribe\Events\Views\V2\Template
+	 */
+	protected $template;
 
 	/**
 	 *
@@ -70,53 +90,46 @@ class View implements View_Interface {
 	 * @since TBD
 	 *
 	 */
-	public static function make( $view = 'default' ) {
+	public static function make( $view = null ) {
+		$view = null !== $view
+			? $view
+			: tribe_get_option( static::OPTION_DEFAULT, 'default' );
+
 		$views = self::get_registered_views();
-		$view_class = class_exists( $view ) ? $view : Arr::get( $views, $view, false );
+
+		if ( class_exists( $view ) ) {
+			$view_class = $view;
+			$registration_slug = static::get_view_slug( $view );
+		} else {
+			$view_class = Arr::get( $views, $view, false );
+			$registration_slug = $view;
+		}
 
 		if ( $view_class ) {
+			/** @var \Tribe\Events\Views\V2\View_Interface $instance */
 			$instance = self::$container->make( $view_class );
+			$template = new Template( $registration_slug );
 		} else {
+			$view_class = static::class;
 			$instance = new static();
-			$instance->not_found_slug = $view;
+			$template = new Template( 'not-found' );
 		}
+
+		// Set some defaults on the template.
+		$template->set( 'view_class', $view_class );
+
+		$instance->set_template( $template );
+		$instance->set_slug( $registration_slug );
 
 		return $instance;
 	}
 
 	/**
-	 * Sets the DI container the class should use to build views.
-	 *
-	 * @param \tad_DI52_Container $container The DI container instance to use.
-	 *
-	 * @since TBD
-	 *
-	 */
-	public static function set_container( Container $container ) {
-		static::$container = $container;
-	}
-
-	/**
-	 * Returns the slug currently associated to a View class, if any.
-	 *
-	 * @since TBD
-	 *
-	 * @param string $view The view fully qualified class name.
-	 *
-	 * @return int|string|false The slug currently associated to a View class if it is found, `false` otherwise.
-	 */
-	public static function get_view_slug( string $view ) {
-		$views = self::get_registered_views();
-
-		return array_search( $view, $views, true );
-	}
-
-	/**
 	 * Returns an associative array of Views currently registered.
 	 *
-	 * @since TBD
-	 *
 	 * @return array An array in the shape `[ <slug> => <View Class> ]`.
+	 *
+	 * @since TBD
 	 *
 	 */
 	public static function get_registered_views() {
@@ -137,11 +150,30 @@ class View implements View_Interface {
 	}
 
 	/**
-	 * {@inheritDoc}
-	 * @throws \Tribe\Events\Views\V2\Implementation_Error If a class extending this one does not implement this method.
+	 * Returns the slug currently associated to a View class, if any.
+	 *
+	 * @param string $view The view fully qualified class name.
+	 *
+	 * @return int|string|false The slug currently associated to a View class if it is found, `false` otherwise.
+	 * @since TBD
+	 *
 	 */
-	public function get_html() {
-		throw Implementation_Error::because_extending_view_should_define_this_method( 'get_html', $this );
+	public static function get_view_slug( string $view ) {
+		$views = self::get_registered_views();
+
+		return array_search( $view, $views, true );
+	}
+
+	/**
+	 * Sets the DI container the class should use to build views.
+	 *
+	 * @param \tad_DI52_Container $container The DI container instance to use.
+	 *
+	 * @since TBD
+	 *
+	 */
+	public static function set_container( Container $container ) {
+		static::$container = $container;
 	}
 
 	/**
@@ -149,24 +181,36 @@ class View implements View_Interface {
 	 *
 	 * @throws \Tribe\Events\Views\V2\Implementation_Error If a class extending this one does not implement this method.
 	 */
-	public function get_slug() {
-		throw Implementation_Error::because_extending_view_should_define_this_method( 'get_slug', $this );
+	public function registration_slug() {
+		return $this->slug;
 	}
 
 	/**
 	 * Sends, echoing it and exiting, the view HTML on the page.
 	 *
-	 * @since TBD
-	 *
 	 * @param null|string $html A specific HTML string to print on the page or the HTML produced by the view
 	 *                          `get_html` method.
 	 *
 	 * @throws \Tribe\Events\Views\V2\Implementation_Error If the `get_html` method has not been implemented.
+	 * @since TBD
+	 *
 	 */
 	public function send_html( $html = null ) {
 		$html = null === $html ? $this->get_html() : $html;
 		echo $html;
 		tribe_exit( 200 );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * @throws \Tribe\Events\Views\V2\Implementation_Error If a class extending this one does not implement this method.
+	 */
+	public function get_html() {
+		if ( self::class === static::class ) {
+			return $this->template->render();
+		}
+
+		throw Implementation_Error::because_extending_view_should_define_this_method( 'get_html', $this );
 	}
 
 	/**
@@ -181,5 +225,34 @@ class View implements View_Interface {
 	 */
 	public function set_context( Context $context = null ) {
 		$this->context = $context;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_slug() {
+		return $this->slug;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function set_slug( $slug ) {
+		$this->slug = $slug;
+		$this->template->set( 'slug', $slug );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_template() {
+		return $this->template;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function set_template( Template $template ) {
+		$this->template = $template;
 	}
 }

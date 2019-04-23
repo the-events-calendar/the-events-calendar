@@ -31,5 +31,9 @@
     }
   },
   "require": {
+  },
+  "scripts": {
+    "start-chromedriver": "docker run --rm -d --name chromedriver -p 4444:4444 selenium/standalone-chrome",
+    "stop-chromedriver": "docker stop chromedriver"
   }
 }
