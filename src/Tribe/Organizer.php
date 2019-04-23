@@ -323,8 +323,12 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 		 */
 		do_action( 'tribe_events_organizer_save', $organizerId, $data, $organizer );
 
-		if ( isset( $data['FeaturedImage'] ) && ! empty( $data['FeaturedImage'] ) ) {
-			update_post_meta( $organizerId, '_thumbnail_id', $data['FeaturedImage'] );
+		if ( isset( $data['FeaturedImage'] ) ) {
+			if ( empty( $data['FeaturedImage'] ) ) {
+				delete_post_meta( $organizerId, '_thumbnail_id' );
+			} else {
+				update_post_meta( $organizerId, '_thumbnail_id', $data['FeaturedImage'] );
+			}
 			unset( $data['FeaturedImage'] );
 		}
 
