@@ -243,8 +243,14 @@ class Tribe__Events__Adjacent_Events {
 		$events_orm->by_args( $args );
 		$query = $events_orm->get_query();
 
+		// Make sure we are not including same datetime events
+		add_filter( 'posts_where', [ $this, 'get_closest_event_where' ] );
+
 		// Fetch the posts
 		$query->get_posts();
+
+		// Remove this filter right after fetching the events
+		remove_filter( 'posts_where', [ $this, 'get_closest_event_where' ] );
 
 		$results = $query->posts;
 
