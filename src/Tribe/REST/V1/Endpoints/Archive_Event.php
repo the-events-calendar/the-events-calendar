@@ -161,7 +161,9 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 
 			$data['rest_url'] = $this->get_current_rest_url( $args, $extra_rest_args );
 
-			$events = tribe_get_events( $args );
+
+			$events = tribe_events()->by_args( $args )->all();
+
 			$found_events = Tribe__Events__Query::last_found_events();
 
 			$page = $this->parse_page( $request ) ? $this->parse_page( $request ) : 1;
@@ -207,7 +209,6 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 		 * @param WP_REST_Request $request The original request.
 		 */
 		$data = apply_filters( 'tribe_rest_events_archive_data', $data, $request );
-
 		$response = new WP_REST_Response( $data );
 
 		if ( isset( $data['total'] ) && isset( $data['total_pages'] ) ) {
