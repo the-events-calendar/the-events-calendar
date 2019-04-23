@@ -64,11 +64,12 @@ class Tribe__Events__Integrations__WPML__Filters {
 		// re-hook WPML filter
 		add_filter( 'locale', array( $sitepress, 'locale_filter' ) );
 
-		$string_translation_active = function_exists( 'wpml_st_load_slug_translation' );
+		$string_translation_active = defined( 'WPML_ST_VERSION' );
 		$post_slug_translation_on  = ! empty( $sitepress_settings['posts_slug_translation']['on'] );
 
 		if ( $string_translation_active && $post_slug_translation_on ) {
 			$bases = $this->translate_single_slugs( $bases );
+			$bases = $this->translate_archive_slugs( $bases );
 		}
 
 		return $bases;
@@ -92,13 +93,48 @@ class Tribe__Events__Integrations__WPML__Filters {
 				continue;
 			}
 
-			$slug_translations = WPML_Slug_Translation::get_translations( $post_type );
+			$event_slug = WPML_Slug_Translation::get_slug_by_type( $post_type );
 
-			if ( ! isset( $slug_translations[1] ) ) {
+			$string_id = icl_get_string_id( $event_slug, array(
+				'context' => 'URL slug: ' . $post_type,
+				'domain'  => 'WordPress',
+			) );
+
+			if ( ! $string_id ) {
 				continue;
 			}
 
-			$bases['single'] = array_merge( $bases['single'], wp_list_pluck( $slug_translations[1], 'value' ) );
+			$slug_translations = icl_get_string_translations_by_id( $string_id );
+
+			if ( empty( $slug_translations ) ) {
+				continue;
+			}
+
+			$bases['single'] = array_merge( $bases['single'], wp_list_pluck( $slug_translations, 'value' ) );
+		}
+
+		return $bases;
+	}
+
+	/**
+	 * @param $bases
+	 *
+	 * @return array
+	 */
+	protected function translate_archive_slugs( array $bases ) {
+		global $sitepress_settings;
+
+		$events_slug = tribe_get_option( 'eventsSlug', 'events' );
+
+		$string_id = icl_get_string_id( $events_slug, array(
+			'context' => 'Archive Events Slug',
+			'domain'  => 'the-events-calendar',
+		) );
+
+		if ( $string_id ) {
+			$slug_translations = icl_get_string_translations_by_id( $string_id );
+
+			$bases['archive'] = array_merge( $bases['archive'], wp_list_pluck( $slug_translations, 'value' ) );
 		}
 
 		return $bases;
