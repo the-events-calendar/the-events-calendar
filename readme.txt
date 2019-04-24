@@ -217,6 +217,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 = [4.9.0.1] 2019-04-24 =
 
+* Fix - Modifications to `tribe_get_events()` to resolve problems introduced by latest release `4.9.0`
 * Fix - Backwards compatibility for `'eventDisplay' => 'upcoming'` on `tribe_get_events()`. Thanks @softwebteam, @mrwweb and @karks88 [126124]
 * Fix - Single navigation to next and previous events using the Object Relational Mapping classes [126144]
 * Fix - Events displayed correctly on all views, using End date instead of Start Date. Making sure events that are not over still show on upcoming [126259]
