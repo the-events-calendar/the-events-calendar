@@ -642,7 +642,9 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			 *
 			 * @var string
 			 */
-			$event_start_key = Tribe__Events__Timezones::is_mode( 'site' ) ? '_EventStartDateUTC' : '_EventStartDate';
+			$event_start_key = Tribe__Events__Timezones::is_mode( 'site' )
+				? '_EventStartDateUTC'
+				: '_EventStartDate';
 
 			/**
 			 * Which param will be queried in the Database for Events Date End.
@@ -651,7 +653,9 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			 *
 			 * @var string
 			 */
-			$event_end_key = Tribe__Events__Timezones::is_mode( 'site' ) ? '_EventEndDateUTC' : '_EventStartDate';
+			$event_end_key = Tribe__Events__Timezones::is_mode( 'site' )
+				? '_EventEndDateUTC'
+				: '_EventEndDate';
 
 			/**
 			 * When the "Use site timezone everywhere" option is checked in events settings,
