@@ -95,7 +95,6 @@ if ( ! class_exists( 'Tribe__Events__Template__List' ) ) {
 				$args['hide_subsequent_recurrences'] = true;
 			}
 
-
 			// Apply display and date.
 			$date = tribe_get_request_var( 'tribe-bar-date', 'now' );
 
