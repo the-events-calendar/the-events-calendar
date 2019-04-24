@@ -282,16 +282,16 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		$date = Tribe__Date_Utils::build_date_object( $datetime, $timezone )
 		                         ->setTimezone( $this->normal_timezone );
 
-		return array(
-			'meta_query' => array(
-				'ends-before' => array(
+		return [
+			'meta_query' => [
+				'ends-before' => [
 					'key'     => $this->end_meta_key,
 					'compare' => '<',
 					'value'   => $date->format( Tribe__Date_Utils::DBDATETIMEFORMAT ),
 					'type'    => 'DATETIME',
-				),
-			),
-		);
+				],
+			],
+		];
 	}
 
 	/**

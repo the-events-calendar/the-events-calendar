@@ -357,19 +357,31 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 						case 'all':
 						case 'list':
 						default: // default display query
-							$event_date = ( $query->get( 'eventDate' ) != '' )
-								? $query->get( 'eventDate' )
-								: date_i18n( Tribe__Date_Utils::DBDATETIMEFORMAT );
-							if ( ! $query->tribe_is_past ) {
-								$query->set( 'start_date', ( '' != $query->get( 'eventDate' ) ? tribe_beginning_of_day( $event_date ) : tribe_format_date( current_time( 'timestamp' ), true, 'Y-m-d H:i:00' ) ) );
-								$query->set( 'end_date', '' );
-								$query->set( 'order', self::set_order( 'ASC', $query ) );
+							if ( '' != $query->get( 'eventDate' ) ) {
+								$event_date = $query->get( 'eventDate' );
 							} else {
+								$event_date = date_i18n( Tribe__Date_Utils::DBDATETIMEFORMAT );
+							}
+
+							if ( $query->tribe_is_past ) {
 								// on past view, set the passed date as the end date
 								$query->set( 'start_date', '' );
 								$query->set( 'end_date', $event_date );
 								$query->set( 'order', self::set_order( 'DESC', $query ) );
+							} else {
+								if ( '' != $query->get( 'eventDate' ) ) {
+									$event_date = tribe_beginning_of_day( $event_date );
+								} else {
+									$event_date = tribe_format_date( current_time( 'timestamp' ), true, 'Y-m-d H:i:00' );
+								}
+
+								$orm_meta_query = tribe( 'events.event-repository' )->filter_by_ends_after( $event_date );
+
+								$meta_query['ends-after'] = $orm_meta_query['meta_query']['ends-after'];
+
+								$query->set( 'order', self::set_order( 'ASC', $query ) );
 							}
+
 							$query->set( 'orderby', self::set_orderby( null, $query ) );
 							$query->set( 'hide_upcoming', $maybe_hide_events );
 							break;
@@ -630,7 +642,9 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			 *
 			 * @var string
 			 */
-			$event_start_key = Tribe__Events__Timezones::is_mode( 'site' ) ? '_EventStartDateUTC' : '_EventStartDate';
+			$event_start_key = Tribe__Events__Timezones::is_mode( 'site' )
+				? '_EventStartDateUTC'
+				: '_EventStartDate';
 
 			/**
 			 * Which param will be queried in the Database for Events Date End.
@@ -639,7 +653,9 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			 *
 			 * @var string
 			 */
-			$event_end_key = Tribe__Events__Timezones::is_mode( 'site' ) ? '_EventEndDateUTC' : '_EventStartDate';
+			$event_end_key = Tribe__Events__Timezones::is_mode( 'site' )
+				? '_EventEndDateUTC'
+				: '_EventEndDate';
 
 			/**
 			 * When the "Use site timezone everywhere" option is checked in events settings,
