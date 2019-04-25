@@ -92,6 +92,6 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 			return (bool) $env_var;
 		}
 
-		return (bool) tribe_get_option( View::OPTION_ENABLED, true );
+		return (bool) tribe_get_option( View::OPTION_ENABLED, false );
 	}
 }
