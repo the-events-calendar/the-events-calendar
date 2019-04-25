@@ -217,39 +217,6 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				return $query;
 			}
 
-			/**
-			 * Filters whether or not to use the Start Date meta hack to include meta table.
-			 *
-			 * We only add the `postmeta` hack if it's not the main admin events list
-			 * because this method filters out drafts without EventStartDate.
-			 * For this screen we're doing the JOIN manually in `Tribe__Events__Admin_List`.
-			 *
-			 * Important to note, this need to happen as the first thing, due to how we depend on
-			 * StartDate been the first param on the Meta Query.
-			 *
-			 * @param boolean $use_hack Whether to include the start date meta or not.
-			 * @param \WP_Query|null $query The query that is currently being filtered or `null` if no query is
-			 *                              being filtered.
-			 *
-			 * @since 4.9
-			 */
-			$include_date_meta = apply_filters( 'tribe_events_query_include_start_date_meta', true, $query );
-			if (
-				$include_date_meta
-				&& ! tribe( 'context' )->is_editing_post( Tribe__Events__Main::POSTTYPE )
-			) {
-				$date_meta_key = Tribe__Events__Timezones::is_mode( 'site' )
-					? '_EventStartDateUTC'
-					: '_EventStartDate';
-
-				$meta_query[] = array(
-					'key'  => $date_meta_key,
-					'type' => 'DATETIME',
-				);
-
-				$query->set( 'tribe_include_date_meta', true );
-			}
-
 			if ( $query->is_main_query() && is_home() ) {
 				/**
 				 * The following filter will remove the virtual page from the option page and return a 0 as it's not
@@ -282,6 +249,38 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			}
 
 			if ( $query->tribe_is_event || $query->tribe_is_event_category ) {
+				/**
+				 * Filters whether or not to use the Start Date meta hack to include meta table.
+				 *
+				 * We only add the `postmeta` hack if it's not the main admin events list
+				 * because this method filters out drafts without EventStartDate.
+				 * For this screen we're doing the JOIN manually in `Tribe__Events__Admin_List`.
+				 *
+				 * Important to note, this need to happen as the first thing, due to how we depend on
+				 * StartDate been the first param on the Meta Query.
+				 *
+				 * @param boolean $use_hack Whether to include the start date meta or not.
+				 * @param \WP_Query|null $query The query that is currently being filtered or `null` if no query is
+				 *                              being filtered.
+				 *
+				 * @since 4.9
+				 */
+				$include_date_meta = apply_filters( 'tribe_events_query_include_start_date_meta', true, $query );
+				if (
+					$include_date_meta
+					&& ! tribe( 'context' )->is_editing_post( Tribe__Events__Main::POSTTYPE )
+				) {
+					$date_meta_key = Tribe__Events__Timezones::is_mode( 'site' )
+						? '_EventStartDateUTC'
+						: '_EventStartDate';
+
+					$meta_query[] = array(
+						'key'  => $date_meta_key,
+						'type' => 'DATETIME',
+					);
+
+					$query->set( 'tribe_include_date_meta', true );
+				}
 
 				if ( ! ( $query->is_main_query() && 'month' === $query->get( 'eventDisplay' ) ) ) {
 					add_filter( 'option_page_on_front', array( __CLASS__, 'default_page_on_front' ) );
