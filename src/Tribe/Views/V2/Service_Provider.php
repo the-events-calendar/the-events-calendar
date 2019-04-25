@@ -24,9 +24,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	 * Binds and sets up implementations.
 	 */
 	public function register() {
-		$enabled = (bool) tribe_get_option( View::OPTION_ENABLED, true );
-
-		if ( ! $enabled ) {
+		if ( ! ( $this->is_enabled() ) ) {
 			return;
 		}
 
@@ -72,5 +70,28 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		$index = ( new Index() )->get_template_file();
 
 		return $index ? $index : $template;
+	}
+
+	/**
+	 * Checks whether v2 of the Views is enabled or not.
+	 *
+	 * In order the function will check the `TRIBE_EVENTS_V2_VIEWS` constant,
+	 * the `TRIBE_EVENTS_V2_VIEWS` environment variable and, finally, the `static::OPTION_ENABLED` option.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool Whether v2 of the Views are enabled or not.
+	 */
+	protected function is_enabled() {
+		if ( defined( 'TRIBE_EVENTS_V2_VIEWS' ) ) {
+			return (bool) TRIBE_EVENTS_V2_VIEWS;
+		}
+
+		$env_var = getenv( 'TRIBE_EVENTS_V2_VIEWS' );
+		if ( false !== $env_var ) {
+			return (bool) $env_var;
+		}
+
+		return (bool) tribe_get_option( View::OPTION_ENABLED, true );
 	}
 }
