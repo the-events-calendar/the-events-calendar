@@ -76,7 +76,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	 * Checks whether v2 of the Views is enabled or not.
 	 *
 	 * In order the function will check the `TRIBE_EVENTS_V2_VIEWS` constant,
-	 * the `TRIBE_EVENTS_V2_VIEWS` environment variable and, finally, the `static::OPTION_ENABLED` option.
+	 * the `TRIBE_EVENTS_V2_VIEWS` environment variable and, finally, the `static::$option_enabled` option.
 	 *
 	 * @since TBD
 	 *
@@ -92,6 +92,6 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 			return (bool) $env_var;
 		}
 
-		return (bool) tribe_get_option( View::OPTION_ENABLED, false );
+		return (bool) tribe_get_option( View::$option_enabled, false );
 	}
 }

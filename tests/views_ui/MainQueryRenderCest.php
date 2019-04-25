@@ -6,7 +6,7 @@ use Views_uiTester as Tester;
 class MainQueryRenderCest {
 
 	public function _before( Tester $I ) {
-		tribe_update_option( View::OPTION_ENABLED, true );
+		tribe_update_option( View::$option_enabled, true );
 	}
 
 	/**
@@ -16,7 +16,7 @@ class MainQueryRenderCest {
 	 */
 	public function should_correctly_render_the_default_main_query_view( Tester $I ) {
 		$slug = 'main-query-render-1';
-		$I->setTribeOption( View::OPTION_DEFAULT, $slug );
+		$I->setTribeOption( View::$option_default, $slug );
 		$code = file_get_contents( codecept_data_dir( 'Views/V2/mu-plugins/MainQueryRenderCest-1.php' ) );
 		$I->haveMuPlugin( 'main-query-render-1.php', $code );
 		$I->wait_for_container_to_sync_files();

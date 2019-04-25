@@ -20,9 +20,20 @@ use Tribe__Utils__Array as Arr;
  */
 class View implements View_Interface {
 
-	const OPTION_ENABLED = 'views_v2_enabled';
+	/**
+	 * The name of the Tribe option the enabled/disabled flag for
+	 * View v2 will live in.
+	 *
+	 * @var string
+	 */
+	public static $option_enabled = 'views_v2_enabled';
 
-	const OPTION_DEFAULT = 'views_v2_default_view';
+	/**
+	 * The name of the Tribe option the default Views v2 slug will live in.
+	 *
+	 * @var string
+	 */
+	public static $option_default = 'views_v2_default_view';
 
 	/**
 	 * An instance of the DI container.
@@ -93,7 +104,7 @@ class View implements View_Interface {
 	public static function make( $view = null ) {
 		$view = null !== $view
 			? $view
-			: tribe_get_option( static::OPTION_DEFAULT, 'default' );
+			: tribe_get_option( static::$option_default, 'default' );
 
 		$views = self::get_registered_views();
 
