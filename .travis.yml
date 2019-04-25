@@ -58,7 +58,7 @@ install:
 
   # Tweak the path to look for binaries in `vendor/bin` first.
   # Binaries installed in the `vendor/bin` folder, like `codecept`, will be available system-wide.
-  - export PATH=${TRAVIS_BUILD_DIR}/vendor/bin:$PATH
+  - export PATH=${PATH}:${TRAVIS_BUILD_DIR}/vendor/bin
 
   # Create the WordPress root folder.
   - mkdir -p ${WP_ROOT_FOLDER}
