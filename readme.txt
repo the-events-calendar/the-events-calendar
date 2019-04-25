@@ -215,7 +215,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
-= [4.9.0.1] 2019-04-24 =
+= [4.9.0.1] 2019-04-25 =
 
 * Fix - Modifications to `tribe_get_events()` to resolve problems introduced by latest release `4.9.0`
 * Fix - Backwards compatibility for `'eventDisplay' => 'upcoming'` on `tribe_get_events()`. Thanks @softwebteam, @mrwweb and @karks88 [126124]
