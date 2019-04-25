@@ -49,8 +49,15 @@ install:
   # The installation will include wp-cli as well as it's a requirement of wp-browser.
   - composer update --prefer-dist
 
+  # Install wp-cli phar.
+  # While wp-cli is one of wp-browser dependencies the binary that lives in the `vendor/bin` folder will load the
+  # Composer autoload file when used and that will conflict with the one loaded by the plugin.
+  - curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+  - chmod +x wp-cli.phar
+  - mkdir -p ${HOME}/.local/bin && mv wp-cli.phar ${HOME}/.local/bin/wp
+
   # Tweak the path to look for binaries in `vendor/bin` first.
-  # Binaries installed in the `vendor/bin` folder, like `wp` and `codecept`, will be available system-wide.
+  # Binaries installed in the `vendor/bin` folder, like `codecept`, will be available system-wide.
   - export PATH=${TRAVIS_BUILD_DIR}/vendor/bin:$PATH
 
   # Create the WordPress root folder.
