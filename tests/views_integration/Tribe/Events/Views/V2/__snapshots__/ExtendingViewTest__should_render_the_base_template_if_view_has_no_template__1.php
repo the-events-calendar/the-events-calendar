@@ -36,20 +36,20 @@
         {
             &quot;id&quot;: &quot;child-theme&quot;,
             &quot;priority&quot;: 10,
-            &quot;path&quot;: &quot;\\/Users\\/luca\\/Local Sites\\/tecorm\\/app\\/public\\/wp-content\\/themes\\/twentynineteen\\/tribe\\/events&quot;
+            &quot;path&quot;: &quot;\\/themes\\/twentynineteen\\/tribe\\/events&quot;
         },
         {
             &quot;id&quot;: &quot;parent-theme&quot;,
             &quot;priority&quot;: 15,
-            &quot;path&quot;: &quot;\\/Users\\/luca\\/Local Sites\\/tecorm\\/app\\/public\\/wp-content\\/themes\\/twentynineteen\\/tribe\\/events&quot;
+            &quot;path&quot;: &quot;\\/themes\\/twentynineteen\\/tribe\\/events&quot;
         },
         {
             &quot;id&quot;: &quot;plugin&quot;,
             &quot;priority&quot;: 20,
-            &quot;path&quot;: &quot;\\/Users\\/luca\\/Local Sites\\/tecorm\\/app\\/public\\/wp-content\\/plugins\\/the-events-calendar\\/src\\/views\\/v2&quot;
+            &quot;path&quot;: &quot;\\/plugins\\/the-events-calendar\\/src\\/views\\/v2&quot;
         }
     ],
-    &quot;relative_path&quot;: &quot;\\/Users\\/luca\\/Local Sites\\/tecorm\\/app\\/public\\/wp-content\\/plugins\\/the-events-calendar\\/src\\/views\\/v2\\/base.php&quot;
+    &quot;relative_path&quot;: &quot;\\/plugins\\/the-events-calendar\\/src\\/views\\/v2\\/base.php&quot;
 }		</code>
 	</pre>
 </div>

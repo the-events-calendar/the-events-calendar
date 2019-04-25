@@ -9,7 +9,7 @@
 				<ul>
 					<li>Id: <code><?php echo esc_html( $folder['id'] ) ?></code></li>
 					<li>Priority: <code><?php echo esc_html( $folder['priority'] ) ?></code></li>
-					<li>Path: <code><?php echo esc_html( str_replace( WP_CONTENT_DIR, '', $folder['path'] ) ) ?></code></li>
+					<li>Path: <code><?php echo esc_html( $folder['path'] ) ?></code></li>
 				</ul>
 			</li>
 		<?php endforeach; ?>

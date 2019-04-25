@@ -28,7 +28,10 @@ class Template extends Base_Template {
 	 * @return string The rendered template contents.
 	 */
 	public function render( array $context_overrides = [] ) {
-		$this->set( 'relative_path', $this->get_base_template_file() );
+		$this->set(
+			'relative_path',
+			str_replace( WP_CONTENT_DIR, '', $this->get_base_template_file() )
+		);
 		$context = wp_parse_args( $context_overrides, $this->context );
 		$context['_context'] = $context;
 
@@ -89,7 +92,12 @@ class Template extends Base_Template {
 	 * @return string The absolute path to the Views base template.
 	 */
 	public function get_base_template_file() {
-		$this->set( 'lookup_folders', $this->get_template_path_list() );
+		// Print the lookup folders as relative paths.
+		$this->set( 'lookup_folders', array_map( function ( array $folder ) {
+			$folder['path'] = str_replace( WP_CONTENT_DIR, '', $folder['path'] );
+
+			return $folder;
+		}, $this->get_template_path_list() ) );
 
 		return parent::get_template_file( 'base' );
 	}
