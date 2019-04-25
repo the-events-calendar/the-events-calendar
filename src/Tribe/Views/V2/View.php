@@ -117,6 +117,12 @@ class View implements View_Interface {
 		}
 
 		if ( $view_class ) {
+			if ( ! self::$container instanceof Container ) {
+				$message = 'The ' . __CLASS__ . '::$container property is not set:'
+				           . ' was the class initialized by the service provider?';
+				throw new \RuntimeException( $message );
+			}
+
 			/** @var \Tribe\Events\Views\V2\View_Interface $instance */
 			$instance = self::$container->make( $view_class );
 			$template = new Template( $registration_slug );

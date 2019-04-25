@@ -6,7 +6,7 @@ use Views_uiTester as Tester;
 class MainQueryRenderCest {
 
 	public function _before( Tester $I ) {
-		tribe_update_option( View::$option_enabled, true );
+		$I->setTribeOption( View::$option_enabled, true );
 	}
 
 	/**

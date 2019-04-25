@@ -24,7 +24,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	 * Binds and sets up implementations.
 	 */
 	public function register() {
-		if ( ! ( $this->is_enabled() ) ) {
+		if ( ! $this->is_enabled() ) {
 			return;
 		}
 
