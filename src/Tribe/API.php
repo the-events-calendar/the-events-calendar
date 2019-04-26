@@ -40,6 +40,15 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			$args['post_type'] = Tribe__Events__Main::POSTTYPE;
 
 			$args = self::sanitize_event_post_create_update_args( $args );
+			/**
+			 * Allow filtering of arguments in prior to inserting the event and meta fields.
+			 *
+			 * @param array $args The fields we want saved.
+			 *
+			 * @since TBD
+			 */
+			$args = apply_filters( 'tribe_events_event_insert_args', $args );
+
 			if ( is_wp_error( $args ) ) {
 				return $args;
 			}
@@ -75,6 +84,17 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			) {
 				$args['edit_date'] = true;
 			}
+
+			/**
+			 * Allow hooking in prior to updating the event and meta fields.
+			 *
+			 * @param array   $args The fields we want saved.
+			 * @param int     $event_id The event ID we are modifying.
+			 * @param WP_Post $post The event itself.
+			 *
+			 * @since TBD
+			 */
+			$args = apply_filters( 'tribe_events_event_update_args', $args, $event_id, $post );
 
 			$args = self::sanitize_event_post_create_update_args( $args );
 			if ( is_wp_error( $args ) ) {
