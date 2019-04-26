@@ -175,6 +175,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Day' ) ) {
 				$args = [
 					'post_status'  => $post_status,
 					'eventDisplay' => 'day',
+					'order' => 'ASC',
 				];
 
 				$search = tribe_get_request_var( 'tribe-bar-search' );
@@ -205,7 +206,13 @@ if ( ! class_exists( 'Tribe__Events__Template__Day' ) ) {
 
 				$args['posts_per_page'] = -1; // show ALL day posts
 
+				// By default do not show hidden events.
+				$args['hidden'] = false;
+
+				/** @var \Tribe__Events__Repositories__Event $events_orm */
 				$events_orm = tribe_events();
+
+				$events_orm->order_by( 'event_date' );
 				$events_orm->by( 'date_overlaps', tribe_beginning_of_day( $event_date ), tribe_end_of_day( $event_date ) );
 				$events_orm->by_args( $args );
 

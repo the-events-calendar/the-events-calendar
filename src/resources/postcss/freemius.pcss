@@ -1,0 +1,232 @@
+#toplevel_page_tribe-common.menu-top,
+#toplevel_page_aggregator.menu-top,
+#toplevel_page_tribe-help.menu-top,
+#toplevel_page_tribe-app-shop.menu-top {
+	display: none;
+}
+
+.events-cal,
+.toplevel_page_tribe-common {
+	#fs_connect {
+		background-color: #fff;
+		margin: 20px 20px 0 2px;
+		width: auto;
+		max-width: 1200px;
+		position: relative;
+
+		.fs-visual {
+			padding: 20px 0 0;
+			margin: 0 35px;
+			background-color: transparent;
+			display: flex;
+			align-items: center;
+			align-content: center;
+
+			.fs-site-icon,
+			.fs-plugin-icon,
+			.fs-first.dashicons-plus,
+			.fs-second.dashicons-plus,
+			.fs-connect-logo {
+				border: 0;
+				position: relative;
+				margin: 0;
+				width: auto;
+				top: auto;
+				right: auto;
+				bottom: auto;
+				left: auto;
+			}
+
+			.fs-site-icon,
+			.fs-plugin-icon {
+				width: 60px;
+			}
+
+			.dashicons-plus {
+				color: #17a0d6;
+				padding-right: 4px;
+				padding-left: 4px;
+				width: auto;
+			}
+
+			.fs-site-icon {
+				.dashicons {
+					visibility: hidden;
+				}
+
+				&::before {
+					content: '';
+					display: block;
+					background-image: url( ../icons/the-events-calendar.svg );
+					background-repeat: no-repeat;
+					background-position: center center;
+					background-size: 85%;
+					width: 100%;
+					height: 100%;
+					position: absolute;
+				}
+			}
+
+			.fs-plugin-icon {
+				img {
+					visibility: hidden;
+				}
+
+				&::before {
+					content: '';
+					display: block;
+					background-image: url( ../icons/stethoscope.svg );
+					background-repeat: no-repeat;
+					background-position: center center;
+					background-size: 75%;
+					width: 100%;
+					height: 100%;
+					position: absolute;
+				}
+			}
+
+			.fs-connect-logo {
+				display: block;
+				-moz-box-sizing: border-box;
+				box-sizing: border-box;
+				background-image: url( ../icons/mailplane.svg );
+				background-repeat: no-repeat;
+				background-position: center center;
+				background-size: 80%;
+				width: 60px;
+				height: 80px;
+				padding-left: 60px;
+			}
+		}
+
+		.fs-content {
+			padding: 20px 35px;
+
+			h3 {
+				font-size: 1.7em;
+				margin-top: 0;
+			}
+
+			p {
+				margin-bottom: 20px;
+
+				&:first-child,
+				&:last-child {
+					margin-bottom: 0;
+				}
+			}
+
+			.tribe-powered-by-freemius {
+				position: absolute;
+				top: 25px;
+				right: 45px;
+				background-image: url( ../icons/freemius-logo.svg );
+				background-repeat: no-repeat;
+				background-position: right center;
+				background-size: 100px;
+				width: 184px;
+				height: 30px;
+				line-height: 30px;
+				font-size: 1.1em;
+				font-style: italic;
+			}
+		}
+
+		.fs-actions {
+			padding: 20px 35px;
+			background-color: #f3f3f3;
+			display: flex;
+			flex-flow: row wrap;
+
+			form {
+				order: 1;
+				float: none;
+				margin-right: 15px;
+			}
+
+			#skip_activation {
+				order: 2;
+				float: none;
+			}
+
+			.button {
+				padding: 7px 35px;
+				height: auto;
+
+				&.button-primary {
+					padding-left: 35px;
+					padding-right: 35px;
+				}
+			}
+		}
+
+		.fs-permissions {
+			position: relative;
+			padding: 0;
+
+			.fs-trigger {
+				position: absolute;
+				top: -65px;
+				left: 380px;
+				padding: 10px;
+			}
+
+			&.fs-open {
+				position: absolute;
+				padding: 20px 35px;
+				-moz-box-shadow: 0px 1px 2px rgba(0,0,0,0.3);
+				-webkit-box-shadow: 0px 1px 2px rgba(0,0,0,0.3);
+				box-shadow: 0px 1px 2px rgba(0,0,0,0.3);
+
+				ul {
+					margin: 0;
+					display: flex;
+					flex-wrap: wrap;
+
+					li {
+						flex: 0 50%;
+						padding-bottom: 10px;
+
+						.dashicons {
+							padding-right: 15px;
+						}
+					}
+
+					.dashicons {
+						background-repeat: no-repeat;
+						background-position: left center;
+						background-size: 65%;
+
+						&::before {
+							content: '';
+						}
+					}
+
+					.dashicons-admin-users {
+						background-image: url( ../icons/user.svg );
+					}
+
+					.dashicons-admin-settings {
+						background-image: url( ../icons/settings.svg );
+					}
+
+					.dashicons-testimonial {
+						background-image: url( ../icons/megaphone.svg );
+					}
+
+					.dashicons-admin-plugins {
+						background-image: url( ../icons/plug.svg );
+					}
+				}
+			}
+		}
+
+		.fs-terms {
+			position: absolute;
+			bottom: 30px;
+			right: 10px;
+			width: 240px;
+			background-color: transparent;
+		}
+	}
+}

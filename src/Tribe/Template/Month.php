@@ -232,22 +232,22 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			}
 
 			// Default to always caching the current month
-			if ( ! isset( $this->args[ 'eventDate' ] ) ) {
+			if ( ! isset( $this->args['eventDate'] ) ) {
 				return true;
 			}
 
 			// If the eventDate argument is not in the expected format then do not cache
-			if ( ! preg_match( '/^[0-9]{4}-[0-9]{1,2}$/', $this->args[ 'eventDate' ] ) ) {
+			if ( ! preg_match( '/^[0-9]{4}-[0-9]{1,2}$/', $this->args['eventDate'] ) ) {
 				return false;
 			}
 
 			// If the requested month is more than 2 months in the past, do not cache
-			if ( $this->args[ 'eventDate' ] < date_i18n( 'Y-m', Tribe__Date_Utils::wp_strtotime( '-2 months' ) ) ) {
+			if ( $this->args['eventDate'] < date_i18n( 'Y-m', Tribe__Date_Utils::wp_strtotime( '-2 months' ) ) ) {
 				return false;
 			}
 
 			// If the requested month is more than 1yr in the future, do not cache
-			if ( $this->args[ 'eventDate' ] > date_i18n( 'Y-m', Tribe__Date_Utils::wp_strtotime( '+1 year' ) ) ) {
+			if ( $this->args['eventDate'] > date_i18n( 'Y-m', Tribe__Date_Utils::wp_strtotime( '+1 year' ) ) ) {
 				return false;
 			}
 
@@ -401,7 +401,6 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 					'eventDisplay' => 'month',
 					'eventDate'    => is_array( $_POST['eventDate'] ) ? Tribe__Utils__Array::get( $_POST, array( 'eventDate', 0 ) ) : $_POST['eventDate'],
 					'post_status'  => $post_status,
-					'featured'     => tribe( 'tec.featured_events' )->featured_events_requested(),
 				);
 			}
 
@@ -604,7 +603,11 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			 */
 			$events_in_month = apply_filters( 'tribe_events_month_get_events_in_month', null, $start_date, $end_date );
 
+
 			if ( null === $events_in_month ) {
+				$use_utc = Tribe__Timezones::is_mode( 'site' );
+				$start_date_key = $use_utc ? '_EventStartDateUTC' : '_EventStartDate';
+
 				$start_date_sql = esc_sql( $start_date );
 				$end_date_sql = esc_sql( $end_date );
 
@@ -614,7 +617,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 					FROM $wpdb->postmeta AS tribe_event_start
 					LEFT JOIN $wpdb->posts ON tribe_event_start.post_id = $wpdb->posts.ID
 					LEFT JOIN $wpdb->postmeta as tribe_event_end_date ON ( tribe_event_start.post_id = tribe_event_end_date.post_id AND tribe_event_end_date.meta_key = '_EventEndDate' )
-					WHERE $ignore_hidden_events_AND tribe_event_start.meta_key = '_EventStartDate'
+					WHERE $ignore_hidden_events_AND tribe_event_start.meta_key = '{$start_date_key}'
 					AND (
 						(
 							tribe_event_start.meta_value >= '{$start_date_sql}'
@@ -884,6 +887,14 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 					'orderby'                => 'post__in',
 				), $this->args
 			);
+
+			// If the request is false or not set we assume the request is for all events, not just featured ones.
+			if (
+				tribe_is_truthy( tribe_get_request_var( 'featured', false ) )
+				|| tribe_is_truthy( tribe_get_request_var( 'tribe_featuredevent', false ) )
+			) {
+				$args['featured'] = true;
+			}
 
 			/**
 			  * Filter Daily Events Query Arguments.

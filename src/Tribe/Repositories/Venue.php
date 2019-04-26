@@ -2,14 +2,14 @@
 /**
  * The main ORM/Repository class for venues.
  *
- * @since TBD
+ * @since 4.9
  */
 
 /**
  * Class Tribe__Events__Repositories__Venue
  *
  *
- * @since TBD
+ * @since 4.9
  */
 class Tribe__Events__Repositories__Venue extends Tribe__Events__Repositories__Linked_Posts {
 
@@ -25,7 +25,7 @@ class Tribe__Events__Repositories__Venue extends Tribe__Events__Repositories__Li
 	 *
 	 * Sets up the repository default parameters and schema.
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 */
 	public function __construct() {
 		parent::__construct();

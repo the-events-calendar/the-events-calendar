@@ -59,6 +59,13 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			}
 
 			/**
+			 * When using the ORM we cannot use EventStartDate injection
+			 */
+			if ( isset( $query->builder ) && $query->builder instanceof Tribe__Repository ) {
+				$can_inject = false;
+			}
+
+			/**
 			 * Determine whether a date field can be injected into various parts of a query.
 			 *
 			 * @param boolean  $can_inject Whether the date field can be injected
@@ -249,6 +256,38 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			}
 
 			if ( $query->tribe_is_event || $query->tribe_is_event_category ) {
+				/**
+				 * Filters whether or not to use the Start Date meta hack to include meta table.
+				 *
+				 * We only add the `postmeta` hack if it's not the main admin events list
+				 * because this method filters out drafts without EventStartDate.
+				 * For this screen we're doing the JOIN manually in `Tribe__Events__Admin_List`.
+				 *
+				 * Important to note, this need to happen as the first thing, due to how we depend on
+				 * StartDate been the first param on the Meta Query.
+				 *
+				 * @param boolean $use_hack Whether to include the start date meta or not.
+				 * @param \WP_Query|null $query The query that is currently being filtered or `null` if no query is
+				 *                              being filtered.
+				 *
+				 * @since 4.9
+				 */
+				$include_date_meta = apply_filters( 'tribe_events_query_include_start_date_meta', true, $query );
+				if (
+					$include_date_meta
+					&& ! tribe( 'context' )->is_editing_post( Tribe__Events__Main::POSTTYPE )
+				) {
+					$date_meta_key = Tribe__Events__Timezones::is_mode( 'site' )
+						? '_EventStartDateUTC'
+						: '_EventStartDate';
+
+					$meta_query[] = array(
+						'key'  => $date_meta_key,
+						'type' => 'DATETIME',
+					);
+
+					$query->set( 'tribe_include_date_meta', true );
+				}
 
 				if ( ! ( $query->is_main_query() && 'month' === $query->get( 'eventDisplay' ) ) ) {
 					add_filter( 'option_page_on_front', array( __CLASS__, 'default_page_on_front' ) );
@@ -287,9 +326,10 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				// the query explicity requests they be exposed
 				$maybe_hide_events = (bool) $query->get( 'hide_upcoming', true );
 
-				//@todo stop calling EOD cutoff transformations all over the place
+				$skip_event_display_filters = is_admin() && $query->is_main_query() && ! tribe_is_ajax_view_request();
 
-				if ( ! empty( $query->query_vars['eventDisplay'] ) ) {
+				//@todo stop calling EOD cutoff transformations all over the place
+				if ( ! empty( $query->query_vars['eventDisplay'] ) && ! $skip_event_display_filters ) {
 					switch ( $query->query_vars['eventDisplay'] ) {
 						case 'custom':
 							// if the eventDisplay is 'custom', all we're gonna do is make sure the start and end dates are formatted
@@ -357,19 +397,31 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 						case 'all':
 						case 'list':
 						default: // default display query
-							$event_date = ( $query->get( 'eventDate' ) != '' )
-								? $query->get( 'eventDate' )
-								: date_i18n( Tribe__Date_Utils::DBDATETIMEFORMAT );
-							if ( ! $query->tribe_is_past ) {
-								$query->set( 'start_date', ( '' != $query->get( 'eventDate' ) ? tribe_beginning_of_day( $event_date ) : tribe_format_date( current_time( 'timestamp' ), true, 'Y-m-d H:i:00' ) ) );
-								$query->set( 'end_date', '' );
-								$query->set( 'order', self::set_order( 'ASC', $query ) );
+							if ( '' != $query->get( 'eventDate' ) ) {
+								$event_date = $query->get( 'eventDate' );
 							} else {
+								$event_date = date_i18n( Tribe__Date_Utils::DBDATETIMEFORMAT );
+							}
+
+							if ( $query->tribe_is_past ) {
 								// on past view, set the passed date as the end date
 								$query->set( 'start_date', '' );
 								$query->set( 'end_date', $event_date );
 								$query->set( 'order', self::set_order( 'DESC', $query ) );
+							} else {
+								if ( '' != $query->get( 'eventDate' ) ) {
+									$event_date = tribe_beginning_of_day( $event_date );
+								} else {
+									$event_date = tribe_format_date( current_time( 'timestamp' ), true, 'Y-m-d H:i:00' );
+								}
+
+								$orm_meta_query = tribe_events()->filter_by_ends_after( $event_date );
+
+								$meta_query['ends-after'] = $orm_meta_query['meta_query']['ends-after'];
+
+								$query->set( 'order', self::set_order( 'ASC', $query ) );
 							}
+
 							$query->set( 'orderby', self::set_orderby( null, $query ) );
 							$query->set( 'hide_upcoming', $maybe_hide_events );
 							break;
@@ -388,33 +440,6 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 						'field'            => 'slug',
 						'terms'            => $query->get( Tribe__Events__Main::TAXONOMY ),
 						'include_children' => apply_filters( 'tribe_events_query_include_children', true ),
-					);
-				}
-
-				// Only add the postmeta hack if it's not the main admin events list
-				// Because this method filters out drafts without EventStartDate.
-				// For this screen we're doing the JOIN manually in Tribe__Events__Admin_List
-				/**
-				 * Filters whether or not to use the Start Date hack to include meta table.
-				 *
-				 * @param boolean $use_hack Whether to use the hack.
-				 *
-				 * @since TBD
-				 */
-				$start_hack = apply_filters( 'tribe_events_query_event_start_hack', true );
-				if ( $start_hack && ! tribe( 'context' )->is_editing_post( Tribe__Events__Main::POSTTYPE ) ) {
-					/**
-					 * We stopped using `_EventStartDate` due to problems with inconsistency with timezones
-					 *
-					 * It was based on the Tribe__Events__Timezones::is_mode( 'site' ) definition
-					 *
-					 * @since TBD
-					 */
-					$event_start_key = '_EventStartDateUTC';
-
-					$meta_query[] = array(
-						'key'  => $event_start_key,
-						'type' => 'DATETIME',
 					);
 				}
 			}
@@ -621,24 +646,26 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			$postmeta_table = self::postmeta_table( $query );
 
 			/**
-			 * Which param will be queried in the Database for Events Date Start
+			 * Which param will be queried in the Database for Events Date Start.
 			 *
 			 * @since  1.0
-			 * @since  TBD  We moved into using ORM so we only use UTC dates now
 			 *
 			 * @var string
 			 */
-			$event_start_key = '_EventStartDateUTC';
+			$event_start_key = Tribe__Events__Timezones::is_mode( 'site' )
+				? '_EventStartDateUTC'
+				: '_EventStartDate';
 
 			/**
-			 * Which param will be queried in the Database for Events Date End
+			 * Which param will be queried in the Database for Events Date End.
 			 *
 			 * @since  1.0
-			 * @since  TBD  We moved into using ORM so we only use UTC dates now
 			 *
 			 * @var string
 			 */
-			$event_end_key   = '_EventEndDateUTC';
+			$event_end_key = Tribe__Events__Timezones::is_mode( 'site' )
+				? '_EventEndDateUTC'
+				: '_EventEndDate';
 
 			/**
 			 * When the "Use site timezone everywhere" option is checked in events settings,
@@ -646,7 +673,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			 * disabling of that in certain contexts, so that local (not UTC) event times are used.
 			 *
 			 * @since 4.6.10
-			 * @since TBD    Commented out these lines below to always use UTC fields
+			 * @since 4.9    Commented out these lines below to always use UTC fields
 			 *
 			 * @param boolean $force_local_tz Whether to force the local TZ.
 			 */
@@ -702,9 +729,9 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				$postmeta_table = self::postmeta_table( $query );
 
 				$start_date = $query->get( 'start_date' );
-				$end_date   = $query->get( 'end_date' );
-				$use_utc    = Tribe__Events__Timezones::is_mode( 'site' );
-				$site_tz    = $use_utc ? Tribe__Events__Timezones::wp_timezone_string() : null;
+				$end_date = $query->get( 'end_date' );
+				$use_utc = Tribe__Events__Timezones::is_mode( 'site' );
+				$site_tz = $use_utc ? Tribe__Events__Timezones::wp_timezone_string() : null;
 
 				// Sitewide timezone mode: convert the start date - if set - to UTC
 				if ( $use_utc && ! empty( $start_date ) ) {
@@ -1246,6 +1273,17 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 					unset( $args['hide_upcoming'] );
 				}
 
+				// Support for `eventDisplay = 'upcoming'` for backwards compatibility
+				if ( isset( $args['eventDisplay'] ) && 'upcoming' === $args['eventDisplay'] ) {
+					$args['start_date'] = 'now';
+					unset( $args['eventDisplay'] );
+				}
+
+				// Support `tribeHideRecurrence` old param
+				if ( isset( $args['tribeHideRecurrence'] ) ) {
+					$args['hide_subsequent_recurrences'] = $args['tribeHideRecurrence'];
+					unset( $args['tribeHideRecurrence'] );
+				}
 
 				if ( isset( $args['start_date'] ) && false === $args['start_date'] ) {
 					unset( $args['start_date'] );
@@ -1292,9 +1330,15 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 					}
 				}
 
-				if ( ! empty( $args['tribe_is_past'] ) ) {
+				$is_past = ! empty( $args['tribe_is_past'] ) || 'past' === $event_display;
+				if ( $is_past ) {
 					$args['order'] = 'DESC';
-					$pivot_date = tribe_get_request_var( 'tribe-bar-date', 'now' );
+					/*
+					 * If in the context of a "past" view let's try to use, as limit, the same
+					 * end date limit passed, if any.
+					 */
+					$now = isset( $args['ends_before'] ) ? $args['ends_before'] : 'now';
+					$pivot_date = tribe_get_request_var( 'tribe-bar-date', $now );
 					$date       = Tribe__Date_Utils::build_date_object( $pivot_date );
 					// Remove any existing date meta queries.
 					if ( isset( $args['meta_query'] ) ) {
@@ -1303,7 +1347,15 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 							array( 'key' => '/_Event(Start|End)Date(UTC)/' )
 						);
 					}
-					$args['starts_before'] = tribe_beginning_of_day( $date->format( 'Y-m-d H:i:s' ) );
+
+					/**
+					 * We used to use the `tribe_beginning_of_day` for part of the query.
+					 *
+					 * Intentionally changed the behavior here to use "now" as part of the code
+					 *
+					 * @link https://central.tri.be/issues/123950
+					 */
+					$args['starts_before'] = $date->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
 				}
 
 				if ( null !== $hidden ) {
@@ -1334,6 +1386,11 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 					$result = $event_orm->found();
 				} else {
 					$result = $event_orm->get_query();
+
+					// Set the event display, if any, for back-compatibility purposes.
+					if ( ! empty( $event_display ) ) {
+						$result->set( 'eventDisplay', $event_display );
+					}
 
 					// Run the query.
 					$result->get_posts();

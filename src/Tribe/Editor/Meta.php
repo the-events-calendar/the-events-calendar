@@ -131,7 +131,7 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 	 * Adds, triggering their updates, the UTC start and end dates to the post insertion or
 	 * update REST payload.
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 *
 	 * @param             \stdClass     $post_data The post insertion/update payload.
 	 * @param \WP_REST_Request $request The current insertion or update request object.

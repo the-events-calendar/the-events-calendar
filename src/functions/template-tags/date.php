@@ -14,6 +14,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 	return;
 }
 
+use Tribe__Date_Utils as Dates;
+use Tribe__Timezones as Timezones;
+
 if ( ! function_exists( 'tribe_get_display_end_date' ) ) {
 	/**
 	 * End Date formatted for display
@@ -135,5 +138,45 @@ if ( ! function_exists( 'tribe_events_timezone_choice' ) ) {
 			$selected_zone,
 			$locale
 		);
+	}
+}
+
+if ( ! function_exists( 'tribe_event_ends_on' ) ) {
+	/**
+	 * Checks whether the specified event ends on date or not.
+	 *
+	 * The method is aware of timezone settings and will mark an event as ending on a date depending on that.
+	 * E.g. an America/Los_Angeles, 2019-04-10, 2pm to 7pm event ends on the same day if using the
+	 * America/Los_Angeles timezone but ends on the following day (4am of 2019-04-11) in the Paris timezone.
+	 * The method id day based, hours and minutes, if provided in the date, are not considered.
+	 *
+	 * @since 4.9
+	 *
+	 * @param WP_Post|int $event The event post object; the `EventEndDate` property must be set.
+	 * @param mixed      $date  The date to compare the event end date with; it can be an object, string or timestamp.
+	 *
+	 * @return bool Whether the specified date is the last day of the event, timezone-wise, or not.
+	 */
+	function tribe_event_ends_on( $event, $date ) {
+		$post = get_post( $event );
+
+		if ( ! $post instanceof WP_Post ) {
+			return false;
+		}
+
+		$event_end_date = get_post_meta( $post->ID, '_EventEndDate', true );
+
+		if ( empty( $event_end_date ) ) {
+			return false;
+		}
+
+		$use_site_timezone = Timezones::is_mode( 'site' );
+		$timezone = $use_site_timezone
+			? Timezones::build_timezone_object()
+			: Timezones::build_timezone_object( get_post_meta( $event->ID, '_EventTimezone', true ) );
+		$end_date = Dates::build_date_object( $event->EventEndDate, $timezone )->format( 'Y-m-d' );
+		$formatted_date = Dates::build_date_object( $date, $timezone )->format( 'Y-m-d' );
+
+		return $formatted_date === $end_date;
 	}
 }

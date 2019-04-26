@@ -289,6 +289,17 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$args['no_found_rows']  = true;
 			$args['posts_per_page'] = 1;
 
+			/**
+			 * Filters the arguments that will be used to check if there is a previous page/event.
+			 *
+			 * @since 4.9
+			 *
+			 * @param array $args An array of arguments that will be used to check if a previous page/event
+			 *                    is present.
+			 * @param WP_Query $wp_query The query object, if any, the query arguments have been taken from.
+			 */
+			$args = apply_filters( 'tribe_events_has_previous_args', $args, $wp_query );
+
 			$past_event   = tribe_get_events( $args );
 			$has_previous = ( count( $past_event ) >= 1 );
 		}
@@ -333,6 +344,17 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$args['no_paging'] = true;
 			$args['no_found_rows'] = true;
 			$args['posts_per_page'] = 1;
+
+			/**
+			 * Filters the arguments that will be used to check if there is a next page/event.
+			 *
+			 * @since 4.9
+			 *
+			 * @param array $args An array of arguments that will be used to check if a next page/event
+			 *                    is present.
+			 * @param WP_Query $wp_query The query object the query arguments have been taken from.
+			 */
+			$args = apply_filters( 'tribe_events_has_next_args', $args, $wp_query );
 
 			$next_event = tribe_get_events( $args );
 			$has_next   = ( count( $next_event ) >= 1 );

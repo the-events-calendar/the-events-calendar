@@ -256,13 +256,16 @@ abstract class Tribe__Events__Linked_Posts__Base {
 	/**
 	 * Finds posts of the type managed by the class that are related to upcoming events.
 	 *
-	 * @param bool $only_with_upcoming
+	 * @param bool              $only_with_upcoming
+	 * @param null|string|array $event_post_status Only fetch events with the defined post status or stati;
+	 *                                             will default to the post status set according to the current
+	 *                                             user capabilities if not provided.
 	 *
 	 * @return array|bool An array of post IDs or `false` if nothing was found.
 	 *
 	 * @since TDB
 	 */
-	public function find_with_upcoming_events( $only_with_upcoming = true ) {
+	public function find_with_upcoming_events( $only_with_upcoming = true, $event_post_status = null ) {
 		/** @var Tribe__Cache $cache */
 		$cache      = tribe( 'cache' );
 		$components = array( __CLASS__, __FUNCTION__, $only_with_upcoming );
@@ -278,6 +281,10 @@ abstract class Tribe__Events__Linked_Posts__Base {
 			'fields'     => 'ids',
 			'start_date' => date( Tribe__Date_Utils::DBDATETIMEFORMAT, time() ),
 		);
+
+		if ( null !== $event_post_status ) {
+			$args['post_status'] = $event_post_status;
+		}
 
 		$events = tribe_get_events( $args );
 

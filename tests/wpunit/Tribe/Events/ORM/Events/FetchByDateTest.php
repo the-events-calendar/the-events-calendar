@@ -12,6 +12,8 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 
 		// your set up methods here
 		$this->factory()->event = new Event();
+		// Explicitly set the timezone mode to use the site-wide setting.
+		tribe_update_option('tribe_events_timezone_mode', 'site');
 	}
 
 	/**
@@ -642,5 +644,88 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 			'2018-01-10 14:00:00',
 			'2018-01-10 10:00:00',
 		], $ny_matches->pluck_meta( '_EventStartDate' ) );
+	}
+
+	/**
+	 * It should allow overriding the timezone settings
+	 *
+	 * @test
+	 */
+	public function should_allow_overriding_the_timezone_settings() {
+		$site_timezone = 'Europe/Paris';
+		update_option( 'timezone_string', $site_timezone );
+
+		extract( $this->create_events_from_dates( [
+			'paris_nine_event' => [ '2019-04-09 10:00:00', 2 * HOUR_IN_SECONDS ],
+			'paris_ten_event'  => [ '2019-04-10 11:00:00', 2 * HOUR_IN_SECONDS ],
+		], 'Europe/Paris' ) );
+		extract( $this->create_events_from_dates( [
+			// 4/10 1:30am in Europe/Paris.
+			'la_nine_event' => [ '2019-04-09 16:30:00', 2 * HOUR_IN_SECONDS ],
+			// 4/10 11:30pm in Europe/Paris.
+			'la_ten_event'  => [ '2019-04-10 14:30:00', 2 * HOUR_IN_SECONDS ],
+		], 'America/Los_Angeles' ) );
+
+		$nine_events = tribe_events()
+			->use_utc( false )
+			->where( 'on_date', '2019-04-09' )
+			->order_by( 'event_date' )
+			->collect();
+		codecept_debug(
+			'4/9 events UTC dates: ' . implode( PHP_EOL, $nine_events->pluck_meta( '_EventStartDateUTC' ) )
+		);
+
+		$this->assertEquals(
+			[
+				'2019-04-09 10:00:00',
+				'2019-04-09 16:30:00',
+			],
+			$nine_events->pluck_meta( '_EventStartDate' ) );
+		$this->assertEquals( [
+			'Europe/Paris',
+			'America/Los_Angeles',
+		], $nine_events->pluck_meta( '_EventTimezone' ) );
+
+		$ten_events = tribe_events()
+			->use_utc( false )
+			->where( 'on_date', '2019-04-10' )
+			->order_by( 'event_date' )
+			->collect();
+		codecept_debug(
+			'4/10 events UTC dates: ' . implode( PHP_EOL, $ten_events->pluck_meta( '_EventStartDateUTC' ) )
+		);
+
+		$this->assertEquals( [
+			'2019-04-10 11:00:00',
+			'2019-04-10 14:30:00',
+		], $ten_events->pluck_meta( '_EventStartDate' ) );
+		$this->assertEquals( [
+			'Europe/Paris',
+			'America/Los_Angeles',
+		], $ten_events->pluck_meta( '_EventTimezone' ) );
+
+		$ten_utc_events = tribe_events()
+			->use_utc( true )
+			->where( 'on_date', '2019-04-10' )
+			->order_by( 'event_date' )
+			->collect();
+		codecept_debug(
+			'4/10 events Europe/Paris dates: ' . implode( PHP_EOL, array_map( function ( $utc_date ) {
+				return ( new \DateTime( $utc_date, new \DateTimeZone( 'UTC' ) ) )
+					->setTimezone( new \DateTimeZone( 'Europe/Paris' ) )
+					->format( 'Y-m-d H:i:s' );
+			}, $ten_events->pluck_meta( '_EventStartDateUTC' ) ) )
+		);
+
+		$this->assertEquals( [
+			'2019-04-09 16:30:00',
+			'2019-04-10 11:00:00',
+			'2019-04-10 14:30:00',
+		], $ten_utc_events->pluck_meta( '_EventStartDate' ) );
+		$this->assertEquals( [
+			'America/Los_Angeles',
+			'Europe/Paris',
+			'America/Los_Angeles',
+		], $ten_utc_events->pluck_meta( '_EventTimezone' ) );
 	}
 }

@@ -33,11 +33,39 @@ class Tribe__Events__Integrations__Manager {
 	 * supported plugins are activated.
 	 */
 	public function load_integrations() {
+		$this->load_freemius();
 		$this->load_acf_integration();
 		$this->load_twenty_seventeen_integration();
 		$this->load_wpml_integration();
 		$this->load_X_theme_integration();
 	}
+
+	/**
+	 * Loads our Events Freemius integration
+	 *
+	 * @since 4.9
+	 *
+	 * @return bool
+	 */
+	private function load_freemius() {
+		/**
+		 * Allows third-party disabling of The Events Calendar integration
+		 *
+		 * @since  4.9
+		 *
+		 * @param  bool  $should_load
+		 */
+		$should_load = apply_filters( 'tribe_events_integrations_should_load_freemius', true );
+
+		if ( ! $should_load ) {
+			return false;
+		}
+
+		tribe_singleton( 'events.integrations.freemius', new Tribe__Events__Integrations__Freemius );
+
+		return true;
+	}
+
 
 	/**
 	 * Loads our ACF integrations if that theme is active.
