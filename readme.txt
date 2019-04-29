@@ -215,6 +215,10 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
+= [4.9.1] TBD =
+
+* Tweak - Add values for the Json Ld object to avoid Google console errors. Fields added: `offers.availability`, `offers.category`, `offers.priceCurrency`, `offers.validFrom` and `performer` [120193]
+
 = [4.9.0.2] 2019-04-25 =
 
 * Fix - Avoid fatals due to Query method not been present by bumping version of Event Tickets required to 4.10.4.2
