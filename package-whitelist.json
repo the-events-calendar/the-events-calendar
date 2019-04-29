@@ -23,5 +23,9 @@
   "vendor/jquery/smoothness/*.css",
   "vendor/jquery/smoothness/images/*.png",
   "vendor/php-date-formatter/js/*.js",
+  "vendor/autoload.php",
+  "vendor/autoload_commands.php",
+  "vendor/autoload_framework.php",
+  "vendor/composer/*",
   "vendor/tribe-common-libraries/**/*"
 ]
