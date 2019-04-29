@@ -215,6 +215,10 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
+= [4.9.1] unreleased =
+
+* Tweak - add `tribe_events_cost_unformatted` filter to allow WPML support for woocommerce-multilingual
+
 = [4.9.0.2] 2019-04-25 =
 
 * Fix - Avoid fatals due to Query method not been present by bumping version of Event Tickets required to 4.10.4.2

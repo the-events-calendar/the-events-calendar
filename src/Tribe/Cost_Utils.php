@@ -101,9 +101,10 @@ class Tribe__Events__Cost_Utils extends Tribe__Cost_Utils {
 			/**
 			 * Filter the cost value prior to applying formatting
 			 *
+			 * @since TBD
+			 *
 			 * @param double $cost the event cost
 			 * @param int    $event_id  The ID of the event
-			 * @see Tribe__Field
 			 */
 			$cost = apply_filters( 'tribe_events_cost_unformatted', $cost, $event_id );
 
