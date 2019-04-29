@@ -8,6 +8,7 @@
 
 namespace Tribe\Events\Views\V2;
 
+use Tribe\Events\Views\V2\Views\List_View;
 use Tribe__Container as Container;
 use Tribe__Context as Context;
 use Tribe__Utils__Array as Arr;
@@ -108,6 +109,10 @@ class View implements View_Interface {
 
 		$views = self::get_registered_views();
 
+		if ( 'default' === $view && count( $views ) ) {
+			$view = reset( $views );
+		}
+
 		if ( class_exists( $view ) ) {
 			$view_class = $view;
 			$registration_slug = static::get_view_slug( $view );
@@ -161,7 +166,9 @@ class View implements View_Interface {
 		 * @since TBD
 		 *
 		 */
-		$views = apply_filters( 'tribe_events_views', [] );
+		$views = apply_filters( 'tribe_events_views', [
+			'list' => List_View::class,
+		] );
 
 		return (array) $views;
 	}
@@ -175,7 +182,7 @@ class View implements View_Interface {
 	 * @since TBD
 	 *
 	 */
-	public static function get_view_slug( string $view ) {
+	public static function get_view_slug( $view ) {
 		$views = self::get_registered_views();
 
 		return array_search( $view, $views, true );

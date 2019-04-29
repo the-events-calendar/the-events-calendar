@@ -11,9 +11,9 @@ class ViewHtmlCest extends Base {
 	 * @test
 	 */
 	public function should_return_a_view_html_when_requested( Tester $I ) {
-		$code = file_get_contents( codecept_data_dir( 'Views/V2/mu-plugins/ViewHtmlCest-1.php' ) );
+		$code = file_get_contents( codecept_data_dir( 'Views/V2/mu-plugins/view-html.php' ) );
 		$code = preg_replace( '/^\<\?php\\s*/', '', $code );
-		$I->haveMuPlugin( 'viewHtmlTest1.php', $code );
+		$I->haveMuPlugin( 'view-html.php', $code );
 		$I->wait_for_container_to_sync_files();
 		$query_args = [ 'view' => 'test' ];
 		$url = add_query_arg( $query_args, $this->home_url );

@@ -29,7 +29,9 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		}
 
 		add_action( 'rest_api_init', [ $this, 'register_rest_endpoints' ] );
-		add_action( 'template_include', [ $this, 'filter_template_include' ], 50 );
+		add_filter( 'template_include', [ $this, 'filter_template_include' ], 50 );
+		// Let's make sure to suppress query filters from the main query.
+		add_filter( 'tribe_suppress_query_filters', '__return_true' );
 
 		View::set_container( $this->container );
 	}
