@@ -2,6 +2,7 @@
   "data_collection_disclosure.html",
   "license.txt",
   "readme.txt",
+  "lang/**/*",
   "site_owner_data_collection_statement.html",
   "src/admin-views/**/*",
   "src/deprecated/**/*",
