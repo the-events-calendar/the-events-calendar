@@ -89,7 +89,7 @@
     "postcss-mixins": "^4.0.1",
     "postcss-nested": "^1.0.0",
     "postcss-preset-env": "^6.0.10",
-    "product-taskmaster": "github:moderntribe/product-taskmaster#task/126690-reduce-package-size",
+    "product-taskmaster": "github:moderntribe/product-taskmaster",
     "react-svg-loader": "^2.1.0",
     "react-test-renderer": "^16.5.2",
     "redux-devtools-extension": "^2.13.7",
