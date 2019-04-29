@@ -3,6 +3,7 @@ version: '3.1'
 services:
 
   wordpress:
+    container_name: ci_wordpress
     # We use the vanilla WordPress container in its Apache declination to
     # avoid having to deal with any web-server issue.
     # See https://hub.docker.com/_/wordpress/ for more information.
@@ -29,6 +30,7 @@ services:
       WORDPRESS_DB_NAME: ${WP_DB_NAME:-wordpress}
 
   db:
+    container_name: ci_db
     image: mariadb
     ports:
       # Let's expose the database container on port 4306 of localhost to
@@ -44,3 +46,21 @@ services:
       # To avoid having to enter a password in CLI scripts let's not protect the root user
       # with a password at all; in this context it's not an issue.
       MYSQL_ALLOW_EMPTY_PASSWORD: 1
+
+  chromedriver:
+    container_name: ci_chromedriver
+    image: selenium/standalone-chrome
+    depends_on:
+      - db
+      - wordpress
+    links:
+      - wordpress
+    extra_hosts:
+      # This line makes it so that the `/etc/hosts` file of this container will contain an entry
+      # redirecting requests for the WP_CHROMEDRIVER_URL to the IP address of the `wordpress` container.
+      # That IP address is obtained in the CI configuration file.
+      # See both the `.travis.yml` file and the `dev/docker/wp-config.template` file for more information.
+      - "${WP_CHROMEDRIVER_URL}:${WP_CONTAINER_IP:-127.0.0.1}"
+    ports:
+      # Expose Selenium on the default port.
+      - "${CHROMEDRIVER_PORT:-4444}:4444"
