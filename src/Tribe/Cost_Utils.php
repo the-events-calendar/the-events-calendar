@@ -98,6 +98,15 @@ class Tribe__Events__Cost_Utils extends Tribe__Cost_Utils {
 
 		foreach ( $relevant_costs as &$cost ) {
 			$cost = $this->maybe_replace_cost_with_free( $cost );
+			/**
+			 * Filter the cost value prior to applying formatting
+			 *
+			 * @since TBD
+			 *
+			 * @param double $cost the event cost
+			 * @param int    $event_id  The ID of the event
+			 */
+			$cost = apply_filters( 'tribe_events_cost_unformatted', $cost, $event_id );
 
 			if ( $with_currency_symbol ) {
 				$event_id          = Tribe__Main::post_id_helper( $event );
