@@ -4,7 +4,7 @@ Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.7
-Stable tag: 4.9.0.2
+Stable tag: 4.9.1
 Tested up to: 5.1
 Requires PHP: 5.6
 License: GPLv2 or later
@@ -217,7 +217,11 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 = [4.9.1] TBD =
 
-* Tweak - Add values for the Json Ld object to avoid Google console errors. Fields added: `offers.availability`, `offers.category`, `offers.priceCurrency`, `offers.validFrom` and `performer` [120193]
+* Tweak - Add values for the JSON-LD object to avoid Google console errors. Fields added: `offers.availability`, `offers.category`, `offers.priceCurrency`, `offers.validFrom` and `performer` [120193]
+
+= [4.9.0.3] 2019-04-26 =
+
+* Fix - Prevent Composer autoloader from throwing Fatal due to unexistent `setClassMapAuthoritative()` method [126590]
 
 = [4.9.0.2] 2019-04-25 =
 
