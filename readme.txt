@@ -218,6 +218,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 = [4.9.1] TBD =
 
 * Tweak - Add values for the JSON-LD object to avoid Google console errors. Fields added: `offers.availability`, `offers.category`, `offers.priceCurrency`, `offers.validFrom` and `performer` [120193]
+* Tweak - Add `tribe_events_cost_unformatted` filter to allow WPML support for WooCommerce Multilingual
 
 = [4.9.0.3] 2019-04-26 =
 
