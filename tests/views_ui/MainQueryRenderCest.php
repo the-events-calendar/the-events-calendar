@@ -10,18 +10,21 @@ class MainQueryRenderCest {
 	}
 
 	/**
-	 * It should correctly render the default main query view
+	 * It should correctly render a mock List view
 	 *
 	 * @test
 	 */
-	public function should_correctly_render_the_default_main_query_view( Tester $I ) {
-		$slug = 'main-query-render-1';
+	public function should_correctly_render_a_mock_list_view(Tester $I)
+	{
+		$slug = 'test-list';
+		$code = file_get_contents( codecept_data_dir( 'Views/V2/mu-plugins/test-list-view.php' ) );
 		$I->setTribeOption( View::$option_default, $slug );
-		$code = file_get_contents( codecept_data_dir( 'Views/V2/mu-plugins/MainQueryRenderCest-1.php' ) );
-		$I->haveMuPlugin( 'main-query-render-1.php', $code );
+		$I->haveMuPlugin( 'test-list-view.php', $code );
 		$I->wait_for_container_to_sync_files();
 
-		$I->amOnPage( '/events' );
+		$I->amOnPage(add_query_arg([
+			'view' => 'test-list',
+		], '/events'));
 
 		$I->seeElement( '.tribe-view' );
 		$I->seeElement( '.tribe-view--' . $slug );
