@@ -49,9 +49,16 @@ install:
   # The installation will include wp-cli as well as it's a requirement of wp-browser.
   - composer update --prefer-dist
 
+  # Install wp-cli phar.
+  # While wp-cli is one of wp-browser dependencies the binary that lives in the `vendor/bin` folder will load the
+  # Composer autoload file when used and that will conflict with the one loaded by the plugin.
+  - curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+  - chmod +x wp-cli.phar
+  - mkdir -p ${HOME}/.local/bin && mv wp-cli.phar ${HOME}/.local/bin/wp
+
   # Tweak the path to look for binaries in `vendor/bin` first.
-  # Binaries installed in the `vendor/bin` folder, like `wp` and `codecept`, will be available system-wide.
-  - export PATH=${TRAVIS_BUILD_DIR}/vendor/bin:$PATH
+  # Binaries installed in the `vendor/bin` folder, like `codecept`, will be available system-wide.
+  - export PATH=${PATH}:${TRAVIS_BUILD_DIR}/vendor/bin
 
   # Create the WordPress root folder.
   - mkdir -p ${WP_ROOT_FOLDER}
@@ -95,6 +102,12 @@ install:
   # Get back to the WordPress installation root folder.
   - cd ${WP_ROOT_FOLDER}; echo "pwd=$(pwd)"
 
+  # Obtain the IP address of the `wordpress` container we started before from the stack.
+  - export WP_CONTAINER_IP=`docker inspect -f '{{ .NetworkSettings.Networks.docker_default.IPAddress }}' ci_wordpress`
+
+  # Finally start the Selenium and Chromedriver container.
+  - docker-compose -f ${TRAVIS_BUILD_DIR}/dev/docker/ci-compose.yml up -d chromedriver
+
 before_script:
   # Activate the plugin in WordPress.
   - wp plugin activate ${PLUGIN_BASENAME}
@@ -119,3 +132,6 @@ script:
   - codecept run wpunit
   - codecept run aggregatorv1
   - codecept run restv1
+  - codecept run views_rest
+  - codecept run views_integration
+  - codecept run views_ui

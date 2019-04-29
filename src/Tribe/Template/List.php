@@ -11,6 +11,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
+use Tribe__Date_Utils as Dates;
+
 if ( ! class_exists( 'Tribe__Events__Template__List' ) ) {
 	/**
 	 * List view template class
@@ -96,6 +98,21 @@ if ( ! class_exists( 'Tribe__Events__Template__List' ) ) {
 			// Apply display and date.
 			$date = tribe_get_request_var( 'tribe-bar-date', 'now' );
 
+			if ( 'now' === $date ) {
+				/*
+				 * When defaulting to "now" let's round down to the lower half hour.
+				 * This way we avoid invalidating the hash on requests following each other
+				 * in reasonable (30') time.
+				 */
+				$date = Dates::build_date_object( 'now' );
+				$minutes = $date->format( 'm' );
+				$date->setTime(
+					$date->format( 'H' ),
+					$minutes - ( $minutes % 30 )
+				);
+				$date = $date->format( Dates::DBDATETIMEFORMAT );
+			}
+
 			$args['eventDisplay'] = $display;
 
 			if ( 'list' === $display ) {
@@ -119,20 +136,17 @@ if ( ! class_exists( 'Tribe__Events__Template__List' ) ) {
 			$query = tribe_get_events( $args, true );
 
 			/*
-			 * The hash is used to detect whether the primary arguments in the query have changed (i.e. due to a filter bar request).
-			 * If they have, we want to go back to page 1.
+			 * The hash is used to detect whether the primary arguments in the query have changed (i.e. due to a filter
+			 * bar request); if they have, we want to go back to page 1.
 			 */
-			$hash = $query->query_vars;
-
-			unset(
-				$hash['paged'],
-				$hash['start_date'],
-				$hash['end_date'],
-				$hash['starts_before'],
-				$hash['search_orderby_title']
-			);
-
-			$hash_str           = md5( maybe_serialize( $hash ) );
+			$hash_str = $query->builder->hash( [
+				'exclude' => [
+					'paged',
+					'start_date',
+					'ends_before',
+					'ends_after',
+				],
+			], $query );
 
 			if ( ! empty( $_POST['hash'] ) && $hash_str !== $_POST['hash'] ) {
 				$tribe_paged   = 1;

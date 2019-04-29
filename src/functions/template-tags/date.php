@@ -150,7 +150,7 @@ if ( ! function_exists( 'tribe_event_ends_on' ) ) {
 	 * America/Los_Angeles timezone but ends on the following day (4am of 2019-04-11) in the Paris timezone.
 	 * The method id day based, hours and minutes, if provided in the date, are not considered.
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 *
 	 * @param WP_Post|int $event The event post object; the `EventEndDate` property must be set.
 	 * @param mixed      $date  The date to compare the event end date with; it can be an object, string or timestamp.

@@ -43,7 +43,7 @@ class Tribe__Events__Integrations__Manager {
 	/**
 	 * Loads our Events Freemius integration
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 *
 	 * @return bool
 	 */
@@ -51,7 +51,7 @@ class Tribe__Events__Integrations__Manager {
 		/**
 		 * Allows third-party disabling of The Events Calendar integration
 		 *
-		 * @since  TBD
+		 * @since  4.9
 		 *
 		 * @param  bool  $should_load
 		 */

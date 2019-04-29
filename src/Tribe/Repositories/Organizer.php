@@ -2,14 +2,14 @@
 /**
  * The main ORM/Repository class for organizers.
  *
- * @since TBD
+ * @since 4.9
  */
 
 /**
  * Class Tribe__Events__Repositories__Organizer
  *
  *
- * @since TBD
+ * @since 4.9
  */
 class Tribe__Events__Repositories__Organizer extends Tribe__Events__Repositories__Linked_Posts {
 
@@ -25,7 +25,7 @@ class Tribe__Events__Repositories__Organizer extends Tribe__Events__Repositories
 	 *
 	 * Sets up the repository default parameters and schema.
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 */
 	public function __construct() {
 		parent::__construct();
@@ -60,7 +60,7 @@ class Tribe__Events__Repositories__Organizer extends Tribe__Events__Repositories
 	/**
 	 * Filters organizers by a specific name. This is an alias of ->search()
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 *
 	 * @param string $value String to search with.
 	 */

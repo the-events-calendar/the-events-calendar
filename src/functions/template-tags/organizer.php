@@ -388,10 +388,14 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				continue;
 			}
 
-			$found = call_user_func(
-				array( tribe( 'tec.linked-posts.organizer' ), $method ),
-				$args[ $filter_arg ]
-			);
+			if ('only_with_upcoming' !== $filter_arg) {
+				$found = tribe( 'tec.linked-posts.organizer' )->$method( $args[ $filter_arg ] );
+			} else {
+				$found = tribe( 'tec.linked-posts.organizer' )->find_with_upcoming_events(
+					$args[ $filter_arg ],
+					isset( $args['post_status'] ) ? $args['post_status'] : null
+				);
+			}
 
 			if ( empty( $found ) ) {
 				return array();
