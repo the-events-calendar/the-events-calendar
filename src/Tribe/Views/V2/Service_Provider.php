@@ -31,7 +31,8 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 			return;
 		}
 
-		$this->container->singleton( 'tribe.events.views.v2.template-bootstrap', Template_Bootstrap::class, [ 'hook' ] );
+		$this->container->singleton( 'events.views.v2.template-bootstrap', Template_Bootstrap::class, [ 'hook' ] );
+		$this->container->singleton( 'events.views.v2.kitchen-sink', Kitchen_Sink::class, [ 'hook' ] );
 
 		add_action( 'rest_api_init', [ $this, 'register_rest_endpoints' ] );
 
@@ -52,7 +53,8 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	 * @return void
 	 */
 	protected function init() {
-		tribe( 'tribe.events.views.v2.template-bootstrap' );
+		tribe( 'events.views.v2.template-bootstrap' );
+		tribe( 'events.views.v2.kitchen-sink' );
 	}
 
 	/**

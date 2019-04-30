@@ -276,7 +276,11 @@ class Template_Bootstrap {
 
 		$this->restore_main_query();
 
-		$html = '@TODO';
+		$context = [
+			'query' => tribe_get_global_query_object(),
+		];
+
+		$html = tribe( 'events.views.v2.kitchen-sink' )->template( 'page', $context, false );
 
 		$this->prevent_page_looping();
 
@@ -293,13 +297,13 @@ class Template_Bootstrap {
 	 * @return string The Views router file if required or the input template.
 	 */
 	public function filter_template_include( $template ) {
-		global $wp_the_query;
+		$wp_query = tribe_get_global_query_object();
 
 		/**
 		 * Bail if we are not dealing with our Post Type
 		 * @todo  needs support for Venues and Template
 		 */
-		if ( ! in_array( TEC::POSTTYPE, (array) $wp_the_query->get( 'post_type' ) ) ) {
+		if ( ! in_array( TEC::POSTTYPE, (array) $wp_query->get( 'post_type' ) ) ) {
 			return $template;
 		}
 
