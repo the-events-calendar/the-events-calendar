@@ -1,5 +1,5 @@
 <?php
-use Tribe\Events\Views\V2\Service_Provider as Views;
+use Tribe\Events\Views\V2\View as View;
 
 /**
  * Checks whether v2 of the Views is enabled or not.
