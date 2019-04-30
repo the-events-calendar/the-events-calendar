@@ -53,8 +53,17 @@ class Kitchen_Sink extends Template {
 		$args = array(
 			'tribe_views_kitchen_sink' => 1,
 			'post_type' => Events::POSTTYPE,
+			'tribe_kitchen_sink' => 'base',
 		);
 		$regex = [ 'tribe', 'events', 'kitchen-sink' ];
+		$rewrite->add( $regex, $args );
+
+		$args = array(
+			'tribe_views_kitchen_sink' => 1,
+			'post_type' => Events::POSTTYPE,
+			'tribe_kitchen_sink' => '%1',
+		);
+		$regex = [ 'tribe', 'events', 'kitchen-sink', '(grid|typographical|elements|events-bar|navigation)' ];
 
 		$rewrite->add( $regex, $args );
 	}
