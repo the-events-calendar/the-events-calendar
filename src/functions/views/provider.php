@@ -2,12 +2,34 @@
 use Tribe\Events\Views\V2\Service_Provider as Views;
 
 /**
- * A simple way to verfify if View V2 is enabled
+ * Checks whether v2 of the Views is enabled or not.
  *
- * @since  TBD
+ * In order the function will check the `TRIBE_EVENTS_V2_VIEWS` constant,
+ * the `TRIBE_EVENTS_V2_VIEWS` environment variable and, finally, the `static::$option_enabled` option.
  *
- * @return bool
+ * @since TBD
+ *
+ * @return bool Whether v2 of the Views are enabled or not.
  */
 function tribe_events_views_v2_is_enabled() {
-	return Views::is_enabled();
+	if ( defined( 'TRIBE_EVENTS_V2_VIEWS' ) ) {
+		return (bool) TRIBE_EVENTS_V2_VIEWS;
+	}
+
+	$env_var = getenv( 'TRIBE_EVENTS_V2_VIEWS' );
+	if ( false !== $env_var ) {
+		return (bool) $env_var;
+	}
+
+	$enabled = (bool) tribe_get_option( View::$option_enabled, false );
+
+	/**
+	 * Allows filtering of the Events Views V2 provider, doing so will render
+	 * the methods and classes no longer load-able so keep that in mind.
+	 *
+	 * @since  TBD
+	 *
+	 * @param boolean $enabled Determining if V2 Views is enabled\
+	 */
+	return apply_filters( 'tribe_events_views_v2_is_enabled', $enabled );
 }

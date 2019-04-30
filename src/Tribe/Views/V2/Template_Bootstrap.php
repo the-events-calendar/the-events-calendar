@@ -96,7 +96,7 @@ class Template_Bootstrap {
 	protected function get_mocked_post() {
 		$post = [
 			'ID'                    => 0,
-			'post_status'           => 'draft',
+			'post_status'           => 'publish',
 			'post_author'           => 0,
 			'post_parent'           => 0,
 			'post_type'             => 'page',
@@ -145,7 +145,7 @@ class Template_Bootstrap {
 		add_filter( 'the_content', [ $this, 'filter_hijack_page_content' ], 25 );
 
 		// Makes sure Comments are not active
-		add_filter( 'comments_template', [ $this, 'fitler_remove_comments' ] );
+		// add_filter( 'comments_template', [ $this, 'fitler_remove_comments' ] );
 	}
 
 	/**
@@ -319,6 +319,7 @@ class Template_Bootstrap {
 			return $template;
 		}
 
+		// Loads Event Template Setting
 		$index = ( new Index() )->get_template_file();
 
 		return $index ? $index : $template;
