@@ -1274,7 +1274,11 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				}
 
 				$display = Arr::get( $args, 'eventDisplay' );
-				$possible_start_date = Arr::get( $args, 'start_date', Arr::get( $args, 'startDate' ) );
+				$possible_start_date = array_filter( [
+					Arr::get( $args, 'start_date' ),
+					Arr::get( $args, 'startDate' ),
+					Arr::get( $args, 'starts_after' ),
+				] );
 
 				// Support for `eventDisplay = 'upcoming' || 'list'` for backwards compatibility
 				if (
