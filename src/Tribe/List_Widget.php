@@ -148,7 +148,9 @@ class Tribe__Events__List_Widget extends WP_Widget {
 			]
 		);
 
-		self::$posts = tribe_get_events( $query_args );
+		$query = tribe_get_events( $query_args, true );
+
+		self::$posts = $query->posts;
 
 		// If no posts, and the don't show if no posts checked, let's bail
 		if ( empty( self::$posts ) && $no_upcoming_events ) {

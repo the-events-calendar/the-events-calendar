@@ -1278,6 +1278,11 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 					Arr::get( $args, 'start_date' ),
 					Arr::get( $args, 'startDate' ),
 					Arr::get( $args, 'starts_after' ),
+					Arr::get( $args, 'starts_before' ),
+					Arr::get( $args, 'end_date' ),
+					Arr::get( $args, 'endDate' ),
+					Arr::get( $args, 'ends_after' ),
+					Arr::get( $args, 'ends_before' ),
 				] );
 
 				// Support for `eventDisplay = 'upcoming' || 'list'` for backwards compatibility
