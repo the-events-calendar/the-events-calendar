@@ -388,6 +388,11 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 							$query->set( 'hide_upcoming', $maybe_hide_events );
 							break;
 						case 'all':
+							$query->set( 'orderby', self::set_orderby( null, $query ) );
+							$query->set( 'order', self::set_order( 'ASC', $query ) );
+							$query->set( 'hide_upcoming', $maybe_hide_events );
+
+							break;
 						case 'list':
 						default: // default display query
 							if ( '' != $query->get( 'eventDate' ) ) {
