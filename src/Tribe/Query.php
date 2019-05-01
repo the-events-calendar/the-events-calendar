@@ -1274,7 +1274,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				}
 
 				$display = Arr::get( $args, 'eventDisplay' );
-				$possible_start_date = array_filter( [
+				$has_date_args = array_filter( [
 					Arr::get( $args, 'start_date' ),
 					Arr::get( $args, 'startDate' ),
 					Arr::get( $args, 'starts_after' ),
@@ -1287,7 +1287,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 
 				// Support for `eventDisplay = 'upcoming' || 'list'` for backwards compatibility
 				if (
-					! $possible_start_date
+					! $has_date_args
 					&& in_array( $display, [ 'upcoming', 'list' ] )
 				) {
 					$args['start_date'] = 'now';
@@ -1296,7 +1296,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 
 				// Support for `eventDisplay = 'day'` for backwards compatibility
 				if (
-					! $possible_start_date
+					! $has_date_args
 					&& in_array( $display, [ 'day' ] )
 				) {
 					$args['start_date'] = 'today';
