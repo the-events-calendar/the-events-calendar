@@ -8,6 +8,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
+use Tribe__Utils__Array as Arr;
+
 if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 	class Tribe__Events__Query {
 
@@ -1271,9 +1273,24 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 					unset( $args['hide_upcoming'] );
 				}
 
-				// Support for `eventDisplay = 'upcoming'` for backwards compatibility
-				if ( isset( $args['eventDisplay'] ) && 'upcoming' === $args['eventDisplay'] ) {
+				$display = Arr::get( $args, 'eventDisplay' );
+				$possible_start_date = Arr::get( $args, 'start_date', Arr::get( $args, 'startDate' ) );
+
+				// Support for `eventDisplay = 'upcoming' || 'list'` for backwards compatibility
+				if (
+					! $possible_start_date
+					&& in_array( $display, [ 'upcoming', 'list' ] )
+				) {
 					$args['start_date'] = 'now';
+					unset( $args['eventDisplay'] );
+				}
+
+				// Support for `eventDisplay = 'day'` for backwards compatibility
+				if (
+					! $possible_start_date
+					&& in_array( $display, [ 'day' ] )
+				) {
+					$args['start_date'] = 'today';
 					unset( $args['eventDisplay'] );
 				}
 
