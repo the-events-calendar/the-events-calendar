@@ -217,6 +217,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 = [4.9.1] TBD =
 
+* Fix - Prevent recurring events all page to throw 404 when events are in the past [126790]
 * Tweak - Add values for the JSON-LD object to avoid Google console errors. Fields added: `offers.availability`, `offers.category`, `offers.priceCurrency`, `offers.validFrom` and `performer` [120193]
 * Tweak - Add `tribe_events_cost_unformatted` filter to allow WPML support for WooCommerce Multilingual
 
