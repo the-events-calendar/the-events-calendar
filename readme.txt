@@ -222,6 +222,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - List events Widget will display events until their end date has passed [126837]
 * Tweak - Add values for the JSON-LD object to avoid Google console errors. Fields added: `offers.availability`, `offers.category`, `offers.priceCurrency`, `offers.validFrom` and `performer` [120193]
 * Tweak - Add `tribe_events_cost_unformatted` filter to allow WPML support for WooCommerce Multilingual
+* Language - 0 new strings added, 168 updated, 0 fuzzied, and 5 obsoleted
 
 = [4.9.0.3] 2019-04-26 =
 
