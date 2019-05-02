@@ -8,6 +8,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
+use Tribe__Utils__Array as Arr;
+
 if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 	class Tribe__Events__Query {
 
@@ -388,6 +390,11 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 							$query->set( 'hide_upcoming', $maybe_hide_events );
 							break;
 						case 'all':
+							$query->set( 'orderby', self::set_orderby( null, $query ) );
+							$query->set( 'order', self::set_order( 'ASC', $query ) );
+							$query->set( 'hide_upcoming', $maybe_hide_events );
+
+							break;
 						case 'list':
 						default: // default display query
 							if ( '' != $query->get( 'eventDate' ) ) {
@@ -1266,9 +1273,33 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 					unset( $args['hide_upcoming'] );
 				}
 
-				// Support for `eventDisplay = 'upcoming'` for backwards compatibility
-				if ( isset( $args['eventDisplay'] ) && 'upcoming' === $args['eventDisplay'] ) {
+				$display = Arr::get( $args, 'eventDisplay' );
+				$has_date_args = array_filter( [
+					Arr::get( $args, 'start_date' ),
+					Arr::get( $args, 'startDate' ),
+					Arr::get( $args, 'starts_after' ),
+					Arr::get( $args, 'starts_before' ),
+					Arr::get( $args, 'end_date' ),
+					Arr::get( $args, 'endDate' ),
+					Arr::get( $args, 'ends_after' ),
+					Arr::get( $args, 'ends_before' ),
+				] );
+
+				// Support for `eventDisplay = 'upcoming' || 'list'` for backwards compatibility
+				if (
+					! $has_date_args
+					&& in_array( $display, [ 'upcoming', 'list' ] )
+				) {
 					$args['start_date'] = 'now';
+					unset( $args['eventDisplay'] );
+				}
+
+				// Support for `eventDisplay = 'day'` for backwards compatibility
+				if (
+					! $has_date_args
+					&& in_array( $display, [ 'day' ] )
+				) {
+					$args['start_date'] = 'today';
 					unset( $args['eventDisplay'] );
 				}
 
