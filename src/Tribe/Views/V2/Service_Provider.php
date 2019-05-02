@@ -32,6 +32,8 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		}
 
 		$this->container->singleton( 'events.views.v2.template-bootstrap', Template_Bootstrap::class, [ 'hook' ] );
+		$this->container->singleton( 'events.views.v2.template.event', Template\Event::class, [ 'hook' ] );
+		$this->container->singleton( 'events.views.v2.template.page', Template\Page::class, [ 'hook' ] );
 		$this->container->singleton( 'events.views.v2.kitchen-sink', Kitchen_Sink::class, [ 'hook' ] );
 
 		add_action( 'rest_api_init', [ $this, 'register_rest_endpoints' ] );
