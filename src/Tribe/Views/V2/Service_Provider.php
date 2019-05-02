@@ -34,15 +34,11 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		$this->container->singleton( Template\Page::class, Template\Page::class );
 		$this->container->singleton( Kitchen_Sink::class, Kitchen_Sink::class );
 
-		/**
-		 * To remove a filter:
-		 * remove_filter( 'some_filter', [ tribe( Views\V2\Filters::class ), 'some_filtering_method' ] );
-		 * remove_filter( 'some_filter', [ tribe( 'views-v2.filters' ), 'some_filtering_method' ] );
-		 */
-		$filters = new Filters( $this->container );
-		$filters->register();
-		$this->container->singleton( Filters::class, $filters );
-		$this->container->singleton( 'views-v2.filters', $filters );
+		$hooks = new Hooks( $this->container );
+		$hooks->register();
+		$this->container->singleton( Hooks::class, $hooks );
+		$this->container->singleton( 'views-v2.hooks', $hooks );
+		$this->container->singleton( 'views-v2.provider', $this );
 
 		View::set_container( $this->container );
 	}

@@ -2,6 +2,14 @@
 /**
  * Handles hooking all the actions and filters used by the module.
  *
+ * To remove a filter:
+ * remove_filter( 'some_filter', [ tribe( Tribe\Events\Views\V2\Hooks::class ), 'some_filtering_method' ] );
+ * remove_filter( 'some_filter', [ tribe( 'views-v2.filters' ), 'some_filtering_method' ] );
+ *
+ * To remove an action:
+ * remove_action( 'some_action', [ tribe( Tribe\Events\Views\V2\Hooks::class ), 'some_method' ] );
+ * remove_action( 'some_action', [ tribe( 'views-v2.hooks' ), 'some_method' ] );
+ *
  * @package Tribe\Events\Views\V2
  * @since TBD
  */
@@ -9,12 +17,12 @@
 namespace Tribe\Events\Views\V2;
 
 /**
- * Class Filters
+ * Class Hooks
  *
  * @package Tribe\Events\Views\V2
  * @since TBD
  */
-class Filters  extends \tad_DI52_ServiceProvider {
+class Hooks  extends \tad_DI52_ServiceProvider {
 
 	/**
 	 * Binds and sets up implementations.
