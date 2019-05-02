@@ -74,18 +74,10 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	 */
 	protected function add_actions() {
 		add_action( 'rest_api_init', [ $this, 'register_rest_endpoints' ] );
-		add_action( 'tribe_common_loaded', function () {
-			$this->container->make( Template_Bootstrap::class )->disable_v1();
-		}, 1 );
-		add_action( 'loop_start', function ( \WP_Query $query ) {
-			$this->container->make( Template\Page::class )->maybe_hijack_page_template( $query );
-		}, PHP_INT_MAX );
-		add_action( 'wp_head', function () {
-			$this->container->make( Template\Page::class )->maybe_hijack_main_query();
-		}, PHP_INT_MAX );
-		add_action( 'tribe_events_pre_rewrite', function ( Rewrite $rewrite ) {
-			$this->container->make( Kitchen_Sink::class )->generate_rules( $rewrite );
-		} );
+		add_action( 'tribe_common_loaded', [ $this, 'on_tribe_common_loaded' ], 1 );
+		add_action( 'loop_start', [ $this, 'on_loop_start' ], PHP_INT_MAX );
+		add_action( 'wp_head', [ $this, 'on_wp_head' ], PHP_INT_MAX );
+		add_action( 'tribe_events_pre_rewrite', [ $this, 'on_tribe_events_pre_rewrite' ] );
 	}
 
 	/**
@@ -96,9 +88,60 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	protected function add_filters() {
 		// Let's make sure to suppress query filters from the main query.
 		add_filter( 'tribe_suppress_query_filters', '__return_true' );
-		add_filter( 'template_include', function ( $template ) {
-			return $this->container->make( Template_Bootstrap::class )
-			                       ->filter_template_include( $template );
-		}, 50 );
+		add_filter( 'template_include', [ $this, 'filter_template_include' ], 50 );
+	}
+
+	/**
+	 * Fires when common is loaded.
+	 *
+	 * @since TBD
+	 */
+	public function on_tribe_common_loaded(  ) {
+		$this->container->make( Template_Bootstrap::class )->disable_v1();
+	}
+
+	/**
+	 * Fires when the loop starts.
+	 *
+	 * @param  \WP_Query  $query
+	 *
+	 * @since TBD
+	 */
+	public function on_loop_start( \WP_Query $query ) {
+		$this->container->make( Template\Page::class )->maybe_hijack_page_template( $query );
+	}
+
+	/**
+	 * Fires when WordPress head is printed.
+	 *
+	 * @since TBD
+	 */
+	public function on_wp_head(  ) {
+		$this->container->make( Template\Page::class )->maybe_hijack_main_query();
+	}
+
+	/**
+	 * Fires when Tribe rewrite rules are processed.
+	 *
+	 * @since TB
+	 *
+	 * @param  \Tribe__Events__Rewrite  $rewrite An instance of the Tribe rewrite abstraction.
+	 */
+	public function on_tribe_events_pre_rewrite( Rewrite $rewrite ) {
+		$this->container->make( Kitchen_Sink::class )->generate_rules( $rewrite );
+	}
+
+	/**
+	 * Filters the template included file.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $template The template included file, as found by WordPress.
+	 *
+	 * @return string The template file to include, depending on the query and settings.
+	 */
+	public function filter_template_include($template  ) {
+		return $this->container->make( Template_Bootstrap::class )
+		                       ->filter_template_include( $template );
 	}
 }
