@@ -117,7 +117,7 @@ class Template_Bootstrap {
 	 */
 	public function filter_template_include( $template ) {
 
-		// Determine if we should lood bootstrap or bail
+		// Determine if we should load bootstrap or bail.
 		if ( ! $this->should_load() ) {
 			return $template;
 		}

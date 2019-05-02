@@ -75,8 +75,6 @@ class Page {
 	 * @todo  Take in consideration tribe_get_option( 'showComments', false ) values later on
 	 *
 	 * @since  TBD
-	 *
-	 * @return void
 	 */
 	public function filter_remove_comments( $template ) {
 		remove_filter( 'comments_template', [ $this, 'filter_remove_comments' ], 25 );

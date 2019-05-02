@@ -30,22 +30,11 @@ class Kitchen_Sink extends Template {
 	}
 
 	/**
-	 * Hooks up all the Actions and Filters connected to the Kitchen Sink
-	 *
-	 * @since TBD
-	 *
-	 * @return void
-	 */
-	public function hook() {
-		add_action( 'tribe_events_pre_rewrite', [ $this, 'generate_rules' ] );
-	}
-
-	/**
 	 * Add the rewrite rules for Kitchen Sink URL
 	 *
 	 * @since TBD
 	 *
-	 * @param Tribe__Events__Rewrite $rewrite
+	 * @param \Tribe__Events__Rewrite $rewrite
 	 *
 	 * @return void
 	 */

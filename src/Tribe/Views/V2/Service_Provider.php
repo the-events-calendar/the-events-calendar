@@ -8,6 +8,8 @@
 
 namespace Tribe\Events\Views\V2;
 
+use Tribe__Events__Rewrite as Rewrite;
+
 /**
  * Class Service_Provider
  *
@@ -75,14 +77,14 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		add_action( 'tribe_common_loaded', function () {
 			$this->container->make( Template_Bootstrap::class )->disable_v1();
 		}, 1 );
-		add_action( 'loop_start', function ( $query ) {
+		add_action( 'loop_start', function ( \WP_Query $query ) {
 			$this->container->make( Template\Page::class )->maybe_hijack_page_template( $query );
 		}, PHP_INT_MAX );
 		add_action( 'wp_head', function () {
 			$this->container->make( Template\Page::class )->maybe_hijack_main_query();
 		}, PHP_INT_MAX );
-		add_action( 'tribe_events_pre_rewrite', function () {
-			$this->container->make( Kitchen_Sink::class )->generate_rules();
+		add_action( 'tribe_events_pre_rewrite', function ( Rewrite $rewrite ) {
+			$this->container->make( Kitchen_Sink::class )->generate_rules( $rewrite );
 		} );
 	}
 
