@@ -36,8 +36,8 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 
 		/**
 		 * To remove a filter:
-		 * `remove_filter( 'some_filter', [ tribe( Views\V2\Filters::class ), 'some_filtering_method' ] );
-		 * `remove_filter( 'some_filter', [ tribe( 'views-v2.filters' ), 'some_filtering_method' ] );
+		 * remove_filter( 'some_filter', [ tribe( Views\V2\Filters::class ), 'some_filtering_method' ] );
+		 * remove_filter( 'some_filter', [ tribe( 'views-v2.filters' ), 'some_filtering_method' ] );
 		 */
 		$filters = new Filters( $this->container );
 		$filters->register();
