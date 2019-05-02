@@ -14,18 +14,6 @@ use Tribe__Events__Main as TEC;
 use Tribe\Events\Views\V2\Index as Index;
 
 class Event {
-
-	/**
-	 * Hook the Template Hijack into WordPress methods
-	 *
-	 * @since  TBD
-	 *
-	 * @return void
-	 */
-	public function hook() {
-
-	}
-
 	/**
 	 * Determines the Path for the PHP file to be used as the main template
 	 * For Page base template setting it will select from theme or child theme
@@ -39,5 +27,4 @@ class Event {
 	public function get_path() {
 		return ( new Index() )->get_template_file();
 	}
-
 }

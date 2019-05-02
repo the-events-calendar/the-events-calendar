@@ -10,22 +10,11 @@
  */
 namespace Tribe\Events\Views\V2\Template;
 
+use Tribe\Events\Views\V2\Kitchen_Sink;
+use Tribe\Events\Views\V2\Template_Bootstrap;
 use Tribe__Events__Main as TEC;
 
 class Page {
-
-	/**
-	 * Hook the Template Hijack into WordPress methods
-	 *
-	 * @since  TBD
-	 *
-	 * @return void
-	 */
-	public function hook() {
-		add_action( 'loop_start', [ $this, 'maybe_hijack_page_template' ], PHP_INT_MAX );
-		add_action( 'wp_head', [ $this, 'maybe_hijack_main_query' ], PHP_INT_MAX );
-	}
-
 	/**
 	 * Determines the Path for the PHP file to be used as the main template
 	 * For Page base template setting it will select from theme or child theme
@@ -52,11 +41,11 @@ class Page {
 	 *
 	 * @since  TBD
 	 *
-	 * @param  WP_Query $query WordPress query excuted to get here
+	 * @param  \WP_Query $query WordPress query executed to get here.
 	 *
 	 * @return boolean
 	 */
-	public function maybe_hijack_page_template( $query ) {
+	public function maybe_hijack_page_template( \WP_Query $query ) {
 		if ( ! $this->should_hijack_page_template( $query ) ) {
 			return false;
 		}
@@ -239,7 +228,7 @@ class Page {
 			'query' => tribe_get_global_query_object(),
 		];
 
-		$html = tribe( 'events.views.v2.kitchen-sink' )->template( 'page', $context, false );
+		$html = tribe( Kitchen_Sink::class )->template( 'page', $context, false );
 
 		$this->prevent_page_looping();
 
@@ -252,15 +241,15 @@ class Page {
 	 *
 	 * @since  TBD
 	 *
-	 * @param  WP_Query $query WordPress query excuted to get here
+	 * @param  \WP_Query $query WordPress query executed to get here.
 	 *
 	 * @return boolean
 	 */
-	public function should_hijack_page_template( $query ) {
+	public function should_hijack_page_template( \WP_Query $query ) {
 		$should_hijack = true;
 
 		// Dont hijack non-page event based
-		if ( 'page' !== tribe( 'events.views.v2.template-bootstrap' )->get_template_setting() ) {
+		if ( 'page' !== tribe( Template_Bootstrap::class )->get_template_setting() ) {
 			$should_hijack = false;
 		}
 

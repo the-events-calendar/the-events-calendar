@@ -8,8 +8,6 @@
 
 namespace Tribe\Events\Views\V2;
 
-use Tribe__Events__Main as TEC;
-
 /**
  * Class Service_Provider
  *
@@ -31,32 +29,11 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 			return;
 		}
 
-		$this->container->singleton( 'events.views.v2.template-bootstrap', Template_Bootstrap::class, [ 'hook' ] );
-		$this->container->singleton( 'events.views.v2.template.event', Template\Event::class, [ 'hook' ] );
-		$this->container->singleton( 'events.views.v2.template.page', Template\Page::class, [ 'hook' ] );
-		$this->container->singleton( 'events.views.v2.kitchen-sink', Kitchen_Sink::class, [ 'hook' ] );
-
-		add_action( 'rest_api_init', [ $this, 'register_rest_endpoints' ] );
-
-		// Let's make sure to suppress query filters from the main query.
-		add_filter( 'tribe_suppress_query_filters', '__return_true' );
+		$this->bind_implementations();
+		$this->add_filters();
+		$this->add_actions();
 
 		View::set_container( $this->container );
-
-		// Initialize Views Classes and Singletons
-		$this->init();
-	}
-
-	/**
-	 * Initialize the classes for this Service Provider
-	 *
-	 * @since  TBD
-	 *
-	 * @return void
-	 */
-	protected function init() {
-		tribe( 'events.views.v2.template-bootstrap' );
-		tribe( 'events.views.v2.kitchen-sink' );
 	}
 
 	/**
@@ -74,5 +51,52 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 				View::make_for_rest( $request )->send_html();
 			},
 		] );
+	}
+
+	/**
+	 * Binds all the implementations required for the Views v2 module to work.
+	 *
+	 * @since TBD
+	 */
+	protected function bind_implementations(){
+		$this->container->singleton( Template_Bootstrap::class, Template_Bootstrap::class );
+		$this->container->singleton( Template\Event::class, Template\Event::class );
+		$this->container->singleton( Template\Page::class, Template\Page::class );
+		$this->container->singleton( Kitchen_Sink::class, Kitchen_Sink::class );
+	}
+
+	/**
+	 * Adds the actions required by each Views v2 component.
+	 *
+	 * @since TBD
+	 */
+	protected function add_actions() {
+		add_action( 'rest_api_init', [ $this, 'register_rest_endpoints' ] );
+		add_action( 'tribe_common_loaded', function () {
+			$this->container->make( Template_Bootstrap::class )->disable_v1();
+		}, 1 );
+		add_action( 'loop_start', function ( $query ) {
+			$this->container->make( Template\Page::class )->maybe_hijack_page_template( $query );
+		}, PHP_INT_MAX );
+		add_action( 'wp_head', function () {
+			$this->container->make( Template\Page::class )->maybe_hijack_main_query();
+		}, PHP_INT_MAX );
+		add_action( 'tribe_events_pre_rewrite', function () {
+			$this->container->make( Kitchen_Sink::class )->generate_rules();
+		} );
+	}
+
+	/**
+	 * Adds the filters required by each Views v2 component.
+	 *
+	 * @since TBD
+	 */
+	protected function add_filters() {
+		// Let's make sure to suppress query filters from the main query.
+		add_filter( 'tribe_suppress_query_filters', '__return_true' );
+		add_filter( 'template_include', function ( $template ) {
+			return $this->container->make( Template_Bootstrap::class )
+			                       ->filter_template_include( $template );
+		}, 50 );
 	}
 }

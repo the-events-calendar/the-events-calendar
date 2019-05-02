@@ -71,7 +71,9 @@ class Template_Bootstrap {
 	public function get_template_object() {
 		$setting = $this->get_template_setting();
 
-		return tribe( "events.views.v2.template.{$setting}" );
+		return $setting === 'page'
+			? tribe( Template\Page::class )
+			: tribe( Template\Event::class );
 	}
 
 	/**
