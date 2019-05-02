@@ -215,7 +215,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
-= [4.9.1] TBD =
+= [4.9.1] 2019-05-02 =
 
 * Fix - Prevent recurring events all page to throw 404 when events are in the past [126790]
 * Fix - Backwards compatibility for `eventDiplay` usage around `list` and `day` only showing upcoming events [126686]
