@@ -76,7 +76,6 @@ class Page {
 		// Prevent edit link from showing
 		add_filter( 'get_edit_post_link', [ $this, 'filter_prevent_edit_link' ], 25, 2 );
 
-
 		// Makes sure Comments are not active
 		add_filter( 'comments_template', [ $this, 'filter_remove_comments' ], 25 );
 	}
