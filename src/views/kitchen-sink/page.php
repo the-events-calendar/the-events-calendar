@@ -56,25 +56,29 @@ tribe_asset_enqueue( 'tribe-common-style' );
 	<br />
 	<fieldset>
 		<legend>Legend for Checkboxes</legend>
-		<div class="tribe-common-form-control-checkbox">
-			<input id="checkboxOne" name="checkboxGroup" type="checkbox" value="checkboxOne" />
-			<label for="checkboxOne">Checkbox One</label>
-		</div>
-		<div class="tribe-common-form-control-checkbox">
-			<input id="checkboxTwo" name="checkboxGroup" type="checkbox" value="checkboxTwo" />
-			<label for="checkboxTwo">Checkbox Two</label>
+		<div class="tribe-common-form-control-checkbox-radio-group">
+			<div class="tribe-common-form-control-checkbox">
+				<input id="checkboxOne" name="checkboxGroup" type="checkbox" value="checkboxOne" />
+				<label for="checkboxOne">Checkbox One</label>
+			</div>
+			<div class="tribe-common-form-control-checkbox">
+				<input id="checkboxTwo" name="checkboxGroup" type="checkbox" value="checkboxTwo" />
+				<label for="checkboxTwo">Checkbox Two</label>
+			</div>
 		</div>
 	</fieldset>
 	<br />
 	<fieldset>
 		<legend>Legend for Radios</legend>
-		<div class="tribe-common-form-control-radio">
-			<input id="radioOne" name="radioGroup" type="radio" value="radioOne" />
-			<label for="radioOne">Radio One</label>
-		</div>
-		<div class="tribe-common-form-control-radio">
-			<input id="radioTwo" name="radioGroup" type="radio" value="radioTwo" />
-			<label for="radioTwo">Radio Two</label>
+		<div class="tribe-common-form-control-checkbox-radio-group">
+			<div class="tribe-common-form-control-radio">
+				<input id="radioOne" name="radioGroup" type="radio" value="radioOne" />
+				<label for="radioOne">Radio One</label>
+			</div>
+			<div class="tribe-common-form-control-radio">
+				<input id="radioTwo" name="radioGroup" type="radio" value="radioTwo" />
+				<label for="radioTwo">Radio Two</label>
+			</div>
 		</div>
 	</fieldset>
 	<br />
@@ -124,4 +128,24 @@ tribe_asset_enqueue( 'tribe-common-style' );
 			<li id="selectItemDay" role="option">Day</li>
 		</ul>
 	</div>
+	<br />
+	<h3>Search</h3>
+	<br />
+	<form action="" method="post" class="tribe-common-c-search" style="margin-top: 100px">
+		<div class="tribe-common-form-control-text-group">
+			<div class="tribe-common-form-control-text">
+				<label for="keyword">Keyword</label>
+				<input type="text" id="keyword" name="keyword" placeholder="Keyword" />
+			</div>
+			<div class="tribe-common-form-control-text">
+				<label for="location">Location</label>
+				<input type="text" id="location" name="location" placeholder="Location" />
+			</div>
+			<div class="tribe-common-form-control-text">
+				<label for="date">Date</label>
+				<input type="text" id="date" name="date" placeholder="Enter Date" />
+			</div>
+		</div>
+		<button type="submit" class="tribe-common-c-btn">Find Events</button>
+	</form>
 </div>
