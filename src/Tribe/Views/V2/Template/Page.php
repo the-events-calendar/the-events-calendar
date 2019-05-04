@@ -96,19 +96,19 @@ class Page {
 	public function filter_prevent_edit_link( $url, $post_id ) {
 		$query = tribe_get_global_query_object();
 
-		// Bail in case of any other page template
+		// Bail in case of any other page template.
 		if ( ! $this->should_hijack_page_template( $query ) ) {
 			return $url;
 		}
 
 		$mock_page = $this->get_mocked_page();
 
-		// If passed ID is not the Mock page one bail
+		// If passed ID is not the Mock page one bail.
 		if ( (int) $post_id !== (int) $mock_page->ID ) {
 			return $url;
 		}
 
-		// Return empty edit link
+		// Return empty edit link.
 		return '';
 	}
 
@@ -274,7 +274,8 @@ class Page {
 		 * @param  boolean  $should_hijack  Will we hijack and include our page template
 		 * @param  WP_Query $query          WordPress query excuted to get here
 		 */
-		return apply_filters( 'tribe_events_views_v2_should_hijack_page_template', $should_hijack, $query );
+		return apply_filters( '
+		tribe_events_views_v2_should_hijack_page_template', $should_hijack, $query );
 	}
 
 	/**
