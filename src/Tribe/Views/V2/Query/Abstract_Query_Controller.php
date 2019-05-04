@@ -149,7 +149,7 @@ abstract class Abstract_Query_Controller {
 	 *
 	 * @return array An array of post types supported by the Event_Query_Controller.
 	 */
-public function get_supported_post_types(  ) {
+	public function get_supported_post_types(  ) {
 		/**
 		 * Filters the list of post types supported by the Event_Query_Controller.
 		 *
@@ -162,11 +162,11 @@ public function get_supported_post_types(  ) {
 		 * @since TBD
 		 *
 		 */
-	return apply_filters(
-		"tribe_events_views_v2_{$this->get_filter_name()}_query_controller_post_types",
-		$this->get_default_post_types(),
-		$this->filtering_query
-	);
+		return apply_filters(
+			"tribe_events_views_v2_{$this->get_filter_name()}_query_controller_post_types",
+			$this->get_default_post_types(),
+			$this->filtering_query
+		);
 	}
 
 	/**

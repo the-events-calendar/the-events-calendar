@@ -36,9 +36,11 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 
 		$hooks = new Hooks( $this->container );
 		$hooks->register();
+
+		// Allow Hooks to be removed, by having the them registred to the container
 		$this->container->singleton( Hooks::class, $hooks );
-		$this->container->singleton( 'views-v2.hooks', $hooks );
-		$this->container->singleton( 'views-v2.provider', $this );
+		$this->container->singleton( 'events.views.v2.hooks', $hooks );
+		$this->container->singleton( 'events.views.v2.provider', $this );
 
 		View::set_container( $this->container );
 	}
