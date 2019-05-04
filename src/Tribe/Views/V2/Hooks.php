@@ -16,6 +16,10 @@
 
 namespace Tribe\Events\Views\V2;
 
+use Tribe\Events\Views\V2\Query\Abstract_Query_Controller;
+use Tribe\Events\Views\V2\Query\Event_Query_Controller;
+use \Tribe__Rewrite as Rewrite;
+
 /**
  * Class Hooks
  *
@@ -28,6 +32,9 @@ class Hooks  extends \tad_DI52_ServiceProvider {
 	 * Binds and sets up implementations.
 	 */
 	public function register() {
+		$this->container->tag( [
+			Event_Query_Controller::class,
+		], 'query_controllers' );
 		$this->add_actions();
 		$this->add_filters();
 	}
@@ -54,6 +61,7 @@ class Hooks  extends \tad_DI52_ServiceProvider {
 		// Let's make sure to suppress query filters from the main query.
 		add_filter( 'tribe_suppress_query_filters', '__return_true' );
 		add_filter( 'template_include', [ $this, 'filter_template_include' ], 50 );
+		add_filter( 'posts_pre_query', [ $this, 'filter_posts_pre_query' ], 20, 2 );
 	}
 
 	/**
@@ -90,7 +98,7 @@ class Hooks  extends \tad_DI52_ServiceProvider {
 	 *
 	 * @param  \Tribe__Events__Rewrite  $rewrite  An instance of the Tribe rewrite abstraction.
 	 *
-	 * @since TB
+	 * @since TBD
 	 *
 	 */
 	public function on_tribe_events_pre_rewrite( Rewrite $rewrite ) {
@@ -126,5 +134,21 @@ class Hooks  extends \tad_DI52_ServiceProvider {
 				View::make_for_rest( $request )->send_html();
 			},
 		] );
+	}
+
+	/**
+	 * Filters the posts before the query runs but after its SQL and arguments are finalized to
+	 * inject posts in it, if needed.
+	 *
+	 * @since TBD
+	 *
+	 * @param  null|array  $posts The posts to filter, a `null` value by default or an array if set by other methods.
+	 * @param  \WP_Query|null  $query The query object to (maybe) control and whose posts will be populated.
+	 */
+	public function filter_posts_pre_query( $posts = null, \WP_Query $query = null ) {
+		foreach ( $this->container->tagged( 'query_controllers' ) as $controller ) {
+			/** @var Abstract_Query_Controller $controller */
+			$controller->inject_posts( $posts, $query );
+		}
 	}
 }
