@@ -542,7 +542,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe_register_provider( 'Tribe__Events__Service_Providers__ORM' );
 
 			// The Views v2 service provider.
-			tribe_register_provider( Views::class);
+			tribe_register_provider( Views::class );
 
 			/**
 			 * Allows other plugins and services to override/change the bound implementations.
