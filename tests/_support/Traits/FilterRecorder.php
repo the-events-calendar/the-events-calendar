@@ -22,9 +22,11 @@ trait FilterRecorder {
 	 * Starts recording filters and the callbacks on them.
 	 *
 	 * Use this method as late as you can: filtering `all` filters is, by no means, efficient.
+	 *
+	 * @param  int  $debug_backtrace_limit  The debug backtrace limit, a value of `0` will prevent the trace recording.j
 	 */
-	protected function record_filter_callbacks() {
-		add_filter( 'all', function () {
+	protected function record_filter_callbacks( $debug_backtrace_limit = 0 ) {
+		add_filter( 'all', function () use ( $debug_backtrace_limit ) {
 			global $wp_filter;
 			$tag = current_filter();
 
@@ -34,7 +36,7 @@ trait FilterRecorder {
 
 			$current_filter      = $wp_filter[ $tag ];
 			$classes_and_methods = array_reduce( $current_filter->callbacks,
-				function ( array $buffer, array $filter_callbacks ) {
+				static function ( array $buffer, array $filter_callbacks ) use ( $debug_backtrace_limit ) {
 					foreach ( $filter_callbacks as $priority => $callbacks ) {
 						foreach ( $callbacks as $the_function ) {
 							if ( is_int( $the_function ) ) {
@@ -55,19 +57,24 @@ trait FilterRecorder {
 								$class = ( new \ReflectionMethod( $the_function ) )->name;
 							}
 
-							$trace    = debug_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS, 5 );
+							$entry = '' !== $method
+								? [ 'class' => $class, 'method' => $method ]
+								: [ 'function' => $class ];
 
-							// Clean the trace removing line, type and file.
-							$trace = array_map( static function ( array $trace_entry ) {
-								$clean = $trace_entry;
-								unset( $clean['file'], $clean['line'], $clean['type'] );
+							if ( ! empty( $debug_backtrace_limit ) ) {
+								$trace = debug_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS, $debug_backtrace_limit );
 
-								return $clean;
-							}, $trace );
+								// Clean the trace removing line, type and file.
+								$trace          = array_map( static function ( array $trace_entry ) {
+									$clean = $trace_entry;
+									unset( $clean['file'], $clean['line'], $clean['type'] );
 
-							$buffer[] = '' !== $method
-								? [ 'class' => $class, 'method' => $method, 'trace' => $trace ]
-								: [ 'function' => $class, 'trace' => $trace ];
+									return $clean;
+								}, $trace );
+								$entry['trace'] = $trace;
+							}
+
+							$buffer[] = $entry;
 						}
 					}
 
@@ -96,6 +103,11 @@ trait FilterRecorder {
 			static function ( array $callbacks ) use ( $string, $is_regex ) {
 				return count( array_filter( $callbacks, function ( array $callback ) use ( $string, $is_regex ) {
 					$search = $callback['class'] ?? $callback['function'];
+
+					if ( isset( $callback['class'] ) && __CLASS__ === $callback['class'] ) {
+						// Let's exclude the class that is using the trait from the results to reduce noise.
+						return false;
+					}
 
 					return $is_regex
 						? preg_match( $string, $search )
