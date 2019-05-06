@@ -1,0 +1,1 @@
+# e.g. titles, icons, colors & opacities

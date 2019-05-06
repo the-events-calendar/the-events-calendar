@@ -2,6 +2,7 @@ Feature: order of events in List View
 
 Background:
     Given I am a Visitor on a site with TEC
+    Given List View is enabled under Events --> Settings --> Display
     Given the site timezone is PST
     Given "Number of events to show per page" is set to 10
     Given there are 12 events on this site
@@ -37,10 +38,14 @@ Scenario: List View order with past date search
     Given I am on List View
     And "Disable the Event Search Bar" is not enabled
     When I select a date 2 days in the past in the Datepicker
-    Then I should see X events in the following order: "banana M-A-P", "eggplant M-A-N", "apple S-T-P", "cabbage S-T-P", "lettuce M-T-N", "grape S-A-N", "parsnip S-T-P", "melon S-T-N", "turnip S-A-U", "pepper M-A-U", "carrot S-T-U".
+    Then I should see 11 events in the following order: "banana M-A-P", "eggplant M-A-N", "apple S-T-P", "cabbage S-T-P", "lettuce M-T-N", "grape S-A-N", "parsnip S-T-P", "melon S-T-N", "turnip S-A-U", "pepper M-A-U", "carrot S-T-U".
+
+Scenario: List View order for events with the same start datetime
+
+Scenario: List View order for events with the same start and end datetime
 
 Scenario: List View "Previous events" link
 # maybe this belongs in list-view/navigation.feature
 
 Scenario: List View "Next events" link
-# maybe this belongs in list-view/navigation.feature 
+# maybe this belongs in list-view/navigation.feature

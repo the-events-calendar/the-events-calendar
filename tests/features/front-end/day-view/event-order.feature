@@ -30,6 +30,9 @@ Scenario: Day View today
     And I should see these 2 events in this order displayed under a heading of now -4 hours: "parsnip S-T-P", "lemon S-T-N"
     And I should see "melon S-T-N" displayed under a heading of now -2 hours
 
+#If two events start at the same time, the one ending sooner should be listed first (regardless of Publish date)
+# If two events start at the same time and end at the same time, the one published first is listed twice.
+
 Scenario: Day View on future date A
     Given I am on Day View
     When I select a date 1 day in the future
@@ -48,7 +51,6 @@ Scenario: Day View on past date A
     When I select a date 2 days in the past
     Then I should see these events in this order displayed under "All Day": "banana M-A-P", "eggplant M-A-N"
     And I should see these events in this order displayed under a heading of the current time -2 hours: "apple S-T-P", "cabbage S-T-P", "lettuce M-T-N" 
-
 
 Scenario: Day View on past date B
     Given I am on Day View
