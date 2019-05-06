@@ -215,6 +215,10 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
+= [4.9.2] TBD =
+
+* Fix - Fix event bar issue where it was required to pick the date in order to search events via keyword or location [126158]
+
 = [4.9.1] 2019-05-02 =
 
 * Fix - Prevent recurring events all page to throw 404 when events are in the past [126790]
