@@ -18,7 +18,8 @@ namespace Tribe\Events\Views\V2;
 
 use Tribe\Events\Views\V2\Query\Abstract_Query_Controller;
 use Tribe\Events\Views\V2\Query\Event_Query_Controller;
-use \Tribe__Rewrite as Rewrite;
+use Tribe__Events__Main as TEC;
+use Tribe__Rewrite as Rewrite;
 
 /**
  * Class Hooks
@@ -37,6 +38,7 @@ class Hooks  extends \tad_DI52_ServiceProvider {
 		], 'query_controllers' );
 		$this->add_actions();
 		$this->add_filters();
+		$this->handle_v1_filters();
 	}
 
 	/**
@@ -62,6 +64,7 @@ class Hooks  extends \tad_DI52_ServiceProvider {
 		add_filter( 'tribe_suppress_query_filters', '__return_true' );
 		add_filter( 'template_include', [ $this, 'filter_template_include' ], 50 );
 		add_filter( 'posts_pre_query', [ $this, 'filter_posts_pre_query' ], 20, 2 );
+		add_filter( 'query_vars', [ $this, 'filter_query_vars' ] );
 	}
 
 	/**
@@ -149,6 +152,90 @@ class Hooks  extends \tad_DI52_ServiceProvider {
 		foreach ( $this->container->tagged( 'query_controllers' ) as $controller ) {
 			/** @var Abstract_Query_Controller $controller */
 			$controller->inject_posts( $posts, $query );
+		}
+	}
+
+	/**
+	 * Filters the publicly available query variables to add the ones supported by Views v2.
+	 *
+	 * To keep back-compatibility with v1 we're registering the same query vars making this method
+	 * a copy of the original `Tribe__Events__Main::eventQueryVars` one.
+	 *
+	 * @since TBD
+	 *
+	 * @param  array  $query_vars  The list of publicly available query variables.
+	 *
+	 * @return array The filtered list of publicly available query variables.
+	 */
+	public function filter_query_vars( array $query_vars = [] ) {
+		$query_vars[] = 'eventDisplay';
+		$query_vars[] = 'eventDate';
+		$query_vars[] = 'eventSequence';
+		$query_vars[] = 'ical';
+		$query_vars[] = 'start_date';
+		$query_vars[] = 'end_date';
+		$query_vars[] = 'featured';
+		$query_vars[] = TEC::TAXONOMY;
+		$query_vars[] = 'tribe_remove_date_filters';
+
+		return $query_vars;
+	}
+
+	/**
+	 * Disconnects some Views v1 filters we'll not need for Views v2 to work.
+	 *
+	 * @since TBD
+	 */
+	protected function handle_v1_filters() {
+		/*
+		 * Depending on the context of the request, this might fire before or after Common did bootstrap.
+		 * Let's handle both cases checking whether Common has already loaded or not.
+		 */
+		if ( ! did_action( 'tribe_common_loaded' ) ) {
+			// Common did not bootstrap yet.
+			add_action( 'tribe_common_loaded', [ $this, 'remove_v1_filters' ] );
+
+			return;
+		}
+
+		// Common did already bootstrap: let's remove the filters now.
+		$this->remove_v1_filters();
+	}
+
+	/**
+	 * Removes a list of Views v1 filters to ensure a "clean slate" to handle requests using Views v2 logic.
+	 *
+	 * This method is meant to fire after Common and `Tribe__Events__Main` did bootstrap.
+	 *
+	 * @since TBD
+	 */
+	public function remove_v1_filters() {
+		$filters_to_remove = [
+			'query_vars'    => [
+				[ 'callback' => [ TEC::instance(), 'eventQueryVars' ] ],
+			],
+			'parse_query'   => [
+				[ 'callback' => [ TEC::instance(), 'setDisplay' ], 'priority' => 51 ],
+				[ 'callback' => [ \Tribe__Events__Backcompat::instance(), 'change_qv_to_list' ], 'priority' => 45 ],
+				[ 'callback' => [ \Tribe__Events__Query::class, 'parse_query' ], 'priority' => 50 ],
+			],
+			'pre_get_posts' => [
+				[ 'callback' => [ \Tribe__Events__Query::class, 'pre_get_posts' ], 'priority' => 50 ],
+			],
+			'posts_results' => [
+				[ 'callback' => [ \Tribe__Events__Query::class, 'posts_results' ], 'priority' => 10 ],
+			],
+			'wp'            => [
+				[ 'callback' => [ \Tribe__Events__Main::instance(), 'issue_noindex' ], 'priority' => 10 ],
+			],
+		];
+
+		foreach ( $filters_to_remove as $tag => $filters ) {
+			foreach ( $filters as $filter_data ) {
+				$callback = $filter_data['callback'];
+				$priority = isset( $filter_data['priority'] ) ? $filter_data['priority'] : 10;
+				remove_filter( $tag, $callback, $priority );
+			}
 		}
 	}
 }
