@@ -34,52 +34,63 @@ trait FilterRecorder {
 				return;
 			}
 
-			$current_filter      = $wp_filter[ $tag ];
-			$classes_and_methods = array_reduce( $current_filter->callbacks,
-				static function ( array $buffer, array $filter_callbacks ) use ( $debug_backtrace_limit ) {
-					foreach ( $filter_callbacks as $priority => $callbacks ) {
-						foreach ( $callbacks as $the_function ) {
-							if ( is_int( $the_function ) ) {
-								continue;
-							}
+			$current_filter = $wp_filter[ $tag ];
 
-							$class  = '';
-							$method = '';
-							if ( is_string( $the_function ) ) {
-								if ( ! function_exists( $the_function ) ) {
-									continue;
-								}
-								$class = $the_function;
-							} elseif ( is_array( $the_function ) ) {
-								$class  = is_string( $the_function[0] ) ? $the_function[0] : get_class( $the_function[0] );
-								$method = $the_function[1];
-							} elseif ( $the_function instanceof \Closure ) {
-								$class = ( new \ReflectionMethod( $the_function ) )->name;
-							}
+			if ( empty( $current_filter->callbacks ) ) {
+				return;
+			}
 
-							$entry = '' !== $method
-								? [ 'class' => $class, 'method' => $method ]
-								: [ 'function' => $class ];
-
-							if ( ! empty( $debug_backtrace_limit ) ) {
-								$trace = debug_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS, $debug_backtrace_limit );
-
-								// Clean the trace removing line, type and file.
-								$trace          = array_map( static function ( array $trace_entry ) {
-									$clean = $trace_entry;
-									unset( $clean['file'], $clean['line'], $clean['type'] );
-
-									return $clean;
-								}, $trace );
-								$entry['trace'] = $trace;
-							}
-
-							$buffer[] = $entry;
+			foreach ( $current_filter->callbacks as $priority => $callbacks ) {
+				$classes_and_methods = array_reduce( $callbacks,
+					static function ( array $buffer, $callback ) use (
+						$debug_backtrace_limit,
+						$priority
+					) {
+						if ( is_int( $callback ) ) {
+							return $buffer;
 						}
-					}
 
-					return $buffer;
-				}, [] );
+						$the_function = $callback['function'];
+
+						$class  = '';
+						$method = '';
+						if ( is_string( $the_function ) ) {
+							if ( ! function_exists( $the_function ) ) {
+								return $buffer;
+							}
+							$class = $the_function;
+						} elseif ( is_array( $the_function ) ) {
+							$class  = is_string( $the_function[0] ) ? $the_function[0] : get_class( $the_function[0] );
+							$method = $the_function[1];
+						} elseif ( $the_function instanceof \Closure ) {
+							$class = ( new \ReflectionMethod( $the_function ) )->name;
+						}
+
+						$entry = '' !== $method
+							? [ 'class' => $class, 'method' => $method ]
+							: [ 'function' => $class ];
+
+						$entry['priority']      = $priority;
+						$entry['accepted_args'] = $callback['accepted_args'];
+
+						if ( ! empty( $debug_backtrace_limit ) ) {
+							$trace = debug_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS, $debug_backtrace_limit );
+
+							// Clean the trace removing line, type and file.
+							$trace          = array_map( static function ( array $trace_entry ) {
+								$clean = $trace_entry;
+								unset( $clean['file'], $clean['line'], $clean['type'] );
+
+								return $clean;
+							}, $trace );
+							$entry['trace'] = $trace;
+						}
+
+						$buffer[] = $entry;
+
+						return $buffer;
+					}, [] );
+			}
 
 			if ( ! empty( $classes_and_methods ) ) {
 				$this->recorded_callbacks[ $tag ] = $classes_and_methods;

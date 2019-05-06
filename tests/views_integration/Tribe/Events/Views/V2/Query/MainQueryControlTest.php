@@ -23,7 +23,7 @@ class MainQueryControlTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertTrue( tribe_events_views_v2_is_enabled() );
 		$this->record_filter_callbacks();
 
-		$v1_filters = $this->get_recorded_filter_callbacks_containing( '/Tribe__Events__(Query|Main)/' );
+		$v1_filters = $this->get_recorded_filter_callbacks_containing( '/Tribe__Events__(Query|Main|Backcompat)/' );
 		$this->assertEmpty(
 			$v1_filters,
 			'Views v1 filters are not expected to apply when no main query request is done, these applied: '
@@ -42,7 +42,7 @@ class MainQueryControlTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->go_to( '/events' );
 
-		$v1_filters = $this->get_recorded_filter_callbacks_containing( '/Tribe__Events__(Query|Main)/' );
+		$v1_filters = $this->get_recorded_filter_callbacks_containing( '/Tribe__Events__(Query|Main|Backcompat)/' );
 		$this->assertEmpty(
 			$v1_filters,
 			'Views v1 filters are not expected to apply to /events main query, these applied: '
