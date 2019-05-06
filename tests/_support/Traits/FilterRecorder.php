@@ -99,20 +99,27 @@ trait FilterRecorder {
 	protected function get_recorded_filter_callbacks_containing( $string ) {
 		$is_regex = tribe_is_regex( $string );
 
-		return array_filter( $this->recorded_callbacks,
-			static function ( array $callbacks ) use ( $string, $is_regex ) {
-				return count( array_filter( $callbacks, function ( array $callback ) use ( $string, $is_regex ) {
-					$search = $callback['class'] ?? $callback['function'];
+		$matches = [];
 
-					if ( isset( $callback['class'] ) && __CLASS__ === $callback['class'] ) {
-						// Let's exclude the class that is using the trait from the results to reduce noise.
-						return false;
-					}
+		foreach ( $this->recorded_callbacks as $filter_tag => $the_recorded_callbacks ) {
+			$filtered = array_filter( $the_recorded_callbacks, function ( $callback ) use ( $is_regex, $string ) {
+				$search = $callback['class'] ?? $callback['function'];
 
-					return $is_regex
-						? preg_match( $string, $search )
-						: false !== stripos( $search, $string );
-				} ) );
+				if ( isset( $callback['class'] ) && __CLASS__ === $callback['class'] ) {
+					// Let's exclude the class that is using the trait from the results to reduce noise.
+					return false;
+				}
+
+				return $is_regex
+					? preg_match( $string, $search )
+					: false !== stripos( $search, $string );
 			} );
+
+			if ( count( $filtered ) ) {
+				$matches[ $filter_tag ] = $filtered;
+			}
+		}
+
+		return $matches;
 	}
 }
