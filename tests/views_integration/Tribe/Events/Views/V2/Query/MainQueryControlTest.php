@@ -12,6 +12,7 @@ class MainQueryControlTest extends \Codeception\TestCase\WPTestCase {
 	public function setUp() {
 		parent::setUp();
 		static::factory()->event = new Event();
+		$this->assertTrue( tribe_events_views_v2_is_enabled() );
 	}
 
 	/**
@@ -20,7 +21,6 @@ class MainQueryControlTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_not_fire_any_filter_when_no_main_query_request_is_made() {
-		$this->assertTrue( tribe_events_views_v2_is_enabled() );
 		$this->record_filter_callbacks();
 
 		$v1_filters = $this->get_recorded_filter_callbacks_containing( '/Tribe__Events__(Query|Main|Backcompat)/' );
@@ -37,7 +37,6 @@ class MainQueryControlTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_exclude_v_1_main_query_filters_from_events_page_when_v_2_is_active() {
-		$this->assertTrue( tribe_events_views_v2_is_enabled() );
 		$this->record_filter_callbacks();
 
 		$this->go_to( '/events' );

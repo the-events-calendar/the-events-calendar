@@ -42,5 +42,4 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 
 		View::set_container( $this->container );
 	}
-
 }
