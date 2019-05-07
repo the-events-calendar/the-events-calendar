@@ -85,7 +85,8 @@ Scenario Outline: Events listed in a day segment with multi-day and single-day e
         | 5         | "Crunch", "Twix", "Mars", "Mounds", "Snickers"                               |
         | -1        | "Crunch", "Twix", "PayDay", "Mars", "Hersheys", "Mounds", "Heath", "Snickers"|
 
-    #The above would also be relevant to back-end/event-single/event-options/sticky.feature
+    # The above would also be relevant to back-end/event-single/event-options/sticky.feature
+    # Testing on current code suggests that sticky in month view currently shifts events out of chronological order even when there is enough space. The above negates that current behavior and requires chronological order within the displayed events.
 
 Scenario Outline: Display order of single-day events (all day & timed)
     Given this site has the following public, published, single-day events happening on July 8:

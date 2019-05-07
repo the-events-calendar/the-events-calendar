@@ -40,9 +40,13 @@ Scenario: List View order with past date search
     When I select a date 2 days in the past in the Datepicker
     Then I should see 11 events in the following order: "banana M-A-P", "eggplant M-A-N", "apple S-T-P", "cabbage S-T-P", "lettuce M-T-N", "grape S-A-N", "parsnip S-T-P", "melon S-T-N", "turnip S-A-U", "pepper M-A-U", "carrot S-T-U".
 
-Scenario: List View order for events with the same start datetime
-
 Scenario: List View order for events with the same start and end datetime
+    Given I create an additional event on this site
+        | event name        | start date-time		    | duration  	    |
+        | rutabaga S-T-U    | today +2 days +2 hours    | 4 hours	        |
+    When I load List View
+    Then I should see 8 events in the following order: "eggplant M-A-N", "lettuce M-T-N", "grape S-A-N", "melon S-T-N", "turnip S-A-U", "pepper M-A-U", "carrot S-T-U", "rutabaga S-T-U".
+    #events with the same start and end datetine should be ordered by publish date ascending from the first published event
 
 Scenario: List View "Previous events" link
 # maybe this belongs in list-view/navigation.feature
