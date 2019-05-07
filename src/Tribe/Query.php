@@ -8,6 +8,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
+use Tribe__Utils__Array as Arr;
+
 if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 	class Tribe__Events__Query {
 
@@ -249,6 +251,38 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			}
 
 			if ( $query->tribe_is_event || $query->tribe_is_event_category ) {
+				/**
+				 * Filters whether or not to use the Start Date meta hack to include meta table.
+				 *
+				 * We only add the `postmeta` hack if it's not the main admin events list
+				 * because this method filters out drafts without EventStartDate.
+				 * For this screen we're doing the JOIN manually in `Tribe__Events__Admin_List`.
+				 *
+				 * Important to note, this need to happen as the first thing, due to how we depend on
+				 * StartDate been the first param on the Meta Query.
+				 *
+				 * @param boolean $use_hack Whether to include the start date meta or not.
+				 * @param \WP_Query|null $query The query that is currently being filtered or `null` if no query is
+				 *                              being filtered.
+				 *
+				 * @since 4.9
+				 */
+				$include_date_meta = apply_filters( 'tribe_events_query_include_start_date_meta', true, $query );
+				if (
+					$include_date_meta
+					&& ! tribe( 'context' )->is_editing_post( Tribe__Events__Main::POSTTYPE )
+				) {
+					$date_meta_key = Tribe__Events__Timezones::is_mode( 'site' )
+						? '_EventStartDateUTC'
+						: '_EventStartDate';
+
+					$meta_query[] = array(
+						'key'  => $date_meta_key,
+						'type' => 'DATETIME',
+					);
+
+					$query->set( 'tribe_include_date_meta', true );
+				}
 
 				if ( ! ( $query->is_main_query() && 'month' === $query->get( 'eventDisplay' ) ) ) {
 					add_filter( 'option_page_on_front', array( __CLASS__, 'default_page_on_front' ) );
@@ -287,9 +321,10 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				// the query explicity requests they be exposed
 				$maybe_hide_events = (bool) $query->get( 'hide_upcoming', true );
 
-				//@todo stop calling EOD cutoff transformations all over the place
+				$skip_event_display_filters = is_admin() && $query->is_main_query() && ! tribe_is_ajax_view_request();
 
-				if ( ! empty( $query->query_vars['eventDisplay'] ) ) {
+				//@todo stop calling EOD cutoff transformations all over the place
+				if ( ! empty( $query->query_vars['eventDisplay'] ) && ! $skip_event_display_filters ) {
 					switch ( $query->query_vars['eventDisplay'] ) {
 						case 'custom':
 							// if the eventDisplay is 'custom', all we're gonna do is make sure the start and end dates are formatted
@@ -355,21 +390,38 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 							$query->set( 'hide_upcoming', $maybe_hide_events );
 							break;
 						case 'all':
+							$query->set( 'orderby', self::set_orderby( null, $query ) );
+							$query->set( 'order', self::set_order( 'ASC', $query ) );
+							$query->set( 'hide_upcoming', $maybe_hide_events );
+
+							break;
 						case 'list':
 						default: // default display query
-							$event_date = ( $query->get( 'eventDate' ) != '' )
-								? $query->get( 'eventDate' )
-								: date_i18n( Tribe__Date_Utils::DBDATETIMEFORMAT );
-							if ( ! $query->tribe_is_past ) {
-								$query->set( 'start_date', ( '' != $query->get( 'eventDate' ) ? tribe_beginning_of_day( $event_date ) : tribe_format_date( current_time( 'timestamp' ), true, 'Y-m-d H:i:00' ) ) );
-								$query->set( 'end_date', '' );
-								$query->set( 'order', self::set_order( 'ASC', $query ) );
+							if ( '' != $query->get( 'eventDate' ) ) {
+								$event_date = $query->get( 'eventDate' );
 							} else {
+								$event_date = date_i18n( Tribe__Date_Utils::DBDATETIMEFORMAT );
+							}
+
+							if ( $query->tribe_is_past ) {
 								// on past view, set the passed date as the end date
 								$query->set( 'start_date', '' );
 								$query->set( 'end_date', $event_date );
 								$query->set( 'order', self::set_order( 'DESC', $query ) );
+							} else {
+								if ( '' != $query->get( 'eventDate' ) ) {
+									$event_date = tribe_beginning_of_day( $event_date );
+								} else {
+									$event_date = tribe_format_date( current_time( 'timestamp' ), true, 'Y-m-d H:i:00' );
+								}
+
+								$orm_meta_query = tribe_events()->filter_by_ends_after( $event_date );
+
+								$meta_query['ends-after'] = $orm_meta_query['meta_query']['ends-after'];
+
+								$query->set( 'order', self::set_order( 'ASC', $query ) );
 							}
+
 							$query->set( 'orderby', self::set_orderby( null, $query ) );
 							$query->set( 'hide_upcoming', $maybe_hide_events );
 							break;
@@ -389,36 +441,6 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 						'terms'            => $query->get( Tribe__Events__Main::TAXONOMY ),
 						'include_children' => apply_filters( 'tribe_events_query_include_children', true ),
 					);
-				}
-
-				/**
-				 * Filters whether or not to use the Start Date meta hack to include meta table.
-				 *
-				 * We only add the `postmeta` hack if it's not the main admin events list
-				 * because this method filters out drafts without EventStartDate.
-				 * For this screen we're doing the JOIN manually in `Tribe__Events__Admin_List`.
-				 *
-				 * @param boolean $use_hack Whether to include the start date meta or not.
-				 * @param \WP_Query|null $query The query that is currently being filtered or `null` if no query is
-				 *                              being filtered.
-				 *
-				 * @since 4.9
-				 */
-				$include_date_meta = apply_filters( 'tribe_events_query_include_start_date_meta', true, $query );
-				if (
-					$include_date_meta
-					&& ! tribe( 'context' )->is_editing_post( Tribe__Events__Main::POSTTYPE )
-				) {
-					$date_meta_key = Tribe__Events__Timezones::is_mode( 'site' )
-						? '_EventStartDateUTC'
-						: '_EventStartDate';
-
-					$meta_query[] = array(
-						'key'  => $date_meta_key,
-						'type' => 'DATETIME',
-					);
-
-					$query->set( 'tribe_include_date_meta', true );
 				}
 			}
 
@@ -630,7 +652,9 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			 *
 			 * @var string
 			 */
-			$event_start_key = Tribe__Events__Timezones::is_mode( 'site' ) ? '_EventStartDateUTC' : '_EventStartDate';
+			$event_start_key = Tribe__Events__Timezones::is_mode( 'site' )
+				? '_EventStartDateUTC'
+				: '_EventStartDate';
 
 			/**
 			 * Which param will be queried in the Database for Events Date End.
@@ -639,7 +663,9 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			 *
 			 * @var string
 			 */
-			$event_end_key = Tribe__Events__Timezones::is_mode( 'site' ) ? '_EventEndDateUTC' : '_EventStartDate';
+			$event_end_key = Tribe__Events__Timezones::is_mode( 'site' )
+				? '_EventEndDateUTC'
+				: '_EventEndDate';
 
 			/**
 			 * When the "Use site timezone everywhere" option is checked in events settings,
@@ -1247,6 +1273,41 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 					unset( $args['hide_upcoming'] );
 				}
 
+				$display = Arr::get( $args, 'eventDisplay' );
+				$has_date_args = array_filter( [
+					Arr::get( $args, 'start_date' ),
+					Arr::get( $args, 'startDate' ),
+					Arr::get( $args, 'starts_after' ),
+					Arr::get( $args, 'starts_before' ),
+					Arr::get( $args, 'end_date' ),
+					Arr::get( $args, 'endDate' ),
+					Arr::get( $args, 'ends_after' ),
+					Arr::get( $args, 'ends_before' ),
+				] );
+
+				// Support for `eventDisplay = 'upcoming' || 'list'` for backwards compatibility
+				if (
+					! $has_date_args
+					&& in_array( $display, [ 'upcoming', 'list' ] )
+				) {
+					$args['start_date'] = 'now';
+					unset( $args['eventDisplay'] );
+				}
+
+				// Support for `eventDisplay = 'day'` for backwards compatibility
+				if (
+					! $has_date_args
+					&& in_array( $display, [ 'day' ] )
+				) {
+					$args['start_date'] = 'today';
+					unset( $args['eventDisplay'] );
+				}
+
+				// Support `tribeHideRecurrence` old param
+				if ( isset( $args['tribeHideRecurrence'] ) ) {
+					$args['hide_subsequent_recurrences'] = $args['tribeHideRecurrence'];
+					unset( $args['tribeHideRecurrence'] );
+				}
 
 				if ( isset( $args['start_date'] ) && false === $args['start_date'] ) {
 					unset( $args['start_date'] );

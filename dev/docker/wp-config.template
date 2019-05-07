@@ -26,6 +26,18 @@ define('NONCE_SALT',       'YEtlkdHXTqBcv4nB0jR7EE0ayy3UelLxcYCZcS0B+HdS5fQWvDEu
 
 $table_prefix = '${WP_TABLE_PREFIX}';
 
+/*
+ * Override the site URL and home with the one WordPress is being requested with.
+ */
+if ( filter_has_var( INPUT_SERVER, 'HTTP_HOST' ) ) {
+    if ( ! defined( 'WP_HOME' ) ) {
+        define( 'WP_HOME', 'http://' . $_SERVER['HTTP_HOST'] );
+    }
+    if ( ! defined( 'WP_SITEURL' ) ) {
+        define( 'WP_SITEURL', 'http://' . $_SERVER['HTTP_HOST'] );
+    }
+}
+
 /** Absolute path to the WordPress directory. */
 if ( ! defined( 'ABSPATH' ) )
 	define( 'ABSPATH', dirname( __FILE__ ) . '/' );
