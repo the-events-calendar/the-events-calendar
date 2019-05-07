@@ -215,6 +215,10 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
+= [unreleased] =
+
+* Tweak - Reduced file size by removing .po files and directing anyone creating or editing local translations to transle.wordpress.org
+
 = [4.9.1] 2019-05-02 =
 
 * Fix - Prevent recurring events all page to throw 404 when events are in the past [126790]
