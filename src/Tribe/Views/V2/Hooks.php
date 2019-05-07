@@ -38,7 +38,6 @@ class Hooks  extends \tad_DI52_ServiceProvider {
 		], 'query_controllers' );
 		$this->add_actions();
 		$this->add_filters();
-		$this->handle_v1_filters();
 	}
 
 	/**
