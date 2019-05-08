@@ -7,6 +7,7 @@ class MainQueryRenderCest {
 
 	public function _before( Tester $I ) {
 		$I->setTribeOption( View::$option_enabled, true );
+		$I->setTribeOption( 'tribeEventsTemplate', 'events' );
 	}
 
 	/**
