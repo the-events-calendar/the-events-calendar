@@ -133,7 +133,9 @@ abstract class Abstract_Query_Controller {
 		$query->found_posts   = $repository->found();
 		$query->post_count    = $repository->count();
 		$query->post          = reset( $injected_posts );
-		$query->max_num_pages = ceil( $query->found_posts / $query->post_count );
+		$query->max_num_pages = $query->post_count > 0
+			? ceil( $query->found_posts / $query->post_count )
+			: 1;
 
 		return $injected_posts;
 	}
@@ -149,7 +151,7 @@ abstract class Abstract_Query_Controller {
 	 *
 	 * @return array An array of post types supported by the Event_Query_Controller.
 	 */
-public function get_supported_post_types(  ) {
+	public function get_supported_post_types(  ) {
 		/**
 		 * Filters the list of post types supported by the Event_Query_Controller.
 		 *
@@ -162,11 +164,11 @@ public function get_supported_post_types(  ) {
 		 * @since TBD
 		 *
 		 */
-	return apply_filters(
-		"tribe_events_views_v2_{$this->get_filter_name()}_query_controller_post_types",
-		$this->get_default_post_types(),
-		$this->filtering_query
-	);
+		return apply_filters(
+			"tribe_events_views_v2_{$this->get_filter_name()}_query_controller_post_types",
+			$this->get_default_post_types(),
+			$this->filtering_query
+		);
 	}
 
 	/**
