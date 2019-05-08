@@ -1,4 +1,4 @@
-Feature: order of events in Day View
+Feature: display and order of events in Day View
 
 Background:
     Given I am a Visitor on a site with TEC

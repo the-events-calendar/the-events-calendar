@@ -20,7 +20,7 @@ Background:
         | carrot S-T-U      | today +2 days +2 hours    | 4 hours	        |
 
 # technically the above requires that it is between 2:01am and 9:59pm PST
-# coded letters in the event name denote whether that event is multiday or single day, timed or all day, and previous or now or upcoming.
+# coded letters in the event name denote whether that event is multi-day or single-day, timed or all day, and previous or now or upcoming.
 
 Scenario Outline: navigating to proceeding event
     Given that I am viewing the single event page for event <home event>
