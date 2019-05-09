@@ -8,6 +8,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
+use Tribe\Events\Views\V2\Service_Provider as Views;
+
 if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 	/**
@@ -32,7 +34,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '4.9.0.3';
+		const VERSION             = '4.9.1.1';
 
 		/**
 		 * Min Pro Addon
@@ -538,6 +540,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// The ORM/Repository service provider.
 			tribe_register_provider( 'Tribe__Events__Service_Providers__ORM' );
+
+			// The Views v2 service provider.
+			tribe_register_provider( Views::class);
 
 			/**
 			 * Allows other plugins and services to override/change the bound implementations.
