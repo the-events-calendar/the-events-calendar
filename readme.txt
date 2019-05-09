@@ -4,7 +4,7 @@ Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.7
-Stable tag: 4.9.1
+Stable tag: 4.9.1.1
 Tested up to: 5.1
 Requires PHP: 5.6
 License: GPLv2 or later
@@ -218,6 +218,10 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 = [unreleased] =
 
 * Tweak - Reduced file size by removing .po files and directing anyone creating or editing local translations to transle.wordpress.org
+
+= [4.9.1.1] 2019-05-06 =
+
+* Fix - Prevent Composer autoloader from throwing Fatal due to unexistent `setClassMapAuthoritative()` method [126590]
 
 = [4.9.1] 2019-05-02 =
 
