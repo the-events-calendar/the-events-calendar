@@ -101,6 +101,18 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 				return $args;
 			}
 
+			/**
+			 * Disallow the event of a post via the Tribe API
+			 *
+			 * @param bool $disallow_update Flag to control the update of a post false by default.
+			 * @param int  $event_id The event ID.
+			 *
+			 * @since TBD
+			 */
+			if ( apply_filters( 'tribe_events_event_prevent_update', false, $event_id ) ) {
+				return $event_id;
+			}
+
 			if ( wp_update_post( $args ) ) {
 				self::saveEventMeta( $event_id, $args, $post );
 			}
