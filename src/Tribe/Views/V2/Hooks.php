@@ -66,7 +66,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'tribe_suppress_query_filters', '__return_true' );
 		add_filter( 'template_include', [ $this, 'filter_template_include' ], 50 );
 		add_filter( 'posts_pre_query', [ $this, 'filter_posts_pre_query' ], 20, 2 );
-		add_filter( 'query_vars', [ tribe( Kitchen_Sink::class ), 'filter_register_query_vars' ] );
+		add_filter( 'query_vars', [ $this, 'filter_query_vars' ], 15 );
 	}
 
 	/**
@@ -158,5 +158,18 @@ class Hooks extends \tad_DI52_ServiceProvider {
 			/** @var Abstract_Query_Controller $controller */
 			$controller->inject_posts( $posts, $query );
 		}
+	}
+
+	/**
+	 * Add the events kitchen sink variable to the WP Query Vars
+	 *
+	 * @since  TBD
+	 *
+	 * @param  array $vars query vars array
+	 *
+	 * @return array
+	 */
+	public function filter_query_vars( $vars ) {
+		return $this->container->make( Kitchen_Sink::class )->filter_register_query_vars( $vars );
 	}
 }
