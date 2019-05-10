@@ -41,7 +41,9 @@ tribe.events.views.manager = {};
 	 */
 	obj.selectors = {
 		container: '.tribe-events-container',
-		link: '.tribe-events-navigation-link'
+		link: '.tribe-events-navigation-link',
+		loader: '.tribe-events-view-loader',
+		hiddenElement: '.tribe-hidden'
 	};
 
 	/**
@@ -226,10 +228,15 @@ tribe.events.views.manager = {};
 	 */
 	obj.ajaxBeforeSend = function( jqXHR, settings ) {
 		var $container = this;
+		var $loader = $container.find( obj.selectors.loader );
 
 		$container.trigger( 'beforeAjaxBeforeSend.tribeEvents', [ jqXHR, settings ] );
 
 		console.log( jqXHR, settings, this );
+
+		if ( $loader.length ) {
+			$loader.removeClass( obj.selectors.hiddenElement.className() );
+		}
 
 		$container.trigger( 'afterAjaxBeforeSend.tribeEvents', [ jqXHR, settings ] );
 	};
@@ -250,10 +257,15 @@ tribe.events.views.manager = {};
 	 */
 	obj.ajaxComplete = function( jqXHR, textStatus ) {
 		var $container = this;
+		var $loader = $container.find( obj.selectors.loader );
 
 		$container.trigger( 'beforeAjaxComplete.tribeEvents', [ jqXHR, textStatus ] );
 
 		console.log( jqXHR, textStatus, this );
+
+		if ( $loader.length ) {
+			$loader.addClass( obj.selectors.hiddenElement.className() );
+		}
 
 		$container.trigger( 'afterAjaxComplete.tribeEvents', [ jqXHR, textStatus ] );
 	};

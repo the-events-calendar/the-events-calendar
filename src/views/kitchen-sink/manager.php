@@ -5,12 +5,41 @@ tribe_asset_enqueue( 'tribe-events-views-v2-manager' );
 
 ?>
 
+<style type="text/css">
+	.tribe-events-container {
+		position: relative;
+	}
+
+	.tribe-events-view-loader {
+		align-content: center;
+		justify-content: center;
+		display: flex;
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		background: rgba( 255, 255, 255, 0.6 );
+	}
+
+	.tribe-events-view-loader.tribe-hidden {
+		display: none;
+	}
+
+	.tribe-events-view-loader .tribe-events-view-loader-spinner {
+		align-self: center;
+	}
+</style>
+
 <form
 	class="tribe-events-container"
 	action=""
 	method="get"
 	data-rest-url="<?php echo esc_url( tribe( Rest_Endpoint::class )->get_url() ); ?>"
 >
+	<div class="tribe-events-view-loader tribe-hidden">
+		<div class="tribe-events-view-loader-spinner">Loading...</div>
+	</div>
 	<input type="text" name="tribe-events-views[view]" value="default" />
 
 	<br />
