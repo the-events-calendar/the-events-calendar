@@ -293,6 +293,14 @@ tribe.events.views.manager = {};
 
 		console.log( data, textStatus, jqXHR, this );
 
+		var $html = $( data );
+
+		// Replace the current container with the new Data
+		$container.replaceWith( $html );
+
+		// Setup the container with the data received
+		obj.setup( 0, $html );
+
 		$container.trigger( 'afterAjaxSuccess.tribeEvents', [ data, textStatus, jqXHR ] );
 	};
 
@@ -326,7 +334,7 @@ tribe.events.views.manager = {};
 	 *
 	 * @since  TBD
 	 *
-	 * @return void
+	 * @return {void}
 	 */
 	obj.ready = function() {
 		obj.$containers = $( obj.selectors.container );
