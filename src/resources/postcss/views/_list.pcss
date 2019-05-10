@@ -1,0 +1,73 @@
+/**
+ * The Events Calendar Tribe List View V2 Stylesheet
+ *
+ * @package TribeEventsCalendar
+ *
+ */
+
+.tribe-events-calendar-list__separator--month {
+	display: block;
+	position: relative;
+
+	&:after {
+		content: '';
+		border-bottom: 1px solid var(--color-border-default);
+		height: 1px;
+		width: 100%;
+		display: block;
+		position: absolute;
+		top: 50%;
+		left: 0;
+		z-index: 0;
+	}
+
+	span {
+		background-color: #fff;
+		font-size: var(--font-size-3);
+		font-weight: var(--font-weight-bold);
+		padding: 0 20px 0 0;
+		position: relative;
+		text-transform: uppercase;
+		z-index: 10;
+	}
+}
+
+.tribe-events-calendar-list__event {
+	padding-left: 60px;
+	padding-top: 30px;
+}
+
+.tribe-events-calendar-list__event--datetime {
+	font-size: var(--font-size-2);
+	line-height: 17px;
+}
+
+.tribe-events-calendar-list__event--title {
+	font-size: 32px;
+	font-weight: var(--font-weight-bold);
+	line-height: 44px;
+	margin: 0;
+	padding: 0;
+}
+
+.tribe-events-calendar-list__event--venue {
+	font-size: var(--font-size-2);
+	line-height: 23px;
+}
+
+.tribe-events-calendar-list__event--venue--title {
+	font-weight: var(--font-weight-bold);
+}
+
+.tribe-events-calendar-list__event--description {
+	@mixin desktop-body-1;
+}
+
+.tribe-events-calendar-list__event--featured-image {
+	display: inline-block;
+	float: right;
+
+	img {
+		width: 320px;
+	}
+}
