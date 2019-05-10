@@ -6,7 +6,7 @@ Background:
     Given that "Disable the Event Search Bar" is not enabled
     Given that I am a Visitor on a site with TEC
     Given that the Datepicker is on default (today’s date/this month & current time)
-    Given the site timezone is PST
+    Given the site timezone is America/Los_Angeles
 
 Scenario: Datepicker search in List View
     Given that I am on List View

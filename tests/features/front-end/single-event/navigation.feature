@@ -4,7 +4,7 @@ A Site Visitor can navigate to the single event preceeding or following the one 
 
 Background:
     Given that I am a Visitor on a site with TEC
-    Given the site timezone is PST
+    Given the site timezone is America/Los_Angeles
     Given that there are 11 events on this site
         | event name        | start date-time		    | duration  	    |
         | strawberry S-T-P  | today -3 days -2 hours    | 4 hours	        |

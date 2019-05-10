@@ -2,7 +2,7 @@ Feature: display and order of events in Day View
 
 Background:
     Given I am a Visitor on a site with TEC
-    Given the site timezone is PST
+    Given the site timezone is America/Los_Angeles
     Given there are 13 events on this site
         | event name        | start date-time		    | duration  	    |
         | strawberry S-T-P  | today -3 days -2 hours    | 4 hours	        |

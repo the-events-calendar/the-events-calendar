@@ -3,7 +3,7 @@ Feature: layout and visual elements of an event in List View
 Background:
     Given I am a Visitor on a site with TEC
     Given List View is enabled under Events --> Settings --> Display
-    Given the site timezone is PST
+    Given the site timezone is America/Los_Angeles
     Given "Number of events to show per page" is set to 10
 
 Scenario: display of single-day timed event in List View

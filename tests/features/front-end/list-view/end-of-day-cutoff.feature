@@ -5,7 +5,7 @@ Background:
     Given List View is enabled
     Given the "End of Day Cutoff" is set to 2:00am
     Given "Number of events to show per page" is set to 10
-    Given the site timezone is PST
+    Given the site timezone is America/Los_Angeles
 
 Scenario: Event within Event of Day Cutoff
     Given I am on List View

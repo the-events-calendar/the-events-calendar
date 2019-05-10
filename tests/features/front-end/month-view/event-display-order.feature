@@ -14,7 +14,7 @@ Background:
     Given I am a Visitor on a site with TEC
     Given that I am on Month View
     Given this site uses the newly redesigned views
-    Given the site timezone is PST
+    Given the site timezone is America/Los_Angeles
 
 Scenario Outline: How "Display up to X single-day events per day in Month View" impacts day segment display
     Given this site has the following public, published events happening on July 12:

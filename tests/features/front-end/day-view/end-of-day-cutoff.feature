@@ -6,7 +6,7 @@ Background:
     Given I am a Site Visitor on a site with TEC
     Given Day View is enabled
     Given the "End of Day Cutoff" is set to 2:00am
-    Given the site timezone is PST
+    Given the site timezone is America/Los_Angeles
 
 Scenario: Event within Event of Day Cutoff
     Given there is an event that starts today at 6:00pm and ends tomorrow at 1:00am 

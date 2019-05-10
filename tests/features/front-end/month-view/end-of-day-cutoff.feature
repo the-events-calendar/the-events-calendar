@@ -5,7 +5,7 @@ Background:
     Given Month View is enabled
     Given the "End of Day Cutoff" is set to 2:00am
     Given "Display up to X single-day events per day in Month View" is set to 3 (default)
-    Given the site timezone is PST
+    Given the site timezone is America/Los_Angeles
 
 Scenario: Event within Event of Day Cutoff
     Given there is an event that starts on July 10 at 6:00pm and ends on July 11 at 1:00am

@@ -3,7 +3,7 @@ Feature: order of events in List View
 Background:
     Given I am a Visitor on a site with TEC
     Given List View is enabled under Events --> Settings --> Display
-    Given the site timezone is PST
+    Given the site timezone is America/Los_Angeles
     Given "Number of events to show per page" is set to 10
     Given there are 12 events on this site
         | event name        | start date-time		    | duration  	    |
