@@ -1,17 +1,36 @@
-<main>
-	<header>
-		<h3>List View (WIP)</h3>
-	</header>
-	<main>
-		<?php foreach ( $events as $event ) : ?>
-			<article>
-				<header>
-					<h4><?php echo $event->post_title ?></h4>
-					<main>
-						<?php echo $event->post_content ?>
-					</main>
-				</header>
-			</article>
-		<?php endforeach; ?>
-	</main>
-</main>
+<?php
+/**
+ * View: List
+ *
+ * Override this template in your own theme by creating a file at:
+ * [your-theme]/tribe/events/views/v2/list.php
+ *
+ * See more documentation about our views templating system.
+ *
+ * @link {INSERT_ARTCILE_LINK_HERE}
+ *
+ * @version TBD
+ *
+ */
+
+$events_label_plural = tribe_get_event_label_plural();
+
+$this->template( 'events-bar' );
+
+$this->template( 'top-bar' );
+
+?>
+
+<div class="tribe-events-calendar-list">
+
+	<?php $this->template( 'list/month-separator' ); ?>
+
+	<?php foreach ( $events as $event ) : ?>
+
+		<?php $this->template( 'list/single-event', [ 'event' => $event ] ); ?>
+
+	<?php endforeach; ?>
+
+</div>
+
+<?php $this->template( 'list/nav' ); ?>
