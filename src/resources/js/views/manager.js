@@ -223,9 +223,13 @@ tribe.events.views.manager = {};
 	 * @return {void}
 	 */
 	obj.ajaxBeforeSend = function( jqXHR, settings ) {
+		var $container = this;
+
+		$container.trigger( 'beforeAjaxBeforeSend.tribeEvents', [ jqXHR, settings ] );
 
 		console.log( jqXHR, settings, this );
 
+		$container.trigger( 'afterAjaxBeforeSend.tribeEvents', [ jqXHR, settings ] );
 	};
 
 	/**
@@ -243,9 +247,13 @@ tribe.events.views.manager = {};
 	 * @return {void}
 	 */
 	obj.ajaxComplete = function( jqXHR, textStatus ) {
+		var $container = this;
+
+		$container.trigger( 'beforeAjaxComplete.tribeEvents', [ jqXHR, textStatus ] );
 
 		console.log( jqXHR, textStatus, this );
 
+		$container.trigger( 'afterAjaxComplete.tribeEvents', [ jqXHR, textStatus ] );
 	};
 
 	/**
@@ -265,9 +273,13 @@ tribe.events.views.manager = {};
 	 * @return {void}
 	 */
 	obj.ajaxSuccess = function( data, textStatus, jqXHR ) {
+		var $container = this;
+
+		$container.trigger( 'beforeAjaxSuccess.tribeEvents', [ data, textStatus, jqXHR ] );
 
 		console.log( data, textStatus, jqXHR, this );
 
+		$container.trigger( 'afterAjaxSuccess.tribeEvents', [ data, textStatus, jqXHR ] );
 	};
 
 	/**
@@ -286,9 +298,13 @@ tribe.events.views.manager = {};
 	 * @return {void}
 	 */
 	obj.ajaxError = function( jqXHR, settings ) {
+		var $container = this;
+
+		$container.trigger( 'beforeAjaxError.tribeEvents', [ jqXHR, settings ] );
 
 		console.log( jqXHR, settings, this );
 
+		$container.trigger( 'afterAjaxError.tribeEvents', [ jqXHR, settings ] );
 	};
 
 	/**
