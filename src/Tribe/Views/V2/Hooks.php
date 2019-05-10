@@ -51,6 +51,7 @@ class Hooks  extends \tad_DI52_ServiceProvider {
 		add_action( 'loop_start', [ $this, 'on_loop_start' ], PHP_INT_MAX );
 		add_action( 'wp_head', [ $this, 'on_wp_head' ], PHP_INT_MAX );
 		add_action( 'tribe_events_pre_rewrite', [ $this, 'on_tribe_events_pre_rewrite' ] );
+		add_action( 'plugins_loaded', [ $this, 'assets' ] );
 	}
 
 	/**
@@ -178,5 +179,32 @@ class Hooks  extends \tad_DI52_ServiceProvider {
 		$query_vars[] = 'tribe_remove_date_filters';
 
 		return $query_vars;
+	}
+
+	/**
+	 * Temporary function to include the views assets
+	 *
+	 * @todo: review this after we iterate on the views
+	 *
+	 * @since TBD
+	 */
+	public function assets() {
+
+		if ( is_admin() ) {
+			return;
+		}
+
+		/**
+		 * @todo: remove once proper style enqueue is in place
+		 * Temporary to enqueue tribe reset and common css
+		 */
+		tribe_asset(
+			TEC::instance(),
+			'tribe-events-calendar-views-v2',
+			'tribe-events-v2.css',
+			[],
+			'wp_enqueue_scripts',
+			[ 'priority' => 10 ]
+		);
 	}
 }
