@@ -13,6 +13,7 @@ namespace Tribe\Events\Views\V2\Template;
 use Tribe\Events\Views\V2\Kitchen_Sink;
 use Tribe\Events\Views\V2\Template_Bootstrap;
 use Tribe__Events__Main as TEC;
+use Tribe__Utils__Array as Arr;
 
 class Page {
 	/**
@@ -226,7 +227,15 @@ class Page {
 			'query' => tribe_get_global_query_object(),
 		];
 
-		$html = tribe( Kitchen_Sink::class )->template( 'page', $context, false );
+		/**
+		 * @todo  Replace with actual code for view and move this to correct kitchen sink
+		 */
+		$template = Arr::get( $context['query']->query_vars, 'tribe_events_views_kitchen_sink', 'page' );
+		if ( ! in_array( $template, tribe( Kitchen_Sink::class )->get_available_pages() ) ) {
+			$template = 'page';
+		}
+
+		$html = tribe( Kitchen_Sink::class )->template( $template, $context, false );
 
 		$this->prevent_page_looping();
 
@@ -274,8 +283,7 @@ class Page {
 		 * @param  boolean  $should_hijack  Will we hijack and include our page template
 		 * @param  WP_Query $query          WordPress query excuted to get here
 		 */
-		return apply_filters( '
-		tribe_events_views_v2_should_hijack_page_template', $should_hijack, $query );
+		return apply_filters( 'tribe_events_views_v2_should_hijack_page_template', $should_hijack, $query );
 	}
 
 	/**

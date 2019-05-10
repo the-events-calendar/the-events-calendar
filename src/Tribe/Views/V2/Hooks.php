@@ -10,8 +10,9 @@
  * remove_action( 'some_action', [ tribe( Tribe\Events\Views\V2\Hooks::class ), 'some_method' ] );
  * remove_action( 'some_action', [ tribe( 'views-v2.hooks' ), 'some_method' ] );
  *
- * @package Tribe\Events\Views\V2
  * @since TBD
+ *
+ * @package Tribe\Events\Views\V2
  */
 
 namespace Tribe\Events\Views\V2;
@@ -23,13 +24,16 @@ use \Tribe__Rewrite as Rewrite;
 /**
  * Class Hooks
  *
- * @package Tribe\Events\Views\V2
  * @since TBD
+ *
+ * @package Tribe\Events\Views\V2
  */
-class Hooks  extends \tad_DI52_ServiceProvider {
+class Hooks extends \tad_DI52_ServiceProvider {
 
 	/**
 	 * Binds and sets up implementations.
+	 *
+	 * @since TBD
 	 */
 	public function register() {
 		$this->container->tag( [
@@ -62,6 +66,7 @@ class Hooks  extends \tad_DI52_ServiceProvider {
 		add_filter( 'tribe_suppress_query_filters', '__return_true' );
 		add_filter( 'template_include', [ $this, 'filter_template_include' ], 50 );
 		add_filter( 'posts_pre_query', [ $this, 'filter_posts_pre_query' ], 20, 2 );
+		add_filter( 'query_vars', tribe_callback( Kitchen_Sink::class, 'filter_register_query_vars' ) );
 	}
 
 	/**
@@ -76,9 +81,9 @@ class Hooks  extends \tad_DI52_ServiceProvider {
 	/**
 	 * Fires when the loop starts.
 	 *
-	 * @param  \WP_Query  $query
-	 *
 	 * @since TBD
+	 *
+	 * @param  \WP_Query  $query
 	 */
 	public function on_loop_start( \WP_Query $query ) {
 		$this->container->make( Template\Page::class )->maybe_hijack_page_template( $query );
@@ -96,10 +101,9 @@ class Hooks  extends \tad_DI52_ServiceProvider {
 	/**
 	 * Fires when Tribe rewrite rules are processed.
 	 *
-	 * @param  \Tribe__Events__Rewrite  $rewrite  An instance of the Tribe rewrite abstraction.
-	 *
 	 * @since TBD
 	 *
+	 * @param  \Tribe__Events__Rewrite  $rewrite  An instance of the Tribe rewrite abstraction.
 	 */
 	public function on_tribe_events_pre_rewrite( Rewrite $rewrite ) {
 		$this->container->make( Kitchen_Sink::class )->generate_rules( $rewrite );
@@ -108,11 +112,11 @@ class Hooks  extends \tad_DI52_ServiceProvider {
 	/**
 	 * Filters the template included file.
 	 *
+	 * @since TBD
+	 *
 	 * @param  string  $template  The template included file, as found by WordPress.
 	 *
 	 * @return string The template file to include, depending on the query and settings.
-	 * @since TBD
-	 *
 	 */
 	public function filter_template_include( $template ) {
 		return $this->container->make( Template_Bootstrap::class )
@@ -127,9 +131,13 @@ class Hooks  extends \tad_DI52_ServiceProvider {
 	public function register_rest_endpoints() {
 		register_rest_route( Service_Provider::NAME_SPACE, '/html', [
 			'methods'             => \WP_REST_Server::READABLE,
+			/**
+			 * @todo  we need to figure out how the Nonce situation should behave
+			 *
 			'permission_callback' => function ( \WP_REST_Request $request ) {
 				return wp_verify_nonce( $request['nonce'], 'wp_rest' );
 			},
+			 */
 			'callback' => function ( \WP_REST_Request $request ) {
 				View::make_for_rest( $request )->send_html();
 			},

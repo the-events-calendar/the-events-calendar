@@ -33,9 +33,14 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		$this->container->singleton( Template\Event::class, Template\Event::class );
 		$this->container->singleton( Template\Page::class, Template\Page::class );
 		$this->container->singleton( Kitchen_Sink::class, Kitchen_Sink::class );
+		$this->container->singleton( Assets::class, Assets::class );
+		$this->container->singleton( Rest_Endpoint::class, Rest_Endpoint::class );
 
 		$hooks = new Hooks( $this->container );
 		$hooks->register();
+
+		$assets = new Assets();
+		$assets->register();
 
 		// Allow Hooks to be removed, by having the them registred to the container
 		$this->container->singleton( Hooks::class, $hooks );

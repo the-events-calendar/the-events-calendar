@@ -83,10 +83,10 @@ class View implements View_Interface {
 	 */
 	public static function make_for_rest( \WP_REST_Request $request ) {
 		// Try to read the slug from the REST request.
-		$slug = isset( $request['view'] ) ? $request['view'] : false;
+		$slug = $request->get_param( 'view' ) ? $request->get_param( 'view' ) : false;
 
 		if ( false === $slug ) {
-			$url = isset( $request['url'] ) ? $request['url'] : false;
+			$url = $request->get_param( 'url' ) ? $request->get_param( 'url' ) : false;
 			$slug = ( new Url( $url ) )->get_view_slug();
 		}
 
