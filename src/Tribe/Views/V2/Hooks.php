@@ -66,7 +66,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'tribe_suppress_query_filters', '__return_true' );
 		add_filter( 'template_include', [ $this, 'filter_template_include' ], 50 );
 		add_filter( 'posts_pre_query', [ $this, 'filter_posts_pre_query' ], 20, 2 );
-		add_filter( 'query_vars', tribe_callback( Kitchen_Sink::class, 'filter_register_query_vars' ) );
+		add_filter( 'query_vars', [ tribe( Kitchen_Sink::class ), 'filter_register_query_vars' ] );
 	}
 
 	/**
