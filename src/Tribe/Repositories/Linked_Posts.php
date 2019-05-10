@@ -2,14 +2,14 @@
 /**
  * The main ORM/Repository class for linked posts.
  *
- * @since TBD
+ * @since 4.9
  */
 
 /**
  * Class Tribe__Events__Repositories__Linked_Posts
  *
  *
- * @since TBD
+ * @since 4.9
  */
 class Tribe__Events__Repositories__Linked_Posts extends Tribe__Repository {
 
@@ -32,7 +32,7 @@ class Tribe__Events__Repositories__Linked_Posts extends Tribe__Repository {
 	 *
 	 * Sets up the repository default parameters and schema.
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 */
 	public function __construct() {
 		parent::__construct();
@@ -51,7 +51,7 @@ class Tribe__Events__Repositories__Linked_Posts extends Tribe__Repository {
 	/**
 	 * Filters linked post types by a specific event of set of events.
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 *
 	 * @param int|WP_Post|array $event Post ID, Post Object, or an array of Post IDs or Objects.
 	 */

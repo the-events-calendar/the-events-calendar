@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f8a8719517bdc87ce36ba52acd0a2272",
+    "content-hash": "b23ec5e98956b5e94a359c548ddd90dd",
     "packages": [],
     "packages-dev": [
         {
@@ -1344,21 +1344,22 @@
         },
         {
             "name": "lucatume/wp-browser",
-            "version": "2.2.1",
+            "version": "2.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lucatume/wp-browser.git",
-                "reference": "93296908ad3f41583bf12f1488d69217beaf0546"
+                "reference": "793a608b150dab8d38b6eb00193b4f4b5ef83e2c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/93296908ad3f41583bf12f1488d69217beaf0546",
-                "reference": "93296908ad3f41583bf12f1488d69217beaf0546",
+                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/793a608b150dab8d38b6eb00193b4f4b5ef83e2c",
+                "reference": "793a608b150dab8d38b6eb00193b4f4b5ef83e2c",
                 "shasum": ""
             },
             "require": {
                 "antecedent/patchwork": "^2.0",
                 "codeception/codeception": "~2.5.0",
+                "ext-fileinfo": "*",
                 "ext-pdo": "*",
                 "gumlet/php-image-resize": "^1.6",
                 "lucatume/wp-browser-commons": "^1.2.5",
@@ -1368,8 +1369,9 @@
                 "wp-cli/wp-cli": "^1.1"
             },
             "require-dev": {
+                "erusev/parsedown": "^1.7",
                 "mikey179/vfsstream": "^1.6",
-                "ofbeaton/console-tester": "^1.1"
+                "victorjonsson/markdowndocs": "dev-master"
             },
             "type": "library",
             "autoload": {
@@ -1399,7 +1401,7 @@
                 "codeception",
                 "wordpress"
             ],
-            "time": "2019-02-11T17:15:36+00:00"
+            "time": "2019-04-22T08:10:51+00:00"
         },
         {
             "name": "lucatume/wp-browser-commons",

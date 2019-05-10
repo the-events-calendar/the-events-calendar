@@ -1,10 +1,15 @@
 [
   "data_collection_disclosure.html",
-  "lang/**/*",
   "license.txt",
   "readme.txt",
+  "lang/**/*",
   "site_owner_data_collection_statement.html",
-  "src/**/*",
+  "src/admin-views/**/*",
+  "src/deprecated/**/*",
+  "src/functions/**/*",
+  "src/resources/**/*",
+  "src/Tribe/**/*",
+  "src/views/**/*",
   "the-events-calendar.php",
   "vendor/bootstrap-datepicker/css/*.css",
   "vendor/bootstrap-datepicker/js/*.js",
@@ -18,5 +23,9 @@
   "vendor/jquery/smoothness/*.css",
   "vendor/jquery/smoothness/images/*.png",
   "vendor/php-date-formatter/js/*.js",
+  "vendor/autoload.php",
+  "vendor/autoload_commands.php",
+  "vendor/autoload_framework.php",
+  "vendor/composer/*",
   "vendor/tribe-common-libraries/**/*"
 ]

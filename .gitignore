@@ -10,6 +10,7 @@ vendor
 !vendor/tribe-common-libraries
 !vendor/ForceUTF8
 !vendor/php-date-formatter
+!vendor/composer
 
 # Tests - local config files
 codeception.yml
@@ -28,3 +29,4 @@ compiler.jar
 
 wpml-config.xml
 src/resources/**/app
+.env.testing
