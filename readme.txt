@@ -217,7 +217,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 = [unreleased] =
 
-* Tweak - Reduced file size by removing .po files and directing anyone creating or editing local translations to transle.wordpress.org
+* Tweak - Reduced file size by removing .po files and directing anyone creating or editing local translations to translate.wordpress.org
 
 = [4.9.1.1] 2019-05-06 =
 
