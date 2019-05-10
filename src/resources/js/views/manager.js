@@ -3,7 +3,7 @@
  *
  * @since  TBD
  *
- * @type   {Object}
+ * @type   {PlainObject}
  */
 tribe.events = tribe.events || {};
 tribe.events.views = tribe.events.views || {};
@@ -13,7 +13,7 @@ tribe.events.views = tribe.events.views || {};
  *
  * @since  TBD
  *
- * @type   {Object}
+ * @type   {PlainObject}
  */
 tribe.events.views.manager = {};
 
@@ -22,11 +22,11 @@ tribe.events.views.manager = {};
  *
  * @since  TBD
  *
- * @param  {Object} $   jQuery
- * @param  {Object} _   Underscore.js
- * @param  {Object} obj tribe.events.views.manager
+ * @param  {PlainObject} $   jQuery
+ * @param  {PlainObject} _   Underscore.js
+ * @param  {PlainObject} obj tribe.events.views.manager
  *
- * @return void
+ * @return {void}
  */
 ( function( $, _, obj ) {
 	'use strict';
@@ -37,7 +37,7 @@ tribe.events.views.manager = {};
 	 *
 	 * @since TBD
 	 *
-	 * @type {Object}
+	 * @type {PlainObject}
 	 */
 	obj.selectors = {
 		container: '.tribe-events-container',
@@ -64,7 +64,7 @@ tribe.events.views.manager = {};
 	 *
 	 * @param  {string} query jQuery.serialize() string
 	 *
-	 * @return {object}
+	 * @return {PlainObject}
 	 */
 	const parseQuery = function( query ) {
 		const emptyData = new RegExp( '^[^=]+=$' );
