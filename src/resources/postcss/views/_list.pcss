@@ -4,70 +4,110 @@
  * @package TribeEventsCalendar
  *
  */
+.tribe-events {
 
-.tribe-events-calendar-list__separator--month {
-	display: block;
-	position: relative;
-
-	&:after {
-		content: '';
-		border-bottom: 1px solid var(--color-border-default);
-		height: 1px;
-		width: 100%;
-		display: block;
-		position: absolute;
-		top: 50%;
-		left: 0;
-		z-index: 0;
+	.tribe-events-calendar-list {
+		font-family: var(--font-family-base);
 	}
 
-	span {
-		background-color: #fff;
-		font-size: var(--font-size-3);
-		font-weight: var(--font-weight-bold);
-		padding: 0 20px 0 0;
+	.tribe-events-calendar-list__event {
+		display: flex;
+		flex-direction: column;
+
+		@media (--viewport-medium) {
+			flex-direction: row-reverse;
+			padding-left: 140px;
+			margin-bottom: var(--spacer-9);
+		}
+	}
+
+	.tribe-events-calendar-list__event--details {
+		flex: 1 1 100%;
+	}
+
+	.tribe-events-calendar-list__event--datetime {
+		font-size: var(--font-size-2);
+		margin-bottom: var(--spacer-2);
 		position: relative;
-		text-transform: uppercase;
-		z-index: 10;
 	}
-}
 
-.tribe-events-calendar-list__event {
-	padding-left: 60px;
-	padding-top: 30px;
-}
+	.tribe-events-calendar-list__event--title {
+		font-size: var(--font-size-7);
+		font-weight: var(--font-weight-bold);
+		margin-bottom: var(--spacer-2);
+		padding: 0;
+	}
 
-.tribe-events-calendar-list__event--datetime {
-	font-size: var(--font-size-2);
-	line-height: 17px;
-}
+	.tribe-events-calendar-list__event--venue {
+		font-size: var(--font-size-2);
+		margin-bottom: var(--spacer-2);
+	}
 
-.tribe-events-calendar-list__event--title {
-	font-size: 32px;
-	font-weight: var(--font-weight-bold);
-	line-height: 44px;
-	margin: 0;
-	padding: 0;
-}
+	.tribe-events-calendar-list__event--venue--title {
+		font-weight: var(--font-weight-bold);
+	}
 
-.tribe-events-calendar-list__event--venue {
-	font-size: var(--font-size-2);
-	line-height: 23px;
-}
+	.tribe-events-calendar-list__event--description {
+		@mixin desktop-body-1;
+		margin-bottom: var(--spacer-4);
+	}
 
-.tribe-events-calendar-list__event--venue--title {
-	font-weight: var(--font-weight-bold);
-}
+	.tribe-events-calendar-list__event--featured-image {
+		flex: 1 0 320px;
+		@media (--viewport-medium) {
+			flex: 1 0 320px;
+			margin-left: var(--spacer-6);
+		}
+	}
 
-.tribe-events-calendar-list__event--description {
-	@mixin desktop-body-1;
-}
+	.tribe-events-calendar-list__event--featured {
 
-.tribe-events-calendar-list__event--featured-image {
-	display: inline-block;
-	float: right;
+		.tribe-events-calendar-list__event--datetime time {
+			&:after {
+				/* we'll include the SVG here*/
+				width: 12px;
+				height: 12px;
+				background-color: var(--color-accent-primary);
+				position: absolute;
+				content: '';
+				top: calc( 50% - 6px );
+				margin-left: 10px;
+			}
+		}
 
-	img {
-		width: 320px;
+		.tribe-events-calendar-list__event--title {
+			font-size: var(--font-size-9);
+		}
+		.tribe-events-calendar-list__event--featured-image {
+			flex: 1 0 520px;
+		}
+	}
+
+	.tribe-events-calendar-list__separator--month {
+		display: block;
+		position: relative;
+		margin-bottom: var(--spacer-6);
+
+		&:after {
+			content: '';
+			border-bottom: 1px solid var(--color-border-default);
+			height: 1px;
+			width: 100%;
+			display: block;
+			position: absolute;
+			top: 50%;
+			left: 0;
+			z-index: 0;
+		}
+
+		span {
+			background-color: #fff;
+			font-size: var(--font-size-3);
+			font-weight: var(--font-weight-bold);
+			padding: 0 20px 0 0;
+			position: relative;
+			text-transform: uppercase;
+			z-index: 10;
+		}
 	}
 }
