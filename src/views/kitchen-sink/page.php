@@ -1,5 +1,5 @@
 <?php
-tribe_enqueue_asset( 'tribe-common-style' );
+tribe_asset_enqueue( 'tribe-common-style' );
 ?>
 <div class="tribe-events">
 	<h1>Kitchen Sink</h1>
