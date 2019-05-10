@@ -83,6 +83,8 @@ tribe.events.views.manager = {};
 	 *
 	 * @since TBD
 	 *
+	 * @todo  Requirement to setup other JS modules after hijacking Click and Submit
+	 *
 	 * @param  {integer} index     jQuery.each index param
 	 * @param  {Element} container Which element we are going to setup
 	 *
