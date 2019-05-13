@@ -23,7 +23,7 @@ $this->template( 'top-bar' );
 
 <div class="tribe-events-calendar-list">
 
-	<?php $this->template( 'list/month-separator' ); ?>
+	<?php $this->template( 'list/month-separator', [ 'month' => date( 'M' )] ); ?>
 
 	<?php foreach ( $events as $event ) : ?>
 

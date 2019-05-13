@@ -12,7 +12,8 @@
  * @version TBD
  *
  */
+$month = $this->get( 'month' );
 ?>
 <div class="tribe-events-calendar-list__separator--month">
-	<span>May</span>
+	<span><?php echo esc_html( $month ); ?></span>
 </div>
