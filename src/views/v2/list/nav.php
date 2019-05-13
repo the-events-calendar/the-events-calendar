@@ -13,12 +13,7 @@
  *
  */
 ?>
-<nav
-	class="tribe-common-c-nav"
-	aria-label="<?php echo esc_html( sprintf( esc_html__( '%s List Navigation', 'the-events-calendar' ), tribe_get_event_label_plural() ) ); ?>"
->
+<nav class="tribe-common-c-nav">
 	<?php $this->template( 'list/nav/prev' ); ?>
-
 	<?php $this->template( 'list/nav/next' ); ?>
-
 </nav>
