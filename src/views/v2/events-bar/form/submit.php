@@ -17,6 +17,5 @@
 	class="tribe-common-c-btn"
 	type="submit"
 	name="submit-bar"
-	aria-label="<?php printf( esc_attr__( 'Submit %s search', 'the-events-calendar' ), tribe_get_event_label_plural() ); ?>"
 	value="<?php printf( esc_attr__( 'Find %s', 'the-events-calendar' ), tribe_get_event_label_plural() ); ?>"
 />
