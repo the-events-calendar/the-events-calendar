@@ -12,7 +12,7 @@
  * @version TBD
  *
  */
-
+$event    = $this->get( 'event' );
 $event_id = $event->ID;
 
 // Setup an array of venue details for use later in the template

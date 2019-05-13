@@ -13,6 +13,7 @@
  *
  */
 
+$event    = $this->get( 'event' );
 $event_id = $event->ID;
 
 $classes = [ 'tribe-events-calendar-list__event' ];

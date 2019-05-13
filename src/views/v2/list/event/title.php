@@ -12,7 +12,7 @@
  * @version TBD
  *
  */
-
+$event    = $this->get( 'event' );
 $event_id = $event->ID;
 ?>
 <h3 class="tribe-events-calendar-list__event--title">

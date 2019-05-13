@@ -13,6 +13,7 @@
  *
  */
 
+$event    = $this->get( 'event' );
 $event_id = $event->ID;
 ?>
 <div class="tribe-events-calendar-list__event--datetime">

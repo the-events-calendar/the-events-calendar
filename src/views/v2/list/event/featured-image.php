@@ -12,7 +12,7 @@
  * @version TBD
  *
  */
-
+$event    = $this->get( 'event' );
 $event_id = $event->ID;
 
 if ( ! has_post_thumbnail( $event_id ) ) {
