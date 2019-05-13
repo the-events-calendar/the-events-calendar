@@ -175,6 +175,163 @@ class Tribe__Events__Aggregator__Settings {
 		return true;
 	}
 
+	/*
+
+		=====================================================================================================
+	*/
+
+	/**
+	 * Hooked to current_screen, this method identifies whether or not eb credentials should be cleared
+	 *
+	 * @param WP_Screen $screen
+	 */
+	public function maybe_clear_meetup_credentials( $screen ) {
+		if ( 'tribe_events_page_tribe-common' !== $screen->base ) {
+			return;
+		}
+
+		if ( ! isset( $_GET['tab'] ) || 'addons' !== $_GET['tab'] ) {
+			return;
+		}
+
+		if (
+			! (
+				isset( $_GET['action'] )
+				&& isset( $_GET['_wpnonce'] )
+				&& 'disconnect-meetup' === $_GET['action']
+				&& wp_verify_nonce( $_GET['_wpnonce'], 'disconnect-meetup' )
+			)
+		) {
+			return;
+		}
+
+		$this->clear_meetup_credentials();
+
+		wp_redirect(
+			Tribe__Settings::instance()->get_url( [ 'tab' => 'addons' ] )
+		);
+		die;
+	}
+
+	/**
+	 * Get EB Security Key
+	 *
+	 * @since TBD
+	 *
+	 */
+	public function get_meetup_security_key() {
+		$args = [
+			'security_key' => tribe_get_option( 'meetup_security_key' ),
+		];
+
+		return (object) $args;
+	}
+
+	/**
+	 * Check if Security Key
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 *
+	 */
+	public function has_meetup_security_key() {
+		$credentials = $this->get_meetup_security_key();
+
+		return ! empty( $credentials->security_key );
+	}
+
+	/**
+	 * Handle Checking if there is a Security Key and Saving It
+	 *
+	 * @since TBD
+	 *
+	 * @param object $eb_authorized object from EA service for Meetup Validation
+	 *
+	 * @return bool
+	 */
+	public function handle_meetup_security_key( $meetup_authorized ) {
+
+		// key is sent on initial authorization and save it if we have it
+		if ( ! empty( $meetup_authorized->data->secret_key ) ) {
+			tribe_update_option( 'meetup_security_key', esc_attr( $meetup_authorized->data->secret_key ) );
+
+			return true;
+		}
+
+
+		if ( $this->has_meetup_security_key() ) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Disconnect Meetup from EA
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 *
+	 */
+	public function clear_meetup_credentials() {
+
+		tribe( 'events-aggregator.service' )->disconnect_meetup_token();
+
+		tribe_update_option( 'meetup_security_key', null );
+
+	}
+
+	/**
+	 * Given a URL, tack on the parts of the URL that gets used to disconnect Meetup
+	 *
+	 * @param string $url
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	public function build_disconnect_meetup_url( $url ) {
+		return wp_nonce_url(
+			add_query_arg(
+				'action',
+				'disconnect-meetup',
+				$url
+			),
+			'disconnect-meetup'
+		);
+	}
+
+	/**
+	 * Check if the Meetup credentials are connected in EA
+	 *
+	 * @since TBD
+	 *
+	 * @return bool Whether the Eventbrite credentials are valid
+	 */
+	public function is_ea_authorized_for_meetup() {
+		// if the service hasn't enabled oauth for Eventbrite, always assume it is valid
+		if ( ! tribe( 'events-aggregator.main' )->api( 'origins' )->is_oauth_enabled( 'meetup' ) ) {
+			return true;
+		}
+
+		$meetup_authorized = tribe( 'events-aggregator.service' )->has_meetup_authorized();
+
+		if ( empty( $meetup_authorized->status ) || 'success' !== $meetup_authorized->status ) {
+			return false;
+		}
+
+		if ( ! $this->handle_meetup_security_key( $meetup_authorized ) ) {
+			return false;
+		}
+
+		return true;
+	}
+	/*
+		===========================
+	*/
+
 	public function do_import_settings_tab() {
 		include_once Tribe__Events__Main::instance()->plugin_path . 'src/admin-views/aggregator/settings.php';
 	}

@@ -186,6 +186,7 @@ $show_third_party_accounts = ! is_network_admin();
 		</tr>
 		<?php
 		// Meetup status section
+		// @TODO: Update this section
 		$indicator = 'good';
 		$notes = '&nbsp;';
 		$text = __( 'API key entered', 'the-events-calendar' );

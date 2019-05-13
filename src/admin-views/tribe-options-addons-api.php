@@ -10,25 +10,51 @@ $current_url = Tribe__Settings::instance()->get_url( [ 'tab' => 'addons' ] );
 // if there's an Event Aggregator license key, add the Meetup.com API fields
 if ( get_option( 'pue_install_key_event_aggregator' ) ) {
 
-	$internal = [
-		'meetup-start' => [
+	$missing_meetup_credentials = ! tribe( 'events-aggregator.settings' )->is_ea_authorized_for_meetup();
+
+	ob_start();
+	?>
+
+	<fieldset id="tribe-field-meetup_token" class="tribe-field tribe-field-text tribe-size-medium">
+		<legend class="tribe-field-label"><?php esc_html_e( 'Meetup Token', 'the-events-calendar' ) ?></legend>
+		<div class="tribe-field-wrap">
+			<?php
+			if ( $missing_meetup_credentials ) {
+				echo '<p>' . esc_html__( 'You need to connect to Meetup for Event Aggregator to work properly' ) . '</p>';
+				$meetup_button_label = __( 'Connect to Meetup', 'the-events-calendar' );
+			} else {
+				$meetup_button_label     = __( 'Refresh your connection to Meetup', 'the-events-calendar' );
+				$meetup_disconnect_label = __( 'Disconnect', 'the-events-calendar' );
+				$meetup_disconnect_url   = tribe( 'events-aggregator.settings' )->build_disconnect_meetup_url( $current_url );
+			}
+			?>
+			<a target="_blank" class="tribe-ea-meetup-button" href="<?php echo esc_url( Tribe__Events__Aggregator__Record__Meetup::get_auth_url( [ 'back' => 'settings' ] ) ); ?>"><?php esc_html_e( $meetup_button_label ); ?></a>
+			<?php if ( ! $missing_meetup_credentials ) : ?>
+				<a href="<?php echo esc_url( $meetup_disconnect_url ); ?>" class="tribe-ea-meetup-disconnect"><?php echo esc_html( $meetup_disconnect_label ); ?></a>
+			<?php endif; ?>
+		</div>
+	</fieldset>
+
+	<?php
+	$meetup_token_html = ob_get_clean();
+
+	$internal_meetup = [
+		'meetup-start'        => [
 			'type' => 'html',
 			'html' => '<h3>' . esc_html__( 'Meetup', 'the-events-calendar' ) . '</h3>',
 		],
-		'meetup-info-box' => [
+		'meetup-info-box'     => [
 			'type' => 'html',
 			'html' => '<p>' . esc_html__( 'You need to connect Event Aggregator to Meetup to import your events from Meetup.', 'the-events-calendar' ) . '</p>',
 		],
-		'meetup_api_key' => [
-			'type'            => 'text',
-			'label'           => esc_html__( 'Meetup API Key', 'the-events-calendar' ),
-			'tooltip'         => sprintf( __( '%s to view your Meetup API Key', 'the-events-calendar' ), '<a href="https://secure.meetup.com/meetup_api/key/" target="_blank">' . __( 'Click here', 'the-events-calendar' ) . '</a>' ),
-			'size'            => 'medium',
-			'validation_type' => 'alpha_numeric',
-			'can_be_empty'    => true,
-			'parent_option'   => Tribe__Events__Main::OPTIONNAME,
+		'meetup_token_button' => [
+			'type' => 'html',
+			'html' => $meetup_token_html,
 		],
 	];
+
+	$internal = array_merge( $internal, $internal_meetup );
+
 }
 
 /**
