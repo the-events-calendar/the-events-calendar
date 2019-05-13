@@ -14,13 +14,11 @@
  */
 ?>
 <div class="tribe-common-form-control-text">
-	<label for="location"><?php esc_html_e( 'Location', 'the-events-calendar' ); ?></label>
+	<label for="location"><?php esc_html_e( 'Enter Location. Search for Events by Location.', 'the-events-calendar' ); ?></label>
 	<input
 		type="text"
 		id="location"
 		name="location"
-		aria-label="<?php esc_attr_e( 'Search for Events by Location.', 'the-events-calendar' ); ?>"
-		value=""
 		placeholder="<?php esc_attr_e( 'Location', 'the-events-calendar' ); ?>"
 	/>
 </div>

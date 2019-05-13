@@ -14,13 +14,11 @@
  */
 ?>
 <div class="tribe-common-form-control-text">
-	<label for="date"><?php esc_html_e( 'Date', 'the-events-calendar' ); ?></label>
+	<label for="date"><?php esc_html_e( 'Enter date. Please use the format 4 digit year hyphen 2 digit month hyphen 2 digit day.', 'the-events-calendar' ); ?></label>
 	<input
 		type="text"
 		id="tribe-bar-date"
 		name="tribe-bar-date"
-		aria-label="<?php esc_attr_e( 'Search for Events by Date. Please use the format 4 digit year hyphen 2 digit month hyphen 2 digit day.', 'the-events-calendar' ); ?>"
-		value=""
 		placeholder="<?php esc_attr_e( 'Enter date', 'the-events-calendar' ); ?>"
 	/>
 </div>

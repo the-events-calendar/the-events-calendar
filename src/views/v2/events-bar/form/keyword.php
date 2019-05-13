@@ -14,13 +14,11 @@
  */
 ?>
 <div class="tribe-common-form-control-text">
-	<label for="keyword"><?php esc_html_e( 'Keyword', 'the-events-calendar' ); ?></label>
+	<label for="keyword"><?php esc_html_e( 'Enter Keyword. Search for Events by Keyword.', 'the-events-calendar' ); ?></label>
 	<input
 		type="text"
 		id="keyword"
 		name="keyword"
-		aria-label="<?php esc_attr_e( 'Search for Events by Keyword.', 'the-events-calendar' ); ?>"
-		value=""
 		placeholder="<?php esc_attr_e( 'Keyword', 'the-events-calendar' ); ?>"
 	/>
 </div>
