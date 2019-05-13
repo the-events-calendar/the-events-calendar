@@ -4,7 +4,7 @@ Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.7
-Stable tag: 4.9.1
+Stable tag: 4.9.1.1
 Tested up to: 5.2
 Requires PHP: 5.6
 License: GPLv2 or later
@@ -220,6 +220,10 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Tweak - In the Event Repository class: filter the event cretion meta before checking it for coherency
 * Fix - Fix event bar issue where it was required to pick the date in order to search events via keyword or location [126158]
 * Fix - Make back-compatibility handling more robust when dealing with classes non-existing in the older plugin versions [127173]
+
+= [4.9.1.1] 2019-05-06 =
+
+* Fix - Prevent Composer autoloader from throwing Fatal due to unexistent `setClassMapAuthoritative()` method [126590]
 
 = [4.9.1] 2019-05-02 =
 
