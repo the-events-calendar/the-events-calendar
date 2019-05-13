@@ -32,7 +32,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 		tribe_asset(
 			$plugin,
 			'tribe-events-calendar-views-v2',
-			'tribe-events-v2.css',
+			'views/tribe-events-v2.css',
 			[],
 			'wp_enqueue_scripts',
 			[ 'priority' => 10 ]
