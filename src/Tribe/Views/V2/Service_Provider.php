@@ -37,8 +37,12 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		$this->register_hooks();
 		$this->register_v1_compat();
 
+		$assets = new Assets( $this->container );
+		$assets->register();
+
 		// Register this service provider in the service locator.
 		$this->container->singleton( 'views-v2.provider', $this );
+		$this->container->singleton( Assets::class, $assets );
 
 		// Since the View main class will act as a DI container itself let's provide it with the global container.
 		View::set_container( $this->container );
