@@ -13,9 +13,8 @@
  *
  */
 ?>
-<input
+<button
 	class="tribe-common-c-btn"
 	type="submit"
 	name="submit-bar"
-	value="<?php printf( esc_attr__( 'Find %s', 'the-events-calendar' ), tribe_get_event_label_plural() ); ?>"
-/>
+><?php printf( esc_html__( 'Find %s', 'the-events-calendar' ), tribe_get_event_label_plural() ); ?></button>
