@@ -10,23 +10,11 @@
  */
 namespace Tribe\Events\Views\V2;
 
+use Tribe__Utils__Array as Arr;
 use Tribe__Events__Main as TEC;
 use WP_Query;
 
 class Template_Bootstrap {
-	/**
-	 * Hook the bootstraping into WordPress filter and actions
-	 *
-	 * @since  TBD
-	 *
-	 * @return void
-	 */
-	public function hook() {
-		add_filter( 'template_include', [ $this, 'filter_template_include' ], 50 );
-
-		add_action( 'tribe_common_loaded', [ $this, 'disable_v1' ], 1 );
-	}
-
 	/**
 	 * Disables the Views V1 implementation of a Template Hijack
 	 *
@@ -74,6 +62,43 @@ class Template_Bootstrap {
 		return $setting === 'page'
 			? tribe( Template\Page::class )
 			: tribe( Template\Event::class );
+	}
+
+	/**
+	 * Gets the View HTML
+	 *
+	 * @todo Stop handling kitchen sink template here.
+	 *
+	 * @since  TBD
+	 *
+	 * @return string
+	 */
+	public function get_view_html() {
+		$query = tribe_get_global_query_object();
+
+		if ( isset( $query->query_vars['tribe_events_views_kitchen_sink'] ) ) {
+			$context = [
+				'query' => $query,
+			];
+
+			/**
+			 * @todo  Replace with actual code for view and move this to correct kitchen sink
+			 */
+			$template = Arr::get( $context['query']->query_vars, 'tribe_events_views_kitchen_sink', 'page' );
+			if ( ! in_array( $template, tribe( Kitchen_Sink::class )->get_available_pages() ) ) {
+				$template = 'page';
+			}
+
+			$html = tribe( Kitchen_Sink::class )->template( $template, $context, false );
+		} else {
+			/**
+			 * @todo  needs to determine the view we want to pass
+			 */
+			$view = View::make();
+			$html = $view->get_html();
+		}
+
+		return $html;
 	}
 
 	/**

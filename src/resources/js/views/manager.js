@@ -56,31 +56,6 @@ tribe.events.views.manager = {};
 	obj.$containers = $();
 
 	/**
-	 * From a jQuery.serialize() we make the arguments a little bit more organized
-	 *
-	 * @since TBD
-	 *
-	 * @todo  move this to a Common Util class
-	 *
-	 * @param  {string} query jQuery.serialize() string
-	 *
-	 * @return {PlainObject}
-	 */
-	const parseQuery = function( query ) {
-		const emptyData = new RegExp( '^[^=]+=$' );
-		const plusSign = /\+/g;
-
-		return query.split( '&' ).filter( function( dataEntry ){
-			return ! emptyData.test( dataEntry );
-		} ).reduce( function( dataCouples, couple ){
-			const split = couple.split( '=' );
-			dataCouples[ decodeURIComponent( split[0].replace( plusSign, '%20' ) ) ] = decodeURIComponent( split[1].replace( plusSign, '%20' ) );
-
-			return dataCouples;
-		}, {} );
-	};
-
-	/**
 	 * Setup the container for views management
 	 *
 	 * @since TBD
@@ -159,9 +134,10 @@ tribe.events.views.manager = {};
 	obj.onSubmit = function( event ) {
 		event.preventDefault();
 		var $container = $( this );
-		var data = parseQuery( $container.serialize() );
+		var formData = Qs.parse( $container.serialize() );
 
-		obj.request( data, $container );
+		// pass the data to the request using `tribe-events-views`
+		obj.request( formData['tribe-events-views'], $container );
 
 		return false;
 	};

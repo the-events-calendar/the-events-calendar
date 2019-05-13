@@ -38,11 +38,17 @@ tribe_asset_enqueue( 'tribe-events-views-v2-manager' );
 	</style>
 	<?php // @todo remove this css ?>
 
+	<?php
+
+	var_dump( $_GET );
+
+	?>
+
 
 	<div class="tribe-events-view-loader tribe-hidden">
 		<div class="tribe-events-view-loader-spinner">Loading...</div>
 	</div>
-	<input type="text" name="tribe-events-views[view]" value="default" />
+	<input type="text" name="tribe-events-views[view]" value="list" />
 
 	<br />
 

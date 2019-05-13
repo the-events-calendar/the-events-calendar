@@ -39,7 +39,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		$hooks = new Hooks( $this->container );
 		$hooks->register();
 
-		$assets = new Assets();
+		$assets = new Assets( $this->container );
 		$assets->register();
 
 		// Allow Hooks to be removed, by having the them registred to the container

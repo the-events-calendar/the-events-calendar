@@ -25,6 +25,7 @@ class Event {
 	 * @return string
 	 */
 	public function get_path() {
-		return ( new Index() )->get_template_file();
+		$path = ( new Index() )->get_template_file( 'index' );
+		return $path;
 	}
 }

@@ -223,19 +223,7 @@ class Page {
 
 		$this->restore_main_query();
 
-		$context = [
-			'query' => tribe_get_global_query_object(),
-		];
-
-		/**
-		 * @todo  Replace with actual code for view and move this to correct kitchen sink
-		 */
-		$template = Arr::get( $context['query']->query_vars, 'tribe_events_views_kitchen_sink', 'page' );
-		if ( ! in_array( $template, tribe( Kitchen_Sink::class )->get_available_pages() ) ) {
-			$template = 'page';
-		}
-
-		$html = tribe( Kitchen_Sink::class )->template( $template, $context, false );
+		$html = tribe( Template_Bootstrap::class )->get_view_html();
 
 		$this->prevent_page_looping();
 

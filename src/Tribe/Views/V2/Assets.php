@@ -20,7 +20,7 @@ use Tribe__Events__Main as Plugin;
  *
  * @package Tribe\Events\Views\V2
  */
-class Assets {
+class Assets extends \tad_DI52_ServiceProvider {
 	/**
 	 * Binds and sets up implementations.
 	 *
@@ -33,7 +33,7 @@ class Assets {
 			$plugin,
 			'tribe-events-views-v2-manager',
 			'views/manager.js',
-			[ 'jquery', 'tribe-common' ],
+			[ 'jquery', 'tribe-common', 'tribe-query-string' ],
 			null // prevent it from loading
 		);
 	}
