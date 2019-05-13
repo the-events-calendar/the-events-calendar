@@ -13,7 +13,7 @@
  *
  */
 ?>
-<div class="tribe-events-calendar-events-bar">
+<div class="tribe-events__events-bar">
 
 	<h2 class="tribe-common-a11y-visual-hide"><?php printf( esc_html__( '%s Search and Views Navigation', 'the-events-calendar' ), tribe_get_event_label_plural() ); ?></h2>
 

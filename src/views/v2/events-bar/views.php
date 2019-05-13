@@ -13,7 +13,7 @@
  *
  */
 ?>
-<div class="tribe-events-calendar-events-bar--views">
+<div class="tribe-events__events-bar-views">
 	<h3 class="tribe-common-a11y-visual-hide"><?php printf( esc_html__( '%s Views Navigation', 'the-events-calendar' ), tribe_get_event_label_singular() ); ?></h3>
 	<div class="tribe-common-form-control-tabs">
 		<button id="tabButton" aria-haspopup="listbox" aria-labelledby="tabButton" aria-expanded="true"><?php esc_html_e( 'Views', 'the-events-calendar' ); ?></button>

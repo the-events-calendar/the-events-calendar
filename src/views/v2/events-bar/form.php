@@ -15,7 +15,7 @@
 
 $current_url = tribe_events_get_current_filter_url();
 ?>
-<div class="tribe-events-calendar-events-bar--form">
+<div class="tribe-events__events-bar-form">
 
 	<form action="<?php echo esc_attr( $current_url ); ?>" method="post" class="tribe-common-c-search">
 		<div class="tribe-common-form-control-text-group">
