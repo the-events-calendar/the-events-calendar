@@ -14,5 +14,5 @@
  */
 ?>
 <div class="tribe-events__events-bar-filters">
-	<a class="tribe-common-c-btn-icon tribe-common-c-btn-icon--border tribe-common-c-btn-icon--filters"></a>
+	<button class="tribe-common-c-btn-icon tribe-common-c-btn-icon--border tribe-common-c-btn-icon--filters"></button>
 </div>
