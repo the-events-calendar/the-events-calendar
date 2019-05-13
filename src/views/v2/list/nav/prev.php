@@ -16,10 +16,12 @@ if ( ! tribe_has_previous_event() ) {
 	return;
 }
 ?>
-<a
-	href="<?php echo esc_url( tribe_get_listview_prev_link() ); ?>"
-	rel="prev"
-	class="tribe-common-c-nav--prev"
->
-	<?php echo esc_html( sprintf( __( 'Previous %s', 'the-events-calendar' ), tribe_get_event_label_plural() ) ); ?>
-</a>
+<li>
+	<a
+		href="<?php echo esc_url( tribe_get_listview_prev_link() ); ?>"
+		rel="prev"
+		class="tribe-common-c-nav__prev"
+	>
+		<?php echo esc_html( sprintf( __( 'Previous %s', 'the-events-calendar' ), tribe_get_event_label_plural() ) ); ?>
+	</a>
+</li>
