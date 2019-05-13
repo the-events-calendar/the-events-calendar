@@ -15,10 +15,12 @@
 if ( ! tribe_has_previous_event() ) {
 	return;
 }
+
+$link = $this->get( 'link' );
 ?>
 <li>
 	<a
-		href="<?php echo esc_url( tribe_get_listview_prev_link() ); ?>"
+		href="<?php echo esc_url( $link ); ?>"
 		rel="prev"
 		class="tribe-common-c-nav__prev"
 	>

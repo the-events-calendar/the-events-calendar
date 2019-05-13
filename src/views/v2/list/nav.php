@@ -15,7 +15,7 @@
 ?>
 <nav class="tribe-common-c-nav">
 	<ul>
-		<?php $this->template( 'list/nav/prev' ); ?>
-		<?php $this->template( 'list/nav/next' ); ?>
+		<?php $this->template( 'list/nav/prev', [ 'link' => tribe_get_listview_prev_link() ] ); ?>
+		<?php $this->template( 'list/nav/next', [ 'link' => tribe_get_listview_next_link() ] ); ?>
 	</ul>
 </nav>
