@@ -37,8 +37,6 @@ class Template extends Base_Template {
 		$context = wp_parse_args( $context_overrides, $this->context );
 		$context['_context'] = $context;
 
-		var_dump( $this );
-
 		return parent::template( $this->slug, $context, false );
 	}
 
