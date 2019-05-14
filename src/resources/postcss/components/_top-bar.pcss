@@ -1,0 +1,56 @@
+/* -----------------------------------------------------------------------------
+ *
+ * Top Bar
+ *
+ * ----------------------------------------------------------------------------- */
+.tribe-events {
+	.tribe-events__top-bar {
+		display: flex;
+		margin-top: var(--spacer-7);
+		margin-bottom: var(--spacer-5);
+		flex-direction: row;
+		flex-wrap: wrap;
+		align-items: center;
+	}
+
+	.tribe-events__top-bar-nav-wrapper {
+		display: flex;
+		align-items: center;
+		flex: 0 0 55px;
+	}
+
+	.tribe-events__top-bar-nav {}
+
+	.tribe-events__top-bar-nav-prev,
+	.tribe-events__top-bar-nav-next {
+		padding-right: 10px;
+		a {
+			&:before {
+				height: 16px;
+			}
+		}
+	}
+
+	.tribe-events__top-bar-nav-prev {
+		float: left;
+	}
+
+	.tribe-events__top-bar-nav-next {
+		float: right;
+	}
+
+	.tribe-events__top-bar-today {
+		display: flex;
+		flex: 1 1 60%;
+		align-items: center;
+	}
+
+	.tribe-events__top-bar-today--button {
+		margin-right: 15px;
+	}
+
+	.tribe-events__top-bar-actions {
+		display: flex;
+		justify-content: flex-end;
+	}
+}
