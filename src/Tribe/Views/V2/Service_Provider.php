@@ -35,6 +35,22 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		$this->container->singleton( Kitchen_Sink::class, Kitchen_Sink::class );
 		$this->container->singleton( Rest_Endpoint::class, Rest_Endpoint::class );
 
+		$this->register_hooks();
+		$this->register_v1_compat();
+
+		// Register this service provider in the service locator.
+		$this->container->singleton( 'views-v2.provider', $this );
+
+		// Since the View main class will act as a DI container itself let's provide it with the global container.
+		View::set_container( $this->container );
+	}
+
+	/**
+	 * Registers the provider handling all the 1st level filters and actions for Views v2.
+	 *
+	 * @since TBD
+	 */
+	protected function register_hooks() {
 		$hooks = new Hooks( $this->container );
 		$hooks->register();
 
@@ -48,6 +64,18 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		$this->container->singleton( 'events.views.v2.provider', $this );
 
 		View::set_container( $this->container );
+
 	}
 
+	/**
+	 * Registers the provider handling compatibility with v1 of the View system.
+	 *
+	 * @since TBD
+	 */
+	protected function register_v1_compat() {
+		$v1_compat = new V1_Compat( $this->container );
+		$v1_compat->register();
+		$this->container->singleton( V1_Compat::class, $v1_compat );
+		$this->container->singleton( 'views-v2.v1-compat', $v1_compat );
+	}
 }

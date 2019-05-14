@@ -19,7 +19,8 @@ namespace Tribe\Events\Views\V2;
 
 use Tribe\Events\Views\V2\Query\Abstract_Query_Controller;
 use Tribe\Events\Views\V2\Query\Event_Query_Controller;
-use \Tribe__Rewrite as Rewrite;
+use Tribe__Events__Main as TEC;
+use Tribe__Rewrite as Rewrite;
 
 /**
  * Class Hooks
@@ -161,15 +162,28 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	}
 
 	/**
-	 * Add the events kitchen sink variable to the WP Query Vars
+	 * Filters the publicly available query variables to add the ones supported by Views v2.
 	 *
-	 * @since  TBD
+	 * To keep back-compatibility with v1 we're registering the same query vars making this method
+	 * a copy of the original `Tribe__Events__Main::eventQueryVars` one.
 	 *
-	 * @param  array $vars query vars array
+	 * @since TBD
 	 *
-	 * @return array
+	 * @param  array  $query_vars  The list of publicly available query variables.
+	 *
+	 * @return array The filtered list of publicly available query variables.
 	 */
-	public function filter_query_vars( $vars ) {
-		return $this->container->make( Kitchen_Sink::class )->filter_register_query_vars( $vars );
+	public function filter_query_vars( array $query_vars = [] ) {
+		$query_vars[] = 'eventDisplay';
+		$query_vars[] = 'eventDate';
+		$query_vars[] = 'eventSequence';
+		$query_vars[] = 'ical';
+		$query_vars[] = 'start_date';
+		$query_vars[] = 'end_date';
+		$query_vars[] = 'featured';
+		$query_vars[] = TEC::TAXONOMY;
+		$query_vars[] = 'tribe_remove_date_filters';
+
+		return $this->container->make( Kitchen_Sink::class )->filter_register_query_vars( $query_vars );
 	}
 }

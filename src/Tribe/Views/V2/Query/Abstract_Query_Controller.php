@@ -133,7 +133,9 @@ abstract class Abstract_Query_Controller {
 		$query->found_posts   = $repository->found();
 		$query->post_count    = $repository->count();
 		$query->post          = reset( $injected_posts );
-		$query->max_num_pages = ceil( $query->found_posts / $query->post_count );
+		$query->max_num_pages = $query->post_count > 0
+			? ceil( $query->found_posts / $query->post_count )
+			: 1;
 
 		return $injected_posts;
 	}

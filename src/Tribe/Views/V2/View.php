@@ -96,13 +96,15 @@ class View implements View_Interface {
 	/**
 	 * Builds and returns an instance of a View by slug or class.
 	 *
-	 * @param string $view The view slug, as registered in the `tribe_events_views` filter, or class.
-	 *
-	 * @return \Tribe\Events\Views\V2\View_Interface An instance of the built view.
 	 * @since TBD
 	 *
+	 * @param  string  $view  The view slug, as registered in the `tribe_events_views` filter, or class.
+	 * @param  \Tribe__Context|null  $context  The context this view should render from; if not set then the global
+	 *                                         one will be used.
+	 *
+	 * @return \Tribe\Events\Views\V2\View_Interface An instance of the built view.
 	 */
-	public static function make( $view = null ) {
+	public static function make( $view = null, \Tribe__Context $context = null ) {
 		$view = null !== $view
 			? $view
 			: tribe_get_option( static::$option_default, 'default' );
@@ -142,6 +144,10 @@ class View implements View_Interface {
 
 		$instance->set_template( $template );
 		$instance->set_slug( $registration_slug );
+
+		// Let's set the View context from either the global context or the provided one.
+		$view_context = null === $context ? tribe_context() : $context;
+		$instance->set_context( $view_context );
 
 		return $instance;
 	}

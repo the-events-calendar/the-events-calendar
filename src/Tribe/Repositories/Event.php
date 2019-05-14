@@ -1264,6 +1264,9 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 * {@inheritdoc}
 	 */
 	public function filter_postarr_for_create( array $postarr ) {
+		// Before checking on the meta integrity and coherency let's try to normalize it an fill the missing fields.
+		$postarr = $this->filter_meta_input( $postarr );
+
 		// Require some minimum fields.
 		if ( ! isset(
 			$postarr['post_title'],
@@ -1272,7 +1275,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			return false;
 		}
 
-		return parent::filter_postarr_for_create( $this->filter_meta_input( $postarr ) );
+		return parent::filter_postarr_for_create( $postarr );
 	}
 
 	/**
