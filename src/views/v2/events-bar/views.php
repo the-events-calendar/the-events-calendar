@@ -17,7 +17,7 @@
 	<h3 class="tribe-common-a11y-visual-hide"><?php printf( esc_html__( '%s Views Navigation', 'the-events-calendar' ), tribe_get_event_label_singular() ); ?></h3>
 	<div class="tribe-common-form-control-tabs">
 		<button id="tribe-views-button" aria-haspopup="listbox" aria-labelledby="tribe-views-button" aria-expanded="true"><?php esc_html_e( 'Views', 'the-events-calendar' ); ?></button>
-		<ul tabindex="-1" role="listbox" aria-activedescendant="tabOneLabel">
+		<ul tabindex="-1" role="listbox" aria-activedescendant="tribe-views-list-label">
 			<li role="presentation">
 				<input id="tribe-views-list" name="tribe-views" type="radio" value="tribe-views-list" checked="checked" />
 				<label id="tribe-views-list-label" for="tribe-views-list" role="option" aria-selected="true"><?php esc_html_e( 'List', 'the-events-calendar' ); ?></label>
