@@ -8,7 +8,6 @@
 
 namespace Tribe\Events\Views\V2\Views;
 
-
 use Tribe\Events\Views\V2\View;
 use Tribe__Utils__Array as Arr;
 
@@ -47,7 +46,7 @@ class List_View extends View {
 		 * Ideally one that contains only the variables the template will need to render.
 		 */
 		return $this->template->render( [
-			'events' => $events
+			'events' => $events,
 		] );
 	}
 }
