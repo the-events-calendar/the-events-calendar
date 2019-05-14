@@ -9,6 +9,7 @@
 namespace Tribe\Events\Views\V2;
 
 use Tribe\Events\Views\V2\Views\List_View;
+use Tribe\Events\Views\V2\Views\Reflector_View;
 use Tribe__Container as Container;
 use Tribe__Context as Context;
 use Tribe__Utils__Array as Arr;
@@ -92,6 +93,10 @@ class View implements View_Interface {
 			$slug = ( new Url( $url ) )->get_view_slug();
 		}
 
+		if ( ! empty( $slug ) ) {
+			$params['view'] = $slug;
+		}
+
 		/**
 		 * Filters the parameters that will be used to build the View class for a REST request.
 		 *
@@ -149,6 +154,8 @@ class View implements View_Interface {
 			$slug       = $view;
 		}
 
+		$request_slug = $slug;
+
 		if ( $view_class ) {
 			if ( ! self::$container instanceof Container ) {
 				$message = 'The ' . __CLASS__ . '::$container property is not set:'
@@ -189,6 +196,7 @@ class View implements View_Interface {
 
 		// Set some defaults on the template.
 		$template->set( 'view_class', $view_class );
+		$template->set( 'request_slug', $request_slug );
 
 		$instance->set_template( $template );
 		$instance->set_slug( $slug );
@@ -246,6 +254,7 @@ class View implements View_Interface {
 		 *
 		 */
 		$views = apply_filters( 'tribe_events_views', [
+			'reflector' => Reflector_View::class,
 			'list' => List_View::class,
 		] );
 
