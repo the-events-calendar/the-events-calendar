@@ -13,7 +13,7 @@
  *
  */
 ?>
-<div class="tribe-events-calendar-top-bar--actions">
+<div class="tribe-events__top-bar-actions">
 	<div class="tribe-common-form-control-toggle">
 		<input id="toggleHorizontal" name="toggleGroup" type="checkbox" value="toggleHorizontal" />
 		<label for="toggleHorizontal"><?php esc_html_e( 'Hide Recurring Events', 'the-events-calendar' ); ?></label>

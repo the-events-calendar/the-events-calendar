@@ -13,8 +13,10 @@
  *
  */
 ?>
-<div class="tribe-events-calendar-top-bar--today">
-	<a href="#" class="tribe-common-c-btn-border tribe-events-calendar-top-bar--today--button"><?php esc_html_e( 'Today', 'the-events-calendar' ); ?></a>
+<div class="tribe-events__top-bar-today">
+	<a href="#" class="tribe-common-c-btn-border tribe-events__top-bar-today--button">
+		<?php esc_html_e( 'Today', 'the-events-calendar' ); ?>
+	</a>
 
 	<span class="tribe-common-h3 tribe-common-h3--alt">
 		<?php esc_html_e( 'Now', 'the-events-calendar' ); ?> &mdash; <?php echo date( 'F jS, Y', time() ); ?>
