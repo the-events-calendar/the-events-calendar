@@ -1,8 +1,8 @@
 <?php
 use Tribe\Events\Views\V2\Rest_Endpoint;
+use Tribe\Events\Views\V2\View;
 
 tribe_asset_enqueue( 'tribe-events-views-v2-manager' );
-
 ?>
 <form
 	class="tribe-events-container"
@@ -16,7 +16,6 @@ tribe_asset_enqueue( 'tribe-events-views-v2-manager' );
 	<input type="text" name="tribe-events-views[view]" value="default" />
 
 	<?php wp_nonce_field( 'wp_rest', 'tribe-events-views[nonce]' ); ?>
-	<?php var_dump( $this->get( 'events' ), $this->get( 'query' ) ); ?>
 
 	<br />
 

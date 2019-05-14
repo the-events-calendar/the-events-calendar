@@ -17,6 +17,12 @@ use Tribe__Template as Base_Template;
  * @since   TBD
  */
 class Template extends Base_Template {
+	/**
+	 * The slug the template should use to build its path.
+	 *
+	 * @var string
+	 */
+	protected $slug;
 
 	/**
 	 * Renders and returns the View template contents.
@@ -31,16 +37,10 @@ class Template extends Base_Template {
 		$context = wp_parse_args( $context_overrides, $this->context );
 		$context['_context'] = $context;
 
+		var_dump( $this );
+
 		return parent::template( $this->slug, $context, false );
 	}
-
-
-	/**
-	 * The slug the template should use to build its path.
-	 *
-	 * @var string
-	 */
-	protected $slug;
 
 	/**
 	 * Template constructor.
