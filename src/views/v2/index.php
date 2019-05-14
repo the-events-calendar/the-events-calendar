@@ -2,10 +2,9 @@
 get_header();
 
 use Tribe\Events\Views\V2\View;
-// @TODO: Temporarily we set inline styles to make it match with the new design
-// @TODO: We need to give these styles depending if they're using tribe styles or skeleton afterwards.
+// @TODO: We're setting the div wrapper over here, but we'll need to revise this.
 ?>
-<div class="tribe-common tribe-events" style="max-width: 1176px; width: 100%; margin: 0 auto;">
+<div class="tribe-common tribe-events">
 <?php
 $view_slug = tribe_get_option( View::$option_default, 'default' );
 $view = View::make( $view_slug );
