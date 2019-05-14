@@ -43,6 +43,13 @@
 		display: flex;
 		flex: 1 1 60%;
 		align-items: center;
+
+		.tribe-common-h3 {
+			font-size: var(--font-size-6);
+			@media (--viewport-medium) {
+				font-size: var(--font-size-8);
+			}
+		}
 	}
 
 	.tribe-events__top-bar-today--button {
@@ -50,7 +57,11 @@
 	}
 
 	.tribe-events__top-bar-actions {
-		display: flex;
-		justify-content: flex-end;
+		display: none;
+
+		@media (--viewport-medium) {
+			display: flex;
+			justify-content: flex-end;
+		}
 	}
 }
