@@ -28,7 +28,7 @@ class List_View extends View {
 			'posts_per_page' => $context['posts_per_page'],
 			'paged'          => Arr::get( $context, 'page', 1 ),
 		];
-		$date = Arr::get( $context, 'eventDate', 'now' );
+		$date = Arr::get( $context, 'event_date', 'now' );
 
 		if ( 'past' !== Arr::get( $context, 'event_display', 'current' ) ) {
 			$args['ends_after'] = $date;

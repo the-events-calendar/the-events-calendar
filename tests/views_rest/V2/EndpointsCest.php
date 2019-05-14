@@ -19,7 +19,7 @@ class EndpointsCest extends Base{
 
 		$I->sendGET( $this->endpoint . '/html', [
 			'url'   => $url,
-			'nonce' => $nonce,
+			'_wpnonce' => $nonce,
 		] );
 
 		$I->seeResponseCodeIs( 200 );

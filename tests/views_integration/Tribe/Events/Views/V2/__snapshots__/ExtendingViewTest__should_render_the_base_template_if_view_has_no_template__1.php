@@ -48,8 +48,7 @@
             &quot;priority&quot;: 20,
             &quot;path&quot;: &quot;\\/plugins\\/the-events-calendar\\/src\\/views\\/v2&quot;
         }
-    ],
-    &quot;relative_path&quot;: &quot;\\/plugins\\/the-events-calendar\\/src\\/views\\/v2\\/base.php&quot;
+    ]
 }		</code>
 	</pre>
 </div>
