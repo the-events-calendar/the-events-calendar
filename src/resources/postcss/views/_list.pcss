@@ -13,6 +13,7 @@
 	.tribe-events-calendar-list__event {
 		display: flex;
 		flex-direction: column;
+		margin-bottom: var(--spacer-7);
 
 		@media (--viewport-medium) {
 			flex-direction: row-reverse;
@@ -26,21 +27,36 @@
 	}
 
 	.tribe-events-calendar-list__event--datetime {
-		font-size: var(--font-size-2);
-		margin-bottom: var(--spacer-2);
+		font-size: var(--font-size-1);
+		margin-bottom: var(--spacer-1);
 		position: relative;
+
+		@media (--viewport-medium) {
+			font-size: var(--font-size-2);
+			margin-bottom: var(--spacer-2);
+		}
 	}
 
 	.tribe-events-calendar-list__event--title {
 		font-size: var(--font-size-7);
 		font-weight: var(--font-weight-bold);
-		margin-bottom: var(--spacer-2);
+		margin-bottom: var(--spacer-1);
 		padding: 0;
+
+		@media (--viewport-medium) {
+			font-size: var(--font-size-7);
+			margin-bottom: var(--spacer-2);
+		}
 	}
 
 	.tribe-events-calendar-list__event--venue {
-		font-size: var(--font-size-2);
+		font-size: var(--font-size-1);
 		margin-bottom: var(--spacer-2);
+
+		@media (--viewport-medium) {
+			font-size: var(--font-size-2);
+			margin-bottom: var(--spacer-2);
+		}
 	}
 
 	.tribe-events-calendar-list__event--venue--title {
@@ -50,13 +66,23 @@
 	.tribe-events-calendar-list__event--description {
 		@mixin desktop-body-1;
 		margin-bottom: var(--spacer-4);
+		@media (--viewport-medium) {
+			@mixin desktop-body-1;
+		}
 	}
 
 	.tribe-events-calendar-list__event--featured-image {
-		flex: 1 0 320px;
+		flex: 1 1 100%;
+		margin-bottom: var(--spacer-4);
 		@media (--viewport-medium) {
 			flex: 1 0 320px;
 			margin-left: var(--spacer-6);
+			margin-bottom: 0;
+		}
+
+		img {
+			width: 100%;
+			max-width: 100%;
 		}
 	}
 
@@ -64,13 +90,13 @@
 
 		.tribe-events-calendar-list__event--datetime time {
 			&:after {
-				/* we'll include the SVG here*/
 				width: 12px;
 				height: 12px;
-				background-color: var(--color-accent-primary);
-				position: absolute;
+				background-image: svg-inline(icon-featured);
+				background-repeat: no-repeat;
+				background-size: contain;
+				display: inline-block;
 				content: '';
-				top: calc( 50% - 6px );
 				margin-left: 10px;
 			}
 		}
@@ -79,7 +105,10 @@
 			font-size: var(--font-size-9);
 		}
 		.tribe-events-calendar-list__event--featured-image {
-			flex: 1 0 520px;
+			flex: 1 1 100%;
+			@media (--viewport-medium) {
+				flex: 1 0 520px;
+			}
 		}
 	}
 
