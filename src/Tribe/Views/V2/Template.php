@@ -17,6 +17,12 @@ use Tribe__Template as Base_Template;
  * @since   TBD
  */
 class Template extends Base_Template {
+	/**
+	 * The slug the template should use to build its path.
+	 *
+	 * @var string
+	 */
+	protected $slug;
 
 	/**
 	 * Renders and returns the View template contents.
@@ -28,22 +34,11 @@ class Template extends Base_Template {
 	 * @return string The rendered template contents.
 	 */
 	public function render( array $context_overrides = [] ) {
-		$this->set(
-			'relative_path',
-			str_replace( WP_CONTENT_DIR, '', $this->get_base_template_file() )
-		);
 		$context = wp_parse_args( $context_overrides, $this->context );
 		$context['_context'] = $context;
 
 		return parent::template( $this->slug, $context, false );
 	}
-
-	/**
-	 * The slug the template should use to build its path.
-	 *
-	 * @var string
-	 */
-	protected $slug;
 
 	/**
 	 * Template constructor.
@@ -58,7 +53,6 @@ class Template extends Base_Template {
 		$this->set( 'slug', $slug );
 		$this->set_template_origin( tribe( 'tec.main' ) )
 		     ->set_template_folder( 'src/views/v2' )
-		     ->set_template_context_extract( true )
 		     ->set_template_folder_lookup( true );
 	}
 
@@ -95,7 +89,6 @@ class Template extends Base_Template {
 		// Print the lookup folders as relative paths.
 		$this->set( 'lookup_folders', array_map( function ( array $folder ) {
 			$folder['path'] = str_replace( WP_CONTENT_DIR, '', $folder['path'] );
-
 			return $folder;
 		}, $this->get_template_path_list() ) );
 

@@ -30,3 +30,6 @@ compiler.jar
 wpml-config.xml
 src/resources/**/app
 .env.testing
+
+# get from translate.wordpress.org as needed
+lang/*.po

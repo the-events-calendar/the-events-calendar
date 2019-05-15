@@ -30,6 +30,39 @@ class Kitchen_Sink extends Template {
 	}
 
 	/**
+	 * Gets the available pages for the Kitchen sink code
+	 *
+	 * @since  TBD
+	 *
+	 * @return array
+	 */
+	public function get_available_pages() {
+		return [
+			'page',
+			'grid',
+			'typographical',
+			'elements',
+			'events-bar',
+			'navigation',
+			'manager',
+		];
+	}
+
+	/**
+	 * Add the events kitchen sink variable to the WP Query Vars
+	 *
+	 * @since  TBD
+	 *
+	 * @param  array $vars query vars array
+	 *
+	 * @return array
+	 */
+	public function filter_register_query_vars( $vars = [] ) {
+		$vars[] = 'tribe_events_views_kitchen_sink';
+		return $vars;
+	}
+
+	/**
 	 * Add the rewrite rules for Kitchen Sink URL
 	 *
 	 * @since TBD
@@ -39,20 +72,20 @@ class Kitchen_Sink extends Template {
 	 * @return void
 	 */
 	public function generate_rules( Rewrite $rewrite ) {
-		$args = array(
-			'tribe_views_kitchen_sink' => 1,
+		$args = [
 			'post_type' => Events::POSTTYPE,
-			'tribe_kitchen_sink' => 'base',
-		);
+			'tribe_events_views_kitchen_sink' => 'page',
+		];
 		$regex = [ 'tribe', 'events', 'kitchen-sink' ];
 		$rewrite->add( $regex, $args );
 
-		$args = array(
-			'tribe_views_kitchen_sink' => 1,
+		$pages_regular_exp = implode( '|', $this->get_available_pages() );
+
+		$args = [
 			'post_type' => Events::POSTTYPE,
-			'tribe_kitchen_sink' => '%1',
-		);
-		$regex = [ 'tribe', 'events', 'kitchen-sink', '(grid|typographical|elements|events-bar|navigation)' ];
+			'tribe_events_views_kitchen_sink' => '%1',
+		];
+		$regex = [ 'tribe', 'events', 'kitchen-sink', '(' . $pages_regular_exp . ')' ];
 
 		$rewrite->add( $regex, $args );
 	}

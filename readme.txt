@@ -218,6 +218,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 = [4.9.2] TBD =
 
 * Tweak - In the Event Repository class: filter the event cretion meta before checking it for coherency
+* Tweak - Reduced file size by removing .po files and directing anyone creating or editing local translations to translate.wordpress.org
 * Fix - Fix event bar issue where it was required to pick the date in order to search events via keyword or location [126158]
 * Fix - Make back-compatibility handling more robust when dealing with classes non-existing in the older plugin versions [127173]
 
