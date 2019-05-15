@@ -215,7 +215,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
-= [4.9.2] TBD =
+= [4.9.2] 2019-05-16 =
 
 * Tweak - In the Event Repository class: filter the event cretion meta before checking it for coherency
 * Tweak - Reduced file size by removing .po files and directing anyone creating or editing local translations to translate.wordpress.org
