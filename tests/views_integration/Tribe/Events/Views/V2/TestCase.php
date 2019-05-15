@@ -40,7 +40,7 @@ abstract class TestCase extends WPTestCase {
 	 * After the test method ran try and restore the global context to its previous state and make sure that
 	 * is the case.
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 */
 	public function tearDown() {
 		// Get the values we had before the test method.

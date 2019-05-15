@@ -30,7 +30,7 @@ class JSON_LD__EventTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Create test data
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 * @return void
 	*/
 	public function create_test_data() {
@@ -94,7 +94,7 @@ class JSON_LD__EventTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 * It should return an empty array if the input data is empty
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 */
 	public function it_should_return_empty_array_when_passed_empty_values() {
 		$this->assertEquals( [], $this->make_instance()->get_data( [], [] ) );
@@ -104,7 +104,7 @@ class JSON_LD__EventTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 * it should return array with one post in it if trying to get data for one event
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 */
 	public function it_should_return_array_with_one_post_in_it_if_trying_to_get_data_for_one_post() {
 		$post = $this->factory()->post->create();
@@ -121,7 +121,7 @@ class JSON_LD__EventTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 * it should return array with ten posts in it if trying to get data for ten events
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 */
 	public function it_should_return_array_with_ten_posts_in_it_if_trying_to_get_data_for_ten_posts() {
 		$post = $this->factory()->post->create_many( 10, [ 'post_type' => Main::POSTTYPE ] );
@@ -138,7 +138,7 @@ class JSON_LD__EventTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 * Check that the data for the JSON_LD is populated correctly
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 */
 	public function it_should_return_correct_data() {
 
@@ -178,7 +178,7 @@ class JSON_LD__EventTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * @return \Tribe__Events__JSON_LD__Event
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 */
 	private function make_instance() {
 		return new JSON_LD__Event();
