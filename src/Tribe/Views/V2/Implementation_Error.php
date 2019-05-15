@@ -3,7 +3,7 @@
  * A View specific exception to signal implementation errors.
  *
  * @package Tribe\Events\Views\V2
- * @since   TBD
+ * @since   4.9.2
  */
 
 namespace Tribe\Events\Views\V2;
@@ -12,14 +12,14 @@ namespace Tribe\Events\Views\V2;
  * Class Implementation_Error
  *
  * @package Tribe\Events\Views\V2
- * @since   TBD
+ * @since   4.9.2
  */
 class Implementation_Error extends \Exception {
 
 	/**
 	 * Signals a class extending the View class is not implementing a required API method.
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 *
 	 * @param string $method The not implemented method.
 	 * @param object An instance of the object not implementing the method.

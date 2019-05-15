@@ -1,7 +1,7 @@
 /**
  * Makes sure we have all the required levels on the Tribe Object
  *
- * @since  TBD
+ * @since  4.9.2
  *
  * @type   {PlainObject}
  */
@@ -11,7 +11,7 @@ tribe.events.views = tribe.events.views || {};
 /**
  * Configures Views Object in the Global Tribe variable
  *
- * @since  TBD
+ * @since  4.9.2
  *
  * @type   {PlainObject}
  */
@@ -20,7 +20,7 @@ tribe.events.views.manager = {};
 /**
  * Initializes in a Strict env the code that manages the Event Views
  *
- * @since  TBD
+ * @since  4.9.2
  *
  * @param  {PlainObject} $   jQuery
  * @param  {PlainObject} _   Underscore.js
@@ -35,7 +35,7 @@ tribe.events.views.manager = {};
 	/**
 	 * Selectors used for configuration and setup
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 *
 	 * @type {PlainObject}
 	 */
@@ -49,7 +49,7 @@ tribe.events.views.manager = {};
 	/**
 	 * Containers on the current page that were initialized
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 *
 	 * @type {jQuery}
 	 */
@@ -58,7 +58,7 @@ tribe.events.views.manager = {};
 	/**
 	 * Setup the container for views management
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 *
 	 * @todo  Requirement to setup other JS modules after hijacking Click and Submit
 	 *
@@ -81,7 +81,7 @@ tribe.events.views.manager = {};
 	/**
 	 * Given an Element determines it's view container
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 *
 	 * @param  {Element|jQuery} element Which element we getting the container from
 	 *
@@ -100,7 +100,7 @@ tribe.events.views.manager = {};
 	/**
 	 * Hijacks the link click and passes the URL as param for REST API
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 *
 	 * @param  {Event} event DOM Event related to the Click action
 	 *
@@ -123,7 +123,7 @@ tribe.events.views.manager = {};
 	/**
 	 * Hijacks the form submit passes all form details to the REST API
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 *
 	 * @todo  make sure we are only capturing fields on our Namespace
 	 *
@@ -146,7 +146,7 @@ tribe.events.views.manager = {};
 	 * Performs an AJAX request given the data for the REST API and which container
 	 * we are going to pass the answer to.
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 *
 	 * @param  {object}         data       DOM Event related to the Click action
 	 * @param  {Element|jQuery} $container Which container we are dealing with
@@ -165,7 +165,7 @@ tribe.events.views.manager = {};
 	/**
 	 * Gets the jQuery.ajax() settings provided a views container
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 *
 	 * @param  {Element|jQuery} $container Which container we are dealing with
 	 *
@@ -195,7 +195,7 @@ tribe.events.views.manager = {};
 	 *
 	 * Context with the View container used to fire this AJAX call
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 *
 	 * @param  {jqXHR}       jqXHR    Request object
 	 * @param  {PlainObject} settings Settings that this request will be made with
@@ -224,7 +224,7 @@ tribe.events.views.manager = {};
 	 *
 	 * Context with the View container used to fire this AJAX call
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 *
 	 * @param  {jqXHR}  qXHR       Request object
 	 * @param  {String} textStatus Status for the request
@@ -254,7 +254,7 @@ tribe.events.views.manager = {};
 	 *
 	 * Context with the View container used to fire this AJAX call
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 *
 	 * @param  {String} html       HTML sent from the REST API
 	 * @param  {String} textStatus Status for the request
@@ -288,7 +288,7 @@ tribe.events.views.manager = {};
 	 *
 	 * Context with the View container used to fire this AJAX call
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 *
 	 * @param  {jqXHR}       jqXHR    Request object
 	 * @param  {PlainObject} settings Settings that this request was made with
@@ -308,7 +308,7 @@ tribe.events.views.manager = {};
 	/**
 	 * Handles the initialization of the manager when Document is ready
 	 *
-	 * @since  TBD
+	 * @since  4.9.2
 	 *
 	 * @return {void}
 	 */

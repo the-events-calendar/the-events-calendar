@@ -3,7 +3,7 @@
  * The List View.
  *
  * @package Tribe\Events\Views\V2\Views
- * @since TBD
+ * @since 4.9.2
  */
 
 namespace Tribe\Events\Views\V2\Views;

@@ -5,7 +5,7 @@
  * To remove a Assets:
  * tribe( 'assets' )->remove( 'asset-name' );
  *
- * @since TBD
+ * @since 4.9.2
  *
  * @package Tribe\Events\Views\V2
  */
@@ -16,7 +16,7 @@ use Tribe__Events__Main as Plugin;
 /**
  * Register
  *
- * @since TBD
+ * @since 4.9.2
  *
  * @package Tribe\Events\Views\V2
  */
@@ -24,7 +24,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 	/**
 	 * Binds and sets up implementations.
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 */
 	public function register() {
 		$plugin = Plugin::instance();

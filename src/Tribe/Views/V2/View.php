@@ -3,7 +3,7 @@
  * The base view class.
  *
  * @package Tribe\Events\Views\V2
- * @since   TBD
+ * @since   4.9.2
  */
 
 namespace Tribe\Events\Views\V2;
@@ -17,7 +17,7 @@ use Tribe__Utils__Array as Arr;
  * Class View
  *
  * @package Tribe\Events\Views\V2
- * @since   TBD
+ * @since   4.9.2
  */
 class View implements View_Interface {
 
@@ -79,7 +79,7 @@ class View implements View_Interface {
 	 * @param \WP_REST_Request $request
 	 *
 	 * @return \Tribe\Events\Views\V2\View_Interface
-	 * @since TBD
+	 * @since 4.9.2
 	 */
 	public static function make_for_rest( \WP_REST_Request $request ) {
 		// Try to read the slug from the REST request.
@@ -96,7 +96,7 @@ class View implements View_Interface {
 	/**
 	 * Builds and returns an instance of a View by slug or class.
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 *
 	 * @param  string  $view  The view slug, as registered in the `tribe_events_views` filter, or class.
 	 * @param  \Tribe__Context|null  $context  The context this view should render from; if not set then the global
@@ -157,7 +157,7 @@ class View implements View_Interface {
 	 *
 	 * @return array An array in the shape `[ <slug> => <View Class> ]`.
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 *
 	 */
 	public static function get_registered_views() {
@@ -169,7 +169,7 @@ class View implements View_Interface {
 		 *
 		 * @param array $views An associative  array of views in the shape `[ <slug> => <class> ]`.
 		 *
-		 * @since TBD
+		 * @since 4.9.2
 		 *
 		 */
 		$views = apply_filters( 'tribe_events_views', [
@@ -185,7 +185,7 @@ class View implements View_Interface {
 	 * @param string $view The view fully qualified class name.
 	 *
 	 * @return int|string|false The slug currently associated to a View class if it is found, `false` otherwise.
-	 * @since TBD
+	 * @since 4.9.2
 	 *
 	 */
 	public static function get_view_slug( $view ) {
@@ -199,7 +199,7 @@ class View implements View_Interface {
 	 *
 	 * @param \tad_DI52_Container $container The DI container instance to use.
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 *
 	 */
 	public static function set_container( Container $container ) {
@@ -227,7 +227,7 @@ class View implements View_Interface {
 	 *                          `get_html` method.
 	 *
 	 * @throws \Tribe\Events\Views\V2\Implementation_Error If the `get_html` method has not been implemented.
-	 * @since TBD
+	 * @since 4.9.2
 	 *
 	 */
 	public function send_html( $html = null ) {

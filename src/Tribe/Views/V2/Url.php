@@ -3,7 +3,7 @@
  * Models a URL passed to a view.
  *
  * @package Tribe\Events\Views\V2
- * @since   TBD
+ * @since   4.9.2
  */
 
 namespace Tribe\Events\Views\V2;
@@ -12,7 +12,7 @@ namespace Tribe\Events\Views\V2;
  * Class Url
  *
  * @package Tribe\Events\Views\V2
- * @since   TBD
+ * @since   4.9.2
  */
 class Url {
 
@@ -31,7 +31,7 @@ class Url {
 	 * Returns the slug of the view as defined in the URL.
 	 *
 	 * @return mixed|string The view slug as defined in the URL.
-	 * @since TBD
+	 * @since 4.9.2
 	 *
 	 */
 	public function get_view_slug() {
