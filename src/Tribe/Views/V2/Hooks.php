@@ -10,7 +10,7 @@
  * remove_action( 'some_action', [ tribe( Tribe\Events\Views\V2\Hooks::class ), 'some_method' ] );
  * remove_action( 'some_action', [ tribe( 'views-v2.hooks' ), 'some_method' ] );
  *
- * @since TBD
+ * @since 4.9.2
  *
  * @package Tribe\Events\Views\V2
  */
@@ -25,7 +25,7 @@ use Tribe__Rewrite as Rewrite;
 /**
  * Class Hooks
  *
- * @since TBD
+ * @since 4.9.2
  *
  * @package Tribe\Events\Views\V2
  */
@@ -34,7 +34,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Binds and sets up implementations.
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 */
 	public function register() {
 		$this->container->tag( [
@@ -47,7 +47,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Adds the actions required by each Views v2 component.
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 */
 	protected function add_actions() {
 		add_action( 'rest_api_init', [ $this, 'register_rest_endpoints' ] );
@@ -60,7 +60,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Adds the filters required by each Views v2 component.
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 */
 	protected function add_filters() {
 		// Let's make sure to suppress query filters from the main query.
@@ -73,7 +73,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Fires when common is loaded.
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 */
 	public function on_tribe_common_loaded() {
 		$this->container->make( Template_Bootstrap::class )->disable_v1();
@@ -82,7 +82,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Fires when the loop starts.
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 *
 	 * @param  \WP_Query  $query
 	 */
@@ -93,7 +93,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Fires when WordPress head is printed.
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 */
 	public function on_wp_head() {
 		$this->container->make( Template\Page::class )->maybe_hijack_main_query();
@@ -102,7 +102,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Fires when Tribe rewrite rules are processed.
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 *
 	 * @param  \Tribe__Events__Rewrite  $rewrite  An instance of the Tribe rewrite abstraction.
 	 */
@@ -113,7 +113,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Filters the template included file.
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 *
 	 * @param  string  $template  The template included file, as found by WordPress.
 	 *
@@ -127,7 +127,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Registers the REST endpoints that will be used to return the Views HTML.
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 */
 	public function register_rest_endpoints() {
 		register_rest_route( Service_Provider::NAME_SPACE, '/html', [
@@ -148,7 +148,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * Filters the posts before the query runs but after its SQL and arguments are finalized to
 	 * inject posts in it, if needed.
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 *
 	 * @param  null|array  $posts The posts to filter, a `null` value by default or an array if set by other methods.
 	 * @param  \WP_Query|null  $query The query object to (maybe) control and whose posts will be populated.
@@ -166,7 +166,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * To keep back-compatibility with v1 we're registering the same query vars making this method
 	 * a copy of the original `Tribe__Events__Main::eventQueryVars` one.
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 *
 	 * @param  array  $query_vars  The list of publicly available query variables.
 	 *

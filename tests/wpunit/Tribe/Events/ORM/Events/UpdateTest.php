@@ -62,7 +62,7 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 *
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 *
 	 * @return array
 	 * @throws \Exception

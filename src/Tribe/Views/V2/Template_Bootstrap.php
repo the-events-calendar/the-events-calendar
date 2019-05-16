@@ -4,7 +4,7 @@
  * the WordPress normal template workflow to allow the injection the Events
  * archive.
  *
- * @since   TBD
+ * @since   4.9.2
  *
  * @package Tribe\Events\Views\V2
  */
@@ -20,7 +20,7 @@ class Template_Bootstrap {
 	 *
 	 * @todo   use a better method to remove Views V1 from been initialized
 	 *
-	 * @since  TBD
+	 * @since  4.9.2
 	 *
 	 * @return void
 	 */
@@ -32,7 +32,7 @@ class Template_Bootstrap {
 	 * Determines with backwards compatibility in mind, which template user has selected
 	 * on the Events > Settings page as their base Default template
 	 *
-	 * @since  TBD
+	 * @since  4.9.2
 	 *
 	 * @return string Either 'event' or 'page' based templates
 	 */
@@ -52,7 +52,7 @@ class Template_Bootstrap {
 	 * Based on the base template setting we fetch the respective object
 	 * to handle the inclusion of the main file.
 	 *
-	 * @since  TBD
+	 * @since  4.9.2
 	 *
 	 * @return object
 	 */
@@ -69,7 +69,7 @@ class Template_Bootstrap {
 	 *
 	 * @todo Stop handling kitchen sink template here.
 	 *
-	 * @since  TBD
+	 * @since  4.9.2
 	 *
 	 * @return string
 	 */
@@ -104,7 +104,7 @@ class Template_Bootstrap {
 	/**
 	 * Determines when we should bootstrap the template for The Events Calendar
 	 *
-	 * @since  TBD
+	 * @since  4.9.2
 	 *
 	 * @param  WP_Query $query Which WP_Query object we are going to load on
 	 *
@@ -134,7 +134,7 @@ class Template_Bootstrap {
 	/**
 	 * Filters the `template_include` filter to return the Views router template if required..
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 *
 	 * @param string $template The template located by WordPress.
 	 *

@@ -3,7 +3,7 @@
  * The base template all Views will use to locate, manage and render their HTML code.
  *
  * @package Tribe\Events\Views\V2
- * @since   TBD
+ * @since   4.9.2
  */
 
 namespace Tribe\Events\Views\V2;
@@ -14,7 +14,7 @@ use Tribe__Template as Base_Template;
  * Class Template
  *
  * @package Tribe\Events\Views\V2
- * @since   TBD
+ * @since   4.9.2
  */
 class Template extends Base_Template {
 	/**
@@ -27,7 +27,7 @@ class Template extends Base_Template {
 	/**
 	 * Renders and returns the View template contents.
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 *
 	 * @param array $context_overrides Any context data you need to expose to this file
 	 *
@@ -45,7 +45,7 @@ class Template extends Base_Template {
 	 *
 	 * @param string $slug The slug the template should use to build its path.
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 *
 	 */
 	public function __construct( $slug ) {
@@ -66,7 +66,7 @@ class Template extends Base_Template {
 	 *                          template according to the template override rules.
 	 *
 	 * @return string The path to the template file the View will use to render its contents.
-	 * @since TBD
+	 * @since 4.9.2
 	 *
 	 */
 	public function get_template_file( $name = null ) {
@@ -82,7 +82,7 @@ class Template extends Base_Template {
 	/**
 	 * Returns the absolute path to the view base template file.
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 *
 	 * @return string The absolute path to the Views base template.
 	 */
@@ -99,7 +99,7 @@ class Template extends Base_Template {
 	/**
 	 * Returns the absolute path to the view "not found" template file.
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 *
 	 * @return string The absolute path to the Views "not found" template.
 	 */

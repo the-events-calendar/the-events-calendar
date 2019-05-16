@@ -8,8 +8,6 @@
  * @see: http://moderntribe.github.io/products-engineering/css/
  */
 
-@custom-media --tablet (max-width: 782px);
-
 /* = Post Type Listing
 =============================================*/
 
@@ -514,7 +512,7 @@ table.eventForm {
 		color: #f3ae46;
 	}
 
-@media (--tablet) {
+@media (max-width: 782px) {
 
 .eventForm .tribe-datetime-block .tribe-field-start_date,
 		.eventForm .tribe-datetime-block .tribe-field-end_date {

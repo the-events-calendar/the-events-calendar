@@ -21,10 +21,6 @@
  *
  */
 
-:root {
-	--featured-event-bg: #0ea0d7;
-}
-
 /* = Global & Miscellaneous Styles
 =============================================*/
 
@@ -533,7 +529,6 @@ ul.tribe-events-sub-nav a,
 
 .tribe-events-list-widget .tribe-event-featured {
 		background: #0ea0d7;
-		background: var(--featured-event-bg);
 		padding-bottom: .75rem;
 	}
 

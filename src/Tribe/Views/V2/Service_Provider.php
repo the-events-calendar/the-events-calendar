@@ -3,7 +3,7 @@
  * The main service provider for the version 2 of the Views.
  *
  * @package Tribe\Events\Views\V2
- * @since   TBD
+ * @since   4.9.2
  */
 
 namespace Tribe\Events\Views\V2;
@@ -11,7 +11,7 @@ namespace Tribe\Events\Views\V2;
 /**
  * Class Service_Provider
  *
- * @since   TBD
+ * @since   4.9.2
  *
  * @package Tribe\Events\Views\V2
  */
@@ -48,7 +48,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Registers the provider handling all the 1st level filters and actions for Views v2.
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 */
 	protected function register_hooks() {
 		$hooks = new Hooks( $this->container );
@@ -70,7 +70,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Registers the provider handling compatibility with v1 of the View system.
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 */
 	protected function register_v1_compat() {
 		$v1_compat = new V1_Compat( $this->container );
