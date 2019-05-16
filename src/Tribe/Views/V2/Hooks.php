@@ -182,8 +182,7 @@ class Hooks  extends \tad_DI52_ServiceProvider {
 	}
 
 	/**
-	 * Filters the body classes.
-	 * Add theme compatibility classes.
+	 * Filters the body classes to add theme compatibility ones.
 	 *
 	 * @since TBD
 	 */
