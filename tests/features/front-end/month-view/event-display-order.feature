@@ -136,8 +136,8 @@ Scenario Outline: Display order of multiple multi-day events
         | August 1 | "Crunch", "Twix"                                  |
         | August 2 | "Crunch", "Twix", "Payday"                        |
         | August 3 | "Crunch", "Twix", "Payday", "Heath"               |
-        | August 4 | "Twix", "Payday", "Heath", "Mars"                 |
-        | August 5 | "Heath", "Mars", "Snickers"                       |
-        | August 6 | "Heath", "Mars", "Snickers", "Mounds", "Hersheys" |
-        | August 7 | "Heath", "Mars", "Mounds", "Hersheys"             |
+        | August 4 | "Mars", "Twix", "Payday", "Heath"                 |
+        | August 5 | "Mars", "Snickers", "Heath"                       |
+        | August 6 | "Mars", "Snickers", "Mounds", "Heath", "Hersheys" |
+        | August 7 | "Mars", "Mounds", "Heath", "Hersheys"             |
         | August 8 | "Mounds", "Hersheys"                              |
