@@ -14,7 +14,7 @@
  */
 ?>
 <div class="tribe-events__events-bar-filters">
-	<div class="tribe-events__events-bar-filters--search ">
+	<div class="tribe-events__events-bar-filters--toggle-search">
 		<button class="tribe-common-c-btn-icon tribe-common-c-btn-icon--border tribe-common-c-btn-icon--search tribe-events__events-bar-filters--btn-no-border-mobile"></button>
 	</div>
 	<div class="tribe-events__events-bar-filters--filters">
