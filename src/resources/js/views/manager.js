@@ -177,7 +177,7 @@ tribe.events.views.manager = {};
 			accepts: 'html',
 			dataType: 'html',
 			method: 'GET',
-			'async': true, // async is keywork
+			'async': true, // async is keyword
 			beforeSend: obj.ajaxBeforeSend,
 			complete: obj.ajaxComplete,
 			success: obj.ajaxSuccess,
