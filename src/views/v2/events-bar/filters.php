@@ -14,10 +14,10 @@
  */
 ?>
 <div class="tribe-events__events-bar-filters">
-	<div class="tribe-events__events-bar-filters--search">
-		<button class="tribe-common-c-btn-icon tribe-common-c-btn-icon--border tribe-common-c-btn-icon--search "></button>
+	<div class="tribe-events__events-bar-filters--search ">
+		<button class="tribe-common-c-btn-icon tribe-common-c-btn-icon--border tribe-common-c-btn-icon--search tribe-events__events-bar-filters--btn-no-border-mobile"></button>
 	</div>
 	<div class="tribe-events__events-bar-filters--filters">
-		<button class="tribe-common-c-btn-icon tribe-common-c-btn-icon--border tribe-common-c-btn-icon--filters"></button>
+		<button class="tribe-common-c-btn-icon tribe-common-c-btn-icon--border tribe-common-c-btn-icon--filters tribe-events__events-bar-filters--btn-no-border-mobile"></button>
 	</div>
 </div>
