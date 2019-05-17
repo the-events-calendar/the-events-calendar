@@ -3,7 +3,7 @@
  * The interface all Views should implement.
  *
  * @package Tribe\Events\Views\V2
- * @since   TBD
+ * @since   4.9.2
  */
 
 namespace Tribe\Events\Views\V2;
@@ -14,14 +14,14 @@ use Tribe__Context as Context;
  * Interface View_Interface
  *
  * @package Tribe\Events\Views\V2
- * @since   TBD
+ * @since   4.9.2
  */
 interface View_Interface {
 
 	/**
 	 * Returns a View HTML code.
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 *
 	 * @return string
 	 */
@@ -32,7 +32,7 @@ interface View_Interface {
 	 *
 	 * The slug should be the one that will allow the view to be built by the View class by slug.
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 *
 	 * @return string The view slug.
 	 */
@@ -44,7 +44,7 @@ interface View_Interface {
 	 * Views that have not been explicitly assigned a Context will use, and return here,
 	 * the global one.
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 *
 	 * @return Context The View current Context instance or the global context if the view
 	 *                 has not been assigned a context.
@@ -54,7 +54,7 @@ interface View_Interface {
 	/**
 	 * Sets, or unset, the View context.
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 *
 	 * @param \Tribe__Context|null $context Either a context instance or null to make the View use the global one.
 	 */
@@ -63,7 +63,7 @@ interface View_Interface {
 	/**
 	 * Sets the View slug, usually the one it was registered with in the `tribe_events_views` filter.
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 *
 	 * @param string $slug The slug to set for the View instance.
 	 */
@@ -72,7 +72,7 @@ interface View_Interface {
 	/**
 	 * Returns a View slug, usually the one it was registered with in the `tribe_events_views` filter.
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 *
 	 * @return string The view slug, usually the one it was registered with in the `tribe_events_views` filter.
 	 */
@@ -81,7 +81,7 @@ interface View_Interface {
 	/**
 	 * Returns a View template class.
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 *
 	 * @return Template The template instance used by the View.
 	 */
@@ -90,7 +90,7 @@ interface View_Interface {
 	/**
 	 * Sets a view Template.
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 *
 	 * @param Template $template The template instance the View should use.
 	 */
