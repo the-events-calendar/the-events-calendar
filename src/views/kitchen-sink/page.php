@@ -132,7 +132,7 @@ tribe_asset_enqueue( 'tribe-common-style' );
 	<h3>Search</h3>
 	<br />
 	<form action="" method="post" class="tribe-common-c-search" style="margin-top: 100px">
-		<div class="tribe-common-form-control-text-group">
+		<div class="tribe-common-form-control-input-group">
 			<div class="tribe-common-form-control-text">
 				<label for="keyword">Keyword</label>
 				<input type="text" id="keyword" name="keyword" placeholder="Keyword" />
