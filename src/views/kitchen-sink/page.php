@@ -8,17 +8,21 @@ tribe_asset_enqueue( 'tribe-common-style' );
 	<br />
 	<h3>Headings</h3>
 	<br />
-	<p class="tribe-common-h1">Heading 1</p>
+	<h1 class="tribe-common-h1">Heading 1</h1>
 	<br />
-	<p class="tribe-common-h2">Heading 2</p>
+	<h2 class="tribe-common-h2">Heading 2</h2>
 	<br />
-	<p class="tribe-common-h3">Heading 3</p>
+	<h3 class="tribe-common-h3">Heading 3</h3>
 	<br />
-	<p class="tribe-common-h4">Heading 4</p>
+	<h4 class="tribe-common-h4">Heading 4</h4>
 	<br />
-	<p class="tribe-common-h5">Heading 5</p>
+	<h5 class="tribe-common-h5">Heading 5</h5>
 	<br />
-	<p class="tribe-common-h6">Heading 6</p>
+	<h6 class="tribe-common-h6">Heading 6</h6>
+	<br />
+	<h6 class="tribe-common-h7">Heading 7</h6>
+	<br />
+	<h6 class="tribe-common-h8">Heading 8</h6>
 	<br />
 	<h3>Body</h3>
 	<br />
