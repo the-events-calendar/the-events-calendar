@@ -67,6 +67,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'tribe_suppress_query_filters', '__return_true' );
 		add_filter( 'template_include', [ $this, 'filter_template_include' ], 50 );
 		add_filter( 'posts_pre_query', [ $this, 'filter_posts_pre_query' ], 20, 2 );
+		add_filter( 'body_class', [ $this, 'body_class' ] );
 		add_filter( 'query_vars', [ $this, 'filter_query_vars' ], 15 );
 	}
 
@@ -185,5 +186,14 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		$query_vars[] = 'tribe_remove_date_filters';
 
 		return $this->container->make( Kitchen_Sink::class )->filter_register_query_vars( $query_vars );
+	}
+
+	/**
+	 * Filters the body classes to add theme compatibility ones.
+	 *
+	 * @since TBD
+	 */
+	public function body_class( $classes ) {
+		return $this->container->make( Theme_Compatibility::class )->body_class( $classes );
 	}
 }

@@ -33,13 +33,18 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		$this->container->singleton( Template\Event::class, Template\Event::class );
 		$this->container->singleton( Template\Page::class, Template\Page::class );
 		$this->container->singleton( Kitchen_Sink::class, Kitchen_Sink::class );
+		$this->container->singleton( Theme_Compatibility::class, Theme_Compatibility::class );
 		$this->container->singleton( Rest_Endpoint::class, Rest_Endpoint::class );
 
 		$this->register_hooks();
 		$this->register_v1_compat();
 
+		$assets = new Assets( $this->container );
+		$assets->register();
+
 		// Register this service provider in the service locator.
 		$this->container->singleton( 'views-v2.provider', $this );
+		$this->container->singleton( Assets::class, $assets );
 
 		// Since the View main class will act as a DI container itself let's provide it with the global container.
 		View::set_container( $this->container );
