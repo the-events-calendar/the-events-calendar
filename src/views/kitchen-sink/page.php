@@ -62,12 +62,12 @@ tribe_asset_enqueue( 'tribe-common-style' );
 		<legend>Legend for Checkboxes</legend>
 		<div class="tribe-common-form-control-checkbox-radio-group">
 			<div class="tribe-common-form-control-checkbox">
-				<input id="checkboxOne" name="checkboxGroup" type="checkbox" value="checkboxOne" />
-				<label for="checkboxOne">Checkbox One</label>
+				<input class="tribe-common-form-control-checkbox__input" id="checkboxOne" name="checkboxGroup" type="checkbox" value="checkboxOne" />
+				<label class="tribe-common-form-control-checkbox__label" for="checkboxOne">Checkbox One</label>
 			</div>
 			<div class="tribe-common-form-control-checkbox">
-				<input id="checkboxTwo" name="checkboxGroup" type="checkbox" value="checkboxTwo" />
-				<label for="checkboxTwo">Checkbox Two</label>
+				<input class="tribe-common-form-control-checkbox__input" id="checkboxTwo" name="checkboxGroup" type="checkbox" value="checkboxTwo" />
+				<label class="tribe-common-form-control-checkbox__label" for="checkboxTwo">Checkbox Two</label>
 			</div>
 		</div>
 	</fieldset>
@@ -76,12 +76,12 @@ tribe_asset_enqueue( 'tribe-common-style' );
 		<legend>Legend for Radios</legend>
 		<div class="tribe-common-form-control-checkbox-radio-group">
 			<div class="tribe-common-form-control-radio">
-				<input id="radioOne" name="radioGroup" type="radio" value="radioOne" />
-				<label for="radioOne">Radio One</label>
+				<input class="tribe-common-form-control-radio__input" id="radioOne" name="radioGroup" type="radio" value="radioOne" />
+				<label class="tribe-common-form-control-radio__label" for="radioOne">Radio One</label>
 			</div>
 			<div class="tribe-common-form-control-radio">
-				<input id="radioTwo" name="radioGroup" type="radio" value="radioTwo" />
-				<label for="radioTwo">Radio Two</label>
+				<input class="tribe-common-form-control-radio__input" id="radioTwo" name="radioGroup" type="radio" value="radioTwo" />
+				<label class="tribe-common-form-control-radio__label" for="radioTwo">Radio Two</label>
 			</div>
 		</div>
 	</fieldset>
@@ -99,13 +99,13 @@ tribe_asset_enqueue( 'tribe-common-style' );
 	</div>
 	<br />
 	<div class="tribe-common-form-control-slider">
-		<input id="sliderOne" type="range" min="0" max="100" value="50" />
-		<label for="sliderOne">Slider One</label>
+		<input class="tribe-common-form-control-slider__input" id="sliderOne" type="range" min="0" max="100" value="50" />
+		<label class="tribe-common-form-control-slider__label" for="sliderOne">Slider One</label>
 	</div>
 	<br />
 	<div class="tribe-common-form-control-slider tribe-common-form-control-slider--vertical">
-		<label for="sliderTwo">Slider Two</label>
-		<input id="sliderTwo" type="range" min="0" max="100" value="50" />
+		<label class="tribe-common-form-control-slider__label" for="sliderTwo">Slider Two</label>
+		<input class="tribe-common-form-control-slider__input" id="sliderTwo" type="range" min="0" max="100" value="50" />
 	</div>
 	<br />
 	<h3>Tabs & Selects</h3>
@@ -125,11 +125,11 @@ tribe_asset_enqueue( 'tribe-common-style' );
 	</div>
 	<br />
 	<div class="tribe-common-form-control-select" style="margin-top: 100px;">
-		<button id="selectButton" aria-haspopup="listbox" aria-labelledby="selectButton" aria-expanded="true">Month</button>
-		<ul tabindex="-1" role="listbox" aria-activedescendant="selectItemMonth">
-			<li id="selectItemMonth" role="option" aria-selected="true">Month</li>
-			<li id="selectItemWeek" role="option">Week</li>
-			<li id="selectItemDay" role="option">Day</li>
+		<button class="tribe-common-form-control-select__button" id="selectButton" aria-haspopup="listbox" aria-labelledby="selectButton" aria-expanded="true">Month</button>
+		<ul class="tribe-common-form-control-select__list" tabindex="-1" role="listbox" aria-activedescendant="selectItemMonth">
+			<li class="tribe-common-form-control-select__list-item" id="selectItemMonth" role="option" aria-selected="true">Month</li>
+			<li class="tribe-common-form-control-select__list-item" id="selectItemWeek" role="option">Week</li>
+			<li class="tribe-common-form-control-select__list-item" id="selectItemDay" role="option">Day</li>
 		</ul>
 	</div>
 	<br />
