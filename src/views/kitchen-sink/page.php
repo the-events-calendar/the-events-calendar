@@ -89,13 +89,13 @@ tribe_asset_enqueue( 'tribe-common-style' );
 	<h3>Toggles & Sliders</h3>
 	<br />
 	<div class="tribe-common-form-control-toggle">
-		<input id="toggleHorizontal" name="toggleGroup" type="checkbox" value="toggleHorizontal" />
-		<label for="toggleHorizontal">Toggle Horizontal</label>
+		<input class="tribe-common-form-control-toggle__input" id="toggleHorizontal" name="toggleGroup" type="checkbox" value="toggleHorizontal" />
+		<label class="tribe-common-form-control-toggle__label" for="toggleHorizontal">Toggle Horizontal</label>
 	</div>
 	<br />
 	<div class="tribe-common-form-control-toggle tribe-common-form-control-toggle--vertical">
-		<label for="toggleVertical">Toggle Vertical</label>
-		<input id="toggleVertical" name="toggleGroup" type="checkbox" value="toggleVertical" />
+		<label class="tribe-common-form-control-toggle__label" for="toggleVertical">Toggle Vertical</label>
+		<input class="tribe-common-form-control-toggle__input" id="toggleVertical" name="toggleGroup" type="checkbox" value="toggleVertical" />
 	</div>
 	<br />
 	<div class="tribe-common-form-control-slider">
@@ -111,15 +111,15 @@ tribe_asset_enqueue( 'tribe-common-style' );
 	<h3>Tabs & Selects</h3>
 	<br />
 	<div class="tribe-common-form-control-tabs">
-		<button id="tabButton" aria-haspopup="listbox" aria-labelledby="tabButton" aria-expanded="true">Tab One</button>
-		<ul tabindex="-1" role="listbox" aria-activedescendant="tabOneLabel">
-			<li role="presentation">
-				<input id="tabOne" name="tabGroup" type="radio" value="tabOne" checked="checked" />
-				<label id="tabOneLabel" for="tabOne" role="option" aria-selected="true">Tab One</label>
+		<button class="tribe-common-form-control-tabs__button" id="tabButton" aria-haspopup="listbox" aria-labelledby="tabButton" aria-expanded="true">Tab One</button>
+		<ul class="tribe-common-form-control-tabs__list" tabindex="-1" role="listbox" aria-activedescendant="tabOneLabel">
+			<li class="tribe-common-form-control-tabs__list-item" role="presentation">
+				<input class="tribe-common-form-control-tabs__input" id="tabOne" name="tabGroup" type="radio" value="tabOne" checked="checked" />
+				<label class="tribe-common-form-control-tabs__label" id="tabOneLabel" for="tabOne" role="option" aria-selected="true">Tab One</label>
 			</li>
-			<li role="presentation">
-				<input id="tabTwo" name="tabGroup" type="radio" value="tabTwo" />
-				<label id="tabTwoLabel" for="tabTwo" role="option">Tab Two</label>
+			<li class="tribe-common-form-control-tabs__list-item" role="presentation">
+				<input class="tribe-common-form-control-tabs__input" id="tabTwo" name="tabGroup" type="radio" value="tabTwo" />
+				<label class="tribe-common-form-control-tabs__label" id="tabTwoLabel" for="tabTwo" role="option">Tab Two</label>
 			</li>
 		</ul>
 	</div>
