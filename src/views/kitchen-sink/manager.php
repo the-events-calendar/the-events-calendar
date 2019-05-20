@@ -15,7 +15,7 @@ tribe_asset_enqueue( 'tribe-events-views-v2-manager' );
 	</div>
 	<input type="text" name="tribe-events-views[view]" value="default" />
 
-	<?php wp_nonce_field( 'wp_rest', 'tribe-events-views[nonce]' ); ?>
+	<?php wp_nonce_field( 'wp_rest', 'tribe-events-views[_wpnonce]' ); ?>
 
 	<br />
 
