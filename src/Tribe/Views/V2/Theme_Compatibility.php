@@ -90,10 +90,8 @@ class Theme_Compatibility {
 		$classes[] = "tribe-theme-$parent_theme";
 
 		if ( $child_theme ) {
-			$theme_classes = "tribe-theme-child-$child_theme";
+			$classes[] = "tribe-theme-child-$child_theme";
 		}
-
-		$classes[] = $theme_classes;
 
 		return $classes;
 	}
