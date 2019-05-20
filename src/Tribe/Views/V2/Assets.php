@@ -31,6 +31,15 @@ class Assets extends \tad_DI52_ServiceProvider {
 
 		tribe_asset(
 			$plugin,
+			'tribe-events-calendar-views-v2',
+			'views/tribe-events-v2.css',
+			[ 'tribe-common-style' ],
+			'wp_enqueue_scripts',
+			[ 'priority' => 10 ]
+		);
+
+		tribe_asset(
+			$plugin,
 			'tribe-events-views-v2-manager',
 			'views/manager.js',
 			[ 'jquery', 'tribe-common', 'tribe-query-string' ],

@@ -1,24 +1,28 @@
 <?php
 tribe_asset_enqueue( 'tribe-common-style' );
 ?>
-<div class="tribe-events">
+<div class="tribe-common">
 	<h1>Kitchen Sink</h1>
 	<br />
 	<h2>Typography</h2>
 	<br />
 	<h3>Headings</h3>
 	<br />
-	<p class="tribe-common-h1">Heading 1</p>
+	<h1 class="tribe-common-h1">Heading 1</h1>
 	<br />
-	<p class="tribe-common-h2">Heading 2</p>
+	<h2 class="tribe-common-h2">Heading 2</h2>
 	<br />
-	<p class="tribe-common-h3">Heading 3</p>
+	<h3 class="tribe-common-h3">Heading 3</h3>
 	<br />
-	<p class="tribe-common-h4">Heading 4</p>
+	<h4 class="tribe-common-h4">Heading 4</h4>
 	<br />
-	<p class="tribe-common-h5">Heading 5</p>
+	<h5 class="tribe-common-h5">Heading 5</h5>
 	<br />
-	<p class="tribe-common-h6">Heading 6</p>
+	<h6 class="tribe-common-h6">Heading 6</h6>
+	<br />
+	<h6 class="tribe-common-h7">Heading 7</h6>
+	<br />
+	<h6 class="tribe-common-h8">Heading 8</h6>
 	<br />
 	<h3>Body</h3>
 	<br />
@@ -56,25 +60,29 @@ tribe_asset_enqueue( 'tribe-common-style' );
 	<br />
 	<fieldset>
 		<legend>Legend for Checkboxes</legend>
-		<div class="tribe-common-form-control-checkbox">
-			<input id="checkboxOne" name="checkboxGroup" type="checkbox" value="checkboxOne" />
-			<label for="checkboxOne">Checkbox One</label>
-		</div>
-		<div class="tribe-common-form-control-checkbox">
-			<input id="checkboxTwo" name="checkboxGroup" type="checkbox" value="checkboxTwo" />
-			<label for="checkboxTwo">Checkbox Two</label>
+		<div class="tribe-common-form-control-checkbox-radio-group">
+			<div class="tribe-common-form-control-checkbox">
+				<input id="checkboxOne" name="checkboxGroup" type="checkbox" value="checkboxOne" />
+				<label for="checkboxOne">Checkbox One</label>
+			</div>
+			<div class="tribe-common-form-control-checkbox">
+				<input id="checkboxTwo" name="checkboxGroup" type="checkbox" value="checkboxTwo" />
+				<label for="checkboxTwo">Checkbox Two</label>
+			</div>
 		</div>
 	</fieldset>
 	<br />
 	<fieldset>
 		<legend>Legend for Radios</legend>
-		<div class="tribe-common-form-control-radio">
-			<input id="radioOne" name="radioGroup" type="radio" value="radioOne" />
-			<label for="radioOne">Radio One</label>
-		</div>
-		<div class="tribe-common-form-control-radio">
-			<input id="radioTwo" name="radioGroup" type="radio" value="radioTwo" />
-			<label for="radioTwo">Radio Two</label>
+		<div class="tribe-common-form-control-checkbox-radio-group">
+			<div class="tribe-common-form-control-radio">
+				<input id="radioOne" name="radioGroup" type="radio" value="radioOne" />
+				<label for="radioOne">Radio One</label>
+			</div>
+			<div class="tribe-common-form-control-radio">
+				<input id="radioTwo" name="radioGroup" type="radio" value="radioTwo" />
+				<label for="radioTwo">Radio Two</label>
+			</div>
 		</div>
 	</fieldset>
 	<br />
@@ -124,4 +132,24 @@ tribe_asset_enqueue( 'tribe-common-style' );
 			<li id="selectItemDay" role="option">Day</li>
 		</ul>
 	</div>
+	<br />
+	<h3>Search</h3>
+	<br />
+	<form action="" method="post" class="tribe-common-c-search" style="margin-top: 100px">
+		<div class="tribe-common-form-control-input-group">
+			<div class="tribe-common-form-control-text">
+				<label for="keyword">Keyword</label>
+				<input type="text" id="keyword" name="keyword" placeholder="Keyword" />
+			</div>
+			<div class="tribe-common-form-control-text">
+				<label for="location">Location</label>
+				<input type="text" id="location" name="location" placeholder="Location" />
+			</div>
+			<div class="tribe-common-form-control-text">
+				<label for="date">Date</label>
+				<input type="text" id="date" name="date" placeholder="Enter Date" />
+			</div>
+		</div>
+		<button type="submit" class="tribe-common-c-btn">Find Events</button>
+	</form>
 </div>
