@@ -20,7 +20,7 @@ $event_id = $event->ID;
 		href="<?php echo esc_url( tribe_get_event_link( $event_id ) ); ?>"
 		title="<?php the_title_attribute( $event_id ) ?>"
 		rel="bookmark"
-		class="tribe-events-calendar-list__event--title-link"
+		class="tribe-events-calendar-list__event-title-link"
 	>
 		<?php echo get_the_title( $event_id ) ?>
 	</a>
