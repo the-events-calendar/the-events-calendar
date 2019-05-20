@@ -9,7 +9,7 @@ Background:
 Scenario: display of single-day timed event in List View
 
 Scenario: display of single-day event with the same start and end time in List View
-#This is a thing in the current views, but maybe not supported after VR?
+# This is a thing in the current views, but maybe not supported after VR?
 
 Scenario: display of multi-day timed event in List View
 
