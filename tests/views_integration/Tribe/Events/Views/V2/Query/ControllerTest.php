@@ -124,7 +124,7 @@ class ControllerTest extends \Codeception\TestCase\WPTestCase {
 		$past_event       = static::factory()->event->create( [ 'when' => '2018-09-01' ] );
 		$expected_event_1 = static::factory()->event->create( [ 'when' => '2018-10-15' ] );
 		$expected_event_2 = static::factory()->event->create( [ 'when' => '2018-10-16' ] );
-		add_filter( 'tribe_events_views_v2_events_query_controller_orm_args', function () {
+		add_filter( 'tribe_events_views_v2_events_query_controller_orm_args', static function () {
 			return [
 				'posts_per_page' => 1,
 				'fields'         => 'ids',
