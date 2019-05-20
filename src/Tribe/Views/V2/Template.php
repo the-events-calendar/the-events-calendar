@@ -53,7 +53,8 @@ class Template extends Base_Template {
 		$this->set( 'slug', $slug );
 		$this->set_template_origin( tribe( 'tec.main' ) )
 		     ->set_template_folder( 'src/views/v2' )
-		     ->set_template_folder_lookup( true );
+		     ->set_template_folder_lookup( true )
+		     ->set_template_context_extract( true );
 	}
 
 	/**

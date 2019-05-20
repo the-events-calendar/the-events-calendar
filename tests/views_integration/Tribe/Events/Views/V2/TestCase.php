@@ -73,6 +73,12 @@ abstract class TestCase extends WPTestCase {
 		// Always set the `is_main_query` value to `false` to have a clean starting fixture.
 		tribe_context()->alter( [ 'is_main_query' => false ] )->dangerously_set_global_context( [ 'is_main_query' ] );
 		$this->global_context_before_test = tribe_context()->to_array();
+		/*
+		 * Filter the `home_url` to make sure URLs printed on the page are consistent across environments.
+		 */
+		add_filter('home_url', static function ($url, $path = null) {
+			return 'http://test.tri.be/' . ltrim($path, '/');
+		}, 10, 2);
 	}
 
 	/**
