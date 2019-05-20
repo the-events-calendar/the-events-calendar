@@ -111,7 +111,7 @@
 		<span class="tribe-event-date-start">January 1, 2018 @ 10:00 am</span> - <span class="tribe-event-time">1:00 pm</span>	</time>
 </div>			<h3 class="tribe-events-calendar-list__event--title">
 	<a
-		href="http://tecorm.local/?tribe_events=test-event-fa95745058001b098f83649aca569bf6%2F"
+		href="http://test.tri.be/?tribe_events=test-event-fa95745058001b098f83649aca569bf6%2F"
 		title=""
 		rel="bookmark"
 		class="tribe-events-calendar-list__event--title-link"
@@ -147,7 +147,7 @@
 		<span class="tribe-event-date-start">January 2, 2018 @ 8:00 am</span> - <span class="tribe-event-time">11:00 am</span>	</time>
 </div>			<h3 class="tribe-events-calendar-list__event--title">
 	<a
-		href="http://tecorm.local/?tribe_events=test-event-518de7f46caf4882f39a2fc6e3f8dca1%2F"
+		href="http://test.tri.be/?tribe_events=test-event-518de7f46caf4882f39a2fc6e3f8dca1%2F"
 		title=""
 		rel="bookmark"
 		class="tribe-events-calendar-list__event--title-link"
@@ -183,7 +183,7 @@
 		<span class="tribe-event-date-start">February 2, 2018 @ 11:00 am</span> - <span class="tribe-event-time">2:00 pm</span>	</time>
 </div>			<h3 class="tribe-events-calendar-list__event--title">
 	<a
-		href="http://tecorm.local/?tribe_events=test-event-4cd179b5da9deb2d6f07e60842a35326%2F"
+		href="http://test.tri.be/?tribe_events=test-event-4cd179b5da9deb2d6f07e60842a35326%2F"
 		title=""
 		rel="bookmark"
 		class="tribe-events-calendar-list__event--title-link"
@@ -214,7 +214,7 @@
 	<ul>
 		<li>
 	<a
-		href="http://tecorm.local/events/list/?tribe_event_display=past&#038;tribe_paged=1"
+		href="http://test.tri.be/events/list/?tribe_event_display=past&#038;tribe_paged=1"
 		rel="prev"
 		class="tribe-common-c-nav__prev"
 	>

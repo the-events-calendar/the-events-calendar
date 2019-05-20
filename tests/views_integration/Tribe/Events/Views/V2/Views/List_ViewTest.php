@@ -3,11 +3,17 @@
 namespace Tribe\Events\Views\V2\Views;
 
 use Spatie\Snapshots\MatchesSnapshots;
+use Tribe\Events\Views\V2\TestCase;
 use Tribe\Events\Views\V2\View;
 
-class List_ViewTest extends \Codeception\TestCase\WPTestCase {
+class List_ViewTest extends TestCase {
 
 	use MatchesSnapshots;
+
+	public function setUp()
+	{
+		parent::setUp();
+	}
 
 	/**
 	 * Test render empty
