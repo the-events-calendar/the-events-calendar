@@ -19,6 +19,6 @@
 	</a>
 
 	<span class="tribe-common-h3 tribe-common-h3--alt tribe-events__top-bar-today--title">
-		<?php esc_html_e( 'Now', 'the-events-calendar' ); ?> &mdash; <?php echo date( 'F jS, Y', time() ); ?>
+		<?php esc_html_e( 'Now', 'the-events-calendar' ); ?> &mdash; <time datetime="<?php echo esc_attr( date( 'Y-m-d', time() ) ); ?>"><?php echo date( 'F jS, Y', time() ); ?></time>
 	</span>
 </div>
