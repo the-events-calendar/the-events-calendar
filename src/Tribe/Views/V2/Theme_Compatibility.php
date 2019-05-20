@@ -87,10 +87,10 @@ class Theme_Compatibility {
 			$child_theme = false;
 		}
 
+		$classes[] = "tribe-theme-$parent_theme";
+
 		if ( $child_theme ) {
-			$theme_classes = "tribe-theme-parent-$parent_theme tribe-theme-child-$child_theme";
-		} else {
-			$theme_classes = "tribe-theme-$parent_theme";
+			$theme_classes = "tribe-theme-child-$child_theme";
 		}
 
 		$classes[] = $theme_classes;
