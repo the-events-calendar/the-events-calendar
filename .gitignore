@@ -33,3 +33,6 @@ src/resources/**/app
 
 # get from translate.wordpress.org as needed
 lang/*.po
+
+# tribe-common-styles
+src/resources/postcss/utilities

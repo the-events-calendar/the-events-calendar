@@ -13,7 +13,8 @@
     "xamin/handlebars.php": "^0.10.3",
     "mikey179/vfsStream": "^1.6",
     "spatie/phpunit-snapshot-assertions": "^1.2",
-    "lucatume/wp-snaphot-assertions": "1.0.0"
+    "lucatume/wp-snaphot-assertions": "1.0.0",
+    "moderntribe/tribe-common-styles": "dev-master"
   },
   "minimum-stability": "stable",
   "prefer-stable": true,
@@ -30,10 +31,25 @@
       "Tribe\\Tests\\Modules\\Core\\": "tests/_support/Modules"
     }
   },
+  "repositories": [
+    {
+      "name": "moderntribe/tribe-common-styles",
+      "type": "github",
+      "url": "https://github.com/moderntribe/tribe-common-styles",
+      "no-api": true
+    }
+  ],
   "require": {
   },
   "scripts": {
     "start-chromedriver": "docker run --rm -d --name chromedriver -p 4444:4444 selenium/standalone-chrome",
     "stop-chromedriver": "docker stop chromedriver"
+  },
+  "extra": {
+    "installer-paths": {
+      "src/resources/postcss/utilities": [
+        "moderntribe/tribe-common-styles"
+      ]
+    }
   }
 }
