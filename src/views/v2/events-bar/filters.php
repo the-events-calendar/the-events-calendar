@@ -13,11 +13,11 @@
  *
  */
 ?>
-<div class="tribe-events__events-bar-filters">
-	<div class="tribe-events__events-bar-filters--toggle-search">
-		<button class="tribe-common-c-btn-icon tribe-common-c-btn-icon--border tribe-common-c-btn-icon--search tribe-events__events-bar-filters--btn-no-border-mobile"></button>
+<div class="tribe-events-c-events-bar__filters">
+	<div class="tribe-events-c-events-bar__filters-button-wrapper tribe-events-c-events-bar__filters-button-wrapper--search">
+		<button class="tribe-common-c-btn-icon tribe-common-c-btn-icon--search tribe-events-c-events-bar__filters-button tribe-events-c-events-bar__filters-button--search"></button>
 	</div>
-	<div class="tribe-events__events-bar-filters--filters">
-		<button class="tribe-common-c-btn-icon tribe-common-c-btn-icon--border tribe-common-c-btn-icon--filters tribe-events__events-bar-filters--btn-no-border-mobile"></button>
+	<div class="tribe-events-c-events-bar__filters-button-wrapper tribe-events-c-events-bar__filters-button-wrapper--filter">
+		<button class="tribe-common-c-btn-icon tribe-common-c-btn-icon--filters tribe-events-c-events-bar__filters-button tribe-events-c-events-bar__filters-button--filter"></button>
 	</div>
 </div>
