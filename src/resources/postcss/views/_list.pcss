@@ -91,26 +91,23 @@
 
 	.tribe-events-calendar-list__event--featured {
 
-		.tribe-events-calendar-list__event-datetime {
-
-			&:after {
-				width: 12px;
-				height: 12px;
-				background-image: svg-inline(icon-featured);
-				background-repeat: no-repeat;
-				background-size: contain;
-				display: inline-block;
-				content: '';
-				margin-left: 10px;
-			}
-		}
-
 		.tribe-events-calendar-list__event-featured-image {
 			flex: 1 1 100%;
 
 			@media (--viewport-medium) {
 				flex: 1 0 520px;
 			}
+		}
+
+		.tribe-events-calendar-list__event-datetime-featured-icon {
+			width: 12px;
+			height: 12px;
+			background-image: svg-inline(icon-featured);
+			background-repeat: no-repeat;
+			background-size: contain;
+			display: inline-block;
+			content: '';
+			margin-left: 10px;
 		}
 	}
 }
