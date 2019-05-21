@@ -50,7 +50,7 @@ class Template extends Base_Template {
 	 */
 	public function __construct( $slug ) {
 		$this->slug = $slug;
-		$this->set( 'slug', $slug, false );
+		$this->set( 'slug', $slug );
 		$this->set_template_origin( tribe( 'tec.main' ) )
 		     ->set_template_folder( 'src/views/v2' )
 		     ->set_template_folder_lookup( true )
@@ -105,54 +105,5 @@ class Template extends Base_Template {
 	 */
 	public function get_not_found_template() {
 		return parent::get_template_file( 'not-found' );
-	}
-
-	/**
-	 * Sets an array of values in the template.
-	 *
-	 * This is a sugar method to calling `Tribe\Events\Views\V2\Template::set` in a loop.
-	 *
-	 * @since TBD
-	 *
-	 * @param  array    $values    An associative array of keys and values that will be set on the template.
-	 * @param  boolean  $is_local  Set the values in the local or Global context.
-	 */
-	public function set_values( array $values, $is_local = true ) {
-		foreach ( $values as $key => $value ) {
-			$this->set( $key, $value, $is_local );
-		}
-	}
-
-	/**
-	 * Returns the template local values merged over the global ones.
-	 *
-	 * @since TBD
-	 *
-	 * @return array An associative array of the template global values.
-	 */
-	public function get_values() {
-		return array_merge( $this->get_global_values(), $this->get_local_values() );
-	}
-
-	/**
-	 * Returns the template global values only.
-	 *
-	 * @since TBD
-	 *
-	 * @return array An associative array containing only the template global values.
-	 */
-	public function get_global_values() {
-		return $this->global;
-	}
-
-	/**
-	 * Returns the template local values only.
-	 *
-	 * @since TBD
-	 *
-	 * @return array An associative array containing only the template local values.
-	 */
-	public function get_local_values() {
-		return $this->context;
 	}
 }
