@@ -6,8 +6,36 @@
  */
 .tribe-events {
 
+	/**
+	 * @todo: look into whether we need this, as we shouldn't globally set font
+	 *        but rather by component.
+	 */
 	.tribe-events-calendar-list {
 		font-family: var(--font-family-base);
+	}
+
+	.tribe-events-calendar-list__separator-month {
+		display: flex;
+		align-items: center;
+		margin-bottom: var(--spacer-6);
+
+		&:after {
+			background-color: var(--color-border-default);
+			content: '';
+			display: block;
+			flex: auto;
+			height: 1px;
+		}
+	}
+
+	.tribe-events-calendar-list__separator-month-text {
+		@mixin mobile-body-1-bold;
+
+		flex: none;
+
+		@media (--viewport-medium) {
+			@mixin desktop-body-1-sup;
+		}
 	}
 
 	.tribe-events-calendar-list__event {
@@ -88,7 +116,7 @@
 		}
 	}
 
-	.tribe-events-calendar-list__event-featured {
+	.tribe-events-calendar-list__event--featured {
 
 		.tribe-events-calendar-list__event-datetime time {
 			&:after {
@@ -111,34 +139,6 @@
 			@media (--viewport-medium) {
 				flex: 1 0 520px;
 			}
-		}
-	}
-
-	.tribe-events-calendar-list__separator-month {
-		display: block;
-		position: relative;
-		margin-bottom: var(--spacer-6);
-
-		&:after {
-			content: '';
-			border-bottom: 1px solid var(--color-border-default);
-			height: 1px;
-			width: 100%;
-			display: block;
-			position: absolute;
-			top: 50%;
-			left: 0;
-			z-index: 0;
-		}
-
-		span {
-			background-color: #fff;
-			font-size: var(--font-size-3);
-			font-weight: var(--font-weight-bold);
-			padding: 0 20px 0 0;
-			position: relative;
-			text-transform: uppercase;
-			z-index: 10;
 		}
 	}
 }
