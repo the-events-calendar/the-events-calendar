@@ -3,6 +3,7 @@
 namespace Tribe\Events\Views\V2\Views;
 
 use Spatie\Snapshots\MatchesSnapshots;
+use tad\FunctionMocker\FunctionMocker as Test;
 use Tribe\Events\Views\V2\TestCase;
 use Tribe\Events\Views\V2\View;
 
@@ -13,6 +14,10 @@ class List_ViewTest extends TestCase {
 	public function setUp()
 	{
 		parent::setUp();
+		Test::setUp();
+		Test::replace( 'date', function ( $format ) {
+			return ( new \DateTime( '2019-01-01 09:00:00' ) )->format( $format );
+		} );
 	}
 
 	/**
@@ -57,5 +62,9 @@ class List_ViewTest extends TestCase {
 		$html = $list_view->get_html();
 
 		$this->assertMatchesSnapshot( $html );
+	}
+
+	public function tearDown(  ) {
+		Test::tearDown()	;
 	}
 }
