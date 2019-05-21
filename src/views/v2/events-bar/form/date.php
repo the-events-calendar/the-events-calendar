@@ -14,7 +14,7 @@
  */
 ?>
 <div class="tribe-common-form-control-text">
-	<label class="tribe-common-form-control-text__label" for="date"><?php esc_html_e( 'Enter date. Please use the format 4 digit year hyphen 2 digit month hyphen 2 digit day.', 'the-events-calendar' ); ?></label>
+	<label class="tribe-common-form-control-text__label" for="tribe-bar-date"><?php esc_html_e( 'Enter date. Please use the format 4 digit year hyphen 2 digit month hyphen 2 digit day.', 'the-events-calendar' ); ?></label>
 	<input
 		class="tribe-common-form-control-text__input tribe-common-c-search__input"
 		type="text"
