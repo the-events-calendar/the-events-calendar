@@ -54,7 +54,7 @@ class Id_GeneratorTest extends \Codeception\TestCase\WPTestCase {
 	 * @dataProvider nonStringArguments
 	 */
 	public function it_should_throw_when_passing_a_non_string_argument( $non_string_argument ) {
-		$this->expectException( InvalidArgumentException::class );
+		$this->expectException( \InvalidArgumentException::class );
 
 		\Tribe__Events__Utils__Id_Generator::generate_id( $non_string_argument );
 	}
