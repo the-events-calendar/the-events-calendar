@@ -16,8 +16,8 @@
 $event    = $this->get( 'event' );
 $event_id = $event->ID;
 ?>
-<div class="tribe-events-calendar-list__event-datetime">
-	<time datetime="1970-01-01T00:00:00+00:00">
+<div class="tribe-events-calendar-list__event-datetime-wrapper">
+	<time class="tribe-events-calendar-list__event-datetime tribe-common-b2" datetime="1970-01-01T00:00:00+00:00">
 		<?php echo tribe_events_event_schedule_details( $event ); ?>
 	</time>
 </div>
