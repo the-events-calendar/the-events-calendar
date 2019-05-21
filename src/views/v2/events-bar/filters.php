@@ -18,6 +18,7 @@
 		<button
 			class="tribe-common-c-btn-icon tribe-common-c-btn-icon--search tribe-events-c-events-bar__filters-button tribe-events-c-events-bar__filters-button--search"
 			aria-label="<?php esc_html_e( 'Search', 'the-events-calendar' ) ?>"
+			title="<?php esc_html_e( 'Search', 'the-events-calendar' ) ?>"
 		>
 		</button>
 	</div>
@@ -25,6 +26,7 @@
 		<button
 			class="tribe-common-c-btn-icon tribe-common-c-btn-icon--filters tribe-events-c-events-bar__filters-button tribe-events-c-events-bar__filters-button--filter"
 			aria-label="<?php esc_html_e( 'Filter', 'the-events-calendar' ) ?>"
+			title="<?php esc_html_e( 'Filter', 'the-events-calendar' ) ?>"
 		>
 		</button>
 	</div>
