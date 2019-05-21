@@ -10,8 +10,6 @@ tribe_asset_enqueue( 'tribe-events-views-v2-manager' );
 	method="get"
 	data-rest-url="<?php echo esc_url( tribe( Rest_Endpoint::class )->get_url() ); ?>"
 >
-	<?php var_dump( $_GET ); ?>
-
 
 	<div class="tribe-events-view-loader tribe-hidden">
 		<div class="tribe-events-view-loader-spinner">Loading...</div>

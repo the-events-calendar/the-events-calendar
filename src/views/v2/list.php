@@ -12,25 +12,32 @@
  * @version TBD
  *
  */
-
+use Tribe\Events\Views\V2\Rest_Endpoint;
 $events_label_plural = tribe_get_event_label_plural();
-
-$this->template( 'events-bar' );
-
-$this->template( 'top-bar' );
-
 ?>
+<form
+	class="tribe-common tribe-events tribe-events-container"
+	action=""
+	method="get"
+	data-rest-url="<?php echo esc_url( tribe( Rest_Endpoint::class )->get_url() ); ?>"
+>
+	<?php $this->template( 'update-url-script', [ 'url' => home_url( 'events/list/page/3' ), 'title' => 'Developers title' ] ); ?>
 
-<div class="tribe-events-calendar-list">
+	<?php $this->template( 'events-bar' ); ?>
 
-	<?php $this->template( 'list/month-separator', [ 'month' => date( 'M' )] ); ?>
+	<?php $this->template( 'top-bar' ); ?>
 
-	<?php foreach ( $events as $event ) : ?>
+	<div class="tribe-events-calendar-list">
 
-		<?php $this->template( 'list/single-event', [ 'event' => $event ] ); ?>
+		<?php $this->template( 'list/month-separator', [ 'month' => date( 'M' ) ] ); ?>
 
-	<?php endforeach; ?>
+		<?php foreach ( $events as $event ) : ?>
 
-</div>
+			<?php $this->template( 'list/single-event', [ 'event' => $event ] ); ?>
 
-<?php $this->template( 'list/nav' ); ?>
+		<?php endforeach; ?>
+
+	</div>
+
+	<?php $this->template( 'list/nav' ); ?>
+</form>

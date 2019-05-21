@@ -76,6 +76,9 @@ tribe.events.views.manager = {};
 		if ( $container.is( 'form' ) ) {
 			$container.on( 'submit.tribeEvents', obj.onSubmit );
 		}
+
+		// Binds and action to the container that will update the URL based on backed
+		$container.on( 'updateUrl.tribeEvents', obj.onUpdateUrl );
 	};
 
 	/**
@@ -95,6 +98,29 @@ tribe.events.views.manager = {};
 		}
 
 		return $element;
+	};
+
+	/**
+	 * Triggered by the Backend once we fetch a new HTML via an container action
+	 *
+	 * Usage, on the AJAX request we will use the following
+	 *
+	 * <script>
+	 * jQuery( this )
+	 *   .parents( tribe.events.views.manager.selectors.container )
+	 *   .trigger( 'updateUrl.tribeEvents', [ $url, $title ] );
+	 * </script>
+	 *
+	 * @since TBD
+	 *
+	 * @param  {Event}  event DOM Event related to the Click action
+	 * @param  {string} url   To which URL we should send push to
+	 * @param  {string} title New Browser title
+	 *
+	 * @return {void}
+	 */
+	obj.onUpdateUrl = function( event, url, title ) {
+		window.history.pushState( null, title, url );
 	};
 
 	/**
