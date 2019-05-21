@@ -15,7 +15,6 @@
     "spatie/phpunit-snapshot-assertions": "^1.2",
     "lucatume/wp-snaphot-assertions": "1.0.0",
     "moderntribe/tribe-common-styles": "dev-master",
-    "phpunit/phpunit": "^7.0",
     "lucatume/function-mocker": "^1.0"
   },
   "minimum-stability": "stable",
