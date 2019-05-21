@@ -136,20 +136,38 @@ tribe_asset_enqueue( 'tribe-common-style' );
 	<h3>Search</h3>
 	<br />
 	<form action="" method="post" class="tribe-common-c-search" style="margin-top: 100px">
-		<div class="tribe-common-form-control-input-group">
+		<div class="tribe-common-form-control-input-group tribe-common-c-search__input-group">
 			<div class="tribe-common-form-control-text">
 				<label for="keyword">Keyword</label>
-				<input type="text" id="keyword" name="keyword" placeholder="Keyword" />
+				<input
+					class="tribe-common-form-control-text__input tribe-common-c-search__input"
+					type="text"
+					id="keyword"
+					name="keyword"
+					placeholder="Keyword"
+					/>
 			</div>
 			<div class="tribe-common-form-control-text">
 				<label for="location">Location</label>
-				<input type="text" id="location" name="location" placeholder="Location" />
+				<input
+					class="tribe-common-form-control-text__input tribe-common-c-search__input"
+					type="text"
+					id="location"
+					name="location"
+					placeholder="Location"
+					/>
 			</div>
 			<div class="tribe-common-form-control-text">
 				<label for="date">Date</label>
-				<input type="text" id="date" name="date" placeholder="Enter Date" />
+				<input
+					class="tribe-common-form-control-text__input tribe-common-c-search__input"
+					type="text"
+					id="date"
+					name="date"
+					placeholder="Enter Date"
+					/>
 			</div>
 		</div>
-		<button type="submit" class="tribe-common-c-btn">Find Events</button>
+		<button type="submit" class="tribe-common-c-btn tribe-common-c-search__button">Find Events</button>
 	</form>
 </div>
