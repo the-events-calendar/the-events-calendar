@@ -5,7 +5,7 @@
  * To remove a Assets:
  * tribe( 'assets' )->remove( 'asset-name' );
  *
- * @since TBD
+ * @since 4.9.2
  *
  * @package Tribe\Events\Views\V2
  */
@@ -16,7 +16,7 @@ use Tribe__Events__Main as Plugin;
 /**
  * Register
  *
- * @since TBD
+ * @since 4.9.2
  *
  * @package Tribe\Events\Views\V2
  */
@@ -24,7 +24,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 	/**
 	 * Binds and sets up implementations.
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 */
 	public function register() {
 		$plugin = Plugin::instance();
@@ -36,6 +36,14 @@ class Assets extends \tad_DI52_ServiceProvider {
 			[ 'tribe-common-style' ],
 			'wp_enqueue_scripts',
 			[ 'priority' => 10 ]
+		);
+
+		tribe_asset(
+			$plugin,
+			'tribe-events-views-v2-manager',
+			'views/manager.js',
+			[ 'jquery', 'tribe-common', 'tribe-query-string' ],
+			null // prevent it from loading
 		);
 	}
 }

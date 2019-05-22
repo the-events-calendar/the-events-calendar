@@ -3,11 +3,10 @@
  * The List View.
  *
  * @package Tribe\Events\Views\V2\Views
- * @since TBD
+ * @since 4.9.2
  */
 
 namespace Tribe\Events\Views\V2\Views;
-
 
 use Tribe\Events\Views\V2\View;
 use Tribe__Utils__Array as Arr;
@@ -45,7 +44,7 @@ class List_View extends View {
 			'posts_per_page' => $context['posts_per_page'],
 			'paged'          => Arr::get( $context, 'page', 1 ),
 		];
-		$date = Arr::get( $context, 'eventDate', 'now' );
+		$date = Arr::get( $context, 'event_date', 'now' );
 
 		if ( 'past' !== Arr::get( $context, 'event_display', 'current' ) ) {
 			$args['ends_after'] = $date;
@@ -63,7 +62,7 @@ class List_View extends View {
 		 * Ideally one that contains only the variables the template will need to render.
 		 */
 		return $this->template->render( [
-			'events' => $events
+			'events' => $events,
 		] );
 	}
 }

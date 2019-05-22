@@ -14,7 +14,7 @@
  * remove_action( 'some_action', [ tribe( 'views-v2.v1-compat' ), 'some_method' ] );
  *
  * @package Tribe\Events\Views\V2
- * @since TBD
+ * @since 4.9.2
  */
 
 namespace Tribe\Events\Views\V2;
@@ -25,7 +25,7 @@ use Tribe__Events__Main as TEC;
  * Class V1_Compat
  *
  * @package Tribe\Events\Views\V2
- * @since TBD
+ * @since 4.9.2
  */
 class V1_Compat extends \tad_DI52_ServiceProvider {
 
@@ -54,7 +54,7 @@ class V1_Compat extends \tad_DI52_ServiceProvider {
 	 *
 	 * This method is meant to fire after Common and `Tribe__Events__Main` did bootstrap.
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 */
 	public function remove_v1_filters() {
 		$filters_to_remove = [

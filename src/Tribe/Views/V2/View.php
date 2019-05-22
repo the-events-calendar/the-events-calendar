@@ -3,12 +3,13 @@
  * The base view class.
  *
  * @package Tribe\Events\Views\V2
- * @since   TBD
+ * @since   4.9.2
  */
 
 namespace Tribe\Events\Views\V2;
 
 use Tribe\Events\Views\V2\Views\List_View;
+use Tribe\Events\Views\V2\Views\Reflector_View;
 use Tribe__Container as Container;
 use Tribe__Context as Context;
 use Tribe__Utils__Array as Arr;
@@ -17,7 +18,7 @@ use Tribe__Utils__Array as Arr;
  * Class View
  *
  * @package Tribe\Events\Views\V2
- * @since   TBD
+ * @since   4.9.2
  */
 class View implements View_Interface {
 
@@ -79,24 +80,54 @@ class View implements View_Interface {
 	 * @param \WP_REST_Request $request
 	 *
 	 * @return \Tribe\Events\Views\V2\View_Interface
-	 * @since TBD
+	 * @since 4.9.2
 	 */
 	public static function make_for_rest( \WP_REST_Request $request ) {
 		// Try to read the slug from the REST request.
-		$slug = isset( $request['view'] ) ? $request['view'] : false;
+		$params = $request->get_params();
+		$slug = Arr::get( $params, 'view', false );
 
 		if ( false === $slug ) {
-			$url = isset( $request['url'] ) ? $request['url'] : false;
+			// If we cannot get the view slug from the request parameters let's try to get it from the URL.
+			$url = Arr::get( $params, 'url', false );
 			$slug = ( new Url( $url ) )->get_view_slug();
 		}
 
-		return static::make( $slug );
+		if ( ! empty( $slug ) ) {
+			$params['view'] = $slug;
+		}
+
+		/**
+		 * Filters the parameters that will be used to build the View class for a REST request.
+		 *
+		 * This filter will trigger for all Views.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $params An associative array of parameters from the REST request.
+		 * @param \WP_REST_Request $request The current REST request.
+		 */
+		$params = apply_filters( 'tribe_events_views_v2_rest_params', $params, $request );
+
+		if ( ! empty( $slug ) ) {
+			/**
+			 * Filters the parameters that will be used to build a specific View class for a REST request.
+			 *
+			 * @since TBD
+			 *
+			 * @param  array             $params   An associative array of parameters from the REST request.
+			 * @param  \WP_REST_Request  $request  The current REST request.
+			 */
+			$params = apply_filters( "tribe_events_views_v2_{$slug}_rest_params", $params, $request );
+		}
+
+		return static::make( $slug, tribe_context()->alter( $params ) );
 	}
 
 	/**
 	 * Builds and returns an instance of a View by slug or class.
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 *
 	 * @param  string  $view  The view slug, as registered in the `tribe_events_views` filter, or class.
 	 * @param  \Tribe__Context|null  $context  The context this view should render from; if not set then the global
@@ -117,11 +148,13 @@ class View implements View_Interface {
 
 		if ( class_exists( $view ) ) {
 			$view_class = $view;
-			$registration_slug = static::get_view_slug( $view );
+			$slug       = static::get_view_slug( $view );
 		} else {
 			$view_class = Arr::get( $views, $view, false );
-			$registration_slug = $view;
+			$slug       = $view;
 		}
+
+		$request_slug = $slug;
 
 		if ( $view_class ) {
 			if ( ! self::$container instanceof Container ) {
@@ -132,21 +165,68 @@ class View implements View_Interface {
 
 			/** @var \Tribe\Events\Views\V2\View_Interface $instance */
 			$instance = self::$container->make( $view_class );
-			$template = new Template( $registration_slug );
 		} else {
 			$view_class = static::class;
-			$instance = new static();
-			$template = new Template( 'not-found' );
+			$instance   = new static();
+			$slug       = 'not-found';
 		}
+
+		$template = new Template( $slug );
+
+		/**
+		 * Filters the Template object for a View.
+		 *
+		 * @since TBD
+		 *
+		 * @param  \Tribe\Events\Views\V2\Template  $template  The template object for the View.
+		 * @param  string                           $view      The current view slug.
+		 * @param  \Tribe\Events\Views\V2\View      $instance  The current View object.
+		 */
+		$template = apply_filters( 'tribe_events_views_v2_view_template', $template, $view, $instance );
+
+		/**
+		 * Filters the Template object for a specific View.
+		 *
+		 * @since TBD
+		 *
+		 * @param  \Tribe\Events\Views\V2\Template  $template  The template object for the View.
+		 * @param  \Tribe\Events\Views\V2\View      $instance  The current View object.
+		 */
+		$template = apply_filters( "tribe_events_views_v2_{$slug}_view_template", $template, $instance );
 
 		// Set some defaults on the template.
 		$template->set( 'view_class', $view_class );
+		$template->set( 'request_slug', $request_slug );
 
 		$instance->set_template( $template );
-		$instance->set_slug( $registration_slug );
+		$instance->set_slug( $slug );
 
 		// Let's set the View context from either the global context or the provided one.
 		$view_context = null === $context ? tribe_context() : $context;
+
+		/**
+		 * Filters the Context object for a View.
+		 *
+		 * @since TBD
+		 *
+		 * @param  \Tribe__Context  $view_context  The context abstraction object that will be passed to the
+		 *                                         view.
+		 * @param  string                       $view          The current view slug.
+		 * @param  \Tribe\Events\Views\V2\View  $instance      The current View object.
+		 */
+		$view_context = apply_filters( 'tribe_events_views_v2_view_context', $view_context, $view, $instance );
+
+		/**
+		 * Filters the Context object for a specific View.
+		 *
+		 * @since TBD
+		 *
+		 * @param  \Tribe__Context              $view_context  The context abstraction object that will be passed to the
+		 *                                                     view.
+		 * @param  \Tribe\Events\Views\V2\View  $instance      The current View object.
+		 */
+		$view_context = apply_filters( "tribe_events_views_v2_{$slug}_view_context", $view_context, $instance );
+
 		$instance->set_context( $view_context );
 
 		return $instance;
@@ -157,7 +237,7 @@ class View implements View_Interface {
 	 *
 	 * @return array An array in the shape `[ <slug> => <View Class> ]`.
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 *
 	 */
 	public static function get_registered_views() {
@@ -169,10 +249,11 @@ class View implements View_Interface {
 		 *
 		 * @param array $views An associative  array of views in the shape `[ <slug> => <class> ]`.
 		 *
-		 * @since TBD
+		 * @since 4.9.2
 		 *
 		 */
 		$views = apply_filters( 'tribe_events_views', [
+			'reflector' => Reflector_View::class,
 			'list' => List_View::class,
 		] );
 
@@ -185,7 +266,7 @@ class View implements View_Interface {
 	 * @param string $view The view fully qualified class name.
 	 *
 	 * @return int|string|false The slug currently associated to a View class if it is found, `false` otherwise.
-	 * @since TBD
+	 * @since 4.9.2
 	 *
 	 */
 	public static function get_view_slug( $view ) {
@@ -199,7 +280,7 @@ class View implements View_Interface {
 	 *
 	 * @param \tad_DI52_Container $container The DI container instance to use.
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 *
 	 */
 	public static function set_container( Container $container ) {
@@ -227,7 +308,7 @@ class View implements View_Interface {
 	 *                          `get_html` method.
 	 *
 	 * @throws \Tribe\Events\Views\V2\Implementation_Error If the `get_html` method has not been implemented.
-	 * @since TBD
+	 * @since 4.9.2
 	 *
 	 */
 	public function send_html( $html = null ) {

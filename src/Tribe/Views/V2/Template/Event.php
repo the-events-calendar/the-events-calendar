@@ -4,7 +4,7 @@
  *
  * Can be changed on Events > Settings > Display
  *
- * @since   TBD
+ * @since   4.9.2
  *
  * @package Tribe\Events\Views\V2
  */
@@ -20,11 +20,12 @@ class Event {
 	 *
 	 * @todo  Integrate with Template + Context classes
 	 *
-	 * @since  TBD
+	 * @since  4.9.2
 	 *
 	 * @return string
 	 */
 	public function get_path() {
-		return ( new Index() )->get_template_file();
+		$path = ( new Index() )->get_template_file( 'index' );
+		return $path;
 	}
 }

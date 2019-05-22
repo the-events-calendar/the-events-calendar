@@ -3,7 +3,7 @@
  * Provides filters assertions
  *
  * @package Tribe\Events\Test\Traits
- * @since TBD
+ * @since 4.9.2
  */
 
 namespace Tribe\Events\Test\Traits;

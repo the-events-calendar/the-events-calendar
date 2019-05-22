@@ -21,13 +21,13 @@ Scenario Outline: Switching from Month View to List View
     Then I should see up to 10 events in ascending chronological order starting with events that start on or end after <event datetime>
     And the Datepicker should show <display> selected
 
-    Examples: 
-        | selection     | event datetime        | display                   |
-        | default       | today & current time  | no selection (default)    |
-        | January       | January 1 12:00am     | January 1                 |
-        | June          | June 1 12:00am        | June 1                    |
-        | November      | November 1 12:00am    | November 1                |
-        | February      | February 1 12:00am    | February 1                |
+    Examples:
+        | selection | event datetime       | display                |
+        | default   | today & current time | no selection (default) |
+        | January   | January 1 12:00am    | January 1              |
+        | June      | June 1 12:00am       | June 1                 |
+        | November  | November 1 12:00am   | November 1             |
+        | February  | February 1 12:00am   | February 1             |
 
 Scenario: Switching from Month View to Day View
     Given I am on Month View
@@ -36,13 +36,13 @@ Scenario: Switching from Month View to Day View
     Then I should see all events that happen on <event date> listed in ascending chronological order
     And the Datepicker should show <display> selected
 
-    Examples: 
-        | selection     | event date    | display                   |
-        | default       | today         | today's date (default)    |
-        | January       | January 1     | January 1                 |
-        | June          | June 1        | June 1                    |
-        | November      | November 1    | November 1                |
-        | February      | February 1    | February 1                |
+    Examples:
+        | selection | event date | display                |
+        | default   | today      | today's date (default) |
+        | January   | January 1  | January 1              |
+        | June      | June 1     | June 1                 |
+        | November  | November 1 | November 1             |
+        | February  | February 1 | February 1             |
 
 Scenario: Switching from List View to Month View
     Given I am on List View
@@ -54,13 +54,13 @@ Scenario: Switching from List View to Month View
     And I should see all multi-day events for that month grid
     And the Datepicker should show <display> selected
 
-    Examples: 
-        | selection     | month         | display                   |
-        | default       | current month | current month (default)   |
-        | January 14    | January       | January                   |
-        | June 6        | June          | June                      |
-        | November 30   | November      | November                  |
-        | February 29   | February      | February                  |
+    Examples:
+        | selection   | month         | display                 |
+        | default     | current month | current month (default) |
+        | January 14  | January       | January                 |
+        | June 6      | June          | June                    |
+        | November 30 | November      | November                |
+        | February 29 | February      | February                |
 
 Scenario: Switching from Day View to Month View
     Given I am on Day View
@@ -72,13 +72,13 @@ Scenario: Switching from Day View to Month View
     And I should see all multi-day events for that month grid
     And the Datepicker should show <display> selected
 
-    Examples: 
-        | selection     | month         | display                   |
-        | default       | current month | current month (default)   |
-        | January 14    | January       | January                   |
-        | June 6        | June          | June                      |
-        | November 30   | November      | November                  |
-        | February 29   | February      | February                  |
+    Examples:
+        | selection   | month         | display                 |
+        | default     | current month | current month (default) |
+        | January 14  | January       | January                 |
+        | June 6      | June          | June                    |
+        | November 30 | November      | November                |
+        | February 29 | February      | February                |
 
 Scenario: Switching views with an active keyword search
     Given I am on List View

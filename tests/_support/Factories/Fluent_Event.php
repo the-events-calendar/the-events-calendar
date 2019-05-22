@@ -12,7 +12,7 @@ namespace Tribe\Events\Test\Factories;
  * Class Fluent_Event
  *
  * @package Tribe\Events\Test\Factories
- * @since   TBD
+ * @since   4.9.2
  */
 class Fluent_Event {
 	/**

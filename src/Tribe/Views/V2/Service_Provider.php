@@ -3,7 +3,7 @@
  * The main service provider for the version 2 of the Views.
  *
  * @package Tribe\Events\Views\V2
- * @since   TBD
+ * @since   4.9.2
  */
 
 namespace Tribe\Events\Views\V2;
@@ -11,7 +11,7 @@ namespace Tribe\Events\Views\V2;
 /**
  * Class Service_Provider
  *
- * @since   TBD
+ * @since   4.9.2
  *
  * @package Tribe\Events\Views\V2
  */
@@ -34,6 +34,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		$this->container->singleton( Template\Page::class, Template\Page::class );
 		$this->container->singleton( Kitchen_Sink::class, Kitchen_Sink::class );
 		$this->container->singleton( Theme_Compatibility::class, Theme_Compatibility::class );
+		$this->container->singleton( Rest_Endpoint::class, Rest_Endpoint::class );
 
 		$this->register_hooks();
 		$this->register_v1_compat();
@@ -52,14 +53,18 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Registers the provider handling all the 1st level filters and actions for Views v2.
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 */
 	protected function register_hooks() {
 		$hooks = new Hooks( $this->container );
 		$hooks->register();
 
+		$assets = new Assets( $this->container );
+		$assets->register();
+
 		// Allow Hooks to be removed, by having the them registred to the container
 		$this->container->singleton( Hooks::class, $hooks );
+		$this->container->singleton( Assets::class, $assets );
 		$this->container->singleton( 'events.views.v2.hooks', $hooks );
 		$this->container->singleton( 'events.views.v2.provider', $this );
 
@@ -70,7 +75,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Registers the provider handling compatibility with v1 of the View system.
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 */
 	protected function register_v1_compat() {
 		$v1_compat = new V1_Compat( $this->container );

@@ -34,7 +34,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '4.9.1';
+		const VERSION             = '4.9.3';
 
 		/**
 		 * Min Pro Addon
@@ -5671,7 +5671,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Returns the autoloader singleton instance to use in a context-aware manner.
 		 *
-		 * @since TBD
+		 * @since 4.9.2
 		 *
 		 * @return \Tribe__Autoloader Teh singleton common Autoloader instance.
 		 */
@@ -5690,7 +5690,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Registers the plugin autoload paths in the Common Autoloader instance.
 		 *
-		 * @since TBD
+		 * @since 4.9.2
 		 */
 		public function register_plugin_autoload_paths( ) {
 			$prefixes = array(
