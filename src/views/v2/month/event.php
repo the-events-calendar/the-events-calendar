@@ -21,7 +21,6 @@ $classes = [ 'tribe-events-calendar-month__event' ];
 if ( tribe( 'tec.featured_events' )->is_featured( $event_id ) ) {
 	$classes[] = 'tribe-events-calendar-month__event--featured';
 }
-
 ?>
 <div class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>">
 

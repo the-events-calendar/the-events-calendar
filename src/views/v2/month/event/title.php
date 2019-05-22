@@ -13,7 +13,7 @@
  *
  */
 ?>
-<h3 class="tribe-events-calendar-month__event-title">
+<h3 class="tribe-events-calendar-month__event-title tribe-common-h8">
 	<a
 		href="#"
 		title="Lorem Ipsum"
