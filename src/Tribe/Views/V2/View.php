@@ -242,21 +242,25 @@ class View implements View_Interface {
 	 *
 	 */
 	public static function get_registered_views() {
+		$views = [
+			'list' => List_View::class,
+		];
+
+		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+			$views['reflector'] = Reflector_View::class;
+		}
+
 		/**
 		 * Filters the list of views available.
 		 *
 		 * Both classes and built objects can be associated with a slug; if bound in the container the classes
 		 * will be built according to the binding rules; objects will be returned as they are.
 		 *
-		 * @param array $views An associative  array of views in the shape `[ <slug> => <class> ]`.
-		 *
 		 * @since 4.9.2
 		 *
+		 * @param  array  $views  An associative  array of views in the shape `[ <slug> => <class> ]`.
 		 */
-		$views = apply_filters( 'tribe_events_views', [
-			'reflector' => Reflector_View::class,
-			'list' => List_View::class,
-		] );
+		$views = apply_filters( 'tribe_events_views', $views );
 
 		return (array) $views;
 	}
