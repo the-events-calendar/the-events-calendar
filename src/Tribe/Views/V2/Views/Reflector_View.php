@@ -26,6 +26,6 @@ class Reflector_View extends View {
 	 * @return false|string The result of the `json_encode` called on the current view context.
 	 */
 	public function get_html() {
-		return wp_json_encode( $this->context->to_array(), JSON_PRETTY_PRINT );
+		return '<pre>' . wp_json_encode( $this->context->to_array(), JSON_PRETTY_PRINT ) . '</pre>';
 	}
 }

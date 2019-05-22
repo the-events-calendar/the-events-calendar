@@ -94,7 +94,8 @@ class Template_Bootstrap {
 			/**
 			 * @todo  needs to determine the view we want to pass
 			 */
-			$view = View::make();
+			$slug = tribe_context()->get( 'view' );
+			$view = View::make( $slug );
 			$html = $view->get_html();
 		}
 
