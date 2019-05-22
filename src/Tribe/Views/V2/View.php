@@ -230,7 +230,6 @@ class View implements View_Interface {
 
 		$instance->set_context( $view_context );
 
-
 		return $instance;
 	}
 

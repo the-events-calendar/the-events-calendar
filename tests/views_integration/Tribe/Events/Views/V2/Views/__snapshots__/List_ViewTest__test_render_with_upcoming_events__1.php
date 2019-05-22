@@ -85,7 +85,7 @@
 		Today	</a>
 
 	<span class="tribe-common-h3 tribe-common-h3--alt">
-		Now &mdash; May 20th, 2019	</span>
+		Now &mdash; January 1st, 2019	</span>
 </div>
 	<div class="tribe-events__top-bar-actions">
 	<div class="tribe-common-form-control-toggle">
@@ -97,7 +97,7 @@
 <div class="tribe-events-calendar-list">
 
 	<div class="tribe-events-calendar-list__separator--month">
-	<span>May</span>
+	<span>Jan</span>
 </div>
 	
 		<div class="tribe-events-calendar-list__event">

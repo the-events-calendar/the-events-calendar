@@ -1,8 +1,13 @@
 <?php
+
 namespace Tribe\Events;
 
 use Prophecy\Argument;
 use Tribe__Events__Rewrite as Rewrite;
+
+if ( ! class_exists( '\\SitePress' ) ) {
+	require_once codecept_data_dir( 'classes/SitePress.php' );
+}
 
 class RewriteTest extends \Codeception\TestCase\WPTestCase {
 
@@ -36,6 +41,10 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertInstanceOf( 'Tribe__Events__Rewrite', $sut );
 	}
 
+	private function make_instance() {
+		return new Rewrite( $this->wp_rewrite->reveal() );
+	}
+
 	/**
 	 * @test
 	 * it should filter post type link for supported post types only
@@ -47,78 +56,4 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertEquals( 'foo', $sut->filter_post_type_link( 'foo', $post ) );
 	}
-
-	/**
-	 * @test
-	 * it should not try to convert permalink to WPML format if WPML is not active
-	 * @env wpml
-	 */
-	public function it_should_not_try_to_convert_permalink_to_wpml_format_if_wpml_is_not_active() {
-		unset( $GLOBALS['sitepress'] );
-
-		$sut       = $this->make_instance();
-
-		$this->assertEquals( 'foo', $sut->apply_wpml_permalink_filter( 'foo' ) );
-	}
-
-	/**
-	 * @test
-	 * it should not try to convert the permalink if language is not set
-	 * @env wpml
-	 */
-	public function it_should_not_try_to_convert_the_permalink_if_language_is_not_set() {
-		$_sitepress = $this->prophesize( 'SitePress' );
-		$_sitepress->convert_url( 'foo', Argument::any())->shouldNotBeCalled( 'wpml_permalink' );
-		global $sitepress;
-		$sitepress = $_sitepress->reveal();
-		
-		unset( $_GET['lang'] );
-
-		$sut       = $this->make_instance();
-
-		$this->assertEquals( 'foo', $sut->apply_wpml_permalink_filter( 'foo' ) );
-	}
-
-	/**
-	 * @test
-	 * it should return WPML converted link if WPML active and language set
-	 * @env wpml
-	 */
-	public function it_should_return_wpml_converted_link_if_wpml_active_and_language_set() {
-		$_GET['lang'] = 'it';
-		
-		$_sitepress = $this->prophesize( 'SitePress' );
-		$_sitepress->convert_url( 'foo', 'it' )->willReturn( 'wpml_permalink' );
-		
-		global $sitepress;
-		$sitepress = $_sitepress->reveal();
-
-		$sut = $this->make_instance();
-
-		$this->assertEquals( 'wpml_permalink', $sut->apply_wpml_permalink_filter( 'foo' ) );
-	}
-
-	/**
-	 * @test
-	 * it should properly parse language global var
-	 * @env wpml
-	 */
-	public function it_should_properly_parse_language_global_var() {
-		$_GET['lang'] = 'it?lang=it';
-
-		$_sitepress = $this->prophesize( 'SitePress' );
-		$_sitepress->convert_url( 'foo', 'it' )->shouldBeCalled( 'wpml_permalink' );
-
-		global $sitepress;
-		$sitepress = $_sitepress->reveal();
-
-		$sut = $this->make_instance();
-
-		$sut->apply_wpml_permalink_filter( 'foo' );
-	}
-
-	private function make_instance() {
-		return new Rewrite( $this->wp_rewrite->reveal() );
-	}
-
 }
