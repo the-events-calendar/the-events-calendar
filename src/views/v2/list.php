@@ -27,7 +27,7 @@ $this->template( 'top-bar' );
 
 	<?php foreach ( $events as $event ) : ?>
 
-		<?php $this->template( 'list/single-event', [ 'event' => $event ] ); ?>
+		<?php $this->template( 'list/event', [ 'event' => $event ] ); ?>
 
 	<?php endforeach; ?>
 
