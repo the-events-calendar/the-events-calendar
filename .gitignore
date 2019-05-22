@@ -28,8 +28,15 @@ compiler.jar
 *.ps1
 
 wpml-config.xml
-src/resources/**/app
 .env.testing
 
 # get from translate.wordpress.org as needed
 lang/*.po
+
+# tribe-common-styles
+src/resources/postcss/utilities
+
+# Resources Ignoring
+src/resources/**/app
+src/resources/css
+src/resources/**/*.min.js
