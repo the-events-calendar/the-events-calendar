@@ -24,7 +24,7 @@ class MainQueryRenderCest {
 		$I->wait_for_container_to_sync_files();
 
 		$I->amOnPage(add_query_arg([
-			'view' => 'test-list',
+			'tribe_view' => 'test-list',
 		], '/events'));
 
 		$I->seeElement( '.tribe-view' );
