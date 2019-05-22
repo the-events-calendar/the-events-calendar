@@ -20,8 +20,8 @@
 				<a
 					href="#"
 					class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-left tribe-common-b3 tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--prev"
-					aria-label="<?php esc_html_e( 'Previous', 'the-events-calendar' ) ?>"
-					title="<?php esc_html_e( 'Previous', 'the-events-calendar' ) ?>"
+					aria-label="<?php esc_html_e( 'Previous', 'the-events-calendar' ); ?>"
+					title="<?php esc_html_e( 'Previous', 'the-events-calendar' ); ?>"
 				>
 				</a>
 			</li>
@@ -29,8 +29,8 @@
 				<a
 					href="#"
 					class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-right tribe-common-b3 tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--next"
-					aria-label="<?php esc_html_e( 'Next', 'the-events-calendar' ) ?>"
-					title="<?php esc_html_e( 'Next', 'the-events-calendar' ) ?>"
+					aria-label="<?php esc_html_e( 'Next', 'the-events-calendar' ); ?>"
+					title="<?php esc_html_e( 'Next', 'the-events-calendar' ); ?>"
 				>
 				</a>
 			</li>
