@@ -56,14 +56,18 @@
 		display: flex;
 		flex: 1 0 100px;
 		justify-content: flex-end;
+		margin-right: -12px;
 
 		@media (--viewport-medium) {
 			flex: 0 0 auto;
+			margin-right: 0;
 			order: 3;
 		}
 	}
 
 	.tribe-events-c-events-bar__filters-button {
+		padding: 14px 12px;
+
 		@media (--viewport-medium) {
 			@mixin button-icon-border;
 		}
