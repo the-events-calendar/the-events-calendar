@@ -14,8 +14,9 @@
  */
 ?>
 <div class="tribe-common-form-control-text">
-	<label for="location"><?php esc_html_e( 'Enter Location. Search for Events by Location.', 'the-events-calendar' ); ?></label>
+	<label class="tribe-common-form-control-text__label" for="location"><?php esc_html_e( 'Enter Location. Search for Events by Location.', 'the-events-calendar' ); ?></label>
 	<input
+		class="tribe-common-form-control-text__input tribe-common-c-search__input"
 		type="text"
 		id="location"
 		name="location"
