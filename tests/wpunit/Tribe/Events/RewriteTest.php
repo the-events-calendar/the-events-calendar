@@ -104,7 +104,7 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 			],
 			'category_page_2_w_extra' => [
 				'/?post_type=tribe_events&eventDisplay=list&tribe_events_cat=test&paged=2&foo=bar',
-				'/events/category/test/list/page/2?foo=bar',
+				'/events/category/test/list/page/2/?foo=bar',
 			],
 			'day_page'                => [
 				'/?post_type=tribe_events&eventDisplay=day&eventDate=2018-12-01',
