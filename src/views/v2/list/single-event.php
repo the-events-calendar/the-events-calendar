@@ -19,7 +19,7 @@ $event_id = $event->ID;
 $classes = [ 'tribe-events-calendar-list__event' ];
 
 if ( tribe( 'tec.featured_events' )->is_featured( $event_id ) ) {
-	$classes[] = 'tribe-events-calendar-list__event--featured';
+	$classes[] = 'tribe-events-calendar-list__event-featured';
 }
 
 ?>
@@ -27,7 +27,7 @@ if ( tribe( 'tec.featured_events' )->is_featured( $event_id ) ) {
 
 	<?php $this->template( 'list/event/featured-image', [ 'event' => $event ] ); ?>
 
-	<div class="tribe-events-calendar-list__event--details">
+	<div class="tribe-events-calendar-list__event-details">
 
 		<header>
 			<?php $this->template( 'list/event/date', [ 'event' => $event ] ); ?>

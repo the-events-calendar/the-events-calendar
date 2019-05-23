@@ -87,13 +87,11 @@ class Theme_Compatibility {
 			$child_theme = false;
 		}
 
-		if ( $child_theme ) {
-			$theme_classes = "tribe-theme-parent-$parent_theme tribe-theme-child-$child_theme";
-		} else {
-			$theme_classes = "tribe-theme-$parent_theme";
-		}
+		$classes[] = "tribe-theme-$parent_theme";
 
-		$classes[] = $theme_classes;
+		if ( $child_theme ) {
+			$classes[] = "tribe-theme-child-$child_theme";
+		}
 
 		return $classes;
 	}
