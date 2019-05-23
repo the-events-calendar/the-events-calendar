@@ -9,6 +9,7 @@
 namespace Tribe\Events\Views\V2;
 
 use Tribe\Events\Views\V2\Views\List_View;
+use Tribe\Events\Views\V2\Views\Month_View;
 use Tribe\Events\Views\V2\Views\Reflector_View;
 use Tribe__Container as Container;
 use Tribe__Context as Context;
@@ -253,8 +254,9 @@ class View implements View_Interface {
 		 *
 		 */
 		$views = apply_filters( 'tribe_events_views', [
+			'month'     => Month_View::class,
 			'reflector' => Reflector_View::class,
-			'list' => List_View::class,
+			'list'      => List_View::class,
 		] );
 
 		return (array) $views;

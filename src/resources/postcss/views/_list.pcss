@@ -6,8 +6,23 @@
  */
 .tribe-events {
 
-	.tribe-events-calendar-list {
-		font-family: var(--font-family-base);
+	.tribe-events-calendar-list__separator-month {
+		display: flex;
+		align-items: center;
+		margin-bottom: var(--spacer-6);
+
+		&:after {
+			background-color: var(--color-border-default);
+			content: '';
+			display: block;
+			flex: auto;
+			height: 1px;
+			margin-left: 20px;
+		}
+	}
+
+	.tribe-events-calendar-list__separator-month-text {
+		flex: none;
 	}
 
 	.tribe-events-calendar-list__event {
@@ -22,128 +37,73 @@
 		}
 	}
 
-	.tribe-events-calendar-list__event--details {
-		flex: 1 1 100%;
-	}
-
-	.tribe-events-calendar-list__event--datetime {
-		font-size: var(--font-size-1);
-		margin-bottom: var(--spacer-1);
-		position: relative;
-
-		@media (--viewport-medium) {
-			font-size: var(--font-size-2);
-			margin-bottom: var(--spacer-2);
-		}
-	}
-
-	.tribe-events-calendar-list__event--title {
-		color: var(--color-text-primary);
-		font-size: var(--font-size-7);
-		font-weight: var(--font-weight-bold);
-		line-height: var(--line-height-1);
-		margin-bottom: var(--spacer-1);
-		padding: 0;
-
-		@media (--viewport-medium) {
-			font-size: var(--font-size-7);
-			margin-bottom: var(--spacer-2);
-		}
-	}
-
-	.tribe-events-calendar-list__event--title-link {
-		color: var(--color-text-primary);
-		text-decoration: none;
-	}
-
-	.tribe-events-calendar-list__event--venue {
-		font-size: var(--font-size-1);
-		margin-bottom: var(--spacer-2);
-
-		@media (--viewport-medium) {
-			font-size: var(--font-size-2);
-			margin-bottom: var(--spacer-2);
-		}
-	}
-
-	.tribe-events-calendar-list__event--venue--title {
-		font-weight: var(--font-weight-bold);
-	}
-
-	.tribe-events-calendar-list__event--description {
-		@mixin desktop-body-1;
-		margin-bottom: var(--spacer-4);
-		@media (--viewport-medium) {
-			@mixin desktop-body-1;
-		}
-	}
-
-	.tribe-events-calendar-list__event--featured-image {
+	.tribe-events-calendar-list__event-featured-image {
 		flex: 1 1 100%;
 		margin-bottom: var(--spacer-4);
+
 		@media (--viewport-medium) {
 			flex: 1 0 320px;
 			margin-left: var(--spacer-6);
 			margin-bottom: 0;
 		}
 
+		/**
+		 * @todo: add class for image
+		 */
 		img {
 			width: 100%;
 			max-width: 100%;
 		}
 	}
 
+	.tribe-events-calendar-list__event-details {
+		flex: 1 1 100%;
+	}
+
+	.tribe-events-calendar-list__event-datetime-wrapper {
+		margin-bottom: var(--spacer-1);
+		position: relative;
+
+		@media (--viewport-medium) {
+			margin-bottom: var(--spacer-2);
+		}
+	}
+
+	.tribe-events-calendar-list__event-title {
+		margin-bottom: var(--spacer-1);
+
+		@media (--viewport-medium) {
+			margin-bottom: var(--spacer-2);
+		}
+	}
+
+	.tribe-events-calendar-list__event-title-link {
+		color: var(--color-text-primary);
+		text-decoration: none;
+	}
+
+	.tribe-events-calendar-list__event-venue {
+		margin-bottom: var(--spacer-2);
+	}
+
+	.tribe-events-calendar-list__event-description {
+		margin-bottom: var(--spacer-4);
+	}
+
 	.tribe-events-calendar-list__event--featured {
 
-		.tribe-events-calendar-list__event--datetime time {
-			&:after {
-				width: 12px;
-				height: 12px;
-				background-image: svg-inline(featured);
-				background-repeat: no-repeat;
-				background-size: contain;
-				display: inline-block;
-				content: '';
-				margin-left: 10px;
-			}
-		}
-
-		.tribe-events-calendar-list__event--title {
-			font-size: var(--font-size-9);
-		}
-		.tribe-events-calendar-list__event--featured-image {
+		.tribe-events-calendar-list__event-featured-image {
 			flex: 1 1 100%;
+
 			@media (--viewport-medium) {
 				flex: 1 0 520px;
 			}
 		}
-	}
 
-	.tribe-events-calendar-list__separator--month {
-		display: block;
-		position: relative;
-		margin-bottom: var(--spacer-6);
-
-		&:after {
+		.tribe-events-calendar-list__event-datetime-featured-icon {
+			display: inline-block;
 			content: '';
-			border-bottom: 1px solid var(--color-border-default);
-			height: 1px;
-			width: 100%;
-			display: block;
-			position: absolute;
-			top: 50%;
-			left: 0;
-			z-index: 0;
-		}
-
-		span {
-			background-color: #fff;
-			font-size: var(--font-size-3);
-			font-weight: var(--font-weight-bold);
-			padding: 0 20px 0 0;
-			position: relative;
-			text-transform: uppercase;
-			z-index: 10;
+			margin-left: 10px;
 		}
 	}
 }
