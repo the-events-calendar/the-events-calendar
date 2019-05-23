@@ -40,10 +40,6 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertInstanceOf( 'Tribe__Events__Rewrite', $sut );
 	}
 
-	private function make_instance() {
-		return new Rewrite( $this->wp_rewrite->reveal() );
-	}
-
 	/**
 	 * @test
 	 * it should filter post type link for supported post types only
