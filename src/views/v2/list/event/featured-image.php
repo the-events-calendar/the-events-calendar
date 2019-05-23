@@ -20,6 +20,6 @@ if ( ! has_post_thumbnail( $event_id ) ) {
 }
 
 ?>
-<div class="tribe-events-calendar-list__event--featured-image">
+<div class="tribe-events-calendar-list__event-featured-image">
 	<?php echo get_the_post_thumbnail( $event_id, 'large' ); ?>
 </div>

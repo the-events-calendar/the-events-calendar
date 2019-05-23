@@ -22,8 +22,8 @@ if ( ! $venue_details ) {
 	return;
 }
 ?>
-<div class="tribe-events-calendar-list__event--venue">
-	<span class="tribe-events-calendar-list__event--venue--title">
+<div class="tribe-events-calendar-list__event-venue">
+	<span class="tribe-events-calendar-list__event--venue-title">
 		<?php echo isset( $venue_details['linked_name'] ) ? esc_html( $venue_details['linked_name'] ) : esc_html__( 'Venue Name' ); ?>
 	</span>
 	<?php echo isset( $venue_details['address'] ) ? $venue_details['address'] : ''; ?>

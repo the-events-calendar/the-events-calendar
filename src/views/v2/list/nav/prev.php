@@ -18,7 +18,7 @@ if ( ! tribe_has_previous_event() ) {
 
 $link = $this->get( 'link' );
 ?>
-<li>
+<li class="tribe-common-c-nav__list-item">
 	<a
 		href="<?php echo esc_url( $link ); ?>"
 		rel="prev"
