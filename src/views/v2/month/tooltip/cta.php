@@ -14,5 +14,5 @@
  */
 ?>
 <div class="tribe-events-c-small-cta">
-	<a class="tribe-events-c-small-cta-link">Buy Now</a><div class="tribe-events-c-small-cta-price">$10</div>
+	<a class="tribe-events-c-small-cta-link">Buy Now</a><span class="tribe-events-c-small-cta-price">$10</span>
 </div>
