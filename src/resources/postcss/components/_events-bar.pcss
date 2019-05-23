@@ -3,21 +3,47 @@
  * Events Bar
  *
  * ----------------------------------------------------------------------------- */
+
 .tribe-events {
-	.tribe-events__events-bar {
+
+	.tribe-events-c-events-bar {
 		display: flex;
-		width: 100%;
 		flex-wrap: wrap;
+		width: 100%;
 
 		@media (--viewport-medium) {
-			flex-direction: row;
 			align-items: center;
+			flex-direction: row;
 		}
 	}
 
-	.tribe-events__events-bar-form {
-		flex: 1 1 100%;
+	.tribe-events-c-events-bar__views {
+		display: flex;
+		flex: 1 1 60%;
+		justify-content: center;
+
+		@media (--viewport-medium) {
+			flex: 1 1 40px;
+			order: 2;
+		}
+	}
+
+	.tribe-events-c-events-bar__views-tabs {
+		width: 100%;
+	}
+
+	.tribe-events-c-events-bar__views-tabs-button,
+	.tribe-events-c-events-bar__views-tabs-list {
+		width: 100%;
+
+		@media (--viewport-medium) {
+			width: auto;
+		}
+	}
+
+	.tribe-events-c-events-bar__form {
 		display: none;
+		flex: 1 1 100%;
 
 		@media (--viewport-medium) {
 			display: flex;
@@ -26,33 +52,10 @@
 		}
 	}
 
-	.tribe-events__events-bar-views {
-		flex: 1 1 60%;
+	.tribe-events-c-events-bar__filters {
 		display: flex;
-		justify-content: center;
-
-		@media (--viewport-medium) {
-			flex: 1 1 40px;
-			order: 2;
-		}
-
-		.tribe-common-form-control-tabs {
-			width: 100%;
-
-			> button,
-			> ul {
-				width: 100%;
-				@media (--viewport-medium) {
-					width: auto;
-				}
-			}
-		}
-	}
-
-	.tribe-events__events-bar-filters {
-		display: flex;
-		justify-content: flex-end;
 		flex: 1 0 100px;
+		justify-content: flex-end;
 
 		@media (--viewport-medium) {
 			flex: 0 0 auto;
@@ -60,22 +63,17 @@
 		}
 	}
 
-	.tribe-events__events-bar-filters--btn-no-border-mobile {
-		border-color: transparent;
-
+	.tribe-events-c-events-bar__filters-button {
 		@media (--viewport-medium) {
-			border-color: var(--color-border-default);
+			@mixin button-icon-border;
 		}
 	}
 
-	.tribe-events__events-bar-filters--toggle-search {
+	.tribe-events-c-events-bar__filters-button-wrapper--search {
 		display: inline-block;
+
 		@media (--viewport-medium) {
 			display: none;
 		}
-	}
-
-	.tribe-events__events-bar-filters--filters {
-
 	}
 }
