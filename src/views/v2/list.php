@@ -14,6 +14,8 @@
  */
 use Tribe\Events\Views\V2\Rest_Endpoint;
 $events_label_plural = tribe_get_event_label_plural();
+tribe_asset_enqueue( 'tribe-events-views-v2-manager' );
+
 ?>
 <form
 	class="tribe-common tribe-events tribe-events-container"
@@ -21,7 +23,11 @@ $events_label_plural = tribe_get_event_label_plural();
 	method="get"
 	data-rest-url="<?php echo esc_url( tribe( Rest_Endpoint::class )->get_url() ); ?>"
 >
-	<?php $this->template( 'update-url-script', [ 'url' => home_url( 'events/list/page/3' ), 'title' => 'Developers title' ] ); ?>
+	<?php wp_nonce_field( 'wp_rest', 'tribe-events-views[_wpnonce]' ); ?>
+
+	<?php $this->template( 'loader' ); ?>
+
+	<?php $this->template( 'data', [ 'url' => home_url( 'events/list/page/3' ), 'title' => 'Developers title' ] ); ?>
 
 	<?php $this->template( 'events-bar' ); ?>
 

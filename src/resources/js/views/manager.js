@@ -43,7 +43,8 @@ tribe.events.views.manager = {};
 		container: '.tribe-events-container',
 		link: '.tribe-events-navigation-link',
 		loader: '.tribe-events-view-loader',
-		hiddenElement: '.tribe-hidden'
+		hiddenElement: '.tribe-hidden',
+		dataScript: '.tribe-events-views-data'
 	};
 
 	/**
@@ -101,26 +102,45 @@ tribe.events.views.manager = {};
 	};
 
 	/**
-	 * Triggered by the Backend once we fetch a new HTML via an container action
+	 * Using data passed by the Backend once we fetch a new HTML via an
+	 * container action.
 	 *
-	 * Usage, on the AJAX request we will use the following
-	 *
-	 * <script>
-	 * jQuery( this )
-	 *   .parents( tribe.events.views.manager.selectors.container )
-	 *   .trigger( 'updateUrl.tribeEvents', [ $url, $title ] );
-	 * </script>
+	 * Usage, on the AJAX request we will pass data back using a <script>
+	 * formatted as a `application/json` that we will parse and apply here.
 	 *
 	 * @since TBD
 	 *
 	 * @param  {Event}  event DOM Event related to the Click action
-	 * @param  {string} url   To which URL we should send push to
-	 * @param  {string} title New Browser title
 	 *
 	 * @return {void}
 	 */
-	obj.onUpdateUrl = function( event, url, title ) {
-		window.history.pushState( null, title, url );
+	obj.onUpdateUrl = function( event ) {
+		var $container = $( this );
+		var $data = $container.find( obj.selectors.dataScript );
+
+		// Bail in case we dont find data script
+		if ( ! $data.length ) {
+			return;
+		}
+
+		var data = JSON.parse( $.trim( $data.text() ) );
+
+		// Bail when the data is not a valid object
+		if ( ! _.isObject( data ) ) {
+			return;
+		}
+
+		// Bail when URL is not present
+		if ( _.isUndefined( data.url ) ) {
+			return;
+		}
+
+		// Bail when Title is not present
+		if ( _.isUndefined( data.title ) ) {
+			return;
+		}
+
+		window.history.pushState( null, data.title, data.url );
 	};
 
 	/**
@@ -137,8 +157,10 @@ tribe.events.views.manager = {};
 		var $link = $( this );
 		var $container = obj.getContainer( this );
 		var url = $link.attr( 'href' );
+		var formData = Qs.parse( $container.serialize() );
 		var data = {
-			url: url
+			url: url,
+			_wpnonce: formData['tribe-events-views']._wpnonce
 		};
 
 		obj.request( data, $container );
@@ -302,6 +324,9 @@ tribe.events.views.manager = {};
 
 		// Setup the container with the data received
 		obj.setup( 0, $html );
+
+		// Trigger the browser pushState
+		$container.trigger( 'updateUrl.tribeEvents' );
 
 		$container.trigger( 'afterAjaxSuccess.tribeEvents', [ data, textStatus, jqXHR ] );
 	};

@@ -17,10 +17,16 @@
 	<nav class="tribe-events__top-bar-nav">
 		<ul>
 			<li class="tribe-events__top-bar-nav-prev">
-				<a href="#" class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-left tribe-common-b3"></a>
+				<a
+					href="#"
+					class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-left tribe-common-b3 tribe-events-navigation-link"
+				></a>
 			</li>
 			<li class="tribe-events__top-bar-nav-next">
-				<a href="#" class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-right tribe-common-b3"></a>
+				<a
+					href="<?php echo home_url( 'events/list/page/2' ); /* @todo Fix this link reference */ ?>"
+					class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-right tribe-common-b3 tribe-events-navigation-link"
+				></a>
 			</li>
 		</ul>
 	</nav>
