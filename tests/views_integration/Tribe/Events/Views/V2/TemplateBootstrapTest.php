@@ -40,7 +40,7 @@ class TemplateBootstrapTest extends \Codeception\TestCase\WPTestCase {
 			],
 			'default' => [
 				'default',
-				'event',
+				'page',
 			],
 			'empty' => [
 				'',
@@ -62,9 +62,9 @@ class TemplateBootstrapTest extends \Codeception\TestCase\WPTestCase {
 				'event',
 				'event',
 			],
-			'page' => [
+			'page_isnt_a_value' => [
 				'page',
-				'page',
+				'event',
 			],
 		];
 	}
@@ -100,7 +100,7 @@ class TemplateBootstrapTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function it_should_return_template_page_instance() {
-		tribe_update_option( 'tribeEventsTemplate', 'page' );
+		tribe_update_option( 'tribeEventsTemplate', 'default' );
 		$instance = $this->make_instance()->get_template_object();
 
 		$this->assertInstanceOf( Template\Page::class, $instance );
@@ -140,7 +140,7 @@ class TemplateBootstrapTest extends \Codeception\TestCase\WPTestCase {
 	 * @dataProvider query_args_to_load
 	 */
 	public function it_should_load_only_on_correct_wp_query( $query_args, $expected ) {
-		$query = new WP_Query( $query_args );
+		$query = new \WP_Query( $query_args );
 
 		$should_load = $this->make_instance()->should_load( $query );
 
@@ -177,7 +177,7 @@ class TemplateBootstrapTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function it_should_use_global_query_on_invalid_query( $invalid_query ) {
 		global $wp_query;
-		$wp_query = new WP_Query( [ 'post_type' => 'tribe_events' ] );
+		$wp_query = new \WP_Query( [ 'post_type' => 'tribe_events' ] );
 
 		$should_load = $this->make_instance()->should_load( $invalid_query );
 
