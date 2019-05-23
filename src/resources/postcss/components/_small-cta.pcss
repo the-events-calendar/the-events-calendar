@@ -1,0 +1,31 @@
+/* -----------------------------------------------------------------------------
+ *
+ * Small CTA (Tooltips - ET, ET+, RSVP)
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe-events {
+
+	.tribe-events-c-small-cta-link {
+		@mixin desktop-body-3-bold;
+
+		border-bottom: 2px solid #ddd;
+		cursor: pointer;
+		display: inline;
+		padding-bottom: 2px;
+
+		&:active,
+		&:focus,
+		&:hover {
+			color: var(--color-accent-primary);
+			border-bottom-color: var(--color-accent-primary);
+		}
+	}
+
+	.tribe-events-c-small-cta-price {
+		@mixin desktop-body-3;
+		display: inline;
+		padding-left: 10px;
+
+	}
+}
