@@ -13,7 +13,7 @@
  *
  */
 
-$events_label_plural = tribe_get_event_label_plural();
+$events = $this->get( 'events' );
 
 $this->template( 'events-bar' );
 
