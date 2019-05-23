@@ -140,6 +140,12 @@ tribe.events.views.manager = {};
 			return;
 		}
 
+		/**
+		 * Compatitiblity for browsers updating title
+		 */
+		document.title = data.title;
+
+		// Push browser history
 		window.history.pushState( null, data.title, data.url );
 	};
 
@@ -321,6 +327,7 @@ tribe.events.views.manager = {};
 
 		// Replace the current container with the new Data
 		$container.replaceWith( $html );
+		$container = $html;
 
 		// Setup the container with the data received
 		obj.setup( 0, $html );

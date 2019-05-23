@@ -30,9 +30,9 @@ class Url {
 	/**
 	 * Returns the slug of the view as defined in the URL.
 	 *
-	 * @return mixed|string The view slug as defined in the URL.
 	 * @since 4.9.2
 	 *
+	 * @return mixed|string The view slug as defined in the URL.
 	 */
 	public function get_view_slug() {
 		$slug = 'default';

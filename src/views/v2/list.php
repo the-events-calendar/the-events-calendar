@@ -27,7 +27,18 @@ tribe_asset_enqueue( 'tribe-events-views-v2-manager' );
 
 	<?php $this->template( 'loader' ); ?>
 
-	<?php $this->template( 'data', [ 'url' => home_url( 'events/list/page/3' ), 'title' => 'Developers title' ] ); ?>
+	<?php
+		/**
+		 * @todo Make sure we are passing correct data
+		 */
+		$this->template(
+			'data',
+			[
+				'url' => home_url( 'events/list/page/3' ),
+				'title' => 'Developers title',
+			]
+		);
+	?>
 
 	<?php $this->template( 'events-bar' ); ?>
 
