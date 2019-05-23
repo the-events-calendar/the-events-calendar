@@ -499,4 +499,11 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 
 		return $dynamic_matchers;
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	protected function get_post_types() {
+		return [ 'tribe_events', 'tribe_venue', 'tribe_organizer' ];
+	}
 }
