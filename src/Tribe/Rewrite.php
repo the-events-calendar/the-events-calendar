@@ -440,4 +440,21 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 		return $url;
 
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	protected function get_matcher_to_query_var_map() {
+		return [
+			'month'    => 'eventDisplay',
+			'list'     => 'eventDisplay',
+			'today'    => 'eventDisplay',
+			'day'      => 'eventDisplay',
+			'tag'      => 'tag',
+			'tax'      => 'tribe_events_cat',
+			'single'   => 'name',
+			'archive'  => 'post_type',
+			'featured' => 'featured',
+		];
+	}
 }
