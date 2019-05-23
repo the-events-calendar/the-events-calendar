@@ -15,5 +15,5 @@
 $month = $this->get( 'month' );
 ?>
 <div class="tribe-events-calendar-list__separator-month">
-	<span><?php echo esc_html( $month ); ?></span>
+	<time class="tribe-events-calendar-list__separator-month-text tribe-common-b1 tribe-common-b1--bold" datetime="1970-01-01T00:00:00+00:00"><?php echo esc_html( $month ); ?></time>
 </div>

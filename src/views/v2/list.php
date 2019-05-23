@@ -13,8 +13,14 @@
  *
  */
 use Tribe\Events\Views\V2\Rest_Endpoint;
-$events_label_plural = tribe_get_event_label_plural();
+
+/**
+ * @todo  remove this and properly enqueue assets
+ */
 tribe_asset_enqueue( 'tribe-events-views-v2-manager' );
+
+$events_label_plural = tribe_get_event_label_plural();
+$events = $this->get( 'events' );
 
 ?>
 <form
