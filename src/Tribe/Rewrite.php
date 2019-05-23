@@ -483,7 +483,7 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 	 * {@inheritDoc}
 	 */
 	protected function get_dynamic_matchers( array $query_vars ) {
-		$bases = $this->get_bases();
+		$bases = (array) $this->get_bases();
 		$dynamic_matchers = parent::get_dynamic_matchers( $query_vars );
 
 		// Handle The Events Calendar category.
