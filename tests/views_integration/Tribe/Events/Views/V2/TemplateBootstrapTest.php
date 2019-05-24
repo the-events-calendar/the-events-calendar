@@ -2,18 +2,6 @@
 namespace Tribe\Events\Views\V2;
 
 class TemplateBootstrapTest extends \Codeception\TestCase\WPTestCase {
-	public function setUp() {
-		// before
-		parent::setUp();
-	}
-
-	public function tearDown() {
-		// your tear down methods here
-
-		// then
-		parent::tearDown();
-	}
-
 	private function make_instance() {
 		return new Template_Bootstrap();
 	}
@@ -42,8 +30,12 @@ class TemplateBootstrapTest extends \Codeception\TestCase\WPTestCase {
 				'default',
 				'page',
 			],
-			'empty' => [
+			'empty_string' => [
 				'',
+				'event',
+			],
+			'numeric_zero' => [
+				0,
 				'event',
 			],
 			'null' => [
@@ -58,11 +50,11 @@ class TemplateBootstrapTest extends \Codeception\TestCase\WPTestCase {
 				false,
 				'event',
 			],
-			'event' => [
+			'slug_event' => [
 				'event',
 				'event',
 			],
-			'page_isnt_a_value' => [
+			'slug_page' => [
 				'page',
 				'event',
 			],
@@ -77,6 +69,7 @@ class TemplateBootstrapTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function should_only_allow_permitted_values_on_base_template_option( $input, $expected ) {
 		tribe_update_option( 'tribeEventsTemplate', $input );
+
 		$option_value = $this->make_instance()->get_template_setting();
 
 		$this->assertEquals( $option_value, $expected );
@@ -89,6 +82,7 @@ class TemplateBootstrapTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function it_should_return_template_event_instance() {
 		tribe_update_option( 'tribeEventsTemplate', 'event' );
+
 		$instance = $this->make_instance()->get_template_object();
 
 		$this->assertInstanceOf( Template\Event::class, $instance );
@@ -101,6 +95,7 @@ class TemplateBootstrapTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function it_should_return_template_page_instance() {
 		tribe_update_option( 'tribeEventsTemplate', 'default' );
+
 		$instance = $this->make_instance()->get_template_object();
 
 		$this->assertInstanceOf( Template\Page::class, $instance );
@@ -113,21 +108,15 @@ class TemplateBootstrapTest extends \Codeception\TestCase\WPTestCase {
 				false,
 			],
 			'post_type_eq_tribe_events' => [
-				[
-					'post_type' => 'tribe_events',
-				],
+				[ 'post_type' => 'tribe_events' ],
 				true,
 			],
 			'post_type_contains_tribe_events' => [
-				[
-					'post_type' => [ 'tribe_events', 'foo' ],
-				],
+				[ 'post_type' => [ 'tribe_events', 'invalid_post_type' ] ],
 				true,
 			],
 			'post_type_not_tribe_events' => [
-				[
-					'post_type' => 'post',
-				],
+				[ 'post_type' => 'post' ],
 				false,
 			],
 		];
@@ -151,17 +140,18 @@ class TemplateBootstrapTest extends \Codeception\TestCase\WPTestCase {
 		return [
 			'string' => [
 				'foo',
-				false,
 			],
 			'numeric' => [
-				[
-					'post_type' => 'tribe_events',
-				],
+				2,
+			],
+			'boolean_false' => [
+				false,
+			],
+			'boolean_true' => [
 				true,
 			],
 			'stdObject' => [
-				[],
-				true,
+				(object) [],
 			],
 			'array' => [
 				[],
