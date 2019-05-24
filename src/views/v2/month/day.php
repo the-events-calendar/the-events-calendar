@@ -30,7 +30,11 @@ if ( $day_number == date( 'd', time() ) ) {
 		aria-label="Weekday, Month Daynumber"
 	>
 		<h4 class="<?php echo esc_attr( implode( ' ', $day_title_classes ) ); ?>">
-			<time datetime="YYYY-MM-DD"><?php echo esc_html( $day_number ); ?></time>
+			<time datetime="YYYY-MM-DD">
+				<a href="#link-to-day-view-if-it-has-events">
+					<?php echo esc_html( $day_number ); ?>
+				</a>
+			</time>
 		</h4>
 	</div>
 	<!-- Events for this day will be listed here -->
