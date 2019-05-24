@@ -16,11 +16,11 @@
 $days_of_week = tribe_events_get_days_of_week();
 global $wp_locale;
 ?>
-<header class="tribe-events-calendar-month__header" role="rowgroup">
-	<div role="row">
+<header role="rowgroup">
+	<div role="row" class="tribe-events-calendar-month__header">
 		<?php foreach ( $days_of_week as $day ) : ?>
 				<div
-					class="tribe-events-calendar-month__header-column"
+					class="tribe-events-calendar-month__header-column tribe-common-b3"
 					role="columnheader"
 					aria-label="<?php echo esc_attr( $day ); ?>"
 				>
