@@ -1,0 +1,33 @@
+/**
+ * The Events Calendar Tribe V2 Stylesheet
+ *
+ * @package TribeEventsCalendar
+ *
+ */
+
+/*
+	Utilities -
+	@todo: remove this once we have the repo for tribe-assets
+	More info: https://github.com/moderntribe/tribe-common-styles
+*/
+@import "../utilities/_all.pcss";
+
+/* Views components */
+@import "../components/_all.pcss";
+
+/* Views */
+@import "_all.pcss";
+
+/* @TODO: Re check this once we defined the tribe template styles. */
+/* This chunk sets a padding for mobile and a max-width according to the designs. */
+.tribe-events {
+	padding: 0 20px;
+	max-width: var(--grid-width-default);
+	width: 100%;
+	margin: 0 auto;
+
+	@media (--viewport-medium) {
+		padding: 0;
+	}
+
+}

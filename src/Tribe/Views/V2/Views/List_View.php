@@ -13,6 +13,22 @@ use Tribe__Utils__Array as Arr;
 
 class List_View extends View {
 
+	/**
+	 * Slug for this view
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	protected $slug = 'list';
+
+
+	/**
+	 * Get HTML method
+	 *
+	 * @since TBD
+	 *
+	 */
 	public function get_html() {
 		/*
 		 * The View not care where the context comes from: from the View point of view the context is the only
@@ -28,7 +44,7 @@ class List_View extends View {
 			'posts_per_page' => $context['posts_per_page'],
 			'paged'          => Arr::get( $context, 'page', 1 ),
 		];
-		$date = Arr::get( $context, 'eventDate', 'now' );
+		$date = Arr::get( $context, 'event_date', 'now' );
 
 		if ( 'past' !== Arr::get( $context, 'event_display', 'current' ) ) {
 			$args['ends_after'] = $date;
