@@ -17,13 +17,15 @@ $days_of_week = tribe_events_get_days_of_week();
 global $wp_locale;
 ?>
 <header class="tribe-events-calendar-month__header" role="rowgroup">
-	<?php foreach ( $days_of_week as $day ) : ?>
-			<div
-				class="tribe-events-calendar-month__header-column"
-				role="columnheader"
-				aria-label="<?php echo esc_attr( $day ); ?>"
-			>
-				<?php echo esc_html( $wp_locale->get_weekday_abbrev( $day ) ); ?>
-			</div>
-	<?php endforeach; ?>
+	<div role="row">
+		<?php foreach ( $days_of_week as $day ) : ?>
+				<div
+					class="tribe-events-calendar-month__header-column"
+					role="columnheader"
+					aria-label="<?php echo esc_attr( $day ); ?>"
+				>
+					<?php echo esc_html( $wp_locale->get_weekday_abbrev( $day ) ); ?>
+				</div>
+		<?php endforeach; ?>
+	</div>
 </header>
