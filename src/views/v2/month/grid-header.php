@@ -20,11 +20,13 @@ global $wp_locale;
 	<div role="row" class="tribe-events-calendar-month__header">
 		<?php foreach ( $days_of_week as $day ) : ?>
 				<div
-					class="tribe-events-calendar-month__header-column tribe-common-b3"
+					class="tribe-events-calendar-month__header-column"
 					role="columnheader"
 					aria-label="<?php echo esc_attr( $day ); ?>"
 				>
-					<?php echo esc_html( $wp_locale->get_weekday_abbrev( $day ) ); ?>
+					<h4 class="tribe-common-b3">
+						<?php echo esc_html( $wp_locale->get_weekday_abbrev( $day ) ); ?>
+					</h4>
 				</div>
 		<?php endforeach; ?>
 	</div>
