@@ -23,6 +23,6 @@ if ( $day_number == date( 'd', time() ) ) {
 }
 ?>
 <div class="<?php echo esc_attr( implode( ' ', $day_classes ) ); ?>" aria-label="Weekday, Month Daynumber">
-	<time><?php echo esc_html( $day_number ); ?></time>
-	<!-- Events for this day will be listed here -->
+	<time datetime="YYYY-MM-DD"><?php echo esc_html( $day_number ); ?></time>
 </div>
+<!-- Events for this day will be listed here -->
