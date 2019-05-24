@@ -30,8 +30,7 @@
 	}
 
 	.tribe-events-calendar-month__day {
-		@mixin heading;
-		@mixin heading-6;
+
 		width: 14.285%;
 
 		@media (--viewport-medium) {
@@ -56,6 +55,13 @@
 	.tribe-events-calendar-month__day--disabled {}
 
 	.tribe-events-calendar-month__day-date {
+		@mixin heading;
+		@mixin heading-6;
+
+		@media (--viewport-medium) {
+			@mixin desktop-heading-4;
+		}
+
 		padding: var(--spacer-1);
 	}
 
