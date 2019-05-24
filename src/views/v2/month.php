@@ -35,11 +35,7 @@ $this->template( 'top-bar' );
 
 				<?php for ( $day = 0; $day < 7; $day++ ) : ?>
 
-					<div class="tribe-events-calendar-month__day" role="gridcell" tabindex="-1">
-
-						<?php $this->template( 'month/day', [ 'day' => $day, 'week' => $week ] ); ?>
-
-					</div>
+					<?php $this->template( 'month/day', [ 'day' => $day, 'week' => $week ] ); ?>
 
 				<?php endfor; ?>
 
