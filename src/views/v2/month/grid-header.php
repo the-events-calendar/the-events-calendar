@@ -22,6 +22,8 @@ global $wp_locale;
 				class="tribe-events-calendar-month__header-column"
 				role="columnheader"
 				aria-label="<?php echo esc_attr( $day ); ?>"
-				><?php echo esc_html( $wp_locale->get_weekday_abbrev( $day ) ); ?></div>
+			>
+				<?php echo esc_html( $wp_locale->get_weekday_abbrev( $day ) ); ?>
+			</div>
 	<?php endforeach; ?>
 </header>
