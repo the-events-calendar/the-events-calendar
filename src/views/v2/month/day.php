@@ -15,7 +15,7 @@
 // @todo: This is just for presentation purposes, while building the view.
 $day_number  = ( $week < 1 ) ? ( $day + 1 ) * ( $week + 1 ) : ( $day + 1 ) + $week * 7;
 
-$day_classes = [ 'tribe-events-calendar-month__day-date', 'tribe-common-h4' ];
+$day_classes = [ 'tribe-events-calendar-month__day-date' ];
 
 // @todo: check if we use classes here or if we wrap the day block directly with the classes (we also have `.tribe-events-calendar-month__day-date--current`).
 if ( $day_number == date( 'd', time() ) ) {
