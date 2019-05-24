@@ -25,10 +25,7 @@ if ( $day_number == date( 'd', time() ) ) {
 ?>
 
 <div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="<?php echo esc_attr( $day_id ); ?>">
-	<div
-		id="<?php echo esc_attr( $day_id ); ?>"
-		aria-label="Weekday, Month Daynumber"
-	>
+	<div id="<?php echo esc_attr( $day_id ); ?>">
 		<h4 class="<?php echo esc_attr( implode( ' ', $day_title_classes ) ); ?>">
 			<time datetime="YYYY-MM-DD">
 				<a href="#link-to-day-view-if-it-has-events">
