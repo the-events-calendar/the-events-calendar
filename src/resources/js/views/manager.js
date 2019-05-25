@@ -43,7 +43,7 @@ tribe.events.views.manager = {};
 		container: '.tribe-events-container',
 		link: '.tribe-events-navigation-link',
 		loader: '.tribe-events-view-loader',
-		hiddenElement: '.tribe-hidden',
+		hiddenElement: '.tribe-common-a11y-hidden',
 		dataScript: '.tribe-events-views-data'
 	};
 
