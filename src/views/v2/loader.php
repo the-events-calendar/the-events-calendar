@@ -1,3 +1,3 @@
-<div class="tribe-events-view-loader tribe-hidden">
-	<div class="tribe-events-view-loader-spinner">Loading...</div>
+<div class="tribe-events-view-loader tribe-common-a11y-hidden">
+	<div class="tribe-events-view-loader__spinner">Loading...</div>
 </div>

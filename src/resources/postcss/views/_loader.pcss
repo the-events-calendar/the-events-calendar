@@ -2,7 +2,7 @@
 	position: relative;
 
 	.tribe-events-view-loader {
-		align-content: center;
+		align-items: center;
 		justify-content: center;
 		display: flex;
 		position: absolute;
@@ -10,11 +10,11 @@
 		right: 0;
 		bottom: 0;
 		left: 0;
-		z-index: 25000;
-		background: rgba( 255, 255, 255, 0.6 );
+		z-index: var(--layer-spinner-container);
+		background: var(--color-background-transparent);
 
 		&__spinner {
-			align-self: center;
+			/* placeholder for when spinner is added */
 		}
 	}
 }
