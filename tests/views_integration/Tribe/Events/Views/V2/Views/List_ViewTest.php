@@ -7,12 +7,12 @@ use tad\FunctionMocker\FunctionMocker as Test;
 use Tribe\Events\Views\V2\TestCase;
 use Tribe\Events\Views\V2\View;
 
+
 class List_ViewTest extends TestCase {
 
 	use MatchesSnapshots;
 
-	public function setUp()
-	{
+	public function setUp() {
 		parent::setUp();
 		Test::setUp();
 		Test::replace( 'date', function ( $format ) {
@@ -30,7 +30,7 @@ class List_ViewTest extends TestCase {
 		$list_view = View::make( List_View::class );
 		$html      = $list_view->get_html();
 
-		$this->assertMatchesSnapshot( $html );
+		$this->assertMatchesSnapshot( $html, $this->driver );
 	}
 
 	/**
@@ -61,10 +61,10 @@ class List_ViewTest extends TestCase {
 		] ) );
 		$html = $list_view->get_html();
 
-		$this->assertMatchesSnapshot( $html );
+		$this->assertMatchesSnapshot( $html, $this->driver );
 	}
 
-	public function tearDown(  ) {
-		Test::tearDown()	;
+	public function tearDown() {
+		Test::tearDown();
 	}
 }
