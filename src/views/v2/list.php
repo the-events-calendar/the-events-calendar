@@ -24,10 +24,11 @@ $events = $this->get( 'events' );
 
 ?>
 <form
-	class="tribe-common tribe-events tribe-events-container"
+	class="tribe-common tribe-events"
 	action=""
 	method="get"
 	data-rest-url="<?php echo esc_url( tribe( Rest_Endpoint::class )->get_url() ); ?>"
+	data-js="tribe-events-view"
 >
 	<?php wp_nonce_field( 'wp_rest', 'tribe-events-views[_wpnonce]' ); ?>
 

@@ -40,11 +40,11 @@ tribe.events.views.manager = {};
 	 * @type {PlainObject}
 	 */
 	obj.selectors = {
-		container: '.tribe-events-container',
-		link: '.tribe-events-navigation-link',
+		container: '[data-js="tribe-events-view"]',
+		link: '[data-js="tribe-events-view-link"]',
 		loader: '.tribe-events-view-loader',
 		hiddenElement: '.tribe-common-a11y-hidden',
-		dataScript: '.tribe-events-views-data'
+		dataScript: '[data-js="tribe-events-view-data"]'
 	};
 
 	/**
