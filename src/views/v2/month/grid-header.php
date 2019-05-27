@@ -24,9 +24,9 @@ global $wp_locale;
 					role="columnheader"
 					aria-label="<?php echo esc_attr( $day ); ?>"
 				>
-					<h4 class="tribe-common-b3">
+					<h3 class="tribe-common-b3">
 						<?php echo esc_html( $wp_locale->get_weekday_abbrev( $day ) ); ?>
-					</h4>
+					</h3>
 				</div>
 		<?php endforeach; ?>
 	</div>

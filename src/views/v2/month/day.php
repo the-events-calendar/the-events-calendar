@@ -26,14 +26,14 @@ if ( $day_number == date( 'd', time() ) ) {
 
 <div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="<?php echo esc_attr( $day_id ); ?>">
 	<div id="<?php echo esc_attr( $day_id ); ?>">
-		<h4 class="<?php echo esc_attr( implode( ' ', $day_title_classes ) ); ?>">
+		<h3 class="<?php echo esc_attr( implode( ' ', $day_title_classes ) ); ?>">
 			<span class="tribe-common-a11y-hidden">X events, </span>
 			<time datetime="YYYY-MM-DD">
 				<a href="#link-to-day-view-if-it-has-events">
 					<?php echo esc_html( $day_number ); ?>
 				</a>
 			</time>
-		</h4>
+		</h3>
 	</div>
 	<!-- Events for this day will be listed here -->
 </div>
