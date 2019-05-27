@@ -78,8 +78,13 @@
 	}
 
 	.tribe-events-calendar-list__event-title-link {
-		color: var(--color-text-primary);
-		text-decoration: none;
+		border-bottom: 2px solid transparent;
+		transition: var(--transition-border-color);
+
+		&:focus,
+		&:hover {
+			border-bottom: 2px solid var(--color-text-primary);
+		}
 	}
 
 	.tribe-events-calendar-list__event-venue {
