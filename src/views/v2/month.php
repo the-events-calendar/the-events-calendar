@@ -20,7 +20,7 @@ $this->template( 'events-bar' );
 $this->template( 'top-bar' );
 ?>
 
-<h2 class="tribe-common-a11y-hidden" id="tribe-calendar-header"><?php printf( esc_html__( 'Calendar of %s', 'the-events-calendar' ), tribe_get_event_label_plural() ); ?></h2>
+<h2 class="tribe-common-a11y-visual-hide" id="tribe-calendar-header"><?php printf( esc_html__( 'Calendar of %s', 'the-events-calendar' ), tribe_get_event_label_plural() ); ?></h2>
 
 <div class="tribe-events-calendar-month" role="grid" aria-labelledby="tribe-calendar-header" aria-readonly="true">
 
