@@ -71,6 +71,8 @@ tribe.events.views.manager = {};
 	obj.setup = function( index, container ) {
 		var $container = $( container );
 
+		$container.trigger( 'beforeSetup.tribeEvents', [ index, $container ] );
+
 		$container.find( obj.selectors.link ).on( 'click.tribeEvents', obj.onLinkClick );
 
 		// Only catch the submit if properly setup on a form
@@ -80,6 +82,8 @@ tribe.events.views.manager = {};
 
 		// Binds and action to the container that will update the URL based on backed
 		$container.on( 'updateUrl.tribeEvents', obj.onUpdateUrl );
+
+		$container.trigger( 'afterSetup.tribeEvents', [ index, $container ] );
 	};
 
 	/**
@@ -262,8 +266,6 @@ tribe.events.views.manager = {};
 
 		$container.trigger( 'beforeAjaxBeforeSend.tribeEvents', [ jqXHR, settings ] );
 
-		console.log( jqXHR, settings, this );
-
 		if ( $loader.length ) {
 			$loader.removeClass( obj.selectors.hiddenElement.className() );
 		}
@@ -290,8 +292,6 @@ tribe.events.views.manager = {};
 		var $loader = $container.find( obj.selectors.loader );
 
 		$container.trigger( 'beforeAjaxComplete.tribeEvents', [ jqXHR, textStatus ] );
-
-		console.log( jqXHR, textStatus, this );
 
 		if ( $loader.length ) {
 			$loader.addClass( obj.selectors.hiddenElement.className() );
@@ -320,8 +320,6 @@ tribe.events.views.manager = {};
 		var $container = this;
 
 		$container.trigger( 'beforeAjaxSuccess.tribeEvents', [ data, textStatus, jqXHR ] );
-
-		console.log( data, textStatus, jqXHR, this );
 
 		var $html = $( data );
 
@@ -358,7 +356,9 @@ tribe.events.views.manager = {};
 
 		$container.trigger( 'beforeAjaxError.tribeEvents', [ jqXHR, settings ] );
 
-		console.log( jqXHR, settings, this );
+		/**
+		 * @todo  we need to handle errors here
+		 */
 
 		$container.trigger( 'afterAjaxError.tribeEvents', [ jqXHR, settings ] );
 	};
