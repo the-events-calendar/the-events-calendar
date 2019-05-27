@@ -23,7 +23,7 @@ if ( $is_featured = tribe( 'tec.featured_events' )->is_featured( $event_id ) ) {
 }
 ?>
 <div class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>">
-	<time datetime="the-date-and-or-duration" class="tribe-common-a11y-hidden">The date and duration</time>
+	<time datetime="the-date-and-or-duration" class="tribe-common-a11y-visual-hide">The date and duration</time>
 	<a class="tribe-events-calendar-month__event-multiday-inner tribe-events-calendar-month__event-multiday-inner--border-left tribe-events-calendar-month__event-multiday-inner--border-right">
 			<?php if ( $is_featured ) : ?>
 				<em
