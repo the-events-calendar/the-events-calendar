@@ -7,7 +7,7 @@
 	data-js="tribe-events-view"
 >
 	<div class="tribe-common-l-container tribe-events-l-container">
-		<input type="hidden" id="tribe-events-views[_wpnonce]" name="tribe-events-views[_wpnonce]" value="03f183422d" /><input type="hidden" name="_wp_http_referer" value="/events" />
+		<input type="hidden" id="tribe-events-views[_wpnonce]" name="tribe-events-views[_wpnonce]" value="986855662a" /><input type="hidden" name="_wp_http_referer" value="/events" />
 		<div class="tribe-events-view-loader tribe-common-a11y-hidden">
 	<div class="tribe-events-view-loader__spinner">Loading...</div>
 </div>
