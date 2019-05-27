@@ -10,8 +10,8 @@
  */
 namespace Tribe\Events\Views\V2;
 
-use Tribe__Utils__Array as Arr;
 use Tribe__Events__Main as TEC;
+use Tribe__Utils__Array as Arr;
 use WP_Query;
 
 class Template_Bootstrap {
@@ -91,12 +91,9 @@ class Template_Bootstrap {
 
 			$html = tribe( Kitchen_Sink::class )->template( $template, $context, false );
 		} else {
-			/**
-			 * @todo  needs to determine the view we want to pass
-			 */
-			$slug = tribe_context()->get( 'view' );
-			$view = View::make( $slug );
-			$html = $view->get_html();
+			$context   = tribe_context();
+			$view_slug = $context->get( 'view' );
+			$html      = View::make( $view_slug, $context )->get_html();
 		}
 
 		return $html;

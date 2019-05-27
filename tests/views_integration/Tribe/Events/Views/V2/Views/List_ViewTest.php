@@ -16,7 +16,8 @@ class List_ViewTest extends TestCase {
 		parent::setUp();
 		Test::setUp();
 		Test::replace( 'date', function ( $format ) {
-			return ( new \DateTime( '2019-01-01 09:00:00' ) )->format( $format );
+			return ( new \DateTime( '2019-01-01 09:00:00', new \DateTimeZone( 'UTC' ) ) )
+				->format( $format );
 		} );
 	}
 
@@ -46,8 +47,9 @@ class List_ViewTest extends TestCase {
 		) {
 			tribe_events()->set_args( [
 				'start_date' => $start_date,
+				'timezone'   => 'Europe/Paris',
 				'duration'   => 3 * HOUR_IN_SECONDS,
-				'title'      => 'Test Event ' . md5( $start_date ),
+				'title'      => 'Test Event - ' . $start_date,
 				'status'     => 'publish',
 			] )->create();
 		}
@@ -57,7 +59,8 @@ class List_ViewTest extends TestCase {
 
 		$list_view = View::make( List_View::class );
 		$list_view->set_context( tribe_context()->alter( [
-			'event_date' => $list_date,
+			'event_date'     => $list_date,
+			'posts_per_page' => 2,
 		] ) );
 		$html = $list_view->get_html();
 

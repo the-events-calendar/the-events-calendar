@@ -21,6 +21,10 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 
 		// your set up methods here
 		$this->wp_rewrite = $this->prophesize( 'WP_Rewrite' );
+		// Let's make sure to set rewrite rules.
+		global $wp_rewrite;
+		$wp_rewrite->permalink_structure = '/%postname%/';
+		$wp_rewrite->rewrite_rules();
 	}
 
 	public function tearDown() {
@@ -132,11 +136,53 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 	 * @dataProvider canonical_urls
 	 */
 	public function should_allow_converting_a_url_to_its_canonical_form( $uri, $expected ) {
-		global $wp_rewrite;
-		$wp_rewrite->permalink_structure = '/%postname%/';
-		$wp_rewrite->rewrite_rules();
 		$canonical_url = ( new Rewrite )->get_canonical_url( home_url( $uri ) );
 
 		$this->assertEquals( home_url( $expected ), $canonical_url );
+	}
+
+	/**
+	 * It should correctly parse not handled URLs
+	 *
+	 * @test
+	 * @dataProvider not_handled_urls
+	 */
+	public function should_correctly_parse_not_handled_urls( $url ) {
+		$this->assertEquals( $url, ( new Rewrite )->get_canonical_url( $url ) );
+	}
+
+	public function not_handled_urls() {
+		return[
+			'wo_trailing_slash'                 => [ 'http://example.com' ],
+			'w_trailing_slash'                  => [ 'http://example.com/' ],
+			'w_query_args'                      => [ 'http://example.com?foo=bar' ],
+			'w_query_args_and_trailing_slash'   => [ 'http://example.com/?foo=bar' ],
+			'w_url_fragment'                    => [ 'http://example.com#some-header' ],
+			'w_url_fragment_and_trailing_slash' => [ 'http://example.com/#some-header' ],
+			'w_everything'                      => [ 'http://example.com?foo=bar&some=foo#some-header' ],
+			'w_everything_and_trailing_slash'   => [ 'http://example.com/?foo=bar&some=foo#some-header' ],
+		];
+	}
+
+	/**
+	 * It should let WP handle URLs we do not manage
+	 *
+	 * @test
+	 */
+	public function should_let_wp_handle_urls_we_do_not_manage() {
+		$this->assertEquals( home_url(), ( new Rewrite() )->get_canonical_url( home_url() ) );
+	}
+
+	/**
+	 * It should correctly handle a custom view URL
+	 *
+	 * @test
+	 */
+	public function should_correctly_handle_a_custom_view_url() {
+		$url = home_url( '?view=some-view' );
+
+		$canonical = ( new Rewrite() )->get_canonical_url( $url );
+
+		$this->assertEquals( $url, $canonical );
 	}
 }
