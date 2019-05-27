@@ -17,6 +17,9 @@ $days_of_week = tribe_events_get_days_of_week();
 global $wp_locale;
 ?>
 <header role="rowgroup">
+
+	<h2 class="tribe-common-a11y-visual-hide" id="tribe-calendar-header"><?php printf( esc_html__( 'Calendar of %s', 'the-events-calendar' ), tribe_get_event_label_plural() ); ?></h2>
+
 	<div role="row" class="tribe-events-calendar-month__header">
 		<?php foreach ( $days_of_week as $day ) : ?>
 				<div
