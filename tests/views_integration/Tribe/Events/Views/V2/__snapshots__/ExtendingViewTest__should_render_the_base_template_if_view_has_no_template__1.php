@@ -30,9 +30,9 @@
 	<pre>
 		<code>
 			{
+    &quot;slug&quot;: &quot;test-base&quot;,
     &quot;view_class&quot;: &quot;Tribe\\\\Events\\\\Views\\\\V2\\\\Test_Full_View&quot;,
     &quot;request_slug&quot;: &quot;test-base&quot;,
-    &quot;slug&quot;: &quot;test-base&quot;,
     &quot;lookup_folders&quot;: [
         {
             &quot;id&quot;: &quot;child-theme&quot;,
