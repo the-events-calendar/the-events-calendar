@@ -19,7 +19,7 @@
 			<li class="tribe-events-c-top-bar__nav-list-item">
 				<a
 					href="#"
-					class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-left tribe-common-b3 tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--prev"
+					class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-left tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--prev"
 					aria-label="<?php esc_html_e( 'Previous', 'the-events-calendar' ); ?>"
 					title="<?php esc_html_e( 'Previous', 'the-events-calendar' ); ?>"
 					data-js="tribe-events-view-link"

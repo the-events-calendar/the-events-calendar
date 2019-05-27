@@ -18,10 +18,7 @@ use Tribe\Events\Views\V2\Rest_Endpoint;
  * @todo  remove this and properly enqueue assets
  */
 tribe_asset_enqueue( 'tribe-events-views-v2-manager' );
-
-$events_label_plural = tribe_get_event_label_plural();
 $events = $this->get( 'events' );
-
 ?>
 
 <?php
@@ -36,38 +33,41 @@ $events = $this->get( 'events' );
 	data-rest-url="<?php echo esc_url( tribe( Rest_Endpoint::class )->get_url() ); ?>"
 	data-js="tribe-events-view"
 >
-	<?php wp_nonce_field( 'wp_rest', 'tribe-events-views[_wpnonce]' ); ?>
+	<div class="tribe-common-l-container tribe-events-l-container">
+		<?php wp_nonce_field( 'wp_rest', 'tribe-events-views[_wpnonce]' ); ?>
 
-	<?php $this->template( 'loader' ); ?>
+		<?php $this->template( 'loader' ); ?>
 
-	<?php
-		/**
-		 * @todo Make sure we are passing correct data
-		 */
-		$this->template(
-			'data',
-			[
-				'url' => home_url( 'events/list/page/3' ),
-				'title' => 'Developers title',
-			]
-		);
-	?>
+		<?php
+			/**
+			 * @todo Make sure we are passing correct data
+			 */
+			$this->template(
+				'data',
+				[
+					'url' => home_url( 'events/list/page/3' ),
+					'title' => 'Developers title',
+				]
+			);
+		?>
 
-	<?php $this->template( 'events-bar' ); ?>
+		<?php $this->template( 'events-bar' ); ?>
 
-	<?php $this->template( 'top-bar' ); ?>
+		<?php $this->template( 'top-bar' ); ?>
 
-	<div class="tribe-events-calendar-list">
+		<div class="tribe-events-calendar-list">
 
-		<?php $this->template( 'list/month-separator', [ 'month' => date( 'M' ) ] ); ?>
+			<?php $this->template( 'list/month-separator', [ 'month' => date( 'M' ) ] ); ?>
 
-		<?php foreach ( $events as $event ) : ?>
+			<?php foreach ( $events as $event ) : ?>
 
-			<?php $this->template( 'list/single-event', [ 'event' => $event ] ); ?>
+				<?php $this->template( 'list/single-event', [ 'event' => $event ] ); ?>
 
-		<?php endforeach; ?>
+			<?php endforeach; ?>
 
+		</div>
+
+		<?php $this->template( 'list/nav' ); ?>
 	</div>
-
-	<?php $this->template( 'list/nav' ); ?>
 </form>
+

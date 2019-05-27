@@ -15,12 +15,12 @@
 $event    = $this->get( 'event' );
 $event_id = $event->ID;
 ?>
-<h3 class="tribe-events-calendar-list__event-title tribe-common-h2">
+<h3 class="tribe-events-calendar-list__event-title">
 	<a
 		href="<?php echo esc_url( tribe_get_event_link( $event_id ) ); ?>"
 		title="<?php the_title_attribute( $event_id ); ?>"
 		rel="bookmark"
-		class="tribe-events-calendar-list__event-title-link"
+		class="tribe-events-calendar-list__event-title-link tribe-common-h4"
 	>
 		<?php echo get_the_title( $event_id ); ?>
 	</a>
