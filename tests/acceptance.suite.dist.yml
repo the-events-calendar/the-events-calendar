@@ -15,7 +15,7 @@ modules:
       url: '%WP_URL%'
       adminUsername: %WP_ADMIN_USERNAME%
       adminPassword: %WP_ADMIN_PASSWORD%
-      adminUrl: %WP_ADMIN_PATH%
+      adminUrl: '%WP_ADMIN_PATH%'
     WPDb:
       dsn: 'mysql:host=%WP_TEST_DB_HOST%;dbname=%WP_TEST_DB_NAME%'
       user: %WP_TEST_DB_USER%
@@ -25,14 +25,14 @@ modules:
       cleanup: false
       url: '%WP_URL%'
       tablePrefix: %WP_TABLE_PREFIX%
-      urlReplacement: false
+      urlReplacement: true
     WPLoader:
       wpRootFolder: %WP_ROOT_FOLDER%
       dbName: %WP_TEST_DB_NAME%
       dbHost: %WP_TEST_DB_HOST%
       dbUser: %WP_TEST_DB_USER%
       dbPassword: %WP_TEST_DB_PASSWORD%
-      tablePrefix: test_
+      tablePrefix: %WP_TABLE_PREFIX%
       domain: %WP_DOMAIN%
       adminEmail: admin@tribe.localhost
       plugins:
