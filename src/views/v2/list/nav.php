@@ -13,9 +13,10 @@
  *
  */
 
-/**
- * @todo: only display nav if prev / next link exist
- */
+if ( ! tribe_has_previous_event() || ! tribe_has_next_event() ) {
+	return;
+}
+
 ?>
 <nav class="tribe-common-c-nav">
 	<ul class="tribe-common-c-nav__list">

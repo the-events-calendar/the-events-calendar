@@ -17,7 +17,7 @@ $events = $this->get( 'events' );
 
 ?>
 
-<div class="tribe-common-l-container">
+<div class="tribe-common-l-container tribe-events-l-container">
 
 	<?php $this->template( 'events-bar' ); ?>
 
