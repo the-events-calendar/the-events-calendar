@@ -23,6 +23,12 @@ $events_label_plural = tribe_get_event_label_plural();
 $events = $this->get( 'events' );
 
 ?>
+
+<?php
+/**
+ * @todo Revise this Usage of Form
+ */
+?>
 <form
 	class="tribe-common tribe-events"
 	action=""
