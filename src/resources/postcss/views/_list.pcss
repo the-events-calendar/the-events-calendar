@@ -9,7 +9,6 @@
 	.tribe-events-calendar-list__separator-month {
 		display: flex;
 		align-items: center;
-		margin-bottom: var(--spacer-6);
 
 		&:after {
 			background-color: var(--color-border-default);
@@ -28,12 +27,28 @@
 	.tribe-events-calendar-list__event {
 		display: flex;
 		flex-direction: column;
-		margin-bottom: var(--spacer-7);
+		margin: var(--spacer-7) 0 var(--spacer-4);
 
 		@media (--viewport-medium) {
 			flex-direction: row-reverse;
+			margin: var(--spacer-9) 0 var(--spacer-6);
 			padding-left: 140px;
-			margin-bottom: var(--spacer-9);
+		}
+
+		&:last-child {
+			margin-bottom: var(--spacer-7);
+
+			@media (--viewport-medium) {
+				margin-bottom: var(--spacer-9);
+			}
+		}
+	}
+
+	.tribe-events-calendar-list__separator-month + .tribe-events-calendar-list__event {
+		margin-top: var(--spacer-4);
+
+		@media (--viewport-medium) {
+			margin-top: var(--spacer-6);
 		}
 	}
 
@@ -88,11 +103,11 @@
 	}
 
 	.tribe-events-calendar-list__event-venue {
-		margin-bottom: var(--spacer-2);
-	}
+		margin-bottom: var(--spacer-1);
 
-	.tribe-events-calendar-list__event-description {
-		margin-bottom: var(--spacer-4);
+		@media (--viewport-medium) {
+			margin-bottom: var(--spacer-2);
+		}
 	}
 
 	.tribe-events-calendar-list__event--featured {
