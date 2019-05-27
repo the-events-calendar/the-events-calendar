@@ -6,17 +6,18 @@
 	data-rest-url="http://test.tri.be/index.php?rest_route=/tribe/views/v2/html"
 	data-js="tribe-events-view"
 >
-	<input type="hidden" id="tribe-events-views[_wpnonce]" name="tribe-events-views[_wpnonce]" value="e00f246f0e" /><input type="hidden" name="_wp_http_referer" value="/events" />
-	<div class="tribe-events-view-loader tribe-common-a11y-hidden">
+	<div class="tribe-common-l-container tribe-events-l-container">
+		<input type="hidden" id="tribe-events-views[_wpnonce]" name="tribe-events-views[_wpnonce]" value="03f183422d" /><input type="hidden" name="_wp_http_referer" value="/events" />
+		<div class="tribe-events-view-loader tribe-common-a11y-hidden">
 	<div class="tribe-events-view-loader__spinner">Loading...</div>
 </div>
 
-	<script
+		<script
 	data-js="tribe-events-view-link"
 	type="application/json"
 >{"url":"http:\\/\\/test.tri.be\\/events\\/list\\/page\\/3","title":"Developers title"}</script>
 
-	<div class="tribe-events-c-events-bar">
+		<div class="tribe-events-c-events-bar">
 
 	<h2 class="tribe-common-a11y-visual-hide">Events Search and Views Navigation</h2>
 
@@ -104,7 +105,7 @@
 
 </div>
 
-	<div class="tribe-events-c-top-bar">
+		<div class="tribe-events-c-top-bar">
 
 	<div class="tribe-events-c-top-bar__nav-wrapper">
 	<nav class="tribe-events-c-top-bar__nav">
@@ -112,7 +113,7 @@
 			<li class="tribe-events-c-top-bar__nav-list-item">
 				<a
 					href="#"
-					class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-left tribe-common-b3 tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--prev"
+					class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-left tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--prev"
 					aria-label="Previous"
 					title="Previous"
 					data-js="tribe-events-view-link"
@@ -151,17 +152,16 @@
 
 </div>
 
-	<div class="tribe-events-calendar-list">
+		<div class="tribe-events-calendar-list">
 
-		<div class="tribe-events-calendar-list__separator-month">
+			<div class="tribe-events-calendar-list__separator-month">
 	<time class="tribe-events-calendar-list__separator-month-text tribe-common-b1 tribe-common-b1--bold" datetime="1970-01-01T00:00:00+00:00">Jan</time>
 </div>
 
-		
-	</div>
+			
+		</div>
 
-	<nav class="tribe-common-c-nav">
-	<ul class="tribe-common-c-nav__list">
-					</ul>
-</nav></form>
+			</div>
+</form>
+
 ';
