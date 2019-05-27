@@ -12,6 +12,10 @@
  * @version TBD
  *
  */
+
+/**
+ * @todo: only display nav if prev / next link exist
+ */
 ?>
 <nav class="tribe-common-c-nav">
 	<ul class="tribe-common-c-nav__list">
