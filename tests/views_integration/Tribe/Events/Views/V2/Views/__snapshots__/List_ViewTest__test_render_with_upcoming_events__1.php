@@ -1,4 +1,5 @@
 <?php return '
+<<<<<<< HEAD
 <form
 	class="tribe-common tribe-events"
 	action=""
@@ -23,6 +24,11 @@
 >{"url":"http:\\/\\/test.tri.be\\/events\\/list\\/page\\/3","title":"Developers title"}</script>
 
 		<div class="tribe-events-c-events-bar">
+=======
+<div class="tribe-common-l-container tribe-events-l-container">
+
+	<div class="tribe-events-c-events-bar">
+>>>>>>> d12941efea4f680d97856d94a3ab910f793f24c6
 
 	<h2 class="tribe-common-a11y-visual-hide">Events Search and Views Navigation</h2>
 
@@ -110,7 +116,11 @@
 
 </div>
 
+<<<<<<< HEAD
 		<div class="tribe-events-c-top-bar">
+=======
+	<div class="tribe-events-c-top-bar">
+>>>>>>> d12941efea4f680d97856d94a3ab910f793f24c6
 
 	<div class="tribe-events-c-top-bar__nav-wrapper">
 	<nav class="tribe-events-c-top-bar__nav">
@@ -121,17 +131,27 @@
 					class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-left tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--prev"
 					aria-label="Previous"
 					title="Previous"
+<<<<<<< HEAD
 					data-js="tribe-events-view-link"
+=======
+>>>>>>> d12941efea4f680d97856d94a3ab910f793f24c6
 				>
 				</a>
 			</li>
 			<li class="tribe-events-c-top-bar__nav-list-item">
 				<a
+<<<<<<< HEAD
 					href="http://test.tri.be/events/list/page/2?view=list"
 					class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-right tribe-common-b3 tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--next"
 					aria-label="Next"
 					title="Next"
 					data-js="tribe-events-view-link"
+=======
+					href="#"
+					class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-right tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--next"
+					aria-label="Next"
+					title="Next"
+>>>>>>> d12941efea4f680d97856d94a3ab910f793f24c6
 				>
 				</a>
 			</li>
@@ -157,6 +177,7 @@
 
 </div>
 
+<<<<<<< HEAD
 		<div class="tribe-events-calendar-list">
 
 			<div class="tribe-events-calendar-list__separator-month">
@@ -165,6 +186,16 @@
 
 			
 				<div class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-list__event">
+=======
+	<div class="tribe-events-calendar-list">
+
+		<div class="tribe-events-calendar-list__separator-month">
+	<time class="tribe-events-calendar-list__separator-month-text tribe-common-b1 tribe-common-b1--bold" datetime="1970-01-01T00:00:00+00:00">Jan</time>
+</div>
+
+		
+			<div class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-list__event">
+>>>>>>> d12941efea4f680d97856d94a3ab910f793f24c6
 
 	
 	<div class="tribe-events-calendar-list__event-details tribe-common-g-col">
@@ -172,16 +203,24 @@
 		<header class="tribe-events-calendar-list__event-header">
 			<div class="tribe-events-calendar-list__event-datetime-wrapper">
 	<time class="tribe-events-calendar-list__event-datetime tribe-common-b2" datetime="1970-01-01T00:00:00+00:00">
+<<<<<<< HEAD
 		<span class="tribe-event-date-start">January 1, 2018 @ 10:00 am</span> - <span class="tribe-event-time">1:00 pm</span>	</time>
+=======
+		<span class="tribe-event-date-start">January 1, 2018 @ 10:00 am</span> - <span class="tribe-event-time">12:00 pm</span>	</time>
+>>>>>>> d12941efea4f680d97856d94a3ab910f793f24c6
 	</div>
 			<h3 class="tribe-events-calendar-list__event-title">
 	<a
-		href="http://test.tri.be/?tribe_events=test-event-fa95745058001b098f83649aca569bf6%2F"
+		href="http://test.tri.be/?tribe_events=test-event-2018-01-01-10am%2F"
 		title=""
 		rel="bookmark"
 		class="tribe-events-calendar-list__event-title-link tribe-common-h4"
 	>
+<<<<<<< HEAD
 		Test Event fa95745058001b098f83649aca569bf6	</a>
+=======
+		Test Event &#8211; 2018-01-01 10am	</a>
+>>>>>>> d12941efea4f680d97856d94a3ab910f793f24c6
 </h3>
 			<address class="tribe-events-calendar-list__event-venue">
 	<span class="tribe-events-calendar-list__event-venue-title tribe-common-b2 tribe-common-b2--bold">
@@ -206,8 +245,13 @@
 
 </div>
 
+<<<<<<< HEAD
 			
 				<div class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-list__event">
+=======
+		
+			<div class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-list__event">
+>>>>>>> d12941efea4f680d97856d94a3ab910f793f24c6
 
 	
 	<div class="tribe-events-calendar-list__event-details tribe-common-g-col">
@@ -215,16 +259,24 @@
 		<header class="tribe-events-calendar-list__event-header">
 			<div class="tribe-events-calendar-list__event-datetime-wrapper">
 	<time class="tribe-events-calendar-list__event-datetime tribe-common-b2" datetime="1970-01-01T00:00:00+00:00">
+<<<<<<< HEAD
 		<span class="tribe-event-date-start">January 2, 2018 @ 8:00 am</span> - <span class="tribe-event-time">11:00 am</span>	</time>
+=======
+		<span class="tribe-event-date-start">January 2, 2018 @ 8:00 am</span> - <span class="tribe-event-time">10:00 am</span>	</time>
+>>>>>>> d12941efea4f680d97856d94a3ab910f793f24c6
 	</div>
 			<h3 class="tribe-events-calendar-list__event-title">
 	<a
-		href="http://test.tri.be/?tribe_events=test-event-518de7f46caf4882f39a2fc6e3f8dca1%2F"
+		href="http://test.tri.be/?tribe_events=test-event-2018-01-02-8am%2F"
 		title=""
 		rel="bookmark"
 		class="tribe-events-calendar-list__event-title-link tribe-common-h4"
 	>
+<<<<<<< HEAD
 		Test Event 518de7f46caf4882f39a2fc6e3f8dca1	</a>
+=======
+		Test Event &#8211; 2018-01-02 8am	</a>
+>>>>>>> d12941efea4f680d97856d94a3ab910f793f24c6
 </h3>
 			<address class="tribe-events-calendar-list__event-venue">
 	<span class="tribe-events-calendar-list__event-venue-title tribe-common-b2 tribe-common-b2--bold">
@@ -248,6 +300,7 @@
 	</div>
 
 </div>
+<<<<<<< HEAD
 
 			
 				<div class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-list__event">
@@ -298,4 +351,12 @@
 			</div>
 </form>
 
+=======
+
+		
+	</div>
+
+	
+</div>
+>>>>>>> d12941efea4f680d97856d94a3ab910f793f24c6
 ';

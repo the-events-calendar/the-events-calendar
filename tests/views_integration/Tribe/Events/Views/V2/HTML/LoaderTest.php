@@ -8,6 +8,16 @@ class LoaderTest extends TestHtmlCase {
 	/**
 	 * @test
 	 */
+	public function it_should_render() {
+		$text = '%placeholder-text%';
+		$html = $this->template->template( 'loader', [ 'text' => $text ] );
+
+		$this->assertMatchesSnapshot( $html, $this->driver );
+	}
+
+	/**
+	 * @test
+	 */
 	public function it_should_contain_correct_html_classes() {
 		$template = $this->template->template( 'loader' );
 		$html = $this->document->html( $template );

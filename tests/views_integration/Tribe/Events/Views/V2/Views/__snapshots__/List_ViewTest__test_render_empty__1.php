@@ -1,4 +1,5 @@
 <?php return '
+<<<<<<< HEAD
 <form
 	class="tribe-common tribe-events"
 	action=""
@@ -23,6 +24,11 @@
 >{"url":"http:\\/\\/test.tri.be\\/events\\/list\\/page\\/3","title":"Developers title"}</script>
 
 		<div class="tribe-events-c-events-bar">
+=======
+<div class="tribe-common-l-container tribe-events-l-container">
+
+	<div class="tribe-events-c-events-bar">
+>>>>>>> d12941efea4f680d97856d94a3ab910f793f24c6
 
 	<h2 class="tribe-common-a11y-visual-hide">Events Search and Views Navigation</h2>
 
@@ -110,7 +116,11 @@
 
 </div>
 
+<<<<<<< HEAD
 		<div class="tribe-events-c-top-bar">
+=======
+	<div class="tribe-events-c-top-bar">
+>>>>>>> d12941efea4f680d97856d94a3ab910f793f24c6
 
 	<div class="tribe-events-c-top-bar__nav-wrapper">
 	<nav class="tribe-events-c-top-bar__nav">
@@ -121,17 +131,27 @@
 					class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-left tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--prev"
 					aria-label="Previous"
 					title="Previous"
+<<<<<<< HEAD
 					data-js="tribe-events-view-link"
+=======
+>>>>>>> d12941efea4f680d97856d94a3ab910f793f24c6
 				>
 				</a>
 			</li>
 			<li class="tribe-events-c-top-bar__nav-list-item">
 				<a
+<<<<<<< HEAD
 					href="http://test.tri.be/events/list/page/2?view=list"
 					class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-right tribe-common-b3 tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--next"
 					aria-label="Next"
 					title="Next"
 					data-js="tribe-events-view-link"
+=======
+					href="#"
+					class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-right tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--next"
+					aria-label="Next"
+					title="Next"
+>>>>>>> d12941efea4f680d97856d94a3ab910f793f24c6
 				>
 				</a>
 			</li>
@@ -154,6 +174,7 @@
 		<label class="tribe-common-form-control-toggle__label" for="hide-recurring">Hide Recurring Events</label>
 	</div>
 </div>
+<<<<<<< HEAD
 
 </div>
 
@@ -169,4 +190,20 @@
 			</div>
 </form>
 
+=======
+
+</div>
+
+	<div class="tribe-events-calendar-list">
+
+		<div class="tribe-events-calendar-list__separator-month">
+	<time class="tribe-events-calendar-list__separator-month-text tribe-common-b1 tribe-common-b1--bold" datetime="1970-01-01T00:00:00+00:00">Jan</time>
+</div>
+
+		
+	</div>
+
+	
+</div>
+>>>>>>> d12941efea4f680d97856d94a3ab910f793f24c6
 ';

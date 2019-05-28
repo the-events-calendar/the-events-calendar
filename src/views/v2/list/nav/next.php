@@ -9,14 +9,14 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
+ * @var string $link The URL to the next page, if any, or an empty string.
+ *
  * @version TBD
  *
  */
-if ( ! tribe_has_next_event() ) {
+if ( empty( $link ) ) {
 	return;
 }
-
-$link = $this->get( 'link' );
 ?>
 <li class="tribe-common-c-nav__list-item">
 	<a
