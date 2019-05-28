@@ -9,13 +9,21 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
+ * @var string $prev_url The URL to the previous page, if any, or an empty string.
+ * @var string $next_url The URL to the next page, if any, or an empty string.
+ *
  * @version TBD
  *
  */
+
+if ( ! tribe_has_previous_event() || ! tribe_has_next_event() ) {
+	return;
+}
+
 ?>
 <nav class="tribe-common-c-nav">
 	<ul class="tribe-common-c-nav__list">
-		<?php $this->template( 'list/nav/prev', [ 'link' => tribe_get_listview_prev_link() ] ); ?>
-		<?php $this->template( 'list/nav/next', [ 'link' => tribe_get_listview_next_link() ] ); ?>
+		<?php $this->template( 'list/nav/prev', [ 'link' => $prev_url ] ); ?>
+		<?php $this->template( 'list/nav/next', [ 'link' => $next_url ] ); ?>
 	</ul>
 </nav>

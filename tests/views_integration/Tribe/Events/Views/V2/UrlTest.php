@@ -44,11 +44,11 @@ class UrlTest extends \Codeception\TestCase\WPTestCase {
 
 	public function test_urls() {
 		return [
-			'w_slash'             => ['http://example.com/?view=test'],
-			'wo_slash'            => ['http://example.com?view=test'],
-			'w_other_args_first'  => ['http://example.com?view=test&foo=bar'],
-			'w_other_args_last'   => ['http://example.com?foo=bar&view=test'],
-			'w_other_args_middle' => ['http://example.com?foo=bar&view=test&bar=baz'],
+			'w_slash'             => [ trailingslashit( home_url() ) . '/?view=test' ],
+			'wo_slash'            => [ trailingslashit( home_url() ) . '?view=test' ],
+			'w_other_args_first'  => [ trailingslashit( home_url() ) . '?view=test&foo=bar' ],
+			'w_other_args_last'   => [ trailingslashit( home_url() ) . '?foo=bar&view=test' ],
+			'w_other_args_middle' => [ trailingslashit( home_url() ) . '?foo=bar&view=test&bar=baz' ],
 		];
 	}
 }
