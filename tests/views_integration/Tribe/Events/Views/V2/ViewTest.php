@@ -257,7 +257,7 @@ class ViewTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( '', $view->prev_url() );
 	}
 
-	protected function wpSetUpBeforeClass() {
+	public function wpSetUpBeforeClass() {
 		static::factory()->event = new Event();
 	}
 }
