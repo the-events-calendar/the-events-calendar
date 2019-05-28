@@ -13,6 +13,9 @@ use Tribe\Events\Views\V2\Views\Month_View;
 use Tribe\Events\Views\V2\Views\Reflector_View;
 use Tribe__Container as Container;
 use Tribe__Context as Context;
+use Tribe__Events__Main as TEC;
+use Tribe__Events__Rewrite as Rewrite;
+use Tribe__Repository__Interface as Repository;
 use Tribe__Utils__Array as Arr;
 
 /**
@@ -22,7 +25,6 @@ use Tribe__Utils__Array as Arr;
  * @since   4.9.2
  */
 class View implements View_Interface {
-
 	/**
 	 * The name of the Tribe option the enabled/disabled flag for
 	 * View v2 will live in.
@@ -76,7 +78,39 @@ class View implements View_Interface {
 	protected $template;
 
 	/**
+	 * The repository object the View is currently using.
 	 *
+	 * @var Repository
+	 */
+	protected $repository;
+
+	/**
+	 * The URL object the View is currently.
+	 *
+	 * @var \Tribe\Events\Views\V2\Url
+	 */
+	protected $url;
+
+	/**
+	 * An associative array of global variables backed up by the view before replacing the global loop.
+	 *
+	 * @since TBD
+	 *
+	 * @var array
+	 */
+	protected $global_backup;
+
+	/**
+	 * An associative array of the arguments used to setup the repository filters.
+	 *
+	 * @since TBD
+	 *
+	 * @var array
+	 */
+	protected $repository_args = [];
+
+	/**
+	 * Builds a View instance in response to a REST request to the Views endpoint.
 	 *
 	 * @param \WP_REST_Request $request
 	 *
@@ -230,6 +264,33 @@ class View implements View_Interface {
 
 		$instance->set_context( $view_context );
 
+		$view_repository = tribe_events();
+
+		/**
+		 * Filters the Repository object for a View.
+		 *
+		 * @since TBD
+		 *
+		 * @param \Tribe__Repository__Interface $view_repository The repository instance the View will use.
+		 * @param string                        $view            The current view slug.
+		 * @param \Tribe\Events\Views\V2\View   $instance        The current View object.
+		 */
+		$view_repository = apply_filters( 'tribe_events_views_v2_view_context', $view_repository, $view, $instance );
+
+		/**
+		 * Filters the Repository object for a specific View.
+		 *
+		 * @since TBD
+		 *
+		 * @param \Tribe__Repository__Interface $view_repository The repository instance the View will use.
+		 * @param \Tribe\Events\Views\V2\View   $instance        The current View object.
+		 */
+		$view_repository = apply_filters( "tribe_events_views_v2_{$slug}_view_context", $view_repository, $instance );
+
+		$instance->set_repository( $view_repository );
+
+		$instance->set_url();
+
 		return $instance;
 	}
 
@@ -287,11 +348,6 @@ class View implements View_Interface {
 	 */
 	public static function set_container( Container $container ) {
 		static::$container = $container;
-	}
-
-	public static function locate_template( $template ) {
-		$template = locate_template( [ 'tribe/views/v2/router.php' ] );
-
 	}
 
 	/**
@@ -372,5 +428,256 @@ class View implements View_Interface {
 	 */
 	public function set_template( Template $template ) {
 		$this->template = $template;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_url( $canonical = false ) {
+		$query_args = [
+			'post_type'    => TEC::POSTTYPE,
+			'eventDisplay' => $this->slug,
+		];
+
+		$page = $this->url->get_current_page();
+
+		if ( $page > 1 ) {
+			$query_args['paged'] = $page;
+		}
+
+		$url = add_query_arg( array_filter( $query_args ), home_url() );
+
+		if ( $canonical ) {
+			$url = Rewrite::instance()->get_canonical_url( $url );
+		}
+
+		/**
+		 * Filters the URL returned for a View.
+		 *
+		 * @since TBD
+		 *
+		 * @param string         $url       The View current URL.
+		 * @param bool           $canonical Whether the URL is a canonical one or not.
+		 * @param View_Interface $this      This view instance.
+		 */
+		$url = apply_filters( "tribe_events_views_v2_view_url", $url, $canonical, $this );
+
+		/**
+		 * Filters the URL returned for a specific View.
+		 *
+		 * @since TBD
+		 *
+		 * @param string         $url       The View current URL.
+		 * @param bool           $canonical Whether the URL is a canonical one or not.
+		 * @param View_Interface $this      This view instance.
+		 */
+		$url = apply_filters( "tribe_events_views_v2_{$this->slug}_url", $url, $canonical, $this );
+
+		return $url;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function next_url( $canonical = false ) {
+		$next_page = $this->repository->next();
+
+		$url = $next_page->count() > 0 ?
+			add_query_arg( [ 'paged' => $this->url->get_current_page() + 1 ], $this->get_url() )
+			: '';
+
+		if ( ! empty( $url ) && $canonical ) {
+			return Rewrite::instance()->get_canonical_url( $url );
+		}
+
+		/**
+		 * Filters the next (page, event, etc.) URL returned for a View.
+		 *
+		 * @since TBD
+		 *
+		 * @param string         $url       The View next (page, event, etc.) URL.
+		 * @param bool           $canonical Whether the URL is a canonical one or not.
+		 * @param View_Interface $this      This view instance.
+		 */
+		$url = apply_filters( "tribe_events_views_v2_view_next_url", $url, $canonical, $this );
+
+		/**
+		 * Filters the next (page, event, etc.) URL returned for a specific View.
+		 *
+		 * @since TBD
+		 *
+		 * @param string         $url       The View next (page, event, etc.) URL.
+		 * @param bool           $canonical Whether the URL is a canonical one or not.
+		 * @param View_Interface $this      This view instance.
+		 */
+		$url = apply_filters( "tribe_events_views_v2_{$this->slug}_next_url", $url, $canonical, $this );
+
+		return $url;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function prev_url( $canonical = false ) {
+		$prev_page  = $this->repository->prev();
+		$paged      = $this->url->get_current_page() - 1;
+		$query_args = $paged > 1
+			? [ 'paged' => $paged ]
+			: [];
+
+		$url = $prev_page->count() > 0 ?
+			add_query_arg( $query_args, $this->get_url() )
+			: '';
+
+		if ( ! empty( $url ) && $paged === 1 ) {
+			$url = remove_query_arg( 'paged', $url );
+		}
+
+		if ( ! empty( $url ) && $canonical ) {
+			return Rewrite::instance()->get_canonical_url( $url );
+		}
+
+		/**
+		 * Filters the previous (page, event, etc.) URL returned for a View.
+		 *
+		 * @since TBD
+		 *
+		 * @param string         $url       The View previous (page, event, etc.) URL.
+		 * @param bool           $canonical Whether the URL is a canonical one or not.
+		 * @param View_Interface $this      This view instance.
+		 */
+		$url = apply_filters( "tribe_events_views_v2_view_prev_url", $url, $canonical, $this );
+
+		/**
+		 * Filters the previous (page, event, etc.) URL returned for a specific View.
+		 *
+		 * @since TBD
+		 *
+		 * @param string         $url       The View previous (page, event, etc.) URL.
+		 * @param bool           $canonical Whether the URL is a canonical one or not.
+		 * @param View_Interface $this      This view instance.
+		 */
+		$url = apply_filters( "tribe_events_views_v2_{$this->slug}_prev_url", $url, $canonical, $this );
+
+		return $url;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_url_object() {
+		return $this->url;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function set_repository( Repository $repository = null ) {
+		$this->repository = $repository;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_repository() {
+		return $this->repository;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function setup_the_loop( array $args = [] ) {
+		global $wp_query;
+
+		$this->global_backup = [
+			'wp_query'  => $wp_query,
+		];
+
+		/**
+		 * Filters the arguments that will be used to build the View repository.
+		 *
+		 * @since TBD
+		 *
+		 * @param  array  $args  An array of arguments that should be used to build the repository instance.
+		 * @param  View   $this  The current View object.
+		 */
+		$this->repository_args = apply_filters( "tribe_events_views_v2_{$this->slug}_repository_args", $args, $this );
+
+		$this->set_repository( $this->build_repository( $this->repository_args ) );
+		$this->set_url( $this->repository_args, true );
+
+		$wp_query = $this->repository->get_query();
+		wp_reset_postdata();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function restore_the_loop() {
+		if ( empty( $this->global_backup ) ) {
+			return;
+		}
+
+		foreach ( $this->global_backup as $key => $value ) {
+			$GLOBALS[ $key ] = $value;
+		}
+
+		wp_reset_postdata();
+	}
+
+	/**
+	 * Builds the repository the View will use to get the loop posts.
+	 *
+	 * @since TBD
+	 *
+	 * @param  array  $args An associative array of arguments that will be used to build the repository.
+	 *
+	 * @return \Tribe__Repository__Interface
+	 */
+	protected function build_repository( array $args ) {
+		return tribe_events()->by_args( $args );
+	}
+
+	/**
+	 * Sets a View URL object either from some arguments or from the current URL.
+	 *
+	 * @since TBD
+	 *
+	 * @param  array|null  $args An associative array of arguments that will be mapped to the corresponding query
+	 *                           arguments by the View, or `null` to use the current URL.
+	 */
+	protected function set_url( array $args = null, $merge = false ) {
+		if ( null !== $args ) {
+			$query_args = $this->map_args_to_query_args( $args );
+			$this->url = false === $merge ?
+				new Url( add_query_arg( $query_args ) )
+				: $this->url->add_query_args( $query_args );
+
+			return;
+		}
+
+		$this->url = new Url();
+	}
+
+	/**
+	 * Maps a set of arguments to query arguments, ready to be appended to a URL.
+	 *
+	 * @since TBD
+	 *
+	 * @param  array  $args An associative array of arguments to map (translate) to query arguments.
+	 *
+	 * @return array An associative array of query arguments mapped from the input ones.
+	 */
+	protected function map_args_to_query_args( array $args = null ) {
+		if ( empty( $args ) ) {
+			return [];
+		}
+
+		// By default let's use the locations set in the Context to map the arguments to query args.
+		$query_args = tribe_context()->map_to_read( $args, Context::REQUEST_VAR );
+
+		global $wp;
+
+		return array_intersect_key( $query_args, array_combine( $wp->public_query_vars, $wp->public_query_vars ) );
 	}
 }

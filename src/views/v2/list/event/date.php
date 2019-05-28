@@ -23,11 +23,11 @@ $is_featured = tribe( 'tec.featured_events' )->is_featured( $event_id );
 		<?php echo tribe_events_event_schedule_details( $event ); ?>
 	</time>
 	<?php if ( $is_featured ) : ?>
-		<span
+		<em
 			class="tribe-events-calendar-list__event-datetime-featured-icon tribe-common-svgicon tribe-common-svgicon--featured"
 			aria-label="<?php esc_attr_e( 'Featured', 'the-events-calendar' ); ?>"
 			title="<?php esc_attr_e( 'Featured', 'the-events-calendar' ); ?>"
 		>
-		</span>
+		</em>
 	<?php endif; ?>
 </div>
