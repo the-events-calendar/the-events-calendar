@@ -19,12 +19,16 @@ class Url {
 	/**
 	 * The URL abstracted by the instance.
 	 *
+	 * @since TBD
+	 *
 	 * @var string
 	 */
 	protected $url = '';
 
 	/**
 	 * An array of the default URL components produced by the `parse_url` function.
+	 *
+	 * @since TBD
 	 *
 	 * @var array
 	 */
@@ -43,12 +47,16 @@ class Url {
 	/**
 	 * An array of the URL components as produced by the `parse_url` function.
 	 *
-	 * @var
+	 * @since TBD
+	 *
+	 * @var array
 	 */
-	protected $components;
+	protected $components = [];
 
 	/**
 	 * An array of the parsed query arguments from the URL.
+	 *
+	 * @since TBD
 	 *
 	 * @var array
 	 */
@@ -125,6 +133,15 @@ class Url {
 		$this->query_args = $query_args;
 	}
 
+	/**
+	 * Adds query args to the object merging them witht the current ones.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $query_args An associative array of query args to add to the object.
+	 *
+	 * @return $this The object instance.
+	 */
 	public function add_query_args( array $query_args = [] ) {
 		$this->query_args          = array_merge( $this->query_args, $query_args );
 		$this->components['query'] = http_build_query( $this->query_args );
