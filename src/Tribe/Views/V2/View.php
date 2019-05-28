@@ -471,7 +471,7 @@ class View implements View_Interface {
 		 * @param bool           $canonical Whether the URL is a canonical one or not.
 		 * @param View_Interface $this      This view instance.
 		 */
-		$url = apply_filters( "tribe_events_views_v2_{$slug}_url", $url, $canonical, $this );
+		$url = apply_filters( "tribe_events_views_v2_{$this->slug}_url", $url, $canonical, $this );
 
 		return $url;
 	}
@@ -510,7 +510,7 @@ class View implements View_Interface {
 		 * @param bool           $canonical Whether the URL is a canonical one or not.
 		 * @param View_Interface $this      This view instance.
 		 */
-		$url = apply_filters( "tribe_events_views_v2_{$slug}_next_url", $url, $canonical, $this );
+		$url = apply_filters( "tribe_events_views_v2_{$this->slug}_next_url", $url, $canonical, $this );
 
 		return $url;
 	}
@@ -557,7 +557,7 @@ class View implements View_Interface {
 		 * @param bool           $canonical Whether the URL is a canonical one or not.
 		 * @param View_Interface $this      This view instance.
 		 */
-		$url = apply_filters( "tribe_events_views_v2_{$slug}_prev_url", $url, $canonical, $this );
+		$url = apply_filters( "tribe_events_views_v2_{$this->slug}_prev_url", $url, $canonical, $this );
 
 		return $url;
 	}
