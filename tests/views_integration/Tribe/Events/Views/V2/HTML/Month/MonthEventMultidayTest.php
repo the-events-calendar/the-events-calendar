@@ -1,9 +1,9 @@
 <?php
-namespace Tribe\Events\Views\V2\Views\HTML;
+namespace Tribe\Events\Views\V2\Views\HTML\Month;
 
 use Tribe\Events\Views\V2\TestHtmlCase;
 
-class MonthViewMultidayTest extends TestHtmlCase {
+class MonthEventMultidayTest extends TestHtmlCase {
 
 	/**
 	 * @test
