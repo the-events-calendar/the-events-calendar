@@ -7,9 +7,14 @@
 	data-js="tribe-events-view"
 >
 	<div class="tribe-common-l-container tribe-events-l-container">
-		<input type="hidden" id="tribe-events-views[_wpnonce]" name="tribe-events-views[_wpnonce]" value="986855662a" /><input type="hidden" name="_wp_http_referer" value="/events" />
-		<div class="tribe-events-view-loader tribe-common-a11y-hidden">
-	<div class="tribe-events-view-loader__spinner">Loading...</div>
+		<input type="hidden" id="tribe-events-views[_wpnonce]" name="tribe-events-views[_wpnonce]" value="88c7cd4e8f" /><input type="hidden" name="_wp_http_referer" value="/events" />
+		<div
+	class="tribe-events-view-loader tribe-common-a11y-hidden"
+	role="alert"
+	aria-live="assertive"
+>
+	<div class="tribe-events-view-loader__spinner">
+			</div>
 </div>
 
 		<script
