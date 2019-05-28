@@ -1,9 +1,9 @@
 <?php
-namespace Tribe\Events\Views\V2\Views\HTML;
+namespace Tribe\Events\Views\V2\Views\HTML\Month\Tooltip;
 
 use Tribe\Events\Views\V2\TestHtmlCase;
 
-class MonthViewSmallCTATest extends TestHtmlCase {
+class MonthTooltipCTATest extends TestHtmlCase {
 
 	/**
 	 * @test
