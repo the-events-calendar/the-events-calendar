@@ -40,9 +40,9 @@ class List_View extends View {
 		/*
 		 * Depending on the context contents let's set up the arguments to fetch the events.
 		 */
-		$args    = [
+		$args = [
 			'posts_per_page' => $context['posts_per_page'],
-			'paged'          => Arr::get( $context, 'page', 1 ),
+			'paged'          => max( Arr::get( $context, 'paged', 1 ), 1 ),
 		];
 		$date = Arr::get( $context, 'event_date', 'now' );
 
@@ -52,17 +52,24 @@ class List_View extends View {
 			$args['ends_before'] = $date;
 		}
 
-		/*
-		 * After we built the args to query the Events Repository with we use them to fetch the matching events.
-		 */
-		$events = tribe_events()->by_args( $args )->all();
+		$this->setup_the_loop( $args );
 
 		/*
-		 * Here we pass to the template a trimmed down version of the View render context.
+		 * Here we pass to the template a trimmed down version of the View render context and we set it as global to
+		 * make it available to any view using the template.
 		 * Ideally one that contains only the variables the template will need to render.
 		 */
-		return $this->template->render( [
-			'events' => $events,
-		] );
+		$this->template->set_values( [
+			'events'   => $this->repository->all(),
+			'url'      => $this->get_url( true ),
+			'prev_url' => $this->prev_url( true ),
+			'next_url' => $this->next_url( true ),
+		], false );
+
+		$html = $this->template->render();
+
+		$this->restore_the_loop();
+
+		return $html;
 	}
 }

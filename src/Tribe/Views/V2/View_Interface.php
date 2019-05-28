@@ -8,6 +8,8 @@
 
 namespace Tribe\Events\Views\V2;
 
+use Tribe\Events\Views\V2\Interfaces\Repository_User_Interface;
+use Tribe\Events\Views\V2\Interfaces\View_Url_Provider_Interface;
 use Tribe__Context as Context;
 
 /**
@@ -16,7 +18,7 @@ use Tribe__Context as Context;
  * @package Tribe\Events\Views\V2
  * @since   4.9.2
  */
-interface View_Interface {
+interface View_Interface  extends View_Url_Provider_Interface, Repository_User_Interface {
 
 	/**
 	 * Returns a View HTML code.
@@ -95,4 +97,16 @@ interface View_Interface {
 	 * @param Template $template The template instance the View should use.
 	 */
 	public function set_template( Template $template );
+
+	/**
+	 * Sets up, by replacing the global query, the loop variables.
+	 *
+	 * The variables can be restored by using the `replace_the_loop` method.
+	 *
+	 * @since TBD
+	 *
+	 * @param  array|null  $args An array of associative arguments used to setup the repository for the View.
+	 *
+	 */
+	public function setup_the_loop( array $args = [] );
 }

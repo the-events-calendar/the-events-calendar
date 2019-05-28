@@ -489,9 +489,12 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 		// Handle The Events Calendar category.
 		if ( isset( $query_vars['tribe_events_cat'] ) ) {
 			$cat_regex = $bases['tax'];
-			preg_match( '/^\(\?:(?<slug>\w+)\)/', $cat_regex, $matches );
-			if ( isset( $matches['slug'] ) ) {
-				$dynamic_matchers["{$cat_regex}/(?:[^/]+/)*([^/]+)"] = "{$matches['slug']}/{$query_vars['tribe_events_cat']}";
+			preg_match( '/^\(\?:(?<slugs>[^\\)]+)\)/', $cat_regex, $matches );
+			if ( isset( $matches['slugs'] ) ) {
+				$slugs = explode( '|', $matches['slugs'] );
+				// The localized version is the last.
+				$localized_slug = end( $slugs );
+				$dynamic_matchers["{$cat_regex}/(?:[^/]+/)*([^/]+)"] = "{$localized_slug}/{$query_vars['tribe_events_cat']}";
 			}
 		}
 
