@@ -44,6 +44,10 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertInstanceOf( 'Tribe__Events__Rewrite', $sut );
 	}
 
+	private function make_instance() {
+		return new Rewrite( $this->wp_rewrite->reveal() );
+	}
+
 	/**
 	 * @test
 	 * it should filter post type link for supported post types only
@@ -54,10 +58,6 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 		$sut = $this->make_instance();
 
 		$this->assertEquals( 'foo', $sut->filter_post_type_link( 'foo', $post ) );
-	}
-
-	private function make_instance() {
-		return new Rewrite( $this->wp_rewrite->reveal() );
 	}
 
 	public function canonical_urls() {
@@ -152,7 +152,7 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	public function not_handled_urls() {
-		return[
+		return [
 			'wo_trailing_slash'                 => [ 'http://example.com' ],
 			'w_trailing_slash'                  => [ 'http://example.com/' ],
 			'w_query_args'                      => [ 'http://example.com?foo=bar' ],
@@ -184,5 +184,52 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 		$canonical = ( new Rewrite() )->get_canonical_url( $url );
 
 		$this->assertEquals( $url, $canonical );
+	}
+
+	/**
+	 * It should correctly handle translated rules
+	 *
+	 * @test
+	 * @dataProvider it_urls
+	 */
+	public function should_correctly_handle_translated_rules( $path, $expected_path ) {
+		list( $it_rules, $it_bases ) = array_values( include( codecept_data_dir( 'rewrite/it-translated-rules.php' ) ) );
+		$wp_rewrite        = new \WP_Rewrite();
+		$wp_rewrite->rules = $it_rules;
+		$rewrite           = new Rewrite( $wp_rewrite );
+		$rewrite->bases    = $it_bases;
+
+		$canonical = $rewrite->get_canonical_url( home_url( $path ) );
+
+		$this->assertEquals( home_url( $expected_path ), $canonical );
+	}
+
+	public function it_urls() {
+		return [
+			'list_page_1' => [
+				'/?post_type=tribe_events&eventDisplay=list',
+				'/events/elenco/',
+			],
+			'list_page_2' => [
+				'/?post_type=tribe_events&eventDisplay=list&paged=2',
+				'/events/pagina/2/',
+			],
+			'month'       => [
+				'/?post_type=tribe_events&eventDisplay=month',
+				'/events/mese/',
+			],
+			'featured'    => [
+				'/?post_type=tribe_events&eventDisplay=list&featured=1',
+				'/events/elenco/in-evidenza/',
+			],
+			'category'    => [
+				'/?post_type=tribe_events&eventDisplay=list&tribe_events_cat=zumba',
+				'/events/categoria/zumba/elenco/',
+			],
+			'tag'    => [
+				'/?post_type=tribe_events&eventDisplay=list&tag=zumba',
+				'/events/tag/zumba/elenco/',
+			],
+		];
 	}
 }
