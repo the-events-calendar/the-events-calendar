@@ -4,6 +4,7 @@ use tad\FunctionMocker\FunctionMocker;
 use Tribe\Events\Views\V2\Service_Provider;
 
 require_once __DIR__ . '/Tribe/Events/Views/V2/TestCase.php';
+require_once __DIR__ . '/Tribe/Events/Views/V2/TestHtmlCase.php';
 require_once __DIR__ . '/Tribe/Events/Views/V2/ContextMocker.php';
 
 // Let's  make sure Views v2 are activated if not.
