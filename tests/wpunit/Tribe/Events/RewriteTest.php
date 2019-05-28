@@ -136,7 +136,10 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 	 * @dataProvider canonical_urls
 	 */
 	public function should_allow_converting_a_url_to_its_canonical_form( $uri, $expected ) {
-		$canonical_url = ( new Rewrite )->get_canonical_url( home_url( $uri ) );
+		$rewrite = new Rewrite;
+		global $wp_rewrite;
+		$rewrite->setup( $wp_rewrite );
+		$canonical_url = $rewrite->get_canonical_url( home_url( $uri ) );
 
 		$this->assertEquals( home_url( $expected ), $canonical_url );
 	}
