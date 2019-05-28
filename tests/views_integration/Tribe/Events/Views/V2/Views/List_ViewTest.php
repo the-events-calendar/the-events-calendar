@@ -19,9 +19,6 @@ class List_ViewTest extends TestCase {
 			return ( new \DateTime( '2019-01-01 09:00:00', new \DateTimeZone( 'UTC' ) ) )
 				->format( $format );
 		} );
-
-		tribe_update_option( 'dateWithYearFormat', 'Y-m-d' );
-		tribe_update_option( 'dateWithoutYearFormat', 'm d' );
 	}
 
 	/**

@@ -149,7 +149,7 @@
 		<header class="tribe-events-calendar-list__event-header">
 			<div class="tribe-events-calendar-list__event-datetime-wrapper">
 	<time class="tribe-events-calendar-list__event-datetime tribe-common-b2" datetime="1970-01-01T00:00:00+00:00">
-		<span class="tribe-event-date-start">01 01 @ 9:00 am</span>	</time>
+		<span class="tribe-event-date-start">January 1, 2018 @ 10:00 am</span> - <span class="tribe-event-time">12:00 pm</span>	</time>
 	</div>
 			<h3 class="tribe-events-calendar-list__event-title">
 	<a
@@ -192,7 +192,7 @@
 		<header class="tribe-events-calendar-list__event-header">
 			<div class="tribe-events-calendar-list__event-datetime-wrapper">
 	<time class="tribe-events-calendar-list__event-datetime tribe-common-b2" datetime="1970-01-01T00:00:00+00:00">
-		<span class="tribe-event-date-start">01 01 @ 9:00 am</span>	</time>
+		<span class="tribe-event-date-start">January 2, 2018 @ 8:00 am</span> - <span class="tribe-event-time">10:00 am</span>	</time>
 	</div>
 			<h3 class="tribe-events-calendar-list__event-title">
 	<a
