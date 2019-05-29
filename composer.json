@@ -31,7 +31,8 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Tribe\\Tests\\Modules\\Core\\": "tests/_support/Modules"
+      "Tribe\\Tests\\Modules\\Core\\": "tests/_support/Modules",
+      "Tribe\\Events\\Views\\": "tests/views_integration/Tribe/Events/Views"
     }
   },
   "repositories": [

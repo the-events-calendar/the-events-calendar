@@ -316,8 +316,8 @@ class View implements View_Interface {
 		 */
 		$views = apply_filters( 'tribe_events_views', [
 			'month'     => Month_View::class,
-			'reflector' => Reflector_View::class,
 			'list'      => List_View::class,
+			'reflector' => Reflector_View::class,
 		] );
 
 		return (array) $views;
