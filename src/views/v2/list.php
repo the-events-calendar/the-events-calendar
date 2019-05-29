@@ -15,22 +15,26 @@
 
 $events = $this->get( 'events' );
 
-$this->template( 'events-bar' );
-
-$this->template( 'top-bar' );
-
 ?>
 
-<div class="tribe-events-calendar-list">
+<div class="tribe-common-l-container tribe-events-l-container">
 
-	<?php $this->template( 'list/month-separator', [ 'month' => date( 'M' )] ); ?>
+	<?php $this->template( 'events-bar' ); ?>
 
-	<?php foreach ( $events as $event ) : ?>
+	<?php $this->template( 'top-bar' ); ?>
 
-		<?php $this->template( 'list/event', [ 'event' => $event ] ); ?>
+	<div class="tribe-events-calendar-list">
 
-	<?php endforeach; ?>
+		<?php $this->template( 'list/month-separator', [ 'month' => date( 'M' )] ); ?>
+
+		<?php foreach ( $events as $event ) : ?>
+
+			<?php $this->template( 'list/event', [ 'event' => $event ] ); ?>
+
+		<?php endforeach; ?>
+
+	</div>
+
+	<?php $this->template( 'list/nav' ); ?>
 
 </div>
-
-<?php $this->template( 'list/nav' ); ?>

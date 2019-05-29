@@ -2493,12 +2493,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/moderntribe/tribe-common-styles",
-                "reference": "1acf38f31c6bbad78cc0e1f9758bff4a27f45516"
+                "reference": "06b8ae33990903581b935ce0c1f56b4870d57f68"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/moderntribe/tribe-common-styles/zipball/1acf38f31c6bbad78cc0e1f9758bff4a27f45516",
-                "reference": "1acf38f31c6bbad78cc0e1f9758bff4a27f45516",
+                "url": "https://api.github.com/repos/moderntribe/tribe-common-styles/zipball/06b8ae33990903581b935ce0c1f56b4870d57f68",
+                "reference": "06b8ae33990903581b935ce0c1f56b4870d57f68",
                 "shasum": ""
             },
             "require": {
@@ -2509,7 +2509,7 @@
                 "Private"
             ],
             "description": "A library of Modern Tribe's common styles",
-            "time": "2019-05-22T17:49:22+00:00"
+            "time": "2019-05-27T13:55:24+00:00"
         },
         {
             "name": "mustache/mustache",
