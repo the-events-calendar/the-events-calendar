@@ -22,15 +22,15 @@ global $wp_locale;
 
 	<div role="row" class="tribe-events-calendar-month__header">
 		<?php foreach ( $days_of_week as $day ) : ?>
-				<div
-					class="tribe-events-calendar-month__header-column"
-					role="columnheader"
-					aria-label="<?php echo esc_attr( $day ); ?>"
-				>
-					<h3 class="tribe-common-b3">
-						<?php echo esc_html( $wp_locale->get_weekday_abbrev( $day ) ); ?>
-					</h3>
-				</div>
+			<div
+				class="tribe-events-calendar-month__header-column"
+				role="columnheader"
+				aria-label="<?php echo esc_attr( $day ); ?>"
+			>
+				<h3 class="tribe-common-b3">
+					<?php echo esc_html( $wp_locale->get_weekday_abbrev( $day ) ); ?>
+				</h3>
+			</div>
 		<?php endforeach; ?>
 	</div>
 </header>
