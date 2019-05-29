@@ -487,7 +487,7 @@ class View implements View_Interface {
 			: '';
 
 		if ( ! empty( $url ) && $canonical ) {
-			return Rewrite::instance()->get_canonical_url( $url );
+			$url = Rewrite::instance()->get_canonical_url( $url );
 		}
 
 		/**
@@ -499,7 +499,7 @@ class View implements View_Interface {
 		 * @param bool           $canonical Whether the URL is a canonical one or not.
 		 * @param View_Interface $this      This view instance.
 		 */
-		$url = apply_filters( "tribe_events_views_v2_view_next_url", $url, $canonical, $this );
+		$url = apply_filters( 'tribe_events_views_v2_view_next_url', $url, $canonical, $this );
 
 		/**
 		 * Filters the next (page, event, etc.) URL returned for a specific View.
@@ -534,7 +534,7 @@ class View implements View_Interface {
 		}
 
 		if ( ! empty( $url ) && $canonical ) {
-			return Rewrite::instance()->get_canonical_url( $url );
+			$url = Rewrite::instance()->get_canonical_url( $url );
 		}
 
 		/**
@@ -546,7 +546,7 @@ class View implements View_Interface {
 		 * @param bool           $canonical Whether the URL is a canonical one or not.
 		 * @param View_Interface $this      This view instance.
 		 */
-		$url = apply_filters( "tribe_events_views_v2_view_prev_url", $url, $canonical, $this );
+		$url = apply_filters( 'tribe_events_views_v2_view_prev_url', $url, $canonical, $this );
 
 		/**
 		 * Filters the previous (page, event, etc.) URL returned for a specific View.
