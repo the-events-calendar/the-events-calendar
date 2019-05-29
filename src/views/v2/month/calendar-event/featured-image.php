@@ -14,5 +14,7 @@
  */
 ?>
 <div class="tribe-events-calendar-month__calendar-event-featured-image-wrapper">
-	<img class="tribe-events-calendar-month__calendar-event-featured-image" src="" alt="" />
+	<div class="tribe-events-calendar-month__calendar-event-featured-image tribe-common-c-image tribe-common-c-image--bg">
+		<div class="tribe-common-c-image__bg"></div>
+	</div>
 </div>

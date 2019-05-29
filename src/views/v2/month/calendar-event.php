@@ -22,7 +22,7 @@ $classes = [ 'tribe-events-calendar-month__calendar-event' ];
 // 	$classes[] = 'tribe-events-calendar-month__calendar-event--featured';
 // }
 ?>
-<div class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>">
+<article class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>">
 
 	<?php $this->template( 'month/calendar-event/featured-image', [ 'event' => $event ] ); ?>
 
@@ -35,4 +35,4 @@ $classes = [ 'tribe-events-calendar-month__calendar-event' ];
 
 	<?php $this->template( 'month/calendar-event/tooltip', [ 'event' => $event ] ); ?>
 
-</div>
+</article>
