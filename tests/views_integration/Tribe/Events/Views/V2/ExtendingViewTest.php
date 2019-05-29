@@ -3,6 +3,7 @@
 namespace Tribe\Events\Views\V2;
 
 use org\bovigo\vfs\vfsStream;
+use tad\WP\Snapshots\WPHtmlOutputDriver;
 
 require_once codecept_data_dir( 'Views/V2/classes/Test_Template_View.php' );
 require_once codecept_data_dir( 'Views/V2/classes/Test_Full_View.php' );
