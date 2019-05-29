@@ -1,6 +1,6 @@
 <?php
 /**
- * View: Month View - Single Event Tooltip Featured Image
+ * View: Month View - Calenar Event Tooltip Featured Image
  *
  * Override this template in your own theme by creating a file at:
  * [your-theme]/tribe/events/views/v2/month/calendar-event/tooltip/featured-image.php

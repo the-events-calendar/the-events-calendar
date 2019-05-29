@@ -1,6 +1,6 @@
 <?php
 /**
- * View: Month View - Single Event Tooltip
+ * View: Month View - Calendar Event Tooltip
  *
  * Override this template in your own theme by creating a file at:
  * [your-theme]/tribe/calendar-events/views/v2/month/event/tooltip.php

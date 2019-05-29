@@ -1,6 +1,6 @@
 <?php
 /**
- * View: Month View - Event Featured Image
+ * View: Month View - Calendar Event Featured Image
  *
  * Override this template in your own theme by creating a file at:
  * [your-theme]/tribe/events/views/v2/month/calendar-event/featured-image.php
