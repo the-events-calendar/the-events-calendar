@@ -23,4 +23,32 @@ class Calendar_EventTest extends TestCase
 
 		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => tribe_events()->first() ] ) );
 	}
+
+	/**
+	 * Test render with non featured event
+	 */
+	public function test_render_with_non_featured_event() {
+		/* @todo: complete once we have dynamic views */
+	}
+
+	/**
+	 * Test render with featured event
+	 */
+	public function test_render_with_featured_event() {
+		/* @todo: complete once we have dynamic views */
+	}
+
+	/**
+	 * Test render with recurring event
+	 */
+	public function test_render_with_recurring_event() {
+		/* @todo: complete once we have dynamic views */
+	}
+
+	/**
+	 * Test render with featured recurring event
+	 */
+	public function test_render_with_featured_recurring_event() {
+		/* @todo: complete once we have dynamic views */
+	}
 }
