@@ -55,9 +55,11 @@ class TestCase extends WPTestCase {
 	/**
 	 * Renders the partial and returns its HTML.
 	 *
+	 * @param array $context An array that will be passed to the partial to render.
+	 *
 	 * @return string The partial rendered HTML.
 	 */
-	protected function get_partial_html() {
-		return $this->template->template( $this->partial_path );
+	protected function get_partial_html( array $context = []) {
+		return $this->template->template( $this->partial_path, $context );
 	}
 }
