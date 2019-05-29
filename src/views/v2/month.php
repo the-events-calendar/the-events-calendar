@@ -24,5 +24,10 @@ $this->template( 'top-bar' );
 <div class="tribe-events-calendar-month">
 	<h1>Welcome to the month view</h1>
 
-	<?php $this->template( 'month/calendar-event' ); ?>
+	<?php foreach ( $events as $event ) : ?>
+
+		<?php $this->template( 'month/calendar-event', [ 'event' => $event ] ); ?>
+
+	<?php endforeach; ?>
+
 </div>

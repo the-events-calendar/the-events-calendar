@@ -14,9 +14,11 @@
  */
 ?>
 <div class="tribe-events-calendar-month__calendar-event-datetime">
-	<time datetime="14:00">2pm</time> - <time datetime="18:00">6pm</time>
+	<time datetime="14:00">2pm</time>
+	<span class="tribe-events-calendar-month__calendar-event-datetime-separator"> - </span>
+	<time datetime="18:00">6pm</time>
 	<span
-		class="tribe-events-calendar-month__calendar-event-datetime-featured"
+		class="tribe-events-calendar-month__calendar-event-datetime-featured tribe-common-svgicon tribe-common-svgicon--featured"
 		aria-label="<?php esc_html_e( 'Featured', 'the-events-calendar' ) ?>"
 		title="<?php esc_html_e( 'Featured', 'the-events-calendar' ) ?>"
 	>

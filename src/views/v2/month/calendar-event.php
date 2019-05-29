@@ -14,12 +14,13 @@
  */
 
 $event    = $this->get( 'event' );
-// $event_id = $event->ID;
+$event_id = $event->ID;
 
 $classes = [ 'tribe-events-calendar-month__calendar-event' ];
 
+/* @todo fix this once we make event dynamic */
 // if ( tribe( 'tec.featured_events' )->is_featured( $event_id ) ) {
-// 	$classes[] = 'tribe-events-calendar-month__calendar-event--featured';
+	$classes[] = 'tribe-events-calendar-month__calendar-event--featured';
 // }
 ?>
 <article class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>">
