@@ -6,7 +6,7 @@ notifications:
   email: false
 
 php:
-  - '7.1'
+  - '7.0'
 
 services:
   # Require docker and docker-compose as we'll need them to manage the containers.
