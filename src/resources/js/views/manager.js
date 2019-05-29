@@ -41,10 +41,11 @@ tribe.events.views.manager = {};
 	 */
 	obj.selectors = {
 		container: '[data-js="tribe-events-view"]',
+		form: '[data-js="tribe-events-view-form"]',
 		link: '[data-js="tribe-events-view-link"]',
+		dataScript: '[data-js="tribe-events-view-data"]',
 		loader: '.tribe-events-view-loader',
-		hiddenElement: '.tribe-common-a11y-hidden',
-		dataScript: '[data-js="tribe-events-view-data"]'
+		hiddenElement: '.tribe-common-a11y-hidden'
 	};
 
 	/**
@@ -70,14 +71,15 @@ tribe.events.views.manager = {};
 	 */
 	obj.setup = function( index, container ) {
 		var $container = $( container );
+		var $form = $container.find( obj.selectors.form );
 
 		$container.trigger( 'beforeSetup.tribeEvents', [ index, $container ] );
 
 		$container.find( obj.selectors.link ).on( 'click.tribeEvents', obj.onLinkClick );
 
 		// Only catch the submit if properly setup on a form
-		if ( $container.is( 'form' ) ) {
-			$container.on( 'submit.tribeEvents', obj.onSubmit );
+		if ( $form ) {
+			$form.on( 'submit.tribeEvents', obj.onSubmit );
 		}
 
 		// Binds and action to the container that will update the URL based on backed
@@ -164,13 +166,20 @@ tribe.events.views.manager = {};
 	 */
 	obj.onLinkClick = function( event ) {
 		event.preventDefault();
+
 		var $link = $( this );
 		var $container = obj.getContainer( this );
 		var url = $link.attr( 'href' );
-		var formData = Qs.parse( $container.serialize() );
+		var nonce = $link.data( 'view-rest-nonce' );
+
+		// Fetch nonce from container if the link doesnt have any
+		if ( ! nonce ) {
+			nonce = $container.data( 'view-rest-nonce' );
+		}
+
 		var data = {
 			url: url,
-			_wpnonce: formData['tribe-events-views']._wpnonce
+			_wpnonce: nonce
 		};
 
 		obj.request( data, $container );
@@ -231,7 +240,7 @@ tribe.events.views.manager = {};
 	 */
 	obj.getAjaxSettings = function( $container ) {
 		var ajaxSettings = {
-			url: $container.data( 'rest-url' ),
+			url: $container.data( 'view-rest-url' ),
 			accepts: 'html',
 			dataType: 'html',
 			method: 'GET',
@@ -322,6 +331,8 @@ tribe.events.views.manager = {};
 		$container.trigger( 'beforeAjaxSuccess.tribeEvents', [ data, textStatus, jqXHR ] );
 
 		var $html = $( data );
+
+		console.log( data );
 
 		// Replace the current container with the new Data
 		$container.replaceWith( $html );
