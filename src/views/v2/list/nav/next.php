@@ -23,6 +23,7 @@ if ( empty( $link ) ) {
 		href="<?php echo esc_url( $link ); ?>"
 		rel="next"
 		class="tribe-common-c-nav__next"
+		data-js="tribe-events-view-link"
 	>
 		<?php echo esc_html( sprintf( __( 'Next %s', 'the-events-calendar' ), tribe_get_event_label_plural() ) ); ?>
 	</a>
