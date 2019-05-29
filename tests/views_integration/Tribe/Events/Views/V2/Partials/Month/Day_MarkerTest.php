@@ -15,4 +15,15 @@ class Day_MarkerTest extends TestCase
 	public function test_static_render() {
 		$this->assertMatchesSnapshot( $this->get_partial_html() );
 	}
+
+	/**
+	 * Test render with context
+	 */
+	public function test_render_with_context() {
+		$this->assertMatchesSnapshot( $this->get_partial_html( [
+				'foo' => 23,
+				'bar' => 89,
+			]
+		) );
+	}
 }
