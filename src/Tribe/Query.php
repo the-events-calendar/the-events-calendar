@@ -18,7 +18,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		 * @var array The WP_Query arguments used in the last `getEvents` method
 		 *            query.
 		 */
-		protected static $last_result;
+		protected static $last_result = [];
 
 		/**
 		 * Initialize The Events Calendar query filters and post processing.
