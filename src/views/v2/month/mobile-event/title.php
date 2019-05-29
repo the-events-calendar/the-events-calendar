@@ -12,13 +12,26 @@
  * @version TBD
  *
  */
+
+$event    = $this->get( 'event' );
+$event_id = $event->ID;
+
+$classes = [ 'tribe-events-calendar-month__mobile-event-title' ];
+
+/* @todo fix this once we make event dynamic */
+// if ( tribe( 'tec.featured_events' )->is_featured( $event_id ) ) {
+	$classes[] = 'tribe-common-h6';
+// } else {
+// 	$classes[] = 'tribe-common-h8;
+// }
+
 ?>
-<h3 class="tribe-events-calendar-month__mobile-event-title tribe-common-h8">
+<h3 class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>">
 	<a
 		href="#"
 		title="Lorem Ipsum"
 		rel="bookmark"
-		class="tribe-events-calendar-month__mobile-event-title-link"
+		class="tribe-events-calendar-month__mobile-event-title-link tribe-common-anchor"
 	>
 		Lorem Ipsum
 	</a>
