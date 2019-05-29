@@ -18,7 +18,7 @@
 		href="#"
 		title="Lorem Ipsum"
 		rel="bookmark"
-		class="tribe-events-calendar-month__calendar-event-title-link"
+		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
 	>
 		Lorem Ipsum
 	</a>
