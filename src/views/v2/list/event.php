@@ -23,7 +23,7 @@ if ( tribe( 'tec.featured_events' )->is_featured( $event_id ) ) {
 }
 
 ?>
-<div class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>">
+<article class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>">
 
 	<?php $this->template( 'list/event/featured-image', [ 'event' => $event ] ); ?>
 
@@ -39,4 +39,4 @@ if ( tribe( 'tec.featured_events' )->is_featured( $event_id ) ) {
 
 	</div>
 
-</div>
+</article>
