@@ -162,7 +162,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 			$data['rest_url'] = $this->get_current_rest_url( $args, $extra_rest_args );
 
 
-			$events = tribe_events()->by_args( $args )->all();
+			$events = tribe_events()->by_args( $args )->pluck( 'ID' );
 
 			$found_events = Tribe__Events__Query::last_found_events();
 
@@ -173,8 +173,6 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 
 				return new WP_Error( 'event-archive-page-not-found', $message, array( 'status' => 404 ) );
 			}
-
-			$events = wp_list_pluck( $events, 'ID' );
 
 			unset( $args['fields'] );
 
