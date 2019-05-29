@@ -19,8 +19,14 @@
 	<time datetime="18:00">6pm</time>
 	<span
 		class="tribe-events-calendar-month__calendar-event-datetime-featured tribe-common-svgicon tribe-common-svgicon--featured"
-		aria-label="<?php esc_html_e( 'Featured', 'the-events-calendar' ) ?>"
-		title="<?php esc_html_e( 'Featured', 'the-events-calendar' ) ?>"
+		aria-label="<?php esc_attr_e( 'Featured', 'the-events-calendar' ) ?>"
+		title="<?php esc_attr_e( 'Featured', 'the-events-calendar' ) ?>"
+	>
+	</span>
+	<span
+		class="tribe-events-calendar-month__calendar-event-datetime-recurring tribe-common-svgicon tribe-common-svgicon--recurring"
+		aria-label="<?php esc_attr_e( 'Recurring', 'the-events-calendar' ) ?>"
+		title="<?php esc_attr_e( 'Recurring', 'the-events-calendar' ) ?>"
 	>
 	</span>
 </div>
