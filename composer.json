@@ -16,7 +16,8 @@
     "lucatume/wp-snaphot-assertions": "1.0.0",
     "moderntribe/tribe-common-styles": "dev-master",
     "lucatume/function-mocker": "^1.0",
-    "phpunit/phpunit": "^6.0"
+    "phpunit/phpunit": "~6.0",
+    "scotteh/php-dom-wrapper": "0.7.3"
   },
   "minimum-stability": "stable",
   "prefer-stable": true,
