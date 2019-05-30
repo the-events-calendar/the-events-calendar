@@ -40,9 +40,23 @@ class MonthEventMultidayTest extends TestHtmlCase {
 		$template = $this->template->template( 'month/event-multiday', [ 'event' => (object) [ 'ID' => 0 ] ] );
 		$html = $this->document->html( $template );
 		$html = $html->find( '.tribe-events-calendar-month__event-multiday' );
+		$icon = $thml->find( '.tribe-events-calendar-month__event-multiday-featured-icon' );
+
+
+		$this->markTestSkipped( 'The month multi-day event does not receive data yet' );
 
 		/*
-			@todo: If the event is featured we should check the a11y classes
+			@todo: If the event is featured we should check the following a11y classes for the icon
 		*/
+
+		$this->assertTrue(
+			$icon->is( '[aria-label="Featured"]' ),
+			'Month multiday featured icon needs to be aria-label="Featured"'
+		);
+
+		$this->assertTrue(
+			$icon->is( '[title="Featured"]' ),
+			'Month multiday featured icon needs to be title="Featured"'
+		);
 	}
 }
