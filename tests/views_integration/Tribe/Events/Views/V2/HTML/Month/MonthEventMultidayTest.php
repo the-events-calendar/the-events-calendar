@@ -40,7 +40,7 @@ class MonthEventMultidayTest extends TestHtmlCase {
 		$template = $this->template->template( 'month/event-multiday', [ 'event' => (object) [ 'ID' => 0 ] ] );
 		$html = $this->document->html( $template );
 		$html = $html->find( '.tribe-events-calendar-month__event-multiday' );
-		$icon = $thml->find( '.tribe-events-calendar-month__event-multiday-featured-icon' );
+		$icon = $html->find( '.tribe-events-calendar-month__event-multiday-featured-icon' );
 
 
 		$this->markTestSkipped( 'The month multi-day event does not receive data yet' );
