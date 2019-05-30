@@ -215,6 +215,10 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Enable hooks (filters and actions) for month view AJAX requests
+
 = [4.9.2] 2019-05-16 =
 
 * Tweak - In the Event Repository class: filter the event cretion meta before checking it for coherency
