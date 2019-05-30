@@ -42,7 +42,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 			$plugin,
 			'tribe-events-views-v2-manager',
 			'views/manager.js',
-			[ 'jquery', 'tribe-common', 'tribe-query-string' ],
+			[ 'jquery', 'tribe-common', 'tribe-query-string', 'underscore' ],
 			null // prevent it from loading
 		);
 	}
