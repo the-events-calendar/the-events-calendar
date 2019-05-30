@@ -110,6 +110,22 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 				'/?post_type=tribe_events&eventDisplay=list&tribe_events_cat=test&paged=2&foo=bar',
 				'/events/category/test/list/page/2/?foo=bar',
 			],
+			'hierarchical_cats_page_1' => [
+				'/?post_type=tribe_events&eventDisplay=list&tribe_events_cat=child',
+				'/events/category/grand-parent/parent/child/list/',
+			],
+			'hierarchical_cats_page_2' => [
+				'/?post_type=tribe_events&eventDisplay=list&tribe_events_cat=child&paged=2',
+				'/events/category/grand-parent/parent/child/list/page/2/',
+			],
+			'hierarchical_cats_page_1_w_extra_args' => [
+				'/?post_type=tribe_events&eventDisplay=list&tribe_events_cat=child&foo=bar',
+				'/events/category/grand-parent/parent/child/list/?foo=bar',
+			],
+			'hierarchical_cats_page_2_w_extra_args' => [
+				'/?post_type=tribe_events&eventDisplay=list&tribe_events_cat=child&paged=2&foo=bar',
+				'/events/category/grand-parent/parent/child/list/page/2/?foo=bar',
+			],
 			'day_page'                => [
 				'/?post_type=tribe_events&eventDisplay=day&eventDate=2018-12-01',
 				'/events/2018-12-01/',
@@ -234,5 +250,23 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 				'/events/tag/zumba/elenco/',
 			],
 		];
+	}
+
+	/**
+	 * It should allow parsing requests into query vars
+	 *
+	 * @test
+	 * @dataProvider canonical_urls
+	 */
+	public function should_allow_parsing_requests_into_query_vars( $expected, $canonical_uri ) {
+		$input_url   = home_url( $canonical_uri );
+		parse_str( parse_url( $expected, PHP_URL_QUERY ), $expected_vars );
+
+		$rewrite = new Rewrite;
+		global $wp_rewrite;
+		$rewrite->setup( $wp_rewrite );
+		$parsed_vars = $rewrite->parse_request( $input_url );
+
+		$this->assertEquals( $expected_vars, $parsed_vars );
 	}
 }
