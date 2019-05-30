@@ -40,10 +40,11 @@ tribe.events.views.manager = {};
 	 * @type {PlainObject}
 	 */
 	obj.selectors = {
-		container: '.tribe-events-container',
-		link: '.tribe-events-navigation-link',
+		container: '[data-js="tribe-events-view"]',
+		link: '[data-js="tribe-events-view-link"]',
 		loader: '.tribe-events-view-loader',
-		hiddenElement: '.tribe-hidden'
+		hiddenElement: '.tribe-common-a11y-hidden',
+		dataScript: '[data-js="tribe-events-view-data"]'
 	};
 
 	/**
@@ -70,12 +71,19 @@ tribe.events.views.manager = {};
 	obj.setup = function( index, container ) {
 		var $container = $( container );
 
+		$container.trigger( 'beforeSetup.tribeEvents', [ index, $container ] );
+
 		$container.find( obj.selectors.link ).on( 'click.tribeEvents', obj.onLinkClick );
 
 		// Only catch the submit if properly setup on a form
 		if ( $container.is( 'form' ) ) {
 			$container.on( 'submit.tribeEvents', obj.onSubmit );
 		}
+
+		// Binds and action to the container that will update the URL based on backed
+		$container.on( 'updateUrl.tribeEvents', obj.onUpdateUrl );
+
+		$container.trigger( 'afterSetup.tribeEvents', [ index, $container ] );
 	};
 
 	/**
@@ -98,6 +106,54 @@ tribe.events.views.manager = {};
 	};
 
 	/**
+	 * Using data passed by the Backend once we fetch a new HTML via an
+	 * container action.
+	 *
+	 * Usage, on the AJAX request we will pass data back using a <script>
+	 * formatted as a `application/json` that we will parse and apply here.
+	 *
+	 * @since TBD
+	 *
+	 * @param  {Event}  event DOM Event related to the Click action
+	 *
+	 * @return {void}
+	 */
+	obj.onUpdateUrl = function( event ) {
+		var $container = $( this );
+		var $data = $container.find( obj.selectors.dataScript );
+
+		// Bail in case we dont find data script
+		if ( ! $data.length ) {
+			return;
+		}
+
+		var data = JSON.parse( $.trim( $data.text() ) );
+
+		// Bail when the data is not a valid object
+		if ( ! _.isObject( data ) ) {
+			return;
+		}
+
+		// Bail when URL is not present
+		if ( _.isUndefined( data.url ) ) {
+			return;
+		}
+
+		// Bail when Title is not present
+		if ( _.isUndefined( data.title ) ) {
+			return;
+		}
+
+		/**
+		 * Compatitiblity for browsers updating title
+		 */
+		document.title = data.title;
+
+		// Push browser history
+		window.history.pushState( null, data.title, data.url );
+	};
+
+	/**
 	 * Hijacks the link click and passes the URL as param for REST API
 	 *
 	 * @since 4.9.2
@@ -111,8 +167,10 @@ tribe.events.views.manager = {};
 		var $link = $( this );
 		var $container = obj.getContainer( this );
 		var url = $link.attr( 'href' );
+		var formData = Qs.parse( $container.serialize() );
 		var data = {
-			url: url
+			url: url,
+			_wpnonce: formData['tribe-events-views']._wpnonce
 		};
 
 		obj.request( data, $container );
@@ -208,8 +266,6 @@ tribe.events.views.manager = {};
 
 		$container.trigger( 'beforeAjaxBeforeSend.tribeEvents', [ jqXHR, settings ] );
 
-		console.log( jqXHR, settings, this );
-
 		if ( $loader.length ) {
 			$loader.removeClass( obj.selectors.hiddenElement.className() );
 		}
@@ -236,8 +292,6 @@ tribe.events.views.manager = {};
 		var $loader = $container.find( obj.selectors.loader );
 
 		$container.trigger( 'beforeAjaxComplete.tribeEvents', [ jqXHR, textStatus ] );
-
-		console.log( jqXHR, textStatus, this );
 
 		if ( $loader.length ) {
 			$loader.addClass( obj.selectors.hiddenElement.className() );
@@ -267,15 +321,17 @@ tribe.events.views.manager = {};
 
 		$container.trigger( 'beforeAjaxSuccess.tribeEvents', [ data, textStatus, jqXHR ] );
 
-		console.log( data, textStatus, jqXHR, this );
-
 		var $html = $( data );
 
 		// Replace the current container with the new Data
 		$container.replaceWith( $html );
+		$container = $html;
 
 		// Setup the container with the data received
 		obj.setup( 0, $html );
+
+		// Trigger the browser pushState
+		$container.trigger( 'updateUrl.tribeEvents' );
 
 		$container.trigger( 'afterAjaxSuccess.tribeEvents', [ data, textStatus, jqXHR ] );
 	};
@@ -300,7 +356,9 @@ tribe.events.views.manager = {};
 
 		$container.trigger( 'beforeAjaxError.tribeEvents', [ jqXHR, settings ] );
 
-		console.log( jqXHR, settings, this );
+		/**
+		 * @todo  we need to handle errors here
+		 */
 
 		$container.trigger( 'afterAjaxError.tribeEvents', [ jqXHR, settings ] );
 	};
