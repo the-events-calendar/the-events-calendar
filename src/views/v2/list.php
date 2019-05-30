@@ -27,7 +27,7 @@ $events = $this->get( 'events' );
 	data-view-rest-url="<?php echo esc_url( tribe( Rest_Endpoint::class )->get_url() ); ?>"
 >
 	<div class="tribe-common-l-container tribe-events-l-container">
-		<?php $this->template( 'loader' ); ?>
+		<?php $this->template( 'loader', [ 'text' => 'Loading...' ] ); ?>
 
 		<?php
 			/**

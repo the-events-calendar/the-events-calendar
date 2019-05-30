@@ -112,10 +112,11 @@ class View implements View_Interface {
 	/**
 	 * Builds a View instance in response to a REST request to the Views endpoint.
 	 *
+	 * @since 4.9.2
+	 *
 	 * @param \WP_REST_Request $request
 	 *
 	 * @return \Tribe\Events\Views\V2\View_Interface
-	 * @since 4.9.2
 	 */
 	public static function make_for_rest( \WP_REST_Request $request ) {
 		// Try to read the slug from the REST request.
@@ -125,11 +126,15 @@ class View implements View_Interface {
 		if ( false === $slug ) {
 			// If we cannot get the view slug from the request parameters let's try to get it from the URL.
 			$url = Arr::get( $params, 'url', false );
-			$slug = ( new Url( $url ) )->get_view_slug();
-		}
 
-		if ( ! empty( $slug ) ) {
-			$params['view'] = $slug;
+			$url_instance = new Url( $url );
+
+			$params = array_merge( $params, $url_instance->get_query_args() );
+
+			/**
+			 * @todo use tribe_context() to figure out view from $params
+			 */
+			$slug = Arr::get( $params, 'eventDisplay', 'default' );
 		}
 
 		/**
@@ -156,7 +161,13 @@ class View implements View_Interface {
 			$params = apply_filters( "tribe_events_views_v2_{$slug}_rest_params", $params, $request );
 		}
 
-		return static::make( $slug, tribe_context()->alter( $params ) );
+		// Determine context based on params given
+		$context = tribe_context()->alter( $params );
+
+		/**
+		 * @todo use tribe_context() to figure out view from $params
+		 */
+		return static::make( $slug, $context );
 	}
 
 	/**
@@ -460,7 +471,7 @@ class View implements View_Interface {
 		 * @param bool           $canonical Whether the URL is a canonical one or not.
 		 * @param View_Interface $this      This view instance.
 		 */
-		$url = apply_filters( "tribe_events_views_v2_view_url", $url, $canonical, $this );
+		$url = apply_filters( 'tribe_events_views_v2_view_url', $url, $canonical, $this );
 
 		/**
 		 * Filters the URL returned for a specific View.
