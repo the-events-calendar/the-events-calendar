@@ -30,8 +30,8 @@
 }
 
 .events-list .tribe-events-back.tribe-events-loop {
-	margin: 0 auto 20px;
-}
+		margin: 0 auto 20px;
+	}
 
 /* Links */
 
@@ -188,19 +188,19 @@ div.tribe-events-notices > ul > li {
 /* don't float on filter list view */
 
 .tribe-events-filter-view.events-list .tribe-events-page-title {
-	width: 100%;
-	float: none;
-}
+		width: 100%;
+		float: none;
+	}
 
 .tribe-events-page-title a {
-	color: #000;
-}
+		color: #000;
+	}
 
 .tribe-events-page-title a:hover,
 		.tribe-events-page-title a:focus {
-	color: #333;
-	text-decoration: underline;
-}
+			color: #333;
+			text-decoration: underline;
+		}
 
 /* General Template Header/Footer Nav */
 
@@ -645,9 +645,10 @@ select.tribe-events-dropdown {
 /** For when a tooltip is near top edge of viewport, so displays below event title instead of above it. */
 
 .tribe-events-tooltip.tribe-events-tooltip-flipdown .tribe-events-arrow {
-	top: -11px;
-	transform: rotate(180deg);
-}
+		top: -11px;
+		-webkit-transform: rotate(180deg);
+		        transform: rotate(180deg);
+	}
 
 /* Recurring info tooltip */
 
@@ -818,7 +819,8 @@ select.tribe-events-dropdown {
 	border-radius: 0;
 	background: transparent;
 	background-image: none;
-	filter: none;
+	-webkit-filter: none;
+	        filter: none;
 	border-left: 0;
 }
 

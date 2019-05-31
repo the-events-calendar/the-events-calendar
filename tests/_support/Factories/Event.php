@@ -7,6 +7,21 @@ use Tribe__Events__Main as Main;
 class Event extends \WP_UnitTest_Factory_For_Post {
 
 	/**
+	 * Returns a fluent event instance to start building an event meta information
+	 * using readable syntax.
+	 *
+	 * @param string $start_date The event start date in string form.
+	 *
+	 * @return Fluent_Event The "head" of the fluent event.
+	 */
+	public function starting_on( string $start_date ) {
+		$fluent_event = new Fluent_Event( $start_date );
+		$fluent_event->set_factory($this);
+
+		return $fluent_event;
+	}
+
+	/**
 	 * Inserts an event in the database.
 	 *
 	 * @param array $args      An array of values to override the default arguments.
@@ -27,25 +42,25 @@ class Event extends \WP_UnitTest_Factory_For_Post {
 		$args['post_type'] = $this->get_post_type();
 		$args['post_status'] = isset( $args['post_status'] ) ? $args['post_status'] : 'publish';
 		// by default an event will happen tomorrow
-		$when = isset( $args['when'] ) ? $args['when'] : '+24 hours';
+		$utc_start_time = isset( $args['when'] ) ? $args['when'] : '+24 hours';
 		// by default an event will last 2hrs
 		$duration = isset( $args['duration'] ) ? $args['duration'] : '7200';
 		// by default an event will be on UTC time
 		$utc_offset = isset( $args['utc_offset'] ) ? $args['utc_offset'] : 0;
 
-		$start_time = is_numeric( $when ) ? $when : strtotime( $when );
-		$end_time = $start_time + $duration;
+		$start_timestamp = is_numeric( $utc_start_time ) ? $utc_start_time : strtotime( $utc_start_time );
+		$end_timestamp   = $start_timestamp + $duration;
 
-		$start = date( 'Y-m-d H:i:s', $start_time );
-		$utc_start = date( 'Y-m-d H:i:s', $start_time + $utc_offset * 60 );
-		$end = date( 'Y-m-d H:i:s', $end_time );
-		$utc_end = date( 'Y-m-d H:i:s', $end_time + $utc_offset * 60 );
+		$utc_start   = date( 'Y-m-d H:i:s', $start_timestamp );
+		$local_start = date( 'Y-m-d H:i:s', $start_timestamp + $utc_offset * 3600 );
+		$utc_end     = date( 'Y-m-d H:i:s', $end_timestamp );
+		$local_end   = date( 'Y-m-d H:i:s', $end_timestamp + $utc_offset * 3600 );
 
 		$meta_input = [
-			'_EventStartDate'    => $utc_start,
-			'_EventEndDate'      => $utc_end,
-			'_EventStartDateUTC' => $start,
-			'_EventEndDateUTC'   => $end,
+			'_EventStartDate'    => $local_start,
+			'_EventEndDate'      => $local_end,
+			'_EventStartDateUTC' => $utc_start,
+			'_EventEndDateUTC'   => $utc_end,
 			'_EventDuration'     => $duration,
 		];
 

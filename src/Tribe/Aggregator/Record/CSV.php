@@ -91,7 +91,34 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 		$this->update_meta( 'source_name', basename( $file_path ) );
 
 		$rows    = $importer->do_import_preview();
+
+		/*
+		 * Strip whitespace from the beginning and end of row values
+		 */
+		$formatted_rows = array();
+
+		foreach ( $rows as $row ) {
+			$formatted_rows[] = array_map( 'trim', $row );
+		}
+
+		$rows    = $formatted_rows;
 		$headers = array_shift( $rows );
+
+		/*
+		 * To avoid empty columns from collapsing onto each other we provide
+		 * each column without an header a generated one.
+		 */
+		$empty_counter = 1;
+		$formatted_headers = array();
+
+		foreach ( $headers as $header ) {
+			if ( empty( $header ) ) {
+				$header = __( 'Unknown Column ', 'the-events-calendar' ) . $empty_counter ++;
+			}
+			$formatted_headers[] = $header;
+		}
+
+		$headers = $formatted_headers;
 		$data    = array();
 
 		foreach ( $rows as $row ) {

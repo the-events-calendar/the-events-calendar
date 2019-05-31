@@ -235,6 +235,10 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 	 * @return object         Return Base Slugs with l10n variations
 	 */
 	public function get_bases( $method = 'regex' ) {
+		if ( ! empty( $this->bases ) ) {
+			return (object) $this->bases;
+		}
+
 		$tec = Tribe__Events__Main::instance();
 
 		/**
@@ -314,7 +318,11 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 		 * @param array  $domains An associative array of language domains to use; these would be plugin or themes language
 		 *                        domains with a `'plugin-slug' => '/absolute/path/to/lang/dir'`
 		 */
-		return (object) apply_filters( 'tribe_events_rewrite_i18n_slugs', $bases, $method, $domains );
+		$bases = apply_filters( 'tribe_events_rewrite_i18n_slugs', $bases, $method, $domains );
+
+		$this->bases = $bases;
+
+		return (object) $bases;
 	}
 
 	/**
@@ -439,5 +447,66 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 
 		return $url;
 
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	protected function get_matcher_to_query_var_map() {
+		return [
+			'month'    => 'eventDisplay',
+			'list'     => 'eventDisplay',
+			'today'    => 'eventDisplay',
+			'day'      => 'eventDisplay',
+			'tag'      => 'tag',
+			'tax'      => 'tribe_events_cat',
+			'single'   => 'name',
+			'archive'  => 'post_type',
+			'featured' => 'featured',
+		];
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	protected function get_localized_matchers() {
+		$localized_matchers =  parent::get_localized_matchers();
+
+		// Handle the dates.
+		$localized_matchers['(\d{4}-\d{2})']       = 'eventDate';
+		$localized_matchers['(\d{4}-\d{2}-\d{2})'] = 'eventDate';
+
+		return $localized_matchers;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	protected function get_dynamic_matchers( array $query_vars ) {
+		$bases = (array) $this->get_bases();
+		$dynamic_matchers = parent::get_dynamic_matchers( $query_vars );
+
+		// Handle The Events Calendar category.
+		if ( isset( $query_vars['tribe_events_cat'] ) ) {
+			$cat_regex = $bases['tax'];
+			preg_match( '/^\(\?:(?<slugs>[^\\)]+)\)/', $cat_regex, $matches );
+			if ( isset( $matches['slugs'] ) ) {
+				$slugs = explode( '|', $matches['slugs'] );
+				// The localized version is the last.
+				$localized_slug = end( $slugs );
+				$dynamic_matchers["{$cat_regex}/(?:[^/]+/)*([^/]+)"] = "{$localized_slug}/{$query_vars['tribe_events_cat']}";
+			}
+		}
+
+		// Where is iCal? It's handled by WordPress.
+
+		return $dynamic_matchers;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	protected function get_post_types() {
+		return [ 'tribe_events', 'tribe_venue', 'tribe_organizer' ];
 	}
 }

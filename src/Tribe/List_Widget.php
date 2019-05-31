@@ -10,6 +10,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
+use Tribe__Date_Utils as Dates;
+
 class Tribe__Events__List_Widget extends WP_Widget {
 
 	private static $limit = 5;
@@ -128,17 +130,27 @@ class Tribe__Events__List_Widget extends WP_Widget {
 			return;
 		}
 
-		self::$posts = tribe_get_events(
-			apply_filters(
-				'tribe_events_list_widget_query_args', array(
-					'eventDisplay'   => 'list',
-					'posts_per_page' => self::$limit,
-					'is_tribe_widget' => true,
-					'tribe_render_context' => 'widget',
-					'featured' => empty( $instance['featured_events_only'] ) ? false : (bool) $instance['featured_events_only'],
-				)
-			)
+		$post_status = [ 'publish' ];
+		if ( is_user_logged_in() ) {
+			$post_status[] = 'private';
+		}
+
+		$query_args = apply_filters(
+			'tribe_events_list_widget_query_args',
+			[
+				'eventDisplay' => 'list',
+				'posts_per_page' => self::$limit,
+				'is_tribe_widget' => true,
+				'post_status' => $post_status,
+				'tribe_render_context' => 'widget',
+				'featured' => empty( $instance['featured_events_only'] ) ? null : (bool) $instance['featured_events_only'],
+				'ends_after' => Dates::build_date_object( 'now' ),
+			]
 		);
+
+		$query = tribe_get_events( $query_args, true );
+
+		self::$posts = $query->posts;
 
 		// If no posts, and the don't show if no posts checked, let's bail
 		if ( empty( self::$posts ) && $no_upcoming_events ) {
@@ -148,7 +160,7 @@ class Tribe__Events__List_Widget extends WP_Widget {
 		echo $before_widget;
 		do_action( 'tribe_events_before_list_widget' );
 
-		if ( $title ){
+		if ( $title ) {
 			do_action( 'tribe_events_list_widget_before_the_title' );
 			echo $before_title . $title . $after_title;
 			do_action( 'tribe_events_list_widget_after_the_title' );

@@ -63,6 +63,18 @@ vendor/bin/codecept run tests/wpunit/Some/Path/MyTest.php:some_test
 Failing tests are ok in set up terms: the system works. Errors should be reported.
 Please refer to [Codeception documentation](http://codeception.com/docs) to learn about more run and configuration options.
 
+### Running acceptance tests
+Acceptance tests can be run like any other test.  
+The tests have, but, the additional requirement of using Selenium and Chromedriver container to "drive" the Chrome browser through the tests. While you can spin up your local solution the fastest way is to use a container:
+```bash
+docker run --rm -d -p 4444:4444 selenium/standalone-chrome
+```
+The command will pull, if not already present on your machine, and run a Docker container containing the Selenium and Chromedriver stand-alone installations that will listen for connections on port 4444.
+The command is also available as a [Composer script](https://getcomposer.org/doc/articles/scripts.md) from the plugin root folder:
+```bash
+composer start-chromedriver
+```
+
 ## Where to find help
 Look for test examples in the code; look for configuration guides on [Codeception](http://codeception.com/ "Codeception - BDD-style PHP testing.") and [wp-browser](https://github.com/lucatume/wp-browser "lucatume/wp-browser · GitHub")  site; ask for help to other testers for things like "How should I test this?" or "In what suite should I add this test?".  
 

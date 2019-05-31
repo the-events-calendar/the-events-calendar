@@ -268,7 +268,14 @@ class Tribe__Events__iCal {
 				return;
 			}
 
-			$events_posts = $this->get_events_list( $wp_query->query, $wp_query );
+			$args = $wp_query->query_vars;
+
+			if ( 'list' === $args['eventDisplay'] ) {
+				// Whe producing a List view iCal feed the `eventDate` is misleading.
+				unset( $args['eventDate'] );
+			}
+
+			$events_posts = $this->get_events_list( $args, $wp_query );
 		}
 
 		$event_ids = wp_list_pluck( $events_posts, 'ID' );
@@ -328,7 +335,7 @@ class Tribe__Events__iCal {
 			$item[] = 'LAST-MODIFIED:' . $tzoned->modified;
 			$item[] = 'UID:' . $event_post->ID . '-' . $time->start . '-' . $time->end . '@' . parse_url( home_url( '/' ), PHP_URL_HOST );
 			$item[] = 'SUMMARY:' . str_replace( array( ',', "\n", "\r" ), array( '\,', '\n', '' ), html_entity_decode( strip_tags( $event_post->post_title ), ENT_QUOTES ) );
-			$item[] = 'DESCRIPTION:' . str_replace( array( ',', "\n", "\r" ), array( '\,', '\n', '' ), html_entity_decode( strip_tags( str_replace( '</p>', '</p> ', apply_filters( 'the_content', $event_post->post_content ) ) ), ENT_QUOTES ) );
+			$item[] = 'DESCRIPTION:' . str_replace( array( ',', "\n", "\r" ), array( '\,', '\n', '' ), html_entity_decode( strip_tags( str_replace( '</p>', '</p> ', apply_filters( 'the_content', tribe( 'editor.utils' )->exclude_tribe_blocks( $event_post->post_content ) ) ) ), ENT_QUOTES ) );
 			$item[] = 'URL:' . get_permalink( $event_post->ID );
 
 			// add location if available
@@ -491,13 +498,10 @@ class Tribe__Events__iCal {
 		}
 
 		$list = array();
-		if ( $count > $query_posts_per_page ) {
+		// When `posts_per_page` is set to `-1` we can slice.
+		if ( $query_posts_per_page >= 0 && $count > $query_posts_per_page ) {
 			$args['posts_per_page'] = $count;
-			$events_query = new WP_Query( wp_parse_args( $args, array(
-				'posts_per_page' => $this->feed_posts_per_page(),
-				'post_type' => Tribe__Events__Main::POSTTYPE,
-				'eventDisplay' => 'default',
-			) ) );
+			$events_query = tribe_get_events( wp_parse_args( $args, [ 'posts_per_page' => $this->feed_posts_per_page() ] ), true );
 			$list = $events_query->get_posts();
 		} elseif ( $query instanceof WP_Query ) {
 			$list = array_slice( $query->posts, 0, $count );

@@ -59,7 +59,7 @@ $keyword_exclusions = json_encode( $keyword_exclusions );
 $location_exclusions = apply_filters( 'tribe_events_aggregator_refine_location_exclusions', array( 'url', 'facebook' ) );
 $location_exclusions = json_encode( $location_exclusions );
 ?>
-<tr class="tribe-dependent tribe-refine-filters" data-depends="<?php echo esc_attr( $depends ); ?>" <?php echo esc_attr( $depends_condition ); ?>>
+<tr class="tribe-dependent tribe-refine-filters <?php echo esc_attr( $origin_slug ) ?>" data-depends="<?php echo esc_attr( $depends ); ?>" <?php echo esc_attr( $depends_condition ); ?>>
 	<th scope="row">
 		<label for="tribe-ea-field-refine_keywords"><?php echo __( 'Refine:', 'the-events-calendar' ); ?></label>
 	</th>
@@ -89,6 +89,10 @@ $location_exclusions = json_encode( $location_exclusions );
 				class="tribe-ea-field tribe-ea-size-medium tribe-datepicker"
 				placeholder="<?php echo esc_attr( $start_date->placeholder ); ?>"
 				value="<?php echo esc_attr( $start ); ?>"
+				<?php if ( 'eventbrite' === $origin_slug ) : ?>
+					data-validation-is-required
+					data-validation-error="<?php esc_attr_e( 'Start date for Eventbrite Tickets is Required', 'the-events-calendar' ); ?>"
+				<?php endif; ?>
 			>
 			<span
 				class="tribe-dependent tribe-date-helper"

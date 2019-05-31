@@ -1,0 +1,362 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[STORE] - Datetime reducer Should set the all day 1`] = `
+Object {
+  "allDay": true,
+  "dateTimeSeparator": "@",
+  "end": "2018-07-19 17:00:00",
+  "endTimeInput": "5:00 pm",
+  "isEditable": true,
+  "multiDay": false,
+  "naturalLanguage": "",
+  "showDateInput": false,
+  "showTimeZone": false,
+  "start": "2018-07-19 08:00:00",
+  "startTimeInput": "8:00 am",
+  "timeRangeSeparator": "-",
+  "timeZone": "UTC",
+  "timeZoneLabel": "UTC",
+}
+`;
+
+exports[`[STORE] - Datetime reducer Should set the all day 2`] = `
+Object {
+  "allDay": false,
+  "dateTimeSeparator": "@",
+  "end": "2018-07-19 17:00:00",
+  "endTimeInput": "5:00 pm",
+  "isEditable": true,
+  "multiDay": false,
+  "naturalLanguage": "",
+  "showDateInput": false,
+  "showTimeZone": false,
+  "start": "2018-07-19 08:00:00",
+  "startTimeInput": "8:00 am",
+  "timeRangeSeparator": "-",
+  "timeZone": "UTC",
+  "timeZoneLabel": "UTC",
+}
+`;
+
+exports[`[STORE] - Datetime reducer Should set the date input visibility 1`] = `
+Object {
+  "allDay": false,
+  "dateTimeSeparator": "@",
+  "end": "2018-07-19 17:00:00",
+  "endTimeInput": "5:00 pm",
+  "isEditable": true,
+  "multiDay": false,
+  "naturalLanguage": "",
+  "showDateInput": true,
+  "showTimeZone": false,
+  "start": "2018-07-19 08:00:00",
+  "startTimeInput": "8:00 am",
+  "timeRangeSeparator": "-",
+  "timeZone": "UTC",
+  "timeZoneLabel": "UTC",
+}
+`;
+
+exports[`[STORE] - Datetime reducer Should set the date input visibility 2`] = `
+Object {
+  "allDay": false,
+  "dateTimeSeparator": "@",
+  "end": "2018-07-19 17:00:00",
+  "endTimeInput": "5:00 pm",
+  "isEditable": true,
+  "multiDay": false,
+  "naturalLanguage": "",
+  "showDateInput": false,
+  "showTimeZone": false,
+  "start": "2018-07-19 08:00:00",
+  "startTimeInput": "8:00 am",
+  "timeRangeSeparator": "-",
+  "timeZone": "UTC",
+  "timeZoneLabel": "UTC",
+}
+`;
+
+exports[`[STORE] - Datetime reducer Should set the editability 1`] = `
+Object {
+  "allDay": false,
+  "dateTimeSeparator": "@",
+  "end": "2018-07-19 17:00:00",
+  "endTimeInput": "5:00 pm",
+  "isEditable": true,
+  "multiDay": false,
+  "naturalLanguage": "",
+  "showDateInput": false,
+  "showTimeZone": false,
+  "start": "2018-07-19 08:00:00",
+  "startTimeInput": "8:00 am",
+  "timeRangeSeparator": "-",
+  "timeZone": "UTC",
+  "timeZoneLabel": "UTC",
+}
+`;
+
+exports[`[STORE] - Datetime reducer Should set the editability 2`] = `
+Object {
+  "allDay": false,
+  "dateTimeSeparator": "@",
+  "end": "2018-07-19 17:00:00",
+  "endTimeInput": "5:00 pm",
+  "isEditable": false,
+  "multiDay": false,
+  "naturalLanguage": "",
+  "showDateInput": false,
+  "showTimeZone": false,
+  "start": "2018-07-19 08:00:00",
+  "startTimeInput": "8:00 am",
+  "timeRangeSeparator": "-",
+  "timeZone": "UTC",
+  "timeZoneLabel": "UTC",
+}
+`;
+
+exports[`[STORE] - Datetime reducer Should set the end 1`] = `
+Object {
+  "allDay": false,
+  "dateTimeSeparator": "@",
+  "end": "June 25, 2018 4:00 pm",
+  "endTimeInput": "5:00 pm",
+  "isEditable": true,
+  "multiDay": false,
+  "naturalLanguage": "",
+  "showDateInput": false,
+  "showTimeZone": false,
+  "start": "2018-07-19 08:00:00",
+  "startTimeInput": "8:00 am",
+  "timeRangeSeparator": "-",
+  "timeZone": "UTC",
+  "timeZoneLabel": "UTC",
+}
+`;
+
+exports[`[STORE] - Datetime reducer Should set the end time input 1`] = `
+Object {
+  "allDay": false,
+  "dateTimeSeparator": "@",
+  "end": "2018-07-19 17:00:00",
+  "endTimeInput": "18:00",
+  "isEditable": true,
+  "multiDay": false,
+  "naturalLanguage": "",
+  "showDateInput": false,
+  "showTimeZone": false,
+  "start": "2018-07-19 08:00:00",
+  "startTimeInput": "8:00 am",
+  "timeRangeSeparator": "-",
+  "timeZone": "UTC",
+  "timeZoneLabel": "UTC",
+}
+`;
+
+exports[`[STORE] - Datetime reducer Should set the multi day 1`] = `
+Object {
+  "allDay": false,
+  "dateTimeSeparator": "@",
+  "end": "2018-07-19 17:00:00",
+  "endTimeInput": "5:00 pm",
+  "isEditable": true,
+  "multiDay": true,
+  "naturalLanguage": "",
+  "showDateInput": false,
+  "showTimeZone": false,
+  "start": "2018-07-19 08:00:00",
+  "startTimeInput": "8:00 am",
+  "timeRangeSeparator": "-",
+  "timeZone": "UTC",
+  "timeZoneLabel": "UTC",
+}
+`;
+
+exports[`[STORE] - Datetime reducer Should set the multi day 2`] = `
+Object {
+  "allDay": false,
+  "dateTimeSeparator": "@",
+  "end": "2018-07-19 17:00:00",
+  "endTimeInput": "5:00 pm",
+  "isEditable": true,
+  "multiDay": false,
+  "naturalLanguage": "",
+  "showDateInput": false,
+  "showTimeZone": false,
+  "start": "2018-07-19 08:00:00",
+  "startTimeInput": "8:00 am",
+  "timeRangeSeparator": "-",
+  "timeZone": "UTC",
+  "timeZoneLabel": "UTC",
+}
+`;
+
+exports[`[STORE] - Datetime reducer Should set the natural language label 1`] = `
+Object {
+  "allDay": false,
+  "dateTimeSeparator": "@",
+  "end": "2018-07-19 17:00:00",
+  "endTimeInput": "5:00 pm",
+  "isEditable": true,
+  "multiDay": false,
+  "naturalLanguage": "2 weeks from now",
+  "showDateInput": false,
+  "showTimeZone": false,
+  "start": "2018-07-19 08:00:00",
+  "startTimeInput": "8:00 am",
+  "timeRangeSeparator": "-",
+  "timeZone": "UTC",
+  "timeZoneLabel": "UTC",
+}
+`;
+
+exports[`[STORE] - Datetime reducer Should set the separator date 1`] = `
+Object {
+  "allDay": false,
+  "dateTimeSeparator": " > ",
+  "end": "2018-07-19 17:00:00",
+  "endTimeInput": "5:00 pm",
+  "isEditable": true,
+  "multiDay": false,
+  "naturalLanguage": "",
+  "showDateInput": false,
+  "showTimeZone": false,
+  "start": "2018-07-19 08:00:00",
+  "startTimeInput": "8:00 am",
+  "timeRangeSeparator": "-",
+  "timeZone": "UTC",
+  "timeZoneLabel": "UTC",
+}
+`;
+
+exports[`[STORE] - Datetime reducer Should set the separator time 1`] = `
+Object {
+  "allDay": false,
+  "dateTimeSeparator": "@",
+  "end": "2018-07-19 17:00:00",
+  "endTimeInput": "5:00 pm",
+  "isEditable": true,
+  "multiDay": false,
+  "naturalLanguage": "",
+  "showDateInput": false,
+  "showTimeZone": false,
+  "start": "2018-07-19 08:00:00",
+  "startTimeInput": "8:00 am",
+  "timeRangeSeparator": " | ",
+  "timeZone": "UTC",
+  "timeZoneLabel": "UTC",
+}
+`;
+
+exports[`[STORE] - Datetime reducer Should set the start 1`] = `
+Object {
+  "allDay": false,
+  "dateTimeSeparator": "@",
+  "end": "2018-07-19 17:00:00",
+  "endTimeInput": "5:00 pm",
+  "isEditable": true,
+  "multiDay": false,
+  "naturalLanguage": "",
+  "showDateInput": false,
+  "showTimeZone": false,
+  "start": "June 5, 2018 5:00 pm",
+  "startTimeInput": "8:00 am",
+  "timeRangeSeparator": "-",
+  "timeZone": "UTC",
+  "timeZoneLabel": "UTC",
+}
+`;
+
+exports[`[STORE] - Datetime reducer Should set the start time input 1`] = `
+Object {
+  "allDay": false,
+  "dateTimeSeparator": "@",
+  "end": "2018-07-19 17:00:00",
+  "endTimeInput": "5:00 pm",
+  "isEditable": true,
+  "multiDay": false,
+  "naturalLanguage": "",
+  "showDateInput": false,
+  "showTimeZone": false,
+  "start": "2018-07-19 08:00:00",
+  "startTimeInput": "18:00",
+  "timeRangeSeparator": "-",
+  "timeZone": "UTC",
+  "timeZoneLabel": "UTC",
+}
+`;
+
+exports[`[STORE] - Datetime reducer Should set the timezone 1`] = `
+Object {
+  "allDay": false,
+  "dateTimeSeparator": "@",
+  "end": "2018-07-19 17:00:00",
+  "endTimeInput": "5:00 pm",
+  "isEditable": true,
+  "multiDay": false,
+  "naturalLanguage": "",
+  "showDateInput": false,
+  "showTimeZone": false,
+  "start": "2018-07-19 08:00:00",
+  "startTimeInput": "8:00 am",
+  "timeRangeSeparator": "-",
+  "timeZone": "UTC",
+  "timeZoneLabel": "UTC",
+}
+`;
+
+exports[`[STORE] - Datetime reducer Should set the timezone label 1`] = `
+Object {
+  "allDay": false,
+  "dateTimeSeparator": "@",
+  "end": "2018-07-19 17:00:00",
+  "endTimeInput": "5:00 pm",
+  "isEditable": true,
+  "multiDay": false,
+  "naturalLanguage": "",
+  "showDateInput": false,
+  "showTimeZone": false,
+  "start": "2018-07-19 08:00:00",
+  "startTimeInput": "8:00 am",
+  "timeRangeSeparator": "-",
+  "timeZone": "UTC",
+  "timeZoneLabel": "Modern Tribe",
+}
+`;
+
+exports[`[STORE] - Datetime reducer Should set the visibility of the timezone 1`] = `
+Object {
+  "allDay": false,
+  "dateTimeSeparator": "@",
+  "end": "2018-07-19 17:00:00",
+  "endTimeInput": "5:00 pm",
+  "isEditable": true,
+  "multiDay": false,
+  "naturalLanguage": "",
+  "showDateInput": false,
+  "showTimeZone": true,
+  "start": "2018-07-19 08:00:00",
+  "startTimeInput": "8:00 am",
+  "timeRangeSeparator": "-",
+  "timeZone": "UTC",
+  "timeZoneLabel": "UTC",
+}
+`;
+
+exports[`[STORE] - Datetime reducer Should set the visibility of the timezone 2`] = `
+Object {
+  "allDay": false,
+  "dateTimeSeparator": "@",
+  "end": "2018-07-19 17:00:00",
+  "endTimeInput": "5:00 pm",
+  "isEditable": true,
+  "multiDay": false,
+  "naturalLanguage": "",
+  "showDateInput": false,
+  "showTimeZone": false,
+  "start": "2018-07-19 08:00:00",
+  "startTimeInput": "8:00 am",
+  "timeRangeSeparator": "-",
+  "timeZone": "UTC",
+  "timeZoneLabel": "UTC",
+}
+`;

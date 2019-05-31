@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[STORE] - Classic reducer Details title 1`] = `
+Object {
+  "detailsTitle": "Event",
+  "organizerTitle": "",
+}
+`;
+
+exports[`[STORE] - Classic reducer Organizer title 1`] = `
+Object {
+  "detailsTitle": "",
+  "organizerTitle": "Modern Tribe",
+}
+`;

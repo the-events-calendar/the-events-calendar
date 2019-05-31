@@ -114,7 +114,6 @@ class Tribe__Events__Assets {
 						'tribe-timepicker',
 						'tribe-attrchange',
 						'tribe-select2',
-						'ecp-plugins',
 					),
 				),
 				array(
@@ -152,7 +151,7 @@ class Tribe__Events__Assets {
 			$plugin,
 			'tribe-events-settings',
 			'tribe-settings.js',
-			array( 'dashicons', 'tribe-select2', 'thickbox' ),
+			array( 'tribe-select2', 'thickbox' ),
 			'admin_enqueue_scripts',
 			array(
 				'conditionals' => array( $admin_helpers, 'is_screen' ),
@@ -627,12 +626,25 @@ class Tribe__Events__Assets {
 	 * @return array
 	 */
 	public function get_ajax_url_data() {
-		$bits = array(
-			'ajaxurl' => esc_url_raw( admin_url( 'admin-ajax.php', ( is_ssl() || FORCE_SSL_ADMIN ? 'https' : 'http' ) ) ),
+
+		$data = array(
+			'ajaxurl'   => esc_url_raw( admin_url( 'admin-ajax.php', ( is_ssl() || FORCE_SSL_ADMIN ? 'https' : 'http' ) ) ),
 			'post_type' => Tribe__Events__Main::POSTTYPE,
 		);
 
-		return $bits;
+		/**
+		 * Makes the localize variable for TEC admin JS filterable.
+		 *
+		 * @since 4.8.1
+		 *
+		 * @param array $data {
+	     *     These items exist on the TEC object in admin JS.
+	     *
+	     *     @type string ajaxurl The default URL to wp-admin's AJAX endpoint.
+	     *     @type string post_type The Event post type.
+		 * }
+		 */
+		return apply_filters( 'tribe_events_admin_js_ajax_url_data', $data );
 	}
 
 
@@ -733,7 +745,7 @@ class Tribe__Events__Assets {
 				__( 'Nov' ),
 				__( 'Dec' ),
 			),
-			'msgs'              => json_encode( array(
+			'msgs' => json_encode( array(
 				__( 'This event is from %%starttime%% to %%endtime%% on %%startdatewithyear%%.', 'the-events-calendar' ),
 				__( 'This event is at %%starttime%% on %%startdatewithyear%%.', 'the-events-calendar' ),
 				__( 'This event is all day on %%startdatewithyear%%.', 'the-events-calendar' ),

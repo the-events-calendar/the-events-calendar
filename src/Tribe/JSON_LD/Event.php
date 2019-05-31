@@ -129,15 +129,26 @@ class Tribe__Events__JSON_LD__Event extends Tribe__JSON_LD__Abstract {
 			$price = tribe_get_cost( $post_id );
 			$price = $this->normalize_price( $price );
 			if ( '' !== $price ) {
-				// Manually Include the Price for non Event Tickets
-				$data->offers = (object) array(
-					'@type' => 'Offer',
-					'price' => $price,
 
+				// The currency has to be in ISO 4217
+				$event_currency = get_post_meta( $post_id, '_EventCurrencySymbol', true );
+				$currency       = ( '' !== $event_currency ) ? $event_currency : 'USD';
+
+				// Manually Include the Price for non Event Tickets
+				$data->offers = (object) [
+					'@type'         => 'Offer',
+					'price'         => $price,
+					'priceCurrency' => $currency,
 					// Use the same url as the event
-					'url' => $data->url,
-				);
+					'url'           => $data->url,
+					'category'      => 'primary',
+					'availability'  => 'inStock',
+					'validFrom'     => date( DateTime::ATOM, strtotime( get_the_date( '', $post_id ) ) ),
+				];
 			}
+
+			// Setting a default parameter here to avoid Google console errors
+			$data->performer = 'Organization';
 
 			$data = $this->apply_object_data_filter( $data, $args, $post );
 			$return[ $post_id ] = $data;
@@ -154,8 +165,13 @@ class Tribe__Events__JSON_LD__Event extends Tribe__JSON_LD__Abstract {
 	 * @return string
 	 */
 	protected function normalize_price( $price ) {
+
+		// Make it work with different languages
+		$regex_free  = '/^\\s*' . __( 'Free', 'the-events-calendar' ) . '\\s*$/i';
+
+		// Replace free with 0 (in any language)
 		$map = array(
-			'/^\\s*free\\s*$/i' => '0',
+			$regex_free => '0',
 		);
 
 		foreach ( $map as $normalization_regex => $normalized_price ) {

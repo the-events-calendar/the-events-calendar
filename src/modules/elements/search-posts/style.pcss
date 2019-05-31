@@ -1,0 +1,54 @@
+.tribe-editor__search-posts {
+	width: 340px;
+
+	.editor-inserter__search {
+		width: 100%;
+	}
+
+	.tribe-editor__search-posts__results {
+		height: 250px;
+		overflow: auto;
+
+		.components-placeholder {
+			height: inherit;
+		}
+	}
+
+	.tribe-editor__search-posts__results-list,
+	.tribe-editor__search-posts__results-list-item {
+		margin: 0;
+	}
+
+	.tribe-editor__search-posts__results-list-item-button {
+		display: block;
+		width: 100%;
+		color: #555d66;
+		padding: 12px;
+		cursor: pointer;
+		border: 0;
+		border-bottom: 1px solid #e2e4e7;
+		line-height: 20px;
+		background: transparent;
+		text-align: left;
+
+		&:hover {
+			background-color: #f8f9f9;
+		}
+
+		&:focus,
+		&:active,
+		&.is-active {
+			position: relative;
+		}
+	}
+}
+
+.tribe-editor__dropdown {
+	display: inline-block;
+}
+
+.tribe-editor__spinner-container {
+	&.tribe-editor__spinner--item {
+		padding: 0;
+	}
+}

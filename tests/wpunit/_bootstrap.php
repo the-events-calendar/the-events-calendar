@@ -8,3 +8,5 @@ $support = Configuration::supportDir();
 include_once codecept_data_dir( 'classes/WP_Screen.php' );
 include_once  $support . 'utils.php';
 
+tests_add_filter( 'tribe_common_log_to_wpcli', '__return_false' );
+

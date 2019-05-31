@@ -1,0 +1,75 @@
+<?php
+/**
+ * The List View.
+ *
+ * @package Tribe\Events\Views\V2\Views
+ * @since 4.9.2
+ */
+
+namespace Tribe\Events\Views\V2\Views;
+
+use Tribe\Events\Views\V2\View;
+use Tribe__Utils__Array as Arr;
+
+class List_View extends View {
+
+	/**
+	 * Slug for this view
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	protected $slug = 'list';
+
+
+	/**
+	 * Get HTML method
+	 *
+	 * @since TBD
+	 *
+	 */
+	public function get_html() {
+		/*
+		 * The View not care where the context comes from: from the View point of view the context is the only
+		 * source of truth.
+		 * The context might come from the main query, from a widget, a shortcode or a REST request.
+		 */
+		$context = $this->context->to_array();
+
+		/*
+		 * Depending on the context contents let's set up the arguments to fetch the events.
+		 */
+		$args = [
+			'posts_per_page' => $context['posts_per_page'],
+			'paged'          => max( Arr::get( $context, 'paged', 1 ), 1 ),
+		];
+		$date = Arr::get( $context, 'event_date', 'now' );
+
+		if ( 'past' !== Arr::get( $context, 'event_display', 'current' ) ) {
+			$args['ends_after'] = $date;
+		} else {
+			$args['ends_before'] = $date;
+		}
+
+		$this->setup_the_loop( $args );
+
+		/*
+		 * Here we pass to the template a trimmed down version of the View render context and we set it as global to
+		 * make it available to any view using the template.
+		 * Ideally one that contains only the variables the template will need to render.
+		 */
+		$this->template->set_values( [
+			'events'   => $this->repository->all(),
+			'url'      => $this->get_url( true ),
+			'prev_url' => $this->prev_url( true ),
+			'next_url' => $this->next_url( true ),
+		], false );
+
+		$html = $this->template->render();
+
+		$this->restore_the_loop();
+
+		return $html;
+	}
+}

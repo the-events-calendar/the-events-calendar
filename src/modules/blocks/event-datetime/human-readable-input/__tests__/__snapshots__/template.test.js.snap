@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Human readable input render component 1`] = `
+<div
+  className="tribe-editor__date-input__container"
+>
+  <input
+    className="tribe-editor__date-input"
+    name="date-input"
+    onChange={[MockFunction]}
+    type="text"
+    value="Initial label"
+  />
+</div>
+`;
