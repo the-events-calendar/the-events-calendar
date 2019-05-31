@@ -13,7 +13,7 @@ class EndpointsCest extends Base{
 	 * @test
 	 */
 	public function should_provide_an_html_endpoint_on_the_rest_api( Tester $I ) {
-		$query_args = [ 'view' => 'list' ];
+		$query_args = [ 'eventDisplay' => 'list' ];
 		$url = add_query_arg( $query_args, $this->home_url );
 		$nonce = $I->generate_nonce_for_role( 'visitor' );
 
@@ -31,7 +31,7 @@ class EndpointsCest extends Base{
 	 * @test
 	 */
 	public function should_block_requests_not_providing_a_nonce( Tester $I ) {
-		$query_args = [ 'view' => 'list' ];
+		$query_args = [ 'eventDisplay' => 'list' ];
 		$url = add_query_arg( $query_args, $this->home_url );
 
 		$I->sendGET( $this->endpoint . '/html', [

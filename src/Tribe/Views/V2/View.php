@@ -124,17 +124,14 @@ class View implements View_Interface {
 		$slug = Arr::get( $params, 'view', false );
 
 		if ( false === $slug ) {
-			// If we cannot get the view slug from the request parameters let's try to get it from the URL.
-			$url = Arr::get( $params, 'url', false );
-
-			$url_object = new Url( $url );
-
-			$params = array_merge( $params, $url_object->get_query_args() );
-
-			/**
-			 * @todo use tribe_context() to figure out view from $params
+			/*
+			 * If we cannot get the view slug from the request parameters let's try to get it from the URL.
+			 * We know the `url` parameter is set as it's required by the REST endpoint.
 			 */
-			$slug = Arr::get( $params, 'eventDisplay', 'default' );
+			$url = Arr::get( $params, 'url' );
+			$url_object = new Url( $url );
+			$params = array_merge( $params, $url_object->get_query_args() );
+			$slug = Arr::get( $params, 'eventDisplay', tribe_context()->get( 'view', 'default' ) );
 		}
 
 		/**
@@ -164,9 +161,6 @@ class View implements View_Interface {
 		// Determine context based on params given
 		$context = tribe_context()->alter( $params );
 
-		/**
-		 * @todo use tribe_context() to figure out view from $params
-		 */
 		return static::make( $slug, $context );
 	}
 

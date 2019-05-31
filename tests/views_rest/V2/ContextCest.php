@@ -12,7 +12,7 @@ class ContextCest extends Base {
 	 * @test
 	 */
 	public function should_alter_the_view_context_according_to_rest_request_parameters(Tester $I) {
-		$query_args = [ 'view' => 'reflector' ];
+		$query_args = [ 'eventDisplay' => 'reflector' ];
 		$url = add_query_arg( $query_args, $this->home_url );
 		$nonce = $I->generate_nonce_for_role( 'visitor' );
 
@@ -28,10 +28,12 @@ class ContextCest extends Base {
 		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 		$I->seeResponseContainsJson( [
-			'view'      => 'reflector',
-			'url'       => $url,
-			'_wpnonce'  => $nonce,
-			'view_data' => [
+			'eventDisplay'           => 'reflector',
+			'url'            => $url,
+			'_wpnonce'       => $nonce,
+			'posts_per_page' => '10',
+			'is_main_query'  => true,
+			'view_data'      => [
 				'one'         => 'two',
 				'twentythree' => 89,
 			],
