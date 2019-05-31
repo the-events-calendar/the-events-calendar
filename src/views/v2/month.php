@@ -18,9 +18,28 @@ $events = $this->get( 'events' );
 $this->template( 'events-bar' );
 
 $this->template( 'top-bar' );
-
 ?>
 
-<div class="tribe-events-calendar-month">
-	<h1>Welcome to the month view</h1>
+<div class="tribe-events-calendar-month" role="grid" aria-labelledby="tribe-calendar-header" aria-readonly="true">
+
+	<?php $this->template( 'month/grid-header' ); ?>
+
+	<div class="tribe-events-calendar-month__body" role="rowgroup">
+
+		<?php // @todo: replace this with the actual month days. Using these for(s) for presentation purposes. ?>
+		<?php for ( $week = 0; $week < 4; $week++ ) : ?>
+
+			<div class="tribe-events-calendar-month__week" role="row">
+
+				<?php for ( $day = 0; $day < 7; $day++ ) : ?>
+
+					<?php $this->template( 'month/day', [ 'day' => $day, 'week' => $week ] ); ?>
+
+				<?php endfor; ?>
+
+			</div>
+
+		<?php endfor; ?>
+
+	</div>
 </div>
