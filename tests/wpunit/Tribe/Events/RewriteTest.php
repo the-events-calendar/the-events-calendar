@@ -2,6 +2,7 @@
 
 namespace Tribe\Events;
 
+use Tribe__Events__Main as TEC;
 use Tribe__Events__Rewrite as Rewrite;
 
 if ( ! class_exists( '\\SitePress' ) ) {
@@ -25,6 +26,12 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 		global $wp_rewrite;
 		$wp_rewrite->permalink_structure = '/%postname%/';
 		$wp_rewrite->rewrite_rules();
+
+		// Create some categories we'll need.
+		wp_insert_term( 'test', TEC::TAXONOMY );
+		list( $grandparent_id ) = array_values( wp_insert_term( 'grand-parent', TEC::TAXONOMY ) );
+		list( $parent_id ) = array_values( wp_insert_term( 'parent', TEC::TAXONOMY, [ 'parent' => $grandparent_id ] ) );
+		wp_insert_term( 'child', TEC::TAXONOMY, [ 'parent' => $parent_id ] );
 	}
 
 	public function tearDown() {
@@ -72,7 +79,7 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 			],
 			'list_page_2'             => [
 				'/?post_type=tribe_events&eventDisplay=list&paged=2',
-				'/events/list/page/2/',
+				'/events/page/2/',
 			],
 			'list_page_1_w_extra'     => [
 				'/?post_type=tribe_events&eventDisplay=list&foo=bar',
@@ -88,11 +95,11 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 			],
 			'tag_page_2'              => [
 				'/?post_type=tribe_events&eventDisplay=list&tag=test&paged=2',
-				'/events/tag/test/list/page/2/',
+				'/events/tag/test/page/2/',
 			],
 			'tag_page_2_w_extra'      => [
 				'/?post_type=tribe_events&eventDisplay=list&tag=test&paged=2&foo=bar',
-				'/events/tag/test/list/page/2/?foo=bar',
+				'/events/tag/test/page/2/?foo=bar',
 			],
 			'category_page_1'         => [
 				'/?post_type=tribe_events&eventDisplay=list&tribe_events_cat=test',
@@ -104,11 +111,11 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 			],
 			'category_page_2'         => [
 				'/?post_type=tribe_events&eventDisplay=list&tribe_events_cat=test&paged=2',
-				'/events/category/test/list/page/2/',
+				'/events/category/test/page/2/',
 			],
 			'category_page_2_w_extra' => [
 				'/?post_type=tribe_events&eventDisplay=list&tribe_events_cat=test&paged=2&foo=bar',
-				'/events/category/test/list/page/2/?foo=bar',
+				'/events/category/test/page/2/?foo=bar',
 			],
 			'hierarchical_cats_page_1' => [
 				'/?post_type=tribe_events&eventDisplay=list&tribe_events_cat=child',
@@ -116,7 +123,7 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 			],
 			'hierarchical_cats_page_2' => [
 				'/?post_type=tribe_events&eventDisplay=list&tribe_events_cat=child&paged=2',
-				'/events/category/grand-parent/parent/child/list/page/2/',
+				'/events/category/grand-parent/parent/child/page/2/',
 			],
 			'hierarchical_cats_page_1_w_extra_args' => [
 				'/?post_type=tribe_events&eventDisplay=list&tribe_events_cat=child&foo=bar',
@@ -124,7 +131,7 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 			],
 			'hierarchical_cats_page_2_w_extra_args' => [
 				'/?post_type=tribe_events&eventDisplay=list&tribe_events_cat=child&paged=2&foo=bar',
-				'/events/category/grand-parent/parent/child/list/page/2/?foo=bar',
+				'/events/category/grand-parent/parent/child/page/2/?foo=bar',
 			],
 			'day_page'                => [
 				'/?post_type=tribe_events&eventDisplay=day&eventDate=2018-12-01',
@@ -132,7 +139,7 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 			],
 			'month_page'              => [
 				'/?post_type=tribe_events&eventDisplay=month&eventDate=2018-12',
-				'/events/2018-12/',
+				'/events/month/2018-12/',
 			],
 			'feed_page'               => [
 				'/?post_type=tribe_events&tag=test&feed=rss2',
@@ -242,12 +249,12 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 				'/events/elenco/in-evidenza/',
 			],
 			'category'    => [
-				'/?post_type=tribe_events&eventDisplay=list&tribe_events_cat=zumba',
-				'/events/categoria/zumba/elenco/',
+				'/?post_type=tribe_events&eventDisplay=list&tribe_events_cat=test',
+				'/events/categoria/test/elenco/',
 			],
 			'tag'    => [
-				'/?post_type=tribe_events&eventDisplay=list&tag=zumba',
-				'/events/tag/zumba/elenco/',
+				'/?post_type=tribe_events&eventDisplay=list&tag=test',
+				'/events/tag/test/elenco/',
 			],
 		];
 	}
