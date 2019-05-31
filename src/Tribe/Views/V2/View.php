@@ -127,9 +127,9 @@ class View implements View_Interface {
 			// If we cannot get the view slug from the request parameters let's try to get it from the URL.
 			$url = Arr::get( $params, 'url', false );
 
-			$url_instance = new Url( $url );
+			$url_object = new Url( $url );
 
-			$params = array_merge( $params, $url_instance->get_query_args() );
+			$params = array_merge( $params, $url_object->get_query_args() );
 
 			/**
 			 * @todo use tribe_context() to figure out view from $params
