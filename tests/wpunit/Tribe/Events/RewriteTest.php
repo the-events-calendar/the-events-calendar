@@ -28,6 +28,7 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 		$wp_rewrite->rewrite_rules();
 
 		// Create some categories we'll need.
+		wp_create_tag( 'test' );
 		wp_insert_term( 'test', TEC::TAXONOMY );
 		list( $grandparent_id ) = array_values( wp_insert_term( 'grand-parent', TEC::TAXONOMY ) );
 		list( $parent_id ) = array_values( wp_insert_term( 'parent', TEC::TAXONOMY, [ 'parent' => $grandparent_id ] ) );
