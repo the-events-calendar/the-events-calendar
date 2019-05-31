@@ -2,6 +2,8 @@
 // Don't load directly
 defined( 'WPINC' ) or die;
 
+use Tribe__Events__Main as TEC;
+
 /**
  * Rewrite Configuration Class
  * Permalinks magic Happens over here!
@@ -494,7 +496,25 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 				$slugs = explode( '|', $matches['slugs'] );
 				// The localized version is the last.
 				$localized_slug = end( $slugs );
-				$dynamic_matchers["{$cat_regex}/(?:[^/]+/)*([^/]+)"] = "{$localized_slug}/{$query_vars['tribe_events_cat']}";
+
+				/*
+				 * Categories can be hierarchical and the path will be something like
+				 * `/events/category/grand-parent/parent/child/list/page/2/`.
+				 * If we can match the category to an existing one then let's make sure to build the hierarchical slug.
+				 */
+				$category_slug = $query_vars['tribe_events_cat'];
+				$category_term = get_term_by( 'slug', $category_slug, TEC::TAXONOMY );
+				if ( $category_term instanceof WP_Term ) {
+					$category_slug = get_term_parents_list(
+						$category_term->term_id,
+						TEC::TAXONOMY,
+						[ 'format' => 'slug', 'separator' => '/', 'link' => false, 'inclusive' => true ]
+					);
+					// Remove leading/trailing slashes to get something like `grand-parent/parent/child`.
+					$category_slug = trim( $category_slug, '/' );
+
+					$dynamic_matchers["{$cat_regex}/(?:[^/]+/)*([^/]+)"] = "{$localized_slug}/{$category_slug}";
+				}
 			}
 		}
 
