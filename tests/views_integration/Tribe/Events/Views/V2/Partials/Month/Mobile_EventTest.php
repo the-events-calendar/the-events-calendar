@@ -29,6 +29,7 @@ class Mobile_EventTest extends TestCase
 	 */
 	public function test_render_with_non_featured_event() {
 		/* @todo: complete once we have dynamic views */
+		$this->markTestSkipped( 'Complete once we have dynamic views.' );
 	}
 
 	/**
@@ -36,6 +37,7 @@ class Mobile_EventTest extends TestCase
 	 */
 	public function test_render_with_featured_event() {
 		/* @todo: complete once we have dynamic views */
+		$this->markTestSkipped( 'Complete once we have dynamic views.' );
 	}
 
 	/**
@@ -43,6 +45,7 @@ class Mobile_EventTest extends TestCase
 	 */
 	public function test_render_with_recurring_event() {
 		/* @todo: complete once we have dynamic views */
+		$this->markTestSkipped( 'Complete once we have dynamic views.' );
 	}
 
 	/**
@@ -50,5 +53,6 @@ class Mobile_EventTest extends TestCase
 	 */
 	public function test_render_with_featured_recurring_event() {
 		/* @todo: complete once we have dynamic views */
+		$this->markTestSkipped( 'Complete once we have dynamic views.' );
 	}
 }
