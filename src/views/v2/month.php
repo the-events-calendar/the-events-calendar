@@ -23,16 +23,30 @@ $events = $this->get( 'events' );
 
 	<?php $this->template( 'top-bar' ); ?>
 
-	<div class="tribe-events-calendar-month">
+	<div class="tribe-events-calendar-month" role="grid" aria-labelledby="tribe-calendar-header" aria-readonly="true">
 
-		<h1>Welcome to the month view</h1>
+		<?php $this->template( 'month/grid-header' ); ?>
 
-		<?php foreach ( $events as $event ) : ?>
+		<div class="tribe-events-calendar-month__body" role="rowgroup">
 
-			<?php $this->template( 'month/mobile-event', [ 'event' => $event ] ); ?>
+			<?php // @todo: replace this with the actual month days. Using these for(s) for presentation purposes. ?>
+			<?php for ( $week = 0; $week < 4; $week++ ) : ?>
 
-		<?php endforeach; ?>
+				<div class="tribe-events-calendar-month__week" role="row">
+
+					<?php for ( $day = 0; $day < 7; $day++ ) : ?>
+
+						<?php $this->template( 'month/day', [ 'day' => $day, 'week' => $week ] ); ?>
+
+					<?php endfor; ?>
+
+				</div>
+
+			<?php endfor; ?>
+
+		</div>
 
 	</div>
 
 </div>
+
