@@ -217,6 +217,8 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 = [4.9.3] TBD =
 
+* Fix - Fixed issue where the previous events link was not present on initial page load of the List View [127477]
+
 = [4.9.2] 2019-05-16 =
 
 * Tweak - In the Event Repository class: filter the event cretion meta before checking it for coherency
