@@ -332,8 +332,6 @@ tribe.events.views.manager = {};
 
 		var $html = $( data );
 
-		console.log( data );
-
 		// Replace the current container with the new Data
 		$container.replaceWith( $html );
 		$container = $html;

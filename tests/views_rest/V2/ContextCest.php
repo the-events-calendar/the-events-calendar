@@ -28,7 +28,7 @@ class ContextCest extends Base {
 		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 		$I->seeResponseContainsJson( [
-			'eventDisplay'           => 'reflector',
+			'eventDisplay'   => 'reflector',
 			'url'            => $url,
 			'_wpnonce'       => $nonce,
 			'posts_per_page' => '10',

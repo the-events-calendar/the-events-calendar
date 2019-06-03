@@ -16,7 +16,6 @@
 <div class="tribe-events-c-events-bar__form">
 	<form
 		class="tribe-common-c-search"
-		action=""
 		method="get"
 		data-js="tribe-events-view-form"
 	>
