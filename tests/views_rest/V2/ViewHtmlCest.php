@@ -15,7 +15,7 @@ class ViewHtmlCest extends Base {
 		$code = preg_replace( '/^\<\?php\\s*/', '', $code );
 		$I->haveMuPlugin( 'view-html.php', $code );
 		$I->wait_for_container_to_sync_files();
-		$query_args = [ 'view' => 'test' ];
+		$query_args = [ 'eventDisplay' => 'test' ];
 		$url = add_query_arg( $query_args, $this->home_url );
 		$nonce = $I->generate_nonce_for_role( 'visitor' );
 

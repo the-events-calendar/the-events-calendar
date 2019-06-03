@@ -16,10 +16,13 @@
  *
  */
 
+/**
+ * @todo make sure we are checking if there is a previous or next
+ *
 if ( ! tribe_has_previous_event() || ! tribe_has_next_event() ) {
 	return;
 }
-
+*/
 ?>
 <nav class="tribe-common-c-nav">
 	<ul class="tribe-common-c-nav__list">
