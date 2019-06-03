@@ -22,7 +22,7 @@ This is a guide to help get you up-and-running with tests on your local plugin c
 	1. It is highly recommended to use `wp_` for your all your table prefixes (actual site and test databases) because it is the environment's default and Modern Tribe import files use it.
 	2. Add a new database named `test`
 	3. Acceptance and functional tests might not run correctly unless you have tables in your `test` database so import `the-events-calendar/tests/_data/dump.sql` (it contains the required tables and some bootstrap data)
-7. Duplicate the `.env` file to `.env.testing` and edit it for your localhost site's information, matching `wp-config.php` (except needing to use Local by Flywheel's IP address and port for the database host). Example:
+7. Duplicate the `.env` file to `.env.testing.local` and edit it for your localhost site's information, matching `wp-config.php` (except needing to use Local by Flywheel's IP address and port for the database host). Example:
 	```dotenv
 	# WordPress root folder is the one that contains the wp-load.php file
 	WP_ROOT_FOLDER=~/Local Sites/tribe
@@ -50,10 +50,10 @@ This is a guide to help get you up-and-running with tests on your local plugin c
 	CHROMEDRIVER_PORT=4444
 	WP_CHROMEDRIVER_URL=tribe.local
 	```
-8. Duplicate the `codeception.dist.yml` file to `codeception.yml` and change _params_ to point to `.env.local` instead of `.env`:
+8. Duplicate the `codeception.dist.yml` file to `codeception.yml` and change _params_ to point to `.env.testing.local` instead of `.env`:
 	```yaml
 	params:
-	  - .env.testing
+	  - .env.testing.local
 	```
 9. _PhpStorm > Preferences > Languages & Frameworks > PHP > Test Frameworks…_ -- You do not have to set this up because you should run Codeception via command line.
 10. Run a single Codeception test to confirm your setup is working (see _Running the Tests_, below).
@@ -123,7 +123,7 @@ composer stop-chromedriver
 
 * Codeception will process configuration files in a cascading way (think of CSS) so the `codeception.dist.yml` file will be read first and whatever you set in `codeception.yml` will be applied on top of it. This is true for the main configuration file (`codeception.dist.yml`) and for any suite configuration file (e.g. `acceptance.suite.dist.yml`). You should not commit changes (unless you know what you're doing) to the `.dist` version of the main, or the suites, configuration files as those are used by our CI system to run the tests. On the same note: you should not push local version of the configuration files (without `.dist`) to the repository origin.
 * Do not install Codeception globally ("Install Phar Globally" from https://codeception.com/install) because different repos use different versions of Codeception, and you need to use the version that comes with each plugin's repo, as defined in `composer.json`. (We do not update the required Codeception version unless strictly required.)
-* Each repo needs its own `.env.testing` because Codeception knows where to look for it in each repo's relative location, and there are some inconsistencies in parameter names between the various plugins' repos; additionally different plugins need different configurations and the environment files (`.env`) are used in the CI tests.  
+* Each repo needs its own `.env.testing.local` because Codeception knows where to look for it in each repo's relative location, and there are some inconsistencies in parameter names between the various plugins' repos; additionally different plugins need different configurations and the environment files (`.env`) are used in the CI tests.  
 * Ideally, you should only run the tests via command line, not via PhpStorm, because PhpStorm can only be configured to run one instance of Codeception so you would have to manually switch the configuration file to be use if you need to test Event Tickets, then The Events Calendar, then Common, and so on.
 * Additionally, PhpStorm may do some weird argument redirection that could lead to difficulties during debug.
 * Regarding parameter names: *WP_DB* is for acceptance/functional tests, and *WP_TEST_DB* is for integration tests. You should set them accordingly. We've got some inconsistency in naming, but this is how parameters are supposed to be named.
