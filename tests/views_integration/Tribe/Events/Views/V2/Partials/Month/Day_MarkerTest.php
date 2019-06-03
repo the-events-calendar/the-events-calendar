@@ -21,9 +21,8 @@ class Day_MarkerTest extends TestCase
 	 */
 	public function test_render_with_context() {
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
-				'foo' => 23,
-				'bar' => 89,
-			]
-		) );
+			'foo' => 23,
+			'bar' => 89,
+		] ) );
 	}
 }
