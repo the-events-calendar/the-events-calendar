@@ -12,6 +12,7 @@
  * @version TBD
  *
  */
+
 use Tribe\Events\Views\V2\Rest_Endpoint;
 
 /**
@@ -20,23 +21,14 @@ use Tribe\Events\Views\V2\Rest_Endpoint;
 tribe_asset_enqueue( 'tribe-events-views-v2-manager' );
 $events = $this->get( 'events' );
 ?>
-
-<?php
-/**
- * @todo Revise this Usage of Form
- */
-?>
-<form
+<div
 	class="tribe-common tribe-events"
-	action=""
-	method="get"
-	data-rest-url="<?php echo esc_url( tribe( Rest_Endpoint::class )->get_url() ); ?>"
 	data-js="tribe-events-view"
+	data-view-rest-nonce="<?php echo esc_attr( wp_create_nonce( 'wp_rest' ) ); ?>"
+	data-view-rest-url="<?php echo esc_url( tribe( Rest_Endpoint::class )->get_url() ); ?>"
 >
 	<div class="tribe-common-l-container tribe-events-l-container">
-		<?php wp_nonce_field( 'wp_rest', 'tribe-events-views[_wpnonce]' ); ?>
-
-		<?php $this->template( 'loader' ); ?>
+		<?php $this->template( 'loader', [ 'text' => 'Loading...' ] ); ?>
 
 		<?php
 			/**
@@ -45,8 +37,7 @@ $events = $this->get( 'events' );
 			$this->template(
 				'data',
 				[
-					'url' => home_url( 'events/list/page/3' ),
-					'title' => 'Developers title',
+					'title' => $this->get( 'url' ),
 				]
 			);
 		?>
@@ -61,7 +52,7 @@ $events = $this->get( 'events' );
 
 			<?php foreach ( $events as $event ) : ?>
 
-				<?php $this->template( 'list/single-event', [ 'event' => $event ] ); ?>
+				<?php $this->template( 'list/event', [ 'event' => $event ] ); ?>
 
 			<?php endforeach; ?>
 
@@ -69,5 +60,4 @@ $events = $this->get( 'events' );
 
 		<?php $this->template( 'list/nav' ); ?>
 	</div>
-</form>
-
+</div>

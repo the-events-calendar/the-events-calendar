@@ -9,9 +9,7 @@
 
 namespace Tribe\Events\Views\V2;
 
-use tad\WP\Snapshots\WPHtmlOutputDriver;
 use DOMWrap\Document;
-use Tribe\Events\Views\V2\Template;
 
 /**
  * Class TestCase

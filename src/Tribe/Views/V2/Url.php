@@ -8,6 +8,9 @@
 
 namespace Tribe\Events\Views\V2;
 
+use Tribe__Events__Rewrite as Rewrite;
+use Tribe__Utils__Array as Arr;
+
 /**
  * Class Url
  *
@@ -90,11 +93,7 @@ class Url {
 			return $slug;
 		}
 
-		if ( isset( $this->query_args['view'] ) ) {
-			$slug = $this->query_args['view'];
-		}
-
-		return $slug;
+		return Arr::get( $this->get_query_args(), 'view', $slug );
 	}
 
 	/**
@@ -116,9 +115,18 @@ class Url {
 	 * @return int The current page number if specified in the URL or the default value.
 	 */
 	public function get_current_page() {
-		return isset( $this->query_args['paged'] )
-			? $this->query_args['paged']
-			: 1;
+		return Arr::get( $this->get_query_args(), 'paged', 1 );
+	}
+
+	/**
+	 * Returns the current query arguments
+	 *
+	 * @since TBD
+	 *
+	 * @return array Returns the current Query Arguments
+	 */
+	public function get_query_args() {
+		return $this->query_args;
 	}
 
 	/**
@@ -128,9 +136,7 @@ class Url {
 	 */
 	protected function parse_url() {
 		$this->components = array_merge( static::$default_url_components, parse_url( $this->url ) );
-
-		wp_parse_str( $this->components['query'], $query_args );
-		$this->query_args = $query_args;
+		$this->query_args = Rewrite::instance()->parse_request( $this->url );
 	}
 
 	/**

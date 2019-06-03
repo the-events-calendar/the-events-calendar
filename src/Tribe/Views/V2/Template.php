@@ -58,7 +58,12 @@ class Template extends Base_Template {
 	 */
 	public function __construct( $slug ) {
 		$this->slug = $slug;
-		$this->set( 'slug', $slug, false );
+		// Set some global defaults all Views are likely to search for; those will be overridden by each View.
+		$this->set_values( [
+			'slug'     => $slug,
+			'prev_url' => '',
+			'next_url' => '',
+		], false );
 		$this->set_template_origin( tribe( 'tec.main' ) )
 		     ->set_template_folder( 'src/views/v2' )
 		     ->set_template_folder_lookup( true )

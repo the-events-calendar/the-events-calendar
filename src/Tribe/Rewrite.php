@@ -2,62 +2,18 @@
 // Don't load directly
 defined( 'WPINC' ) or die;
 
+use Tribe__Events__Main as TEC;
+
 /**
  * Rewrite Configuration Class
  * Permalinks magic Happens over here!
  */
 class Tribe__Events__Rewrite extends Tribe__Rewrite {
 	/**
-	 * Static singleton variable
-	 * @var self
-	 */
-	public static $instance;
-
-	/**
-	 * WP_Rewrite Instance
-	 * @var WP_Rewrite
-	 */
-	public $rewrite;
-
-	/**
-	 * Rewrite rules Holder
-	 * @var array
-	 */
-	public $rules = array();
-
-	/**
-	 * Base slugs for rewrite urls
-	 * @var array
-	 */
-	public $bases = array();
-
-	/**
 	 * After creating the Hooks on WordPress we lock the usage of the function
 	 * @var boolean
 	 */
 	protected $hook_lock = false;
-
-	/**
-	 * Tribe__Events__Rewrite constructor.
-	 *
-	 * @param WP_Rewrite|null $wp_rewrite
-	 */
-	public function __construct( WP_Rewrite $wp_rewrite = null ) {
-		$this->rewrite = $wp_rewrite;
-	}
-
-	/**
-	 * Static Singleton Factory Method
-	 *
-	 * @return Tribe__Events__Rewrite
-	 */
-	public static function instance( $wp_rewrite = null ) {
-		if ( ! isset( self::$instance ) ) {
-			self::$instance = new self( $wp_rewrite );
-		}
-
-		return self::$instance;
-	}
 
 	/**
 	 * Generate the Rewrite Rules
@@ -494,7 +450,25 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 				$slugs = explode( '|', $matches['slugs'] );
 				// The localized version is the last.
 				$localized_slug = end( $slugs );
-				$dynamic_matchers["{$cat_regex}/(?:[^/]+/)*([^/]+)"] = "{$localized_slug}/{$query_vars['tribe_events_cat']}";
+
+				/*
+				 * Categories can be hierarchical and the path will be something like
+				 * `/events/category/grand-parent/parent/child/list/page/2/`.
+				 * If we can match the category to an existing one then let's make sure to build the hierarchical slug.
+				 */
+				$category_slug = $query_vars['tribe_events_cat'];
+				$category_term = get_term_by( 'slug', $category_slug, TEC::TAXONOMY );
+				if ( $category_term instanceof WP_Term ) {
+					$category_slug = get_term_parents_list(
+						$category_term->term_id,
+						TEC::TAXONOMY,
+						[ 'format' => 'slug', 'separator' => '/', 'link' => false, 'inclusive' => true ]
+					);
+					// Remove leading/trailing slashes to get something like `grand-parent/parent/child`.
+					$category_slug = trim( $category_slug, '/' );
+
+					$dynamic_matchers["{$cat_regex}/(?:[^/]+/)*([^/]+)"] = "{$localized_slug}/{$category_slug}";
+				}
 			}
 		}
 

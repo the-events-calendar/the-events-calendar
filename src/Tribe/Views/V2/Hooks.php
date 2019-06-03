@@ -136,12 +136,23 @@ class Hooks extends \tad_DI52_ServiceProvider {
 			/**
 			 * @todo  Make sure we do proper handling of cache longer then 12h.
 			 */
-			'permission_callback' => function ( \WP_REST_Request $request ) {
+			'permission_callback' => static function ( \WP_REST_Request $request ) {
 				return wp_verify_nonce( $request->get_param( '_wpnonce' ), 'wp_rest' );
 			},
-			'callback' => function ( \WP_REST_Request $request ) {
+			'callback' => static function ( \WP_REST_Request $request ) {
 				View::make_for_rest( $request )->send_html();
 			},
+			'args' => [
+				'url' => [
+					'required'          => true,
+					'validate_callback' => static function ( $url ) {
+						return is_string( $url );
+					},
+					'sanitize_callback' => static function ( $url ) {
+						return filter_var( $url, FILTER_SANITIZE_URL );
+					}
+				],
+			],
 		] );
 	}
 
