@@ -109,4 +109,14 @@ interface View_Interface  extends View_Url_Provider_Interface, Repository_User_I
 	 *
 	 */
 	public function setup_the_loop( array $args = [] );
+
+	/**
+	 * Sets a View URL object either from some arguments or from the current URL.
+	 *
+	 * @since TBD
+	 *
+	 * @param  array|null  $args An associative array of arguments that will be mapped to the corresponding query
+	 *                           arguments by the View, or `null` to use the current URL.
+	 */
+	public function set_url( array $args = null, $merge = false );
 }
