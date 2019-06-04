@@ -4,20 +4,11 @@ namespace Tribe\Events\Views\V2\Views;
 
 use Spatie\Snapshots\MatchesSnapshots;
 use tad\FunctionMocker\FunctionMocker as Test;
-use Tribe\Events\Views\V2\TestCase;
+use Tribe\Events\Views\V2\Views\ViewTestCase;
 use Tribe\Events\Views\V2\View;
 
-class Month_ViewTest extends TestCase {
+class Month_ViewTest extends ViewTestCase {
 	use MatchesSnapshots;
-
-	public function setUp() {
-		parent::setUp();
-		Test::setUp();
-		Test::replace( 'date', function ( $format ) {
-			return ( new \DateTime( '2019-01-01 09:00:00', new \DateTimeZone( 'UTC' ) ) )
-				->format( $format );
-		} );
-	}
 
 	/**
 	 * Test render empty
@@ -30,10 +21,5 @@ class Month_ViewTest extends TestCase {
 		$html       = $month_view->get_html();
 
 		$this->assertMatchesSnapshot( $html );
-	}
-
-
-	public function tearDown() {
-		Test::tearDown();
 	}
 }

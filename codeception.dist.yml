@@ -4,6 +4,7 @@ paths:
     log: tests/_output
     data: tests/_data
     helpers: tests/_support
+    wp_root: "%WP_ROOT_FOLDER%"
 settings:
     bootstrap: _bootstrap.php
     colors: true

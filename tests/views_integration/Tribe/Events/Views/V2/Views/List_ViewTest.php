@@ -3,24 +3,11 @@
 namespace Tribe\Events\Views\V2\Views;
 
 use Spatie\Snapshots\MatchesSnapshots;
-use tad\FunctionMocker\FunctionMocker as Test;
-use Tribe\Events\Views\V2\TestCase;
 use Tribe\Events\Views\V2\View;
 
-
-class List_ViewTest extends TestCase {
+class List_ViewTest extends ViewTestCase {
 
 	use MatchesSnapshots;
-
-	public function setUp() {
-		parent::setUp();
-		Test::setUp();
-		Test::replace( 'date', function ( $format ) {
-			return ( new \DateTime( '2019-01-01 09:00:00', new \DateTimeZone( 'UTC' ) ) )
-				->format( $format );
-		} );
-		Test::replace( 'wp_create_nonce', '12345' );
-	}
 
 	/**
 	 * Test render empty
@@ -32,7 +19,7 @@ class List_ViewTest extends TestCase {
 		$list_view = View::make( List_View::class );
 		$html      = $list_view->get_html();
 
-		$this->assertMatchesSnapshot( $html, $this->driver );
+		$this->assertMatchesSnapshot( $html);
 	}
 
 	/**
@@ -41,8 +28,8 @@ class List_ViewTest extends TestCase {
 	public function test_render_with_upcoming_events() {
 		foreach (
 			[
-				'2018-01-01 10am',
-				'2018-01-02 8am',
+				'2018-02-01 10am',
+				'2018-02-02 8am',
 				'2018-02-02 11am',
 			] as $start_date
 		) {
@@ -55,7 +42,7 @@ class List_ViewTest extends TestCase {
 			] )->create();
 		}
 		// Sanity check
-		$list_date = '2018-01-01 9am';
+		$list_date = '2018-01-01';
 		$this->assertEquals( 3, tribe_events()->where( 'ends_after', $list_date )->count() );
 
 		$list_view = View::make( List_View::class );
@@ -65,10 +52,6 @@ class List_ViewTest extends TestCase {
 		] ) );
 		$html = $list_view->get_html();
 
-		$this->assertMatchesSnapshot( $html, $this->driver );
-	}
-
-	public function tearDown() {
-		Test::tearDown();
+		$this->assertMatchesSnapshot( $html );
 	}
 }

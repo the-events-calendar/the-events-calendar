@@ -1,7 +1,7 @@
 <?php return '<div
 	class="tribe-common tribe-events"
 	data-js="tribe-events-view"
-	data-view-rest-nonce="12345"
+	data-view-rest-nonce="2ab7cc6b39"
 	data-view-rest-url="http://test.tri.be/index.php?rest_route=/tribe/views/v2/html"
 >
 	<div class="tribe-common-l-container tribe-events-l-container">

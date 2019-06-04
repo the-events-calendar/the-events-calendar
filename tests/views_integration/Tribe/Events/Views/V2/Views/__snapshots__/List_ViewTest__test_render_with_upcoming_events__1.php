@@ -17,7 +17,7 @@
 		<script
 	data-js="tribe-events-view-data"
 	type="application/json"
->{"slug":"list","prev_url":"http:\\/\\/test.tri.be\\/?post_type=tribe_events&eventDisplay=past&eventDate=2018-01-01+9am","next_url":"http:\\/\\/test.tri.be\\/events\\/page\\/2\\/","title":"","events":[{"ID":23,"post_author":"0","post_date":"2019-06-04 14:09:59","post_date_gmt":"2019-06-04 14:09:59","post_content":"","post_title":"Test Event - 2018-01-02 8am","post_excerpt":"","post_status":"publish","comment_status":"open","ping_status":"closed","post_password":"","post_name":"test-event-2018-01-02-8am","to_ping":"","pinged":"","post_modified":"2019-06-04 14:09:59","post_modified_gmt":"2019-06-04 14:09:59","post_content_filtered":"","post_parent":0,"guid":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-2018-01-02-8am","menu_order":0,"post_type":"tribe_events","post_mime_type":"","comment_count":"0","filter":"raw"},{"ID":24,"post_author":"0","post_date":"2019-06-04 14:09:59","post_date_gmt":"2019-06-04 14:09:59","post_content":"","post_title":"Test Event - 2018-02-02 11am","post_excerpt":"","post_status":"publish","comment_status":"open","ping_status":"closed","post_password":"","post_name":"test-event-2018-02-02-11am","to_ping":"","pinged":"","post_modified":"2019-06-04 14:09:59","post_modified_gmt":"2019-06-04 14:09:59","post_content_filtered":"","post_parent":0,"guid":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-2018-02-02-11am","menu_order":0,"post_type":"tribe_events","post_mime_type":"","comment_count":"0","filter":"raw"}],"url":"http:\\/\\/test.tri.be\\/events\\/list\\/"}</script>
+>{"slug":"list","prev_url":"http:\\/\\/test.tri.be\\/?post_type=tribe_events&eventDisplay=past&eventDate=2018-01-01","next_url":"http:\\/\\/test.tri.be\\/events\\/page\\/2\\/","title":"","events":[{"ID":22,"post_author":"0","post_date":"2019-01-01 09:00:00","post_date_gmt":"2019-01-01 09:00:00","post_content":"","post_title":"Test Event - 2018-02-01 10am","post_excerpt":"","post_status":"publish","comment_status":"open","ping_status":"closed","post_password":"","post_name":"test-event-2018-02-01-10am","to_ping":"","pinged":"","post_modified":"2019-01-01 09:00:00","post_modified_gmt":"2019-01-01 09:00:00","post_content_filtered":"","post_parent":0,"guid":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-2018-02-01-10am","menu_order":0,"post_type":"tribe_events","post_mime_type":"","comment_count":"0","filter":"raw"},{"ID":23,"post_author":"0","post_date":"2019-01-01 09:00:00","post_date_gmt":"2019-01-01 09:00:00","post_content":"","post_title":"Test Event - 2018-02-02 8am","post_excerpt":"","post_status":"publish","comment_status":"open","ping_status":"closed","post_password":"","post_name":"test-event-2018-02-02-8am","to_ping":"","pinged":"","post_modified":"2019-01-01 09:00:00","post_modified_gmt":"2019-01-01 09:00:00","post_content_filtered":"","post_parent":0,"guid":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-2018-02-02-8am","menu_order":0,"post_type":"tribe_events","post_mime_type":"","comment_count":"0","filter":"raw"}],"url":"http:\\/\\/test.tri.be\\/events\\/list\\/"}</script>
 
 		<div class="tribe-events-c-events-bar">
 
@@ -118,7 +118,7 @@
 		<ul class="tribe-events-c-top-bar__nav-list">
 			<li class="tribe-events-c-top-bar__nav-list-item">
 	<a
-		href="http://test.tri.be/?post_type=tribe_events&#038;eventDisplay=past&#038;eventDate=2018-01-01+9am"
+		href="http://test.tri.be/?post_type=tribe_events&#038;eventDisplay=past&#038;eventDate=2018-01-01"
 		class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-left tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--prev"
 		aria-label="Previous"
 		title="Previous"
@@ -177,12 +177,12 @@
 	</div>
 			<h3 class="tribe-events-calendar-list__event-title">
 	<a
-		href="http://test.tri.be/?tribe_events=test-event-2018-01-02-8am%2F"
+		href="http://test.tri.be/?tribe_events=test-event-2018-02-01-10am%2F"
 		title=""
 		rel="bookmark"
 		class="tribe-events-calendar-list__event-title-link tribe-common-h4"
 	>
-		Test Event &#8211; 2018-01-02 8am	</a>
+		Test Event &#8211; 2018-02-01 10am	</a>
 </h3>
 			<address class="tribe-events-calendar-list__event-venue">
 	<span class="tribe-events-calendar-list__event-venue-title tribe-common-b2 tribe-common-b2--bold">
@@ -220,12 +220,12 @@
 	</div>
 			<h3 class="tribe-events-calendar-list__event-title">
 	<a
-		href="http://test.tri.be/?tribe_events=test-event-2018-02-02-11am%2F"
+		href="http://test.tri.be/?tribe_events=test-event-2018-02-02-8am%2F"
 		title=""
 		rel="bookmark"
 		class="tribe-events-calendar-list__event-title-link tribe-common-h4"
 	>
-		Test Event &#8211; 2018-02-02 11am	</a>
+		Test Event &#8211; 2018-02-02 8am	</a>
 </h3>
 			<address class="tribe-events-calendar-list__event-venue">
 	<span class="tribe-events-calendar-list__event-venue-title tribe-common-b2 tribe-common-b2--bold">
@@ -257,7 +257,7 @@
 	<ul class="tribe-common-c-nav__list">
 		<li class="tribe-common-c-nav__list-item">
 	<a
-		href="http://test.tri.be/?post_type=tribe_events&#038;eventDisplay=past&#038;eventDate=2018-01-01+9am"
+		href="http://test.tri.be/?post_type=tribe_events&#038;eventDisplay=past&#038;eventDate=2018-01-01"
 		rel="prev"
 		class="tribe-common-c-nav__prev"
 		data-js="tribe-events-view-link"
