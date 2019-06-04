@@ -35,10 +35,11 @@ interface View_Url_Provider_Interface {
 	 * @since TBD
 	 *
 	 * @param bool $canonical Whether to return the canonical version of the URL or the normal one.
+	 * @param array $passthru_vars An array of query arguments that will be passed thru intact, and appended to the URL.
 	 *
 	 * @return string The URL associated to this View logical, next view or an empty string if no next View exists.
 	 */
-	public function next_url( $canonical = false );
+	public function next_url( $canonical = false, array $passthru_vars = [] );
 
 	/**
 	 * Returns the URL associated to this View logical, previous view.
@@ -46,10 +47,11 @@ interface View_Url_Provider_Interface {
 	 * @since TBD
 	 *
 	 * @param bool $canonical Whether to return the canonical version of the URL or the normal one.
+	 * @param array $passthru_vars An array of query arguments that will be passed thru intact, and appended to the URL.
 	 *
 	 * @return string The URL associated to this View logical, next view or an empty string if no previous View exists.
 	 */
-	public function prev_url( $canonical = false );
+	public function prev_url( $canonical = false, array $passthru_vars = [] );
 
 	/**
 	 * Returns the URL object used by the View, if any.

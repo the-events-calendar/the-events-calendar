@@ -461,7 +461,7 @@ class View implements View_Interface {
 		$url = add_query_arg( array_filter( $query_args ), home_url() );
 
 		if ( $canonical ) {
-			$url = Rewrite::instance()->get_canonical_url( $url );
+			$url = Rewrite::instance()->get_clean_url( $url );
 		}
 
 		$event_display_mode = $this->context->get( 'event_display_mode', false );
@@ -469,27 +469,7 @@ class View implements View_Interface {
 			$url = add_query_arg( [ 'eventDisplay' => $event_display_mode ], $url );
 		}
 
-		/**
-		 * Filters the URL returned for a View.
-		 *
-		 * @since TBD
-		 *
-		 * @param string         $url       The View current URL.
-		 * @param bool           $canonical Whether the URL is a canonical one or not.
-		 * @param View_Interface $this      This view instance.
-		 */
-		$url = apply_filters( 'tribe_events_views_v2_view_url', $url, $canonical, $this );
-
-		/**
-		 * Filters the URL returned for a specific View.
-		 *
-		 * @since TBD
-		 *
-		 * @param string         $url       The View current URL.
-		 * @param bool           $canonical Whether the URL is a canonical one or not.
-		 * @param View_Interface $this      This view instance.
-		 */
-		$url = apply_filters( "tribe_events_views_v2_{$this->slug}_url", $url, $canonical, $this );
+		$url = $this->filter_view_url( $canonical, $url );
 
 		return $url;
 	}
@@ -497,7 +477,7 @@ class View implements View_Interface {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function next_url( $canonical = false ) {
+	public function next_url( $canonical = false, array $passthru_vars = [] ) {
 		$next_page = $this->repository->next();
 
 		$url = $next_page->count() > 0 ?
@@ -505,7 +485,22 @@ class View implements View_Interface {
 			: '';
 
 		if ( ! empty( $url ) && $canonical ) {
-			$url = Rewrite::instance()->get_canonical_url( $url );
+			$input_url = $url;
+
+			if ( ! empty( $passthru_vars ) ) {
+				$input_url = remove_query_arg( array_keys( $passthru_vars ), $url );
+			}
+
+			// Make sure the view slug is always set to correctly match rewrites.
+			$input_url = add_query_arg( [ 'eventDisplay' => $this->slug ], $input_url );
+
+			$canonical_url = Rewrite::instance()->get_clean_url( $input_url );
+
+			if ( ! empty( $passthru_vars ) ) {
+				$canonical_url = add_query_arg( $passthru_vars, $canonical_url );
+			}
+
+			$url = $canonical_url;
 		}
 
 		$url = $this->filter_next_url( $canonical, $url );
@@ -516,7 +511,7 @@ class View implements View_Interface {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function prev_url( $canonical = false ) {
+	public function prev_url( $canonical = false, array $passthru_vars = [] ) {
 		$prev_page  = $this->repository->prev();
 		$paged      = $this->url->get_current_page() - 1;
 		$query_args = $paged > 1
@@ -532,7 +527,22 @@ class View implements View_Interface {
 		}
 
 		if ( ! empty( $url ) && $canonical ) {
-			$url = Rewrite::instance()->get_canonical_url( $url );
+			$input_url = $url;
+
+			if ( ! empty( $passthru_vars ) ) {
+				$input_url = remove_query_arg( array_keys( $passthru_vars ), $url );
+			}
+
+			// Make sure the view slug is always set to correctly match rewrites.
+			$input_url = add_query_arg( [ 'eventDisplay' => $this->slug ], $input_url );
+
+			$canonical_url = Rewrite::instance()->get_clean_url( $input_url );
+
+			if ( ! empty( $passthru_vars ) ) {
+				$canonical_url = add_query_arg( $passthru_vars, $canonical_url );
+			}
+
+			$url = $canonical_url;
 		}
 
 		$url = $this->filter_prev_url( $canonical, $url );
@@ -771,5 +781,41 @@ class View implements View_Interface {
 	 */
 	protected function setup_repository_args( \Tribe__Context $context = null ) {
 		throw Implementation_Error::because_extending_view_should_define_this_method( 'setup_repository_args', $this );
+	}
+
+	/**
+	 * Filters the current URL returned for a specific View.
+	 *
+	 * @since TBD
+	 *
+	 * @param  bool $canonical Whether the normal or canonical version of the next URL is being requested.
+	 * @param string $url The previous URL, this could be an empty string if the View does not have a next.
+	 *
+	 * @return string The filtered previous URL.
+	 */
+	protected function filter_view_url( $canonical, string $url ) {
+		/**
+		 * Filters the URL returned for a View.
+		 *
+		 * @since TBD
+		 *
+		 * @param string         $url       The View current URL.
+		 * @param bool           $canonical Whether the URL is a canonical one or not.
+		 * @param View_Interface $this      This view instance.
+		 */
+		$url = apply_filters( 'tribe_events_views_v2_view_url', $url, $canonical, $this );
+
+		/**
+		 * Filters the URL returned for a specific View.
+		 *
+		 * @since TBD
+		 *
+		 * @param string         $url       The View current URL.
+		 * @param bool           $canonical Whether the URL is a canonical one or not.
+		 * @param View_Interface $this      This view instance.
+		 */
+		$url = apply_filters( "tribe_events_views_v2_{$this->slug}_url", $url, $canonical, $this );
+
+		return $url;
 	}
 }

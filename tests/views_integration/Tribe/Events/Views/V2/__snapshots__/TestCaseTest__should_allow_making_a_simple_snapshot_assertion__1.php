@@ -14,5 +14,6 @@
             "blue"
         ]
     },
-    "is_main_query": true
+    "is_main_query": true,
+    "event_display_mode": "test"
 }</script>';
