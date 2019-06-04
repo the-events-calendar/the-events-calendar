@@ -163,7 +163,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 
 			$events = tribe_events();
 
-			if ( $request['runs_between'] && $args['start_date'] && $args['end_date'] ){
+			if ( ! empty( $request['runs_between'] ) && $args['start_date'] && $args['end_date'] ){
 				$events = $events->where( 'runs_between', $args['start_date'], $args['end_date'] );
 
 				unset( $args['start_date'], $args['end_date'] );
