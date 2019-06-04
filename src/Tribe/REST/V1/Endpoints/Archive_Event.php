@@ -161,8 +161,17 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 
 			$data['rest_url'] = $this->get_current_rest_url( $args, $extra_rest_args );
 
+			$events = tribe_events();
 
-			$events = tribe_events()->by_args( $args )->pluck( 'ID' );
+			if ( $args['start_date'] && $args['end_date'] ){
+				$events = $events->where( 'runs_between', $args['start_date'], $args['end_date'] );
+
+				unset( $args['start_date'], $args['end_date'] );
+			}
+
+			$events = $events
+				->by_args( $args )
+				->pluck( 'ID' );
 
 			$found_events = Tribe__Events__Query::last_found_events();
 
