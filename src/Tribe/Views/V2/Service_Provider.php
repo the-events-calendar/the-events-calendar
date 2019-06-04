@@ -3,18 +3,17 @@
  * The main service provider for the version 2 of the Views.
  *
  * @package Tribe\Events\Views\V2
- * @since   TBD
+ * @since   4.9.2
  */
 
 namespace Tribe\Events\Views\V2;
 
-use Tribe__Events__Main as TEC;
-
 /**
  * Class Service_Provider
  *
+ * @since   4.9.2
+ *
  * @package Tribe\Events\Views\V2
- * @since   TBD
  */
 class Service_Provider extends \tad_DI52_ServiceProvider {
 
@@ -24,76 +23,59 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	 * Binds and sets up implementations.
 	 */
 	public function register() {
-		if ( ! $this->is_enabled() ) {
+		require_once tribe( 'tec.main' )->plugin_path . 'src/functions/views/provider.php';
+
+		if ( ! tribe_events_views_v2_is_enabled() ) {
 			return;
 		}
 
-		add_action( 'rest_api_init', [ $this, 'register_rest_endpoints' ] );
-		add_filter( 'template_include', [ $this, 'filter_template_include' ], 50 );
-		// Let's make sure to suppress query filters from the main query.
-		add_filter( 'tribe_suppress_query_filters', '__return_true' );
+		$this->container->singleton( Template_Bootstrap::class, Template_Bootstrap::class );
+		$this->container->singleton( Template\Event::class, Template\Event::class );
+		$this->container->singleton( Template\Page::class, Template\Page::class );
+		$this->container->singleton( Kitchen_Sink::class, Kitchen_Sink::class );
+		$this->container->singleton( Rest_Endpoint::class, Rest_Endpoint::class );
 
+		$this->register_hooks();
+		$this->register_v1_compat();
+
+		// Register this service provider in the service locator.
+		$this->container->singleton( 'views-v2.provider', $this );
+
+		// Since the View main class will act as a DI container itself let's provide it with the global container.
 		View::set_container( $this->container );
 	}
 
 	/**
-	 * Registers the REST endpoints that will be used to return the Views HTML.
+	 * Registers the provider handling all the 1st level filters and actions for Views v2.
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 */
-	public function register_rest_endpoints() {
-		register_rest_route( static::NAME_SPACE, '/html', [
-			'methods'             => \WP_REST_Server::READABLE,
-			'permission_callback' => function ( \WP_REST_Request $request ) {
-				return wp_verify_nonce( $request['nonce'], 'wp_rest' );
-			},
-			'callback' => function ( \WP_REST_Request $request ) {
-				View::make_for_rest( $request )->send_html();
-			},
-		] );
+	protected function register_hooks() {
+		$hooks = new Hooks( $this->container );
+		$hooks->register();
+
+		$assets = new Assets( $this->container );
+		$assets->register();
+
+		// Allow Hooks to be removed, by having the them registred to the container
+		$this->container->singleton( Hooks::class, $hooks );
+		$this->container->singleton( Assets::class, $assets );
+		$this->container->singleton( 'events.views.v2.hooks', $hooks );
+		$this->container->singleton( 'events.views.v2.provider', $this );
+
+		View::set_container( $this->container );
+
 	}
 
 	/**
-	 * Filters the `template_include` filter to return the Views router template if required..
+	 * Registers the provider handling compatibility with v1 of the View system.
 	 *
-	 * @since TBD
-	 *
-	 * @param string $template The template located by WordPress.
-	 *
-	 * @return string The Views router file if required or the input template.
+	 * @since 4.9.2
 	 */
-	public function filter_template_include( $template ) {
-		global $wp_the_query;
-
-		if ( [ TEC::POSTTYPE ] !== (array) $wp_the_query->get( 'post_type' ) ) {
-			return $template;
-		}
-
-		$index = ( new Index() )->get_template_file();
-
-		return $index ? $index : $template;
-	}
-
-	/**
-	 * Checks whether v2 of the Views is enabled or not.
-	 *
-	 * In order the function will check the `TRIBE_EVENTS_V2_VIEWS` constant,
-	 * the `TRIBE_EVENTS_V2_VIEWS` environment variable and, finally, the `static::$option_enabled` option.
-	 *
-	 * @since TBD
-	 *
-	 * @return bool Whether v2 of the Views are enabled or not.
-	 */
-	protected function is_enabled() {
-		if ( defined( 'TRIBE_EVENTS_V2_VIEWS' ) ) {
-			return (bool) TRIBE_EVENTS_V2_VIEWS;
-		}
-
-		$env_var = getenv( 'TRIBE_EVENTS_V2_VIEWS' );
-		if ( false !== $env_var ) {
-			return (bool) $env_var;
-		}
-
-		return (bool) tribe_get_option( View::$option_enabled, false );
+	protected function register_v1_compat() {
+		$v1_compat = new V1_Compat( $this->container );
+		$v1_compat->register();
+		$this->container->singleton( V1_Compat::class, $v1_compat );
+		$this->container->singleton( 'views-v2.v1-compat', $v1_compat );
 	}
 }

@@ -34,7 +34,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '4.9.1.1';
+		const VERSION             = '4.9.2';
 
 		/**
 		 * Min Pro Addon
@@ -373,12 +373,18 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				class_exists( 'Tribe__Tickets__Main' ) &&
 				! version_compare( Tribe__Tickets__Main::VERSION, $this->min_et_version, '>=' )
 			) {
-				add_action( 'admin_notices', array( $this, 'compatibility_notice' ) );
-				add_action( 'network_admin_notices', array( $this, 'compatibility_notice' ) );
-				add_filter( 'tribe_ecp_to_run_or_not_to_run', array( $this, 'disable_pro' ) );
-				add_action( 'tribe_plugins_loaded', array( $this, 'remove_exts' ), 0 );
+				add_action( 'admin_notices', [ $this, 'compatibility_notice' ] );
+				add_action( 'network_admin_notices', [ $this, 'compatibility_notice' ] );
+				add_filter( 'tribe_ecp_to_run_or_not_to_run', [ $this, 'disable_pro' ] );
+				add_action( 'tribe_plugins_loaded', [ $this, 'remove_exts' ], 0 );
+				/*
+				* After common was loaded by another source (e.g. Event Tickets) let's append this plugin source files
+				* to the ones the Autoloader will search. Since we're appending them the ones registered by the plugin
+				* "owning" common will be searched first.
+				*/
+				add_action( 'tribe_common_loaded', [ $this, 'register_plugin_autoload_paths' ] );
 
-				//Disable Older Versions of Community Events to Prevent Fatal Error
+				// Disable older versions of Community Events to prevent fatal Error.
 				remove_action( 'plugins_loaded', 'Tribe_CE_Load', 2 );
 
 				return;
@@ -428,22 +434,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return void
 		 */
 		protected function init_autoloading() {
-			$prefixes = array(
-				'Tribe__Events__' => $this->plugin_path . 'src/Tribe',
-				'ForceUTF8__' => $this->plugin_path . 'vendor/ForceUTF8',
-			);
+			$autoloader = $this->get_autoloader_instance();
+			$this->register_plugin_autoload_paths( $autoloader );
 
-			if ( ! class_exists( 'Tribe__Autoloader' ) ) {
-				require_once $GLOBALS['tribe-common-info']['dir'] . '/Autoloader.php';
-
-				$prefixes['Tribe__'] = $GLOBALS['tribe-common-info']['dir'];
-			}
-
-			$autoloader = Tribe__Autoloader::instance();
-			$autoloader->register_prefixes( $prefixes );
-
-			// deprecated classes are registered in a class to path fashion
-			foreach ( glob( $this->plugin_path . 'src/deprecated/*.php' ) as $file ) {
+			// Deprecated classes are registered in a class to path fashion.
+			foreach ( glob( $this->plugin_path . 'src/deprecated/*.php', GLOB_NOSORT ) as $file ) {
 				$class_name = str_replace( '.php', '', basename( $file ) );
 				$autoloader->register_class( $class_name, $file );
 			}
@@ -542,7 +537,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe_register_provider( 'Tribe__Events__Service_Providers__ORM' );
 
 			// The Views v2 service provider.
-			tribe_register_provider( Views::class);
+			tribe_register_provider( Views::class );
 
 			/**
 			 * Allows other plugins and services to override/change the bound implementations.
@@ -5673,5 +5668,38 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			return class_exists( 'Tribe__Events__Pro__Main' ) && defined( 'Tribe__Events__Pro__Main::VERSION' ) && version_compare( Tribe__Events__Pro__Main::VERSION, $version, '>=' );
 		}
 
+		/**
+		 * Returns the autoloader singleton instance to use in a context-aware manner.
+		 *
+		 * @since 4.9.2
+		 *
+		 * @return \Tribe__Autoloader Teh singleton common Autoloader instance.
+		 */
+		public function get_autoloader_instance() {
+			if ( ! class_exists( 'Tribe__Autoloader' ) ) {
+				require_once $GLOBALS['tribe-common-info']['dir'] . '/Autoloader.php';
+
+				Tribe__Autoloader::instance()->register_prefixes( [
+					'Tribe__' => $GLOBALS['tribe-common-info']['dir'],
+				] );
+			}
+
+			return Tribe__Autoloader::instance();
+		}
+
+		/**
+		 * Registers the plugin autoload paths in the Common Autoloader instance.
+		 *
+		 * @since 4.9.2
+		 */
+		public function register_plugin_autoload_paths( ) {
+			$prefixes = array(
+				'Tribe__Events__' => $this->plugin_path . 'src/Tribe',
+				'ForceUTF8__'     => $this->plugin_path . 'vendor/ForceUTF8',
+			);
+
+			$this->get_autoloader_instance()->register_prefixes( $prefixes );
+		}
 	}
+
 } // end if !class_exists Tribe__Events__Main

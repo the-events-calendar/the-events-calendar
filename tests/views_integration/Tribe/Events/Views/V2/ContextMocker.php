@@ -118,7 +118,7 @@ class ContextMocker {
 	/**
 	 * Alters and replaces the global context.
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 */
 	public function alter_global_context() {
 		$this->context = $this->get_context();

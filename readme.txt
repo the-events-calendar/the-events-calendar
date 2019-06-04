@@ -4,8 +4,8 @@ Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.7
-Stable tag: 4.9.1.1
-Tested up to: 5.1
+Stable tag: 4.9.2
+Tested up to: 5.2
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -214,6 +214,13 @@ Some things to consider before posting on the forum:
 Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to [@TheEventsCal](https://twitter.com/TheEventsCal) and tell us why. We'll do what we can to make it right.
 
 == Changelog ==
+
+= [4.9.2] 2019-05-16 =
+
+* Tweak - In the Event Repository class: filter the event cretion meta before checking it for coherency
+* Tweak - Reduced file size by removing .po files and directing anyone creating or editing local translations to translate.wordpress.org
+* Fix - Fix event bar issue where it was required to pick the date in order to search events via keyword or location [126158]
+* Fix - Make back-compatibility handling more robust when dealing with classes non-existing in the older plugin versions [127173]
 
 = [4.9.1.1] 2019-05-06 =
 
