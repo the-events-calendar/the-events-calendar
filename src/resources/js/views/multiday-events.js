@@ -43,6 +43,13 @@ tribe.events.views.multiday_events = {};
 		hiddenEvent: '.tribe-events-calendar-month__multiday-event--hidden',
 	};
 
+	/**
+	 * Binds events for hover and focus of hidden multiday events
+	 *
+	 * @since  4.9.3
+	 *
+	 * @return {void}
+	 */
 	obj.bindEvents = function() {
 		// bind events for
 		// hidden multiday hover
