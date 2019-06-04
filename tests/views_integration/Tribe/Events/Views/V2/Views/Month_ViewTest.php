@@ -8,11 +8,9 @@ use Tribe\Events\Views\V2\TestCase;
 use Tribe\Events\Views\V2\View;
 
 class Month_ViewTest extends TestCase {
-
 	use MatchesSnapshots;
 
-	public function setUp()
-	{
+	public function setUp() {
 		parent::setUp();
 		Test::setUp();
 		Test::replace( 'date', function ( $format ) {
@@ -25,18 +23,17 @@ class Month_ViewTest extends TestCase {
 	 * Test render empty
 	 */
 	public function test_render_empty() {
-		$this->markTestSkipped( 'Due to an issue with caching in CI.' );
 		// Sanity check
 		$this->assertEmpty( tribe_events()->found() );
 
 		$month_view = View::make( Month_View::class );
-		$html      = $month_view->get_html();
+		$html       = $month_view->get_html();
 
 		$this->assertMatchesSnapshot( $html );
 	}
 
 
-	public function tearDown(  ) {
-		Test::tearDown()	;
+	public function tearDown() {
+		Test::tearDown();
 	}
 }

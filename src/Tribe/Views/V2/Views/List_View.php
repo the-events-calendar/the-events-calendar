@@ -9,6 +9,7 @@
 namespace Tribe\Events\Views\V2\Views;
 
 use Tribe\Events\Views\V2\View;
+use Tribe__Events__Main as TEC;
 use Tribe__Events__Rewrite as Rewrite;
 use Tribe__Utils__Array as Arr;
 
@@ -119,6 +120,7 @@ class List_View extends View {
 
 		if ( $past->count() > 0 ) {
 			$url = clone $this->url->add_query_args( array_filter( [
+				'post_type'    => TEC::POSTTYPE,
 				'eventDisplay' => 'past',
 				'eventDate'    => $default_date === $date ? '' : $date,
 				'paged'        => $page,
@@ -160,6 +162,7 @@ class List_View extends View {
 
 		if ( $upcoming->count() > 0 ) {
 			$url = clone $this->url->add_query_args( array_filter( [
+				'post_type'    => TEC::POSTTYPE,
 				'eventDisplay' => 'list',
 				'eventDate'    => $default_date === $date ? '' : $date,
 				'paged'        => $page,
