@@ -41,10 +41,11 @@ tribe.events.views.multiday_events = {};
 	 */
 	obj.selectors = {
 		day: '.tribe-events-calendar-month__day',
-		multidayEvent: '.tribe-events-calendar-month__multiday-event',
-		multidayEventFocus: '.tribe-events-calendar-month__multiday-event--focus',
-		multidayEventHover: '.tribe-events-calendar-month__multiday-event--hover',
-		hiddenMultidayEvent: '.tribe-events-calendar-month__multiday-event--hidden',
+		multidayEvent: '.tribe-events-calendar-month__event-multiday',
+		hiddenMultidayEvent: '.tribe-events-calendar-month__event-multiday--hidden',
+		multidayEventInner: '.tribe-events-calendar-month__event-multiday-inner',
+		multidayEventInnerFocus: '.tribe-events-calendar-month__event-multiday-inner--focus',
+		multidayEventInnerHover: '.tribe-events-calendar-month__event-multiday-inner--hover',
 	};
 
 	/**
@@ -58,10 +59,14 @@ tribe.events.views.multiday_events = {};
 	 */
 	obj.findVisibleMultidayEvent = function( $hiddenMultidayEvent ) {
 		var $prevDay = $hiddenMultidayEvent.closest( obj.selectors.day ).prev();
+		var eventId = $hiddenMultidayEvent.attr( 'data-id' );
 
 		var $visibleMultidayEvent;
-		while ( $prevDay.length ) {
-			$visibleMultidayEvent = $prevDay.find( obj.selectors.multidayEvent ).not( obj.selectors.hiddenMultidayEvent );
+		while ( $prevDay.length && eventId ) {
+			$visibleMultidayEvent = $prevDay
+				.find( obj.selectors.multidayEvent + '[data-id=' + eventId + ']' )
+				.not( obj.selectors.hiddenMultidayEvent )
+				.find();
 
 			if ( $visibleMultidayEvent.length ) {
 				return $visibleMultidayEvent;
@@ -76,13 +81,13 @@ tribe.events.views.multiday_events = {};
 	 *
 	 * @since 4.9.3
 	 *
-	 * @param {jQuery} $visibleMultidayEvent jQuery object of visible multiday event
+	 * @param {jQuery} $visibleMultidayEventInner jQuery object of visible multiday event
 	 *
 	 * @return {function} event handler for on hover in
 	 */
-	obj.onHoverIn = function( $visibleMultidayEvent ) {
+	obj.onHoverIn = function( $visibleMultidayEventInner ) {
 		return function() {
-			$visibleMultidayEvent.addClass( obj.selectors.multidayEventHover.className() );
+			$visibleMultidayEventInner.addClass( obj.selectors.multidayEventHover.className() );
 		};
 	};
 
@@ -91,13 +96,13 @@ tribe.events.views.multiday_events = {};
 	 *
 	 * @since 4.9.3
 	 *
-	 * @param {jQuery} $visibleMultidayEvent jQuery object of visible multiday event
+	 * @param {jQuery} $visibleMultidayEventInner jQuery object of visible multiday event
 	 *
 	 * @return {function} event handler for on hover out
 	 */
-	obj.onHoverOut = function( $visibleMultidayEvent ) {
+	obj.onHoverOut = function( $visibleMultidayEventInner ) {
 		return function() {
-			$visibleMultidayEvent.removeClass( obj.selectors.multidayEventHover.className() );
+			$visibleMultidayEventInner.removeClass( obj.selectors.multidayEventHover.className() );
 		};
 	};
 
@@ -106,13 +111,13 @@ tribe.events.views.multiday_events = {};
 	 *
 	 * @since 4.9.3
 	 *
-	 * @param {jQuery} $visibleMultidayEvent jQuery object of visible multiday event
+	 * @param {jQuery} $visibleMultidayEventInner jQuery object of visible multiday event
 	 *
 	 * @return {function} event handler for on focus
 	 */
-	obj.onFocus = function( $visibleMultidayEvent ) {
+	obj.onFocus = function( $visibleMultidayEventInner ) {
 		return function() {
-			$visibleMultidayEvent.addClass( obj.selectors.multidayEventFocus.className() );
+			$visibleMultidayEventInner.addClass( obj.selectors.multidayEventFocus.className() );
 		};
 	};
 
@@ -121,13 +126,13 @@ tribe.events.views.multiday_events = {};
 	 *
 	 * @since 4.9.3
 	 *
-	 * @param {jQuery} $visibleMultidayEvent jQuery object of visible multiday event
+	 * @param {jQuery} $visibleMultidayEventInner jQuery object of visible multiday event
 	 *
 	 * @return {function} event handler for on blur
 	 */
-	obj.onBlur = function( $visibleMultidayEvent ) {
+	obj.onBlur = function( $visibleMultidayEventInner ) {
 		return function() {
-			$visibleMultidayEvent.removeClass( obj.selectors.multidayEventFocus.className() );
+			$visibleMultidayEventInner.removeClass( obj.selectors.multidayEventFocus.className() );
 		};
 	};
 
@@ -146,9 +151,10 @@ tribe.events.views.multiday_events = {};
 		var $visibleMultidayEvent = obj.findVisibleMultidayEvent( $hiddenMultidayEvent );
 
 		if ( $visibleMultidayEvent ) {
-			$hiddenMultidayEvent.hover( obj.onHoverIn( $visibleMultidayEvent ), obj.onHoverOut( $visibleMultidayEvent ) );
-			$hiddenMultidayEvent.focus( obj.onFocus( $visibleMultidayEvent ) );
-			$hiddenMultidayEvent.blur( obj.onBlur( $visibleMultidayEvent ) );
+			var $visibleMultidayEventInner = $visibleMultidayEvent.find( obj.selectors.multidayEventInner );
+			$hiddenMultidayEvent.hover( obj.onHoverIn( $visibleMultidayEventInner ), obj.onHoverOut( $visibleMultidayEventInner ) );
+			$hiddenMultidayEvent.focus( obj.onFocus( $visibleMultidayEventInner ) );
+			$hiddenMultidayEvent.blur( obj.onBlur( $visibleMultidayEventInner ) );
 		}
 	};
 
