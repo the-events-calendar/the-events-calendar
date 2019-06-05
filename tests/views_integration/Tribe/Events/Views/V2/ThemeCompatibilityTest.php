@@ -16,7 +16,7 @@ class ThemeCompatibilityTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertInstanceOf( Theme_Compatibility::class, $sut );
 	}
 
-	public function data_themes_supported() {
+	public function themes_supported_data_set() {
 		return [
 			'avada_is_supported' => [ 'avada' ],
 			'divi_is_supported' => [ 'divi' ],
@@ -41,7 +41,7 @@ class ThemeCompatibilityTest extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * @test
-	 * @dataProvider data_themes_supported
+	 * @dataProvider themes_supported_data_set
 	 */
 	public function should_need_compatibility_for_supported_themes( $input ) {
 		update_option( 'stylesheet', $input );
@@ -54,7 +54,7 @@ class ThemeCompatibilityTest extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * @test
-	 * @dataProvider data_themes_supported
+	 * @dataProvider themes_supported_data_set
 	 */
 	public function should_not_need_compatibility_for_supported_themes_in_template_but_missing_stylesheet( $input ) {
 		update_option( 'template', $input );
@@ -67,7 +67,7 @@ class ThemeCompatibilityTest extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * @test
-	 * @dataProvider data_themes_supported
+	 * @dataProvider themes_supported_data_set
 	 */
 	public function should_not_need_compatibility_for_supported_themes_in_stylesheet_but_missing_template( $input ) {
 		delete_option( 'template' );
@@ -82,8 +82,17 @@ class ThemeCompatibilityTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_need_compatibility_for_supported_themes_in_template_but_not_in_stylesheet() {
-		update_option( 'template', 'avada' );
+		$theme = 'valid-theme';
+		update_option( 'template', $theme );
 		update_option( 'stylesheet', 'invalid-value-for-theme' );
+
+		add_filter(
+			'tribe_events_views_v2_theme_compatibility_registred',
+			function( $themes ) use ( $theme ) {
+				$themes[] = $theme;
+				return $theme;
+			}
+		);
 
 		$is_compatibility_required = $this->make_instance()->is_compatibility_required();
 
@@ -94,20 +103,8 @@ class ThemeCompatibilityTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_need_compatibility_for_supported_themes_in_stylesheet_but_not_in_template() {
+		$theme = 'valid-theme';
 		update_option( 'template', 'invalid-value-for-theme' );
-		update_option( 'stylesheet', 'avada' );
-
-		$is_compatibility_required = $this->make_instance()->is_compatibility_required();
-
-		$this->assertEquals( $is_compatibility_required, true );
-	}
-
-	/**
-	 * @test
-	 */
-	public function should_allow_filtering_of_compatible_themes() {
-		$theme = 'filtered-theme';
-		update_option( 'template', $theme );
 		update_option( 'stylesheet', $theme );
 
 		add_filter(
@@ -147,7 +144,7 @@ class ThemeCompatibilityTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEmpty( $classes );
 	}
 
-	public function data_themes_and_classes() {
+	public function themes_and_classes_data_set() {
 		return [
 			'theme_on_template_and_stylesheet' => [
 				'foo-theme',
@@ -164,7 +161,7 @@ class ThemeCompatibilityTest extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * @test
-	 * @dataProvider data_themes_and_classes
+	 * @dataProvider themes_and_classes_data_set
 	 */
 	public function should_have_expected_classes_depending_on_template_and_stylesheet( $template, $stylesheet, $classes_expected ) {
 		update_option( 'template', $template );
