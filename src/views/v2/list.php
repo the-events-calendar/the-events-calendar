@@ -31,15 +31,7 @@ $events = $this->get( 'events' );
 		<?php $this->template( 'loader', [ 'text' => 'Loading...' ] ); ?>
 
 		<?php
-			/**
-			 * @todo Make sure we are passing correct data
-			 */
-			$this->template(
-				'data',
-				[
-					'title' => $this->get( 'url' ),
-				]
-			);
+		$this->template( 'data', [] );
 		?>
 
 		<?php $this->template( 'events-bar' ); ?>
