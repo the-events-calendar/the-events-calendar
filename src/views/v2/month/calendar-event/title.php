@@ -21,7 +21,7 @@ $event_id = $event->ID;
 	<a
 		title="<?php echo esc_attr( $event->title ); ?>"
 		rel="bookmark"
-		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin "
+		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
 	>
 		<?php echo esc_html( $event->title ); ?>
 	</a>
