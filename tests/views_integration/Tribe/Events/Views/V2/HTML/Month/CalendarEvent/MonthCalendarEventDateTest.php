@@ -9,7 +9,8 @@ class MonthCalendarEventDateTest extends TestHtmlCase {
 	 * @test
 	 */
 	public function it_should_contain_correct_html_classes() {
-		$template = $this->template->template( 'month/calendar-event/date', [ 'event' => (object) [ 'ID' => 0 ] ] );
+		$event = [ 'ID' => 0, 'title' => 'Lorem Ipsum', 'image' => 'test.jpg', 'featured' => true, 'recurring' => true ];
+		$template = $this->template->template( 'month/calendar-event/date', [ 'event' => (object) $event ] );
 		$html = $this->document->html( $template );
 
 		$this->assertEquals(
@@ -23,7 +24,8 @@ class MonthCalendarEventDateTest extends TestHtmlCase {
 	 * @test
 	 */
 	public function it_should_contain_a11y_attributes() {
-		$template = $this->template->template( 'month/calendar-event/date', [ 'event' => (object) [ 'ID' => 0 ] ] );
+		$event = [ 'ID' => 0, 'title' => 'Lorem Ipsum', 'image' => 'test.jpg', 'featured' => true, 'recurring' => true ];
+		$template = $this->template->template( 'month/calendar-event/date', [ 'event' => $event ] );
 		$html = $this->document->html( $template );
 
 		$this->markTestSkipped( 'The month calendar event date event does not receive data yet' );
