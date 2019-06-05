@@ -9,7 +9,7 @@ class MonthCalendarEventTooltipTest extends TestHtmlCase {
 	 * @test
 	 */
 	public function it_should_contain_correct_html_classes() {
-		$template = $this->template->template( 'month/calendar-event/tooltip', 'event' => (object) [ 'ID' => 0 ] );
+		$template = $this->template->template( 'month/calendar-event/tooltip', [ 'event' => (object) [ 'ID' => 0 ] ] );
 		$html = $this->document->html( $template );
 
 		$this->assertEquals(
