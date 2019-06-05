@@ -24,7 +24,7 @@ if ( ! is_dir( $wp_root ) ) {
  * Set the cache path depending on the environment.
  */
 if ( getenv( 'CI' ) ) {
-	$cache_path = trim( getenv( 'HOME' ), '/' ) . '/function- mocker';
+	$cache_path = trim( getenv( 'HOME' ), '/' ) . '/.function-mocker-cache';
 } else if ( getenv( 'FUNCTION_MOCKER_CACHE_PATH' ) ) {
 	// Allow local override of the value.
 	$cache_path = getenv( 'FUNCTION_MOCKER_CACHE_PATH' );
