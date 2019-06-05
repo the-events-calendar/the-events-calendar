@@ -8,6 +8,7 @@
 
 namespace Tribe\Events\Views\V2;
 
+use Tribe\Events\Views\V2\Views\All_List_View;
 use Tribe\Events\Views\V2\Views\List_View;
 use Tribe\Events\Views\V2\Views\Month_View;
 use Tribe\Events\Views\V2\Views\Reflector_View;
@@ -276,7 +277,9 @@ class View implements View_Interface {
 
 		$instance->set_context( $view_context );
 
+		// This code is coupled with the idea of viewing events: that's fine as Events are the default view content.
 		$view_repository = tribe_events();
+		$view_repository->order_by( 'event_date', 'ASC' );
 
 		/**
 		 * Filters the Repository object for a View.
@@ -329,7 +332,6 @@ class View implements View_Interface {
 		$views = apply_filters( 'tribe_events_views', [
 			'month'     => Month_View::class,
 			'list'      => List_View::class,
-			'past'      => List_View::class,
 			'reflector' => Reflector_View::class,
 		] );
 
@@ -591,7 +593,7 @@ class View implements View_Interface {
 		 */
 		$this->repository_args = apply_filters( "tribe_events_views_v2_{$this->slug}_repository_args", $args, $this );
 
-		$this->set_repository( $this->build_repository( $this->repository_args ) );
+		$this->repository->by_args( $this->repository_args );
 		$this->set_url( $this->repository_args, true );
 
 		$wp_query = $this->repository->get_query();
@@ -611,19 +613,6 @@ class View implements View_Interface {
 		}
 
 		wp_reset_postdata();
-	}
-
-	/**
-	 * Builds the repository the View will use to get the loop posts.
-	 *
-	 * @since TBD
-	 *
-	 * @param  array  $args An associative array of arguments that will be used to build the repository.
-	 *
-	 * @return \Tribe__Repository__Interface
-	 */
-	protected function build_repository( array $args ) {
-		return tribe_events()->by_args( $args );
 	}
 
 	/**
