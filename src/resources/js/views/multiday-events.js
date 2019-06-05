@@ -65,8 +65,7 @@ tribe.events.views.multiday_events = {};
 		while ( $prevDay.length && eventId ) {
 			$visibleMultidayEvent = $prevDay
 				.find( obj.selectors.multidayEvent + '[data-id=' + eventId + ']' )
-				.not( obj.selectors.hiddenMultidayEvent )
-				.find();
+				.not( obj.selectors.hiddenMultidayEvent );
 
 			if ( $visibleMultidayEvent.length ) {
 				return $visibleMultidayEvent;
@@ -87,7 +86,7 @@ tribe.events.views.multiday_events = {};
 	 */
 	obj.onHoverIn = function( $visibleMultidayEventInner ) {
 		return function() {
-			$visibleMultidayEventInner.addClass( obj.selectors.multidayEventHover.className() );
+			$visibleMultidayEventInner.addClass( obj.selectors.multidayEventInnerHover.className() );
 		};
 	};
 
@@ -102,7 +101,7 @@ tribe.events.views.multiday_events = {};
 	 */
 	obj.onHoverOut = function( $visibleMultidayEventInner ) {
 		return function() {
-			$visibleMultidayEventInner.removeClass( obj.selectors.multidayEventHover.className() );
+			$visibleMultidayEventInner.removeClass( obj.selectors.multidayEventInnerHover.className() );
 		};
 	};
 
@@ -117,7 +116,7 @@ tribe.events.views.multiday_events = {};
 	 */
 	obj.onFocus = function( $visibleMultidayEventInner ) {
 		return function() {
-			$visibleMultidayEventInner.addClass( obj.selectors.multidayEventFocus.className() );
+			$visibleMultidayEventInner.addClass( obj.selectors.multidayEventInnerFocus.className() );
 		};
 	};
 
@@ -132,7 +131,7 @@ tribe.events.views.multiday_events = {};
 	 */
 	obj.onBlur = function( $visibleMultidayEventInner ) {
 		return function() {
-			$visibleMultidayEventInner.removeClass( obj.selectors.multidayEventFocus.className() );
+			$visibleMultidayEventInner.removeClass( obj.selectors.multidayEventInnerFocus.className() );
 		};
 	};
 
@@ -152,9 +151,11 @@ tribe.events.views.multiday_events = {};
 
 		if ( $visibleMultidayEvent ) {
 			var $visibleMultidayEventInner = $visibleMultidayEvent.find( obj.selectors.multidayEventInner );
-			$hiddenMultidayEvent.hover( obj.onHoverIn( $visibleMultidayEventInner ), obj.onHoverOut( $visibleMultidayEventInner ) );
-			$hiddenMultidayEvent.focus( obj.onFocus( $visibleMultidayEventInner ) );
-			$hiddenMultidayEvent.blur( obj.onBlur( $visibleMultidayEventInner ) );
+			var $hiddenMultidayEventInner = $hiddenMultidayEvent.find( obj.selectors.multidayEventInner );
+
+			$hiddenMultidayEventInner.hover( obj.onHoverIn( $visibleMultidayEventInner ), obj.onHoverOut( $visibleMultidayEventInner ) );
+			$hiddenMultidayEventInner.focus( obj.onFocus( $visibleMultidayEventInner ) );
+			$hiddenMultidayEventInner.blur( obj.onBlur( $visibleMultidayEventInner ) );
 		}
 	};
 
@@ -166,8 +167,8 @@ tribe.events.views.multiday_events = {};
 	 * @return {void}
 	 */
 	obj.ready = function() {
-		obj.$hiddenMultidayEvents = $( obj.selectors.hiddenMultidayEvent );
-		obj.$hiddenMultidayEvents.each( obj.bindEvents );
+		var $hiddenMultidayEvents = $( obj.selectors.hiddenMultidayEvent );
+		$hiddenMultidayEvents.each( obj.bindEvents );
 		/**
 		 * @todo: do below for ajax events
 		 */
