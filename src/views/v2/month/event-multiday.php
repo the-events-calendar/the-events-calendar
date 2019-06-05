@@ -43,20 +43,20 @@ if ( $end_this_week ) {
 ?>
 <div class="tribe-events-calendar-month__multiday-wrapper">
 
-		<div class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>">
-			<time datetime="the-date-and-or-duration" class="tribe-common-a11y-visual-hide">The date and duration</time>
-			<a class="<?php echo esc_attr( implode( ' ', $classes_inner ) ); ?>">
-				<?php if ( $is_featured ) : ?>
-					<em
-						class="tribe-events-calendar-month__event-multiday-featured-icon tribe-common-svgicon tribe-common-svgicon--featured"
-						aria-label="<?php esc_attr_e( 'Featured', 'the-events-calendar' ); ?>"
-						title="<?php esc_attr_e( 'Featured', 'the-events-calendar' ); ?>"
-					></em>
-				<?php endif; ?>
-				<h3 class="tribe-events-calendar-month__event-multiday-title tribe-common-h8">
-					<?php echo $event->title; ?>
-				</h3>
-			</a>
-		</div>
+	<div class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>">
+		<time datetime="the-date-and-or-duration" class="tribe-common-a11y-visual-hide">The date and duration</time>
+		<a class="<?php echo esc_attr( implode( ' ', $classes_inner ) ); ?>">
+			<?php if ( $is_featured ) : ?>
+				<em
+					class="tribe-events-calendar-month__event-multiday-featured-icon tribe-common-svgicon tribe-common-svgicon--featured"
+					aria-label="<?php esc_attr_e( 'Featured', 'the-events-calendar' ); ?>"
+					title="<?php esc_attr_e( 'Featured', 'the-events-calendar' ); ?>"
+				></em>
+			<?php endif; ?>
+			<h3 class="tribe-events-calendar-month__event-multiday-title tribe-common-h8">
+				<?php echo $event->title; ?>
+			</h3>
+		</a>
+	</div>
 
 </div>
