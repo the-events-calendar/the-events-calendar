@@ -218,6 +218,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 = [4.9.3] 2019-06-05 =
 
 * Fix - Fixed issue where the previous events link was not present on initial page load of the List View [127477]
+* Language - 10 new strings added, 18 updated, 0 fuzzied, and 0 obsoleted
 
 = [4.9.2] 2019-05-16 =
 
