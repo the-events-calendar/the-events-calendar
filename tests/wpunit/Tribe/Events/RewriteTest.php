@@ -277,4 +277,51 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertEquals( $expected_vars, $parsed_vars );
 	}
+
+	/**
+	 * It should correctly passthru not handled vars when parsing requests
+	 *
+	 * @test
+	 */
+	public function should_correctly_passthru_not_handled_vars_when_parsing_requests() {
+		$input_url = home_url( '/events/list/?not-handled=value' );
+		$expected  = [
+			'post_type' => 'tribe_events',
+			'eventDisplay' => 'list',
+			'not-handled'=>'value',
+		];
+
+		$rewrite = new Rewrite;
+		global $wp_rewrite;
+		$rewrite->setup( $wp_rewrite );
+		$parsed = $rewrite->parse_request( $input_url );
+
+		$this->assertEqualSets( $expected, $parsed );
+	}
+
+	public function clean_url_data_set() {
+		return [
+			'already_clean'    => [ '/events/list', '/events/list/' ],
+			'all_handled'      => [ '/events/list/?post_type=tribe_events', '/events/list/' ],
+			'some_not_handled' => [ '/events/list/?post_type=tribe_events&foo=bar', '/events/list/?foo=bar' ],
+		];
+	}
+
+	/**
+	 * It should remove handled query vars from query string when cleaning URLs
+	 *
+	 * @test
+	 * @dataProvider clean_url_data_set
+	 */
+	public function should_remove_handled_query_vars_from_query_string_when_cleaning_urls($input_uri, $expected) {
+		$input_uri = home_url( $input_uri );
+		$expected  = home_url( $expected );
+
+		$rewrite = new Rewrite;
+		global $wp_rewrite;
+		$rewrite->setup( $wp_rewrite );
+		$clean_url = $rewrite->get_clean_url( $input_uri );
+
+		$this->assertEquals( $expected, $clean_url );
+	}
 }
