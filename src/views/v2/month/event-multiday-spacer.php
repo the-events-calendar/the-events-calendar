@@ -13,10 +13,7 @@
  *
  */
 
-
 ?>
 <div class="tribe-events-calendar-month__multiday-wrapper">
-	<div class="tribe-events-calendar-month__event-multiday--empty" aria-hidden="true">
-		Hey, I'm an empty space
-	</div>
+	<div class="tribe-events-calendar-month__event-multiday--empty" aria-hidden="true"></div>
 </div>
