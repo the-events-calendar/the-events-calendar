@@ -17,6 +17,24 @@
 		}
 	}
 
+	.tribe-events-calendar-month__event-multiday--start {
+		@media (--viewport-medium) {
+			border-radius: 6px 0 0 6px;
+			&.tribe-events-calendar-month__event-multiday--end {
+				border-radius: 6px;
+			}
+		}
+	}
+
+	.tribe-events-calendar-month__event-multiday--end {
+		@media (--viewport-medium) {
+			border-radius: 0 6px 6px 0;
+			&.tribe-events-calendar-month__event-multiday--start {
+				border-radius: 6px;
+			}
+		}
+	}
+
 	.tribe-events-calendar-month__event-multiday-inner {
 		background-color: rgba(var(--color-accent-primary), .1);
 		cursor: pointer;
