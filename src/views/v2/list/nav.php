@@ -15,6 +15,10 @@
  * @version TBD
  *
  */
+
+/**
+ * @todo: make sure we're getting correct context
+ */
 ?>
 <nav class="tribe-common-c-nav">
 	<ul class="tribe-common-c-nav__list">
