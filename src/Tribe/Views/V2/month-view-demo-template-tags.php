@@ -151,6 +151,7 @@ function tribe_events_views_v2_month_demo_add_data() {
 			'ID'            => 1,
 			'multiday'      => true,
 			'start_date'    => 1,
+			'start_this_week' => true,
 			'end_this_week' => true,
 			'duration'      => 2, // duration in days
 		];
@@ -160,6 +161,7 @@ function tribe_events_views_v2_month_demo_add_data() {
 			'ID'            => 14,
 			'multiday'      => true,
 			'start_date'    => 1,
+			'start_this_week' => true,
 			'end_this_week' => true,
 			'duration'      => 2, // duration in days
 			'featured'      => true,
@@ -170,6 +172,7 @@ function tribe_events_views_v2_month_demo_add_data() {
 			'ID'            => 18,
 			'multiday'      => true,
 			'start_date'    => 2,
+			'start_this_week' => true,
 			'end_this_week' => true,
 			'duration'      => 3, // duration in days
 		];
@@ -179,9 +182,32 @@ function tribe_events_views_v2_month_demo_add_data() {
 			'ID'            => 23,
 			'multiday'      => true,
 			'start_date'    => 4,
+			'start_this_week' => true,
 			'end_this_week' => true,
 			'duration'      => 2, // duration in days
 			'featured'      => true,
+		];
+
+	$event_multi_weekend_pre = [
+			'title'         => esc_html__( 'Long weekend', 'the-events-calendar' ),
+			'ID'            => 40,
+			'multiday'      => true,
+			'start_date'    => 19,
+			'start_this_week' => true,
+			'end_this_week' => false,
+			'duration'      => 3, // duration in days
+			'featured'      => false,
+		];
+
+	$event_multi_weekend_post = [
+			'title'         => esc_html__( 'Long weekend', 'the-events-calendar' ),
+			'ID'            => 40,
+			'multiday'      => true,
+			'start_date'    => 22,
+			'end_this_week' => true,
+			'start_this_week' => false,
+			'duration'      => 1, // duration in days
+			'featured'      => false,
 		];
 
 	$event_not_multi_1 = [
@@ -190,12 +216,11 @@ function tribe_events_views_v2_month_demo_add_data() {
 			'multiday'      => false,
 			'featured'      => true,
 			'recurring'     => false,
-			'image'         => 'https://cldup.com/xfPL3E4sMe-2000x2000.jpeg',
 		];
 
 	$event_not_multi_2 = [
 		'title'         => esc_html__( 'North Sydney Meetup', 'the-events-calendar' ),
-		'ID'            => 59,
+		'ID'            => 53,
 		'multiday'      => false,
 		'featured'      => true,
 		'recurring'     => false,
@@ -281,7 +306,7 @@ function tribe_events_views_v2_month_demo_add_data() {
 		Week 2
 	*/
 
-	$day_9_events = [ $event_not_multi_recurring ];
+	$day_9_events = [ $event_not_multi_recurring, $event_not_multi_1 ];
 
 	$day9 = [
 			'daynum' => 9,
@@ -311,11 +336,39 @@ function tribe_events_views_v2_month_demo_add_data() {
 			'total_events' => count( $day_16_events )
 		];
 
-	$week3 = [ $day16 ];
+	$day_19_events = [ $event_multi_weekend_pre ];
+
+	$day19 = [
+			'daynum' => 19,
+			'events' => $day_19_events,
+			'total_events' => count( $day_19_events )
+		];
+
+	$day20 = [
+			'daynum' => 20,
+			'events' => [ false ],
+			'total_events' => count( [ false ] )
+		];
+
+	$day21 = [
+			'daynum' => 21,
+			'events' => [ false ],
+			'total_events' => count( [ false ] )
+		];
+
+	$week3 = [ $day16, $day19, $day20, $day21 ];
 
 	/*
 		Week 4
 	*/
+
+	$day_22_events = [ $event_multi_weekend_post ];
+
+	$day22 = [
+			'daynum' => 22,
+			'events' => $day_22_events,
+			'total_events' => count( $day_22_events )
+		];
 
 	$day_23_events = [ $event_not_multi_recurring ];
 
@@ -325,7 +378,7 @@ function tribe_events_views_v2_month_demo_add_data() {
 			'total_events' => count( $day_23_events )
 		];
 
-	$week4 = [ $day23 ];
+	$week4 = [ $day22, $day23 ];
 
 	$month = array_merge( $week1, $week2, $week3, $week4 );
 
