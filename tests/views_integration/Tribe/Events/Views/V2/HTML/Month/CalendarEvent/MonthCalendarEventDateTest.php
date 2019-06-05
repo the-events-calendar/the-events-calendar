@@ -26,7 +26,7 @@ class MonthCalendarEventDateTest extends TestHtmlCase {
 		$template = $this->template->template( 'month/calendar-event/date', 'event' => (object) [ 'ID' => 0 ] );
 		$html = $this->document->html( $template );
 
-		$this->markTestSkipped( 'The month multi-day event does not receive data yet' );
+		$this->markTestSkipped( 'The month calendar event date event does not receive data yet' );
 
 		/*
 			@todo: If the event is featured we should check the following a11y classes for the icon
