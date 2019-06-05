@@ -163,12 +163,12 @@ function tribe_events_views_v2_month_demo_add_data() {
 			'start_date'    => 1,
 			'start_this_week' => true,
 			'end_this_week' => true,
-			'duration'      => 2, // duration in days
+			'duration'      => 3, // duration in days
 			'featured'      => true,
 		];
 
 	$event3 = [
-			'title'         => esc_html__( 'Resting from the month view', 'the-events-calendar' ),
+			'title'         => esc_html__( 'UX and UI Workshop', 'the-events-calendar' ),
 			'ID'            => 18,
 			'multiday'      => true,
 			'start_date'    => 2,
@@ -178,7 +178,7 @@ function tribe_events_views_v2_month_demo_add_data() {
 		];
 
 	$event4 = [
-			'title'         => esc_html__( 'Fourth! on top', 'the-events-calendar' ),
+			'title'         => esc_html__( 'Contributors hackaton', 'the-events-calendar' ),
 			'ID'            => 23,
 			'multiday'      => true,
 			'start_date'    => 4,
@@ -186,6 +186,17 @@ function tribe_events_views_v2_month_demo_add_data() {
 			'end_this_week' => true,
 			'duration'      => 2, // duration in days
 			'featured'      => true,
+		];
+
+	$event_multi_5 = [
+			'title'         => esc_html__( 'Prepping long weekend', 'the-events-calendar' ),
+			'ID'            => 25,
+			'multiday'      => true,
+			'start_date'    => 19,
+			'start_this_week' => true,
+			'end_this_week' => true,
+			'duration'      => 2, // duration in days
+			'featured'      => false,
 		];
 
 	$event_multi_weekend_pre = [
@@ -206,7 +217,7 @@ function tribe_events_views_v2_month_demo_add_data() {
 			'start_date'    => 22,
 			'end_this_week' => true,
 			'start_this_week' => false,
-			'duration'      => 1, // duration in days
+			'duration'      => 2, // duration in days
 			'featured'      => false,
 		];
 
@@ -233,7 +244,24 @@ function tribe_events_views_v2_month_demo_add_data() {
 		'multiday'      => false,
 		'featured'      => false,
 		'recurring'     => false,
-		'image'         => 'https://cldup.com/xfPL3E4sMe-2000x2000.jpeg',
+		'image'         => 'https://cldup.com/GkpQuY_i8k-1200x1200.jpeg',
+	];
+
+	$event_not_multi_4 = [
+		'title'         => esc_html__( 'Winnipeg WordPress Meetup', 'the-events-calendar' ),
+		'ID'            => 39,
+		'multiday'      => false,
+		'featured'      => false,
+		'recurring'     => false,
+		'image'         => 'https://cldup.com/Nhp8FNOyBl-2000x2000.jpeg',
+	];
+
+	$event_not_multi_5 = [
+		'title'         => esc_html__( 'Hannover WordPress Meetup', 'the-events-calendar' ),
+		'ID'            => 89,
+		'multiday'      => false,
+		'featured'      => false,
+		'recurring'     => false,
 	];
 
 	$event_not_multi_recurring = [
@@ -264,7 +292,7 @@ function tribe_events_views_v2_month_demo_add_data() {
 		];
 
 	// Day 3
-	$day_3_events = [ false, false, $event3 ];
+	$day_3_events = [ false, $event2, $event3 ];
 
 	$day3 = [
 			'daynum' => 3,
@@ -336,7 +364,7 @@ function tribe_events_views_v2_month_demo_add_data() {
 			'total_events' => count( $day_16_events )
 		];
 
-	$day_19_events = [ $event_multi_weekend_pre ];
+	$day_19_events = [ $event_multi_weekend_pre, $event_multi_5 ];
 
 	$day19 = [
 			'daynum' => 19,
@@ -344,16 +372,18 @@ function tribe_events_views_v2_month_demo_add_data() {
 			'total_events' => count( $day_19_events )
 		];
 
+	$day_20_events = [ $event_multi_weekend_pre, $event_multi_5 ];
+
 	$day20 = [
 			'daynum' => 20,
-			'events' => [ false ],
-			'total_events' => count( [ false ] )
+			'events' => $day_20_events,
+			'total_events' => count( $day_20_events )
 		];
 
 	$day21 = [
 			'daynum' => 21,
-			'events' => [ false ],
-			'total_events' => count( [ false ] )
+			'events' => [ $event_multi_weekend_pre, false ],
+			'total_events' => count( [ $event_multi_weekend_pre, false ] )
 		];
 
 	$week3 = [ $day16, $day19, $day20, $day21 ];
@@ -370,7 +400,7 @@ function tribe_events_views_v2_month_demo_add_data() {
 			'total_events' => count( $day_22_events )
 		];
 
-	$day_23_events = [ $event_not_multi_recurring ];
+	$day_23_events = [ $event_multi_weekend_post, $event_not_multi_recurring ];
 
 	$day23 = [
 			'daynum' => 23,
@@ -378,7 +408,19 @@ function tribe_events_views_v2_month_demo_add_data() {
 			'total_events' => count( $day_23_events )
 		];
 
-	$week4 = [ $day22, $day23 ];
+	$day26 = [
+			'daynum' => 26,
+			'events' => [ $event_not_multi_4 ],
+			'total_events' => count( [ $event_not_multi_4 ] )
+		];
+
+	$day27 = [
+			'daynum' => 27,
+			'events' => [ $event_not_multi_5 ],
+			'total_events' => count( [ $event_not_multi_5 ] )
+		];
+
+	$week4 = [ $day22, $day23, $day26, $day27 ];
 
 	$month = array_merge( $week1, $week2, $week3, $week4 );
 
