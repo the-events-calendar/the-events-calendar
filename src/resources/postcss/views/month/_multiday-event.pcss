@@ -5,11 +5,16 @@
 	 * ----------------------------------------------------------------------------- */
 
 	.tribe-events-calendar-month__event-multiday {
-		border-radius: 6px;
-		background-color: white;
-		overflow: hidden;
-		position: absolute;
-		z-index: calc( var(--z-index-spinner-container) - 1 );
+		display: none;
+
+		@media (--viewport-medium) {
+			display: block;
+			border-radius: 6px;
+			background-color: white;
+			overflow: hidden;
+			position: absolute;
+			z-index: calc( var(--z-index-spinner-container) - 1 );
+		}
 	}
 
 	.tribe-events-calendar-month__event-multiday-inner {
@@ -28,9 +33,12 @@
 	}
 
 	.tribe-events-calendar-month__multiday-wrapper {
-		height: 19px;
-		margin-bottom: var(--spacer-0);
-		position: relative;
+
+		@media (--viewport-medium) {
+			height: 19px;
+			margin-bottom: var(--spacer-0);
+			position: relative;
+		}
 	}
 
 	.tribe-events-calendar-month__event-multiday-inner--border-left {
@@ -80,7 +88,11 @@
 
 	.tribe-events-calendar-month__event-multiday--empty,
 	.tribe-events-calendar-month__event-multiday--hidden {
-		visibility: hidden;
+		display: none;
+
+		@media (--viewport-medium) {
+			visibility: hidden;
+		}
 	}
 
 }

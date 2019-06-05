@@ -75,6 +75,11 @@
 	}
 
 	.tribe-events-calendar-month__day-events {
-		padding: 0 var(--spacer-1);
+		display: none;
+
+		@media (--viewport-medium) {
+			display: block;
+			padding: 0 var(--spacer-1);
+		}
 	}
 }
