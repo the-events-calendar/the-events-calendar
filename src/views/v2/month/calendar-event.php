@@ -14,7 +14,7 @@
  */
 
 $event    = $this->get( 'event' );
-$event_id = $event->ID;
+//$event_id = $event->ID;
 
 $classes = [ 'tribe-events-calendar-month__calendar-event' ];
 
@@ -32,8 +32,8 @@ $classes = [ 'tribe-events-calendar-month__calendar-event' ];
 		<?php $this->template( 'month/calendar-event/date', [ 'event' => $event ] ); ?>
 		<?php $this->template( 'month/calendar-event/title', [ 'event' => $event ] ); ?>
 
-	</div>
+		<?php $this->template( 'month/calendar-event/tooltip', [ 'event' => $event ] ); ?>
 
-	<?php $this->template( 'month/calendar-event/tooltip', [ 'event' => $event ] ); ?>
+	</div>
 
 </article>

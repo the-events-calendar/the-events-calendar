@@ -12,9 +12,17 @@
  * @version TBD
  *
  */
+$event = $this->get( 'event' );
+
+if ( ! isset( $event->image ) ) { // @todo: use template tags for images here
+	return;
+}
+
 ?>
 <div class="tribe-events-calendar-month__calendar-event-featured-image-wrapper">
 	<div class="tribe-events-calendar-month__calendar-event-featured-image tribe-common-c-image tribe-common-c-image--bg">
-		<div class="tribe-common-c-image__bg"></div>
+		<div class="tribe-common-c-image__bg">
+			<img src="<?php echo esc_attr( $event->image ); ?>">
+		</div>
 	</div>
 </div>

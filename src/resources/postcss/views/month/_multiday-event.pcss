@@ -6,9 +6,10 @@
 
 	.tribe-events-calendar-month__event-multiday {
 		border-radius: 6px;
-		margin-bottom: var(--spacer-0);
 		background-color: white;
 		overflow: hidden;
+		position: absolute;
+		z-index: calc( var(--z-index-spinner-container) - 1 );
 	}
 
 	.tribe-events-calendar-month__event-multiday-inner {
@@ -24,6 +25,12 @@
 		&:focus {
 			background-color: rgba(var(--color-accent-primary), .2);
 		}
+	}
+
+	.tribe-events-calendar-month__multiday-wrapper {
+		height: 19px;
+		margin-bottom: var(--spacer-0);
+		position: relative;
 	}
 
 	.tribe-events-calendar-month__event-multiday-inner--border-left {
@@ -42,4 +49,38 @@
 	.tribe-events-calendar-month__event-multiday-title {
 		font-weight: var(--font-weight-regular);
 	}
+
+	.tribe-events-calendar-month__event-multiday-width-1 {
+		width: 100%;
+	}
+
+	.tribe-events-calendar-month__event-multiday-width-2 {
+		width: calc( 200% + 2px );
+	}
+
+	.tribe-events-calendar-month__event-multiday-width-3 {
+		width: calc( 300% + 3px );
+	}
+
+	.tribe-events-calendar-month__event-multiday-width-4 {
+		width: calc( 400% + 4px );
+	}
+
+	.tribe-events-calendar-month__event-multiday-width-5 {
+		width: calc( 500% + 5px );
+	}
+
+	.tribe-events-calendar-month__event-multiday-width-6 {
+		width: calc( 600% + 6px );
+	}
+
+	.tribe-events-calendar-month__event-multiday-width-7 {
+		width: calc( 700% + 7px );
+	}
+
+	.tribe-events-calendar-month__event-multiday--empty,
+	.tribe-events-calendar-month__event-multiday--hidden {
+		visibility: hidden;
+	}
+
 }

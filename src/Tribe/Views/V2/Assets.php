@@ -33,7 +33,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 			$plugin,
 			'tribe-events-calendar-views-v2',
 			'views/tribe-events-v2.css',
-			[ 'tribe-common-style' ],
+			[ 'tribe-common-style', 'tribe-tooltipster-css' ],
 			'wp_enqueue_scripts',
 			[ 'priority' => 10 ]
 		);
@@ -44,6 +44,15 @@ class Assets extends \tad_DI52_ServiceProvider {
 			'views/manager.js',
 			[ 'jquery', 'tribe-common', 'tribe-query-string', 'underscore' ],
 			null // prevent it from loading
+		);
+
+		tribe_asset(
+			$plugin,
+			'tribe-events-views-scripts',
+			'views/scripts.js',
+			[ 'jquery', 'tribe-common', 'tribe-tooltipster' ],
+			'wp_enqueue_scripts',
+			[ 'priority' => 10 ]
 		);
 	}
 }
