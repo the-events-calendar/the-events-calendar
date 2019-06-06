@@ -4,7 +4,7 @@
  *
  * @todo  This is an implementation to set a body class we can use in the common implementation.
  *
- * @since   TBD
+ * @since   4.9.3
  *
  * @package Tribe\Events\Views\V2
  */
@@ -33,8 +33,8 @@ class Theme_Compatibility {
 	/**
 	 * Checks if theme needs a compatibility fix.
 	 *
-	 * @since TBD
-	 *
+	 * @since  4.9.3
+   *
 	 * @return boolean
 	 */
 	public function is_compatibility_required() {
@@ -50,17 +50,13 @@ class Theme_Compatibility {
 			return true;
 		}
 
-		if ( in_array( $stylesheet, $this->get_registered_themes() ) ) {
-			return true;
-		}
-
 		return false;
 	}
 
 	/**
 	 * Add the theme to the body class.
 	 *
-	 * @since TBD
+	 * @since 4.9.3
 	 *
 	 * @param  array $classes Classes that are been passed to the body.
 	 *
@@ -81,7 +77,7 @@ class Theme_Compatibility {
 	/**
 	 * Fetches the correct class strings for theme and child theme if available.
 	 *
-	 * @since TBD
+	 * @since 4.9.3
 	 *
 	 * @return array $classes
 	 */
@@ -120,7 +116,7 @@ class Theme_Compatibility {
 		 *
 		 * @param array $registered An associative array of views in the shape `[ <slug> => <class> ]`.
 		 */
-		$registered = apply_filters( 'tribe_events_views_v2_theme_compatibility_registred', $this->themes );
+		$registered = apply_filters( 'tribe_events_views_v2_theme_compatibility_registered', $this->themes );
 
 		return (array) $registered;
 	}

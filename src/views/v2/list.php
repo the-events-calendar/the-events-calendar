@@ -9,9 +9,10 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version TBD
+ * @version 4.9.3
  *
  */
+
 use Tribe\Events\Views\V2\Rest_Endpoint;
 
 /**
@@ -30,15 +31,7 @@ $events = $this->get( 'events' );
 		<?php $this->template( 'loader', [ 'text' => 'Loading...' ] ); ?>
 
 		<?php
-			/**
-			 * @todo Make sure we are passing correct data
-			 */
-			$this->template(
-				'data',
-				[
-					'title' => $this->get( 'url' ),
-				]
-			);
+		$this->template( 'data', [] );
 		?>
 
 		<?php $this->template( 'events-bar' ); ?>
@@ -51,7 +44,7 @@ $events = $this->get( 'events' );
 
 			<?php foreach ( $events as $event ) : ?>
 
-				<?php $this->template( 'list/single-event', [ 'event' => $event ] ); ?>
+				<?php $this->template( 'list/event', [ 'event' => $event ] ); ?>
 
 			<?php endforeach; ?>
 

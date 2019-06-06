@@ -51,7 +51,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Registers the provider handling all the 1st level filters and actions for Views v2.
 	 *
-	 * @since TBD
+	 * @since 4.9.3
 	 */
 	protected function register_assets() {
 		$assets = new Assets( $this->container );
