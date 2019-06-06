@@ -43,7 +43,7 @@ if ( $starts_today = $event->start_date == $day_number ) { // @todo:later we can
 
 // if it ends this week, let's add the right border
 $end_this_week = isset( $event->end_this_week ) && $event->end_this_week;
-if ( $end_this_week ) {
+if ( $end_this_week && $starts_today ) {
 	$classes_inner[] = 'tribe-events-calendar-month__event-multiday-inner--border-right';
 	$classes[] = 'tribe-events-calendar-month__event-multiday--end';
 }
