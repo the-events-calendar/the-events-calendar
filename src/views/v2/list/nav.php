@@ -22,7 +22,18 @@
 ?>
 <nav class="tribe-common-c-nav">
 	<ul class="tribe-common-c-nav__list">
-		<?php $this->template( 'list/nav/prev', [ 'link' => $prev_url ] ); ?>
-		<?php $this->template( 'list/nav/next', [ 'link' => $next_url ] ); ?>
+		<?php
+		if ( $prev_url ) {
+			$this->template( 'list/nav/prev', [ 'link' => $prev_url ] );
+		} else {
+			$this->template( 'list/nav/prev-disabled' );
+		}
+
+		if ( $next_url ) {
+			$this->template( 'list/nav/next', [ 'link' => $next_url ] );
+		} else {
+			$this->template( 'list/nav/next-disabled' );
+		}
+		?>
 	</ul>
 </nav>
