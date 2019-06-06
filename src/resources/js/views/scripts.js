@@ -40,7 +40,7 @@ tribe.events.views.scripts = {};
 	 * @type {PlainObject}
 	 */
 	obj.selectors = {
-		tooltip: '.tribe-events-tooltip',
+		tooltip: '[data-js="tribe-events-tooltip"]',
 		tooltipContent: '.tribe-events-tooltip__content',
 	};
 
