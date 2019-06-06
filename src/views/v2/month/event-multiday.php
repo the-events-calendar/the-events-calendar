@@ -48,7 +48,7 @@ if ( $end_this_week ) {
 	$classes[] = 'tribe-events-calendar-month__event-multiday--end';
 }
 ?>
-<div class="tribe-events-calendar-month__multiday-wrapper">
+<div class="tribe-events-calendar-month__event-multiday-wrapper">
 
 	<div class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>">
 		<time datetime="the-date-and-or-duration" class="tribe-common-a11y-visual-hide">The date and duration</time>
