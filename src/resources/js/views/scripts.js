@@ -62,7 +62,7 @@ tribe.events.views.scripts = {};
 					.focus( function() {
 						$( this ).tooltipster( 'open' );
 					})
-					.blur( function(){
+					.blur( function() {
 						$( this ).tooltipster( 'close' );
 				});
 			},
