@@ -15,7 +15,7 @@ tribe.events.views = tribe.events.views || {};
  *
  * @type   {PlainObject}
  */
-tribe.events.views.script = {};
+tribe.events.views.scripts = {};
 
 /**
  * Initializes in a Strict env the code that manages the Event Views
@@ -53,8 +53,8 @@ tribe.events.views.script = {};
 	obj.initTooltips = function() {
 
 		$( obj.selectors.tooltip ).tooltipster( {
-			'interactive' : true,
-			'theme' : [ 'tribe-common', 'tribe-events', 'tribe-events-tooltip-theme' ],
+			interactive: true,
+			theme: [ 'tribe-common', 'tribe-events', 'tribe-events-tooltip-theme' ],
 			functionInit: function( instance, helper ) {
 				var content = $( helper.origin ).find( obj.selectors.tooltipContent ).html();
 				instance.content( content );
@@ -90,4 +90,4 @@ tribe.events.views.script = {};
 
 	// Configure on document ready
 	$document.ready( obj.ready );
-}( jQuery, window.underscore || window._, tribe.events.views.script ) );
+}( jQuery, window.underscore || window._, tribe.events.views.scripts ) );
