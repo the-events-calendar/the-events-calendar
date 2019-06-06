@@ -126,7 +126,7 @@ class List_View extends View {
 			$url = clone $this->url->add_query_args( array_filter( [
 				'eventDisplay' => 'past',
 				'eventDate'    => $default_date === $date ? '' : $date,
-				'paged'        => $page,
+				$this->page_key        => $page,
 			] ) );
 
 			$past_url = (string) $url;
@@ -167,7 +167,7 @@ class List_View extends View {
 			$url = clone $this->url->add_query_args( array_filter( [
 				'eventDisplay' => 'list',
 				'eventDate'    => $default_date === $date ? '' : $date,
-				'paged'        => $page,
+				$this->page_key        => $page,
 			] ) );
 
 			return (string) $url;

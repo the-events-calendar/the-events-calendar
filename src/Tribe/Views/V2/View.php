@@ -15,7 +15,9 @@ use Tribe\Events\Views\V2\Views\Reflector_View;
 use Tribe__Container as Container;
 use Tribe__Context as Context;
 use Tribe__Events__Main as TEC;
+use Tribe__Events__Organizer as Organizer;
 use Tribe__Events__Rewrite as Rewrite;
+use Tribe__Events__Venue as Venue;
 use Tribe__Repository__Interface as Repository;
 use Tribe__Utils__Array as Arr;
 
@@ -136,6 +138,15 @@ class View implements View_Interface {
 		$url = Arr::get( $params, 'url' );
 		$url_object = new Url( $url );
 		$params = array_merge( $params, $url_object->get_query_args() );
+
+		/*
+		 * WordPress would replicate the `post_name`, when resolving the request, both as `name` and as the post type.
+		 * We emulate this behavior here hydrating the request context to provide a `name` alongside the post type.
+		 */
+		$post_name = array_intersect( array_keys( $params ), [ TEC::POSTTYPE, Venue::POSTTYPE, Organizer::POSTTYPE ] );
+		if ( ! empty( $post_name ) && count( $post_name ) === 1 ) {
+			$params['name'] = $params[ reset( $post_name ) ];
+		}
 
 		if ( false === $slug ) {
 			/*
