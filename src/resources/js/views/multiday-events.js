@@ -40,7 +40,7 @@ tribe.events.views.multiday_events = {};
 	 * @type {PlainObject}
 	 */
 	obj.selectors = {
-		day: '.tribe-events-calendar-month__day',
+		calendar: '.tribe-events-calendar-month',
 		multidayEvent: '.tribe-events-calendar-month__event-multiday',
 		hiddenMultidayEvent: '.tribe-events-calendar-month__event-multiday--hidden',
 		multidayEventInner: '.tribe-events-calendar-month__event-multiday-inner',
@@ -55,24 +55,15 @@ tribe.events.views.multiday_events = {};
 	 *
 	 * @param {jQuery} $hiddenMultidayEvent jQuery object of hidden multiday event
 	 *
-	 * @return {(jQuery\|boolean)} jQuery object of visible multiday event or false if none found
+	 * @return {jQuery} jQuery object of visible multiday event or false if none found
 	 */
-	obj.findVisibleMultidayEvent = function( $hiddenMultidayEvent ) {
-		var $prevDay = $hiddenMultidayEvent.closest( obj.selectors.day ).prev();
+	obj.findVisibleMultidayEvents = function( $hiddenMultidayEvent ) {
+		var $calendar = $hiddenMultidayEvent.closest( obj.selectors.calendar );
 		var eventId = $hiddenMultidayEvent.attr( 'data-id' );
 
-		var $visibleMultidayEvent;
-		while ( $prevDay.length && eventId ) {
-			$visibleMultidayEvent = $prevDay
-				.find( obj.selectors.multidayEvent + '[data-id=' + eventId + ']' )
-				.not( obj.selectors.hiddenMultidayEvent );
-
-			if ( $visibleMultidayEvent.length ) {
-				return $visibleMultidayEvent;
-			}
-		}
-
-		return false;
+		return $calendar
+			.find( obj.selectors.multidayEvent + '[data-id=' + eventId + ']' )
+			.not( obj.selectors.hiddenMultidayEvent );
 	};
 
 	/**
@@ -147,16 +138,17 @@ tribe.events.views.multiday_events = {};
 	 */
 	obj.bindEvents = function( index, hiddenMultidayEvent ) {
 		var $hiddenMultidayEvent = $( hiddenMultidayEvent );
-		var $visibleMultidayEvent = obj.findVisibleMultidayEvent( $hiddenMultidayEvent );
+		var $visibleMultidayEvents = obj.findVisibleMultidayEvents( $hiddenMultidayEvent );
 
-		if ( $visibleMultidayEvent ) {
+		$visibleMultidayEvents.each( function( index, visibleMultidayEvent ) {
+			var $visibleMultidayEvent = $( visibleMultidayEvent );
 			var $visibleMultidayEventInner = $visibleMultidayEvent.find( obj.selectors.multidayEventInner );
 			var $hiddenMultidayEventInner = $hiddenMultidayEvent.find( obj.selectors.multidayEventInner );
 
 			$hiddenMultidayEventInner.hover( obj.onHoverIn( $visibleMultidayEventInner ), obj.onHoverOut( $visibleMultidayEventInner ) );
 			$hiddenMultidayEventInner.focus( obj.onFocus( $visibleMultidayEventInner ) );
 			$hiddenMultidayEventInner.blur( obj.onBlur( $visibleMultidayEventInner ) );
-		}
+		} );
 	};
 
 	/**
@@ -167,7 +159,7 @@ tribe.events.views.multiday_events = {};
 	 * @return {void}
 	 */
 	obj.ready = function() {
-		var $hiddenMultidayEvents = $( obj.selectors.hiddenMultidayEvent );
+		var $hiddenMultidayEvents = $( obj.selectors.multidayEvent );
 		$hiddenMultidayEvents.each( obj.bindEvents );
 		/**
 		 * @todo: do below for ajax events
