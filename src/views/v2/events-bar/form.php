@@ -12,6 +12,8 @@
  * @version TBD
  *
  */
+
+use Tribe\Events\Views\V2\Rest_Endpoint;
 ?>
 <div class="tribe-events-c-events-bar__form">
 	<form
@@ -19,6 +21,9 @@
 		method="get"
 		data-js="tribe-events-view-form"
 	>
+		<?php wp_nonce_field( 'wp_rest', 'tribe-events-views[_wpnonce]' ); ?>
+		<input type="hidden" name="tribe-events-views[url]" value="<?php echo esc_url( $this->get( 'url' ) ); ?>" />
+
 		<div class="tribe-common-form-control-text-group tribe-common-c-search__input-group">
 			<?php $this->template( 'events-bar/form/keyword' ); ?>
 			<?php $this->template( 'events-bar/form/location' ); ?>

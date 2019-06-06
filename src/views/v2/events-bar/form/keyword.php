@@ -19,7 +19,7 @@
 		class="tribe-common-form-control-text__input tribe-common-c-search__input"
 		type="text"
 		id="keyword"
-		name="keyword"
+		name="tribe-events-views[keyword]"
 		placeholder="<?php esc_attr_e( 'Keyword', 'the-events-calendar' ); ?>"
 	/>
 </div>

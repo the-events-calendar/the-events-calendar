@@ -200,8 +200,9 @@ tribe.events.views.manager = {};
 	 */
 	obj.onSubmit = function( event ) {
 		event.preventDefault();
-		var $container = $( this );
-		var formData = Qs.parse( $container.serialize() );
+		var $form = $( this );
+		var $container = obj.getContainer( this );
+		var formData = Qs.parse( $form.serialize() );
 
 		// pass the data to the request using `tribe-events-views`
 		obj.request( formData['tribe-events-views'], $container );

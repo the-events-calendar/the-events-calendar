@@ -30,9 +30,7 @@ $events = $this->get( 'events' );
 	<div class="tribe-common-l-container tribe-events-l-container">
 		<?php $this->template( 'loader', [ 'text' => 'Loading...' ] ); ?>
 
-		<?php
-		$this->template( 'data', [] );
-		?>
+		<?php $this->template( 'data' ); ?>
 
 		<?php $this->template( 'events-bar' ); ?>
 

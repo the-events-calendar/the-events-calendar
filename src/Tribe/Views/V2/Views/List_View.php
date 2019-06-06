@@ -40,7 +40,7 @@ class List_View extends View {
 		 * Ideally one that contains only the variables the template will need to render.
 		 */
 		$template_vars = [
-			'title'    => wp_title( null, false ),
+			'title'    => wp_title( '', false ),
 			'events'   => $this->repository->all(),
 			'url'      => $this->get_url( true ),
 			'prev_url' => $this->prev_url( true ),
