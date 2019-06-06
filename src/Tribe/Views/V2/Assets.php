@@ -33,7 +33,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 			$plugin,
 			'tribe-events-calendar-views-v2',
 			'views/tribe-events-v2.css',
-			[ 'tribe-common-style', 'tribe-tooltipster-css' ],
+			[ 'tribe-common-style', 'tribe-tooltipster-css' ], // @todo: check if we're including tooltips only in month view.
 			'wp_enqueue_scripts',
 			[ 'priority' => 10 ]
 		);
@@ -48,9 +48,9 @@ class Assets extends \tad_DI52_ServiceProvider {
 
 		tribe_asset(
 			$plugin,
-			'tribe-events-views-scripts',
+			'tribe-events-views-v2-scripts',
 			'views/scripts.js',
-			[ 'jquery', 'tribe-common', 'tribe-tooltipster' ],
+			[ 'jquery', 'tribe-common', 'tribe-tooltipster' ], // @todo: check if we're including tooltips only in month view.
 			'wp_enqueue_scripts',
 			[ 'priority' => 10 ]
 		);
