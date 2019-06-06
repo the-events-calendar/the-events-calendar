@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 4.7
 Stable tag: 4.9.3
-Tested up to: 5.2.1
+Tested up to: 5.2.2
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -215,9 +215,10 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
-= [4.9.3] TBD =
+= [4.9.3] 2019-06-05 =
 
 * Fix - Fixed issue where the previous events link was not present on initial page load of the List View [127477]
+* Language - 10 new strings added, 18 updated, 0 fuzzied, and 0 obsoleted
 
 = [4.9.2] 2019-05-16 =
 

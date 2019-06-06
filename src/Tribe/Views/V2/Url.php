@@ -10,7 +10,6 @@ namespace Tribe\Events\Views\V2;
 
 use Tribe__Events__Rewrite as Rewrite;
 use Tribe__Utils__Array as Arr;
-use function GuzzleHttp\Psr7\parse_query;
 
 /**
  * Class Url
@@ -154,7 +153,7 @@ class Url {
 		$this->components = array_merge( static::$default_url_components, parse_url( $this->url ) );
 		$this->query_args = Rewrite::instance()->parse_request( $this->url );
 		if ( ! empty( $this->components['query'] ) ) {
-			$query_component_args = parse_query( $this->components['query'] );
+			parse_str( $this->components['query'], $query_component_args );
 			$this->query_args     = $this->query_overrides_path
 				? array_merge( $this->query_args, $query_component_args )
 				: array_merge( $query_component_args, $this->query_args );
