@@ -1405,7 +1405,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				 * that should be updated here. Do not try to move this conditional unpacking logic
 				 * in the ORM: this is an issue the proxy function should handle ad-hoc.
 				 */
-				$requiring_unpack = [ 'date_overlaps' ];
+				$requiring_unpack = [ 'date_overlaps', 'runs_between' ];
 				foreach ( array_intersect( array_keys( $args ), $requiring_unpack ) as $key ) {
 					$event_orm->by( $key, ...$args[ $key ] );
 					unset( $args[ $key ] );
