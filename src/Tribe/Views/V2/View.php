@@ -517,7 +517,7 @@ class View implements View_Interface {
 			// Make sure the view slug is always set to correctly match rewrites.
 			$input_url = add_query_arg( [ 'eventDisplay' => $this->slug ], $input_url );
 
-			$canonical_url = tribe( 'events-pro.rewrite' )->get_clean_url( $input_url );
+			$canonical_url = tribe( 'events.rewrite' )->get_clean_url( $input_url );
 
 			if ( ! empty( $passthru_vars ) ) {
 				$canonical_url = add_query_arg( $passthru_vars, $canonical_url );
@@ -559,7 +559,7 @@ class View implements View_Interface {
 			// Make sure the view slug is always set to correctly match rewrites.
 			$input_url = add_query_arg( [ 'eventDisplay' => $this->slug ], $input_url );
 
-			$canonical_url = tribe( 'events-pro.rewrite' )->get_clean_url( $input_url );
+			$canonical_url = tribe( 'events.rewrite' )->get_clean_url( $input_url );
 
 			if ( ! empty( $passthru_vars ) ) {
 				$canonical_url = add_query_arg( $passthru_vars, $canonical_url );
