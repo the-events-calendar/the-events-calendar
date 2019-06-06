@@ -111,6 +111,16 @@ class View implements View_Interface {
 	protected $repository_args = [];
 
 	/**
+	 * The key that should be used to indicate the page in an archive.
+	 * Extending classes should not need to modify this.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	protected $page_key = 'paged';
+
+	/**
 	 * Builds a View instance in response to a REST request to the Views endpoint.
 	 *
 	 * @since 4.9.2
@@ -457,7 +467,7 @@ class View implements View_Interface {
 		$page = $this->url->get_current_page();
 
 		if ( $page > 1 ) {
-			$query_args['paged'] = $page;
+			$query_args[ $this->page_key ] = $page;
 		}
 
 		$url = add_query_arg( array_filter( $query_args ), home_url() );
@@ -482,8 +492,8 @@ class View implements View_Interface {
 	public function next_url( $canonical = false, array $passthru_vars = [] ) {
 		$next_page = $this->repository->next();
 
-		$url = $next_page->count() > 0 ?
-			add_query_arg( [ 'paged' => $this->url->get_current_page() + 1 ], $this->get_url() )
+		$url            = $next_page->count() > 0 ?
+			add_query_arg( [ $this->page_key => $this->url->get_current_page() + 1 ], $this->get_url() )
 			: '';
 
 		if ( ! empty( $url ) && $canonical ) {
@@ -496,7 +506,7 @@ class View implements View_Interface {
 			// Make sure the view slug is always set to correctly match rewrites.
 			$input_url = add_query_arg( [ 'eventDisplay' => $this->slug ], $input_url );
 
-			$canonical_url = Rewrite::instance()->get_clean_url( $input_url );
+			$canonical_url = tribe( 'events-pro.rewrite' )->get_clean_url( $input_url );
 
 			if ( ! empty( $passthru_vars ) ) {
 				$canonical_url = add_query_arg( $passthru_vars, $canonical_url );
@@ -517,7 +527,7 @@ class View implements View_Interface {
 		$prev_page  = $this->repository->prev();
 		$paged      = $this->url->get_current_page() - 1;
 		$query_args = $paged > 1
-			? [ 'paged' => $paged ]
+			? [ $this->page_key => $paged ]
 			: [];
 
 		$url = $prev_page->count() > 0 ?
@@ -525,7 +535,7 @@ class View implements View_Interface {
 			: '';
 
 		if ( ! empty( $url ) && $paged === 1 ) {
-			$url = remove_query_arg( 'paged', $url );
+			$url = remove_query_arg( $this->page_key, $url );
 		}
 
 		if ( ! empty( $url ) && $canonical ) {
@@ -538,7 +548,7 @@ class View implements View_Interface {
 			// Make sure the view slug is always set to correctly match rewrites.
 			$input_url = add_query_arg( [ 'eventDisplay' => $this->slug ], $input_url );
 
-			$canonical_url = Rewrite::instance()->get_clean_url( $input_url );
+			$canonical_url = tribe( 'events-pro.rewrite' )->get_clean_url( $input_url );
 
 			if ( ! empty( $passthru_vars ) ) {
 				$canonical_url = add_query_arg( $passthru_vars, $canonical_url );
