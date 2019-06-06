@@ -9,7 +9,6 @@
 
 		@media (--viewport-medium) {
 			display: block;
-			border-radius: 6px;
 			background-color: white;
 			overflow: hidden;
 			position: absolute;
@@ -19,19 +18,16 @@
 
 	.tribe-events-calendar-month__event-multiday--start {
 		@media (--viewport-medium) {
-			border-radius: 6px 0 0 6px;
-			&.tribe-events-calendar-month__event-multiday--end {
-				border-radius: 6px;
-			}
+			border-top-left-radius: 6px;
+			border-bottom-left-radius: 6px;
+
 		}
 	}
 
 	.tribe-events-calendar-month__event-multiday--end {
 		@media (--viewport-medium) {
-			border-radius: 0 6px 6px 0;
-			&.tribe-events-calendar-month__event-multiday--start {
-				border-radius: 6px;
-			}
+			border-top-right-radius: 6px;
+			border-bottom-right-radius: 6px;
 		}
 	}
 
