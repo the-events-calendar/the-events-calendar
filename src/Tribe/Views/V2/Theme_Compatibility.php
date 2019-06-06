@@ -3,7 +3,7 @@
  * Add theme compatibility things here.
  * @TODO: This is an implementation to set a body class we can use in the common implementation.
  * @TODO: Check this once we move forward with the views structure.
- * @since   TBD
+ * @since   4.9.3
  *
  * @package Tribe\Events\Views\V2
  */
@@ -29,7 +29,7 @@ class Theme_Compatibility {
 	/**
 	 * Register
 	 *
-	 * @since  TBD
+	 * @since  4.9.3
 	 *
 	 *
 	 * @return void
@@ -41,7 +41,7 @@ class Theme_Compatibility {
 	 *
 	 * @param string $theme Name of template from WP_Theme->Template, defaults to current active template.
 	 *
-	 * @since TBD
+	 * @since 4.9.3
 	 *
 	 * @return mixed
 	 */
@@ -54,7 +54,7 @@ class Theme_Compatibility {
 		/**
 		 * Allows to filter the theme list with compatibility fixes.
 		 *
-		 * @since  TBD
+		 * @since  4.9.3
 		 *
 		 * @param  array  $themes_with_compatibility_fixes A list of themes we provide compatibility for.
 		 */
@@ -66,7 +66,7 @@ class Theme_Compatibility {
 	/**
 	 * Add the theme to the body class.
 	 *
-	 * @since TBD
+	 * @since 4.9.3
 	 *
 	 * @return array $classes
 	 */

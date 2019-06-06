@@ -23,7 +23,7 @@ class Url {
 	/**
 	 * The URL abstracted by the instance.
 	 *
-	 * @since TBD
+	 * @since 4.9.3
 	 *
 	 * @var string
 	 */
@@ -32,7 +32,7 @@ class Url {
 	/**
 	 * An array of the default URL components produced by the `parse_url` function.
 	 *
-	 * @since TBD
+	 * @since 4.9.3
 	 *
 	 * @var array
 	 */
@@ -51,7 +51,7 @@ class Url {
 	/**
 	 * An array of the URL components as produced by the `parse_url` function.
 	 *
-	 * @since TBD
+	 * @since 4.9.3
 	 *
 	 * @var array
 	 */
@@ -60,7 +60,7 @@ class Url {
 	/**
 	 * An array of the parsed query arguments from the URL.
 	 *
-	 * @since TBD
+	 * @since 4.9.3
 	 *
 	 * @var array
 	 */
@@ -113,7 +113,7 @@ class Url {
 	/**
 	 * Returns the full URL this instance was built on.
 	 *
-	 * @since TBD
+	 * @since 4.9.3
 	 *
 	 * @return string The full URL this instance was built on; an empty string if the URL is not set.
 	 */
@@ -124,7 +124,7 @@ class Url {
 	/**
 	 * Returns the current page number for the URL.
 	 *
-	 * @since TBD
+	 * @since 4.9.3
 	 *
 	 * @return int The current page number if specified in the URL or the default value.
 	 */
@@ -135,7 +135,7 @@ class Url {
 	/**
 	 * Returns the current query arguments
 	 *
-	 * @since TBD
+	 * @since 4.9.3
 	 *
 	 * @return array Returns the current Query Arguments
 	 */
@@ -146,7 +146,7 @@ class Url {
 	/**
 	 * Parses the current URL and initializes its components.
 	 *
-	 * @since TBD
+	 * @since 4.9.3
 	 *
 	 * @return Url This object instance.
 	 */
@@ -166,7 +166,7 @@ class Url {
 	/**
 	 * Adds query args to the object merging them witht the current ones.
 	 *
-	 * @since TBD
+	 * @since 4.9.3
 	 *
 	 * @param array $query_args An associative array of query args to add to the object.
 	 *
@@ -186,7 +186,7 @@ class Url {
 	 * When set to `false`  then `/events/list?eventDisplay=month` will result in an `eventDisplay=list`;
 	 * when set to `true` the resulting `eventDisplay` will be `month`.
 	 *
-	 * @since TBD
+	 * @since 4.9.3
 	 *
 	 * @param bool $query_overrides_path Whether the parameters set in the query should override the ones parsed by the
 	 *                                   path or not.

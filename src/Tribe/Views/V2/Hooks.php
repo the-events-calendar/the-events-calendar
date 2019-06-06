@@ -201,7 +201,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Filters the body classes to add theme compatibility ones.
 	 *
-	 * @since TBD
+	 * @since 4.9.3
 	 */
 	public function body_class( $classes ) {
 		return $this->container->make( Theme_Compatibility::class )->body_class( $classes );
