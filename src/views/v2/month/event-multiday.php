@@ -18,7 +18,6 @@ $event_id = $event->ID;
 $day_number = $this->get( 'day' );
 
 $classes = [ 'tribe-events-calendar-month__event-multiday' ];
-$classes_inner = [ 'tribe-events-calendar-month__event-multiday-inner' ];
 
 // Check if it's featured.
 if ( $is_featured = isset( $event->featured ) && $event->featured ) { // @todo: later use tribe( 'tec.featured_events' )->is_featured( $event_id ) or similar
@@ -31,16 +30,14 @@ if ( $should_display = $event->start_date == $day_number ) { // @todo:later we c
 	// @todo: check if it ends this week or not, and how to split the duration
 	$classes[] = 'tribe-events-calendar-month__event-multiday--width-' . $event->duration;
 
+	// if it ends this week, let's add the start class (left border)
 	if ( isset( $event->start_this_week ) && $event->start_this_week ) {
-		// adding the left border because it starts today
-		$classes_inner[] = 'tribe-events-calendar-month__event-multiday-inner--border-left';
 		$classes[] = 'tribe-events-calendar-month__event-multiday--start';
 	}
 
-	// if it ends this week, let's add the right border
+	// if it ends this week, let's add the end class (right border)
 	$end_this_week = isset( $event->end_this_week ) && $event->end_this_week;
 	if ( $end_this_week ) {
-		$classes_inner[] = 'tribe-events-calendar-month__event-multiday-inner--border-right';
 		$classes[] = 'tribe-events-calendar-month__event-multiday--end';
 	}
 
@@ -53,7 +50,7 @@ if ( $should_display = $event->start_date == $day_number ) { // @todo:later we c
 
 	<article class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>" data-id="<?php echo esc_attr( $event->ID ); ?>">
 		<time datetime="the-date-and-or-duration" class="tribe-common-a11y-visual-hide">The date and duration</time>
-		<a class="<?php echo esc_attr( implode( ' ', $classes_inner ) ); ?>">
+		<a class="tribe-events-calendar-month__event-multiday-inner">
 			<?php if ( $is_featured ) : ?>
 				<em
 					class="tribe-events-calendar-month__event-multiday-featured-icon tribe-common-svgicon tribe-common-svgicon--featured"
