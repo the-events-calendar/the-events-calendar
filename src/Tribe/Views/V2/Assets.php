@@ -48,9 +48,9 @@ class Assets extends \tad_DI52_ServiceProvider {
 
 		tribe_asset(
 			$plugin,
-			'tribe-events-views-v2-scripts',
-			'views/scripts.js',
-			[ 'jquery', 'tribe-common', 'tribe-tooltipster' ], // @todo: check if we're including tooltips only in month view.
+			'tribe-events-views-v2-tooltip',
+			'views/tooltip.js',
+			[ 'jquery', 'tribe-common', 'tribe-events-views-v2-manager', 'tribe-tooltipster' ],
 			'wp_enqueue_scripts',
 			[ 'priority' => 10 ]
 		);

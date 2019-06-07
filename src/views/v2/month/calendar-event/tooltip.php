@@ -15,7 +15,7 @@
 $event    = $this->get( 'event' );
 $event_id = $event->ID;
 ?>
-<div class="tribe-events-tooltip__content">
+<div class="tribe-events-tooltip__content" data-js="tribe-events-tooltip-content">
 	<div
 		id="tooltip_content-<?php echo esc_attr( $event_id ); ?>"
 		class="tribe-events-calendar-month__calendar-event-tooltip"
