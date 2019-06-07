@@ -63,7 +63,7 @@ class ListEventTest extends TestHtmlCase {
 		$this->assertEquals(
 			$html->find( '.tribe-events-calendar-list__event--featured' )->count(),
 			1,
-			'List Event HTML needs to contain one ".tribe-events-calendar-list__event" element when having a featured event'
+			'List Event HTML needs to contain one ".tribe-events-calendar-list__event--featured" element when having a featured event'
 		);
 
 	}
