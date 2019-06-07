@@ -15,12 +15,12 @@
 $event    = $this->get( 'event' );
 $event_id = $event->ID;
 ?>
-<div class="tribe-events-tooltip__content" data-js="tribe-events-tooltip-content">
-	<div
-		id="tooltip_content-<?php echo esc_attr( $event_id ); ?>"
-		class="tribe-events-calendar-month__calendar-event-tooltip"
-		role="tooltip"
-	>
+<div
+	class="tribe-events-calendar-month__calendar-event-tooltip"
+	data-js="tribe-events-tooltip-content"
+	role="tooltip"
+>
+	<div id="tooltip_content-<?php echo esc_attr( $event_id ); ?>">
 		<?php $this->template( 'month/calendar-event/tooltip/featured-image', [ 'event' => $event ] ); ?>
 		<?php $this->template( 'month/calendar-event/tooltip/description', [ 'event' => $event ] ); ?>
 		<?php $this->template( 'month/calendar-event/tooltip/cta', [ 'event' => $event ] ); ?>
