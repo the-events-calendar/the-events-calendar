@@ -34,17 +34,22 @@ class List_View extends View {
 
 		$this->setup_the_loop( $args );
 
+		$events        = $this->repository->all();
+
 		/*
 		 * Here we pass to the template a trimmed down version of the View render context and we set it as global to
 		 * make it available to any view using the template.
 		 * Ideally one that contains only the variables the template will need to render.
 		 */
+		$url           = $this->get_url( true );
+		$prev_url      = $this->prev_url( true );
+		$next_url      = $this->next_url( true );
 		$template_vars = [
 			'title'    => wp_title( null, false ),
-			'events'   => $this->repository->all(),
-			'url'      => $this->get_url( true ),
-			'prev_url' => $this->prev_url( true ),
-			'next_url' => $this->next_url( true ),
+			'events'   => $events,
+			'url'      => $url,
+			'prev_url' => $prev_url,
+			'next_url' => $next_url,
 		];
 
 		$template_vars = $this->filter_template_vars( $template_vars );
@@ -62,7 +67,7 @@ class List_View extends View {
 	 * {@inheritDoc}
 	 */
 	public function prev_url( $canonical = false, array $passthru_vars = [] ) {
-		$current_page = (int) $this->context->get( 'paged', 1 );
+		$current_page = (int) $this->context->get( 'page', 1 );
 		$display      = $this->context->get( 'event_display_mode', 'list' );
 
 		if ( 'past' === $display ) {
@@ -82,10 +87,10 @@ class List_View extends View {
 	 * {@inheritDoc}
 	 */
 	public function next_url( $canonical = false, array $passthru_vars = [] ) {
-		$current_page = (int) $this->context->get( 'paged', 1 );
+		$current_page = (int) $this->context->get( 'page', 1 );
 		$display      = $this->context->get( 'event_display_mode', 'list' );
 
-		if ( 'list' === $display ) {
+		if ( $this->slug === $display ) {
 			$url = parent::next_url( $canonical );
 		} else if ( $current_page > 1 ) {
 			$url = parent::prev_url( $canonical, [ 'eventDisplay' => 'past' ] );
@@ -121,7 +126,7 @@ class List_View extends View {
 			$url = clone $this->url->add_query_args( array_filter( [
 				'eventDisplay' => 'past',
 				'eventDate'    => $default_date === $date ? '' : $date,
-				'paged'        => $page,
+				$this->page_key        => $page,
 			] ) );
 
 			$past_url = (string) $url;
@@ -162,7 +167,7 @@ class List_View extends View {
 			$url = clone $this->url->add_query_args( array_filter( [
 				'eventDisplay' => 'list',
 				'eventDate'    => $default_date === $date ? '' : $date,
-				'paged'        => $page,
+				$this->page_key        => $page,
 			] ) );
 
 			return (string) $url;
@@ -189,7 +194,7 @@ class List_View extends View {
 		 */
 		$args = [
 			'posts_per_page' => $context_arr['posts_per_page'],
-			'paged'          => max( Arr::get( $context_arr, 'paged', 1 ), 1 ),
+			'paged'          => max( Arr::get( $context_arr, 'page', 1 ), 1 ),
 		];
 
 		$date = Arr::get( $context_arr, 'event_date', 'now' );

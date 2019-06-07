@@ -128,7 +128,7 @@ class Url {
 	 * @return int The current page number if specified in the URL or the default value.
 	 */
 	public function get_current_page() {
-		return Arr::get( $this->get_query_args(), 'paged', 1 );
+		return Arr::get_first_set( $this->get_query_args(), [ 'paged', 'page' ], 1 );
 	}
 
 	/**

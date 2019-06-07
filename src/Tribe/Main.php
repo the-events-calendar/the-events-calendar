@@ -536,6 +536,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// The ORM/Repository service provider.
 			tribe_register_provider( 'Tribe__Events__Service_Providers__ORM' );
 
+			tribe_singleton( 'events.rewrite', Tribe__Events__Rewrite::class );
+
 			// The Views v2 service provider.
 			tribe_register_provider( Views::class );
 

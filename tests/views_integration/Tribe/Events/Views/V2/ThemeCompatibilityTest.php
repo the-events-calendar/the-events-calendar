@@ -87,10 +87,10 @@ class ThemeCompatibilityTest extends \Codeception\TestCase\WPTestCase {
 		update_option( 'stylesheet', 'invalid-value-for-theme' );
 
 		add_filter(
-			'tribe_events_views_v2_theme_compatibility_registred',
-			function( $themes ) use ( $theme ) {
+			'tribe_events_views_v2_theme_compatibility_registered',
+			static function( $themes ) use ( $theme ) {
 				$themes[] = $theme;
-				return $theme;
+				return $themes;
 			}
 		);
 
@@ -102,16 +102,16 @@ class ThemeCompatibilityTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * @test
 	 */
-	public function should_need_compatibility_for_supported_themes_in_stylesheet_but_not_in_template() {
+	public function should_need_compatibility_for_supported_themes_in_stylesheet_and_template() {
 		$theme = 'valid-theme';
-		update_option( 'template', 'invalid-value-for-theme' );
+		update_option( 'template', $theme );
 		update_option( 'stylesheet', $theme );
 
 		add_filter(
-			'tribe_events_views_v2_theme_compatibility_registred',
-			function( $themes ) use ( $theme ) {
+			'tribe_events_views_v2_theme_compatibility_registered',
+			static function( $themes ) use ( $theme ) {
 				$themes[] = $theme;
-				return $theme;
+				return $themes;
 			}
 		);
 
