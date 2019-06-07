@@ -3,7 +3,7 @@
  * The Month View.
  *
  * @package Tribe\Events\Views\V2\Views
- * @since TBD
+ * @since 4.9.3
  */
 
 namespace Tribe\Events\Views\V2\Views;
@@ -16,7 +16,7 @@ class Month_View extends View {
 	/**
 	 * Slug for this view
 	 *
-	 * @since TBD
+	 * @since 4.9.3
 	 *
 	 * @var string
 	 */
@@ -26,7 +26,7 @@ class Month_View extends View {
 	/**
 	 * Get HTML method
 	 *
-	 * @since TBD
+	 * @since 4.9.3
 	 *
 	 */
 	public function get_html() {

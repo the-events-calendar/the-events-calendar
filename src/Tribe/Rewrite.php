@@ -3,6 +3,7 @@
 defined( 'WPINC' ) or die;
 
 use Tribe__Events__Main as TEC;
+use Tribe__Main as Common;
 
 /**
  * Rewrite Configuration Class
@@ -14,6 +15,30 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 	 * @var boolean
 	 */
 	protected $hook_lock = false;
+
+	/**
+	 * Static Singleton Factory Method
+	 *
+	 * @return Tribe__Events__Rewrite
+	 */
+	public static function instance( $wp_rewrite = null ) {
+		if ( version_compare( Common::VERSION, '4.9.11-dev', '>=' ) ) {
+			return parent::instance();
+		}
+
+		/**
+		 * Deprecated piece of code, but we need it in place to make sure
+		 * we dont break with older version of Event Tickets.
+		 *
+		 * @todo  remove once we have common version compare back working
+		 */
+		if ( ! static::$instance ) {
+			static::$instance = new static;
+			static::$instance->setup();
+		}
+
+		return static::$instance;
+	}
 
 	/**
 	 * Generate the Rewrite Rules

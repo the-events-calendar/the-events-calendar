@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version TBD
+ * @version 4.9.3
  *
  */
 tribe_events_get_url( [ 'paged' => 1 ], $view->get_url() );

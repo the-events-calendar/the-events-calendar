@@ -2,7 +2,7 @@
 /**
  * Mock WPML main class.
  *
- * @since   TBD
+ * @since   4.9.3
  * @package Tribe\Events\Test
  */
 

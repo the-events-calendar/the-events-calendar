@@ -2,7 +2,7 @@
 /**
  * Classes implementing this interface will provide methods to set and get a repository instance.
  *
- * @since   TBD
+ * @since   4.9.3
  * @package Tribe\Events\Views\V2\Interfaces
  */
 
@@ -14,7 +14,7 @@ use Tribe__Repository__Interface as Repository;
 /**
  * Class Repository_User_Interface
  *
- * @since   TBD
+ * @since   4.9.3
  * @package Tribe\Events\Views\V2\Interfaces
  */
 interface Repository_User_Interface {
@@ -22,7 +22,7 @@ interface Repository_User_Interface {
 	/**
 	 * Sets the repository the instance should use.
 	 *
-	 * @since TBD
+	 * @since 4.9.3
 	 *
 	 * @param  Repository  $repository The repository object the instance should use or `null` to unset it.
 	 */
@@ -31,7 +31,7 @@ interface Repository_User_Interface {
 	/**
 	 * Returns the repository currently used by the instance, if any.
 	 *
-	 * @since TBD
+	 * @since 4.9.3
 	 *
 	 * @return Repository|null The repository instance used by the instance or `null` if the instance is not using a
 	 *                         repository.
@@ -41,7 +41,7 @@ interface Repository_User_Interface {
 	/**
 	 * Restores the loop variables by restoring the global query.
 	 *
-	 * @since TBD
+	 * @since 4.9.3
 	 */
 	public function restore_the_loop();
 }
