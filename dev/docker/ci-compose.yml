@@ -49,7 +49,7 @@ services:
 
   chromedriver:
     container_name: ci_chromedriver
-    image: selenium/standalone-chrome
+    image: selenium/standalone-chrome:3.141.59-oxygen
     depends_on:
       - db
       - wordpress
