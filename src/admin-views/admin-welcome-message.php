@@ -45,7 +45,7 @@
 		<h4 data-tribe-icon="dashicons-megaphone"><?php esc_html_e( "Don't Miss Out", 'the-events-calendar' ); ?></h4>
 		<p><?php esc_html_e( 'Get the latest on The Events Calendar, occasional discounts, and hilarious gifs delivered straight to your inbox.', 'the-events-calendar' ); ?></p>
 
-		<form action="http://support-api.tri.be/mailing-list/subscribe" method="post">
+		<form action="https://support-api.tri.be/mailing-list/subscribe" method="post">
 			<p><input id="fieldEmail" class="regular-text" name="email" type="email" placeholder="<?php esc_attr_e( 'Email', 'the-events-calendar' ); ?>" required /></p>
 			<div>
 				<input id="cm-privacy-consent" name="consent" required type="checkbox" role="checkbox" aria-checked="false" />
