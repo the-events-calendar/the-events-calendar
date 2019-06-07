@@ -1,8 +1,9 @@
 <?php
 /**
  * Add theme compatibility things here.
- * @TODO: This is an implementation to set a body class we can use in the common implementation.
- * @TODO: Check this once we move forward with the views structure.
+ *
+ * @todo  This is an implementation to set a body class we can use in the common implementation.
+ *
  * @since   4.9.3
  *
  * @package Tribe\Events\Views\V2
@@ -10,13 +11,17 @@
 namespace Tribe\Events\Views\V2;
 
 use Tribe\Events\Views\V2\Template_Bootstrap;
+use Tribe__Container as Container;
 
 class Theme_Compatibility {
-
-	/*
-	 * List of themes which have compatibility fixes
+	/**
+	 * List of themes which have compatibility.
+	 *
+	 * @since TBD
+	 *
+	 * @var   array
 	 */
-	public $themes_with_compatibility_fixes = [
+	protected $themes = [
 		'avada',
 		'divi',
 		'enfold',
@@ -25,42 +30,27 @@ class Theme_Compatibility {
 		'twentynineteen',
 	];
 
-
-	/**
-	 * Register
-	 *
-	 * @since  4.9.3
-	 *
-	 *
-	 * @return void
-	 */
-	public function register() {}
-
 	/**
 	 * Checks if theme needs a compatibility fix.
 	 *
-	 * @param string $theme Name of template from WP_Theme->Template, defaults to current active template.
-	 *
-	 * @since 4.9.3
-	 *
-	 * @return mixed
+	 * @since  4.9.3
+   *
+	 * @return boolean
 	 */
-	public function needs_compatibility_fix( $theme = null ) {
-		// Defaults to current active theme
-		if ( $theme === null ) {
-			$theme = get_stylesheet();
+	public function is_compatibility_required() {
+		$template = get_template();
+		$stylesheet = get_stylesheet();
+
+		// Prevents empty stylesheet or template
+		if ( empty( $template ) || empty( $stylesheet ) ) {
+			return false;
 		}
 
-		/**
-		 * Allows to filter the theme list with compatibility fixes.
-		 *
-		 * @since  4.9.3
-		 *
-		 * @param  array  $themes_with_compatibility_fixes A list of themes we provide compatibility for.
-		 */
-		$theme_compatibility_list = apply_filters( 'tribe_events_views_v2_themes_compatibility_fixes', $this->themes_with_compatibility_fixes );
+		if ( in_array( $template, $this->get_registered_themes() ) ) {
+			return true;
+		}
 
-		return in_array( $theme, $theme_compatibility_list );
+		return false;
 	}
 
 	/**
@@ -68,31 +58,66 @@ class Theme_Compatibility {
 	 *
 	 * @since 4.9.3
 	 *
+	 * @param  array $classes Classes that are been passed to the body.
+	 *
 	 * @return array $classes
 	 */
-	public function body_class( $classes ) {
-
-		if (
-			! tribe( Template_Bootstrap::class )->should_load()
-			|| ! $this->needs_compatibility_fix()
-		) {
+	public function filter_add_body_classes( array $classes ) {
+		if ( ! tribe( Template_Bootstrap::class )->should_load() ) {
 			return $classes;
 		}
 
-		$child_theme  = get_option( 'stylesheet' );
-		$parent_theme = get_option( 'template' );
-
-		// if the 2 options are the same, then there is no child theme.
-		if ( $child_theme == $parent_theme ) {
-			$child_theme = false;
+		if ( ! $this->is_compatibility_required() ) {
+			return $classes;
 		}
 
-		$classes[] = "tribe-theme-$parent_theme";
+		return array_merge( $classes, $this->get_body_classes() );
+	}
 
-		if ( $child_theme ) {
-			$classes[] = "tribe-theme-child-$child_theme";
+	/**
+	 * Fetches the correct class strings for theme and child theme if available.
+	 *
+	 * @since 4.9.3
+	 *
+	 * @return array $classes
+	 */
+	public function get_body_classes() {
+		$classes      = [];
+		$child_theme  = get_stylesheet();
+		$parent_theme = get_template();
+
+		// Prevents empty stylesheet or template
+		if ( empty( $parent_theme ) || empty( $child_theme ) ) {
+			return $classes;
+		}
+
+		$classes[] = sanitize_html_class( "tribe-theme-$parent_theme" );
+
+		// if the 2 options are the same, then there is no child theme.
+		if ( $child_theme !== $parent_theme ) {
+			$classes[] = sanitize_html_class( "tribe-theme-child-$child_theme" );
 		}
 
 		return $classes;
+	}
+
+	/**
+	 * Returns a list of themes registred for compatibility with our Views.
+	 *
+	 * @since  TBD
+	 *
+	 * @return array An array of the themes registred.
+	 */
+	public function get_registered_themes() {
+		/**
+		 * Filters the list of themes that are registred for compatibility.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $registered An associative array of views in the shape `[ <slug> => <class> ]`.
+		 */
+		$registered = apply_filters( 'tribe_events_views_v2_theme_compatibility_registered', $this->themes );
+
+		return (array) $registered;
 	}
 }
