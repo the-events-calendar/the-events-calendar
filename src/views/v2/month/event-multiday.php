@@ -51,7 +51,7 @@ if ( $should_display = $event->start_date == $day_number ) { // @todo:later we c
 ?>
 <div class="tribe-events-calendar-month__event-multiday-wrapper">
 
-	<div class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>">
+	<article class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>" data-id="<?php echo esc_attr( $event->ID ); ?>">
 		<time datetime="the-date-and-or-duration" class="tribe-common-a11y-visual-hide">The date and duration</time>
 		<a class="<?php echo esc_attr( implode( ' ', $classes_inner ) ); ?>">
 			<?php if ( $is_featured ) : ?>
@@ -65,6 +65,6 @@ if ( $should_display = $event->start_date == $day_number ) { // @todo:later we c
 				<?php echo $event->title; ?>
 			</h3>
 		</a>
-	</div>
+	</article>
 
 </div>
