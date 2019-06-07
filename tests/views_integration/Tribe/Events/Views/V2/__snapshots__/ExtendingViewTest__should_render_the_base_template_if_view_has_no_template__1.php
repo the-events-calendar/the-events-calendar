@@ -8,14 +8,14 @@
 				<ul>
 					<li>Id: <code>child-theme</code></li>
 					<li>Priority: <code>10</code></li>
-					<li>Path: <code>/themes/twentyseventeen/tribe/events</code></li>
+					<li>Path: <code>/themes/twentynineteen/tribe/events</code></li>
 				</ul>
 			</li>
 					<li>
 				<ul>
 					<li>Id: <code>parent-theme</code></li>
 					<li>Priority: <code>15</code></li>
-					<li>Path: <code>/themes/twentyseventeen/tribe/events</code></li>
+					<li>Path: <code>/themes/twentynineteen/tribe/events</code></li>
 				</ul>
 			</li>
 					<li>
@@ -37,12 +37,12 @@
         {
             &quot;id&quot;: &quot;child-theme&quot;,
             &quot;priority&quot;: 10,
-            &quot;path&quot;: &quot;\\/themes\\/twentyseventeen\\/tribe\\/events&quot;
+            &quot;path&quot;: &quot;\\/themes\\/twentynineteen\\/tribe\\/events&quot;
         },
         {
             &quot;id&quot;: &quot;parent-theme&quot;,
             &quot;priority&quot;: 15,
-            &quot;path&quot;: &quot;\\/themes\\/twentyseventeen\\/tribe\\/events&quot;
+            &quot;path&quot;: &quot;\\/themes\\/twentynineteen\\/tribe\\/events&quot;
         },
         {
             &quot;id&quot;: &quot;plugin&quot;,
