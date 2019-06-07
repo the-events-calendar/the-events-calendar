@@ -29,7 +29,7 @@ if ( $is_featured = isset( $event->featured ) && $event->featured ) { // @todo: 
 if ( $starts_today = $event->start_date == $day_number ) { // @todo:later we can check mm/dd or even year
 
 	// @todo: check if it ends this week or not, in order to split the duration
-	$classes[] = 'tribe-events-calendar-month__event-multiday-width-' . $event->duration;
+	$classes[] = 'tribe-events-calendar-month__event-multiday--width-' . $event->duration;
 
 	if ( isset( $event->start_this_week ) && $event->start_this_week ) {
 		// adding the left border because it starts today
