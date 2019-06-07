@@ -189,7 +189,6 @@ tribe_aggregator.fields = {
 				if ( '' !== origin ) {
 					$( obj.selector.post_status )
 						.val( ea.default_settings[ origin ][ 'post_status' ] )
-						.select2( 'val', ea.default_settings[ origin ][ 'post_status' ] )
 						.trigger( 'change' );
 				}
 
@@ -534,7 +533,6 @@ tribe_aggregator.fields = {
 
 				$setting_field
 					.val( ea.default_settings[ origin ][ settings_key ] )
-					.select2( 'val', ea.default_settings[ origin ][ settings_key ] )
 					.trigger( 'change' );
 			}
 		}
