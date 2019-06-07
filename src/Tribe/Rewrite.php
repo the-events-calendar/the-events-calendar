@@ -216,6 +216,10 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 	 * @return object         Return Base Slugs with l10n variations
 	 */
 	public function get_bases( $method = 'regex' ) {
+		if ( ! empty( $this->bases ) ) {
+			return (object) $this->bases;
+		}
+
 		$tec = Tribe__Events__Main::instance();
 
 		$default_bases = [
