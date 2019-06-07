@@ -222,6 +222,19 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 
 		$tec = Tribe__Events__Main::instance();
 
+		$default_bases = [
+			'month'    => [ 'month', $tec->monthSlug ],
+			'list'     => [ 'list', $tec->listSlug ],
+			'today'    => [ 'today', $tec->todaySlug ],
+			'day'      => [ 'day', $tec->daySlug ],
+			'tag'      => [ 'tag', $tec->tag_slug ],
+			'tax'      => [ 'category', $tec->category_slug ],
+			'page'     => [ 'page', esc_html_x( 'page', 'The "/page/" URL string component.', 'the-events-calendar' ) ],
+			'single'   => [ tribe_get_option( 'singleEventSlug', 'event' ), $tec->rewriteSlugSingular ],
+			'archive'  => [ tribe_get_option( 'eventsSlug', 'events' ), $tec->rewriteSlug ],
+			'featured' => [ 'featured', $tec->featured_slug ],
+		];
+
 		/**
 		 * If you want to modify the base slugs before the i18n happens filter this use this filter
 		 * All the bases need to have a key and a value, they might be the same or not.
@@ -238,21 +251,9 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 		 * Means that is a value that can be overwritten and relies on the user value entered on the
 		 * options page.
 		 *
-		 * @var array $bases
+		 * @param array $bases
 		 */
-		$bases = apply_filters( 'tribe_events_rewrite_base_slugs', array(
-			'month'    => array( 'month', $tec->monthSlug ),
-			'list'     => array( 'list', $tec->listSlug ),
-			'today'    => array( 'today', $tec->todaySlug ),
-			'day'      => array( 'day', $tec->daySlug ),
-			'tag'      => array( 'tag', $tec->tag_slug ),
-			'tax'      => array( 'category', $tec->category_slug ),
-			'page'     => array( 'page', esc_html_x( 'page', 'The "/page/" URL string component.', 'the-events-calendar' ) ),
-			'single'   => array( Tribe__Settings_Manager::get_option( 'singleEventSlug', 'event' ), $tec->rewriteSlugSingular ),
-			'archive'  => array( Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' ), $tec->rewriteSlug ),
-			'featured' => array( 'featured', $tec->featured_slug ),
-		) );
-
+		$bases = apply_filters( 'tribe_events_rewrite_base_slugs', $default_bases );
 
 		// Remove duplicates (no need to have 'month' twice if no translations are in effect, etc)
 		$bases = array_map( 'array_unique', $bases );
@@ -451,7 +452,7 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 	 * {@inheritDoc}
 	 */
 	protected function get_localized_matchers() {
-		$localized_matchers =  parent::get_localized_matchers();
+		$localized_matchers = parent::get_localized_matchers();
 
 		// Handle the dates.
 		$localized_matchers['(\d{4}-\d{2})']       = 'eventDate';
@@ -492,7 +493,7 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 					// Remove leading/trailing slashes to get something like `grand-parent/parent/child`.
 					$category_slug = trim( $category_slug, '/' );
 
-					$dynamic_matchers["{$cat_regex}/(?:[^/]+/)*([^/]+)"] = "{$localized_slug}/{$category_slug}";
+					$dynamic_matchers[ "{$cat_regex}/(?:[^/]+/)*([^/]+)" ] = "{$localized_slug}/{$category_slug}";
 				}
 			}
 		}

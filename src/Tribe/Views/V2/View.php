@@ -97,7 +97,7 @@ class View implements View_Interface {
 	/**
 	 * An associative array of global variables backed up by the view before replacing the global loop.
 	 *
-	 * @since TBD
+	 * @since 4.9.3
 	 *
 	 * @var array
 	 */
@@ -106,7 +106,7 @@ class View implements View_Interface {
 	/**
 	 * An associative array of the arguments used to setup the repository filters.
 	 *
-	 * @since TBD
+	 * @since 4.9.3
 	 *
 	 * @var array
 	 */
@@ -164,7 +164,7 @@ class View implements View_Interface {
 		 *
 		 * This filter will trigger for all Views.
 		 *
-		 * @since TBD
+		 * @since 4.9.3
 		 *
 		 * @param array $params An associative array of parameters from the REST request.
 		 * @param \WP_REST_Request $request The current REST request.
@@ -175,7 +175,7 @@ class View implements View_Interface {
 			/**
 			 * Filters the parameters that will be used to build a specific View class for a REST request.
 			 *
-			 * @since TBD
+			 * @since 4.9.3
 			 *
 			 * @param  array             $params   An associative array of parameters from the REST request.
 			 * @param  \WP_REST_Request  $request  The current REST request.
@@ -245,7 +245,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the Template object for a View.
 		 *
-		 * @since TBD
+		 * @since 4.9.3
 		 *
 		 * @param  \Tribe\Events\Views\V2\Template  $template  The template object for the View.
 		 * @param  string                           $view      The current view slug.
@@ -256,7 +256,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the Template object for a specific View.
 		 *
-		 * @since TBD
+		 * @since 4.9.3
 		 *
 		 * @param  \Tribe\Events\Views\V2\Template  $template  The template object for the View.
 		 * @param  \Tribe\Events\Views\V2\View      $instance  The current View object.
@@ -276,7 +276,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the Context object for a View.
 		 *
-		 * @since TBD
+		 * @since 4.9.3
 		 *
 		 * @param  \Tribe__Context  $view_context  The context abstraction object that will be passed to the
 		 *                                         view.
@@ -288,7 +288,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the Context object for a specific View.
 		 *
-		 * @since TBD
+		 * @since 4.9.3
 		 *
 		 * @param  \Tribe__Context              $view_context  The context abstraction object that will be passed to the
 		 *                                                     view.
@@ -305,7 +305,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the Repository object for a View.
 		 *
-		 * @since TBD
+		 * @since 4.9.3
 		 *
 		 * @param \Tribe__Repository__Interface $view_repository The repository instance the View will use.
 		 * @param string                        $view            The current view slug.
@@ -316,7 +316,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the Repository object for a specific View.
 		 *
-		 * @since TBD
+		 * @since 4.9.3
 		 *
 		 * @param \Tribe__Repository__Interface $view_repository The repository instance the View will use.
 		 * @param \Tribe\Events\Views\V2\View   $instance        The current View object.
@@ -607,7 +607,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the arguments that will be used to build the View repository.
 		 *
-		 * @since TBD
+		 * @since 4.9.3
 		 *
 		 * @param  array  $args  An array of arguments that should be used to build the repository instance.
 		 * @param  View   $this  The current View object.
@@ -639,7 +639,7 @@ class View implements View_Interface {
 	/**
 	 * Sets a View URL object either from some arguments or from the current URL.
 	 *
-	 * @since TBD
+	 * @since 4.9.3
 	 *
 	 * @param  array|null  $args An associative array of arguments that will be mapped to the corresponding query
 	 *                           arguments by the View, or `null` to use the current URL.
@@ -660,7 +660,7 @@ class View implements View_Interface {
 	/**
 	 * Maps a set of arguments to query arguments, ready to be appended to a URL.
 	 *
-	 * @since TBD
+	 * @since 4.9.3
 	 *
 	 * @param  array  $args An associative array of arguments to map (translate) to query arguments.
 	 *
@@ -685,7 +685,7 @@ class View implements View_Interface {
 	 * Template variables are exported, alongside being set, in the template context: the keys of the variables array
 	 * will become the names of the exported variables.
 	 *
-	 * @since TBD
+	 * @since 4.9.3
 	 *
 	 * @param array $template_vars An associative array of variables that will be set, and exported, in the template.
 	 *
@@ -695,7 +695,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the variables that will be set on the View template.
 		 *
-		 * @since TBD
+		 * @since 4.9.3
 		 *
 		 * @param array          $template_vars An associative array of template variables. Variables will be extracted in the
 		 *                                      template hence the key will be the name of the variable available in the
@@ -710,7 +710,7 @@ class View implements View_Interface {
 	/**
 	 * Filters the previous (page, event, etc.) URL returned for a specific View.
 	 *
-	 * @since TBD
+	 * @since 4.9.3
 	 *
 	 * @param  bool $canonical Whether the normal or canonical version of the next URL is being requested.
 	 * @param string $url The previous URL, this could be an empty string if the View does not have a next.
@@ -721,7 +721,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the previous (page, event, etc.) URL returned for a View.
 		 *
-		 * @since TBD
+		 * @since 4.9.3
 		 *
 		 * @param string         $url       The View previous (page, event, etc.) URL.
 		 * @param bool           $canonical Whether the URL is a canonical one or not.
@@ -732,7 +732,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the previous (page, event, etc.) URL returned for a specific View.
 		 *
-		 * @since TBD
+		 * @since 4.9.3
 		 *
 		 * @param string         $url       The View previous (page, event, etc.) URL.
 		 * @param bool           $canonical Whether the URL is a canonical one or not.
@@ -746,7 +746,7 @@ class View implements View_Interface {
 	/**
 	 * Filters the next (page, event, etc.) URL returned for a specific View.
 	 *
-	 * @since TBD
+	 * @since 4.9.3
 	 *
 	 * @param  bool $canonical Whether the normal or canonical version of the next URL is being requested.
 	 * @param string $url The next URL, this could be an empty string if the View does not have a next.
@@ -757,7 +757,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the next (page, event, etc.) URL returned for a View.
 		 *
-		 * @since TBD
+		 * @since 4.9.3
 		 *
 		 * @param string         $url       The View next (page, event, etc.) URL.
 		 * @param bool           $canonical Whether the URL is a canonical one or not.
@@ -768,7 +768,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the next (page, event, etc.) URL returned for a specific View.
 		 *
-		 * @since TBD
+		 * @since 4.9.3
 		 *
 		 * @param string         $url       The View next (page, event, etc.) URL.
 		 * @param bool           $canonical Whether the URL is a canonical one or not.
@@ -782,7 +782,7 @@ class View implements View_Interface {
 	/**
 	 * Sets up the View repository arguments from the View context or a provided Context object.
 	 *
-	 * @since TBD
+	 * @since 4.9.3
 	 *
 	 * @param \Tribe__Context|null $context A context to use to setup the args, or `null` to use the View Context.
 	 *
@@ -796,7 +796,7 @@ class View implements View_Interface {
 	/**
 	 * Filters the current URL returned for a specific View.
 	 *
-	 * @since TBD
+	 * @since 4.9.3
 	 *
 	 * @param  bool $canonical Whether the normal or canonical version of the next URL is being requested.
 	 * @param string $url The previous URL, this could be an empty string if the View does not have a next.
@@ -807,7 +807,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the URL returned for a View.
 		 *
-		 * @since TBD
+		 * @since 4.9.3
 		 *
 		 * @param string         $url       The View current URL.
 		 * @param bool           $canonical Whether the URL is a canonical one or not.
@@ -818,7 +818,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the URL returned for a specific View.
 		 *
-		 * @since TBD
+		 * @since 4.9.3
 		 *
 		 * @param string         $url       The View current URL.
 		 * @param bool           $canonical Whether the URL is a canonical one or not.

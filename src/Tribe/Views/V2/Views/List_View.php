@@ -16,7 +16,7 @@ class List_View extends View {
 	/**
 	 * Slug for this view
 	 *
-	 * @since TBD
+	 * @since 4.9.3
 	 *
 	 * @var string
 	 */
@@ -26,7 +26,7 @@ class List_View extends View {
 	/**
 	 * Get HTML method
 	 *
-	 * @since TBD
+	 * @since 4.9.3
 	 *
 	 */
 	public function get_html() {
@@ -106,7 +106,7 @@ class List_View extends View {
 	/**
 	 * Return the URL to a page of past events.
 	 *
-	 * @since TBD
+	 * @since 4.9.3
 	 *
 	 * @param bool $canonical Whether to return the canonical version of the URL or the normal one.
 	 * @param int  $page The page to return the URL for.
@@ -147,7 +147,7 @@ class List_View extends View {
 	/**
 	 * Return the URL to a page of upcoming events.
 	 *
-	 * @since TBD
+	 * @since 4.9.3
 	 *
 	 * @param bool $canonical Whether to return the canonical version of the URL or the normal one.
 	 * @param int  $page The page to return the URL for.
