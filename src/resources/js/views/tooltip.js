@@ -7,9 +7,10 @@
  */
 tribe.events = tribe.events || {};
 tribe.events.views = tribe.events.views || {};
+tribe.events.views.manager = tribe.events.views.manager || {};
 
 /**
- * Configures Views Object in the Global Tribe variable
+ * Configures Views Tooltip Object in the Global Tribe variable
  *
  * @since  TBD
  *
@@ -24,7 +25,7 @@ tribe.events.views.tooltip = {};
  *
  * @param  {PlainObject} $   jQuery
  * @param  {PlainObject} _   Underscore.js
- * @param  {PlainObject} obj tribe.events.views.scripts
+ * @param  {PlainObject} obj tribe.events.views.tooltip
  *
  * @return {void}
  */
@@ -45,6 +46,53 @@ tribe.events.views.tooltip = {};
 	};
 
 	/**
+	 * Override of the `functionInit` tooltipster method.
+	 *
+	 * A custom function to be fired only once at instantiation.
+	 *
+	 * @since TBD
+	 *
+	 */
+	obj.onFunctionInit = function( instance, helper ) {
+
+		var content = $( helper.origin ).find( obj.selectors.tooltipContent ).html();
+		instance.content( content );
+		$( helper.origin )
+			.focus( function() {
+				$( this ).tooltipster( 'open' );
+			})
+			.blur( function() {
+				$( this ).tooltipster( 'close' );
+		});
+	};
+
+	/**
+	 * Override of the `functionReady` tooltipster method.
+	 *
+	 * A custom function to be fired when the tooltip and its contents have been added to the DOM.
+	 *
+	 * @since TBD
+	 *
+	 */
+	obj.onFunctionReady = function( instance, helper ) {
+
+		$( helper.origin ).find( obj.selectors.tooltipContent ).attr( 'aria-hidden', false );
+	};
+
+	/**
+	 * Override of the `functionAfter` tooltipster method.
+	 *
+	 * A custom function to be fired once the tooltip has been closed and removed from the DOM.
+	 *
+	 * @since TBD
+	 *
+	 */
+	obj.onFunctionAfter = function( instance, helper ) {
+
+		$( helper.origin ).find( obj.selectors.tooltipContent ).attr( 'aria-hidden', true );
+	};
+
+	/**
 	 * Initialize accessible tooltips via tooltipster
 	 *
 	 * @since TBD
@@ -56,24 +104,17 @@ tribe.events.views.tooltip = {};
 			interactive: true,
 			theme: [ 'tribe-common', 'tribe-events', 'tribe-events-tooltip-theme' ],
 			functionInit: function( instance, helper ) {
-				var content = $( helper.origin ).find( obj.selectors.tooltipContent ).html();
-				instance.content( content );
-				$( helper.origin )
-					.focus( function() {
-						$( this ).tooltipster( 'open' );
-					})
-					.blur( function() {
-						$( this ).tooltipster( 'close' );
-				});
+				obj.onFunctionInit( instance, helper );
 			},
 			functionReady: function( instance, helper ) {
-				$( helper.origin ).find( obj.selectors.tooltipContent ).attr( 'aria-hidden', false );
+				obj.onFunctionReady( instance, helper );
 			},
 			functionAfter: function( instance, helper ) {
-				$( helper.origin ).find( obj.selectors.tooltipContent ).attr( 'aria-hidden', true );
+				obj.onFunctionAfter( instance, helper );
 			}
 		} );
 	};
+
 
 	/**
 	 * Handles the initialization of the scripts when Document is ready
@@ -83,9 +124,7 @@ tribe.events.views.tooltip = {};
 	 * @return {void}
 	 */
 	obj.ready = function() {
-
-		obj.initTooltips();
-
+		tribe.events.views.manager.$containers.on( 'afterSetup.tribeEvents', obj.initTooltips() );
 	};
 
 	// Configure on document ready
