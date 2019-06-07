@@ -28,7 +28,7 @@ if ( $is_featured = isset( $event->featured ) && $event->featured ) { // @todo: 
 // If it starts today and this week, let's add the left border and set the width
 if ( $should_display = $event->start_date == $day_number ) { // @todo:later we can check mm/dd or even year
 
-	// @todo: check if it ends this week or not, in order to split the duration
+	// @todo: check if it ends this week or not, and how to split the duration
 	$classes[] = 'tribe-events-calendar-month__event-multiday--width-' . $event->duration;
 
 	if ( isset( $event->start_this_week ) && $event->start_this_week ) {
@@ -37,16 +37,17 @@ if ( $should_display = $event->start_date == $day_number ) { // @todo:later we c
 		$classes[] = 'tribe-events-calendar-month__event-multiday--start';
 	}
 
+	// if it ends this week, let's add the right border
+	$end_this_week = isset( $event->end_this_week ) && $event->end_this_week;
+	if ( $end_this_week ) {
+		$classes_inner[] = 'tribe-events-calendar-month__event-multiday-inner--border-right';
+		$classes[] = 'tribe-events-calendar-month__event-multiday--end';
+	}
+
 } else {
 	$classes[] = 'tribe-events-calendar-month__event-multiday--hidden';
 }
 
-// if it ends this week, let's add the right border
-$end_this_week = isset( $event->end_this_week ) && $event->end_this_week;
-if ( $end_this_week && $should_display ) {
-	$classes_inner[] = 'tribe-events-calendar-month__event-multiday-inner--border-right';
-	$classes[] = 'tribe-events-calendar-month__event-multiday--end';
-}
 ?>
 <div class="tribe-events-calendar-month__event-multiday-wrapper">
 
