@@ -2265,6 +2265,7 @@
         },
         {
             "name": "lucatume/wp-browser",
+<<<<<<< HEAD
             "version": "2.2.10",
             "source": {
                 "type": "git",
@@ -2275,6 +2276,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/8a967ff5132547775cf67c2ebf0081389ea98402",
                 "reference": "8a967ff5132547775cf67c2ebf0081389ea98402",
+=======
+            "version": "2.2.11",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lucatume/wp-browser.git",
+                "reference": "2c79aa7d105ceb30aeff50397bc5709929a0efd9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/2c79aa7d105ceb30aeff50397bc5709929a0efd9",
+                "reference": "2c79aa7d105ceb30aeff50397bc5709929a0efd9",
+>>>>>>> eb7cc9f85a32446b7db401497d5cb83777336451
                 "shasum": ""
             },
             "require": {
@@ -2329,7 +2342,11 @@
                 "codeception",
                 "wordpress"
             ],
+<<<<<<< HEAD
             "time": "2019-06-03T22:31:49+00:00"
+=======
+            "time": "2019-06-06T20:32:22+00:00"
+>>>>>>> eb7cc9f85a32446b7db401497d5cb83777336451
         },
         {
             "name": "lucatume/wp-snaphot-assertions",
@@ -2485,7 +2502,7 @@
             "time": "2018-01-11T14:12:02+00:00"
         },
         {
-            "name": "mikey179/vfsStream",
+            "name": "mikey179/vfsstream",
             "version": "v1.6.6",
             "source": {
                 "type": "git",
@@ -2536,12 +2553,21 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/moderntribe/tribe-common-styles",
+<<<<<<< HEAD
                 "reference": "3ee8ba8213ff5dde1a8533abbb13cf0587f5a68f"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/moderntribe/tribe-common-styles/zipball/3ee8ba8213ff5dde1a8533abbb13cf0587f5a68f",
                 "reference": "3ee8ba8213ff5dde1a8533abbb13cf0587f5a68f",
+=======
+                "reference": "b2cfc876ad98263a11ed79ff339bef48ad377dae"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/moderntribe/tribe-common-styles/zipball/b2cfc876ad98263a11ed79ff339bef48ad377dae",
+                "reference": "b2cfc876ad98263a11ed79ff339bef48ad377dae",
+>>>>>>> eb7cc9f85a32446b7db401497d5cb83777336451
                 "shasum": ""
             },
             "require": {
@@ -2552,7 +2578,11 @@
                 "Private"
             ],
             "description": "A library of Modern Tribe's common styles",
+<<<<<<< HEAD
             "time": "2019-06-04T17:17:02+00:00"
+=======
+            "time": "2019-06-06T21:18:00+00:00"
+>>>>>>> eb7cc9f85a32446b7db401497d5cb83777336451
         },
         {
             "name": "mustache/mustache",

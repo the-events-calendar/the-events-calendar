@@ -3,7 +3,7 @@
  * Classes implementing this interface will provide methods to locate them based on a URL and will provide URL-related
  * methods.
  *
- * @since   TBD
+ * @since   4.9.3
  * @package Tribe\Events\Views\V2\Interfaces
  */
 
@@ -12,7 +12,7 @@ namespace Tribe\Events\Views\V2\Interfaces;
 /**
  * Interface Url_Provider_Interface
  *
- * @since   TBD
+ * @since   4.9.3
  * @package Tribe\Events\Views\V2\Interfaces
  */
 interface View_Url_Provider_Interface {
@@ -20,7 +20,7 @@ interface View_Url_Provider_Interface {
 	/**
 	 * Returns the URL associated to this View, if any.
 	 *
-	 * @since TBD
+	 * @since 4.9.3
 	 *
 	 * @param bool $canonical Whether to return the canonical version of the URL or the normal one.
 	 *
@@ -32,7 +32,7 @@ interface View_Url_Provider_Interface {
 	/**
 	 * Returns the URL associated to this View logical, next view.
 	 *
-	 * @since TBD
+	 * @since 4.9.3
 	 *
 	 * @param bool $canonical Whether to return the canonical version of the URL or the normal one.
 	 * @param array $passthru_vars An array of query arguments that will be passed thru intact, and appended to the URL.
@@ -44,7 +44,7 @@ interface View_Url_Provider_Interface {
 	/**
 	 * Returns the URL associated to this View logical, previous view.
 	 *
-	 * @since TBD
+	 * @since 4.9.3
 	 *
 	 * @param bool $canonical Whether to return the canonical version of the URL or the normal one.
 	 * @param array $passthru_vars An array of query arguments that will be passed thru intact, and appended to the URL.
@@ -56,7 +56,7 @@ interface View_Url_Provider_Interface {
 	/**
 	 * Returns the URL object used by the View, if any.
 	 *
-	 * @since TBD
+	 * @since 4.9.3
 	 *
 	 * @return \Tribe\Events\Views\V2\Url|null
 	 */
