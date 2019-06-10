@@ -59,11 +59,31 @@ tribe.events.views.tooltip = {};
 		instance.content( content );
 		$( helper.origin )
 			.focus( function() {
-				$( this ).tooltipster( 'open' );
+				obj.onOriginFocus( $( this ) )
 			})
 			.blur( function() {
-				$( this ).tooltipster( 'close' );
+				obj.onOriginBlur( $( this ) )
 		});
+	};
+
+	/**
+	 * On tooltip focus
+	 *
+	 * @since TBD
+	 *
+	 */
+	obj.onOriginFocus = function( el ) {
+		el.tooltipster( 'open' );
+	};
+
+	/**
+	 * On tooltip blur
+	 *
+	 * @since TBD
+	 *
+	 */
+	obj.onOriginBlur = function( el ) {
+		el.tooltipster( 'close' );
 	};
 
 	/**
