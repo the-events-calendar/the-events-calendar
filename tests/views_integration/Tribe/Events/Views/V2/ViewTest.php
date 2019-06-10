@@ -210,14 +210,15 @@ class ViewTest extends \Codeception\TestCase\WPTestCase {
 		} );
 		$events = static::factory()->event->create_many( 3 );
 
-		$view = View::make( 'test' );
-		$view->setup_the_loop( [ 'posts_per_page' => 2, 'starts_after' => 'now' ] );
+		$page_1_view = View::make( 'test' );
+		$page_1_view->setup_the_loop( [ 'posts_per_page' => 2, 'starts_after' => 'now' ] );
 
-		$this->assertEquals( home_url() . '?post_type=tribe_events&eventDisplay=test&paged=2', $view->next_url() );
+		$this->assertEquals( home_url() . '?post_type=tribe_events&eventDisplay=test&paged=2', $page_1_view->next_url() );
 
-		$view->setup_the_loop( [ 'posts_per_page' => 2, 'starts_after' => 'now', 'paged' => 2 ] );
+		$page_2_view = View::make( 'test' );
+		$page_2_view->setup_the_loop( [ 'posts_per_page' => 2, 'starts_after' => 'now', 'paged' => 2 ] );
 
-		$this->assertEquals( '', $view->next_url() );
+		$this->assertEquals( '', $page_2_view->next_url() );
 	}
 
 	/**
@@ -231,14 +232,15 @@ class ViewTest extends \Codeception\TestCase\WPTestCase {
 		} );
 		$events = static::factory()->event->create_many( 3 );
 
-		$view = View::make( 'test' );
-		$view->setup_the_loop( [ 'paged' => 2, 'posts_per_page' => 2, 'starts_after' => 'now' ] );
+		$page_1_view = View::make( 'test' );
+		$page_1_view->setup_the_loop( [ 'paged' => 2, 'posts_per_page' => 2, 'starts_after' => 'now' ] );
 
-		$this->assertEquals( home_url() . "?post_type=tribe_events&eventDisplay=test", $view->prev_url() );
+		$this->assertEquals( home_url() . "?post_type=tribe_events&eventDisplay=test", $page_1_view->prev_url() );
 
-		$view->setup_the_loop( [ 'posts_per_page' => 2, 'starts_after' => 'now' ] );
+		$page_2_view = View::make( 'test' );
+		$page_2_view->setup_the_loop( [ 'posts_per_page' => 2, 'starts_after' => 'now' ] );
 
-		$this->assertEquals( '', $view->prev_url() );
+		$this->assertEquals( '', $page_2_view->prev_url() );
 	}
 
 	/**
@@ -252,13 +254,19 @@ class ViewTest extends \Codeception\TestCase\WPTestCase {
 		} );
 		$events = static::factory()->event->create_many( 3 );
 
-		$view = View::make( 'test' );
-		$view->setup_the_loop( [ 'posts_per_page' => 2, 'starts_after' => 'now', 'paged' => 2 ] );
+		$page_1_view = View::make( 'test' );
+		$page_1_view->setup_the_loop( [ 'posts_per_page' => 2, 'starts_after' => 'now', 'paged' => 2 ] );
 
-		$this->assertEquals( home_url() . '?post_type=tribe_events&eventDisplay=test', $view->prev_url() );
+		$this->assertEquals( home_url() . '?post_type=tribe_events&eventDisplay=test', $page_1_view->prev_url() );
 
-		$view->setup_the_loop( [ 'posts_per_page' => 2, 'starts_after' => 'now' ] );
+		$page_2_view = View::make( 'test' );
+		$page_2_view->setup_the_loop( [ 'posts_per_page' => 2, 'starts_after' => 'now' ] );
 
-		$this->assertEquals( '', $view->prev_url() );
+		$this->assertEquals( '', $page_2_view->prev_url() );
+	}
+}
+
+	protected function wpSetUpBeforeClass() {
+		static::factory()->event = new Event();
 	}
 }

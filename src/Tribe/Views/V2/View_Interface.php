@@ -103,7 +103,7 @@ interface View_Interface  extends View_Url_Provider_Interface, Repository_User_I
 	 *
 	 * The variables can be restored by using the `replace_the_loop` method.
 	 *
-	 * @since TBD
+	 * @since 4.9.3
 	 *
 	 * @param  array|null  $args An array of associative arguments used to setup the repository for the View.
 	 *
@@ -113,7 +113,7 @@ interface View_Interface  extends View_Url_Provider_Interface, Repository_User_I
 	/**
 	 * Sets a View URL object either from some arguments or from the current URL.
 	 *
-	 * @since TBD
+	 * @since 4.9.3
 	 *
 	 * @param  array|null  $args An associative array of arguments that will be mapped to the corresponding query
 	 *                           arguments by the View, or `null` to use the current URL.

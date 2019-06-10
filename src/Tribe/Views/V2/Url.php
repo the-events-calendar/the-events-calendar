@@ -10,7 +10,6 @@ namespace Tribe\Events\Views\V2;
 
 use Tribe__Events__Rewrite as Rewrite;
 use Tribe__Utils__Array as Arr;
-use function GuzzleHttp\Psr7\parse_query;
 
 /**
  * Class Url
@@ -23,7 +22,7 @@ class Url {
 	/**
 	 * The URL abstracted by the instance.
 	 *
-	 * @since TBD
+	 * @since 4.9.3
 	 *
 	 * @var string
 	 */
@@ -32,7 +31,7 @@ class Url {
 	/**
 	 * An array of the default URL components produced by the `parse_url` function.
 	 *
-	 * @since TBD
+	 * @since 4.9.3
 	 *
 	 * @var array
 	 */
@@ -51,7 +50,7 @@ class Url {
 	/**
 	 * An array of the URL components as produced by the `parse_url` function.
 	 *
-	 * @since TBD
+	 * @since 4.9.3
 	 *
 	 * @var array
 	 */
@@ -60,7 +59,7 @@ class Url {
 	/**
 	 * An array of the parsed query arguments from the URL.
 	 *
-	 * @since TBD
+	 * @since 4.9.3
 	 *
 	 * @var array
 	 */
@@ -113,7 +112,7 @@ class Url {
 	/**
 	 * Returns the full URL this instance was built on.
 	 *
-	 * @since TBD
+	 * @since 4.9.3
 	 *
 	 * @return string The full URL this instance was built on; an empty string if the URL is not set.
 	 */
@@ -124,18 +123,18 @@ class Url {
 	/**
 	 * Returns the current page number for the URL.
 	 *
-	 * @since TBD
+	 * @since 4.9.3
 	 *
 	 * @return int The current page number if specified in the URL or the default value.
 	 */
 	public function get_current_page() {
-		return Arr::get( $this->get_query_args(), 'paged', 1 );
+		return Arr::get_first_set( $this->get_query_args(), [ 'paged', 'page' ], 1 );
 	}
 
 	/**
 	 * Returns the current query arguments
 	 *
-	 * @since TBD
+	 * @since 4.9.3
 	 *
 	 * @return array Returns the current Query Arguments
 	 */
@@ -146,7 +145,7 @@ class Url {
 	/**
 	 * Parses the current URL and initializes its components.
 	 *
-	 * @since TBD
+	 * @since 4.9.3
 	 *
 	 * @return Url This object instance.
 	 */
@@ -154,7 +153,7 @@ class Url {
 		$this->components = array_merge( static::$default_url_components, parse_url( $this->url ) );
 		$this->query_args = Rewrite::instance()->parse_request( $this->url );
 		if ( ! empty( $this->components['query'] ) ) {
-			$query_component_args = parse_query( $this->components['query'] );
+			parse_str( $this->components['query'], $query_component_args );
 			$this->query_args     = $this->query_overrides_path
 				? array_merge( $this->query_args, $query_component_args )
 				: array_merge( $query_component_args, $this->query_args );
@@ -166,7 +165,7 @@ class Url {
 	/**
 	 * Adds query args to the object merging them witht the current ones.
 	 *
-	 * @since TBD
+	 * @since 4.9.3
 	 *
 	 * @param array $query_args An associative array of query args to add to the object.
 	 *
@@ -186,7 +185,7 @@ class Url {
 	 * When set to `false`  then `/events/list?eventDisplay=month` will result in an `eventDisplay=list`;
 	 * when set to `true` the resulting `eventDisplay` will be `month`.
 	 *
-	 * @since TBD
+	 * @since 4.9.3
 	 *
 	 * @param bool $query_overrides_path Whether the parameters set in the query should override the ones parsed by the
 	 *                                   path or not.

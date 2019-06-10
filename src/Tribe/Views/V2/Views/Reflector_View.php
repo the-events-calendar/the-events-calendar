@@ -2,7 +2,7 @@
 /**
  * A View that will reflect back the view context for debugging purposes.
  *
- * @since   TBD
+ * @since   4.9.3
  * @package Tribe\Events\Views\V2\Views
  */
 
@@ -13,7 +13,7 @@ use Tribe\Events\Views\V2\View;
 /**
  * Class Reflector_View
  *
- * @since   TBD
+ * @since   4.9.3
  * @package Tribe\Events\Views\V2\Views
  */
 class Reflector_View extends View {
@@ -21,7 +21,7 @@ class Reflector_View extends View {
 	/**
 	 * Overrides the base HTML method to return the JSON representation of the view context.
 	 *
-	 * @since TBD
+	 * @since 4.9.3
 	 *
 	 * @return false|string The result of the `json_encode` called on the current view context.
 	 */
