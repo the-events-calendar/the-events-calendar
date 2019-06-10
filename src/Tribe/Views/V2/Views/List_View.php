@@ -194,7 +194,7 @@ class List_View extends View {
 		 */
 		$args = [
 			'posts_per_page' => $context_arr['posts_per_page'],
-			'paged'          => max( Arr::get( $context_arr, 'page', 1 ), 1 ),
+			'paged'          => max( Arr::get_first_set( $context_arr, [ 'paged', 'page' ], 1 ), 1 ),
 		];
 
 		$date = Arr::get( $context_arr, 'event_date', 'now' );
