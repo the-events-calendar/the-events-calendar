@@ -30,10 +30,6 @@ class Month_View extends View {
 	 *
 	 */
 	public function get_html() {
-
-		// @todo: remove this when we hydrate the month view with data and we use the correct template tags.
-		require_once tribe( 'tec.main' )->plugin_path . 'src/Tribe/Views/V2/month-view-demo-template-tags.php';
-
 		/*
 		 * The View not care where the context comes from: from the View point of view the context is the only
 		 * source of truth.
