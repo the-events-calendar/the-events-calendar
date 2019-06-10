@@ -144,6 +144,7 @@ tribe.events.views.tooltip = {};
 	 * @return {void}
 	 */
 	obj.ready = function() {
+		// @todo: make it work with variable instead of function, so it's triggered how's supposed to be
 		tribe.events.views.manager.$containers.on( 'afterSetup.tribeEvents', obj.initTooltips() );
 	};
 
