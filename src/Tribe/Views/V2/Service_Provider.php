@@ -47,8 +47,6 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		// Since the View main class will act as a DI container itself let's provide it with the global container.
 		View::set_container( $this->container );
 
-		// @todo: remove this when we hydrate the month view with data and we use the correct template tags.
-		require_once tribe( 'tec.main' )->plugin_path . 'src/Tribe/Views/V2/month-view-demo-template-tags.php';
 	}
 
 	/**
