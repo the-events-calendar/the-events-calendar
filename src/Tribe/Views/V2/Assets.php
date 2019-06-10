@@ -37,7 +37,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 			'wp_enqueue_scripts',
 			[
 				'priority'     => 10,
-				'conditionals' => array( $this, 'should_enqueue_frontend' ),
+				'conditionals' => [ $this, 'should_enqueue_frontend' ],
 			]
 		);
 
@@ -57,7 +57,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 			'wp_enqueue_scripts',
 			[
 				'priority'     => 10,
-				'conditionals' => array( $this, 'should_enqueue_frontend' ),
+				'conditionals' => [ $this, 'should_enqueue_frontend' ],
 			]
 		);
 	}
