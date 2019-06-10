@@ -48,8 +48,22 @@ Scenario: List View order for events with the same start and end datetime
     Then I should see 8 events in the following order: "eggplant M-A-N", "lettuce M-T-N", "grape S-A-N", "melon S-T-N", "turnip S-A-U", "pepper M-A-U", "carrot S-T-U", "rutabaga S-T-U".
     # events with the same start and end datetine should be ordered by publish date ascending from the first published event
 
-Scenario: List View "Previous events" link
-# maybe this belongs in list-view/navigation.feature
+Scenario: List View order of events with different time zones
+    Given "Time zone mode" is set to "Use manual time zones for each event"
+    And I have published these single-day events on the date of today +7 days
+        | event name | time/duration  | time zone           |
+        | arugula    | 10:00am-2:00pm | America/Los_Angeles |
+        | spinach    | 10:00am-2:00pm | America/Denver      |
+        | leek       | 10:00am-2:00pm | America/Chicago     |
+        | potato     | 10:00am-2:00pm | America/New York    |
+        | okra       | 10:30am-2:00pm | America/Los_Angeles |
+        | celery     | 11:00am-2:00pm | America/New York    |
+        | asparagus  | 11:30am-2:00pm | America/Los_Angeles |
+    When I select today +7 days in the datepicker
+    Then I should see the events listed in the following order: "potato", "leek", "celery", "spinach", "arugula", "okra", "asparagus"
 
-Scenario: List View "Next events" link
-# maybe this belongs in list-view/navigation.feature
+    Then I should see the events listed in the following order: "potato", "leek", "spinach", "arugula", "okra", "celery", "asparagus"
+
+# As per the above, we list events by the start time, even if different time zones mean that technically the events are not listed in the order in which they happen. This is a deliberate choice in order to avoid the intense complications that a true chronological listing with multiple timezones would create in time-based views (Month, Day, Week). If a user has events in multiple time zones, they should be encouraged to use something like Filter Bar to help their visitors see a list of events within only the relevant time zone(s).
+
+# At this time, events may also be listed based on publish date. However, time zone relationships should supercede publish date in the hierarchy of how to define event order.
