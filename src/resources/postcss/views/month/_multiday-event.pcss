@@ -1,0 +1,45 @@
+.tribe-events {
+
+	/* -----------------------------------------------------------------------------
+	 * Multiday Event
+	 * ----------------------------------------------------------------------------- */
+
+	.tribe-events-calendar-month__event-multiday {
+		border-radius: 6px;
+		margin-bottom: var(--spacer-0);
+		background-color: white;
+		overflow: hidden;
+	}
+
+	.tribe-events-calendar-month__event-multiday-inner {
+		background-color: rgba(var(--color-accent-primary), .1);
+		cursor: pointer;
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+
+		padding: 1px var(--spacer-1);
+
+		&:hover,
+		&:focus {
+			background-color: rgba(var(--color-accent-primary), .2);
+		}
+	}
+
+	.tribe-events-calendar-month__event-multiday-inner--border-left {
+		border-left: 2px solid var(--color-accent-primary);
+	}
+
+	.tribe-events-calendar-month__event-multiday-inner--border-right {
+		border-right: 2px solid var(--color-accent-primary);
+	}
+
+	.tribe-events-calendar-month__event-multiday-featured-icon {
+		display: inline-block;
+		margin-right: 5px;
+	}
+
+	.tribe-events-calendar-month__event-multiday-title {
+		font-weight: var(--font-weight-regular);
+	}
+}

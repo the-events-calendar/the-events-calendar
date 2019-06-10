@@ -8,6 +8,7 @@
 
 namespace Tribe\Events\Views\V2;
 
+use Tribe__Repository__Interface as Repository_Interface;
 use Tribe__Template as Base_Template;
 
 /**
@@ -23,6 +24,13 @@ class Template extends Base_Template {
 	 * @var string
 	 */
 	protected $slug;
+
+	/**
+	 * The repository instance that provided the template with posts, if any.
+	 *
+	 * @var Repository_Interface
+	 */
+	protected $repository;
 
 	/**
 	 * Renders and returns the View template contents.
@@ -50,10 +58,16 @@ class Template extends Base_Template {
 	 */
 	public function __construct( $slug ) {
 		$this->slug = $slug;
-		$this->set( 'slug', $slug );
+		// Set some global defaults all Views are likely to search for; those will be overridden by each View.
+		$this->set_values( [
+			'slug'     => $slug,
+			'prev_url' => '',
+			'next_url' => '',
+		], false );
 		$this->set_template_origin( tribe( 'tec.main' ) )
 		     ->set_template_folder( 'src/views/v2' )
-		     ->set_template_folder_lookup( true );
+		     ->set_template_folder_lookup( true )
+		     ->set_template_context_extract( true );
 	}
 
 	/**

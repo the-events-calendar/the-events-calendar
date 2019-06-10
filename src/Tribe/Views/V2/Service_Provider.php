@@ -33,16 +33,31 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		$this->container->singleton( Template\Event::class, Template\Event::class );
 		$this->container->singleton( Template\Page::class, Template\Page::class );
 		$this->container->singleton( Kitchen_Sink::class, Kitchen_Sink::class );
+		$this->container->singleton( Theme_Compatibility::class, Theme_Compatibility::class );
 		$this->container->singleton( Rest_Endpoint::class, Rest_Endpoint::class );
 
 		$this->register_hooks();
+		$this->register_assets();
+
 		$this->register_v1_compat();
 
-		// Register this service provider in the service locator.
-		$this->container->singleton( 'views-v2.provider', $this );
+		// Register the SP on the container
+		$this->container->singleton( 'events.views.v2.provider', $this );
 
 		// Since the View main class will act as a DI container itself let's provide it with the global container.
 		View::set_container( $this->container );
+	}
+
+	/**
+	 * Registers the provider handling all the 1st level filters and actions for Views v2.
+	 *
+	 * @since 4.9.3
+	 */
+	protected function register_assets() {
+		$assets = new Assets( $this->container );
+		$assets->register();
+
+		$this->container->singleton( Assets::class, $assets );
 	}
 
 	/**
@@ -54,17 +69,9 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		$hooks = new Hooks( $this->container );
 		$hooks->register();
 
-		$assets = new Assets( $this->container );
-		$assets->register();
-
 		// Allow Hooks to be removed, by having the them registred to the container
 		$this->container->singleton( Hooks::class, $hooks );
-		$this->container->singleton( Assets::class, $assets );
 		$this->container->singleton( 'events.views.v2.hooks', $hooks );
-		$this->container->singleton( 'events.views.v2.provider', $this );
-
-		View::set_container( $this->container );
-
 	}
 
 	/**

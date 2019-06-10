@@ -11,6 +11,7 @@ namespace Tribe\Events\Views\V2;
 
 use Codeception\TestCase\WPTestCase;
 use Spatie\Snapshots\MatchesSnapshots;
+use tad\WP\Snapshots\WPHtmlOutputDriver;
 use Tribe__Context as Context;
 
 /**
@@ -28,6 +29,13 @@ abstract class TestCase extends WPTestCase {
 	 * @var \Tribe\Events\Views\V2\ContextMocker
 	 */
 	protected $context_mocker;
+
+	/**
+	 * The HTML driver for our code
+	 *
+	 * @var \tad\WP\Snapshots\WPHtmlOutputDriver
+	 */
+	protected $driver;
 
 	/**
 	 * The state of the global Context object before the test method ran.
@@ -73,6 +81,17 @@ abstract class TestCase extends WPTestCase {
 		// Always set the `is_main_query` value to `false` to have a clean starting fixture.
 		tribe_context()->alter( [ 'is_main_query' => false ] )->dangerously_set_global_context( [ 'is_main_query' ] );
 		$this->global_context_before_test = tribe_context()->to_array();
+
+		/*
+		 * Filter the `home_url` to make sure URLs printed on the page are consistent across environments.
+		 */
+		add_filter( 'home_url', static function( $url, $path = null ) {
+			return 'http://test.tri.be/' . ltrim( $path, '/' );
+		}, 10, 2 );
+
+		// Setup a new HTML output driver to make sure our stuff is tolerable
+		$this->driver = new WPHtmlOutputDriver( home_url(), 'http://views.dev' );
+		$this->driver->setTimeDependentKeys( [ 'tribe-events-views[_wpnonce]' ] );
 	}
 
 	/**

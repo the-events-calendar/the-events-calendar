@@ -1,0 +1,65 @@
+/* -----------------------------------------------------------------------------
+ *
+ * Top Bar
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe-events {
+
+	.tribe-events-c-top-bar {
+		align-items: center;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		margin-bottom: var(--spacer-2);
+
+		@media (--viewport-medium) {
+			margin-bottom: var(--spacer-5);
+		}
+	}
+
+	.tribe-events-c-top-bar__nav-wrapper {
+		align-items: center;
+		display: flex;
+		flex: none;
+	}
+
+	.tribe-events-c-top-bar__nav-list {
+		display: flex;
+	}
+
+	.tribe-events-c-top-bar__nav-list-item {
+		flex: none;
+		padding-right: 15px;
+	}
+
+	.tribe-events-c-top-bar__nav-link {
+		display: block;
+
+		&:before {
+			@media (--viewport-medium) {
+				height: 18px;
+				width: 11px;
+			}
+		}
+	}
+
+	.tribe-events-c-top-bar__today {
+		align-items: center;
+		display: flex;
+		flex: 1 1 60%;
+	}
+
+	.tribe-events-c-top-bar__today-button {
+		margin-right: 15px;
+	}
+
+	.tribe-events-c-top-bar__actions {
+		display: none;
+
+		@media (--viewport-medium) {
+			display: flex;
+			justify-content: flex-end;
+		}
+	}
+}
