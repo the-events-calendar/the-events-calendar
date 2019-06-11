@@ -12,6 +12,7 @@
 namespace Tribe\Events\Views\V2;
 
 use Tribe__Events__Main as Plugin;
+use Tribe\Events\Views\V2\Template_Bootstrap;
 
 /**
  * Register
@@ -71,9 +72,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 	 */
 	public function should_enqueue_frontend() {
 
-		$display_mode = tribe_context()->get( 'event_display_mode' );
-
-		$should_enqueue = $display_mode && ( '' !== $display_mode );
+		$should_enqueue = tribe( Template_Bootstrap::class )->should_load();
 
 		/**
 		 * Allow filtering of where the base Frontend Assets will be loaded
