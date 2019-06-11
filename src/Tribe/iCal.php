@@ -10,6 +10,18 @@ class Tribe__Events__iCal {
 	 * @var int The number of events that will be exported when generating the iCal feed.
 	 */
 	protected $feed_default_export_count = 30;
+	/**
+	 * The $post where the *.ics file is generated
+	 *
+	 * @var null
+	 */
+	protected $post = null;
+	/**
+	 * An array with all the events that are part of the *.ics file
+	 *
+	 * @var array
+	 */
+	protected $events = [];
 
 	/**
 	 * Set all the filters and actions necessary for the operation of the iCal generator.
@@ -184,6 +196,70 @@ class Tribe__Events__iCal {
 	}
 
 	/**
+	 * Generates the iCal file
+	 *
+	 * @param int|null $post If you want the ical file for a single event
+	 * @param boolean  $echo Whether the content should be echoed or returned
+	 *
+	 * @return string
+	 */
+	public function generate_ical_feed( $post = null, $echo = true ) {
+		$this->post = $post;
+		$this->events = $this->get_event_posts();
+
+		$this->set_headers();
+		$content = $this->get_content();
+
+		if ( $echo ) {
+			tribe_exit( $content );
+		}
+
+		return $content;
+	}
+
+	/**
+	 * Get an array with all the Events to be used to process the *.ics file
+	 *
+	 * @since TBD
+	 *
+	 * @return array|null
+	 */
+	protected function get_event_posts() {
+		if ( $this->post ) {
+			return is_array( $this->post ) ? $this->post : [ $this->post ];
+		} elseif ( tribe_is_month() ) {
+			return $this->get_month_view_events();
+		} elseif ( tribe_is_organizer() ) {
+			return $this->get_events_list(
+				[
+					'organizer' => get_the_ID(),
+					'eventDisplay' => 'list',
+				]
+			);
+		} elseif ( tribe_is_venue() ) {
+			return $this->get_events_list(
+				[
+					'venue' => get_the_ID(),
+					'eventDisplay' => tribe_get_request_var( 'tribe_event_display', 'list' ),
+				]
+			);
+		}
+
+		if ( ! $wp_query = tribe_get_global_query_object() ) {
+			return [];
+		}
+
+		$args = $wp_query->query_vars;
+
+		if ( 'list' === $args['eventDisplay'] ) {
+			// Whe producing a List view iCal feed the `eventDate` is misleading.
+			unset( $args['eventDate'] );
+		}
+
+		return $this->get_events_list( $args, $wp_query );
+	}
+
+	/**
 	 * Gets all events in the current month, matching those presented in month view
 	 * by default (and therefore potentially including some events from the tail end
 	 * of the previous month and start of the following month).
@@ -197,7 +273,7 @@ class Tribe__Events__iCal {
 	private function get_month_view_events() {
 
 		if ( ! $wp_query = tribe_get_global_query_object() ) {
-			return;
+			return [];
 		}
 
 		$event_date = $wp_query->get( 'eventDate' );
@@ -237,50 +313,103 @@ class Tribe__Events__iCal {
 	}
 
 	/**
-	 * Generates the iCal file
+	 * Set the headers before the file is delivered.
 	 *
-	 * @param int|null $post If you want the ical file for a single event
-	 * @param boolean $echo Whether the content should be echoed or returned
+	 * @since TBD
 	 */
-	public function generate_ical_feed( $post = null, $echo = true ) {
-		$tec         = Tribe__Events__Main::instance();
-		$events      = '';
+	protected function set_headers() {
+		header( 'HTTP/1.0 200 OK', true, 200 );
+		header( 'Content-type: text/calendar; charset=UTF-8' );
+		header(
+			'Content-Disposition: attachment; filename="' . $this->get_file_name() . '"'
+		);
+	}
+
+	/**
+	 * Get the file name of the *.ics file
+	 *
+	 * @since TBD
+	 *
+	 * @return mixed The calendar name
+	 */
+	protected function get_file_name() {
+		$event_ids = wp_list_pluck( $this->events, 'ID' );
+		$site = sanitize_title( get_bloginfo( 'name' ) );
+		$hash = substr( md5( implode( $event_ids ) ), 0, 11 );
+		$filename = sprintf( '%s-%s.ics', $site, $hash );
+
+		/**
+		 * Modifies the filename provided in the Content-Disposition header for iCal feeds.
+		 *
+		 * @var string       $filename
+		 * @var WP_Post|null $post
+		 */
+		return apply_filters( 'tribe_events_ical_feed_filename', $filename, $this->post );
+	}
+
+	/**
+	 * Get the full content of the *.ics file.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	protected function get_content() {
+		return sprintf(
+			"%s%s%s",
+			$this->get_start(),
+			$this->get_body( $this->events ),
+			$this->get_end()
+		);
+	}
+
+	/**
+	 * Get the start of the .ics File
+	 *
+	 * @since TBD
+	 *
+	 * @return mixed
+	 */
+	protected function get_start() {
 		$blogHome    = get_bloginfo( 'url' );
 		$blogName    = get_bloginfo( 'name' );
 
-		if ( $post ) {
-			$events_posts = is_array( $post ) ? $post : array( $post );
-		} elseif ( tribe_is_month() ) {
-			$events_posts = self::get_month_view_events();
-		} elseif ( tribe_is_organizer() ) {
-			$events_posts = $this->get_events_list( array(
-				'organizer'    => get_the_ID(),
-				'eventDisplay' => 'list',
-			) );
-		} elseif ( tribe_is_venue() ) {
-			$events_posts = $this->get_events_list( array(
-				'venue'        => get_the_ID(),
-				'eventDisplay' => tribe_get_request_var( 'tribe_event_display', 'list' ),
-			) );
-		} else {
+		$content  = "BEGIN:VCALENDAR\r\n";
+		$content .= "VERSION:2.0\r\n";
+		$content .= 'PRODID:-//' . $blogName . ' - ECPv' . Tribe__Events__Main::VERSION . "//NONSGML v1.0//EN\r\n";
+		$content .= "CALSCALE:GREGORIAN\r\n";
+		$content .= "METHOD:PUBLISH\r\n";
 
-			if ( ! $wp_query = tribe_get_global_query_object() ) {
-				return;
-			}
-
-			$args = $wp_query->query_vars;
-
-			if ( 'list' === $args['eventDisplay'] ) {
-				// Whe producing a List view iCal feed the `eventDate` is misleading.
-				unset( $args['eventDate'] );
-			}
-
-			$events_posts = $this->get_events_list( $args, $wp_query );
+		/**
+		 * Allows for customizing the value of the generated iCal file's "X-WR-CALNAME:" property.
+		 *
+		 * @param string $blogName The value to use for "X-WR-CALNAME"; defaults to value of get_bloginfo( 'name' ).
+		 */
+		$x_wr_calname = apply_filters( 'tribe_ical_feed_calname', $blogName );
+		if ( ! empty( $x_wr_calname ) ) {
+			$content .= 'X-WR-CALNAME:' . $x_wr_calname . "\r\n";
 		}
 
-		$event_ids = wp_list_pluck( $events_posts, 'ID' );
+		$content .= 'X-ORIGINAL-URL:' . $blogHome . "\r\n";
+		$content .= 'X-WR-CALDESC:' . sprintf( esc_html_x( 'Events for %s', 'iCal feed description', 'the-events-calendar' ), $blogName ) . "\r\n";
 
-		foreach ( $events_posts as $event_post ) {
+		return apply_filters( 'tribe_ical_properties', $content );;
+	}
+
+	/**
+	 * Get the Body With all the events of the .ics file
+	 *
+	 * @since TBD
+	 *
+	 * @param array $posts
+	 *
+	 * @return string
+	 */
+	protected function get_body( $posts = [] ) {
+		$tec         = Tribe__Events__Main::instance();
+		$events      = '';
+
+		foreach ( $posts as $event_post ) {
 			// add fields to iCal output
 			$item = array();
 
@@ -411,54 +540,18 @@ class Tribe__Events__iCal {
 			$events .= "BEGIN:VEVENT\r\n" . implode( "\r\n", $item ) . "\r\nEND:VEVENT\r\n";
 		}
 
-		$site = sanitize_title( get_bloginfo( 'name' ) );
-		$hash = substr( md5( implode( $event_ids ) ), 0, 11 );
+		return $events;
+	}
 
-		/**
-		 * Modifies the filename provided in the Content-Disposition header for iCal feeds.
-		 *
-		 * @var string       $ical_feed_filename
-		 * @var WP_Post|null $post
-		 */
-		$filename = apply_filters( 'tribe_events_ical_feed_filename', $site . '-' . $hash . '.ics', $post );
-
-		header( 'HTTP/1.0 200 OK', true, 200 );
-		header( 'Content-type: text/calendar; charset=UTF-8' );
-		header( 'Content-Disposition: attachment; filename="' . $filename . '"' );
-		$content  = "BEGIN:VCALENDAR\r\n";
-		$content .= "VERSION:2.0\r\n";
-		$content .= 'PRODID:-//' . $blogName . ' - ECPv' . Tribe__Events__Main::VERSION . "//NONSGML v1.0//EN\r\n";
-		$content .= "CALSCALE:GREGORIAN\r\n";
-		$content .= "METHOD:PUBLISH\r\n";
-
-		/**
-		* Allows for customizing the value of the generated iCal file's "X-WR-CALNAME:" property.
-		*
-		* @param string $blogName The value to use for "X-WR-CALNAME"; defaults to value of get_bloginfo( 'name' ).
-		*/
-		$x_wr_calname = apply_filters( 'tribe_ical_feed_calname', $blogName );
-		if ( ! empty( $x_wr_calname ) ) {
-			$content .= 'X-WR-CALNAME:' . $x_wr_calname . "\r\n";
-		}
-
-		$content .= 'X-ORIGINAL-URL:' . $blogHome . "\r\n";
-		$content .= 'X-WR-CALDESC:' . sprintf( esc_html_x( 'Events for %s', 'iCal feed description', 'the-events-calendar' ), $blogName ) . "\r\n";
-
-		/**
-		 * Allows for customization of the various properties at the top of the generated iCal file.
-		 *
-		 * @param string $content Existing properties atop the file; starts at "BEGIN:VCALENDAR", ends at "X-WR-CALDESC".
-		 */
-		$content  = apply_filters( 'tribe_ical_properties', $content );
-
-		$content .= $events;
-		$content .= 'END:VCALENDAR';
-
-		if ( $echo ) {
-			tribe_exit( $content );
-		}
-
-		return $content;
+	/**
+	 * Return the end of the .ics file
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	protected function get_end() {
+		return 'END:VCALENDAR';
 	}
 
 	/**
@@ -552,5 +645,4 @@ class Tribe__Events__iCal {
 	public function set_feed_default_export_count( $count ) {
 		$this->feed_default_export_count = $count;
 	}
-
 }
