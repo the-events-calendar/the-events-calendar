@@ -40,7 +40,7 @@ class ViewTestCase extends TestCase {
 			return ( new \DateTime( $this->mock_date_value, new \DateTimeZone( 'UTC' ) ) )
 				->format( $format );
 		} );
-		// Return always the same value when creating nonces.
+		// Always return the same value when creating nonces.
 		Test::replace( 'wp_create_nonce', '2ab7cc6b39' );
 		// Set the date-dependant post fields to a fixed value.
 		add_filter( 'tribe_repository_events_format_item', [ $this, 'reset_post_dates' ], PHP_INT_MAX );

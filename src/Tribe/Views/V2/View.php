@@ -647,6 +647,15 @@ class View implements View_Interface {
 	public function set_url( array $args = null, $merge = false ) {
 		if ( null !== $args ) {
 			$query_args = $this->map_args_to_query_args( $args );
+
+			// We use both `paged` and `page` for pagination: let's make sure to keep the required one only.
+			if ( isset( $args['paged'] ) ) {
+				unset( $query_args['page'] );
+			}
+			if ( isset( $args['page'] ) ) {
+				unset( $query_args['paged'] );
+			}
+
 			$this->url = false === $merge ?
 				new Url( add_query_arg( $query_args ) )
 				: $this->url->add_query_args( $query_args );
