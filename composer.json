@@ -17,7 +17,8 @@
     "moderntribe/tribe-common-styles": "dev-master",
     "lucatume/function-mocker": "^1.0",
     "phpunit/phpunit": "~6.0",
-    "scotteh/php-dom-wrapper": "0.7.3"
+    "scotteh/php-dom-wrapper": "0.7.3",
+    "facebook/webdriver": "1.6.0"
   },
   "minimum-stability": "stable",
   "prefer-stable": true,
