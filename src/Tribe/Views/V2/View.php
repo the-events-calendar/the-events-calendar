@@ -837,4 +837,11 @@ class View implements View_Interface {
 
 		return $url;
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function found_post_ids() {
+		return $this->repository->get_ids();
+	}
 }
