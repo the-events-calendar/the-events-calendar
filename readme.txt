@@ -217,6 +217,8 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 = [4.9.4] TBD =
 
+* Fix - Moved The Events Calendar specific code from common Context class into The Events Calendar [129241]
+
 = [4.9.3.1] 2019-06-07 =
 
 * Fix - Remove caching of rewrite base slugs which make third-party, Photo and Week work as expected [129035]
