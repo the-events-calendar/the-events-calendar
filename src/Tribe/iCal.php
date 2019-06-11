@@ -27,11 +27,14 @@ class Tribe__Events__iCal {
 	 * Set all the filters and actions necessary for the operation of the iCal generator.
 	 */
 	public function hook() {
-		add_action( 'tribe_events_after_footer', array( $this, 'maybe_add_link' ), 10, 1 );
-		add_action( 'tribe_events_single_event_after_the_content', array( $this, 'single_event_links' ) );
-		add_action( 'template_redirect', array( $this, 'do_ical_template' ) );
-		add_filter( 'tribe_get_ical_link', array( $this, 'day_view_ical_link' ), 20, 1 );
-		add_action( 'wp_head', array( $this, 'set_feed_link' ), 2, 0 );
+		add_action( 'tribe_events_after_footer', [ $this, 'maybe_add_link' ], 10, 1 );
+		add_action(
+			'tribe_events_single_event_after_the_content',
+			[ $this, 'single_event_links' ]
+		);
+		add_action( 'template_redirect', [ $this, 'do_ical_template' ] );
+		add_filter( 'tribe_get_ical_link', [ $this, 'day_view_ical_link' ], 20, 1 );
+		add_action( 'wp_head', [ $this, 'set_feed_link' ], 2, 0 );
 	}
 
 	/**
@@ -63,7 +66,7 @@ class Tribe__Events__iCal {
 	public function get_ical_link( $type = 'home' ) {
 		$tec = Tribe__Events__Main::instance();
 
-		return add_query_arg( array( 'ical' => 1 ), $tec->getLink( $type ) );
+		return add_query_arg( [ 'ical' => 1 ], $tec->getLink( $type ) );
 	}
 
 	/**
@@ -184,7 +187,7 @@ class Tribe__Events__iCal {
 					die();
 				}
 				$event_ids = explode( ',', $_GET['event_ids'] );
-				$events    = tribe_get_events( array( 'post__in' => $event_ids ) );
+				$events = tribe_get_events( [ 'post__in' => $event_ids ] );
 				$this->generate_ical_feed( $events );
 			} elseif ( is_singular( Tribe__Events__Main::POSTTYPE ) ) {
 				$this->generate_ical_feed( $wp_query->post );
@@ -282,13 +285,13 @@ class Tribe__Events__iCal {
 			? tribe_get_month_view_date()
 			: $wp_query->get( 'eventDate' );
 
-		$args = array(
-			'eventDisplay'   => 'custom',
-			'start_date'     => Tribe__Events__Template__Month::calculate_first_cell_date( $month ),
-			'end_date'       => Tribe__Events__Template__Month::calculate_final_cell_date( $month ),
+		$args = [
+			'eventDisplay' => 'custom',
+			'start_date' => Tribe__Events__Template__Month::calculate_first_cell_date( $month ),
+			'end_date' => Tribe__Events__Template__Month::calculate_final_cell_date( $month ),
 			'posts_per_page' => -1,
-			'hide_upcoming'  => true,
-		);
+			'hide_upcoming' => true,
+		];
 
 		// Verify the Intial Category
 		if ( $wp_query->get( Tribe__Events__Main::TAXONOMY, false ) !== false ) {
@@ -411,17 +414,17 @@ class Tribe__Events__iCal {
 
 		foreach ( $posts as $event_post ) {
 			// add fields to iCal output
-			$item = array();
+			$item = [];
 
 			$full_format = 'Ymd\THis';
 			$utc_format  = 'Ymd\THis\Z';
 			$all_day     = ( 'yes' === get_post_meta( $event_post->ID, '_EventAllDay', true ) );
-			$time        = (object) array(
-				'start'    => tribe_get_start_date( $event_post->ID, false, 'U' ),
-				'end'      => tribe_get_end_date( $event_post->ID, false, 'U' ),
+			$time = (object) [
+				'start' => tribe_get_start_date( $event_post->ID, false, 'U' ),
+				'end' => tribe_get_end_date( $event_post->ID, false, 'U' ),
 				'modified' => Tribe__Date_Utils::wp_strtotime( $event_post->post_modified ),
-				'created'  => Tribe__Date_Utils::wp_strtotime( $event_post->post_date ),
-			);
+				'created' => Tribe__Date_Utils::wp_strtotime( $event_post->post_date ),
+			];
 
 			if ( $all_day ) {
 				$type   = 'DATE';
@@ -431,12 +434,12 @@ class Tribe__Events__iCal {
 				$format = $full_format;
 			}
 
-			$tzoned = (object) array(
-				'start'    => date( $format, $time->start ),
-				'end'      => date( $format, $time->end ),
+			$tzoned = (object) [
+				'start' => date( $format, $time->start ),
+				'end' => date( $format, $time->end ),
 				'modified' => date( $utc_format, $time->modified ),
-				'created'  => date( $utc_format, $time->created ),
-			);
+				'created' => date( $utc_format, $time->created ),
+			];
 
 			$dtstart = $tzoned->start;
 			$dtend   = $tzoned->end;
@@ -463,14 +466,26 @@ class Tribe__Events__iCal {
 			$item[] = 'CREATED:' . $tzoned->created;
 			$item[] = 'LAST-MODIFIED:' . $tzoned->modified;
 			$item[] = 'UID:' . $event_post->ID . '-' . $time->start . '-' . $time->end . '@' . parse_url( home_url( '/' ), PHP_URL_HOST );
-			$item[] = 'SUMMARY:' . str_replace( array( ',', "\n", "\r" ), array( '\,', '\n', '' ), html_entity_decode( strip_tags( $event_post->post_title ), ENT_QUOTES ) );
-			$item[] = 'DESCRIPTION:' . str_replace( array( ',', "\n", "\r" ), array( '\,', '\n', '' ), html_entity_decode( strip_tags( str_replace( '</p>', '</p> ', apply_filters( 'the_content', tribe( 'editor.utils' )->exclude_tribe_blocks( $event_post->post_content ) ) ) ), ENT_QUOTES ) );
+			$item[] = 'SUMMARY:' . str_replace(
+					[ ',', "\n", "\r" ],
+					[ '\,', '\n', '' ],
+					html_entity_decode( strip_tags( $event_post->post_title ), ENT_QUOTES )
+				);
+			$item[] = 'DESCRIPTION:' . str_replace(
+					[ ',', "\n", "\r" ],
+					[ '\,', '\n', '' ],
+					html_entity_decode( strip_tags( str_replace( '</p>', '</p> ', apply_filters( 'the_content', tribe( 'editor.utils' )->exclude_tribe_blocks( $event_post->post_content ) ) ) ), ENT_QUOTES )
+				);
 			$item[] = 'URL:' . get_permalink( $event_post->ID );
 
 			// add location if available
 			$location = $tec->fullAddressString( $event_post->ID );
 			if ( ! empty( $location ) ) {
-				$str_location = str_replace( array( ',', "\n" ), array( '\,', '\n' ), html_entity_decode( $location, ENT_QUOTES ) );
+				$str_location = str_replace(
+					[ ',', "\n" ],
+					[ '\,', '\n' ],
+					html_entity_decode( $location, ENT_QUOTES )
+				);
 
 				$item[] = 'LOCATION:' .  $str_location;
 			}
@@ -483,7 +498,11 @@ class Tribe__Events__iCal {
 				if ( ! empty( $long ) && ! empty( $lat ) ) {
 					$item[] = sprintf( 'GEO:%s;%s', $lat, $long );
 
-					$str_title = str_replace( array( ',', "\n" ), array( '\,', '\n' ), html_entity_decode( tribe_get_address( $event_post->ID ), ENT_QUOTES ) );
+					$str_title = str_replace(
+						[ ',', "\n" ],
+						[ '\,', '\n' ],
+						html_entity_decode( tribe_get_address( $event_post->ID ), ENT_QUOTES )
+					);
 
 					if ( ! empty( $str_title ) && ! empty( $str_location ) ) {
 						$item[] =
@@ -495,7 +514,11 @@ class Tribe__Events__iCal {
 			}
 
 			// add categories if available
-			$event_cats = (array) wp_get_object_terms( $event_post->ID, Tribe__Events__Main::TAXONOMY, array( 'fields' => 'names' ) );
+			$event_cats = (array) wp_get_object_terms(
+				$event_post->ID,
+				Tribe__Events__Main::TAXONOMY,
+				[ 'fields' => 'names' ]
+			);
 
 			if ( ! empty( $event_cats ) ) {
 				$item[] = 'CATEGORIES:' . html_entity_decode( join( ',', $event_cats ), ENT_QUOTES );
@@ -565,7 +588,7 @@ class Tribe__Events__iCal {
 	 * @param mixed $query A WP_Query object or null if none.
 	 * @return array
 	 */
-	protected function get_events_list( $args = array(), $query = null ) {
+	protected function get_events_list( $args = [], $query = null ) {
 		/**
 		 * Filter the arguments used to construct the call to get the list of events.
 		 *
@@ -590,7 +613,7 @@ class Tribe__Events__iCal {
 			$query_posts_per_page = $query->get( 'posts_per_page' );
 		}
 
-		$list = array();
+		$list = [];
 		// When `posts_per_page` is set to `-1` we can slice.
 		if ( $query_posts_per_page >= 0 && $count > $query_posts_per_page ) {
 			$args['posts_per_page'] = $count;
