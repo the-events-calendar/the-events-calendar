@@ -59,8 +59,10 @@ $wp_core_files  = array_merge( $wp_php_files, [ $wp_root . '/wp-admin', $wp_root
 tad\FunctionMocker\FunctionMocker::init( [
 	'redefinable-internals' => [ 'date' ],
 	'cache-path'            => $cache_path,
-	'include'               => $wp_core_files,
-	'exclude'               => [ $wp_content_dir ]
+	// Include WP Core files and the plugin src files.
+	'include'               => array_merge( $wp_core_files, [ codecept_root_dir( 'src' ) ] ),
+	// Exclude the whole wp-content dir, the vendor and tests folder.
+	'exclude'               => [ $wp_content_dir, codecept_root_dir( 'vendor' ), codecept_root_dir( 'tests' ) ]
 ] );
 
 /**

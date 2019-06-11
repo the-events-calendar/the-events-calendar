@@ -17,7 +17,7 @@
 		<script
 	data-js="tribe-events-view-data"
 	type="application/json"
->{"slug":"list","prev_url":"","next_url":"","title":"","events":[],"url":"http:\\/\\/test.tri.be\\/events\\/list\\/"}</script>
+>{"slug":"list","prev_url":"","next_url":"","title":"  Events","events":[],"url":"http:\\/\\/test.tri.be\\/events\\/list\\/"}</script>
 
 		<div class="tribe-events-c-events-bar">
 

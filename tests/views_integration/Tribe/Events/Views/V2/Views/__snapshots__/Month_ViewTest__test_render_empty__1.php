@@ -1,4 +1,7 @@
-<?php return '<div class="tribe-events-c-events-bar">
+<?php return '
+<div class="tribe-common-l-container tribe-events-l-container">
+
+	<div class="tribe-events-c-events-bar">
 
 	<h2 class="tribe-common-a11y-visual-hide">Events Search and Views Navigation</h2>
 
@@ -89,7 +92,8 @@
 </div>
 
 </div>
-<div class="tribe-events-c-top-bar">
+
+	<div class="tribe-events-c-top-bar">
 
 	<div class="tribe-events-c-top-bar__nav-wrapper">
 	<nav class="tribe-events-c-top-bar__nav">
@@ -116,9 +120,9 @@
 
 </div>
 
-<div class="tribe-events-calendar-month" role="grid" aria-labelledby="tribe-calendar-header" aria-readonly="true">
+	<div class="tribe-events-calendar-month" role="grid" aria-labelledby="tribe-calendar-header" aria-readonly="true">
 
-	<header role="rowgroup">
+		<header role="rowgroup">
 
 	<h2 class="tribe-common-a11y-visual-hide" id="tribe-calendar-header">Calendar of Events</h2>
 
@@ -182,13 +186,13 @@
 			</div>
 </header>
 
-	<div class="tribe-events-calendar-month__body" role="rowgroup">
+		<div class="tribe-events-calendar-month__body" role="rowgroup">
 
-				
-			<div class="tribe-events-calendar-month__week" role="row">
+						
+				<div class="tribe-events-calendar-month__week" role="row">
 
-				
 					
+						
 <div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-5-1">
 	<div id="tribe-events-calendar-day-5-1">
 		<h3 class="tribe-events-calendar-month__day-date tribe-events-calendar-month__day-date--current">
@@ -204,8 +208,8 @@
 	</div>
 	<!-- Events for this day will be listed here -->
 </div>
-				
 					
+						
 <div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-5-2">
 	<div id="tribe-events-calendar-day-5-2">
 		<h3 class="tribe-events-calendar-month__day-date">
@@ -221,8 +225,8 @@
 	</div>
 	<!-- Events for this day will be listed here -->
 </div>
-				
 					
+						
 <div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-5-3">
 	<div id="tribe-events-calendar-day-5-3">
 		<h3 class="tribe-events-calendar-month__day-date">
@@ -238,8 +242,8 @@
 	</div>
 	<!-- Events for this day will be listed here -->
 </div>
-				
 					
+						
 <div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-5-4">
 	<div id="tribe-events-calendar-day-5-4">
 		<h3 class="tribe-events-calendar-month__day-date">
@@ -255,8 +259,8 @@
 	</div>
 	<!-- Events for this day will be listed here -->
 </div>
-				
 					
+						
 <div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-5-5">
 	<div id="tribe-events-calendar-day-5-5">
 		<h3 class="tribe-events-calendar-month__day-date">
@@ -272,8 +276,8 @@
 	</div>
 	<!-- Events for this day will be listed here -->
 </div>
-				
 					
+						
 <div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-5-6">
 	<div id="tribe-events-calendar-day-5-6">
 		<h3 class="tribe-events-calendar-month__day-date">
@@ -289,8 +293,8 @@
 	</div>
 	<!-- Events for this day will be listed here -->
 </div>
-				
 					
+						
 <div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-5-7">
 	<div id="tribe-events-calendar-day-5-7">
 		<h3 class="tribe-events-calendar-month__day-date">
@@ -306,14 +310,14 @@
 	</div>
 	<!-- Events for this day will be listed here -->
 </div>
-				
-			</div>
-
-		
-			<div class="tribe-events-calendar-month__week" role="row">
-
-				
 					
+				</div>
+
+			
+				<div class="tribe-events-calendar-month__week" role="row">
+
+					
+						
 <div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-5-8">
 	<div id="tribe-events-calendar-day-5-8">
 		<h3 class="tribe-events-calendar-month__day-date">
@@ -329,8 +333,8 @@
 	</div>
 	<!-- Events for this day will be listed here -->
 </div>
-				
 					
+						
 <div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-5-9">
 	<div id="tribe-events-calendar-day-5-9">
 		<h3 class="tribe-events-calendar-month__day-date">
@@ -346,8 +350,8 @@
 	</div>
 	<!-- Events for this day will be listed here -->
 </div>
-				
 					
+						
 <div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-5-10">
 	<div id="tribe-events-calendar-day-5-10">
 		<h3 class="tribe-events-calendar-month__day-date">
@@ -363,8 +367,8 @@
 	</div>
 	<!-- Events for this day will be listed here -->
 </div>
-				
 					
+						
 <div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-5-11">
 	<div id="tribe-events-calendar-day-5-11">
 		<h3 class="tribe-events-calendar-month__day-date">
@@ -380,8 +384,8 @@
 	</div>
 	<!-- Events for this day will be listed here -->
 </div>
-				
 					
+						
 <div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-5-12">
 	<div id="tribe-events-calendar-day-5-12">
 		<h3 class="tribe-events-calendar-month__day-date">
@@ -397,8 +401,8 @@
 	</div>
 	<!-- Events for this day will be listed here -->
 </div>
-				
 					
+						
 <div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-5-13">
 	<div id="tribe-events-calendar-day-5-13">
 		<h3 class="tribe-events-calendar-month__day-date">
@@ -414,8 +418,8 @@
 	</div>
 	<!-- Events for this day will be listed here -->
 </div>
-				
 					
+						
 <div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-5-14">
 	<div id="tribe-events-calendar-day-5-14">
 		<h3 class="tribe-events-calendar-month__day-date">
@@ -431,14 +435,14 @@
 	</div>
 	<!-- Events for this day will be listed here -->
 </div>
-				
-			</div>
-
-		
-			<div class="tribe-events-calendar-month__week" role="row">
-
-				
 					
+				</div>
+
+			
+				<div class="tribe-events-calendar-month__week" role="row">
+
+					
+						
 <div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-5-15">
 	<div id="tribe-events-calendar-day-5-15">
 		<h3 class="tribe-events-calendar-month__day-date">
@@ -454,8 +458,8 @@
 	</div>
 	<!-- Events for this day will be listed here -->
 </div>
-				
 					
+						
 <div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-5-16">
 	<div id="tribe-events-calendar-day-5-16">
 		<h3 class="tribe-events-calendar-month__day-date">
@@ -471,8 +475,8 @@
 	</div>
 	<!-- Events for this day will be listed here -->
 </div>
-				
 					
+						
 <div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-5-17">
 	<div id="tribe-events-calendar-day-5-17">
 		<h3 class="tribe-events-calendar-month__day-date">
@@ -488,8 +492,8 @@
 	</div>
 	<!-- Events for this day will be listed here -->
 </div>
-				
 					
+						
 <div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-5-18">
 	<div id="tribe-events-calendar-day-5-18">
 		<h3 class="tribe-events-calendar-month__day-date">
@@ -505,8 +509,8 @@
 	</div>
 	<!-- Events for this day will be listed here -->
 </div>
-				
 					
+						
 <div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-5-19">
 	<div id="tribe-events-calendar-day-5-19">
 		<h3 class="tribe-events-calendar-month__day-date">
@@ -522,8 +526,8 @@
 	</div>
 	<!-- Events for this day will be listed here -->
 </div>
-				
 					
+						
 <div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-5-20">
 	<div id="tribe-events-calendar-day-5-20">
 		<h3 class="tribe-events-calendar-month__day-date">
@@ -539,8 +543,8 @@
 	</div>
 	<!-- Events for this day will be listed here -->
 </div>
-				
 					
+						
 <div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-5-21">
 	<div id="tribe-events-calendar-day-5-21">
 		<h3 class="tribe-events-calendar-month__day-date">
@@ -556,14 +560,14 @@
 	</div>
 	<!-- Events for this day will be listed here -->
 </div>
-				
-			</div>
-
-		
-			<div class="tribe-events-calendar-month__week" role="row">
-
-				
 					
+				</div>
+
+			
+				<div class="tribe-events-calendar-month__week" role="row">
+
+					
+						
 <div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-5-22">
 	<div id="tribe-events-calendar-day-5-22">
 		<h3 class="tribe-events-calendar-month__day-date">
@@ -579,8 +583,8 @@
 	</div>
 	<!-- Events for this day will be listed here -->
 </div>
-				
 					
+						
 <div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-5-23">
 	<div id="tribe-events-calendar-day-5-23">
 		<h3 class="tribe-events-calendar-month__day-date">
@@ -596,8 +600,8 @@
 	</div>
 	<!-- Events for this day will be listed here -->
 </div>
-				
 					
+						
 <div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-5-24">
 	<div id="tribe-events-calendar-day-5-24">
 		<h3 class="tribe-events-calendar-month__day-date">
@@ -613,8 +617,8 @@
 	</div>
 	<!-- Events for this day will be listed here -->
 </div>
-				
 					
+						
 <div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-5-25">
 	<div id="tribe-events-calendar-day-5-25">
 		<h3 class="tribe-events-calendar-month__day-date">
@@ -630,8 +634,8 @@
 	</div>
 	<!-- Events for this day will be listed here -->
 </div>
-				
 					
+						
 <div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-5-26">
 	<div id="tribe-events-calendar-day-5-26">
 		<h3 class="tribe-events-calendar-month__day-date">
@@ -647,8 +651,8 @@
 	</div>
 	<!-- Events for this day will be listed here -->
 </div>
-				
 					
+						
 <div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-5-27">
 	<div id="tribe-events-calendar-day-5-27">
 		<h3 class="tribe-events-calendar-month__day-date">
@@ -664,8 +668,8 @@
 	</div>
 	<!-- Events for this day will be listed here -->
 </div>
-				
 					
+						
 <div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-5-28">
 	<div id="tribe-events-calendar-day-5-28">
 		<h3 class="tribe-events-calendar-month__day-date">
@@ -681,10 +685,14 @@
 	</div>
 	<!-- Events for this day will be listed here -->
 </div>
-				
-			</div>
+					
+				</div>
 
-		
+			
+		</div>
+
 	</div>
+
 </div>
+
 ';

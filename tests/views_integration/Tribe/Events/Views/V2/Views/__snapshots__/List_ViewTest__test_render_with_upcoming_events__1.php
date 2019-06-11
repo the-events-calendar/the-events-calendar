@@ -17,7 +17,7 @@
 		<script
 	data-js="tribe-events-view-data"
 	type="application/json"
->{"slug":"list","prev_url":"http:\\/\\/test.tri.be\\/?post_type=tribe_events&eventDisplay=past&eventDate=2018-01-01","next_url":"http:\\/\\/test.tri.be\\/events\\/page\\/2\\/","title":"","events":[{"ID":22,"post_author":"0","post_date":"2019-01-01 09:00:00","post_date_gmt":"2019-01-01 09:00:00","post_content":"","post_title":"Test Event - 2018-02-01 10am","post_excerpt":"","post_status":"publish","comment_status":"open","ping_status":"closed","post_password":"","post_name":"test-event-2018-02-01-10am","to_ping":"","pinged":"","post_modified":"2019-01-01 09:00:00","post_modified_gmt":"2019-01-01 09:00:00","post_content_filtered":"","post_parent":0,"guid":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-2018-02-01-10am","menu_order":0,"post_type":"tribe_events","post_mime_type":"","comment_count":"0","filter":"raw"},{"ID":23,"post_author":"0","post_date":"2019-01-01 09:00:00","post_date_gmt":"2019-01-01 09:00:00","post_content":"","post_title":"Test Event - 2018-02-02 8am","post_excerpt":"","post_status":"publish","comment_status":"open","ping_status":"closed","post_password":"","post_name":"test-event-2018-02-02-8am","to_ping":"","pinged":"","post_modified":"2019-01-01 09:00:00","post_modified_gmt":"2019-01-01 09:00:00","post_content_filtered":"","post_parent":0,"guid":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-2018-02-02-8am","menu_order":0,"post_type":"tribe_events","post_mime_type":"","comment_count":"0","filter":"raw"}],"url":"http:\\/\\/test.tri.be\\/events\\/list\\/"}</script>
+>{"slug":"list","prev_url":"http:\\/\\/test.tri.be\\/events\\/?eventDisplay=past","next_url":"http:\\/\\/test.tri.be\\/events\\/page\\/2\\/","title":"  Events","events":[{"ID":7,"post_author":"0","post_date":"2019-06-11 13:59:35","post_date_gmt":"2019-06-11 13:59:35","post_content":"","post_title":"Test Event - +9 days","post_excerpt":"","post_status":"publish","comment_status":"open","ping_status":"closed","post_password":"","post_name":"test-event-9-days-2","to_ping":"","pinged":"","post_modified":"2019-06-11 13:59:35","post_modified_gmt":"2019-06-11 13:59:35","post_content_filtered":"","post_parent":0,"guid":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-9-days-2","menu_order":0,"post_type":"tribe_events","post_mime_type":"","comment_count":"0","filter":"raw"},{"ID":8,"post_author":"1","post_date":"2019-06-11 13:59:35","post_date_gmt":"2019-06-11 13:59:35","post_content":"","post_title":"Single Event 1","post_excerpt":"","post_status":"publish","comment_status":"open","ping_status":"closed","post_password":"","post_name":"single-event-1","to_ping":"","pinged":"","post_modified":"2019-06-11 13:59:35","post_modified_gmt":"2019-06-11 13:59:35","post_content_filtered":"","post_parent":0,"guid":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-9-days-2","menu_order":0,"post_type":"tribe_events","post_mime_type":"","comment_count":"0","filter":"raw"}],"url":"http:\\/\\/test.tri.be\\/events\\/list\\/"}</script>
 
 		<div class="tribe-events-c-events-bar">
 
@@ -118,7 +118,7 @@
 		<ul class="tribe-events-c-top-bar__nav-list">
 			<li class="tribe-events-c-top-bar__nav-list-item">
 	<a
-		href="http://test.tri.be/?post_type=tribe_events&#038;eventDisplay=past&#038;eventDate=2018-01-01"
+		href="http://test.tri.be/events/?eventDisplay=past"
 		class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-left tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--prev"
 		aria-label="Previous"
 		title="Previous"
@@ -165,7 +165,7 @@
 </div>
 
 			
-				<div class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-list__event">
+				<article class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-list__event tribe-events-calendar-list__event--featured">
 
 	
 	<div class="tribe-events-calendar-list__event-details tribe-common-g-col">
@@ -174,15 +174,21 @@
 			<div class="tribe-events-calendar-list__event-datetime-wrapper">
 	<time class="tribe-events-calendar-list__event-datetime tribe-common-b2" datetime="1970-01-01T00:00:00+00:00">
 		<span class="tribe-event-date-start">January 1 @ 9:00 am</span>	</time>
+			<em
+			class="tribe-events-calendar-list__event-datetime-featured-icon tribe-common-svgicon tribe-common-svgicon--featured"
+			aria-label="Featured"
+			title="Featured"
+		>
+		</em>
 	</div>
-			<h3 class="tribe-events-calendar-list__event-title">
+			<h3 class="tribe-events-calendar-list__event-title tribe-common-h4">
 	<a
-		href="http://test.tri.be/?tribe_events=test-event-2018-02-01-10am%2F"
+		href="http://test.tri.be/?tribe_events=test-event-9-days-2%2F"
 		title=""
 		rel="bookmark"
-		class="tribe-events-calendar-list__event-title-link tribe-common-h4"
+		class="tribe-events-calendar-list__event-title-link"
 	>
-		Test Event &#8211; 2018-02-01 10am	</a>
+		Test Event &#8211; +9 days	</a>
 </h3>
 			<address class="tribe-events-calendar-list__event-venue">
 	<span class="tribe-events-calendar-list__event-venue-title tribe-common-b2 tribe-common-b2--bold">
@@ -205,10 +211,10 @@
 
 	</div>
 
-</div>
+</article>
 
 			
-				<div class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-list__event">
+				<article class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-list__event">
 
 	
 	<div class="tribe-events-calendar-list__event-details tribe-common-g-col">
@@ -218,14 +224,14 @@
 	<time class="tribe-events-calendar-list__event-datetime tribe-common-b2" datetime="1970-01-01T00:00:00+00:00">
 		<span class="tribe-event-date-start">January 1 @ 9:00 am</span>	</time>
 	</div>
-			<h3 class="tribe-events-calendar-list__event-title">
+			<h3 class="tribe-events-calendar-list__event-title tribe-common-h4">
 	<a
-		href="http://test.tri.be/?tribe_events=test-event-2018-02-02-8am%2F"
+		href="http://test.tri.be/?tribe_events=single-event-1%2F"
 		title=""
 		rel="bookmark"
-		class="tribe-events-calendar-list__event-title-link tribe-common-h4"
+		class="tribe-events-calendar-list__event-title-link"
 	>
-		Test Event &#8211; 2018-02-02 8am	</a>
+		Single Event 1	</a>
 </h3>
 			<address class="tribe-events-calendar-list__event-venue">
 	<span class="tribe-events-calendar-list__event-venue-title tribe-common-b2 tribe-common-b2--bold">
@@ -248,7 +254,7 @@
 
 	</div>
 
-</div>
+</article>
 
 			
 		</div>
@@ -257,7 +263,7 @@
 	<ul class="tribe-common-c-nav__list">
 		<li class="tribe-common-c-nav__list-item">
 	<a
-		href="http://test.tri.be/?post_type=tribe_events&#038;eventDisplay=past&#038;eventDate=2018-01-01"
+		href="http://test.tri.be/events/?eventDisplay=past"
 		rel="prev"
 		class="tribe-common-c-nav__prev"
 		data-js="tribe-events-view-link"
