@@ -39,13 +39,28 @@ if ( ! is_dir( $cache_path ) ) {
 	}
 }
 
-codecept_debug( 'Function Mocker cache path: ' . $cache_path );
+echo( "Function Mocker cache path: {$cache_path}\n" );
+
+/*
+ * Let's use exclusions and inclusions to really cover only what we need; we're really interested in catching WordPress
+ * functions.
+ */
+$wp_content_dir = dirname( codecept_root_dir(), 2 );
+$wp_php_files   = array_map( static function ( SplFileInfo $f ) {
+	return $f->getPathname();
+}, iterator_to_array( new CallbackFilterIterator(
+	new FilesystemIterator( $wp_root, FilesystemIterator::SKIP_DOTS ),
+	static function ( SplFileInfo $f ) {
+		return 'php' === $f->getExtension();
+	}
+), false ) );
+$wp_core_files  = array_merge( $wp_php_files, [ $wp_root . '/wp-admin', $wp_root . '/wp-includes' ] );
 
 tad\FunctionMocker\FunctionMocker::init( [
 	'redefinable-internals' => [ 'date' ],
 	'cache-path'            => $cache_path,
-	'include'               => [ $wp_root ],
-	'exclude'               => [ codecept_root_dir( 'vendor' ), codecept_root_dir( 'tests' ) ]
+	'include'               => $wp_core_files,
+	'exclude'               => [ $wp_content_dir ]
 ] );
 
 /**
