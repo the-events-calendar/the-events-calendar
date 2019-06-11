@@ -14,8 +14,8 @@
 		rel="bookmark"
 		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
 		data-js="tribe-events-tooltip"
-		data-tooltip-content="#tooltip_content-4"
-		aria-describedby="#tooltip_content-4"
+		data-tooltip-content="#tooltip_content-10"
+		aria-describedby="#tooltip_content-10"
 	>
 			</a>
 </h3>
@@ -25,7 +25,7 @@
 	data-js="tribe-events-tooltip-content"
 	role="tooltip"
 >
-	<div id="tooltip_content-4">
+	<div id="tooltip_content-10">
 				<p class="tribe-events-calendar-month__calendar-event-tooltip-description tribe-common-b3">
 	Lorem ipsum dolor sit amet, consectetur adipiscing elit. In consectetur metus tortor, et maximus libero aliquet in. Praesent rhoncus ultricies neque in imperdiet. Aenean at ex luctus, tempor justo eget, pharetra magna. Nullam ut odio maximus nisi mollis gravida.
 </p>
