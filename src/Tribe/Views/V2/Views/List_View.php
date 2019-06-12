@@ -35,25 +35,7 @@ class List_View extends View {
 
 		$this->setup_the_loop( $args );
 
-		$events        = $this->repository->all();
-
-		/*
-		 * Here we pass to the template a trimmed down version of the View render context and we set it as global to
-		 * make it available to any view using the template.
-		 * Ideally one that contains only the variables the template will need to render.
-		 */
-		$url           = $this->get_url( true );
-		$prev_url      = $this->prev_url( true );
-		$next_url      = $this->next_url( true );
-		$template_vars = [
-			'title'    => wp_title( null, false ),
-			'events'   => $events,
-			'url'      => $url,
-			'prev_url' => $prev_url,
-			'next_url' => $next_url,
-		];
-
-		$template_vars = $this->filter_template_vars( $template_vars );
+		$template_vars = $this->setup_template_vars();
 
 		$this->template->set_values( $template_vars, false );
 
@@ -130,6 +112,7 @@ class List_View extends View {
 				'eventDisplay' => 'past',
 				'eventDate'    => $eventDate_var,
 				$this->page_key        => $page,
+				'tribe-bar-search' => $this->context->get('keyword'),
 			] ) );
 
 			$past_url = (string) $url;
@@ -187,6 +170,7 @@ class List_View extends View {
 				'eventDisplay' => 'list',
 				'eventDate'    => $default_date === $date ? '' : $date,
 				$this->page_key        => $page,
+				'tribe-bar-search' => $this->context->get('keyword'),
 			] ) );
 
 			if ( ! $canonical ) {
@@ -205,6 +189,8 @@ class List_View extends View {
 	protected function setup_repository_args( \Tribe__Context $context = null ) {
 		$context = null !== $context ? $context : $this->context;
 
+		$common_args = parent::setup_repository_args( $context );
+
 		/*
 		 * The View not care where the context comes from: from the View point of view the context is the only
 		 * source of truth.
@@ -215,10 +201,10 @@ class List_View extends View {
 		/*
 		 * Depending on the context contents let's set up the arguments to fetch the events.
 		 */
-		$args = [
+		$args = array_merge( $common_args, [
 			'posts_per_page' => $context_arr['posts_per_page'],
 			'paged'          => max( Arr::get_first_set( $context_arr, [ 'paged', 'page' ], 1 ), 1 ),
-		];
+		] );
 
 		$date = Arr::get( $context_arr, 'event_date', 'now' );
 		$event_display = Arr::get( $context_arr, 'event_display_mode', Arr::get( $context_arr, 'event_display' ), 'current' );
@@ -231,5 +217,28 @@ class List_View extends View {
 		}
 
 		return $args;
+	}
+
+	/**
+	 * Sets up the List View template variables.
+	 *
+	 * @since TBD
+	 *
+	 * @return array An array of Template variables for the View Template.
+	 */
+	protected function setup_template_vars() {
+		$template_vars = [
+			'title'       => wp_title( null, false ),
+			'events'      => $this->repository->all(),
+			'url'         => $this->get_url( true ),
+			'prev_url'    => $this->prev_url( true ),
+			'next_url'    => $this->next_url( true ),
+			'bar_keyword' => $this->context->get( 'keyword', '' ),
+			'bar_date'    => $this->context->get( 'event_date', '' ),
+		];
+
+		$template_vars = $this->filter_template_vars( $template_vars );
+
+		return $template_vars;
 	}
 }

@@ -9,6 +9,8 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
+ * @var string $bar_date The search bar set date, if any.
+ *
  * @version 4.9.3
  *
  */
@@ -19,7 +21,8 @@
 		class="tribe-common-form-control-text__input tribe-common-c-search__input"
 		type="text"
 		id="tribe-bar-date"
-		name="tribe-bar-date"
+		name="tribe-events-views[tribe-bar-date]"
+		value="<?php echo esc_attr( $bar_date ); ?>"
 		placeholder="<?php esc_attr_e( 'Enter date', 'the-events-calendar' ); ?>"
 	/>
 </div>

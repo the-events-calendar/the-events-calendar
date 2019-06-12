@@ -9,6 +9,8 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
+ * @var string $bar_keyword The search bar set keyword, if any.
+ *
  * @version 4.9.3
  *
  */
@@ -19,7 +21,8 @@
 		class="tribe-common-form-control-text__input tribe-common-c-search__input"
 		type="text"
 		id="keyword"
-		name="keyword"
+		name="tribe-events-views[tribe-bar-search]"
+		value="<?php echo esc_attr( $bar_keyword ); ?>"
 		placeholder="<?php esc_attr_e( 'Keyword', 'the-events-calendar' ); ?>"
 	/>
 </div>
