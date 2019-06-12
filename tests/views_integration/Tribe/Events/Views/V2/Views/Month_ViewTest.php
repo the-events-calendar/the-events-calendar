@@ -3,8 +3,6 @@
 namespace Tribe\Events\Views\V2\Views;
 
 use Spatie\Snapshots\MatchesSnapshots;
-use tad\FunctionMocker\FunctionMocker as Test;
-use Tribe\Events\Views\V2\Views\ViewTestCase;
 use Tribe\Events\Views\V2\View;
 
 class Month_ViewTest extends ViewTestCase {
@@ -14,6 +12,8 @@ class Month_ViewTest extends ViewTestCase {
 	 * Test render empty
 	 */
 	public function test_render_empty() {
+		$this->markTestSkipped( 'To be reviewed after snapshot testing review.' );
+
 		// Sanity check
 		$this->assertEmpty( tribe_events()->found() );
 
