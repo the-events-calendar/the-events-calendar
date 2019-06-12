@@ -15,6 +15,12 @@ params:
   # read dynamic configuration parameters from the .env file
   - .env
 extensions:
+    enabled:
+      - Tribe\Test\Codeception\Extensions\Function_Mocker
+    config:
+      Tribe\Test\Codeception\Extensions\Function_Mocker:
+            suites: [ 'views_integration' ]
+            initFile: tests/_function-mocker-bootstrap.php
     commands:
         - 'Codeception\Command\GenerateWPUnit'
         - 'Codeception\Command\GenerateWPRestApi'
