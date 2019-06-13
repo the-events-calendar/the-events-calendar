@@ -78,6 +78,11 @@ class UrlTest extends \Codeception\TestCase\WPTestCase {
 				'car',
 				'car',
 			],
+			'set_query_arg_and_other_w_same_value'        => [
+				[ 'game' => 'golf', 'color' => 'yellow', 'transport' => 'golf', ],
+				'car',
+				'transport',
+			],
 		];
 	}
 	/**
