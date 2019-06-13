@@ -194,11 +194,11 @@ class View implements View_Interface {
 		$context = tribe_context()
 			->alter(
 				array_merge(
-					tribe_context()->duplicate( $params, \Tribe__Context::REQUEST_VAR ),
+					$params,
+					tribe_context()->translate_sub_locations( $params, \Tribe__Context::REQUEST_VAR ),
 					$not_overrideable_params
 				)
 			);
-//		$context = tribe_context()->alter( $params );
 
 		$view =  static::make( $slug, $context );
 

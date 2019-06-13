@@ -8,6 +8,7 @@
 
 namespace Tribe\Events\Views\V2;
 
+use Tribe__Context as Context;
 use Tribe__Events__Rewrite as Rewrite;
 use Tribe__Utils__Array as Arr;
 
@@ -196,5 +197,17 @@ class Url {
 		$this->query_overrides_path = (bool) $query_overrides_path;
 
 		return $this;
+	}
+
+	public function get_query_arg_alias_of( $var, Context $context = null ) {
+		$context    = $context ?: tribe_context();
+		$query_args = $this->get_query_args();
+		$aliases    = $context->translate_sub_locations(
+			$query_args,
+			Context::QUERY_VAR,
+			'read'
+		);
+
+		return array_search( reset( $aliases ), $query_args, true );
 	}
 }

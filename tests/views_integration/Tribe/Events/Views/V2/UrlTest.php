@@ -2,6 +2,8 @@
 
 namespace Tribe\Events\Views\V2;
 
+use Tribe__Context as Context;
+
 class UrlTest extends \Codeception\TestCase\WPTestCase {
 
 	/**
@@ -50,5 +52,52 @@ class UrlTest extends \Codeception\TestCase\WPTestCase {
 			'w_other_args_last'   => [ trailingslashit( home_url() ) . '?foo=bar&view=test' ],
 			'w_other_args_middle' => [ trailingslashit( home_url() ) . '?foo=bar&view=test&bar=baz' ],
 		];
+	}
+
+	public function get_query_arg_alias_of_data_set() {
+		return [
+			'empty_query_args'                => [ [], 'test', false ],
+			'not_set_query_arg'               => [ [ 'animal' => 'camel', 'color' => 'yellow' ], 'car', false ],
+			'set_query_arg_w_first_location'  => [
+				[ 'carriage' => 'golf', 'color' => 'yellow' ],
+				'car',
+				'carriage',
+			],
+			'set_query_arg_w_second_location' => [
+				[ 'vehicle' => 'golf', 'color' => 'yellow' ],
+				'car',
+				'vehicle',
+			],
+			'set_query_arg_w_third_location'  => [
+				[ 'transport' => 'golf', 'color' => 'yellow' ],
+				'car',
+				'transport',
+			],
+			'set_query_arg_w_key_name'        => [
+				[ 'car' => 'golf', 'color' => 'yellow' ],
+				'car',
+				'car',
+			],
+		];
+	}
+	/**
+	 * Test get_query_arg_alias_of
+	 *
+	 * @dataProvider  get_query_arg_alias_of_data_set
+	 */
+	public function test_get_query_arg_alias_of($query_args,$key, $expected) {
+		$url = new Url( add_query_arg( $query_args, home_url( '/foo/bar' ) ) );
+		/** @var Context $context */
+		$context = tribe_context()->set_locations( [
+			'car' => [
+				'read' => [
+					Context::QUERY_VAR => [ 'carriage', 'vehicle', 'transport' ],
+				],
+			],
+		], false );
+
+		$found = $url->get_query_arg_alias_of( $key, $context );
+
+		$this->assertEquals( $expected, $found );
 	}
 }

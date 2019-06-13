@@ -107,7 +107,7 @@ class List_View extends View {
 		] ) ) );
 
 		if ( $past->count() > 0 ) {
-			$url = clone $this->url->add_query_args( array_filter( [
+			$past_url_object = clone $this->url->add_query_args( array_filter( [
 				'post_type'    => TEC::POSTTYPE,
 				'eventDisplay' => 'past',
 				'eventDate'    => $eventDate_var,
@@ -115,7 +115,7 @@ class List_View extends View {
 				'tribe-bar-search' => $this->context->get('keyword'),
 			] ) );
 
-			$past_url = (string) $url;
+			$past_url = (string) $past_url_object;
 
 			if ( ! $canonical ) {
 				return $past_url;
@@ -125,18 +125,19 @@ class List_View extends View {
 			$canonical_url = Rewrite::instance()->get_clean_url(
 				add_query_arg(
 					[ 'eventDisplay' => $this->slug ],
-					remove_query_arg( [
-						'eventDate',
-					], $past_url )
+					remove_query_arg( [ 'eventDate' ], $past_url )
 				)
 			);
 
 			// We use the `eventDisplay` query var as a display mode indicator: we have to make sure it's there.
 			$url = add_query_arg( [ 'eventDisplay' => 'past' ], $canonical_url );
 
-			// Let's re-add the `eventDate` if we had one.
-			if ( ! empty( $eventDate_var ) ) {
-				$url = add_query_arg( [ 'eventDate' => $eventDate_var ], $canonical_url );
+			// Let's re-add the `eventDate` if we had one and we're not already passing it with one of its aliases.
+			if ( ! (
+				empty( $eventDate_var )
+				|| $past_url_object->get_query_arg_alias_of( 'event_date', $this->context )
+			) ) {
+				$url = add_query_arg( [ 'eventDate' => $eventDate_var ], $url );
 			}
 
 			return $url;
@@ -158,6 +159,7 @@ class List_View extends View {
 	protected function get_upcoming_url($canonical = false, $page = 1) {
 		$default_date = 'now';
 		$date         = $this->context->get( 'event_date', $default_date );
+		$eventDate_var = $default_date === $date ? '' : $date;
 
 		$upcoming = tribe_events()->by_args( $this->setup_repository_args( $this->context->alter( [
 			'eventDisplay' => 'list',
@@ -165,19 +167,34 @@ class List_View extends View {
 		] ) ) );
 
 		if ( $upcoming->count() > 0 ) {
-			$url = clone $this->url->add_query_args( array_filter( [
+			$upcoming_url_object = clone $this->url->add_query_args( array_filter( [
 				'post_type'    => TEC::POSTTYPE,
 				'eventDisplay' => 'list',
-				'eventDate'    => $default_date === $date ? '' : $date,
 				$this->page_key        => $page,
+				'eventDate'    => $eventDate_var,
 				'tribe-bar-search' => $this->context->get('keyword'),
 			] ) );
 
+			$upcoming_url = (string) $upcoming_url_object;
+
 			if ( ! $canonical ) {
-				return (string) $url;
+				return $upcoming_url;
 			}
 
-			return tribe( 'events.rewrite' )->get_clean_url( (string) $url );
+			// We've got rewrite rules handling `eventDate`, but not List. Let's remove it to build the URL.
+			$url = tribe( 'events.rewrite' )->get_clean_url(
+				remove_query_arg( [ 'eventDate' ], $upcoming_url )
+			);
+
+			// Let's re-add the `eventDate` if we had one and we're not already passing it with one of its aliases.
+			if ( ! (
+				empty( $eventDate_var )
+				|| $upcoming_url_object->get_query_arg_alias_of( 'event_date', $this->context )
+			) ) {
+				$url = add_query_arg( [ 'eventDate' => $eventDate_var ], $url );
+			}
+
+			return $url;
 		}
 
 		return '';
