@@ -8,13 +8,17 @@
 
 namespace Tribe\Events\Views\V2;
 
+use Tribe\Events\Views\V2\Views\All_List_View;
 use Tribe\Events\Views\V2\Views\List_View;
 use Tribe\Events\Views\V2\Views\Month_View;
+use Tribe\Events\Views\V2\Views\Day_View;
 use Tribe\Events\Views\V2\Views\Reflector_View;
 use Tribe__Container as Container;
 use Tribe__Context as Context;
 use Tribe__Events__Main as TEC;
+use Tribe__Events__Organizer as Organizer;
 use Tribe__Events__Rewrite as Rewrite;
+use Tribe__Events__Venue as Venue;
 use Tribe__Repository__Interface as Repository;
 use Tribe__Utils__Array as Arr;
 
@@ -110,6 +114,16 @@ class View implements View_Interface {
 	protected $repository_args = [];
 
 	/**
+	 * The key that should be used to indicate the page in an archive.
+	 * Extending classes should not need to modify this.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	protected $page_key = 'paged';
+
+	/**
 	 * Builds a View instance in response to a REST request to the Views endpoint.
 	 *
 	 * @since 4.9.2
@@ -125,6 +139,15 @@ class View implements View_Interface {
 		$url = Arr::get( $params, 'url' );
 		$url_object = new Url( $url );
 		$params = array_merge( $params, $url_object->get_query_args() );
+
+		/*
+		 * WordPress would replicate the `post_name`, when resolving the request, both as `name` and as the post type.
+		 * We emulate this behavior here hydrating the request context to provide a `name` alongside the post type.
+		 */
+		$post_name = array_intersect( array_keys( $params ), [ TEC::POSTTYPE, Venue::POSTTYPE, Organizer::POSTTYPE ] );
+		if ( ! empty( $post_name ) && count( $post_name ) === 1 ) {
+			$params['name'] = $params[ reset( $post_name ) ];
+		}
 
 		if ( false === $slug ) {
 			/*
@@ -276,7 +299,9 @@ class View implements View_Interface {
 
 		$instance->set_context( $view_context );
 
+		// This code is coupled with the idea of viewing events: that's fine as Events are the default view content.
 		$view_repository = tribe_events();
+		$view_repository->order_by( 'event_date', 'ASC' );
 
 		/**
 		 * Filters the Repository object for a View.
@@ -327,9 +352,9 @@ class View implements View_Interface {
 		 *
 		 */
 		$views = apply_filters( 'tribe_events_views', [
+			'day'       => Day_View::class,
 			'month'     => Month_View::class,
 			'list'      => List_View::class,
-			'past'      => List_View::class,
 			'reflector' => Reflector_View::class,
 		] );
 
@@ -455,7 +480,7 @@ class View implements View_Interface {
 		$page = $this->url->get_current_page();
 
 		if ( $page > 1 ) {
-			$query_args['paged'] = $page;
+			$query_args[ $this->page_key ] = $page;
 		}
 
 		$url = add_query_arg( array_filter( $query_args ), home_url() );
@@ -480,8 +505,8 @@ class View implements View_Interface {
 	public function next_url( $canonical = false, array $passthru_vars = [] ) {
 		$next_page = $this->repository->next();
 
-		$url = $next_page->count() > 0 ?
-			add_query_arg( [ 'paged' => $this->url->get_current_page() + 1 ], $this->get_url() )
+		$url            = $next_page->count() > 0 ?
+			add_query_arg( [ $this->page_key => $this->url->get_current_page() + 1 ], $this->get_url() )
 			: '';
 
 		if ( ! empty( $url ) && $canonical ) {
@@ -494,7 +519,7 @@ class View implements View_Interface {
 			// Make sure the view slug is always set to correctly match rewrites.
 			$input_url = add_query_arg( [ 'eventDisplay' => $this->slug ], $input_url );
 
-			$canonical_url = Rewrite::instance()->get_clean_url( $input_url );
+			$canonical_url = tribe( 'events.rewrite' )->get_clean_url( $input_url );
 
 			if ( ! empty( $passthru_vars ) ) {
 				$canonical_url = add_query_arg( $passthru_vars, $canonical_url );
@@ -515,7 +540,7 @@ class View implements View_Interface {
 		$prev_page  = $this->repository->prev();
 		$paged      = $this->url->get_current_page() - 1;
 		$query_args = $paged > 1
-			? [ 'paged' => $paged ]
+			? [ $this->page_key => $paged ]
 			: [];
 
 		$url = $prev_page->count() > 0 ?
@@ -523,7 +548,7 @@ class View implements View_Interface {
 			: '';
 
 		if ( ! empty( $url ) && $paged === 1 ) {
-			$url = remove_query_arg( 'paged', $url );
+			$url = remove_query_arg( $this->page_key, $url );
 		}
 
 		if ( ! empty( $url ) && $canonical ) {
@@ -536,7 +561,7 @@ class View implements View_Interface {
 			// Make sure the view slug is always set to correctly match rewrites.
 			$input_url = add_query_arg( [ 'eventDisplay' => $this->slug ], $input_url );
 
-			$canonical_url = Rewrite::instance()->get_clean_url( $input_url );
+			$canonical_url = tribe( 'events.rewrite' )->get_clean_url( $input_url );
 
 			if ( ! empty( $passthru_vars ) ) {
 				$canonical_url = add_query_arg( $passthru_vars, $canonical_url );
@@ -591,7 +616,7 @@ class View implements View_Interface {
 		 */
 		$this->repository_args = apply_filters( "tribe_events_views_v2_{$this->slug}_repository_args", $args, $this );
 
-		$this->set_repository( $this->build_repository( $this->repository_args ) );
+		$this->repository->by_args( $this->repository_args );
 		$this->set_url( $this->repository_args, true );
 
 		$wp_query = $this->repository->get_query();
@@ -611,19 +636,6 @@ class View implements View_Interface {
 		}
 
 		wp_reset_postdata();
-	}
-
-	/**
-	 * Builds the repository the View will use to get the loop posts.
-	 *
-	 * @since 4.9.3
-	 *
-	 * @param  array  $args An associative array of arguments that will be used to build the repository.
-	 *
-	 * @return \Tribe__Repository__Interface
-	 */
-	protected function build_repository( array $args ) {
-		return tribe_events()->by_args( $args );
 	}
 
 	/**
