@@ -866,4 +866,27 @@ class View implements View_Interface {
 	public function found_post_ids() {
 		return $this->repository->get_ids();
 	}
+
+	/**
+	 * Sets up the View template variables.
+	 *
+	 * @since TBD
+	 *
+	 * @return array An array of Template variables for the View Template.
+	 */
+	protected function setup_template_vars(  ) {
+		$template_vars = [
+			'title'       => wp_title( null, false ),
+			'events'      => $this->repository->all(),
+			'url'         => $this->get_url( true ),
+			'prev_url'    => $this->prev_url( true ),
+			'next_url'    => $this->next_url( true ),
+			'bar_keyword' => $this->context->get( 'keyword', '' ),
+			'bar_date'    => $this->context->get( 'event_date', '' ),
+		];
+
+		$template_vars = $this->filter_template_vars( $template_vars );
+
+		return $template_vars;
+	}
 }

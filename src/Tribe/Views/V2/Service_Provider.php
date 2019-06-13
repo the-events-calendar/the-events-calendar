@@ -49,7 +49,6 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 
 		// Since the View main class will act as a DI container itself let's provide it with the global container.
 		View::set_container( $this->container );
-
 	}
 
 	/**

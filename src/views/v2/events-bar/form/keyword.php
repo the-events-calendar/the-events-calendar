@@ -22,7 +22,7 @@
 		type="text"
 		id="keyword"
 		name="tribe-events-views[tribe-bar-search]"
-		value="<?php echo esc_attr( $bar_keyword ); ?>"
+		value="<?php echo esc_attr( tribe_var( 'bar_keyword', '' ) ); ?>"
 		placeholder="<?php esc_attr_e( 'Keyword', 'the-events-calendar' ); ?>"
 	/>
 </div>

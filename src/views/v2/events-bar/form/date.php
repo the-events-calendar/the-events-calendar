@@ -22,7 +22,7 @@
 		type="text"
 		id="tribe-bar-date"
 		name="tribe-events-views[tribe-bar-date]"
-		value="<?php echo esc_attr( $bar_date ); ?>"
+		value="<?php echo esc_attr( tribe_var( 'bar_date' ) ); ?>"
 		placeholder="<?php esc_attr_e( 'Enter date', 'the-events-calendar' ); ?>"
 	/>
 </div>
