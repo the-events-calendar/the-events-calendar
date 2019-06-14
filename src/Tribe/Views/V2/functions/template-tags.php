@@ -17,7 +17,6 @@ if ( ! function_exists( 'tribe_events_template_var' ) ) {
 	 * @param mixed        $default The default value that will be returned if the value is not set in the template or the
 	 *                              template is not set at all.
 	 *
-	 * @return mixed
 	 * @example
 	 *        ```php
 	 *        <?php
@@ -29,16 +28,17 @@ if ( ! function_exists( 'tribe_events_template_var' ) ) {
 	 * $events = tribe_events_template_var( [ 'bar', 'keyword' ], '' );
 	 * ```
 	 *
+	 * @return mixed The template variable value, or the default value if not found.
 	 */
 	function tribe_events_template_var( $key, $default = null ) {
-		global /** @var Tribe__Template $tribe_template */
-		$tribe_template;
+		/** @var Tribe__Template $tribe_template */
+		global $tribe_template;
 		$value = $default;
 		$slug  = false;
 
 		if ( $tribe_template instanceof Tribe__Template ) {
 			$value = $tribe_template->get( $key, $default );
-			$slug  = $tribe_template->get( 'request_slug', false );
+			$slug  = $tribe_template->get( 'slug', false );
 		}
 
 		/**
