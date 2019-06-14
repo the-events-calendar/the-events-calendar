@@ -17,7 +17,7 @@
 		<script
 	data-js="tribe-events-view-data"
 	type="application/json"
->{"slug":"list","prev_url":"","next_url":"","title":"","events":[],"url":"http:\\/\\/test.tri.be\\/events\\/list\\/","bar_keyword":"","bar_date":""}</script>
+>{"slug":"list","prev_url":"","next_url":"","title":"","events":[],"url":"http:\\/\\/test.tri.be\\/events\\/list\\/","bar":{"keyword":"","date":""}}</script>
 
 		<div class="tribe-events-c-events-bar">
 
@@ -77,7 +77,7 @@
 		type="text"
 		id="keyword"
 		name="tribe-events-views[tribe-bar-search]"
-		value="bar_keyword"
+		value=""
 		placeholder="Keyword"
 	/>
 </div>
@@ -98,7 +98,7 @@
 		type="text"
 		id="tribe-bar-date"
 		name="tribe-events-views[tribe-bar-date]"
-		value="bar_date"
+		value=""
 		placeholder="Enter date"
 	/>
 </div>

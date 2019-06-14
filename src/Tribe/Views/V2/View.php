@@ -638,6 +638,10 @@ class View implements View_Interface {
 
 		$wp_query = $this->repository->get_query();
 		wp_reset_postdata();
+
+		// Make the template global to power template tags.
+		global $tribe_template;
+		$tribe_template = $this->template;
 	}
 
 	/**
