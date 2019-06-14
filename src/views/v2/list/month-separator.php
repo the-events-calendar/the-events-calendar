@@ -12,9 +12,14 @@
  * @version 4.9.3
  *
  */
-$month = $this->get( 'month' );
-$year  = $this->get( 'year' )
+$date  = $this->get( 'date' );
+$month = date( 'M', $date );
+$year  = date( 'Y', $date );
 ?>
 <div class="tribe-events-calendar-list__separator-month">
-	<time class="tribe-events-calendar-list__separator-month-text tribe-common-b1" datetime="1970-01-01T00:00:00+00:00"><?php echo esc_html( $month ); ?> <?php echo esc_html( $year ); ?></time>
+	<time
+		class="tribe-events-calendar-list__separator-month-text tribe-common-b1"
+		datetime="<?php echo esc_attr( $year ); ?>-<?php echo esc_attr( date( 'm', $date ) ); ?>">
+			<?php echo esc_html( $month ); ?> <?php echo esc_html( $year ); ?>
+		</time>
 </div>
