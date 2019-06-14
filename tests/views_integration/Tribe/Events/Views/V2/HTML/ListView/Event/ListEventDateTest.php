@@ -70,12 +70,12 @@ class ListEventDateTest extends TestHtmlCase {
 
 		$this->assertTrue(
 			$featured_icon->is( '[aria-label="Featured"]' ),
-			'Month calendar event featured icon needs to be aria-label="Featured"'
+			'List event featured icon needs to be aria-label="Featured"'
 		);
 
 		$this->assertTrue(
 			$featured_icon->is( '[title="Featured"]' ),
-			'Month calendar event featured icon needs to be title="Featured"'
+			'List event featured icon needs to be title="Featured"'
 		);
 
 	}
