@@ -12,11 +12,17 @@
  * @version 4.9.3
  *
  */
-tribe_events_get_url( [ 'paged' => 1 ], $view->get_url() );
+
+// If we didnt have a view setup we cannot print what today's link
+if ( ! $this->get( 'view' ) ) {
+	return false;
+}
+
+$today_url = tribe_events_get_url( [ 'paged' => 1 ], $this->get( 'view' )->get_url() );
 ?>
 <div class="tribe-events-c-top-bar__today">
 	<a
-		href="<?php echo esc_url( tribe_events_get_url( [ 'paged' => 1 ], $view->get_url() ) ); ?>"
+		href="<?php echo esc_url( $today_url ); ?>"
 		class="tribe-common-c-btn-border tribe-events-c-top-bar__today-button"
 		data-js="tribe-events-view-link"
 	>

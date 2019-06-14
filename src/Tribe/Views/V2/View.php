@@ -157,7 +157,9 @@ class View implements View_Interface {
 		}
 
 		// Let's check if we have a display mode set.
-		$query_args                   = $url_object->query_overrides_path( true )->parse_url()->get_query_args();
+		$query_args = $url_object->query_overrides_path( true )
+		                         ->parse_url()
+		                         ->get_query_args();
 		$params['event_display_mode'] = Arr::get( $query_args, 'eventDisplay', false );
 
 		/**
