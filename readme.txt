@@ -215,6 +215,10 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
+= [4.9.3.2] TBD =
+
+* Fix - Prevent issue where older versions of the tribe-common libraries could be bootstrapped [129478]
+
 = [4.9.3.1] 2019-06-07 =
 
 * Fix - Remove caching of rewrite base slugs which make third-party, Photo and Week work as expected [129035]

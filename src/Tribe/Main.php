@@ -315,6 +315,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$this->pluginDir   = $this->plugin_dir = trailingslashit( basename( $this->plugin_path ) );
 			$this->pluginUrl   = $this->plugin_url = str_replace( basename( $this->plugin_file ), '', plugins_url( basename( $this->plugin_file ), $this->plugin_file ) );
 
+			// Set common lib information, needs to happen file load
+			$this->maybe_set_common_lib_info();
+
 			// let's initialize tec
 			add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ), 0 );
 
@@ -350,8 +353,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 * overwrite what should be loaded by the auto-loader
 			 */
 			if (
-				empty( $GLOBALS['tribe-common-info'] ) ||
-				version_compare( $GLOBALS['tribe-common-info']['version'], $common_version, '<' )
+				empty( $GLOBALS['tribe-common-info'] )
+				|| version_compare( $GLOBALS['tribe-common-info']['version'], $common_version, '<' )
 			) {
 				$GLOBALS['tribe-common-info'] = array(
 					'dir' => "{$this->plugin_path}common/src/Tribe",
@@ -395,9 +398,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				add_action( 'admin_notices', array( $this, 'notSupportedError' ) );
 				return;
 			}
-
-			// Set common lib information, needs to happen file load
-			$this->maybe_set_common_lib_info();
 
 			/**
 			 * Before any methods from this plugin are called, we initialize our Autoloading
