@@ -14,7 +14,8 @@
  */
 // @todo: This is just for presentation purposes, while building the view.
 $day_number   = ( $week < 1 ) ? ( $day + 1 ) * ( $week + 1 ) : ( $day + 1 ) + $week * 7;
-$month_number = 5;
+$month_number = 6;
+$month = $this->get( 'month' );
 
 $day_title_classes      = [ 'tribe-events-calendar-month__day-date' ];
 $day_title_link_classes = [ 'tribe-events-calendar-month__day-date-link' ];
@@ -25,6 +26,7 @@ if ( $day_number == date( 'd', time() ) ) {
 	$day_title_classes[] = 'tribe-events-calendar-month__day-date--current';
 	$day_title_link_classes[] = 'tribe-events-calendar-month__day-date-link--current';
 }
+
 ?>
 
 <div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="<?php echo esc_attr( $day_id ); ?>">
@@ -41,5 +43,9 @@ if ( $day_number == date( 'd', time() ) ) {
 			</time>
 		</h3>
 	</div>
-	<!-- Events for this day will be listed here -->
+
+	<?php $this->template( 'month/day-events-multiday', [ 'day' => $day_number, 'month' => $month ] ); ?>
+
+	<?php $this->template( 'month/day-events', [ 'day' => $day_number, 'month' => $month ] ); ?>
+
 </div>
