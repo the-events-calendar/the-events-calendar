@@ -97,9 +97,9 @@ class List_View extends View {
 	 * @return string The URL to the past URL page, if available, or an empty string.
 	 */
 	protected function get_past_url( $canonical = false, $page = 1 ) {
-		$default_date = 'now';
-		$date         = $this->context->get( 'event_date', $default_date );
-		$eventDate_var = $default_date === $date ? '' : $date;
+		$default_date   = 'now';
+		$date           = $this->context->get( 'event_date', $default_date );
+		$event_date_var = $default_date === $date ? '' : $date;
 
 		$past = tribe_events()->by_args( $this->setup_repository_args( $this->context->alter( [
 			'eventDisplay' => 'past',
@@ -108,11 +108,11 @@ class List_View extends View {
 
 		if ( $past->count() > 0 ) {
 			$past_url_object = clone $this->url->add_query_args( array_filter( [
-				'post_type'    => TEC::POSTTYPE,
-				'eventDisplay' => 'past',
-				'eventDate'    => $eventDate_var,
-				$this->page_key        => $page,
-				'tribe-bar-search' => $this->context->get('keyword'),
+				'post_type'        => TEC::POSTTYPE,
+				'eventDisplay'     => 'past',
+				'eventDate'        => $event_date_var,
+				$this->page_key    => $page,
+				'tribe-bar-search' => $this->context->get( 'keyword' ),
 			] ) );
 
 			$past_url = (string) $past_url_object;
@@ -134,10 +134,10 @@ class List_View extends View {
 
 			// Let's re-add the `eventDate` if we had one and we're not already passing it with one of its aliases.
 			if ( ! (
-				empty( $eventDate_var )
+				empty( $event_date_var )
 				|| $past_url_object->get_query_arg_alias_of( 'event_date', $this->context )
 			) ) {
-				$url = add_query_arg( [ 'eventDate' => $eventDate_var ], $url );
+				$url = add_query_arg( [ 'eventDate' => $event_date_var ], $url );
 			}
 
 			return $url;
@@ -156,10 +156,10 @@ class List_View extends View {
 	 *
 	 * @return string The URL to the upcoming URL page, if available, or an empty string.
 	 */
-	protected function get_upcoming_url($canonical = false, $page = 1) {
-		$default_date = 'now';
-		$date         = $this->context->get( 'event_date', $default_date );
-		$eventDate_var = $default_date === $date ? '' : $date;
+	protected function get_upcoming_url( $canonical = false, $page = 1 ) {
+		$default_date   = 'now';
+		$date           = $this->context->get( 'event_date', $default_date );
+		$event_date_var = $default_date === $date ? '' : $date;
 
 		$upcoming = tribe_events()->by_args( $this->setup_repository_args( $this->context->alter( [
 			'eventDisplay' => 'list',
@@ -168,11 +168,11 @@ class List_View extends View {
 
 		if ( $upcoming->count() > 0 ) {
 			$upcoming_url_object = clone $this->url->add_query_args( array_filter( [
-				'post_type'    => TEC::POSTTYPE,
-				'eventDisplay' => 'list',
-				$this->page_key        => $page,
-				'eventDate'    => $eventDate_var,
-				'tribe-bar-search' => $this->context->get('keyword'),
+				'post_type'        => TEC::POSTTYPE,
+				'eventDisplay'     => 'list',
+				$this->page_key    => $page,
+				'eventDate'        => $event_date_var,
+				'tribe-bar-search' => $this->context->get( 'keyword' ),
 			] ) );
 
 			$upcoming_url = (string) $upcoming_url_object;
@@ -188,10 +188,10 @@ class List_View extends View {
 
 			// Let's re-add the `eventDate` if we had one and we're not already passing it with one of its aliases.
 			if ( ! (
-				empty( $eventDate_var )
+				empty( $event_date_var )
 				|| $upcoming_url_object->get_query_arg_alias_of( 'event_date', $this->context )
 			) ) {
-				$url = add_query_arg( [ 'eventDate' => $eventDate_var ], $url );
+				$url = add_query_arg( [ 'eventDate' => $event_date_var ], $url );
 			}
 
 			return $url;

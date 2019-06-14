@@ -206,7 +206,7 @@ tribe.events.views.manager = {};
 		var $container = $form.closest( '.tribe-events' );
 		var nonce = $container.data( 'view-rest-nonce' );
 
-		var formData = Qs.parse($form.serialize());
+		var formData = Qs.parse( $form.serialize() );
 
 		var data = {
 			url: window.location.href,
@@ -215,7 +215,7 @@ tribe.events.views.manager = {};
 		};
 
 		// Pass the data to the request reading it from `tribe-events-views`.
-		obj.request(data, $container);
+		obj.request( data, $container );
 
 		return false;
 	};
