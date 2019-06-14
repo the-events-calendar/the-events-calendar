@@ -119,4 +119,13 @@ interface View_Interface  extends View_Url_Provider_Interface, Repository_User_I
 	 *                           arguments by the View, or `null` to use the current URL.
 	 */
 	public function set_url( array $args = null, $merge = false );
+
+	/**
+	 * Returns the post IDs of the posts the View is displaying in the order it's displaying them.
+	 *
+	 * @since TBD
+	 *
+	 * @return array An array of post IDs of the posts the view is currently displaying.
+	 */
+	public function found_post_ids();
 }

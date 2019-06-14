@@ -9,6 +9,7 @@
 namespace Tribe\Events\Views\V2\Views;
 
 use Tribe\Events\Views\V2\View;
+use Tribe__Events__Main as TEC;
 use Tribe__Events__Rewrite as Rewrite;
 use Tribe__Utils__Array as Arr;
 
@@ -116,6 +117,7 @@ class List_View extends View {
 	protected function get_past_url( $canonical = false, $page = 1 ) {
 		$default_date = 'now';
 		$date         = $this->context->get( 'event_date', $default_date );
+		$eventDate_var = $default_date === $date ? '' : $date;
 
 		$past = tribe_events()->by_args( $this->setup_repository_args( $this->context->alter( [
 			'eventDisplay' => 'past',
@@ -124,8 +126,9 @@ class List_View extends View {
 
 		if ( $past->count() > 0 ) {
 			$url = clone $this->url->add_query_args( array_filter( [
+				'post_type'    => TEC::POSTTYPE,
 				'eventDisplay' => 'past',
-				'eventDate'    => $default_date === $date ? '' : $date,
+				'eventDate'    => $eventDate_var,
 				$this->page_key        => $page,
 			] ) );
 
@@ -135,10 +138,25 @@ class List_View extends View {
 				return $past_url;
 			}
 
-			$canonical_url = Rewrite::instance()->get_clean_url( $past_url );
+			// We've got rewrite rules handling `eventDate` and `eventDisplay`, but not List. Let's remove it.
+			$canonical_url = Rewrite::instance()->get_clean_url(
+				add_query_arg(
+					[ 'eventDisplay' => $this->slug ],
+					remove_query_arg( [
+						'eventDate',
+					], $past_url )
+				)
+			);
 
 			// We use the `eventDisplay` query var as a display mode indicator: we have to make sure it's there.
-			return add_query_arg( [ 'eventDisplay' => 'past' ], $canonical_url );
+			$url = add_query_arg( [ 'eventDisplay' => 'past' ], $canonical_url );
+
+			// Let's re-add the `eventDate` if we had one.
+			if ( ! empty( $eventDate_var ) ) {
+				$url = add_query_arg( [ 'eventDate' => $eventDate_var ], $canonical_url );
+			}
+
+			return $url;
 		}
 
 		return '';
@@ -165,12 +183,17 @@ class List_View extends View {
 
 		if ( $upcoming->count() > 0 ) {
 			$url = clone $this->url->add_query_args( array_filter( [
+				'post_type'    => TEC::POSTTYPE,
 				'eventDisplay' => 'list',
 				'eventDate'    => $default_date === $date ? '' : $date,
 				$this->page_key        => $page,
 			] ) );
 
-			return (string) $url;
+			if ( ! $canonical ) {
+				return (string) $url;
+			}
+
+			return tribe( 'events.rewrite' )->get_clean_url( (string) $url );
 		}
 
 		return '';
@@ -194,7 +217,7 @@ class List_View extends View {
 		 */
 		$args = [
 			'posts_per_page' => $context_arr['posts_per_page'],
-			'paged'          => max( Arr::get( $context_arr, 'page', 1 ), 1 ),
+			'paged'          => max( Arr::get_first_set( $context_arr, [ 'paged', 'page' ], 1 ), 1 ),
 		];
 
 		$date = Arr::get( $context_arr, 'event_date', 'now' );
