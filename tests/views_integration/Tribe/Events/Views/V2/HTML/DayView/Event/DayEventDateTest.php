@@ -37,7 +37,7 @@ class DayEventDateTest extends TestHtmlCase {
 		$this->assertEquals(
 			$html->find( '.tribe-events-calendar-day__event-datetime-featured-icon' )->count(),
 			0,
-			'Day Event HTML date shouldnt to contain ".tribe-events-calendar-day__event-datetime-featured-icon" class if not featured'
+			'Day Event HTML date shouldnt contain ".tribe-events-calendar-day__event-datetime-featured-icon" class if not featured'
 		);
 
 	}

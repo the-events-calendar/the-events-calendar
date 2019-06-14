@@ -37,7 +37,7 @@ class DayEventTest extends TestHtmlCase {
 
 		$this->assertFalse(
 			$html->find( '.tribe-events-calendar-day__event' )->is( '.tribe-events-calendar-day__event--featured' ),
-			'Day Event HTML shouldnt to contain ".tribe-events-calendar-day__event--featured" class if not featured'
+			'Day Event HTML shouldnt contain ".tribe-events-calendar-day__event--featured" class if not featured'
 		);
 
 	}
