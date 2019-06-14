@@ -130,13 +130,13 @@ before_script:
   - cd ${PLUGIN_DIR}
 
 script:
-  - codecept run integration
-  - codecept run muintegration
-  - codecept run wpunit
-  - codecept run aggregatorv1
-  - codecept run restv1
-  - codecept run views_rest
-  - codecept run views_integration
-  - codecept run views_ui
+  # - codecept run integration
+  # - codecept run muintegration
+  # - codecept run wpunit
+  # - codecept run aggregatorv1
+  # - codecept run restv1
+  # - codecept run views_rest
+  # - codecept run views_integration
+  # - codecept run views_ui
   # - codecept run acceptance
   - npm run build && npm run test:travis
