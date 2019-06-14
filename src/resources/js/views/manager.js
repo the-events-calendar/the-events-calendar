@@ -203,15 +203,14 @@ tribe.events.views.manager = {};
 
 		// The submit event is triggered on the form, not the container.
 		var $form = $( this );
-		var $container = $form.closest('.tribe-events');
-		var nonce = $container.data('view-rest-nonce');
+		var $container = $form.closest( '.tribe-events' );
+		var nonce = $container.data( 'view-rest-nonce' );
 
 		var formData = Qs.parse($form.serialize());
-		var viewData = formData['tribe-events-views'] || {};
 
 		var data = {
 			url: window.location.href,
-			view_data: viewData,
+			view_data: formData['tribe-events-views'],
 			_wpnonce: nonce
 		};
 
