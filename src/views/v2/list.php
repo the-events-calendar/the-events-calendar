@@ -15,10 +15,6 @@
 
 use Tribe\Events\Views\V2\Rest_Endpoint;
 
-/**
- * @todo  remove this and properly enqueue assets
- */
-tribe_asset_enqueue( 'tribe-events-views-v2-manager' );
 $events = $this->get( 'events' );
 ?>
 <div
