@@ -9,9 +9,9 @@
 namespace Tribe\Events\Views\V2;
 
 use Tribe\Events\Views\V2\Views\All_List_View;
+use Tribe\Events\Views\V2\Views\Day_View;
 use Tribe\Events\Views\V2\Views\List_View;
 use Tribe\Events\Views\V2\Views\Month_View;
-use Tribe\Events\Views\V2\Views\Day_View;
 use Tribe\Events\Views\V2\Views\Reflector_View;
 use Tribe__Container as Container;
 use Tribe__Context as Context;
@@ -876,13 +876,15 @@ class View implements View_Interface {
 	 */
 	protected function setup_template_vars(  ) {
 		$template_vars = [
-			'title'       => wp_title( null, false ),
-			'events'      => $this->repository->all(),
-			'url'         => $this->get_url( true ),
-			'prev_url'    => $this->prev_url( true ),
-			'next_url'    => $this->next_url( true ),
-			'bar_keyword' => $this->context->get( 'keyword', '' ),
-			'bar_date'    => $this->context->get( 'event_date', '' ),
+			'title'    => wp_title( null, false ),
+			'events'   => $this->repository->all(),
+			'url'      => $this->get_url( true ),
+			'prev_url' => $this->prev_url( true ),
+			'next_url' => $this->next_url( true ),
+			'bar'      => [
+				'keyword' => $this->context->get( 'keyword', '' ),
+				'date'    => $this->context->get( 'event_date', '' ),
+			],
 		];
 
 		$template_vars = $this->filter_template_vars( $template_vars );
