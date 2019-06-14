@@ -139,3 +139,4 @@ script:
   - codecept run views_integration
   - codecept run views_ui
   # - codecept run acceptance
+  - npm run build && npm run test:travis
