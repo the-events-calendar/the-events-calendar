@@ -9,9 +9,9 @@
 namespace Tribe\Events\Views\V2;
 
 use Tribe\Events\Views\V2\Views\All_List_View;
+use Tribe\Events\Views\V2\Views\Day_View;
 use Tribe\Events\Views\V2\Views\List_View;
 use Tribe\Events\Views\V2\Views\Month_View;
-use Tribe\Events\Views\V2\Views\Day_View;
 use Tribe\Events\Views\V2\Views\Reflector_View;
 use Tribe__Container as Container;
 use Tribe__Context as Context;
@@ -140,6 +140,11 @@ class View implements View_Interface {
 		$url_object = new Url( $url );
 		$params = array_merge( $params, $url_object->get_query_args() );
 
+		// Let View data override any other data.
+		if ( isset( $params['view_data'] ) ) {
+			$params = array_merge( $params, $params['view_data'] );
+		}
+
 		/*
 		 * WordPress would replicate the `post_name`, when resolving the request, both as `name` and as the post type.
 		 * We emulate this behavior here hydrating the request context to provide a `name` alongside the post type.
@@ -186,8 +191,17 @@ class View implements View_Interface {
 			$params = apply_filters( "tribe_events_views_v2_{$slug}_rest_params", $params, $request );
 		}
 
-		// Determine context based on params given
-		$context = tribe_context()->alter( $params );
+		// Determine context based on the request parameters.
+		$do_not_override = [ 'event_display_mode' ];
+		$not_overrideable_params = array_intersect_key( $params, array_combine( $do_not_override, $do_not_override ) );
+		$context = tribe_context()
+			->alter(
+				array_merge(
+					$params,
+					tribe_context()->translate_sub_locations( $params, \Tribe__Context::REQUEST_VAR ),
+					$not_overrideable_params
+				)
+			);
 
 		$view =  static::make( $slug, $context );
 
@@ -478,11 +492,14 @@ class View implements View_Interface {
 	 */
 	public function get_url( $canonical = false ) {
 		$query_args = [
-			'post_type'    => TEC::POSTTYPE,
-			'eventDisplay' => $this->slug,
+			'post_type'        => TEC::POSTTYPE,
+			'eventDisplay'     => $this->slug,
+			'tribe-bar-date'   => $this->context->get( 'event_date', '' ),
+			'tribe-bar-search' => $this->context->get( 'keyword', '' ),
 		];
 
-		$page = $this->url->get_current_page();
+		// When we find nothing we're always on page 1.
+		$page = $this->repository->count() > 0 ? $this->url->get_current_page() : 1;
 
 		if ( $page > 1 ) {
 			$query_args[ $this->page_key ] = $page;
@@ -626,6 +643,10 @@ class View implements View_Interface {
 
 		$wp_query = $this->repository->get_query();
 		wp_reset_postdata();
+
+		// Make the template global to power template tags.
+		global $tribe_template;
+		$tribe_template = $this->template;
 	}
 
 	/**
@@ -803,10 +824,13 @@ class View implements View_Interface {
 	 * @param \Tribe__Context|null $context A context to use to setup the args, or `null` to use the View Context.
 	 *
 	 * @return array The arguments, ready to be set on the View repository instance.
-	 * @throws Implementation_Error If an extending View does not implement this method.
 	 */
 	protected function setup_repository_args( \Tribe__Context $context = null ) {
-		throw Implementation_Error::because_extending_view_should_define_this_method( 'setup_repository_args', $this );
+		$context = null !== $context ? $context : $this->context;
+
+		return array_filter( [
+			'search' => $context->get( 'keyword', '' ),
+		] );
 	}
 
 	/**
@@ -850,5 +874,30 @@ class View implements View_Interface {
 	 */
 	public function found_post_ids() {
 		return $this->repository->get_ids();
+	}
+
+	/**
+	 * Sets up the View template variables.
+	 *
+	 * @since TBD
+	 *
+	 * @return array An array of Template variables for the View Template.
+	 */
+	protected function setup_template_vars(  ) {
+		$template_vars = [
+			'title'    => wp_title( null, false ),
+			'events'   => $this->repository->all(),
+			'url'      => $this->get_url( true ),
+			'prev_url' => $this->prev_url( true ),
+			'next_url' => $this->next_url( true ),
+			'bar'      => [
+				'keyword' => $this->context->get( 'keyword', '' ),
+				'date'    => $this->context->get( 'event_date', '' ),
+			],
+		];
+
+		$template_vars = $this->filter_template_vars( $template_vars );
+
+		return $template_vars;
 	}
 }
