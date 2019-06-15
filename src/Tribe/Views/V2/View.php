@@ -208,7 +208,7 @@ class View implements View_Interface {
 		$view->url = $url_object;
 
 		// Setup wether this view should manage url or not, based on the Rest Request Sent.
-		$view->get_template()->set( 'should_manage_url', Arr::get( $params, 'should_manage_url', true ) );
+		$view->get_template()->set( 'should_manage_url', tribe_is_truthy( Arr::get( $params, 'should_manage_url', true ) ) );
 
 		return $view;
 	}

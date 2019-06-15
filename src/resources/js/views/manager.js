@@ -249,7 +249,6 @@ tribe.events.views.manager = {};
 
 		var data = {
 			url: window.location.href,
-			should_manage_url: shouldManageUrl,
 			view_data: formData['tribe-events-views'],
 			_wpnonce: nonce
 		};
