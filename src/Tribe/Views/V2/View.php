@@ -162,7 +162,9 @@ class View implements View_Interface {
 		}
 
 		// Let's check if we have a display mode set.
-		$query_args                   = $url_object->query_overrides_path( true )->parse_url()->get_query_args();
+		$query_args = $url_object->query_overrides_path( true )
+		                         ->parse_url()
+		                         ->get_query_args();
 		$params['event_display_mode'] = Arr::get( $query_args, 'eventDisplay', false );
 
 		/**
@@ -279,8 +281,11 @@ class View implements View_Interface {
 		$template = apply_filters( "tribe_events_views_v2_{$slug}_view_template", $template, $instance );
 
 		// Set some defaults on the template.
-		$template->set( 'view_class', $view_class );
-		$template->set( 'request_slug', $request_slug );
+		$template->set( 'view_class', $view_class, false );
+		$template->set( 'request_slug', $request_slug, false );
+
+		// Set which view globaly
+		$template->set( 'view', $instance, false );
 
 		$instance->set_template( $template );
 		$instance->set_slug( $slug );

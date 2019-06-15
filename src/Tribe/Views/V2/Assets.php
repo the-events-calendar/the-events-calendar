@@ -22,6 +22,16 @@ use Tribe\Events\Views\V2\Template_Bootstrap;
  * @package Tribe\Events\Views\V2
  */
 class Assets extends \tad_DI52_ServiceProvider {
+
+	/**
+	 * Key for this group of assets.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public static $group_key = 'events-views-v2';
+
 	/**
 	 * Binds and sets up implementations.
 	 *
@@ -39,6 +49,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 			[
 				'priority'     => 10,
 				'conditionals' => [ $this, 'should_enqueue_frontend' ],
+				'groups'       => [ static::$group_key ],
 			]
 		);
 
@@ -47,7 +58,12 @@ class Assets extends \tad_DI52_ServiceProvider {
 			'tribe-events-views-v2-manager',
 			'views/manager.js',
 			[ 'jquery', 'tribe-common', 'tribe-query-string', 'underscore' ],
-			null // prevent it from loading
+			'wp_enqueue_scripts',
+			[
+				'priority'     => 10,
+				'conditionals' => [ $this, 'should_enqueue_frontend' ],
+				'groups'       => [ static::$group_key ],
+			]
 		);
 
 		tribe_asset(
@@ -59,6 +75,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 			[
 				'priority'     => 10,
 				'conditionals' => [ $this, 'should_enqueue_frontend' ],
+				'groups'       => [ static::$group_key ],
 			]
 		);
 	}

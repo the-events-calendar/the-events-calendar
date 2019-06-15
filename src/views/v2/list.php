@@ -15,10 +15,6 @@
 
 use Tribe\Events\Views\V2\Rest_Endpoint;
 
-/**
- * @todo  remove this and properly enqueue assets
- */
-tribe_asset_enqueue( 'tribe-events-views-v2-manager' );
 $events = $this->get( 'events' );
 ?>
 <div
@@ -30,9 +26,7 @@ $events = $this->get( 'events' );
 	<div class="tribe-common-l-container tribe-events-l-container">
 		<?php $this->template( 'loader', [ 'text' => 'Loading...' ] ); ?>
 
-		<?php
-		$this->template( 'data', [] );
-		?>
+		<?php $this->template( 'data' ); ?>
 
 		<?php $this->template( 'events-bar' ); ?>
 

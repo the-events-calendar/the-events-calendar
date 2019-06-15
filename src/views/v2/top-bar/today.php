@@ -1,9 +1,9 @@
 <?php
 /**
- * View: Top Bar - Navigation
+ * View: Top Bar - Today
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/views/v2/top-bar/nav.php
+ * [your-theme]/tribe/events/views/v2/top-bar/today.php
  *
  * See more documentation about our views templating system.
  *
@@ -12,9 +12,20 @@
  * @version 4.9.3
  *
  */
+
+// If we didnt have a view setup we cannot print what today's link
+if ( ! $this->get( 'view' ) ) {
+	return false;
+}
+
+$today_url = tribe_events_get_url( [ 'paged' => 1 ], $this->get( 'view' )->get_url() );
 ?>
 <div class="tribe-events-c-top-bar__today">
-	<a href="#" class="tribe-common-c-btn-border tribe-events-c-top-bar__today-button">
+	<a
+		href="<?php echo esc_url( $today_url ); ?>"
+		class="tribe-common-c-btn-border tribe-events-c-top-bar__today-button"
+		data-js="tribe-events-view-link"
+	>
 		<?php esc_html_e( 'Today', 'the-events-calendar' ); ?>
 	</a>
 
