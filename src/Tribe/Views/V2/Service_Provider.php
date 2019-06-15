@@ -44,14 +44,18 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		// Register the SP on the container
 		$this->container->singleton( 'events.views.v2.provider', $this );
 
+		// @todo: remove this when we hydrate the month view with data and we use the correct template tags.
+		require_once tribe( 'tec.main' )->plugin_path . 'src/Tribe/Views/V2/month-view-demo-template-tags.php';
+
 		// Since the View main class will act as a DI container itself let's provide it with the global container.
 		View::set_container( $this->container );
+
 	}
 
 	/**
 	 * Registers the provider handling all the 1st level filters and actions for Views v2.
 	 *
-	 * @since TBD
+	 * @since 4.9.3
 	 */
 	protected function register_assets() {
 		$assets = new Assets( $this->container );

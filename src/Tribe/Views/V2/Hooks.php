@@ -67,7 +67,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'tribe_suppress_query_filters', '__return_true' );
 		add_filter( 'template_include', [ $this, 'filter_template_include' ], 50 );
 		add_filter( 'posts_pre_query', [ $this, 'filter_posts_pre_query' ], 20, 2 );
-		add_filter( 'body_class', [ $this, 'body_class' ] );
+		add_filter( 'body_class', [ $this, 'filter_body_class' ] );
 		add_filter( 'query_vars', [ $this, 'filter_query_vars' ], 15 );
 	}
 
@@ -136,12 +136,23 @@ class Hooks extends \tad_DI52_ServiceProvider {
 			/**
 			 * @todo  Make sure we do proper handling of cache longer then 12h.
 			 */
-			'permission_callback' => function ( \WP_REST_Request $request ) {
+			'permission_callback' => static function ( \WP_REST_Request $request ) {
 				return wp_verify_nonce( $request->get_param( '_wpnonce' ), 'wp_rest' );
 			},
-			'callback' => function ( \WP_REST_Request $request ) {
+			'callback' => static function ( \WP_REST_Request $request ) {
 				View::make_for_rest( $request )->send_html();
 			},
+			'args' => [
+				'url' => [
+					'required'          => true,
+					'validate_callback' => static function ( $url ) {
+						return is_string( $url );
+					},
+					'sanitize_callback' => static function ( $url ) {
+						return filter_var( $url, FILTER_SANITIZE_URL );
+					}
+				],
+			],
 		] );
 	}
 
@@ -190,9 +201,13 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Filters the body classes to add theme compatibility ones.
 	 *
-	 * @since TBD
+	 * @since 4.9.3
+	 *
+	 * @param  array $classes Classes that are been passed to the body.
+	 *
+	 * @return array $classes
 	 */
-	public function body_class( $classes ) {
-		return $this->container->make( Theme_Compatibility::class )->body_class( $classes );
+	public function filter_body_class( $classes ) {
+		return $this->container->make( Theme_Compatibility::class )->filter_add_body_classes( $classes );
 	}
 }

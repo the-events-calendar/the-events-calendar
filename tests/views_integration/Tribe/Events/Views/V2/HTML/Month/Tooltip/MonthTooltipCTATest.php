@@ -9,7 +9,7 @@ class MonthTooltipCTATest extends TestHtmlCase {
 	 * @test
 	 */
 	public function it_should_contain_correct_html_classes() {
-		$template = $this->template->template( 'month/tooltip/cta' );
+		$template = $this->template->template( 'month/calendar-event/tooltip/cta' );
 		$html = $this->document->html( $template );
 
 		$this->assertEquals(

@@ -1290,7 +1290,9 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 					! $has_date_args
 					&& in_array( $display, [ 'upcoming', 'list' ] )
 				) {
-					$args['start_date'] = 'now';
+					if ( empty( $args['tribe_is_past'] ) ) {
+						$args['start_date'] = 'now';
+					}
 					unset( $args['eventDisplay'] );
 				}
 

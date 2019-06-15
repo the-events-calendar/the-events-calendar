@@ -2,6 +2,7 @@
 
 namespace Tribe\Events;
 
+use Tribe__Events__Main as TEC;
 use Tribe__Events__Rewrite as Rewrite;
 
 if ( ! class_exists( '\\SitePress' ) ) {
@@ -25,6 +26,13 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 		global $wp_rewrite;
 		$wp_rewrite->permalink_structure = '/%postname%/';
 		$wp_rewrite->rewrite_rules();
+
+		// Create some categories we'll need.
+		wp_create_tag( 'test' );
+		wp_insert_term( 'test', TEC::TAXONOMY );
+		list( $grandparent_id ) = array_values( wp_insert_term( 'grand-parent', TEC::TAXONOMY ) );
+		list( $parent_id ) = array_values( wp_insert_term( 'parent', TEC::TAXONOMY, [ 'parent' => $grandparent_id ] ) );
+		wp_insert_term( 'child', TEC::TAXONOMY, [ 'parent' => $parent_id ] );
 	}
 
 	public function tearDown() {
@@ -72,7 +80,7 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 			],
 			'list_page_2'             => [
 				'/?post_type=tribe_events&eventDisplay=list&paged=2',
-				'/events/list/page/2/',
+				'/events/page/2/',
 			],
 			'list_page_1_w_extra'     => [
 				'/?post_type=tribe_events&eventDisplay=list&foo=bar',
@@ -88,11 +96,11 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 			],
 			'tag_page_2'              => [
 				'/?post_type=tribe_events&eventDisplay=list&tag=test&paged=2',
-				'/events/tag/test/list/page/2/',
+				'/events/tag/test/page/2/',
 			],
 			'tag_page_2_w_extra'      => [
 				'/?post_type=tribe_events&eventDisplay=list&tag=test&paged=2&foo=bar',
-				'/events/tag/test/list/page/2/?foo=bar',
+				'/events/tag/test/page/2/?foo=bar',
 			],
 			'category_page_1'         => [
 				'/?post_type=tribe_events&eventDisplay=list&tribe_events_cat=test',
@@ -104,11 +112,27 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 			],
 			'category_page_2'         => [
 				'/?post_type=tribe_events&eventDisplay=list&tribe_events_cat=test&paged=2',
-				'/events/category/test/list/page/2/',
+				'/events/category/test/page/2/',
 			],
 			'category_page_2_w_extra' => [
 				'/?post_type=tribe_events&eventDisplay=list&tribe_events_cat=test&paged=2&foo=bar',
-				'/events/category/test/list/page/2/?foo=bar',
+				'/events/category/test/page/2/?foo=bar',
+			],
+			'hierarchical_cats_page_1' => [
+				'/?post_type=tribe_events&eventDisplay=list&tribe_events_cat=child',
+				'/events/category/grand-parent/parent/child/list/',
+			],
+			'hierarchical_cats_page_2' => [
+				'/?post_type=tribe_events&eventDisplay=list&tribe_events_cat=child&paged=2',
+				'/events/category/grand-parent/parent/child/page/2/',
+			],
+			'hierarchical_cats_page_1_w_extra_args' => [
+				'/?post_type=tribe_events&eventDisplay=list&tribe_events_cat=child&foo=bar',
+				'/events/category/grand-parent/parent/child/list/?foo=bar',
+			],
+			'hierarchical_cats_page_2_w_extra_args' => [
+				'/?post_type=tribe_events&eventDisplay=list&tribe_events_cat=child&paged=2&foo=bar',
+				'/events/category/grand-parent/parent/child/page/2/?foo=bar',
 			],
 			'day_page'                => [
 				'/?post_type=tribe_events&eventDisplay=day&eventDate=2018-12-01',
@@ -116,7 +140,7 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 			],
 			'month_page'              => [
 				'/?post_type=tribe_events&eventDisplay=month&eventDate=2018-12',
-				'/events/2018-12/',
+				'/events/month/2018-12/',
 			],
 			'feed_page'               => [
 				'/?post_type=tribe_events&tag=test&feed=rss2',
@@ -226,13 +250,78 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 				'/events/elenco/in-evidenza/',
 			],
 			'category'    => [
-				'/?post_type=tribe_events&eventDisplay=list&tribe_events_cat=zumba',
-				'/events/categoria/zumba/elenco/',
+				'/?post_type=tribe_events&eventDisplay=list&tribe_events_cat=test',
+				'/events/categoria/test/elenco/',
 			],
 			'tag'    => [
-				'/?post_type=tribe_events&eventDisplay=list&tag=zumba',
-				'/events/tag/zumba/elenco/',
+				'/?post_type=tribe_events&eventDisplay=list&tag=test',
+				'/events/tag/test/elenco/',
 			],
 		];
+	}
+
+	/**
+	 * It should allow parsing requests into query vars
+	 *
+	 * @test
+	 * @dataProvider canonical_urls
+	 */
+	public function should_allow_parsing_requests_into_query_vars( $expected, $canonical_uri ) {
+		$input_url   = home_url( $canonical_uri );
+		parse_str( parse_url( $expected, PHP_URL_QUERY ), $expected_vars );
+
+		$rewrite = new Rewrite;
+		global $wp_rewrite;
+		$rewrite->setup( $wp_rewrite );
+		$parsed_vars = $rewrite->parse_request( $input_url );
+
+		$this->assertEquals( $expected_vars, $parsed_vars );
+	}
+
+	/**
+	 * It should correctly passthru not handled vars when parsing requests
+	 *
+	 * @test
+	 */
+	public function should_correctly_passthru_not_handled_vars_when_parsing_requests() {
+		$input_url = home_url( '/events/list/?not-handled=value' );
+		$expected  = [
+			'post_type' => 'tribe_events',
+			'eventDisplay' => 'list',
+			'not-handled'=>'value',
+		];
+
+		$rewrite = new Rewrite;
+		global $wp_rewrite;
+		$rewrite->setup( $wp_rewrite );
+		$parsed = $rewrite->parse_request( $input_url );
+
+		$this->assertEqualSets( $expected, $parsed );
+	}
+
+	public function clean_url_data_set() {
+		return [
+			'already_clean'    => [ '/events/list', '/events/list/' ],
+			'all_handled'      => [ '/events/list/?post_type=tribe_events', '/events/list/' ],
+			'some_not_handled' => [ '/events/list/?post_type=tribe_events&foo=bar', '/events/list/?foo=bar' ],
+		];
+	}
+
+	/**
+	 * It should remove handled query vars from query string when cleaning URLs
+	 *
+	 * @test
+	 * @dataProvider clean_url_data_set
+	 */
+	public function should_remove_handled_query_vars_from_query_string_when_cleaning_urls($input_uri, $expected) {
+		$input_uri = home_url( $input_uri );
+		$expected  = home_url( $expected );
+
+		$rewrite = new Rewrite;
+		global $wp_rewrite;
+		$rewrite->setup( $wp_rewrite );
+		$clean_url = $rewrite->get_clean_url( $input_uri );
+
+		$this->assertEquals( $expected, $clean_url );
 	}
 }
