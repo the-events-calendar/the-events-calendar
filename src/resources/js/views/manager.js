@@ -73,7 +73,7 @@ tribe.events.views.manager = {};
 		var $container = $( container );
 		var $form = $container.find( obj.selectors.form );
 		var $data = $container.find( obj.selectors.dataScript );
-		var data = {};
+		var data  = {};
 
 		// If we have data element set it up.
 		if ( $data.length ) {
