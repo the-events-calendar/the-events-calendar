@@ -125,7 +125,7 @@ tribe.events.views.manager = {};
 	 */
 	obj.shouldManageUrl = function( $container ) {
 		var shouldManageUrl = $container.data( 'view-manage-url' );
-		var tribeIsTruthy = /^(true|1|on|yes)$/;
+		var tribeIsTruthy   = /^(true|1|on|yes)$/;
 
 		// When undefined we use true as the default.
 		if ( typeof shouldManageUrl === typeof undefined ) {
