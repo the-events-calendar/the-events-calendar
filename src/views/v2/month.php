@@ -12,6 +12,7 @@
  * @version 4.9.3
  *
  */
+use Tribe\Events\Views\V2\Rest_Endpoint;
 
 $events = $this->get( 'events' );
 
