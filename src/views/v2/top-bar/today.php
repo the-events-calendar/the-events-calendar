@@ -13,7 +13,7 @@
  *
  */
 
-// If we didnt have a view setup we cannot print what today's link
+// If we didn't have a view setup we cannot print today's link
 if ( ! $this->get( 'view' ) ) {
 	return false;
 }

@@ -72,8 +72,15 @@ tribe.events.views.manager = {};
 	obj.setup = function( index, container ) {
 		var $container = $( container );
 		var $form = $container.find( obj.selectors.form );
+		var $data = $container.find( obj.selectors.dataScript );
+		var data  = {};
 
-		$container.trigger( 'beforeSetup.tribeEvents', [ index, $container ] );
+		// If we have data element set it up.
+		if ( $data.length ) {
+			data = JSON.parse( $.trim( $data.text() ) );
+		}
+
+		$container.trigger( 'beforeSetup.tribeEvents', [ index, $container, data ] );
 
 		$container.find( obj.selectors.link ).on( 'click.tribeEvents', obj.onLinkClick );
 
@@ -82,10 +89,10 @@ tribe.events.views.manager = {};
 			$form.on( 'submit.tribeEvents', obj.onSubmit );
 		}
 
+		$container.trigger( 'afterSetup.tribeEvents', [ index, $container, data ] );
+
 		// Binds and action to the container that will update the URL based on backed
 		$container.on( 'updateUrl.tribeEvents', obj.onUpdateUrl );
-
-		$container.trigger( 'afterSetup.tribeEvents', [ index, $container ] );
 	};
 
 	/**
@@ -108,6 +115,30 @@ tribe.events.views.manager = {};
 	};
 
 	/**
+	 * Given an container determines if it should manage URL.
+	 *
+	 * @since TBD
+	 *
+	 * @param  {Element|jQuery} element Which element we are using as the container.
+	 *
+	 * @return {Boolean}
+	 */
+	obj.shouldManageUrl = function( $container ) {
+		var shouldManageUrl = $container.data( 'view-manage-url' );
+		var tribeIsTruthy   = /^(true|1|on|yes)$/;
+
+		// When undefined we use true as the default.
+		if ( typeof shouldManageUrl === typeof undefined ) {
+			shouldManageUrl = true;
+		} else {
+			// When not undefined we cast as string and test for valid boolean truth.
+			shouldManageUrl = tribeIsTruthy.test( String( shouldManageUrl ) );
+		}
+
+		return shouldManageUrl;
+	};
+
+	/**
 	 * Using data passed by the Backend once we fetch a new HTML via an
 	 * container action.
 	 *
@@ -122,9 +153,15 @@ tribe.events.views.manager = {};
 	 */
 	obj.onUpdateUrl = function( event ) {
 		var $container = $( this );
+
+		// Bail when we dont manage URLs
+		if ( ! obj.shouldManageUrl( $container ) ) {
+			return;
+		}
+
 		var $data = $container.find( obj.selectors.dataScript );
 
-		// Bail in case we dont find data script
+		// Bail in case we dont find data script.
 		if ( ! $data.length ) {
 			return;
 		}
@@ -171,6 +208,7 @@ tribe.events.views.manager = {};
 		var $container = obj.getContainer( this );
 		var url = $link.attr( 'href' );
 		var nonce = $link.data( 'view-rest-nonce' );
+		var shouldManageUrl = obj.shouldManageUrl( $container );
 
 		// Fetch nonce from container if the link doesnt have any
 		if ( ! nonce ) {
@@ -179,6 +217,7 @@ tribe.events.views.manager = {};
 
 		var data = {
 			url: url,
+			should_manage_url: shouldManageUrl,
 			_wpnonce: nonce
 		};
 
