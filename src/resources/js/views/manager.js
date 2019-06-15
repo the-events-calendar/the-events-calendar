@@ -200,11 +200,22 @@ tribe.events.views.manager = {};
 	 */
 	obj.onSubmit = function( event ) {
 		event.preventDefault();
-		var $container = $( this );
-		var formData = Qs.parse( $container.serialize() );
 
-		// pass the data to the request using `tribe-events-views`
-		obj.request( formData['tribe-events-views'], $container );
+		// The submit event is triggered on the form, not the container.
+		var $form = $( this );
+		var $container = $form.closest( '.tribe-events' );
+		var nonce = $container.data( 'view-rest-nonce' );
+
+		var formData = Qs.parse( $form.serialize() );
+
+		var data = {
+			url: window.location.href,
+			view_data: formData['tribe-events-views'],
+			_wpnonce: nonce
+		};
+
+		// Pass the data to the request reading it from `tribe-events-views`.
+		obj.request( data, $container );
 
 		return false;
 	};
@@ -240,7 +251,7 @@ tribe.events.views.manager = {};
 	 */
 	obj.getAjaxSettings = function( $container ) {
 		var ajaxSettings = {
-			url: $container.data( 'view-rest-url' ),
+			url: $container.data('view-rest-url'),
 			accepts: 'html',
 			dataType: 'html',
 			method: 'GET',
