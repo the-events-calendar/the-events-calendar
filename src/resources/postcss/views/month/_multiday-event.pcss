@@ -19,10 +19,7 @@
 
 		@media (--viewport-medium) {
 			display: block;
-			background-color: white;
-			overflow: hidden;
-			position: absolute;
-			z-index: var(--z-index-calendar-multiday);
+			background-color: var(--color-background);
 		}
 	}
 
@@ -87,6 +84,11 @@
 		&:focus {
 			background-color: var(--color-accent-primary-multiday-hover);
 		}
+	}
+
+	.tribe-events-calendar-month__event-multiday-inner--focus,
+	.tribe-events-calendar-month__event-multiday-inner--hover {
+		background-color: var(--color-accent-primary-multiday-hover);
 	}
 
 	.tribe-events-calendar-month__event-multiday-featured-icon {
