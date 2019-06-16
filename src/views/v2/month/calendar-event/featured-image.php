@@ -9,12 +9,30 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version TBD
+ * @version 4.9.3
  *
  */
+$event = $this->get( 'event' );
+
+if ( ! isset( $event->image ) ) { // @todo: use template tags for images here
+	return;
+}
+
 ?>
 <div class="tribe-events-calendar-month__calendar-event-featured-image-wrapper">
 	<div class="tribe-events-calendar-month__calendar-event-featured-image tribe-common-c-image tribe-common-c-image--bg">
-		<div class="tribe-common-c-image__bg"></div>
+		<a
+			href="#"
+			title="<?php echo esc_attr( $event->title ); ?>"
+			rel="bookmark"
+		>
+			<div
+				class="tribe-common-c-image__bg"
+				style="background-image: url('<?php echo esc_attr( $event->image ); ?>');"
+				role="img"
+				aria-label="alt text here"
+			>
+			</div>
+		</a>
 	</div>
 </div>

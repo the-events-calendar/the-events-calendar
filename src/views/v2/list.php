@@ -9,16 +9,12 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version TBD
+ * @version 4.9.3
  *
  */
 
 use Tribe\Events\Views\V2\Rest_Endpoint;
 
-/**
- * @todo  remove this and properly enqueue assets
- */
-tribe_asset_enqueue( 'tribe-events-views-v2-manager' );
 $events = $this->get( 'events' );
 ?>
 <div
@@ -26,21 +22,12 @@ $events = $this->get( 'events' );
 	data-js="tribe-events-view"
 	data-view-rest-nonce="<?php echo esc_attr( wp_create_nonce( 'wp_rest' ) ); ?>"
 	data-view-rest-url="<?php echo esc_url( tribe( Rest_Endpoint::class )->get_url() ); ?>"
+	data-view-manage-url="<?php echo (int) $this->get( 'should_manage_url', true ); ?>"
 >
 	<div class="tribe-common-l-container tribe-events-l-container">
 		<?php $this->template( 'loader', [ 'text' => 'Loading...' ] ); ?>
 
-		<?php
-			/**
-			 * @todo Make sure we are passing correct data
-			 */
-			$this->template(
-				'data',
-				[
-					'title' => $this->get( 'url' ),
-				]
-			);
-		?>
+		<?php $this->template( 'data' ); ?>
 
 		<?php $this->template( 'events-bar' ); ?>
 

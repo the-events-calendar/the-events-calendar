@@ -1,6 +1,5 @@
 <?php
 
-use tad\FunctionMocker\FunctionMocker;
 use Tribe\Events\Views\V2\Service_Provider;
 
 require_once __DIR__ . '/Tribe/Events/Views/V2/TestCase.php';
@@ -11,14 +10,8 @@ require_once __DIR__ . '/Tribe/Events/Views/V2/ContextMocker.php';
 putenv( 'TRIBE_EVENTS_V2_VIEWS=1' );
 tribe_register_provider( Service_Provider::class );
 
-$cache_path = realpath( sys_get_temp_dir() ) . DIRECTORY_SEPARATOR . 'function-mocker';
-if ( ! is_dir( $cache_path ) ) {
-	if ( ! mkdir( $cache_path ) && ! is_dir( $cache_path ) ) {
-		throw new \RuntimeException( sprintf( 'Directory "%s" could not be created.', $cache_path ) );
-	}
-}
+// Let's make sure to set rewrite rules.
+global $wp_rewrite;
+$wp_rewrite->permalink_structure = '/%postname%/';
+$wp_rewrite->rewrite_rules();
 
-FunctionMocker::init( [
-	'redefinable-internals' => [ 'date' ],
-	'cache-path'            => $cache_path,
-] );

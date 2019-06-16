@@ -2,7 +2,7 @@
 /**
  * The common test case for testing partials.
  *
- * @since   TBD
+ * @since   4.9.3
  * @package Tribe\Events\Views\V2\Partials
  */
 
