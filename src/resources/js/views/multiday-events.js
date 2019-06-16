@@ -1,7 +1,7 @@
 /**
  * Makes sure we have all the required levels on the Tribe Object
  *
- * @since  4.9.3
+ * @since TBD
  *
  * @type   {PlainObject}
  */
@@ -11,7 +11,7 @@ tribe.events.views = tribe.events.views || {};
 /**
  * Configures Views Object in the Global Tribe variable
  *
- * @since  4.9.3
+ * @since TBD
  *
  * @type   {PlainObject}
  */
@@ -20,7 +20,7 @@ tribe.events.views.multiday_events = {};
 /**
  * Initializes in a Strict env the code that manages the Event Views
  *
- * @since  4.9.3
+ * @since TBD
  *
  * @param  {PlainObject} $   jQuery
  * @param  {PlainObject} _   Underscore.js
@@ -35,7 +35,7 @@ tribe.events.views.multiday_events = {};
 	/**
 	 * Selectors used for configuration and setup
 	 *
-	 * @since 4.9.3
+	 * @since TBD
 	 *
 	 * @type {PlainObject}
 	 */
@@ -51,7 +51,7 @@ tribe.events.views.multiday_events = {};
 	/**
 	 * Find visible multiday event that relates to the hidden multiday event
 	 *
-	 * @since 4.9.3
+	 * @since TBD
 	 *
 	 * @param {jQuery} $hiddenMultidayEvent jQuery object of hidden multiday event
 	 *
@@ -69,7 +69,7 @@ tribe.events.views.multiday_events = {};
 	/**
 	 * Add class to visible multiday event on hidden multiday event hover
 	 *
-	 * @since 4.9.3
+	 * @since TBD
 	 *
 	 * @param {jQuery} $visibleMultidayEventInner jQuery object of visible multiday event
 	 *
@@ -84,7 +84,7 @@ tribe.events.views.multiday_events = {};
 	/**
 	 * Remove class to visible multiday event on hidden multiday event hover
 	 *
-	 * @since 4.9.3
+	 * @since TBD
 	 *
 	 * @param {jQuery} $visibleMultidayEventInner jQuery object of visible multiday event
 	 *
@@ -99,7 +99,7 @@ tribe.events.views.multiday_events = {};
 	/**
 	 * Add class to visible multiday event on hidden multiday event focus
 	 *
-	 * @since 4.9.3
+	 * @since TBD
 	 *
 	 * @param {jQuery} $visibleMultidayEventInner jQuery object of visible multiday event
 	 *
@@ -114,7 +114,7 @@ tribe.events.views.multiday_events = {};
 	/**
 	 * Remove class to visible multiday event on hidden multiday event blur
 	 *
-	 * @since 4.9.3
+	 * @since TBD
 	 *
 	 * @param {jQuery} $visibleMultidayEventInner jQuery object of visible multiday event
 	 *
@@ -129,38 +129,44 @@ tribe.events.views.multiday_events = {};
 	/**
 	 * Binds events for hover and focus of hidden multiday events
 	 *
-	 * @since  4.9.3
+	 * @since TBD
 	 *
 	 * @param {number} index index of hidden multiday events from jQuery selector
 	 * @param {HTMLElement} hiddenMultidayEvent HTML element of hidden multiday event
 	 *
 	 * @return {void}
 	 */
-	obj.bindEvents = function( index, hiddenMultidayEvent ) {
-		var $hiddenMultidayEvent = $( hiddenMultidayEvent );
-		var $visibleMultidayEvents = obj.findVisibleMultidayEvents( $hiddenMultidayEvent );
+	obj.bindEvents = function() {
+		var $hiddenMultidayEvents = $( obj.selectors.multidayEvent );
 
-		$visibleMultidayEvents.each( function( index, visibleMultidayEvent ) {
-			var $visibleMultidayEvent = $( visibleMultidayEvent );
-			var $visibleMultidayEventInner = $visibleMultidayEvent.find( obj.selectors.multidayEventInner );
-			var $hiddenMultidayEventInner = $hiddenMultidayEvent.find( obj.selectors.multidayEventInner );
+		$hiddenMultidayEvents.each( function( index, hiddenMultidayEvent ) {
+			var $hiddenMultidayEvent = $( hiddenMultidayEvent );
+			var $visibleMultidayEvents = obj.findVisibleMultidayEvents( $hiddenMultidayEvent );
 
-			$hiddenMultidayEventInner.hover( obj.onHoverIn( $visibleMultidayEventInner ), obj.onHoverOut( $visibleMultidayEventInner ) );
-			$hiddenMultidayEventInner.focus( obj.onFocus( $visibleMultidayEventInner ) );
-			$hiddenMultidayEventInner.blur( obj.onBlur( $visibleMultidayEventInner ) );
+			$visibleMultidayEvents.each( function( index, visibleMultidayEvent ) {
+				var $visibleMultidayEvent = $( visibleMultidayEvent );
+				var $visibleMultidayEventInner = $visibleMultidayEvent.find( obj.selectors.multidayEventInner );
+				var $hiddenMultidayEventInner = $hiddenMultidayEvent.find( obj.selectors.multidayEventInner );
+
+				$hiddenMultidayEventInner.hover( obj.onHoverIn( $visibleMultidayEventInner ), obj.onHoverOut( $visibleMultidayEventInner ) );
+				$hiddenMultidayEventInner.focus( obj.onFocus( $visibleMultidayEventInner ) );
+				$hiddenMultidayEventInner.blur( obj.onBlur( $visibleMultidayEventInner ) );
+			} );
 		} );
 	};
 
 	/**
 	 * Handles the initialization of the multiday events when Document is ready
 	 *
-	 * @since  4.9.3
+	 * @since TBD
 	 *
 	 * @return {void}
 	 */
 	obj.ready = function() {
-		var $hiddenMultidayEvents = $( obj.selectors.multidayEvent );
-		$hiddenMultidayEvents.each( obj.bindEvents );
+		/**
+		 * @todo: this isn't working... need to figure out why and fix.
+		 */
+		tribe.events.views.manager.$containers.on( 'afterSetup.tribeEvents', obj.bindEvents );
 		/**
 		 * @todo: do below for ajax events
 		 */
@@ -170,4 +176,4 @@ tribe.events.views.multiday_events = {};
 
 	// Configure on document ready
 	$document.ready( obj.ready );
-}( jQuery, tribe.events.views.multiday_events ) );
+} )( jQuery, tribe.events.views.multiday_events );

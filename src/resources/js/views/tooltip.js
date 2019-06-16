@@ -24,12 +24,11 @@ tribe.events.views.tooltip = {};
  * @since  TBD
  *
  * @param  {PlainObject} $   jQuery
- * @param  {PlainObject} _   Underscore.js
  * @param  {PlainObject} obj tribe.events.views.tooltip
  *
  * @return {void}
  */
-( function( $, _, obj ) {
+( function( $, obj ) {
 	'use strict';
 	var $document = $( document );
 
@@ -119,19 +118,12 @@ tribe.events.views.tooltip = {};
 	 *
 	 */
 	obj.initTooltips = function() {
-
 		$( obj.selectors.tooltip ).tooltipster( {
 			interactive: true,
 			theme: [ 'tribe-common', 'tribe-events', 'tribe-events-tooltip-theme' ],
-			functionInit: function( instance, helper ) {
-				obj.onFunctionInit( instance, helper );
-			},
-			functionReady: function( instance, helper ) {
-				obj.onFunctionReady( instance, helper );
-			},
-			functionAfter: function( instance, helper ) {
-				obj.onFunctionAfter( instance, helper );
-			}
+			functionInit: obj.onFunctionInit,
+			functionReady: obj.onFunctionReady,
+			functionAfter: obj.onFunctionAfter,
 		} );
 	};
 
@@ -145,9 +137,9 @@ tribe.events.views.tooltip = {};
 	 */
 	obj.ready = function() {
 		// @todo: make it work with variable instead of function, so it's triggered how's supposed to be
-		tribe.events.views.manager.$containers.on( 'afterSetup.tribeEvents', obj.initTooltips() );
+		tribe.events.views.manager.$containers.on( 'afterSetup.tribeEvents', obj.initTooltips );
 	};
 
 	// Configure on document ready
 	$document.ready( obj.ready );
-}( jQuery, window.underscore || window._, tribe.events.views.tooltip ) );
+} )( jQuery, tribe.events.views.tooltip );
