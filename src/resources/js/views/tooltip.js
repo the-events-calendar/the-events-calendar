@@ -63,7 +63,7 @@ tribe.events.views.tooltip = {};
 			})
 			.blur( function() {
 				obj.onOriginBlur( $( this ) )
-		});
+			});
 	};
 
 	/**
