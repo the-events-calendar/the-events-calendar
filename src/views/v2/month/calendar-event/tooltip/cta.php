@@ -9,11 +9,11 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version TBD
+ * @version 4.9.3
  *
  */
 ?>
-<div class="tribe-events-c-small-cta">
+<div class="tribe-events-c-small-cta tribe-events-calendar-month__calendar-event-tooltip-cta">
 	<a class="tribe-events-c-small-cta__link tribe-common-cta tribe-common-cta--alt">Buy Now</a>
 	<span class="tribe-events-c-small-cta__price">$10</span>
 </div>

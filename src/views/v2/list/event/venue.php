@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version TBD
+ * @version 4.9.3
  *
  */
 $event    = $this->get( 'event' );
@@ -24,7 +24,7 @@ if ( ! $venue_details ) {
 ?>
 <address class="tribe-events-calendar-list__event-venue">
 	<span class="tribe-events-calendar-list__event-venue-title tribe-common-b2 tribe-common-b2--bold">
-		<?php echo isset( $venue_details['linked_name'] ) ? esc_html( $venue_details['linked_name'] ) : esc_html__( 'Venue Name', 'the-events-calendar' ); ?>
+		<?php echo isset( $venue_details['linked_name'] ) ? $venue_details['linked_name'] : esc_html__( 'Venue Name', 'the-events-calendar' ); ?>
 	</span>
 	<span class="tribe-events-calendar-list__event-venue-address tribe-common-b2">
 		<?php echo isset( $venue_details['address'] ) ? $venue_details['address'] : ''; ?>

@@ -37,7 +37,7 @@
 			@mixin desktop-heading-4;
 		}
 
-		padding: var(--spacer-1);
+		padding: var(--spacer-1) var(--spacer-2);
 	}
 
 	.tribe-events-calendar-month__day-date-link {
@@ -72,5 +72,14 @@
 
 	.tribe-events-calendar-month__day-date--disabled {
 		color: var(--color-text-disabled);
+	}
+
+	.tribe-events-calendar-month__day-events {
+		display: none;
+
+		@media (--viewport-medium) {
+			display: block;
+			padding: 0 var(--spacer-2) var(--spacer-2);
+		}
 	}
 }

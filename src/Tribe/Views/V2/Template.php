@@ -8,8 +8,10 @@
 
 namespace Tribe\Events\Views\V2;
 
+use Tribe\Traits\Cache_User;
 use Tribe__Repository__Interface as Repository_Interface;
 use Tribe__Template as Base_Template;
+use Tribe__Utils__Array as Arr;
 
 /**
  * Class Template
@@ -18,6 +20,8 @@ use Tribe__Template as Base_Template;
  * @since   4.9.2
  */
 class Template extends Base_Template {
+	use Cache_User;
+
 	/**
 	 * The slug the template should use to build its path.
 	 *
@@ -31,6 +35,16 @@ class Template extends Base_Template {
 	 * @var Repository_Interface
 	 */
 	protected $repository;
+
+	/**
+	 * An array cache to keep track of  resolved template files on a per-name basis.
+	 * The file look-around needs not to be performed twice per request.
+	 *
+	 * @since TBD
+	 *
+	 * @var array
+	 */
+	protected $template_file_cache = [];
 
 	/**
 	 * Renders and returns the View template contents.
@@ -75,21 +89,32 @@ class Template extends Base_Template {
 	 *
 	 * If a template cannot be found for the view then the base template for the view will be returned.
 	 *
-	 * @param string|null $name Either a specific name to check or `null` to let the view pick the
-	 *                          template according to the template override rules.
-	 *
-	 * @return string The path to the template file the View will use to render its contents.
 	 * @since 4.9.2
 	 *
+	 * @param string|array|null $name Either a specific name to check, the frgments of a name to check, or `null` to let
+	 *                                the view pick the template according to the template override rules.
+	 *
+	 * @return string The path to the template file the View will use to render its contents.
 	 */
 	public function get_template_file( $name = null ) {
 		$name = null !== $name ? $name : $this->slug;
 
+		$cache_key = is_array( $name ) ? implode( '/', $name ) : $name;
+
+		$cached = Arr::get( $this->template_file_cache, $cache_key, false );
+		if ( $cached ) {
+			return $cached;
+		}
+
 		$template = parent::get_template_file( $name );
 
-		return false !== $template
+		$file = false !== $template
 			? $template
 			: $this->get_base_template_file();
+
+		$this->template_file_cache[ $cache_key ] = $file;
+
+		return $file;
 	}
 
 	/**
@@ -118,5 +143,27 @@ class Template extends Base_Template {
 	 */
 	public function get_not_found_template() {
 		return parent::get_template_file( 'not-found' );
+	}
+
+	/**
+	 * Sets the template slug.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $slug The slug the template should use.
+	 */
+	public function set_slug( string $slug ) {
+		$this->slug = $slug;
+	}
+
+	/**
+	 * Returns the current template slug, either set in the constructor or using the `set_slug` method.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The current template slug.
+	 */
+	public function get_slug() {
+		return $this->slug;
 	}
 }

@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the The Events Calendar package.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 4.9.2\n"
+"Project-Id-Version: The Events Calendar 4.9.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/the-events-"
 "calendar\n"
-"POT-Creation-Date: 2019-05-15 19:53:34+00:00\n"
+"POT-Creation-Date: 2019-06-05 16:13:46+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2019-05-15 19:53\n"
+"PO-Revision-Date: 2019-06-05 16:13\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -677,6 +677,8 @@ msgid "Filter By Frequency"
 msgstr ""
 
 #: src/Tribe/Aggregator/Record/List_Table.php:181
+#: src/views/v2/events-bar/filters.php:28
+#: src/views/v2/events-bar/filters.php:29
 msgid "Filter"
 msgstr ""
 
@@ -2255,6 +2257,7 @@ msgid "Event Allow Trackbacks and Pingbacks"
 msgstr ""
 
 #: src/Tribe/Importer/Column_Mapper.php:101
+#: src/views/v2/list/event/venue.php:27
 msgid "Venue Name"
 msgstr ""
 
@@ -2500,7 +2503,7 @@ msgstr ""
 msgid "Upcoming Events"
 msgstr ""
 
-#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 4.9.2)  #-#-#-#-#
+#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 4.9.3)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: src/Tribe/Main.php:836 src/Tribe/Main.php:1190 src/Tribe/Privacy.php:29
 #: src/functions/template-tags/general.php:1351 the-events-calendar.php:54
@@ -2971,11 +2974,11 @@ msgstr ""
 msgid "Calendar"
 msgstr ""
 
-#: src/Tribe/Main.php:4041
+#: src/Tribe/Main.php:4041 src/views/v2/events-bar/views.php:23
 msgid "List"
 msgstr ""
 
-#: src/Tribe/Main.php:4059
+#: src/Tribe/Main.php:4059 src/views/v2/events-bar/views.php:27
 msgid "Month"
 msgstr ""
 
@@ -2988,11 +2991,12 @@ msgstr ""
 msgid "Search for %s by Keyword."
 msgstr ""
 
-#: src/Tribe/Main.php:4102
+#: src/Tribe/Main.php:4102 src/views/v2/events-bar/filters.php:20
+#: src/views/v2/events-bar/filters.php:21
 msgid "Search"
 msgstr ""
 
-#: src/Tribe/Main.php:4103
+#: src/Tribe/Main.php:4103 src/views/v2/events-bar/form/keyword.php:23
 msgid "Keyword"
 msgstr ""
 
@@ -4397,7 +4401,7 @@ msgstr ""
 msgid "The requested event term archive page does not exist"
 msgstr ""
 
-#: src/Tribe/Rewrite.php:265
+#: src/Tribe/Rewrite.php:225
 msgctxt "The \"/page/\" URL string component."
 msgid "page"
 msgstr ""
@@ -5104,6 +5108,7 @@ msgid "Keyword(s)"
 msgstr ""
 
 #: src/admin-views/aggregator/origins/refine.php:5
+#: src/views/v2/events-bar/form/location.php:23
 msgid "Location"
 msgstr ""
 
@@ -6711,7 +6716,7 @@ msgid "Clear"
 msgstr ""
 
 #: src/deprecated/Tribe__Events__Asset__Bootstrap_Datepicker.php:28
-#: src/functions/template-tags/day.php:104
+#: src/functions/template-tags/day.php:104 src/views/v2/top-bar/today.php:18
 msgid "Today"
 msgstr ""
 
@@ -6968,15 +6973,15 @@ msgstr ""
 msgid "%s List Navigation"
 msgstr ""
 
-#: src/views/list/nav.php:28
+#: src/views/list/nav.php:28 src/views/v2/list/nav/prev.php:28
 msgid "Previous %s"
 msgstr ""
 
-#: src/views/list/nav.php:36
+#: src/views/list/nav.php:36 src/views/v2/list/nav/next.php:28
 msgid "Next %s"
 msgstr ""
 
-#: src/views/modules/bar.php:38
+#: src/views/modules/bar.php:38 src/views/v2/events-bar.php:18
 msgid "%s Search and Views Navigation"
 msgstr ""
 
@@ -6996,11 +7001,11 @@ msgstr ""
 msgid "Submit %s search"
 msgstr ""
 
-#: src/views/modules/bar.php:74
+#: src/views/modules/bar.php:74 src/views/v2/events-bar/form/submit.php:20
 msgid "Find %s"
 msgstr ""
 
-#: src/views/modules/bar.php:86
+#: src/views/modules/bar.php:86 src/views/v2/events-bar/views.php:17
 msgid "%s Views Navigation"
 msgstr ""
 
@@ -7013,6 +7018,7 @@ msgid "View As"
 msgstr ""
 
 #: src/views/month/loop-grid.php:25 src/views/month/loop-grid.php:28
+#: src/views/v2/month/grid-header.php:21
 msgid "Calendar of %s"
 msgstr ""
 
@@ -7046,6 +7052,65 @@ msgstr ""
 
 #: src/views/single-event/recurring-description.php:26
 msgid "see all"
+msgstr ""
+
+#: src/views/v2/events-bar/form/date.php:17
+msgid ""
+"Enter date. Please use the format 4 digit year hyphen 2 digit month hyphen 2 "
+"digit day."
+msgstr ""
+
+#: src/views/v2/events-bar/form/date.php:23
+msgid "Enter date"
+msgstr ""
+
+#: src/views/v2/events-bar/form/keyword.php:17
+msgid "Enter Keyword. Search for Events by Keyword."
+msgstr ""
+
+#: src/views/v2/events-bar/form/location.php:17
+msgid "Enter Location. Search for Events by Location."
+msgstr ""
+
+#: src/views/v2/events-bar/views.php:19
+msgid "Views"
+msgstr ""
+
+#: src/views/v2/events-bar/views.php:31
+msgid "Week"
+msgstr ""
+
+#: src/views/v2/list/event/date.php:28 src/views/v2/list/event/date.php:29
+#: src/views/v2/month/calendar-event/date.php:22
+#: src/views/v2/month/calendar-event/date.php:23
+#: src/views/v2/month/event-multiday.php:31
+#: src/views/v2/month/event-multiday.php:32
+#: src/views/v2/month/mobile-event/date.php:22
+#: src/views/v2/month/mobile-event/date.php:23
+msgid "Featured"
+msgstr ""
+
+#: src/views/v2/month/calendar-event/date.php:28
+#: src/views/v2/month/calendar-event/date.php:29
+#: src/views/v2/month/mobile-event/date.php:28
+#: src/views/v2/month/mobile-event/date.php:29
+msgid "Recurring"
+msgstr ""
+
+#: src/views/v2/top-bar/actions.php:19
+msgid "Hide Recurring Events"
+msgstr ""
+
+#: src/views/v2/top-bar/nav/next.php:25 src/views/v2/top-bar/nav/next.php:26
+msgid "Next"
+msgstr ""
+
+#: src/views/v2/top-bar/nav/prev.php:25 src/views/v2/top-bar/nav/prev.php:26
+msgid "Previous"
+msgstr ""
+
+#: src/views/v2/top-bar/today.php:22
+msgid "Now"
 msgstr ""
 
 #: src/views/widgets/list-widget.php:112
