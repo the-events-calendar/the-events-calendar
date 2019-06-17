@@ -689,7 +689,6 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Tweak - Added pagination to single organizer and venue pages [97772]
 * Tweak - Improved compatibility with the Twety Seventeen theme (ensuring the calendar is full-width if set to be the site's homepage) [97977]
 * Language - 3 new strings added, 161 updated, 1 fuzzied, and 2 obsoleted
->>>>>>> release/B19.08
 
 = [4.6.11.1] 2018-02-16 =
 
