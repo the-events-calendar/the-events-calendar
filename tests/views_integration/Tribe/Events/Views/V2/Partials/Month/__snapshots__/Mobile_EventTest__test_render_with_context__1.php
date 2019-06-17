@@ -1,5 +1,5 @@
 <?php return '
-<article class="tribe-events-calendar-month__mobile-event tribe-events-calendar-month__mobile-event--featured">
+<article class="tribe-events-calendar-month__mobile-event">
 
 	<div class="tribe-events-calendar-month__mobile-event-featured-image-wrapper">
 	<div class="tribe-events-calendar-month__mobile-event-featured-image tribe-common-c-image tribe-common-c-image--bg">
