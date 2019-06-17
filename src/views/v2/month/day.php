@@ -30,8 +30,41 @@ if ( $day_number == date( 'd', time() ) ) {
 ?>
 
 <div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="<?php echo esc_attr( $day_id ); ?>">
-	<div id="<?php echo esc_attr( $day_id ); ?>">
-		<h3 class="<?php echo esc_attr( implode( ' ', $day_title_classes ) ); ?>">
+
+	<button
+		aria-expanded="false"
+		aria-controls="the-content-id"
+		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
+		tabindex="-1"
+	>
+		<h3 class="<?php echo esc_attr( implode( ' ', $day_title_classes ) ); ?> tribe-common-h6">
+			<span class="tribe-common-a11y-visual-hide">X events, </span>
+			<time datetime="YYYY-MM-DD">
+				<?php echo esc_html( $day_number ); ?>
+			</time>
+			<?php /* @todo: if day has featured event ?>
+				<em
+					class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--featured tribe-common-svgicon tribe-common-svgicon--featured"
+					aria-label="<?php esc_attr_e( 'Has featured events', 'the-events-calendar' ); ?>"
+					title="<?php esc_attr_e( 'Has featured events', 'the-events-calendar' ); ?>"
+				>
+				</em>
+			<?php /* @todo: else if day has events */ ?>
+				<em
+					class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--event"
+					aria-label="<?php esc_attr_e( 'Has events', 'the-events-calendar' ); ?>"
+					title="<?php esc_attr_e( 'Has events', 'the-events-calendar' ); ?>"
+				>
+				</em>
+			<?php /* endif */ ?>
+		</h3>
+	</button>
+
+	<div
+		id="<?php echo esc_attr( $day_id ); ?>"
+		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
+	>
+		<h3 class="<?php echo esc_attr( implode( ' ', $day_title_classes ) ); ?> tribe-common-h4">
 			<span class="tribe-common-a11y-visual-hide">X events, </span>
 			<time datetime="YYYY-MM-DD">
 				<a
@@ -42,10 +75,11 @@ if ( $day_number == date( 'd', time() ) ) {
 				</a>
 			</time>
 		</h3>
+
+		<?php $this->template( 'month/day-events-multiday', [ 'day' => $day_number, 'month' => $month ] ); ?>
+
+		<?php $this->template( 'month/day-events', [ 'day' => $day_number, 'month' => $month ] ); ?>
+
 	</div>
-
-	<?php $this->template( 'month/day-events-multiday', [ 'day' => $day_number, 'month' => $month ] ); ?>
-
-	<?php $this->template( 'month/day-events', [ 'day' => $day_number, 'month' => $month ] ); ?>
 
 </div>
