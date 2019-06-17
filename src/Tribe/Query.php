@@ -1427,30 +1427,32 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 
 					// Run the query.
 					$result->get_posts();
+					self::$last_result = empty( $result->posts ) ? [] : $result->posts;
 				}
 
 				$cache->set( $cache_key, $result, Tribe__Cache::NON_PERSISTENT, 'save_post' );
 			}
 
-			self::$last_result = empty( $result->posts ) ? [] : $result->posts;
 
 			if ( $return_found_posts ) {
 				return $result;
 			}
 
 			if ( ! empty( $result->posts ) ) {
+				self::$last_result = empty( $result->posts ) ? [] : $result->posts;
 				if ( $full ) {
 					return $result;
 				}
-
 				return $result->posts;
 			}
 
 			if ( $full ) {
+				self::$last_result = empty( $result->posts ) ? [] : $result->posts;
 				return $result;
 			}
 
-			return array();
+			self::$last_result = [];
+			return [];
 		}
 
 		/**
