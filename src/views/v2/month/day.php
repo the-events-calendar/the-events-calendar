@@ -26,13 +26,16 @@ if ( $day_number == date( 'd', time() ) ) {
 	$day_classes[] = 'tribe-events-calendar-month__day--current';
 }
 
+// @todo: figure out consistent way of formatting ids
+$mobile_day_id = 'tribe-events-calendar-mobile-day-' . $month_number . '-' . $day_number;
+
 ?>
 
 <div class="<?php echo esc_attr( implode( ' ', $day_classes ) ) ?>" role="gridcell" aria-labelledby="<?php echo esc_attr( $day_id ); ?>">
 
 	<button
 		aria-expanded="false"
-		aria-controls="the-content-id"
+		aria-controls="<?php echo esc_attr( $mobile_day_id ); ?>"
 		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
 		tabindex="-1"
 	>

@@ -42,6 +42,8 @@ $events = $this->get( 'events' );
 
 		<?php $this->template( 'month/nav' ); ?>
 
+		<?php $this->template( 'month/mobile-events' ); ?>
+
 	</div>
 
 </div>
