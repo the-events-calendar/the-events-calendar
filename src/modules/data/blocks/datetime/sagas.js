@@ -164,6 +164,9 @@ export function* onHumanReadableChange() {
 
 		const isMultiDay = ! ( yield call( momentUtil.isSameDay, result.start, result.end ) );
 
+		/**
+		 * @todo: move this to common utils in moment.js
+		 */
 		const isAllDay = ! isMultiDay && ( '00:00' === moments.start.format( 'HH:mm' ) && '23:59' === moments.end.format( 'HH:mm' ) );
 
 		const dates = yield all( {
@@ -401,7 +404,6 @@ export function* handleStartTimeChange( action ) {
 	if ( action.payload.start === 'all-day' ) {
 		yield call( setAllDay );
 	} else {
-
 		// Set All day to false in case they're editing.
 		yield put( actions.setAllDay( false ) );
 
