@@ -3,6 +3,7 @@
 	data-js="tribe-events-view"
 	data-view-rest-nonce="2ab7cc6b39"
 	data-view-rest-url="http://test.tri.be/index.php?rest_route=/tribe/views/v2/html"
+	data-view-manage-url="1"
 >
 	<div class="tribe-common-l-container tribe-events-l-container">
 		<div
@@ -17,7 +18,7 @@
 		<script
 	data-js="tribe-events-view-data"
 	type="application/json"
->{"slug":"list","prev_url":"http:\\/\\/test.tri.be\\/events\\/?eventDisplay=past","next_url":"http:\\/\\/test.tri.be\\/events\\/page\\/2\\/","title":"  Events","events":[{"ID":7,"post_author":"0","post_date":"2019-06-11 13:59:35","post_date_gmt":"2019-06-11 13:59:35","post_content":"","post_title":"Test Event - +9 days","post_excerpt":"","post_status":"publish","comment_status":"open","ping_status":"closed","post_password":"","post_name":"test-event-9-days-2","to_ping":"","pinged":"","post_modified":"2019-06-11 13:59:35","post_modified_gmt":"2019-06-11 13:59:35","post_content_filtered":"","post_parent":0,"guid":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-9-days-2","menu_order":0,"post_type":"tribe_events","post_mime_type":"","comment_count":"0","filter":"raw"},{"ID":8,"post_author":"1","post_date":"2019-06-11 13:59:35","post_date_gmt":"2019-06-11 13:59:35","post_content":"","post_title":"Single Event 1","post_excerpt":"","post_status":"publish","comment_status":"open","ping_status":"closed","post_password":"","post_name":"single-event-1","to_ping":"","pinged":"","post_modified":"2019-06-11 13:59:35","post_modified_gmt":"2019-06-11 13:59:35","post_content_filtered":"","post_parent":0,"guid":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-9-days-2","menu_order":0,"post_type":"tribe_events","post_mime_type":"","comment_count":"0","filter":"raw"}],"url":"http:\\/\\/test.tri.be\\/events\\/list\\/"}</script>
+>{"slug":"list","prev_url":"http:\\/\\/test.tri.be\\/events\\/?eventDisplay=past","next_url":"http:\\/\\/test.tri.be\\/events\\/page\\/2\\/","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","request_slug":"list","view":{},"title":"","events":[{"ID":7,"post_author":"0","post_date":"2019-06-11 13:59:35","post_date_gmt":"2019-06-11 13:59:35","post_content":"","post_title":"Test Event - +9 days","post_excerpt":"","post_status":"publish","comment_status":"open","ping_status":"closed","post_password":"","post_name":"test-event-9-days-2","to_ping":"","pinged":"","post_modified":"2019-06-11 13:59:35","post_modified_gmt":"2019-06-11 13:59:35","post_content_filtered":"","post_parent":0,"guid":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-9-days-2","menu_order":0,"post_type":"tribe_events","post_mime_type":"","comment_count":"0","filter":"raw"},{"ID":8,"post_author":"1","post_date":"2019-06-11 13:59:35","post_date_gmt":"2019-06-11 13:59:35","post_content":"","post_title":"Single Event 1","post_excerpt":"","post_status":"publish","comment_status":"open","ping_status":"closed","post_password":"","post_name":"single-event-1","to_ping":"","pinged":"","post_modified":"2019-06-11 13:59:35","post_modified_gmt":"2019-06-11 13:59:35","post_content_filtered":"","post_parent":0,"guid":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-9-days-2","menu_order":0,"post_type":"tribe_events","post_mime_type":"","comment_count":"0","filter":"raw"}],"url":"http:\\/\\/test.tri.be\\/events\\/list\\/","bar":{"keyword":"","date":""}}</script>
 
 		<div class="tribe-events-c-events-bar">
 
@@ -69,6 +70,8 @@
 		method="get"
 		data-js="tribe-events-view-form"
 	>
+		<input type="hidden" id="tribe-events-views[_wpnonce]" name="tribe-events-views[_wpnonce]" value="2ab7cc6b39" /><input type="hidden" name="_wp_http_referer" value="/events" />		<input type="hidden" name="tribe-events-views[url]" value="http://test.tri.be/events/list/" />
+
 		<div class="tribe-common-form-control-text-group tribe-common-c-search__input-group">
 			<div class="tribe-common-form-control-text">
 	<label class="tribe-common-form-control-text__label" for="keyword">Enter Keyword. Search for Events by Keyword.</label>
@@ -76,7 +79,8 @@
 		class="tribe-common-form-control-text__input tribe-common-c-search__input"
 		type="text"
 		id="keyword"
-		name="keyword"
+		name="tribe-events-views[tribe-bar-search]"
+		value=""
 		placeholder="Keyword"
 	/>
 </div>
@@ -96,7 +100,8 @@
 		class="tribe-common-form-control-text__input tribe-common-c-search__input"
 		type="text"
 		id="tribe-bar-date"
-		name="tribe-bar-date"
+		name="tribe-events-views[tribe-bar-date]"
+		value=""
 		placeholder="Enter date"
 	/>
 </div>
@@ -141,7 +146,11 @@
 </div>
 
 	<div class="tribe-events-c-top-bar__today">
-	<a href="#" class="tribe-common-c-btn-border tribe-events-c-top-bar__today-button">
+	<a
+		href="http://test.tri.be/events/list/"
+		class="tribe-common-c-btn-border tribe-events-c-top-bar__today-button"
+		data-js="tribe-events-view-link"
+	>
 		Today	</a>
 
 	<span class="tribe-common-h3 tribe-common-h3--alt tribe-events-c-top-bar__today-title">
@@ -151,8 +160,16 @@
 
 	<div class="tribe-events-c-top-bar__actions">
 	<div class="tribe-common-form-control-toggle">
-		<input class="tribe-common-form-control-toggle__input" id="hide-recurring" name="hide-recurring" type="checkbox" value="false" />
-		<label class="tribe-common-form-control-toggle__label" for="hide-recurring">Hide Recurring Events</label>
+		<input
+			class="tribe-common-form-control-toggle__input"
+			id="hide-recurring"
+			name="hide-recurring"
+			type="checkbox"
+			value="false"
+		/>
+		<label class="tribe-common-form-control-toggle__label" for="hide-recurring">
+			Hide Recurring Events		
+		</label>
 	</div>
 </div>
 
@@ -161,7 +178,11 @@
 		<div class="tribe-events-calendar-list">
 
 			<div class="tribe-events-calendar-list__separator-month">
-	<time class="tribe-events-calendar-list__separator-month-text tribe-common-b1 tribe-common-b1--bold" datetime="1970-01-01T00:00:00+00:00">Jan</time>
+	<time
+		class="tribe-events-calendar-list__separator-month-text tribe-common-b1 tribe-common-b1--bold"
+		datetime="1970-01-01T00:00:00+00:00"
+	>
+		Jan	</time>
 </div>
 
 			

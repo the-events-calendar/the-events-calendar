@@ -3,6 +3,7 @@
 	data-js="tribe-events-view"
 	data-view-rest-nonce="2ab7cc6b39"
 	data-view-rest-url="http://test.tri.be/index.php?rest_route=/tribe/views/v2/html"
+	data-view-manage-url="1"
 >
 	<div class="tribe-common-l-container tribe-events-l-container">
 		<div
@@ -17,7 +18,7 @@
 		<script
 	data-js="tribe-events-view-data"
 	type="application/json"
->{"slug":"list","prev_url":"","next_url":"","title":"  Events","events":[],"url":"http:\\/\\/test.tri.be\\/events\\/list\\/"}</script>
+>{"slug":"list","prev_url":"","next_url":"","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","request_slug":"list","view":{},"title":"","events":[],"url":"http:\\/\\/test.tri.be\\/events\\/list\\/","bar":{"keyword":"","date":""}}</script>
 
 		<div class="tribe-events-c-events-bar">
 
@@ -69,6 +70,8 @@
 		method="get"
 		data-js="tribe-events-view-form"
 	>
+		<input type="hidden" id="tribe-events-views[_wpnonce]" name="tribe-events-views[_wpnonce]" value="2ab7cc6b39" /><input type="hidden" name="_wp_http_referer" value="/events" />		<input type="hidden" name="tribe-events-views[url]" value="http://test.tri.be/events/list/" />
+
 		<div class="tribe-common-form-control-text-group tribe-common-c-search__input-group">
 			<div class="tribe-common-form-control-text">
 	<label class="tribe-common-form-control-text__label" for="keyword">Enter Keyword. Search for Events by Keyword.</label>
@@ -76,7 +79,8 @@
 		class="tribe-common-form-control-text__input tribe-common-c-search__input"
 		type="text"
 		id="keyword"
-		name="keyword"
+		name="tribe-events-views[tribe-bar-search]"
+		value=""
 		placeholder="Keyword"
 	/>
 </div>
@@ -96,7 +100,8 @@
 		class="tribe-common-form-control-text__input tribe-common-c-search__input"
 		type="text"
 		id="tribe-bar-date"
-		name="tribe-bar-date"
+		name="tribe-events-views[tribe-bar-date]"
+		value=""
 		placeholder="Enter date"
 	/>
 </div>
@@ -121,7 +126,11 @@
 </div>
 
 	<div class="tribe-events-c-top-bar__today">
-	<a href="#" class="tribe-common-c-btn-border tribe-events-c-top-bar__today-button">
+	<a
+		href="http://test.tri.be/events/list/"
+		class="tribe-common-c-btn-border tribe-events-c-top-bar__today-button"
+		data-js="tribe-events-view-link"
+	>
 		Today	</a>
 
 	<span class="tribe-common-h3 tribe-common-h3--alt tribe-events-c-top-bar__today-title">
@@ -131,8 +140,16 @@
 
 	<div class="tribe-events-c-top-bar__actions">
 	<div class="tribe-common-form-control-toggle">
-		<input class="tribe-common-form-control-toggle__input" id="hide-recurring" name="hide-recurring" type="checkbox" value="false" />
-		<label class="tribe-common-form-control-toggle__label" for="hide-recurring">Hide Recurring Events</label>
+		<input
+			class="tribe-common-form-control-toggle__input"
+			id="hide-recurring"
+			name="hide-recurring"
+			type="checkbox"
+			value="false"
+		/>
+		<label class="tribe-common-form-control-toggle__label" for="hide-recurring">
+			Hide Recurring Events		
+		</label>
 	</div>
 </div>
 
@@ -141,7 +158,11 @@
 		<div class="tribe-events-calendar-list">
 
 			<div class="tribe-events-calendar-list__separator-month">
-	<time class="tribe-events-calendar-list__separator-month-text tribe-common-b1 tribe-common-b1--bold" datetime="1970-01-01T00:00:00+00:00">Jan</time>
+	<time
+		class="tribe-events-calendar-list__separator-month-text tribe-common-b1 tribe-common-b1--bold"
+		datetime="1970-01-01T00:00:00+00:00"
+	>
+		Jan	</time>
 </div>
 
 			
