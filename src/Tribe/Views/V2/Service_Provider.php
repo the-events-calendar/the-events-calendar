@@ -29,6 +29,8 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 			return;
 		}
 
+		require_once tribe( 'tec.main' )->plugin_path . 'src/Tribe/Views/V2/functions/template-tags.php';
+
 		$this->container->singleton( Template_Bootstrap::class, Template_Bootstrap::class );
 		$this->container->singleton( Template\Event::class, Template\Event::class );
 		$this->container->singleton( Template\Page::class, Template\Page::class );
@@ -49,7 +51,6 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 
 		// Since the View main class will act as a DI container itself let's provide it with the global container.
 		View::set_container( $this->container );
-
 	}
 
 	/**
