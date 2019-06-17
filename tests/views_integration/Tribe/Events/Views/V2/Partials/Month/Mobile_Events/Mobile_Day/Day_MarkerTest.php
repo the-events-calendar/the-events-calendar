@@ -1,12 +1,12 @@
 <?php
-namespace Tribe\Events\Views\V2\Partials\Month;
+namespace Tribe\Events\Views\V2\Partials\Month\Mobile_Events\Mobile_Day;
 
 use Tribe\Events\Views\V2\Partials\TestCase;
 
 class Day_MarkerTest extends TestCase
 {
 
-	protected $partial_path = 'month/day-marker';
+	protected $partial_path = 'month/mobile-events/mobile-day/day-marker';
 
 	/**
 	 * Test static render
