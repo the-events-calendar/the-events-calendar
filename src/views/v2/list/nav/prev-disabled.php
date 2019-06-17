@@ -15,6 +15,8 @@
  *
  */
 ?>
-<button class="tribe-events-c-nav__prev tribe-common-b2" disabled>
-	<?php echo esc_html( sprintf( __( 'Previous %s', 'the-events-calendar' ), tribe_get_event_label_plural() ) ); ?>
-</button>
+<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--prev">
+	<button class="tribe-events-c-nav__prev tribe-common-b2" disabled>
+		<?php echo esc_html( sprintf( __( 'Previous %s', 'the-events-calendar' ), tribe_get_event_label_plural() ) ); ?>
+	</button>
+</li>

@@ -9,12 +9,14 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @var string $link The URL to the previous page, if any, or an empty string.
+ * @var string $label The label for the previous link.
  *
  * @version TBD
  *
  */
 ?>
-<button class="tribe-events-c-nav__prev tribe-common-b2" disabled>
-	<?php echo esc_html( $label ); ?>
-</button>
+<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--prev">
+	<button class="tribe-events-c-nav__prev tribe-common-b2" disabled>
+		<?php echo esc_html( $label ); ?>
+	</button>
+</li>

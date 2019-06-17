@@ -11,6 +11,7 @@
  *
  * @var string $prev_url The URL to the previous page, if any, or an empty string.
  * @var string $next_url The URL to the next page, if any, or an empty string.
+ * @var string $today_url The URL to the today page, if any, or an empty string.
  *
  * @version 4.9.3
  *
@@ -18,24 +19,22 @@
 ?>
 <nav class="tribe-events-calendar-list-nav tribe-events-c-nav">
 	<ul class="tribe-events-c-nav__list">
-		<li class="tribe-events-c-nav__list-item">
-			<?php
-			if ( $prev_url ) {
-				$this->template( 'list/nav/prev', [ 'link' => $prev_url ] );
-			} else {
-				$this->template( 'list/nav/prev-disabled' );
-			}
-			?>
-		</li>
+		<?php
+		if ( $prev_url ) {
+			$this->template( 'list/nav/prev', [ 'link' => $prev_url ] );
+		} else {
+			$this->template( 'list/nav/prev-disabled' );
+		}
+		?>
 
-		<li class="tribe-events-c-nav__list-item">
-			<?php
-			if ( $next_url ) {
-				$this->template( 'list/nav/next', [ 'link' => $next_url ] );
-			} else {
-				$this->template( 'list/nav/next-disabled' );
-			}
-			?>
-		</li>
+		<?php $this->template( 'list/nav/today', [ 'link' => '#' ] ); ?>
+
+		<?php
+		if ( $next_url ) {
+			$this->template( 'list/nav/next', [ 'link' => $next_url ] );
+		} else {
+			$this->template( 'list/nav/next-disabled' );
+		}
+		?>
 	</ul>
 </nav>
