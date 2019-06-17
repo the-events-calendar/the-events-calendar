@@ -116,14 +116,21 @@ tribe.events.views.tooltip = {};
 	 *
 	 * @since TBD
 	 *
+	 * @param {integer} index jQuery.each index param from 'afterSetup.tribeEvents' event
+	 * @param {jQuery} $container jQuery object of view container
+	 * @param {object} data data object passed from 'afterSetup.tribeEvents' event
+	 *
+	 * @return {void}
 	 */
-	obj.initTooltips = function() {
-		$( obj.selectors.tooltip ).tooltipster( {
-			interactive: true,
-			theme: [ 'tribe-common', 'tribe-events', 'tribe-events-tooltip-theme' ],
-			functionInit: obj.onFunctionInit,
-			functionReady: obj.onFunctionReady,
-			functionAfter: obj.onFunctionAfter,
+	obj.initTooltips = function( index, $container, data ) {
+		$container.find( obj.selectors.tooltip ).each( function( index, tooltip ) {
+			$( tooltip ).tooltipster( {
+				interactive: true,
+				theme: [ 'tribe-common', 'tribe-events', 'tribe-events-tooltip-theme' ],
+				functionInit: obj.onFunctionInit,
+				functionReady: obj.onFunctionReady,
+				functionAfter: obj.onFunctionAfter,
+			} );
 		} );
 	};
 
@@ -137,7 +144,7 @@ tribe.events.views.tooltip = {};
 	 */
 	obj.ready = function() {
 		// @todo: make it work with variable instead of function, so it's triggered how's supposed to be
-		tribe.events.views.manager.$containers.on( 'afterSetup.tribeEvents', obj.initTooltips );
+		$document.on( 'afterSetup.tribeEvents', tribe.events.views.manager.selectors.container, obj.initTooltips );
 	};
 
 	// Configure on document ready
