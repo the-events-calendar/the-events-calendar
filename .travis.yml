@@ -139,4 +139,3 @@ script:
   - codecept run views_integration || travis_terminate 1
   - codecept run views_ui || travis_terminate 1
   #- codecept run acceptance
-

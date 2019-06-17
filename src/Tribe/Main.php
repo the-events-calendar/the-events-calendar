@@ -566,6 +566,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			require_once $this->plugin_path . 'vendor/tribe-common-libraries/tribe-common-libraries.class.php';
 
 			// Load Template Tags
+			require_once $this->plugin_path . 'src/functions/template-tags/url.php';
 			require_once $this->plugin_path . 'src/functions/template-tags/query.php';
 			require_once $this->plugin_path . 'src/functions/template-tags/general.php';
 			require_once $this->plugin_path . 'src/functions/template-tags/month.php';
