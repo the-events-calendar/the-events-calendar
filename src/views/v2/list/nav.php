@@ -16,9 +16,8 @@
  *
  */
 
-/**
- * @todo: make sure we're getting correct context
- */
+$prev_url = $this->get( 'prev_url' );
+$next_url = $this->get( 'next_url' );
 ?>
 <nav class="tribe-common-c-nav">
 	<ul class="tribe-common-c-nav__list">
