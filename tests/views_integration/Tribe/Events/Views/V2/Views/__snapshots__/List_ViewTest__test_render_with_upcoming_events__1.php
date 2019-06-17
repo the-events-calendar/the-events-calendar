@@ -179,10 +179,10 @@
 
 			<div class="tribe-events-calendar-list__separator-month">
 	<time
-		class="tribe-events-calendar-list__separator-month-text tribe-common-b1 tribe-common-b1--bold"
-		datetime="1970-01-01T00:00:00+00:00"
+		class="tribe-events-calendar-list__separator-month-text tribe-common-b1"
+		datetime="2019-01"
 	>
-		Jan	</time>
+		Jan 2019	</time>
 </div>
 
 			
@@ -202,7 +202,7 @@
 		>
 		</em>
 	</div>
-			<h3 class="tribe-events-calendar-list__event-title tribe-common-h4">
+			<h3 class="tribe-events-calendar-list__event-title">
 	<a
 		href="http://test.tri.be/?tribe_events=test-event-9-days-2%2F"
 		title=""
@@ -227,7 +227,7 @@
 </address>
 		</header>
 
-		<div class="tribe-events-calendar-list__event-description tribe-common-b1">
+		<div class="tribe-events-calendar-list__event-description tribe-common-b2">
 	</div>
 
 	</div>
@@ -245,7 +245,7 @@
 	<time class="tribe-events-calendar-list__event-datetime tribe-common-b2" datetime="1970-01-01T00:00:00+00:00">
 		<span class="tribe-event-date-start">January 1 @ 9:00 am</span>	</time>
 	</div>
-			<h3 class="tribe-events-calendar-list__event-title tribe-common-h4">
+			<h3 class="tribe-events-calendar-list__event-title">
 	<a
 		href="http://test.tri.be/?tribe_events=single-event-1%2F"
 		title=""
@@ -270,7 +270,7 @@
 </address>
 		</header>
 
-		<div class="tribe-events-calendar-list__event-description tribe-common-b1">
+		<div class="tribe-events-calendar-list__event-description tribe-common-b2">
 	</div>
 
 	</div>
