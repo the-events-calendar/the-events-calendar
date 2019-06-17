@@ -128,4 +128,14 @@ interface View_Interface  extends View_Url_Provider_Interface, Repository_User_I
 	 * @return array An array of post IDs of the posts the view is currently displaying.
 	 */
 	public function found_post_ids();
+
+	/**
+	 * Returns if this view is publicly visible by default. Which will make it show up
+	 * on the events-bar of the views UI.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function is_publicly_visible();
 }

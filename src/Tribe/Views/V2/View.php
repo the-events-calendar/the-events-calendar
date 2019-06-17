@@ -105,6 +105,15 @@ class View implements View_Interface {
 	protected $global_backup;
 
 	/**
+	 * Whether a given View is visible publicly or not.
+	 *
+	 * @since TBD
+	 *
+	 * @var bool
+	 */
+	protected $publicly_visible = false;
+
+	/**
 	 * An associative array of the arguments used to setup the repository filters.
 	 *
 	 * @since 4.9.3
@@ -356,10 +365,9 @@ class View implements View_Interface {
 	/**
 	 * Returns an associative array of Views currently registered.
 	 *
-	 * @return array An array in the shape `[ <slug> => <View Class> ]`.
-	 *
 	 * @since 4.9.2
 	 *
+	 * @return array An array in the shape `[ <slug> => <View Class> ]`.
 	 */
 	public static function get_registered_views() {
 		/**
@@ -388,9 +396,9 @@ class View implements View_Interface {
 	 *
 	 * @param string $view The view fully qualified class name.
 	 *
-	 * @return int|string|false The slug currently associated to a View class if it is found, `false` otherwise.
 	 * @since 4.9.2
 	 *
+	 * @return int|string|false The slug currently associated to a View class if it is found, `false` otherwise.
 	 */
 	public static function get_view_slug( $view ) {
 		$views = self::get_registered_views();
@@ -422,11 +430,12 @@ class View implements View_Interface {
 	/**
 	 * Sends, echoing it and exiting, the view HTML on the page.
 	 *
+	 * @since 4.9.2
+	 *
 	 * @param null|string $html A specific HTML string to print on the page or the HTML produced by the view
 	 *                          `get_html` method.
 	 *
 	 * @throws \Tribe\Events\Views\V2\Implementation_Error If the `get_html` method has not been implemented.
-	 * @since 4.9.2
 	 *
 	 */
 	public function send_html( $html = null ) {
@@ -877,6 +886,13 @@ class View implements View_Interface {
 	 */
 	public function found_post_ids() {
 		return $this->repository->get_ids();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function is_publicly_visible() {
+		return $this->publicly_visible;
 	}
 
 	/**
