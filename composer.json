@@ -13,7 +13,13 @@
     "xamin/handlebars.php": "^0.10.3",
     "mikey179/vfsStream": "^1.6",
     "spatie/phpunit-snapshot-assertions": "^1.2",
-    "lucatume/wp-snaphot-assertions": "1.0.0"
+    "lucatume/wp-snaphot-assertions": "1.0.0",
+    "moderntribe/tribe-common-styles": "dev-master",
+    "lucatume/function-mocker": "^1.0",
+    "phpunit/phpunit": "~6.0",
+    "scotteh/php-dom-wrapper": "0.7.3",
+    "facebook/webdriver": "1.6.0",
+    "moderntribe/tribe-testing-facilities": "dev-master"
   },
   "minimum-stability": "stable",
   "prefer-stable": true,
@@ -27,13 +33,35 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Tribe\\Tests\\Modules\\Core\\": "tests/_support/Modules"
+      "Tribe\\Tests\\Modules\\Core\\": "tests/_support/Modules",
+      "Tribe\\Events\\Views\\": "tests/views_integration/Tribe/Events/Views"
     }
   },
+  "repositories": [
+    {
+      "name": "moderntribe/tribe-common-styles",
+      "type": "github",
+      "url": "https://github.com/moderntribe/tribe-common-styles",
+      "no-api": true
+    },
+    {
+      "name": "moderntribe/tribe-testing-facilities",
+      "type": "github",
+      "url": "https://github.com/moderntribe/tribe-testing-facilities",
+      "no-api": true
+    }
+  ],
   "require": {
   },
   "scripts": {
     "start-chromedriver": "docker run --rm -d --name chromedriver -p 4444:4444 selenium/standalone-chrome",
     "stop-chromedriver": "docker stop chromedriver"
+  },
+  "extra": {
+    "installer-paths": {
+      "src/resources/postcss/utilities": [
+        "moderntribe/tribe-common-styles"
+      ]
+    }
   }
 }

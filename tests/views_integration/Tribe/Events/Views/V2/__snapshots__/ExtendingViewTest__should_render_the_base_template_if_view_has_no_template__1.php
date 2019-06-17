@@ -31,7 +31,6 @@
 		<code>
 			{
     &quot;slug&quot;: &quot;test-base&quot;,
-    &quot;view_class&quot;: &quot;Tribe\\\\Events\\\\Views\\\\V2\\\\Test_Full_View&quot;,
     &quot;lookup_folders&quot;: [
         {
             &quot;id&quot;: &quot;child-theme&quot;,
@@ -48,8 +47,7 @@
             &quot;priority&quot;: 20,
             &quot;path&quot;: &quot;\\/plugins\\/the-events-calendar\\/src\\/views\\/v2&quot;
         }
-    ],
-    &quot;relative_path&quot;: &quot;\\/plugins\\/the-events-calendar\\/src\\/views\\/v2\\/base.php&quot;
+    ]
 }		</code>
 	</pre>
 </div>

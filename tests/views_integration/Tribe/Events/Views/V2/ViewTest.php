@@ -2,11 +2,16 @@
 
 namespace Tribe\Events\Views\V2;
 
+use Tribe\Events\Test\Factories\Event;
 use Tribe__Context as Context;
 
 require_once codecept_data_dir( 'Views/V2/classes/Test_View.php' );
 
 class ViewTest extends \Codeception\TestCase\WPTestCase {
+	public function setUp() {
+		parent::setUp();
+		static::factory()->event = new Event();
+	}
 
 	/**
 	 * @test
@@ -61,9 +66,9 @@ class ViewTest extends \Codeception\TestCase\WPTestCase {
 			return [ 'test' => Test_View::class ];
 		} );
 
-		$request = new \WP_REST_Request();
+		$request         = new \WP_REST_Request();
 		$request['view'] = 'test';
-		$view = View::make_for_rest( $request );
+		$view            = View::make_for_rest( $request );
 		$this->assertInstanceOf( Test_View::class, $view );
 	}
 
@@ -192,5 +197,75 @@ class ViewTest extends \Codeception\TestCase\WPTestCase {
 		$view = View::make( 'test' );
 
 		$this->assertInstanceOf( Template::class, $view->get_template() );
+	}
+
+	/**
+	 * It should correctly produce a view next URLs
+	 *
+	 * @test
+	 */
+	public function should_correctly_produce_a_view_next_url() {
+		add_filter( 'tribe_events_views', static function () {
+			return [ 'test' => Test_View::class ];
+		} );
+		$events = static::factory()->event->create_many( 3 );
+
+		$page_1_view = View::make( 'test' );
+		$page_1_view->setup_the_loop( [ 'posts_per_page' => 2, 'starts_after' => 'now' ] );
+
+		$this->assertEquals( home_url() . '?post_type=tribe_events&eventDisplay=test&paged=2', $page_1_view->next_url() );
+
+		$page_2_view = View::make( 'test' );
+		$page_2_view->setup_the_loop( [ 'posts_per_page' => 2, 'starts_after' => 'now', 'paged' => 2 ] );
+
+		$this->assertEquals( '', $page_2_view->next_url() );
+	}
+
+	/**
+	 * It should correctly produce a view prev URLs
+	 *
+	 * @test
+	 */
+	public function should_correctly_produce_a_view_prev_url() {
+		add_filter( 'tribe_events_views', static function () {
+			return [ 'test' => Test_View::class ];
+		} );
+		$events = static::factory()->event->create_many( 3 );
+
+		$page_1_view = View::make( 'test' );
+		$page_1_view->setup_the_loop( [ 'paged' => 2, 'posts_per_page' => 2, 'starts_after' => 'now' ] );
+
+		$this->assertEquals( home_url() . "?post_type=tribe_events&eventDisplay=test", $page_1_view->prev_url() );
+
+		$page_2_view = View::make( 'test' );
+		$page_2_view->setup_the_loop( [ 'posts_per_page' => 2, 'starts_after' => 'now' ] );
+
+		$this->assertEquals( '', $page_2_view->prev_url() );
+	}
+
+	/**
+	 * It should correctly produce a view prev and next canonical URLs
+	 *
+	 * @test
+	 */
+	public function should_correctly_produce_a_view_prev_and_next_canonical_urls() {
+		add_filter( 'tribe_events_views', static function () {
+			return [ 'test' => Test_View::class ];
+		} );
+		$events = static::factory()->event->create_many( 3 );
+
+		$page_1_view = View::make( 'test' );
+		$page_1_view->setup_the_loop( [ 'posts_per_page' => 2, 'starts_after' => 'now', 'paged' => 2 ] );
+
+		$this->assertEquals( home_url() . '?post_type=tribe_events&eventDisplay=test', $page_1_view->prev_url() );
+
+		$page_2_view = View::make( 'test' );
+		$page_2_view->setup_the_loop( [ 'posts_per_page' => 2, 'starts_after' => 'now' ] );
+
+		$this->assertEquals( '', $page_2_view->prev_url() );
+	}
+
+	public function wpSetUpBeforeClass() {
+		static::factory()->event = new Event();
 	}
 }

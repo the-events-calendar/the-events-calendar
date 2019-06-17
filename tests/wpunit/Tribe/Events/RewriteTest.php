@@ -1,8 +1,13 @@
 <?php
+
 namespace Tribe\Events;
 
-use Prophecy\Argument;
+use Tribe__Events__Main as TEC;
 use Tribe__Events__Rewrite as Rewrite;
+
+if ( ! class_exists( '\\SitePress' ) ) {
+	require_once codecept_data_dir( 'classes/SitePress.php' );
+}
 
 class RewriteTest extends \Codeception\TestCase\WPTestCase {
 
@@ -17,6 +22,17 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 
 		// your set up methods here
 		$this->wp_rewrite = $this->prophesize( 'WP_Rewrite' );
+		// Let's make sure to set rewrite rules.
+		global $wp_rewrite;
+		$wp_rewrite->permalink_structure = '/%postname%/';
+		$wp_rewrite->rewrite_rules();
+
+		// Create some categories we'll need.
+		wp_create_tag( 'test' );
+		wp_insert_term( 'test', TEC::TAXONOMY );
+		list( $grandparent_id ) = array_values( wp_insert_term( 'grand-parent', TEC::TAXONOMY ) );
+		list( $parent_id ) = array_values( wp_insert_term( 'parent', TEC::TAXONOMY, [ 'parent' => $grandparent_id ] ) );
+		wp_insert_term( 'child', TEC::TAXONOMY, [ 'parent' => $parent_id ] );
 	}
 
 	public function tearDown() {
@@ -36,6 +52,10 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertInstanceOf( 'Tribe__Events__Rewrite', $sut );
 	}
 
+	private function make_instance() {
+		return new Rewrite( $this->wp_rewrite->reveal() );
+	}
+
 	/**
 	 * @test
 	 * it should filter post type link for supported post types only
@@ -48,77 +68,260 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( 'foo', $sut->filter_post_type_link( 'foo', $post ) );
 	}
 
-	/**
-	 * @test
-	 * it should not try to convert permalink to WPML format if WPML is not active
-	 * @env wpml
-	 */
-	public function it_should_not_try_to_convert_permalink_to_wpml_format_if_wpml_is_not_active() {
-		unset( $GLOBALS['sitepress'] );
-
-		$sut       = $this->make_instance();
-
-		$this->assertEquals( 'foo', $sut->apply_wpml_permalink_filter( 'foo' ) );
+	public function canonical_urls() {
+		return [
+			'not_ours'                => [
+				'/?post_type=post&foo=bar',
+				'/?post_type=post&foo=bar',
+			],
+			'list_page_1'             => [
+				'/?post_type=tribe_events&eventDisplay=list',
+				'/events/list/',
+			],
+			'list_page_2'             => [
+				'/?post_type=tribe_events&eventDisplay=list&paged=2',
+				'/events/page/2/',
+			],
+			'list_page_1_w_extra'     => [
+				'/?post_type=tribe_events&eventDisplay=list&foo=bar',
+				'/events/list/?foo=bar',
+			],
+			'tag_page_1'              => [
+				'/?post_type=tribe_events&eventDisplay=list&tag=test',
+				'/events/tag/test/list/',
+			],
+			'tag_page_1_w_extra'      => [
+				'/?post_type=tribe_events&eventDisplay=list&tag=test&foo=bar',
+				'/events/tag/test/list/?foo=bar',
+			],
+			'tag_page_2'              => [
+				'/?post_type=tribe_events&eventDisplay=list&tag=test&paged=2',
+				'/events/tag/test/page/2/',
+			],
+			'tag_page_2_w_extra'      => [
+				'/?post_type=tribe_events&eventDisplay=list&tag=test&paged=2&foo=bar',
+				'/events/tag/test/page/2/?foo=bar',
+			],
+			'category_page_1'         => [
+				'/?post_type=tribe_events&eventDisplay=list&tribe_events_cat=test',
+				'/events/category/test/list/',
+			],
+			'category_page_1_w_extra' => [
+				'/?post_type=tribe_events&eventDisplay=list&tribe_events_cat=test&foo=bar',
+				'/events/category/test/list/?foo=bar',
+			],
+			'category_page_2'         => [
+				'/?post_type=tribe_events&eventDisplay=list&tribe_events_cat=test&paged=2',
+				'/events/category/test/page/2/',
+			],
+			'category_page_2_w_extra' => [
+				'/?post_type=tribe_events&eventDisplay=list&tribe_events_cat=test&paged=2&foo=bar',
+				'/events/category/test/page/2/?foo=bar',
+			],
+			'hierarchical_cats_page_1' => [
+				'/?post_type=tribe_events&eventDisplay=list&tribe_events_cat=child',
+				'/events/category/grand-parent/parent/child/list/',
+			],
+			'hierarchical_cats_page_2' => [
+				'/?post_type=tribe_events&eventDisplay=list&tribe_events_cat=child&paged=2',
+				'/events/category/grand-parent/parent/child/page/2/',
+			],
+			'hierarchical_cats_page_1_w_extra_args' => [
+				'/?post_type=tribe_events&eventDisplay=list&tribe_events_cat=child&foo=bar',
+				'/events/category/grand-parent/parent/child/list/?foo=bar',
+			],
+			'hierarchical_cats_page_2_w_extra_args' => [
+				'/?post_type=tribe_events&eventDisplay=list&tribe_events_cat=child&paged=2&foo=bar',
+				'/events/category/grand-parent/parent/child/page/2/?foo=bar',
+			],
+			'day_page'                => [
+				'/?post_type=tribe_events&eventDisplay=day&eventDate=2018-12-01',
+				'/events/2018-12-01/',
+			],
+			'month_page'              => [
+				'/?post_type=tribe_events&eventDisplay=month&eventDate=2018-12',
+				'/events/month/2018-12/',
+			],
+			'feed_page'               => [
+				'/?post_type=tribe_events&tag=test&feed=rss2',
+				'/events/tag/test/feed/rss2/',
+			],
+			'ical_page'               => [
+				'/?post_type=tribe_events&tag=test&ical=1',
+				'/events/tag/test/ical/',
+			],
+		];
 	}
 
 	/**
+	 * It should allow converting a URL to its canonical form
+	 *
 	 * @test
-	 * it should not try to convert the permalink if language is not set
-	 * @env wpml
+	 * @dataProvider canonical_urls
 	 */
-	public function it_should_not_try_to_convert_the_permalink_if_language_is_not_set() {
-		$_sitepress = $this->prophesize( 'SitePress' );
-		$_sitepress->convert_url( 'foo', Argument::any())->shouldNotBeCalled( 'wpml_permalink' );
-		global $sitepress;
-		$sitepress = $_sitepress->reveal();
-		
-		unset( $_GET['lang'] );
+	public function should_allow_converting_a_url_to_its_canonical_form( $uri, $expected ) {
+		$rewrite = new Rewrite;
+		global $wp_rewrite;
+		$rewrite->setup( $wp_rewrite );
+		$canonical_url = $rewrite->get_canonical_url( home_url( $uri ) );
 
-		$sut       = $this->make_instance();
-
-		$this->assertEquals( 'foo', $sut->apply_wpml_permalink_filter( 'foo' ) );
+		$this->assertEquals( home_url( $expected ), $canonical_url );
 	}
 
 	/**
+	 * It should correctly parse not handled URLs
+	 *
 	 * @test
-	 * it should return WPML converted link if WPML active and language set
-	 * @env wpml
+	 * @dataProvider not_handled_urls
 	 */
-	public function it_should_return_wpml_converted_link_if_wpml_active_and_language_set() {
-		$_GET['lang'] = 'it';
-		
-		$_sitepress = $this->prophesize( 'SitePress' );
-		$_sitepress->convert_url( 'foo', 'it' )->willReturn( 'wpml_permalink' );
-		
-		global $sitepress;
-		$sitepress = $_sitepress->reveal();
+	public function should_correctly_parse_not_handled_urls( $url ) {
+		$this->assertEquals( $url, ( new Rewrite )->get_canonical_url( $url ) );
+	}
 
-		$sut = $this->make_instance();
-
-		$this->assertEquals( 'wpml_permalink', $sut->apply_wpml_permalink_filter( 'foo' ) );
+	public function not_handled_urls() {
+		return [
+			'wo_trailing_slash'                 => [ 'http://example.com' ],
+			'w_trailing_slash'                  => [ 'http://example.com/' ],
+			'w_query_args'                      => [ 'http://example.com?foo=bar' ],
+			'w_query_args_and_trailing_slash'   => [ 'http://example.com/?foo=bar' ],
+			'w_url_fragment'                    => [ 'http://example.com#some-header' ],
+			'w_url_fragment_and_trailing_slash' => [ 'http://example.com/#some-header' ],
+			'w_everything'                      => [ 'http://example.com?foo=bar&some=foo#some-header' ],
+			'w_everything_and_trailing_slash'   => [ 'http://example.com/?foo=bar&some=foo#some-header' ],
+		];
 	}
 
 	/**
+	 * It should let WP handle URLs we do not manage
+	 *
 	 * @test
-	 * it should properly parse language global var
-	 * @env wpml
 	 */
-	public function it_should_properly_parse_language_global_var() {
-		$_GET['lang'] = 'it?lang=it';
-
-		$_sitepress = $this->prophesize( 'SitePress' );
-		$_sitepress->convert_url( 'foo', 'it' )->shouldBeCalled( 'wpml_permalink' );
-
-		global $sitepress;
-		$sitepress = $_sitepress->reveal();
-
-		$sut = $this->make_instance();
-
-		$sut->apply_wpml_permalink_filter( 'foo' );
+	public function should_let_wp_handle_urls_we_do_not_manage() {
+		$this->assertEquals( home_url(), ( new Rewrite() )->get_canonical_url( home_url() ) );
 	}
 
-	private function make_instance() {
-		return new Rewrite( $this->wp_rewrite->reveal() );
+	/**
+	 * It should correctly handle a custom view URL
+	 *
+	 * @test
+	 */
+	public function should_correctly_handle_a_custom_view_url() {
+		$url = home_url( '?view=some-view' );
+
+		$canonical = ( new Rewrite() )->get_canonical_url( $url );
+
+		$this->assertEquals( $url, $canonical );
 	}
 
+	/**
+	 * It should correctly handle translated rules
+	 *
+	 * @test
+	 * @dataProvider it_urls
+	 */
+	public function should_correctly_handle_translated_rules( $path, $expected_path ) {
+		list( $it_rules, $it_bases ) = array_values( include( codecept_data_dir( 'rewrite/it-translated-rules.php' ) ) );
+		$wp_rewrite        = new \WP_Rewrite();
+		$wp_rewrite->rules = $it_rules;
+		$rewrite           = new Rewrite( $wp_rewrite );
+		$rewrite->bases    = $it_bases;
+
+		$canonical = $rewrite->get_canonical_url( home_url( $path ) );
+
+		$this->assertEquals( home_url( $expected_path ), $canonical );
+	}
+
+	public function it_urls() {
+		return [
+			'list_page_1' => [
+				'/?post_type=tribe_events&eventDisplay=list',
+				'/events/elenco/',
+			],
+			'list_page_2' => [
+				'/?post_type=tribe_events&eventDisplay=list&paged=2',
+				'/events/pagina/2/',
+			],
+			'month'       => [
+				'/?post_type=tribe_events&eventDisplay=month',
+				'/events/mese/',
+			],
+			'featured'    => [
+				'/?post_type=tribe_events&eventDisplay=list&featured=1',
+				'/events/elenco/in-evidenza/',
+			],
+			'category'    => [
+				'/?post_type=tribe_events&eventDisplay=list&tribe_events_cat=test',
+				'/events/categoria/test/elenco/',
+			],
+			'tag'    => [
+				'/?post_type=tribe_events&eventDisplay=list&tag=test',
+				'/events/tag/test/elenco/',
+			],
+		];
+	}
+
+	/**
+	 * It should allow parsing requests into query vars
+	 *
+	 * @test
+	 * @dataProvider canonical_urls
+	 */
+	public function should_allow_parsing_requests_into_query_vars( $expected, $canonical_uri ) {
+		$input_url   = home_url( $canonical_uri );
+		parse_str( parse_url( $expected, PHP_URL_QUERY ), $expected_vars );
+
+		$rewrite = new Rewrite;
+		global $wp_rewrite;
+		$rewrite->setup( $wp_rewrite );
+		$parsed_vars = $rewrite->parse_request( $input_url );
+
+		$this->assertEquals( $expected_vars, $parsed_vars );
+	}
+
+	/**
+	 * It should correctly passthru not handled vars when parsing requests
+	 *
+	 * @test
+	 */
+	public function should_correctly_passthru_not_handled_vars_when_parsing_requests() {
+		$input_url = home_url( '/events/list/?not-handled=value' );
+		$expected  = [
+			'post_type' => 'tribe_events',
+			'eventDisplay' => 'list',
+			'not-handled'=>'value',
+		];
+
+		$rewrite = new Rewrite;
+		global $wp_rewrite;
+		$rewrite->setup( $wp_rewrite );
+		$parsed = $rewrite->parse_request( $input_url );
+
+		$this->assertEqualSets( $expected, $parsed );
+	}
+
+	public function clean_url_data_set() {
+		return [
+			'already_clean'    => [ '/events/list', '/events/list/' ],
+			'all_handled'      => [ '/events/list/?post_type=tribe_events', '/events/list/' ],
+			'some_not_handled' => [ '/events/list/?post_type=tribe_events&foo=bar', '/events/list/?foo=bar' ],
+		];
+	}
+
+	/**
+	 * It should remove handled query vars from query string when cleaning URLs
+	 *
+	 * @test
+	 * @dataProvider clean_url_data_set
+	 */
+	public function should_remove_handled_query_vars_from_query_string_when_cleaning_urls($input_uri, $expected) {
+		$input_uri = home_url( $input_uri );
+		$expected  = home_url( $expected );
+
+		$rewrite = new Rewrite;
+		global $wp_rewrite;
+		$rewrite->setup( $wp_rewrite );
+		$clean_url = $rewrite->get_clean_url( $input_uri );
+
+		$this->assertEquals( $expected, $clean_url );
+	}
 }
