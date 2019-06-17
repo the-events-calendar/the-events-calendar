@@ -3,7 +3,7 @@
  * The base implementation for the Views v2 query controllers.
  *
  * @package Tribe\Events\Views\V2\Query
- * @since TBD
+ * @since 4.9.2
  */
 
 namespace Tribe\Events\Views\V2\Query;
@@ -12,7 +12,7 @@ namespace Tribe\Events\Views\V2\Query;
  * Class Abstract_Query_Controller
  *
  * @package Tribe\Events\Views\V2\Query
- * @since TBD
+ * @since 4.9.2
  */
 abstract class Abstract_Query_Controller {
 
@@ -34,7 +34,7 @@ abstract class Abstract_Query_Controller {
 	 * @param  \WP_Query|null  $query  The query object currently being filtered, if any.
 	 *
 	 * @return array|null A populated list of posts, or the original value if the filtering should not apply.
-	 * @since TBD
+	 * @since 4.9.2
 	 *
 	 */
 	public function inject_posts( $posts = null, \WP_Query $query = null ) {
@@ -76,7 +76,7 @@ abstract class Abstract_Query_Controller {
 		 * This filter will only run if the query is the main query and the queries post types
 		 * are all supported by the controller.
 		 *
-		 * @since TBD
+		 * @since 4.9.2
 		 *
 		 * @param  array|null  $injected_posts  An array of posts that will be injected, defaults to `null`.
 		 * @param  array|null  $posts  The array of posts as received from the Event_Query_Controller from the WP_Query filter.
@@ -108,7 +108,7 @@ abstract class Abstract_Query_Controller {
 		/**
 		 * Filters the arguments that will be set on the Repository/ORM to fetch the posts to inject.
 		 *
-		 * @since TBD
+		 * @since 4.9.2
 		 *
 		 * @param array $orm_args
 		 * @param \WP_Query $query
@@ -147,7 +147,7 @@ abstract class Abstract_Query_Controller {
 	 * not. If not all the post types the query is for are supported then the Event_Query_Controller will not
 	 * intervene.
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 *
 	 * @return array An array of post types supported by the Event_Query_Controller.
 	 */
@@ -161,7 +161,7 @@ abstract class Abstract_Query_Controller {
 		 * @param  array  $post_types  An array of post types supported by the Event_Query_Controller.
 		 * @param  \WP_Query  $query  The query object currently being filtered, if set.
 		 *
-		 * @since TBD
+		 * @since 4.9.2
 		 *
 		 */
 		return apply_filters(
@@ -174,7 +174,7 @@ abstract class Abstract_Query_Controller {
 	/**
 	 * Returns the name that will be used to build the controller filters.
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 *
 	 * @return string The name that will be used to build the controller filters, a slug.
 	 */
@@ -186,7 +186,7 @@ abstract class Abstract_Query_Controller {
 	 * This list will, usually, be filtered when getting the supported post types with the `get_supported_post_types`
 	 * method.
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 *
 	 * @return array An array of post types supported by default from the query controller.
 	 */
@@ -196,7 +196,7 @@ abstract class Abstract_Query_Controller {
 	 * Returns the repository the controller will use to fetch posts.
 	 *
 	 * @return \Tribe__Repository__Interface
-	 * @since TBD
+	 * @since 4.9.2
 	 *
 	 */
 	abstract protected function repository();

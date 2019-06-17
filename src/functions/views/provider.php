@@ -7,7 +7,7 @@ use Tribe\Events\Views\V2\View as View;
  * In order the function will check the `TRIBE_EVENTS_V2_VIEWS` constant,
  * the `TRIBE_EVENTS_V2_VIEWS` environment variable and, finally, the `static::$option_enabled` option.
  *
- * @since TBD
+ * @since 4.9.2
  *
  * @return bool Whether v2 of the Views are enabled or not.
  */
@@ -27,7 +27,7 @@ function tribe_events_views_v2_is_enabled() {
 	 * Allows filtering of the Events Views V2 provider, doing so will render
 	 * the methods and classes no longer load-able so keep that in mind.
 	 *
-	 * @since  TBD
+	 * @since  4.9.2
 	 *
 	 * @param boolean $enabled Determining if V2 Views is enabled\
 	 */

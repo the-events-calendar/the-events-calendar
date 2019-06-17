@@ -4,7 +4,7 @@
  *
  * Can be changed on Events > Settings > Display
  *
- * @since   TBD
+ * @since   4.9.2
  *
  * @package Tribe\Events\Views\V2
  */
@@ -20,7 +20,7 @@ class Event {
 	 *
 	 * @todo  Integrate with Template + Context classes
 	 *
-	 * @since  TBD
+	 * @since  4.9.2
 	 *
 	 * @return string
 	 */

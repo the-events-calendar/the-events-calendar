@@ -3,17 +3,15 @@
  *
  *
  * @package Tribe\Events\Views\V2
- * @since TBD
+ * @since 4.9.2
  */
-
 namespace Tribe\Events\Views\V2;
-
 
 class Rest_Endpoint {
 	/**
 	 * Returns the final REST URL for the HTML
 	 *
-	 * @since   TBD
+	 * @since   4.9.2
 	 *
 	 * @return  string
 	 */

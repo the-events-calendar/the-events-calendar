@@ -22,14 +22,6 @@
  *
  */
 
-:root {
-	--featured-event-bg: #0ea0d7;
-	--twentynineteen-font--body: "NonBreakingSpaceOverride", "Hoefler Text", "Baskerville Old Face", Garamond, "Times New Roman", serif;
-	--twentynineteen-font--heading: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-	--twentynineteen-font--code: Menlo, monaco, Consolas, Lucida Console, monospace;
-	--twentynineteen-font--pre: "Courier 10 Pitch", Courier, monospace;
-}
-
 /* Cost */
 
 .tribe-events-event-cost {
@@ -642,7 +634,6 @@ select.tribe-events-dropdown {
 
 .tribe-events-list .tribe-events-loop .tribe-event-featured {
 		background: #0ea0d7;
-		background: var(--featured-event-bg);
 		margin-bottom: 2rem;
 		padding: 0 1.5rem 1rem;
 	}
@@ -737,7 +728,6 @@ select.tribe-events-dropdown {
 
 .tribe-events-list .tribe-events-loop .tribe-event-featured .tribe-events-event-cost .tribe-button:hover {
 					color: #0ea0d7;
-					color: var(--featured-event-bg);
 				}
 
 .tribe-events-list .tribe-events-loop .tribe-event-featured .tribe-events-event-cost .tribe-button:active {
@@ -747,7 +737,6 @@ select.tribe-events-dropdown {
 .tribe-events-list .tribe-events-loop .tribe-event-featured .tribe-button {
 			background: #fff;
 			color: #0ea0d7;
-			color: var(--featured-event-bg);
 		}
 
 .tribe-events-list .tribe-events-loop .tribe-events-event-image {
@@ -1170,7 +1159,6 @@ select.tribe-events-dropdown {
 
 .tribe-events-day .tribe-event-featured {
 		background: #0ea0d7;
-		background: var(--featured-event-bg);
 		margin-bottom: 2rem;
 		padding: 0 1.5rem 1rem;
 	}
@@ -1271,7 +1259,6 @@ select.tribe-events-dropdown {
 
 .tribe-events-day .tribe-event-featured .tribe-events-event-cost .tribe-button:hover {
 					color: #0ea0d7;
-					color: var(--featured-event-bg);
 				}
 
 .tribe-events-day .tribe-event-featured .tribe-events-event-cost .tribe-button:active {
@@ -1281,7 +1268,6 @@ select.tribe-events-dropdown {
 .tribe-events-day .tribe-event-featured .tribe-button {
 			background: #fff;
 			color: #0ea0d7;
-			color: var(--featured-event-bg);
 		}
 
 .tribe-events-day .type-tribe_events {
@@ -1319,16 +1305,15 @@ select.tribe-events-dropdown {
 
 #tribe-events-content table.tribe-events-calendar .type-tribe_events.tribe-event-featured {
 			background: #0ea0d7;
-			background: var(--featured-event-bg);
 			margin: 0;
 			padding: 6px 14px; /* This is a failover if the browser doesn't support calc */
-			padding: 6px calc( 5% + 8px );
+			padding: 6px calc(5% + 8px);
 		}
 
 .events-archive.events-gridview #tribe-events-content table.tribe-events-calendar .type-tribe_events.tribe-event-featured {
 				margin: 0;
 				padding: 6px 14px; /* This is a failover if the browser doesn't support calc */
-				padding: 6px calc( 5% + 8px );
+				padding: 6px calc(5% + 8px);
 			}
 
 #tribe-events-content table.tribe-events-calendar .type-tribe_events.tribe-event-featured .tribe-events-month-event-title a {
@@ -1640,7 +1625,6 @@ select.tribe-events-dropdown {
 
 .tribe-events-list-widget .tribe-event-featured {
 		background: #0ea0d7;
-		background: var(--featured-event-bg);
 		padding-bottom: .75rem;
 	}
 
@@ -2430,7 +2414,6 @@ input[name*='tribe-bar-']:-moz-placeholder {
 
 .tribe-theme-twentynineteen #tribe-bar-form label {
 		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-		font-family: var(--twentynineteen-font--heading);
 	}
 
 .tribe-theme-twentynineteen .tribe-bar-views-inner {
@@ -2439,7 +2422,6 @@ input[name*='tribe-bar-']:-moz-placeholder {
 
 .tribe-theme-twentynineteen #tribe-events .tribe-events-button {
 		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-		font-family: var(--twentynineteen-font--heading);
 	}
 
 .tribe-theme-twentynineteen.single-tribe_events .tribe-events-event-meta {
@@ -2449,7 +2431,6 @@ input[name*='tribe-bar-']:-moz-placeholder {
 
 .tribe-theme-twentynineteen.single-tribe_events .tribe-events-event-meta dt {
 				font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-				font-family: var(--twentynineteen-font--heading);
 			}
 
 .tribe-theme-twentynineteen.single-tribe_events .tribe-events-event-meta .tribe-events-meta-group {
@@ -2489,19 +2470,16 @@ input[name*='tribe-bar-']:-moz-placeholder {
 .tribe-theme-twentynineteen .tribe-bar-views-option,
 	.tribe-theme-twentynineteen #tribe-bar-views-toggle {
 		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-		font-family: var(--twentynineteen-font--heading);
 		font-size: 0.75rem;
 	}
 
 .tribe-theme-twentynineteen .tribe-events-tooltip .tribe-event-duration {
 			font-family: "NonBreakingSpaceOverride", "Hoefler Text", "Baskerville Old Face", Garamond, "Times New Roman", serif;
-			font-family: var(--twentynineteen-font--body);
 			font-size: 0.85rem;
 		}
 
 .tribe-theme-twentynineteen .tribe-events-tooltip .tribe-event-description {
 			font-family: "NonBreakingSpaceOverride", "Hoefler Text", "Baskerville Old Face", Garamond, "Times New Roman", serif;
-			font-family: var(--twentynineteen-font--body);
 			font-size: 0.65rem;
 		}
 

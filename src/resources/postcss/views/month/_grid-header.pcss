@@ -1,0 +1,29 @@
+.tribe-events {
+
+	/* -----------------------------------------------------------------------------
+	 * Grid Header
+	 * ----------------------------------------------------------------------------- */
+
+	.tribe-events-calendar-month__header {
+		display: flex;
+	}
+
+	.tribe-events-calendar-month__header-column {
+		text-transform: uppercase;
+		width: var(--grid-width-1-of-7);
+		padding-bottom: var(--spacer-2);
+	}
+
+	.tribe-events-calendar-month__week {
+		display: flex;
+
+		&:first-of-type {
+			@media (--viewport-medium) {
+				border-top: 1px solid var(--color-border-default);
+			}
+		}
+		@media (--viewport-medium) {
+			border-left: 1px solid var(--color-border-default);
+		}
+	}
+}

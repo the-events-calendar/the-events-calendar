@@ -3,7 +3,7 @@
  * A View Kitchen Sink for the implementation of all elements
  *
  * @package Tribe\Events\Views\V2
- * @since   TBD
+ * @since   4.9.2
  */
 namespace Tribe\Events\Views\V2;
 
@@ -15,13 +15,13 @@ use Tribe__Events__Rewrite as Rewrite;
  * Class Kitchen_Sink
  *
  * @package Tribe\Events\Views\V2
- * @since   TBD
+ * @since   4.9.2
  */
 class Kitchen_Sink extends Template {
 	/**
 	 * Setup the Kitchen Sink Template constructor.
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 */
 	public function __construct() {
 		$this->set_template_origin( Events::instance() );
@@ -32,7 +32,7 @@ class Kitchen_Sink extends Template {
 	/**
 	 * Gets the available pages for the Kitchen sink code
 	 *
-	 * @since  TBD
+	 * @since  4.9.2
 	 *
 	 * @return array
 	 */
@@ -51,7 +51,7 @@ class Kitchen_Sink extends Template {
 	/**
 	 * Add the events kitchen sink variable to the WP Query Vars
 	 *
-	 * @since  TBD
+	 * @since  4.9.2
 	 *
 	 * @param  array $vars query vars array
 	 *
@@ -65,7 +65,7 @@ class Kitchen_Sink extends Template {
 	/**
 	 * Add the rewrite rules for Kitchen Sink URL
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 *
 	 * @param \Tribe__Events__Rewrite $rewrite
 	 *

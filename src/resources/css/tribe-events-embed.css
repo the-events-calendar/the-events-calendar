@@ -8,8 +8,6 @@
  * @see: http://moderntribe.github.io/products-engineering/css/
  */
 
-@custom-media --embed-small-viewport (min-width: 440px);
-@custom-media --embed-medium-viewport (min-width: 800px);
 .tribe-embed {
 	padding: 25px 22px;
 }
@@ -42,7 +40,7 @@
 .tribe-embed .wp-embed-footer {
 		margin-top: 20px;
 	}
-@media (--embed-small-viewport) {
+@media (min-width: 440px) {
 .tribe-embed .wp-embed-featured-image.rectangle,
 	.tribe-embed .wp-embed-featured-image.square {
 			max-width: 35%
@@ -52,7 +50,7 @@
 			margin-left: 18px
 	}
 		}
-@media (--embed-medium-viewport) {
+@media (min-width: 800px) {
 .tribe-embed .wp-embed-featured-image.rectangle,
 	.tribe-embed .wp-embed-featured-image.square {
 			max-width: 265px

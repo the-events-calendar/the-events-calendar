@@ -4,7 +4,7 @@
  *
  * Can be changed on Events > Settings > Display
  *
- * @since   TBD
+ * @since   4.9.2
  *
  * @package Tribe\Events\Views\V2
  */
@@ -20,7 +20,7 @@ class Page {
 	 * Determines the Path for the PHP file to be used as the main template
 	 * For Page base template setting it will select from theme or child theme
 	 *
-	 * @since  TBD
+	 * @since  4.9.2
 	 *
 	 * @return string
 	 */
@@ -40,7 +40,7 @@ class Page {
 	 * When using Page template we need to specifically hijack the WordPress templating
 	 * system at a specific point after `loop_start`.
 	 *
-	 * @since  TBD
+	 * @since  4.9.2
 	 *
 	 * @param  \WP_Query $query WordPress query executed to get here.
 	 *
@@ -75,7 +75,7 @@ class Page {
 	 *
 	 * @todo  Take in consideration tribe_get_option( 'showComments', false ) values later on
 	 *
-	 * @since  TBD
+	 * @since  4.9.2
 	 */
 	public function filter_remove_comments( $template ) {
 		remove_filter( 'comments_template', [ $this, 'filter_remove_comments' ], 25 );
@@ -87,7 +87,7 @@ class Page {
 	 * Prevents the Edit link to ever be displayed on any well designed theme
 	 * Ideally this method is here to return an empty string for the Mock Page
 	 *
-	 * @since  TBD
+	 * @since  4.9.2
 	 *
 	 * @param  string     $url     Old URL for editing the post
 	 * @param  string|int $post_id Post ID in question
@@ -116,7 +116,7 @@ class Page {
 	/**
 	 * Inject a Ghost Post into `the_post`
 	 *
-	 * @since  TBD
+	 * @since  4.9.2
 	 *
 	 * @return void
 	 */
@@ -132,7 +132,7 @@ class Page {
 	 * can propely run `the_content` so we can hijack the content of that page
 	 * as well as `the_title`.
 	 *
-	 * @since  TBD
+	 * @since  4.9.2
 	 *
 	 * @return void
 	 */
@@ -161,7 +161,7 @@ class Page {
 	 * Restored the Hijacked posts from the main query so that we can run
 	 * the template method properly with a fully populated WP_Query object
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 *
 	 * @return void
 	 */
@@ -196,7 +196,7 @@ class Page {
 	 * by modifing the global WP_Query object by pretending there are
 	 * no posts to loop
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 *
 	 * @return void
 	 */
@@ -212,7 +212,7 @@ class Page {
 	 *
 	 * @todo  Integrate with Template + Context classes
 	 *
-	 * @since  TBD
+	 * @since  4.9.2
 	 *
 	 * @param  string $content Default content of the page we hijacked
 	 *
@@ -234,7 +234,7 @@ class Page {
 	 * When using Page template we need to specifically hijack the WordPress templating
 	 * system at a specific point after `loop_start`.
 	 *
-	 * @since  TBD
+	 * @since  4.9.2
 	 *
 	 * @param  \WP_Query $query WordPress query executed to get here.
 	 *
@@ -266,7 +266,7 @@ class Page {
 		/**
 		 * Allows third-party to influence when we will hijack the page template
 		 *
-		 * @since  TBD
+		 * @since  4.9.2
 		 *
 		 * @param  boolean  $should_hijack  Will we hijack and include our page template
 		 * @param  WP_Query $query          WordPress query excuted to get here
@@ -278,7 +278,7 @@ class Page {
 	 * Object to allow the Bootstrap to manipulate page Requests and avoid 404s when
 	 * no events are available by default.
 	 *
-	 * @since  TBD
+	 * @since  4.9.2
 	 *
 	 * @return object A Mocked stdClass that mimicks a WP_Post
 	 */

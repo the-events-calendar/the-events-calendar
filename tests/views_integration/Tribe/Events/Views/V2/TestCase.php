@@ -11,6 +11,7 @@ namespace Tribe\Events\Views\V2;
 
 use Codeception\TestCase\WPTestCase;
 use Spatie\Snapshots\MatchesSnapshots;
+use tad\WP\Snapshots\WPHtmlOutputDriver;
 use Tribe__Context as Context;
 
 /**
@@ -30,6 +31,13 @@ abstract class TestCase extends WPTestCase {
 	protected $context_mocker;
 
 	/**
+	 * The HTML driver for our code
+	 *
+	 * @var \tad\WP\Snapshots\WPHtmlOutputDriver
+	 */
+	protected $driver;
+
+	/**
 	 * The state of the global Context object before the test method ran.
 	 *
 	 * @var array
@@ -40,7 +48,7 @@ abstract class TestCase extends WPTestCase {
 	 * After the test method ran try and restore the global context to its previous state and make sure that
 	 * is the case.
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 */
 	public function tearDown() {
 		// Get the values we had before the test method.
@@ -73,6 +81,20 @@ abstract class TestCase extends WPTestCase {
 		// Always set the `is_main_query` value to `false` to have a clean starting fixture.
 		tribe_context()->alter( [ 'is_main_query' => false ] )->dangerously_set_global_context( [ 'is_main_query' ] );
 		$this->global_context_before_test = tribe_context()->to_array();
+
+		/*
+		 * Filter the `home_url` to make sure URLs printed on the page are consistent across environments.
+		 */
+		add_filter( 'home_url', static function( $url, $path = null ) {
+			return 'http://test.tri.be/' . ltrim( $path, '/' );
+		}, 10, 2 );
+
+		// Setup a new HTML output driver to make sure our stuff is tolerable
+		$this->driver = new WPHtmlOutputDriver( home_url(), 'http://views.dev' );
+		$this->driver->setTimeDependentKeys( [ 'tribe-events-views[_wpnonce]' ] );
+
+		// Let's make sure there are no left-over events between tests.
+		tribe_events()->delete();
 	}
 
 	/**
