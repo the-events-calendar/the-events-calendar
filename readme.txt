@@ -220,7 +220,9 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 * Fix - Enable hooks (filters and actions) for month view AJAX requests
 * Fix - Moved The Events Calendar specific code from common Context class into The Events Calendar [129241]
+* Fix - REST API Event responses now include the correct timezone even if the event has no timezone set or if using the site-wide timezone option [100159]
 * Fix - Resolved issue where deactivation feedback was not hooked properly [128341]
+* Fix - Added escaping to the event website URL target attribute [129565]
 
 = [4.9.3.1] 2019-06-07 =
 
