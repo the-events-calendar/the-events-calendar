@@ -5,16 +5,8 @@
 	 * ----------------------------------------------------------------------------- */
 
 	.tribe-events-calendar-month__event-multiday {
-		display: none;
-		width: calc(100% + 1px);
-
-		@media (--viewport-medium) {
-			display: block;
-			background-color: white;
-			overflow: hidden;
-			position: absolute;
-			z-index: var(--z-index-calendar-multiday);
-		}
+		background-color: white;
+		overflow: hidden;
 	}
 
 	.tribe-events-calendar-month__event-multiday--start {
@@ -60,7 +52,6 @@
 	}
 
 	.tribe-events-calendar-month__event-multiday-featured-icon {
-		display: inline-block;
 		margin-right: 5px;
 	}
 

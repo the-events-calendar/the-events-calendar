@@ -155,16 +155,13 @@
 
 	.tribe-events-calendar-month__mobile-events-icon--featured {
 		background-image: svg-inline(featured);
+		background-repeat: no-repeat;
+		background-size: contain;
 		height: 10px;
 		width: 8px;
 	}
 
 	.tribe-events-calendar-month__day-events {
-		display: none;
-
-		@media (--viewport-medium) {
-			display: block;
-			padding: 0 var(--spacer-2) var(--spacer-2);
-		}
+		padding: 0 var(--spacer-2) var(--spacer-2);
 	}
 }
