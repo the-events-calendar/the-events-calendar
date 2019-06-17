@@ -1,2 +1,5 @@
 # Any changes to Main or Bootstrapping files needs Lead Review
 /src/Tribe/Main.php the-events-calendar.php @bordoni
+
+# Changes to postcss files
+/src/resources/postcss/base/ /src/resources/postcss/components/ /src/resources/postcss/views/ @paulmskim
