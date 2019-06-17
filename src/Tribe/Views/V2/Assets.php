@@ -81,6 +81,19 @@ class Assets extends \tad_DI52_ServiceProvider {
 
 		tribe_asset(
 			$plugin,
+			'tribe-events-views-v2-month-mobile-events',
+			'views/month-mobile-events.js',
+			[ 'jquery', 'tribe-common', 'tribe-events-views-v2-manager' ],
+			'wp_enqueue_scripts',
+			[
+				'priority'     => 10,
+				'conditionals' => [ $this, 'should_enqueue_frontend' ],
+				'groups'       => [ static::$group_key ],
+			]
+		);
+
+		tribe_asset(
+			$plugin,
 			'tribe-events-views-v2-tooltip',
 			'views/tooltip.js',
 			[ 'jquery', 'tribe-common', 'tribe-events-views-v2-manager', 'tribe-tooltipster' ],

@@ -35,6 +35,7 @@ $mobile_day_id = 'tribe-events-calendar-mobile-day-' . $month_number . '-' . $da
 
 	<button
 		aria-expanded="false"
+		aria-selected="false"
 		aria-controls="<?php echo esc_attr( $mobile_day_id ); ?>"
 		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
 		tabindex="-1"

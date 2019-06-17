@@ -23,7 +23,6 @@ tribe.events.views.multidayEvents = {};
  * @since TBD
  *
  * @param  {PlainObject} $   jQuery
- * @param  {PlainObject} _   Underscore.js
  * @param  {PlainObject} obj tribe.events.views.manager
  *
  * @return {void}
@@ -71,14 +70,12 @@ tribe.events.views.multidayEvents = {};
 	 *
 	 * @since TBD
 	 *
-	 * @param {jQuery} $visibleMultidayEventInner jQuery object of visible multiday event
+	 * @param {Event} e event object
 	 *
 	 * @return {function} event handler for mouseenter and mouseleave events
 	 */
-	obj.toggleHoverClass = function( $visibleMultidayEventInner ) {
-		return function() {
-			$visibleMultidayEventInner.toggleClass( obj.selectors.multidayEventInnerHover.className() );
-		};
+	obj.toggleHoverClass = function( e ) {
+		e.data.target.toggleClass( obj.selectors.multidayEventInnerHover.className() );
 	};
 
 	/**
@@ -86,14 +83,12 @@ tribe.events.views.multidayEvents = {};
 	 *
 	 * @since TBD
 	 *
-	 * @param {jQuery} $visibleMultidayEventInner jQuery object of visible multiday event
+	 * @param {Event} e event object
 	 *
 	 * @return {function} event handler for focus and blur events
 	 */
-	obj.toggleFocusClass = function( $visibleMultidayEventInner ) {
-		return function() {
-			$visibleMultidayEventInner.toggleClass( obj.selectors.multidayEventInnerFocus.className() );
-		};
+	obj.toggleFocusClass = function( e ) {
+		e.data.target.toggleClass( obj.selectors.multidayEventInnerFocus.className() );
 	};
 
 	/**
@@ -120,8 +115,8 @@ tribe.events.views.multidayEvents = {};
 				var $hiddenMultidayEventInner = $hiddenMultidayEvent.find( obj.selectors.multidayEventInner );
 
 				$hiddenMultidayEventInner
-					.on( 'mouseenter mouseleave', obj.toggleHoverClass( $visibleMultidayEventInner ) )
-					.on( 'focus blur', obj.toggleFocusClass( $visibleMultidayEventInner ) )
+					.on( 'mouseenter mouseleave', { target: $visibleMultidayEventInner }, obj.toggleHoverClass )
+					.on( 'focus blur', { target: $visibleMultidayEventInner }, obj.toggleFocusClass );
 			} );
 		} );
 	};
