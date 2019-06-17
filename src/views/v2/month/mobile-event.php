@@ -19,9 +19,9 @@ $event_id = $event->ID;
 $classes = [ 'tribe-events-calendar-month__mobile-event' ];
 
 /* @todo fix this once we make event dynamic */
-// if ( tribe( 'tec.featured_events' )->is_featured( $event_id ) ) {
+if ( isset( $event->featured ) && $event->featured ) {
 	$classes[] = 'tribe-events-calendar-month__mobile-event--featured';
-// }
+}
 ?>
 
 <article class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>">

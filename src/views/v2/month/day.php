@@ -15,21 +15,20 @@
 // @todo: This is just for presentation purposes, while building the view.
 $day_number   = ( $week < 1 ) ? ( $day + 1 ) * ( $week + 1 ) : ( $day + 1 ) + $week * 7;
 $month_number = 6;
-$month = $this->get( 'month' );
+$month        = $this->get( 'month' );
 
-$day_title_classes      = [ 'tribe-events-calendar-month__day-date' ];
-$day_title_link_classes = [ 'tribe-events-calendar-month__day-date-link' ];
+$day_classes = [ 'tribe-events-calendar-month__day' ];
+
+// @todo: figure out consistent way of formatting ids
 $day_id = 'tribe-events-calendar-day-' . $month_number . '-' . $day_number;
 
-// @todo: check if we use classes here or if we wrap the day block directly with the classes (we also have `.tribe-events-calendar-month__day-date--current`).
 if ( $day_number == date( 'd', time() ) ) {
-	$day_title_classes[] = 'tribe-events-calendar-month__day-date--current';
-	$day_title_link_classes[] = 'tribe-events-calendar-month__day-date-link--current';
+	$day_classes[] = 'tribe-events-calendar-month__day--current';
 }
 
 ?>
 
-<div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="<?php echo esc_attr( $day_id ); ?>">
+<div class="<?php esc_attr_e( implode( ' ', $day_classes ) ) ?>" role="gridcell" aria-labelledby="<?php esc_attr_e( $day_id ); ?>">
 
 	<button
 		aria-expanded="false"
@@ -37,39 +36,39 @@ if ( $day_number == date( 'd', time() ) ) {
 		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
 		tabindex="-1"
 	>
-		<h3 class="<?php echo esc_attr( implode( ' ', $day_title_classes ) ); ?> tribe-common-h6">
+		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6">
 			<span class="tribe-common-a11y-visual-hide">X events, </span>
 			<time datetime="YYYY-MM-DD">
 				<?php echo esc_html( $day_number ); ?>
 			</time>
-			<?php /* @todo: if day has featured event ?>
-				<em
-					class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--featured tribe-common-svgicon tribe-common-svgicon--featured"
-					aria-label="<?php esc_attr_e( 'Has featured events', 'the-events-calendar' ); ?>"
-					title="<?php esc_attr_e( 'Has featured events', 'the-events-calendar' ); ?>"
-				>
-				</em>
-			<?php /* @todo: else if day has events */ ?>
-				<em
-					class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--event"
-					aria-label="<?php esc_attr_e( 'Has events', 'the-events-calendar' ); ?>"
-					title="<?php esc_attr_e( 'Has events', 'the-events-calendar' ); ?>"
-				>
-				</em>
-			<?php /* endif */ ?>
 		</h3>
+		<?php /* @todo: if day has featured event ?>
+			<em
+				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--featured"
+				aria-label="<?php esc_attr_e( 'Has featured events', 'the-events-calendar' ); ?>"
+				title="<?php esc_attr_e( 'Has featured events', 'the-events-calendar' ); ?>"
+			>
+			</em>
+		<?php /* @todo: else if day has events */ ?>
+			<em
+				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--event"
+				aria-label="<?php esc_attr_e( 'Has events', 'the-events-calendar' ); ?>"
+				title="<?php esc_attr_e( 'Has events', 'the-events-calendar' ); ?>"
+			>
+			</em>
+		<?php /* endif */ ?>
 	</button>
 
 	<div
 		id="<?php echo esc_attr( $day_id ); ?>"
 		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 	>
-		<h3 class="<?php echo esc_attr( implode( ' ', $day_title_classes ) ); ?> tribe-common-h4">
+		<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
 			<span class="tribe-common-a11y-visual-hide">X events, </span>
 			<time datetime="YYYY-MM-DD">
 				<a
 					href="#link-to-day-view-if-it-has-events"
-					class="<?php echo esc_attr( implode( ' ', $day_title_link_classes ) ); ?>"
+					class="tribe-events-calendar-month__day-date-link"
 				>
 					<?php echo esc_html( $day_number ); ?>
 				</a>

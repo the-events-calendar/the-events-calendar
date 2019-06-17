@@ -29,11 +29,11 @@ $is_recurring = isset( $event->recurring ) && $event->recurring;
 		</em>
 	<?php endif; ?>
 	<?php if ( $is_recurring ) : ?>
-	<em
-		class="tribe-events-calendar-month__calendar-event-datetime-recurring tribe-common-svgicon tribe-common-svgicon--recurring"
-		aria-label="<?php esc_attr_e( 'Recurring', 'the-events-calendar' ) ?>"
-		title="<?php esc_attr_e( 'Recurring', 'the-events-calendar' ) ?>"
-	>
-	</em>
+		<em
+			class="tribe-events-calendar-month__calendar-event-datetime-recurring tribe-common-svgicon tribe-common-svgicon--recurring"
+			aria-label="<?php esc_attr_e( 'Recurring', 'the-events-calendar' ) ?>"
+			title="<?php esc_attr_e( 'Recurring', 'the-events-calendar' ) ?>"
+		>
+		</em>
 	<?php endif; ?>
 </div>
