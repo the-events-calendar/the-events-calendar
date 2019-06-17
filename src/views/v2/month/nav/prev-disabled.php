@@ -15,6 +15,6 @@
  *
  */
 ?>
-<button class="tribe-events-c-nav__prev" disabled>
+<button class="tribe-events-c-nav__prev tribe-common-b2" disabled>
 	<?php echo esc_html( $label ); ?>
 </button>

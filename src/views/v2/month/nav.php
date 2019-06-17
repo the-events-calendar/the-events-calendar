@@ -29,6 +29,10 @@
 		</li>
 
 		<li class="tribe-events-c-nav__list-item">
+
+		</li>
+
+		<li class="tribe-events-c-nav__list-item">
 			<?php
 			if ( $next_url ) {
 				$this->template( 'month/nav/next', [ 'label' => __( 'July', 'the-events-calendar' ), 'link' => $next_url ] );

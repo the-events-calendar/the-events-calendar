@@ -18,7 +18,7 @@
 <a
 	href="<?php echo esc_url( $link ); ?>"
 	rel="prev"
-	class="tribe-events-c-nav__prev"
+	class="tribe-events-c-nav__prev tribe-common-b2"
 	data-js="tribe-events-view-link"
 >
 	<?php echo esc_html( $label ); ?>
