@@ -15,24 +15,27 @@
  * @version 4.9.3
  *
  */
-
-$prev_url = $this->get( 'prev_url' );
-$next_url = $this->get( 'next_url' );
 ?>
 <nav class="tribe-common-c-nav">
 	<ul class="tribe-common-c-nav__list">
-		<?php
-		if ( $prev_url ) {
-			$this->template( 'list/nav/prev', [ 'link' => $prev_url ] );
-		} else {
-			$this->template( 'list/nav/prev-disabled' );
-		}
+		<li class="tribe-common-c-nav__list-item">
+			<?php
+			if ( $prev_url ) {
+				$this->template( 'list/nav/prev', [ 'link' => $prev_url ] );
+			} else {
+				$this->template( 'list/nav/prev-disabled' );
+			}
+			?>
+		</li>
 
-		if ( $next_url ) {
-			$this->template( 'list/nav/next', [ 'link' => $next_url ] );
-		} else {
-			$this->template( 'list/nav/next-disabled' );
-		}
-		?>
+		<li class="tribe-common-c-nav__list-item">
+			<?php
+			if ( $next_url ) {
+				$this->template( 'list/nav/next', [ 'link' => $next_url ] );
+			} else {
+				$this->template( 'list/nav/next-disabled' );
+			}
+			?>
+		</li>
 	</ul>
 </nav>
