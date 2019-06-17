@@ -218,6 +218,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 = [4.9.4] TBD =
 
 * Fix - Moved The Events Calendar specific code from common Context class into The Events Calendar [129241]
+* Fix - Fixed issue where multiday events were not returning correct end date in block editor [128033]
 
 = [4.9.3.1] 2019-06-07 =
 
