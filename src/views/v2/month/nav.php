@@ -14,12 +14,13 @@
  * @var string $next_url The URL to the next page, if any, or an empty string.
  * @var string $next_label The label for the next link.
  * @var string $today_url The URL to the today page, if any, or an empty string.
+ * @var string $location The location of the nav.
  *
  * @version TBD
  *
  */
 ?>
-<nav class="tribe-events-calendar-month-nav tribe-events-c-nav">
+<nav class="tribe-events-calendar-month-nav tribe-events-calendar-month-nav--<?php echo esc_attr( $location ); ?> tribe-events-c-nav">
 	<ul class="tribe-events-c-nav__list">
 		<?php
 		if ( $prev_url ) {

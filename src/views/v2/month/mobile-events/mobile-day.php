@@ -21,7 +21,7 @@ $month = 6;
 $mobile_day_id = 'tribe-events-calendar-mobile-day-' . $month . '-' . $daynum;
 ?>
 
-<div class="tribe-events-calendar-month-mobile-events__day" id="<?php echo esc_attr( $mobile_day_id ); ?>">
+<div class="tribe-events-calendar-month-mobile-events__mobile-day" id="<?php echo esc_attr( $mobile_day_id ); ?>">
 
 	<?php $this->template( 'month/mobile-events/mobile-day/day-marker' ); ?>
 

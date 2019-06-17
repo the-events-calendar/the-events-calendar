@@ -29,4 +29,6 @@ $month = apply_filters( 'tribe_events_views_v2_month_demo_data', [] );
 
 	<?php endforeach; ?>
 
+	<?php $this->template( 'month/nav', [ 'location' => 'mobile' ] ); ?>
+
 </section>

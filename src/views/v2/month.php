@@ -40,7 +40,7 @@ $events = $this->get( 'events' );
 
 		</div>
 
-		<?php $this->template( 'month/nav' ); ?>
+		<?php $this->template( 'month/nav', [ 'location' => 'calendar' ] ); ?>
 
 		<?php $this->template( 'month/mobile-events' ); ?>
 

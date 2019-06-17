@@ -20,9 +20,8 @@ $classes = [ 'tribe-events-calendar-month-mobile-events__mobile-event' ];
 
 /* @todo fix this once we make event dynamic */
 // if ( isset( $event->featured ) && $event->featured ) {
-if ( rand( 0, 1 ) ) {
 	$classes[] = 'tribe-events-calendar-month-mobile-events__mobile-event--featured';
-}
+// }
 ?>
 
 <article class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>">
