@@ -1,0 +1,118 @@
+.tribe-events {
+	/* -----------------------------------------------------------------------------
+	 *
+	 * Navigation
+	 *
+	 * Example:
+	 * <nav class="tribe-events-c-nav">
+	 *   <ul class="tribe-events-c-nav__list">
+	 *     <li class="tribe-events-c-nav__list-item">
+	 *       <a href="#" class="tribe-events-c-nav__prev">
+	 *         Previous
+	 *       </a>
+	 *       <a href="#" class="tribe-events-c-nav__next">
+	 *         Next
+	 *       </a>
+	 *     </li>
+	 *   </ul>
+	 * </nav>
+	 *
+	 * ----------------------------------------------------------------------------- */
+
+	/* .tribe-events-c-nav {} */
+
+	.tribe-events-c-nav__list {
+		display: flex;
+		list-style: none;
+		width: 100%;
+		flex-wrap: wrap;
+		justify-content: space-between;
+
+	}
+
+	/* .tribe-events-c-nav__list-item {} */
+
+	.tribe-events-c-nav__prev,
+	.tribe-events-c-nav__next {
+		display: flex;
+		justify-content: center;
+		flex-wrap: wrap;
+		align-items: center;
+		color: var(--color-text-secondary);
+		font-family: var(--font-family-base);
+		font-size: var(--font-size-1);
+		line-height: var(--line-height-1);
+		font-weight: var(--font-weight-bold);
+
+		@media (--viewport-medium) {
+			font-size: var(--font-size-2)
+		}
+
+		&:hover {
+			color: var(--color-navigation-hover);
+		}
+
+		&:disabled {
+			background-color: transparent;
+			color: var(--color-text-disabled);
+		}
+	}
+
+	.tribe-events-c-nav__prev {
+
+		&:before {
+			background-image: svg-inline(caret-left);
+			background-repeat: no-repeat;
+			background-size: contain;
+			content: '';
+			height: 14px;
+			margin-right: 10px;
+			width: 12px;
+		}
+
+		&:active,
+		&:hover,
+		&:focus {
+
+			&:before {
+				background-image: svg-inline(caret-left-active);
+			}
+		}
+
+		&:disabled {
+
+			&:before {
+				background-image: svg-inline(caret-left-disabled);
+			}
+		}
+	}
+
+	.tribe-events-c-nav__next {
+
+		&:after {
+			background-image: svg-inline(caret-right);
+			background-repeat: no-repeat;
+			background-size: contain;
+			content: '';
+			height: 14px;
+			margin-left: 10px;
+			width: 12px;
+		}
+
+		&:active,
+		&:hover,
+		&:focus {
+
+			&:after {
+				background-image: svg-inline(caret-right-active);
+			}
+		}
+
+		&:disabled {
+
+			&:after {
+				background-image: svg-inline(caret-right-disabled);
+			}
+		}
+	}
+}

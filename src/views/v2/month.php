@@ -40,6 +40,8 @@ $events = $this->get( 'events' );
 
 		</div>
 
+		<?php $this->template( 'month/nav' ); ?>
+
 	</div>
 
 </div>

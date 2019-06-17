@@ -28,7 +28,7 @@ if ( $day_number == date( 'd', time() ) ) {
 
 ?>
 
-<div class="<?php esc_attr_e( implode( ' ', $day_classes ) ) ?>" role="gridcell" aria-labelledby="<?php esc_attr_e( $day_id ); ?>">
+<div class="<?php echo esc_attr( implode( ' ', $day_classes ) ) ?>" role="gridcell" aria-labelledby="<?php echo esc_attr( $day_id ); ?>">
 
 	<button
 		aria-expanded="false"
