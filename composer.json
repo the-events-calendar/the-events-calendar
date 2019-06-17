@@ -18,7 +18,8 @@
     "lucatume/function-mocker": "^1.0",
     "phpunit/phpunit": "~6.0",
     "scotteh/php-dom-wrapper": "0.7.3",
-    "facebook/webdriver": "1.6.0"
+    "facebook/webdriver": "1.6.0",
+    "moderntribe/tribe-testing-facilities": "dev-master"
   },
   "minimum-stability": "stable",
   "prefer-stable": true,
@@ -41,6 +42,12 @@
       "name": "moderntribe/tribe-common-styles",
       "type": "github",
       "url": "https://github.com/moderntribe/tribe-common-styles",
+      "no-api": true
+    },
+    {
+      "name": "moderntribe/tribe-testing-facilities",
+      "type": "github",
+      "url": "https://github.com/moderntribe/tribe-testing-facilities",
       "no-api": true
     }
   ],

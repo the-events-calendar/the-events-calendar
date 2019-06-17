@@ -92,6 +92,9 @@ abstract class TestCase extends WPTestCase {
 		// Setup a new HTML output driver to make sure our stuff is tolerable
 		$this->driver = new WPHtmlOutputDriver( home_url(), 'http://views.dev' );
 		$this->driver->setTimeDependentKeys( [ 'tribe-events-views[_wpnonce]' ] );
+
+		// Let's make sure there are no left-over events between tests.
+		tribe_events()->delete();
 	}
 
 	/**
