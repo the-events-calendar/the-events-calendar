@@ -171,6 +171,8 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 				return new WP_Error( 'event-archive-page-not-found', $message, array( 'status' => 404 ) );
 			}
 
+			$events = wp_list_pluck( $events, 'ID' );
+
 			unset( $args['fields'] );
 
 			if ( $this->has_next( $args, $page ) ) {
