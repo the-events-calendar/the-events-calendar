@@ -59,70 +59,40 @@ tribe.events.views.multidayEvents = {};
 	 */
 	obj.findVisibleMultidayEvents = function( $hiddenMultidayEvent ) {
 		var $calendar = $hiddenMultidayEvent.closest( obj.selectors.calendar );
-		var eventId = $hiddenMultidayEvent.attr( 'data-id' );
+		var eventId = $hiddenMultidayEvent.data( 'event-id' );
 
 		return $calendar
-			.find( obj.selectors.multidayEvent + '[data-id=' + eventId + ']' )
+			.find( obj.selectors.multidayEvent + '[data-event-id=' + eventId + ']' )
 			.not( obj.selectors.hiddenMultidayEvent );
 	};
 
 	/**
-	 * Add class to visible multiday event on hidden multiday event hover
+	 * Toggle hover class on visible multiday event when hidden multiday triggers hover event
 	 *
 	 * @since TBD
 	 *
 	 * @param {jQuery} $visibleMultidayEventInner jQuery object of visible multiday event
 	 *
-	 * @return {function} event handler for on hover in
+	 * @return {function} event handler for mouseenter and mouseleave events
 	 */
-	obj.onHoverIn = function( $visibleMultidayEventInner ) {
+	obj.toggleHoverClass = function( $visibleMultidayEventInner ) {
 		return function() {
-			$visibleMultidayEventInner.addClass( obj.selectors.multidayEventInnerHover.className() );
+			$visibleMultidayEventInner.toggleClass( obj.selectors.multidayEventInnerHover.className() );
 		};
 	};
 
 	/**
-	 * Remove class to visible multiday event on hidden multiday event hover
+	 * Toggle focus class on visible multiday event when hidden multiday triggers focus event
 	 *
 	 * @since TBD
 	 *
 	 * @param {jQuery} $visibleMultidayEventInner jQuery object of visible multiday event
 	 *
-	 * @return {function} event handler for on hover out
+	 * @return {function} event handler for focus and blur events
 	 */
-	obj.onHoverOut = function( $visibleMultidayEventInner ) {
+	obj.toggleFocusClass = function( $visibleMultidayEventInner ) {
 		return function() {
-			$visibleMultidayEventInner.removeClass( obj.selectors.multidayEventInnerHover.className() );
-		};
-	};
-
-	/**
-	 * Add class to visible multiday event on hidden multiday event focus
-	 *
-	 * @since TBD
-	 *
-	 * @param {jQuery} $visibleMultidayEventInner jQuery object of visible multiday event
-	 *
-	 * @return {function} event handler for on focus
-	 */
-	obj.onFocus = function( $visibleMultidayEventInner ) {
-		return function() {
-			$visibleMultidayEventInner.addClass( obj.selectors.multidayEventInnerFocus.className() );
-		};
-	};
-
-	/**
-	 * Remove class to visible multiday event on hidden multiday event blur
-	 *
-	 * @since TBD
-	 *
-	 * @param {jQuery} $visibleMultidayEventInner jQuery object of visible multiday event
-	 *
-	 * @return {function} event handler for on blur
-	 */
-	obj.onBlur = function( $visibleMultidayEventInner ) {
-		return function() {
-			$visibleMultidayEventInner.removeClass( obj.selectors.multidayEventInnerFocus.className() );
+			$visibleMultidayEventInner.toggleClass( obj.selectors.multidayEventInnerFocus.className() );
 		};
 	};
 
@@ -149,9 +119,9 @@ tribe.events.views.multidayEvents = {};
 				var $visibleMultidayEventInner = $visibleMultidayEvent.find( obj.selectors.multidayEventInner );
 				var $hiddenMultidayEventInner = $hiddenMultidayEvent.find( obj.selectors.multidayEventInner );
 
-				$hiddenMultidayEventInner.hover( obj.onHoverIn( $visibleMultidayEventInner ), obj.onHoverOut( $visibleMultidayEventInner ) );
-				$hiddenMultidayEventInner.focus( obj.onFocus( $visibleMultidayEventInner ) );
-				$hiddenMultidayEventInner.blur( obj.onBlur( $visibleMultidayEventInner ) );
+				$hiddenMultidayEventInner
+					.on( 'mouseenter mouseleave', obj.toggleHoverClass( $visibleMultidayEventInner ) )
+					.on( 'focus blur', obj.toggleFocusClass( $visibleMultidayEventInner ) )
 			} );
 		} );
 	};
@@ -173,7 +143,7 @@ tribe.events.views.multidayEvents = {};
 		 * @todo: do below for ajax events
 		 */
 		// on 'beforeAjaxBeforeSend.tribeEvents' event, remove all listeners
-		// on 'afterAjaxSuccess.tribeEvents' or 'afterAjaxError.tribeEvents', add all listeners
+		// on 'afterAjaxError.tribeEvents', add all listeners
 	};
 
 	// Configure on document ready
