@@ -192,27 +192,30 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 			)
 		);
 
-		$manager->add_setting(
-			$customizer->get_setting_name( 'map_pin', $section ),
-			array(
-				'default'              => $this->get_default( 'map_pin' ),
-				'type'                 => 'option',
+		// Custom Map Pins are not supported with basic embeds.
+		if ( ! tribe_is_using_basic_gmaps_api() ) {
 
-				'sanitize_callback'    => 'esc_url_raw',
-			)
-		);
-
-		$manager->add_control(
-			new WP_Customize_Image_Control(
-				$manager,
+			$manager->add_setting(
 				$customizer->get_setting_name( 'map_pin', $section ),
 				array(
-					'default'    => $this->get_default( 'button_color' ),
-					'label'      => esc_html__( 'Map Pin', 'the-events-calendar' ),
-					'section'    => $section->id,
+					'default'              => $this->get_default( 'map_pin' ),
+					'type'                 => 'option',
+					'sanitize_callback'    => 'esc_url_raw',
 				)
-			)
-		);
+			);
+
+			$manager->add_control(
+				new WP_Customize_Image_Control(
+					$manager,
+					$customizer->get_setting_name( 'map_pin', $section ),
+					array(
+						'default'    => $this->get_default( 'button_color' ),
+						'label'      => esc_html__( 'Map Pin', 'the-events-calendar' ),
+						'section'    => $section->id,
+					)
+				)
+			);
+		}
 
 		// Introduced to make Selective Refresh have less code duplication
 		$customizer->add_setting_name( $customizer->get_setting_name( 'link_color', $section ) );

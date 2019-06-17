@@ -6,6 +6,7 @@
  * Override this template in your own theme by creating a file at [your-theme]/tribe-events/month/single-event.php
  *
  * @package TribeEventsCalendar
+ * @version 4.6.21
  *
  */
 
@@ -23,7 +24,7 @@ global $post;
  * in.
  */
 $day      = tribe_events_get_current_month_day();
-$event_id = "{$post->ID}-{$day['daynum']}";
+$event_id = "{$post->ID}-{$day['date']}";
 $link     = tribe_get_event_link( $post );
 $title    = get_the_title( $post );
 
@@ -121,25 +122,25 @@ $title    = get_the_title( $post );
  *
  *	<script type="text/html" id="tribe_tmpl_tooltip">
  *		<div id="tribe-events-tooltip-[[=eventId]]" class="tribe-events-tooltip">
- *			<h4 class="tribe-event-title">[[=title]]</h4>
+ *			<h4 class="tribe-event-title">[[=title]]<\/h4>
  *			<div class="tribe-events-event-body">
  *				<div class="tribe-event-duration">
- *					<abbr class="tribe-events-abbr tribe-event-date-start">[[=startTime]] </abbr>
+ *					<abbr class="tribe-events-abbr tribe-event-date-start">[[=startTime]] <\/abbr>
  *			[[ if(endTime.length) { ]]
- *					-<abbr class="tribe-events-abbr tribe-event-date-end"> [[=endTime]]</abbr>
+ *					-<abbr class="tribe-events-abbr tribe-event-date-end"> [[=endTime]]<\/abbr>
  *			[[ } ]]
- *				</div>
+ *				<\/div>
  *			[[ if(imageTooltipSrc.length) { ]]
  *				<div class="tribe-events-event-thumb">
- *					<img src="[[=imageTooltipSrc]]" alt="[[=title]]" />
- *				</div>
+ *					<img src="[[=imageTooltipSrc]]" alt="[[=title]]" \/>
+ *				<\/div>
  *			[[ } ]]
  *			[[ if(excerpt.length) { ]]
- *				<p class="entry-summary description">[[=raw excerpt]]</p>
+ *				<p class="entry-summary description">[[=raw excerpt]]<\/p>
  *			[[ } ]]
- *				<span class="tribe-events-arrow"></span>
- *			</div>
- *		</div>
+ *				<span class="tribe-events-arrow"><\/span>
+ *			<\/div>
+ *		<\/div>
  *	</script>
  *
  *

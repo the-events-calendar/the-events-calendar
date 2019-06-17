@@ -26,6 +26,20 @@ class Tribe__Events__Dates__Known_Range {
 	 * and store those values for future use.
 	 */
 	public function rebuild_known_range() {
+		/**
+		 * Allows third-party code to alter the update process of tknown range and bail out of
+		 * this implementation entirely.
+		 *
+		 * @since 4.9
+		 *
+		 * @param bool $rebuilt Whether the known range was rebuilt or not; defaults to `false`
+		 *                      to let the method proceed to the update.
+		 */
+		$rebuilt = apply_filters( 'tribe_events_rebuild_known_range', false );
+		if ( true === $rebuilt ) {
+			return;
+		}
+
 		global $wpdb;
 		remove_action( 'deleted_post', array( $this, 'rebuild_known_range' ) );
 

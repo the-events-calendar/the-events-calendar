@@ -14,6 +14,16 @@
 			tr {
 				position: relative;
 			}
+
+			.eb-url-row {
+				th[scope="row"] {
+					padding: 0;
+				}
+
+				td {
+					padding: 0 10px;
+				}
+			}
 		}
 
 		.subsubsub {
@@ -29,18 +39,6 @@
 				font-weight: normal;
 			}
 		}
-	}
-
-	.tribe-ea-facebook-login {
-		display: block;
-		clear:both;
-
-		iframe,
-		.tribe-ea-status {
-			display: block;
-			float: left;
-		}
-
 	}
 
 	.tribe-ea-help {
@@ -276,6 +274,10 @@
 		color: gray;
 	}
 
+	.tribe-ea-inline-label {
+		padding-top: 7px;
+	}
+
 	.tribe-notice-tribe-missing-aggregator-license {
 		background: url(../images/aggregator/ea-upsell-bkg.svg) transparent no-repeat;
 		background-size: cover;
@@ -313,6 +315,37 @@
 				color: #cbe1e8;
 			}
 		}
+	}
+
+	.tribe-banner {
+
+		&.tribe-active.tribe-dependent {
+			display: flex;
+		}
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex: 1 1 auto;
+
+		&.tribe-banner-eventbrite-tickets {
+			background-image: linear-gradient(135deg, #0178ba 0%, #0178ba 25%, #01bdac 65%, #01bdac 100%);
+			background-size: cover;
+			padding: 0;
+			text-align: center;
+
+			h3 {
+				color: #fff;
+				font-size: 26px;
+				letter-spacing: 1px;
+				font-weight: normal;
+				padding: 0 45px;
+			}
+
+			img {
+				max-width: 165px;
+			}
+		}
+
 	}
 
 	.tribe-button {
@@ -382,7 +415,7 @@
 		margin-bottom: .25em;
 	}
 
-	.tribe-ea-facebook-button {
+	.tribe-ea-eventbrite-button {
 		margin-left: 2rem;
 		margin-top: 1rem;
 	}
@@ -525,6 +558,7 @@
 
 .tribe-default-settings {
 	display: none;
+	overflow: hidden;
 	padding-bottom: 1rem;
 	padding-top: 1rem;
 
@@ -557,12 +591,6 @@
 }
 
 .tribe-ea-form {
-	&[data-origin="eventbrite"] {
-		.tribe-finalize-container {
-			display: block;
-		}
-	}
-
 	&[data-origin="csv"] {
 		.dataTables_length,
 		.dataTables_info,
@@ -601,6 +629,11 @@
 	.tribe-timezone-message {
 		font-style: italic;
 		padding-top: .5rem;
+	}
+	.tribe-limits-message {
+		font-style: italic;
+		padding: 0;
+		margin: 1em 0 -1.5em;
 	}
 }
 
@@ -729,5 +762,13 @@
 				color: #ccc;
 			}
 		}
+	}
+}
+
+.tribe-ea-field-wrapper-post_status {
+	min-width: 275px;
+
+	&.tribe-active {
+		float: left;
 	}
 }

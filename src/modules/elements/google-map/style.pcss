@@ -1,0 +1,34 @@
+.tribe-editor__map {
+	background-color: #F7F1E1;
+
+	&--static {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		img {
+			z-index: 2;
+		}
+	}
+
+	&--interactive {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 100%;
+		flex: 1;
+	}
+
+	&--dynamic {
+		width: 100%;
+		height: 100%;
+		z-index: 2;
+	}
+
+	.tribe-editor__venue--has-map & {
+		width: 49%;
+		flex-basis: 49%;
+		min-height: 270px;
+	}
+}

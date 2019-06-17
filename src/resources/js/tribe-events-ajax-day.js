@@ -260,7 +260,7 @@
 			if ( tt.pushstate && !ts.filter_cats ) {
 
 				// @ifdef DEBUG
-				dbug && debug.time( 'Day View Ajax Timer' );
+				dbug && tec_debug.time( 'Day View Ajax Timer' );
 				// @endif
 
 				$( te ).trigger( 'tribe_ev_ajaxStart' ).trigger( 'tribe_ev_dayView_AjaxStart' );
@@ -297,7 +297,9 @@
 							$( '.tribe-events-promo' ).next( '.tribe-events-promo' ).remove();
 
 							ts.page_title = $( '#tribe-events-header' ).data( 'title' );
+							ts.view_title = $( '#tribe-events-header' ).data( 'viewtitle' );
 							document.title = ts.page_title;
+							$( '.tribe-events-page-title' ).html(ts.view_title);
 
 							// @TODO: We need to D.R.Y. this assignment and the following if statement about shortcodes/do_string
 							// Ensure that the base URL is, in fact, the URL we want
@@ -335,7 +337,7 @@
 							$( te ).trigger( 'ajax-success.tribe' ).trigger( 'tribe_ev_dayView_AjaxSuccess' );
 
 							// @ifdef DEBUG
-							dbug && debug.timeEnd( 'Day View Ajax Timer' );
+							dbug && tec_debug.timeEnd( 'Day View Ajax Timer' );
 							// @endif
 
 						}
@@ -354,8 +356,8 @@
 		}
 
 		// @ifdef DEBUG
-		dbug && debug.info( 'TEC Debug: tribe-events-ajax-day.js successfully loaded' );
-		ts.view && dbug && debug.timeEnd( 'Tribe JS Init Timer' );
+		dbug && tec_debug.info( 'TEC Debug: tribe-events-ajax-day.js successfully loaded' );
+		ts.view && dbug && tec_debug.timeEnd( 'Tribe JS Init Timer' );
 		// @endif
 
 	} );

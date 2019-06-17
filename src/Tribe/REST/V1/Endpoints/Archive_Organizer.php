@@ -64,7 +64,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 						'description' => __( 'One or more of the specified query variables has a bad format', 'the-events-calendar' ),
 					),
 					'404' => array(
-						'description' => __( 'No events match the query or the requested page was not found.', 'the-events-calendar' ),
+						'description' => __( 'The requested page was not found.', 'the-events-calendar' ),
 					),
 				),
 			),
@@ -90,7 +90,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 		);
 
 		if ( null === $request['status'] ) {
-			$cap                 = get_post_type_object( Tribe__Events__Main::VENUE_POST_TYPE )->cap->edit_posts;
+			$cap                 = get_post_type_object( Tribe__Events__Main::ORGANIZER_POST_TYPE )->cap->edit_posts;
 			$args['post_status'] = current_user_can( $cap ) ? 'any' : 'publish';
 		} else {
 			$args['post_status'] = $this->filter_post_status_list( $request['status'] );
@@ -106,9 +106,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 		 */
 		$default_only_with_upcoming = apply_filters( 'tribe_rest_organizer_default_only_with_upcoming', false );
 
-		$only_with_upcoming = isset( $request['only_with_upcoming'] )
-			? tribe_is_truthy( $request['only_with_upcoming'] )
-			: $default_only_with_upcoming;
+		$only_with_upcoming = isset( $request['only_with_upcoming'] ) ? tribe_is_truthy( $request['only_with_upcoming'] ) : $default_only_with_upcoming;
 		unset( $args['only_with_upcoming'] );
 
 		if ( ! empty( $args['s'] ) ) {
@@ -122,48 +120,61 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 			$linked_post = tribe( 'tec.linked-posts.organizer' );
 			$matches     = $linked_post->find_like( $args['s'] );
 			unset( $args['s'] );
+
 			if ( ! empty( $matches ) ) {
 				$args['post__in'] = $matches;
 			} else {
+				$organizers = array();
+			}
+		}
+
+		/** @var Tribe__Cache $cache */
+		$cache     = tribe( 'cache' );
+		$cache_key = 'rest_get_organizers_data_' . get_current_user_id() . '_' . wp_json_encode( $args );
+
+		$data = $cache->get( $cache_key, 'save_post' );
+
+		if ( ! is_array( $data ) ) {
+			$posts_per_page = Tribe__Utils__Array::get( $args, 'posts_per_page', $this->get_default_posts_per_page() );
+			$organizers = isset( $organizers ) ? $organizers : tribe_get_organizers( $only_with_upcoming, $posts_per_page, true, $args );
+
+			unset( $args['fields'] );
+
+			$ids = wp_list_pluck( $organizers, 'ID' );
+
+			$data = array( 'organizers' => array() );
+
+			foreach ( $ids as $organizer_id ) {
+				$organizer = $this->repository->get_organizer_data( $organizer_id );
+
+				if ( $organizer && ! is_wp_error( $organizer ) ) {
+					$data['organizers'][] = $organizer;
+				}
+			}
+
+			$data['rest_url'] = $this->get_current_rest_url( $args );
+
+			$page = Tribe__Utils__Array::get( $args, 'paged', 1 );
+
+			if ( empty( $organizers ) && (int) $page > 1 ) {
 				$message = $this->messages->get_message( 'organizer-archive-page-not-found' );
 
 				return new WP_Error( 'organizer-archive-page-not-found', $message, array( 'status' => 404 ) );
 			}
+
+			if ( $this->has_next( $args, $page, $only_with_upcoming ) ) {
+				$data['next_rest_url'] = $this->get_next_rest_url( $data['rest_url'], $page );
+			}
+
+			if ( $this->has_previous( $page, $args, $only_with_upcoming ) ) {
+				$data['previous_rest_url'] = $this->get_previous_rest_url( $data['rest_url'], $page );;
+			}
+
+			$data['total']       = $total = $this->get_total( $args, $only_with_upcoming );
+			$data['total_pages'] = $this->get_total_pages( $total, $posts_per_page );
+
+			$cache->set( $cache_key, $data, Tribe__Cache::NON_PERSISTENT, 'save_post' );
 		}
-
-		$posts_per_page = Tribe__Utils__Array::get( $args, 'posts_per_page', $this->get_default_posts_per_page() );
-		$organizers         = tribe_get_organizers( $only_with_upcoming, $posts_per_page, true, $args );
-
-		unset( $args['fields'] );
-
-		if ( empty( $organizers ) ) {
-			$message = $this->messages->get_message( 'organizer-archive-page-not-found' );
-
-			return new WP_Error( 'organizer-archive-page-not-found', $message, array( 'status' => 404 ) );
-		}
-
-		$ids = wp_list_pluck( $organizers, 'ID' );
-
-		$data = array( 'organizers' => array() );
-
-		foreach ( $ids as $organizer_id ) {
-			$data['organizers'][] = $this->repository->get_organizer_data( $organizer_id );
-		}
-
-		$data['rest_url'] = $this->get_current_rest_url( $args );
-
-		$page = Tribe__Utils__Array::get( $args, 'paged', 1 );
-
-		if ( $this->has_next( $args, $page, $only_with_upcoming ) ) {
-			$data['next_rest_url'] = $this->get_next_rest_url( $data['rest_url'], $page );
-		}
-
-		if ( $this->has_previous( $page, $args, $only_with_upcoming ) ) {
-			$data['previous_rest_url'] = $this->get_previous_rest_url( $data['rest_url'], $page );;
-		}
-
-		$data['total']       = $total = $this->get_total( $args, $only_with_upcoming );
-		$data['total_pages'] = $this->get_total_pages( $total, $posts_per_page );
 
 		$response = new WP_REST_Response( $data );
 
@@ -264,10 +275,12 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 
 		$this->total = tribe_get_organizers( $only_with_upcoming, - 1, true,
 			array_merge( $args, array(
-				'found_posts'            => true,
+				'found_posts' => true,
 				'update_post_meta_cache' => false,
 				'update_post_term_cache' => false,
 			) ) );
+
+		$this->total = is_array( $this->total ) ? count( $this->total ) : $this->total;
 
 		return $this->total;
 	}

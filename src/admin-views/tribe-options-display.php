@@ -26,8 +26,17 @@ foreach ( array_keys( $templates ) as $template ) {
  */
 $views = apply_filters( 'tribe-events-bar-views', array(), false );
 
-$views_options = array();
+$enabled_views = tribe_get_option( 'tribeEnableViews', array() );
+
+$views_options         = array();
+$enabled_views_options = array();
+
 foreach ( $views as $view ) {
+	// Only include the enabled views on the default views array
+	if ( in_array( $view['displaying'], $enabled_views ) ) {
+		$enabled_views_options[ $view['displaying'] ] = $view['anchor'];
+	}
+
 	$views_options[ $view['displaying'] ] = $view['anchor'];
 }
 
@@ -123,6 +132,16 @@ $display_tab_fields = Tribe__Main::array_insert_after_key(
 	)
 );
 
+$tribe_enable_views_tooltip = esc_html__( 'You must select at least one view.', 'the-events-calendar' );
+
+if ( tribe_is_using_basic_gmaps_api() && class_exists( 'Tribe__Events__Pro__Main' ) ) {
+	$tribe_enable_views_tooltip .= ' ' . sprintf(
+		__( 'Please note that you are using The Events Calendar\'s default Google Maps API key, which will limit the Map View\'s functionality. Visit %sthe API Settings page%s to learn more and add your own Google Maps API key.', 'the-events-calendar' ),
+		sprintf( '<a href="edit.php?page=tribe-common&tab=addons&post_type=%s">', Tribe__Events__Main::POSTTYPE ),
+		'</a>'
+	);
+}
+
 $display_tab_fields = Tribe__Main::array_insert_before_key(
 	'tribeEventsDateFormatSettingsTitle',
 	$display_tab_fields,
@@ -163,7 +182,7 @@ $display_tab_fields = Tribe__Main::array_insert_before_key(
 		'tribeEnableViews'                   => array(
 			'type'            => 'checkbox_list',
 			'label'           => __( 'Enable event views', 'the-events-calendar' ),
-			'tooltip'         => __( 'You must select at least one view.', 'the-events-calendar' ),
+			'tooltip'         => $tribe_enable_views_tooltip,
 			'default'         => array_keys( $views_options ),
 			'options'         => $views_options,
 			'validation_type' => 'options_multi',
@@ -171,10 +190,10 @@ $display_tab_fields = Tribe__Main::array_insert_before_key(
 		'viewOption'                         => array(
 			'type'            => 'dropdown',
 			'label'           => __( 'Default view', 'the-events-calendar' ),
-			'validation_type' => 'options',
+			'validation_type' => 'not_empty',
 			'size'            => 'large',
 			'default'         => 'month',
-			'options'         => $views_options,
+			'options'         => $enabled_views_options,
 		),
 		'tribeDisableTribeBar'               => array(
 			'type'            => 'checkbox_bool',

@@ -2,8 +2,8 @@
 
 namespace Tribe\Events\REST\V1\Endpoints;
 
-use Tribe\Events\Tests\Factories\Event;
-use Tribe\Events\Tests\Factories\Organizer;
+use Tribe\Events\Test\Factories\Event;
+use Tribe\Events\Test\Factories\Organizer;
 use Tribe__Events__REST__V1__Endpoints__Archive_Organizer as Archive;
 
 class Archive_OrganizerTest extends \Codeception\TestCase\WPTestCase {
@@ -34,7 +34,7 @@ class Archive_OrganizerTest extends \Codeception\TestCase\WPTestCase {
 		$this->validator        = new \Tribe__Events__Validator__Base;
 
 		// to avoid date filters from being canned
-		\Tribe__Main::instance()->doing_ajax( true );
+		tribe( 'context' )->doing_ajax( true );
 	}
 
 	public function tearDown() {
@@ -75,7 +75,8 @@ class Archive_OrganizerTest extends \Codeception\TestCase\WPTestCase {
 		$sut      = $this->make_instance();
 		$response = $sut->get( $request );
 
-		$this->assertInstanceOf( \WP_Error::class, $response );
+		$this->assertInstanceOf( \WP_REST_Response::class, $response );
+		$this->assertEmpty( $response->data['organizers'] );
 	}
 
 	/**

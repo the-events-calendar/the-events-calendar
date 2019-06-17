@@ -57,30 +57,48 @@ class OrganizerByEventArchiveCest extends BaseRestCest {
 	}
 
 	/**
-	 * It should return 404 if no organizers are related to the event
+	 * It should return 200 if no organizers are related to the event
 	 * @test
 	 */
-	public function it_should_return_404_if_no_organizers_are_related_to_the_event( Tester $I ) {
+	public function it_should_return_200_if_no_organizers_are_related_to_the_event( Tester $I ) {
 		$event = $I->haveEventInDatabase();
 		$I->haveManyOrganizersInDatabase( 3 );
 
 		$I->sendGET( $this->organizers_url, [ 'event' => $event ] );
 
-		$I->seeResponseCodeIs( 404 );
+		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse() );
+
+		$I->assertCount( 0, $response->organizers );
+		$I->assertEquals( 0, $response->total );
+		$I->assertEquals( 0, $response->total_pages );
+		$I->seeHttpHeader( 'X-TEC-Total', 0 );
+		$I->seeHttpHeader( 'X-TEC-TotalPages', 0 );
+		$I->assertArrayNotHasKey( 'previous_rest_url', (array) $response );
+		$I->assertArrayNotHasKey( 'next_rest_url', (array) $response );
 	}
 
 	/**
-	 * It should return 404 if there are no events in db
+	 * It should return 200 if there are no events in db
 	 * @test
 	 */
-	public function it_should_return_404_if_there_are_no_organizers_in_db( Tester $I ) {
+	public function it_should_return_200_if_there_are_no_organizers_in_db( Tester $I ) {
 		$event = $I->haveEventInDatabase();
 
 		$I->sendGET( $this->organizers_url, [ 'event' => $event ] );
 
-		$I->seeResponseCodeIs( 404 );
+		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse() );
+
+		$I->assertCount( 0, $response->organizers );
+		$I->assertEquals( 0, $response->total );
+		$I->assertEquals( 0, $response->total_pages );
+		$I->seeHttpHeader( 'X-TEC-Total', 0 );
+		$I->seeHttpHeader( 'X-TEC-TotalPages', 0 );
+		$I->assertArrayNotHasKey( 'previous_rest_url', (array) $response );
+		$I->assertArrayNotHasKey( 'next_rest_url', (array) $response );
 	}
 
 	/**
@@ -93,8 +111,17 @@ class OrganizerByEventArchiveCest extends BaseRestCest {
 
 		$I->sendGET( $this->organizers_url, [ 'event' => $event ] );
 
-		$I->seeResponseCodeIs( 404 );
+		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse() );
+
+		$I->assertCount( 0, $response->organizers );
+		$I->assertEquals( 0, $response->total );
+		$I->assertEquals( 0, $response->total_pages );
+		$I->seeHttpHeader( 'X-TEC-Total', 0 );
+		$I->seeHttpHeader( 'X-TEC-TotalPages', 0 );
+		$I->assertArrayNotHasKey( 'previous_rest_url', (array) $response );
+		$I->assertArrayNotHasKey( 'next_rest_url', (array) $response );
 	}
 
 	/**

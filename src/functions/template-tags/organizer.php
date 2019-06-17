@@ -41,7 +41,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	}
 
 	/**
-	 * Get the IDs of all organizers associated with an event
+	 * Get the IDs of all organizers associated with an event.
 	 *
 	 * @param int $event_id The event post ID. Defaults to the current event.
 	 *
@@ -49,19 +49,56 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 */
 	function tribe_get_organizer_ids( $event_id = null ) {
 		$event_id = Tribe__Events__Main::postIdHelper( $event_id );
-		$organizer_ids = array();
-		if ( is_numeric( $event_id ) && $event_id > 0 ) {
-			if ( Tribe__Events__Main::instance()->isOrganizer( $event_id ) ) {
-				$organizer_ids[] = $event_id;
-			} else {
-				$organizer_ids = tribe_get_event_meta( $event_id, '_EventOrganizerID', false );
 
-				// for some reason we store a blank "0" element in this array.
-				// let's scrub this garbage out
-				$organizer_ids = array_filter( (array) $organizer_ids );
+		$organizer_ids = array();
+
+		if ( Tribe__Events__Main::instance()->isEvent( $event_id ) ) {
+			$organizer_ids = tribe_get_event_meta( $event_id, '_EventOrganizerID', false );
+
+			// Protect against storing array items that render false, such as `0`.
+			$organizer_ids = array_filter( (array) $organizer_ids );
+		}
+
+		return apply_filters( 'tribe_get_organizer_ids', $organizer_ids, $event_id );
+	}
+
+	/**
+	 * An organizers can have two sources the list of ordered items and the meta field associated with organizers,
+	 * where the meta field takes precedence we need to respect the order of the meta order only when the present items
+	 * on the meta field.
+	 *
+	 * @deprecated 4.6.23
+	 * @todo Remove on 4.7
+	 *
+	 * @since 4.6.15
+	 *
+	 * @param array $current
+	 * @param array $ordered
+	 *
+	 * @return array
+	 */
+	function tribe_sanitize_organizers( $current = array(), $ordered = array() ) {
+		_deprecated_function( __METHOD__, '4.6.23', 'No longer needed after removing reliance on a separate postmeta field to store the ordering.' );
+
+		if ( empty( $ordered ) ) {
+			return $current;
+		}
+
+		$order    = array();
+		$excluded = array();
+		foreach ( (array) $current as $post_id ) {
+			$key = array_search( $post_id, $ordered );
+			if ( false === $key ) {
+				$excluded[] = $post_id;
+			} else {
+				$order[ $key ] = $post_id;
 			}
 		}
-		return apply_filters( 'tribe_get_organizer_ids', $organizer_ids, $event_id );
+
+		// Make sure before the merge the order is ordered by the keys
+		ksort( $order );
+
+		return array_merge( $order, $excluded );
 	}
 
 	/**
@@ -351,10 +388,14 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				continue;
 			}
 
-			$found = call_user_func(
-				array( tribe( 'tec.linked-posts.organizer' ), $method ),
-				$args[ $filter_arg ]
-			);
+			if ('only_with_upcoming' !== $filter_arg) {
+				$found = tribe( 'tec.linked-posts.organizer' )->$method( $args[ $filter_arg ] );
+			} else {
+				$found = tribe( 'tec.linked-posts.organizer' )->find_with_upcoming_events(
+					$args[ $filter_arg ],
+					isset( $args['post_status'] ) ? $args['post_status'] : null
+				);
+			}
 
 			if ( empty( $found ) ) {
 				return array();

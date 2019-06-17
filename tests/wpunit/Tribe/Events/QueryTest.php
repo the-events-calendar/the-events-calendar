@@ -1,7 +1,7 @@
 <?php
 namespace Tribe\Events;
 
-use Tribe\Events\Tests\Testcases\Events_TestCase;
+use Tribe\Events\Test\Testcases\Events_TestCase;
 use Tribe__Events__Main as Main;
 use Tribe__Events__Query as Query;
 use Tribe__Main;
@@ -88,7 +88,7 @@ class QueryTest extends Events_TestCase {
 	 * @test
 	 */
 	public function it_should_not_remove_date_filters_when_doing_ajax() {
-		Tribe__Main::instance()->doing_ajax( true );
+		tribe( 'context' )->doing_ajax( true );
 
 		$query = new WP_Query;
 		$query->parse_query( [
@@ -97,7 +97,7 @@ class QueryTest extends Events_TestCase {
 
 		$this->assertFalse( Query::should_remove_date_filters( $query ), 'Date filters should not be removed when doing AJAX stuff' );
 
-		Tribe__Main::instance()->doing_ajax( false );
+		tribe( 'context' )->doing_ajax( false );
 	}
 
 	/**

@@ -5,32 +5,51 @@ namespace Tribe\Events\Aggregator\Record;
 include_once( codecept_data_dir( 'classes/Tribe__Events__Aggregator__Record__Scheduled_Test.php' ) );
 
 use Prophecy\Argument;
-use Tribe\Events\Tests\Testcases\Events_TestCase;
+use Tribe\Events\Test\Factories\Aggregator\V1\Import_Record;
+use Tribe\Events\Test\Testcases\Events_TestCase;
 use Tribe__Events__Aggregator__Record__Abstract as Base;
 use Tribe__Events__Aggregator__Record__Activity as Activity;
 use Tribe__Events__Aggregator__Record__Facebook as FB_Record;
 use Tribe__Events__Aggregator__Record__Scheduled_Test as Record;
+use Tribe__Events__Aggregator__Record__Url as Url_Import_Record;
 use Tribe__Events__Aggregator__Records as Records;
 use Tribe__Events__Main as Main;
 
 class AbstractTest extends Events_TestCase {
 
 	/**
+	 * @var int The post ID of the last inserted event.
+	 */
+	protected $last_inserted_or_updated;
+
+	/**
+	 * @var int The post ID of the last updated event.
+	 */
+	protected $last_updated;
+
+	function setUp() {
+		parent::setUp();
+		$this->factory()->import_record = new Import_Record();
+	}
+
+	/**
 	 * Builds a simulation of a scheduled record.
 	 *
-	 * @param string $frequency_id  A supported scheduled frequency string among ("on_demand", "daily", "weekly", "monthly")
-	 * @param string $modified      A `strtotime` compatible string to indicate when the scheduled record was last modified
-	 * @param int    $schedule_day  The day of the week the import should happen at; defaults to 1 (Monday)
+	 * @param string $frequency_id A supported scheduled frequency string among ("on_demand", "daily", "weekly", "monthly")
+	 * @param string|int $modified A `strtotime` compatible string to indicate when the scheduled record was last modified
+	 * @param int $schedule_day The day of the week the import should happen at; defaults to 1 (Monday)
 	 * @param string $schedule_time The time of the day the import should happen at in 'H:i:s' format; defaults to 9am
 	 *
 	 * @return \Tribe__Events__Aggregator__Record__Scheduled_Test
 	 */
 	private function make_scheduled_record_instance( $frequency_id = 'weekly', $modified = 'now', $schedule_day = 1, $schedule_time = '09:00:00' ) {
 		$supported_frequencies = [
-			'on_demand' => 0,
-			'daily'     => 1 * DAY_IN_SECONDS,
-			'weekly'    => 7 * DAY_IN_SECONDS,
-			'monthly'   => 30 * DAY_IN_SECONDS,
+			'on_demand'   => 0,
+			'every30mins' => .5 * HOUR_IN_SECONDS,
+			'hourly'      => HOUR_IN_SECONDS,
+			'daily'       => 1 * DAY_IN_SECONDS,
+			'weekly'      => 7 * DAY_IN_SECONDS,
+			'monthly'     => 30 * DAY_IN_SECONDS,
 		];
 
 		if ( ! array_key_exists( $frequency_id, $supported_frequencies ) ) {
@@ -38,16 +57,17 @@ class AbstractTest extends Events_TestCase {
 			throw new \InvalidArgumentException( "Frequency id should be one among [{$frequencies}]" );
 		}
 
-		$modified = strtotime( $modified );
+		$modified = is_numeric($modified) ? $modified : strtotime( $modified );
 
 		if ( 0 >= $modified ) {
 			throw new \InvalidArgumentException( 'Modified should be a string parseable by the strtotime function' );
 		}
 
 		$post = $this->factory()->post->create_and_get( [
-			'post_type'   => Records::$post_type,
-			'post_status' => Records::$status->schedule,
-			'post_date'   => date( 'Y-m-d H:i:s', $modified ),
+			'post_type'      => Records::$post_type,
+			'post_status'    => Records::$status->schedule,
+			'post_date'      => date( 'Y-m-d H:i:s', $modified ),
+			'post_mime_type' => 'ea/ical',
 		] );
 
 		$record = new Record();
@@ -70,7 +90,7 @@ class AbstractTest extends Events_TestCase {
 	 * @test
 	 */
 	public function should_mark_a_scheduled_record_that_failed_on_last_run_as_in_schedule_time() {
-		$scheduled_record                             = $this->make_scheduled_record_instance( 'weekly', '-1 hour' );
+		$scheduled_record = $this->make_scheduled_record_instance( 'weekly', '-4 days' );
 		$scheduled_record->meta['last_import_status'] = 'success:hurray';
 
 		$this->assertFalse( $scheduled_record->is_schedule_time() );
@@ -106,7 +126,7 @@ class AbstractTest extends Events_TestCase {
 
 		$this->assertFalse( $scheduled_record->is_schedule_time() );
 
-		$this->add_failed_children_to( $scheduled_record, '-1 hour' );
+		$this->add_failed_children_to( $scheduled_record, '-4 days' );
 
 		$this->assertTrue( $scheduled_record->is_schedule_time() );
 	}
@@ -145,7 +165,7 @@ class AbstractTest extends Events_TestCase {
 	 * @test
 	 */
 	public function should_use_last_import_status_over_last_children_post_status_to_determine_status() {
-		$scheduled_record = $this->make_scheduled_record_instance( 'weekly', '-1 hour' );
+		$scheduled_record = $this->make_scheduled_record_instance( 'weekly', '-4 days' );
 
 		$scheduled_record->meta['last_import_status'] = 'error::something-happened';
 
@@ -168,9 +188,9 @@ class AbstractTest extends Events_TestCase {
 	public function should_use_the_most_recent_children_import_to_determine_the_status_if_last_import_status_is_not_set() {
 		$scheduled_record = $this->make_scheduled_record_instance( 'weekly', '-1 day' );
 
-		$this->add_successful_children_to( $scheduled_record, '-2 hours' );
-		$this->add_successful_children_to( $scheduled_record, '-1 hour' );
-		$last = $this->add_failed_children_to( $scheduled_record, '-20 minutes' );
+		$this->add_successful_children_to( $scheduled_record, '-2 weeks' );
+		$this->add_successful_children_to( $scheduled_record, '-9 days' );
+		$last = $this->add_failed_children_to( $scheduled_record, '-4 days' );
 
 		$this->assertTrue( $scheduled_record->is_schedule_time() );
 
@@ -183,22 +203,23 @@ class AbstractTest extends Events_TestCase {
 	 * Attaches a failed children import record to the specified scheduled record.
 	 *
 	 * @param Base   $scheduled_record
-	 * @param string $modified
+	 * @param string|int $modified
 	 *
 	 * @return int The children record post ID.
 	 */
 	protected function add_failed_children_to( $scheduled_record, $modified = 'now' ) {
-		$modified = strtotime( $modified );
+		$modified = is_numeric( $modified ) ? $modified : strtotime( $modified );
 
 		if ( 0 >= $modified ) {
 			throw new \InvalidArgumentException( 'Modified should be a string parseable by the strtotime function' );
 		}
 
 		return $this->factory()->post->create( [
-			'post_type'   => Records::$post_type,
-			'post_parent' => $scheduled_record->post->id,
-			'post_status' => Records::$status->failed,
-			'post_date'   => date( 'Y-m-d H:i:s', $modified ),
+			'post_type'      => Records::$post_type,
+			'post_parent'    => $scheduled_record->post->ID,
+			'post_status'    => Records::$status->failed,
+			'post_date'      => date( 'Y-m-d H:i:s', $modified ),
+			'post_mime_type' => $scheduled_record->post->post_mime_type,
 		] );
 	}
 
@@ -218,10 +239,11 @@ class AbstractTest extends Events_TestCase {
 		}
 
 		return $this->factory()->post->create( [
-			'post_type'   => Records::$post_type,
-			'post_parent' => $scheduled_record->post->id,
-			'post_status' => Records::$status->success,
-			'post_date'   => date( 'Y-m-d H:i:s', $modified ),
+			'post_type'      => Records::$post_type,
+			'post_parent'    => $scheduled_record->post->ID,
+			'post_status'    => Records::$status->success,
+			'post_date'      => date( 'Y-m-d H:i:s', $modified ),
+			'post_mime_type' => $scheduled_record->post->post_mime_type,
 		] );
 	}
 
@@ -258,199 +280,202 @@ class AbstractTest extends Events_TestCase {
 	}
 
 	/**
-	 * Test import_organizer_image
+	 * It should allow filtering the venue id when global ID does not provide a match
+	 *
+	 * @test
 	 */
-	public function test_import_organizer_image() {
-		$sut = new FB_Record();
-		$service_image = $this->factory()->attachment->create_and_get( [ 'file' => codecept_data_dir( 'images/featured-image.jpg' ) ] );
-		$organizer_id = $this->factory()->organizer->create();
-		$activity = $this->prophesize( Activity::class );
-		$activity->add( 'attachment', 'created', $service_image->ID )->shouldBeCalled();
-
-		$this->assertTrue( $sut->import_organizer_image( $organizer_id, $service_image->ID, $activity->reveal() ) );
-	}
-
-	/**
-	 * Test import_organizer_image with non URL
-	 */
-	public function test_import_organizer_image_with_non_url() {
-		$sut = new FB_Record();
-		$service_image = $this->factory()->attachment->create_and_get( [ 'file' => codecept_data_dir( 'images/featured-image.jpg' ) ] );
-		$organizer_id = $this->factory()->organizer->create();
-		$activity = $this->prophesize( Activity::class );
-		$activity->add( 'attachment', 'created', $service_image->ID )->shouldNotBeCalled();
-
-		$this->assertFalse( $sut->import_organizer_image( $organizer_id, 'foo', $activity->reveal() ) );
-	}
-
-	/**
-	 * Test import_organizer_image with empty organizer
-	 */
-	public function test_import_organizer_image_with_empty_organizer() {
-		$sut = new FB_Record();
-		$organizer_id = '';
-		$activity = $this->prophesize( Activity::class );
-		$activity->add( 'attachment', 'created', Argument::any() )->shouldNotBeCalled();
-
-		$this->assertFalse( $sut->import_organizer_image( $organizer_id, 'foo', $activity->reveal() ) );
-	}
-
-	/**
-	 * Test import_organizer_image with not an organizer
-	 */
-	public function test_import_organizer_image_with_not_an_organizer() {
-		$sut = new FB_Record();
-		$organizer_id = $this->factory()->post->create();
-		$activity = $this->prophesize( Activity::class );
-		$activity->add( 'attachment', 'created', Argument::any() )->shouldNotBeCalled();
-
-		$this->assertFalse( $sut->import_organizer_image( $organizer_id, 'foo', $activity->reveal() ) );
-	}
-
-	/**
-	 * Test import_venue_image
-	 */
-	public function test_import_venue_image() {
-		$sut = new FB_Record();
-		$service_image = $this->factory()->attachment->create_and_get( [ 'file' => codecept_data_dir( 'images/featured-image.jpg' ) ] );
+	public function should_allow_filtering_the_venue_id_when_global_id_does_not_provide_a_match() {
+		$item = $this->factory()->import_record->create_and_get_event_data(
+			'url',
+			[
+				'venue' =>
+					[ 'venue' => 'Venue title from record' ]
+			]
+		);
 		$venue_id = $this->factory()->venue->create();
-		$activity = $this->prophesize( Activity::class );
-		$activity->add( 'attachment', 'created', $service_image->ID )->shouldBeCalled();
+		add_filter( 'tribe_aggregator_find_matching_venue', function ( $_ = null, $venue_data ) use ( $venue_id ) {
+			$this->assertEquals( 'Venue title from record', $venue_data['Venue'] );
 
-		$this->assertTrue( $sut->import_venue_image( $venue_id, $service_image->ID, $activity->reveal() ) );
+			return $venue_id;
+		}, 10, 2 );
+		$sut = new Url_Import_Record();
+
+		/** @var \Tribe__Events__Aggregator__Record__Activity $activity */
+		$activity       = $sut->insert_posts( [ $item ] );
+		$created_events = $activity->get( \Tribe__Events__Main::POSTTYPE, 'created' );
+		$updated_venues = $activity->get( \Tribe__Events__Venue::POSTTYPE, 'updated' );
+		$this->assertCount( 1, $created_events );
+		$this->assertCount( 1, $updated_venues );
+		$this->assertEquals( $venue_id, get_post_meta( $created_events[0], '_EventVenueID', true ) );
 	}
 
 	/**
-	 * Test import_venue_image with non URL
+	 * It should allow filtering the organizer id when global ID does not provide a match
+	 *
+	 * @test
 	 */
-	public function test_import_venue_image_with_non_url() {
-		$sut = new FB_Record();
-		$service_image = $this->factory()->attachment->create_and_get( [ 'file' => codecept_data_dir( 'images/featured-image.jpg' ) ] );
-		$venue_id = $this->factory()->venue->create();
-		$activity = $this->prophesize( Activity::class );
-		$activity->add( 'attachment', 'created', $service_image->ID )->shouldNotBeCalled();
+	public function should_allow_filtering_the_organizer_id_when_global_id_does_not_provide_a_match() {
+		$item = $this->factory()->import_record->create_and_get_event_data( 'url', [ 'organizer_count' => 3, ] );
+		$organizer_ids = $this->factory()->organizer->create_many(3);
+		$i =0;
+		add_filter( 'tribe_aggregator_find_matching_organizer', function ( $_ = null, $organizer_data ) use ( $organizer_ids, &$i ) {
+			return $organizer_ids[ $i ++ ];
+		}, 10, 2 );
+		$sut = new Url_Import_Record();
 
-		$this->assertFalse( $sut->import_venue_image( $venue_id, 'foo', $activity->reveal() ) );
+		/** @var \Tribe__Events__Aggregator__Record__Activity $activity */
+		$activity           = $sut->insert_posts( [ $item ] );
+		$created_events     = $activity->get( \Tribe__Events__Main::POSTTYPE, 'created' );
+		$updated_organizers = $activity->get( \Tribe__Events__Organizer::POSTTYPE, 'updated' );
+		$this->assertCount( 1, $created_events );
+		$this->assertCount( 3, $updated_organizers );
+		$this->assertEquals( $organizer_ids, get_post_meta( $created_events[0], '_EventOrganizerID' ) );
 	}
 
 	/**
-	 * Test import_venue_image with empty venue
+	 * It should reschedule a failed import again at half its frequency
+	 *
+	 * @test
 	 */
-	public function test_import_venue_image_with_empty_venue() {
-		$sut = new FB_Record();
-		$venue_id = '';
-		$activity = $this->prophesize( Activity::class );
-		$activity->add( 'attachment', 'created', Argument::any() )->shouldNotBeCalled();
+	public function should_reschedule_a_failed_import_again_at_half_its_frequency() {
+		$frequency        = 'weekly';
+		$modified         = '-1 day';
+		$child_failed_at = '-20 minutes';
+		$second_child_failed_at = '-5 days';
 
-		$this->assertFalse( $sut->import_venue_image( $venue_id, 'foo', $activity->reveal() ) );
+		$scheduled_record = $this->make_scheduled_record_instance( $frequency, $modified );
+
+		$failed = $this->add_failed_children_to( $scheduled_record, $child_failed_at  );
+
+		$this->assertFalse( $scheduled_record->is_schedule_time() );
+
+		wp_delete_post( $failed, true );
+
+		$failed = $this->add_failed_children_to( $scheduled_record, $second_child_failed_at );
+
+		$this->assertTrue( $scheduled_record->is_schedule_time() );
+	}
+
+	public function frequencies_and_expected_retry_times() {
+		return [
+			[ 'on_demand', false ],
+			[ 'every30mins', false ],
+			[ 'hourly', false ],
+			[ 'daily', 6 * 3600 ],
+			[ 'weekly', 24 * 3600 ],
+			[ 'monthly', 24 * 3600 ],
+		];
 	}
 
 	/**
-	 * Test import_venue_image with not an venue
+	 * It should correctly return a record retry timestamp
+	 *
+	 * @test
+	 *
+	 * @dataProvider frequencies_and_expected_retry_times
 	 */
-	public function test_import_venue_image_with_not_an_venue() {
-		$sut = new FB_Record();
-		$venue_id = $this->factory()->post->create();
-		$activity = $this->prophesize( Activity::class );
-		$activity->add( 'attachment', 'created', Argument::any() )->shouldNotBeCalled();
+	public function should_correctly_return_a_record_retry_timestamp( $frequency_id, $expected_interval ) {
+		$record_modified_time = strtotime( '-2 hours' );
+		$child_modified_time  = strtotime( '-1 hour' );
+		$record               = $this->make_scheduled_record_instance( $frequency_id, $record_modified_time );
 
-		$this->assertFalse( $sut->import_venue_image( $venue_id, 'foo', $activity->reveal() ) );
+		$this->assertFalse( $record->get_retry_time() );
+
+		$this->add_failed_children_to( $record, $child_modified_time );
+
+		if ( false !== $expected_interval ) {
+			$this->assertEquals( $child_modified_time + $expected_interval, $record->get_retry_time() );
+		} else {
+			$this->assertFalse( $record->get_retry_time() );
+		}
 	}
 
 	/**
-	 * Test venue image import can be blocked with filter
+	 * It should correctly create and link new organizers to events
+	 *
+	 * When an organizer UID is not provided
+	 *
+	 * @test
 	 */
-	public function test_venue_image_import_can_be_blocked_with_filter() {
-		add_filter( 'tribe_aggregator_import_venue_image', '__return_false' );
-		$sut           = new FB_Record();
-		$service_image = $this->factory()->attachment->create_and_get( [ 'file' => codecept_data_dir( 'images/featured-image.jpg' ) ] );
-		$venue_id      = $this->factory()->venue->create();
-		$activity      = $this->prophesize( Activity::class );
-		$activity->add( 'attachment', 'created', $service_image->ID )->shouldNotBeCalled();
+	public function should_correctly_create_and_link_new_organizers_to_events() {
+		$event_data = $this->factory()->import_record->create_and_get_event_data( 'ical' );
+		$event_data->organizer = [
+			(object) [
+				'organizer' => 'Organizer-1',
+				'email'     => 'foo@bar.com',
+			],
+		];
 
-		$this->assertFalse( $sut->import_venue_image( $venue_id, $service_image->guid, $activity->reveal() ) );
+		$this->track_last_inserted_or_updated();
+
+		/** @var Base $record */
+		$record = $this->extend_base_w_origin( 'ical' );
+		$record->insert_posts( [ $event_data ] );
+
+		$this->assertNotEmpty( get_post( $this->last_inserted_or_updated ) );
+		$organizers = (array) get_post_meta( $this->last_inserted_or_updated, '_EventOrganizerID', true );
+		$this->assertNotEmpty( $organizers );
+		$organizer = get_post( reset( $organizers ) );
+		$this->assertEquals( 'Organizer-1', $organizer->post_title );
+		$this->assertEquals( 'foo@bar.com', get_post_meta( $organizer->ID, '_OrganizerEmail', true ) );
 	}
 
 	/**
-	 * Test organizer image import can be blocked with filter
+	 * It should not track modified fields when creating events no matter the authority
+	 *
+	 * @test I should
 	 */
-	public function test_organizer_image_import_can_be_blocked_with_filter() {
-		add_filter( 'tribe_aggregator_import_organizer_image', '__return_false' );
-		$sut           = new FB_Record();
-		$service_image = $this->factory()->attachment->create_and_get( [ 'file' => codecept_data_dir( 'images/featured-image.jpg' ) ] );
-		$organizer_id  = $this->factory()->venue->create();
-		$activity      = $this->prophesize( Activity::class );
-		$activity->add( 'attachment', 'created', $service_image->ID )->shouldNotBeCalled();
+	public function should_not_track_modified_fields_when_creating_events_no_matter_the_authority() {
+		tribe_update_option( 'tribe_aggregator_default_gcal_update_authority', 'overwrite' );
 
-		$this->assertFalse( $sut->import_organizer_image( $organizer_id, $service_image->guid, $activity->reveal() ) );
-	}
-	/**
-	 * Test import_event_image
-	 */
-	public function test_import_event_image() {
-		$sut = new FB_Record();
-		$service_image = $this->factory()->attachment->create_and_get( [ 'file' => codecept_data_dir( 'images/featured-image.jpg' ) ] );
-		$event = (array)$this->factory()->event->create_and_get();
-		$event['image'] = $service_image->ID;
-		$activity = $this->prophesize( Activity::class );
-		$activity->add( 'attachment', 'created', $service_image->ID )->shouldBeCalled();
+		$event_data = $this->factory()->import_record->create_and_get_event_data( 'gcal' );
+		$this->track_last_inserted_or_updated();
 
-		$this->assertTrue( $sut->import_event_image( $event, $activity->reveal() ) );
-	}
+		/** @var Base $record */
+		$record = $this->extend_base_w_origin( 'gcal' );
+		$record->insert_posts( [ $event_data ] );
 
-	/**
-	 * Test import_event_image with non URL
-	 */
-	public function test_import_event_image_with_non_url() {
-		$sut = new FB_Record();
-		$service_image = $this->factory()->attachment->create_and_get( [ 'file' => codecept_data_dir( 'images/featured-image.jpg' ) ] );
-		$event = (array)$this->factory()->event->create_and_get();
-		$event['image'] = 'foo';
-		$activity = $this->prophesize( Activity::class );
-		$activity->add( 'attachment', 'created', $service_image->ID )->shouldNotBeCalled();
+		$post_id = $this->last_inserted_or_updated;
 
-		$this->assertFalse( $sut->import_event_image( $event, $activity->reveal() ) );
+		$this->assertEmpty( get_post_meta( $post_id, \Tribe__Tracker::$field_key, true ) );
+
+		// run the import a second time ot update the event
+		/** @var Base $record */
+		$record_2 = $this->extend_base_w_origin( 'gcal' );
+		$record_2->insert_posts( [ $event_data ] );
+
+		$this->assertEmpty( get_post_meta( $post_id, \Tribe__Tracker::$field_key, true ) );
 	}
 
 	/**
-	 * Test import_event_image with empty event
+	 * Hooks on the action fired right after an event has been inserted/updated by Event Aggregator
+	 * to keep track of its post ID.
 	 */
-	public function test_import_event_image_with_empty_event() {
-		$sut = new FB_Record();
-		$event = [];
-		$activity = $this->prophesize( Activity::class );
-		$activity->add( 'attachment', 'created', Argument::any() )->shouldNotBeCalled();
-
-		$this->assertFalse( $sut->import_event_image( $event,  $activity->reveal() ) );
+	protected function track_last_inserted_or_updated() {
+		add_action( 'tribe_aggregator_after_insert_post', function ( $event ) use ( &$id ) {
+			$this->last_inserted_or_updated = $event['ID'];
+		} );
 	}
 
 	/**
-	 * Test import_event_image with not an event
+	 * Extends the abstract, base Record class with one with the specified origin.
+	 *
+	 * @param string $origin
+	 *
+	 * @return Base
 	 */
-	public function test_import_event_image_with_not_an_event() {
-		$sut = new FB_Record();
-		$service_image = $this->factory()->attachment->create_and_get( [ 'file' => codecept_data_dir( 'images/featured-image.jpg' ) ] );
-		$event = (array)$this->factory()->post->create_and_get();
-		$event['image'] = $service_image->guid;
-		$activity = $this->prophesize( Activity::class );
-		$activity->add( 'attachment', 'created', Argument::any() )->shouldNotBeCalled();
+	protected function extend_base_w_origin( string $origin ) {
+		$test_record = new class( $origin ) extends Base {
+			public function __construct( $origin ) {
+				$this->origin = $origin;
+			}
 
-		$this->assertFalse( $sut->import_event_image( $event, $activity->reveal() ) );
-	}
+			public function get_label() {
+				return 'test';
+			}
+		};
 
-	/**
-	 * Test event image import can be blocked with filter
-	 */
-	public function test_event_image_import_can_be_blocked_with_filter() {
-		add_filter( 'tribe_aggregator_import_event_image', '__return_false' );
-		$sut           = new FB_Record();
-		$service_image = $this->factory()->attachment->create_and_get( [ 'file' => codecept_data_dir( 'images/featured-image.jpg' ) ] );
-		$event      = (array)$this->factory()->event->create_and_get();
-		$event['image'] = $service_image->guid;
-		$activity      = $this->prophesize( Activity::class );
-		$activity->add( 'attachment', 'created', $service_image->ID )->shouldNotBeCalled();
-
-		$this->assertFalse( $sut->import_event_image( $event, $activity->reveal() ) );
+		return $test_record;
 	}
 
 }

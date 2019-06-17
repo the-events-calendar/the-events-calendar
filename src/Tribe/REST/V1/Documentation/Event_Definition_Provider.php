@@ -38,7 +38,7 @@ class Tribe__Events__REST__V1__Documentation__Event_Definition_Provider
 				),
 				'date' => array(
 					'type' => 'string',
-					'description' => __( 'The event creation date in the site timezone', 'the-events-calendar' ),
+					'description' => __( 'The event creation date in the site time zone', 'the-events-calendar' ),
 				),
 				'date_utc' => array(
 					'type' => 'string',
@@ -46,7 +46,7 @@ class Tribe__Events__REST__V1__Documentation__Event_Definition_Provider
 				),
 				'modified' => array(
 					'type' => 'string',
-					'description' => __( 'The event last modification date in the site timezone', 'the-events-calendar' ),
+					'description' => __( 'The event last modification date in the site time zone', 'the-events-calendar' ),
 				),
 				'modified_utc' => array(
 					'type' => 'string',
@@ -91,7 +91,7 @@ class Tribe__Events__REST__V1__Documentation__Event_Definition_Provider
 				),
 				'start_date' => array(
 					'type' => 'string',
-					'description' => __( 'The event start date in the event or site timezone', 'the-events-calendar' ),
+					'description' => __( 'The event start date in the event or site time zone', 'the-events-calendar' ),
 				),
 				'start_date_details' => array(
 					'type' => 'array',
@@ -100,7 +100,7 @@ class Tribe__Events__REST__V1__Documentation__Event_Definition_Provider
 				),
 				'end_date' => array(
 					'type' => 'string',
-					'description' => __( 'The event end date in the event or site timezone', 'the-events-calendar' )
+					'description' => __( 'The event end date in the event or site time zone', 'the-events-calendar' ),
 				),
 				'end_date_details' => array(
 					'type' => 'array',
@@ -127,11 +127,11 @@ class Tribe__Events__REST__V1__Documentation__Event_Definition_Provider
 				),
 				'timezone' => array(
 					'type' => 'string',
-					'description' => __( 'The event timezone string', 'the-events-calendar' ),
+					'description' => __( 'The event time zone string', 'the-events-calendar' ),
 				),
 				'timezone_abbr' => array(
 					'type' => 'string',
-					'description' => __( 'The abbreviated event timezone string', 'the-events-calendar' ),
+					'description' => __( 'The abbreviated event time zone string', 'the-events-calendar' ),
 				),
 				'cost' => array(
 					'type' => 'string',

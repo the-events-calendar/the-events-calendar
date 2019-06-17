@@ -5,16 +5,16 @@ use Step\Restv1\RestGuy as Tester;
 
 class OrganizerInsertionCest extends BaseRestCest {
 	/**
-	 * It should return 403 if user cannot insert organizers
+	 * It should return 401 if user cannot insert organizers
 	 *
 	 * @test
 	 */
-	public function it_should_return_403_if_user_cannot_insert_organizers( Tester $I ) {
+	public function it_should_return_401_if_user_cannot_insert_organizers( Tester $I ) {
 		$I->sendPOST( $this->organizers_url, [
 			'organizer' => 'A organizer',
 		] );
 
-		$I->seeResponseCodeIs( 403 );
+		$I->seeResponseCodeIs( 401 );
 		$I->seeResponseIsJson();
 	}
 

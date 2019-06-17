@@ -6,15 +6,24 @@ use Tribe__Events__Main as Main;
 class CategoryArchiveCest extends BaseRestCest {
 
 	/**
-	 * It should return 404 if no event category is in db
+	 * It should return 200 if no event category is in db
 	 *
 	 * @test
 	 */
-	public function should_return_404_if_no_event_category_is_in_db( Tester $I ) {
+	public function should_return_200_if_no_event_category_is_in_db( Tester $I ) {
 		$I->sendGET( $this->categories_url, [ 'hide_empty' => 'false' ] );
 
-		$I->seeResponseCodeIs( 404 );
+		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse(), false );
+
+		$I->assertCount( 0, $response->categories );
+		$I->assertEquals( 0, $response->total );
+		$I->assertEquals( 0, $response->total_pages );
+		$I->seeHttpHeader( 'X-TEC-Total', 0 );
+		$I->seeHttpHeader( 'X-TEC-TotalPages', 0 );
+		$I->assertArrayNotHasKey( 'previous_rest_url', (array) $response );
+		$I->assertArrayNotHasKey( 'next_rest_url', (array) $response );
 	}
 
 	/**
@@ -174,7 +183,7 @@ class CategoryArchiveCest extends BaseRestCest {
 			'search'     => 'zoot',
 		] );
 
-		$I->seeResponseCodeIs( 404 );
+		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 	}
 
@@ -218,7 +227,7 @@ class CategoryArchiveCest extends BaseRestCest {
 			'exclude'    => [ $term_id_one, $term_id_two, $term_id_three ],
 		] );
 
-		$I->seeResponseCodeIs( 404 );
+		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 
 		$I->sendGET( $this->categories_url, [
@@ -532,7 +541,7 @@ class CategoryArchiveCest extends BaseRestCest {
 			'slug'       => 'foo',
 		] );
 
-		$I->seeResponseCodeIs( 404 );
+		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 	}
 

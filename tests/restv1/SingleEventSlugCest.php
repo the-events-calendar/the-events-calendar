@@ -4,11 +4,11 @@
 class SingleEventSlugCest extends BaseRestCest {
 
 	/**
-	 * It should return bad request if event ID is is missing
+	 * It should return 400 if event ID is is missing
 	 *
 	 * @test
 	 */
-	public function it_should_return_bad_request_if_event_id_is_missing(Restv1Tester $I) {
+	public function it_should_return_400_if_event_id_is_missing(Restv1Tester $I) {
 		$I->sendGET( $this->events_url . '/by-slug/' );
 
 		$I->seeResponseCodeIs( 404 ); // as it will not match any registered route
@@ -43,16 +43,16 @@ class SingleEventSlugCest extends BaseRestCest {
 
 	/**
 	 * @test
-	 * it should return invalid auth status if event is not accessible
+	 * it should return bad request if event is not accessible
 	 */
-	public function it_should_return_invalid_auth_status_if_event_is_not_accessible( Restv1Tester $I ) {
+	public function it_should_return_bad_request_if_event_is_not_accessible( Restv1Tester $I ) {
 		$id = $I->haveEventInDatabase( [ 'post_status' => 'draft' ] );
 
 		$post = get_post( $id );
 
 		$I->sendGET( $this->events_url . '/by-slug/' . $post->post_name );
 
-		$I->seeResponseCodeIs( 403 );
+		$I->seeResponseCodeIs( 400 );
 		$I->seeResponseIsJson();
 	}
 

@@ -7,18 +7,18 @@ use Tribe__Timezones as Timezones;
 
 class OrganizerUpdateCest extends BaseRestCest {
 	/**
-	 * It should return 403 if user cannot update organizers
+	 * It should return 401 if user cannot update organizers
 	 *
 	 * @test
 	 */
-	public function it_should_return_403_if_user_cannot_update_organizers( Tester $I ) {
+	public function it_should_return_401_if_user_cannot_update_organizers( Tester $I ) {
 		$organizer_id = $I->haveOrganizerInDatabase();
 
 		$I->sendPOST( $this->organizers_url . "/{$organizer_id}", [
 			'organizer' => 'A organizer',
 		] );
 
-		$I->seeResponseCodeIs( 403 );
+		$I->seeResponseCodeIs( 401 );
 		$I->seeResponseIsJson();
 	}
 
@@ -153,6 +153,61 @@ class OrganizerUpdateCest extends BaseRestCest {
 		] );
 		$response = json_decode( $I->grabResponse(), true );
 		$I->assertArrayHasKey( 'id', $response );
+	}
+
+	/**
+	 * It should allow updating optional meta as empty along with the organizer
+	 *
+	 * @test
+	 */
+	public function it_should_allow_updating_optional_meta_as_empty_along_with_the_organizer( Tester $I ) {
+		$organizer_id = $I->haveOrganizerInDatabase();
+
+		$I->generate_nonce_for_role( 'administrator' );
+
+		$I->sendPOST( $this->organizers_url . "/{$organizer_id}", [
+			'organizer' => 'A organizer',
+			'email'     => '',
+			'phone'     => '',
+			'website'   => '',
+		] );
+
+		$I->seeResponseCodeIs( 200 );
+		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse(), true );
+		$I->assertArrayHasKey( 'id', $response );
+		$I->assertArrayHasKey( 'organizer', $response );
+		$I->assertArrayNotHasKey( 'email', $response );
+		$I->assertArrayNotHasKey( 'phone', $response );
+		$I->assertArrayNotHasKey( 'website', $response );
+
+		$I->assertEquals( 'A organizer', $response['organizer'] );
+	}
+
+	/**
+	 * It should allow updating without optional meta along with the organizer
+	 *
+	 * @test
+	 */
+	public function it_should_allow_updating_without_optional_meta_along_with_the_organizer( Tester $I ) {
+		$organizer_id = $I->haveOrganizerInDatabase();
+
+		$I->generate_nonce_for_role( 'administrator' );
+
+		$I->sendPOST( $this->organizers_url . "/{$organizer_id}", [
+			'organizer' => 'A organizer',
+		] );
+
+		$I->seeResponseCodeIs( 200 );
+		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse(), true );
+		$I->assertArrayHasKey( 'id', $response );
+		$I->assertArrayHasKey( 'organizer', $response );
+		$I->assertArrayHasKey( 'email', $response );
+		$I->assertArrayHasKey( 'phone', $response );
+		$I->assertArrayHasKey( 'website', $response );
+
+		$I->assertEquals( 'A organizer', $response['organizer'] );
 	}
 
 	/**

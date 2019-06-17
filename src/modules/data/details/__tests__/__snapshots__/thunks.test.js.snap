@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[STORE] - Details thunks Should fetching details for non loading block 1`] = `
+Array [
+  Object {
+    "meta": Object {
+      "actions": Object {
+        "error": [Function],
+        "start": [Function],
+        "success": [Function],
+      },
+      "path": "undefined/20",
+    },
+    "type": "@@MT/COMMON/WP_REQUEST",
+  },
+]
+`;

@@ -16,7 +16,7 @@ class OrganizerArchiveSearchCest extends BaseRestCest {
 			'search' => 'woo',
 		] );
 
-		$I->seeResponseCodeIs( 404 );
+		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 
 		$I->sendGET( $this->organizers_url, [
@@ -51,7 +51,7 @@ class OrganizerArchiveSearchCest extends BaseRestCest {
 			'search' => 'woo',
 		] );
 
-		$I->seeResponseCodeIs( 404 );
+		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 
 		$I->sendGET( $this->organizers_url, [
@@ -86,7 +86,7 @@ class OrganizerArchiveSearchCest extends BaseRestCest {
 			'search' => 'woo',
 		] );
 
-		$I->seeResponseCodeIs( 404 );
+		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 
 		$I->sendGET( $this->organizers_url, [
@@ -148,7 +148,7 @@ class OrganizerArchiveSearchCest extends BaseRestCest {
 			'search' => 'woo',
 		] );
 
-		$I->seeResponseCodeIs( 404 );
+		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 
 		$I->sendGET( $this->organizers_url, [

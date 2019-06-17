@@ -84,8 +84,9 @@ class Tribe__Events__Aggregator__Event {
 			'url'                => 'EventURL',
 			'all_day'            => 'EventAllDay',
 			'image'              => 'image',
-			'facebook_id'        => 'EventFacebookID',
 			'meetup_id'          => 'EventMeetupID',
+			'eventbrite_id'      => 'EventBriteID',
+			'eventbrite'         => 'eventbrite',
 			'uid'                => 'uid',
 			'parent_uid'         => 'parent_uid',
 			'recurrence'         => 'recurrence',
@@ -103,8 +104,9 @@ class Tribe__Events__Aggregator__Event {
 		);
 
 		$venue_field_map = array(
-			'facebook_id'           => 'VenueFacebookID',
+			'_venue_id'             => 'VenueID',
 			'meetup_id'             => 'VenueMeetupID',
+			'eventbrite_id'         => 'VenueEventBriteID',
 			'venue'                 => 'Venue',
 			'address'               => 'Address',
 			'city'                  => 'City',
@@ -120,13 +122,44 @@ class Tribe__Events__Aggregator__Event {
 		);
 
 		$organizer_field_map = array(
-			'facebook_id' => 'OrganizerFacebookID',
-			'meetup_id'   => 'OrganizerMeetupID',
-			'organizer'   => 'Organizer',
-			'phone'       => 'Phone',
-			'email'       => 'Email',
-			'website'     => 'Website',
+			'_organizer_id' => 'OrganizerID',
+			'meetup_id'     => 'OrganizerMeetupID',
+			'eventbrite_id' => 'OrganizerEventBriteID',
+			'organizer'     => 'Organizer',
+			'phone'         => 'Phone',
+			'email'         => 'Email',
+			'website'       => 'Website',
 		);
+
+		/**
+		 * Allows filtering to add other field mapping values.
+		 *
+		 * @since 4.6.24
+		 *
+		 * @param array  $field_map Field map for event object.
+		 * @param object $item      Item being translated.
+		 */
+		$field_map = apply_filters( 'tribe_aggregator_event_translate_service_data_field_map', $field_map, $item );
+
+		/**
+		 * Allows filtering to add other field mapping values.
+		 *
+		 * @since 4.6.24
+		 *
+		 * @param array  $venue_field_map Field map for venue object.
+		 * @param object $item            Item being translated.
+		 */
+		$venue_field_map = apply_filters( 'tribe_aggregator_event_translate_service_data_venue_field_map', $venue_field_map, $item );
+
+		/**
+		 * Allows filtering to add other field mapping values.
+		 *
+		 * @since 4.6.24
+		 *
+		 * @param array  $organizer_field_map Field map for organizer object.
+		 * @param object $item                Item being translated.
+		 */
+		$organizer_field_map = apply_filters( 'tribe_aggregator_event_translate_service_data_organizer_field_map', $organizer_field_map, $item );
 
 		foreach ( $field_map as $origin_field => $target_field ) {
 			if ( ! isset( $item->$origin_field ) ) {

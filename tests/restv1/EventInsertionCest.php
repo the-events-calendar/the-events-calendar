@@ -6,11 +6,11 @@ use Tribe__Timezones as Timezones;
 
 class EventInsertionCest extends BaseRestCest {
 	/**
-	 * It should return 403 if user cannot insert events
+	 * It should return 401 if user cannot insert events
 	 *
 	 * @test
 	 */
-	public function it_should_return_403_if_user_cannot_insert_events( Tester $I ) {
+	public function it_should_return_401_if_user_cannot_insert_events( Tester $I ) {
 		$I->sendPOST( $this->events_url, [
 			'title'       => 'An event',
 			'description' => 'An event content',
@@ -19,7 +19,7 @@ class EventInsertionCest extends BaseRestCest {
 			'end_date'    => 'tomorrow 11am',
 		] );
 
-		$I->seeResponseCodeIs( 403 );
+		$I->seeResponseCodeIs( 401 );
 		$I->seeResponseIsJson();
 	}
 
@@ -100,8 +100,8 @@ class EventInsertionCest extends BaseRestCest {
 	 *
 	 * @example ["tomorrow 9am", "tomorrow 11am", "America/New_York"]
 	 * @example ["tomorrow 11am", "tomorrow 1pm", "UTC"]
-	 * @example ["next wednesday 4pm", "next wednesday 5pm","Australia/Darwin"]
-	 * @example ["next wednesday 4pm", "next wednesday 5pm","Europe/Rome"]
+	 * @example ["2018-01-01 4pm", "2018-01-01 5pm","Asia/Hong_Kong"]
+	 * @example ["tomorrow 4pm", "next wednesday 5pm","Europe/Rome"]
 	 */
 	public function it_should_allow_specifying_the_timezone_of_the_event_to_insert( Tester $I, \Codeception\Example $data ) {
 		$I->generate_nonce_for_role( 'administrator' );
@@ -561,7 +561,7 @@ class EventInsertionCest extends BaseRestCest {
 		$I->seeResponseCodeIs( 201 );
 		$I->seeResponseIsJson();
 		$I->seeResponseContainsJson( [
-			'cost'         => 'Free - 30$',
+			'cost'         => 'Free – 30$',
 			'cost_details' => [
 				'currency_symbol'   => '$',
 				'currency_position' => 'postfix',
@@ -1044,6 +1044,30 @@ class EventInsertionCest extends BaseRestCest {
 	}
 
 	/**
+	 * It should allow no event categories while inserting an event
+	 *
+	 * @test
+	 */
+	public function it_should_allow_no_event_categories_while_inserting_an_event( Tester $I ) {
+		$I->generate_nonce_for_role( 'administrator' );
+
+		$params = [
+			'title'       => 'An event',
+			'description' => 'An event content',
+			'start_date'  => 'tomorrow 9am',
+			'end_date'    => 'tomorrow 11am',
+			'categories'  => '',
+		];
+
+		$I->sendPOST( $this->events_url, $params );
+
+		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse(), true );
+		$I->assertEmpty( $response['categories'] );
+	}
+
+	/**
 	 * It should allow assigning existing categories and creating new categories while inserting an event
 	 *
 	 * @test
@@ -1128,6 +1152,30 @@ class EventInsertionCest extends BaseRestCest {
 		$response = json_decode( $I->grabResponse(), true );
 		$I->assertNotEmpty( $response['tags'] );
 		$I->assertCount( 2, $response['tags'] );
+	}
+
+	/**
+	 * It should allow no event tags while inserting an event
+	 *
+	 * @test
+	 */
+	public function it_should_allow_no_event_tags_while_inserting_an_event( Tester $I ) {
+		$I->generate_nonce_for_role( 'administrator' );
+
+		$params = [
+			'title'       => 'An event',
+			'description' => 'An event content',
+			'start_date'  => 'tomorrow 9am',
+			'end_date'    => 'tomorrow 11am',
+			'tags'        => '',
+		];
+
+		$I->sendPOST( $this->events_url, $params );
+
+		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse(), true );
+		$I->assertEmpty( $response['tags'] );
 	}
 
 	/**

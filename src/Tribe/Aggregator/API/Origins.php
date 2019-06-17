@@ -31,9 +31,9 @@ class Tribe__Events__Aggregator__API__Origins extends Tribe__Events__Aggregator_
 				'name' => __( 'CSV File', 'the-events-calendar' ),
 				'disabled' => false,
 			),
-			'facebook' => (object) array(
-				'id' => 'facebook',
-				'name' => __( 'Facebook', 'the-events-calendar' ),
+			'eventbrite' => (object) array(
+				'id' => 'eventbrite',
+				'name' => __( 'Eventbrite', 'the-events-calendar' ),
 				'disabled' => true,
 				'upsell' => true,
 			),
@@ -183,8 +183,13 @@ class Tribe__Events__Aggregator__API__Origins extends Tribe__Events__Aggregator_
 	 * @return boolean
 	 */
 	public function is_oauth_enabled( $origin ) {
-		if ( ! tribe( 'events-aggregator.main' )->is_service_active() ) {
+
+		if (  'eventbrite' !== $origin && ! tribe( 'events-aggregator.main' )->is_service_active() ) {
 			return false;
+		}
+
+		if (  'eventbrite' === $origin && class_exists( 'Tribe__Events__Tickets__Eventbrite__Main' ) ) {
+			return true;
 		}
 
 		$cached_oauth_settings = get_transient( "{$this->cache_group}_origin_oauth" );

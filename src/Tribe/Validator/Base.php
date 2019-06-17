@@ -165,6 +165,23 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 	}
 
 	/**
+	 * Whether the string is empty or represents a valid PHP timezone.
+	 *
+	 * @since 4.6.13
+	 *
+	 * @param string $candidate
+	 *
+	 * @return bool
+	 */
+	public function is_timezone_or_empty( $candidate ) {
+		if ( empty( $candidate ) ) {
+			return true;
+		}
+
+		return $this->is_timezone( $candidate );
+	}
+
+	/**
 	 * Whether a list or array of venue post IDs only contains valid venue IDs or not.
 	 *
 	 * @since 4.6
@@ -183,5 +200,26 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 		$valid = array_filter( $venues, array( $this, 'is_venue_id' ) );
 
 		return ! empty( $venues ) && count( $valid ) === count( $venues );
+	}
+
+	/**
+	 * Whether a list or array of event post IDs only contains valid event IDs or not.
+	 *
+	 * @since 4.6.22
+	 *
+	 * @param  string|array $events A list of event post IDs separated by the specified separator or an array
+	 *                                  of event post IDs.
+	 * @param string        $sep        The separator used in the list to separate the event post IDs; ignored if
+	 *                                  the input value is an array.
+	 *
+	 * @return bool
+	 */
+	public function is_event_id_list( $events, $sep = ',' ) {
+		$sep    = is_string( $sep ) ? $sep : ',';
+		$events = Tribe__Utils__Array::list_to_array( $events, $sep );
+
+		$valid = array_filter( $events, array( $this, 'is_event_id' ) );
+
+		return ! empty( $events ) && count( $valid ) === count( $events );
 	}
 }

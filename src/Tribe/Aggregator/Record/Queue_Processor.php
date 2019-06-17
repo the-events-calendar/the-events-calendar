@@ -38,7 +38,7 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 	protected $current_record_id = 0;
 
 	/**
-	 * @var Tribe__Events__Aggregator__Record__Queue
+	 * @var Tribe__Events__Aggregator__Record__Queue_Interface
 	 */
 	public $current_queue;
 
@@ -154,7 +154,7 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 		}
 	}
 
-	public function set_current_queue( Tribe__Events__Aggregator__Record__Queue $queue ) {
+	public function set_current_queue( Tribe__Events__Aggregator__Record__Queue_Interface $queue ) {
 		$this->current_queue = $queue;
 	}
 
@@ -213,7 +213,7 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 		$this->current_queue->set_in_progress_flag();
 		$processed = $this->current_queue->process( self::$batch_size );
 		// in the 'fetch' phase this will not be a Queue object
-		if ( $processed instanceof Tribe__Events__Aggregator__Record__Queue ) {
+		if ( $processed instanceof Tribe__Events__Aggregator__Record__Queue_Interface ) {
 			$this->processed += $processed->activity->count( $this->current_queue->get_queue_type() );
 		}
 		$this->current_queue->clear_in_progress_flag();
@@ -228,9 +228,15 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 	 */
 	protected function get_current_queue() {
 		try {
-			$this->current_queue = new Tribe__Events__Aggregator__Record__Queue( $this->current_record_id );
+			$this->current_queue = self::build_queue( $this->current_record_id );
 		} catch ( InvalidArgumentException $e ) {
 			do_action( 'log', sprintf( __( 'Could not process queue for Import Record %1$d: %2$s', 'the-events-calendar' ), $this->current_record_id, $e->getMessage() ) );
+			return false;
+		}
+
+		if ( $this->current_queue->is_stuck() || $this->current_queue->has_errors() ) {
+			$this->current_queue->kill_queue();
+
 			return false;
 		}
 
@@ -248,5 +254,66 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 	 */
 	protected function batch_complete() {
 		return ( $this->processed >= self::$batch_size );
+	}
+
+	/**
+	 * Builds the correct class of queue.
+	 *
+	 * @since 4.6.16
+	 *
+	 * @param int|Tribe__Events__Aggregator__Record__Abstract $record A record object or ID
+	 * @param array|string $items
+	 * @param bool $use_legacy                                        Whether to use the legacy queue processor or not.
+	 *
+	 * @return Tribe__Events__Aggregator__Record__Queue_Interface
+	 */
+	public static function build_queue( $record, $items = null, $use_legacy = false ) {
+		if (
+			( defined( 'TRIBE_EA_QUEUE_USE_LEGACY' ) && TRIBE_EA_QUEUE_USE_LEGACY )
+			|| (bool) getenv( 'TRIBE_EA_QUEUE_USE_LEGACY' )
+			|| false !== (bool) tribe_get_request_var( 'tribe_ea_queue_use_legacy', false )
+		) {
+			$use_legacy = true;
+		}
+
+		if ( is_numeric( $record ) ) {
+			$record = tribe( 'events-aggregator.records' )->get_by_post_id( $record );
+		}
+
+		if ( ! $record instanceof Tribe__Events__Aggregator__Record__Abstract ) {
+			if ( $record instanceof WP_Error ) {
+				return new Tribe__Events__Aggregator__Record__Void_Queue( $record );
+			}
+
+			return new Tribe__Events__Aggregator__Record__Void_Queue( __( 'There was an error building the record queue: ' . print_r( $record, true ) ) );
+		}
+
+		/** @var Tribe__Events__Aggregator__Settings $settings */
+		$settings = tribe( 'events-aggregator.settings' );
+		$class    = $settings->get_import_process_class();
+
+		// Force the use of the Legacy Queue for CSV Imports
+		if ( $record instanceof Tribe__Events__Aggregator__Record__CSV || $use_legacy ) {
+			$class = 'Tribe__Events__Aggregator__Record__Queue';
+		}
+
+		/**
+		 * Filters the class of the queue that should be used.
+		 *
+		 * This filter can also return a fully built queue object.
+		 *
+		 * @since 4.6.16
+		 *
+		 * @param string $class                                       The import process class that will be used to process
+		 *                                                            import records.
+		 * @param Tribe__Events__Aggregator__Record__Abstract $record The current record being processed.
+		 * @param array|string $items                                 Either an array of the record items to process or a string
+		 *                                                            to indicate pre-process states like fetch or on-hold.
+		 */
+		$class = apply_filters( 'tribe_aggregator_queue_class', $class, $record, $items );
+
+		return $class instanceof Tribe__Events__Aggregator__Record__Queue_Interface
+			? $class
+			: new $class( $record, $items );
 	}
 }

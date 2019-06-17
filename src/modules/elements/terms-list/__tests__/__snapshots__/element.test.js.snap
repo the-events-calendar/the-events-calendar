@@ -1,0 +1,90 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Taxonomies Element Should render the list of items 1`] = `
+<div
+  className="tribe-editor__terms "
+>
+  <strong
+    className="tribe-editor__terms__label"
+  >
+     
+  </strong>
+  <div
+    className="tribe-editor__terms__list-wrapper"
+  >
+    <ul
+      className="tribe-editor__terms__list tribe-editor__terms__list--level-0"
+    >
+      <li
+        className="tribe-editor__terms__list-item tribe-editor__terms__list-item--level-0"
+      >
+        <a
+          className="tribe-editor__terms__list-item-link"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          modern
+        </a>
+        <span>
+           
+        </span>
+         
+      </li>
+      <li
+        className="tribe-editor__terms__list-item tribe-editor__terms__list-item--level-0"
+      >
+        <a
+          className="tribe-editor__terms__list-item-link"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          tribe
+        </a>
+        <span>
+           
+        </span>
+         
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`Taxonomies Element renders Empty property 1`] = `
+<div
+  className="tribe-editor__terms--empty"
+>
+  <strong
+    className="tribe-editor__terms__label"
+  >
+     
+  </strong>
+  Hi!
+</div>
+`;
+
+exports[`Taxonomies Element renders spinner when requesting 1`] = `
+<div
+  className="tribe-editor__terms "
+>
+  <strong
+    className="tribe-editor__terms__label"
+  >
+     
+  </strong>
+  <div
+    className="tribe-editor__terms__list-wrapper"
+  >
+    <div
+      className="tribe-editor__terms__spinner "
+    >
+      <strong
+        className="tribe-editor__terms__label"
+      >
+         
+      </strong>
+      🏃‍♂️
+    </div>
+  </div>
+</div>
+`;

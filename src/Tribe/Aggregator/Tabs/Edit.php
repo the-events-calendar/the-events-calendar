@@ -108,7 +108,7 @@ class Tribe__Events__Aggregator__Tabs__Edit extends Tribe__Events__Aggregator__T
 		);
 
 		$meta['post_status'] = empty( $post_data['post_status'] ) ? 'draft' : $post_data['post_status'];
-		$meta['category'] = empty( $post_data['category'] ) ? null : $post_data['category'];
+		$meta['category'] = Tribe__Utils__Array::get( $post_data, 'category', null );
 
 		$result = $record->save( $post_data['post_id'], array(), $meta );
 

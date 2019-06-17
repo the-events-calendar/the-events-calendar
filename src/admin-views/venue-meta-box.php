@@ -94,14 +94,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 </tr>
 <tr class="venue tribe-linked-type-venue-state-province">
 	<?php
-	if ( 'auto-draft' === get_post_status()	&& empty( $_VenueStateProvince ) ) {
-		$currentState = tribe_get_default_value( 'state' );
+	if ( 'auto-draft' === get_post_status() && empty( $_VenueStateProvince ) ) {
+		$currentState    = tribe_get_default_value( 'state' );
 		$currentProvince = tribe_get_default_value( 'province' );
 	} else {
 		$currentProvince = $_VenueProvince;
-		$currentState    = $_VenueStateProvince;
+		$currentState    = $_VenueState;
 	}
-
 	?>
 	<td class='tribe-table-field-label'><?php esc_html_e( 'State or Province:', 'the-events-calendar' ); ?></td>
 	<td>
@@ -123,10 +122,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<option value=""><?php esc_html_e( 'Select a State:', 'the-events-calendar' ); ?></option>
 			<?php
 			foreach ( Tribe__View_Helpers::loadStates() as $abbr => $fullname ) {
-				$state = -1 !== $_VenueStateProvince ? $_VenueStateProvince : $currentState;
 				// support matching by state abbreviation OR fullname.
 				// NOTE: converts to abbreviation on save
-				echo '<option value="' . esc_attr( $abbr ) . '"' . selected( ( $state === $abbr || $state === $fullname ), true, false ) . '>' . esc_html( $fullname ) . '</option>';
+				$selected = selected( ( $currentState === $abbr || $currentState === $fullname ), true, false );
+				echo '<option value="' . esc_attr( $abbr ) . '" ' . $selected . '>' . esc_html( $fullname ) . '</option>';
 			}
 			?>
 		</select>
@@ -183,7 +182,7 @@ if ( $post->post_type != Tribe__Events__Main::VENUE_POST_TYPE ) {
 		$google_map_toggle = ( tribe_embed_google_map( $event->ID ) || get_post_status( $event->ID ) == 'auto-draft' ) ? true : false;
 		?>
 		<tr id="google_map_toggle" class="remain-visible">
-			<td class='tribe-table-field-label'><?php esc_html_e( 'Show Google Map:', 'the-events-calendar' ); ?></td>
+			<td class='tribe-table-field-label'><?php esc_html_e( 'Show Map:', 'the-events-calendar' ); ?></td>
 			<td>
 				<input
 					tabindex="<?php tribe_events_tab_index(); ?>"
@@ -200,7 +199,7 @@ if ( $post->post_type != Tribe__Events__Main::VENUE_POST_TYPE ) {
 	$google_map_link_toggle = ( get_post_status( $event->ID ) == 'auto-draft' && $google_map_toggle ) ? true : get_post_meta( $event->ID, '_EventShowMapLink', true );
 	?>
 	<tr id="google_map_link_toggle" class="remain-visible">
-		<td class='tribe-table-field-label'><?php esc_html_e( 'Show Google Maps Link:', 'the-events-calendar' ); ?></td>
+		<td class='tribe-table-field-label'><?php esc_html_e( 'Show Map Link:', 'the-events-calendar' ); ?></td>
 		<td>
 			<input
 				tabindex="<?php tribe_events_tab_index(); ?>"
@@ -219,7 +218,7 @@ if ( $post->post_type != Tribe__Events__Main::VENUE_POST_TYPE ) {
 		$google_map_toggle = ( tribe_embed_google_map( $event->ID ) || get_post_status( $event->ID ) == 'auto-draft' ) ? true : false;
 		?>
 		<tr id="google_map_toggle" class="remain-visible">
-			<td class='tribe-table-field-label'><?php esc_html_e( 'Show Google Map:', 'the-events-calendar' ); ?></td>
+			<td class='tribe-table-field-label'><?php esc_html_e( 'Show Map:', 'the-events-calendar' ); ?></td>
 			<td>
 				<input
 					tabindex="<?php tribe_events_tab_index(); ?>"
@@ -236,7 +235,7 @@ if ( $post->post_type != Tribe__Events__Main::VENUE_POST_TYPE ) {
 	$google_map_link_toggle = ( get_post_meta( $event->ID, '_VenueShowMapLink', true ) !== 'false' || get_post_status( $event->ID ) == 'auto-draft' ) ? true : false;
 	?>
 	<tr id="google_map_link_toggle" class="remain-visible">
-		<td class='tribe-table-field-label'><?php esc_html_e( 'Show Google Maps Link:', 'the-events-calendar' ); ?></td>
+		<td class='tribe-table-field-label'><?php esc_html_e( 'Show Map Link:', 'the-events-calendar' ); ?></td>
 		<td>
 			<input
 				tabindex="<?php tribe_events_tab_index(); ?>"
@@ -253,7 +252,7 @@ if ( $post->post_type != Tribe__Events__Main::VENUE_POST_TYPE ) {
 ?>
 <?php do_action( 'tribe_events_after_venue_metabox', $post ); ?>
 
-<script type="text/javascript">
+<script>
 	jQuery('[name=venue\\[Venue\\]]').blur(function () {
 		jQuery.post('<?php echo esc_url_raw( admin_url( 'admin-ajax.php' ) ); ?>',
 			{

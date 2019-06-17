@@ -92,6 +92,9 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 		$post_id                      = $this->event->ID;
 		$current_linked_post_meta_key = $this->linked_posts->get_meta_key( $this->post_type );
 		$current_linked_posts         = get_post_meta( $post_id, $current_linked_post_meta_key, false );
+		if ( $this->post_type === Tribe__Events__Organizer::POSTTYPE ) {
+		    $current_linked_posts = tribe_get_organizer_ids( $post_id );
+		}
 
 		/**
 		 * Allows for filtering the array of values retrieved for a specific linked post meta field.

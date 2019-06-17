@@ -63,7 +63,11 @@ class Tribe__Events__iCal {
 	 */
 	public function day_view_ical_link( $link ) {
 		if ( tribe_is_day() ) {
-			global $wp_query;
+
+			if ( ! $wp_query = tribe_get_global_query_object() ) {
+				return;
+			}
+
 			$day  = $wp_query->get( 'start_date' );
 			$link = trailingslashit( esc_url( trailingslashit( tribe_get_day_link( $day ) ) . '?ical=1' ) );
 		}
@@ -98,7 +102,10 @@ class Tribe__Events__iCal {
 	 * Generates the markup for the "iCal Import" link for the views.
 	 */
 	public function maybe_add_link() {
-		global $wp_query;
+
+		if ( ! $wp_query = tribe_get_global_query_object() ) {
+			return;
+		}
 
 		/**
 		 * A filter to control whether the "iCal Import" link shows up or not.
@@ -115,7 +122,7 @@ class Tribe__Events__iCal {
 			return;
 		}
 
-		if ( is_single() || empty( $wp_query->posts ) ) {
+		if ( ! tribe_is_month() && ( is_single() || empty( $wp_query->posts ) ) ) {
 			return;
 		}
 
@@ -156,7 +163,10 @@ class Tribe__Events__iCal {
 			 */
 			do_action( 'tribe_events_ical_before' );
 
-			global $wp_query;
+			if ( ! $wp_query = tribe_get_global_query_object() ) {
+				return;
+			}
+
 			if ( isset( $_GET['event_ids'] ) ) {
 				if ( empty( $_GET['event_ids'] ) ) {
 					die();
@@ -185,7 +195,10 @@ class Tribe__Events__iCal {
 	 * @return array events in the month
 	 */
 	private function get_month_view_events() {
-		global $wp_query;
+
+		if ( ! $wp_query = tribe_get_global_query_object() ) {
+			return;
+		}
 
 		$event_date = $wp_query->get( 'eventDate' );
 
@@ -239,9 +252,30 @@ class Tribe__Events__iCal {
 			$events_posts = is_array( $post ) ? $post : array( $post );
 		} elseif ( tribe_is_month() ) {
 			$events_posts = self::get_month_view_events();
+		} elseif ( tribe_is_organizer() ) {
+			$events_posts = $this->get_events_list( array(
+				'organizer'    => get_the_ID(),
+				'eventDisplay' => 'list',
+			) );
+		} elseif ( tribe_is_venue() ) {
+			$events_posts = $this->get_events_list( array(
+				'venue'        => get_the_ID(),
+				'eventDisplay' => tribe_get_request_var( 'tribe_event_display', 'list' ),
+			) );
 		} else {
-			global $wp_query;
-			$events_posts = $this->get_events_list( $wp_query->query, $wp_query );
+
+			if ( ! $wp_query = tribe_get_global_query_object() ) {
+				return;
+			}
+
+			$args = $wp_query->query_vars;
+
+			if ( 'list' === $args['eventDisplay'] ) {
+				// Whe producing a List view iCal feed the `eventDate` is misleading.
+				unset( $args['eventDate'] );
+			}
+
+			$events_posts = $this->get_events_list( $args, $wp_query );
 		}
 
 		$event_ids = wp_list_pluck( $events_posts, 'ID' );
@@ -301,7 +335,7 @@ class Tribe__Events__iCal {
 			$item[] = 'LAST-MODIFIED:' . $tzoned->modified;
 			$item[] = 'UID:' . $event_post->ID . '-' . $time->start . '-' . $time->end . '@' . parse_url( home_url( '/' ), PHP_URL_HOST );
 			$item[] = 'SUMMARY:' . str_replace( array( ',', "\n", "\r" ), array( '\,', '\n', '' ), html_entity_decode( strip_tags( $event_post->post_title ), ENT_QUOTES ) );
-			$item[] = 'DESCRIPTION:' . str_replace( array( ',', "\n", "\r" ), array( '\,', '\n', '' ), html_entity_decode( strip_tags( str_replace( '</p>', '</p> ', apply_filters( 'the_content', $event_post->post_content ) ) ), ENT_QUOTES ) );
+			$item[] = 'DESCRIPTION:' . str_replace( array( ',', "\n", "\r" ), array( '\,', '\n', '' ), html_entity_decode( strip_tags( str_replace( '</p>', '</p> ', apply_filters( 'the_content', tribe( 'editor.utils' )->exclude_tribe_blocks( $event_post->post_content ) ) ) ), ENT_QUOTES ) );
 			$item[] = 'URL:' . get_permalink( $event_post->ID );
 
 			// add location if available
@@ -464,13 +498,10 @@ class Tribe__Events__iCal {
 		}
 
 		$list = array();
-		if ( $count > $query_posts_per_page ) {
+		// When `posts_per_page` is set to `-1` we can slice.
+		if ( $query_posts_per_page >= 0 && $count > $query_posts_per_page ) {
 			$args['posts_per_page'] = $count;
-			$events_query = new WP_Query( wp_parse_args( $args, array(
-				'posts_per_page' => $this->feed_posts_per_page(),
-				'post_type' => Tribe__Events__Main::POSTTYPE,
-				'eventDisplay' => 'default',
-			) ) );
+			$events_query = tribe_get_events( wp_parse_args( $args, [ 'posts_per_page' => $this->feed_posts_per_page() ] ), true );
 			$list = $events_query->get_posts();
 		} elseif ( $query instanceof WP_Query ) {
 			$list = array_slice( $query->posts, 0, $count );
@@ -480,7 +511,7 @@ class Tribe__Events__iCal {
 
 	/**
 	 * Get the number of posts per page to be used on the feed of the iCal, make sure it passes the value via the filter
-	 * tribe_ical_feed_posts_per_page and validates the number is greather than 0.
+	 * tribe_ical_feed_posts_per_page and validates the number is greater than 0.
 	 *
 	 * @since 4.6.11
 	 *

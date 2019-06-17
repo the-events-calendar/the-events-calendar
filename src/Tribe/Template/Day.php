@@ -15,7 +15,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Day' ) ) {
 	class Tribe__Events__Template__Day extends Tribe__Events__Template_Factory {
 
 		protected $body_class = 'tribe-events-day';
-		protected $asset_packages = array( 'ajax-dayview' );
+		protected $asset_packages = array();
 
 		const AJAX_HOOK = 'tribe_event_day';
 
@@ -38,6 +38,8 @@ if ( ! class_exists( 'Tribe__Events__Template__Day' ) ) {
 
 			parent::hooks();
 
+			tribe_asset_enqueue( 'tribe-events-ajax-day' );
+
 			add_filter( 'tribe_get_ical_link', array( $this, 'ical_link' ), 20, 1 );
 			add_filter( 'tribe_events_header_attributes', array( $this, 'header_attributes' ) );
 		}
@@ -49,7 +51,10 @@ if ( ! class_exists( 'Tribe__Events__Template__Day' ) ) {
 		 **/
 		public function header_attributes( $attrs ) {
 
-			global $wp_query;
+			if ( ! $wp_query = tribe_get_global_query_object() ) {
+				return;
+			}
+
 			$current_day = $wp_query->get( 'start_date' );
 
 			$attrs['data-view']    = 'day';
@@ -85,7 +90,10 @@ if ( ! class_exists( 'Tribe__Events__Template__Day' ) ) {
 		 * @return string
 		 */
 		public function ical_link( $link ) {
-			global $wp_query;
+			if ( ! $wp_query = tribe_get_global_query_object() ) {
+				return;
+			}
+
 			$day = $wp_query->get( 'start_date' );
 
 			return trailingslashit( esc_url( trailingslashit( tribe_get_day_link( $day ) ) . '?ical=1' ) );
@@ -96,8 +104,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Day' ) ) {
 		 *
 		 **/
 		public function setup_view() {
-
-			global $wp_query;
+			$wp_query = tribe_get_global_query_object();
 
 			$time_format = apply_filters( 'tribe_events_day_timeslot_format', get_option( 'time_format', Tribe__Date_Utils::TIMEFORMAT ) );
 
@@ -160,17 +167,31 @@ if ( ! class_exists( 'Tribe__Events__Template__Day' ) ) {
 
 				Tribe__Events__Query::init();
 
-				$post_status = array( 'publish' );
+				$post_status = [ 'publish' ];
 				if ( is_user_logged_in() ) {
 					$post_status[] = 'private';
 				}
 
-				$args = array(
+				$args = [
 					'post_status'  => $post_status,
-					'eventDate'    => $_POST['eventDate'],
 					'eventDisplay' => 'day',
-					'featured'     => tribe( 'tec.featured_events' )->featured_events_requested(),
-				);
+					'order' => 'ASC',
+				];
+
+				$search = tribe_get_request_var( 'tribe-bar-search' );
+				if ( $search ) {
+					$args['s'] = $search;
+				}
+
+				/*
+				 * In this context a `false` value means "return all events, not just featured ones".
+				 * A `true` value means "only return featured events". Only in this latter case we'll apply the
+				 * `featured` filter.
+				 */
+				$featured_events_requested = tribe( 'tec.featured_events' )->featured_events_requested();
+				if ( $featured_events_requested ) {
+					$args['featured'] = true;
+				}
 
 				Tribe__Events__Main::instance()->displaying = 'day';
 
@@ -178,9 +199,42 @@ if ( ! class_exists( 'Tribe__Events__Template__Day' ) ) {
 					$args[ Tribe__Events__Main::TAXONOMY ] = $_POST['tribe_event_category'];
 				}
 
-				$query = tribe_get_events( $args, true );
+				$event_date = tribe_get_request_var( 'eventDate', '' );
+				if ( empty( $event_date ) ) {
+					$event_date = date( 'Y-m-d', current_time( 'timestamp' ) );
+				}
 
-				global $wp_query, $post;
+				$args['posts_per_page'] = -1; // show ALL day posts
+
+				// By default do not show hidden events.
+				$args['hidden'] = false;
+
+				/** @var \Tribe__Events__Repositories__Event $events_orm */
+				$events_orm = tribe_events();
+
+				$events_orm->order_by( 'event_date' );
+				$events_orm->by( 'date_overlaps', tribe_beginning_of_day( $event_date ), tribe_end_of_day( $event_date ) );
+				$events_orm->by_args( $args );
+
+				$query = $events_orm->get_query();
+
+				/**
+				 * @todo  we might need to check on the Order By and hide_upcoming
+				 */
+				// $args['hide_upcoming'] = $maybe_hide_events;
+				// $args['order'] = self::set_order( 'ASC', $query );
+
+				// Fetch the posts
+				$query->get_posts();
+
+				global $post;
+				global $wp_query;
+
+				// Reset for working navigation due to how it depends on query_vars
+				$query->query_vars['eventDate'] = $event_date;
+				$query->query_vars['start_date'] = tribe_beginning_of_day( $event_date );
+				$query->query_vars['end_date'] = tribe_end_of_day( $event_date );
+
 				$wp_query = $query;
 
 				add_filter( 'tribe_is_day', '__return_true' ); // simplest way to declare that this is a day view

@@ -8,6 +8,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
+use Tribe__Utils__Array as Arr;
+
 if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 	class Tribe__Events__Query {
 
@@ -19,6 +21,8 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			// if tribe event query add filters
 			add_action( 'parse_query', array( __CLASS__, 'parse_query' ), 50 );
 			add_action( 'pre_get_posts', array( __CLASS__, 'pre_get_posts' ), 50 );
+			// Remove the filter to reset the value of the virtual page if is setup.
+			add_filter( 'posts_results', array( __CLASS__, 'posts_results' ) );
 
 			if ( is_admin() ) {
 				$cleanup = new Tribe__Events__Recurring_Event_Cleanup();
@@ -50,6 +54,13 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			}
 
 			/**
+			 * When using the ORM we cannot use EventStartDate injection
+			 */
+			if ( isset( $query->builder ) && $query->builder instanceof Tribe__Repository ) {
+				$can_inject = false;
+			}
+
+			/**
 			 * Determine whether a date field can be injected into various parts of a query.
 			 *
 			 * @param boolean  $can_inject Whether the date field can be injected
@@ -66,11 +77,16 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		 * @param WP_Query $query
 		 */
 		public static function parse_query( $query ) {
+			// If this is set then the class will bail out of any filtering.
+			if ( $query->get( 'tribe_suppress_query_filters', false ) ) {
+				return $query;
+			}
+
 			$helper = Tribe__Admin__Helpers::instance();
 
 			// set paged
 			if ( $query->is_main_query() && isset( $_GET['tribe_paged'] ) ) {
-				$query->set( 'paged', $_REQUEST['tribe_paged'] );
+				$query->set( 'paged', absint( tribe_get_request_var( 'tribe_paged' ) ) );
 			}
 
 			// Return early as we don't want to change a post that is not part of the valid group of event post types.
@@ -198,13 +214,26 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		 * @return object $query (modified)
 		 */
 		public static function pre_get_posts( $query ) {
-			$admin_helpers = Tribe__Admin__Helpers::instance();
+			// If this is set then the class will bail out of any filtering.
+			if ( $query->get( 'tribe_suppress_query_filters', false ) ) {
+				return $query;
+			}
 
 			if ( $query->is_main_query() && is_home() ) {
+				/**
+				 * The following filter will remove the virtual page from the option page and return a 0 as it's not
+				 * set when the SQL query is constructed to avoid having a is_page() instead of a is_home().
+				 */
+				add_filter( 'option_page_on_front', array( __CLASS__, 'default_page_on_front' ) );
 				// check option for including events in the main wordpress loop, if true, add events post type
 				if ( tribe_get_option( 'showEventsInMainLoop', false ) ) {
-					$query->query_vars['post_type']   = isset( $query->query_vars['post_type'] ) ? ( array ) $query->query_vars['post_type'] : array( 'post' );
-					$query->query_vars['post_type'][] = Tribe__Events__Main::POSTTYPE;
+					$query->query_vars['post_type']   = isset( $query->query_vars['post_type'] )
+						? ( array ) $query->query_vars['post_type']
+						: array( 'post' );
+
+					if ( ! in_array( Tribe__Events__Main::POSTTYPE, $query->query_vars['post_type'] ) ) {
+						$query->query_vars['post_type'][] = Tribe__Events__Main::POSTTYPE;
+					}
 					$query->tribe_is_multi_posttype   = true;
 				}
 			}
@@ -222,8 +251,41 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			}
 
 			if ( $query->tribe_is_event || $query->tribe_is_event_category ) {
+				/**
+				 * Filters whether or not to use the Start Date meta hack to include meta table.
+				 *
+				 * We only add the `postmeta` hack if it's not the main admin events list
+				 * because this method filters out drafts without EventStartDate.
+				 * For this screen we're doing the JOIN manually in `Tribe__Events__Admin_List`.
+				 *
+				 * Important to note, this need to happen as the first thing, due to how we depend on
+				 * StartDate been the first param on the Meta Query.
+				 *
+				 * @param boolean $use_hack Whether to include the start date meta or not.
+				 * @param \WP_Query|null $query The query that is currently being filtered or `null` if no query is
+				 *                              being filtered.
+				 *
+				 * @since 4.9
+				 */
+				$include_date_meta = apply_filters( 'tribe_events_query_include_start_date_meta', true, $query );
+				if (
+					$include_date_meta
+					&& ! tribe( 'context' )->is_editing_post( Tribe__Events__Main::POSTTYPE )
+				) {
+					$date_meta_key = Tribe__Events__Timezones::is_mode( 'site' )
+						? '_EventStartDateUTC'
+						: '_EventStartDate';
+
+					$meta_query[] = array(
+						'key'  => $date_meta_key,
+						'type' => 'DATETIME',
+					);
+
+					$query->set( 'tribe_include_date_meta', true );
+				}
 
 				if ( ! ( $query->is_main_query() && 'month' === $query->get( 'eventDisplay' ) ) ) {
+					add_filter( 'option_page_on_front', array( __CLASS__, 'default_page_on_front' ) );
 					add_filter( 'posts_fields', array( __CLASS__, 'posts_fields' ), 10, 2 );
 					add_filter( 'posts_join', array( __CLASS__, 'posts_join' ), 10, 2 );
 					add_filter( 'posts_join', array( __CLASS__, 'posts_join_venue_organizer' ), 10, 2 );
@@ -259,9 +321,10 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				// the query explicity requests they be exposed
 				$maybe_hide_events = (bool) $query->get( 'hide_upcoming', true );
 
-				//@todo stop calling EOD cutoff transformations all over the place
+				$skip_event_display_filters = is_admin() && $query->is_main_query() && ! tribe_is_ajax_view_request();
 
-				if ( ! empty( $query->query_vars['eventDisplay'] ) ) {
+				//@todo stop calling EOD cutoff transformations all over the place
+				if ( ! empty( $query->query_vars['eventDisplay'] ) && ! $skip_event_display_filters ) {
 					switch ( $query->query_vars['eventDisplay'] ) {
 						case 'custom':
 							// if the eventDisplay is 'custom', all we're gonna do is make sure the start and end dates are formatted
@@ -286,6 +349,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 							}
 							break;
 						case 'month':
+
 							// make sure start and end date are set
 							if ( $query->get( 'start_date' ) == '' ) {
 								$event_date = ( $query->get( 'eventDate' ) != '' )
@@ -303,7 +367,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 						case 'day':
 							$event_date = $query->get( 'eventDate' ) != '' ? $query->get( 'eventDate' ) : date( 'Y-m-d', current_time( 'timestamp' ) );
 							$query->set( 'eventDate', $event_date );
-							$beginning_of_day = strtotime( tribe_beginning_of_day( $event_date ) ) + 1;
+							$beginning_of_day = strtotime( tribe_beginning_of_day( $event_date ) );
 							$query->set( 'start_date', date_i18n( Tribe__Date_Utils::DBDATETIMEFORMAT, $beginning_of_day ) );
 							$query->set( 'end_date', tribe_end_of_day( $event_date ) );
 							$query->set( 'posts_per_page', - 1 ); // show ALL day posts
@@ -316,22 +380,48 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 								$query->set( 'eventDate', $query->get( 'eventDate' ) );
 							}
 							break;
-						case 'all':
-						case 'list':
-						default: // default display query
-							$event_date = ( $query->get( 'eventDate' ) != '' )
+						case 'future':
+							$event_date = ( '' !== $query->get( 'eventDate' ) )
 								? $query->get( 'eventDate' )
 								: date_i18n( Tribe__Date_Utils::DBDATETIMEFORMAT );
-							if ( ! $query->tribe_is_past ) {
-								$query->set( 'start_date', ( '' != $query->get( 'eventDate' ) ? tribe_beginning_of_day( $event_date ) : tribe_format_date( current_time( 'timestamp' ), true, 'Y-m-d H:i:00' ) ) );
-								$query->set( 'end_date', '' );
-								$query->set( 'order', self::set_order( 'ASC', $query ) );
+							$query->set( 'start_date', ( '' != $query->get( 'eventDate' ) ? tribe_beginning_of_day( $event_date ) : tribe_format_date( current_time( 'timestamp' ), true, 'Y-m-d H:i:00' ) ) );
+							$query->set( 'order', self::set_order( 'ASC', $query ) );
+							$query->set( 'orderby', self::set_orderby( null, $query ) );
+							$query->set( 'hide_upcoming', $maybe_hide_events );
+							break;
+						case 'all':
+							$query->set( 'orderby', self::set_orderby( null, $query ) );
+							$query->set( 'order', self::set_order( 'ASC', $query ) );
+							$query->set( 'hide_upcoming', $maybe_hide_events );
+
+							break;
+						case 'list':
+						default: // default display query
+							if ( '' != $query->get( 'eventDate' ) ) {
+								$event_date = $query->get( 'eventDate' );
 							} else {
+								$event_date = date_i18n( Tribe__Date_Utils::DBDATETIMEFORMAT );
+							}
+
+							if ( $query->tribe_is_past ) {
 								// on past view, set the passed date as the end date
 								$query->set( 'start_date', '' );
 								$query->set( 'end_date', $event_date );
 								$query->set( 'order', self::set_order( 'DESC', $query ) );
+							} else {
+								if ( '' != $query->get( 'eventDate' ) ) {
+									$event_date = tribe_beginning_of_day( $event_date );
+								} else {
+									$event_date = tribe_format_date( current_time( 'timestamp' ), true, 'Y-m-d H:i:00' );
+								}
+
+								$orm_meta_query = tribe_events()->filter_by_ends_after( $event_date );
+
+								$meta_query['ends-after'] = $orm_meta_query['meta_query']['ends-after'];
+
+								$query->set( 'order', self::set_order( 'ASC', $query ) );
 							}
+
 							$query->set( 'orderby', self::set_orderby( null, $query ) );
 							$query->set( 'hide_upcoming', $maybe_hide_events );
 							break;
@@ -350,21 +440,6 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 						'field'            => 'slug',
 						'terms'            => $query->get( Tribe__Events__Main::TAXONOMY ),
 						'include_children' => apply_filters( 'tribe_events_query_include_children', true ),
-					);
-				}
-
-				// Only add the postmeta hack if it's not the main admin events list
-				// Because this method filters out drafts without EventStartDate.
-				// For this screen we're doing the JOIN manually in Tribe__Events__Admin_List
-
-				if ( ! Tribe__Admin__Helpers::instance()->is_screen( 'edit-tribe_events' ) ) {
-					$event_start_key = Tribe__Events__Timezones::is_mode( 'site' )
-						? '_EventStartDateUTC'
-						: '_EventStartDate';
-
-					$meta_query[] = array(
-						'key'  => $event_start_key,
-						'type' => 'DATETIME',
 					);
 				}
 			}
@@ -428,6 +503,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			 * self::should_remove_date_filters() to allow the date_filters to be actually removed
 			 */
 			if ( self::should_remove_date_filters( $query ) ) {
+				remove_filter( 'option_page_on_front', array( __CLASS__, 'default_page_on_front' ) );
 				remove_filter( 'posts_where', array( __CLASS__, 'posts_where' ), 10, 2 );
 				remove_filter( 'posts_fields', array( __CLASS__, 'posts_fields' ) );
 				remove_filter( 'posts_orderby', array( __CLASS__, 'posts_orderby' ), 10, 2 );
@@ -446,6 +522,27 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		}
 
 		/**
+		 * Return a false ID when the SQL query is being constructed to avoid create a false positive with a page and
+		 * add the virtual ID to the SQL query. Once this one has been added we need to remove the filter as is no
+		 * longer required or used.
+		 *
+		 * This is done after we have results of the posts so the filter can be safely removed at this stage.
+		 *
+		 * @since 4.6.15
+		 *
+		 * @param $posts
+		 *
+		 * @return mixed
+		 */
+		public static function posts_results( $posts ) {
+			if ( tribe( 'tec.front-page-view' )->is_page_on_front() ) {
+				remove_filter( 'option_page_on_front', array( __CLASS__, 'default_page_on_front' ) );
+			}
+
+			return $posts;
+		}
+
+		/**
 		 * Returns whether or not the event date & upcoming filters should be removed from the query
 		 *
 		 * @since 4.0
@@ -453,19 +550,21 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		 * @return boolean
 		 */
 		public static function should_remove_date_filters( $query ) {
+			// if the query flag to remove date filters is explicitly set then remove them
+			if ( true === $query->get( 'tribe_remove_date_filters', false ) ) {
+				return true;
+			}
+
 			// if we're doing ajax, let's keep the date filters
-			if ( Tribe__Main::instance()->doing_ajax() ) {
+			if ( tribe( 'context' )->doing_ajax() ) {
 				return false;
 			}
 
 			// otherwise, let's remove the date filters if we're in the admin dashboard and the query is
-			// and event query on the tribe_events edit page
-			return (
-				is_admin()
+			// an event query on the tribe_events edit page
+			return is_admin()
 				&& $query->tribe_is_event_query
-				&& Tribe__Admin__Helpers::instance()->is_screen( 'edit-' . Tribe__Events__Main::POSTTYPE )
-			)
-			|| true === $query->get( 'tribe_remove_date_filters', false );
+				&& Tribe__Admin__Helpers::instance()->is_screen( 'edit-' . Tribe__Events__Main::POSTTYPE );
 		}
 
 		/**
@@ -546,8 +645,27 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 
 			$postmeta_table = self::postmeta_table( $query );
 
-			$event_start_key = '_EventStartDate';
-			$event_end_key   = '_EventEndDate';
+			/**
+			 * Which param will be queried in the Database for Events Date Start.
+			 *
+			 * @since  1.0
+			 *
+			 * @var string
+			 */
+			$event_start_key = Tribe__Events__Timezones::is_mode( 'site' )
+				? '_EventStartDateUTC'
+				: '_EventStartDate';
+
+			/**
+			 * Which param will be queried in the Database for Events Date End.
+			 *
+			 * @since  1.0
+			 *
+			 * @var string
+			 */
+			$event_end_key = Tribe__Events__Timezones::is_mode( 'site' )
+				? '_EventEndDateUTC'
+				: '_EventEndDate';
 
 			/**
 			 * When the "Use site timezone everywhere" option is checked in events settings,
@@ -555,15 +673,18 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			 * disabling of that in certain contexts, so that local (not UTC) event times are used.
 			 *
 			 * @since 4.6.10
+			 * @since 4.9    Commented out these lines below to always use UTC fields
 			 *
 			 * @param boolean $force_local_tz Whether to force the local TZ.
 			 */
+			/*
 			$force_local_tz = apply_filters( 'tribe_events_query_force_local_tz', false );
 
 			if ( Tribe__Events__Timezones::is_mode( 'site' ) && ! $force_local_tz ) {
 				$event_start_key .= 'UTC';
 				$event_end_key   .= 'UTC';
 			}
+			*/
 
 			// if it's a true event query then we want create a join for where conditions
 			if ( $query->tribe_is_event || $query->tribe_is_event_category || $query->tribe_is_multi_posttype ) {
@@ -608,9 +729,9 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				$postmeta_table = self::postmeta_table( $query );
 
 				$start_date = $query->get( 'start_date' );
-				$end_date   = $query->get( 'end_date' );
-				$use_utc    = Tribe__Events__Timezones::is_mode( 'site' );
-				$site_tz    = $use_utc ? Tribe__Events__Timezones::wp_timezone_string() : null;
+				$end_date = $query->get( 'end_date' );
+				$use_utc = Tribe__Events__Timezones::is_mode( 'site' );
+				$site_tz = $use_utc ? Tribe__Events__Timezones::wp_timezone_string() : null;
 
 				// Sitewide timezone mode: convert the start date - if set - to UTC
 				if ( $use_utc && ! empty( $start_date ) ) {
@@ -634,6 +755,9 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 					$end_clause    = $wpdb->prepare( "($event_end_date >= %s AND $event_start_date <= %s )", $start_date, $end_date );
 					$within_clause = $wpdb->prepare( "($event_start_date < %s AND $event_end_date >= %s )", $start_date, $end_date );
 					$where_sql .= " AND ($start_clause OR $end_clause OR $within_clause)";
+				} elseif ( 'future' === $query->get( 'eventDisplay' ) && '' !== $start_date ) {
+					$start_clause = $wpdb->prepare( "{$postmeta_table}.meta_value >= %s", $start_date );
+					$where_sql   .= " AND ($start_clause)";
 				} else {
 					if ( $start_date != '' ) {
 						$start_clause  = $wpdb->prepare( "{$postmeta_table}.meta_value >= %s", $start_date );
@@ -651,6 +775,8 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 					}
 				}
 			}
+
+			remove_filter( 'option_page_on_front', array( __CLASS__, 'default_page_on_front' ) );
 
 			return $where_sql;
 		}
@@ -743,7 +869,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				$order   = ( isset( $query->query_vars['order'] ) && ! empty( $query->query_vars['order'] ) ) ? $query->query_vars['order'] : $query->get( 'order' );
 				$orderby = ( isset( $query->query_vars['orderby'] ) && ! empty( $query->query_vars['orderby'] ) ) ? $query->query_vars['orderby'] : $query->get( 'orderby' );
 
-				if ( self::can_inject_date_field( $query ) ) {
+				if ( self::can_inject_date_field( $query ) && ! $query->tribe_is_multi_posttype ) {
 					$old_orderby = $order_sql;
 					$order_sql = "EventStartDate {$order}";
 
@@ -891,7 +1017,8 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		public static function getHideFromUpcomingEvents() {
 			global $wpdb;
 
-			$cache     = new Tribe__Cache();
+			/** @var Tribe__Cache $cache */
+			$cache     = tribe( 'cache' );
 			$cache_key = 'tribe-hide-from-upcoming-events';
 			$found     = $cache->get( $cache_key, 'save_post' );
 			if ( is_array( $found ) ) {
@@ -933,7 +1060,8 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			$args = array_filter( $args, array( __CLASS__, 'filter_args' ) );
 			ksort( $args );
 
-			$cache     = new Tribe__Cache();
+			/** @var Tribe__Cache $cache */
+			$cache     = tribe( 'cache' );
 			$cache_key = 'daily_counts_and_ids_' . serialize( $args );
 			$found     = $cache->get( $cache_key, 'save_post' );
 			if ( $found ) {
@@ -957,7 +1085,8 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				switch ( $args['display_type'] ) {
 					case 'daily':
 					default :
-						global $wp_query;
+						$wp_query = tribe_get_global_query_object();
+
 						$output_date_format = '%Y-%m-%d %H:%i:%s';
 						$start_date_sql = esc_sql( $post_id_query->query_vars['start_date'] );
 						$end_date_sql = esc_sql( $post_id_query->query_vars['end_date'] );
@@ -1039,9 +1168,12 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				update_object_term_cache( $final_event_ids, Tribe__Events__Main::POSTTYPE );
 				update_postmeta_cache( $final_event_ids );
 			}
+
 			// return IDs per day and total counts per day
 			$return    = array( 'counts' => $counts, 'event_ids' => $event_ids );
-			$cache     = new Tribe__Cache;
+
+			/** @var Tribe__Cache $cache */
+			$cache     = tribe( 'cache' );
 			$cache_key = 'daily_counts_and_ids_' . serialize( $args );
 			$cache->set( $cache_key, $return, Tribe__Cache::NON_PERSISTENT, 'save_post' );
 
@@ -1063,18 +1195,33 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		 */
 		public static function getEvents( $args = array(), $full = false ) {
 			$defaults = array(
-				'post_type'            => Tribe__Events__Main::POSTTYPE,
 				'orderby'              => 'event_date',
 				'order'                => 'ASC',
-				'posts_per_page'       => tribe_get_option( 'postsPerPage', 10 ),
+				'posts_per_page'       => tribe_get_option( 'posts_per_page', tribe_get_option( 'postsPerPage', get_option( 'posts_per_page', 10 ) ) ),
 				'tribe_render_context' => 'default',
 			);
 
 			$args = wp_parse_args( $args, $defaults );
+			$event_display = tribe_get_request_var(
+				'tribe_event_display',
+				Tribe__Utils__Array::get( $args, 'eventDisplay', false )
+			);
+
+			$search = tribe_get_request_var( 'tribe-bar-search' );
+
+			/**
+			 * @todo Move this to each one of the views and their ajax requests
+			 */
+			// if a user provides a search term we want to use that in the search params
+			if ( ! empty( $search ) ) {
+				$args['s'] = $search;
+			}
 
 			$return_found_posts = ! empty( $args['found_posts'] );
 
 			if ( $return_found_posts ) {
+				unset( $args['found_posts'] );
+
 				$args['posts_per_page'] = 1;
 				$args['paged']          = 1;
 			}
@@ -1083,18 +1230,196 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			$args = array_filter( $args, array( __CLASS__, 'filter_args' ) );
 			ksort( $args );
 
-			$cache     = new Tribe__Cache();
+			/** @var Tribe__Cache $cache */
+			$cache     = tribe( 'cache' );
 			$cache_key = 'get_events_' . get_current_user_id() . serialize( $args );
 
 			$result = $cache->get( $cache_key, 'save_post' );
-			if ( $result && $result instanceof WP_Query ) {
+
+			if (
+				false !== $result
+				&& (
+					$result instanceof WP_Query
+					|| (
+						$return_found_posts
+						&& is_int( $result )
+					)
+				)
+			) {
 				do_action( 'log', 'cache hit', 'tribe-events-cache', $args );
 			} else {
 				do_action( 'log', 'no cache hit', 'tribe-events-cache', $args );
-				$result = new WP_Query( $args );
+
+				/** @var Tribe__Events__Repositories__Event $event_orm */
+				$event_orm = tribe_events();
+
+				$hidden = false;
+
+				if ( isset( $args['tribe_render_context'] ) ) {
+					$event_orm->set_render_context( $args['tribe_render_context'] );
+				}
+
+				if ( ! empty( $event_display ) ) {
+					$event_orm->set_display_context( $event_display );
+				}
+
+				// Backcompat defaults.
+				if ( isset( $args['hide_upcoming'] ) ) {
+					// Negate the hide_upcoming for $hidden
+					if ( true !== (boolean) $args['hide_upcoming'] ) {
+						$hidden = null;
+					}
+
+					unset( $args['hide_upcoming'] );
+				}
+
+				$display = Arr::get( $args, 'eventDisplay' );
+				$has_date_args = array_filter( [
+					Arr::get( $args, 'start_date' ),
+					Arr::get( $args, 'startDate' ),
+					Arr::get( $args, 'starts_after' ),
+					Arr::get( $args, 'starts_before' ),
+					Arr::get( $args, 'end_date' ),
+					Arr::get( $args, 'endDate' ),
+					Arr::get( $args, 'ends_after' ),
+					Arr::get( $args, 'ends_before' ),
+				] );
+
+				// Support for `eventDisplay = 'upcoming' || 'list'` for backwards compatibility
+				if (
+					! $has_date_args
+					&& in_array( $display, [ 'upcoming', 'list' ] )
+				) {
+					if ( empty( $args['tribe_is_past'] ) ) {
+						$args['start_date'] = 'now';
+					}
+					unset( $args['eventDisplay'] );
+				}
+
+				// Support for `eventDisplay = 'day'` for backwards compatibility
+				if (
+					! $has_date_args
+					&& in_array( $display, [ 'day' ] )
+				) {
+					$args['start_date'] = 'today';
+					unset( $args['eventDisplay'] );
+				}
+
+				// Support `tribeHideRecurrence` old param
+				if ( isset( $args['tribeHideRecurrence'] ) ) {
+					$args['hide_subsequent_recurrences'] = $args['tribeHideRecurrence'];
+					unset( $args['tribeHideRecurrence'] );
+				}
+
+				if ( isset( $args['start_date'] ) && false === $args['start_date'] ) {
+					unset( $args['start_date'] );
+				}
+
+				if ( isset( $args['end_date'] ) && false === $args['end_date'] ) {
+					unset( $args['end_date'] );
+				}
+
+				if ( isset( $args['eventDate'] ) && ! isset( $args['start_date'], $args['end_date'] ) ) {
+					$args['on_date'] = $args['eventDate'];
+					unset( $args['eventDate'] );
+				}
+
+				if ( ! empty( $args['orderby'] ) ) {
+					$event_orm->order_by( $args['orderby'] );
+
+					unset( $args['orderby'] );
+				}
+
+				if ( 'all' === $event_display  ) {
+					if ( empty( $args['post_parent'] ) ) {
+						// Make sure the `post_parent` ID is set in /all requests.
+						$parent_name = Tribe__Utils__Array::get(
+							$args,
+							'name',
+							Tribe__Utils__Array::get( 'tribe_events', false )
+						);
+
+						if ( ! empty( $parent_name ) ) {
+							$post_parent         = tribe_events()->where( 'name', $parent_name )->fields( 'ids' )
+							                                     ->first();
+							$args['post_parent'] = $post_parent;
+						}
+
+						// Make sure these are unset to avoid 'post_name' comparisons.
+						unset( $args['name'], $args['post_name'], $args['tribe_events'] );
+					}
+
+					if ( class_exists( 'Tribe__Events__Pro__Recurrence__Event_Query' ) ) {
+						$recurrence_query = new Tribe__Events__Pro__Recurrence__Event_Query();
+						$recurrence_query->set_parent_event( get_post( $args['post_parent'] ) );
+						add_filter( 'posts_where', array( $recurrence_query, 'include_parent_event' ), 100 );
+					}
+				}
+
+				$is_past = ! empty( $args['tribe_is_past'] ) || 'past' === $event_display;
+				if ( $is_past ) {
+					$args['order'] = 'DESC';
+					/*
+					 * If in the context of a "past" view let's try to use, as limit, the same
+					 * end date limit passed, if any.
+					 */
+					$now = isset( $args['ends_before'] ) ? $args['ends_before'] : 'now';
+					$pivot_date = tribe_get_request_var( 'tribe-bar-date', $now );
+					$date       = Tribe__Date_Utils::build_date_object( $pivot_date );
+					// Remove any existing date meta queries.
+					if ( isset( $args['meta_query'] ) ) {
+						$args['meta_query'] = tribe_filter_meta_query(
+							$args['meta_query'],
+							array( 'key' => '/_Event(Start|End)Date(UTC)/' )
+						);
+					}
+
+					/**
+					 * We used to use the `tribe_beginning_of_day` for part of the query.
+					 *
+					 * Intentionally changed the behavior here to use "now" as part of the code
+					 *
+					 * @link https://central.tri.be/issues/123950
+					 */
+					$args['starts_before'] = $date->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
+				}
+
+				if ( null !== $hidden ) {
+					$event_orm->by( 'hidden', $hidden );
+					if ( isset( $args['meta_query'] ) ) {
+						$args['meta_query'] = tribe_filter_meta_query(
+							$args['meta_query'],
+							array( 'key' => '_EventHideFromUpcoming' )
+						);
+					}
+				}
+
+				/**
+				 * Some key arguments have been passed as arrays but will require unpacking.
+				 * Due to the dynamic nature of the ORM implementation this is a curated list
+				 * that should be updated here. Do not try to move this conditional unpacking logic
+				 * in the ORM: this is an issue the proxy function should handle ad-hoc.
+				 */
+				$requiring_unpack = [ 'date_overlaps' ];
+				foreach ( array_intersect( array_keys( $args ), $requiring_unpack ) as $key ) {
+					$event_orm->by( $key, ...$args[ $key ] );
+					unset( $args[ $key ] );
+				}
+
+				$event_orm->by_args( $args );
 
 				if ( $return_found_posts ) {
-					$result = $result->found_posts;
+					$result = $event_orm->found();
+				} else {
+					$result = $event_orm->get_query();
+
+					// Set the event display, if any, for back-compatibility purposes.
+					if ( ! empty( $event_display ) ) {
+						$result->set( 'eventDisplay', $event_display );
+					}
+
+					// Run the query.
+					$result->get_posts();
 				}
 
 				$cache->set( $cache_key, $result, Tribe__Cache::NON_PERSISTENT, 'save_post' );
@@ -1107,18 +1432,16 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			if ( ! empty( $result->posts ) ) {
 				if ( $full ) {
 					return $result;
-				} else {
-					$posts = $result->posts;
+				}
 
-					return $posts;
-				}
-			} else {
-				if ( $full ) {
-					return $result;
-				} else {
-					return array();
-				}
+				return $result->posts;
 			}
+
+			if ( $full ) {
+				return $result;
+			}
+
+			return array();
 		}
 
 		/**
@@ -1165,12 +1488,31 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		 * @return bool
 		 **/
 		private static function filter_args( $arg ) {
-			if ( empty( $arg ) && $arg !== false ) {
+			if ( empty( $arg ) && $arg !== false && 0 !== $arg ) {
 				return false;
 			}
 
 			return true;
 		}
 
+		/**
+		 * If the user has the Main events page set on the reading options it should return 0 or the default value in
+		 * order to avoid to set the:
+		 * - p
+		 * - page_id
+		 *
+		 * variables when using  pre_get_posts or posts_where
+		 *
+		 * This filter is removed when this funtions has finished the execution
+		 *
+		 * @since 4.6.15
+		 *
+		 * @param $value
+		 *
+		 * @return int
+		 */
+		public static function default_page_on_front( $value ) {
+			return tribe( 'tec.front-page-view' )->is_virtual_page_id( $value ) ? 0 : $value;
+		}
 	}
 }

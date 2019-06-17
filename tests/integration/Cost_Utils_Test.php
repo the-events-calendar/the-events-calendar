@@ -75,7 +75,7 @@ class Cost_Utils_Test extends \Codeception\TestCase\WPTestCase {
 	}
 
 	public function test_exists() {
-		$this->assertTrue( class_exists( 'Tribe__Events__Cost_Utils' ), 'Check that Tribe__Events__iCal exists' );
+		$this->assertTrue( class_exists( 'Tribe__Events__Cost_Utils' ), 'Check that Tribe__Events__Cost_Utils exists' );
 	}
 
 	/**

@@ -58,7 +58,11 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return bool
 	 */
 	function tribe_is_past() {
-		global $wp_query;
+
+		if ( ! $wp_query = tribe_get_global_query_object() ) {
+			return;
+		}
+
 		$is_past = ! empty( $wp_query->tribe_is_past ) && ! tribe_is_showing_all() ? $wp_query->tribe_is_past : false;
 
 		/**
@@ -77,7 +81,11 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return bool
 	 */
 	function tribe_is_upcoming() {
-		global $wp_query;
+
+		if ( ! $wp_query = tribe_get_global_query_object() ) {
+			return;
+		}
+
 		$is_upcoming = ( tribe_is_list_view() && ! tribe_is_past() ) ? true : false;
 
 		/**
@@ -158,7 +166,10 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @todo move logic to template classes
 	 */
 	function tribe_get_events_title( $depth = true ) {
-		global $wp_query;
+
+		if ( ! $wp_query = tribe_get_global_query_object() ) {
+			return;
+		}
 
 		$events_label_plural = tribe_get_event_label_plural();
 
@@ -245,9 +256,13 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return bool
 	 */
 	function tribe_has_previous_event() {
-		global $wp_query;
-
+		$wp_query = tribe_get_global_query_object();
 		$has_previous = false;
+
+		if ( null === $wp_query ) {
+			return apply_filters( 'tribe_has_previous_event', $has_previous );
+		}
+
 		$past         = tribe_is_past();
 		$upcoming     = ! $past;
 		$cur_page     = (int) $wp_query->get( 'paged' );
@@ -269,11 +284,21 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Indicate we're interested in past events
 			$args['tribe_is_past'] = true;
-
 			// Make some efficiency savings
 			$args['no_paging']      = true;
 			$args['no_found_rows']  = true;
 			$args['posts_per_page'] = 1;
+
+			/**
+			 * Filters the arguments that will be used to check if there is a previous page/event.
+			 *
+			 * @since 4.9
+			 *
+			 * @param array $args An array of arguments that will be used to check if a previous page/event
+			 *                    is present.
+			 * @param WP_Query $wp_query The query object, if any, the query arguments have been taken from.
+			 */
+			$args = apply_filters( 'tribe_events_has_previous_args', $args, $wp_query );
 
 			$past_event   = tribe_get_events( $args );
 			$has_previous = ( count( $past_event ) >= 1 );
@@ -288,9 +313,14 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return bool
 	 */
 	function tribe_has_next_event() {
-		global $wp_query;
 
+		$wp_query = tribe_get_global_query_object();
 		$has_next  = false;
+
+		if ( null === $wp_query ) {
+			return apply_filters( 'tribe_has_next_event', $has_next );
+		}
+
 		$past      = tribe_is_past();
 		$upcoming  = ! $past;
 		$cur_page  = (int) $wp_query->get( 'paged' );
@@ -314,6 +344,17 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$args['no_paging'] = true;
 			$args['no_found_rows'] = true;
 			$args['posts_per_page'] = 1;
+
+			/**
+			 * Filters the arguments that will be used to check if there is a next page/event.
+			 *
+			 * @since 4.9
+			 *
+			 * @param array $args An array of arguments that will be used to check if a next page/event
+			 *                    is present.
+			 * @param WP_Query $wp_query The query object the query arguments have been taken from.
+			 */
+			$args = apply_filters( 'tribe_events_has_next_args', $args, $wp_query );
 
 			$next_event = tribe_get_events( $args );
 			$has_next   = ( count( $next_event ) >= 1 );
@@ -388,7 +429,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			 *
 			 */
 			if ( $wp_query->current_post === 0 || ( $prev_event_month != $event_month || ( $prev_event_month == $event_month && $prev_event_year != $event_year ) ) ) {
-				$html .= sprintf( "<span class='tribe-events-list-separator-month'><span>%s</span></span>", tribe_get_start_date( $post, false, $month_year_format ) );
+				$html .= sprintf( "<h2 class='tribe-events-list-separator-month'><span>%s</span></h2>", tribe_get_start_date( $post, false, $month_year_format ) );
 			}
 
 			echo apply_filters( 'tribe_events_list_the_date_headers', $html, $event_month, $event_year );
@@ -403,7 +444,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	function tribe_left_navigation_classes() {
 
 		$classes     = array();
-		$tribe_paged = ( ! empty( $_REQUEST['tribe_paged'] ) ) ? $_REQUEST['tribe_paged'] : 1;
+		$tribe_paged = absint( ! empty( $_REQUEST['tribe_paged'] ) ) ? $_REQUEST['tribe_paged'] : 1;
 
 		$classes['direction'] = 'tribe-events-nav-previous';
 		$classes['side']      = 'tribe-events-nav-left';
@@ -424,7 +465,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	function tribe_right_navigation_classes() {
 
 		$classes     = array();
-		$tribe_paged = ( ! empty( $_REQUEST['tribe_paged'] ) ) ? $_REQUEST['tribe_paged'] : 1;
+		$tribe_paged = absint( ! empty( $_REQUEST['tribe_paged'] ) ) ? $_REQUEST['tribe_paged'] : 1;
 
 		$classes['direction'] = 'tribe-events-nav-next';
 		$classes['side']      = 'tribe-events-nav-right';

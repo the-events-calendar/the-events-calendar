@@ -39,7 +39,7 @@ class Tribe__Events__Aggregator__Tabs extends Tribe__Tabbed_View  {
 		}
 		$this->register( 'Tribe__Events__Aggregator__Tabs__History' );
 
-		if ( ! empty( $_GET['id'] ) || Tribe__Main::instance()->doing_ajax() ) {
+		if ( ! empty( $_GET['id'] ) || tribe( 'context' )->doing_ajax() ) {
 			$this->register( 'Tribe__Events__Aggregator__Tabs__Edit' );
 		}
 	}

@@ -5,7 +5,7 @@
  *
  * Override this template in your own theme by creating a file at [your-theme]/tribe-events/loop.php
  *
- * @version 4.4
+ * @version 4.6.19
  * @package TribeEventsCalendar
  *
  */
@@ -34,7 +34,7 @@ $current_timeslot = null;
 	<!-- .tribe-events-day-time-slot -->
 
 	<div class="tribe-events-day-time-slot">
-		<h5><?php echo $current_timeslot; ?></h5>
+		<h2 class="tribe-events-day-time-slot-heading"><?php echo $current_timeslot; ?></h2>
 		<?php endif; ?>
 
 		<!-- Event  -->

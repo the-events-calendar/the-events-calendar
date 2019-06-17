@@ -16,7 +16,7 @@ if ( ! class_exists( 'Tribe__Events__Options_Exception' ) ) {
 		public static function displayMessage() {
 			$eventsOptions = get_option( Tribe__Events__Main::OPTIONNAME, array() );
 			if ( isset( $eventsOptions['error'] ) && $eventsOptions['error'] ) : ?>
-				<script type="text/javascript">jQuery('#tribe-events-options-error').append('<h2><?php esc_html_e( 'Error', 'the-events-calendar' ); ?></h2><p>' + '<?php echo $eventsOptions['error']; ?>' + '</p>').show();</script>
+				<script>jQuery('#tribe-events-options-error').append('<h2><?php esc_html_e( 'Error', 'the-events-calendar' ); ?></h2><p>' + '<?php echo $eventsOptions['error']; ?>' + '</p>').show();</script>
 			<?php endif;
 		}
 	} // end Tribe__Events__Options_Exception

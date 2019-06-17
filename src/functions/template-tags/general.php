@@ -226,10 +226,12 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 *		@see  get_posts()  for more params
 	 * }
-	 * @param bool  $full (optional) if the full query object is required or just an array of event posts
 	 *
-	 * @return array List of posts.
+	 * @param bool $full Whether to return an array of event posts (default) or the query object
+	 *                   to fetch them.
 	 *
+	 * @return array|WP_Query A list of event posts matching the query arguments or a WP_Query instance
+	 *                        if the `$full` argument is set to `true`.
 	 */
 	function tribe_get_events( $args = array(), $full = false ) {
 		if ( empty ( $args['eventDisplay'] ) ) {
@@ -323,16 +325,33 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			global $post;
 			$event = $post;
 		}
-		// Check if event has passed
-		$gmt_offset = ( get_option( 'gmt_offset' ) >= '0' ) ? ' +' . get_option( 'gmt_offset' ) : ' ' . get_option( 'gmt_offset' );
-		$gmt_offset = str_replace( array( '.25', '.5', '.75' ), array( ':15', ':30', ':45' ), $gmt_offset );
 
-		if ( strtotime( tribe_get_end_date( $event, false, 'Y-m-d G:i' ) . $gmt_offset ) <= time() ) {
-			return true;
+		// Are we using the site wide timezone or the local event timezone?
+		$timezone_name = Tribe__Events__Timezones::EVENT_TIMEZONE === Tribe__Events__Timezones::mode()
+			? Tribe__Events__Timezones::get_event_timezone_string( $event->ID )
+			: Tribe__Events__Timezones::wp_timezone_string();
+
+		$format = 'Y-m-d G:i';
+		$end_date = tribe_get_end_date( $event, false, $format );
+
+		// Try to create a a current and end date with the timezone to avoid using the WP timezone if is not the setup case.
+		try {
+			$timezone = new DateTimeZone( $timezone_name );
+			$current  = date_create( 'now', $timezone );
+			$end      = date_create( $end_date, $timezone );
+		} catch( Exception $exception ) {
+			$current = false;
+			$end = false;
 		}
 
-		return false;
-
+		// If date_create throws an error or was not created correctly we fallback to the original solution
+		if ( false === $current || false === $end ) {
+			$gmt_offset = ( get_option( 'gmt_offset' ) >= '0' ) ? ' +' . get_option( 'gmt_offset' ) : ' ' . get_option( 'gmt_offset' );
+			$gmt_offset = str_replace( array( '.25', '.5', '.75' ), array( ':15', ':30', ':45' ), $gmt_offset );
+			return strtotime( $end_date . $gmt_offset ) < time();
+		} else {
+			return $current > $end;
+		}
 	}
 
 	/**
@@ -575,7 +594,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		$before = wpautop( $before );
 		$before = do_shortcode( stripslashes( shortcode_unautop( $before ) ) );
 		$before = '<div class="tribe-events-before-html">' . $before . '</div>';
-		$before = $before . '<span class="tribe-events-ajax-loading"><img class="tribe-events-spinner-medium" src="' . tribe_events_resource_url( 'images/tribe-loading.gif' ) . '" alt="' . sprintf( esc_html__( 'Loading %s', 'the-events-calendar' ), $events_label_plural ) . '" /></span>';
+		$before = $before . '<span class="tribe-events-ajax-loading"><img class="tribe-events-spinner-medium" src="' . esc_url( tribe_events_resource_url( 'images/tribe-loading.gif' ) ) . '" alt="' . sprintf( esc_attr__( 'Loading %s', 'the-events-calendar' ), $events_label_plural ) . '" /></span>';
 
 		echo apply_filters( 'tribe_events_before_html', $before );
 	}
@@ -653,7 +672,15 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$classes[] = 'tribe-event-featured';
 		}
 
-		$classes = apply_filters( 'tribe_events_event_classes', $classes );
+		/**
+		 * Filters the event wrapper classes before they are returned
+		 *
+		 * @since 4.6.20 added the $event_id parameter
+		 *
+		 * @param array $classes  The classes that will be returned
+		 * @param int   $event_id Current event ID
+		 */
+		$classes = apply_filters( 'tribe_events_event_classes', $classes, $event_id );
 
 		if ( $echo ) {
 			echo implode( ' ', $classes );
@@ -672,7 +699,9 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 **/
 	function tribe_events_the_header_attributes( $current_view = null ) {
 
-		global $wp_query;
+		if ( ! $wp_query = tribe_get_global_query_object() ) {
+			return;
+		}
 
 		$attrs        = array();
 		$current_view = ! empty( $current_view ) ? $current_view : basename( tribe_get_current_template() );
@@ -693,6 +722,9 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		} else {
 			$attrs['data-title'] = wp_title( '|', false, 'right' );
 		}
+
+		$attrs['data-viewtitle'] = tribe_get_events_title( true );
+
 		switch ( $current_view ) {
 			case 'month.php' :
 				$attrs['data-view']    = 'month';
@@ -945,7 +977,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param bool $link
 		 */
 		if ( ! empty( $featured_image ) && apply_filters( 'tribe_event_featured_image_link', $link ) ) {
-			$featured_image = '<a href="' . esc_url( tribe_get_event_link( $post_id ) ) . '">' . $featured_image . '</a>';
+			$featured_image = '<a href="' . esc_url( tribe_get_event_link( $post_id ) ) . '" tabindex="-1">' . $featured_image . '</a>';
 		}
 
 		/**
@@ -1141,20 +1173,24 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				$has_image      = false;
 				$image_src      = '';
 				$image_tool_src = '';
-				$date_display   = '';
 
-				//Disable recurring event info in tooltip
-				if ( class_exists( 'Tribe__Events__Pro__Main' ) ) {
-					$ecp = Tribe__Events__Pro__Main::instance();
-					$ecp->disable_recurring_info_tooltip();
-
-					$date_display = strip_tags( tribe_events_event_schedule_details( $event ) );
-
-					// Re-enable recurring event info
-					$ecp->enable_recurring_info_tooltip();
-				} else {
-					$date_display = strip_tags( tribe_events_event_schedule_details( $event ) );
-				}
+				/**
+				 * Fires before the $date_display is called
+				 *
+				 * @since 4.7.2
+				 *
+				 * @param $event
+				 */
+				do_action( 'tribe_events_before_event_template_data_date_display', $event );
+				$date_display = strip_tags( tribe_events_event_schedule_details( $event ) );
+				/**
+				 * Fires after the $date_display is called
+				 *
+				 * @since 4.7.2
+				 *
+				 * @param $event
+				 */
+				do_action( 'tribe_events_after_event_template_data_date_display', $event );
 
 				if ( function_exists( 'has_post_thumbnail' ) && has_post_thumbnail( $event->ID ) ) {
 					$has_image      = true;
@@ -1163,14 +1199,16 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				}
 
 				$category_classes = tribe_events_event_classes( $event->ID, false );
+				$day              = tribe_events_get_current_month_day();
+				$event_id         = "{$event->ID}-{$day['date']}";
 
-				$json['eventId']         = $event->ID;
+				$json['eventId']         = $event_id;
 				$json['title']           = wp_kses_post( apply_filters( 'the_title', $event->post_title, $event->ID ) );
 				$json['permalink']       = tribe_get_event_link( $event->ID );
 				$json['imageSrc']        = $image_src;
 				$json['dateDisplay']     = $date_display;
 				$json['imageTooltipSrc'] = $image_tool_src;
-				$json['excerpt']         = tribe_events_get_the_excerpt( $event );
+				$json['excerpt']         = ! post_password_required( $event ) ? tribe_events_get_the_excerpt( $event, null, true ) : '';
 				$json['categoryClasses'] = $category_classes;
 
 				/**
@@ -1222,6 +1260,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string
 	 **/
 	function tribe_include_view_list( $args = null, $initialize = true ) {
+
 		global $wp_query;
 
 		// hijack the main query to load the events via provided $args
@@ -1395,12 +1434,13 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * @category Events
 	 *
-	 * @param  WP_Post|int|null $post The Post Object|ID, if null defaults to `get_the_ID()`
-	 * @param  array $allowed_html The wp_kses compatible array
+	 * @param WP_Post|int|null $post The Post Object|ID, if null defaults to `get_the_ID()`
+	 * @param array $allowed_html The wp_kses compatible array
+	 * @param boolean $skip_postdata_manipulation Optional. Defaults to false. When true, the resetting of global $post variable is disabled. (Useful for some contexts like month view.)
 	 *
 	 * @return string|null Will return null on Bad Post Instances
 	 */
-	function tribe_events_get_the_excerpt( $post = null, $allowed_html = null ) {
+	function tribe_events_get_the_excerpt( $post = null, $allowed_html = null, $skip_postdata_manipulation = false ) {
 		// If post is not numeric or instance of WP_Post it defaults to the current Post ID
 		if ( ! is_numeric( $post ) && ! $post instanceof WP_Post ) {
 			$post = get_the_ID();
@@ -1510,13 +1550,24 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$GLOBALS['post'] = $global_post;
 		}
 
+		if ( ! $skip_postdata_manipulation ) {
+			// Setup post data to be able to use WP template tags
+			setup_postdata( $post );
+		}
+
 		/**
 		 * Filter the event excerpt used in various views.
 		 *
 		 * @param string  $excerpt
 		 * @param WP_Post $post
 		 */
-		return apply_filters( 'tribe_events_get_the_excerpt', wpautop( $excerpt ), $post );
+		$excerpt = apply_filters( 'tribe_events_get_the_excerpt', wpautop( $excerpt ), $post );
+
+		if ( ! $skip_postdata_manipulation ) {
+			wp_reset_postdata();
+		}
+
+		return $excerpt;
 	}
 
 	/**
@@ -1597,15 +1648,20 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string
 	 */
 	function tribe_get_render_context( $query = null ) {
+
 		global $wp_query;
+
 		if ( ! $query instanceof WP_Query ) {
 			$query = $wp_query;
 		}
+
 		if ( empty( $query->query['tribe_render_context'] ) ) {
 			return 'default';
 		}
+
 		return $query->query['tribe_render_context'];
 	}
+
 	/**
 	 * Returns or echoes a url to a file in the Events Calendar plugin resources directory
 	 *
@@ -1641,7 +1697,10 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 		$path = $resource_path . $resource;
 
-		$url  = plugins_url( Tribe__Events__Main::instance()->plugin_dir . $path );
+		$file = wp_normalize_path( Tribe__Events__Main::instance()->plugin_path . $path );
+
+		// Turn the Path into a URL
+		$url = plugins_url( basename( $file ), $file );
 
 		/**
 		 * Deprecated the tribe_events_resource_url filter in 4.0 in favor of tribe_resource_url. Remove in 5.0
@@ -1686,7 +1745,8 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return bool
 	 */
 	function tribe_is_events_front_page() {
-		global $wp_query;
+
+		$wp_query = tribe_get_global_query_object();
 
 		$events_as_front_page = tribe_get_option( 'front_page_event_archive', false );
 		// If the reading option has an events page as front page and we are on that page is on the home of events.
@@ -1713,7 +1773,8 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return bool
 	 */
 	function tribe_is_events_home() {
-		global $wp_query;
+
+		$wp_query = tribe_get_global_query_object();
 
 		if ( tribe_is_events_front_page() ) {
 			return true;

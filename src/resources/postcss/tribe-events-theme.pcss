@@ -11,6 +11,10 @@
  *
  */
 
+:root {
+	--featured-event-bg: #0ea0d7;
+}
+
 /* = Global & Miscellaneous Styles
 =============================================*/
 
@@ -84,20 +88,13 @@ ul.tribe-events-sub-nav a,
 }
 
 /* General Template Headers */
-h2.tribe-events-page-title,
-#tribe-geo-results h2.tribe-events-page-title {
+.tribe-events-page-title {
 	font-size: 30px;
 	font-weight: bold;
 }
 
 /* General Template Header/Footer Nav */
-#tribe-events-header .tribe-events-sub-nav li,
-#tribe-events-header .tribe-events-sub-nav .tribe-events-nav-next a {
-	display: none;
-}
-#tribe-events-header .tribe-events-sub-nav .tribe-events-nav-next {
-	display: block;
-}
+
 .single-tribe_events #tribe-events-footer,
 .tribe-events-day #tribe-events-footer,
 .events-list #tribe-events-footer,
@@ -114,7 +111,7 @@ h2.tribe-events-page-title,
 /* = Day Grid Template Styles
    @ Template: day.php
 =============================================*/
-.tribe-events-day .tribe-events-day-time-slot h5 {
+.tribe-events-day .tribe-events-day-time-slot .tribe-events-day-time-slot-heading {
 	font-size: 21px;
 	margin: 1.5em 0 .25em;
 	background-color: transparent;
@@ -139,7 +136,7 @@ h2.tribe-events-page-title,
 	margin-top: 2rem;
 }
 
-.tribe-events-list .type-tribe_events h2 {
+.tribe-events-list .type-tribe_events .tribe-events-list-event-title {
 	font-size: 1.6em;
 }
 
@@ -473,6 +470,59 @@ h2.tribe-events-page-title,
 .tribe-shortcode.tribe-events-event-meta .tribe-events-meta-group {
 	width: auto;
 	min-width: 250px;
+}
+
+/* = Events List Widget Styles (Sidebar)
+   @ Template: widgets/list-widget.php
+=============================================*/
+
+.tribe-events-list-widget {
+	ol li {
+		list-style: none;
+		margin-bottom: .5rem;
+	}
+
+	.tribe-list-widget {
+		margin-left: 0;
+	}
+
+	.tribe-events-list-widget-events {
+		padding: 0 1.5rem;
+		margin-bottom: 1.25rem;
+	}
+
+	.tribe-event-title {
+		margin-bottom: .25rem;
+		margin-top: 0;
+	}
+
+	.duration {
+		font-weight: bold;
+	}
+
+	.tribe-event-featured {
+		background: var(--featured-event-bg);
+		padding-bottom: .75rem;
+
+		.tribe-event-title {
+			margin-top: .75rem;
+
+			a {
+				color: white;
+			}
+		}
+
+		.tribe-event-image {
+			line-height: 0;
+			margin-left: -1.5rem;
+			margin-right: -1.5rem;
+			overflow: hidden;
+		}
+
+		.tribe-event-duration {
+			color: white;
+		}
+	}
 }
 
 /* = Twenty* overrides

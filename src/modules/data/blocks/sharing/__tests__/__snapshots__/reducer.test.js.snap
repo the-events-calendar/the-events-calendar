@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[STORE] - Sharing reducer Should set if has the google calendar label 1`] = `
+Object {
+  "googleCalendarLabel": "Google Calendar",
+  "hasGoogleCalendar": true,
+  "hasiCal": true,
+  "iCalLabel": "iCal Export",
+}
+`;
+
+exports[`[STORE] - Sharing reducer Should set if has the google calendar label 2`] = `
+Object {
+  "googleCalendarLabel": "Google Calendar",
+  "hasGoogleCalendar": false,
+  "hasiCal": true,
+  "iCalLabel": "iCal Export",
+}
+`;
+
+exports[`[STORE] - Sharing reducer Should set if has the iCal Label 1`] = `
+Object {
+  "googleCalendarLabel": "Google Calendar",
+  "hasGoogleCalendar": true,
+  "hasiCal": true,
+  "iCalLabel": "iCal Export",
+}
+`;
+
+exports[`[STORE] - Sharing reducer Should set if has the iCal Label 2`] = `
+Object {
+  "googleCalendarLabel": "Google Calendar",
+  "hasGoogleCalendar": true,
+  "hasiCal": false,
+  "iCalLabel": "iCal Export",
+}
+`;
+
+exports[`[STORE] - Sharing reducer Should set the google calendar label 1`] = `
+Object {
+  "googleCalendarLabel": "Modern Tribe Google Calendar",
+  "hasGoogleCalendar": true,
+  "hasiCal": true,
+  "iCalLabel": "iCal Export",
+}
+`;
+
+exports[`[STORE] - Sharing reducer Should set the iCal Label 1`] = `
+Object {
+  "googleCalendarLabel": "Google Calendar",
+  "hasGoogleCalendar": true,
+  "hasiCal": true,
+  "iCalLabel": "Modern Tribe iCal",
+}
+`;
+
+exports[`[STORE] - Sharing reducer Should toggle if has the google label 1`] = `
+Object {
+  "googleCalendarLabel": "Google Calendar",
+  "hasGoogleCalendar": false,
+  "hasiCal": true,
+  "iCalLabel": "iCal Export",
+}
+`;
+
+exports[`[STORE] - Sharing reducer Should toggle if has the iCal Label 1`] = `
+Object {
+  "googleCalendarLabel": "Google Calendar",
+  "hasGoogleCalendar": true,
+  "hasiCal": false,
+  "iCalLabel": "iCal Export",
+}
+`;

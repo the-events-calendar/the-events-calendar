@@ -341,8 +341,11 @@ jQuery( document ).ready( function( $ ) {
 
 		section.on( 'click', '.tribe-delete-this', function(e) {
 			e.preventDefault();
-			var group = $( this ).closest( 'tbody' );
-			group.fadeOut( 500, function() {
+			var $group = $( this ).closest( 'tbody' );
+
+			$group.parents( '.tribe-section' ).removeClass( 'tribe-is-creating-linked-post' );
+
+			$group.fadeOut( 500, function() {
 				$( this ).remove();
 			} );
 		});
@@ -395,9 +398,14 @@ jQuery( document ).ready( function( $ ) {
 			$group
 				.find( '.linked-post' ).not( '[data-hidden]' ).show()
 				.find( '.tribe-dropdown' ).trigger( 'change' );
+
+			$group.parents( '.tribe-section' ).addClass( 'tribe-is-creating-linked-post' );
+
 		} else {
 			// Hide all fields and remove their values
 			$group.find( '.linked-post' ).hide().find( 'input' ).val( '' );
+
+			$group.parents( '.tribe-section' ).removeClass( 'tribe-is-creating-linked-post' );
 
 			// Modify and Show edit link
 			if ( ! _.isEmpty( editLink ) ) {
@@ -443,11 +451,20 @@ jQuery( document ).ready( function( $ ) {
 			changeMonth     : true,
 			changeYear      : true,
 			numberOfMonths  : get_datepicker_num_months(),
-			firstDay        : startofweek,
 			showButtonPanel : false,
 			beforeShow      : function( element, object ) {
 				object.input.datepicker( 'option', 'numberOfMonths', get_datepicker_num_months() );
 				object.input.data( 'prevDate', object.input.datepicker( 'getDate' ) );
+
+				// allow single datepicker fields to specify a min or max date
+				// using the `data-datapicker-(min|max)Date` attribute
+				if ( undefined !== object.input.data( 'datepicker-min-date' ) ) {
+					object.input.datepicker( 'option', 'minDate', object.input.data( 'datepicker-min-date' ) );
+				}
+
+				if ( undefined !== object.input.data( 'datepicker-max-date' ) ) {
+					object.input.datepicker( 'option', 'maxDate', object.input.data( 'datepicker-max-date' ) );
+				}
 
 				// Capture the datepicker div here; it's dynamically generated so best to grab here instead of elsewhere.
 				$dpDiv = $( object.dpDiv );
@@ -711,10 +728,11 @@ jQuery( document ).ready( function( $ ) {
 
 					if ( $this.is( ':checked' ) ) {
 						var value = $this.val();
+						var label = value.substr( 0, 1 ).toUpperCase() + value.substr( 1 );
 						$default_view_select
-							.append( '<option value="' + value + '">' + view_options[value] + '</option>' );
+							.append( '<option value="' + value + '">' + label + '</option>' );
 						$default_mobile_view_select
-							.append( '<option value="' + value + '">' + view_options[value] + '</option>' );
+							.append( '<option value="' + value + '">' + label + '</option>' );
 					}
 				} );
 

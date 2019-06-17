@@ -80,30 +80,65 @@ class Tribe__Events__Aggregator__Admin_Bar {
 			return;
 		}
 
-		$service_response = Tribe__Events__Aggregator__Service::instance()->get_origins();
+		$transient_key    = tribe( 'events-aggregator.main' )->KEY_CACHE_SERVICES;
+		$service_response = get_transient( $transient_key );
+
+		// Save HTTP request into a transient
+		if ( false === $service_response ) {
+			$service_response = Tribe__Events__Aggregator__Service::instance()->get_origins();
+			set_transient( $transient_key, $service_response, DAY_IN_SECONDS );
+		}
+
+		$service_response = $this->remove_facebook_from_service_response( $service_response );
 
 		$origins = array(
 			(object) array(
-				'id' => 'csv',
+				'id'   => 'csv',
 				'name' => esc_attr__( 'CSV File', 'the-events-calendar' ),
 			),
 		);
 
-		if ( empty( $service_response[0]->origin ) ) {
+		if ( ! is_array( $service_response ) || empty( $service_response['origin'] ) ) {
 			return;
 		}
 
-		$origins = array_merge( $origins, $service_response[0]->origin );
+		$origins = array_merge( $origins, $service_response['origin'] );
 
 		foreach ( $origins as $origin ) {
 			$url = Tribe__Events__Aggregator__Page::instance()->get_url( array( 'ea-origin' => $origin->id ) );
 
 			$wp_admin_bar->add_menu( array(
-				'id' => 'tribe-aggregator-import-' . $origin->id,
-				'title' => $origin->name,
-				'href' => esc_url( $url ),
+				'id'     => 'tribe-aggregator-import-' . $origin->id,
+				'title'  => $origin->name,
+				'href'   => esc_url( $url ),
 				'parent' => 'tribe-events-import',
 			) );
 		}
+	}
+
+	/**
+	 * Facebook is no longer supported in EA, so ensure that it doesn't show up in the list of available
+	 * services.
+	 *
+	 * @since 4.6.24
+	 *
+	 * @param array $service_response The array of EA import origins.
+	 * @return array The array of EA import origins with Facebook removed.
+	 */
+	protected function remove_facebook_from_service_response( $service_response ) {
+
+		if ( ! is_array( $service_response ) || empty( $service_response['origin'] ) ) {
+			return $service_response;
+		}
+
+		foreach ( $service_response['origin'] as $key => $origin ) {
+			if ( 'facebook' === $origin->id ) {
+				unset( $service_response['origin'][ $key ] );
+			}
+		}
+
+		$service_response['origin'] = array_values( $service_response['origin'] );
+
+		return $service_response;
 	}
 }

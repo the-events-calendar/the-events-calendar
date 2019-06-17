@@ -13,16 +13,13 @@
  */
 
 #wpadminbar #wp-admin-bar-tribe-events .ab-group-container > .ab-submenu {
-
-    padding: 0;
-}
+		padding: 0;
+	}
 
 #wpadminbar #wp-admin-bar-tribe-events #wp-admin-bar-tribe-events-group {
-
-    padding-bottom: 0;
-}
+		padding-bottom: 0;
+	}
 
 #wpadminbar #wp-admin-bar-tribe-events #wp-admin-bar-tribe-events-settings-group {
-
-    padding-top: 0;
-}
+		padding-top: 0;
+	}

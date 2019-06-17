@@ -4,6 +4,14 @@ defined( 'WPINC' ) or die;
 
 class Tribe__Events__Aggregator {
 	/**
+	 * Cache key used to storage the services list returned by the call to:
+	 * - Tribe__Events__Aggregator__Service::instance()->get_origins();
+	 *
+	 * @since 4.6.12
+	 */
+	public $KEY_CACHE_SERVICES = 'tribe_aggregator_services_list';
+
+	/**
 	 * @var Tribe__Events__Aggregator__Meta_Box Event Aggregator Meta Box object
 	 */
 	public $meta_box;
@@ -100,16 +108,10 @@ class Tribe__Events__Aggregator {
 	 * Set up any necessary notices
 	 */
 	public function setup_notices() {
-		if ( ! is_admin() || Tribe__Main::instance()->doing_ajax() ) {
+		if ( ! is_admin() || tribe( 'context' )->doing_ajax() ) {
 			return;
 		}
 
-		if ( ! $this->api( 'origins' )->is_oauth_enabled( 'facebook' ) ) {
-			return;
-		}
-
-		tribe_notice( 'tribe-aggregator-facebook-token-expired', array( $this, 'notice_facebook_token_expired' ), 'type=error' );
-		tribe_notice( 'tribe-aggregator-facebook-oauth-feedback', array( $this, 'notice_facebook_oauth_feedback' ), 'type=success' );
 	}
 
 	/**
@@ -291,6 +293,27 @@ class Tribe__Events__Aggregator {
 	}
 
 	/**
+	 * Verifies if user has a license key
+	 *
+	 * @return boolean
+	 *
+	 * @since 4.6.19
+	 */
+	public function has_license_key() {
+		$key = get_option( 'pue_install_key_event_aggregator' );
+		if ( is_multisite() ) {
+			$network_key = get_network_option( null, 'pue_install_key_event_aggregator' );
+			$key         = ! empty( $key ) && $network_key !== $key ? $key : $network_key;
+		}
+
+		if ( empty( $key ) ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
 	 * Returns the daily import limit
 	 *
 	 * @return int
@@ -349,75 +372,6 @@ class Tribe__Events__Aggregator {
 	 */
 	private function daily_limit_transient_key() {
 		return 'tribe-aggregator-limit-used_' . date( 'Y-m-d' );
-	}
-
-	public function notice_facebook_oauth_feedback() {
-		if ( empty( $_GET['ea-auth'] ) || 'facebook' !== $_GET['ea-auth'] ) {
-			return false;
-		}
-
-		$html = '<p>' . esc_html__( 'Successfully connected Event Aggregator to Facebook', 'the-events-calendar' ) . '</p>';
-
-		return Tribe__Admin__Notices::instance()->render( 'tribe-aggregator-facebook-oauth-feedback', $html );
-	}
-
-	public function notice_facebook_token_expired() {
-		if ( ! Tribe__Admin__Helpers::instance()->is_screen() ) {
-			return false;
-		}
-
-		$expires = tribe_get_option( 'fb_token_expires' );
-
-		// Empty Token
-		if ( empty( $expires ) ) {
-			return false;
-		}
-
-		/**
-		 * Allow developers to filter how many seconds they want to be warned about FB token expiring
-		 * @param int
-		 */
-		$boundary = apply_filters( 'tribe_aggregator_facebook_token_expire_notice_boundary', 4 * DAY_IN_SECONDS );
-
-		// Creates a Boundary for expire warning to appear, before the actual expiring of the token
-		$boundary = $expires - $boundary;
-
-		if ( time() < $boundary ) {
-			return false;
-		}
-
-		$diff = human_time_diff( time(), $boundary );
-		$passed = ( time() - $expires );
-		$original = date( 'Y-m-d H:i:s', $expires );
-
-		$time[] = '<span title="' . esc_attr( $original ) . '">';
-		if ( $passed > 0 ) {
-			$time[] = sprintf( esc_html_x( 'about %s ago', 'human readable time ago', 'the-events-calendar' ), $diff );
-		} else {
-			$time[] = sprintf( esc_html_x( 'in about %s', 'in human readable time', 'the-events-calendar' ), $diff );
-		}
-		$time[] = '</span>';
-		$time = implode( '', $time );
-
-		ob_start();
-		?>
-		<p>
-			<?php
-			if ( $passed > 0 ) {
-				echo sprintf( __( 'Your Event Aggregator Facebook token expired %s.', 'the-events-calendar' ), $time );
-			} else {
-				echo sprintf( __( 'Your Event Aggregator Facebook token will expire %s.', 'the-events-calendar' ), $time );
-			}
-			?>
-		</p>
-		<p>
-			<a href="<?php echo esc_url( Tribe__Settings::instance()->get_url( array( 'tab' => 'addons' ) ) ); ?>" class="tribe-license-link"><?php esc_html_e( 'Renew your Event Aggregator Facebook token', 'the-events-calendar' ); ?></a>
-		</p>
-		<?php
-
-		$html = ob_get_clean();
-
-		return Tribe__Admin__Notices::instance()->render( 'tribe-aggregator-facebook-token-expired', $html );
 	}
 
 	/**
@@ -567,6 +521,9 @@ class Tribe__Events__Aggregator {
 		// Add admin bar items for Aggregator
 		add_action( 'wp_before_admin_bar_render', array( $this, 'add_admin_bar_items' ), 10 );
 
+		// Remove caches associated with the list of services
+		add_action( 'tribe_settings_after_save', array( $this, 'clear_services_list_cache' ) );
+
 		// Let's prevent events-importer-ical from DESTROYING its saved recurring imports when it gets deactivated
 		if ( class_exists( 'Tribe__Events__Ical_Importer__Main' ) ) {
 			remove_action(
@@ -581,5 +538,89 @@ class Tribe__Events__Aggregator {
 		add_filter( 'wp_check_filetype_and_ext', array( $this, 'add_csv_mimes' ), 10, 4 );
 
 		return true;
+	}
+
+	/**
+	 * Function used to remove cache stored in transients.
+	 *
+	 * @since 4.6.12
+	 *
+	 * @return boolean
+	 */
+	public function clear_services_list_cache() {
+		return delete_transient( $this->KEY_CACHE_SERVICES );
+	}
+
+	public function notice_facebook_oauth_feedback() {
+		_deprecated_function( __FUNCTION__, '4.6.24', 'Importing from Facebook is no longer supported in Event Aggregator.' );
+
+		if ( empty( $_GET['ea-auth'] ) || 'facebook' !== $_GET['ea-auth'] ) {
+			return false;
+		}
+
+		$html = '<p>' . esc_html__( 'Successfully connected Event Aggregator to Facebook', 'the-events-calendar' ) . '</p>';
+
+		return Tribe__Admin__Notices::instance()->render( 'tribe-aggregator-facebook-oauth-feedback', $html );
+	}
+
+	public function notice_facebook_token_expired() {
+		_deprecated_function( __FUNCTION__, '4.6.24', 'Importing from Facebook is no longer supported in Event Aggregator.' );
+
+		if ( ! Tribe__Admin__Helpers::instance()->is_screen() ) {
+			return false;
+		}
+
+		$expires = tribe_get_option( 'fb_token_expires' );
+
+		// Empty Token
+		if ( empty( $expires ) ) {
+			return false;
+		}
+
+		/**
+		 * Allow developers to filter how many seconds they want to be warned about FB token expiring
+		 * @param int
+		 */
+		$boundary = apply_filters( 'tribe_aggregator_facebook_token_expire_notice_boundary', 4 * DAY_IN_SECONDS );
+
+		// Creates a Boundary for expire warning to appear, before the actual expiring of the token
+		$boundary = $expires - $boundary;
+
+		if ( time() < $boundary ) {
+			return false;
+		}
+
+		$diff = human_time_diff( time(), $boundary );
+		$passed = ( time() - $expires );
+		$original = date( 'Y-m-d H:i:s', $expires );
+
+		$time[] = '<span title="' . esc_attr( $original ) . '">';
+		if ( $passed > 0 ) {
+			$time[] = sprintf( esc_html_x( 'about %s ago', 'human readable time ago', 'the-events-calendar' ), $diff );
+		} else {
+			$time[] = sprintf( esc_html_x( 'in about %s', 'in human readable time', 'the-events-calendar' ), $diff );
+		}
+		$time[] = '</span>';
+		$time = implode( '', $time );
+
+		ob_start();
+		?>
+		<p>
+			<?php
+			if ( $passed > 0 ) {
+				printf( esc_html__( 'Your Event Aggregator Facebook token expired %s.', 'the-events-calendar' ), esc_html( $time ) );
+			} else {
+				printf( esc_html__( 'Your Event Aggregator Facebook token will expire %s.', 'the-events-calendar' ), esc_html( $time ) );
+			}
+			?>
+		</p>
+		<p>
+			<a href="<?php echo esc_url( Tribe__Settings::instance()->get_url( array( 'tab' => 'addons' ) ) ); ?>" class="tribe-license-link"><?php esc_html_e( 'Renew your Event Aggregator Facebook token', 'the-events-calendar' ); ?></a>
+		</p>
+		<?php
+
+		$html = ob_get_clean();
+
+		return Tribe__Admin__Notices::instance()->render( 'tribe-aggregator-facebook-token-expired', $html );
 	}
 }

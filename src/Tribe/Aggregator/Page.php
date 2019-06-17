@@ -55,6 +55,9 @@ class Tribe__Events__Aggregator__Page {
 		add_action( 'current_screen', array( $this, 'action_request' ) );
 		add_action( 'init', array( $this, 'init' ) );
 
+		// check if the license is valid each time the page is accessed
+		add_action( 'tribe_aggregator_page_request', array( $this, 'check_for_license_updates' ) );
+
 		// filter the plupload default settings to remove mime type restrictions
 		add_filter( 'plupload_default_settings', array( $this, 'filter_plupload_default_settings' ) );
 
@@ -101,6 +104,7 @@ class Tribe__Events__Aggregator__Page {
 					'debug' => defined( 'WP_DEBUG' ) && true === WP_DEBUG,
 				),
 				'default_settings' => tribe( 'events-aggregator.settings' )->get_all_default_settings(),
+				'source_origin_regexp' => tribe( 'events-aggregator.settings' )->get_source_origin_regexp(),
 			),
 		);
 
@@ -132,7 +136,6 @@ class Tribe__Events__Aggregator__Page {
 						'tribe-dependency',
 						'tribe-select2',
 						'tribe-events-admin',
-						'tribe-ea-facebook-login',
 					),
 				),
 				array( 'tribe-ea-page', 'aggregator-page.css', array( 'datatables-css' ) ),
@@ -145,8 +148,6 @@ class Tribe__Events__Aggregator__Page {
 				'localize' => (object) $localize_data,
 			)
 		);
-
-		tribe_asset( $plugin, 'tribe-ea-facebook-login', 'aggregator-facebook-login.js', array( 'jquery', 'underscore', 'tribe-dependency' ), 'admin_enqueue_scripts' );
 	}
 
 	/**
@@ -196,7 +197,38 @@ class Tribe__Events__Aggregator__Page {
 	 * @return boolean
 	 */
 	public function is_screen() {
-		return ! empty( $this->ID ) && Tribe__Admin__Helpers::instance()->is_screen( $this->ID );
+		global $current_screen;
+
+		// Not in the admin we don't even care
+		if ( ! is_admin() ) {
+			return false;
+		}
+
+		// Doing AJAX? bail.
+		if ( tribe( 'context' )->doing_ajax() ) {
+			return false;
+		}
+
+		if ( ! ( $current_screen instanceof WP_Screen ) ) {
+			return false;
+		}
+
+		return ! empty( $this->ID ) && $current_screen->id === $this->ID;
+	}
+
+	/**
+	 * Checks if the license is still valid once the aggregator page
+	 * is accessed.
+	 *
+	 * @since 4.6.19
+	 *
+	 * @return void
+	 */
+	public function check_for_license_updates() {
+
+		$aggregator = tribe( 'events-aggregator.main' );
+		$aggregator->pue_checker->check_for_updates();
+
 	}
 
 	/**
