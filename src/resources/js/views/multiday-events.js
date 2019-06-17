@@ -15,7 +15,7 @@ tribe.events.views = tribe.events.views || {};
  *
  * @type   {PlainObject}
  */
-tribe.events.views.multiday_events = {};
+tribe.events.views.multidayEvents = {};
 
 /**
  * Initializes in a Strict env the code that manages the Event Views
@@ -131,13 +131,14 @@ tribe.events.views.multiday_events = {};
 	 *
 	 * @since TBD
 	 *
-	 * @param {number} index index of hidden multiday events from jQuery selector
-	 * @param {HTMLElement} hiddenMultidayEvent HTML element of hidden multiday event
+	 * @param {integer} index jQuery.each index param from 'afterSetup.tribeEvents' event
+	 * @param {jQuery} $container jQuery object of view container
+	 * @param {object} data data object passed from 'afterSetup.tribeEvents' event
 	 *
 	 * @return {void}
 	 */
-	obj.bindEvents = function() {
-		var $hiddenMultidayEvents = $( obj.selectors.multidayEvent );
+	obj.bindEvents = function( index, $container, data ) {
+		var $hiddenMultidayEvents = $container.find( obj.selectors.multidayEvent );
 
 		$hiddenMultidayEvents.each( function( index, hiddenMultidayEvent ) {
 			var $hiddenMultidayEvent = $( hiddenMultidayEvent );
@@ -166,7 +167,8 @@ tribe.events.views.multiday_events = {};
 		/**
 		 * @todo: this isn't working... need to figure out why and fix.
 		 */
-		tribe.events.views.manager.$containers.on( 'afterSetup.tribeEvents', obj.bindEvents );
+		$document.on( 'afterSetup.tribeEvents', tribe.events.views.manager.selectors.container, obj.bindEvents );
+
 		/**
 		 * @todo: do below for ajax events
 		 */
@@ -176,4 +178,4 @@ tribe.events.views.multiday_events = {};
 
 	// Configure on document ready
 	$document.ready( obj.ready );
-} )( jQuery, tribe.events.views.multiday_events );
+} )( jQuery, tribe.events.views.multidayEvents );
