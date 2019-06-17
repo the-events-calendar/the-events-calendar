@@ -277,7 +277,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/** @var Tribe__Events__Default_Values */
 		private $default_values = null;
 
-		/** @var bool Prevent autoload intialization */
+		/** @var bool Prevent autoload initialization */
 		private $should_prevent_autoload_init = false;
 
 		public static $tribeEventsMuDefaults;
