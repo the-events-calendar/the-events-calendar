@@ -204,6 +204,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 		 * @param WP_REST_Request $request The original request.
 		 */
 		$data = apply_filters( 'tribe_rest_events_archive_data', $data, $request );
+
 		$response = new WP_REST_Response( $data );
 
 		if ( isset( $data['total'] ) && isset( $data['total_pages'] ) ) {
