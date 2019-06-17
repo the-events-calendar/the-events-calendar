@@ -5,9 +5,7 @@
  * @package Tribe\Events\Views\V2
  * @since 4.9.2
  */
-
 namespace Tribe\Events\Views\V2;
-
 
 class Rest_Endpoint {
 	/**

@@ -49,6 +49,9 @@ install:
   # The installation will include wp-cli as well as it's a requirement of wp-browser.
   - composer update --prefer-dist
 
+  # Let's ensure common autoload files are there.
+  - (cd common; composer install --no-dev)
+
   # Install wp-cli phar.
   # While wp-cli is one of wp-browser dependencies the binary that lives in the `vendor/bin` folder will load the
   # Composer autoload file when used and that will conflict with the one loaded by the plugin.
@@ -132,8 +135,7 @@ script:
   - codecept run wpunit
   - codecept run aggregatorv1
   - codecept run restv1
-  # - codecept run features
   - codecept run views_rest
   - codecept run views_integration
   - codecept run views_ui
-
+  # - codecept run acceptance
