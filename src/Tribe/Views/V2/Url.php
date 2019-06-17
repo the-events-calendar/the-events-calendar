@@ -8,6 +8,7 @@
 
 namespace Tribe\Events\Views\V2;
 
+use Tribe__Context as Context;
 use Tribe__Events__Rewrite as Rewrite;
 use Tribe__Utils__Array as Arr;
 
@@ -196,5 +197,52 @@ class Url {
 		$this->query_overrides_path = (bool) $query_overrides_path;
 
 		return $this;
+	}
+
+	/**
+	 * Returns the alias of the variable set in the Url query args, if any.
+	 *
+	 * @since TBD
+	 *
+	 * @param              string $var The name of the variable to search an alias for.
+	 * @param Context|null $context The Context object to use to fetch locations, if `null` the global Context will be
+	 *                              used.
+	 *
+	 * @return false|string The variable alias set in the URL query args, or `false` if no alias was found.
+	 */
+	public function get_query_arg_alias_of( $var, Context $context = null ) {
+		$context    = $context ?: tribe_context();
+		$query_args = $this->get_query_args();
+		$aliases    = $context->translate_sub_locations(
+			$query_args,
+			Context::QUERY_VAR,
+			'read'
+		);
+
+		if ( empty( $aliases ) ) {
+			return false;
+		}
+
+		$context_aliases  = Arr::get( $context->get_locations(), [ $var, 'read', Context::QUERY_VAR ], [] );
+		$alias_query_args = array_intersect_key(
+			$query_args,
+			array_merge( $aliases, array_combine( $context_aliases, $context_aliases ) )
+		);
+
+		return array_keys( $alias_query_args )[0];
+	}
+
+	/**
+	 * Returns the value of a query arg set on the URL, or a default value if not found.
+	 *
+	 * @since TBD
+	 *
+	 * @param      string $key The
+	 * @param null $default
+	 *
+	 * @return mixed
+	 */
+	public function get_query_arg( $key, $default = null ) {
+		return Arr::get( (array) $this->get_query_args(), $key, $default );
 	}
 }

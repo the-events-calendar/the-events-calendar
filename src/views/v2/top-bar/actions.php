@@ -15,7 +15,15 @@
 ?>
 <div class="tribe-events-c-top-bar__actions">
 	<div class="tribe-common-form-control-toggle">
-		<input class="tribe-common-form-control-toggle__input" id="hide-recurring" name="hide-recurring" type="checkbox" value="false" />
-		<label class="tribe-common-form-control-toggle__label" for="hide-recurring"><?php esc_html_e( 'Hide Recurring Events', 'the-events-calendar' ); ?></label>
+		<input
+			class="tribe-common-form-control-toggle__input"
+			id="hide-recurring"
+			name="hide-recurring"
+			type="checkbox"
+			value="false"
+		/>
+		<label class="tribe-common-form-control-toggle__label" for="hide-recurring">
+			<?php esc_html_e( 'Hide Recurring Events', 'the-events-calendar' ); ?>		
+		</label>
 	</div>
 </div>
