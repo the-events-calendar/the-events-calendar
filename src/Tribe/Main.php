@@ -71,7 +71,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @since 4.8
 		 */
-		protected $min_et_version = '4.10.4.3-dev';
+		protected $min_et_version = '4.10.6.2-dev';
 
 		/**
 		 * Maybe display data wrapper
@@ -364,6 +364,20 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
+		 * Resets the global common info back to ET's common path
+		 *
+		 * @since 4.9.3.2
+		 */
+		private function reset_common_lib_info_back_to_et() {
+			$et = Tribe__Tickets__Main::instance();
+			$et_common_version = file_get_contents( $et->plugin_path . 'common/src/Tribe/Main.php' );
+			$GLOBALS['tribe-common-info'] = [
+				'dir'     => "{$et->plugin_path}common/src/Tribe",
+				'version' => $et_common_version,
+			];
+		}
+
+		/**
 		 * Plugins shouldn't include their functions before `plugins_loaded` because this will allow
 		 * better compatibility with the autoloader methods.
 		 *
@@ -373,8 +387,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// early check for an older version of Event Tickets to prevent fatal error
 			if (
-				class_exists( 'Tribe__Tickets__Main' ) &&
-				! version_compare( Tribe__Tickets__Main::VERSION, $this->min_et_version, '>=' )
+				class_exists( 'Tribe__Tickets__Main' )
+				&& version_compare( Tribe__Tickets__Main::VERSION, $this->min_et_version, '<' )
 			) {
 				add_action( 'admin_notices', [ $this, 'compatibility_notice' ] );
 				add_action( 'network_admin_notices', [ $this, 'compatibility_notice' ] );
@@ -386,6 +400,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				* "owning" common will be searched first.
 				*/
 				add_action( 'tribe_common_loaded', [ $this, 'register_plugin_autoload_paths' ] );
+
+				// if we get in here, we need to reset the global common to ET's version so that we don't cause a fatal
+				$this->reset_common_lib_info_back_to_et();
 
 				// Disable older versions of Community Events to prevent fatal Error.
 				remove_action( 'plugins_loaded', 'Tribe_CE_Load', 2 );
