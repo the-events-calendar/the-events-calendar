@@ -17,7 +17,7 @@ use Tribe\Events\Views\V2\Rest_Endpoint;
 $events = $this->get( 'events' );
 ?>
 <div
-	class="tribe-common tribe-events"
+	class="tribe-common tribe-events tribe-events-view"
 	data-js="tribe-events-view"
 	data-view-rest-nonce="<?php echo esc_attr( wp_create_nonce( 'wp_rest' ) ); ?>"
 	data-view-rest-url="<?php echo esc_url( tribe( Rest_Endpoint::class )->get_url() ); ?>"
