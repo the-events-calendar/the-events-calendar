@@ -8,6 +8,7 @@
 
 namespace Tribe\Events\Service_Providers;
 
+use Tribe\Events\Views\V2\Utils;
 use Tribe__Context;
 use Tribe__Events__Main as TEC;
 
@@ -72,11 +73,16 @@ class Context extends \tad_DI52_ServiceProvider {
 			],
 			'event_date'                  => [
 				'read'  => [
-					Tribe__Context::REQUEST_VAR => 'eventDate',
+					Tribe__Context::FUNC => [
+						static function () {
+							return Utils::get_view_data( 'bar-date', Tribe__Context::NOT_FOUND );
+						}
+					],
+					Tribe__Context::REQUEST_VAR => [ 'eventDate', 'tribe-bar-date' ],
 					Tribe__Context::QUERY_VAR   => 'eventDate',
 				],
 				'write' => [
-					Tribe__Context::REQUEST_VAR => 'eventDate',
+					Tribe__Context::REQUEST_VAR => [ 'eventDate', 'tribe-bar-date' ],
 					Tribe__Context::QUERY_VAR   => 'eventDate',
 				],
 			],
@@ -162,7 +168,16 @@ class Context extends \tad_DI52_ServiceProvider {
 					Tribe__Context::QUERY_VAR   => 'eventDisplay',
 				],
 			],
-
+			'keyword' => [
+				'read' => [
+					Tribe__Context::FUNC        => [
+						static function () {
+							return Utils::get_view_data( 'bar-keyword', Tribe__Context::NOT_FOUND );
+						}
+					],
+					Tribe__Context::REQUEST_VAR => [ 's', 'search', 'tribe-bar-search' ],
+				],
+			],
 		] );
 
 		return $locations;

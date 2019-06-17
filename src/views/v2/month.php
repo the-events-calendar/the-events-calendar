@@ -12,19 +12,28 @@
  * @version 4.9.3
  *
  */
+use Tribe\Events\Views\V2\Rest_Endpoint;
 
 $events = $this->get( 'events' );
 
-/*
-	Adding this as a temprorary data structure.
-	@todo: This array should contain the month with real events.
-*/
+/**
+ * Adding this as a temprorary data structure.
+ * @todo: This array should contain the month with real events.
+ */
 $month = apply_filters( 'tribe_events_views_v2_month_demo_data', [] );
 
 ?>
-<div class="tribe-common tribe-events">
-
+<div
+	class="tribe-common tribe-events"
+	data-js="tribe-events-view"
+	data-view-rest-nonce="<?php echo esc_attr( wp_create_nonce( 'wp_rest' ) ); ?>"
+	data-view-rest-url="<?php echo esc_url( tribe( Rest_Endpoint::class )->get_url() ); ?>"
+	data-view-manage-url="<?php echo (int) $this->get( 'should_manage_url', true ); ?>"
+>
 	<div class="tribe-common-l-container tribe-events-l-container">
+		<?php $this->template( 'loader', [ 'text' => 'Loading...' ] ); ?>
+
+		<?php $this->template( 'data' ); ?>
 
 		<?php $this->template( 'events-bar' ); ?>
 
