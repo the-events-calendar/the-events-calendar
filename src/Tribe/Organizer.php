@@ -472,7 +472,7 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 
 		unset( $data['OrganizerID'] );
 
-		$args = array_filter([
+		$args = array_filter( [
 			'ID'            => $id,
 			'post_title'    => Tribe__Utils__Array::get( $data, 'post_title', $data['Organizer'] ),
 			'post_content'  => Tribe__Utils__Array::get( $data, 'post_content', $data['Description'] ),
@@ -481,9 +481,7 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 			'post_date'     => $data['post_date'],
 			'post_date_gmt' => $data['post_date_gmt'],
 			'post_status'   => $data['post_status'],
-		], function( $value ) {
-			return ! is_null( $value );
-		});
+		] );
 
 		if ( count( $args ) > 1 ) {
 			$post_type = Tribe__Events__Main::ORGANIZER_POST_TYPE;

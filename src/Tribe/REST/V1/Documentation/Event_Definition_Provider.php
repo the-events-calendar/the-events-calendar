@@ -23,10 +23,6 @@ class Tribe__Events__REST__V1__Documentation__Event_Definition_Provider
 					'type' => 'integer',
 					'description' => __( 'The event WordPress post ID', 'the-events-calendar' ),
 				),
-				'checksum'=> array(
-					'type' => 'string',
-					'description' => __( 'The event checksum', 'the-events-calendar' ),
-				),
 				'global_id' => array(
 					'type' => 'string',
 					'description' => __( 'The event ID used to globally identify in Event Aggregator', 'the-events-calendar' ),
