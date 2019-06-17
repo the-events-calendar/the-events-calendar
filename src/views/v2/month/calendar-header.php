@@ -1,9 +1,9 @@
 <?php
 /**
- * View: Month View - Grid Header
+ * View: Month View - Calendar Header
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/views/v2/month/grid-header.php
+ * [your-theme]/tribe/events/views/v2/month/calendar-header.php
  *
  * See more documentation about our views templating system.
  *
@@ -27,7 +27,7 @@ global $wp_locale;
 				role="columnheader"
 				aria-label="<?php echo esc_attr( $day ); ?>"
 			>
-				<h3 class="tribe-common-b3">
+				<h3 class="tribe-events-calendar-month__header-title tribe-common-b3">
 					<?php echo esc_html( $wp_locale->get_weekday_abbrev( $day ) ); ?>
 				</h3>
 			</div>

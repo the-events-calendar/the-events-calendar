@@ -1,7 +1,7 @@
 .tribe-events {
 
 	/* -----------------------------------------------------------------------------
-	 * Grid Header
+	 * Calendar Header
 	 * ----------------------------------------------------------------------------- */
 
 	.tribe-events-calendar-month__header {
@@ -12,6 +12,14 @@
 		text-transform: uppercase;
 		width: var(--grid-width-1-of-7);
 		padding-bottom: var(--spacer-2);
+	}
+
+	.tribe-events-calendar-month__header-title {
+		text-align: center;
+
+		@media (--viewport-medium) {
+			text-align: left;
+		}
 	}
 
 	.tribe-events-calendar-month__week {
