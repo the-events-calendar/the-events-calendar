@@ -167,7 +167,7 @@ export function* onHumanReadableChange() {
 		/**
 		 * @todo: move this to common utils in moment.js
 		 */
-		const isAllDay = ! isMultiDay && ( '00:00' === moments.start.format( 'HH:mm' ) && '23:59' === moments.end.format( 'HH:mm' ) );
+		const isAllDay = ! isMultiDay && '00:00' === moments.start.format( 'HH:mm' ) && '23:59' === moments.end.format( 'HH:mm' );
 
 		const dates = yield all( {
 			start: call( momentUtil.toDateTime, result.start ),
