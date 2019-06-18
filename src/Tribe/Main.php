@@ -277,6 +277,16 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/** @var Tribe__Events__Default_Values */
 		private $default_values = null;
 
+		/**
+		 * @var bool Prevent autoload initialization
+		 */
+		private $should_prevent_autoload_init = false;
+
+		/**
+		 * @var string tribe-common VERSION regex
+		 */
+		private $common_version_regex = "/const\s+VERSION\s*=\s*'([^']+)'/m";
+
 		public static $tribeEventsMuDefaults;
 
 		/**
@@ -319,6 +329,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$this->maybe_set_common_lib_info();
 
 			// let's initialize tec
+			add_action( 'plugins_loaded', array( $this, 'maybe_bail_if_old_et_is_present' ), -1 );
+			add_action( 'plugins_loaded', array( $this, 'maybe_bail_if_invalid_wp_or_php' ), -1 );
 			add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ), 0 );
 
 			// Prevents Image Widget Plus from been problematic
@@ -342,7 +354,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public function maybe_set_common_lib_info() {
 			// if there isn't a tribe-common version, bail with a notice
 			$common_version = file_get_contents( $this->plugin_path . 'common/src/Tribe/Main.php' );
-			if ( ! preg_match( "/const\s+VERSION\s*=\s*'([^']+)'/m", $common_version, $matches ) ) {
+			if ( ! preg_match( $this->common_version_regex, $common_version, $matches ) ) {
 				return add_action( 'admin_head', array( $this, 'missing_common_libs' ) );
 			}
 
@@ -369,12 +381,75 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @since 4.9.3.2
 		 */
 		private function reset_common_lib_info_back_to_et() {
-			$et = Tribe__Tickets__Main::instance();
-			$et_common_version = file_get_contents( $et->plugin_path . 'common/src/Tribe/Main.php' );
+			if ( ! class_exists( 'Tribe__Tickets__Main' ) ) {
+				return;
+			}
+
+			$et          = Tribe__Tickets__Main::instance();
+			$main_source = file_get_contents( $et->plugin_path . 'common/src/Tribe/Main.php' );
+
+			// if there isn't a VERSION, don't override the common path
+			if ( ! preg_match( $this->common_version_regex, $main_source, $matches ) ) {
+				return;
+			}
+
 			$GLOBALS['tribe-common-info'] = [
 				'dir'     => "{$et->plugin_path}common/src/Tribe",
-				'version' => $et_common_version,
+				'version' => $matches[1],
 			];
+		}
+
+		/**
+		 * Prevents bootstrapping and autoloading if the version of ET that is running is too old
+		 *
+		 * @since 4.9.3.2
+		 */
+		public function maybe_bail_if_old_et_is_present() {
+			// early check for an older version of Event Tickets to prevent fatal error
+			if ( ! class_exists( 'Tribe__Tickets__Main' ) ) {
+				return;
+			}
+
+			if ( version_compare( Tribe__Tickets__Main::VERSION, $this->min_et_version, '>=' ) ) {
+				return;
+			}
+
+			$this->should_prevent_autoload_init = true;
+
+			add_action( 'admin_notices', [ $this, 'compatibility_notice' ] );
+			add_action( 'network_admin_notices', [ $this, 'compatibility_notice' ] );
+			add_filter( 'tribe_ecp_to_run_or_not_to_run', [ $this, 'disable_pro' ] );
+			add_action( 'tribe_plugins_loaded', [ $this, 'remove_exts' ], 0 );
+			/*
+			* After common was loaded by another source (e.g. Event Tickets) let's append this plugin source files
+			* to the ones the Autoloader will search. Since we're appending them the ones registered by the plugin
+			* "owning" common will be searched first.
+			*/
+			add_action( 'tribe_common_loaded', [ $this, 'register_plugin_autoload_paths' ] );
+
+			// if we get in here, we need to reset the global common to ET's version so that we don't cause a fatal
+			$this->reset_common_lib_info_back_to_et();
+
+			// Disable older versions of Community Events to prevent fatal Error.
+			remove_action( 'plugins_loaded', 'Tribe_CE_Load', 2 );
+		}
+
+		/**
+		 * Prevents bootstrapping and autoloading if the version of WP or PHP are too old
+		 *
+		 * @since 4.9.3.2
+		 */
+		public function maybe_bail_if_invalid_wp_or_php() {
+			if ( self::supportedVersion( 'wordpress' ) && self::supportedVersion( 'php' ) ) {
+				return;
+			}
+
+			add_action( 'admin_notices', array( $this, 'notSupportedError' ) );
+
+			// if we get in here, we need to reset the global common to ET's version so that we don't cause a fatal
+			$this->reset_common_lib_info_back_to_et();
+
+			$this->should_prevent_autoload_init = true;
 		}
 
 		/**
@@ -384,35 +459,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return void
 		 */
 		public function plugins_loaded() {
-
-			// early check for an older version of Event Tickets to prevent fatal error
-			if (
-				class_exists( 'Tribe__Tickets__Main' )
-				&& version_compare( Tribe__Tickets__Main::VERSION, $this->min_et_version, '<' )
-			) {
-				add_action( 'admin_notices', [ $this, 'compatibility_notice' ] );
-				add_action( 'network_admin_notices', [ $this, 'compatibility_notice' ] );
-				add_filter( 'tribe_ecp_to_run_or_not_to_run', [ $this, 'disable_pro' ] );
-				add_action( 'tribe_plugins_loaded', [ $this, 'remove_exts' ], 0 );
-				/*
-				* After common was loaded by another source (e.g. Event Tickets) let's append this plugin source files
-				* to the ones the Autoloader will search. Since we're appending them the ones registered by the plugin
-				* "owning" common will be searched first.
-				*/
-				add_action( 'tribe_common_loaded', [ $this, 'register_plugin_autoload_paths' ] );
-
-				// if we get in here, we need to reset the global common to ET's version so that we don't cause a fatal
-				$this->reset_common_lib_info_back_to_et();
-
-				// Disable older versions of Community Events to prevent fatal Error.
-				remove_action( 'plugins_loaded', 'Tribe_CE_Load', 2 );
-
-				return;
-			}
-
-			// WordPress and PHP Version Check
-			if ( ! self::supportedVersion( 'wordpress' ) || ! self::supportedVersion( 'php' ) ) {
-				add_action( 'admin_notices', array( $this, 'notSupportedError' ) );
+			if ( $this->should_prevent_autoload_init ) {
 				return;
 			}
 
@@ -1547,7 +1594,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Prevents Extensions from running if ET is on an Older Version
 		 *
-		 * @since 4.10.0.1
+		 * @since 4.9.3.1
 		 *
 		 */
 		public function remove_exts() {
