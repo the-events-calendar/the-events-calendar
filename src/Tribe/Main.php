@@ -1590,7 +1590,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Prevents Extensions from running if ET is on an Older Version
 		 *
-		 * @since 4.10.0.1
+		 * @since 4.9.3.1
 		 *
 		 */
 		public function remove_exts() {
