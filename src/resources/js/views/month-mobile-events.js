@@ -81,9 +81,9 @@ tribe.events.views.monthMobileEvents = {};
 		$header.addClass( obj.selectors.calendarDaySelected.className() );
 
 		// set accessibility attributes
-		$header.attr( 'aria-expanded', 'false' );
-		$header.attr( 'aria-selected', 'false' );
-		$content.attr( 'aria-hidden', 'true' );
+		$header.attr( 'aria-expanded', 'true' );
+		$header.attr( 'aria-selected', 'true' );
+		$content.attr( 'aria-hidden', 'false' );
 
 		// add inline css
 		$content.css( 'display', 'block' );
@@ -105,9 +105,9 @@ tribe.events.views.monthMobileEvents = {};
 		$header.removeClass( obj.selectors.calendarDaySelected.className() );
 
 		// set accessibility attributes
-		$header.attr( 'aria-expanded', 'true' );
-		$header.attr( 'aria-selected', 'true' );
-		$content.attr( 'aria-hidden', 'false' );
+		$header.attr( 'aria-expanded', 'false' );
+		$header.attr( 'aria-selected', 'false' );
+		$content.attr( 'aria-hidden', 'true' );
 
 		// remove inline css
 		$content.css( 'display', '' );
@@ -138,7 +138,7 @@ tribe.events.views.monthMobileEvents = {};
 	};
 
 	/**
-	 * Binds events for hover and focus of hidden multiday events
+	 * Binds events for mobile day click listeners
 	 *
 	 * @since TBD
 	 *
@@ -158,7 +158,7 @@ tribe.events.views.monthMobileEvents = {};
 	};
 
 	/**
-	 * Handles the initialization of the multiday events when Document is ready
+	 * Handles the initialization of the mobile days when Document is ready
 	 *
 	 * @since TBD
 	 *
