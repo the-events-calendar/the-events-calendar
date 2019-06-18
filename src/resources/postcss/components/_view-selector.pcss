@@ -162,6 +162,15 @@
 		}
 	}
 
+	.tribe-events-c-view-selector__button--active {
+
+		&:after {
+			@media (--viewport-medium) {
+				background-image: svg-inline(caret-up);
+			}
+		}
+	}
+
 	.tribe-events-c-view-selector__button-icon {
 		content: '';
 		display: block;
