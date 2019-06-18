@@ -436,4 +436,4 @@ tribe.events.views.manager = {};
 
 	// Configure on document ready
 	$document.ready( obj.ready );
-}( jQuery, window.underscore || window._, tribe.events.views.manager ) );
+} )( jQuery, window.underscore || window._, tribe.events.views.manager );
