@@ -25,15 +25,15 @@ $view_slug = $view_instance->get_slug();
 $is_current_view = $view->get_slug() === $view_instance->get_slug();
 $view_url = tribe_events_get_url( [ 'eventDisplay' => $view_slug ], $this->get( 'view' )->get_url() );
 
-$link_classes = [ 'tribe-events-c-view-selector__list-item-link' ];
+$list_item_classes = [ 'tribe-events-c-view-selector__list-item', "tribe-events-c-view-selector__list-item--$view_slug" ];
 if ( $is_current_view ) {
-	$link_classes[] = 'tribe-events-c-view-selector__list-item-link--active';
+	$list_item_classes[] = 'tribe-events-c-view-selector__list-item--active';
 }
 ?>
-<li class="tribe-events-c-view-selector__list-item">
+<li class="<?php echo esc_attr( implode( ' ', $list_item_classes ) ); ?>">
 	<a
 		href="<?php echo esc_url( $view_url ); ?>"
-		class="<?php echo esc_attr( implode( ' ', $link_classes ) ); ?>"
+		class="tribe-events-c-view-selector__list-item-link"
 		data-js="tribe-events-view-link"
 	>
 		<span class="tribe-events-c-view-selector__list-item-icon tribe-common-svgicon tribe-common-svgicon--<?php echo esc_attr( $view_slug ); ?>"></span>
