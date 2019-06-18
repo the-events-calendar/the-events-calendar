@@ -117,6 +117,11 @@ class Template_Bootstrap {
 			return false;
 		}
 
+		// Dont load on Single event pages
+		if ( 'single-event' === $query->get( 'eventDisplay' ) ) {
+			return false;
+		}
+
 		/**
 		 * Bail if we are not dealing with our Post Type
 		 *

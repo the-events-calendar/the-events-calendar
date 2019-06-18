@@ -97,6 +97,13 @@ class Manager {
 		return (string) $view_class;
 	}
 
+	/**
+	 * Returns an associative array of Views currently registered that are publicly visible.
+	 *
+	 * @since  TBD
+	 *
+	 * @return array An array in the shape `[ <slug> => <View Class> ]`.
+	 */
 	public function get_publicly_visible_views() {
 		$views = $this->get_registered_views();
 
@@ -141,6 +148,4 @@ class Manager {
 
 		return Arr::get( $registered_views, $slug, false );
 	}
-
-
 }

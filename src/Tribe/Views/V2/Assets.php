@@ -80,7 +80,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 			[ 'jquery', 'tribe-common' ],
 			null,
 			[
-				'priority'     => 10,
+				'priority' => 10,
 			]
 		);
 
@@ -91,7 +91,20 @@ class Assets extends \tad_DI52_ServiceProvider {
 			[ 'jquery', 'tribe-common' ],
 			null,
 			[
+				'priority' => 10,
+			]
+		);
+
+		tribe_asset(
+			$plugin,
+			'tribe-events-views-v2-multiday-events',
+			'views/multiday-events.js',
+			[ 'jquery', 'tribe-common', 'tribe-events-views-v2-manager' ],
+			'wp_enqueue_scripts',
+			[
 				'priority'     => 10,
+				'conditionals' => [ $this, 'should_enqueue_frontend' ],
+				'groups'       => [ static::$group_key ],
 			]
 		);
 

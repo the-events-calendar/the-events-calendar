@@ -77,7 +77,7 @@ class ContextMocker {
 	 */
 	public function for_view( string $view ): ContextMocker {
 		if ( class_exists( $view ) ) {
-			$view_slug = class_exists( $view ) ? View::get_view_slug( $view ) : $view;
+			$view_slug = class_exists( $view ) ? tribe( Manager::class )->get_view_slug( $view ) : $view;
 			if ( false === $view_slug ) {
 				$message = "Currently no View is registered for the '{$view}' slug;";
 				$message .= "\n\tDid you register the View in the `tribe_events_views` filter?";
