@@ -17,6 +17,7 @@ $event_id = $event->ID;
 ?>
 <h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8">
 	<a
+		href="#"
 		title="<?php echo esc_attr( $event->title ); ?>"
 		rel="bookmark"
 		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
