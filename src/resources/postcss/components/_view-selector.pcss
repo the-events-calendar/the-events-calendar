@@ -12,7 +12,7 @@
 	 *   >
 	 *     <span class="tribe-events-c-view-selector__button-icon tribe-common-svgicon tribe-common-svgicon--month"></span>
 	 *     <span class="tribe-events-c-view-selector__button-text">
-	 *       Option One
+	 *       Month
 	 *     </span>
 	 *   </button>
 	 *   <ul
@@ -21,13 +21,19 @@
 	 *     aria-hidden="true"
 	 *   >
 	 *     <li class="tribe-events-c-view-selector__list-item">
-	 *       <a href="#" class="tribe-events-c-view-selector__option">
-	 *         Option One
+	 *       <a href="#" class="tribe-events-c-view-selector__list-item-link">
+	 *         <span class="tribe-events-c-view-selector__list-item-icon tribe-common-svgicon tribe-common-svgicon--month"></span>
+	 *         <span class="tribe-events-c-view-selector__list-item-text">
+	 *           Month
+	 *         </span>
 	 *       </a>
 	 *     </li>
 	 *     <li class="tribe-events-c-view-selector__list-item">
-	 *       <a href="#" class="tribe-events-c-view-selector__option">
-	 *         Option Two
+	 *       <a href="#" class="tribe-events-c-view-selector__list-item-link">
+	 *         <span class="tribe-events-c-view-selector__list-item-icon tribe-common-svgicon tribe-common-svgicon--list"></span>
+	 *         <span class="tribe-events-c-view-selector__list-item-text">
+	 *           List
+	 *         </span>
 	 *       </a>
 	 *     </li>
 	 *   </ul>
@@ -37,6 +43,11 @@
 
 	.tribe-events-c-view-selector {
 		position: relative;
+		width: 29px;
+
+		@media (--viewport-medium) {
+			width: 114px;
+		}
 	}
 
 	.tribe-events-c-view-selector__button {
@@ -45,12 +56,12 @@
 		display: flex;
 		padding: var(--spacer-1) var(--spacer-0);
 		text-align: left;
+		width: 100%;
 
 		@media (--viewport-medium) {
 			border: none;
 			height: 34px;
 			padding: var(--spacer-0) var(--spacer-4);
-			width: 114px;
 		}
 
 		&:hover,
@@ -91,5 +102,55 @@
 
 			flex: auto;
 		}
+	}
+
+	.tribe-events-c-view-selector__list {
+		/* diisplay: none; */
+		background-color: var(--color-background);
+		border: 1px solid var(--color-border-secondary);
+		border-radius: 4px;
+		box-shadow: var(--box-shadow-tooltip);
+		padding: 12px var(--spacer-1);
+		position: absolute;
+		right: 0;
+		top: 56px;
+		width: 168px;
+
+		@media (--viewport-medium) {
+
+		}
+	}
+
+	/* .tribe-events-c-view-selector__list-item {} */
+
+	.tribe-events-c-view-selector__list-item-link {
+		align-items: center;
+		display: flex;
+		padding: var(--spacer-1) 12px;
+
+		&:hover,
+		&:focus {
+
+			.tribe-events-c-view-selector__list-item-text {
+				font-weight: var(--font-weight-bold);
+			}
+		}
+	}
+
+	.tribe-events-c-view-selector__list-item-link--active {
+		background-color: var(--color-background-secondary);
+	}
+
+	.tribe-events-c-view-selector__list-item-icon {
+		flex: none;
+		height: 18px;
+		margin-right: 12px;
+		width: 18px;
+	}
+
+	.tribe-events-c-view-selector__list-item-text {
+		@mixin desktop-body-2;
+
+		flex: auto;
 	}
 }
