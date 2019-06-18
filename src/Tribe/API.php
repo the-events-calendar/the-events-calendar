@@ -86,7 +86,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			}
 
 			/**
-			 * Allow hooking in prior to updating the event and meta fields.
+			 * Allow hooking prior the update of an event and meta fields.
 			 *
 			 * @param array   $args The fields we want saved.
 			 * @param int     $event_id The event ID we are modifying.
@@ -102,7 +102,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			}
 
 			/**
-			 * Disallow the event of a post via the Tribe API
+			 * Disallow the update for an event via the Tribe API
 			 *
 			 * @param bool $disallow_update Flag to control the update of a post false by default.
 			 * @param int  $event_id The event ID.

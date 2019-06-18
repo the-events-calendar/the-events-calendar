@@ -65,6 +65,8 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		}
 
 		/**
+		 * Action executed before the Event data is pulled before deliver the Event via REST API.
+		 *
 		 * @param $event_id int The ID of the event
 		 *
 		 * @since TBD
