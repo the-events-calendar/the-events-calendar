@@ -26,51 +26,6 @@ class ViewTest extends \Codeception\TestCase\WPTestCase {
 		return new Manager();
 	}
 
-	public function base_template_options() {
-		return [
-			'invalid' => [
-				'foo',
-				'event',
-			],
-			'numeric' => [
-				2,
-				'event',
-			],
-			'default' => [
-				'default',
-				'page',
-			],
-			'empty_string' => [
-				'',
-				'event',
-			],
-			'numeric_zero' => [
-				0,
-				'event',
-			],
-			'null' => [
-				null,
-				'event',
-			],
-			'boolean_false' => [
-				false,
-				'event',
-			],
-			'boolean_true' => [
-				false,
-				'event',
-			],
-			'slug_event' => [
-				'event',
-				'event',
-			],
-			'slug_page' => [
-				'page',
-				'event',
-			],
-		];
-	}
-
 	/**
 	 * @test
 	 */
