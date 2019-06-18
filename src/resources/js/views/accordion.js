@@ -116,7 +116,7 @@ tribe.events.views.accordion = {};
 		var contentId = $header.attr( 'aria-controls' );
 		var $content = $container.find( '#' + contentId );
 
-		if ( $header.attr( 'aria-expanded' ) === 'true' ) {
+		if ( 'true' === $header.attr( 'aria-expanded' ) ) {
 			obj.closeAccordion( $header, $content );
 		} else {
 			obj.openAccordion( $header, $content );
@@ -136,9 +136,11 @@ tribe.events.views.accordion = {};
 	 * @return {void}
 	 */
 	obj.bindEvents = function( event, index, $container, data ) {
-		$container.find( obj.selectors.accordionTrigger ).each( function( index, header ) {
-			$( header ).on( 'click', { target: this, container: $container }, obj.toggleAccordion );
-		} );
+		$container
+			.find( obj.selectors.accordionTrigger )
+			.each( function( index, header ) {
+				$( header ).on( 'click', { target: this, container: $container }, obj.toggleAccordion );
+			} );
 	};
 
 	/**
