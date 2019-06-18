@@ -79,7 +79,6 @@ tribe.events.views.accordion = {};
 
 		// add inline css
 		$content.css( 'display', 'block' );
-		$content.parent().css( 'display', 'block' );
 	};
 
 	/**
@@ -100,7 +99,6 @@ tribe.events.views.accordion = {};
 
 		// remove inline css
 		$content.css( 'display', '' );
-		$content.parent().css( 'display', '' );
 	};
 
 	/**

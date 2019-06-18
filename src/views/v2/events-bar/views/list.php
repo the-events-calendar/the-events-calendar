@@ -13,8 +13,14 @@
  *
  */
 ?>
-<ul class="tribe-common-form-control-tabs__list tribe-events-c-events-bar__views-tabs-list" tabindex="-1" role="listbox" aria-activedescendant="tribe-views-list-label">
-	<?php foreach ( $this->get( 'views' ) as $view => $view_class_name ) : ?>
-		<?php $this->template( 'events-bar/views/item', [ 'view_class_name' => $view_class_name ] ); ?>
-	<?php endforeach; ?>
-</ul>
+<div
+	class="tribe-events-c-view-selector__content"
+	id="tribe-events-view-selector-content"
+	aria-hidden="true"
+>
+	<ul class="tribe-events-c-view-selector__list">
+		<?php foreach ( $this->get( 'views' ) as $view => $view_class_name ) : ?>
+			<?php $this->template( 'events-bar/views/item', [ 'view_class_name' => $view_class_name ] ); ?>
+		<?php endforeach; ?>
+	</ul>
+</divclass="tribe-events-c-view-selector__content">

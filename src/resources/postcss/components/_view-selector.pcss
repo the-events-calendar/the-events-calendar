@@ -16,28 +16,30 @@
 	 *       Month
 	 *     </span>
 	 *   </button>
-	 *   <ul
-	 *     class="tribe-events-c-view-selector__list"
+	 *   <div
+	 *     class="tribe-events-c-view-selector__content"
 	 *     id="container-id"
 	 *     aria-hidden="true"
 	 *   >
-	 *     <li class="tribe-events-c-view-selector__list-item">
-	 *       <a href="#" class="tribe-events-c-view-selector__list-item-link">
-	 *         <span class="tribe-events-c-view-selector__list-item-icon tribe-common-svgicon tribe-common-svgicon--month"></span>
-	 *         <span class="tribe-events-c-view-selector__list-item-text">
-	 *           Month
-	 *         </span>
-	 *       </a>
-	 *     </li>
-	 *     <li class="tribe-events-c-view-selector__list-item">
-	 *       <a href="#" class="tribe-events-c-view-selector__list-item-link">
-	 *         <span class="tribe-events-c-view-selector__list-item-icon tribe-common-svgicon tribe-common-svgicon--list"></span>
-	 *         <span class="tribe-events-c-view-selector__list-item-text">
-	 *           List
-	 *         </span>
-	 *       </a>
-	 *     </li>
-	 *   </ul>
+	 *     <ul class="tribe-events-c-view-selector__list">
+	 *       <li class="tribe-events-c-view-selector__list-item">
+	 *         <a href="#" class="tribe-events-c-view-selector__list-item-link" data-js="tribe-events-view-link">
+	 *           <span class="tribe-events-c-view-selector__list-item-icon tribe-common-svgicon tribe-common-svgicon--month"></span>
+	 *           <span class="tribe-events-c-view-selector__list-item-text">
+	 *             Month
+	 *           </span>
+	 *         </a>
+	 *       </li>
+	 *       <li class="tribe-events-c-view-selector__list-item">
+	 *         <a href="#" class="tribe-events-c-view-selector__list-item-link" data-js="tribe-events-view-link">
+	 *           <span class="tribe-events-c-view-selector__list-item-icon tribe-common-svgicon tribe-common-svgicon--list"></span>
+	 *           <span class="tribe-events-c-view-selector__list-item-text">
+	 *             List
+	 *           </span>
+	 *         </a>
+	 *       </li>
+	 *     </ul>
+	 *   </div>
 	 * </div>
 	 *
 	 * Example (Tabs):
@@ -67,15 +69,21 @@
 			}
 		}
 
-		.tribe-events-c-view-selector__list {
+		.tribe-events-c-view-selector__content {
 			@media (--viewport-medium) {
 				border: none;
 				border-radius: 0;
 				box-shadow: none;
-				display: flex;
+				display: block;
 				padding: 0 calc(var(--spacer-4) / 2);
 				position: static;
 				transform: none;
+			}
+		}
+
+		.tribe-events-c-view-selector__list {
+			@media (--viewport-medium) {
+				display: flex;
 			}
 		}
 
@@ -194,7 +202,7 @@
 		}
 	}
 
-	.tribe-events-c-view-selector__list {
+	.tribe-events-c-view-selector__content {
 		display: none;
 		background-color: var(--color-background);
 		border: 1px solid var(--color-border-secondary);
@@ -213,6 +221,8 @@
 			width: 100%;
 		}
 	}
+
+	/* .tribe-events-c-view-selector__list {} */
 
 	/* .tribe-events-c-view-selector__list-item {} */
 
