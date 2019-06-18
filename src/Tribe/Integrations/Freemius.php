@@ -40,6 +40,12 @@ class Tribe__Events__Integrations__Freemius {
 	 * @return void
 	 */
 	public function __construct() {
+		if ( ! is_admin() ) {
+			return;
+		}
+
+		global $pagenow;
+
 		$page = tribe_get_request_var( 'page' );
 
 		$valid_page = [
@@ -49,7 +55,7 @@ class Tribe__Events__Integrations__Freemius {
 			'tribe-help',
 		];
 
-		if ( ! in_array( $page, $valid_page ) ) {
+		if ( ! in_array( $page, $valid_page ) && 'plugins.php' !== $pagenow ) {
 			return;
 		}
 
@@ -77,18 +83,21 @@ class Tribe__Events__Integrations__Freemius {
 			'pk_e32061abc28cfedf231f3e5c4e626',
 			[
 				'menu' => [
-					'slug' => $page,
+					'slug'    => $page,
 					'account' => true,
 					'support' => false,
 				],
-				'is_premium' => false,
-				'has_addons' => false,
+				'is_premium'     => false,
+				'has_addons'     => false,
 				'has_paid_plans' => false,
 			]
 		);
 
 		tribe_asset( Tribe__Events__Main::instance(), 'tribe-events-freemius', 'freemius.css', [], 'admin_enqueue_scripts' );
 
+		// Freemius typically hooks this action–which bootstraps the deactivation dialog–during plugins_loaded, but we
+		// initialize our plugins AFTER plugins_loaded, so we'll register it on admin_init instead
+		add_action( 'admin_init', [ $this->instance, '_hook_action_links_and_register_account_hooks' ] );
 		add_action( 'admin_init', [ $this, 'action_skip_activation' ] );
 
 		$this->instance->add_filter( 'connect_message_on_update', [ $this, 'filter_connect_message_on_update' ], 10, 6 );
@@ -113,19 +122,21 @@ class Tribe__Events__Integrations__Freemius {
 			return TRIBE_EVENTS_INTEGRATIONS_SHOULD_LOAD_FREEMIUS;
 		}
 
-		$previous_versions = Tribe__Settings_Manager::get_option( 'previous_ecp_versions', [] );
+		// If we have the option we use it
+		$seed                  = tribe_get_option( 'freemius_random_seed', null );
+		$seed_misses_threshold = null === $seed || $threshold < $seed;
 
 		/**
 		 * Should only if it a new install.
 		 *
 		 * @see Tribe__Admin__Activation_Page::is_new_install Based on protected method from Common.
 		 */
-		if ( ! empty( $previous_versions ) && '0' != end( $previous_versions ) ) {
+		$previous_versions     = Tribe__Settings_Manager::get_option( 'previous_ecp_versions', [] );
+		$has_previous_versions = ! empty( $previous_versions ) && '0' != end( $previous_versions );
+
+		if ( $has_previous_versions && $seed_misses_threshold ) {
 			return false;
 		}
-
-		// If we have the option we use it
-		$seed = tribe_get_option( 'freemius_random_seed', null );
 
 		if ( ! $seed ) {
 			$seed = rand( 1, 100 );
