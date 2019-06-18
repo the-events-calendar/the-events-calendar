@@ -161,6 +161,8 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 
 			$data['rest_url'] = $this->get_current_rest_url( $args, $extra_rest_args );
 
+			$args = apply_filters( 'tribe_events_archive_get_args', $args, $data );
+
 			$events = tribe_get_events( $args );
 
 			$page = $this->parse_page( $request ) ? $this->parse_page( $request ) : 1;
