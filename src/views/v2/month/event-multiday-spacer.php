@@ -14,4 +14,4 @@
  */
 
 ?>
-<div class="tribe-events-calendar-month__event-multiday-wrapper tribe-events-calendar-month__event-multiday--empty" aria-hidden="true"></div>
+<div class="tribe-events-calendar-month__event-multiday-wrapper tribe-events-calendar-month__event-multiday--empty"></div>
