@@ -12,23 +12,35 @@
  * @version TBD
  *
  */
+use Tribe\Events\Views\V2\View;
+
+
+// Bail on invalid name of class
+if ( ! $this->get( 'view_class_name' ) ) {
+	return;
+}
+
+$view_instance = View::make( $this->get( 'view_class_name' ) );
+$view_slug = $view_instance->get_slug();
+$is_current_view = $view->get_slug() === $view_instance->get_slug();
+$view_url = tribe_events_get_url( [ 'eventDisplay' => $view_instance->get_slug() ], $this->get( 'view' )->get_url() );
 ?>
 <li class="tribe-common-form-control-tabs__list-item" role="presentation">
 	<input
 		class="tribe-common-form-control-tabs__input"
-		id="tribe-views-list"
+		id="<?php echo sanitize_html_class( "tribe-views-{$view_slug}" ); ?>"
 		name="tribe-views"
 		type="radio"
-		value="tribe-views-list"
-		checked="checked"
+		value="<?php echo esc_attr( $view_slug ); ?>"
+		<?php checked( $is_current_view ); ?>
 	/>
 	<label
 		class="tribe-common-form-control-tabs__label"
-		id="tribe-views-list-label"
-		for="tribe-views-list"
+		id="<?php echo sanitize_html_class( "tribe-views-{$view_slug}-label" ); ?>"
+		for="<?php echo sanitize_html_class( "tribe-views-{$view_slug}" ); ?>"
 		role="option"
 		aria-selected="true"
 	>
-		<?php esc_html_e( 'List', 'the-events-calendar' ); ?>
+		<?php echo esc_html( $view_instance->get_label() ); ?>
 	</label>
 </li>
