@@ -116,3 +116,28 @@ Scenario: Display order of events with same start and end time
     And "Display up to X single-day events per day in Month View" is set to 3
     When I look at the day segment for July 20
     Then I should see the following events listed in this order: "Crunch", "Twix", "Payday"
+
+Scenario Outline: Display order of multiple multi-day events
+    Given the site has the following public, published, multi-day events happening in August:
+        | event name | start datetime   | end datetime     |
+        | Crunch     | August 1 all day | August 3         |
+        | Twix       | August 1 9:00am  | August 4 10:00am |
+        | Payday     | August 2 all day | August 4         |
+        | Heath      | August 3 all day | August 7         |
+        | Mars       | August 4 10:00am | August 7 4:00pm  |
+        | Snickers   | August 5 2:00pm  | August 6 5:00pm  |
+        | Hersheys   | August 6 8:00 am | August 8 6:00pm  |
+        | Mounds     | August 6 8:00am | August 8 7:00pm  |
+    When I look at the day segment for <date>
+    Then I should see the following multi-day event spans in this order from the top: <order>
+
+    Examples:
+        | date     | order                                             |
+        | August 1 | "Crunch", "Twix"                                  |
+        | August 2 | "Crunch", "Twix", "Payday"                        |
+        | August 3 | "Crunch", "Twix", "Payday", "Heath"               |
+        | August 4 | "Mars", "Twix", "Payday", "Heath"                 |
+        | August 5 | "Mars", "Snickers", "Heath"                       |
+        | August 6 | "Mars", "Snickers", "Mounds", "Heath", "Hersheys" |
+        | August 7 | "Mars", "Mounds", "Heath", "Hersheys"             |
+        | August 8 | "Mounds", "Hersheys"                              |
