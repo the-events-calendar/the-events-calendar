@@ -9,7 +9,7 @@ use Tribe__Context as Context;
 require_once codecept_data_dir( 'Views/V2/classes/Test_View.php' );
 require_once codecept_data_dir( 'Views/V2/classes/Publicly_Visible_Test_View.php' );
 
-class ViewTest extends \Codeception\TestCase\WPTestCase {
+class ManageTest extends \Codeception\TestCase\WPTestCase {
 	public function setUp() {
 		parent::setUp();
 		static::factory()->event = new Event();
