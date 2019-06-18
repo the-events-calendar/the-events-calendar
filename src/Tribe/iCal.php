@@ -490,29 +490,6 @@ class Tribe__Events__iCal {
 				$item[] = 'LOCATION:' .  $str_location;
 			}
 
-			// add geo coordinates if available
-			if ( class_exists( 'Tribe__Events__Pro__Geo_Loc' ) ) {
-				$long = Tribe__Events__Pro__Geo_Loc::instance()->get_lng_for_event( $event_post->ID );
-				$lat  = Tribe__Events__Pro__Geo_Loc::instance()->get_lat_for_event( $event_post->ID );
-
-				if ( ! empty( $long ) && ! empty( $lat ) ) {
-					$item[] = sprintf( 'GEO:%s;%s', $lat, $long );
-
-					$str_title = str_replace(
-						[ ',', "\n" ],
-						[ '\,', '\n' ],
-						html_entity_decode( tribe_get_address( $event_post->ID ), ENT_QUOTES )
-					);
-
-					if ( ! empty( $str_title ) && ! empty( $str_location ) ) {
-						$item[] =
-							'X-APPLE-STRUCTURED-LOCATION;VALUE=URI;X-ADDRESS=' . str_replace( '\,', '', trim( $str_location ) ) . ';' .
-							'X-APPLE-RADIUS=500;' .
-							'X-TITLE=' . trim( $str_title ) . ':geo:' . $long . ',' . $lat;
-					}
-				}
-			}
-
 			// add categories if available
 			$event_cats = (array) wp_get_object_terms(
 				$event_post->ID,
