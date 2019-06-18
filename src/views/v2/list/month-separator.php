@@ -18,7 +18,7 @@ $year  = date( 'Y', $date );
 ?>
 <div class="tribe-events-calendar-list__separator-month">
 	<time
-		class="tribe-events-calendar-list__separator-month-text tribe-common-b1"
+		class="tribe-events-calendar-list__separator-month-text tribe-common-h6 tribe-common-h6--alt"
 		datetime="<?php echo esc_attr( $year ); ?>-<?php echo esc_attr( date( 'm', $date ) ); ?>"
 	>
 		<?php echo esc_html( $month ); ?> <?php echo esc_html( $year ); ?>
