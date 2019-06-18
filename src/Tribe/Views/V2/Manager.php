@@ -5,14 +5,6 @@ use Tribe\Events\Views\V2\Views\Day_View;
 use Tribe\Events\Views\V2\Views\List_View;
 use Tribe\Events\Views\V2\Views\Month_View;
 use Tribe\Events\Views\V2\Views\Reflector_View;
-use Tribe__Container as Container;
-use Tribe__Context as Context;
-use Tribe__Events__Main as TEC;
-use Tribe__Events__Organizer as Organizer;
-use Tribe__Events__Rewrite as Rewrite;
-use Tribe__Events__Venue as Venue;
-use Tribe__Repository__Interface as Repository;
-use Tribe__Utils__Array as Arr;
 
 /**
  * Class Views Manager
