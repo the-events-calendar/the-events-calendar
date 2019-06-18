@@ -23,24 +23,22 @@ if ( ! $this->get( 'view_class_name' ) ) {
 $view_instance = View::make( $this->get( 'view_class_name' ) );
 $view_slug = $view_instance->get_slug();
 $is_current_view = $view->get_slug() === $view_instance->get_slug();
-$view_url = tribe_events_get_url( [ 'eventDisplay' => $view_instance->get_slug() ], $this->get( 'view' )->get_url() );
+$view_url = tribe_events_get_url( [ 'eventDisplay' => $view_slug ], $this->get( 'view' )->get_url() );
+
+$list_item_classes = [ 'tribe-events-c-view-selector__list-item', "tribe-events-c-view-selector__list-item--$view_slug" ];
+if ( $is_current_view ) {
+	$list_item_classes[] = 'tribe-events-c-view-selector__list-item--active';
+}
 ?>
-<li class="tribe-common-form-control-tabs__list-item" role="presentation">
-	<input
-		class="tribe-common-form-control-tabs__input"
-		id="<?php echo sanitize_html_class( "tribe-views-{$view_slug}" ); ?>"
-		name="tribe-views"
-		type="radio"
-		value="<?php echo esc_attr( $view_slug ); ?>"
-		<?php checked( $is_current_view ); ?>
-	/>
-	<label
-		class="tribe-common-form-control-tabs__label"
-		id="<?php echo sanitize_html_class( "tribe-views-{$view_slug}-label" ); ?>"
-		for="<?php echo sanitize_html_class( "tribe-views-{$view_slug}" ); ?>"
-		role="option"
-		aria-selected="true"
+<li class="<?php echo esc_attr( implode( ' ', $list_item_classes ) ); ?>">
+	<a
+		href="<?php echo esc_url( $view_url ); ?>"
+		class="tribe-events-c-view-selector__list-item-link"
+		data-js="tribe-events-view-link"
 	>
-		<?php echo esc_html( $view_instance->get_label() ); ?>
-	</label>
+		<span class="tribe-events-c-view-selector__list-item-icon tribe-common-svgicon tribe-common-svgicon--<?php echo esc_attr( $view_slug ); ?>"></span>
+		<span class="tribe-events-c-view-selector__list-item-text">
+			<?php echo esc_html( $view_instance->get_label() ); ?>
+		</span>
+	</a>
 </li>
