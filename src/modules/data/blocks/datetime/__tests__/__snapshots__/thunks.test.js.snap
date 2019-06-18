@@ -56,11 +56,5 @@ Array [
     },
     "type": "@@MT/EVENTS/SET_NATURAL_LANGUAGE_LABEL",
   },
-  Object {
-    "payload": Object {
-      "multiDay": false,
-    },
-    "type": "@@MT/EVENTS/SET_MULTI_DAY",
-  },
 ]
 `;
