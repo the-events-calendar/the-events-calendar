@@ -24,7 +24,7 @@ $view_label = $view_instance->get_label();
 	<h3 class="tribe-common-a11y-visual-hide">
 		<?php printf( esc_html__( '%s Views Navigation', 'the-events-calendar' ), tribe_get_event_label_singular() ); ?>
 	</h3>
-	<div class="tribe-events-c-view-selector tribe-events-c-view-selector--tabs">
+	<div class="tribe-events-c-view-selector tribe-events-c-view-selector--tabs" data-js="tribe-events-view-selector">
 		<button
 			class="tribe-events-c-view-selector__button"
 			aria-controls="tribe-events-view-selector-content"

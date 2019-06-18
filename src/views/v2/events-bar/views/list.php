@@ -23,4 +23,4 @@
 			<?php $this->template( 'events-bar/views/item', [ 'view_class_name' => $view_class_name ] ); ?>
 		<?php endforeach; ?>
 	</ul>
-</divclass="tribe-events-c-view-selector__content">
+</div>
