@@ -277,8 +277,15 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/** @var Tribe__Events__Default_Values */
 		private $default_values = null;
 
-		/** @var bool Prevent autoload initialization */
+		/**
+		 * @var bool Prevent autoload initialization
+		 */
 		private $should_prevent_autoload_init = false;
+
+		/**
+		 * @var string tribe-common VERSION regex
+		 */
+		private $common_version_regex = "/const\s+VERSION\s*=\s*'([^']+)'/m";
 
 		public static $tribeEventsMuDefaults;
 
@@ -347,7 +354,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public function maybe_set_common_lib_info() {
 			// if there isn't a tribe-common version, bail with a notice
 			$common_version = file_get_contents( $this->plugin_path . 'common/src/Tribe/Main.php' );
-			if ( ! preg_match( "/const\s+VERSION\s*=\s*'([^']+)'/m", $common_version, $matches ) ) {
+			if ( ! preg_match( $this->common_version_regex, $common_version, $matches ) ) {
 				return add_action( 'admin_head', array( $this, 'missing_common_libs' ) );
 			}
 
@@ -374,11 +381,17 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @since 4.9.3.2
 		 */
 		private function reset_common_lib_info_back_to_et() {
-			$et = Tribe__Tickets__Main::instance();
-			$et_common_version = file_get_contents( $et->plugin_path . 'common/src/Tribe/Main.php' );
+			$et          = Tribe__Tickets__Main::instance();
+			$main_source = file_get_contents( $et->plugin_path . 'common/src/Tribe/Main.php' );
+
+			// if there isn't a VERSION, don't override the common path
+			if ( ! preg_match( $this->common_version_regex, $main_source, $matches ) ) {
+				return;
+			}
+
 			$GLOBALS['tribe-common-info'] = [
 				'dir'     => "{$et->plugin_path}common/src/Tribe",
-				'version' => $et_common_version,
+				'version' => $matches[1],
 			];
 		}
 
