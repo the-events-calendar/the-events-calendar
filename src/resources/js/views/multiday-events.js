@@ -96,13 +96,14 @@ tribe.events.views.multidayEvents = {};
 	 *
 	 * @since TBD
 	 *
+	 * @param {Event} event event object for 'afterSetup.tribeEvents' event
 	 * @param {integer} index jQuery.each index param from 'afterSetup.tribeEvents' event
 	 * @param {jQuery} $container jQuery object of view container
 	 * @param {object} data data object passed from 'afterSetup.tribeEvents' event
 	 *
 	 * @return {void}
 	 */
-	obj.bindEvents = function( index, $container, data ) {
+	obj.bindEvents = function( event, index, $container, data ) {
 		var $hiddenMultidayEvents = $container.find( obj.selectors.multidayEvent );
 
 		$hiddenMultidayEvents.each( function( index, hiddenMultidayEvent ) {
@@ -129,9 +130,6 @@ tribe.events.views.multidayEvents = {};
 	 * @return {void}
 	 */
 	obj.ready = function() {
-		/**
-		 * @todo: this isn't working... need to figure out why and fix.
-		 */
 		$document.on( 'afterSetup.tribeEvents', tribe.events.views.manager.selectors.container, obj.bindEvents );
 
 		/**

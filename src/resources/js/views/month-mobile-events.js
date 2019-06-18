@@ -142,13 +142,14 @@ tribe.events.views.monthMobileEvents = {};
 	 *
 	 * @since TBD
 	 *
+	 * @param {Event} event event object for 'afterSetup.tribeEvents' event
 	 * @param {integer} index jQuery.each index param from 'afterSetup.tribeEvents' event
 	 * @param {jQuery} $container jQuery object of view container
 	 * @param {object} data data object passed from 'afterSetup.tribeEvents' event
 	 *
 	 * @return {void}
 	 */
-	obj.bindEvents = function( index, $container, data ) {
+	obj.bindEvents = function( event, index, $container, data ) {
 		var $calendar = $container.find( obj.selectors.calendar );
 
 		$calendar.find( obj.selectors.calendarDay ).each( function( index, day ) {
@@ -164,9 +165,6 @@ tribe.events.views.monthMobileEvents = {};
 	 * @return {void}
 	 */
 	obj.ready = function() {
-		/**
-		 * @todo: this isn't working... need to figure out why and fix.
-		 */
 		$document.on( 'afterSetup.tribeEvents', tribe.events.views.manager.selectors.container, obj.bindEvents );
 
 		/**

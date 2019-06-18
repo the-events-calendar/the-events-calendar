@@ -53,7 +53,6 @@ tribe.events.views.tooltip = {};
 	 *
 	 */
 	obj.onFunctionInit = function( instance, helper ) {
-
 		var content = $( helper.origin ).find( obj.selectors.tooltipContent ).html();
 		instance.content( content );
 		$( helper.origin )
@@ -94,7 +93,6 @@ tribe.events.views.tooltip = {};
 	 *
 	 */
 	obj.onFunctionReady = function( instance, helper ) {
-
 		$( helper.origin ).find( obj.selectors.tooltipContent ).attr( 'aria-hidden', false );
 	};
 
@@ -107,7 +105,6 @@ tribe.events.views.tooltip = {};
 	 *
 	 */
 	obj.onFunctionAfter = function( instance, helper ) {
-
 		$( helper.origin ).find( obj.selectors.tooltipContent ).attr( 'aria-hidden', true );
 	};
 
@@ -116,13 +113,14 @@ tribe.events.views.tooltip = {};
 	 *
 	 * @since TBD
 	 *
+	 * @param {Event} event event object for 'afterSetup.tribeEvents' event
 	 * @param {integer} index jQuery.each index param from 'afterSetup.tribeEvents' event
 	 * @param {jQuery} $container jQuery object of view container
 	 * @param {object} data data object passed from 'afterSetup.tribeEvents' event
 	 *
 	 * @return {void}
 	 */
-	obj.initTooltips = function( index, $container, data ) {
+	obj.initTooltips = function( event, index, $container, data ) {
 		$container.find( obj.selectors.tooltip ).each( function( index, tooltip ) {
 			$( tooltip ).tooltipster( {
 				interactive: true,
@@ -134,7 +132,6 @@ tribe.events.views.tooltip = {};
 		} );
 	};
 
-
 	/**
 	 * Handles the initialization of the scripts when Document is ready
 	 *
@@ -143,7 +140,6 @@ tribe.events.views.tooltip = {};
 	 * @return {void}
 	 */
 	obj.ready = function() {
-		// @todo: make it work with variable instead of function, so it's triggered how's supposed to be
 		$document.on( 'afterSetup.tribeEvents', tribe.events.views.manager.selectors.container, obj.initTooltips );
 	};
 
