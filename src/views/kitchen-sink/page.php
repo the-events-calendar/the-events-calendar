@@ -113,8 +113,10 @@ tribe_asset_enqueue( 'tribe-common-style' );
 	<div class="tribe-events-c-view-selector" style="margin-left: 200px">
 		<button
 			class="tribe-events-c-view-selector__button"
-			aria-controls="container-id"
+			aria-controls="container-id-1"
+			aria-expanded="false"
 			aria-selected="false"
+			data-js="tribe-events-accordion-trigger"
 		>
 			<span class="tribe-events-c-view-selector__button-icon tribe-common-svgicon tribe-common-svgicon--month"></span>
 			<span class="tribe-events-c-view-selector__button-text">
@@ -123,7 +125,7 @@ tribe_asset_enqueue( 'tribe-common-style' );
 		</button>
 		<ul
 			class="tribe-events-c-view-selector__list"
-			id="container-id"
+			id="container-id-1"
 			aria-hidden="true"
 		>
 			<li class="tribe-events-c-view-selector__list-item">
@@ -156,8 +158,10 @@ tribe_asset_enqueue( 'tribe-common-style' );
 	<div class="tribe-events-c-view-selector tribe-events-c-view-selector--tabs" style="margin-top: 150px; margin-left: 200px">
 		<button
 			class="tribe-events-c-view-selector__button"
-			aria-controls="container-id"
+			aria-controls="container-id-2"
+			aria-expanded="false"
 			aria-selected="false"
+			data-js="tribe-events-accordion-trigger"
 		>
 			<span class="tribe-events-c-view-selector__button-icon tribe-common-svgicon tribe-common-svgicon--month"></span>
 			<span class="tribe-events-c-view-selector__button-text">
@@ -166,7 +170,7 @@ tribe_asset_enqueue( 'tribe-common-style' );
 		</button>
 		<ul
 			class="tribe-events-c-view-selector__list"
-			id="container-id"
+			id="container-id-2"
 			aria-hidden="true"
 		>
 			<li class="tribe-events-c-view-selector__list-item">
