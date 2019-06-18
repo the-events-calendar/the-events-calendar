@@ -215,7 +215,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
-= [4.9.3.2] TBD =
+= [4.9.3.2] 2019-06-20 =
 
 * Fix - Prevent issue where older versions of the tribe-common libraries could be bootstrapped [129478]
 * Fix - Add Promoter PCSS file so that the proper CSS will be generated on package build [129584]
