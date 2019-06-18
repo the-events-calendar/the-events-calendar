@@ -3,7 +3,7 @@
 	 *
 	 * View Selector
 	 *
-	 * Example:
+	 * Example (Select):
 	 * <div class="tribe-events-c-view-selector">
 	 *   <button
 	 *     class="tribe-events-c-view-selector__button"
@@ -39,6 +39,11 @@
 	 *   </ul>
 	 * </div>
 	 *
+	 * Example (Tabs):
+	 * <div class="tribe-events-c-view-selector tribe-events-c-view-selector--tabs">
+	 *   ... (same as above)
+	 * </div>
+	 *
 	 * ----------------------------------------------------------------------------- */
 
 	.tribe-events-c-view-selector {
@@ -50,23 +55,96 @@
 		}
 	}
 
+	.tribe-events-c-view-selector--tabs {
+		@media (--viewport-medium) {
+			width: auto;
+		}
+
+		.tribe-events-c-view-selector__button {
+			@media (--viewport-medium) {
+				@mixin hidden;
+			}
+		}
+
+		.tribe-events-c-view-selector__list {
+			@media (--viewport-medium) {
+				border: none;
+				border-radius: 0;
+				box-shadow: none;
+				display: flex;
+				padding: 0 calc(var(--spacer-4) / 2);
+				position: static;
+				transform: none;
+			}
+		}
+
+		.tribe-events-c-view-selector__list-item {
+			@media (--viewport-medium) {
+				margin: 0 calc(var(--spacer-4) / 2);
+			}
+		}
+
+		.tribe-events-c-view-selector__list-item-link {
+			@media (--viewport-medium) {
+				padding: var(--spacer-3) 0;
+				position: relative;
+			}
+		}
+
+		.tribe-events-c-view-selector__list-item-link--active {
+			@media (--viewport-medium) {
+				background-color: transparent;
+			}
+
+			&:after {
+				@media (--viewport-medium) {
+					background-color: var(--color-accent-secondary);
+					bottom: -1px;
+					content: '';
+					display: block;
+					height: 2px;
+					position: absolute;
+					width: 100%;
+				}
+			}
+		}
+	}
+
 	.tribe-events-c-view-selector__button {
 		align-items: center;
-		border-bottom: 2px solid transparent;
 		display: flex;
-		padding: var(--spacer-1) var(--spacer-0);
+		padding: var(--spacer-0);
+		position: relative;
 		text-align: left;
 		width: 100%;
 
 		@media (--viewport-medium) {
-			border: none;
-			height: 64px;
 			padding: var(--spacer-3) var(--spacer-4);
 		}
 
 		&:hover,
 		&:focus {
 			border-bottom-color: var(--color-accent-primary);
+
+			&:before {
+				opacity: 1;
+			}
+		}
+
+		&:before {
+			background-color: var(--color-accent-primary);
+			content: '';
+			display: block;
+			height: 2px;
+			opacity: 0;
+			position: absolute;
+			top: 100%;
+			transform: translateY(var(--spacer-0));
+			width: calc(100% - (2 * var(--spacer-0)));
+
+			@media (--viewport-medium) {
+				content: none;
+			}
 		}
 
 		&:after {
@@ -107,20 +185,21 @@
 	}
 
 	.tribe-events-c-view-selector__list {
-		/* diisplay: none; */
+		display: none;
 		background-color: var(--color-background);
 		border: 1px solid var(--color-border-secondary);
 		border-radius: 4px;
 		box-shadow: var(--box-shadow-tooltip);
-		padding: 12px var(--spacer-1);
+		padding: calc(var(--spacer-4) / 2) var(--spacer-1);
 		position: absolute;
 		right: 0;
 		top: 100%;
-		transform: translateY(var(--spacer-1));
+		transform: translateY(var(--spacer-2));
 		width: 168px;
 
 		@media (--viewport-medium) {
 			box-shadow: var(--box-shadow-default);
+			transform: translateY(var(--spacer-1));
 			width: 100%;
 		}
 	}
@@ -131,7 +210,7 @@
 		align-items: center;
 		border-radius: 4px;
 		display: flex;
-		padding: var(--spacer-1) 12px;
+		padding: var(--spacer-1) calc(var(--spacer-4) / 2);
 
 		@media (--viewport-medium) {
 			padding: var(--spacer-0) var(--spacer-2);
