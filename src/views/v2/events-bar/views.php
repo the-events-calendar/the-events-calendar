@@ -13,12 +13,10 @@
  *
  */
 use Tribe\Events\Views\V2\Manager;
-use Tribe\Events\Views\V2\View;
 
 $public_views = tribe( Manager::class )->get_publicly_visible_views();
-$view_instance = View::make( $this->get( 'view_class_name' ) );
-$view_slug = $view_instance->get_slug();
-$view_label = $view_instance->get_label();
+$view_slug = $this->get( 'view' )->get_slug();
+$view_label = $this->get( 'view' )->get_label();
 ?>
 <div class="tribe-events-c-events-bar__views">
 	<h3 class="tribe-common-a11y-visual-hide">
@@ -32,7 +30,7 @@ $view_label = $view_instance->get_label();
 			aria-selected="false"
 			data-js="tribe-events-accordion-trigger"
 		>
-			<span class="tribe-events-c-view-selector__button-icon tribe-common-svgicon tribe-common-svgicon--<?php echo esc_attr( $view_slug ); ?>"></span>
+			<span class="tribe-events-c-view-selector__button-icon tribe-common-svgicon <?php echo sanitize_html_class( "tribe-common-svgicon--{$view_slug}" ); ?>"></span>
 			<span class="tribe-events-c-view-selector__button-text">
 				<?php echo esc_html( $view_label ); ?>
 			</span>
