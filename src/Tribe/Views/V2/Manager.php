@@ -6,6 +6,8 @@ use Tribe\Events\Views\V2\Views\List_View;
 use Tribe\Events\Views\V2\Views\Month_View;
 use Tribe\Events\Views\V2\Views\Reflector_View;
 
+use Tribe__Utils__Array as Arr;
+
 /**
  * Class Views Manager
  *
