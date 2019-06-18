@@ -9,7 +9,21 @@ class MonthEventMultidayTest extends TestHtmlCase {
 	 * @test
 	 */
 	public function it_should_contain_correct_html_classes() {
-		$template = $this->template->template( 'month/event-multiday', [ 'event' => (object) [ 'ID' => 0 ] ] );
+
+		// @todo: use the Event Factory here, once the templates use a real event and we have the real keys.
+		$event = [
+			'ID' => 0,
+			'title' => 'Lorem Ipsum',
+			'image' => 'test.jpg',
+			'featured' => true,
+			'multiday' => true,
+			'start_date' => 1,
+			'start_this_week' => true,
+			'end_this_week' => true,
+			'duration'      => 2
+		];
+
+		$template = $this->template->template( 'month/event-multiday', [ 'event' => (object) $event ] );
 		$html = $this->document->html( $template );
 
 		$this->assertEquals(
@@ -37,7 +51,20 @@ class MonthEventMultidayTest extends TestHtmlCase {
 	 * @test
 	 */
 	public function it_should_contain_a11y_attributes() {
-		$template = $this->template->template( 'month/event-multiday', [ 'event' => (object) [ 'ID' => 0 ] ] );
+
+		$event = [
+			'ID' => 0,
+			'title' => 'Lorem Ipsum',
+			'image' => 'test.jpg',
+			'featured' => true,
+			'multiday' => true,
+			'start_date' => 1,
+			'start_this_week' => true,
+			'end_this_week' => true,
+			'duration'      => 2
+		];
+
+		$template = $this->template->template( 'month/event-multiday', [ 'event' => (object) $event ] );
 		$html = $this->document->html( $template );
 		$html = $html->find( '.tribe-events-calendar-month__event-multiday' );
 		$icon = $html->find( '.tribe-events-calendar-month__event-multiday-featured-icon' );

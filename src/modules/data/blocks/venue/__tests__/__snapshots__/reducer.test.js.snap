@@ -12,7 +12,7 @@ exports[`[STORE] - Venue reducer Should set the showMap 1`] = `
 Object {
   "showMap": true,
   "showMapLink": true,
-  "venue": undefined,
+  "venue": 0,
 }
 `;
 
@@ -20,7 +20,7 @@ exports[`[STORE] - Venue reducer Should set the showMap 2`] = `
 Object {
   "showMap": false,
   "showMapLink": true,
-  "venue": undefined,
+  "venue": 0,
 }
 `;
 
@@ -28,7 +28,7 @@ exports[`[STORE] - Venue reducer Should set the showMapLink 1`] = `
 Object {
   "showMap": true,
   "showMapLink": true,
-  "venue": undefined,
+  "venue": 0,
 }
 `;
 
@@ -36,7 +36,7 @@ exports[`[STORE] - Venue reducer Should set the showMapLink 2`] = `
 Object {
   "showMap": true,
   "showMapLink": false,
-  "venue": undefined,
+  "venue": 0,
 }
 `;
 
@@ -52,7 +52,7 @@ exports[`[STORE] - Venue reducer Should toggle the venue map 1`] = `
 Object {
   "showMap": false,
   "showMapLink": true,
-  "venue": undefined,
+  "venue": 0,
 }
 `;
 
@@ -60,6 +60,6 @@ exports[`[STORE] - Venue reducer Should toggle the venue map link 1`] = `
 Object {
   "showMap": true,
   "showMapLink": false,
-  "venue": undefined,
+  "venue": 0,
 }
 `;

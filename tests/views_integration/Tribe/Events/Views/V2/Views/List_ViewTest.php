@@ -3,51 +3,47 @@
 namespace Tribe\Events\Views\V2\Views;
 
 use Spatie\Snapshots\MatchesSnapshots;
-use tad\FunctionMocker\FunctionMocker as Test;
-use Tribe\Events\Views\V2\TestCase;
 use Tribe\Events\Views\V2\View;
 
-
-class List_ViewTest extends TestCase {
+class List_ViewTest extends ViewTestCase {
 
 	use MatchesSnapshots;
-
-	public function setUp() {
-		parent::setUp();
-		Test::setUp();
-		Test::replace( 'date', function ( $format ) {
-			return ( new \DateTime( '2019-01-01 09:00:00', new \DateTimeZone( 'UTC' ) ) )
-				->format( $format );
-		} );
-	}
 
 	/**
 	 * Test render empty
 	 */
 	public function test_render_empty() {
-		$this->markTestSkipped( 'Due to an issue with caching in CI.' );
 		// Sanity check
 		$this->assertEmpty( tribe_events()->found() );
 
 		$list_view = View::make( List_View::class );
 		$html      = $list_view->get_html();
 
-		$this->assertMatchesSnapshot( $html, $this->driver );
+		// Let's make sure the View is displaying what events we expect it to display.
+		$expected_post_ids = [];
+		$this->assertEquals(
+			$expected_post_ids,
+			$list_view->found_post_ids()
+		);
+
+		$this->assertMatchesSnapshot( $html );
 	}
 
 	/**
 	 * Test render with upcoming events
 	 */
 	public function test_render_with_upcoming_events() {
-		$this->markTestSkipped( 'Due to an issue with caching in CI.' );
+		$events = [];
+
+		// Create the events.
 		foreach (
 			[
-				'2018-01-01 10am',
-				'2018-01-02 8am',
-				'2018-02-02 11am',
+				'tomorrow 9am',
+				'+1 week',
+				'+9 days',
 			] as $start_date
 		) {
-			tribe_events()->set_args( [
+			$events[] = tribe_events()->set_args( [
 				'start_date' => $start_date,
 				'timezone'   => 'Europe/Paris',
 				'duration'   => 3 * HOUR_IN_SECONDS,
@@ -56,20 +52,27 @@ class List_ViewTest extends TestCase {
 			] )->create();
 		}
 		// Sanity check
-		$list_date = '2018-01-01 9am';
-		$this->assertEquals( 3, tribe_events()->where( 'ends_after', $list_date )->count() );
+		$this->assertEquals( 3, tribe_events()->where( 'ends_after', 'now' )->count() );
+
+		$this->remap_posts( $events, [
+			'events/featured/1.json',
+			'events/single/1.json',
+			'events/single/2.json'
+		] );
 
 		$list_view = View::make( List_View::class );
 		$list_view->set_context( tribe_context()->alter( [
-			'event_date'     => $list_date,
 			'posts_per_page' => 2,
 		] ) );
 		$html = $list_view->get_html();
 
-		$this->assertMatchesSnapshot( $html, $this->driver );
-	}
+		// Let's make sure the View is displaying what events we expect it to display.
+		$expected_post_ids = wp_list_pluck( array_slice( $events, 0, 2 ), 'ID' );
+		$this->assertEquals(
+			$expected_post_ids,
+			$list_view->found_post_ids()
+		);
 
-	public function tearDown() {
-		Test::tearDown();
+		$this->assertMatchesSnapshot( $html );
 	}
 }

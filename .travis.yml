@@ -138,5 +138,4 @@ script:
   - codecept run views_rest
   - codecept run views_integration
   - codecept run views_ui
-  #- codecept run acceptance
-
+  # - codecept run acceptance

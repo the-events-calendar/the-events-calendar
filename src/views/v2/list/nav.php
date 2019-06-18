@@ -15,18 +15,27 @@
  * @version 4.9.3
  *
  */
-
-/**
- * @todo make sure we are checking if there is a previous or next
- *
-if ( ! tribe_has_previous_event() || ! tribe_has_next_event() ) {
-	return;
-}
-*/
 ?>
 <nav class="tribe-common-c-nav">
 	<ul class="tribe-common-c-nav__list">
-		<?php $this->template( 'list/nav/prev', [ 'link' => $prev_url ] ); ?>
-		<?php $this->template( 'list/nav/next', [ 'link' => $next_url ] ); ?>
+		<li class="tribe-common-c-nav__list-item">
+			<?php
+			if ( $prev_url ) {
+				$this->template( 'list/nav/prev', [ 'link' => $prev_url ] );
+			} else {
+				$this->template( 'list/nav/prev-disabled' );
+			}
+			?>
+		</li>
+
+		<li class="tribe-common-c-nav__list-item">
+			<?php
+			if ( $next_url ) {
+				$this->template( 'list/nav/next', [ 'link' => $next_url ] );
+			} else {
+				$this->template( 'list/nav/next-disabled' );
+			}
+			?>
+		</li>
 	</ul>
 </nav>

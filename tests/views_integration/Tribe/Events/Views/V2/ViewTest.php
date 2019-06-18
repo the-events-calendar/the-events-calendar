@@ -8,6 +8,11 @@ use Tribe__Context as Context;
 require_once codecept_data_dir( 'Views/V2/classes/Test_View.php' );
 
 class ViewTest extends \Codeception\TestCase\WPTestCase {
+	public function setUp() {
+		parent::setUp();
+		static::factory()->event = new Event();
+	}
+
 	/**
 	 * @test
 	 * it should be instantiatable
@@ -260,7 +265,7 @@ class ViewTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( '', $page_2_view->prev_url() );
 	}
 
-	protected function wpSetUpBeforeClass() {
+	public function wpSetUpBeforeClass() {
 		static::factory()->event = new Event();
 	}
 }

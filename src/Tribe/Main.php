@@ -8,8 +8,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-use Tribe\Events\Views\V2\Service_Provider as Views;
-
 if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 	/**
@@ -538,8 +536,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			tribe_singleton( 'events.rewrite', Tribe__Events__Rewrite::class );
 
+			// The Context service provider.
+			tribe_register_provider( Tribe\Events\Service_Providers\Context::class );
+
 			// The Views v2 service provider.
-			tribe_register_provider( Views::class );
+			tribe_register_provider( Tribe\Events\Views\V2\Service_Provider::class );
 
 			/**
 			 * Allows other plugins and services to override/change the bound implementations.
@@ -565,6 +566,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			require_once $this->plugin_path . 'vendor/tribe-common-libraries/tribe-common-libraries.class.php';
 
 			// Load Template Tags
+			require_once $this->plugin_path . 'src/functions/template-tags/url.php';
 			require_once $this->plugin_path . 'src/functions/template-tags/query.php';
 			require_once $this->plugin_path . 'src/functions/template-tags/general.php';
 			require_once $this->plugin_path . 'src/functions/template-tags/month.php';

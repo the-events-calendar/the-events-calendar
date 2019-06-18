@@ -12,14 +12,19 @@
  * @version 4.9.3
  *
  */
+$event    = $this->get( 'event' );
+$event_id = $event->ID;
 ?>
 <h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8">
 	<a
 		href="#"
-		title="Lorem Ipsum"
+		title="<?php echo esc_attr( $event->title ); ?>"
 		rel="bookmark"
 		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
+		data-js="tribe-events-tooltip"
+		data-tooltip-content="#tooltip_content-<?php echo esc_attr( $event_id ); ?>"
+		aria-describedby="#tooltip_content-<?php echo esc_attr( $event_id ); ?>"
 	>
-		Lorem Ipsum
+		<?php echo esc_html( $event->title ); ?>
 	</a>
 </h3>
