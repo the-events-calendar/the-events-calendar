@@ -381,6 +381,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @since 4.9.3.2
 		 */
 		private function reset_common_lib_info_back_to_et() {
+			if ( ! class_exists( 'Tribe__Tickets__Main' ) ) {
+				return;
+			}
+
 			$et          = Tribe__Tickets__Main::instance();
 			$main_source = file_get_contents( $et->plugin_path . 'common/src/Tribe/Main.php' );
 
