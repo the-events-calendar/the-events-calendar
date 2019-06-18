@@ -56,8 +56,8 @@ class Manager {
 		 */
 		$views = (array) apply_filters( 'tribe_events_views', [
 			'list'      => List_View::class,
-			'day'       => Day_View::class,
 			'month'     => Month_View::class,
+			'day'       => Day_View::class,
 		] );
 
 		// Make sure reflector is always available.
