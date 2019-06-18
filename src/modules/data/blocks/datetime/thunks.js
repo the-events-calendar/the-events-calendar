@@ -6,8 +6,7 @@ import {
 	setEndDateTime,
 	setStartTimeInput,
 	setEndTimeInput,
-	setAllDay as setAllDayAction,
-	setMultiDay as setMultiDayAction,
+	setAllDay,
 	setSeparatorDate,
 	setSeparatorTime,
 	setTimeZone,
@@ -20,7 +19,6 @@ import { maybeBulkDispatch } from '@moderntribe/events/data/utils';
 import { date, moment } from '@moderntribe/common/utils';
 
 const {
-	isSameDay,
 	parseFormats,
 	toDateTime,
 	toTime,
@@ -36,7 +34,7 @@ export const setInitialState = ( { get, attributes } ) => ( dispatch ) => {
 	maybeBulkDispatch( attributes, dispatch )( [
 		[ setStartDateTime, 'start', DEFAULT_STATE.start ],
 		[ setEndDateTime, 'end', DEFAULT_STATE.end ],
-		[ setAllDayAction, 'allDay', DEFAULT_STATE.allDay ],
+		[ setAllDay, 'allDay', DEFAULT_STATE.allDay ],
 		[ setSeparatorDate, 'separatorDate', DEFAULT_STATE.dateTimeSeparator ],
 		[ setSeparatorTime, 'separatorTime', DEFAULT_STATE.timeRangeSeparator ],
 		[ setTimeZone, 'timeZone', timeZoneLabel ],
@@ -65,5 +63,4 @@ export const setInitialState = ( { get, attributes } ) => ( dispatch ) => {
 	}
 
 	dispatch( setNaturalLanguageLabel( date.rangeToNaturalLanguage( values.start, values.end ) ) );
-	dispatch( setMultiDayAction( ! isSameDay( values.start, values.end ) ) );
 };

@@ -1,5 +1,5 @@
 <?php return '<div
-	class="tribe-common tribe-events"
+	class="tribe-common tribe-events tribe-events-view"
 	data-js="tribe-events-view"
 	data-view-rest-nonce="2ab7cc6b39"
 	data-view-rest-url="http://test.tri.be/index.php?rest_route=/tribe/views/v2/html"
@@ -170,7 +170,17 @@
 
 		<nav class="tribe-common-c-nav">
 	<ul class="tribe-common-c-nav__list">
-					</ul>
+		<li class="tribe-common-c-nav__list-item">
+			<button class="tribe-common-c-nav__prev" disabled>
+	Previous Events</button>
+		</li>
+
+		<li class="tribe-common-c-nav__list-item">
+			<button class="tribe-common-c-nav__next" disabled>
+	Next Events</button>
+		</li>
+	</ul>
 </nav>
 	</div>
-</div>';
+</div>
+';
