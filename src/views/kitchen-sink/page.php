@@ -1,7 +1,7 @@
 <?php
 tribe_asset_enqueue( 'tribe-common-style' );
 ?>
-<div class="tribe-common">
+<div class="tribe-common tribe-events">
 	<h1>Kitchen Sink</h1>
 	<br />
 	<h2>Typography</h2>
@@ -110,7 +110,101 @@ tribe_asset_enqueue( 'tribe-common-style' );
 	<br />
 	<h3>Tabs & Selects</h3>
 	<br />
-	<div class="tribe-common-form-control-tabs">
+	<div class="tribe-events-c-view-selector" style="margin-left: 200px">
+		<button
+			class="tribe-events-c-view-selector__button"
+			aria-controls="container-id-1"
+			aria-expanded="false"
+			aria-selected="false"
+			data-js="tribe-events-accordion-trigger"
+		>
+			<span class="tribe-events-c-view-selector__button-icon tribe-common-svgicon tribe-common-svgicon--month"></span>
+			<span class="tribe-events-c-view-selector__button-text">
+				Month
+			</span>
+		</button>
+		<div
+			class="tribe-events-c-view-selector__content"
+			id="container-id-1"
+			aria-hidden="true"
+		>
+			<ul class="tribe-events-c-view-selector__list">
+				<li class="tribe-events-c-view-selector__list-item">
+					<a href="#" class="tribe-events-c-view-selector__list-item-link">
+						<span class="tribe-events-c-view-selector__list-item-icon tribe-common-svgicon tribe-common-svgicon--month"></span>
+						<span class="tribe-events-c-view-selector__list-item-text">
+							Month
+						</span>
+					</a>
+				</li>
+				<li class="tribe-events-c-view-selector__list-item">
+					<a href="#" class="tribe-events-c-view-selector__list-item-link tribe-events-c-view-selector__list-item-link--active">
+						<span class="tribe-events-c-view-selector__list-item-icon tribe-common-svgicon tribe-common-svgicon--list"></span>
+						<span class="tribe-events-c-view-selector__list-item-text">
+							List
+						</span>
+					</a>
+				</li>
+				<li class="tribe-events-c-view-selector__list-item">
+					<a href="#" class="tribe-events-c-view-selector__list-item-link">
+						<span class="tribe-events-c-view-selector__list-item-icon tribe-common-svgicon tribe-common-svgicon--day"></span>
+						<span class="tribe-events-c-view-selector__list-item-text">
+							Day
+						</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<br />
+	<div class="tribe-events-c-view-selector tribe-events-c-view-selector--tabs" style="margin-top: 150px; margin-left: 200px">
+		<button
+			class="tribe-events-c-view-selector__button"
+			aria-controls="container-id-2"
+			aria-expanded="false"
+			aria-selected="false"
+			data-js="tribe-events-accordion-trigger"
+		>
+			<span class="tribe-events-c-view-selector__button-icon tribe-common-svgicon tribe-common-svgicon--month"></span>
+			<span class="tribe-events-c-view-selector__button-text">
+				Month
+			</span>
+		</button>
+		<div
+			class="tribe-events-c-view-selector__content"
+			id="container-id-2"
+			aria-hidden="true"
+		>
+			<ul class="tribe-events-c-view-selector__list">
+				<li class="tribe-events-c-view-selector__list-item">
+					<a href="#" class="tribe-events-c-view-selector__list-item-link">
+						<span class="tribe-events-c-view-selector__list-item-icon tribe-common-svgicon tribe-common-svgicon--month"></span>
+						<span class="tribe-events-c-view-selector__list-item-text">
+							Month
+						</span>
+					</a>
+				</li>
+				<li class="tribe-events-c-view-selector__list-item">
+					<a href="#" class="tribe-events-c-view-selector__list-item-link tribe-events-c-view-selector__list-item-link--active">
+						<span class="tribe-events-c-view-selector__list-item-icon tribe-common-svgicon tribe-common-svgicon--list"></span>
+						<span class="tribe-events-c-view-selector__list-item-text">
+							List
+						</span>
+					</a>
+				</li>
+				<li class="tribe-events-c-view-selector__list-item">
+					<a href="#" class="tribe-events-c-view-selector__list-item-link">
+						<span class="tribe-events-c-view-selector__list-item-icon tribe-common-svgicon tribe-common-svgicon--day"></span>
+						<span class="tribe-events-c-view-selector__list-item-text">
+							Day
+						</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<br />
+	<div class="tribe-common-form-control-tabs" style="margin-top: 100px;">
 		<button class="tribe-common-form-control-tabs__button" id="tabButton" aria-haspopup="listbox" aria-labelledby="tabButton" aria-expanded="true">Tab One</button>
 		<ul class="tribe-common-form-control-tabs__list" tabindex="-1" role="listbox" aria-activedescendant="tabOneLabel">
 			<li class="tribe-common-form-control-tabs__list-item" role="presentation">
