@@ -1,0 +1,95 @@
+.tribe-events {
+	/* -----------------------------------------------------------------------------
+	 *
+	 * View Selector
+	 *
+	 * Example:
+	 * <div class="tribe-events-c-view-selector">
+	 *   <button
+	 *     class="tribe-events-c-view-selector__button"
+	 *     aria-controls="container-id"
+	 *     aria-selected="false"
+	 *   >
+	 *     <span class="tribe-events-c-view-selector__button-icon tribe-common-svgicon tribe-common-svgicon--month"></span>
+	 *     <span class="tribe-events-c-view-selector__button-text">
+	 *       Option One
+	 *     </span>
+	 *   </button>
+	 *   <ul
+	 *     class="tribe-events-c-view-selector__list"
+	 *     id="container-id"
+	 *     aria-hidden="true"
+	 *   >
+	 *     <li class="tribe-events-c-view-selector__list-item">
+	 *       <a href="#" class="tribe-events-c-view-selector__option">
+	 *         Option One
+	 *       </a>
+	 *     </li>
+	 *     <li class="tribe-events-c-view-selector__list-item">
+	 *       <a href="#" class="tribe-events-c-view-selector__option">
+	 *         Option Two
+	 *       </a>
+	 *     </li>
+	 *   </ul>
+	 * </div>
+	 *
+	 * ----------------------------------------------------------------------------- */
+
+	.tribe-events-c-view-selector {
+		position: relative;
+	}
+
+	.tribe-events-c-view-selector__button {
+		align-items: center;
+		border-bottom: 2px solid transparent;
+		display: flex;
+		padding: var(--spacer-1) var(--spacer-0);
+		text-align: left;
+
+		@media (--viewport-medium) {
+			border: none;
+			height: 34px;
+			padding: var(--spacer-0) var(--spacer-4);
+			width: 114px;
+		}
+
+		&:hover,
+		&:focus {
+			border-bottom-color: var(--color-accent-primary);
+		}
+
+		&:after {
+
+			@media (--viewport-medium) {
+				content: '';
+				display: block;
+				flex: none;
+				height: 6px;
+				margin-left: var(--spacer-1);
+				width: 10px;
+			}
+		}
+	}
+
+	.tribe-events-c-view-selector__button-icon {
+		content: '';
+		display: block;
+		height: 21px;
+		width: 21px;
+
+		@media (--viewport-medium) {
+			@mixin hidden;
+		}
+	}
+
+	.tribe-events-c-view-selector__button-text {
+		@mixin visually-hide;
+
+		@media (--viewport-medium) {
+			@mixin visually-show;
+			@mixin desktop-body-2-bold;
+
+			flex: auto;
+		}
+	}
+}
