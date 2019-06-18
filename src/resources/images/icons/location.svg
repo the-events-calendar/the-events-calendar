@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="10px" height="16px" viewBox="0 0 10 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 55.1 (78136) - https://sketchapp.com -->
+    <title>CEB99107-C6C4-454B-BDF8-52B10D5A2A6B</title>
+    <desc>Created with sketchtool.</desc>
+    <g id="01.Views" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Design-System---Event-Bar-Elements" transform="translate(-927.000000, -5100.000000)" fill="#727272">
+            <g id="Mobile-Input-Styles" transform="translate(132.000000, 4968.000000)">
+                <g id="Input-Input-Mobile" transform="translate(470.000000, 76.000000)">
+                    <g id="Icon/Location-Tooltip" transform="translate(325.000000, 56.000000)">
+                        <path d="M8.68191702,1.54799667 C6.64444035,-0.515998891 3.34281499,-0.515998891 1.30676512,1.54799667 C-3.07352437,5.98385269 4.95938436,15.3600006 4.99362767,15.3600006 C5.04499263,15.3585552 13.0864622,6.00986944 8.68191702,1.54799667 Z M4.99362753,2.83293495 C6.2649102,2.83293495 7.29506294,3.87649567 7.29506294,5.16432475 C7.29506294,6.45070846 6.2649102,7.49426918 4.99362753,7.49426918 C3.72234486,7.49426918 2.69361893,6.45070846 2.69361893,5.16432475 C2.69361893,3.87649567 3.72234486,2.83293495 4.99362753,2.83293495 Z" id="Shape"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

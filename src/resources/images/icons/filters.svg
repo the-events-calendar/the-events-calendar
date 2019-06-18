@@ -1,8 +1,23 @@
-<svg width="24px" height="20px" viewBox="0 0 24 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <path d="M0,16.75 L22,16.9821429" stroke-width="1.5" stroke-linecap="square"></path>
-    <path d="M0,9.75 L22,9.98214286" stroke-width="1.5" stroke-linecap="square"></path>
-    <path d="M0,2.75 L22,2.98214286" stroke-width="1.5" stroke-linecap="square"></path>
-    <path d="M6,6 C7.65685425,6 9,4.65685425 9,3 C9,1.34314575 7.65685425,0 6,0 C4.34314575,0 3,1.34314575 3,3 C3,4.65685425 4.34314575,6 6,6 Z"></path>
-    <path d="M6,20 C7.65685425,20 9,18.6568542 9,17 C9,15.3431458 7.65685425,14 6,14 C4.34314575,14 3,15.3431458 3,17 C3,18.6568542 4.34314575,20 6,20 Z"></path>
-    <path d="M16,13 C17.6568542,13 19,11.6568542 19,10 C19,8.34314575 17.6568542,7 16,7 C14.3431458,7 13,8.34314575 13,10 C13,11.6568542 14.3431458,13 16,13 Z"></path>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="17px" height="17px" viewBox="0 0 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 55.1 (78136) - https://sketchapp.com -->
+    <title>71A7FC48-A3B6-493E-AD12-5D0DB6468CAF</title>
+    <desc>Created with sketchtool.</desc>
+    <g id="01.Views" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="Design-System---Event-Bar-Elements" transform="translate(-379.000000, -5601.000000)" stroke="#727272" stroke-width="1.5">
+            <g id="Mobile-Search-&amp;-Filter-Tabs" transform="translate(132.000000, 5517.000000)">
+                <g id="Search-Tab-Mobile-Search" transform="translate(2.000000, 67.000000)">
+                    <g id="Filter" transform="translate(172.000000, 18.000000)">
+                        <g id="Icon/Filter:Desktop" transform="translate(74.000000, 0.000000)">
+                            <path d="M3,3 L3,0" id="Path"></path>
+                            <path d="M3,15 L3,13" id="Path"></path>
+                            <circle id="Oval" cx="3" cy="9" r="3"></circle>
+                            <path d="M12,15 L12,9" id="Path" transform="translate(12.000000, 12.000000) scale(1, -1) translate(-12.000000, -12.000000) "></path>
+                            <circle id="Oval" transform="translate(12.000000, 3.000000) scale(1, -1) translate(-12.000000, -3.000000) " cx="12" cy="3" r="3"></circle>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
 </svg>
