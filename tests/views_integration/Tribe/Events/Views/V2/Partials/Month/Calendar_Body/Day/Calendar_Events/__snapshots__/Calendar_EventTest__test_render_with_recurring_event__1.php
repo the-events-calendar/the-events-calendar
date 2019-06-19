@@ -1,4 +1,4 @@
-<?php return '<article class="tribe-events-calendar-month__calendar-event tribe-events-calendar-month__calendar-event--featured">
+<?php return '<article class="tribe-events-calendar-month__calendar-event">
 
 	
 	<div class="tribe-events-calendar-month__calendar-event-details">
@@ -7,7 +7,13 @@
 	<time datetime="14:00">2pm</time>
 	<span class="tribe-events-calendar-month__calendar-event-datetime-separator"> - </span>
 	<time datetime="18:00">6pm</time>
-		</div>
+				<em
+			class="tribe-events-calendar-month__calendar-event-datetime-recurring tribe-common-svgicon tribe-common-svgicon--recurring"
+			aria-label="Recurring"
+			title="Recurring"
+		>
+		</em>
+	</div>
 		<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h8--alt">
 	<a
 		href="#"
@@ -15,8 +21,8 @@
 		rel="bookmark"
 		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
 		data-js="tribe-events-tooltip"
-		data-tooltip-content="#tooltip_content-10"
-		aria-describedby="#tooltip_content-10"
+		data-tooltip-content="#tooltip_content-11"
+		aria-describedby="#tooltip_content-11"
 	>
 			</a>
 </h3>
@@ -26,7 +32,7 @@
 	data-js="tribe-events-tooltip-content"
 	role="tooltip"
 >
-	<div id="tooltip_content-10">
+	<div id="tooltip_content-11">
 				<p class="tribe-events-calendar-month__calendar-event-tooltip-description tribe-common-b3">
 	Lorem ipsum dolor sit amet, consectetur adipiscing elit. In consectetur metus tortor, et maximus libero aliquet in. Praesent rhoncus ultricies neque in imperdiet. Aenean at ex luctus, tempor justo eget, pharetra magna. Nullam ut odio maximus nisi mollis gravida.
 </p>

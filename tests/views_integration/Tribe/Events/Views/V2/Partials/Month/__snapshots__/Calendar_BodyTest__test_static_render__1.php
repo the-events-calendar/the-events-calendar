@@ -681,7 +681,7 @@
 		<div class="tribe-events-calendar-month__events">
 			
 			
-	<article class="tribe-events-calendar-month__calendar-event tribe-events-calendar-month__calendar-event--featured">
+	<article class="tribe-events-calendar-month__calendar-event">
 
 	
 	<div class="tribe-events-calendar-month__calendar-event-details">
@@ -830,7 +830,7 @@
 		<div class="tribe-events-calendar-month__events">
 			
 			
-	<article class="tribe-events-calendar-month__calendar-event tribe-events-calendar-month__calendar-event--featured">
+	<article class="tribe-events-calendar-month__calendar-event">
 
 	<div class="tribe-events-calendar-month__calendar-event-featured-image-wrapper">
 	<div class="tribe-events-calendar-month__calendar-event-featured-image tribe-common-c-image tribe-common-c-image--bg">
@@ -1193,7 +1193,7 @@
 		<div class="tribe-events-calendar-month__events">
 			
 			
-	<article class="tribe-events-calendar-month__calendar-event tribe-events-calendar-month__calendar-event--featured">
+	<article class="tribe-events-calendar-month__calendar-event">
 
 	
 	<div class="tribe-events-calendar-month__calendar-event-details">
@@ -1672,7 +1672,7 @@
 
 
 			
-	<article class="tribe-events-calendar-month__calendar-event tribe-events-calendar-month__calendar-event--featured">
+	<article class="tribe-events-calendar-month__calendar-event">
 
 	
 	<div class="tribe-events-calendar-month__calendar-event-details">
@@ -1863,7 +1863,7 @@
 		<div class="tribe-events-calendar-month__events">
 			
 			
-	<article class="tribe-events-calendar-month__calendar-event tribe-events-calendar-month__calendar-event--featured">
+	<article class="tribe-events-calendar-month__calendar-event">
 
 	<div class="tribe-events-calendar-month__calendar-event-featured-image-wrapper">
 	<div class="tribe-events-calendar-month__calendar-event-featured-image tribe-common-c-image tribe-common-c-image--bg">
@@ -1990,7 +1990,7 @@
 		<div class="tribe-events-calendar-month__events">
 			
 			
-	<article class="tribe-events-calendar-month__calendar-event tribe-events-calendar-month__calendar-event--featured">
+	<article class="tribe-events-calendar-month__calendar-event">
 
 	
 	<div class="tribe-events-calendar-month__calendar-event-details">
