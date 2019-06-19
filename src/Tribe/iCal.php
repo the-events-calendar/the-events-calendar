@@ -359,8 +359,9 @@ class Tribe__Events__iCal {
 	 */
 	protected function get_content() {
 		return sprintf(
-			"%s%s%s",
+			"%s%s%s%s",
 			$this->get_start(),
+			$this->get_timezones( $this->events ),
 			$this->get_body( $this->events ),
 			$this->get_end()
 		);
@@ -400,6 +401,105 @@ class Tribe__Events__iCal {
 		return apply_filters( 'tribe_ical_properties', $content );;
 	}
 
+	protected function get_timezones( $events = [] ) {
+		$timezones = $this->parse_timezones( $events );
+
+		if ( empty( $timezones ) ) {
+			return '';
+		}
+
+		$item = [];
+		foreach ( $timezones as $row ) {
+			/** @var DateTimeZone $timezone */
+			$timezone = $row['timezone'];
+			$id = $timezone->getName();
+			$item[] = 'TZID:"' . str_replace( '_', ' ', $id ) . '"';
+
+			$start = reset( $this->order( array_column( $row['events'], 'start_year' ), 'sort' ) );
+			$end   = reset( $this->order( array_column( $row['events'], 'end_year' ), 'rsort' ) );
+
+			$transitions = $timezone->getTransitions( $start, $end );
+			if ( count( $transitions ) === 1 ) {
+				$transitions[] = array_values( $transitions )[ 0 ];
+			}
+
+			//$start = $this->order( array_column( $row['events'], '')
+			$last_transition = null;
+			foreach ( $transitions as $i => $transition ) {
+				if ( $i === 0 ) {
+					$last_transition = $transition;
+					continue;
+				}
+
+				$type = 'STANDARD';
+				if ( $transition['isdst'] ) {
+					$type = 'DAYLIGHT';
+				}
+				$item[] = 'BEGIN:' . $type;
+				$item[] = 'TZOFFSETFROM:' . $this->get_offset( $last_transition['offset'] );
+				$item[] = 'TZOFFSETTO:' . $this->get_offset( $transition['offset'] );
+				$item[] = 'TZNAME:' . $transition['abbr'];
+				$item[] = 'END:' . $type;
+				$last_transition = $transition;
+			}
+		}
+
+		/**
+		 * Allow for customization of an individual "VEVENT" item to be rendered inside an iCal export file.
+		 *
+		 * @param array $item The various iCal file format components of this specific event item.
+		 * @param object $event_post The WP_Post of this event.
+		 */
+		//$item = apply_filters( 'tribe_ical_feed_item', $item, $event_post );
+
+		return "BEGIN:VTIMEZONE\r\n" . implode( "\r\n", $item ) . "\r\nEND:VTIMEZONE\r\n";
+	}
+
+	protected function parse_timezones( $events ) {
+		$data = [];
+		foreach ( $events as $event ){
+			if ( ! $event instanceof WP_Post ) {
+				continue;
+			}
+
+			$timezone = $this->get_timezone( $event );
+
+			if ( ! isset( $data[ $timezone ] ) ) {
+				$data[ $timezone ] = [
+					'timezone' => Tribe__Events__Timezones::build_timezone_object( $timezone ),
+					'events' => [],
+				];
+			}
+
+			$start = tribe_get_start_date( $event, false, 'U' );
+			$end = tribe_get_end_date( $event, false, 'U' );
+			$data[ $timezone ]['events'][] = [
+				'start' => $start,
+				'end' => $end,
+				'event' => $event,
+				'start_year' => strtotime( 'first day of january', $start ),
+				'end_year' => strtotime( 'last day of december', $end ),
+			];
+		}
+		return $data;
+	}
+
+
+	protected function order( $events, $callback ) {
+		return array_values( array_sort( $events, $callback ) );
+	}
+
+	protected function get_offset( $offset ) {
+		$hours   = intval( $offset / 60 / 60 );
+		$minutes = abs( $offset ) / 60 - intval( abs( $offset ) / 60 / 60 ) * 60;
+		$format  = "+%02d%02d";
+		if ( $hours < 0 ) {
+			$format = "%03d%02d";
+		}
+
+		return sprintf( $format, $hours, $minutes );
+	}
+
 	/**
 	 * Get the Body With all the events of the .ics file
 	 *
@@ -427,12 +527,12 @@ class Tribe__Events__iCal {
 				'created' => Tribe__Date_Utils::wp_strtotime( $event_post->post_date ),
 			];
 
+			$type   = 'DATE-TIME';
+			$format = $full_format;
+
 			if ( $all_day ) {
 				$type   = 'DATE';
 				$format = 'Ymd';
-			} else {
-				$type   = 'DATE-TIME';
-				$format = $full_format;
 			}
 
 			$tzoned = (object) [
@@ -455,12 +555,11 @@ class Tribe__Events__iCal {
 				$item[] = 'DTEND;VALUE=' . $type . ':' . $dtend;
 			} else {
 				// Are we using the sitewide timezone or the local event timezone?
-				$tz = Tribe__Events__Timezones::EVENT_TIMEZONE === Tribe__Events__Timezones::mode()
-					? Tribe__Events__Timezones::get_event_timezone_string( $event_post->ID )
-					: Tribe__Events__Timezones::wp_timezone_string();
+				$timezone_name = $this->get_timezone( $event_post );
+				$timezone = Tribe__Events__Timezones::build_timezone_object( $timezone_name );
 
-				$item[] = 'DTSTART;TZID=' . $tz . ':' . $dtstart;
-				$item[] = 'DTEND;TZID=' . $tz . ':' . $dtend;
+				$item[] = 'DTSTART;TZID="' . str_replace( '_', ' ', $timezone->getName() ) . '":' . $dtstart;
+				$item[] = 'DTEND;TZID="' . str_replace( '_', ' ', $timezone->getName() ) . '":' . $dtend;
 			}
 
 			$item[] = 'DTSTAMP:' . date( $full_format, time() );
@@ -542,6 +641,12 @@ class Tribe__Events__iCal {
 		}
 
 		return $events;
+	}
+
+	protected function get_timezone( $event ) {
+		return Tribe__Events__Timezones::EVENT_TIMEZONE === Tribe__Events__Timezones::mode()
+			? Tribe__Events__Timezones::get_event_timezone_string( $event->ID )
+			: Tribe__Events__Timezones::wp_timezone_string();
 	}
 
 	/**
