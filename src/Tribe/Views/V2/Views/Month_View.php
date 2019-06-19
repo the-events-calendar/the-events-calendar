@@ -14,7 +14,7 @@ use Tribe__Utils__Array as Arr;
 class Month_View extends View {
 
 	/**
-	 * Slug for this view
+	 * Slug for this view.
 	 *
 	 * @since 4.9.3
 	 *
@@ -22,6 +22,14 @@ class Month_View extends View {
 	 */
 	protected $slug = 'month';
 
+	/**
+	 * Visibility for this view.
+	 *
+	 * @since TBD
+	 *
+	 * @var bool
+	 */
+	protected $publicly_visible = true;
 
 	/**
 	 * Get HTML method

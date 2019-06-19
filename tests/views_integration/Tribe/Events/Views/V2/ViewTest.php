@@ -111,28 +111,6 @@ class ViewTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * It should allow getting the slug currently associated to a View
-	 *
-	 * @test
-	 */
-	public function should_allow_getting_the_slug_currently_associated_to_a_view() {
-		add_filter( 'tribe_events_views', function () {
-			return [];
-		} );
-		$this->assertFalse( View::get_view_slug( Test_View::class ) );
-
-		add_filter( 'tribe_events_views', function () {
-			return [ 'test' => Test_View::class ];
-		} );
-		$this->assertEquals( 'test', View::get_view_slug( Test_View::class ) );
-
-		add_filter( 'tribe_events_views', function () {
-			return [];
-		} );
-		$this->assertFalse( View::get_view_slug( Test_View::class ) );
-	}
-
-	/**
 	 * It should use the global context if not assigned one
 	 *
 	 * @test
