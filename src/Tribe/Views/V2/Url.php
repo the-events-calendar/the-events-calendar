@@ -223,7 +223,8 @@ class Url {
 			return false;
 		}
 
-		$context_aliases  = Arr::get( $context->get_locations(), [ $var, 'read', Context::QUERY_VAR ], [] );
+		$context_aliases = (array) Arr::get( $context->get_locations(), [ $var, 'read', Context::QUERY_VAR ], [] );
+
 		$alias_query_args = array_intersect_key(
 			$query_args,
 			array_merge( $aliases, array_combine( $context_aliases, $context_aliases ) )
