@@ -28,7 +28,7 @@ if ( ! $events_regular ) {
 
 	<?php foreach ( $events_regular as $event ) : ?>
 
-		<?php $this->template( 'month/calendar-body/day/calendar-event', [ 'event' => (object) $event, 'day' => $day_number ] ); ?>
+		<?php $this->template( 'month/calendar-body/day/calendar-events/calendar-event', [ 'event' => (object) $event, 'day' => $day_number ] ); ?>
 
 	<?php endforeach; ?>
 
