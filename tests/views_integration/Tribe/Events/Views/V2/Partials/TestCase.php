@@ -8,6 +8,7 @@
 
 namespace Tribe\Events\Views\V2\Partials;
 
+use Tribe\Events\Views\V2\Views\Reflector_View;
 
 use Codeception\TestCase\WPTestCase;
 use Spatie\Snapshots\MatchesSnapshots;
@@ -45,11 +46,8 @@ class TestCase extends WPTestCase {
 			throw new \RuntimeException( 'The `$partial_path` property should not contain the `.php` extension.' );
 		}
 
-		add_filter('tribe_events_views', static function(array $views = []){
-			$views['partials'] = new class extends View{};
-			return $views;
-		});
-		$this->template = new Template( 'partials' );
+		$view = View::make( Reflector_View::class );
+		$this->template = new Template( $view );
 	}
 
 	/**
@@ -59,7 +57,7 @@ class TestCase extends WPTestCase {
 	 *
 	 * @return string The partial rendered HTML.
 	 */
-	protected function get_partial_html( array $context = []) {
+	protected function get_partial_html( array $context = [] ) {
 		return $this->template->template( $this->partial_path, $context );
 	}
 }
