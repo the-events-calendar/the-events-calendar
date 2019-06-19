@@ -2537,12 +2537,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/moderntribe/tribe-common-styles",
-                "reference": "b2cfc876ad98263a11ed79ff339bef48ad377dae"
+                "reference": "2489e92ff97c6ea4bb1c15c02c4d23eb65ecf517"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/moderntribe/tribe-common-styles/zipball/b2cfc876ad98263a11ed79ff339bef48ad377dae",
-                "reference": "b2cfc876ad98263a11ed79ff339bef48ad377dae",
+                "url": "https://api.github.com/repos/moderntribe/tribe-common-styles/zipball/2489e92ff97c6ea4bb1c15c02c4d23eb65ecf517",
+                "reference": "2489e92ff97c6ea4bb1c15c02c4d23eb65ecf517",
                 "shasum": ""
             },
             "require": {
@@ -2553,7 +2553,7 @@
                 "Private"
             ],
             "description": "A library of Modern Tribe's common styles",
-            "time": "2019-06-06T21:18:00+00:00"
+            "time": "2019-06-18T18:10:36+00:00"
         },
         {
             "name": "moderntribe/tribe-testing-facilities",

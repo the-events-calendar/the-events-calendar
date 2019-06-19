@@ -19,6 +19,15 @@ use Tribe\Events\Views\V2\View;
 class Reflector_View extends View {
 
 	/**
+	 * Slug for this view.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	protected $slug = 'reflector';
+
+	/**
 	 * Overrides the base HTML method to return the JSON representation of the view context.
 	 *
 	 * @since 4.9.3

@@ -23,11 +23,11 @@ class Template extends Base_Template {
 	use Cache_User;
 
 	/**
-	 * The slug the template should use to build its path.
+	 * The view the template should use to build its path.
 	 *
-	 * @var string
+	 * @var View_Interface
 	 */
-	protected $slug;
+	protected $view;
 
 	/**
 	 * The repository instance that provided the template with posts, if any.
@@ -59,29 +59,38 @@ class Template extends Base_Template {
 		$context = wp_parse_args( $context_overrides, $this->context );
 		$context['_context'] = $context;
 
-		return parent::template( $this->slug, $context, false );
+		return parent::template( $this->view->get_slug(), $context, false );
 	}
 
 	/**
 	 * Template constructor.
 	 *
-	 * @param string $slug The slug the template should use to build its path.
+	 * @param View_Interface $view The view the template should use to build its path.
 	 *
 	 * @since 4.9.2
-	 *
+	 * @since TBD Modified the first param to only accept View_Interface instances.
 	 */
-	public function __construct( $slug ) {
-		$this->slug = $slug;
-		// Set some global defaults all Views are likely to search for; those will be overridden by each View.
-		$this->set_values( [
-			'slug'     => $slug,
-			'prev_url' => '',
-			'next_url' => '',
-		], false );
+	public function __construct( $view ) {
+		$this->set_view( $view );
+
 		$this->set_template_origin( tribe( 'tec.main' ) )
 		     ->set_template_folder( 'src/views/v2' )
 		     ->set_template_folder_lookup( true )
 		     ->set_template_context_extract( true );
+
+		// Set some global defaults all Views are likely to search for; those will be overridden by each View.
+		$this->set_values( [
+			'slug'     => $view->get_slug(),
+			'prev_url' => '',
+			'next_url' => '',
+		], false );
+
+		// Set some defaults on the template.
+		$this->set( 'view_class', get_class( $view ), false );
+		$this->set( 'view_slug', $view->get_slug(), false );
+
+		// Set which view globaly
+		$this->set( 'view', $view, false );
 	}
 
 	/**
@@ -97,7 +106,7 @@ class Template extends Base_Template {
 	 * @return string The path to the template file the View will use to render its contents.
 	 */
 	public function get_template_file( $name = null ) {
-		$name = null !== $name ? $name : $this->slug;
+		$name = null !== $name ? $name : $this->view->get_slug();
 
 		$cache_key = is_array( $name ) ? implode( '/', $name ) : $name;
 
@@ -126,10 +135,16 @@ class Template extends Base_Template {
 	 */
 	public function get_base_template_file() {
 		// Print the lookup folders as relative paths.
-		$this->set( 'lookup_folders', array_map( function ( array $folder ) {
-			$folder['path'] = str_replace( WP_CONTENT_DIR, '', $folder['path'] );
-			return $folder;
-		}, $this->get_template_path_list() ) );
+		$this->set(
+			'lookup_folders',
+			array_map(
+				function ( array $folder ) {
+					$folder['path'] = str_replace( WP_CONTENT_DIR, '', $folder['path'] );
+					return $folder;
+				},
+				$this->get_template_path_list()
+			)
+		);
 
 		return parent::get_template_file( 'base' );
 	}
@@ -146,24 +161,24 @@ class Template extends Base_Template {
 	}
 
 	/**
-	 * Sets the template slug.
+	 * Sets the template view.
 	 *
-	 * @since TBD
+	 * @since TBD Modified the Param to only accept View_Interface instances
 	 *
-	 * @param string $slug The slug the template should use.
+	 * @param View_Interface  $view  Which view we are using this template on.
 	 */
-	public function set_slug( string $slug ) {
-		$this->slug = $slug;
+	public function set_view( $view ) {
+		$this->view = $view;
 	}
 
 	/**
-	 * Returns the current template slug, either set in the constructor or using the `set_slug` method.
+	 * Returns the current template view, either set in the constructor or using the `set_view` method.
 	 *
-	 * @since TBD
+	 * @since TBD Modified the Param to only accept View_Interface instances
 	 *
-	 * @return string The current template slug.
+	 * @return View_Interface The current template view.
 	 */
-	public function get_slug() {
-		return $this->slug;
+	public function get_view() {
+		return $this->view;
 	}
 }

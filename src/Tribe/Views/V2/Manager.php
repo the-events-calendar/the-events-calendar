@@ -5,13 +5,7 @@ use Tribe\Events\Views\V2\Views\Day_View;
 use Tribe\Events\Views\V2\Views\List_View;
 use Tribe\Events\Views\V2\Views\Month_View;
 use Tribe\Events\Views\V2\Views\Reflector_View;
-use Tribe__Container as Container;
-use Tribe__Context as Context;
-use Tribe__Events__Main as TEC;
-use Tribe__Events__Organizer as Organizer;
-use Tribe__Events__Rewrite as Rewrite;
-use Tribe__Events__Venue as Venue;
-use Tribe__Repository__Interface as Repository;
+
 use Tribe__Utils__Array as Arr;
 
 /**
@@ -56,8 +50,8 @@ class Manager {
 		 */
 		$views = (array) apply_filters( 'tribe_events_views', [
 			'list'      => List_View::class,
-			'day'       => Day_View::class,
 			'month'     => Month_View::class,
+			'day'       => Day_View::class,
 		] );
 
 		// Make sure reflector is always available.
@@ -111,12 +105,46 @@ class Manager {
 			$view = View::make( $slug );
 
 			// Remove all "private" views
-			if ( ! $view->is_publicly_visible() ) {
-				unset( $views[ $slug ] );
+			if ( $view->is_publicly_visible() ) {
+				continue;
 			}
+
+			unset( $views[ $slug ] );
 		}
 
 		return $views;
+	}
+
+	/**
+	 * Returns the slug and class of a given view, accepts slug or class.
+	 * Will return false for both in case both fail.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $requested_view The view slug or fully qualified class name
+	 *
+	 * @return array  Formatted [ (string|bool) $view_slug, (string|bool) $view_class ]
+	 */
+	public function get_view( string $requested_view ) {
+		$view_slug = $this->get_view_slug_by_class( $requested_view );
+		$view_class = $this->get_view_class_by_slug( $requested_view );
+
+		// Bail, we had no matches for the slug or class.
+		if ( ! $view_slug && ! $view_class ) {
+			return [ false, false ];
+		}
+
+		// Requested with slug so save it there
+		if ( $view_class && ! $view_slug ) {
+			$view_slug = $requested_view;
+		}
+
+		// Requested with class so save it there
+		if ( $view_slug && ! $view_class ) {
+			$view_class = $requested_view;
+		}
+
+		return [ $view_slug, $view_class ];
 	}
 
 	/**
@@ -124,14 +152,14 @@ class Manager {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $view The view fully qualified class name.
+	 * @param string $view_class The view fully qualified class name.
 	 *
-	 * @return int|string|false The slug currently associated to a View class if it is found, `false` otherwise.
+	 * @return int|string|false  The slug currently associated to a View class if it is found, `false` otherwise.
 	 */
-	public function get_view_slug( string $view ) {
+	public function get_view_slug_by_class( string $view_class ) {
 		$registered_views = $this->get_registered_views();
 
-		return array_search( $view, $registered_views, true );
+		return array_search( $view_class, $registered_views, true );
 	}
 
 	/**
@@ -143,7 +171,7 @@ class Manager {
 	 *
 	 * @return string|false The class currently associated to a View slug if it is found, `false` otherwise.
 	 */
-	public function get_view_class( string $slug ) {
+	public function get_view_class_by_slug( string $slug ) {
 		$registered_views = $this->get_registered_views();
 
 		return Arr::get( $registered_views, $slug, false );

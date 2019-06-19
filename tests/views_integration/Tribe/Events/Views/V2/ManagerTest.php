@@ -2,6 +2,7 @@
 
 namespace Tribe\Events\Views\V2;
 
+use Tribe\Events\Views\V2\Views\Reflector_View;
 use Tribe\Events\Test\Factories\Event;
 use Tribe__Context as Context;
 
@@ -26,51 +27,6 @@ class ManagerTest extends \Codeception\TestCase\WPTestCase {
 		return new Manager();
 	}
 
-	public function base_template_options() {
-		return [
-			'invalid' => [
-				'foo',
-				'event',
-			],
-			'numeric' => [
-				2,
-				'event',
-			],
-			'default' => [
-				'default',
-				'page',
-			],
-			'empty_string' => [
-				'',
-				'event',
-			],
-			'numeric_zero' => [
-				0,
-				'event',
-			],
-			'null' => [
-				null,
-				'event',
-			],
-			'boolean_false' => [
-				false,
-				'event',
-			],
-			'boolean_true' => [
-				false,
-				'event',
-			],
-			'slug_event' => [
-				'event',
-				'event',
-			],
-			'slug_page' => [
-				'page',
-				'event',
-			],
-		];
-	}
-
 	/**
 	 * @test
 	 */
@@ -90,7 +46,7 @@ class ManagerTest extends \Codeception\TestCase\WPTestCase {
 
 		$default = $this->make_instance()->get_default_view();
 
-		$this->assertEquals( $default, 'reflector' );
+		$this->assertEquals( $default, Reflector_View::class );
 	}
 
 	/**
@@ -99,13 +55,13 @@ class ManagerTest extends \Codeception\TestCase\WPTestCase {
 	public function should_default_to_the_first_view_available_when_requested_is_not_available() {
 		tribe_update_option( Manager::$option_default, 'foo' );
 
-		add_filter( 'tribe_events_views', function() use ( $input ) {
+		add_filter( 'tribe_events_views', function() {
 			return [ 'test' => Test_View::class ];
 		} );
 
 		$default = $this->make_instance()->get_default_view();
 
-		$this->assertEquals( $default, 'test' );
+		$this->assertEquals( $default, Test_View::class );
 	}
 
 	/**
@@ -114,13 +70,13 @@ class ManagerTest extends \Codeception\TestCase\WPTestCase {
 	public function should_default_to_what_is_in_the_option_when_available() {
 		tribe_update_option( Manager::$option_default, 'test' );
 
-		add_filter( 'tribe_events_views', function() use ( $input ) {
+		add_filter( 'tribe_events_views', function() {
 			return [ 'test' => Test_View::class ];
 		} );
 
 		$default = $this->make_instance()->get_default_view();
 
-		$this->assertEquals( $default, 'test' );
+		$this->assertEquals( $default, Test_View::class );
 	}
 
 	/**
@@ -130,17 +86,15 @@ class ManagerTest extends \Codeception\TestCase\WPTestCase {
 		$manager = $this->make_instance();
 
 		add_filter( 'tribe_events_views', '__return_empty_array' );
-		$this->assertFalse( $manager->get_view_slug( Test_View::class ) );
+		$this->assertFalse( $manager->get_view_slug_by_class( Test_View::class ) );
 
 		add_filter( 'tribe_events_views', function () {
 			return [ 'test' => Test_View::class ];
-		} );
-		$this->assertEquals( 'test', $manager->get_view_slug( Test_View::class ) );
+		}, 11 );
+		$this->assertEquals( 'test', $manager->get_view_slug_by_class( Test_View::class ) );
 
-		add_filter( 'tribe_events_views', function () {
-			return [];
-		} );
-		$this->assertFalse( $manager->get_view_slug( Test_View::class ) );
+		add_filter( 'tribe_events_views', '__return_empty_array', 12 );
+		$this->assertFalse( $manager->get_view_slug_by_class( Test_View::class ) );
 	}
 
 	/**
@@ -161,7 +115,7 @@ class ManagerTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertArrayHasKey( 'publicly-visible-test', $manager->get_publicly_visible_views() );
 		$this->assertArrayNotHasKey( 'test', $manager->get_publicly_visible_views() );
 
-		add_filter( 'tribe_events_views', '__return_empty_array' );
+		add_filter( 'tribe_events_views', '__return_empty_array', 11 );
 		$this->assertEmpty( $manager->get_publicly_visible_views() );
 	}
 

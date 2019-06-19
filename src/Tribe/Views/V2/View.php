@@ -217,34 +217,34 @@ class View implements View_Interface {
 		$manager = tribe( Manager::class );
 
 		$default_view = $manager->get_default_view();
-		if ( null === $view || 'default' === $view ) {
+		if (
+			null === $view
+			|| 'default' === $view
+		) {
 			$view = $default_view;
 		}
 
-		$by_slug = $manager->get_view_class( $view );
-		$view_class = $by_slug;
+		list( $view_slug, $view_class ) = $manager->get_view( $view );
 
-		if ( ! $by_slug ) {
-			$by_class = $manager->get_view_slug( $view );
-			$view_class = $view;
+		// When not found use the default view.
+		if ( ! $view_class ) {
+			list( $view_slug, $view_class ) = $manager->get_view( $default_view );
 		}
 
-		if ( class_exists( $view_class ) ) {
-			if ( ! self::$container instanceof Container ) {
-				$message = 'The ' . __CLASS__ . '::$container property is not set: was the class initialized by the service provider?';
-				throw new \RuntimeException( $message );
-			}
-
-			/** @var \Tribe\Events\Views\V2\View_Interface $instance */
-			$instance  = self::$container->make( $view_class );
-			$view_slug = $manager->get_view_slug( $view_class );
-		} else {
-			$view_class = static::class;
-			$instance   = new static();
-			$view_slug  = 'not-found';
+		// Make sure we are using Reflector when it fails
+		if ( ! class_exists( $view_class ) ) {
+			list( $view_slug, $view_class ) = $manager->get_view( 'reflector' );
 		}
 
-		$template = new Template( $view_slug );
+		if ( ! self::$container instanceof Container ) {
+			$message = 'The ' . __CLASS__ . '::$container property is not set: was the class initialized by the service provider?';
+			throw new \RuntimeException( $message );
+		}
+
+		/** @var \Tribe\Events\Views\V2\View_Interface $instance */
+		$instance  = self::$container->make( $view_class );
+
+		$template = new Template( $instance );
 
 		/**
 		 * Filters the Template object for a View.
@@ -266,14 +266,6 @@ class View implements View_Interface {
 		 * @param  \Tribe\Events\Views\V2\View      $instance  The current View object.
 		 */
 		$template = apply_filters( "tribe_events_views_v2_{$view_slug}_view_template", $template, $instance );
-
-		// Set some defaults on the template.
-		$template->set( 'requested_view', $view, false );
-		$template->set( 'view_class', $view_class, false );
-		$template->set( 'view_slug', $view_slug, false );
-
-		// Set which view globaly
-		$template->set( 'view', $instance, false );
 
 		$instance->set_template( $template );
 		$instance->set_slug( $view_slug );

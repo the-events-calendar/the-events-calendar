@@ -11,11 +11,13 @@ class MainQueryRenderCest {
 	}
 
 	/**
-	 * It should correctly render a mock List view
-	 *
 	 * @test
 	 */
-	public function should_correctly_render_a_mock_list_view( Tester $I ) {
+	public function should_correctly_render_a_mock_list_view( Tester $I, $scenario ) {
+		$scenario->skip();
+		$I->comment( 'Skipped due to revision to how basic template should work' );
+
+
 		$slug = 'test-list';
 		$code = file_get_contents( codecept_data_dir( 'Views/V2/mu-plugins/test-list-view.php' ) );
 		$I->setTribeOption( Manager::$option_default, $slug );
