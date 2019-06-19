@@ -706,7 +706,7 @@ class View implements View_Interface {
 		 * Filters the variables that will be set on the View template.
 		 *
 		 * @since 4.9.3
-		 * @since TBD Renamed the filter to be alined with other fitlers on this class.
+		 * @since TBD Renamed the filter to be aligned with other filters on this class.
 		 *
 		 * @param array          $template_vars An associative array of template variables. Variables will be extracted in the
 		 *                                      template hence the key will be the name of the variable available in the
