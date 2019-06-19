@@ -11,7 +11,7 @@ class MonthCalendarEventFeaturedImageTest extends TestHtmlCase {
 	public function it_should_contain_correct_html_classes() {
 		// @todo: Re-check how we send the `image` once we make this dynamic
 		$event = [ 'ID' => 0, 'title' => 'Lorem Ipsum', 'image' => 'test.jpg', 'featured' => true, 'recurring' => true ];
-		$template = $this->template->template( 'month/calendar-event/featured-image', [ 'event' => (object) $event ] );
+		$template = $this->template->template( 'month/calendar-body/day/calendar-events/calendar-event/featured-image', [ 'event' => (object) $event ] );
 		$html = $this->document->html( $template );
 
 		$this->assertEquals(

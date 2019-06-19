@@ -7,7 +7,7 @@ use Tribe\Events\Views\V2\Partials\TestCase;
 class Calendar_EventTest extends TestCase
 {
 
-	protected $partial_path = 'month/calendar-event';
+	protected $partial_path = 'month/calendar-body/day/calendar-events/calendar-event';
 
 	/**
 	 * Test render with context
