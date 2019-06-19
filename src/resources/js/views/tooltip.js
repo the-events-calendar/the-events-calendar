@@ -154,6 +154,12 @@ tribe.events.views.tooltip = {};
 	 */
 	obj.ready = function() {
 		$document.on( 'afterSetup.tribeEvents', tribe.events.views.manager.selectors.container, obj.initTooltips );
+
+		/**
+		 * @todo: do below for ajax events
+		 */
+		// on 'beforeAjaxBeforeSend.tribeEvents' event, remove all tooltips
+		// on 'afterAjaxError.tribeEvents', add all tooltips
 	};
 
 	// Configure on document ready
