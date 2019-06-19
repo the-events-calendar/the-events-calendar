@@ -177,7 +177,7 @@
 
 			<div class="tribe-events-calendar-list__separator-month">
 	<time
-		class="tribe-events-calendar-list__separator-month-text tribe-common-b1"
+		class="tribe-events-calendar-list__separator-month-text tribe-common-h7 tribe-common-h7--alt"
 		datetime="2019-01"
 	>
 		Jan 2019	</time>
@@ -200,12 +200,12 @@
 		>
 		</em>
 	</div>
-			<h3 class="tribe-events-calendar-list__event-title">
+			<h3 class="tribe-events-calendar-list__event-title tribe-common-h6 tribe-common-h5--min-medium">
 	<a
 		href="http://test.tri.be/?tribe_events=test-event-9-days-2%2F"
 		title=""
 		rel="bookmark"
-		class="tribe-events-calendar-list__event-title-link"
+		class="tribe-events-calendar-list__event-title-link tribe-common-anchor"
 	>
 		Test Event &#8211; +9 days	</a>
 </h3>
@@ -243,12 +243,12 @@
 	<time class="tribe-events-calendar-list__event-datetime tribe-common-b2" datetime="1970-01-01T00:00:00+00:00">
 		<span class="tribe-event-date-start">January 1 @ 9:00 am</span>	</time>
 	</div>
-			<h3 class="tribe-events-calendar-list__event-title">
+			<h3 class="tribe-events-calendar-list__event-title tribe-common-h6 tribe-common-h5--min-medium">
 	<a
 		href="http://test.tri.be/?tribe_events=single-event-1%2F"
 		title=""
 		rel="bookmark"
-		class="tribe-events-calendar-list__event-title-link"
+		class="tribe-events-calendar-list__event-title-link tribe-common-anchor"
 	>
 		Single Event 1	</a>
 </h3>
