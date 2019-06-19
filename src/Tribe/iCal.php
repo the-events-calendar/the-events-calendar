@@ -395,7 +395,7 @@ class Tribe__Events__iCal {
 		}
 
 		$content .= 'X-ORIGINAL-URL:' . $blog_home . "\r\n";
-		$content .= 'X-WR-CALDESC:' . sprintf( esc_html_x( 'Events for %s', 'iCal feed description', 'the-events-calendar' ), $blog_name ) . "\r\n";
+		$content .= "X-WR-CALDESC:" . sprintf( esc_html_x( 'Events for %s', 'iCal feed description', 'the-events-calendar' ), $blog_name ) . "\r\n";
 
 		return apply_filters( 'tribe_ical_properties', $content );;
 	}
