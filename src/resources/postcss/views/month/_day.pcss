@@ -104,7 +104,8 @@
 
 	.tribe-events-calendar-month__day-cell--desktop {
 		@media (--viewport-medium) {
-			display: block !important;
+			display: flex !important;
+			flex-direction: column;
 			visibility: visible;
 		}
 	}
@@ -126,10 +127,8 @@
 	}
 
 	.tribe-events-calendar-month__day-date {
-		font-weight: var(--font-weight-regular);
-
 		@media (--viewport-medium) {
-			font-weight: var(--font-weight-bold);
+			flex: none;
 			padding: var(--spacer-1) var(--spacer-2);
 		}
 	}
@@ -162,7 +161,7 @@
 		width: 8px;
 	}
 
-	.tribe-events-calendar-month__day-events {
-		padding: 0 var(--spacer-2) var(--spacer-2);
+	.tribe-events-calendar-month__events {
+		flex: auto;
 	}
 }
