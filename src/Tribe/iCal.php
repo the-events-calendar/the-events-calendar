@@ -374,27 +374,28 @@ class Tribe__Events__iCal {
 	 * @return mixed
 	 */
 	protected function get_start() {
-		$blogHome    = get_bloginfo( 'url' );
-		$blogName    = get_bloginfo( 'name' );
+		$blog_home    = get_bloginfo( 'url' );
+		$blog_name    = get_bloginfo( 'name' );
 
 		$content  = "BEGIN:VCALENDAR\r\n";
 		$content .= "VERSION:2.0\r\n";
-		$content .= 'PRODID:-//' . $blogName . ' - ECPv' . Tribe__Events__Main::VERSION . "//NONSGML v1.0//EN\r\n";
+		$content .= 'PRODID:-//' . $blog_name . ' - ECPv' . Tribe__Events__Main::VERSION . "//NONSGML v1.0//EN\r\n";
 		$content .= "CALSCALE:GREGORIAN\r\n";
 		$content .= "METHOD:PUBLISH\r\n";
 
 		/**
 		 * Allows for customizing the value of the generated iCal file's "X-WR-CALNAME:" property.
 		 *
-		 * @param string $blogName The value to use for "X-WR-CALNAME"; defaults to value of get_bloginfo( 'name' ).
+		 * @param string $blog_name The value to use for "X-WR-CALNAME"; defaults to value of get_bloginfo( 'name' ).
 		 */
-		$x_wr_calname = apply_filters( 'tribe_ical_feed_calname', $blogName );
+		$x_wr_calname = apply_filters( 'tribe_ical_feed_calname', $blog_name );
+
 		if ( ! empty( $x_wr_calname ) ) {
 			$content .= 'X-WR-CALNAME:' . $x_wr_calname . "\r\n";
 		}
 
-		$content .= 'X-ORIGINAL-URL:' . $blogHome . "\r\n";
-		$content .= 'X-WR-CALDESC:' . sprintf( esc_html_x( 'Events for %s', 'iCal feed description', 'the-events-calendar' ), $blogName ) . "\r\n";
+		$content .= 'X-ORIGINAL-URL:' . $blog_home . "\r\n";
+		$content .= 'X-WR-CALDESC:' . sprintf( esc_html_x( 'Events for %s', 'iCal feed description', 'the-events-calendar' ), $blog_name ) . "\r\n";
 
 		return apply_filters( 'tribe_ical_properties', $content );;
 	}
