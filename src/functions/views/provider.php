@@ -1,11 +1,11 @@
 <?php
-use Tribe\Events\Views\V2\View as View;
+use Tribe\Events\Views\V2\Manager;
 
 /**
  * Checks whether v2 of the Views is enabled or not.
  *
  * In order the function will check the `TRIBE_EVENTS_V2_VIEWS` constant,
- * the `TRIBE_EVENTS_V2_VIEWS` environment variable and, finally, the `static::$option_enabled` option.
+ * the `TRIBE_EVENTS_V2_VIEWS` environment variable and, finally, the `Manager::$option_enabled` option.
  *
  * @since 4.9.2
  *
@@ -21,7 +21,7 @@ function tribe_events_views_v2_is_enabled() {
 		return (bool) $env_var;
 	}
 
-	$enabled = (bool) tribe_get_option( View::$option_enabled, false );
+	$enabled = (bool) tribe_get_option( Manager::$option_enabled, false );
 
 	/**
 	 * Allows filtering of the Events Views V2 provider, doing so will render

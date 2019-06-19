@@ -2537,12 +2537,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/moderntribe/tribe-common-styles",
-                "reference": "b2cfc876ad98263a11ed79ff339bef48ad377dae"
+                "reference": "2489e92ff97c6ea4bb1c15c02c4d23eb65ecf517"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/moderntribe/tribe-common-styles/zipball/b2cfc876ad98263a11ed79ff339bef48ad377dae",
-                "reference": "b2cfc876ad98263a11ed79ff339bef48ad377dae",
+                "url": "https://api.github.com/repos/moderntribe/tribe-common-styles/zipball/2489e92ff97c6ea4bb1c15c02c4d23eb65ecf517",
+                "reference": "2489e92ff97c6ea4bb1c15c02c4d23eb65ecf517",
                 "shasum": ""
             },
             "require": {
@@ -2553,7 +2553,7 @@
                 "Private"
             ],
             "description": "A library of Modern Tribe's common styles",
-            "time": "2019-06-06T21:18:00+00:00"
+            "time": "2019-06-18T18:10:36+00:00"
         },
         {
             "name": "moderntribe/tribe-testing-facilities",
@@ -5413,16 +5413,16 @@
         },
         {
             "name": "vlucas/phpdotenv",
-            "version": "v3.3.3",
+            "version": "v3.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vlucas/phpdotenv.git",
-                "reference": "dbcc609971dd9b55f48b8008b553d79fd372ddde"
+                "reference": "5084b23845c24dbff8ac6c204290c341e4776c92"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/dbcc609971dd9b55f48b8008b553d79fd372ddde",
-                "reference": "dbcc609971dd9b55f48b8008b553d79fd372ddde",
+                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/5084b23845c24dbff8ac6c204290c341e4776c92",
+                "reference": "5084b23845c24dbff8ac6c204290c341e4776c92",
                 "shasum": ""
             },
             "require": {
@@ -5436,7 +5436,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.3-dev"
+                    "dev-master": "3.4-dev"
                 }
             },
             "autoload": {
@@ -5461,7 +5461,7 @@
                 "env",
                 "environment"
             ],
-            "time": "2019-03-06T09:39:45+00:00"
+            "time": "2019-06-15T22:40:20+00:00"
         },
         {
             "name": "webmozart/assert",
