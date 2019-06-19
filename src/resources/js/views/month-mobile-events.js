@@ -42,6 +42,8 @@ tribe.events.views.monthMobileEvents = {};
 		calendar: '.tribe-events-calendar-month',
 		calendarDay: '.tribe-events-calendar-month__day-cell--mobile',
 		calendarDaySelected: '.tribe-events-calendar-month__day-cell--selected',
+		mobileEvents: '.tribe-events-calendar-month-mobile-events',
+		mobileEventsShow: '.tribe-events-calendar-month-mobile-events--show',
 		mobileEventsDay: '.tribe-events-calendar-month-mobile-events__mobile-day',
 	};
 
@@ -92,7 +94,9 @@ tribe.events.views.monthMobileEvents = {};
 		}
 
 		$header.addClass( obj.selectors.calendarDaySelected.className() );
-		$content.parent().css( 'display', 'block' );
+		$content
+			.parent( obj.selectors.mobileEvents.className() )
+			.addClass( obj.selectors.mobileEventsShow.className() );
 	};
 
 	/**
@@ -113,7 +117,9 @@ tribe.events.views.monthMobileEvents = {};
 		}
 
 		$header.removeClass( obj.selectors.calendarDaySelected.className() );
-		$content.parent().css( 'display', '' );
+		$content
+			.parent( obj.selectors.mobileEvents.className() )
+			.removeClass( obj.selectors.mobileEventsShow.className() );
 	};
 
 	/**
