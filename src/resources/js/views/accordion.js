@@ -9,7 +9,7 @@ tribe.events = tribe.events || {};
 tribe.events.views = tribe.events.views || {};
 
 /**
- * Configures Views Object in the Global Tribe variable
+ * Configures Accordion Object in the Global Tribe variable
  *
  * @since TBD
  *

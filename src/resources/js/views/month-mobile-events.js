@@ -9,7 +9,7 @@ tribe.events = tribe.events || {};
 tribe.events.views = tribe.events.views || {};
 
 /**
- * Configures Views Object in the Global Tribe variable
+ * Configures Month Mobile Events Object in the Global Tribe variable
  *
  * @since TBD
  *

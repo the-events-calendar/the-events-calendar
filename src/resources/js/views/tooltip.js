@@ -46,66 +46,77 @@ tribe.events.views.tooltip = {};
 
 	/**
 	 * Override of the `functionInit` tooltipster method.
-	 *
 	 * A custom function to be fired only once at instantiation.
 	 *
 	 * @since TBD
 	 *
+	 * @param {Tooltipster} instance instance of Tooltipster
+	 * @param {PlainObject} helper   helper object with tooltip origin
+	 *
+	 * @return {void}
 	 */
 	obj.onFunctionInit = function( instance, helper ) {
 		var content = $( helper.origin ).find( obj.selectors.tooltipContent ).html();
 		instance.content( content );
 		$( helper.origin )
-			.focus( function() {
-				obj.onOriginFocus( $( this ) )
-			})
-			.blur( function() {
-				obj.onOriginBlur( $( this ) )
-			});
+			.on( 'focus', { target: $( this ) }, obj.handleOriginFocus )
+			.on( 'blur', { target: $( this ) }, obj.handleOriginBlur );
 	};
 
 	/**
-	 * On tooltip focus
+	 * Handle tooltip focus event
 	 *
 	 * @since TBD
 	 *
+	 * @param {Event} event event object
+	 *
+	 * @return {void}
 	 */
-	obj.onOriginFocus = function( el ) {
-		el.tooltipster( 'open' );
+	obj.handleOriginFocus = function( event ) {
+		event.data.target.tooltipster( 'open' );
 	};
 
 	/**
-	 * On tooltip blur
+	 * Handle tooltip blur event
 	 *
 	 * @since TBD
 	 *
+	 * @param {Event} event event object
+	 *
+	 * @return {void}
 	 */
-	obj.onOriginBlur = function( el ) {
-		el.tooltipster( 'close' );
+	obj.handleOriginBlur = function( event ) {
+		event.data.target.tooltipster( 'close' );
 	};
 
 	/**
 	 * Override of the `functionReady` tooltipster method.
-	 *
 	 * A custom function to be fired when the tooltip and its contents have been added to the DOM.
 	 *
 	 * @since TBD
 	 *
+	 * @param {Tooltipster} instance instance of Tooltipster
+	 * @param {PlainObject} helper   helper object with tooltip origin
+	 *
+	 * @return {void}
 	 */
 	obj.onFunctionReady = function( instance, helper ) {
-		$( helper.origin ).find( obj.selectors.tooltipContent ).attr( 'aria-hidden', false );
+		$( helper.origin ).find( obj.selectors.tooltipContent ).attr( 'aria-hidden', 'false' );
 	};
 
 	/**
 	 * Override of the `functionAfter` tooltipster method.
-	 *
 	 * A custom function to be fired once the tooltip has been closed and removed from the DOM.
 	 *
 	 * @since TBD
 	 *
+	 * @param {Tooltipster} instance instance of Tooltipster
+	 * @param {PlainObject} helper   helper object with tooltip origin
+	 *
+	 * @return {void}
 	 */
 	obj.onFunctionAfter = function( instance, helper ) {
-		$( helper.origin ).find( obj.selectors.tooltipContent ).attr( 'aria-hidden', true );
+		$( helper.origin ).find( obj.selectors.tooltipContent ).attr( 'aria-hidden', 'true' );
 	};
 
 	/**
@@ -113,23 +124,25 @@ tribe.events.views.tooltip = {};
 	 *
 	 * @since TBD
 	 *
-	 * @param {Event} event event object for 'afterSetup.tribeEvents' event
-	 * @param {integer} index jQuery.each index param from 'afterSetup.tribeEvents' event
-	 * @param {jQuery} $container jQuery object of view container
-	 * @param {object} data data object passed from 'afterSetup.tribeEvents' event
+	 * @param {Event}   event      event object for 'afterSetup.tribeEvents' event
+	 * @param {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event
+	 * @param {jQuery}  $container jQuery object of view container
+	 * @param {object}  data       data object passed from 'afterSetup.tribeEvents' event
 	 *
 	 * @return {void}
 	 */
 	obj.initTooltips = function( event, index, $container, data ) {
-		$container.find( obj.selectors.tooltip ).each( function( index, tooltip ) {
-			$( tooltip ).tooltipster( {
-				interactive: true,
-				theme: [ 'tribe-common', 'tribe-events', 'tribe-events-tooltip-theme' ],
-				functionInit: obj.onFunctionInit,
-				functionReady: obj.onFunctionReady,
-				functionAfter: obj.onFunctionAfter,
+		$container
+			.find( obj.selectors.tooltip )
+			.each( function( index, tooltip ) {
+				$( tooltip ).tooltipster( {
+					interactive: true,
+					theme: [ 'tribe-common', 'tribe-events', 'tribe-events-tooltip-theme' ],
+					functionInit: obj.onFunctionInit,
+					functionReady: obj.onFunctionReady,
+					functionAfter: obj.onFunctionAfter,
+				} );
 			} );
-		} );
 	};
 
 	/**
