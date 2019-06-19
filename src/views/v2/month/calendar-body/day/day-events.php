@@ -3,7 +3,7 @@
  * View: Month View - Day Events
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/views/v2/month/day-events.php
+ * [your-theme]/tribe/events/views/v2/month/calendar-body/day/day-events.php
  *
  * See more documentation about our views templating system.
  *
@@ -28,7 +28,7 @@ if ( ! $events_regular ) {
 
 	<?php foreach ( $events_regular as $event ) : ?>
 
-		<?php $this->template( 'month/calendar-event', [ 'event' => (object) $event, 'day' => $day_number ] ); ?>
+		<?php $this->template( 'month/calendar-body/day/calendar-event', [ 'event' => (object) $event, 'day' => $day_number ] ); ?>
 
 	<?php endforeach; ?>
 

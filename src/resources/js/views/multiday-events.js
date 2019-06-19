@@ -40,11 +40,11 @@ tribe.events.views.multidayEvents = {};
 	 */
 	obj.selectors = {
 		calendar: '.tribe-events-calendar-month',
-		multidayEvent: '.tribe-events-calendar-month__event-multiday',
-		hiddenMultidayEvent: '.tribe-events-calendar-month__event-multiday--hidden',
-		multidayEventInner: '.tribe-events-calendar-month__event-multiday-inner',
-		multidayEventInnerFocus: '.tribe-events-calendar-month__event-multiday-inner--focus',
-		multidayEventInnerHover: '.tribe-events-calendar-month__event-multiday-inner--hover',
+		multidayEvent: '.tribe-events-calendar-month__multiday-event',
+		hiddenMultidayEvent: '.tribe-events-calendar-month__multiday-event--hidden',
+		multidayEventInner: '.tribe-events-calendar-month__multiday-event-inner',
+		multidayEventInnerFocus: '.tribe-events-calendar-month__multiday-event-inner--focus',
+		multidayEventInnerHover: '.tribe-events-calendar-month__multiday-event-inner--hover',
 	};
 
 	/**

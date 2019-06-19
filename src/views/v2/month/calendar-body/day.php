@@ -3,7 +3,7 @@
  * View: Month View - Day
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/views/v2/month/day.php
+ * [your-theme]/tribe/events/views/v2/month/calendar-body/day.php
  *
  * See more documentation about our views templating system.
  *
@@ -80,9 +80,9 @@ $mobile_day_id = 'tribe-events-calendar-mobile-day-' . $month_number . '-' . $da
 			</time>
 		</h3>
 
-		<?php $this->template( 'month/day-events-multiday', [ 'day' => $day_number, 'month' => $month ] ); ?>
+		<?php $this->template( 'month/calendar-body/day/day-events-multiday', [ 'day' => $day_number, 'month' => $month ] ); ?>
 
-		<?php $this->template( 'month/day-events', [ 'day' => $day_number, 'month' => $month ] ); ?>
+		<?php $this->template( 'month/calendar-body/day/day-events', [ 'day' => $day_number, 'month' => $month ] ); ?>
 
 	</div>
 

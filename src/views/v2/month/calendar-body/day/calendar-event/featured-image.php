@@ -1,9 +1,9 @@
 <?php
 /**
- * View: Month View - Calenar Event Tooltip Featured Image
+ * View: Month View - Calendar Event Featured Image
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/views/v2/month/calendar-event/tooltip/featured-image.php
+ * [your-theme]/tribe/events/views/v2/month/calendar-body/day/calendar-event/featured-image.php
  *
  * See more documentation about our views templating system.
  *
@@ -17,9 +17,10 @@ $event = $this->get( 'event' );
 if ( ! isset( $event->image ) ) { // @todo: use template tags for images here
 	return;
 }
+
 ?>
-<div class="tribe-events-calendar-month__calendar-event-tooltip-featured-image-wrapper">
-	<div class="tribe-events-calendar-month__calendar-event-tooltip-featured-image tribe-common-c-image tribe-common-c-image--bg">
+<div class="tribe-events-calendar-month__calendar-event-featured-image-wrapper">
+	<div class="tribe-events-calendar-month__calendar-event-featured-image tribe-common-c-image tribe-common-c-image--bg">
 		<a
 			href="#"
 			title="<?php echo esc_attr( $event->title ); ?>"

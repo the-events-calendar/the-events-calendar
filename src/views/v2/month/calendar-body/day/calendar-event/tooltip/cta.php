@@ -3,7 +3,7 @@
  * View: Month View - Single Event Tooltip CTA
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/views/v2/month/event/tooltip/cta.php
+ * [your-theme]/tribe/events/views/v2/month/calendar-body/day/calendar-event/tooltip/cta.php
  *
  * See more documentation about our views templating system.
  *

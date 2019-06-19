@@ -29,7 +29,7 @@ $month = apply_filters( 'tribe_events_views_v2_month_demo_data', [] );
 
 			<?php for ( $day = 0; $day < 7; $day++ ) : ?>
 
-				<?php $this->template( 'month/day', [ 'day' => $day, 'week' => $week, 'month' => $month ] ); ?>
+				<?php $this->template( 'month/calendar-body/day', [ 'day' => $day, 'week' => $week, 'month' => $month ] ); ?>
 
 			<?php endfor; ?>
 
