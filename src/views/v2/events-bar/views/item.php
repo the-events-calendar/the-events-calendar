@@ -13,7 +13,6 @@
  */
 use Tribe\Events\Views\V2\View;
 
-
 // Bail on invalid name of class
 if ( ! $this->get( 'view_class_name' ) ) {
 	return;
