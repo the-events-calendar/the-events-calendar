@@ -3,7 +3,7 @@
  * View: Month Calendar Event
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/views/v2/month/calendar-body/day/calendar-event.php
+ * [your-theme]/tribe/events/views/v2/month/calendar-body/day/calendar-events/calendar-event.php
  *
  * See more documentation about our views templating system.
  *
@@ -25,14 +25,14 @@ $classes = [ 'tribe-events-calendar-month__calendar-event' ];
 ?>
 <article class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>">
 
-	<?php $this->template( 'month/calendar-body/day/calendar-event/featured-image', [ 'event' => $event ] ); ?>
+	<?php $this->template( 'month/calendar-body/day/calendar-events/calendar-event/featured-image', [ 'event' => $event ] ); ?>
 
 	<div class="tribe-events-calendar-month__calendar-event-details">
 
-		<?php $this->template( 'month/calendar-body/day/calendar-event/date', [ 'event' => $event ] ); ?>
-		<?php $this->template( 'month/calendar-body/day/calendar-event/title', [ 'event' => $event ] ); ?>
+		<?php $this->template( 'month/calendar-body/day/calendar-events/calendar-event/date', [ 'event' => $event ] ); ?>
+		<?php $this->template( 'month/calendar-body/day/calendar-events/calendar-event/title', [ 'event' => $event ] ); ?>
 
-		<?php $this->template( 'month/calendar-body/day/calendar-event/tooltip', [ 'event' => $event ] ); ?>
+		<?php $this->template( 'month/calendar-body/day/calendar-events/calendar-event/tooltip', [ 'event' => $event ] ); ?>
 
 	</div>
 

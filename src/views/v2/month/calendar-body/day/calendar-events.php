@@ -1,9 +1,9 @@
 <?php
 /**
- * View: Month View - Day Events
+ * View: Month View - Calendar Events
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/views/v2/month/calendar-body/day/day-events.php
+ * [your-theme]/tribe/events/views/v2/month/calendar-body/day/calendar-events.php
  *
  * See more documentation about our views templating system.
  *

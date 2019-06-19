@@ -1,9 +1,9 @@
 <?php
 /**
- * View: Month Event Multiday
+ * View: Month View - Multiday Event
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/views/v2/month/calendar-body/day/multiday-event.php
+ * [your-theme]/tribe/events/views/v2/month/calendar-body/day/multiday-events/multiday-event.php
  *
  * See more documentation about our views templating system.
  *

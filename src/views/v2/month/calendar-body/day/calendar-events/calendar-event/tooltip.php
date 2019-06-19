@@ -3,7 +3,7 @@
  * View: Month View - Calendar Event Tooltip
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/calendar-events/views/v2/month/calendar-body/day/calendar-event/tooltip.php
+ * [your-theme]/tribe/events/views/v2/month/calendar-body/day/calendar-events/calendar-event/tooltip.php
  *
  * See more documentation about our views templating system.
  *
@@ -21,8 +21,8 @@ $event_id = $event->ID;
 	role="tooltip"
 >
 	<div id="tooltip_content-<?php echo esc_attr( $event_id ); ?>">
-		<?php $this->template( 'month/calendar-body/day/calendar-event/tooltip/featured-image', [ 'event' => $event ] ); ?>
-		<?php $this->template( 'month/calendar-body/day/calendar-event/tooltip/description', [ 'event' => $event ] ); ?>
-		<?php $this->template( 'month/calendar-body/day/calendar-event/tooltip/cta', [ 'event' => $event ] ); ?>
+		<?php $this->template( 'month/calendar-body/day/calendar-events/calendar-event/tooltip/featured-image', [ 'event' => $event ] ); ?>
+		<?php $this->template( 'month/calendar-body/day/calendar-events/calendar-event/tooltip/description', [ 'event' => $event ] ); ?>
+		<?php $this->template( 'month/calendar-body/day/calendar-events/calendar-event/tooltip/cta', [ 'event' => $event ] ); ?>
 	</div>
 </div>

@@ -1,9 +1,9 @@
 <?php
 /**
- * View: Month View - Day Events Multiday
+ * View: Month View - Multiday Events
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/views/v2/month/calendar-body/day/day-events-multiday.php
+ * [your-theme]/tribe/events/views/v2/month/calendar-body/day/multiday-events.php
  *
  * See more documentation about our views templating system.
  *
@@ -29,11 +29,11 @@ if ( ! $events_multiday ) {
 	<?php
 	// we receive false, we need to fill an empty space
 	if ( false === $event ) {
-		$this->template( 'month/calendar-body/day/multiday-event-spacer' );
+		$this->template( 'month/calendar-body/day/multiday-events/multiday-event-spacer' );
 		continue;
 	}
 
-	$this->template( 'month/calendar-body/day/multiday-event', [ 'event' => (object) $event, 'day' => $day_number ] );
+	$this->template( 'month/calendar-body/day/multiday-events/multiday-event', [ 'event' => (object) $event, 'day' => $day_number ] );
 	?>
 
 <?php endforeach; ?>
