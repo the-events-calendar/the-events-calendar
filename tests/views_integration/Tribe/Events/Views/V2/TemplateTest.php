@@ -4,7 +4,7 @@ namespace Tribe\Events\Views\V2;
 
 class TemplateTest extends \Codeception\TestCase\WPTestCase {
 
-	protected $slug = 'test';
+	protected $slug = 'reflector';
 
 	/**
 	 * @test
@@ -20,7 +20,8 @@ class TemplateTest extends \Codeception\TestCase\WPTestCase {
 	 * @return Template
 	 */
 	private function make_instance() {
-		return new Template( $this->slug );
+		$view = View::make( $this->reflector );
+		return new Template( $view );
 	}
 
 	public function prev_url_inputs() {

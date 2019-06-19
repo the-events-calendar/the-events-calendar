@@ -2,6 +2,7 @@
 
 namespace Tribe\Events\Views\V2;
 
+use Tribe\Events\Views\V2\Views\Reflector_View;
 use Tribe\Events\Test\Factories\Event;
 use Tribe__Context as Context;
 
@@ -45,7 +46,7 @@ class ManageTest extends \Codeception\TestCase\WPTestCase {
 
 		$default = $this->make_instance()->get_default_view();
 
-		$this->assertEquals( $default, 'reflector' );
+		$this->assertEquals( $default, Reflector_View::class );
 	}
 
 	/**
@@ -60,7 +61,7 @@ class ManageTest extends \Codeception\TestCase\WPTestCase {
 
 		$default = $this->make_instance()->get_default_view();
 
-		$this->assertEquals( $default, 'test' );
+		$this->assertEquals( $default, Test_View::class );
 	}
 
 	/**
@@ -75,7 +76,7 @@ class ManageTest extends \Codeception\TestCase\WPTestCase {
 
 		$default = $this->make_instance()->get_default_view();
 
-		$this->assertEquals( $default, 'test' );
+		$this->assertEquals( $default, Test_View::class );
 	}
 
 	/**
@@ -85,17 +86,15 @@ class ManageTest extends \Codeception\TestCase\WPTestCase {
 		$manager = $this->make_instance();
 
 		add_filter( 'tribe_events_views', '__return_empty_array' );
-		$this->assertFalse( $manager->get_view_slug( Test_View::class ) );
+		$this->assertFalse( $manager->get_view_slug_by_class( Test_View::class ) );
 
 		add_filter( 'tribe_events_views', function () {
 			return [ 'test' => Test_View::class ];
-		} );
-		$this->assertEquals( 'test', $manager->get_view_slug( Test_View::class ) );
+		}, 11 );
+		$this->assertEquals( 'test', $manager->get_view_slug_by_class( Test_View::class ) );
 
-		add_filter( 'tribe_events_views', function () {
-			return [];
-		} );
-		$this->assertFalse( $manager->get_view_slug( Test_View::class ) );
+		add_filter( 'tribe_events_views', '__return_empty_array', 12 );
+		$this->assertFalse( $manager->get_view_slug_by_class( Test_View::class ) );
 	}
 
 	/**
@@ -116,7 +115,7 @@ class ManageTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertArrayHasKey( 'publicly-visible-test', $manager->get_publicly_visible_views() );
 		$this->assertArrayNotHasKey( 'test', $manager->get_publicly_visible_views() );
 
-		add_filter( 'tribe_events_views', '__return_empty_array' );
+		add_filter( 'tribe_events_views', '__return_empty_array', 11 );
 		$this->assertEmpty( $manager->get_publicly_visible_views() );
 	}
 

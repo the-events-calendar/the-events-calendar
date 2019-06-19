@@ -217,22 +217,23 @@ class View implements View_Interface {
 		$manager = tribe( Manager::class );
 
 		$default_view = $manager->get_default_view();
-		if ( null === $view || 'default' === $view ) {
+		if (
+			null === $view
+			|| 'default' === $view
+		) {
 			$view = $default_view;
 		}
 
-		$by_slug = $manager->get_view_class( $view );
-		$view_class = $by_slug;
+		list( $view_slug, $view_class ) = $manager->get_view( $view );
 
-		if ( ! $by_slug ) {
-			$by_class = $manager->get_view_slug( $view );
-			$view_class = $view;
+		// When not found use the default view.
+		if ( ! $view_class ) {
+			list( $view_slug, $view_class ) = $manager->get_view( $default_view );
 		}
 
-		// Make sure we are using Reflection when it fails
+		// Make sure we are using Reflector when it fails
 		if ( ! class_exists( $view_class ) ) {
-			$by_class = $manager->get_view_slug( 'reflector' );
-			$view_class = $view;
+			list( $view_slug, $view_class ) = $manager->get_view( 'reflector' );
 		}
 
 		if ( ! self::$container instanceof Container ) {
@@ -242,7 +243,6 @@ class View implements View_Interface {
 
 		/** @var \Tribe\Events\Views\V2\View_Interface $instance */
 		$instance  = self::$container->make( $view_class );
-		$view_slug = $manager->get_view_slug( $view_class );
 
 		$template = new Template( $instance );
 
