@@ -38,7 +38,7 @@ abstract class TestHtmlCase extends TestCase {
 	}
 
 	protected function make_view_instance() {
-		return View::make( 'reflection' );
+		return View::make( 'reflector' );
 	}
 
 	protected function make_template_instance() {
