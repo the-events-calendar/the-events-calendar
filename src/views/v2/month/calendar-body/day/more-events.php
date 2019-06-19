@@ -15,12 +15,12 @@
 $day_number = $this->get( 'day' );
 $month      = $this->get( 'month' );
 
-// Get the multiday events for that day
+// Get the calendar events for that day
 // @todo: This is a function with demo purposes.
-$events_regular = tribe_events_views_v2_month_demo_day_get_events_regular( $month, $day_number );
+$calendar_events = tribe_events_views_v2_month_demo_day_get_events_regular( $month, $day_number );
 
 // Bail if there are no events
-if ( ! $events_regular ) {
+if ( ! $calendar_events ) {
 	return;
 }
 ?>

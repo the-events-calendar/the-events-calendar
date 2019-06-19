@@ -17,14 +17,14 @@ $month      = $this->get( 'month' );
 
 // Get the multiday events for that day
 // @todo: This is a function with demo purposes.
-$events_multiday = tribe_events_views_v2_month_demo_day_get_events_multiday( $month, $day_number );
+$multiday_events = tribe_events_views_v2_month_demo_day_get_events_multiday( $month, $day_number );
 
-if ( ! $events_multiday ) {
+if ( ! $multiday_events ) {
 	return;
 }
 ?>
 
-<?php foreach ( $events_multiday as $event ) : ?>
+<?php foreach ( $multiday_events as $event ) : ?>
 
 	<?php
 	// we receive false, we need to fill an empty space
