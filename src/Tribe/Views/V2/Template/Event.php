@@ -12,6 +12,7 @@ namespace Tribe\Events\Views\V2\Template;
 
 use Tribe__Events__Main as TEC;
 use Tribe\Events\Views\V2\Index as Index;
+use Tribe\Events\Views\V2\View;
 
 class Event {
 	/**
@@ -25,7 +26,8 @@ class Event {
 	 * @return string
 	 */
 	public function get_path() {
-		$path = ( new Index() )->get_template_file( 'index' );
+		$fake_view = View::make( 'reflector' );
+		$path = $fake_view->get_template()->get_template_file( 'index' );
 		return $path;
 	}
 }

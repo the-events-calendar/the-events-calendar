@@ -97,17 +97,18 @@ tribe.events.views.multidayEvents = {};
 	};
 
 	/**
-	 * Binds events for hover and focus of hidden multiday events
+	 * Binds events for hover and focus of hidden multiday events.
 	 *
 	 * @since TBD
 	 *
-	 * @param {integer} index jQuery.each index param from 'afterSetup.tribeEvents' event
-	 * @param {jQuery} $container jQuery object of view container
-	 * @param {object} data data object passed from 'afterSetup.tribeEvents' event
+	 * @param {Event}   event      JS event triggered.
+	 * @param {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event.
+	 * @param {jQuery}  $container jQuery object of view container.
+	 * @param {object}  data       data object passed from 'afterSetup.tribeEvents' event.
 	 *
 	 * @return {void}
 	 */
-	obj.bindEvents = function( index, $container, data ) {
+	obj.bindEvents = function( event, index, $container, data ) {
 		var $hiddenMultidayEvents = $container.find( obj.selectors.multidayEvent );
 
 		$hiddenMultidayEvents.each( function( index, hiddenMultidayEvent ) {

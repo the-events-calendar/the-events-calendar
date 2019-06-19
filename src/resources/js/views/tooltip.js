@@ -116,13 +116,14 @@ tribe.events.views.tooltip = {};
 	 *
 	 * @since TBD
 	 *
-	 * @param {integer} index jQuery.each index param from 'afterSetup.tribeEvents' event
-	 * @param {jQuery} $container jQuery object of view container
-	 * @param {object} data data object passed from 'afterSetup.tribeEvents' event
+	 * @param {Event}   event      JS event triggered.
+	 * @param {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event.
+	 * @param {jQuery}  $container jQuery object of view container.
+	 * @param {object}  data       data object passed from 'afterSetup.tribeEvents' event.
 	 *
 	 * @return {void}
 	 */
-	obj.initTooltips = function( index, $container, data ) {
+	obj.initTooltips = function( event, index, $container, data ) {
 		$container.find( obj.selectors.tooltip ).each( function( index, tooltip ) {
 			$( tooltip ).tooltipster( {
 				interactive: true,
