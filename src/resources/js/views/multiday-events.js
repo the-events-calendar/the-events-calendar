@@ -13,7 +13,7 @@ tribe.events.views = tribe.events.views || {};
  *
  * @since TBD
  *
- * @type   {PlainObject}
+ * @type  {PlainObject}
  */
 tribe.events.views.multidayEvents = {};
 
