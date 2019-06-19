@@ -28,6 +28,15 @@ class Reflector_View extends View {
 	protected $slug = 'reflector';
 
 	/**
+	 * Visibility for this view.
+	 *
+	 * @since TBD
+	 *
+	 * @var bool
+	 */
+	protected $publicly_visible = false;
+
+	/**
 	 * Overrides the base HTML method to return the JSON representation of the view context.
 	 *
 	 * @since 4.9.3
