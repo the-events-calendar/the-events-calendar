@@ -54,7 +54,7 @@ class ManageTest extends \Codeception\TestCase\WPTestCase {
 	public function should_default_to_the_first_view_available_when_requested_is_not_available() {
 		tribe_update_option( Manager::$option_default, 'foo' );
 
-		add_filter( 'tribe_events_views', function() use ( $input ) {
+		add_filter( 'tribe_events_views', function() {
 			return [ 'test' => Test_View::class ];
 		} );
 
@@ -69,7 +69,7 @@ class ManageTest extends \Codeception\TestCase\WPTestCase {
 	public function should_default_to_what_is_in_the_option_when_available() {
 		tribe_update_option( Manager::$option_default, 'test' );
 
-		add_filter( 'tribe_events_views', function() use ( $input ) {
+		add_filter( 'tribe_events_views', function() {
 			return [ 'test' => Test_View::class ];
 		} );
 
