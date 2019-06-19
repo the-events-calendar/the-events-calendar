@@ -8,11 +8,6 @@
 
 namespace Tribe\Events\Views\V2;
 
-use Tribe\Events\Views\V2\Views\All_List_View;
-use Tribe\Events\Views\V2\Views\Day_View;
-use Tribe\Events\Views\V2\Views\List_View;
-use Tribe\Events\Views\V2\Views\Month_View;
-use Tribe\Events\Views\V2\Views\Reflector_View;
 use Tribe__Container as Container;
 use Tribe__Context as Context;
 use Tribe__Events__Main as TEC;
@@ -29,21 +24,6 @@ use Tribe__Utils__Array as Arr;
  * @since   4.9.2
  */
 class View implements View_Interface {
-	/**
-	 * The name of the Tribe option the enabled/disabled flag for
-	 * View v2 will live in.
-	 *
-	 * @var string
-	 */
-	public static $option_enabled = 'views_v2_enabled';
-
-	/**
-	 * The name of the Tribe option the default Views v2 slug will live in.
-	 *
-	 * @var string
-	 */
-	public static $option_default = 'views_v2_default_view';
-
 	/**
 	 * An instance of the DI container.
 	 *
@@ -103,6 +83,15 @@ class View implements View_Interface {
 	 * @var array
 	 */
 	protected $global_backup;
+
+	/**
+	 * Whether a given View is visible publicly or not.
+	 *
+	 * @since TBD
+	 *
+	 * @var bool
+	 */
+	protected $publicly_visible = false;
 
 	/**
 	 * An associative array of the arguments used to setup the repository filters.
@@ -216,7 +205,7 @@ class View implements View_Interface {
 	/**
 	 * Builds and returns an instance of a View by slug or class.
 	 *
-	 * @since 4.9.2
+	 * @since  4.9.2
 	 *
 	 * @param  string  $view  The view slug, as registered in the `tribe_events_views` filter, or class.
 	 * @param  \Tribe__Context|null  $context  The context this view should render from; if not set then the global
@@ -225,73 +214,69 @@ class View implements View_Interface {
 	 * @return \Tribe\Events\Views\V2\View_Interface An instance of the built view.
 	 */
 	public static function make( $view = null, \Tribe__Context $context = null ) {
-		$view = null !== $view
-			? $view
-			: tribe_get_option( static::$option_default, 'default' );
+		$manager = tribe( Manager::class );
 
-		$views = self::get_registered_views();
-
-		if ( 'default' === $view && count( $views ) ) {
-			$view = reset( $views );
+		$default_view = $manager->get_default_view();
+		if ( null === $view || 'default' === $view ) {
+			$view = $default_view;
 		}
 
-		if ( class_exists( $view ) ) {
+		$by_slug = $manager->get_view_class( $view );
+		$view_class = $by_slug;
+
+		if ( ! $by_slug ) {
+			$by_class = $manager->get_view_slug( $view );
 			$view_class = $view;
-			$slug       = static::get_view_slug( $view );
-		} else {
-			$view_class = Arr::get( $views, $view, false );
-			$slug       = $view;
 		}
 
-		$request_slug = $slug;
-
-		if ( $view_class ) {
+		if ( class_exists( $view_class ) ) {
 			if ( ! self::$container instanceof Container ) {
-				$message = 'The ' . __CLASS__ . '::$container property is not set:'
-				           . ' was the class initialized by the service provider?';
+				$message = 'The ' . __CLASS__ . '::$container property is not set: was the class initialized by the service provider?';
 				throw new \RuntimeException( $message );
 			}
 
 			/** @var \Tribe\Events\Views\V2\View_Interface $instance */
-			$instance = self::$container->make( $view_class );
+			$instance  = self::$container->make( $view_class );
+			$view_slug = $manager->get_view_slug( $view_class );
 		} else {
 			$view_class = static::class;
 			$instance   = new static();
-			$slug       = 'not-found';
+			$view_slug  = 'not-found';
 		}
 
-		$template = new Template( $slug );
+		$template = new Template( $view_slug );
 
 		/**
 		 * Filters the Template object for a View.
 		 *
-		 * @since 4.9.3
+		 * @since  4.9.3
 		 *
 		 * @param  \Tribe\Events\Views\V2\Template  $template  The template object for the View.
-		 * @param  string                           $view      The current view slug.
+		 * @param  string                           $view_slug The current view slug.
 		 * @param  \Tribe\Events\Views\V2\View      $instance  The current View object.
 		 */
-		$template = apply_filters( 'tribe_events_views_v2_view_template', $template, $view, $instance );
+		$template = apply_filters( 'tribe_events_views_v2_view_template', $template, $view_slug, $instance );
 
 		/**
 		 * Filters the Template object for a specific View.
 		 *
-		 * @since 4.9.3
+		 * @since  4.9.3
 		 *
 		 * @param  \Tribe\Events\Views\V2\Template  $template  The template object for the View.
 		 * @param  \Tribe\Events\Views\V2\View      $instance  The current View object.
 		 */
-		$template = apply_filters( "tribe_events_views_v2_{$slug}_view_template", $template, $instance );
+		$template = apply_filters( "tribe_events_views_v2_{$view_slug}_view_template", $template, $instance );
 
 		// Set some defaults on the template.
+		$template->set( 'requested_view', $view, false );
 		$template->set( 'view_class', $view_class, false );
-		$template->set( 'request_slug', $request_slug, false );
+		$template->set( 'view_slug', $view_slug, false );
 
 		// Set which view globaly
 		$template->set( 'view', $instance, false );
 
 		$instance->set_template( $template );
-		$instance->set_slug( $slug );
+		$instance->set_slug( $view_slug );
 
 		// Let's set the View context from either the global context or the provided one.
 		$view_context = null === $context ? tribe_context() : $context;
@@ -306,7 +291,7 @@ class View implements View_Interface {
 		 * @param  string                       $view          The current view slug.
 		 * @param  \Tribe\Events\Views\V2\View  $instance      The current View object.
 		 */
-		$view_context = apply_filters( 'tribe_events_views_v2_view_context', $view_context, $view, $instance );
+		$view_context = apply_filters( 'tribe_events_views_v2_view_context', $view_context, $view_slug, $instance );
 
 		/**
 		 * Filters the Context object for a specific View.
@@ -317,7 +302,7 @@ class View implements View_Interface {
 		 *                                                     view.
 		 * @param  \Tribe\Events\Views\V2\View  $instance      The current View object.
 		 */
-		$view_context = apply_filters( "tribe_events_views_v2_{$slug}_view_context", $view_context, $instance );
+		$view_context = apply_filters( "tribe_events_views_v2_{$view_slug}_view_context", $view_context, $instance );
 
 		$instance->set_context( $view_context );
 
@@ -344,58 +329,13 @@ class View implements View_Interface {
 		 * @param \Tribe__Repository__Interface $view_repository The repository instance the View will use.
 		 * @param \Tribe\Events\Views\V2\View   $instance        The current View object.
 		 */
-		$view_repository = apply_filters( "tribe_events_views_v2_{$slug}_view_context", $view_repository, $instance );
+		$view_repository = apply_filters( "tribe_events_views_v2_{$view_slug}_view_context", $view_repository, $instance );
 
 		$instance->set_repository( $view_repository );
 
 		$instance->set_url();
 
 		return $instance;
-	}
-
-	/**
-	 * Returns an associative array of Views currently registered.
-	 *
-	 * @return array An array in the shape `[ <slug> => <View Class> ]`.
-	 *
-	 * @since 4.9.2
-	 *
-	 */
-	public static function get_registered_views() {
-		/**
-		 * Filters the list of views available.
-		 *
-		 * Both classes and built objects can be associated with a slug; if bound in the container the classes
-		 * will be built according to the binding rules; objects will be returned as they are.
-		 *
-		 * @param array $views An associative  array of views in the shape `[ <slug> => <class> ]`.
-		 *
-		 * @since 4.9.2
-		 *
-		 */
-		$views = apply_filters( 'tribe_events_views', [
-			'day'       => Day_View::class,
-			'month'     => Month_View::class,
-			'list'      => List_View::class,
-			'reflector' => Reflector_View::class,
-		] );
-
-		return (array) $views;
-	}
-
-	/**
-	 * Returns the slug currently associated to a View class, if any.
-	 *
-	 * @param string $view The view fully qualified class name.
-	 *
-	 * @return int|string|false The slug currently associated to a View class if it is found, `false` otherwise.
-	 * @since 4.9.2
-	 *
-	 */
-	public static function get_view_slug( $view ) {
-		$views = self::get_registered_views();
-
-		return array_search( $view, $views, true );
 	}
 
 	/**
@@ -411,22 +351,14 @@ class View implements View_Interface {
 	}
 
 	/**
-	 * {@inheritDoc}
-	 *
-	 * @throws \Tribe\Events\Views\V2\Implementation_Error If a class extending this one does not implement this method.
-	 */
-	public function registration_slug() {
-		return $this->slug;
-	}
-
-	/**
 	 * Sends, echoing it and exiting, the view HTML on the page.
+	 *
+	 * @since 4.9.2
 	 *
 	 * @param null|string $html A specific HTML string to print on the page or the HTML produced by the view
 	 *                          `get_html` method.
 	 *
 	 * @throws \Tribe\Events\Views\V2\Implementation_Error If the `get_html` method has not been implemented.
-	 * @since 4.9.2
 	 *
 	 */
 	public function send_html( $html = null ) {
@@ -445,6 +377,40 @@ class View implements View_Interface {
 		}
 
 		throw Implementation_Error::because_extending_view_should_define_this_method( 'get_html', $this );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_label() {
+		$label = ucfirst( $this->slug );
+
+		/**
+		 * Pass by the translation engine, dont remove.
+		 */
+		$label = __( $label, 'the-events-calendar' );
+
+		/**
+		 * Filters the label that will be used on the UI for views listing.
+		 *
+		 * @since TBD
+		 *
+		 * @param string         $label  Label of the Current view.
+		 * @param View_Interface $view   The current view whose template variables are being set.
+		 */
+		$label = apply_filters( 'tribe_events_views_v2_view_label', $label, $this );
+
+		/**
+		 * Filters the label that will be used on the UI for views listing.
+		 *
+		 * @since TBD
+		 *
+		 * @param string         $label  Label of the Current view.
+		 * @param View_Interface $view   The current view whose template variables are being set.
+		 */
+		$label = apply_filters( "tribe_events_views_v2_view_{$this->slug}_label", $label, $this );
+
+		return $label;
 	}
 
 	/**
@@ -735,14 +701,27 @@ class View implements View_Interface {
 		/**
 		 * Filters the variables that will be set on the View template.
 		 *
-		 * @since 4.9.3
+		 * @since TBD
 		 *
 		 * @param array          $template_vars An associative array of template variables. Variables will be extracted in the
 		 *                                      template hence the key will be the name of the variable available in the
 		 *                                      template.
-		 * @param View_Interface $this          The current view whose template variables are being set.
+		 * @param View_Interface $view          The current view whose template variables are being set.
 		 */
-		$template_vars = apply_filters( "tribe_events_views_v2_{$this->slug}_template_vars", $template_vars, $this );
+		$template_vars = apply_filters( 'tribe_events_views_v2_view_template_vars', $template_vars, $this );
+
+		/**
+		 * Filters the variables that will be set on the View template.
+		 *
+		 * @since 4.9.3
+		 * @since TBD Renamed the filter to be alined with other fitlers on this class.
+		 *
+		 * @param array          $template_vars An associative array of template variables. Variables will be extracted in the
+		 *                                      template hence the key will be the name of the variable available in the
+		 *                                      template.
+		 * @param View_Interface $view          The current view whose template variables are being set.
+		 */
+		$template_vars = apply_filters( "tribe_events_views_v2_view_{$this->slug}_template_vars", $template_vars, $this );
 
 		return $template_vars;
 	}
@@ -877,6 +856,13 @@ class View implements View_Interface {
 	 */
 	public function found_post_ids() {
 		return $this->repository->get_ids();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function is_publicly_visible() {
+		return $this->publicly_visible;
 	}
 
 	/**

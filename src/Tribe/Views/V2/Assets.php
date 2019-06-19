@@ -62,15 +62,39 @@ class Assets extends \tad_DI52_ServiceProvider {
 				'tribe-common',
 				'tribe-query-string',
 				'underscore',
+				'tribe-events-views-v2-accordion',
+				'tribe-events-views-v2-view-selector',
 				'tribe-events-views-v2-multiday-events',
 				'tribe-events-views-v2-month-mobile-events',
-				'tribe-events-views-v2-tooltip'
+				'tribe-events-views-v2-tooltip',
 			],
 			'wp_enqueue_scripts',
 			[
 				'priority'     => 10,
 				'conditionals' => [ $this, 'should_enqueue_frontend' ],
 				'groups'       => [ static::$group_key ],
+			]
+		);
+
+		tribe_asset(
+			$plugin,
+			'tribe-events-views-v2-accordion',
+			'views/accordion.js',
+			[ 'jquery', 'tribe-common' ],
+			null,
+			[
+				'priority' => 10,
+			]
+		);
+
+		tribe_asset(
+			$plugin,
+			'tribe-events-views-v2-view-selector',
+			'views/view-selector.js',
+			[ 'jquery', 'tribe-common' ],
+			null,
+			[
+				'priority' => 10,
 			]
 		);
 
