@@ -24,12 +24,8 @@ if ( ! $events_regular ) {
 	return;
 }
 ?>
-<div class="tribe-events-calendar-month__day-events">
+<?php foreach ( $events_regular as $event ) : ?>
 
-	<?php foreach ( $events_regular as $event ) : ?>
+	<?php $this->template( 'month/calendar-body/day/calendar-events/calendar-event', [ 'event' => (object) $event, 'day' => $day_number ] ); ?>
 
-		<?php $this->template( 'month/calendar-body/day/calendar-events/calendar-event', [ 'event' => (object) $event, 'day' => $day_number ] ); ?>
-
-	<?php endforeach; ?>
-
-</div>
+<?php endforeach; ?>

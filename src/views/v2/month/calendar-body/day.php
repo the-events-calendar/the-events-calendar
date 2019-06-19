@@ -80,9 +80,11 @@ $mobile_day_id = 'tribe-events-calendar-mobile-day-' . $month_number . '-' . $da
 			</time>
 		</h3>
 
-		<?php $this->template( 'month/calendar-body/day/multiday-events', [ 'day' => $day_number, 'month' => $month ] ); ?>
+		<div class="tribe-events-calendar-month__events">
+			<?php $this->template( 'month/calendar-body/day/multiday-events', [ 'day' => $day_number, 'month' => $month ] ); ?>
 
-		<?php $this->template( 'month/calendar-body/day/calendar-events', [ 'day' => $day_number, 'month' => $month ] ); ?>
+			<?php $this->template( 'month/calendar-body/day/calendar-events', [ 'day' => $day_number, 'month' => $month ] ); ?>
+		</div>
 
 	</div>
 
