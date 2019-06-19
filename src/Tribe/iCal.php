@@ -413,7 +413,7 @@ class Tribe__Events__iCal {
 			/** @var DateTimeZone $timezone */
 			$timezone = $row['timezone'];
 			$id = $timezone->getName();
-			$item[] = 'TZID:"' . str_replace( '_', ' ', $id ) . '"';
+			$item[] = 'TZID:"' .  $id . '"';
 
 			$start = reset( $this->order( array_column( $row['events'], 'start_year' ), 'sort' ) );
 			$end   = reset( $this->order( array_column( $row['events'], 'end_year' ), 'rsort' ) );
@@ -439,6 +439,13 @@ class Tribe__Events__iCal {
 				$item[] = 'TZOFFSETFROM:' . $this->get_offset( $last_transition['offset'] );
 				$item[] = 'TZOFFSETTO:' . $this->get_offset( $transition['offset'] );
 				$item[] = 'TZNAME:' . $transition['abbr'];
+				try {
+					$start = new DateTime( $transition['time'], $timezone );
+					$start->setTimezone( $timezone );
+					$item[] = 'DTSTART:' . $start->format( "Ymd\THis" );
+				} catch ( Exception $e ) {
+					// TODO: report this exception
+				}
 				$item[] = 'END:' . $type;
 				$last_transition = $transition;
 			}
@@ -558,8 +565,8 @@ class Tribe__Events__iCal {
 				$timezone_name = $this->get_timezone( $event_post );
 				$timezone = Tribe__Events__Timezones::build_timezone_object( $timezone_name );
 
-				$item[] = 'DTSTART;TZID="' . str_replace( '_', ' ', $timezone->getName() ) . '":' . $dtstart;
-				$item[] = 'DTEND;TZID="' . str_replace( '_', ' ', $timezone->getName() ) . '":' . $dtend;
+				$item[] = 'DTSTART;TZID="' . $timezone->getName() . '":' . $dtstart;
+				$item[] = 'DTEND;TZID="' . $timezone->getName() . '":' . $dtend;
 			}
 
 			$item[] = 'DTSTAMP:' . date( $full_format, time() );
