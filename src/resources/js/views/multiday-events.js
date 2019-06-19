@@ -70,12 +70,12 @@ tribe.events.views.multidayEvents = {};
 	 *
 	 * @since TBD
 	 *
-	 * @param {Event} e event object
+	 * @param {Event} event event object
 	 *
-	 * @return {function} event handler for mouseenter and mouseleave events
+	 * @return {void}
 	 */
-	obj.toggleHoverClass = function( e ) {
-		e.data.target.toggleClass( obj.selectors.multidayEventInnerHover.className() );
+	obj.toggleHoverClass = function( event ) {
+		event.data.target.toggleClass( obj.selectors.multidayEventInnerHover.className() );
 	};
 
 	/**
@@ -83,12 +83,12 @@ tribe.events.views.multidayEvents = {};
 	 *
 	 * @since TBD
 	 *
-	 * @param {Event} e event object
+	 * @param {Event} event event object
 	 *
-	 * @return {function} event handler for focus and blur events
+	 * @return {void}
 	 */
-	obj.toggleFocusClass = function( e ) {
-		e.data.target.toggleClass( obj.selectors.multidayEventInnerFocus.className() );
+	obj.toggleFocusClass = function( event ) {
+		event.data.target.toggleClass( obj.selectors.multidayEventInnerFocus.className() );
 	};
 
 	/**
