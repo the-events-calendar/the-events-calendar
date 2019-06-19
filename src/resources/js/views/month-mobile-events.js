@@ -55,12 +55,20 @@ tribe.events.views.monthMobileEvents = {};
 	 * @return {void}
 	 */
 	obj.closeAllEvents = function( $container ) {
-		var $calendar = $container.find( obj.selectors.calendar );
-
-		$calendar.find( obj.selectors.calendarDay ).each( function( index, day ) {
-			var $header = $( day );
+		$container.find( obj.selectors.calendarDay ).each( function( index, header ) {
+			var $header = $( header );
 			var contentId = $header.attr( 'aria-controls' );
-			var $content = $container.find( '#' + contentId );
+
+			/**
+			 * Define empty jQuery object in the case contentId is false or undefined
+			 * so that we don't get selectors like #false or #undefined.
+			 * Also only perform accordion actions if header has aria-controls attribute.
+			 */
+			var $content = $( '' );
+			if ( contentId ) {
+				$content = $container.find( '#' + contentId );
+				tribe.events.views.accordion.closeAccordion( $header, $content );
+			}
 
 			obj.closeMobileEvents( $header, $content );
 		} );
@@ -77,16 +85,13 @@ tribe.events.views.monthMobileEvents = {};
 	 * @return {void}
 	 */
 	obj.openMobileEvents = function( $header, $content ) {
-		// add selected class
+		// only perform accordion actions if $header has aria-controls attribute.
+		var contentId = $header.attr( 'aria-controls' );
+		if ( contentId ) {
+			tribe.events.views.accordion.openAccordion( $header, $content );
+		}
+
 		$header.addClass( obj.selectors.calendarDaySelected.className() );
-
-		// set accessibility attributes
-		$header.attr( 'aria-expanded', 'true' );
-		$header.attr( 'aria-selected', 'true' );
-		$content.attr( 'aria-hidden', 'false' );
-
-		// add inline css
-		$content.css( 'display', 'block' );
 		$content.parent().css( 'display', 'block' );
 	};
 
@@ -101,16 +106,13 @@ tribe.events.views.monthMobileEvents = {};
 	 * @return {void}
 	 */
 	obj.closeMobileEvents = function( $header, $content ) {
-		// remove selected class
+		// only perform accordion actions if $header has aria-controls attribute.
+		var contentId = $header.attr( 'aria-controls' );
+		if ( contentId ) {
+			tribe.events.views.accordion.closeAccordion( $header, $content );
+		}
+
 		$header.removeClass( obj.selectors.calendarDaySelected.className() );
-
-		// set accessibility attributes
-		$header.attr( 'aria-expanded', 'false' );
-		$header.attr( 'aria-selected', 'false' );
-		$content.attr( 'aria-hidden', 'true' );
-
-		// remove inline css
-		$content.css( 'display', '' );
 		$content.parent().css( 'display', '' );
 	};
 
@@ -119,15 +121,23 @@ tribe.events.views.monthMobileEvents = {};
 	 *
 	 * @since TBD
 	 *
-	 * @param {Event} e event object of click event
+	 * @param {Event} event event object of click event
 	 *
 	 * @return {void}
 	 */
-	obj.toggleMobileEvents = function( e ) {
-		var $container = e.data.container;
-		var $header = $( e.data.target );
+	obj.toggleMobileEvents = function( event ) {
+		var $container = event.data.container;
+		var $header = $( event.data.target );
 		var contentId = $header.attr( 'aria-controls' );
-		var $content = $container.find( '#' + contentId );
+
+		/**
+		 * Define empty jQuery object in the case contentId is false or undefined
+		 * so that we don't get selectors like #false or #undefined.
+		 */
+		var $content = $( '' );
+		if ( contentId ) {
+			$content = $container.find( '#' + contentId );
+		}
 
 		if ( $header.hasClass( obj.selectors.calendarDaySelected.className() ) ) {
 			obj.closeMobileEvents( $header, $content );
@@ -153,7 +163,11 @@ tribe.events.views.monthMobileEvents = {};
 		var $calendar = $container.find( obj.selectors.calendar );
 
 		$calendar.find( obj.selectors.calendarDay ).each( function( index, day ) {
-			$( day ).on( 'click', { target: this, container: $container }, obj.toggleMobileEvents );
+			$( day ).on( 'click', {
+				target: this,
+				container: $container,
+				calendar: $calendar,
+			}, obj.toggleMobileEvents );
 		} );
 	};
 

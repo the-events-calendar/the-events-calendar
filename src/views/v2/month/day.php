@@ -27,6 +27,7 @@ if ( $day_number == date( 'd', time() ) ) {
 }
 
 // @todo: figure out consistent way of formatting ids
+// only add id if events exist on the day
 $mobile_day_id = 'tribe-events-calendar-mobile-day-' . $month_number . '-' . $day_number;
 
 ?>
@@ -34,8 +35,8 @@ $mobile_day_id = 'tribe-events-calendar-mobile-day-' . $month_number . '-' . $da
 <div class="<?php echo esc_attr( implode( ' ', $day_classes ) ) ?>" role="gridcell" aria-labelledby="<?php echo esc_attr( $day_id ); ?>">
 
 	<button
-		aria-expanded="false"
-		aria-selected="false"
+		aria-expanded="false" <?php // @todo: only add if events exist on the day ?>
+		aria-selected="false" <?php // @todo: only add if events exist on the day ?>
 		aria-controls="<?php echo esc_attr( $mobile_day_id ); ?>"
 		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
 		tabindex="-1"

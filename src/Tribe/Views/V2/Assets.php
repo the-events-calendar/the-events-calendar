@@ -113,7 +113,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 			$plugin,
 			'tribe-events-views-v2-month-mobile-events',
 			'views/month-mobile-events.js',
-			[ 'jquery', 'tribe-common' ],
+			[ 'jquery', 'tribe-common', 'tribe-events-views-v2-accordion' ],
 			null,
 			[
 				'priority'     => 10,
