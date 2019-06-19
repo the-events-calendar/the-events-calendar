@@ -1,5 +1,5 @@
 <?php return '<div
-	class="tribe-common tribe-events"
+	class="tribe-common tribe-events tribe-events-view"
 	data-js="tribe-events-view"
 	data-view-rest-nonce="2ab7cc6b39"
 	data-view-rest-url="http://test.tri.be/index.php?rest_route=/tribe/views/v2/html"
@@ -18,52 +18,72 @@
 		<script
 	data-js="tribe-events-view-data"
 	type="application/json"
->{"slug":"list","prev_url":"http:\\/\\/test.tri.be\\/events\\/?eventDisplay=past","next_url":"http:\\/\\/test.tri.be\\/events\\/page\\/2\\/","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","request_slug":"list","view":{},"title":"","events":[{"ID":7,"post_author":"0","post_date":"2019-06-11 13:59:35","post_date_gmt":"2019-06-11 13:59:35","post_content":"","post_title":"Test Event - +9 days","post_excerpt":"","post_status":"publish","comment_status":"open","ping_status":"closed","post_password":"","post_name":"test-event-9-days-2","to_ping":"","pinged":"","post_modified":"2019-06-11 13:59:35","post_modified_gmt":"2019-06-11 13:59:35","post_content_filtered":"","post_parent":0,"guid":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-9-days-2","menu_order":0,"post_type":"tribe_events","post_mime_type":"","comment_count":"0","filter":"raw"},{"ID":8,"post_author":"1","post_date":"2019-06-11 13:59:35","post_date_gmt":"2019-06-11 13:59:35","post_content":"","post_title":"Single Event 1","post_excerpt":"","post_status":"publish","comment_status":"open","ping_status":"closed","post_password":"","post_name":"single-event-1","to_ping":"","pinged":"","post_modified":"2019-06-11 13:59:35","post_modified_gmt":"2019-06-11 13:59:35","post_content_filtered":"","post_parent":0,"guid":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-9-days-2","menu_order":0,"post_type":"tribe_events","post_mime_type":"","comment_count":"0","filter":"raw"}],"url":"http:\\/\\/test.tri.be\\/events\\/list\\/","bar":{"keyword":"","date":""}}</script>
+>{"slug":"list","prev_url":"http:\\/\\/test.tri.be\\/events\\/?eventDisplay=past","next_url":"http:\\/\\/test.tri.be\\/events\\/page\\/2\\/","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_slug":"list","view":{},"title":"","events":[{"ID":7,"post_author":"0","post_date":"2019-06-11 13:59:35","post_date_gmt":"2019-06-11 13:59:35","post_content":"","post_title":"Test Event - +9 days","post_excerpt":"","post_status":"publish","comment_status":"open","ping_status":"closed","post_password":"","post_name":"test-event-9-days-2","to_ping":"","pinged":"","post_modified":"2019-06-11 13:59:35","post_modified_gmt":"2019-06-11 13:59:35","post_content_filtered":"","post_parent":0,"guid":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-9-days-2","menu_order":0,"post_type":"tribe_events","post_mime_type":"","comment_count":"0","filter":"raw"},{"ID":8,"post_author":"1","post_date":"2019-06-11 13:59:35","post_date_gmt":"2019-06-11 13:59:35","post_content":"","post_title":"Single Event 1","post_excerpt":"","post_status":"publish","comment_status":"open","ping_status":"closed","post_password":"","post_name":"single-event-1","to_ping":"","pinged":"","post_modified":"2019-06-11 13:59:35","post_modified_gmt":"2019-06-11 13:59:35","post_content_filtered":"","post_parent":0,"guid":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-9-days-2","menu_order":0,"post_type":"tribe_events","post_mime_type":"","comment_count":"0","filter":"raw"}],"url":"http:\\/\\/test.tri.be\\/events\\/list\\/","bar":{"keyword":"","date":""}}</script>
 
 		<div class="tribe-events-c-events-bar">
 
 	<h2 class="tribe-common-a11y-visual-hide">Events Search and Views Navigation</h2>
 
 	<div class="tribe-events-c-events-bar__views">
-	<h3 class="tribe-common-a11y-visual-hide">Event Views Navigation</h3>
-	<div class="tribe-common-form-control-tabs tribe-events-c-events-bar__views-tabs">
-		<button class="tribe-common-form-control-tabs__button tribe-events-c-events-bar__views-tabs-button" id="tribe-views-button" aria-haspopup="listbox" aria-labelledby="tribe-views-button" aria-expanded="true">Views</button>
-		<ul class="tribe-common-form-control-tabs__list tribe-events-c-events-bar__views-tabs-list" tabindex="-1" role="listbox" aria-activedescendant="tribe-views-list-label">
-			<li class="tribe-common-form-control-tabs__list-item" role="presentation">
-				<input class="tribe-common-form-control-tabs__input" id="tribe-views-list" name="tribe-views" type="radio" value="tribe-views-list" checked="checked" />
-				<label class="tribe-common-form-control-tabs__label" id="tribe-views-list-label" for="tribe-views-list" role="option" aria-selected="true">List</label>
-			</li>
-			<li class="tribe-common-form-control-tabs__list-item" role="presentation">
-				<input class="tribe-common-form-control-tabs__input" id="tribe-views-month" name="tribe-views" type="radio" value="tribe-views-month" />
-				<label class="tribe-common-form-control-tabs__label" id="tribe-views-month-label" for="tribe-views-month" role="option">Month</label>
-			</li>
-			<li class="tribe-common-form-control-tabs__list-item" role="presentation">
-				<input class="tribe-common-form-control-tabs__input" id="tribe-views-week" name="tribe-views" type="radio" value="tribe-views-week" />
-				<label class="tribe-common-form-control-tabs__label" id="tribe-views-week-label" for="tribe-views-week" role="option">Week</label>
-			</li>
-		</ul>
+	<h3 class="tribe-common-a11y-visual-hide">
+		Event Views Navigation	</h3>
+	<div class="tribe-events-c-view-selector tribe-events-c-view-selector--tabs" data-js="tribe-events-view-selector">
+		<button
+			class="tribe-events-c-view-selector__button"
+			aria-controls="tribe-events-view-selector-content"
+			aria-expanded="false"
+			aria-selected="false"
+			data-js="tribe-events-accordion-trigger"
+		>
+			<span class="tribe-events-c-view-selector__button-icon tribe-common-svgicon tribe-common-svgicon--list"></span>
+			<span class="tribe-events-c-view-selector__button-text">
+				List			</span>
+		</button>
+		<div
+	class="tribe-events-c-view-selector__content"
+	id="tribe-events-view-selector-content"
+	aria-hidden="true"
+>
+	<ul class="tribe-events-c-view-selector__list">
+					<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--list tribe-events-c-view-selector__list-item--active">
+	<a
+		href="http://test.tri.be/events/list/"
+		class="tribe-events-c-view-selector__list-item-link"
+		data-js="tribe-events-view-link"
+	>
+		<span class="tribe-events-c-view-selector__list-item-icon tribe-common-svgicon tribe-common-svgicon--list"></span>
+		<span class="tribe-events-c-view-selector__list-item-text">
+			List		</span>
+	</a>
+</li>
+					<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--month">
+	<a
+		href="http://test.tri.be/events/month/"
+		class="tribe-events-c-view-selector__list-item-link"
+		data-js="tribe-events-view-link"
+	>
+		<span class="tribe-events-c-view-selector__list-item-icon tribe-common-svgicon tribe-common-svgicon--month"></span>
+		<span class="tribe-events-c-view-selector__list-item-text">
+			Month		</span>
+	</a>
+</li>
+					<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--day">
+	<a
+		href="http://test.tri.be/events/today/"
+		class="tribe-events-c-view-selector__list-item-link"
+		data-js="tribe-events-view-link"
+	>
+		<span class="tribe-events-c-view-selector__list-item-icon tribe-common-svgicon tribe-common-svgicon--day"></span>
+		<span class="tribe-events-c-view-selector__list-item-text">
+			Day		</span>
+	</a>
+</li>
+			</ul>
+</div>
 	</div>
 </div>
 
-	<div class="tribe-events-c-events-bar__filters">
-	<div class="tribe-events-c-events-bar__filters-button-wrapper tribe-events-c-events-bar__filters-button-wrapper--search">
-		<button
-			class="tribe-common-c-btn-icon tribe-common-c-btn-icon--search tribe-events-c-events-bar__filters-button tribe-events-c-events-bar__filters-button--search"
-			aria-label="Search"
-			title="Search"
-		>
-		</button>
-	</div>
-	<div class="tribe-events-c-events-bar__filters-button-wrapper tribe-events-c-events-bar__filters-button-wrapper--filter">
-		<button
-			class="tribe-common-c-btn-icon tribe-common-c-btn-icon--filters tribe-events-c-events-bar__filters-button tribe-events-c-events-bar__filters-button--filter"
-			aria-label="Filter"
-			title="Filter"
-		>
-		</button>
-	</div>
-</div>
-
+	
 	<div class="tribe-events-c-events-bar__form">
 	<form
 		class="tribe-common-c-search"
@@ -82,16 +102,6 @@
 		name="tribe-events-views[tribe-bar-search]"
 		value=""
 		placeholder="Keyword"
-	/>
-</div>
-			<div class="tribe-common-form-control-text">
-	<label class="tribe-common-form-control-text__label" for="location">Enter Location. Search for Events by Location.</label>
-	<input
-		class="tribe-common-form-control-text__input tribe-common-c-search__input"
-		type="text"
-		id="location"
-		name="location"
-		placeholder="Location"
 	/>
 </div>
 			<div class="tribe-common-form-control-text">
@@ -159,19 +169,7 @@
 </div>
 
 	<div class="tribe-events-c-top-bar__actions">
-	<div class="tribe-common-form-control-toggle">
-		<input
-			class="tribe-common-form-control-toggle__input"
-			id="hide-recurring"
-			name="hide-recurring"
-			type="checkbox"
-			value="false"
-		/>
-		<label class="tribe-common-form-control-toggle__label" for="hide-recurring">
-			Hide Recurring Events		
-		</label>
 	</div>
-</div>
 
 </div>
 
@@ -283,24 +281,26 @@
 		<nav class="tribe-common-c-nav">
 	<ul class="tribe-common-c-nav__list">
 		<li class="tribe-common-c-nav__list-item">
-	<a
-		href="http://test.tri.be/events/?eventDisplay=past"
-		rel="prev"
-		class="tribe-common-c-nav__prev"
-		data-js="tribe-events-view-link"
-	>
-		Previous Events	</a>
-</li>
+			<a
+	href="http://test.tri.be/events/?eventDisplay=past"
+	rel="prev"
+	class="tribe-common-c-nav__prev"
+	data-js="tribe-events-view-link"
+>
+	Previous Events</a>
+		</li>
+
 		<li class="tribe-common-c-nav__list-item">
-	<a
-		href="http://test.tri.be/events/page/2/"
-		rel="next"
-		class="tribe-common-c-nav__next"
-		data-js="tribe-events-view-link"
-	>
-		Next Events	</a>
-</li>
+			<a
+	href="http://test.tri.be/events/page/2/"
+	rel="next"
+	class="tribe-common-c-nav__next"
+	data-js="tribe-events-view-link"
+>
+	Next Events</a>
+		</li>
 	</ul>
 </nav>
 	</div>
-</div>';
+</div>
+';

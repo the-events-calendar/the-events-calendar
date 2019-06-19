@@ -27,18 +27,26 @@ interface View_Interface  extends View_Url_Provider_Interface, Repository_User_I
 	 *
 	 * @return string
 	 */
-	public function get_html(  );
+	public function get_html();
 
 	/**
-	 * Returns the view slug.
+	 * Returns a View label.
 	 *
-	 * The slug should be the one that will allow the view to be built by the View class by slug.
+	 * @since  TBD
 	 *
-	 * @since 4.9.2
-	 *
-	 * @return string The view slug.
+	 * @return string
 	 */
-	public function registration_slug(  );
+	public function get_label();
+
+	/**
+	 * Returns if this view is publicly visible by default. Which will make it show up
+	 * on the events-bar of the views UI.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function is_publicly_visible();
 
 	/**
 	 * Returns the context instance the view will render from.
@@ -69,7 +77,7 @@ interface View_Interface  extends View_Url_Provider_Interface, Repository_User_I
 	 *
 	 * @param string $slug The slug to set for the View instance.
 	 */
-	public function set_slug( $slug  );
+	public function set_slug( $slug );
 
 	/**
 	 * Returns a View slug, usually the one it was registered with in the `tribe_events_views` filter.
@@ -78,7 +86,7 @@ interface View_Interface  extends View_Url_Provider_Interface, Repository_User_I
 	 *
 	 * @return string The view slug, usually the one it was registered with in the `tribe_events_views` filter.
 	 */
-	public function get_slug( );
+	public function get_slug();
 
 	/**
 	 * Returns a View template class.

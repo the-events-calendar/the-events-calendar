@@ -23,6 +23,14 @@ class List_View extends View {
 	 */
 	protected $slug = 'list';
 
+	/**
+	 * Visibility for this view.
+	 *
+	 * @since TBD
+	 *
+	 * @var bool
+	 */
+	protected $publicly_visible = true;
 
 	/**
 	 * Get HTML method
