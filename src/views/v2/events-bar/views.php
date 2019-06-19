@@ -12,24 +12,29 @@
  * @version 4.9.3
  *
  */
+use Tribe\Events\Views\V2\Manager;
+
+$public_views = tribe( Manager::class )->get_publicly_visible_views();
+$view_slug = $this->get( 'view' )->get_slug();
+$view_label = $this->get( 'view' )->get_label();
 ?>
 <div class="tribe-events-c-events-bar__views">
-	<h3 class="tribe-common-a11y-visual-hide"><?php printf( esc_html__( '%s Views Navigation', 'the-events-calendar' ), tribe_get_event_label_singular() ); ?></h3>
-	<div class="tribe-common-form-control-tabs tribe-events-c-events-bar__views-tabs">
-		<button class="tribe-common-form-control-tabs__button tribe-events-c-events-bar__views-tabs-button" id="tribe-views-button" aria-haspopup="listbox" aria-labelledby="tribe-views-button" aria-expanded="true"><?php esc_html_e( 'Views', 'the-events-calendar' ); ?></button>
-		<ul class="tribe-common-form-control-tabs__list tribe-events-c-events-bar__views-tabs-list" tabindex="-1" role="listbox" aria-activedescendant="tribe-views-list-label">
-			<li class="tribe-common-form-control-tabs__list-item" role="presentation">
-				<input class="tribe-common-form-control-tabs__input" id="tribe-views-list" name="tribe-views" type="radio" value="tribe-views-list" checked="checked" />
-				<label class="tribe-common-form-control-tabs__label" id="tribe-views-list-label" for="tribe-views-list" role="option" aria-selected="true"><?php esc_html_e( 'List', 'the-events-calendar' ); ?></label>
-			</li>
-			<li class="tribe-common-form-control-tabs__list-item" role="presentation">
-				<input class="tribe-common-form-control-tabs__input" id="tribe-views-month" name="tribe-views" type="radio" value="tribe-views-month" />
-				<label class="tribe-common-form-control-tabs__label" id="tribe-views-month-label" for="tribe-views-month" role="option"><?php esc_html_e( 'Month', 'the-events-calendar' ); ?></label>
-			</li>
-			<li class="tribe-common-form-control-tabs__list-item" role="presentation">
-				<input class="tribe-common-form-control-tabs__input" id="tribe-views-week" name="tribe-views" type="radio" value="tribe-views-week" />
-				<label class="tribe-common-form-control-tabs__label" id="tribe-views-week-label" for="tribe-views-week" role="option"><?php esc_html_e( 'Week', 'the-events-calendar' ); ?></label>
-			</li>
-		</ul>
+	<h3 class="tribe-common-a11y-visual-hide">
+		<?php printf( esc_html__( '%s Views Navigation', 'the-events-calendar' ), tribe_get_event_label_singular() ); ?>
+	</h3>
+	<div class="tribe-events-c-view-selector tribe-events-c-view-selector--tabs" data-js="tribe-events-view-selector">
+		<button
+			class="tribe-events-c-view-selector__button"
+			aria-controls="tribe-events-view-selector-content"
+			aria-expanded="false"
+			aria-selected="false"
+			data-js="tribe-events-accordion-trigger"
+		>
+			<span class="tribe-events-c-view-selector__button-icon tribe-common-svgicon <?php echo sanitize_html_class( "tribe-common-svgicon--{$view_slug}" ); ?>"></span>
+			<span class="tribe-events-c-view-selector__button-text">
+				<?php echo esc_html( $view_label ); ?>
+			</span>
+		</button>
+		<?php $this->template( 'events-bar/views/list', [ 'views' => $public_views ] ); ?>
 	</div>
 </div>
