@@ -415,8 +415,12 @@ class Tribe__Events__iCal {
 			$id = $timezone->getName();
 			$item[] = 'TZID:"' .  $id . '"';
 
-			$start = reset( $this->order( array_column( $row['events'], 'start_year' ), 'sort' ) );
-			$end   = reset( $this->order( array_column( $row['events'], 'end_year' ), 'rsort' ) );
+			$ordered = [
+				'start' => $this->order( array_column( $row['events'], 'start_year' ), 'sort' ),
+				'end' => $this->order( array_column( $row['events'], 'end_year' ), 'rsort' ),
+			];
+			$start = reset( $ordered['start'] );
+			$end = reset( $ordered['end'] );
 
 			$transitions = $timezone->getTransitions( $start, $end );
 			if ( count( $transitions ) === 1 ) {
@@ -452,12 +456,12 @@ class Tribe__Events__iCal {
 		}
 
 		/**
-		 * Allow for customization of an individual "VEVENT" item to be rendered inside an iCal export file.
+		 * Allow for customization of an individual "VTIMEZONE" item to be rendered inside an iCal export file.
 		 *
 		 * @param array $item The various iCal file format components of this specific event item.
-		 * @param object $event_post The WP_Post of this event.
+		 * @param array $timezones The various iCal timzone components of this specific event item.
 		 */
-		//$item = apply_filters( 'tribe_ical_feed_item', $item, $event_post );
+		$item = apply_filters( 'tribe_ical_feed_vtimezone', $item, $timezones );
 
 		return "BEGIN:VTIMEZONE\r\n" . implode( "\r\n", $item ) . "\r\nEND:VTIMEZONE\r\n";
 	}
