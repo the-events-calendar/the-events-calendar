@@ -9,13 +9,13 @@ tribe.events = tribe.events || {};
 tribe.events.views = tribe.events.views || {};
 
 /**
- * Configures Multiday Events Object in the Global Tribe variable
+ * Configures Month Multiday Events Object in the Global Tribe variable
  *
  * @since TBD
  *
  * @type   {PlainObject}
  */
-tribe.events.views.multidayEvents = {};
+tribe.events.views.monthMultidayEvents = {};
 
 /**
  * Initializes in a Strict env the code that manages the Event Views
@@ -106,11 +106,11 @@ tribe.events.views.multidayEvents = {};
 	obj.bindEvents = function( event, index, $container, data ) {
 		var $hiddenMultidayEvents = $container.find( obj.selectors.multidayEvent );
 
-		$hiddenMultidayEvents.each( function( index, hiddenMultidayEvent ) {
+		$hiddenMultidayEvents.each( function( hiddenIndex, hiddenMultidayEvent ) {
 			var $hiddenMultidayEvent = $( hiddenMultidayEvent );
 			var $visibleMultidayEvents = obj.findVisibleMultidayEvents( $hiddenMultidayEvent );
 
-			$visibleMultidayEvents.each( function( index, visibleMultidayEvent ) {
+			$visibleMultidayEvents.each( function( visibleIndex, visibleMultidayEvent ) {
 				var $visibleMultidayEvent = $( visibleMultidayEvent );
 				var $visibleMultidayEventInner = $visibleMultidayEvent.find( obj.selectors.multidayEventInner );
 				var $hiddenMultidayEventInner = $hiddenMultidayEvent.find( obj.selectors.multidayEventInner );
@@ -123,7 +123,7 @@ tribe.events.views.multidayEvents = {};
 	};
 
 	/**
-	 * Handles the initialization of the multiday events when Document is ready
+	 * Handles the initialization of the month view multiday events when Document is ready
 	 *
 	 * @since TBD
 	 *
@@ -141,4 +141,4 @@ tribe.events.views.multidayEvents = {};
 
 	// Configure on document ready
 	$document.ready( obj.ready );
-} )( jQuery, tribe.events.views.multidayEvents );
+} )( jQuery, tribe.events.views.monthMultidayEvents );

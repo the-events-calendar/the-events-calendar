@@ -64,7 +64,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 				'underscore',
 				'tribe-events-views-v2-accordion',
 				'tribe-events-views-v2-view-selector',
-				'tribe-events-views-v2-multiday-events',
+				'tribe-events-views-v2-month-multiday-events',
 				'tribe-events-views-v2-month-mobile-events',
 				'tribe-events-views-v2-tooltip',
 			],
@@ -100,8 +100,8 @@ class Assets extends \tad_DI52_ServiceProvider {
 
 		tribe_asset(
 			$plugin,
-			'tribe-events-views-v2-multiday-events',
-			'views/multiday-events.js',
+			'tribe-events-views-v2-month-multiday-events',
+			'views/month-multiday-events.js',
 			[ 'jquery', 'tribe-common' ],
 			null,
 			[
