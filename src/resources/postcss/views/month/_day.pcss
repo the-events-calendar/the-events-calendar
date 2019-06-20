@@ -22,28 +22,22 @@
 		}
 
 		&:after {
-			background-color: transparent;
-			bottom: 0;
-			content: '';
-			display: block;
-			height: 2px;
-			left: 0;
-			position: absolute;
-			width: 100%;
-
 			@media (--viewport-medium) {
+				background-color: transparent;
+				bottom: 0;
+				content: '';
+				display: block;
+				height: 2px;
 				left: -1px;
+				position: absolute;
 				transition: var(--transition-background-color);
 				width: calc(100% + 2px);
 			}
 		}
 
-		&:hover,
-		&:focus {
+		&:hover {
 
 			&:after {
-				background-color: var(--color-accent-primary);
-
 				@media (--viewport-medium) {
 					background-color: var(--color-border-active);
 				}
@@ -92,13 +86,19 @@
 
 	.tribe-events-calendar-month__day-cell--mobile {
 		align-items: center;
+		border-bottom: 2px solid transparent;
 		display: flex;
 		flex-direction: column;
 		text-align: center;
-		transition: none;
+		transition: var(--transition-border-color);
 
 		@media (--viewport-medium) {
 			@mixin hidden;
+		}
+
+		&:hover,
+		&:focus {
+			border-bottom-color: var(--color-accent-primary);
 		}
 	}
 
