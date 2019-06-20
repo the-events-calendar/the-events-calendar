@@ -96,12 +96,12 @@
 			<div class="tribe-common-form-control-text">
 	<label class="tribe-common-form-control-text__label" for="keyword">Enter Keyword. Search for Events by Keyword.</label>
 	<input
-		class="tribe-common-form-control-text__input tribe-common-c-search__input"
+		class="tribe-common-form-control-text__input tribe-common-c-search__input tribe-common-c-search__input--keyword"
 		type="text"
 		id="keyword"
 		name="tribe-events-views[tribe-bar-search]"
 		value=""
-		placeholder="Keyword"
+		placeholder="Search for events"
 	/>
 </div>
 			<div class="tribe-common-form-control-text">
@@ -115,12 +115,13 @@
 		placeholder="Enter date"
 	/>
 </div>
-		</div>
-		<button
+			<button
 	class="tribe-common-c-btn tribe-common-c-search__button"
 	type="submit"
 	name="submit-bar"
 >Find Events</button>
+		</div>
+
 	</form>
 </div>
 
