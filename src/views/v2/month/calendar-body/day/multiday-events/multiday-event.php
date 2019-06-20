@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.3
+ * @version TBD
  *
  */
 
@@ -19,6 +19,7 @@ $day_number = $this->get( 'day' );
 
 $classes = [ 'tribe-events-calendar-month__multiday-event' ];
 
+// @todo: move class configuration to template tag
 // Check if it's featured.
 if ( $is_featured = isset( $event->featured ) && $event->featured ) { // @todo: later use tribe( 'tec.featured_events' )->is_featured( $event_id ) or similar
 	$classes[] = 'tribe-events-calendar-month__multiday-event--featured';
