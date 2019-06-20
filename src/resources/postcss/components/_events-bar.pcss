@@ -27,7 +27,7 @@
 
 		@media (--viewport-medium) {
 			flex: 0 1 auto;
-			order: 2;
+			order: 3;
 		}
 	}
 
@@ -45,7 +45,7 @@
 	}
 
 	.tribe-events-c-events-bar__form {
-		display: none;
+		/*display: none;*/
 		flex: 1 1 100%;
 
 		@media (--viewport-medium) {
@@ -64,15 +64,45 @@
 		@media (--viewport-medium) {
 			flex: 0 0 auto;
 			margin-right: 0;
-			order: 3;
+			order: 2;
 		}
 	}
 
 	.tribe-events-c-events-bar__filters-button {
-		padding: 14px 12px;
+		display: none;
 
 		@media (--viewport-medium) {
-			@mixin button-icon-border;
+			@mixin desktop-body-2;
+
+			border-right: 1px solid var(--color-border-default);
+			display: block;
+			padding: 7px 22px 6px;
+			width: auto;
+		}
+
+		&:hover,
+		&:focus,
+		&:active {
+			@media (--viewport-medium) {
+				&:before {
+					background-image: svg-inline(filters-active);
+				}
+			}
+		}
+
+		&:before {
+			@media (--viewport-medium) {
+				background-image: svg-inline(filters);
+				background-repeat: no-repeat;
+				background-size: contain;
+				background-size: 17px;
+				height: 17px;
+				width: 17px;
+				content: '';
+				margin-right: var(--spacer-1);
+				display: inline-block;
+				flex: none;
+			}
 		}
 	}
 
@@ -81,6 +111,18 @@
 
 		@media (--viewport-medium) {
 			display: none;
+		}
+	}
+
+	body.tribe-theme-twentynineteen & {
+		.tribe-events-c-events-bar__filters-button {
+			&:hover,
+			&:focus,
+			&:active, {
+				@media (--viewport-medium) {
+					background-color: var(--color-background);
+				}
+			}
 		}
 	}
 }
