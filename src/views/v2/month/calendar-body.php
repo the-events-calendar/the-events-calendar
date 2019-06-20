@@ -25,7 +25,7 @@ $month = apply_filters( 'tribe_events_views_v2_month_demo_data', [] );
 	<?php // @todo: replace this with the actual month days. Using these for(s) for presentation purposes. ?>
 	<?php for ( $week = 0; $week < 4; $week++ ) : ?>
 
-		<div class="tribe-events-calendar-month__week" role="row">
+		<div class="tribe-events-calendar-month__week" role="row" data-js="tribe-events-month-grid-row">
 
 			<?php for ( $day = 0; $day < 7; $day++ ) : ?>
 
