@@ -15,6 +15,6 @@
 $event    = $this->get( 'event' );
 $event_id = $event->ID;
 ?>
-<div class="tribe-events-calendar-list__event-description tribe-common-b1">
+<div class="tribe-events-calendar-list__event-description tribe-common-b2">
 	<?php echo tribe_events_get_the_excerpt( $event, wp_kses_allowed_html( 'post' ) ); ?>
 </div>
