@@ -222,6 +222,8 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - REST API Event responses now include the correct timezone even if the event has no timezone set or if using the site-wide timezone option [100159]
 * Fix - Resolved issue where deactivation feedback was not hooked properly [128341]
 * Fix - Added escaping to the event website URL target attribute [129565]
+* Fix - Fix Timezone definitions for `*.ics` file on events [89999]
+* Tweak - Add filter `tribe_ical_feed_vtimezone` to filter the `VTIMEZONE` group [89999]
 
 = [4.9.3.1] 2019-06-07 =
 
