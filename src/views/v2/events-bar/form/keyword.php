@@ -18,11 +18,11 @@
 <div class="tribe-common-form-control-text">
 	<label class="tribe-common-form-control-text__label" for="keyword"><?php esc_html_e( 'Enter Keyword. Search for Events by Keyword.', 'the-events-calendar' ); ?></label>
 	<input
-		class="tribe-common-form-control-text__input tribe-common-c-search__input"
+		class="tribe-common-form-control-text__input tribe-common-c-search__input tribe-common-c-search__input--keyword"
 		type="text"
 		id="keyword"
 		name="tribe-events-views[tribe-bar-search]"
 		value="<?php echo esc_attr( tribe_events_template_var( [ 'bar', 'keyword' ], '' ) ); ?>"
-		placeholder="<?php esc_attr_e( 'Keyword', 'the-events-calendar' ); ?>"
+		placeholder="<?php esc_attr_e( 'Search for events', 'the-events-calendar' ); ?>"
 	/>
 </div>
