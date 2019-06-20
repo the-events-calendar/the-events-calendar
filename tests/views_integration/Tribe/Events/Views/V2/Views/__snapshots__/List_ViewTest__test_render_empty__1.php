@@ -158,10 +158,10 @@
 
 			<div class="tribe-events-calendar-list__separator-month">
 	<time
-		class="tribe-events-calendar-list__separator-month-text tribe-common-b1 tribe-common-b1--bold"
-		datetime="1970-01-01T00:00:00+00:00"
+		class="tribe-events-calendar-list__separator-month-text tribe-common-h7 tribe-common-h7--alt"
+		datetime="2019-01"
 	>
-		Jan	</time>
+		Jan 2019	</time>
 </div>
 
 			
