@@ -43,7 +43,7 @@ tribe.events.views.monthGrid = {};
 		row: '[data-js="tribe-events-month-grid-row"]',
 		cell: '[data-js="tribe-events-month-grid-cell"]',
 		focusable: '[tabindex]',
-		focused: '[tabindex="0"]'
+		focused: '[tabindex="0"]',
 	};
 
 	/**
@@ -55,8 +55,8 @@ tribe.events.views.monthGrid = {};
 	 */
 	obj.state = {
 		grid: [],
-		focusedRow: 0,
-		focusedCol: 0,
+		currentRow: 0,
+		currentCol: 0,
 	};
 
 	/**
@@ -127,17 +127,59 @@ tribe.events.views.monthGrid = {};
 		};
 	};
 
-	obj.focusCell = function( row, col ) {
-
+	/**
+	 * Set focus pointer to given row and column
+	 *
+	 * @since TBD
+	 *
+	 * @param {integer} row index of row
+	 * @param {integer} col index of column
+	 *
+	 * @return {boolean} boolean of whether focus pointer was set or not
+	 */
+	obj.setFocusPointer = function( row, col ) {
+		if ( obj.isValidCell( row, col ) ) {
+			$( obj.state.grid[ obj.state.currentRow ][ obj.state.currentCol ] ).attr( 'tabindex', '-1' );
+			$( obj.state.grid[ row ][ col ] ).attr( 'tabindex', '0' );
+			obj.state.currentRow = row;
+			obj.state.currentCol = col;
+			return true;
+		}
+		return false;
 	};
 
+	/**
+	 * Focus cell at given row and column
+	 *
+	 * @since TBD
+	 *
+	 * @param {integer} row index of row
+	 * @param {integer} col index of column
+	 *
+	 * @return {void}
+	 */
+	obj.focusCell = function( row, col ) {
+		if ( obj.setFocusPointer( row, col ) ) {
+			$( obj.state.grid[ row ][ col ] ).focus();
+		}
+	};
+
+	/**
+	 * Handle keydown event to move focused grid cell
+	 *
+	 * @since TBD
+	 *
+	 * @param {Event} event event object
+	 *
+	 * @return {void}
+	 */
 	obj.handleKeydown = function( event ) {
 		var key = event.which || event.keyCode;
-		var row = obj.state.focusedRow;
-		var col = obj.state.focusedCol;
+		var row = obj.state.currentRow;
+		var col = obj.state.currentCol;
 		var nextCell;
 
-		switch( key ) {
+		switch ( key ) {
 			case obj.keyCode.UP:
 				nextCell = obj.getNextCell( 0, -1 );
 				row = nextCell.row;
@@ -168,7 +210,7 @@ tribe.events.views.monthGrid = {};
 				if ( event.ctrlKey ) {
 					row = obj.state.grid.length - 1;
 				}
-				col = obj.state.grid[ obj.state.focusedRow ].length - 1;
+				col = obj.state.grid[ obj.state.currentRow ].length - 1;
 				break;
 			default:
 				return;
@@ -206,8 +248,8 @@ tribe.events.views.monthGrid = {};
 						if ( $cell.is( obj.selectors.focusable ) ) {
 							// if cell is focusable and has tabindex of 0
 							if ( $cell.is( obj.selectors.focused ) ) {
-								obj.state.focusedRow = obj.state.grid.length;
-								obj.state.focusedCol = gridRow.length;
+								obj.state.currentRow = obj.state.grid.length;
+								obj.state.currentCol = gridRow.length;
 							}
 
 							// add focusable cell to gridRow
@@ -219,8 +261,8 @@ tribe.events.views.monthGrid = {};
 							if ( $focusableCell.is( obj.selectors.focusable ) ) {
 								// if element is focusable and has tabindex of 0
 								if ( $cell.is( obj.selectors.focused ) ) {
-									obj.state.focusedRow = obj.state.grid.length;
-									obj.state.focusedCol = gridRow.length;
+									obj.state.currentRow = obj.state.grid.length;
+									obj.state.currentCol = gridRow.length;
 								}
 
 								// add focusable element to gridRow
@@ -267,6 +309,7 @@ tribe.events.views.monthGrid = {};
 		var $grid = $container.find( obj.selectors.grid );
 
 		obj.setupGrid( $grid );
+		obj.setFocusPointer( obj.state.currentRow, obj.state.currentCol );
 		obj.bindEvents( $grid );
 	};
 
