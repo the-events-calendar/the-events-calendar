@@ -34,7 +34,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '4.9.3.1';
+		const VERSION             = '4.9.3.2';
 
 		/**
 		 * Min Pro Addon
@@ -71,7 +71,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @since 4.8
 		 */
-		protected $min_et_version = '4.10.4.3-dev';
+		protected $min_et_version = '4.10.6.2-dev';
 
 		/**
 		 * Maybe display data wrapper
@@ -277,6 +277,16 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/** @var Tribe__Events__Default_Values */
 		private $default_values = null;
 
+		/**
+		 * @var bool Prevent autoload initialization
+		 */
+		private $should_prevent_autoload_init = false;
+
+		/**
+		 * @var string tribe-common VERSION regex
+		 */
+		private $common_version_regex = "/const\s+VERSION\s*=\s*'([^']+)'/m";
+
 		public static $tribeEventsMuDefaults;
 
 		/**
@@ -315,7 +325,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$this->pluginDir   = $this->plugin_dir = trailingslashit( basename( $this->plugin_path ) );
 			$this->pluginUrl   = $this->plugin_url = str_replace( basename( $this->plugin_file ), '', plugins_url( basename( $this->plugin_file ), $this->plugin_file ) );
 
+			// Set common lib information, needs to happen file load
+			$this->maybe_set_common_lib_info();
+
 			// let's initialize tec
+			add_action( 'plugins_loaded', array( $this, 'maybe_bail_if_old_et_is_present' ), -1 );
+			add_action( 'plugins_loaded', array( $this, 'maybe_bail_if_invalid_wp_or_php' ), -1 );
 			add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ), 0 );
 
 			// Prevents Image Widget Plus from been problematic
@@ -339,7 +354,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public function maybe_set_common_lib_info() {
 			// if there isn't a tribe-common version, bail with a notice
 			$common_version = file_get_contents( $this->plugin_path . 'common/src/Tribe/Main.php' );
-			if ( ! preg_match( "/const\s+VERSION\s*=\s*'([^']+)'/m", $common_version, $matches ) ) {
+			if ( ! preg_match( $this->common_version_regex, $common_version, $matches ) ) {
 				return add_action( 'admin_head', array( $this, 'missing_common_libs' ) );
 			}
 
@@ -350,8 +365,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 * overwrite what should be loaded by the auto-loader
 			 */
 			if (
-				empty( $GLOBALS['tribe-common-info'] ) ||
-				version_compare( $GLOBALS['tribe-common-info']['version'], $common_version, '<' )
+				empty( $GLOBALS['tribe-common-info'] )
+				|| version_compare( $GLOBALS['tribe-common-info']['version'], $common_version, '<' )
 			) {
 				$GLOBALS['tribe-common-info'] = array(
 					'dir' => "{$this->plugin_path}common/src/Tribe",
@@ -361,43 +376,92 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
+		 * Resets the global common info back to ET's common path
+		 *
+		 * @since 4.9.3.2
+		 */
+		private function reset_common_lib_info_back_to_et() {
+			if ( ! class_exists( 'Tribe__Tickets__Main' ) ) {
+				return;
+			}
+
+			$et          = Tribe__Tickets__Main::instance();
+			$main_source = file_get_contents( $et->plugin_path . 'common/src/Tribe/Main.php' );
+
+			// if there isn't a VERSION, don't override the common path
+			if ( ! preg_match( $this->common_version_regex, $main_source, $matches ) ) {
+				return;
+			}
+
+			$GLOBALS['tribe-common-info'] = [
+				'dir'     => "{$et->plugin_path}common/src/Tribe",
+				'version' => $matches[1],
+			];
+		}
+
+		/**
+		 * Prevents bootstrapping and autoloading if the version of ET that is running is too old
+		 *
+		 * @since 4.9.3.2
+		 */
+		public function maybe_bail_if_old_et_is_present() {
+			// early check for an older version of Event Tickets to prevent fatal error
+			if ( ! class_exists( 'Tribe__Tickets__Main' ) ) {
+				return;
+			}
+
+			if ( version_compare( Tribe__Tickets__Main::VERSION, $this->min_et_version, '>=' ) ) {
+				return;
+			}
+
+			$this->should_prevent_autoload_init = true;
+
+			add_action( 'admin_notices', [ $this, 'compatibility_notice' ] );
+			add_action( 'network_admin_notices', [ $this, 'compatibility_notice' ] );
+			add_filter( 'tribe_ecp_to_run_or_not_to_run', [ $this, 'disable_pro' ] );
+			add_action( 'tribe_plugins_loaded', [ $this, 'remove_exts' ], 0 );
+			/*
+			* After common was loaded by another source (e.g. Event Tickets) let's append this plugin source files
+			* to the ones the Autoloader will search. Since we're appending them the ones registered by the plugin
+			* "owning" common will be searched first.
+			*/
+			add_action( 'tribe_common_loaded', [ $this, 'register_plugin_autoload_paths' ] );
+
+			// if we get in here, we need to reset the global common to ET's version so that we don't cause a fatal
+			$this->reset_common_lib_info_back_to_et();
+
+			// Disable older versions of Community Events to prevent fatal Error.
+			remove_action( 'plugins_loaded', 'Tribe_CE_Load', 2 );
+		}
+
+		/**
+		 * Prevents bootstrapping and autoloading if the version of WP or PHP are too old
+		 *
+		 * @since 4.9.3.2
+		 */
+		public function maybe_bail_if_invalid_wp_or_php() {
+			if ( self::supportedVersion( 'wordpress' ) && self::supportedVersion( 'php' ) ) {
+				return;
+			}
+
+			add_action( 'admin_notices', array( $this, 'notSupportedError' ) );
+
+			// if we get in here, we need to reset the global common to ET's version so that we don't cause a fatal
+			$this->reset_common_lib_info_back_to_et();
+
+			$this->should_prevent_autoload_init = true;
+		}
+
+		/**
 		 * Plugins shouldn't include their functions before `plugins_loaded` because this will allow
 		 * better compatibility with the autoloader methods.
 		 *
 		 * @return void
 		 */
 		public function plugins_loaded() {
-
-			// early check for an older version of Event Tickets to prevent fatal error
-			if (
-				class_exists( 'Tribe__Tickets__Main' ) &&
-				! version_compare( Tribe__Tickets__Main::VERSION, $this->min_et_version, '>=' )
-			) {
-				add_action( 'admin_notices', [ $this, 'compatibility_notice' ] );
-				add_action( 'network_admin_notices', [ $this, 'compatibility_notice' ] );
-				add_filter( 'tribe_ecp_to_run_or_not_to_run', [ $this, 'disable_pro' ] );
-				add_action( 'tribe_plugins_loaded', [ $this, 'remove_exts' ], 0 );
-				/*
-				* After common was loaded by another source (e.g. Event Tickets) let's append this plugin source files
-				* to the ones the Autoloader will search. Since we're appending them the ones registered by the plugin
-				* "owning" common will be searched first.
-				*/
-				add_action( 'tribe_common_loaded', [ $this, 'register_plugin_autoload_paths' ] );
-
-				// Disable older versions of Community Events to prevent fatal Error.
-				remove_action( 'plugins_loaded', 'Tribe_CE_Load', 2 );
-
+			if ( $this->should_prevent_autoload_init ) {
 				return;
 			}
-
-			// WordPress and PHP Version Check
-			if ( ! self::supportedVersion( 'wordpress' ) || ! self::supportedVersion( 'php' ) ) {
-				add_action( 'admin_notices', array( $this, 'notSupportedError' ) );
-				return;
-			}
-
-			// Set common lib information, needs to happen file load
-			$this->maybe_set_common_lib_info();
 
 			/**
 			 * Before any methods from this plugin are called, we initialize our Autoloading
@@ -1530,7 +1594,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Prevents Extensions from running if ET is on an Older Version
 		 *
-		 * @since 4.10.0.1
+		 * @since 4.9.3.1
 		 *
 		 */
 		public function remove_exts() {
