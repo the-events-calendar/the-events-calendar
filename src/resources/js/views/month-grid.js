@@ -98,8 +98,33 @@ tribe.events.views.monthGrid = {};
 		);
 	};
 
-	obj.getNextCell = function( directionX, directionY ) {
+	/**
+	 * Get next cell from current row, current column, and direction changes
+	 *
+	 * @since TBD
+	 *
+	 * @param {integer} currentRow index of current row
+	 * @param {integer} currentCol index of current column
+	 * @param {integer} directionX number of steps to take in the X direction
+	 * @param {integer} directionY number of steps to take in the Y direction
+	 *
+	 * @return {PlainObject} object containing next row and column indices
+	 */
+	obj.getNextCell = function( currentRow, currentCol, directionX, directionY ) {
+		var row = currentRow + directionY;
+		var col = currentCol + directionX;
 
+		if ( obj.isValidCell( row, col ) ) {
+			return {
+				row: row,
+				col: col,
+			};
+		}
+
+		return {
+			row: currentRow,
+			col: currentCol,
+		};
 	};
 
 	obj.focusCell = function( row, col ) {
