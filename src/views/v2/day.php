@@ -38,7 +38,7 @@ $events = $this->get( 'events' );
 
 			<?php foreach ( $events as $event ) : ?>
 
-				<?php // @todo: include day event markup here. ?>
+				<?php $this->template( 'day/event', [ 'event' => $event ] ); ?>
 
 			<?php endforeach; ?>
 
