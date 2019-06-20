@@ -401,6 +401,15 @@ class Tribe__Events__iCal {
 		return apply_filters( 'tribe_ical_properties', $content );;
 	}
 
+	/**
+	 * Add the VTIMEZONE group to the file
+	 *
+	 * @since TBD
+	 *
+	 * @param array $events
+	 *
+	 * @return string
+	 */
 	protected function get_timezones( $events = [] ) {
 		$timezones = $this->parse_timezones( $events );
 
@@ -412,22 +421,27 @@ class Tribe__Events__iCal {
 		foreach ( $timezones as $row ) {
 			/** @var DateTimeZone $timezone */
 			$timezone = $row['timezone'];
-			$id = $timezone->getName();
-			$item[] = 'TZID:"' .  $id . '"';
 
 			$ordered = [
 				'start' => $this->order( array_column( $row['events'], 'start_year' ), 'sort' ),
 				'end' => $this->order( array_column( $row['events'], 'end_year' ), 'rsort' ),
 			];
+
 			$start = reset( $ordered['start'] );
 			$end = reset( $ordered['end'] );
+
+			if ( empty( $start ) || empty( $end ) ) {
+				continue;
+			}
 
 			$transitions = $timezone->getTransitions( $start, $end );
 			if ( count( $transitions ) === 1 ) {
 				$transitions[] = array_values( $transitions )[ 0 ];
 			}
 
-			//$start = $this->order( array_column( $row['events'], '')
+			$id = $timezone->getName();
+			$item[] = 'TZID:"' .  $id . '"';
+
 			$last_transition = null;
 			foreach ( $transitions as $i => $transition ) {
 				if ( $i === 0 ) {
@@ -440,12 +454,11 @@ class Tribe__Events__iCal {
 					$type = 'DAYLIGHT';
 				}
 				$item[] = 'BEGIN:' . $type;
-				$item[] = 'TZOFFSETFROM:' . $this->get_offset( $last_transition['offset'] );
-				$item[] = 'TZOFFSETTO:' . $this->get_offset( $transition['offset'] );
+				$item[] = 'TZOFFSETFROM:' . $this->format_offset( $last_transition['offset'] );
+				$item[] = 'TZOFFSETTO:' . $this->format_offset( $transition['offset'] );
 				$item[] = 'TZNAME:' . $transition['abbr'];
 				try {
 					$start = new DateTime( $transition['time'], $timezone );
-					$start->setTimezone( $timezone );
 					$item[] = 'DTSTART:' . $start->format( "Ymd\THis" );
 				} catch ( Exception $e ) {
 					// TODO: report this exception
@@ -466,6 +479,19 @@ class Tribe__Events__iCal {
 		return "BEGIN:VTIMEZONE\r\n" . implode( "\r\n", $item ) . "\r\nEND:VTIMEZONE\r\n";
 	}
 
+	/**
+	 * Create an array of arrays with unique Timezones for all the events, every timezone has
+	 * the following fields:
+	 *
+	 * - timezone. The Timezone Object
+	 * - events. List with all the events
+	 *
+	 * @since TBD
+	 *
+	 * @param $events array An array with all the events to parse the timezones.
+	 *
+	 * @return array
+	 */
 	protected function parse_timezones( $events ) {
 		$data = [];
 		foreach ( $events as $event ){
@@ -482,25 +508,39 @@ class Tribe__Events__iCal {
 				];
 			}
 
-			$start = tribe_get_start_date( $event, false, 'U' );
-			$end = tribe_get_end_date( $event, false, 'U' );
 			$data[ $timezone ]['events'][] = [
-				'start' => $start,
-				'end' => $end,
 				'event' => $event,
-				'start_year' => strtotime( 'first day of january', $start ),
-				'end_year' => strtotime( 'last day of december', $end ),
+				'start_year' => strtotime( 'first day of january', tribe_get_start_date( $event, false, 'U' ) ),
+				'end_year' => strtotime( 'last day of december', tribe_get_end_date( $event, false, 'U' ) ),
 			];
 		}
 		return $data;
 	}
 
-
+	/**
+	 * Return the values from an array ordered by $callback
+	 *
+	 * @since TBD
+	 *
+	 * @param $events array An array to be ordered
+	 * @param $callback Callback Function used to order array.
+	 *
+	 * @return array
+	 */
 	protected function order( $events, $callback ) {
 		return array_values( array_sort( $events, $callback ) );
 	}
 
-	protected function get_offset( $offset ) {
+	/**
+	 * Format the offset into Hours and minutes from seconds.
+	 *
+	 * @since TBD
+	 *
+	 * @param $offset
+	 *
+	 * @return string
+	 */
+	protected function format_offset( $offset ) {
 		$hours   = intval( $offset / 60 / 60 );
 		$minutes = abs( $offset ) / 60 - intval( abs( $offset ) / 60 / 60 ) * 60;
 		$format  = "+%02d%02d";
@@ -654,6 +694,15 @@ class Tribe__Events__iCal {
 		return $events;
 	}
 
+	/**
+	 * Return the timezone name associated with the event
+	 *
+	 * @since TBD
+	 *
+	 * @param $event \WP_Post The $event post
+	 *
+	 * @return string
+	 */
 	protected function get_timezone( $event ) {
 		return Tribe__Events__Timezones::EVENT_TIMEZONE === Tribe__Events__Timezones::mode()
 			? Tribe__Events__Timezones::get_event_timezone_string( $event->ID )
