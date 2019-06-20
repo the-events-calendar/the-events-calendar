@@ -181,22 +181,22 @@ tribe.events.views.monthGrid = {};
 
 		switch ( key ) {
 			case obj.keyCode.UP:
-				nextCell = obj.getNextCell( 0, -1 );
+				nextCell = obj.getNextCell( row, col, 0, -1 );
 				row = nextCell.row;
 				col = nextCell.col;
 				break;
 			case obj.keyCode.DOWN:
-				nextCell = obj.getNextCell( 0, 1 );
+				nextCell = obj.getNextCell( row, col, 0, 1 );
 				row = nextCell.row;
 				col = nextCell.col;
 				break;
 			case obj.keyCode.LEFT:
-				nextCell = obj.getNextCell( -1, 0 );
+				nextCell = obj.getNextCell( row, col, -1, 0 );
 				row = nextCell.row;
 				col = nextCell.col;
 				break;
 			case obj.keyCode.RIGHT:
-				nextCell = obj.getNextCell( 1, 0 );
+				nextCell = obj.getNextCell( row, col, 1, 0 );
 				row = nextCell.row;
 				col = nextCell.col;
 				break;
@@ -220,8 +220,26 @@ tribe.events.views.monthGrid = {};
 		event.preventDefault();
 	};
 
+	/**
+	 * Handle click event to focus cell
+	 *
+	 * @since TBD
+	 *
+	 * @param {Event} event event object
+	 *
+	 * @return {void}
+	 */
 	obj.handleClick = function( event ) {
+		var $clickedCell = $( event.target ).closest( obj.selectors.focusable );
 
+		for ( var row = 0; row < obj.state.grid.length; row++ ) {
+			for ( var col = 0; col < obj.state.grid[ row ].length; col++ ) {
+				if ( obj.state.grid[ row ][ col ].is( $clickedCell ) ) {
+					obj.focusCell( row, col );
+					return;
+				}
+			}
+		}
 	};
 
 	/**
