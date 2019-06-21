@@ -54,7 +54,7 @@
 		width: 29px;
 
 		@media (--viewport-medium) {
-			width: 114px;
+			width: auto;
 		}
 	}
 
@@ -219,9 +219,11 @@
 
 		@media (--viewport-medium) {
 			box-shadow: var(--box-shadow-default);
+			left: 0;
 			padding: var(--spacer-1);
+			right: auto;
 			transform: translateY(var(--spacer-1));
-			width: 100%;
+			width: auto;
 		}
 	}
 
@@ -247,7 +249,7 @@
 		padding: var(--spacer-1) var(--spacer-5) var(--spacer-1) var(--spacer-2);
 
 		@media (--viewport-medium) {
-			padding: var(--spacer-0) var(--spacer-3);
+			padding: var(--spacer-0) var(--spacer-7) var(--spacer-0) var(--spacer-3);
 		}
 
 		&:hover,
