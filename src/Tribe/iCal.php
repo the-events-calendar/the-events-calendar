@@ -363,13 +363,13 @@ class Tribe__Events__iCal {
 	 * @return string
 	 */
 	protected function get_content() {
-		return sprintf(
-			"%s%s%s%s",
+		$parts = [
 			$this->get_start(),
 			$this->get_timezones( $this->events ),
 			$this->get_body( $this->events ),
 			$this->get_end()
-		);
+		];
+		return implode( '', $parts );
 	}
 
 	/**
