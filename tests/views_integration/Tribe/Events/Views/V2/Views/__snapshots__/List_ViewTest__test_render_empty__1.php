@@ -157,26 +157,31 @@
 
 			<div class="tribe-events-calendar-list__separator-month">
 	<time
-		class="tribe-events-calendar-list__separator-month-text tribe-common-b1 tribe-common-b1--bold"
-		datetime="1970-01-01T00:00:00+00:00"
+		class="tribe-events-calendar-list__separator-month-text tribe-common-h7 tribe-common-h7--alt"
+		datetime="2019-01"
 	>
-		Jan	</time>
+		Jan 2019	</time>
 </div>
 
 			
 		</div>
 
-		<nav class="tribe-common-c-nav">
-	<ul class="tribe-common-c-nav__list">
-		<li class="tribe-common-c-nav__list-item">
-			<button class="tribe-common-c-nav__prev" disabled>
-	Previous Events</button>
-		</li>
+		<nav class="tribe-events-calendar-list-nav tribe-events-c-nav">
+	<ul class="tribe-events-c-nav__list">
+		<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--prev">
+	<button class="tribe-events-c-nav__prev tribe-common-b2" disabled>
+		Previous Events	</button>
+</li>
 
-		<li class="tribe-common-c-nav__list-item">
-			<button class="tribe-common-c-nav__next" disabled>
-	Next Events</button>
-		</li>
+		<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--today">
+	<a class="tribe-events-c-nav__today tribe-common-b2" href="#">
+		Today	</a>
+</li>
+
+		<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--next">
+	<button class="tribe-events-c-nav__next tribe-common-b2" disabled>
+		Next Events	</button>
+</li>
 	</ul>
 </nav>
 	</div>
