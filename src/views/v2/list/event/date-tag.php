@@ -3,7 +3,7 @@
  * View: List View - Single Event Date Tag
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/views/v2/list/event/date.php
+ * [your-theme]/tribe/events/views/v2/list/event/date-tag.php
  *
  * See more documentation about our views templating system.
  *
