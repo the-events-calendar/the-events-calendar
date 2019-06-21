@@ -504,7 +504,7 @@ class Tribe__Events__iCal {
 	 */
 	protected function parse_timezones( $events ) {
 		$data = [];
-		foreach ( $events as $event ){
+		foreach ( $events as $event ) {
 			if ( ! $event instanceof WP_Post ) {
 				continue;
 			}
