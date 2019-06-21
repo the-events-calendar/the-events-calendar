@@ -41,6 +41,23 @@
 		}
 	}
 
+	.tribe-events-calendar-list__event-date-tag-datetime {
+		display: flex;
+		flex-direction: column;
+		text-align: center;
+
+		@media (--viewport-full) {
+			margin-left: 28%;
+		}
+	}
+
+	.tribe-events-calendar-list__event-date-tag-weekday {
+		@mixin mobile-body-3;
+
+		color: var(--color-text-secondary);
+		margin-bottom: calc(var(--spacer-0) * -1);
+	}
+
 	.tribe-events-calendar-list__event-wrapper {
 		flex: none;
 		width: calc((3 * var(--grid-width-1-of-4)) + var(--grid-gutter-small-half));
