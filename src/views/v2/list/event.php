@@ -16,10 +16,10 @@
 $event    = $this->get( 'event' );
 $event_id = $event->ID;
 
-$classes = [ 'tribe-common-g-row', 'tribe-common-g-row--gutters', 'tribe-events-calendar-list__event' ];
+$classes = [ 'tribe-common-g-row', 'tribe-common-g-row--gutters', 'tribe-events-calendar-list__event-wrapper' ];
 
 if ( tribe( 'tec.featured_events' )->is_featured( $event_id ) ) {
-	$classes[] = 'tribe-events-calendar-list__event--featured';
+	$classes[] = 'tribe-events-calendar-list__event-wrapper--featured';
 }
 
 ?>
@@ -27,7 +27,7 @@ if ( tribe( 'tec.featured_events' )->is_featured( $event_id ) ) {
 
 	<?php $this->template( 'list/event/date-tag', [ 'event' => $event ] ); ?>
 
-	<article class="tribe-events-calendar-list__event-inner tribe-common-g-col tribe-common-g-row tribe-common-g-row--gutters">
+	<article class="tribe-events-calendar-list__event tribe-common-g-col tribe-common-g-row tribe-common-g-row--gutters">
 		<?php $this->template( 'list/event/featured-image', [ 'event' => $event ] ); ?>
 
 		<div class="tribe-events-calendar-list__event-details tribe-common-g-col">
