@@ -214,7 +214,9 @@ abstract class Tribe__Events__Linked_Posts__Base {
 				JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id
 				WHERE p.post_type = %s
 				{$post_status_clause}
-				AND meta_key = %s";
+				AND meta_key = %s
+				ORDER BY pm.meta_value
+				";
 
 		$prepared_has_events_query = $wpdb->prepare(
 			$has_events_query,
@@ -238,9 +240,9 @@ abstract class Tribe__Events__Linked_Posts__Base {
 			$found = array_diff( $venues, $results );
 
 			if ( empty( $found ) ) {
-				$cache[ $cache_key ] = array();
+				$cache[ $cache_key ] = [];
 
-				return array();
+				return [];
 			}
 		} else {
 			$found = $results;
