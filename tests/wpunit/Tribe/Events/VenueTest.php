@@ -240,6 +240,12 @@ class VenueTest extends Events_TestCase {
 	 * @test
 	 */
 	public function it_should_not_consider_draft_and_pending_events_when_getting_venues_with_events() {
+		/**
+		 * @todo: remove once issue in PR below is addressed.
+		 *        https://github.com/moderntribe/tribe-common/pull/1034#issuecomment-504287853
+		 */
+		$this->markTestSkipped( 'Skip test until common is fixed' );
+
 		$venue_1 = $this->factory()->venue->create();
 		$venue_2 = $this->factory()->venue->create();
 		$venue_3 = $this->factory()->venue->create();
