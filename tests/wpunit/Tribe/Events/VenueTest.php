@@ -251,6 +251,7 @@ class VenueTest extends Events_TestCase {
 		$this->assertEquals( [ $venue_1 ], $sut->find_with_events( true ) );
 		$expected = [ $venue_1, $venue_2, $venue_3 ];
 		$result = $sut->find_with_events( true, [] );
+		$this->assertCount( count( $expected ), $result );
 		$this->assertEmpty( array_diff( $expected, $result ) );
 	}
 
