@@ -235,16 +235,22 @@ class Tribe__Events__iCal {
 	protected function get_event_posts() {
 		if ( $this->post ) {
 			return is_array( $this->post ) ? $this->post : [ $this->post ];
-		} elseif ( tribe_is_month() ) {
+		}
+
+		if ( tribe_is_month() ) {
 			return $this->get_month_view_events();
-		} elseif ( tribe_is_organizer() ) {
+		}
+
+		if ( tribe_is_organizer() ) {
 			return $this->get_events_list(
 				[
 					'organizer' => get_the_ID(),
 					'eventDisplay' => 'list',
 				]
 			);
-		} elseif ( tribe_is_venue() ) {
+		}
+
+		if ( tribe_is_venue() ) {
 			return $this->get_events_list(
 				[
 					'venue' => get_the_ID(),
@@ -480,6 +486,8 @@ class Tribe__Events__iCal {
 
 		/**
 		 * Allow for customization of an individual "VTIMEZONE" item to be rendered inside an iCal export file.
+		 *
+		 * @since TBD
 		 *
 		 * @param array $item The various iCal file format components of this specific event item.
 		 * @param array $timezones The various iCal timzone components of this specific event item.
