@@ -23,26 +23,26 @@ class MonthEventMultidayTest extends TestHtmlCase {
 			'duration'      => 2
 		];
 
-		$template = $this->template->template( 'month/event-multiday', [ 'event' => (object) $event ] );
+		$template = $this->template->template( 'month/calendar-body/day/multiday-events/multiday-event', [ 'event' => (object) $event ] );
 		$html = $this->document->html( $template );
 
 		$this->assertEquals(
-			$html->find( '.tribe-events-calendar-month__event-multiday' )->count(),
+			$html->find( '.tribe-events-calendar-month__multiday-event' )->count(),
 			1,
-			'Multiday HTML needs to contain one ".tribe-events-calendar-month__event-multiday" element'
+			'Multiday HTML needs to contain one ".tribe-events-calendar-month__multiday-event" element'
 		);
 
 
 		$this->assertTrue(
-			$html->find( '.tribe-events-calendar-month__event-multiday' )->children()->is( '.tribe-events-calendar-month__event-multiday-inner' ),
-			'Multiday HTML needs to contain ".tribe-events-calendar-month__event-multiday-inner" element'
+			$html->find( '.tribe-events-calendar-month__multiday-event' )->children()->is( '.tribe-events-calendar-month__multiday-event-inner' ),
+			'Multiday HTML needs to contain ".tribe-events-calendar-month__multiday-event-inner" element'
 		);
 
 
 		$this->assertEquals(
-			$html->find( '.tribe-events-calendar-month__event-multiday-title' )->count(),
+			$html->find( '.tribe-events-calendar-month__multiday-event-title' )->count(),
 			1,
-			'Multiday HTML needs to contain one ".tribe-events-calendar-month__event-multiday-title" element'
+			'Multiday HTML needs to contain one ".tribe-events-calendar-month__multiday-event-title" element'
 		);
 
 	}
@@ -64,10 +64,10 @@ class MonthEventMultidayTest extends TestHtmlCase {
 			'duration'      => 2
 		];
 
-		$template = $this->template->template( 'month/event-multiday', [ 'event' => (object) $event ] );
+		$template = $this->template->template( 'month/calendar-body/day/multiday-events/multiday-event', [ 'event' => (object) $event ] );
 		$html = $this->document->html( $template );
-		$html = $html->find( '.tribe-events-calendar-month__event-multiday' );
-		$icon = $html->find( '.tribe-events-calendar-month__event-multiday-featured-icon' );
+		$html = $html->find( '.tribe-events-calendar-month__multiday-event' );
+		$icon = $html->find( '.tribe-events-calendar-month__multiday-event-featured-icon' );
 
 
 		$this->markTestSkipped( 'The month multi-day event does not receive data yet' );

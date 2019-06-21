@@ -15,11 +15,13 @@
  *
  */
 ?>
-<a
-	href="<?php echo esc_url( $link ); ?>"
-	rel="next"
-	class="tribe-common-c-nav__next"
-	data-js="tribe-events-view-link"
->
-	<?php echo esc_html( sprintf( __( 'Next %s', 'the-events-calendar' ), tribe_get_event_label_plural() ) ); ?>
-</a>
+<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--next">
+	<a
+		href="<?php echo esc_url( $link ); ?>"
+		rel="next"
+		class="tribe-events-c-nav__next tribe-common-b2"
+		data-js="tribe-events-view-link"
+	>
+		<?php echo esc_html( sprintf( __( 'Next %s', 'the-events-calendar' ), tribe_get_event_label_plural() ) ); ?>
+	</a>
+</li>

@@ -12,7 +12,7 @@ class MonthDayTest extends TestHtmlCase {
 
 		$this->markTestSkipped( 'The month calendar event day event does not have the final data yet' );
 
-		$template = $this->template->template( 'month/day', [ 'day' => 1, 'week' => 1 ] );
+		$template = $this->template->template( 'month/calendar-body/day', [ 'day' => 1, 'week' => 1 ] );
 		$html = $this->document->html( $template );
 
 		$this->assertEquals(
@@ -35,7 +35,7 @@ class MonthDayTest extends TestHtmlCase {
 
 		$this->markTestSkipped( 'The month calendar event day event does not have the final data yet' );
 
-		$template = $this->template->template( 'month/day', [ 'day' => 1, 'week' => 1 ] );
+		$template = $this->template->template( 'month/calendar-body/day', [ 'day' => 1, 'week' => 1 ] );
 		$html = $this->document->html( $template );
 		$day = $html->find( '.tribe-events-calendar-month__day' );
 
