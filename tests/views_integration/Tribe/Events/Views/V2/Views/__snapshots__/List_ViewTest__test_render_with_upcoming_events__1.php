@@ -83,7 +83,9 @@
 	</div>
 </div>
 
-	
+	<div class="tribe-events-c-events-bar__filters">
+	<button class="tribe-events-c-events-bar__filters-button">Filter</button>
+</div>
 	<div class="tribe-events-c-events-bar__form">
 	<form
 		class="tribe-common-c-search"
@@ -96,7 +98,7 @@
 			<div class="tribe-common-form-control-text">
 	<label class="tribe-common-form-control-text__label" for="keyword">Enter Keyword. Search for Events by Keyword.</label>
 	<input
-		class="tribe-common-form-control-text__input tribe-common-c-search__input tribe-common-c-search__input--keyword"
+		class="tribe-common-form-control-text__input tribe-common-c-search__input tribe-common-c-search__input--icon tribe-common-c-search__input--keyword"
 		type="text"
 		id="keyword"
 		name="tribe-events-views[tribe-bar-search]"
