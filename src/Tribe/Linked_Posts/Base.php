@@ -214,9 +214,7 @@ abstract class Tribe__Events__Linked_Posts__Base {
 				JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id
 				WHERE p.post_type = %s
 				{$post_status_clause}
-				AND meta_key = %s
-				ORDER BY pm.meta_value
-				";
+				AND meta_key = %s";
 
 		$prepared_has_events_query = $wpdb->prepare(
 			$has_events_query,
