@@ -630,13 +630,17 @@ class Tribe__Events__iCal {
 			$item[] = 'SUMMARY:' . str_replace(
 					[ ',', "\n", "\r" ],
 					[ '\,', '\n', '' ],
-					html_entity_decode( strip_tags( $event_post->post_title ), ENT_QUOTES )
+					$this->html_decode( strip_tags( $event_post->post_title ) )
 				);
+
+			$content = apply_filters( 'the_content', tribe( 'editor.utils' )->exclude_tribe_blocks( $event_post->post_content ) );
+
 			$item[] = 'DESCRIPTION:' . str_replace(
 					[ ',', "\n", "\r" ],
 					[ '\,', '\n', '' ],
-					html_entity_decode( strip_tags( str_replace( '</p>', '</p> ', apply_filters( 'the_content', tribe( 'editor.utils' )->exclude_tribe_blocks( $event_post->post_content ) ) ) ), ENT_QUOTES )
+					$this->html_decode( strip_tags( str_replace( '</p>', '</p> ', $content ) ) )
 				);
+
 			$item[] = 'URL:' . get_permalink( $event_post->ID );
 
 			// add location if available
@@ -645,7 +649,7 @@ class Tribe__Events__iCal {
 				$str_location = str_replace(
 					[ ',', "\n" ],
 					[ '\,', '\n' ],
-					html_entity_decode( $location, ENT_QUOTES )
+					$this->html_decode( $location )
 				);
 
 				$item[] = 'LOCATION:' .  $str_location;
@@ -659,7 +663,7 @@ class Tribe__Events__iCal {
 			);
 
 			if ( ! empty( $event_cats ) ) {
-				$item[] = 'CATEGORIES:' . html_entity_decode( join( ',', $event_cats ), ENT_QUOTES );
+				$item[] = 'CATEGORIES:' . $this->html_decode( join( ',', $event_cats ) );
 			}
 
 			// add featured image if available
@@ -702,6 +706,19 @@ class Tribe__Events__iCal {
 		}
 
 		return $events;
+	}
+
+	/**
+	 * Apply html_entity_decode on a string using ENT_QUOTES style
+	 *
+	 * @since TBD
+	 *
+	 * @param string $text
+	 *
+	 * @return string
+	 */
+	protected function html_decode( $text = '' ) {
+		return html_entity_decode( $text, ENT_QUOTES );
 	}
 
 	/**
