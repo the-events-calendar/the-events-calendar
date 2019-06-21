@@ -627,30 +627,18 @@ class Tribe__Events__iCal {
 			$item[] = 'CREATED:' . $tzoned->created;
 			$item[] = 'LAST-MODIFIED:' . $tzoned->modified;
 			$item[] = 'UID:' . $event_post->ID . '-' . $time->start . '-' . $time->end . '@' . parse_url( home_url( '/' ), PHP_URL_HOST );
-			$item[] = 'SUMMARY:' . str_replace(
-					[ ',', "\n", "\r" ],
-					[ '\,', '\n', '' ],
-					$this->html_decode( strip_tags( $event_post->post_title ) )
-				);
+			$item[] = 'SUMMARY:' . $this->replace( strip_tags( $event_post->post_title ) );
 
 			$content = apply_filters( 'the_content', tribe( 'editor.utils' )->exclude_tribe_blocks( $event_post->post_content ) );
 
-			$item[] = 'DESCRIPTION:' . str_replace(
-					[ ',', "\n", "\r" ],
-					[ '\,', '\n', '' ],
-					$this->html_decode( strip_tags( str_replace( '</p>', '</p> ', $content ) ) )
-				);
+			$item[] = 'DESCRIPTION:' . $this->replace( strip_tags( str_replace( '</p>', '</p> ', $content ) ) );
 
 			$item[] = 'URL:' . get_permalink( $event_post->ID );
 
 			// add location if available
 			$location = $tec->fullAddressString( $event_post->ID );
 			if ( ! empty( $location ) ) {
-				$str_location = str_replace(
-					[ ',', "\n" ],
-					[ '\,', '\n' ],
-					$this->html_decode( $location )
-				);
+				$str_location = $this->replace( $location, [ ',', "\n" ], [ '\,', '\n' ] );
 
 				$item[] = 'LOCATION:' .  $str_location;
 			}
@@ -706,6 +694,23 @@ class Tribe__Events__iCal {
 		}
 
 		return $events;
+	}
+
+	/**
+	 * Replace the text and encode the text before doing the replacement.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $text The text to be replaced.
+	 * @param array  $search What elements to search to replace.
+	 * @param array  $replacement New values used to replace.
+	 *
+	 * @return mixed
+	 */
+	protected function replace( $text = '', $search = [], $replacement = [] ) {
+		$search = empty( $search ) ? [ ',', "\n", "\r" ] : $search;
+		$replacement = empty( $replacement ) ? [ '\,', '\n', '' ] : $replacement;
+		return str_replace( $search, $replacement, $this->html_decode( $text ) );
 	}
 
 	/**
