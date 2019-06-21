@@ -191,10 +191,10 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	 * @since 4.5
 	 */
 	protected function register_event_archives_endpoint( $register_routes = true ) {
-		$messages = tribe( 'tec.rest-v1.messages' );
+		$messages        = tribe( 'tec.rest-v1.messages' );
 		$post_repository = tribe( 'tec.rest-v1.repository' );
-		$validator = tribe( 'tec.rest-v1.validator' );
-		$endpoint = new Tribe__Events__REST__V1__Endpoints__Archive_Event( $messages, $post_repository, $validator );
+		$validator       = tribe( 'tec.rest-v1.validator' );
+		$endpoint        = new Tribe__Events__REST__V1__Endpoints__Archive_Event( $messages, $post_repository, $validator );
 
 		tribe_singleton( 'tec.rest-v1.endpoints.archive-event', $endpoint );
 
@@ -217,10 +217,10 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	 * @since 4.5
 	 */
 	protected function register_single_event_endpoint( $register_routes = true ) {
-		$messages = tribe( 'tec.rest-v1.messages' );
-		$post_repository = tribe( 'tec.rest-v1.repository' );
-		$validator = tribe( 'tec.rest-v1.validator' );
-		$venue_endpoint = tribe( 'tec.rest-v1.endpoints.single-venue' );
+		$messages           = tribe( 'tec.rest-v1.messages' );
+		$post_repository    = tribe( 'tec.rest-v1.repository' );
+		$validator          = tribe( 'tec.rest-v1.validator' );
+		$venue_endpoint     = tribe( 'tec.rest-v1.endpoints.single-venue' );
 		$organizer_endpoint = tribe( 'tec.rest-v1.endpoints.single-organizer' );
 
 		$endpoint = new Tribe__Events__REST__V1__Endpoints__Single_Event( $messages, $post_repository, $validator, $venue_endpoint, $organizer_endpoint );
@@ -276,10 +276,10 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	 * @since 4.5
 	 */
 	protected function register_single_event_slug_endpoint( $register_routes = true ) {
-		$messages = tribe( 'tec.rest-v1.messages' );
-		$post_repository = tribe( 'tec.rest-v1.repository' );
-		$validator = tribe( 'tec.rest-v1.validator' );
-		$venue_endpoint = tribe( 'tec.rest-v1.endpoints.single-venue' );
+		$messages           = tribe( 'tec.rest-v1.messages' );
+		$post_repository    = tribe( 'tec.rest-v1.repository' );
+		$validator          = tribe( 'tec.rest-v1.validator' );
+		$venue_endpoint     = tribe( 'tec.rest-v1.endpoints.single-venue' );
 		$organizer_endpoint = tribe( 'tec.rest-v1.endpoints.single-organizer' );
 
 		$endpoint = new Tribe__Events__REST__V1__Endpoints__Single_Event_Slug( $messages, $post_repository, $validator, $venue_endpoint, $organizer_endpoint );
@@ -335,13 +335,13 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	 */
 	public function filter_service_messages( array $messages = [] ) {
 		/** @var Tribe__REST__Messages_Interface $rest_messages */
-		$rest_messages = tribe( 'tec.rest-v1.ea-messages' );
-		$messages_array = $rest_messages->get_messages();
+		$rest_messages               = tribe( 'tec.rest-v1.ea-messages' );
+		$messages_array              = $rest_messages->get_messages();
 		$prefixed_rest_messages_keys = array_map( [
 			$rest_messages,
 			'prefix_message_slug',
 		], array_keys( $messages_array ) );
-		$messages = array_merge( $messages, array_combine( $prefixed_rest_messages_keys, array_values( $messages_array ) ) );
+		$messages                    = array_merge( $messages, array_combine( $prefixed_rest_messages_keys, array_values( $messages_array ) ) );
 
 		return $messages;
 	}
@@ -355,7 +355,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	 */
 	public function filter_localized_data( array $localized_data = [] ) {
 		/** @var Tribe__REST__Messages_Interface $rest_messages */
-		$rest_messages = tribe( 'tec.rest-v1.ea-messages' );
+		$rest_messages                 = tribe( 'tec.rest-v1.ea-messages' );
 		$localized_data['l10n']['url'] = $rest_messages->get_messages();
 
 		return $localized_data;
@@ -367,9 +367,9 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	 * @return Tribe__Events__REST__V1__Endpoints__Single_Venue
 	 */
 	public function build_single_venue_endpoint() {
-		$messages = tribe( 'tec.rest-v1.messages' );
+		$messages        = tribe( 'tec.rest-v1.messages' );
 		$post_repository = tribe( 'tec.rest-v1.repository' );
-		$validator = tribe( 'tec.rest-v1.validator' );
+		$validator       = tribe( 'tec.rest-v1.validator' );
 
 		return new Tribe__Events__REST__V1__Endpoints__Single_Venue( $messages, $post_repository, $validator );
 	}
@@ -380,9 +380,9 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	 * @return Tribe__Events__REST__V1__Endpoints__Single_Organizer
 	 */
 	public function build_single_organizer_endpoint() {
-		$messages = tribe( 'tec.rest-v1.messages' );
+		$messages        = tribe( 'tec.rest-v1.messages' );
 		$post_repository = tribe( 'tec.rest-v1.repository' );
-		$validator = tribe( 'tec.rest-v1.validator' );
+		$validator       = tribe( 'tec.rest-v1.validator' );
 
 		return new Tribe__Events__REST__V1__Endpoints__Single_Organizer( $messages, $post_repository, $validator );
 	}
@@ -406,9 +406,9 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	 * @since 4.6
 	 */
 	protected function register_single_venue_endpoint( $register_routes = true ) {
-		$messages = tribe( 'tec.rest-v1.messages' );
+		$messages        = tribe( 'tec.rest-v1.messages' );
 		$post_repository = tribe( 'tec.rest-v1.repository' );
-		$validator = tribe( 'tec.rest-v1.validator' );
+		$validator       = tribe( 'tec.rest-v1.validator' );
 
 		$endpoint = new Tribe__Events__REST__V1__Endpoints__Single_Venue( $messages, $post_repository, $validator );
 
@@ -464,9 +464,9 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	 * @since 4.6
 	 */
 	protected function register_single_venue_slug_endpoint( $register_routes = true ) {
-		$messages = tribe( 'tec.rest-v1.messages' );
+		$messages        = tribe( 'tec.rest-v1.messages' );
 		$post_repository = tribe( 'tec.rest-v1.repository' );
-		$validator = tribe( 'tec.rest-v1.validator' );
+		$validator       = tribe( 'tec.rest-v1.validator' );
 
 		$endpoint = new Tribe__Events__REST__V1__Endpoints__Single_Venue_Slug( $messages, $post_repository, $validator );
 
@@ -511,9 +511,9 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	 * @since bucket/full-rest-api
 	 */
 	protected function register_single_organizer_endpoint( $register_routes = true ) {
-		$messages = tribe( 'tec.rest-v1.messages' );
+		$messages        = tribe( 'tec.rest-v1.messages' );
 		$post_repository = tribe( 'tec.rest-v1.repository' );
-		$validator = tribe( 'tec.rest-v1.validator' );
+		$validator       = tribe( 'tec.rest-v1.validator' );
 
 		$endpoint = new Tribe__Events__REST__V1__Endpoints__Single_Organizer( $messages, $post_repository, $validator );
 
@@ -569,9 +569,9 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	 * @since bucket/full-rest-api
 	 */
 	protected function register_single_organizer_slug_endpoint( $register_routes = true ) {
-		$messages = tribe( 'tec.rest-v1.messages' );
+		$messages        = tribe( 'tec.rest-v1.messages' );
 		$post_repository = tribe( 'tec.rest-v1.repository' );
-		$validator = tribe( 'tec.rest-v1.validator' );
+		$validator       = tribe( 'tec.rest-v1.validator' );
 
 		$endpoint = new Tribe__Events__REST__V1__Endpoints__Single_Organizer_Slug( $messages, $post_repository, $validator );
 
@@ -616,10 +616,10 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	 * @since 4.6
 	 */
 	protected function register_venue_archives_endpoint( $register_routes = true ) {
-		$messages = tribe( 'tec.rest-v1.messages' );
+		$messages        = tribe( 'tec.rest-v1.messages' );
 		$post_repository = tribe( 'tec.rest-v1.repository' );
-		$validator = tribe( 'tec.rest-v1.validator' );
-		$endpoint = new Tribe__Events__REST__V1__Endpoints__Archive_Venue( $messages, $post_repository, $validator );
+		$validator       = tribe( 'tec.rest-v1.validator' );
+		$endpoint        = new Tribe__Events__REST__V1__Endpoints__Archive_Venue( $messages, $post_repository, $validator );
 
 		tribe_singleton( 'tec.rest-v1.endpoints.archive-venue', $endpoint );
 
@@ -642,10 +642,10 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	 * @since 4.6
 	 */
 	protected function register_organizer_archives_endpoint( $register_routes = true ) {
-		$messages = tribe( 'tec.rest-v1.messages' );
+		$messages        = tribe( 'tec.rest-v1.messages' );
 		$post_repository = tribe( 'tec.rest-v1.repository' );
-		$validator = tribe( 'tec.rest-v1.validator' );
-		$endpoint = new Tribe__Events__REST__V1__Endpoints__Archive_Organizer( $messages, $post_repository, $validator );
+		$validator       = tribe( 'tec.rest-v1.validator' );
+		$endpoint        = new Tribe__Events__REST__V1__Endpoints__Archive_Organizer( $messages, $post_repository, $validator );
 
 		tribe_singleton( 'tec.rest-v1.endpoints.archive-organizer', $endpoint );
 
@@ -741,7 +741,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 		$validator        = tribe( 'tec.rest-v1.validator' );
 		$terms_controller = new WP_REST_Terms_Controller( 'post_tag' );
 		$archive_endpoint = new Tribe__Events__REST__V1__Endpoints__Archive_Tag( $messages, $post_repository, $validator, $terms_controller );
-		$single_endpoint = new Tribe__Events__REST__V1__Endpoints__Single_Tag( $messages, $post_repository, $validator, $terms_controller );
+		$single_endpoint  = new Tribe__Events__REST__V1__Endpoints__Single_Tag( $messages, $post_repository, $validator, $terms_controller );
 
 		tribe_singleton( 'tec.rest-v1.endpoints.archive-category', $archive_endpoint );
 
