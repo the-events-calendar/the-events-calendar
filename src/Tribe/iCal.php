@@ -215,11 +215,10 @@ class Tribe__Events__iCal {
 	public function generate_ical_feed( $post = null, $echo = true ) {
 		$this->post = $post;
 		$this->events = $this->get_event_posts();
-
-		$this->set_headers();
 		$content = $this->get_content();
 
 		if ( $echo ) {
+			$this->set_headers();
 			tribe_exit( $content );
 		}
 
