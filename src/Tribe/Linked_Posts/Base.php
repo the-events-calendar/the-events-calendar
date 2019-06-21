@@ -238,9 +238,9 @@ abstract class Tribe__Events__Linked_Posts__Base {
 			$found = array_diff( $venues, $results );
 
 			if ( empty( $found ) ) {
-				$cache[ $cache_key ] = array();
+				$cache[ $cache_key ] = [];
 
-				return array();
+				return [];
 			}
 		} else {
 			$found = $results;
