@@ -44,7 +44,7 @@ $events = $this->get( 'events' );
 
 		</div>
 
-		<?php // @todo: include day navigation here. ?>
+		<?php $this->template( 'day/nav' ); ?>
 	</div>
 
 </div>
