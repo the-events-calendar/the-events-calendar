@@ -9,7 +9,7 @@ tribe.events = tribe.events || {};
 tribe.events.views = tribe.events.views || {};
 
 /**
- * Configures Views Object in the Global Tribe variable
+ * Configures Accordion Object in the Global Tribe variable
  *
  * @since TBD
  *
@@ -55,7 +55,7 @@ tribe.events.views.accordion = {};
 		$container.find( obj.selectors.accordionTrigger ).each( function( index, header ) {
 			var $header = $( header );
 			var contentId = $header.attr( 'aria-controls' );
-			var $content = $container.find( '#' + contentId );
+			var $content = $document.find( '#' + contentId );
 
 			obj.closeAccordion( $header, $content );
 		} );

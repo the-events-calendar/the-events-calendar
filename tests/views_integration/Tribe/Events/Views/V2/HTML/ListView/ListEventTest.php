@@ -37,7 +37,7 @@ class ListEventTest extends TestHtmlCase {
 
 		$this->assertFalse(
 			$html->find( '.tribe-events-calendar-list__event' )->is( '.tribe-events-calendar-list__event--featured' ),
-			'List Event HTML shouldnt to contain ".tribe-events-calendar-list__event--featured" class if not featured'
+			'List Event HTML shouldnt contain ".tribe-events-calendar-list__event--featured" class if not featured'
 		);
 
 	}
