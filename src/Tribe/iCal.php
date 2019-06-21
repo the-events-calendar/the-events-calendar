@@ -10,14 +10,20 @@ class Tribe__Events__iCal {
 	 * @var int The number of events that will be exported when generating the iCal feed.
 	 */
 	protected $feed_default_export_count = 30;
+
 	/**
 	 * The $post where the *.ics file is generated
+	 *
+	 * @since TBD
 	 *
 	 * @var null
 	 */
 	protected $post = null;
+
 	/**
 	 * An array with all the events that are part of the *.ics file
+	 *
+	 * @since TBD
 	 *
 	 * @var array
 	 */
@@ -398,7 +404,12 @@ class Tribe__Events__iCal {
 		$content .= 'X-ORIGINAL-URL:' . $blog_home . "\r\n";
 		$content .= "X-WR-CALDESC:" . sprintf( esc_html_x( 'Events for %s', 'iCal feed description', 'the-events-calendar' ), $blog_name ) . "\r\n";
 
-		return apply_filters( 'tribe_ical_properties', $content );;
+		/**
+		 * Allows for customization of the various properties at the top of the generated iCal file.
+		 *
+		 * @param string $content Existing properties atop the file; starts at "BEGIN:VCALENDAR", ends at "X-WR-CALDESC".
+		 */
+		return apply_filters( 'tribe_ical_properties', $content );
 	}
 
 	/**
