@@ -1,10 +1,10 @@
 <?php
-namespace Tribe\Events\Views\V2\Views\HTML\ListView;
+namespace Tribe\Events\Views\V2\Views\HTML\DayView;
 
 use Tribe\Events\Views\V2\TestHtmlCase;
 use Tribe\Events\Test\Factories\Event;
 
-class ListEventTest extends TestHtmlCase {
+class DayEventTest extends TestHtmlCase {
 
 	public function setUp() {
 		parent::setUp();
@@ -26,18 +26,18 @@ class ListEventTest extends TestHtmlCase {
 
 		$event = tribe_events()->set_args( $args )->create();
 
-		$template = $this->template->template( 'list/event', [ 'event' => $event ] );
+		$template = $this->template->template( 'day/event', [ 'event' => $event ] );
 		$html = $this->document->html( $template );
 
 		$this->assertEquals(
-			$html->find( '.tribe-events-calendar-list__event' )->count(),
+			$html->find( '.tribe-events-calendar-day__event' )->count(),
 			1,
-			'List Event HTML needs to contain one ".tribe-events-calendar-list__event" element'
+			'Day Event HTML needs to contain one ".tribe-events-calendar-day__event" element'
 		);
 
 		$this->assertFalse(
-			$html->find( '.tribe-events-calendar-list__event' )->is( '.tribe-events-calendar-list__event--featured' ),
-			'List Event HTML shouldnt contain ".tribe-events-calendar-list__event--featured" class if not featured'
+			$html->find( '.tribe-events-calendar-day__event' )->is( '.tribe-events-calendar-day__event--featured' ),
+			'Day Event HTML shouldnt contain ".tribe-events-calendar-day__event--featured" class if not featured'
 		);
 
 	}
@@ -57,13 +57,13 @@ class ListEventTest extends TestHtmlCase {
 
 		$event = tribe_events()->set_args( $args )->create();
 
-		$template = $this->template->template( 'list/event', [ 'event' => $event ] );
+		$template = $this->template->template( 'day/event', [ 'event' => $event ] );
 		$html = $this->document->html( $template );
 
 		$this->assertEquals(
-			$html->find( '.tribe-events-calendar-list__event--featured' )->count(),
+			$html->find( '.tribe-events-calendar-day__event--featured' )->count(),
 			1,
-			'List Event HTML needs to contain one ".tribe-events-calendar-list__event--featured" element when having a featured event'
+			'Day Event HTML needs to contain one ".tribe-events-calendar-day__event--featured" element when having a featured event'
 		);
 
 	}

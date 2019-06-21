@@ -1,10 +1,10 @@
 <?php
-namespace Tribe\Events\Views\V2\Views\HTML\ListView\Event;
+namespace Tribe\Events\Views\V2\Views\HTML\DayView\Event;
 
 use Tribe\Events\Views\V2\TestHtmlCase;
 use Tribe\Events\Test\Factories\Event;
 
-class ListEventDateTest extends TestHtmlCase {
+class DayEventDateTest extends TestHtmlCase {
 
 	public function setUp() {
 		parent::setUp();
@@ -25,19 +25,19 @@ class ListEventDateTest extends TestHtmlCase {
 
 		$event = tribe_events()->set_args( $args )->create();
 
-		$template = $this->template->template( 'list/event/date', [ 'event' => $event ] );
+		$template = $this->template->template( 'day/event/date', [ 'event' => $event ] );
 		$html = $this->document->html( $template );
 
 		$this->assertEquals(
-			$html->find( '.tribe-events-calendar-list__event-datetime-wrapper' )->count(),
+			$html->find( '.tribe-events-calendar-day__event-datetime-wrapper' )->count(),
 			1,
-			'List Event date HTML needs to contain one ".tribe-events-calendar-list__event-datetime-wrapper" element'
+			'Day Event date HTML needs to contain one ".tribe-events-calendar-day__event-datetime-wrapper" element'
 		);
 
 		$this->assertEquals(
-			$html->find( '.tribe-events-calendar-list__event-datetime-featured-icon' )->count(),
+			$html->find( '.tribe-events-calendar-day__event-datetime-featured-icon' )->count(),
 			0,
-			'List Event HTML date shouldnt contain ".tribe-events-calendar-list__event-datetime-featured-icon" class if not featured'
+			'Day Event HTML date shouldnt contain ".tribe-events-calendar-day__event-datetime-featured-icon" class if not featured'
 		);
 
 	}
@@ -57,25 +57,25 @@ class ListEventDateTest extends TestHtmlCase {
 
 		$event = tribe_events()->set_args( $args )->create();
 
-		$template = $this->template->template( 'list/event', [ 'event' => $event ] );
+		$template = $this->template->template( 'day/event', [ 'event' => $event ] );
 		$html = $this->document->html( $template );
 
-		$featured_icon = $html->find( '.tribe-events-calendar-list__event-datetime-featured-icon' );
+		$featured_icon = $html->find( '.tribe-events-calendar-day__event-datetime-featured-icon' );
 
 		$this->assertEquals(
 			$featured_icon->count(),
 			1,
-			'List Event date HTML needs to contain one ".tribe-events-calendar-list__event-datetime-featured-icon" element when having a featured event'
+			'Day Event date HTML needs to contain one ".tribe-events-calendar-day__event-datetime-featured-icon" element when having a featured event'
 		);
 
 		$this->assertTrue(
 			$featured_icon->is( '[aria-label="Featured"]' ),
-			'List event featured icon needs to be aria-label="Featured"'
+			'Day calendar event featured icon needs to be aria-label="Featured"'
 		);
 
 		$this->assertTrue(
 			$featured_icon->is( '[title="Featured"]' ),
-			'List event featured icon needs to be title="Featured"'
+			'Day calendar event featured icon needs to be title="Featured"'
 		);
 
 	}

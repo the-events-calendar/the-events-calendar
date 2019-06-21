@@ -35,7 +35,7 @@ $events = $this->get( 'events' );
 
 		<div class="tribe-events-calendar-list">
 
-			<?php $this->template( 'list/month-separator', [ 'month' => date( 'M' ) ] ); ?>
+			<?php $this->template( 'list/month-separator', [ 'date' => time() ] ); ?>
 
 			<?php foreach ( $events as $event ) : ?>
 
