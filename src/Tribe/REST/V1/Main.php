@@ -132,9 +132,10 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	/**
 	 * Builds and hooks the documentation endpoint
 	 *
+	 * @since 4.5
+	 *
 	 * @param bool $register_routes Whether routes for the endpoint should be registered or not.
 	 *
-	 * @since 4.5
 	 */
 	protected function register_documentation_endpoint( $register_routes = true ) {
 		$endpoint = new Tribe__Events__REST__V1__Endpoints__Swagger_Documentation( $this->get_semantic_version() );
@@ -186,9 +187,10 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	/**
 	 * Builds and hooks the event archives endpoint
 	 *
+	 * @since 4.5
+	 *
 	 * @param bool $register_routes Whether routes for the endpoint should be registered or not.
 	 *
-	 * @since 4.5
 	 */
 	protected function register_event_archives_endpoint( $register_routes = true ) {
 		$messages        = tribe( 'tec.rest-v1.messages' );
@@ -212,9 +214,10 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	/**
 	 * Registers the endpoint that will handle requests for a single event.
 	 *
+	 * @since 4.5
+	 *
 	 * @param bool $register_routes Whether routes for the endpoint should be registered or not.
 	 *
-	 * @since 4.5
 	 */
 	protected function register_single_event_endpoint( $register_routes = true ) {
 		$messages           = tribe( 'tec.rest-v1.messages' );
@@ -271,9 +274,10 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	/**
 	 * Registers the endpoint that will handle requests for a single event slug.
 	 *
+	 * @since 4.5
+	 *
 	 * @param bool $register_routes Whether routes for the endpoint should be registered or not.
 	 *
-	 * @since 4.5
 	 */
 	protected function register_single_event_slug_endpoint( $register_routes = true ) {
 		$messages           = tribe( 'tec.rest-v1.messages' );
@@ -401,9 +405,10 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	/**
 	 * Registers the endpoint that will handle requests for a single venue.
 	 *
+	 * @since 4.6
+	 *
 	 * @param bool $register_routes Whether routes for the endpoint should be registered or not.
 	 *
-	 * @since 4.6
 	 */
 	protected function register_single_venue_endpoint( $register_routes = true ) {
 		$messages        = tribe( 'tec.rest-v1.messages' );
@@ -459,9 +464,10 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	/**
 	 * Registers the endpoint that will handle requests for a single venue slug.
 	 *
+	 * @since 4.6
+	 *
 	 * @param bool $register_routes Whether routes for the endpoint should be registered or not.
 	 *
-	 * @since 4.6
 	 */
 	protected function register_single_venue_slug_endpoint( $register_routes = true ) {
 		$messages        = tribe( 'tec.rest-v1.messages' );
@@ -506,9 +512,10 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	/**
 	 * Registers the endpoint that will handle requests for a single organizer.
 	 *
+	 * @since bucket/full-rest-api
+	 *
 	 * @param bool $register_routes Whether routes for the endpoint should be registered or not.
 	 *
-	 * @since bucket/full-rest-api
 	 */
 	protected function register_single_organizer_endpoint( $register_routes = true ) {
 		$messages        = tribe( 'tec.rest-v1.messages' );
@@ -564,9 +571,10 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	/**
 	 * Registers the endpoint that will handle requests for a single organizer slug.
 	 *
+	 * @since bucket/full-rest-api
+	 *
 	 * @param bool $register_routes Whether routes for the endpoint should be registered or not.
 	 *
-	 * @since bucket/full-rest-api
 	 */
 	protected function register_single_organizer_slug_endpoint( $register_routes = true ) {
 		$messages        = tribe( 'tec.rest-v1.messages' );
@@ -611,9 +619,10 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	/**
 	 * Builds and hooks the venue archives endpoint
 	 *
+	 * @since 4.6
+	 *
 	 * @param bool $register_routes Whether routes for the endpoint should be registered or not.
 	 *
-	 * @since 4.6
 	 */
 	protected function register_venue_archives_endpoint( $register_routes = true ) {
 		$messages        = tribe( 'tec.rest-v1.messages' );
@@ -637,9 +646,10 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	/**
 	 * Builds and hooks the organizer archives endpoint
 	 *
+	 * @since 4.6
+	 *
 	 * @param bool $register_routes Whether routes for the endpoint should be registered or not.
 	 *
-	 * @since 4.6
 	 */
 	protected function register_organizer_archives_endpoint( $register_routes = true ) {
 		$messages        = tribe( 'tec.rest-v1.messages' );
