@@ -125,7 +125,7 @@ class Manager {
 	 *
 	 * @return array  Formatted [ (string|bool) $view_slug, (string|bool) $view_class ]
 	 */
-	public function get_view( string $requested_view ) {
+	public function get_view( $requested_view ) {
 		$view_slug = $this->get_view_slug_by_class( $requested_view );
 		$view_class = $this->get_view_class_by_slug( $requested_view );
 
@@ -156,7 +156,7 @@ class Manager {
 	 *
 	 * @return int|string|false  The slug currently associated to a View class if it is found, `false` otherwise.
 	 */
-	public function get_view_slug_by_class( string $view_class ) {
+	public function get_view_slug_by_class( $view_class ) {
 		$registered_views = $this->get_registered_views();
 
 		return array_search( $view_class, $registered_views, true );
@@ -171,7 +171,7 @@ class Manager {
 	 *
 	 * @return string|false The class currently associated to a View slug if it is found, `false` otherwise.
 	 */
-	public function get_view_class_by_slug( string $slug ) {
+	public function get_view_class_by_slug( $slug ) {
 		$registered_views = $this->get_registered_views();
 
 		return Arr::get( $registered_views, $slug, false );

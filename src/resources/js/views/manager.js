@@ -45,7 +45,7 @@ tribe.events.views.manager = {};
 		link: '[data-js="tribe-events-view-link"]',
 		dataScript: '[data-js="tribe-events-view-data"]',
 		loader: '.tribe-events-view-loader',
-		hiddenElement: '.tribe-common-a11y-hidden'
+		hiddenElement: '.tribe-common-a11y-hidden',
 	};
 
 	/**

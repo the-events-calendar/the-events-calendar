@@ -37,7 +37,7 @@ class ListEventDateTest extends TestHtmlCase {
 		$this->assertEquals(
 			$html->find( '.tribe-events-calendar-list__event-datetime-featured-icon' )->count(),
 			0,
-			'List Event HTML date shouldnt to contain ".tribe-events-calendar-list__event-datetime-featured-icon" class if not featured'
+			'List Event HTML date shouldnt contain ".tribe-events-calendar-list__event-datetime-featured-icon" class if not featured'
 		);
 
 	}
@@ -70,12 +70,12 @@ class ListEventDateTest extends TestHtmlCase {
 
 		$this->assertTrue(
 			$featured_icon->is( '[aria-label="Featured"]' ),
-			'Month calendar event featured icon needs to be aria-label="Featured"'
+			'List event featured icon needs to be aria-label="Featured"'
 		);
 
 		$this->assertTrue(
 			$featured_icon->is( '[title="Featured"]' ),
-			'Month calendar event featured icon needs to be title="Featured"'
+			'List event featured icon needs to be title="Featured"'
 		);
 
 	}

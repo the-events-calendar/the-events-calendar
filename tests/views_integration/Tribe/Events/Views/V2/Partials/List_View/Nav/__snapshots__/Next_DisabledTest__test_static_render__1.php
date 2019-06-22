@@ -1,3 +1,5 @@
-<?php return '<button class="tribe-common-c-nav__next" disabled>
-	Next Events</button>
+<?php return '<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--next">
+	<button class="tribe-events-c-nav__next tribe-common-b2" disabled>
+		Next Events	</button>
+</li>
 ';
