@@ -817,7 +817,7 @@ class View implements View_Interface {
 	 *
 	 * @return string The filtered previous URL.
 	 */
-	protected function filter_view_url( $canonical, string $url ) {
+	protected function filter_view_url( $canonical, $url ) {
 		/**
 		 * Filters the URL returned for a View.
 		 *
