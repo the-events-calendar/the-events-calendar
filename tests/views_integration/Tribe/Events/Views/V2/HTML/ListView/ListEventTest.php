@@ -30,14 +30,14 @@ class ListEventTest extends TestHtmlCase {
 		$html = $this->document->html( $template );
 
 		$this->assertEquals(
-			$html->find( '.tribe-events-calendar-list__event' )->count(),
+			$html->find( '.tribe-events-calendar-list__event-row' )->count(),
 			1,
-			'List Event HTML needs to contain one ".tribe-events-calendar-list__event" element'
+			'List Event HTML needs to contain one ".tribe-events-calendar-list__event-row" element'
 		);
 
 		$this->assertFalse(
-			$html->find( '.tribe-events-calendar-list__event' )->is( '.tribe-events-calendar-list__event--featured' ),
-			'List Event HTML shouldnt contain ".tribe-events-calendar-list__event--featured" class if not featured'
+			$html->find( '.tribe-events-calendar-list__event-row' )->is( '.tribe-events-calendar-list__event-row--featured' ),
+			'List Event HTML shouldnt contain ".tribe-events-calendar-list__event-row--featured" class if not featured'
 		);
 
 	}
@@ -61,9 +61,9 @@ class ListEventTest extends TestHtmlCase {
 		$html = $this->document->html( $template );
 
 		$this->assertEquals(
-			$html->find( '.tribe-events-calendar-list__event--featured' )->count(),
+			$html->find( '.tribe-events-calendar-list__event-row--featured' )->count(),
 			1,
-			'List Event HTML needs to contain one ".tribe-events-calendar-list__event--featured" element when having a featured event'
+			'List Event HTML needs to contain one ".tribe-events-calendar-list__event-row--featured" element when having a featured event'
 		);
 
 	}
