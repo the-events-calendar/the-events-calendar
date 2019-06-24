@@ -49,6 +49,13 @@
 		}
 	}
 
+	.tribe-events-calendar-day__event-header {
+
+		> *:last-child {
+			margin-bottom: 0;
+		}
+	}
+
 	.tribe-events-calendar-day__event-datetime-wrapper {
 		align-items: center;
 		display: flex;
@@ -79,6 +86,16 @@
 
 		@media (--viewport-medium) {
 			margin-bottom: var(--spacer-3);
+		}
+	}
+
+	.tribe-events-calendar-day__event-description {
+		@mixin hidden;
+
+		@media (--viewport-medium) {
+			display: block !important;
+			margin-top: var(--spacer-3);
+			visibility: visible;
 		}
 	}
 
