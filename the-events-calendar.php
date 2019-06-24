@@ -9,6 +9,7 @@ Text Domain: the-events-calendar
 License: GPLv2 or later
 */
 
+
 /*
 Copyright 2009-2012 by Modern Tribe Inc and the contributors
 
