@@ -1492,7 +1492,7 @@
 
 			
 				
-<div class="tribe-events-calendar-month__day tribe-events-calendar-month__day--current" role="gridcell" aria-labelledby="tribe-events-calendar-day-6-21">
+<div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-6-21">
 
 	<button
 		aria-expanded="false" 		aria-selected="false" 		aria-controls="tribe-events-calendar-mobile-day-6-21"
@@ -1733,7 +1733,7 @@
 
 			
 				
-<div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-6-24">
+<div class="tribe-events-calendar-month__day tribe-events-calendar-month__day--current" role="gridcell" aria-labelledby="tribe-events-calendar-day-6-24">
 
 	<button
 		aria-expanded="false" 		aria-selected="false" 		aria-controls="tribe-events-calendar-mobile-day-6-24"
