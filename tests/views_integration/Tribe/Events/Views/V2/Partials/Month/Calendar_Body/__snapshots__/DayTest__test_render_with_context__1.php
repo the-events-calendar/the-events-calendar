@@ -1,5 +1,10 @@
 <?php return '
-<div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-6-16">
+<div
+	class="tribe-events-calendar-month__day"
+	role="gridcell"
+	aria-labelledby="tribe-events-calendar-day-6-16"
+	data-js="tribe-events-month-grid-cell"
+>
 
 	<button
 		aria-expanded="false" 		aria-selected="false" 		aria-controls="tribe-events-calendar-mobile-day-6-16"

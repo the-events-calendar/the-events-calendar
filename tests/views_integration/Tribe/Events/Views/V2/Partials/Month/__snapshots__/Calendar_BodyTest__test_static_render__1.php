@@ -1,11 +1,16 @@
 <?php return '<div class="tribe-events-calendar-month__body" role="rowgroup">
 
 		
-		<div class="tribe-events-calendar-month__week" role="row">
+		<div class="tribe-events-calendar-month__week" role="row" data-js="tribe-events-month-grid-row">
 
 			
 				
-<div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-6-1">
+<div
+	class="tribe-events-calendar-month__day"
+	role="gridcell"
+	aria-labelledby="tribe-events-calendar-day-6-1"
+	data-js="tribe-events-month-grid-cell"
+>
 
 	<button
 		aria-expanded="false" 		aria-selected="false" 		aria-controls="tribe-events-calendar-mobile-day-6-1"
@@ -83,7 +88,12 @@
 
 			
 				
-<div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-6-2">
+<div
+	class="tribe-events-calendar-month__day"
+	role="gridcell"
+	aria-labelledby="tribe-events-calendar-day-6-2"
+	data-js="tribe-events-month-grid-cell"
+>
 
 	<button
 		aria-expanded="false" 		aria-selected="false" 		aria-controls="tribe-events-calendar-mobile-day-6-2"
@@ -174,7 +184,12 @@
 
 			
 				
-<div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-6-3">
+<div
+	class="tribe-events-calendar-month__day"
+	role="gridcell"
+	aria-labelledby="tribe-events-calendar-day-6-3"
+	data-js="tribe-events-month-grid-cell"
+>
 
 	<button
 		aria-expanded="false" 		aria-selected="false" 		aria-controls="tribe-events-calendar-mobile-day-6-3"
@@ -254,7 +269,12 @@
 
 			
 				
-<div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-6-4">
+<div
+	class="tribe-events-calendar-month__day"
+	role="gridcell"
+	aria-labelledby="tribe-events-calendar-day-6-4"
+	data-js="tribe-events-month-grid-cell"
+>
 
 	<button
 		aria-expanded="false" 		aria-selected="false" 		aria-controls="tribe-events-calendar-mobile-day-6-4"
@@ -334,7 +354,12 @@
 
 			
 				
-<div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-6-5">
+<div
+	class="tribe-events-calendar-month__day"
+	role="gridcell"
+	aria-labelledby="tribe-events-calendar-day-6-5"
+	data-js="tribe-events-month-grid-cell"
+>
 
 	<button
 		aria-expanded="false" 		aria-selected="false" 		aria-controls="tribe-events-calendar-mobile-day-6-5"
@@ -412,7 +437,12 @@
 
 			
 				
-<div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-6-6">
+<div
+	class="tribe-events-calendar-month__day"
+	role="gridcell"
+	aria-labelledby="tribe-events-calendar-day-6-6"
+	data-js="tribe-events-month-grid-cell"
+>
 
 	<button
 		aria-expanded="false" 		aria-selected="false" 		aria-controls="tribe-events-calendar-mobile-day-6-6"
@@ -545,7 +575,12 @@
 
 			
 				
-<div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-6-7">
+<div
+	class="tribe-events-calendar-month__day"
+	role="gridcell"
+	aria-labelledby="tribe-events-calendar-day-6-7"
+	data-js="tribe-events-month-grid-cell"
+>
 
 	<button
 		aria-expanded="false" 		aria-selected="false" 		aria-controls="tribe-events-calendar-mobile-day-6-7"
@@ -593,11 +628,16 @@
 		</div>
 
 	
-		<div class="tribe-events-calendar-month__week" role="row">
+		<div class="tribe-events-calendar-month__week" role="row" data-js="tribe-events-month-grid-row">
 
 			
 				
-<div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-6-8">
+<div
+	class="tribe-events-calendar-month__day"
+	role="gridcell"
+	aria-labelledby="tribe-events-calendar-day-6-8"
+	data-js="tribe-events-month-grid-cell"
+>
 
 	<button
 		aria-expanded="false" 		aria-selected="false" 		aria-controls="tribe-events-calendar-mobile-day-6-8"
@@ -643,7 +683,12 @@
 
 			
 				
-<div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-6-9">
+<div
+	class="tribe-events-calendar-month__day"
+	role="gridcell"
+	aria-labelledby="tribe-events-calendar-day-6-9"
+	data-js="tribe-events-month-grid-cell"
+>
 
 	<button
 		aria-expanded="false" 		aria-selected="false" 		aria-controls="tribe-events-calendar-mobile-day-6-9"
@@ -792,7 +837,12 @@
 
 			
 				
-<div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-6-10">
+<div
+	class="tribe-events-calendar-month__day"
+	role="gridcell"
+	aria-labelledby="tribe-events-calendar-day-6-10"
+	data-js="tribe-events-month-grid-cell"
+>
 
 	<button
 		aria-expanded="false" 		aria-selected="false" 		aria-controls="tribe-events-calendar-mobile-day-6-10"
@@ -919,7 +969,12 @@
 
 			
 				
-<div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-6-11">
+<div
+	class="tribe-events-calendar-month__day"
+	role="gridcell"
+	aria-labelledby="tribe-events-calendar-day-6-11"
+	data-js="tribe-events-month-grid-cell"
+>
 
 	<button
 		aria-expanded="false" 		aria-selected="false" 		aria-controls="tribe-events-calendar-mobile-day-6-11"
@@ -965,7 +1020,12 @@
 
 			
 				
-<div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-6-12">
+<div
+	class="tribe-events-calendar-month__day"
+	role="gridcell"
+	aria-labelledby="tribe-events-calendar-day-6-12"
+	data-js="tribe-events-month-grid-cell"
+>
 
 	<button
 		aria-expanded="false" 		aria-selected="false" 		aria-controls="tribe-events-calendar-mobile-day-6-12"
@@ -1011,7 +1071,12 @@
 
 			
 				
-<div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-6-13">
+<div
+	class="tribe-events-calendar-month__day"
+	role="gridcell"
+	aria-labelledby="tribe-events-calendar-day-6-13"
+	data-js="tribe-events-month-grid-cell"
+>
 
 	<button
 		aria-expanded="false" 		aria-selected="false" 		aria-controls="tribe-events-calendar-mobile-day-6-13"
@@ -1057,7 +1122,12 @@
 
 			
 				
-<div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-6-14">
+<div
+	class="tribe-events-calendar-month__day"
+	role="gridcell"
+	aria-labelledby="tribe-events-calendar-day-6-14"
+	data-js="tribe-events-month-grid-cell"
+>
 
 	<button
 		aria-expanded="false" 		aria-selected="false" 		aria-controls="tribe-events-calendar-mobile-day-6-14"
@@ -1105,11 +1175,16 @@
 		</div>
 
 	
-		<div class="tribe-events-calendar-month__week" role="row">
+		<div class="tribe-events-calendar-month__week" role="row" data-js="tribe-events-month-grid-row">
 
 			
 				
-<div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-6-15">
+<div
+	class="tribe-events-calendar-month__day"
+	role="gridcell"
+	aria-labelledby="tribe-events-calendar-day-6-15"
+	data-js="tribe-events-month-grid-cell"
+>
 
 	<button
 		aria-expanded="false" 		aria-selected="false" 		aria-controls="tribe-events-calendar-mobile-day-6-15"
@@ -1155,7 +1230,12 @@
 
 			
 				
-<div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-6-16">
+<div
+	class="tribe-events-calendar-month__day"
+	role="gridcell"
+	aria-labelledby="tribe-events-calendar-day-6-16"
+	data-js="tribe-events-month-grid-cell"
+>
 
 	<button
 		aria-expanded="false" 		aria-selected="false" 		aria-controls="tribe-events-calendar-mobile-day-6-16"
@@ -1254,7 +1334,12 @@
 
 			
 				
-<div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-6-17">
+<div
+	class="tribe-events-calendar-month__day"
+	role="gridcell"
+	aria-labelledby="tribe-events-calendar-day-6-17"
+	data-js="tribe-events-month-grid-cell"
+>
 
 	<button
 		aria-expanded="false" 		aria-selected="false" 		aria-controls="tribe-events-calendar-mobile-day-6-17"
@@ -1300,7 +1385,12 @@
 
 			
 				
-<div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-6-18">
+<div
+	class="tribe-events-calendar-month__day"
+	role="gridcell"
+	aria-labelledby="tribe-events-calendar-day-6-18"
+	data-js="tribe-events-month-grid-cell"
+>
 
 	<button
 		aria-expanded="false" 		aria-selected="false" 		aria-controls="tribe-events-calendar-mobile-day-6-18"
@@ -1346,7 +1436,12 @@
 
 			
 				
-<div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-6-19">
+<div
+	class="tribe-events-calendar-month__day"
+	role="gridcell"
+	aria-labelledby="tribe-events-calendar-day-6-19"
+	data-js="tribe-events-month-grid-cell"
+>
 
 	<button
 		aria-expanded="false" 		aria-selected="false" 		aria-controls="tribe-events-calendar-mobile-day-6-19"
@@ -1419,7 +1514,12 @@
 
 			
 				
-<div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-6-20">
+<div
+	class="tribe-events-calendar-month__day"
+	role="gridcell"
+	aria-labelledby="tribe-events-calendar-day-6-20"
+	data-js="tribe-events-month-grid-cell"
+>
 
 	<button
 		aria-expanded="false" 		aria-selected="false" 		aria-controls="tribe-events-calendar-mobile-day-6-20"
@@ -1492,7 +1592,14 @@
 
 			
 				
-<div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-6-21">
+
+<div
+	class="tribe-events-calendar-month__day tribe-events-calendar-month__day--current"
+	role="gridcell"
+	aria-labelledby="tribe-events-calendar-day-6-21"
+	data-js="tribe-events-month-grid-cell"
+>
+
 
 	<button
 		aria-expanded="false" 		aria-selected="false" 		aria-controls="tribe-events-calendar-mobile-day-6-21"
@@ -1556,11 +1663,16 @@
 		</div>
 
 	
-		<div class="tribe-events-calendar-month__week" role="row">
+		<div class="tribe-events-calendar-month__week" role="row" data-js="tribe-events-month-grid-row">
 
 			
 				
-<div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-6-22">
+<div
+	class="tribe-events-calendar-month__day"
+	role="gridcell"
+	aria-labelledby="tribe-events-calendar-day-6-22"
+	data-js="tribe-events-month-grid-cell"
+>
 
 	<button
 		aria-expanded="false" 		aria-selected="false" 		aria-controls="tribe-events-calendar-mobile-day-6-22"
@@ -1620,7 +1732,12 @@
 
 			
 				
-<div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-6-23">
+<div
+	class="tribe-events-calendar-month__day"
+	role="gridcell"
+	aria-labelledby="tribe-events-calendar-day-6-23"
+	data-js="tribe-events-month-grid-cell"
+>
 
 	<button
 		aria-expanded="false" 		aria-selected="false" 		aria-controls="tribe-events-calendar-mobile-day-6-23"
@@ -1733,7 +1850,14 @@
 
 			
 				
-<div class="tribe-events-calendar-month__day tribe-events-calendar-month__day--current" role="gridcell" aria-labelledby="tribe-events-calendar-day-6-24">
+
+<div
+	class="tribe-events-calendar-month__day"
+	role="gridcell"
+	aria-labelledby="tribe-events-calendar-day-6-24"
+	data-js="tribe-events-month-grid-cell"
+>
+
 
 	<button
 		aria-expanded="false" 		aria-selected="false" 		aria-controls="tribe-events-calendar-mobile-day-6-24"
@@ -1779,7 +1903,12 @@
 
 			
 				
-<div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-6-25">
+<div
+	class="tribe-events-calendar-month__day"
+	role="gridcell"
+	aria-labelledby="tribe-events-calendar-day-6-25"
+	data-js="tribe-events-month-grid-cell"
+>
 
 	<button
 		aria-expanded="false" 		aria-selected="false" 		aria-controls="tribe-events-calendar-mobile-day-6-25"
@@ -1825,7 +1954,12 @@
 
 			
 				
-<div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-6-26">
+<div
+	class="tribe-events-calendar-month__day"
+	role="gridcell"
+	aria-labelledby="tribe-events-calendar-day-6-26"
+	data-js="tribe-events-month-grid-cell"
+>
 
 	<button
 		aria-expanded="false" 		aria-selected="false" 		aria-controls="tribe-events-calendar-mobile-day-6-26"
@@ -1952,7 +2086,12 @@
 
 			
 				
-<div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-6-27">
+<div
+	class="tribe-events-calendar-month__day"
+	role="gridcell"
+	aria-labelledby="tribe-events-calendar-day-6-27"
+	data-js="tribe-events-month-grid-cell"
+>
 
 	<button
 		aria-expanded="false" 		aria-selected="false" 		aria-controls="tribe-events-calendar-mobile-day-6-27"
@@ -2045,7 +2184,12 @@
 
 			
 				
-<div class="tribe-events-calendar-month__day" role="gridcell" aria-labelledby="tribe-events-calendar-day-6-28">
+<div
+	class="tribe-events-calendar-month__day"
+	role="gridcell"
+	aria-labelledby="tribe-events-calendar-day-6-28"
+	data-js="tribe-events-month-grid-cell"
+>
 
 	<button
 		aria-expanded="false" 		aria-selected="false" 		aria-controls="tribe-events-calendar-mobile-day-6-28"
