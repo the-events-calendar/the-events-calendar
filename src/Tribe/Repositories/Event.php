@@ -1044,10 +1044,12 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 					}
 
 					$date = new DateTime( $meta_value, $timezone );
+
+					$postarr['meta_input']["_Event{$check}Date"] = $date->format( $datetime_format );
+
 					$utc_date = $date->setTimezone( $utc );
 
 					// Set the localized and UTC date/time from local date/time and timezone; if provided override it.
-					$postarr[ 'meta_input' ][ "_Event{$check}Date" ] = $date->format( $datetime_format );
 					$postarr[ 'meta_input' ][ "_Event{$check}DateUTC" ] = $utc_date->format( $datetime_format );
 					$dates_changed[ $check ]                        = $utc_date;
 				}
