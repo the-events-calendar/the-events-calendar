@@ -59,7 +59,6 @@ tribe.events.views.eventsBar = {};
 
 		// Set the focus class if it has content.
 		$input.toggleClass( event.data.inputClassFocus, '' !== $input.val().trim() );
-
 	};
 
 	/**
@@ -80,7 +79,6 @@ tribe.events.views.eventsBar = {};
 		$container
 			.find( obj.selectors.inputKeyword )
 			.each( function( index, input ) {
-				console.log( $( input ).val() );
 				$( input ).toggleClass( obj.selectors.inputKeywordFocus.className(), '' !== $( input ).val().trim() );
 				$( input ).on( 'change', { target: $( this ), inputClassFocus: obj.selectors.inputKeywordFocus.className() }, obj.setInputFocusClass );
 			} );
