@@ -175,22 +175,31 @@
 
 		<div class="tribe-events-calendar-list">
 
-			<div class="tribe-events-calendar-list__separator-month">
+			<div class="tribe-events-calendar-list__month-separator">
 	<time
-		class="tribe-events-calendar-list__separator-month-text tribe-common-h7 tribe-common-h7--alt"
+		class="tribe-events-calendar-list__month-separator-text tribe-common-h7 tribe-common-h7--alt"
 		datetime="2019-01"
 	>
 		Jan 2019	</time>
 </div>
 
 			
-				<article class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-list__event tribe-events-calendar-list__event--featured">
+				<div class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-list__event-row tribe-events-calendar-list__event-row--featured">
 
-	
-	<div class="tribe-events-calendar-list__event-details tribe-common-g-col">
+	<div class="tribe-events-calendar-list__event-date-tag tribe-common-g-col">
+	<time class="tribe-events-calendar-list__event-date-tag-datetime" datetime="1970-01-01T00:00:00+00:00">
+		<span class="tribe-events-calendar-list__event-date-tag-weekday">Wed</span>
+		<span class="tribe-events-calendar-list__event-date-tag-daynum tribe-common-h5 tribe-common-h4--min-medium">05</span>
+	</time>
+</div>
 
-		<header class="tribe-events-calendar-list__event-header">
-			<div class="tribe-events-calendar-list__event-datetime-wrapper">
+	<div class="tribe-events-calendar-list__event-wrapper tribe-common-g-col">
+		<article class="tribe-events-calendar-list__event tribe-common-g-row tribe-common-g-row--gutters">
+			
+			<div class="tribe-events-calendar-list__event-details tribe-common-g-col">
+
+				<header class="tribe-events-calendar-list__event-header">
+					<div class="tribe-events-calendar-list__event-datetime-wrapper">
 	<time class="tribe-events-calendar-list__event-datetime tribe-common-b2" datetime="1970-01-01T00:00:00+00:00">
 		<span class="tribe-event-date-start">January 1 @ 9:00 am</span>	</time>
 			<em
@@ -200,7 +209,7 @@
 		>
 		</em>
 	</div>
-			<h3 class="tribe-events-calendar-list__event-title tribe-common-h6 tribe-common-h5--min-medium">
+					<h3 class="tribe-events-calendar-list__event-title tribe-common-h6 tribe-common-h5--min-medium">
 	<a
 		href="http://test.tri.be/?tribe_events=test-event-9-days-2%2F"
 		title=""
@@ -209,10 +218,10 @@
 	>
 		Test Event &#8211; +9 days	</a>
 </h3>
-			<address class="tribe-events-calendar-list__event-venue">
-	<span class="tribe-events-calendar-list__event-venue-title tribe-common-b2 tribe-common-b2--bold">
+					<address class="tribe-events-calendar-list__event-venue tribe-common-b2">
+	<span class="tribe-events-calendar-list__event-venue-title tribe-common-b2--bold">
 		Venue Name	</span>
-	<span class="tribe-events-calendar-list__event-venue-address tribe-common-b2">
+	<span class="tribe-events-calendar-list__event-venue-address">
 		<span class="tribe-address">
 
 
@@ -223,27 +232,38 @@
 </span>
 	</span>
 </address>
-		</header>
+				</header>
 
-		<div class="tribe-events-calendar-list__event-description tribe-common-b2">
+				<div class="tribe-events-calendar-list__event-description tribe-common-b2">
 	</div>
 
+			</div>
+		</article>
 	</div>
 
-</article>
+</div>
 
 			
-				<article class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-list__event">
+				<div class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-list__event-row">
 
-	
-	<div class="tribe-events-calendar-list__event-details tribe-common-g-col">
+	<div class="tribe-events-calendar-list__event-date-tag tribe-common-g-col">
+	<time class="tribe-events-calendar-list__event-date-tag-datetime" datetime="1970-01-01T00:00:00+00:00">
+		<span class="tribe-events-calendar-list__event-date-tag-weekday">Wed</span>
+		<span class="tribe-events-calendar-list__event-date-tag-daynum tribe-common-h5 tribe-common-h4--min-medium">05</span>
+	</time>
+</div>
 
-		<header class="tribe-events-calendar-list__event-header">
-			<div class="tribe-events-calendar-list__event-datetime-wrapper">
+	<div class="tribe-events-calendar-list__event-wrapper tribe-common-g-col">
+		<article class="tribe-events-calendar-list__event tribe-common-g-row tribe-common-g-row--gutters">
+			
+			<div class="tribe-events-calendar-list__event-details tribe-common-g-col">
+
+				<header class="tribe-events-calendar-list__event-header">
+					<div class="tribe-events-calendar-list__event-datetime-wrapper">
 	<time class="tribe-events-calendar-list__event-datetime tribe-common-b2" datetime="1970-01-01T00:00:00+00:00">
 		<span class="tribe-event-date-start">January 1 @ 9:00 am</span>	</time>
 	</div>
-			<h3 class="tribe-events-calendar-list__event-title tribe-common-h6 tribe-common-h5--min-medium">
+					<h3 class="tribe-events-calendar-list__event-title tribe-common-h6 tribe-common-h5--min-medium">
 	<a
 		href="http://test.tri.be/?tribe_events=single-event-1%2F"
 		title=""
@@ -252,10 +272,10 @@
 	>
 		Single Event 1	</a>
 </h3>
-			<address class="tribe-events-calendar-list__event-venue">
-	<span class="tribe-events-calendar-list__event-venue-title tribe-common-b2 tribe-common-b2--bold">
+					<address class="tribe-events-calendar-list__event-venue tribe-common-b2">
+	<span class="tribe-events-calendar-list__event-venue-title tribe-common-b2--bold">
 		Venue Name	</span>
-	<span class="tribe-events-calendar-list__event-venue-address tribe-common-b2">
+	<span class="tribe-events-calendar-list__event-venue-address">
 		<span class="tribe-address">
 
 
@@ -266,14 +286,16 @@
 </span>
 	</span>
 </address>
-		</header>
+				</header>
 
-		<div class="tribe-events-calendar-list__event-description tribe-common-b2">
+				<div class="tribe-events-calendar-list__event-description tribe-common-b2">
 	</div>
 
+			</div>
+		</article>
 	</div>
 
-</article>
+</div>
 
 			
 		</div>
