@@ -46,7 +46,7 @@ tribe.events.views.eventsBar = {};
 	};
 
 	/**
-	 * Toggles accordion on header click
+	 * Toggles input class if it has a value
 	 *
 	 * @since TBD
 	 *
@@ -54,7 +54,7 @@ tribe.events.views.eventsBar = {};
 	 *
 	 * @return {void}
 	 */
-	obj.inputSetFocusMaybe = function( event ) {
+	obj.setInputFocusClass = function( event ) {
 		var $input = $( event.target );
 
 		// Set the focus class if it has content.
@@ -82,7 +82,7 @@ tribe.events.views.eventsBar = {};
 			.each( function( index, input ) {
 				console.log( $( input ).val() );
 				$( input ).toggleClass( obj.selectors.inputKeywordFocus.className(), '' !== $( input ).val().trim() );
-				$( input ).on( 'change', { target: $( this ), inputClassFocus: obj.selectors.inputKeywordFocus.className() }, obj.inputSetFocusMaybe );
+				$( input ).on( 'change', { target: $( this ), inputClassFocus: obj.selectors.inputKeywordFocus.className() }, obj.setInputFocusClass );
 			} );
 
 		// Bind event for the location input.
@@ -90,7 +90,7 @@ tribe.events.views.eventsBar = {};
 			.find( obj.selectors.inputLocation )
 			.each( function( index, input ) {
 				$( input ).toggleClass( obj.selectors.inputLocationFocus, '' !==  $( input ).val().trim() );
-				$( input ).on( 'change', { target: $( this ), inputClassFocus: obj.selectors.inputLocationFocus.className() }, obj.inputSetFocusMaybe );
+				$( input ).on( 'change', { target: $( this ), inputClassFocus: obj.selectors.inputLocationFocus.className() }, obj.setInputFocusClass );
 			} );
 	};
 
