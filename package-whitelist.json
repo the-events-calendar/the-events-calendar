@@ -17,7 +17,7 @@
   "vendor/autoload_commands.php",
   "vendor/autoload_framework.php",
   "vendor/composer/*",
-  "vendor/tribe-common-libraries/**/*"
+  "vendor/tribe-common-libraries/**/*",
   "vendor/bootstrap-datepicker/css/*.css",
   "vendor/bootstrap-datepicker/js/*.js",
   "vendor/chosen/public/*.css",
@@ -29,5 +29,5 @@
   "vendor/jquery/*.css",
   "vendor/jquery/smoothness/*.css",
   "vendor/jquery/smoothness/images/*.png",
-  "vendor/php-date-formatter/js/*.js",
+  "vendor/php-date-formatter/js/*.js"
 ]
