@@ -55,7 +55,7 @@ tribe.events.views.eventsBar = {};
 	 * @return {void}
 	 */
 	obj.setInputFocusClass = function( event ) {
-		var $input = $( event.target );
+		var $input = event.data.target;
 
 		// Set the focus class if it has content.
 		$input.toggleClass( event.data.inputClassFocus, '' !== $input.val().trim() );
