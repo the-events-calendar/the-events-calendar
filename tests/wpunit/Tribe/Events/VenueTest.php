@@ -240,12 +240,6 @@ class VenueTest extends Events_TestCase {
 	 * @test
 	 */
 	public function it_should_not_consider_draft_and_pending_events_when_getting_venues_with_events() {
-		/**
-		 * @todo: remove once issue in PR below is addressed.
-		 *        https://github.com/moderntribe/tribe-common/pull/1034#issuecomment-504287853
-		 */
-		$this->markTestSkipped( 'Skip test until common is fixed' );
-
 		$venue_1 = $this->factory()->venue->create();
 		$venue_2 = $this->factory()->venue->create();
 		$venue_3 = $this->factory()->venue->create();
@@ -255,7 +249,10 @@ class VenueTest extends Events_TestCase {
 
 		$sut = $this->make_instance();
 		$this->assertEquals( [ $venue_1 ], $sut->find_with_events( true ) );
-		$this->assertEquals( [ $venue_1, $venue_2, $venue_3 ], $sut->find_with_events( true, [] ) );
+		$expected = [ $venue_1, $venue_2, $venue_3 ];
+		$result = $sut->find_with_events( true, [] );
+		$this->assertCount( count( $expected ), $result );
+		$this->assertEmpty( array_diff( $expected, $result ) );
 	}
 
 	/**

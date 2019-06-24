@@ -9,16 +9,16 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.3
+ * @version TBD
  *
  */
 $date  = $this->get( 'date' );
 $month = date( 'M', $date );
 $year  = date( 'Y', $date );
 ?>
-<div class="tribe-events-calendar-list__separator-month">
+<div class="tribe-events-calendar-list__month-separator">
 	<time
-		class="tribe-events-calendar-list__separator-month-text tribe-common-h7 tribe-common-h7--alt"
+		class="tribe-events-calendar-list__month-separator-text tribe-common-h7 tribe-common-h7--alt"
 		datetime="<?php echo esc_attr( $year ); ?>-<?php echo esc_attr( date( 'm', $date ) ); ?>"
 	>
 		<?php echo esc_html( $month ); ?> <?php echo esc_html( $year ); ?>
