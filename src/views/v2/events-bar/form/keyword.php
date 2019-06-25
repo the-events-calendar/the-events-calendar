@@ -15,7 +15,7 @@
  *
  */
 ?>
-<div class="tribe-common-form-control-text tribe-common-form-control-text__input-keyword">
+<div class="tribe-common-form-control-text tribe-common-c-search__input-control--keyword">
 	<label class="tribe-common-form-control-text__label" for="keyword"><?php esc_html_e( 'Enter Keyword. Search for Events by Keyword.', 'the-events-calendar' ); ?></label>
 	<input
 		class="tribe-common-form-control-text__input tribe-common-c-search__input tribe-common-c-search__input--icon"
