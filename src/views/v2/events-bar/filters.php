@@ -14,6 +14,8 @@
  */
 
 // @todo: This code will live in Filterbar. Move it, with this format.
-//<div class="tribe-events-c-events-bar__filters">
-//	<button class="tribe-events-c-events-bar__filters-button"><?php esc_html_e( 'Filter', 'the-events-calendar' ); ?></button>
-//</div>
+/*
+<div class="tribe-events-c-events-bar__filters">
+	<button class="tribe-events-c-events-bar__filters-button"><?php esc_html_e( 'Filter', 'the-events-calendar' ); ?></button>
+</div>
+*/
