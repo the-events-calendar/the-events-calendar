@@ -32,7 +32,12 @@ $mobile_day_id = 'tribe-events-calendar-mobile-day-' . $month_number . '-' . $da
 
 ?>
 
-<div class="<?php echo esc_attr( implode( ' ', $day_classes ) ) ?>" role="gridcell" aria-labelledby="<?php echo esc_attr( $day_id ); ?>">
+<div
+	class="<?php echo esc_attr( implode( ' ', $day_classes ) ) ?>"
+	role="gridcell"
+	aria-labelledby="<?php echo esc_attr( $day_id ); ?>"
+	data-js="tribe-events-month-grid-cell"
+>
 
 	<button
 		aria-expanded="false" <?php // @todo: only add if events exist on the day ?>

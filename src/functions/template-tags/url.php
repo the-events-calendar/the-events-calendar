@@ -16,6 +16,6 @@ use Tribe__Events__Rewrite as Rewrite;
  *
  * @return string              Final clean and canonical URL for events.
  */
-function tribe_events_get_url( $query = [], string $url = null ) {
+function tribe_events_get_url( $query = [], $url = null ) {
 	return Rewrite::instance()->get_clean_url( add_query_arg( $query, $url ) );
 }

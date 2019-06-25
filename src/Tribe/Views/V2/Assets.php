@@ -66,6 +66,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 				'tribe-events-views-v2-view-selector',
 				'tribe-events-views-v2-month-multiday-events',
 				'tribe-events-views-v2-month-mobile-events',
+				'tribe-events-views-v2-month-grid',
 				'tribe-events-views-v2-tooltip',
 				'tribe-events-views-v2-events-bar',
 			],
@@ -115,6 +116,17 @@ class Assets extends \tad_DI52_ServiceProvider {
 			'tribe-events-views-v2-month-mobile-events',
 			'views/month-mobile-events.js',
 			[ 'jquery', 'tribe-common', 'tribe-events-views-v2-accordion' ],
+			null,
+			[
+				'priority'     => 10,
+			]
+		);
+
+		tribe_asset(
+			$plugin,
+			'tribe-events-views-v2-month-grid',
+			'views/month-grid.js',
+			[ 'jquery', 'tribe-common' ],
 			null,
 			[
 				'priority'     => 10,
