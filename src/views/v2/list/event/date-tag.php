@@ -10,7 +10,6 @@
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
  * @version TBD
- *
  */
 
 $event = $this->get( 'event' );

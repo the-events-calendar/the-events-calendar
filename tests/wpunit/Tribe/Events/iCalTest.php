@@ -2,16 +2,20 @@
 
 namespace Tribe\Events;
 
+use Codeception\TestCase\WPTestCase;
+use Tribe\Events\Test\Factories\Event;
 use Tribe__Events__iCal as iCal;
 use Tribe__Events__API;
 use WP_Post;
 
-class iCalTest extends \Codeception\TestCase\WPTestCase {
+class iCalTest extends WPTestCase {
 	protected $post_example_settings;
 
 	public function setUp() {
 		// before
 		parent::setUp();
+
+		$this->factory()->event = new Event();
 
 		// your set up methods here
 		$this->post_example_settings = array(
@@ -238,4 +242,78 @@ class iCalTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $ical_link_single_via_object, $ical_link_single_via_function, 'Check that the function and object get the same result' );
 	}
 
+	/**
+	 * It should generate the iCal content
+	 *
+	 * @dataProvider ical_content_provider
+	 *
+	 * @test
+	 */
+	public function should_generate_the_ical_content( $args, $expected = '' ) {
+		$event = $this->factory()->event->create( $args );
+
+		$sut = $this->make_instance();
+
+		$this->assertStringContainsString( $expected, $sut->generate_ical_feed( get_post( $event ), false ) );
+	}
+
+	public function ical_content_provider() {
+		return [
+			[
+				[
+				'when' => '2019-01-01',
+				'duration' => DAY_IN_SECONDS,
+				'meta_input' => [ '_EventTimezone' => 'UTC' ]
+				],
+				"BEGIN:VTIMEZONE\r\nTZID:\"UTC\"\r\nBEGIN:STANDARD\r\nTZOFFSETFROM:+0000\r\nTZOFFSETTO:+0000\r\nTZNAME:UTC\r\nDTSTART:20190101T000000\r\nEND:STANDARD\r\nEND:VTIMEZONE\r\n"
+			],
+			[
+				[
+					'when' => '2019-03-08',
+					'duration' => DAY_IN_SECONDS * 5,
+					'meta_input' => [ '_EventTimezone' => 'America/New_York' ]
+				],
+				"BEGIN:VTIMEZONE\r\nTZID:\"America/New_York\"\r\nBEGIN:DAYLIGHT\r\nTZOFFSETFROM:-0500\r\nTZOFFSETTO:-0400\r\nTZNAME:EDT\r\nDTSTART:20190310T070000\r\nEND:DAYLIGHT\r\nBEGIN:STANDARD\r\nTZOFFSETFROM:-0400\r\nTZOFFSETTO:-0500\r\nTZNAME:EST\r\nDTSTART:20191103T060000\r\nEND:STANDARD\r\nEND:VTIMEZONE\r\n"
+			],
+			[
+				[
+					'when' => '2019-11-02',
+					'duration' => DAY_IN_SECONDS * 5,
+					'meta_input' => [ '_EventTimezone' => 'America/Los_Angeles' ]
+				],
+				"BEGIN:VTIMEZONE\r\nTZID:\"America/Los_Angeles\"\r\nBEGIN:DAYLIGHT\r\nTZOFFSETFROM:-0800\r\nTZOFFSETTO:-0700\r\nTZNAME:PDT\r\nDTSTART:20190310T100000\r\nEND:DAYLIGHT\r\nBEGIN:STANDARD\r\nTZOFFSETFROM:-0700\r\nTZOFFSETTO:-0800\r\nTZNAME:PST\r\nDTSTART:20191103T090000\r\nEND:STANDARD\r\nEND:VTIMEZONE\r\n"
+			],
+		];
+	}
+
+	/**
+	 * It should parse the event details
+	 *
+	 * @test
+	 */
+	public function should_parse_the_event_details() {
+		$args = [
+			'post_title' => 'Long words with "quotes" on it',
+			'post_content' => "Sample
+Text
+WITH  
+multiple lines",
+		];
+		$event = $this->factory()->event->create( $args );
+
+		$sut = $this->make_instance();
+		$event = get_post( $event );
+		$ical = $sut->generate_ical_feed( $event, false );
+
+		$this->assertStringContainsString( "SUMMARY:" . $args['post_title'], $ical );
+
+		$content = apply_filters( 'the_content', tribe( 'editor.utils' )->exclude_tribe_blocks( $event->post_content ) );
+
+		$content =  str_replace(
+			[  ',', "\n", "\r"  ],
+			[  '\,', '\n', '' ],
+			strip_tags( str_replace( '</p>', '</p> ', $content ) )
+		);
+		$this->assertStringContainsString( "DESCRIPTION:" . $content, $ical );
+	}
 }
