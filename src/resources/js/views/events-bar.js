@@ -42,6 +42,7 @@ tribe.events.views.eventsBar = {};
 	obj.selectors = {
 		eventsBar: '',
 		tabList: '',
+		tab: '',
 		searchTab: '',
 		filterTab: '',
 		searchTabPanel: '',
@@ -135,25 +136,65 @@ tribe.events.views.eventsBar = {};
 	 *
 	 * @param {array} tabs array of jQuery objects of tabs
 	 * @param {array} tabPanels array of jQuery objects of tabPanels
-	 * @param {integer} index index of tab to be selected
+	 * @param {jQuery} $tab jQuery object of tab to be selected
 	 *
 	 * @return {void}
 	 */
-	obj.selectTab = function( tabs, tabPanels, index ) {
+	obj.selectTab = function( tabs, tabPanels, $tab ) {
 		obj.deselectTabs( tabs );
 		obj.hideTabPanels( tabPanels );
 
-		tabs[ index ]
+		$tab
 			.attr( 'aria-selected', 'true' )
 			.removeAttr( 'tabindex' );
 
-		tabs[ index ]
-			.find( '#' + tabs[ index ].attr( 'aria-controls' ) )
+		$tab
+			.find( '#' + $tab.attr( 'aria-controls' ) )
 			.removeProp( 'hidden' );
 	};
 
 	/**
-	 * Handles 'keydown' event on tabs
+	 * Gets current tab index
+	 *
+	 * @since TBD
+	 *
+	 * @param {array} tabs array of jQuery objects of tabs
+	 *
+	 * @return {integer} index of current tab
+	 */
+	obj.getCurrentTab = function( tabs ) {
+		var currentTab;
+
+		tabs.forEach( function( $tab, index ) {
+			if ( $tab.is( document.activeElement ) ) {
+				currentTab = index;
+			}
+		} );
+
+		return currentTab;
+	};
+
+	/**
+	 * Handles 'click' event on tab
+	 *
+	 * @since TBD
+	 *
+	 * @param {Event} event event object of click event
+	 *
+	 * @return {void}
+	 */
+	obj.handleClick = function( event ) {
+		var $eventsBar = $( event.data.eventsBar );
+		var state = $eventsBar.data( 'state' );
+		var tabs = state.tabs;
+		var tabPanels = state.tabPanels;
+		var selectedTab = $( event.target ).closest( obj.selectors.tab );
+
+		obj.selectTab( tabs, tabPanels, selectedTab );
+	};
+
+	/**
+	 * Handles 'keydown' event on tab
 	 *
 	 * @since TBD
 	 *
@@ -167,20 +208,15 @@ tribe.events.views.eventsBar = {};
 		var state = $eventsBar.data( 'state' );
 		var tabs = state.tabs;
 		var tabPanels = state.tabPanels;
-		var currentTab = state.currentTab;
+		var currentTab = obj.getCurrentTab( tabs );
 		var nextTab;
 
 		switch ( key ) {
 			case obj.keyCode.LEFT:
-				nextTab = 0 === state.currentTab ? tabs.length - 1 : currentTab - 1;
+				nextTab = 0 === currentTab ? tabs.length - 1 : currentTab - 1;
 				break;
 			case obj.keyCode.RIGHT:
-				nextTab = tabs.length - 1 === state.currentTab ? 0 : currentTab + 1;
-				if ( tabs.length - 1 === state.currentTab ) {
-					nextTab = 0;
-				} else {
-					nextTab = currentTab + 1;
-				}
+				nextTab = tabs.length - 1 === currentTab ? 0 : currentTab + 1;
 				break;
 			case obj.keyCode.HOME:
 				nextTab = 0;
@@ -192,9 +228,7 @@ tribe.events.views.eventsBar = {};
 				return;
 		}
 
-		obj.selectTab( tabs, tabPanels, nextTab );
-		state.currentTab = nextTab;
-		$eventsBar.data( 'state', state );
+		obj.selectTab( tabs, tabPanels, tabs[ nextTab ] );
 		event.preventDefault();
 	};
 
@@ -218,13 +252,15 @@ tribe.events.views.eventsBar = {};
 			.removeAttr( 'aria-selected' )
 			.removeAttr( 'aria-controls' )
 			.removeAttr( 'tabindex' )
-			.off( 'keydown', obj.handleKeydown );
+			.off( 'keydown', obj.handleKeydown )
+			.off( 'click', obj.handleClick );
 		$filterTab
 			.removeAttr( 'role' )
 			.removeAttr( 'aria-selected' )
 			.removeAttr( 'aria-controls' )
 			.removeAttr( 'tabindex' )
-			.off( 'keydown', obj.handleKeydown );
+			.off( 'keydown', obj.handleKeydown )
+			.off( 'click', obj.handleClick );
 		$searchTabPanel
 			.removeAttr( 'role' )
 			.removeAttr( 'aria-labelledby' )
@@ -255,13 +291,15 @@ tribe.events.views.eventsBar = {};
 			.attr( 'role', 'tab' )
 			.attr( 'aria-selected', 'true' )
 			.attr( 'aria-controls', $searchTabPanel.attr( 'id' ) )
-			.on( 'keydown', { eventsBar: $eventsBar }, obj.handleKeydown );
+			.on( 'keydown', { eventsBar: $eventsBar }, obj.handleKeydown )
+			.on( 'click', { eventsBar: $eventsBar }, obj.handleClick );
 		$filterTab
 			.attr( 'role', 'tab' )
 			.attr( 'aria-selected', 'false' )
 			.attr( 'aria-controls', $filterTabPanel.attr( 'id' ) )
 			.attr( 'tabindex', '-1' )
-			.on( 'keydown', { eventsBar: $eventsBar }, obj.handleKeydown );
+			.on( 'keydown', { eventsBar: $eventsBar }, obj.handleKeydown )
+			.on( 'click', { eventsBar: $eventsBar }, obj.handleClick );
 		$searchTabPanel
 			.attr( 'role', 'tabpanel' )
 			.attr( 'aria-labelledby', $searchTab.attr( 'id' ) );
