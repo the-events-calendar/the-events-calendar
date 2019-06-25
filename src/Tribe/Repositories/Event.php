@@ -5,6 +5,7 @@
  * @since 4.9
  */
 
+use Tribe__Date_Utils as Dates;
 use Tribe__Timezones as Timezones;
 
 /**
@@ -1043,9 +1044,12 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 					}
 
 					$date = new DateTime( $meta_value, $timezone );
+
+					$postarr['meta_input']["_Event{$check}Date"] = $date->format( $datetime_format );
+
 					$utc_date = $date->setTimezone( $utc );
 
-					// Set the UTC date/time from local date/time and timezone; if provided override it.
+					// Set the localized and UTC date/time from local date/time and timezone; if provided override it.
 					$postarr[ 'meta_input' ][ "_Event{$check}DateUTC" ] = $utc_date->format( $datetime_format );
 					$dates_changed[ $check ]                        = $utc_date;
 				}
@@ -1075,6 +1079,15 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			// Sanity check, an event should end after its start.
 			$start = $this->get_from_postarr_or_meta( $postarr, '_EventStartDate', $post_id );
 			$end   = $this->get_from_postarr_or_meta( $postarr, '_EventEndDate', $post_id );
+			$duration   = $this->get_from_postarr_or_meta( $postarr, '_EventDuration', $post_id );
+
+			if ( isset( $start, $duration ) && empty( $end ) ) {
+				// Let's work out the End from Start and Duration if not set.
+				$duration_interval = new DateInterval( 'PT' . (int) $duration . 'S' );
+				$end      = Dates::build_date_object( $start, $timezone )
+				                 ->add( $duration_interval )
+				                 ->format( $datetime_format );
+			}
 
 			$dates_make_sense = true;
 

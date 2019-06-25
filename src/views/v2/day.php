@@ -36,6 +36,8 @@ $events = $this->get( 'events' );
 
 		<div class="tribe-events-calendar-day">
 
+			<?php $this->template( 'day/time-separator' ); ?>
+
 			<?php foreach ( $events as $event ) : ?>
 
 				<?php $this->template( 'day/event', [ 'event' => $event ] ); ?>
