@@ -1854,6 +1854,7 @@
 	aria-labelledby="tribe-events-calendar-day-6-24"
 	data-js="tribe-events-month-grid-cell"
 >
+
 	<button
 		aria-expanded="false" 		aria-selected="false" 		aria-controls="tribe-events-calendar-mobile-day-6-24"
 		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
