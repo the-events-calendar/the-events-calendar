@@ -72,13 +72,13 @@ tribe.events.views.accordion = {};
 	 * @return {void}
 	 */
 	obj.openAccordion = function( $header, $content ) {
-		// set accessibility attributes
-		$header.attr( 'aria-expanded', 'true' );
-		$header.attr( 'aria-selected', 'true' );
-		$content.attr( 'aria-hidden', 'false' );
-
-		// add inline css
-		$content.css( 'display', 'block' );
+		// set accessibility attributes and styles
+		$header
+			.attr( 'aria-expanded', 'true' )
+			.attr( 'aria-selected', 'true' );
+		$content
+			.attr( 'aria-hidden', 'false' )
+			.css( 'display', 'block' );
 	};
 
 	/**
@@ -92,13 +92,13 @@ tribe.events.views.accordion = {};
 	 * @return {void}
 	 */
 	obj.closeAccordion = function( $header, $content ) {
-		// set accessibility attributes
-		$header.attr( 'aria-expanded', 'false' );
-		$header.attr( 'aria-selected', 'false' );
-		$content.attr( 'aria-hidden', 'true' );
-
-		// remove inline css
-		$content.css( 'display', '' );
+		// set accessibility attributes and styles
+		$header
+			.attr( 'aria-expanded', 'false' )
+			.attr( 'aria-selected', 'false' );
+		$content
+			.attr( 'aria-hidden', 'true' )
+			.css( 'display', '' );
 	};
 
 	/**
@@ -124,6 +124,35 @@ tribe.events.views.accordion = {};
 	};
 
 	/**
+	 * Deinitializes accordion
+	 *
+	 * @since TBD
+	 *
+	 * @param {integer} index jQuery.each index param
+	 * @param {HTMLElement} header header element from which to remove event
+	 *
+	 * @return {void}
+	 */
+	obj.deinitAccordion = function( index, header ) {
+		$( header ).off( 'click', obj.toggleAccordion );
+	};
+
+	/**
+	 * Initializes accordion
+	 *
+	 * @since TBD
+	 *
+	 * @param {jQuery} $container jQuery object of view container
+	 *
+	 * @return {function} function to add event listener to header
+	 */
+	obj.initAccordion = function( $container ) {
+		return function( index, header ) {
+			$( header ).on( 'click', { target: this, container: $container }, obj.toggleAccordion );
+		};
+	};
+
+	/**
 	 * Binds events for accordion click listeners
 	 *
 	 * @since TBD
@@ -138,9 +167,7 @@ tribe.events.views.accordion = {};
 	obj.bindEvents = function( event, index, $container, data ) {
 		$container
 			.find( obj.selectors.accordionTrigger )
-			.each( function( index, header ) {
-				$( header ).on( 'click', { target: this, container: $container }, obj.toggleAccordion );
-			} );
+			.each( obj.initAccordion( $container ) );
 	};
 
 	/**

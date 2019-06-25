@@ -42,8 +42,10 @@ tribe.events.views.eventsBar = {};
 	obj.selectors = {
 		eventsBar: '',
 		tabList: '',
-		searchButton: '',
-		filterButton: '',
+		searchTab: '',
+		filterTab: '',
+		searchTabPanel: '',
+		filterTabPanel: '',
 		hasFilterBarClass: '',
 	};
 
@@ -80,7 +82,7 @@ tribe.events.views.eventsBar = {};
 	 * @type {PlainObject}
 	 */
 	obj.state = {
-		is_mobile: true,
+		isMobile: true,
 	};
 
 	/**
@@ -88,10 +90,281 @@ tribe.events.views.eventsBar = {};
 	 *
 	 * @since TBD
 	 *
-	 * @returns {void}
+	 * @return {void}
 	 */
 	obj.setViewport = function() {
-		obj.state.is_mobile = $window.width() < obj.options.MOBILE_BREAKPOINT;
+		obj.state.isMobile = $window.width() < obj.options.MOBILE_BREAKPOINT;
+	};
+
+	/**
+	 * Deselects all tabs
+	 *
+	 * @since TBD
+	 *
+	 * @param {array} tabs array of jQuery objects of tabs
+	 *
+	 * @return {void}
+	 */
+	obj.deselectTabs = function( tabs ) {
+		tabs.forEach( function( $tab ) {
+			$tab
+				.attr( 'tabindex', '-1' )
+				.attr( 'aria-selected', 'false' );
+		} );
+	};
+
+	/**
+	 * Hides all tab panels
+	 *
+	 * @since TBD
+	 *
+	 * @param {array} tabPanels array of jQuery objects of tabPanels
+	 *
+	 * @return {void}
+	 */
+	obj.hideTabPanels = function( tabPanels ) {
+		tabPanels.forEach( function( $tabPanel ) {
+			$tabPanel.prop( 'hidden' );
+		} );
+	};
+
+	/**
+	 * Select tab based on index
+	 *
+	 * @since TBD
+	 *
+	 * @param {array} tabs array of jQuery objects of tabs
+	 * @param {array} tabPanels array of jQuery objects of tabPanels
+	 * @param {integer} index index of tab to be selected
+	 *
+	 * @return {void}
+	 */
+	obj.selectTab = function( tabs, tabPanels, index ) {
+		obj.deselectTabs( tabs );
+		obj.hideTabPanels( tabPanels );
+
+		tabs[ index ]
+			.attr( 'aria-selected', 'true' )
+			.removeAttr( 'tabindex' );
+
+		tabs[ index ]
+			.find( '#' + tabs[ index ].attr( 'aria-controls' ) )
+			.removeProp( 'hidden' );
+	};
+
+	/**
+	 * Handles 'keydown' event on tabs
+	 *
+	 * @since TBD
+	 *
+	 * @param {Event} event event object of keydown event
+	 *
+	 * @return {void}
+	 */
+	obj.handleKeydown = function( event ) {
+		var key = event.which || event.keyCode;
+		var $eventsBar = $( event.data.eventsBar );
+		var state = $eventsBar.data( 'state' );
+		var tabs = state.tabs;
+		var tabPanels = state.tabPanels;
+		var currentTab = state.currentTab;
+		var nextTab;
+
+		switch ( key ) {
+			case obj.keyCode.LEFT:
+				nextTab = 0 === state.currentTab ? tabs.length - 1 : currentTab - 1;
+				break;
+			case obj.keyCode.RIGHT:
+				nextTab = tabs.length - 1 === state.currentTab ? 0 : currentTab + 1;
+				if ( tabs.length - 1 === state.currentTab ) {
+					nextTab = 0;
+				} else {
+					nextTab = currentTab + 1;
+				}
+				break;
+			case obj.keyCode.HOME:
+				nextTab = 0;
+				break;
+			case obj.keyCode.END:
+				nextTab = tabs.length - 1;
+				break;
+			default:
+				return;
+		}
+
+		obj.selectTab( tabs, tabPanels, nextTab );
+		state.currentTab = nextTab;
+		$eventsBar.data( 'state', state );
+		event.preventDefault();
+	};
+
+	/**
+	 * Deinitializes tablist
+	 *
+	 * @since TBD
+	 *
+	 * @param {jQuery} $container jQuery object of view container
+	 *
+	 * @return {void}
+	 */
+	obj.deinitTablist = function( $container ) {
+		var $searchTab = $container.find( obj.selectors.searchTab );
+		var $filterTab = $container.find( obj.selectors.filterTab );
+		var $searchTabPanel = $container.find( obj.selectors.searchTabPanel );
+		var $filterTabPanel = $container.find( obj.selectors.filterTabPanel );
+
+		$searchTab
+			.removeAttr( 'role' )
+			.removeAttr( 'aria-selected' )
+			.removeAttr( 'aria-controls' )
+			.removeAttr( 'tabindex' )
+			.off( 'keydown', obj.handleKeydown );
+		$filterTab
+			.removeAttr( 'role' )
+			.removeAttr( 'aria-selected' )
+			.removeAttr( 'aria-controls' )
+			.removeAttr( 'tabindex' )
+			.off( 'keydown', obj.handleKeydown );
+		$searchTabPanel
+			.removeAttr( 'role' )
+			.removeAttr( 'aria-labelledby' )
+			.removeProp( 'hidden' );
+		$filterTabPanel
+			.removeAttr( 'role' )
+			.removeAttr( 'aria-labelledby' )
+			.removeProp( 'hidden' );
+	};
+
+	/**
+	 * Initializes tablist
+	 *
+	 * @since TBD
+	 *
+	 * @param {jQuery} $container jQuery object of view container
+	 *
+	 * @return {void}
+	 */
+	obj.initTablist = function( $container ) {
+		var $eventsBar = $container.find( obj.selectors.eventsBar );
+		var $searchTab = $container.find( obj.selectors.searchTab );
+		var $filterTab = $container.find( obj.selectors.filterTab );
+		var $searchTabPanel = $container.find( obj.selectors.searchTabPanel );
+		var $filterTabPanel = $container.find( obj.selectors.filterTabPanel );
+
+		$searchTab
+			.attr( 'role', 'tab' )
+			.attr( 'aria-selected', 'true' )
+			.attr( 'aria-controls', $searchTabPanel.attr( 'id' ) )
+			.on( 'keydown', { eventsBar: $eventsBar }, obj.handleKeydown );
+		$filterTab
+			.attr( 'role', 'tab' )
+			.attr( 'aria-selected', 'false' )
+			.attr( 'aria-controls', $filterTabPanel.attr( 'id' ) )
+			.attr( 'tabindex', '-1' )
+			.on( 'keydown', { eventsBar: $eventsBar }, obj.handleKeydown );
+		$searchTabPanel
+			.attr( 'role', 'tabpanel' )
+			.attr( 'aria-labelledby', $searchTab.attr( 'id' ) );
+		$filterTabPanel
+			.attr( 'role', 'tabpanel' )
+			.attr( 'aria-labelledby', $filterTab.attr( 'id' ) )
+			.prop( 'hidden' );
+	};
+
+	/**
+	 * Deinitialize filter button accordion
+	 *
+	 * @since TBD
+	 *
+	 * @param {jQuery} $container jQuery object of view container
+	 *
+	 * @return {void}
+	 */
+	obj.deinitFilterAccordion = function( $container ) {
+		var $filterTab = $container.find( obj.selectors.filterTab );
+		var $filterTabPanel = $container.find( obj.selectors.filterTabPanel );
+
+		tribe.events.views.accordion.deinitAccordion( 0, $filterTab );
+		$filterTab
+			.removeAttr( 'aria-expanded' )
+			.removeAttr( 'aria-selected' )
+			.removeAttr( 'aria-controls' );
+		$filterTabPanel
+			.removeAttr( 'aria-hidden' )
+			.css( 'display', '' );
+	};
+
+	/**
+	 * Initialize filter button accordion
+	 *
+	 * @since TBD
+	 *
+	 * @param {jQuery} $container jQuery object of view container
+	 *
+	 * @return {void}
+	 */
+	obj.initFilterAccordion = function( $container ) {
+		var $filterTab = $container.find( obj.selectors.filterTab );
+		var $filterTabPanel = $container.find( obj.selectors.filterTabPanel );
+
+		tribe.events.views.accordion.initAccordion( $container )( 0, $filterTab );
+		$filterTab
+			.attr( 'aria-expanded', 'false' )
+			.attr( 'aria-selected', 'false' )
+			.attr( 'aria-controls', $filterTabPanel.attr( 'id' ) );
+		$filterTabPanel.attr( 'aria-hidden', 'true' );
+	};
+
+	/**
+	 * Initializes events bar state
+	 *
+	 * @since TBD
+	 *
+	 * @param {jQuery} $eventsBar jQuery object of events bar
+	 *
+	 * @return {void}
+	 */
+	obj.initState = function( $eventsBar ) {
+		var state = {
+			mobileInitialized: false,
+			desktopInitialized: false,
+			tabs: [],
+			tabPanels: [],
+			currentTab: 0,
+		};
+
+		$eventsBar.data( 'state', state );
+	};
+
+	/**
+	 * Initializes events bar
+	 *
+	 * @since TBD
+	 *
+	 * @param {jQuery} $container jQuery object of view container
+	 *
+	 * @return {void}
+	 */
+	obj.initEventsBar = function( $container ) {
+		var $eventsBar = $container.find( obj.selectors.eventsBar );
+		var state = $eventsBar.data( 'state' );
+
+		// if filter bar exists (or some other check)
+		if ( $eventsBar.hasClass( obj.selectors.hasFilterBarClass ) ) {
+			if ( obj.state.isMobile && ! state.mobileInitialized ) {
+				obj.deinitFilterAccordion( $container );
+				obj.initTablist( $container );
+				state.desktopInitialized = false;
+				state.mobileInitialized = true;
+				$eventsBar.data( 'state', state );
+			} else if ( ! obj.state.isMobile && ! state.desktopInitialized ) {
+				obj.deinitTablist( $container );
+				obj.initFilterAccordion( $container );
+				state.mobileInitialized = false;
+				state.desktopInitialized = true;
+				$eventsBar.data( 'state', state );
+			}
+		}
 	};
 
 	/**
@@ -101,14 +374,28 @@ tribe.events.views.eventsBar = {};
 	 *
 	 * @param {Event} event event object for 'resize' event
 	 *
-	 * @returns {void}
+	 * @return {void}
 	 */
 	obj.handleResize = function( event ) {
-
+		obj.setViewport();
+		obj.initEventsBar( event.data.container );
 	};
 
 	/**
-	 * Initialize events bar.
+	 * Bind events for window resize
+	 *
+	 * @since TBD
+	 *
+	 * @param {jQuery} $container jQuery object of view container
+	 *
+	 * @return {void}
+	 */
+	obj.bindEvents = function( $container ) {
+		$window.on( 'resize', { container: $container }, obj.handleResize );
+	};
+
+	/**
+	 * Initialize events bar JS
 	 *
 	 * @since TBD
 	 *
@@ -120,21 +407,12 @@ tribe.events.views.eventsBar = {};
 	 * @return {void}
 	 */
 	obj.init = function( event, index, $container, data ) {
-		$eventsBar = $container.find( obj.selectors.eventsBar );
+		var $eventsBar = $container.find( obj.selectors.eventsBar );
 
-		// if filter bar exists (or some other check)
-		if ( $eventsBar.hasClass( obj.selectors.hasFilterBarClass ) ) {
-			// add aria attributes
-			// add event listeners
-		}
-
-		/**
-		 * default is mobile, init different cases:
-		 *   init without filter bar, mobile
-		 *   init with filter bar, mobile
-		 *   init without filter bar, desktop
-		 *   init with filter bar, desktop
-		 */
+		obj.setViewport();
+		obj.initState( $eventsBar );
+		obj.initEventsBar( $container );
+		obj.bindEvents( $container );
 	};
 
 	/**
@@ -146,7 +424,6 @@ tribe.events.views.eventsBar = {};
 	 */
 	obj.ready = function() {
 		$document.on( 'afterSetup.tribeEvents', tribe.events.views.manager.selectors.container, obj.init );
-		$window.on( 'resize', obj.handleResize );
 
 		/**
 		 * @todo: do below for ajax events
