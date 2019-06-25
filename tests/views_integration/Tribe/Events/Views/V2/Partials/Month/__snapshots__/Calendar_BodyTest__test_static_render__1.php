@@ -1592,7 +1592,6 @@
 
 			
 				
-
 <div
 	class="tribe-events-calendar-month__day tribe-events-calendar-month__day--current"
 	role="gridcell"
@@ -1849,7 +1848,6 @@
 
 			
 				
-
 <div
 	class="tribe-events-calendar-month__day"
 	role="gridcell"
