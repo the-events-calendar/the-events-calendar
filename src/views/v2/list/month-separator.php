@@ -12,9 +12,11 @@
  * @version TBD
  *
  */
-$date  = $this->get( 'date' );
-$month = date( 'M', $date );
-$year  = date( 'Y', $date );
+$month = date( 'M' );
+$year  = date( 'Y' );
+$events = $this->get( 'events' );
+
+var_dump( $events );
 ?>
 <div class="tribe-events-calendar-list__month-separator">
 	<time

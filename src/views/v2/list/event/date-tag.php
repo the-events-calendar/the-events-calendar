@@ -13,10 +13,16 @@
  */
 
 $event = $this->get( 'event' );
+$event_week_day = tribe_get_start_date( $event, true, 'D' );
+$event_day_num  = tribe_get_start_date( $event, true, 'd' );
 ?>
 <div class="tribe-events-calendar-list__event-date-tag tribe-common-g-col">
 	<time class="tribe-events-calendar-list__event-date-tag-datetime" datetime="1970-01-01T00:00:00+00:00">
-		<span class="tribe-events-calendar-list__event-date-tag-weekday">Wed</span>
-		<span class="tribe-events-calendar-list__event-date-tag-daynum tribe-common-h5 tribe-common-h4--min-medium">05</span>
+		<span class="tribe-events-calendar-list__event-date-tag-weekday">
+			<?php echo esc_html( $event_week_day ); ?>
+		</span>
+		<span class="tribe-events-calendar-list__event-date-tag-daynum tribe-common-h5 tribe-common-h4--min-medium">
+			<?php echo esc_html( $event_day_num ); ?>
+		</span>
 	</time>
 </div>
