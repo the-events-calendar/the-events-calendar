@@ -325,15 +325,27 @@ tribe.events.views.eventsBar = {};
 	 * @return {void}
 	 */
 	obj.initState = function( $eventsBar ) {
-		var state = {
-			mobileInitialized: false,
-			desktopInitialized: false,
-			tabs: [],
-			tabPanels: [],
-			currentTab: 0,
-		};
+		var $eventsBar = $container.find( obj.selectors.eventsBar );
 
-		$eventsBar.data( 'state', state );
+		/**
+		 * @todo: figure out how to check if filter bar exists
+		 */
+		if ( $eventsBar.hasClass( obj.selectors.hasFilterBarClass ) ) {
+			var $searchTab = $container.find( obj.selectors.searchTab );
+			var $filterTab = $container.find( obj.selectors.filterTab );
+			var $searchTabPanel = $container.find( obj.selectors.searchTabPanel );
+			var $filterTabPanel = $container.find( obj.selectors.filterTabPanel );
+
+			var state = {
+				mobileInitialized: false,
+				desktopInitialized: false,
+				tabs: [ $searchTab, $filterTab ],
+				tabPanels: [ $searchTabPanel, $filterTabPanel ],
+				currentTab: 0,
+			};
+
+			$eventsBar.data( 'state', state );
+		}
 	};
 
 	/**
@@ -347,10 +359,13 @@ tribe.events.views.eventsBar = {};
 	 */
 	obj.initEventsBar = function( $container ) {
 		var $eventsBar = $container.find( obj.selectors.eventsBar );
-		var state = $eventsBar.data( 'state' );
 
-		// if filter bar exists (or some other check)
+		/**
+		 * @todo: figure out how to check if filter bar exists
+		 */
 		if ( $eventsBar.hasClass( obj.selectors.hasFilterBarClass ) ) {
+			var state = $eventsBar.data( 'state' );
+
 			if ( obj.state.isMobile && ! state.mobileInitialized ) {
 				obj.deinitFilterAccordion( $container );
 				obj.initTablist( $container );
@@ -407,10 +422,8 @@ tribe.events.views.eventsBar = {};
 	 * @return {void}
 	 */
 	obj.init = function( event, index, $container, data ) {
-		var $eventsBar = $container.find( obj.selectors.eventsBar );
-
 		obj.setViewport();
-		obj.initState( $eventsBar );
+		obj.initState( $container );
 		obj.initEventsBar( $container );
 		obj.bindEvents( $container );
 	};
