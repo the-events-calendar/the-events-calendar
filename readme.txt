@@ -226,6 +226,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Tweak - Add `Tribe__Events__Query::last_found_events()` to access the last results via the `Query` object [129517]
 * Tweak - Wrap `register_rest_route` calls with `tribe_register_rest_route` to enable filtering on REST registration
 * Tweak - Add filter `tribe_ical_feed_vtimezone` to filter the `VTIMEZONE` group [89999]
+* Fix - Save of event meta data when Classic editor plugin and gutenberg blocks for events are enabled [121267]
 * Fix - Moved The Events Calendar specific code from common Context class into The Events Calendar [129241]
 * Fix - Fixed issue where multiday events were not returning correct end date in block editor [128033]
 * Fix - REST API Event responses now include the correct timezone even if the event has no timezone set or if using the site-wide timezone option [100159]
