@@ -332,8 +332,12 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 		 */
 		do_action( 'tribe_events_organizer_save', $organizerId, $data, $organizer );
 
-		if ( isset( $data['FeaturedImage'] ) && ! empty( $data['FeaturedImage'] ) ) {
-			update_post_meta( $organizerId, '_thumbnail_id', $data['FeaturedImage'] );
+		if ( isset( $data['FeaturedImage'] ) ) {
+			if ( empty( $data['FeaturedImage'] ) ) {
+				delete_post_meta( $organizerId, '_thumbnail_id' );
+			} else {
+				update_post_meta( $organizerId, '_thumbnail_id', $data['FeaturedImage'] );
+			}
 			unset( $data['FeaturedImage'] );
 		}
 
@@ -468,7 +472,7 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 
 		unset( $data['OrganizerID'] );
 
-		$args = array_filter( array(
+		$args = array_filter( [
 			'ID'            => $id,
 			'post_title'    => Tribe__Utils__Array::get( $data, 'post_title', $data['Organizer'] ),
 			'post_content'  => Tribe__Utils__Array::get( $data, 'post_content', $data['Description'] ),
@@ -477,7 +481,7 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 			'post_date'     => $data['post_date'],
 			'post_date_gmt' => $data['post_date_gmt'],
 			'post_status'   => $data['post_status'],
-		) );
+		] );
 
 		if ( count( $args ) > 1 ) {
 			$post_type = Tribe__Events__Main::ORGANIZER_POST_TYPE;

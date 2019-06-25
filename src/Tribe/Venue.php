@@ -342,8 +342,12 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 		unset( $data['ShowMapLink'] );
 		unset( $data['ShowMap'] );
 
-		if ( isset( $data['FeaturedImage'] ) && ! empty( $data['FeaturedImage'] ) ) {
-			update_post_meta( $venue_id, '_thumbnail_id', $data['FeaturedImage'] );
+		if ( isset( $data['FeaturedImage'] ) ) {
+			if ( empty( $data['FeaturedImage'] ) ) {
+				delete_post_meta( $venue_id, '_thumbnail_id' );
+			} else {
+				update_post_meta( $venue_id, '_thumbnail_id', $data['FeaturedImage'] );
+			}
 			unset( $data['FeaturedImage'] );
 		}
 
