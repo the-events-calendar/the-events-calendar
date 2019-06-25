@@ -198,6 +198,12 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return bool true if this post is an Event post type
 	 */
 	function tribe_is_event( $postId = null ) {
+		/**
+		 * Filter: 'tribe_is_event'.
+		 *
+		 * @param bool $is_event
+		 * @param int $postId
+		 */
 		return apply_filters( 'tribe_is_event', Tribe__Events__Main::instance()->isEvent( $postId ), $postId );
 	}
 

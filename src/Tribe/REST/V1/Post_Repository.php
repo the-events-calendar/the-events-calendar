@@ -64,6 +64,15 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			$event_id = $event_id->ID;
 		}
 
+		/**
+		 * Action executed before the Event data is pulled before deliver the Event via REST API.
+		 *
+		 * @param $event_id int The ID of the event
+		 *
+		 * @since TBD
+		 */
+		do_action( 'tribe_rest_before_event_data', $event_id );
+
 		/** @var Tribe__Cache $cache */
 		$cache     = tribe( 'cache' );
 		$cache_key = 'rest_get_event_data_' . get_current_user_id() . '_' . $event_id . '_' . $context;
