@@ -222,6 +222,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - REST API Event responses now include the correct timezone even if the event has no timezone set or if using the site-wide timezone option [100159]
 * Fix - Resolved issue where deactivation feedback was not hooked properly [128341]
 * Fix - Added escaping to the event website URL target attribute [129565]
+* Fix - Resolved an issue where non-English decimal and thousands event cost separators could lead to wrong cost values in REST API responses [98061]
 
 = [4.9.3.2] 2019-06-20 =
 
