@@ -175,7 +175,8 @@
 
 		<div class="tribe-events-calendar-list">
 
-			<div class="tribe-events-calendar-list__month-separator">
+			
+				<div class="tribe-events-calendar-list__month-separator">
 	<time
 		class="tribe-events-calendar-list__month-separator-text tribe-common-h7 tribe-common-h7--alt"
 		datetime="2019-01"
@@ -183,13 +184,14 @@
 		Jan 2019	</time>
 </div>
 
-			
 				<div class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-list__event-row tribe-events-calendar-list__event-row--featured">
 
 	<div class="tribe-events-calendar-list__event-date-tag tribe-common-g-col">
-	<time class="tribe-events-calendar-list__event-date-tag-datetime" datetime="1970-01-01T00:00:00+00:00">
-		<span class="tribe-events-calendar-list__event-date-tag-weekday">Wed</span>
-		<span class="tribe-events-calendar-list__event-date-tag-daynum tribe-common-h5 tribe-common-h4--min-medium">05</span>
+	<time class="tribe-events-calendar-list__event-date-tag-datetime" datetime="2019-01-01">
+		<span class="tribe-events-calendar-list__event-date-tag-weekday">
+			Tue		</span>
+		<span class="tribe-events-calendar-list__event-date-tag-daynum tribe-common-h5 tribe-common-h4--min-medium">
+			01		</span>
 	</time>
 </div>
 
@@ -244,12 +246,15 @@
 </div>
 
 			
+				
 				<div class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-list__event-row">
 
 	<div class="tribe-events-calendar-list__event-date-tag tribe-common-g-col">
-	<time class="tribe-events-calendar-list__event-date-tag-datetime" datetime="1970-01-01T00:00:00+00:00">
-		<span class="tribe-events-calendar-list__event-date-tag-weekday">Wed</span>
-		<span class="tribe-events-calendar-list__event-date-tag-daynum tribe-common-h5 tribe-common-h4--min-medium">05</span>
+	<time class="tribe-events-calendar-list__event-date-tag-datetime" datetime="2019-01-01">
+		<span class="tribe-events-calendar-list__event-date-tag-weekday">
+			Tue		</span>
+		<span class="tribe-events-calendar-list__event-date-tag-daynum tribe-common-h5 tribe-common-h4--min-medium">
+			01		</span>
 	</time>
 </div>
 

@@ -5,46 +5,42 @@ use Tribe\Events\Test\Factories\Event;
 
 class SeparatorsTest extends \Codeception\TestCase\WPTestCase {
 
-	public function setUp() {
-		parent::setUp();
-		static::factory()->event = new Event();
-	}
-
 	public function monthSeparatorProvider() {
-		$events[] = $should_have_month_one = static::factory()->event->create( [ 'when' => '2018-09-01' ] );
-		$events[] = $should_have_month_two = static::factory()->event->create( [ 'when' => '2018-10-15' ] );
-		$events[] = $should_not_have_month_one = static::factory()->event->create( [ 'when' => '2018-10-16' ] );
-		$events[] = $should_not_have_month_two = static::factory()->event->create( [ 'when' => '2018-10-16' ] );
-		$events[] = $should_have_month_three = static::factory()->event->create( [ 'when' => '2018-11-16' ] );
-		$events[] = $should_not_have_month_three = static::factory()->event->create( [ 'when' => '2018-11-22' ] );
+		$event_factory = new Event();
+		$events[] = $should_have_month_one = $event_factory->create( [ 'when' => '2017-09-01' ] );
+		$events[] = $should_have_month_two = $event_factory->create( [ 'when' => '2017-10-15' ] );
+		$events[] = $should_not_have_month_one = $event_factory->create( [ 'when' => '2017-10-16' ] );
+		$events[] = $should_not_have_month_two = $event_factory->create( [ 'when' => '2017-10-16' ] );
+		$events[] = $should_have_month_three = $event_factory->create( [ 'when' => '2017-11-16' ] );
+		$events[] = $should_not_have_month_three = $event_factory->create( [ 'when' => '2017-11-22' ] );
 
 		return [
-			'2018-09-01-should-have' => [
+			'2017-09-01-should-have' => [
 				$events,
 				$should_have_month_two,
 				true,
 			],
-			'2018-10-15-should-have' => [
+			'2017-10-15-should-have' => [
 				$events,
 				$should_have_month_one,
 				true,
 			],
-			'2018-10-16-should-not-have' => [
+			'2017-10-16-should-not-have' => [
 				$events,
 				$should_not_have_month_one,
 				false,
 			],
-			'2018-10-16(2)-should-not-have' => [
+			'2017-10-16(2)-should-not-have' => [
 				$events,
 				$should_not_have_month_two,
 				false,
 			],
-			'2018-11-16-should-have' => [
+			'2017-11-16-should-have' => [
 				$events,
 				$should_have_month_three,
 				true,
 			],
-			'2018-11-22-should-not-have' => [
+			'2017-11-22-should-not-have' => [
 				$events,
 				$should_not_have_month_three,
 				false,
