@@ -1,22 +1,20 @@
 <?php
 /**
- * Provides common Views v2 utilities.
+ * Provides common View v2 utilities.
  *
  * @since   TBD
- * @package Tribe\Events\Views\V2
+ * @package Tribe\Events\Views\V2\Utils
  */
-
-namespace Tribe\Events\Views\V2;
+namespace Tribe\Events\Views\V2\Utils;
 
 use Tribe__Utils__Array as Arr;
 
 /**
- * Class Utils
+ * Class Utils View
  * @since   TBD
- * @package Tribe\Events\Views\V2
+ * @package Tribe\Events\Views\V2\Utils
  */
-class Utils {
-
+class View {
 	/**
 	 * Reads a view data entry from the current request.
 	 *
@@ -27,7 +25,7 @@ class Utils {
 	 *
 	 * @return mixed|null The view data, if found, or a default value.
 	 */
-	public static function get_view_data( $indexes, $default = null ) {
+	public static function get_data( $indexes, $default = null ) {
 		$found = Arr::get_first_set(
 			tribe_get_request_var( 'view_data', [] ),
 			(array) $indexes,

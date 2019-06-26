@@ -75,8 +75,8 @@ class Context extends \tad_DI52_ServiceProvider {
 				'read'  => [
 					Tribe__Context::FUNC => [
 						static function () {
-							return Utils::get_view_data( 'bar-date', Tribe__Context::NOT_FOUND );
-						}
+							return Utils\View::get_data( 'bar-date', Tribe__Context::NOT_FOUND );
+						},
 					],
 					Tribe__Context::REQUEST_VAR => [ 'eventDate', 'tribe-bar-date' ],
 					Tribe__Context::QUERY_VAR   => 'eventDate',
@@ -172,8 +172,8 @@ class Context extends \tad_DI52_ServiceProvider {
 				'read' => [
 					Tribe__Context::FUNC        => [
 						static function () {
-							return Utils::get_view_data( 'bar-keyword', Tribe__Context::NOT_FOUND );
-						}
+							return Utils\View::get_data( 'bar-keyword', Tribe__Context::NOT_FOUND );
+						},
 					],
 					Tribe__Context::REQUEST_VAR => [ 's', 'search', 'tribe-bar-search' ],
 				],

@@ -439,9 +439,15 @@ class Tribe__Events__iCal {
 			$timezone = $row['timezone'];
 
 			$ordered = [
-				'start' => $this->order( array_column( $row['events'], 'start_year' ), 'sort' ),
-				'end' => $this->order( array_column( $row['events'], 'end_year' ), 'rsort' ),
+				'start' => array_column( $row['events'], 'start_year' ),
+				'end' => array_column( $row['events'], 'end_year' ),
 			];
+
+			sort( $ordered['start'] );
+			rsort( $ordered['end'] );
+
+			$ordered['start'] = array_values( $ordered['start'] );
+			$ordered['end'] = array_values( $ordered['end'] );
 
 			$start = reset( $ordered['start'] );
 			$end = reset( $ordered['end'] );
@@ -533,20 +539,6 @@ class Tribe__Events__iCal {
 			];
 		}
 		return $data;
-	}
-
-	/**
-	 * Return the values from an array ordered by $callback
-	 *
-	 * @since TBD
-	 *
-	 * @param $events array An array to be ordered
-	 * @param $callback Callback Function used to order array.
-	 *
-	 * @return array
-	 */
-	protected function order( $events, $callback ) {
-		return array_values( array_sort( $events, $callback ) );
 	}
 
 	/**

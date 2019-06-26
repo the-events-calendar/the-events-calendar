@@ -84,24 +84,25 @@
 </div>
 
 	
-	<div class="tribe-events-c-events-bar__form">
+	<div class="tribe-events-c-events-bar__search">
 	<form
-		class="tribe-common-c-search"
+		class="tribe-common-c-search tribe-events-c-events-bar__search-form"
 		method="get"
 		data-js="tribe-events-view-form"
+		role="search"
 	>
 		<input type="hidden" id="tribe-events-views[_wpnonce]" name="tribe-events-views[_wpnonce]" value="2ab7cc6b39" /><input type="hidden" name="_wp_http_referer" value="/events" />		<input type="hidden" name="tribe-events-views[url]" value="http://test.tri.be/events/list/" />
 
 		<div class="tribe-common-form-control-text-group tribe-common-c-search__input-group">
-			<div class="tribe-common-form-control-text">
+			<div class="tribe-common-form-control-text tribe-common-c-search__input-control--keyword">
 	<label class="tribe-common-form-control-text__label" for="keyword">Enter Keyword. Search for Events by Keyword.</label>
 	<input
-		class="tribe-common-form-control-text__input tribe-common-c-search__input"
+		class="tribe-common-form-control-text__input tribe-common-c-search__input tribe-common-c-search__input--icon"
 		type="text"
 		id="keyword"
 		name="tribe-events-views[tribe-bar-search]"
 		value=""
-		placeholder="Keyword"
+		placeholder="Search for events"
 	/>
 </div>
 			<div class="tribe-common-form-control-text">
@@ -115,12 +116,13 @@
 		placeholder="Enter date"
 	/>
 </div>
-		</div>
-		<button
+			<button
 	class="tribe-common-c-btn tribe-common-c-search__button"
 	type="submit"
 	name="submit-bar"
 >Find Events</button>
+		</div>
+
 	</form>
 </div>
 
@@ -175,7 +177,8 @@
 
 		<div class="tribe-events-calendar-list">
 
-			<div class="tribe-events-calendar-list__month-separator">
+			
+				<div class="tribe-events-calendar-list__month-separator">
 	<time
 		class="tribe-events-calendar-list__month-separator-text tribe-common-h7 tribe-common-h7--alt"
 		datetime="2019-01"
@@ -183,13 +186,14 @@
 		Jan 2019	</time>
 </div>
 
-			
 				<div class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-list__event-row tribe-events-calendar-list__event-row--featured">
 
 	<div class="tribe-events-calendar-list__event-date-tag tribe-common-g-col">
-	<time class="tribe-events-calendar-list__event-date-tag-datetime" datetime="1970-01-01T00:00:00+00:00">
-		<span class="tribe-events-calendar-list__event-date-tag-weekday">Wed</span>
-		<span class="tribe-events-calendar-list__event-date-tag-daynum tribe-common-h5 tribe-common-h4--min-medium">05</span>
+	<time class="tribe-events-calendar-list__event-date-tag-datetime" datetime="2019-01-01">
+		<span class="tribe-events-calendar-list__event-date-tag-weekday">
+			Tue		</span>
+		<span class="tribe-events-calendar-list__event-date-tag-daynum tribe-common-h5 tribe-common-h4--min-medium">
+			01		</span>
 	</time>
 </div>
 
@@ -244,12 +248,15 @@
 </div>
 
 			
+				
 				<div class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-list__event-row">
 
 	<div class="tribe-events-calendar-list__event-date-tag tribe-common-g-col">
-	<time class="tribe-events-calendar-list__event-date-tag-datetime" datetime="1970-01-01T00:00:00+00:00">
-		<span class="tribe-events-calendar-list__event-date-tag-weekday">Wed</span>
-		<span class="tribe-events-calendar-list__event-date-tag-daynum tribe-common-h5 tribe-common-h4--min-medium">05</span>
+	<time class="tribe-events-calendar-list__event-date-tag-datetime" datetime="2019-01-01">
+		<span class="tribe-events-calendar-list__event-date-tag-weekday">
+			Tue		</span>
+		<span class="tribe-events-calendar-list__event-date-tag-daynum tribe-common-h5 tribe-common-h4--min-medium">
+			01		</span>
 	</time>
 </div>
 
