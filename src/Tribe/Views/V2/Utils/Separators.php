@@ -28,15 +28,13 @@ class Separators {
 	 * @return boolean
 	 */
 	public static function should_have_month( $events, $event ) {
-		if ( ! is_numeric( reset( $events ) ) ) {
-			$ids = wp_list_pluck( $events, 'ID' );
-		} else {
-			$ids = array_map( 'absint', $events );
-		}
+		$ids = array_map( static function( $event ) {
+			return abint( is_numeric( $event ) ? $event : $event->ID );
+		}, $events );
 
 		$event_id = is_numeric( $event ) ? $event : $event->ID;
 
-		$start_dates = array_map( function( $id ) {
+		$start_dates = array_map( static function( $id ) {
 			return tribe_get_start_date( $id, true, 'Y-m' );
 		}, $ids );
 
