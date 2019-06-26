@@ -23,22 +23,28 @@
 		justify-content: center;
 	}
 
-	.tribe-events-c-events-bar__views-tabs {
-		width: 100%;
-	}
-
-	.tribe-events-c-events-bar__views-tabs-button,
-	.tribe-events-c-events-bar__views-tabs-list {
+	.tribe-events-c-events-bar__search-filter-container {
+		background-color: var(--color-background);
+		display: none;
+		left: 0;
+		position: absolute;
+		right: 0;
 		width: 100%;
 
 		@media (--viewport-medium) {
-			width: auto;
+			align-items: center;
+			display: flex;
+			flex: auto;
+		}
+	}
+
+	.tribe-events-c-events-bar__tabs {
+		@media (--viewport-medium) {
+			@mixin hidden;
 		}
 	}
 
 	.tribe-events-c-events-bar__search {
-		display: none;
-
 		@media (--viewport-medium) {
 			display: flex;
 			flex: auto;
