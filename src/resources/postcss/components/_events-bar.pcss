@@ -159,6 +159,40 @@
 		width: 21px;
 	}
 
+	.tribe-events-c-events-bar__tabs {
+		display: flex;
+	}
+
+	.tribe-events-c-events-bar__tab {
+		border-radius: var(--border-radius-default);
+		display: flex;
+		flex: 1 1 50%;
+		flex-direction: column;
+		align-items: center;
+		padding: var(--spacer-3) 0;
+
+		&:hover {
+			background-color: var(--color-background-secondary);
+			.tribe-events-c-events-bar__tab-text {
+				font-weight: var(--font-weight-bold);
+			}
+
+		}
+	}
+
+	.tribe-events-c-events-bar__tab-icon {
+		width: var(--spacer-3);
+		height: var(--spacer-3);
+		margin-bottom: var(--spacer-0);
+	}
+
+	.tribe-events-c-events-bar__tab--active {
+		background-color: var(--color-background-secondary);
+		.tribe-events-c-events-bar__tab-text {
+			font-weight: var(--font-weight-bold);
+		}
+	}
+
 	/* @todo: move this to global buttons */
 	.tribe-theme-twentynineteen & {
 		.tribe-events-c-events-bar__filters-button {
