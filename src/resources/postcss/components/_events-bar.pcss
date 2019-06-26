@@ -35,6 +35,7 @@
 			align-items: center;
 			display: flex;
 			flex: auto;
+			position: static;
 		}
 	}
 
@@ -88,6 +89,12 @@
 				&:before {
 					background-image: svg-inline(filters-active);
 				}
+			}
+		}
+
+		&:active {
+			@media (--viewport-medium) {
+				font-weight: var(--font-weight-bold);
 			}
 		}
 
