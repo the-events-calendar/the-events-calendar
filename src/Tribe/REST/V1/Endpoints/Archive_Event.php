@@ -164,11 +164,11 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 			/**
 			 * Filter the arguments used to get the events on the archive page via REST API.
 			 *
+			 * @since TBD
+			 *
 			 * @param array            $args Arguments used to get the events from the archive page.
 			 * @param array            $data Array with the data to be returned in the REST response.
 			 * @param \WP_REST_Request $request
-			 *
-			 * @since TBD
 			 */
 			$args = apply_filters( 'tribe_events_archive_get_args', $args, $data, $request );
 
