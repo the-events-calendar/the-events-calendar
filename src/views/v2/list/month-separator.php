@@ -10,17 +10,24 @@
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
  * @version TBD
- *
  */
-$date  = $this->get( 'date' );
-$month = date( 'M', $date );
-$year  = date( 'Y', $date );
+
+use Tribe\Events\Views\V2\Utils;
+
+$event = $this->get( 'event' );
+$should_have_month_separator = Utils\Separators::should_have_month( $this->get( 'events' ), $event );
+
+if ( ! $should_have_month_separator ) {
+	return;
+}
+
+$separator_text = tribe_get_start_date( $event->ID, true, 'M Y' );
 ?>
 <div class="tribe-events-calendar-list__month-separator">
 	<time
 		class="tribe-events-calendar-list__month-separator-text tribe-common-h7 tribe-common-h7--alt"
-		datetime="<?php echo esc_attr( $year ); ?>-<?php echo esc_attr( date( 'm', $date ) ); ?>"
+		datetime="<?php echo esc_attr( tribe_get_start_date( $event->ID, true, 'Y-m' ) ); ?>"
 	>
-		<?php echo esc_html( $month ); ?> <?php echo esc_html( $year ); ?>
+		<?php echo esc_html( $separator_text ); ?>
 	</time>
 </div>
