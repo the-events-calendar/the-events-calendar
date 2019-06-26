@@ -1,15 +1,15 @@
 <?php
 /**
- * View: Events Bar Form
+ * View: Events Bar Search
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/views/v2/events-bar/form.php
+ * [your-theme]/tribe/events/views/v2/events-bar/search.php
  *
  * See more documentation about our views templating system.
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.3
+ * @version TBD
  *
  */
 
@@ -26,10 +26,11 @@ use Tribe\Events\Views\V2\Rest_Endpoint;
 		<input type="hidden" name="tribe-events-views[url]" value="<?php echo esc_url( $this->get( 'url' ) ); ?>" />
 
 		<div class="tribe-common-form-control-text-group tribe-common-c-search__input-group">
-			<?php $this->template( 'events-bar/form/keyword' ); ?>
-			<?php $this->template( 'events-bar/form/date' ); ?>
-			<?php $this->template( 'events-bar/form/submit' ); ?>
+			<?php $this->template( 'events-bar/search/keyword' ); ?>
+			<?php $this->template( 'events-bar/search/date' ); ?>
 		</div>
+
+		<?php $this->template( 'events-bar/search/submit' ); ?>
 
 	</form>
 </div>

@@ -8,9 +8,6 @@
 
 	.tribe-events-c-events-bar {
 		display: flex;
-		flex-wrap: wrap;
-		margin-bottom: var(--spacer-5);
-		width: 100%;
 
 		@media (--viewport-medium) {
 			border: 1px solid var(--color-border-default);
@@ -22,13 +19,8 @@
 
 	.tribe-events-c-events-bar__views {
 		display: flex;
-		flex: 1 1 60%;
+		flex: none;
 		justify-content: center;
-
-		@media (--viewport-medium) {
-			flex: 0 1 auto;
-			order: 3;
-		}
 	}
 
 	.tribe-events-c-events-bar__views-tabs {
@@ -45,12 +37,11 @@
 	}
 
 	.tribe-events-c-events-bar__search {
-		flex: 1 1 100%;
+		display: none;
 
 		@media (--viewport-medium) {
 			display: flex;
-			flex: 1 1 45%;
-			order: 1;
+			flex: auto;
 		}
 	}
 
@@ -60,27 +51,26 @@
 
 	.tribe-events-c-events-bar__filters {
 		display: flex;
-		flex: 1 0 100px;
+		flex: none;
 		justify-content: flex-end;
 		margin-right: -12px;
 
 		@media (--viewport-medium) {
-			flex: 0 0 auto;
-			margin-right: 0;
-			order: 2;
+			border-right: 1px solid var(--color-border-default);
+			margin: var(--spacer-2) 0;
 		}
 	}
 
 	.tribe-events-c-events-bar__filters-button {
-		display: none;
+		@mixin hidden;
 
 		@media (--viewport-medium) {
 			@mixin desktop-body-2;
 
-			border-right: 1px solid var(--color-border-default);
-			display: block;
-			padding: 7px 22px 6px;
-			width: auto;
+			display: block !important;
+			margin: calc(var(--spacer-2) * -1) 0;
+			padding: var(--spacer-4) var(--spacer-5) var(--spacer-4);
+			visibility: visible;
 		}
 
 		&:hover,

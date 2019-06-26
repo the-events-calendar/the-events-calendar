@@ -5,12 +5,27 @@
  *
  */
 
-.tribe-events-header {
-	display: flex;
-	flex-direction: row-reverse;
-	justify-content: space-between;
+.tribe-events {
 
-	@media (--viewport-medium) {
-		flex-direction: row;
+	.tribe-events-header {
+		display: flex;
+		flex-direction: row-reverse;
+		justify-content: space-between;
+
+		@media (--viewport-medium) {
+			flex-direction: row;
+			flex-wrap: wrap;
+		}
+	}
+
+	.tribe-events-header__events-bar,
+	.tribe-events-header__top-bar {
+		flex: none;
+	}
+
+	.tribe-events-header__events-bar {
+		@media (--viewport-medium) {
+			width: 100%;
+		}
 	}
 }

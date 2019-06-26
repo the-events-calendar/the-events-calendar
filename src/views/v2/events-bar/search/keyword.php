@@ -1,9 +1,9 @@
 <?php
 /**
- * View: Events Bar Form Keyword Input
+ * View: Events Bar Search Keyword Input
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/views/v2/events-bar/form/keyword.php
+ * [your-theme]/tribe/events/views/v2/events-bar/search/keyword.php
  *
  * See more documentation about our views templating system.
  *
@@ -11,7 +11,7 @@
  *
  * @var array $bar The search bar contents.
  *
- * @version 4.9.3
+ * @version TBD
  *
  */
 ?>

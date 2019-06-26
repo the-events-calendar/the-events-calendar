@@ -7,8 +7,6 @@
 .tribe-events {
 
 	.tribe-events-c-top-bar {
-		display: none;
-
 		@media (--viewport-medium) {
 			align-items: center;
 			display: flex;
@@ -19,7 +17,13 @@
 	}
 
 	.tribe-events-c-top-bar__nav {
-		flex: none;
+		@mixin hidden;
+
+		@media (--viewport-medium) {
+			display: block !important;
+			flex: none;
+			visibility: visible;
+		}
 	}
 
 	.tribe-events-c-top-bar__nav-list {
@@ -43,7 +47,13 @@
 	}
 
 	.tribe-events-c-top-bar__today-button {
-		flex: none;
-		margin-right: 15px;
+		@mixin hidden;
+
+		@media (--viewport-medium) {
+			display: block !important;
+			flex: none;
+			margin-right: 15px;
+			visibility: visible;
+		}
 	}
 }
