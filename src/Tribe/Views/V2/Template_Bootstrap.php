@@ -71,7 +71,7 @@ class Template_Bootstrap {
 	 *
 	 * @return string
 	 */
-	protected function get_legacy_single_event_html() {
+	protected function get_v1_single_event_html() {
 		ob_start();
 		tribe_get_view( 'single-event' );
 		$html = ob_get_clean();
@@ -98,7 +98,7 @@ class Template_Bootstrap {
 			&& ! tribe_is_showing_all()
 			&& ! \Tribe__Templates::is_embed()
 		) {
-			$html = $this->get_legacy_single_event_html();
+			$html = $this->get_v1_single_event_html();
 		} elseif ( isset( $query->query_vars['tribe_events_views_kitchen_sink'] ) ) {
 			$context = [
 				'query' => $query,
