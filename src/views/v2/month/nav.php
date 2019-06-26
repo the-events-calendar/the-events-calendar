@@ -23,7 +23,7 @@
 <nav class="tribe-events-calendar-month-nav tribe-events-calendar-month-nav--<?php echo esc_attr( $location ); ?> tribe-events-c-nav">
 	<ul class="tribe-events-c-nav__list">
 		<?php
-		if ( $prev_url ) {
+		if ( ! empty( $prev_url ) ) {
 			$this->template( 'month/nav/prev', [ 'label' => __( 'May', 'the-events-calendar' ), 'link' => $prev_url ] );
 		} else {
 			$this->template( 'month/nav/prev-disabled', [ 'label' => __( 'May', 'the-events-calendar' ) ] );
@@ -33,7 +33,7 @@
 		<?php $this->template( 'month/nav/today', [ 'link' => '#' ] ) ?>
 
 		<?php
-		if ( $next_url ) {
+		if ( ! empty( $next_url ) ) {
 			$this->template( 'month/nav/next', [ 'label' => __( 'July', 'the-events-calendar' ), 'link' => $next_url ] );
 		} else {
 			$this->template( 'month/nav/next-disabled', [ 'label' => __( 'July', 'the-events-calendar' ) ] );
