@@ -157,14 +157,6 @@
 
 		<div class="tribe-events-calendar-list">
 
-			<div class="tribe-events-calendar-list__month-separator">
-	<time
-		class="tribe-events-calendar-list__month-separator-text tribe-common-h7 tribe-common-h7--alt"
-		datetime="2019-01"
-	>
-		Jan 2019	</time>
-</div>
-
 			
 		</div>
 
