@@ -34,8 +34,7 @@ class V1_Compat extends \tad_DI52_ServiceProvider {
 	/**
 	 * Registers the provider and sets it up to update, move or remove Views v1 filters.
 	 */
-	public function register()
-	{
+	public function register() {
 		/*
 		 * Depending on the context of the request, this might fire before or after Common did bootstrap.
 		 * Let's handle both cases checking whether Common has already loaded or not.
@@ -82,7 +81,7 @@ class V1_Compat extends \tad_DI52_ServiceProvider {
 			'tribe_get_single_option' => [
 				[
 					'callback' => [ $backcompat, 'filter_multiday_cutoff' ],
-					'priority' => 10
+					'priority' => 10,
 				],
 				[ 'callback' => [ $backcompat, 'filter_enabled_views' ], 'priority' => 10 ],
 				[ 'callback' => [ $backcompat, 'filter_default_view' ], 'priority' => 10 ],
