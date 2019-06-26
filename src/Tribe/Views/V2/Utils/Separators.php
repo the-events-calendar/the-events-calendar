@@ -29,7 +29,7 @@ class Separators {
 	 */
 	public static function should_have_month( $events, $event ) {
 		$ids = array_map( static function( $event ) {
-			return abint( is_numeric( $event ) ? $event : $event->ID );
+			return absint( is_numeric( $event ) ? $event : $event->ID );
 		}, $events );
 
 		$event_id = is_numeric( $event ) ? $event : $event->ID;
