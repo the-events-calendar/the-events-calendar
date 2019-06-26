@@ -25,9 +25,15 @@ $classes = [ 'tribe-events-header__events-bar', 'tribe-events-c-events-bar' ];
 
 	<h2 class="tribe-common-a11y-visual-hide"><?php printf( esc_html__( '%s Search and Views Navigation', 'the-events-calendar' ), tribe_get_event_label_plural() ); ?></h2>
 
-	<?php $this->template( 'events-bar/search' ); ?>
+	<?php $this->template( 'events-bar/search-button' ); ?>
 
-	<?php $this->template( 'events-bar/filters' ); ?>
+	<div class="tribe-events-c-events-bar__search-filter-container" id="tribe-events-search-filter-container">
+		<?php $this->template( 'events-bar/tabs' ); ?>
+
+		<?php $this->template( 'events-bar/search' ); ?>
+
+		<?php $this->template( 'events-bar/filters' ); ?>
+	</div>
 
 	<?php $this->template( 'events-bar/views' ); ?>
 

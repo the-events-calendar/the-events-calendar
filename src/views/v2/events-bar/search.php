@@ -15,7 +15,7 @@
 
 use Tribe\Events\Views\V2\Rest_Endpoint;
 ?>
-<div class="tribe-events-c-events-bar__search">
+<div class="tribe-events-c-events-bar__search" id="tribe-events-search-container">
 	<form
 		class="tribe-common-c-search tribe-events-c-events-bar__search-form"
 		method="get"

@@ -67,7 +67,8 @@
 		@media (--viewport-medium) {
 			@mixin desktop-body-2;
 
-			display: block !important;
+			align-items: center;
+			display: flex !important;
 			margin: calc(var(--spacer-2) * -1) 0;
 			padding: var(--spacer-4) var(--spacer-5) var(--spacer-4);
 			visibility: visible;
@@ -77,6 +78,7 @@
 		&:focus,
 		&:active {
 			@media (--viewport-medium) {
+
 				&:before {
 					background-image: svg-inline(filters-active);
 				}
@@ -89,25 +91,57 @@
 				background-repeat: no-repeat;
 				background-size: contain;
 				background-size: 17px;
-				height: 17px;
-				width: 17px;
 				content: '';
-				margin-right: var(--spacer-1);
 				display: inline-block;
 				flex: none;
+				height: 17px;
+				margin-right: var(--spacer-1);
+				width: 17px;
 			}
 		}
 	}
 
-	.tribe-events-c-events-bar__filters-button-wrapper--search {
+	.tribe-events-c-events-bar__search-button {
 		display: inline-block;
+		margin-right: var(--spacer-1);
+		padding: var(--spacer-0);
+		position: relative;
 
 		@media (--viewport-medium) {
-			display: none;
+			@mixin hidden;
+		}
+
+		&:hover,
+		&:focus {
+			border-bottom-color: var(--color-accent-primary);
+
+			&:before {
+				opacity: 1;
+			}
+		}
+
+		&:before {
+			background-color: var(--color-accent-primary);
+			content: '';
+			display: block;
+			height: 2px;
+			opacity: 0;
+			position: absolute;
+			top: 100%;
+			transform: translateY(var(--spacer-0));
+			transition: var(--transition-opacity);
+			width: calc(100% - (2 * var(--spacer-0)));
 		}
 	}
 
-	body.tribe-theme-twentynineteen & {
+	.tribe-events-c-events-bar__search-button-icon {
+		display: block;
+		height: 21px;
+		width: 21px;
+	}
+
+	/* @todo: move this to global buttons */
+	.tribe-theme-twentynineteen & {
 		.tribe-events-c-events-bar__filters-button {
 			&:hover,
 			&:focus,
