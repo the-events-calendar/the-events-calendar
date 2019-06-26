@@ -20,9 +20,90 @@
 	type="application/json"
 >{"slug":"list","prev_url":"http:\\/\\/test.tri.be\\/events\\/?eventDisplay=past","next_url":"http:\\/\\/test.tri.be\\/events\\/page\\/2\\/","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_slug":"list","view":{},"title":"","events":[{"ID":7,"post_author":"0","post_date":"2019-06-11 13:59:35","post_date_gmt":"2019-06-11 13:59:35","post_content":"","post_title":"Test Event - +9 days","post_excerpt":"","post_status":"publish","comment_status":"open","ping_status":"closed","post_password":"","post_name":"test-event-9-days-2","to_ping":"","pinged":"","post_modified":"2019-06-11 13:59:35","post_modified_gmt":"2019-06-11 13:59:35","post_content_filtered":"","post_parent":0,"guid":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-9-days-2","menu_order":0,"post_type":"tribe_events","post_mime_type":"","comment_count":"0","filter":"raw"},{"ID":8,"post_author":"1","post_date":"2019-06-11 13:59:35","post_date_gmt":"2019-06-11 13:59:35","post_content":"","post_title":"Single Event 1","post_excerpt":"","post_status":"publish","comment_status":"open","ping_status":"closed","post_password":"","post_name":"single-event-1","to_ping":"","pinged":"","post_modified":"2019-06-11 13:59:35","post_modified_gmt":"2019-06-11 13:59:35","post_content_filtered":"","post_parent":0,"guid":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-9-days-2","menu_order":0,"post_type":"tribe_events","post_mime_type":"","comment_count":"0","filter":"raw"}],"url":"http:\\/\\/test.tri.be\\/events\\/list\\/","bar":{"keyword":"","date":""}}</script>
 
-		<div class="tribe-events-c-events-bar">
+		<header class="tribe-events-header">
+			<div class="tribe-events-header__events-bar tribe-events-c-events-bar">
 
 	<h2 class="tribe-common-a11y-visual-hide">Events Search and Views Navigation</h2>
+
+	<button
+	class="tribe-events-c-events-bar__search-button"
+	aria-controls="tribe-events-search-filter-container"
+	aria-expanded="false"
+	aria-selected="false"
+	data-js="tribe-events-accordion-trigger"
+>
+	<span class="tribe-events-c-events-bar__search-button-icon tribe-common-svgicon"></span>
+	<span class="tribe-events-c-events-bar__search-button-text tribe-common-a11y-visual-hide">
+		Search	</span>
+</button>
+
+	<div class="tribe-events-c-events-bar__search-filter-container" id="tribe-events-search-filter-container">
+		<div class="tribe-events-c-events-bar__tabs">
+	<button
+		class="tribe-events-c-events-bar__tab tribe-events-c-events-bar__tab--search tribe-events-c-events-bar__tab--active"
+		data-js="tribe-events-events-bar-tab"
+	>
+		<span class="tribe-events-c-events-bar__tab-icon tribe-common-svgicon tribe-common-svgicon--search"></span>
+		<span class="tribe-events-c-events-bar__tab-text tribe-common-b2">
+			Search		</span>
+	</button>
+	<button
+		class="tribe-events-c-events-bar__tab tribe-events-c-events-bar__tab--filters"
+		data-js="tribe-events-events-bar-tab"
+	>
+		<span class="tribe-events-c-events-bar__tab-icon tribe-common-svgicon tribe-common-svgicon--filters"></span>
+		<span class="tribe-events-c-events-bar__tab-text tribe-common-b2">
+			Filter		</span>
+	</button>
+</div>
+
+		<div class="tribe-events-c-events-bar__search" id="tribe-events-search-container">
+	<form
+		class="tribe-common-c-search tribe-events-c-events-bar__search-form"
+		method="get"
+		data-js="tribe-events-view-form"
+		role="search"
+	>
+		<input type="hidden" id="tribe-events-views[_wpnonce]" name="tribe-events-views[_wpnonce]" value="2ab7cc6b39" /><input type="hidden" name="_wp_http_referer" value="/events" />		<input type="hidden" name="tribe-events-views[url]" value="http://test.tri.be/events/list/" />
+
+		<div class="tribe-common-form-control-text-group tribe-common-c-search__input-group">
+			<div class="tribe-common-form-control-text tribe-common-c-search__input-control--keyword">
+	<label class="tribe-common-form-control-text__label" for="keyword">Enter Keyword. Search for Events by Keyword.</label>
+	<input
+		class="tribe-common-form-control-text__input tribe-common-c-search__input tribe-common-c-search__input--icon"
+		type="text"
+		id="keyword"
+		name="tribe-events-views[tribe-bar-search]"
+		value=""
+		placeholder="Search for events"
+	/>
+</div>
+			<div class="tribe-common-form-control-text">
+	<label class="tribe-common-form-control-text__label" for="tribe-bar-date">Enter date. Please use the format 4 digit year hyphen 2 digit month hyphen 2 digit day.</label>
+	<input
+		class="tribe-common-form-control-text__input tribe-common-c-search__input"
+		type="text"
+		id="tribe-bar-date"
+		name="tribe-events-views[tribe-bar-date]"
+		value=""
+		placeholder="Enter date"
+	/>
+</div>
+		</div>
+
+		<button
+	class="tribe-common-c-btn tribe-common-c-search__button"
+	type="submit"
+	name="submit-bar"
+>Find Events</button>
+
+	</form>
+</div>
+
+		<div class="tribe-events-c-events-bar__filters">
+	<button class="tribe-events-c-events-bar__filters-button tribe-common-b2">Filter</button>
+</div>
+	</div>
 
 	<div class="tribe-events-c-events-bar__views">
 	<h3 class="tribe-common-a11y-visual-hide">
@@ -83,57 +164,13 @@
 	</div>
 </div>
 
-	
-	<div class="tribe-events-c-events-bar__search">
-	<form
-		class="tribe-common-c-search tribe-events-c-events-bar__search-form"
-		method="get"
-		data-js="tribe-events-view-form"
-		role="search"
-	>
-		<input type="hidden" id="tribe-events-views[_wpnonce]" name="tribe-events-views[_wpnonce]" value="2ab7cc6b39" /><input type="hidden" name="_wp_http_referer" value="/events" />		<input type="hidden" name="tribe-events-views[url]" value="http://test.tri.be/events/list/" />
-
-		<div class="tribe-common-form-control-text-group tribe-common-c-search__input-group">
-			<div class="tribe-common-form-control-text tribe-common-c-search__input-control--keyword">
-	<label class="tribe-common-form-control-text__label" for="keyword">Enter Keyword. Search for Events by Keyword.</label>
-	<input
-		class="tribe-common-form-control-text__input tribe-common-c-search__input tribe-common-c-search__input--icon"
-		type="text"
-		id="keyword"
-		name="tribe-events-views[tribe-bar-search]"
-		value=""
-		placeholder="Search for events"
-	/>
-</div>
-			<div class="tribe-common-form-control-text">
-	<label class="tribe-common-form-control-text__label" for="tribe-bar-date">Enter date. Please use the format 4 digit year hyphen 2 digit month hyphen 2 digit day.</label>
-	<input
-		class="tribe-common-form-control-text__input tribe-common-c-search__input"
-		type="text"
-		id="tribe-bar-date"
-		name="tribe-events-views[tribe-bar-date]"
-		value=""
-		placeholder="Enter date"
-	/>
-</div>
-			<button
-	class="tribe-common-c-btn tribe-common-c-search__button"
-	type="submit"
-	name="submit-bar"
->Find Events</button>
-		</div>
-
-	</form>
 </div>
 
-</div>
+			<div class="tribe-events-c-top-bar tribe-events-header__top-bar">
 
-		<div class="tribe-events-c-top-bar">
-
-	<div class="tribe-events-c-top-bar__nav-wrapper">
 	<nav class="tribe-events-c-top-bar__nav">
-		<ul class="tribe-events-c-top-bar__nav-list">
-			<li class="tribe-events-c-top-bar__nav-list-item">
+	<ul class="tribe-events-c-top-bar__nav-list">
+		<li class="tribe-events-c-top-bar__nav-list-item">
 	<a
 		href="http://test.tri.be/events/?eventDisplay=past"
 		class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-left tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--prev"
@@ -143,37 +180,33 @@
 	>
 	</a>
 </li>
-			<li class="tribe-events-c-top-bar__nav-list-item">
+
+		<li class="tribe-events-c-top-bar__nav-list-item">
 	<a
 		href="http://test.tri.be/events/page/2/"
-		class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-right tribe-common-b3 tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--next"
+		class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-right tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--next"
 		aria-label="Next"
 		title="Next"
 		data-js="tribe-events-view-link"
 	>
 	</a>
 </li>
-		</ul>
-	</nav>
-</div>
+	</ul>
+</nav>
 
-	<div class="tribe-events-c-top-bar__today">
 	<a
-		href="http://test.tri.be/events/list/"
-		class="tribe-common-c-btn-border tribe-events-c-top-bar__today-button"
-		data-js="tribe-events-view-link"
-	>
-		Today	</a>
+	href="http://test.tri.be/events/list/"
+	class="tribe-common-c-btn-border tribe-events-c-top-bar__today-button"
+	data-js="tribe-events-view-link"
+>
+	Today</a>
 
-	<span class="tribe-common-h3 tribe-common-h3--alt tribe-events-c-top-bar__today-title">
-		Now &mdash; <time datetime="2019-01-01">January 1st, 2019</time>
-	</span>
-</div>
-
-	<div class="tribe-events-c-top-bar__actions">
-	</div>
+	<button class="tribe-common-h3 tribe-common-h3--alt tribe-events-c-top-bar__date-picker-button">
+	Now &mdash; <time datetime="2019-01-01">January 1st, 2019</time>
+</button>
 
 </div>
+		</header>
 
 		<div class="tribe-events-calendar-list">
 
