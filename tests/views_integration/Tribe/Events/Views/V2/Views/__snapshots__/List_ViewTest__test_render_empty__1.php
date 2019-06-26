@@ -84,24 +84,25 @@
 </div>
 
 	
-	<div class="tribe-events-c-events-bar__form">
+	<div class="tribe-events-c-events-bar__search">
 	<form
-		class="tribe-common-c-search"
+		class="tribe-common-c-search tribe-events-c-events-bar__search-form"
 		method="get"
 		data-js="tribe-events-view-form"
+		role="search"
 	>
 		<input type="hidden" id="tribe-events-views[_wpnonce]" name="tribe-events-views[_wpnonce]" value="2ab7cc6b39" /><input type="hidden" name="_wp_http_referer" value="/events" />		<input type="hidden" name="tribe-events-views[url]" value="http://test.tri.be/events/list/" />
 
 		<div class="tribe-common-form-control-text-group tribe-common-c-search__input-group">
-			<div class="tribe-common-form-control-text">
+			<div class="tribe-common-form-control-text tribe-common-c-search__input-control--keyword">
 	<label class="tribe-common-form-control-text__label" for="keyword">Enter Keyword. Search for Events by Keyword.</label>
 	<input
-		class="tribe-common-form-control-text__input tribe-common-c-search__input"
+		class="tribe-common-form-control-text__input tribe-common-c-search__input tribe-common-c-search__input--icon"
 		type="text"
 		id="keyword"
 		name="tribe-events-views[tribe-bar-search]"
 		value=""
-		placeholder="Keyword"
+		placeholder="Search for events"
 	/>
 </div>
 			<div class="tribe-common-form-control-text">
@@ -115,12 +116,13 @@
 		placeholder="Enter date"
 	/>
 </div>
-		</div>
-		<button
+			<button
 	class="tribe-common-c-btn tribe-common-c-search__button"
 	type="submit"
 	name="submit-bar"
 >Find Events</button>
+		</div>
+
 	</form>
 </div>
 
