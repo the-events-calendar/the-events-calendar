@@ -127,13 +127,11 @@ tribe.events.views.eventsBar = {};
 	 * @return {void}
 	 */
 	obj.bindEvents = function( event, index, $container, data ) {
-
 		// Bind event for the keyword input.
 		obj.bindEventsInputKeyword( $container );
 
 		// Bind event for the location input.
 		obj.bindEventsInputLocation( $container );
-
 	};
 
 	/**
