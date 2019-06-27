@@ -40,14 +40,17 @@ tribe.events.views.eventsBar = {};
 	 * @type {PlainObject}
 	 */
 	obj.selectors = {
-		eventsBar: '',
-		tabList: '',
-		tab: '',
-		searchTab: '',
-		filterTab: '',
-		searchTabPanel: '',
-		filterTabPanel: '',
-		hasFilterBarClass: '',
+		eventsBar: '[data-js="tribe-events-events-bar"]',
+		tabList: '[data-js="tribe-events-events-bar-tablist"]',
+		tab: '[data-js*="tribe-events-events-bar-tab"]',
+		searchTab: '[data-js*="tribe-events-events-bar-search-tab"]',
+		filtersTab: '[data-js*="tribe-events-events-bar-filters-tab"]',
+		searchTabPanel: '[data-js="tribe-events-events-bar-search"]',
+		filtersTabPanel: '[data-js="tribe-events-events-bar-filters"]',
+		searchButton: '[data-js="tribe-events-search-button"]',
+		filtersButton: '[data-js="tribe-events-filters-button"]',
+		searchFiltersContainer: '[data-js="tribe-events-search-filters-container"]',
+		hasFilterBarClass: '.tribe-events-c-events-bar--has-filter-bar',
 	};
 
 	/**
@@ -94,7 +97,7 @@ tribe.events.views.eventsBar = {};
 	 * @return {void}
 	 */
 	obj.setViewport = function() {
-		obj.state.isMobile = $window.width() < obj.options.MOBILE_BREAKPOINT;
+		obj.state.isMobile = window.innerWidth < obj.options.MOBILE_BREAKPOINT;
 	};
 
 	/**
@@ -125,7 +128,7 @@ tribe.events.views.eventsBar = {};
 	 */
 	obj.hideTabPanels = function( tabPanels ) {
 		tabPanels.forEach( function( $tabPanel ) {
-			$tabPanel.prop( 'hidden' );
+			$tabPanel.prop( 'hidden', true );
 		} );
 	};
 
@@ -137,18 +140,20 @@ tribe.events.views.eventsBar = {};
 	 * @param {array} tabs array of jQuery objects of tabs
 	 * @param {array} tabPanels array of jQuery objects of tabPanels
 	 * @param {jQuery} $tab jQuery object of tab to be selected
+	 * @param {jQuery} $container jQuery object of view container
 	 *
 	 * @return {void}
 	 */
-	obj.selectTab = function( tabs, tabPanels, $tab ) {
+	obj.selectTab = function( tabs, tabPanels, $tab, $container ) {
 		obj.deselectTabs( tabs );
 		obj.hideTabPanels( tabPanels );
 
 		$tab
 			.attr( 'aria-selected', 'true' )
-			.removeAttr( 'tabindex' );
+			.removeAttr( 'tabindex' )
+			.focus();
 
-		$tab
+		$container
 			.find( '#' + $tab.attr( 'aria-controls' ) )
 			.removeProp( 'hidden' );
 	};
@@ -184,13 +189,14 @@ tribe.events.views.eventsBar = {};
 	 * @return {void}
 	 */
 	obj.handleClick = function( event ) {
-		var $eventsBar = $( event.data.eventsBar );
+		var $container = $( event.data.container );
+		var $eventsBar = $container.find( obj.selectors.eventsBar );
 		var state = $eventsBar.data( 'state' );
 		var tabs = state.tabs;
 		var tabPanels = state.tabPanels;
 		var selectedTab = $( event.target ).closest( obj.selectors.tab );
 
-		obj.selectTab( tabs, tabPanels, selectedTab );
+		obj.selectTab( tabs, tabPanels, selectedTab, $container );
 	};
 
 	/**
@@ -204,7 +210,8 @@ tribe.events.views.eventsBar = {};
 	 */
 	obj.handleKeydown = function( event ) {
 		var key = event.which || event.keyCode;
-		var $eventsBar = $( event.data.eventsBar );
+		var $container = $( event.data.container );
+		var $eventsBar = $container.find( obj.selectors.eventsBar );
 		var state = $eventsBar.data( 'state' );
 		var tabs = state.tabs;
 		var tabPanels = state.tabPanels;
@@ -228,7 +235,7 @@ tribe.events.views.eventsBar = {};
 				return;
 		}
 
-		obj.selectTab( tabs, tabPanels, tabs[ nextTab ] );
+		obj.selectTab( tabs, tabPanels, tabs[ nextTab ], $container );
 		event.preventDefault();
 	};
 
@@ -242,30 +249,27 @@ tribe.events.views.eventsBar = {};
 	 * @return {void}
 	 */
 	obj.deinitTablist = function( $container ) {
-		var $searchTab = $container.find( obj.selectors.searchTab );
-		var $filterTab = $container.find( obj.selectors.filterTab );
-		var $searchTabPanel = $container.find( obj.selectors.searchTabPanel );
-		var $filterTabPanel = $container.find( obj.selectors.filterTabPanel );
-
-		$searchTab
-			.removeAttr( 'role' )
+		$container
+			.find( obj.selectors.searchTab )
 			.removeAttr( 'aria-selected' )
 			.removeAttr( 'aria-controls' )
 			.removeAttr( 'tabindex' )
 			.off( 'keydown', obj.handleKeydown )
 			.off( 'click', obj.handleClick );
-		$filterTab
-			.removeAttr( 'role' )
+		$container
+			.find( obj.selectors.filtersTab )
 			.removeAttr( 'aria-selected' )
 			.removeAttr( 'aria-controls' )
 			.removeAttr( 'tabindex' )
 			.off( 'keydown', obj.handleKeydown )
 			.off( 'click', obj.handleClick );
-		$searchTabPanel
+		$container
+			.find( obj.selectors.searchTabPanel )
 			.removeAttr( 'role' )
 			.removeAttr( 'aria-labelledby' )
 			.removeProp( 'hidden' );
-		$filterTabPanel
+		$container
+			.find( obj.selectors.filtersTabPanel )
 			.removeAttr( 'role' )
 			.removeAttr( 'aria-labelledby' )
 			.removeProp( 'hidden' );
@@ -281,32 +285,70 @@ tribe.events.views.eventsBar = {};
 	 * @return {void}
 	 */
 	obj.initTablist = function( $container ) {
-		var $eventsBar = $container.find( obj.selectors.eventsBar );
 		var $searchTab = $container.find( obj.selectors.searchTab );
-		var $filterTab = $container.find( obj.selectors.filterTab );
+		var $filtersTab = $container.find( obj.selectors.filtersTab );
 		var $searchTabPanel = $container.find( obj.selectors.searchTabPanel );
-		var $filterTabPanel = $container.find( obj.selectors.filterTabPanel );
+		var $filtersTabPanel = $container.find( obj.selectors.filtersTabPanel );
 
 		$searchTab
-			.attr( 'role', 'tab' )
 			.attr( 'aria-selected', 'true' )
 			.attr( 'aria-controls', $searchTabPanel.attr( 'id' ) )
-			.on( 'keydown', { eventsBar: $eventsBar }, obj.handleKeydown )
-			.on( 'click', { eventsBar: $eventsBar }, obj.handleClick );
-		$filterTab
-			.attr( 'role', 'tab' )
+			.on( 'keydown', { container: $container }, obj.handleKeydown )
+			.on( 'click', { container: $container }, obj.handleClick );
+		$filtersTab
 			.attr( 'aria-selected', 'false' )
-			.attr( 'aria-controls', $filterTabPanel.attr( 'id' ) )
+			.attr( 'aria-controls', $filtersTabPanel.attr( 'id' ) )
 			.attr( 'tabindex', '-1' )
-			.on( 'keydown', { eventsBar: $eventsBar }, obj.handleKeydown )
-			.on( 'click', { eventsBar: $eventsBar }, obj.handleClick );
+			.on( 'keydown', { container: $container }, obj.handleKeydown )
+			.on( 'click', { container: $container }, obj.handleClick );
 		$searchTabPanel
 			.attr( 'role', 'tabpanel' )
 			.attr( 'aria-labelledby', $searchTab.attr( 'id' ) );
-		$filterTabPanel
+		$filtersTabPanel
 			.attr( 'role', 'tabpanel' )
-			.attr( 'aria-labelledby', $filterTab.attr( 'id' ) )
-			.prop( 'hidden' );
+			.attr( 'aria-labelledby', $filtersTab.attr( 'id' ) )
+			.prop( 'hidden', true );
+	};
+
+	/**
+	 * Deinitialize accordion based on header and content
+	 *
+	 * @since TBD
+	 *
+	 * @param {jQuery} $header jQuery object of header
+	 * @param {jQuery} $content jQuery object of contents
+	 *
+	 * @return {void}
+	 */
+	obj.deinitAccordion = function( $header, $content ) {
+		tribe.events.views.accordion.deinitAccordion( 0, $header );
+		$header
+			.removeAttr( 'aria-expanded' )
+			.removeAttr( 'aria-selected' )
+			.removeAttr( 'aria-controls' );
+		$content
+			.removeAttr( 'aria-hidden' )
+			.css( 'display', '' );
+	};
+
+	/**
+	 * Initialize accordion based on header and content
+	 *
+	 * @since TBD
+	 *
+	 * @param {jQuery} $container jQuery object of view container
+	 * @param {jQuery} $header jQuery object of header
+	 * @param {jQuery} $content jQuery object of contents
+	 *
+	 * @return {void}
+	 */
+	obj.initAccordion = function( $container, $header, $content ) {
+		tribe.events.views.accordion.initAccordion( $container )( 0, $header );
+		$header
+			.attr( 'aria-expanded', 'false' )
+			.attr( 'aria-selected', 'false' )
+			.attr( 'aria-controls', $content.attr( 'id' ) );
+		$content.attr( 'aria-hidden', 'true' );
 	};
 
 	/**
@@ -318,18 +360,10 @@ tribe.events.views.eventsBar = {};
 	 *
 	 * @return {void}
 	 */
-	obj.deinitFilterAccordion = function( $container ) {
-		var $filterTab = $container.find( obj.selectors.filterTab );
-		var $filterTabPanel = $container.find( obj.selectors.filterTabPanel );
-
-		tribe.events.views.accordion.deinitAccordion( 0, $filterTab );
-		$filterTab
-			.removeAttr( 'aria-expanded' )
-			.removeAttr( 'aria-selected' )
-			.removeAttr( 'aria-controls' );
-		$filterTabPanel
-			.removeAttr( 'aria-hidden' )
-			.css( 'display', '' );
+	obj.deinitFiltersAccordion = function( $container ) {
+		var $filtersButton = $container.find( obj.selectors.filtersButton );
+		var $filtersTabPanel = $container.find( obj.selectors.filtersTabPanel );
+		obj.deinitAccordion( $filtersButton, $filtersTabPanel );
 	};
 
 	/**
@@ -341,16 +375,40 @@ tribe.events.views.eventsBar = {};
 	 *
 	 * @return {void}
 	 */
-	obj.initFilterAccordion = function( $container ) {
-		var $filterTab = $container.find( obj.selectors.filterTab );
-		var $filterTabPanel = $container.find( obj.selectors.filterTabPanel );
+	obj.initFiltersAccordion = function( $container ) {
+		var $filtersButton = $container.find( obj.selectors.filtersButton );
+		var $filtersTabPanel = $container.find( obj.selectors.filtersTabPanel );
+		obj.initAccordion( $container, $filtersButton, $filtersTabPanel );
+	};
 
-		tribe.events.views.accordion.initAccordion( $container )( 0, $filterTab );
-		$filterTab
-			.attr( 'aria-expanded', 'false' )
-			.attr( 'aria-selected', 'false' )
-			.attr( 'aria-controls', $filterTabPanel.attr( 'id' ) );
-		$filterTabPanel.attr( 'aria-hidden', 'true' );
+	/**
+	 * Deinitialize search button accordion
+	 *
+	 * @since TBD
+	 *
+	 * @param {jQuery} $container jQuery object of view container
+	 *
+	 * @return {void}
+	 */
+	obj.deinitSearchAccordion = function( $container ) {
+		var $searchButton = $container.find( obj.selectors.searchButton );
+		var $searchFiltersContainer = $container.find( obj.selectors.searchFiltersContainer );
+		obj.deinitAccordion( $searchButton, $searchFiltersContainer );
+	};
+
+	/**
+	 * Initialize search button accordion
+	 *
+	 * @since TBD
+	 *
+	 * @param {jQuery} $container jQuery object of view container
+	 *
+	 * @return {void}
+	 */
+	obj.initSearchAccordion = function( $container ) {
+		var $searchButton = $container.find( obj.selectors.searchButton );
+		var $searchFiltersContainer = $container.find( obj.selectors.searchFiltersContainer );
+		obj.initAccordion( $container, $searchButton, $searchFiltersContainer );
 	};
 
 	/**
@@ -358,27 +416,27 @@ tribe.events.views.eventsBar = {};
 	 *
 	 * @since TBD
 	 *
-	 * @param {jQuery} $eventsBar jQuery object of events bar
+	 * @param {jQuery} $container jQuery object of view container
 	 *
 	 * @return {void}
 	 */
-	obj.initState = function( $eventsBar ) {
+	obj.initState = function( $container ) {
 		var $eventsBar = $container.find( obj.selectors.eventsBar );
 
 		/**
 		 * @todo: figure out how to check if filter bar exists
 		 */
-		if ( $eventsBar.hasClass( obj.selectors.hasFilterBarClass ) ) {
+		if ( $eventsBar.hasClass( obj.selectors.hasFilterBarClass.className() ) ) {
 			var $searchTab = $container.find( obj.selectors.searchTab );
-			var $filterTab = $container.find( obj.selectors.filterTab );
+			var $filtersTab = $container.find( obj.selectors.filtersTab );
 			var $searchTabPanel = $container.find( obj.selectors.searchTabPanel );
-			var $filterTabPanel = $container.find( obj.selectors.filterTabPanel );
+			var $filtersTabPanel = $container.find( obj.selectors.filtersTabPanel );
 
 			var state = {
 				mobileInitialized: false,
 				desktopInitialized: false,
-				tabs: [ $searchTab, $filterTab ],
-				tabPanels: [ $searchTabPanel, $filterTabPanel ],
+				tabs: [ $searchTab, $filtersTab ],
+				tabPanels: [ $searchTabPanel, $filtersTabPanel ],
 				currentTab: 0,
 			};
 
@@ -401,18 +459,20 @@ tribe.events.views.eventsBar = {};
 		/**
 		 * @todo: figure out how to check if filter bar exists
 		 */
-		if ( $eventsBar.hasClass( obj.selectors.hasFilterBarClass ) ) {
+		if ( $eventsBar.hasClass( obj.selectors.hasFilterBarClass.className() ) ) {
 			var state = $eventsBar.data( 'state' );
 
 			if ( obj.state.isMobile && ! state.mobileInitialized ) {
-				obj.deinitFilterAccordion( $container );
 				obj.initTablist( $container );
+				obj.initSearchAccordion( $container );
+				obj.deinitFiltersAccordion( $container );
 				state.desktopInitialized = false;
 				state.mobileInitialized = true;
 				$eventsBar.data( 'state', state );
 			} else if ( ! obj.state.isMobile && ! state.desktopInitialized ) {
 				obj.deinitTablist( $container );
-				obj.initFilterAccordion( $container );
+				obj.deinitSearchAccordion( $container );
+				obj.initFiltersAccordion( $container );
 				state.mobileInitialized = false;
 				state.desktopInitialized = true;
 				$eventsBar.data( 'state', state );

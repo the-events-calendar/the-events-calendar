@@ -148,7 +148,7 @@ tribe.events.views.accordion = {};
 	 */
 	obj.initAccordion = function( $container ) {
 		return function( index, header ) {
-			$( header ).on( 'click', { target: this, container: $container }, obj.toggleAccordion );
+			$( header ).on( 'click', { target: header, container: $container }, obj.toggleAccordion );
 		};
 	};
 

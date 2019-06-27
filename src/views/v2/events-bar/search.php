@@ -15,7 +15,11 @@
 
 use Tribe\Events\Views\V2\Rest_Endpoint;
 ?>
-<div class="tribe-events-c-events-bar__search" id="tribe-events-search-container">
+<div
+	class="tribe-events-c-events-bar__search"
+	id="tribe-events-events-bar-search"
+	data-js="tribe-events-events-bar-search"
+>
 	<form
 		class="tribe-common-c-search tribe-events-c-events-bar__search-form"
 		method="get"
@@ -31,6 +35,5 @@ use Tribe\Events\Views\V2\Rest_Endpoint;
 		</div>
 
 		<?php $this->template( 'events-bar/search/submit' ); ?>
-
 	</form>
 </div>

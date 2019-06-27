@@ -17,10 +17,12 @@
  * @todo: show tabs only if filter bar is active
  */
 ?>
-<div class="tribe-events-c-events-bar__tabs">
+<div class="tribe-events-c-events-bar__tabs" role="tablist" data-js="tribe-events-events-bar-tablist">
 	<button
 		class="tribe-events-c-events-bar__tab tribe-events-c-events-bar__tab--search tribe-events-c-events-bar__tab--active"
-		data-js="tribe-events-events-bar-tab"
+		id="tribe-events-events-bar-search-tab"
+		data-js="tribe-events-events-bar-tab tribe-events-events-bar-search-tab"
+		role="tab"
 	>
 		<span class="tribe-events-c-events-bar__tab-icon tribe-common-svgicon tribe-common-svgicon--search"></span>
 		<span class="tribe-events-c-events-bar__tab-text tribe-common-b2">
@@ -29,7 +31,9 @@
 	</button>
 	<button
 		class="tribe-events-c-events-bar__tab tribe-events-c-events-bar__tab--filters"
-		data-js="tribe-events-events-bar-tab"
+		id="tribe-events-events-bar-filters-tab"
+		data-js="tribe-events-events-bar-tab tribe-events-events-bar-filters-tab"
+		role="tab"
 	>
 		<span class="tribe-events-c-events-bar__tab-icon tribe-common-svgicon tribe-common-svgicon--filters"></span>
 		<span class="tribe-events-c-events-bar__tab-text tribe-common-b2">

@@ -170,7 +170,7 @@ tribe.events.views.monthMobileEvents = {};
 
 		$calendar.find( obj.selectors.calendarDay ).each( function( index, day ) {
 			$( day ).on( 'click', {
-				target: this,
+				target: day,
 				container: $container,
 				calendar: $calendar,
 			}, obj.toggleMobileEvents );

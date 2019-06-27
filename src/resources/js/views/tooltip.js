@@ -56,11 +56,12 @@ tribe.events.views.tooltip = {};
 	 * @return {void}
 	 */
 	obj.onFunctionInit = function( instance, helper ) {
-		var content = $( helper.origin ).find( obj.selectors.tooltipContent ).html();
+		var $origin = $( helper.origin );
+		var content = $origin.find( obj.selectors.tooltipContent ).html();
 		instance.content( content );
-		$( helper.origin )
-			.on( 'focus', { target: $( this ) }, obj.handleOriginFocus )
-			.on( 'blur', { target: $( this ) }, obj.handleOriginBlur );
+		$origin
+			.on( 'focus', { target: $origin }, obj.handleOriginFocus )
+			.on( 'blur', { target: $origin }, obj.handleOriginBlur );
 	};
 
 	/**

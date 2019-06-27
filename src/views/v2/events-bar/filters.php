@@ -17,5 +17,19 @@
 // /*
 ?>
 <div class="tribe-events-c-events-bar__filters">
-	<button class="tribe-events-c-events-bar__filters-button tribe-common-b2"><?php esc_html_e( 'Filter', 'the-events-calendar' ); ?></button>
+	<h3 class="tribe-common-a11y-visual-hide">
+		<?php printf( esc_html__( '%s Filters', 'the-events-calendar' ), tribe_get_event_label_singular() ); ?>
+	</h3>
+	<button
+		class="tribe-events-c-events-bar__filters-button tribe-common-b2"
+		data-js="tribe-events-filters-button"
+	>
+		<?php esc_html_e( 'Filter', 'the-events-calendar' ); ?>
+	</button>
+	<div
+		class="tribe-events-c-events-bar__filters-content"
+		id="tribe-events-events-bar-filters"
+		data-js="tribe-events-events-bar-filters"
+	>
+	</div>
 </div>
