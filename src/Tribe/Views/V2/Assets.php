@@ -68,6 +68,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 				'tribe-events-views-v2-month-mobile-events',
 				'tribe-events-views-v2-month-grid',
 				'tribe-events-views-v2-tooltip',
+				'tribe-events-views-v2-events-bar',
 				'tribe-events-views-v2-events-bar-inputs',
 			],
 			'wp_enqueue_scripts',
@@ -107,7 +108,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 			[ 'jquery', 'tribe-common' ],
 			null,
 			[
-				'priority'     => 10,
+				'priority' => 10,
 			]
 		);
 
@@ -118,7 +119,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 			[ 'jquery', 'tribe-common', 'tribe-events-views-v2-accordion' ],
 			null,
 			[
-				'priority'     => 10,
+				'priority' => 10,
 			]
 		);
 
@@ -129,7 +130,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 			[ 'jquery', 'tribe-common' ],
 			null,
 			[
-				'priority'     => 10,
+				'priority' => 10,
 			]
 		);
 
@@ -140,7 +141,18 @@ class Assets extends \tad_DI52_ServiceProvider {
 			[ 'jquery', 'tribe-common', 'tribe-tooltipster' ],
 			null,
 			[
-				'priority'     => 10,
+				'priority' => 10,
+			]
+		);
+
+		tribe_asset(
+			$plugin,
+			'tribe-events-views-v2-events-bar',
+			'views/events-bar.js',
+			[ 'jquery', 'tribe-common', 'tribe-events-views-v2-accordion' ],
+			null,
+			[
+				'priority' => 10,
 			]
 		);
 
@@ -151,12 +163,12 @@ class Assets extends \tad_DI52_ServiceProvider {
 			[ 'jquery', 'tribe-common' ],
 			null,
 			[
-				'priority'     => 10,
+				'priority' => 10,
 			]
 		);
 	}
 
-	/**
+/**
 	 * Checks if we should enqueue frontend assets for the V2 views
 	 *
 	 * @since TBD
