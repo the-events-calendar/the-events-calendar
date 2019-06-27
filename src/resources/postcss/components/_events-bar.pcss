@@ -175,11 +175,21 @@
 		&:hover,
 		&:focus,
 		&:active {
-			background-color: var(--color-background-secondary);
 			.tribe-events-c-events-bar__tab-text {
 				font-weight: var(--font-weight-bold);
 			}
 
+			.tribe-common-svgicon--search {
+				background-image: svg-inline(search-active);
+			}
+
+			.tribe-common-svgicon--filters {
+				background-image: svg-inline(filters-active);
+			}
+		}
+
+		&:active {
+			background-color: var(--color-background-secondary);
 		}
 
 		&:first-of-type {
@@ -202,6 +212,14 @@
 		.tribe-events-c-events-bar__tab-text {
 			font-weight: var(--font-weight-bold);
 		}
+
+		.tribe-common-svgicon--search {
+			background-image: svg-inline(search-active);
+		}
+
+		.tribe-common-svgicon--filters {
+			background-image: svg-inline(filters-active);
+		}
 	}
 
 	/* @todo: move this to global buttons */
@@ -213,6 +231,13 @@
 				@media (--viewport-medium) {
 					background-color: var(--color-background);
 				}
+			}
+		}
+
+		.tribe-events-c-events-bar__tab:not(.tribe-events-c-events-bar__tab--active) {
+			&:hover,
+			&:focus {
+				background-color: var(--color-background);
 			}
 		}
 	}
