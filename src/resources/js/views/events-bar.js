@@ -58,66 +58,37 @@ tribe.events.views.eventsBar = {};
 	 */
 	obj.setInputFocusClass = function( event ) {
 		var $input = event.data.target;
-		var $wrapper = event.data.wrapper
+		var $wrapper = event.data.wrapper;
 
 		// Set the focus class if it has content.
 		$wrapper.toggleClass( event.data.inputClassFocus, '' !== $input.val().trim() );
 	};
 
 	/**
-	 * Bind events for the keyword input of the events bar
+	 * Bind events for the events bar input, on focus and according to their value.
 	 *
 	 * @since TBD
 	 *
 	 * @param {jQuery} $container jQuery object of container.
+	 * @param {String} inputWrapper selector of the input wrapper.
+	 * @param {String} inputWrapperFocus the focus class we'd like to apply.
 	 *
 	 * @return {void}
 	 */
-	obj.bindEventsInputKeyword = function( $container ) {
+	obj.bindEventsInputFocus = function( $container, inputWrapper, inputWrapperFocus ) {
 
-		$container
-			.find( obj.selectors.inputKeywordWrapper )
-			.each( function( index, wrapper ) {
-				$( wrapper )
-					.find( obj.selectors.input ).each( function( index, input ) {
-						$( wrapper ).toggleClass( obj.selectors.inputKeywordWrapperFocus.className(), '' !== $( input ).val().trim() );
+		var $wrapper = $container.find( inputWrapper );
+		var $input = $wrapper.find( obj.selectors.input );
 
-						$( input ).on( 'change', {
-							target: $( this ),
-							wrapper: $( wrapper ),
-							inputClassFocus: obj.selectors.inputKeywordWrapperFocus.className()
-						}, obj.setInputFocusClass );
-				} );
-			} );
-	};
 
-	/**
-	 * Bind events for the location input of the events bar
-	 *
-	 * @since TBD
-	 *
-	 * @param {jQuery} $container jQuery object of container.
-	 *
-	 * @return {void}
-	 */
-	obj.bindEventsInputLocation = function( $container ) {
+		$wrapper.toggleClass( inputWrapperFocus.className(), '' !== $input.val().trim() );
 
-		// Bind event for the location input.
-		$container
-			.find( obj.selectors.inputLocationdWrapper )
-			.each( function( index, wrapper ) {
-				$( wrapper )
-					.find( obj.selectors.input ).each( function( index, input ) {
-						$( wrapper ).toggleClass( obj.selectors.inputLocationWrapperFocus.className(), '' !== $( input ).val().trim() );
-
-						$( input ).on( 'change', {
-							target: $( this ),
-							wrapper: $( wrapper ),
-							inputClassFocus: obj.selectors.inputLocationWrapperFocus.className()
-						}, obj.setInputFocusClass );
-				} );
-			} );
-	};
+		$input.on( 'change', {
+						target: $input,
+						wrapper: $wrapper,
+						inputClassFocus: inputWrapperFocus.className()
+					}, obj.setInputFocusClass );
+	}
 
 	/**
 	 * Binds events for the events bar change listeners
@@ -133,10 +104,10 @@ tribe.events.views.eventsBar = {};
 	 */
 	obj.bindEvents = function( event, index, $container, data ) {
 		// Bind event for the keyword input.
-		obj.bindEventsInputKeyword( $container );
+		obj.bindEventsInputFocus( $container, obj.selectors.inputKeywordWrapper, obj.selectors.inputKeywordWrapperFocus );
 
 		// Bind event for the location input.
-		obj.bindEventsInputLocation( $container );
+		obj.bindEventsInputFocus( $container, obj.selectors.inputLocationWrapper, obj.selectors.inputLocationWrapperFocus );
 	};
 
 	/**
