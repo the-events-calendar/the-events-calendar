@@ -41,10 +41,6 @@ tribe.events.views.eventsBar = {};
 	obj.selectors = {
 		input: '[data-js="tribe-events-events-bar-input-control-input"]',
 		inputWrapper: '[data-js="tribe-events-events-bar-input-control"]',
-		inputKeywordWrapper: '.tribe-common-c-search__input-control--keyword',
-		inputKeywordWrapperFocus: '.tribe-common-c-search__input-control--keyword-focus',
-		inputLocationWrapper: '.tribe-common-c-search__input-control--location',
-		inputLocationWrapperFocus: '.tribe-common-c-search__input-control--location-focus',
 	};
 
 	/**
@@ -75,25 +71,30 @@ tribe.events.views.eventsBar = {};
 	 *
 	 * @return {void}
 	 */
-	obj.bindEventsInputFocus = function( $container, inputWrapper, inputWrapperFocus ) {
+	obj.bindEventsInputFocus = function( $container ) {
 
-		var $wrapper = $container.find( inputWrapper );
+		$container.find( obj.selectors.inputWrapper ).each( function( index, wrapper ) {
 
-		// Bail in case we dont find the wrapper.
-		if ( ! $wrapper.length ) {
-			return;
-		}
+			var inputWrapperClass = wrapper.className.match( /tribe-common-c-search__[a-z\-\_]+/i );
 
-		var $input = $wrapper.find( obj.selectors.input );
+			if ( ! inputWrapperClass ) {
+				return;
+			}
 
-		// Bail in case we dont find the input.
-		if ( ! $input.length ) {
-			return;
-		}
+			var inputWrapperFocus = inputWrapperClass[0] + '-focus';
+			var $wrapper = $( wrapper );
+			var $input = $wrapper.find( obj.selectors.input );
 
-		$wrapper.toggleClass( inputWrapperFocus.className(), '' !== $input.val().trim() );
+			// Bail in case we dont find the input.
+			if ( ! $input.length ) {
+				return;
+			}
 
-		$input.on( 'change', { target: $input, wrapper: $wrapper, inputClassFocus: inputWrapperFocus.className() }, obj.setInputFocusClass );
+			$wrapper.toggleClass( inputWrapperFocus, '' !== $input.val().trim() );
+
+			$input.on( 'change', { target: $input, wrapper: $wrapper, inputClassFocus: inputWrapperFocus }, obj.setInputFocusClass );
+		});
+
 	}
 
 	/**
@@ -110,10 +111,7 @@ tribe.events.views.eventsBar = {};
 	 */
 	obj.bindEvents = function( event, index, $container, data ) {
 		// Bind event for the keyword input.
-		obj.bindEventsInputFocus( $container, obj.selectors.inputKeywordWrapper, obj.selectors.inputKeywordWrapperFocus );
-
-		// Bind event for the location input.
-		obj.bindEventsInputFocus( $container, obj.selectors.inputLocationWrapper, obj.selectors.inputLocationWrapperFocus );
+		obj.bindEventsInputFocus( $container );
 	};
 
 	/**
