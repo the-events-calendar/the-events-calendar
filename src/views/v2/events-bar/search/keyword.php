@@ -15,12 +15,14 @@
  *
  */
 ?>
-<div class="tribe-common-form-control-text tribe-common-c-search__input-control--keyword">
-	<label class="tribe-common-form-control-text__label" for="keyword"><?php esc_html_e( 'Enter Keyword. Search for Events by Keyword.', 'the-events-calendar' ); ?></label>
+<div class="tribe-common-form-control-text tribe-common-c-search__input-control tribe-common-c-search__input-control--keyword">
+	<label class="tribe-common-form-control-text__label" for="tribe-events-events-bar-keyword">
+		<?php printf( esc_html__( 'Enter Keyword. Search for %s by Keyword.', 'the-events-calendar' ), tribe_get_event_label_plural() ); ?>
+	</label>
 	<input
 		class="tribe-common-form-control-text__input tribe-common-c-search__input tribe-common-c-search__input--icon"
 		type="text"
-		id="keyword"
+		id="tribe-events-events-bar-keyword"
 		name="tribe-events-views[tribe-bar-search]"
 		value="<?php echo esc_attr( tribe_events_template_var( [ 'bar', 'keyword' ], '' ) ); ?>"
 		placeholder="<?php esc_attr_e( 'Search for events', 'the-events-calendar' ); ?>"

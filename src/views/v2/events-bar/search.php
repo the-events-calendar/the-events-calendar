@@ -31,7 +31,7 @@ use Tribe\Events\Views\V2\Rest_Endpoint;
 
 		<div class="tribe-common-form-control-text-group tribe-common-c-search__input-group">
 			<?php $this->template( 'events-bar/search/keyword' ); ?>
-			<?php $this->template( 'events-bar/search/date' ); ?>
+			<?php $this->template( 'events-bar/search/location' ); ?>
 		</div>
 
 		<?php $this->template( 'events-bar/search/submit' ); ?>
