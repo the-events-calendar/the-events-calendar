@@ -78,8 +78,18 @@ tribe.events.views.eventsBar = {};
 	obj.bindEventsInputFocus = function( $container, inputWrapper, inputWrapperFocus ) {
 
 		var $wrapper = $container.find( inputWrapper );
+
+		// Bail in case we dont find the wrapper.
+		if ( ! $wrapper.length ) {
+			return;
+		}
+
 		var $input = $wrapper.find( obj.selectors.input );
 
+		// Bail in case we dont find the input.
+		if ( ! $input.length ) {
+			return;
+		}
 
 		$wrapper.toggleClass( inputWrapperFocus.className(), '' !== $input.val().trim() );
 
