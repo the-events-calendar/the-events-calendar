@@ -92,7 +92,6 @@ tribe.events.views.eventsBar = {};
 
 			$input.on( 'change', { target: $input, wrapper: $wrapper, inputClassFocus: inputWrapperFocus }, obj.setInputFocusClass );
 		});
-
 	}
 
 	/**
