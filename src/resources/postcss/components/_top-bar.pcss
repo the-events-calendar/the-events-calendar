@@ -13,6 +13,7 @@
 			flex-direction: row;
 			flex-wrap: wrap;
 			margin-bottom: var(--spacer-5);
+			width: 100%;
 		}
 	}
 
@@ -53,6 +54,17 @@
 			display: block !important;
 			flex: none;
 			margin-right: 15px;
+			visibility: visible;
+		}
+	}
+
+	.tribe-events-c-top-bar__actions {
+		@mixin hidden;
+
+		@media (--viewport-medium) {
+			display: block !important;
+			flex: none;
+			margin-left: auto;
 			visibility: visible;
 		}
 	}

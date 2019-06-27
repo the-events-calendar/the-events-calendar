@@ -21,4 +21,6 @@
 
 	<?php $this->template( 'top-bar/date-picker' ); ?>
 
+	<?php $this->template( 'top-bar/actions' ); ?>
+
 </div>
