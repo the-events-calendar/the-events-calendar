@@ -14,5 +14,5 @@
  */
 ?>
 <div class="tribe-events-c-top-bar__actions">
-	<?php $this->template( 'top-bar/actions/hide-recurring' ); ?>
+	<?php $this->template( 'top-bar/actions/content' ); ?>
 </div>
