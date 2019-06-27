@@ -151,7 +151,6 @@ tribe.events.views.eventsBar = {};
 			.attr( 'aria-selected', 'true' )
 			.removeAttr( 'tabindex' )
 			.focus();
-
 		$container
 			.find( '#' + $tab.attr( 'aria-controls' ) )
 			.removeProp( 'hidden' );
@@ -362,8 +361,11 @@ tribe.events.views.eventsBar = {};
 	 */
 	obj.deinitFiltersAccordion = function( $container ) {
 		var $filtersButton = $container.find( obj.selectors.filtersButton );
-		var $filtersContainer = $container.find( obj.selectors.filtersContainer );
-		obj.deinitAccordion( $filtersButton, $filtersContainer );
+
+		if ( $filtersButton.length ) {
+			var $filtersContainer = $container.find( obj.selectors.filtersContainer );
+			obj.deinitAccordion( $filtersButton, $filtersContainer );
+		}
 	};
 
 	/**
@@ -377,8 +379,11 @@ tribe.events.views.eventsBar = {};
 	 */
 	obj.initFiltersAccordion = function( $container ) {
 		var $filtersButton = $container.find( obj.selectors.filtersButton );
-		var $filtersContainer = $container.find( obj.selectors.filtersContainer );
-		obj.initAccordion( $container, $filtersButton, $filtersContainer );
+
+		if ( $filtersButton.length ) {
+			var $filtersContainer = $container.find( obj.selectors.filtersContainer );
+			obj.initAccordion( $container, $filtersButton, $filtersContainer );
+		}
 	};
 
 	/**
@@ -450,28 +455,27 @@ tribe.events.views.eventsBar = {};
 	 */
 	obj.initEventsBar = function( $container ) {
 		var $eventsBar = $container.find( obj.selectors.eventsBar );
+		var $filtersButton = $container.find( obj.selectors.filtersButton );
+		var state = $eventsBar.data( 'state' );
 
-		/**
-		 * @todo: figure out how to check if filter bar exists
-		 */
-		if ( $eventsBar.hasClass( obj.selectors.hasFilterBarClass.className() ) ) {
-			var state = $eventsBar.data( 'state' );
-
-			if ( obj.state.isMobile && ! state.mobileInitialized ) {
+		if ( obj.state.isMobile && ! state.mobileInitialized ) {
+			if ( $filtersButton.length ) {
 				obj.initTablist( $container );
-				obj.initSearchAccordion( $container );
 				obj.deinitFiltersAccordion( $container );
-				state.desktopInitialized = false;
-				state.mobileInitialized = true;
-				$eventsBar.data( 'state', state );
-			} else if ( ! obj.state.isMobile && ! state.desktopInitialized ) {
-				obj.deinitTablist( $container );
-				obj.deinitSearchAccordion( $container );
-				obj.initFiltersAccordion( $container );
-				state.mobileInitialized = false;
-				state.desktopInitialized = true;
-				$eventsBar.data( 'state', state );
 			}
+			obj.initSearchAccordion( $container );
+			state.desktopInitialized = false;
+			state.mobileInitialized = true;
+			$eventsBar.data( 'state', state );
+		} else if ( ! obj.state.isMobile && ! state.desktopInitialized ) {
+			if ( $filtersButton.length ) {
+				obj.deinitTablist( $container );
+				obj.initFiltersAccordion( $container );
+			}
+			obj.deinitSearchAccordion( $container );
+			state.mobileInitialized = false;
+			state.desktopInitialized = true;
+			$eventsBar.data( 'state', state );
 		}
 	};
 
