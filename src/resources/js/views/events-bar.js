@@ -42,15 +42,14 @@ tribe.events.views.eventsBar = {};
 	obj.selectors = {
 		eventsBar: '[data-js="tribe-events-events-bar"]',
 		tabList: '[data-js="tribe-events-events-bar-tablist"]',
-		tab: '[data-js*="tribe-events-events-bar-tab"]',
-		searchTab: '[data-js*="tribe-events-events-bar-search-tab"]',
-		filtersTab: '[data-js*="tribe-events-events-bar-filters-tab"]',
-		searchTabPanel: '[data-js="tribe-events-events-bar-search"]',
-		filtersTabPanel: '[data-js="tribe-events-events-bar-filters"]',
+		tab: '[data-js~="tribe-events-events-bar-tab"]',
+		tabPanel: '[data-js~="tribe-events-events-bar-tabpanel"]',
 		searchButton: '[data-js="tribe-events-search-button"]',
 		filtersButton: '[data-js="tribe-events-filters-button"]',
 		searchFiltersContainer: '[data-js="tribe-events-search-filters-container"]',
+		filtersContainer: '[data-js~="tribe-events-events-bar-filters"]',
 		hasFilterBarClass: '.tribe-events-c-events-bar--has-filter-bar',
+		activeTabClass: '.tribe-events-c-events-bar__tab--active',
 	};
 
 	/**
@@ -250,29 +249,22 @@ tribe.events.views.eventsBar = {};
 	 */
 	obj.deinitTablist = function( $container ) {
 		$container
-			.find( obj.selectors.searchTab )
-			.removeAttr( 'aria-selected' )
-			.removeAttr( 'aria-controls' )
-			.removeAttr( 'tabindex' )
-			.off( 'keydown', obj.handleKeydown )
-			.off( 'click', obj.handleClick );
+			.find( obj.selectors.tab )
+			.each( function( index, tab ) {
+				$( tab )
+					.removeAttr( 'aria-selected' )
+					.removeAttr( 'tabindex' )
+					.off( 'keydown', obj.handleKeydown )
+					.off( 'click', obj.handleClick );
+			} );
 		$container
-			.find( obj.selectors.filtersTab )
-			.removeAttr( 'aria-selected' )
-			.removeAttr( 'aria-controls' )
-			.removeAttr( 'tabindex' )
-			.off( 'keydown', obj.handleKeydown )
-			.off( 'click', obj.handleClick );
-		$container
-			.find( obj.selectors.searchTabPanel )
-			.removeAttr( 'role' )
-			.removeAttr( 'aria-labelledby' )
-			.removeProp( 'hidden' );
-		$container
-			.find( obj.selectors.filtersTabPanel )
-			.removeAttr( 'role' )
-			.removeAttr( 'aria-labelledby' )
-			.removeProp( 'hidden' );
+			.find( obj.selectors.tabPanel )
+			.each( function( index, tabpanel ) {
+				$( tabpanel )
+					.removeAttr( 'role' )
+					.removeAttr( 'aria-labelledby' )
+					.removeProp( 'hidden' );
+			} );
 	};
 
 	/**
@@ -285,29 +277,37 @@ tribe.events.views.eventsBar = {};
 	 * @return {void}
 	 */
 	obj.initTablist = function( $container ) {
-		var $searchTab = $container.find( obj.selectors.searchTab );
-		var $filtersTab = $container.find( obj.selectors.filtersTab );
-		var $searchTabPanel = $container.find( obj.selectors.searchTabPanel );
-		var $filtersTabPanel = $container.find( obj.selectors.filtersTabPanel );
+		var $eventsBar = $container.find( obj.selectors.eventsBar );
+		var state = $eventsBar.data( 'state' );
+		var tabs = [];
+		var tabpanels = [];
 
-		$searchTab
-			.attr( 'aria-selected', 'true' )
-			.attr( 'aria-controls', $searchTabPanel.attr( 'id' ) )
-			.on( 'keydown', { container: $container }, obj.handleKeydown )
-			.on( 'click', { container: $container }, obj.handleClick );
-		$filtersTab
-			.attr( 'aria-selected', 'false' )
-			.attr( 'aria-controls', $filtersTabPanel.attr( 'id' ) )
-			.attr( 'tabindex', '-1' )
-			.on( 'keydown', { container: $container }, obj.handleKeydown )
-			.on( 'click', { container: $container }, obj.handleClick );
-		$searchTabPanel
-			.attr( 'role', 'tabpanel' )
-			.attr( 'aria-labelledby', $searchTab.attr( 'id' ) );
-		$filtersTabPanel
-			.attr( 'role', 'tabpanel' )
-			.attr( 'aria-labelledby', $filtersTab.attr( 'id' ) )
-			.prop( 'hidden', true );
+		$container
+			.find( obj.selectors.tab )
+			.each( function( index, tab ) {
+				var $tab = $( tab );
+				var $tabpanel = $container.find( '#' + $tab.attr( 'aria-controls' ) );
+
+				$tab
+					.attr( 'aria-selected', 'true' )
+					.on( 'keydown', { container: $container }, obj.handleKeydown )
+					.on( 'click', { container: $container }, obj.handleClick );
+				$tabpanel
+					.attr( 'role', 'tabpanel' )
+					.attr( 'aria-labelledby', $tab.attr( 'id' ) );
+
+				if ( index !== 0 ) {
+					$tab.attr( 'tabindex', '-1' );
+					$tabpanel.prop( 'hidden', true );
+				}
+
+				tabs.push( $tab );
+				tabpanels.push( $tabpanel );
+			} );
+
+		state.tabs = tabs;
+		state.tabPanels = tabpanels;
+		$eventsBar.data( 'state', state );
 	};
 
 	/**
@@ -362,8 +362,8 @@ tribe.events.views.eventsBar = {};
 	 */
 	obj.deinitFiltersAccordion = function( $container ) {
 		var $filtersButton = $container.find( obj.selectors.filtersButton );
-		var $filtersTabPanel = $container.find( obj.selectors.filtersTabPanel );
-		obj.deinitAccordion( $filtersButton, $filtersTabPanel );
+		var $filtersContainer = $container.find( obj.selectors.filtersContainer );
+		obj.deinitAccordion( $filtersButton, $filtersContainer );
 	};
 
 	/**
@@ -377,8 +377,9 @@ tribe.events.views.eventsBar = {};
 	 */
 	obj.initFiltersAccordion = function( $container ) {
 		var $filtersButton = $container.find( obj.selectors.filtersButton );
-		var $filtersTabPanel = $container.find( obj.selectors.filtersTabPanel );
-		obj.initAccordion( $container, $filtersButton, $filtersTabPanel );
+		var $filtersContainer = $container.find( obj.selectors.filtersContainer );
+		console.log($filtersContainer);
+		obj.initAccordion( $container, $filtersButton, $filtersContainer );
 	};
 
 	/**
@@ -427,16 +428,11 @@ tribe.events.views.eventsBar = {};
 		 * @todo: figure out how to check if filter bar exists
 		 */
 		if ( $eventsBar.hasClass( obj.selectors.hasFilterBarClass.className() ) ) {
-			var $searchTab = $container.find( obj.selectors.searchTab );
-			var $filtersTab = $container.find( obj.selectors.filtersTab );
-			var $searchTabPanel = $container.find( obj.selectors.searchTabPanel );
-			var $filtersTabPanel = $container.find( obj.selectors.filtersTabPanel );
-
 			var state = {
 				mobileInitialized: false,
 				desktopInitialized: false,
-				tabs: [ $searchTab, $filtersTab ],
-				tabPanels: [ $searchTabPanel, $filtersTabPanel ],
+				tabs: [],
+				tabPanels: [],
 				currentTab: 0,
 			};
 

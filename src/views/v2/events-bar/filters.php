@@ -29,7 +29,7 @@
 	<div
 		class="tribe-events-c-events-bar__filters-content"
 		id="tribe-events-events-bar-filters"
-		data-js="tribe-events-events-bar-filters"
+		data-js="tribe-events-events-bar-tabpanel tribe-events-events-bar-filters"
 	>
 	</div>
 </div>
