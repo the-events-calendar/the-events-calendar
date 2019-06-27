@@ -378,7 +378,6 @@ tribe.events.views.eventsBar = {};
 	obj.initFiltersAccordion = function( $container ) {
 		var $filtersButton = $container.find( obj.selectors.filtersButton );
 		var $filtersContainer = $container.find( obj.selectors.filtersContainer );
-		console.log($filtersContainer);
 		obj.initAccordion( $container, $filtersButton, $filtersContainer );
 	};
 
