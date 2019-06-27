@@ -66,8 +66,6 @@ tribe.events.views.eventsBar = {};
 	 * @since TBD
 	 *
 	 * @param {jQuery} $container jQuery object of container.
-	 * @param {String} inputWrapper selector of the input wrapper.
-	 * @param {String} inputWrapperFocus the focus class we'd like to apply.
 	 *
 	 * @return {void}
 	 */
