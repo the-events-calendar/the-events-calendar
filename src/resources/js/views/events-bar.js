@@ -83,11 +83,7 @@ tribe.events.views.eventsBar = {};
 
 		$wrapper.toggleClass( inputWrapperFocus.className(), '' !== $input.val().trim() );
 
-		$input.on( 'change', {
-						target: $input,
-						wrapper: $wrapper,
-						inputClassFocus: inputWrapperFocus.className()
-					}, obj.setInputFocusClass );
+		$input.on( 'change', { target: $input, wrapper: $wrapper, inputClassFocus: inputWrapperFocus.className() }, obj.setInputFocusClass );
 	}
 
 	/**
