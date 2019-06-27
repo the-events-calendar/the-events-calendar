@@ -169,6 +169,7 @@
 		display: flex;
 		flex: 1 1 50%;
 		flex-direction: column;
+		margin: 0 var(--spacer-0);
 		padding: var(--spacer-3) 0;
 
 		&:hover,
@@ -179,6 +180,14 @@
 				font-weight: var(--font-weight-bold);
 			}
 
+		}
+
+		&:first-of-type {
+			margin-left: 0;
+		}
+
+		&:last-of-type {
+			margin-right: 0;
 		}
 	}
 
