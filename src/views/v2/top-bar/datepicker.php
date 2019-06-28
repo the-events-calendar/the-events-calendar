@@ -13,6 +13,9 @@
  *
  */
 ?>
-<button class="tribe-common-h3 tribe-common-h3--alt tribe-events-c-top-bar__datepicker-button">
+<button
+	class="tribe-common-h3 tribe-common-h3--alt tribe-events-c-top-bar__datepicker-button"
+	data-js="tribe-events-top-bar-datepicker-button"
+>
 	<?php esc_html_e( 'Now', 'the-events-calendar' ); ?> &mdash; <time datetime="<?php echo esc_attr( date( 'Y-m-d', time() ) ); ?>"><?php echo date( 'F jS, Y', time() ); ?></time>
 </button>

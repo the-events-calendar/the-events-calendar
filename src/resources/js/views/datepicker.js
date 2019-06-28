@@ -39,7 +39,9 @@ tribe.events.views.datepicker = {};
 	 * @type {PlainObject}
 	 */
 	obj.selectors = {
-
+		topBar: '[data-js="tribe-events-top-bar"]',
+		button: '[data-js="tribe-events-top-bar-datepicker-button"]',
+		buttonOpenClass: '.tribe-events-c-top-bar__datepicker-button--open',
 	};
 
 	/**
@@ -51,6 +53,38 @@ tribe.events.views.datepicker = {};
 	 */
 	obj.state = {
 		initialized: false,
+	};
+
+	/**
+	 * Handle datepicker show event
+	 *
+	 * @since TBD
+	 *
+	 * @param {Event} event event object for 'show' event
+	 *
+	 * @return {void}
+	 */
+	obj.handleShow = function( event ) {
+		var $datepickerButton = $( event.target );
+
+		$datepickerButton.toggleClass( obj.selectors.buttonOpenClass.className() );
+
+		if ( ! $datepickerButton.hasClass( obj.selectors.buttonOpenClass.className() ) ) {
+			$datepickerButton.bootstrapDatepicker( 'hide' );
+		}
+	};
+
+	/**
+	 * Handle datepicker hide event
+	 *
+	 * @since TBD
+	 *
+	 * @param {Event} event event object for 'hide' event
+	 *
+	 * @return {void}
+	 */
+	obj.handleHide = function( event ) {
+		$( event.target ).removeClass( obj.selectors.buttonOpenClass.className() );
 	};
 
 	/**
@@ -66,9 +100,30 @@ tribe.events.views.datepicker = {};
 	 * @return {void}
 	 */
 	obj.init = function( event, index, $container, data ) {
+		// if data.slug = 'month', then minViewMode = 'months'
+		var $datepickerButton = $container.find( obj.selectors.button );
 
+		$datepickerButton
+			.bootstrapDatepicker( {
+				container: $datepickerButton.closest( obj.selectors.topBar ),
+				minViewMode: 1,
+				orientation: 'bottom',
+				showOnFocus: false,
+			} )
+			.on( 'changeMonth', function( e ) {
+				console.log(e);
+			} )
+			.on( 'show', obj.handleShow )
+			.on( 'hide', obj.handleHide );
 	};
 
+	/**
+	 * Initialize datepicker i18n
+	 *
+	 * @since TBD
+	 *
+	 * @return {void}
+	 */
 	obj.initDatepickerI18n = function() {
 		var tribeL10nDatatables = window.tribe_l10n_datatables || {};
 		var datepickerI18n = tribeL10nDatatables.datepicker || {};
