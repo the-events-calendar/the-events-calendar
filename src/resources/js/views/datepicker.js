@@ -56,6 +56,21 @@ tribe.events.views.datepicker = {};
 	};
 
 	/**
+	 * Pads number with extra 0 if needed to make it double digit
+	 *
+	 * @since TBD
+	 *
+	 * @param {integer} number number to pad with extra 0
+	 *
+	 * @return {string} string representation of padded number
+	 */
+	obj.padNumber = function( number ) {
+		var numStr = number + '';
+		var padding = numStr.length > 1 ? '' : '0';
+		return padding + numStr;
+	};
+
+	/**
 	 * Handle datepicker changeDate event
 	 *
 	 * @since TBD
@@ -65,10 +80,23 @@ tribe.events.views.datepicker = {};
 	 * @return {void}
 	 */
 	obj.handleChangeDate = function( event ) {
+		var $container = event.data.container;
 		var date = event.date.getDate();
 		var month = event.date.getMonth() + 1;
 		var year = event.date.getFullYear();
-		console.log(year + '/' + month + '/' + date);
+
+		var paddedDate = obj.padNumber( date );
+		var paddedMonth = obj.padNumber( month );
+
+		var tribeBarDate = [ year, paddedMonth, paddedDate ].join( '-' );
+
+		var data = {
+			url: window.location.href,
+			view_data: { [ 'tribe-bar-date' ]: tribeBarDate },
+			_wpnonce: $container.data( 'view-rest-nonce' ),
+		};
+
+		tribe.events.views.manager.request( data, $container );
 	};
 
 	/**
@@ -145,7 +173,7 @@ tribe.events.views.datepicker = {};
 				orientation: 'bottom',
 				showOnFocus: false,
 			} )
-			.on( changeEvent, changeHandler )
+			.on( changeEvent, { container: $container }, changeHandler )
 			.on( 'show', obj.handleShow )
 			.on( 'hide', obj.handleHide );
 	};
