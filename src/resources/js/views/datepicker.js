@@ -65,9 +65,10 @@ tribe.events.views.datepicker = {};
 	 * @return {void}
 	 */
 	obj.handleChangeDate = function( event ) {
-		var day = event.date.getDate();
+		var date = event.date.getDate();
 		var month = event.date.getMonth() + 1;
 		var year = event.date.getFullYear();
+		console.log(year + '/' + month + '/' + date);
 	};
 
 	/**
@@ -82,6 +83,7 @@ tribe.events.views.datepicker = {};
 	obj.handleChangeMonth = function( event ) {
 		var month = event.date.getMonth() + 1;
 		var year = event.date.getFullYear();
+		console.log(year + '/' + month);
 	};
 
 	/**
