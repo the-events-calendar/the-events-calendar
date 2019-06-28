@@ -94,10 +94,14 @@
 		<input type="hidden" id="tribe-events-views[_wpnonce]" name="tribe-events-views[_wpnonce]" value="2ab7cc6b39" /><input type="hidden" name="_wp_http_referer" value="/events" />		<input type="hidden" name="tribe-events-views[url]" value="http://test.tri.be/events/list/" />
 
 		<div class="tribe-common-form-control-text-group tribe-common-c-search__input-group">
-			<div class="tribe-common-form-control-text tribe-common-c-search__input-control--keyword">
+			<div
+	class="tribe-common-form-control-text tribe-common-c-search__input-control--keyword"
+	data-js="tribe-events-events-bar-input-control"
+>
 	<label class="tribe-common-form-control-text__label" for="keyword">Enter Keyword. Search for Events by Keyword.</label>
 	<input
 		class="tribe-common-form-control-text__input tribe-common-c-search__input tribe-common-c-search__input--icon"
+		data-js="tribe-events-events-bar-input-control-input"
 		type="text"
 		id="keyword"
 		name="tribe-events-views[tribe-bar-search]"

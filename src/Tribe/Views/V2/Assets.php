@@ -68,6 +68,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 				'tribe-events-views-v2-month-mobile-events',
 				'tribe-events-views-v2-month-grid',
 				'tribe-events-views-v2-tooltip',
+				'tribe-events-views-v2-events-bar',
 			],
 			'wp_enqueue_scripts',
 			[
@@ -137,6 +138,17 @@ class Assets extends \tad_DI52_ServiceProvider {
 			'tribe-events-views-v2-tooltip',
 			'views/tooltip.js',
 			[ 'jquery', 'tribe-common', 'tribe-tooltipster' ],
+			null,
+			[
+				'priority'     => 10,
+			]
+		);
+
+		tribe_asset(
+			$plugin,
+			'tribe-events-views-v2-events-bar',
+			'views/events-bar.js',
+			[ 'jquery', 'tribe-common' ],
 			null,
 			[
 				'priority'     => 10,
