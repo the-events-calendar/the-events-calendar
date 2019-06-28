@@ -20,7 +20,7 @@
 <nav class="tribe-events-calendar-day-nav tribe-events-c-nav">
 	<ul class="tribe-events-c-nav__list">
 		<?php
-		if ( $prev_url ) {
+		if ( ! empty( $prev_url ) ) {
 			$this->template( 'day/nav/prev', [ 'link' => $prev_url ] );
 		} else {
 			$this->template( 'day/nav/prev-disabled' );
@@ -30,7 +30,7 @@
 		<?php $this->template( 'day/nav/today', [ 'link' => '#' ] ); ?>
 
 		<?php
-		if ( $next_url ) {
+		if ( ! empty( $next_url ) ) {
 			$this->template( 'day/nav/next', [ 'link' => $next_url ] );
 		} else {
 			$this->template( 'day/nav/next-disabled' );

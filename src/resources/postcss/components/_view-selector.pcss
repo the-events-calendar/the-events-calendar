@@ -129,6 +129,7 @@
 		position: relative;
 		text-align: left;
 		width: 100%;
+		z-index: var(--z-index-events-bar-button);
 
 		@media (--viewport-medium) {
 			padding: var(--spacer-4) var(--spacer-5);
@@ -136,7 +137,6 @@
 
 		&:hover,
 		&:focus {
-			border-bottom-color: var(--color-accent-primary);
 
 			&:before {
 				opacity: 1;
@@ -152,6 +152,7 @@
 			position: absolute;
 			top: 100%;
 			transform: translateY(var(--spacer-0));
+			transition: var(--transition-opacity);
 			width: calc(100% - (2 * var(--spacer-0)));
 
 			@media (--viewport-medium) {
@@ -184,7 +185,6 @@
 	}
 
 	.tribe-events-c-view-selector__button-icon {
-		content: '';
 		display: block;
 		height: 21px;
 		width: 21px;
@@ -216,6 +216,7 @@
 		right: 0;
 		top: 100%;
 		transform: translateY(var(--spacer-3));
+		z-index: var(--z-index-views-selector);
 
 		@media (--viewport-medium) {
 			box-shadow: var(--box-shadow-default);

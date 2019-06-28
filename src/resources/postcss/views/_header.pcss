@@ -1,0 +1,39 @@
+/**
+ * The Events Calendar Tribe Header V2 Stylesheet
+ *
+ * @package TribeEventsCalendar
+ *
+ */
+
+.tribe-events {
+
+	.tribe-events-header {
+		align-items: center;
+		background-color: var(--color-background);
+		display: flex;
+		flex-direction: row-reverse;
+		justify-content: space-between;
+		margin: 0 var(--grid-gutter-small-half-negative);
+		padding: 0 var(--grid-gutter-small-half);
+		position: relative;
+
+		@media (--viewport-medium) {
+			background-color: transparent;
+			flex-direction: row;
+			flex-wrap: wrap;
+			margin: 0;
+			padding: 0;
+		}
+	}
+
+	.tribe-events-header__events-bar,
+	.tribe-events-header__top-bar {
+		flex: none;
+	}
+
+	.tribe-events-header__events-bar {
+		@media (--viewport-medium) {
+			width: 100%;
+		}
+	}
+}
