@@ -56,6 +56,35 @@ tribe.events.views.datepicker = {};
 	};
 
 	/**
+	 * Handle datepicker changeDate event
+	 *
+	 * @since TBD
+	 *
+	 * @param {Event} event event object for 'changeDate' event
+	 *
+	 * @return {void}
+	 */
+	obj.handleChangeDate = function( event ) {
+		var day = event.date.getDate();
+		var month = event.date.getMonth() + 1;
+		var year = event.date.getFullYear();
+	};
+
+	/**
+	 * Handle datepicker changeMonth event
+	 *
+	 * @since TBD
+	 *
+	 * @param {Event} event event object for 'changeMonth' event
+	 *
+	 * @return {void}
+	 */
+	obj.handleChangeMonth = function( event ) {
+		var month = event.date.getMonth() + 1;
+		var year = event.date.getFullYear();
+	};
+
+	/**
 	 * Handle datepicker show event
 	 *
 	 * @since TBD
@@ -102,17 +131,19 @@ tribe.events.views.datepicker = {};
 	obj.init = function( event, index, $container, data ) {
 		// if data.slug = 'month', then minViewMode = 'months'
 		var $datepickerButton = $container.find( obj.selectors.button );
+		var viewSlug = data.slug;
+		var minViewMode = viewSlug === 'month' ? 'year' : 'month';
+		var changeEvent = viewSlug === 'month' ? 'changeMonth' : 'changeDate';
+		var changeHandler = viewSlug === 'month' ? obj.handleChangeMonth : obj.handleChangeDate;
 
 		$datepickerButton
 			.bootstrapDatepicker( {
 				container: $datepickerButton.closest( obj.selectors.topBar ),
-				minViewMode: 1,
+				minViewMode: minViewMode,
 				orientation: 'bottom',
 				showOnFocus: false,
 			} )
-			.on( 'changeMonth', function( e ) {
-				console.log(e);
-			} )
+			.on( changeEvent, changeHandler )
 			.on( 'show', obj.handleShow )
 			.on( 'hide', obj.handleHide );
 	};
