@@ -112,7 +112,8 @@ tribe.events.views.eventsBar = {};
 		tabs.forEach( function( $tab ) {
 			$tab
 				.attr( 'tabindex', '-1' )
-				.attr( 'aria-selected', 'false' );
+				.attr( 'aria-selected', 'false' )
+				.removeClass( 'tribe-events-c-events-bar__tab--active' );
 		} );
 	};
 
@@ -150,6 +151,7 @@ tribe.events.views.eventsBar = {};
 		$tab
 			.attr( 'aria-selected', 'true' )
 			.removeAttr( 'tabindex' )
+			.addClass( 'tribe-events-c-events-bar__tab--active' )
 			.focus();
 		$container
 			.find( '#' + $tab.attr( 'aria-controls' ) )
