@@ -30,8 +30,9 @@ class Tribe__Events__Aggregator__Settings {
 	 * Note: This should load on `plugins_loaded@P10`
 	 */
 	public function __construct() {
-		add_action( 'tribe_settings_do_tabs', array( $this, 'do_import_settings_tab' ) );
-		add_action( 'current_screen', array( $this, 'maybe_clear_eb_credentials' ) );
+		add_action( 'tribe_settings_do_tabs', [ $this, 'do_import_settings_tab' ] );
+		add_action( 'current_screen', [ $this, 'maybe_clear_eb_credentials' ] );
+		add_action( 'current_screen', [ $this, 'maybe_clear_meetup_credentials' ] );
 	}
 
 	/**
@@ -304,14 +305,14 @@ class Tribe__Events__Aggregator__Settings {
 	}
 
 	/**
-	 * Check if the Meetup credentials are connected in EA
+	 * Check if the Meetup API credentials are connected in EA and correctly set.
 	 *
 	 * @since TBD
 	 *
-	 * @return bool Whether the Eventbrite credentials are valid
+	 * @return bool Whether the Meetup credentials are valid or not.
 	 */
 	public function is_ea_authorized_for_meetup() {
-		// if the service hasn't enabled oauth for Eventbrite, always assume it is valid
+		// If the service hasn't enabled oauth for Meetup, always assume it is valid.
 		if ( ! tribe( 'events-aggregator.main' )->api( 'origins' )->is_oauth_enabled( 'meetup' ) ) {
 			return true;
 		}
