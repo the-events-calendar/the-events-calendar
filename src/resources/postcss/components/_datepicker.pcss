@@ -19,7 +19,7 @@
 
 		&:before,
 		&:after {
-			display: none;
+			content: none;
 		}
 
 		td,
@@ -45,7 +45,6 @@
 		.datepicker-switch,
 		.prev, .next {
 			line-height: initial;
-			padding: initial;
 			padding: var(--spacer-5) 0;
 
 			&:hover,
@@ -101,10 +100,6 @@
 			}
 		}
 
-		.datepicker-switch {
-			font-weight: var(--font-weight-regular);
-		}
-
 		.day {
 			font-size: var(--font-size-3);
 			color: var(--color-text-primary);
@@ -127,7 +122,7 @@
 			&:focus,
 			&:active,
 			&.focused {
-				color: #fff;
+				color: var(--color-background);
 				background-color: var(--color-accent-primary);
 			}
 		}
