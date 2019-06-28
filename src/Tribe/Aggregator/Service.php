@@ -883,11 +883,11 @@ class Tribe__Events__Aggregator__Service {
 	}
 
 	/**
-	 * Fetch Meetup Extended Token from the Service
+	 * Fetch Meetup Extended Token from the Service.
 	 *
 	 * @since TBD
 	 *
-	 *  @return stdClass|WP_Error
+	 *  @return stdClass|WP_Error Either the Event Aggregator Service response or a `WP_Error` on failure.
 	 */
 	public function has_meetup_authorized() {
 
@@ -901,7 +901,7 @@ class Tribe__Events__Aggregator__Service {
 
 		$response = $this->get( 'meetup/validate', $args );
 
-		// If we have an WP_Error we return only CSV
+		// If we have an WP_Error we return only CSV.
 		if ( $response instanceof WP_Error ) {
 			$response = tribe_error( 'core:aggregator:invalid-meetup-token', array(), [ 'response' => $response ] );
 		} elseif (

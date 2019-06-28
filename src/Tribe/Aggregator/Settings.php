@@ -304,14 +304,14 @@ class Tribe__Events__Aggregator__Settings {
 	}
 
 	/**
-	 * Check if the Meetup credentials are connected in EA
+	 * Check if the Meetup API credentials are connected in EA and correctly set.
 	 *
 	 * @since TBD
 	 *
-	 * @return bool Whether the Eventbrite credentials are valid
+	 * @return bool Whether the Meetup credentials are valid or not.
 	 */
 	public function is_ea_authorized_for_meetup() {
-		// if the service hasn't enabled oauth for Eventbrite, always assume it is valid
+		// If the service hasn't enabled oauth for Meetup, always assume it is valid.
 		if ( ! tribe( 'events-aggregator.main' )->api( 'origins' )->is_oauth_enabled( 'meetup' ) ) {
 			return true;
 		}
