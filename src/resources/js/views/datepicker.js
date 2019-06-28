@@ -100,6 +100,9 @@ tribe.events.views.datepicker = {};
 	 * @return {void}
 	 */
 	obj.handleChangeDate = function( event ) {
+		/**
+		 * @todo: handle week view case here.
+		 */
 		var $container = event.data.container;
 		var date = event.date.getDate();
 		var month = event.date.getMonth() + 1;
