@@ -71,6 +71,26 @@ tribe.events.views.datepicker = {};
 	};
 
 	/**
+	 * Performs an AJAX request using manager.js request method
+	 *
+	 * @since TBD
+	 *
+	 * @param {object} viewData object of view data
+	 * @param {jQuery} $container jQuery object of view container
+	 *
+	 * @return {void}
+	 */
+	obj.request = function( viewData, $container ) {
+		var data = {
+			url: window.location.href,
+			view_data: viewData,
+			_wpnonce: $container.data( 'view-rest-nonce' ),
+		};
+
+		tribe.events.views.manager.request( data, $container );
+	};
+
+	/**
 	 * Handle datepicker changeDate event
 	 *
 	 * @since TBD
@@ -88,15 +108,11 @@ tribe.events.views.datepicker = {};
 		var paddedDate = obj.padNumber( date );
 		var paddedMonth = obj.padNumber( month );
 
-		var tribeBarDate = [ year, paddedMonth, paddedDate ].join( '-' );
-
-		var data = {
-			url: window.location.href,
-			view_data: { [ 'tribe-bar-date' ]: tribeBarDate },
-			_wpnonce: $container.data( 'view-rest-nonce' ),
+		var viewData = {
+			[ 'tribe-bar-date' ]: [ year, paddedMonth, paddedDate ].join( '-' ),
 		};
 
-		tribe.events.views.manager.request( data, $container );
+		obj.request( viewData, $container );
 	};
 
 	/**
@@ -109,9 +125,17 @@ tribe.events.views.datepicker = {};
 	 * @return {void}
 	 */
 	obj.handleChangeMonth = function( event ) {
+		var $container = event.data.container;
 		var month = event.date.getMonth() + 1;
 		var year = event.date.getFullYear();
-		console.log(year + '/' + month);
+
+		var paddedMonth = obj.padNumber( month );
+
+		var viewData = {
+			[ 'tribe-bar-date' ]: [ year, paddedMonth ].join( '-' ),
+		};
+
+		obj.request( viewData, $container );
 	};
 
 	/**
