@@ -427,21 +427,15 @@ tribe.events.views.eventsBar = {};
 	 */
 	obj.initState = function( $container ) {
 		var $eventsBar = $container.find( obj.selectors.eventsBar );
+		var state = {
+			mobileInitialized: false,
+			desktopInitialized: false,
+			tabs: [],
+			tabPanels: [],
+			currentTab: 0,
+		};
 
-		/**
-		 * @todo: figure out how to check if filter bar exists
-		 */
-		if ( $eventsBar.hasClass( obj.selectors.hasFilterBarClass.className() ) ) {
-			var state = {
-				mobileInitialized: false,
-				desktopInitialized: false,
-				tabs: [],
-				tabPanels: [],
-				currentTab: 0,
-			};
-
-			$eventsBar.data( 'state', state );
-		}
+		$eventsBar.data( 'state', state );
 	};
 
 	/**
