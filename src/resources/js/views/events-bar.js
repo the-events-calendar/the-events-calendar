@@ -15,7 +15,7 @@ tribe.events.views = tribe.events.views || {};
  *
  * @type   {PlainObject}
  */
-tribe.events.views.eventsBar = {};
+tribe.events.views.eventsBarInputs = {};
 
 /**
  * Initializes in a Strict env the code that manages the Event Views
@@ -29,7 +29,6 @@ tribe.events.views.eventsBar = {};
  */
 ( function( $, obj ) {
 	'use strict';
-	var $window = $( window );
 	var $document = $( document );
 
 	/**
@@ -40,145 +39,16 @@ tribe.events.views.eventsBar = {};
 	 * @type {PlainObject}
 	 */
 	obj.selectors = {
-		eventsBar: '[data-js="tribe-events-events-bar"]',
-		tabList: '[data-js="tribe-events-events-bar-tablist"]',
-		tab: '[data-js~="tribe-events-events-bar-tab"]',
-		tabPanel: '[data-js~="tribe-events-events-bar-tabpanel"]',
-		searchButton: '[data-js="tribe-events-search-button"]',
-		filtersButton: '[data-js="tribe-events-filters-button"]',
-		searchFiltersContainer: '[data-js="tribe-events-search-filters-container"]',
-		filtersContainer: '[data-js~="tribe-events-events-bar-filters"]',
-		hasFilterBarClass: '.tribe-events-c-events-bar--has-filter-bar',
-		activeTabClass: '.tribe-events-c-events-bar__tab--active',
+		input: '.tribe-common-form-control-text__input',
+		inputWrapper: '.tribe-common-form-control-text',
+		inputKeywordWrapper: '.tribe-common-c-search__input-control--keyword',
+		inputKeywordWrapperFocus: '.tribe-common-c-search__input-control--keyword-focus',
+		inputLocationWrapper: '.tribe-common-c-search__input-control--location',
+		inputLocationWrapperFocus: '.tribe-common-c-search__input-control--location-focus',
 	};
 
 	/**
-	 * Object of key codes
-	 *
-	 * @since TBD
-	 *
-	 * @type {PlainObject}
-	 */
-	obj.keyCode = {
-		END: 35,
-		HOME: 36,
-		LEFT: 37,
-		RIGHT: 39,
-	};
-
-	/**
-	 * Object of options
-	 *
-	 * @since TBD
-	 *
-	 * @type {PlainObject}
-	 */
-	obj.options = {
-		MOBILE_BREAKPOINT: 768,
-	};
-
-	/**
-	 * Object of state
-	 *
-	 * @since TBD
-	 *
-	 * @type {PlainObject}
-	 */
-	obj.state = {
-		isMobile: true,
-	};
-
-	/**
-	 * Set viewport state
-	 *
-	 * @since TBD
-	 *
-	 * @return {void}
-	 */
-	obj.setViewport = function() {
-		obj.state.isMobile = window.innerWidth < obj.options.MOBILE_BREAKPOINT;
-	};
-
-	/**
-	 * Deselects all tabs
-	 *
-	 * @since TBD
-	 *
-	 * @param {array} tabs array of jQuery objects of tabs
-	 *
-	 * @return {void}
-	 */
-	obj.deselectTabs = function( tabs ) {
-		tabs.forEach( function( $tab ) {
-			$tab
-				.attr( 'tabindex', '-1' )
-				.attr( 'aria-selected', 'false' );
-		} );
-	};
-
-	/**
-	 * Hides all tab panels
-	 *
-	 * @since TBD
-	 *
-	 * @param {array} tabPanels array of jQuery objects of tabPanels
-	 *
-	 * @return {void}
-	 */
-	obj.hideTabPanels = function( tabPanels ) {
-		tabPanels.forEach( function( $tabPanel ) {
-			$tabPanel.prop( 'hidden', true );
-		} );
-	};
-
-	/**
-	 * Select tab based on index
-	 *
-	 * @since TBD
-	 *
-	 * @param {array} tabs array of jQuery objects of tabs
-	 * @param {array} tabPanels array of jQuery objects of tabPanels
-	 * @param {jQuery} $tab jQuery object of tab to be selected
-	 * @param {jQuery} $container jQuery object of view container
-	 *
-	 * @return {void}
-	 */
-	obj.selectTab = function( tabs, tabPanels, $tab, $container ) {
-		obj.deselectTabs( tabs );
-		obj.hideTabPanels( tabPanels );
-
-		$tab
-			.attr( 'aria-selected', 'true' )
-			.removeAttr( 'tabindex' )
-			.focus();
-		$container
-			.find( '#' + $tab.attr( 'aria-controls' ) )
-			.removeProp( 'hidden' );
-	};
-
-	/**
-	 * Gets current tab index
-	 *
-	 * @since TBD
-	 *
-	 * @param {array} tabs array of jQuery objects of tabs
-	 *
-	 * @return {integer} index of current tab
-	 */
-	obj.getCurrentTab = function( tabs ) {
-		var currentTab;
-
-		tabs.forEach( function( $tab, index ) {
-			if ( $tab.is( document.activeElement ) ) {
-				currentTab = index;
-			}
-		} );
-
-		return currentTab;
-	};
-
-	/**
-	 * Handles 'click' event on tab
+	 * Toggles input class if it has a value
 	 *
 	 * @since TBD
 	 *
@@ -186,322 +56,66 @@ tribe.events.views.eventsBar = {};
 	 *
 	 * @return {void}
 	 */
-	obj.handleClick = function( event ) {
-		var $container = $( event.data.container );
-		var $eventsBar = $container.find( obj.selectors.eventsBar );
-		var state = $eventsBar.data( 'state' );
-		var tabs = state.tabs;
-		var tabPanels = state.tabPanels;
-		var selectedTab = $( event.target ).closest( obj.selectors.tab );
+	obj.setInputFocusClass = function( event ) {
+		var $input = event.data.target;
 
-		obj.selectTab( tabs, tabPanels, selectedTab, $container );
+		// Set the focus class if it has content.
+		$input
+			.closest( obj.selectors.inputWrapper )
+			.toggleClass( event.data.inputClassFocus, '' !== $input.val().trim() );
 	};
 
 	/**
-	 * Handles 'keydown' event on tab
+	 * Bind events for the keyword input of the events bar
 	 *
 	 * @since TBD
 	 *
-	 * @param {Event} event event object of keydown event
+	 * @param {jQuery} $container jQuery object of container.
 	 *
 	 * @return {void}
 	 */
-	obj.handleKeydown = function( event ) {
-		var key = event.which || event.keyCode;
-		var $container = $( event.data.container );
-		var $eventsBar = $container.find( obj.selectors.eventsBar );
-		var state = $eventsBar.data( 'state' );
-		var tabs = state.tabs;
-		var tabPanels = state.tabPanels;
-		var currentTab = obj.getCurrentTab( tabs );
-		var nextTab;
+	obj.bindEventsInputKeyword = function( $container ) {
 
-		switch ( key ) {
-			case obj.keyCode.LEFT:
-				nextTab = 0 === currentTab ? tabs.length - 1 : currentTab - 1;
-				break;
-			case obj.keyCode.RIGHT:
-				nextTab = tabs.length - 1 === currentTab ? 0 : currentTab + 1;
-				break;
-			case obj.keyCode.HOME:
-				nextTab = 0;
-				break;
-			case obj.keyCode.END:
-				nextTab = tabs.length - 1;
-				break;
-			default:
-				return;
-		}
-
-		obj.selectTab( tabs, tabPanels, tabs[ nextTab ], $container );
-		event.preventDefault();
-	};
-
-	/**
-	 * Deinitializes tablist
-	 *
-	 * @since TBD
-	 *
-	 * @param {jQuery} $container jQuery object of view container
-	 *
-	 * @return {void}
-	 */
-	obj.deinitTablist = function( $container ) {
+		// Bind event for the keyword input.
 		$container
-			.find( obj.selectors.tab )
-			.each( function( index, tab ) {
-				$( tab )
-					.removeAttr( 'aria-selected' )
-					.removeAttr( 'tabindex' )
-					.off( 'keydown', obj.handleKeydown )
-					.off( 'click', obj.handleClick );
-			} );
-		$container
-			.find( obj.selectors.tabPanel )
-			.each( function( index, tabpanel ) {
-				$( tabpanel )
-					.removeAttr( 'role' )
-					.removeAttr( 'aria-labelledby' )
-					.removeProp( 'hidden' );
+			.find( obj.selectors.inputKeywordWrapper )
+			.find( obj.selectors.input )
+			.each( function( index, input ) {
+				$( input )
+					.closest( obj.selectors.inputKeywordWrapper )
+					.toggleClass( obj.selectors.inputKeywordWrapperFocus.className(), '' !== $( input ).val().trim() );
+
+				$( input ).on( 'change', { target: $( this ), inputClassFocus: obj.selectors.inputKeywordWrapperFocus.className() }, obj.setInputFocusClass );
 			} );
 	};
 
 	/**
-	 * Initializes tablist
+	 * Bind events for the location input of the events bar
 	 *
 	 * @since TBD
 	 *
-	 * @param {jQuery} $container jQuery object of view container
+	 * @param {jQuery} $container jQuery object of container.
 	 *
 	 * @return {void}
 	 */
-	obj.initTablist = function( $container ) {
-		var $eventsBar = $container.find( obj.selectors.eventsBar );
-		var state = $eventsBar.data( 'state' );
-		var tabs = [];
-		var tabpanels = [];
+	obj.bindEventsInputLocation = function( $container ) {
 
+		// Bind event for the location input.
 		$container
-			.find( obj.selectors.tab )
-			.each( function( index, tab ) {
-				var $tab = $( tab );
-				var $tabpanel = $container.find( '#' + $tab.attr( 'aria-controls' ) );
+			.find( obj.selectors.inputLocationdWrapper )
+			.find( obj.selectors.input )
+			.each( function( index, input ) {
+				$( input )
+					.closest( obj.selectors.inputLocationWrapper )
+					.toggleClass( obj.selectors.inputLocationWrapperFocus.className(), '' !== $( input ).val().trim() );
 
-				$tab
-					.attr( 'aria-selected', 'true' )
-					.on( 'keydown', { container: $container }, obj.handleKeydown )
-					.on( 'click', { container: $container }, obj.handleClick );
-				$tabpanel
-					.attr( 'role', 'tabpanel' )
-					.attr( 'aria-labelledby', $tab.attr( 'id' ) );
+				$( input ).on( 'change', { target: $( this ), inputClassFocus: obj.selectors.inputLocationWrapperFocus.className() }, obj.setInputFocusClass );
 
-				if ( index !== 0 ) {
-					$tab.attr( 'tabindex', '-1' );
-					$tabpanel.prop( 'hidden', true );
-				}
-
-				tabs.push( $tab );
-				tabpanels.push( $tabpanel );
 			} );
-
-		state.tabs = tabs;
-		state.tabPanels = tabpanels;
-		$eventsBar.data( 'state', state );
 	};
 
 	/**
-	 * Deinitialize accordion based on header and content
-	 *
-	 * @since TBD
-	 *
-	 * @param {jQuery} $header jQuery object of header
-	 * @param {jQuery} $content jQuery object of contents
-	 *
-	 * @return {void}
-	 */
-	obj.deinitAccordion = function( $header, $content ) {
-		tribe.events.views.accordion.deinitAccordion( 0, $header );
-		$header
-			.removeAttr( 'aria-expanded' )
-			.removeAttr( 'aria-selected' )
-			.removeAttr( 'aria-controls' );
-		$content
-			.removeAttr( 'aria-hidden' )
-			.css( 'display', '' );
-	};
-
-	/**
-	 * Initialize accordion based on header and content
-	 *
-	 * @since TBD
-	 *
-	 * @param {jQuery} $container jQuery object of view container
-	 * @param {jQuery} $header jQuery object of header
-	 * @param {jQuery} $content jQuery object of contents
-	 *
-	 * @return {void}
-	 */
-	obj.initAccordion = function( $container, $header, $content ) {
-		tribe.events.views.accordion.initAccordion( $container )( 0, $header );
-		$header
-			.attr( 'aria-expanded', 'false' )
-			.attr( 'aria-selected', 'false' )
-			.attr( 'aria-controls', $content.attr( 'id' ) );
-		$content.attr( 'aria-hidden', 'true' );
-	};
-
-	/**
-	 * Deinitialize filter button accordion
-	 *
-	 * @since TBD
-	 *
-	 * @param {jQuery} $container jQuery object of view container
-	 *
-	 * @return {void}
-	 */
-	obj.deinitFiltersAccordion = function( $container ) {
-		var $filtersButton = $container.find( obj.selectors.filtersButton );
-
-		if ( $filtersButton.length ) {
-			var $filtersContainer = $container.find( obj.selectors.filtersContainer );
-			obj.deinitAccordion( $filtersButton, $filtersContainer );
-		}
-	};
-
-	/**
-	 * Initialize filter button accordion
-	 *
-	 * @since TBD
-	 *
-	 * @param {jQuery} $container jQuery object of view container
-	 *
-	 * @return {void}
-	 */
-	obj.initFiltersAccordion = function( $container ) {
-		var $filtersButton = $container.find( obj.selectors.filtersButton );
-
-		if ( $filtersButton.length ) {
-			var $filtersContainer = $container.find( obj.selectors.filtersContainer );
-			obj.initAccordion( $container, $filtersButton, $filtersContainer );
-		}
-	};
-
-	/**
-	 * Deinitialize search button accordion
-	 *
-	 * @since TBD
-	 *
-	 * @param {jQuery} $container jQuery object of view container
-	 *
-	 * @return {void}
-	 */
-	obj.deinitSearchAccordion = function( $container ) {
-		var $searchButton = $container.find( obj.selectors.searchButton );
-		var $searchFiltersContainer = $container.find( obj.selectors.searchFiltersContainer );
-		obj.deinitAccordion( $searchButton, $searchFiltersContainer );
-	};
-
-	/**
-	 * Initialize search button accordion
-	 *
-	 * @since TBD
-	 *
-	 * @param {jQuery} $container jQuery object of view container
-	 *
-	 * @return {void}
-	 */
-	obj.initSearchAccordion = function( $container ) {
-		var $searchButton = $container.find( obj.selectors.searchButton );
-		var $searchFiltersContainer = $container.find( obj.selectors.searchFiltersContainer );
-		obj.initAccordion( $container, $searchButton, $searchFiltersContainer );
-	};
-
-	/**
-	 * Initializes events bar state
-	 *
-	 * @since TBD
-	 *
-	 * @param {jQuery} $container jQuery object of view container
-	 *
-	 * @return {void}
-	 */
-	obj.initState = function( $container ) {
-		var $eventsBar = $container.find( obj.selectors.eventsBar );
-		var state = {
-			mobileInitialized: false,
-			desktopInitialized: false,
-			tabs: [],
-			tabPanels: [],
-			currentTab: 0,
-		};
-
-		$eventsBar.data( 'state', state );
-	};
-
-	/**
-	 * Initializes events bar
-	 *
-	 * @since TBD
-	 *
-	 * @param {jQuery} $container jQuery object of view container
-	 *
-	 * @return {void}
-	 */
-	obj.initEventsBar = function( $container ) {
-		var $eventsBar = $container.find( obj.selectors.eventsBar );
-		var $filtersButton = $container.find( obj.selectors.filtersButton );
-		var state = $eventsBar.data( 'state' );
-
-		if ( obj.state.isMobile && ! state.mobileInitialized ) {
-			if ( $filtersButton.length ) {
-				obj.initTablist( $container );
-				obj.deinitFiltersAccordion( $container );
-			}
-			obj.initSearchAccordion( $container );
-			state.desktopInitialized = false;
-			state.mobileInitialized = true;
-			$eventsBar.data( 'state', state );
-		} else if ( ! obj.state.isMobile && ! state.desktopInitialized ) {
-			if ( $filtersButton.length ) {
-				obj.deinitTablist( $container );
-				obj.initFiltersAccordion( $container );
-			}
-			obj.deinitSearchAccordion( $container );
-			state.mobileInitialized = false;
-			state.desktopInitialized = true;
-			$eventsBar.data( 'state', state );
-		}
-	};
-
-	/**
-	 * Handles window resize event
-	 *
-	 * @since TBD
-	 *
-	 * @param {Event} event event object for 'resize' event
-	 *
-	 * @return {void}
-	 */
-	obj.handleResize = function( event ) {
-		obj.setViewport();
-		obj.initEventsBar( event.data.container );
-	};
-
-	/**
-	 * Bind events for window resize
-	 *
-	 * @since TBD
-	 *
-	 * @param {jQuery} $container jQuery object of view container
-	 *
-	 * @return {void}
-	 */
-	obj.bindEvents = function( $container ) {
-		$window.on( 'resize', { container: $container }, obj.handleResize );
-	};
-
-	/**
-	 * Initialize events bar JS
+	 * Binds events for the events bar change listeners
 	 *
 	 * @since TBD
 	 *
@@ -512,22 +126,25 @@ tribe.events.views.eventsBar = {};
 	 *
 	 * @return {void}
 	 */
-	obj.init = function( event, index, $container, data ) {
-		obj.setViewport();
-		obj.initState( $container );
-		obj.initEventsBar( $container );
-		obj.bindEvents( $container );
+	obj.bindEvents = function( event, index, $container, data ) {
+
+		// Bind event for the keyword input.
+		obj.bindEventsInputKeyword( $container );
+
+		// Bind event for the location input.
+		obj.bindEventsInputLocation( $container );
+
 	};
 
 	/**
-	 * Handles the initialization of events bar when Document is ready
+	 * Handles the initialization of the accordions when Document is ready
 	 *
 	 * @since TBD
 	 *
 	 * @return {void}
 	 */
 	obj.ready = function() {
-		$document.on( 'afterSetup.tribeEvents', tribe.events.views.manager.selectors.container, obj.init );
+		$document.on( 'afterSetup.tribeEvents', tribe.events.views.manager.selectors.container, obj.bindEvents );
 
 		/**
 		 * @todo: do below for ajax events
@@ -538,4 +155,4 @@ tribe.events.views.eventsBar = {};
 
 	// Configure on document ready
 	$document.ready( obj.ready );
-} )( jQuery, tribe.events.views.eventsBar );
+} )( jQuery, tribe.events.views.eventsBarInputs );
