@@ -115,22 +115,20 @@
 			font-size: var(--font-size-1);
 		}
 
-		table tr {
-			.day,
-			.month,
-			.year {
-				&:hover,
-				&:focus,
-				&.focused {
-					color: var(--color-background);
-					background-color: var(--color-accent-primary);
-				}
+		.day,
+		.month,
+		.year {
+			&:hover,
+			&:focus,
+			&.focused {
+				color: var(--color-background);
+				background-color: var(--color-accent-primary);
+			}
 
-				&:active {
-					color: var(--color-text-primary);
-					background-color: var(--color-background-secondary);
-					font-weight: var(--font-weight-bold);
-				}
+			&:active {
+				color: var(--color-text-primary);
+				background-color: var(--color-background-secondary);
+				font-weight: var(--font-weight-bold);
 			}
 		}
 	}
