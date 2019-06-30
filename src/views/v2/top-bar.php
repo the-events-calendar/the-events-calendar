@@ -13,13 +13,16 @@
  *
  */
 ?>
-<div class="tribe-events-c-top-bar tribe-events-header__top-bar">
+<div
+	class="tribe-events-c-top-bar tribe-events-header__top-bar"
+	data-js="tribe-events-top-bar"
+>
 
 	<?php $this->template( 'top-bar/nav' ); ?>
 
 	<?php $this->template( 'top-bar/today' ); ?>
 
-	<?php $this->template( 'top-bar/date-picker' ); ?>
+	<?php $this->template( 'top-bar/datepicker' ); ?>
 
 	<?php $this->template( 'top-bar/actions' ); ?>
 

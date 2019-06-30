@@ -242,7 +242,7 @@ tribe.events.views.manager = {};
 
 		// The submit event is triggered on the form, not the container.
 		var $form = $( this );
-		var $container = $form.closest( '.tribe-events' );
+		var $container = $form.closest( obj.selectors.container );
 		var nonce = $container.data( 'view-rest-nonce' );
 
 		var formData = Qs.parse( $form.serialize() );
