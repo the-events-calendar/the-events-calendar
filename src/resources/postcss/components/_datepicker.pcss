@@ -115,15 +115,20 @@
 			font-size: var(--font-size-1);
 		}
 
-		.day,
-		.month,
-		.year {
-			&:hover,
-			&:focus,
-			&:active,
-			&.focused {
-				color: var(--color-background);
-				background-color: var(--color-accent-primary);
+		table tr {
+			.day,
+			.month,
+			.year {
+				&:hover,
+				&:focus,
+				&.focused {
+					color: var(--color-background);
+					background-color: var(--color-accent-primary);
+				}
+
+				&:active {
+					font-weight: var(--font-weight-bold);
+				}
 			}
 		}
 	}
