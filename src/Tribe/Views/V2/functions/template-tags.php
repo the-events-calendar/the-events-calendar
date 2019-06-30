@@ -34,11 +34,11 @@ if ( ! function_exists( 'tribe_events_template_var' ) ) {
 		/** @var Tribe__Template $tribe_template */
 		global $tribe_template;
 		$value = $default;
-		$slug  = false;
+		$view_slug  = false;
 
 		if ( $tribe_template instanceof Tribe__Template ) {
 			$value = $tribe_template->get( $key, $default );
-			$slug  = $tribe_template->get( 'slug', false );
+			$view_slug = $tribe_template->get( 'view_slug', false );
 		}
 
 		/**
@@ -46,14 +46,14 @@ if ( ! function_exists( 'tribe_events_template_var' ) ) {
 		 *
 		 * @since TBD
 		 *
-		 * @param mixed        $value   The View template value.
-		 * @param string|array $key     The variable index, or indexes.
-		 * @param mixed        $default The default value that will be returned if the value was not found.
-		 * @param string       $slug    The current view slug, if any.
+		 * @param mixed        $value     The View template value.
+		 * @param string|array $key       The variable index, or indexes.
+		 * @param mixed        $default   The default value that will be returned if the value was not found.
+		 * @param string       $view_slug The current view view_slug, if any.
 		 */
-		$value = apply_filters( 'tribe_events_template_var', $value, $key, $default, $slug );
+		$value = apply_filters( 'tribe_events_template_var', $value, $key, $default, $view_slug );
 
-		if ( $slug ) {
+		if ( $view_slug ) {
 			/**
 			 * Filters the value of a specific View template variable.
 			 *
@@ -63,7 +63,7 @@ if ( ! function_exists( 'tribe_events_template_var' ) ) {
 			 * @param string|array $key     The  variable index, or indexes.
 			 * @param mixed        $default The default value that will be returned if the value was not found.
 			 */
-			$value = apply_filters( "tribe_events_{$slug}_template_var", $value, $key, $default );
+			$value = apply_filters( "tribe_events_{$view_slug}_template_var", $value, $key, $default );
 		}
 
 		return $value;

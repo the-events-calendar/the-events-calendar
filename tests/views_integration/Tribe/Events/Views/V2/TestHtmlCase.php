@@ -32,12 +32,17 @@ abstract class TestHtmlCase extends TestCase {
 	public function setUp() {
 		parent::setUp();
 
+		$this->view     = $this->make_view_instance();
 		$this->template = $this->make_template_instance();
 		$this->document = $this->make_document_instance();
 	}
 
+	protected function make_view_instance() {
+		return View::make( 'reflector' );
+	}
+
 	protected function make_template_instance() {
-		return new Template( 'html-tests' );
+		return new Template( $this->view );
 	}
 
 	protected function make_document_instance() {

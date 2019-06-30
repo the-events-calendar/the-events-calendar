@@ -19,7 +19,7 @@ class ControllerTest extends \Codeception\TestCase\WPTestCase {
 	public function it_should_be_instantiatable() {
 		$sut = $this->make_instance();
 
-		$this->assertInstanceOf( Event_Query_Controller ::class, $sut );
+		$this->assertInstanceOf( Event_Query_Controller::class, $sut );
 	}
 
 	/**

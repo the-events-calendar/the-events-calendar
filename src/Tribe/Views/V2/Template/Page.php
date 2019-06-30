@@ -121,7 +121,7 @@ class Page {
 	 * @return void
 	 */
 	public function hijack_the_post() {
-		remove_filter( 'the_content', [ $this, 'hijack_the_post' ], 25 );
+		remove_filter( 'the_post', [ $this, 'hijack_the_post' ], 25 );
 
 		$GLOBALS['post'] = $this->get_mocked_page();
 	}
@@ -250,11 +250,6 @@ class Page {
 
 		// We dont want the main Query
 		if ( ! $query->is_main_query() ) {
-			$should_hijack = false;
-		}
-
-		// Bail when loading in Single Event Page
-		if ( $query->is_single() ) {
 			$should_hijack = false;
 		}
 

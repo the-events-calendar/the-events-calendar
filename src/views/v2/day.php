@@ -26,25 +26,27 @@ $events = $this->get( 'events' );
 	<div class="tribe-common-l-container tribe-events-l-container">
 		<?php $this->template( 'loader', [ 'text' => 'Loading...' ] ); ?>
 
-		<?php
-		$this->template( 'data', [] );
-		?>
+		<?php $this->template( 'data' ); ?>
 
-		<?php $this->template( 'events-bar' ); ?>
+		<header class="tribe-events-header">
+			<?php $this->template( 'events-bar' ); ?>
 
-		<?php $this->template( 'top-bar' ); ?>
+			<?php $this->template( 'top-bar' ); ?>
+		</header>
 
 		<div class="tribe-events-calendar-day">
 
+			<?php $this->template( 'day/time-separator' ); ?>
+
 			<?php foreach ( $events as $event ) : ?>
 
-				<?php // @todo: include day event markup here. ?>
+				<?php $this->template( 'day/event', [ 'event' => $event ] ); ?>
 
 			<?php endforeach; ?>
 
 		</div>
 
-		<?php // @todo: include day navigation here. ?>
+		<?php $this->template( 'day/nav' ); ?>
 	</div>
 
 </div>

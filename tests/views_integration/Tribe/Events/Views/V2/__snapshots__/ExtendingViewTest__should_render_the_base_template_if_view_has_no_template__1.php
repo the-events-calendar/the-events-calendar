@@ -1,5 +1,5 @@
-<?php return '<div class="tribe-view tribe-view--base tribe-view--test-base">
-	<p>We looked for a template file for the <code>test-base</code> slug but could not find one.
+<?php return '<div class="tribe-view tribe-view--base tribe-view--test-full">
+	<p>We looked for a template file for the <code>test-full</code> slug but could not find one.
 	</p>
 	<p>This was rendered by the <code></code> View.</p>
 	<p>We\'ve looked in the following locations:</p>
@@ -30,7 +30,7 @@
 	<pre>
 		<code>
 			{
-    &quot;slug&quot;: &quot;test-base&quot;,
+    &quot;slug&quot;: &quot;test-full&quot;,
     &quot;lookup_folders&quot;: [
         {
             &quot;id&quot;: &quot;child-theme&quot;,

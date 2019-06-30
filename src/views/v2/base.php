@@ -1,5 +1,5 @@
-<div class="tribe-view tribe-view--base tribe-view--<?php echo esc_attr( $slug ) ?>">
-	<p>We looked for a template file for the <code><?php echo esc_html( $slug ) ?></code> slug but could not find one.
+<div class="tribe-view tribe-view--base tribe-view--<?php echo esc_attr( $view_slug ) ?>">
+	<p>We looked for a template file for the <code><?php echo esc_html( $view_slug ) ?></code> slug but could not find one.
 	</p>
 	<p>This was rendered by the <code><?php esc_html( $view_class ) ?></code> View.</p>
 	<p>We've looked in the following locations:</p>

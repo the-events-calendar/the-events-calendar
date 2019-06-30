@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.3
+ * @version TBD
  *
  */
 
@@ -29,15 +29,17 @@ $events = $this->get( 'events' );
 
 		<?php $this->template( 'data' ); ?>
 
-		<?php $this->template( 'events-bar' ); ?>
+		<header class="tribe-events-header">
+			<?php $this->template( 'events-bar' ); ?>
 
-		<?php $this->template( 'top-bar' ); ?>
+			<?php $this->template( 'top-bar' ); ?>
+		</header>
 
 		<div class="tribe-events-calendar-list">
 
-			<?php $this->template( 'list/month-separator', [ 'month' => date( 'M' ) ] ); ?>
-
 			<?php foreach ( $events as $event ) : ?>
+
+				<?php $this->template( 'list/month-separator', [ 'event' => $event ] ); ?>
 
 				<?php $this->template( 'list/event', [ 'event' => $event ] ); ?>
 

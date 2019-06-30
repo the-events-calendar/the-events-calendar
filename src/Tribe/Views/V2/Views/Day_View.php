@@ -22,6 +22,14 @@ class Day_View extends View {
 	 */
 	protected $slug = 'day';
 
+	/**
+	 * Visibility for this view.
+	 *
+	 * @since TBD
+	 *
+	 * @var bool
+	 */
+	protected $publicly_visible = true;
 
 	/**
 	 * Get HTML method

@@ -10,7 +10,7 @@ class MonthCalendarEventTooltipTest extends TestHtmlCase {
 	 */
 	public function it_should_contain_correct_html_classes() {
 		$event = [ 'ID' => 0, 'title' => 'Lorem Ipsum', 'image' => 'test.jpg', 'featured' => true, 'recurring' => true ];
-		$template = $this->template->template( 'month/calendar-event/tooltip', [ 'event' => (object) $event ] );
+		$template = $this->template->template( 'month/calendar-body/day/calendar-events/calendar-event/tooltip', [ 'event' => (object) $event ] );
 		$html = $this->document->html( $template );
 
 		$this->assertEquals(
@@ -22,7 +22,7 @@ class MonthCalendarEventTooltipTest extends TestHtmlCase {
 
 	public function it_should_contain_correct_html_attributes() {
 		$event = [ 'ID' => 0, 'title' => 'Lorem Ipsum', 'image' => 'test.jpg', 'featured' => true, 'recurring' => true ];
-		$template = $this->template->template( 'month/calendar-event/tooltip', [ 'event' => (object) $event ] );
+		$template = $this->template->template( 'month/calendar-body/day/calendar-events/calendar-event/tooltip', [ 'event' => (object) $event ] );
 		$html = $this->document->html( $template );
 
 		$tooltip = $html->find( '.tribe-events-calendar-month__calendar-event-tooltip' );
