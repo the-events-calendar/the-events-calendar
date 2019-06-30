@@ -20,7 +20,7 @@
 >
 	<ul class="tribe-events-c-view-selector__list">
 		<?php foreach ( $this->get( 'views' ) as $view => $view_class_name ) : ?>
-			<?php $this->template( 'events-bar/views/item', [ 'view_class_name' => $view_class_name ] ); ?>
+			<?php $this->template( 'events-bar/views/list/item', [ 'view_class_name' => $view_class_name ] ); ?>
 		<?php endforeach; ?>
 	</ul>
 </div>

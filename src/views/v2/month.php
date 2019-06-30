@@ -28,9 +28,11 @@ $events = $this->get( 'events' );
 
 		<?php $this->template( 'data' ); ?>
 
-		<?php $this->template( 'events-bar' ); ?>
+		<header class="tribe-events-header">
+			<?php $this->template( 'events-bar' ); ?>
 
-		<?php $this->template( 'top-bar' ); ?>
+			<?php $this->template( 'top-bar' ); ?>
+		</header>
 
 		<div
 			class="tribe-events-calendar-month"

@@ -26,13 +26,13 @@ $events = $this->get( 'events' );
 	<div class="tribe-common-l-container tribe-events-l-container">
 		<?php $this->template( 'loader', [ 'text' => 'Loading...' ] ); ?>
 
-		<?php
-		$this->template( 'data', [] );
-		?>
+		<?php $this->template( 'data' ); ?>
 
-		<?php $this->template( 'events-bar' ); ?>
+		<header class="tribe-events-header">
+			<?php $this->template( 'events-bar' ); ?>
 
-		<?php $this->template( 'top-bar' ); ?>
+			<?php $this->template( 'top-bar' ); ?>
+		</header>
 
 		<div class="tribe-events-calendar-day">
 

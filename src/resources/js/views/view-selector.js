@@ -74,7 +74,7 @@ tribe.events.views.viewSelector = {};
 			.find( obj.selectors.viewSelector )
 			.find( obj.selectors.viewSelectorButton )
 			.each( function( index, header ) {
-				$( header ).on( 'click', { target: this }, obj.handleClick );
+				$( header ).on( 'click', { target: header }, obj.handleClick );
 			} );
 	};
 
