@@ -189,13 +189,15 @@ tribe.events.views.datepicker = {};
 		// if data.slug = 'month', then minViewMode = 'months'
 		var $datepickerButton = $container.find( obj.selectors.button );
 		var viewSlug = data.slug;
-		var minViewMode = viewSlug === 'month' ? 'year' : 'month';
-		var changeEvent = viewSlug === 'month' ? 'changeMonth' : 'changeDate';
-		var changeHandler = viewSlug === 'month' ? obj.handleChangeMonth : obj.handleChangeDate;
+		var isMonthView = 'month' === viewSlug;
+		var minViewMode = isMonthView ? 'year' : 'month';
+		var changeEvent = isMonthView ? 'changeMonth' : 'changeDate';
+		var changeHandler = isMonthView ? obj.handleChangeMonth : obj.handleChangeDate;
 
 		$datepickerButton
 			.bootstrapDatepicker( {
 				container: $datepickerButton.closest( obj.selectors.topBar ),
+				maxViewMode: 'decade',
 				minViewMode: minViewMode,
 				orientation: 'bottom',
 				showOnFocus: false,
