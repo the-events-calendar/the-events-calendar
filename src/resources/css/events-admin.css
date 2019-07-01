@@ -171,6 +171,7 @@
 /* Apply a grey highlight to 'today' */
 
 .ui-datepicker-calendar .ui-datepicker-today a {
+		background: -o-linear-gradient(96deg, #ccc 0%, #eee 100%);
 		background: linear-gradient(354deg, #ccc 0%, #eee 100%);
 		color: black;
 	}
@@ -178,6 +179,7 @@
 /* If today is also the current selected day, prefer the default blue highlight */
 
 .ui-datepicker-calendar .ui-datepicker-today.ui-datepicker-current-day a {
+		background: -o-linear-gradient( 96deg, rgba( 10,85,160,1.00 ) 0%, rgba( 18,136,235,1.00 ) 100% );
 		background: linear-gradient( 354deg, rgba( 10,85,160,1.00 ) 0%, rgba( 18,136,235,1.00 ) 100% );
 		color: #fff;
 	}
@@ -440,6 +442,8 @@ table.eventForm {
 	display: inline-block;
 	padding: .5rem 1.5rem;
 	text-decoration: none;
+	-webkit-transition: background-color 0.5s ease;
+	-o-transition: background-color 0.5s ease;
 	transition: background-color 0.5s ease;
 }
 
@@ -457,6 +461,48 @@ table.eventForm {
 	.tribe-ea-eventbrite-button:hover,
 	.tribe-ea-eventbrite-button:focus {
 		background: #c85b2f;
+	}
+
+/*
+	Meetup
+*/
+
+.tribe-ea-meetup-disconnect {
+	color: #a00;
+	display: inline-block;
+	margin-left: 1rem;
+}
+
+.tribe-ea-meetup-disconnect:active,
+	.tribe-ea-meetup-disconnect:hover {
+		color: #f00;
+	}
+
+.tribe-ea-meetup-button {
+	border-radius: 3px;
+	color: #fff;
+	display: inline-block;
+	padding: .5rem 1.5rem;
+	text-decoration: none;
+	-webkit-transition: background-color 0.5s ease;
+	-o-transition: background-color 0.5s ease;
+	transition: background-color 0.5s ease;
+}
+
+.tribe-ea-meetup-button:active,
+	.tribe-ea-meetup-button:hover {
+		color: #fff;
+		cursor: pointer;
+	}
+
+.tribe-ea-meetup-button {
+	background: #f41940;
+}
+
+.tribe-ea-meetup-button:active,
+	.tribe-ea-meetup-button:hover,
+	.tribe-ea-meetup-button:focus {
+		background: #f41940;
 	}
 
 /* = Event Aggregator Status
