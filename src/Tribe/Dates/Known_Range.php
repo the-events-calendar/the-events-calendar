@@ -30,7 +30,7 @@ class Tribe__Events__Dates__Known_Range {
 		 * Allows third-party code to alter the update process of tknown range and bail out of
 		 * this implementation entirely.
 		 *
-		 * @since TBD
+		 * @since 4.9
 		 *
 		 * @param bool $rebuilt Whether the known range was rebuilt or not; defaults to `false`
 		 *                      to let the method proceed to the update.

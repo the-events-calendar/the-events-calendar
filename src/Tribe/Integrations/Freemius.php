@@ -2,13 +2,13 @@
 /**
  * Facilitates smoother integration with the Freemius.
  *
- * @since TBD
+ * @since 4.9
  */
 class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Stores the instance for the Freemius
 	 *
-	 * @since  TBD
+	 * @since  4.9
 	 *
 	 * @var Freemius
 	 */
@@ -17,7 +17,7 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Stores the ID for the Freemius application
 	 *
-	 * @since  TBD
+	 * @since  4.9
 	 *
 	 * @var string
 	 */
@@ -26,7 +26,7 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Stores the slug for the Freemius application
 	 *
-	 * @since  TBD
+	 * @since  4.9
 	 *
 	 * @var string
 	 */
@@ -35,11 +35,17 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Performs setup for the Freemius integration singleton.
 	 *
-	 * @since  TBD
+	 * @since  4.9
 	 *
 	 * @return void
 	 */
 	public function __construct() {
+		if ( ! is_admin() ) {
+			return;
+		}
+
+		global $pagenow;
+
 		$page = tribe_get_request_var( 'page' );
 
 		$valid_page = [
@@ -49,7 +55,7 @@ class Tribe__Events__Integrations__Freemius {
 			'tribe-help',
 		];
 
-		if ( ! in_array( $page, $valid_page ) ) {
+		if ( ! in_array( $page, $valid_page ) && 'plugins.php' !== $pagenow ) {
 			return;
 		}
 
@@ -61,11 +67,11 @@ class Tribe__Events__Integrations__Freemius {
 		/**
 		 * Allows third-party disabling of The Events Calendar integration
 		 *
-		 * @since  TBD
+		 * @since  4.9
 		 *
 		 * @param  bool  $should_load
 		 */
-		$should_load = apply_filters( 'tribe_events_integrations_should_load_freemius', true );
+		$should_load = apply_filters( 'tribe_events_integrations_should_load_freemius', $this->should_load( 10 ) );
 
 		if ( ! $should_load ) {
 			return;
@@ -77,18 +83,21 @@ class Tribe__Events__Integrations__Freemius {
 			'pk_e32061abc28cfedf231f3e5c4e626',
 			[
 				'menu' => [
-					'slug' => $page,
+					'slug'    => $page,
 					'account' => true,
 					'support' => false,
 				],
-				'is_premium' => false,
-				'has_addons' => false,
+				'is_premium'     => false,
+				'has_addons'     => false,
 				'has_paid_plans' => false,
 			]
 		);
 
 		tribe_asset( Tribe__Events__Main::instance(), 'tribe-events-freemius', 'freemius.css', [], 'admin_enqueue_scripts' );
 
+		// Freemius typically hooks this action–which bootstraps the deactivation dialog–during plugins_loaded, but we
+		// initialize our plugins AFTER plugins_loaded, so we'll register it on admin_init instead
+		add_action( 'admin_init', [ $this->instance, '_hook_action_links_and_register_account_hooks' ] );
 		add_action( 'admin_init', [ $this, 'action_skip_activation' ] );
 
 		$this->instance->add_filter( 'connect_message_on_update', [ $this, 'filter_connect_message_on_update' ], 10, 6 );
@@ -97,9 +106,63 @@ class Tribe__Events__Integrations__Freemius {
 	}
 
 	/**
+	 * When should we load Freemius to users
+	 *
+	 * @since  4.9
+	 *
+	 * @param  integer $threshold Percentage of which we will load Freemius
+	 *
+	 * @return boolean
+	 */
+	public function should_load( $threshold = 10 ) {
+		if (
+			defined( 'TRIBE_EVENTS_INTEGRATIONS_SHOULD_LOAD_FREEMIUS' )
+			&& TRIBE_EVENTS_INTEGRATIONS_SHOULD_LOAD_FREEMIUS
+		) {
+			return TRIBE_EVENTS_INTEGRATIONS_SHOULD_LOAD_FREEMIUS;
+		}
+
+		// If we have the option we use it
+		$seed                  = tribe_get_option( 'freemius_random_seed', null );
+		$seed_misses_threshold = null === $seed || $threshold < $seed;
+
+		/**
+		 * Should only if it a new install.
+		 *
+		 * @see Tribe__Admin__Activation_Page::is_new_install Based on protected method from Common.
+		 */
+		$previous_versions     = Tribe__Settings_Manager::get_option( 'previous_ecp_versions', [] );
+		$has_previous_versions = ! empty( $previous_versions ) && '0' != end( $previous_versions );
+
+		if ( $has_previous_versions && $seed_misses_threshold ) {
+			return false;
+		}
+
+		if ( ! $seed ) {
+			$seed = rand( 1, 100 );
+
+			// On PHP 7.2 and above we have access to a better Randomizer method
+			if ( function_exists( 'random_int' ) ) {
+				$seed = random_int( 1, 100 );
+			}
+
+			// After getting a new seed save it to the DB
+			tribe_update_option( 'freemius_random_seed', $seed );
+		}
+
+		// If the seed falls in the Threshold we should load
+		if ( $threshold >= $seed ) {
+			return true;
+		}
+
+		// If we got here we shouldnt load
+		return false;
+	}
+
+	/**
 	 * Action to skip activation since freemius doesnt do their job correctly hre
 	 *
-	 * @since  TBD
+	 * @since  4.9
 	 *
 	 * @return bool|void
 	 */
@@ -126,7 +189,7 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Filter the content for the Freemius Popup
 	 *
-	 * @since  TBD
+	 * @since  4.9
 	 *
 	 * @param  string $message
 	 * @param  string $user_first_name
@@ -173,7 +236,7 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Returns The Events Calendar instance of Freemius plugin
 	 *
-	 * @since  TBD
+	 * @since  4.9
 	 *
 	 * @return Freemius
 	 */
@@ -184,7 +247,7 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Method to remove the sticky message when the plugin is active for freemius
 	 *
-	 * @since  TBD
+	 * @since  4.9
 	 *
 	 * @return void
 	 */
@@ -213,6 +276,5 @@ class Tribe__Events__Integrations__Freemius {
 
 		// Remove the sticky notice for activation complete
 		$admin_notices->remove_sticky( 'activation_complete' );
-
 	}
 }

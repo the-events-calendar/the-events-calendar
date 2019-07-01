@@ -1,0 +1,282 @@
+.tribe-events {
+	/* -----------------------------------------------------------------------------
+	 *
+	 * View Selector
+	 *
+	 * Example (Select):
+	 * <div class="tribe-events-c-view-selector">
+	 *   <button
+	 *     class="tribe-events-c-view-selector__button"
+	 *     aria-controls="container-id"
+	 *     aria-expanded="false"
+	 *     aria-selected="false"
+	 *   >
+	 *     <span class="tribe-events-c-view-selector__button-icon tribe-common-svgicon tribe-common-svgicon--month"></span>
+	 *     <span class="tribe-events-c-view-selector__button-text">
+	 *       Month
+	 *     </span>
+	 *   </button>
+	 *   <div
+	 *     class="tribe-events-c-view-selector__content"
+	 *     id="container-id"
+	 *     aria-hidden="true"
+	 *   >
+	 *     <ul class="tribe-events-c-view-selector__list">
+	 *       <li class="tribe-events-c-view-selector__list-item">
+	 *         <a href="#" class="tribe-events-c-view-selector__list-item-link" data-js="tribe-events-view-link">
+	 *           <span class="tribe-events-c-view-selector__list-item-icon tribe-common-svgicon tribe-common-svgicon--month"></span>
+	 *           <span class="tribe-events-c-view-selector__list-item-text">
+	 *             Month
+	 *           </span>
+	 *         </a>
+	 *       </li>
+	 *       <li class="tribe-events-c-view-selector__list-item">
+	 *         <a href="#" class="tribe-events-c-view-selector__list-item-link" data-js="tribe-events-view-link">
+	 *           <span class="tribe-events-c-view-selector__list-item-icon tribe-common-svgicon tribe-common-svgicon--list"></span>
+	 *           <span class="tribe-events-c-view-selector__list-item-text">
+	 *             List
+	 *           </span>
+	 *         </a>
+	 *       </li>
+	 *     </ul>
+	 *   </div>
+	 * </div>
+	 *
+	 * Example (Tabs):
+	 * <div class="tribe-events-c-view-selector tribe-events-c-view-selector--tabs">
+	 *   ... (same as above)
+	 * </div>
+	 *
+	 * ----------------------------------------------------------------------------- */
+
+	.tribe-events-c-view-selector {
+		position: relative;
+		width: 29px;
+
+		@media (--viewport-medium) {
+			width: auto;
+		}
+	}
+
+	.tribe-events-c-view-selector--tabs {
+		@media (--viewport-medium) {
+			width: auto;
+		}
+
+		.tribe-events-c-view-selector__button {
+			@media (--viewport-medium) {
+				@mixin hidden;
+			}
+		}
+
+		.tribe-events-c-view-selector__content {
+			@media (--viewport-medium) {
+				border: none;
+				border-radius: 0;
+				box-shadow: none;
+				display: block;
+				padding: 0 var(--spacer-2);
+				position: static;
+				transform: none;
+			}
+		}
+
+		.tribe-events-c-view-selector__list {
+			@media (--viewport-medium) {
+				display: flex;
+			}
+		}
+
+		.tribe-events-c-view-selector__list-item {
+			@media (--viewport-medium) {
+				margin: 0 var(--spacer-2);
+			}
+		}
+
+		.tribe-events-c-view-selector__list-item--active {
+
+			.tribe-events-c-view-selector__list-item-link {
+				@media (--viewport-medium) {
+					background-color: transparent;
+				}
+
+				&:after {
+					@media (--viewport-medium) {
+						background-color: var(--color-accent-secondary);
+						bottom: -1px;
+						content: '';
+						display: block;
+						height: 2px;
+						position: absolute;
+						width: 100%;
+					}
+				}
+			}
+		}
+
+		.tribe-events-c-view-selector__list-item-link {
+			@media (--viewport-medium) {
+				padding: var(--spacer-4) 0;
+				position: relative;
+			}
+		}
+	}
+
+	.tribe-events-c-view-selector__button {
+		align-items: center;
+		display: flex;
+		padding: var(--spacer-0);
+		position: relative;
+		text-align: left;
+		width: 100%;
+		z-index: var(--z-index-events-bar-button);
+
+		@media (--viewport-medium) {
+			padding: var(--spacer-4) var(--spacer-5);
+		}
+
+		&:hover,
+		&:focus {
+
+			&:before {
+				opacity: 1;
+			}
+		}
+
+		&:before {
+			background-color: var(--color-accent-primary);
+			content: '';
+			display: block;
+			height: 2px;
+			opacity: 0;
+			position: absolute;
+			top: 100%;
+			transform: translateY(var(--spacer-0));
+			transition: var(--transition-opacity);
+			width: calc(100% - (2 * var(--spacer-0)));
+
+			@media (--viewport-medium) {
+				content: none;
+			}
+		}
+
+		&:after {
+			@media (--viewport-medium) {
+				background-image: svg-inline(caret-down);
+				background-repeat: no-repeat;
+				background-size: contain;
+				content: '';
+				display: block;
+				flex: none;
+				height: 6px;
+				margin-left: var(--spacer-1);
+				width: 10px;
+			}
+		}
+	}
+
+	.tribe-events-c-view-selector__button--active {
+
+		&:after {
+			@media (--viewport-medium) {
+				background-image: svg-inline(caret-up);
+			}
+		}
+	}
+
+	.tribe-events-c-view-selector__button-icon {
+		display: block;
+		height: 21px;
+		width: 21px;
+
+		@media (--viewport-medium) {
+			@mixin hidden;
+		}
+	}
+
+	.tribe-events-c-view-selector__button-text {
+		@mixin visually-hide;
+
+		@media (--viewport-medium) {
+			@mixin visually-show;
+			@mixin desktop-body-2-bold;
+
+			flex: auto;
+		}
+	}
+
+	.tribe-events-c-view-selector__content {
+		display: none;
+		background-color: var(--color-background);
+		border: 1px solid var(--color-border-secondary);
+		border-radius: var(--border-radius-default);
+		box-shadow: var(--box-shadow-tooltip);
+		padding: var(--spacer-2) calc(var(--spacer-2) / 2);
+		position: absolute;
+		right: 0;
+		top: 100%;
+		transform: translateY(var(--spacer-3));
+		z-index: var(--z-index-views-selector);
+
+		@media (--viewport-medium) {
+			box-shadow: var(--box-shadow-default);
+			left: 0;
+			padding: var(--spacer-1);
+			right: auto;
+			transform: translateY(var(--spacer-1));
+			width: auto;
+		}
+	}
+
+	/* .tribe-events-c-view-selector__list {} */
+
+	/* .tribe-events-c-view-selector__list-item {} */
+
+	.tribe-events-c-view-selector__list-item--active {
+
+		.tribe-events-c-view-selector__list-item-link {
+			background-color: var(--color-background-secondary);
+		}
+
+		.tribe-events-c-view-selector__list-item-text {
+			font-weight: var(--font-weight-bold);
+		}
+	}
+
+	.tribe-events-c-view-selector__list-item-link {
+		align-items: center;
+		border-radius: var(--border-radius-default);
+		display: flex;
+		padding: var(--spacer-1) var(--spacer-5) var(--spacer-1) var(--spacer-2);
+
+		@media (--viewport-medium) {
+			padding: var(--spacer-0) var(--spacer-7) var(--spacer-0) var(--spacer-3);
+		}
+
+		&:hover,
+		&:focus {
+
+			.tribe-events-c-view-selector__list-item-text {
+				color: var(--color-accent-secondary-hover);
+				font-weight: var(--font-weight-bold);
+			}
+		}
+	}
+
+	.tribe-events-c-view-selector__list-item-icon {
+		flex: none;
+		height: 18px;
+		margin-right: 12px;
+		width: 18px;
+
+		@media (--viewport-medium) {
+			@mixin hidden;
+		}
+	}
+
+	.tribe-events-c-view-selector__list-item-text {
+		@mixin desktop-body-2;
+
+		flex: auto;
+	}
+}

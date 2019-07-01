@@ -2,16 +2,17 @@
 /**
  * The main ORM/Repository class for events.
  *
- * @since TBD
+ * @since 4.9
  */
 
+use Tribe__Date_Utils as Dates;
 use Tribe__Timezones as Timezones;
 
 /**
  * Class Tribe__Events__Repositories__Event
  *
  *
- * @since TBD
+ * @since 4.9
  */
 class Tribe__Events__Repositories__Event extends Tribe__Repository {
 
@@ -67,7 +68,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 *
 	 * Sets up the repository default parameters and schema.
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 */
 	public function __construct() {
 		parent::__construct();
@@ -175,7 +176,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	/**
 	 * Filters the event by their all-day status.
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 *
 	 * @param bool $all_day Whether the events should be all-day or not.
 	 *
@@ -210,7 +211,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	/**
 	 * Filters events whose start date occurs before the provided date; fetch is not inclusive.
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 *
 	 * @param string|DateTime|int $datetime A `strtotime` parse-able string, a DateTime object or
 	 *                                      a timestamp.
@@ -239,7 +240,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	/**
 	 * Filters events whose end date occurs on or before the provided date; fetch is not inclusive.
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 *
 	 * @param string|DateTime|int $datetime A `strtotime` parse-able string, a DateTime object or
 	 *                                      a timestamp.
@@ -268,7 +269,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	/**
 	 * Filters events whose end date occurs before the provided date; fetch is inclusive.
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 *
 	 * @param string|DateTime|int $datetime A `strtotime` parse-able string, a DateTime object or
 	 *                                      a timestamp.
@@ -282,22 +283,22 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		$date = Tribe__Date_Utils::build_date_object( $datetime, $timezone )
 		                         ->setTimezone( $this->normal_timezone );
 
-		return array(
-			'meta_query' => array(
-				'ends-before' => array(
+		return [
+			'meta_query' => [
+				'ends-before' => [
 					'key'     => $this->end_meta_key,
 					'compare' => '<',
 					'value'   => $date->format( Tribe__Date_Utils::DBDATETIMEFORMAT ),
 					'type'    => 'DATETIME',
-				),
-			),
-		);
+				],
+			],
+		];
 	}
 
 	/**
 	 * Filters events whose start date occurs after the provided date; fetch is not inclusive.
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 *
 	 * @param string|DateTime|int $datetime A `strtotime` parse-able string, a DateTime object or
 	 *                                      a timestamp.
@@ -326,7 +327,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	/**
 	 * Filters events whose start date occurs on or after the provided date; fetch is inclusive.
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 *
 	 * @param string|DateTime|int $datetime A `strtotime` parse-able string, a DateTime object or
 	 *                                      a timestamp.
@@ -355,7 +356,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	/**
 	 * Filters events whose end date occurs after the provided date; fetch is not inclusive.
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 *
 	 * @param string|DateTime|int $datetime A `strtotime` parse-able string, a DateTime object or
 	 *                                      a timestamp.
@@ -385,7 +386,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 * Filters events whose duration overlaps a given Start and End date; fetch is inclusive
 	 * Will include multi-day events.
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 *
 	 * @param string|DateTime|int $start_datetime A `strtotime` parse-able string, a DateTime object or
 	 *                                            a timestamp.
@@ -442,7 +443,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	/**
 	 * Filters events whose start date occurs between a set of dates; fetch is inclusive.
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 *
 	 * @param string|DateTime|int $start_datetime A `strtotime` parse-able string, a DateTime object or
 	 *                                            a timestamp.
@@ -467,7 +468,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	/**
 	 * Filters events whose end date occurs between a set of dates; fetch is inclusive.
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 *
 	 * @param string|DateTime|int $start_datetime A `strtotime` parse-able string, a DateTime object or
 	 *                                            a timestamp.
@@ -497,7 +498,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 * Furthermore the end of day cutoff is taken into account so, given a cutoff of 10PM
 	 * an event starting at 10:30PM and ending at 11AM is not multi-day.
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 *
 	 * @param bool $multiday Whether to filter by events that are or not multi-day.
 	 */
@@ -538,7 +539,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	/**
 	 * Filters events to include only those events that appear on the given month’s calendar grid.
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 *
 	 * @param int $month The month to display.
 	 * @param int $year  The year to display.
@@ -569,7 +570,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 * An event is running between two dates when its start date or end date are between
 	 * the two dates.
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 *
 	 * @param string|DateTime|int $start_datetime A `strtotime` parse-able string, a DateTime object or
 	 *                                            a timestamp.
@@ -633,7 +634,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 *
 	 * UTC, UTC+0, and UTC-0 should be parsed as the same timezone.
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 *
 	 * @param string|DateTimeZone $timezone A timezone string or object.
 	 *
@@ -673,7 +674,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 *
 	 * Fetch is inclusive.
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 *
 	 * @param string|DateTime|int $start_datetime A `strtotime` parse-able string, a DateTime object or
 	 *                                            a timestamp.
@@ -719,7 +720,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	/**
 	 * Filters events to include only those that match the provided featured state.
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 *
 	 * @param bool $featured Whether the events should be featured or not.
 	 */
@@ -730,7 +731,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	/**
 	 * Filters events to include only those that match the provided hidden state.
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 *
 	 * @param bool $hidden Whether the events should be hidden or not.
 	 */
@@ -741,7 +742,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	/**
 	 * Filters events by specific event organizer(s).
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 *
 	 * @param int|WP_Post|array $organizer Organizer(s).
 	 */
@@ -752,7 +753,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	/**
 	 * Filters events to include only those that match the provided hidden state.
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 *
 	 * @param string            $linked_post_meta_key The linked post type meta key.
 	 * @param int|WP_Post|array $linked_post          Linked post(s).
@@ -770,7 +771,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	/**
 	 * Filters events to include only those that match the provided sticky state.
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 *
 	 * @param bool $sticky Whether the events should be sticky or not.
 	 */
@@ -786,7 +787,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	/**
 	 * Filters events by specific event venue(s).
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 *
 	 * @param int|WP_Post|array $venue Venue(s).
 	 */
@@ -816,7 +817,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 * the value AND the currency symbol matches. This way you can select posts that have a cost of 5 USD and
 	 * not accidentally get events with 5 EUR.
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 *
 	 * @param float|array $value       The cost to use for the comparison; in the case of `BETWEEN`, `NOT BETWEEN`,
 	 *                                 `IN` and `NOT IN` operators this value should be an array.
@@ -885,7 +886,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 * Events with a cost of `0` but a currency symbol set will be fetched when fetching
 	 * by their symbols.
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 *
 	 * @param string|array $symbol One or more currency symbols or currency ISO codes. E.g.
 	 *                             "$" and "USD".
@@ -909,7 +910,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 *
 	 * Cost search is inclusive.
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 *
 	 * @param      float $low    The lower value of the search interval.
 	 * @param      float $high   The high value of the search interval.
@@ -929,7 +930,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 *
 	 * Cost search is NOT inclusive.
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 *
 	 * @param float  $value      The cost to use for the comparison.
 	 * @param string $symbol     The desired currency symbol or symbols; this symbol can be a currency ISO code,
@@ -948,7 +949,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 *
 	 * Cost search is NOT inclusive.
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 *
 	 * @param float  $value      The cost to use for the comparison.
 	 * @param string $symbol     The desired currency symbol or symbols; this symbol can be a currency ISO code,
@@ -976,7 +977,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	/**
 	 * Filters and updates the event meta to make sure it makes sense.
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 *
 	 * @param array $postarr The update post array, passed entirely for context purposes.
 	 * @param  int  $post_id The ID of the event that's being updated.
@@ -994,7 +995,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	/**
 	 *
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 *
 	 * @param array $postarr
 	 * @param       $post_id
@@ -1043,9 +1044,12 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 					}
 
 					$date = new DateTime( $meta_value, $timezone );
+
+					$postarr['meta_input']["_Event{$check}Date"] = $date->format( $datetime_format );
+
 					$utc_date = $date->setTimezone( $utc );
 
-					// Set the UTC date/time from local date/time and timezone; if provided override it.
+					// Set the localized and UTC date/time from local date/time and timezone; if provided override it.
 					$postarr[ 'meta_input' ][ "_Event{$check}DateUTC" ] = $utc_date->format( $datetime_format );
 					$dates_changed[ $check ]                        = $utc_date;
 				}
@@ -1075,6 +1079,15 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			// Sanity check, an event should end after its start.
 			$start = $this->get_from_postarr_or_meta( $postarr, '_EventStartDate', $post_id );
 			$end   = $this->get_from_postarr_or_meta( $postarr, '_EventEndDate', $post_id );
+			$duration   = $this->get_from_postarr_or_meta( $postarr, '_EventDuration', $post_id );
+
+			if ( isset( $start, $duration ) && empty( $end ) ) {
+				// Let's work out the End from Start and Duration if not set.
+				$duration_interval = new DateInterval( 'PT' . (int) $duration . 'S' );
+				$end      = Dates::build_date_object( $start, $timezone )
+				                 ->add( $duration_interval )
+				                 ->format( $datetime_format );
+			}
 
 			$dates_make_sense = true;
 
@@ -1173,7 +1186,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	/**
 	 * Filters the post array to make sure linked posts meta makes sense.
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 *
 	 * @param array $postarr The update post array.
 	 *
@@ -1207,7 +1220,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	/**
 	 * Updates an event accessory meta and attributes.
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 *
 	 * @param array $postarr The candidate post array for the update or insertion.
 	 * @param int   $post_id The ID of the event that is being updated.
@@ -1264,6 +1277,9 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 * {@inheritdoc}
 	 */
 	public function filter_postarr_for_create( array $postarr ) {
+		// Before checking on the meta integrity and coherency let's try to normalize it an fill the missing fields.
+		$postarr = $this->filter_meta_input( $postarr );
+
 		// Require some minimum fields.
 		if ( ! isset(
 			$postarr['post_title'],
@@ -1272,7 +1288,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			return false;
 		}
 
-		return parent::filter_postarr_for_create( $this->filter_meta_input( $postarr ) );
+		return parent::filter_postarr_for_create( $postarr );
 	}
 
 	/**
@@ -1372,7 +1388,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 * Returns a filtered list of filters that are leveraging the event start and/or
 	 * end dates.
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 *
 	 * @return array The filtered list of filters that are leveraging the event start and/or end dates
 	 */
@@ -1393,7 +1409,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		 * Filters the list of filters that should be considered related to an event start and/or end
 		 * dates.
 		 *
-		 * @since TBD
+		 * @since 4.9
 		 *
 		 * @param array $date_filters The list of filters that should be considered related to an event start and/or end
 		 *                            dates.
@@ -1406,7 +1422,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 * Whether the repository read operations have any kind of date-related filter
 	 * applied or not.
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 *
 	 * @return bool Whether the repository read operations have any kind of date-related filter applied or not.
 	 */
@@ -1425,7 +1441,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 *
 	 * This method is a wrapper for the `filter_by_starts_between` one.
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 *
 	 * @param      int|string|\DateTime $date     A date and time timestamp, string or object.
 	 * @param null                      $timezone The timezone that should be used to filter events, if not passed
@@ -1452,7 +1468,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 * depending on the site Time Zone Settings.
 	 * This method allows overriding this behavior on a per-instance basis.
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 *
 	 * @param bool $use_utc Whether ot use the UTC dates and times to read events or not. If `true` then the
 	 *                      `_EventStartDateUTC` and `_EventEndDateUTC` meta keys will be used, if `false` then the

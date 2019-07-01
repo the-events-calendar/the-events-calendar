@@ -4,14 +4,14 @@
  *
  * All functions here defined should be "pluggable" and replaceable.
  *
- * @since TBD
+ * @since 4.9
  */
 
 if ( ! function_exists( 'tribe_events' ) ) {
 	/**
 	 * Builds and returns the correct event repository.
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 *
 	 * @param string $repository The slug of the repository to build/return.
 	 *
@@ -26,7 +26,7 @@ if ( ! function_exists( 'tribe_events' ) ) {
 		/**
 		 * Filters the map relating event repository slugs to service container bindings.
 		 *
-		 * @since TBD
+		 * @since 4.9
 		 *
 		 * @param array  $map        A map in the shape [ <repository_slug> => <service_name> ]
 		 * @param string $repository The currently requested implementation.
@@ -41,7 +41,7 @@ if ( ! function_exists( 'tribe_organizers' ) ) {
 	/**
 	 * Builds and returns the correct organizer repository.
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 *
 	 * @param string $repository The slug of the repository to build/return.
 	 *
@@ -56,7 +56,7 @@ if ( ! function_exists( 'tribe_organizers' ) ) {
 		/**
 		 * Filters the map relating organizer repository slugs to service container bindings.
 		 *
-		 * @since TBD
+		 * @since 4.9
 		 *
 		 * @param array  $map        A map in the shape [ <repository_slug> => <service_name> ]
 		 * @param string $repository The currently requested implementation.
@@ -71,7 +71,7 @@ if ( ! function_exists( 'tribe_venues' ) ) {
 	/**
 	 * Builds and returns the correct venue repository.
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 *
 	 * @param string $repository The slug of the repository to build/return.
 	 *
@@ -86,7 +86,7 @@ if ( ! function_exists( 'tribe_venues' ) ) {
 		/**
 		 * Filters the map relating venue repository slugs to service container bindings.
 		 *
-		 * @since TBD
+		 * @since 4.9
 		 *
 		 * @param array  $map        A map in the shape [ <repository_slug> => <service_name> ]
 		 * @param string $repository The currently requested implementation.
