@@ -39,7 +39,8 @@ tribe.events.views.datepicker = {};
 	 * @type {PlainObject}
 	 */
 	obj.selectors = {
-		topBar: '[data-js="tribe-events-top-bar"]',
+		datepickerContainer: '[data-js="tribe-events-top-bar-datepicker"]',
+		input: '[data-js="tribe-events-top-bar-date"]',
 		button: '[data-js="tribe-events-top-bar-datepicker-button"]',
 		buttonOpenClass: '.tribe-events-c-top-bar__datepicker-button--open',
 	};
@@ -142,25 +143,6 @@ tribe.events.views.datepicker = {};
 	};
 
 	/**
-	 * Handle datepicker show event
-	 *
-	 * @since TBD
-	 *
-	 * @param {Event} event event object for 'show' event
-	 *
-	 * @return {void}
-	 */
-	obj.handleShow = function( event ) {
-		var $datepickerButton = $( event.target );
-
-		$datepickerButton.toggleClass( obj.selectors.buttonOpenClass.className() );
-
-		if ( ! $datepickerButton.hasClass( obj.selectors.buttonOpenClass.className() ) ) {
-			$datepickerButton.bootstrapDatepicker( 'hide' );
-		}
-	};
-
-	/**
 	 * Handle datepicker hide event
 	 *
 	 * @since TBD
@@ -170,7 +152,26 @@ tribe.events.views.datepicker = {};
 	 * @return {void}
 	 */
 	obj.handleHide = function( event ) {
-		$( event.target ).removeClass( obj.selectors.buttonOpenClass.className() );
+		event.data.datepickerButton.removeClass( obj.selectors.buttonOpenClass.className() );
+	};
+
+	/**
+	 * Toggle datepicker on datepicker button click
+	 *
+	 * @since TBD
+	 *
+	 * @param {Event} event event object for 'click' event
+	 *
+	 * @return {void}
+	 */
+	obj.toggleDatepicker = function( event ) {
+		var $input = $( event.data.input );
+		var $datepickerButton = $( event.data.target );
+
+		$datepickerButton.toggleClass( obj.selectors.buttonOpenClass.className() );
+		$datepickerButton.hasClass( obj.selectors.buttonOpenClass.className() )
+			? $input.bootstrapDatepicker( 'show' )
+			: $input.bootstrapDatepicker( 'hide' );
 	};
 
 	/**
@@ -186,7 +187,7 @@ tribe.events.views.datepicker = {};
 	 * @return {void}
 	 */
 	obj.init = function( event, index, $container, data ) {
-		// if data.slug = 'month', then minViewMode = 'months'
+		var $input = $container.find( obj.selectors.input );
 		var $datepickerButton = $container.find( obj.selectors.button );
 		var viewSlug = data.slug;
 		var isMonthView = 'month' === viewSlug;
@@ -194,17 +195,19 @@ tribe.events.views.datepicker = {};
 		var changeEvent = isMonthView ? 'changeMonth' : 'changeDate';
 		var changeHandler = isMonthView ? obj.handleChangeMonth : obj.handleChangeDate;
 
-		$datepickerButton
+		$input
 			.bootstrapDatepicker( {
-				container: $datepickerButton.closest( obj.selectors.topBar ),
+				container: $input.closest( obj.selectors.datepickerContainer ),
+				format: 'yyyy-mm-dd',
 				maxViewMode: 'decade',
 				minViewMode: minViewMode,
-				orientation: 'bottom',
+				orientation: 'bottom left',
 				showOnFocus: false,
 			} )
 			.on( changeEvent, { container: $container }, changeHandler )
-			.on( 'show', obj.handleShow )
-			.on( 'hide', obj.handleHide );
+			.on( 'hide', { datepickerButton: $datepickerButton }, obj.handleHide );
+		$datepickerButton
+			.on( 'click', { target: $datepickerButton, input: $input }, obj.toggleDatepicker );
 	};
 
 	/**
@@ -247,9 +250,8 @@ tribe.events.views.datepicker = {};
 			$.fn.bootstrapDatepicker = datepicker;
 
 			obj.initDatepickerI18n();
+			obj.state.initialized = true;
 		}
-
-		obj.state.initialized = true;
 	};
 
 	/**
