@@ -1752,7 +1752,11 @@
 </li>
 
 		<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--today">
-	<a class="tribe-events-c-nav__today tribe-common-b2" href="#">
+	<a
+		href="#"
+		class="tribe-events-c-nav__today tribe-common-b2"
+		data-js="tribe-events-view-link"
+	>
 		Today	</a>
 </li>
 

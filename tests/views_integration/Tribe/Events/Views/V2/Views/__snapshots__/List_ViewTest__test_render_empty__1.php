@@ -182,9 +182,23 @@
 >
 	Today</a>
 
-	<button class="tribe-common-h3 tribe-common-h3--alt tribe-events-c-top-bar__date-picker-button">
-	Now &mdash; <time datetime="2019-01-01">January 1st, 2019</time>
-</button>
+	<div class="tribe-events-c-top-bar__datepicker" data-js="tribe-events-top-bar-datepicker">
+	<button
+		class="tribe-common-h3 tribe-common-h3--alt tribe-events-c-top-bar__datepicker-button"
+		data-js="tribe-events-top-bar-datepicker-button"
+	>
+		Now &mdash; <time datetime="2019-01-01">January 1st, 2019</time>
+	</button>
+	<input
+		type="text"
+		class="tribe-events-c-top-bar__datepicker-input tribe-common-a11y-visual-hide"
+		data-js="tribe-events-top-bar-date"
+		id="tribe-events-top-bar-date"
+		name="tribe-events-views[tribe-bar-search]"
+		value=""
+		tabindex="-1"
+	/>
+</div>
 
 	<div class="tribe-events-c-top-bar__actions">
 	</div>
@@ -205,7 +219,11 @@
 </li>
 
 		<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--today">
-	<a class="tribe-events-c-nav__today tribe-common-b2" href="#">
+	<a
+		href="#"
+		class="tribe-events-c-nav__today tribe-common-b2"
+		data-js="tribe-events-view-link"
+	>
 		Today	</a>
 </li>
 
