@@ -156,7 +156,7 @@ tribe.events.views.datepicker = {};
 	};
 
 	/**
-	 * Toggle datepicker on datepicker button click
+	 * Show datepicker on datepicker button click
 	 *
 	 * @since TBD
 	 *
@@ -164,14 +164,14 @@ tribe.events.views.datepicker = {};
 	 *
 	 * @return {void}
 	 */
-	obj.toggleDatepicker = function( event ) {
+	obj.showDatepicker = function( event ) {
 		var $input = $( event.data.input );
 		var $datepickerButton = $( event.data.target );
 
 		$datepickerButton.toggleClass( obj.selectors.buttonOpenClass.className() );
-		$datepickerButton.hasClass( obj.selectors.buttonOpenClass.className() )
-			? $input.bootstrapDatepicker( 'show' )
-			: $input.bootstrapDatepicker( 'hide' );
+		$input
+			.focus()
+			.bootstrapDatepicker( 'show' );
 	};
 
 	/**
@@ -195,6 +195,11 @@ tribe.events.views.datepicker = {};
 		var changeEvent = isMonthView ? 'changeMonth' : 'changeDate';
 		var changeHandler = isMonthView ? obj.handleChangeMonth : obj.handleChangeDate;
 
+		var tribeL10nDatatables = window.tribe_l10n_datatables || {};
+		var datepickerI18n = tribeL10nDatatables.datepicker || {};
+		var nextText = datepickerI18n.nextText || 'Next';
+		var prevText = datepickerI18n.prevText || 'Prev';
+
 		$input
 			.bootstrapDatepicker( {
 				container: $input.closest( obj.selectors.datepickerContainer ),
@@ -203,11 +208,15 @@ tribe.events.views.datepicker = {};
 				minViewMode: minViewMode,
 				orientation: 'bottom left',
 				showOnFocus: false,
+				templates: {
+					leftArrow: '<span class="tribe-common-svgicon"></span><span class="tribe-common-a11y-visual-hide">' + prevText + '</span>',
+					rightArrow: '<span class="tribe-common-svgicon"></span><span class="tribe-common-a11y-visual-hide">' + nextText + '</span>',
+				},
 			} )
 			.on( changeEvent, { container: $container }, changeHandler )
 			.on( 'hide', { datepickerButton: $datepickerButton }, obj.handleHide );
 		$datepickerButton
-			.on( 'click', { target: $datepickerButton, input: $input }, obj.toggleDatepicker );
+			.on( 'click', { target: $datepickerButton, input: $input }, obj.showDatepicker );
 	};
 
 	/**
