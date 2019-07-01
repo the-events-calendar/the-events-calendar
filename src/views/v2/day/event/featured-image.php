@@ -29,7 +29,7 @@ if ( ! has_post_thumbnail( $event_id ) ) {
 		>
 			<div
 				class="tribe-common-c-image__bg"
-				style="background-image: url('<?php echo get_the_post_thumbnail_url( $event_id, 'large' ); ?>');"
+				style="background-image: url('<?php echo esc_attr( get_the_post_thumbnail_url( $event_id, 'large' ) ); ?>');"
 				role="img"
 				aria-label="alt text here"
 			>
