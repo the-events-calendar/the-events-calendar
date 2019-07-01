@@ -28,6 +28,9 @@ class Tribe__Events__Aggregator__Processes__Queue_Control {
 
 		$cleared = $this->clear_queues();
 
+		// Let's also re-run, forcing it, the feature support check to make sure we still support Async processing.
+		tribe( 'feature-detection' )->supports_async_process( true );
+
 		$location = null !== $location
 			? $location
 			: remove_query_arg( self::CLEAR_PROCESSES );
