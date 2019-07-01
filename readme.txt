@@ -229,7 +229,6 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - Save of event meta data when Classic editor plugin and gutenberg blocks for events are enabled [121267]
 * Fix - Moved The Events Calendar specific code from common Context class into The Events Calendar [129241]
 * Fix - Fixed issue where multiday events were not returning correct end date in block editor [128033]
-* Fix - REST API Event responses now include the correct timezone even if the event has no timezone set or if using the site-wide timezone option [100159]
 * Fix - Resolved issue where deactivation feedback was not hooked properly [128341]
 * Fix - Added escaping to the event website URL target attribute [129565]
 * Fix - Fix Timezone definitions for `*.ics` file on events [89999]
