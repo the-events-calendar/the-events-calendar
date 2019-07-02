@@ -95,7 +95,7 @@ tribe.events.views.monthMobileEvents = {};
 
 		$header.addClass( obj.selectors.calendarDaySelected.className() );
 		$content
-			.parent( obj.selectors.mobileEvents.className() )
+			.parent( obj.selectors.mobileEvents )
 			.addClass( obj.selectors.mobileEventsShow.className() );
 	};
 
@@ -118,7 +118,7 @@ tribe.events.views.monthMobileEvents = {};
 
 		$header.removeClass( obj.selectors.calendarDaySelected.className() );
 		$content
-			.parent( obj.selectors.mobileEvents.className() )
+			.parent( obj.selectors.mobileEvents )
 			.removeClass( obj.selectors.mobileEventsShow.className() );
 	};
 

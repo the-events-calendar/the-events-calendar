@@ -55,6 +55,19 @@ class Assets extends \tad_DI52_ServiceProvider {
 
 		tribe_asset(
 			$plugin,
+			'tribe-events-views-v2-bootstrap-datepicker',
+			'vendor/bootstrap-datepicker/js/bootstrap-datepicker.js',
+			[ 'jquery' ],
+			'wp_enqueue_scripts',
+			[
+				'priority'     => 10,
+				'conditionals' => [ $this, 'should_enqueue_frontend' ],
+				'groups'       => [ static::$group_key ],
+			]
+		);
+
+		tribe_asset(
+			$plugin,
 			'tribe-events-views-v2-manager',
 			'views/manager.js',
 			[
@@ -70,6 +83,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 				'tribe-events-views-v2-tooltip',
 				'tribe-events-views-v2-events-bar',
 				'tribe-events-views-v2-events-bar-inputs',
+				'tribe-events-views-v2-datepicker',
 			],
 			'wp_enqueue_scripts',
 			[
@@ -166,6 +180,24 @@ class Assets extends \tad_DI52_ServiceProvider {
 				'priority' => 10,
 			]
 		);
+
+		tribe_asset(
+			$plugin,
+			'tribe-events-views-v2-datepicker',
+			'views/datepicker.js',
+			[ 'jquery', 'tribe-common', 'tribe-events-views-v2-bootstrap-datepicker' ],
+			null,
+			[
+				'priority' => 10,
+			]
+		);
+
+		/**
+		 * @todo: remove once we can not load v1 scripts in v2
+		 */
+		add_action( 'wp_enqueue_scripts', function() {
+			wp_deregister_script( 'tribe-events-calendar-script' );
+		}, 200 );
 	}
 
 /**

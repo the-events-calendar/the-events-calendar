@@ -19,7 +19,7 @@
 
 	<?php $this->template( 'top-bar/today' ); ?>
 
-	<?php $this->template( 'top-bar/date-picker' ); ?>
+	<?php $this->template( 'top-bar/datepicker' ); ?>
 
 	<?php $this->template( 'top-bar/actions' ); ?>
 
