@@ -153,7 +153,53 @@ tribe.events.views.accordion = {};
 	};
 
 	/**
+	 * Unbinds events for accordion click listeners
+	 *
+	 * @since  TBD
+	 *
+	 * @param  {jQuery} $container jQuery object of view container
+	 *
+	 * @return {void}
+	 */
+	obj.unbindAccordionEvents = function( $container ) {
+		$container
+			.find( obj.selectors.accordionTrigger )
+			.each( obj.deinitAccordion );
+	};
+
+	/**
 	 * Binds events for accordion click listeners
+	 *
+	 * @since  TBD
+	 *
+	 * @param  {jQuery} $container jQuery object of view container
+	 *
+	 * @return {void}
+	 */
+	obj.bindAccordionEvents = function( $container ) {
+		$container
+			.find( obj.selectors.accordionTrigger )
+			.each( obj.initAccordion( $container ) );
+	};
+
+	/**
+	 * Unbinds events for container
+	 *
+	 * @since  TBD
+	 *
+	 * @param  {Event}       event event object for 'afterSetup.tribeEvents' event
+	 * @param  {jqXHR}       jqXHR    Request object
+	 * @param  {PlainObject} settings Settings that this request was made with
+	 *
+	 * @return {void}
+	 */
+	obj.unbindEvents = function( event, jqXHR, settings ) {
+		var $container = event.data.container;
+		obj.unbindAccordionEvents( $container );
+	};
+
+	/**
+	 * Binds events for container
 	 *
 	 * @since TBD
 	 *
@@ -165,9 +211,8 @@ tribe.events.views.accordion = {};
 	 * @return {void}
 	 */
 	obj.bindEvents = function( event, index, $container, data ) {
-		$container
-			.find( obj.selectors.accordionTrigger )
-			.each( obj.initAccordion( $container ) );
+		obj.bindAccordionEvents( $container );
+		$container.on( 'beforeAjaxSuccess.tribeEvents', { container: $container }, obj.unbindEvents );
 	};
 
 	/**
@@ -179,12 +224,6 @@ tribe.events.views.accordion = {};
 	 */
 	obj.ready = function() {
 		$document.on( 'afterSetup.tribeEvents', tribe.events.views.manager.selectors.container, obj.bindEvents );
-
-		/**
-		 * @todo: do below for ajax events
-		 */
-		// on 'beforeAjaxBeforeSend.tribeEvents' event, remove all listeners
-		// on 'afterAjaxError.tribeEvents', add all listeners
 	};
 
 	// Configure on document ready
