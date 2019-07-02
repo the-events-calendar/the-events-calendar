@@ -20,6 +20,12 @@
 	>
 		<?php esc_html_e( 'Now', 'the-events-calendar' ); ?> &mdash; <time datetime="<?php echo esc_attr( date( 'Y-m-d', time() ) ); ?>"><?php echo date( 'F jS, Y', time() ); ?></time>
 	</button>
+	<label
+		class="tribe-events-c-top-bar__datepicker-label tribe-common-a11y-visual-hide"
+		for="tribe-events-top-bar-date"
+	>
+		<?php esc_html_e( 'Select date.', 'the-events-calendar' ); ?>
+	</label>
 	<input
 		type="text"
 		class="tribe-events-c-top-bar__datepicker-input tribe-common-a11y-visual-hide"
