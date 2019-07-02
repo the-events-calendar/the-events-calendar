@@ -181,14 +181,42 @@ tribe.events.views.datepicker = {};
 	};
 
 	/**
+	 * Deinitialize datepicker JS
+	 *
+	 * @since  TBD
+	 *
+	 * @param  {Event}       event    event object for 'afterSetup.tribeEvents' event
+	 * @param  {jqXHR}       jqXHR    Request object
+	 * @param  {PlainObject} settings Settings that this request was made with
+	 *
+	 * @return {void}
+	 */
+	obj.deinit = function( event, jqXHR, settings ) {
+		var $container = event.data.container;
+		var $input = $container.find( obj.selectors.input );
+		var $datepickerButton = $container.find( obj.selectors.button );
+		var viewSlug = event.data.viewSlug;
+		var isMonthView = 'month' === viewSlug;
+		var changeEvent = isMonthView ? 'changeMonth' : 'changeDate';
+		var changeHandler = isMonthView ? obj.handleChangeMonth : obj.handleChangeDate;
+
+		$input
+			.bootstrapDatepicker( 'destroy' )
+			.off( changeEvent, changeHandler )
+			.off( 'hide', obj.handleHide );
+		$datepickerButton
+			.on( 'click', obj.showDatepicker );
+	};
+
+	/**
 	 * Initialize datepicker JS
 	 *
-	 * @since TBD
+	 * @since  TBD
 	 *
-	 * @param {Event} event event object for 'afterSetup.tribeEvents' event
-	 * @param {integer} index jQuery.each index param from 'afterSetup.tribeEvents' event
-	 * @param {jQuery} $container jQuery object of view container
-	 * @param {object} data data object passed from 'afterSetup.tribeEvents' event
+	 * @param  {Event}   event      event object for 'afterSetup.tribeEvents' event
+	 * @param  {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event
+	 * @param  {jQuery}  $container jQuery object of view container
+	 * @param  {object}  data       data object passed from 'afterSetup.tribeEvents' event
 	 *
 	 * @return {void}
 	 */
@@ -226,6 +254,9 @@ tribe.events.views.datepicker = {};
 			.on( 'hide', { datepickerButton: $datepickerButton }, obj.handleHide );
 		$datepickerButton
 			.on( 'click', { target: $datepickerButton, input: $input }, obj.showDatepicker );
+
+		// deinit datepicker and event handlers before success
+		$container.on( 'beforeAjaxSuccess.tribeEvents', { container: $container, viewSlug: viewSlug }, obj.deinit );
 	};
 
 	/**
@@ -284,12 +315,6 @@ tribe.events.views.datepicker = {};
 
 		if ( obj.state.initialized ) {
 			$document.on( 'afterSetup.tribeEvents', tribe.events.views.manager.selectors.container, obj.init );
-
-			/**
-			 * @todo: do below for ajax events
-			 */
-			// on 'beforeAjaxBeforeSend.tribeEvents' event, remove all listeners
-			// on 'afterAjaxError.tribeEvents', add all listeners
 		}
 	};
 
