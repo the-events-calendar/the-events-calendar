@@ -41,7 +41,7 @@ $show_third_party_accounts = ! is_network_admin();
 			<td class="label"><?php esc_html_e( 'License Key', 'the-events-calendar' ); ?></td>
 			<td class="indicator <?php esc_attr_e( $indicator ); ?>"><span class="dashicons dashicons-<?php echo esc_attr( $indicator_icons[ $indicator ] ); ?>"></span></td>
 			<td><?php echo esc_html( $text ); ?></td>
-			<td><?php echo $notes; ?></td>
+			<td><?php echo $notes; // Escaping handled above. ?></td>
 		</tr>
 		<?php
 		// if EA is not active, bail out of the rest of this
