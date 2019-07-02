@@ -112,6 +112,9 @@ tribe.events.views.datepicker = {};
 		var paddedDate = obj.padNumber( date );
 		var paddedMonth = obj.padNumber( month );
 
+		/**
+		 * @todo: use format from BE
+		 */
 		var viewData = {
 			[ 'tribe-bar-date' ]: [ year, paddedMonth, paddedDate ].join( '-' ),
 		};
@@ -135,6 +138,9 @@ tribe.events.views.datepicker = {};
 
 		var paddedMonth = obj.padNumber( month );
 
+		/**
+		 * @todo: use format from BE
+		 */
 		var viewData = {
 			[ 'tribe-bar-date' ]: [ year, paddedMonth ].join( '-' ),
 		};
@@ -203,6 +209,9 @@ tribe.events.views.datepicker = {};
 		$input
 			.bootstrapDatepicker( {
 				container: $input.closest( obj.selectors.datepickerContainer ),
+				/**
+				 * @todo: use format from BE
+				 */
 				format: 'yyyy-mm-dd',
 				maxViewMode: 'decade',
 				minViewMode: minViewMode,
