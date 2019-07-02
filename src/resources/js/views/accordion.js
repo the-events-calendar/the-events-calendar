@@ -187,7 +187,7 @@ tribe.events.views.accordion = {};
 	 *
 	 * @since  TBD
 	 *
-	 * @param  {Event}       event event object for 'afterSetup.tribeEvents' event
+	 * @param  {Event}       event    event object for 'afterSetup.tribeEvents' event
 	 * @param  {jqXHR}       jqXHR    Request object
 	 * @param  {PlainObject} settings Settings that this request was made with
 	 *
@@ -201,12 +201,12 @@ tribe.events.views.accordion = {};
 	/**
 	 * Binds events for container
 	 *
-	 * @since TBD
+	 * @since  TBD
 	 *
-	 * @param {Event} event event object for 'afterSetup.tribeEvents' event
-	 * @param {integer} index jQuery.each index param from 'afterSetup.tribeEvents' event
-	 * @param {jQuery} $container jQuery object of view container
-	 * @param {object} data data object passed from 'afterSetup.tribeEvents' event
+	 * @param  {Event}   event      event object for 'afterSetup.tribeEvents' event
+	 * @param  {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event
+	 * @param  {jQuery}  $container jQuery object of view container
+	 * @param  {object}  data       data object passed from 'afterSetup.tribeEvents' event
 	 *
 	 * @return {void}
 	 */
