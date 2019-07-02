@@ -21,12 +21,13 @@ if ( ! has_post_thumbnail( $event_id ) ) {
 
 ?>
 <div class="tribe-events-calendar-list__event-featured-image-wrapper tribe-common-g-col">
-	<div class="tribe-events-calendar-list__event-featured-image tribe-common-c-image tribe-common-c-image--bg">
-		<a
-			href="#"
-			title="<?php echo esc_attr( get_the_title( $event_id ) ); ?>"
-			rel="bookmark"
-		>
+	<a
+		href="<?php echo esc_url( tribe_get_event_link( $event_id ) ); ?>"
+		title="<?php echo esc_attr( get_the_title( $event_id ) ); ?>"
+		rel="bookmark"
+		class="tribe-events-calendar-list__event-featured-image-link"
+	>
+		<div class="tribe-events-calendar-list__event-featured-image tribe-common-c-image tribe-common-c-image--bg">
 			<div
 				class="tribe-common-c-image__bg"
 				style="background-image: url('<?php echo esc_attr( get_the_post_thumbnail_url( $event_id, 'large' ) ); ?>');"
@@ -34,6 +35,6 @@ if ( ! has_post_thumbnail( $event_id ) ) {
 				aria-label="alt text here"
 			>
 			</div>
-		</a>
-	</div>
+		</div>
+	</a>
 </div>
