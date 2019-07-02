@@ -17,7 +17,7 @@
 		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
 		tabindex="-1"
 	>
-		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h6--alt">
+		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">X events, </span>
 			<time datetime="YYYY-MM-DD">
 				1			</time>
@@ -100,7 +100,7 @@
 		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
 		tabindex="-1"
 	>
-		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h6--alt">
+		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">X events, </span>
 			<time datetime="YYYY-MM-DD">
 				2			</time>
@@ -196,7 +196,7 @@
 		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
 		tabindex="-1"
 	>
-		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h6--alt">
+		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">X events, </span>
 			<time datetime="YYYY-MM-DD">
 				3			</time>
@@ -281,7 +281,7 @@
 		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
 		tabindex="-1"
 	>
-		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h6--alt">
+		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">X events, </span>
 			<time datetime="YYYY-MM-DD">
 				4			</time>
@@ -366,7 +366,7 @@
 		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
 		tabindex="-1"
 	>
-		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h6--alt">
+		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">X events, </span>
 			<time datetime="YYYY-MM-DD">
 				5			</time>
@@ -449,7 +449,7 @@
 		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
 		tabindex="-1"
 	>
-		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h6--alt">
+		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">X events, </span>
 			<time datetime="YYYY-MM-DD">
 				6			</time>
@@ -513,7 +513,7 @@
 		>
 		</em>
 		</div>
-		<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h8--alt">
+		<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h--alt">
 	<a
 		href="#"
 		title="North Sydney Meetup"
@@ -566,7 +566,7 @@
 		</div>
 
 		<div class="tribe-events-calendar-month__more-events">
-	<a href="#" class="tribe-events-calendar-month__more-events-link tribe-common-h8 tribe-common-h8--alt tribe-common-anchor-thin">+ 2 More</a>
+	<a href="#" class="tribe-events-calendar-month__more-events-link tribe-common-h8 tribe-common-h--alt tribe-common-anchor-thin">+ 2 More</a>
 </div>
 
 	</div>
@@ -587,7 +587,7 @@
 		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
 		tabindex="-1"
 	>
-		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h6--alt">
+		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">X events, </span>
 			<time datetime="YYYY-MM-DD">
 				7			</time>
@@ -644,7 +644,7 @@
 		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
 		tabindex="-1"
 	>
-		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h6--alt">
+		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">X events, </span>
 			<time datetime="YYYY-MM-DD">
 				8			</time>
@@ -695,7 +695,7 @@
 		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
 		tabindex="-1"
 	>
-		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h6--alt">
+		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">X events, </span>
 			<time datetime="YYYY-MM-DD">
 				9			</time>
@@ -742,7 +742,7 @@
 		>
 		</em>
 	</div>
-		<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h8--alt">
+		<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h--alt">
 	<a
 		href="#"
 		title="Taco Tuesdays!"
@@ -792,7 +792,7 @@
 		>
 		</em>
 		</div>
-		<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h8--alt">
+		<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h--alt">
 	<a
 		href="#"
 		title="Melbourne WordPress Meetup"
@@ -828,7 +828,7 @@
 		</div>
 
 		<div class="tribe-events-calendar-month__more-events">
-	<a href="#" class="tribe-events-calendar-month__more-events-link tribe-common-h8 tribe-common-h8--alt tribe-common-anchor-thin">+ 2 More</a>
+	<a href="#" class="tribe-events-calendar-month__more-events-link tribe-common-h8 tribe-common-h--alt tribe-common-anchor-thin">+ 2 More</a>
 </div>
 
 	</div>
@@ -849,7 +849,7 @@
 		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
 		tabindex="-1"
 	>
-		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h6--alt">
+		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">X events, </span>
 			<time datetime="YYYY-MM-DD">
 				10			</time>
@@ -907,7 +907,7 @@
 	<span class="tribe-events-calendar-month__calendar-event-datetime-separator"> - </span>
 	<time datetime="18:00">6pm</time>
 		</div>
-		<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h8--alt">
+		<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h--alt">
 	<a
 		href="#"
 		title="HackNight #CodeforthePeople"
@@ -960,7 +960,7 @@
 		</div>
 
 		<div class="tribe-events-calendar-month__more-events">
-	<a href="#" class="tribe-events-calendar-month__more-events-link tribe-common-h8 tribe-common-h8--alt tribe-common-anchor-thin">+ 2 More</a>
+	<a href="#" class="tribe-events-calendar-month__more-events-link tribe-common-h8 tribe-common-h--alt tribe-common-anchor-thin">+ 2 More</a>
 </div>
 
 	</div>
@@ -981,7 +981,7 @@
 		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
 		tabindex="-1"
 	>
-		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h6--alt">
+		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">X events, </span>
 			<time datetime="YYYY-MM-DD">
 				11			</time>
@@ -1032,7 +1032,7 @@
 		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
 		tabindex="-1"
 	>
-		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h6--alt">
+		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">X events, </span>
 			<time datetime="YYYY-MM-DD">
 				12			</time>
@@ -1083,7 +1083,7 @@
 		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
 		tabindex="-1"
 	>
-		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h6--alt">
+		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">X events, </span>
 			<time datetime="YYYY-MM-DD">
 				13			</time>
@@ -1134,7 +1134,7 @@
 		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
 		tabindex="-1"
 	>
-		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h6--alt">
+		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">X events, </span>
 			<time datetime="YYYY-MM-DD">
 				14			</time>
@@ -1191,7 +1191,7 @@
 		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
 		tabindex="-1"
 	>
-		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h6--alt">
+		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">X events, </span>
 			<time datetime="YYYY-MM-DD">
 				15			</time>
@@ -1242,7 +1242,7 @@
 		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
 		tabindex="-1"
 	>
-		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h6--alt">
+		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">X events, </span>
 			<time datetime="YYYY-MM-DD">
 				16			</time>
@@ -1289,7 +1289,7 @@
 		>
 		</em>
 	</div>
-		<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h8--alt">
+		<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h--alt">
 	<a
 		href="#"
 		title="Taco Tuesdays!"
@@ -1325,7 +1325,7 @@
 		</div>
 
 		<div class="tribe-events-calendar-month__more-events">
-	<a href="#" class="tribe-events-calendar-month__more-events-link tribe-common-h8 tribe-common-h8--alt tribe-common-anchor-thin">+ 2 More</a>
+	<a href="#" class="tribe-events-calendar-month__more-events-link tribe-common-h8 tribe-common-h--alt tribe-common-anchor-thin">+ 2 More</a>
 </div>
 
 	</div>
@@ -1346,7 +1346,7 @@
 		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
 		tabindex="-1"
 	>
-		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h6--alt">
+		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">X events, </span>
 			<time datetime="YYYY-MM-DD">
 				17			</time>
@@ -1397,7 +1397,7 @@
 		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
 		tabindex="-1"
 	>
-		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h6--alt">
+		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">X events, </span>
 			<time datetime="YYYY-MM-DD">
 				18			</time>
@@ -1448,7 +1448,7 @@
 		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
 		tabindex="-1"
 	>
-		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h6--alt">
+		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">X events, </span>
 			<time datetime="YYYY-MM-DD">
 				19			</time>
@@ -1526,7 +1526,7 @@
 		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
 		tabindex="-1"
 	>
-		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h6--alt">
+		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">X events, </span>
 			<time datetime="YYYY-MM-DD">
 				20			</time>
@@ -1604,7 +1604,7 @@
 		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
 		tabindex="-1"
 	>
-		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h6--alt">
+		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">X events, </span>
 			<time datetime="YYYY-MM-DD">
 				21			</time>
@@ -1677,7 +1677,7 @@
 		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
 		tabindex="-1"
 	>
-		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h6--alt">
+		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">X events, </span>
 			<time datetime="YYYY-MM-DD">
 				22			</time>
@@ -1742,7 +1742,7 @@
 		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
 		tabindex="-1"
 	>
-		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h6--alt">
+		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">X events, </span>
 			<time datetime="YYYY-MM-DD">
 				23			</time>
@@ -1803,7 +1803,7 @@
 		>
 		</em>
 	</div>
-		<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h8--alt">
+		<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h--alt">
 	<a
 		href="#"
 		title="Taco Tuesdays!"
@@ -1839,7 +1839,7 @@
 		</div>
 
 		<div class="tribe-events-calendar-month__more-events">
-	<a href="#" class="tribe-events-calendar-month__more-events-link tribe-common-h8 tribe-common-h8--alt tribe-common-anchor-thin">+ 2 More</a>
+	<a href="#" class="tribe-events-calendar-month__more-events-link tribe-common-h8 tribe-common-h--alt tribe-common-anchor-thin">+ 2 More</a>
 </div>
 
 	</div>
@@ -1860,7 +1860,7 @@
 		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
 		tabindex="-1"
 	>
-		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h6--alt">
+		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">X events, </span>
 			<time datetime="YYYY-MM-DD">
 				24			</time>
@@ -1911,7 +1911,7 @@
 		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
 		tabindex="-1"
 	>
-		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h6--alt">
+		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">X events, </span>
 			<time datetime="YYYY-MM-DD">
 				25			</time>
@@ -1962,7 +1962,7 @@
 		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
 		tabindex="-1"
 	>
-		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h6--alt">
+		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">X events, </span>
 			<time datetime="YYYY-MM-DD">
 				26			</time>
@@ -2020,7 +2020,7 @@
 	<span class="tribe-events-calendar-month__calendar-event-datetime-separator"> - </span>
 	<time datetime="18:00">6pm</time>
 		</div>
-		<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h8--alt">
+		<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h--alt">
 	<a
 		href="#"
 		title="Winnipeg WordPress Meetup"
@@ -2073,7 +2073,7 @@
 		</div>
 
 		<div class="tribe-events-calendar-month__more-events">
-	<a href="#" class="tribe-events-calendar-month__more-events-link tribe-common-h8 tribe-common-h8--alt tribe-common-anchor-thin">+ 2 More</a>
+	<a href="#" class="tribe-events-calendar-month__more-events-link tribe-common-h8 tribe-common-h--alt tribe-common-anchor-thin">+ 2 More</a>
 </div>
 
 	</div>
@@ -2094,7 +2094,7 @@
 		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
 		tabindex="-1"
 	>
-		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h6--alt">
+		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">X events, </span>
 			<time datetime="YYYY-MM-DD">
 				27			</time>
@@ -2135,7 +2135,7 @@
 	<span class="tribe-events-calendar-month__calendar-event-datetime-separator"> - </span>
 	<time datetime="18:00">6pm</time>
 		</div>
-		<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h8--alt">
+		<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h--alt">
 	<a
 		href="#"
 		title="Hannover WordPress Meetup"
@@ -2171,7 +2171,7 @@
 		</div>
 
 		<div class="tribe-events-calendar-month__more-events">
-	<a href="#" class="tribe-events-calendar-month__more-events-link tribe-common-h8 tribe-common-h8--alt tribe-common-anchor-thin">+ 2 More</a>
+	<a href="#" class="tribe-events-calendar-month__more-events-link tribe-common-h8 tribe-common-h--alt tribe-common-anchor-thin">+ 2 More</a>
 </div>
 
 	</div>
@@ -2192,7 +2192,7 @@
 		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
 		tabindex="-1"
 	>
-		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h6--alt">
+		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">X events, </span>
 			<time datetime="YYYY-MM-DD">
 				28			</time>

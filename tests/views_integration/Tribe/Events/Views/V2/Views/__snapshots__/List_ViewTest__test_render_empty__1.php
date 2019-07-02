@@ -184,7 +184,7 @@
 
 	<div class="tribe-events-c-top-bar__datepicker" data-js="tribe-events-top-bar-datepicker">
 	<button
-		class="tribe-common-h2 tribe-common-h2--alt tribe-common-h3--min-medium tribe-events-c-top-bar__datepicker-button"
+		class="tribe-common-h2 tribe-common-h3--min-medium tribe-common-h--alt tribe-events-c-top-bar__datepicker-button"
 		data-js="tribe-events-top-bar-datepicker-button"
 	>
 		Now &mdash; <time datetime="2019-01-01">January 1st, 2019</time>
