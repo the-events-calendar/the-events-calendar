@@ -574,12 +574,6 @@ tribe.events.views.eventsBar = {};
 	 */
 	obj.ready = function() {
 		$document.on( 'afterSetup.tribeEvents', tribe.events.views.manager.selectors.container, obj.init );
-
-		/**
-		 * @todo: do below for ajax events
-		 */
-		// on 'beforeAjaxBeforeSend.tribeEvents' event, remove all listeners
-		// on 'afterAjaxError.tribeEvents', add all listeners
 	};
 
 	// Configure on document ready
