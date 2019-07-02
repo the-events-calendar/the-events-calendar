@@ -186,17 +186,21 @@ $show_third_party_accounts = ! is_network_admin();
 		</tr>
 		<?php
 		// Meetup status section
-		// @TODO: Update this section
 		$indicator = 'good';
-		$notes = '&nbsp;';
-		$text = __( 'API key entered', 'the-events-calendar' );
-		$meetup_api_key = tribe_get_option( 'meetup_api_key' );
-		if ( ! $meetup_api_key ) {
+		$notes     = '&nbsp;';
+		$text      = 'Connected';
+
+		if ( tribe( 'events-aggregator.main' )->api( 'origins' )->is_oauth_enabled( 'meetup' ) ) {
+			if ( ! tribe( 'events-aggregator.settings' )->has_meetup_security_key() ) {
+				$indicator = 'warning';
+				$text = __( 'You have not connected Event Aggregator to Meetup', 'the-events-calendar' );
+				$meetup_auth_url = Tribe__Events__Aggregator__Record__Meetup::get_auth_url( array( 'back' => 'settings' ) );
+				$notes = '<a href="' . esc_url( $meetup_auth_url ). '">' . esc_html_x( 'Connect to Meetup', 'link for connecting meetup', 'the-events-calendar' ) . '</a>';
+			}
+		} else {
 			$indicator = 'warning';
-			$text = __( 'You have not entered a Meetup API key', 'the-events-calendar' );
-			$notes = '<a href="' . esc_url( Tribe__Settings::instance()->get_url( array( 'tab' => 'addons' ) ) ) . '">';
-			$notes .= esc_html__( 'Enter your API key', 'the-events-calendar' );
-			$notes .= '</a>';
+			$text = __( 'Limited connectivity with Meetup', 'the-events-calendar' );
+			$notes = esc_html__( 'The service has disabled oAuth. Some types of events may not import.', 'the-events-calendar' );
 		}
 		?>
 		<tr>
@@ -205,7 +209,7 @@ $show_third_party_accounts = ! is_network_admin();
 			</td>
 			<td class="indicator <?php esc_attr_e( $indicator ); ?>"><span class="dashicons dashicons-<?php echo esc_attr( $indicator_icons[ $indicator ] ); ?>"></span></td>
 			<td><?php echo esc_html( $text ); ?></td>
-			<td><?php echo $notes; // Escaping handled above ?></td>
+			<td><?php echo $notes; ?></td>
 		</tr>
 		<?php
 		/**
