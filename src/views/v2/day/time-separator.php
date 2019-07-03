@@ -15,7 +15,7 @@
 ?>
 <div class="tribe-events-calendar-day__time-separator">
 	<time
-		class="tribe-events-calendar-day__time-separator-text tribe-common-h7 tribe-common-h7--alt"
+		class="tribe-events-calendar-day__time-separator-text tribe-common-h7 tribe-common-h--alt"
 		datetime="1970-01-01T00:00:00+00:00"
 	>
 		9:00 am

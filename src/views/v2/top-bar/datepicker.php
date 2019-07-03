@@ -15,7 +15,7 @@
 ?>
 <div class="tribe-events-c-top-bar__datepicker" data-js="tribe-events-top-bar-datepicker">
 	<button
-		class="tribe-common-h2 tribe-common-h2--alt tribe-common-h3--min-medium tribe-events-c-top-bar__datepicker-button"
+		class="tribe-common-h2 tribe-common-h3--min-medium tribe-common-h--alt tribe-events-c-top-bar__datepicker-button"
 		data-js="tribe-events-top-bar-datepicker-button"
 	>
 		<?php esc_html_e( 'Now', 'the-events-calendar' ); ?> &mdash; <time datetime="<?php echo esc_attr( date( 'Y-m-d', time() ) ); ?>"><?php echo date( 'F jS, Y', time() ); ?></time>

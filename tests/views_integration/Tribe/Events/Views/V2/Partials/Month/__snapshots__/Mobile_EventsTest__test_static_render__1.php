@@ -6,7 +6,7 @@
 <div class="tribe-events-calendar-month-mobile-events__mobile-day" id="tribe-events-calendar-mobile-day-6-1">
 
 	<div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
-	<time class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h7--alt" datetime="2019-05-12">May 12</time>
+	<time class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h--alt" datetime="2019-05-12">May 12</time>
 </div>
 
 	
@@ -125,7 +125,7 @@
 <div class="tribe-events-calendar-month-mobile-events__mobile-day" id="tribe-events-calendar-mobile-day-6-2">
 
 	<div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
-	<time class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h7--alt" datetime="2019-05-12">May 12</time>
+	<time class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h--alt" datetime="2019-05-12">May 12</time>
 </div>
 
 	
@@ -298,7 +298,7 @@
 <div class="tribe-events-calendar-month-mobile-events__mobile-day" id="tribe-events-calendar-mobile-day-6-3">
 
 	<div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
-	<time class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h7--alt" datetime="2019-05-12">May 12</time>
+	<time class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h--alt" datetime="2019-05-12">May 12</time>
 </div>
 
 	
@@ -471,7 +471,7 @@
 <div class="tribe-events-calendar-month-mobile-events__mobile-day" id="tribe-events-calendar-mobile-day-6-4">
 
 	<div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
-	<time class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h7--alt" datetime="2019-05-12">May 12</time>
+	<time class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h--alt" datetime="2019-05-12">May 12</time>
 </div>
 
 	
@@ -644,7 +644,7 @@
 <div class="tribe-events-calendar-month-mobile-events__mobile-day" id="tribe-events-calendar-mobile-day-6-5">
 
 	<div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
-	<time class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h7--alt" datetime="2019-05-12">May 12</time>
+	<time class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h--alt" datetime="2019-05-12">May 12</time>
 </div>
 
 	
@@ -763,7 +763,7 @@
 <div class="tribe-events-calendar-month-mobile-events__mobile-day" id="tribe-events-calendar-mobile-day-6-6">
 
 	<div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
-	<time class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h7--alt" datetime="2019-05-12">May 12</time>
+	<time class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h--alt" datetime="2019-05-12">May 12</time>
 </div>
 
 	
@@ -828,7 +828,7 @@
 <div class="tribe-events-calendar-month-mobile-events__mobile-day" id="tribe-events-calendar-mobile-day-6-9">
 
 	<div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
-	<time class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h7--alt" datetime="2019-05-12">May 12</time>
+	<time class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h--alt" datetime="2019-05-12">May 12</time>
 </div>
 
 	
@@ -947,7 +947,7 @@
 <div class="tribe-events-calendar-month-mobile-events__mobile-day" id="tribe-events-calendar-mobile-day-6-10">
 
 	<div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
-	<time class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h7--alt" datetime="2019-05-12">May 12</time>
+	<time class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h--alt" datetime="2019-05-12">May 12</time>
 </div>
 
 	
@@ -1012,7 +1012,7 @@
 <div class="tribe-events-calendar-month-mobile-events__mobile-day" id="tribe-events-calendar-mobile-day-6-16">
 
 	<div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
-	<time class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h7--alt" datetime="2019-05-12">May 12</time>
+	<time class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h--alt" datetime="2019-05-12">May 12</time>
 </div>
 
 	
@@ -1077,7 +1077,7 @@
 <div class="tribe-events-calendar-month-mobile-events__mobile-day" id="tribe-events-calendar-mobile-day-6-19">
 
 	<div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
-	<time class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h7--alt" datetime="2019-05-12">May 12</time>
+	<time class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h--alt" datetime="2019-05-12">May 12</time>
 </div>
 
 	
@@ -1196,7 +1196,7 @@
 <div class="tribe-events-calendar-month-mobile-events__mobile-day" id="tribe-events-calendar-mobile-day-6-20">
 
 	<div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
-	<time class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h7--alt" datetime="2019-05-12">May 12</time>
+	<time class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h--alt" datetime="2019-05-12">May 12</time>
 </div>
 
 	
@@ -1315,7 +1315,7 @@
 <div class="tribe-events-calendar-month-mobile-events__mobile-day" id="tribe-events-calendar-mobile-day-6-21">
 
 	<div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
-	<time class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h7--alt" datetime="2019-05-12">May 12</time>
+	<time class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h--alt" datetime="2019-05-12">May 12</time>
 </div>
 
 	
@@ -1434,7 +1434,7 @@
 <div class="tribe-events-calendar-month-mobile-events__mobile-day" id="tribe-events-calendar-mobile-day-6-22">
 
 	<div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
-	<time class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h7--alt" datetime="2019-05-12">May 12</time>
+	<time class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h--alt" datetime="2019-05-12">May 12</time>
 </div>
 
 	
@@ -1499,7 +1499,7 @@
 <div class="tribe-events-calendar-month-mobile-events__mobile-day" id="tribe-events-calendar-mobile-day-6-23">
 
 	<div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
-	<time class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h7--alt" datetime="2019-05-12">May 12</time>
+	<time class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h--alt" datetime="2019-05-12">May 12</time>
 </div>
 
 	
@@ -1618,7 +1618,7 @@
 <div class="tribe-events-calendar-month-mobile-events__mobile-day" id="tribe-events-calendar-mobile-day-6-26">
 
 	<div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
-	<time class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h7--alt" datetime="2019-05-12">May 12</time>
+	<time class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h--alt" datetime="2019-05-12">May 12</time>
 </div>
 
 	
@@ -1683,7 +1683,7 @@
 <div class="tribe-events-calendar-month-mobile-events__mobile-day" id="tribe-events-calendar-mobile-day-6-27">
 
 	<div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
-	<time class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h7--alt" datetime="2019-05-12">May 12</time>
+	<time class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h--alt" datetime="2019-05-12">May 12</time>
 </div>
 
 	
