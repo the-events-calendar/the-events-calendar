@@ -1,10 +1,10 @@
 <?php
 namespace Tribe\Events\Views\V2\Views\HTML\DayView\Event;
 
-use Tribe\Events\Views\V2\TestHtmlCase;
+use Tribe\Test\Products\WPBrowser\Views\V2\HtmlTestCase;
 use Tribe\Events\Test\Factories\Event;
 
-class DayEventDescriptionTest extends TestHtmlCase {
+class DayEventDescriptionTest extends HtmlTestCase {
 
 	public function setUp() {
 		parent::setUp();

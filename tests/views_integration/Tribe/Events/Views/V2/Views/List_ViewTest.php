@@ -4,6 +4,7 @@ namespace Tribe\Events\Views\V2\Views;
 
 use Spatie\Snapshots\MatchesSnapshots;
 use Tribe\Events\Views\V2\View;
+use Tribe\Test\Products\WPBrowser\Views\V2\ViewTestCase;
 
 class List_ViewTest extends ViewTestCase {
 
