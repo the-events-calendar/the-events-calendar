@@ -243,6 +243,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - Resolved an issue where non-English decimal and thousands event cost separators could lead to wrong cost values in REST API responses [98061]
 * Fix - Prevent Clipboard Javascript from loading all over the place on `/wp-admin/` [129526]
 * Fix - PHP 5.6 compatibility for `trait Cache_User` by using WP action `shutdown` instead of `__destruct` on our `WP_Rewrite` [129860]
+* Language - 14 new strings added, 222 updated, 1 fuzzied, and 6 obsoleted
 
 = [4.9.3.2] 2019-06-20 =
 
