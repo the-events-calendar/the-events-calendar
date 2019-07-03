@@ -37,7 +37,7 @@ $events = $this->get( 'events' );
 		<div
 			class="tribe-events-calendar-month"
 			role="grid"
-			aria-labelledby="tribe-calendar-header"
+			aria-labelledby="tribe-events-calendar-header"
 			aria-readonly="true"
 			data-js="tribe-events-month-grid"
 		>
