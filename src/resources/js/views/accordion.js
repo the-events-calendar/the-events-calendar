@@ -1,7 +1,7 @@
 /**
  * Makes sure we have all the required levels on the Tribe Object
  *
- * @since TBD
+ * @since 4.9.4
  *
  * @type   {PlainObject}
  */
@@ -11,7 +11,7 @@ tribe.events.views = tribe.events.views || {};
 /**
  * Configures Accordion Object in the Global Tribe variable
  *
- * @since TBD
+ * @since 4.9.4
  *
  * @type   {PlainObject}
  */
@@ -20,7 +20,7 @@ tribe.events.views.accordion = {};
 /**
  * Initializes in a Strict env the code that manages the Event Views
  *
- * @since TBD
+ * @since 4.9.4
  *
  * @param  {PlainObject} $   jQuery
  * @param  {PlainObject} obj tribe.events.views.manager
@@ -34,7 +34,7 @@ tribe.events.views.accordion = {};
 	/**
 	 * Selectors used for configuration and setup
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @type {PlainObject}
 	 */
@@ -45,7 +45,7 @@ tribe.events.views.accordion = {};
 	/**
 	 * Closes all accordions in $container
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {jQuery} $container jQuery object of view container
 	 *
@@ -64,7 +64,7 @@ tribe.events.views.accordion = {};
 	/**
 	 * Opens accordion
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {jQuery} $header jQuery object of header
 	 * @param {jQuery} $content jQuery object of contents
@@ -84,7 +84,7 @@ tribe.events.views.accordion = {};
 	/**
 	 * Closes accordion
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {jQuery} $header jQuery object of header
 	 * @param {jQuery} $content jQuery object of contents
@@ -104,7 +104,7 @@ tribe.events.views.accordion = {};
 	/**
 	 * Toggles accordion on header click
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {Event} event event object of click event
 	 *
@@ -126,7 +126,7 @@ tribe.events.views.accordion = {};
 	/**
 	 * Deinitializes accordion
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {integer} index jQuery.each index param
 	 * @param {HTMLElement} header header element from which to remove event
@@ -140,7 +140,7 @@ tribe.events.views.accordion = {};
 	/**
 	 * Initializes accordion
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {jQuery} $container jQuery object of view container
 	 *
@@ -155,7 +155,7 @@ tribe.events.views.accordion = {};
 	/**
 	 * Binds events for accordion click listeners
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {Event} event event object for 'afterSetup.tribeEvents' event
 	 * @param {integer} index jQuery.each index param from 'afterSetup.tribeEvents' event
@@ -173,7 +173,7 @@ tribe.events.views.accordion = {};
 	/**
 	 * Handles the initialization of the accordions when Document is ready
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @return {void}
 	 */

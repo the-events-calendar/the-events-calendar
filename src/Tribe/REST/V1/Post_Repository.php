@@ -69,7 +69,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		 *
 		 * @param $event_id int The ID of the event
 		 *
-		 * @since TBD
+		 * @since 4.9.4
 		 */
 		do_action( 'tribe_rest_before_event_data', $event_id );
 

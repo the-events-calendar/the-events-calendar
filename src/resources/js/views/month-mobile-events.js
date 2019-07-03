@@ -1,7 +1,7 @@
 /**
  * Makes sure we have all the required levels on the Tribe Object
  *
- * @since TBD
+ * @since 4.9.4
  *
  * @type   {PlainObject}
  */
@@ -11,7 +11,7 @@ tribe.events.views = tribe.events.views || {};
 /**
  * Configures Month Mobile Events Object in the Global Tribe variable
  *
- * @since TBD
+ * @since 4.9.4
  *
  * @type   {PlainObject}
  */
@@ -20,7 +20,7 @@ tribe.events.views.monthMobileEvents = {};
 /**
  * Initializes in a Strict env the code that manages the Event Views
  *
- * @since TBD
+ * @since 4.9.4
  *
  * @param  {PlainObject} $   jQuery
  * @param  {PlainObject} obj tribe.events.views.manager
@@ -34,7 +34,7 @@ tribe.events.views.monthMobileEvents = {};
 	/**
 	 * Selectors used for configuration and setup
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @type {PlainObject}
 	 */
@@ -50,7 +50,7 @@ tribe.events.views.monthMobileEvents = {};
 	/**
 	 * Closes all mobile events
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {jQuery} $container jQuery object of view container
 	 *
@@ -79,7 +79,7 @@ tribe.events.views.monthMobileEvents = {};
 	/**
 	 * Opens mobile events
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {jQuery} $header jQuery object of mobile day button
 	 * @param {jQuery} $content jQuery object of mobile events container
@@ -102,7 +102,7 @@ tribe.events.views.monthMobileEvents = {};
 	/**
 	 * Closes mobile events
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {jQuery} $header jQuery object of mobile day button
 	 * @param {jQuery} $content jQuery object of mobile events container
@@ -125,7 +125,7 @@ tribe.events.views.monthMobileEvents = {};
 	/**
 	 * Toggles mobile events on mobile day click
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {Event} event event object of click event
 	 *
@@ -156,7 +156,7 @@ tribe.events.views.monthMobileEvents = {};
 	/**
 	 * Binds events for mobile day click listeners
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {Event} event event object for 'afterSetup.tribeEvents' event
 	 * @param {integer} index jQuery.each index param from 'afterSetup.tribeEvents' event
@@ -180,7 +180,7 @@ tribe.events.views.monthMobileEvents = {};
 	/**
 	 * Handles the initialization of the mobile days when Document is ready
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @return {void}
 	 */

@@ -1,7 +1,7 @@
 /**
  * Makes sure we have all the required levels on the Tribe Object
  *
- * @since TBD
+ * @since 4.9.4
  *
  * @type   {PlainObject}
  */
@@ -11,7 +11,7 @@ tribe.events.views = tribe.events.views || {};
 /**
  * Configures Month Grid Object in the Global Tribe variable
  *
- * @since TBD
+ * @since 4.9.4
  *
  * @type  {PlainObject}
  */
@@ -20,7 +20,7 @@ tribe.events.views.monthGrid = {};
 /**
  * Initializes in a Strict env the code that manages the Event Views
  *
- * @since TBD
+ * @since 4.9.4
  *
  * @param  {PlainObject} $   jQuery
  * @param  {PlainObject} obj tribe.events.views.manager
@@ -34,7 +34,7 @@ tribe.events.views.monthGrid = {};
 	/**
 	 * Selectors used for configuration and setup
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @type {PlainObject}
 	 */
@@ -49,7 +49,7 @@ tribe.events.views.monthGrid = {};
 	/**
 	 * State data for month grid
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @type {PlainObject}
 	 */
@@ -62,7 +62,7 @@ tribe.events.views.monthGrid = {};
 	/**
 	 * Object of key codes
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @type {PlainObject}
 	 */
@@ -78,7 +78,7 @@ tribe.events.views.monthGrid = {};
 	/**
 	 * Check if cell described by row and col is valid
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {integer} row row number of cell, 0 index
 	 * @param {integer} col column number of cell, 0 index
@@ -101,7 +101,7 @@ tribe.events.views.monthGrid = {};
 	/**
 	 * Get next cell from current row, current column, and direction changes
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {integer} currentRow index of current row
 	 * @param {integer} currentCol index of current column
@@ -130,7 +130,7 @@ tribe.events.views.monthGrid = {};
 	/**
 	 * Set focus pointer to given row and column
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {integer} row index of row
 	 * @param {integer} col index of column
@@ -151,7 +151,7 @@ tribe.events.views.monthGrid = {};
 	/**
 	 * Focus cell at given row and column
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {integer} row index of row
 	 * @param {integer} col index of column
@@ -167,7 +167,7 @@ tribe.events.views.monthGrid = {};
 	/**
 	 * Handle keydown event to move focused grid cell
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {Event} event event object
 	 *
@@ -223,7 +223,7 @@ tribe.events.views.monthGrid = {};
 	/**
 	 * Handle click event to focus cell
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {Event} event event object
 	 *
@@ -245,7 +245,7 @@ tribe.events.views.monthGrid = {};
 	/**
 	 * Set up grid to state array
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {jQuery} $grid jQuery object of grid.
 	 *
@@ -299,7 +299,7 @@ tribe.events.views.monthGrid = {};
 	/**
 	 * Bind events for keydown and click on grid
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {jQuery} $grid jQuery object of grid.
 	 *
@@ -314,7 +314,7 @@ tribe.events.views.monthGrid = {};
 	/**
 	 * Initialize grid.
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {Event}   event      JS event triggered.
 	 * @param {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event.
@@ -334,7 +334,7 @@ tribe.events.views.monthGrid = {};
 	/**
 	 * Handles the initialization of the multiday events when Document is ready
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @return {void}
 	 */

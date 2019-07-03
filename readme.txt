@@ -215,7 +215,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
-= [4.9.4] TBD =
+= [4.9.4] 2019-07-03 =
 
 * Tweak - Add filter `tribe_events_event_insert_args` the arguments in prior to inserting the event and meta fields. [129517]
 * Tweak - Add filter `tribe_events_event_update_args` the arguments prior the update of an event and meta fields. [129517]
@@ -226,6 +226,14 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Tweak - Add `Tribe__Events__Query::last_found_events()` to access the last results via the `Query` object [129517]
 * Tweak - Wrap `register_rest_route` calls with `tribe_register_rest_route` to enable filtering on REST registration
 * Tweak - Add filter `tribe_ical_feed_vtimezone` to filter the `VTIMEZONE` group [89999]
+* Tweak - Include proper documentation of why the plugin has been deactivated and a knowledgebase article about how to downgrade [129726]
+* Tweak - When trying to update The Events Calendar with an incompatible version of an Addon that is expired, it will stop the upgrade [129727]
+* Tweak - Add filter `tribe_is_classic_editor_plugin_active` to change the output if the classic editor is active or not [121267]
+* Tweak - Create a new key if `AUTH_KEY` is not defined or is empty and add a new filter `tribe_promoter_secret_key` to filter the result [127183]
+* Tweak - Divide the `tribe-common.js` file to prevent that file from being bloated with external dependencies. [129526]
+* Tweak - Make sure `UTC-0` is converted back to `UTC` instead of `UTC-01` [129240]
+* Tweak - Add new function `tribe_register_rest_route` Wrapper around `register_rest_route` to filter the arguments when a new REST endpoint is created [129517]
+* Tweak - Add new method `Tribe__Cost_Utils::parse_separators` to infer decimal and thousands separators from a value that might have been formatted in a local different from the current one [98061]
 * Fix - Save of event meta data when Classic editor plugin and gutenberg blocks for events are enabled [121267]
 * Fix - Moved The Events Calendar specific code from common Context class into The Events Calendar [129241]
 * Fix - Fixed issue where multiday events were not returning correct end date in block editor [128033]
@@ -233,6 +241,8 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - Added escaping to the event website URL target attribute [129565]
 * Fix - Fix Timezone definitions for `*.ics` file on events [89999]
 * Fix - Resolved an issue where non-English decimal and thousands event cost separators could lead to wrong cost values in REST API responses [98061]
+* Fix - Prevent Clipboard Javascript from loading all over the place on `/wp-admin/` [129526]
+* Fix - PHP 5.6 compatibility for `trait Cache_User` by using WP action `shutdown` instead of `__destruct` on our `WP_Rewrite` [129860]
 
 = [4.9.3.2] 2019-06-20 =
 

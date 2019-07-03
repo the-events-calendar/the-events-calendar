@@ -1,7 +1,7 @@
 /**
  * Makes sure we have all the required levels on the Tribe Object
  *
- * @since TBD
+ * @since 4.9.4
  *
  * @type   {PlainObject}
  */
@@ -11,7 +11,7 @@ tribe.events.views = tribe.events.views || {};
 /**
  * Configures Events Bar Object in the Global Tribe variable
  *
- * @since TBD
+ * @since 4.9.4
  *
  * @type   {PlainObject}
  */
@@ -20,7 +20,7 @@ tribe.events.views.eventsBar = {};
 /**
  * Initializes in a Strict env the code that manages the Event Views
  *
- * @since TBD
+ * @since 4.9.4
  *
  * @param  {PlainObject} $   jQuery
  * @param  {PlainObject} obj tribe.events.views.manager
@@ -35,7 +35,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Selectors used for configuration and setup
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @type {PlainObject}
 	 */
@@ -55,7 +55,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Object of key codes
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @type {PlainObject}
 	 */
@@ -69,7 +69,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Object of options
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @type {PlainObject}
 	 */
@@ -80,7 +80,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Object of state
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @type {PlainObject}
 	 */
@@ -91,7 +91,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Set viewport state
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @return {void}
 	 */
@@ -102,7 +102,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Deselects all tabs
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {array} tabs array of jQuery objects of tabs
 	 *
@@ -120,7 +120,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Hides all tab panels
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {array} tabPanels array of jQuery objects of tabPanels
 	 *
@@ -135,7 +135,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Select tab based on index
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {array} tabs array of jQuery objects of tabs
 	 * @param {array} tabPanels array of jQuery objects of tabPanels
@@ -161,7 +161,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Gets current tab index
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {array} tabs array of jQuery objects of tabs
 	 *
@@ -182,7 +182,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Handles 'click' event on tab
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {Event} event event object of click event
 	 *
@@ -202,7 +202,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Handles 'keydown' event on tab
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {Event} event event object of keydown event
 	 *
@@ -242,7 +242,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Deinitializes tablist
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {jQuery} $container jQuery object of view container
 	 *
@@ -271,7 +271,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Initializes tablist
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {jQuery} $container jQuery object of view container
 	 *
@@ -314,7 +314,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Deinitialize accordion based on header and content
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {jQuery} $header jQuery object of header
 	 * @param {jQuery} $content jQuery object of contents
@@ -335,7 +335,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Initialize accordion based on header and content
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {jQuery} $container jQuery object of view container
 	 * @param {jQuery} $header jQuery object of header
@@ -355,7 +355,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Deinitialize filter button accordion
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {jQuery} $container jQuery object of view container
 	 *
@@ -373,7 +373,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Initialize filter button accordion
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {jQuery} $container jQuery object of view container
 	 *
@@ -391,7 +391,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Deinitialize search button accordion
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {jQuery} $container jQuery object of view container
 	 *
@@ -406,7 +406,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Initialize search button accordion
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {jQuery} $container jQuery object of view container
 	 *
@@ -421,7 +421,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Initializes events bar state
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {jQuery} $container jQuery object of view container
 	 *
@@ -443,7 +443,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Initializes events bar
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {jQuery} $container jQuery object of view container
 	 *
@@ -478,7 +478,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Handles window resize event
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {Event} event event object for 'resize' event
 	 *
@@ -492,7 +492,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Bind events for window resize
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {jQuery} $container jQuery object of view container
 	 *
@@ -505,7 +505,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Initialize events bar JS
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {Event} event event object for 'afterSetup.tribeEvents' event
 	 * @param {integer} index jQuery.each index param from 'afterSetup.tribeEvents' event
@@ -524,7 +524,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Handles the initialization of events bar when Document is ready
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @return {void}
 	 */

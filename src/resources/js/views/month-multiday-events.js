@@ -1,7 +1,7 @@
 /**
  * Makes sure we have all the required levels on the Tribe Object
  *
- * @since TBD
+ * @since 4.9.4
  *
  * @type   {PlainObject}
  */
@@ -11,7 +11,7 @@ tribe.events.views = tribe.events.views || {};
 /**
  * Configures Month Multiday Events Object in the Global Tribe variable
  *
- * @since TBD
+ * @since 4.9.4
  *
  * @type  {PlainObject}
  */
@@ -20,7 +20,7 @@ tribe.events.views.monthMultidayEvents = {};
 /**
  * Initializes in a Strict env the code that manages the Event Views
  *
- * @since TBD
+ * @since 4.9.4
  *
  * @param  {PlainObject} $   jQuery
  * @param  {PlainObject} obj tribe.events.views.manager
@@ -34,7 +34,7 @@ tribe.events.views.monthMultidayEvents = {};
 	/**
 	 * Selectors used for configuration and setup
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @type {PlainObject}
 	 */
@@ -50,7 +50,7 @@ tribe.events.views.monthMultidayEvents = {};
 	/**
 	 * Find visible multiday event that relates to the hidden multiday event
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {jQuery} $hiddenMultidayEvent jQuery object of hidden multiday event
 	 *
@@ -68,7 +68,7 @@ tribe.events.views.monthMultidayEvents = {};
 	/**
 	 * Toggle hover class on visible multiday event when hidden multiday triggers hover event
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {Event} event event object
 	 *
@@ -81,7 +81,7 @@ tribe.events.views.monthMultidayEvents = {};
 	/**
 	 * Toggle focus class on visible multiday event when hidden multiday triggers focus event
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {Event} event event object
 	 *
@@ -94,7 +94,7 @@ tribe.events.views.monthMultidayEvents = {};
 	/**
 	 * Binds events for hover and focus of hidden multiday events.
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {Event}   event      JS event triggered.
 	 * @param {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event.
@@ -125,7 +125,7 @@ tribe.events.views.monthMultidayEvents = {};
 	/**
 	 * Handles the initialization of the month view multiday events when Document is ready
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @return {void}
 	 */

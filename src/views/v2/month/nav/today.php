@@ -11,7 +11,7 @@
  *
  * @var string $link The URL to the today page, if any, or an empty string.
  *
- * @version TBD
+ * @version 4.9.4
  *
  */
 ?>

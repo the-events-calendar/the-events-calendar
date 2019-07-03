@@ -67,7 +67,7 @@ class Template_Bootstrap {
 	/**
 	 * Fetches the HTML for the Single Event page using the legacy view system
 	 *
-	 * @since  TBD
+	 * @since  4.9.4
 	 *
 	 * @return string
 	 */
