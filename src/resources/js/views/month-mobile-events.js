@@ -1,7 +1,7 @@
 /**
  * Makes sure we have all the required levels on the Tribe Object
  *
- * @since TBD
+ * @since 4.9.4
  *
  * @type   {PlainObject}
  */
@@ -11,7 +11,7 @@ tribe.events.views = tribe.events.views || {};
 /**
  * Configures Month Mobile Events Object in the Global Tribe variable
  *
- * @since TBD
+ * @since 4.9.4
  *
  * @type   {PlainObject}
  */
@@ -20,7 +20,7 @@ tribe.events.views.monthMobileEvents = {};
 /**
  * Initializes in a Strict env the code that manages the Event Views
  *
- * @since TBD
+ * @since 4.9.4
  *
  * @param  {PlainObject} $   jQuery
  * @param  {PlainObject} obj tribe.events.views.manager
@@ -34,7 +34,7 @@ tribe.events.views.monthMobileEvents = {};
 	/**
 	 * Selectors used for configuration and setup
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @type {PlainObject}
 	 */
@@ -50,7 +50,7 @@ tribe.events.views.monthMobileEvents = {};
 	/**
 	 * Closes all mobile events
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {jQuery} $container jQuery object of view container
 	 *
@@ -79,7 +79,7 @@ tribe.events.views.monthMobileEvents = {};
 	/**
 	 * Opens mobile events
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {jQuery} $header jQuery object of mobile day button
 	 * @param {jQuery} $content jQuery object of mobile events container
@@ -102,7 +102,7 @@ tribe.events.views.monthMobileEvents = {};
 	/**
 	 * Closes mobile events
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {jQuery} $header jQuery object of mobile day button
 	 * @param {jQuery} $content jQuery object of mobile events container
@@ -125,7 +125,7 @@ tribe.events.views.monthMobileEvents = {};
 	/**
 	 * Toggles mobile events on mobile day click
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {Event} event event object of click event
 	 *
@@ -154,44 +154,87 @@ tribe.events.views.monthMobileEvents = {};
 	};
 
 	/**
-	 * Binds events for mobile day click listeners
+	 * Unbinds events for calendar
+	 *
+	 * @since 4.9.4
+	 *
+	 * @param {jQuery} $container jQuery object of view container
+	 *
+	 * @return {void}
+	 */
+	obj.unbindCalendarEvents = function( $container ) {
+		var $calendar = $container.find( obj.selectors.calendar );
+		$calendar
+			.find( obj.selectors.calendarDay )
+			.each( function( index, day ) {
+				$( day ).off( 'click', obj.toggleMobileEvents );
+			} );
+	};
+
+	/**
+	 * Binds events for calendar
 	 *
 	 * @since TBD
 	 *
-	 * @param {Event} event event object for 'afterSetup.tribeEvents' event
-	 * @param {integer} index jQuery.each index param from 'afterSetup.tribeEvents' event
 	 * @param {jQuery} $container jQuery object of view container
-	 * @param {object} data data object passed from 'afterSetup.tribeEvents' event
+	 *
+	 * @return {void}
+	 */
+	obj.bindCalendarEvents = function( $container ) {
+		var $calendar = $container.find( obj.selectors.calendar );
+		$calendar
+			.find( obj.selectors.calendarDay )
+			.each( function( index, day ) {
+				$( day ).on( 'click', {
+					target: day,
+					container: $container,
+					calendar: $calendar,
+				}, obj.toggleMobileEvents );
+			} );
+	};
+
+	/**
+	 * Unbinds events for container
+	 *
+	 * @since TBD
+	 *
+	 * @param  {Event}       event    event object for 'afterSetup.tribeEvents' event
+	 * @param  {jqXHR}       jqXHR    Request object
+	 * @param  {PlainObject} settings Settings that this request was made with
+	 *
+	 * @return {void}
+	 */
+	obj.unbindEvents = function( event, jqXHR, settings ) {
+		var $container = event.data.container;
+		obj.unbindCalendarEvents( $container );
+	};
+
+	/**
+	 * Binds events for container
+	 *
+	 * @since TBD
+	 *
+	 * @param  {Event}   event      event object for 'afterSetup.tribeEvents' event
+	 * @param  {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event
+	 * @param  {jQuery}  $container jQuery object of view container
+	 * @param  {object}  data       data object passed from 'afterSetup.tribeEvents' event
 	 *
 	 * @return {void}
 	 */
 	obj.bindEvents = function( event, index, $container, data ) {
-		var $calendar = $container.find( obj.selectors.calendar );
-
-		$calendar.find( obj.selectors.calendarDay ).each( function( index, day ) {
-			$( day ).on( 'click', {
-				target: day,
-				container: $container,
-				calendar: $calendar,
-			}, obj.toggleMobileEvents );
-		} );
+		obj.bindCalendarEvents( $container );
+		$container.on( 'beforeAjaxSuccess.tribeEvents', { container: $container }, obj.unbindEvents );
 	};
 
 	/**
 	 * Handles the initialization of the mobile days when Document is ready
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @return {void}
 	 */
 	obj.ready = function() {
 		$document.on( 'afterSetup.tribeEvents', tribe.events.views.manager.selectors.container, obj.bindEvents );
-
-		/**
-		 * @todo: do below for ajax events
-		 */
-		// on 'beforeAjaxBeforeSend.tribeEvents' event, remove all listeners
-		// on 'afterAjaxError.tribeEvents', add all listeners
 	};
 
 	// Configure on document ready

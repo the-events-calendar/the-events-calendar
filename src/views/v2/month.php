@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version TBD
+ * @version 4.9.4
  *
  */
 use Tribe\Events\Views\V2\Rest_Endpoint;
@@ -37,7 +37,7 @@ $events = $this->get( 'events' );
 		<div
 			class="tribe-events-calendar-month"
 			role="grid"
-			aria-labelledby="tribe-calendar-header"
+			aria-labelledby="tribe-events-calendar-header"
 			aria-readonly="true"
 			data-js="tribe-events-month-grid"
 		>

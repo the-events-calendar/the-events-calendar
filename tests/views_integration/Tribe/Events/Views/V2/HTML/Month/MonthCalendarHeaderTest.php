@@ -26,8 +26,8 @@ class MonthCalendarHeaderTest extends HtmlTestCase {
 		$template = $this->template->template( 'month/calendar-header' );
 		$html = $this->document->html( $template );
 		$header = $html->find( 'header' );
-		$month_header = $header->find( '.tribe-events-calendar-month__header' );
-		$month_header_column = $month_header->find( '.tribe-events-calendar-month__header-column' );
+		$month_header_row = $header->find( '.tribe-events-calendar-month__header-row' );
+		$month_header_column = $month_header_row->find( '.tribe-events-calendar-month__header-column' );
 
 
 		$this->assertTrue(
@@ -36,8 +36,8 @@ class MonthCalendarHeaderTest extends HtmlTestCase {
 		);
 
 		$this->assertTrue(
-			$month_header->is( '[role="row"]' ),
-			'Month calendar header needs to be role="row"'
+			$month_header_row->is( '[role="row"]' ),
+			'Month calendar header row needs to be role="row"'
 		);
 
 		$this->assertTrue(

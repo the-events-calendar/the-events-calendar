@@ -1,4 +1,4 @@
-<?php return '<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h8--alt">
+<?php return '<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h--alt">
 	<a
 		href="#"
 		title=""

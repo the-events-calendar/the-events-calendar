@@ -2,7 +2,7 @@
 /**
  * Views v2 specific template tags.
  *
- * @since TBD
+ * @since 4.9.4
  */
 
 if ( ! function_exists( 'tribe_events_template_var' ) ) {
@@ -11,7 +11,7 @@ if ( ! function_exists( 'tribe_events_template_var' ) ) {
 	 *
 	 * This template tag should be used in View templates, after the View set up the loop.
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param string|array $key     The key, or nested keys, to fetch the variable.
 	 * @param mixed        $default The default value that will be returned if the value is not set in the template or the
@@ -44,7 +44,7 @@ if ( ! function_exists( 'tribe_events_template_var' ) ) {
 		/**
 		 * Filters the value of a View template variable.
 		 *
-		 * @since TBD
+		 * @since 4.9.4
 		 *
 		 * @param mixed        $value     The View template value.
 		 * @param string|array $key       The variable index, or indexes.
@@ -57,7 +57,7 @@ if ( ! function_exists( 'tribe_events_template_var' ) ) {
 			/**
 			 * Filters the value of a specific View template variable.
 			 *
-			 * @since TBD
+			 * @since 4.9.4
 			 *
 			 * @param mixed        $value   The View template value.
 			 * @param string|array $key     The  variable index, or indexes.

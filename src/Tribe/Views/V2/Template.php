@@ -40,7 +40,7 @@ class Template extends Base_Template {
 	 * An array cache to keep track of  resolved template files on a per-name basis.
 	 * The file look-around needs not to be performed twice per request.
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @var array
 	 */
@@ -68,7 +68,7 @@ class Template extends Base_Template {
 	 * @param View_Interface $view The view the template should use to build its path.
 	 *
 	 * @since 4.9.2
-	 * @since TBD Modified the first param to only accept View_Interface instances.
+	 * @since 4.9.4 Modified the first param to only accept View_Interface instances.
 	 */
 	public function __construct( $view ) {
 		$this->set_view( $view );
@@ -164,7 +164,7 @@ class Template extends Base_Template {
 	/**
 	 * Sets the template view.
 	 *
-	 * @since TBD Modified the Param to only accept View_Interface instances
+	 * @since 4.9.4 Modified the Param to only accept View_Interface instances
 	 *
 	 * @param View_Interface  $view  Which view we are using this template on.
 	 */
@@ -175,7 +175,7 @@ class Template extends Base_Template {
 	/**
 	 * Returns the current template view, either set in the constructor or using the `set_view` method.
 	 *
-	 * @since TBD Modified the Param to only accept View_Interface instances
+	 * @since 4.9.4 Modified the Param to only accept View_Interface instances
 	 *
 	 * @return View_Interface The current template view.
 	 */

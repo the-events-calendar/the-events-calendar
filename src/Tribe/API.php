@@ -45,7 +45,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			 *
 			 * @param array $args The fields we want saved.
 			 *
-			 * @since TBD
+			 * @since 4.9.4
 			 */
 			$args = apply_filters( 'tribe_events_event_insert_args', $args );
 
@@ -92,7 +92,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			 * @param int     $event_id The event ID we are modifying.
 			 * @param WP_Post $post The event itself.
 			 *
-			 * @since TBD
+			 * @since 4.9.4
 			 */
 			$args = apply_filters( 'tribe_events_event_update_args', $args, $event_id, $post );
 
@@ -107,7 +107,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			 * @param bool $disallow_update Flag to control the update of a post false by default.
 			 * @param int  $event_id The event ID.
 			 *
-			 * @since TBD
+			 * @since 4.9.4
 			 */
 			if ( apply_filters( 'tribe_events_event_prevent_update', false, $event_id ) ) {
 				return $event_id;

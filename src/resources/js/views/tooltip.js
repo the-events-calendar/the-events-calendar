@@ -1,7 +1,7 @@
 /**
  * Makes sure we have all the required levels on the Tribe Object
  *
- * @since  TBD
+ * @since  4.9.4
  *
  * @type   {PlainObject}
  */
@@ -12,7 +12,7 @@ tribe.events.views.manager = tribe.events.views.manager || {};
 /**
  * Configures Views Tooltip Object in the Global Tribe variable
  *
- * @since  TBD
+ * @since  4.9.4
  *
  * @type   {PlainObject}
  */
@@ -21,7 +21,7 @@ tribe.events.views.tooltip = {};
 /**
  * Initializes in a Strict env the code that manages the Event Views
  *
- * @since  TBD
+ * @since  4.9.4
  *
  * @param  {PlainObject} $   jQuery
  * @param  {PlainObject} obj tribe.events.views.tooltip
@@ -35,7 +35,7 @@ tribe.events.views.tooltip = {};
 	/**
 	 * Selectors used for configuration and setup
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @type {PlainObject}
 	 */
@@ -48,7 +48,7 @@ tribe.events.views.tooltip = {};
 	 * Override of the `functionInit` tooltipster method.
 	 * A custom function to be fired only once at instantiation.
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {Tooltipster} instance instance of Tooltipster
 	 * @param {PlainObject} helper   helper object with tooltip origin
@@ -67,7 +67,7 @@ tribe.events.views.tooltip = {};
 	/**
 	 * Handle tooltip focus event
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {Event} event event object
 	 *
@@ -80,7 +80,7 @@ tribe.events.views.tooltip = {};
 	/**
 	 * Handle tooltip blur event
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {Event} event event object
 	 *
@@ -94,7 +94,7 @@ tribe.events.views.tooltip = {};
 	 * Override of the `functionReady` tooltipster method.
 	 * A custom function to be fired when the tooltip and its contents have been added to the DOM.
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {Tooltipster} instance instance of Tooltipster
 	 * @param {PlainObject} helper   helper object with tooltip origin
@@ -109,7 +109,7 @@ tribe.events.views.tooltip = {};
 	 * Override of the `functionAfter` tooltipster method.
 	 * A custom function to be fired once the tooltip has been closed and removed from the DOM.
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {Tooltipster} instance instance of Tooltipster
 	 * @param {PlainObject} helper   helper object with tooltip origin
@@ -121,18 +121,34 @@ tribe.events.views.tooltip = {};
 	};
 
 	/**
-	 * Initialize accessible tooltips via tooltipster
+	 * Deinitialize accessible tooltips via tooltipster
 	 *
 	 * @since TBD
 	 *
-	 * @param {Event}   event      JS event triggered.
-	 * @param {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event.
-	 * @param {jQuery}  $container jQuery object of view container.
-	 * @param {object}  data       data object passed from 'afterSetup.tribeEvents' event.
+	 * @param {jQuery} $container jQuery object of view container.
 	 *
 	 * @return {void}
 	 */
-	obj.initTooltips = function( event, index, $container, data ) {
+	obj.deinitTooltips = function( $container ) {
+		$container
+			.find( obj.selectors.tooltip )
+			.each( function( index, tooltip ) {
+				$( tooltip )
+					.off( 'focus', obj.handleOriginFocus )
+					.off( 'blur', obj.handleOriginBlur );
+			} );
+	};
+
+	/**
+	 * Initialize accessible tooltips via tooltipster
+	 *
+	 * @since 4.9.4
+	 *
+	 * @param {jQuery} $container jQuery object of view container.
+	 *
+	 * @return {void}
+	 */
+	obj.initTooltips = function( $container ) {
 		$container
 			.find( obj.selectors.tooltip )
 			.each( function( index, tooltip ) {
@@ -147,20 +163,47 @@ tribe.events.views.tooltip = {};
 	};
 
 	/**
+	 * Deinitialize tooltip JS.
+	 *
+	 * @since TBD
+	 *
+	 * @param  {Event}       event    event object for 'afterSetup.tribeEvents' event
+	 * @param  {jqXHR}       jqXHR    Request object
+	 * @param  {PlainObject} settings Settings that this request was made with
+	 *
+	 * @return {void}
+	 */
+	obj.deinit = function( event, jqXHR, settings ) {
+		var $container = event.data.container;
+		obj.deinitTooltips( $container );
+	};
+
+	/**
+	 * Initialize tooltips JS.
+	 *
+	 * @since TBD
+	 *
+	 * @param {Event}   event      JS event triggered.
+	 * @param {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event.
+	 * @param {jQuery}  $container jQuery object of view container.
+	 * @param {object}  data       data object passed from 'afterSetup.tribeEvents' event.
+	 *
+	 * @return {void}
+	 */
+	obj.init = function( event, index, $container, data ) {
+		obj.initTooltips( $container );
+		$container.on( 'beforeAjaxSuccess.tribeEvents', { container: $container }, obj.deinit );
+	};
+
+	/**
 	 * Handles the initialization of the scripts when Document is ready
 	 *
-	 * @since  TBD
+	 * @since  4.9.4
 	 *
 	 * @return {void}
 	 */
 	obj.ready = function() {
-		$document.on( 'afterSetup.tribeEvents', tribe.events.views.manager.selectors.container, obj.initTooltips );
-
-		/**
-		 * @todo: do below for ajax events
-		 */
-		// on 'beforeAjaxBeforeSend.tribeEvents' event, remove all tooltips
-		// on 'afterAjaxError.tribeEvents', add all tooltips
+		$document.on( 'afterSetup.tribeEvents', tribe.events.views.manager.selectors.container, obj.init );
 	};
 
 	// Configure on document ready

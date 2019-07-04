@@ -2,7 +2,7 @@
 /**
  * Provides common View v2 utilities.
  *
- * @since   TBD
+ * @since   4.9.4
  * @package Tribe\Events\Views\V2\Utils
  */
 namespace Tribe\Events\Views\V2\Utils;
@@ -11,7 +11,7 @@ use Tribe__Utils__Array as Arr;
 
 /**
  * Class Utils Separators
- * @since   TBD
+ * @since   4.9.4
  * @package Tribe\Events\Views\V2\Utils
  */
 class Separators {
@@ -20,7 +20,7 @@ class Separators {
 	 * Determines if a given event from a list of events should have a month separator
 	 * for the List view template structure.
 	 *
-	 * @since  TBD
+	 * @since  4.9.4
 	 *
 	 * @param  array       $events WP_Post or numeric ID for events
 	 * @param  WP_Post|int $event  Event we want to determine

@@ -3,7 +3,7 @@
  * The Day View.
  *
  * @package Tribe\Events\Views\V2\Views
- * @since TBD
+ * @since 4.9.4
  */
 
 namespace Tribe\Events\Views\V2\Views;
@@ -16,7 +16,7 @@ class Day_View extends View {
 	/**
 	 * Slug for this view
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @var string
 	 */
@@ -25,7 +25,7 @@ class Day_View extends View {
 	/**
 	 * Visibility for this view.
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @var bool
 	 */
@@ -34,7 +34,7 @@ class Day_View extends View {
 	/**
 	 * Get HTML method
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 */
 	public function get_html() {

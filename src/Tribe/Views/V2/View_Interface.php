@@ -32,7 +32,7 @@ interface View_Interface  extends View_Url_Provider_Interface, Repository_User_I
 	/**
 	 * Returns a View label.
 	 *
-	 * @since  TBD
+	 * @since  4.9.4
 	 *
 	 * @return string
 	 */
@@ -42,7 +42,7 @@ interface View_Interface  extends View_Url_Provider_Interface, Repository_User_I
 	 * Returns if this view is publicly visible by default. Which will make it show up
 	 * on the events-bar of the views UI.
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @return bool
 	 */
@@ -131,7 +131,7 @@ interface View_Interface  extends View_Url_Provider_Interface, Repository_User_I
 	/**
 	 * Returns the post IDs of the posts the View is displaying in the order it's displaying them.
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @return array An array of post IDs of the posts the view is currently displaying.
 	 */
