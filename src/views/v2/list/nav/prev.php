@@ -11,7 +11,7 @@
  *
  * @var string $link The URL to the previous page, if any, or an empty string.
  *
- * @version 4.9.3
+ * @version TBD
  *
  */
 ?>
@@ -22,6 +22,19 @@
 		class="tribe-events-c-nav__prev tribe-common-b2"
 		data-js="tribe-events-view-link"
 	>
-		<?php echo esc_html( sprintf( __( 'Previous %s', 'the-events-calendar' ), tribe_get_event_label_plural() ) ); ?>
+		<?php
+			echo sprintf(
+				wp_kses(
+					/* translators: %s: Event (plural or singular). */
+					__( 'Previous<span class="tribe-events-c-nav__prev--label-plural"> %s</span>', 'the-events-calendar' ),
+					array(
+						'span' => array(
+							'class' => array(),
+						),
+					)
+				),
+				tribe_get_event_label_plural()
+			);
+		?>
 	</a>
 </li>
