@@ -1,7 +1,7 @@
 /**
  * Makes sure we have all the required levels on the Tribe Object
  *
- * @since  TBD
+ * @since  4.9.4
  *
  * @type   {PlainObject}
  */
@@ -12,7 +12,7 @@ tribe.events.views.manager = tribe.events.views.manager || {};
 /**
  * Configures Views Tooltip Object in the Global Tribe variable
  *
- * @since  TBD
+ * @since  4.9.4
  *
  * @type   {PlainObject}
  */
@@ -21,7 +21,7 @@ tribe.events.views.tooltip = {};
 /**
  * Initializes in a Strict env the code that manages the Event Views
  *
- * @since  TBD
+ * @since  4.9.4
  *
  * @param  {PlainObject} $   jQuery
  * @param  {PlainObject} obj tribe.events.views.tooltip
@@ -35,7 +35,7 @@ tribe.events.views.tooltip = {};
 	/**
 	 * Selectors used for configuration and setup
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @type {PlainObject}
 	 */
@@ -48,7 +48,7 @@ tribe.events.views.tooltip = {};
 	 * Override of the `functionInit` tooltipster method.
 	 * A custom function to be fired only once at instantiation.
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {Tooltipster} instance instance of Tooltipster
 	 * @param {PlainObject} helper   helper object with tooltip origin
@@ -67,7 +67,7 @@ tribe.events.views.tooltip = {};
 	/**
 	 * Handle tooltip focus event
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {Event} event event object
 	 *
@@ -80,7 +80,7 @@ tribe.events.views.tooltip = {};
 	/**
 	 * Handle tooltip blur event
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {Event} event event object
 	 *
@@ -94,7 +94,7 @@ tribe.events.views.tooltip = {};
 	 * Override of the `functionReady` tooltipster method.
 	 * A custom function to be fired when the tooltip and its contents have been added to the DOM.
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {Tooltipster} instance instance of Tooltipster
 	 * @param {PlainObject} helper   helper object with tooltip origin
@@ -109,7 +109,7 @@ tribe.events.views.tooltip = {};
 	 * Override of the `functionAfter` tooltipster method.
 	 * A custom function to be fired once the tooltip has been closed and removed from the DOM.
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {Tooltipster} instance instance of Tooltipster
 	 * @param {PlainObject} helper   helper object with tooltip origin
@@ -142,7 +142,7 @@ tribe.events.views.tooltip = {};
 	/**
 	 * Initialize accessible tooltips via tooltipster
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {jQuery} $container jQuery object of view container.
 	 *
@@ -198,7 +198,7 @@ tribe.events.views.tooltip = {};
 	/**
 	 * Handles the initialization of the scripts when Document is ready
 	 *
-	 * @since  TBD
+	 * @since  4.9.4
 	 *
 	 * @return {void}
 	 */

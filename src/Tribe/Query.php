@@ -13,7 +13,7 @@ use Tribe__Utils__Array as Arr;
 if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 	class Tribe__Events__Query {
 		/**
-		 * @since TBD
+		 * @since 4.9.4
 		 *
 		 * @var array The WP_Query arguments used in the last `getEvents` method
 		 *            query.
@@ -1533,7 +1533,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		 * Pagination is ignored; this methods provides a way to
 		 * not only count the found posts but to get their ID too.
 		 *
-		 * @since TBD
+		 * @since 4.9.4
 		 *
 		 * @return array
 		 */

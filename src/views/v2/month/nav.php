@@ -16,7 +16,7 @@
  * @var string $today_url The URL to the today page, if any, or an empty string.
  * @var string $location The location of the nav.
  *
- * @version TBD
+ * @version 4.9.4
  *
  */
 ?>

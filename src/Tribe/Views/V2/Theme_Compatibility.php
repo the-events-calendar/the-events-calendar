@@ -17,7 +17,7 @@ class Theme_Compatibility {
 	/**
 	 * List of themes which have compatibility.
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @var   array
 	 */
@@ -104,7 +104,7 @@ class Theme_Compatibility {
 	/**
 	 * Returns a list of themes registred for compatibility with our Views.
 	 *
-	 * @since  TBD
+	 * @since  4.9.4
 	 *
 	 * @return array An array of the themes registred.
 	 */
@@ -112,7 +112,7 @@ class Theme_Compatibility {
 		/**
 		 * Filters the list of themes that are registred for compatibility.
 		 *
-		 * @since TBD
+		 * @since 4.9.4
 		 *
 		 * @param array $registered An associative array of views in the shape `[ <slug> => <class> ]`.
 		 */

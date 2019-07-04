@@ -1,7 +1,7 @@
 /**
  * Makes sure we have all the required levels on the Tribe Object
  *
- * @since TBD
+ * @since 4.9.4
  *
  * @type   {PlainObject}
  */
@@ -11,7 +11,7 @@ tribe.events.views = tribe.events.views || {};
 /**
  * Configures Views Object in the Global Tribe variable
  *
- * @since TBD
+ * @since 4.9.4
  *
  * @type   {PlainObject}
  */
@@ -20,7 +20,7 @@ tribe.events.views.viewSelector = {};
 /**
  * Initializes in a Strict env the code that manages the Event Views
  *
- * @since TBD
+ * @since 4.9.4
  *
  * @param  {PlainObject} $   jQuery
  * @param  {PlainObject} obj tribe.events.views.manager
@@ -34,7 +34,7 @@ tribe.events.views.viewSelector = {};
 	/**
 	 * Selectors used for configuration and setup
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @type {PlainObject}
 	 */
@@ -47,7 +47,7 @@ tribe.events.views.viewSelector = {};
 	/**
 	 * Toggles active class on view selector button
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {Event } event event object for click event
 	 *
@@ -60,7 +60,7 @@ tribe.events.views.viewSelector = {};
 	/**
 	 * Unbinds events for view selector
 	 *
-	 * @since  TBD
+	 * @since 4.9.4
 	 *
 	 * @param  {jQuery} $container jQuery object of view container
 	 *
@@ -127,7 +127,7 @@ tribe.events.views.viewSelector = {};
 	/**
 	 * Handles the initialization of the view selector when Document is ready
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @return {void}
 	 */

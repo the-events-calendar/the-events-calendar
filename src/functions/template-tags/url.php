@@ -2,14 +2,14 @@
 /**
  * Functions, or polyfills, related to URL manipulation on events
  *
- * @since TBD
+ * @since 4.9.4
  */
 use Tribe__Events__Rewrite as Rewrite;
 
 /**
  * Given a set of query strings returns the clean and canonical URL.
  *
- * @since  TBD
+ * @since  4.9.4
  *
  * @param  string|array $query Query string arguments.
  * @param  string|null  $url   Base url to apply those query arguments.

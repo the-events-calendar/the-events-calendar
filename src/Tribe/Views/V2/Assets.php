@@ -26,7 +26,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 	/**
 	 * Key for this group of assets.
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @var string
 	 */
@@ -203,7 +203,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 /**
 	 * Checks if we should enqueue frontend assets for the V2 views
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @return bool
 	 */
@@ -214,7 +214,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 		/**
 		 * Allow filtering of where the base Frontend Assets will be loaded
 		 *
-		 * @since TBD
+		 * @since 4.9.4
 		 *
 		 * @param bool $should_enqueue
 		 */

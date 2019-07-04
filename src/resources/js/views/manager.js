@@ -117,7 +117,7 @@ tribe.events.views.manager = {};
 	/**
 	 * Given an container determines if it should manage URL.
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param  {Element|jQuery} element Which element we are using as the container.
 	 *
@@ -145,7 +145,7 @@ tribe.events.views.manager = {};
 	 * Usage, on the AJAX request we will pass data back using a <script>
 	 * formatted as a `application/json` that we will parse and apply here.
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param  {Event}  event DOM Event related to the Click action
 	 *
