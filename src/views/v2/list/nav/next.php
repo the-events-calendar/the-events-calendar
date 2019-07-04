@@ -26,7 +26,7 @@
 			echo sprintf(
 				wp_kses(
 					/* translators: %s: Event (plural or singular). */
-					__( 'Next<span class="tribe-events-c-nav__next--label-plural"> %s</span>', 'the-events-calendar' ),
+					__( 'Next<span class="tribe-events-c-nav__next-label-plural"> %s</span>', 'the-events-calendar' ),
 					array(
 						'span' => array(
 							'class' => array(),
