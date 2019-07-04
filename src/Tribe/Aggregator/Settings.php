@@ -184,25 +184,23 @@ class Tribe__Events__Aggregator__Settings {
 	/**
 	 * Hooked to current_screen, this method identifies whether or not eb credentials should be cleared
 	 *
-	 * @param WP_Screen $screen
+	 * @since TBD
+	 *
+	 * @param WP_Screen $screen The current screen instance.
 	 */
 	public function maybe_clear_meetup_credentials( $screen ) {
 		if ( 'tribe_events_page_tribe-common' !== $screen->base ) {
 			return;
 		}
 
-		if ( ! isset( $_GET['tab'] ) || 'addons' !== $_GET['tab'] ) {
+		if ( tribe_get_request_var( 'tab', false ) !== 'addons' ) {
 			return;
 		}
 
-		if (
-			! (
-				isset( $_GET['action'] )
-				&& isset( $_GET['_wpnonce'] )
-				&& 'disconnect-meetup' === $_GET['action']
-				&& wp_verify_nonce( $_GET['_wpnonce'], 'disconnect-meetup' )
-			)
-		) {
+		$action = tribe_get_request_var( 'action' ) === 'disconnect-meetup';
+		$nonce  = tribe_get_request_var( '_wpnonce' );
+
+		if ( ! ( $action && $nonce && wp_verify_nonce( $nonce, 'disconnect-meetup' ) ) ) {
 			return;
 		}
 

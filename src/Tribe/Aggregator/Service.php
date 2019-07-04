@@ -30,6 +30,10 @@ class Tribe__Events__Aggregator__Service {
 	public static $auth_transient = 'tribe_aggregator_has_eventbrite_authorized_response';
 
 	/**
+	 * The name of the transient containing the Meetup authorization response.
+	 *
+	 * @since TBD
+	 *
 	 * @var string
 	 */
 	public static $auth_transient_meetup = 'tribe_aggregator_has_meetup_authorized_response';
