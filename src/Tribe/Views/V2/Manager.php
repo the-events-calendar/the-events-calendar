@@ -12,7 +12,7 @@ use Tribe__Utils__Array as Arr;
  * Class Views Manager
  *
  * @package Tribe\Events\Views\V2
- * @since   TBD
+ * @since   4.9.4
  */
 class Manager {
 	/**
@@ -33,7 +33,7 @@ class Manager {
 	/**
 	 * Returns an associative array of Views currently registered.
 	 *
-	 * @since  TBD
+	 * @since  4.9.4
 	 *
 	 * @return array An array in the shape `[ <slug> => <View Class> ]`.
 	 */
@@ -63,7 +63,7 @@ class Manager {
 	/**
 	 * Get the class name for the default registered view.
 	 *
-	 * @since  TBD
+	 * @since  4.9.4
 	 *
 	 * @return string
 	 */
@@ -74,7 +74,7 @@ class Manager {
 	/**
 	 * Get the class name for the default registered view.
 	 *
-	 * @since  TBD
+	 * @since  4.9.4
 	 *
 	 * @return bool|string Returns boolean false when no views are registered or default not found.
 	 */
@@ -94,7 +94,7 @@ class Manager {
 	/**
 	 * Returns an associative array of Views currently registered that are publicly visible.
 	 *
-	 * @since  TBD
+	 * @since  4.9.4
 	 *
 	 * @return array An array in the shape `[ <slug> => <View Class> ]`.
 	 */
@@ -119,7 +119,7 @@ class Manager {
 	 * Returns the slug and class of a given view, accepts slug or class.
 	 * Will return false for both in case both fail.
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param string $requested_view The view slug or fully qualified class name
 	 *
@@ -150,7 +150,7 @@ class Manager {
 	/**
 	 * Returns the slug currently associated to a View class, if any.
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param string $view_class The view fully qualified class name.
 	 *
@@ -165,7 +165,7 @@ class Manager {
 	/**
 	 * Returns the class currently associated to a View slug, if any.
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param  string $slug The view fully qualified class name.
 	 *

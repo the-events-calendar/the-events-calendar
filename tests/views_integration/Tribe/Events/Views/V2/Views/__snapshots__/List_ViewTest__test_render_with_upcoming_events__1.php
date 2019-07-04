@@ -52,22 +52,22 @@
 	data-js="tribe-events-events-bar-tabpanel tribe-events-events-bar-search"
 >
 	<form
-		class="tribe-common-c-search tribe-events-c-events-bar__search-form"
+		class="tribe-events-c-search tribe-events-c-events-bar__search-form"
 		method="get"
 		data-js="tribe-events-view-form"
 		role="search"
 	>
 		<input type="hidden" id="tribe-events-views[_wpnonce]" name="tribe-events-views[_wpnonce]" value="2ab7cc6b39" /><input type="hidden" name="_wp_http_referer" value="/events" />		<input type="hidden" name="tribe-events-views[url]" value="http://test.tri.be/events/list/" />
 
-		<div class="tribe-common-form-control-text-group tribe-common-c-search__input-group">
+		<div class="tribe-common-form-control-text-group tribe-events-c-search__input-group">
 			<div
-	class="tribe-common-form-control-text tribe-common-c-search__input-control tribe-common-c-search__input-control--keyword"
+	class="tribe-common-form-control-text tribe-events-c-search__input-control tribe-events-c-search__input-control--keyword"
 	data-js="tribe-events-events-bar-input-control"
 >
 	<label class="tribe-common-form-control-text__label" for="tribe-events-events-bar-keyword">
 		Enter Keyword. Search for Events by Keyword.	</label>
 	<input
-		class="tribe-common-form-control-text__input tribe-common-c-search__input tribe-common-c-search__input--icon"
+		class="tribe-common-form-control-text__input tribe-events-c-search__input tribe-events-c-search__input--icon"
 		data-js="tribe-events-events-bar-input-control-input"
 		type="text"
 		id="tribe-events-events-bar-keyword"
@@ -79,7 +79,7 @@
 		</div>
 
 		<button
-	class="tribe-common-c-btn tribe-common-c-search__button"
+	class="tribe-common-c-btn tribe-events-c-search__button"
 	type="submit"
 	name="submit-bar"
 >Find Events</button>
@@ -184,9 +184,28 @@
 >
 	Today</a>
 
-	<button class="tribe-common-h3 tribe-common-h3--alt tribe-events-c-top-bar__date-picker-button">
-	Now &mdash; <time datetime="2019-01-01">January 1st, 2019</time>
-</button>
+	<div class="tribe-events-c-top-bar__datepicker" data-js="tribe-events-top-bar-datepicker">
+	<button
+		class="tribe-common-h2 tribe-common-h3--min-medium tribe-common-h--alt tribe-events-c-top-bar__datepicker-button"
+		data-js="tribe-events-top-bar-datepicker-button"
+	>
+		Now &mdash; <time datetime="2019-01-01">January 1st, 2019</time>
+	</button>
+	<label
+		class="tribe-events-c-top-bar__datepicker-label tribe-common-a11y-visual-hide"
+		for="tribe-events-top-bar-date"
+	>
+		Select date.	</label>
+	<input
+		type="text"
+		class="tribe-events-c-top-bar__datepicker-input tribe-common-a11y-visual-hide"
+		data-js="tribe-events-top-bar-date"
+		id="tribe-events-top-bar-date"
+		name="tribe-events-views[tribe-bar-search]"
+		value=""
+		tabindex="-1"
+	/>
+</div>
 
 	<div class="tribe-events-c-top-bar__actions">
 	</div>
@@ -199,7 +218,7 @@
 			
 				<div class="tribe-events-calendar-list__month-separator">
 	<time
-		class="tribe-events-calendar-list__month-separator-text tribe-common-h7 tribe-common-h7--alt"
+		class="tribe-events-calendar-list__month-separator-text tribe-common-h7 tribe-common-h--alt"
 		datetime="2019-01"
 	>
 		Jan 2019	</time>
@@ -339,7 +358,11 @@
 </li>
 
 		<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--today">
-	<a class="tribe-events-c-nav__today tribe-common-b2" href="#">
+	<a
+		href="#"
+		class="tribe-events-c-nav__today tribe-common-b2"
+		data-js="tribe-events-view-link"
+	>
 		Today	</a>
 </li>
 

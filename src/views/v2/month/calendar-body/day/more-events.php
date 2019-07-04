@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version TBD
+ * @version 4.9.4
  *
  */
 $day_number = $this->get( 'day' );
@@ -25,5 +25,5 @@ if ( ! $calendar_events ) {
 }
 ?>
 <div class="tribe-events-calendar-month__more-events">
-	<a href="#" class="tribe-events-calendar-month__more-events-link tribe-common-h8 tribe-common-h8--alt tribe-common-anchor-thin">+ 2 More</a>
+	<a href="#" class="tribe-events-calendar-month__more-events-link tribe-common-h8 tribe-common-h--alt tribe-common-anchor-thin">+ 2 More</a>
 </div>

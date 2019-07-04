@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version TBD
+ * @version 4.9.4
  *
  */
 ?>
@@ -19,7 +19,7 @@
 
 	<?php $this->template( 'top-bar/today' ); ?>
 
-	<?php $this->template( 'top-bar/date-picker' ); ?>
+	<?php $this->template( 'top-bar/datepicker' ); ?>
 
 	<?php $this->template( 'top-bar/actions' ); ?>
 

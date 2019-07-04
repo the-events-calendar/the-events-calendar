@@ -87,7 +87,7 @@ class View implements View_Interface {
 	/**
 	 * Whether a given View is visible publicly or not.
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @var bool
 	 */
@@ -106,7 +106,7 @@ class View implements View_Interface {
 	 * The key that should be used to indicate the page in an archive.
 	 * Extending classes should not need to modify this.
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @var string
 	 */
@@ -385,7 +385,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the label that will be used on the UI for views listing.
 		 *
-		 * @since TBD
+		 * @since 4.9.4
 		 *
 		 * @param string         $label  Label of the Current view.
 		 * @param View_Interface $view   The current view whose template variables are being set.
@@ -395,7 +395,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the label that will be used on the UI for views listing.
 		 *
-		 * @since TBD
+		 * @since 4.9.4
 		 *
 		 * @param string         $label  Label of the Current view.
 		 * @param View_Interface $view   The current view whose template variables are being set.
@@ -693,7 +693,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the variables that will be set on the View template.
 		 *
-		 * @since TBD
+		 * @since 4.9.4
 		 *
 		 * @param array          $template_vars An associative array of template variables. Variables will be extracted in the
 		 *                                      template hence the key will be the name of the variable available in the
@@ -706,7 +706,7 @@ class View implements View_Interface {
 		 * Filters the variables that will be set on the View template.
 		 *
 		 * @since 4.9.3
-		 * @since TBD Renamed the filter to be aligned with other filters on this class.
+		 * @since 4.9.4 Renamed the filter to be aligned with other filters on this class.
 		 *
 		 * @param array          $template_vars An associative array of template variables. Variables will be extracted in the
 		 *                                      template hence the key will be the name of the variable available in the
@@ -860,7 +860,7 @@ class View implements View_Interface {
 	/**
 	 * Sets up the View template variables.
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @return array An array of Template variables for the View Template.
 	 */

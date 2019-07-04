@@ -1,7 +1,7 @@
 /**
  * Makes sure we have all the required levels on the Tribe Object
  *
- * @since TBD
+ * @since 4.9.4
  *
  * @type   {PlainObject}
  */
@@ -11,7 +11,7 @@ tribe.events.views = tribe.events.views || {};
 /**
  * Configures Month Grid Object in the Global Tribe variable
  *
- * @since TBD
+ * @since 4.9.4
  *
  * @type  {PlainObject}
  */
@@ -20,7 +20,7 @@ tribe.events.views.monthGrid = {};
 /**
  * Initializes in a Strict env the code that manages the Event Views
  *
- * @since TBD
+ * @since 4.9.4
  *
  * @param  {PlainObject} $   jQuery
  * @param  {PlainObject} obj tribe.events.views.manager
@@ -34,7 +34,7 @@ tribe.events.views.monthGrid = {};
 	/**
 	 * Selectors used for configuration and setup
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @type {PlainObject}
 	 */
@@ -49,7 +49,7 @@ tribe.events.views.monthGrid = {};
 	/**
 	 * State data for month grid
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @type {PlainObject}
 	 */
@@ -62,7 +62,7 @@ tribe.events.views.monthGrid = {};
 	/**
 	 * Object of key codes
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @type {PlainObject}
 	 */
@@ -78,31 +78,33 @@ tribe.events.views.monthGrid = {};
 	/**
 	 * Check if cell described by row and col is valid
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
-	 * @param {integer} row row number of cell, 0 index
-	 * @param {integer} col column number of cell, 0 index
+	 * @param {array}   grid 2-dimensional array of grid
+	 * @param {integer} row  row number of cell, 0 index
+	 * @param {integer} col  column number of cell, 0 index
 	 *
 	 * @return {boolean} true if cell is valid, false otherwise
 	 */
-	obj.isValidCell = function( row, col ) {
+	obj.isValidCell = function( grid, row, col ) {
 		return (
 			! isNaN( row ) &&
 			! isNaN( col ) &&
 			row >= 0 &&
 			col >= 0 &&
-			obj.state.grid &&
-			obj.state.grid.length &&
-			row < obj.state.grid.length &&
-			col < obj.state.grid[ row ].length
+			grid &&
+			grid.length &&
+			row < grid.length &&
+			col < grid[ row ].length
 		);
 	};
 
 	/**
 	 * Get next cell from current row, current column, and direction changes
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
+	 * @param {array}   grid       2-dimensional array of grid
 	 * @param {integer} currentRow index of current row
 	 * @param {integer} currentCol index of current column
 	 * @param {integer} directionX number of steps to take in the X direction
@@ -110,11 +112,11 @@ tribe.events.views.monthGrid = {};
 	 *
 	 * @return {PlainObject} object containing next row and column indices
 	 */
-	obj.getNextCell = function( currentRow, currentCol, directionX, directionY ) {
+	obj.getNextCell = function( grid, currentRow, currentCol, directionX, directionY ) {
 		var row = currentRow + directionY;
 		var col = currentCol + directionX;
 
-		if ( obj.isValidCell( row, col ) ) {
+		if ( obj.isValidCell( grid, row, col ) ) {
 			return {
 				row: row,
 				col: col,
@@ -130,73 +132,84 @@ tribe.events.views.monthGrid = {};
 	/**
 	 * Set focus pointer to given row and column
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
-	 * @param {integer} row index of row
-	 * @param {integer} col index of column
+	 * @param {jQuery}  $grid jQuery object of grid
+	 * @param {integer} row   index of row
+	 * @param {integer} col   index of column
 	 *
 	 * @return {boolean} boolean of whether focus pointer was set or not
 	 */
-	obj.setFocusPointer = function( row, col ) {
-		if ( obj.isValidCell( row, col ) ) {
-			$( obj.state.grid[ obj.state.currentRow ][ obj.state.currentCol ] ).attr( 'tabindex', '-1' );
-			$( obj.state.grid[ row ][ col ] ).attr( 'tabindex', '0' );
-			obj.state.currentRow = row;
-			obj.state.currentCol = col;
+	obj.setFocusPointer = function( $grid, row, col ) {
+		var state = $grid.data( 'state' );
+
+		if ( obj.isValidCell( state.grid, row, col ) ) {
+			state.grid[ state.currentRow ][ state.currentCol ].attr( 'tabindex', '-1' );
+			state.grid[ row ][ col ].attr( 'tabindex', '0' );
+			state.currentRow = row;
+			state.currentCol = col;
+
+			$grid.data( 'state', state );
+
 			return true;
 		}
+
 		return false;
 	};
 
 	/**
 	 * Focus cell at given row and column
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
-	 * @param {integer} row index of row
-	 * @param {integer} col index of column
+	 * @param {jQuery}  $grid jQuery object of grid
+	 * @param {integer} row   index of row
+	 * @param {integer} col   index of column
 	 *
 	 * @return {void}
 	 */
-	obj.focusCell = function( row, col ) {
-		if ( obj.setFocusPointer( row, col ) ) {
-			$( obj.state.grid[ row ][ col ] ).focus();
+	obj.focusCell = function( $grid, row, col ) {
+		if ( obj.setFocusPointer( $grid, row, col ) ) {
+			var state = $grid.data( 'state' );
+			state.grid[ row ][ col ].focus();
 		}
 	};
 
 	/**
 	 * Handle keydown event to move focused grid cell
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {Event} event event object
 	 *
 	 * @return {void}
 	 */
 	obj.handleKeydown = function( event ) {
+		var $grid = event.data.grid;
+		var state = $grid.data( 'state' );
 		var key = event.which || event.keyCode;
-		var row = obj.state.currentRow;
-		var col = obj.state.currentCol;
+		var row = state.currentRow;
+		var col = state.currentCol;
 		var nextCell;
 
 		switch ( key ) {
 			case obj.keyCode.UP:
-				nextCell = obj.getNextCell( row, col, 0, -1 );
+				nextCell = obj.getNextCell( state.grid, row, col, 0, -1 );
 				row = nextCell.row;
 				col = nextCell.col;
 				break;
 			case obj.keyCode.DOWN:
-				nextCell = obj.getNextCell( row, col, 0, 1 );
+				nextCell = obj.getNextCell( state.grid, row, col, 0, 1 );
 				row = nextCell.row;
 				col = nextCell.col;
 				break;
 			case obj.keyCode.LEFT:
-				nextCell = obj.getNextCell( row, col, -1, 0 );
+				nextCell = obj.getNextCell( state.grid, row, col, -1, 0 );
 				row = nextCell.row;
 				col = nextCell.col;
 				break;
 			case obj.keyCode.RIGHT:
-				nextCell = obj.getNextCell( row, col, 1, 0 );
+				nextCell = obj.getNextCell( state.grid, row, col, 1, 0 );
 				row = nextCell.row;
 				col = nextCell.col;
 				break;
@@ -208,34 +221,36 @@ tribe.events.views.monthGrid = {};
 				break;
 			case obj.keyCode.END:
 				if ( event.ctrlKey ) {
-					row = obj.state.grid.length - 1;
+					row = state.grid.length - 1;
 				}
-				col = obj.state.grid[ obj.state.currentRow ].length - 1;
+				col = state.grid[ state.currentRow ].length - 1;
 				break;
 			default:
 				return;
 		}
 
-		obj.focusCell( row, col );
+		obj.focusCell( $grid, row, col );
 		event.preventDefault();
 	};
 
 	/**
 	 * Handle click event to focus cell
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {Event} event event object
 	 *
 	 * @return {void}
 	 */
 	obj.handleClick = function( event ) {
+		var $grid = event.data.grid;
+		var state = $grid.data( 'state' );
 		var $clickedCell = $( event.target ).closest( obj.selectors.focusable );
 
-		for ( var row = 0; row < obj.state.grid.length; row++ ) {
-			for ( var col = 0; col < obj.state.grid[ row ].length; col++ ) {
-				if ( obj.state.grid[ row ][ col ].is( $clickedCell ) ) {
-					obj.focusCell( row, col );
+		for ( var row = 0; row < state.grid.length; row++ ) {
+			for ( var col = 0; col < state.grid[ row ].length; col++ ) {
+				if ( state.grid[ row ][ col ].is( $clickedCell ) ) {
+					obj.focusCell( $grid, row, col );
 					return;
 				}
 			}
@@ -243,7 +258,7 @@ tribe.events.views.monthGrid = {};
 	};
 
 	/**
-	 * Set up grid to state array
+	 * Initializes grid state
 	 *
 	 * @since TBD
 	 *
@@ -251,7 +266,28 @@ tribe.events.views.monthGrid = {};
 	 *
 	 * @return {void}
 	 */
+	obj.initState = function( $grid ) {
+		var state = {
+			grid: [],
+			currentRow: 0,
+			currentCol: 0,
+		};
+
+		$grid.data( 'state', state );
+	};
+
+	/**
+	 * Set up grid to state array
+	 *
+	 * @since 4.9.4
+	 *
+	 * @param {jQuery} $grid jQuery object of grid.
+	 *
+	 * @return {void}
+	 */
 	obj.setupGrid = function( $grid ) {
+		var state = $grid.data( 'state' );
+
 		$grid
 			.find( obj.selectors.row )
 			.each( function( rowIndex, row ) {
@@ -266,8 +302,8 @@ tribe.events.views.monthGrid = {};
 						if ( $cell.is( obj.selectors.focusable ) ) {
 							// if cell is focusable and has tabindex of 0
 							if ( $cell.is( obj.selectors.focused ) ) {
-								obj.state.currentRow = obj.state.grid.length;
-								obj.state.currentCol = gridRow.length;
+								state.currentRow = state.grid.length;
+								state.currentCol = gridRow.length;
 							}
 
 							// add focusable cell to gridRow
@@ -279,8 +315,8 @@ tribe.events.views.monthGrid = {};
 							if ( $focusableCell.is( obj.selectors.focusable ) ) {
 								// if element is focusable and has tabindex of 0
 								if ( $cell.is( obj.selectors.focused ) ) {
-									obj.state.currentRow = obj.state.grid.length;
-									obj.state.currentCol = gridRow.length;
+									state.currentRow = state.grid.length;
+									state.currentCol = gridRow.length;
 								}
 
 								// add focusable element to gridRow
@@ -291,13 +327,15 @@ tribe.events.views.monthGrid = {};
 
 				// add gridRow to grid if gridRow has focusable cells
 				if ( gridRow.length ) {
-					obj.state.grid.push( gridRow );
+					state.grid.push( gridRow );
 				}
 			} );
+
+		$grid.data( 'state', state );
 	};
 
 	/**
-	 * Bind events for keydown and click on grid
+	 * Unbind events for keydown and click on grid
 	 *
 	 * @since TBD
 	 *
@@ -305,16 +343,47 @@ tribe.events.views.monthGrid = {};
 	 *
 	 * @return {void}
 	 */
+	obj.unbindEvents = function( $grid ) {
+		$grid
+			.off( 'keydown', obj.handleKeydown )
+			.off( 'click', obj.handleClick );
+	};
+
+	/**
+	 * Bind events for keydown and click on grid
+	 *
+	 * @since 4.9.4
+	 *
+	 * @param {jQuery} $grid jQuery object of grid.
+	 *
+	 * @return {void}
+	 */
 	obj.bindEvents = function( $grid ) {
 		$grid
-			.on( 'keydown', obj.handleKeydown )
-			.on( 'click', obj.handleClick );
+			.on( 'keydown', { grid: $grid }, obj.handleKeydown )
+			.on( 'click', { grid: $grid }, obj.handleClick );
+	};
+
+	/**
+	 * Deinitialize grid.
+	 *
+	 * @since TBD
+	 *
+	 * @param  {Event}       event    event object for 'afterSetup.tribeEvents' event
+	 * @param  {jqXHR}       jqXHR    Request object
+	 * @param  {PlainObject} settings Settings that this request was made with
+	 *
+	 * @return {void}
+	 */
+	obj.deinit = function( event, jqXHR, settings ) {
+		var $grid = event.data.container.find( obj.selectors.grid );
+		obj.unbindEvents( $grid );
 	};
 
 	/**
 	 * Initialize grid.
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {Event}   event      JS event triggered.
 	 * @param {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event.
@@ -326,26 +395,28 @@ tribe.events.views.monthGrid = {};
 	obj.init = function( event, index, $container, data ) {
 		var $grid = $container.find( obj.selectors.grid );
 
-		obj.setupGrid( $grid );
-		obj.setFocusPointer( obj.state.currentRow, obj.state.currentCol );
-		obj.bindEvents( $grid );
+		if ( $grid.length ) {
+			obj.initState( $grid );
+			obj.setupGrid( $grid );
+
+			var state = $grid.data( 'state' );
+
+			obj.setFocusPointer( $grid, state.currentRow, state.currentCol );
+			obj.bindEvents( $grid );
+
+			$container.on( 'beforeAjaxSuccess.tribeEvents', { container: $container }, obj.deinit );
+		}
 	};
 
 	/**
 	 * Handles the initialization of the multiday events when Document is ready
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @return {void}
 	 */
 	obj.ready = function() {
 		$document.on( 'afterSetup.tribeEvents', tribe.events.views.manager.selectors.container, obj.init );
-
-		/**
-		 * @todo: do below for ajax events
-		 */
-		// on 'beforeAjaxBeforeSend.tribeEvents' event, remove all listeners
-		// on 'afterAjaxError.tribeEvents', add all listeners
 	};
 
 	// Configure on document ready

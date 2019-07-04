@@ -14,7 +14,7 @@ class Tribe__Events__iCal {
 	/**
 	 * The $post where the *.ics file is generated
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @var null
 	 */
@@ -23,7 +23,7 @@ class Tribe__Events__iCal {
 	/**
 	 * An array with all the events that are part of the *.ics file
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @var array
 	 */
@@ -228,7 +228,7 @@ class Tribe__Events__iCal {
 	/**
 	 * Get an array with all the Events to be used to process the *.ics file
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @return array|null
 	 */
@@ -329,7 +329,7 @@ class Tribe__Events__iCal {
 	/**
 	 * Set the headers before the file is delivered.
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 */
 	protected function set_headers() {
 		header( 'HTTP/1.0 200 OK', true, 200 );
@@ -342,7 +342,7 @@ class Tribe__Events__iCal {
 	/**
 	 * Get the file name of the *.ics file
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @return mixed The calendar name
 	 */
@@ -364,7 +364,7 @@ class Tribe__Events__iCal {
 	/**
 	 * Get the full content of the *.ics file.
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @return string
 	 */
@@ -381,7 +381,7 @@ class Tribe__Events__iCal {
 	/**
 	 * Get the start of the .ics File
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @return mixed
 	 */
@@ -420,7 +420,7 @@ class Tribe__Events__iCal {
 	/**
 	 * Add the VTIMEZONE group to the file
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param array $events
 	 *
@@ -493,7 +493,7 @@ class Tribe__Events__iCal {
 		/**
 		 * Allow for customization of an individual "VTIMEZONE" item to be rendered inside an iCal export file.
 		 *
-		 * @since TBD
+		 * @since 4.9.4
 		 *
 		 * @param array $item The various iCal file format components of this specific event item.
 		 * @param array $timezones The various iCal timzone components of this specific event item.
@@ -510,7 +510,7 @@ class Tribe__Events__iCal {
 	 * - timezone. The Timezone Object
 	 * - events. List with all the events
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param $events array An array with all the events to parse the timezones.
 	 *
@@ -544,7 +544,7 @@ class Tribe__Events__iCal {
 	/**
 	 * Format the offset into Hours and minutes from seconds.
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param $offset
 	 *
@@ -564,7 +564,7 @@ class Tribe__Events__iCal {
 	/**
 	 * Get the Body With all the events of the .ics file
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param array $posts
 	 *
@@ -699,7 +699,7 @@ class Tribe__Events__iCal {
 	/**
 	 * Replace the text and encode the text before doing the replacement.
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param string $text The text to be replaced.
 	 * @param array  $search What elements to search to replace.
@@ -716,7 +716,7 @@ class Tribe__Events__iCal {
 	/**
 	 * Apply html_entity_decode on a string using ENT_QUOTES style
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param string $text
 	 *
@@ -729,7 +729,7 @@ class Tribe__Events__iCal {
 	/**
 	 * Return the timezone name associated with the event
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param $event \WP_Post The $event post
 	 *
@@ -744,7 +744,7 @@ class Tribe__Events__iCal {
 	/**
 	 * Return the end of the .ics file
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @return string
 	 */

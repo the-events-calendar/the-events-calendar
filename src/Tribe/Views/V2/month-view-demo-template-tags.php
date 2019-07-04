@@ -3,7 +3,7 @@
  * Month view demo data and temporary template tags to handle the data.
  *
  * @package Tribe\Events\Views\V2
- * @since   TBD
+ * @since   4.9.4
  */
 
 // @todo: remove this when we hydrate the month view with data and we use the correct template tags.
@@ -12,7 +12,7 @@ if ( ! function_exists( 'tribe_events_views_v2_month_demo_day_get_data' ) ) :
 /**
  * Get the day data of the $month array
  *
- * @since TBD
+ * @since 4.9.4
  *
  * @return bool
  */
@@ -27,7 +27,7 @@ if ( ! function_exists( 'tribe_events_views_v2_month_demo_day_has_events' ) ) :
 /**
  * Check if a given day has events
  *
- * @since TBD
+ * @since 4.9.4
  *
  * @return bool
  */
@@ -46,7 +46,7 @@ if ( ! function_exists( 'tribe_events_views_v2_month_demo_day_get_events' ) ) :
 /**
  * Get events for a given day
  *
- * @since TBD
+ * @since 4.9.4
  *
  * @return array
  */
@@ -67,7 +67,7 @@ if ( ! function_exists( 'tribe_events_views_v2_month_demo_day_get_events_multida
 /**
  * Get multiday events for a given day
  *
- * @since TBD
+ * @since 4.9.4
  *
  * @return array
  */
@@ -101,7 +101,7 @@ if ( ! function_exists( 'tribe_events_views_v2_month_demo_day_get_events_regular
 /**
  * Get regular events for a given day.
  *
- * @since TBD
+ * @since 4.9.4
  *
  * @return array
  */
@@ -140,7 +140,7 @@ if ( ! function_exists( 'tribe_events_views_v2_month_demo_add_data' ) ) :
 /**
  * Return an array with the events for the month
  *
- * @since TBD
+ * @since 4.9.4
  *
  * @return array
  */

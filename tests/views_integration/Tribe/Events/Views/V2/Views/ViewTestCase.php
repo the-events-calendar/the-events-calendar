@@ -2,7 +2,7 @@
 /**
  *
  *
- * @since   TBD
+ * @since   4.9.4
  * @package Tribe\Events\Views\V2
  */
 
