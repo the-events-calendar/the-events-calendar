@@ -1343,7 +1343,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 						$parent_name = Tribe__Utils__Array::get(
 							$args,
 							'name',
-							Tribe__Utils__Array::get( 'tribe_events', false )
+							Tribe__Utils__Array::get( $args, 'tribe_events', false )
 						);
 
 						if ( ! empty( $parent_name ) ) {
