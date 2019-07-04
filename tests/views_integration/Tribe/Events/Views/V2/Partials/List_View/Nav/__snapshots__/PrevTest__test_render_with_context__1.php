@@ -5,6 +5,6 @@
 		class="tribe-events-c-nav__prev tribe-common-b2"
 		data-js="tribe-events-view-link"
 	>
-		Previous Events	</a>
+		Previous<span class="tribe-events-c-nav__prev--label-plural"> Events</span>	</a>
 </li>
 ';

@@ -2,7 +2,7 @@
 	<ul class="tribe-events-c-nav__list">
 		<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--prev">
 	<button class="tribe-events-c-nav__prev tribe-common-b2" disabled>
-		Previous Events	</button>
+		Previous<span class="tribe-events-c-nav__prev--label-plural"> Events</span>	</button>
 </li>
 
 		<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--today">
@@ -16,7 +16,7 @@
 
 		<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--next">
 	<button class="tribe-events-c-nav__next tribe-common-b2" disabled>
-		Next Events	</button>
+		Next<span class="tribe-events-c-nav__next--label-plural"> Events</span>	</button>
 </li>
 	</ul>
 </nav>
