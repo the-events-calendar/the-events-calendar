@@ -144,7 +144,7 @@ class Template extends Base_Template {
 				},
 				$this->get_template_path_list()
 			),
-			false
+			true
 		);
 
 		return parent::get_template_file( 'base' );
