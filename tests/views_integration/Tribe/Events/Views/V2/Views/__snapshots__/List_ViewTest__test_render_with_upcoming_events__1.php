@@ -59,7 +59,7 @@
 	>
 		<input type="hidden" id="tribe-events-views[_wpnonce]" name="tribe-events-views[_wpnonce]" value="2ab7cc6b39" /><input type="hidden" name="_wp_http_referer" value="/events" />		<input type="hidden" name="tribe-events-views[url]" value="http://test.tri.be/events/list/" />
 
-		<div class="tribe-common-form-control-text-group tribe-events-c-search__input-group">
+		<div class="tribe-events-c-search__input-group">
 			<div
 	class="tribe-common-form-control-text tribe-events-c-search__input-control tribe-events-c-search__input-control--keyword"
 	data-js="tribe-events-events-bar-input-control"
