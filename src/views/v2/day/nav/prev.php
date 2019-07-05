@@ -19,7 +19,7 @@
 	<a
 		href="<?php echo esc_url( $link ); ?>"
 		rel="prev"
-		class="tribe-events-c-nav__prev tribe-common-b2"
+		class="tribe-events-c-nav__prev tribe-common-b2 tribe-common-b1--min-medium"
 		data-js="tribe-events-view-link"
 	>
 		<?php esc_html_e( 'Previous Day', 'the-events-calendar' ); ?>
