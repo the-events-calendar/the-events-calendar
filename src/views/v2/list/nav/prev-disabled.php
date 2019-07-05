@@ -18,17 +18,11 @@
 <li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--prev">
 	<button class="tribe-events-c-nav__prev tribe-common-b2 tribe-common-b1--min-medium" disabled>
 		<?php
-			echo sprintf(
-				wp_kses(
-					/* translators: %s: Event (plural or singular). */
-					__( 'Previous<span class="tribe-events-c-nav__prev-label-plural"> %s</span>', 'the-events-calendar' ),
-					array(
-						'span' => array(
-							'class' => array(),
-						),
-					)
-				),
-				tribe_get_event_label_plural()
+			$events_label = '<span class="tribe-events-c-nav__prev-label-plural"> ' . tribe_get_event_label_plural() . '</span>';
+			echo wp_kses(
+				/* translators: %s: Event (plural or singular). */
+				sprintf( __( 'Previous %1$s' ), $events_label ),
+				[ 'span' => [ 'class' => [] ] ]
 			);
 		?>
 	</button>

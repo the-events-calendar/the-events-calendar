@@ -23,17 +23,11 @@
 		data-js="tribe-events-view-link"
 	>
 		<?php
-			echo sprintf(
-				wp_kses(
-					/* translators: %s: Event (plural or singular). */
-					__( 'Previous<span class="tribe-events-c-nav__prev-label-plural"> %s</span>', 'the-events-calendar' ),
-					array(
-						'span' => array(
-							'class' => array(),
-						),
-					)
-				),
-				tribe_get_event_label_plural()
+			$events_label = '<span class="tribe-events-c-nav__prev-label-plural"> ' . tribe_get_event_label_plural() . '</span>';
+			echo wp_kses(
+				/* translators: %s: Event (plural or singular). */
+				sprintf( __( 'Previous %1$s' ), $events_label ),
+				[ 'span' => [ 'class' => [] ] ]
 			);
 		?>
 	</a>
