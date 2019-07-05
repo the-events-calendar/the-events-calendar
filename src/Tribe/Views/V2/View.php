@@ -350,8 +350,6 @@ class View implements View_Interface {
 	 * @param null|string $html A specific HTML string to print on the page or the HTML produced by the view
 	 *                          `get_html` method.
 	 *
-	 * @throws \Tribe\Events\Views\V2\Implementation_Error If the `get_html` method has not been implemented.
-	 *
 	 */
 	public function send_html( $html = null ) {
 		$html = null === $html ? $this->get_html() : $html;
@@ -361,14 +359,25 @@ class View implements View_Interface {
 
 	/**
 	 * {@inheritDoc}
-	 * @throws \Tribe\Events\Views\V2\Implementation_Error If a class extending this one does not implement this method.
 	 */
 	public function get_html() {
 		if ( self::class === static::class ) {
 			return $this->template->render();
 		}
 
-		throw Implementation_Error::because_extending_view_should_define_this_method( 'get_html', $this );
+		$repository_args = $this->filter_repository_args( $this->setup_repository_args() );
+
+		$this->setup_the_loop( $repository_args );
+
+		$template_vars = $this->filter_template_vars( $this->setup_template_vars() );
+
+		$this->template->set_values( $template_vars, false );
+
+		$html = $this->template->render();
+
+		$this->restore_the_loop();
+
+		return $html;
 	}
 
 	/**
@@ -802,9 +811,13 @@ class View implements View_Interface {
 	protected function setup_repository_args( \Tribe__Context $context = null ) {
 		$context = null !== $context ? $context : $this->context;
 
-		return array_filter( [
-			'search' => $context->get( 'keyword', '' ),
-		] );
+		$context_arr = $context->to_array();
+
+		return [
+			'posts_per_page' => $context_arr['posts_per_page'],
+			'paged'          => max( Arr::get_first_set( $context_arr, [ 'paged', 'page' ], 1 ), 1 ),
+			'search'         => $context->get( 'keyword', '' ),
+		];
 	}
 
 	/**
@@ -877,8 +890,50 @@ class View implements View_Interface {
 			],
 		];
 
-		$template_vars = $this->filter_template_vars( $template_vars );
-
 		return $template_vars;
+	}
+
+
+	/**
+	 * Filters the repository arguments that will be used to set up the View repository instance.
+	 *
+	 * @since TBD
+	 *
+	 * @param array        $repository_args The repository arguments that will be used to set up the View repository instance.
+	 * @param Context|null $context Either a specific Context or `null` to use the View current Context.
+	 *
+	 * @return array The filtered repository arguments.
+	 */
+	protected function filter_repository_args( array $repository_args, \Tribe__Context $context = null ) {
+		$context = null !== $context ? $context : $this->context;
+
+		/**
+		 * Filters the repository args for a View.
+		 *
+		 * @since TBD
+		 *
+		 * @param array           $repository_args An array of repository arguments that will be set for all Views.
+		 * @param \Tribe__Context $context         The current render context object.
+		 * @param View_Interface  $this            The View that will use the repository arguments.
+		 */
+		$repository_args = apply_filters( 'tribe_events_views_v2_view_repository_args', $repository_args, $context, $this );
+
+		/**
+		 * Filters the repository args for a specific View.
+		 *
+		 * @since TBD
+		 *
+		 * @param array           $repository_args An array of repository arguments that will be set for a specific View.
+		 * @param \Tribe__Context $context         The current render context object.
+		 * @param View_Interface  $this            The View that will use the repository arguments.
+		 */
+		$repository_args = apply_filters(
+			"tribe_events_views_v2_view_{$this->slug}_repository_args",
+			$repository_args,
+			$context,
+			$this
+		);
+
+		return $repository_args;
 	}
 }
