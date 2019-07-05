@@ -13,12 +13,12 @@ $default_category    = empty( $default_category ) ? tribe_get_option( 'tribe_agg
 $post_statuses       = get_post_statuses( array() );
 
 // Ensure the "(do not override)" status is set up for Eventbrite imports, and "Published" is removed.
-$do_not_override_status   = array( 'do_not_override' => esc_html__( '(do not override)', 'the-events-calendar' ) );
+$do_not_override_status   = [ 'do_not_override' => esc_html__( '(do not override)', 'the-events-calendar' ) ];
 $eventbrite_post_statuses = $do_not_override_status + $post_statuses;
 unset( $eventbrite_post_statuses['publish'] );
 
 $category_dropdown = array();
-$category_dropdown = wp_dropdown_categories( array(
+$category_dropdown = wp_dropdown_categories( [
 	'echo'       => false,
 	'name'       => 'aggregator[category]',
 	'id'         => 'tribe-ea-field-category',
@@ -26,7 +26,7 @@ $category_dropdown = wp_dropdown_categories( array(
 	'class'      => 'tribe-ea-field tribe-ea-dropdown tribe-ea-size-large',
 	'orderby'    => 'post_title',
 	'taxonomy'   => Tribe__Events__Main::TAXONOMY,
-) );
+] );
 $category_dropdown = preg_replace( '!\<select!', '<select data-hide-search', $category_dropdown );
 $category_dropdown = preg_replace( '!(\<select[^\>]*\>)!', '$1<option value="">' . __( 'No Additional Categories', 'the-events-calendar' ) . '</option>', $category_dropdown );
 $category_dropdown = preg_replace( '!(value="' . $default_category . '")!', '$1 selected', $category_dropdown );
@@ -128,10 +128,10 @@ wp_nonce_field( 'tribe-aggregator-save-import', 'tribe_aggregator_nonce' );
 		</tr>
 
 		<?php
-		$form_args = array(
+		$form_args = [
 			'record'            => $record,
 			'aggregator_action' => $aggregator_action,
-		);
+		];
 
 		if ( 'edit' === $aggregator_action ) {
 			$this->template( 'origins/' . $record->meta['origin'], $form_args );
