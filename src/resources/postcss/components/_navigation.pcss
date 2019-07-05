@@ -63,11 +63,12 @@
 
 	.tribe-events-c-nav__prev-label-plural,
 	.tribe-events-c-nav__next-label-plural {
-		display: none;
+		@mixin visually-hide;
+
 		white-space: pre;
 
 		@media (--viewport-medium) {
-			display: inline-block;
+			@mixin visually-show;
 		}
 	}
 
