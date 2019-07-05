@@ -82,12 +82,15 @@
 }
 
 #tribe-events-content .tribe-events-calendar td {
-	transition: none;
+	-webkit-transition: none;
+	     -o-transition: none;
+	        transition: none;
 }
 
 #tribe-events-content .tribe-events-calendar td:hover {
 	background: none;
-	box-shadow: none;
+	-webkit-box-shadow: none;
+	        box-shadow: none;
 }
 
 #tribe-events-content .tribe-events-calendar td.tribe-events-othermonth:hover {
