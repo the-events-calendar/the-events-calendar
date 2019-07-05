@@ -155,8 +155,8 @@ tribe_asset_enqueue( 'tribe-common-style' );
 						</span>
 					</a>
 				</li>
-				<li class="tribe-events-c-view-selector__list-item">
-					<a href="#" class="tribe-events-c-view-selector__list-item-link tribe-events-c-view-selector__list-item-link--active">
+				<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item-link--active">
+					<a href="#" class="tribe-events-c-view-selector__list-item-link">
 						<span class="tribe-events-c-view-selector__list-item-icon tribe-common-svgicon tribe-common-svgicon--list"></span>
 						<span class="tribe-events-c-view-selector__list-item-text">
 							List
@@ -202,8 +202,8 @@ tribe_asset_enqueue( 'tribe-common-style' );
 						</span>
 					</a>
 				</li>
-				<li class="tribe-events-c-view-selector__list-item">
-					<a href="#" class="tribe-events-c-view-selector__list-item-link tribe-events-c-view-selector__list-item-link--active">
+				<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--active">
+					<a href="#" class="tribe-events-c-view-selector__list-item-link">
 						<span class="tribe-events-c-view-selector__list-item-icon tribe-common-svgicon tribe-common-svgicon--list"></span>
 						<span class="tribe-events-c-view-selector__list-item-text">
 							List
@@ -220,29 +220,6 @@ tribe_asset_enqueue( 'tribe-common-style' );
 				</li>
 			</ul>
 		</div>
-	</div>
-	<br />
-	<div class="tribe-common-form-control-tabs" style="margin-top: 100px;">
-		<button class="tribe-common-form-control-tabs__button" id="tabButton" aria-haspopup="listbox" aria-labelledby="tabButton" aria-expanded="true">Tab One</button>
-		<ul class="tribe-common-form-control-tabs__list" tabindex="-1" role="listbox" aria-activedescendant="tabOneLabel">
-			<li class="tribe-common-form-control-tabs__list-item" role="presentation">
-				<input class="tribe-common-form-control-tabs__input" id="tabOne" name="tabGroup" type="radio" value="tabOne" checked="checked" />
-				<label class="tribe-common-form-control-tabs__label" id="tabOneLabel" for="tabOne" role="option" aria-selected="true">Tab One</label>
-			</li>
-			<li class="tribe-common-form-control-tabs__list-item" role="presentation">
-				<input class="tribe-common-form-control-tabs__input" id="tabTwo" name="tabGroup" type="radio" value="tabTwo" />
-				<label class="tribe-common-form-control-tabs__label" id="tabTwoLabel" for="tabTwo" role="option">Tab Two</label>
-			</li>
-		</ul>
-	</div>
-	<br />
-	<div class="tribe-common-form-control-select" style="margin-top: 100px;">
-		<button class="tribe-common-form-control-select__button" id="selectButton" aria-haspopup="listbox" aria-labelledby="selectButton" aria-expanded="true">Month</button>
-		<ul class="tribe-common-form-control-select__list" tabindex="-1" role="listbox" aria-activedescendant="selectItemMonth">
-			<li class="tribe-common-form-control-select__list-item" id="selectItemMonth" role="option" aria-selected="true">Month</li>
-			<li class="tribe-common-form-control-select__list-item" id="selectItemWeek" role="option">Week</li>
-			<li class="tribe-common-form-control-select__list-item" id="selectItemDay" role="option">Day</li>
-		</ul>
 	</div>
 	<br />
 	<h3>Search</h3>
