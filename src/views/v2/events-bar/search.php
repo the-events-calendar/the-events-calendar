@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.4
+ * @version TBD
  *
  */
 
@@ -29,7 +29,7 @@ use Tribe\Events\Views\V2\Rest_Endpoint;
 		<?php wp_nonce_field( 'wp_rest', 'tribe-events-views[_wpnonce]' ); ?>
 		<input type="hidden" name="tribe-events-views[url]" value="<?php echo esc_url( $this->get( 'url' ) ); ?>" />
 
-		<div class="tribe-common-form-control-text-group tribe-events-c-search__input-group">
+		<div class="tribe-events-c-search__input-group">
 			<?php $this->template( 'events-bar/search/keyword' ); ?>
 		</div>
 

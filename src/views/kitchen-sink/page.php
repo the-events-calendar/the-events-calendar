@@ -40,6 +40,8 @@ tribe_asset_enqueue( 'tribe-common-style' );
 	<br />
 	<a href="#">I'm a link</a>
 	<br />
+	<input type="text" />
+	<br />
 	<h3>Buttons</h3>
 	<br />
 	<button class="tribe-common-c-btn">Primary Button</button>
@@ -224,39 +226,54 @@ tribe_asset_enqueue( 'tribe-common-style' );
 	<br />
 	<h3>Search</h3>
 	<br />
-	<form action="" method="post" class="tribe-common-c-search" style="margin-top: 100px">
-		<div class="tribe-common-form-control-input-group tribe-common-c-search__input-group">
-			<div class="tribe-common-form-control-text">
-				<label for="keyword">Keyword</label>
+	<form
+		action="#"
+		method="post"
+		class="tribe-events-c-search"
+		style="margin-top: 100px"
+	>
+		<div class="tribe-events-c-search__input-group">
+		<div
+				class="tribe-common-form-control-text tribe-events-c-search__input-control tribe-events-c-search__input-control--keyword"
+				data-js="tribe-events-events-bar-input-control"
+			>
+				<label class="tribe-common-form-control-text__label" for="tribe-events-events-bar-keyword">
+					Keyword
+				</label>
 				<input
-					class="tribe-common-form-control-text__input tribe-common-c-search__input"
+					class="tribe-common-form-control-text__input tribe-events-c-search__input tribe-events-c-search__input--icon"
+					data-js="tribe-events-events-bar-input-control-input"
 					type="text"
-					id="keyword"
-					name="keyword"
-					placeholder="Keyword"
-					/>
+					id="tribe-events-events-bar-keyword"
+					name="tribe-events-views[tribe-bar-search]"
+					value=""
+					placeholder="<?php esc_attr_e( 'Search for events', 'the-events-calendar' ); ?>"
+				/>
 			</div>
-			<div class="tribe-common-form-control-text">
-				<label for="location">Location</label>
+			<div
+				class="tribe-common-form-control-text tribe-events-c-search__input-control tribe-events-c-search__input-control--location"
+				data-js="tribe-events-events-bar-input-control"
+			>
+				<label class="tribe-common-form-control-text__label" for="tribe-events-events-bar-location">
+					Location
+				</label>
 				<input
-					class="tribe-common-form-control-text__input tribe-common-c-search__input"
+					class="tribe-common-form-control-text__input tribe-events-c-search__input tribe-events-c-search__input--icon"
+					data-js="tribe-events-events-bar-input-control-input"
 					type="text"
-					id="location"
-					name="location"
-					placeholder="Location"
-					/>
-			</div>
-			<div class="tribe-common-form-control-text">
-				<label for="date">Date</label>
-				<input
-					class="tribe-common-form-control-text__input tribe-common-c-search__input"
-					type="text"
-					id="date"
-					name="date"
-					placeholder="Enter Date"
-					/>
+					id="tribe-events-events-bar-location"
+					name="tribe-events-views[tribe-bar-search]"
+					value=""
+					placeholder="<?php esc_attr_e( 'In a location', 'the-events-calendar' ); ?>"
+				/>
 			</div>
 		</div>
-		<button type="submit" class="tribe-common-c-btn tribe-common-c-search__button">Find Events</button>
+		<button
+			class="tribe-common-c-btn tribe-events-c-search__button"
+			type="submit"
+			name="submit-bar"
+		>
+			Find Events
+		</button>
 	</form>
 </div>
