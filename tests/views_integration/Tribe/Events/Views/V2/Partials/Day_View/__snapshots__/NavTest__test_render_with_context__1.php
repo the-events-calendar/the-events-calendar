@@ -4,7 +4,7 @@
 	<a
 		href="#"
 		rel="prev"
-		class="tribe-events-c-nav__prev tribe-common-b2"
+		class="tribe-events-c-nav__prev tribe-common-b2 tribe-common-b1--min-medium"
 		data-js="tribe-events-view-link"
 	>
 		Previous Day	</a>
@@ -23,7 +23,7 @@
 	<a
 		href="#"
 		rel="next"
-		class="tribe-events-c-nav__next tribe-common-b2"
+		class="tribe-events-c-nav__next tribe-common-b2 tribe-common-b1--min-medium"
 		data-js="tribe-events-view-link"
 	>
 		Next Day	</a>
