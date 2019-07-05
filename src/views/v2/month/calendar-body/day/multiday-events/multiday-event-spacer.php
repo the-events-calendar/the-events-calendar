@@ -1,6 +1,6 @@
 <?php
 /**
- * View: Month Event Multiday - Hidden Event / Spacer
+ * View: Month View - Multiday Event Spacer
  *
  * Override this template in your own theme by creating a file at:
  * [your-theme]/tribe/events/views/v2/month/calendar-body/day/multiday-events/multiday-event.php
