@@ -44,8 +44,6 @@ tribe_asset_enqueue( 'tribe-common-style' );
 	<br />
 	<button class="tribe-common-c-btn">Primary Button</button>
 	<br />
-	<button class="tribe-common-c-btn tribe-common-c-btn--secondary">Secondary Button</button>
-	<br />
 	<button class="tribe-common-c-btn-border">Border Button</button>
 	<br />
 	<button class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-left"></button>
@@ -59,8 +57,6 @@ tribe_asset_enqueue( 'tribe-common-style' );
 	<button class="tribe-common-c-btn-icon tribe-common-c-btn-icon--border tribe-common-c-btn-icon--search"></button>
 	<br />
 	<a href="#" class="tribe-common-c-btn">Primary Button</a>
-	<br />
-	<a href="#" class="tribe-common-c-btn tribe-common-c-btn--secondary">Secondary Button</a>
 	<br />
 	<a href="#" class="tribe-common-c-btn-border">Border Button</a>
 	<br />
