@@ -52,9 +52,25 @@ tribe_asset_enqueue( 'tribe-common-style' );
 	<button class="tribe-common-c-btn-icon tribe-common-c-btn-icon--border tribe-common-c-btn-icon--filters"></button>
 	<button class="tribe-common-c-btn-icon tribe-common-c-btn-icon--border tribe-common-c-btn-icon--search"></button>
 	<br />
+	<a href="#" class="tribe-common-c-btn">Primary Button</a>
+	<br />
+	<a href="#" class="tribe-common-c-btn tribe-common-c-btn--secondary">Secondary Button</a>
+	<br />
+	<a href="#" class="tribe-common-c-btn-border">Border Button</a>
+	<br />
+	<a href="#" class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-left"></a>
+	<a href="#" class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-right"></a>
+	<a href="#" class="tribe-common-c-btn-icon tribe-common-c-btn-icon--filters"></a>
+	<a href="#" class="tribe-common-c-btn-icon tribe-common-c-btn-icon--search"></a>
+	<br />
+	<a href="#" class="tribe-common-c-btn-icon tribe-common-c-btn-icon--border tribe-common-c-btn-icon--caret-left"></a>
+	<a href="#" class="tribe-common-c-btn-icon tribe-common-c-btn-icon--border tribe-common-c-btn-icon--caret-right"></a>
+	<a href="#" class="tribe-common-c-btn-icon tribe-common-c-btn-icon--border tribe-common-c-btn-icon--filters"></a>
+	<a href="#" class="tribe-common-c-btn-icon tribe-common-c-btn-icon--border tribe-common-c-btn-icon--search"></a>
 	<h3>CTAs</h3>
 	<br />
 	<a href="#" class="tribe-common-cta">Call to Action</a>
+	<a href="#" class="tribe-common-cta tribe-common-cta--alt">Call to Action</a>
 	<br />
 	<h3>Checkboxes & Radios</h3>
 	<br />
