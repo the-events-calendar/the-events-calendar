@@ -34,6 +34,12 @@ tribe_asset_enqueue( 'tribe-common-style' );
 	<br />
 	<p class="tribe-common-b4">Body 4, lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
 	<br />
+	<h3>Base</h3>
+	<br />
+	<button>I'm a button</button>
+	<br />
+	<a href="#">I'm a link</a>
+	<br />
 	<h3>Buttons</h3>
 	<br />
 	<button class="tribe-common-c-btn">Primary Button</button>
