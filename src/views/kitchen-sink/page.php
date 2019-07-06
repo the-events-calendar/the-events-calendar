@@ -71,7 +71,14 @@ tribe_asset_enqueue( 'tribe-common-style' );
 	<a href="#" class="tribe-common-c-btn-icon tribe-common-c-btn-icon--border tribe-common-c-btn-icon--search"></a>
 	<h3>CTAs</h3>
 	<br />
+	<a href="#" class="tribe-common-anchor">Anchor</a>
+	<br />
+	<a href="#" class="tribe-common-anchor-alt">Anchor</a>
+	<br />
+	<a href="#" class="tribe-common-anchor-thin">Anchor</a>
+	<br />
 	<a href="#" class="tribe-common-cta">Call to Action</a>
+	<br />
 	<a href="#" class="tribe-common-cta tribe-common-cta--alt">Call to Action</a>
 	<br />
 	<h3>Checkboxes & Radios</h3>
