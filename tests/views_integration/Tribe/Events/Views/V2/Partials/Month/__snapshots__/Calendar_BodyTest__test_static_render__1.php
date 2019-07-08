@@ -504,16 +504,16 @@
 	<div class="tribe-events-calendar-month__calendar-event-details">
 
 		<div class="tribe-events-calendar-month__calendar-event-datetime">
-	<time datetime="14:00">2pm</time>
-	<span class="tribe-events-calendar-month__calendar-event-datetime-separator"> - </span>
-	<time datetime="18:00">6pm</time>
 			<em
 			class="tribe-events-calendar-month__calendar-event-datetime-featured tribe-common-svgicon tribe-common-svgicon--featured"
 			aria-label="Featured"
 			title="Featured"
 		>
 		</em>
-		</div>
+		<time datetime="14:00">2pm</time>
+	<span class="tribe-events-calendar-month__calendar-event-datetime-separator"> - </span>
+	<time datetime="18:00">6pm</time>
+	</div>
 		<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h--alt">
 	<a
 		href="#"
@@ -733,10 +733,10 @@
 	<div class="tribe-events-calendar-month__calendar-event-details">
 
 		<div class="tribe-events-calendar-month__calendar-event-datetime">
-	<time datetime="14:00">2pm</time>
+		<time datetime="14:00">2pm</time>
 	<span class="tribe-events-calendar-month__calendar-event-datetime-separator"> - </span>
 	<time datetime="18:00">6pm</time>
-				<em
+			<em
 			class="tribe-events-calendar-month__calendar-event-datetime-recurring tribe-common-svgicon tribe-common-svgicon--recurring"
 			aria-label="Recurring"
 			title="Recurring"
@@ -783,16 +783,16 @@
 	<div class="tribe-events-calendar-month__calendar-event-details">
 
 		<div class="tribe-events-calendar-month__calendar-event-datetime">
-	<time datetime="14:00">2pm</time>
-	<span class="tribe-events-calendar-month__calendar-event-datetime-separator"> - </span>
-	<time datetime="18:00">6pm</time>
 			<em
 			class="tribe-events-calendar-month__calendar-event-datetime-featured tribe-common-svgicon tribe-common-svgicon--featured"
 			aria-label="Featured"
 			title="Featured"
 		>
 		</em>
-		</div>
+		<time datetime="14:00">2pm</time>
+	<span class="tribe-events-calendar-month__calendar-event-datetime-separator"> - </span>
+	<time datetime="18:00">6pm</time>
+	</div>
 		<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h--alt">
 	<a
 		href="#"
@@ -883,32 +883,14 @@
 			
 	<article class="tribe-events-calendar-month__calendar-event">
 
-	<div class="tribe-events-calendar-month__calendar-event-featured-image-wrapper">
-	<a
-		href="#"
-		title="HackNight #CodeforthePeople"
-		rel="bookmark"
-		class="tribe-events-calendar-month__calendar-event-featured-image-link"
-	>
-		<div class="tribe-events-calendar-month__calendar-event-featured-image tribe-common-c-image tribe-common-c-image--bg">
-			<div
-				class="tribe-common-c-image__bg"
-				style="background-image: url(\'https://cldup.com/GkpQuY_i8k-1200x1200.jpeg\');"
-				role="img"
-				aria-label="alt text here"
-			>
-			</div>
-		</div>
-	</a>
-</div>
-
+	
 	<div class="tribe-events-calendar-month__calendar-event-details">
 
 		<div class="tribe-events-calendar-month__calendar-event-datetime">
-	<time datetime="14:00">2pm</time>
+		<time datetime="14:00">2pm</time>
 	<span class="tribe-events-calendar-month__calendar-event-datetime-separator"> - </span>
 	<time datetime="18:00">6pm</time>
-		</div>
+	</div>
 		<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h--alt">
 	<a
 		href="#"
@@ -1281,10 +1263,10 @@
 	<div class="tribe-events-calendar-month__calendar-event-details">
 
 		<div class="tribe-events-calendar-month__calendar-event-datetime">
-	<time datetime="14:00">2pm</time>
+		<time datetime="14:00">2pm</time>
 	<span class="tribe-events-calendar-month__calendar-event-datetime-separator"> - </span>
 	<time datetime="18:00">6pm</time>
-				<em
+			<em
 			class="tribe-events-calendar-month__calendar-event-datetime-recurring tribe-common-svgicon tribe-common-svgicon--recurring"
 			aria-label="Recurring"
 			title="Recurring"
@@ -1795,10 +1777,10 @@
 	<div class="tribe-events-calendar-month__calendar-event-details">
 
 		<div class="tribe-events-calendar-month__calendar-event-datetime">
-	<time datetime="14:00">2pm</time>
+		<time datetime="14:00">2pm</time>
 	<span class="tribe-events-calendar-month__calendar-event-datetime-separator"> - </span>
 	<time datetime="18:00">6pm</time>
-				<em
+			<em
 			class="tribe-events-calendar-month__calendar-event-datetime-recurring tribe-common-svgicon tribe-common-svgicon--recurring"
 			aria-label="Recurring"
 			title="Recurring"
@@ -1997,32 +1979,14 @@
 			
 	<article class="tribe-events-calendar-month__calendar-event">
 
-	<div class="tribe-events-calendar-month__calendar-event-featured-image-wrapper">
-	<a
-		href="#"
-		title="Winnipeg WordPress Meetup"
-		rel="bookmark"
-		class="tribe-events-calendar-month__calendar-event-featured-image-link"
-	>
-		<div class="tribe-events-calendar-month__calendar-event-featured-image tribe-common-c-image tribe-common-c-image--bg">
-			<div
-				class="tribe-common-c-image__bg"
-				style="background-image: url(\'https://cldup.com/Nhp8FNOyBl-2000x2000.jpeg\');"
-				role="img"
-				aria-label="alt text here"
-			>
-			</div>
-		</div>
-	</a>
-</div>
-
+	
 	<div class="tribe-events-calendar-month__calendar-event-details">
 
 		<div class="tribe-events-calendar-month__calendar-event-datetime">
-	<time datetime="14:00">2pm</time>
+		<time datetime="14:00">2pm</time>
 	<span class="tribe-events-calendar-month__calendar-event-datetime-separator"> - </span>
 	<time datetime="18:00">6pm</time>
-		</div>
+	</div>
 		<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h--alt">
 	<a
 		href="#"
@@ -2134,10 +2098,10 @@
 	<div class="tribe-events-calendar-month__calendar-event-details">
 
 		<div class="tribe-events-calendar-month__calendar-event-datetime">
-	<time datetime="14:00">2pm</time>
+		<time datetime="14:00">2pm</time>
 	<span class="tribe-events-calendar-month__calendar-event-datetime-separator"> - </span>
 	<time datetime="18:00">6pm</time>
-		</div>
+	</div>
 		<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h--alt">
 	<a
 		href="#"
