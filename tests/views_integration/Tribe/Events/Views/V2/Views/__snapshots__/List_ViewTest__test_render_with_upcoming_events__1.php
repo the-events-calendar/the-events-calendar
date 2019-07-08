@@ -221,7 +221,7 @@
 		class="tribe-events-calendar-list__month-separator-text tribe-common-h7 tribe-common-h--alt"
 		datetime="2019-01"
 	>
-		Jan 2019	</time>
+		January 2019	</time>
 </div>
 
 				<div class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-list__event-row tribe-events-calendar-list__event-row--featured">
@@ -231,7 +231,7 @@
 		<span class="tribe-events-calendar-list__event-date-tag-weekday">
 			Tue		</span>
 		<span class="tribe-events-calendar-list__event-date-tag-daynum tribe-common-h5 tribe-common-h4--min-medium">
-			01		</span>
+			1		</span>
 	</time>
 </div>
 
@@ -256,7 +256,7 @@
 		href="http://test.tri.be/?tribe_events=test-event-9-days-2%2F"
 		title=""
 		rel="bookmark"
-		class="tribe-events-calendar-list__event-title-link tribe-common-anchor"
+		class="tribe-events-calendar-list__event-title-link tribe-common-anchor-thin"
 	>
 		Test Event &#8211; +9 days	</a>
 </h3>
@@ -294,7 +294,7 @@
 		<span class="tribe-events-calendar-list__event-date-tag-weekday">
 			Tue		</span>
 		<span class="tribe-events-calendar-list__event-date-tag-daynum tribe-common-h5 tribe-common-h4--min-medium">
-			01		</span>
+			1		</span>
 	</time>
 </div>
 
@@ -313,7 +313,7 @@
 		href="http://test.tri.be/?tribe_events=single-event-1%2F"
 		title=""
 		rel="bookmark"
-		class="tribe-events-calendar-list__event-title-link tribe-common-anchor"
+		class="tribe-events-calendar-list__event-title-link tribe-common-anchor-thin"
 	>
 		Single Event 1	</a>
 </h3>
@@ -351,10 +351,10 @@
 	<a
 		href="http://test.tri.be/events/?eventDisplay=past"
 		rel="prev"
-		class="tribe-events-c-nav__prev tribe-common-b2"
+		class="tribe-events-c-nav__prev tribe-common-b2 tribe-common-b1--min-medium"
 		data-js="tribe-events-view-link"
 	>
-		Previous Events	</a>
+		Previous <span class="tribe-events-c-nav__prev-label-plural"> Events</span>	</a>
 </li>
 
 		<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--today">
@@ -370,10 +370,10 @@
 	<a
 		href="http://test.tri.be/events/page/2/"
 		rel="next"
-		class="tribe-events-c-nav__next tribe-common-b2"
+		class="tribe-events-c-nav__next tribe-common-b2 tribe-common-b1--min-medium"
 		data-js="tribe-events-view-link"
 	>
-		Next Events	</a>
+		Next <span class="tribe-events-c-nav__next-label-plural"> Events</span>	</a>
 </li>
 	</ul>
 </nav>

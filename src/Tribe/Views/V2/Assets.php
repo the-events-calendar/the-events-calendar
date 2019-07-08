@@ -200,7 +200,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 		}, 200 );
 	}
 
-/**
+	/**
 	 * Checks if we should enqueue frontend assets for the V2 views
 	 *
 	 * @since 4.9.4

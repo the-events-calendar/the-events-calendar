@@ -4,10 +4,10 @@
 	<div class="tribe-events-calendar-month__calendar-event-details">
 
 		<div class="tribe-events-calendar-month__calendar-event-datetime">
-	<time datetime="14:00">2pm</time>
+		<time datetime="14:00">2pm</time>
 	<span class="tribe-events-calendar-month__calendar-event-datetime-separator"> - </span>
 	<time datetime="18:00">6pm</time>
-		</div>
+	</div>
 		<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h--alt">
 	<a
 		href="#"
