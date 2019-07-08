@@ -13,8 +13,12 @@
  *
  */
 $event = $this->get( 'event' );
+$is_featured  = isset( $event->featured ) && $event->featured;
 
-if ( ! isset( $event->image ) ) { // @todo: use template tags for images here
+if (
+	! $is_featured
+	|| ! isset( $event->image )
+) { // @todo: use template tags for images here
 	return;
 }
 

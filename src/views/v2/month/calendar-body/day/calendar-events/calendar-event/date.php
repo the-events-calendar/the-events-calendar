@@ -17,9 +17,6 @@ $is_featured  = isset( $event->featured ) && $event->featured;
 $is_recurring = isset( $event->recurring ) && $event->recurring;
 ?>
 <div class="tribe-events-calendar-month__calendar-event-datetime">
-	<time datetime="14:00">2pm</time>
-	<span class="tribe-events-calendar-month__calendar-event-datetime-separator"> - </span>
-	<time datetime="18:00">6pm</time>
 	<?php if ( $is_featured ) : ?>
 		<em
 			class="tribe-events-calendar-month__calendar-event-datetime-featured tribe-common-svgicon tribe-common-svgicon--featured"
@@ -28,6 +25,9 @@ $is_recurring = isset( $event->recurring ) && $event->recurring;
 		>
 		</em>
 	<?php endif; ?>
+	<time datetime="14:00">2pm</time>
+	<span class="tribe-events-calendar-month__calendar-event-datetime-separator"> - </span>
+	<time datetime="18:00">6pm</time>
 	<?php if ( $is_recurring ) : ?>
 		<em
 			class="tribe-events-calendar-month__calendar-event-datetime-recurring tribe-common-svgicon tribe-common-svgicon--recurring"
