@@ -21,7 +21,7 @@ if ( ! $should_have_month_separator ) {
 	return;
 }
 
-$separator_text = tribe_get_start_date( $event->ID, true, 'M Y' );
+$separator_text = tribe_get_start_date( $event->ID, true, 'F Y' );
 ?>
 <div class="tribe-events-calendar-list__month-separator">
 	<time
