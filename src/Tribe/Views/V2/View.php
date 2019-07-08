@@ -598,18 +598,9 @@ class View implements View_Interface {
 			'wp_query'  => $wp_query,
 		];
 
-		/**
-		 * Filters the arguments that will be used to build the View repository.
-		 *
-		 * @since 4.9.3
-		 *
-		 * @param  array  $args  An array of arguments that should be used to build the repository instance.
-		 * @param  View   $this  The current View object.
-		 */
-		$this->repository_args = apply_filters( "tribe_events_views_v2_{$this->slug}_repository_args", $args, $this );
+		$this->repository->by_args( wp_parse_args( $args, $this->repository_args ) );
 
-		$this->repository->by_args( $this->repository_args );
-		$this->set_url( $this->repository_args, true );
+		$this->set_url( $args, true );
 
 		$wp_query = $this->repository->get_query();
 		wp_reset_postdata();
