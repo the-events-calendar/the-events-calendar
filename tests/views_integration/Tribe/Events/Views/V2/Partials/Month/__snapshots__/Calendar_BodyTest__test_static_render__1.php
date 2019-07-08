@@ -483,12 +483,13 @@
 	<article class="tribe-events-calendar-month__calendar-event tribe-events-calendar-month__calendar-event--featured">
 
 	<div class="tribe-events-calendar-month__calendar-event-featured-image-wrapper">
-	<div class="tribe-events-calendar-month__calendar-event-featured-image tribe-common-c-image tribe-common-c-image--bg">
-		<a
-			href="#"
-			title="North Sydney Meetup"
-			rel="bookmark"
-		>
+	<a
+		href="#"
+		title="North Sydney Meetup"
+		rel="bookmark"
+		class="tribe-events-calendar-month__calendar-event-featured-image-link"
+	>
+		<div class="tribe-events-calendar-month__calendar-event-featured-image tribe-common-c-image tribe-common-c-image--bg">
 			<div
 				class="tribe-common-c-image__bg"
 				style="background-image: url(\'https://cldup.com/xfPL3E4sMe-2000x2000.jpeg\');"
@@ -496,8 +497,8 @@
 				aria-label="alt text here"
 			>
 			</div>
-		</a>
-	</div>
+		</div>
+	</a>
 </div>
 
 	<div class="tribe-events-calendar-month__calendar-event-details">
