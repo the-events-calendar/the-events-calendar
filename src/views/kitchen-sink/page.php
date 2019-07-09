@@ -32,8 +32,6 @@ tribe_asset_enqueue( 'tribe-common-style' );
 	<br />
 	<p class="tribe-common-b3">Body 3, lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
 	<br />
-	<p class="tribe-common-b4">Body 4, lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
-	<br />
 	<h3>Base</h3>
 	<br />
 	<button>I'm a button</button>
@@ -73,7 +71,14 @@ tribe_asset_enqueue( 'tribe-common-style' );
 	<a href="#" class="tribe-common-c-btn-icon tribe-common-c-btn-icon--border tribe-common-c-btn-icon--search"></a>
 	<h3>CTAs</h3>
 	<br />
+	<a href="#" class="tribe-common-anchor">Anchor</a>
+	<br />
+	<a href="#" class="tribe-common-anchor-alt">Anchor</a>
+	<br />
+	<a href="#" class="tribe-common-anchor-thin">Anchor</a>
+	<br />
 	<a href="#" class="tribe-common-cta">Call to Action</a>
+	<br />
 	<a href="#" class="tribe-common-cta tribe-common-cta--alt">Call to Action</a>
 	<br />
 	<h3>Checkboxes & Radios</h3>
@@ -157,7 +162,7 @@ tribe_asset_enqueue( 'tribe-common-style' );
 						</span>
 					</a>
 				</li>
-				<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item-link--active">
+				<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--active">
 					<a href="#" class="tribe-events-c-view-selector__list-item-link">
 						<span class="tribe-events-c-view-selector__list-item-icon tribe-common-svgicon tribe-common-svgicon--list"></span>
 						<span class="tribe-events-c-view-selector__list-item-text">
