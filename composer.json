@@ -19,7 +19,7 @@
     "phpunit/phpunit": "~6.0",
     "scotteh/php-dom-wrapper": "0.7.3",
     "facebook/webdriver": "1.6.0",
-    "moderntribe/tribe-testing-facilities": "dev-fix/view-test-case-date-mocking"
+    "moderntribe/tribe-testing-facilities": "dev-master"
   },
   "minimum-stability": "stable",
   "prefer-stable": true,
