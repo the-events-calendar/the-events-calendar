@@ -595,8 +595,8 @@ class View implements View_Interface {
 		global $wp_query;
 
 		$this->global_backup = [
-			'wp_query'  => $wp_query,
-			'$_SERVER' => isset($_SERVER) ? $_SERVER : [],
+			'wp_query' => $wp_query,
+			'$_SERVER' => isset( $_SERVER ) ? $_SERVER : [],
 		];
 
 		$this->repository->by_args( wp_parse_args( $args, $this->repository_args ) );
