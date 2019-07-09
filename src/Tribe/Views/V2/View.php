@@ -596,6 +596,7 @@ class View implements View_Interface {
 
 		$this->global_backup = [
 			'wp_query'  => $wp_query,
+			'$_SERVER' => isset($_SERVER) ? $_SERVER : [],
 		];
 
 		$this->repository->by_args( wp_parse_args( $args, $this->repository_args ) );
@@ -604,6 +605,9 @@ class View implements View_Interface {
 
 		$wp_query = $this->repository->get_query();
 		wp_reset_postdata();
+
+		// Set the $_SERVER['REQUEST_URI'] as many WordPress functions rely on it to correctly work.
+		$_SERVER['REQUEST_URI'] = $this->get_request_uri();
 
 		// Make the template global to power template tags.
 		global $tribe_template;
@@ -926,5 +930,27 @@ class View implements View_Interface {
 		);
 
 		return $repository_args;
+	}
+
+	/**
+	 * Returns the View request URI.
+	 *
+	 * This value can be used to set the `$_SERVER['REQUEST_URI']` global when rendering the View to make sure WordPress
+	 * functions relying on that value will work correctly.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The View request URI, a value suitable to be used to set the `$_SERVER['REQUEST_URI']` value.
+	 */
+	protected function get_request_uri(): string {
+		$request_uri = '/' . ltrim(
+				str_replace(
+					home_url(),
+					'',
+					Rewrite::$instance->get_clean_url( (string) $this->get_url() ) ),
+				'/'
+			);
+
+		return $request_uri;
 	}
 }
