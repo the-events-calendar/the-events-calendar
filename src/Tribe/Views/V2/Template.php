@@ -89,7 +89,7 @@ class Template extends Base_Template {
 		$this->set( 'view_class', get_class( $view ), false );
 		$this->set( 'view_slug', $view->get_slug(), false );
 
-		// Set which view globaly
+		// Set which view globally.
 		$this->set( 'view', $view, false );
 	}
 
@@ -143,7 +143,8 @@ class Template extends Base_Template {
 					return $folder;
 				},
 				$this->get_template_path_list()
-			)
+			),
+			true
 		);
 
 		return parent::get_template_file( 'base' );

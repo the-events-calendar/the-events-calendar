@@ -9,7 +9,6 @@
 namespace Tribe\Events\Views\V2\Views;
 
 use Tribe\Events\Views\V2\View;
-use Tribe__Events__Rewrite as Rewrite;
 use Tribe__Utils__Array as Arr;
 
 class Day_View extends View {
@@ -30,35 +29,6 @@ class Day_View extends View {
 	 * @var bool
 	 */
 	protected $publicly_visible = true;
-
-	/**
-	 * Get HTML method
-	 *
-	 * @since 4.9.4
-	 *
-	 */
-	public function get_html() {
-		$args = $this->setup_repository_args();
-
-		$this->setup_the_loop( $args );
-
-		$events        = $this->repository->all();
-
-		$template_vars = [
-			'title'    => wp_title( null, false ),
-			'events'   => $events,
-		];
-
-		$template_vars = $this->filter_template_vars( $template_vars );
-
-		$this->template->set_values( $template_vars, false );
-
-		$html = $this->template->render();
-
-		$this->restore_the_loop();
-
-		return $html;
-	}
 
 
 	/**
