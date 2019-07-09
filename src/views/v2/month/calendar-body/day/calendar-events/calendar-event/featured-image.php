@@ -24,12 +24,13 @@ if (
 
 ?>
 <div class="tribe-events-calendar-month__calendar-event-featured-image-wrapper">
-	<div class="tribe-events-calendar-month__calendar-event-featured-image tribe-common-c-image tribe-common-c-image--bg">
-		<a
-			href="#"
-			title="<?php echo esc_attr( $event->title ); ?>"
-			rel="bookmark"
-		>
+	<a
+		href="#"
+		title="<?php echo esc_attr( $event->title ); ?>"
+		rel="bookmark"
+		class="tribe-events-calendar-month__calendar-event-featured-image-link"
+	>
+		<div class="tribe-events-calendar-month__calendar-event-featured-image tribe-common-c-image tribe-common-c-image--bg">
 			<div
 				class="tribe-common-c-image__bg"
 				style="background-image: url('<?php echo esc_attr( $event->image ); ?>');"
@@ -37,6 +38,6 @@ if (
 				aria-label="alt text here"
 			>
 			</div>
-		</a>
-	</div>
+		</div>
+	</a>
 </div>
