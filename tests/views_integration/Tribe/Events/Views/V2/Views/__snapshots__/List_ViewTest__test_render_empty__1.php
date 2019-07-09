@@ -18,7 +18,7 @@
 		<script
 	data-js="tribe-events-view-data"
 	type="application/json"
->{"slug":"list","prev_url":"","next_url":"","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_slug":"list","view":{},"title":"","events":[],"url":"http:\\/\\/test.tri.be\\/events\\/list\\/","bar":{"keyword":"","date":""}}</script>
+>{"slug":"list","prev_url":"","next_url":"","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_slug":"list","view":{},"title":"  Search Results    ","events":[],"url":"http:\\/\\/test.tri.be\\/events\\/list\\/","bar":{"keyword":"","date":""}}</script>
 
 		<header class="tribe-events-header">
 			<div
@@ -57,7 +57,7 @@
 		data-js="tribe-events-view-form"
 		role="search"
 	>
-		<input type="hidden" id="tribe-events-views[_wpnonce]" name="tribe-events-views[_wpnonce]" value="2ab7cc6b39" /><input type="hidden" name="_wp_http_referer" value="/events" />		<input type="hidden" name="tribe-events-views[url]" value="http://test.tri.be/events/list/" />
+		<input type="hidden" id="tribe-events-views[_wpnonce]" name="tribe-events-views[_wpnonce]" value="2ab7cc6b39" /><input type="hidden" name="_wp_http_referer" value="/events/list/" />		<input type="hidden" name="tribe-events-views[url]" value="http://test.tri.be/events/list/" />
 
 		<div class="tribe-common-form-control-text-group tribe-events-c-search__input-group">
 			<div
