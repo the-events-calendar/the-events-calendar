@@ -942,7 +942,7 @@ class View implements View_Interface {
 	 *
 	 * @return string The View request URI, a value suitable to be used to set the `$_SERVER['REQUEST_URI']` value.
 	 */
-	protected function get_request_uri(): string {
+	protected function get_request_uri() {
 		$request_uri = '/' . ltrim(
 				str_replace(
 					home_url(),
