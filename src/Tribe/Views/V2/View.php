@@ -55,7 +55,18 @@ class View implements View_Interface {
 	protected $slug = '';
 
 	/**
+	 * The template slug the View instance will use to locate its template files.
+	 *
+	 * This value will be set by the `View::make()` method while building a View instance.
+	 *
+	 * @var string
+	 */
+	protected $template_slug;
+
+	/**
 	 * The Template instance the view will use to locate, manage and render its template.
+	 *
+	 * This value will be set by the `View::make()` method while building a View instance.
 	 *
 	 * @var \Tribe\Events\Views\V2\Template
 	 */
@@ -269,6 +280,7 @@ class View implements View_Interface {
 
 		$instance->set_template( $template );
 		$instance->set_slug( $view_slug );
+		$instance->set_template_slug( $view_slug );
 
 		// Let's set the View context from either the global context or the provided one.
 		$view_context = null === $context ? tribe_context() : $context;
@@ -952,5 +964,23 @@ class View implements View_Interface {
 			);
 
 		return $request_uri;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_template_slug() {
+		if ( null !== $this->template_slug ) {
+			return $this->template_slug;
+		}
+
+		return $this->get_slug();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function set_template_slug( $template_slug ) {
+		$this->template_slug = $template_slug;
 	}
 }
