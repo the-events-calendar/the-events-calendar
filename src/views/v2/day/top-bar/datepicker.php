@@ -21,6 +21,8 @@ if ( empty( $selected_date_value ) ) {
 
 $selected_datetime = strtotime( $selected_date_value );
 
+$selected_date_label = date_i18n( tribe_get_date_format( true ), $selected_datetime );
+
 ?>
 <div class="tribe-events-c-top-bar__datepicker" data-js="tribe-events-top-bar-datepicker">
 	<button
@@ -28,7 +30,7 @@ $selected_datetime = strtotime( $selected_date_value );
 		data-js="tribe-events-top-bar-datepicker-button"
 	>
 		<time datetime="<?php echo esc_attr( date( 'Y-m-d', $selected_datetime ) ); ?>">
-			<?php echo date( 'F jS, Y', $selected_datetime ); ?>
+			<?php echo esc_html( $selected_date_label ); ?>
 		</time>
 	</button>
 	<label
