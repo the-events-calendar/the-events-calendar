@@ -154,6 +154,7 @@ class View implements View_Interface {
 		$query_args = $url_object->query_overrides_path( true )
 		                         ->parse_url()
 		                         ->get_query_args();
+
 		$params['event_display_mode'] = Arr::get( $query_args, 'eventDisplay', false );
 
 		/**
