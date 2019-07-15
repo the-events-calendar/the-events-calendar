@@ -80,7 +80,7 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 			],
 			'list_page_2'             => [
 				'/?post_type=tribe_events&eventDisplay=list&paged=2',
-				'/events/page/2/',
+				'/events/list/page/2/',
 			],
 			'list_page_1_w_extra'     => [
 				'/?post_type=tribe_events&eventDisplay=list&foo=bar',
@@ -316,6 +316,59 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 	public function should_remove_handled_query_vars_from_query_string_when_cleaning_urls($input_uri, $expected) {
 		$input_uri = home_url( $input_uri );
 		$expected  = home_url( $expected );
+
+		$rewrite = new Rewrite;
+		global $wp_rewrite;
+		$rewrite->setup( $wp_rewrite );
+		$clean_url = $rewrite->get_clean_url( $input_uri );
+
+		$this->assertEquals( $expected, $clean_url );
+	}
+
+	public function list_rewrite_data_set() {
+		return [
+			'default_view_page_1'               => [ '/?post_type=tribe_events&eventDisplay=default', '/events/' ],
+			'default_view_page_1_w_pagenum'     => [
+				'/?post_type=tribe_events&eventDisplay=default&paged=1',
+				'/events/'
+			],
+			'default_view_page_2'               => [
+				'/?post_type=tribe_events&eventDisplay=default&paged=2',
+				'/events/page/2/'
+			],
+			'list_view_page_1'                  => [ '/?post_type=tribe_events&eventDisplay=list', '/events/list/' ],
+			'list_view_page_1_w_pagenum'        => [
+				'/?post_type=tribe_events&eventDisplay=list&paged=1',
+				'/events/list/'
+			],
+			'events_list_view_page_1'           => [
+				'/events/?post_type=tribe_events&eventDisplay=list',
+				'/events/list/'
+			],
+			'events_list_view_page_1_w_pagenum' => [
+				'/events/?post_type=tribe_events&eventDisplay=list&paged=1',
+				'/events/list/'
+			],
+			'list_view_page_2'                  => [
+				'/?post_type=tribe_events&eventDisplay=list&paged=2',
+				'/events/list/page/2/'
+			],
+			'event_list_view_page_2'            => [
+				'/events/?post_type=tribe_events&eventDisplay=list&paged=2',
+				'/events/list/page/2/'
+			],
+		];
+	}
+
+	/**
+	 * It should correctly handle /list rewrites
+	 *
+	 * @test
+	 * @dataProvider list_rewrite_data_set
+	 */
+	public function should_correctly_handle_list_rewrites( $input_uri, $expected_uri ) {
+		$input_uri = home_url( $input_uri );
+		$expected  = home_url( $expected_uri );
 
 		$rewrite = new Rewrite;
 		global $wp_rewrite;

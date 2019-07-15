@@ -59,7 +59,7 @@ class List_View extends View {
 		$current_page = (int) $this->context->get( 'page', 1 );
 		$display      = $this->context->get( 'event_display_mode', 'list' );
 
-		if ( $this->slug === $display ) {
+		if ( $this->slug === $display || 'default' === $display ) {
 			$url = parent::next_url( $canonical );
 		} else if ( $current_page > 1 ) {
 			$url = parent::prev_url( $canonical, [ 'eventDisplay' => 'past' ] );
