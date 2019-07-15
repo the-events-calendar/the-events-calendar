@@ -1,0 +1,135 @@
+/* -----------------------------------------------------------------------------
+ *
+ * Datepicker
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe-events {
+
+	.datepicker {
+		background-color: var(--color-background);
+		border: 1px solid var(--color-border-default);
+		box-shadow: var(--box-shadow-tooltip);
+		margin-top: var(--spacer-1);
+		padding: 0 var(--spacer-3) var(--spacer-3);
+
+		@media (--viewport-medium) {
+			margin-top: var(--spacer-3);
+		}
+
+		&:before,
+		&:after {
+			content: none;
+		}
+
+		td,
+		th {
+			height: initial;
+			width: initial;
+		}
+
+		.dow {
+			color: var(--color-text-primary);
+			font-size: var(--font-size-0);
+			font-weight: var(--font-weight-regular);
+			padding: 0 0 var(--spacer-2) 0;
+		}
+
+		.datepicker-switch {
+			color: var(--color-text-primary);
+			font-size: var(--font-size-3);
+			font-weight: var(--font-weight-regular);
+		}
+
+		.datepicker-switch,
+		.prev, .next {
+			line-height: var(--line-height-0);
+			padding: var(--spacer-5) 0;
+
+			&:hover,
+			&:focus,
+			&:active {
+				background-color: var(--color-background);
+			}
+		}
+
+		.prev,
+		.next {
+			text-indent: -999em;
+			position: relative;
+
+			&:before {
+				height: 14px;
+				width: 14px;
+				content: '';
+				background-repeat: no-repeat;
+				background-size: contain;
+				display: block;
+				position: absolute;
+			}
+		}
+
+		.prev {
+			&:before {
+				background-image: svg-inline(caret-left);
+				left: 0;
+			}
+
+			&:hover,
+			&:focus,
+			&:active {
+				&:before {
+					background-image: svg-inline(caret-left-active);
+				}
+			}
+		}
+
+		.next {
+			&:before {
+				background-image: svg-inline(caret-right);
+				right: 0;
+			}
+
+			&:hover,
+			&:focus,
+			&:active {
+				&:before {
+					background-image: svg-inline(caret-right-active);
+				}
+			}
+		}
+
+		.day {
+			font-size: var(--font-size-3);
+			color: var(--color-text-primary);
+			line-height: var(--line-height-0);
+			padding: var(--spacer-2) 14px;
+
+			&.old {
+				color: var(--color-text-disabled);
+			}
+		}
+
+		.month,
+		.year {
+			font-size: var(--font-size-1);
+		}
+
+		.day,
+		.month,
+		.year {
+			&:hover,
+			&:focus,
+			&.focused {
+				color: var(--color-background);
+				background-color: var(--color-accent-primary);
+			}
+
+			&:active {
+				color: var(--color-text-primary);
+				background-color: var(--color-background-secondary);
+				font-weight: var(--font-weight-bold);
+			}
+		}
+	}
+}

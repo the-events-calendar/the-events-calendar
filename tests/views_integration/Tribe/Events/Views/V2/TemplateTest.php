@@ -1,5 +1,4 @@
 <?php
-
 namespace Tribe\Events\Views\V2;
 
 class TemplateTest extends \Codeception\TestCase\WPTestCase {

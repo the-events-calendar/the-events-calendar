@@ -202,7 +202,7 @@ class Url {
 	/**
 	 * Returns the alias of the variable set in the Url query args, if any.
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param              string $var The name of the variable to search an alias for.
 	 * @param Context|null $context The Context object to use to fetch locations, if `null` the global Context will be
@@ -223,7 +223,8 @@ class Url {
 			return false;
 		}
 
-		$context_aliases  = Arr::get( $context->get_locations(), [ $var, 'read', Context::QUERY_VAR ], [] );
+		$context_aliases = (array) Arr::get( $context->get_locations(), [ $var, 'read', Context::QUERY_VAR ], [] );
+
 		$alias_query_args = array_intersect_key(
 			$query_args,
 			array_merge( $aliases, array_combine( $context_aliases, $context_aliases ) )
@@ -235,7 +236,7 @@ class Url {
 	/**
 	 * Returns the value of a query arg set on the URL, or a default value if not found.
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param      string $key The
 	 * @param null $default

@@ -25,7 +25,7 @@ class Month_View extends View {
 	/**
 	 * Visibility for this view.
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @var bool
 	 */

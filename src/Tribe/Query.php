@@ -12,6 +12,13 @@ use Tribe__Utils__Array as Arr;
 
 if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 	class Tribe__Events__Query {
+		/**
+		 * @since 4.9.4
+		 *
+		 * @var array The WP_Query arguments used in the last `getEvents` method
+		 *            query.
+		 */
+		protected static $last_result = [];
 
 		/**
 		 * Initialize The Events Calendar query filters and post processing.
@@ -1400,7 +1407,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				 * that should be updated here. Do not try to move this conditional unpacking logic
 				 * in the ORM: this is an issue the proxy function should handle ad-hoc.
 				 */
-				$requiring_unpack = [ 'date_overlaps' ];
+				$requiring_unpack = [ 'date_overlaps', 'runs_between' ];
 				foreach ( array_intersect( array_keys( $args ), $requiring_unpack ) as $key ) {
 					$event_orm->by( $key, ...$args[ $key ] );
 					unset( $args[ $key ] );
@@ -1420,28 +1427,32 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 
 					// Run the query.
 					$result->get_posts();
+					self::$last_result = empty( $result->posts ) ? [] : $result->posts;
 				}
 
 				$cache->set( $cache_key, $result, Tribe__Cache::NON_PERSISTENT, 'save_post' );
 			}
+
 
 			if ( $return_found_posts ) {
 				return $result;
 			}
 
 			if ( ! empty( $result->posts ) ) {
+				self::$last_result = empty( $result->posts ) ? [] : $result->posts;
 				if ( $full ) {
 					return $result;
 				}
-
 				return $result->posts;
 			}
 
 			if ( $full ) {
+				self::$last_result = empty( $result->posts ) ? [] : $result->posts;
 				return $result;
 			}
 
-			return array();
+			self::$last_result = [];
+			return [];
 		}
 
 		/**
@@ -1513,6 +1524,21 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		 */
 		public static function default_page_on_front( $value ) {
 			return tribe( 'tec.front-page-view' )->is_virtual_page_id( $value ) ? 0 : $value;
+		}
+
+		/**
+		 * Reruns the last query used to `getEvents` to fetch
+		 * all the found IDs.
+		 *
+		 * Pagination is ignored; this methods provides a way to
+		 * not only count the found posts but to get their ID too.
+		 *
+		 * @since 4.9.4
+		 *
+		 * @return array
+		 */
+		public static function last_found_events() {
+			return self::$last_result;
 		}
 	}
 }

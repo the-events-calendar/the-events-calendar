@@ -12,7 +12,7 @@ use Tribe__Utils__Array as Arr;
  * Class Views Manager
  *
  * @package Tribe\Events\Views\V2
- * @since   TBD
+ * @since   4.9.4
  */
 class Manager {
 	/**
@@ -33,7 +33,7 @@ class Manager {
 	/**
 	 * Returns an associative array of Views currently registered.
 	 *
-	 * @since  TBD
+	 * @since  4.9.4
 	 *
 	 * @return array An array in the shape `[ <slug> => <View Class> ]`.
 	 */
@@ -63,7 +63,7 @@ class Manager {
 	/**
 	 * Get the class name for the default registered view.
 	 *
-	 * @since  TBD
+	 * @since  4.9.4
 	 *
 	 * @return string
 	 */
@@ -74,7 +74,7 @@ class Manager {
 	/**
 	 * Get the class name for the default registered view.
 	 *
-	 * @since  TBD
+	 * @since  4.9.4
 	 *
 	 * @return bool|string Returns boolean false when no views are registered or default not found.
 	 */
@@ -94,7 +94,7 @@ class Manager {
 	/**
 	 * Returns an associative array of Views currently registered that are publicly visible.
 	 *
-	 * @since  TBD
+	 * @since  4.9.4
 	 *
 	 * @return array An array in the shape `[ <slug> => <View Class> ]`.
 	 */
@@ -119,13 +119,13 @@ class Manager {
 	 * Returns the slug and class of a given view, accepts slug or class.
 	 * Will return false for both in case both fail.
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param string $requested_view The view slug or fully qualified class name
 	 *
 	 * @return array  Formatted [ (string|bool) $view_slug, (string|bool) $view_class ]
 	 */
-	public function get_view( string $requested_view ) {
+	public function get_view( $requested_view ) {
 		$view_slug = $this->get_view_slug_by_class( $requested_view );
 		$view_class = $this->get_view_class_by_slug( $requested_view );
 
@@ -150,13 +150,13 @@ class Manager {
 	/**
 	 * Returns the slug currently associated to a View class, if any.
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param string $view_class The view fully qualified class name.
 	 *
 	 * @return int|string|false  The slug currently associated to a View class if it is found, `false` otherwise.
 	 */
-	public function get_view_slug_by_class( string $view_class ) {
+	public function get_view_slug_by_class( $view_class ) {
 		$registered_views = $this->get_registered_views();
 
 		return array_search( $view_class, $registered_views, true );
@@ -165,13 +165,13 @@ class Manager {
 	/**
 	 * Returns the class currently associated to a View slug, if any.
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param  string $slug The view fully qualified class name.
 	 *
 	 * @return string|false The class currently associated to a View slug if it is found, `false` otherwise.
 	 */
-	public function get_view_class_by_slug( string $slug ) {
+	public function get_view_class_by_slug( $slug ) {
 		$registered_views = $this->get_registered_views();
 
 		return Arr::get( $registered_views, $slug, false );

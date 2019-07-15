@@ -65,6 +65,21 @@ class Template_Bootstrap {
 	}
 
 	/**
+	 * Fetches the HTML for the Single Event page using the legacy view system
+	 *
+	 * @since  4.9.4
+	 *
+	 * @return string
+	 */
+	protected function get_v1_single_event_html() {
+		ob_start();
+		tribe_get_view( 'single-event' );
+		$html = ob_get_clean();
+
+		return $html;
+	}
+
+	/**
 	 * Gets the View HTML
 	 *
 	 * @todo Stop handling kitchen sink template here.
@@ -74,9 +89,17 @@ class Template_Bootstrap {
 	 * @return string
 	 */
 	public function get_view_html() {
-		$query = tribe_get_global_query_object();
+		$query     = tribe_get_global_query_object();
+		$context   = tribe_context();
+		$view_slug = $context->get( 'view' );
 
-		if ( isset( $query->query_vars['tribe_events_views_kitchen_sink'] ) ) {
+		if (
+			'single-event' === $view_slug
+			&& ! tribe_is_showing_all()
+			&& ! \Tribe__Templates::is_embed()
+		) {
+			$html = $this->get_v1_single_event_html();
+		} elseif ( isset( $query->query_vars['tribe_events_views_kitchen_sink'] ) ) {
 			$context = [
 				'query' => $query,
 			];
@@ -91,9 +114,7 @@ class Template_Bootstrap {
 
 			$html = tribe( Kitchen_Sink::class )->template( $template, $context, false );
 		} else {
-			$context   = tribe_context();
-			$view_slug = $context->get( 'view' );
-			$html      = View::make( $view_slug, $context )->get_html();
+			$html = View::make( $view_slug, $context )->get_html();
 		}
 
 		return $html;
@@ -114,11 +135,6 @@ class Template_Bootstrap {
 		}
 
 		if ( ! $query instanceof WP_Query ) {
-			return false;
-		}
-
-		// Dont load on Single event pages
-		if ( 'single-event' === $query->get( 'eventDisplay' ) ) {
 			return false;
 		}
 

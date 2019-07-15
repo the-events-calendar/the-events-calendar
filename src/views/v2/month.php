@@ -9,19 +9,12 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.3
+ * @version 4.9.4
  *
  */
 use Tribe\Events\Views\V2\Rest_Endpoint;
 
 $events = $this->get( 'events' );
-
-/**
- * Adding this as a temprorary data structure.
- * @todo: This array should contain the month with real events.
- */
-$month = apply_filters( 'tribe_events_views_v2_month_demo_data', [] );
-
 ?>
 <div
 	class="tribe-common tribe-events tribe-events-view"
@@ -35,34 +28,29 @@ $month = apply_filters( 'tribe_events_views_v2_month_demo_data', [] );
 
 		<?php $this->template( 'data' ); ?>
 
-		<?php $this->template( 'events-bar' ); ?>
+		<header class="tribe-events-header">
+			<?php $this->template( 'events-bar' ); ?>
 
-		<?php $this->template( 'top-bar' ); ?>
+			<?php $this->template( 'top-bar' ); ?>
+		</header>
 
-		<div class="tribe-events-calendar-month" role="grid" aria-labelledby="tribe-calendar-header" aria-readonly="true">
+		<div
+			class="tribe-events-calendar-month"
+			role="grid"
+			aria-labelledby="tribe-calendar-header"
+			aria-readonly="true"
+			data-js="tribe-events-month-grid"
+		>
 
-			<?php $this->template( 'month/grid-header' ); ?>
+			<?php $this->template( 'month/calendar-header' ); ?>
 
-			<div class="tribe-events-calendar-month__body" role="rowgroup">
-
-				<?php // @todo: replace this with the actual month days. Using these for(s) for presentation purposes. ?>
-				<?php for ( $week = 0; $week < 4; $week++ ) : ?>
-
-					<div class="tribe-events-calendar-month__week" role="row">
-
-						<?php for ( $day = 0; $day < 7; $day++ ) : ?>
-
-							<?php $this->template( 'month/day', [ 'day' => $day, 'week' => $week, 'month' => $month ] ); ?>
-
-						<?php endfor; ?>
-
-					</div>
-
-				<?php endfor; ?>
-
-			</div>
+			<?php $this->template( 'month/calendar-body' ); ?>
 
 		</div>
+
+		<?php $this->template( 'month/nav', [ 'location' => 'calendar' ] ); ?>
+
+		<?php $this->template( 'month/mobile-events' ); ?>
 
 	</div>
 

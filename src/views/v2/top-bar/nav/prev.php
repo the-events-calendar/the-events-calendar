@@ -11,12 +11,9 @@
  *
  * @var string $link The URL to the previous page, if any, or an empty string.
  *
- * @version 4.9.3
+ * @version 4.9.4
  *
  */
-if ( empty( $link ) ) {
-	return;
-}
 ?>
 <li class="tribe-events-c-top-bar__nav-list-item">
 	<a

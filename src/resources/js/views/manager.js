@@ -45,7 +45,7 @@ tribe.events.views.manager = {};
 		link: '[data-js="tribe-events-view-link"]',
 		dataScript: '[data-js="tribe-events-view-data"]',
 		loader: '.tribe-events-view-loader',
-		hiddenElement: '.tribe-common-a11y-hidden'
+		hiddenElement: '.tribe-common-a11y-hidden',
 	};
 
 	/**
@@ -117,7 +117,7 @@ tribe.events.views.manager = {};
 	/**
 	 * Given an container determines if it should manage URL.
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param  {Element|jQuery} element Which element we are using as the container.
 	 *
@@ -145,7 +145,7 @@ tribe.events.views.manager = {};
 	 * Usage, on the AJAX request we will pass data back using a <script>
 	 * formatted as a `application/json` that we will parse and apply here.
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param  {Event}  event DOM Event related to the Click action
 	 *

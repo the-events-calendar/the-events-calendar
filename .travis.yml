@@ -130,12 +130,12 @@ before_script:
   - cd ${PLUGIN_DIR}
 
 script:
-  - codecept run integration
-  - codecept run muintegration
-  - codecept run wpunit
-  - codecept run aggregatorv1
-  - codecept run restv1
-  - codecept run views_rest
-  - codecept run views_integration
-  - codecept run views_ui
-  # - codecept run acceptance
+  - codecept run -f integration || travis_terminate 1
+  - codecept run -f muintegration || travis_terminate 1
+  - codecept run -f wpunit || travis_terminate 1
+  - codecept run -f aggregatorv1 || travis_terminate 1
+  - codecept run -f restv1 || travis_terminate 1
+  - codecept run -f views_rest || travis_terminate 1
+  - codecept run -f views_integration || travis_terminate 1
+  - codecept run -f views_ui || travis_terminate 1
+  #- codecept run acceptance

@@ -1,7 +1,7 @@
 /**
  * Makes sure we have all the required levels on the Tribe Object
  *
- * @since  TBD
+ * @since  4.9.4
  *
  * @type   {PlainObject}
  */
@@ -12,7 +12,7 @@ tribe.events.views.manager = tribe.events.views.manager || {};
 /**
  * Configures Views Tooltip Object in the Global Tribe variable
  *
- * @since  TBD
+ * @since  4.9.4
  *
  * @type   {PlainObject}
  */
@@ -21,7 +21,7 @@ tribe.events.views.tooltip = {};
 /**
  * Initializes in a Strict env the code that manages the Event Views
  *
- * @since  TBD
+ * @since  4.9.4
  *
  * @param  {PlainObject} $   jQuery
  * @param  {PlainObject} obj tribe.events.views.tooltip
@@ -35,7 +35,7 @@ tribe.events.views.tooltip = {};
 	/**
 	 * Selectors used for configuration and setup
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @type {PlainObject}
 	 */
@@ -46,75 +46,84 @@ tribe.events.views.tooltip = {};
 
 	/**
 	 * Override of the `functionInit` tooltipster method.
-	 *
 	 * A custom function to be fired only once at instantiation.
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
+	 * @param {Tooltipster} instance instance of Tooltipster
+	 * @param {PlainObject} helper   helper object with tooltip origin
+	 *
+	 * @return {void}
 	 */
 	obj.onFunctionInit = function( instance, helper ) {
-
-		var content = $( helper.origin ).find( obj.selectors.tooltipContent ).html();
+		var $origin = $( helper.origin );
+		var content = $origin.find( obj.selectors.tooltipContent ).html();
 		instance.content( content );
-		$( helper.origin )
-			.focus( function() {
-				obj.onOriginFocus( $( this ) )
-			})
-			.blur( function() {
-				obj.onOriginBlur( $( this ) )
-			});
+		$origin
+			.on( 'focus', { target: $origin }, obj.handleOriginFocus )
+			.on( 'blur', { target: $origin }, obj.handleOriginBlur );
 	};
 
 	/**
-	 * On tooltip focus
+	 * Handle tooltip focus event
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
+	 * @param {Event} event event object
+	 *
+	 * @return {void}
 	 */
-	obj.onOriginFocus = function( el ) {
-		el.tooltipster( 'open' );
+	obj.handleOriginFocus = function( event ) {
+		event.data.target.tooltipster( 'open' );
 	};
 
 	/**
-	 * On tooltip blur
+	 * Handle tooltip blur event
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
+	 * @param {Event} event event object
+	 *
+	 * @return {void}
 	 */
-	obj.onOriginBlur = function( el ) {
-		el.tooltipster( 'close' );
+	obj.handleOriginBlur = function( event ) {
+		event.data.target.tooltipster( 'close' );
 	};
 
 	/**
 	 * Override of the `functionReady` tooltipster method.
-	 *
 	 * A custom function to be fired when the tooltip and its contents have been added to the DOM.
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
+	 * @param {Tooltipster} instance instance of Tooltipster
+	 * @param {PlainObject} helper   helper object with tooltip origin
+	 *
+	 * @return {void}
 	 */
 	obj.onFunctionReady = function( instance, helper ) {
-
-		$( helper.origin ).find( obj.selectors.tooltipContent ).attr( 'aria-hidden', false );
+		$( helper.origin ).find( obj.selectors.tooltipContent ).attr( 'aria-hidden', 'false' );
 	};
 
 	/**
 	 * Override of the `functionAfter` tooltipster method.
-	 *
 	 * A custom function to be fired once the tooltip has been closed and removed from the DOM.
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
+	 * @param {Tooltipster} instance instance of Tooltipster
+	 * @param {PlainObject} helper   helper object with tooltip origin
+	 *
+	 * @return {void}
 	 */
 	obj.onFunctionAfter = function( instance, helper ) {
-
-		$( helper.origin ).find( obj.selectors.tooltipContent ).attr( 'aria-hidden', true );
+		$( helper.origin ).find( obj.selectors.tooltipContent ).attr( 'aria-hidden', 'true' );
 	};
 
 	/**
 	 * Initialize accessible tooltips via tooltipster
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {Event}   event      JS event triggered.
 	 * @param {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event.
@@ -124,28 +133,34 @@ tribe.events.views.tooltip = {};
 	 * @return {void}
 	 */
 	obj.initTooltips = function( event, index, $container, data ) {
-		$container.find( obj.selectors.tooltip ).each( function( index, tooltip ) {
-			$( tooltip ).tooltipster( {
-				interactive: true,
-				theme: [ 'tribe-common', 'tribe-events', 'tribe-events-tooltip-theme' ],
-				functionInit: obj.onFunctionInit,
-				functionReady: obj.onFunctionReady,
-				functionAfter: obj.onFunctionAfter,
+		$container
+			.find( obj.selectors.tooltip )
+			.each( function( index, tooltip ) {
+				$( tooltip ).tooltipster( {
+					interactive: true,
+					theme: [ 'tribe-common', 'tribe-events', 'tribe-events-tooltip-theme' ],
+					functionInit: obj.onFunctionInit,
+					functionReady: obj.onFunctionReady,
+					functionAfter: obj.onFunctionAfter,
+				} );
 			} );
-		} );
 	};
-
 
 	/**
 	 * Handles the initialization of the scripts when Document is ready
 	 *
-	 * @since  TBD
+	 * @since  4.9.4
 	 *
 	 * @return {void}
 	 */
 	obj.ready = function() {
-		// @todo: make it work with variable instead of function, so it's triggered how's supposed to be
 		$document.on( 'afterSetup.tribeEvents', tribe.events.views.manager.selectors.container, obj.initTooltips );
+
+		/**
+		 * @todo: do below for ajax events
+		 */
+		// on 'beforeAjaxBeforeSend.tribeEvents' event, remove all tooltips
+		// on 'afterAjaxError.tribeEvents', add all tooltips
 	};
 
 	// Configure on document ready

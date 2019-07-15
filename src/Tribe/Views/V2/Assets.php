@@ -26,7 +26,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 	/**
 	 * Key for this group of assets.
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @var string
 	 */
@@ -64,6 +64,12 @@ class Assets extends \tad_DI52_ServiceProvider {
 				'underscore',
 				'tribe-events-views-v2-accordion',
 				'tribe-events-views-v2-view-selector',
+				'tribe-events-views-v2-month-multiday-events',
+				'tribe-events-views-v2-month-mobile-events',
+				'tribe-events-views-v2-month-grid',
+				'tribe-events-views-v2-tooltip',
+				'tribe-events-views-v2-events-bar',
+				'tribe-events-views-v2-events-bar-inputs',
 			],
 			'wp_enqueue_scripts',
 			[
@@ -97,14 +103,34 @@ class Assets extends \tad_DI52_ServiceProvider {
 
 		tribe_asset(
 			$plugin,
-			'tribe-events-views-v2-multiday-events',
-			'views/multiday-events.js',
-			[ 'jquery', 'tribe-common', 'tribe-events-views-v2-manager' ],
-			'wp_enqueue_scripts',
+			'tribe-events-views-v2-month-multiday-events',
+			'views/month-multiday-events.js',
+			[ 'jquery', 'tribe-common' ],
+			null,
 			[
-				'priority'     => 10,
-				'conditionals' => [ $this, 'should_enqueue_frontend' ],
-				'groups'       => [ static::$group_key ],
+				'priority' => 10,
+			]
+		);
+
+		tribe_asset(
+			$plugin,
+			'tribe-events-views-v2-month-mobile-events',
+			'views/month-mobile-events.js',
+			[ 'jquery', 'tribe-common', 'tribe-events-views-v2-accordion' ],
+			null,
+			[
+				'priority' => 10,
+			]
+		);
+
+		tribe_asset(
+			$plugin,
+			'tribe-events-views-v2-month-grid',
+			'views/month-grid.js',
+			[ 'jquery', 'tribe-common' ],
+			null,
+			[
+				'priority' => 10,
 			]
 		);
 
@@ -112,20 +138,40 @@ class Assets extends \tad_DI52_ServiceProvider {
 			$plugin,
 			'tribe-events-views-v2-tooltip',
 			'views/tooltip.js',
-			[ 'jquery', 'tribe-common', 'tribe-events-views-v2-manager', 'tribe-tooltipster' ],
-			'wp_enqueue_scripts',
+			[ 'jquery', 'tribe-common', 'tribe-tooltipster' ],
+			null,
 			[
-				'priority'     => 10,
-				'conditionals' => [ $this, 'should_enqueue_frontend' ],
-				'groups'       => [ static::$group_key ],
+				'priority' => 10,
+			]
+		);
+
+		tribe_asset(
+			$plugin,
+			'tribe-events-views-v2-events-bar',
+			'views/events-bar.js',
+			[ 'jquery', 'tribe-common', 'tribe-events-views-v2-accordion' ],
+			null,
+			[
+				'priority' => 10,
+			]
+		);
+
+		tribe_asset(
+			$plugin,
+			'tribe-events-views-v2-events-bar-inputs',
+			'views/events-bar-inputs.js',
+			[ 'jquery', 'tribe-common' ],
+			null,
+			[
+				'priority' => 10,
 			]
 		);
 	}
 
-	/**
+/**
 	 * Checks if we should enqueue frontend assets for the V2 views
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @return bool
 	 */
@@ -136,7 +182,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 		/**
 		 * Allow filtering of where the base Frontend Assets will be loaded
 		 *
-		 * @since TBD
+		 * @since 4.9.4
 		 *
 		 * @param bool $should_enqueue
 		 */

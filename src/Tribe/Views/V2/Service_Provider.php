@@ -88,7 +88,8 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	protected function register_v1_compat() {
 		$v1_compat = new V1_Compat( $this->container );
 		$v1_compat->register();
+
 		$this->container->singleton( V1_Compat::class, $v1_compat );
-		$this->container->singleton( 'views-v2.v1-compat', $v1_compat );
+		$this->container->singleton( 'events.views.v1-compat', $v1_compat );
 	}
 }
