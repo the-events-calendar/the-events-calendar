@@ -178,6 +178,14 @@ class Context extends \tad_DI52_ServiceProvider {
 					Tribe__Context::REQUEST_VAR => [ 's', 'search', 'tribe-bar-search' ],
 				],
 			],
+			'month_posts_per_page' => [
+				'read'  => [
+					Tribe__Context::TRIBE_OPTION => 'monthEventAmount',
+				],
+				'write' => [
+					Tribe__Context::TRIBE_OPTION => 'monthEventAmount',
+				],
+			],
 		] );
 
 		return $locations;
