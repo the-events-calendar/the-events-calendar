@@ -87,7 +87,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 			],
 			'wp_enqueue_scripts',
 			[
-				'priority'     => 10,
+				'priority'     => 20,
 				'conditionals' => [ $this, 'should_enqueue_frontend' ],
 				'groups'       => [ static::$group_key ],
 			]
@@ -195,9 +195,18 @@ class Assets extends \tad_DI52_ServiceProvider {
 		/**
 		 * @todo: remove once we can not load v1 scripts in v2
 		 */
-		add_action( 'wp_enqueue_scripts', function() {
-			wp_deregister_script( 'tribe-events-calendar-script' );
-		}, 200 );
+		add_action( 'wp_enqueue_scripts', [ $this, 'disable_v1' ], 200 );
+	}
+
+	/**
+	 * Removes assets from View V1 when V2 is loaded.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function disable_v1() {
+		wp_deregister_script( 'tribe-events-calendar-script' );
 	}
 
 	/**
