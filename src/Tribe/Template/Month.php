@@ -890,10 +890,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			);
 
 			// If the request is false or not set we assume the request is for all events, not just featured ones.
-			if (
-				tribe_is_truthy( tribe_get_request_var( 'featured', false ) )
-				|| tribe_is_truthy( tribe_get_request_var( 'tribe_featuredevent', false ) )
-			) {
+			if ( tribe( 'tec.featured_events' )->featured_events_requested() ) {
 				$args['featured'] = true;
 			} else {
 				/**
