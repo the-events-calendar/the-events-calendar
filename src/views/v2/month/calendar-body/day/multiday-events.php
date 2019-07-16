@@ -12,12 +12,18 @@
  * @version 4.9.4
  *
  */
-$day_number = $this->get( 'day' );
-$month      = $this->get( 'month' );
+$day_number = $this->get( 'day_number' );
+
+/**
+ * Adding this as a temprorary data structure.
+ * @todo: This array should contain the month with real events.
+ */
+$month_data = apply_filters( 'tribe_events_views_v2_month_demo_data', [] );
 
 // Get the multiday events for that day
 // @todo: This is a function with demo purposes.
-$multiday_events = tribe_events_views_v2_month_demo_day_get_events_multiday( $month, $day_number );
+// @todo: When BE is ready, this should be replaced with $day['multiday_events'];
+$multiday_events = tribe_events_views_v2_month_demo_day_get_events_multiday( $month_data, $day_number );
 
 if ( ! $multiday_events ) {
 	return;
