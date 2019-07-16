@@ -1485,4 +1485,26 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 
 		return $this;
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	protected function format_item( $id ) {
+		$formatted = null === $this->formatter
+			? tribe_get_event( $id )
+			: $this->formatter->format_item( $id );
+
+		/**
+		 * Filters a single formatted event result.
+		 *
+		 * @since TBD
+		 *
+		 * @param mixed|WP_Post                $formatted The formatted event result, usually a post object.
+		 * @param int                          $id        The formatted post ID.
+		 * @param Tribe__Repository__Interface $this      The current repository object.
+		 */
+		$formatted = apply_filters( 'tribe_repository_events_format_item', $formatted, $id, $this );
+
+		return $formatted;
+	}
 }

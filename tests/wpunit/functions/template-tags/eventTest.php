@@ -298,4 +298,72 @@ class generalTest extends WPTestCase {
 		$this->assertTrue( $got->starts_this_week );
 		$this->assertFalse( $got->ends_this_week );
 	}
+
+	/**
+	 * @test tribe_get_event results are cached until post save
+	 */
+	public function test_tribe_get_event_results_are_cached_until_post_save() {
+		$event_id = static::factory()->event->create();
+
+		$first_fetch = tribe_get_event( $event_id );
+
+		$first_fetch_count = $this->queries()->countQueries();
+
+		// Sanity check.
+		$this->assertInstanceOf( \WP_Post::class, $first_fetch );
+		$this->assertEquals( $event_id, $first_fetch->ID );
+
+		$second_fetch = tribe_get_event( $event_id );
+
+		$second_fetch_count = $this->queries()->countQueries();
+
+		$this->assertInstanceOf( \WP_Post::class, $second_fetch );
+		$this->assertEquals( $event_id, $second_fetch->ID );
+		$this->assertEquals( $first_fetch_count, $second_fetch_count );
+
+		// Update the event thus triggering a cache invalidation.
+		wp_update_post( [ 'ID' => $event_id, 'post_title' => 'Updated' ] );
+
+		$third_fetch = tribe_get_event( $event_id );
+
+		$third_fetch_count = $this->queries()->countQueries();
+
+		$this->assertInstanceOf( \WP_Post::class, $third_fetch );
+		$this->assertEquals( $event_id, $third_fetch->ID );
+		$this->assertGreaterThan( $first_fetch_count, $third_fetch_count );
+	}
+
+	/**
+	 * Test tribe_get_event result is filterable
+	 */
+	public function test_tribe_get_event_result_is_filterable() {
+		$event_id = static::factory()->event->create();
+
+		add_filter( 'tribe_get_event', static function ( \WP_Post $event ) {
+			$event->foo = 'bar';
+
+			return $event;
+		} );
+
+		$event = tribe_get_event( $event_id );
+
+		$this->assertTrue( isset( $event->foo ) );
+		$this->assertEquals( 'bar', $event->foo );
+	}
+
+	/**
+	 * Test tribe_get_event allows specifying the output format.
+	 */
+	public function test_tribe_get_event_allows_specifying_the_output_format_() {
+		$event_id = static::factory()->event->create();
+
+		$event = tribe_get_event( $event_id );
+
+		$queries_count = $this->queries()->countQueries();
+
+		$this->assertEquals( (array) $event, tribe_get_event( $event_id, ARRAY_A ) );
+		$this->assertEquals( $queries_count, $this->queries()->countQueries() );
+		$this->assertEquals( array_values( (array) $event ), tribe_get_event( $event_id, ARRAY_N ) );
+		$this->assertEquals( $queries_count, $this->queries()->countQueries() );
+	}
 }
