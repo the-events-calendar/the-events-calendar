@@ -9,16 +9,9 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.4
+ * @version TBD
  *
  */
-
-/**
- * Adding this as a temprorary data structure.
- * @todo: This array should contain the month with real events.
- */
-$month = apply_filters( 'tribe_events_views_v2_month_demo_data', [] );
-
 ?>
 <div class="tribe-events-calendar-month__body" role="rowgroup">
 
@@ -27,9 +20,10 @@ $month = apply_filters( 'tribe_events_views_v2_month_demo_data', [] );
 
 		<div class="tribe-events-calendar-month__week" role="row" data-js="tribe-events-month-grid-row">
 
-			<?php for ( $day = 0; $day < 7; $day++ ) : ?>
+			<?php for ( $day_number = 0; $day_number < 7; $day_number++ ) : ?>
 
-				<?php $this->template( 'month/calendar-body/day', [ 'day' => $day, 'week' => $week, 'month' => $month ] ); ?>
+				<?php // @todo: When the BE is ready, we shouldn't send the $week here, it's now being sent to calculate the day number for the FE presentation. ?>
+				<?php $this->template( 'month/calendar-body/day', [ 'day_number' => $day_number, 'week' => $week ] ); ?>
 
 			<?php endfor; ?>
 
