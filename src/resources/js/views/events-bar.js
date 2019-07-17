@@ -467,26 +467,29 @@ tribe.events.views.eventsBar = {};
 	obj.initEventsBar = function( $container ) {
 		var $eventsBar = $container.find( obj.selectors.eventsBar );
 		var $filtersButton = $container.find( obj.selectors.filtersButton );
-		var state = $eventsBar.data( 'state' );
 
-		if ( obj.state.isMobile && ! state.mobileInitialized ) {
-			if ( $filtersButton.length ) {
-				obj.initTablist( $container );
-				obj.deinitFiltersAccordion( $container );
+		if ( $eventsBar.length ) {
+			var state = $eventsBar.data( 'state' );
+
+			if ( obj.state.isMobile && ! state.mobileInitialized ) {
+				if ( $filtersButton.length ) {
+					obj.initTablist( $container );
+					obj.deinitFiltersAccordion( $container );
+				}
+				obj.initSearchAccordion( $container );
+				state.desktopInitialized = false;
+				state.mobileInitialized = true;
+				$eventsBar.data( 'state', state );
+			} else if ( ! obj.state.isMobile && ! state.desktopInitialized ) {
+				if ( $filtersButton.length ) {
+					obj.deinitTablist( $container );
+					obj.initFiltersAccordion( $container );
+				}
+				obj.deinitSearchAccordion( $container );
+				state.mobileInitialized = false;
+				state.desktopInitialized = true;
+				$eventsBar.data( 'state', state );
 			}
-			obj.initSearchAccordion( $container );
-			state.desktopInitialized = false;
-			state.mobileInitialized = true;
-			$eventsBar.data( 'state', state );
-		} else if ( ! obj.state.isMobile && ! state.desktopInitialized ) {
-			if ( $filtersButton.length ) {
-				obj.deinitTablist( $container );
-				obj.initFiltersAccordion( $container );
-			}
-			obj.deinitSearchAccordion( $container );
-			state.mobileInitialized = false;
-			state.desktopInitialized = true;
-			$eventsBar.data( 'state', state );
 		}
 	};
 
