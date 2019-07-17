@@ -12,13 +12,43 @@
  * @version TBD
  *
  */
+$default_start_date = 'now';
+$selected_start_date_value = $this->get( [ 'bar', 'date' ], $default_start_date );
+if ( empty( $selected_start_date_value ) ) {
+	$selected_start_date_value = $default_start_date;
+}
+
+$selected_start_datetime = strtotime( $selected_start_date_value );
+$is_now = date( 'Y-m-d', $selected_start_datetime ) === date( 'Y-m-d', strtotime( $default_start_date ) );
+
+$selected_start_date_label = date_i18n( tribe_get_date_format( true ), $selected_start_datetime );
+
+$selected_end_date_value = 'today';
+$last_event = $this->get( 'view' )->get_repository()->last();
+
+if ( $last_event instanceof WP_Post ) {
+	$selected_end_date_value = $last_event->EventEndDate;
+}
+$selected_end_datetime = strtotime( $selected_end_date_value );
+$selected_end_date_label = date_i18n( tribe_get_date_format( true ), $selected_end_datetime );
+
 ?>
 <div class="tribe-events-c-top-bar__datepicker" data-js="tribe-events-top-bar-datepicker">
 	<button
 		class="tribe-common-h2 tribe-common-h3--min-medium tribe-common-h--alt tribe-events-c-top-bar__datepicker-button"
 		data-js="tribe-events-top-bar-datepicker-button"
 	>
-		<?php esc_html_e( 'Now', 'the-events-calendar' ); ?> &mdash; <time datetime="<?php echo esc_attr( date( 'Y-m-d', time() ) ); ?>"><?php echo date( 'F jS, Y', time() ); ?></time>
+		<?php if ( $is_now ) : ?>
+			<?php esc_html_e( 'Now', 'the-events-calendar' ); ?>
+		<?php else: ?>
+			<time datetime="<?php echo esc_attr( date_i18n( 'Y-m-d', $selected_start_datetime ) ); ?>">
+				<?php echo esc_html( $selected_start_date_label ); ?>
+			</time>
+		<?php endif; ?>
+		&mdash;
+		<time datetime="<?php echo esc_attr( date_i18n( 'Y-m-d', $selected_end_datetime ) ); ?>">
+			<?php echo esc_html( $selected_end_date_label ); ?>
+		</time>
 	</button>
 	<label
 		class="tribe-events-c-top-bar__datepicker-label tribe-common-a11y-visual-hide"

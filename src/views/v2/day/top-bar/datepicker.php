@@ -20,9 +20,7 @@ if ( empty( $selected_date_value ) ) {
 }
 
 $selected_datetime = strtotime( $selected_date_value );
-
 $selected_date_label = date_i18n( tribe_get_date_format( true ), $selected_datetime );
-
 ?>
 <div class="tribe-events-c-top-bar__datepicker" data-js="tribe-events-top-bar-datepicker">
 	<button
