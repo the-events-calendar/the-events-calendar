@@ -5,6 +5,7 @@ namespace Tribe\Events\Views\V2\Views;
 use Spatie\Snapshots\MatchesSnapshots;
 use Tribe\Events\Views\V2\View;
 use Tribe\Test\Products\WPBrowser\Views\V2\ViewTestCase;
+use Tribe__Timezones as Timezones;
 
 class Month_ViewTest extends ViewTestCase {
 	use MatchesSnapshots;
@@ -70,7 +71,7 @@ class Month_ViewTest extends ViewTestCase {
 
 		$this->assertEquals( $event_ids, $month_view->found_post_ids() );
 
-		foreach ( $month_view->get_grid_days($now->format('Y-m')) as $date => $found_day_ids ) {
+		foreach ( $month_view->get_grid_days( $now->format( 'Y-m' ) ) as $date => $found_day_ids ) {
 			$day          = new \DateTimeImmutable( $date, $timezone );
 			$expected_ids = tribe_events()
 				->where(
@@ -92,5 +93,90 @@ class Month_ViewTest extends ViewTestCase {
 		}
 
 		// $this->assertMatchesSnapshot( $month_view->get_html() );
+	}
+
+	/**
+	 * It should correctly parse and add spacers in week stack
+	 *
+	 * @test
+	 */
+	public function should_correctly_parse_and_add_spacers_in_week_stack() {
+		$start_of_week = 1; // Monday
+		update_option( 'start_of_week', $start_of_week );
+		$timezone = Timezones::build_timezone_object();
+		$monday   = new \DateTimeImmutable( '2019-07-15 09:00:00', $timezone );
+		$tuesday  = new \DateTimeImmutable( '2019-07-16 09:00:00', $timezone );
+		$friday   = new \DateTimeImmutable( '2019-07-19 09:00:00', $timezone );
+		$sunday   = new \DateTimeImmutable( '2019-07-21 09:00:00', $timezone );
+
+		$event_1 = tribe_events()->set_args( [
+			'title'      => 'Start on Mo 9am, end on Thu 1pm',
+			'start_date' => $monday,
+			'duration'   => 2 * DAY_IN_SECONDS + 4 * HOUR_IN_SECONDS,
+			'status'=>'publish'
+		] )->create();
+		$event_2 = tribe_events()->set_args( [
+			'title'      => 'Start on Mo 10am, end on Tue 2pm',
+			'start_date' => $monday->setTime( 10, 0 ),
+			'duration'   => 1 * DAY_IN_SECONDS + 4 * HOUR_IN_SECONDS,
+			'status'     => 'publish'
+		] )->create();
+		$event_3 = tribe_events()->set_args( [
+			'title'      => 'Start on Tue 9am, end on Sat 2pm',
+			'start_date' => $tuesday,
+			'duration'   => 5 * DAY_IN_SECONDS + 4 * HOUR_IN_SECONDS,
+			'status'=>'publish'
+		] )->create();
+		$event_4 = tribe_events()->set_args( [
+			'title'      => 'Start on Fri 9am, end on next Tue 2pm',
+			'start_date' => $friday,
+			'duration'   => 4 * DAY_IN_SECONDS + 4 * HOUR_IN_SECONDS,
+			'status'=>'publish'
+		] )->create();
+
+		// Let's access the 2019 July Month grid.
+		$this->context->alter( [ 'event_date' => '2019-07-01' ] );
+		$month_view = View::make( Month_View::class, $this->context );
+
+		$week_stack          = $month_view->get_multiday_stack( $monday, $sunday );
+		$expected_week_stack = [
+			[ $event_1->ID, $event_1->ID, $event_1->ID, '_', '_', '_', 8 ],
+			[ $event_2->ID, $event_2->ID, '_', '_', '_', '_', '_' ],
+			[ '_', $event_3->ID, $event_3->ID, $event_3->ID, $event_3->ID, $event_3->ID, $event_3->ID ],
+			[ '_', '_', '_', '_', $event_4->ID, $event_4->ID, $event_4->ID ],
+		];
+		$expected            = $this->visualize_week_stack( $expected_week_stack, true );
+		$actual              = $this->visualize_week_stack( $week_stack );
+		$this->assertEquals( $expected, $actual );
+	}
+
+	protected function visualize_week_stack( array $week_stack, $passing_rows = false) {
+		$rows = [];
+
+		$week_stack = array_map( static function ( $column ) {
+			$filled = [];
+			foreach ( $column as $item ) {
+				$filled[] = empty( $item ) ? '_' : $item;
+			}
+
+			return $filled;
+		}, $week_stack );
+
+		if ( ! $passing_rows ) {
+			$week_stack_height = array_reduce( $week_stack, static function ( $height, array $column ) {
+				return max( $height, count( $column ) );
+			}, 0 );
+			foreach ( range( 1, $week_stack_height ) as $i ) {
+				$rows[ $i ] = array_column( $week_stack, $i - 1 );
+			}
+		} else {
+			$rows = $week_stack;
+		}
+
+		$table = trim( implode( PHP_EOL, array_map( static function ( array $row ) {
+			return '| ' . implode( ' | ', $row ) . ' |';
+		}, $rows ) ) );
+
+		return $table;
 	}
 }
