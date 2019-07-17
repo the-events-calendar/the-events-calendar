@@ -40,6 +40,7 @@ before_install:
 
   # Tweak git to correctly work with submodules.
   - sed -i 's/git@github.com:/git:\/\/github.com\//' .gitmodules
+  - git submodule update --init
   - git submodule foreach --recursive "[[ -f .gitmodules ]] && sed -i 's/git@github.com:/git:\/\/github.com\//' .gitmodules; git submodule update --init;"
 
 install:
