@@ -3,9 +3,9 @@
 namespace Tribe\Events\Views\V2\Partials\Month;
 
 use tad\FunctionMocker\FunctionMocker as Test;
-use Tribe\Events\Views\V2\Partials\TestCase;
+use Tribe\Test\Products\WPBrowser\Views\V2\HtmlPartialTestCase;
 
-class Calendar_BodyTest extends TestCase
+class Calendar_BodyTest extends HtmlPartialTestCase
 {
 
 	protected $partial_path = 'month/calendar-body';

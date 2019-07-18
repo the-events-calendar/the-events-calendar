@@ -164,7 +164,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 			/**
 			 * Filter the arguments used to get the events on the archive page via REST API.
 			 *
-			 * @since TBD
+			 * @since 4.9.4
 			 *
 			 * @param array            $args Arguments used to get the events from the archive page.
 			 * @param array            $data Array with the data to be returned in the REST response.

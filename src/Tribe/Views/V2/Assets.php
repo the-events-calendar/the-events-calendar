@@ -26,7 +26,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 	/**
 	 * Key for this group of assets.
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @var string
 	 */
@@ -55,6 +55,19 @@ class Assets extends \tad_DI52_ServiceProvider {
 
 		tribe_asset(
 			$plugin,
+			'tribe-events-views-v2-bootstrap-datepicker',
+			'vendor/bootstrap-datepicker/js/bootstrap-datepicker.js',
+			[ 'jquery' ],
+			'wp_enqueue_scripts',
+			[
+				'priority'     => 10,
+				'conditionals' => [ $this, 'should_enqueue_frontend' ],
+				'groups'       => [ static::$group_key ],
+			]
+		);
+
+		tribe_asset(
+			$plugin,
 			'tribe-events-views-v2-manager',
 			'views/manager.js',
 			[
@@ -68,10 +81,13 @@ class Assets extends \tad_DI52_ServiceProvider {
 				'tribe-events-views-v2-month-mobile-events',
 				'tribe-events-views-v2-month-grid',
 				'tribe-events-views-v2-tooltip',
+				'tribe-events-views-v2-events-bar',
+				'tribe-events-views-v2-events-bar-inputs',
+				'tribe-events-views-v2-datepicker',
 			],
 			'wp_enqueue_scripts',
 			[
-				'priority'     => 10,
+				'priority'     => 20,
 				'conditionals' => [ $this, 'should_enqueue_frontend' ],
 				'groups'       => [ static::$group_key ],
 			]
@@ -106,7 +122,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 			[ 'jquery', 'tribe-common' ],
 			null,
 			[
-				'priority'     => 10,
+				'priority' => 10,
 			]
 		);
 
@@ -117,7 +133,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 			[ 'jquery', 'tribe-common', 'tribe-events-views-v2-accordion' ],
 			null,
 			[
-				'priority'     => 10,
+				'priority' => 10,
 			]
 		);
 
@@ -128,7 +144,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 			[ 'jquery', 'tribe-common' ],
 			null,
 			[
-				'priority'     => 10,
+				'priority' => 10,
 			]
 		);
 
@@ -139,15 +155,64 @@ class Assets extends \tad_DI52_ServiceProvider {
 			[ 'jquery', 'tribe-common', 'tribe-tooltipster' ],
 			null,
 			[
-				'priority'     => 10,
+				'priority' => 10,
 			]
 		);
+
+		tribe_asset(
+			$plugin,
+			'tribe-events-views-v2-events-bar',
+			'views/events-bar.js',
+			[ 'jquery', 'tribe-common', 'tribe-events-views-v2-accordion' ],
+			null,
+			[
+				'priority' => 10,
+			]
+		);
+
+		tribe_asset(
+			$plugin,
+			'tribe-events-views-v2-events-bar-inputs',
+			'views/events-bar-inputs.js',
+			[ 'jquery', 'tribe-common' ],
+			null,
+			[
+				'priority' => 10,
+			]
+		);
+
+		tribe_asset(
+			$plugin,
+			'tribe-events-views-v2-datepicker',
+			'views/datepicker.js',
+			[ 'jquery', 'tribe-common', 'tribe-events-views-v2-bootstrap-datepicker' ],
+			null,
+			[
+				'priority' => 10,
+			]
+		);
+
+		/**
+		 * @todo: remove once we can not load v1 scripts in v2
+		 */
+		add_action( 'wp_enqueue_scripts', [ $this, 'disable_v1' ], 200 );
+	}
+
+	/**
+	 * Removes assets from View V1 when V2 is loaded.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function disable_v1() {
+		wp_deregister_script( 'tribe-events-calendar-script' );
 	}
 
 	/**
 	 * Checks if we should enqueue frontend assets for the V2 views
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @return bool
 	 */
@@ -158,7 +223,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 		/**
 		 * Allow filtering of where the base Frontend Assets will be loaded
 		 *
-		 * @since TBD
+		 * @since 4.9.4
 		 *
 		 * @param bool $should_enqueue
 		 */

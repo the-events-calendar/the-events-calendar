@@ -9,13 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version TBD
+ * @version 4.9.4
  *
  */
-
-// @todo: This code will live in Filterbar. Move it, with this format.
-/*
-<div class="tribe-events-c-events-bar__filters">
-	<button class="tribe-events-c-events-bar__filters-button"><?php esc_html_e( 'Filter', 'the-events-calendar' ); ?></button>
-</div>
-*/
+?>

@@ -11,10 +11,9 @@
   "require-dev": {
     "lucatume/wp-browser": "^2.2.4",
     "xamin/handlebars.php": "^0.10.3",
-    "mikey179/vfsStream": "^1.6",
+    "mikey179/vfsstream": "^1.6",
     "spatie/phpunit-snapshot-assertions": "^1.2",
     "lucatume/wp-snaphot-assertions": "1.0.0",
-    "moderntribe/tribe-common-styles": "dev-master",
     "lucatume/function-mocker": "^1.0",
     "phpunit/phpunit": "~6.0",
     "scotteh/php-dom-wrapper": "0.7.3",
@@ -24,7 +23,10 @@
   "minimum-stability": "stable",
   "prefer-stable": true,
   "config": {
-    "preferred-install": "dist"
+    "preferred-install": "dist",
+    "platform": {
+      "php": "7.0.33"
+    }
   },
   "autoload": {
     "psr-4": {
@@ -39,12 +41,6 @@
   },
   "repositories": [
     {
-      "name": "moderntribe/tribe-common-styles",
-      "type": "github",
-      "url": "https://github.com/moderntribe/tribe-common-styles",
-      "no-api": true
-    },
-    {
       "name": "moderntribe/tribe-testing-facilities",
       "type": "github",
       "url": "https://github.com/moderntribe/tribe-testing-facilities",
@@ -56,12 +52,5 @@
   "scripts": {
     "start-chromedriver": "docker run --rm -d --name chromedriver -p 4444:4444 selenium/standalone-chrome",
     "stop-chromedriver": "docker stop chromedriver"
-  },
-  "extra": {
-    "installer-paths": {
-      "src/resources/postcss/utilities": [
-        "moderntribe/tribe-common-styles"
-      ]
-    }
   }
 }

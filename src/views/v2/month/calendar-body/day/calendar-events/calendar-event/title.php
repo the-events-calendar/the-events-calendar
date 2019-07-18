@@ -9,13 +9,13 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version TBD
+ * @version 4.9.4
  *
  */
 $event    = $this->get( 'event' );
 $event_id = $event->ID;
 ?>
-<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h8--alt">
+<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h--alt">
 	<a
 		href="#"
 		title="<?php echo esc_attr( $event->title ); ?>"

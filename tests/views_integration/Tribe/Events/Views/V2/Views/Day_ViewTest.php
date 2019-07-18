@@ -4,8 +4,8 @@ namespace Tribe\Events\Views\V2\Views;
 
 use Spatie\Snapshots\MatchesSnapshots;
 use tad\FunctionMocker\FunctionMocker as Test;
-use Tribe\Events\Views\V2\TestCase;
 use Tribe\Events\Views\V2\View;
+use Tribe\Test\Products\WPBrowser\Views\V2\TestCase;
 
 class Day_ViewTest extends TestCase {
 

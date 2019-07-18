@@ -2,9 +2,9 @@
 
 namespace Tribe\Events\Views\V2\Partials\Day_View\Nav;
 
-use Tribe\Events\Views\V2\Partials\TestCase;
+use Tribe\Test\Products\WPBrowser\Views\V2\HtmlPartialTestCase;
 
-class PrevTest extends TestCase
+class PrevTest extends HtmlPartialTestCase
 {
 
 	protected $partial_path = 'day/nav/prev';

@@ -3,20 +3,19 @@
  * The Day View.
  *
  * @package Tribe\Events\Views\V2\Views
- * @since TBD
+ * @since 4.9.4
  */
 
 namespace Tribe\Events\Views\V2\Views;
 
 use Tribe\Events\Views\V2\View;
-use Tribe__Events__Rewrite as Rewrite;
 use Tribe__Utils__Array as Arr;
 
 class Day_View extends View {
 	/**
 	 * Slug for this view
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @var string
 	 */
@@ -25,40 +24,11 @@ class Day_View extends View {
 	/**
 	 * Visibility for this view.
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @var bool
 	 */
 	protected $publicly_visible = true;
-
-	/**
-	 * Get HTML method
-	 *
-	 * @since TBD
-	 *
-	 */
-	public function get_html() {
-		$args = $this->setup_repository_args();
-
-		$this->setup_the_loop( $args );
-
-		$events        = $this->repository->all();
-
-		$template_vars = [
-			'title'    => wp_title( null, false ),
-			'events'   => $events,
-		];
-
-		$template_vars = $this->filter_template_vars( $template_vars );
-
-		$this->template->set_values( $template_vars, false );
-
-		$html = $this->template->render();
-
-		$this->restore_the_loop();
-
-		return $html;
-	}
 
 
 	/**

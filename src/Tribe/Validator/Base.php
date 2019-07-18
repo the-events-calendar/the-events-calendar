@@ -99,7 +99,7 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 		 * @param bool $is_event_id
 		 * @param \WP_Post|array|null $event
 		 *
-		 * @since TBD
+		 * @since 4.9.4
 		 */
 		return apply_filters( 'tribe_events_validator_is_event_id', $is_event_id, $event );
 	}

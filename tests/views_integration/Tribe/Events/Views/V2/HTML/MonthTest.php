@@ -1,9 +1,9 @@
 <?php
 namespace Tribe\Events\Views\V2\Views\HTML;
 
-use Tribe\Events\Views\V2\TestHtmlCase;
+use Tribe\Test\Products\WPBrowser\Views\V2\HtmlTestCase;
 
-class MonthTest extends TestHtmlCase {
+class MonthTest extends HtmlTestCase {
 
 	/**
 	 * @test

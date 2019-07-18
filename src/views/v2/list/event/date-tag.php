@@ -9,14 +9,14 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version TBD
+ * @version 4.9.4
  */
 
 use Tribe__Date_Utils as Date;
 
 $event = $this->get( 'event' );
 $event_week_day  = tribe_get_start_date( $event, true, 'D' );
-$event_day_num   = tribe_get_start_date( $event, true, 'd' );
+$event_day_num   = tribe_get_start_date( $event, true, 'j' );
 $event_date_attr = tribe_get_start_date( $event, true, Date::DBDATEFORMAT );
 ?>
 <div class="tribe-events-calendar-list__event-date-tag tribe-common-g-col">

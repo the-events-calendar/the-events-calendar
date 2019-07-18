@@ -202,7 +202,7 @@ class Url {
 	/**
 	 * Returns the alias of the variable set in the Url query args, if any.
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param              string $var The name of the variable to search an alias for.
 	 * @param Context|null $context The Context object to use to fetch locations, if `null` the global Context will be
@@ -236,7 +236,7 @@ class Url {
 	/**
 	 * Returns the value of a query arg set on the URL, or a default value if not found.
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param      string $key The
 	 * @param null $default

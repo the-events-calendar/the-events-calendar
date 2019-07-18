@@ -5,14 +5,14 @@
 	 * ----------------------------------------------------------------------------- */
 
 	.tribe-events-calendar-month__day {
-		border-radius: 4px;
+		border-radius: var(--border-radius-default);
 		height: 48px;
 		overflow: hidden;
 		position: relative;
 		width: var(--grid-width-1-of-7);
 
 		@media (--viewport-medium) {
-			border-color: var(--color-border-default);
+			border-color: var(--color-border-secondary);
 			border-radius: 0;
 			border-style: solid;
 			border-width: 0 1px 1px 0;
@@ -47,10 +47,13 @@
 
 	.tribe-events-calendar-month__day--current {
 
+		.tribe-events-calendar-month__day-date,
 		.tribe-events-calendar-month__day-date-link {
 			color: var(--color-accent-primary);
 			font-weight: var(--font-weight-bold);
+		}
 
+		.tribe-events-calendar-month__day-date-link {
 			&:hover,
 			&:focus {
 				color: var(--color-accent-primary-hover);
@@ -64,9 +67,12 @@
 
 	.tribe-events-calendar-month__day--disabled {
 
+		.tribe-events-calendar-month__day-date,
 		.tribe-events-calendar-month__day-date-link {
 			color: var(--color-text-disabled);
+		}
 
+		.tribe-events-calendar-month__day-date-link {
 			/* @todo: figure out hover focus active states for disabled day */
 			&:hover,
 			&:focus {
@@ -112,6 +118,11 @@
 
 	.tribe-events-calendar-month__day-cell--selected {
 		background-color: var(--color-accent-primary);
+
+		&:hover,
+		&:focus {
+			background-color: var(--color-accent-primary);
+		}
 
 		.tribe-events-calendar-month__day-date {
 			color: var(--color-background);
