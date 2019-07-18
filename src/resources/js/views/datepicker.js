@@ -110,9 +110,6 @@ tribe.events.views.datepicker = {};
 	 * @return {void}
 	 */
 	obj.handleChangeDate = function( event ) {
-		/**
-		 * @todo: handle week view case here.
-		 */
 		var $container = event.data.container;
 		var date = event.date.getDate();
 		var month = event.date.getMonth() + 1;
@@ -122,7 +119,7 @@ tribe.events.views.datepicker = {};
 		var paddedMonth = obj.padNumber( month );
 
 		/**
-		 * @todo: use format from BE
+		 * @todo: use format from BE. Paul.
 		 */
 		var viewData = {
 			[ 'tribe-bar-date' ]: [ year, paddedMonth, paddedDate ].join( '-' ),
@@ -148,7 +145,7 @@ tribe.events.views.datepicker = {};
 		var paddedMonth = obj.padNumber( month );
 
 		/**
-		 * @todo: use format from BE
+		 * @todo: use format from BE. Paul.
 		 */
 		var viewData = {
 			[ 'tribe-bar-date' ]: [ year, paddedMonth ].join( '-' ),
@@ -373,7 +370,7 @@ tribe.events.views.datepicker = {};
 		var isWeekView = 'week' === viewSlug;
 		var minViewMode = isMonthView ? 'year' : 'month';
 		/**
-		 * @todo: use format from BE
+		 * @todo: use format from BE. Paul.
 		 */
 		var daysOfWeekDisabled = isWeekView ? [ 1, 2, 3, 4, 5, 6 ] : [];
 		var changeEvent = isMonthView ? 'changeMonth' : 'changeDate';
@@ -395,7 +392,7 @@ tribe.events.views.datepicker = {};
 				container: $input.closest( obj.selectors.datepickerContainer ),
 				daysOfWeekDisabled: daysOfWeekDisabled,
 				/**
-				 * @todo: use format from BE
+				 * @todo: use format from BE. Paul.
 				 */
 				format: 'yyyy-mm-dd',
 				maxViewMode: 'decade',
