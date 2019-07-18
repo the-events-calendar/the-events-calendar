@@ -10,7 +10,7 @@ License: GPLv2 or later
 */
 
 
-/*
+/**
 Copyright 2009-2012 by Modern Tribe Inc and the contributors
 
 This program is free software; you can redistribute it and/or
