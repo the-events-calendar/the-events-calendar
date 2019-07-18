@@ -7,6 +7,8 @@
  * Author URI: http://m.tri.be/1x
  * Text Domain: the-events-calendar
  * License: GPLv2 or later
+ *
+ * @package TEC
  */
 
 /**
