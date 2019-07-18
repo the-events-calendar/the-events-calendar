@@ -158,11 +158,35 @@ tribe.events.views.datepicker = {};
 	 * @return {void}
 	 */
 	obj.handleHide = function( event ) {
+		var $datepickerButton = event.data.datepickerButton
+		var state = $datepickerButton.data( 'state' );
+
+		if ( state.isTarget ) {
+			event.data.input.bootstrapDatepicker( 'show' );
+			return;
+		}
+
 		event.data.datepickerButton.removeClass( obj.selectors.buttonOpenClass.className() );
 	};
 
 	/**
-	 * Show datepicker on datepicker button click
+	 * Handle datepicker button mousedown
+	 *
+	 * @since TBD
+	 *
+	 * @param {Event} event event object for 'mousedown' event
+	 *
+	 * @return {void}
+	 */
+	obj.handleMousedown = function( event ) {
+		var $datepickerButton = event.data.target;
+		var state = $datepickerButton.data( 'state' );
+		state.isTarget = true;
+		$datepickerButton.data( 'state', state );
+	};
+
+	/**
+	 * Handle datepicker button click
 	 *
 	 * @since TBD
 	 *
@@ -170,14 +194,20 @@ tribe.events.views.datepicker = {};
 	 *
 	 * @return {void}
 	 */
-	obj.showDatepicker = function( event ) {
-		var $input = $( event.data.input );
-		var $datepickerButton = $( event.data.target );
+	obj.handleClick = function( event ) {
+		var $input = event.data.input;
+		var $datepickerButton = event.data.target;
+		var state = $datepickerButton.data( 'state' );
+		var method = $datepickerButton.hasClass( obj.selectors.buttonOpenClass.className() ) ? 'hide' : 'show';
 
-		$datepickerButton.toggleClass( obj.selectors.buttonOpenClass.className() );
+		state.isTarget = false;
+
+		$datepickerButton
+			.toggleClass( obj.selectors.buttonOpenClass.className() )
+			.data( 'state', state );
 		$input
 			.focus()
-			.bootstrapDatepicker( 'show' );
+			.bootstrapDatepicker( method );
 	};
 
 	/**
@@ -205,7 +235,8 @@ tribe.events.views.datepicker = {};
 			.off( changeEvent, changeHandler )
 			.off( 'hide', obj.handleHide );
 		$datepickerButton
-			.on( 'click', obj.showDatepicker );
+			.off( 'mousedown', obj.handleMousedown )
+			.off( 'click', obj.handleClick );
 	};
 
 	/**
@@ -234,6 +265,10 @@ tribe.events.views.datepicker = {};
 		var nextText = datepickerI18n.nextText || 'Next';
 		var prevText = datepickerI18n.prevText || 'Prev';
 
+		var state = {
+			isTarget: false,
+		};
+
 		$input
 			.bootstrapDatepicker( {
 				container: $input.closest( obj.selectors.datepickerContainer ),
@@ -251,9 +286,11 @@ tribe.events.views.datepicker = {};
 				},
 			} )
 			.on( changeEvent, { container: $container }, changeHandler )
-			.on( 'hide', { datepickerButton: $datepickerButton }, obj.handleHide );
+			.on( 'hide', { datepickerButton: $datepickerButton, input: $input }, obj.handleHide );
 		$datepickerButton
-			.on( 'click', { target: $datepickerButton, input: $input }, obj.showDatepicker );
+			.on( 'mousedown', { target: $datepickerButton }, obj.handleMousedown )
+			.on( 'click', { target: $datepickerButton, input: $input }, obj.handleClick )
+			.data( 'state', state );
 
 		// deinit datepicker and event handlers before success
 		$container.on( 'beforeAjaxSuccess.tribeEvents', { container: $container, viewSlug: viewSlug }, obj.deinit );
