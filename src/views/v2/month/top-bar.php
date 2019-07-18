@@ -17,9 +17,9 @@
 
 	<?php $this->template( 'components/top-bar/nav' ); ?>
 
-	<?php $this->template( "{$view_slug}/top-bar/today" ); ?>
+	<?php $this->template( 'month/top-bar/today' ); ?>
 
-	<?php $this->template( "{$view_slug}/top-bar/datepicker" ); ?>
+	<?php $this->template( 'month/top-bar/datepicker' ); ?>
 
 	<?php $this->template( 'components/top-bar/actions' ); ?>
 

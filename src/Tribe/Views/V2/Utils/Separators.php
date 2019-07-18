@@ -28,6 +28,10 @@ class Separators {
 	 * @return boolean
 	 */
 	public static function should_have_month( $events, $event ) {
+		if ( ! is_array( $events ) ) {
+			return false;
+		}
+
 		$ids = array_map( static function( $event ) {
 			return absint( is_numeric( $event ) ? $event : $event->ID );
 		}, $events );
@@ -55,6 +59,10 @@ class Separators {
 	 * @return boolean
 	 */
 	public static function should_have_time( $events, $event ) {
+		if ( ! is_array( $events ) ) {
+			return false;
+		}
+
 		$ids = array_map( static function( $event ) {
 			return absint( is_numeric( $event ) ? $event : $event->ID );
 		}, $events );

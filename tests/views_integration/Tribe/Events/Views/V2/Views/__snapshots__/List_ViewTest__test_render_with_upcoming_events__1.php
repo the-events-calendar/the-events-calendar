@@ -18,7 +18,7 @@
 		<script
 	data-js="tribe-events-view-data"
 	type="application/json"
->{"slug":"list","prev_url":"http:\\/\\/test.tri.be\\/events\\/list\\/?eventDisplay=past","next_url":"http:\\/\\/test.tri.be\\/events\\/list\\/page\\/2\\/","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_slug":"list","view":{},"title":"  Search Results    ","events":[{"ID":7,"post_author":"0","post_date":"2019-06-11 13:59:35","post_date_gmt":"2019-06-11 13:59:35","post_content":"","post_title":"Test Event - +9 days","post_excerpt":"","post_status":"publish","comment_status":"open","ping_status":"closed","post_password":"","post_name":"test-event-9-days-2","to_ping":"","pinged":"","post_modified":"2019-06-11 13:59:35","post_modified_gmt":"2019-06-11 13:59:35","post_content_filtered":"","post_parent":0,"guid":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-9-days-2","menu_order":0,"post_type":"tribe_events","post_mime_type":"","comment_count":"0","filter":"raw"},{"ID":8,"post_author":"1","post_date":"2019-06-11 13:59:35","post_date_gmt":"2019-06-11 13:59:35","post_content":"","post_title":"Single Event 1","post_excerpt":"","post_status":"publish","comment_status":"open","ping_status":"closed","post_password":"","post_name":"single-event-1","to_ping":"","pinged":"","post_modified":"2019-06-11 13:59:35","post_modified_gmt":"2019-06-11 13:59:35","post_content_filtered":"","post_parent":0,"guid":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-9-days-2","menu_order":0,"post_type":"tribe_events","post_mime_type":"","comment_count":"0","filter":"raw"}],"url":"http:\\/\\/test.tri.be\\/events\\/list\\/","bar":{"keyword":"","date":""}}</script>
+>{"slug":"list","prev_url":"http:\\/\\/test.tri.be\\/events\\/list\\/?eventDisplay=past","next_url":"http:\\/\\/test.tri.be\\/events\\/list\\/page\\/2\\/","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_slug":"list","view":{},"title":"","events":[{"ID":7,"post_author":"0","post_date":"2019-06-11 13:59:35","post_date_gmt":"2019-06-11 13:59:35","post_content":"","post_title":"Test Event - +9 days","post_excerpt":"","post_status":"publish","comment_status":"open","ping_status":"closed","post_password":"","post_name":"test-event-9-days-2","to_ping":"","pinged":"","post_modified":"2019-06-11 13:59:35","post_modified_gmt":"2019-06-11 13:59:35","post_content_filtered":"","post_parent":0,"guid":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-9-days-2","menu_order":0,"post_type":"tribe_events","post_mime_type":"","comment_count":"0","filter":"raw"},{"ID":8,"post_author":"1","post_date":"2019-06-11 13:59:35","post_date_gmt":"2019-06-11 13:59:35","post_content":"","post_title":"Single Event 1","post_excerpt":"","post_status":"publish","comment_status":"open","ping_status":"closed","post_password":"","post_name":"single-event-1","to_ping":"","pinged":"","post_modified":"2019-06-11 13:59:35","post_modified_gmt":"2019-06-11 13:59:35","post_content_filtered":"","post_parent":0,"guid":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-9-days-2","menu_order":0,"post_type":"tribe_events","post_mime_type":"","comment_count":"0","filter":"raw"}],"url":"http:\\/\\/test.tri.be\\/events\\/list\\/","bar":{"keyword":"","date":""}}</script>
 
 		<header class="tribe-events-header">
 			<div
@@ -189,7 +189,9 @@
 		class="tribe-common-h2 tribe-common-h3--min-medium tribe-common-h--alt tribe-events-c-top-bar__datepicker-button"
 		data-js="tribe-events-top-bar-datepicker-button"
 	>
-		Now &mdash; <time datetime="2019-01-01">January 1st, 2019</time>
+					Now				&mdash;
+		<time datetime="2019-01-01">
+			January 1, 2019		</time>
 	</button>
 	<label
 		class="tribe-events-c-top-bar__datepicker-label tribe-common-a11y-visual-hide"
@@ -224,7 +226,7 @@
 		June 2019	</time>
 </div>
 
-				<div class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-list__event-row tribe-events-calendar-list__event-row--featured">
+				<div  class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-list__event-row tribe-events-calendar-list__event-row--featured" >
 
 	<div class="tribe-events-calendar-list__event-date-tag tribe-common-g-col">
 	<time class="tribe-events-calendar-list__event-date-tag-datetime" datetime="2019-06-20">
@@ -287,7 +289,7 @@
 
 			
 				
-				<div class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-list__event-row">
+				<div  class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-list__event-row" >
 
 	<div class="tribe-events-calendar-list__event-date-tag tribe-common-g-col">
 	<time class="tribe-events-calendar-list__event-date-tag-datetime" datetime="2019-06-20">
