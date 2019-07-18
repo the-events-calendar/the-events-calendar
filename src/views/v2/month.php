@@ -31,7 +31,7 @@ $events = $this->get( 'events' );
 		<header class="tribe-events-header">
 			<?php $this->template( 'events-bar' ); ?>
 
-			<?php $this->template( 'top-bar' ); ?>
+			<?php $this->template( 'month/top-bar' ); ?>
 		</header>
 
 		<div

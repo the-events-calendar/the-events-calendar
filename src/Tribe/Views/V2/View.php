@@ -165,6 +165,7 @@ class View implements View_Interface {
 		$query_args = $url_object->query_overrides_path( true )
 		                         ->parse_url()
 		                         ->get_query_args();
+
 		$params['event_display_mode'] = Arr::get( $query_args, 'eventDisplay', false );
 
 		/**
@@ -378,12 +379,17 @@ class View implements View_Interface {
 		}
 
 		$repository_args = $this->filter_repository_args( $this->setup_repository_args() );
+		$this->setup_repository_args();
 
 		$this->setup_the_loop( $repository_args );
+
+		$this->setup_repository_args();
 
 		$template_vars = $this->filter_template_vars( $this->setup_template_vars() );
 
 		$this->template->set_values( $template_vars, false );
+
+		$this->setup_repository_args();
 
 		$html = $this->template->render();
 
@@ -611,11 +617,19 @@ class View implements View_Interface {
 			'$_SERVER' => isset( $_SERVER ) ? $_SERVER : [],
 		];
 
-		$this->repository->by_args( wp_parse_args( $args, $this->repository_args ) );
+		$args = wp_parse_args( $args, $this->repository_args );
+
+		$this->repository->by_args( $args );
 
 		$this->set_url( $args, true );
 
-		$wp_query = $this->repository->get_query();
+		/**
+		 * Problematic replacement as context relies on that to have access to the variables
+		 * in the global context, which creates a hard problem to do navigation.
+		 *
+		 * @todo  have conversation with @lucatume about this
+		 */
+		// $wp_query = $this->repository->get_query();
 		wp_reset_postdata();
 
 		// Set the $_SERVER['REQUEST_URI'] as many WordPress functions rely on it to correctly work.
