@@ -29,6 +29,12 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 	 *                              @type string $start_date_utc The event UTC start date, in `Y-m-d H:i:s` format.
 	 *                              @type string $end_date The event end date, in `Y-m-d H:i:s` format.
 	 *                              @type string $end_date_utc The event UTC end date, in `Y-m-d H:i:s` format.
+	 *                              @type array $dates An array containing the event.start, end and UTC date objects. {
+	 *                                              @type DateTimeImmutable $start The event start date object.
+	 *                                              @type DateTimeImmutable $start_utc The event UTC start date object.
+	 *                                              @type DateTimeImmutable $end The event end date object.
+	 *                                              @type DateTimeImmutable $end_utc The event UTC end date object.
+	 *                                          }
 	 *                              @type string $timezone The event timezone string.
 	 *                              @type int $duration The event duration in seconds.
 	 *                              @type false|int $multiday Whether the event is multi-day or not and its day.
@@ -102,8 +108,11 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 		// An event is multi-day if its end date is after the end-of-day cutoff of the start date.
 		$end_of_day        = tribe_end_of_day( $start_date );
 		$timezone          = Timezones::build_timezone_object( $timezone_string );
+		$utc_timezone = new DateTimezone('UTC');
 		$start_date_object = new DateTimeImmutable( $start_date, $timezone );
-		$end_date_object   = new DateTimeImmutable( $end_date, $timezone );
+		$end_date_object = new DateTimeImmutable( $end_date, $timezone );
+		$start_date_utc_object = new DateTimeImmutable( $start_date_utc, $utc_timezone );
+		$end_date_utc_object = new DateTimeImmutable( $end_date_utc, $utc_timezone );
 		$end_of_day_object = new DateTimeImmutable( $end_of_day, $timezone );
 		$is_multiday       = $end_of_day_object < $end_date_object;
 		$multiday          = false;
@@ -145,11 +154,17 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 		$organizer_fetch = Tribe__Events__Organizer::get_fetch_callback( $post_id );
 		$venue_fetch     = Tribe__Events__Venue::get_fetch_callback( $post_id );
 
-		$properties = [
+		$properties   = [
 			'start_date'       => $start_date,
 			'start_date_utc'   => $start_date_utc,
 			'end_date'         => $end_date,
 			'end_date_utc'     => $end_date_utc,
+			'dates' => (object) [
+				'start'     => $start_date_object,
+				'start_utc' => $start_date_utc_object,
+				'end'       => $end_date_object,
+				'end_utc'   => $end_date_utc_object
+			],
 			'timezone'         => $timezone_string,
 			'duration'         => $duration,
 			'multiday'         => $multiday,

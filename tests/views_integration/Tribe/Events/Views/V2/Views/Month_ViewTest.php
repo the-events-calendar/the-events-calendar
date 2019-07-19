@@ -96,11 +96,11 @@ class Month_ViewTest extends ViewTestCase {
 	}
 
 	/**
-	 * It should correctly parse and add spacers in week stack
+	 * It should correctly parse and add spacers in week stack not recycling spaces
 	 *
 	 * @test
 	 */
-	public function should_correctly_parse_and_add_spacers_in_week_stack() {
+	public function should_correctly_parse_and_add_spacers_in_week_stack_not_recycling_spaces() {
 		$start_of_week = 1; // Monday
 		update_option( 'start_of_week', $start_of_week );
 		$timezone = Timezones::build_timezone_object();
@@ -113,7 +113,7 @@ class Month_ViewTest extends ViewTestCase {
 			'title'      => 'Start on Mo 9am, end on Thu 1pm',
 			'start_date' => $monday,
 			'duration'   => 2 * DAY_IN_SECONDS + 4 * HOUR_IN_SECONDS,
-			'status'=>'publish'
+			'status'     => 'publish'
 		] )->create();
 		$event_2 = tribe_events()->set_args( [
 			'title'      => 'Start on Mo 10am, end on Tue 2pm',
@@ -125,22 +125,24 @@ class Month_ViewTest extends ViewTestCase {
 			'title'      => 'Start on Tue 9am, end on Sat 2pm',
 			'start_date' => $tuesday,
 			'duration'   => 5 * DAY_IN_SECONDS + 4 * HOUR_IN_SECONDS,
-			'status'=>'publish'
+			'status'     => 'publish'
 		] )->create();
 		$event_4 = tribe_events()->set_args( [
 			'title'      => 'Start on Fri 9am, end on next Tue 2pm',
 			'start_date' => $friday,
 			'duration'   => 4 * DAY_IN_SECONDS + 4 * HOUR_IN_SECONDS,
-			'status'=>'publish'
+			'status'     => 'publish'
 		] )->create();
 
 		// Let's access the 2019 July Month grid.
 		$this->context->alter( [ 'event_date' => '2019-07-01' ] );
 		$month_view = View::make( Month_View::class, $this->context );
 
+		add_filter( 'tribe_events_views_v2_month_week_stack_recycle_spaces', '__return_false' );
+
 		$week_stack          = $month_view->get_multiday_stack( $monday, $sunday );
 		$expected_week_stack = [
-			[ $event_1->ID, $event_1->ID, $event_1->ID, '_', '_', '_', 8 ],
+			[ $event_1->ID, $event_1->ID, $event_1->ID, '_', '_', '_', '_' ],
 			[ $event_2->ID, $event_2->ID, '_', '_', '_', '_', '_' ],
 			[ '_', $event_3->ID, $event_3->ID, $event_3->ID, $event_3->ID, $event_3->ID, $event_3->ID ],
 			[ '_', '_', '_', '_', $event_4->ID, $event_4->ID, $event_4->ID ],
@@ -148,9 +150,31 @@ class Month_ViewTest extends ViewTestCase {
 		$expected            = $this->visualize_week_stack( $expected_week_stack, true );
 		$actual              = $this->visualize_week_stack( $week_stack );
 		$this->assertEquals( $expected, $actual );
+
+		add_filter( 'tribe_events_views_v2_month_week_stack_recycle_spaces', '__return_true' );
+
+		$week_stack          = $month_view->get_multiday_stack( $monday, $sunday );
+		$expected_week_stack = [
+			[ $event_1->ID, $event_1->ID, $event_1->ID, '_', $event_4->ID, $event_4->ID, $event_4->ID ],
+			[ $event_2->ID, $event_2->ID, '_', '_', '_', '_', '_' ],
+			[ '_', $event_3->ID, $event_3->ID, $event_3->ID, $event_3->ID, $event_3->ID, $event_3->ID ],
+		];
+		$expected            = $this->visualize_week_stack( $expected_week_stack, true );
+		$actual              = $this->visualize_week_stack( $week_stack );
+		$this->assertEquals( $expected, $actual );
 	}
 
-	protected function visualize_week_stack( array $week_stack, $passing_rows = false) {
+	/**
+	 * Creates a "visual" representation of the week stack for easier understanding and comparison.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $week_stack The week stack columns (e.g. as returned by the Month view) or rows.
+	 * @param bool  $passing_rows Whether we're passing in columns (as coming from Views) or rows.
+	 *
+	 * @return string An ASCII table representing the week stack.
+	 */
+	protected function visualize_week_stack( array $week_stack, $passing_rows = false ) {
 		$rows = [];
 
 		$week_stack = array_map( static function ( $column ) {
@@ -174,9 +198,9 @@ class Month_ViewTest extends ViewTestCase {
 		}
 
 		$table = trim( implode( PHP_EOL, array_map( static function ( array $row ) {
-			return '| ' . implode( ' | ', $row ) . ' |';
+			return '|' . implode( '|', $row ) . '|';
 		}, $rows ) ) );
 
-		return $table;
+		return PHP_EOL . $table;
 	}
 }

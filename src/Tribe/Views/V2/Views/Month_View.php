@@ -8,6 +8,7 @@
 
 namespace Tribe\Events\Views\V2\Views;
 
+use Tribe\Events\Views\V2\Utils\Stack;
 use Tribe\Events\Views\V2\View;
 use Tribe__Context as Context;
 use Tribe__Date_Utils as Date_Utils;
@@ -59,6 +60,26 @@ class Month_View extends View {
 	 * @var array
 	 */
 	protected $grid_days;
+	
+	/**
+     * An instance of the Week Stack object.
+	 * 
+	 * @since TBD
+	 * 
+	 * @var Stack
+	 */
+	protected $stack;
+
+	/**
+	 * Month_View constructor.
+	 * 
+	 * @since TBD
+	 * 
+	 * @param Stack $week_stack An instance of the Week Stack object.
+	 */
+	public function __construct( Stack $week_stack) {
+		$this->stack = $week_stack;
+	}
 
 	/**
 	 * Returns an array of event post IDs, divided by days.
@@ -187,7 +208,7 @@ class Month_View extends View {
 		// The events will be returned in an array with shape `[ <Y-m-d> => [...<events>], <Y-m-d> => [...<events>] ]`.
 		$events = $this->get_grid_days();
 
-		$multiday_events = $this->parse_multiday_events( $events );
+		$multiday_stacks = $this->build_multiday_stacks( $events );
 
 		// Let's prepare an array of days more digestible by the templates.
 		$days = [];
@@ -207,7 +228,7 @@ class Month_View extends View {
 					return $event->featured;
 				},
 				// Includes spacers.
-				'multiday_events' => Arr::get( $multiday_events, $day_date, [] ),
+				'multiday_events' => Arr::get( $multiday_stacks, $day_date, [] ),
 			];
 		}
 
@@ -228,104 +249,14 @@ class Month_View extends View {
 	 *               order. E.g.
 	 *               `[ '2019-07-01' => [2, 3, false], '2019-07-02' => [2, 3, 4], '2019-07-03' => [false, 3, 4]]`.
 	 */
-	protected function parse_multiday_events( array $grid_events_by_day ) {
-		$spacer = false;
-		$per_day_w_spacers = [];
-
-		// Here we assume ALL day from the grid will be present, none is skipped even if empty.
+	protected function build_multiday_stacks( array $grid_events_by_day ) {
+		$week_stacks = [];
 		foreach ( array_chunk( $grid_events_by_day, 7, true ) as $week ) {
-			/*
-			 * Step 1: calculate the week stack height.
-			 */
-			$max_events_per_day = array_reduce( $week, function ( $stack_height, array $events ) {
-				return max( $stack_height, count( array_filter( $events, [ $this, 'is_multiday' ] ) ) );
-			}, 0 );
-
-			$week_stack_positions = [];
-			$week_days_w_spacers  = [];
-
-			/*
-			 * Step 2: calculate each multi-day event_id stack position in the week.
-			 * Since we're looping also parse the events that are multi-day per-day.
-			 */
-			foreach ( $week as $week_day => $day_events ) {
-				$per_day_w_spacers[ $week_day ]    = [];
-				$week_days_w_spacers [ $week_day ] = [];
-
-				$day_multiday_events = array_values( array_filter( $day_events, [ $this, 'is_multiday' ] ) );
-
-				if ( 0 === count( $day_multiday_events ) ) {
-					// Fill a day w/o multi-days with spacers.
-					$per_day_w_spacers[ $week_day ] = array_fill( 0, $max_events_per_day, $spacer );
-					continue;
-				}
-
-				// The events are already sorted by start date and time.
-				foreach ( $day_multiday_events as $pos_in_day => $day_multiday_event_id ) {
-					$prev_pos = isset( $week_stack_positions[ $day_multiday_event_id ] )
-						? $week_stack_positions[ $day_multiday_event_id ]
-						: 0;
-
-					$week_stack_positions[ $day_multiday_event_id ] = max( $pos_in_day, $prev_pos );
-				}
-
-				/*
-				 * Step 3: add the spacers.
-				 * Add a spacer whenever we need to push down an event.
-				 */
-				$k = 0;
-				$today_w_spacers = [];
-				foreach ( $day_events as $event_id ) {
-					while ( $week_stack_positions[ $event_id ] > $k ++ ) {
-						$today_w_spacers[] = $spacer;
-					}
-					$today_w_spacers[] = $event_id;
-				}
-
-				// Make sure we fill the full week stack height with spacers.
-				$week_days_w_spacers[$week_day] = array_pad(
-					$today_w_spacers,
-					$max_events_per_day,
-					$spacer
-				);
-			}
-
-			/**
-			 * Step 4: pad to the actual week stack height.
-			 */
-			$week_stack_height = array_reduce( $week_days_w_spacers, static function ( $max, array $day_stack ) {
-				return max( $max, count( $day_stack ) );
-			}, 0 );
-
-
-			// Finally add to the stacks collection.
-			foreach ( $week_days_w_spacers as $week_day => $week_day_stack ) {
-				$per_day_w_spacers[ $week_day ] = array_pad(
-					$week_day_stack,
-					$week_stack_height,
-					$spacer
-				);
-			}
+			$week_stacks[] = $this->stack->build_from_events( $week );
 		}
 
-		return $per_day_w_spacers;
+		return array_merge( ...$week_stacks );
 	}
-
-	/**
-	 * Utility method to check whether an event is a multi-day one or not.
-	 *
-	 * @since TBD
-	 *
-	 * @param int|\WP_Post $event Either an event post or post ID.
-	 *
-	 * @return bool Whether an event is a multi-day one or not.
-	 */
-	protected function is_multiday( $event ) {
-		$event = tribe_get_event( $event );
-
-		return isset( $event->multiday );
-	}
-
 
 	/**
 	 * Returns a portion of the parsed multi-day stacks.
@@ -343,7 +274,7 @@ class Month_View extends View {
 		$to   = Date_Utils::build_date_object( $to );
 
 		$events          = $this->get_grid_days();
-		$multiday_events = $this->parse_multiday_events( $events );
+		$multiday_events = $this->build_multiday_stacks( $events );
 
 		$start_index = array_key_exists( $from->format( 'Y-m-d' ), $multiday_events )
 			? array_search( $from->format( 'Y-m-d' ), array_keys( $multiday_events ), true )
