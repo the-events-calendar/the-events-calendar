@@ -9,13 +9,13 @@ tribe.events = tribe.events || {};
 tribe.events.views = tribe.events.views || {};
 
 /**
- * Configures Month Multiday Events Object in the Global Tribe variable
+ * Configures Multiday Events Object in the Global Tribe variable
  *
  * @since 4.9.4
  *
  * @type  {PlainObject}
  */
-tribe.events.views.monthMultidayEvents = {};
+tribe.events.views.multidayEvents = {};
 
 /**
  * Initializes in a Strict env the code that manages the Event Views
@@ -229,7 +229,7 @@ tribe.events.views.monthMultidayEvents = {};
 	};
 
 	/**
-	 * Handles the initialization of the month view multiday events when Document is ready
+	 * Handles the initialization of multiday events when Document is ready
 	 *
 	 * @since 4.9.4
 	 *
@@ -241,4 +241,4 @@ tribe.events.views.monthMultidayEvents = {};
 
 	// Configure on document ready
 	$document.ready( obj.ready );
-} )( jQuery, tribe.events.views.monthMultidayEvents );
+} )( jQuery, tribe.events.views.multidayEvents );
