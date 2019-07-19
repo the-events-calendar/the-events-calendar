@@ -17,17 +17,17 @@
 	<ul class="tribe-events-c-top-bar__nav-list">
 		<?php
 		if ( ! empty( $prev_url ) ) {
-			$this->template( 'top-bar/nav/prev', [ 'link' => $prev_url ] );
+			$this->template( 'components/top-bar/nav/prev', [ 'link' => $prev_url ] );
 		} else {
-			$this->template( 'top-bar/nav/prev-disabled' );
+			$this->template( 'components/top-bar/nav/prev-disabled' );
 		}
 		?>
 
 		<?php
 		if ( ! empty( $next_url ) ) {
-			$this->template( 'top-bar/nav/next', [ 'link' => $next_url ] );
+			$this->template( 'components/top-bar/nav/next', [ 'link' => $next_url ] );
 		} else {
-			$this->template( 'top-bar/nav/next-disabled' );
+			$this->template( 'components/top-bar/nav/next-disabled' );
 		}
 		?>
 	</ul>
