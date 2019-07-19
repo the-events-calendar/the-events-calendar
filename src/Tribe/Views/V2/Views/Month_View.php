@@ -10,6 +10,8 @@ namespace Tribe\Events\Views\V2\Views;
 
 use Tribe\Events\Views\V2\Utils\Stack;
 use Tribe\Events\Views\V2\View;
+use Tribe\Traits\Cache_User;
+use Tribe__Cache_Listener as Cache_Listener;
 use Tribe__Context as Context;
 use Tribe__Date_Utils as Date_Utils;
 use Tribe__Events__Template__Month as Month;
@@ -17,6 +19,7 @@ use Tribe__Events__Timezones as Timezones;
 use Tribe__Utils__Array as Arr;
 
 class Month_View extends View {
+	use Cache_User;
 
 	/**
 	 * The default number of events to show per-day.
@@ -53,15 +56,6 @@ class Month_View extends View {
 	protected $year_month;
 
 	/**
-	 * An array cache that contains the Month View events divided by grid day.
-	 *
-	 * The array will have shape `[ <Y-m-d> => [<events_post_ids>] ]`.
-	 *
-	 * @var array
-	 */
-	protected $grid_days;
-	
-	/**
      * An instance of the Week Stack object.
 	 * 
 	 * @since TBD
@@ -71,14 +65,25 @@ class Month_View extends View {
 	protected $stack;
 
 	/**
+	 * An array of cached event IDs per day.
+	 * Used by the `Cache_User` trait.
+	 *
+	 * @since TBD
+	 *
+	 * @var array
+	 */
+	protected $grid_days_cache = [];
+
+	/**
 	 * Month_View constructor.
 	 * 
 	 * @since TBD
 	 * 
-	 * @param Stack $week_stack An instance of the Week Stack object.
+	 * @param Stack $stack An instance of the Stack object.
 	 */
-	public function __construct( Stack $week_stack) {
-		$this->stack = $week_stack;
+	public function __construct( Stack $stack) {
+		$this->stack = $stack;
+		add_action( 'shutdown', [ $this, 'dump_cache' ] );
 	}
 
 	/**
@@ -95,11 +100,12 @@ class Month_View extends View {
 	 */
 	public function get_grid_days( $year_month = null, $force = false ) {
 		if (
-			isset( $this->grid_days, $this->year_month )
+			isset( $this->year_month )
 			&& $year_month && $year_month === $this->year_month
+			&& ! empty( $this->grid_days_cache )
 			&& ! $force
 		) {
-			return $this->grid_days;
+			return $this->grid_days_cache;
 		}
 
 		$year_month = $year_month ?: $this->year_month;
@@ -127,9 +133,17 @@ class Month_View extends View {
 		$order           = Arr::get( $repository_args, 'order', 'ASC' );
 		unset( $repository_args['order_by'], $repository_args['order'] );
 
-		$this->grid_days = [];
 		/** @var \DateTime $day */
 		foreach ( $days as $day ) {
+			$day_string = $day->format( 'Y-m-d' );
+
+			$this->warmup_cache( 'grid_days', 0, Cache_Listener::TRIGGER_SAVE_POST );
+
+			if ( isset( $this->grid_days_cache[ $day_string ] ) ) {
+				return $this->grid_days_cache[ $day_string ];
+			}
+
+			// @todo @luca add caching here!
 			$start = clone $day->setTime( 0, 0, 0 );
 			$end   = clone $day->setTime( 23, 59, 59 );
 
@@ -138,10 +152,10 @@ class Month_View extends View {
 			                           ->order_by( $order_by, $order )
 			                           ->get_ids();
 
-			$this->grid_days[ $day->format( 'Y-m-d' ) ] = $event_ids;
+			$this->grid_days_cache[ $day_string ] = $event_ids;
 		}
 
-		return $this->grid_days;
+		return $this->grid_days_cache;
 	}
 
 	/**
@@ -154,8 +168,8 @@ class Month_View extends View {
 	 * @return array A flat array of all the events found on the calendar grid.
 	 */
 	public function found_post_ids() {
-		return null !== $this->grid_days
-			? array_unique( array_merge( ... array_values( $this->grid_days ) ) )
+		return null !== $this->grid_days_cache
+			? array_unique( array_merge( ... array_values( $this->grid_days_cache ) ) )
 			: [];
 	}
 
@@ -251,8 +265,8 @@ class Month_View extends View {
 	 */
 	protected function build_multiday_stacks( array $grid_events_by_day ) {
 		$week_stacks = [];
-		foreach ( array_chunk( $grid_events_by_day, 7, true ) as $week ) {
-			$week_stacks[] = $this->stack->build_from_events( $week );
+		foreach ( array_chunk( $grid_events_by_day, 7, true ) as $week_events_by_day ) {
+			$week_stacks[] = $this->stack->build_from_events( $week_events_by_day );
 		}
 
 		return array_merge( ...$week_stacks );
@@ -270,20 +284,20 @@ class Month_View extends View {
 	 *               `[ '2019-07-01' => [2, 3, false], , '2019-07-03' => [false, 3, 4]]`.
 	 */
 	public function get_multiday_stack( $from, $to ) {
-		$from = Date_Utils::build_date_object( $from );
-		$to   = Date_Utils::build_date_object( $to );
+		$from = Date_Utils::build_date_object( $from )->setTime( 0, 0 );
+		$to   = Date_Utils::build_date_object( $to )->setTime( 23, 59, 59 );
 
-		$events          = $this->get_grid_days();
-		$multiday_events = $this->build_multiday_stacks( $events );
+		$events = $this->get_grid_days();
+		$multiday_stack = $this->build_multiday_stacks( $events );
 
-		$start_index = array_key_exists( $from->format( 'Y-m-d' ), $multiday_events )
-			? array_search( $from->format( 'Y-m-d' ), array_keys( $multiday_events ), true )
+		$start_index = array_key_exists( $from->format( 'Y-m-d' ), $multiday_stack )
+			? array_search( $from->format( 'Y-m-d' ), array_keys( $multiday_stack ), true )
 			: 0;
-		$end_index   = array_key_exists( $to->format( 'Y-m-d' ), $multiday_events )
-			? array_search( $to->format( 'Y-m-d' ), array_keys( $multiday_events ), true )
-			: count( $multiday_events ) - 1;
+		$end_index   = array_key_exists( $to->format( 'Y-m-d' ), $multiday_stack )
+			? array_search( $to->format( 'Y-m-d' ), array_keys( $multiday_stack ), true )
+			: count( $multiday_stack ) - 1;
 
-		$stack = array_slice( $multiday_events, $start_index, $end_index - $start_index + 1, true );
+		$stack = array_slice( $multiday_stack, $start_index, $end_index - $start_index + 1, true );
 
 		return $stack;
 	}

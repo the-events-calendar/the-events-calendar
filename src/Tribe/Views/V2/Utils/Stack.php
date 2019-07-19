@@ -119,7 +119,7 @@ class Stack {
 		 * Calculate each multi-day event_id stack position in the stack.
 		 */
 		foreach ( $events_by_day as $current_day => $the_day_events ) {
-			$this->stack[ $this->current_day ] = $this->build_day_stack( $current_day, $the_day_events );
+			$this->stack[ $current_day ] = $this->build_day_stack( $current_day, $the_day_events );
 		}
 
 		$this->normalize_stack();
@@ -250,15 +250,26 @@ class Stack {
 			$day_events_wo_position = array_diff( $this->day_events, array_keys( $this->stack_positions ) );
 
 			if ( count( $day_events_wo_position ) ) {
-				usort( $this->day_events, [ $this, 'recycle_space' ] );
+				usort( $this->day_events, [ $this, 'recycle_day_stack_space' ] );
 			}
 		}
 
-		foreach ( $this->day_events as $pos_in_day => $event_id ) {
-			if ( ! isset( $this->stack_positions[ $event_id ] ) ) {
-				// If the event does not have a stack position then put it in the next day position.
-				$this->stack_positions[ $event_id ] = max( $pos_in_day, 0 );
+		foreach ( $this->day_events as $position_in_day => $event_id ) {
+			if ( isset( $this->stack_positions[ $event_id ] ) ) {
+				$prev_event_position = $this->stack_positions[ $event_id ];
+				continue;
 			}
+
+			if ( $this->recycle_space ) {
+				// Events have been already ordered and the event position in the day stack is the correct one.
+				$the_event_position = $position_in_day;
+			} else {
+				$the_event_position = isset( $prev_event_position )
+					? $prev_event_position + 1
+					: $position_in_day;
+			}
+
+			$this->stack_positions[ $event_id ] = $the_event_position;
 		}
 	}
 
@@ -326,7 +337,7 @@ class Stack {
 	 * @return int An integer to indicate whether the positions should remain the same (`0`), A should stay before B
 	 *            (`-1`) or if B should list before A (`1`).
 	 */
-	protected function recycle_space( $event_a, $event_b ) {
+	protected function recycle_day_stack_space( $event_a, $event_b ) {
 		if ( isset( $this->stack_positions[ $event_b ] ) ) {
 			// The event already has a position in the stack.
 			return 0;
