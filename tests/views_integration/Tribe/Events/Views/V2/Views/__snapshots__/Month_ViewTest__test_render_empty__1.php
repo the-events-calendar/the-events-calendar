@@ -18,7 +18,7 @@
 		<script
 	data-js="tribe-events-view-data"
 	type="application/json"
->{"slug":"month","prev_url":"","next_url":"","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Month_View","view_slug":"month","view":{},"title":"  Events","events":[],"url":"http:\\/\\/test.tri.be\\/events\\/month\\/","bar":{"keyword":"","date":""}}</script>
+>{"slug":"month","prev_url":"","next_url":"","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Month_View","view_slug":"month","view":{},"title":"  Search Results    ","events":{"2018-12-31":[],"2019-01-01":[],"2019-01-02":[],"2019-01-03":[],"2019-01-04":[],"2019-01-05":[],"2019-01-06":[],"2019-01-07":[],"2019-01-08":[],"2019-01-09":[],"2019-01-10":[],"2019-01-11":[],"2019-01-12":[],"2019-01-13":[],"2019-01-14":[],"2019-01-15":[],"2019-01-16":[],"2019-01-17":[],"2019-01-18":[],"2019-01-19":[],"2019-01-20":[],"2019-01-21":[],"2019-01-22":[],"2019-01-23":[],"2019-01-24":[],"2019-01-25":[],"2019-01-26":[],"2019-01-27":[],"2019-01-28":[],"2019-01-29":[],"2019-01-30":[],"2019-01-31":[],"2019-02-01":[],"2019-02-02":[]},"url":"http:\\/\\/test.tri.be\\/events\\/month\\/?tribe-bar-date=2019-01-01","bar":{"keyword":"","date":"2019-01-01"},"days":[{"date":"2018-12-31","year_number":2018,"month_number":12,"day_number":31,"events":[],"featured_events":[],"multiday_events":[]},{"date":"2019-01-01","year_number":2019,"month_number":1,"day_number":1,"events":[],"featured_events":[],"multiday_events":[]},{"date":"2019-01-02","year_number":2019,"month_number":1,"day_number":2,"events":[],"featured_events":[],"multiday_events":[]},{"date":"2019-01-03","year_number":2019,"month_number":1,"day_number":3,"events":[],"featured_events":[],"multiday_events":[]},{"date":"2019-01-04","year_number":2019,"month_number":1,"day_number":4,"events":[],"featured_events":[],"multiday_events":[]},{"date":"2019-01-05","year_number":2019,"month_number":1,"day_number":5,"events":[],"featured_events":[],"multiday_events":[]},{"date":"2019-01-06","year_number":2019,"month_number":1,"day_number":6,"events":[],"featured_events":[],"multiday_events":[]},{"date":"2019-01-07","year_number":2019,"month_number":1,"day_number":7,"events":[],"featured_events":[],"multiday_events":[]},{"date":"2019-01-08","year_number":2019,"month_number":1,"day_number":8,"events":[],"featured_events":[],"multiday_events":[]},{"date":"2019-01-09","year_number":2019,"month_number":1,"day_number":9,"events":[],"featured_events":[],"multiday_events":[]},{"date":"2019-01-10","year_number":2019,"month_number":1,"day_number":10,"events":[],"featured_events":[],"multiday_events":[]},{"date":"2019-01-11","year_number":2019,"month_number":1,"day_number":11,"events":[],"featured_events":[],"multiday_events":[]},{"date":"2019-01-12","year_number":2019,"month_number":1,"day_number":12,"events":[],"featured_events":[],"multiday_events":[]},{"date":"2019-01-13","year_number":2019,"month_number":1,"day_number":13,"events":[],"featured_events":[],"multiday_events":[]},{"date":"2019-01-14","year_number":2019,"month_number":1,"day_number":14,"events":[],"featured_events":[],"multiday_events":[]},{"date":"2019-01-15","year_number":2019,"month_number":1,"day_number":15,"events":[],"featured_events":[],"multiday_events":[]},{"date":"2019-01-16","year_number":2019,"month_number":1,"day_number":16,"events":[],"featured_events":[],"multiday_events":[]},{"date":"2019-01-17","year_number":2019,"month_number":1,"day_number":17,"events":[],"featured_events":[],"multiday_events":[]},{"date":"2019-01-18","year_number":2019,"month_number":1,"day_number":18,"events":[],"featured_events":[],"multiday_events":[]},{"date":"2019-01-19","year_number":2019,"month_number":1,"day_number":19,"events":[],"featured_events":[],"multiday_events":[]},{"date":"2019-01-20","year_number":2019,"month_number":1,"day_number":20,"events":[],"featured_events":[],"multiday_events":[]},{"date":"2019-01-21","year_number":2019,"month_number":1,"day_number":21,"events":[],"featured_events":[],"multiday_events":[]},{"date":"2019-01-22","year_number":2019,"month_number":1,"day_number":22,"events":[],"featured_events":[],"multiday_events":[]},{"date":"2019-01-23","year_number":2019,"month_number":1,"day_number":23,"events":[],"featured_events":[],"multiday_events":[]},{"date":"2019-01-24","year_number":2019,"month_number":1,"day_number":24,"events":[],"featured_events":[],"multiday_events":[]},{"date":"2019-01-25","year_number":2019,"month_number":1,"day_number":25,"events":[],"featured_events":[],"multiday_events":[]},{"date":"2019-01-26","year_number":2019,"month_number":1,"day_number":26,"events":[],"featured_events":[],"multiday_events":[]},{"date":"2019-01-27","year_number":2019,"month_number":1,"day_number":27,"events":[],"featured_events":[],"multiday_events":[]},{"date":"2019-01-28","year_number":2019,"month_number":1,"day_number":28,"events":[],"featured_events":[],"multiday_events":[]},{"date":"2019-01-29","year_number":2019,"month_number":1,"day_number":29,"events":[],"featured_events":[],"multiday_events":[]},{"date":"2019-01-30","year_number":2019,"month_number":1,"day_number":30,"events":[],"featured_events":[],"multiday_events":[]},{"date":"2019-01-31","year_number":2019,"month_number":1,"day_number":31,"events":[],"featured_events":[],"multiday_events":[]},{"date":"2019-02-01","year_number":2019,"month_number":2,"day_number":1,"events":[],"featured_events":[],"multiday_events":[]},{"date":"2019-02-02","year_number":2019,"month_number":2,"day_number":2,"events":[],"featured_events":[],"multiday_events":[]}]}</script>
 
 		<header class="tribe-events-header">
 			<div
@@ -57,7 +57,7 @@
 		data-js="tribe-events-view-form"
 		role="search"
 	>
-		<input type="hidden" id="tribe-events-views[_wpnonce]" name="tribe-events-views[_wpnonce]" value="2ab7cc6b39" /><input type="hidden" name="_wp_http_referer" value="/events/month/" />		<input type="hidden" name="tribe-events-views[url]" value="http://test.tri.be/events/month/" />
+		<input type="hidden" id="tribe-events-views[_wpnonce]" name="tribe-events-views[_wpnonce]" value="2ab7cc6b39" /><input type="hidden" name="_wp_http_referer" value="/events/month/?tribe-bar-date=2019-01-01" />		<input type="hidden" name="tribe-events-views[url]" value="http://test.tri.be/events/month/?tribe-bar-date=2019-01-01" />
 
 		<div class="tribe-events-c-search__input-group">
 			<div
@@ -111,7 +111,7 @@
 	<ul class="tribe-events-c-view-selector__list">
 					<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--list">
 	<a
-		href="http://test.tri.be/events/list/"
+		href="http://test.tri.be/events/list/?tribe-bar-date=2019-01-01"
 		class="tribe-events-c-view-selector__list-item-link"
 		data-js="tribe-events-view-link"
 	>
@@ -122,7 +122,7 @@
 </li>
 					<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--month tribe-events-c-view-selector__list-item--active">
 	<a
-		href="http://test.tri.be/events/month/"
+		href="http://test.tri.be/events/month/?tribe-bar-date=2019-01-01"
 		class="tribe-events-c-view-selector__list-item-link"
 		data-js="tribe-events-view-link"
 	>
@@ -133,7 +133,7 @@
 </li>
 					<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--day">
 	<a
-		href="http://test.tri.be/events/today/"
+		href="http://test.tri.be/events/today/?tribe-bar-date=2019-01-01"
 		class="tribe-events-c-view-selector__list-item-link"
 		data-js="tribe-events-view-link"
 	>
@@ -176,7 +176,7 @@
 </nav>
 
 	<a
-	href="http://test.tri.be/events/month/"
+	href="http://test.tri.be/events/month/?tribe-bar-date=2019-01-01"
 	class="tribe-common-c-btn-border tribe-events-c-top-bar__today-button"
 	data-js="tribe-events-view-link"
 >
@@ -200,7 +200,7 @@
 		data-js="tribe-events-top-bar-date"
 		id="tribe-events-top-bar-date"
 		name="tribe-events-views[tribe-bar-search]"
-		value=""
+		value="2019-01-01"
 		tabindex="-1"
 	/>
 </div>
@@ -289,7 +289,7 @@
 		<div class="tribe-events-calendar-month__week" role="row" data-js="tribe-events-month-grid-row">
 
 			
-				
+								
 <div
 	class="tribe-events-calendar-month__day tribe-events-calendar-month__day--current"
 	role="gridcell"
@@ -307,7 +307,13 @@
 			<time datetime="YYYY-MM-DD">
 				1			</time>
 		</h3>
-					<em
+							<em
+				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--featured"
+				aria-label="Has featured events"
+				title="Has featured events"
+			>
+			</em>
+							<em
 				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--event"
 				aria-label="Has events"
 				title="Has events"
@@ -372,7 +378,7 @@
 </div>
 
 			
-				
+								
 <div
 	class="tribe-events-calendar-month__day"
 	role="gridcell"
@@ -390,7 +396,13 @@
 			<time datetime="YYYY-MM-DD">
 				2			</time>
 		</h3>
-					<em
+							<em
+				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--featured"
+				aria-label="Has featured events"
+				title="Has featured events"
+			>
+			</em>
+							<em
 				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--event"
 				aria-label="Has events"
 				title="Has events"
@@ -468,7 +480,7 @@
 </div>
 
 			
-				
+								
 <div
 	class="tribe-events-calendar-month__day"
 	role="gridcell"
@@ -486,7 +498,13 @@
 			<time datetime="YYYY-MM-DD">
 				3			</time>
 		</h3>
-					<em
+							<em
+				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--featured"
+				aria-label="Has featured events"
+				title="Has featured events"
+			>
+			</em>
+							<em
 				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--event"
 				aria-label="Has events"
 				title="Has events"
@@ -553,7 +571,7 @@
 </div>
 
 			
-				
+								
 <div
 	class="tribe-events-calendar-month__day"
 	role="gridcell"
@@ -571,7 +589,13 @@
 			<time datetime="YYYY-MM-DD">
 				4			</time>
 		</h3>
-					<em
+							<em
+				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--featured"
+				aria-label="Has featured events"
+				title="Has featured events"
+			>
+			</em>
+							<em
 				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--event"
 				aria-label="Has events"
 				title="Has events"
@@ -638,7 +662,7 @@
 </div>
 
 			
-				
+								
 <div
 	class="tribe-events-calendar-month__day"
 	role="gridcell"
@@ -656,7 +680,13 @@
 			<time datetime="YYYY-MM-DD">
 				5			</time>
 		</h3>
-					<em
+							<em
+				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--featured"
+				aria-label="Has featured events"
+				title="Has featured events"
+			>
+			</em>
+							<em
 				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--event"
 				aria-label="Has events"
 				title="Has events"
@@ -721,7 +751,7 @@
 </div>
 
 			
-				
+								
 <div
 	class="tribe-events-calendar-month__day"
 	role="gridcell"
@@ -739,7 +769,13 @@
 			<time datetime="YYYY-MM-DD">
 				6			</time>
 		</h3>
-					<em
+							<em
+				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--featured"
+				aria-label="Has featured events"
+				title="Has featured events"
+			>
+			</em>
+							<em
 				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--event"
 				aria-label="Has events"
 				title="Has events"
@@ -851,16 +887,13 @@
 
 		</div>
 
-		<div class="tribe-events-calendar-month__more-events">
-	<a href="#" class="tribe-events-calendar-month__more-events-link tribe-common-h8 tribe-common-h--alt tribe-common-anchor-thin">+ 2 More</a>
-</div>
-
+		
 	</div>
 
 </div>
 
 			
-				
+								
 <div
 	class="tribe-events-calendar-month__day"
 	role="gridcell"
@@ -878,7 +911,13 @@
 			<time datetime="YYYY-MM-DD">
 				7			</time>
 		</h3>
-					<em
+							<em
+				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--featured"
+				aria-label="Has featured events"
+				title="Has featured events"
+			>
+			</em>
+							<em
 				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--event"
 				aria-label="Has events"
 				title="Has events"
@@ -917,7 +956,7 @@
 		<div class="tribe-events-calendar-month__week" role="row" data-js="tribe-events-month-grid-row">
 
 			
-				
+								
 <div
 	class="tribe-events-calendar-month__day"
 	role="gridcell"
@@ -935,7 +974,13 @@
 			<time datetime="YYYY-MM-DD">
 				8			</time>
 		</h3>
-					<em
+							<em
+				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--featured"
+				aria-label="Has featured events"
+				title="Has featured events"
+			>
+			</em>
+							<em
 				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--event"
 				aria-label="Has events"
 				title="Has events"
@@ -968,7 +1013,7 @@
 </div>
 
 			
-				
+								
 <div
 	class="tribe-events-calendar-month__day"
 	role="gridcell"
@@ -986,7 +1031,13 @@
 			<time datetime="YYYY-MM-DD">
 				9			</time>
 		</h3>
-					<em
+							<em
+				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--featured"
+				aria-label="Has featured events"
+				title="Has featured events"
+			>
+			</em>
+							<em
 				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--event"
 				aria-label="Has events"
 				title="Has events"
@@ -1113,16 +1164,13 @@
 
 		</div>
 
-		<div class="tribe-events-calendar-month__more-events">
-	<a href="#" class="tribe-events-calendar-month__more-events-link tribe-common-h8 tribe-common-h--alt tribe-common-anchor-thin">+ 2 More</a>
-</div>
-
+		
 	</div>
 
 </div>
 
 			
-				
+								
 <div
 	class="tribe-events-calendar-month__day"
 	role="gridcell"
@@ -1140,7 +1188,13 @@
 			<time datetime="YYYY-MM-DD">
 				10			</time>
 		</h3>
-					<em
+							<em
+				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--featured"
+				aria-label="Has featured events"
+				title="Has featured events"
+			>
+			</em>
+							<em
 				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--event"
 				aria-label="Has events"
 				title="Has events"
@@ -1228,16 +1282,13 @@
 
 		</div>
 
-		<div class="tribe-events-calendar-month__more-events">
-	<a href="#" class="tribe-events-calendar-month__more-events-link tribe-common-h8 tribe-common-h--alt tribe-common-anchor-thin">+ 2 More</a>
-</div>
-
+		
 	</div>
 
 </div>
 
 			
-				
+								
 <div
 	class="tribe-events-calendar-month__day"
 	role="gridcell"
@@ -1255,7 +1306,13 @@
 			<time datetime="YYYY-MM-DD">
 				11			</time>
 		</h3>
-					<em
+							<em
+				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--featured"
+				aria-label="Has featured events"
+				title="Has featured events"
+			>
+			</em>
+							<em
 				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--event"
 				aria-label="Has events"
 				title="Has events"
@@ -1288,7 +1345,7 @@
 </div>
 
 			
-				
+								
 <div
 	class="tribe-events-calendar-month__day"
 	role="gridcell"
@@ -1306,7 +1363,13 @@
 			<time datetime="YYYY-MM-DD">
 				12			</time>
 		</h3>
-					<em
+							<em
+				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--featured"
+				aria-label="Has featured events"
+				title="Has featured events"
+			>
+			</em>
+							<em
 				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--event"
 				aria-label="Has events"
 				title="Has events"
@@ -1339,7 +1402,7 @@
 </div>
 
 			
-				
+								
 <div
 	class="tribe-events-calendar-month__day"
 	role="gridcell"
@@ -1357,7 +1420,13 @@
 			<time datetime="YYYY-MM-DD">
 				13			</time>
 		</h3>
-					<em
+							<em
+				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--featured"
+				aria-label="Has featured events"
+				title="Has featured events"
+			>
+			</em>
+							<em
 				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--event"
 				aria-label="Has events"
 				title="Has events"
@@ -1390,7 +1459,7 @@
 </div>
 
 			
-				
+								
 <div
 	class="tribe-events-calendar-month__day"
 	role="gridcell"
@@ -1408,7 +1477,13 @@
 			<time datetime="YYYY-MM-DD">
 				14			</time>
 		</h3>
-					<em
+							<em
+				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--featured"
+				aria-label="Has featured events"
+				title="Has featured events"
+			>
+			</em>
+							<em
 				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--event"
 				aria-label="Has events"
 				title="Has events"
@@ -1447,7 +1522,7 @@
 		<div class="tribe-events-calendar-month__week" role="row" data-js="tribe-events-month-grid-row">
 
 			
-				
+								
 <div
 	class="tribe-events-calendar-month__day"
 	role="gridcell"
@@ -1465,7 +1540,13 @@
 			<time datetime="YYYY-MM-DD">
 				15			</time>
 		</h3>
-					<em
+							<em
+				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--featured"
+				aria-label="Has featured events"
+				title="Has featured events"
+			>
+			</em>
+							<em
 				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--event"
 				aria-label="Has events"
 				title="Has events"
@@ -1498,7 +1579,7 @@
 </div>
 
 			
-				
+								
 <div
 	class="tribe-events-calendar-month__day"
 	role="gridcell"
@@ -1516,7 +1597,13 @@
 			<time datetime="YYYY-MM-DD">
 				16			</time>
 		</h3>
-					<em
+							<em
+				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--featured"
+				aria-label="Has featured events"
+				title="Has featured events"
+			>
+			</em>
+							<em
 				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--event"
 				aria-label="Has events"
 				title="Has events"
@@ -1593,16 +1680,13 @@
 
 		</div>
 
-		<div class="tribe-events-calendar-month__more-events">
-	<a href="#" class="tribe-events-calendar-month__more-events-link tribe-common-h8 tribe-common-h--alt tribe-common-anchor-thin">+ 2 More</a>
-</div>
-
+		
 	</div>
 
 </div>
 
 			
-				
+								
 <div
 	class="tribe-events-calendar-month__day"
 	role="gridcell"
@@ -1620,7 +1704,13 @@
 			<time datetime="YYYY-MM-DD">
 				17			</time>
 		</h3>
-					<em
+							<em
+				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--featured"
+				aria-label="Has featured events"
+				title="Has featured events"
+			>
+			</em>
+							<em
 				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--event"
 				aria-label="Has events"
 				title="Has events"
@@ -1653,7 +1743,7 @@
 </div>
 
 			
-				
+								
 <div
 	class="tribe-events-calendar-month__day"
 	role="gridcell"
@@ -1671,7 +1761,13 @@
 			<time datetime="YYYY-MM-DD">
 				18			</time>
 		</h3>
-					<em
+							<em
+				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--featured"
+				aria-label="Has featured events"
+				title="Has featured events"
+			>
+			</em>
+							<em
 				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--event"
 				aria-label="Has events"
 				title="Has events"
@@ -1704,7 +1800,7 @@
 </div>
 
 			
-				
+								
 <div
 	class="tribe-events-calendar-month__day"
 	role="gridcell"
@@ -1722,7 +1818,13 @@
 			<time datetime="YYYY-MM-DD">
 				19			</time>
 		</h3>
-					<em
+							<em
+				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--featured"
+				aria-label="Has featured events"
+				title="Has featured events"
+			>
+			</em>
+							<em
 				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--event"
 				aria-label="Has events"
 				title="Has events"
@@ -1782,7 +1884,7 @@
 </div>
 
 			
-				
+								
 <div
 	class="tribe-events-calendar-month__day"
 	role="gridcell"
@@ -1800,7 +1902,13 @@
 			<time datetime="YYYY-MM-DD">
 				20			</time>
 		</h3>
-					<em
+							<em
+				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--featured"
+				aria-label="Has featured events"
+				title="Has featured events"
+			>
+			</em>
+							<em
 				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--event"
 				aria-label="Has events"
 				title="Has events"
@@ -1860,7 +1968,7 @@
 </div>
 
 			
-				
+								
 <div
 	class="tribe-events-calendar-month__day"
 	role="gridcell"
@@ -1878,7 +1986,13 @@
 			<time datetime="YYYY-MM-DD">
 				21			</time>
 		</h3>
-					<em
+							<em
+				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--featured"
+				aria-label="Has featured events"
+				title="Has featured events"
+			>
+			</em>
+							<em
 				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--event"
 				aria-label="Has events"
 				title="Has events"
@@ -1933,7 +2047,7 @@
 		<div class="tribe-events-calendar-month__week" role="row" data-js="tribe-events-month-grid-row">
 
 			
-				
+								
 <div
 	class="tribe-events-calendar-month__day"
 	role="gridcell"
@@ -1951,7 +2065,13 @@
 			<time datetime="YYYY-MM-DD">
 				22			</time>
 		</h3>
-					<em
+							<em
+				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--featured"
+				aria-label="Has featured events"
+				title="Has featured events"
+			>
+			</em>
+							<em
 				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--event"
 				aria-label="Has events"
 				title="Has events"
@@ -1998,7 +2118,7 @@
 </div>
 
 			
-				
+								
 <div
 	class="tribe-events-calendar-month__day"
 	role="gridcell"
@@ -2016,7 +2136,13 @@
 			<time datetime="YYYY-MM-DD">
 				23			</time>
 		</h3>
-					<em
+							<em
+				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--featured"
+				aria-label="Has featured events"
+				title="Has featured events"
+			>
+			</em>
+							<em
 				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--event"
 				aria-label="Has events"
 				title="Has events"
@@ -2107,16 +2233,13 @@
 
 		</div>
 
-		<div class="tribe-events-calendar-month__more-events">
-	<a href="#" class="tribe-events-calendar-month__more-events-link tribe-common-h8 tribe-common-h--alt tribe-common-anchor-thin">+ 2 More</a>
-</div>
-
+		
 	</div>
 
 </div>
 
 			
-				
+								
 <div
 	class="tribe-events-calendar-month__day"
 	role="gridcell"
@@ -2134,7 +2257,13 @@
 			<time datetime="YYYY-MM-DD">
 				24			</time>
 		</h3>
-					<em
+							<em
+				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--featured"
+				aria-label="Has featured events"
+				title="Has featured events"
+			>
+			</em>
+							<em
 				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--event"
 				aria-label="Has events"
 				title="Has events"
@@ -2167,7 +2296,7 @@
 </div>
 
 			
-				
+								
 <div
 	class="tribe-events-calendar-month__day"
 	role="gridcell"
@@ -2185,7 +2314,13 @@
 			<time datetime="YYYY-MM-DD">
 				25			</time>
 		</h3>
-					<em
+							<em
+				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--featured"
+				aria-label="Has featured events"
+				title="Has featured events"
+			>
+			</em>
+							<em
 				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--event"
 				aria-label="Has events"
 				title="Has events"
@@ -2218,7 +2353,7 @@
 </div>
 
 			
-				
+								
 <div
 	class="tribe-events-calendar-month__day"
 	role="gridcell"
@@ -2236,7 +2371,13 @@
 			<time datetime="YYYY-MM-DD">
 				26			</time>
 		</h3>
-					<em
+							<em
+				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--featured"
+				aria-label="Has featured events"
+				title="Has featured events"
+			>
+			</em>
+							<em
 				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--event"
 				aria-label="Has events"
 				title="Has events"
@@ -2324,16 +2465,13 @@
 
 		</div>
 
-		<div class="tribe-events-calendar-month__more-events">
-	<a href="#" class="tribe-events-calendar-month__more-events-link tribe-common-h8 tribe-common-h--alt tribe-common-anchor-thin">+ 2 More</a>
-</div>
-
+		
 	</div>
 
 </div>
 
 			
-				
+								
 <div
 	class="tribe-events-calendar-month__day"
 	role="gridcell"
@@ -2351,7 +2489,13 @@
 			<time datetime="YYYY-MM-DD">
 				27			</time>
 		</h3>
-					<em
+							<em
+				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--featured"
+				aria-label="Has featured events"
+				title="Has featured events"
+			>
+			</em>
+							<em
 				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--event"
 				aria-label="Has events"
 				title="Has events"
@@ -2422,16 +2566,13 @@
 
 		</div>
 
-		<div class="tribe-events-calendar-month__more-events">
-	<a href="#" class="tribe-events-calendar-month__more-events-link tribe-common-h8 tribe-common-h--alt tribe-common-anchor-thin">+ 2 More</a>
-</div>
-
+		
 	</div>
 
 </div>
 
 			
-				
+								
 <div
 	class="tribe-events-calendar-month__day"
 	role="gridcell"
@@ -2449,7 +2590,13 @@
 			<time datetime="YYYY-MM-DD">
 				28			</time>
 		</h3>
-					<em
+							<em
+				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--featured"
+				aria-label="Has featured events"
+				title="Has featured events"
+			>
+			</em>
+							<em
 				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--event"
 				aria-label="Has events"
 				title="Has events"
