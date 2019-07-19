@@ -168,7 +168,7 @@ class Month_View extends View {
 	 * @return array A flat array of all the events found on the calendar grid.
 	 */
 	public function found_post_ids() {
-		return null !== $this->grid_days_cache
+		return ! empty( $this->grid_days_cache )
 			? array_unique( array_merge( ... array_values( $this->grid_days_cache ) ) )
 			: [];
 	}
@@ -234,13 +234,19 @@ class Month_View extends View {
 				'year_number'     => (int) $date_object->format( 'Y' ),
 				'month_number'    => (int) $date_object->format( 'm' ),
 				'day_number'      => (int) $date_object->format( 'd' ),
-				'events'          => array_filter( $day_events, static function ( \WP_Post $event ) {
-					return ! $event->multiday;
+
+				// This will only include non multi-day events.
+				'events'          => array_filter( $day_events, static function ( $event ) {
+					$event = tribe_get_event( $event );
+
+					return $event instanceof \WP_Post && ! $event->multiday;
 				} ),
-				'featured_events' => array_filter( $day_events ),
-				static function ( \WP_Post $event ) {
-					return $event->featured;
-				},
+				'featured_events' => array_filter( $day_events,
+					static function ( $event ) {
+						$event = tribe_get_event( $event );
+
+						return $event instanceof \WP_Post && $event->featured;
+					} ),
 				// Includes spacers.
 				'multiday_events' => Arr::get( $multiday_stacks, $day_date, [] ),
 			];

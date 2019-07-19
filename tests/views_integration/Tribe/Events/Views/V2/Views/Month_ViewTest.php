@@ -35,9 +35,7 @@ class Month_ViewTest extends ViewTestCase {
 
 		$this->assertEmpty( $month_view->found_post_ids() );
 
-		// @todo @luca do not skip  this!
-		// Currently commented out while working on the day/event format and its use in the template.
-		// $this->assertMatchesSnapshot( $month_view->get_html() )
+		 $this->assertMatchesSnapshot( $month_view->get_html() );
 	}
 
 	/**
@@ -45,7 +43,7 @@ class Month_ViewTest extends ViewTestCase {
 	 */
 	public function test_render_with_events() {
 		/** @var Month_View $month_view */
-		$month_view      = View::make( Month_View::class );
+		$month_view = View::make( Month_View::class, $this->context );
 		$timezone_string = 'Europe/Paris';
 		$timezone        = new \DateTimeZone( $timezone_string );
 		update_option( 'timezone_string', $timezone_string );
@@ -66,8 +64,7 @@ class Month_ViewTest extends ViewTestCase {
 			return $event->ID;
 		}, $events );
 
-		// @todo @luca do not skip  this!
-		// $month_view->get_html();
+		 $month_view->get_html();
 
 		$this->assertEquals( $event_ids, $month_view->found_post_ids() );
 
