@@ -143,7 +143,6 @@ class Month_View extends View {
 				return $this->grid_days_cache[ $day_string ];
 			}
 
-			// @todo @luca add caching here!
 			$start = clone $day->setTime( 0, 0, 0 );
 			$end   = clone $day->setTime( 23, 59, 59 );
 
