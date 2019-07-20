@@ -33,6 +33,15 @@ class Tribe__Events__Integrations__Freemius {
 	private $slug = 'the-events-calendar';
 
 	/**
+	 * Store the value from the 'page' in the request.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	private $page = '';
+
+	/**
 	 * Performs setup for the Freemius integration singleton.
 	 *
 	 * @since  4.9
