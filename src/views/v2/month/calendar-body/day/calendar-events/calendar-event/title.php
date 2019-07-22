@@ -25,6 +25,6 @@ $event_id = $event->ID;
 		data-tooltip-content="#tooltip_content-<?php echo esc_attr( $event_id ); ?>"
 		aria-describedby="#tooltip_content-<?php echo esc_attr( $event_id ); ?>"
 	>
-		<?php echo esc_html( $event->title ); ?>
+		<?php echo esc_html( get_the_title($event_id) ); ?>
 	</a>
 </h3>

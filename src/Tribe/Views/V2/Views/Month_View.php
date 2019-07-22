@@ -75,6 +75,16 @@ class Month_View extends View {
 	protected $grid_days_cache = [];
 
 	/**
+	 * An array of cached event counts per day.
+	 * Used by the `Cache_User` trait.
+	 *
+	 * @since TBD
+	 *
+	 * @var array
+	 */
+	private $grid_days_found_cache = [];
+
+	/**
 	 * Month_View constructor.
 	 * 
 	 * @since TBD
@@ -113,11 +123,14 @@ class Month_View extends View {
 		$grid_start = Month::calculate_first_cell_date( $year_month );
 		$grid_end   = Month::calculate_final_cell_date( $year_month );
 		$timezone   = Timezones::build_timezone_object();
+
 		try {
-			$days = new \DatePeriod(
-				new \DateTime( $grid_start, $timezone ),
+			$grid_start_date = ( new \DateTime( $grid_start, $timezone ) )->setTime( 0, 0 );
+			$grid_end_date   = ( new \DateTime( $grid_end, $timezone ) )->setTime( 23, 59, 59 );
+			$days            = new \DatePeriod(
+				$grid_start_date,
 				new \DateInterval( 'P1D' ),
-				new \DateTime( $grid_end, $timezone )
+				$grid_end_date
 			);
 		} catch ( \Exception $e ) {
 			// If anything happens let's return an empty array.
@@ -133,11 +146,12 @@ class Month_View extends View {
 		$order           = Arr::get( $repository_args, 'order', 'ASC' );
 		unset( $repository_args['order_by'], $repository_args['order'] );
 
+		$this->warmup_cache( 'grid_days', 0, Cache_Listener::TRIGGER_SAVE_POST );
+		$this->warmup_cache( 'grid_days_found', 0, Cache_Listener::TRIGGER_SAVE_POST );
+
 		/** @var \DateTime $day */
 		foreach ( $days as $day ) {
 			$day_string = $day->format( 'Y-m-d' );
-
-			$this->warmup_cache( 'grid_days', 0, Cache_Listener::TRIGGER_SAVE_POST );
 
 			if ( isset( $this->grid_days_cache[ $day_string ] ) ) {
 				return $this->grid_days_cache[ $day_string ];
@@ -146,12 +160,14 @@ class Month_View extends View {
 			$start = clone $day->setTime( 0, 0, 0 );
 			$end   = clone $day->setTime( 23, 59, 59 );
 
-			$event_ids = tribe_events()->by_args( $repository_args )
+			$day_query = tribe_events()->by_args( $repository_args )
 			                           ->where( 'date_overlaps', $start, $end )
-			                           ->order_by( $order_by, $order )
-			                           ->get_ids();
+			                           ->order_by( $order_by, $order );
+			$event_ids = $day_query ->get_ids();
+			$found     = $day_query->found();
 
-			$this->grid_days_cache[ $day_string ] = $event_ids;
+			$this->grid_days_cache[ $day_string ]       = $event_ids;
+			$this->grid_days_found_cache[ $day_string ] = $found;
 		}
 
 		return $this->grid_days_cache;
@@ -192,7 +208,7 @@ class Month_View extends View {
 
 		$this->year_month = ( new \DateTime( $date ) )->format( 'Y-m' );
 
-		// @todo we'll need to be a bit more sophisticated here with the ordering.
+		// @todo @be we'll need to be a bit more sophisticated here with the ordering.
 		$args['order_by'] = 'event_date';
 		$args['order']    = 'ASC';
 		$this->repository->order_by( 'event_date', 'ASC' );
@@ -219,40 +235,12 @@ class Month_View extends View {
 		$this->repository->void_query( false );
 
 		// The events will be returned in an array with shape `[ <Y-m-d> => [...<events>], <Y-m-d> => [...<events>] ]`.
-		$events = $this->get_grid_days();
+		$grid_days       = $this->get_grid_days();
+		$days            = $this->get_days_data( $grid_days );
 
-		$multiday_stacks = $this->build_multiday_stacks( $events );
-
-		// Let's prepare an array of days more digestible by the templates.
-		$days = [];
-		foreach ( $events as $day_date => $day_events ) {
-			$date_object = Date_Utils::build_date_object( $day_date );
-
-			$days[] = [
-				'date'            => $day_date, // Y-m-d
-				'year_number'     => (int) $date_object->format( 'Y' ),
-				'month_number'    => (int) $date_object->format( 'm' ),
-				'day_number'      => (int) $date_object->format( 'd' ),
-
-				// This will only include non multi-day events.
-				'events'          => array_filter( $day_events, static function ( $event ) {
-					$event = tribe_get_event( $event );
-
-					return $event instanceof \WP_Post && ! $event->multiday;
-				} ),
-				'featured_events' => array_filter( $day_events,
-					static function ( $event ) {
-						$event = tribe_get_event( $event );
-
-						return $event instanceof \WP_Post && $event->featured;
-					} ),
-				// Includes spacers.
-				'multiday_events' => Arr::get( $multiday_stacks, $day_date, [] ),
-			];
-		}
-
-		$template_vars['events'] = $events;
-		$template_vars['days']   = $days;
+		$template_vars['today_date'] = Date_Utils::build_date_object()->format( 'Y-m-d' );
+		$template_vars['events']     = $grid_days;
+		$template_vars['days']       = $days;
 
 		return $template_vars;
 	}
@@ -305,5 +293,111 @@ class Month_View extends View {
 		$stack = array_slice( $multiday_stack, $start_index, $end_index - $start_index + 1, true );
 
 		return $stack;
+	}
+
+	/**
+	 * Returns the number of events found for each day.
+	 *
+	 * The number of events found ignores the per-page setting and it includes any event happening on the day.
+	 * This includes multi-day events happening on the day.
+	 *
+	 * @since TBD
+	 *
+	 * @return array An array of days, each containing the count of found events for that day;
+	 *               the array has shape `[ <Y-m-d> => <count> ]`;
+	 */
+	public function get_grid_days_counts() {
+		// Fetch the events for each day on the grid, if not done already.
+		$this->get_grid_days();
+
+		return $this->grid_days_found_cache;
+	}
+
+	/**
+	 * Populates the data for each day in the grid and returns it.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $grid_days An associative array of events per day, in the shape `[ <Y-m-d> => [...<events>] ]`.
+	 *
+	 * @return array An associative array of day data for each day in the shape `[ <Y-m-d> => <day_data> ]`.
+	 */
+	protected function get_days_data( array $grid_days ) {
+		$found_events = $this->get_grid_days_counts();
+
+		// The multi-day stack will contain spacers and post IDs.
+		$multiday_stacks = $this->build_multiday_stacks( $grid_days );
+
+		// Let's prepare an array of days more digestible by the templates.
+		$days = [];
+		foreach ( $grid_days as $day_date => $day_events ) {
+			/**
+			 * This will be used to call `tribe_get_event` in the context of a specific week for each day
+			 * to have valid and coherent `starts_this_week` and `ends_this_week` properties set.
+			 *
+			 * @see tribe_get_event()
+			 */
+			$date_object = Date_Utils::build_date_object( $day_date );
+
+			$multiday_events_stack = array_map( static function ( $element ) use ( $date_object ) {
+				// If it's numeric make an event object of it.
+				return is_numeric( $element ) ?
+					tribe_get_event( $element, OBJECT, $date_object->format( 'Y-m-d' ) )
+					: $element;
+			}, Arr::get( $multiday_stacks, $day_date, [] ) );
+
+			$the_day_events = array_map( 'tribe_get_event',
+				array_filter( $day_events, static function ( $event ) use ( $date_object ) {
+					$event = tribe_get_event( $event, OBJECT, $date_object->format( 'Y-m-d' ) );
+
+					return $event instanceof \WP_Post && ! $event->multiday;
+				} )
+			);
+
+			$more_events  = 0;
+			$found_events = Arr::get( $found_events, $day_date, 0 );
+
+			if ( $found_events ) {
+				/*
+				 * We cannot know before-hand what spacer will be used (it's filterable) so we have to count the events
+				 * by keeping only the posts.
+				 */
+				$multiday_events_count = count( array_filter( $multiday_events_stack ), static function ( $el ) {
+					return $el instanceof \WP_Post;
+				} );
+				/*
+				 * In the context of the Month View we want to know if there are more events we're not seeing.
+				 * So we exclude the ones we see and the multi-day ones that we're seeing in the multi-day stack.
+				 */
+				$more_events = $found_events - $multiday_events_count - count( $the_day_events );
+			}
+
+			$day_data          = [
+				// The day date, in the `Y-m-d` format.
+				'date'            => $day_date,
+				'year_number'     => (int) $date_object->format( 'Y' ),
+				'month_number'    => (int) $date_object->format( 'm' ),
+				'day_number'      => (int) $date_object->format( 'd' ),
+
+				// This will only include non multi-day events.
+				'events'          => $the_day_events,
+				'featured_events' => array_map( 'tribe_get_event',
+					array_filter( $day_events,
+						static function ( $event ) use ( $date_object ) {
+							$event = tribe_get_event( $event, OBJECT, $date_object->format( 'Y-m-d' ) );
+
+							return $event instanceof \WP_Post && $event->featured;
+						} )
+				),
+				// The multi-day stack, including spacers. That's why we use `element`.
+				'multiday_events' => $multiday_events_stack,
+				'found_events'    => $found_events,
+				'more_events'     => $more_events,
+			];
+
+			$days[ $day_date ] = $day_data;
+		}
+
+		return $days;
 	}
 }

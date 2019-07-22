@@ -11,26 +11,38 @@
  *
  * @version TBD
  *
+ * @var string $today_date Today's date in the `Y-m-d` format.
+ * @var string $day_date The current day date, in the `Y-m-d` format.
+ * @var array $day The current day data.{
+ *          @type string $date The day date, in the `Y-m-d` format.
+ *          @type int $year_number The day year number, e.g. `2019`.
+ *          @type int $month_number The day year number, e.g. `6` for June.
+ *          @type int $day_number The day number in the month, e.g. `11` for June 11th.
+ *          @type int $found_events The total number of events in the day including the ones not fetched due to the per
+ *                                  page limit, including the multi-day ones.
+ *          @type int $more_events The number of events not showing in the day.
+ *          @type array $events The non multi-day events on this day. The format of each event is the one returned by
+ *                    the `tribe_get_event` function.
+ *          @type array $featured_events The featured events on this day. The format of each event is the one returned
+ *                    by the `tribe_get_event` function.
+ *          @type array $multiday_events The stack of multi-day events on this day. The stack is a mix of event post
+ *                              objects, the format is the one returned from the `tribe_get_event` function, and
+ *                              spacers. Spacers are falsy values indicating an empty space in the multi-day stack for
+ *                              the day
+ *      }
  */
-$day_number = $this->get( 'day_number' );
-// @todo: This is just for presentation purposes, while building the FE of the view. (as we receive $day_number from 1 to 7, multiplying it according to the week and making it look like a calendar).
-// @todo: The day number shouldn't be calculated and it's unnecesary to have the `$week` here.
-$day_number   = ( $week < 1 ) ? ( $day_number + 1 ) * ( $week + 1 ) : ( $day_number + 1 ) + $week * 7;
-$month_number = 6;
 
 $day_classes = [ 'tribe-events-calendar-month__day' ];
+$day_number = $day['day_number'];
 
-// @todo: figure out consistent way of formatting ids (Add year as well).
-$day_id = 'tribe-events-calendar-day-' . $month_number . '-' . $day_number;
+$day_id = 'tribe-events-calendar-day-' . $day_date;
 
-if ( $day_number == date( 'd', time() ) ) {
+if ( $today_date === $day_date ) {
 	$day_classes[] = 'tribe-events-calendar-month__day--current';
 }
 
-// @todo: figure out consistent way of formatting ids
-// only add id if events exist on the day
-$mobile_day_id = 'tribe-events-calendar-mobile-day-' . $month_number . '-' . $day_number;
-
+// Only add id if events exist on the day.
+$mobile_day_id = 'tribe-events-calendar-mobile-day-' . $day_date;
 ?>
 
 <div
@@ -41,8 +53,10 @@ $mobile_day_id = 'tribe-events-calendar-mobile-day-' . $month_number . '-' . $da
 >
 
 	<button
-		aria-expanded="false" <?php // @todo: only add if events exist on the day -> if ( isset( $day['events'] ) && $day['events'] ) ?>
-		aria-selected="false" <?php // @todo: only add if events exist on the day -> if ( isset( $day['events'] ) && $day['events'] ) ?>
+		<?php if ( ! empty( $day['events'] ) ) : ?>
+			aria-expanded="false"
+			aria-selected="false"
+		<?php endif; ?>
 		aria-controls="<?php echo esc_attr( $mobile_day_id ); ?>"
 		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
 		tabindex="-1"
@@ -53,23 +67,21 @@ $mobile_day_id = 'tribe-events-calendar-mobile-day-' . $month_number . '-' . $da
 				<?php echo esc_html( $day_number ); ?>
 			</time>
 		</h3>
-		<?php /* @todo: if day has featured event */ ?>
-		<?php /* if ( isset( $day['featured_events'] ) && $day['featured_events'] ) : */ ?>
+		<?php if ( ! empty( $day['featured_events'] ) ): ?>
 			<em
 				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--featured"
 				aria-label="<?php esc_attr_e( 'Has featured events', 'the-events-calendar' ); ?>"
 				title="<?php esc_attr_e( 'Has featured events', 'the-events-calendar' ); ?>"
 			>
 			</em>
-		<?php /* @todo: else if day has events */ ?>
-		<?php /* else if ( isset( $day['events'] ) && $day['events'] ) : */ ?>
+		<?php elseif ( ! empty( $day['events'] ) ) : ?>
 			<em
 				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--event"
 				aria-label="<?php esc_attr_e( 'Has events', 'the-events-calendar' ); ?>"
 				title="<?php esc_attr_e( 'Has events', 'the-events-calendar' ); ?>"
 			>
 			</em>
-		<?php /* endif */ ?>
+		<?php endif ?>
 	</button>
 
 	<div
@@ -80,6 +92,7 @@ $mobile_day_id = 'tribe-events-calendar-mobile-day-' . $month_number . '-' . $da
 			<span class="tribe-common-a11y-visual-hide">X events, </span>
 			<time datetime="YYYY-MM-DD">
 				<a
+					<?php /* @todo @fe connect this to the day view link if the day has events */ ?>
 					href="#link-to-day-view-if-it-has-events"
 					class="tribe-events-calendar-month__day-date-link"
 				>
@@ -89,12 +102,15 @@ $mobile_day_id = 'tribe-events-calendar-mobile-day-' . $month_number . '-' . $da
 		</h3>
 
 		<div class="tribe-events-calendar-month__events">
-			<?php $this->template( 'month/calendar-body/day/multiday-events', [ 'day_number' => $day_number ] ); ?>
+			<?php $this->template( 'month/calendar-body/day/multiday-events', [
+				'day_date'        => $day['date'],
+				'multiday_events' => $day['multiday_events']
+			] ); ?>
 
-			<?php $this->template( 'month/calendar-body/day/calendar-events', [ 'day_number' => $day_number ] ); ?>
+			<?php $this->template( 'month/calendar-body/day/calendar-events', [ 'day_events' => $day['events'] ] ); ?>
 		</div>
 
-		<?php $this->template( 'month/calendar-body/day/more-events', [ 'day_number' => $day_number ] ); ?>
+		<?php $this->template( 'month/calendar-body/day/more-events', [ 'more_events' => $day['more_events'] ] ); ?>
 
 	</div>
 

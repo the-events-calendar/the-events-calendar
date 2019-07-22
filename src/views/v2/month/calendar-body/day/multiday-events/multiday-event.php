@@ -11,34 +11,37 @@
  *
  * @version 4.9.4
  *
+ * @var string $day_date The `Y-m-d` date of the day currently being displayed.
+ * @var WP_Post $event An event post object with event-specific properties added from the the `tribe_get_event`
+ *                     function.
+ *
+ * @see tribe_get_event() For the format of the event object and its properties.
+ *
  */
 
-$event    = $this->get( 'event' );
-$event_id = $event->ID;
-$day_number = $this->get( 'day' );
+$should_display = $event->dates->start->format( 'Y-m-d' ) === $day_date;
 
 $classes = [ 'tribe-events-calendar-month__multiday-event' ];
 
-// @todo: move class configuration to template tag
-// Check if it's featured.
-if ( $is_featured = isset( $event->featured ) && $event->featured ) { // @todo: later use tribe( 'tec.featured_events' )->is_featured( $event_id ) or similar
+// @todo @fe move class configuration to template tag
+
+if ( $event->featured ) {
 	$classes[] = 'tribe-events-calendar-month__multiday-event--featured';
 }
 
-// If it starts today and this week, let's add the left border and set the width
-if ( $should_display = $event->start_date == $day_number ) { // @todo:later we can check mm/dd or even year
+// If it starts today and this week, let's add the left border and set the width.
+if ( $should_display ) {
 
-	// @todo: check if it ends this week or not, and how to split the duration
-	$classes[] = 'tribe-events-calendar-month__multiday-event--width-' . $event->duration;
+	// @todo @fe: check if it ends this week or not, and how to split the duration
+	$classes[] = 'tribe-events-calendar-month__multiday-event--width-' . $event->multiday;
 
-	// if it ends this week, let's add the start class (left border)
-	if ( isset( $event->start_this_week ) && $event->start_this_week ) {
+	// If it ends this week, let's add the start class (left border).
+	if ( $event->starts_this_week ) {
 		$classes[] = 'tribe-events-calendar-month__multiday-event--start';
 	}
 
-	// if it ends this week, let's add the end class (right border)
-	$end_this_week = isset( $event->end_this_week ) && $event->end_this_week;
-	if ( $end_this_week ) {
+	// If it ends this week, let's add the end class (right border).
+	if ( $event->ends_this_week ) {
 		$classes[] = 'tribe-events-calendar-month__multiday-event--end';
 	}
 
@@ -52,7 +55,7 @@ if ( $should_display = $event->start_date == $day_number ) { // @todo:later we c
 	<article class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>" data-event-id="<?php echo esc_attr( $event->ID ); ?>">
 		<time datetime="the-date-and-or-duration" class="tribe-common-a11y-visual-hide">The date and duration</time>
 		<a href="#" class="tribe-events-calendar-month__multiday-event-inner">
-			<?php if ( $is_featured ) : ?>
+			<?php if ( $event->featured ) : ?>
 				<em
 					class="tribe-events-calendar-month__multiday-event-featured-icon tribe-common-svgicon tribe-common-svgicon--featured"
 					aria-label="<?php esc_attr_e( 'Featured', 'the-events-calendar' ); ?>"
@@ -60,7 +63,7 @@ if ( $should_display = $event->start_date == $day_number ) { // @todo:later we c
 				></em>
 			<?php endif; ?>
 			<h3 class="tribe-events-calendar-month__multiday-event-title tribe-common-h8">
-				<?php echo $event->title; ?>
+				<?php echo esc_html( get_the_title( $event->ID ) ) ?>
 			</h3>
 		</a>
 	</article>

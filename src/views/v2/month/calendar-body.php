@@ -11,24 +11,25 @@
  *
  * @version TBD
  *
+ * @var array $days An array containing the data for each day on the calendar grid, divided by day.
+ *                  Shape `[ <Y-m-d> => [ ...<day_data> ] ]`.
  */
 ?>
+
 <div class="tribe-events-calendar-month__body" role="rowgroup">
 
-	<?php // @todo: replace this with the actual month days. Using these for(s) for presentation purposes. ?>
-	<?php for ( $week = 0; $week < 4; $week++ ) : ?>
+	<?php foreach ( array_chunk( $days, 7, true ) as $week ) : ?>
 
 		<div class="tribe-events-calendar-month__week" role="row" data-js="tribe-events-month-grid-row">
 
-			<?php for ( $day_number = 0; $day_number < 7; $day_number++ ) : ?>
+			<?php foreach ( $week as $day_date => $day ) : ?>
 
-				<?php // @todo: When the BE is ready, we shouldn't send the $week here, it's now being sent to calculate the day number for the FE presentation. ?>
-				<?php $this->template( 'month/calendar-body/day', [ 'day_number' => $day_number, 'week' => $week ] ); ?>
+				<?php $this->template( 'month/calendar-body/day', [ 'day_date' => $day_date, 'day' => $day ] ); ?>
 
-			<?php endfor; ?>
+			<?php endforeach; ?>
 
 		</div>
 
-	<?php endfor; ?>
+	<?php endforeach; ?>
 
 </div>

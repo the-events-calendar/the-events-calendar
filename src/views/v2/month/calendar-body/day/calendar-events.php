@@ -11,27 +11,20 @@
  *
  * @version TBD
  *
+ * @var array $day_events An array of the day event post objects. Each event is a `WP_Post` instance with additional
+ *                        properties as set from the `tribe_get_event` function.
+ *
+ * @see tribe_get_event() For the format of each event object.
  */
-$day_number = $this->get( 'day_number' );
 
-/**
- * Adding this as a temprorary data structure.
- * @todo: This array should contain the month with real events.
- */
-$month_data = apply_filters( 'tribe_events_views_v2_month_demo_data', [] );
-
-// Get the calendar events for that day
-// @todo: This is a function with demo purposes.
-// @todo: When BE is ready, this should be replaced with $day['events']; (containing the ones that are not multiday).
-$calendar_events = tribe_events_views_v2_month_demo_day_get_events_regular( $month_data, $day_number );
-
-// Bail if there are no events
-if ( ! $calendar_events ) {
+// Bail if there are no events for day.
+if ( empty ( $day_events ) ) {
 	return;
 }
 ?>
-<?php foreach ( $calendar_events as $event ) : ?>
 
-	<?php $this->template( 'month/calendar-body/day/calendar-events/calendar-event', [ 'event' => (object) $event, 'day' => $day_number ] ); ?>
+<?php foreach ( $day_events as $event ) : ?>
+
+	<?php $this->template( 'month/calendar-body/day/calendar-events/calendar-event', [ 'event' => $event ] ); ?>
 
 <?php endforeach; ?>

@@ -11,14 +11,15 @@
  *
  * @version TBD
  *
+ * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
+ *
+ * @see tribe_get_event() For the format of the event object.
+ *
  */
-$event = $this->get( 'event' );
-$is_featured  = isset( $event->featured ) && $event->featured;
+ // @todo @fe: use template tags for images here
+// @todo @fe use srcset here?
 
-if (
-	! $is_featured
-	|| ! isset( $event->image )
-) { // @todo: use template tags for images here
+if ( ! $event->featured || empty( $event->thumbnail->full->url ) ) {
 	return;
 }
 
@@ -26,14 +27,14 @@ if (
 <div class="tribe-events-calendar-month__calendar-event-featured-image-wrapper">
 	<a
 		href="#"
-		title="<?php echo esc_attr( $event->title ); ?>"
+		title="<?php echo esc_attr( get_the_title( $event->ID ) ); ?>"
 		rel="bookmark"
 		class="tribe-events-calendar-month__calendar-event-featured-image-link"
 	>
 		<div class="tribe-events-calendar-month__calendar-event-featured-image tribe-common-c-image tribe-common-c-image--bg">
 			<div
 				class="tribe-common-c-image__bg"
-				style="background-image: url('<?php echo esc_attr( $event->image ); ?>');"
+				style="background-image: url('<?php echo esc_attr( $event->thumbnail->full->url ); ?>');"
 				role="img"
 				aria-label="alt text here"
 			>

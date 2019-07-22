@@ -6,6 +6,7 @@
  */
 
 use Tribe\Utils\Lazy_Collection;
+use Tribe\Utils\Post_Thumbnail;
 use Tribe__Date_Utils as Dates;
 use Tribe__Events__Timezones as Timezones;
 
@@ -45,10 +46,13 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 	 *                              @type null|bool $ends_this_week Whether the event ends on the week of the date.
 	 *                                                              specified in the `$filter` argument or not.
 	 *                              @type bool $featured Whether the event is a featured one or not.
+	 *                              @type string $cost The event formatted cost string, as returned by the `tribe_get_cost`
+	 *                                                 `tribe_get_cost` function.
 	 *                              @type Lazy_Collection $organizers A collection of Organizers, lazily fetched and
 	 *                                                                eventually resolved to an array.
 	 *                              @type Lazy_Collection $venues A collection of Venues, lazily fetched and
 	 *                                                            eventually resolved to an array.
+	 *                              @type Post_Thumbnail $thumbnail The post thumbnail information.
 	 *                          }
 	 */
 	function tribe_get_event( $event = null, $output = OBJECT, $filter = 'raw' ) {
@@ -154,12 +158,12 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 		$organizer_fetch = Tribe__Events__Organizer::get_fetch_callback( $post_id );
 		$venue_fetch     = Tribe__Events__Venue::get_fetch_callback( $post_id );
 
-		$properties   = [
+		$properties = [
 			'start_date'       => $start_date,
 			'start_date_utc'   => $start_date_utc,
 			'end_date'         => $end_date,
 			'end_date_utc'     => $end_date_utc,
-			'dates' => (object) [
+			'dates'            => (object) [
 				'start'     => $start_date_object,
 				'start_utc' => $start_date_utc_object,
 				'end'       => $end_date_object,
@@ -172,8 +176,10 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 			'starts_this_week' => $starts_this_week,
 			'ends_this_week'   => $ends_this_week,
 			'featured'         => $featured,
+			'cost'             => tribe_get_cost( $post_id ),
 			'organizers'       => new Lazy_Collection( $organizer_fetch ),
 			'venues'           => new Lazy_Collection( $venue_fetch ),
+			'thumbnail'        => new Post_Thumbnail( $post_id ),
 		];
 
 		foreach ( $properties as $key => $value ) {
