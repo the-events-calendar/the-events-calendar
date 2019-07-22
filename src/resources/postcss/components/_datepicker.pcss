@@ -9,6 +9,7 @@
 	.datepicker {
 		background-color: var(--color-background);
 		border: 1px solid var(--color-border-default);
+		border-radius: var(--border-radius-default);
 		box-shadow: var(--box-shadow-tooltip);
 		margin-top: var(--spacer-1);
 		padding: 0 var(--spacer-3) var(--spacer-3);
@@ -22,12 +23,6 @@
 			content: none;
 		}
 
-		td,
-		th {
-			height: initial;
-			width: initial;
-		}
-
 		.dow {
 			color: var(--color-text-primary);
 			font-size: var(--font-size-0);
@@ -35,16 +30,10 @@
 			padding: 0 0 var(--spacer-2) 0;
 		}
 
-		.datepicker-switch {
-			color: var(--color-text-primary);
-			font-size: var(--font-size-3);
-			font-weight: var(--font-weight-regular);
-		}
-
 		.datepicker-switch,
-		.prev, .next {
-			line-height: var(--line-height-0);
-			padding: var(--spacer-5) 0;
+		.prev,
+		.next {
+			padding: var(--spacer-4) 0;
 
 			&:hover,
 			&:focus,
@@ -53,82 +42,126 @@
 			}
 		}
 
+		/* @todo: typography styles pending design feedback */
+		.datepicker-switch {
+			@mixin desktop-body-1;
+
+			&:hover,
+			&:focus {
+				color: var(--color-accent-secondary-hover);
+			}
+
+			&:active {
+				color: var(--color-accent-secondary-active);
+			}
+		}
+
 		.prev,
 		.next {
-			text-indent: -999em;
-			position: relative;
 
-			&:before {
-				height: 14px;
-				width: 14px;
-				content: '';
-				background-repeat: no-repeat;
-				background-size: contain;
+			.tribe-common-svgicon {
 				display: block;
-				position: absolute;
+				height: 14px;
+				width: 9px;
 			}
 		}
 
 		.prev {
-			&:before {
-				background-image: svg-inline(caret-left);
-				left: 0;
-			}
 
 			&:hover,
 			&:focus,
 			&:active {
-				&:before {
+
+				.tribe-common-svgicon {
 					background-image: svg-inline(caret-left-active);
 				}
+			}
+
+			.tribe-common-svgicon {
+				background-image: svg-inline(caret-left-secondary);
+				margin-right: auto;
 			}
 		}
 
 		.next {
-			&:before {
-				background-image: svg-inline(caret-right);
-				right: 0;
-			}
 
 			&:hover,
 			&:focus,
 			&:active {
-				&:before {
+
+				.tribe-common-svgicon {
 					background-image: svg-inline(caret-right-active);
 				}
 			}
+
+			.tribe-common-svgicon {
+				background-image: svg-inline(caret-right-secondary);
+				margin-left: auto;
+			}
 		}
 
+		.datepicker-months,
+		.datepicker-years {
+
+			.datepicker-switch,
+			.prev,
+			.next {
+				padding: var(--spacer-4) 0 var(--spacer-1);
+			}
+		}
+
+		/* @todo: typography styles pending design feedback */
 		.day {
-			font-size: var(--font-size-3);
-			color: var(--color-text-primary);
-			line-height: var(--line-height-0);
-			padding: var(--spacer-2) 14px;
+			@mixin desktop-body-1;
+
+			padding: 11px 15px;
 
 			&.old {
 				color: var(--color-text-disabled);
 			}
 		}
 
+		.datepicker-months,
+		.datepicker-years {
+
+			th,
+			td {
+				padding: 0;
+			}
+		}
+
+		/* @todo: typography styles pending design feedback */
 		.month,
 		.year {
-			font-size: var(--font-size-1);
+			@mixin desktop-body-3;
+
+			height: auto;
+			margin: 0;
+			padding: 15px 0;
+			width: 25%;
 		}
 
 		.day,
 		.month,
 		.year {
+
 			&:hover,
 			&:focus,
 			&.focused {
-				color: var(--color-background);
-				background-color: var(--color-accent-primary);
-			}
-
-			&:active {
-				color: var(--color-text-primary);
 				background-color: var(--color-background-secondary);
 				font-weight: var(--font-weight-bold);
+			}
+
+			&.active {
+				color: var(--color-background);
+				background-color: var(--color-accent-primary);
+
+				&:hover,
+				&:focus,
+				&.focused {
+					color: var(--color-background);
+					background-color: var(--color-accent-primary);
+				}
 			}
 		}
 	}

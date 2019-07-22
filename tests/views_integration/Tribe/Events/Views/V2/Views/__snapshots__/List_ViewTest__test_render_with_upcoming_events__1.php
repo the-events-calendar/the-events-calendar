@@ -18,7 +18,7 @@
 		<script
 	data-js="tribe-events-view-data"
 	type="application/json"
->{"slug":"list","prev_url":"http:\\/\\/test.tri.be\\/events\\/?eventDisplay=past","next_url":"http:\\/\\/test.tri.be\\/events\\/page\\/2\\/","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_slug":"list","view":{},"title":"","events":[{"ID":7,"post_author":"0","post_date":"2019-06-11 13:59:35","post_date_gmt":"2019-06-11 13:59:35","post_content":"","post_title":"Test Event - +9 days","post_excerpt":"","post_status":"publish","comment_status":"open","ping_status":"closed","post_password":"","post_name":"test-event-9-days-2","to_ping":"","pinged":"","post_modified":"2019-06-11 13:59:35","post_modified_gmt":"2019-06-11 13:59:35","post_content_filtered":"","post_parent":0,"guid":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-9-days-2","menu_order":0,"post_type":"tribe_events","post_mime_type":"","comment_count":"0","filter":"raw"},{"ID":8,"post_author":"1","post_date":"2019-06-11 13:59:35","post_date_gmt":"2019-06-11 13:59:35","post_content":"","post_title":"Single Event 1","post_excerpt":"","post_status":"publish","comment_status":"open","ping_status":"closed","post_password":"","post_name":"single-event-1","to_ping":"","pinged":"","post_modified":"2019-06-11 13:59:35","post_modified_gmt":"2019-06-11 13:59:35","post_content_filtered":"","post_parent":0,"guid":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-9-days-2","menu_order":0,"post_type":"tribe_events","post_mime_type":"","comment_count":"0","filter":"raw"}],"url":"http:\\/\\/test.tri.be\\/events\\/list\\/","bar":{"keyword":"","date":""}}</script>
+>{"slug":"list","prev_url":"http:\\/\\/test.tri.be\\/events\\/list\\/?eventDisplay=past","next_url":"http:\\/\\/test.tri.be\\/events\\/list\\/page\\/2\\/","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_slug":"list","view":{},"title":"","events":[{"ID":7,"post_author":"0","post_date":"2019-06-11 13:59:35","post_date_gmt":"2019-06-11 13:59:35","post_content":"","post_title":"Test Event - +9 days","post_excerpt":"","post_status":"publish","comment_status":"open","ping_status":"closed","post_password":"","post_name":"test-event-9-days-2","to_ping":"","pinged":"","post_modified":"2019-06-11 13:59:35","post_modified_gmt":"2019-06-11 13:59:35","post_content_filtered":"","post_parent":0,"guid":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-9-days-2","menu_order":0,"post_type":"tribe_events","post_mime_type":"","comment_count":"0","filter":"raw"},{"ID":8,"post_author":"1","post_date":"2019-06-11 13:59:35","post_date_gmt":"2019-06-11 13:59:35","post_content":"","post_title":"Single Event 1","post_excerpt":"","post_status":"publish","comment_status":"open","ping_status":"closed","post_password":"","post_name":"single-event-1","to_ping":"","pinged":"","post_modified":"2019-06-11 13:59:35","post_modified_gmt":"2019-06-11 13:59:35","post_content_filtered":"","post_parent":0,"guid":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-9-days-2","menu_order":0,"post_type":"tribe_events","post_mime_type":"","comment_count":"0","filter":"raw"}],"url":"http:\\/\\/test.tri.be\\/events\\/list\\/","bar":{"keyword":"","date":""}}</script>
 
 		<header class="tribe-events-header">
 			<div
@@ -52,22 +52,22 @@
 	data-js="tribe-events-events-bar-tabpanel tribe-events-events-bar-search"
 >
 	<form
-		class="tribe-common-c-search tribe-events-c-events-bar__search-form"
+		class="tribe-events-c-search tribe-events-c-events-bar__search-form"
 		method="get"
 		data-js="tribe-events-view-form"
 		role="search"
 	>
-		<input type="hidden" id="tribe-events-views[_wpnonce]" name="tribe-events-views[_wpnonce]" value="2ab7cc6b39" /><input type="hidden" name="_wp_http_referer" value="/events" />		<input type="hidden" name="tribe-events-views[url]" value="http://test.tri.be/events/list/" />
+		<input type="hidden" id="tribe-events-views[_wpnonce]" name="tribe-events-views[_wpnonce]" value="2ab7cc6b39" /><input type="hidden" name="_wp_http_referer" value="/events/list/" />		<input type="hidden" name="tribe-events-views[url]" value="http://test.tri.be/events/list/" />
 
-		<div class="tribe-common-form-control-text-group tribe-common-c-search__input-group">
+		<div class="tribe-events-c-search__input-group">
 			<div
-	class="tribe-common-form-control-text tribe-common-c-search__input-control tribe-common-c-search__input-control--keyword"
+	class="tribe-common-form-control-text tribe-events-c-search__input-control tribe-events-c-search__input-control--keyword"
 	data-js="tribe-events-events-bar-input-control"
 >
 	<label class="tribe-common-form-control-text__label" for="tribe-events-events-bar-keyword">
 		Enter Keyword. Search for Events by Keyword.	</label>
 	<input
-		class="tribe-common-form-control-text__input tribe-common-c-search__input tribe-common-c-search__input--icon"
+		class="tribe-common-form-control-text__input tribe-events-c-search__input tribe-events-c-search__input--icon"
 		data-js="tribe-events-events-bar-input-control-input"
 		type="text"
 		id="tribe-events-events-bar-keyword"
@@ -79,7 +79,7 @@
 		</div>
 
 		<button
-	class="tribe-common-c-btn tribe-common-c-search__button"
+	class="tribe-common-c-btn tribe-events-c-search__button"
 	type="submit"
 	name="submit-bar"
 >Find Events</button>
@@ -155,7 +155,7 @@
 	<ul class="tribe-events-c-top-bar__nav-list">
 		<li class="tribe-events-c-top-bar__nav-list-item">
 	<a
-		href="http://test.tri.be/events/?eventDisplay=past"
+		href="http://test.tri.be/events/list/?eventDisplay=past"
 		class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-left tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--prev"
 		aria-label="Previous"
 		title="Previous"
@@ -166,7 +166,7 @@
 
 		<li class="tribe-events-c-top-bar__nav-list-item">
 	<a
-		href="http://test.tri.be/events/page/2/"
+		href="http://test.tri.be/events/list/page/2/"
 		class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-right tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--next"
 		aria-label="Next"
 		title="Next"
@@ -184,9 +184,30 @@
 >
 	Today</a>
 
-	<button class="tribe-common-h3 tribe-common-h3--alt tribe-events-c-top-bar__date-picker-button">
-	Now &mdash; <time datetime="2019-01-01">January 1st, 2019</time>
-</button>
+	<div class="tribe-events-c-top-bar__datepicker" data-js="tribe-events-top-bar-datepicker">
+	<button
+		class="tribe-common-h2 tribe-common-h3--min-medium tribe-common-h--alt tribe-events-c-top-bar__datepicker-button"
+		data-js="tribe-events-top-bar-datepicker-button"
+	>
+					Now				&mdash;
+		<time datetime="2019-01-01">
+			January 1, 2019		</time>
+	</button>
+	<label
+		class="tribe-events-c-top-bar__datepicker-label tribe-common-a11y-visual-hide"
+		for="tribe-events-top-bar-date"
+	>
+		Select date.	</label>
+	<input
+		type="text"
+		class="tribe-events-c-top-bar__datepicker-input tribe-common-a11y-visual-hide"
+		data-js="tribe-events-top-bar-date"
+		id="tribe-events-top-bar-date"
+		name="tribe-events-views[tribe-bar-search]"
+		value=""
+		tabindex="-1"
+	/>
+</div>
 
 	<div class="tribe-events-c-top-bar__actions">
 	</div>
@@ -199,20 +220,20 @@
 			
 				<div class="tribe-events-calendar-list__month-separator">
 	<time
-		class="tribe-events-calendar-list__month-separator-text tribe-common-h7 tribe-common-h7--alt"
-		datetime="2019-01"
+		class="tribe-events-calendar-list__month-separator-text tribe-common-h7 tribe-common-h--alt"
+		datetime="2019-06"
 	>
-		Jan 2019	</time>
+		June 2019	</time>
 </div>
 
-				<div class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-list__event-row tribe-events-calendar-list__event-row--featured">
+				<div  class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-list__event-row tribe-events-calendar-list__event-row--featured" >
 
 	<div class="tribe-events-calendar-list__event-date-tag tribe-common-g-col">
-	<time class="tribe-events-calendar-list__event-date-tag-datetime" datetime="2019-01-01">
+	<time class="tribe-events-calendar-list__event-date-tag-datetime" datetime="2019-06-20">
 		<span class="tribe-events-calendar-list__event-date-tag-weekday">
-			Tue		</span>
+			Thu		</span>
 		<span class="tribe-events-calendar-list__event-date-tag-daynum tribe-common-h5 tribe-common-h4--min-medium">
-			01		</span>
+			20		</span>
 	</time>
 </div>
 
@@ -224,7 +245,7 @@
 				<header class="tribe-events-calendar-list__event-header">
 					<div class="tribe-events-calendar-list__event-datetime-wrapper">
 	<time class="tribe-events-calendar-list__event-datetime tribe-common-b2" datetime="1970-01-01T00:00:00+00:00">
-		<span class="tribe-event-date-start">January 1 @ 9:00 am</span>	</time>
+		<span class="tribe-event-date-start">June 20 @ 1:01 pm</span> - <span class="tribe-event-time">5:01 pm</span>	</time>
 			<em
 			class="tribe-events-calendar-list__event-datetime-featured-icon tribe-common-svgicon tribe-common-svgicon--featured"
 			aria-label="Featured"
@@ -237,7 +258,7 @@
 		href="http://test.tri.be/?tribe_events=test-event-9-days-2%2F"
 		title=""
 		rel="bookmark"
-		class="tribe-events-calendar-list__event-title-link tribe-common-anchor"
+		class="tribe-events-calendar-list__event-title-link tribe-common-anchor-thin"
 	>
 		Test Event &#8211; +9 days	</a>
 </h3>
@@ -268,14 +289,14 @@
 
 			
 				
-				<div class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-list__event-row">
+				<div  class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-list__event-row" >
 
 	<div class="tribe-events-calendar-list__event-date-tag tribe-common-g-col">
-	<time class="tribe-events-calendar-list__event-date-tag-datetime" datetime="2019-01-01">
+	<time class="tribe-events-calendar-list__event-date-tag-datetime" datetime="2019-06-20">
 		<span class="tribe-events-calendar-list__event-date-tag-weekday">
-			Tue		</span>
+			Thu		</span>
 		<span class="tribe-events-calendar-list__event-date-tag-daynum tribe-common-h5 tribe-common-h4--min-medium">
-			01		</span>
+			20		</span>
 	</time>
 </div>
 
@@ -287,14 +308,14 @@
 				<header class="tribe-events-calendar-list__event-header">
 					<div class="tribe-events-calendar-list__event-datetime-wrapper">
 	<time class="tribe-events-calendar-list__event-datetime tribe-common-b2" datetime="1970-01-01T00:00:00+00:00">
-		<span class="tribe-event-date-start">January 1 @ 9:00 am</span>	</time>
+		<span class="tribe-event-date-start">June 20 @ 1:04 pm</span> - <span class="tribe-event-time">5:04 pm</span>	</time>
 	</div>
 					<h3 class="tribe-events-calendar-list__event-title tribe-common-h6 tribe-common-h5--min-medium">
 	<a
 		href="http://test.tri.be/?tribe_events=single-event-1%2F"
 		title=""
 		rel="bookmark"
-		class="tribe-events-calendar-list__event-title-link tribe-common-anchor"
+		class="tribe-events-calendar-list__event-title-link tribe-common-anchor-thin"
 	>
 		Single Event 1	</a>
 </h3>
@@ -330,27 +351,31 @@
 	<ul class="tribe-events-c-nav__list">
 		<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--prev">
 	<a
-		href="http://test.tri.be/events/?eventDisplay=past"
+		href="http://test.tri.be/events/list/?eventDisplay=past"
 		rel="prev"
-		class="tribe-events-c-nav__prev tribe-common-b2"
+		class="tribe-events-c-nav__prev tribe-common-b2 tribe-common-b1--min-medium"
 		data-js="tribe-events-view-link"
 	>
-		Previous Events	</a>
+		Previous <span class="tribe-events-c-nav__prev-label-plural"> Events</span>	</a>
 </li>
 
 		<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--today">
-	<a class="tribe-events-c-nav__today tribe-common-b2" href="#">
+	<a
+		href="#"
+		class="tribe-events-c-nav__today tribe-common-b2"
+		data-js="tribe-events-view-link"
+	>
 		Today	</a>
 </li>
 
 		<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--next">
 	<a
-		href="http://test.tri.be/events/page/2/"
+		href="http://test.tri.be/events/list/page/2/"
 		rel="next"
-		class="tribe-events-c-nav__next tribe-common-b2"
+		class="tribe-events-c-nav__next tribe-common-b2 tribe-common-b1--min-medium"
 		data-js="tribe-events-view-link"
 	>
-		Next Events	</a>
+		Next <span class="tribe-events-c-nav__next-label-plural"> Events</span>	</a>
 </li>
 	</ul>
 </nav>

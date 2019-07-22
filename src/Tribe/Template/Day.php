@@ -183,14 +183,24 @@ if ( ! class_exists( 'Tribe__Events__Template__Day' ) ) {
 					$args['s'] = $search;
 				}
 
-				/*
-				 * In this context a `false` value means "return all events, not just featured ones".
-				 * A `true` value means "only return featured events". Only in this latter case we'll apply the
-				 * `featured` filter.
-				 */
-				$featured_events_requested = tribe( 'tec.featured_events' )->featured_events_requested();
-				if ( $featured_events_requested ) {
+				// If the request is false or not set we assume the request is for all events, not just featured ones.
+				if (
+					tribe( 'tec.featured_events' )->featured_events_requested()
+					|| (
+						isset( $this->args['featured'] )
+						&& tribe_is_truthy( $this->args['featured'] )
+					)
+				) {
 					$args['featured'] = true;
+				} else {
+					/**
+					 * Unset due to how queries featured argument is expected to be non-existent.
+					 *
+					 * @see #127272
+					 */
+					if ( isset( $args['featured'] ) ) {
+						unset( $args['featured'] );
+					}
 				}
 
 				Tribe__Events__Main::instance()->displaying = 'day';

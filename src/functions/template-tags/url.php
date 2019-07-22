@@ -17,5 +17,10 @@ use Tribe__Events__Rewrite as Rewrite;
  * @return string              Final clean and canonical URL for events.
  */
 function tribe_events_get_url( $query = [], $url = null ) {
+	if ( empty( $url ) ) {
+		$events_archive_base = tribe_get_option( 'eventsSlug', 'events' );
+		$url = home_url( '/' . $events_archive_base );
+	}
+
 	return Rewrite::instance()->get_clean_url( add_query_arg( $query, $url ) );
 }

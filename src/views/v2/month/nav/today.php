@@ -14,9 +14,20 @@
  * @version 4.9.4
  *
  */
+
+// If we didn't have a view setup we cannot print today's link
+if ( ! $this->get( 'view' ) ) {
+	return false;
+}
+
+$today_url = tribe_events_get_url( [ 'paged' => 1 ], $this->get( 'view' )->get_url() );
 ?>
 <li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--today">
-	<a class="tribe-events-c-nav__today tribe-common-b2" href="<?php echo esc_url( $link ); ?>">
+	<a
+		href="<?php echo esc_url( $link ); ?>"
+		class="tribe-events-c-nav__today tribe-common-b2"
+		data-js="tribe-events-view-link"
+	>
 		<?php esc_html_e( 'Today', 'the-events-calendar' ); ?>
 	</a>
 </li>
