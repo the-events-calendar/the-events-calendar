@@ -9,6 +9,10 @@
   "homepage": "http://tri.be/shop/wordpress-events-calendar/",
   "license": "GPL-2.0",
   "require-dev": {
+    "dealerdirect/phpcodesniffer-composer-installer": "^0.4.4",
+    "wp-coding-standards/wpcs": "^2.1",
+    "automattic/vipwpcs": "^2.0",
+    "moderntribe/TribalScents": "dev-master",
     "lucatume/wp-browser": "^2.2.4",
     "xamin/handlebars.php": "^0.10.3",
     "mikey179/vfsstream": "^1.6",
@@ -44,6 +48,12 @@
       "name": "moderntribe/tribe-testing-facilities",
       "type": "github",
       "url": "https://github.com/moderntribe/tribe-testing-facilities",
+      "no-api": true
+    },
+    {
+      "name": "moderntribe/TribalScents",
+      "type": "github",
+      "url": "https://github.com/moderntribe/TribalScents",
       "no-api": true
     }
   ],
