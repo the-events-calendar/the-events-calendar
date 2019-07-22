@@ -397,11 +397,11 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 				}
 				// set the global query var for eventDisplay
 				$args = array(
-					'post_type'    => Tribe__Events__Main::POSTTYPE,
-					'eventDisplay' => 'month',
-					'eventDate'    => is_array( $_POST['eventDate'] ) ? Tribe__Utils__Array::get( $_POST, array( 'eventDate', 0 ) ) : $_POST['eventDate'],
-					'post_status'  => $post_status,
-					'tribe_suppress_query_filters' => false
+					'post_type'                    => Tribe__Events__Main::POSTTYPE,
+					'eventDisplay'                 => 'month',
+					'eventDate'                    => is_array( $_POST['eventDate'] ) ? Tribe__Utils__Array::get( $_POST, array( 'eventDate', 0 ) ) : $_POST['eventDate'],
+					'post_status'                  => $post_status,
+					'tribe_suppress_query_filters' => false,
 				);
 			}
 
