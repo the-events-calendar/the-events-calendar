@@ -28,7 +28,7 @@ use Tribe\Events\Views\V2\Rest_Endpoint;
 		<header class="tribe-events-header">
 			<?php $this->template( 'events-bar' ); ?>
 
-			<?php $this->template( 'top-bar' ); ?>
+			<?php $this->template( 'month/top-bar' ); ?>
 		</header>
 
 		<div

@@ -9,13 +9,13 @@ tribe.events = tribe.events || {};
 tribe.events.views = tribe.events.views || {};
 
 /**
- * Configures Month Multiday Events Object in the Global Tribe variable
+ * Configures Multiday Events Object in the Global Tribe variable
  *
  * @since 4.9.4
  *
  * @type  {PlainObject}
  */
-tribe.events.views.monthMultidayEvents = {};
+tribe.events.views.multidayEvents = {};
 
 /**
  * Initializes in a Strict env the code that manages the Event Views
@@ -34,33 +34,53 @@ tribe.events.views.monthMultidayEvents = {};
 	/**
 	 * Selectors used for configuration and setup
 	 *
-	 * @since 4.9.4
+	 * @since TBD
 	 *
 	 * @type {PlainObject}
 	 */
-	obj.selectors = {
-		calendar: '.tribe-events-calendar-month',
-		multidayEvent: '.tribe-events-calendar-month__multiday-event',
-		hiddenMultidayEvent: '.tribe-events-calendar-month__multiday-event--hidden',
-		multidayEventInner: '.tribe-events-calendar-month__multiday-event-inner',
-		multidayEventInnerFocus: '.tribe-events-calendar-month__multiday-event-inner--focus',
-		multidayEventInnerHover: '.tribe-events-calendar-month__multiday-event-inner--hover',
+	obj.selectors = {};
+
+	/**
+	 * Selector prefixes used for creating selectors
+	 *
+	 * @since TBD
+	 *
+	 * @type {PlainObject}
+	 */
+	obj.selectorPrefixes = {
+		month: '.tribe-events-calendar-month__',
+		week: '.tribe-events-pro-week-grid__',
+	};
+
+	/**
+	 * Selector suffixes used for creating selectors
+	 *
+	 * @since TBD
+	 *
+	 * @type {PlainObject}
+	 */
+	obj.selectorSuffixes = {
+		multidayEvent: 'multiday-event',
+		hiddenMultidayEvent: 'multiday-event--hidden',
+		multidayEventInner: 'multiday-event-inner',
+		multidayEventInnerFocus: 'multiday-event-inner--focus',
+		multidayEventInnerHover: 'multiday-event-inner--hover',
 	};
 
 	/**
 	 * Find visible multiday event that relates to the hidden multiday event
 	 *
-	 * @since 4.9.4
+	 * @since TBD
 	 *
+	 * @param {jQuery} $container jQuery object of view container.
 	 * @param {jQuery} $hiddenMultidayEvent jQuery object of hidden multiday event
 	 *
 	 * @return {jQuery} jQuery object of visible multiday event or false if none found
 	 */
-	obj.findVisibleMultidayEvents = function( $hiddenMultidayEvent ) {
-		var $calendar = $hiddenMultidayEvent.closest( obj.selectors.calendar );
+	obj.findVisibleMultidayEvents = function( $container, $hiddenMultidayEvent ) {
 		var eventId = $hiddenMultidayEvent.data( 'event-id' );
 
-		return $calendar
+		return $container
 			.find( obj.selectors.multidayEvent + '[data-event-id=' + eventId + ']' )
 			.not( obj.selectors.hiddenMultidayEvent );
 	};
@@ -125,7 +145,7 @@ tribe.events.views.monthMultidayEvents = {};
 
 		$hiddenMultidayEvents.each( function( hiddenIndex, hiddenMultidayEvent ) {
 			var $hiddenMultidayEvent = $( hiddenMultidayEvent );
-			var $visibleMultidayEvents = obj.findVisibleMultidayEvents( $hiddenMultidayEvent );
+			var $visibleMultidayEvents = obj.findVisibleMultidayEvents( $container, $hiddenMultidayEvent );
 
 			$visibleMultidayEvents.each( function( visibleIndex, visibleMultidayEvent ) {
 				var $visibleMultidayEvent = $( visibleMultidayEvent );
@@ -137,6 +157,36 @@ tribe.events.views.monthMultidayEvents = {};
 					.on( 'focus blur', { target: $visibleMultidayEventInner }, obj.toggleFocusClass );
 			} );
 		} );
+	};
+
+	/**
+	 * Resets selectors to empty object
+	 *
+	 * @since TBD
+	 *
+	 * @return {void}
+	 */
+	obj.deinitSelectors = function() {
+		obj.selectors = {};
+	};
+
+	/**
+	 * Initializes selectors based on view slug
+	 *
+	 * @since TBD
+	 *
+	 * @param {string} viewSlug slug of view
+	 *
+	 * @return {void}
+	 */
+	obj.initSelectors = function( viewSlug ) {
+		var selectorPrefix = obj.selectorPrefixes[ viewSlug ];
+
+		Object
+			.keys( obj.selectorSuffixes )
+			.forEach( function( key ) {
+				obj.selectors[ key ] = selectorPrefix + obj.selectorSuffixes[ key ];
+			} );
 	};
 
 	/**
@@ -152,6 +202,7 @@ tribe.events.views.monthMultidayEvents = {};
 	 */
 	obj.unbindEvents = function( event, jqXHR, settings ) {
 		var $container = event.data.container;
+		obj.deinitSelectors();
 		obj.unbindMultidayEvents( $container );
 	};
 
@@ -168,12 +219,17 @@ tribe.events.views.monthMultidayEvents = {};
 	 * @return {void}
 	 */
 	obj.bindEvents = function( event, index, $container, data ) {
-		obj.bindMultidayEvents( $container );
-		$container.on( 'beforeAjaxSuccess.tribeEvents', { container: $container }, obj.unbindEvents );
+		var viewSlug = data.slug;
+
+		if ( [ 'month', 'week' ].indexOf( viewSlug ) >= 0 ) {
+			obj.initSelectors( viewSlug );
+			obj.bindMultidayEvents( $container );
+			$container.on( 'beforeAjaxSuccess.tribeEvents', { container: $container }, obj.unbindEvents );
+		}
 	};
 
 	/**
-	 * Handles the initialization of the month view multiday events when Document is ready
+	 * Handles the initialization of multiday events when Document is ready
 	 *
 	 * @since 4.9.4
 	 *
@@ -185,4 +241,4 @@ tribe.events.views.monthMultidayEvents = {};
 
 	// Configure on document ready
 	$document.ready( obj.ready );
-} )( jQuery, tribe.events.views.monthMultidayEvents );
+} )( jQuery, tribe.events.views.multidayEvents );

@@ -174,6 +174,25 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	}
 
 	/**
+	 * {@inheritdoc}
+	 */
+	public function by_args( array $args ) {
+		/**
+		 * Some key arguments have been passed as arrays but will require unpacking.
+		 * Due to the dynamic nature of the ORM implementation this is a curated list
+		 * that should be updated here. Do not try to move this conditional unpacking logic
+		 * in the ORM: this is an issue the proxy function should handle ad-hoc.
+		 */
+		$requiring_unpack = [ 'date_overlaps', 'runs_between' ];
+		foreach ( array_intersect( array_keys( $args ), $requiring_unpack ) as $key ) {
+			$this->by( $key, ...$args[ $key ] );
+			unset( $args[ $key ] );
+		}
+
+		return parent::by_args( $args );
+	}
+
+	/**
 	 * Filters the event by their all-day status.
 	 *
 	 * @since 4.9
