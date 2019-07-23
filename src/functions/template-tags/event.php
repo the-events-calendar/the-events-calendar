@@ -41,10 +41,18 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 	 *                              @type false|int $multiday Whether the event is multi-day or not and its day.
 	 *                                                        duration if it is.
 	 *                              @type bool $all_day Whether the event is an all-day one or not.
-	 *                              @type null|bool $starts_this_week Whether the event starts on the week of the date.
-	 *                                                                specified in the `$filter` argument or not.
-	 *                              @type null|bool $ends_this_week Whether the event ends on the week of the date.
-	 *                                                              specified in the `$filter` argument or not.
+	 *                              @type null|bool $starts_this_week Whether the event starts on the week of the date
+	 *                                                                specified in the `$filter` argument or not, `null`
+	 *                                                                if no date is specified in the filter.
+	 *                              @type null|bool $ends_this_week Whether the event ends on the week of the date
+	 *                                                              specified in the `$filter` argument or not, `null`
+	 *                                                              if no date is specified in the filter.
+	 *                              @type null|bool $happens_this_week Whether the event happens on the week of the date
+	 *                                                              specified in the `$filter` argument or not, `null`
+	 *                                                              if no date is specified in the filter.
+	 *                              @type null|int $this_week_duration The days duration of the event on the week
+	 *                                                                 specified in the `$filter` argument, `null`
+	 *                                                                 if no date is specified in the filter.
 	 *                              @type bool $featured Whether the event is a featured one or not.
 	 *                              @type string $cost The event formatted cost string, as returned by the `tribe_get_cost`
 	 *                                                 `tribe_get_cost` function.
@@ -121,8 +129,10 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 		$is_multiday       = $end_of_day_object < $end_date_object;
 		$multiday          = false;
 		// Without a context these values will not make sense; we'll set them if the `$filter` argument is a date.
-		$starts_this_week = null;
-		$ends_this_week   = null;
+		$starts_this_week   = null;
+		$ends_this_week     = null;
+		$happens_this_week  = null;
+		$this_week_duration = null;
 		if ( Dates::is_valid_date( $filter ) ) {
 			$week_start = Dates::build_date_object( $filter, $timezone );
 			// Sunday is 0.
@@ -136,8 +146,19 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 			// 7 days later the week ends.
 			$week_end->add( new DateInterval( 'P7D' ) );
 			// Inclusive in respect to the start, exclusive to the end.
-			$starts_this_week = $week_start <= $start_date_object && $start_date_object < $week_end;
-			$ends_this_week   = $week_start <= $end_date_object && $end_date_object < $week_end;
+			$starts_this_week   = $week_start <= $start_date_object && $start_date_object < $week_end;
+			$ends_this_week     = $week_start <= $end_date_object && $end_date_object < $week_end;
+			$happens_this_week = $week_start <= $end_date_object && $start_date_object <= $week_end;
+			if ( $happens_this_week ) {
+				$this_week_duration = 1;
+				if ( $is_multiday ) {
+					$this_week_duration = min(
+						7,
+						$week_end->diff( $start_date_object )->days + 1,
+						$end_date_object->diff( $week_start )->days
+					);
+				}
+			}
 		}
 		// Multi-day events will span at least two days: the day they start on and the following one.
 		if ( $is_multiday ) {
@@ -159,27 +180,29 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 		$venue_fetch     = Tribe__Events__Venue::get_fetch_callback( $post_id );
 
 		$properties = [
-			'start_date'       => $start_date,
-			'start_date_utc'   => $start_date_utc,
-			'end_date'         => $end_date,
-			'end_date_utc'     => $end_date_utc,
-			'dates'            => (object) [
+			'start_date'         => $start_date,
+			'start_date_utc'     => $start_date_utc,
+			'end_date'           => $end_date,
+			'end_date_utc'       => $end_date_utc,
+			'dates'              => (object) [
 				'start'     => $start_date_object,
 				'start_utc' => $start_date_utc_object,
 				'end'       => $end_date_object,
 				'end_utc'   => $end_date_utc_object
 			],
-			'timezone'         => $timezone_string,
-			'duration'         => $duration,
-			'multiday'         => $multiday,
-			'all_day'          => $all_day,
-			'starts_this_week' => $starts_this_week,
-			'ends_this_week'   => $ends_this_week,
-			'featured'         => $featured,
-			'cost'             => tribe_get_cost( $post_id ),
-			'organizers'       => new Lazy_Collection( $organizer_fetch ),
-			'venues'           => new Lazy_Collection( $venue_fetch ),
-			'thumbnail'        => new Post_Thumbnail( $post_id ),
+			'timezone'           => $timezone_string,
+			'duration'           => $duration,
+			'multiday'           => $multiday,
+			'all_day'            => $all_day,
+			'starts_this_week'   => $starts_this_week,
+			'ends_this_week'     => $ends_this_week,
+			'this_week_duration' => $this_week_duration,
+			'happens_this_week'  => $happens_this_week,
+			'featured'           => $featured,
+			'cost'               => tribe_get_cost( $post_id ),
+			'organizers'         => new Lazy_Collection( $organizer_fetch ),
+			'venues'             => new Lazy_Collection( $venue_fetch ),
+			'thumbnail'          => new Post_Thumbnail( $post_id ),
 		];
 
 		foreach ( $properties as $key => $value ) {

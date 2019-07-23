@@ -14,12 +14,18 @@
  * @var string $day_date The `Y-m-d` date of the day currently being displayed.
  * @var WP_Post $event An event post object with event-specific properties added from the the `tribe_get_event`
  *                     function.
+ * @var bool $is_start_of_week Whether the current grid day being rendered is the first day of the week or not.
  *
  * @see tribe_get_event() For the format of the event object and its properties.
  *
  */
 
-$should_display = $event->dates->start->format( 'Y-m-d' ) === $day_date;
+/*
+ * To keep the calendar accessible, in the context of a week, we'll print the event only on either its first day
+ * or the first day of the week.
+ */
+$should_display = $event->dates->start->format( 'Y-m-d' ) === $day_date
+                  || $is_start_of_week;
 
 $classes = [ 'tribe-events-calendar-month__multiday-event' ];
 
@@ -32,8 +38,11 @@ if ( $event->featured ) {
 // If it starts today and this week, let's add the left border and set the width.
 if ( $should_display ) {
 
-	// @todo @fe: check if it ends this week or not, and how to split the duration
-	$classes[] = 'tribe-events-calendar-month__multiday-event--width-' . $event->multiday;
+	/*
+	 * The "duration" here is how many days the event will take this week, not in total.
+	 * The two values might be the same but they will differ for events that last more than one week.
+	 */
+	$classes[] = 'tribe-events-calendar-month__multiday-event--width-' . $event->this_week_duration;
 
 	// If it ends this week, let's add the start class (left border).
 	if ( $event->starts_this_week ) {

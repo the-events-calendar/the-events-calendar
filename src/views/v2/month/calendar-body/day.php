@@ -15,6 +15,7 @@
  * @var string $day_date The current day date, in the `Y-m-d` format.
  * @var array $day The current day data.{
  *          @type string $date The day date, in the `Y-m-d` format.
+ *          @type bool $is_start_of_week Whether the current day is the first day of the week or not.
  *          @type int $year_number The day year number, e.g. `2019`.
  *          @type int $month_number The day year number, e.g. `6` for June.
  *          @type int $day_number The day number in the month, e.g. `11` for June 11th.
@@ -103,8 +104,9 @@ $mobile_day_id = 'tribe-events-calendar-mobile-day-' . $day_date;
 
 		<div class="tribe-events-calendar-month__events">
 			<?php $this->template( 'month/calendar-body/day/multiday-events', [
-				'day_date'        => $day['date'],
-				'multiday_events' => $day['multiday_events']
+				'day_date'         => $day['date'],
+				'multiday_events'  => $day['multiday_events'],
+				'is_start_of_week' => $day['is_start_of_week'],
 			] ); ?>
 
 			<?php $this->template( 'month/calendar-body/day/calendar-events', [ 'day_events' => $day['events'] ] ); ?>

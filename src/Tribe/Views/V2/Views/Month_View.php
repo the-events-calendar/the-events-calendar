@@ -339,6 +339,7 @@ class Month_View extends View {
 			 */
 			$date_object = Date_Utils::build_date_object( $day_date );
 
+			// The multi-day stack includes spacers; that's why we use `element`.
 			$multiday_events_stack = array_map( static function ( $element ) use ( $date_object ) {
 				// If it's numeric make an event object of it.
 				return is_numeric( $element ) ?
@@ -372,27 +373,28 @@ class Month_View extends View {
 				$more_events = $found_events - $multiday_events_count - count( $the_day_events );
 			}
 
-			$day_data          = [
-				// The day date, in the `Y-m-d` format.
-				'date'            => $day_date,
-				'year_number'     => (int) $date_object->format( 'Y' ),
-				'month_number'    => (int) $date_object->format( 'm' ),
-				'day_number'      => (int) $date_object->format( 'd' ),
+			$featured_events = array_map( 'tribe_get_event',
+				array_filter( $day_events,
+					static function ( $event ) use ( $date_object ) {
+						$event = tribe_get_event( $event, OBJECT, $date_object->format( 'Y-m-d' ) );
 
-				// This will only include non multi-day events.
-				'events'          => $the_day_events,
-				'featured_events' => array_map( 'tribe_get_event',
-					array_filter( $day_events,
-						static function ( $event ) use ( $date_object ) {
-							$event = tribe_get_event( $event, OBJECT, $date_object->format( 'Y-m-d' ) );
+						return $event instanceof \WP_Post && $event->featured;
+					} )
+			);
 
-							return $event instanceof \WP_Post && $event->featured;
-						} )
-				),
-				// The multi-day stack, including spacers. That's why we use `element`.
-				'multiday_events' => $multiday_events_stack,
-				'found_events'    => $found_events,
-				'more_events'     => $more_events,
+			$start_of_week = get_option( 'start_of_week', 0 );
+
+			$day_data = [
+				'date'             => $day_date,
+				'is_start_of_week' => $start_of_week === $date_object->format( 'N' ),
+				'year_number'      => (int) $date_object->format( 'Y' ),
+				'month_number'     => (int) $date_object->format( 'm' ),
+				'day_number'       => (int) $date_object->format( 'd' ),
+				'events'           => $the_day_events,
+				'featured_events'  => $featured_events,
+				'multiday_events'  => $multiday_events_stack,
+				'found_events'     => $found_events,
+				'more_events'      => $more_events,
 			];
 
 			$days[ $day_date ] = $day_data;
