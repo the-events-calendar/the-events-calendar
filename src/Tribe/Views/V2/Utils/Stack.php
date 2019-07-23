@@ -338,8 +338,11 @@ class Stack {
 	 *            (`-1`) or if B should list before A (`1`).
 	 */
 	protected function recycle_day_stack_space( $event_a, $event_b ) {
-		if ( isset( $this->stack_positions[ $event_b ] ) ) {
-			// The event already has a position in the stack.
+		if (
+			isset( $this->stack_positions[ $event_b ] )
+			|| ! isset( $this->stack_positions[ $event_a ] )
+		) {
+			// The event already has a position in the stack or event A does not have a stack position assigned.
 			return 0;
 		}
 
@@ -381,6 +384,6 @@ class Stack {
 	protected function filter_stack_event( $event ) {
 		$post = tribe_get_event( $event );
 
-		return $post instanceof \WP_Post && ! empty( $post->multiday );
+		return $post instanceof \WP_Post && ( ! empty( $post->multiday ) || ! empty( $post->all_day ) );
 	}
 }

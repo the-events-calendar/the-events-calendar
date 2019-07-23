@@ -351,7 +351,7 @@ class Month_View extends View {
 				array_filter( $day_events, static function ( $event ) use ( $date_object ) {
 					$event = tribe_get_event( $event, OBJECT, $date_object->format( 'Y-m-d' ) );
 
-					return $event instanceof \WP_Post && ! $event->multiday;
+					return $event instanceof \WP_Post && ! ( $event->multiday || $event->all_day );
 				} )
 			);
 

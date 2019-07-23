@@ -152,10 +152,17 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 			if ( $happens_this_week ) {
 				$this_week_duration = 1;
 				if ( $is_multiday ) {
+					/*
+					 * We add one second during this calculation to cope with all-day events starting on 12:00 AM.
+					 * Due to how DateTime diff works diffing two following midnights would yield a diff of 2 days.
+					 */
+					$one_second = new \DateInterval( 'PT1S' );
+					
 					$this_week_duration = min(
 						7,
-						$week_end->diff( $start_date_object )->days + 1,
-						$end_date_object->diff( $week_start )->days
+						$week_end->diff( $start_date_object->add( $one_second ) )->days + 1,
+						$end_date_object->diff( $week_start )->days + 1,
+						$end_date_object->diff( $start_date_object->add( $one_second ) )->days + 1
 					);
 				}
 			}
