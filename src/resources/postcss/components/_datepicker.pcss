@@ -148,18 +148,18 @@
 			&:hover,
 			&:focus,
 			&.focused {
-				background-color: var(--color-background-secondary);
+				background: var(--color-background-secondary);
 			}
 
 			&.active {
 				color: var(--color-background);
-				background-color: var(--color-accent-primary);
+				background: var(--color-accent-primary);
 
 				&:hover,
 				&:focus,
 				&.focused {
 					color: var(--color-background);
-					background-color: var(--color-accent-primary);
+					background: var(--color-accent-primary);
 				}
 			}
 		}
@@ -201,7 +201,11 @@
 
 			&.active {
 				color: var(--color-text-primary);
-				background-color: transparent;
+				background: transparent;
+
+				&:hover {
+					background: transparent;
+				}
 			}
 
 			&.disabled {
@@ -230,7 +234,11 @@
 		.focused {
 
 			.day {
-				background-color: var(--color-background-secondary);
+				background: var(--color-background-secondary);
+
+				&:hover {
+					background: var(--color-background-secondary);
+				}
 			}
 		}
 	}
