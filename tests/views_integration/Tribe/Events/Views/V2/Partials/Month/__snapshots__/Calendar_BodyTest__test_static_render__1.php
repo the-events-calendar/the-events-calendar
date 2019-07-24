@@ -521,8 +521,8 @@
 		rel="bookmark"
 		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
 		data-js="tribe-events-tooltip"
-		data-tooltip-content="#tribe-tooltip-content-53"
-		aria-describedby="tribe-tooltip-content-53"
+		data-tooltip-content="#tribe-events-tooltip-content-53"
+		aria-describedby="tribe-events-tooltip-content-53"
 	>
 		North Sydney Meetup	</a>
 </h3>
@@ -750,8 +750,8 @@
 		rel="bookmark"
 		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
 		data-js="tribe-events-tooltip"
-		data-tooltip-content="#tribe-tooltip-content-69"
-		aria-describedby="tribe-tooltip-content-69"
+		data-tooltip-content="#tribe-events-tooltip-content-69"
+		aria-describedby="tribe-events-tooltip-content-69"
 	>
 		Taco Tuesdays!	</a>
 </h3>
@@ -800,8 +800,8 @@
 		rel="bookmark"
 		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
 		data-js="tribe-events-tooltip"
-		data-tooltip-content="#tribe-tooltip-content-57"
-		aria-describedby="tribe-tooltip-content-57"
+		data-tooltip-content="#tribe-events-tooltip-content-57"
+		aria-describedby="tribe-events-tooltip-content-57"
 	>
 		Melbourne WordPress Meetup	</a>
 </h3>
@@ -898,8 +898,8 @@
 		rel="bookmark"
 		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
 		data-js="tribe-events-tooltip"
-		data-tooltip-content="#tribe-tooltip-content-59"
-		aria-describedby="tribe-tooltip-content-59"
+		data-tooltip-content="#tribe-events-tooltip-content-59"
+		aria-describedby="tribe-events-tooltip-content-59"
 	>
 		HackNight #CodeforthePeople	</a>
 </h3>
@@ -1280,8 +1280,8 @@
 		rel="bookmark"
 		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
 		data-js="tribe-events-tooltip"
-		data-tooltip-content="#tribe-tooltip-content-69"
-		aria-describedby="tribe-tooltip-content-69"
+		data-tooltip-content="#tribe-events-tooltip-content-69"
+		aria-describedby="tribe-events-tooltip-content-69"
 	>
 		Taco Tuesdays!	</a>
 </h3>
@@ -1794,8 +1794,8 @@
 		rel="bookmark"
 		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
 		data-js="tribe-events-tooltip"
-		data-tooltip-content="#tribe-tooltip-content-69"
-		aria-describedby="tribe-tooltip-content-69"
+		data-tooltip-content="#tribe-events-tooltip-content-69"
+		aria-describedby="tribe-events-tooltip-content-69"
 	>
 		Taco Tuesdays!	</a>
 </h3>
@@ -1994,8 +1994,8 @@
 		rel="bookmark"
 		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
 		data-js="tribe-events-tooltip"
-		data-tooltip-content="#tribe-tooltip-content-39"
-		aria-describedby="tribe-tooltip-content-39"
+		data-tooltip-content="#tribe-events-tooltip-content-39"
+		aria-describedby="tribe-events-tooltip-content-39"
 	>
 		Winnipeg WordPress Meetup	</a>
 </h3>
@@ -2109,8 +2109,8 @@
 		rel="bookmark"
 		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
 		data-js="tribe-events-tooltip"
-		data-tooltip-content="#tribe-tooltip-content-89"
-		aria-describedby="tribe-tooltip-content-89"
+		data-tooltip-content="#tribe-events-tooltip-content-89"
+		aria-describedby="tribe-events-tooltip-content-89"
 	>
 		Hannover WordPress Meetup	</a>
 </h3>

@@ -5,8 +5,8 @@
 		rel="bookmark"
 		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
 		data-js="tribe-events-tooltip"
-		data-tooltip-content="#tribe-tooltip-content-4"
-		aria-describedby="tribe-tooltip-content-4"
+		data-tooltip-content="#tribe-events-tooltip-content-4"
+		aria-describedby="tribe-events-tooltip-content-4"
 	>
 			</a>
 </h3>
