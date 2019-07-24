@@ -184,7 +184,13 @@ if ( ! class_exists( 'Tribe__Events__Template__Day' ) ) {
 				}
 
 				// If the request is false or not set we assume the request is for all events, not just featured ones.
-				if ( tribe( 'tec.featured_events' )->featured_events_requested() ) {
+				if (
+					tribe( 'tec.featured_events' )->featured_events_requested()
+					|| (
+						isset( $this->args['featured'] )
+						&& tribe_is_truthy( $this->args['featured'] )
+					)
+				) {
 					$args['featured'] = true;
 				} else {
 					/**

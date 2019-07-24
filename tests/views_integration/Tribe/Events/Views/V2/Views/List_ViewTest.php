@@ -17,7 +17,9 @@ class List_ViewTest extends ViewTestCase {
 		// Sanity check
 		$this->assertEmpty( tribe_events()->found() );
 
-		$list_view = View::make( List_View::class );
+		$context = tribe_context()->alter( [ 'event_date' => $this->mock_date_value ] );
+
+		$list_view = View::make( List_View::class, $context );
 		$html      = $list_view->get_html();
 
 		// Let's make sure the View is displaying what events we expect it to display.

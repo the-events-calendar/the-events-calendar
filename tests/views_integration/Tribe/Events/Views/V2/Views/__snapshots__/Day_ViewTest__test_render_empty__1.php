@@ -1,9 +1,8 @@
 <?php return '<div
-	class="tribe-common tribe-events tribe-events-view tribe-events-view--list"
+	class="tribe-common tribe-events tribe-events-view"
 	data-js="tribe-events-view"
 	data-view-rest-nonce="2ab7cc6b39"
 	data-view-rest-url="http://test.tri.be/index.php?rest_route=/tribe/views/v2/html"
-	data-view-manage-url="1"
 >
 	<div class="tribe-common-l-container tribe-events-l-container">
 		<div
@@ -18,7 +17,7 @@
 		<script
 	data-js="tribe-events-view-data"
 	type="application/json"
->{"slug":"list","prev_url":"","next_url":"","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_slug":"list","view":{},"title":"","events":[],"url":"http:\\/\\/test.tri.be\\/events\\/list\\/?tribe-bar-date=2019-01-01 09:00:00","bar":{"keyword":"","date":"2019-01-01 09:00:00"}}</script>
+>{"slug":"day","prev_url":"","next_url":"","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Day_View","view_slug":"day","view":{},"title":"","events":[],"url":"http:\\/\\/test.tri.be\\/events\\/today\\/?tribe-bar-date=2019-01-01 09:00:00","bar":{"keyword":"","date":"2019-01-01 09:00:00"}}</script>
 
 		<header class="tribe-events-header">
 			<div
@@ -57,7 +56,7 @@
 		data-js="tribe-events-view-form"
 		role="search"
 	>
-		<input type="hidden" id="tribe-events-views[_wpnonce]" name="tribe-events-views[_wpnonce]" value="2ab7cc6b39" /><input type="hidden" name="_wp_http_referer" value="/events/list/?tribe-bar-date=2019-01-01 09:00:00" />		<input type="hidden" name="tribe-events-views[url]" value="http://test.tri.be/events/list/?tribe-bar-date=2019-01-01%2009:00:00" />
+		<input type="hidden" id="tribe-events-views[_wpnonce]" name="tribe-events-views[_wpnonce]" value="2ab7cc6b39" /><input type="hidden" name="_wp_http_referer" value="/events/today/?tribe-bar-date=2019-01-01 09:00:00" />		<input type="hidden" name="tribe-events-views[url]" value="http://test.tri.be/events/today/?tribe-bar-date=2019-01-01%2009:00:00" />
 
 		<div class="tribe-events-c-search__input-group">
 			<div
@@ -99,9 +98,9 @@
 			aria-selected="false"
 			data-js="tribe-events-accordion-trigger"
 		>
-			<span class="tribe-events-c-view-selector__button-icon tribe-common-svgicon tribe-common-svgicon--list"></span>
+			<span class="tribe-events-c-view-selector__button-icon tribe-common-svgicon tribe-common-svgicon--day"></span>
 			<span class="tribe-events-c-view-selector__button-text">
-				List			</span>
+				Day			</span>
 		</button>
 		<div
 	class="tribe-events-c-view-selector__content"
@@ -109,7 +108,7 @@
 	aria-hidden="true"
 >
 	<ul class="tribe-events-c-view-selector__list">
-					<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--list tribe-events-c-view-selector__list-item--active">
+					<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--list">
 	<a
 		href="http://test.tri.be/events/list/?tribe-bar-date=2019-01-01%2009:00:00"
 		class="tribe-events-c-view-selector__list-item-link"
@@ -131,7 +130,7 @@
 			Month		</span>
 	</a>
 </li>
-					<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--day">
+					<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--day tribe-events-c-view-selector__list-item--active">
 	<a
 		href="http://test.tri.be/events/today/?tribe-bar-date=2019-01-01%2009:00:00"
 		class="tribe-events-c-view-selector__list-item-link"
@@ -176,7 +175,7 @@
 </nav>
 
 	<a
-	href="http://test.tri.be/events/list/?tribe-bar-date=2019-01-01%2009:00:00"
+	href="http://test.tri.be/events/today/"
 	class="tribe-common-c-btn-border tribe-events-c-top-bar__today-button"
 	data-js="tribe-events-view-link"
 >
@@ -187,11 +186,8 @@
 		class="tribe-common-h2 tribe-common-h3--min-medium tribe-common-h--alt tribe-events-c-top-bar__datepicker-button"
 		data-js="tribe-events-top-bar-datepicker-button"
 	>
-					<time datetime="2019-01-01">
-				January 1, 2019			</time>
-				&mdash;
-		<time datetime="2019-07-23">
-			July 23, 2019		</time>
+		<time datetime="2019-01-01">
+			January 1, 2019		</time>
 	</button>
 	<label
 		class="tribe-events-c-top-bar__datepicker-label tribe-common-a11y-visual-hide"
@@ -215,33 +211,25 @@
 </div>
 		</header>
 
-		<div class="tribe-events-calendar-list">
+		<div class="tribe-events-calendar-day">
 
 			
 		</div>
 
-		<nav class="tribe-events-calendar-list-nav tribe-events-c-nav">
+		<nav class="tribe-events-calendar-day-nav tribe-events-c-nav">
 	<ul class="tribe-events-c-nav__list">
 		<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--prev">
 	<button class="tribe-events-c-nav__prev tribe-common-b2 tribe-common-b1--min-medium" disabled>
-		Previous <span class="tribe-events-c-nav__prev-label-plural"> Events</span>	</button>
-</li>
-
-		<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--today">
-	<a
-		href="#"
-		class="tribe-events-c-nav__today tribe-common-b2"
-		data-js="tribe-events-view-link"
-	>
-		Today	</a>
+		Previous Day	</button>
 </li>
 
 		<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--next">
 	<button class="tribe-events-c-nav__next tribe-common-b2 tribe-common-b1--min-medium" disabled>
-		Next <span class="tribe-events-c-nav__next-label-plural"> Events</span>	</button>
+		Next Day	</button>
 </li>
 	</ul>
 </nav>
 	</div>
+
 </div>
 ';

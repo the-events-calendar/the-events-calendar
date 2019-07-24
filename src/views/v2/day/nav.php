@@ -27,8 +27,6 @@
 		}
 		?>
 
-		<?php $this->template( 'day/nav/today', [ 'link' => '#' ] ); ?>
-
 		<?php
 		if ( ! empty( $next_url ) ) {
 			$this->template( 'day/nav/next', [ 'link' => $next_url ] );

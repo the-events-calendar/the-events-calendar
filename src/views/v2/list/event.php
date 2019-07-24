@@ -17,13 +17,10 @@ $event    = $this->get( 'event' );
 $event_id = $event->ID;
 
 $classes = [ 'tribe-common-g-row', 'tribe-common-g-row--gutters', 'tribe-events-calendar-list__event-row' ];
-
-if ( tribe( 'tec.featured_events' )->is_featured( $event_id ) ) {
-	$classes[] = 'tribe-events-calendar-list__event-row--featured';
-}
+$classes['tribe-events-calendar-list__event-row--featured'] = tribe( 'tec.featured_events' )->is_featured( $event_id );
 
 ?>
-<div class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>">
+<div <?php tribe_classes( $classes ) ?>>
 
 	<?php $this->template( 'list/event/date-tag', [ 'event' => $event ] ); ?>
 
