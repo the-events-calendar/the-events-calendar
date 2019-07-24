@@ -63,7 +63,7 @@ if ( $should_display ) {
 
 	<article class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>" data-event-id="<?php echo esc_attr( $event->ID ); ?>">
 		<time datetime="the-date-and-or-duration" class="tribe-common-a11y-visual-hide">The date and duration</time>
-		<a href="#" class="tribe-events-calendar-month__multiday-event-inner">
+		<a href="<?php echo esc_url( $event->permalink ) ?>" class="tribe-events-calendar-month__multiday-event-inner">
 			<?php if ( $event->featured ) : ?>
 				<em
 					class="tribe-events-calendar-month__multiday-event-featured-icon tribe-common-svgicon tribe-common-svgicon--featured"

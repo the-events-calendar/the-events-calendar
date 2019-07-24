@@ -195,7 +195,7 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 				'start'     => $start_date_object,
 				'start_utc' => $start_date_utc_object,
 				'end'       => $end_date_object,
-				'end_utc'   => $end_date_utc_object
+				'end_utc'   => $end_date_utc_object,
 			],
 			'timezone'           => $timezone_string,
 			'duration'           => $duration,
@@ -210,6 +210,7 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 			'organizers'         => new Lazy_Collection( $organizer_fetch ),
 			'venues'             => new Lazy_Collection( $venue_fetch ),
 			'thumbnail'          => new Post_Thumbnail( $post_id ),
+			'permalink'          => get_permalink( $post_id ),
 		];
 
 		foreach ( $properties as $key => $value ) {
