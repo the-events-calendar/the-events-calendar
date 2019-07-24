@@ -17,8 +17,6 @@ namespace Tribe\Events\Views\V2;
  */
 class Service_Provider extends \tad_DI52_ServiceProvider {
 
-	const NAME_SPACE = 'tribe/views/v2';
-
 	/**
 	 * Binds and sets up implementations.
 	 */
