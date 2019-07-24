@@ -190,8 +190,8 @@
 					<time datetime="2019-01-01">
 				January 1, 2019			</time>
 				&mdash;
-		<time datetime="2019-07-23">
-			July 23, 2019		</time>
+		<time datetime="2019-07-24">
+			July 24, 2019		</time>
 	</button>
 	<label
 		class="tribe-events-c-top-bar__datepicker-label tribe-common-a11y-visual-hide"
