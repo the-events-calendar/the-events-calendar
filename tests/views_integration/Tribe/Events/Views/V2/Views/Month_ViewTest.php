@@ -135,7 +135,7 @@ class Month_ViewTest extends ViewTestCase {
 		$this->context->alter( [ 'event_date' => '2019-07-01' ] );
 		$month_view = View::make( Month_View::class, $this->context );
 
-		add_filter( 'tribe_events_views_v2_month_week_stack_recycle_spaces', '__return_false' );
+		add_filter( 'tribe_events_views_v2_stack_recycle_spaces', '__return_false' );
 
 		$week_stack          = $month_view->get_multiday_stack( $monday, $sunday );
 		$expected_week_stack = [
@@ -148,7 +148,7 @@ class Month_ViewTest extends ViewTestCase {
 		$actual              = $this->visualize_week_stack( $week_stack );
 		$this->assertEquals( $expected, $actual );
 
-		add_filter( 'tribe_events_views_v2_month_week_stack_recycle_spaces', '__return_true' );
+		add_filter( 'tribe_events_views_v2_stack_recycle_spaces', '__return_true' );
 
 		$week_stack          = $month_view->get_multiday_stack( $monday, $sunday );
 		$expected_week_stack = [

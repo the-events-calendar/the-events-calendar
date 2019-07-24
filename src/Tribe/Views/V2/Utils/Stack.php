@@ -32,6 +32,7 @@
  */
 
 namespace Tribe\Events\Views\V2\Utils;
+use Tribe__Date_Utils as Dates;
 
 /**
  * Class Stack
@@ -90,15 +91,26 @@ class Stack {
 	protected $spacer;
 
 	/**
+	 * A flag to indicate whether the stack elements should be normalized or not.
+	 *
+	 * @since TBD
+	 *
+	 * @var bool
+	 */
+	protected $normalize_stack;
+
+	/**
 	 * Builds and returns the stack for a group of events, divided by days.
 	 *
 	 * @since TBD
 	 *
-	 * @param array      $events_by_day  An array of events, per-day, in the shape `[ <Y-m-d> => [ ...<event_ids> ] ]`.
+	 * @param array      $events_by_day   An array of events, per-day, in the shape `[ <Y-m-d> => [ ...<event_ids> ] ]`.
 	 *
-	 * @param null|mixed $spacer         The spacer that should be used to indicate an empty space in the stack.
-	 *                                   Defaults to the filtered spacer.
-	 * @param null|bool  $recycle_space  Whether to recycle spaces or not; defaults to the filtered value.
+	 * @param null|mixed $spacer          The spacer that should be used to indicate an empty space in the stack.
+	 *                                    Defaults to the filtered spacer.
+	 * @param null|bool  $recycle_space   Whether to recycle spaces or not; defaults to the filtered value.
+	 * @param null|bool $normalize_stack  Whether to normalize the stack by padding the bottom of it with spacers or
+	 *                                    not; defaults to the filtered value.
 	 *
 	 * @return array An associative array of days, each with the events "stacked", including spacers, in the shape:
 	 *               `[
@@ -109,11 +121,26 @@ class Stack {
 	 *              and so on. Each stack column (a day) will be padded with spacers to have consistent stack height
 	 *               which means that all arrays in the stack will have the same length.
 	 */
-	public function build_from_events( array $events_by_day = [], $spacer = null, $recycle_space = null ) {
+	public function build_from_events( array $events_by_day = [], $spacer = null, $recycle_space = null, $normalize_stack = null ) {
+		if ( empty( $events_by_day ) ) {
+			return [];
+		}
+
+		// @todo @be we use the spacer someplace, refer it to this value.
 		$this->spacer          = null !== $spacer ? $spacer : $this->get_spacer();
-		$this->recycle_space   = null !== $recycle_space ? $recycle_space : $this->should_recycle_spaces();
+		$this->recycle_space   = null !== $recycle_space ?
+			(bool) $recycle_space
+			: $this->should_recycle_spaces( $events_by_day );
+		$this->normalize_stack = null !== $normalize_stack ?
+			(bool) $normalize_stack
+			: $this->should_normalize_stack( $events_by_day );
+
+		// Init the working properties.
 		$this->stack           = [];
 		$this->stack_positions = [];
+
+		// Make sure all days in the period will make it to the stack; even if empty.
+		$events_by_day = $this->add_missing_days( $events_by_day );
 
 		/*
 		 * Calculate each multi-day event_id stack position in the stack.
@@ -122,7 +149,9 @@ class Stack {
 			$this->stack[ $current_day ] = $this->build_day_stack( $current_day, $the_day_events );
 		}
 
-		$this->normalize_stack();
+		if ( $this->normalize_stack ) {
+			$this->normalize_stack();
+		}
 
 		return $this->stack;
 	}
@@ -152,9 +181,11 @@ class Stack {
 	 *
 	 * @since TBD
 	 *
+	 * @param array $events_by_day An array of event IDs, divided by day, with shape `[ <Y-m-d> => [...<events>] ]`.
+	 *
 	 * @return bool Whether the stack should be built "recycling" spaces or not.
 	 */
-	protected function should_recycle_spaces() {
+	protected function should_recycle_spaces( array $events_by_day = [] ) {
 		/**
 		 * Filters whether to "recycle" the available spaces or not while building the week stack.
 		 *
@@ -173,9 +204,10 @@ class Stack {
 		 *
 		 * @since TBD
 		 *
-		 * @param bool $recycle_spaces Whether to recycle space in the week stack or not; default `true`.
+		 * @param bool  $recycle_spaces Whether to recycle space in the week stack or not; default `true`.
+		 * @param array $events_by_day  An array of event IDs, divided by day, with shape `[ <Y-m-d> => [...<events>] ]`.
 		 */
-		return (bool) apply_filters( 'tribe_events_views_v2_month_week_stack_recycle_spaces', true );
+		return (bool) apply_filters( 'tribe_events_views_v2_stack_recycle_spaces', true, $events_by_day );
 	}
 
 	/**
@@ -250,13 +282,13 @@ class Stack {
 			$day_events_wo_position = array_diff( $this->day_events, array_keys( $this->stack_positions ) );
 
 			if ( count( $day_events_wo_position ) ) {
+				// Try and move each event that starts today in the first open position from the top of the day stack.
 				usort( $this->day_events, [ $this, 'recycle_day_stack_space' ] );
 			}
 		}
 
 		foreach ( $this->day_events as $position_in_day => $event_id ) {
 			if ( isset( $this->stack_positions[ $event_id ] ) ) {
-				$prev_event_position = $this->stack_positions[ $event_id ];
 				continue;
 			}
 
@@ -264,9 +296,10 @@ class Stack {
 				// Events have been already ordered and the event position in the day stack is the correct one.
 				$the_event_position = $position_in_day;
 			} else {
-				$the_event_position = isset( $prev_event_position )
-					? $prev_event_position + 1
-					: $position_in_day;
+				// The event position is the next one.
+				$the_event_position = count( $this->stack_positions )
+					? max( $this->stack_positions ) + 1
+					: 0;
 			}
 
 			$this->stack_positions[ $event_id ] = $the_event_position;
@@ -385,5 +418,87 @@ class Stack {
 		$post = tribe_get_event( $event );
 
 		return $post instanceof \WP_Post && ( ! empty( $post->multiday ) || ! empty( $post->all_day ) );
+	}
+
+	/**
+	 * Returns the filtered value to decide if the stack should be normalized or not padding each element with spacers
+	 * to the same height as the one of the stack elements with more events in it or not.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $events_by_day An array of event IDs, divided by day, with shape `[ <Y-m-d> => [...<events>] ]`.
+	 *
+	 * @return bool Whether the stack should be normalized by padding each one of its elements with spacers at the
+	 *              bottom or not.
+	 */
+	protected function should_normalize_stack(array $events_by_day = []) {
+		/**
+		 * Filters the value to decide if the stack should be normalized or not padding each element with spacers
+		 * to the same height as the one of the stack elements with more events in it or not.
+		 *
+		 * As an example we have the events:
+		 *      1 => [2019-7-1, 2019-7-3]
+		 *      2 => [2019-7-2, 2019-7-6]
+		 *      3 => [2019-7-5, 2019-7-6]
+		 * The week stack would look like this not normalizing it:
+		 * |1|1|1|-|-|-|
+		 *   |2|2|2|2|2|
+		 *         |3|3|
+		 * The week stack would look like this normalizing it:
+		 * |1|1|1|-|-|-|
+		 * |-|2|2|2|2|2|
+		 * |-|-|-|-|3|3|
+		 * The space is "normalized " by adding spacers at the bottom of any stack element until it reaches the same
+		 * height as the one with more elements (the last two days in the example).
+		 *
+		 * @since TBD
+		 *
+		 * @param bool $normalize_stack Whether the stack should be normalized by padding each one of its elements with
+		 *                              spacers at the bottom or not; defaults to `false`.
+		 * @param array $events_by_day An array of event IDs, divided by day, with shape `[ <Y-m-d> => [...<events>] ]`.
+		 */
+		return apply_filters( 'tribe_events_views_v2_stack_normalize', false, $events_by_day );
+	}
+
+	/**
+	 * Adds the missing days in the passed events by day to make sure all dates in the period will appear.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $events_by_day The events part of the stack, divided by day.
+	 *
+	 * @return array The events part of the stack, divided by day with added missing days, if any.
+	 */
+	protected function add_missing_days( array $events_by_day ) {
+		$days      = array_keys( $events_by_day );
+		$first_day = reset( $days );
+		$last_day  = end( $days );
+
+		try {
+			// The timezone is not relevant here.
+			$period = new \DatePeriod(
+				Dates::build_date_object( $first_day ),
+				new \DateInterval( 'P1D' ),
+				Dates::build_date_object( $last_day )->setTime( 23, 59, 59 )
+			);
+
+			$missing = [];
+			/** @var \DateTime $date */
+			foreach ( $period as $date ) {
+				$date_string = $date->format( 'Y-m-d' );
+				if ( in_array( $date_string, $days, true ) ) {
+					continue;
+				}
+				$missing[$date_string] = [];
+			}
+		} catch ( \Exception $e ) {
+			// If there's any issue just return the events by day as they are.
+			return $events_by_day;
+		}
+
+		$events_by_day = array_merge( $events_by_day, $missing );
+		ksort( $events_by_day );
+
+		return $events_by_day;
 	}
 }
