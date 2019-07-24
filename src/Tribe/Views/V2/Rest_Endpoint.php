@@ -84,6 +84,42 @@ class Rest_Endpoint {
 	}
 
 	/**
+	 * When REST is not available add ajax fallback into the correct action.
+	 *
+	 * @since  TBD
+	 *
+	 * @return void
+	 */
+	public function maybe_enable_ajax_fallback() {
+		if ( $this->is_available() ) {
+			return;
+		}
+
+		$action = static::$ajax_action;
+		add_action( "wp_ajax_{$action}", [ $this, 'ajax_fallback' ] );
+		add_action( "wp_ajax_nopriv_{$action}", [ $this, 'ajax_fallback' ] );
+	}
+
+	/**
+	 * AJAX fallback for when REST endpoint is disabled. We try to mock a WP_REST_Request
+	 * and use the same method behind the scenes to make sure we have consistency.
+	 *
+	 * @since  TBD
+	 *
+	 * @return void
+	 */
+	public function ajax_fallback() {
+		$request = new Request( 'GET', static::NAMESPACE . '/html' );
+
+		$body_params = (array) $_GET;
+		foreach ( $body_params as $key => $value ) {
+			$request->set_param( $key, $value );
+		}
+
+		View::make_for_rest( $request )->send_html();
+	}
+
+	/**
 	 * Check if the REST endpoint is available.
 	 *
 	 * @since  TBD
@@ -91,6 +127,8 @@ class Rest_Endpoint {
 	 * @return boolean If the REST API endpoint is available.
 	 */
 	public function is_available() {
+
+		return false;
 		$is_available = tribe( 'tec.rest-v1.system' )->tec_rest_api_is_enabled();
 
 		/**
