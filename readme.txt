@@ -215,12 +215,14 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
-= [4.9.5] TBD =
+= [4.9.5] 2019-07-24 =
 
 * Tweak - Update redirection URLs for Freemius actions [130281]
+* Fix - Location filtering for Context class moved out of construct, resolving lots of navigation problems across The Events Calendar [130754]
 * Fix - Featured event AJAX and browser navigation working as expected for all use cases. [127272]
 * Fix - Shortcode properly handling featured param on AJAX requests. [114002]
 * Fix - Remove removing wpautop for gutenberg blocks to fix spacing when content comes from classic editor. [122801]
+* Language - 4 new strings added, 16 updated, 0 fuzzied, and 0 obsoleted
 
 = [4.9.4] 2019-07-03 =
 
