@@ -127,8 +127,6 @@ class Rest_Endpoint {
 	 * @return boolean If the REST API endpoint is available.
 	 */
 	public function is_available() {
-
-		return false;
 		$is_available = tribe( 'tec.rest-v1.system' )->tec_rest_api_is_enabled();
 
 		/**
