@@ -13,7 +13,7 @@ use Tribe\Events\Views\V2\View;
 use Tribe\Traits\Cache_User;
 use Tribe__Cache_Listener as Cache_Listener;
 use Tribe__Context as Context;
-use Tribe__Date_Utils as Date_Utils;
+use Tribe__Date_Utils as Dates;
 use Tribe__Events__Template__Month as Month;
 use Tribe__Events__Timezones as Timezones;
 use Tribe__Utils__Array as Arr;
@@ -235,12 +235,17 @@ class Month_View extends View {
 		$this->repository->void_query( false );
 
 		// The events will be returned in an array with shape `[ <Y-m-d> => [...<events>], <Y-m-d> => [...<events>] ]`.
-		$grid_days       = $this->get_grid_days();
-		$days            = $this->get_days_data( $grid_days );
+		$grid_days = $this->get_grid_days();
+		$days      = $this->get_days_data( $grid_days );
 
-		$template_vars['today_date'] = Date_Utils::build_date_object()->format( 'Y-m-d' );
-		$template_vars['events']     = $grid_days;
-		$template_vars['days']       = $days;
+		$grid_date             = Dates::build_date_object( $this->context->get( 'event_date', 'today' ) );
+		$month_and_year_format = tribe_get_option( 'monthAndYearFormat', 'F Y' );
+
+		$template_vars['today_date']          = Dates::build_date_object()->format( 'Y-m-d' );
+		$template_vars['grid_date']           = $grid_date->format( 'Y-m-d' );
+		$template_vars['formatted_grid_date'] = $grid_date->format( $month_and_year_format );
+		$template_vars['events']              = $grid_days;
+		$template_vars['days']                = $days;
 
 		return $template_vars;
 	}
@@ -277,8 +282,8 @@ class Month_View extends View {
 	 *               `[ '2019-07-01' => [2, 3, false], , '2019-07-03' => [false, 3, 4]]`.
 	 */
 	public function get_multiday_stack( $from, $to ) {
-		$from = Date_Utils::build_date_object( $from )->setTime( 0, 0 );
-		$to   = Date_Utils::build_date_object( $to )->setTime( 23, 59, 59 );
+		$from = Dates::build_date_object( $from )->setTime( 0, 0 );
+		$to   = Dates::build_date_object( $to )->setTime( 23, 59, 59 );
 
 		$events = $this->get_grid_days();
 		$multiday_stack = $this->build_multiday_stacks( $events );
@@ -337,7 +342,7 @@ class Month_View extends View {
 			 *
 			 * @see tribe_get_event()
 			 */
-			$date_object = Date_Utils::build_date_object( $day_date );
+			$date_object = Dates::build_date_object( $day_date );
 
 			// The multi-day stack includes spacers; that's why we use `element`.
 			$multiday_events_stack = array_map( static function ( $element ) use ( $date_object ) {

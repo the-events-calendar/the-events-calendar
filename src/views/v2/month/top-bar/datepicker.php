@@ -11,6 +11,9 @@
  *
  * @version TBD
  *
+ * @var string $grid_date The current calendar grid date in the `Y-m-d` format.
+ * @var string $formatted_grid_date The current calendar grid date in the format specified by the "Month and year
+ *                                  format" option.
  */
 ?>
 <div class="tribe-events-c-top-bar__datepicker" data-js="tribe-events-top-bar-datepicker">
@@ -18,8 +21,10 @@
 		class="tribe-common-h2 tribe-common-h3--min-medium tribe-common-h--alt tribe-events-c-top-bar__datepicker-button"
 		data-js="tribe-events-top-bar-datepicker-button"
 	>
-		<?php // @todo @fe is this the correct header for the month view? ?>
-		<?php esc_html_e( 'Now', 'the-events-calendar' ); ?> &mdash; <time datetime="<?php echo esc_attr( date( 'Y-m-d', time() ) ); ?>"><?php echo date( 'F jS, Y', time() ); ?></time>
+		<?php // @todo @fe the datepicker width seems to depend on the width of the grid title, it should not. ?>
+		<time datetime="<?php echo esc_attr( $grid_date ); ?>">
+			<?php echo esc_html( $formatted_grid_date ); ?>
+		</time>
 	</button>
 	<label
 		class="tribe-events-c-top-bar__datepicker-label tribe-common-a11y-visual-hide"
