@@ -1,5 +1,5 @@
 <?php return '<div
-	class="tribe-common tribe-events tribe-events-view"
+	class="tribe-common tribe-events tribe-events-view tribe-events-view--list"
 	data-js="tribe-events-view"
 	data-view-rest-nonce="2ab7cc6b39"
 	data-view-rest-url="http://test.tri.be/index.php?rest_route=/tribe/views/v2/html"
@@ -190,8 +190,8 @@
 					<time datetime="2019-01-01">
 				January 1, 2019			</time>
 				&mdash;
-		<time datetime="2019-07-23">
-			July 23, 2019		</time>
+		<time datetime="2019-07-24">
+			July 24, 2019		</time>
 	</button>
 	<label
 		class="tribe-events-c-top-bar__datepicker-label tribe-common-a11y-visual-hide"

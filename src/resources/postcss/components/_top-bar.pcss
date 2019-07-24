@@ -66,6 +66,16 @@
 		align-items: center;
 		display: flex;
 		flex: none;
+		transition: var(--transition-opacity);
+
+		&:hover,
+		&:focus {
+			opacity: var(--opacity-icon-hover);
+		}
+
+		&:active {
+			opacity: var(--opacity-icon-active);
+		}
 
 		&:after {
 			background-image: svg-inline(caret-down);
