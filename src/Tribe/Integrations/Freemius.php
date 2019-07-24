@@ -35,7 +35,7 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Store the value from the 'page' in the request.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @var string
 	 */
@@ -126,7 +126,7 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Redirect URL after the Freemius actions.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @return mixed
 	 */

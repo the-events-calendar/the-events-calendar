@@ -201,7 +201,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 	/**
 	 * Removes assets from View V1 when V2 is loaded.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @return void
 	 */

@@ -918,7 +918,7 @@ class View implements View_Interface {
 	/**
 	 * Filters the repository arguments that will be used to set up the View repository instance.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param array        $repository_args The repository arguments that will be used to set up the View repository instance.
 	 * @param Context|null $context Either a specific Context or `null` to use the View current Context.
@@ -931,7 +931,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the repository args for a View.
 		 *
-		 * @since TBD
+		 * @since 4.9.5
 		 *
 		 * @param array           $repository_args An array of repository arguments that will be set for all Views.
 		 * @param \Tribe__Context $context         The current render context object.
@@ -942,7 +942,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the repository args for a specific View.
 		 *
-		 * @since TBD
+		 * @since 4.9.5
 		 *
 		 * @param array           $repository_args An array of repository arguments that will be set for a specific View.
 		 * @param \Tribe__Context $context         The current render context object.
@@ -964,7 +964,7 @@ class View implements View_Interface {
 	 * This value can be used to set the `$_SERVER['REQUEST_URI']` global when rendering the View to make sure WordPress
 	 * functions relying on that value will work correctly.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @return string The View request URI, a value suitable to be used to set the `$_SERVER['REQUEST_URI']` value.
 	 */

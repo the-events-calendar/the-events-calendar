@@ -143,7 +143,7 @@ interface View_Interface  extends View_Url_Provider_Interface, Repository_User_I
 	 * It's usually the same returned by the `View_Interface::get_slug` method but some Views might implement a
 	 * different logic (e.g. the `/all` view).
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @return string The slug that should be used to find the View template.
 	 */
@@ -152,7 +152,7 @@ interface View_Interface  extends View_Url_Provider_Interface, Repository_User_I
 	/**
 	 * Sets the View template slug.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param string $slug The slug the View should use to locate its template.
 	 */
