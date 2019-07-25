@@ -521,8 +521,8 @@
 		rel="bookmark"
 		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
 		data-js="tribe-events-tooltip"
-		data-tooltip-content="#tooltip_content-53"
-		aria-describedby="#tooltip_content-53"
+		data-tooltip-content="#tribe-events-tooltip-content-53"
+		aria-describedby="tribe-events-tooltip-content-53"
 	>
 		North Sydney Meetup	</a>
 </h3>
@@ -532,14 +532,14 @@
 	data-js="tribe-events-tooltip-content"
 	role="tooltip"
 >
-	<div id="tooltip_content-53">
+	<div id="tribe-events-tooltip-content-53">
 		<div class="tribe-events-calendar-month__calendar-event-tooltip-featured-image-wrapper">
-	<div class="tribe-events-calendar-month__calendar-event-tooltip-featured-image tribe-common-c-image tribe-common-c-image--bg">
-		<a
-			href="#"
-			title="North Sydney Meetup"
-			rel="bookmark"
-		>
+	<a
+		href="#"
+		title="North Sydney Meetup"
+		rel="bookmark"
+	>
+		<div class="tribe-events-calendar-month__calendar-event-tooltip-featured-image tribe-common-c-image tribe-common-c-image--bg">
 			<div
 				class="tribe-common-c-image__bg"
 				style="background-image: url(\'https://cldup.com/xfPL3E4sMe-2000x2000.jpeg\');"
@@ -547,8 +547,8 @@
 				aria-label="alt text here"
 			>
 			</div>
-		</a>
-	</div>
+		</div>
+	</a>
 </div>
 		<p class="tribe-events-calendar-month__calendar-event-tooltip-description tribe-common-b3">
 	Lorem ipsum dolor sit amet, consectetur adipiscing elit. In consectetur metus tortor, et maximus libero aliquet in. Praesent rhoncus ultricies neque in imperdiet. Aenean at ex luctus, tempor justo eget, pharetra magna. Nullam ut odio maximus nisi mollis gravida.
@@ -750,8 +750,8 @@
 		rel="bookmark"
 		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
 		data-js="tribe-events-tooltip"
-		data-tooltip-content="#tooltip_content-69"
-		aria-describedby="#tooltip_content-69"
+		data-tooltip-content="#tribe-events-tooltip-content-69"
+		aria-describedby="tribe-events-tooltip-content-69"
 	>
 		Taco Tuesdays!	</a>
 </h3>
@@ -761,7 +761,7 @@
 	data-js="tribe-events-tooltip-content"
 	role="tooltip"
 >
-	<div id="tooltip_content-69">
+	<div id="tribe-events-tooltip-content-69">
 				<p class="tribe-events-calendar-month__calendar-event-tooltip-description tribe-common-b3">
 	Lorem ipsum dolor sit amet, consectetur adipiscing elit. In consectetur metus tortor, et maximus libero aliquet in. Praesent rhoncus ultricies neque in imperdiet. Aenean at ex luctus, tempor justo eget, pharetra magna. Nullam ut odio maximus nisi mollis gravida.
 </p>
@@ -800,8 +800,8 @@
 		rel="bookmark"
 		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
 		data-js="tribe-events-tooltip"
-		data-tooltip-content="#tooltip_content-57"
-		aria-describedby="#tooltip_content-57"
+		data-tooltip-content="#tribe-events-tooltip-content-57"
+		aria-describedby="tribe-events-tooltip-content-57"
 	>
 		Melbourne WordPress Meetup	</a>
 </h3>
@@ -811,7 +811,7 @@
 	data-js="tribe-events-tooltip-content"
 	role="tooltip"
 >
-	<div id="tooltip_content-57">
+	<div id="tribe-events-tooltip-content-57">
 				<p class="tribe-events-calendar-month__calendar-event-tooltip-description tribe-common-b3">
 	Lorem ipsum dolor sit amet, consectetur adipiscing elit. In consectetur metus tortor, et maximus libero aliquet in. Praesent rhoncus ultricies neque in imperdiet. Aenean at ex luctus, tempor justo eget, pharetra magna. Nullam ut odio maximus nisi mollis gravida.
 </p>
@@ -898,8 +898,8 @@
 		rel="bookmark"
 		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
 		data-js="tribe-events-tooltip"
-		data-tooltip-content="#tooltip_content-59"
-		aria-describedby="#tooltip_content-59"
+		data-tooltip-content="#tribe-events-tooltip-content-59"
+		aria-describedby="tribe-events-tooltip-content-59"
 	>
 		HackNight #CodeforthePeople	</a>
 </h3>
@@ -909,14 +909,14 @@
 	data-js="tribe-events-tooltip-content"
 	role="tooltip"
 >
-	<div id="tooltip_content-59">
+	<div id="tribe-events-tooltip-content-59">
 		<div class="tribe-events-calendar-month__calendar-event-tooltip-featured-image-wrapper">
-	<div class="tribe-events-calendar-month__calendar-event-tooltip-featured-image tribe-common-c-image tribe-common-c-image--bg">
-		<a
-			href="#"
-			title="HackNight #CodeforthePeople"
-			rel="bookmark"
-		>
+	<a
+		href="#"
+		title="HackNight #CodeforthePeople"
+		rel="bookmark"
+	>
+		<div class="tribe-events-calendar-month__calendar-event-tooltip-featured-image tribe-common-c-image tribe-common-c-image--bg">
 			<div
 				class="tribe-common-c-image__bg"
 				style="background-image: url(\'https://cldup.com/GkpQuY_i8k-1200x1200.jpeg\');"
@@ -924,8 +924,8 @@
 				aria-label="alt text here"
 			>
 			</div>
-		</a>
-	</div>
+		</div>
+	</a>
 </div>
 		<p class="tribe-events-calendar-month__calendar-event-tooltip-description tribe-common-b3">
 	Lorem ipsum dolor sit amet, consectetur adipiscing elit. In consectetur metus tortor, et maximus libero aliquet in. Praesent rhoncus ultricies neque in imperdiet. Aenean at ex luctus, tempor justo eget, pharetra magna. Nullam ut odio maximus nisi mollis gravida.
@@ -1280,8 +1280,8 @@
 		rel="bookmark"
 		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
 		data-js="tribe-events-tooltip"
-		data-tooltip-content="#tooltip_content-69"
-		aria-describedby="#tooltip_content-69"
+		data-tooltip-content="#tribe-events-tooltip-content-69"
+		aria-describedby="tribe-events-tooltip-content-69"
 	>
 		Taco Tuesdays!	</a>
 </h3>
@@ -1291,7 +1291,7 @@
 	data-js="tribe-events-tooltip-content"
 	role="tooltip"
 >
-	<div id="tooltip_content-69">
+	<div id="tribe-events-tooltip-content-69">
 				<p class="tribe-events-calendar-month__calendar-event-tooltip-description tribe-common-b3">
 	Lorem ipsum dolor sit amet, consectetur adipiscing elit. In consectetur metus tortor, et maximus libero aliquet in. Praesent rhoncus ultricies neque in imperdiet. Aenean at ex luctus, tempor justo eget, pharetra magna. Nullam ut odio maximus nisi mollis gravida.
 </p>
@@ -1794,8 +1794,8 @@
 		rel="bookmark"
 		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
 		data-js="tribe-events-tooltip"
-		data-tooltip-content="#tooltip_content-69"
-		aria-describedby="#tooltip_content-69"
+		data-tooltip-content="#tribe-events-tooltip-content-69"
+		aria-describedby="tribe-events-tooltip-content-69"
 	>
 		Taco Tuesdays!	</a>
 </h3>
@@ -1805,7 +1805,7 @@
 	data-js="tribe-events-tooltip-content"
 	role="tooltip"
 >
-	<div id="tooltip_content-69">
+	<div id="tribe-events-tooltip-content-69">
 				<p class="tribe-events-calendar-month__calendar-event-tooltip-description tribe-common-b3">
 	Lorem ipsum dolor sit amet, consectetur adipiscing elit. In consectetur metus tortor, et maximus libero aliquet in. Praesent rhoncus ultricies neque in imperdiet. Aenean at ex luctus, tempor justo eget, pharetra magna. Nullam ut odio maximus nisi mollis gravida.
 </p>
@@ -1994,8 +1994,8 @@
 		rel="bookmark"
 		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
 		data-js="tribe-events-tooltip"
-		data-tooltip-content="#tooltip_content-39"
-		aria-describedby="#tooltip_content-39"
+		data-tooltip-content="#tribe-events-tooltip-content-39"
+		aria-describedby="tribe-events-tooltip-content-39"
 	>
 		Winnipeg WordPress Meetup	</a>
 </h3>
@@ -2005,14 +2005,14 @@
 	data-js="tribe-events-tooltip-content"
 	role="tooltip"
 >
-	<div id="tooltip_content-39">
+	<div id="tribe-events-tooltip-content-39">
 		<div class="tribe-events-calendar-month__calendar-event-tooltip-featured-image-wrapper">
-	<div class="tribe-events-calendar-month__calendar-event-tooltip-featured-image tribe-common-c-image tribe-common-c-image--bg">
-		<a
-			href="#"
-			title="Winnipeg WordPress Meetup"
-			rel="bookmark"
-		>
+	<a
+		href="#"
+		title="Winnipeg WordPress Meetup"
+		rel="bookmark"
+	>
+		<div class="tribe-events-calendar-month__calendar-event-tooltip-featured-image tribe-common-c-image tribe-common-c-image--bg">
 			<div
 				class="tribe-common-c-image__bg"
 				style="background-image: url(\'https://cldup.com/Nhp8FNOyBl-2000x2000.jpeg\');"
@@ -2020,8 +2020,8 @@
 				aria-label="alt text here"
 			>
 			</div>
-		</a>
-	</div>
+		</div>
+	</a>
 </div>
 		<p class="tribe-events-calendar-month__calendar-event-tooltip-description tribe-common-b3">
 	Lorem ipsum dolor sit amet, consectetur adipiscing elit. In consectetur metus tortor, et maximus libero aliquet in. Praesent rhoncus ultricies neque in imperdiet. Aenean at ex luctus, tempor justo eget, pharetra magna. Nullam ut odio maximus nisi mollis gravida.
@@ -2109,8 +2109,8 @@
 		rel="bookmark"
 		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
 		data-js="tribe-events-tooltip"
-		data-tooltip-content="#tooltip_content-89"
-		aria-describedby="#tooltip_content-89"
+		data-tooltip-content="#tribe-events-tooltip-content-89"
+		aria-describedby="tribe-events-tooltip-content-89"
 	>
 		Hannover WordPress Meetup	</a>
 </h3>
@@ -2120,7 +2120,7 @@
 	data-js="tribe-events-tooltip-content"
 	role="tooltip"
 >
-	<div id="tooltip_content-89">
+	<div id="tribe-events-tooltip-content-89">
 				<p class="tribe-events-calendar-month__calendar-event-tooltip-description tribe-common-b3">
 	Lorem ipsum dolor sit amet, consectetur adipiscing elit. In consectetur metus tortor, et maximus libero aliquet in. Praesent rhoncus ultricies neque in imperdiet. Aenean at ex luctus, tempor justo eget, pharetra magna. Nullam ut odio maximus nisi mollis gravida.
 </p>
