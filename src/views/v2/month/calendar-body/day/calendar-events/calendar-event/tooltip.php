@@ -22,7 +22,7 @@ $event_id = $event->ID;
 	data-js="tribe-events-tooltip-content"
 	role="tooltip"
 >
-	<div id="tooltip_content-<?php echo esc_attr( $event_id ); ?>">
+	<div id="tribe-events-tooltip-content-<?php echo esc_attr( $event_id ); ?>">
 		<?php $this->template( 'month/calendar-body/day/calendar-events/calendar-event/tooltip/featured-image', [ 'event' => $event ] ); ?>
 		<?php $this->template( 'month/calendar-body/day/calendar-events/calendar-event/tooltip/description', [ 'event' => $event ] ); ?>
 		<?php $this->template( 'month/calendar-body/day/calendar-events/calendar-event/tooltip/cta', [ 'event' => $event ] ); ?>
