@@ -215,7 +215,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
-= [4.9.5] 2019-07-24 =
+= [4.9.5] 2019-07-25 =
 
 * Tweak - Update redirection URLs for Freemius actions [130281]
 * Fix - Location filtering for Context class moved out of construct, resolving lots of navigation problems across The Events Calendar [130754]
