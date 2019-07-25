@@ -9,7 +9,7 @@ use Tribe\Events\Test\Factories\Organizer;
 use Tribe\Events\Test\Factories\Venue;
 use Tribe__Events__Timezones as Timezones;
 
-class generalTest extends WPTestCase {
+class eventTest extends WPTestCase {
 	public function setUp() {
 		parent::setUp();
 		static::factory()->event     = new Event();
