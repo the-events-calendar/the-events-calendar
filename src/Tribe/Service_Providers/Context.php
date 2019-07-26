@@ -178,6 +178,17 @@ class Context extends \tad_DI52_ServiceProvider {
 					Tribe__Context::REQUEST_VAR => [ 's', 'search', 'tribe-bar-search' ],
 				],
 			],
+			'events_per_page' => [
+				'read'  => [
+					Tribe__Context::REQUEST_VAR  => 'posts_per_page',
+					Tribe__Context::TRIBE_OPTION => [ 'posts_per_page', 'postsPerPage' ],
+					Tribe__Context::OPTION       => 'posts_per_page',
+				],
+				'write' => [
+					Tribe__Context::REQUEST_VAR => 'posts_per_page',
+					Tribe__Context::TRIBE_OPTION => 'postsPerPage',
+				],
+			],
 			'month_posts_per_page' => [
 				'read'  => [
 					Tribe__Context::TRIBE_OPTION => 'monthEventAmount',
