@@ -57,9 +57,9 @@ class Month_View extends View {
 
 	/**
      * An instance of the Week Stack object.
-	 * 
+	 *
 	 * @since TBD
-	 * 
+	 *
 	 * @var Stack
 	 */
 	protected $stack;
@@ -86,9 +86,9 @@ class Month_View extends View {
 
 	/**
 	 * Month_View constructor.
-	 * 
+	 *
 	 * @since TBD
-	 * 
+	 *
 	 * @param Stack $stack An instance of the Stack object.
 	 */
 	public function __construct( Stack $stack) {
@@ -148,6 +148,7 @@ class Month_View extends View {
 
 		$this->warmup_cache( 'grid_days', 0, Cache_Listener::TRIGGER_SAVE_POST );
 		$this->warmup_cache( 'grid_days_found', 0, Cache_Listener::TRIGGER_SAVE_POST );
+		$events_per_day = $this->context->get( 'month_posts_per_page', 10 );
 
 		/** @var \DateTime $day */
 		foreach ( $days as $day ) {
@@ -162,6 +163,7 @@ class Month_View extends View {
 
 			$day_query = tribe_events()->by_args( $repository_args )
 			                           ->where( 'date_overlaps', $start, $end )
+			                           ->per_page( $events_per_day )
 			                           ->order_by( $order_by, $order );
 			$event_ids = $day_query ->get_ids();
 			$found     = $day_query->found();
@@ -208,10 +210,8 @@ class Month_View extends View {
 
 		$this->year_month = ( new \DateTime( $date ) )->format( 'Y-m' );
 
-		// @todo @be we'll need to be a bit more sophisticated here with the ordering.
 		$args['order_by'] = 'event_date';
 		$args['order']    = 'ASC';
-		$this->repository->order_by( 'event_date', 'ASC' );
 
 		/*
 		 * The event fetching will happen day-by-day so we set here the repository args we'll re-use fetching each
@@ -261,7 +261,7 @@ class Month_View extends View {
 	 *               order. E.g.
 	 *               `[ '2019-07-01' => [2, 3, false], '2019-07-02' => [2, 3, 4], '2019-07-03' => [false, 3, 4]]`.
 	 */
-	protected function build_multiday_stacks( array $grid_events_by_day ) {
+	protected function build_day_stacks( array $grid_events_by_day ) {
 		$week_stacks = [];
 		foreach ( array_chunk( $grid_events_by_day, 7, true ) as $week_events_by_day ) {
 			$week_stacks[] = $this->stack->build_from_events( $week_events_by_day );
@@ -286,7 +286,7 @@ class Month_View extends View {
 		$to   = Dates::build_date_object( $to )->setTime( 23, 59, 59 );
 
 		$events = $this->get_grid_days();
-		$multiday_stack = $this->build_multiday_stacks( $events );
+		$multiday_stack = $this->build_day_stacks( $events );
 
 		$start_index = array_key_exists( $from->format( 'Y-m-d' ), $multiday_stack )
 			? array_search( $from->format( 'Y-m-d' ), array_keys( $multiday_stack ), true )
@@ -331,7 +331,7 @@ class Month_View extends View {
 		$found_events = $this->get_grid_days_counts();
 
 		// The multi-day stack will contain spacers and post IDs.
-		$multiday_stacks = $this->build_multiday_stacks( $grid_days );
+		$day_stacks = $this->build_day_stacks( $grid_days );
 
 		// Let's prepare an array of days more digestible by the templates.
 		$days = [];
@@ -345,12 +345,12 @@ class Month_View extends View {
 			$date_object = Dates::build_date_object( $day_date );
 
 			// The multi-day stack includes spacers; that's why we use `element`.
-			$multiday_events_stack = array_map( static function ( $element ) use ( $date_object ) {
+			$day_stack = array_map( static function ( $element ) use ( $date_object ) {
 				// If it's numeric make an event object of it.
 				return is_numeric( $element ) ?
 					tribe_get_event( $element, OBJECT, $date_object->format( 'Y-m-d' ) )
 					: $element;
-			}, Arr::get( $multiday_stacks, $day_date, [] ) );
+			}, Arr::get( $day_stacks, $day_date, [] ) );
 
 			$the_day_events = array_map( 'tribe_get_event',
 				array_filter( $day_events, static function ( $event ) use ( $date_object ) {
@@ -361,21 +361,26 @@ class Month_View extends View {
 			);
 
 			$more_events  = 0;
-			$found_events = Arr::get( $found_events, $day_date, 0 );
+			$day_found_events = Arr::get( $found_events, $day_date, 0 );
 
-			if ( $found_events ) {
+			if ( $day_found_events ) {
 				/*
 				 * We cannot know before-hand what spacer will be used (it's filterable) so we have to count the events
 				 * by keeping only the posts.
 				 */
-				$multiday_events_count = count( array_filter( $multiday_events_stack ), static function ( $el ) {
-					return $el instanceof \WP_Post;
-				} );
+				$stack_events_count = count(
+					array_filter(
+						$day_stack,
+						static function ( $el ) {
+							return $el instanceof \WP_Post;
+						}
+					)
+				);
 				/*
 				 * In the context of the Month View we want to know if there are more events we're not seeing.
 				 * So we exclude the ones we see and the multi-day ones that we're seeing in the multi-day stack.
 				 */
-				$more_events = $found_events - $multiday_events_count - count( $the_day_events );
+				$more_events = $day_found_events - $stack_events_count - count( $the_day_events );
 			}
 
 			$featured_events = array_map( 'tribe_get_event',
@@ -397,8 +402,8 @@ class Month_View extends View {
 				'day_number'       => (int) $date_object->format( 'd' ),
 				'events'           => $the_day_events,
 				'featured_events'  => $featured_events,
-				'multiday_events'  => $multiday_events_stack,
-				'found_events'     => $found_events,
+				'multiday_events'  => $day_stack,
+				'found_events'     => $day_found_events,
 				'more_events'      => $more_events,
 			];
 
