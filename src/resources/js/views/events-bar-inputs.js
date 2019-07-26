@@ -63,7 +63,7 @@ tribe.events.views.eventsBarInputs = {};
 	/**
 	 * Unbind events for the events bar input.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param {jQuery} $container jQuery object of container.
 	 *
@@ -121,7 +121,7 @@ tribe.events.views.eventsBarInputs = {};
 	/**
 	 * Unbinds events for container
 	 *
-	 * @since  TBD
+	 * @since  4.9.5
 	 *
 	 * @param  {Event}       event    event object for 'afterSetup.tribeEvents' event
 	 * @param  {jqXHR}       jqXHR    Request object

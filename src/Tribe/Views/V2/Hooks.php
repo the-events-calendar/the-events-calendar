@@ -202,7 +202,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Include the The Events calendar mapping for query args, into to canonical url.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param array          $map  Associative array following the format: `[ 'eventDate' => [ 'event-date', 'event_date', 'tribe-bar-date' ], ]`.
 	 * @param string         $url  The input URL to resolve to a canonical one.

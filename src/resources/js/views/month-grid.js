@@ -260,7 +260,7 @@ tribe.events.views.monthGrid = {};
 	/**
 	 * Initializes grid state
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param {jQuery} $grid jQuery object of grid.
 	 *
@@ -337,7 +337,7 @@ tribe.events.views.monthGrid = {};
 	/**
 	 * Unbind events for keydown and click on grid
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param {jQuery} $grid jQuery object of grid.
 	 *
@@ -367,7 +367,7 @@ tribe.events.views.monthGrid = {};
 	/**
 	 * Deinitialize grid.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param  {Event}       event    event object for 'afterSetup.tribeEvents' event
 	 * @param  {jqXHR}       jqXHR    Request object

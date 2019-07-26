@@ -443,7 +443,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Deinitializes events bar
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param {jQuery} $container jQuery object of view container
 	 *
@@ -510,7 +510,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Unbind events for window resize
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @return {void}
 	 */
@@ -551,7 +551,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Initialize events bar JS
 	 *
-	 * @since  TBD
+	 * @since  4.9.5
 	 *
 	 * @param  {Event}   event      event object for 'afterSetup.tribeEvents' event
 	 * @param  {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event

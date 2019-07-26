@@ -451,7 +451,7 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 		/**
 		 * Rewrite matchers for each display param, allowing external sources to create new params.
 		 *
-		 * @since  TBD
+		 * @since  4.9.5
 		 *
 		 * @param  array  array of the current matchers for query vars.
 		 * @param  self   $rewrite
@@ -543,7 +543,7 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 	 * When the query variables contain the `eventDisplay=default` variable and we have a different `eventDisplay` value
 	 * in the query arguments, then use the query arguments `eventDisplay`.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param array  $query_vars The query variables, as parsed from the parent method.
 	 * @param array  $unused     An array of extra query vars, passed as input into the parent method; not used.

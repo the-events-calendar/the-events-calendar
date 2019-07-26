@@ -1,7 +1,7 @@
 /**
  * Makes sure we have all the required levels on the Tribe Object
  *
- * @since TBD
+ * @since 4.9.5
  *
  * @type {PlainObject}
  */
@@ -11,7 +11,7 @@ tribe.events.views = tribe.events.views || {};
 /**
  * Configures Datepicker Object in the Global Tribe variable
  *
- * @since TBD
+ * @since 4.9.5
  *
  * @type {PlainObject}
  */
@@ -20,7 +20,7 @@ tribe.events.views.datepicker = {};
 /**
  * Initializes in a Strict env the code that manages the Event Views
  *
- * @since TBD
+ * @since 4.9.5
  *
  * @param  {PlainObject} $   jQuery
  * @param  {PlainObject} obj tribe.events.views.manager
@@ -34,7 +34,7 @@ tribe.events.views.datepicker = {};
 	/**
 	 * Selectors used for configuration and setup
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @type {PlainObject}
 	 */
@@ -57,7 +57,7 @@ tribe.events.views.datepicker = {};
 	/**
 	 * Object of state
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @type {PlainObject}
 	 */
@@ -68,7 +68,7 @@ tribe.events.views.datepicker = {};
 	/**
 	 * Pads number with extra 0 if needed to make it double digit
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param {integer} number number to pad with extra 0
 	 *
@@ -83,7 +83,7 @@ tribe.events.views.datepicker = {};
 	/**
 	 * Performs an AJAX request using manager.js request method
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param {object} viewData object of view data
 	 * @param {jQuery} $container jQuery object of view container
@@ -103,7 +103,7 @@ tribe.events.views.datepicker = {};
 	/**
 	 * Handle datepicker changeDate event
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param {Event} event event object for 'changeDate' event
 	 *
@@ -131,7 +131,7 @@ tribe.events.views.datepicker = {};
 	/**
 	 * Handle datepicker changeMonth event
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param {Event} event event object for 'changeMonth' event
 	 *
@@ -157,7 +157,7 @@ tribe.events.views.datepicker = {};
 	/**
 	 * Handle datepicker hide event
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param {Event} event event object for 'hide' event
 	 *
@@ -270,7 +270,7 @@ tribe.events.views.datepicker = {};
 	/**
 	 * Handle datepicker button click
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param {Event} event event object for 'click' event
 	 *
@@ -319,7 +319,7 @@ tribe.events.views.datepicker = {};
 	/**
 	 * Deinitialize datepicker JS
 	 *
-	 * @since  TBD
+	 * @since  4.9.5
 	 *
 	 * @param  {Event}       event    event object for 'afterSetup.tribeEvents' event
 	 * @param  {jqXHR}       jqXHR    Request object
@@ -353,7 +353,7 @@ tribe.events.views.datepicker = {};
 	/**
 	 * Initialize datepicker JS
 	 *
-	 * @since  TBD
+	 * @since  4.9.5
 	 *
 	 * @param  {Event}   event      event object for 'afterSetup.tribeEvents' event
 	 * @param  {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event
@@ -423,7 +423,7 @@ tribe.events.views.datepicker = {};
 	/**
 	 * Initialize datepicker i18n
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @return {void}
 	 */
@@ -450,7 +450,7 @@ tribe.events.views.datepicker = {};
 	/**
 	 * Initialize datepicker to jQuery object
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @return {void}
 	 */
@@ -467,7 +467,7 @@ tribe.events.views.datepicker = {};
 	/**
 	 * Handles the initialization of the Datepicker when Document is ready
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @return {void}
 	 */
