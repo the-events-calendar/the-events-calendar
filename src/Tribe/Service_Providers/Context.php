@@ -11,6 +11,7 @@ namespace Tribe\Events\Service_Providers;
 use Tribe\Events\Views\V2\Utils;
 use Tribe__Context;
 use Tribe__Events__Main as TEC;
+use Tribe__Date_Utils as Dates;
 
 class Context extends \tad_DI52_ServiceProvider {
 
@@ -195,6 +196,22 @@ class Context extends \tad_DI52_ServiceProvider {
 				],
 				'write' => [
 					Tribe__Context::TRIBE_OPTION => 'monthEventAmount',
+				],
+			],
+			'today' => [
+				'read' => [
+					Tribe__Context::FUNC => static function () {
+						return Dates::build_date_object()
+						            ->setTime( 0, 0, 0 )
+						            ->format( Dates::DBDATETIMEFORMAT );
+					}
+				],
+			],
+			'now'   => [
+				'read' => [
+					Tribe__Context::FUNC => static function () {
+						return Dates::build_date_object()->format( Dates::DBDATETIMEFORMAT );
+					},
 				],
 			],
 		] );

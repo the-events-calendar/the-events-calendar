@@ -18,7 +18,7 @@
 		<script
 	data-js="tribe-events-view-data"
 	type="application/json"
->{"slug":"month","prev_url":"","next_url":"","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Month_View","view_slug":"month","view":{},"title":"","events":{"2018-12-31":[],"2019-01-01":[],"2019-01-02":[],"2019-01-03":[],"2019-01-04":[],"2019-01-05":[],"2019-01-06":[],"2019-01-07":[],"2019-01-08":[],"2019-01-09":[],"2019-01-10":[],"2019-01-11":[],"2019-01-12":[],"2019-01-13":[],"2019-01-14":[],"2019-01-15":[],"2019-01-16":[],"2019-01-17":[],"2019-01-18":[],"2019-01-19":[],"2019-01-20":[],"2019-01-21":[],"2019-01-22":[],"2019-01-23":[],"2019-01-24":[],"2019-01-25":[],"2019-01-26":[],"2019-01-27":[],"2019-01-28":[],"2019-01-29":[],"2019-01-30":[],"2019-01-31":[],"2019-02-01":[],"2019-02-02":[],"2019-02-03":[]},"url":"http:\\/\\/test.tri.be\\/events\\/month\\/?tribe-bar-date=2019-01-01","bar":{"keyword":"","date":"2019-01-01"},"today":"2019-01-01 09:00:00","now":"2019-01-01 09:00:00","today_date":"2019-07-26","grid_date":"2019-01-01","formatted_grid_date":"January 2019","days":{"2018-12-31":{"date":"2018-12-31","is_start_of_week":true,"year_number":2018,"month_number":12,"day_number":31,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-01":{"date":"2019-01-01","is_start_of_week":false,"year_number":2019,"month_number":1,"day_number":1,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-02":{"date":"2019-01-02","is_start_of_week":false,"year_number":2019,"month_number":1,"day_number":2,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-03":{"date":"2019-01-03","is_start_of_week":false,"year_number":2019,"month_number":1,"day_number":3,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-04":{"date":"2019-01-04","is_start_of_week":false,"year_number":2019,"month_number":1,"day_number":4,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-05":{"date":"2019-01-05","is_start_of_week":false,"year_number":2019,"month_number":1,"day_number":5,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-06":{"date":"2019-01-06","is_start_of_week":false,"year_number":2019,"month_number":1,"day_number":6,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-07":{"date":"2019-01-07","is_start_of_week":true,"year_number":2019,"month_number":1,"day_number":7,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-08":{"date":"2019-01-08","is_start_of_week":false,"year_number":2019,"month_number":1,"day_number":8,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-09":{"date":"2019-01-09","is_start_of_week":false,"year_number":2019,"month_number":1,"day_number":9,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-10":{"date":"2019-01-10","is_start_of_week":false,"year_number":2019,"month_number":1,"day_number":10,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-11":{"date":"2019-01-11","is_start_of_week":false,"year_number":2019,"month_number":1,"day_number":11,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-12":{"date":"2019-01-12","is_start_of_week":false,"year_number":2019,"month_number":1,"day_number":12,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-13":{"date":"2019-01-13","is_start_of_week":false,"year_number":2019,"month_number":1,"day_number":13,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-14":{"date":"2019-01-14","is_start_of_week":true,"year_number":2019,"month_number":1,"day_number":14,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-15":{"date":"2019-01-15","is_start_of_week":false,"year_number":2019,"month_number":1,"day_number":15,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-16":{"date":"2019-01-16","is_start_of_week":false,"year_number":2019,"month_number":1,"day_number":16,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-17":{"date":"2019-01-17","is_start_of_week":false,"year_number":2019,"month_number":1,"day_number":17,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-18":{"date":"2019-01-18","is_start_of_week":false,"year_number":2019,"month_number":1,"day_number":18,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-19":{"date":"2019-01-19","is_start_of_week":false,"year_number":2019,"month_number":1,"day_number":19,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-20":{"date":"2019-01-20","is_start_of_week":false,"year_number":2019,"month_number":1,"day_number":20,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-21":{"date":"2019-01-21","is_start_of_week":true,"year_number":2019,"month_number":1,"day_number":21,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-22":{"date":"2019-01-22","is_start_of_week":false,"year_number":2019,"month_number":1,"day_number":22,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-23":{"date":"2019-01-23","is_start_of_week":false,"year_number":2019,"month_number":1,"day_number":23,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-24":{"date":"2019-01-24","is_start_of_week":false,"year_number":2019,"month_number":1,"day_number":24,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-25":{"date":"2019-01-25","is_start_of_week":false,"year_number":2019,"month_number":1,"day_number":25,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-26":{"date":"2019-01-26","is_start_of_week":false,"year_number":2019,"month_number":1,"day_number":26,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-27":{"date":"2019-01-27","is_start_of_week":false,"year_number":2019,"month_number":1,"day_number":27,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-28":{"date":"2019-01-28","is_start_of_week":true,"year_number":2019,"month_number":1,"day_number":28,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-29":{"date":"2019-01-29","is_start_of_week":false,"year_number":2019,"month_number":1,"day_number":29,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-30":{"date":"2019-01-30","is_start_of_week":false,"year_number":2019,"month_number":1,"day_number":30,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-31":{"date":"2019-01-31","is_start_of_week":false,"year_number":2019,"month_number":1,"day_number":31,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-02-01":{"date":"2019-02-01","is_start_of_week":false,"year_number":2019,"month_number":2,"day_number":1,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-02-02":{"date":"2019-02-02","is_start_of_week":false,"year_number":2019,"month_number":2,"day_number":2,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-02-03":{"date":"2019-02-03","is_start_of_week":false,"year_number":2019,"month_number":2,"day_number":3,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0}}}</script>
+>{"slug":"month","prev_url":"","next_url":"","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Month_View","view_slug":"month","view":{},"title":"","events":{"2018-12-31":[],"2019-01-01":[4,5,6],"2019-01-02":[],"2019-01-03":[],"2019-01-04":[],"2019-01-05":[],"2019-01-06":[],"2019-01-07":[],"2019-01-08":[],"2019-01-09":[],"2019-01-10":[],"2019-01-11":[],"2019-01-12":[],"2019-01-13":[],"2019-01-14":[],"2019-01-15":[],"2019-01-16":[],"2019-01-17":[],"2019-01-18":[],"2019-01-19":[],"2019-01-20":[],"2019-01-21":[],"2019-01-22":[],"2019-01-23":[],"2019-01-24":[],"2019-01-25":[],"2019-01-26":[],"2019-01-27":[],"2019-01-28":[],"2019-01-29":[],"2019-01-30":[],"2019-01-31":[],"2019-02-01":[],"2019-02-02":[],"2019-02-03":[]},"url":"http:\\/\\/test.tri.be\\/events\\/month\\/?tribe-bar-date=2019-01-01","bar":{"keyword":"","date":"2019-01-01"},"today":"2019-01-01 09:00:00","now":"2019-01-01 09:00:00","today_date":"2019-07-26","grid_date":"2019-01-01","formatted_grid_date":"January 2019","days":{"2018-12-31":{"date":"2018-12-31","is_start_of_week":true,"year_number":2018,"month_number":12,"day_number":31,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-01":{"date":"2019-01-01","is_start_of_week":false,"year_number":2019,"month_number":1,"day_number":1,"events":[{"ID":4,"post_author":"0","post_date":"2019-01-01 11:00:00","post_date_gmt":"2019-01-01 10:00:00","post_content":"","post_title":"Test Event - 1","post_excerpt":"","post_status":"publish","comment_status":"open","ping_status":"closed","post_password":"","post_name":"test-event-1","to_ping":"","pinged":"","post_modified":"2019-01-01 11:00:00","post_modified_gmt":"2019-01-01 10:00:00","post_content_filtered":"","post_parent":0,"guid":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-1","menu_order":0,"post_type":"tribe_events","post_mime_type":"","comment_count":"0","filter":"raw","start_date":"2019-01-01 11:00:00","start_date_utc":"2019-01-01 11:00:00","end_date":"2019-01-01 14:00:00","end_date_utc":"2019-01-01 14:00:00","dates":{"start":{"date":"2019-01-01 11:00:00.000000","timezone_type":3,"timezone":"Europe\\/Paris"},"start_utc":{"date":"2019-01-01 11:00:00.000000","timezone_type":3,"timezone":"UTC"},"end":{"date":"2019-01-01 14:00:00.000000","timezone_type":3,"timezone":"Europe\\/Paris"},"end_utc":{"date":"2019-01-01 14:00:00.000000","timezone_type":3,"timezone":"UTC"}},"timezone":"Europe\\/Paris","duration":10800,"multiday":false,"all_day":false,"starts_this_week":null,"ends_this_week":null,"this_week_duration":null,"happens_this_week":null,"featured":false,"cost":"","organizers":{},"venues":{},"thumbnail":{},"permalink":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-1"},{"ID":5,"post_author":"0","post_date":"2019-01-01 11:00:00","post_date_gmt":"2019-01-01 10:00:00","post_content":"","post_title":"Test Event - 2","post_excerpt":"","post_status":"publish","comment_status":"open","ping_status":"closed","post_password":"","post_name":"test-event-2","to_ping":"","pinged":"","post_modified":"2019-01-01 11:00:00","post_modified_gmt":"2019-01-01 10:00:00","post_content_filtered":"","post_parent":0,"guid":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-2","menu_order":0,"post_type":"tribe_events","post_mime_type":"","comment_count":"0","filter":"raw","start_date":"2019-01-01 12:00:00","start_date_utc":"2019-01-01 12:00:00","end_date":"2019-01-01 15:00:00","end_date_utc":"2019-01-01 15:00:00","dates":{"start":{"date":"2019-01-01 12:00:00.000000","timezone_type":3,"timezone":"Europe\\/Paris"},"start_utc":{"date":"2019-01-01 12:00:00.000000","timezone_type":3,"timezone":"UTC"},"end":{"date":"2019-01-01 15:00:00.000000","timezone_type":3,"timezone":"Europe\\/Paris"},"end_utc":{"date":"2019-01-01 15:00:00.000000","timezone_type":3,"timezone":"UTC"}},"timezone":"Europe\\/Paris","duration":10800,"multiday":false,"all_day":false,"starts_this_week":null,"ends_this_week":null,"this_week_duration":null,"happens_this_week":null,"featured":false,"cost":"","organizers":{},"venues":{},"thumbnail":{},"permalink":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-2"},{"ID":6,"post_author":"0","post_date":"2019-01-01 11:00:00","post_date_gmt":"2019-01-01 10:00:00","post_content":"","post_title":"Test Event - 3","post_excerpt":"","post_status":"publish","comment_status":"open","ping_status":"closed","post_password":"","post_name":"test-event-3","to_ping":"","pinged":"","post_modified":"2019-01-01 11:00:00","post_modified_gmt":"2019-01-01 10:00:00","post_content_filtered":"","post_parent":0,"guid":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-3","menu_order":0,"post_type":"tribe_events","post_mime_type":"","comment_count":"0","filter":"raw","start_date":"2019-01-01 13:00:00","start_date_utc":"2019-01-01 13:00:00","end_date":"2019-01-01 16:00:00","end_date_utc":"2019-01-01 16:00:00","dates":{"start":{"date":"2019-01-01 13:00:00.000000","timezone_type":3,"timezone":"Europe\\/Paris"},"start_utc":{"date":"2019-01-01 13:00:00.000000","timezone_type":3,"timezone":"UTC"},"end":{"date":"2019-01-01 16:00:00.000000","timezone_type":3,"timezone":"Europe\\/Paris"},"end_utc":{"date":"2019-01-01 16:00:00.000000","timezone_type":3,"timezone":"UTC"}},"timezone":"Europe\\/Paris","duration":10800,"multiday":false,"all_day":false,"starts_this_week":null,"ends_this_week":null,"this_week_duration":null,"happens_this_week":null,"featured":false,"cost":"","organizers":{},"venues":{},"thumbnail":{},"permalink":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-3"}],"featured_events":[],"multiday_events":[],"found_events":3,"more_events":0},"2019-01-02":{"date":"2019-01-02","is_start_of_week":false,"year_number":2019,"month_number":1,"day_number":2,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-03":{"date":"2019-01-03","is_start_of_week":false,"year_number":2019,"month_number":1,"day_number":3,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-04":{"date":"2019-01-04","is_start_of_week":false,"year_number":2019,"month_number":1,"day_number":4,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-05":{"date":"2019-01-05","is_start_of_week":false,"year_number":2019,"month_number":1,"day_number":5,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-06":{"date":"2019-01-06","is_start_of_week":false,"year_number":2019,"month_number":1,"day_number":6,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-07":{"date":"2019-01-07","is_start_of_week":true,"year_number":2019,"month_number":1,"day_number":7,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-08":{"date":"2019-01-08","is_start_of_week":false,"year_number":2019,"month_number":1,"day_number":8,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-09":{"date":"2019-01-09","is_start_of_week":false,"year_number":2019,"month_number":1,"day_number":9,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-10":{"date":"2019-01-10","is_start_of_week":false,"year_number":2019,"month_number":1,"day_number":10,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-11":{"date":"2019-01-11","is_start_of_week":false,"year_number":2019,"month_number":1,"day_number":11,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-12":{"date":"2019-01-12","is_start_of_week":false,"year_number":2019,"month_number":1,"day_number":12,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-13":{"date":"2019-01-13","is_start_of_week":false,"year_number":2019,"month_number":1,"day_number":13,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-14":{"date":"2019-01-14","is_start_of_week":true,"year_number":2019,"month_number":1,"day_number":14,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-15":{"date":"2019-01-15","is_start_of_week":false,"year_number":2019,"month_number":1,"day_number":15,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-16":{"date":"2019-01-16","is_start_of_week":false,"year_number":2019,"month_number":1,"day_number":16,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-17":{"date":"2019-01-17","is_start_of_week":false,"year_number":2019,"month_number":1,"day_number":17,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-18":{"date":"2019-01-18","is_start_of_week":false,"year_number":2019,"month_number":1,"day_number":18,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-19":{"date":"2019-01-19","is_start_of_week":false,"year_number":2019,"month_number":1,"day_number":19,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-20":{"date":"2019-01-20","is_start_of_week":false,"year_number":2019,"month_number":1,"day_number":20,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-21":{"date":"2019-01-21","is_start_of_week":true,"year_number":2019,"month_number":1,"day_number":21,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-22":{"date":"2019-01-22","is_start_of_week":false,"year_number":2019,"month_number":1,"day_number":22,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-23":{"date":"2019-01-23","is_start_of_week":false,"year_number":2019,"month_number":1,"day_number":23,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-24":{"date":"2019-01-24","is_start_of_week":false,"year_number":2019,"month_number":1,"day_number":24,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-25":{"date":"2019-01-25","is_start_of_week":false,"year_number":2019,"month_number":1,"day_number":25,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-26":{"date":"2019-01-26","is_start_of_week":false,"year_number":2019,"month_number":1,"day_number":26,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-27":{"date":"2019-01-27","is_start_of_week":false,"year_number":2019,"month_number":1,"day_number":27,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-28":{"date":"2019-01-28","is_start_of_week":true,"year_number":2019,"month_number":1,"day_number":28,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-29":{"date":"2019-01-29","is_start_of_week":false,"year_number":2019,"month_number":1,"day_number":29,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-30":{"date":"2019-01-30","is_start_of_week":false,"year_number":2019,"month_number":1,"day_number":30,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-01-31":{"date":"2019-01-31","is_start_of_week":false,"year_number":2019,"month_number":1,"day_number":31,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-02-01":{"date":"2019-02-01","is_start_of_week":false,"year_number":2019,"month_number":2,"day_number":1,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-02-02":{"date":"2019-02-02","is_start_of_week":false,"year_number":2019,"month_number":2,"day_number":2,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0},"2019-02-03":{"date":"2019-02-03","is_start_of_week":false,"year_number":2019,"month_number":2,"day_number":3,"events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0}}}</script>
 
 		<header class="tribe-events-header">
 			<div
@@ -345,6 +345,8 @@
 >
 
 	<button
+					aria-expanded="false"
+			aria-selected="false"
 				aria-controls="tribe-events-calendar-mobile-day-2019-01-01"
 		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
 		tabindex="-1"
@@ -354,6 +356,12 @@
 			<time datetime="YYYY-MM-DD">
 				1			</time>
 		</h3>
+					<em
+				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--event"
+				aria-label="Has events"
+				title="Has events"
+			>
+			</em>
 			</button>
 
 	<div
@@ -373,7 +381,158 @@
 
 		<div class="tribe-events-calendar-month__events">
 			
-					</div>
+			
+
+	
+<article class="tribe-events-calendar-month__calendar-event">
+
+	
+	<div class="tribe-events-calendar-month__calendar-event-details">
+
+		
+<div class="tribe-events-calendar-month__calendar-event-datetime">
+		<time datetime="11:01">
+		11:00 am	</time>
+	<span class="tribe-events-calendar-month__calendar-event-datetime-separator"> - </span>
+	<time datetime="14:01">
+		2:00 pm	</time>
+		</div>
+		<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h--alt">
+	<a
+		href="http://test.tri.be/?tribe_events=test-event-1"
+		title=""
+		rel="bookmark"
+		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
+		data-js="tribe-events-tooltip"
+		data-tooltip-content="#tribe-events-tooltip-content-4"
+		aria-describedby="tribe-events-tooltip-content-4"
+	>
+		Test Event &#8211; 1	</a>
+</h3>
+
+		<div
+	class="tribe-events-calendar-month__calendar-event-tooltip"
+	data-js="tribe-events-tooltip-content"
+	role="tooltip"
+>
+	<div id="tribe-events-tooltip-content-4">
+				<p class="tribe-events-calendar-month__calendar-event-tooltip-description tribe-common-b3">
+	Lorem ipsum dolor sit amet, consectetur adipiscing elit. In consectetur metus tortor, et maximus libero aliquet in. Praesent rhoncus ultricies neque in imperdiet. Aenean at ex luctus, tempor justo eget, pharetra magna. Nullam ut odio maximus nisi mollis gravida.
+</p>
+		
+<div class="tribe-events-c-small-cta tribe-events-calendar-month__calendar-event-tooltip-cta">
+	<a href="#" class="tribe-events-c-small-cta__link tribe-common-cta tribe-common-cta--alt">Buy Now</a>
+	<span class="tribe-events-c-small-cta__price">
+			</span>
+</div>
+	</div>
+</div>
+
+	</div>
+
+</article>
+
+
+	
+<article class="tribe-events-calendar-month__calendar-event">
+
+	
+	<div class="tribe-events-calendar-month__calendar-event-details">
+
+		
+<div class="tribe-events-calendar-month__calendar-event-datetime">
+		<time datetime="12:01">
+		12:00 pm	</time>
+	<span class="tribe-events-calendar-month__calendar-event-datetime-separator"> - </span>
+	<time datetime="15:01">
+		3:00 pm	</time>
+		</div>
+		<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h--alt">
+	<a
+		href="http://test.tri.be/?tribe_events=test-event-2"
+		title=""
+		rel="bookmark"
+		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
+		data-js="tribe-events-tooltip"
+		data-tooltip-content="#tribe-events-tooltip-content-5"
+		aria-describedby="tribe-events-tooltip-content-5"
+	>
+		Test Event &#8211; 2	</a>
+</h3>
+
+		<div
+	class="tribe-events-calendar-month__calendar-event-tooltip"
+	data-js="tribe-events-tooltip-content"
+	role="tooltip"
+>
+	<div id="tribe-events-tooltip-content-5">
+				<p class="tribe-events-calendar-month__calendar-event-tooltip-description tribe-common-b3">
+	Lorem ipsum dolor sit amet, consectetur adipiscing elit. In consectetur metus tortor, et maximus libero aliquet in. Praesent rhoncus ultricies neque in imperdiet. Aenean at ex luctus, tempor justo eget, pharetra magna. Nullam ut odio maximus nisi mollis gravida.
+</p>
+		
+<div class="tribe-events-c-small-cta tribe-events-calendar-month__calendar-event-tooltip-cta">
+	<a href="#" class="tribe-events-c-small-cta__link tribe-common-cta tribe-common-cta--alt">Buy Now</a>
+	<span class="tribe-events-c-small-cta__price">
+			</span>
+</div>
+	</div>
+</div>
+
+	</div>
+
+</article>
+
+
+	
+<article class="tribe-events-calendar-month__calendar-event">
+
+	
+	<div class="tribe-events-calendar-month__calendar-event-details">
+
+		
+<div class="tribe-events-calendar-month__calendar-event-datetime">
+		<time datetime="13:01">
+		1:00 pm	</time>
+	<span class="tribe-events-calendar-month__calendar-event-datetime-separator"> - </span>
+	<time datetime="16:01">
+		4:00 pm	</time>
+		</div>
+		<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h--alt">
+	<a
+		href="http://test.tri.be/?tribe_events=test-event-3"
+		title=""
+		rel="bookmark"
+		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
+		data-js="tribe-events-tooltip"
+		data-tooltip-content="#tribe-events-tooltip-content-6"
+		aria-describedby="tribe-events-tooltip-content-6"
+	>
+		Test Event &#8211; 3	</a>
+</h3>
+
+		<div
+	class="tribe-events-calendar-month__calendar-event-tooltip"
+	data-js="tribe-events-tooltip-content"
+	role="tooltip"
+>
+	<div id="tribe-events-tooltip-content-6">
+				<p class="tribe-events-calendar-month__calendar-event-tooltip-description tribe-common-b3">
+	Lorem ipsum dolor sit amet, consectetur adipiscing elit. In consectetur metus tortor, et maximus libero aliquet in. Praesent rhoncus ultricies neque in imperdiet. Aenean at ex luctus, tempor justo eget, pharetra magna. Nullam ut odio maximus nisi mollis gravida.
+</p>
+		
+<div class="tribe-events-c-small-cta tribe-events-calendar-month__calendar-event-tooltip-cta">
+	<a href="#" class="tribe-events-c-small-cta__link tribe-common-cta tribe-common-cta--alt">Buy Now</a>
+	<span class="tribe-events-c-small-cta__price">
+			</span>
+</div>
+	</div>
+</div>
+
+	</div>
+
+</article>
+
+		</div>
 
 		
 	</div>

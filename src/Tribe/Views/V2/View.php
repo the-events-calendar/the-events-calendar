@@ -379,17 +379,14 @@ class View implements View_Interface {
 		}
 
 		$repository_args = $this->filter_repository_args( $this->setup_repository_args() );
+
 		$this->setup_repository_args();
 
 		$this->setup_the_loop( $repository_args );
 
-		$this->setup_repository_args();
-
 		$template_vars = $this->filter_template_vars( $this->setup_template_vars() );
 
 		$this->template->set_values( $template_vars, false );
-
-		$this->setup_repository_args();
 
 		$html = $this->template->render();
 
@@ -909,6 +906,8 @@ class View implements View_Interface {
 				'keyword' => $this->context->get( 'keyword', '' ),
 				'date'    => $this->context->get( 'event_date', '' ),
 			],
+			'today' => $this->context->get( 'today', 'today' ),
+			'now'   => $this->context->get( 'now', 'now' ),
 		];
 
 		return $template_vars;

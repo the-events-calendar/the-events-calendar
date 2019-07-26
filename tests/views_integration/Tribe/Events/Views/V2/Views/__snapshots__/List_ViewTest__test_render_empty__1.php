@@ -18,7 +18,7 @@
 		<script
 	data-js="tribe-events-view-data"
 	type="application/json"
->{"slug":"list","prev_url":"","next_url":"","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_slug":"list","view":{},"title":"","events":[],"url":"http:\\/\\/test.tri.be\\/events\\/list\\/?tribe-bar-date=2019-01-01 09:00:00","bar":{"keyword":"","date":"2019-01-01 09:00:00"}}</script>
+>{"slug":"list","prev_url":"","next_url":"","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_slug":"list","view":{},"title":"","events":[],"url":"http:\\/\\/test.tri.be\\/events\\/list\\/?tribe-bar-date=2019-01-01 09:00:00","bar":{"keyword":"","date":"2019-01-01 09:00:00"},"today":"2019-01-01 09:00:00","now":"2019-01-01 09:00:00"}</script>
 
 		<header class="tribe-events-header">
 			<div
@@ -190,8 +190,8 @@
 					<time datetime="2019-01-01">
 				January 1, 2019			</time>
 				&mdash;
-		<time datetime="2019-07-24">
-			July 24, 2019		</time>
+		<time datetime="2019-01-01">
+			January 1, 2019		</time>
 	</button>
 	<label
 		class="tribe-events-c-top-bar__datepicker-label tribe-common-a11y-visual-hide"

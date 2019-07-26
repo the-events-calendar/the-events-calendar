@@ -17,7 +17,13 @@ class List_ViewTest extends ViewTestCase {
 		// Sanity check
 		$this->assertEmpty( tribe_events()->found() );
 
-		$context = tribe_context()->alter( [ 'event_date' => $this->mock_date_value ] );
+		$context = tribe_context()->alter(
+			[
+				'today'      => $this->mock_date_value,
+				'now'        => $this->mock_date_value,
+				'event_date' => $this->mock_date_value
+			]
+		);
 
 		$list_view = View::make( List_View::class, $context );
 		$html      = $list_view->get_html();
@@ -65,6 +71,8 @@ class List_ViewTest extends ViewTestCase {
 
 		$list_view = View::make( List_View::class );
 		$list_view->set_context( tribe_context()->alter( [
+			'today'      => $this->mock_date_value,
+			'now'        => $this->mock_date_value,
 			'posts_per_page' => 2,
 		] ) );
 		$html = $list_view->get_html();
