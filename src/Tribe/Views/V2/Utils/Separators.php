@@ -51,7 +51,7 @@ class Separators {
 	 * Determines if a given event from a list of events should have a time separator
 	 * for the Day view template structure. Rounded down to the hour.
 	 *
-	 * @since  TBD
+	 * @since  4.9.5
 	 *
 	 * @param  array       $events WP_Post or numeric ID for events
 	 * @param  WP_Post|int $event  Event we want to determine

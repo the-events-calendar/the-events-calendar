@@ -123,7 +123,7 @@ tribe.events.views.tooltip = {};
 	/**
 	 * Deinitialize accessible tooltips via tooltipster
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param {jQuery} $container jQuery object of view container.
 	 *
@@ -165,7 +165,7 @@ tribe.events.views.tooltip = {};
 	/**
 	 * Deinitialize tooltip JS.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param  {Event}       event    event object for 'afterSetup.tribeEvents' event
 	 * @param  {jqXHR}       jqXHR    Request object
@@ -181,7 +181,7 @@ tribe.events.views.tooltip = {};
 	/**
 	 * Initialize tooltips JS.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param {Event}   event      JS event triggered.
 	 * @param {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event.

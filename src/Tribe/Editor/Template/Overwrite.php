@@ -124,13 +124,13 @@ class Tribe__Events__Editor__Template__Overwrite {
 	/**
 	 * If function gutenberg_wpautop() does not exist, use this to disable wpautop.
 	 *
-	 * @deprecated TBD
+	 * @deprecated 4.9.5
 	 *
 	 * @param  string $content Post content.
 	 * @return string Paragraph-converted text if non-block content.
 	 */
 	public function wpautop( $content ) {
-		_deprecated_function( __FUNCTION__, 'TBD', 'Disabling wpautop is not needed anymore.' );
+		_deprecated_function( __FUNCTION__, '4.9.5', 'Disabling wpautop is not needed anymore.' );
 
 		// don't bother if wpautop isn't applied
 		if ( ! has_filter( 'the_content', 'wpautop' ) ) {

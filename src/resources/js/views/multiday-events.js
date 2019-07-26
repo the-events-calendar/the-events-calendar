@@ -34,7 +34,7 @@ tribe.events.views.multidayEvents = {};
 	/**
 	 * Selectors used for configuration and setup
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @type {PlainObject}
 	 */
@@ -43,7 +43,7 @@ tribe.events.views.multidayEvents = {};
 	/**
 	 * Selector prefixes used for creating selectors
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @type {PlainObject}
 	 */
@@ -55,7 +55,7 @@ tribe.events.views.multidayEvents = {};
 	/**
 	 * Selector suffixes used for creating selectors
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @type {PlainObject}
 	 */
@@ -70,7 +70,7 @@ tribe.events.views.multidayEvents = {};
 	/**
 	 * Find visible multiday event that relates to the hidden multiday event
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param {jQuery} $container jQuery object of view container.
 	 * @param {jQuery} $hiddenMultidayEvent jQuery object of hidden multiday event
@@ -114,7 +114,7 @@ tribe.events.views.multidayEvents = {};
 	/**
 	 * Unbinds events for hover and focus of hidden multiday events.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param {jQuery} $container jQuery object of view container.
 	 *
@@ -162,7 +162,7 @@ tribe.events.views.multidayEvents = {};
 	/**
 	 * Resets selectors to empty object
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @return {void}
 	 */
@@ -173,7 +173,7 @@ tribe.events.views.multidayEvents = {};
 	/**
 	 * Initializes selectors based on view slug
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param {string} viewSlug slug of view
 	 *
@@ -192,7 +192,7 @@ tribe.events.views.multidayEvents = {};
 	/**
 	 * Unbinds events for container.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param  {Event}       event    event object for 'afterSetup.tribeEvents' event
 	 * @param  {jqXHR}       jqXHR    Request object
@@ -209,7 +209,7 @@ tribe.events.views.multidayEvents = {};
 	/**
 	 * Binds events for container.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param {Event}   event      JS event triggered.
 	 * @param {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event.
