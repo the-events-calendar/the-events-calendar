@@ -58,6 +58,39 @@
 		}
 	}
 
+	.tribe-events-c-top-bar__datepicker {
+		position: relative;
+	}
+
+	.tribe-events-c-top-bar__datepicker-button {
+		align-items: center;
+		display: flex;
+		flex: none;
+
+		&:after {
+			background-image: svg-inline(caret-down);
+			background-repeat: no-repeat;
+			background-size: contain;
+			content: '';
+			display: block;
+			margin-left: var(--spacer-1);
+			height: 6px;
+			width: 10px;
+
+			@media (--viewport-medium) {
+				height: 7px;
+				width: 12px;
+			}
+		}
+	}
+
+	.tribe-events-c-top-bar__datepicker-button--open {
+
+		&:after {
+			background-image: svg-inline(caret-up);
+		}
+	}
+
 	.tribe-events-c-top-bar__actions {
 		@mixin hidden;
 

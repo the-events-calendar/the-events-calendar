@@ -55,7 +55,18 @@ class View implements View_Interface {
 	protected $slug = '';
 
 	/**
+	 * The template slug the View instance will use to locate its template files.
+	 *
+	 * This value will be set by the `View::make()` method while building a View instance.
+	 *
+	 * @var string
+	 */
+	protected $template_slug;
+
+	/**
 	 * The Template instance the view will use to locate, manage and render its template.
+	 *
+	 * This value will be set by the `View::make()` method while building a View instance.
 	 *
 	 * @var \Tribe\Events\Views\V2\Template
 	 */
@@ -154,6 +165,7 @@ class View implements View_Interface {
 		$query_args = $url_object->query_overrides_path( true )
 		                         ->parse_url()
 		                         ->get_query_args();
+
 		$params['event_display_mode'] = Arr::get( $query_args, 'eventDisplay', false );
 
 		/**
@@ -269,6 +281,7 @@ class View implements View_Interface {
 
 		$instance->set_template( $template );
 		$instance->set_slug( $view_slug );
+		$instance->set_template_slug( $view_slug );
 
 		// Let's set the View context from either the global context or the provided one.
 		$view_context = null === $context ? tribe_context() : $context;
@@ -350,8 +363,6 @@ class View implements View_Interface {
 	 * @param null|string $html A specific HTML string to print on the page or the HTML produced by the view
 	 *                          `get_html` method.
 	 *
-	 * @throws \Tribe\Events\Views\V2\Implementation_Error If the `get_html` method has not been implemented.
-	 *
 	 */
 	public function send_html( $html = null ) {
 		$html = null === $html ? $this->get_html() : $html;
@@ -361,14 +372,30 @@ class View implements View_Interface {
 
 	/**
 	 * {@inheritDoc}
-	 * @throws \Tribe\Events\Views\V2\Implementation_Error If a class extending this one does not implement this method.
 	 */
 	public function get_html() {
 		if ( self::class === static::class ) {
 			return $this->template->render();
 		}
 
-		throw Implementation_Error::because_extending_view_should_define_this_method( 'get_html', $this );
+		$repository_args = $this->filter_repository_args( $this->setup_repository_args() );
+		$this->setup_repository_args();
+
+		$this->setup_the_loop( $repository_args );
+
+		$this->setup_repository_args();
+
+		$template_vars = $this->filter_template_vars( $this->setup_template_vars() );
+
+		$this->template->set_values( $template_vars, false );
+
+		$this->setup_repository_args();
+
+		$html = $this->template->render();
+
+		$this->restore_the_loop();
+
+		return $html;
 	}
 
 	/**
@@ -586,24 +613,27 @@ class View implements View_Interface {
 		global $wp_query;
 
 		$this->global_backup = [
-			'wp_query'  => $wp_query,
+			'wp_query' => $wp_query,
+			'$_SERVER' => isset( $_SERVER ) ? $_SERVER : [],
 		];
 
+		$args = wp_parse_args( $args, $this->repository_args );
+
+		$this->repository->by_args( $args );
+
+		$this->set_url( $args, true );
+
 		/**
-		 * Filters the arguments that will be used to build the View repository.
+		 * Problematic replacement as context relies on that to have access to the variables
+		 * in the global context, which creates a hard problem to do navigation.
 		 *
-		 * @since 4.9.3
-		 *
-		 * @param  array  $args  An array of arguments that should be used to build the repository instance.
-		 * @param  View   $this  The current View object.
+		 * @todo  have conversation with @lucatume about this
 		 */
-		$this->repository_args = apply_filters( "tribe_events_views_v2_{$this->slug}_repository_args", $args, $this );
-
-		$this->repository->by_args( $this->repository_args );
-		$this->set_url( $this->repository_args, true );
-
-		$wp_query = $this->repository->get_query();
+		// $wp_query = $this->repository->get_query();
 		wp_reset_postdata();
+
+		// Set the $_SERVER['REQUEST_URI'] as many WordPress functions rely on it to correctly work.
+		$_SERVER['REQUEST_URI'] = $this->get_request_uri();
 
 		// Make the template global to power template tags.
 		global $tribe_template;
@@ -802,9 +832,13 @@ class View implements View_Interface {
 	protected function setup_repository_args( \Tribe__Context $context = null ) {
 		$context = null !== $context ? $context : $this->context;
 
-		return array_filter( [
-			'search' => $context->get( 'keyword', '' ),
-		] );
+		$context_arr = $context->to_array();
+
+		return [
+			'posts_per_page' => $context_arr['posts_per_page'],
+			'paged'          => max( Arr::get_first_set( $context_arr, [ 'paged', 'page' ], 1 ), 1 ),
+			'search'         => $context->get( 'keyword', '' ),
+		];
 	}
 
 	/**
@@ -877,8 +911,90 @@ class View implements View_Interface {
 			],
 		];
 
-		$template_vars = $this->filter_template_vars( $template_vars );
-
 		return $template_vars;
+	}
+
+
+	/**
+	 * Filters the repository arguments that will be used to set up the View repository instance.
+	 *
+	 * @since 4.9.5
+	 *
+	 * @param array        $repository_args The repository arguments that will be used to set up the View repository instance.
+	 * @param Context|null $context Either a specific Context or `null` to use the View current Context.
+	 *
+	 * @return array The filtered repository arguments.
+	 */
+	protected function filter_repository_args( array $repository_args, \Tribe__Context $context = null ) {
+		$context = null !== $context ? $context : $this->context;
+
+		/**
+		 * Filters the repository args for a View.
+		 *
+		 * @since 4.9.5
+		 *
+		 * @param array           $repository_args An array of repository arguments that will be set for all Views.
+		 * @param \Tribe__Context $context         The current render context object.
+		 * @param View_Interface  $this            The View that will use the repository arguments.
+		 */
+		$repository_args = apply_filters( 'tribe_events_views_v2_view_repository_args', $repository_args, $context, $this );
+
+		/**
+		 * Filters the repository args for a specific View.
+		 *
+		 * @since 4.9.5
+		 *
+		 * @param array           $repository_args An array of repository arguments that will be set for a specific View.
+		 * @param \Tribe__Context $context         The current render context object.
+		 * @param View_Interface  $this            The View that will use the repository arguments.
+		 */
+		$repository_args = apply_filters(
+			"tribe_events_views_v2_view_{$this->slug}_repository_args",
+			$repository_args,
+			$context,
+			$this
+		);
+
+		return $repository_args;
+	}
+
+	/**
+	 * Returns the View request URI.
+	 *
+	 * This value can be used to set the `$_SERVER['REQUEST_URI']` global when rendering the View to make sure WordPress
+	 * functions relying on that value will work correctly.
+	 *
+	 * @since 4.9.5
+	 *
+	 * @return string The View request URI, a value suitable to be used to set the `$_SERVER['REQUEST_URI']` value.
+	 */
+	protected function get_request_uri() {
+		$request_uri = '/' . ltrim(
+				str_replace(
+					home_url(),
+					'',
+					Rewrite::$instance->get_clean_url( (string) $this->get_url() ) ),
+				'/'
+			);
+
+		return $request_uri;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_template_slug() {
+		if ( null !== $this->template_slug ) {
+			return $this->template_slug;
+		}
+
+		return $this->get_slug();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function set_template_slug( $template_slug ) {
+		$this->template_slug = $template_slug;
 	}
 }

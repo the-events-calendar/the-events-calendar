@@ -2,9 +2,9 @@
 
 namespace Tribe\Events\Views\V2\Partials\Month\Mobile_Events\Mobile_Day;
 
-use Tribe\Events\Views\V2\Partials\TestCase;
+use Tribe\Test\Products\WPBrowser\Views\V2\HtmlPartialTestCase;
 
-class Mobile_EventTest extends TestCase
+class Mobile_EventTest extends HtmlPartialTestCase
 {
 
 	protected $partial_path = 'month/mobile-events/mobile-day/mobile-event';

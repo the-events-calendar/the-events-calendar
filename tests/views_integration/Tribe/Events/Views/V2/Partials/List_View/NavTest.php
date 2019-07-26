@@ -2,9 +2,9 @@
 
 namespace Tribe\Events\Views\V2\Partials\List_View;
 
-use Tribe\Events\Views\V2\Partials\TestCase;
+use Tribe\Test\Products\WPBrowser\Views\V2\HtmlPartialTestCase;
 
-class NavTest extends TestCase
+class NavTest extends HtmlPartialTestCase
 {
 
 	protected $partial_path = 'list/nav';

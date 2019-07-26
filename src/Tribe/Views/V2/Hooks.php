@@ -69,6 +69,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'posts_pre_query', [ $this, 'filter_posts_pre_query' ], 20, 2 );
 		add_filter( 'body_class', [ $this, 'filter_body_class' ] );
 		add_filter( 'query_vars', [ $this, 'filter_query_vars' ], 15 );
+		add_filter( 'tribe_rewrite_canonical_query_args', [ $this, 'filter_map_canonical_query_args' ], 15, 3 );
 	}
 
 	/**
@@ -196,6 +197,22 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		$query_vars[] = 'tribe_remove_date_filters';
 
 		return $this->container->make( Kitchen_Sink::class )->filter_register_query_vars( $query_vars );
+	}
+
+	/**
+	 * Include the The Events calendar mapping for query args, into to canonical url.
+	 *
+	 * @since 4.9.5
+	 *
+	 * @param array          $map  Associative array following the format: `[ 'eventDate' => [ 'event-date', 'event_date', 'tribe-bar-date' ], ]`.
+	 * @param string         $url  The input URL to resolve to a canonical one.
+	 * @param Tribe__Rewrite $this This rewrite object.
+	 *
+	 * @return  array
+	 */
+	public function filter_map_canonical_query_args( $map, $url, $rewrite ) {
+		$map['eventDate'] = [ 'event-date', 'event_date', 'tribe-bar-date' ];
+		return $map;
 	}
 
 	/**

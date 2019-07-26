@@ -16,18 +16,18 @@
 $days_of_week = tribe_events_get_days_of_week();
 global $wp_locale;
 ?>
-<header role="rowgroup">
+<header class="tribe-events-calendar-month__header" role="rowgroup">
 
-	<h2 class="tribe-common-a11y-visual-hide" id="tribe-calendar-header"><?php printf( esc_html__( 'Calendar of %s', 'the-events-calendar' ), tribe_get_event_label_plural() ); ?></h2>
+	<h2 class="tribe-common-a11y-visual-hide" id="tribe-events-calendar-header"><?php printf( esc_html__( 'Calendar of %s', 'the-events-calendar' ), tribe_get_event_label_plural() ); ?></h2>
 
-	<div role="row" class="tribe-events-calendar-month__header">
+	<div role="row" class="tribe-events-calendar-month__header-row">
 		<?php foreach ( $days_of_week as $day ) : ?>
 			<div
 				class="tribe-events-calendar-month__header-column"
 				role="columnheader"
 				aria-label="<?php echo esc_attr( $day ); ?>"
 			>
-				<h3 class="tribe-events-calendar-month__header-title tribe-common-b3">
+				<h3 class="tribe-events-calendar-month__header-column-title tribe-common-b3">
 					<?php echo esc_html( $wp_locale->get_weekday_abbrev( $day ) ); ?>
 				</h3>
 			</div>

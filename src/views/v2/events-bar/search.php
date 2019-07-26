@@ -9,11 +9,9 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.4
+ * @version 4.9.5
  *
  */
-
-use Tribe\Events\Views\V2\Rest_Endpoint;
 ?>
 <div
 	class="tribe-events-c-events-bar__search"
@@ -21,7 +19,7 @@ use Tribe\Events\Views\V2\Rest_Endpoint;
 	data-js="tribe-events-events-bar-tabpanel tribe-events-events-bar-search"
 >
 	<form
-		class="tribe-common-c-search tribe-events-c-events-bar__search-form"
+		class="tribe-events-c-search tribe-events-c-events-bar__search-form"
 		method="get"
 		data-js="tribe-events-view-form"
 		role="search"
@@ -29,7 +27,7 @@ use Tribe\Events\Views\V2\Rest_Endpoint;
 		<?php wp_nonce_field( 'wp_rest', 'tribe-events-views[_wpnonce]' ); ?>
 		<input type="hidden" name="tribe-events-views[url]" value="<?php echo esc_url( $this->get( 'url' ) ); ?>" />
 
-		<div class="tribe-common-form-control-text-group tribe-common-c-search__input-group">
+		<div class="tribe-events-c-search__input-group">
 			<?php $this->template( 'events-bar/search/keyword' ); ?>
 		</div>
 

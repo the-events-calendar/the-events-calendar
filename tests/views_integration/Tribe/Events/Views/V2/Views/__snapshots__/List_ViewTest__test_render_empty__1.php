@@ -18,7 +18,7 @@
 		<script
 	data-js="tribe-events-view-data"
 	type="application/json"
->{"slug":"list","prev_url":"","next_url":"","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_slug":"list","view":{},"title":"","events":[],"url":"http:\\/\\/test.tri.be\\/events\\/list\\/","bar":{"keyword":"","date":""}}</script>
+>{"slug":"list","prev_url":"","next_url":"","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_slug":"list","view":{},"title":"","events":[],"url":"http:\\/\\/test.tri.be\\/events\\/list\\/?tribe-bar-date=2019-01-01 09:00:00","bar":{"keyword":"","date":"2019-01-01 09:00:00"}}</script>
 
 		<header class="tribe-events-header">
 			<div
@@ -52,22 +52,22 @@
 	data-js="tribe-events-events-bar-tabpanel tribe-events-events-bar-search"
 >
 	<form
-		class="tribe-common-c-search tribe-events-c-events-bar__search-form"
+		class="tribe-events-c-search tribe-events-c-events-bar__search-form"
 		method="get"
 		data-js="tribe-events-view-form"
 		role="search"
 	>
-		<input type="hidden" id="tribe-events-views[_wpnonce]" name="tribe-events-views[_wpnonce]" value="2ab7cc6b39" /><input type="hidden" name="_wp_http_referer" value="/events" />		<input type="hidden" name="tribe-events-views[url]" value="http://test.tri.be/events/list/" />
+		<input type="hidden" id="tribe-events-views[_wpnonce]" name="tribe-events-views[_wpnonce]" value="2ab7cc6b39" /><input type="hidden" name="_wp_http_referer" value="/events/list/?tribe-bar-date=2019-01-01 09:00:00" />		<input type="hidden" name="tribe-events-views[url]" value="http://test.tri.be/events/list/?tribe-bar-date=2019-01-01%2009:00:00" />
 
-		<div class="tribe-common-form-control-text-group tribe-common-c-search__input-group">
+		<div class="tribe-events-c-search__input-group">
 			<div
-	class="tribe-common-form-control-text tribe-common-c-search__input-control tribe-common-c-search__input-control--keyword"
+	class="tribe-common-form-control-text tribe-events-c-search__input-control tribe-events-c-search__input-control--keyword"
 	data-js="tribe-events-events-bar-input-control"
 >
 	<label class="tribe-common-form-control-text__label" for="tribe-events-events-bar-keyword">
 		Enter Keyword. Search for Events by Keyword.	</label>
 	<input
-		class="tribe-common-form-control-text__input tribe-common-c-search__input tribe-common-c-search__input--icon"
+		class="tribe-common-form-control-text__input tribe-events-c-search__input tribe-events-c-search__input--icon"
 		data-js="tribe-events-events-bar-input-control-input"
 		type="text"
 		id="tribe-events-events-bar-keyword"
@@ -79,7 +79,7 @@
 		</div>
 
 		<button
-	class="tribe-common-c-btn tribe-common-c-search__button"
+	class="tribe-common-c-btn tribe-events-c-search__button"
 	type="submit"
 	name="submit-bar"
 >Find Events</button>
@@ -111,7 +111,7 @@
 	<ul class="tribe-events-c-view-selector__list">
 					<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--list tribe-events-c-view-selector__list-item--active">
 	<a
-		href="http://test.tri.be/events/list/"
+		href="http://test.tri.be/events/list/?tribe-bar-date=2019-01-01%2009:00:00"
 		class="tribe-events-c-view-selector__list-item-link"
 		data-js="tribe-events-view-link"
 	>
@@ -122,7 +122,7 @@
 </li>
 					<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--month">
 	<a
-		href="http://test.tri.be/events/month/"
+		href="http://test.tri.be/events/month/?tribe-bar-date=2019-01-01%2009:00:00"
 		class="tribe-events-c-view-selector__list-item-link"
 		data-js="tribe-events-view-link"
 	>
@@ -133,7 +133,7 @@
 </li>
 					<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--day">
 	<a
-		href="http://test.tri.be/events/today/"
+		href="http://test.tri.be/events/today/?tribe-bar-date=2019-01-01%2009:00:00"
 		class="tribe-events-c-view-selector__list-item-link"
 		data-js="tribe-events-view-link"
 	>
@@ -176,15 +176,38 @@
 </nav>
 
 	<a
-	href="http://test.tri.be/events/list/"
+	href="http://test.tri.be/events/list/?tribe-bar-date=2019-01-01%2009:00:00"
 	class="tribe-common-c-btn-border tribe-events-c-top-bar__today-button"
 	data-js="tribe-events-view-link"
 >
 	Today</a>
 
-	<button class="tribe-common-h3 tribe-common-h3--alt tribe-events-c-top-bar__date-picker-button">
-	Now &mdash; <time datetime="2019-01-01">January 1st, 2019</time>
-</button>
+	<div class="tribe-events-c-top-bar__datepicker" data-js="tribe-events-top-bar-datepicker">
+	<button
+		class="tribe-common-h2 tribe-common-h3--min-medium tribe-common-h--alt tribe-events-c-top-bar__datepicker-button"
+		data-js="tribe-events-top-bar-datepicker-button"
+	>
+					<time datetime="2019-01-01">
+				January 1, 2019			</time>
+				&mdash;
+		<time datetime="2019-07-23">
+			July 23, 2019		</time>
+	</button>
+	<label
+		class="tribe-events-c-top-bar__datepicker-label tribe-common-a11y-visual-hide"
+		for="tribe-events-top-bar-date"
+	>
+		Select date.	</label>
+	<input
+		type="text"
+		class="tribe-events-c-top-bar__datepicker-input tribe-common-a11y-visual-hide"
+		data-js="tribe-events-top-bar-date"
+		id="tribe-events-top-bar-date"
+		name="tribe-events-views[tribe-bar-search]"
+		value="2019-01-01 09:00:00"
+		tabindex="-1"
+	/>
+</div>
 
 	<div class="tribe-events-c-top-bar__actions">
 	</div>
@@ -200,18 +223,22 @@
 		<nav class="tribe-events-calendar-list-nav tribe-events-c-nav">
 	<ul class="tribe-events-c-nav__list">
 		<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--prev">
-	<button class="tribe-events-c-nav__prev tribe-common-b2" disabled>
-		Previous Events	</button>
+	<button class="tribe-events-c-nav__prev tribe-common-b2 tribe-common-b1--min-medium" disabled>
+		Previous <span class="tribe-events-c-nav__prev-label-plural"> Events</span>	</button>
 </li>
 
 		<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--today">
-	<a class="tribe-events-c-nav__today tribe-common-b2" href="#">
+	<a
+		href="#"
+		class="tribe-events-c-nav__today tribe-common-b2"
+		data-js="tribe-events-view-link"
+	>
 		Today	</a>
 </li>
 
 		<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--next">
-	<button class="tribe-events-c-nav__next tribe-common-b2" disabled>
-		Next Events	</button>
+	<button class="tribe-events-c-nav__next tribe-common-b2 tribe-common-b1--min-medium" disabled>
+		Next <span class="tribe-events-c-nav__next-label-plural"> Events</span>	</button>
 </li>
 	</ul>
 </nav>

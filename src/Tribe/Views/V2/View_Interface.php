@@ -136,4 +136,25 @@ interface View_Interface  extends View_Url_Provider_Interface, Repository_User_I
 	 * @return array An array of post IDs of the posts the view is currently displaying.
 	 */
 	public function found_post_ids();
+
+	/**
+	 * Returns the slug that should be used to find the View template.
+	 *
+	 * It's usually the same returned by the `View_Interface::get_slug` method but some Views might implement a
+	 * different logic (e.g. the `/all` view).
+	 *
+	 * @since 4.9.5
+	 *
+	 * @return string The slug that should be used to find the View template.
+	 */
+	public function get_template_slug(  );
+
+	/**
+	 * Sets the View template slug.
+	 *
+	 * @since 4.9.5
+	 *
+	 * @param string $slug The slug the View should use to locate its template.
+	 */
+	public function set_template_slug( $slug );
 }

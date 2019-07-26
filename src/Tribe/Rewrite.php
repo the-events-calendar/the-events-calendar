@@ -85,84 +85,85 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 	public function generate_core_rules( Tribe__Events__Rewrite $rewrite ) {
 		$rewrite
 			// Single
-			->single( array( 'ical' ), array( 'ical' => 1, 'name' => '%1', 'post_type' => Tribe__Events__Main::POSTTYPE ) )
+			->single( [ 'ical' ], [ 'ical' => 1, 'name' => '%1', 'post_type' => Tribe__Events__Main::POSTTYPE ] )
 
 			// Archive
-			->archive( array( '{{ page }}', '(\d+)' ), array( 'eventDisplay' => 'list', 'paged' => '%1' ) )
-			->archive( array( '{{ featured }}', '{{ page }}', '(\d+)' ), array( 'featured' => true, 'eventDisplay' => 'list', 'paged' => '%1' ) )
-			->archive( array( '(feed|rdf|rss|rss2|atom)' ), array( 'eventDisplay' => 'list', 'feed' => '%1' ) )
-			->archive( array( '{{ featured }}', '(feed|rdf|rss|rss2|atom)' ), array( 'featured' => true, 'eventDisplay' => 'list', 'feed' => '%1' ) )
-			->archive( array( '{{ month }}' ), array( 'eventDisplay' => 'month' ) )
-			->archive( array( '{{ month }}', '{{ featured }}' ), array( 'eventDisplay' => 'month', 'featured' => true ) )
-			->archive( array( '{{ month }}', '(\d{4}-\d{2})' ), array( 'eventDisplay' => 'month', 'eventDate' => '%1' ) )
-			->archive( array( '{{ list }}', '{{ page }}', '(\d+)' ), array( 'eventDisplay' => 'list', 'paged' => '%1' ) )
-			->archive( array( '{{ list }}', '{{ featured }}', '{{ page }}', '(\d+)' ), array( 'eventDisplay' => 'list', 'featured' => true, 'paged' => '%1' ) )
-			->archive( array( '{{ list }}' ), array( 'eventDisplay' => 'list' ) )
-			->archive( array( '{{ list }}', '{{ featured }}' ), array( 'eventDisplay' => 'list', 'featured' => true ) )
-			->archive( array( '{{ today }}' ), array( 'eventDisplay' => 'day' ) )
-			->archive( array( '{{ today }}', '{{ featured }}' ), array( 'eventDisplay' => 'day', 'featured' => true ) )
-			->archive( array( '(\d{4}-\d{2})' ), array( 'eventDisplay' => 'month', 'eventDate' => '%1' ) )
-			->archive( array( '(\d{4}-\d{2})', '{{ featured }}' ), array( 'eventDisplay' => 'month', 'eventDate' => '%1', 'featured' => true ) )
-			->archive( array( '(\d{4}-\d{2}-\d{2})' ), array( 'eventDisplay' => 'day', 'eventDate' => '%1' ) )
-			->archive( array( '(\d{4}-\d{2}-\d{2})', '{{ featured }}' ), array( 'eventDisplay' => 'day', 'eventDate' => '%1', 'featured' => true ) )
-			->archive( array( '{{ featured }}' ), array( 'featured' => true ) )
-			->archive( array(), array( 'eventDisplay' => 'default' ) )
-			->archive( array( 'ical' ), array( 'ical' => 1 ) )
-			->archive( array( '{{ featured }}', 'ical' ), array( 'ical' => 1, 'featured' => true ) )
-			->archive( array( '(\d{4}-\d{2}-\d{2})', 'ical' ), array( 'ical' => 1, 'eventDisplay' => 'day', 'eventDate' => '%1' ) )
-			->archive( array( '(\d{4}-\d{2}-\d{2})', 'ical', 'featured' ), array( 'ical' => 1, 'eventDisplay' => 'day', 'eventDate' => '%1', 'featured' => true ) )
+			->archive( [ '{{ page }}', '(\d+)' ], [ 'eventDisplay' => 'list', 'paged' => '%1' ] )
+			->archive( [ '{{ featured }}', '{{ page }}', '(\d+)' ], [ 'featured' => true, 'eventDisplay' => 'list', 'paged' => '%1' ] )
+			->archive( [ '(feed|rdf|rss|rss2|atom)' ], [ 'eventDisplay' => 'list', 'feed' => '%1' ] )
+			->archive( [ '{{ featured }}', '(feed|rdf|rss|rss2|atom)' ], [ 'featured' => true, 'eventDisplay' => 'list', 'feed' => '%1' ] )
+			->archive( [ '{{ month }}' ], [ 'eventDisplay' => 'month' ] )
+			->archive( [ '{{ month }}', '{{ featured }}' ], [ 'eventDisplay' => 'month', 'featured' => true ] )
+			->archive( [ '{{ month }}', '(\d{4}-\d{2})' ], [ 'eventDisplay' => 'month', 'eventDate' => '%1' ] )
+			->archive( [ '{{ list }}', '{{ page }}', '(\d+)' ], [ 'eventDisplay' => 'list', 'paged' => '%1' ] )
+			->archive( [ '{{ list }}', '{{ featured }}', '{{ page }}', '(\d+)' ], [ 'eventDisplay' => 'list', 'featured' => true, 'paged' => '%1' ] )
+			->archive( [ '{{ list }}' ], [ 'eventDisplay' => 'list' ] )
+			->archive( [ '{{ list }}', '{{ featured }}' ], [ 'eventDisplay' => 'list', 'featured' => true ] )
+			->archive( [ '{{ today }}' ], [ 'eventDisplay' => 'day' ] )
+			->archive( [ '{{ today }}', '{{ featured }}' ], [ 'eventDisplay' => 'day', 'featured' => true ] )
+			->archive( [ '(\d{4}-\d{2})' ], [ 'eventDisplay' => 'month', 'eventDate' => '%1' ] )
+			->archive( [ '(\d{4}-\d{2})', '{{ featured }}' ], [ 'eventDisplay' => 'month', 'eventDate' => '%1', 'featured' => true ] )
+			->archive( [ '(\d{4}-\d{2}-\d{2})' ], [ 'eventDisplay' => 'day', 'eventDate' => '%1' ] )
+			->archive( [ '(\d{4}-\d{2}-\d{2})', '{{ featured }}' ], [ 'eventDisplay' => 'day', 'eventDate' => '%1', 'featured' => true ] )
+			->archive( [ '{{ featured }}' ], [ 'featured' => true ] )
+			->archive( [ '{{page}}', '(\d+)' ], [ 'eventDisplay' => 'default', 'paged' => '%1' ] )
+			->archive( [], [ 'eventDisplay' => 'default' ] )
+			->archive( [ 'ical' ], [ 'ical' => 1 ] )
+			->archive( [ '{{ featured }}', 'ical' ], [ 'ical' => 1, 'featured' => true ] )
+			->archive( [ '(\d{4}-\d{2}-\d{2})', 'ical' ], [ 'ical' => 1, 'eventDisplay' => 'day', 'eventDate' => '%1' ] )
+			->archive( [ '(\d{4}-\d{2}-\d{2})', 'ical', 'featured' ], [ 'ical' => 1, 'eventDisplay' => 'day', 'eventDate' => '%1', 'featured' => true ] )
 
 			// Taxonomy
-			->tax( array( '{{ page }}', '(\d+)' ), array( 'eventDisplay' => 'list', 'paged' => '%2' ) )
-			->tax( array( '{{ featured }}', '{{ page }}', '(\d+)' ), array( 'featured' => true, 'eventDisplay' => 'list', 'paged' => '%2' ) )
-			->tax( array( '{{ month }}' ), array( 'eventDisplay' => 'month' ) )
-			->tax( array( '{{ month }}', '{{ featured }}' ), array( 'eventDisplay' => 'month', 'featured' => true ) )
-			->tax( array( '{{ list }}', '{{ page }}', '(\d+)' ), array( 'eventDisplay' => 'list', 'paged' => '%2' ) )
-			->tax( array( '{{ list }}', '{{ featured }}', '{{ page }}', '(\d+)' ), array( 'eventDisplay' => 'list', 'featured' => true, 'paged' => '%2' ) )
-			->tax( array( '{{ list }}' ), array( 'eventDisplay' => 'list' ) )
-			->tax( array( '{{ list }}', '{{ featured }}' ), array( 'eventDisplay' => 'list', 'featured' => true ) )
-			->tax( array( '{{ today }}' ), array( 'eventDisplay' => 'day' ) )
-			->tax( array( '{{ today }}', '{{ featured }}' ), array( 'eventDisplay' => 'day', 'featured' => true ) )
-			->tax( array( '{{ day }}', '(\d{4}-\d{2}-\d{2})' ), array( 'eventDisplay' => 'day', 'eventDate' => '%2' ) )
-			->tax( array( '{{ day }}', '(\d{4}-\d{2}-\d{2})', '{{ featured }}' ), array( 'eventDisplay' => 'day', 'eventDate' => '%2', 'featured' => true ) )
-			->tax( array( '(\d{4}-\d{2})' ), array( 'eventDisplay' => 'month', 'eventDate' => '%2' ) )
-			->tax( array( '(\d{4}-\d{2})', '{{ featured }}' ), array( 'eventDisplay' => 'month', 'eventDate' => '%2', 'featured' => true ) )
-			->tax( array( '(\d{4}-\d{2}-\d{2})' ), array( 'eventDisplay' => 'day', 'eventDate' => '%2' ) )
-			->tax( array( '(\d{4}-\d{2}-\d{2})', '{{ featured }}' ), array( 'eventDisplay' => 'day', 'eventDate' => '%2', 'featured' => true ) )
-			->tax( array( 'feed' ), array( 'eventDisplay' => 'list', 'feed' => 'rss2' ) )
-			->tax( array( '{{ featured }}', 'feed' ), array( 'featured' => true, 'eventDisplay' => 'list', 'feed' => 'rss2' ) )
-			->tax( array( 'ical' ), array( 'ical' => 1 ) )
-			->tax( array( '{{ featured }}', 'ical' ), array( 'featured' => true, 'ical' => 1 ) )
-			->tax( array( 'feed', '(feed|rdf|rss|rss2|atom)' ), array( 'feed' => '%2' ) )
-			->tax( array( '{{ featured }}', 'feed', '(feed|rdf|rss|rss2|atom)' ), array( 'featured' => true, 'feed' => '%2' ) )
-			->tax( array( '{{ featured }}' ), array( 'featured' => true, 'eventDisplay' => 'default' ) )
-			->tax( array(), array( 'eventDisplay' => 'default' ) )
+			->tax( [ '{{ page }}', '(\d+)' ], [ 'eventDisplay' => 'list', 'paged' => '%2' ] )
+			->tax( [ '{{ featured }}', '{{ page }}', '(\d+)' ], [ 'featured' => true, 'eventDisplay' => 'list', 'paged' => '%2' ] )
+			->tax( [ '{{ month }}' ], [ 'eventDisplay' => 'month' ] )
+			->tax( [ '{{ month }}', '{{ featured }}' ], [ 'eventDisplay' => 'month', 'featured' => true ] )
+			->tax( [ '{{ list }}', '{{ page }}', '(\d+)' ], [ 'eventDisplay' => 'list', 'paged' => '%2' ] )
+			->tax( [ '{{ list }}', '{{ featured }}', '{{ page }}', '(\d+)' ], [ 'eventDisplay' => 'list', 'featured' => true, 'paged' => '%2' ] )
+			->tax( [ '{{ list }}' ], [ 'eventDisplay' => 'list' ] )
+			->tax( [ '{{ list }}', '{{ featured }}' ], [ 'eventDisplay' => 'list', 'featured' => true ] )
+			->tax( [ '{{ today }}' ], [ 'eventDisplay' => 'day' ] )
+			->tax( [ '{{ today }}', '{{ featured }}' ], [ 'eventDisplay' => 'day', 'featured' => true ] )
+			->tax( [ '{{ day }}', '(\d{4}-\d{2}-\d{2})' ], [ 'eventDisplay' => 'day', 'eventDate' => '%2' ] )
+			->tax( [ '{{ day }}', '(\d{4}-\d{2}-\d{2})', '{{ featured }}' ], [ 'eventDisplay' => 'day', 'eventDate' => '%2', 'featured' => true ] )
+			->tax( [ '(\d{4}-\d{2})' ], [ 'eventDisplay' => 'month', 'eventDate' => '%2' ] )
+			->tax( [ '(\d{4}-\d{2})', '{{ featured }}' ], [ 'eventDisplay' => 'month', 'eventDate' => '%2', 'featured' => true ] )
+			->tax( [ '(\d{4}-\d{2}-\d{2})' ], [ 'eventDisplay' => 'day', 'eventDate' => '%2' ] )
+			->tax( [ '(\d{4}-\d{2}-\d{2})', '{{ featured }}' ], [ 'eventDisplay' => 'day', 'eventDate' => '%2', 'featured' => true ] )
+			->tax( [ 'feed' ], [ 'eventDisplay' => 'list', 'feed' => 'rss2' ] )
+			->tax( [ '{{ featured }}', 'feed' ], [ 'featured' => true, 'eventDisplay' => 'list', 'feed' => 'rss2' ] )
+			->tax( [ 'ical' ], [ 'ical' => 1 ] )
+			->tax( [ '{{ featured }}', 'ical' ], [ 'featured' => true, 'ical' => 1 ] )
+			->tax( [ 'feed', '(feed|rdf|rss|rss2|atom)' ], [ 'feed' => '%2' ] )
+			->tax( [ '{{ featured }}', 'feed', '(feed|rdf|rss|rss2|atom)' ], [ 'featured' => true, 'feed' => '%2' ] )
+			->tax( [ '{{ featured }}' ], [ 'featured' => true, 'eventDisplay' => 'default' ] )
+			->tax( [], [ 'eventDisplay' => 'default' ] )
 
 			// Tag
-			->tag( array( '{{ page }}', '(\d+)' ), array( 'eventDisplay' => 'list', 'paged' => '%2' ) )
-			->tag( array( '{{ featured }}', '{{ page }}', '(\d+)' ), array( 'featured' => true, 'eventDisplay' => 'list', 'paged' => '%2' ) )
-			->tag( array( '{{ month }}' ), array( 'eventDisplay' => 'month' ) )
-			->tag( array( '{{ month }}', '{{ featured }}' ), array( 'eventDisplay' => 'month', 'featured' => true ) )
-			->tag( array( '{{ list }}', '{{ page }}', '(\d+)' ), array( 'eventDisplay' => 'list', 'paged' => '%2' ) )
-			->tag( array( '{{ list }}', '{{ featured }}', '{{ page }}', '(\d+)' ), array( 'eventDisplay' => 'list', 'featured' => true, 'paged' => '%2' ) )
-			->tag( array( '{{ list }}' ), array( 'eventDisplay' => 'list' ) )
-			->tag( array( '{{ list }}', '{{ featured }}' ), array( 'eventDisplay' => 'list', 'featured' => true ) )
-			->tag( array( '{{ today }}' ), array( 'eventDisplay' => 'day' ) )
-			->tag( array( '{{ today }}', '{{ featured }}' ), array( 'eventDisplay' => 'day', 'featured' => true ) )
-			->tag( array( '{{ day }}', '(\d{4}-\d{2}-\d{2})' ), array( 'eventDisplay' => 'day', 'eventDate' => '%2' ) )
-			->tag( array( '{{ day }}', '(\d{4}-\d{2}-\d{2})', '{{ featured }}' ), array( 'eventDisplay' => 'day', 'eventDate' => '%2', 'featured' => true ) )
-			->tag( array( '(\d{4}-\d{2})' ), array( 'eventDisplay' => 'month', 'eventDate' => '%2' ) )
-			->tag( array( '(\d{4}-\d{2})', '{{ featured }}' ), array( 'eventDisplay' => 'month', 'eventDate' => '%2', 'featured' => true ) )
-			->tag( array( '(\d{4}-\d{2}-\d{2})' ), array( 'eventDisplay' => 'day', 'eventDate' => '%2' ) )
-			->tag( array( '(\d{4}-\d{2}-\d{2})', '{{ featured }}' ), array( 'eventDisplay' => 'day', 'eventDate' => '%2', 'featured' => true ) )
-			->tag( array( 'feed' ), array( 'eventDisplay' => 'list', 'feed' => 'rss2' ) )
-			->tag( array( '{{ featured }}', 'feed' ), array( 'eventDisplay' => 'list', 'feed' => 'rss2', 'featured' => true ) )
-			->tag( array( 'ical' ), array( 'ical' => 1 ) )
-			->tag( array( '{{ featured }}', 'ical' ), array( 'featured' => true, 'ical' => 1 ) )
-			->tag( array( 'feed', '(feed|rdf|rss|rss2|atom)' ), array( 'feed' => '%2' ) )
-			->tag( array( '{{ featured }}', 'feed', '(feed|rdf|rss|rss2|atom)' ), array( 'featured' => true, 'feed' => '%2' ) )
-			->tag( array( '{{ featured }}' ), array( 'featured' => true ) )
-			->tag( array(), array( 'eventDisplay' => 'default' ) );
+			->tag( [ '{{ page }}', '(\d+)' ], [ 'eventDisplay' => 'list', 'paged' => '%2' ] )
+			->tag( [ '{{ featured }}', '{{ page }}', '(\d+)' ], [ 'featured' => true, 'eventDisplay' => 'list', 'paged' => '%2' ] )
+			->tag( [ '{{ month }}' ], [ 'eventDisplay' => 'month' ] )
+			->tag( [ '{{ month }}', '{{ featured }}' ], [ 'eventDisplay' => 'month', 'featured' => true ] )
+			->tag( [ '{{ list }}', '{{ page }}', '(\d+)' ], [ 'eventDisplay' => 'list', 'paged' => '%2' ] )
+			->tag( [ '{{ list }}', '{{ featured }}', '{{ page }}', '(\d+)' ], [ 'eventDisplay' => 'list', 'featured' => true, 'paged' => '%2' ] )
+			->tag( [ '{{ list }}' ], [ 'eventDisplay' => 'list' ] )
+			->tag( [ '{{ list }}', '{{ featured }}' ], [ 'eventDisplay' => 'list', 'featured' => true ] )
+			->tag( [ '{{ today }}' ], [ 'eventDisplay' => 'day' ] )
+			->tag( [ '{{ today }}', '{{ featured }}' ], [ 'eventDisplay' => 'day', 'featured' => true ] )
+			->tag( [ '{{ day }}', '(\d{4}-\d{2}-\d{2})' ], [ 'eventDisplay' => 'day', 'eventDate' => '%2' ] )
+			->tag( [ '{{ day }}', '(\d{4}-\d{2}-\d{2})', '{{ featured }}' ], [ 'eventDisplay' => 'day', 'eventDate' => '%2', 'featured' => true ] )
+			->tag( [ '(\d{4}-\d{2})' ], [ 'eventDisplay' => 'month', 'eventDate' => '%2' ] )
+			->tag( [ '(\d{4}-\d{2})', '{{ featured }}' ], [ 'eventDisplay' => 'month', 'eventDate' => '%2', 'featured' => true ] )
+			->tag( [ '(\d{4}-\d{2}-\d{2})' ], [ 'eventDisplay' => 'day', 'eventDate' => '%2' ] )
+			->tag( [ '(\d{4}-\d{2}-\d{2})', '{{ featured }}' ], [ 'eventDisplay' => 'day', 'eventDate' => '%2', 'featured' => true ] )
+			->tag( [ 'feed' ], [ 'eventDisplay' => 'list', 'feed' => 'rss2' ] )
+			->tag( [ '{{ featured }}', 'feed' ], [ 'eventDisplay' => 'list', 'feed' => 'rss2', 'featured' => true ] )
+			->tag( [ 'ical' ], [ 'ical' => 1 ] )
+			->tag( [ '{{ featured }}', 'ical' ], [ 'featured' => true, 'ical' => 1 ] )
+			->tag( [ 'feed', '(feed|rdf|rss|rss2|atom)' ], [ 'feed' => '%2' ] )
+			->tag( [ '{{ featured }}', 'feed', '(feed|rdf|rss|rss2|atom)' ], [ 'featured' => true, 'feed' => '%2' ] )
+			->tag( [ '{{ featured }}' ], [ 'featured' => true ] )
+			->tag( [], [ 'eventDisplay' => 'default' ] );
 	}
 
 	/**
@@ -435,7 +436,7 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 	 * {@inheritDoc}
 	 */
 	protected function get_matcher_to_query_var_map() {
-		return [
+		$matchers = [
 			'month'    => 'eventDisplay',
 			'list'     => 'eventDisplay',
 			'today'    => 'eventDisplay',
@@ -446,6 +447,18 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 			'archive'  => 'post_type',
 			'featured' => 'featured',
 		];
+
+		/**
+		 * Rewrite matchers for each display param, allowing external sources to create new params.
+		 *
+		 * @since  4.9.5
+		 *
+		 * @param  array  array of the current matchers for query vars.
+		 * @param  self   $rewrite
+		 */
+		$matchers = apply_filters( 'tribe_events_rewrite_matchers_to_query_vars_map', $matchers, $this );
+
+		return $matchers;
 	}
 
 	/**
@@ -508,5 +521,52 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 	 */
 	protected function get_post_types() {
 		return [ 'tribe_events', 'tribe_venue', 'tribe_organizer' ];
+	}
+
+	/**
+	 * Overrides the base method, from commmon, to filter the parsed query variables and handle some cases related to
+	 * the `eventDisplay` query variable.
+	 *
+	 * {@inheritDoc}
+	 */
+	public function parse_request( $url, array $extra_query_vars = [], $force = false ) {
+		if ( ! has_filter( 'tribe_rewrite_parse_query_vars', [ $this, 'filter_rewrite_parse_query_vars' ] ) ) {
+			add_filter( 'tribe_rewrite_parse_query_vars', [ $this, 'filter_rewrite_parse_query_vars' ], 10, 3 );
+		}
+
+		return parent::parse_request( $url, $extra_query_vars, $force );
+	}
+
+	/**
+	 * Filters the parsed query vars to take the `eventDisplay` query var into account.
+	 *
+	 * When the query variables contain the `eventDisplay=default` variable and we have a different `eventDisplay` value
+	 * in the query arguments, then use the query arguments `eventDisplay`.
+	 *
+	 * @since 4.9.5
+	 *
+	 * @param array  $query_vars The query variables, as parsed from the parent method.
+	 * @param array  $unused     An array of extra query vars, passed as input into the parent method; not used.
+	 * @param string $url        The input URL.
+	 *
+	 * @return array The updated parsed query variables.
+	 */
+	public function filter_rewrite_parse_query_vars( array $query_vars = [], array $unused = [], $url = '' ) {
+		if ( empty( $url ) ) {
+			return $query_vars;
+		}
+
+		parse_str( parse_url( $url, PHP_URL_QUERY ), $url_query_vars );
+
+		if (
+			! isset( $query_vars['eventDisplay'], $url_query_vars['eventDisplay'] )
+			|| 'default' !== $query_vars['eventDisplay']
+		) {
+			return $query_vars;
+		}
+
+		$query_vars['eventDisplay'] = $url_query_vars['eventDisplay'];
+
+		return $query_vars;
 	}
 }

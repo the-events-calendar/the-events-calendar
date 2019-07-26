@@ -1,36 +1,37 @@
 <?php
-/*
-Plugin Name: The Events Calendar
-Description: The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events. Beautiful. Solid. Awesome.
-Version: 4.9.4
-Author: Modern Tribe, Inc.
-Author URI: http://m.tri.be/1x
-Text Domain: the-events-calendar
-License: GPLv2 or later
-*/
+/**
+ * Plugin Name: The Events Calendar
+ * Description: The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events. Beautiful. Solid. Awesome.
+ * Version: 4.9.5
+ * Author: Modern Tribe, Inc.
+ * Author URI: http://m.tri.be/1x
+ * Text Domain: the-events-calendar
+ * License: GPLv2 or later
+ *
+ * @package TEC
+ */
 
-
-/*
-Copyright 2009-2012 by Modern Tribe Inc and the contributors
-
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-*/
+/**
+ * Copyright 2009-2012 by Modern Tribe Inc and the contributors
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ */
 
 define( 'TRIBE_EVENTS_FILE', __FILE__ );
 
-// Load the required php min version functions
+// Load the required php min version functions.
 require_once dirname( TRIBE_EVENTS_FILE ) . '/src/functions/php-min-version.php';
 
 // Load the Composer autoload file.
@@ -47,7 +48,7 @@ if ( tribe_is_not_min_php_version() ) {
 	 *
 	 * @since  4.8
 	 *
-	 * @param  array $names current list of names
+	 * @param  array $names current list of names.
 	 *
 	 * @return array
 	 */
