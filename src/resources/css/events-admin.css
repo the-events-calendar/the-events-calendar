@@ -460,6 +460,47 @@ table.eventForm {
 		background: #c85b2f;
 	}
 
+/*
+	Meetup
+*/
+
+.tribe-ea-meetup-disconnect {
+	color: #a00;
+	display: inline-block;
+	margin-left: 1rem;
+}
+
+.tribe-ea-meetup-disconnect:active,
+	.tribe-ea-meetup-disconnect:hover {
+		color: #f00;
+	}
+
+.tribe-ea-meetup-button {
+	border-radius: 3px;
+	color: #fff;
+	display: inline-block;
+	padding: .5rem 1.5rem;
+	text-decoration: none;
+	-webkit-transition: background-color 0.5s ease;
+	transition: background-color 0.5s ease;
+}
+
+.tribe-ea-meetup-button:active,
+	.tribe-ea-meetup-button:hover {
+		color: #fff;
+		cursor: pointer;
+	}
+
+.tribe-ea-meetup-button {
+	background: #f41940;
+}
+
+.tribe-ea-meetup-button:active,
+	.tribe-ea-meetup-button:hover,
+	.tribe-ea-meetup-button:focus {
+		background: #f41940;
+	}
+
 /* = Event Aggregator Status
 =============================================*/
 
