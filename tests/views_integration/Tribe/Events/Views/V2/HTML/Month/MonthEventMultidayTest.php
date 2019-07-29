@@ -1,4 +1,5 @@
 <?php
+
 namespace Tribe\Events\Views\V2\Views\HTML\Month;
 
 use Tribe\Test\Products\WPBrowser\Views\V2\HtmlTestCase;
@@ -9,22 +10,27 @@ class MonthEventMultidayTest extends HtmlTestCase {
 	 * @test
 	 */
 	public function it_should_contain_correct_html_classes() {
+		$thumbnail_id            = static::factory()->attachment->create_upload_object(
+			codecept_data_dir( 'images/featured-image.jpg' )
+		);
+		$event_id                = static::factory()->event->create(
+			[
+				'meta_input' => [
+					'_thumbnail_id' => $thumbnail_id,
+				]
+			]
+		);
+		$event                   = tribe_get_event( $event_id );
+		$event->featured         = true;
+		$event->multiday         = 2;
+		$event->starts_this_week = true;
+		$event->ends_this_week   = true;
 
-		// @todo: use the Event Factory here, once the templates use a real event and we have the real keys.
-		$event = [
-			'ID' => 0,
-			'title' => 'Lorem Ipsum',
-			'image' => 'test.jpg',
-			'featured' => true,
-			'multiday' => true,
-			'start_date' => 1,
-			'start_this_week' => true,
-			'end_this_week' => true,
-			'duration'      => 2
-		];
-
-		$template = $this->template->template( 'month/calendar-body/day/multiday-events/multiday-event', [ 'event' => (object) $event ] );
-		$html = $this->document->html( $template );
+		$template = $this->template->template(
+			'month/calendar-body/day/multiday-events/multiday-event',
+			[ 'event' => $event, 'day_date' => '2019-01-01', 'is_start_of_week' => true ]
+		);
+		$html     = $this->document->html( $template );
 
 		$this->assertEquals(
 			$html->find( '.tribe-events-calendar-month__multiday-event' )->count(),
@@ -34,7 +40,9 @@ class MonthEventMultidayTest extends HtmlTestCase {
 
 
 		$this->assertTrue(
-			$html->find( '.tribe-events-calendar-month__multiday-event' )->children()->is( '.tribe-events-calendar-month__multiday-event-inner' ),
+			$html->find( '.tribe-events-calendar-month__multiday-event' )->children()->is(
+				'.tribe-events-calendar-month__multiday-event-inner'
+			),
 			'Multiday HTML needs to contain ".tribe-events-calendar-month__multiday-event-inner" element'
 		);
 
@@ -51,30 +59,32 @@ class MonthEventMultidayTest extends HtmlTestCase {
 	 * @test
 	 */
 	public function it_should_contain_a11y_attributes() {
+		$thumbnail_id            = static::factory()->attachment->create_upload_object(
+			codecept_data_dir( 'images/featured-image.jpg' )
+		);
+		$event_id                = static::factory()->event->create(
+			[
+				'meta_input' => [
+					'_thumbnail_id' => $thumbnail_id,
+				]
+			]
+		);
+		$event                   = tribe_get_event( $event_id );
+		$event->featured         = true;
+		$event->multiday         = 2;
+		$event->starts_this_week = true;
+		$event->ends_this_week   = true;
 
-		$event = [
-			'ID' => 0,
-			'title' => 'Lorem Ipsum',
-			'image' => 'test.jpg',
-			'featured' => true,
-			'multiday' => true,
-			'start_date' => 1,
-			'start_this_week' => true,
-			'end_this_week' => true,
-			'duration'      => 2
-		];
-
-		$template = $this->template->template( 'month/calendar-body/day/multiday-events/multiday-event', [ 'event' => (object) $event ] );
-		$html = $this->document->html( $template );
-		$html = $html->find( '.tribe-events-calendar-month__multiday-event' );
-		$icon = $html->find( '.tribe-events-calendar-month__multiday-event-featured-icon' );
+		$template = $this->template->template(
+			'month/calendar-body/day/multiday-events/multiday-event',
+			[ 'event' => $event, 'day_date' => '2019-01-01', 'is_start_of_week' => true ]
+		);
+		$html     = $this->document->html( $template );
+		$html     = $html->find( '.tribe-events-calendar-month__multiday-event' );
+		$icon     = $html->find( '.tribe-events-calendar-month__multiday-event-featured-icon' );
 
 
 		$this->markTestSkipped( 'The month multi-day event does not receive data yet' );
-
-		/*
-			@todo: If the event is featured we should check the following a11y classes for the icon
-		*/
 
 		$this->assertTrue(
 			$icon->is( '[aria-label="Featured"]' ),

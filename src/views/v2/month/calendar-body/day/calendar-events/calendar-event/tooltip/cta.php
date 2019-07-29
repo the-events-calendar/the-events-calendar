@@ -16,7 +16,7 @@
  * @see tribe_get_event() For the format of the event object.
  */
 
-if ( ! empty( $event->cost ) ) {
+if ( empty( $event->cost ) ) {
 	return;
 }
 // @todo @fe make this dynamic depending on the cost.

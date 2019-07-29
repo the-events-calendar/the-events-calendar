@@ -15,14 +15,13 @@
  *
  * @see tribe_get_event() For the format of the event object.
  */
-$event_id = $event->ID;
 ?>
 <div
 	class="tribe-events-calendar-month__calendar-event-tooltip"
 	data-js="tribe-events-tooltip-content"
 	role="tooltip"
 >
-	<div id="tribe-events-tooltip-content-<?php echo esc_attr( $event_id ); ?>">
+	<div id="tribe-events-tooltip-content-<?php echo esc_attr( $event->ID ); ?>">
 		<?php $this->template( 'month/calendar-body/day/calendar-events/calendar-event/tooltip/featured-image', [ 'event' => $event ] ); ?>
 		<?php $this->template( 'month/calendar-body/day/calendar-events/calendar-event/tooltip/description', [ 'event' => $event ] ); ?>
 		<?php $this->template( 'month/calendar-body/day/calendar-events/calendar-event/tooltip/cta', [ 'event' => $event ] ); ?>

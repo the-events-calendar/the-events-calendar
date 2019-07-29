@@ -29,11 +29,11 @@ $time_format = get_option( 'time_format' );
 		>
 		</em>
 	<?php endif; ?>
-	<time datetime="<?php echo esc_attr( $event->dates->start->format( 'H:m' ) ) ?>">
+	<time datetime="<?php echo esc_attr( $event->dates->start->format( 'H:i' ) ) ?>">
 		<?php echo esc_html( $event->dates->start->format( $time_format ) ) ?>
 	</time>
 	<span class="tribe-events-calendar-month__calendar-event-datetime-separator"> - </span>
-	<time datetime="<?php echo esc_attr($event->dates->end->format( 'H:m' )) ?>">
+	<time datetime="<?php echo esc_attr($event->dates->end->format( 'H:i' )) ?>">
 		<?php echo esc_html( $event->dates->end->format( $time_format ) ) ?>
 	</time>
 	<?php // @todo @fe this should be moved to PRO. ?>

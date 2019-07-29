@@ -11,7 +11,7 @@
  *
  * @version TBD
  *
- * @var string $today Today date timestamp.
+ * @var string $today Today date in the `Y-m-d` format.
  *
  */
 $default_start_date = 'now';
