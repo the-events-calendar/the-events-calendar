@@ -315,7 +315,8 @@ class Tribe__Events__Aggregator__Settings {
 			return true;
 		}
 
-		$meetup_authorized = tribe( 'events-aggregator.service' )->has_meetup_authorized();
+		$request_secret_key = ! $this->has_meetup_security_key();
+		$meetup_authorized  = tribe( 'events-aggregator.service' )->has_meetup_authorized( $request_secret_key );
 
 		if ( empty( $meetup_authorized->status ) || 'success' !== $meetup_authorized->status ) {
 			return false;

@@ -891,11 +891,17 @@ class Tribe__Events__Aggregator__Service {
 	 *
 	 * @since TBD
 	 *
-	 *  @return stdClass|WP_Error Either the Event Aggregator Service response or a `WP_Error` on failure.
+	 * @param bool $request_security_key Whether to explicitly request the Meetup security key in the response or not.
+	 *
+	 * @return stdClass|WP_Error Either the Event Aggregator Service response or a `WP_Error` on failure.
 	 */
-	public function has_meetup_authorized() {
+	public function has_meetup_authorized( $request_security_key = false ) {
 
 		$args = $this->get_meetup_args();
+
+		if ( $request_security_key ) {
+			$args['secret_key'] = 'request';
+		}
 
 		$cached_response = get_transient( self::$auth_transient_meetup );
 
@@ -913,6 +919,11 @@ class Tribe__Events__Aggregator__Service {
 			&& isset( $response->status )
 			&& 'error' !== $response->status
 		) {
+			// If we have it remove the `secret_key` from the cached response; it will be stored in a dedicated option.
+			if ( isset( $response->data->secret_key ) ) {
+				unset( $response->data->secret_key );
+			}
+
 			// Check this each 15 minutes.
 			set_transient( self::$auth_transient_meetup, $response, 900 );
 		}
