@@ -920,12 +920,13 @@ class Tribe__Events__Aggregator__Service {
 			&& 'error' !== $response->status
 		) {
 			// If we have it remove the `secret_key` from the cached response; it will be stored in a dedicated option.
-			if ( isset( $response->data->secret_key ) ) {
-				unset( $response->data->secret_key );
+			$store = $response;
+			if ( isset( $store->data->secret_key ) ) {
+				unset( $store->data->secret_key );
 			}
 
 			// Check this each 15 minutes.
-			set_transient( self::$auth_transient_meetup, $response, 900 );
+			set_transient( self::$auth_transient_meetup, $store, 900 );
 		}
 
 		return $response;
