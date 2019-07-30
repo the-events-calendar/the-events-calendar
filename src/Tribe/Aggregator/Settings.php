@@ -274,6 +274,7 @@ class Tribe__Events__Aggregator__Settings {
 		tribe( 'events-aggregator.service' )->disconnect_meetup_token();
 
 		tribe_update_option( 'meetup_security_key', null );
+		delete_transient( Tribe__Events__Aggregator__Service::$auth_transient_meetup );
 
 	}
 
