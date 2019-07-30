@@ -176,11 +176,6 @@ class Tribe__Events__Aggregator__Settings {
 		return true;
 	}
 
-	/*
-
-		=====================================================================================================
-	*/
-
 	/**
 	 * Hooked to current_screen, this method identifies whether or not eb credentials should be cleared
 	 *
