@@ -29,7 +29,6 @@ tribe.events.views.eventsBar = {};
  */
 ( function( $, obj ) {
 	'use strict';
-	var $window = $( window );
 	var $document = $( document );
 
 	/**
@@ -64,39 +63,6 @@ tribe.events.views.eventsBar = {};
 		HOME: 36,
 		LEFT: 37,
 		RIGHT: 39,
-	};
-
-	/**
-	 * Object of options
-	 *
-	 * @since 4.9.4
-	 *
-	 * @type {PlainObject}
-	 */
-	obj.options = {
-		MOBILE_BREAKPOINT: 768,
-	};
-
-	/**
-	 * Object of state
-	 *
-	 * @since 4.9.4
-	 *
-	 * @type {PlainObject}
-	 */
-	obj.state = {
-		isMobile: true,
-	};
-
-	/**
-	 * Set viewport state
-	 *
-	 * @since 4.9.4
-	 *
-	 * @return {void}
-	 */
-	obj.setViewport = function() {
-		obj.state.isMobile = window.innerWidth < obj.options.MOBILE_BREAKPOINT;
 	};
 
 	/**
@@ -471,7 +437,7 @@ tribe.events.views.eventsBar = {};
 		if ( $eventsBar.length ) {
 			var state = $eventsBar.data( 'state' );
 
-			if ( obj.state.isMobile && ! state.mobileInitialized ) {
+			if ( tribe.events.views.viewport.state.isMobile && ! state.mobileInitialized ) {
 				if ( $filtersButton.length ) {
 					obj.initTablist( $container );
 					obj.deinitFiltersAccordion( $container );
@@ -480,7 +446,7 @@ tribe.events.views.eventsBar = {};
 				state.desktopInitialized = false;
 				state.mobileInitialized = true;
 				$eventsBar.data( 'state', state );
-			} else if ( ! obj.state.isMobile && ! state.desktopInitialized ) {
+			} else if ( ! tribe.events.views.viewport.state.isMobile && ! state.desktopInitialized ) {
 				if ( $filtersButton.length ) {
 					obj.deinitTablist( $container );
 					obj.initFiltersAccordion( $container );
@@ -494,41 +460,40 @@ tribe.events.views.eventsBar = {};
 	};
 
 	/**
-	 * Handles window resize event
+	 * Handles 'resize.tribeEvents' event
 	 *
-	 * @since 4.9.4
+	 * @since TBD
 	 *
-	 * @param {Event} event event object for 'resize' event
+	 * @param {Event} event event object for 'resize.tribeEvents' event
 	 *
 	 * @return {void}
 	 */
 	obj.handleResize = function( event ) {
-		obj.setViewport();
 		obj.initEventsBar( event.data.container );
 	};
 
 	/**
-	 * Unbind events for window resize
+	 * Unbind events for events bar
 	 *
-	 * @since 4.9.5
+	 * @since TBD
 	 *
 	 * @return {void}
 	 */
 	obj.unbindEvents = function() {
-		$window.off( 'resize', obj.handleResize );
+		$document.off( 'resize.tribeEvents', obj.handleResize );
 	};
 
 	/**
-	 * Bind events for window resize
+	 * Bind events for events bar
 	 *
-	 * @since 4.9.4
+	 * @since TBD
 	 *
-	 * @param {jQuery} $container jQuery object of view container
+	 * @param  {jQuery}  $container jQuery object of view container
 	 *
 	 * @return {void}
 	 */
 	obj.bindEvents = function( $container ) {
-		$window.on( 'resize', { container: $container }, obj.handleResize );
+		$document.on( 'resize.tribeEvents', { container: $container }, obj.handleResize );
 	};
 
 	/**
@@ -561,7 +526,6 @@ tribe.events.views.eventsBar = {};
 	 * @return {void}
 	 */
 	obj.init = function( event, index, $container, data ) {
-		obj.setViewport();
 		obj.initState( $container );
 		obj.initEventsBar( $container );
 		obj.bindEvents( $container );
