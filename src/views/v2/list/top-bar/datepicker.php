@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.5
+ * @version TBD
  *
  */
 $default_start_date = 'now';
@@ -64,5 +64,6 @@ $selected_end_date_label = date_i18n( tribe_get_date_format( true ), $selected_e
 		name="tribe-events-views[tribe-bar-search]"
 		value="<?php echo esc_attr( tribe_events_template_var( [ 'bar', 'date' ], '' ) ); ?>"
 		tabindex="-1"
+		autocomplete="off"
 	/>
 </div>

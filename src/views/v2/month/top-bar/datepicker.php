@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.5
+ * @version TBD
  *
  */
 ?>
@@ -34,5 +34,6 @@
 		name="tribe-events-views[tribe-bar-search]"
 		value="<?php echo esc_attr( tribe_events_template_var( [ 'bar', 'date' ], '' ) ); ?>"
 		tabindex="-1"
+		autocomplete="off"
 	/>
 </div>
