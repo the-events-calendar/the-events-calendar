@@ -280,7 +280,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Deinitialize accordion based on header and content
 	 *
-	 * @since 4.9.4
+	 * @since TBD
 	 *
 	 * @param {jQuery} $header jQuery object of header
 	 * @param {jQuery} $content jQuery object of contents
@@ -289,19 +289,14 @@ tribe.events.views.eventsBar = {};
 	 */
 	obj.deinitAccordion = function( $header, $content ) {
 		tribe.events.views.accordion.deinitAccordion( 0, $header );
-		$header
-			.removeAttr( 'aria-expanded' )
-			.removeAttr( 'aria-selected' )
-			.removeAttr( 'aria-controls' );
-		$content
-			.removeAttr( 'aria-hidden' )
-			.css( 'display', '' );
+		tribe.events.views.accordion.deinitAccordionA11yAttrs( $header, $content );
+		$content.css( 'display', '' );
 	};
 
 	/**
 	 * Initialize accordion based on header and content
 	 *
-	 * @since 4.9.4
+	 * @since TBD
 	 *
 	 * @param {jQuery} $container jQuery object of view container
 	 * @param {jQuery} $header jQuery object of header
@@ -311,11 +306,7 @@ tribe.events.views.eventsBar = {};
 	 */
 	obj.initAccordion = function( $container, $header, $content ) {
 		tribe.events.views.accordion.initAccordion( $container )( 0, $header );
-		$header
-			.attr( 'aria-expanded', 'false' )
-			.attr( 'aria-selected', 'false' )
-			.attr( 'aria-controls', $content.attr( 'id' ) );
-		$content.attr( 'aria-hidden', 'true' );
+		tribe.events.views.accordion.initAccordionA11yAttrs( $header, $content );
 	};
 
 	/**
@@ -424,7 +415,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Initializes events bar
 	 *
-	 * @since 4.9.4
+	 * @since TBD
 	 *
 	 * @param {jQuery} $container jQuery object of view container
 	 *
@@ -432,11 +423,12 @@ tribe.events.views.eventsBar = {};
 	 */
 	obj.initEventsBar = function( $container ) {
 		var $eventsBar = $container.find( obj.selectors.eventsBar );
-		var $filtersButton = $container.find( obj.selectors.filtersButton );
 
 		if ( $eventsBar.length ) {
 			var state = $eventsBar.data( 'state' );
+			var $filtersButton = $container.find( obj.selectors.filtersButton );
 
+			// If viewport is mobile and mobile state is not initialized
 			if ( tribe.events.views.viewport.state.isMobile && ! state.mobileInitialized ) {
 				if ( $filtersButton.length ) {
 					obj.initTablist( $container );
@@ -446,6 +438,8 @@ tribe.events.views.eventsBar = {};
 				state.desktopInitialized = false;
 				state.mobileInitialized = true;
 				$eventsBar.data( 'state', state );
+
+			// If viewport is desktop and desktop state is not initialized
 			} else if ( ! tribe.events.views.viewport.state.isMobile && ! state.desktopInitialized ) {
 				if ( $filtersButton.length ) {
 					obj.deinitTablist( $container );
@@ -501,7 +495,7 @@ tribe.events.views.eventsBar = {};
 	 *
 	 * @since 4.9.4
 	 *
-	 * @param  {Event}       event    event object for 'afterSetup.tribeEvents' event
+	 * @param  {Event}       event    event object for 'beforeAjaxSuccess.tribeEvents' event
 	 * @param  {jqXHR}       jqXHR    Request object
 	 * @param  {PlainObject} settings Settings that this request was made with
 	 *
