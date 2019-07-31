@@ -34,83 +34,238 @@ tribe.events.views.viewSelector = {};
 	/**
 	 * Selectors used for configuration and setup
 	 *
-	 * @since 4.9.4
+	 * @since TBD
 	 *
 	 * @type {PlainObject}
 	 */
 	obj.selectors = {
 		viewSelector: '[data-js="tribe-events-view-selector"]',
-		viewSelectorButton: '[data-js="tribe-events-accordion-trigger"]',
-		viewSelectorButtonActive: '.tribe-events-c-view-selector__button--active',
+		viewSelectorTabsClass: '.tribe-events-c-view-selector--tabs',
+		viewSelectorButton: '[data-js="tribe-events-view-selector-button"]',
+		viewSelectorButtonActiveClass: '.tribe-events-c-view-selector__button--active',
+		viewSelectorListContainer: '[data-js="tribe-events-view-selector-list-container"]',
+	};
+
+	/**
+	 * Deinitialize accordion based on header and content
+	 *
+	 * @since TBD
+	 *
+	 * @param {jQuery} $header jQuery object of header
+	 * @param {jQuery} $content jQuery object of contents
+	 *
+	 * @return {void}
+	 */
+	obj.deinitAccordion = function( $header, $content ) {
+		tribe.events.views.accordion.deinitAccordion( 0, $header );
+		tribe.events.views.accordion.deinitAccordionA11yAttrs( $header, $content );
+		$content.css( 'display', '' );
+	};
+
+	/**
+	 * Initialize accordion based on header and content
+	 *
+	 * @since TBD
+	 *
+	 * @param {jQuery} $container jQuery object of view container
+	 * @param {jQuery} $header jQuery object of header
+	 * @param {jQuery} $content jQuery object of contents
+	 *
+	 * @return {void}
+	 */
+	obj.initAccordion = function( $container, $header, $content ) {
+		tribe.events.views.accordion.initAccordion( $container )( 0, $header );
+		tribe.events.views.accordion.initAccordionA11yAttrs( $header, $content );
+	};
+
+	/**
+	 * Deinitialize view selector accordion
+	 *
+	 * @since TBD
+	 *
+	 * @param {jQuery} $container jQuery object of view container
+	 *
+	 * @return {void}
+	 */
+	obj.deinitViewSelectorAccordion = function( $container ) {
+		var $viewSelectorButton = $container.find( obj.selectors.viewSelectorButton );
+		var $viewSelectorListContainer = $container.find( obj.selectors.viewSelectorListContainer );
+		obj.deinitAccordion( $viewSelectorButton, $viewSelectorListContainer );
+	};
+
+	/**
+	 * Initialize view selector accordion
+	 *
+	 * @since TBD
+	 *
+	 * @param {jQuery} $container jQuery object of view container
+	 *
+	 * @return {void}
+	 */
+	obj.initViewSelectorAccordion = function( $container ) {
+		var $viewSelectorButton = $container.find( obj.selectors.viewSelectorButton );
+		var $viewSelectorListContainer = $container.find( obj.selectors.viewSelectorListContainer );
+		obj.initAccordion( $container, $viewSelectorButton, $viewSelectorListContainer );
+	};
+
+	/**
+	 * Initializes view selector state
+	 *
+	 * @since TBD
+	 *
+	 * @param {jQuery} $container jQuery object of view container
+	 *
+	 * @return {void}
+	 */
+	obj.initState = function( $container ) {
+		var $viewSelector = $container.find( obj.selectors.viewSelector );
+		var state = {
+			mobileInitialized: false,
+			desktopInitialized: false,
+		};
+
+		$viewSelector.data( 'state', state );
+	};
+
+	/**
+	 * Deinitializes view selector
+	 *
+	 * @since TBD
+	 *
+	 * @param {jQuery} $container jQuery object of view container
+	 *
+	 * @return {void}
+	 */
+	obj.deinitViewSelector = function( $container ) {
+		obj.deinitViewSelectorAccordion( $container );
+	};
+
+	/**
+	 * Initializes view selector
+	 *
+	 * @since TBD
+	 *
+	 * @param {jQuery} $container jQuery object of view container
+	 *
+	 * @return {void}
+	 */
+	obj.initViewSelector = function( $container ) {
+		var $viewSelector = $container.find( obj.selectors.viewSelector );
+
+		if ( $viewSelector.length ) {
+			var state = $viewSelector.data( 'state' );
+			var isTabs = $viewSelector.hasClass( obj.selectors.viewSelectorTabsClass.className() );
+
+			// If view selector is tabs (has 3 or less options)
+			if ( isTabs ) {
+				// If viewport is mobile and mobile state is not initialized
+				if ( tribe.events.views.viewport.state.isMobile && ! state.mobileInitialized ) {
+					obj.initViewSelectorAccordion( $container );
+					state.desktopInitialized = false;
+					state.mobileInitialized = true;
+					$viewSelector.data( 'state', state );
+
+				// If viewport is desktop and desktop state is not initialized
+				} else if ( ! tribe.events.views.viewport.state.isMobile && ! state.desktopInitialized ) {
+					obj.deinitViewSelectorAccordion( $container );
+					state.mobileInitialized = false;
+					state.desktopInitialized = true;
+					$viewSelector.data( 'state', state );
+				}
+
+			/**
+			 * If view selector is not tabs (has more than 3 options), it is always an accordion.
+			 * Check if both mobile and desktop states are initialized.
+			 * If mobile and desktop states are not initialized:
+			 */
+			} else if ( ! state.mobileInitialized && ! state.desktopInitialized ) {
+				obj.initViewSelectorAccordion( $container );
+				state.desktopInitialized = true;
+				state.mobileInitialized = true;
+				$viewSelector.data( 'state', state );
+			}
+		}
 	};
 
 	/**
 	 * Toggles active class on view selector button
 	 *
-	 * @since 4.9.4
+	 * @since TBD
 	 *
 	 * @param {Event } event event object for click event
 	 *
 	 * @return {void}
 	 */
 	obj.handleClick = function( event ) {
-		$( event.data.target ).toggleClass( obj.selectors.viewSelectorButtonActive.className() );
+		event.data.target.toggleClass( obj.selectors.viewSelectorButtonActiveClass.className() );
 	};
 
 	/**
-	 * Unbinds events for view selector
+	 * Handles resize event
 	 *
-	 * @since 4.9.4
+	 * @since TBD
 	 *
-	 * @param  {jQuery} $container jQuery object of view container
-	 *
-	 * @return {void}
-	 */
-	obj.unbindViewSelectorEvents = function( $container ) {
-		$container
-			.find( obj.selectors.viewSelectorButton )
-			.each( function( index, header ) {
-				$( header ).off( 'click', obj.handleClick );
-			} );
-	};
-
-	/**
-	 * Binds events for view selector
-	 *
-	 * @since  4.9.5
-	 *
-	 * @param  {jQuery} $container jQuery object of view container
+	 * @param {Event } event event object for 'resize.tribeEvents' event
 	 *
 	 * @return {void}
 	 */
-	obj.bindViewSelectorEvents = function( $container ) {
-		$container
-			.find( obj.selectors.viewSelectorButton )
-			.each( function( index, header ) {
-				$( header ).on( 'click', { target: header }, obj.handleClick );
-			} );
+	obj.handleResize = function( event ) {
+		obj.initViewSelector( event.data.container );
 	};
 
 	/**
 	 * Unbinds events for container
 	 *
-	 * @since  4.9.5
+	 * @since  TBD
 	 *
-	 * @param  {Event}       event    event object for 'afterSetup.tribeEvents' event
-	 * @param  {jqXHR}       jqXHR    Request object
-	 * @param  {PlainObject} settings Settings that this request was made with
+	 * @param  {jQuery}  $container jQuery object of view container
 	 *
 	 * @return {void}
 	 */
-	obj.unbindEvents = function( event, jqXHR, settings ) {
-		var $container = event.data.container;
-		obj.unbindViewSelectorEvents( $container );
+	obj.unbindEvents = function( $container ) {
+		$document.off( 'resize.tribeEvents', obj.handleResize );
+		$container
+			.find( obj.selectors.viewSelectorButton )
+			.off( 'click', obj.handleClick );
 	};
 
 	/**
 	 * Binds events for container
 	 *
-	 * @since 4.9.5
+	 * @since TBD
+	 *
+	 * @param  {jQuery} $container jQuery object of view container
+	 *
+	 * @return {void}
+	 */
+	obj.bindEvents = function( $container ) {
+		var $viewSelectorButton = $container.find( obj.selectors.viewSelectorButton );
+
+		$document.on( 'resize.tribeEvents', { container: $container }, obj.handleResize );
+		$viewSelectorButton.on( 'click', { target: $viewSelectorButton }, obj.handleClick );
+	};
+
+	/**
+	 * Deinitialize view selector JS
+	 *
+	 * @since TBD
+	 *
+	 * @param  {Event}       event    event object for 'beforeAjaxSuccess.tribeEvents' event
+	 * @param  {jqXHR}       jqXHR    Request object
+	 * @param  {PlainObject} settings Settings that this request was made with
+	 *
+	 * @return {void}
+	 */
+	obj.deinit = function( event, jqXHR, settings ) {
+		var $container = event.data.container;
+		obj.deinitViewSelector( $container );
+		obj.unbindEvents( $container );
+	};
+
+	/**
+	 * Initialize view selector JS
+	 *
+	 * @since TBD
 	 *
 	 * @param  {Event}   event      event object for 'afterSetup.tribeEvents' event
 	 * @param  {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event
@@ -119,9 +274,11 @@ tribe.events.views.viewSelector = {};
 	 *
 	 * @return {void}
 	 */
-	obj.bindEvents = function( event, index, $container, data ) {
-		obj.bindViewSelectorEvents( $container );
-		$container.on( 'beforeAjaxSuccess.tribeEvents', { container: $container }, obj.unbindEvents );
+	obj.init = function( event, index, $container, data ) {
+		obj.initState( $container );
+		obj.initViewSelector( $container );
+		obj.bindEvents( $container );
+		$container.on( 'beforeAjaxSuccess.tribeEvents', { container: $container }, obj.deinit );
 	};
 
 	/**
@@ -132,7 +289,7 @@ tribe.events.views.viewSelector = {};
 	 * @return {void}
 	 */
 	obj.ready = function() {
-		$document.on( 'afterSetup.tribeEvents', tribe.events.views.manager.selectors.container, obj.bindEvents );
+		$document.on( 'afterSetup.tribeEvents', tribe.events.views.manager.selectors.container, obj.init );
 	};
 
 	// Configure on document ready
