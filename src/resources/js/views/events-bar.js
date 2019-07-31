@@ -44,6 +44,7 @@ tribe.events.views.eventsBar = {};
 		tab: '[data-js~="tribe-events-events-bar-tab"]',
 		tabPanel: '[data-js~="tribe-events-events-bar-tabpanel"]',
 		searchButton: '[data-js="tribe-events-search-button"]',
+		searchButtonActiveClass: '.tribe-events-c-events-bar__search-button--active',
 		filtersButton: '[data-js="tribe-events-filters-button"]',
 		searchFiltersContainer: '[data-js="tribe-events-search-filters-container"]',
 		filtersContainer: '[data-js~="tribe-events-events-bar-filters"]',
@@ -346,6 +347,19 @@ tribe.events.views.eventsBar = {};
 	};
 
 	/**
+	 * Toggles active class on search button
+	 *
+	 * @since TBD
+	 *
+	 * @param {Event} event event object for click event
+	 *
+	 * @return {void}
+	 */
+	obj.handleSearchButtonClick = function( event ) {
+		event.data.target.toggleClass( obj.selectors.searchButtonActiveClass.className() );
+	};
+
+	/**
 	 * Deinitialize search button accordion
 	 *
 	 * @since 4.9.4
@@ -358,6 +372,7 @@ tribe.events.views.eventsBar = {};
 		var $searchButton = $container.find( obj.selectors.searchButton );
 		var $searchFiltersContainer = $container.find( obj.selectors.searchFiltersContainer );
 		obj.deinitAccordion( $searchButton, $searchFiltersContainer );
+		$searchButton.off( 'click', obj.handleSearchButtonClick );
 	};
 
 	/**
@@ -373,6 +388,7 @@ tribe.events.views.eventsBar = {};
 		var $searchButton = $container.find( obj.selectors.searchButton );
 		var $searchFiltersContainer = $container.find( obj.selectors.searchFiltersContainer );
 		obj.initAccordion( $container, $searchButton, $searchFiltersContainer );
+		$searchButton.on( 'click', { target: $searchButton }, obj.handleSearchButtonClick );
 	};
 
 	/**

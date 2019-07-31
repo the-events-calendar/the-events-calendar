@@ -117,24 +117,36 @@
 
 		&:hover,
 		&:focus {
-			border-bottom-color: var(--color-accent-primary);
 
-			&:before {
-				opacity: 1;
+			.tribe-events-c-events-bar__search-button-icon {
+				opacity: var(--opacity-icon-hover);
+			}
+		}
+
+		&:active {
+
+			.tribe-events-c-events-bar__search-button-icon {
+				opacity: var(--opacity-icon-active);
 			}
 		}
 
 		&:before {
 			background-color: var(--color-accent-primary);
 			content: '';
-			display: block;
+			display: none;
 			height: 2px;
-			opacity: 0;
+			pointer-events: none;
 			position: absolute;
 			top: 100%;
 			transform: translateY(var(--spacer-0));
-			transition: var(--transition-opacity);
 			width: calc(100% - (2 * var(--spacer-0)));
+		}
+	}
+
+	.tribe-events-c-events-bar__search-button--active {
+
+		&:before {
+			display: block;
 		}
 	}
 

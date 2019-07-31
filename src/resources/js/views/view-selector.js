@@ -192,7 +192,7 @@ tribe.events.views.viewSelector = {};
 	 *
 	 * @since TBD
 	 *
-	 * @param {Event } event event object for click event
+	 * @param {Event} event event object for click event
 	 *
 	 * @return {void}
 	 */
@@ -205,7 +205,7 @@ tribe.events.views.viewSelector = {};
 	 *
 	 * @since TBD
 	 *
-	 * @param {Event } event event object for 'resize.tribeEvents' event
+	 * @param {Event} event event object for 'resize.tribeEvents' event
 	 *
 	 * @return {void}
 	 */
