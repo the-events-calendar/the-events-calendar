@@ -4,7 +4,7 @@
 # Emulate web requests and make application process them.
 class_name: WpunitTester
 modules:
-    enabled: [WPLoader, \Helper\Wpunit]
+    enabled: [WPLoader, \Helper\Wpunit, WPQueries]
     config:
         WPLoader:
             wpRootFolder: %WP_ROOT_FOLDER%
