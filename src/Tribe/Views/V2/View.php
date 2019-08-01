@@ -897,17 +897,19 @@ class View implements View_Interface {
 	 */
 	protected function setup_template_vars() {
 		$template_vars = [
-			'title'    => wp_title( null, false ),
-			'events'   => $this->repository->all(),
-			'url'      => $this->get_url( true ),
-			'prev_url' => $this->prev_url( true ),
-			'next_url' => $this->next_url( true ),
-			'bar'      => [
+			'title'      => wp_title( null, false ),
+			'events'     => $this->repository->all(),
+			'url'        => $this->get_url( true ),
+			'prev_url'   => $this->prev_url( true ),
+			'next_url'   => $this->next_url( true ),
+			'bar'        => [
 				'keyword' => $this->context->get( 'keyword', '' ),
 				'date'    => $this->context->get( 'event_date', '' ),
 			],
-			'today' => $this->context->get( 'today', 'today' ),
-			'now'   => $this->context->get( 'now', 'now' ),
+			'today'      => $this->context->get( 'today', 'today' ),
+			'now'        => $this->context->get( 'now', 'now' ),
+			'rest_url'   => tribe( Rest_Endpoint::class )->get_url(),
+			'rest_nonce' => wp_create_nonce( 'wp_rest' ),
 		];
 
 		return $template_vars;
