@@ -10,11 +10,8 @@
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
  * @version 4.9.4
- *
  */
 use Tribe\Events\Views\V2\Rest_Endpoint;
-
-$events = $this->get( 'events' );
 ?>
 <div
 	class="tribe-common tribe-events tribe-events-view tribe-events-view--month"

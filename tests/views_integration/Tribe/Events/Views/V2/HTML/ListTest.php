@@ -9,7 +9,7 @@ class ListTest extends HtmlTestCase {
 	 * @test
 	 */
 	public function it_should_contain_correct_html_classes() {
-		$template = $this->template->template( 'list', [ 'events' => (object) [] ] );
+		$template = $this->template->template( 'list', [ 'events' => [] ] );
 		$html = $this->document->html( $template );
 
 		$this->assertEquals(
