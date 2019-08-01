@@ -28,10 +28,13 @@
 			margin: 0 35px;
 			background-color: transparent;
 			display: -webkit-box;
+			display: -ms-flexbox;
 			display: flex;
 			-webkit-box-align: center;
+			    -ms-flex-align: center;
 			        align-items: center;
-			align-content: center;
+			-ms-flex-line-pack: center;
+			    align-content: center;
 		}
 
 .events-cal #fs_connect .fs-visual .fs-site-icon,
@@ -102,7 +105,8 @@
 
 .events-cal #fs_connect .fs-visual .fs-connect-logo, .toplevel_page_tribe-common #fs_connect .fs-visual .fs-connect-logo {
 				display: block;
-				box-sizing: border-box;
+				-webkit-box-sizing: border-box;
+				        box-sizing: border-box;
 				background-image: url( ../icons/mailplane.svg );
 				background-repeat: no-repeat;
 				background-position: center center;
@@ -151,14 +155,17 @@
 			padding: 20px 35px;
 			background-color: #f3f3f3;
 			display: -webkit-box;
+			display: -ms-flexbox;
 			display: flex;
 			-webkit-box-orient: horizontal;
 			-webkit-box-direction: normal;
+			    -ms-flex-flow: row wrap;
 			        flex-flow: row wrap;
 		}
 
 .events-cal #fs_connect .fs-actions form, .toplevel_page_tribe-common #fs_connect .fs-actions form {
 				-webkit-box-ordinal-group: 2;
+				    -ms-flex-order: 1;
 				        order: 1;
 				float: none;
 				margin-right: 15px;
@@ -166,6 +173,7 @@
 
 .events-cal #fs_connect .fs-actions #skip_activation, .toplevel_page_tribe-common #fs_connect .fs-actions #skip_activation {
 				-webkit-box-ordinal-group: 3;
+				    -ms-flex-order: 2;
 				        order: 2;
 				float: none;
 			}
@@ -195,18 +203,22 @@
 .events-cal #fs_connect .fs-permissions.fs-open, .toplevel_page_tribe-common #fs_connect .fs-permissions.fs-open {
 				position: absolute;
 				padding: 20px 35px;
+				-webkit-box-shadow: 0px 1px 2px rgba(0,0,0,0.3);
 				box-shadow: 0px 1px 2px rgba(0,0,0,0.3);
 			}
 
 .events-cal #fs_connect .fs-permissions.fs-open ul, .toplevel_page_tribe-common #fs_connect .fs-permissions.fs-open ul {
 					margin: 0;
 					display: -webkit-box;
+					display: -ms-flexbox;
 					display: flex;
-					flex-wrap: wrap;
+					-ms-flex-wrap: wrap;
+					    flex-wrap: wrap;
 				}
 
 .events-cal #fs_connect .fs-permissions.fs-open ul li, .toplevel_page_tribe-common #fs_connect .fs-permissions.fs-open ul li {
 						-webkit-box-flex: 0;
+						    -ms-flex: 0 50%;
 						        flex: 0 50%;
 						padding-bottom: 10px;
 					}
