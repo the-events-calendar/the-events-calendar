@@ -250,6 +250,9 @@ class Tribe__Events__Aggregator__Settings {
 		if ( ! empty( $meetup_authorized->data->secret_key ) ) {
 			tribe_update_option( 'meetup_security_key', esc_attr( $meetup_authorized->data->secret_key ) );
 
+			// If we have a Meetup OAuth flow security key, then we can remove the old Meetup API key, if any.
+			tribe_update_option( 'meetup_api_key', '' );
+
 			return true;
 		}
 
