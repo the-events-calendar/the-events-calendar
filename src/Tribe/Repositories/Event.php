@@ -1483,6 +1483,8 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			$this->order_by_venue();
 		} elseif ( $by_timestamp_key ) {
 			$this->filter_query->orderby( $timestamp_key );
+		} else {
+			$this->query_args['orderby'] = $order_by;
 		}
 	}
 
