@@ -208,4 +208,15 @@ class List_View extends View {
 
 		return $args;
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	protected function setup_template_vars() {
+		$template_vars = parent::setup_template_vars();
+
+		$template_vars['should_manage_url'] = (int) $this->template->get( 'should_manage_url', true );
+
+		return $template_vars;
+	}
 }
