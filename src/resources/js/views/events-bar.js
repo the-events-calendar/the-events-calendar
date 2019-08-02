@@ -149,13 +149,13 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Handles 'click' event on tab
 	 *
-	 * @since 4.9.4
+	 * @since TBD
 	 *
 	 * @param {Event} event event object of click event
 	 *
 	 * @return {void}
 	 */
-	obj.handleClick = function( event ) {
+	obj.handleTabClick = function( event ) {
 		var $container = $( event.data.container );
 		var $eventsBar = $container.find( obj.selectors.eventsBar );
 		var state = $eventsBar.data( 'state' );
@@ -169,13 +169,13 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Handles 'keydown' event on tab
 	 *
-	 * @since 4.9.4
+	 * @since TBD
 	 *
 	 * @param {Event} event event object of keydown event
 	 *
 	 * @return {void}
 	 */
-	obj.handleKeydown = function( event ) {
+	obj.handleTabKeydown = function( event ) {
 		var key = event.which || event.keyCode;
 		var $container = $( event.data.container );
 		var $eventsBar = $container.find( obj.selectors.eventsBar );
@@ -209,7 +209,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Deinitializes tablist
 	 *
-	 * @since 4.9.4
+	 * @since TBD
 	 *
 	 * @param {jQuery} $container jQuery object of view container
 	 *
@@ -222,8 +222,8 @@ tribe.events.views.eventsBar = {};
 				$( tab )
 					.removeAttr( 'aria-selected' )
 					.removeAttr( 'tabindex' )
-					.off( 'keydown', obj.handleKeydown )
-					.off( 'click', obj.handleClick );
+					.off( 'keydown', obj.handleTabKeydown )
+					.off( 'click', obj.handleTabClick );
 			} );
 		$container
 			.find( obj.selectors.tabPanel )
@@ -238,7 +238,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Initializes tablist
 	 *
-	 * @since 4.9.4
+	 * @since TBD
 	 *
 	 * @param {jQuery} $container jQuery object of view container
 	 *
@@ -258,8 +258,8 @@ tribe.events.views.eventsBar = {};
 
 				$tab
 					.attr( 'aria-selected', 'true' )
-					.on( 'keydown', { container: $container }, obj.handleKeydown )
-					.on( 'click', { container: $container }, obj.handleClick );
+					.on( 'keydown', { container: $container }, obj.handleTabKeydown )
+					.on( 'click', { container: $container }, obj.handleTabClick );
 				$tabpanel
 					.attr( 'role', 'tabpanel' )
 					.attr( 'aria-labelledby', $tab.attr( 'id' ) );
@@ -483,6 +483,33 @@ tribe.events.views.eventsBar = {};
 	};
 
 	/**
+	 * Handles click event on document
+	 *
+	 * @since TBD
+	 *
+	 * @param {Event} event event object for click event
+	 *
+	 * @return {void}
+	 */
+	obj.handleClick = function( event ) {
+		var $target = $( event.target );
+		var isParentSearchButton = Boolean( $target.closest( obj.selectors.searchButton ).length );
+		var isParentSearchFiltersContainer = Boolean( $target.closest( obj.selectors.searchFiltersContainer ).length );
+
+		if ( ! ( isParentSearchButton || isParentSearchFiltersContainer ) ) {
+			var $container = event.data.container;
+			var $eventsBar = $container.find( obj.selectors.eventsBar );
+			var $searchButton = $eventsBar.find( obj.selectors.searchButton );
+
+			if ( $searchButton.hasClass( obj.selectors.searchButtonActiveClass.className() ) ) {
+				var $searchFiltersContainer = $eventsBar.find( obj.selectors.searchFiltersContainer );
+				$searchButton.removeClass( obj.selectors.searchButtonActiveClass.className() );
+				tribe.events.views.accordion.closeAccordion( $searchButton, $searchFiltersContainer );
+			}
+		}
+	};
+
+	/**
 	 * Unbind events for events bar
 	 *
 	 * @since TBD
@@ -490,7 +517,9 @@ tribe.events.views.eventsBar = {};
 	 * @return {void}
 	 */
 	obj.unbindEvents = function() {
-		$document.off( 'resize.tribeEvents', obj.handleResize );
+		$document
+			.off( 'resize.tribeEvents', obj.handleResize )
+			.off( 'click', obj.handleClick );
 	};
 
 	/**
@@ -503,7 +532,9 @@ tribe.events.views.eventsBar = {};
 	 * @return {void}
 	 */
 	obj.bindEvents = function( $container ) {
-		$document.on( 'resize.tribeEvents', { container: $container }, obj.handleResize );
+		$document
+			.on( 'resize.tribeEvents', { container: $container }, obj.handleResize )
+			.on( 'click', { container: $container }, obj.handleClick );
 	};
 
 	/**

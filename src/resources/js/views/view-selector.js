@@ -201,7 +201,7 @@ tribe.events.views.viewSelector = {};
 	};
 
 	/**
-	 * Handle click event on document
+	 * Handles click event on document
 	 *
 	 * @since TBD
 	 *
@@ -219,7 +219,7 @@ tribe.events.views.viewSelector = {};
 
 			if ( $viewSelectorButton.hasClass( obj.selectors.viewSelectorButtonActiveClass.className() ) ) {
 				var $viewSelectorListContainer = $viewSelector.find( obj.selectors.viewSelectorListContainer );
-				$viewSelectorButton.toggleClass( obj.selectors.viewSelectorButtonActiveClass.className() );
+				$viewSelectorButton.removeClass( obj.selectors.viewSelectorButtonActiveClass.className() );
 				tribe.events.views.accordion.closeAccordion( $viewSelectorButton, $viewSelectorListContainer );
 			}
 		}
