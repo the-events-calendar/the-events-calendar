@@ -32,22 +32,6 @@ The Context abstraction is hiding way more complex "locations" (as in "a locatio
 ### The View
 The view will look into the context, understand what's supposed to show and use that information to show the corect events.
 
-In an extremely simplified code one could implement a basis list and month views like this:
-
-```php
-$context = tribe_context();
-
-$view = $context->get( 'view' );
-
-if( 'month' === $view ){
-	$date = $context->get( 'event_date', 'today' );
-	$first_grid_date = Month::calculate_first_cell_date( $date );
-	$final_grid_date = Month::calculate_final_cell_date( $date );
-} else {
-
-}
-```
-
 ## Implementing a View
 
 Code is worth a thousand words, so below is the code of a really simple (and pretty ugly) 3-days View.  
