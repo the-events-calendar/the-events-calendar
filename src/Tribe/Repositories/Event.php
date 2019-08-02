@@ -1562,7 +1562,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 						{$postmeta_table}.post_id = {$wpdb->posts}.ID
 						AND {$postmeta_table}.meta_key = %s
 					)
-			",
+				",
 				$meta_key
 			)
 		);
@@ -1593,7 +1593,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 					)
 				LEFT JOIN {$wpdb->posts} AS {$posts_table}
 					ON {$wpdb->posts}.ID = {$postmeta_table}.meta_value
-			",
+				",
 				$meta_key
 			)
 		);
@@ -1624,7 +1624,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 					)
 				LEFT JOIN {$wpdb->posts} AS {$posts_table}
 					ON {$wpdb->posts}.ID = {$postmeta_table}.meta_value
-			",
+				",
 				$meta_key
 			)
 		);
