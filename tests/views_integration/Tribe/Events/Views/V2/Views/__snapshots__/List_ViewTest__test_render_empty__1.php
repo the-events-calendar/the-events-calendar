@@ -91,13 +91,10 @@
 	<div class="tribe-events-c-events-bar__views">
 	<h3 class="tribe-common-a11y-visual-hide">
 		Event Views Navigation	</h3>
-	<div class="tribe-events-c-view-selector tribe-events-c-view-selector--tabs" data-js="tribe-events-view-selector">
+	<div  class="tribe-events-c-view-selector tribe-events-c-view-selector--tabs"  data-js="tribe-events-view-selector">
 		<button
 			class="tribe-events-c-view-selector__button"
-			aria-controls="tribe-events-view-selector-content"
-			aria-expanded="false"
-			aria-selected="false"
-			data-js="tribe-events-accordion-trigger"
+			data-js="tribe-events-view-selector-button"
 		>
 			<span class="tribe-events-c-view-selector__button-icon tribe-common-svgicon tribe-common-svgicon--list"></span>
 			<span class="tribe-events-c-view-selector__button-text">
@@ -106,7 +103,7 @@
 		<div
 	class="tribe-events-c-view-selector__content"
 	id="tribe-events-view-selector-content"
-	aria-hidden="true"
+	data-js="tribe-events-view-selector-list-container"
 >
 	<ul class="tribe-events-c-view-selector__list">
 					<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--list tribe-events-c-view-selector__list-item--active">
@@ -190,8 +187,8 @@
 					<time datetime="2019-01-01">
 				January 1, 2019			</time>
 				&mdash;
-		<time datetime="2019-07-24">
-			July 24, 2019		</time>
+		<time datetime="2019-08-02">
+			August 2, 2019		</time>
 	</button>
 	<label
 		class="tribe-events-c-top-bar__datepicker-label tribe-common-a11y-visual-hide"
@@ -206,6 +203,7 @@
 		name="tribe-events-views[tribe-bar-search]"
 		value="2019-01-01 09:00:00"
 		tabindex="-1"
+		autocomplete="off"
 	/>
 </div>
 
