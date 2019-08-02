@@ -9,32 +9,27 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.4
+ * @version TBD
  *
+ * @var array $days An array containing the data for each day on the calendar grid, divided by day.
+ *                  Shape `[ <Y-m-d> => [ ...<day_data> ] ]`.
  */
-
-/**
- * Adding this as a temprorary data structure.
- * @todo: This array should contain the month with real events.
- */
-$month = apply_filters( 'tribe_events_views_v2_month_demo_data', [] );
-
 ?>
+
 <div class="tribe-events-calendar-month__body" role="rowgroup">
 
-	<?php // @todo: replace this with the actual month days. Using these for(s) for presentation purposes. ?>
-	<?php for ( $week = 0; $week < 4; $week++ ) : ?>
+	<?php foreach ( array_chunk( $days, 7, true ) as $week ) : ?>
 
 		<div class="tribe-events-calendar-month__week" role="row" data-js="tribe-events-month-grid-row">
 
-			<?php for ( $day = 0; $day < 7; $day++ ) : ?>
+			<?php foreach ( $week as $day_date => $day ) : ?>
 
-				<?php $this->template( 'month/calendar-body/day', [ 'day' => $day, 'week' => $week, 'month' => $month ] ); ?>
+				<?php $this->template( 'month/calendar-body/day', [ 'day_date' => $day_date, 'day' => $day ] ); ?>
 
-			<?php endfor; ?>
+			<?php endforeach; ?>
 
 		</div>
 
-	<?php endfor; ?>
+	<?php endforeach; ?>
 
 </div>

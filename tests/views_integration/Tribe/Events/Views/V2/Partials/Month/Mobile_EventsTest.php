@@ -13,6 +13,8 @@ class Mobile_EventsTest extends HtmlPartialTestCase
 	 * Test static render
 	 */
 	public function test_static_render() {
+		// @todo @fe complete this test with dynamic content.
+		$this->markTestSkipped('Not complete yet!');
 		$this->assertMatchesSnapshot( $this->get_partial_html() );
 	}
 }
