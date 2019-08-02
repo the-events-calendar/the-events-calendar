@@ -46,7 +46,7 @@ class Theme_Compatibility {
 			return false;
 		}
 
-		if ( in_array( $template, $this->get_registered_themes() ) ) {
+		if ( in_array( strtolower( $template ), $this->get_registered_themes() ) ) {
 			return true;
 		}
 
