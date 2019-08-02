@@ -196,8 +196,33 @@ tribe.events.views.viewSelector = {};
 	 *
 	 * @return {void}
 	 */
-	obj.handleClick = function( event ) {
+	obj.handleViewSelectorButtonClick = function( event ) {
 		event.data.target.toggleClass( obj.selectors.viewSelectorButtonActiveClass.className() );
+	};
+
+	/**
+	 * Handle click event on document
+	 *
+	 * @since TBD
+	 *
+	 * @param {Event} event event object for click event
+	 *
+	 * @return {void}
+	 */
+	obj.handleClick = function( event ) {
+		var isParentViewSelector = Boolean( $( event.target ).closest( obj.selectors.viewSelector ).length );
+
+		if ( ! isParentViewSelector ) {
+			var $container = event.data.container;
+			var $viewSelector = $container.find( obj.selectors.viewSelector );
+			var $viewSelectorButton = $viewSelector.find( obj.selectors.viewSelectorButton );
+
+			if ( $viewSelectorButton.hasClass( obj.selectors.viewSelectorButtonActiveClass.className() ) ) {
+				var $viewSelectorListContainer = $viewSelector.find( obj.selectors.viewSelectorListContainer );
+				$viewSelectorButton.toggleClass( obj.selectors.viewSelectorButtonActiveClass.className() );
+				tribe.events.views.accordion.closeAccordion( $viewSelectorButton, $viewSelectorListContainer );
+			}
+		}
 	};
 
 	/**
@@ -223,10 +248,12 @@ tribe.events.views.viewSelector = {};
 	 * @return {void}
 	 */
 	obj.unbindEvents = function( $container ) {
-		$document.off( 'resize.tribeEvents', obj.handleResize );
+		$document
+			.off( 'resize.tribeEvents', obj.handleResize )
+			.off( 'click', obj.handleClick );
 		$container
 			.find( obj.selectors.viewSelectorButton )
-			.off( 'click', obj.handleClick );
+			.off( 'click', obj.handleViewSelectorButtonClick );
 	};
 
 	/**
@@ -241,8 +268,10 @@ tribe.events.views.viewSelector = {};
 	obj.bindEvents = function( $container ) {
 		var $viewSelectorButton = $container.find( obj.selectors.viewSelectorButton );
 
-		$document.on( 'resize.tribeEvents', { container: $container }, obj.handleResize );
-		$viewSelectorButton.on( 'click', { target: $viewSelectorButton }, obj.handleClick );
+		$document
+			.on( 'resize.tribeEvents', { container: $container }, obj.handleResize )
+			.on( 'click', { container: $container }, obj.handleClick );
+		$viewSelectorButton.on( 'click', { target: $viewSelectorButton }, obj.handleViewSelectorButtonClick );
 	};
 
 	/**
