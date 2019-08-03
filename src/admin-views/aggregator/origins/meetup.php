@@ -45,8 +45,8 @@ if ( $missing_meetup_credentials ) :
 	</tr>
 <?php endif; ?>
 
-<tr class="tribe-dependent" data-depends="<?php echo esc_attr( $data_depends ) ?>"
-    data-condition="<?php echo esc_attr( $data_condition ) ?>">
+<tr class="tribe-dependent" data-depends="<?php echo esc_attr( $data_depends ); ?>"
+    data-condition="<?php echo esc_attr( $data_condition ); ?>">
 	<th scope="row">
 		<label for="tribe-ea-field-import_type"><?php echo esc_html( $field->label ); ?></label>
 	</th>

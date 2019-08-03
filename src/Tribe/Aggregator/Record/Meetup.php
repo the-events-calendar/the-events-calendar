@@ -108,7 +108,7 @@ class Tribe__Events__Aggregator__Record__Meetup extends Tribe__Events__Aggregato
 			}
 		}
 
-		$url = $service->api()->domain . 'meetup/' . $key;
+		$url = $api->domain . 'meetup/' . $key;
 		$defaults = array(
 			'referral'  => urlencode( home_url() ),
 			'admin_url' => urlencode( get_admin_url() ),
