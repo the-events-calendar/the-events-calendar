@@ -37,7 +37,7 @@ if ( $missing_meetup_credentials ) :
 					);
 					?>
 				</p>
-				<a class="tribe-ea-eventbrite-button" href="<?php echo esc_url( $meetup_auth_url ); ?>">
+				<a class="tribe-ea-meetup-button tribe-ea-login-button" href="<?php echo esc_url( $meetup_auth_url ); ?>">
 					<?php esc_html_e( 'Log into Meetup', 'the-events-calendar' ); ?>
 				</a>
 			</div>
