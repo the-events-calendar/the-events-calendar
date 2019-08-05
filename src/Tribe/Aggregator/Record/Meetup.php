@@ -90,11 +90,11 @@ class Tribe__Events__Aggregator__Record__Meetup extends Tribe__Events__Aggregato
 	public static function get_auth_url( $args = array() ) {
 		$service = tribe( 'events-aggregator.service' );
 
-		if ( $service->api() instanceof WP_Error ) {
+		$api  = $service->api();
+		if ( $api instanceof WP_Error ) {
 			return '';
 		}
 
-		$api  = $service->api();
 		$key  = $api->key;
 		$key2 = null;
 
