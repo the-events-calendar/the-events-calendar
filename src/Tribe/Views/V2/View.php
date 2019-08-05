@@ -124,6 +124,15 @@ class View implements View_Interface {
 	protected $page_key = 'paged';
 
 	/**
+	 * Whether the View instance should manage the URL
+	 *
+	 * @since TBD
+	 *
+	 * @var bool
+	 */
+	protected $should_manage_url = true;
+
+	/**
 	 * Builds a View instance in response to a REST request to the Views endpoint.
 	 *
 	 * @since 4.9.2
@@ -204,12 +213,13 @@ class View implements View_Interface {
 				)
 			);
 
+		/** @var View $view */
 		$view = static::make( $slug, $context );
 
 		$view->url = $url_object;
 
 		// Setup whether this view should manage URL or not, based on the Rest Request Sent.
-		$view->get_template()->set( 'should_manage_url', tribe_is_truthy( Arr::get( $params, 'should_manage_url', true ) ) );
+		$view->should_manage_url = tribe_is_truthy( Arr::get( $params, 'should_manage_url', true ) );
 
 		return $view;
 	}
@@ -897,17 +907,20 @@ class View implements View_Interface {
 	 */
 	protected function setup_template_vars() {
 		$template_vars = [
-			'title'    => wp_title( null, false ),
-			'events'   => $this->repository->all(),
-			'url'      => $this->get_url( true ),
-			'prev_url' => $this->prev_url( true ),
-			'next_url' => $this->next_url( true ),
-			'bar'      => [
+			'title'             => wp_title( null, false ),
+			'events'            => $this->repository->all(),
+			'url'               => $this->get_url( true ),
+			'prev_url'          => $this->prev_url( true ),
+			'next_url'          => $this->next_url( true ),
+			'bar'               => [
 				'keyword' => $this->context->get( 'keyword', '' ),
 				'date'    => $this->context->get( 'event_date', '' ),
 			],
-			'today' => $this->context->get( 'today', 'today' ),
-			'now'   => $this->context->get( 'now', 'now' ),
+			'today'             => $this->context->get( 'today', 'today' ),
+			'now'               => $this->context->get( 'now', 'now' ),
+			'rest_url'          => tribe( Rest_Endpoint::class )->get_url(),
+			'rest_nonce'        => wp_create_nonce( 'wp_rest' ),
+			'should_manage_url' => $this->should_manage_url,
 		];
 
 		return $template_vars;
@@ -995,5 +1008,12 @@ class View implements View_Interface {
 	 */
 	public function set_template_slug( $template_slug ) {
 		$this->template_slug = $template_slug;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_template_vars() {
+		return $this->filter_template_vars( $this->setup_template_vars() );
 	}
 }
