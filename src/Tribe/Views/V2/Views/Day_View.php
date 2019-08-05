@@ -170,4 +170,13 @@ class Day_View extends View {
 
 		return $args;
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	protected function setup_template_vars() {
+		$template_vars = parent::setup_template_vars();
+
+		return $template_vars;
+	}
 }
