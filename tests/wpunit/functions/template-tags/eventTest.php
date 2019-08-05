@@ -251,7 +251,7 @@ class eventTest extends WPTestCase {
 
 		$this->assertEquals( [], $wo_organizer_event->organizers->all() );
 		$this->assertEquals( [ tribe_get_organizer( $organizer_1 ) ], tribe_get_event( $w_organizer_1 )->organizers->all() );
-		$this->assertEquals( [
+		$this->assertEqualSets( [
 			tribe_get_organizer( $organizer_1 ),
 			tribe_get_organizer( $organizer_2 )
 		], tribe_get_event( $w_both_organizers )->organizers->all() );

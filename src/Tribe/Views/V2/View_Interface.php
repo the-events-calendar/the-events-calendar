@@ -157,4 +157,13 @@ interface View_Interface  extends View_Url_Provider_Interface, Repository_User_I
 	 * @param string $slug The slug the View should use to locate its template.
 	 */
 	public function set_template_slug( $slug );
+
+	/**
+	 * Returns the View template variables, as they would be set up and filtered before rendering the template.
+	 *
+	 * @since TBD
+	 *
+	 * @return array An associative array of the View template variables.
+	 */
+	public function get_template_vars();
 }

@@ -3,13 +3,13 @@
  * View: Top Bar - Date Picker
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/views/v2/top-bar/datepicker.php
+ * [your-theme]/tribe/events/views/v2/day/top-bar/datepicker.php
  *
  * See more documentation about our views templating system.
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.5
+ * @version TBD
  *
  */
 
@@ -45,5 +45,6 @@ $selected_date_label = date_i18n( tribe_get_date_format( true ), $selected_datet
 		name="tribe-events-views[tribe-bar-search]"
 		value="<?php echo esc_attr( tribe_events_template_var( [ 'bar', 'date' ], '' ) ); ?>"
 		tabindex="-1"
+		autocomplete="off"
 	/>
 </div>

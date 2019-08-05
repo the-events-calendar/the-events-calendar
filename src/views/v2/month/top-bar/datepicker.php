@@ -3,13 +3,13 @@
  * View: Top Bar - Date Picker
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/views/v2/top-bar/datepicker.php
+ * [your-theme]/tribe/events/views/v2/month/top-bar/datepicker.php
  *
  * See more documentation about our views templating system.
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.5
+ * @version TBD
  *
  * @var string $grid_date The current calendar grid date in the `Y-m-d` format.
  * @var string $formatted_grid_date The current calendar grid date in the format specified by the "Month and year
@@ -40,5 +40,6 @@
 		name="tribe-events-views[tribe-bar-search]"
 		value="<?php echo esc_attr( tribe_events_template_var( [ 'bar', 'date' ], '' ) ); ?>"
 		tabindex="-1"
+		autocomplete="off"
 	/>
 </div>
