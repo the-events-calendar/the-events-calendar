@@ -247,7 +247,6 @@ class Month_View extends View {
 		$template_vars['formatted_grid_date'] = $grid_date->format( $month_and_year_format );
 		$template_vars['events']              = $grid_days;
 		$template_vars['days']                = $days;
-		$template_vars['should_manage_url']  = (int) $this->template->get( 'should_manage_url', true );
 
 		return $template_vars;
 	}

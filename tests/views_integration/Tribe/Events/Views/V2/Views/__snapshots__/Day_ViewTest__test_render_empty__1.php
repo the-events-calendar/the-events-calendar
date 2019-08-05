@@ -17,7 +17,7 @@
 		<script
 	data-js="tribe-events-view-data"
 	type="application/json"
->{"slug":"day","prev_url":"","next_url":"","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Day_View","view_slug":"day","view":{},"title":"","events":[],"url":"http:\\/\\/test.tri.be\\/events\\/today\\/?tribe-bar-date=2019-01-01 09:00:00","bar":{"keyword":"","date":"2019-01-01 09:00:00"},"today":"2019-01-01 09:00:00","now":"2019-01-01 09:00:00"}</script>
+>{"slug":"day","prev_url":"","next_url":"","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Day_View","view_slug":"day","view":{},"title":"","events":[],"url":"http:\\/\\/test.tri.be\\/events\\/today\\/?tribe-bar-date=2019-01-01 09:00:00","bar":{"keyword":"","date":"2019-01-01 09:00:00"},"today":"2019-01-01 09:00:00","now":"2019-01-01 09:00:00","rest_url":"http:\\/\\/test.tri.be\\/index.php?rest_route=\\/tribe\\/views\\/v2\\/html","rest_nonce":"2ab7cc6b39","should_manage_url":true}</script>
 
 		<header class="tribe-events-header">
 			<div
