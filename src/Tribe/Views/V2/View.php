@@ -380,8 +380,6 @@ class View implements View_Interface {
 
 		$repository_args = $this->filter_repository_args( $this->setup_repository_args() );
 
-		$this->setup_repository_args();
-
 		$this->setup_the_loop( $repository_args );
 
 		$template_vars = $this->filter_template_vars( $this->setup_template_vars() );
