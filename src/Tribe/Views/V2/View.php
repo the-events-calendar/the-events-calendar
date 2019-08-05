@@ -910,7 +910,7 @@ class View implements View_Interface {
 			'now'               => $this->context->get( 'now', 'now' ),
 			'rest_url'          => tribe( Rest_Endpoint::class )->get_url(),
 			'rest_nonce'        => wp_create_nonce( 'wp_rest' ),
-			'should_manage_url' => (int) $this->template->get( 'should_manage_url', true );
+			'should_manage_url' => (int) $this->template->get( 'should_manage_url', true )
 		];
 
 		return $template_vars;
