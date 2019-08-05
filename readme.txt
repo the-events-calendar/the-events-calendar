@@ -215,9 +215,9 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
-= [4.9.6] 2019-08-05 =
+= [4.9.6] 2019-08-07 =
 
-* Fix -
+* Fix - [PLACEHOLDER-MEETUP-CHANGELOG]
 
 = [4.9.5] 2019-07-25 =
 
