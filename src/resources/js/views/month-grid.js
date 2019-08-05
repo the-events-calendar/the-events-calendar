@@ -369,7 +369,7 @@ tribe.events.views.monthGrid = {};
 	 *
 	 * @since 4.9.5
 	 *
-	 * @param  {Event}       event    event object for 'afterSetup.tribeEvents' event
+	 * @param  {Event}       event    event object for 'beforeAjaxSuccess.tribeEvents' event
 	 * @param  {jqXHR}       jqXHR    Request object
 	 * @param  {PlainObject} settings Settings that this request was made with
 	 *
