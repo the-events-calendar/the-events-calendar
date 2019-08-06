@@ -5,7 +5,7 @@ defined( 'WPINC' ) or die;
 class Tribe__Events__Aggregator__API__Origins extends Tribe__Events__Aggregator__API__Abstract {
 
 	/**
-	 * @since TBD
+	 * @since 4.9.6
 	 */
 	const VERSION = '1.1.0';
 
@@ -251,7 +251,7 @@ class Tribe__Events__Aggregator__API__Origins extends Tribe__Events__Aggregator_
 	 *
 	 * The result might be cached from a previous request.
 	 *
-	 * @since TBD
+	 * @since 4.9.6
 	 *
 	 * @param string|null $key The key to fetch the data for.
 	 *

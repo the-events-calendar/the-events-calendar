@@ -32,7 +32,7 @@ class Tribe__Events__Aggregator__Service {
 	/**
 	 * The name of the transient containing the Meetup authorization response.
 	 *
-	 * @since TBD
+	 * @since 4.9.6
 	 *
 	 * @var string
 	 */
@@ -865,7 +865,7 @@ class Tribe__Events__Aggregator__Service {
 	/**
 	 * Get Meetup Arguments for EA
 	 *
-	 * @since TBD
+	 * @since 4.9.6
 	 *
 	 * @return mixed|void
 	 */
@@ -879,7 +879,7 @@ class Tribe__Events__Aggregator__Service {
 		/**
 		 *	Allow filtering for which params we are sending to EA for Token callback
 		 *
-		 * @since TBD
+		 * @since 4.9.6
 		 *
 		 * @param array $args Which arguments are sent to Token Callback
 		 */
@@ -889,7 +889,7 @@ class Tribe__Events__Aggregator__Service {
 	/**
 	 * Fetch Meetup Extended Token from the Service.
 	 *
-	 * @since TBD
+	 * @since 4.9.6
 	 *
 	 * @param bool $request_security_key Whether to explicitly request the Meetup security key in the response or not.
 	 *
@@ -929,7 +929,7 @@ class Tribe__Events__Aggregator__Service {
 	/**
 	 * Disconnect Meetup Token on EA
 	 *
-	 * @since TBD
+	 * @since 4.9.6
 	 *
 	 * @return stdClass|WP_Error
 	 */

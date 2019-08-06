@@ -179,7 +179,7 @@ class Tribe__Events__Aggregator__Settings {
 	/**
 	 * Hooked to current_screen, this method identifies whether or not eb credentials should be cleared
 	 *
-	 * @since TBD
+	 * @since 4.9.6
 	 *
 	 * @param WP_Screen $screen The current screen instance.
 	 */
@@ -210,7 +210,7 @@ class Tribe__Events__Aggregator__Settings {
 	/**
 	 * Get EB Security Key
 	 *
-	 * @since TBD
+	 * @since 4.9.6
 	 *
 	 */
 	public function get_meetup_security_key() {
@@ -224,7 +224,7 @@ class Tribe__Events__Aggregator__Settings {
 	/**
 	 * Check if Security Key
 	 *
-	 * @since TBD
+	 * @since 4.9.6
 	 *
 	 * @return bool
 	 *
@@ -238,7 +238,7 @@ class Tribe__Events__Aggregator__Settings {
 	/**
 	 * Handle Checking if there is a Security Key and Saving It
 	 *
-	 * @since TBD
+	 * @since 4.9.6
 	 *
 	 * @param object $eb_authorized object from EA service for Meetup Validation
 	 *
@@ -267,10 +267,7 @@ class Tribe__Events__Aggregator__Settings {
 	/**
 	 * Disconnect Meetup from EA
 	 *
-	 * @since TBD
-	 *
-	 * @return void
-	 *
+	 * @since 4.9.6
 	 */
 	public function clear_meetup_credentials() {
 
@@ -286,9 +283,9 @@ class Tribe__Events__Aggregator__Settings {
 	 *
 	 * @param string $url
 	 *
-	 * @since TBD
+	 * @since 4.9.6
 	 *
-	 * @return string
+	 * @return string The URL to issue a Meeetup disconnect request to EA Service.
 	 */
 	public function build_disconnect_meetup_url( $url ) {
 		return wp_nonce_url(
@@ -304,7 +301,7 @@ class Tribe__Events__Aggregator__Settings {
 	/**
 	 * Check if the Meetup API credentials are connected in EA and correctly set.
 	 *
-	 * @since TBD
+	 * @since 4.9.6
 	 *
 	 * @return bool Whether the Meetup credentials are valid or not.
 	 */

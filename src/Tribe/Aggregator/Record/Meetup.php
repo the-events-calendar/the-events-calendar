@@ -81,7 +81,7 @@ class Tribe__Events__Aggregator__Record__Meetup extends Tribe__Events__Aggregato
 	/**
 	 * Returns the Meetup authorization token generation URL.
 	 *
-	 * @since TBD
+	 * @since 4.9.6
 	 *
 	 * @param array $args
 	 *
