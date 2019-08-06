@@ -59,7 +59,14 @@
 	}
 
 	.tribe-events-c-top-bar__datepicker {
+		margin-right: -66px; /* mobile search and view selector buttons have 66px width */
+		padding-right: 66px; /* offset 66px negative margin */
 		position: relative;
+
+		@media (--viewport-medium) {
+			margin: 0;
+			padding: 0;
+		}
 	}
 
 	.tribe-events-c-top-bar__datepicker-button {

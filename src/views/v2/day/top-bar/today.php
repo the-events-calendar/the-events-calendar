@@ -3,7 +3,7 @@
  * View: Top Bar - Today
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/views/v2/top-bar/today.php
+ * [your-theme]/tribe/events/views/v2/day/top-bar/today.php
  *
  * See more documentation about our views templating system.
  *

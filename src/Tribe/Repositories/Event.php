@@ -1554,6 +1554,8 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 
 		$postmeta_table = "orderby_{$meta_alias}_meta";
 
+		$filter_id = 'order_by_date';
+
 		$this->filter_query->join(
 			$wpdb->prepare(
 				"
@@ -1562,12 +1564,15 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 						{$postmeta_table}.post_id = {$wpdb->posts}.ID
 						AND {$postmeta_table}.meta_key = %s
 					)
-			",
+				",
 				$meta_key
-			)
+			),
+			$filter_id,
+			true
 		);
-		$this->filter_query->orderby( $meta_alias );
-		$this->filter_query->fields( "MIN( {$postmeta_table}.meta_value ) AS {$meta_alias}" );
+
+		$this->filter_query->orderby( $meta_alias, $filter_id, true );
+		$this->filter_query->fields( "MIN( {$postmeta_table}.meta_value ) AS {$meta_alias}", $filter_id, true );
 	}
 
 	/**
@@ -1593,12 +1598,14 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 					)
 				LEFT JOIN {$wpdb->posts} AS {$posts_table}
 					ON {$wpdb->posts}.ID = {$postmeta_table}.meta_value
-			",
+				",
 				$meta_key
 			)
 		);
-		$this->filter_query->orderby( 'organizer' );
-		$this->filter_query->fields( "{$posts_table}.post_title AS organizer" );
+
+		$filter_id = 'order_by_organizer';
+		$this->filter_query->orderby( 'organizer', $filter_id, true );
+		$this->filter_query->fields( "{$posts_table}.post_title AS organizer", $filter_id, true );
 	}
 
 	/**
@@ -1624,12 +1631,14 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 					)
 				LEFT JOIN {$wpdb->posts} AS {$posts_table}
 					ON {$wpdb->posts}.ID = {$postmeta_table}.meta_value
-			",
+				",
 				$meta_key
 			)
 		);
-		$this->filter_query->orderby( 'venue' );
-		$this->filter_query->fields( "{$posts_table}.post_title AS venue" );
+
+		$filter_id = 'order_by_venue';
+		$this->filter_query->orderby( 'venue', $filter_id, true );
+		$this->filter_query->fields( "{$posts_table}.post_title AS venue", $filter_id, true );
 	}
 
 	/**

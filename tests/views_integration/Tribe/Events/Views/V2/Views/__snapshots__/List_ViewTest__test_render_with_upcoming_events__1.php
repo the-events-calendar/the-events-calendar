@@ -18,7 +18,7 @@
 		<script
 	data-js="tribe-events-view-data"
 	type="application/json"
->{"slug":"list","prev_url":"http:\\/\\/test.tri.be\\/events\\/list\\/?tribe-bar-date=2019-01-01+09%3A00%3A00&eventDisplay=past","next_url":"http:\\/\\/test.tri.be\\/events\\/list\\/page\\/2\\/","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_slug":"list","view":{},"title":"","events":[{"ID":7,"post_author":"0","post_date":"2019-06-11 13:59:35","post_date_gmt":"2019-06-11 13:59:35","post_content":"","post_title":"Test Event - +9 days","post_excerpt":"","post_status":"publish","comment_status":"open","ping_status":"closed","post_password":"","post_name":"test-event-9-days-2","to_ping":"","pinged":"","post_modified":"2019-06-11 13:59:35","post_modified_gmt":"2019-06-11 13:59:35","post_content_filtered":"","post_parent":0,"guid":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-9-days-2","menu_order":0,"post_type":"tribe_events","post_mime_type":"","comment_count":"0","filter":"raw","start_date":"2019-06-20 13:01:20","start_date_utc":"2019-06-20 13:01:20","end_date":"2019-06-20 17:01:20","end_date_utc":"2019-06-20 17:01:20","dates":{"start":{"date":"2019-06-20 13:01:20.000000","timezone_type":3,"timezone":"UTC"},"start_utc":{"date":"2019-06-20 13:01:20.000000","timezone_type":3,"timezone":"UTC"},"end":{"date":"2019-06-20 17:01:20.000000","timezone_type":3,"timezone":"UTC"},"end_utc":{"date":"2019-06-20 17:01:20.000000","timezone_type":3,"timezone":"UTC"}},"timezone":"UTC+0","duration":0,"multiday":false,"all_day":false,"starts_this_week":null,"ends_this_week":null,"this_week_duration":null,"happens_this_week":null,"featured":true,"cost":"","organizers":{},"venues":{},"thumbnail":{},"permalink":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-9-days-2"},{"ID":8,"post_author":"1","post_date":"2019-06-11 13:59:35","post_date_gmt":"2019-06-11 13:59:35","post_content":"","post_title":"Single Event 1","post_excerpt":"","post_status":"publish","comment_status":"open","ping_status":"closed","post_password":"","post_name":"single-event-1","to_ping":"","pinged":"","post_modified":"2019-06-11 13:59:35","post_modified_gmt":"2019-06-11 13:59:35","post_content_filtered":"","post_parent":0,"guid":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-9-days-2","menu_order":0,"post_type":"tribe_events","post_mime_type":"","comment_count":"0","filter":"raw","start_date":"2019-06-20 13:04:08","start_date_utc":"2019-06-20 13:04:08","end_date":"2019-06-20 17:04:08","end_date_utc":"2019-06-20 17:04:08","dates":{"start":{"date":"2019-06-20 13:04:08.000000","timezone_type":3,"timezone":"UTC"},"start_utc":{"date":"2019-06-20 13:04:08.000000","timezone_type":3,"timezone":"UTC"},"end":{"date":"2019-06-20 17:04:08.000000","timezone_type":3,"timezone":"UTC"},"end_utc":{"date":"2019-06-20 17:04:08.000000","timezone_type":3,"timezone":"UTC"}},"timezone":"UTC+0","duration":0,"multiday":false,"all_day":false,"starts_this_week":null,"ends_this_week":null,"this_week_duration":null,"happens_this_week":null,"featured":false,"cost":"","organizers":{},"venues":{},"thumbnail":{},"permalink":"http:\\/\\/test.tri.be\\/?tribe_events=single-event-1"}],"url":"http:\\/\\/test.tri.be\\/events\\/list\\/","bar":{"keyword":"","date":""},"today":"2019-01-01 09:00:00","now":"2019-01-01 09:00:00"}</script>
+>{"slug":"list","prev_url":"http:\\/\\/test.tri.be\\/events\\/list\\/?tribe-bar-date=2019-01-01+09%3A00%3A00&eventDisplay=past","next_url":"http:\\/\\/test.tri.be\\/events\\/list\\/page\\/2\\/","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_slug":"list","view":{},"title":"","events":[{"ID":7,"post_author":"0","post_date":"2019-06-11 13:59:35","post_date_gmt":"2019-06-11 13:59:35","post_content":"","post_title":"Test Event - +9 days","post_excerpt":"","post_status":"publish","comment_status":"open","ping_status":"closed","post_password":"","post_name":"test-event-9-days-2","to_ping":"","pinged":"","post_modified":"2019-06-11 13:59:35","post_modified_gmt":"2019-06-11 13:59:35","post_content_filtered":"","post_parent":0,"guid":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-9-days-2","menu_order":0,"post_type":"tribe_events","post_mime_type":"","comment_count":"0","filter":"raw","start_date":"2019-06-20 13:01:20","start_date_utc":"2019-06-20 13:01:20","end_date":"2019-06-20 17:01:20","end_date_utc":"2019-06-20 17:01:20","dates":{"start":{"date":"2019-06-20 13:01:20.000000","timezone_type":3,"timezone":"UTC"},"start_utc":{"date":"2019-06-20 13:01:20.000000","timezone_type":3,"timezone":"UTC"},"end":{"date":"2019-06-20 17:01:20.000000","timezone_type":3,"timezone":"UTC"},"end_utc":{"date":"2019-06-20 17:01:20.000000","timezone_type":3,"timezone":"UTC"}},"timezone":"UTC+0","duration":0,"multiday":false,"all_day":false,"starts_this_week":null,"ends_this_week":null,"this_week_duration":null,"happens_this_week":null,"featured":true,"cost":"","organizers":{},"venues":{},"thumbnail":{},"permalink":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-9-days-2"},{"ID":8,"post_author":"1","post_date":"2019-06-11 13:59:35","post_date_gmt":"2019-06-11 13:59:35","post_content":"","post_title":"Single Event 1","post_excerpt":"","post_status":"publish","comment_status":"open","ping_status":"closed","post_password":"","post_name":"single-event-1","to_ping":"","pinged":"","post_modified":"2019-06-11 13:59:35","post_modified_gmt":"2019-06-11 13:59:35","post_content_filtered":"","post_parent":0,"guid":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-9-days-2","menu_order":0,"post_type":"tribe_events","post_mime_type":"","comment_count":"0","filter":"raw","start_date":"2019-06-20 13:04:08","start_date_utc":"2019-06-20 13:04:08","end_date":"2019-06-20 17:04:08","end_date_utc":"2019-06-20 17:04:08","dates":{"start":{"date":"2019-06-20 13:04:08.000000","timezone_type":3,"timezone":"UTC"},"start_utc":{"date":"2019-06-20 13:04:08.000000","timezone_type":3,"timezone":"UTC"},"end":{"date":"2019-06-20 17:04:08.000000","timezone_type":3,"timezone":"UTC"},"end_utc":{"date":"2019-06-20 17:04:08.000000","timezone_type":3,"timezone":"UTC"}},"timezone":"UTC+0","duration":0,"multiday":false,"all_day":false,"starts_this_week":null,"ends_this_week":null,"this_week_duration":null,"happens_this_week":null,"featured":false,"cost":"","organizers":{},"venues":{},"thumbnail":{},"permalink":"http:\\/\\/test.tri.be\\/?tribe_events=single-event-1"}],"url":"http:\\/\\/test.tri.be\\/events\\/list\\/","bar":{"keyword":"","date":""},"today":"2019-01-01 09:00:00","now":"2019-01-01 09:00:00","rest_url":"http:\\/\\/test.tri.be\\/index.php?rest_route=\\/tribe\\/views\\/v2\\/html","rest_nonce":"2ab7cc6b39","should_manage_url":true}</script>
 
 		<header class="tribe-events-header">
 			<div
@@ -91,13 +91,10 @@
 	<div class="tribe-events-c-events-bar__views">
 	<h3 class="tribe-common-a11y-visual-hide">
 		Event Views Navigation	</h3>
-	<div class="tribe-events-c-view-selector tribe-events-c-view-selector--tabs" data-js="tribe-events-view-selector">
+	<div  class="tribe-events-c-view-selector tribe-events-c-view-selector--tabs"  data-js="tribe-events-view-selector">
 		<button
 			class="tribe-events-c-view-selector__button"
-			aria-controls="tribe-events-view-selector-content"
-			aria-expanded="false"
-			aria-selected="false"
-			data-js="tribe-events-accordion-trigger"
+			data-js="tribe-events-view-selector-button"
 		>
 			<span class="tribe-events-c-view-selector__button-icon tribe-common-svgicon tribe-common-svgicon--list"></span>
 			<span class="tribe-events-c-view-selector__button-text">
@@ -106,7 +103,7 @@
 		<div
 	class="tribe-events-c-view-selector__content"
 	id="tribe-events-view-selector-content"
-	aria-hidden="true"
+	data-js="tribe-events-view-selector-list-container"
 >
 	<ul class="tribe-events-c-view-selector__list">
 					<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--list tribe-events-c-view-selector__list-item--active">
@@ -206,6 +203,7 @@
 		name="tribe-events-views[tribe-bar-search]"
 		value=""
 		tabindex="-1"
+		autocomplete="off"
 	/>
 </div>
 

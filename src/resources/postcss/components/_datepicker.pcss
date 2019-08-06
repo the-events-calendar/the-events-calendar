@@ -27,7 +27,8 @@
 			color: var(--color-text-primary);
 			font-size: var(--font-size-0);
 			font-weight: var(--font-weight-regular);
-			padding: 0 0 var(--spacer-2) 0;
+			padding: 0;
+			width: var(--grid-width-1-of-7);
 		}
 
 		.datepicker-switch,
@@ -114,7 +115,8 @@
 		.day {
 			@mixin desktop-body-1;
 
-			padding: 11px 15px;
+			padding: 11px 0;
+			width: 48px;
 
 			&.old {
 				color: var(--color-text-disabled);
