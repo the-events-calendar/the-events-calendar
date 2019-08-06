@@ -1,9 +1,9 @@
 <?php
-$indicator_icons = array(
-	'good' => 'marker',
+$indicator_icons = [
+	'good'    => 'marker',
 	'warning' => 'warning',
-	'bad' => 'dismiss',
-);
+	'bad'     => 'dismiss',
+];
 
 $show_third_party_accounts = ! is_network_admin();
 ?>
@@ -20,19 +20,19 @@ $show_third_party_accounts = ! is_network_admin();
 		$ea_active = false;
 		if ( tribe( 'events-aggregator.main' )->is_service_active() ) {
 			$indicator = 'good';
-			$text = __( 'Your license is valid', 'the-events-calendar' );
+			$text      = __( 'Your license is valid', 'the-events-calendar' );
 			$ea_active = true;
 		} else {
 			$service_status = tribe( 'events-aggregator.service' )->api()->get_error_code();
 
 			$indicator = 'bad';
 			if ( 'core:aggregator:invalid-service-key' == $service_status ) {
-				$text = __( 'You do not have a license', 'the-events-calendar' );
-				$notes = '<a href="https://theeventscalendar.com/wordpress-event-aggregator/?utm_source=importsettings&utm_medium=plugin-tec&utm_campaign=in-app">';
+				$text   = __( 'You do not have a license', 'the-events-calendar' );
+				$notes  = '<a href="https://theeventscalendar.com/wordpress-event-aggregator/?utm_source=importsettings&utm_medium=plugin-tec&utm_campaign=in-app">';
 				$notes .= esc_html__( 'Buy Event Aggregator to access more event sources and automatic imports!', 'the-events-calendar' );
 				$notes .= '</a>';
 			} else {
-				$text = __( 'Your license is invalid', 'the-events-calendar' );
+				$text  = __( 'Your license is invalid', 'the-events-calendar' );
 				$notes = '<a href="' . esc_url( Tribe__Settings::instance()->get_url( array( 'tab' => 'licenses' ) ) ) . '">' . esc_html__( 'Check your license key', 'the-events-calendar' ) . '</a>';
 			}
 		}
@@ -41,7 +41,7 @@ $show_third_party_accounts = ! is_network_admin();
 			<td class="label"><?php esc_html_e( 'License Key', 'the-events-calendar' ); ?></td>
 			<td class="indicator <?php esc_attr_e( $indicator ); ?>"><span class="dashicons dashicons-<?php echo esc_attr( $indicator_icons[ $indicator ] ); ?>"></span></td>
 			<td><?php echo esc_html( $text ); ?></td>
-			<td><?php echo $notes; ?></td>
+			<td><?php echo $notes; // Escaping handled above. ?></td>
 		</tr>
 		<?php
 		// if EA is not active, bail out of the rest of this
@@ -50,20 +50,20 @@ $show_third_party_accounts = ! is_network_admin();
 			return ob_get_clean();
 		}
 
-		$service = tribe( 'events-aggregator.service' );
-		$import_limit = $service->get_limit( 'import' );
+		$service          = tribe( 'events-aggregator.service' );
+		$import_limit     = $service->get_limit( 'import' );
 		$import_available = $service->get_limit_remaining();
-		$import_count = $service->get_limit_usage();
+		$import_count     = $service->get_limit_usage();
 
 		$indicator = 'good';
-		$notes = '&nbsp;';
+		$notes     = '&nbsp;';
 
 		if ( 0 === $import_limit || $import_count >= $import_limit ) {
 			$indicator = 'bad';
-			$notes = esc_html__( 'You have reached your daily import limit. Scheduled imports will be paused until tomorrow.', 'the-events-calendar' );
+			$notes     = esc_html__( 'You have reached your daily import limit. Scheduled imports will be paused until tomorrow.', 'the-events-calendar' );
 		} elseif ( $import_count / $import_limit >= 0.8 ) {
 			$indicator = 'warning';
-			$notes = esc_html__( 'You are approaching your daily import limit. You may want to adjust your Scheduled Import frequencies.', 'the-events-calendar' );
+			$notes     = esc_html__( 'You are approaching your daily import limit. You may want to adjust your Scheduled Import frequencies.', 'the-events-calendar' );
 		}
 
 		$text = sprintf( // import count and limit
@@ -77,7 +77,7 @@ $show_third_party_accounts = ! is_network_admin();
 			<td class="label"><?php esc_html_e( 'Current usage', 'the-events-calendar' ); ?></td>
 			<td class="indicator <?php esc_attr_e( $indicator ); ?>"><span class="dashicons dashicons-<?php echo esc_attr( $indicator_icons[ $indicator ] ); ?>"></span></td>
 			<td><?php echo esc_html( $text ); ?></td>
-			<td><?php echo $notes; ?></td>
+			<td><?php echo $notes;  // Escaping handled above. ?></td>
 		</tr>
 	</tbody>
 </table>
@@ -91,15 +91,15 @@ $show_third_party_accounts = ! is_network_admin();
 	<tbody>
 		<?php
 		$indicator = 'good';
-		$notes = '&nbsp;';
+		$notes     = '&nbsp;';
 
 		$ea_server = tribe( 'events-aggregator.service' )->api()->domain;
-		$up = tribe( 'events-aggregator.service' )->get( 'status/up' );
+		$up        = tribe( 'events-aggregator.service' )->get( 'status/up' );
 
 		if ( ! $up || is_wp_error( $up ) ) {
 			$indicator = 'bad';
 			/* translators: %s: Event Aggregator Server URL */
-			$text = sprintf( __( 'Not connected to %s', 'the-events-calendar' ), $ea_server );
+			$text  = sprintf( __( 'Not connected to %s', 'the-events-calendar' ), $ea_server );
 			$notes = esc_html__( 'The server is not currently responding', 'the-events-calendar' );
 		} elseif ( is_object( $up ) && is_object( $up->data ) && isset( $up->data->status ) && 400 <= $up->data->status ) {
 			// this is a rare condition that should never happen
@@ -109,7 +109,7 @@ $show_third_party_accounts = ! is_network_admin();
 			/* translators: %s: Event Aggregator Server URL */
 			$text = sprintf( __( 'Not connected to %s', 'the-events-calendar' ), $ea_server );
 
-			$notes = __( 'The server is responding with an error:', 'the-events-calendar' );
+			$notes  = __( 'The server is responding with an error:', 'the-events-calendar' );
 			$notes .= '<pre>';
 			$notes .= esc_html( $up->message );
 			$notes .= '</pre>';
@@ -133,8 +133,8 @@ $show_third_party_accounts = ! is_network_admin();
 		// @todo add API request for pingback check
 		if ( defined( 'DISABLE_WP_CRON' ) && true === DISABLE_WP_CRON ) {
 			$indicator = 'warning';
-			$text = __( 'WP Cron not enabled', 'the-events-calendar' );
-			$notes = esc_html__( 'Scheduled imports may not run reliably', 'the-events-calendar' );
+			$text      = __( 'WP Cron not enabled', 'the-events-calendar' );
+			$notes     = esc_html__( 'Scheduled imports may not run reliably', 'the-events-calendar' );
 		} else {
 			$text = __( 'WP Cron enabled', 'the-events-calendar' );
 		}
@@ -150,18 +150,18 @@ $show_third_party_accounts = ! is_network_admin();
 </table>
 
 <?php if ( $show_third_party_accounts ) : ?>
-    <table class="event-aggregator-status">
-        <thead>
-        <tr class="table-heading">
-            <th colspan="4"><?php esc_html_e( 'Third Party Accounts', 'the-events-calendar' ); ?></th>
-        </tr>
-        </thead>
-        <tbody>
+	<table class="event-aggregator-status">
+		<thead>
+		<tr class="table-heading">
+			<th colspan="4"><?php esc_html_e( 'Third Party Accounts', 'the-events-calendar' ); ?></th>
+		</tr>
+		</thead>
+		<tbody>
 		<?php
 		// Eventbrite status section
 		$indicator = 'good';
-		$notes = '&nbsp;';
-		$text = 'Connected';
+		$notes     = '&nbsp;';
+		$text      = 'Connected';
 
 		if ( tribe( 'events-aggregator.main' )->api( 'origins' )->is_oauth_enabled( 'eventbrite' ) ) {
 			if ( ! tribe( 'events-aggregator.settings' )->has_eb_security_key() ) {
@@ -176,36 +176,41 @@ $show_third_party_accounts = ! is_network_admin();
 			$notes = esc_html__( 'The service has disabled oAuth. Some types of events may not import.', 'the-events-calendar' );
 		}
 		?>
-        <tr>
-            <td class="label">
-                <img src="<?php echo esc_url( tribe_events_resource_url( 'images/aggregator/eventbrite.png' ) ); ?>" /><span><?php esc_html_e( 'Eventbrite', 'the-events-calendar' ); ?></span>
-            </td>
-            <td class="indicator <?php esc_attr_e( $indicator ); ?>"><span class="dashicons dashicons-<?php echo esc_attr( $indicator_icons[ $indicator ] ); ?>"></span></td>
-            <td><?php echo esc_html( $text ); ?></td>
-            <td><?php echo $notes; ?></td>
-        </tr>
+		<tr>
+			<td class="label">
+				<img src="<?php echo esc_url( tribe_events_resource_url( 'images/aggregator/eventbrite.png' ) ); ?>" /><span><?php esc_html_e( 'Eventbrite', 'the-events-calendar' ); ?></span>
+			</td>
+			<td class="indicator <?php esc_attr_e( $indicator ); ?>"><span class="dashicons dashicons-<?php echo esc_attr( $indicator_icons[ $indicator ] ); ?>"></span></td>
+			<td><?php echo esc_html( $text ); ?></td>
+			<td><?php echo $notes; // Escaping handled above. ?></td>
+		</tr>
 		<?php
 		// Meetup status section
 		$indicator = 'good';
-		$notes = '&nbsp;';
-		$text = __( 'API key entered', 'the-events-calendar' );
-		$meetup_api_key = tribe_get_option( 'meetup_api_key' );
-		if ( ! $meetup_api_key ) {
+		$notes     = '&nbsp;';
+		$text      = 'Connected';
+
+		if ( tribe( 'events-aggregator.main' )->api( 'origins' )->is_oauth_enabled( 'meetup' ) ) {
+			if ( ! tribe( 'events-aggregator.settings' )->has_meetup_security_key() ) {
+				$indicator = 'warning';
+				$text = __( 'You have not connected Event Aggregator to Meetup', 'the-events-calendar' );
+				$meetup_auth_url = Tribe__Events__Aggregator__Record__Meetup::get_auth_url( array( 'back' => 'settings' ) );
+				$notes = '<a href="' . esc_url( $meetup_auth_url ). '">' . esc_html_x( 'Connect to Meetup', 'link for connecting meetup', 'the-events-calendar' ) . '</a>';
+			}
+		} else {
 			$indicator = 'warning';
-			$text = __( 'You have not entered a Meetup API key', 'the-events-calendar' );
-			$notes = '<a href="' . esc_url( Tribe__Settings::instance()->get_url( array( 'tab' => 'addons' ) ) ) . '">';
-			$notes .= esc_html__( 'Enter your API key', 'the-events-calendar' );
-			$notes .= '</a>';
+			$text = __( 'Limited connectivity with Meetup', 'the-events-calendar' );
+			$notes = esc_html__( 'The service has disabled oAuth. Some types of events may not import.', 'the-events-calendar' );
 		}
 		?>
-        <tr>
-            <td class="label">
-                <img src="<?php echo esc_url( tribe_events_resource_url( 'images/aggregator/meetup.png' ) ); ?>" /><span><?php esc_html_e( 'Meetup', 'the-events-calendar' ); ?></span>
-            </td>
-            <td class="indicator <?php esc_attr_e( $indicator ); ?>"><span class="dashicons dashicons-<?php echo esc_attr( $indicator_icons[ $indicator ] ); ?>"></span></td>
-            <td><?php echo esc_html( $text ); ?></td>
-            <td><?php echo $notes; // Escaping handled above ?></td>
-        </tr>
+		<tr>
+			<td class="label">
+				<img src="<?php echo esc_url( tribe_events_resource_url( 'images/aggregator/meetup.png' ) ); ?>" /><span><?php esc_html_e( 'Meetup', 'the-events-calendar' ); ?></span>
+			</td>
+			<td class="indicator <?php esc_attr_e( $indicator ); ?>"><span class="dashicons dashicons-<?php echo esc_attr( $indicator_icons[ $indicator ] ); ?>"></span></td>
+			<td><?php echo esc_html( $text ); ?></td>
+			<td><?php echo $notes; // Escaping handled above. ?></td>
+		</tr>
 		<?php
 		/**
 		 * Fires below the rows in the third party status table.
@@ -218,6 +223,6 @@ $show_third_party_accounts = ! is_network_admin();
 		 */
 		do_action( 'tribe_events_status_third_party', $indicator_icons );
 		?>
-        </tbody>
-    </table>
+		</tbody>
+	</table>
 <?php endif; ?>
