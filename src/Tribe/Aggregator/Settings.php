@@ -327,9 +327,6 @@ class Tribe__Events__Aggregator__Settings {
 
 		return true;
 	}
-	/*
-		===========================
-	*/
 
 	public function do_import_settings_tab() {
 		include_once Tribe__Events__Main::instance()->plugin_path . 'src/admin-views/aggregator/settings.php';
