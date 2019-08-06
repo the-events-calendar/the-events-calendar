@@ -24,9 +24,7 @@
 		}
 
 		table {
-			border: 0;
 			border-collapse: collapse;
-			margin: 0;
 		}
 
 		.datepicker-switch,
@@ -149,6 +147,7 @@
 		.day,
 		.month,
 		.year {
+			border-radius: var(--border-radius-default);
 
 			&:hover,
 			&:focus,
@@ -258,26 +257,7 @@
 	 * Theme Overrides - Divi
 	 * ----------------------------------------------------------------------------- */
 
-	.tribe-theme-divi .entry-content & .datepicker,
-	body.et-pb-preview.tribe-theme-divi #main-content .container & .datepicker {
-
-		table {
-			border: 0;
-			margin: 0;
-		}
-
-		td {
-			border-top: 0;
-		}
-	}
-
 	.tribe-theme-divi #content-area & .datepicker {
-
-		td,
-		th,
-		tr {
-			padding: 0;
-		}
 
 		.datepicker-switch,
 		.prev,
