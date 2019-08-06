@@ -4,6 +4,9 @@ defined( 'WPINC' ) or die;
 
 class Tribe__Events__Aggregator__API__Origins extends Tribe__Events__Aggregator__API__Abstract {
 
+	/**
+	 * @since TBD
+	 */
 	const VERSION = '1.1.0';
 
 	/**
@@ -209,7 +212,7 @@ class Tribe__Events__Aggregator__API__Origins extends Tribe__Events__Aggregator_
 	 *
 	 * @param string $type Type of operation limit to retrieve; defaults to `import`.
 	 *
-	 * @return int The limit applied to t
+	 * @return int The numeric limit (how many times) applied to the operation.
 	 */
 	public function get_limit( $type = 'import' ) {
 		$limits = $this->get_data( 'limit' );
