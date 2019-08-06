@@ -283,4 +283,68 @@
 			padding: 11px 0;
 		}
 	}
+
+	/* -----------------------------------------------------------------------------
+	 * Theme Overrides - Enfold
+	 * ----------------------------------------------------------------------------- */
+
+	.tribe-theme-enfold & .datepicker {
+		border: 1px solid var(--color-border-default);
+		border-radius: var(--border-radius-default);
+		box-shadow: var(--box-shadow-tooltip);
+		min-width: 0;
+		padding: 0 var(--spacer-3) var(--spacer-3);
+
+		.datepicker-switch {
+			color: var(--color-text-primary) !important;
+			cursor: pointer !important;
+
+			&:hover,
+			&:focus {
+				color: var(--color-accent-secondary-hover) !important;
+			}
+
+			&:active {
+				color: var(--color-accent-secondary-active) !important;
+			}
+		}
+
+		.day {
+			background-color: var(--color-background);
+
+			&.old,
+			&.new {
+				opacity: 1;
+			}
+
+			&.old {
+				color: var(--color-text-disabled);
+			}
+		}
+
+		.day,
+		.month,
+		.year {
+			color: var(--color-text-primary);
+			background-color: var(--color-background);
+
+			&:hover,
+			&:focus,
+			&.focused {
+				background: var(--color-background-secondary);
+			}
+
+			&.active {
+				color: var(--color-background);
+				background: var(--color-accent-primary);
+
+				&:hover,
+				&:focus,
+				&.focused {
+					color: var(--color-background);
+					background: var(--color-accent-primary);
+				}
+			}
+		}
+	}
 }
