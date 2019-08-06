@@ -23,12 +23,10 @@
 			content: none;
 		}
 
-		.dow {
-			color: var(--color-text-primary);
-			font-size: var(--font-size-0);
-			font-weight: var(--font-weight-regular);
-			padding: 0;
-			width: var(--grid-width-1-of-7);
+		table {
+			border: 0;
+			border-collapse: collapse;
+			margin: 0;
 		}
 
 		.datepicker-switch,
@@ -43,7 +41,6 @@
 			}
 		}
 
-		/* @todo: typography styles pending design feedback */
 		.datepicker-switch {
 			@mixin desktop-body-1;
 
@@ -111,7 +108,14 @@
 			}
 		}
 
-		/* @todo: typography styles pending design feedback */
+		.dow {
+			color: var(--color-text-primary);
+			font-size: var(--font-size-0);
+			font-weight: var(--font-weight-regular);
+			padding: 0;
+			width: var(--grid-width-1-of-7);
+		}
+
 		.day {
 			@mixin desktop-body-1;
 
@@ -132,7 +136,6 @@
 			}
 		}
 
-		/* @todo: typography styles pending design feedback */
 		.month,
 		.year {
 			@mixin desktop-body-3;
@@ -242,6 +245,64 @@
 					background: var(--color-background-secondary);
 				}
 			}
+		}
+	}
+
+	/* -----------------------------------------------------------------------------
+	 *
+	 * Datepicker: Theme Overrides
+	 *
+	 * ----------------------------------------------------------------------------- */
+
+	/* -----------------------------------------------------------------------------
+	 *
+	 * Theme Overrides - Divi
+	 *
+	 * ----------------------------------------------------------------------------- */
+
+	.tribe-theme-divi .entry-content & .datepicker,
+	body.et-pb-preview.tribe-theme-divi #main-content .container & .datepicker {
+
+		table {
+			border: 0;
+			margin: 0;
+		}
+
+		td {
+			border-top: 0;
+		}
+	}
+
+	.tribe-theme-divi #content-area & .datepicker {
+
+		td,
+		th,
+		tr {
+			padding: 0;
+		}
+
+		.datepicker-switch,
+		.prev,
+		.next {
+			padding: var(--spacer-4) 0;
+		}
+
+		.datepicker-months,
+		.datepicker-years {
+
+			.datepicker-switch,
+			.prev,
+			.next {
+				padding: var(--spacer-4) 0 var(--spacer-1);
+			}
+		}
+
+		.dow {
+			padding: 0;
+		}
+
+		.day {
+			padding: 11px 0;
 		}
 	}
 }
