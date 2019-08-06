@@ -34,12 +34,12 @@ The view will look into the context, understand what's supposed to show and use 
 
 ## Implementing a View
 
-Code is worth a thousand words, so below is the code of a really simple (and pretty ugly) 3-days View.  
-The view will show events in a range of 3 days and is meant more as an example in the possibilities of the View architecture than an example in style.  
+Code is worth a thousand words, so below is the code of a really simple (and pretty ugly) 3-days View.
+The view will show events in a range of 3 days and is meant more as an example in the possibilities of the View architecture than an example in style.
 
 ### The View class
 
-The first step in implementing a new View is creating the class responsible for managing it.  
+The first step in implementing a new View is creating the class responsible for managing it.
 Below the code of the `Three_Day_List_View` class with heavily commented code:
 
 ```php
@@ -196,8 +196,8 @@ Not **all** Views will be this simple and you might need to override more method
 
 ### Creating the View templates
 
-Once the View class is in place it's time to give it a front-end by means of templates.  
-Looking at the View code above the `Three_Day_List_View::get_template_slug` method will return `three_days`.  
+Once the View class is in place it's time to give it a front-end by means of templates.
+Looking at the View code above the `Three_Day_List_View::get_template_slug` method will return `three_days`.
 Depending on where you're developing the View the code will look for the following files:
 * `wp-content/plugins/the-events-calendar/src/views/v2/three_days.php`
 * `wp-content/plugins/events-pro/src/views/v2/three_days.php`
@@ -216,14 +216,16 @@ src/views/v2
 └── three_days.php
 ```
 
-There's really a ton of other files in there (feel free to explore) but, right now, we care only about our Views' files.  
+There's really a ton of other files in there (feel free to explore) but, right now, we care only about our Views' files.
 We've split the front-end rendering code into partials to keep the code tidy and be able to draw a nice ASCII tree.
 
 ### Passing information to the View template
 
-Ideally (which means you should do anything in your power to make it so, and I believe in you) **frontend templates should be logic-less**.  
-This means that any calculation, interpolation, and "look-around"  should be done **in the View class** and provided to the templates ready-to-run.  
-Before diving into the template take a moment to go back to the View class and look at the `setup_template_vars` method: **anything** templates need should come from that method.  
+Ideally (which means you should do anything in your power to make it so, and I believe in you) **frontend templates should be logic-less**.
+This means that any calculation, interpolation, and "look-around"  should be done **in the View class** and provided to the templates ready-to-run.
+Before diving into the template take a moment to go back to the View class and look at the `setup_template_vars` method: **anything** templates need should come from that method.
+
+> Do you want to quicky scaffold a View and put demo content in it? Look no further than the `View::setup_template_vars` method; filter the `tribe_events_views_v2_view_<view_slug>_template_vars` and add/modify any data you need.
 
 #### Global and local template data
 When dealing with templates you will come across this distinction, willing and knowing or not, so it's worth taking some time to nail the basics:
@@ -233,7 +235,7 @@ When dealing with templates you will come across this distinction, willing and k
 
 Confused? Good; time to look at examples.
 
-The first template the Views code will load is the `three_days.php` one.  
+The first template the Views code will load is the `three_days.php` one.
 
 ```php
 <?php do_action( 'tribe_events_before_template' ); ?>
@@ -245,7 +247,7 @@ The first template the Views code will load is the `three_days.php` one.
 <?php do_action( 'tribe_events_after_template' );
 ```
 
-This template acts as an entry point, loading the partials that make up the view front-end.  
+This template acts as an entry point, loading the partials that make up the view front-end.
 Moving to `three_days/title.php`:
 ```php
 <?php
@@ -264,8 +266,8 @@ Moving to `three_days/title.php`:
 </h3>
 ```
 
-In this template we're using some variables: `$events_count`, `$start_date` and `$end_date`; where do those come from?  
-They are **global** template variables set by the View `setup_template_vars` method.  
+In this template we're using some variables: `$events_count`, `$start_date` and `$end_date`; where do those come from?
+They are **global** template variables set by the View `setup_template_vars` method.
 There is no special method, function or operation you need to do to get them.
 
 Let's move to the next template, `three_days/content.php`:
@@ -285,12 +287,12 @@ Let's move to the next template, `three_days/content.php`:
 </ul>
 ```
 
-Hold on a second... `have_posts`? `the_post`? Yes, we're hacking (and then restoring, we're nice people) **the loop** to make the use of the default, known and comforting WordPress loop functions possible.  
-What's in that loop? The events for the View. Behind the scenes we're using the repository, set up in the `setup_repository_args` method, to fetch the events and "inject" them in the loop.  
-For each event, until we have some, we load the `three_days/content/event.php` partial and we pass it an `event` variable.  
-That variable is a `WP_Post` object decorated using the `tribe_get_event` function.  
-That function is like `get_post` on steroids for Events and will provide a wealth of information.  
-Note we're using `get_the_ID`: we're **in the loop**.  
+Hold on a second... `have_posts`? `the_post`? Yes, we're hacking (and then restoring, we're nice people) **the loop** to make the use of the default, known and comforting WordPress loop functions possible.
+What's in that loop? The events for the View. Behind the scenes we're using the repository, set up in the `setup_repository_args` method, to fetch the events and "inject" them in the loop.
+For each event, until we have some, we load the `three_days/content/event.php` partial and we pass it an `event` variable.
+That variable is a `WP_Post` object decorated using the `tribe_get_event` function.
+That function is like `get_post` on steroids for Events and will provide a wealth of information.
+Note we're using `get_the_ID`: we're **in the loop**.
 
 Finally let's look at the `three_days/content/event.php` template:
 
@@ -324,7 +326,7 @@ In this template we're using a combination of all we've seen so far:
 * we can call `the_content()` function because we're **in the loop**.
 
 ### Adding the View to the registered Views
-The final step is making sure the View controller/manager/dictator picks up our new View.  
+The final step is making sure the View controller/manager/dictator picks up our new View.
 It's as simple as using a filter (if you're not editin the plugin code directly, which you should do only if you maintain it):
 
 ```php
