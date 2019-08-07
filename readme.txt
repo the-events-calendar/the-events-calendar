@@ -218,6 +218,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 = [4.9.6] 2019-08-07 =
 
 * Tweak - Update Event Aggregator to include compatibility with new Meetup API requirements - [See more](http://m.tri.be/1afb) [125635]
+* Language - 5 new strings added, 120 updated, 5 fuzzied, and 10 obsoleted
 
 = [4.9.5] 2019-07-25 =
 
