@@ -118,7 +118,7 @@
 			@mixin desktop-body-1;
 
 			padding: 11px 0;
-			width: 48px;
+			width: 49px; /* this is a hack to max out the day width to the container, not exactly 49px */
 
 			&.old {
 				color: var(--color-text-disabled);
@@ -182,10 +182,11 @@
 					content: '';
 					display: block;
 					height: 47px;
+					left: var(--spacer-3);
 					pointer-events: none;
 					position: absolute;
-					transform: translateX(-100%);
-					width: calc(100% - 32px);
+					transform: translateY(-1px);
+					width: calc(100% - 34px); /* 16px left padding + 16px right padding + 1px left border + 1px right border */
 				}
 			}
 		}
@@ -343,6 +344,33 @@
 				&.focused {
 					color: var(--color-background);
 					background: var(--color-accent-primary);
+				}
+			}
+		}
+	}
+
+	.tribe-theme-enfold &.tribe-events-view--week .datepicker {
+
+		.day {
+
+			&.active {
+				color: var(--color-text-primary);
+				background: transparent;
+
+				&:hover {
+					background: transparent;
+				}
+			}
+		}
+
+		.hovered,
+		.focused {
+
+			.day {
+				background: var(--color-background-secondary);
+
+				&:hover {
+					background: var(--color-background-secondary);
 				}
 			}
 		}
