@@ -96,8 +96,8 @@ class Rest_Endpoint {
 		}
 
 		$action = static::$ajax_action;
-		add_action( "wp_ajax_{$action}", [ $this, 'ajax_fallback' ] );
-		add_action( "wp_ajax_nopriv_{$action}", [ $this, 'ajax_fallback' ] );
+		add_action( "wp_ajax_{$action}", [ $this, 'handle_ajax_request' ] );
+		add_action( "wp_ajax_nopriv_{$action}", [ $this, 'handle_ajax_request' ] );
 	}
 
 	/**
@@ -108,7 +108,7 @@ class Rest_Endpoint {
 	 *
 	 * @return void
 	 */
-	public function ajax_fallback() {
+	public function handle_ajax_request() {
 		$request = new Request( 'GET', static::NAMESPACE . '/html' );
 
 		$body_params = (array) $_GET;
@@ -128,6 +128,17 @@ class Rest_Endpoint {
 	 */
 	public function is_available() {
 		$is_available = tribe( 'tec.rest-v1.system' )->tec_rest_api_is_enabled();
+
+
+		/**
+		 * There is no good way to check if rest API is really disabled since `rest_enabled` is deprecated since 4.7
+		 *
+		 * @link https://core.trac.wordpress.org/browser/trunk/src/wp-includes/rest-api/class-wp-rest-server.php#L262
+		 */
+		global $wp_rest_server;
+		if ( ! $wp_rest_server->check_authentication() ) {
+			$is_available = false;
+		}
 
 		/**
 		 * Allows third-party deactivation of the REST Endpoint for just the view V2.
