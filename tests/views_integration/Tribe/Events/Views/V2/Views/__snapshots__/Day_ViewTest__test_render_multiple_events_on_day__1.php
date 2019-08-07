@@ -178,7 +178,7 @@
 >
 	Today</a>
 
-	<div class="tribe-events-c-top-bar__datepicker" data-js="tribe-events-top-bar-datepicker">
+	<div class="tribe-events-c-top-bar__datepicker">
 	<button
 		class="tribe-common-h2 tribe-common-h3--min-medium tribe-common-h--alt tribe-events-c-top-bar__datepicker-button"
 		data-js="tribe-events-top-bar-datepicker-button"
@@ -201,6 +201,7 @@
 		tabindex="-1"
 		autocomplete="off"
 	/>
+	<div class="tribe-events-c-top-bar__datepicker-container" data-js="tribe-events-top-bar-datepicker-container"></div>
 </div>
 
 	<div class="tribe-events-c-top-bar__actions">

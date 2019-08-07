@@ -108,6 +108,17 @@
 		}
 	}
 
+	.tribe-events-c-top-bar__datepicker-container {
+		bottom: 0;
+		left: 0;
+		position: absolute;
+		width: 100%;
+
+		@media (--viewport-medium) {
+			min-width: 370px;
+		}
+	}
+
 	.tribe-events-c-top-bar__actions {
 		@mixin hidden;
 
@@ -116,6 +127,23 @@
 			flex: none;
 			margin-left: auto;
 			visibility: visible;
+		}
+	}
+
+	/* -----------------------------------------------------------------------------
+	 *
+	 * Top Bar: Theme Overrides
+	 *
+	 * ----------------------------------------------------------------------------- */
+
+	/* -----------------------------------------------------------------------------
+	 * Theme Overrides - Enfold
+	 * ----------------------------------------------------------------------------- */
+
+	#top.tribe-theme-enfold & {
+
+		.tribe-events-c-top-bar__datepicker-input {
+			@mixin visually-hide;
 		}
 	}
 }
