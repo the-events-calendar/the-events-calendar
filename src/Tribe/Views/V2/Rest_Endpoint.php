@@ -129,14 +129,17 @@ class Rest_Endpoint {
 	public function is_available() {
 		$is_available = tribe( 'tec.rest-v1.system' )->tec_rest_api_is_enabled();
 
-
 		/**
 		 * There is no good way to check if rest API is really disabled since `rest_enabled` is deprecated since 4.7
 		 *
 		 * @link https://core.trac.wordpress.org/browser/trunk/src/wp-includes/rest-api/class-wp-rest-server.php#L262
 		 */
 		global $wp_rest_server;
-		if ( ! $wp_rest_server->check_authentication() ) {
+		if (
+			! empty( $wp_rest_server )
+			&& $wp_rest_server instanceof Server
+			&& ! $wp_rest_server->check_authentication()
+		) {
 			$is_available = false;
 		}
 
