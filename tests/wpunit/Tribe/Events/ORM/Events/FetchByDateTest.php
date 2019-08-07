@@ -598,14 +598,14 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 		], $ny_timezone_string ) );
 		$events = tribe_events()
 			->per_page( - 1 )
-			->order_by( 'event_date_utc', 'ASC' )
+			->order_by( 'event_date', 'ASC' )
 			->collect();
 		codecept_debug( 'Event dates in ASC UTC date order: '
 		                . implode( PHP_EOL, $events->pluck_meta( '_EventStartDateUTC' ) ) );
 
 		$utc_matches = tribe_events()
 			->where( 'on_date', '2018-01-10' )
-			->order_by( 'event_date', 'DESC' )
+			->order_by( 'event_date_utc', 'DESC' )
 			->collect();
 		$this->assertEquals( [
 			'2018-01-10 14:00:00',

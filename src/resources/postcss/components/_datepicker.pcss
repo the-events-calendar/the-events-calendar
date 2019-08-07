@@ -23,11 +23,8 @@
 			content: none;
 		}
 
-		.dow {
-			color: var(--color-text-primary);
-			font-size: var(--font-size-0);
-			font-weight: var(--font-weight-regular);
-			padding: 0 0 var(--spacer-2) 0;
+		table {
+			border-collapse: collapse;
 		}
 
 		.datepicker-switch,
@@ -42,7 +39,6 @@
 			}
 		}
 
-		/* @todo: typography styles pending design feedback */
 		.datepicker-switch {
 			@mixin desktop-body-1;
 
@@ -110,11 +106,19 @@
 			}
 		}
 
-		/* @todo: typography styles pending design feedback */
+		.dow {
+			color: var(--color-text-primary);
+			font-size: var(--font-size-0);
+			font-weight: var(--font-weight-regular);
+			padding: 0;
+			width: var(--grid-width-1-of-7);
+		}
+
 		.day {
 			@mixin desktop-body-1;
 
-			padding: 11px 15px;
+			padding: 11px 0;
+			width: 48px;
 
 			&.old {
 				color: var(--color-text-disabled);
@@ -130,7 +134,6 @@
 			}
 		}
 
-		/* @todo: typography styles pending design feedback */
 		.month,
 		.year {
 			@mixin desktop-body-3;
@@ -144,25 +147,140 @@
 		.day,
 		.month,
 		.year {
+			border-radius: var(--border-radius-default);
 
 			&:hover,
 			&:focus,
 			&.focused {
-				background-color: var(--color-background-secondary);
-				font-weight: var(--font-weight-bold);
+				background: var(--color-background-secondary);
 			}
 
 			&.active {
 				color: var(--color-background);
-				background-color: var(--color-accent-primary);
+				background: var(--color-accent-primary);
 
 				&:hover,
 				&:focus,
 				&.focused {
 					color: var(--color-background);
-					background-color: var(--color-accent-primary);
+					background: var(--color-accent-primary);
 				}
 			}
+		}
+	}
+
+	&.tribe-events-view--week .datepicker {
+
+		tbody tr {
+
+			&.active {
+				position: relative;
+
+				&:after {
+					border: 1px solid var(--color-accent-primary);
+					border-radius: var(--border-radius-default);
+					content: '';
+					display: block;
+					height: 47px;
+					pointer-events: none;
+					position: absolute;
+					transform: translateX(-100%);
+					width: calc(100% - 32px);
+				}
+			}
+		}
+
+		.day {
+			border-radius: 0;
+
+			&:first-child {
+				border-bottom-left-radius: var(--border-radius-default);
+				border-top-left-radius: var(--border-radius-default);
+			}
+
+			&:last-child {
+				border-bottom-right-radius: var(--border-radius-default);
+				border-top-right-radius: var(--border-radius-default);
+			}
+
+			&.active {
+				color: var(--color-text-primary);
+				background: transparent;
+
+				&:hover {
+					background: transparent;
+				}
+			}
+
+			&.disabled {
+				color: var(--color-text-primary);
+				cursor: pointer;
+
+				&:hover,
+				&:focus,
+				&.focused {
+					color: var(--color-text-primary);
+				}
+			}
+
+			&.old {
+				color: var(--color-text-disabled);
+
+				&:hover,
+				&:focus,
+				&.focused {
+					color: var(--color-text-disabled);
+				}
+			}
+		}
+
+		.hovered,
+		.focused {
+
+			.day {
+				background: var(--color-background-secondary);
+
+				&:hover {
+					background: var(--color-background-secondary);
+				}
+			}
+		}
+	}
+
+	/* -----------------------------------------------------------------------------
+	 *
+	 * Datepicker: Theme Overrides
+	 *
+	 * ----------------------------------------------------------------------------- */
+
+	/* -----------------------------------------------------------------------------
+	 * Theme Overrides - Divi
+	 * ----------------------------------------------------------------------------- */
+
+	.tribe-theme-divi #content-area & .datepicker {
+
+		.datepicker-switch,
+		.prev,
+		.next {
+			padding: var(--spacer-4) 0;
+		}
+
+		.datepicker-months,
+		.datepicker-years {
+
+			.datepicker-switch,
+			.prev,
+			.next {
+				padding: var(--spacer-4) 0 var(--spacer-1);
+			}
+		}
+
+		.dow {
+			padding: 0;
+		}
+
+		.day {
+			padding: 11px 0;
 		}
 	}
 }

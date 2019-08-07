@@ -345,4 +345,15 @@ abstract class Tribe__Events__Linked_Posts__Base {
 
 		return $key;
 	}
+
+	/**
+	 * Builds and returns a closure to lazily fetch an Event linked posts.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $event The event post ID or object.
+	 *
+	 * @return callable A closure that will fetch an Event linked posts..
+	 */
+	abstract public static function get_fetch_callback( $event );
 }

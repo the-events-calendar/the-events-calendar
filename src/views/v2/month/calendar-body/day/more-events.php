@@ -9,21 +9,28 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.4
+ * @version TBD
  *
+ * @var int $more_events The number of events that's not showing in the day cell or in the multi-day stack.
+ *
+ * @see tribe_get_event() For the format of the event object.
  */
-$day_number = $this->get( 'day' );
-$month      = $this->get( 'month' );
 
-// Get the calendar events for that day
-// @todo: This is a function with demo purposes.
-$calendar_events = tribe_events_views_v2_month_demo_day_get_events_regular( $month, $day_number );
-
-// Bail if there are no events
-if ( ! $calendar_events ) {
+// Bail if there are no more events to show.
+if ( empty( $more_events ) ) {
 	return;
 }
 ?>
+
 <div class="tribe-events-calendar-month__more-events">
-	<a href="#" class="tribe-events-calendar-month__more-events-link tribe-common-h8 tribe-common-h--alt tribe-common-anchor-thin">+ 2 More</a>
+	<a href="#" class="tribe-events-calendar-month__more-events-link tribe-common-h8 tribe-common-h--alt tribe-common-anchor-thin">
+		<?php
+		 echo esc_html(
+			 sprintf(
+				 _n( '+ %d More', '+ %d More', $more_events, 'the-events-calendar' ),
+				 $more_events
+			 )
+		 )
+		?>
+	</a>
 </div>

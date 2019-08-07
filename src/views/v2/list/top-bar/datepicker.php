@@ -3,13 +3,15 @@
  * View: Top Bar - Date Picker
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/views/v2/top-bar/datepicker.php
+ * [your-theme]/tribe/events/views/v2/list/top-bar/datepicker.php
  *
  * See more documentation about our views templating system.
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.5
+ * @version TBD
+ *
+ * @var string $today Today date in the `Y-m-d` format.
  *
  */
 $default_start_date = 'now';
@@ -23,11 +25,11 @@ $is_now = date( 'Y-m-d', $selected_start_datetime ) === date( 'Y-m-d', strtotime
 
 $selected_start_date_label = date_i18n( tribe_get_date_format( true ), $selected_start_datetime );
 
-$selected_end_date_value = 'today';
+$selected_end_date_value = $today;
 $last_event = $this->get( 'view' )->get_repository()->last();
 
 if ( $last_event instanceof WP_Post ) {
-	$selected_end_date_value = $last_event->EventEndDate;
+	$selected_end_date_value = $last_event->dates->start->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
 }
 $selected_end_datetime = strtotime( $selected_end_date_value );
 $selected_end_date_label = date_i18n( tribe_get_date_format( true ), $selected_end_datetime );
@@ -64,5 +66,6 @@ $selected_end_date_label = date_i18n( tribe_get_date_format( true ), $selected_e
 		name="tribe-events-views[tribe-bar-search]"
 		value="<?php echo esc_attr( tribe_events_template_var( [ 'bar', 'date' ], '' ) ); ?>"
 		tabindex="-1"
+		autocomplete="off"
 	/>
 </div>

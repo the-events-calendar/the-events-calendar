@@ -167,7 +167,7 @@ tribe.events.views.tooltip = {};
 	 *
 	 * @since 4.9.5
 	 *
-	 * @param  {Event}       event    event object for 'afterSetup.tribeEvents' event
+	 * @param  {Event}       event    event object for 'beforeAjaxSuccess.tribeEvents' event
 	 * @param  {jqXHR}       jqXHR    Request object
 	 * @param  {PlainObject} settings Settings that this request was made with
 	 *
@@ -183,7 +183,7 @@ tribe.events.views.tooltip = {};
 	 *
 	 * @since 4.9.5
 	 *
-	 * @param {Event}   event      JS event triggered.
+	 * @param {Event}   event      event object for 'afterSetup.tribeEvents' event
 	 * @param {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event.
 	 * @param {jQuery}  $container jQuery object of view container.
 	 * @param {object}  data       data object passed from 'afterSetup.tribeEvents' event.

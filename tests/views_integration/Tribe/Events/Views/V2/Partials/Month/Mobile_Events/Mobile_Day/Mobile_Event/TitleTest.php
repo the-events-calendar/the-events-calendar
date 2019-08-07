@@ -9,20 +9,19 @@ class TitleTest extends HtmlPartialTestCase
 	protected $partial_path = 'month/mobile-events/mobile-day/mobile-event/title';
 
 	/**
-	 * Test static render
-	 * @todo remove this static HTML test once the partial is dynamic.
-	 */
-	public function test_static_render() {
-		$this->assertMatchesSnapshot( $this->get_partial_html() );
-	}
-
-	/**
 	 * Test render with context
 	 */
 	public function test_render_with_context() {
-		/* @todo: complete once we have dynamic views */
-		$this->markTestSkipped( 'Complete once we have dynamic views.' );
-
-		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'title' => '', 'link' => '#' ] ) );
+		$event = tribe_events()->set_args(
+			[
+				'start_date' => '2018-01-01 10am',
+				'timezone'   => 'Europe/Paris',
+				'duration'   => 3 * HOUR_IN_SECONDS,
+				'title'      => 'Test Event - 2018-01-01 10am',
+				'status'     => 'publish',
+			]
+		)->create();
+		$event            = tribe_get_event( $event );
+		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => $event ] ) );
 	}
 }

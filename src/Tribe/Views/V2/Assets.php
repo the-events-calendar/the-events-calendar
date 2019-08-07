@@ -75,6 +75,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 				'tribe-common',
 				'tribe-query-string',
 				'underscore',
+				'tribe-events-views-v2-viewport',
 				'tribe-events-views-v2-accordion',
 				'tribe-events-views-v2-view-selector',
 				'tribe-events-views-v2-multiday-events',
@@ -95,6 +96,17 @@ class Assets extends \tad_DI52_ServiceProvider {
 
 		tribe_asset(
 			$plugin,
+			'tribe-events-views-v2-viewport',
+			'views/viewport.js',
+			[ 'jquery', 'tribe-common' ],
+			null,
+			[
+				'priority' => 10,
+			]
+		);
+
+		tribe_asset(
+			$plugin,
 			'tribe-events-views-v2-accordion',
 			'views/accordion.js',
 			[ 'jquery', 'tribe-common' ],
@@ -108,7 +120,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 			$plugin,
 			'tribe-events-views-v2-view-selector',
 			'views/view-selector.js',
-			[ 'jquery', 'tribe-common' ],
+			[ 'jquery', 'tribe-common', 'tribe-events-views-v2-viewport', 'tribe-events-views-v2-accordion', ],
 			null,
 			[
 				'priority' => 10,
@@ -130,7 +142,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 			$plugin,
 			'tribe-events-views-v2-month-mobile-events',
 			'views/month-mobile-events.js',
-			[ 'jquery', 'tribe-common', 'tribe-events-views-v2-accordion' ],
+			[ 'jquery', 'tribe-common', 'tribe-events-views-v2-viewport', 'tribe-events-views-v2-accordion' ],
 			null,
 			[
 				'priority' => 10,
