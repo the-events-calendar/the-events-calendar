@@ -68,4 +68,5 @@ $selected_end_date_label = date_i18n( tribe_get_date_format( true ), $selected_e
 		tabindex="-1"
 		autocomplete="off"
 	/>
+	<div class="tribe-events-c-top-bar__datepicker-container" data-js="tribe-events-top-bar-datepicker-container"></div>
 </div>

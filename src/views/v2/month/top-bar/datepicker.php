@@ -42,4 +42,5 @@
 		tabindex="-1"
 		autocomplete="off"
 	/>
+	<div class="tribe-events-c-top-bar__datepicker-container" data-js="tribe-events-top-bar-datepicker-container"></div>
 </div>
