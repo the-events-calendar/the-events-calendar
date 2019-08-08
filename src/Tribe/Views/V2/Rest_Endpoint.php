@@ -47,6 +47,77 @@ class Rest_Endpoint {
 	}
 
 	/**
+	 * Get the arguments used to setup the HTML route for Views V2 in the REST API.
+	 *
+	 * @link  https://developer.wordpress.org/rest-api/requests/
+	 *
+	 * @since  TBD
+	 *
+	 * @return array $arguments Request arguments following the WP_REST API Standards [ name => options, ... ]
+	 */
+	public function get_request_arguments() {
+		$arguments = [
+			'url' => [
+				'required'          => true,
+				'validate_callback' => static function ( $url ) {
+					return is_string( $url );
+				},
+				'sanitize_callback' => static function ( $url ) {
+					return filter_var( $url, FILTER_SANITIZE_URL );
+				}
+			],
+			'view' => [
+				'required'          => false,
+				'validate_callback' => static function ( $view ) {
+					return is_string( $view );
+				},
+				'sanitize_callback' => static function ( $view ) {
+					return filter_var( $view, FILTER_SANITIZE_STRING );
+				}
+			],
+			'_wpnonce' => [
+				'required'          => false,
+				'validate_callback' => static function ( $nonce ) {
+					return is_string( $nonce );
+				},
+				'sanitize_callback' => static function ( $nonce ) {
+					return filter_var( $nonce, FILTER_SANITIZE_STRING );
+				}
+			],
+			'action' => [
+				'required'          => false,
+				'validate_callback' => static function ( $action ) {
+					return is_string( $action );
+				},
+				'sanitize_callback' => static function ( $action ) {
+					return filter_var( $action, FILTER_SANITIZE_STRING );
+				}
+			],
+			'view_data' => [
+				'required'          => false,
+				'validate_callback' => static function ( $view_data ) {
+					return is_array( $view_data );
+				},
+				'sanitize_callback' => static function ( $view_data ) {
+					return filter_var( $view_data, FILTER_REQUIRE_ARRAY );
+				}
+			],
+		];
+
+		/**
+		 * Filter the arguments for the HTML REST API request.
+		 * It follows the WP_REST API standards.
+		 *
+		 * @link  https://developer.wordpress.org/rest-api/requests/
+		 *
+		 * @since  TBD
+		 *
+		 * @param array $arguments Request arguments following the WP_REST API Standards [ name => options, ... ]
+		 */
+		return apply_filters( 'tribe_events_views_v2_request_arguments', $arguments );
+	}
+
+	/**
 	 * Register the endpoint if available.
 	 *
 	 * @since  TBD
@@ -69,17 +140,7 @@ class Rest_Endpoint {
 			'callback' => static function ( Request $request ) {
 				View::make_for_rest( $request )->send_html();
 			},
-			'args' => [
-				'url' => [
-					'required'          => true,
-					'validate_callback' => static function ( $url ) {
-						return is_string( $url );
-					},
-					'sanitize_callback' => static function ( $url ) {
-						return filter_var( $url, FILTER_SANITIZE_URL );
-					}
-				],
-			],
+			'args' => $this->get_request_arguments(),
 		] );
 	}
 
@@ -101,6 +162,43 @@ class Rest_Endpoint {
 	}
 
 	/**
+	 * Get the mocked rest request used for the AJAX fallback used to make sure users without
+	 * the REST API still have the Views V2 working.
+	 *
+	 * @since  TBD
+	 *
+	 * @param  array $params Associative array with the params that will be used on this mocked request
+	 *
+	 * @return WP_REST_Request
+	 */
+	public function get_mocked_rest_request( $params ) {
+		$request = new Request( 'GET', static::NAMESPACE . '/html' );
+		$arguments = $this->get_request_arguments();
+
+		$body_params = (array) $_GET;
+		foreach ( $body_params as $key => $value ) {
+			// Quick way to prevent un-wanted params.
+			if ( ! isset( $arguments[ $key ] ) ) {
+				continue;
+			}
+
+			$request->set_param( $key, $value );
+		}
+
+		$has_valid_params = $request->has_valid_params();
+		if ( ! $has_valid_params || is_wp_error( $has_valid_params ) ) {
+			return $has_valid_params;
+		}
+
+		$sanitize_params = $request->sanitize_params();
+		if ( ! $sanitize_params || is_wp_error( $sanitize_params ) ) {
+			return $sanitize_params;
+		}
+
+		return $request;
+	}
+
+	/**
 	 * AJAX fallback for when REST endpoint is disabled. We try to mock a WP_REST_Request
 	 * and use the same method behind the scenes to make sure we have consistency.
 	 *
@@ -109,11 +207,12 @@ class Rest_Endpoint {
 	 * @return void
 	 */
 	public function handle_ajax_request() {
-		$request = new Request( 'GET', static::NAMESPACE . '/html' );
-
-		$body_params = (array) $_GET;
-		foreach ( $body_params as $key => $value ) {
-			$request->set_param( $key, $value );
+		$request = $this->get_mocked_rest_request( $_GET );
+		if ( is_wp_error( $request ) ) {
+			/**
+			 * @todo  Once we have a error handling on the new view we need to throw it here.
+			 */
+			return wp_send_json_error( $request );
 		}
 
 		View::make_for_rest( $request )->send_html();
