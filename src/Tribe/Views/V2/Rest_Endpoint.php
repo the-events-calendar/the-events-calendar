@@ -64,7 +64,7 @@ class Rest_Endpoint {
 				},
 				'sanitize_callback' => static function ( $url ) {
 					return filter_var( $url, FILTER_SANITIZE_URL );
-				}
+				},
 			],
 			'view' => [
 				'required'          => false,
@@ -73,7 +73,7 @@ class Rest_Endpoint {
 				},
 				'sanitize_callback' => static function ( $view ) {
 					return filter_var( $view, FILTER_SANITIZE_STRING );
-				}
+				},
 			],
 			'_wpnonce' => [
 				'required'          => false,
@@ -82,7 +82,7 @@ class Rest_Endpoint {
 				},
 				'sanitize_callback' => static function ( $nonce ) {
 					return filter_var( $nonce, FILTER_SANITIZE_STRING );
-				}
+				},
 			],
 			'action' => [
 				'required'          => false,
@@ -91,7 +91,7 @@ class Rest_Endpoint {
 				},
 				'sanitize_callback' => static function ( $action ) {
 					return filter_var( $action, FILTER_SANITIZE_STRING );
-				}
+				},
 			],
 			'view_data' => [
 				'required'          => false,
@@ -100,7 +100,7 @@ class Rest_Endpoint {
 				},
 				'sanitize_callback' => static function ( $view_data ) {
 					return filter_var( $view_data, FILTER_REQUIRE_ARRAY );
-				}
+				},
 			],
 		];
 
