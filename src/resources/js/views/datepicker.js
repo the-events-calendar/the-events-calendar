@@ -39,7 +39,7 @@ tribe.events.views.datepicker = {};
 	 * @type {PlainObject}
 	 */
 	obj.selectors = {
-		datepickerContainer: '[data-js="tribe-events-top-bar-datepicker"]',
+		datepickerContainer: '[data-js="tribe-events-top-bar-datepicker-container"]',
 		datepickerDays: '.datepicker-days',
 		datepickerDaysBody: '.datepicker-days tbody',
 		datepickerDaysRow: '.datepicker-days tbody tr',
@@ -353,7 +353,7 @@ tribe.events.views.datepicker = {};
 	/**
 	 * Initialize datepicker JS
 	 *
-	 * @since  4.9.5
+	 * @since  TBD
 	 *
 	 * @param  {Event}   event      event object for 'afterSetup.tribeEvents' event
 	 * @param  {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event
@@ -389,7 +389,7 @@ tribe.events.views.datepicker = {};
 
 		$input
 			.bootstrapDatepicker( {
-				container: $input.closest( obj.selectors.datepickerContainer ),
+				container: $container.find( obj.selectors.datepickerContainer ),
 				daysOfWeekDisabled: daysOfWeekDisabled,
 				/**
 				 * @todo: use format from BE. Paul.
