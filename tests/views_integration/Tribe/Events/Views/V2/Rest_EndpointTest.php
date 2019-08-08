@@ -35,7 +35,7 @@ class Rest_EndpointTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertStringContainsString( 'admin-ajax.php', $rest->get_url() );
 	}
 
-	public function argumnets_sanitize_data_provider() {
+	public function arguments_sanitize_data_provider() {
 		return [
 			'not_supported_param_should_be_excluded' => [
 				[
@@ -51,7 +51,7 @@ class Rest_EndpointTest extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * @test
-	 * @dataProvider argumnets_sanitize_data_provider
+	 * @dataProvider arguments_sanitize_data_provider
 	 */
 	public function it_should_filter_and_sanitize_params( $input, $expected ) {
 		$rest = $this->make_instance();
