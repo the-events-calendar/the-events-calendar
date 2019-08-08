@@ -150,7 +150,7 @@ class View implements View_Interface {
 		$params = array_merge( $params, $url_object->get_query_args() );
 
 		// Let View data override any other data.
-		if ( isset( $params['view_data'] ) ) {
+		if ( isset( $params['view_data'] ) && is_array( $params['view_data'] ) ) {
 			$params = array_merge( $params, $params['view_data'] );
 		}
 
