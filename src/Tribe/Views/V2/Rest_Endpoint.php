@@ -171,12 +171,11 @@ class Rest_Endpoint {
 	 *
 	 * @return WP_REST_Request
 	 */
-	public function get_mocked_rest_request( $params ) {
+	public function get_mocked_rest_request( array $params ) {
 		$request = new Request( 'GET', static::NAMESPACE . '/html' );
 		$arguments = $this->get_request_arguments();
 
-		$body_params = (array) $_GET;
-		foreach ( $body_params as $key => $value ) {
+		foreach ( $params as $key => $value ) {
 			// Quick way to prevent un-wanted params.
 			if ( ! isset( $arguments[ $key ] ) ) {
 				continue;
