@@ -84,7 +84,20 @@ class Rest_Endpoint {
 					return filter_var( $nonce, FILTER_SANITIZE_STRING );
 				},
 			],
-			'action' => [
+			'view_data' => [
+				'required'          => false,
+				'validate_callback' => static function ( $view_data ) {
+					return is_array( $view_data );
+				},
+				'sanitize_callback' => static function ( $view_data ) {
+					return is_array( $view_data ) ? $view_data : [];
+				},
+			],
+		];
+
+		// Arguments specific to AJAX requests
+		if ( ! $this->is_available() ) {
+			$arguments['action'] = [
 				'required'          => false,
 				'validate_callback' => static function ( $action ) {
 					return is_string( $action );
@@ -92,17 +105,8 @@ class Rest_Endpoint {
 				'sanitize_callback' => static function ( $action ) {
 					return filter_var( $action, FILTER_SANITIZE_STRING );
 				},
-			],
-			'view_data' => [
-				'required'          => false,
-				'validate_callback' => static function ( $view_data ) {
-					return is_array( $view_data );
-				},
-				'sanitize_callback' => static function ( $view_data ) {
-					return filter_var( $view_data, FILTER_REQUIRE_ARRAY );
-				},
-			],
-		];
+			];
+		}
 
 		/**
 		 * Filter the arguments for the HTML REST API request.
