@@ -27,6 +27,12 @@
     "_tribe_modified_fields": [
       "a:6:{s:13:\"_EventEndDate\";i:1560261849;s:16:\"_EventEndDateUTC\";i:1560261849;s:18:\"_EventTimezoneAbbr\";i:1560261849;s:12:\"_EventOrigin\";i:1560261849;s:13:\"_EventShowMap\";i:1560261849;s:17:\"_EventShowMapLink\";i:1560261849;}"
     ],
+    "_EventStartDate": [
+      "2019-06-20 13:04:08"
+    ],
+    "_EventStartDateUTC": [
+      "2019-06-20 13:04:08"
+    ],
     "_EventEndDate": [
       "2019-06-20 17:04:08"
     ],

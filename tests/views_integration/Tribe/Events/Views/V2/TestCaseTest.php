@@ -4,6 +4,7 @@ namespace Tribe\Events\Views\V2;
 
 require_once codecept_data_dir( 'Views/V2/classes/Test_View.php' );
 require_once codecept_data_dir( 'Views/V2/classes/Test_Context_View.php' );
+use Tribe\Test\Products\WPBrowser\Views\V2\TestCase;
 
 class TestCaseTest extends TestCase {
 

@@ -441,6 +441,21 @@ tribe.events.views.eventsBar = {};
 	};
 
 	/**
+	 * Deinitializes events bar
+	 *
+	 * @since 4.9.5
+	 *
+	 * @param {jQuery} $container jQuery object of view container
+	 *
+	 * @return {void}
+	 */
+	obj.deinitEventsBar = function( $container ) {
+		obj.deinitTablist( $container );
+		obj.deinitFiltersAccordion( $container );
+		obj.deinitSearchAccordion( $container );
+	};
+
+	/**
 	 * Initializes events bar
 	 *
 	 * @since 4.9.4
@@ -452,26 +467,29 @@ tribe.events.views.eventsBar = {};
 	obj.initEventsBar = function( $container ) {
 		var $eventsBar = $container.find( obj.selectors.eventsBar );
 		var $filtersButton = $container.find( obj.selectors.filtersButton );
-		var state = $eventsBar.data( 'state' );
 
-		if ( obj.state.isMobile && ! state.mobileInitialized ) {
-			if ( $filtersButton.length ) {
-				obj.initTablist( $container );
-				obj.deinitFiltersAccordion( $container );
+		if ( $eventsBar.length ) {
+			var state = $eventsBar.data( 'state' );
+
+			if ( obj.state.isMobile && ! state.mobileInitialized ) {
+				if ( $filtersButton.length ) {
+					obj.initTablist( $container );
+					obj.deinitFiltersAccordion( $container );
+				}
+				obj.initSearchAccordion( $container );
+				state.desktopInitialized = false;
+				state.mobileInitialized = true;
+				$eventsBar.data( 'state', state );
+			} else if ( ! obj.state.isMobile && ! state.desktopInitialized ) {
+				if ( $filtersButton.length ) {
+					obj.deinitTablist( $container );
+					obj.initFiltersAccordion( $container );
+				}
+				obj.deinitSearchAccordion( $container );
+				state.mobileInitialized = false;
+				state.desktopInitialized = true;
+				$eventsBar.data( 'state', state );
 			}
-			obj.initSearchAccordion( $container );
-			state.desktopInitialized = false;
-			state.mobileInitialized = true;
-			$eventsBar.data( 'state', state );
-		} else if ( ! obj.state.isMobile && ! state.desktopInitialized ) {
-			if ( $filtersButton.length ) {
-				obj.deinitTablist( $container );
-				obj.initFiltersAccordion( $container );
-			}
-			obj.deinitSearchAccordion( $container );
-			state.mobileInitialized = false;
-			state.desktopInitialized = true;
-			$eventsBar.data( 'state', state );
 		}
 	};
 
@@ -490,6 +508,17 @@ tribe.events.views.eventsBar = {};
 	};
 
 	/**
+	 * Unbind events for window resize
+	 *
+	 * @since 4.9.5
+	 *
+	 * @return {void}
+	 */
+	obj.unbindEvents = function() {
+		$window.off( 'resize', obj.handleResize );
+	};
+
+	/**
 	 * Bind events for window resize
 	 *
 	 * @since 4.9.4
@@ -503,14 +532,31 @@ tribe.events.views.eventsBar = {};
 	};
 
 	/**
-	 * Initialize events bar JS
+	 * Deinitialize events bar JS
 	 *
 	 * @since 4.9.4
 	 *
-	 * @param {Event} event event object for 'afterSetup.tribeEvents' event
-	 * @param {integer} index jQuery.each index param from 'afterSetup.tribeEvents' event
-	 * @param {jQuery} $container jQuery object of view container
-	 * @param {object} data data object passed from 'afterSetup.tribeEvents' event
+	 * @param  {Event}       event    event object for 'afterSetup.tribeEvents' event
+	 * @param  {jqXHR}       jqXHR    Request object
+	 * @param  {PlainObject} settings Settings that this request was made with
+	 *
+	 * @return {void}
+	 */
+	obj.deinit = function( event, jqXHR, settings ) {
+		var $container = event.data.container;
+		obj.deinitEventsBar( $container );
+		obj.unbindEvents();
+	};
+
+	/**
+	 * Initialize events bar JS
+	 *
+	 * @since  4.9.5
+	 *
+	 * @param  {Event}   event      event object for 'afterSetup.tribeEvents' event
+	 * @param  {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event
+	 * @param  {jQuery}  $container jQuery object of view container
+	 * @param  {object}  data       data object passed from 'afterSetup.tribeEvents' event
 	 *
 	 * @return {void}
 	 */
@@ -519,6 +565,7 @@ tribe.events.views.eventsBar = {};
 		obj.initState( $container );
 		obj.initEventsBar( $container );
 		obj.bindEvents( $container );
+		$container.on( 'beforeAjaxSuccess.tribeEvents', { container: $container }, obj.deinit );
 	};
 
 	/**
@@ -530,12 +577,6 @@ tribe.events.views.eventsBar = {};
 	 */
 	obj.ready = function() {
 		$document.on( 'afterSetup.tribeEvents', tribe.events.views.manager.selectors.container, obj.init );
-
-		/**
-		 * @todo: do below for ajax events
-		 */
-		// on 'beforeAjaxBeforeSend.tribeEvents' event, remove all listeners
-		// on 'afterAjaxError.tribeEvents', add all listeners
 	};
 
 	// Configure on document ready

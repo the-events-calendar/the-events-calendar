@@ -19,7 +19,14 @@
 	 *
 	 * ----------------------------------------------------------------------------- */
 
-	/* .tribe-events-c-nav {} */
+	.tribe-events-c-nav {
+		border-top: 1px solid var(--color-border-default);
+		padding-top: var(--spacer-4);
+
+		@media (--viewport-medium) {
+			padding-top: var(--spacer-6);
+		}
+	}
 
 	.tribe-events-c-nav__list {
 		display: flex;
@@ -54,6 +61,33 @@
 		}
 	}
 
+	.tribe-events-c-nav__prev-label-plural,
+	.tribe-events-c-nav__next-label-plural {
+		@mixin visually-hide;
+
+		white-space: pre;
+
+		@media (--viewport-medium) {
+			@mixin visually-show;
+		}
+	}
+
+
+	.tribe-events-c-nav__prev,
+	.tribe-events-c-nav__next,
+	.tribe-events-c-nav__today {
+
+		&:hover,
+		&:focus {
+			color: var(--color-accent-secondary-hover);
+		}
+
+		&:active {
+			color: var(--color-text-primary);
+			font-weight: var(--font-weight-bold);
+		}
+	}
+
 	.tribe-events-c-nav__prev,
 	.tribe-events-c-nav__next {
 		align-items: center;
@@ -61,16 +95,10 @@
 		flex: none;
 		flex-wrap: wrap;
 		justify-content: center;
-		color: var(--color-text-primary);
 
 		@media (--viewport-medium) {
 			color: var(--color-text-secondary);
 			font-weight: var(--font-weight-bold);
-		}
-
-		&:hover,
-		&:focus {
-			color: var(--color-text-primary);
 		}
 
 		&:disabled {
@@ -92,18 +120,25 @@
 
 			@media (--viewport-medium) {
 				background-image: svg-inline(caret-left);
-				height: 16px;
+				height: 14px;
 				margin-right: 15px;
-				width: 10px;
+				width: 9px;
 			}
 		}
 
-		&:active,
 		&:hover,
 		&:focus {
 
 			&:before {
 				background-image: svg-inline(caret-left-active);
+				opacity: var(--opacity-icon-hover);
+			}
+		}
+
+		&:active {
+
+			&:before {
+				opacity: var(--opacity-default);
 			}
 		}
 
@@ -128,18 +163,25 @@
 
 			@media (--viewport-medium) {
 				background-image: svg-inline(caret-right);
-				height: 16px;
+				height: 14px;
 				margin-left: 15px;
-				width: 10px;
+				width: 9px;
 			}
 		}
 
-		&:active,
 		&:hover,
 		&:focus {
 
 			&:after {
 				background-image: svg-inline(caret-right-active);
+				opacity: var(--opacity-icon-hover);
+			}
+		}
+
+		&:active {
+
+			&:after {
+				opacity: var(--opacity-default);
 			}
 		}
 

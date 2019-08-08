@@ -95,7 +95,7 @@ tribe.events.views.monthMobileEvents = {};
 
 		$header.addClass( obj.selectors.calendarDaySelected.className() );
 		$content
-			.parent( obj.selectors.mobileEvents.className() )
+			.parent( obj.selectors.mobileEvents )
 			.addClass( obj.selectors.mobileEventsShow.className() );
 	};
 
@@ -118,7 +118,7 @@ tribe.events.views.monthMobileEvents = {};
 
 		$header.removeClass( obj.selectors.calendarDaySelected.className() );
 		$content
-			.parent( obj.selectors.mobileEvents.className() )
+			.parent( obj.selectors.mobileEvents )
 			.removeClass( obj.selectors.mobileEventsShow.className() );
 	};
 
@@ -154,27 +154,76 @@ tribe.events.views.monthMobileEvents = {};
 	};
 
 	/**
-	 * Binds events for mobile day click listeners
+	 * Unbinds events for calendar
 	 *
 	 * @since 4.9.4
 	 *
-	 * @param {Event} event event object for 'afterSetup.tribeEvents' event
-	 * @param {integer} index jQuery.each index param from 'afterSetup.tribeEvents' event
 	 * @param {jQuery} $container jQuery object of view container
-	 * @param {object} data data object passed from 'afterSetup.tribeEvents' event
+	 *
+	 * @return {void}
+	 */
+	obj.unbindCalendarEvents = function( $container ) {
+		var $calendar = $container.find( obj.selectors.calendar );
+		$calendar
+			.find( obj.selectors.calendarDay )
+			.each( function( index, day ) {
+				$( day ).off( 'click', obj.toggleMobileEvents );
+			} );
+	};
+
+	/**
+	 * Binds events for calendar
+	 *
+	 * @since 4.9.5
+	 *
+	 * @param {jQuery} $container jQuery object of view container
+	 *
+	 * @return {void}
+	 */
+	obj.bindCalendarEvents = function( $container ) {
+		var $calendar = $container.find( obj.selectors.calendar );
+		$calendar
+			.find( obj.selectors.calendarDay )
+			.each( function( index, day ) {
+				$( day ).on( 'click', {
+					target: day,
+					container: $container,
+					calendar: $calendar,
+				}, obj.toggleMobileEvents );
+			} );
+	};
+
+	/**
+	 * Unbinds events for container
+	 *
+	 * @since 4.9.5
+	 *
+	 * @param  {Event}       event    event object for 'afterSetup.tribeEvents' event
+	 * @param  {jqXHR}       jqXHR    Request object
+	 * @param  {PlainObject} settings Settings that this request was made with
+	 *
+	 * @return {void}
+	 */
+	obj.unbindEvents = function( event, jqXHR, settings ) {
+		var $container = event.data.container;
+		obj.unbindCalendarEvents( $container );
+	};
+
+	/**
+	 * Binds events for container
+	 *
+	 * @since 4.9.5
+	 *
+	 * @param  {Event}   event      event object for 'afterSetup.tribeEvents' event
+	 * @param  {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event
+	 * @param  {jQuery}  $container jQuery object of view container
+	 * @param  {object}  data       data object passed from 'afterSetup.tribeEvents' event
 	 *
 	 * @return {void}
 	 */
 	obj.bindEvents = function( event, index, $container, data ) {
-		var $calendar = $container.find( obj.selectors.calendar );
-
-		$calendar.find( obj.selectors.calendarDay ).each( function( index, day ) {
-			$( day ).on( 'click', {
-				target: day,
-				container: $container,
-				calendar: $calendar,
-			}, obj.toggleMobileEvents );
-		} );
+		obj.bindCalendarEvents( $container );
+		$container.on( 'beforeAjaxSuccess.tribeEvents', { container: $container }, obj.unbindEvents );
 	};
 
 	/**
@@ -186,12 +235,6 @@ tribe.events.views.monthMobileEvents = {};
 	 */
 	obj.ready = function() {
 		$document.on( 'afterSetup.tribeEvents', tribe.events.views.manager.selectors.container, obj.bindEvents );
-
-		/**
-		 * @todo: do below for ajax events
-		 */
-		// on 'beforeAjaxBeforeSend.tribeEvents' event, remove all listeners
-		// on 'afterAjaxError.tribeEvents', add all listeners
 	};
 
 	// Configure on document ready

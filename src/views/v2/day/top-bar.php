@@ -3,7 +3,7 @@
  * View: Top Bar
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/views/v2/top-bar.php
+ * [your-theme]/tribe/events/views/v2/day/top-bar.php
  *
  * See more documentation about our views templating system.
  *
@@ -15,12 +15,12 @@
 ?>
 <div class="tribe-events-c-top-bar tribe-events-header__top-bar">
 
-	<?php $this->template( 'top-bar/nav' ); ?>
+	<?php $this->template( 'components/top-bar/nav' ); ?>
 
-	<?php $this->template( 'top-bar/today' ); ?>
+	<?php $this->template( 'day/top-bar/today' ); ?>
 
-	<?php $this->template( 'top-bar/date-picker' ); ?>
+	<?php $this->template( 'day/top-bar/datepicker' ); ?>
 
-	<?php $this->template( 'top-bar/actions' ); ?>
+	<?php $this->template( 'components/top-bar/actions' ); ?>
 
 </div>

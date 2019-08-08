@@ -2,9 +2,9 @@
 
 namespace Tribe\Events\Views\V2\Partials\Month\Calendar_Body\Day;
 
-use Tribe\Events\Views\V2\Partials\TestCase;
+use Tribe\Test\Products\WPBrowser\Views\V2\HtmlPartialTestCase;
 
-class Calendar_EventsTest extends TestCase
+class Calendar_EventsTest extends HtmlPartialTestCase
 {
 
 	protected $partial_path = 'month/calendar-body/day/calendar-events';

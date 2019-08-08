@@ -74,6 +74,7 @@ class Tribe__Events__Featured_Events {
 	 * @return bool
 	 */
 	public function featured_events_requested() {
-		return tribe_is_truthy( tribe_get_request_var( 'featured', false ) );
+		return tribe_is_truthy( tribe_get_request_var( 'featured', false ) ) || tribe_is_truthy( tribe_get_request_var( 'tribe_featuredevent', false ) )
+;
 	}
 }

@@ -11,12 +11,19 @@
  *
  * @var string $link The URL to the previous page, if any, or an empty string.
  *
- * @version 4.9.4
+ * @version 4.9.5
  *
  */
 ?>
 <li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--prev">
-	<button class="tribe-events-c-nav__prev tribe-common-b2" disabled>
-		<?php echo esc_html( sprintf( __( 'Previous %s', 'the-events-calendar' ), tribe_get_event_label_plural() ) ); ?>
+	<button class="tribe-events-c-nav__prev tribe-common-b2 tribe-common-b1--min-medium" disabled>
+		<?php
+			$events_label = '<span class="tribe-events-c-nav__prev-label-plural"> ' . tribe_get_event_label_plural() . '</span>';
+			echo wp_kses(
+				/* translators: %s: Event (plural or singular). */
+				sprintf( __( 'Previous %1$s' ), $events_label ),
+				[ 'span' => [ 'class' => [] ] ]
+			);
+		?>
 	</button>
 </li>

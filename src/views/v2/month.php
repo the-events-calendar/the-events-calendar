@@ -31,13 +31,13 @@ $events = $this->get( 'events' );
 		<header class="tribe-events-header">
 			<?php $this->template( 'events-bar' ); ?>
 
-			<?php $this->template( 'top-bar' ); ?>
+			<?php $this->template( 'month/top-bar' ); ?>
 		</header>
 
 		<div
 			class="tribe-events-calendar-month"
 			role="grid"
-			aria-labelledby="tribe-calendar-header"
+			aria-labelledby="tribe-events-calendar-header"
 			aria-readonly="true"
 			data-js="tribe-events-month-grid"
 		>

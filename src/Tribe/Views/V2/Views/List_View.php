@@ -33,28 +33,6 @@ class List_View extends View {
 	protected $publicly_visible = true;
 
 	/**
-	 * Get HTML method
-	 *
-	 * @since 4.9.3
-	 *
-	 */
-	public function get_html() {
-		$args = $this->setup_repository_args();
-
-		$this->setup_the_loop( $args );
-
-		$template_vars = $this->setup_template_vars();
-
-		$this->template->set_values( $template_vars, false );
-
-		$html = $this->template->render();
-
-		$this->restore_the_loop();
-
-		return $html;
-	}
-
-	/**
 	 * {@inheritDoc}
 	 */
 	public function prev_url( $canonical = false, array $passthru_vars = [] ) {
@@ -81,7 +59,7 @@ class List_View extends View {
 		$current_page = (int) $this->context->get( 'page', 1 );
 		$display      = $this->context->get( 'event_display_mode', 'list' );
 
-		if ( $this->slug === $display ) {
+		if ( $this->slug === $display || 'default' === $display ) {
 			$url = parent::next_url( $canonical );
 		} else if ( $current_page > 1 ) {
 			$url = parent::prev_url( $canonical, [ 'eventDisplay' => 'past' ] );
@@ -214,22 +192,9 @@ class List_View extends View {
 	protected function setup_repository_args( \Tribe__Context $context = null ) {
 		$context = null !== $context ? $context : $this->context;
 
-		$common_args = parent::setup_repository_args( $context );
+		$args = parent::setup_repository_args( $context );
 
-		/*
-		 * The View not care where the context comes from: from the View point of view the context is the only
-		 * source of truth.
-		 * The context might come from the main query, from a widget, a shortcode or a REST request.
-		 */
 		$context_arr = $context->to_array();
-
-		/*
-		 * Depending on the context contents let's set up the arguments to fetch the events.
-		 */
-		$args = array_merge( $common_args, [
-			'posts_per_page' => $context_arr['posts_per_page'],
-			'paged'          => max( Arr::get_first_set( $context_arr, [ 'paged', 'page' ], 1 ), 1 ),
-		] );
 
 		$date = Arr::get( $context_arr, 'event_date', 'now' );
 		$event_display = Arr::get( $context_arr, 'event_display_mode', Arr::get( $context_arr, 'event_display' ), 'current' );

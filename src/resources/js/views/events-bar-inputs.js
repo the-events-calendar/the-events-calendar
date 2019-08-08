@@ -52,12 +52,36 @@ tribe.events.views.eventsBarInputs = {};
 	 *
 	 * @return {void}
 	 */
-	obj.setInputFocusClass = function( event ) {
+	obj.handleInputChange = function( event ) {
 		var $input = event.data.target;
 		var $wrapper = event.data.wrapper;
 
 		// Set the focus class if it has content.
 		$wrapper.toggleClass( event.data.inputClassFocus, '' !== $input.val().trim() );
+	};
+
+	/**
+	 * Unbind events for the events bar input.
+	 *
+	 * @since 4.9.5
+	 *
+	 * @param {jQuery} $container jQuery object of container.
+	 *
+	 * @return {void}
+	 */
+	obj.unbindInputEvents = function( $container ) {
+		$container
+			.find( obj.selectors.inputWrapper )
+			.each( function( index, wrapper ) {
+				var $input = $( wrapper ).find( obj.selectors.input );
+
+				// Bail in case we dont find the input.
+				if ( ! $input.length ) {
+					return;
+				}
+
+				$input.off( 'change', obj.handleInputChange );
+			} );
 	};
 
 	/**
@@ -69,7 +93,7 @@ tribe.events.views.eventsBarInputs = {};
 	 *
 	 * @return {void}
 	 */
-	obj.bindEventsInputFocus = function( $container ) {
+	obj.bindInputEvents = function( $container ) {
 		$container
 			.find( obj.selectors.inputWrapper )
 			.each( function( index, wrapper ) {
@@ -90,8 +114,24 @@ tribe.events.views.eventsBarInputs = {};
 
 				$wrapper.toggleClass( inputWrapperFocus, '' !== $input.val().trim() );
 
-				$input.on( 'change', { target: $input, wrapper: $wrapper, inputClassFocus: inputWrapperFocus }, obj.setInputFocusClass );
+				$input.on( 'change', { target: $input, wrapper: $wrapper, inputClassFocus: inputWrapperFocus }, obj.handleInputChange );
 			} );
+	};
+
+	/**
+	 * Unbinds events for container
+	 *
+	 * @since  4.9.5
+	 *
+	 * @param  {Event}       event    event object for 'afterSetup.tribeEvents' event
+	 * @param  {jqXHR}       jqXHR    Request object
+	 * @param  {PlainObject} settings Settings that this request was made with
+	 *
+	 * @return {void}
+	 */
+	obj.unbindEvents = function( event, jqXHR, settings ) {
+		var $container = event.data.container;
+		obj.unbindInputEvents( $container );
 	};
 
 	/**
@@ -99,16 +139,17 @@ tribe.events.views.eventsBarInputs = {};
 	 *
 	 * @since 4.9.4
 	 *
-	 * @param {Event} event event object for 'afterSetup.tribeEvents' event
-	 * @param {integer} index jQuery.each index param from 'afterSetup.tribeEvents' event
-	 * @param {jQuery} $container jQuery object of view container
-	 * @param {object} data data object passed from 'afterSetup.tribeEvents' event
+	 * @param  {Event}   event      event object for 'afterSetup.tribeEvents' event
+	 * @param  {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event
+	 * @param  {jQuery}  $container jQuery object of view container
+	 * @param  {object}  data       data object passed from 'afterSetup.tribeEvents' event
 	 *
 	 * @return {void}
 	 */
 	obj.bindEvents = function( event, index, $container, data ) {
 		// Bind event for the keyword input.
-		obj.bindEventsInputFocus( $container );
+		obj.bindInputEvents( $container );
+		$container.on( 'beforeAjaxSuccess.tribeEvents', { container: $container }, obj.unbindEvents );
 	};
 
 	/**
@@ -120,12 +161,6 @@ tribe.events.views.eventsBarInputs = {};
 	 */
 	obj.ready = function() {
 		$document.on( 'afterSetup.tribeEvents', tribe.events.views.manager.selectors.container, obj.bindEvents );
-
-		/**
-		 * @todo: do below for ajax events
-		 */
-		// on 'beforeAjaxBeforeSend.tribeEvents' event, remove all listeners
-		// on 'afterAjaxError.tribeEvents', add all listeners
 	};
 
 	// Configure on document ready
