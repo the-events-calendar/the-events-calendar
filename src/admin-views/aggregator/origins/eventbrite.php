@@ -41,7 +41,7 @@ if ( $missing_eventbrite_credentials ) :
 					);
 					?>
 				</p>
-				<a class="tribe-ea-eventbrite-button" href="<?php echo esc_url( Tribe__Events__Aggregator__Record__Eventbrite::get_auth_url() ); ?>"><?php esc_html_e( 'Log into Eventbrite', 'the-events-calendar' ); ?></a>
+				<a class="tribe-ea-eventbrite-button tribe-ea-login-button" href="<?php echo esc_url( Tribe__Events__Aggregator__Record__Eventbrite::get_auth_url() ); ?>"><?php esc_html_e( 'Log into Eventbrite', 'the-events-calendar' ); ?></a>
 			</div>
 		</td>
 	</tr>

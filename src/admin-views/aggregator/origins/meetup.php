@@ -15,65 +15,42 @@ $frequency->source      = 'meetup_import_frequency';
 $cron = Tribe__Events__Aggregator__Cron::instance();
 $frequencies = $cron->get_frequency();
 
-$meetup_api_key = tribe_get_option( 'meetup_api_key' );
-$missing_meetup_credentials = ! $meetup_api_key;
+$missing_meetup_credentials = ! tribe( 'events-aggregator.settings' )->is_ea_authorized_for_meetup();
+$data_depends = '#tribe-ea-field-origin';
+$data_condition = 'meetup';
 
-?>
-<tr class="tribe-dependent tribe-credential-row" data-depends="#tribe-ea-field-origin" data-condition="meetup">
-	<td colspan="2" class="<?php echo esc_attr( $missing_meetup_credentials ? 'enter-credentials' : 'has-credentials' ); ?>">
-		<?php
-		if ( $missing_meetup_credentials ) :
-			?>
+if ( $missing_meetup_credentials ) :
+	$data_depends = '#tribe-has-meetup-credentials';
+	$data_condition = '1';
+	$meetup_auth_url = Tribe__Events__Aggregator__Record__Meetup::get_auth_url();
+	?>
+	<tr class="tribe-dependent tribe-credential-row" data-depends="#tribe-ea-field-origin" data-condition="meetup">
+		<td colspan="2" class="<?php echo esc_attr( $missing_meetup_credentials ? 'enter-credentials' : 'has-credentials' ); ?>">
 			<input type="hidden" name="has-credentials" id="tribe-has-meetup-credentials" value="0">
 			<div class="tribe-message tribe-credentials-prompt">
-				<span class="dashicons dashicons-warning"></span>
-				<?php
-				printf(
-					esc_html__(
-						'Enter your Meetup API key to import Meetup events. %1$sClick here to get your Meetup API key%2$s. You only need to do this once, it will be saved under %3$sEvents &gt; Settings &gt; APIs%4$s',
+				<p>
+					<span class="dashicons dashicons-warning"></span>
+					<?php
+					esc_html_e(
+						'Please log in to enable event imports from Meetup.',
 						'the-events-calendar'
-					),
-					'<a href="https://secure.meetup.com/meetup_api/key/">',
-					'</a>',
-					'<a href="' . esc_url( Tribe__Settings::instance()->get_url( array( 'tab' => 'addons' ) ) ) . '">',
-					'</a>'
-				);
-				?>
+					);
+					?>
+				</p>
+				<a class="tribe-ea-meetup-button tribe-ea-login-button" href="<?php echo esc_url( $meetup_auth_url ); ?>">
+					<?php esc_html_e( 'Log into Meetup', 'the-events-calendar' ); ?>
+				</a>
 			</div>
-			<div class="tribe-message tribe-credentials-success">
-				<span class="dashicons dashicons-yes"></span>
-				<?php
-				printf(
-					esc_html__(
-						'Your Meetup API key has been saved to %1$sEvents &gt; Settings &gt; APIs%2$s',
-						'the-events-calendar'
-					),
-					'<a href="' . esc_url( Tribe__Settings::instance()->get_url( array( 'tab' => 'addons' ) ) ) . '">',
-					'</a>'
-				);
-				?>
-			</div>
-			<div class="tribe-fieldset">
-				<?php wp_nonce_field( 'tribe-save-meetup-credentials' ); ?>
-				<input type="hidden" name="tribe_credentials_which" value="meetup">
-				<label for="meetup_api_key"><?php esc_html_e( 'Meetup API Key:', 'the-events-calendar' ); ?></label>
-				<input type="text" name="meetup_api_key" id="meetup_api_key" value="<?php echo esc_attr( $meetup_api_key ); ?>">
-				<button type="button" class="button tribe-save"><?php esc_html_e( 'Save', 'the-events-calendar' ); ?></button>
-			</div>
-			<?php
-		else:
-			?>
-			<input type="hidden" name="has-credentials" id="tribe-has-meetup-credentials" value="1">
-			<?php
-		endif;
-		?>
-	</td>
-</tr>
-<tr class="tribe-dependent" data-depends="#tribe-ea-field-origin" data-condition="meetup">
-	<th scope="row" class="tribe-dependent" data-depends="#tribe-has-meetup-credentials" data-condition="1">
+		</td>
+	</tr>
+<?php endif; ?>
+
+<tr class="tribe-dependent" data-depends="<?php echo esc_attr( $data_depends ); ?>"
+    data-condition="<?php echo esc_attr( $data_condition ); ?>">
+	<th scope="row">
 		<label for="tribe-ea-field-import_type"><?php echo esc_html( $field->label ); ?></label>
 	</th>
-	<td class="tribe-dependent" data-depends="#tribe-has-meetup-credentials" data-condition="1">
+	<td>
 
 		<?php if ( 'edit' === $aggregator_action ) : ?>
 			<input type="hidden" name="aggregator[meetup][import_type]" id="tribe-ea-field-meetup_import_type" value="schedule" />
