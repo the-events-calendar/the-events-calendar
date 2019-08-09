@@ -34,7 +34,7 @@ if ( ! $event->featured || empty( $event->thumbnail->full->url ) ) {
 		<div class="tribe-events-calendar-month__calendar-event-featured-image tribe-common-c-image tribe-common-c-image--bg">
 			<div
 				class="tribe-common-c-image__bg"
-				style="background-image: url('<?php echo esc_attr( $event->thumbnail->full->url ); ?>');"
+				style="background-image: url('<?php echo esc_url( $event->thumbnail->full->url ); ?>');"
 				role="img"
 				aria-label="alt text here"
 			>

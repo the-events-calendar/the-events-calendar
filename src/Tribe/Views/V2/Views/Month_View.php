@@ -398,9 +398,9 @@ class Month_View extends View {
 			$day_data = [
 				'date'             => $day_date,
 				'is_start_of_week' => $start_of_week === $date_object->format( 'N' ),
-				'year_number'      => (int) $date_object->format( 'Y' ),
-				'month_number'     => (int) $date_object->format( 'm' ),
-				'day_number'       => (int) $date_object->format( 'd' ),
+				'year_number'      => $date_object->format( 'Y' ),
+				'month_number'     => $date_object->format( 'm' ),
+				'day_number'       => $date_object->format( 'd' ),
 				'events'           => $the_day_events,
 				'featured_events'  => $featured_events,
 				'multiday_events'  => $day_stack,

@@ -13,18 +13,11 @@
  *
  */
 
-// $event    = $this->get( 'event' );
-// $event_id = $event->ID;
-
 $classes = [ 'tribe-events-calendar-month-mobile-events__mobile-event' ];
-
-/* @todo fix this once we make event dynamic */
-// if ( isset( $event->featured ) && $event->featured ) {
-	$classes[] = 'tribe-events-calendar-month-mobile-events__mobile-event--featured';
-// }
+$classes['tribe-events-calendar-month-mobile-events__mobile-event--featured'] = $event->featured;
 ?>
 
-<article class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>">
+<article <?php tribe_classes( $classes ); ?>>
 
 	<?php $this->template( 'month/mobile-events/mobile-day/mobile-event/featured-image', [ 'event' => $event ] ); ?>
 
@@ -35,5 +28,4 @@ $classes = [ 'tribe-events-calendar-month-mobile-events__mobile-event' ];
 		<?php $this->template( 'month/mobile-events/mobile-day/mobile-event/cta', [ 'event' => $event ] ); ?>
 
 	</div>
-
 </article>

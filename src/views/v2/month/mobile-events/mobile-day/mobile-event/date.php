@@ -11,22 +11,38 @@
  *
  * @version 4.9.4
  *
+ * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
+ *
+ * @see tribe_get_event() For the format of the event object.
  */
+
+$time_format = tribe_get_time_format();
 ?>
 <div class="tribe-events-calendar-month-mobile-events__mobile-event-datetime tribe-common-b2">
-	<em
-		class="tribe-events-calendar-month-mobile-events__mobile-event-datetime-featured tribe-common-svgicon tribe-common-svgicon--featured"
-		aria-label="<?php esc_attr_e( 'Featured', 'the-events-calendar' ) ?>"
-		title="<?php esc_attr_e( 'Featured', 'the-events-calendar' ) ?>"
-	>
-	</em>
-	<em
-		class="tribe-events-calendar-month-mobile-events__mobile-event-datetime-recurring tribe-common-svgicon tribe-common-svgicon--recurring"
-		aria-label="<?php esc_attr_e( 'Recurring', 'the-events-calendar' ) ?>"
-		title="<?php esc_attr_e( 'Recurring', 'the-events-calendar' ) ?>"
-	>
-	</em>
-	<time datetime="14:00">2pm</time>
+	<?php if ( ! empty( $event->featured ) ) : ?>
+		<em
+			class="tribe-events-calendar-month-mobile-events__mobile-event-datetime-featured tribe-common-svgicon tribe-common-svgicon--featured"
+			aria-label="<?php esc_attr_e( 'Featured', 'the-events-calendar' ) ?>"
+			title="<?php esc_attr_e( 'Featured', 'the-events-calendar' ) ?>"
+		>
+		</em>
+	<?php endif; ?>
+
+	<?php // @todo @fe this should be moved to PRO. ?>
+	<?php if ( ! empty( $event->recurring ) ) : ?>
+		<em
+			class="tribe-events-calendar-month-mobile-events__mobile-event-datetime-recurring tribe-common-svgicon tribe-common-svgicon--recurring"
+			aria-label="<?php esc_attr_e( 'Recurring', 'the-events-calendar' ) ?>"
+			title="<?php esc_attr_e( 'Recurring', 'the-events-calendar' ) ?>"
+		>
+		</em>
+	<?php endif; ?>
+
+	<time datetime="<?php echo esc_attr( $event->dates->start->format( 'H:i' ) ) ?>">
+		<?php echo esc_html( $event->dates->start->format( $time_format ) ) ?>
+	</time>
 	<span class="tribe-events-calendar-month-mobile-events__mobile-event-datetime-separator"> - </span>
-	<time datetime="18:00">6pm</time>
+	<time datetime="<?php echo esc_attr($event->dates->end->format( 'H:i' )) ?>">
+		<?php echo esc_html( $event->dates->end->format( $time_format ) ) ?>
+	</time>
 </div>

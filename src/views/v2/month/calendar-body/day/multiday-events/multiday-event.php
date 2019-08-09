@@ -58,11 +58,16 @@ if ( $should_display ) {
 	$classes[] = 'tribe-events-calendar-month__multiday-event--hidden';
 }
 
+$event_start_datetime = strtotime( tribe_get_start_date( $event->ID, true, Tribe__Date_Utils::DBDATETIMEFORMAT ) );
 ?>
 <div class="tribe-events-calendar-month__multiday-event-wrapper">
-
-	<article class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>" data-event-id="<?php echo esc_attr( $event->ID ); ?>">
-		<time datetime="the-date-and-or-duration" class="tribe-common-a11y-visual-hide">The date and duration</time>
+	<article <?php tribe_classes( $classes ); ?> data-event-id="<?php echo esc_attr( $event->ID ); ?>">
+		<time
+			datetime="<?php echo esc_attr( date_i18n( 'Y-m-d', $event_start_datetime ) ); ?>"
+			class="tribe-common-a11y-visual-hide"
+		>
+			<?php echo esc_attr( date_i18n( 'Y-m-d', $event_start_datetime ) ); ?>
+		</time>
 		<a href="<?php echo esc_url( $event->permalink ) ?>" class="tribe-events-calendar-month__multiday-event-inner">
 			<?php if ( $event->featured ) : ?>
 				<em
