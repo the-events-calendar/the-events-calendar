@@ -32,6 +32,6 @@ if ( $event->featured ) {
 		rel="bookmark"
 		class="tribe-events-calendar-month-mobile-events__mobile-event-title-link tribe-common-anchor"
 	>
-		<?php echo $event->post_content ?>
+		<?php echo wp_kses_post( $event->post_title ) ?>
 	</a>
 </h3>
