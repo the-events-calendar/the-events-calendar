@@ -27,7 +27,7 @@ if ( ! $event->featured || empty( $event->thumbnail->full->url ) ) {
 			class="tribe-common-c-image__bg"
 			style="background-image: url('<?php echo esc_url( $event->thumbnail->full->url ); ?>');"
 			role="img"
-			aria-label="alt text here"
+			aria-label="<?php echo esc_attr( $event->title ); ?>"
 		>
 		</div>
 	</div>

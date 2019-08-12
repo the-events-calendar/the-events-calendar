@@ -16,6 +16,10 @@
 if ( ! $event->featured ) {
 	return;
 }
+
+if ( empty( $event->cost ) ) {
+	return;
+}
 ?>
 <div class="tribe-events-c-small-cta tribe-events-calendar-month-mobile-events__mobile-event-cta">
 	<a href="#" class="tribe-events-c-small-cta__link tribe-common-cta tribe-common-cta--alt">

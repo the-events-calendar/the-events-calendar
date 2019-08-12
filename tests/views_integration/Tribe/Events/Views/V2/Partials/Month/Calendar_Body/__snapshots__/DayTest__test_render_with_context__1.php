@@ -1,7 +1,6 @@
 <?php return '
 <div
-	class="tribe-events-calendar-month__day tribe-events-calendar-month__day--current"
-	role="gridcell"
+	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--current" 	role="gridcell"
 	aria-labelledby="tribe-events-calendar-day-2019-07-01"
 	data-js="tribe-events-month-grid-cell"
 >
@@ -45,9 +44,12 @@
 			
 
 	<div class="tribe-events-calendar-month__multiday-event-wrapper">
-
-	<article class="tribe-events-calendar-month__multiday-event tribe-events-calendar-month__multiday-event--hidden" data-event-id="999997">
-		<time datetime="the-date-and-or-duration" class="tribe-common-a11y-visual-hide">The date and duration</time>
+	<article  class="tribe-events-calendar-month__multiday-event tribe-events-calendar-month__multiday-event--hidden"  data-event-id="999997">
+		<time
+			datetime="2019-08-12"
+			class="tribe-common-a11y-visual-hide"
+		>
+			2019-08-12		</time>
 		<a href="http://test.tri.be/?tribe_events=test-multi-day-event-2018-07-01-11am" class="tribe-events-calendar-month__multiday-event-inner">
 						<h3 class="tribe-events-calendar-month__multiday-event-title tribe-common-h8">
 							</h3>
@@ -60,9 +62,12 @@
 	<div class="tribe-events-calendar-month__multiday-event-wrapper tribe-events-calendar-month__multiday-event--empty"></div>
 
 	<div class="tribe-events-calendar-month__multiday-event-wrapper">
-
-	<article class="tribe-events-calendar-month__multiday-event tribe-events-calendar-month__multiday-event--hidden" data-event-id="999996">
-		<time datetime="the-date-and-or-duration" class="tribe-common-a11y-visual-hide">The date and duration</time>
+	<article  class="tribe-events-calendar-month__multiday-event tribe-events-calendar-month__multiday-event--hidden"  data-event-id="999996">
+		<time
+			datetime="2019-08-12"
+			class="tribe-common-a11y-visual-hide"
+		>
+			2019-08-12		</time>
 		<a href="http://test.tri.be/?tribe_events=test-multi-day-event-2018-07-01-1pm" class="tribe-events-calendar-month__multiday-event-inner">
 						<h3 class="tribe-events-calendar-month__multiday-event-title tribe-common-h8">
 							</h3>
@@ -108,8 +113,7 @@
 >
 	<div id="tribe-events-tooltip-content-999999">
 				<p class="tribe-events-calendar-month__calendar-event-tooltip-description tribe-common-b3">
-	Lorem ipsum dolor sit amet, consectetur adipiscing elit. In consectetur metus tortor, et maximus libero aliquet in. Praesent rhoncus ultricies neque in imperdiet. Aenean at ex luctus, tempor justo eget, pharetra magna. Nullam ut odio maximus nisi mollis gravida.
-</p>
+	</p>
 			</div>
 </div>
 
@@ -152,8 +156,7 @@
 >
 	<div id="tribe-events-tooltip-content-999998">
 				<p class="tribe-events-calendar-month__calendar-event-tooltip-description tribe-common-b3">
-	Lorem ipsum dolor sit amet, consectetur adipiscing elit. In consectetur metus tortor, et maximus libero aliquet in. Praesent rhoncus ultricies neque in imperdiet. Aenean at ex luctus, tempor justo eget, pharetra magna. Nullam ut odio maximus nisi mollis gravida.
-</p>
+	</p>
 			</div>
 </div>
 

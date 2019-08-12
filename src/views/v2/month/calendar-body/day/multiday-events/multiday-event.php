@@ -77,7 +77,7 @@ $event_start_datetime = strtotime( tribe_get_start_date( $event->ID, true, Tribe
 				></em>
 			<?php endif; ?>
 			<h3 class="tribe-events-calendar-month__multiday-event-title tribe-common-h8">
-				<?php echo esc_html( get_the_title( $event->ID ) ) ?>
+				<?php echo wp_kses_post( $event->title ) ?>
 			</h3>
 		</a>
 	</article>

@@ -11,7 +11,13 @@
  *
  * @version 4.9.4
  *
+ * @var string $day_date Date for this marker, following `Y-m-d` format.
+ *
  */
+
+if ( ! isset( $day_date ) ) {
+	return;
+}
 
 $day_date_datetime = strtotime( $day_date );
 ?>
