@@ -22,7 +22,7 @@
     "phpunit/phpunit": "~6.0",
     "scotteh/php-dom-wrapper": "0.7.3",
     "facebook/webdriver": "1.6.0",
-    "moderntribe/tribe-testing-facilities": "dev-master#1812402537664c9980c0dc65910cb131c0a0fcfd"
+    "moderntribe/tribe-testing-facilities": "dev-master"
   },
   "minimum-stability": "stable",
   "prefer-stable": true,
