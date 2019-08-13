@@ -70,7 +70,7 @@ class Day_ViewTest extends ViewTestCase {
 		$context = tribe_context()->alter( [
 				'today'      => $this->mock_date_value,
 				'now'        => $this->mock_date_value,
-				'posts_per_page' => 2,
+				'events_per_page' => 2,
 				'event_date' => $this->mock_date_value,
 			]
 		);

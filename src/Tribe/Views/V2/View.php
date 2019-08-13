@@ -840,7 +840,7 @@ class View implements View_Interface {
 		$context_arr = $context->to_array();
 
 		return [
-			'posts_per_page' => $context_arr['posts_per_page'],
+			'posts_per_page' => $context_arr['events_per_page'],
 			'paged'          => max( Arr::get_first_set( $context_arr, [ 'paged', 'page' ], 1 ), 1 ),
 			'search'         => $context->get( 'keyword', '' ),
 		];
