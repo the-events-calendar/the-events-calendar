@@ -19,7 +19,7 @@ class Rest_Endpoint {
 	 *
 	 * @var  string
 	 */
-	const NAMESPACE = 'tribe/views/v2';
+	const ROOT_NAMESPACE = 'tribe/views/v2';
 
 	/**
 	 * AJAX action for the fallback when REST is inactive.
@@ -43,7 +43,7 @@ class Rest_Endpoint {
 			return add_query_arg( [ 'action' => static::$ajax_action ], $url );
 		}
 
-		return get_rest_url( null, static::NAMESPACE . '/html' );
+		return get_rest_url( null, static::ROOT_NAMESPACE . '/html' );
 	}
 
 	/**
@@ -133,7 +133,7 @@ class Rest_Endpoint {
 			return false;
 		}
 
-		return register_rest_route( static::NAMESPACE, '/html', [
+		return register_rest_route( static::ROOT_NAMESPACE, '/html', [
 			'methods'             => Server::READABLE,
 			/**
 			 * @todo  Make sure we do proper handling of cache longer then 12h.
@@ -176,7 +176,7 @@ class Rest_Endpoint {
 	 * @return WP_REST_Request
 	 */
 	public function get_mocked_rest_request( array $params ) {
-		$request = new Request( 'GET', static::NAMESPACE . '/html' );
+		$request = new Request( 'GET', static::ROOT_NAMESPACE . '/html' );
 		$arguments = $this->get_request_arguments();
 
 		foreach ( $params as $key => $value ) {

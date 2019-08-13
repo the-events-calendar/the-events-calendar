@@ -46,10 +46,10 @@
 	<div class="tribe-events-calendar-month__multiday-event-wrapper">
 	<article  class="tribe-events-calendar-month__multiday-event tribe-events-calendar-month__multiday-event--hidden"  data-event-id="999997">
 		<time
-			datetime="2019-08-12"
+			datetime="2018-07-01"
 			class="tribe-common-a11y-visual-hide"
 		>
-			2019-08-12		</time>
+			2018-07-01		</time>
 		<a href="http://test.tri.be/?tribe_events=test-multi-day-event-2018-07-01-11am" class="tribe-events-calendar-month__multiday-event-inner">
 						<h3 class="tribe-events-calendar-month__multiday-event-title tribe-common-h8">
 							</h3>
@@ -64,10 +64,10 @@
 	<div class="tribe-events-calendar-month__multiday-event-wrapper">
 	<article  class="tribe-events-calendar-month__multiday-event tribe-events-calendar-month__multiday-event--hidden"  data-event-id="999996">
 		<time
-			datetime="2019-08-12"
+			datetime="2018-07-01"
 			class="tribe-common-a11y-visual-hide"
 		>
-			2019-08-12		</time>
+			2018-07-01		</time>
 		<a href="http://test.tri.be/?tribe_events=test-multi-day-event-2018-07-01-1pm" class="tribe-events-calendar-month__multiday-event-inner">
 						<h3 class="tribe-events-calendar-month__multiday-event-title tribe-common-h8">
 							</h3>

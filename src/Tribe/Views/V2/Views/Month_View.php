@@ -9,17 +9,12 @@
 namespace Tribe\Events\Views\V2\Views;
 
 use Tribe\Events\Views\V2\Utils\Stack;
-use Tribe\Events\Views\V2\View;
-use Tribe\Traits\Cache_User;
-use Tribe__Cache_Listener as Cache_Listener;
 use Tribe__Context as Context;
 use Tribe__Date_Utils as Dates;
 use Tribe__Events__Template__Month as Month;
-use Tribe__Events__Timezones as Timezones;
 use Tribe__Utils__Array as Arr;
 
-class Month_View extends View {
-	use Cache_User;
+class Month_View extends By_Day_View {
 
 	/**
 	 * The default number of events to show per-day.
@@ -49,13 +44,6 @@ class Month_View extends View {
 	protected $publicly_visible = true;
 
 	/**
-	 * The year and month string, in the format `Y-m`, the Month View is currently displaying.
-	 *
-	 * @var string
-	 */
-	protected $year_month;
-
-	/**
      * An instance of the Week Stack object.
 	 *
 	 * @since TBD
@@ -65,26 +53,6 @@ class Month_View extends View {
 	protected $stack;
 
 	/**
-	 * An array of cached event IDs per day.
-	 * Used by the `Cache_User` trait.
-	 *
-	 * @since TBD
-	 *
-	 * @var array
-	 */
-	protected $grid_days_cache = [];
-
-	/**
-	 * An array of cached event counts per day.
-	 * Used by the `Cache_User` trait.
-	 *
-	 * @since TBD
-	 *
-	 * @var array
-	 */
-	private $grid_days_found_cache = [];
-
-	/**
 	 * Month_View constructor.
 	 *
 	 * @since TBD
@@ -92,102 +60,8 @@ class Month_View extends View {
 	 * @param Stack $stack An instance of the Stack object.
 	 */
 	public function __construct( Stack $stack) {
+		parent::__construct();
 		$this->stack = $stack;
-		add_action( 'shutdown', [ $this, 'dump_cache' ] );
-	}
-
-	/**
-	 * Returns an array of event post IDs, divided by days.
-	 *
-	 * Note that multi-day events will show up in multiple days.
-	 *
-	 * @since TBD
-	 *
-	 * @param null|string $year_month The year and month, in the `Y-m` format, defaults to the current ones if not set.
-	 * @param bool $force Whether to force a re-fetch or try and use the cached values or not.
-	 *
-	 * @return array An array in the shape `[ <Y-m> => [...<events>], <Y-m> => [...<events>] ]`.
-	 */
-	public function get_grid_days( $year_month = null, $force = false ) {
-		if (
-			isset( $this->year_month )
-			&& $year_month && $year_month === $this->year_month
-			&& ! empty( $this->grid_days_cache )
-			&& ! $force
-		) {
-			return $this->grid_days_cache;
-		}
-
-		$year_month = $year_month ?: $this->year_month;
-
-		$grid_start = Month::calculate_first_cell_date( $year_month );
-		$grid_end   = Month::calculate_final_cell_date( $year_month );
-		$timezone   = Timezones::build_timezone_object();
-
-		try {
-			$grid_start_date = ( new \DateTime( $grid_start, $timezone ) )->setTime( 0, 0 );
-			$grid_end_date   = ( new \DateTime( $grid_end, $timezone ) )->setTime( 23, 59, 59 );
-			$days            = new \DatePeriod(
-				$grid_start_date,
-				new \DateInterval( 'P1D' ),
-				$grid_end_date
-			);
-		} catch ( \Exception $e ) {
-			// If anything happens let's return an empty array.
-			return [];
-		}
-
-		if ( empty( $this->repository_args ) ) {
-			$this->setup_repository_args();
-		}
-
-		$repository_args = $this->repository_args;
-		$order_by        = Arr::get( $repository_args, 'order_by', 'event_date' );
-		$order           = Arr::get( $repository_args, 'order', 'ASC' );
-		unset( $repository_args['order_by'], $repository_args['order'] );
-
-		$this->warmup_cache( 'grid_days', 0, Cache_Listener::TRIGGER_SAVE_POST );
-		$this->warmup_cache( 'grid_days_found', 0, Cache_Listener::TRIGGER_SAVE_POST );
-		$events_per_day = $this->context->get( 'month_posts_per_page', 10 );
-
-		/** @var \DateTime $day */
-		foreach ( $days as $day ) {
-			$day_string = $day->format( 'Y-m-d' );
-
-			if ( isset( $this->grid_days_cache[ $day_string ] ) ) {
-				return $this->grid_days_cache[ $day_string ];
-			}
-
-			$start = clone $day->setTime( 0, 0, 0 );
-			$end   = clone $day->setTime( 23, 59, 59 );
-
-			$day_query = tribe_events()->by_args( $repository_args )
-			                           ->where( 'date_overlaps', $start, $end )
-			                           ->per_page( $events_per_day )
-			                           ->order_by( $order_by, $order );
-			$event_ids = $day_query ->get_ids();
-			$found     = $day_query->found();
-
-			$this->grid_days_cache[ $day_string ]       = $event_ids;
-			$this->grid_days_found_cache[ $day_string ] = $found;
-		}
-
-		return $this->grid_days_cache;
-	}
-
-	/**
-	 * Returns the post IDs of all the events found in the month.
-	 *
-	 * Note: multi-day events will appear once; this is a conflation of all events on the month.
-	 *
-	 * @since TBD
-	 *
-	 * @return array A flat array of all the events found on the calendar grid.
-	 */
-	public function found_post_ids() {
-		return ! empty( $this->grid_days_cache )
-			? array_unique( array_merge( ... array_values( $this->grid_days_cache ) ) )
-			: [];
 	}
 
 	/**
@@ -208,7 +82,7 @@ class Month_View extends View {
 
 		$date = Arr::get( $context_arr, 'event_date', 'now' );
 
-		$this->year_month = ( new \DateTime( $date ) )->format( 'Y-m' );
+		$this->user_date = ( new \DateTime( $date ) )->format( 'Y-m' );
 
 		$args['order_by'] = 'event_date';
 		$args['order']    = 'ASC';
@@ -220,6 +94,27 @@ class Month_View extends View {
 		$this->repository_args = $args;
 
 		return $args;
+	}
+
+	/**
+	 * Overrides the base implementation to use the Month view custom number of events per day.
+	 *
+	 * @since TBD
+	 *
+	 * @return int The Month view number of events per day.
+	 */
+	protected function get_events_per_day() {
+		$events_per_day = $this->context->get( 'month_posts_per_page', 10 );
+
+		/**
+		 * Filters the number of events per day to fetch in the Month view.
+		 *
+		 * @since TBD
+		 *
+		 * @param int $events_per_day The default number of events that will be fetched for each day.
+		 * @param Month_View $this The current Month View instance.
+		 */
+		return apply_filters( 'tribe_events_views_v2_month_events_per_day', $events_per_day, $this );
 	}
 
 	/**
@@ -299,24 +194,6 @@ class Month_View extends View {
 		$stack = array_slice( $multiday_stack, $start_index, $end_index - $start_index + 1, true );
 
 		return $stack;
-	}
-
-	/**
-	 * Returns the number of events found for each day.
-	 *
-	 * The number of events found ignores the per-page setting and it includes any event happening on the day.
-	 * This includes multi-day events happening on the day.
-	 *
-	 * @since TBD
-	 *
-	 * @return array An array of days, each containing the count of found events for that day;
-	 *               the array has shape `[ <Y-m-d> => <count> ]`;
-	 */
-	public function get_grid_days_counts() {
-		// Fetch the events for each day on the grid, if not done already.
-		$this->get_grid_days();
-
-		return $this->grid_days_found_cache;
 	}
 
 	/**
@@ -413,4 +290,15 @@ class Month_View extends View {
 
 		return $days;
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	protected function calculate_grid_start_end( $date ) {
+		$grid_start = Month::calculate_first_cell_date( $date );
+		$grid_end   = Month::calculate_final_cell_date( $date );
+
+		return [ Dates::build_date_object( $grid_start ), Dates::build_date_object( $grid_end ) ];
+	}
+
 }

@@ -5,7 +5,6 @@ namespace Tribe\Events\Views\V2\Views;
 use Spatie\Snapshots\MatchesSnapshots;
 use Tribe\Events\Views\V2\View;
 use Tribe\Test\Products\WPBrowser\Views\V2\ViewTestCase;
-use Tribe__Timezones as Timezones;
 
 class Month_ViewTest extends ViewTestCase {
 	use MatchesSnapshots;
@@ -46,8 +45,6 @@ class Month_ViewTest extends ViewTestCase {
 	 * Test render with events
 	 */
 	public function test_render_with_events() {
-		/** @var Month_View $month_view */
-		$month_view      = View::make( Month_View::class, $this->context );
 		$timezone_string = 'Europe/Paris';
 		$timezone        = new \DateTimeZone( $timezone_string );
 		update_option( 'timezone_string', $timezone_string );
@@ -68,13 +65,25 @@ class Month_ViewTest extends ViewTestCase {
 			},
 			range( 1, 3 )
 		);
-		$event_ids = array_map(
-			static function ( \WP_Post $event ) {
-				return $event->ID;
-			},
-			$events
+		$event_ids = wp_list_pluck($events,'ID') ;
+		$remapped_post_ids = $this->remap_posts( $events, [
+			'events/featured/1.json',
+			'events/single/1.json',
+			'events/single/2.json'
+		] );
+		add_filter(
+			'tribe_events_views_v2_view_data',
+			function ( array $data ) use ( $remapped_post_ids ) {
+				foreach ( $data['events'] as &$day_events_ids ) {
+					$day_events_ids = $this->remap_post_id_array( $day_events_ids, $remapped_post_ids );
+				}
+
+				return $data;
+			}
 		);
 
+		/** @var Month_View $month_view */
+		$month_view      = View::make( Month_View::class, $this->context );
 		$html = $month_view->get_html();
 
 		$this->assertEquals( $event_ids, $month_view->found_post_ids() );
