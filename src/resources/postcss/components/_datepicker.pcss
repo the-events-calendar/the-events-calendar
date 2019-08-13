@@ -122,7 +122,7 @@
 			@mixin desktop-body-1;
 
 			padding: 11px 0;
-			width: 49px; /* this is a hack to max out the day width to the container, not exactly 49px */
+			width: 48px; /* this is a hack to max out the day width to the container, not exactly 48px */
 
 			&.old {
 				color: var(--color-text-disabled);
@@ -440,6 +440,38 @@
 				&.focused {
 					color: var(--color-background);
 					background: var(--color-accent-primary);
+				}
+			}
+		}
+	}
+
+	.tribe-theme-avada &.tribe-events-view--week .datepicker {
+
+		.day {
+
+			&.active {
+				color: var(--color-text-primary);
+				background: transparent;
+
+				&:hover {
+					background: transparent;
+				}
+			}
+		}
+
+		.hovered,
+		.focused {
+
+			.day {
+				background: var(--color-background-secondary);
+
+				&:hover {
+					background: var(--color-background-secondary);
+				}
+
+				&.old,
+				&.new {
+					background-color: var(--color-background-secondary) !important;
 				}
 			}
 		}
