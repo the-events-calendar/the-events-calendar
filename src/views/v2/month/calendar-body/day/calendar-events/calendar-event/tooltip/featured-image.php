@@ -21,7 +21,7 @@ if ( ! isset( $event->image ) ) { // @todo: use template tags for images here
 <div class="tribe-events-calendar-month__calendar-event-tooltip-featured-image-wrapper">
 	<a
 		href="<?php echo esc_url( $event->permalink ); ?>"
-		title="<?php echo esc_attr( $event->title ); ?>"
+		title="<?php echo esc_attr( get_the_title( $event->ID ) ); ?>"
 		rel="bookmark"
 	>
 		<div class="tribe-events-calendar-month__calendar-event-tooltip-featured-image tribe-common-c-image tribe-common-c-image--bg">
@@ -29,7 +29,7 @@ if ( ! isset( $event->image ) ) { // @todo: use template tags for images here
 				class="tribe-common-c-image__bg"
 				style="background-image: url('<?php echo esc_url( $event->image ); ?>');"
 				role="img"
-				aria-label="<?php echo esc_attr( $event->title ); ?>"
+				aria-label="<?php echo esc_attr( get_the_title( $event->ID ) ); ?>"
 			>
 			</div>
 		</div>

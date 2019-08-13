@@ -27,7 +27,7 @@ if ( ! $event->featured || empty( $event->thumbnail->full->url ) ) {
 <div class="tribe-events-calendar-month__calendar-event-featured-image-wrapper">
 	<a
 		href="<?php echo esc_url( $event->permalink ); ?>"
-		title="<?php echo esc_attr( $event->title ); ?>"
+		title="<?php echo esc_attr( get_the_title( $event->ID ) ); ?>"
 		rel="bookmark"
 		class="tribe-events-calendar-month__calendar-event-featured-image-link"
 	>
@@ -36,7 +36,7 @@ if ( ! $event->featured || empty( $event->thumbnail->full->url ) ) {
 				class="tribe-common-c-image__bg"
 				style="background-image: url('<?php echo esc_url( $event->thumbnail->full->url ); ?>');"
 				role="img"
-				aria-label="<?php echo esc_attr( $event->title ); ?>"
+				aria-label="<?php echo esc_attr( get_the_title( $event->ID ) ); ?>"
 			>
 			</div>
 		</div>
