@@ -155,7 +155,7 @@ class Month_View extends View {
 			$day_string = $day->format( 'Y-m-d' );
 
 			if ( isset( $this->grid_days_cache[ $day_string ] ) ) {
-				return $this->grid_days_cache[ $day_string ];
+				continue;
 			}
 
 			$start = tribe_beginning_of_day( $day->format( Dates::DBDATETIMEFORMAT ) );
