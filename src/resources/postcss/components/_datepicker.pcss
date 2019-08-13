@@ -99,6 +99,11 @@
 		.datepicker-months,
 		.datepicker-years {
 
+			th,
+			td {
+				padding: 0;
+			}
+
 			.datepicker-switch,
 			.prev,
 			.next {
@@ -121,15 +126,6 @@
 
 			&.old {
 				color: var(--color-text-disabled);
-			}
-		}
-
-		.datepicker-months,
-		.datepicker-years {
-
-			th,
-			td {
-				padding: 0;
 			}
 		}
 
@@ -380,6 +376,17 @@
 	 * ----------------------------------------------------------------------------- */
 
 	.tribe-theme-avada & .datepicker {
+		border: 1px solid var(--color-border-default);
+		border-radius: var(--border-radius-default);
+		padding: 0 var(--spacer-3) var(--spacer-3);
+
+		tbody td {
+			border: 0;
+		}
+
+		.datepicker-months td {
+			padding: 0;
+		}
 
 		.datepicker-switch,
 		.prev,
