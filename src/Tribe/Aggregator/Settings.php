@@ -30,8 +30,9 @@ class Tribe__Events__Aggregator__Settings {
 	 * Note: This should load on `plugins_loaded@P10`
 	 */
 	public function __construct() {
-		add_action( 'tribe_settings_do_tabs', array( $this, 'do_import_settings_tab' ) );
-		add_action( 'current_screen', array( $this, 'maybe_clear_eb_credentials' ) );
+		add_action( 'tribe_settings_do_tabs', [ $this, 'do_import_settings_tab' ] );
+		add_action( 'current_screen', [ $this, 'maybe_clear_eb_credentials' ] );
+		add_action( 'current_screen', [ $this, 'maybe_clear_meetup_credentials' ] );
 	}
 
 	/**
@@ -62,7 +63,7 @@ class Tribe__Events__Aggregator__Settings {
 		$this->clear_eb_credentials();
 
 		wp_redirect(
-			Tribe__Settings::instance()->get_url( array( 'tab' => 'addons' ) )
+			Tribe__Settings::instance()->get_url( [ 'tab' => 'addons' ] )
 		);
 		die;
 	}
@@ -74,9 +75,9 @@ class Tribe__Events__Aggregator__Settings {
 	 *
 	 */
 	public function get_eb_security_key() {
-		$args = array(
+		$args = [
 			'security_key' => tribe_get_option( 'eb_security_key' ),
-		);
+		];
 
 		return (object) $args;
 	}
@@ -175,12 +176,161 @@ class Tribe__Events__Aggregator__Settings {
 		return true;
 	}
 
+	/**
+	 * Hooked to current_screen, this method identifies whether or not eb credentials should be cleared
+	 *
+	 * @since 4.9.6
+	 *
+	 * @param WP_Screen $screen The current screen instance.
+	 */
+	public function maybe_clear_meetup_credentials( $screen ) {
+		if ( 'tribe_events_page_tribe-common' !== $screen->base ) {
+			return;
+		}
+
+		if ( tribe_get_request_var( 'tab', false ) !== 'addons' ) {
+			return;
+		}
+
+		$action = tribe_get_request_var( 'action' ) === 'disconnect-meetup';
+		$nonce  = tribe_get_request_var( '_wpnonce' );
+
+		if ( ! ( $action && $nonce && wp_verify_nonce( $nonce, 'disconnect-meetup' ) ) ) {
+			return;
+		}
+
+		$this->clear_meetup_credentials();
+
+		wp_redirect(
+			Tribe__Settings::instance()->get_url( [ 'tab' => 'addons' ] )
+		);
+		die;
+	}
+
+	/**
+	 * Get EB Security Key
+	 *
+	 * @since 4.9.6
+	 *
+	 */
+	public function get_meetup_security_key() {
+		$args = [
+			'security_key' => tribe_get_option( 'meetup_security_key' ),
+		];
+
+		return (object) $args;
+	}
+
+	/**
+	 * Check if Security Key
+	 *
+	 * @since 4.9.6
+	 *
+	 * @return bool
+	 *
+	 */
+	public function has_meetup_security_key() {
+		$credentials = $this->get_meetup_security_key();
+
+		return ! empty( $credentials->security_key );
+	}
+
+	/**
+	 * Handle Checking if there is a Security Key and Saving It
+	 *
+	 * @since 4.9.6
+	 *
+	 * @param object $eb_authorized object from EA service for Meetup Validation
+	 *
+	 * @return bool
+	 */
+	public function handle_meetup_security_key( $meetup_authorized ) {
+
+		// key is sent on initial authorization and save it if we have it
+		if ( ! empty( $meetup_authorized->data->secret_key ) ) {
+			tribe_update_option( 'meetup_security_key', esc_attr( $meetup_authorized->data->secret_key ) );
+
+			// If we have a Meetup OAuth flow security key, then we can remove the old Meetup API key, if any.
+			tribe_update_option( 'meetup_api_key', '' );
+
+			return true;
+		}
+
+
+		if ( $this->has_meetup_security_key() ) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Disconnect Meetup from EA
+	 *
+	 * @since 4.9.6
+	 */
+	public function clear_meetup_credentials() {
+
+		tribe( 'events-aggregator.service' )->disconnect_meetup_token();
+
+		tribe_update_option( 'meetup_security_key', null );
+		delete_transient( Tribe__Events__Aggregator__Service::$auth_transient_meetup );
+
+	}
+
+	/**
+	 * Given a URL, tack on the parts of the URL that gets used to disconnect Meetup
+	 *
+	 * @param string $url
+	 *
+	 * @since 4.9.6
+	 *
+	 * @return string The URL to issue a Meeetup disconnect request to EA Service.
+	 */
+	public function build_disconnect_meetup_url( $url ) {
+		return wp_nonce_url(
+			add_query_arg(
+				'action',
+				'disconnect-meetup',
+				$url
+			),
+			'disconnect-meetup'
+		);
+	}
+
+	/**
+	 * Check if the Meetup API credentials are connected in EA and correctly set.
+	 *
+	 * @since 4.9.6
+	 *
+	 * @return bool Whether the Meetup credentials are valid or not.
+	 */
+	public function is_ea_authorized_for_meetup() {
+		// If the service hasn't enabled oauth for Meetup, always assume it is valid.
+		if ( ! tribe( 'events-aggregator.main' )->api( 'origins' )->is_oauth_enabled( 'meetup' ) ) {
+			return true;
+		}
+
+		$request_secret_key = ! $this->has_meetup_security_key();
+		$meetup_authorized  = tribe( 'events-aggregator.service' )->has_meetup_authorized( $request_secret_key );
+
+		if ( empty( $meetup_authorized->status ) || 'success' !== $meetup_authorized->status ) {
+			return false;
+		}
+
+		if ( ! $this->handle_meetup_security_key( $meetup_authorized ) ) {
+			return false;
+		}
+
+		return true;
+	}
+
 	public function do_import_settings_tab() {
 		include_once Tribe__Events__Main::instance()->plugin_path . 'src/admin-views/aggregator/settings.php';
 	}
 
 	public function get_all_default_settings() {
-		$origins = array(
+		$origins = [
 			'csv',
 			'gcal',
 			'ical',
@@ -188,7 +338,7 @@ class Tribe__Events__Aggregator__Settings {
 			'eventbrite',
 			'meetup',
 			'url',
-		);
+		];
 
 		/**
 		 * Filters the origins available for the default import settings handling.
@@ -202,11 +352,11 @@ class Tribe__Events__Aggregator__Settings {
 		$settings = array();
 
 		foreach ( $origins as $origin ) {
-			$settings[ $origin ] = array(
+			$settings[ $origin ] = [
 				'post_status' => $this->default_post_status( $origin ),
 				'category'    => $this->default_category( $origin ),
 				'map'         => $this->default_map( $origin ),
-			);
+			];
 		}
 
 		return $settings;
@@ -353,11 +503,11 @@ class Tribe__Events__Aggregator__Settings {
 	 *               format.
 	 */
 	public function get_import_limit_type_options(  ) {
-		$options = array(
+		$options = [
 			'range'    => __( 'By date range', 'the-events-calendar' ),
 			'count'    => __( 'By number of events', 'the-events-calendar' ),
 			'no_limit' => __( 'Do not limit (not recommended)', 'the-events-calendar' ),
-		);
+		];
 
 		/**
 		 * Filters the options available for the default import limit options.
@@ -382,38 +532,38 @@ class Tribe__Events__Aggregator__Settings {
 	 */
 	protected function get_range_options() {
 		return array(
-			DAY_IN_SECONDS          => array(
+			DAY_IN_SECONDS          => [
 				'title' => __( '24 hours', 'the-events-calendar' ),
 				'range' => __( '24 hours', 'the-events-calendar' ),
-			),
-			3 * DAY_IN_SECONDS      => array(
+			],
+			3 * DAY_IN_SECONDS      => [
 				'title' => __( '72 hours', 'the-events-calendar' ),
 				'range' => __( '72 hours', 'the-events-calendar' ),
-			),
-			WEEK_IN_SECONDS         => array(
+			],
+			WEEK_IN_SECONDS         => [
 				'title' => __( 'One week', 'the-events-calendar' ),
 				'range' => __( 'one week', 'the-events-calendar' ),
-			),
-			2 * WEEK_IN_SECONDS     => array(
+			],
+			2 * WEEK_IN_SECONDS     => [
 				'title' => __( 'Two weeks', 'the-events-calendar' ),
 				'range' => __( 'two weeks', 'the-events-calendar' ),
-			),
-			3 * WEEK_IN_SECONDS     => array(
+			],
+			3 * WEEK_IN_SECONDS     => [
 				'title' => __( 'Three weeks', 'the-events-calendar' ),
 				'range' => __( 'three weeks', 'the-events-calendar' ),
-			),
-			30 * DAY_IN_SECONDS     => array(
+			],
+			30 * DAY_IN_SECONDS     => [
 				'title' => __( 'One month', 'the-events-calendar' ),
 				'range' => __( 'one month', 'the-events-calendar' ),
-			),
-			2 * 30 * DAY_IN_SECONDS => array(
+			],
+			2 * 30 * DAY_IN_SECONDS => [
 				'title' => __( 'Two months', 'the-events-calendar' ),
 				'range' => __( 'two months', 'the-events-calendar' ),
-			),
-			3 * 30 * DAY_IN_SECONDS => array(
+			],
+			3 * 30 * DAY_IN_SECONDS => [
 				'title' => __( 'Three months', 'the-events-calendar' ),
 				'range' => __( 'three months', 'the-events-calendar' ),
-			),
+			],
 		);
 	}
 
@@ -457,7 +607,7 @@ class Tribe__Events__Aggregator__Settings {
 	 * @return array $options An array of arrays in the format [ <number> => <number> ].
 	 */
 	public function get_import_limit_count_options() {
-		$numbers = array( 50, 100, 200, 300, 500, 750, 1000, 1500, 2000, 2500, 3000, 3500, 4000 );
+		$numbers = [ 50, 100, 200, 300, 500, 750, 1000, 1500, 2000, 2500, 3000, 3500, 4000 ];
 
 		$options = array_combine( $numbers, $numbers );
 
@@ -518,10 +668,10 @@ class Tribe__Events__Aggregator__Settings {
 	 * @return array
 	 */
 	public function get_source_origin_regexp() {
-		$origins = array(
+		$origins = [
 			'eventbrite' => Tribe__Events__Aggregator__Record__Eventbrite::get_source_regexp(),
 			'meetup'     => Tribe__Events__Aggregator__Record__Meetup::get_source_regexp(),
-		);
+		];
 
 		/**
 		 * Allows external plugins to filter which are the source Regular EXP
@@ -593,7 +743,7 @@ class Tribe__Events__Aggregator__Settings {
 		$this->clear_fb_credentials();
 
 		wp_redirect(
-			Tribe__Settings::instance()->get_url( array( 'tab' => 'addons' ) )
+			Tribe__Settings::instance()->get_url( [ 'tab' => 'addons' ] )
 		);
 		die;
 	}
@@ -604,11 +754,11 @@ class Tribe__Events__Aggregator__Settings {
 	public function get_fb_credentials() {
 		_deprecated_function( __FUNCTION__, '4.6.23', 'Importing from Facebook is no longer supported in Event Aggregator.' );
 
-		$args = array(
+		$args = [
 			'token'   => tribe_get_option( 'fb_token' ),
 			'expires' => tribe_get_option( 'fb_token_expires' ),
 			'scopes'  => tribe_get_option( 'fb_token_scopes' ),
-		);
+		];
 
 		return (object) $args;
 	}
