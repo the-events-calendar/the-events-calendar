@@ -107,9 +107,8 @@
 		}
 
 		.dow {
-			color: var(--color-text-primary);
-			font-size: var(--font-size-0);
-			font-weight: var(--font-weight-regular);
+			@mixin mobile-body-3;
+
 			padding: 0;
 			width: var(--grid-width-1-of-7);
 		}
@@ -371,6 +370,69 @@
 
 				&:hover {
 					background: var(--color-background-secondary);
+				}
+			}
+		}
+	}
+
+	/* -----------------------------------------------------------------------------
+	 * Theme Overrides - Avada
+	 * ----------------------------------------------------------------------------- */
+
+	.tribe-theme-avada & .datepicker {
+
+		.datepicker-switch,
+		.prev,
+		.next {
+			background-color: var(--color-background);
+
+			&:hover {
+				background-color: var(--color-background);
+			}
+		}
+
+		.day {
+
+			&.old,
+			&.new {
+				background-color: transparent !important;
+
+				&:hover,
+				&:focus,
+				&.focused {
+					background: var(--color-background-secondary) !important;
+				}
+			}
+
+			&.old {
+				color: var(--color-text-disabled) !important;
+			}
+
+			&.new {
+				color: var(--color-text-primary) !important;
+			}
+		}
+
+		.day,
+		.month {
+			background-color: transparent;
+			color: var(--color-text-primary);
+
+			&:hover,
+			&:focus,
+			&.focused {
+				background: var(--color-background-secondary);
+			}
+
+			&.active {
+				color: var(--color-background);
+				background: var(--color-accent-primary);
+
+				&:hover,
+				&:focus,
+				&.focused {
+					color: var(--color-background);
+					background: var(--color-accent-primary);
 				}
 			}
 		}
