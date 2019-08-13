@@ -10,8 +10,8 @@ namespace Tribe\Events\Service_Providers;
 
 use Tribe\Events\Views\V2\Utils;
 use Tribe__Context;
-use Tribe__Events__Main as TEC;
 use Tribe__Date_Utils as Dates;
+use Tribe__Events__Main as TEC;
 
 class Context extends \tad_DI52_ServiceProvider {
 
@@ -213,6 +213,10 @@ class Context extends \tad_DI52_ServiceProvider {
 						return Dates::build_date_object()->format( Dates::DBDATETIMEFORMAT );
 					},
 				],
+			],
+			'start_of_week' => [
+				'read'  => [ Tribe__Context::OPTION => 'start_of_week' ],
+				'write' => [ Tribe__Context::OPTION => 'start_of_week' ],
 			],
 		] );
 

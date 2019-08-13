@@ -4,6 +4,6 @@
 	aria-live="assertive"
 >
 	<div class="tribe-events-view-loader__spinner">
-		<?php echo esc_html( $this->get( 'text' ) ); ?>
+		<?php echo esc_html( $text ); ?>
 	</div>
 </div>
