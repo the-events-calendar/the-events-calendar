@@ -77,9 +77,9 @@ abstract class By_Day_View extends View{
 			return $this->grid_days_cache;
 		}
 
-		$date = $date ?: $this->user_date;
+		$this->user_date = $date ?: $this->context->get( 'event_date', 'now' );
 
-		list( $grid_start, $grid_end ) = $this->calculate_grid_start_end( $date );
+		list( $grid_start, $grid_end ) = $this->calculate_grid_start_end( $this->user_date );
 
 		try {
 			$grid_start_date = $grid_start->setTime( 0, 0 );
@@ -155,6 +155,10 @@ abstract class By_Day_View extends View{
 	 * @return array A flat array of all the events found on the calendar grid.
 	 */
 	public function found_post_ids() {
+		if ( empty( $this->grid_days_cache ) ) {
+			$this->get_grid_days();
+		}
+
 		return ! empty( $this->grid_days_cache )
 			? array_unique( array_merge( ... array_values( $this->grid_days_cache ) ) )
 			: [];
