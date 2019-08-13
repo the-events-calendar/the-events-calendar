@@ -158,8 +158,8 @@ class Month_View extends View {
 				return $this->grid_days_cache[ $day_string ];
 			}
 
-			$start = clone $day->setTime( 0, 0, 0 );
-			$end   = clone $day->setTime( 23, 59, 59 );
+			$start = tribe_beginning_of_day( $day->format( Dates::DBDATETIMEFORMAT ) );
+			$end   = tribe_end_of_day( $day->format( Dates::DBDATETIMEFORMAT) );
 
 			$day_query = tribe_events()->by_args( $repository_args )
 			                           ->where( 'date_overlaps', $start, $end )
