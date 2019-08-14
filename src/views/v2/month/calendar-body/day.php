@@ -16,9 +16,9 @@
  * @var array $day The current day data.{
  *          @type string $date The day date, in the `Y-m-d` format.
  *          @type bool $is_start_of_week Whether the current day is the first day of the week or not.
- *          @type int $year_number The day year number, e.g. `2019`.
- *          @type int $month_number The day year number, e.g. `6` for June.
- *          @type int $day_number The day number in the month, e.g. `11` for June 11th.
+ *          @type string $year_number The day year number, e.g. `2019`.
+ *          @type string $month_number The day year number, e.g. `6` for June.
+ *          @type string $day_number The day number in the month, e.g. `11` for June 11th.
  *          @type int $found_events The total number of events in the day including the ones not fetched due to the per
  *                                  page limit, including the multi-day ones.
  *          @type int $more_events The number of events not showing in the day.
@@ -47,7 +47,7 @@ $mobile_day_id = 'tribe-events-calendar-mobile-day-' . $day_date;
 ?>
 
 <div
-	class="<?php echo esc_attr( implode( ' ', $day_classes ) ) ?>"
+	<?php tribe_classes( $day_classes ); ?>
 	role="gridcell"
 	aria-labelledby="<?php echo esc_attr( $day_id ); ?>"
 	data-js="tribe-events-month-grid-cell"

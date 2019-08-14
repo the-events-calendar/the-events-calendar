@@ -15,13 +15,11 @@
  *
  * @see tribe_get_event() For the format of the event object.
  */
-
-// @todo @fe please check this is the format we want to use.
-$time_format = get_option( 'time_format' );
+$time_format = tribe_get_time_format();
 ?>
 
 <div class="tribe-events-calendar-month__calendar-event-datetime">
-	<?php if ( !empty($event->featured) ) : ?>
+	<?php if ( ! empty( $event->featured ) ) : ?>
 		<em
 			class="tribe-events-calendar-month__calendar-event-datetime-featured tribe-common-svgicon tribe-common-svgicon--featured"
 			aria-label="<?php esc_attr_e( 'Featured', 'the-events-calendar' ) ?>"

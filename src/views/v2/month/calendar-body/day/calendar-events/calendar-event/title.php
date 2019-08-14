@@ -20,7 +20,7 @@ $event_id = $event->ID;
 <h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h--alt">
 	<a
 		href="<?php echo esc_url( $event->permalink ) ?>"
-		title="<?php echo esc_attr( $event->title ); ?>"
+		title="<?php echo esc_attr( get_the_title( $event->ID ) ); ?>"
 		rel="bookmark"
 		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
 		data-js="tribe-events-tooltip"

@@ -67,9 +67,9 @@ class MonthTest extends HtmlTestCase {
 			$days[ $day_date ] = [
 				'date'             => $day_date,
 				'is_start_of_week' => 1 === $date_object->format( 'N' ),
-				'year_number'      => (int) $date_object->format( 'Y' ),
-				'month_number'     => (int) $date_object->format( 'm' ),
-				'day_number'       => (int) $date_object->format( 'd' ),
+				'year_number'      => $date_object->format( 'Y' ),
+				'month_number'     => $date_object->format( 'm' ),
+				'day_number'       => $date_object->format( 'd' ),
 				'events'           => [],
 				'featured_events'  => [],
 				'multiday_events'  => [],
