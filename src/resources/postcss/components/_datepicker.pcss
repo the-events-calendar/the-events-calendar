@@ -99,6 +99,11 @@
 		.datepicker-months,
 		.datepicker-years {
 
+			th,
+			td {
+				padding: 0;
+			}
+
 			.datepicker-switch,
 			.prev,
 			.next {
@@ -107,9 +112,8 @@
 		}
 
 		.dow {
-			color: var(--color-text-primary);
-			font-size: var(--font-size-0);
-			font-weight: var(--font-weight-regular);
+			@mixin mobile-body-3;
+
 			padding: 0;
 			width: var(--grid-width-1-of-7);
 		}
@@ -118,19 +122,10 @@
 			@mixin desktop-body-1;
 
 			padding: 11px 0;
-			width: 49px; /* this is a hack to max out the day width to the container, not exactly 49px */
+			width: 48px; /* this is a hack to max out the day width to the container, not exactly 48px */
 
 			&.old {
 				color: var(--color-text-disabled);
-			}
-		}
-
-		.datepicker-months,
-		.datepicker-years {
-
-			th,
-			td {
-				padding: 0;
 			}
 		}
 
@@ -371,6 +366,112 @@
 
 				&:hover {
 					background: var(--color-background-secondary);
+				}
+			}
+		}
+	}
+
+	/* -----------------------------------------------------------------------------
+	 * Theme Overrides - Avada
+	 * ----------------------------------------------------------------------------- */
+
+	.tribe-theme-avada & .datepicker {
+		border: 1px solid var(--color-border-default);
+		border-radius: var(--border-radius-default);
+		padding: 0 var(--spacer-3) var(--spacer-3);
+
+		tbody td {
+			border: 0;
+		}
+
+		.datepicker-months td {
+			padding: 0;
+		}
+
+		.datepicker-switch,
+		.prev,
+		.next {
+			background-color: var(--color-background);
+
+			&:hover {
+				background-color: var(--color-background);
+			}
+		}
+
+		.day {
+
+			&.old,
+			&.new {
+				background-color: transparent !important;
+
+				&:hover,
+				&:focus,
+				&.focused {
+					background: var(--color-background-secondary) !important;
+				}
+			}
+
+			&.old {
+				color: var(--color-text-disabled) !important;
+			}
+
+			&.new {
+				color: var(--color-text-primary) !important;
+			}
+		}
+
+		.day,
+		.month {
+			background-color: transparent;
+			color: var(--color-text-primary);
+
+			&:hover,
+			&:focus,
+			&.focused {
+				background: var(--color-background-secondary);
+			}
+
+			&.active {
+				color: var(--color-background);
+				background: var(--color-accent-primary);
+
+				&:hover,
+				&:focus,
+				&.focused {
+					color: var(--color-background);
+					background: var(--color-accent-primary);
+				}
+			}
+		}
+	}
+
+	.tribe-theme-avada &.tribe-events-view--week .datepicker {
+
+		.day {
+
+			&.active {
+				color: var(--color-text-primary);
+				background: transparent;
+
+				&:hover {
+					background: transparent;
+				}
+			}
+		}
+
+		.hovered,
+		.focused {
+
+			.day {
+				background: var(--color-background-secondary);
+
+				&:hover {
+					background: var(--color-background-secondary);
+				}
+
+				&.old,
+				&.new {
+					background-color: var(--color-background-secondary) !important;
 				}
 			}
 		}
