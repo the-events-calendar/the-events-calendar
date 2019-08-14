@@ -63,10 +63,10 @@ if ( $should_display ) {
 <div class="tribe-events-calendar-month__multiday-event-wrapper">
 	<article <?php tribe_classes( $classes ); ?> data-event-id="<?php echo esc_attr( $event->ID ); ?>">
 		<time
-			datetime="<?php echo esc_attr( $event->dates->start->format( Dates::DATEONLYFORMAT ) ); ?>"
+			datetime="<?php echo esc_attr( $event->dates->start->format( Dates::DBDATEFORMAT ) ); ?>"
 			class="tribe-common-a11y-visual-hide"
 		>
-			<?php echo esc_attr( $event->dates->start->format( Dates::DATEONLYFORMAT ) ); ?>
+			<?php echo esc_attr( $event->dates->start->format( Dates::DBDATEFORMAT ) ); ?>
 		</time>
 		<a href="<?php echo esc_url( $event->permalink ) ?>" class="tribe-events-calendar-month__multiday-event-inner">
 			<?php if ( $event->featured ) : ?>

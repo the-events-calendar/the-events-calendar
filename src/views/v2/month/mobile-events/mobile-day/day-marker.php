@@ -25,7 +25,7 @@ $day_date_datetime = Dates::build_date_object( $day_date )->getTimestamp()
 <div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
 	<time
 		class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h--alt"
-		datetime="<?php echo esc_attr( date_i18n( Dates::DATEONLYFORMAT, $day_date_datetime ) ); ?>"
+		datetime="<?php echo esc_attr( date_i18n( Dates::DBDATEFORMAT, $day_date_datetime ) ); ?>"
 	>
 		<?php echo esc_html( date_i18n( tribe_get_date_format(), $day_date_datetime ) ); ?>
 	</time>
