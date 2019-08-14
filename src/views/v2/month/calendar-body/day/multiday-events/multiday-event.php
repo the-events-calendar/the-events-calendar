@@ -59,15 +59,14 @@ if ( $should_display ) {
 	$classes[] = 'tribe-events-calendar-month__multiday-event--hidden';
 }
 
-$event_start_datetime = strtotime( $event->dates->start->format( Dates::DBDATETIMEFORMAT ) );
 ?>
 <div class="tribe-events-calendar-month__multiday-event-wrapper">
 	<article <?php tribe_classes( $classes ); ?> data-event-id="<?php echo esc_attr( $event->ID ); ?>">
 		<time
-			datetime="<?php echo esc_attr( date_i18n( 'Y-m-d', $event_start_datetime ) ); ?>"
+			datetime="<?php echo esc_attr( $event->dates->start->format( Dates::DATEONLYFORMAT ) ); ?>"
 			class="tribe-common-a11y-visual-hide"
 		>
-			<?php echo esc_attr( date_i18n( 'Y-m-d', $event_start_datetime ) ); ?>
+			<?php echo esc_attr( $event->dates->start->format( Dates::DATEONLYFORMAT ) ); ?>
 		</time>
 		<a href="<?php echo esc_url( $event->permalink ) ?>" class="tribe-events-calendar-month__multiday-event-inner">
 			<?php if ( $event->featured ) : ?>
