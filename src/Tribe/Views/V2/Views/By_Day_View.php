@@ -65,7 +65,7 @@ abstract class By_Day_View extends View{
 	 * @param null|string $date  The date to use as pivot, defaults to the current ones if not set.
 	 * @param bool        $force Whether to force a re-fetch or try and use the cached values or not.
 	 *
-	 * @return array An array in the shape `[ <Y-m> => [...<events>], <Y-m> => [...<events>] ]`.
+	 * @return array An array in the shape `[ <Y-m-d> => [...<events>], <Y-m-d> => [...<events>] ]`.
 	 */
 	public function get_grid_days( $date = null, $force = false ) {
 		if (
