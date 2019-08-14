@@ -12,7 +12,7 @@ use Tribe\Events\Views\V2\View;
 use Tribe__Events__Main as TEC;
 use Tribe__Events__Rewrite as Rewrite;
 use Tribe__Utils__Array as Arr;
-use Tribe__Date_Utils as Date;
+use Tribe__Date_Utils as Dates;
 
 class Day_View extends View {
 	/**
@@ -40,7 +40,7 @@ class Day_View extends View {
 		$default_date   = 'now';
 		$date           = $this->context->get( 'event_date', $default_date );
 		$event_date_var = $default_date === $date ? '' : $date;
-		$previous_date = date( Date::DBDATEFORMAT, strtotime( $date . ' -1day' ) );
+		$previous_date = date( Dates::DBDATEFORMAT, strtotime( $date . ' -1day' ) );
 
 		$past = tribe_events()->by_args( [
 			'on_date'  => $previous_date,
@@ -63,7 +63,7 @@ class Day_View extends View {
 				return '';
 			}
 
-			$previous_date = tribe_get_start_date( $previous_event, false, Date::DBDATEFORMAT );
+			$previous_date = tribe_get_start_date( $previous_event, false, Dates::DBDATEFORMAT );
 		}
 
 		$query_args = [ 'eventDate' => $previous_date ];
@@ -101,7 +101,7 @@ class Day_View extends View {
 		$default_date   = 'today';
 		$date           = $this->context->get( 'event_date', $default_date );
 		$event_date_var = $default_date === $date ? '' : $date;
-		$next_date = date( Date::DBDATEFORMAT, strtotime( $date . ' 23:59 +1day' ) );
+		$next_date = date( Dates::DBDATEFORMAT, strtotime( $date . ' 23:59 +1day' ) );
 
 		$future = tribe_events()->by_args( [
 			'on_date'  => $next_date,
@@ -122,7 +122,7 @@ class Day_View extends View {
 				return '';
 			}
 
-			$next_date = tribe_get_start_date( $next_event, false, Date::DBDATEFORMAT );
+			$next_date = tribe_get_start_date( $next_event, false, Dates::DBDATEFORMAT );
 		}
 
 		$query_args = [ 'eventDate' => $next_date ];

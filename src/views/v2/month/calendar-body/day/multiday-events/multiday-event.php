@@ -19,7 +19,7 @@
  * @see tribe_get_event() For the format of the event object and its properties.
  *
  */
-use Tribe__Date_Utils as Date;
+use Tribe__Date_Utils as Dates;
 
 /*
  * To keep the calendar accessible, in the context of a week, we'll print the event only on either its first day
@@ -59,7 +59,7 @@ if ( $should_display ) {
 	$classes[] = 'tribe-events-calendar-month__multiday-event--hidden';
 }
 
-$event_start_datetime = strtotime( $event->dates->start->format( Date::DBDATETIMEFORMAT ) );
+$event_start_datetime = strtotime( $event->dates->start->format( Dates::DBDATETIMEFORMAT ) );
 ?>
 <div class="tribe-events-calendar-month__multiday-event-wrapper">
 	<article <?php tribe_classes( $classes ); ?> data-event-id="<?php echo esc_attr( $event->ID ); ?>">
