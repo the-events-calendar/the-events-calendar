@@ -2,7 +2,7 @@
 /**
  * ${CARET}
  *
- * @since   TBD
+ * @since   4.9.7
  *
  * @package Tribe\Events\Views\V2\Views
  */
@@ -30,7 +30,7 @@ abstract class By_Day_View extends View{
 	 * An array of cached event IDs per day.
 	 * Used by the `Cache_User` trait.
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @var array
 	 */
@@ -40,7 +40,7 @@ abstract class By_Day_View extends View{
 	 * An array of cached event counts per day.
 	 * Used by the `Cache_User` trait.
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @var array
 	 */
@@ -49,7 +49,7 @@ abstract class By_Day_View extends View{
 	/**
 	 * By_Day_View constructor.
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 */
 	public function __construct(  ) {
 		add_action( 'shutdown', [ $this, 'dump_cache' ] );
@@ -60,7 +60,7 @@ abstract class By_Day_View extends View{
 	 *
 	 * Note that multi-day events will show up in multiple days.
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @param null|string $date  The date to use as pivot, defaults to the current ones if not set.
 	 * @param bool        $force Whether to force a re-fetch or try and use the cached values or not.
@@ -137,7 +137,7 @@ abstract class By_Day_View extends View{
 	 *
 	 * Each cell is a day, usually.
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @param \DateTime|string $date The date that should be used to calculate the grid first and final cell date.
 	 *
@@ -150,7 +150,7 @@ abstract class By_Day_View extends View{
 	 *
 	 * Note: multi-day events will appear once; this is a conflation of all events on the View.
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @return array A flat array of all the events found on the calendar grid.
 	 */
@@ -170,7 +170,7 @@ abstract class By_Day_View extends View{
 	 * The number of events found ignores the per-page setting and it includes any event happening on the day.
 	 * This includes multi-day events happening on the day.
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @return array An array of days, each containing the count of found events for that day;
 	 *               the array has shape `[ <Y-m-d> => <count> ]`;
@@ -187,7 +187,7 @@ abstract class By_Day_View extends View{
 	 *
 	 * Different Views with different implementations of this logic should override this method.
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @return int The number of events to show, per each day, in total, in the view.
 	 */
@@ -197,7 +197,7 @@ abstract class By_Day_View extends View{
 		/**
 		 * Filters the number of events per day to fetch in th View.
 		 *
-		 * @since TBD
+		 * @since 4.9.7
 		 *
 		 * @param int         $events_per_day The default number of events that will be fetched for each day.
 		 * @param By_Day_View $this           The current View instance.

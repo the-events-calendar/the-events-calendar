@@ -45,7 +45,7 @@ tribe.events.views.accordion = {};
 	/**
 	 * Sets open accordion accessibility attributes
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @param {jQuery} $header jQuery object of header
 	 * @param {jQuery} $content jQuery object of contents
@@ -63,7 +63,7 @@ tribe.events.views.accordion = {};
 	/**
 	 * Sets close accordion accessibility attributes
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @param {jQuery} $header jQuery object of header
 	 * @param {jQuery} $content jQuery object of contents
@@ -100,7 +100,7 @@ tribe.events.views.accordion = {};
 	/**
 	 * Opens accordion
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @param {jQuery} $header jQuery object of header
 	 * @param {jQuery} $content jQuery object of contents
@@ -115,7 +115,7 @@ tribe.events.views.accordion = {};
 	/**
 	 * Closes accordion
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @param {jQuery} $header jQuery object of header
 	 * @param {jQuery} $content jQuery object of contents
@@ -152,7 +152,7 @@ tribe.events.views.accordion = {};
 	/**
 	 * Deinitializes accordion accessibility attributes
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @param {jQuery} $header jQuery object of header
 	 * @param {jQuery} $content jQuery object of contents
@@ -171,7 +171,7 @@ tribe.events.views.accordion = {};
 	/**
 	 * Initializes accordion accessibility attributes
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @param {jQuery} $header jQuery object of header
 	 * @param {jQuery} $content jQuery object of contents

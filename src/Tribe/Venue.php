@@ -685,7 +685,7 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 		 *
 		 * Returning a non `null` value here will skip the default logic.
 		 *
-		 * @since TBD
+		 * @since 4.9.7
 		 *
 		 * @param callable|null The fetch callback.
 		 * @param int $event The event post ID.

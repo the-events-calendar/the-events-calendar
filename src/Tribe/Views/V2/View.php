@@ -126,7 +126,7 @@ class View implements View_Interface {
 	/**
 	 * Whether the View instance should manage the URL
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @var bool
 	 */

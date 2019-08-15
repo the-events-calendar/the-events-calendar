@@ -149,7 +149,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Handles 'click' event on tab
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @param {Event} event event object of click event
 	 *
@@ -169,7 +169,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Handles 'keydown' event on tab
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @param {Event} event event object of keydown event
 	 *
@@ -209,7 +209,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Deinitializes tablist
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @param {jQuery} $container jQuery object of view container
 	 *
@@ -238,7 +238,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Initializes tablist
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @param {jQuery} $container jQuery object of view container
 	 *
@@ -281,7 +281,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Deinitialize accordion based on header and content
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @param {jQuery} $header jQuery object of header
 	 * @param {jQuery} $content jQuery object of contents
@@ -297,7 +297,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Initialize accordion based on header and content
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @param {jQuery} $container jQuery object of view container
 	 * @param {jQuery} $header jQuery object of header
@@ -349,7 +349,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Toggles active class on search button
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @param {Event} event event object for click event
 	 *
@@ -431,7 +431,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Initializes events bar
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @param {jQuery} $container jQuery object of view container
 	 *
@@ -472,7 +472,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Handles 'resize.tribeEvents' event
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @param {Event} event event object for 'resize.tribeEvents' event
 	 *
@@ -485,7 +485,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Handles click event on document
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @param {Event} event event object for click event
 	 *
@@ -512,7 +512,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Unbind events for events bar
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @return {void}
 	 */
@@ -525,7 +525,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Bind events for events bar
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @param  {jQuery}  $container jQuery object of view container
 	 *

@@ -15,7 +15,7 @@
 /**
  * Filters the data that will be printed for the View.
  *
- * @since TBD
+ * @since 4.9.7
  *
  * @param array $data The data that will be printed for the current View.
  * @param string $view_slug The slug of the view currently being rendered.

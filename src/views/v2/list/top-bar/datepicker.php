@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version TBD
+ * @version 4.9.7
  *
  * @var string $today Today date in the `Y-m-d` format.
  *

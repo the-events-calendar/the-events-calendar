@@ -15,7 +15,7 @@ class Rest_Endpoint {
 	/**
 	 * Rest Endpoint namespace
 	 *
-	 * @since  TBD
+	 * @since  4.9.7
 	 *
 	 * @var  string
 	 */
@@ -24,7 +24,7 @@ class Rest_Endpoint {
 	/**
 	 * AJAX action for the fallback when REST is inactive.
 	 *
-	 * @since  TBD
+	 * @since  4.9.7
 	 *
 	 * @var  string
 	 */
@@ -51,7 +51,7 @@ class Rest_Endpoint {
 	 *
 	 * @link  https://developer.wordpress.org/rest-api/requests/
 	 *
-	 * @since  TBD
+	 * @since  4.9.7
 	 *
 	 * @return array $arguments Request arguments following the WP_REST API Standards [ name => options, ... ]
 	 */
@@ -114,7 +114,7 @@ class Rest_Endpoint {
 		 *
 		 * @link  https://developer.wordpress.org/rest-api/requests/
 		 *
-		 * @since  TBD
+		 * @since  4.9.7
 		 *
 		 * @param array $arguments Request arguments following the WP_REST API Standards [ name => options, ... ]
 		 */
@@ -124,7 +124,7 @@ class Rest_Endpoint {
 	/**
 	 * Register the endpoint if available.
 	 *
-	 * @since  TBD
+	 * @since  4.9.7
 	 *
 	 * @return boolean If we registered the endpoint.
 	 */
@@ -151,7 +151,7 @@ class Rest_Endpoint {
 	/**
 	 * When REST is not available add ajax fallback into the correct action.
 	 *
-	 * @since  TBD
+	 * @since  4.9.7
 	 *
 	 * @return void
 	 */
@@ -169,7 +169,7 @@ class Rest_Endpoint {
 	 * Get the mocked rest request used for the AJAX fallback used to make sure users without
 	 * the REST API still have the Views V2 working.
 	 *
-	 * @since  TBD
+	 * @since  4.9.7
 	 *
 	 * @param  array $params Associative array with the params that will be used on this mocked request
 	 *
@@ -205,7 +205,7 @@ class Rest_Endpoint {
 	 * AJAX fallback for when REST endpoint is disabled. We try to mock a WP_REST_Request
 	 * and use the same method behind the scenes to make sure we have consistency.
 	 *
-	 * @since  TBD
+	 * @since  4.9.7
 	 *
 	 * @return void
 	 */
@@ -224,7 +224,7 @@ class Rest_Endpoint {
 	/**
 	 * Check if the REST endpoint is available.
 	 *
-	 * @since  TBD
+	 * @since  4.9.7
 	 *
 	 * @return boolean If the REST API endpoint is available.
 	 */
@@ -248,7 +248,7 @@ class Rest_Endpoint {
 		/**
 		 * Allows third-party deactivation of the REST Endpoint for just the view V2.
 		 *
-		 * @since  TBD
+		 * @since  4.9.7
 		 *
 		 * @param boolean $is_available If the REST API endpoint is available.
 		 */

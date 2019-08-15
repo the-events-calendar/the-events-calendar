@@ -210,7 +210,7 @@ abstract class Tribe__Events__Linked_Posts__Base {
 		}
 
 		$has_events_query = "SELECT DISTINCT pm.meta_value
-				FROM {$wpdb->posts} p 
+				FROM {$wpdb->posts} p
 				JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id
 				WHERE p.post_type = %s
 				{$post_status_clause}
@@ -349,7 +349,7 @@ abstract class Tribe__Events__Linked_Posts__Base {
 	/**
 	 * Builds and returns a closure to lazily fetch an Event linked posts.
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @param int $event The event post ID or object.
 	 *

@@ -19,7 +19,7 @@ class Month_View extends By_Day_View {
 	/**
 	 * The default number of events to show per-day.
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @var int
 	 */
@@ -46,7 +46,7 @@ class Month_View extends By_Day_View {
 	/**
      * An instance of the Week Stack object.
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @var Stack
 	 */
@@ -55,7 +55,7 @@ class Month_View extends By_Day_View {
 	/**
 	 * Month_View constructor.
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @param Stack $stack An instance of the Stack object.
 	 */
@@ -99,7 +99,7 @@ class Month_View extends By_Day_View {
 	/**
 	 * Overrides the base implementation to use the Month view custom number of events per day.
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @return int The Month view number of events per day.
 	 */
@@ -109,7 +109,7 @@ class Month_View extends By_Day_View {
 		/**
 		 * Filters the number of events per day to fetch in the Month view.
 		 *
-		 * @since TBD
+		 * @since 4.9.7
 		 *
 		 * @param int $events_per_day The default number of events that will be fetched for each day.
 		 * @param Month_View $this The current Month View instance.
@@ -149,7 +149,7 @@ class Month_View extends By_Day_View {
 	/**
 	 * Parses the multi-day events and produces the multi-day "stack", including spacers.
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @param array $grid_events_by_day An array of events, per-day, in the shape `[ <Y-m-d> => [...<event_ids> ] ]`;
 	 *
@@ -169,7 +169,7 @@ class Month_View extends By_Day_View {
 	/**
 	 * Returns a portion of the parsed multi-day stacks.
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @param \DateTime|string $from The start of the portion to return.
 	 * @param \DateTime|string $to   The end of the portion to return.
@@ -199,7 +199,7 @@ class Month_View extends By_Day_View {
 	/**
 	 * Populates the data for each day in the grid and returns it.
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @param array $grid_days An associative array of events per day, in the shape `[ <Y-m-d> => [...<events>] ]`.
 	 *
