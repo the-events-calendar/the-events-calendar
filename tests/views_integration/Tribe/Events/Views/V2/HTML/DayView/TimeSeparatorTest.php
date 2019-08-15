@@ -18,7 +18,7 @@ class TimeSeparatorTest extends HtmlTestCase {
 		];
 
 		$event = tribe_events()->set_args( $args )->create();
-
+		$event = tribe_get_event( $event->ID );
 
 		$args = [
 			'events' => [ $event ],

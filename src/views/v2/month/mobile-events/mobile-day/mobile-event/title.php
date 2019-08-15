@@ -18,21 +18,20 @@
 
 $classes = [ 'tribe-events-calendar-month-mobile-events__mobile-event-title' ];
 
-/* @todo @fe fix this once we make event dynamic */
-// if ( tribe( 'tec.featured_events' )->is_featured( $event_id ) ) {
+if ( $event->featured ) {
 	$classes[] = 'tribe-common-h6';
-// } else {
-// 	$classes[] = 'tribe-common-h8';
-// }
+} else {
+	$classes[] = 'tribe-common-h8';
+}
 
 ?>
-<h3 class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>">
+<h3 <?php tribe_classes( $classes ); ?>>
 	<a
 		href="<?php echo esc_url( $event->permalink ) ?>"
 		title="<?php echo esc_attr( $event->post_title ) ?>"
 		rel="bookmark"
 		class="tribe-events-calendar-month-mobile-events__mobile-event-title-link tribe-common-anchor"
 	>
-		<?php echo esc_html( $event->post_content ) ?>
+		<?php echo wp_kses_post( $event->post_title ) ?>
 	</a>
 </h3>
