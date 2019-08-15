@@ -215,6 +215,11 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Tweak - Add filter 'tribe_events_js_config' to allow filtering the contents of the Javascript configuration [132567]
+* Tweak - Updates to the shortcode Javascript code to allow disabling the URL manipulation behavior [132567]
+
 = [4.9.6] 2019-08-07 =
 
 * Tweak - Update Event Aggregator to include compatibility with new Meetup API requirements - [See more](http://m.tri.be/1afb) [125635]
