@@ -353,7 +353,10 @@ abstract class Tribe__Events__Linked_Posts__Base {
 	 *
 	 * @param int $event The event post ID or object.
 	 *
-	 * @return callable A closure that will fetch an Event linked posts..
+	 * @return callable A closure that will fetch an Event linked posts; the default implementation will return a
+	 *                  closure returning an empty array.
 	 */
-	abstract public static function get_fetch_callback( $event );
+	public static function get_fetch_callback( $event ){
+		return '__return_empty_array';
+	}
 }
