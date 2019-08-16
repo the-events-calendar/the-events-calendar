@@ -180,7 +180,7 @@ tribe.events.views.datepicker = {};
 	/**
 	 * Toggle hover class
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @param {Event} event event object for 'mouseenter' and 'mouseleave' events
 	 *
@@ -193,7 +193,7 @@ tribe.events.views.datepicker = {};
 	/**
 	 * Handle disabled day click event
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @param {Event} event event object for 'click' event
 	 *
@@ -206,7 +206,7 @@ tribe.events.views.datepicker = {};
 	/**
 	 * Bind datepicker row events
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @param {Event} event event object for 'show' event
 	 *
@@ -254,7 +254,7 @@ tribe.events.views.datepicker = {};
 	/**
 	 * Handle datepicker button mousedown
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @param {Event} event event object for 'mousedown' event
 	 *
@@ -295,7 +295,7 @@ tribe.events.views.datepicker = {};
 	/**
 	 * Handle mutations from mutation observer
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @param {PlainObject} data data object to be passed for use in handler
 	 *
@@ -353,7 +353,7 @@ tribe.events.views.datepicker = {};
 	/**
 	 * Initialize datepicker JS
 	 *
-	 * @since  TBD
+	 * @since  4.9.7
 	 *
 	 * @param  {Event}   event      event object for 'afterSetup.tribeEvents' event
 	 * @param  {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event

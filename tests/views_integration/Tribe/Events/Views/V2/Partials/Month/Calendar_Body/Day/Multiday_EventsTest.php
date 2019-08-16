@@ -35,7 +35,7 @@ class Multiday_EventsTest extends HtmlPartialTestCase {
 		$event_one->ID   = 999998;
 		$event_two       = tribe_get_event( $event_two );
 		$event_two->ID   = 99999;
-		$multiday_events = [ tribe_get_event( $event_one ), tribe_get_event( $event_two ) ];
+		$multiday_events = [ $event_one, $event_two ];
 
 		$this->assertMatchesSnapshot(
 			$this->get_partial_html(

@@ -2,7 +2,7 @@
 /**
  * Functions and template tags dedicated to Events.
  *
- * @since TBD
+ * @since 4.9.7
  */
 
 use Tribe\Utils\Lazy_Collection;
@@ -14,7 +14,7 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 	/**
 	 * Fetches and returns a dedcorated post object representing an Event.
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @param null|int|WP_Post $event  The event ID or post object or `null` to use the global one.
 	 * @param string|null      $output The required return type. One of `OBJECT`, `ARRAY_A`, or `ARRAY_N`, which
@@ -70,7 +70,7 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 		 * Returning a non `null` value here will short-circuit the function and return the value.
 		 * Note: this value will not be cached and the caching of this value is a duty left to the filtering function.
 		 *
-		 * @since TBD
+		 * @since 4.9.7
 		 *
 		 * @param mixed       $return      The event object to return.
 		 * @param mixed       $event       The event object to fetch.
@@ -157,7 +157,7 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 					 * Due to how DateTime diff works diffing two following midnights would yield a diff of 2 days.
 					 */
 					$one_second = new \DateInterval( 'PT1S' );
-					
+
 					$this_week_duration = min(
 						7,
 						$week_end->diff( $start_date_object->add( $one_second ) )->days + 1,
@@ -224,7 +224,7 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 		 * If you need to filter the output value on each call of this function then use the `tribe_get_event_before`
 		 * filter.
 		 *
-		 * @since TBD
+		 * @since 4.9.7
 		 *
 		 * @param WP_Post $post   The event post object, decorated with a set of custom properties.
 		 * @param string  $output The output format to use.

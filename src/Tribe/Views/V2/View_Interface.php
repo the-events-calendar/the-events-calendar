@@ -161,7 +161,7 @@ interface View_Interface  extends View_Url_Provider_Interface, Repository_User_I
 	/**
 	 * Returns the View template variables, as they would be set up and filtered before rendering the template.
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @return array An associative array of the View template variables.
 	 */

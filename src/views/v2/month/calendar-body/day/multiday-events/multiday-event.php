@@ -19,6 +19,7 @@
  * @see tribe_get_event() For the format of the event object and its properties.
  *
  */
+use Tribe__Date_Utils as Dates;
 
 /*
  * To keep the calendar accessible, in the context of a week, we'll print the event only on either its first day
@@ -60,9 +61,13 @@ if ( $should_display ) {
 
 ?>
 <div class="tribe-events-calendar-month__multiday-event-wrapper">
-
-	<article class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>" data-event-id="<?php echo esc_attr( $event->ID ); ?>">
-		<time datetime="the-date-and-or-duration" class="tribe-common-a11y-visual-hide">The date and duration</time>
+	<article <?php tribe_classes( $classes ); ?> data-event-id="<?php echo esc_attr( $event->ID ); ?>">
+		<time
+			datetime="<?php echo esc_attr( $event->dates->start->format( Dates::DBDATEFORMAT ) ); ?>"
+			class="tribe-common-a11y-visual-hide"
+		>
+			<?php echo esc_attr( $event->dates->start->format( Dates::DBDATEFORMAT ) ); ?>
+		</time>
 		<a href="<?php echo esc_url( $event->permalink ) ?>" class="tribe-events-calendar-month__multiday-event-inner">
 			<?php if ( $event->featured ) : ?>
 				<em
@@ -72,7 +77,7 @@ if ( $should_display ) {
 				></em>
 			<?php endif; ?>
 			<h3 class="tribe-events-calendar-month__multiday-event-title tribe-common-h8">
-				<?php echo esc_html( get_the_title( $event->ID ) ) ?>
+				<?php echo wp_kses_post( $event->title ) ?>
 			</h3>
 		</a>
 	</article>

@@ -1,7 +1,7 @@
 /**
  * Makes sure we have all the required levels on the Tribe Object
  *
- * @since TBD
+ * @since 4.9.7
  *
  * @type   {PlainObject}
  */
@@ -11,7 +11,7 @@ tribe.events.views = tribe.events.views || {};
 /**
  * Configures Viewport Object in the Global Tribe variable
  *
- * @since TBD
+ * @since 4.9.7
  *
  * @type   {PlainObject}
  */
@@ -20,7 +20,7 @@ tribe.events.views.viewport = {};
 /**
  * Initializes in a Strict env the code that manages the Event Views
  *
- * @since TBD
+ * @since 4.9.7
  *
  * @param  {PlainObject} $   jQuery
  * @param  {PlainObject} obj tribe.events.views.manager
@@ -35,7 +35,7 @@ tribe.events.views.viewport = {};
 	/**
 	 * Object of options
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @type {PlainObject}
 	 */
@@ -46,7 +46,7 @@ tribe.events.views.viewport = {};
 	/**
 	 * Object of state
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @type {PlainObject}
 	 */
@@ -57,7 +57,7 @@ tribe.events.views.viewport = {};
 	/**
 	 * Set viewport state
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @return {void}
 	 */
@@ -69,7 +69,7 @@ tribe.events.views.viewport = {};
 	/**
 	 * Handles window resize event
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @param {Event} event event object for 'resize' event
 	 *
@@ -82,7 +82,7 @@ tribe.events.views.viewport = {};
 	/**
 	 * Bind events for window resize
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @param {jQuery} $container jQuery object of view container
 	 *
@@ -95,7 +95,7 @@ tribe.events.views.viewport = {};
 	/**
 	 * Initialize viewport JS
 	 *
-	 * @since  TBD
+	 * @since  4.9.7
 	 *
 	 * @return {void}
 	 */
@@ -107,7 +107,7 @@ tribe.events.views.viewport = {};
 	/**
 	 * Handles the initialization of viewport when Document is ready
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @return {void}
 	 */

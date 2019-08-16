@@ -19,7 +19,7 @@ class LoaderTest extends HtmlTestCase {
 	 * @test
 	 */
 	public function it_should_contain_correct_html_classes() {
-		$template = $this->template->template( 'loader' );
+		$template = $this->template->template( 'loader', [ 'text' => 'test' ] );
 		$html = $this->document->html( $template );
 
 		$this->assertEquals(
@@ -44,7 +44,7 @@ class LoaderTest extends HtmlTestCase {
 	 * @test
 	 */
 	public function it_should_contain_a11y_attributes() {
-		$template = $this->template->template( 'loader' );
+		$template = $this->template->template( 'loader', [ 'text' => 'test' ] );
 		$html = $this->document->html( $template );
 		$loader = $html->find( '.tribe-events-view-loader' );
 

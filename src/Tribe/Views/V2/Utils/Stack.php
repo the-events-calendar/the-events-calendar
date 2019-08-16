@@ -27,7 +27,7 @@
  *
  * The stack takes now one less row (i.e. the stack columns all have one less element).
  *
- * @since   TBD
+ * @since   4.9.7
  * @package Tribe\Events\Views\V2\Utils
  */
 
@@ -37,14 +37,14 @@ use Tribe__Date_Utils as Dates;
 /**
  * Class Stack
  *
- * @since   TBD
+ * @since   4.9.7
  * @package Tribe\Events\Views\V2\Utils
  */
 class Stack {
 	/**
 	 * The current day, in the `Y-m-d` format.
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @var int|string
 	 */
@@ -52,7 +52,7 @@ class Stack {
 	/**
 	 * The current day events, a list of event post IDs.
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @var array
 	 */
@@ -66,7 +66,7 @@ class Stack {
 	/**
 	 * The current stack.
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @var array
 	 */
@@ -75,7 +75,7 @@ class Stack {
 	/**
 	 * Whether to "recycle" the empty stack spaces, where possible, or not..
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @var bool
 	 */
@@ -84,7 +84,7 @@ class Stack {
 	/**
 	 * The spacer currently used to mark empty spaces in the stack.
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @var mixed
 	 */
@@ -93,7 +93,7 @@ class Stack {
 	/**
 	 * A flag to indicate whether the stack elements should be normalized or not.
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @var bool
 	 */
@@ -102,7 +102,7 @@ class Stack {
 	/**
 	 * Builds and returns the stack for a group of events, divided by days.
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @param array      $events_by_day   An array of events, per-day, in the shape `[ <Y-m-d> => [ ...<event_ids> ] ]`.
 	 *
@@ -159,7 +159,7 @@ class Stack {
 	/**
 	 * Returns the "spacer" used to indicate an empty space in the stack.
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @return mixed The spacer used to indicate an empty space in the stack.
 	 */
@@ -167,7 +167,7 @@ class Stack {
 		/**
 		 * Filters the spacer that will be used to indicate an empty space in a stack.
 		 *
-		 * @since TBD
+		 * @since 4.9.7
 		 *
 		 * @param mixed $spacer The spacer that will be used to indicate an empty space in ths stack; default `false`.
 		 */
@@ -179,7 +179,7 @@ class Stack {
 	/**
 	 * Filters and returns a value indicating whether the stack should be built "recycling" spaces or not.
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @param array $events_by_day An array of event IDs, divided by day, with shape `[ <Y-m-d> => [...<events>] ]`.
 	 *
@@ -202,7 +202,7 @@ class Stack {
 		 * |-|2|2|2|2|2|-|
 		 * The space is "recycled" in the sense that we try to avoid higher stacks, when possible, recycling them.
 		 *
-		 * @since TBD
+		 * @since 4.9.7
 		 *
 		 * @param bool  $recycle_spaces Whether to recycle space in the week stack or not; default `true`.
 		 * @param array $events_by_day  An array of event IDs, divided by day, with shape `[ <Y-m-d> => [...<events>] ]`.
@@ -213,7 +213,7 @@ class Stack {
 	/**
 	 * Builds and returns the stack for the current day.
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @param string $current_day    The current day date, in the `Y-m-d` format.
 	 * @param array  $the_day_events All the current day event post IDs.
@@ -242,7 +242,7 @@ class Stack {
 	 * The default filtering strategy, in the `filter_stack_event` method, will filter out any non multi-day event.
 	 * If, in the future, we'll need to change this strategy then either extend the class or use the .
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @param array $events An array of events, post objects or post IDs, to filter.
 	 *
@@ -256,7 +256,7 @@ class Stack {
 		 *
 		 * By default any non multi-day event will not be part of the stack.
 		 *
-		 * @since TBD
+		 * @since 4.9.7
 		 *
 		 * @param array $filtered The events as filtered from the default strategy.
 		 * @param array $events   The unfiltered events.
@@ -269,7 +269,7 @@ class Stack {
 	/**
 	 * Parses, and sets if required, the stack positions of each event, in the current day, in the stack.
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 */
 	protected function assign_day_events_position() {
 		/*
@@ -309,7 +309,7 @@ class Stack {
 	/**
 	 * Normalizes the day stack by adding spacers in each empty position.
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @return array The day stack with each position, starting from the `0` position, filled with either an event ID or
 	 *               a spacer.
@@ -336,7 +336,7 @@ class Stack {
 	/**
 	 * Normalize the stack by adding padding each stack day to make sure all days are present and have the same length.
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 */
 	protected function normalize_stack() {
 		// Calculate the max stack height: we'll need it to pad each day stack.
@@ -362,7 +362,7 @@ class Stack {
 	 * - B has not a stack position assigned
 	 * - there is an open position over A
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @param int $event_a The post ID of the event that is currently first.
 	 * @param int $event_b The post ID of the event that is currently second.
@@ -408,7 +408,7 @@ class Stack {
 	 *
 	 * The default strategy is to filter out any non multi-day event, but extending classes can change this.
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @param int|\WP_Post $event The event post object or ID.
 	 *
@@ -424,7 +424,7 @@ class Stack {
 	 * Returns the filtered value to decide if the stack should be normalized or not padding each element with spacers
 	 * to the same height as the one of the stack elements with more events in it or not.
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @param array $events_by_day An array of event IDs, divided by day, with shape `[ <Y-m-d> => [...<events>] ]`.
 	 *
@@ -451,7 +451,7 @@ class Stack {
 		 * The space is "normalized " by adding spacers at the bottom of any stack element until it reaches the same
 		 * height as the one with more elements (the last two days in the example).
 		 *
-		 * @since TBD
+		 * @since 4.9.7
 		 *
 		 * @param bool $normalize_stack Whether the stack should be normalized by padding each one of its elements with
 		 *                              spacers at the bottom or not; defaults to `false`.
@@ -463,7 +463,7 @@ class Stack {
 	/**
 	 * Adds the missing days in the passed events by day to make sure all dates in the period will appear.
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @param array $events_by_day The events part of the stack, divided by day.
 	 *

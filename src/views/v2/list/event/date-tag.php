@@ -12,12 +12,12 @@
  * @version 4.9.4
  */
 
-use Tribe__Date_Utils as Date;
+use Tribe__Date_Utils as Dates;
 
 $event = $this->get( 'event' );
 $event_week_day  = tribe_get_start_date( $event, true, 'D' );
 $event_day_num   = tribe_get_start_date( $event, true, 'j' );
-$event_date_attr = tribe_get_start_date( $event, true, Date::DBDATEFORMAT );
+$event_date_attr = tribe_get_start_date( $event, true, Dates::DBDATEFORMAT );
 ?>
 <div class="tribe-events-calendar-list__event-date-tag tribe-common-g-col">
 	<time class="tribe-events-calendar-list__event-date-tag-datetime" datetime="<?php echo esc_attr( $event_date_attr ); ?>">

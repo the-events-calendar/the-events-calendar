@@ -67,7 +67,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 * Whether the use of UTC times for events filtering and ordering is being forced by means of a `use_utc` call
 	 * or not.
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @var bool
 	 */
@@ -1434,7 +1434,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		/**
 		 * Filters a single formatted event result.
 		 *
-		 * @since TBD
+		 * @since 4.9.7
 		 *
 		 * @param mixed|WP_Post                $formatted The formatted event result, usually a post object.
 		 * @param int                          $id        The formatted post ID.
@@ -1449,7 +1449,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	/**
 	 * Handles the `order_by` clauses for events
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @param string $order_by The key used to order events; e.g. `event_date` to order events by start date.
 	 */
@@ -1495,7 +1495,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 * To avoid the "stacking" of `orderby` clauses and filters the query filters are added at the very last moment,
 	 * right before building the query.
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @return WP_Query The built query object.
 	 */
@@ -1511,7 +1511,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	/**
 	 * Applies start-date-based ordering to the query.
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @param      bool $use_utc Whether to use the events UTC start dates or their localized dates.
 	 */
@@ -1578,7 +1578,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	/**
 	 * Applies Organizer-based ordering to the query.
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 */
 	protected function order_by_organizer() {
 		global $wpdb;
@@ -1611,7 +1611,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	/**
 	 * Applies Venue-based ordering to the query.
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 */
 	protected function order_by_venue() {
 		global $wpdb;
@@ -1644,7 +1644,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	/**
 	 * Overrides the base method to default the `order` to `ASC` for events.
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @param string      $order_by The key to order events by.
 	 * @param string|null $order    The order direction, either `ASC` or `DESC`; defaults to `ASC`.
