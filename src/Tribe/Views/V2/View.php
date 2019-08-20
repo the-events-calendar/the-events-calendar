@@ -1026,4 +1026,14 @@ class View implements View_Interface {
 	public function get_template_vars() {
 		return $this->filter_template_vars( $this->setup_template_vars() );
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_today_url( $canonical = false ) {
+		$date_query_args = [ 'tribe-bar-date', 'eventDisplay' ];
+
+		// While we want to remove the date query vars, we want to keep any other query var.
+		return remove_query_arg( $date_query_args, $this->get_url( $canonical ) );
+	}
 }
