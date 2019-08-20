@@ -931,7 +931,7 @@ class View implements View_Interface {
 			'rest_url'          => tribe( Rest_Endpoint::class )->get_url(),
 			'rest_nonce'        => wp_create_nonce( 'wp_rest' ),
 			'should_manage_url' => $this->should_manage_url,
-			'today_url'         => $this->get_today_url(),
+			'today_url'         => $this->get_today_url( true ),
 		];
 
 		return $template_vars;
