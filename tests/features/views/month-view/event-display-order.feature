@@ -2,7 +2,7 @@ Feature: Number and order of events in each day segment
 
 The number and order of events shown in each day segment depends on the "Display up to X single-day events per day in Month View" setting and the number of multi-day, single-day, and/or sticky events happening that day.
 
-# This feature spec is for the newly redesigned Month View and does not describe the current Month View functionality.
+# This feature spec is specifically for the V2 Month View
 
 # This feature spec also assumes that as part of the views redesign, several pieces of functionality have changed:
 #    1) Events set to "Sticky in Month View" will now always show in Month View regardless of chronology or the number of events on that day.
@@ -13,7 +13,7 @@ Background:
     Given Month View is enabled under Events --> Settings --> Display
     Given I am a Visitor on a site with TEC
     Given that I am on Month View
-    Given this site uses the newly redesigned views
+    Given Views V2 is active
     Given the site timezone is America/Los_Angeles
 
 Scenario Outline: How "Display up to X single-day events per day in Month View" impacts day segment display
