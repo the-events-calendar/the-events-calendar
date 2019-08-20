@@ -42,17 +42,8 @@ if ( $last_event instanceof WP_Post ) {
 }
 $selected_end_datetime = strtotime( $selected_end_date_value );
 
-$default_label_format = tribe_get_date_format( true );
-$selected_start_date_label_format = $default_label_format;
-
-if ( date( 'Y' ) === date( 'Y', $selected_start_datetime ) ) {
-	$selected_start_date_label_format = str_replace( ', Y', '', $selected_start_date_label_format );
-}
-
-$selected_end_date_label_format = $default_label_format;
-if ( date( 'Y' ) === date( 'Y', $selected_end_datetime ) ) {
-	$selected_end_date_label_format = str_replace( ', Y', '', $selected_end_date_label_format );
-}
+$selected_start_date_label_format = tribe_get_date_format( date( 'Y' ) !== date( 'Y', $selected_start_datetime ) );
+$selected_end_date_label_format = tribe_get_date_format( date( 'Y' ) !== date( 'Y', $selected_end_datetime ) );
 
 $selected_start_date_label = date_i18n( $selected_start_date_label_format, $selected_start_datetime );
 $selected_end_date_label = date_i18n( $selected_end_date_label_format, $selected_end_datetime );
