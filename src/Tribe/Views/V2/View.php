@@ -1032,9 +1032,21 @@ class View implements View_Interface {
 	 * {@inheritDoc}
 	 */
 	public function get_today_url( $canonical = false ) {
-		$date_query_args = [ 'tribe-bar-date', 'eventDisplay' ];
+		$remove = [ 'tribe-bar-date', 'paged', 'page' ];
 
 		// While we want to remove the date query vars, we want to keep any other query var.
-		return remove_query_arg( $date_query_args, $this->get_url( $canonical ) );
+		$query_args = $this->url->get_query_args();
+
+		// Handle the `eventDisplay` query arg due to its particular usage to indicate the mode too.
+		$query_args['eventDisplay'] = $this->slug;
+
+		$ugly_url = add_query_arg( $query_args, $this->get_url( false ) );
+		$ugly_url = remove_query_arg( $remove, $ugly_url );
+
+		if ( ! $canonical ) {
+			return $ugly_url;
+		}
+
+		return Rewrite::instance()->get_canonical_url( $ugly_url );
 	}
 }

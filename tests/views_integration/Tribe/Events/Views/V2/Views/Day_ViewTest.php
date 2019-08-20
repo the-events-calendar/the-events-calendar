@@ -124,15 +124,22 @@ class Day_ViewTest extends ViewTestCase {
 	 * @dataProvider today_url_data_sets
 	 */
 	public function should_correctly_build_today_url( $today, $now, $event_date, $event_display_mode, $expected ) {
-		$values  = [
+		$values          = [
 			'today'              => $today,
 			'now'                => $now,
 			'event_date'         => $event_date,
 			'event_display_mode' => $event_display_mode,
 		];
-		$context = $this->get_mock_context()->alter( array_filter( $values ) );
+		$context         = $this->get_mock_context()->alter( array_filter( $values ) );
+		$mock_repository = $this->makeEmpty(
+			\Tribe__Repository__Interface::class,
+			[
+				'count' => 23
+			]
+		);
 
 		$view = View::make( Day_View::class, $context );
+		$view->set_repository( $mock_repository );
 
 		$this->assertEquals( home_url( $expected ), $view->get_today_url( true ) );
 	}

@@ -132,7 +132,7 @@ class Month_ViewTest extends ViewTestCase {
 		foreach ( $now_times as $now_key => $now ) {
 			foreach ( $event_dates as $event_date_key => $event_date ) {
 				foreach ( $event_displays as $event_display => $expected ) {
-					$set_name = "event_date_{$event_date_key}_today_w_{$now_key}_time_w_{$event_display}_display_mode";
+					$set_name      = "event_date_{$event_date_key}_today_w_{$now_key}_time_w_{$event_display}_display_mode";
 					$event_display = 'no' === $event_display ? '' : $event_display;
 
 					yield $set_name => [ $today, $now, $event_date, $event_display, $expected ];
@@ -155,8 +155,15 @@ class Month_ViewTest extends ViewTestCase {
 			'event_display_mode' => $event_display_mode,
 		];
 		$context = $this->get_mock_context()->alter( array_filter( $values ) );
+		$mock_repository = $this->makeEmpty(
+			\Tribe__Repository__Interface::class,
+			[
+				'count' => 23
+			]
+		);
 
 		$view = View::make( Month_View::class, $context );
+		$view->set_repository( $mock_repository );
 
 		$this->assertEquals( home_url( $expected ), $view->get_today_url( true ) );
 	}

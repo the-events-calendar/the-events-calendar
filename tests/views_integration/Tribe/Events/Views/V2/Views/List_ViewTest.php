@@ -109,11 +109,13 @@ class List_ViewTest extends ViewTestCase {
 
 		foreach ( $now_times as $now_key => $now ) {
 			foreach ( $event_dates as $event_date_key => $event_date ) {
-				foreach ( $event_displays as $event_display => $expected ) {
-					$set_name = "event_date_{$event_date_key}_today_w_{$now_key}_time_w_{$event_display}_display_mode";
-					$event_display = 'no' === $event_display ? '' : $event_display;
+				foreach ( [ 1, 2, 3 ] as $page ) {
+					foreach ( $event_displays as $event_display => $expected ) {
+						$set_name      = "event_date_{$event_date_key}_today_w_{$now_key}_time_w_{$event_display}_display_mode_p_{$page}";
+						$event_display = 'no' === $event_display ? '' : $event_display;
 
-					yield $set_name => [ $today, $now, $event_date, $event_display, $expected ];
+						yield $set_name => [ $today, $now, $event_date, $event_display, $page, $expected ];
+					}
 				}
 			}
 		}
@@ -125,16 +127,26 @@ class List_ViewTest extends ViewTestCase {
 	 * @test
 	 * @dataProvider today_url_data_sets
 	 */
-	public function should_correctly_build_today_url( $today, $now, $event_date, $event_display_mode, $expected ) {
+	public function should_correctly_build_today_url( $today, $now, $event_date, $event_display_mode, $page, $expected ) {
 		$values  = [
 			'today'              => $today,
 			'now'                => $now,
 			'event_date'         => $event_date,
 			'event_display_mode' => $event_display_mode,
+			'paged'               => $page,
 		];
 		$context = $this->get_mock_context()->alter( array_filter( $values ) );
+		$mock_repository = $this->makeEmpty(
+			\Tribe__Repository__Interface::class,
+			[
+				'count' => 23
+			]
+		);
 
 		$view = View::make( List_View::class, $context );
+		$view->set_repository( $mock_repository );
+		$url_args = [ 'paged' => $page, 'eventDisplay' => $event_display_mode ];
+		$view->set_url( array_filter( $url_args ) );
 
 		$this->assertEquals( home_url( $expected ), $view->get_today_url( true ) );
 	}
