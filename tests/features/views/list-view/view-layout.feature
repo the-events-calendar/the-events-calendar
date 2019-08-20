@@ -1,12 +1,13 @@
 Feature: layout and visual elements of an event in List View
 
-# This feature spec is for the newly redesigned List View and does not describe the current List View functionality.
+# This feature spec is specifically for the V2 List View
 
 Background:
     Given I am a Visitor on a site with TEC
     Given List View is enabled under Events --> Settings --> Display
     Given the site timezone is America/Los_Angeles
     Given "Number of events to show per page" is set to 10
+	Given Views V2 is active
 
 Scenario Outline: Venue display in List View
     Given that this site has the following public, published upcoming events with associated venues:
