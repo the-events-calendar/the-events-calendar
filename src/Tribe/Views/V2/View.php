@@ -10,6 +10,7 @@ namespace Tribe\Events\Views\V2;
 
 use Tribe__Container as Container;
 use Tribe__Context as Context;
+use Tribe__Date_Utils as Dates;
 use Tribe__Events__Main as TEC;
 use Tribe__Events__Organizer as Organizer;
 use Tribe__Events__Rewrite as Rewrite;
@@ -490,6 +491,17 @@ class View implements View_Interface {
 			'tribe-bar-date'   => $this->context->get( 'event_date', '' ),
 			'tribe-bar-search' => $this->context->get( 'keyword', '' ),
 		];
+
+		if ( ! empty( $query_args['tribe-bar-date'] ) ) {
+			// If the Events Bar date is the same ad today's date, then drop it.
+			$today          = $this->context->get( 'today', 'today' );
+			$today_date     = Dates::build_date_object( $today )->format( Dates::DBDATEFORMAT );
+			$tribe_bar_date = Dates::build_date_object( $query_args['tribe-bar-date'] )->format( Dates::DBDATEFORMAT );
+
+			if ( $today_date === $tribe_bar_date ) {
+				unset( $query_args['tribe-bar-date'] );
+			}
+		}
 
 		// When we find nothing we're always on page 1.
 		$page = $this->repository->count() > 0 ? $this->url->get_current_page() : 1;
