@@ -24,6 +24,7 @@ tribe.events.views.navigationScroll = {};
 ( function( $, obj ) {
 	'use strict';
 	var $document = $( document );
+	var $window = $( window );
 
 	/**
 	 * When we have an AJAX Success scroll up when the window is below 25% of the container position.
@@ -38,13 +39,13 @@ tribe.events.views.navigationScroll = {};
 	 * @return {void}
 	 */
 	obj.scrollUp = function( event, html, textStatus, qXHR ) {
-		var $container = $( this );
-		var windowTop = $( window ).scrollTop();
+		var $container = $( event.target );
+		var windowTop = $window.scrollTop();
 		var containerOffset = $container.offset();
 		var scrollTopRequirement = windowTop * 0.75;
 
 		if ( scrollTopRequirement > containerOffset.top ) {
-			$( window ).scrollTop( containerOffset.top );
+			$window.scrollTop( containerOffset.top );
 		}
 	};
 
