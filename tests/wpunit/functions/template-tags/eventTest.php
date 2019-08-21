@@ -354,7 +354,7 @@ class eventTest extends WPTestCase {
 	/**
 	 * Test tribe_get_event allows specifying the output format.
 	 */
-	public function test_tribe_get_event_allows_specifying_the_output_format_() {
+	public function test_tribe_get_event_allows_specifying_the_output_format() {
 		$event_id = static::factory()->event->create();
 
 		$event = tribe_get_event( $event_id );
