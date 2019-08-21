@@ -6,6 +6,7 @@
  */
 
 use Tribe\Utils\Lazy_Collection;
+use Tribe\Utils\Lazy_String;
 use Tribe\Utils\Post_Thumbnail;
 use Tribe__Date_Utils as Dates;
 use Tribe__Events__Timezones as Timezones;
@@ -61,6 +62,8 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 	 *                              @type Lazy_Collection $venues A collection of Venues, lazily fetched and
 	 *                                                            eventually resolved to an array.
 	 *                              @type Post_Thumbnail $thumbnail The post thumbnail information.
+	 *                              @type Lazy_String $schedule_details The event schedule details, as produced by the
+	 *                                                                  `tribe_events_event_schedule_details` function.
 	 *                          }
 	 */
 	function tribe_get_event( $event = null, $output = OBJECT, $filter = 'raw' ) {
@@ -211,6 +214,12 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 			'venues'             => new Lazy_Collection( $venue_fetch ),
 			'thumbnail'          => new Post_Thumbnail( $post_id ),
 			'permalink'          => get_permalink( $post_id ),
+			'schedule_details'   => new Lazy_String(
+				static function () use ( $post_id ) {
+					return tribe_events_event_schedule_details( $post_id );
+				},
+				false
+			)
 		];
 
 		foreach ( $properties as $key => $value ) {

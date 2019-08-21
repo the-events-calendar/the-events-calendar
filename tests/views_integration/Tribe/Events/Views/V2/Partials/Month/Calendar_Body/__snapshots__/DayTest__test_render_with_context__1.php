@@ -52,7 +52,7 @@
 			2018-07-01		</time>
 		<a href="http://test.tri.be/?tribe_events=test-multi-day-event-2018-07-01-11am" class="tribe-events-calendar-month__multiday-event-inner">
 						<h3 class="tribe-events-calendar-month__multiday-event-title tribe-common-h8">
-							</h3>
+				Test Multi-day Event &#8211; 2018-07-01 11am			</h3>
 		</a>
 	</article>
 
@@ -70,7 +70,7 @@
 			2018-07-01		</time>
 		<a href="http://test.tri.be/?tribe_events=test-multi-day-event-2018-07-01-1pm" class="tribe-events-calendar-month__multiday-event-inner">
 						<h3 class="tribe-events-calendar-month__multiday-event-title tribe-common-h8">
-							</h3>
+				Test Multi-day Event &#8211; 2018-07-01 1pm			</h3>
 		</a>
 	</article>
 
