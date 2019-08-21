@@ -186,7 +186,7 @@
 	>
 					Now				&mdash;
 		<time datetime="2019-01-01">
-			January 1, 2019		</time>
+			January 1		</time>
 	</button>
 	<label
 		class="tribe-events-c-top-bar__datepicker-label tribe-common-a11y-visual-hide"

@@ -186,9 +186,11 @@
 		class="tribe-common-h2 tribe-common-h3--min-medium tribe-common-h--alt tribe-events-c-top-bar__datepicker-button"
 		data-js="tribe-events-top-bar-datepicker-button"
 	>
-					Now				&mdash;
+					<time datetime="2019-06-20">
+				June 20			</time>
+				&mdash;
 		<time datetime="2019-06-20">
-			June 20, 2019		</time>
+			June 20		</time>
 	</button>
 	<label
 		class="tribe-events-c-top-bar__datepicker-label tribe-common-a11y-visual-hide"
