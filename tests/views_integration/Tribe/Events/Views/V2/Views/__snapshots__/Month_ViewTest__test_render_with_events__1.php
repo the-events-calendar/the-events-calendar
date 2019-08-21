@@ -2086,7 +2086,7 @@
 		rel="bookmark"
 		class="tribe-events-calendar-month-mobile-events__mobile-event-title-link tribe-common-anchor"
 	>
-		Test Event - +9 days	</a>
+		Test Event &#8211; +9 days	</a>
 </h3>
 		
 	</div>
