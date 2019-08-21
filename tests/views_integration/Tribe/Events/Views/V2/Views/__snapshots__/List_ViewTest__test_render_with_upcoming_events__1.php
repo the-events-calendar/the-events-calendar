@@ -225,7 +225,7 @@
 		June 2019	</time>
 </div>
 
-				<div  class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-list__event-row tribe-events-calendar-list__event-row--featured" >
+				<div  class="tribe-common-g-row tribe-events-calendar-list__event-row tribe-events-calendar-list__event-row--featured" >
 
 	<div class="tribe-events-calendar-list__event-date-tag tribe-common-g-col">
 	<time class="tribe-events-calendar-list__event-date-tag-datetime" datetime="2019-06-20">
@@ -289,7 +289,7 @@
 
 			
 				
-				<div  class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-list__event-row" >
+				<div  class="tribe-common-g-row tribe-events-calendar-list__event-row" >
 
 	<div class="tribe-events-calendar-list__event-date-tag tribe-common-g-col">
 	<time class="tribe-events-calendar-list__event-date-tag-datetime" datetime="2019-06-20">
