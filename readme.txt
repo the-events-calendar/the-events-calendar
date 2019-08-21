@@ -215,6 +215,10 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
+= [4.9.8] TBD =
+
+* Fix - Fix default view redirection loop on mobile devices. Thanks Ricardo, cittaslow and others for flagging this! [125567]
+
 = [4.9.7] 2019-08-19 =
 
 * Tweak - Update Lodash version on Block editor to prevent any possibility of a security issue with the package. From v4.17.11 to v4.17.15 [131421]
