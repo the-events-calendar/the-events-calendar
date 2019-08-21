@@ -14,8 +14,6 @@ class List_ViewTest extends ViewTestCase {
 	 * Test render empty
 	 */
 	public function test_render_empty() {
-		// @todo @be fix this when Month view PR is merged.
-		$this->markTestSkipped('Due to an issue with dynamic dates; fixed in Month View PR.');
 		// Sanity check
 		$this->assertEmpty( tribe_events()->found() );
 
@@ -23,7 +21,6 @@ class List_ViewTest extends ViewTestCase {
 			[
 				'today'      => $this->mock_date_value,
 				'now'        => $this->mock_date_value,
-				'event_date' => $this->mock_date_value
 			]
 		);
 
@@ -44,8 +41,6 @@ class List_ViewTest extends ViewTestCase {
 	 * Test render with upcoming events
 	 */
 	public function test_render_with_upcoming_events() {
-		// @todo @be fix this when Month view PR is merged.
-		$this->markTestSkipped('Due to an issue with dynamic dates; fixed in Month View PR.');
 		$events = [];
 
 		// Create the events.
@@ -77,7 +72,7 @@ class List_ViewTest extends ViewTestCase {
 		$list_view->set_context( tribe_context()->alter( [
 			'today'      => $this->mock_date_value,
 			'now'        => $this->mock_date_value,
-			'posts_per_page' => 2,
+			'events_per_page' => 2,
 		] ) );
 		$html = $list_view->get_html();
 
