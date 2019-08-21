@@ -219,7 +219,7 @@
 			
 				<div class="tribe-events-calendar-list__month-separator">
 	<time
-		class="tribe-events-calendar-list__month-separator-text tribe-common-h7 tribe-common-h--alt"
+		class="tribe-events-calendar-list__month-separator-text tribe-common-h6 tribe-common-h--alt"
 		datetime="2019-06"
 	>
 		June 2019	</time>
