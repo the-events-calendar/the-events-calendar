@@ -75,7 +75,6 @@ class MonthTest extends HtmlTestCase {
 				'multiday_events'  => [],
 				'found_events'     => 0,
 				'more_events'      => 0,
-				'more_events'      => 0,
 				'day_url'          => tribe_events_get_url( [ 'eventDisplay' => 'day', 'eventDate' => $day_date ] ),
 			];
 		}
