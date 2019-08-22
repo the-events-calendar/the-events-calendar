@@ -110,7 +110,7 @@ $mobile_day_id = 'tribe-events-calendar-mobile-day-' . $day_date;
 					</a>
 				<?php else : ?>
 					<?php echo esc_html( $day_number ); ?>
-				<?php endif;?>
+				<?php endif; ?>
 			</time>
 		</h3>
 
