@@ -72,31 +72,18 @@ class Month_View extends By_Day_View {
 		$date           = $this->context->get( 'event_date', $default_date );
 		$event_date_var = $default_date === $date ? '' : $date;
 
-		$previous_date = date( 'Y-m-t', strtotime( $date . ' -1 month' ) );
+		// Start of the month passed
+		$previous_date = date( 'Y-m', strtotime( $date . '-01 00:00' ) );
 
-		$past = tribe_events()->by_args( [
-			'on_date'  => $previous_date,
-			'posts_per_page' => 1,
-			'order'          => 'DESC',
-		] );
-		$past_posts = $past->get_query()->get_posts();
-		$previous_event = reset( $past_posts );
+		$prev = tribe_events()->where( 'starts_before', $previous_date )->order( 'DESC' )->per_page( 1 );
+		$previous_event = $prev->first();
+		$has_previous = $prev->found();
 
-		if ( ! $previous_event ) {
-			$past = tribe_events()->by_args( [
-				'starts_before'  => $previous_date , ' 23:59',
-				'posts_per_page' => 1,
-				'order'          => 'DESC',
-			] );
-			$past_posts = $past->get_query()->get_posts();
-			$previous_event = reset( $past_posts );
-
-			if ( ! $previous_event ) {
-				return '';
-			}
-
-			$previous_date = tribe_get_start_date( $previous_event, false, 'Y-m' );
+		if ( ! $has_previous ) {
+			return '';
 		}
+
+		$previous_date = tribe_get_start_date( $previous_event, false, 'Y-m' );
 
 		$query_args = [ 'eventDate' => $previous_date ];
 		$url = remove_query_arg( [ 'tribe-bar-date' ], $this->get_url() );
@@ -133,29 +120,18 @@ class Month_View extends By_Day_View {
 		$default_date   = 'today';
 		$date           = $this->context->get( 'event_date', $default_date );
 		$event_date_var = $default_date === $date ? '' : $date;
-		$next_date = date( 'Y-m', strtotime( $date . ' +1 month' ) );
+		$next_date = date( 'Y-m-t', strtotime( $date ) ) . ' 23:59';
 
-		$future = tribe_events()->by_args( [
-			'on_date'  => $next_date . '-01',
-			'posts_per_page' => 1,
-		] );
-		$future_posts = $future->get_query()->get_posts();
-		$next_event = reset( $future_posts );
+		$next = tribe_events()->where( 'starts_after', $next_date )->order( 'DESC' )->per_page( 1 );
+		$next_event = $next->first();
+		$has_next = $next->found();
 
-		if ( ! $next_event ) {
-			$future = tribe_events()->by_args( [
-				'starts_after'  => $next_date . '-01 00:00',
-				'posts_per_page' => 1,
-			] );
-			$future_posts = $future->get_query()->get_posts();
-			$next_event = reset( $future_posts );
-
-			if ( ! $next_event ) {
-				return '';
-			}
-
-			$next_date = tribe_get_start_date( $next_event, false, 'Y-m' );
+		if ( ! $has_next ) {
+			return '';
 		}
+
+		$next_date = tribe_get_start_date( $next_event, false, 'Y-m' );
+
 		$query_args = [ 'eventDate' => $next_date ];
 		$url = remove_query_arg( [ 'tribe-bar-date' ], $this->get_url() );
 		$url = add_query_arg( $query_args, $url );
