@@ -49,8 +49,15 @@
 
 			@media (--viewport-medium) {
 				border-left: none;
-				border-right: 3px solid var(--color-accent-primary);
-				box-shadow: 1px 0 0 0 var(--color-accent-primary);
+
+				&:after {
+					background: var(--color-accent-primary);
+					content: '';
+					height: 100%;
+					right: -1px;
+					position: absolute;
+					width: 4px;
+				}
 			}
 		}
 	}
@@ -58,6 +65,7 @@
 	.tribe-events-calendar-list__event-date-tag {
 		flex: none;
 		width: var(--spacer-9);
+		position: relative;
 
 		@media (--viewport-medium) {
 			margin-right: 0;
