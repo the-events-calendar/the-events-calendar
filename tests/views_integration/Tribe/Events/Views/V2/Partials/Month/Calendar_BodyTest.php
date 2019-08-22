@@ -5,8 +5,7 @@ namespace Tribe\Events\Views\V2\Partials\Month;
 use tad\FunctionMocker\FunctionMocker as Test;
 use Tribe\Test\Products\WPBrowser\Views\V2\HtmlPartialTestCase;
 
-class Calendar_BodyTest extends HtmlPartialTestCase
-{
+class Calendar_BodyTest extends HtmlPartialTestCase {
 
 	protected $partial_path = 'month/calendar-body';
 
@@ -47,6 +46,7 @@ class Calendar_BodyTest extends HtmlPartialTestCase
 				'multiday_events'  => [],
 				'found_events'     => 0,
 				'more_events'      => 0,
+				'day_url'          => tribe_events_get_url( [ 'eventDisplay' => 'day', 'eventDate' => $day_date ] ),
 			];
 		}
 		$this->template->set_values(
