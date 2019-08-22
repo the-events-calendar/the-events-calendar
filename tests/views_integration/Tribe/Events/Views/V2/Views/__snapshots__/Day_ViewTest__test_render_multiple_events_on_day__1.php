@@ -17,7 +17,7 @@
 		<script
 	data-js="tribe-events-view-data"
 	type="application/json"
->{"slug":"day","prev_url":"","next_url":"","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Day_View","view_slug":"day","view":{},"title":"","events":[{"ID":7,"post_author":"0","post_date":"2019-06-11 13:59:35","post_date_gmt":"2019-06-11 13:59:35","post_content":"","post_title":"Test Event - +9 days","post_excerpt":"","post_status":"publish","comment_status":"open","ping_status":"closed","post_password":"","post_name":"test-event-9-days-2","to_ping":"","pinged":"","post_modified":"2019-06-11 13:59:35","post_modified_gmt":"2019-06-11 13:59:35","post_content_filtered":"","post_parent":0,"guid":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-9-days-2","menu_order":0,"post_type":"tribe_events","post_mime_type":"","comment_count":"0","filter":"raw","start_date":"2019-06-20 13:01:20","start_date_utc":"2019-06-20 13:01:20","end_date":"2019-06-20 17:01:20","end_date_utc":"2019-06-20 17:01:20","dates":{"start":{"date":"2019-06-20 13:01:20.000000","timezone_type":3,"timezone":"America\\/Sao_Paulo"},"start_utc":{"date":"2019-06-20 13:01:20.000000","timezone_type":3,"timezone":"UTC"},"end":{"date":"2019-06-20 17:01:20.000000","timezone_type":3,"timezone":"America\\/Sao_Paulo"},"end_utc":{"date":"2019-06-20 17:01:20.000000","timezone_type":3,"timezone":"UTC"}},"timezone":"America\\/Sao_Paulo","duration":0,"multiday":false,"all_day":false,"starts_this_week":null,"ends_this_week":null,"this_week_duration":null,"happens_this_week":null,"featured":true,"cost":"","organizers":{},"venues":{},"thumbnail":{},"permalink":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-9-days-2"},{"ID":8,"post_author":"1","post_date":"2019-06-11 13:59:35","post_date_gmt":"2019-06-11 13:59:35","post_content":"","post_title":"Single Event 1","post_excerpt":"","post_status":"publish","comment_status":"open","ping_status":"closed","post_password":"","post_name":"single-event-1","to_ping":"","pinged":"","post_modified":"2019-06-11 13:59:35","post_modified_gmt":"2019-06-11 13:59:35","post_content_filtered":"","post_parent":0,"guid":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-9-days-2","menu_order":0,"post_type":"tribe_events","post_mime_type":"","comment_count":"0","filter":"raw","start_date":"2019-06-20 13:04:08","start_date_utc":"2019-06-20 13:04:08","end_date":"2019-06-20 17:04:08","end_date_utc":"2019-06-20 17:04:08","dates":{"start":{"date":"2019-06-20 13:04:08.000000","timezone_type":3,"timezone":"America\\/Sao_Paulo"},"start_utc":{"date":"2019-06-20 13:04:08.000000","timezone_type":3,"timezone":"UTC"},"end":{"date":"2019-06-20 17:04:08.000000","timezone_type":3,"timezone":"America\\/Sao_Paulo"},"end_utc":{"date":"2019-06-20 17:04:08.000000","timezone_type":3,"timezone":"UTC"}},"timezone":"America\\/Sao_Paulo","duration":0,"multiday":false,"all_day":false,"starts_this_week":null,"ends_this_week":null,"this_week_duration":null,"happens_this_week":null,"featured":false,"cost":"","organizers":{},"venues":{},"thumbnail":{},"permalink":"http:\\/\\/test.tri.be\\/?tribe_events=single-event-1"}],"url":"http:\\/\\/test.tri.be\\/events\\/today\\/?tribe-bar-date=2019-01-01 09:00:00","bar":{"keyword":"","date":"2019-01-01 09:00:00"},"today":"2019-01-01 09:00:00","now":"2019-01-01 09:00:00","rest_url":"http:\\/\\/test.tri.be\\/index.php?rest_route=\\/tribe\\/views\\/v2\\/html","rest_nonce":"2ab7cc6b39","should_manage_url":true}</script>
+>{"slug":"day","prev_url":"","next_url":"","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Day_View","view_slug":"day","view":{},"title":"","events":[{"ID":7,"post_author":"0","post_date":"2019-06-11 13:59:35","post_date_gmt":"2019-06-11 13:59:35","post_content":"","post_title":"Test Event - +9 days","post_excerpt":"","post_status":"publish","comment_status":"open","ping_status":"closed","post_password":"","post_name":"test-event-9-days-2","to_ping":"","pinged":"","post_modified":"2019-06-11 13:59:35","post_modified_gmt":"2019-06-11 13:59:35","post_content_filtered":"","post_parent":0,"guid":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-9-days-2","menu_order":0,"post_type":"tribe_events","post_mime_type":"","comment_count":"0","filter":"raw","start_date":"2019-06-20 13:01:20","start_date_utc":"2019-06-20 13:01:20","end_date":"2019-06-20 17:01:20","end_date_utc":"2019-06-20 17:01:20","dates":{"start":{"date":"2019-06-20 13:01:20.000000","timezone_type":3,"timezone":"America\\/Sao_Paulo"},"start_utc":{"date":"2019-06-20 13:01:20.000000","timezone_type":3,"timezone":"UTC"},"end":{"date":"2019-06-20 17:01:20.000000","timezone_type":3,"timezone":"America\\/Sao_Paulo"},"end_utc":{"date":"2019-06-20 17:01:20.000000","timezone_type":3,"timezone":"UTC"}},"timezone":"America\\/Sao_Paulo","duration":0,"multiday":false,"all_day":false,"starts_this_week":null,"ends_this_week":null,"this_week_duration":null,"happens_this_week":null,"featured":true,"cost":"","organizers":[],"venues":[],"thumbnail":{},"permalink":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-9-days-2","schedule_details":"<span class=\\"tribe-event-date-start\\">June 20 @ 1:01 pm<\\/span> - <span class=\\"tribe-event-time\\">5:01 pm<\\/span>"},{"ID":8,"post_author":"1","post_date":"2019-06-11 13:59:35","post_date_gmt":"2019-06-11 13:59:35","post_content":"","post_title":"Single Event 1","post_excerpt":"","post_status":"publish","comment_status":"open","ping_status":"closed","post_password":"","post_name":"single-event-1","to_ping":"","pinged":"","post_modified":"2019-06-11 13:59:35","post_modified_gmt":"2019-06-11 13:59:35","post_content_filtered":"","post_parent":0,"guid":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-9-days-2","menu_order":0,"post_type":"tribe_events","post_mime_type":"","comment_count":"0","filter":"raw","start_date":"2019-06-20 13:04:08","start_date_utc":"2019-06-20 13:04:08","end_date":"2019-06-20 17:04:08","end_date_utc":"2019-06-20 17:04:08","dates":{"start":{"date":"2019-06-20 13:04:08.000000","timezone_type":3,"timezone":"America\\/Sao_Paulo"},"start_utc":{"date":"2019-06-20 13:04:08.000000","timezone_type":3,"timezone":"UTC"},"end":{"date":"2019-06-20 17:04:08.000000","timezone_type":3,"timezone":"America\\/Sao_Paulo"},"end_utc":{"date":"2019-06-20 17:04:08.000000","timezone_type":3,"timezone":"UTC"}},"timezone":"America\\/Sao_Paulo","duration":0,"multiday":false,"all_day":false,"starts_this_week":null,"ends_this_week":null,"this_week_duration":null,"happens_this_week":null,"featured":false,"cost":"","organizers":[],"venues":[],"thumbnail":{},"permalink":"http:\\/\\/test.tri.be\\/?tribe_events=single-event-1","schedule_details":"<span class=\\"tribe-event-date-start\\">June 20 @ 1:04 pm<\\/span> - <span class=\\"tribe-event-time\\">5:04 pm<\\/span>"}],"url":"http:\\/\\/test.tri.be\\/events\\/today\\/","bar":{"keyword":"","date":"2019-01-01 09:00:00"},"today":"2019-01-01 09:00:00","now":"2019-01-01 09:00:00","rest_url":"http:\\/\\/test.tri.be\\/index.php?rest_route=\\/tribe\\/views\\/v2\\/html","rest_nonce":"2ab7cc6b39","should_manage_url":true,"today_url":"http:\\/\\/test.tri.be\\/events\\/today\\/"}</script>
 
 		<header class="tribe-events-header">
 			<div
@@ -56,7 +56,7 @@
 		data-js="tribe-events-view-form"
 		role="search"
 	>
-		<input type="hidden" id="tribe-events-views[_wpnonce]" name="tribe-events-views[_wpnonce]" value="2ab7cc6b39" /><input type="hidden" name="_wp_http_referer" value="/events/today/?tribe-bar-date=2019-01-01 09:00:00" />		<input type="hidden" name="tribe-events-views[url]" value="http://test.tri.be/events/today/?tribe-bar-date=2019-01-01%2009:00:00" />
+		<input type="hidden" id="tribe-events-views[_wpnonce]" name="tribe-events-views[_wpnonce]" value="2ab7cc6b39" /><input type="hidden" name="_wp_http_referer" value="/events/today/" />		<input type="hidden" name="tribe-events-views[url]" value="http://test.tri.be/events/today/" />
 
 		<div class="tribe-events-c-search__input-group">
 			<div
@@ -107,7 +107,7 @@
 	<ul class="tribe-events-c-view-selector__list">
 					<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--list">
 	<a
-		href="http://test.tri.be/events/list/?tribe-bar-date=2019-01-01%2009:00:00"
+		href="http://test.tri.be/events/list/"
 		class="tribe-events-c-view-selector__list-item-link"
 		data-js="tribe-events-view-link"
 	>
@@ -118,7 +118,7 @@
 </li>
 					<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--month">
 	<a
-		href="http://test.tri.be/events/month/?tribe-bar-date=2019-01-01%2009:00:00"
+		href="http://test.tri.be/events/month/"
 		class="tribe-events-c-view-selector__list-item-link"
 		data-js="tribe-events-view-link"
 	>
@@ -129,7 +129,7 @@
 </li>
 					<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--day tribe-events-c-view-selector__list-item--active">
 	<a
-		href="http://test.tri.be/events/today/?tribe-bar-date=2019-01-01%2009:00:00"
+		href="http://test.tri.be/events/today/"
 		class="tribe-events-c-view-selector__list-item-link"
 		data-js="tribe-events-view-link"
 	>
@@ -215,7 +215,7 @@
 			
 				<div class="tribe-events-calendar-day__time-separator">
 	<time
-		class="tribe-events-calendar-day__time-separator-text tribe-common-h7 tribe-common-h--alt"
+		class="tribe-events-calendar-day__time-separator-text tribe-common-h6 tribe-common-h--alt"
 		datetime="13:00"
 	>
 		1:00 pm	</time>

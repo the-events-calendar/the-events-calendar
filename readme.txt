@@ -215,10 +215,17 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
-= [4.9.7] TBD =
+= [4.9.8] TBD =
 
+* Fix - Fix default view redirection loop on mobile devices. Thanks Ricardo, cittaslow and others for flagging this! [125567]
+
+= [4.9.7] 2019-08-19 =
+
+* Tweak - Update Lodash version on Block editor to prevent any possibility of a security issue with the package. From v4.17.11 to v4.17.15 [131421]
 * Tweak - Add filter 'tribe_events_js_config' to allow filtering the contents of the Javascript configuration [132567]
 * Tweak - Updates to the shortcode Javascript code to allow disabling the URL manipulation behavior [132567]
+* Fix - Prevent mascot image to get blown up out of proportions to a larger size on buggy CSS loading. [131910]
+* Language - 3 new strings added, 191 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.9.6] 2019-08-07 =
 
