@@ -374,6 +374,7 @@
 									<a
 						href="http://test.tri.be/events/2019-01-01/"
 						class="tribe-events-calendar-month__day-date-link"
+						data-js="tribe-events-view-link"
 					>
 						01					</a>
 							</time>
