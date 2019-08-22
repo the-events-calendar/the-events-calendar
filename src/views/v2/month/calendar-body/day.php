@@ -73,8 +73,8 @@ $mobile_day_id = 'tribe-events-calendar-mobile-day-' . $day_date;
 								sprintf(
 									_n( '%s event', '%s events', count( $day['events'] ), 'the-events-calendar' ),
 									number_format_i18n( count( $day['events'] )
-									)
-								);
+								)
+							);
 				?>,
 			</span>
 			<time datetime="<?php echo esc_attr( $day['date'] ); ?>">
@@ -108,8 +108,8 @@ $mobile_day_id = 'tribe-events-calendar-mobile-day-' . $day_date;
 								sprintf(
 									_n( '%s event', '%s events', count( $day['events'] ), 'the-events-calendar' ),
 									number_format_i18n( count( $day['events'] )
-									)
-								);
+								)
+							);
 				?>,
 			</span>
 			<time datetime="<?php echo esc_attr( $day['date'] ); ?>">
