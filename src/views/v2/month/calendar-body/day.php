@@ -42,6 +42,10 @@ if ( $today_date === $day_date ) {
 	$day_classes[] = 'tribe-events-calendar-month__day--current';
 }
 
+if ( $today_date > $day_date ) {
+	$day_classes[] = 'tribe-events-calendar-month__day--past';
+}
+
 // Only add id if events exist on the day.
 $mobile_day_id = 'tribe-events-calendar-mobile-day-' . $day_date;
 ?>
