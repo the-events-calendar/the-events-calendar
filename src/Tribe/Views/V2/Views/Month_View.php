@@ -13,6 +13,7 @@ use Tribe__Context as Context;
 use Tribe__Date_Utils as Dates;
 use Tribe__Events__Template__Month as Month;
 use Tribe__Utils__Array as Arr;
+use Tribe__Events__Main as Plugin;
 
 class Month_View extends By_Day_View {
 
@@ -272,6 +273,8 @@ class Month_View extends By_Day_View {
 
 			$start_of_week = get_option( 'start_of_week', 0 );
 
+			$day_url = Plugin::instance()->getLink( 'day', $day_date );
+
 			$day_data = [
 				'date'             => $day_date,
 				'is_start_of_week' => $start_of_week === $date_object->format( 'N' ),
@@ -283,6 +286,7 @@ class Month_View extends By_Day_View {
 				'multiday_events'  => $day_stack,
 				'found_events'     => $day_found_events,
 				'more_events'      => $more_events,
+				'day_url'          => $day_url,
 			];
 
 			$days[ $day_date ] = $day_data;
