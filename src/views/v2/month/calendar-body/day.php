@@ -92,15 +92,20 @@ $mobile_day_id = 'tribe-events-calendar-mobile-day-' . $day_date;
 		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
-			<span class="tribe-common-a11y-visual-hide">X events, </span>
-			<time datetime="YYYY-MM-DD">
-				<a
-					<?php /* @todo @fe connect this to the day view link if the day has events */ ?>
-					href="#link-to-day-view-if-it-has-events"
-					class="tribe-events-calendar-month__day-date-link"
-				>
+			<span class="tribe-common-a11y-visual-hide">
+				<?php echo sprintf( _n( '%s event', '%s events', count( $day['events'] ), 'the-events-calendar' ), number_format_i18n( count( $day['events'] ) ) ); ?>,
+			</span>
+			<time datetime="<?php echo esc_attr( $day['date'] ); ?>">
+				<?php if ( ! empty( $day['events'] ) ) : ?>
+					<a
+						href="<?php echo esc_url( $day['day_url'] ); ?>"
+						class="tribe-events-calendar-month__day-date-link"
+					>
+						<?php echo esc_html( $day_number ); ?>
+					</a>
+				<?php else : ?>
 					<?php echo esc_html( $day_number ); ?>
-				</a>
+				<?php endif;?>
 			</time>
 		</h3>
 
