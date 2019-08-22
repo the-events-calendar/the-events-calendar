@@ -227,15 +227,16 @@
 
 		<header class="tribe-events-calendar-day__event-header">
 			<div class="tribe-events-calendar-day__event-datetime-wrapper">
-	<time class="tribe-events-calendar-day__event-datetime tribe-common-b2" datetime="1970-01-01T00:00:00+00:00">
-		<span class="tribe-event-date-start">June 20 @ 1:01 pm</span> - <span class="tribe-event-time">5:01 pm</span>	</time>
 			<em
 			class="tribe-events-calendar-day__event-datetime-featured-icon tribe-common-svgicon tribe-common-svgicon--featured"
 			aria-label="Featured"
 			title="Featured"
 		>
 		</em>
-	</div>
+		<span class="tribe-events-calendar-day__event-datetime-featured-text tribe-common-b2">Featured</span>
+		<time class="tribe-events-calendar-day__event-datetime tribe-common-b2" datetime="2019-06-20">
+		<span class="tribe-event-date-start">June 20 @ 1:01 pm</span> - <span class="tribe-event-time">5:01 pm</span>	</time>
+</div>
 			<h3 class="tribe-events-calendar-day__event-title tribe-common-h6 tribe-common-h5--min-medium">
 	<a
 		href="http://test.tri.be/?tribe_events=test-event-9-days-2%2F"
@@ -276,9 +277,9 @@
 
 		<header class="tribe-events-calendar-day__event-header">
 			<div class="tribe-events-calendar-day__event-datetime-wrapper">
-	<time class="tribe-events-calendar-day__event-datetime tribe-common-b2" datetime="1970-01-01T00:00:00+00:00">
+		<time class="tribe-events-calendar-day__event-datetime tribe-common-b2" datetime="2019-06-20">
 		<span class="tribe-event-date-start">June 20 @ 1:04 pm</span> - <span class="tribe-event-time">5:04 pm</span>	</time>
-	</div>
+</div>
 			<h3 class="tribe-events-calendar-day__event-title tribe-common-h6 tribe-common-h5--min-medium">
 	<a
 		href="http://test.tri.be/?tribe_events=single-event-1%2F"
