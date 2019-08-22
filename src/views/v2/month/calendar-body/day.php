@@ -19,6 +19,7 @@
  *          @type string $year_number The day year number, e.g. `2019`.
  *          @type string $month_number The day year number, e.g. `6` for June.
  *          @type string $day_number The day number in the month, e.g. `11` for June 11th.
+ *          @type string $day_url The day url, e.g. `http://yoursite.com/events/2019-06-11/`.
  *          @type int $found_events The total number of events in the day including the ones not fetched due to the per
  *                                  page limit, including the multi-day ones.
  *          @type int $more_events The number of events not showing in the day.
@@ -42,6 +43,10 @@ if ( $today_date === $day_date ) {
 	$day_classes[] = 'tribe-events-calendar-month__day--current';
 }
 
+if ( $today_date > $day_date ) {
+	$day_classes[] = 'tribe-events-calendar-month__day--past';
+}
+
 // Only add id if events exist on the day.
 $mobile_day_id = 'tribe-events-calendar-mobile-day-' . $day_date;
 ?>
@@ -63,8 +68,10 @@ $mobile_day_id = 'tribe-events-calendar-mobile-day-' . $day_date;
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
-			<span class="tribe-common-a11y-visual-hide">X events, </span>
-			<time datetime="YYYY-MM-DD">
+			<span class="tribe-common-a11y-visual-hide">
+				<?php echo esc_html( sprintf( _n( '%s event', '%s events', count( $day['events'] ), 'the-events-calendar' ), number_format_i18n( count( $day['events'] ) ) ) ); ?>,
+			</span>
+			<time datetime="<?php echo esc_attr( $day['date'] ); ?>">
 				<?php echo esc_html( $day_number ); ?>
 			</time>
 		</h3>
@@ -90,15 +97,21 @@ $mobile_day_id = 'tribe-events-calendar-mobile-day-' . $day_date;
 		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
-			<span class="tribe-common-a11y-visual-hide">X events, </span>
-			<time datetime="YYYY-MM-DD">
-				<a
-					<?php /* @todo @fe connect this to the day view link if the day has events */ ?>
-					href="#link-to-day-view-if-it-has-events"
-					class="tribe-events-calendar-month__day-date-link"
-				>
+			<span class="tribe-common-a11y-visual-hide">
+				<?php echo esc_html( sprintf( _n( '%s event', '%s events', count( $day['events'] ), 'the-events-calendar' ), number_format_i18n( count( $day['events'] ) ) ) ); ?>,
+			</span>
+			<time datetime="<?php echo esc_attr( $day['date'] ); ?>">
+				<?php if ( ! empty( $day['events'] ) ) : ?>
+					<a
+						href="<?php echo esc_url( $day['day_url'] ); ?>"
+						class="tribe-events-calendar-month__day-date-link"
+						data-js="tribe-events-view-link"
+					>
+						<?php echo esc_html( $day_number ); ?>
+					</a>
+				<?php else : ?>
 					<?php echo esc_html( $day_number ); ?>
-				</a>
+				<?php endif; ?>
 			</time>
 		</h3>
 
