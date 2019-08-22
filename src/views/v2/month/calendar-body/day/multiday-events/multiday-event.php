@@ -77,7 +77,7 @@ if ( $should_display ) {
 				></em>
 			<?php endif; ?>
 			<h3 class="tribe-events-calendar-month__multiday-event-title tribe-common-h8">
-				<?php echo wp_kses_post( $event->title ) ?>
+				<?php echo get_the_title( $event ); ?>
 			</h3>
 		</a>
 	</article>

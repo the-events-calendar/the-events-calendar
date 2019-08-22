@@ -10,6 +10,7 @@ namespace Tribe\Events\Views\V2;
 
 use Tribe__Container as Container;
 use Tribe__Context as Context;
+use Tribe__Date_Utils as Dates;
 use Tribe__Events__Main as TEC;
 use Tribe__Events__Organizer as Organizer;
 use Tribe__Events__Rewrite as Rewrite;
@@ -491,6 +492,17 @@ class View implements View_Interface {
 			'tribe-bar-search' => $this->context->get( 'keyword', '' ),
 		];
 
+		if ( ! empty( $query_args['tribe-bar-date'] ) ) {
+			// If the Events Bar date is the same ad today's date, then drop it.
+			$today          = $this->context->get( 'today', 'today' );
+			$today_date     = Dates::build_date_object( $today )->format( Dates::DBDATEFORMAT );
+			$tribe_bar_date = Dates::build_date_object( $query_args['tribe-bar-date'] )->format( Dates::DBDATEFORMAT );
+
+			if ( $today_date === $tribe_bar_date ) {
+				unset( $query_args['tribe-bar-date'] );
+			}
+		}
+
 		// When we find nothing we're always on page 1.
 		$page = $this->repository->count() > 0 ? $this->url->get_current_page() : 1;
 
@@ -919,6 +931,7 @@ class View implements View_Interface {
 			'rest_url'          => tribe( Rest_Endpoint::class )->get_url(),
 			'rest_nonce'        => wp_create_nonce( 'wp_rest' ),
 			'should_manage_url' => $this->should_manage_url,
+			'today_url'         => $this->get_today_url( true ),
 		];
 
 		return $template_vars;
@@ -1013,5 +1026,27 @@ class View implements View_Interface {
 	 */
 	public function get_template_vars() {
 		return $this->filter_template_vars( $this->setup_template_vars() );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_today_url( $canonical = false ) {
+		$remove = [ 'tribe-bar-date', 'paged', 'page' ];
+
+		// While we want to remove the date query vars, we want to keep any other query var.
+		$query_args = $this->url->get_query_args();
+
+		// Handle the `eventDisplay` query arg due to its particular usage to indicate the mode too.
+		$query_args['eventDisplay'] = $this->slug;
+
+		$ugly_url = add_query_arg( $query_args, $this->get_url( false ) );
+		$ugly_url = remove_query_arg( $remove, $ugly_url );
+
+		if ( ! $canonical ) {
+			return $ugly_url;
+		}
+
+		return Rewrite::instance()->get_canonical_url( $ugly_url );
 	}
 }
