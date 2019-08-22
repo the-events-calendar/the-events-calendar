@@ -105,6 +105,7 @@ $mobile_day_id = 'tribe-events-calendar-mobile-day-' . $day_date;
 					<a
 						href="<?php echo esc_url( $day['day_url'] ); ?>"
 						class="tribe-events-calendar-month__day-date-link"
+						data-js="tribe-events-view-link"
 					>
 						<?php echo esc_html( $day_number ); ?>
 					</a>
