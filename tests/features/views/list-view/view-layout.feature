@@ -1,12 +1,13 @@
 Feature: layout and visual elements of an event in List View
 
-# This feature spec is for the newly redesigned List View and does not describe the current List View functionality.
+# This feature spec is specifically for the V2 List View
 
 Background:
     Given I am a Visitor on a site with TEC
     Given List View is enabled under Events --> Settings --> Display
     Given the site timezone is America/Los_Angeles
     Given "Number of events to show per page" is set to 10
+	Given Views V2 is active
 
 Scenario Outline: Venue display in List View
     Given that this site has the following public, published upcoming events with associated venues:
@@ -33,11 +34,11 @@ Scenario Outline: Venue display in List View
 
 # While the defined default is to only show the venue title, city, and state/province, users should be able to customize their list view template to show more or less venue information (e.g. address, country)
 
-Scenario: Automatic event excerpt (35 words) in List View
+Scenario: Automatic event excerpt (30 words) in List View
     Given the next public, published upcoming event has the following event description: "Pie apple pie cookie chocolate gingerbread jujubes gingerbread cotton candy chocolate. Chocolate bar dragée lollipop caramels. Sweet tootsie roll gummi bears fruitcake jelly beans caramels candy gummi bears. Lollipop jelly beans jelly-o brownie pudding macaroon liquorice bear claw dessert. Cupcake ice cream marshmallow bear claw tart dragée gummi bears cake. Topping sugar plum topping tiramisu jujubes. Caramels ice cream chupa chups apple pie. Muffin danish gingerbread fruitcake. Cookie candy apple pie cupcake cupcake liquorice. Cheesecake sweet roll gummies apple pie."
     And the admin has not written anything in the event excerpt field
     When I view the List View for upcoming events
-    Then I should see the next upcoming event displayed with the following excerpt: "Pie apple pie cookie chocolate gingerbread jujubes gingerbread cotton candy chocolate. Chocolate bar dragée lollipop caramels. Sweet tootsie roll gummi bears fruitcake jelly beans caramels candy gummi bears. Lollipop jelly beans jelly-o brownie pudding macaroon..."
+    Then I should see the next upcoming event displayed with the following excerpt: "Pie apple pie cookie chocolate gingerbread jujubes gingerbread cotton candy chocolate. Chocolate bar dragée lollipop caramels. Sweet tootsie roll gummi bears fruitcake jelly beans caramels candy gummi bears. Lollipop jelly ..."
 
 # We will define the default auto-excerpt size with the goal of hitting about three lines of text. However, the user should be able to customize their list view template to change the auto-excerpt size.
 
