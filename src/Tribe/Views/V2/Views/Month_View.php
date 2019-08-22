@@ -136,6 +136,9 @@ class Month_View extends By_Day_View {
 		$url = remove_query_arg( [ 'tribe-bar-date' ], $this->get_url() );
 		$url = add_query_arg( $query_args, $url );
 
+		/**
+		 * @todo @be move this repeating piece of code to the parent `View` class.
+		 */
 		if ( ! empty( $url ) && $canonical ) {
 			$input_url = $url;
 
