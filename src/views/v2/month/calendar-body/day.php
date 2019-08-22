@@ -69,7 +69,13 @@ $mobile_day_id = 'tribe-events-calendar-mobile-day-' . $day_date;
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
-				<?php echo sprintf( _n( '%s event', '%s events', count( $day['events'] ), 'the-events-calendar' ), number_format_i18n( count( $day['events'] ) ) ); ?>,
+				<?php echo esc_html(
+								sprintf(
+									_n( '%s event', '%s events', count( $day['events'] ), 'the-events-calendar' ),
+									number_format_i18n( count( $day['events'] )
+									)
+								);
+				?>,
 			</span>
 			<time datetime="<?php echo esc_attr( $day['date'] ); ?>">
 				<?php echo esc_html( $day_number ); ?>
@@ -98,7 +104,13 @@ $mobile_day_id = 'tribe-events-calendar-mobile-day-' . $day_date;
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
 			<span class="tribe-common-a11y-visual-hide">
-				<?php echo sprintf( _n( '%s event', '%s events', count( $day['events'] ), 'the-events-calendar' ), number_format_i18n( count( $day['events'] ) ) ); ?>,
+				<?php echo esc_html(
+								sprintf(
+									_n( '%s event', '%s events', count( $day['events'] ), 'the-events-calendar' ),
+									number_format_i18n( count( $day['events'] )
+									)
+								);
+				?>,
 			</span>
 			<time datetime="<?php echo esc_attr( $day['date'] ); ?>">
 				<?php if ( ! empty( $day['events'] ) ) : ?>
