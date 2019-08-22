@@ -37,10 +37,11 @@ class Day_View extends View {
 	 * {@inheritDoc}
 	 */
 	public function prev_url( $canonical = false, array $passthru_vars = [] ) {
-		$default_date   = 'now';
+		$default_date   = 'today';
 		$date           = $this->context->get( 'event_date', $default_date );
 		$event_date_var = $default_date === $date ? '' : $date;
-		$previous_date = date( Dates::DBDATEFORMAT, strtotime( $date . ' -1day' ) );
+
+		$previous_date = date( Dates::DBDATEFORMAT, strtotime( $date . '00:00 -1day' ) );
 
 		$past = tribe_events()->by_args( [
 			'on_date'  => $previous_date,
