@@ -112,7 +112,7 @@ $mobile_day_id = 'tribe-events-calendar-mobile-day-' . $day_date;
 			<?php $this->template( 'month/calendar-body/day/calendar-events', [ 'day_events' => $day['events'] ] ); ?>
 		</div>
 
-		<?php $this->template( 'month/calendar-body/day/more-events', [ 'more_events' => $day['more_events'] ] ); ?>
+		<?php $this->template( 'month/calendar-body/day/more-events', [ 'more_events' => $day['more_events'], 'day_date' => $day['date'] ] ); ?>
 
 	</div>
 

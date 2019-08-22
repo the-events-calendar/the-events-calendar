@@ -12,6 +12,7 @@
  * @version TBD
  *
  * @var int $more_events The number of events that's not showing in the day cell or in the multi-day stack.
+ * @var string $day_date A string with the date formatted Y-m-d
  *
  * @see tribe_get_event() For the format of the event object.
  */
@@ -23,7 +24,11 @@ if ( empty( $more_events ) ) {
 ?>
 
 <div class="tribe-events-calendar-month__more-events">
-	<a href="#" class="tribe-events-calendar-month__more-events-link tribe-common-h8 tribe-common-h--alt tribe-common-anchor-thin">
+	<a
+		href="<?php echo tribe_events_get_url( [ 'eventDisplay' => 'day', 'eventDate' => $day_date ] ) ?>"
+		class="tribe-events-calendar-month__more-events-link tribe-common-h8 tribe-common-h--alt tribe-common-anchor-thin"
+		data-js="tribe-events-view-link"
+	>
 		<?php
 		 echo esc_html(
 			 sprintf(
