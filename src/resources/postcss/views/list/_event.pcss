@@ -45,17 +45,19 @@
 	.tribe-events-calendar-list__event-row--featured {
 
 		.tribe-events-calendar-list__event-date-tag-datetime {
-			border-left: 3px solid var(--color-accent-primary);
+			&:after {
+				background: var(--color-accent-primary);
+				content: '';
+				height: 100%;
+				right: calc(100% - 3px);
+				position: absolute;
+				width: 3px;
+			}
 
 			@media (--viewport-medium) {
-				border-left: none;
 
 				&:after {
-					background: var(--color-accent-primary);
-					content: '';
-					height: 100%;
 					right: -1px;
-					position: absolute;
 					width: 4px;
 				}
 			}
