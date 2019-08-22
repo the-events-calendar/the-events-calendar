@@ -63,8 +63,10 @@ $mobile_day_id = 'tribe-events-calendar-mobile-day-' . $day_date;
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
-			<span class="tribe-common-a11y-visual-hide">X events, </span>
-			<time datetime="YYYY-MM-DD">
+			<span class="tribe-common-a11y-visual-hide">
+				<?php echo sprintf( _n( '%s event', '%s events', count( $day['events'] ), 'the-events-calendar' ), number_format_i18n( count( $day['events'] ) ) ); ?>,
+			</span>
+			<time datetime="<?php echo esc_attr( $day['date'] ); ?>">
 				<?php echo esc_html( $day_number ); ?>
 			</time>
 		</h3>
