@@ -119,7 +119,8 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 		$end_date_utc    = get_post_meta( $post_id, '_EventEndDateUTC', true );
 		$duration        = (int) get_post_meta( $post_id, '_EventDuration', true );
 		$timezone_string = Timezones::get_event_timezone_string( $post_id );
-		$all_day         = (bool) get_post_meta( $post_id, '_EventAllDay', true );
+		$all_day         = tribe_is_truthy( get_post_meta( $post_id, '_EventAllDay', true ) );
+
 		// An event is multi-day if its end date is after the end-of-day cutoff of the start date.
 		$end_of_day        = tribe_end_of_day( $start_date );
 		$timezone          = Timezones::build_timezone_object( $timezone_string );
@@ -184,7 +185,7 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 				++ $multiday;
 			};
 		}
-		$featured = (bool) get_post_meta( $post_id, Tribe__Events__Featured_Events::FEATURED_EVENT_KEY, true );
+		$featured = tribe_is_truthy( get_post_meta( $post_id, Tribe__Events__Featured_Events::FEATURED_EVENT_KEY, true ) );
 
 		$organizer_fetch = Tribe__Events__Organizer::get_fetch_callback( $post_id );
 		$venue_fetch     = Tribe__Events__Venue::get_fetch_callback( $post_id );
