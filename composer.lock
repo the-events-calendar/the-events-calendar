@@ -208,22 +208,22 @@
         },
         {
             "name": "codeception/codeception",
-            "version": "3.0.3",
+            "version": "3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Codeception.git",
-                "reference": "feb566a9dc26993611602011ae3834d8e3c1dd7f"
+                "reference": "9ed9146567770e564fdd2b656edb385330f7fae7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/feb566a9dc26993611602011ae3834d8e3c1dd7f",
-                "reference": "feb566a9dc26993611602011ae3834d8e3c1dd7f",
+                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/9ed9146567770e564fdd2b656edb385330f7fae7",
+                "reference": "9ed9146567770e564fdd2b656edb385330f7fae7",
                 "shasum": ""
             },
             "require": {
                 "behat/gherkin": "^4.4.0",
                 "codeception/phpunit-wrapper": ">6.0.15 <6.1.0 | ^6.6.1 | ^7.7.1 | ^8.0.3",
-                "codeception/stub": "^2.0",
+                "codeception/stub": "^2.0 | ^3.0",
                 "ext-curl": "*",
                 "ext-json": "*",
                 "ext-mbstring": "*",
@@ -243,6 +243,7 @@
             "require-dev": {
                 "codeception/specify": "~0.3",
                 "doctrine/annotations": "^1",
+                "doctrine/data-fixtures": "^1",
                 "doctrine/orm": "^2",
                 "flow/jsonpath": "~0.2",
                 "monolog/monolog": "~1.8",
@@ -298,20 +299,20 @@
                 "functional testing",
                 "unit testing"
             ],
-            "time": "2019-07-18T16:21:08+00:00"
+            "time": "2019-08-18T16:44:20+00:00"
         },
         {
             "name": "codeception/phpunit-wrapper",
-            "version": "6.6.1",
+            "version": "6.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/phpunit-wrapper.git",
-                "reference": "d0da25a98bcebeb15d97c2ad3b2de6166b6e7a0c"
+                "reference": "93f59e028826464eac086052fa226e58967f6907"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/phpunit-wrapper/zipball/d0da25a98bcebeb15d97c2ad3b2de6166b6e7a0c",
-                "reference": "d0da25a98bcebeb15d97c2ad3b2de6166b6e7a0c",
+                "url": "https://api.github.com/repos/Codeception/phpunit-wrapper/zipball/93f59e028826464eac086052fa226e58967f6907",
+                "reference": "93f59e028826464eac086052fa226e58967f6907",
                 "shasum": ""
             },
             "require": {
@@ -344,24 +345,25 @@
                 }
             ],
             "description": "PHPUnit classes used by Codeception",
-            "time": "2019-02-26T20:47:39+00:00"
+            "time": "2019-08-18T15:43:35+00:00"
         },
         {
             "name": "codeception/stub",
-            "version": "2.1.0",
+            "version": "3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Stub.git",
-                "reference": "853657f988942f7afb69becf3fd0059f192c705a"
+                "reference": "eea518711d736eab838c1274593c4568ec06b23d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Stub/zipball/853657f988942f7afb69becf3fd0059f192c705a",
-                "reference": "853657f988942f7afb69becf3fd0059f192c705a",
+                "url": "https://api.github.com/repos/Codeception/Stub/zipball/eea518711d736eab838c1274593c4568ec06b23d",
+                "reference": "eea518711d736eab838c1274593c4568ec06b23d",
                 "shasum": ""
             },
             "require": {
-                "codeception/phpunit-wrapper": ">6.0.15 <6.1.0 | ^6.6.1 | ^7.7.1 | ^8.0.3"
+                "codeception/phpunit-wrapper": "^6.6.1 | ^7.7.1 | ^8.0.3",
+                "phpunit/phpunit": ">=6.5 <9.0"
             },
             "type": "library",
             "autoload": {
@@ -374,7 +376,7 @@
                 "MIT"
             ],
             "description": "Flexible Stub wrapper for PHPUnit's Mock Builder",
-            "time": "2019-03-02T15:35:10+00:00"
+            "time": "2019-08-10T16:20:53+00:00"
         },
         {
             "name": "composer/ca-bundle",
@@ -2265,16 +2267,16 @@
         },
         {
             "name": "lucatume/wp-browser",
-            "version": "2.2.18",
+            "version": "2.2.19",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lucatume/wp-browser.git",
-                "reference": "4f93cea909cfba2caf826828219f674fd3778e05"
+                "reference": "abfeaf3c66ebe5a0d9c8ff6c2ac19f36e43e62e9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/4f93cea909cfba2caf826828219f674fd3778e05",
-                "reference": "4f93cea909cfba2caf826828219f674fd3778e05",
+                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/abfeaf3c66ebe5a0d9c8ff6c2ac19f36e43e62e9",
+                "reference": "abfeaf3c66ebe5a0d9c8ff6c2ac19f36e43e62e9",
                 "shasum": ""
             },
             "require": {
@@ -2329,7 +2331,7 @@
                 "codeception",
                 "wordpress"
             ],
-            "time": "2019-08-02T08:42:45+00:00"
+            "time": "2019-08-16T16:13:50+00:00"
         },
         {
             "name": "lucatume/wp-snaphot-assertions",
@@ -2604,12 +2606,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/moderntribe/tribe-testing-facilities",
-                "reference": "cafee8fd80728ecc85faefddfadc1e644a13c7a0"
+                "reference": "e43ac3de210f5880d7129072011cba765cb6430f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/moderntribe/tribe-testing-facilities/zipball/cafee8fd80728ecc85faefddfadc1e644a13c7a0",
-                "reference": "cafee8fd80728ecc85faefddfadc1e644a13c7a0",
+                "url": "https://api.github.com/repos/moderntribe/tribe-testing-facilities/zipball/e43ac3de210f5880d7129072011cba765cb6430f",
+                "reference": "e43ac3de210f5880d7129072011cba765cb6430f",
                 "shasum": ""
             },
             "require": {
@@ -2667,7 +2669,7 @@
                 }
             ],
             "description": "Testing facilities, helpers and examples.",
-            "time": "2019-08-13T09:04:22+00:00"
+            "time": "2019-08-21T09:09:26+00:00"
         },
         {
             "name": "mustache/mustache",
