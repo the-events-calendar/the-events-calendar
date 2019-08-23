@@ -218,6 +218,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 = [4.9.8] TBD =
 
 * Fix - Fix default view redirection loop on mobile devices. Thanks Ricardo, cittaslow and others for flagging this! [125567]
+* Tweak - Updated Freemius integration code [133148]
 
 = [4.9.7] 2019-08-19 =
 
