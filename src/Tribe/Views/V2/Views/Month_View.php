@@ -67,6 +67,104 @@ class Month_View extends By_Day_View {
 	/**
 	 * {@inheritDoc}
 	 */
+	public function prev_url( $canonical = false, array $passthru_vars = [] ) {
+		$default_date   = 'today';
+		$date           = $this->context->get( 'event_date', $default_date );
+		$event_date_var = $default_date === $date ? '' : $date;
+
+		// Start of the month passed
+		$previous_date = date( 'Y-m', strtotime( $date . '-01 00:00' ) );
+
+		$prev = tribe_events()->where( 'starts_before', $previous_date )->order( 'DESC' )->per_page( 1 );
+		$previous_event = $prev->first();
+		$has_previous = $prev->found();
+
+		if ( ! $has_previous ) {
+			return '';
+		}
+
+		$previous_date = tribe_get_start_date( $previous_event, false, 'Y-m' );
+
+		$query_args = [ 'eventDate' => $previous_date ];
+		$url = remove_query_arg( [ 'tribe-bar-date' ], $this->get_url() );
+		$url = add_query_arg( $query_args, $url );
+
+		if ( ! empty( $url ) && $canonical ) {
+			$input_url = $url;
+
+			if ( ! empty( $passthru_vars ) ) {
+				$input_url = remove_query_arg( array_keys( $passthru_vars ), $url );
+			}
+
+			// Make sure the view slug is always set to correctly match rewrites.
+			$input_url = add_query_arg( [ 'eventDisplay' => $this->slug ], $input_url );
+
+			$canonical_url = tribe( 'events.rewrite' )->get_clean_url( $input_url );
+
+			if ( ! empty( $passthru_vars ) ) {
+				$canonical_url = add_query_arg( $passthru_vars, $canonical_url );
+			}
+
+			$url = $canonical_url;
+		}
+
+		$url = $this->filter_prev_url( $canonical, $url );
+
+		return $url;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function next_url( $canonical = false, array $passthru_vars = [] ) {
+		$default_date   = 'today';
+		$date           = $this->context->get( 'event_date', $default_date );
+		$event_date_var = $default_date === $date ? '' : $date;
+		$next_date = date( 'Y-m-t', strtotime( $date ) ) . ' 23:59';
+
+		$next = tribe_events()->where( 'starts_after', $next_date )->order( 'DESC' )->per_page( 1 );
+		$next_event = $next->first();
+		$has_next = $next->found();
+
+		if ( ! $has_next ) {
+			return '';
+		}
+
+		$next_date = tribe_get_start_date( $next_event, false, 'Y-m' );
+
+		$query_args = [ 'eventDate' => $next_date ];
+		$url = remove_query_arg( [ 'tribe-bar-date' ], $this->get_url() );
+		$url = add_query_arg( $query_args, $url );
+
+		/**
+		 * @todo @be move this repeating piece of code to the parent `View` class.
+		 */
+		if ( ! empty( $url ) && $canonical ) {
+			$input_url = $url;
+
+			if ( ! empty( $passthru_vars ) ) {
+				$input_url = remove_query_arg( array_keys( $passthru_vars ), $url );
+			}
+
+			// Make sure the view slug is always set to correctly match rewrites.
+			$input_url = add_query_arg( [ 'eventDisplay' => $this->slug ], $input_url );
+
+			$canonical_url = tribe( 'events.rewrite' )->get_clean_url( $input_url );
+
+			if ( ! empty( $passthru_vars ) ) {
+				$canonical_url = add_query_arg( $passthru_vars, $canonical_url );
+			}
+
+			$url = $canonical_url;
+		}
+
+		$url = $this->filter_next_url( $canonical, $url );
+
+		return $url;
+	}
+	/**
+	 * {@inheritDoc}
+	 */
 	protected function setup_repository_args( Context $context = null ) {
 		// Let's apply the arguments common to all Views.
 		$args = parent::setup_repository_args( $context );
