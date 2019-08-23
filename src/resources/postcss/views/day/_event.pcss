@@ -29,16 +29,35 @@
 	}
 
 	.tribe-events-calendar-day__event--featured {
+		position: relative;
+
+		&:before {
+			background: var(--color-accent-primary);
+			content: '';
+			height: 100%;
+			left: var(--grid-gutter-small-half);
+			position: absolute;
+			width: 3px;
+		}
+
+		@media (--viewport-medium) {
+			&:before {
+				width: 0;
+			}
+		}
+
 
 		.tribe-events-calendar-day__event-details {
 
-			&:before {
-				background: var(--color-accent-primary);
-				content: '';
-				height: 100%;
-				left: var(--grid-gutter-small-half-negative);
-				position: absolute;
-				width: 4px;
+			@media (--viewport-medium) {
+				&:before {
+					background: var(--color-accent-primary);
+					content: '';
+					height: 100%;
+					left: var(--grid-gutter-half-negative);
+					position: absolute;
+					width: 4px;
+				}
 			}
 		}
 	}
