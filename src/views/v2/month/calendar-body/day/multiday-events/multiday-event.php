@@ -9,9 +9,10 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.4
+ * @version TBD
  *
  * @var string $day_date The `Y-m-d` date of the day currently being displayed.
+ * @var string $today_date Today's date in the `Y-m-d` format.
  * @var WP_Post $event An event post object with event-specific properties added from the the `tribe_get_event`
  *                     function.
  * @var bool $is_start_of_week Whether the current grid day being rendered is the first day of the week or not.
@@ -54,6 +55,11 @@ if ( $should_display ) {
 	if ( $event->ends_this_week ) {
 		$classes[] = 'tribe-events-calendar-month__multiday-event--end';
 	}
+
+	if ( $event->dates->end->format( 'Y-m-d' ) < $today_date ) {
+		$classes[] = 'tribe-events-calendar-month__multiday-event--past';
+	}
+
 
 } else {
 	$classes[] = 'tribe-events-calendar-month__multiday-event--hidden';

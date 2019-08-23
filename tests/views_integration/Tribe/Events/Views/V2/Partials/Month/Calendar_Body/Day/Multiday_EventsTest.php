@@ -37,6 +37,14 @@ class Multiday_EventsTest extends HtmlPartialTestCase {
 		$event_two->ID   = 99999;
 		$multiday_events = [ $event_one, $event_two ];
 
+		$this->template->set_values(
+			array_merge(
+				$this->template->get_global_values(),
+				[ 'today_date' => '2018-01-02' ]
+			),
+			false
+		);
+
 		$this->assertMatchesSnapshot(
 			$this->get_partial_html(
 				[
