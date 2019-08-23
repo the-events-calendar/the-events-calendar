@@ -28,7 +28,7 @@ class MonthEventMultidayTest extends HtmlTestCase {
 
 		$template = $this->template->template(
 			'month/calendar-body/day/multiday-events/multiday-event',
-			[ 'event' => $event, 'day_date' => '2019-01-01', 'is_start_of_week' => true ]
+			[ 'event' => $event, 'day_date' => '2019-01-01', 'is_start_of_week' => true, 'today_date' => '2019-01-01' ]
 		);
 		$html     = $this->document->html( $template );
 
