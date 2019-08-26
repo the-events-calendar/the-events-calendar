@@ -81,7 +81,9 @@ class Month_View extends By_Day_View {
 
 		// Clone the current repository and check if we have an event on the last day of the previous month.
 		$prev = clone $current_repository;
-		$prev->where( 'date_overlaps', tribe_beginning_of_day( $prev_date ), tribe_end_of_day( $prev_date ) )->order( 'DESC' )->per_page( 1 );
+		$start = tribe_beginning_of_day( $prev_date );
+		$end   = tribe_end_of_day( $prev_date );
+		$prev->where( 'date_overlaps', $start, $end )->order( 'DESC' )->per_page( 1 );
 
 		$prev_event = $prev->first();
 		$has_prev = $prev->found();
