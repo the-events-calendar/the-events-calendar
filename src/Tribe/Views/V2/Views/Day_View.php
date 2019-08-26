@@ -48,7 +48,9 @@ class Day_View extends View {
 		$previous_date = Dates::build_date_object( $date )->sub( $one_day )->format( Dates::DBDATEFORMAT );
 
 		$prev = clone $current_repository;
-		$prev->where( 'date_overlaps', tribe_beginning_of_day( $previous_date ), tribe_end_of_day( $previous_date ) )->order( 'DESC' )->per_page( 1 );
+		$start = tribe_beginning_of_day( $previous_date );
+		$end  = tribe_end_of_day( $previous_date );
+		$prev->where( 'date_overlaps', $start, $end )->order( 'DESC' )->per_page( 1 );
 
 		$prev_event = $prev->first();
 		$has_prev = $prev->found();
