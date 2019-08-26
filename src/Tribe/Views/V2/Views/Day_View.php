@@ -37,8 +37,14 @@ class Day_View extends View {
 	 * {@inheritDoc}
 	 */
 	public function prev_url( $canonical = false, array $passthru_vars = [] ) {
+		// Get the current repository arguments.
+		$current_args = $this->setup_repository_args();
+
+		// Remove any date related arguments.
+		unset( $current_args['date_overlaps'] );
+
 		// Fetch the current repository, to ensure we maintain repository arguments.
-		$current_repository = tribe_events()->by_args( $this->setup_repository_args() );
+		$current_repository = tribe_events()->by_args( $current_args );
 
 		$default_date   = 'today';
 		$date           = $this->context->get( 'event_date', $default_date );
@@ -103,8 +109,14 @@ class Day_View extends View {
 	 * {@inheritDoc}
 	 */
 	public function next_url( $canonical = false, array $passthru_vars = [] ) {
+		// Get the current repository arguments.
+		$current_args = $this->setup_repository_args();
+
+		// Remove any date related arguments.
+		unset( $current_args['date_overlaps'] );
+
 		// Fetch the current repository, to ensure we maintain repository arguments.
-		$current_repository = tribe_events()->by_args( $this->setup_repository_args() );
+		$current_repository = tribe_events()->by_args( $current_args );
 
 		$default_date   = 'today';
 		$date           = $this->context->get( 'event_date', $default_date );
