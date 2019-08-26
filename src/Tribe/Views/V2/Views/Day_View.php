@@ -115,7 +115,7 @@ class Day_View extends View {
 		// Remove any date related arguments.
 		unset( $current_args['date_overlaps'] );
 
-		// Fetch the current repository, to ensure we maintain repository arguments.
+		// Use the updated repository arguments.
 		$current_repository = tribe_events()->by_args( $current_args );
 
 		$default_date   = 'today';
