@@ -37,18 +37,26 @@ class Day_View extends View {
 	 * {@inheritDoc}
 	 */
 	public function prev_url( $canonical = false, array $passthru_vars = [] ) {
+		// Fetch the current repository, to ensure we maintain repository arguments.
+		$current_repository = tribe_events()->by_args( $this->setup_repository_args() );
+
 		$default_date   = 'today';
 		$date           = $this->context->get( 'event_date', $default_date );
 		$event_date_var = $default_date === $date ? '' : $date;
 
-		$previous_date = date( Dates::DBDATEFORMAT, strtotime( $date . ' -1day' ) );
+		$one_day = new \DateInterval( 'P1D' );
+		$previous_date = Dates::build_date_object( $date )->sub( $one_day )->format( Dates::DBDATEFORMAT );
 
-		$prev = tribe_events()->where( 'date_overlaps', tribe_beginning_of_day( $previous_date ), tribe_end_of_day( $previous_date ) )->order( 'DESC' )->per_page( 1 );
+		$prev = clone $current_repository;
+		$prev->where( 'date_overlaps', tribe_beginning_of_day( $previous_date ), tribe_end_of_day( $previous_date ) )->order( 'DESC' )->per_page( 1 );
+
 		$prev_event = $prev->first();
 		$has_prev = $prev->found();
 
 		if ( ! $has_prev ) {
-			$prev = tribe_events()->where( 'starts_before', tribe_beginning_of_day( $date ) )->order( 'DESC' )->per_page( 1 );
+			$prev = clone $current_repository;
+			$prev->where( 'starts_before', tribe_beginning_of_day( $date ) )->order( 'DESC' )->per_page( 1 );
+
 			$prev_event = $prev->first();
 			$has_prev = $prev->found();
 
@@ -91,17 +99,26 @@ class Day_View extends View {
 	 * {@inheritDoc}
 	 */
 	public function next_url( $canonical = false, array $passthru_vars = [] ) {
+		// Fetch the current repository, to ensure we maintain repository arguments.
+		$current_repository = tribe_events()->by_args( $this->setup_repository_args() );
+
 		$default_date   = 'today';
 		$date           = $this->context->get( 'event_date', $default_date );
 		$event_date_var = $default_date === $date ? '' : $date;
-		$next_date = date( Dates::DBDATEFORMAT, strtotime( $date . ' +1day' ) );
 
-		$next = tribe_events()->where( 'date_overlaps', tribe_beginning_of_day( $next_date ), tribe_end_of_day( $next_date ) )->order( 'DESC' )->per_page( 1 );
+		$one_day = new \DateInterval( 'P1D' );
+		$next_date = Dates::build_date_object( $date )->add( $one_day )->format( Dates::DBDATEFORMAT );
+
+		$next = clone $current_repository;
+		$next->where( 'date_overlaps', tribe_beginning_of_day( $next_date ), tribe_end_of_day( $next_date ) )->order( 'DESC' )->per_page( 1 );
+
 		$next_event = $next->first();
 		$has_next = $next->found();
 
 		if ( ! $has_next ) {
-			$next = tribe_events()->where( 'starts_after', tribe_end_of_day( $date ) )->order( 'DESC' )->per_page( 1 );
+			$next = clone $current_repository;
+			$next->where( 'starts_after', tribe_end_of_day( $date ) )->order( 'DESC' )->per_page( 1 );
+
 			$next_event = $next->first();
 			$has_next = $next->found();
 
