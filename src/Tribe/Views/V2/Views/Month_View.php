@@ -152,7 +152,9 @@ class Month_View extends By_Day_View {
 
 		// Clone the current repository and check if we have an event on the first day of the next month.
 		$next = clone $current_repository;
-		$next->where( 'date_overlaps', tribe_beginning_of_day( $next_date ), tribe_end_of_day( $next_date ) )->order( 'DESC' )->per_page( 1 );
+		$start = tribe_beginning_of_day( $next_date );
+		$end   = tribe_end_of_day( $next_date );
+		$next->where( 'date_overlaps', $start, $end )->order( 'DESC' )->per_page( 1 );
 
 		$next_event = $next->first();
 		$has_next = $next->found();
