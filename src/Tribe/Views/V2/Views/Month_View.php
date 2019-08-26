@@ -141,9 +141,12 @@ class Month_View extends By_Day_View {
 			if ( ! $has_next ) {
 				return '';
 			}
+
+			$next_date = tribe_get_start_date( $next_event, false, 'Y-m' );
 		}
 
-		$next_date = tribe_get_start_date( $next_event, false, 'Y-m' );
+		// Remove the day from the pagination link
+		$next_date = date( 'Y-m', strtotime( $next_date ) );
 
 		$query_args = [ 'eventDate' => $next_date ];
 		$url = remove_query_arg( [ 'tribe-bar-date' ], $this->get_url() );
