@@ -72,20 +72,26 @@ class Month_View extends By_Day_View {
 		$date           = $this->context->get( 'event_date', $default_date );
 		$event_date_var = $default_date === $date ? '' : $date;
 
-		// Start of the month passed
-		$previous_date = date( 'Y-m', strtotime( $date . '-01 00:00' ) );
+		$prev_date = date( 'Y-m-t', strtotime( $date . ' -1 month' ) );
 
-		$prev = tribe_events()->where( 'starts_before', $previous_date )->order( 'DESC' )->per_page( 1 );
-		$previous_event = $prev->first();
-		$has_previous = $prev->found();
+		$prev = tribe_events()->where( 'date_overlaps', tribe_beginning_of_day( $prev_date ), tribe_end_of_day( $prev_date ) )->order( 'DESC' )->per_page( 1 );
+		$prev_event = $prev->first();
+		$has_prev = $prev->found();
 
-		if ( ! $has_previous ) {
-			return '';
+		if ( ! $has_prev ) {
+			$prev_date = tribe_beginning_of_day( date( 'Y-m-01', strtotime( $date ) ) );
+			$prev = tribe_events()->where( 'starts_before', $prev_date )->order( 'DESC' )->per_page( 1 );
+			$prev_event = $prev->first();
+			$has_prev = $prev->found();
+
+			if ( ! $has_prev ) {
+				return '';
+			}
 		}
 
-		$previous_date = tribe_get_start_date( $previous_event, false, 'Y-m' );
+		$prev_date = tribe_get_start_date( $prev_event, false, 'Y-m' );
 
-		$query_args = [ 'eventDate' => $previous_date ];
+		$query_args = [ 'eventDate' => $prev_date ];
 		$url = remove_query_arg( [ 'tribe-bar-date' ], $this->get_url() );
 		$url = add_query_arg( $query_args, $url );
 
@@ -120,14 +126,21 @@ class Month_View extends By_Day_View {
 		$default_date   = 'today';
 		$date           = $this->context->get( 'event_date', $default_date );
 		$event_date_var = $default_date === $date ? '' : $date;
-		$next_date = date( 'Y-m-t', strtotime( $date ) ) . ' 23:59';
+		$next_date = date( 'Y-m-01', strtotime( $date . ' +1 month' ) );
 
-		$next = tribe_events()->where( 'starts_after', $next_date )->order( 'DESC' )->per_page( 1 );
+		$next = tribe_events()->where( 'date_overlaps', tribe_beginning_of_day( $next_date ), tribe_end_of_day( $next_date ) )->order( 'DESC' )->per_page( 1 );
 		$next_event = $next->first();
 		$has_next = $next->found();
 
 		if ( ! $has_next ) {
-			return '';
+			$next_date = tribe_end_of_day( date( 'Y-m-t', strtotime( $date ) ) );
+			$next = tribe_events()->where( 'starts_after', $next_date )->order( 'DESC' )->per_page( 1 );
+			$next_event = $next->first();
+			$has_next = $next->found();
+
+			if ( ! $has_next ) {
+				return '';
+			}
 		}
 
 		$next_date = tribe_get_start_date( $next_event, false, 'Y-m' );
