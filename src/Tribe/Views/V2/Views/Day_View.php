@@ -41,30 +41,22 @@ class Day_View extends View {
 		$date           = $this->context->get( 'event_date', $default_date );
 		$event_date_var = $default_date === $date ? '' : $date;
 
-		$previous_date = date( Dates::DBDATEFORMAT, strtotime( $date . '00:00 -1day' ) );
+		$previous_date = date( Dates::DBDATEFORMAT, strtotime( $date . ' -1day' ) );
 
-		$past = tribe_events()->by_args( [
-			'on_date'  => $previous_date,
-			'posts_per_page' => 1,
-			'order'          => 'DESC',
-		] );
-		$past_posts = $past->get_query()->get_posts();
-		$previous_event = reset( $past_posts );
+		$prev = tribe_events()->where( 'date_overlaps', tribe_beginning_of_day( $previous_date ), tribe_end_of_day( $previous_date ) )->order( 'DESC' )->per_page( 1 );
+		$prev_event = $prev->first();
+		$has_prev = $prev->found();
 
-		if ( ! $previous_event ) {
-			$past = tribe_events()->by_args( [
-				'starts_before'  => $date,
-				'posts_per_page' => 1,
-				'order'          => 'DESC',
-			] );
-			$past_posts = $past->get_query()->get_posts();
-			$previous_event = reset( $past_posts );
+		if ( ! $has_prev ) {
+			$prev = tribe_events()->where( 'starts_before', tribe_beginning_of_day( $date ) )->order( 'DESC' )->per_page( 1 );
+			$prev_event = $prev->first();
+			$has_prev = $prev->found();
 
-			if ( ! $previous_event ) {
+			if ( ! $has_prev ) {
 				return '';
 			}
 
-			$previous_date = tribe_get_start_date( $previous_event, false, Dates::DBDATEFORMAT );
+			$previous_date = tribe_get_start_date( $prev_event, false, Dates::DBDATEFORMAT );
 		}
 
 		$query_args = [ 'eventDate' => $previous_date ];
@@ -102,24 +94,18 @@ class Day_View extends View {
 		$default_date   = 'today';
 		$date           = $this->context->get( 'event_date', $default_date );
 		$event_date_var = $default_date === $date ? '' : $date;
-		$next_date = date( Dates::DBDATEFORMAT, strtotime( $date . ' 23:59 +1day' ) );
+		$next_date = date( Dates::DBDATEFORMAT, strtotime( $date . ' +1day' ) );
 
-		$future = tribe_events()->by_args( [
-			'on_date'  => $next_date,
-			'posts_per_page' => 1,
-		] );
-		$future_posts = $future->get_query()->get_posts();
-		$next_event = reset( $future_posts );
+		$next = tribe_events()->where( 'date_overlaps', tribe_beginning_of_day( $next_date ), tribe_end_of_day( $next_date ) )->order( 'DESC' )->per_page( 1 );
+		$next_event = $next->first();
+		$has_next = $next->found();
 
-		if ( ! $next_event ) {
-			$future = tribe_events()->by_args( [
-				'starts_after'  => $date . ' 23:59',
-				'posts_per_page' => 1,
-			] );
-			$future_posts = $future->get_query()->get_posts();
-			$next_event = reset( $future_posts );
+		if ( ! $has_next ) {
+			$next = tribe_events()->where( 'starts_after', tribe_end_of_day( $date ) )->order( 'DESC' )->per_page( 1 );
+			$next_event = $next->first();
+			$has_next = $next->found();
 
-			if ( ! $next_event ) {
+			if ( ! $has_next ) {
 				return '';
 			}
 
