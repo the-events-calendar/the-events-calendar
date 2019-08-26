@@ -57,7 +57,9 @@ class Day_View extends View {
 
 		if ( ! $has_prev ) {
 			$prev = clone $current_repository;
-			$prev->where( 'starts_before', tribe_beginning_of_day( $date ) )->order( 'DESC' )->per_page( 1 );
+			$prev->where( 'starts_before', tribe_beginning_of_day( $date ) )
+			->order( 'DESC' )
+			->per_page( 1 );
 
 			$prev_event = $prev->first();
 			$has_prev = $prev->found();
