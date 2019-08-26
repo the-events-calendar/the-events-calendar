@@ -68,19 +68,32 @@ class Month_View extends By_Day_View {
 	 * {@inheritDoc}
 	 */
 	public function prev_url( $canonical = false, array $passthru_vars = [] ) {
+		// Fetch the current repository, to ensure we maintain repository arguments.
+		$current_repository = tribe_events()->by_args( $this->setup_repository_args() );
+
+		// Setup the Default date for the month view here.
 		$default_date   = 'today';
 		$date           = $this->context->get( 'event_date', $default_date );
 		$event_date_var = $default_date === $date ? '' : $date;
 
+		// Get the last day of the previous month.
 		$prev_date = date( 'Y-m-t', strtotime( $date . ' -1 month' ) );
 
-		$prev = tribe_events()->where( 'date_overlaps', tribe_beginning_of_day( $prev_date ), tribe_end_of_day( $prev_date ) )->order( 'DESC' )->per_page( 1 );
+		// Clone the current repository and check if we have an event on the last day of the previous month.
+		$prev = clone $current_repository;
+		$prev->where( 'date_overlaps', tribe_beginning_of_day( $prev_date ), tribe_end_of_day( $prev_date ) )->order( 'DESC' )->per_page( 1 );
+
 		$prev_event = $prev->first();
 		$has_prev = $prev->found();
 
 		if ( ! $has_prev ) {
+			// Get the beginning of the first day of the current month.
 			$prev_date = tribe_beginning_of_day( date( 'Y-m-01', strtotime( $date ) ) );
-			$prev = tribe_events()->where( 'starts_before', $prev_date )->order( 'DESC' )->per_page( 1 );
+
+			// Clone the current repository and query for the first event before the start of the current month.
+			$prev = clone $current_repository;
+			$prev->where( 'starts_before', $prev_date )->order( 'DESC' )->per_page( 1 );
+
 			$prev_event = $prev->first();
 			$has_prev = $prev->found();
 
@@ -123,18 +136,32 @@ class Month_View extends By_Day_View {
 	 * {@inheritDoc}
 	 */
 	public function next_url( $canonical = false, array $passthru_vars = [] ) {
+		// Fetch the current repository, to ensure we maintain repository arguments.
+		$current_repository =  tribe_events()->by_args( $this->setup_repository_args() );
+
+		// Setup the Default date for the month view here.
 		$default_date   = 'today';
 		$date           = $this->context->get( 'event_date', $default_date );
 		$event_date_var = $default_date === $date ? '' : $date;
+
+		// Get the first day of the next month
 		$next_date = date( 'Y-m-01', strtotime( $date . ' +1 month' ) );
 
-		$next = tribe_events()->where( 'date_overlaps', tribe_beginning_of_day( $next_date ), tribe_end_of_day( $next_date ) )->order( 'DESC' )->per_page( 1 );
+		// Clone the current repository and check if we have an event on the first day of the next month.
+		$next = clone $current_repository;
+		$next->where( 'date_overlaps', tribe_beginning_of_day( $next_date ), tribe_end_of_day( $next_date ) )->order( 'DESC' )->per_page( 1 );
+
 		$next_event = $next->first();
 		$has_next = $next->found();
 
 		if ( ! $has_next ) {
+			// Get the end of day for the last day of the current month
 			$next_date = tribe_end_of_day( date( 'Y-m-t', strtotime( $date ) ) );
-			$next = tribe_events()->where( 'starts_after', $next_date )->order( 'DESC' )->per_page( 1 );
+
+			// Clone the current repository and check if we have an event starting before the end of the current month
+			$next = clone $current_repository;
+			$next->where( 'starts_after', $next_date )->order( 'DESC' )->per_page( 1 );
+
 			$next_event = $next->first();
 			$has_next = $next->found();
 
