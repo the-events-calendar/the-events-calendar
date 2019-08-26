@@ -161,7 +161,10 @@ class Month_View extends By_Day_View {
 			// Get the end of day for the last day of the current month
 			$next_date = tribe_end_of_day( date( 'Y-m-t', strtotime( $date ) ) );
 
-			// Clone the current repository and check if we have an event starting before the end of the current month
+			/*
+			 * Clone the current repository and check if we have an
+			 * event starting before the end of the current month.
+			 */
 			$next = clone $current_repository;
 			$next->where( 'starts_after', $next_date )->order( 'DESC' )->per_page( 1 );
 
