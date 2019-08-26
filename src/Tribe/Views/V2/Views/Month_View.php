@@ -90,7 +90,10 @@ class Month_View extends By_Day_View {
 			// Get the beginning of the first day of the current month.
 			$prev_date = tribe_beginning_of_day( date( 'Y-m-01', strtotime( $date ) ) );
 
-			// Clone the current repository and query for the first event before the start of the current month.
+			/*
+			 * Clone the current repository and query for the first event
+			 * before the start of the current month.
+			 */
 			$prev = clone $current_repository;
 			$prev->where( 'starts_before', $prev_date )->order( 'DESC' )->per_page( 1 );
 
