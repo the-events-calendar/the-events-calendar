@@ -251,6 +251,10 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 		 */
 		$post = apply_filters( 'tribe_get_event', $post, $output, $filter );
 
+		if ( OBJECT !== $output ) {
+			$post = ARRAY_A === $output ? (array) $post : array_values( (array) $post );
+		}
+
 		return $post;
 	}
 }
