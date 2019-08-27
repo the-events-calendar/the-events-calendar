@@ -233,6 +233,8 @@ abstract class Tribe__Events__Importer__File_Importer {
 
 		$featured_image = $this->get_value_by_key( $record, 'featured_image' );
 
+		do_action( 'tribe_log', 'debug', __CLASS__, [ 'post_id' => $id, 'featured_image' => $featured_image ] );
+
 		if ( ! empty( $featured_image ) ) {
 			$post_thumbnail_process = new Tribe__Process__Post_Thumbnail_Setter();
 			$post_thumbnail_process->set_post_id( $id );
