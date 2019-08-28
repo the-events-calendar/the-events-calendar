@@ -68,24 +68,48 @@ class Month_View extends By_Day_View {
 	 * {@inheritDoc}
 	 */
 	public function prev_url( $canonical = false, array $passthru_vars = [] ) {
+		// Fetch the current repository, to ensure we maintain repository arguments.
+		$current_repository = tribe_events()->by_args( $this->setup_repository_args() );
+
+		// Setup the Default date for the month view here.
 		$default_date   = 'today';
 		$date           = $this->context->get( 'event_date', $default_date );
 		$event_date_var = $default_date === $date ? '' : $date;
 
-		// Start of the month passed
-		$previous_date = date( 'Y-m', strtotime( $date . '-01 00:00' ) );
+		// Get the last day of the previous month.
+		$prev_date = date( 'Y-m-t', strtotime( $date . ' -1 month' ) );
 
-		$prev = tribe_events()->where( 'starts_before', $previous_date )->order( 'DESC' )->per_page( 1 );
-		$previous_event = $prev->first();
-		$has_previous = $prev->found();
+		// Clone the current repository and check if we have an event on the last day of the previous month.
+		$prev = clone $current_repository;
+		$start = tribe_beginning_of_day( $prev_date );
+		$end   = tribe_end_of_day( $prev_date );
+		$prev->where( 'date_overlaps', $start, $end )->order( 'DESC' )->per_page( 1 );
 
-		if ( ! $has_previous ) {
-			return '';
+		$prev_event = $prev->first();
+		$has_prev = $prev->found();
+
+		if ( ! $has_prev ) {
+			// Get the beginning of the first day of the current month.
+			$prev_date = tribe_beginning_of_day( date( 'Y-m-01', strtotime( $date ) ) );
+
+			/*
+			 * Clone the current repository and query for the first event
+			 * before the start of the current month.
+			 */
+			$prev = clone $current_repository;
+			$prev->where( 'starts_before', $prev_date )->order( 'DESC' )->per_page( 1 );
+
+			$prev_event = $prev->first();
+			$has_prev = $prev->found();
+
+			if ( ! $has_prev ) {
+				return '';
+			}
 		}
 
-		$previous_date = tribe_get_start_date( $previous_event, false, 'Y-m' );
+		$prev_date = tribe_get_start_date( $prev_event, false, 'Y-m' );
 
-		$query_args = [ 'eventDate' => $previous_date ];
+		$query_args = [ 'eventDate' => $prev_date ];
 		$url = remove_query_arg( [ 'tribe-bar-date' ], $this->get_url() );
 		$url = add_query_arg( $query_args, $url );
 
@@ -117,20 +141,49 @@ class Month_View extends By_Day_View {
 	 * {@inheritDoc}
 	 */
 	public function next_url( $canonical = false, array $passthru_vars = [] ) {
+		// Fetch the current repository, to ensure we maintain repository arguments.
+		$current_repository =  tribe_events()->by_args( $this->setup_repository_args() );
+
+		// Setup the Default date for the month view here.
 		$default_date   = 'today';
 		$date           = $this->context->get( 'event_date', $default_date );
 		$event_date_var = $default_date === $date ? '' : $date;
-		$next_date = date( 'Y-m-t', strtotime( $date ) ) . ' 23:59';
 
-		$next = tribe_events()->where( 'starts_after', $next_date )->order( 'DESC' )->per_page( 1 );
+		// Get the first day of the next month
+		$next_date = date( 'Y-m-01', strtotime( $date . ' +1 month' ) );
+
+		// Clone the current repository and check if we have an event on the first day of the next month.
+		$next = clone $current_repository;
+		$start = tribe_beginning_of_day( $next_date );
+		$end   = tribe_end_of_day( $next_date );
+		$next->where( 'date_overlaps', $start, $end )->order( 'DESC' )->per_page( 1 );
+
 		$next_event = $next->first();
 		$has_next = $next->found();
 
 		if ( ! $has_next ) {
-			return '';
+			// Get the end of day for the last day of the current month
+			$next_date = tribe_end_of_day( date( 'Y-m-t', strtotime( $date ) ) );
+
+			/*
+			 * Clone the current repository and check if we have an
+			 * event starting before the end of the current month.
+			 */
+			$next = clone $current_repository;
+			$next->where( 'starts_after', $next_date )->order( 'DESC' )->per_page( 1 );
+
+			$next_event = $next->first();
+			$has_next = $next->found();
+
+			if ( ! $has_next ) {
+				return '';
+			}
+
+			$next_date = tribe_get_start_date( $next_event, false, 'Y-m' );
 		}
 
-		$next_date = tribe_get_start_date( $next_event, false, 'Y-m' );
+		// Remove the day from the pagination link
+		$next_date = date( 'Y-m', strtotime( $next_date ) );
 
 		$query_args = [ 'eventDate' => $next_date ];
 		$url = remove_query_arg( [ 'tribe-bar-date' ], $this->get_url() );
