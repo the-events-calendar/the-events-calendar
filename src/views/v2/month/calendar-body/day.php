@@ -71,7 +71,10 @@ $mobile_day_id = 'tribe-events-calendar-mobile-day-' . $day_date;
 			<span class="tribe-common-a11y-visual-hide">
 				<?php echo esc_html( sprintf( _n( '%s event', '%s events', count( $day['events'] ), 'the-events-calendar' ), number_format_i18n( count( $day['events'] ) ) ) ); ?>,
 			</span>
-			<time datetime="<?php echo esc_attr( $day['date'] ); ?>">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="<?php echo esc_attr( $day['date'] ); ?>"
+			>
 				<?php echo esc_html( $day_number ); ?>
 			</time>
 		</h3>
@@ -100,7 +103,10 @@ $mobile_day_id = 'tribe-events-calendar-mobile-day-' . $day_date;
 			<span class="tribe-common-a11y-visual-hide">
 				<?php echo esc_html( sprintf( _n( '%s event', '%s events', count( $day['events'] ), 'the-events-calendar' ), number_format_i18n( count( $day['events'] ) ) ) ); ?>,
 			</span>
-			<time datetime="<?php echo esc_attr( $day['date'] ); ?>">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="<?php echo esc_attr( $day['date'] ); ?>"
+			>
 				<?php if ( ! empty( $day['found_events'] ) ) : ?>
 					<a
 						href="<?php echo esc_url( $day['day_url'] ); ?>"

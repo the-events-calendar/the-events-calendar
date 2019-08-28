@@ -67,24 +67,8 @@
 
 	.tribe-events-calendar-month__day--past {
 
-		.tribe-events-calendar-month__day-date,
-		.tribe-events-calendar-month__day-date-link,
-		.tribe-events-calendar-month__calendar-event-datetime,
-		.tribe-events-calendar-month__calendar-event-title-link {
-			color: var(--color-past-events);
-		}
-
-		.tribe-events-calendar-month__day-date-link,
-		.tribe-events-calendar-month__calendar-event-title-link {
-			/* @todo: figure out hover focus active states for disabled day */
-			&:hover,
-			&:focus {
-				color: var(--color-past-events);
-			}
-
-			&:active {
-				color: var(--color-past-events);
-			}
+		.tribe-events-calendar-month__day-date {
+			opacity: 0.4;
 		}
 	}
 
