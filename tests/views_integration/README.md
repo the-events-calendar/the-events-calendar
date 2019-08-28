@@ -402,7 +402,8 @@ class TemplateBootstrapTest extends \Codeception\TestCase\WPTestCase {
 		$template_bootstrap = new Template_Bootstrap();
 		$template_setting = $template_bootstrap->get_template_setting();
 
-		$this->assertEquals( $option_value, $expected );
+		// PHPUnit will format a message for us comparing the two strings.
+		$this->assertEquals( $template_setting, $expected );
 	}
 
 	// ...
