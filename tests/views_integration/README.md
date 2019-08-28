@@ -409,7 +409,8 @@ class TemplateBootstrapTest extends \Codeception\TestCase\WPTestCase {
 }
 ```
 
-There are quite a few examples of things that would benefit from tests of that nature, a good separate example is related to how we have multiple display settings for formatting date and time depending on a number of coditionals, a good behavior is to create [snapshot testing](#snapshot-testing) to make sure those criteria are met when the setting is modified.
+There are many examples of things that would benefit from tests like this one.
+A good example is the handling of multiple display settings to format date and time depending on a number of arguments and settings: creating [snapshot tests](#snapshot-testing) to cover all the combinations would be another example of this "accessory" testing.
 
 Remembering that the intention of these tests is related to not only testing positive behavior but also negative, which has to be met with a certain level of questioning to prevent over-engineering of those.
 
