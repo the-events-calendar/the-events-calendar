@@ -396,6 +396,7 @@ class TemplateBootstrapTest extends \Codeception\TestCase\WPTestCase {
 	 * @dataProvider base_template_options
 	 */
 	public function should_only_allow_permitted_values_on_base_template_option( $input, $expected ) {
+		// The bootstrapping depends on this option, rather than arguments, here we "mock" the test context.
 		tribe_update_option( 'tribeEventsTemplate', $input );
 
 		$template_bootstrap = new Template_Bootstrap();
