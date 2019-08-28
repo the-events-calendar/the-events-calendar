@@ -2,24 +2,24 @@
 
 ## Scope of testing
 
-The objective of this suite (integration testing for Views v2) is to test components (e.g. a datepicker), combination of components (e.g. the List View top navigation section), and whole Views (e.g. the whole List View) at an integration level.  
+The objective of this suite (integration testing for Views v2) is to test components (e.g. a datepicker), combination of components (e.g. the List View top navigation section), and whole Views (e.g. the whole List View) at an integration level.
 
 Where does that "integration" part come from?
 
-It comes from the fact that we're running all the tests in the context of a full-blown WordPress installation.  
+It comes from the fact that we're running all the tests in the context of a full-blown WordPress installation.
 That installation, thanks to the suite configuration file in `tests/views_integration.suite.dist.yml`, includes our plugins and, with them, anyone of their dependencies.
 
 ## Types of tests in the suite
 
-A test suite is just a convenient way to group tests that share a common setup (i.e. the modules and their configuration).  
-Under the `views_integration` umbrella definition we store more than one type of testing.  
-The good news (or the bad one, I'm not sure...) is anyone involved in the development of Views v2 **can and should contribute tests**.  
+A test suite is just a convenient way to group tests that share a common setup (i.e. the modules and their configuration).
+Under the `views_integration` umbrella definition we store more than one type of testing.
+The good news (or the bad one, I'm not sure...) is anyone involved in the development of Views v2 **can and should contribute tests**.
 
-Without further ado, here are the main four types of testing you can find in this suite.  
+Without further ado, here are the main four types of testing you can find in this suite.
 
 ### Data testing
 
-This kind of tests deals with answering the question: 
+This kind of tests deals with answering the question:
 
 > Is this View, or View moving part, fetching the correct data from the database?
 > Is this View, or View moving part, providing data, to the code that must consume it, correctly?
@@ -62,7 +62,7 @@ class Month_ViewTest extends ViewTestCase {
 	 */
 	public function test_render_empty() {
 		$month_view = View::make( Month_View::class, $this->context );
-    
+
 		$this->assertEmpty( $month_view->found_post_ids() );
 	}
 
@@ -76,7 +76,7 @@ class Month_ViewTest extends ViewTestCase {
 		update_option( 'timezone_string', $timezone_string );
 
 		$now = new \DateTimeImmutable( $this->mock_date_value, $timezone );
-    
+
         // Create some events that will be available in the Month timeframe.
 		$events    = array_map(
 			static function ( $i ) use ( $now, $timezone ) {
@@ -96,10 +96,10 @@ class Month_ViewTest extends ViewTestCase {
 
 		/** @var Month_View $month_view */
 		$month_view      = View::make( Month_View::class, $this->context );
-		
+
         // Let's make sure the list of events in the whole month grid, a conflation of each day events, is correct.
 		$this->assertEquals( $event_ids, $month_view->found_post_ids() );
-    
+
         // Let's check, now, day by day.
 		foreach ( $month_view->get_grid_days( $now->format( 'Y-m' ) ) as $date => $found_day_ids ) {
 			$day          = new \DateTimeImmutable( $date, $timezone );
@@ -126,11 +126,11 @@ class Month_ViewTest extends ViewTestCase {
 }
 ```
 
-What's missing from this tests? 
+What's missing from this tests?
 * there is no check on **how** the events are presented
 * there is no check on the HTML structure
 
-This test deals with a whole view, but we need to test other components that produce, or manipulate, data.  
+This test deals with a whole view, but we need to test other components that produce, or manipulate, data.
 To these we dedicate specific "WordPress unit" tests. As an example here the test for the multi-day stack used in the Month View (trimmed down for the sake of brevity):
 
 ```php
@@ -322,4 +322,92 @@ This second test example shows what is, probably, the main feature of data-drive
 @todo @paulmskim
 
 ### Other Testing
-@todo @bordoni
+
+Besides all the tests mentioned above due to the multiple moving parts of the software is important to make sure we test unwanted behavior to make sure they are not being "fixed" in a future bug report.
+
+The test below is dealing with the multiple possibilities of the template bootstraping, and how it is based on an admin setting, which can be changed in a lot of unpredictable ways, so we bake into our integration testing a way to make sure even if those bad values are pulled from the database we still continue to behave as expoected.
+
+```php
+<?php
+namespace Tribe\Events\Views\V2;
+
+class TemplateBootstrapTest extends \Codeception\TestCase\WPTestCase {
+	private function make_instance() {
+		return new Template_Bootstrap();
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_be_instantiatable() {
+		$sut = $this->make_instance();
+
+		$this->assertInstanceOf( Template_Bootstrap::class, $sut );
+	}
+
+	public function base_template_options() {
+		return [
+			'invalid' => [
+				'foo',
+				'event',
+			],
+			'numeric' => [
+				2,
+				'event',
+			],
+			'default' => [
+				'default',
+				'page',
+			],
+			'empty_string' => [
+				'',
+				'event',
+			],
+			'numeric_zero' => [
+				0,
+				'event',
+			],
+			'null' => [
+				null,
+				'event',
+			],
+			'boolean_false' => [
+				false,
+				'event',
+			],
+			'boolean_true' => [
+				false,
+				'event',
+			],
+			'slug_event' => [
+				'event',
+				'event',
+			],
+			'slug_page' => [
+				'page',
+				'event',
+			],
+		];
+	}
+
+	/**
+	 * @test
+	 * @dataProvider base_template_options
+	 */
+	public function should_only_allow_permitted_values_on_base_template_option( $input, $expected ) {
+		tribe_update_option( 'tribeEventsTemplate', $input );
+
+		$option_value = $this->make_instance()->get_template_setting();
+
+		$this->assertEquals( $option_value, $expected );
+	}
+
+	// ...
+}
+```
+
+There are quite a few examples of things that would benefit from tests of that nature, a good separate example is related to how we have multiple display settings for formatting date and time depending on a number of coditionals, a good behavior is to create [snapshot testing](#snapshot-testing) to make sure those criteria are met when the setting is modified.
+
+Remembering that the intention of these tests is related to not only testing positive behavior but also negative, which has to be met with a certain level of questioning to prevent over-engineering of those.
+
+
