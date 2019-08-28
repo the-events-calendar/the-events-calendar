@@ -1,4 +1,5 @@
 <?php
+
 namespace Tribe\Events\Views\V2\Views\HTML\Month\CalendarEvent;
 
 use Tribe\Test\Products\WPBrowser\Views\V2\HtmlTestCase;
@@ -9,10 +10,13 @@ class MonthCalendarEventTitleTest extends HtmlTestCase {
 	 * @test
 	 */
 	public function it_should_contain_correct_html_classes() {
-		// @todo: use the Event Factory here, once the templates use a real event and we have the real keys.
-		$event = [ 'ID' => 0, 'title' => 'Lorem Ipsum', 'image' => 'test.jpg', 'featured' => true, 'recurring' => true ];
-		$template = $this->template->template( 'month/calendar-body/day/calendar-events/calendar-event/title', [ 'event' => (object) $event ] );
-		$html = $this->document->html( $template );
+		$event_id = static::factory()->event->create();
+		$event    = tribe_get_event( $event_id );
+		$template = $this->template->template(
+			'month/calendar-body/day/calendar-events/calendar-event/title',
+			[ 'event' => $event ]
+		);
+		$html     = $this->document->html( $template );
 
 		$this->assertEquals(
 			$html->find( '.tribe-events-calendar-month__calendar-event-title' )->count(),

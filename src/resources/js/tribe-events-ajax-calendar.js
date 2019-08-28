@@ -271,9 +271,13 @@
 				params = params + '&featured=1';
 			}
 
-			history.replaceState( {
-				"tribe_params": params
-			}, ts.page_title, location.href );
+			var isShortcode = $( document.getElementById( 'tribe-events' ) ).is( '.tribe-events-shortcode' );
+
+			if( ! isShortcode || false !== config.update_urls.shortcode.month ){
+				history.replaceState( {
+					"tribe_params": params
+				}, ts.page_title, location.href );
+			}
 
 			$( window ).on( 'popstate', function( event ) {
 
@@ -568,14 +572,18 @@
 							}
 						}
 
-						if ( ts.do_string ) {
+						var isShortcode = $( document.getElementById( 'tribe-events' ) ).is( '.tribe-events-shortcode' );
+						var shouldUpdateHistory = ! isShortcode || false !== config.update_urls.shortcode.month;
+
+
+						if ( ts.do_string && shouldUpdateHistory ) {
 							history.pushState( {
 								"tribe_date"  : ts.date,
 								"tribe_params": ts.params
 							}, ts.page_title, td.cur_url );
 						}
 
-						if ( ts.pushstate ) {
+						if ( ts.pushstate && shouldUpdateHistory ) {
 							history.pushState( {
 								"tribe_date"  : ts.date,
 								"tribe_params": ts.params

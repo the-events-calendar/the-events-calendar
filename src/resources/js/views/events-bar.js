@@ -29,7 +29,6 @@ tribe.events.views.eventsBar = {};
  */
 ( function( $, obj ) {
 	'use strict';
-	var $window = $( window );
 	var $document = $( document );
 
 	/**
@@ -45,6 +44,7 @@ tribe.events.views.eventsBar = {};
 		tab: '[data-js~="tribe-events-events-bar-tab"]',
 		tabPanel: '[data-js~="tribe-events-events-bar-tabpanel"]',
 		searchButton: '[data-js="tribe-events-search-button"]',
+		searchButtonActiveClass: '.tribe-events-c-events-bar__search-button--active',
 		filtersButton: '[data-js="tribe-events-filters-button"]',
 		searchFiltersContainer: '[data-js="tribe-events-search-filters-container"]',
 		filtersContainer: '[data-js~="tribe-events-events-bar-filters"]',
@@ -64,39 +64,6 @@ tribe.events.views.eventsBar = {};
 		HOME: 36,
 		LEFT: 37,
 		RIGHT: 39,
-	};
-
-	/**
-	 * Object of options
-	 *
-	 * @since 4.9.4
-	 *
-	 * @type {PlainObject}
-	 */
-	obj.options = {
-		MOBILE_BREAKPOINT: 768,
-	};
-
-	/**
-	 * Object of state
-	 *
-	 * @since 4.9.4
-	 *
-	 * @type {PlainObject}
-	 */
-	obj.state = {
-		isMobile: true,
-	};
-
-	/**
-	 * Set viewport state
-	 *
-	 * @since 4.9.4
-	 *
-	 * @return {void}
-	 */
-	obj.setViewport = function() {
-		obj.state.isMobile = window.innerWidth < obj.options.MOBILE_BREAKPOINT;
 	};
 
 	/**
@@ -182,13 +149,13 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Handles 'click' event on tab
 	 *
-	 * @since 4.9.4
+	 * @since 4.9.7
 	 *
 	 * @param {Event} event event object of click event
 	 *
 	 * @return {void}
 	 */
-	obj.handleClick = function( event ) {
+	obj.handleTabClick = function( event ) {
 		var $container = $( event.data.container );
 		var $eventsBar = $container.find( obj.selectors.eventsBar );
 		var state = $eventsBar.data( 'state' );
@@ -202,13 +169,13 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Handles 'keydown' event on tab
 	 *
-	 * @since 4.9.4
+	 * @since 4.9.7
 	 *
 	 * @param {Event} event event object of keydown event
 	 *
 	 * @return {void}
 	 */
-	obj.handleKeydown = function( event ) {
+	obj.handleTabKeydown = function( event ) {
 		var key = event.which || event.keyCode;
 		var $container = $( event.data.container );
 		var $eventsBar = $container.find( obj.selectors.eventsBar );
@@ -242,7 +209,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Deinitializes tablist
 	 *
-	 * @since 4.9.4
+	 * @since 4.9.7
 	 *
 	 * @param {jQuery} $container jQuery object of view container
 	 *
@@ -255,8 +222,8 @@ tribe.events.views.eventsBar = {};
 				$( tab )
 					.removeAttr( 'aria-selected' )
 					.removeAttr( 'tabindex' )
-					.off( 'keydown', obj.handleKeydown )
-					.off( 'click', obj.handleClick );
+					.off( 'keydown', obj.handleTabKeydown )
+					.off( 'click', obj.handleTabClick );
 			} );
 		$container
 			.find( obj.selectors.tabPanel )
@@ -271,7 +238,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Initializes tablist
 	 *
-	 * @since 4.9.4
+	 * @since 4.9.7
 	 *
 	 * @param {jQuery} $container jQuery object of view container
 	 *
@@ -291,8 +258,8 @@ tribe.events.views.eventsBar = {};
 
 				$tab
 					.attr( 'aria-selected', 'true' )
-					.on( 'keydown', { container: $container }, obj.handleKeydown )
-					.on( 'click', { container: $container }, obj.handleClick );
+					.on( 'keydown', { container: $container }, obj.handleTabKeydown )
+					.on( 'click', { container: $container }, obj.handleTabClick );
 				$tabpanel
 					.attr( 'role', 'tabpanel' )
 					.attr( 'aria-labelledby', $tab.attr( 'id' ) );
@@ -314,7 +281,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Deinitialize accordion based on header and content
 	 *
-	 * @since 4.9.4
+	 * @since 4.9.7
 	 *
 	 * @param {jQuery} $header jQuery object of header
 	 * @param {jQuery} $content jQuery object of contents
@@ -323,19 +290,14 @@ tribe.events.views.eventsBar = {};
 	 */
 	obj.deinitAccordion = function( $header, $content ) {
 		tribe.events.views.accordion.deinitAccordion( 0, $header );
-		$header
-			.removeAttr( 'aria-expanded' )
-			.removeAttr( 'aria-selected' )
-			.removeAttr( 'aria-controls' );
-		$content
-			.removeAttr( 'aria-hidden' )
-			.css( 'display', '' );
+		tribe.events.views.accordion.deinitAccordionA11yAttrs( $header, $content );
+		$content.css( 'display', '' );
 	};
 
 	/**
 	 * Initialize accordion based on header and content
 	 *
-	 * @since 4.9.4
+	 * @since 4.9.7
 	 *
 	 * @param {jQuery} $container jQuery object of view container
 	 * @param {jQuery} $header jQuery object of header
@@ -345,11 +307,7 @@ tribe.events.views.eventsBar = {};
 	 */
 	obj.initAccordion = function( $container, $header, $content ) {
 		tribe.events.views.accordion.initAccordion( $container )( 0, $header );
-		$header
-			.attr( 'aria-expanded', 'false' )
-			.attr( 'aria-selected', 'false' )
-			.attr( 'aria-controls', $content.attr( 'id' ) );
-		$content.attr( 'aria-hidden', 'true' );
+		tribe.events.views.accordion.initAccordionA11yAttrs( $header, $content );
 	};
 
 	/**
@@ -389,6 +347,19 @@ tribe.events.views.eventsBar = {};
 	};
 
 	/**
+	 * Toggles active class on search button
+	 *
+	 * @since 4.9.7
+	 *
+	 * @param {Event} event event object for click event
+	 *
+	 * @return {void}
+	 */
+	obj.handleSearchButtonClick = function( event ) {
+		event.data.target.toggleClass( obj.selectors.searchButtonActiveClass.className() );
+	};
+
+	/**
 	 * Deinitialize search button accordion
 	 *
 	 * @since 4.9.4
@@ -401,6 +372,7 @@ tribe.events.views.eventsBar = {};
 		var $searchButton = $container.find( obj.selectors.searchButton );
 		var $searchFiltersContainer = $container.find( obj.selectors.searchFiltersContainer );
 		obj.deinitAccordion( $searchButton, $searchFiltersContainer );
+		$searchButton.off( 'click', obj.handleSearchButtonClick );
 	};
 
 	/**
@@ -416,6 +388,7 @@ tribe.events.views.eventsBar = {};
 		var $searchButton = $container.find( obj.selectors.searchButton );
 		var $searchFiltersContainer = $container.find( obj.selectors.searchFiltersContainer );
 		obj.initAccordion( $container, $searchButton, $searchFiltersContainer );
+		$searchButton.on( 'click', { target: $searchButton }, obj.handleSearchButtonClick );
 	};
 
 	/**
@@ -458,7 +431,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Initializes events bar
 	 *
-	 * @since 4.9.4
+	 * @since 4.9.7
 	 *
 	 * @param {jQuery} $container jQuery object of view container
 	 *
@@ -466,12 +439,13 @@ tribe.events.views.eventsBar = {};
 	 */
 	obj.initEventsBar = function( $container ) {
 		var $eventsBar = $container.find( obj.selectors.eventsBar );
-		var $filtersButton = $container.find( obj.selectors.filtersButton );
 
 		if ( $eventsBar.length ) {
 			var state = $eventsBar.data( 'state' );
+			var $filtersButton = $container.find( obj.selectors.filtersButton );
 
-			if ( obj.state.isMobile && ! state.mobileInitialized ) {
+			// If viewport is mobile and mobile state is not initialized
+			if ( tribe.events.views.viewport.state.isMobile && ! state.mobileInitialized ) {
 				if ( $filtersButton.length ) {
 					obj.initTablist( $container );
 					obj.deinitFiltersAccordion( $container );
@@ -480,7 +454,9 @@ tribe.events.views.eventsBar = {};
 				state.desktopInitialized = false;
 				state.mobileInitialized = true;
 				$eventsBar.data( 'state', state );
-			} else if ( ! obj.state.isMobile && ! state.desktopInitialized ) {
+
+			// If viewport is desktop and desktop state is not initialized
+			} else if ( ! tribe.events.views.viewport.state.isMobile && ! state.desktopInitialized ) {
 				if ( $filtersButton.length ) {
 					obj.deinitTablist( $container );
 					obj.initFiltersAccordion( $container );
@@ -494,41 +470,71 @@ tribe.events.views.eventsBar = {};
 	};
 
 	/**
-	 * Handles window resize event
+	 * Handles 'resize.tribeEvents' event
 	 *
-	 * @since 4.9.4
+	 * @since 4.9.7
 	 *
-	 * @param {Event} event event object for 'resize' event
+	 * @param {Event} event event object for 'resize.tribeEvents' event
 	 *
 	 * @return {void}
 	 */
 	obj.handleResize = function( event ) {
-		obj.setViewport();
 		obj.initEventsBar( event.data.container );
 	};
 
 	/**
-	 * Unbind events for window resize
+	 * Handles click event on document
 	 *
-	 * @since 4.9.5
+	 * @since 4.9.7
+	 *
+	 * @param {Event} event event object for click event
+	 *
+	 * @return {void}
+	 */
+	obj.handleClick = function( event ) {
+		var $target = $( event.target );
+		var isParentSearchButton = Boolean( $target.closest( obj.selectors.searchButton ).length );
+		var isParentSearchFiltersContainer = Boolean( $target.closest( obj.selectors.searchFiltersContainer ).length );
+
+		if ( ! ( isParentSearchButton || isParentSearchFiltersContainer ) ) {
+			var $container = event.data.container;
+			var $eventsBar = $container.find( obj.selectors.eventsBar );
+			var $searchButton = $eventsBar.find( obj.selectors.searchButton );
+
+			if ( $searchButton.hasClass( obj.selectors.searchButtonActiveClass.className() ) ) {
+				var $searchFiltersContainer = $eventsBar.find( obj.selectors.searchFiltersContainer );
+				$searchButton.removeClass( obj.selectors.searchButtonActiveClass.className() );
+				tribe.events.views.accordion.closeAccordion( $searchButton, $searchFiltersContainer );
+			}
+		}
+	};
+
+	/**
+	 * Unbind events for events bar
+	 *
+	 * @since 4.9.7
 	 *
 	 * @return {void}
 	 */
 	obj.unbindEvents = function() {
-		$window.off( 'resize', obj.handleResize );
+		$document
+			.off( 'resize.tribeEvents', obj.handleResize )
+			.off( 'click', obj.handleClick );
 	};
 
 	/**
-	 * Bind events for window resize
+	 * Bind events for events bar
 	 *
-	 * @since 4.9.4
+	 * @since 4.9.7
 	 *
-	 * @param {jQuery} $container jQuery object of view container
+	 * @param  {jQuery}  $container jQuery object of view container
 	 *
 	 * @return {void}
 	 */
 	obj.bindEvents = function( $container ) {
-		$window.on( 'resize', { container: $container }, obj.handleResize );
+		$document
+			.on( 'resize.tribeEvents', { container: $container }, obj.handleResize )
+			.on( 'click', { container: $container }, obj.handleClick );
 	};
 
 	/**
@@ -536,7 +542,7 @@ tribe.events.views.eventsBar = {};
 	 *
 	 * @since 4.9.4
 	 *
-	 * @param  {Event}       event    event object for 'afterSetup.tribeEvents' event
+	 * @param  {Event}       event    event object for 'beforeAjaxSuccess.tribeEvents' event
 	 * @param  {jqXHR}       jqXHR    Request object
 	 * @param  {PlainObject} settings Settings that this request was made with
 	 *
@@ -561,7 +567,6 @@ tribe.events.views.eventsBar = {};
 	 * @return {void}
 	 */
 	obj.init = function( event, index, $container, data ) {
-		obj.setViewport();
 		obj.initState( $container );
 		obj.initEventsBar( $container );
 		obj.bindEvents( $container );

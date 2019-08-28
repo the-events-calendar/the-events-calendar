@@ -12,14 +12,22 @@
  * @version 4.9.4
  *
  */
+
+ // @todo @fe: use template tags for images here
+// @todo @fe use srcset here?
+
+if ( ! $event->featured || empty( $event->thumbnail->full->url ) ) {
+	return;
+}
+
 ?>
 <div class="tribe-events-calendar-month-mobile-events__mobile-event-featured-image-wrapper">
 	<div class="tribe-events-calendar-month-mobile-events__mobile-event-featured-image tribe-common-c-image tribe-common-c-image--bg">
 		<div
 			class="tribe-common-c-image__bg"
-			style="background-image: url('<?php /* @todo: add large size image url */ ?>');"
+			style="background-image: url('<?php echo esc_url( $event->thumbnail->full->url ); ?>');"
 			role="img"
-			aria-label="alt text here"
+			aria-label="<?php echo esc_attr( get_the_title( $event->ID ) ); ?>"
 		>
 		</div>
 	</div>

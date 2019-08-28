@@ -9,14 +9,14 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.4
+ * @version 4.9.7
  *
  */
 ?>
 <div
 	class="tribe-events-c-view-selector__content"
 	id="tribe-events-view-selector-content"
-	aria-hidden="true"
+	data-js="tribe-events-view-selector-list-container"
 >
 	<ul class="tribe-events-c-view-selector__list">
 		<?php foreach ( $this->get( 'views' ) as $view => $view_class_name ) : ?>

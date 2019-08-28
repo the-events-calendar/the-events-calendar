@@ -39,10 +39,19 @@ tribe.events.views.datepicker = {};
 	 * @type {PlainObject}
 	 */
 	obj.selectors = {
-		datepickerContainer: '[data-js="tribe-events-top-bar-datepicker"]',
+		datepickerContainer: '[data-js="tribe-events-top-bar-datepicker-container"]',
+		datepickerDays: '.datepicker-days',
+		datepickerDaysBody: '.datepicker-days tbody',
+		datepickerDaysRow: '.datepicker-days tbody tr',
+		datepickerDay: '.day',
+		datepickerDayNotDisabled: '.day:not(.disabled)',
 		input: '[data-js="tribe-events-top-bar-date"]',
 		button: '[data-js="tribe-events-top-bar-datepicker-button"]',
 		buttonOpenClass: '.tribe-events-c-top-bar__datepicker-button--open',
+		activeClass: '.active',
+		disabledClass: '.disabled',
+		focusedClass: '.focused',
+		hoveredClass: '.hovered',
 	};
 
 	/**
@@ -101,9 +110,6 @@ tribe.events.views.datepicker = {};
 	 * @return {void}
 	 */
 	obj.handleChangeDate = function( event ) {
-		/**
-		 * @todo: handle week view case here.
-		 */
 		var $container = event.data.container;
 		var date = event.date.getDate();
 		var month = event.date.getMonth() + 1;
@@ -113,7 +119,7 @@ tribe.events.views.datepicker = {};
 		var paddedMonth = obj.padNumber( month );
 
 		/**
-		 * @todo: use format from BE
+		 * @todo: use format from BE. Paul.
 		 */
 		var viewData = {
 			[ 'tribe-bar-date' ]: [ year, paddedMonth, paddedDate ].join( '-' ),
@@ -139,7 +145,7 @@ tribe.events.views.datepicker = {};
 		var paddedMonth = obj.padNumber( month );
 
 		/**
-		 * @todo: use format from BE
+		 * @todo: use format from BE. Paul.
 		 */
 		var viewData = {
 			[ 'tribe-bar-date' ]: [ year, paddedMonth ].join( '-' ),
@@ -158,11 +164,111 @@ tribe.events.views.datepicker = {};
 	 * @return {void}
 	 */
 	obj.handleHide = function( event ) {
+		var $datepickerButton = event.data.datepickerButton
+		var state = $datepickerButton.data( 'state' );
+
+		event.data.observer.disconnect();
+
+		if ( state.isTarget ) {
+			event.data.input.bootstrapDatepicker( 'show' );
+			return;
+		}
+
 		event.data.datepickerButton.removeClass( obj.selectors.buttonOpenClass.className() );
 	};
 
 	/**
-	 * Show datepicker on datepicker button click
+	 * Toggle hover class
+	 *
+	 * @since 4.9.7
+	 *
+	 * @param {Event} event event object for 'mouseenter' and 'mouseleave' events
+	 *
+	 * @return {void}
+	 */
+	obj.toggleHoverClass = function( event ) {
+		event.data.row.toggleClass( obj.selectors.hoveredClass.className() );
+	};
+
+	/**
+	 * Handle disabled day click event
+	 *
+	 * @since 4.9.7
+	 *
+	 * @param {Event} event event object for 'click' event
+	 *
+	 * @return {void}
+	 */
+	obj.handleDisabledDayClick = function( event ) {
+		event.data.row.find( obj.selectors.datepickerDayNotDisabled ).click();
+	};
+
+	/**
+	 * Bind datepicker row events
+	 *
+	 * @since 4.9.7
+	 *
+	 * @param {Event} event event object for 'show' event
+	 *
+	 * @return {void}
+	 */
+	obj.bindRowEvents = function( event ) {
+		var $datepickerDays = event.data.container.find( obj.selectors.datepickerDays );
+		var config = { attributes: true, childList: true, subtree: true };
+
+		var $container = event.data.container;
+		var $rows = $container.find( obj.selectors.datepickerDaysRow );
+
+		// for each row, add mouseenter and mouseleave event listeners to toggle hover class
+		$rows.each( function( index, row ) {
+			var $row = $( row );
+			$row
+				.off( 'mouseenter mouseleave', obj.toggleHoverClass )
+				.on( 'mouseenter mouseleave', { row: $row }, obj.toggleHoverClass )
+				.find( obj.selectors.datepickerDay )
+				.each( function( index, day ) {
+					var $day = $( day );
+
+					// if day has disabled class, allow clicking day to select first day of the week
+					if ( $day.hasClass( obj.selectors.disabledClass.className() ) ) {
+						$day
+							.off( 'click', obj.handleDisabledDayClick )
+							.on( 'click', { row: $row }, obj.handleDisabledDayClick );
+					}
+
+					// if day has focused class, add focused class to row
+					if ( $day.hasClass( obj.selectors.focusedClass.className() ) ) {
+						$row.addClass( obj.selectors.focusedClass.className() );
+					}
+
+					// if day has active class, add active class to row
+					if ( $day.hasClass( obj.selectors.activeClass.className() ) ) {
+						$row.addClass( obj.selectors.activeClass.className() );
+					}
+				} );
+		} );
+
+		event.data.observer.observe( $datepickerDays[ 0 ], config );
+	};
+
+	/**
+	 * Handle datepicker button mousedown
+	 *
+	 * @since 4.9.7
+	 *
+	 * @param {Event} event event object for 'mousedown' event
+	 *
+	 * @return {void}
+	 */
+	obj.handleMousedown = function( event ) {
+		var $datepickerButton = event.data.target;
+		var state = $datepickerButton.data( 'state' );
+		state.isTarget = true;
+		$datepickerButton.data( 'state', state );
+	};
+
+	/**
+	 * Handle datepicker button click
 	 *
 	 * @since 4.9.5
 	 *
@@ -170,14 +276,44 @@ tribe.events.views.datepicker = {};
 	 *
 	 * @return {void}
 	 */
-	obj.showDatepicker = function( event ) {
-		var $input = $( event.data.input );
-		var $datepickerButton = $( event.data.target );
+	obj.handleClick = function( event ) {
+		var $input = event.data.input;
+		var $datepickerButton = event.data.target;
+		var state = $datepickerButton.data( 'state' );
+		var method = $datepickerButton.hasClass( obj.selectors.buttonOpenClass.className() ) ? 'hide' : 'show';
 
-		$datepickerButton.toggleClass( obj.selectors.buttonOpenClass.className() );
+		state.isTarget = false;
+
+		$datepickerButton
+			.toggleClass( obj.selectors.buttonOpenClass.className() )
+			.data( 'state', state );
 		$input
 			.focus()
-			.bootstrapDatepicker( 'show' );
+			.bootstrapDatepicker( method );
+	};
+
+	/**
+	 * Handle mutations from mutation observer
+	 *
+	 * @since 4.9.7
+	 *
+	 * @param {PlainObject} data data object to be passed for use in handler
+	 *
+	 * @return {void}
+	 */
+	obj.handleMutation = function( data ) {
+		var $container = data.container;
+		return function( mutationsList, observer ) {
+			for ( var mutation of mutationsList ) {
+				if (
+					'childList' === mutation.type &&
+					$container.find( obj.selectors.datepickerDaysBody ).is( mutation.target ) &&
+					mutation.addedNodes.length
+				) {
+					obj.bindRowEvents( { data: { container: $container, observer: observer } } );
+				}
+			}
+		};
 	};
 
 	/**
@@ -185,7 +321,7 @@ tribe.events.views.datepicker = {};
 	 *
 	 * @since  4.9.5
 	 *
-	 * @param  {Event}       event    event object for 'afterSetup.tribeEvents' event
+	 * @param  {Event}       event    event object for 'beforeAjaxSuccess.tribeEvents' event
 	 * @param  {jqXHR}       jqXHR    Request object
 	 * @param  {PlainObject} settings Settings that this request was made with
 	 *
@@ -197,6 +333,7 @@ tribe.events.views.datepicker = {};
 		var $datepickerButton = $container.find( obj.selectors.button );
 		var viewSlug = event.data.viewSlug;
 		var isMonthView = 'month' === viewSlug;
+		var isWeekView = 'week' === viewSlug;
 		var changeEvent = isMonthView ? 'changeMonth' : 'changeDate';
 		var changeHandler = isMonthView ? obj.handleChangeMonth : obj.handleChangeDate;
 
@@ -205,13 +342,18 @@ tribe.events.views.datepicker = {};
 			.off( changeEvent, changeHandler )
 			.off( 'hide', obj.handleHide );
 		$datepickerButton
-			.on( 'click', obj.showDatepicker );
+			.off( 'mousedown', obj.handleMousedown )
+			.off( 'click', obj.handleClick );
+
+		if ( isWeekView ) {
+			$input.off( 'show', obj.bindRowEvents );
+		}
 	};
 
 	/**
 	 * Initialize datepicker JS
 	 *
-	 * @since  4.9.5
+	 * @since  4.9.7
 	 *
 	 * @param  {Event}   event      event object for 'afterSetup.tribeEvents' event
 	 * @param  {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event
@@ -225,7 +367,12 @@ tribe.events.views.datepicker = {};
 		var $datepickerButton = $container.find( obj.selectors.button );
 		var viewSlug = data.slug;
 		var isMonthView = 'month' === viewSlug;
+		var isWeekView = 'week' === viewSlug;
 		var minViewMode = isMonthView ? 'year' : 'month';
+		/**
+		 * @todo: use format from BE. Paul.
+		 */
+		var daysOfWeekDisabled = isWeekView ? [ 1, 2, 3, 4, 5, 6 ] : [];
 		var changeEvent = isMonthView ? 'changeMonth' : 'changeDate';
 		var changeHandler = isMonthView ? obj.handleChangeMonth : obj.handleChangeDate;
 
@@ -234,11 +381,18 @@ tribe.events.views.datepicker = {};
 		var nextText = datepickerI18n.nextText || 'Next';
 		var prevText = datepickerI18n.prevText || 'Prev';
 
+		var state = {
+			isTarget: false,
+		};
+
+		var observer = new MutationObserver( obj.handleMutation( { container: $container } ) );
+
 		$input
 			.bootstrapDatepicker( {
-				container: $input.closest( obj.selectors.datepickerContainer ),
+				container: $container.find( obj.selectors.datepickerContainer ),
+				daysOfWeekDisabled: daysOfWeekDisabled,
 				/**
-				 * @todo: use format from BE
+				 * @todo: use format from BE. Paul.
 				 */
 				format: 'yyyy-mm-dd',
 				maxViewMode: 'decade',
@@ -251,9 +405,16 @@ tribe.events.views.datepicker = {};
 				},
 			} )
 			.on( changeEvent, { container: $container }, changeHandler )
-			.on( 'hide', { datepickerButton: $datepickerButton }, obj.handleHide );
+			.on( 'hide', { datepickerButton: $datepickerButton, input: $input, observer: observer }, obj.handleHide );
+
 		$datepickerButton
-			.on( 'click', { target: $datepickerButton, input: $input }, obj.showDatepicker );
+			.on( 'mousedown', { target: $datepickerButton }, obj.handleMousedown )
+			.on( 'click', { target: $datepickerButton, input: $input }, obj.handleClick )
+			.data( 'state', state );
+
+		if ( isWeekView ) {
+			$input.on( 'show', { container: $container, observer: observer }, obj.bindRowEvents );
+		}
 
 		// deinit datepicker and event handlers before success
 		$container.on( 'beforeAjaxSuccess.tribeEvents', { container: $container, viewSlug: viewSlug }, obj.deinit );

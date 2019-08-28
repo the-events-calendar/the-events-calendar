@@ -3,22 +3,17 @@
  * View: Top Bar - Today
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/views/v2/top-bar/today.php
+ * [your-theme]/tribe/events/views/v2/day/top-bar/today.php
  *
  * See more documentation about our views templating system.
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.3
+ * @version TBD
  *
+ * @var string $today_url The URL to the today, current, version of the View.
  */
 
-// If we didn't have a view setup we cannot print today's link
-if ( ! $this->get( 'view' ) ) {
-	return false;
-}
-
-$today_url = tribe_events_get_url( [ 'eventDisplay' => 'day', 'post_type' => 'tribe_events' ], home_url() );
 ?>
 <a
 	href="<?php echo esc_url( $today_url ); ?>"

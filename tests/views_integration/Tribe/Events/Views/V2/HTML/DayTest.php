@@ -9,7 +9,7 @@ class DayTest extends HtmlTestCase {
 	 * @test
 	 */
 	public function it_should_contain_correct_html_classes() {
-		$template = $this->template->template( 'day', [ 'events' => (object) [] ] );
+		$template = $this->template->template( 'day', [ 'events' => [] ] );
 		$html = $this->document->html( $template );
 
 		$this->assertEquals(

@@ -14,7 +14,7 @@
 		flex-direction: row-reverse;
 		justify-content: space-between;
 		margin: 0 var(--grid-gutter-small-half-negative);
-		padding: 0 var(--grid-gutter-small-half);
+		padding: 0 var(--grid-gutter-small-half) var(--spacer-3);
 		position: relative;
 
 		@media (--viewport-medium) {
@@ -26,14 +26,15 @@
 		}
 	}
 
-	.tribe-events-header__events-bar,
-	.tribe-events-header__top-bar {
-		flex: none;
-	}
-
 	.tribe-events-header__events-bar {
+		flex: none;
+
 		@media (--viewport-medium) {
 			width: 100%;
 		}
+	}
+
+	.tribe-events-header__top-bar {
+		flex: auto;
 	}
 }

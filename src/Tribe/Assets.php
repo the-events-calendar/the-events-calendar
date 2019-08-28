@@ -656,11 +656,18 @@ class Tribe__Events__Assets {
 	 * @return array
 	 */
 	public function get_js_calendar_script_data() {
-		$js_config_array = array(
+		$js_config_array = [
 			'permalink_settings' => get_option( 'permalink_structure' ),
 			'events_post_type'   => Tribe__Events__Main::POSTTYPE,
 			'events_base'        => tribe_get_events_link(),
-		);
+			'update_urls'        => [
+				'shortcode' => [
+					'list'  => true,
+					'month' => true,
+					'day'   => true,
+				],
+			],
+		];
 
 		/**
 		 * Allow filtering if we should display JS debug messages
@@ -682,6 +689,15 @@ class Tribe__Events__Assets {
 		if ( apply_filters( 'tribe_events_force_filtered_ical_link', false ) ) {
 			$js_config_array['force_filtered_ical_link'] = true;
 		}
+
+		/**
+		 * Allows filtering the contents of the Javascript configuration object that will be printed on the page.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $js_config_array The Javascript configuration object that will be printed on the page.
+		 */
+		$js_config_array = apply_filters( 'tribe_events_js_config', $js_config_array );
 
 		return $js_config_array;
 	}

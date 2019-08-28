@@ -19,7 +19,11 @@ class Day_ViewTest extends ViewTestCase {
 		// Sanity check
 		$this->assertEmpty( tribe_events()->found() );
 
-		$context = tribe_context()->alter( [ 'event_date' => $this->mock_date_value ] );
+		$context = tribe_context()->alter( [
+			'today'      => $this->mock_date_value,
+			'now'        => $this->mock_date_value,
+			'event_date' => $this->mock_date_value
+		] );
 
 		$day_view = View::make( Day_View::class, $context );
 		$html     = $day_view->get_html();
@@ -64,7 +68,9 @@ class Day_ViewTest extends ViewTestCase {
 		] );
 
 		$context = tribe_context()->alter( [
-				'posts_per_page' => 2,
+				'today'      => $this->mock_date_value,
+				'now'        => $this->mock_date_value,
+				'events_per_page' => 2,
 				'event_date' => $this->mock_date_value,
 			]
 		);
@@ -81,5 +87,60 @@ class Day_ViewTest extends ViewTestCase {
 		);
 
 		$this->assertMatchesSnapshot( $html );
+	}
+
+	public function today_url_data_sets() {
+		$event_dates    = [
+			'lt' => '2019-02-01',
+			'eq' => '2019-02-02',
+			'gt' => '2019-02-03',
+		];
+		$now_times      = [
+			'eq' => '2019-02-02 00:00:00',
+			'gt' => '2019-02-02 09:00:00',
+		];
+		$event_displays = [
+			'no'   => '/events/today/',
+			'past' => '/events/today/',
+		];
+		$today          = '2019-02-02 00:00:00';
+
+		foreach ( $now_times as $now_key => $now ) {
+			foreach ( $event_dates as $event_date_key => $event_date ) {
+				foreach ( $event_displays as $event_display => $expected ) {
+					$set_name = "event_date_{$event_date_key}_today_w_{$now_key}_time_w_{$event_display}_display_mode";
+					$event_display = 'no' === $event_display ? '' : $event_display;
+
+					yield $set_name => [ $today, $now, $event_date, $event_display, $expected ];
+				}
+			}
+		}
+	}
+
+	/**
+	 * It should correctly build today_url
+	 *
+	 * @test
+	 * @dataProvider today_url_data_sets
+	 */
+	public function should_correctly_build_today_url( $today, $now, $event_date, $event_display_mode, $expected ) {
+		$values          = [
+			'today'              => $today,
+			'now'                => $now,
+			'event_date'         => $event_date,
+			'event_display_mode' => $event_display_mode,
+		];
+		$context         = $this->get_mock_context()->alter( array_filter( $values ) );
+		$mock_repository = $this->makeEmpty(
+			\Tribe__Repository__Interface::class,
+			[
+				'count' => 23
+			]
+		);
+
+		$view = View::make( Day_View::class, $context );
+		$view->set_repository( $mock_repository );
+
+		$this->assertEquals( home_url( $expected ), $view->get_today_url( true ) );
 	}
 }

@@ -673,4 +673,38 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 		 */
 		return apply_filters( 'tribe_event_venue_duplicate_custom_fields', $fields );
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public static function get_fetch_callback( $event ) {
+		$event = Tribe__Main::post_id_helper( $event );
+
+		/**
+		 * Filters the closure that will fetch an Event Venues.
+		 *
+		 * Returning a non `null` value here will skip the default logic.
+		 *
+		 * @since 4.9.7
+		 *
+		 * @param callable|null The fetch callback.
+		 * @param int $event The event post ID.
+		 *
+		 */
+		$callback = apply_filters( 'tribe_events_venues_fetch_callback', null, $event );
+
+		if ( null !== $callback ) {
+			return $callback;
+		}
+
+		// This query is bound by `posts_per_page` and it's fine and reasonable; do not make it unbound.
+		return static function () use ( $event ) {
+			$venue_ids = tribe_venues()->by( 'event', $event )->get_ids();
+			$venues    = ! empty( $venue_ids )
+				? array_map( 'tribe_get_venue', $venue_ids )
+				: [];
+
+			return $venues;
+		};
+	}
 }

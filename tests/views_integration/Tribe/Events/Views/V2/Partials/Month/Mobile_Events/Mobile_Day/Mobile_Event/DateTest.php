@@ -8,21 +8,11 @@ class DateTest extends HtmlPartialTestCase
 
 	protected $partial_path = 'month/mobile-events/mobile-day/mobile-event/date';
 
-	/**
-	 * Test static render
-	 * @todo remove this static HTML test once the partial is dynamic.
-	 */
-	public function test_static_render() {
-		$this->assertMatchesSnapshot( $this->get_partial_html() );
-	}
 
 	/**
 	 * Test render with context
 	 */
 	public function test_render_with_context() {
-		/* @todo: complete once we have dynamic views */
-		$this->markTestSkipped( 'Complete once we have dynamic views.' );
-
-		$this->assertMatchesSnapshot( $this->get_partial_html( [] ) );
+		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => tribe_events()->first() ] ) );
 	}
 }

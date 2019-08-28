@@ -157,4 +157,24 @@ interface View_Interface  extends View_Url_Provider_Interface, Repository_User_I
 	 * @param string $slug The slug the View should use to locate its template.
 	 */
 	public function set_template_slug( $slug );
+
+	/**
+	 * Returns the View template variables, as they would be set up and filtered before rendering the template.
+	 *
+	 * @since 4.9.7
+	 *
+	 * @return array An associative array of the View template variables.
+	 */
+	public function get_template_vars();
+
+	/**
+	 * Returns the URL to show the View for today.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $canonical Whether to return the canonical, pretty, version of the URL or not; default to `false`.
+	 *
+	 * @return string
+	 */
+	public function get_today_url( $canonical = false );
 }

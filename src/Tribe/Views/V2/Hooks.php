@@ -79,6 +79,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 */
 	public function on_tribe_common_loaded() {
 		$this->container->make( Template_Bootstrap::class )->disable_v1();
+		$this->container->make( Rest_Endpoint::class )->maybe_enable_ajax_fallback();
 	}
 
 	/**
@@ -132,29 +133,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @since 4.9.2
 	 */
 	public function register_rest_endpoints() {
-		register_rest_route( Service_Provider::NAME_SPACE, '/html', [
-			'methods'             => \WP_REST_Server::READABLE,
-			/**
-			 * @todo  Make sure we do proper handling of cache longer then 12h.
-			 */
-			'permission_callback' => static function ( \WP_REST_Request $request ) {
-				return wp_verify_nonce( $request->get_param( '_wpnonce' ), 'wp_rest' );
-			},
-			'callback' => static function ( \WP_REST_Request $request ) {
-				View::make_for_rest( $request )->send_html();
-			},
-			'args' => [
-				'url' => [
-					'required'          => true,
-					'validate_callback' => static function ( $url ) {
-						return is_string( $url );
-					},
-					'sanitize_callback' => static function ( $url ) {
-						return filter_var( $url, FILTER_SANITIZE_URL );
-					}
-				],
-			],
-		] );
+		$this->container->make( Rest_Endpoint::class )->register();
 	}
 
 	/**

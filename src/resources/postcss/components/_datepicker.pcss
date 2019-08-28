@@ -23,11 +23,8 @@
 			content: none;
 		}
 
-		.dow {
-			color: var(--color-text-primary);
-			font-size: var(--font-size-0);
-			font-weight: var(--font-weight-regular);
-			padding: 0 0 var(--spacer-2) 0;
+		table {
+			border-collapse: collapse;
 		}
 
 		.datepicker-switch,
@@ -42,7 +39,6 @@
 			}
 		}
 
-		/* @todo: typography styles pending design feedback */
 		.datepicker-switch {
 			@mixin desktop-body-1;
 
@@ -103,6 +99,11 @@
 		.datepicker-months,
 		.datepicker-years {
 
+			th,
+			td {
+				padding: 0;
+			}
+
 			.datepicker-switch,
 			.prev,
 			.next {
@@ -110,27 +111,24 @@
 			}
 		}
 
-		/* @todo: typography styles pending design feedback */
+		.dow {
+			@mixin mobile-body-3;
+
+			padding: 0;
+			width: var(--grid-width-1-of-7);
+		}
+
 		.day {
 			@mixin desktop-body-1;
 
-			padding: 11px 15px;
+			padding: 11px 0;
+			width: 48px; /* this is a hack to max out the day width to the container, not exactly 48px */
 
 			&.old {
 				color: var(--color-text-disabled);
 			}
 		}
 
-		.datepicker-months,
-		.datepicker-years {
-
-			th,
-			td {
-				padding: 0;
-			}
-		}
-
-		/* @todo: typography styles pending design feedback */
 		.month,
 		.year {
 			@mixin desktop-body-3;
@@ -144,23 +142,336 @@
 		.day,
 		.month,
 		.year {
+			border-radius: var(--border-radius-default);
 
 			&:hover,
 			&:focus,
 			&.focused {
-				background-color: var(--color-background-secondary);
-				font-weight: var(--font-weight-bold);
+				background: var(--color-background-secondary);
 			}
 
 			&.active {
 				color: var(--color-background);
-				background-color: var(--color-accent-primary);
+				background: var(--color-accent-primary);
 
 				&:hover,
 				&:focus,
 				&.focused {
 					color: var(--color-background);
-					background-color: var(--color-accent-primary);
+					background: var(--color-accent-primary);
+				}
+			}
+		}
+	}
+
+	&.tribe-events-view--week .datepicker {
+
+		tbody tr {
+
+			&.active {
+				position: relative;
+
+				&:after {
+					border: 1px solid var(--color-accent-primary);
+					border-radius: var(--border-radius-default);
+					content: '';
+					display: block;
+					height: 47px;
+					left: var(--spacer-3);
+					pointer-events: none;
+					position: absolute;
+					transform: translateY(-1px);
+					width: calc(100% - 34px); /* 16px left padding + 16px right padding + 1px left border + 1px right border */
+				}
+			}
+		}
+
+		.day {
+			border-radius: 0;
+
+			&:first-child {
+				border-bottom-left-radius: var(--border-radius-default);
+				border-top-left-radius: var(--border-radius-default);
+			}
+
+			&:last-child {
+				border-bottom-right-radius: var(--border-radius-default);
+				border-top-right-radius: var(--border-radius-default);
+			}
+
+			&.active {
+				color: var(--color-text-primary);
+				background: transparent;
+
+				&:hover {
+					background: transparent;
+				}
+			}
+
+			&.disabled {
+				color: var(--color-text-primary);
+				cursor: pointer;
+
+				&:hover,
+				&:focus,
+				&.focused {
+					color: var(--color-text-primary);
+				}
+			}
+
+			&.old {
+				color: var(--color-text-disabled);
+
+				&:hover,
+				&:focus,
+				&.focused {
+					color: var(--color-text-disabled);
+				}
+			}
+		}
+
+		.hovered,
+		.focused {
+
+			.day {
+				background: var(--color-background-secondary);
+
+				&:hover {
+					background: var(--color-background-secondary);
+				}
+			}
+		}
+	}
+
+	/* -----------------------------------------------------------------------------
+	 *
+	 * Datepicker: Theme Overrides
+	 *
+	 * ----------------------------------------------------------------------------- */
+
+	/* -----------------------------------------------------------------------------
+	 * Theme Overrides - Divi
+	 * ----------------------------------------------------------------------------- */
+
+	.tribe-theme-divi #content-area & .datepicker {
+
+		.datepicker-switch,
+		.prev,
+		.next {
+			padding: var(--spacer-4) 0;
+		}
+
+		.datepicker-months,
+		.datepicker-years {
+
+			.datepicker-switch,
+			.prev,
+			.next {
+				padding: var(--spacer-4) 0 var(--spacer-1);
+			}
+		}
+
+		.dow {
+			padding: 0;
+		}
+
+		.day {
+			padding: 11px 0;
+		}
+	}
+
+	/* -----------------------------------------------------------------------------
+	 * Theme Overrides - Enfold
+	 * ----------------------------------------------------------------------------- */
+
+	.tribe-theme-enfold & .datepicker {
+		border: 1px solid var(--color-border-default);
+		border-radius: var(--border-radius-default);
+		box-shadow: var(--box-shadow-tooltip);
+		min-width: 0;
+		padding: 0 var(--spacer-3) var(--spacer-3);
+
+		.datepicker-switch {
+			color: var(--color-text-primary) !important;
+			cursor: pointer !important;
+
+			&:hover,
+			&:focus {
+				color: var(--color-accent-secondary-hover) !important;
+			}
+
+			&:active {
+				color: var(--color-accent-secondary-active) !important;
+			}
+		}
+
+		.day {
+			background-color: var(--color-background);
+
+			&.old,
+			&.new {
+				opacity: 1;
+			}
+
+			&.old {
+				color: var(--color-text-disabled);
+			}
+		}
+
+		.day,
+		.month,
+		.year {
+			color: var(--color-text-primary);
+			background-color: var(--color-background);
+
+			&:hover,
+			&:focus,
+			&.focused {
+				background: var(--color-background-secondary);
+			}
+
+			&.active {
+				color: var(--color-background);
+				background: var(--color-accent-primary);
+
+				&:hover,
+				&:focus,
+				&.focused {
+					color: var(--color-background);
+					background: var(--color-accent-primary);
+				}
+			}
+		}
+	}
+
+	.tribe-theme-enfold &.tribe-events-view--week .datepicker {
+
+		.day {
+
+			&.active {
+				color: var(--color-text-primary);
+				background: transparent;
+
+				&:hover {
+					background: transparent;
+				}
+			}
+		}
+
+		.hovered,
+		.focused {
+
+			.day {
+				background: var(--color-background-secondary);
+
+				&:hover {
+					background: var(--color-background-secondary);
+				}
+			}
+		}
+	}
+
+	/* -----------------------------------------------------------------------------
+	 * Theme Overrides - Avada
+	 * ----------------------------------------------------------------------------- */
+
+	.tribe-theme-avada & .datepicker {
+		border: 1px solid var(--color-border-default);
+		border-radius: var(--border-radius-default);
+		padding: 0 var(--spacer-3) var(--spacer-3);
+
+		tbody td {
+			border: 0;
+		}
+
+		.datepicker-months td {
+			padding: 0;
+		}
+
+		.datepicker-switch,
+		.prev,
+		.next {
+			background-color: var(--color-background);
+
+			&:hover {
+				background-color: var(--color-background);
+			}
+		}
+
+		.day {
+
+			&.old,
+			&.new {
+				background-color: transparent !important;
+
+				&:hover,
+				&:focus,
+				&.focused {
+					background: var(--color-background-secondary) !important;
+				}
+			}
+
+			&.old {
+				color: var(--color-text-disabled) !important;
+			}
+
+			&.new {
+				color: var(--color-text-primary) !important;
+			}
+		}
+
+		.day,
+		.month {
+			background-color: transparent;
+			color: var(--color-text-primary);
+
+			&:hover,
+			&:focus,
+			&.focused {
+				background: var(--color-background-secondary);
+			}
+
+			&.active {
+				color: var(--color-background);
+				background: var(--color-accent-primary);
+
+				&:hover,
+				&:focus,
+				&.focused {
+					color: var(--color-background);
+					background: var(--color-accent-primary);
+				}
+			}
+		}
+	}
+
+	.tribe-theme-avada &.tribe-events-view--week .datepicker {
+
+		.day {
+
+			&.active {
+				color: var(--color-text-primary);
+				background: transparent;
+
+				&:hover {
+					background: transparent;
+				}
+			}
+		}
+
+		.hovered,
+		.focused {
+
+			.day {
+				background: var(--color-background-secondary);
+
+				&:hover {
+					background: var(--color-background-secondary);
+				}
+
+				&.old,
+				&.new {
+					background-color: var(--color-background-secondary) !important;
 				}
 			}
 		}

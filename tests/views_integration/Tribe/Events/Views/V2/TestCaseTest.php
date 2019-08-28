@@ -51,29 +51,4 @@ class TestCaseTest extends TestCase {
 			'day' => '2019-03-12',
 		], $actual['view_data'] );
 	}
-
-	/**
-	 * It should allow making a simple snapshot assertion
-	 *
-	 * @test
-	 */
-	public function should_allow_making_a_simple_snapshot_assertion() {
-		add_filter( 'tribe_events_views', function () {
-			return [ 'test' => Test_Context_View::class ];
-		} );
-
-		$this->given_a_main_query_request()
-		     ->for_view( Test_Context_View::class )
-		     ->with_args( [
-			     'view_data' => [
-				     'venue'     => 23,
-				     'organizer' => [ 89, 2389 ],
-				     'featured'  => false,
-				     'color'     => [ 'yellow', 'blue' ],
-			     ],
-		     ] )
-		     ->alter_global_context();
-
-		$this->assert_view_snapshot( View::make( 'test' ) );
-	}
 }

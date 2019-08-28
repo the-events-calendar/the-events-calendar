@@ -156,6 +156,26 @@ class ThemeCompatibilityTest extends \Codeception\TestCase\WPTestCase {
 				'double-foo-theme',
 				[ 'tribe-theme-foo-theme', 'tribe-theme-child-double-foo-theme' ],
 			],
+			'theme_on_template_and_stylesheet_uppercase' => [
+				'FOO-THEME',
+				'FOO-THEME',
+				[ 'tribe-theme-foo-theme' ],
+			],
+			'theme_on_template_and_stylesheet_mixed_case' => [
+				'FoO-tHeMe',
+				'FoO-tHeMe',
+				[ 'tribe-theme-foo-theme' ],
+			],
+			'theme_on_template_and_child_on_stylesheet_uppercase' => [
+				'FOO-THEME',
+				'DOUBLE-FOO-THEME',
+				[ 'tribe-theme-foo-theme', 'tribe-theme-child-double-foo-theme' ],
+			],
+			'theme_on_template_and_child_on_stylesheet_mixed_case' => [
+				'FoO-tHeMe',
+				'DoUbLe-FoO-tHeMe',
+				[ 'tribe-theme-foo-theme', 'tribe-theme-child-double-foo-theme' ],
+			],
 		];
 	}
 

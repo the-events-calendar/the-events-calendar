@@ -13,17 +13,13 @@
  *
  */
 
-$daynum = $day[ 'daynum' ];
-$events = $day[ 'events' ];
-
-$month = 6;
-
-$mobile_day_id = 'tribe-events-calendar-mobile-day-' . $month . '-' . $daynum;
+$events = $day['events'];
+$mobile_day_id = 'tribe-events-calendar-mobile-day-' . $day['year_number'] . '-' . $day['month_number'] . '-' . $day['day_number'];
 ?>
 
-<div class="tribe-events-calendar-month-mobile-events__mobile-day" id="<?php echo esc_attr( $mobile_day_id ); ?>">
+<div class="tribe-events-calendar-month-mobile-events__mobile-day" id="<?php echo sanitize_html_class( $mobile_day_id ); ?>">
 
-	<?php $this->template( 'month/mobile-events/mobile-day/day-marker' ); ?>
+	<?php $this->template( 'month/mobile-events/mobile-day/day-marker', [ 'day_date' => $day_date ] ); ?>
 
 	<?php foreach( $events as $event ) : ?>
 

@@ -9,20 +9,22 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.4
+ * @version 4.9.7
+ *
+ * @var string $rest_url The REST URL.
+ * @var string $rest_nonce The REST nonce.
+ * @var int    $should_manage_url int containing if it should manage the URL.
  *
  */
-
-use Tribe\Events\Views\V2\Rest_Endpoint;
 
 $events = $this->get( 'events' );
 ?>
 <div
-	class="tribe-common tribe-events tribe-events-view"
+	class="tribe-common tribe-events tribe-events-view tribe-events-view--list"
 	data-js="tribe-events-view"
-	data-view-rest-nonce="<?php echo esc_attr( wp_create_nonce( 'wp_rest' ) ); ?>"
-	data-view-rest-url="<?php echo esc_url( tribe( Rest_Endpoint::class )->get_url() ); ?>"
-	data-view-manage-url="<?php echo (int) $this->get( 'should_manage_url', true ); ?>"
+	data-view-rest-nonce="<?php echo esc_attr( $rest_nonce ); ?>"
+	data-view-rest-url="<?php echo esc_url( $rest_url ); ?>"
+	data-view-manage-url="<?php echo esc_attr( $should_manage_url ); ?>"
 >
 	<div class="tribe-common-l-container tribe-events-l-container">
 		<?php $this->template( 'loader', [ 'text' => 'Loading...' ] ); ?>

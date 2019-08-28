@@ -10,6 +10,7 @@ namespace Tribe\Events\Views\V2;
 
 use Tribe__Container as Container;
 use Tribe__Context as Context;
+use Tribe__Date_Utils as Dates;
 use Tribe__Events__Main as TEC;
 use Tribe__Events__Organizer as Organizer;
 use Tribe__Events__Rewrite as Rewrite;
@@ -124,6 +125,15 @@ class View implements View_Interface {
 	protected $page_key = 'paged';
 
 	/**
+	 * Whether the View instance should manage the URL
+	 *
+	 * @since 4.9.7
+	 *
+	 * @var bool
+	 */
+	protected $should_manage_url = true;
+
+	/**
 	 * Builds a View instance in response to a REST request to the Views endpoint.
 	 *
 	 * @since 4.9.2
@@ -141,7 +151,7 @@ class View implements View_Interface {
 		$params = array_merge( $params, $url_object->get_query_args() );
 
 		// Let View data override any other data.
-		if ( isset( $params['view_data'] ) ) {
+		if ( isset( $params['view_data'] ) && is_array( $params['view_data'] ) ) {
 			$params = array_merge( $params, $params['view_data'] );
 		}
 
@@ -204,12 +214,13 @@ class View implements View_Interface {
 				)
 			);
 
+		/** @var View $view */
 		$view = static::make( $slug, $context );
 
 		$view->url = $url_object;
 
 		// Setup whether this view should manage URL or not, based on the Rest Request Sent.
-		$view->get_template()->set( 'should_manage_url', tribe_is_truthy( Arr::get( $params, 'should_manage_url', true ) ) );
+		$view->should_manage_url = tribe_is_truthy( Arr::get( $params, 'should_manage_url', true ) );
 
 		return $view;
 	}
@@ -379,17 +390,12 @@ class View implements View_Interface {
 		}
 
 		$repository_args = $this->filter_repository_args( $this->setup_repository_args() );
-		$this->setup_repository_args();
 
 		$this->setup_the_loop( $repository_args );
-
-		$this->setup_repository_args();
 
 		$template_vars = $this->filter_template_vars( $this->setup_template_vars() );
 
 		$this->template->set_values( $template_vars, false );
-
-		$this->setup_repository_args();
 
 		$html = $this->template->render();
 
@@ -485,6 +491,17 @@ class View implements View_Interface {
 			'tribe-bar-date'   => $this->context->get( 'event_date', '' ),
 			'tribe-bar-search' => $this->context->get( 'keyword', '' ),
 		];
+
+		if ( ! empty( $query_args['tribe-bar-date'] ) ) {
+			// If the Events Bar date is the same ad today's date, then drop it.
+			$today          = $this->context->get( 'today', 'today' );
+			$today_date     = Dates::build_date_object( $today )->format( Dates::DBDATEFORMAT );
+			$tribe_bar_date = Dates::build_date_object( $query_args['tribe-bar-date'] )->format( Dates::DBDATEFORMAT );
+
+			if ( $today_date === $tribe_bar_date ) {
+				unset( $query_args['tribe-bar-date'] );
+			}
+		}
 
 		// When we find nothing we're always on page 1.
 		$page = $this->repository->count() > 0 ? $this->url->get_current_page() : 1;
@@ -835,7 +852,7 @@ class View implements View_Interface {
 		$context_arr = $context->to_array();
 
 		return [
-			'posts_per_page' => $context_arr['posts_per_page'],
+			'posts_per_page' => $context_arr['events_per_page'],
 			'paged'          => max( Arr::get_first_set( $context_arr, [ 'paged', 'page' ], 1 ), 1 ),
 			'search'         => $context->get( 'keyword', '' ),
 		];
@@ -900,15 +917,21 @@ class View implements View_Interface {
 	 */
 	protected function setup_template_vars() {
 		$template_vars = [
-			'title'    => wp_title( null, false ),
-			'events'   => $this->repository->all(),
-			'url'      => $this->get_url( true ),
-			'prev_url' => $this->prev_url( true ),
-			'next_url' => $this->next_url( true ),
-			'bar'      => [
+			'title'             => wp_title( null, false ),
+			'events'            => $this->repository->all(),
+			'url'               => $this->get_url( true ),
+			'prev_url'          => $this->prev_url( true ),
+			'next_url'          => $this->next_url( true ),
+			'bar'               => [
 				'keyword' => $this->context->get( 'keyword', '' ),
 				'date'    => $this->context->get( 'event_date', '' ),
 			],
+			'today'             => $this->context->get( 'today', 'today' ),
+			'now'               => $this->context->get( 'now', 'now' ),
+			'rest_url'          => tribe( Rest_Endpoint::class )->get_url(),
+			'rest_nonce'        => wp_create_nonce( 'wp_rest' ),
+			'should_manage_url' => $this->should_manage_url,
+			'today_url'         => $this->get_today_url( true ),
 		];
 
 		return $template_vars;
@@ -996,5 +1019,34 @@ class View implements View_Interface {
 	 */
 	public function set_template_slug( $template_slug ) {
 		$this->template_slug = $template_slug;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_template_vars() {
+		return $this->filter_template_vars( $this->setup_template_vars() );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_today_url( $canonical = false ) {
+		$remove = [ 'tribe-bar-date', 'paged', 'page' ];
+
+		// While we want to remove the date query vars, we want to keep any other query var.
+		$query_args = $this->url->get_query_args();
+
+		// Handle the `eventDisplay` query arg due to its particular usage to indicate the mode too.
+		$query_args['eventDisplay'] = $this->slug;
+
+		$ugly_url = add_query_arg( $query_args, $this->get_url( false ) );
+		$ugly_url = remove_query_arg( $remove, $ugly_url );
+
+		if ( ! $canonical ) {
+			return $ugly_url;
+		}
+
+		return Rewrite::instance()->get_canonical_url( $ugly_url );
 	}
 }

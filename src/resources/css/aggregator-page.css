@@ -317,19 +317,14 @@
 			}
 
 	.tribe-ea .tribe-banner {
-		display: -webkit-box;
 		display: flex;
-		-webkit-box-align: center;
-		        align-items: center;
-		-webkit-box-pack: center;
-		        justify-content: center;
-		-webkit-box-flex: 1;
-		        flex: 1 1 auto;
+		align-items: center;
+		justify-content: center;
+		flex: 1 1 auto;
 
 	}
 
 	.tribe-ea .tribe-banner.tribe-active.tribe-dependent {
-			display: -webkit-box;
 			display: flex;
 		}
 
@@ -419,7 +414,7 @@
 		margin-bottom: .25em;
 	}
 
-	.tribe-ea .tribe-ea-eventbrite-button {
+	.tribe-ea .tribe-ea-login-button {
 		margin-left: 2rem;
 		margin-top: 1rem;
 	}

@@ -11,28 +11,27 @@
  *
  * @version 4.9.4
  *
+ * @var WP_Post $event The event post object, decorated with custom properties from the `tribe_get_event` function.
+ *
+ * @see tribe_get_event()
  */
-
-// $event    = $this->get( 'event' );
-// $event_id = $event->ID;
 
 $classes = [ 'tribe-events-calendar-month-mobile-events__mobile-event-title' ];
 
-/* @todo fix this once we make event dynamic */
-// if ( tribe( 'tec.featured_events' )->is_featured( $event_id ) ) {
+if ( $event->featured ) {
 	$classes[] = 'tribe-common-h6';
-// } else {
-// 	$classes[] = 'tribe-common-h8';
-// }
+} else {
+	$classes[] = 'tribe-common-h8';
+}
 
 ?>
-<h3 class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>">
+<h3 <?php tribe_classes( $classes ); ?>>
 	<a
-		href="#"
-		title="Lorem Ipsum"
+		href="<?php echo esc_url( $event->permalink ) ?>"
+		title="<?php echo esc_attr( $event->post_title ) ?>"
 		rel="bookmark"
 		class="tribe-events-calendar-month-mobile-events__mobile-event-title-link tribe-common-anchor"
 	>
-		Lorem Ipsum
+		<?php echo get_the_title( $event ) ?>
 	</a>
 </h3>

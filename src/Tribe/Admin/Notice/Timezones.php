@@ -1,5 +1,5 @@
 <?php
-use Tribe__Date_Utils as Date;
+use Tribe__Date_Utils as Dates;
 use Tribe__Timezones as Timezones;
 use Tribe__Events__Timezones as Event_Timezones;
 
@@ -56,7 +56,7 @@ class Tribe__Events__Admin__Notice__Timezones {
 	 */
 	public function get_current_reset_date() {
 		$dates = $this->get_reset_dates();
-		$today = date( Date::DBDATEFORMAT );
+		$today = date( Dates::DBDATEFORMAT );
 
 		foreach ( $dates as $key => $date ) {
 			if ( $date <= $today ) {
@@ -75,8 +75,8 @@ class Tribe__Events__Admin__Notice__Timezones {
 	 * @return array
 	 */
 	public function get_reset_dates() {
-		$dates[] = date( Date::DBDATEFORMAT, strtotime( 'last sunday of february' ) );
-		$dates[] = date( Date::DBDATEFORMAT, strtotime( 'third sunday of october' ) );
+		$dates[] = date( Dates::DBDATEFORMAT, strtotime( 'last sunday of february' ) );
+		$dates[] = date( Dates::DBDATEFORMAT, strtotime( 'third sunday of october' ) );
 		return $dates;
 	}
 

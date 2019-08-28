@@ -138,14 +138,19 @@ class Template extends Base_Template {
 		$this->set(
 			'lookup_folders',
 			array_map(
-				function ( array $folder ) {
+				static function ( array $folder ) {
 					$folder['path'] = str_replace( WP_CONTENT_DIR, '', $folder['path'] );
 					return $folder;
 				},
 				$this->get_template_path_list()
 			),
-			true
+			false
 		);
+
+		if ( $this->view instanceof View_Interface ) {
+			$this->set( 'view_slug', $this->view->get_slug(), false );
+			$this->set( 'view_class', get_class( $this->view ), false );
+		}
 
 		return parent::get_template_file( 'base' );
 	}
