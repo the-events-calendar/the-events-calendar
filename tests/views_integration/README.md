@@ -323,7 +323,7 @@ This second test example shows what is, probably, the main feature of data-drive
 
 ### Other Testing
 
-Besides all the tests mentioned above due to the multiple moving parts of the software is important to make sure we test unwanted behavior to make sure they are not being "fixed" in a future bug report.
+Besides all the tests mentioned above, due to the multiple moving parts of the software, its important to make sure we cover the current behavior with tests to ensure they are not broken in the next iterations.
 
 The test below is dealing with the multiple possibilities of the template bootstraping, and how it is based on an admin setting, which can be changed in a lot of unpredictable ways, so we bake into our integration testing a way to make sure even if those bad values are pulled from the database we still continue to behave as expoected.
 
