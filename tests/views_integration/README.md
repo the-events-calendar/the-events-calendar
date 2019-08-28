@@ -333,19 +333,6 @@ Any change of the code causing a test failure would signal a change in the class
 namespace Tribe\Events\Views\V2;
 
 class TemplateBootstrapTest extends \Codeception\TestCase\WPTestCase {
-	private function make_instance() {
-		return new Template_Bootstrap();
-	}
-
-	/**
-	 * @test
-	 */
-	public function it_should_be_instantiatable() {
-		$sut = $this->make_instance();
-
-		$this->assertInstanceOf( Template_Bootstrap::class, $sut );
-	}
-
 	public function base_template_options() {
 		return [
 			'invalid' => [
