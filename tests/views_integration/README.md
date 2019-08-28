@@ -325,7 +325,8 @@ This second test example shows what is, probably, the main feature of data-drive
 
 Besides all the tests mentioned above, due to the multiple moving parts of the software, its important to make sure we cover the current behavior with tests to ensure they are not broken in the next iterations.
 
-The test below is dealing with the multiple possibilities of the template bootstraping, and how it is based on an admin setting, which can be changed in a lot of unpredictable ways, so we bake into our integration testing a way to make sure even if those bad values are pulled from the database we still continue to behave as expoected.
+In the test below we cover the class bootstrapping the templates with tests to ensure it handles all the possible admin setting combinations, good and bad alike, in a predictable way.
+Any change of the code causing a test failure would signal a change in the class behavior we want to avoid.
 
 ```php
 <?php
