@@ -398,7 +398,8 @@ class TemplateBootstrapTest extends \Codeception\TestCase\WPTestCase {
 	public function should_only_allow_permitted_values_on_base_template_option( $input, $expected ) {
 		tribe_update_option( 'tribeEventsTemplate', $input );
 
-		$option_value = $this->make_instance()->get_template_setting();
+		$template_bootstrap = new Template_Bootstrap();
+		$template_setting = $template_bootstrap->get_template_setting();
 
 		$this->assertEquals( $option_value, $expected );
 	}
