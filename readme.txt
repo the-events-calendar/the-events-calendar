@@ -215,6 +215,9 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
+= unreleased =
+* Fix - Conform iCalendar feed to specifications by not putting quotes around the timezone. This fixes Outlook compatibility [131791]
+
 = [4.9.7] 2019-08-19 =
 
 * Tweak - Update Lodash version on Block editor to prevent any possibility of a security issue with the package. From v4.17.11 to v4.17.15 [131421]
