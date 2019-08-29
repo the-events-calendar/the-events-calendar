@@ -43,7 +43,6 @@ tribe.events.views.monthMobileEvents = {};
 		calendarDay: '[data-js="tribe-events-calendar-month-day-cell-mobile"]',
 		calendarDaySelectedClass: '.tribe-events-calendar-month__day-cell--selected',
 		mobileEvents: '[data-js="tribe-events-pro-week-mobile-events"]',
-		mobileEventsShowClass: '.tribe-events-calendar-month-mobile-events--show',
 	};
 
 	/**
