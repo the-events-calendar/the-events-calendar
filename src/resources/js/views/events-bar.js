@@ -370,7 +370,7 @@ tribe.events.views.eventsBar = {};
 	 */
 	obj.deinitSearchAccordion = function( $container ) {
 		var $searchButton = $container.find( obj.selectors.searchButton );
-		$searchButton.removeClass( obj.selectors.searchButtonActiveClass.className(0) );
+		$searchButton.removeClass( obj.selectors.searchButtonActiveClass.className() );
 		var $searchFiltersContainer = $container.find( obj.selectors.searchFiltersContainer );
 		obj.deinitAccordion( $searchButton, $searchFiltersContainer );
 		$searchButton.off( 'click', obj.handleSearchButtonClick );
