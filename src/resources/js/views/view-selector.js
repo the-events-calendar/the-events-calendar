@@ -111,7 +111,7 @@ tribe.events.views.viewSelector = {};
 	/**
 	 * Initializes view selector state
 	 *
-	 * @since 4.9.7
+	 * @since TBD
 	 *
 	 * @param {jQuery} $container jQuery object of view container
 	 *
@@ -124,7 +124,7 @@ tribe.events.views.viewSelector = {};
 			desktopInitialized: false,
 		};
 
-		$viewSelector.data( 'state', state );
+		$viewSelector.data( 'tribeEventsState', state );
 	};
 
 	/**
@@ -143,7 +143,7 @@ tribe.events.views.viewSelector = {};
 	/**
 	 * Initializes view selector
 	 *
-	 * @since 4.9.7
+	 * @since TBD
 	 *
 	 * @param {jQuery} $container jQuery object of view container
 	 *
@@ -153,7 +153,7 @@ tribe.events.views.viewSelector = {};
 		var $viewSelector = $container.find( obj.selectors.viewSelector );
 
 		if ( $viewSelector.length ) {
-			var state = $viewSelector.data( 'state' );
+			var state = $viewSelector.data( 'tribeEventsState' );
 			var isTabs = $viewSelector.hasClass( obj.selectors.viewSelectorTabsClass.className() );
 
 			// If view selector is tabs (has 3 or less options)
@@ -163,14 +163,14 @@ tribe.events.views.viewSelector = {};
 					obj.initViewSelectorAccordion( $container );
 					state.desktopInitialized = false;
 					state.mobileInitialized = true;
-					$viewSelector.data( 'state', state );
+					$viewSelector.data( 'tribeEventsState', state );
 
 				// If viewport is desktop and desktop state is not initialized
 				} else if ( ! tribe.events.views.viewport.state.isMobile && ! state.desktopInitialized ) {
 					obj.deinitViewSelectorAccordion( $container );
 					state.mobileInitialized = false;
 					state.desktopInitialized = true;
-					$viewSelector.data( 'state', state );
+					$viewSelector.data( 'tribeEventsState', state );
 				}
 
 			/**
@@ -182,7 +182,7 @@ tribe.events.views.viewSelector = {};
 				obj.initViewSelectorAccordion( $container );
 				state.desktopInitialized = true;
 				state.mobileInitialized = true;
-				$viewSelector.data( 'state', state );
+				$viewSelector.data( 'tribeEventsState', state );
 			}
 		}
 	};

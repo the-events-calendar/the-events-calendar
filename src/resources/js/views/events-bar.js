@@ -80,7 +80,7 @@ tribe.events.views.eventsBar = {};
 			$tab
 				.attr( 'tabindex', '-1' )
 				.attr( 'aria-selected', 'false' )
-				.removeClass( 'tribe-events-c-events-bar__tab--active' );
+				.removeClass( obj.selectors.activeTabClass.className() );
 		} );
 	};
 
@@ -102,7 +102,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Select tab based on index
 	 *
-	 * @since 4.9.4
+	 * @since TBD
 	 *
 	 * @param {array} tabs array of jQuery objects of tabs
 	 * @param {array} tabPanels array of jQuery objects of tabPanels
@@ -118,7 +118,7 @@ tribe.events.views.eventsBar = {};
 		$tab
 			.attr( 'aria-selected', 'true' )
 			.removeAttr( 'tabindex' )
-			.addClass( 'tribe-events-c-events-bar__tab--active' )
+			.addClass( obj.selectors.activeTabClass.className() )
 			.focus();
 		$container
 			.find( '#' + $tab.attr( 'aria-controls' ) )
@@ -149,7 +149,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Handles 'click' event on tab
 	 *
-	 * @since 4.9.7
+	 * @since TBD
 	 *
 	 * @param {Event} event event object of click event
 	 *
@@ -158,7 +158,7 @@ tribe.events.views.eventsBar = {};
 	obj.handleTabClick = function( event ) {
 		var $container = $( event.data.container );
 		var $eventsBar = $container.find( obj.selectors.eventsBar );
-		var state = $eventsBar.data( 'state' );
+		var state = $eventsBar.data( 'tribeEventsState' );
 		var tabs = state.tabs;
 		var tabPanels = state.tabPanels;
 		var selectedTab = $( event.target ).closest( obj.selectors.tab );
@@ -169,7 +169,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Handles 'keydown' event on tab
 	 *
-	 * @since 4.9.7
+	 * @since TBD
 	 *
 	 * @param {Event} event event object of keydown event
 	 *
@@ -179,7 +179,7 @@ tribe.events.views.eventsBar = {};
 		var key = event.which || event.keyCode;
 		var $container = $( event.data.container );
 		var $eventsBar = $container.find( obj.selectors.eventsBar );
-		var state = $eventsBar.data( 'state' );
+		var state = $eventsBar.data( 'tribeEventsState' );
 		var tabs = state.tabs;
 		var tabPanels = state.tabPanels;
 		var currentTab = obj.getCurrentTab( tabs );
@@ -238,7 +238,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Initializes tablist
 	 *
-	 * @since 4.9.7
+	 * @since TBD
 	 *
 	 * @param {jQuery} $container jQuery object of view container
 	 *
@@ -246,7 +246,7 @@ tribe.events.views.eventsBar = {};
 	 */
 	obj.initTablist = function( $container ) {
 		var $eventsBar = $container.find( obj.selectors.eventsBar );
-		var state = $eventsBar.data( 'state' );
+		var state = $eventsBar.data( 'tribeEventsState' );
 		var tabs = [];
 		var tabpanels = [];
 
@@ -275,7 +275,7 @@ tribe.events.views.eventsBar = {};
 
 		state.tabs = tabs;
 		state.tabPanels = tabpanels;
-		$eventsBar.data( 'state', state );
+		$eventsBar.data( 'tribeEventsState', state );
 	};
 
 	/**
@@ -395,7 +395,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Initializes events bar state
 	 *
-	 * @since 4.9.4
+	 * @since TBD
 	 *
 	 * @param {jQuery} $container jQuery object of view container
 	 *
@@ -411,7 +411,7 @@ tribe.events.views.eventsBar = {};
 			currentTab: 0,
 		};
 
-		$eventsBar.data( 'state', state );
+		$eventsBar.data( 'tribeEventsState', state );
 	};
 
 	/**
@@ -432,7 +432,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Initializes events bar
 	 *
-	 * @since 4.9.7
+	 * @since TBD
 	 *
 	 * @param {jQuery} $container jQuery object of view container
 	 *
@@ -442,7 +442,7 @@ tribe.events.views.eventsBar = {};
 		var $eventsBar = $container.find( obj.selectors.eventsBar );
 
 		if ( $eventsBar.length ) {
-			var state = $eventsBar.data( 'state' );
+			var state = $eventsBar.data( 'tribeEventsState' );
 			var $filtersButton = $container.find( obj.selectors.filtersButton );
 
 			// If viewport is mobile and mobile state is not initialized
@@ -454,7 +454,7 @@ tribe.events.views.eventsBar = {};
 				obj.initSearchAccordion( $container );
 				state.desktopInitialized = false;
 				state.mobileInitialized = true;
-				$eventsBar.data( 'state', state );
+				$eventsBar.data( 'tribeEventsState', state );
 
 			// If viewport is desktop and desktop state is not initialized
 			} else if ( ! tribe.events.views.viewport.state.isMobile && ! state.desktopInitialized ) {
@@ -465,7 +465,7 @@ tribe.events.views.eventsBar = {};
 				obj.deinitSearchAccordion( $container );
 				state.mobileInitialized = false;
 				state.desktopInitialized = true;
-				$eventsBar.data( 'state', state );
+				$eventsBar.data( 'tribeEventsState', state );
 			}
 		}
 	};
