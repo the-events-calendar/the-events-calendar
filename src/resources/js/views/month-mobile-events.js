@@ -78,7 +78,7 @@ tribe.events.views.monthMobileEvents = {};
 	/**
 	 * Opens mobile events
 	 *
-	 * @since 4.9.4
+	 * @since TBD
 	 *
 	 * @param {jQuery} $header jQuery object of mobile day button
 	 * @param {jQuery} $content jQuery object of mobile events container
@@ -93,15 +93,12 @@ tribe.events.views.monthMobileEvents = {};
 		}
 
 		$header.addClass( obj.selectors.calendarDaySelectedClass.className() );
-		$content
-			.parent( obj.selectors.mobileEvents )
-			.addClass( obj.selectors.mobileEventsShowClass.className() );
 	};
 
 	/**
 	 * Closes mobile events
 	 *
-	 * @since 4.9.4
+	 * @since TBD
 	 *
 	 * @param {jQuery} $header jQuery object of mobile day button
 	 * @param {jQuery} $content jQuery object of mobile events container
@@ -116,9 +113,6 @@ tribe.events.views.monthMobileEvents = {};
 		}
 
 		$header.removeClass( obj.selectors.calendarDaySelectedClass.className() );
-		$content
-			.parent( obj.selectors.mobileEvents )
-			.removeClass( obj.selectors.mobileEventsShowClass.className() );
 	};
 
 	/**
@@ -215,16 +209,22 @@ tribe.events.views.monthMobileEvents = {};
 	 *
 	 * @since TBD
 	 *
-	 * @param  {Event}       event    event object for 'beforeAjaxSuccess.tribeEvents' event
+	 * @param {Event} event event object for 'beforeAjaxSuccess.tribeEvents' event
 	 *
 	 * @return {void}
 	 */
 	obj.handleResize = function( event ) {
-		var state = event.data.container.find( obj.selectors.mobileEvents ).data( 'state' );
+		var $mobileEvents = event.data.container.find( obj.selectors.mobileEvents );
+		var state = $mobileEvents.data( 'state' );
 
 		if ( ! tribe.events.views.viewport.state.isMobile && ! state.desktopInitialized ) {
 			obj.closeAllEvents( event.data.container );
+			state.desktopInitialized = true;
+		} else if ( tribe.events.views.viewport.state.isMobile && state.desktopInitialized ) {
+			state.desktopInitialized = false;
 		}
+
+		$mobileEvents.data( 'state', state );
 	};
 
 	/**

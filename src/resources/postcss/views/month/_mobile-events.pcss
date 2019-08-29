@@ -4,13 +4,14 @@
 	 * Mobile Events
 	 * ----------------------------------------------------------------------------- */
 
-	.tribe-events-calendar-month-mobile-events,
-	.tribe-events-calendar-month-mobile-events__mobile-day {
-		display: none;
+	.tribe-events-calendar-month-mobile-events {
+		@media (--viewport-medium) {
+			@mixin hidden;
+		}
 	}
 
-	.tribe-events-calendar-month-mobile-events--show {
-		display: block;
+	.tribe-events-calendar-month-mobile-events__mobile-day {
+		display: none;
 	}
 
 	.tribe-events-calendar-month-mobile-events__day-marker {
