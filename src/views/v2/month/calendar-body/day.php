@@ -65,6 +65,7 @@ $mobile_day_id = 'tribe-events-calendar-mobile-day-' . $day_date;
 		<?php endif; ?>
 		aria-controls="<?php echo esc_attr( $mobile_day_id ); ?>"
 		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
+		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">

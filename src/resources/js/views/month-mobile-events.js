@@ -34,17 +34,16 @@ tribe.events.views.monthMobileEvents = {};
 	/**
 	 * Selectors used for configuration and setup
 	 *
-	 * @since 4.9.4
+	 * @since TBD
 	 *
 	 * @type {PlainObject}
 	 */
 	obj.selectors = {
-		calendar: '.tribe-events-calendar-month',
-		calendarDay: '.tribe-events-calendar-month__day-cell--mobile',
-		calendarDaySelected: '.tribe-events-calendar-month__day-cell--selected',
-		mobileEvents: '.tribe-events-calendar-month-mobile-events',
-		mobileEventsShow: '.tribe-events-calendar-month-mobile-events--show',
-		mobileEventsDay: '.tribe-events-calendar-month-mobile-events__mobile-day',
+		calendar: '[data-js="tribe-events-month-grid"]',
+		calendarDay: '[data-js="tribe-events-calendar-month-day-cell-mobile"]',
+		calendarDaySelectedClass: '.tribe-events-calendar-month__day-cell--selected',
+		mobileEvents: '[data-js="tribe-events-pro-week-mobile-events"]',
+		mobileEventsShowClass: '.tribe-events-calendar-month-mobile-events--show',
 	};
 
 	/**
@@ -93,10 +92,10 @@ tribe.events.views.monthMobileEvents = {};
 			tribe.events.views.accordion.openAccordion( $header, $content );
 		}
 
-		$header.addClass( obj.selectors.calendarDaySelected.className() );
+		$header.addClass( obj.selectors.calendarDaySelectedClass.className() );
 		$content
 			.parent( obj.selectors.mobileEvents )
-			.addClass( obj.selectors.mobileEventsShow.className() );
+			.addClass( obj.selectors.mobileEventsShowClass.className() );
 	};
 
 	/**
@@ -116,10 +115,10 @@ tribe.events.views.monthMobileEvents = {};
 			tribe.events.views.accordion.closeAccordion( $header, $content );
 		}
 
-		$header.removeClass( obj.selectors.calendarDaySelected.className() );
+		$header.removeClass( obj.selectors.calendarDaySelectedClass.className() );
 		$content
 			.parent( obj.selectors.mobileEvents )
-			.removeClass( obj.selectors.mobileEventsShow.className() );
+			.removeClass( obj.selectors.mobileEventsShowClass.className() );
 	};
 
 	/**
@@ -145,7 +144,7 @@ tribe.events.views.monthMobileEvents = {};
 			$content = $container.find( '#' + contentId );
 		}
 
-		if ( $header.hasClass( obj.selectors.calendarDaySelected.className() ) ) {
+		if ( $header.hasClass( obj.selectors.calendarDaySelectedClass.className() ) ) {
 			obj.closeMobileEvents( $header, $content );
 		} else {
 			obj.closeAllEvents( $container );
@@ -194,9 +193,44 @@ tribe.events.views.monthMobileEvents = {};
 	};
 
 	/**
-	 * Unbinds events for container
+	 * Initializes mobile events state
 	 *
-	 * @since 4.9.5
+	 * @since TBD
+	 *
+	 * @param {jQuery} $container jQuery object of view container
+	 *
+	 * @return {void}
+	 */
+	obj.initState = function( $container ) {
+		var $mobileEvents = $container.find( obj.selectors.mobileEvents );
+		var state = {
+			desktopInitialized: ! tribe.events.views.viewport.state.isMobile,
+		};
+
+		$mobileEvents.data( 'state', state );
+	};
+
+	/**
+	 * Handles resize event
+	 *
+	 * @since TBD
+	 *
+	 * @param  {Event}       event    event object for 'beforeAjaxSuccess.tribeEvents' event
+	 *
+	 * @return {void}
+	 */
+	obj.handleResize = function( event ) {
+		var state = event.data.container.find( obj.selectors.mobileEvents ).data( 'state' );
+
+		if ( ! tribe.events.views.viewport.state.isMobile && ! state.desktopInitialized ) {
+			obj.closeAllEvents( event.data.container );
+		}
+	};
+
+	/**
+	 * Deinitializes mobile days
+	 *
+	 * @since TBD
 	 *
 	 * @param  {Event}       event    event object for 'beforeAjaxSuccess.tribeEvents' event
 	 * @param  {jqXHR}       jqXHR    Request object
@@ -204,15 +238,16 @@ tribe.events.views.monthMobileEvents = {};
 	 *
 	 * @return {void}
 	 */
-	obj.unbindEvents = function( event, jqXHR, settings ) {
+	obj.deinit = function( event, jqXHR, settings ) {
 		var $container = event.data.container;
 		obj.unbindCalendarEvents( $container );
+		$document.off( 'resize.tribeEvents', obj.handleResize );
 	};
 
 	/**
-	 * Binds events for container
+	 * Initializes mobile days
 	 *
-	 * @since 4.9.5
+	 * @since TBD
 	 *
 	 * @param  {Event}   event      event object for 'afterSetup.tribeEvents' event
 	 * @param  {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event
@@ -221,9 +256,11 @@ tribe.events.views.monthMobileEvents = {};
 	 *
 	 * @return {void}
 	 */
-	obj.bindEvents = function( event, index, $container, data ) {
+	obj.init = function( event, index, $container, data ) {
+		obj.initState( $container );
 		obj.bindCalendarEvents( $container );
-		$container.on( 'beforeAjaxSuccess.tribeEvents', { container: $container }, obj.unbindEvents );
+		$document.on( 'resize.tribeEvents', { container: $container }, obj.handleResize );
+		$container.on( 'beforeAjaxSuccess.tribeEvents', { container: $container }, obj.deinit );
 	};
 
 	/**
@@ -234,7 +271,7 @@ tribe.events.views.monthMobileEvents = {};
 	 * @return {void}
 	 */
 	obj.ready = function() {
-		$document.on( 'afterSetup.tribeEvents', tribe.events.views.manager.selectors.container, obj.bindEvents );
+		$document.on( 'afterSetup.tribeEvents', tribe.events.views.manager.selectors.container, obj.init );
 	};
 
 	// Configure on document ready
