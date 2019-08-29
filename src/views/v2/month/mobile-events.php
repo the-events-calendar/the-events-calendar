@@ -20,7 +20,11 @@
 
 	<?php foreach ( $days as $day_date => $day ) : ?>
 
-		<?php $this->template( 'month/mobile-events/mobile-day', [ 'day' => $day, 'day_date' => $day_date ] ); ?>
+		<?php if ( ! empty( $day[ 'events' ] ) ) : ?>
+
+			<?php $this->template( 'month/mobile-events/mobile-day', [ 'day' => $day, 'day_date' => $day_date ] ); ?>
+
+		<?php endif; ?>
 
 	<?php endforeach; ?>
 

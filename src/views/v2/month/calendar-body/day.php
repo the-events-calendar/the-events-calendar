@@ -35,12 +35,18 @@
  */
 
 $day_classes = [ 'tribe-events-calendar-month__day' ];
+$day_button_classes = [ 'tribe-events-calendar-month__day-cell', 'tribe-events-calendar-month__day-cell--mobile' ];
 $day_number = $day['day_number'];
+$expanded = 'false';
+$selected = 'false';
 
 $day_id = 'tribe-events-calendar-day-' . $day_date;
 
 if ( $today_date === $day_date ) {
+	$expanded = 'true';
+	$selected = 'true';
 	$day_classes[] = 'tribe-events-calendar-month__day--current';
+	$day_button_classes[] = 'tribe-events-calendar-month__day-cell--selected';
 }
 
 if ( $today_date > $day_date ) {
@@ -60,11 +66,11 @@ $mobile_day_id = 'tribe-events-calendar-mobile-day-' . $day_date;
 
 	<button
 		<?php if ( ! empty( $day['events'] ) ) : ?>
-			aria-expanded="false"
-			aria-selected="false"
+			aria-expanded="<?php echo esc_attr( $expanded ); ?>"
+			aria-selected="<?php echo esc_attr( $selected ); ?>"
+			aria-controls="<?php echo esc_attr( $mobile_day_id ); ?>"
 		<?php endif; ?>
-		aria-controls="<?php echo esc_attr( $mobile_day_id ); ?>"
-		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
+		<?php tribe_classes( $day_button_classes ); ?>
 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
