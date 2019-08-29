@@ -87,5 +87,4 @@ if ( $should_display ) {
 			</h3>
 		</a>
 	</article>
-
 </div>
