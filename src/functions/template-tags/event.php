@@ -100,6 +100,15 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 		$cache     = new Tribe__Cache();
 		$cached    = $cache->get( $cache_key, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
 
+		// Define a function to cache this event when, and if, one of the lazy properties is loaded.
+		$cache_this = static function () use ( $cache, $cache_key, $post ) {
+			/*
+			 * Cache without expiration, but only until a post of the types managed by The Events Calendar is
+			 * updated or created.
+			 */
+			$cache->set( $cache_key, $post, 0, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
+		};
+
 		if ( false !== $cached ) {
 			switch ( $output ) {
 				case ARRAY_A:
@@ -211,16 +220,16 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 			'happens_this_week'  => $happens_this_week,
 			'featured'           => $featured,
 			'cost'               => tribe_get_cost( $post_id ),
-			'organizers'         => new Lazy_Collection( $organizer_fetch ),
-			'venues'             => new Lazy_Collection( $venue_fetch ),
-			'thumbnail'          => new Post_Thumbnail( $post_id ),
+			'organizers'         => ( new Lazy_Collection( $organizer_fetch ) )->on_resolve( $cache_this ),
+			'venues'             => ( new Lazy_Collection( $venue_fetch ) )->on_resolve( $cache_this ),
+			'thumbnail'          => ( new Post_Thumbnail( $post_id ) )->on_resolve( $cache_this ),
 			'permalink'          => get_permalink( $post_id ),
-			'schedule_details'   => new Lazy_String(
+			'schedule_details'   => ( new Lazy_String(
 				static function () use ( $post_id ) {
 					return tribe_events_event_schedule_details( $post_id );
 				},
 				false
-			)
+			) )->on_resolve( $cache_this )
 		];
 
 		foreach ( $properties as $key => $value ) {
@@ -242,11 +251,9 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 		 */
 		$post = apply_filters( 'tribe_get_event', $post, $output, $filter );
 
-		/*
-		 * Cache without expiration, but only until a post of the types managed by The Events Calendar is
-		 * updated or created.
-		 */
-		$cache->set( $cache_key, $post, 0, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
+		if ( OBJECT !== $output ) {
+			$post = ARRAY_A === $output ? (array) $post : array_values( (array) $post );
+		}
 
 		return $post;
 	}
