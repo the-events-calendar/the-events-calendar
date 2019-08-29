@@ -4,12 +4,17 @@
 	 * Mobile Events
 	 * ----------------------------------------------------------------------------- */
 
-	.tribe-events-calendar-month-mobile-events,
+	.tribe-events-calendar-month-mobile-events {
+		@media (--viewport-medium) {
+			@mixin hidden;
+		}
+	}
+
 	.tribe-events-calendar-month-mobile-events__mobile-day {
 		display: none;
 	}
 
-	.tribe-events-calendar-month-mobile-events--show {
+	.tribe-events-calendar-month-mobile-events__mobile-day--show {
 		display: block;
 	}
 
@@ -19,7 +24,11 @@
 
 	.tribe-events-calendar-month-mobile-events__mobile-event {
 		border-bottom: 1px solid var(--color-border-default);
-		padding: var(--spacer-3) 0;
+		padding: var(--spacer-2) 0;
+
+		&:last-child {
+			border: 0;
+		}
 	}
 
 	.tribe-events-calendar-month-mobile-events__mobile-event--featured {
@@ -40,6 +49,7 @@
 	}
 
 	.tribe-events-calendar-month-mobile-events__mobile-event-datetime {
+		color: var(--color-text-secondary);
 		margin-bottom: var(--spacer-0);
 
 		> * {

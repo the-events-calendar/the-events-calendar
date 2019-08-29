@@ -24,7 +24,7 @@
 		title=""
 		rel="bookmark"
 		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
-		data-js="tribe-events-tooltip"
+				data-js="tribe-events-tooltip"
 		data-tooltip-content="#tribe-events-tooltip-content-99999"
 		aria-describedby="tribe-events-tooltip-content-99999"
 	>
@@ -37,8 +37,8 @@
 	role="tooltip"
 >
 	<div id="tribe-events-tooltip-content-99999">
-				<p class="tribe-events-calendar-month__calendar-event-tooltip-description tribe-common-b3">
-	</p>
+				<div class="tribe-events-calendar-month__calendar-event-tooltip-description tribe-common-b3">
+	</div>
 			</div>
 </div>
 

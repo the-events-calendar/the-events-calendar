@@ -25,7 +25,7 @@ $separator_text = tribe_get_start_date( $event->ID, true, 'F Y' );
 ?>
 <div class="tribe-events-calendar-list__month-separator">
 	<time
-		class="tribe-events-calendar-list__month-separator-text tribe-common-h6 tribe-common-h--alt"
+		class="tribe-events-calendar-list__month-separator-text tribe-common-h7 tribe-common-h6--min-medium tribe-common-h--alt"
 		datetime="<?php echo esc_attr( tribe_get_start_date( $event->ID, true, 'Y-m' ) ); ?>"
 	>
 		<?php echo esc_html( $separator_text ); ?>
