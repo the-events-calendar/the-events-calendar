@@ -121,6 +121,8 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 			}
 		}
 
+		$now = Dates::build_date_object( 'now' );
+
 		$post_id         = $post->ID;
 		$start_date      = get_post_meta( $post_id, '_EventStartDate', true );
 		$start_date_utc  = get_post_meta( $post_id, '_EventStartDateUTC', true );
@@ -213,6 +215,7 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 			'timezone'           => $timezone_string,
 			'duration'           => $duration,
 			'multiday'           => $multiday,
+			'is_past'            => $start_date_object < $now,
 			'all_day'            => $all_day,
 			'starts_this_week'   => $starts_this_week,
 			'ends_this_week'     => $ends_this_week,
