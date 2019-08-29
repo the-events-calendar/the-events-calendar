@@ -11,6 +11,7 @@
 namespace Tribe\Events\Views\V2\Views;
 
 
+use Tribe\Events\Views\V2\Utils\Stack;
 use Tribe\Events\Views\V2\View;
 use Tribe\Traits\Cache_User;
 use Tribe__Cache_Listener as Cache_Listener;
@@ -47,12 +48,22 @@ abstract class By_Day_View extends View{
 	protected $grid_days_found_cache = [];
 
 	/**
+	 * An instance of the Stack object.
+	 *
+	 * @since 4.9.7
+	 *
+	 * @var Stack
+	 */
+	protected $stack;
+
+	/**
 	 * By_Day_View constructor.
 	 *
 	 * @since 4.9.7
 	 */
-	public function __construct(  ) {
+	public function __construct( Stack $stack ) {
 		add_action( 'shutdown', [ $this, 'dump_cache' ] );
+		$this->stack = $stack;
 	}
 
 	/**

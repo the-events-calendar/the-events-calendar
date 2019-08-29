@@ -44,27 +44,6 @@ class Month_View extends By_Day_View {
 	protected $publicly_visible = true;
 
 	/**
-     * An instance of the Week Stack object.
-	 *
-	 * @since 4.9.7
-	 *
-	 * @var Stack
-	 */
-	protected $stack;
-
-	/**
-	 * Month_View constructor.
-	 *
-	 * @since 4.9.7
-	 *
-	 * @param Stack $stack An instance of the Stack object.
-	 */
-	public function __construct( Stack $stack) {
-		parent::__construct();
-		$this->stack = $stack;
-	}
-
-	/**
 	 * {@inheritDoc}
 	 */
 	public function prev_url( $canonical = false, array $passthru_vars = [] ) {
