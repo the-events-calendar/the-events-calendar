@@ -558,7 +558,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Initialize events bar JS
 	 *
-	 * @since  4.9.5
+	 * @since  TBD
 	 *
 	 * @param  {Event}   event      event object for 'afterSetup.tribeEvents' event
 	 * @param  {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event
@@ -568,6 +568,10 @@ tribe.events.views.eventsBar = {};
 	 * @return {void}
 	 */
 	obj.init = function( event, index, $container, data ) {
+		var $eventsBar = $container.find( obj.selectors.eventsBar );
+
+		if ( ! $eventsBar.length ) return;
+
 		obj.initState( $container );
 		obj.initEventsBar( $container );
 		obj.bindEvents( $container );

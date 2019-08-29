@@ -259,6 +259,10 @@ tribe.events.views.monthMobileEvents = {};
 	 * @return {void}
 	 */
 	obj.init = function( event, index, $container, data ) {
+		var $mobileEvents = $container.find( obj.selectors.mobileEvents );
+
+		if ( ! $mobileEvents.length ) return;
+
 		obj.initState( $container );
 		obj.bindCalendarEvents( $container );
 		$document.on( 'resize.tribeEvents', { container: $container }, obj.handleResize );

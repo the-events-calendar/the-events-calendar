@@ -294,7 +294,7 @@ tribe.events.views.viewSelector = {};
 	/**
 	 * Initialize view selector JS
 	 *
-	 * @since 4.9.7
+	 * @since TBD
 	 *
 	 * @param  {Event}   event      event object for 'afterSetup.tribeEvents' event
 	 * @param  {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event
@@ -304,6 +304,10 @@ tribe.events.views.viewSelector = {};
 	 * @return {void}
 	 */
 	obj.init = function( event, index, $container, data ) {
+		var $viewSelector = $container.find( obj.selectors.viewSelector );
+
+		if ( ! $viewSelector.length ) return;
+
 		obj.initState( $container );
 		obj.initViewSelector( $container );
 		obj.bindEvents( $container );

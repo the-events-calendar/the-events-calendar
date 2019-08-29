@@ -383,7 +383,7 @@ tribe.events.views.monthGrid = {};
 	/**
 	 * Initialize grid.
 	 *
-	 * @since 4.9.4
+	 * @since TBD
 	 *
 	 * @param {Event}   event      JS event triggered.
 	 * @param {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event.
@@ -395,17 +395,17 @@ tribe.events.views.monthGrid = {};
 	obj.init = function( event, index, $container, data ) {
 		var $grid = $container.find( obj.selectors.grid );
 
-		if ( $grid.length ) {
-			obj.initState( $grid );
-			obj.setupGrid( $grid );
+		if ( ! $grid.length ) return;
 
-			var state = $grid.data( 'state' );
+		obj.initState( $grid );
+		obj.setupGrid( $grid );
 
-			obj.setFocusPointer( $grid, state.currentRow, state.currentCol );
-			obj.bindEvents( $grid );
+		var state = $grid.data( 'state' );
 
-			$container.on( 'beforeAjaxSuccess.tribeEvents', { container: $container }, obj.deinit );
-		}
+		obj.setFocusPointer( $grid, state.currentRow, state.currentCol );
+		obj.bindEvents( $grid );
+
+		$container.on( 'beforeAjaxSuccess.tribeEvents', { container: $container }, obj.deinit );
 	};
 
 	/**
