@@ -362,7 +362,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Deinitialize search button accordion
 	 *
-	 * @since 4.9.4
+	 * @since TBD
 	 *
 	 * @param {jQuery} $container jQuery object of view container
 	 *
@@ -370,6 +370,7 @@ tribe.events.views.eventsBar = {};
 	 */
 	obj.deinitSearchAccordion = function( $container ) {
 		var $searchButton = $container.find( obj.selectors.searchButton );
+		$searchButton.removeClass( obj.selectors.searchButtonActiveClass.className(0) );
 		var $searchFiltersContainer = $container.find( obj.selectors.searchFiltersContainer );
 		obj.deinitAccordion( $searchButton, $searchFiltersContainer );
 		$searchButton.off( 'click', obj.handleSearchButtonClick );
