@@ -23,6 +23,13 @@ $event_id = $event->ID;
 		title="<?php echo esc_attr( get_the_title( $event->ID ) ); ?>"
 		rel="bookmark"
 		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
+		<?php
+		/**
+		 * @todo @be @bordoni
+		 *       only show data and aria attributes below if tooltip is shown
+		 *       (if one of featured image, description, or cost exists)
+		 */
+		?>
 		data-js="tribe-events-tooltip"
 		data-tooltip-content="#tribe-events-tooltip-content-<?php echo esc_attr( $event_id ); ?>"
 		aria-describedby="tribe-events-tooltip-content-<?php echo esc_attr( $event_id ); ?>"
