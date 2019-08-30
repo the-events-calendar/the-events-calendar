@@ -64,6 +64,8 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 	 *                              @type Post_Thumbnail $thumbnail The post thumbnail information.
 	 *                              @type Lazy_String $schedule_details The event schedule details, as produced by the
 	 *                                                                  `tribe_events_event_schedule_details` function.
+	 *                              @type Lazy_String $plain_schedule_details The event schedule details, without HTML
+	 *                                                                        tags.
 	 *                          }
 	 */
 	function tribe_get_event( $event = null, $output = OBJECT, $filter = 'raw' ) {
@@ -227,12 +229,16 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 			'venues'             => ( new Lazy_Collection( $venue_fetch ) )->on_resolve( $cache_this ),
 			'thumbnail'          => ( new Post_Thumbnail( $post_id ) )->on_resolve( $cache_this ),
 			'permalink'          => get_permalink( $post_id ),
-			'schedule_details'   => ( new Lazy_String(
+			'schedule_details' => ( new Lazy_String(
 				static function () use ( $post_id ) {
 					return tribe_events_event_schedule_details( $post_id );
-				},
-				false
-			) )->on_resolve( $cache_this )
+				}, false
+			) )->on_resolve( $cache_this ),
+			'plain_schedule_details'   => ( new Lazy_String(
+			static function () use ( $post_id ) {
+				return tribe_events_event_schedule_details( $post_id, '', '', false );
+			}, false
+		) )->on_resolve( $cache_this )
 		];
 
 		foreach ( $properties as $key => $value ) {
