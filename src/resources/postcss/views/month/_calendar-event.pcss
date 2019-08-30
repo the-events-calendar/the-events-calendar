@@ -19,6 +19,13 @@
 		}
 	}
 
+	.tribe-events-calendar-month__day--past {
+
+		.tribe-events-calendar-month__calendar-event {
+			opacity: 0.5;
+		}
+	}
+
 	.tribe-events-calendar-month__multiday-event-wrapper + .tribe-events-calendar-month__calendar-event {
 		margin-top: 0;
 	}
@@ -42,6 +49,24 @@
 
 		> * {
 			vertical-align: middle;
+		}
+	}
+
+	.tribe-events-calendar-month__calendar-event--featured {
+
+		&:before {
+			background: var(--color-accent-primary);
+			content: '';
+			height: 100%;
+			left: 3px;
+			position: absolute;
+			width: 2px;
+		}
+
+		&:last-child {
+			&:before {
+				height: calc(100% - var(--spacer-3));
+			}
 		}
 	}
 

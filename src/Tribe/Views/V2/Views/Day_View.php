@@ -37,33 +37,44 @@ class Day_View extends View {
 	 * {@inheritDoc}
 	 */
 	public function prev_url( $canonical = false, array $passthru_vars = [] ) {
-		$default_date   = 'now';
+		// Get the current repository arguments.
+		$current_args = $this->setup_repository_args();
+
+		// Remove any date related arguments.
+		unset( $current_args['date_overlaps'] );
+
+		// Use the updated repository arguments.
+		$current_repository = tribe_events()->by_args( $current_args );
+
+		$default_date   = 'today';
 		$date           = $this->context->get( 'event_date', $default_date );
 		$event_date_var = $default_date === $date ? '' : $date;
-		$previous_date = date( Dates::DBDATEFORMAT, strtotime( $date . ' -1day' ) );
 
-		$past = tribe_events()->by_args( [
-			'on_date'  => $previous_date,
-			'posts_per_page' => 1,
-			'order'          => 'DESC',
-		] );
-		$past_posts = $past->get_query()->get_posts();
-		$previous_event = reset( $past_posts );
+		$one_day = new \DateInterval( 'P1D' );
+		$previous_date = Dates::build_date_object( $date )->sub( $one_day )->format( Dates::DBDATEFORMAT );
 
-		if ( ! $previous_event ) {
-			$past = tribe_events()->by_args( [
-				'starts_before'  => $date,
-				'posts_per_page' => 1,
-				'order'          => 'DESC',
-			] );
-			$past_posts = $past->get_query()->get_posts();
-			$previous_event = reset( $past_posts );
+		$prev = clone $current_repository;
+		$start = tribe_beginning_of_day( $previous_date );
+		$end  = tribe_end_of_day( $previous_date );
+		$prev->where( 'date_overlaps', $start, $end )->order( 'DESC' )->per_page( 1 );
 
-			if ( ! $previous_event ) {
+		$prev_event = $prev->first();
+		$has_prev = $prev->found();
+
+		if ( ! $has_prev ) {
+			$prev = clone $current_repository;
+			$prev->where( 'starts_before', tribe_beginning_of_day( $date ) )
+			->order( 'DESC' )
+			->per_page( 1 );
+
+			$prev_event = $prev->first();
+			$has_prev = $prev->found();
+
+			if ( ! $has_prev ) {
 				return '';
 			}
 
-			$previous_date = tribe_get_start_date( $previous_event, false, Dates::DBDATEFORMAT );
+			$previous_date = tribe_get_start_date( $prev_event, false, Dates::DBDATEFORMAT );
 		}
 
 		$query_args = [ 'eventDate' => $previous_date ];
@@ -98,27 +109,38 @@ class Day_View extends View {
 	 * {@inheritDoc}
 	 */
 	public function next_url( $canonical = false, array $passthru_vars = [] ) {
+		// Get the current repository arguments.
+		$current_args = $this->setup_repository_args();
+
+		// Remove any date related arguments.
+		unset( $current_args['date_overlaps'] );
+
+		// Use the updated repository arguments.
+		$current_repository = tribe_events()->by_args( $current_args );
+
 		$default_date   = 'today';
 		$date           = $this->context->get( 'event_date', $default_date );
 		$event_date_var = $default_date === $date ? '' : $date;
-		$next_date = date( Dates::DBDATEFORMAT, strtotime( $date . ' 23:59 +1day' ) );
 
-		$future = tribe_events()->by_args( [
-			'on_date'  => $next_date,
-			'posts_per_page' => 1,
-		] );
-		$future_posts = $future->get_query()->get_posts();
-		$next_event = reset( $future_posts );
+		$one_day = new \DateInterval( 'P1D' );
+		$next_date = Dates::build_date_object( $date )->add( $one_day )->format( Dates::DBDATEFORMAT );
 
-		if ( ! $next_event ) {
-			$future = tribe_events()->by_args( [
-				'starts_after'  => $date . ' 23:59',
-				'posts_per_page' => 1,
-			] );
-			$future_posts = $future->get_query()->get_posts();
-			$next_event = reset( $future_posts );
+		$next = clone $current_repository;
+		$start = tribe_beginning_of_day( $next_date );
+		$end   = tribe_end_of_day( $next_date );
+		$next->where( 'date_overlaps', $start, $end )->order( 'DESC' )->per_page( 1 );
 
-			if ( ! $next_event ) {
+		$next_event = $next->first();
+		$has_next = $next->found();
+
+		if ( ! $has_next ) {
+			$next = clone $current_repository;
+			$next->where( 'starts_after', tribe_end_of_day( $date ) )->order( 'DESC' )->per_page( 1 );
+
+			$next_event = $next->first();
+			$has_next = $next->found();
+
+			if ( ! $has_next ) {
 				return '';
 			}
 

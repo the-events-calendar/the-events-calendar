@@ -6,6 +6,7 @@
  */
 
 use Tribe\Utils\Lazy_Collection;
+use Tribe\Utils\Lazy_String;
 use Tribe\Utils\Post_Thumbnail;
 use Tribe__Date_Utils as Dates;
 use Tribe__Events__Timezones as Timezones;
@@ -61,6 +62,8 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 	 *                              @type Lazy_Collection $venues A collection of Venues, lazily fetched and
 	 *                                                            eventually resolved to an array.
 	 *                              @type Post_Thumbnail $thumbnail The post thumbnail information.
+	 *                              @type Lazy_String $schedule_details The event schedule details, as produced by the
+	 *                                                                  `tribe_events_event_schedule_details` function.
 	 *                          }
 	 */
 	function tribe_get_event( $event = null, $output = OBJECT, $filter = 'raw' ) {
@@ -97,6 +100,15 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 		$cache     = new Tribe__Cache();
 		$cached    = $cache->get( $cache_key, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
 
+		// Define a function to cache this event when, and if, one of the lazy properties is loaded.
+		$cache_this = static function () use ( $cache, $cache_key, $post ) {
+			/*
+			 * Cache without expiration, but only until a post of the types managed by The Events Calendar is
+			 * updated or created.
+			 */
+			$cache->set( $cache_key, $post, 0, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
+		};
+
 		if ( false !== $cached ) {
 			switch ( $output ) {
 				case ARRAY_A:
@@ -116,7 +128,8 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 		$end_date_utc    = get_post_meta( $post_id, '_EventEndDateUTC', true );
 		$duration        = (int) get_post_meta( $post_id, '_EventDuration', true );
 		$timezone_string = Timezones::get_event_timezone_string( $post_id );
-		$all_day         = (bool) get_post_meta( $post_id, '_EventAllDay', true );
+		$all_day         = tribe_is_truthy( get_post_meta( $post_id, '_EventAllDay', true ) );
+
 		// An event is multi-day if its end date is after the end-of-day cutoff of the start date.
 		$end_of_day        = tribe_end_of_day( $start_date );
 		$timezone          = Timezones::build_timezone_object( $timezone_string );
@@ -181,7 +194,7 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 				++ $multiday;
 			};
 		}
-		$featured = (bool) get_post_meta( $post_id, Tribe__Events__Featured_Events::FEATURED_EVENT_KEY, true );
+		$featured = tribe_is_truthy( get_post_meta( $post_id, Tribe__Events__Featured_Events::FEATURED_EVENT_KEY, true ) );
 
 		$organizer_fetch = Tribe__Events__Organizer::get_fetch_callback( $post_id );
 		$venue_fetch     = Tribe__Events__Venue::get_fetch_callback( $post_id );
@@ -207,10 +220,16 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 			'happens_this_week'  => $happens_this_week,
 			'featured'           => $featured,
 			'cost'               => tribe_get_cost( $post_id ),
-			'organizers'         => new Lazy_Collection( $organizer_fetch ),
-			'venues'             => new Lazy_Collection( $venue_fetch ),
-			'thumbnail'          => new Post_Thumbnail( $post_id ),
+			'organizers'         => ( new Lazy_Collection( $organizer_fetch ) )->on_resolve( $cache_this ),
+			'venues'             => ( new Lazy_Collection( $venue_fetch ) )->on_resolve( $cache_this ),
+			'thumbnail'          => ( new Post_Thumbnail( $post_id ) )->on_resolve( $cache_this ),
 			'permalink'          => get_permalink( $post_id ),
+			'schedule_details'   => ( new Lazy_String(
+				static function () use ( $post_id ) {
+					return tribe_events_event_schedule_details( $post_id );
+				},
+				false
+			) )->on_resolve( $cache_this )
 		];
 
 		foreach ( $properties as $key => $value ) {
@@ -232,11 +251,9 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 		 */
 		$post = apply_filters( 'tribe_get_event', $post, $output, $filter );
 
-		/*
-		 * Cache without expiration, but only until a post of the types managed by The Events Calendar is
-		 * updated or created.
-		 */
-		$cache->set( $cache_key, $post, 0, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
+		if ( OBJECT !== $output ) {
+			$post = ARRAY_A === $output ? (array) $post : array_values( (array) $post );
+		}
 
 		return $post;
 	}

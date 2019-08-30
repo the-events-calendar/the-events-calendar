@@ -6,15 +6,20 @@
 >
 
 	<button
-					aria-expanded="false"
-			aria-selected="false"
-				aria-controls="tribe-events-calendar-mobile-day-2019-07-01"
-		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
+					aria-expanded="true"
+			aria-selected="true"
+			aria-controls="tribe-events-calendar-mobile-day-2019-07-01"
+				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile tribe-events-calendar-month__day-cell--selected" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
-			<span class="tribe-common-a11y-visual-hide">X events, </span>
-			<time datetime="YYYY-MM-DD">
+			<span class="tribe-common-a11y-visual-hide">
+				2 events,
+			</span>
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-07-01"
+			>
 				1			</time>
 		</h3>
 					<em
@@ -30,14 +35,20 @@
 		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
-			<span class="tribe-common-a11y-visual-hide">X events, </span>
-			<time datetime="YYYY-MM-DD">
-				<a
-										href="#link-to-day-view-if-it-has-events"
-					class="tribe-events-calendar-month__day-date-link"
-				>
-					1				</a>
-			</time>
+			<span class="tribe-common-a11y-visual-hide">
+				2 events,
+			</span>
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-07-01"
+			>
+									<a
+						href="http://tribe.tests/events/2019-07-01"
+						class="tribe-events-calendar-month__day-date-link"
+						data-js="tribe-events-view-link"
+					>
+						1					</a>
+							</time>
 		</h3>
 
 		<div class="tribe-events-calendar-month__events">
@@ -52,10 +63,9 @@
 			2018-07-01		</time>
 		<a href="http://test.tri.be/?tribe_events=test-multi-day-event-2018-07-01-11am" class="tribe-events-calendar-month__multiday-event-inner">
 						<h3 class="tribe-events-calendar-month__multiday-event-title tribe-common-h8">
-							</h3>
+				Test Multi-day Event &#8211; 2018-07-01 11am			</h3>
 		</a>
 	</article>
-
 </div>
 
 
@@ -70,10 +80,9 @@
 			2018-07-01		</time>
 		<a href="http://test.tri.be/?tribe_events=test-multi-day-event-2018-07-01-1pm" class="tribe-events-calendar-month__multiday-event-inner">
 						<h3 class="tribe-events-calendar-month__multiday-event-title tribe-common-h8">
-							</h3>
+				Test Multi-day Event &#8211; 2018-07-01 1pm			</h3>
 		</a>
 	</article>
-
 </div>
 
 
@@ -99,7 +108,7 @@
 		title=""
 		rel="bookmark"
 		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
-		data-js="tribe-events-tooltip"
+				data-js="tribe-events-tooltip"
 		data-tooltip-content="#tribe-events-tooltip-content-999999"
 		aria-describedby="tribe-events-tooltip-content-999999"
 	>
@@ -112,8 +121,8 @@
 	role="tooltip"
 >
 	<div id="tribe-events-tooltip-content-999999">
-				<p class="tribe-events-calendar-month__calendar-event-tooltip-description tribe-common-b3">
-	</p>
+				<div class="tribe-events-calendar-month__calendar-event-tooltip-description tribe-common-b3">
+	</div>
 			</div>
 </div>
 
@@ -142,7 +151,7 @@
 		title=""
 		rel="bookmark"
 		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
-		data-js="tribe-events-tooltip"
+				data-js="tribe-events-tooltip"
 		data-tooltip-content="#tribe-events-tooltip-content-999998"
 		aria-describedby="tribe-events-tooltip-content-999998"
 	>
@@ -155,8 +164,8 @@
 	role="tooltip"
 >
 	<div id="tribe-events-tooltip-content-999998">
-				<p class="tribe-events-calendar-month__calendar-event-tooltip-description tribe-common-b3">
-	</p>
+				<div class="tribe-events-calendar-month__calendar-event-tooltip-description tribe-common-b3">
+	</div>
 			</div>
 </div>
 
@@ -168,7 +177,11 @@
 
 		
 <div class="tribe-events-calendar-month__more-events">
-	<a href="#" class="tribe-events-calendar-month__more-events-link tribe-common-h8 tribe-common-h--alt tribe-common-anchor-thin">
+	<a
+		href="http://tribe.tests/events/2019-07-01"
+		class="tribe-events-calendar-month__more-events-link tribe-common-h8 tribe-common-h--alt tribe-common-anchor-thin"
+		data-js="tribe-events-view-link"
+	>
 		+ 2 More	</a>
 </div>
 

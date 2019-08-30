@@ -25,6 +25,7 @@ class DayTest extends HtmlPartialTestCase {
 		$featured_events  = [ $event_two ];
 		$day_found_events = 6;
 		$more_events      = 2;
+		$day_url          = 'http://tribe.tests/events/' . $date_object->format( 'Y-m-d' );
 		$day_data         = [
 			'date'             => $day_date,
 			'is_start_of_week' => $start_of_week === $date_object->format( 'N' ),
@@ -36,6 +37,7 @@ class DayTest extends HtmlPartialTestCase {
 			'multiday_events'  => $day_stack,
 			'found_events'     => $day_found_events,
 			'more_events'      => $more_events,
+			'day_url'          => $day_url,
 		];
 		$this->assertMatchesSnapshot(
 			$this->get_partial_html(
