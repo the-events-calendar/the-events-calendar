@@ -203,7 +203,7 @@ tribe.events.views.monthMobileEvents = {};
 			desktopInitialized: ! tribe.events.views.viewport.state.isMobile,
 		};
 
-		$mobileEvents.data( 'state', state );
+		$mobileEvents.data( 'tribeEventsState', state );
 	};
 
 	/**
@@ -217,7 +217,7 @@ tribe.events.views.monthMobileEvents = {};
 	 */
 	obj.handleResize = function( event ) {
 		var $mobileEvents = event.data.container.find( obj.selectors.mobileEvents );
-		var state = $mobileEvents.data( 'state' );
+		var state = $mobileEvents.data( 'tribeEventsState' );
 
 		if ( ! tribe.events.views.viewport.state.isMobile && ! state.desktopInitialized ) {
 			obj.closeAllEvents( event.data.container );
@@ -226,7 +226,7 @@ tribe.events.views.monthMobileEvents = {};
 			state.desktopInitialized = false;
 		}
 
-		$mobileEvents.data( 'state', state );
+		$mobileEvents.data( 'tribeEventsState', state );
 	};
 
 	/**
@@ -259,6 +259,10 @@ tribe.events.views.monthMobileEvents = {};
 	 * @return {void}
 	 */
 	obj.init = function( event, index, $container, data ) {
+		var $mobileEvents = $container.find( obj.selectors.mobileEvents );
+
+		if ( ! $mobileEvents.length ) return;
+
 		obj.initState( $container );
 		obj.bindCalendarEvents( $container );
 		$document.on( 'resize.tribeEvents', { container: $container }, obj.handleResize );

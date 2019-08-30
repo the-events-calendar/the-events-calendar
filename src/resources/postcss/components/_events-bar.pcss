@@ -156,6 +156,15 @@
 		width: 21px;
 	}
 
+	.tribe-events-c-events-bar__search-button-icon--filter {
+		background-image: svg-inline(search-filter);
+		width: 31px;
+
+		& + .tribe-events-c-events-bar__search-button-icon {
+			@mixin hidden;
+		}
+	}
+
 	.tribe-events-c-events-bar__tabs {
 		display: flex;
 		padding-bottom: var(--spacer-2);
