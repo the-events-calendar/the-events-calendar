@@ -224,6 +224,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - Additional fields with multiple values using pipes `|` as separators are working properly on importing again. [131510]
 * Fix - Fix default view redirection loop on mobile devices. Thanks Ricardo, cittaslow and others for flagging this! [125567]
 * Fix - Handling of featured image setting during Event Aggregator CSV imports [127132]
+* Language - 1 new strings added, 10 updated, 0 fuzzied, and 0 obsoleted
 
 = [4.9.7] 2019-08-19 =
 
