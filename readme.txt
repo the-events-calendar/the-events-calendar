@@ -4,7 +4,7 @@ Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.7
-Stable tag: 4.9.7
+Stable tag: 4.9.8
 Tested up to: 5.2.2
 Requires PHP: 5.6
 License: GPLv2 or later
@@ -215,7 +215,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
-= [4.9.8] TBD =
+= [4.9.8] 2019-09-04 =
 
 * Tweak - Added the Monolog logging library as alternative logging backend [120785]
 * Tweak - Hook Monolog logger on `tribe_log` action [120785]
