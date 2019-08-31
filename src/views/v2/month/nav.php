@@ -30,7 +30,7 @@
 		}
 		?>
 
-		<?php $this->template( 'month/nav/today', [ 'link' => '#' ] ) ?>
+		<?php $this->template( 'month/nav/today', [ 'link' => tribe_events_get_url( [ 'eventDisplay' => 'month' ] ) ] ) ?>
 
 		<?php
 		if ( ! empty( $next_url ) ) {

@@ -11,6 +11,7 @@ namespace Tribe\Events\Views\V2\Views;
 use Tribe\Events\Views\V2\Utils\Stack;
 use Tribe__Context as Context;
 use Tribe__Date_Utils as Dates;
+use DateInterval;
 use Tribe__Events__Template__Month as Month;
 use Tribe__Utils__Array as Arr;
 
@@ -68,8 +69,7 @@ class Month_View extends By_Day_View {
 	 * {@inheritDoc}
 	 */
 	public function prev_url( $canonical = false, array $passthru_vars = [] ) {
-		// Fetch the current repository, to ensure we maintain repository arguments.
-		$current_repository = tribe_events()->by_args( $this->setup_repository_args() );
+		$one_month = new DateInterval( 'P1M' );
 
 		// Setup the Default date for the month view here.
 		$default_date   = 'today';
@@ -77,12 +77,14 @@ class Month_View extends By_Day_View {
 		$event_date_var = $default_date === $date ? '' : $date;
 
 		// Get the last day of the previous month.
-		$prev_date = date( 'Y-m-t', strtotime( $date . ' -1 month' ) );
+		$prev_date = Dates::build_date_object( $date )->sub( $one_month )->format( 'Y-m-t' );
 
-		// Clone the current repository and check if we have an event on the last day of the previous month.
-		$prev = clone $current_repository;
+		// Fetch the current repository, to ensure we maintain repository arguments.
+		$prev = tribe_events()->by_args( $this->setup_repository_args() );
 		$start = tribe_beginning_of_day( $prev_date );
 		$end   = tribe_end_of_day( $prev_date );
+
+		// Check if we have an event on the last day of the previous month.
 		$prev->where( 'date_overlaps', $start, $end )->order( 'DESC' )->per_page( 1 );
 
 		$prev_event = $prev->first();
@@ -90,13 +92,12 @@ class Month_View extends By_Day_View {
 
 		if ( ! $has_prev ) {
 			// Get the beginning of the first day of the current month.
-			$prev_date = tribe_beginning_of_day( date( 'Y-m-01', strtotime( $date ) ) );
+			$prev_date = tribe_beginning_of_day( Dates::build_date_object( $date )->format( 'Y-m-01' ) );
 
-			/*
-			 * Clone the current repository and query for the first event
-			 * before the start of the current month.
-			 */
-			$prev = clone $current_repository;
+			// Fetch the current repository, to ensure we maintain repository arguments.
+			$prev = tribe_events()->by_args( $this->setup_repository_args() );
+
+			// Query for the first event before the start of the current month.
 			$prev->where( 'starts_before', $prev_date )->order( 'DESC' )->per_page( 1 );
 
 			$prev_event = $prev->first();
@@ -141,8 +142,7 @@ class Month_View extends By_Day_View {
 	 * {@inheritDoc}
 	 */
 	public function next_url( $canonical = false, array $passthru_vars = [] ) {
-		// Fetch the current repository, to ensure we maintain repository arguments.
-		$current_repository =  tribe_events()->by_args( $this->setup_repository_args() );
+		$one_month = new DateInterval( 'P1M' );
 
 		// Setup the Default date for the month view here.
 		$default_date   = 'today';
@@ -150,12 +150,15 @@ class Month_View extends By_Day_View {
 		$event_date_var = $default_date === $date ? '' : $date;
 
 		// Get the first day of the next month
-		$next_date = date( 'Y-m-01', strtotime( $date . ' +1 month' ) );
+		$next_date = Dates::build_date_object( $date )->add( $one_month )->format( 'Y-m-01' );
 
-		// Clone the current repository and check if we have an event on the first day of the next month.
-		$next = clone $current_repository;
+		// Fetch the current repository, to ensure we maintain repository arguments.
+		$next = tribe_events()->by_args( $this->setup_repository_args() );
+
 		$start = tribe_beginning_of_day( $next_date );
 		$end   = tribe_end_of_day( $next_date );
+
+		// Check if we have an event on the first day of the next month.
 		$next->where( 'date_overlaps', $start, $end )->order( 'DESC' )->per_page( 1 );
 
 		$next_event = $next->first();
@@ -163,13 +166,12 @@ class Month_View extends By_Day_View {
 
 		if ( ! $has_next ) {
 			// Get the end of day for the last day of the current month
-			$next_date = tribe_end_of_day( date( 'Y-m-t', strtotime( $date ) ) );
+			$next_date = tribe_end_of_day( Dates::build_date_object( $date )->format( 'Y-m-t' ) );
 
-			/*
-			 * Clone the current repository and check if we have an
-			 * event starting before the end of the current month.
-			 */
-			$next = clone $current_repository;
+			// Fetch the current repository, to ensure we maintain repository arguments.
+			$next = tribe_events()->by_args( $this->setup_repository_args() );
+
+			// Check if we have an event starting before the end of the current month.
 			$next->where( 'starts_after', $next_date )->order( 'DESC' )->per_page( 1 );
 
 			$next_event = $next->first();
@@ -183,7 +185,7 @@ class Month_View extends By_Day_View {
 		}
 
 		// Remove the day from the pagination link
-		$next_date = date( 'Y-m', strtotime( $next_date ) );
+		$next_date = Dates::build_date_object( $next_date )->format( 'Y-m' );
 
 		$query_args = [ 'eventDate' => $next_date ];
 		$url = remove_query_arg( [ 'tribe-bar-date' ], $this->get_url() );
