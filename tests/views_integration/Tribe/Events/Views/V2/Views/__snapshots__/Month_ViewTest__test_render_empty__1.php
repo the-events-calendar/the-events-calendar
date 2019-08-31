@@ -303,7 +303,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -319,7 +319,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -351,7 +351,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -367,7 +367,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -399,7 +399,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -415,7 +415,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -447,7 +447,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -463,7 +463,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -495,7 +495,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -511,7 +511,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -543,7 +543,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -559,7 +559,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -591,7 +591,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -607,7 +607,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -645,7 +645,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -661,7 +661,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -693,7 +693,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -709,7 +709,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -741,7 +741,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -757,7 +757,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -789,7 +789,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -805,7 +805,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -837,7 +837,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -853,7 +853,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -885,7 +885,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -901,7 +901,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -933,7 +933,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -949,7 +949,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -987,7 +987,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -1003,7 +1003,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -1035,7 +1035,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -1051,7 +1051,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -1083,7 +1083,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -1099,7 +1099,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -1131,7 +1131,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -1147,7 +1147,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -1179,7 +1179,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -1195,7 +1195,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -1227,7 +1227,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -1243,7 +1243,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -1275,7 +1275,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -1291,7 +1291,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -1329,7 +1329,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -1345,7 +1345,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -1377,7 +1377,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -1393,7 +1393,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -1425,7 +1425,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -1441,7 +1441,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -1473,7 +1473,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -1489,7 +1489,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -1521,7 +1521,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -1537,7 +1537,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -1569,7 +1569,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -1585,7 +1585,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -1617,7 +1617,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -1633,7 +1633,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -1671,7 +1671,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -1687,7 +1687,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -1719,7 +1719,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -1735,7 +1735,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -1767,7 +1767,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -1783,7 +1783,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -1815,7 +1815,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -1831,7 +1831,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -1863,7 +1863,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -1879,7 +1879,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -1911,7 +1911,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -1927,7 +1927,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -1959,7 +1959,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -1975,7 +1975,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
 			<span class="tribe-common-a11y-visual-hide">
-				0 events,
+				1 event,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -2083,7 +2083,7 @@
 
 		<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--today">
 	<a
-		href="#"
+		href="http://test.tri.be/events/month/"
 		class="tribe-events-c-nav__today tribe-common-b2"
 		data-js="tribe-events-view-link"
 	>

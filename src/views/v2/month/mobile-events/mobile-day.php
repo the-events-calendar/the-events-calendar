@@ -13,7 +13,10 @@
  *
  */
 
-$events = array_filter( array_merge( $day['multiday_events'], $day['events'] ) );
+$events = $day['events'];
+if ( ! empty( $day['multiday_events'] ) ) {
+	$events = array_filter( array_merge( $day['multiday_events'], $events ) );
+}
 $mobile_day_id = 'tribe-events-calendar-mobile-day-' . $day['year_number'] . '-' . $day['month_number'] . '-' . $day['day_number'];
 
 $classes = [ 'tribe-events-calendar-month-mobile-events__mobile-day' ];
