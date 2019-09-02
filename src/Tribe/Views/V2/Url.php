@@ -252,7 +252,7 @@ class Url {
 		);
 
 		if ( empty( $aliases ) ) {
-			return false;
+			return [];
 		}
 
 		$query_aliases   = (array) Arr::get( $context->get_locations(), [ $var, 'read', Context::QUERY_VAR ], [] );
