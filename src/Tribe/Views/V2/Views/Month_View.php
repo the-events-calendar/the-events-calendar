@@ -123,7 +123,7 @@ class Month_View extends By_Day_View {
 
 		$url = $this->build_url_for_date( $next_date, $canonical, $passthru_vars );
 
-		return $this->filter_prev_url( $canonical, $url );
+		return $this->filter_next_url( $canonical, $url );
 	}
 	/**
 	 * {@inheritDoc}
