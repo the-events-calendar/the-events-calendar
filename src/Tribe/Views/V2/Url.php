@@ -223,14 +223,18 @@ class Url {
 			return false;
 		}
 
-		$context_aliases = (array) Arr::get( $context->get_locations(), [ $var, 'read', Context::QUERY_VAR ], [] );
+		$query_aliases   = (array) Arr::get( $context->get_locations(), [ $var, 'read', Context::QUERY_VAR ], [] );
+		$request_aliases = (array) Arr::get( $context->get_locations(), [ $var, 'read', Context::REQUEST_VAR ], [] );
+		$context_aliases = array_unique( array_merge( $query_aliases, $request_aliases ) );
 
 		$alias_query_args = array_intersect_key(
-			$query_args,
+			array_merge( $query_args, tribe_get_request_vars() ),
 			array_merge( $aliases, array_combine( $context_aliases, $context_aliases ) )
 		);
 
-		return array_keys( $alias_query_args )[0];
+		$matches = array_keys( $alias_query_args );
+
+		return count( $matches ) ? reset( $matches ) : false;
 	}
 
 	/**
