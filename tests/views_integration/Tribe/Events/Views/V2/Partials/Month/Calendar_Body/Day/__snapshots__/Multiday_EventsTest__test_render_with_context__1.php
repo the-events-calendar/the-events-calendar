@@ -12,7 +12,6 @@
 				Test Event &#8211; 2018-01-01 10am			</h3>
 		</a>
 	</article>
-
 </div>
 
 
@@ -28,7 +27,6 @@
 				Test Event &#8211; 2018-01-02 10am			</h3>
 		</a>
 	</article>
-
 </div>
 
 ';

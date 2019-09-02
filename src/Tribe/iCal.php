@@ -462,7 +462,7 @@ class Tribe__Events__iCal {
 			}
 
 			$id = $timezone->getName();
-			$item[] = 'TZID:"' .  $id . '"';
+			$item[] = 'TZID:' .  $id;
 
 			$last_transition = null;
 			foreach ( $transitions as $i => $transition ) {

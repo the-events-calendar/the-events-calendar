@@ -15,6 +15,11 @@
  *
  * @see tribe_get_event() For the format of the event object.
  */
+
+/**
+ * @todo @be @bordoni
+ *       only show tooltip if at least one of featured image, description, or cost exists
+ */
 ?>
 <div
 	class="tribe-events-calendar-month__calendar-event-tooltip"

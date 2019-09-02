@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the The Events Calendar package.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 4.9.7\n"
+"Project-Id-Version: The Events Calendar 4.9.8\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/the-events-"
 "calendar\n"
-"POT-Creation-Date: 2019-08-16 21:33:47+00:00\n"
+"POT-Creation-Date: 2019-08-30 19:44:11+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2019-08-16 21:33\n"
+"PO-Revision-Date: 2019-08-30 19:44\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -2344,7 +2344,7 @@ msgstr ""
 msgid "%s (post ID %d) created."
 msgstr ""
 
-#: src/Tribe/Importer/File_Importer.php:361
+#: src/Tribe/Importer/File_Importer.php:363
 msgid "Missing required fields in row %d."
 msgstr ""
 
@@ -2502,7 +2502,7 @@ msgstr ""
 msgid "Upcoming Events"
 msgstr ""
 
-#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 4.9.7)  #-#-#-#-#
+#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 4.9.8)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: src/Tribe/Main.php:905 src/Tribe/Main.php:1259 src/Tribe/Privacy.php:29
 #: src/functions/template-tags/general.php:1357 the-events-calendar.php:56
@@ -6765,9 +6765,9 @@ msgstr ""
 
 #: src/deprecated/Tribe__Events__Asset__Bootstrap_Datepicker.php:28
 #: src/functions/template-tags/day.php:104
-#: src/views/v2/day/top-bar/today.php:28 src/views/v2/list/nav/today.php:31
-#: src/views/v2/list/top-bar/today.php:28 src/views/v2/month/nav/today.php:31
-#: src/views/v2/month/top-bar/today.php:28
+#: src/views/v2/day/top-bar/today.php:23 src/views/v2/list/nav/today.php:31
+#: src/views/v2/list/top-bar/today.php:23 src/views/v2/month/nav/today.php:31
+#: src/views/v2/month/top-bar/today.php:23
 msgid "Today"
 msgstr ""
 
@@ -7134,18 +7134,19 @@ msgid "Previous"
 msgstr ""
 
 #: src/views/v2/day/event/date.php:28 src/views/v2/day/event/date.php:29
-#: src/views/v2/list/event/date.php:28 src/views/v2/list/event/date.php:29
+#: src/views/v2/list/event/date.php:27 src/views/v2/list/event/date.php:28
+#: src/views/v2/list/event/date.php:31
 #: src/views/v2/month/calendar-body/day/calendar-events/calendar-event/date.php:25
 #: src/views/v2/month/calendar-body/day/calendar-events/calendar-event/date.php:26
-#: src/views/v2/month/calendar-body/day/multiday-events/multiday-event.php:75
-#: src/views/v2/month/calendar-body/day/multiday-events/multiday-event.php:76
+#: src/views/v2/month/calendar-body/day/multiday-events/multiday-event.php:81
+#: src/views/v2/month/calendar-body/day/multiday-events/multiday-event.php:82
 #: src/views/v2/month/mobile-events/mobile-day/mobile-event/date.php:25
 #: src/views/v2/month/mobile-events/mobile-day/mobile-event/date.php:26
 msgid "Featured"
 msgstr ""
 
 #: src/views/v2/day/top-bar/datepicker.php:38
-#: src/views/v2/list/top-bar/datepicker.php:59
+#: src/views/v2/list/top-bar/datepicker.php:73
 #: src/views/v2/month/top-bar/datepicker.php:33
 msgid "Select date."
 msgstr ""
@@ -7164,7 +7165,7 @@ msgstr ""
 msgid "Previous %1$s"
 msgstr ""
 
-#: src/views/v2/list/top-bar/datepicker.php:44
+#: src/views/v2/list/top-bar/datepicker.php:58
 msgid "Now"
 msgstr ""
 
@@ -7175,24 +7176,31 @@ msgstr ""
 msgid "Recurring"
 msgstr ""
 
-#: src/views/v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/cta.php:27
+#: src/views/v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/cta.php:30
 #: src/views/v2/month/mobile-events/mobile-day/mobile-event/cta.php:26
 msgid "Buy Now"
 msgstr ""
 
-#: src/views/v2/month/calendar-body/day/more-events.php:30
+#: src/views/v2/month/calendar-body/day/more-events.php:35
 msgid "+ %d More"
 msgid_plural "+ %d More"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/views/v2/month/calendar-body/day.php:74
-#: src/views/v2/month/calendar-body/day.php:75
+#: src/views/v2/month/calendar-body/day.php:79
+#: src/views/v2/month/calendar-body/day.php:111
+msgid "%s event"
+msgid_plural "%s events"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/views/v2/month/calendar-body/day.php:91
+#: src/views/v2/month/calendar-body/day.php:92
 msgid "Has featured events"
 msgstr ""
 
-#: src/views/v2/month/calendar-body/day.php:81
-#: src/views/v2/month/calendar-body/day.php:82
+#: src/views/v2/month/calendar-body/day.php:98
+#: src/views/v2/month/calendar-body/day.php:99
 msgid "Has events"
 msgstr ""
 
