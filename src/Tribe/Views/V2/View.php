@@ -918,7 +918,8 @@ class View implements View_Interface {
 	protected function setup_template_vars() {
 		$template_vars = [
 			'title'             => wp_title( null, false ),
-			'events'            => $this->repository->all(), 'url'               => $this->get_url( true ),
+			'events'            => $this->repository->all(),
+			'url'               => $this->get_url( true ),
 			'prev_url'          => $this->prev_url( true ),
 			'next_url'          => $this->next_url( true ),
 			'bar'               => [
