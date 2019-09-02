@@ -2,24 +2,24 @@
 
 ## Scope of testing
 
-The objective of this suite (integration testing for Views v2) is to test components (e.g. a datepicker), combination of components (e.g. the List View top navigation section), and whole Views (e.g. the whole List View) at an integration level.  
+The objective of this suite (integration testing for Views v2) is to test components (e.g. a datepicker), combination of components (e.g. the List View top navigation section), and whole Views (e.g. the whole List View) at an integration level.
 
 Where does that "integration" part come from?
 
-It comes from the fact that we're running all the tests in the context of a full-blown WordPress installation.  
+It comes from the fact that we're running all the tests in the context of a full-blown WordPress installation.
 That installation, thanks to the suite configuration file in `tests/views_integration.suite.dist.yml`, includes our plugins and, with them, anyone of their dependencies.
 
 ## Types of tests in the suite
 
-A test suite is just a convenient way to group tests that share a common setup (i.e. the modules and their configuration).  
-Under the `views_integration` umbrella definition we store more than one type of testing.  
-The good news (or the bad one, I'm not sure...) is anyone involved in the development of Views v2 **can and should contribute tests**.  
+A test suite is just a convenient way to group tests that share a common setup (i.e. the modules and their configuration).
+Under the `views_integration` umbrella definition we store more than one type of testing.
+The good news (or the bad one, I'm not sure...) is anyone involved in the development of Views v2 **can and should contribute tests**.
 
-Without further ado, here are the main four types of testing you can find in this suite.  
+Without further ado, here are the main four types of testing you can find in this suite.
 
 ### Data testing
 
-This kind of tests deals with answering the question: 
+This kind of tests deals with answering the questions:
 
 > Is this View, or View moving part, fetching the correct data from the database?
 > Is this View, or View moving part, providing data, to the code that must consume it, correctly?
@@ -62,7 +62,7 @@ class Month_ViewTest extends ViewTestCase {
 	 */
 	public function test_render_empty() {
 		$month_view = View::make( Month_View::class, $this->context );
-    
+
 		$this->assertEmpty( $month_view->found_post_ids() );
 	}
 
@@ -76,8 +76,8 @@ class Month_ViewTest extends ViewTestCase {
 		update_option( 'timezone_string', $timezone_string );
 
 		$now = new \DateTimeImmutable( $this->mock_date_value, $timezone );
-    
-        // Create some events that will be available in the Month timeframe.
+
+		// Create some events that will be available in the Month timeframe.
 		$events    = array_map(
 			static function ( $i ) use ( $now, $timezone ) {
 				return tribe_events()->set_args(
@@ -96,11 +96,11 @@ class Month_ViewTest extends ViewTestCase {
 
 		/** @var Month_View $month_view */
 		$month_view      = View::make( Month_View::class, $this->context );
-		
-        // Let's make sure the list of events in the whole month grid, a conflation of each day events, is correct.
+
+		// Let's make sure the list of events in the whole month grid, a conflation of each day events, is correct.
 		$this->assertEquals( $event_ids, $month_view->found_post_ids() );
-    
-        // Let's check, now, day by day.
+
+		// Let's check, now, day by day.
 		foreach ( $month_view->get_grid_days( $now->format( 'Y-m' ) ) as $date => $found_day_ids ) {
 			$day          = new \DateTimeImmutable( $date, $timezone );
 			$expected_ids = tribe_events()
@@ -126,11 +126,11 @@ class Month_ViewTest extends ViewTestCase {
 }
 ```
 
-What's missing from this tests? 
+What's missing from this tests?
 * there is no check on **how** the events are presented
 * there is no check on the HTML structure
 
-This test deals with a whole view, but we need to test other components that produce, or manipulate, data.  
+This test deals with a whole view, but we need to test other components that produce, or manipulate, data.
 To these we dedicate specific "WordPress unit" tests. As an example here the test for the multi-day stack used in the Month View (trimmed down for the sake of brevity):
 
 ```php
@@ -198,7 +198,7 @@ class StackTest extends \Codeception\TestCase\WPTestCase {
 					],
 				],
 			],
-            // [...]
+			// [...]
 		];
 
 		$sets = [];
@@ -316,7 +316,109 @@ This second test example shows what is, probably, the main feature of data-drive
 * we manipulate data as the full View, in production, would do
 
 ### Snapshot testing
-@todo @juanfra
+
+This type of testing answers the following question:
+
+> Is this View, or View partial, rendering the correct markup (HTML structure, attributes, and data output) given a specific set of template variables?
+
+On the initial test, snapshot testing will create a snapshot of the HTML markup that is output by the view or partial. Each subsequent test will be compared against the initial snapshot.
+
+Below is an example of List View:
+
+```php
+<?php
+
+namespace Tribe\Events\Views\V2\Views;
+
+use Spatie\Snapshots\MatchesSnapshots;
+use Tribe\Events\Views\V2\View;
+use Tribe\Test\Products\WPBrowser\Views\V2\ViewTestCase;
+
+class List_ViewTest extends ViewTestCase {
+
+	use MatchesSnapshots;
+
+	/**
+	 * Test render empty
+	 */
+	public function test_render_empty() {
+		// Sanity check
+		$this->assertEmpty( tribe_events()->found() );
+
+		$context = tribe_context()->alter(
+			[
+				'today'      => $this->mock_date_value,
+				'now'        => $this->mock_date_value,
+			]
+		);
+
+		$list_view = View::make( List_View::class, $context );
+		$html      = $list_view->get_html();
+
+		// Let's make sure the View is displaying what events we expect it to display.
+		$expected_post_ids = [];
+		$this->assertEquals(
+			$expected_post_ids,
+			$list_view->found_post_ids()
+		);
+
+		$this->assertMatchesSnapshot( $html );
+	}
+
+	/**
+	 * Test render with upcoming events
+	 */
+	public function test_render_with_upcoming_events() {
+		$events = [];
+
+		// Create the events.
+		foreach (
+			[
+				'tomorrow 9am',
+				'+1 week',
+				'+9 days',
+			] as $start_date
+		) {
+			$events[] = tribe_events()->set_args( [
+				'start_date' => $start_date,
+				'timezone'   => 'Europe/Paris',
+				'duration'   => 3 * HOUR_IN_SECONDS,
+				'title'      => 'Test Event - ' . $start_date,
+				'status'     => 'publish',
+			] )->create();
+		}
+		// Sanity check
+		$this->assertEquals( 3, tribe_events()->where( 'ends_after', 'now' )->count() );
+
+		$this->remap_posts( $events, [
+			'events/featured/1.json',
+			'events/single/1.json',
+			'events/single/2.json'
+		] );
+
+		$list_view = View::make( List_View::class );
+		$list_view->set_context( tribe_context()->alter( [
+			'today'      => $this->mock_date_value,
+			'now'        => $this->mock_date_value,
+			'events_per_page' => 2,
+		] ) );
+		$html = $list_view->get_html();
+
+		// Let's make sure the View is displaying what events we expect it to display.
+		$expected_post_ids = wp_list_pluck( array_slice( $events, 0, 2 ), 'ID' );
+		$this->assertEquals(
+			$expected_post_ids,
+			$list_view->found_post_ids()
+		);
+
+		$this->assertMatchesSnapshot( $html );
+	}
+}
+```
+
+By using the `MatchesSnapshots` trait and calling the `assertMatchesSnapshot` method, we can set an initial snapshot and compare the markup each time the test is run.
+
+When a markup change occurs, the test will fail as the html markup will not match the snapshot. In this case, review the differences. if they are what you expect, then delete the snapshot file and run the test again to generate a new snapshot. Commit this snapshot to the repo so that all others running tests will have the latest snapshot to compare to.
 
 ### Component (HTML) Testing
 @todo @paulmskim
