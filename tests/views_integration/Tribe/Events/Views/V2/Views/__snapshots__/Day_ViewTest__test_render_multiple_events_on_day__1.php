@@ -233,7 +233,8 @@
 			title="Featured"
 		>
 		</em>
-		<span class="tribe-events-calendar-day__event-datetime-featured-text tribe-common-b2">Featured</span>
+		<span class="tribe-events-calendar-day__event-datetime-featured-text tribe-common-b2">
+			Featured		</span>
 		<time class="tribe-events-calendar-day__event-datetime tribe-common-b2" datetime="2019-06-20">
 		<span class="tribe-event-date-start">June 20 @ 1:01 pm</span> - <span class="tribe-event-time">5:01 pm</span>	</time>
 </div>
