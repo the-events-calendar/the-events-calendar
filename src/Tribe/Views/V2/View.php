@@ -1087,7 +1087,21 @@ class View implements View_Interface {
 
 		$date_object = Dates::build_date_object( $date );
 
-		return date_i18n( $this->get_label_format(), $date_object->getTimestamp() + $date_object->getOffset() );
+		$format = $this->get_label_format();
+
+		/**
+		 * Filters the `date` format that will be used to produce a View link label.
+		 *
+		 * @since TBD
+		 *
+		 * @param string    $format    The label format the View will use to product a View link label; e.g. the
+		 *                             previous and next links.
+		 * @param \DateTime $date      The date object that is being used to build the label.
+		 * @param View      $view      This View instance.
+		 */
+		$format = apply_filters( "tribe_events_views_v2_{$this->slug}_link_label_format", $format, $this, $date );
+
+		return date_i18n( $format, $date_object->getTimestamp() + $date_object->getOffset() );
 	}
 
 	/**
