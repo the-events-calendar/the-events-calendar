@@ -24,19 +24,19 @@
 	<ul class="tribe-events-c-nav__list">
 		<?php
 		if ( ! empty( $prev_url ) ) {
-			$this->template( 'month/nav/prev', [ 'label' => __( 'May', 'the-events-calendar' ), 'link' => $prev_url ] );
+			$this->template( 'month/nav/prev', [ 'label' => esc_html( $prev_label ), 'link' => $prev_url ] );
 		} else {
-			$this->template( 'month/nav/prev-disabled', [ 'label' => __( 'May', 'the-events-calendar' ) ] );
+			$this->template( 'month/nav/prev-disabled', [ 'label' => esc_html( $prev_label ) ] );
 		}
 		?>
 
-		<?php $this->template( 'month/nav/today', [ 'link' => '#' ] ) ?>
+		<?php $this->template( 'month/nav/today', [ 'link' => tribe_events_get_url( [ 'eventDisplay' => 'month' ] ) ] ) ?>
 
 		<?php
 		if ( ! empty( $next_url ) ) {
-			$this->template( 'month/nav/next', [ 'label' => __( 'July', 'the-events-calendar' ), 'link' => $next_url ] );
+			$this->template( 'month/nav/next', [ 'label' => esc_html( $next_label ), 'link' => $next_url ] );
 		} else {
-			$this->template( 'month/nav/next-disabled', [ 'label' => __( 'July', 'the-events-calendar' ) ] );
+			$this->template( 'month/nav/next-disabled', [ 'label' => esc_html( $next_label ) ] );
 		}
 		?>
 	</ul>
