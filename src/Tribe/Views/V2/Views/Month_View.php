@@ -74,7 +74,6 @@ class Month_View extends By_Day_View {
 		// Setup the Default date for the month view here.
 		$default_date   = 'today';
 		$date           = $this->context->get( 'event_date', $default_date );
-		$event_date_var = $default_date === $date ? '' : $date;
 
 		// Get the last day of the previous month.
 		$prev_date = Dates::build_date_object( $date )->sub( $one_month )->format( 'Y-m-t' );
