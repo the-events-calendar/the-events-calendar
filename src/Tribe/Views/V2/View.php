@@ -1032,7 +1032,7 @@ class View implements View_Interface {
 	 * {@inheritDoc}
 	 */
 	public function get_today_url( $canonical = false ) {
-		$remove = [ 'tribe-bar-date', 'paged', 'page' ];
+		$remove = [ 'tribe-bar-date', 'paged', 'page', 'eventDate' ];
 
 		// While we want to remove the date query vars, we want to keep any other query var.
 		$query_args = $this->url->get_query_args();
