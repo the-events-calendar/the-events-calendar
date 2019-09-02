@@ -211,6 +211,38 @@ class Url {
 	 * @return false|string The variable alias set in the URL query args, or `false` if no alias was found.
 	 */
 	public function get_query_arg_alias_of( $var, Context $context = null ) {
+		$aliases = $this->get_query_args_aliases_of( $var, $context, false );
+
+
+		return count( $aliases ) ? reset( $aliases ) : false;
+	}
+
+	/**
+	 * Returns the value of a query arg set on the URL, or a default value if not found.
+	 *
+	 * @since 4.9.4
+	 *
+	 * @param      string $key The
+	 * @param null $default
+	 *
+	 * @return mixed
+	 */
+	public function get_query_arg( $key, $default = null ) {
+		return Arr::get( (array) $this->get_query_args(), $key, $default );
+	}
+
+	/**
+	 * Returns all the aliases of the variable set in the Url query args, if any.
+	 *
+	 * @since 4.9.4
+	 *
+	 * @param string       $var     The name of the variable to search the aliases for.
+	 * @param Context|null $context The Context object to use to fetch locations, if `null` the global Context will be
+	 *                              used.
+	 *
+	 * @return array An array of the variable aliases set in the URL query args.
+	 */
+	public function get_query_args_aliases_of( $var, Context $context = null ) {
 		$context    = $context ?: tribe_context();
 		$query_args = $this->get_query_args();
 		$aliases    = $context->translate_sub_locations(
@@ -227,27 +259,11 @@ class Url {
 		$request_aliases = (array) Arr::get( $context->get_locations(), [ $var, 'read', Context::REQUEST_VAR ], [] );
 		$context_aliases = array_unique( array_merge( $query_aliases, $request_aliases ) );
 
-		$alias_query_args = array_intersect_key(
+		$aliases = array_intersect_key(
 			array_merge( $query_args, tribe_get_request_vars() ),
 			array_merge( $aliases, array_combine( $context_aliases, $context_aliases ) )
 		);
 
-		$matches = array_keys( $alias_query_args );
-
-		return count( $matches ) ? reset( $matches ) : false;
-	}
-
-	/**
-	 * Returns the value of a query arg set on the URL, or a default value if not found.
-	 *
-	 * @since 4.9.4
-	 *
-	 * @param      string $key The
-	 * @param null $default
-	 *
-	 * @return mixed
-	 */
-	public function get_query_arg( $key, $default = null ) {
-		return Arr::get( (array) $this->get_query_args(), $key, $default );
+		return array_keys( $aliases );
 	}
 }
