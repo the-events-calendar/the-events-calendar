@@ -40,21 +40,8 @@
 			width: 3px;
 
 			@media (--viewport-medium) {
-				content: none;
-			}
-		}
-
-		.tribe-events-calendar-day__event-details {
-
-			@media (--viewport-medium) {
-				&:before {
-					background: var(--color-accent-primary);
-					content: '';
-					height: 100%;
-					left: var(--grid-gutter-half-negative);
-					position: absolute;
-					width: 4px;
-				}
+				left: calc(var(--grid-width-1-of-9) - var(--grid-gutter-half));
+				width: 4px;
 			}
 		}
 	}
