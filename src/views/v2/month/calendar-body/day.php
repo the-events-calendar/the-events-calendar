@@ -76,7 +76,7 @@ $mobile_day_id = 'tribe-events-calendar-mobile-day-' . $day_date;
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
-				<?php echo esc_html( sprintf( _n( '%s event', '%s events', count( $day['found_events'] ), 'the-events-calendar' ), number_format_i18n( count( $day['found_events'] ) ) ) ); ?>,
+				<?php echo esc_html( sprintf( _n( '%s event', '%s events', $day['found_events'], 'the-events-calendar' ), number_format_i18n( $day['found_events'] ) ) ); ?>,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -108,7 +108,7 @@ $mobile_day_id = 'tribe-events-calendar-mobile-day-' . $day_date;
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
 			<span class="tribe-common-a11y-visual-hide">
-				<?php echo esc_html( sprintf( _n( '%s event', '%s events', count( $day['found_events'] ), 'the-events-calendar' ), number_format_i18n( count( $day['found_events'] ) ) ) ); ?>,
+				<?php echo esc_html( sprintf( _n( '%s event', '%s events', $day['found_events'], 'the-events-calendar' ), number_format_i18n( $day['found_events'] ) ) ); ?>,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
