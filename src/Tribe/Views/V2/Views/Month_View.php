@@ -410,4 +410,14 @@ class Month_View extends By_Day_View {
 
 		return $url;
 	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @since TBD
+	 */
+	protected function get_label_format() {
+		// Something link "January".
+		return 'F';
+	}
 }
