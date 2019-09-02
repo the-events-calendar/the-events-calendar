@@ -421,7 +421,50 @@ By using the `MatchesSnapshots` trait and calling the `assertMatchesSnapshot` me
 When a markup change occurs, the test will fail as the html markup will not match the snapshot. In this case, review the differences. if they are what you expect, then delete the snapshot file and run the test again to generate a new snapshot. Commit this snapshot to the repo so that all others running tests will have the latest snapshot to compare to.
 
 ### Component (HTML) Testing
-@todo @paulmskim
+
+This type of testing deals with the following question:
+
+> Is this View partial rendering the correct markup (HTML structure, attributes, and data output) given a specific set of template variables?
+
+This testing is often run using snapshot testing as we are most interested in the View partial markup. See **Snapshot Testing** above for details.
+
+The View partials folder structure is organized in the same structure as the view partials. When creating a new test for a partial, place the test within the appropriate folder matching that of the actual markup.
+
+Below is an example of List View Nav:
+
+```php
+<?php
+
+namespace Tribe\Events\Views\V2\Partials\List_View;
+
+use Tribe\Test\Products\WPBrowser\Views\V2\HtmlPartialTestCase;
+
+class NavTest extends HtmlPartialTestCase
+{
+
+	protected $partial_path = 'list/nav';
+
+	/**
+	 * Test static render
+	 * @todo remove this static HTML test once the partial is dynamic.
+	 */
+	public function test_static_render() {
+		$this->assertMatchesSnapshot( $this->get_partial_html() );
+	}
+
+	/**
+	 * Test render with context
+	 */
+	public function test_render_with_context() {
+		$this->assertMatchesSnapshot( $this->get_partial_html( [
+			'prev_url' => '#',
+			'next_url' => '#',
+		] ) );
+	}
+}
+```
+
+When a markup change occurs in the partial, the test will fail as the html markup will not match the snapshot. See **Snapshot Testing** above for more details on updating snapshots.
 
 ### Other Testing
 @todo @bordoni
