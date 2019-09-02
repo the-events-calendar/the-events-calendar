@@ -918,8 +918,7 @@ class View implements View_Interface {
 	protected function setup_template_vars() {
 		$template_vars = [
 			'title'             => wp_title( null, false ),
-			'events'            => $this->repository->all(),
-			'url'               => $this->get_url( true ),
+			'events'            => $this->repository->all(), 'url'               => $this->get_url( true ),
 			'prev_url'          => $this->prev_url( true ),
 			'next_url'          => $this->next_url( true ),
 			'bar'               => [
@@ -932,6 +931,8 @@ class View implements View_Interface {
 			'rest_nonce'        => wp_create_nonce( 'wp_rest' ),
 			'should_manage_url' => $this->should_manage_url,
 			'today_url'         => $this->get_today_url( true ),
+			'prev_label'        => $this->get_link_label( $this->prev_url( false ) ),
+			'next_label'        => $this->get_link_label( $this->next_url( false ) ),
 		];
 
 		return $template_vars;
@@ -1048,5 +1049,59 @@ class View implements View_Interface {
 		}
 
 		return Rewrite::instance()->get_canonical_url( $ugly_url );
+	}
+
+	/**
+	 * Builds the link label to use from the URL.
+	 *
+	 * This is usually used to build the next and prev link URLs labels.
+	 * Extending classes can customize the format of the the label by overriding the `get_label_format` method.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $url The input URL to build the link label from.
+	 *
+	 * @return string The formatted and localized, but not HTML escaped, link label.
+	 *
+	 * @see View::get_label_format(), the method child classes should override to customize the link label format.
+	 */
+	public function get_link_label( $url ) {
+		if ( empty( $url ) ) {
+			return '';
+		}
+
+		$url_query = parse_url( $url, PHP_URL_QUERY );
+
+		if ( empty( $url_query ) ) {
+			return '';
+		}
+
+		parse_str( $url_query, $args );
+
+		$date = Arr::get_first_set( $args, [ 'eventDate', 'tribe-bar-date' ], false );
+
+		if ( false === $date ) {
+			return '';
+		}
+
+		$date_object = Dates::build_date_object( $date );
+
+		return date_i18n( $this->get_label_format(), $date_object->getTimestamp() + $date_object->getOffset() );
+	}
+
+	/**
+	 * Returns the date format, a valid PHP `date` function format, that should be used to build link labels.
+	 *
+	 * This format will, usually, apply to next and previous links.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The date format, a valid PHP `date` function format, that should be used to build link labels.
+	 *
+	 * @see View::get_link_label(), the method using this method to build a link label.
+	 * @see date_i18n() as the formatted date will, then, be localized using this method.
+	 */
+	protected function get_label_format() {
+		return 'Y-m-d';
 	}
 }
