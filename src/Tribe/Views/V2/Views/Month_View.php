@@ -449,6 +449,15 @@ class Month_View extends By_Day_View {
 	 * @return bool Whether to skip empty months or not.
 	 */
 	protected function skip_empty() {
-		return (bool) apply_filters( 'tribe_events_views_v2_month_nav_skip_empty', false );
+		/**
+		 * Filters whether months w/o any event should be skipped while building navigation links or not.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool       $skip_empty   Whether months w/o any event should be skipped while building
+		 *                                 navigation links or not; defaults to `false`.
+		 * @param Month_View $this         This Month View instance.
+		 */
+		return (bool) apply_filters( 'tribe_events_views_v2_month_nav_skip_empty', false, $this );
 	}
 }
