@@ -9,28 +9,27 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.4
+ * @version TBD
  *
  */
-$event = $this->get( 'event' );
 
-if ( empty( $event->thumbnail->medium->url ) ) { // @todo: use template tags for images here
+if ( empty( $event->thumbnail->medium->url ) ) {
 	return;
 }
 ?>
 <div class="tribe-events-calendar-month__calendar-event-tooltip-featured-image-wrapper">
 	<a
-		class="tribe-events-calendar-month__calendar-event-tooltip-featured-image-link"
-		href="<?php echo esc_url( $event->permalink ); ?>"
-		title="<?php echo esc_attr( get_the_title( $event->ID ) ); ?>"
+		href="<?php echo esc_url( $event->permalink ) ?>"
+		title="<?php echo esc_attr( $event->post_title ) ?>"
 		rel="bookmark"
+		class="tribe-events-calendar-month__calendar-event-tooltip-featured-image-link"
 	>
 		<div class="tribe-events-calendar-month__calendar-event-tooltip-featured-image tribe-common-c-image tribe-common-c-image--bg">
 			<div
 				class="tribe-common-c-image__bg"
 				style="background-image: url('<?php echo esc_url( $event->thumbnail->medium->url ); ?>');"
 				role="img"
-				aria-label="<?php echo esc_attr( get_the_title( $event->ID ) ); ?>"
+				aria-label="<?php echo esc_attr( $event->post_title ) ?>"
 			>
 			</div>
 		</div>

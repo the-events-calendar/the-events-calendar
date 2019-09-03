@@ -9,14 +9,11 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.4
+ * @version TBD
  *
  */
 
- // @todo @fe: use template tags for images here
-// @todo @fe use srcset here?
-
-if ( ! $event->featured || empty( $event->thumbnail->full->url ) ) {
+if ( ! $event->featured || empty( $event->thumbnail->large->url ) ) {
 	return;
 }
 
@@ -25,9 +22,9 @@ if ( ! $event->featured || empty( $event->thumbnail->full->url ) ) {
 	<div class="tribe-events-calendar-month-mobile-events__mobile-event-featured-image tribe-common-c-image tribe-common-c-image--bg">
 		<div
 			class="tribe-common-c-image__bg"
-			style="background-image: url('<?php echo esc_url( $event->thumbnail->full->url ); ?>');"
+			style="background-image: url('<?php echo esc_url( $event->thumbnail->large->url ); ?>');"
 			role="img"
-			aria-label="<?php echo esc_attr( get_the_title( $event->ID ) ); ?>"
+			aria-label="<?php echo esc_attr( $event->post_title ) ?>"
 		>
 		</div>
 	</div>

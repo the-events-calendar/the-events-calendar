@@ -9,34 +9,32 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.5
+ * @version TBD
  *
  * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
  *
  * @see tribe_get_event() For the format of the event object.
  *
  */
- // @todo @fe: use template tags for images here
-// @todo @fe use srcset here?
 
-if ( ! $event->featured || empty( $event->thumbnail->full->url ) ) {
+if ( ! $event->featured || empty( $event->thumbnail->large->url ) ) {
 	return;
 }
 
 ?>
 <div class="tribe-events-calendar-month__calendar-event-featured-image-wrapper">
 	<a
-		href="<?php echo esc_url( $event->permalink ); ?>"
-		title="<?php echo esc_attr( get_the_title( $event->ID ) ); ?>"
+		href="<?php echo esc_url( $event->permalink ) ?>"
+		title="<?php echo esc_attr( $event->post_title ) ?>"
 		rel="bookmark"
 		class="tribe-events-calendar-month__calendar-event-featured-image-link"
 	>
 		<div class="tribe-events-calendar-month__calendar-event-featured-image tribe-common-c-image tribe-common-c-image--bg">
 			<div
 				class="tribe-common-c-image__bg"
-				style="background-image: url('<?php echo esc_url( $event->thumbnail->full->url ); ?>');"
+				style="background-image: url('<?php echo esc_url( $event->thumbnail->large->url ); ?>');"
 				role="img"
-				aria-label="<?php echo esc_attr( get_the_title( $event->ID ) ); ?>"
+				aria-label="<?php echo esc_attr( $event->post_title ) ?>"
 			>
 			</div>
 		</div>
