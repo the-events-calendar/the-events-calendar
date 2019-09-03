@@ -17,6 +17,13 @@ class Tribe__Events__Admin__Notice__Timezones {
 	 */
 	private $slug = 'events-utc-timezone';
 
+	/**
+	 * Store the timezone we're testing
+	 *
+	 * @var string
+	 */
+	private $timezone = '';
+
 	public function hook() {
 		$date = $this->get_current_reset_date();
 		$slug = $this->slug;
@@ -110,20 +117,20 @@ class Tribe__Events__Admin__Notice__Timezones {
 	}
 
 	/**
-	 * Checks if the site is using UTC Timezone Options
+	 * Checks if the site or event is using UTC Timezone Options
 	 *
 	 * @since  4.6.17
 	 *
 	 * @return boolean
 	 */
 	public function is_utc_timezone( $event = 0 ) {
-		$timezone = Timezones::wp_timezone_string();
+		$this->timezone = Timezones::wp_timezone_string();
 		if ( $event ) {
-			$timezone = Event_Timezones::get_event_timezone_string( $event );
+			$this->timezone = Event_Timezones::get_event_timezone_string( $event );
 		}
 
 		// If the site is using UTC or UTC manual offset
-		return strpos( $timezone, 'UTC' ) !== false;
+		return strpos( $this->timezone, 'UTC' ) !== false;
 	}
 
 	/**
@@ -140,7 +147,6 @@ class Tribe__Events__Admin__Notice__Timezones {
 		}
 
 		$text = [];
-		$current_utc = Timezones::wp_timezone_string();
 
 		$url = 'http://m.tri.be/1ad3';
 		$link = sprintf(
@@ -152,7 +158,7 @@ class Tribe__Events__Admin__Notice__Timezones {
 		$text[] = __( 'When using The Events Calendar, we recommend that you use a geographic timezone such as "America/Los_Angeles" and avoid using a UTC timezone offset such as “%2$s”.', 'the-events-calendar' );
 		$text[] = __( 'Choosing a UTC timezone for your site or individual events may cause problems when importing events or with Daylight Saving Time. %1$s', 'the-events-calendar' );
 
-		return sprintf( implode( '<br />', $text ), $link, $current_utc );
+		return sprintf( implode( '<br />', $text ), $link, $this->timezone );
 
 	}
 }
