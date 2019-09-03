@@ -34,16 +34,16 @@
 		<div class="tribe-events-calendar-month__calendar-event-tooltip-featured-image-wrapper">
 	<a
 		href="http://test.tri.be/?tribe_events=test-event-2018-01-01-10am"
-		title="Test Event - 2018-01-01 10am"
+		title=""
 		rel="bookmark"
 		class="tribe-events-calendar-month__calendar-event-tooltip-featured-image-link"
 	>
 		<div class="tribe-events-calendar-month__calendar-event-tooltip-featured-image tribe-common-c-image tribe-common-c-image--bg">
 			<div
 				class="tribe-common-c-image__bg"
-				style="background-image: url(\'http://guttitest.tribe/wp-content/uploads/2019/09/featured-image-18-300x150.jpg\');"
+				style="background-image: url(\'http://test.tri.be/wp-content/uploads/2018/08/featured-image-88.jpg\');"
 				role="img"
-				aria-label="Test Event - 2018-01-01 10am"
+				aria-label=""
 			>
 			</div>
 		</div>
