@@ -129,7 +129,7 @@ class Month_View extends By_Day_View {
 				$next_event->dates->start,
 				$current_date->add( new \DateInterval( 'P1M' ) )
 			);
-		} else{
+		} else {
 			$next_date = Dates::build_date_object( $current_date->format( 'Y-m-01' ) );
 			$next_date->add( new \DateInterval( 'P1M' ) );
 			// Let's make sure to prevent users from paginating endlessly forward when we know there are no more events.
