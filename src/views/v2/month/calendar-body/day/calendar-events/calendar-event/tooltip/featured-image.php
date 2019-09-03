@@ -13,7 +13,7 @@
  *
  */
 
-if ( empty( $event->thumbnail->medium->url ) ) {
+if ( ! $event->thumbnail->exists ) {
 	return;
 }
 ?>
@@ -27,7 +27,7 @@ if ( empty( $event->thumbnail->medium->url ) ) {
 		<div class="tribe-events-calendar-month__calendar-event-tooltip-featured-image tribe-common-c-image tribe-common-c-image--bg">
 			<div
 				class="tribe-common-c-image__bg"
-				style="background-image: url('<?php echo esc_url( $event->thumbnail->medium->url ); ?>');"
+				style="background-image: url('<?php echo esc_url( $event->thumbnail->full->url ); ?>');"
 				role="img"
 				aria-label="<?php echo esc_attr( $event->post_title ) ?>"
 			>
