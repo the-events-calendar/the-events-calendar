@@ -73,22 +73,31 @@ class Month_View extends By_Day_View {
 		$date         = $this->context->get( 'event_date', $default_date );
 		$current_date = Dates::build_date_object( $date );
 
-		// Find the first event that starts before the start of this month.
-		$prev_event   = tribe_events()
-			->by_args( $this->filter_repository_args( $this->setup_repository_args() ) )
-			->where( 'starts_before', tribe_beginning_of_day( $current_date->format( 'Y-m-1' ) ) )
-			->order( 'DESC' )
-			->first();
+		if ( $this->skip_empty() ) {
+			// Find the first event that starts before the start of this month.
+			$prev_event = tribe_events()
+				->by_args( $this->filter_repository_args( $this->setup_repository_args() ) )
+				->where( 'starts_before', tribe_beginning_of_day( $current_date->format( 'Y-m-01' ) ) )
+				->order( 'DESC' )
+				->first();
+			if ( ! $prev_event instanceof \WP_Post ) {
+				return $this->filter_prev_url( $canonical, '' );
+			}
 
-		if ( ! $prev_event instanceof \WP_Post ) {
-			return $this->filter_prev_url( $canonical, '' );
+			// Show the closest date on which that event appears (but not the current date).
+			$prev_date = min(
+				$prev_event->dates->start,
+				$current_date->sub( new \DateInterval( 'P1M' ) )
+			);
+		} else {
+			$prev_date = Dates::build_date_object( $current_date->format( 'Y-m-01' ) );
+			$prev_date->sub( new \DateInterval( 'P1M' ) );
+			// Let's make sure to prevent users from paginating endlessly back when we know there are no more events.
+			$earliest = tribe_get_option( 'earliest_date', $prev_date );
+			if ( $current_date->format( 'Y-m' ) === Dates::build_date_object( $earliest )->format( 'Y-m' ) ) {
+				return $this->filter_prev_url( $canonical, '' );
+			}
 		}
-
-		// Show the closest date on which that event appears (but not the current date).
-		$prev_date = min(
-			$prev_event->dates->start,
-			$current_date->sub( new \DateInterval( 'P1M' ) )
-		);
 
 		$url = $this->build_url_for_date( $prev_date, $canonical, $passthru_vars );
 
@@ -104,22 +113,31 @@ class Month_View extends By_Day_View {
 		$date         = $this->context->get( 'event_date', $default_date );
 		$current_date = Dates::build_date_object( $date );
 
-		// The first event that ends after the end of the month; it could still begin in this month.
-		$next_event = tribe_events()
-			->by_args( $this->filter_repository_args( $this->setup_repository_args() ) )
-			->where( 'ends_after', tribe_end_of_day( $current_date->format( 'Y-m-t' ) ) )
-			->order( 'ASC' )
-			->first();
+		if ( $this->skip_empty() ) {
+			// The first event that ends after the end of the month; it could still begin in this month.
+			$next_event = tribe_events()
+				->by_args( $this->filter_repository_args( $this->setup_repository_args() ) )
+				->where( 'ends_after', tribe_end_of_day( $current_date->format( 'Y-m-t' ) ) )
+				->order( 'ASC' )
+				->first();
+			if ( ! $next_event instanceof \WP_Post ) {
+				return $this->filter_prev_url( $canonical, '' );
+			}
 
-		if ( ! $next_event instanceof \WP_Post ) {
-			return $this->filter_prev_url( $canonical, '' );
+			// At a minimum pick the next month or the month the next event starts in.
+			$next_date = max(
+				$next_event->dates->start,
+				$current_date->add( new \DateInterval( 'P1M' ) )
+			);
+		} else {
+			$next_date = Dates::build_date_object( $current_date->format( 'Y-m-01' ) );
+			$next_date->add( new \DateInterval( 'P1M' ) );
+			// Let's make sure to prevent users from paginating endlessly forward when we know there are no more events.
+			$latest = tribe_get_option( 'latest_date', $next_date );
+			if ( $current_date->format( 'Y-m' ) === Dates::build_date_object( $latest )->format( 'Y-m' ) ) {
+				return $this->filter_prev_url( $canonical, '' );
+			}
 		}
-
-		// At a minimum pick the next month or the month the next event starts in.
-		$next_date = max(
-			$next_event->dates->start,
-			$current_date->add( new \DateInterval( 'P1M' ) )
-		);
 
 		$url = $this->build_url_for_date( $next_date, $canonical, $passthru_vars );
 
@@ -419,5 +437,27 @@ class Month_View extends By_Day_View {
 	protected function get_label_format() {
 		// Something like "January".
 		return 'F';
+	}
+
+	/**
+	 * Whether months w/o any event should be skipped while building navigation links or not.
+	 *
+	 * By default empty months will not be skipped.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool Whether to skip empty months or not.
+	 */
+	protected function skip_empty() {
+		/**
+		 * Filters whether months w/o any event should be skipped while building navigation links or not.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool       $skip_empty   Whether months w/o any event should be skipped while building
+		 *                                 navigation links or not; defaults to `false`.
+		 * @param Month_View $this         This Month View instance.
+		 */
+		return (bool) apply_filters( 'tribe_events_views_v2_month_nav_skip_empty', false, $this );
 	}
 }
