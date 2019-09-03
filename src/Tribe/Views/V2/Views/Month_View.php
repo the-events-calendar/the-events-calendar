@@ -113,7 +113,7 @@ class Month_View extends By_Day_View {
 		$date         = $this->context->get( 'event_date', $default_date );
 		$current_date = Dates::build_date_object( $date );
 
-		if ($this->skip_empty()) {
+		if ( $this->skip_empty() ) {
 			// The first event that ends after the end of the month; it could still begin in this month.
 			$next_event = tribe_events()
 				->by_args( $this->filter_repository_args( $this->setup_repository_args() ) )
