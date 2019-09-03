@@ -10,7 +10,7 @@ class Featured_ImageTest extends HtmlPartialTestCase
 	protected $partial_path = 'month/calendar-body/day/calendar-events/calendar-event/tooltip/featured-image';
 
 	/**
-	 * Test render with featured iamge
+	 * Test render with featured image
 	 */
 	public function test_render_with_featured_image() {
 		$thumbnail_id = static::factory()->attachment->create_upload_object(
@@ -31,7 +31,7 @@ class Featured_ImageTest extends HtmlPartialTestCase
 	}
 
 	/**
-	 * Test render with no featured iamge
+	 * Test render with no featured image
 	 */
 	public function test_render_with_no_featured_image() {
 		$event = tribe_events()->set_args( [

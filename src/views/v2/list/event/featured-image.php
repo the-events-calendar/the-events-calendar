@@ -20,8 +20,8 @@ if ( ! $event->thumbnail->exists ) {
 ?>
 <div class="tribe-events-calendar-list__event-featured-image-wrapper tribe-common-g-col">
 	<a
-		href="<?php echo esc_url( $event->permalink ) ?>"
-		title="<?php echo esc_attr( $event->post_title ) ?>"
+		href="<?php echo esc_url( $event->permalink ); ?>"
+		title="<?php echo esc_attr( get_the_title( $event->ID ) ); ?>"
 		rel="bookmark"
 		class="tribe-events-calendar-list__event-featured-image-link"
 	>
@@ -30,7 +30,7 @@ if ( ! $event->thumbnail->exists ) {
 				class="tribe-common-c-image__bg"
 				style="background-image: url('<?php echo esc_url( $event->thumbnail->full->url ); ?>');"
 				role="img"
-				aria-label="<?php echo esc_attr( $event->post_title ) ?>"
+				aria-label="<?php echo esc_attr( get_the_title( $event->ID ) ); ?>"
 			>
 			</div>
 		</div>
