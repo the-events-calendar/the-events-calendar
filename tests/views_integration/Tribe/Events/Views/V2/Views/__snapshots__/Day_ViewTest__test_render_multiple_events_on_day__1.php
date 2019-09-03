@@ -238,8 +238,8 @@
 	</div>
 			<h3 class="tribe-events-calendar-day__event-title tribe-common-h6 tribe-common-h5--min-medium">
 	<a
-		href="http://test.tri.be/?tribe_events=test-event-9-days-2%2F"
-		title=""
+		href="http://test.tri.be/?tribe_events=test-event-9-days-2"
+		title="Test Event &#8211; +9 days"
 		rel="bookmark"
 		class="tribe-events-calendar-day__event-title-link tribe-common-anchor-thin"
 	>
@@ -281,8 +281,8 @@
 	</div>
 			<h3 class="tribe-events-calendar-day__event-title tribe-common-h6 tribe-common-h5--min-medium">
 	<a
-		href="http://test.tri.be/?tribe_events=single-event-1%2F"
-		title=""
+		href="http://test.tri.be/?tribe_events=single-event-1"
+		title="Single Event 1"
 		rel="bookmark"
 		class="tribe-events-calendar-day__event-title-link tribe-common-anchor-thin"
 	>
