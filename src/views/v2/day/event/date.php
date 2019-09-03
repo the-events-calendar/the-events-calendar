@@ -33,6 +33,6 @@ $event_date_attr = $event->dates->start->format( Dates::DBDATEFORMAT );
 		</span>
 	<?php endif; ?>
 	<time class="tribe-events-calendar-day__event-datetime tribe-common-b2" datetime="<?php echo esc_attr( $event_date_attr ); ?>">
-		<?php echo tribe_events_event_schedule_details( $event ); ?>
+		<?php echo esc_html( $event->schedule_details->value() ); ?>
 	</time>
 </div>
