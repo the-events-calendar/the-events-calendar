@@ -9,10 +9,9 @@
 			2018-01-01		</time>
 		<a href="http://test.tri.be/?tribe_events=test-event-2018-01-01-10am" class="tribe-events-calendar-month__multiday-event-inner">
 						<h3 class="tribe-events-calendar-month__multiday-event-title tribe-common-h8">
-							</h3>
+				Test Event &#8211; 2018-01-01 10am			</h3>
 		</a>
 	</article>
-
 </div>
 
 
@@ -25,10 +24,9 @@
 			2018-01-02		</time>
 		<a href="http://test.tri.be/?tribe_events=test-event-2018-01-02-10am" class="tribe-events-calendar-month__multiday-event-inner">
 						<h3 class="tribe-events-calendar-month__multiday-event-title tribe-common-h8">
-							</h3>
+				Test Event &#8211; 2018-01-02 10am			</h3>
 		</a>
 	</article>
-
 </div>
 
 ';

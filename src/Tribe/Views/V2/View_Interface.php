@@ -166,4 +166,15 @@ interface View_Interface  extends View_Url_Provider_Interface, Repository_User_I
 	 * @return array An associative array of the View template variables.
 	 */
 	public function get_template_vars();
+
+	/**
+	 * Returns the URL to show the View for today.
+	 *
+	 * @since 4.9.8
+	 *
+	 * @param bool $canonical Whether to return the canonical, pretty, version of the URL or not; default to `false`.
+	 *
+	 * @return string
+	 */
+	public function get_today_url( $canonical = false );
 }
