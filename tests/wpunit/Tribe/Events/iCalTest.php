@@ -265,7 +265,7 @@ class iCalTest extends WPTestCase {
 				'duration' => DAY_IN_SECONDS,
 				'meta_input' => [ '_EventTimezone' => 'UTC' ]
 				],
-				"BEGIN:VTIMEZONE\r\nTZID:\"UTC\"\r\nBEGIN:STANDARD\r\nTZOFFSETFROM:+0000\r\nTZOFFSETTO:+0000\r\nTZNAME:UTC\r\nDTSTART:20190101T000000\r\nEND:STANDARD\r\nEND:VTIMEZONE\r\n"
+				"BEGIN:VTIMEZONE\r\nTZID:UTC\r\nBEGIN:STANDARD\r\nTZOFFSETFROM:+0000\r\nTZOFFSETTO:+0000\r\nTZNAME:UTC\r\nDTSTART:20190101T000000\r\nEND:STANDARD\r\nEND:VTIMEZONE\r\n"
 			],
 			[
 				[
@@ -273,7 +273,7 @@ class iCalTest extends WPTestCase {
 					'duration' => DAY_IN_SECONDS * 5,
 					'meta_input' => [ '_EventTimezone' => 'America/New_York' ]
 				],
-				"BEGIN:VTIMEZONE\r\nTZID:\"America/New_York\"\r\nBEGIN:DAYLIGHT\r\nTZOFFSETFROM:-0500\r\nTZOFFSETTO:-0400\r\nTZNAME:EDT\r\nDTSTART:20190310T070000\r\nEND:DAYLIGHT\r\nBEGIN:STANDARD\r\nTZOFFSETFROM:-0400\r\nTZOFFSETTO:-0500\r\nTZNAME:EST\r\nDTSTART:20191103T060000\r\nEND:STANDARD\r\nEND:VTIMEZONE\r\n"
+				"BEGIN:VTIMEZONE\r\nTZID:America/New_York\r\nBEGIN:DAYLIGHT\r\nTZOFFSETFROM:-0500\r\nTZOFFSETTO:-0400\r\nTZNAME:EDT\r\nDTSTART:20190310T070000\r\nEND:DAYLIGHT\r\nBEGIN:STANDARD\r\nTZOFFSETFROM:-0400\r\nTZOFFSETTO:-0500\r\nTZNAME:EST\r\nDTSTART:20191103T060000\r\nEND:STANDARD\r\nEND:VTIMEZONE\r\n"
 			],
 			[
 				[
@@ -281,7 +281,7 @@ class iCalTest extends WPTestCase {
 					'duration' => DAY_IN_SECONDS * 5,
 					'meta_input' => [ '_EventTimezone' => 'America/Los_Angeles' ]
 				],
-				"BEGIN:VTIMEZONE\r\nTZID:\"America/Los_Angeles\"\r\nBEGIN:DAYLIGHT\r\nTZOFFSETFROM:-0800\r\nTZOFFSETTO:-0700\r\nTZNAME:PDT\r\nDTSTART:20190310T100000\r\nEND:DAYLIGHT\r\nBEGIN:STANDARD\r\nTZOFFSETFROM:-0700\r\nTZOFFSETTO:-0800\r\nTZNAME:PST\r\nDTSTART:20191103T090000\r\nEND:STANDARD\r\nEND:VTIMEZONE\r\n"
+				"BEGIN:VTIMEZONE\r\nTZID:America/Los_Angeles\r\nBEGIN:DAYLIGHT\r\nTZOFFSETFROM:-0800\r\nTZOFFSETTO:-0700\r\nTZNAME:PDT\r\nDTSTART:20190310T100000\r\nEND:DAYLIGHT\r\nBEGIN:STANDARD\r\nTZOFFSETFROM:-0700\r\nTZOFFSETTO:-0800\r\nTZNAME:PST\r\nDTSTART:20191103T090000\r\nEND:STANDARD\r\nEND:VTIMEZONE\r\n"
 			],
 		];
 	}
@@ -296,7 +296,7 @@ class iCalTest extends WPTestCase {
 			'post_title' => 'Long words with "quotes" on it',
 			'post_content' => "Sample
 Text
-WITH  
+WITH
 multiple lines",
 		];
 		$event = $this->factory()->event->create( $args );

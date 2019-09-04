@@ -17,7 +17,7 @@ use Tribe__Date_Utils as Dates;
 $event       = $this->get( 'event' );
 $event_id    = $event->ID;
 $is_featured = tribe( 'tec.featured_events' )->is_featured( $event_id );
-$event_date_attr = tribe_get_start_date( $event, true, Dates::DBDATEFORMAT );
+$event_date_attr = $event->dates->start->format( Dates::DBDATEFORMAT );
 
 ?>
 <div class="tribe-events-calendar-list__event-datetime-wrapper">
