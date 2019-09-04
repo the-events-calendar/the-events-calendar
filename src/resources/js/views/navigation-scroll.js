@@ -4,7 +4,7 @@ tribe.events.views = tribe.events.views || {};
 /**
  * Configures Views navigation scroller Object in the Global Tribe variable
  *
- * @since  TBD
+ * @since  4.9.8
  *
  * @type   {PlainObject}
  */
@@ -14,7 +14,7 @@ tribe.events.views.navigationScroll = {};
  * Initializes in a Strict env the code that scrolling when navigation happens
  * on the new Manager for Views V2.
  *
- * @since  TBD
+ * @since  4.9.8
  *
  * @param  {PlainObject} $   jQuery
  * @param  {PlainObject} obj tribe.events.views.navigationScroll
