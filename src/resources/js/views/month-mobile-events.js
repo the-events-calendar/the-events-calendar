@@ -34,7 +34,7 @@ tribe.events.views.monthMobileEvents = {};
 	/**
 	 * Selectors used for configuration and setup
 	 *
-	 * @since TBD
+	 * @since 4.9.8
 	 *
 	 * @type {PlainObject}
 	 */
@@ -78,7 +78,7 @@ tribe.events.views.monthMobileEvents = {};
 	/**
 	 * Opens mobile events
 	 *
-	 * @since TBD
+	 * @since 4.9.8
 	 *
 	 * @param {jQuery} $header jQuery object of mobile day button
 	 * @param {jQuery} $content jQuery object of mobile events container
@@ -99,7 +99,7 @@ tribe.events.views.monthMobileEvents = {};
 	/**
 	 * Closes mobile events
 	 *
-	 * @since TBD
+	 * @since 4.9.8
 	 *
 	 * @param {jQuery} $header jQuery object of mobile day button
 	 * @param {jQuery} $content jQuery object of mobile events container
@@ -191,7 +191,7 @@ tribe.events.views.monthMobileEvents = {};
 	/**
 	 * Initializes mobile events state
 	 *
-	 * @since TBD
+	 * @since 4.9.8
 	 *
 	 * @param {jQuery} $container jQuery object of view container
 	 *
@@ -209,7 +209,7 @@ tribe.events.views.monthMobileEvents = {};
 	/**
 	 * Handles resize event
 	 *
-	 * @since TBD
+	 * @since 4.9.8
 	 *
 	 * @param {Event} event event object for 'beforeAjaxSuccess.tribeEvents' event
 	 *
@@ -232,7 +232,7 @@ tribe.events.views.monthMobileEvents = {};
 	/**
 	 * Deinitializes mobile days
 	 *
-	 * @since TBD
+	 * @since 4.9.8
 	 *
 	 * @param  {Event}       event    event object for 'beforeAjaxSuccess.tribeEvents' event
 	 * @param  {jqXHR}       jqXHR    Request object
@@ -249,7 +249,7 @@ tribe.events.views.monthMobileEvents = {};
 	/**
 	 * Initializes mobile days
 	 *
-	 * @since TBD
+	 * @since 4.9.8
 	 *
 	 * @param  {Event}   event      event object for 'afterSetup.tribeEvents' event
 	 * @param  {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event

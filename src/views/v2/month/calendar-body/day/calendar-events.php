@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version TBD
+ * @version 4.9.8
  *
  * @var array $day_events An array of the day event post objects. Each event is a `WP_Post` instance with additional
  *                        properties as set from the `tribe_get_event` function.
