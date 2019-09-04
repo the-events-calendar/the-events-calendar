@@ -215,6 +215,10 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
+= [unreleased] =
+
+* Tweak - Conform iCalendar feed to specifications by not putting quotes around the timezone ID. This fixes some custom parsers [133626]
+
 = [4.9.8] 2019-09-04 =
 
 * Tweak - Added the Monolog logging library as alternative logging backend [120785]
