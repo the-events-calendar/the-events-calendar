@@ -83,19 +83,24 @@
 		margin-left: 3px;
 	}
 
-	/* .tribe-events-calendar-month__calendar-event-title {} */
-
-	/* .tribe-events-calendar-month__calendar-event-title-link {} */
+	/* -----------------------------------------------------------------------------
+	 * Calendar Event Tooltip
+	 * ----------------------------------------------------------------------------- */
 
 	.tribe-events-calendar-month__calendar-event-tooltip-featured-image-wrapper {
-		margin-bottom: var(--spacer-3);
+		width: 206px;
 	}
 
 	.tribe-events-calendar-month__calendar-event-tooltip-featured-image {
 		padding-bottom: 56.25%;
 	}
 
-	.tribe-events-calendar-month__calendar-event-tooltip-cta {
-		margin-top: var(--spacer-3);
+	.tribe-events-calendar-month__calendar-event-tooltip-featured-image-wrapper,
+	.tribe-events-calendar-month__calendar-event-tooltip-description {
+		margin-bottom: var(--spacer-3);
+
+		&:last-child {
+			margin-bottom: 0;
+		}
 	}
 }
