@@ -17,7 +17,6 @@
  */
 $time_format = tribe_get_time_format();
 ?>
-
 <div class="tribe-events-calendar-month__calendar-event-datetime">
 	<?php if ( ! empty( $event->featured ) ) : ?>
 		<em
@@ -34,13 +33,5 @@ $time_format = tribe_get_time_format();
 	<time datetime="<?php echo esc_attr($event->dates->end->format( 'H:i' )) ?>">
 		<?php echo esc_html( $event->dates->end->format( $time_format ) ) ?>
 	</time>
-	<?php // @todo @fe this should be moved to PRO. ?>
-	<?php if ( ! empty( $event->recurring ) ) : ?>
-		<em
-			class="tribe-events-calendar-month__calendar-event-datetime-recurring tribe-common-svgicon tribe-common-svgicon--recurring"
-			aria-label="<?php esc_attr_e( 'Recurring', 'the-events-calendar' ) ?>"
-			title="<?php esc_attr_e( 'Recurring', 'the-events-calendar' ) ?>"
-		>
-		</em>
-	<?php endif; ?>
+	<?php $this->template( 'month/calendar-body/day/calendar-events/calendar-event/date/recurring' ); ?>
 </div>
