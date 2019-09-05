@@ -27,6 +27,9 @@ $time_format = tribe_get_time_format();
 			title="<?php esc_attr_e( 'Featured', 'the-events-calendar' ) ?>"
 		>
 		</em>
+		<span class="tribe-events-calendar-month-mobile-events__mobile-event-datetime-featured-text">
+			<?php esc_html_e( 'Featured', 'the-events-calendar' ); ?>
+		</span>
 	<?php endif; ?>
 
 	<?php // @todo @fe this should be moved to PRO. ?>
