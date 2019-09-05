@@ -28,7 +28,9 @@ $event_date_attr = tribe_get_start_date( $event, true, Dates::DBDATEFORMAT );
 			title="<?php esc_attr_e( 'Featured', 'the-events-calendar' ); ?>"
 		>
 		</em>
-		<span class="tribe-events-calendar-list__event-datetime-featured-text tribe-common-b2"><?php esc_html_e( 'Featured', 'the-events-calendar' ); ?></span>
+		<span class="tribe-events-calendar-list__event-datetime-featured-text tribe-common-b2">
+			<?php esc_html_e( 'Featured', 'the-events-calendar' ); ?>
+		</span>
 	<?php endif; ?>
 	<time class="tribe-events-calendar-list__event-datetime tribe-common-b2" datetime="<?php echo esc_attr( $event_date_attr ); ?>">
 		<?php echo tribe_events_event_schedule_details( $event ); ?>

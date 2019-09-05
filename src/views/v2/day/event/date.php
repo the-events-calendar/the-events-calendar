@@ -19,9 +19,6 @@ $is_featured = tribe( 'tec.featured_events' )->is_featured( $event_id );
 
 ?>
 <div class="tribe-events-calendar-day__event-datetime-wrapper">
-	<time class="tribe-events-calendar-day__event-datetime tribe-common-b2" datetime="1970-01-01T00:00:00+00:00">
-		<?php echo tribe_events_event_schedule_details( $event ); ?>
-	</time>
 	<?php if ( $is_featured ) : ?>
 		<em
 			class="tribe-events-calendar-day__event-datetime-featured-icon tribe-common-svgicon tribe-common-svgicon--featured"
@@ -29,5 +26,11 @@ $is_featured = tribe( 'tec.featured_events' )->is_featured( $event_id );
 			title="<?php esc_attr_e( 'Featured', 'the-events-calendar' ); ?>"
 		>
 		</em>
+		<span class="tribe-events-calendar-day__event-datetime-featured-text tribe-common-b2">
+			<?php esc_html_e( 'Featured', 'the-events-calendar' ); ?>
+		</span>
 	<?php endif; ?>
+	<time class="tribe-events-calendar-day__event-datetime tribe-common-b2" datetime="1970-01-01T00:00:00+00:00">
+		<?php echo tribe_events_event_schedule_details( $event ); ?>
+	</time>
 </div>
