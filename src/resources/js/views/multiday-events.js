@@ -209,7 +209,7 @@ tribe.events.views.multidayEvents = {};
 	/**
 	 * Binds events for container.
 	 *
-	 * @since TBD
+	 * @since 4.9.8
 	 *
 	 * @param {Event}   event      event object for 'afterSetup.tribeEvents' event
 	 * @param {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event.
