@@ -7,7 +7,7 @@
 		<div class="tribe-events-calendar-month-mobile-events__mobile-event-datetime tribe-common-b2">
 	
 				<em
-			class="tribe-events-calendar-month-mobile-events__mobile-event-datetime-recurring tribe-common-svgicon tribe-common-svgicon--recurring"
+			class="tribe-events-calendar-month-mobile-events__mobile-event-datetime-recurring-icon tribe-common-svgicon tribe-common-svgicon--recurring"
 			aria-label="Recurring"
 			title="Recurring"
 		>

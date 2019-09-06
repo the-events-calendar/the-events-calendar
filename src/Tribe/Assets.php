@@ -693,7 +693,7 @@ class Tribe__Events__Assets {
 		/**
 		 * Allows filtering the contents of the Javascript configuration object that will be printed on the page.
 		 *
-		 * @since TBD
+		 * @since 4.9.8
 		 *
 		 * @param array $js_config_array The Javascript configuration object that will be printed on the page.
 		 */

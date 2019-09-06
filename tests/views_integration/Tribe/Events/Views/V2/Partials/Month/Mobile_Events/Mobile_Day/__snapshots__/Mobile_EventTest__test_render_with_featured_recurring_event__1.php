@@ -6,14 +6,16 @@
 
 		<div class="tribe-events-calendar-month-mobile-events__mobile-event-datetime tribe-common-b2">
 			<em
-			class="tribe-events-calendar-month-mobile-events__mobile-event-datetime-featured tribe-common-svgicon tribe-common-svgicon--featured"
+			class="tribe-events-calendar-month-mobile-events__mobile-event-datetime-featured-icon tribe-common-svgicon tribe-common-svgicon--featured"
 			aria-label="Featured"
 			title="Featured"
 		>
 		</em>
+		<span class="tribe-events-calendar-month-mobile-events__mobile-event-datetime-featured-text">
+			Featured		</span>
 	
 				<em
-			class="tribe-events-calendar-month-mobile-events__mobile-event-datetime-recurring tribe-common-svgicon tribe-common-svgicon--recurring"
+			class="tribe-events-calendar-month-mobile-events__mobile-event-datetime-recurring-icon tribe-common-svgicon tribe-common-svgicon--recurring"
 			aria-label="Recurring"
 			title="Recurring"
 		>
@@ -26,7 +28,7 @@
 		<time datetime="12:00">
 			12:00 pm		</time>
 	</div>
-		<h3  class="tribe-events-calendar-month-mobile-events__mobile-event-title tribe-common-h6" >
+		<h3  class="tribe-events-calendar-month-mobile-events__mobile-event-title tribe-common-h8" >
 	<a
 		href="http://test.tri.be/?tribe_events=test-event-2018-01-01-10am"
 		title="Test Event &#8211; 2018-01-01 10am"

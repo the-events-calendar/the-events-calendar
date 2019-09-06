@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version TBD
+ * @version 4.9.8
  *
  * @var int $more_events The number of events that's not showing in the day cell or in the multi-day stack.
  * @var string $more_url A string with the URL for more events on that day

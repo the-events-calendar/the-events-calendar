@@ -9,16 +9,16 @@
     "packages-dev": [
         {
             "name": "antecedent/patchwork",
-            "version": "2.1.8",
+            "version": "2.1.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/antecedent/patchwork.git",
-                "reference": "3bb81ace3914c220aa273d1c0603d5e1b454c0d7"
+                "reference": "1229bb22283177e196b572120de0772d9ee9baac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/antecedent/patchwork/zipball/3bb81ace3914c220aa273d1c0603d5e1b454c0d7",
-                "reference": "3bb81ace3914c220aa273d1c0603d5e1b454c0d7",
+                "url": "https://api.github.com/repos/antecedent/patchwork/zipball/1229bb22283177e196b572120de0772d9ee9baac",
+                "reference": "1229bb22283177e196b572120de0772d9ee9baac",
                 "shasum": ""
             },
             "require": {
@@ -46,7 +46,7 @@
                 "runkit",
                 "testing"
             ],
-            "time": "2018-02-19T18:52:50+00:00"
+            "time": "2019-08-18T15:18:18+00:00"
         },
         {
             "name": "automattic/vipwpcs",
@@ -93,59 +93,6 @@
                 "wordpress"
             ],
             "time": "2019-07-12T08:47:36+00:00"
-        },
-        {
-            "name": "bacon/bacon-string-utils",
-            "version": "1.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Bacon/BaconStringUtils.git",
-                "reference": "3d7818aca25190149a9a2415a0928d4964d6007e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Bacon/BaconStringUtils/zipball/3d7818aca25190149a9a2415a0928d4964d6007e",
-                "reference": "3d7818aca25190149a9a2415a0928d4964d6007e",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~3.7",
-                "satooshi/php-coveralls": "~0.6",
-                "squizlabs/php_codesniffer": "~1.5",
-                "zendframework/zendframework": "~2.0"
-            },
-            "suggest": {
-                "zendframework/zend-filter": "To use the Slugifier as a Zend\\Filter instance."
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "BaconStringUtils": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-2-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Ben Scholzen 'DASPRiD'",
-                    "role": "Developer",
-                    "email": "mail@dasprids.de",
-                    "homepage": "http://www.dasprids.de"
-                }
-            ],
-            "description": "BaconStringUtils contain utitilies to work with strings.",
-            "homepage": "https://github.com/Bacon/BaconStringUtils",
-            "time": "2014-10-11T16:58:02+00:00"
         },
         {
             "name": "behat/gherkin",
@@ -208,29 +155,28 @@
         },
         {
             "name": "codeception/codeception",
-            "version": "3.1.0",
+            "version": "2.5.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Codeception.git",
-                "reference": "9ed9146567770e564fdd2b656edb385330f7fae7"
+                "reference": "b83a9338296e706fab2ceb49de8a352fbca3dc98"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/9ed9146567770e564fdd2b656edb385330f7fae7",
-                "reference": "9ed9146567770e564fdd2b656edb385330f7fae7",
+                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/b83a9338296e706fab2ceb49de8a352fbca3dc98",
+                "reference": "b83a9338296e706fab2ceb49de8a352fbca3dc98",
                 "shasum": ""
             },
             "require": {
                 "behat/gherkin": "^4.4.0",
-                "codeception/phpunit-wrapper": ">6.0.15 <6.1.0 | ^6.6.1 | ^7.7.1 | ^8.0.3",
-                "codeception/stub": "^2.0 | ^3.0",
+                "codeception/phpunit-wrapper": "^6.0.9|^7.0.6",
+                "codeception/stub": "^2.0",
                 "ext-curl": "*",
                 "ext-json": "*",
                 "ext-mbstring": "*",
-                "facebook/webdriver": "^1.6.0",
-                "guzzlehttp/guzzle": "^6.3.0",
-                "guzzlehttp/psr7": "~1.4",
-                "hoa/console": "~3.0",
+                "facebook/webdriver": ">=1.1.3 <2.0",
+                "guzzlehttp/guzzle": ">=4.1.4 <7.0",
+                "guzzlehttp/psr7": "~1.0",
                 "php": ">=5.6.0 <8.0",
                 "symfony/browser-kit": ">=2.7 <5.0",
                 "symfony/console": ">=2.7 <5.0",
@@ -242,9 +188,7 @@
             },
             "require-dev": {
                 "codeception/specify": "~0.3",
-                "doctrine/annotations": "^1",
-                "doctrine/data-fixtures": "^1",
-                "doctrine/orm": "^2",
+                "facebook/graph-sdk": "~5.3",
                 "flow/jsonpath": "~0.2",
                 "monolog/monolog": "~1.8",
                 "pda/pheanstalk": "~3.0",
@@ -299,7 +243,7 @@
                 "functional testing",
                 "unit testing"
             ],
-            "time": "2019-08-18T16:44:20+00:00"
+            "time": "2019-04-24T11:28:19+00:00"
         },
         {
             "name": "codeception/phpunit-wrapper",
@@ -349,21 +293,20 @@
         },
         {
             "name": "codeception/stub",
-            "version": "3.0.0",
+            "version": "2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Stub.git",
-                "reference": "eea518711d736eab838c1274593c4568ec06b23d"
+                "reference": "853657f988942f7afb69becf3fd0059f192c705a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Stub/zipball/eea518711d736eab838c1274593c4568ec06b23d",
-                "reference": "eea518711d736eab838c1274593c4568ec06b23d",
+                "url": "https://api.github.com/repos/Codeception/Stub/zipball/853657f988942f7afb69becf3fd0059f192c705a",
+                "reference": "853657f988942f7afb69becf3fd0059f192c705a",
                 "shasum": ""
             },
             "require": {
-                "codeception/phpunit-wrapper": "^6.6.1 | ^7.7.1 | ^8.0.3",
-                "phpunit/phpunit": ">=6.5 <9.0"
+                "codeception/phpunit-wrapper": ">6.0.15 <6.1.0 | ^6.6.1 | ^7.7.1 | ^8.0.3"
             },
             "type": "library",
             "autoload": {
@@ -376,7 +319,7 @@
                 "MIT"
             ],
             "description": "Flexible Stub wrapper for PHPUnit's Mock Builder",
-            "time": "2019-08-10T16:20:53+00:00"
+            "time": "2019-03-02T15:35:10+00:00"
         },
         {
             "name": "composer/ca-bundle",
@@ -1419,555 +1362,6 @@
             "time": "2012-08-31T00:00:00+00:00"
         },
         {
-            "name": "hoa/consistency",
-            "version": "1.17.05.02",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/hoaproject/Consistency.git",
-                "reference": "fd7d0adc82410507f332516faf655b6ed22e4c2f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/hoaproject/Consistency/zipball/fd7d0adc82410507f332516faf655b6ed22e4c2f",
-                "reference": "fd7d0adc82410507f332516faf655b6ed22e4c2f",
-                "shasum": ""
-            },
-            "require": {
-                "hoa/exception": "~1.0",
-                "php": ">=5.5.0"
-            },
-            "require-dev": {
-                "hoa/stream": "~1.0",
-                "hoa/test": "~2.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Hoa\\Consistency\\": "."
-                },
-                "files": [
-                    "Prelude.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Ivan Enderlin",
-                    "email": "ivan.enderlin@hoa-project.net"
-                },
-                {
-                    "name": "Hoa community",
-                    "homepage": "https://hoa-project.net/"
-                }
-            ],
-            "description": "The Hoa\\Consistency library.",
-            "homepage": "https://hoa-project.net/",
-            "keywords": [
-                "autoloader",
-                "callable",
-                "consistency",
-                "entity",
-                "flex",
-                "keyword",
-                "library"
-            ],
-            "time": "2017-05-02T12:18:12+00:00"
-        },
-        {
-            "name": "hoa/console",
-            "version": "3.17.05.02",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/hoaproject/Console.git",
-                "reference": "e231fd3ea70e6d773576ae78de0bdc1daf331a66"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/hoaproject/Console/zipball/e231fd3ea70e6d773576ae78de0bdc1daf331a66",
-                "reference": "e231fd3ea70e6d773576ae78de0bdc1daf331a66",
-                "shasum": ""
-            },
-            "require": {
-                "hoa/consistency": "~1.0",
-                "hoa/event": "~1.0",
-                "hoa/exception": "~1.0",
-                "hoa/file": "~1.0",
-                "hoa/protocol": "~1.0",
-                "hoa/stream": "~1.0",
-                "hoa/ustring": "~4.0"
-            },
-            "require-dev": {
-                "hoa/test": "~2.0"
-            },
-            "suggest": {
-                "ext-pcntl": "To enable hoa://Event/Console/Window:resize.",
-                "hoa/dispatcher": "To use the console kit.",
-                "hoa/router": "To use the console kit."
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "3.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Hoa\\Console\\": "."
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Ivan Enderlin",
-                    "email": "ivan.enderlin@hoa-project.net"
-                },
-                {
-                    "name": "Hoa community",
-                    "homepage": "https://hoa-project.net/"
-                }
-            ],
-            "description": "The Hoa\\Console library.",
-            "homepage": "https://hoa-project.net/",
-            "keywords": [
-                "autocompletion",
-                "chrome",
-                "cli",
-                "console",
-                "cursor",
-                "getoption",
-                "library",
-                "option",
-                "parser",
-                "processus",
-                "readline",
-                "terminfo",
-                "tput",
-                "window"
-            ],
-            "time": "2017-05-02T12:26:19+00:00"
-        },
-        {
-            "name": "hoa/event",
-            "version": "1.17.01.13",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/hoaproject/Event.git",
-                "reference": "6c0060dced212ffa3af0e34bb46624f990b29c54"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/hoaproject/Event/zipball/6c0060dced212ffa3af0e34bb46624f990b29c54",
-                "reference": "6c0060dced212ffa3af0e34bb46624f990b29c54",
-                "shasum": ""
-            },
-            "require": {
-                "hoa/consistency": "~1.0",
-                "hoa/exception": "~1.0"
-            },
-            "require-dev": {
-                "hoa/test": "~2.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Hoa\\Event\\": "."
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Ivan Enderlin",
-                    "email": "ivan.enderlin@hoa-project.net"
-                },
-                {
-                    "name": "Hoa community",
-                    "homepage": "https://hoa-project.net/"
-                }
-            ],
-            "description": "The Hoa\\Event library.",
-            "homepage": "https://hoa-project.net/",
-            "keywords": [
-                "event",
-                "library",
-                "listener",
-                "observer"
-            ],
-            "time": "2017-01-13T15:30:50+00:00"
-        },
-        {
-            "name": "hoa/exception",
-            "version": "1.17.01.16",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/hoaproject/Exception.git",
-                "reference": "091727d46420a3d7468ef0595651488bfc3a458f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/hoaproject/Exception/zipball/091727d46420a3d7468ef0595651488bfc3a458f",
-                "reference": "091727d46420a3d7468ef0595651488bfc3a458f",
-                "shasum": ""
-            },
-            "require": {
-                "hoa/consistency": "~1.0",
-                "hoa/event": "~1.0"
-            },
-            "require-dev": {
-                "hoa/test": "~2.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Hoa\\Exception\\": "."
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Ivan Enderlin",
-                    "email": "ivan.enderlin@hoa-project.net"
-                },
-                {
-                    "name": "Hoa community",
-                    "homepage": "https://hoa-project.net/"
-                }
-            ],
-            "description": "The Hoa\\Exception library.",
-            "homepage": "https://hoa-project.net/",
-            "keywords": [
-                "exception",
-                "library"
-            ],
-            "time": "2017-01-16T07:53:27+00:00"
-        },
-        {
-            "name": "hoa/file",
-            "version": "1.17.07.11",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/hoaproject/File.git",
-                "reference": "35cb979b779bc54918d2f9a4e02ed6c7a1fa67ca"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/hoaproject/File/zipball/35cb979b779bc54918d2f9a4e02ed6c7a1fa67ca",
-                "reference": "35cb979b779bc54918d2f9a4e02ed6c7a1fa67ca",
-                "shasum": ""
-            },
-            "require": {
-                "hoa/consistency": "~1.0",
-                "hoa/event": "~1.0",
-                "hoa/exception": "~1.0",
-                "hoa/iterator": "~2.0",
-                "hoa/stream": "~1.0"
-            },
-            "require-dev": {
-                "hoa/test": "~2.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Hoa\\File\\": "."
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Ivan Enderlin",
-                    "email": "ivan.enderlin@hoa-project.net"
-                },
-                {
-                    "name": "Hoa community",
-                    "homepage": "https://hoa-project.net/"
-                }
-            ],
-            "description": "The Hoa\\File library.",
-            "homepage": "https://hoa-project.net/",
-            "keywords": [
-                "Socket",
-                "directory",
-                "file",
-                "finder",
-                "library",
-                "link",
-                "temporary"
-            ],
-            "time": "2017-07-11T07:42:15+00:00"
-        },
-        {
-            "name": "hoa/iterator",
-            "version": "2.17.01.10",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/hoaproject/Iterator.git",
-                "reference": "d1120ba09cb4ccd049c86d10058ab94af245f0cc"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/hoaproject/Iterator/zipball/d1120ba09cb4ccd049c86d10058ab94af245f0cc",
-                "reference": "d1120ba09cb4ccd049c86d10058ab94af245f0cc",
-                "shasum": ""
-            },
-            "require": {
-                "hoa/consistency": "~1.0",
-                "hoa/exception": "~1.0"
-            },
-            "require-dev": {
-                "hoa/test": "~2.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Hoa\\Iterator\\": "."
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Ivan Enderlin",
-                    "email": "ivan.enderlin@hoa-project.net"
-                },
-                {
-                    "name": "Hoa community",
-                    "homepage": "https://hoa-project.net/"
-                }
-            ],
-            "description": "The Hoa\\Iterator library.",
-            "homepage": "https://hoa-project.net/",
-            "keywords": [
-                "iterator",
-                "library"
-            ],
-            "time": "2017-01-10T10:34:47+00:00"
-        },
-        {
-            "name": "hoa/protocol",
-            "version": "1.17.01.14",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/hoaproject/Protocol.git",
-                "reference": "5c2cf972151c45f373230da170ea015deecf19e2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/hoaproject/Protocol/zipball/5c2cf972151c45f373230da170ea015deecf19e2",
-                "reference": "5c2cf972151c45f373230da170ea015deecf19e2",
-                "shasum": ""
-            },
-            "require": {
-                "hoa/consistency": "~1.0",
-                "hoa/exception": "~1.0"
-            },
-            "require-dev": {
-                "hoa/test": "~2.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Hoa\\Protocol\\": "."
-                },
-                "files": [
-                    "Wrapper.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Ivan Enderlin",
-                    "email": "ivan.enderlin@hoa-project.net"
-                },
-                {
-                    "name": "Hoa community",
-                    "homepage": "https://hoa-project.net/"
-                }
-            ],
-            "description": "The Hoa\\Protocol library.",
-            "homepage": "https://hoa-project.net/",
-            "keywords": [
-                "library",
-                "protocol",
-                "resource",
-                "stream",
-                "wrapper"
-            ],
-            "time": "2017-01-14T12:26:10+00:00"
-        },
-        {
-            "name": "hoa/stream",
-            "version": "1.17.02.21",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/hoaproject/Stream.git",
-                "reference": "3293cfffca2de10525df51436adf88a559151d82"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/hoaproject/Stream/zipball/3293cfffca2de10525df51436adf88a559151d82",
-                "reference": "3293cfffca2de10525df51436adf88a559151d82",
-                "shasum": ""
-            },
-            "require": {
-                "hoa/consistency": "~1.0",
-                "hoa/event": "~1.0",
-                "hoa/exception": "~1.0",
-                "hoa/protocol": "~1.0"
-            },
-            "require-dev": {
-                "hoa/test": "~2.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Hoa\\Stream\\": "."
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Ivan Enderlin",
-                    "email": "ivan.enderlin@hoa-project.net"
-                },
-                {
-                    "name": "Hoa community",
-                    "homepage": "https://hoa-project.net/"
-                }
-            ],
-            "description": "The Hoa\\Stream library.",
-            "homepage": "https://hoa-project.net/",
-            "keywords": [
-                "Context",
-                "bucket",
-                "composite",
-                "filter",
-                "in",
-                "library",
-                "out",
-                "protocol",
-                "stream",
-                "wrapper"
-            ],
-            "time": "2017-02-21T16:01:06+00:00"
-        },
-        {
-            "name": "hoa/ustring",
-            "version": "4.17.01.16",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/hoaproject/Ustring.git",
-                "reference": "e6326e2739178799b1fe3fdd92029f9517fa17a0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/hoaproject/Ustring/zipball/e6326e2739178799b1fe3fdd92029f9517fa17a0",
-                "reference": "e6326e2739178799b1fe3fdd92029f9517fa17a0",
-                "shasum": ""
-            },
-            "require": {
-                "hoa/consistency": "~1.0",
-                "hoa/exception": "~1.0"
-            },
-            "require-dev": {
-                "hoa/test": "~2.0"
-            },
-            "suggest": {
-                "ext-iconv": "ext/iconv must be present (or a third implementation) to use Hoa\\Ustring::transcode().",
-                "ext-intl": "To get a better Hoa\\Ustring::toAscii() and Hoa\\Ustring::compareTo()."
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "4.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Hoa\\Ustring\\": "."
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Ivan Enderlin",
-                    "email": "ivan.enderlin@hoa-project.net"
-                },
-                {
-                    "name": "Hoa community",
-                    "homepage": "https://hoa-project.net/"
-                }
-            ],
-            "description": "The Hoa\\Ustring library.",
-            "homepage": "https://hoa-project.net/",
-            "keywords": [
-                "library",
-                "search",
-                "string",
-                "unicode"
-            ],
-            "time": "2017-01-16T07:08:25+00:00"
-        },
-        {
             "name": "illuminate/contracts",
             "version": "v5.5.44",
             "source": {
@@ -2267,24 +1661,24 @@
         },
         {
             "name": "lucatume/wp-browser",
-            "version": "2.2.20",
+            "version": "2.2.23",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lucatume/wp-browser.git",
-                "reference": "c84a229e7bd039d593b96428f690772bdbacd9a9"
+                "reference": "1a79ff93a5da9512c882451ec001c135bbfa3c43"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/c84a229e7bd039d593b96428f690772bdbacd9a9",
-                "reference": "c84a229e7bd039d593b96428f690772bdbacd9a9",
+                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/1a79ff93a5da9512c882451ec001c135bbfa3c43",
+                "reference": "1a79ff93a5da9512c882451ec001c135bbfa3c43",
                 "shasum": ""
             },
             "require": {
                 "antecedent/patchwork": "^2.0",
-                "bacon/bacon-string-utils": "~1.0",
-                "codeception/codeception": "^2.5 || ^3.0",
+                "codeception/codeception": "^2.5",
                 "dg/mysql-dump": "^1.3",
                 "ext-fileinfo": "*",
+                "ext-iconv": "*",
                 "ext-json": "*",
                 "ext-pdo": "*",
                 "gumlet/php-image-resize": "^1.6",
@@ -2294,7 +1688,7 @@
                 "symfony/process": ">=2.7 <5.0",
                 "vlucas/phpdotenv": "^3.0",
                 "wp-cli/wp-cli-bundle": ">=2.0 <3.0.0",
-                "xamin/handlebars.php": "~0.10"
+                "zordius/lightncandy": "^1.2"
             },
             "require-dev": {
                 "erusev/parsedown": "^1.7",
@@ -2310,7 +1704,8 @@
                     "tad\\": "src/tad"
                 },
                 "files": [
-                    "src/tad/WPBrowser/functions.php"
+                    "src/tad/WPBrowser/functions.php",
+                    "src/tad/WPBrowser/utils.php"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -2331,7 +1726,7 @@
                 "codeception",
                 "wordpress"
             ],
-            "time": "2019-08-26T07:17:09+00:00"
+            "time": "2019-09-06T13:03:04+00:00"
         },
         {
             "name": "lucatume/wp-snaphot-assertions",
@@ -2606,12 +2001,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/moderntribe/tribe-testing-facilities",
-                "reference": "27f73f4dafac1aef5ce04ac6b5ad4969c550e986"
+                "reference": "9cc48c1b6c43ad387aab7ded0151b08203ccbbdc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/moderntribe/tribe-testing-facilities/zipball/27f73f4dafac1aef5ce04ac6b5ad4969c550e986",
-                "reference": "27f73f4dafac1aef5ce04ac6b5ad4969c550e986",
+                "url": "https://api.github.com/repos/moderntribe/tribe-testing-facilities/zipball/9cc48c1b6c43ad387aab7ded0151b08203ccbbdc",
+                "reference": "9cc48c1b6c43ad387aab7ded0151b08203ccbbdc",
                 "shasum": ""
             },
             "require": {
@@ -2669,7 +2064,7 @@
                 }
             ],
             "description": "Testing facilities, helpers and examples.",
-            "time": "2019-09-03T13:17:36+00:00"
+            "time": "2019-09-04T12:23:35+00:00"
         },
         {
             "name": "mustache/mustache",
@@ -7687,6 +7082,58 @@
                 "MIT"
             ],
             "time": "2016-04-16T21:52:24+00:00"
+        },
+        {
+            "name": "zordius/lightncandy",
+            "version": "v1.2.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zordius/lightncandy.git",
+                "reference": "dfdb910ae7b59e274f1ff97d29b724871f01b4cc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zordius/lightncandy/zipball/dfdb910ae7b59e274f1ff97d29b724871f01b4cc",
+                "reference": "dfdb910ae7b59e274f1ff97d29b724871f01b4cc",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^7"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.2.5-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "LightnCandy\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Zordius Chen",
+                    "email": "zordius@gmail.com"
+                }
+            ],
+            "description": "An extremely fast PHP implementation of handlebars ( http://handlebarsjs.com/ ) and mustache ( http://mustache.github.io/ ).",
+            "homepage": "https://github.com/zordius/lightncandy",
+            "keywords": [
+                "handlebars",
+                "logicless",
+                "mustache",
+                "php",
+                "template"
+            ],
+            "time": "2019-06-09T04:10:55+00:00"
         }
     ],
     "aliases": [],
