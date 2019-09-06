@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version TBD
+ * @version 4.9.8
  *
  * @var array $days An array containing the data for each day on the calendar grid, divided by day.
  *                  Shape `[ <Y-m-d> => [ ...<day_data> ] ]`.

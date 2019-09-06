@@ -111,7 +111,7 @@ tribe.events.views.viewSelector = {};
 	/**
 	 * Initializes view selector state
 	 *
-	 * @since TBD
+	 * @since 4.9.8
 	 *
 	 * @param {jQuery} $container jQuery object of view container
 	 *
@@ -143,7 +143,7 @@ tribe.events.views.viewSelector = {};
 	/**
 	 * Initializes view selector
 	 *
-	 * @since TBD
+	 * @since 4.9.8
 	 *
 	 * @param {jQuery} $container jQuery object of view container
 	 *
@@ -294,7 +294,7 @@ tribe.events.views.viewSelector = {};
 	/**
 	 * Initialize view selector JS
 	 *
-	 * @since TBD
+	 * @since 4.9.8
 	 *
 	 * @param  {Event}   event      event object for 'afterSetup.tribeEvents' event
 	 * @param  {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event
