@@ -20,7 +20,7 @@ $is_featured = tribe( 'tec.featured_events' )->is_featured( $event_id );
 $event_date_attr = tribe_get_start_date( $event, true, Dates::DBDATEFORMAT );
 
 ?>
-<div class="tribe-events-calendar-list__event-datetime-wrapper">
+<div class="tribe-events-calendar-list__event-datetime-wrapper tribe-common-b2">
 	<?php if ( $is_featured ) : ?>
 		<em
 			class="tribe-events-calendar-list__event-datetime-featured-icon tribe-common-svgicon tribe-common-svgicon--featured"
@@ -28,11 +28,11 @@ $event_date_attr = tribe_get_start_date( $event, true, Dates::DBDATEFORMAT );
 			title="<?php esc_attr_e( 'Featured', 'the-events-calendar' ); ?>"
 		>
 		</em>
-		<span class="tribe-events-calendar-list__event-datetime-featured-text tribe-common-b2">
+		<span class="tribe-events-calendar-list__event-datetime-featured-text">
 			<?php esc_html_e( 'Featured', 'the-events-calendar' ); ?>
 		</span>
 	<?php endif; ?>
-	<time class="tribe-events-calendar-list__event-datetime tribe-common-b2" datetime="<?php echo esc_attr( $event_date_attr ); ?>">
+	<time class="tribe-events-calendar-list__event-datetime" datetime="<?php echo esc_attr( $event_date_attr ); ?>">
 		<?php echo tribe_events_event_schedule_details( $event ); ?>
 	</time>
 	<?php $this->template( 'list/event/date/recurring' ); ?>
