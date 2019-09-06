@@ -21,7 +21,7 @@ class Rest_EndpointTest extends \Codeception\TestCase\WPTestCase {
 	public function it_should_have_correct_url_for_available_rest_api() {
 		$rest = $this->make_instance();
 
-		$this->assertStringContainsString( 'tribe/views/v2/html', $rest->get_url() );
+		$this->assertContains( 'tribe/views/v2/html', $rest->get_url() );
 	}
 
 	/**
@@ -32,7 +32,7 @@ class Rest_EndpointTest extends \Codeception\TestCase\WPTestCase {
 
 		add_filter( 'tribe_events_views_v2_rest_endpoint_available', '__return_false' );
 
-		$this->assertStringContainsString( 'admin-ajax.php', $rest->get_url() );
+		$this->assertContains( 'admin-ajax.php', $rest->get_url() );
 	}
 
 	public function arguments_sanitize_data_provider() {
