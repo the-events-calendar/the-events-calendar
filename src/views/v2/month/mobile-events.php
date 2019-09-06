@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version TBD
+ * @version 4.9.8
  *
  * @var array $days An array containing the data for each day on the calendar grid, divided by day.
  *                  Shape `[ <Y-m-d> => [ ...<day_data> ] ]`.
@@ -20,7 +20,7 @@
 
 	<?php foreach ( $days as $day_date => $day ) : ?>
 
-		<?php if ( ! empty( $day[ 'events' ] ) ) : ?>
+		<?php if ( ! empty( $day['found_events'] ) ) : ?>
 
 			<?php $this->template( 'month/mobile-events/mobile-day', [ 'day' => $day, 'day_date' => $day_date ] ); ?>
 

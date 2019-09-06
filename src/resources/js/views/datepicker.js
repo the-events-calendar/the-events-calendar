@@ -157,7 +157,7 @@ tribe.events.views.datepicker = {};
 	/**
 	 * Handle datepicker hide event
 	 *
-	 * @since TBD
+	 * @since 4.9.8
 	 *
 	 * @param {Event} event event object for 'hide' event
 	 *
@@ -254,7 +254,7 @@ tribe.events.views.datepicker = {};
 	/**
 	 * Handle datepicker button mousedown
 	 *
-	 * @since TBD
+	 * @since 4.9.8
 	 *
 	 * @param {Event} event event object for 'mousedown' event
 	 *
@@ -270,7 +270,7 @@ tribe.events.views.datepicker = {};
 	/**
 	 * Handle datepicker button click
 	 *
-	 * @since TBD
+	 * @since 4.9.8
 	 *
 	 * @param {Event} event event object for 'click' event
 	 *
@@ -353,7 +353,7 @@ tribe.events.views.datepicker = {};
 	/**
 	 * Initialize datepicker JS
 	 *
-	 * @since  TBD
+	 * @since  4.9.8
 	 *
 	 * @param  {Event}   event      event object for 'afterSetup.tribeEvents' event
 	 * @param  {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event

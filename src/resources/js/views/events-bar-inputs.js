@@ -137,7 +137,7 @@ tribe.events.views.eventsBarInputs = {};
 	/**
 	 * Binds events for the events bar input change listeners
 	 *
-	 * @since TBD
+	 * @since 4.9.8
 	 *
 	 * @param  {Event}   event      event object for 'afterSetup.tribeEvents' event
 	 * @param  {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event
