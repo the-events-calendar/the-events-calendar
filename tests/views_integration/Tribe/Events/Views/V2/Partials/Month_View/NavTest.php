@@ -16,6 +16,8 @@ class NavTest extends HtmlPartialTestCase
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
 			'prev_url' => '#',
 			'next_url' => '#',
+			'prev_label' => 'May',
+			'next_label' => 'July',
 			'location' => 'calendar',
 		] ) );
 	}

@@ -12,10 +12,12 @@
  * @version TBD
  *
  */
+use Tribe__Date_Utils as Dates;
 
 $event       = $this->get( 'event' );
 $event_id    = $event->ID;
 $is_featured = tribe( 'tec.featured_events' )->is_featured( $event_id );
+$event_date_attr = $event->dates->start->format( Dates::DBDATEFORMAT );
 
 ?>
 <div class="tribe-events-calendar-day__event-datetime-wrapper tribe-common-b2">
@@ -30,8 +32,8 @@ $is_featured = tribe( 'tec.featured_events' )->is_featured( $event_id );
 			<?php esc_html_e( 'Featured', 'the-events-calendar' ); ?>
 		</span>
 	<?php endif; ?>
-	<time class="tribe-events-calendar-day__event-datetime" datetime="1970-01-01T00:00:00+00:00">
-		<?php echo tribe_events_event_schedule_details( $event ); ?>
+	<time class="tribe-events-calendar-day__event-datetime" datetime="<?php echo esc_attr( $event_date_attr ); ?>">
+		<?php echo $event->schedule_details->value(); ?>
 	</time>
 	<?php $this->template( 'day/event/date/recurring' ); ?>
 </div>

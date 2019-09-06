@@ -25,6 +25,7 @@ class DayEventTest extends HtmlTestCase {
 		];
 
 		$event = tribe_events()->set_args( $args )->create();
+		$event = tribe_get_event( $event );
 
 		$template = $this->template->template( 'day/event', [ 'event' => $event ] );
 		$html = $this->document->html( $template );
@@ -56,6 +57,8 @@ class DayEventTest extends HtmlTestCase {
 		];
 
 		$event = tribe_events()->set_args( $args )->create();
+
+		$event = tribe_get_event( $event );
 
 		$template = $this->template->template( 'day/event', [ 'event' => $event ] );
 		$html = $this->document->html( $template );
