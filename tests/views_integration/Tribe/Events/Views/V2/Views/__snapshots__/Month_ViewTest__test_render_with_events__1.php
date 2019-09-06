@@ -2198,7 +2198,7 @@
 		<h3  class="tribe-events-calendar-month-mobile-events__mobile-event-title tribe-common-h8" >
 	<a
 		href="http://test.tri.be/?tribe_events=test-event-9-days-2"
-		title="Test Event - +9 days"
+		title="Test Event &#8211; +9 days"
 		rel="bookmark"
 		class="tribe-events-calendar-month-mobile-events__mobile-event-title-link tribe-common-anchor"
 	>
