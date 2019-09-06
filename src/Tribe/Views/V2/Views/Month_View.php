@@ -47,152 +47,80 @@ class Month_View extends By_Day_View {
 	 * {@inheritDoc}
 	 */
 	public function prev_url( $canonical = false, array $passthru_vars = [] ) {
-		// Fetch the current repository, to ensure we maintain repository arguments.
-		$current_repository = tribe_events()->by_args( $this->setup_repository_args() );
-
 		// Setup the Default date for the month view here.
-		$default_date   = 'today';
-		$date           = $this->context->get( 'event_date', $default_date );
-		$event_date_var = $default_date === $date ? '' : $date;
+		$default_date = 'today';
+		$date         = $this->context->get( 'event_date', $default_date );
+		$current_date = Dates::build_date_object( $date );
 
-		// Get the last day of the previous month.
-		$prev_date = date( 'Y-m-t', strtotime( $date . ' -1 month' ) );
+		if ( $this->skip_empty() ) {
+			// Find the first event that starts before the start of this month.
+			$prev_event = tribe_events()
+				->by_args( $this->filter_repository_args( $this->setup_repository_args() ) )
+				->where( 'starts_before', tribe_beginning_of_day( $current_date->format( 'Y-m-01' ) ) )
+				->order( 'DESC' )
+				->first();
+			if ( ! $prev_event instanceof \WP_Post ) {
+				return $this->filter_prev_url( $canonical, '' );
+			}
 
-		// Clone the current repository and check if we have an event on the last day of the previous month.
-		$prev = clone $current_repository;
-		$start = tribe_beginning_of_day( $prev_date );
-		$end   = tribe_end_of_day( $prev_date );
-		$prev->where( 'date_overlaps', $start, $end )->order( 'DESC' )->per_page( 1 );
-
-		$prev_event = $prev->first();
-		$has_prev = $prev->found();
-
-		if ( ! $has_prev ) {
-			// Get the beginning of the first day of the current month.
-			$prev_date = tribe_beginning_of_day( date( 'Y-m-01', strtotime( $date ) ) );
-
-			/*
-			 * Clone the current repository and query for the first event
-			 * before the start of the current month.
-			 */
-			$prev = clone $current_repository;
-			$prev->where( 'starts_before', $prev_date )->order( 'DESC' )->per_page( 1 );
-
-			$prev_event = $prev->first();
-			$has_prev = $prev->found();
-
-			if ( ! $has_prev ) {
-				return '';
+			// Show the closest date on which that event appears (but not the current date).
+			$prev_date = min(
+				$prev_event->dates->start,
+				$current_date->sub( new \DateInterval( 'P1M' ) )
+			);
+		} else {
+			$prev_date = Dates::build_date_object( $current_date->format( 'Y-m-01' ) );
+			$prev_date->sub( new \DateInterval( 'P1M' ) );
+			// Let's make sure to prevent users from paginating endlessly back when we know there are no more events.
+			$earliest = tribe_get_option( 'earliest_date', $prev_date );
+			if ( $current_date->format( 'Y-m' ) === Dates::build_date_object( $earliest )->format( 'Y-m' ) ) {
+				return $this->filter_prev_url( $canonical, '' );
 			}
 		}
 
-		$prev_date = tribe_get_start_date( $prev_event, false, 'Y-m' );
+		$url = $this->build_url_for_date( $prev_date, $canonical, $passthru_vars );
 
-		$query_args = [ 'eventDate' => $prev_date ];
-		$url = remove_query_arg( [ 'tribe-bar-date' ], $this->get_url() );
-		$url = add_query_arg( $query_args, $url );
-
-		if ( ! empty( $url ) && $canonical ) {
-			$input_url = $url;
-
-			if ( ! empty( $passthru_vars ) ) {
-				$input_url = remove_query_arg( array_keys( $passthru_vars ), $url );
-			}
-
-			// Make sure the view slug is always set to correctly match rewrites.
-			$input_url = add_query_arg( [ 'eventDisplay' => $this->slug ], $input_url );
-
-			$canonical_url = tribe( 'events.rewrite' )->get_clean_url( $input_url );
-
-			if ( ! empty( $passthru_vars ) ) {
-				$canonical_url = add_query_arg( $passthru_vars, $canonical_url );
-			}
-
-			$url = $canonical_url;
-		}
-
-		$url = $this->filter_prev_url( $canonical, $url );
-
-		return $url;
+		return $this->filter_prev_url( $canonical, $url );
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public function next_url( $canonical = false, array $passthru_vars = [] ) {
-		// Fetch the current repository, to ensure we maintain repository arguments.
-		$current_repository =  tribe_events()->by_args( $this->setup_repository_args() );
-
 		// Setup the Default date for the month view here.
-		$default_date   = 'today';
-		$date           = $this->context->get( 'event_date', $default_date );
-		$event_date_var = $default_date === $date ? '' : $date;
+		$default_date = 'today';
+		$date         = $this->context->get( 'event_date', $default_date );
+		$current_date = Dates::build_date_object( $date );
 
-		// Get the first day of the next month
-		$next_date = date( 'Y-m-01', strtotime( $date . ' +1 month' ) );
-
-		// Clone the current repository and check if we have an event on the first day of the next month.
-		$next = clone $current_repository;
-		$start = tribe_beginning_of_day( $next_date );
-		$end   = tribe_end_of_day( $next_date );
-		$next->where( 'date_overlaps', $start, $end )->order( 'DESC' )->per_page( 1 );
-
-		$next_event = $next->first();
-		$has_next = $next->found();
-
-		if ( ! $has_next ) {
-			// Get the end of day for the last day of the current month
-			$next_date = tribe_end_of_day( date( 'Y-m-t', strtotime( $date ) ) );
-
-			/*
-			 * Clone the current repository and check if we have an
-			 * event starting before the end of the current month.
-			 */
-			$next = clone $current_repository;
-			$next->where( 'starts_after', $next_date )->order( 'DESC' )->per_page( 1 );
-
-			$next_event = $next->first();
-			$has_next = $next->found();
-
-			if ( ! $has_next ) {
-				return '';
+		if ( $this->skip_empty() ) {
+			// The first event that ends after the end of the month; it could still begin in this month.
+			$next_event = tribe_events()
+				->by_args( $this->filter_repository_args( $this->setup_repository_args() ) )
+				->where( 'ends_after', tribe_end_of_day( $current_date->format( 'Y-m-t' ) ) )
+				->order( 'ASC' )
+				->first();
+			if ( ! $next_event instanceof \WP_Post ) {
+				return $this->filter_prev_url( $canonical, '' );
 			}
 
-			$next_date = tribe_get_start_date( $next_event, false, 'Y-m' );
+			// At a minimum pick the next month or the month the next event starts in.
+			$next_date = max(
+				$next_event->dates->start,
+				$current_date->add( new \DateInterval( 'P1M' ) )
+			);
+		} else {
+			$next_date = Dates::build_date_object( $current_date->format( 'Y-m-01' ) );
+			$next_date->add( new \DateInterval( 'P1M' ) );
+			// Let's make sure to prevent users from paginating endlessly forward when we know there are no more events.
+			$latest = tribe_get_option( 'latest_date', $next_date );
+			if ( $current_date->format( 'Y-m' ) === Dates::build_date_object( $latest )->format( 'Y-m' ) ) {
+				return $this->filter_prev_url( $canonical, '' );
+			}
 		}
 
-		// Remove the day from the pagination link
-		$next_date = date( 'Y-m', strtotime( $next_date ) );
+		$url = $this->build_url_for_date( $next_date, $canonical, $passthru_vars );
 
-		$query_args = [ 'eventDate' => $next_date ];
-		$url = remove_query_arg( [ 'tribe-bar-date' ], $this->get_url() );
-		$url = add_query_arg( $query_args, $url );
-
-		/**
-		 * @todo @be move this repeating piece of code to the parent `View` class.
-		 */
-		if ( ! empty( $url ) && $canonical ) {
-			$input_url = $url;
-
-			if ( ! empty( $passthru_vars ) ) {
-				$input_url = remove_query_arg( array_keys( $passthru_vars ), $url );
-			}
-
-			// Make sure the view slug is always set to correctly match rewrites.
-			$input_url = add_query_arg( [ 'eventDisplay' => $this->slug ], $input_url );
-
-			$canonical_url = tribe( 'events.rewrite' )->get_clean_url( $input_url );
-
-			if ( ! empty( $passthru_vars ) ) {
-				$canonical_url = add_query_arg( $passthru_vars, $canonical_url );
-			}
-
-			$url = $canonical_url;
-		}
-
-		$url = $this->filter_next_url( $canonical, $url );
-
-		return $url;
+		return $this->filter_next_url( $canonical, $url );
 	}
 	/**
 	 * {@inheritDoc}
@@ -404,4 +332,81 @@ class Month_View extends By_Day_View {
 		return [ Dates::build_date_object( $grid_start ), Dates::build_date_object( $grid_end ) ];
 	}
 
+	/**
+	 * Builds the next or prev URL given the date that should be used.
+	 *
+	 * @since TBD
+	 *
+	 * @param mixed $date          The date to build the URL from, a date object or string.
+	 * @param bool  $canonical     Whether to return the canonical version of the URL or not.
+	 * @param array $passthru_vars An array of variables that should be preserved and applied to the resulting URL.
+	 *
+	 * @return string The URL as built from the event.
+	 */
+	protected function build_url_for_date( $date, $canonical, array $passthru_vars = [] ) {
+		$url = $this->get_url();
+		$date = Dates::build_date_object( $date );
+
+		$event_date_aliases = $this->url->get_query_args_aliases_of( 'event_date', $this->context );
+		$event_date_aliases = array_unique( array_merge( $event_date_aliases, [ 'eventDate', 'tribe-bar-date' ] ) );
+
+		if ( ! empty( $event_date_aliases ) ) {
+			$url = remove_query_arg( $event_date_aliases, $this->get_url() );
+		}
+
+		$url = add_query_arg( [ 'eventDate' => $date->format( 'Y-m' ) ], $url );
+
+		if ( ! empty( $url ) && $canonical ) {
+			$input_url = $url;
+
+			if ( ! empty( $passthru_vars ) ) {
+				$input_url = remove_query_arg( array_keys( $passthru_vars ), $url );
+			}
+
+			// Make sure the view slug is always set to correctly match rewrites.
+			$input_url = add_query_arg( [ 'eventDisplay' => $this->slug ], $input_url );
+
+			$canonical_url = tribe( 'events.rewrite' )->get_clean_url( $input_url );
+
+			if ( ! empty( $passthru_vars ) ) {
+				$canonical_url = add_query_arg( $passthru_vars, $canonical_url );
+			}
+
+			$url = $canonical_url;
+		}
+
+		return $url;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @since TBD
+	 */
+	protected function get_label_format() {
+		// Something like "January".
+		return 'F';
+	}
+
+	/**
+	 * Whether months w/o any event should be skipped while building navigation links or not.
+	 *
+	 * By default empty months will not be skipped.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool Whether to skip empty months or not.
+	 */
+	protected function skip_empty() {
+		/**
+		 * Filters whether months w/o any event should be skipped while building navigation links or not.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool       $skip_empty   Whether months w/o any event should be skipped while building
+		 *                                 navigation links or not; defaults to `false`.
+		 * @param Month_View $this         This Month View instance.
+		 */
+		return (bool) apply_filters( 'tribe_events_views_v2_month_nav_skip_empty', false, $this );
+	}
 }

@@ -137,7 +137,7 @@ tribe.events.views.eventsBarInputs = {};
 	/**
 	 * Binds events for the events bar input change listeners
 	 *
-	 * @since 4.9.4
+	 * @since 4.9.8
 	 *
 	 * @param  {Event}   event      event object for 'afterSetup.tribeEvents' event
 	 * @param  {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event
@@ -147,7 +147,10 @@ tribe.events.views.eventsBarInputs = {};
 	 * @return {void}
 	 */
 	obj.bindEvents = function( event, index, $container, data ) {
-		// Bind event for the keyword input.
+		var $inputWrapper = $container.find( obj.selectors.inputWrapper );
+
+		if ( ! $inputWrapper.length ) return;
+
 		obj.bindInputEvents( $container );
 		$container.on( 'beforeAjaxSuccess.tribeEvents', { container: $container }, obj.unbindEvents );
 	};

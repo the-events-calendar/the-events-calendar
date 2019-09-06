@@ -19,7 +19,10 @@
 if ( empty( $event->cost ) ) {
 	return;
 }
-// @todo @fe make this dynamic depending on the cost.
+/**
+ * @todo @fe make this dynamic depending on the cost.
+ *       @be @bordoni get buy now url
+ */
 ?>
 
 <div class="tribe-events-c-small-cta tribe-events-calendar-month__calendar-event-tooltip-cta">

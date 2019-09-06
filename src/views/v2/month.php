@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.7
+ * @version 4.9.8
  *
  * @var string $rest_url The REST URL.
  * @var string $rest_nonce The REST nonce.
@@ -47,8 +47,6 @@
 			<?php $this->template( 'month/calendar-body' ); ?>
 
 		</div>
-
-		<?php $this->template( 'month/nav', [ 'location' => 'calendar' ] ); ?>
 
 		<?php $this->template( 'month/mobile-events' ); ?>
 
