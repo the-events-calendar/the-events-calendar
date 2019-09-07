@@ -43,5 +43,5 @@ $time_format = tribe_get_time_format();
 			<?php echo esc_html( $event->dates->end->format( $time_format ) ) ?>
 		</time>
 	<?php endif; ?>
-	<?php $this->template( 'month/mobile-events/mobile-day/mobile-event/date/recurring' ); ?>
+	<?php $this->template( 'month/mobile-events/mobile-day/mobile-event/date/meta' ); ?>
 </div>

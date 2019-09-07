@@ -33,5 +33,5 @@ $time_format = tribe_get_time_format();
 	<time datetime="<?php echo esc_attr($event->dates->end->format( 'H:i' )) ?>">
 		<?php echo esc_html( $event->dates->end->format( $time_format ) ) ?>
 	</time>
-	<?php $this->template( 'month/calendar-body/day/calendar-events/calendar-event/date/recurring' ); ?>
+	<?php $this->template( 'month/calendar-body/day/calendar-events/calendar-event/date/meta' ); ?>
 </div>
