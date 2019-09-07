@@ -145,16 +145,23 @@ tribe.events.views.tooltip = {};
 	 * @since 4.9.4
 	 *
 	 * @param {jQuery} $container jQuery object of view container.
+	 * @param {object} data       data object passed from 'afterSetup.tribeEvents' event.
 	 *
 	 * @return {void}
 	 */
-	obj.initTooltips = function( $container ) {
+	obj.initTooltips = function( $container, data ) {
+		var theme = [ 'tribe-events-tooltip-theme', 'tribe-common', 'tribe-events' ];
+
+		if ( -1 !== [ 'photo', 'week', 'map' ].indexOf( data.slug ) ) {
+			theme.push( 'tribe-events-pro' );
+		}
+
 		$container
 			.find( obj.selectors.tooltip )
 			.each( function( index, tooltip ) {
 				$( tooltip ).tooltipster( {
 					interactive: true,
-					theme: [ 'tribe-common', 'tribe-events', 'tribe-events-tooltip-theme' ],
+					theme: theme,
 					functionInit: obj.onFunctionInit,
 					functionReady: obj.onFunctionReady,
 					functionAfter: obj.onFunctionAfter,
@@ -191,7 +198,7 @@ tribe.events.views.tooltip = {};
 	 * @return {void}
 	 */
 	obj.init = function( event, index, $container, data ) {
-		obj.initTooltips( $container );
+		obj.initTooltips( $container, data );
 		$container.on( 'beforeAjaxSuccess.tribeEvents', { container: $container }, obj.deinit );
 	};
 
