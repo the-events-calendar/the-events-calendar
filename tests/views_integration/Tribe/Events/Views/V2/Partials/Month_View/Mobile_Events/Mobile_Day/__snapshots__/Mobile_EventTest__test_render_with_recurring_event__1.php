@@ -5,21 +5,13 @@
 	<div class="tribe-events-calendar-month-mobile-events__mobile-event-details">
 
 		<div class="tribe-events-calendar-month-mobile-events__mobile-event-datetime tribe-common-b2">
-	
-				<em
-			class="tribe-events-calendar-month-mobile-events__mobile-event-datetime-recurring tribe-common-svgicon tribe-common-svgicon--recurring"
-			aria-label="Recurring"
-			title="Recurring"
-		>
-		</em>
-	
-			<time datetime="10:00">
+				<time datetime="10:00">
 			10:00 am		</time>
 		<span class="tribe-events-calendar-month-mobile-events__mobile-event-datetime-separator">
 			 - 		</span>
 		<time datetime="12:00">
 			12:00 pm		</time>
-	</div>
+		</div>
 		<h3  class="tribe-events-calendar-month-mobile-events__mobile-event-title tribe-common-h8" >
 	<a
 		href="http://test.tri.be/?tribe_events=test-event-2018-01-01-10am"
