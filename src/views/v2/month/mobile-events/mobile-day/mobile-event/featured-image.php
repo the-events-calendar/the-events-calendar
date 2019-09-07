@@ -9,14 +9,11 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.4
+ * @version TBD
  *
  */
 
- // @todo @fe: use template tags for images here
-// @todo @fe use srcset here?
-
-if ( ! $event->featured || empty( $event->thumbnail->full->url ) ) {
+if ( ! $event->featured || ! $event->thumbnail->exists ) {
 	return;
 }
 

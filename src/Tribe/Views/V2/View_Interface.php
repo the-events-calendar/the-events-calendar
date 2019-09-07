@@ -170,7 +170,7 @@ interface View_Interface  extends View_Url_Provider_Interface, Repository_User_I
 	/**
 	 * Returns the URL to show the View for today.
 	 *
-	 * @since TBD
+	 * @since 4.9.8
 	 *
 	 * @param bool $canonical Whether to return the canonical, pretty, version of the URL or not; default to `false`.
 	 *

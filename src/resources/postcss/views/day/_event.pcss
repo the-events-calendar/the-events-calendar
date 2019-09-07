@@ -64,6 +64,20 @@
 		}
 	}
 
+	.tribe-events-calendar-day__event-featured-image-link {
+		display: block;
+		transition: var(--transition-opacity);
+
+		&:hover,
+		&:focus {
+			opacity: var(--opacity-icon-hover);
+		}
+
+		&:active {
+			opacity: var(--opacity-icon-active);
+		}
+	}
+
 	.tribe-events-calendar-day__event-featured-image {
 		padding-bottom: 56.25%;
 	}
