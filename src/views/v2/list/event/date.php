@@ -35,5 +35,5 @@ $event_date_attr = $event->dates->start->format( Dates::DBDATEFORMAT );
 	<time class="tribe-events-calendar-list__event-datetime" datetime="<?php echo esc_attr( $event_date_attr ); ?>">
 		<?php echo tribe_events_event_schedule_details( $event ); ?>
 	</time>
-	<?php $this->template( 'list/event/date/meta' ); ?>
+	<?php $this->template( 'list/event/date/meta', [ 'event' => $event ] ); ?>
 </div>
