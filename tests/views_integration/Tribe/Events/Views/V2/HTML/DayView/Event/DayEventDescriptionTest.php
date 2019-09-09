@@ -24,6 +24,7 @@ class DayEventDescriptionTest extends HtmlTestCase {
 		];
 
 		$event = tribe_events()->set_args( $args )->create();
+		$event = tribe_get_event( $event );
 
 		$template = $this->template->template( 'day/event/description', [ 'event' => $event ] );
 		$html = $this->document->html( $template );

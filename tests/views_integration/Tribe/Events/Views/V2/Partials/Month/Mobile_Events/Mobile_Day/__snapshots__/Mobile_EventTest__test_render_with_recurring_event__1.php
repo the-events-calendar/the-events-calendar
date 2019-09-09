@@ -7,7 +7,7 @@
 		<div class="tribe-events-calendar-month-mobile-events__mobile-event-datetime tribe-common-b2">
 	
 				<em
-			class="tribe-events-calendar-month-mobile-events__mobile-event-datetime-recurring tribe-common-svgicon tribe-common-svgicon--recurring"
+			class="tribe-events-calendar-month-mobile-events__mobile-event-datetime-recurring-icon tribe-common-svgicon tribe-common-svgicon--recurring"
 			aria-label="Recurring"
 			title="Recurring"
 		>
@@ -23,7 +23,7 @@
 		<h3  class="tribe-events-calendar-month-mobile-events__mobile-event-title tribe-common-h8" >
 	<a
 		href="http://test.tri.be/?tribe_events=test-event-2018-01-01-10am"
-		title="Test Event - 2018-01-01 10am"
+		title="Test Event &#8211; 2018-01-01 10am"
 		rel="bookmark"
 		class="tribe-events-calendar-month-mobile-events__mobile-event-title-link tribe-common-anchor"
 	>

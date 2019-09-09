@@ -22,17 +22,20 @@ $time_format = tribe_get_time_format();
 <div class="tribe-events-calendar-month-mobile-events__mobile-event-datetime tribe-common-b2">
 	<?php if ( ! empty( $event->featured ) ) : ?>
 		<em
-			class="tribe-events-calendar-month-mobile-events__mobile-event-datetime-featured tribe-common-svgicon tribe-common-svgicon--featured"
+			class="tribe-events-calendar-month-mobile-events__mobile-event-datetime-featured-icon tribe-common-svgicon tribe-common-svgicon--featured"
 			aria-label="<?php esc_attr_e( 'Featured', 'the-events-calendar' ) ?>"
 			title="<?php esc_attr_e( 'Featured', 'the-events-calendar' ) ?>"
 		>
 		</em>
+		<span class="tribe-events-calendar-month-mobile-events__mobile-event-datetime-featured-text">
+			<?php esc_html_e( 'Featured', 'the-events-calendar' ); ?>
+		</span>
 	<?php endif; ?>
 
 	<?php // @todo @fe this should be moved to PRO. ?>
 	<?php if ( ! empty( $event->recurring ) ) : ?>
 		<em
-			class="tribe-events-calendar-month-mobile-events__mobile-event-datetime-recurring tribe-common-svgicon tribe-common-svgicon--recurring"
+			class="tribe-events-calendar-month-mobile-events__mobile-event-datetime-recurring-icon tribe-common-svgicon tribe-common-svgicon--recurring"
 			aria-label="<?php esc_attr_e( 'Recurring', 'the-events-calendar' ) ?>"
 			title="<?php esc_attr_e( 'Recurring', 'the-events-calendar' ) ?>"
 		>
