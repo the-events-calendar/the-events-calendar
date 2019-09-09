@@ -42,7 +42,7 @@ abstract class Abstract_Query_Controller {
 			return $posts;
 		}
 
-		if ( ! empty( $query->tribe_controller ) || ! $query->is_main_query() ) {
+		if ( ! ( empty( $query->tribe_controller ) && $query->is_main_query() ) ) {
 			return $posts;
 		}
 
