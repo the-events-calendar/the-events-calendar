@@ -400,7 +400,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 							$query->set( 'orderby', self::set_orderby( null, $query ) );
 							$query->set( 'order', self::set_order( 'ASC', $query ) );
 							$query->set( 'hide_upcoming', $maybe_hide_events );
-
+							$query->set( 'start_date', tribe_format_date( current_time( 'timestamp' ), true, 'Y-m-d H:i:00' ) );
 							break;
 						case 'list':
 						default: // default display query
