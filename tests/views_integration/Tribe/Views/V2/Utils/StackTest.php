@@ -6,8 +6,8 @@ use Tribe\Events\Test\Factories\Event;
 use Tribe\Events\Views\V2\Utils\Stack;
 
 class StackTest extends \Codeception\TestCase\WPTestCase {
-	public function _setUp() {
-		parent::_setUp();
+	public function setUp() {
+		parent::setUp();
 		static::factory()->event = new Event();
 	}
 
