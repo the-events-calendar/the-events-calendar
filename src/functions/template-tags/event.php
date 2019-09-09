@@ -90,7 +90,7 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 			return $return;
 		}
 
-		$post = Event::from_post( $event )->to_post();
+		$post = Event::from_post( $event )->to_post( $output, $filter );
 
 		/**
 		 * Filters the event post object before caching it and returning it.
