@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.4
+ * @version TBD
  *
  * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
  *
@@ -23,7 +23,7 @@ if ( $event->featured ) {
 }
 ?>
 
-<article class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>">
+<article <?php tribe_classes( $classes ) ?>>
 
 	<?php $this->template( 'month/calendar-body/day/calendar-events/calendar-event/featured-image', [ 'event' => $event ] ); ?>
 
