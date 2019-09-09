@@ -9,16 +9,13 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.4
+ * @version TBD
  *
  */
 
-$event    = $this->get( 'event' );
-$event_id = $event->ID;
-
 $classes = [ 'tribe-common-g-row', 'tribe-common-g-row--gutters', 'tribe-events-calendar-day__event' ];
 
-if ( tribe( 'tec.featured_events' )->is_featured( $event_id ) ) {
+if ( $event->featured ) {
 	$classes[] = 'tribe-events-calendar-day__event--featured';
 }
 
