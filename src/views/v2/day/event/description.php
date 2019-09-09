@@ -9,11 +9,9 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.4
+ * @version TBD
  *
  */
-$event    = $this->get( 'event' );
-$event_id = $event->ID;
 ?>
 <div class="tribe-events-calendar-day__event-description tribe-common-b2">
 	<?php echo tribe_events_get_the_excerpt( $event, wp_kses_allowed_html( 'post' ) ); ?>
