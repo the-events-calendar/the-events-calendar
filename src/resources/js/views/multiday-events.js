@@ -49,7 +49,6 @@ tribe.events.views.multidayEvents = {};
 	 */
 	obj.selectorPrefixes = {
 		month: '.tribe-events-calendar-month__',
-		week: '.tribe-events-pro-week-grid__',
 	};
 
 	/**
