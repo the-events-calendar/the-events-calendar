@@ -403,8 +403,7 @@
 	
 	<div class="tribe-events-calendar-month__calendar-event-details">
 
-		
-<div class="tribe-events-calendar-month__calendar-event-datetime">
+		<div class="tribe-events-calendar-month__calendar-event-datetime">
 			<em
 			class="tribe-events-calendar-month__calendar-event-datetime-featured tribe-common-svgicon tribe-common-svgicon--featured"
 			aria-label="Featured"
@@ -416,7 +415,7 @@
 	<span class="tribe-events-calendar-month__calendar-event-datetime-separator"> - </span>
 	<time datetime="17:01">
 		5:01 pm	</time>
-		</div>
+	</div>
 		<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h--alt">
 	<a
 		href="http://test.tri.be/?tribe_events=test-event-9-days-2"
@@ -452,14 +451,13 @@
 	
 	<div class="tribe-events-calendar-month__calendar-event-details">
 
-		
-<div class="tribe-events-calendar-month__calendar-event-datetime">
+		<div class="tribe-events-calendar-month__calendar-event-datetime">
 		<time datetime="13:04">
 		1:04 pm	</time>
 	<span class="tribe-events-calendar-month__calendar-event-datetime-separator"> - </span>
 	<time datetime="17:04">
 		5:04 pm	</time>
-		</div>
+	</div>
 		<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h--alt">
 	<a
 		href="http://test.tri.be/?tribe_events=single-event-1"
@@ -495,14 +493,13 @@
 	
 	<div class="tribe-events-calendar-month__calendar-event-details">
 
-		
-<div class="tribe-events-calendar-month__calendar-event-datetime">
+		<div class="tribe-events-calendar-month__calendar-event-datetime">
 		<time datetime="13:04">
 		1:04 pm	</time>
 	<span class="tribe-events-calendar-month__calendar-event-datetime-separator"> - </span>
 	<time datetime="17:04">
 		5:04 pm	</time>
-		</div>
+	</div>
 		<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h--alt">
 	<a
 		href="http://test.tri.be/?tribe_events=single-event-2"
@@ -2154,7 +2151,7 @@
 
 		</div>
 
-		<section class="tribe-events-calendar-month-mobile-events" data-js="tribe-events-pro-week-mobile-events">
+		<section class="tribe-events-calendar-month-mobile-events" data-js="tribe-events-calendar-month-mobile-events">
 
 	
 		
@@ -2186,15 +2183,13 @@
 		</em>
 		<span class="tribe-events-calendar-month-mobile-events__mobile-event-datetime-featured-text">
 			Featured		</span>
-	
-		
-			<time datetime="13:01">
+				<time datetime="13:01">
 			1:01 pm		</time>
 		<span class="tribe-events-calendar-month-mobile-events__mobile-event-datetime-separator">
 			 - 		</span>
 		<time datetime="17:01">
 			5:01 pm		</time>
-	</div>
+		</div>
 		<h3  class="tribe-events-calendar-month-mobile-events__mobile-event-title tribe-common-h8" >
 	<a
 		href="http://test.tri.be/?tribe_events=test-event-9-days-2"
@@ -2216,15 +2211,13 @@
 	<div class="tribe-events-calendar-month-mobile-events__mobile-event-details">
 
 		<div class="tribe-events-calendar-month-mobile-events__mobile-event-datetime tribe-common-b2">
-	
-		
-			<time datetime="13:04">
+				<time datetime="13:04">
 			1:04 pm		</time>
 		<span class="tribe-events-calendar-month-mobile-events__mobile-event-datetime-separator">
 			 - 		</span>
 		<time datetime="17:04">
 			5:04 pm		</time>
-	</div>
+		</div>
 		<h3  class="tribe-events-calendar-month-mobile-events__mobile-event-title tribe-common-h8" >
 	<a
 		href="http://test.tri.be/?tribe_events=single-event-1"
@@ -2246,15 +2239,13 @@
 	<div class="tribe-events-calendar-month-mobile-events__mobile-event-details">
 
 		<div class="tribe-events-calendar-month-mobile-events__mobile-event-datetime tribe-common-b2">
-	
-		
-			<time datetime="13:04">
+				<time datetime="13:04">
 			1:04 pm		</time>
 		<span class="tribe-events-calendar-month-mobile-events__mobile-event-datetime-separator">
 			 - 		</span>
 		<time datetime="17:04">
 			5:04 pm		</time>
-	</div>
+		</div>
 		<h3  class="tribe-events-calendar-month-mobile-events__mobile-event-title tribe-common-h8" >
 	<a
 		href="http://test.tri.be/?tribe_events=single-event-2"

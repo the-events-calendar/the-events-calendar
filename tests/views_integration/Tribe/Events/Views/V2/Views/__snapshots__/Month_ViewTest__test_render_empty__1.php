@@ -2003,7 +2003,7 @@
 
 		</div>
 
-		<section class="tribe-events-calendar-month-mobile-events" data-js="tribe-events-pro-week-mobile-events">
+		<section class="tribe-events-calendar-month-mobile-events" data-js="tribe-events-calendar-month-mobile-events">
 
 	
 		
