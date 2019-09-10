@@ -92,6 +92,10 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 
 		$post = Event::from_post( $event )->to_post( $output, $filter );
 
+		if ( empty( $post ) ) {
+			return null;
+		}
+
 		/**
 		 * Filters the event post object before caching it and returning it.
 		 *
