@@ -1098,7 +1098,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 			if ( tribe_event_is_all_day( $event ) ) {
 				$inner .= tribe_get_start_date( $event, true, $format );
-				$inner .= ($html ? '</span>' : '') . $time_range_separator;
+				$inner .= ( $html ? '</span>' : '' ) . $time_range_separator;
 				$inner .= $html ? '<span class="tribe-event-date-end">' : '';
 
 				$end_date_full = tribe_get_end_date( $event, true, Tribe__Date_Utils::DBDATETIMEFORMAT );
@@ -1114,7 +1114,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				$inner .= $end_date;
 			} else {
 				$inner .= tribe_get_start_date( $event, false, $format ) . ( $time ? $datetime_separator . tribe_get_start_date( $event, false, $time_format ) : '' );
-				$inner .= ($html ? '</span>' : '')  . $time_range_separator;
+				$inner .= ( $html ? '</span>' : '' )  . $time_range_separator;
 				$inner .= $html ? '<span class="tribe-event-date-end">' : '';
 				$inner .= tribe_get_end_date( $event, false, $format2ndday ) . ( $time ? $datetime_separator . tribe_get_end_date( $event, false, $time_format ) : '' );
 			}
