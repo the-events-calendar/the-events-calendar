@@ -89,7 +89,7 @@
 			
 
 	
-<article class="tribe-events-calendar-month__calendar-event">
+<article  class="tribe-events-calendar-month__calendar-event" >
 
 	
 	<div class="tribe-events-calendar-month__calendar-event-details">
@@ -132,7 +132,7 @@
 
 
 	
-<article class="tribe-events-calendar-month__calendar-event">
+<article  class="tribe-events-calendar-month__calendar-event" >
 
 	
 	<div class="tribe-events-calendar-month__calendar-event-details">
