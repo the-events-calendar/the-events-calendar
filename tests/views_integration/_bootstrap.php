@@ -10,5 +10,3 @@ tribe_register_provider( Service_Provider::class );
 global $wp_rewrite;
 $wp_rewrite->permalink_structure = '/%postname%/';
 $wp_rewrite->rewrite_rules();
-
-add_filter( 'option_uploads_use_yearmonth_folders', '__return_empty_string' );

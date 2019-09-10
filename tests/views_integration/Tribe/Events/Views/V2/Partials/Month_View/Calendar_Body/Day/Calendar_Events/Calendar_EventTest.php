@@ -94,8 +94,5 @@ class Calendar_EventTest extends HtmlPartialTestCase {
 		$event->ID = 99999;
 
 		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => $event ] ) );
-
-		// required to prevent rising of the colision preventer key at the end of the URL.
-		wp_delete_attachment( $thumbnail_id );
 	}
 }

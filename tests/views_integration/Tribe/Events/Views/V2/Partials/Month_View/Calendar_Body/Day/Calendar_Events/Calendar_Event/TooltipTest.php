@@ -51,8 +51,5 @@ class TooltipTest extends HtmlPartialTestCase
 		$event->ID = 6;
 
 		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => $event ] ) );
-
-		// required to prevent rising of the colision preventer key at the end of the URL.
-		wp_delete_attachment( $thumbnail_id );
 	}
 }
