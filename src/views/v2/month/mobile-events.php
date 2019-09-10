@@ -16,7 +16,7 @@
  */
 
 ?>
-<section class="tribe-events-calendar-month-mobile-events" data-js="tribe-events-pro-week-mobile-events">
+<section class="tribe-events-calendar-month-mobile-events" data-js="tribe-events-calendar-month-mobile-events">
 
 	<?php foreach ( $days as $day_date => $day ) : ?>
 

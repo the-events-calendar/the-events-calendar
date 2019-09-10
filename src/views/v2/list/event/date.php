@@ -17,19 +17,20 @@ use Tribe__Date_Utils as Dates;
 $event_date_attr = $event->dates->start->format( Dates::DBDATEFORMAT );
 
 ?>
-<div class="tribe-events-calendar-list__event-datetime-wrapper">
-	<?php if ( $event->featured ) : ?>
+<div class="tribe-events-calendar-list__event-datetime-wrapper tribe-common-b2">
+	<?php if ( $is_featured ) : ?>
 		<em
 			class="tribe-events-calendar-list__event-datetime-featured-icon tribe-common-svgicon tribe-common-svgicon--featured"
 			aria-label="<?php esc_attr_e( 'Featured', 'the-events-calendar' ); ?>"
 			title="<?php esc_attr_e( 'Featured', 'the-events-calendar' ); ?>"
 		>
 		</em>
-		<span class="tribe-events-calendar-list__event-datetime-featured-text tribe-common-b2">
+		<span class="tribe-events-calendar-list__event-datetime-featured-text tribe-common-a11y-visual-hide">
 			<?php esc_html_e( 'Featured', 'the-events-calendar' ); ?>
 		</span>
 	<?php endif; ?>
-	<time class="tribe-events-calendar-list__event-datetime tribe-common-b2" datetime="<?php echo esc_attr( $event_date_attr ); ?>">
-		<?php echo $event->schedule_details->value(); ?>
+	<time class="tribe-events-calendar-list__event-datetime" datetime="<?php echo esc_attr( $event_date_attr ); ?>">
+		<?php echo tribe_events_event_schedule_details( $event ); ?>
 	</time>
+	<?php $this->template( 'list/event/date/meta', [ 'event' => $event ] ); ?>
 </div>
