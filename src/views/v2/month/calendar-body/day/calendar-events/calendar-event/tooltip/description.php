@@ -9,10 +9,15 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.4
+ * @version 4.9.8
  *
  */
+
+/**
+ * @todo: @be @bordoni
+ *        do not output html if excerpt is empty
+ */
 ?>
-<p class="tribe-events-calendar-month__calendar-event-tooltip-description tribe-common-b3">
+<div class="tribe-events-calendar-month__calendar-event-tooltip-description tribe-common-b3">
 	<?php echo tribe_events_get_the_excerpt( $event->ID, wp_kses_allowed_html( 'post' ) ); ?>
-</p>
+</div>

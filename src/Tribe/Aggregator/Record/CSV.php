@@ -414,6 +414,18 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 		$created = $importer->get_new_post_count();
 		$skipped = $importer->get_skipped_row_count();
 
+		if ( empty( $log['updated'] ) ) {
+			$log['updated'] = 0;
+		}
+
+		if ( empty( $log['created'] ) ) {
+			$log['created'] = 0;
+		}
+
+		if ( empty( $log['skipped'] ) ) {
+			$log['skipped'] = 0;
+		}
+
 		if ( $updated ) {
 			$this->meta['activity']->add( 'updated', $this->meta['content_type'], array_fill( 0, $updated, 1 ) );
 		}

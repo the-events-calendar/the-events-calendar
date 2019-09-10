@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version TBD
+ * @version 4.9.8
  *
  * @var string $day_date The `Y-m-d` date of the day currently being displayed.
  * @var string $today_date Today's date in the `Y-m-d` format.
@@ -87,5 +87,4 @@ if ( $should_display ) {
 			</h3>
 		</a>
 	</article>
-
 </div>

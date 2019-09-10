@@ -63,7 +63,7 @@
 
 	.tribe-events-calendar-list__event-date-tag {
 		flex: none;
-		width: var(--spacer-9);
+		width: 54px;
 		position: relative;
 
 		@media (--viewport-medium) {
@@ -117,6 +117,20 @@
 		@media (--viewport-medium) {
 			margin-bottom: 0;
 			width: calc(3 * var(--grid-width-1-of-8));
+		}
+	}
+
+	.tribe-events-calendar-list__event-featured-image-link {
+		display: block;
+		transition: var(--transition-opacity);
+
+		&:hover,
+		&:focus {
+			opacity: var(--opacity-icon-hover);
+		}
+
+		&:active {
+			opacity: var(--opacity-icon-active);
 		}
 	}
 

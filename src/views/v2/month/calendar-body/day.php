@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version TBD
+ * @version 4.9.8
  *
  * @var string $today_date Today's date in the `Y-m-d` format.
  * @var string $day_date The current day date, in the `Y-m-d` format.
@@ -35,12 +35,18 @@
  */
 
 $day_classes = [ 'tribe-events-calendar-month__day' ];
+$day_button_classes = [ 'tribe-events-calendar-month__day-cell', 'tribe-events-calendar-month__day-cell--mobile' ];
 $day_number = $day['day_number'];
+$expanded = 'false';
+$selected = 'false';
 
 $day_id = 'tribe-events-calendar-day-' . $day_date;
 
 if ( $today_date === $day_date ) {
+	$expanded = 'true';
+	$selected = 'true';
 	$day_classes[] = 'tribe-events-calendar-month__day--current';
+	$day_button_classes[] = 'tribe-events-calendar-month__day-cell--selected';
 }
 
 if ( $today_date > $day_date ) {
@@ -59,19 +65,23 @@ $mobile_day_id = 'tribe-events-calendar-mobile-day-' . $day_date;
 >
 
 	<button
-		<?php if ( ! empty( $day['events'] ) ) : ?>
-			aria-expanded="false"
-			aria-selected="false"
+		<?php if ( ! empty( $day['found_events'] ) ) : ?>
+			aria-expanded="<?php echo esc_attr( $expanded ); ?>"
+			aria-selected="<?php echo esc_attr( $selected ); ?>"
+			aria-controls="<?php echo esc_attr( $mobile_day_id ); ?>"
 		<?php endif; ?>
-		aria-controls="<?php echo esc_attr( $mobile_day_id ); ?>"
-		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
+		<?php tribe_classes( $day_button_classes ); ?>
+		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
-				<?php echo esc_html( sprintf( _n( '%s event', '%s events', count( $day['events'] ), 'the-events-calendar' ), number_format_i18n( count( $day['events'] ) ) ) ); ?>,
+				<?php echo esc_html( sprintf( _n( '%s event', '%s events', $day['found_events'], 'the-events-calendar' ), number_format_i18n( $day['found_events'] ) ) ); ?>,
 			</span>
-			<time datetime="<?php echo esc_attr( $day['date'] ); ?>">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="<?php echo esc_attr( $day['date'] ); ?>"
+			>
 				<?php echo esc_html( $day_number ); ?>
 			</time>
 		</h3>
@@ -82,7 +92,7 @@ $mobile_day_id = 'tribe-events-calendar-mobile-day-' . $day_date;
 				title="<?php esc_attr_e( 'Has featured events', 'the-events-calendar' ); ?>"
 			>
 			</em>
-		<?php elseif ( ! empty( $day['events'] ) ) : ?>
+		<?php elseif ( ! empty( $day['found_events'] ) ) : ?>
 			<em
 				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--event"
 				aria-label="<?php esc_attr_e( 'Has events', 'the-events-calendar' ); ?>"
@@ -98,9 +108,12 @@ $mobile_day_id = 'tribe-events-calendar-mobile-day-' . $day_date;
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
 			<span class="tribe-common-a11y-visual-hide">
-				<?php echo esc_html( sprintf( _n( '%s event', '%s events', count( $day['events'] ), 'the-events-calendar' ), number_format_i18n( count( $day['events'] ) ) ) ); ?>,
+				<?php echo esc_html( sprintf( _n( '%s event', '%s events', $day['found_events'], 'the-events-calendar' ), number_format_i18n( $day['found_events'] ) ) ); ?>,
 			</span>
-			<time datetime="<?php echo esc_attr( $day['date'] ); ?>">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="<?php echo esc_attr( $day['date'] ); ?>"
+			>
 				<?php if ( ! empty( $day['found_events'] ) ) : ?>
 					<a
 						href="<?php echo esc_url( $day['day_url'] ); ?>"

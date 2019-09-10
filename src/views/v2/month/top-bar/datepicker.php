@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version TBD
+ * @version 4.9.8
  *
  * @var string $grid_date The current calendar grid date in the `Y-m-d` format.
  * @var string $formatted_grid_date The current calendar grid date in the format specified by the "Month and year

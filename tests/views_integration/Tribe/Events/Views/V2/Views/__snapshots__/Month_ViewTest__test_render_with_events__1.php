@@ -18,7 +18,7 @@
 		<script
 	data-js="tribe-events-view-data"
 	type="application/json"
->{"slug":"month","prev_url":"","next_url":"","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Month_View","view_slug":"month","view":{},"title":"","events":{"2018-12-31":[],"2019-01-01":[7,8,9],"2019-01-02":[],"2019-01-03":[],"2019-01-04":[],"2019-01-05":[],"2019-01-06":[],"2019-01-07":[],"2019-01-08":[],"2019-01-09":[],"2019-01-10":[],"2019-01-11":[],"2019-01-12":[],"2019-01-13":[],"2019-01-14":[],"2019-01-15":[],"2019-01-16":[],"2019-01-17":[],"2019-01-18":[],"2019-01-19":[],"2019-01-20":[],"2019-01-21":[],"2019-01-22":[],"2019-01-23":[],"2019-01-24":[],"2019-01-25":[],"2019-01-26":[],"2019-01-27":[],"2019-01-28":[],"2019-01-29":[],"2019-01-30":[],"2019-01-31":[],"2019-02-01":[],"2019-02-02":[],"2019-02-03":[]},"url":"http:\\/\\/test.tri.be\\/events\\/month\\/","bar":{"keyword":"","date":"2019-01-01"},"today":"2019-01-01 09:00:00","now":"2019-01-01 09:00:00","rest_url":"http:\\/\\/test.tri.be\\/index.php?rest_route=\\/tribe\\/views\\/v2\\/html","rest_nonce":"2ab7cc6b39","should_manage_url":true,"today_url":"http:\\/\\/test.tri.be\\/events\\/month\\/","today_date":"2019-01-01","grid_date":"2019-01-01","formatted_grid_date":"January 2019","days":{"2018-12-31":{"date":"2018-12-31","is_start_of_week":true,"year_number":"2018","month_number":"12","day_number":"31","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2018-12-31\\/"},"2019-01-01":{"date":"2019-01-01","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"01","events":[{"ID":7,"post_author":"0","post_date":"2019-06-11 13:59:35","post_date_gmt":"2019-06-11 13:59:35","post_content":"","post_title":"Test Event - +9 days","post_excerpt":"","post_status":"publish","comment_status":"open","ping_status":"closed","post_password":"","post_name":"test-event-9-days-2","to_ping":"","pinged":"","post_modified":"2019-06-11 13:59:35","post_modified_gmt":"2019-06-11 13:59:35","post_content_filtered":"","post_parent":0,"guid":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-9-days-2","menu_order":0,"post_type":"tribe_events","post_mime_type":"","comment_count":"0","filter":"raw","start_date":"2019-06-20 13:01:20","start_date_utc":"2019-06-20 13:01:20","end_date":"2019-06-20 17:01:20","end_date_utc":"2019-06-20 17:01:20","dates":{"start":{"date":"2019-06-20 13:01:20.000000","timezone_type":3,"timezone":"Europe\\/Paris"},"start_utc":{"date":"2019-06-20 13:01:20.000000","timezone_type":3,"timezone":"UTC"},"end":{"date":"2019-06-20 17:01:20.000000","timezone_type":3,"timezone":"Europe\\/Paris"},"end_utc":{"date":"2019-06-20 17:01:20.000000","timezone_type":3,"timezone":"UTC"}},"timezone":"Europe\\/Paris","duration":0,"multiday":false,"all_day":false,"starts_this_week":null,"ends_this_week":null,"this_week_duration":null,"happens_this_week":null,"featured":true,"cost":"","organizers":[],"venues":[],"thumbnail":{},"permalink":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-9-days-2","schedule_details":"<span class=\\"tribe-event-date-start\\">June 20 @ 1:01 pm<\\/span> - <span class=\\"tribe-event-time\\">5:01 pm<\\/span>"},{"ID":8,"post_author":"1","post_date":"2019-06-11 13:59:35","post_date_gmt":"2019-06-11 13:59:35","post_content":"","post_title":"Single Event 1","post_excerpt":"","post_status":"publish","comment_status":"open","ping_status":"closed","post_password":"","post_name":"single-event-1","to_ping":"","pinged":"","post_modified":"2019-06-11 13:59:35","post_modified_gmt":"2019-06-11 13:59:35","post_content_filtered":"","post_parent":0,"guid":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-9-days-2","menu_order":0,"post_type":"tribe_events","post_mime_type":"","comment_count":"0","filter":"raw","start_date":"2019-06-20 13:04:08","start_date_utc":"2019-06-20 13:04:08","end_date":"2019-06-20 17:04:08","end_date_utc":"2019-06-20 17:04:08","dates":{"start":{"date":"2019-06-20 13:04:08.000000","timezone_type":3,"timezone":"Europe\\/Paris"},"start_utc":{"date":"2019-06-20 13:04:08.000000","timezone_type":3,"timezone":"UTC"},"end":{"date":"2019-06-20 17:04:08.000000","timezone_type":3,"timezone":"Europe\\/Paris"},"end_utc":{"date":"2019-06-20 17:04:08.000000","timezone_type":3,"timezone":"UTC"}},"timezone":"Europe\\/Paris","duration":0,"multiday":false,"all_day":false,"starts_this_week":null,"ends_this_week":null,"this_week_duration":null,"happens_this_week":null,"featured":false,"cost":"","organizers":[],"venues":[],"thumbnail":{},"permalink":"http:\\/\\/test.tri.be\\/?tribe_events=single-event-1","schedule_details":"<span class=\\"tribe-event-date-start\\">June 20 @ 1:04 pm<\\/span> - <span class=\\"tribe-event-time\\">5:04 pm<\\/span>"},{"ID":9,"post_author":"0","post_date":"2019-06-11 13:59:35","post_date_gmt":"2019-06-11 13:59:35","post_content":"","post_title":"Single Event 2","post_excerpt":"","post_status":"publish","comment_status":"open","ping_status":"closed","post_password":"","post_name":"single-event-2","to_ping":"","pinged":"","post_modified":"2019-06-11 13:59:35","post_modified_gmt":"2019-06-11 13:59:35","post_content_filtered":"","post_parent":0,"guid":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-9-days-2","menu_order":0,"post_type":"tribe_events","post_mime_type":"","comment_count":"0","filter":"raw","start_date":"2019-06-20 13:04:08","start_date_utc":"2019-06-20 13:04:08","end_date":"2019-06-20 17:04:08","end_date_utc":"2019-06-20 17:04:08","dates":{"start":{"date":"2019-06-20 13:04:08.000000","timezone_type":3,"timezone":"Europe\\/Paris"},"start_utc":{"date":"2019-06-20 13:04:08.000000","timezone_type":3,"timezone":"UTC"},"end":{"date":"2019-06-20 17:04:08.000000","timezone_type":3,"timezone":"Europe\\/Paris"},"end_utc":{"date":"2019-06-20 17:04:08.000000","timezone_type":3,"timezone":"UTC"}},"timezone":"Europe\\/Paris","duration":0,"multiday":false,"all_day":false,"starts_this_week":null,"ends_this_week":null,"this_week_duration":null,"happens_this_week":null,"featured":false,"cost":"","organizers":[],"venues":[],"thumbnail":{},"permalink":"http:\\/\\/test.tri.be\\/?tribe_events=single-event-2","schedule_details":"<span class=\\"tribe-event-date-start\\">June 20 @ 1:04 pm<\\/span> - <span class=\\"tribe-event-time\\">5:04 pm<\\/span>"}],"featured_events":[{"ID":7,"post_author":"0","post_date":"2019-06-11 13:59:35","post_date_gmt":"2019-06-11 13:59:35","post_content":"","post_title":"Test Event - +9 days","post_excerpt":"","post_status":"publish","comment_status":"open","ping_status":"closed","post_password":"","post_name":"test-event-9-days-2","to_ping":"","pinged":"","post_modified":"2019-06-11 13:59:35","post_modified_gmt":"2019-06-11 13:59:35","post_content_filtered":"","post_parent":0,"guid":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-9-days-2","menu_order":0,"post_type":"tribe_events","post_mime_type":"","comment_count":"0","filter":"raw","start_date":"2019-06-20 13:01:20","start_date_utc":"2019-06-20 13:01:20","end_date":"2019-06-20 17:01:20","end_date_utc":"2019-06-20 17:01:20","dates":{"start":{"date":"2019-06-20 13:01:20.000000","timezone_type":3,"timezone":"Europe\\/Paris"},"start_utc":{"date":"2019-06-20 13:01:20.000000","timezone_type":3,"timezone":"UTC"},"end":{"date":"2019-06-20 17:01:20.000000","timezone_type":3,"timezone":"Europe\\/Paris"},"end_utc":{"date":"2019-06-20 17:01:20.000000","timezone_type":3,"timezone":"UTC"}},"timezone":"Europe\\/Paris","duration":0,"multiday":false,"all_day":false,"starts_this_week":null,"ends_this_week":null,"this_week_duration":null,"happens_this_week":null,"featured":true,"cost":"","organizers":[],"venues":[],"thumbnail":{},"permalink":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-9-days-2","schedule_details":"<span class=\\"tribe-event-date-start\\">June 20 @ 1:01 pm<\\/span> - <span class=\\"tribe-event-time\\">5:01 pm<\\/span>"}],"multiday_events":[],"found_events":3,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-01\\/"},"2019-01-02":{"date":"2019-01-02","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"02","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-02\\/"},"2019-01-03":{"date":"2019-01-03","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"03","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-03\\/"},"2019-01-04":{"date":"2019-01-04","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"04","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-04\\/"},"2019-01-05":{"date":"2019-01-05","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"05","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-05\\/"},"2019-01-06":{"date":"2019-01-06","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"06","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-06\\/"},"2019-01-07":{"date":"2019-01-07","is_start_of_week":true,"year_number":"2019","month_number":"01","day_number":"07","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-07\\/"},"2019-01-08":{"date":"2019-01-08","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"08","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-08\\/"},"2019-01-09":{"date":"2019-01-09","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"09","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-09\\/"},"2019-01-10":{"date":"2019-01-10","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"10","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-10\\/"},"2019-01-11":{"date":"2019-01-11","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"11","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-11\\/"},"2019-01-12":{"date":"2019-01-12","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"12","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-12\\/"},"2019-01-13":{"date":"2019-01-13","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"13","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-13\\/"},"2019-01-14":{"date":"2019-01-14","is_start_of_week":true,"year_number":"2019","month_number":"01","day_number":"14","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-14\\/"},"2019-01-15":{"date":"2019-01-15","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"15","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-15\\/"},"2019-01-16":{"date":"2019-01-16","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"16","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-16\\/"},"2019-01-17":{"date":"2019-01-17","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"17","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-17\\/"},"2019-01-18":{"date":"2019-01-18","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"18","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-18\\/"},"2019-01-19":{"date":"2019-01-19","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"19","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-19\\/"},"2019-01-20":{"date":"2019-01-20","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"20","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-20\\/"},"2019-01-21":{"date":"2019-01-21","is_start_of_week":true,"year_number":"2019","month_number":"01","day_number":"21","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-21\\/"},"2019-01-22":{"date":"2019-01-22","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"22","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-22\\/"},"2019-01-23":{"date":"2019-01-23","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"23","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-23\\/"},"2019-01-24":{"date":"2019-01-24","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"24","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-24\\/"},"2019-01-25":{"date":"2019-01-25","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"25","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-25\\/"},"2019-01-26":{"date":"2019-01-26","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"26","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-26\\/"},"2019-01-27":{"date":"2019-01-27","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"27","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-27\\/"},"2019-01-28":{"date":"2019-01-28","is_start_of_week":true,"year_number":"2019","month_number":"01","day_number":"28","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-28\\/"},"2019-01-29":{"date":"2019-01-29","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"29","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-29\\/"},"2019-01-30":{"date":"2019-01-30","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"30","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-30\\/"},"2019-01-31":{"date":"2019-01-31","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"31","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-31\\/"},"2019-02-01":{"date":"2019-02-01","is_start_of_week":false,"year_number":"2019","month_number":"02","day_number":"01","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-02-01\\/"},"2019-02-02":{"date":"2019-02-02","is_start_of_week":false,"year_number":"2019","month_number":"02","day_number":"02","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-02-02\\/"},"2019-02-03":{"date":"2019-02-03","is_start_of_week":false,"year_number":"2019","month_number":"02","day_number":"03","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-02-03\\/"}}}</script>
+>{"slug":"month","prev_url":"http:\\/\\/test.tri.be\\/?post_type=tribe_events&eventDisplay=month&eventDate=2018-12","next_url":"http:\\/\\/test.tri.be\\/?post_type=tribe_events&eventDisplay=month&eventDate=2019-02","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Month_View","view_slug":"month","view":{},"title":"","events":{"2018-12-31":[],"2019-01-01":[7,8,9],"2019-01-02":[],"2019-01-03":[],"2019-01-04":[],"2019-01-05":[],"2019-01-06":[],"2019-01-07":[],"2019-01-08":[],"2019-01-09":[],"2019-01-10":[],"2019-01-11":[],"2019-01-12":[],"2019-01-13":[],"2019-01-14":[],"2019-01-15":[],"2019-01-16":[],"2019-01-17":[],"2019-01-18":[],"2019-01-19":[],"2019-01-20":[],"2019-01-21":[],"2019-01-22":[],"2019-01-23":[],"2019-01-24":[],"2019-01-25":[],"2019-01-26":[],"2019-01-27":[],"2019-01-28":[],"2019-01-29":[],"2019-01-30":[],"2019-01-31":[],"2019-02-01":[],"2019-02-02":[],"2019-02-03":[]},"url":"http:\\/\\/test.tri.be\\/events\\/month\\/","bar":{"keyword":"","date":"2019-01-01"},"today":"2019-01-01 09:00:00","now":"2019-01-01 09:00:00","rest_url":"http:\\/\\/test.tri.be\\/index.php?rest_route=\\/tribe\\/views\\/v2\\/html","rest_nonce":"2ab7cc6b39","should_manage_url":true,"today_url":"http:\\/\\/test.tri.be\\/events\\/month\\/","prev_label":"December","next_label":"February","today_date":"2019-01-01","grid_date":"2019-01-01","formatted_grid_date":"January 2019","days":{"2018-12-31":{"date":"2018-12-31","is_start_of_week":true,"year_number":"2018","month_number":"12","day_number":"31","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2018-12-31\\/"},"2019-01-01":{"date":"2019-01-01","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"01","events":[{"ID":7,"post_author":"0","post_date":"2019-06-11 13:59:35","post_date_gmt":"2019-06-11 13:59:35","post_content":"","post_title":"Test Event - +9 days","post_excerpt":"","post_status":"publish","comment_status":"open","ping_status":"closed","post_password":"","post_name":"test-event-9-days-2","to_ping":"","pinged":"","post_modified":"2019-06-11 13:59:35","post_modified_gmt":"2019-06-11 13:59:35","post_content_filtered":"","post_parent":0,"guid":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-9-days-2","menu_order":0,"post_type":"tribe_events","post_mime_type":"","comment_count":"0","filter":"raw","start_date":"2019-06-20 13:01:20","start_date_utc":"2019-06-20 13:01:20","end_date":"2019-06-20 17:01:20","end_date_utc":"2019-06-20 17:01:20","dates":{"start":{"date":"2019-06-20 13:01:20.000000","timezone_type":3,"timezone":"Europe\\/Paris"},"start_utc":{"date":"2019-06-20 13:01:20.000000","timezone_type":3,"timezone":"UTC"},"end":{"date":"2019-06-20 17:01:20.000000","timezone_type":3,"timezone":"Europe\\/Paris"},"end_utc":{"date":"2019-06-20 17:01:20.000000","timezone_type":3,"timezone":"UTC"}},"timezone":"Europe\\/Paris","duration":0,"multiday":false,"all_day":false,"starts_this_week":null,"ends_this_week":null,"this_week_duration":null,"happens_this_week":null,"featured":true,"cost":"","organizers":[],"venues":[],"thumbnail":{},"permalink":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-9-days-2","schedule_details":"<span class=\\"tribe-event-date-start\\">June 20 @ 1:01 pm<\\/span> - <span class=\\"tribe-event-time\\">5:01 pm<\\/span>"},{"ID":8,"post_author":"1","post_date":"2019-06-11 13:59:35","post_date_gmt":"2019-06-11 13:59:35","post_content":"","post_title":"Single Event 1","post_excerpt":"","post_status":"publish","comment_status":"open","ping_status":"closed","post_password":"","post_name":"single-event-1","to_ping":"","pinged":"","post_modified":"2019-06-11 13:59:35","post_modified_gmt":"2019-06-11 13:59:35","post_content_filtered":"","post_parent":0,"guid":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-9-days-2","menu_order":0,"post_type":"tribe_events","post_mime_type":"","comment_count":"0","filter":"raw","start_date":"2019-06-20 13:04:08","start_date_utc":"2019-06-20 13:04:08","end_date":"2019-06-20 17:04:08","end_date_utc":"2019-06-20 17:04:08","dates":{"start":{"date":"2019-06-20 13:04:08.000000","timezone_type":3,"timezone":"Europe\\/Paris"},"start_utc":{"date":"2019-06-20 13:04:08.000000","timezone_type":3,"timezone":"UTC"},"end":{"date":"2019-06-20 17:04:08.000000","timezone_type":3,"timezone":"Europe\\/Paris"},"end_utc":{"date":"2019-06-20 17:04:08.000000","timezone_type":3,"timezone":"UTC"}},"timezone":"Europe\\/Paris","duration":0,"multiday":false,"all_day":false,"starts_this_week":null,"ends_this_week":null,"this_week_duration":null,"happens_this_week":null,"featured":false,"cost":"","organizers":[],"venues":[],"thumbnail":{},"permalink":"http:\\/\\/test.tri.be\\/?tribe_events=single-event-1","schedule_details":"<span class=\\"tribe-event-date-start\\">June 20 @ 1:04 pm<\\/span> - <span class=\\"tribe-event-time\\">5:04 pm<\\/span>"},{"ID":9,"post_author":"0","post_date":"2019-06-11 13:59:35","post_date_gmt":"2019-06-11 13:59:35","post_content":"","post_title":"Single Event 2","post_excerpt":"","post_status":"publish","comment_status":"open","ping_status":"closed","post_password":"","post_name":"single-event-2","to_ping":"","pinged":"","post_modified":"2019-06-11 13:59:35","post_modified_gmt":"2019-06-11 13:59:35","post_content_filtered":"","post_parent":0,"guid":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-9-days-2","menu_order":0,"post_type":"tribe_events","post_mime_type":"","comment_count":"0","filter":"raw","start_date":"2019-06-20 13:04:08","start_date_utc":"2019-06-20 13:04:08","end_date":"2019-06-20 17:04:08","end_date_utc":"2019-06-20 17:04:08","dates":{"start":{"date":"2019-06-20 13:04:08.000000","timezone_type":3,"timezone":"Europe\\/Paris"},"start_utc":{"date":"2019-06-20 13:04:08.000000","timezone_type":3,"timezone":"UTC"},"end":{"date":"2019-06-20 17:04:08.000000","timezone_type":3,"timezone":"Europe\\/Paris"},"end_utc":{"date":"2019-06-20 17:04:08.000000","timezone_type":3,"timezone":"UTC"}},"timezone":"Europe\\/Paris","duration":0,"multiday":false,"all_day":false,"starts_this_week":null,"ends_this_week":null,"this_week_duration":null,"happens_this_week":null,"featured":false,"cost":"","organizers":[],"venues":[],"thumbnail":{},"permalink":"http:\\/\\/test.tri.be\\/?tribe_events=single-event-2","schedule_details":"<span class=\\"tribe-event-date-start\\">June 20 @ 1:04 pm<\\/span> - <span class=\\"tribe-event-time\\">5:04 pm<\\/span>"}],"featured_events":[{"ID":7,"post_author":"0","post_date":"2019-06-11 13:59:35","post_date_gmt":"2019-06-11 13:59:35","post_content":"","post_title":"Test Event - +9 days","post_excerpt":"","post_status":"publish","comment_status":"open","ping_status":"closed","post_password":"","post_name":"test-event-9-days-2","to_ping":"","pinged":"","post_modified":"2019-06-11 13:59:35","post_modified_gmt":"2019-06-11 13:59:35","post_content_filtered":"","post_parent":0,"guid":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-9-days-2","menu_order":0,"post_type":"tribe_events","post_mime_type":"","comment_count":"0","filter":"raw","start_date":"2019-06-20 13:01:20","start_date_utc":"2019-06-20 13:01:20","end_date":"2019-06-20 17:01:20","end_date_utc":"2019-06-20 17:01:20","dates":{"start":{"date":"2019-06-20 13:01:20.000000","timezone_type":3,"timezone":"Europe\\/Paris"},"start_utc":{"date":"2019-06-20 13:01:20.000000","timezone_type":3,"timezone":"UTC"},"end":{"date":"2019-06-20 17:01:20.000000","timezone_type":3,"timezone":"Europe\\/Paris"},"end_utc":{"date":"2019-06-20 17:01:20.000000","timezone_type":3,"timezone":"UTC"}},"timezone":"Europe\\/Paris","duration":0,"multiday":false,"all_day":false,"starts_this_week":null,"ends_this_week":null,"this_week_duration":null,"happens_this_week":null,"featured":true,"cost":"","organizers":[],"venues":[],"thumbnail":{},"permalink":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-9-days-2","schedule_details":"<span class=\\"tribe-event-date-start\\">June 20 @ 1:01 pm<\\/span> - <span class=\\"tribe-event-time\\">5:01 pm<\\/span>"}],"multiday_events":[],"found_events":3,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-01\\/"},"2019-01-02":{"date":"2019-01-02","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"02","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-02\\/"},"2019-01-03":{"date":"2019-01-03","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"03","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-03\\/"},"2019-01-04":{"date":"2019-01-04","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"04","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-04\\/"},"2019-01-05":{"date":"2019-01-05","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"05","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-05\\/"},"2019-01-06":{"date":"2019-01-06","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"06","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-06\\/"},"2019-01-07":{"date":"2019-01-07","is_start_of_week":true,"year_number":"2019","month_number":"01","day_number":"07","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-07\\/"},"2019-01-08":{"date":"2019-01-08","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"08","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-08\\/"},"2019-01-09":{"date":"2019-01-09","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"09","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-09\\/"},"2019-01-10":{"date":"2019-01-10","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"10","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-10\\/"},"2019-01-11":{"date":"2019-01-11","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"11","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-11\\/"},"2019-01-12":{"date":"2019-01-12","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"12","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-12\\/"},"2019-01-13":{"date":"2019-01-13","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"13","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-13\\/"},"2019-01-14":{"date":"2019-01-14","is_start_of_week":true,"year_number":"2019","month_number":"01","day_number":"14","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-14\\/"},"2019-01-15":{"date":"2019-01-15","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"15","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-15\\/"},"2019-01-16":{"date":"2019-01-16","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"16","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-16\\/"},"2019-01-17":{"date":"2019-01-17","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"17","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-17\\/"},"2019-01-18":{"date":"2019-01-18","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"18","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-18\\/"},"2019-01-19":{"date":"2019-01-19","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"19","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-19\\/"},"2019-01-20":{"date":"2019-01-20","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"20","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-20\\/"},"2019-01-21":{"date":"2019-01-21","is_start_of_week":true,"year_number":"2019","month_number":"01","day_number":"21","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-21\\/"},"2019-01-22":{"date":"2019-01-22","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"22","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-22\\/"},"2019-01-23":{"date":"2019-01-23","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"23","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-23\\/"},"2019-01-24":{"date":"2019-01-24","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"24","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-24\\/"},"2019-01-25":{"date":"2019-01-25","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"25","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-25\\/"},"2019-01-26":{"date":"2019-01-26","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"26","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-26\\/"},"2019-01-27":{"date":"2019-01-27","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"27","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-27\\/"},"2019-01-28":{"date":"2019-01-28","is_start_of_week":true,"year_number":"2019","month_number":"01","day_number":"28","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-28\\/"},"2019-01-29":{"date":"2019-01-29","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"29","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-29\\/"},"2019-01-30":{"date":"2019-01-30","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"30","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-30\\/"},"2019-01-31":{"date":"2019-01-31","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"31","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-31\\/"},"2019-02-01":{"date":"2019-02-01","is_start_of_week":false,"year_number":"2019","month_number":"02","day_number":"01","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-02-01\\/"},"2019-02-02":{"date":"2019-02-02","is_start_of_week":false,"year_number":"2019","month_number":"02","day_number":"02","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-02-02\\/"},"2019-02-03":{"date":"2019-02-03","is_start_of_week":false,"year_number":"2019","month_number":"02","day_number":"03","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-02-03\\/"}}}</script>
 
 		<header class="tribe-events-header">
 			<div
@@ -151,23 +151,25 @@
 	<nav class="tribe-events-c-top-bar__nav">
 	<ul class="tribe-events-c-top-bar__nav-list">
 		<li class="tribe-events-c-top-bar__nav-list-item">
-	<button
+	<a
+		href="http://test.tri.be/?post_type=tribe_events&#038;eventDisplay=month&#038;eventDate=2018-12"
 		class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-left tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--prev"
-		aria-label="Prev"
-		title="Prev"
-		disabled
+		aria-label="Previous"
+		title="Previous"
+		data-js="tribe-events-view-link"
 	>
-	</button>
+	</a>
 </li>
 
 		<li class="tribe-events-c-top-bar__nav-list-item">
-	<button
+	<a
+		href="http://test.tri.be/?post_type=tribe_events&#038;eventDisplay=month&#038;eventDate=2019-02"
 		class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-right tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--next"
 		aria-label="Next"
 		title="Next"
-		disabled
+		data-js="tribe-events-view-link"
 	>
-	</button>
+	</a>
 </li>
 	</ul>
 </nav>
@@ -298,15 +300,17 @@
 >
 
 	<button
-				aria-controls="tribe-events-calendar-mobile-day-2018-12-31"
-		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
+				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2018-12-31">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2018-12-31"
+			>
 				31			</time>
 		</h3>
 			</button>
@@ -319,7 +323,10 @@
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2018-12-31">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2018-12-31"
+			>
 									31							</time>
 		</h3>
 
@@ -341,17 +348,20 @@
 >
 
 	<button
-					aria-expanded="false"
-			aria-selected="false"
-				aria-controls="tribe-events-calendar-mobile-day-2019-01-01"
-		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
+					aria-expanded="true"
+			aria-selected="true"
+			aria-controls="tribe-events-calendar-mobile-day-2019-01-01"
+				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile tribe-events-calendar-month__day-cell--selected" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
 				3 events,
 			</span>
-			<time datetime="2019-01-01">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-01"
+			>
 				01			</time>
 		</h3>
 					<em
@@ -370,7 +380,10 @@
 			<span class="tribe-common-a11y-visual-hide">
 				3 events,
 			</span>
-			<time datetime="2019-01-01">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-01"
+			>
 									<a
 						href="http://test.tri.be/events/2019-01-01/"
 						class="tribe-events-calendar-month__day-date-link"
@@ -410,7 +423,7 @@
 		title="Test Event &#8211; +9 days"
 		rel="bookmark"
 		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
-		data-js="tribe-events-tooltip"
+				data-js="tribe-events-tooltip"
 		data-tooltip-content="#tribe-events-tooltip-content-7"
 		aria-describedby="tribe-events-tooltip-content-7"
 	>
@@ -423,8 +436,8 @@
 	role="tooltip"
 >
 	<div id="tribe-events-tooltip-content-7">
-				<p class="tribe-events-calendar-month__calendar-event-tooltip-description tribe-common-b3">
-	</p>
+				<div class="tribe-events-calendar-month__calendar-event-tooltip-description tribe-common-b3">
+	</div>
 			</div>
 </div>
 
@@ -453,7 +466,7 @@
 		title="Single Event 1"
 		rel="bookmark"
 		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
-		data-js="tribe-events-tooltip"
+				data-js="tribe-events-tooltip"
 		data-tooltip-content="#tribe-events-tooltip-content-8"
 		aria-describedby="tribe-events-tooltip-content-8"
 	>
@@ -466,8 +479,8 @@
 	role="tooltip"
 >
 	<div id="tribe-events-tooltip-content-8">
-				<p class="tribe-events-calendar-month__calendar-event-tooltip-description tribe-common-b3">
-	</p>
+				<div class="tribe-events-calendar-month__calendar-event-tooltip-description tribe-common-b3">
+	</div>
 			</div>
 </div>
 
@@ -496,7 +509,7 @@
 		title="Single Event 2"
 		rel="bookmark"
 		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
-		data-js="tribe-events-tooltip"
+				data-js="tribe-events-tooltip"
 		data-tooltip-content="#tribe-events-tooltip-content-9"
 		aria-describedby="tribe-events-tooltip-content-9"
 	>
@@ -509,8 +522,8 @@
 	role="tooltip"
 >
 	<div id="tribe-events-tooltip-content-9">
-				<p class="tribe-events-calendar-month__calendar-event-tooltip-description tribe-common-b3">
-	</p>
+				<div class="tribe-events-calendar-month__calendar-event-tooltip-description tribe-common-b3">
+	</div>
 			</div>
 </div>
 
@@ -534,15 +547,17 @@
 >
 
 	<button
-				aria-controls="tribe-events-calendar-mobile-day-2019-01-02"
-		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
+				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-02">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-02"
+			>
 				02			</time>
 		</h3>
 			</button>
@@ -555,7 +570,10 @@
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-02">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-02"
+			>
 									02							</time>
 		</h3>
 
@@ -577,15 +595,17 @@
 >
 
 	<button
-				aria-controls="tribe-events-calendar-mobile-day-2019-01-03"
-		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
+				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-03">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-03"
+			>
 				03			</time>
 		</h3>
 			</button>
@@ -598,7 +618,10 @@
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-03">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-03"
+			>
 									03							</time>
 		</h3>
 
@@ -620,15 +643,17 @@
 >
 
 	<button
-				aria-controls="tribe-events-calendar-mobile-day-2019-01-04"
-		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
+				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-04">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-04"
+			>
 				04			</time>
 		</h3>
 			</button>
@@ -641,7 +666,10 @@
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-04">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-04"
+			>
 									04							</time>
 		</h3>
 
@@ -663,15 +691,17 @@
 >
 
 	<button
-				aria-controls="tribe-events-calendar-mobile-day-2019-01-05"
-		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
+				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-05">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-05"
+			>
 				05			</time>
 		</h3>
 			</button>
@@ -684,7 +714,10 @@
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-05">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-05"
+			>
 									05							</time>
 		</h3>
 
@@ -706,15 +739,17 @@
 >
 
 	<button
-				aria-controls="tribe-events-calendar-mobile-day-2019-01-06"
-		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
+				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-06">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-06"
+			>
 				06			</time>
 		</h3>
 			</button>
@@ -727,7 +762,10 @@
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-06">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-06"
+			>
 									06							</time>
 		</h3>
 
@@ -755,15 +793,17 @@
 >
 
 	<button
-				aria-controls="tribe-events-calendar-mobile-day-2019-01-07"
-		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
+				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-07">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-07"
+			>
 				07			</time>
 		</h3>
 			</button>
@@ -776,7 +816,10 @@
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-07">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-07"
+			>
 									07							</time>
 		</h3>
 
@@ -798,15 +841,17 @@
 >
 
 	<button
-				aria-controls="tribe-events-calendar-mobile-day-2019-01-08"
-		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
+				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-08">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-08"
+			>
 				08			</time>
 		</h3>
 			</button>
@@ -819,7 +864,10 @@
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-08">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-08"
+			>
 									08							</time>
 		</h3>
 
@@ -841,15 +889,17 @@
 >
 
 	<button
-				aria-controls="tribe-events-calendar-mobile-day-2019-01-09"
-		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
+				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-09">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-09"
+			>
 				09			</time>
 		</h3>
 			</button>
@@ -862,7 +912,10 @@
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-09">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-09"
+			>
 									09							</time>
 		</h3>
 
@@ -884,15 +937,17 @@
 >
 
 	<button
-				aria-controls="tribe-events-calendar-mobile-day-2019-01-10"
-		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
+				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-10">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-10"
+			>
 				10			</time>
 		</h3>
 			</button>
@@ -905,7 +960,10 @@
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-10">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-10"
+			>
 									10							</time>
 		</h3>
 
@@ -927,15 +985,17 @@
 >
 
 	<button
-				aria-controls="tribe-events-calendar-mobile-day-2019-01-11"
-		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
+				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-11">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-11"
+			>
 				11			</time>
 		</h3>
 			</button>
@@ -948,7 +1008,10 @@
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-11">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-11"
+			>
 									11							</time>
 		</h3>
 
@@ -970,15 +1033,17 @@
 >
 
 	<button
-				aria-controls="tribe-events-calendar-mobile-day-2019-01-12"
-		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
+				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-12">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-12"
+			>
 				12			</time>
 		</h3>
 			</button>
@@ -991,7 +1056,10 @@
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-12">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-12"
+			>
 									12							</time>
 		</h3>
 
@@ -1013,15 +1081,17 @@
 >
 
 	<button
-				aria-controls="tribe-events-calendar-mobile-day-2019-01-13"
-		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
+				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-13">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-13"
+			>
 				13			</time>
 		</h3>
 			</button>
@@ -1034,7 +1104,10 @@
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-13">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-13"
+			>
 									13							</time>
 		</h3>
 
@@ -1062,15 +1135,17 @@
 >
 
 	<button
-				aria-controls="tribe-events-calendar-mobile-day-2019-01-14"
-		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
+				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-14">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-14"
+			>
 				14			</time>
 		</h3>
 			</button>
@@ -1083,7 +1158,10 @@
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-14">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-14"
+			>
 									14							</time>
 		</h3>
 
@@ -1105,15 +1183,17 @@
 >
 
 	<button
-				aria-controls="tribe-events-calendar-mobile-day-2019-01-15"
-		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
+				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-15">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-15"
+			>
 				15			</time>
 		</h3>
 			</button>
@@ -1126,7 +1206,10 @@
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-15">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-15"
+			>
 									15							</time>
 		</h3>
 
@@ -1148,15 +1231,17 @@
 >
 
 	<button
-				aria-controls="tribe-events-calendar-mobile-day-2019-01-16"
-		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
+				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-16">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-16"
+			>
 				16			</time>
 		</h3>
 			</button>
@@ -1169,7 +1254,10 @@
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-16">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-16"
+			>
 									16							</time>
 		</h3>
 
@@ -1191,15 +1279,17 @@
 >
 
 	<button
-				aria-controls="tribe-events-calendar-mobile-day-2019-01-17"
-		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
+				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-17">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-17"
+			>
 				17			</time>
 		</h3>
 			</button>
@@ -1212,7 +1302,10 @@
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-17">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-17"
+			>
 									17							</time>
 		</h3>
 
@@ -1234,15 +1327,17 @@
 >
 
 	<button
-				aria-controls="tribe-events-calendar-mobile-day-2019-01-18"
-		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
+				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-18">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-18"
+			>
 				18			</time>
 		</h3>
 			</button>
@@ -1255,7 +1350,10 @@
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-18">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-18"
+			>
 									18							</time>
 		</h3>
 
@@ -1277,15 +1375,17 @@
 >
 
 	<button
-				aria-controls="tribe-events-calendar-mobile-day-2019-01-19"
-		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
+				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-19">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-19"
+			>
 				19			</time>
 		</h3>
 			</button>
@@ -1298,7 +1398,10 @@
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-19">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-19"
+			>
 									19							</time>
 		</h3>
 
@@ -1320,15 +1423,17 @@
 >
 
 	<button
-				aria-controls="tribe-events-calendar-mobile-day-2019-01-20"
-		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
+				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-20">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-20"
+			>
 				20			</time>
 		</h3>
 			</button>
@@ -1341,7 +1446,10 @@
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-20">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-20"
+			>
 									20							</time>
 		</h3>
 
@@ -1369,15 +1477,17 @@
 >
 
 	<button
-				aria-controls="tribe-events-calendar-mobile-day-2019-01-21"
-		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
+				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-21">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-21"
+			>
 				21			</time>
 		</h3>
 			</button>
@@ -1390,7 +1500,10 @@
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-21">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-21"
+			>
 									21							</time>
 		</h3>
 
@@ -1412,15 +1525,17 @@
 >
 
 	<button
-				aria-controls="tribe-events-calendar-mobile-day-2019-01-22"
-		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
+				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-22">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-22"
+			>
 				22			</time>
 		</h3>
 			</button>
@@ -1433,7 +1548,10 @@
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-22">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-22"
+			>
 									22							</time>
 		</h3>
 
@@ -1455,15 +1573,17 @@
 >
 
 	<button
-				aria-controls="tribe-events-calendar-mobile-day-2019-01-23"
-		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
+				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-23">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-23"
+			>
 				23			</time>
 		</h3>
 			</button>
@@ -1476,7 +1596,10 @@
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-23">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-23"
+			>
 									23							</time>
 		</h3>
 
@@ -1498,15 +1621,17 @@
 >
 
 	<button
-				aria-controls="tribe-events-calendar-mobile-day-2019-01-24"
-		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
+				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-24">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-24"
+			>
 				24			</time>
 		</h3>
 			</button>
@@ -1519,7 +1644,10 @@
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-24">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-24"
+			>
 									24							</time>
 		</h3>
 
@@ -1541,15 +1669,17 @@
 >
 
 	<button
-				aria-controls="tribe-events-calendar-mobile-day-2019-01-25"
-		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
+				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-25">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-25"
+			>
 				25			</time>
 		</h3>
 			</button>
@@ -1562,7 +1692,10 @@
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-25">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-25"
+			>
 									25							</time>
 		</h3>
 
@@ -1584,15 +1717,17 @@
 >
 
 	<button
-				aria-controls="tribe-events-calendar-mobile-day-2019-01-26"
-		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
+				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-26">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-26"
+			>
 				26			</time>
 		</h3>
 			</button>
@@ -1605,7 +1740,10 @@
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-26">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-26"
+			>
 									26							</time>
 		</h3>
 
@@ -1627,15 +1765,17 @@
 >
 
 	<button
-				aria-controls="tribe-events-calendar-mobile-day-2019-01-27"
-		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
+				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-27">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-27"
+			>
 				27			</time>
 		</h3>
 			</button>
@@ -1648,7 +1788,10 @@
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-27">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-27"
+			>
 									27							</time>
 		</h3>
 
@@ -1676,15 +1819,17 @@
 >
 
 	<button
-				aria-controls="tribe-events-calendar-mobile-day-2019-01-28"
-		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
+				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-28">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-28"
+			>
 				28			</time>
 		</h3>
 			</button>
@@ -1697,7 +1842,10 @@
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-28">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-28"
+			>
 									28							</time>
 		</h3>
 
@@ -1719,15 +1867,17 @@
 >
 
 	<button
-				aria-controls="tribe-events-calendar-mobile-day-2019-01-29"
-		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
+				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-29">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-29"
+			>
 				29			</time>
 		</h3>
 			</button>
@@ -1740,7 +1890,10 @@
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-29">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-29"
+			>
 									29							</time>
 		</h3>
 
@@ -1762,15 +1915,17 @@
 >
 
 	<button
-				aria-controls="tribe-events-calendar-mobile-day-2019-01-30"
-		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
+				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-30">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-30"
+			>
 				30			</time>
 		</h3>
 			</button>
@@ -1783,7 +1938,10 @@
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-30">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-30"
+			>
 									30							</time>
 		</h3>
 
@@ -1805,15 +1963,17 @@
 >
 
 	<button
-				aria-controls="tribe-events-calendar-mobile-day-2019-01-31"
-		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
+				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-31">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-31"
+			>
 				31			</time>
 		</h3>
 			</button>
@@ -1826,7 +1986,10 @@
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-01-31">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-01-31"
+			>
 									31							</time>
 		</h3>
 
@@ -1848,15 +2011,17 @@
 >
 
 	<button
-				aria-controls="tribe-events-calendar-mobile-day-2019-02-01"
-		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
+				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-02-01">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-02-01"
+			>
 				01			</time>
 		</h3>
 			</button>
@@ -1869,7 +2034,10 @@
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-02-01">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-02-01"
+			>
 									01							</time>
 		</h3>
 
@@ -1891,15 +2059,17 @@
 >
 
 	<button
-				aria-controls="tribe-events-calendar-mobile-day-2019-02-02"
-		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
+				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-02-02">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-02-02"
+			>
 				02			</time>
 		</h3>
 			</button>
@@ -1912,7 +2082,10 @@
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-02-02">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-02-02"
+			>
 									02							</time>
 		</h3>
 
@@ -1934,15 +2107,17 @@
 >
 
 	<button
-				aria-controls="tribe-events-calendar-mobile-day-2019-02-03"
-		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile"
+				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-02-03">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-02-03"
+			>
 				03			</time>
 		</h3>
 			</button>
@@ -1955,7 +2130,10 @@
 			<span class="tribe-common-a11y-visual-hide">
 				0 events,
 			</span>
-			<time datetime="2019-02-03">
+			<time
+				class="tribe-events-calendar-month__day-date-daynum"
+				datetime="2019-02-03"
+			>
 									03							</time>
 		</h3>
 
@@ -1976,50 +2154,14 @@
 
 		</div>
 
-		<nav class="tribe-events-calendar-month-nav tribe-events-calendar-month-nav--calendar tribe-events-c-nav">
-	<ul class="tribe-events-c-nav__list">
-		<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--prev">
-	<button class="tribe-events-c-nav__prev tribe-common-b2" disabled>
-		May	</button>
-</li>
-
-		<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--today">
-	<a
-		href="#"
-		class="tribe-events-c-nav__today tribe-common-b2"
-		data-js="tribe-events-view-link"
-	>
-		Today	</a>
-</li>
-
-		<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--next">
-	<button class="tribe-events-c-nav__next tribe-common-b2" disabled>
-		July	</button>
-</li>
-	</ul>
-</nav>
-
-		<section class="tribe-events-calendar-month-mobile-events">
+		<section class="tribe-events-calendar-month-mobile-events" data-js="tribe-events-pro-week-mobile-events">
 
 	
 		
-<div class="tribe-events-calendar-month-mobile-events__mobile-day" id="tribe-events-calendar-mobile-day-2018-12-31">
-
-	<div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
-	<time
-		class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h--alt"
-		datetime="2018-12-30"
-	>
-		December 30	</time>
-</div>
-
-	
-</div>
-
 	
 		
-<div class="tribe-events-calendar-month-mobile-events__mobile-day" id="tribe-events-calendar-mobile-day-2019-01-01">
-
+			
+<div  class="tribe-events-calendar-month-mobile-events__mobile-day tribe-events-calendar-month-mobile-events__mobile-day--show"  id="tribe-events-calendar-mobile-day-2019-01-01">
 	<div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
 	<time
 		class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h--alt"
@@ -2037,23 +2179,26 @@
 
 		<div class="tribe-events-calendar-month-mobile-events__mobile-event-datetime tribe-common-b2">
 			<em
-			class="tribe-events-calendar-month-mobile-events__mobile-event-datetime-featured tribe-common-svgicon tribe-common-svgicon--featured"
+			class="tribe-events-calendar-month-mobile-events__mobile-event-datetime-featured-icon tribe-common-svgicon tribe-common-svgicon--featured"
 			aria-label="Featured"
 			title="Featured"
 		>
 		</em>
+		<span class="tribe-events-calendar-month-mobile-events__mobile-event-datetime-featured-text">
+			Featured		</span>
 	
 		
-	<time datetime="13:01">
-		1:01 pm	</time>
-	<span class="tribe-events-calendar-month-mobile-events__mobile-event-datetime-separator"> - </span>
-	<time datetime="17:01">
-		5:01 pm	</time>
-</div>
-		<h3  class="tribe-events-calendar-month-mobile-events__mobile-event-title tribe-common-h6" >
+			<time datetime="13:01">
+			1:01 pm		</time>
+		<span class="tribe-events-calendar-month-mobile-events__mobile-event-datetime-separator">
+			 - 		</span>
+		<time datetime="17:01">
+			5:01 pm		</time>
+	</div>
+		<h3  class="tribe-events-calendar-month-mobile-events__mobile-event-title tribe-common-h8" >
 	<a
 		href="http://test.tri.be/?tribe_events=test-event-9-days-2"
-		title="Test Event - +9 days"
+		title="Test Event &#8211; +9 days"
 		rel="bookmark"
 		class="tribe-events-calendar-month-mobile-events__mobile-event-title-link tribe-common-anchor"
 	>
@@ -2073,12 +2218,13 @@
 		<div class="tribe-events-calendar-month-mobile-events__mobile-event-datetime tribe-common-b2">
 	
 		
-	<time datetime="13:04">
-		1:04 pm	</time>
-	<span class="tribe-events-calendar-month-mobile-events__mobile-event-datetime-separator"> - </span>
-	<time datetime="17:04">
-		5:04 pm	</time>
-</div>
+			<time datetime="13:04">
+			1:04 pm		</time>
+		<span class="tribe-events-calendar-month-mobile-events__mobile-event-datetime-separator">
+			 - 		</span>
+		<time datetime="17:04">
+			5:04 pm		</time>
+	</div>
 		<h3  class="tribe-events-calendar-month-mobile-events__mobile-event-title tribe-common-h8" >
 	<a
 		href="http://test.tri.be/?tribe_events=single-event-1"
@@ -2102,12 +2248,13 @@
 		<div class="tribe-events-calendar-month-mobile-events__mobile-event-datetime tribe-common-b2">
 	
 		
-	<time datetime="13:04">
-		1:04 pm	</time>
-	<span class="tribe-events-calendar-month-mobile-events__mobile-event-datetime-separator"> - </span>
-	<time datetime="17:04">
-		5:04 pm	</time>
-</div>
+			<time datetime="13:04">
+			1:04 pm		</time>
+		<span class="tribe-events-calendar-month-mobile-events__mobile-event-datetime-separator">
+			 - 		</span>
+		<time datetime="17:04">
+			5:04 pm		</time>
+	</div>
 		<h3  class="tribe-events-calendar-month-mobile-events__mobile-event-title tribe-common-h8" >
 	<a
 		href="http://test.tri.be/?tribe_events=single-event-2"
@@ -2124,512 +2271,89 @@
 	
 </div>
 
+		
 	
 		
-<div class="tribe-events-calendar-month-mobile-events__mobile-day" id="tribe-events-calendar-mobile-day-2019-01-02">
-
-	<div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
-	<time
-		class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h--alt"
-		datetime="2019-01-01"
-	>
-		January 1	</time>
-</div>
-
-	
-</div>
-
 	
 		
-<div class="tribe-events-calendar-month-mobile-events__mobile-day" id="tribe-events-calendar-mobile-day-2019-01-03">
-
-	<div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
-	<time
-		class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h--alt"
-		datetime="2019-01-02"
-	>
-		January 2	</time>
-</div>
-
-	
-</div>
-
 	
 		
-<div class="tribe-events-calendar-month-mobile-events__mobile-day" id="tribe-events-calendar-mobile-day-2019-01-04">
-
-	<div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
-	<time
-		class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h--alt"
-		datetime="2019-01-03"
-	>
-		January 3	</time>
-</div>
-
-	
-</div>
-
 	
 		
-<div class="tribe-events-calendar-month-mobile-events__mobile-day" id="tribe-events-calendar-mobile-day-2019-01-05">
-
-	<div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
-	<time
-		class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h--alt"
-		datetime="2019-01-04"
-	>
-		January 4	</time>
-</div>
-
-	
-</div>
-
 	
 		
-<div class="tribe-events-calendar-month-mobile-events__mobile-day" id="tribe-events-calendar-mobile-day-2019-01-06">
-
-	<div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
-	<time
-		class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h--alt"
-		datetime="2019-01-05"
-	>
-		January 5	</time>
-</div>
-
-	
-</div>
-
 	
 		
-<div class="tribe-events-calendar-month-mobile-events__mobile-day" id="tribe-events-calendar-mobile-day-2019-01-07">
-
-	<div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
-	<time
-		class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h--alt"
-		datetime="2019-01-06"
-	>
-		January 6	</time>
-</div>
-
-	
-</div>
-
 	
 		
-<div class="tribe-events-calendar-month-mobile-events__mobile-day" id="tribe-events-calendar-mobile-day-2019-01-08">
-
-	<div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
-	<time
-		class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h--alt"
-		datetime="2019-01-07"
-	>
-		January 7	</time>
-</div>
-
-	
-</div>
-
 	
 		
-<div class="tribe-events-calendar-month-mobile-events__mobile-day" id="tribe-events-calendar-mobile-day-2019-01-09">
-
-	<div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
-	<time
-		class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h--alt"
-		datetime="2019-01-08"
-	>
-		January 8	</time>
-</div>
-
-	
-</div>
-
 	
 		
-<div class="tribe-events-calendar-month-mobile-events__mobile-day" id="tribe-events-calendar-mobile-day-2019-01-10">
-
-	<div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
-	<time
-		class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h--alt"
-		datetime="2019-01-09"
-	>
-		January 9	</time>
-</div>
-
-	
-</div>
-
 	
 		
-<div class="tribe-events-calendar-month-mobile-events__mobile-day" id="tribe-events-calendar-mobile-day-2019-01-11">
-
-	<div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
-	<time
-		class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h--alt"
-		datetime="2019-01-10"
-	>
-		January 10	</time>
-</div>
-
-	
-</div>
-
 	
 		
-<div class="tribe-events-calendar-month-mobile-events__mobile-day" id="tribe-events-calendar-mobile-day-2019-01-12">
-
-	<div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
-	<time
-		class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h--alt"
-		datetime="2019-01-11"
-	>
-		January 11	</time>
-</div>
-
-	
-</div>
-
 	
 		
-<div class="tribe-events-calendar-month-mobile-events__mobile-day" id="tribe-events-calendar-mobile-day-2019-01-13">
-
-	<div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
-	<time
-		class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h--alt"
-		datetime="2019-01-12"
-	>
-		January 12	</time>
-</div>
-
-	
-</div>
-
 	
 		
-<div class="tribe-events-calendar-month-mobile-events__mobile-day" id="tribe-events-calendar-mobile-day-2019-01-14">
-
-	<div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
-	<time
-		class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h--alt"
-		datetime="2019-01-13"
-	>
-		January 13	</time>
-</div>
-
-	
-</div>
-
 	
 		
-<div class="tribe-events-calendar-month-mobile-events__mobile-day" id="tribe-events-calendar-mobile-day-2019-01-15">
-
-	<div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
-	<time
-		class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h--alt"
-		datetime="2019-01-14"
-	>
-		January 14	</time>
-</div>
-
-	
-</div>
-
 	
 		
-<div class="tribe-events-calendar-month-mobile-events__mobile-day" id="tribe-events-calendar-mobile-day-2019-01-16">
-
-	<div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
-	<time
-		class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h--alt"
-		datetime="2019-01-15"
-	>
-		January 15	</time>
-</div>
-
-	
-</div>
-
 	
 		
-<div class="tribe-events-calendar-month-mobile-events__mobile-day" id="tribe-events-calendar-mobile-day-2019-01-17">
-
-	<div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
-	<time
-		class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h--alt"
-		datetime="2019-01-16"
-	>
-		January 16	</time>
-</div>
-
-	
-</div>
-
 	
 		
-<div class="tribe-events-calendar-month-mobile-events__mobile-day" id="tribe-events-calendar-mobile-day-2019-01-18">
-
-	<div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
-	<time
-		class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h--alt"
-		datetime="2019-01-17"
-	>
-		January 17	</time>
-</div>
-
-	
-</div>
-
 	
 		
-<div class="tribe-events-calendar-month-mobile-events__mobile-day" id="tribe-events-calendar-mobile-day-2019-01-19">
-
-	<div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
-	<time
-		class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h--alt"
-		datetime="2019-01-18"
-	>
-		January 18	</time>
-</div>
-
-	
-</div>
-
 	
 		
-<div class="tribe-events-calendar-month-mobile-events__mobile-day" id="tribe-events-calendar-mobile-day-2019-01-20">
-
-	<div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
-	<time
-		class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h--alt"
-		datetime="2019-01-19"
-	>
-		January 19	</time>
-</div>
-
-	
-</div>
-
 	
 		
-<div class="tribe-events-calendar-month-mobile-events__mobile-day" id="tribe-events-calendar-mobile-day-2019-01-21">
-
-	<div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
-	<time
-		class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h--alt"
-		datetime="2019-01-20"
-	>
-		January 20	</time>
-</div>
-
-	
-</div>
-
 	
 		
-<div class="tribe-events-calendar-month-mobile-events__mobile-day" id="tribe-events-calendar-mobile-day-2019-01-22">
-
-	<div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
-	<time
-		class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h--alt"
-		datetime="2019-01-21"
-	>
-		January 21	</time>
-</div>
-
-	
-</div>
-
 	
 		
-<div class="tribe-events-calendar-month-mobile-events__mobile-day" id="tribe-events-calendar-mobile-day-2019-01-23">
-
-	<div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
-	<time
-		class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h--alt"
-		datetime="2019-01-22"
-	>
-		January 22	</time>
-</div>
-
-	
-</div>
-
 	
 		
-<div class="tribe-events-calendar-month-mobile-events__mobile-day" id="tribe-events-calendar-mobile-day-2019-01-24">
-
-	<div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
-	<time
-		class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h--alt"
-		datetime="2019-01-23"
-	>
-		January 23	</time>
-</div>
-
-	
-</div>
-
 	
 		
-<div class="tribe-events-calendar-month-mobile-events__mobile-day" id="tribe-events-calendar-mobile-day-2019-01-25">
-
-	<div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
-	<time
-		class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h--alt"
-		datetime="2019-01-24"
-	>
-		January 24	</time>
-</div>
-
-	
-</div>
-
 	
 		
-<div class="tribe-events-calendar-month-mobile-events__mobile-day" id="tribe-events-calendar-mobile-day-2019-01-26">
-
-	<div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
-	<time
-		class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h--alt"
-		datetime="2019-01-25"
-	>
-		January 25	</time>
-</div>
-
-	
-</div>
-
 	
 		
-<div class="tribe-events-calendar-month-mobile-events__mobile-day" id="tribe-events-calendar-mobile-day-2019-01-27">
-
-	<div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
-	<time
-		class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h--alt"
-		datetime="2019-01-26"
-	>
-		January 26	</time>
-</div>
-
-	
-</div>
-
 	
 		
-<div class="tribe-events-calendar-month-mobile-events__mobile-day" id="tribe-events-calendar-mobile-day-2019-01-28">
-
-	<div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
-	<time
-		class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h--alt"
-		datetime="2019-01-27"
-	>
-		January 27	</time>
-</div>
-
-	
-</div>
-
 	
 		
-<div class="tribe-events-calendar-month-mobile-events__mobile-day" id="tribe-events-calendar-mobile-day-2019-01-29">
-
-	<div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
-	<time
-		class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h--alt"
-		datetime="2019-01-28"
-	>
-		January 28	</time>
-</div>
-
-	
-</div>
-
 	
 		
-<div class="tribe-events-calendar-month-mobile-events__mobile-day" id="tribe-events-calendar-mobile-day-2019-01-30">
-
-	<div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
-	<time
-		class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h--alt"
-		datetime="2019-01-29"
-	>
-		January 29	</time>
-</div>
-
-	
-</div>
-
 	
 		
-<div class="tribe-events-calendar-month-mobile-events__mobile-day" id="tribe-events-calendar-mobile-day-2019-01-31">
-
-	<div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
-	<time
-		class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h--alt"
-		datetime="2019-01-30"
-	>
-		January 30	</time>
-</div>
-
-	
-</div>
-
 	
 		
-<div class="tribe-events-calendar-month-mobile-events__mobile-day" id="tribe-events-calendar-mobile-day-2019-02-01">
-
-	<div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
-	<time
-		class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h--alt"
-		datetime="2019-01-31"
-	>
-		January 31	</time>
-</div>
-
-	
-</div>
-
 	
 		
-<div class="tribe-events-calendar-month-mobile-events__mobile-day" id="tribe-events-calendar-mobile-day-2019-02-02">
-
-	<div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
-	<time
-		class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h--alt"
-		datetime="2019-02-01"
-	>
-		February 1	</time>
-</div>
-
-	
-</div>
-
 	
 		
-<div class="tribe-events-calendar-month-mobile-events__mobile-day" id="tribe-events-calendar-mobile-day-2019-02-03">
-
-	<div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
-	<time
-		class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h--alt"
-		datetime="2019-02-02"
-	>
-		February 2	</time>
-</div>
-
-	
-</div>
-
 	
 	<nav class="tribe-events-calendar-month-nav tribe-events-calendar-month-nav--mobile tribe-events-c-nav">
 	<ul class="tribe-events-c-nav__list">
 		<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--prev">
-	<button class="tribe-events-c-nav__prev tribe-common-b2" disabled>
-		May	</button>
+	<a
+		href="http://test.tri.be/?post_type=tribe_events&#038;eventDisplay=month&#038;eventDate=2018-12"
+		rel="prev"
+		class="tribe-events-c-nav__prev tribe-common-b2"
+		data-js="tribe-events-view-link"
+	>
+		December	</a>
 </li>
 
 		<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--today">
 	<a
-		href="#"
+		href="http://test.tri.be/events/month/"
 		class="tribe-events-c-nav__today tribe-common-b2"
 		data-js="tribe-events-view-link"
 	>
@@ -2637,8 +2361,13 @@
 </li>
 
 		<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--next">
-	<button class="tribe-events-c-nav__next tribe-common-b2" disabled>
-		July	</button>
+	<a
+		href="http://test.tri.be/?post_type=tribe_events&#038;eventDisplay=month&#038;eventDate=2019-02"
+		rel="next"
+		class="tribe-events-c-nav__next tribe-common-b2"
+		data-js="tribe-events-view-link"
+	>
+		February	</a>
 </li>
 	</ul>
 </nav>
