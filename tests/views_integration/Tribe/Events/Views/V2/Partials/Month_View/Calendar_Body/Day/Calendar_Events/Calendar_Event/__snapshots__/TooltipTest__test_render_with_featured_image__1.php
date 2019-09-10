@@ -14,7 +14,7 @@
 		<div class="tribe-events-calendar-month__calendar-event-tooltip-featured-image tribe-common-c-image tribe-common-c-image--bg">
 			<div
 				class="tribe-common-c-image__bg"
-				style="background-image: url(\'http://tests.local/wp-content/uploads/2019/09/featured-image-82.jpg\');"
+				style="background-image: url(\'http://tests.local/wp-content/uploads/2019/09/featured-image-96.jpg\');"
 				role="img"
 				aria-label="Post title 5"
 			>
