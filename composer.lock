@@ -665,9 +665,9 @@
             "authors": [
                 {
                     "name": "Franck Nijhof",
-                    "role": "Developer",
                     "email": "f.nijhof@dealerdirect.nl",
-                    "homepage": "http://workingatdealerdirect.eu"
+                    "homepage": "http://workingatdealerdirect.eu",
+                    "role": "Developer"
                 }
             ],
             "description": "PHP_CodeSniffer Standards Composer Installer Plugin",
@@ -997,9 +997,9 @@
             "authors": [
                 {
                     "name": "Oscar Otero",
-                    "role": "Developer",
                     "email": "oom@oscarotero.com",
-                    "homepage": "http://oscarotero.com"
+                    "homepage": "http://oscarotero.com",
+                    "role": "Developer"
                 }
             ],
             "description": "PHP gettext manager",
@@ -1051,8 +1051,8 @@
             "authors": [
                 {
                     "name": "Michele Locati",
-                    "role": "Developer",
-                    "email": "mlocati@gmail.com"
+                    "email": "mlocati@gmail.com",
+                    "role": "Developer"
                 }
             ],
             "description": "gettext languages with plural rules",
@@ -1661,16 +1661,16 @@
         },
         {
             "name": "lucatume/wp-browser",
-            "version": "2.2.23",
+            "version": "2.2.24",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lucatume/wp-browser.git",
-                "reference": "1a79ff93a5da9512c882451ec001c135bbfa3c43"
+                "reference": "3b1d297b96749a359723c35cf1277726e07e80d3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/1a79ff93a5da9512c882451ec001c135bbfa3c43",
-                "reference": "1a79ff93a5da9512c882451ec001c135bbfa3c43",
+                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/3b1d297b96749a359723c35cf1277726e07e80d3",
+                "reference": "3b1d297b96749a359723c35cf1277726e07e80d3",
                 "shasum": ""
             },
             "require": {
@@ -1694,7 +1694,10 @@
                 "erusev/parsedown": "^1.7",
                 "lucatume/codeception-snapshot-assertions": "^0.2",
                 "mikey179/vfsstream": "^1.6",
+                "phpstan/phpstan": "^0.11.15",
+                "phpstan/phpstan-shim": "^0.11.15",
                 "squizlabs/php_codesniffer": "^3.4",
+                "szepeviktor/phpstan-wordpress": "^0.2.0",
                 "victorjonsson/markdowndocs": "dev-master"
             },
             "type": "library",
@@ -1726,7 +1729,7 @@
                 "codeception",
                 "wordpress"
             ],
-            "time": "2019-09-06T13:03:04+00:00"
+            "time": "2019-09-06T20:19:12+00:00"
         },
         {
             "name": "lucatume/wp-snaphot-assertions",
@@ -2001,12 +2004,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/moderntribe/tribe-testing-facilities",
-                "reference": "9cc48c1b6c43ad387aab7ded0151b08203ccbbdc"
+                "reference": "b8e60ed3ad409aad31e8b2c317c419b038102d9e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/moderntribe/tribe-testing-facilities/zipball/9cc48c1b6c43ad387aab7ded0151b08203ccbbdc",
-                "reference": "9cc48c1b6c43ad387aab7ded0151b08203ccbbdc",
+                "url": "https://api.github.com/repos/moderntribe/tribe-testing-facilities/zipball/b8e60ed3ad409aad31e8b2c317c419b038102d9e",
+                "reference": "b8e60ed3ad409aad31e8b2c317c419b038102d9e",
                 "shasum": ""
             },
             "require": {
@@ -2064,7 +2067,7 @@
                 }
             ],
             "description": "Testing facilities, helpers and examples.",
-            "time": "2019-09-04T12:23:35+00:00"
+            "time": "2019-09-10T18:15:59+00:00"
         },
         {
             "name": "mustache/mustache",
@@ -2297,18 +2300,18 @@
             "authors": [
                 {
                     "name": "Arne Blankerts",
-                    "role": "Developer",
-                    "email": "arne@blankerts.de"
+                    "email": "arne@blankerts.de",
+                    "role": "Developer"
                 },
                 {
                     "name": "Sebastian Heuer",
-                    "role": "Developer",
-                    "email": "sebastian@phpeople.de"
+                    "email": "sebastian@phpeople.de",
+                    "role": "Developer"
                 },
                 {
                     "name": "Sebastian Bergmann",
-                    "role": "Developer",
-                    "email": "sebastian@phpunit.de"
+                    "email": "sebastian@phpunit.de",
+                    "role": "Developer"
                 }
             ],
             "description": "Component for reading phar.io manifest information from a PHP Archive (PHAR)",
@@ -4042,9 +4045,9 @@
             "authors": [
                 {
                     "name": "Sebastian De Deyne",
-                    "role": "Developer",
                     "email": "sebastian@spatie.be",
-                    "homepage": "https://spatie.be"
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
                 }
             ],
             "description": "Snapshot testing with PHPUnit",
@@ -4895,8 +4898,8 @@
             "authors": [
                 {
                     "name": "Arne Blankerts",
-                    "role": "Developer",
-                    "email": "arne@blankerts.de"
+                    "email": "arne@blankerts.de",
+                    "role": "Developer"
                 }
             ],
             "description": "A small library for converting tokenized PHP source code into XML and potentially other formats",
@@ -6313,13 +6316,13 @@
             "authors": [
                 {
                     "name": "James Logsdon",
-                    "role": "Developer",
-                    "email": "jlogsdon@php.net"
+                    "email": "jlogsdon@php.net",
+                    "role": "Developer"
                 },
                 {
                     "name": "Daniel Bachhuber",
-                    "role": "Maintainer",
-                    "email": "daniel@handbuilt.co"
+                    "email": "daniel@handbuilt.co",
+                    "role": "Maintainer"
                 }
             ],
             "description": "Console utilities for PHP",

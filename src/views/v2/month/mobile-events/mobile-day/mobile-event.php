@@ -12,8 +12,7 @@
  * @version 4.9.4
  *
  */
-
-$classes = [ 'tribe-events-calendar-month-mobile-events__mobile-event' ];
+$classes = get_post_class( [ 'tribe-events-calendar-month-mobile-events__mobile-event' ], $event->ID );
 $classes['tribe-events-calendar-month-mobile-events__mobile-event--featured'] = $event->featured;
 ?>
 
