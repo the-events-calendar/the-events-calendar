@@ -50,7 +50,7 @@ abstract class By_Day_View extends View{
 	/**
 	 * An instance of the Stack object.
 	 *
-	 * @since 4.9.7
+	 * @since TBD
 	 *
 	 * @var Stack
 	 */
