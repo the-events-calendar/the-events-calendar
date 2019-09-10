@@ -1,7 +1,7 @@
 <?php return '
 <article  class="tribe-events-calendar-month__calendar-event" >
 
-	
+
 	<div class="tribe-events-calendar-month__calendar-event-details">
 
 		<div class="tribe-events-calendar-month__calendar-event-datetime">
@@ -40,7 +40,7 @@
 		<div class="tribe-events-calendar-month__calendar-event-tooltip-featured-image tribe-common-c-image tribe-common-c-image--bg">
 			<div
 				class="tribe-common-c-image__bg"
-				style="background-image: url(\'http://test.tri.be/wp-content/uploads/2019/09/featured-image-13.jpg\');"
+				style="background-image: url(\'http://test.tri.be/wp-content/uploads/2019/09/featured-image.jpg\');"
 				role="img"
 				aria-label=""
 			>
