@@ -29,7 +29,7 @@ use Tribe__Date_Utils as Dates;
 $should_display = $event->dates->start->format( 'Y-m-d' ) === $day_date
                   || $is_start_of_week;
 
-$classes = [ 'tribe-events-calendar-month__multiday-event' ];
+$classes = get_post_class( [ 'tribe-events-calendar-month__multiday-event' ], $event->ID );
 
 // @todo @fe move class configuration to template tag
 
