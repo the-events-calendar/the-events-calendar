@@ -95,5 +95,8 @@ class MonthEventMultidayTest extends HtmlTestCase {
 			$icon->is( '[title="Featured"]' ),
 			'Month multiday featured icon needs to be title="Featured"'
 		);
+
+		// required to prevent rising of the colision preventer key at the end of the URL.
+		wp_delete_attachment( $thumbnail_id );
 	}
 }

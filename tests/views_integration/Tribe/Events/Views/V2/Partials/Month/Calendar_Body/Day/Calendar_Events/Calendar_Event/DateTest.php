@@ -87,5 +87,8 @@ class DateTest extends HtmlPartialTestCase {
 		$event->featured = true;
 
 		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => $event ] ) );
+
+		// required to prevent rising of the colision preventer key at the end of the URL.
+		wp_delete_attachment( $thumbnail_id );
 	}
 }
