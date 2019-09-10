@@ -215,6 +215,10 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
+= [4.9.9] TBD =
+
+* Fix - Set the start date with the current day for the "All" events page for recurring events. Thanks Andy, leapness and others for flagging this! [130350]
+
 = [4.9.8] 2019-09-04 =
 
 * Tweak - Added the Monolog logging library as alternative logging backend [120785]
