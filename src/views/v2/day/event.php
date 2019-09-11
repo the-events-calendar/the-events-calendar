@@ -13,14 +13,14 @@
  *
  */
 
-$classes = [ 'tribe-common-g-row', 'tribe-common-g-row--gutters', 'tribe-events-calendar-day__event' ];
+$classes = get_post_class( [ 'tribe-common-g-row', 'tribe-common-g-row--gutters', 'tribe-events-calendar-day__event' ], $event->ID );
 
 if ( $event->featured ) {
 	$classes[] = 'tribe-events-calendar-day__event--featured';
 }
 
 ?>
-<article class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>">
+<article <?php tribe_classes( $classes ); ?>>
 
 	<?php $this->template( 'day/event/featured-image', [ 'event' => $event ] ); ?>
 

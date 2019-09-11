@@ -398,7 +398,7 @@
 			
 
 	
-<article  class="tribe-events-calendar-month__calendar-event tribe-events-calendar-month__calendar-event--featured" >
+<article  class="tribe-events-calendar-month__calendar-event post-7 tribe_events type-tribe_events status-publish hentry entry tribe-events-calendar-month__calendar-event--featured" >
 
 	
 	<div class="tribe-events-calendar-month__calendar-event-details">
@@ -446,7 +446,7 @@
 
 
 	
-<article  class="tribe-events-calendar-month__calendar-event" >
+<article  class="tribe-events-calendar-month__calendar-event post-8 tribe_events type-tribe_events status-publish hentry entry" >
 
 	
 	<div class="tribe-events-calendar-month__calendar-event-details">
@@ -488,7 +488,7 @@
 
 
 	
-<article  class="tribe-events-calendar-month__calendar-event" >
+<article  class="tribe-events-calendar-month__calendar-event post-9 tribe_events type-tribe_events status-publish hentry entry" >
 
 	
 	<div class="tribe-events-calendar-month__calendar-event-details">
@@ -2169,7 +2169,7 @@
 
 	
 		
-<article  class="tribe-events-calendar-month-mobile-events__mobile-event tribe-events-calendar-month-mobile-events__mobile-event--featured" >
+<article  class="tribe-events-calendar-month-mobile-events__mobile-event post-7 tribe_events type-tribe_events status-publish hentry entry tribe-events-calendar-month-mobile-events__mobile-event--featured" >
 
 	
 	<div class="tribe-events-calendar-month-mobile-events__mobile-event-details">
@@ -2205,7 +2205,7 @@
 
 	
 		
-<article  class="tribe-events-calendar-month-mobile-events__mobile-event" >
+<article  class="tribe-events-calendar-month-mobile-events__mobile-event post-8 tribe_events type-tribe_events status-publish hentry entry" >
 
 	
 	<div class="tribe-events-calendar-month-mobile-events__mobile-event-details">
@@ -2233,7 +2233,7 @@
 
 	
 		
-<article  class="tribe-events-calendar-month-mobile-events__mobile-event" >
+<article  class="tribe-events-calendar-month-mobile-events__mobile-event post-9 tribe_events type-tribe_events status-publish hentry entry" >
 
 	
 	<div class="tribe-events-calendar-month-mobile-events__mobile-event-details">

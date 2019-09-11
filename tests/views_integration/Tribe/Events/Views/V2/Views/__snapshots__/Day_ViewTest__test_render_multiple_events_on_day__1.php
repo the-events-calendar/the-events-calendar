@@ -220,7 +220,7 @@
 	>
 		1:00 pm	</time>
 </div>
-				<article class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-day__event tribe-events-calendar-day__event--featured">
+				<article class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-day__event post-7 tribe_events type-tribe_events status-publish hentry entry tribe-events-calendar-day__event--featured">
 
 	
 	<div class="tribe-events-calendar-day__event-details tribe-common-g-col">
@@ -271,7 +271,7 @@
 </article>
 
 			
-								<article class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-day__event">
+								<article class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-day__event post-8 tribe_events type-tribe_events status-publish hentry entry">
 
 	
 	<div class="tribe-events-calendar-day__event-details tribe-common-g-col">
