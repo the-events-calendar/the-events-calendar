@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.4
+ * @version TBD
  *
  */
 
@@ -22,7 +22,7 @@ if ( empty( $event->cost ) ) {
 }
 ?>
 <div class="tribe-events-c-small-cta tribe-events-calendar-month-mobile-events__mobile-event-cta">
-	<a href="#" class="tribe-events-c-small-cta__link tribe-common-cta tribe-common-cta--alt">
+	<a href="#" class="tribe-events-c-small-cta__link tribe-common-cta tribe-common-cta--thin-alt">
 		<?php esc_html_e( 'Buy Now', 'the-events-calendar' ); ?>
 	</a>
 	<span class="tribe-events-c-small-cta__price">

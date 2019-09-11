@@ -157,7 +157,7 @@ tribe.events.views.datepicker = {};
 	/**
 	 * Handle datepicker hide event
 	 *
-	 * @since 4.9.5
+	 * @since 4.9.8
 	 *
 	 * @param {Event} event event object for 'hide' event
 	 *
@@ -165,7 +165,7 @@ tribe.events.views.datepicker = {};
 	 */
 	obj.handleHide = function( event ) {
 		var $datepickerButton = event.data.datepickerButton
-		var state = $datepickerButton.data( 'state' );
+		var state = $datepickerButton.data( 'tribeEventsState' );
 
 		event.data.observer.disconnect();
 
@@ -254,7 +254,7 @@ tribe.events.views.datepicker = {};
 	/**
 	 * Handle datepicker button mousedown
 	 *
-	 * @since 4.9.7
+	 * @since 4.9.8
 	 *
 	 * @param {Event} event event object for 'mousedown' event
 	 *
@@ -262,15 +262,15 @@ tribe.events.views.datepicker = {};
 	 */
 	obj.handleMousedown = function( event ) {
 		var $datepickerButton = event.data.target;
-		var state = $datepickerButton.data( 'state' );
+		var state = $datepickerButton.data( 'tribeEventsState' );
 		state.isTarget = true;
-		$datepickerButton.data( 'state', state );
+		$datepickerButton.data( 'tribeEventsState', state );
 	};
 
 	/**
 	 * Handle datepicker button click
 	 *
-	 * @since 4.9.5
+	 * @since 4.9.8
 	 *
 	 * @param {Event} event event object for 'click' event
 	 *
@@ -279,14 +279,14 @@ tribe.events.views.datepicker = {};
 	obj.handleClick = function( event ) {
 		var $input = event.data.input;
 		var $datepickerButton = event.data.target;
-		var state = $datepickerButton.data( 'state' );
+		var state = $datepickerButton.data( 'tribeEventsState' );
 		var method = $datepickerButton.hasClass( obj.selectors.buttonOpenClass.className() ) ? 'hide' : 'show';
 
 		state.isTarget = false;
 
 		$datepickerButton
 			.toggleClass( obj.selectors.buttonOpenClass.className() )
-			.data( 'state', state );
+			.data( 'tribeEventsState', state );
 		$input
 			.focus()
 			.bootstrapDatepicker( method );
@@ -353,7 +353,7 @@ tribe.events.views.datepicker = {};
 	/**
 	 * Initialize datepicker JS
 	 *
-	 * @since  4.9.7
+	 * @since  4.9.8
 	 *
 	 * @param  {Event}   event      event object for 'afterSetup.tribeEvents' event
 	 * @param  {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event
@@ -408,9 +408,9 @@ tribe.events.views.datepicker = {};
 			.on( 'hide', { datepickerButton: $datepickerButton, input: $input, observer: observer }, obj.handleHide );
 
 		$datepickerButton
-			.on( 'mousedown', { target: $datepickerButton }, obj.handleMousedown )
+			.on( 'mousedown touchstart', { target: $datepickerButton }, obj.handleMousedown )
 			.on( 'click', { target: $datepickerButton, input: $input }, obj.handleClick )
-			.data( 'state', state );
+			.data( 'tribeEventsState', state );
 
 		if ( isWeekView ) {
 			$input.on( 'show', { container: $container, observer: observer }, obj.bindRowEvents );

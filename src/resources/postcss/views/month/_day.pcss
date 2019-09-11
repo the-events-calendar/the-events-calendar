@@ -67,24 +67,18 @@
 
 	.tribe-events-calendar-month__day--past {
 
-		.tribe-events-calendar-month__day-date,
-		.tribe-events-calendar-month__day-date-link,
-		.tribe-events-calendar-month__calendar-event-datetime,
-		.tribe-events-calendar-month__calendar-event-title-link {
-			color: var(--color-past-events);
+		.tribe-events-calendar-month__day-date {
+			opacity: 0.4;
 		}
 
-		.tribe-events-calendar-month__day-date-link,
-		.tribe-events-calendar-month__calendar-event-title-link {
-			/* @todo: figure out hover focus active states for disabled day */
-			&:hover,
-			&:focus {
-				color: var(--color-past-events);
-			}
+		.tribe-events-calendar-month__mobile-events-icon--event {
+			background-color: var(--color-icon-active);
+			opacity: 0.5;
+		}
 
-			&:active {
-				color: var(--color-past-events);
-			}
+		.tribe-events-calendar-month__mobile-events-icon--featured {
+			background-image: svg-inline(featured-active);
+			opacity: 0.5;
 		}
 	}
 
@@ -129,14 +123,17 @@
 
 		.tribe-events-calendar-month__day-date {
 			color: var(--color-background);
+			opacity: var(--opacity-default);
 		}
 
 		.tribe-events-calendar-month__mobile-events-icon--event {
 			background-color: var(--color-background);
+			opacity: var(--opacity-default);
 		}
 
 		.tribe-events-calendar-month__mobile-events-icon--featured {
 			background-image: svg-inline(featured-white);
+			opacity: var(--opacity-default);
 		}
 	}
 
@@ -182,6 +179,21 @@
 	/* -----------------------------------------------------------------------------
 	 * Day: Theme Overrides
 	 * ----------------------------------------------------------------------------- */
+
+	/* -------------------------------------------------------------------------
+	 * Theme Overrides - Twenty Seventeen
+	 * ------------------------------------------------------------------------- */
+
+	.tribe-theme-twentyseventeen & {
+
+		.tribe-events-calendar-month__day-cell--selected {
+
+			&:hover,
+			&:focus {
+				background-color: var(--color-accent-primary);
+			}
+		}
+	}
 
 	/* -----------------------------------------------------------------------------
 	 * Theme Overrides - Avada

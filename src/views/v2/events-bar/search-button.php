@@ -9,12 +9,8 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.4
+ * @version 4.9.8
  *
- */
-
-/**
- * @todo: if filter bar is active, change icon
  */
 ?>
 <button
@@ -24,7 +20,7 @@
 	aria-selected="false"
 	data-js="tribe-events-search-button"
 >
-	<span class="tribe-events-c-events-bar__search-button-icon tribe-common-svgicon"></span>
+	<?php $this->template( 'events-bar/search-button/icon' ); ?>
 	<span class="tribe-events-c-events-bar__search-button-text tribe-common-a11y-visual-hide">
 		<?php esc_html_e( 'Search', 'the-events-calendar' ); ?>
 	</span>

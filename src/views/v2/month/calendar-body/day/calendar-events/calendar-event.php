@@ -16,14 +16,14 @@
  * @see tribe_get_event() For the format of the event object.
  */
 
-$classes = [ 'tribe-events-calendar-month__calendar-event' ];
+$classes = get_post_class( [ 'tribe-events-calendar-month__calendar-event' ], $event->ID );
 
 if ( $event->featured ) {
 	$classes[] = 'tribe-events-calendar-month__calendar-event--featured';
 }
 ?>
 
-<article class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>">
+<article <?php tribe_classes( $classes ) ?>>
 
 	<?php $this->template( 'month/calendar-body/day/calendar-events/calendar-event/featured-image', [ 'event' => $event ] ); ?>
 

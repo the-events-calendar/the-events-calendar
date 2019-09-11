@@ -9,23 +9,25 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version TBD
+ * @version 4.9.8
  *
  */
 
 $event    = $this->get( 'event' );
 $event_id = $event->ID;
 
-$classes = [ 'tribe-common-g-row', 'tribe-events-calendar-list__event-row' ];
-$classes['tribe-events-calendar-list__event-row--featured'] = tribe( 'tec.featured_events' )->is_featured( $event_id );
+$container_classes = [ 'tribe-common-g-row', 'tribe-events-calendar-list__event-row' ];
+$container_classes['tribe-events-calendar-list__event-row--featured'] = tribe( 'tec.featured_events' )->is_featured( $event_id );
+
+$event_classes = get_post_class( [ 'tribe-events-calendar-list__event', 'tribe-common-g-row', 'tribe-common-g-row--gutters' ], $event->ID );
 
 ?>
-<div <?php tribe_classes( $classes ) ?>>
+<div <?php tribe_classes( $container_classes ); ?>>
 
 	<?php $this->template( 'list/event/date-tag', [ 'event' => $event ] ); ?>
 
 	<div class="tribe-events-calendar-list__event-wrapper tribe-common-g-col">
-		<article class="tribe-events-calendar-list__event tribe-common-g-row tribe-common-g-row--gutters">
+		<article <?php tribe_classes( $event_classes ) ?>>
 			<?php $this->template( 'list/event/featured-image', [ 'event' => $event ] ); ?>
 
 			<div class="tribe-events-calendar-list__event-details tribe-common-g-col">

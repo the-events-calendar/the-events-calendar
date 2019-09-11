@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTICLE_LINK_HERE}
  *
- * @version TBD
+ * @version 4.9.8
  *
  * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
  *
@@ -23,10 +23,17 @@ $event_id = $event->ID;
 		title="<?php echo esc_attr( get_the_title( $event->ID ) ); ?>"
 		rel="bookmark"
 		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
+		<?php
+		/**
+		 * @todo @be @bordoni
+		 *       only show data and aria attributes below if tooltip is shown
+		 *       (if one of featured image, description, or cost exists)
+		 */
+		?>
 		data-js="tribe-events-tooltip"
 		data-tooltip-content="#tribe-events-tooltip-content-<?php echo esc_attr( $event_id ); ?>"
 		aria-describedby="tribe-events-tooltip-content-<?php echo esc_attr( $event_id ); ?>"
 	>
-		<?php echo esc_html( get_the_title($event_id) ); ?>
+		<?php echo get_the_title( $event_id ); ?>
 	</a>
 </h3>
