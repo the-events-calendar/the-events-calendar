@@ -408,7 +408,7 @@ tribe.events.views.datepicker = {};
 			.on( 'hide', { datepickerButton: $datepickerButton, input: $input, observer: observer }, obj.handleHide );
 
 		$datepickerButton
-			.on( 'mousedown', { target: $datepickerButton }, obj.handleMousedown )
+			.on( 'mousedown touchstart', { target: $datepickerButton }, obj.handleMousedown )
 			.on( 'click', { target: $datepickerButton, input: $input }, obj.handleClick )
 			.data( 'tribeEventsState', state );
 
