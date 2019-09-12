@@ -401,15 +401,8 @@ class List_ViewTest extends ViewTestCase {
 		
 		// We get the view HTML.
 		$html = $list_view->get_html();
-
-		// Let's make sure the View is displaying what events we expect it to display.
-		$expected_post_ids = wp_list_pluck( array_slice( $events, 0, 2 ), 'ID' );
-		$this->assertEquals(
-			$expected_post_ids,
-			$list_view->found_post_ids()
-		);
 		
-		// And let's be sure that the snapshot test is correct.
+		// And we make sure that the snapshot test is correct.
 		$this->assertMatchesSnapshot( $html );
 	}
 }
