@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<ruleset name="The Events Calendar Coding Standards">
+	<rule ref="TribalScents"></rule>
+	<rule ref="WordPress-VIP-Go"></rule>
+	<rule ref="WordPress">
+		<exclude name="WordPress.Files.FileName"/>
+	</rule>
+	<rule ref="WordPress-Extra"></rule>
+	<rule ref="WordPress-Docs"></rule>
+	<rule ref="WordPress-Core"></rule>
+
+	<!--exclude the rule for violation of direct DB calls as some have no alternative-->
+	<rule ref="WordPress.DB.DirectDatabaseQuery">
+		<exclude-pattern>src/Test.php</exclude-pattern>
+	</rule>
+</ruleset>

@@ -67,10 +67,14 @@
 				params = params + '&featured=1';
 			}
 
-			history.replaceState( {
-				"tribe_params"    : params,
-				"tribe_url_params": td.params
-			}, '', location.href );
+			var isShortcode = $( document.getElementById( 'tribe-events' ) ).is( '.tribe-events-shortcode' );
+
+			if( ! isShortcode || false !== config.update_urls.shortcode.day ){
+				history.replaceState( {
+					"tribe_params"    : params,
+					"tribe_url_params": td.params
+				}, '', location.href );
+			}
 
 			$( window ).on( 'popstate', function( event ) {
 
@@ -317,14 +321,18 @@
 								td.cur_url = td.cur_url + '?' + ts.url_params;
 							}
 
-							if ( ts.do_string ) {
+							var isShortcode = $( document.getElementById( 'tribe-events' ) ).is( '.tribe-events-shortcode' );
+							var shouldUpdateHistory = ! isShortcode || false !== config.update_urls.shortcode.day;
+
+
+							if ( ts.do_string && shouldUpdateHistory ) {
 								history.pushState( {
 									"tribe_date"  : ts.date,
 									"tribe_params": ts.params
 								}, ts.page_title, td.cur_url );
 							}
 
-							if ( ts.pushstate ) {
+							if ( ts.pushstate && shouldUpdateHistory ) {
 								history.pushState( {
 									"tribe_date"  : ts.date,
 									"tribe_params": ts.params

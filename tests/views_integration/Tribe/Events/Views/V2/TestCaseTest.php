@@ -4,6 +4,7 @@ namespace Tribe\Events\Views\V2;
 
 require_once codecept_data_dir( 'Views/V2/classes/Test_View.php' );
 require_once codecept_data_dir( 'Views/V2/classes/Test_Context_View.php' );
+use Tribe\Test\Products\WPBrowser\Views\V2\TestCase;
 
 class TestCaseTest extends TestCase {
 
@@ -49,30 +50,5 @@ class TestCaseTest extends TestCase {
 		$this->assertEquals( [
 			'day' => '2019-03-12',
 		], $actual['view_data'] );
-	}
-
-	/**
-	 * It should allow making a simple snapshot assertion
-	 *
-	 * @test
-	 */
-	public function should_allow_making_a_simple_snapshot_assertion() {
-		add_filter( 'tribe_events_views', function () {
-			return [ 'test' => Test_Context_View::class ];
-		} );
-
-		$this->given_a_main_query_request()
-		     ->for_view( Test_Context_View::class )
-		     ->with_args( [
-			     'view_data' => [
-				     'venue'     => 23,
-				     'organizer' => [ 89, 2389 ],
-				     'featured'  => false,
-				     'color'     => [ 'yellow', 'blue' ],
-			     ],
-		     ] )
-		     ->alter_global_context();
-
-		$this->assert_view_snapshot( View::make( 'test' ) );
 	}
 }

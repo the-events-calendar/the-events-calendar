@@ -1,0 +1,24 @@
+.tribe-events {
+
+	/* -----------------------------------------------------------------------------
+	 * Month Separator
+	 * ----------------------------------------------------------------------------- */
+
+	.tribe-events-calendar-list__month-separator {
+		display: flex;
+		align-items: center;
+
+		&:after {
+			background-color: var(--color-border-default);
+			content: '';
+			display: block;
+			flex: auto;
+			height: 1px;
+			margin-left: 20px;
+		}
+	}
+
+	.tribe-events-calendar-list__month-separator-text {
+		flex: none;
+	}
+}

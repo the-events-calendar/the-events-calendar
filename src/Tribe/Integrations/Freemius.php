@@ -33,6 +33,15 @@ class Tribe__Events__Integrations__Freemius {
 	private $slug = 'the-events-calendar';
 
 	/**
+	 * Store the value from the 'page' in the request.
+	 *
+	 * @since 4.9.5
+	 *
+	 * @var string
+	 */
+	private $page = '';
+
+	/**
 	 * Performs setup for the Freemius integration singleton.
 	 *
 	 * @since  4.9
@@ -40,7 +49,13 @@ class Tribe__Events__Integrations__Freemius {
 	 * @return void
 	 */
 	public function __construct() {
-		$page = tribe_get_request_var( 'page' );
+		if ( ! is_admin() ) {
+			return;
+		}
+
+		global $pagenow;
+
+		$this->page = tribe_get_request_var( 'page' );
 
 		$valid_page = [
 			Tribe__Settings::$parent_slug,
@@ -49,7 +64,7 @@ class Tribe__Events__Integrations__Freemius {
 			'tribe-help',
 		];
 
-		if ( ! in_array( $page, $valid_page ) ) {
+		if ( ! in_array( $this->page, $valid_page ) && 'plugins.php' !== $pagenow ) {
 			return;
 		}
 
@@ -71,29 +86,58 @@ class Tribe__Events__Integrations__Freemius {
 			return;
 		}
 
+
 		$this->instance = tribe( 'freemius' )->initialize(
 			$this->slug,
 			$this->freemius_id,
 			'pk_e32061abc28cfedf231f3e5c4e626',
 			[
 				'menu' => [
-					'slug' => $page,
+					'slug'    => $this->page,
 					'account' => true,
 					'support' => false,
 				],
-				'is_premium' => false,
-				'has_addons' => false,
+				'is_premium'     => false,
+				'has_addons'     => false,
 				'has_paid_plans' => false,
 			]
 		);
 
+		$this->instance->add_filter( 'connect_url', [ $this, 'redirect_settings_url' ] );
+		$this->instance->add_filter( 'after_skip_url', [ $this, 'redirect_settings_url' ] );
+		$this->instance->add_filter( 'after_connect_url', [ $this, 'redirect_settings_url' ] );
+		$this->instance->add_filter(
+			'after_pending_connect_url',
+			[ $this, 'redirect_settings_url' ]
+		);
+
 		tribe_asset( Tribe__Events__Main::instance(), 'tribe-events-freemius', 'freemius.css', [], 'admin_enqueue_scripts' );
 
+		// Freemius typically hooks this action–which bootstraps the deactivation dialog–during plugins_loaded, but we
+		// initialize our plugins AFTER plugins_loaded, so we'll register it on admin_init instead
+		add_action( 'admin_init', [ $this->instance, '_hook_action_links_and_register_account_hooks' ] );
 		add_action( 'admin_init', [ $this, 'action_skip_activation' ] );
 
 		$this->instance->add_filter( 'connect_message_on_update', [ $this, 'filter_connect_message_on_update' ], 10, 6 );
 
 		add_action( 'admin_init', [ $this, 'maybe_remove_activation_complete_notice' ] );
+	}
+
+	/**
+	 * Redirect URL after the Freemius actions.
+	 *
+	 * @since 4.9.5
+	 *
+	 * @return mixed
+	 */
+	public function redirect_settings_url() {
+		$url = sprintf(
+			'edit.php?post_type=%s&page=%s',
+			Tribe__Events__Main::POSTTYPE,
+			$this->page
+		);
+
+		return admin_url( $url );
 	}
 
 	/**
@@ -113,19 +157,21 @@ class Tribe__Events__Integrations__Freemius {
 			return TRIBE_EVENTS_INTEGRATIONS_SHOULD_LOAD_FREEMIUS;
 		}
 
-		$previous_versions = Tribe__Settings_Manager::get_option( 'previous_ecp_versions', [] );
+		// If we have the option we use it
+		$seed                  = tribe_get_option( 'freemius_random_seed', null );
+		$seed_misses_threshold = null === $seed || $threshold < $seed;
 
 		/**
 		 * Should only if it a new install.
 		 *
 		 * @see Tribe__Admin__Activation_Page::is_new_install Based on protected method from Common.
 		 */
-		if ( ! empty( $previous_versions ) && '0' != end( $previous_versions ) ) {
+		$previous_versions     = Tribe__Settings_Manager::get_option( 'previous_ecp_versions', [] );
+		$has_previous_versions = ! empty( $previous_versions ) && '0' != end( $previous_versions );
+
+		if ( $has_previous_versions && $seed_misses_threshold ) {
 			return false;
 		}
-
-		// If we have the option we use it
-		$seed = tribe_get_option( 'freemius_random_seed', null );
 
 		if ( ! $seed ) {
 			$seed = rand( 1, 100 );
@@ -203,7 +249,7 @@ class Tribe__Events__Integrations__Freemius {
 
 		$html .= '<p>';
 		$html .= sprintf(
-			esc_html__( 'Hi, %1$s! This is an invitation to help %2$s community. If you opt-in, some data about your usage of %2$s will be shared with our teams (so they can work their butts off to improve). We will also share some helpful info on events management. WordPress, and our products from time to time.', 'the-events-calendar' ),
+			esc_html__( 'Hi, %1$s! This is an invitation to help %2$s community. If you opt-in, some data about your usage of %2$s will be shared with our teams (so they can work their butts off to improve). We will also share some helpful info on events management, WordPress, and our products from time to time.', 'the-events-calendar' ),
 			$user_first_name,
 			$plugin_name
 		);

@@ -437,6 +437,7 @@ class Post_RepositoryTest extends Events_TestCase {
 		$cost_utils->get_event_costs( Argument::any() )->will( function () use ( $costs ) {
 			return $costs;
 		} );
+		$cost_utils->parse_separators( Argument::any() )->willReturn( [ '.', ',' ] );
 		tribe_singleton( 'tec.cost-utils', $cost_utils->reveal() );
 
 		$sut  = $this->make_instance();
@@ -459,9 +460,9 @@ class Post_RepositoryTest extends Events_TestCase {
 
 	public function cost_strings() {
 		return [
-			[ '25.55', 25.55 ],
-			[ '25,55', 25.55, ',' ],
-			[ '23', 23 ],
+			'float_w_dot_separator'   => [ '25.55', 25.55 ],
+			'float_w_comma_separator' => [ '25,55', 25.55, ',', '.' ],
+			'int'                     => [ '23', 23 ],
 		];
 	}
 
@@ -470,7 +471,7 @@ class Post_RepositoryTest extends Events_TestCase {
 	 * it should properly format cost values
 	 * @dataProvider cost_strings
 	 */
-	public function it_should_properly_format_cost_values( $cost_string, $expected_cost, $sep = '.' ) {
+	public function it_should_properly_format_cost_values( $cost_string, $expected_cost, $decimal_point = '.', $thousands_sep = ',' ) {
 		// need to be able to assign terms to use `meta_input`
 		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
 		$event_id = $this->factory()->event->create( [
@@ -481,7 +482,8 @@ class Post_RepositoryTest extends Events_TestCase {
 			]
 		] );
 		global $wp_locale;
-		$wp_locale->number_format['decimal_point'] = $sep;
+		$wp_locale->number_format['decimal_point'] = $decimal_point;
+		$wp_locale->number_format['thousands_sep'] = $thousands_sep;
 
 		$sut  = $this->make_instance();
 		$data = $sut->get_event_data( $event_id );
@@ -657,5 +659,35 @@ class Post_RepositoryTest extends Events_TestCase {
 		$data = $sut->get_organizer_data( $id, 'single' );
 
 		$this->assertArrayNotHasKey( 'json_ld', $data );
+	}
+
+	public function multiple_costs_data_set() {
+		return [
+			'euro_dot_decimal_sep'   => [ '€6.50 - €8.50', [ 6.5, 8.5 ] ],
+			'euro_comma_decimal_sep' => [ '5,50 7,50', [ 5.5, 7.5 ] ],
+		];
+	}
+
+	/**
+	 * It should correctly parse cost values w/ multiple costs
+	 *
+	 * @test
+	 * @dataProvider multiple_costs_data_set
+	 */
+	public function should_correctly_parse_cost_values_w_multiple_costs( $cost_meta, $expected ) {
+		global $wp_locale;
+		$event = tribe_events()->set_args( [
+			'title'      => 'Test event',
+			'start_date' => 'tomorrow 9am',
+			'duration'   => 2 * HOUR_IN_SECONDS,
+			'status'     => 'publish',
+			'_EventCost' => $cost_meta,
+		] )->create();
+
+		$repository = $this->make_instance();
+		$event_data = $repository->get_event_data( $event->ID );
+		$parsed     = $event_data['cost_details']['values'];
+
+		$this->assertEquals( $expected, $parsed );
 	}
 }

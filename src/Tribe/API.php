@@ -40,6 +40,15 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			$args['post_type'] = Tribe__Events__Main::POSTTYPE;
 
 			$args = self::sanitize_event_post_create_update_args( $args );
+			/**
+			 * Allow filtering of arguments in prior to inserting the event and meta fields.
+			 *
+			 * @param array $args The fields we want saved.
+			 *
+			 * @since 4.9.4
+			 */
+			$args = apply_filters( 'tribe_events_event_insert_args', $args );
+
 			if ( is_wp_error( $args ) ) {
 				return $args;
 			}
@@ -76,9 +85,32 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 				$args['edit_date'] = true;
 			}
 
+			/**
+			 * Allow hooking prior the update of an event and meta fields.
+			 *
+			 * @param array   $args The fields we want saved.
+			 * @param int     $event_id The event ID we are modifying.
+			 * @param WP_Post $post The event itself.
+			 *
+			 * @since 4.9.4
+			 */
+			$args = apply_filters( 'tribe_events_event_update_args', $args, $event_id, $post );
+
 			$args = self::sanitize_event_post_create_update_args( $args );
 			if ( is_wp_error( $args ) ) {
 				return $args;
+			}
+
+			/**
+			 * Disallow the update for an event via the Tribe API
+			 *
+			 * @param bool $disallow_update Flag to control the update of a post false by default.
+			 * @param int  $event_id The event ID.
+			 *
+			 * @since 4.9.4
+			 */
+			if ( apply_filters( 'tribe_events_event_prevent_update', false, $event_id ) ) {
+				return $event_id;
 			}
 
 			if ( wp_update_post( $args ) ) {
@@ -159,8 +191,12 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 				$data['EventCost'] = reset( $data['EventCost'] );
 			}
 
-			if ( isset( $data['FeaturedImage'] ) && ! empty( $data['FeaturedImage'] ) ) {
-				update_metadata( 'post', $event_id, '_thumbnail_id', $data['FeaturedImage'] );
+			if ( isset( $data['FeaturedImage'] ) ) {
+				if ( empty( $data['FeaturedImage'] ) ) {
+					delete_post_meta( $event_id, '_thumbnail_id' );
+				} else {
+					update_metadata( 'post', $event_id, '_thumbnail_id', $data['FeaturedImage'] );
+				}
 				unset( $data['FeaturedImage'] );
 			}
 

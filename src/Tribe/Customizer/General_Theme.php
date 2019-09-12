@@ -36,7 +36,7 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 		$scheme = $this->sanitize_featured_color_choice( $settings['featured_color_scheme'] );
 		$schemes = $this->get_featured_color_schemes();
 
-		if ( 'custom' === $scheme ) {
+		if ( 'custom' === $scheme && isset( $settings['featured_color_scheme_custom'] ) ) {
 			$button_bg = $settings['featured_color_scheme_custom'];
 		} else {
 			$button_bg = $schemes[ $scheme ]['colors'][0];

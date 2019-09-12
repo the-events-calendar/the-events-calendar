@@ -46,10 +46,12 @@ services:
       # To avoid having to enter a password in CLI scripts let's not protect the root user
       # with a password at all; in this context it's not an issue.
       MYSQL_ALLOW_EMPTY_PASSWORD: 1
+    # Database file consistency is not an issue in tests.
+    command: mysqld --debug-no-sync
 
   chromedriver:
     container_name: ci_chromedriver
-    image: selenium/standalone-chrome
+    image: selenium/standalone-chrome:3.141.59-oxygen
     depends_on:
       - db
       - wordpress

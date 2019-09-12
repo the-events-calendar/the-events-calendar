@@ -64,6 +64,15 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			$event_id = $event_id->ID;
 		}
 
+		/**
+		 * Action executed before the Event data is pulled before deliver the Event via REST API.
+		 *
+		 * @param $event_id int The ID of the event
+		 *
+		 * @since 4.9.4
+		 */
+		do_action( 'tribe_rest_before_event_data', $event_id );
+
 		/** @var Tribe__Cache $cache */
 		$cache     = tribe( 'cache' );
 		$cache_key = 'rest_get_event_data_' . get_current_user_id() . '_' . $event_id . '_' . $context;
@@ -501,13 +510,17 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 	 * @return array
 	 */
 	protected function get_cost_values( $event_id ) {
-		$cost_couples = tribe( 'tec.cost-utils' )->get_event_costs( $event_id );
+		/** @var Tribe__Cost_Utils $cost_utils */
+		$cost_utils   = tribe( 'tec.cost-utils' );
+		$cost_couples = $cost_utils->get_event_costs( $event_id );
 
-		global $wp_locale;
 		$cost_values = array();
 		foreach ( $cost_couples as $key => $value ) {
-			$value = str_replace( $wp_locale->number_format['decimal_point'], '.', '' . $value );
-			$value = str_replace( $wp_locale->number_format['thousands_sep'], '', $value );
+			list( $decimal_sep, $thousands_sep ) = $cost_utils->parse_separators( $value );
+
+			$value = str_replace( $thousands_sep, '', $value );
+			$value = str_replace( $decimal_sep, '.', '' . $value );
+
 			if ( is_numeric( $value ) ) {
 				$cost_values[] = $value;
 			} else {

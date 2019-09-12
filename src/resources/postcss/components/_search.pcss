@@ -1,0 +1,215 @@
+.tribe-events {
+	/* -----------------------------------------------------------------------------
+	 *
+	 * Search
+	 *
+	 * Example:
+	 * <form action="" method="post" class="tribe-events-c-search">
+	 *   <div class="tribe-events-form-control-input-group tribe-events-c-search__input-group">
+	 *     <div class="tribe-events-form-control-text tribe-events-c-search__input-control">
+	 *       <label class="tribe-events-form-control-text__label" for="keyword">Keyword</label>
+	 *       <input
+	 *         class="tribe-events-form-control-text__input tribe-events-c-search__input"
+	 *         type="text"
+	 *         id="keyword"
+	 *         name="keyword"
+	 *         placeholder="Keyword"
+	 *       />
+	 *     </div>
+	 *     <div class="tribe-events-form-control-text tribe-events-c-search__input-control">
+	 *       <label class="tribe-events-form-control-text__label" for="location">Location</label>
+	 *       <input
+	 *         class="tribe-events-form-control-text__input tribe-events-c-search__input"
+	 *         type="text"
+	 *         id="location"
+	 *         name="location"
+	 *         placeholder="Location"
+	 *       />
+	 *     </div>
+	 *     <div class="tribe-events-form-control-text">
+	 *       <label class="tribe-events-form-control-text__label" for="date">Date</label>
+	 *       <input
+	 *         class="tribe-events-form-control-text__input tribe-events-c-search__input"
+	 *         type="text"
+	 *         id="date"
+	 *         name="date"
+	 *         placeholder="Enter Date"
+	 *       />
+	 *     </div>
+	 *   </div>
+	 *   <button type="submit" class="tribe-events-c-btn tribe-events-c-search__button">Find Events</button>
+	 * </form>
+	 *
+	 * ----------------------------------------------------------------------------- */
+
+	.tribe-events-c-search {
+		@media (--viewport-medium) {
+			display: flex;
+			align-items: center;
+		}
+	}
+
+	.tribe-events-c-search__input-group {
+		@media (--viewport-medium) {
+			align-items: center;
+			display: flex;
+			flex: auto;
+		}
+	}
+
+	.tribe-events-c-search__input-control {
+		@media (--viewport-medium) {
+			border-right: 1px solid var(--color-border-secondary);
+			flex: auto;
+			margin: var(--spacer-2) 0;
+		}
+
+		&:last-child {
+			@media (--viewport-medium) {
+				border-right: 0;
+			}
+		}
+	}
+
+	.tribe-events-c-search__input {
+		@media (--viewport-medium) {
+			margin: calc(var(--spacer-2) * -1) 0;
+		}
+	}
+
+	.tribe-events-c-search__input--icon {
+		background-repeat: no-repeat;
+		background-position: right center;
+
+		@media (--viewport-medium) {
+			background-position: 16px center;
+		}
+	}
+
+	.tribe-events-c-search__input-control--keyword {
+
+		.tribe-events-c-search__input {
+			background-image: svg-inline(search);
+			background-size: 16px;
+
+			&:focus {
+				background-image: svg-inline(search-focus);
+			}
+		}
+	}
+
+	.tribe-events-c-search__input-control--keyword-focus {
+
+		.tribe-events-c-search__input {
+			background-image: svg-inline(search-focus);
+		}
+	}
+
+	.tribe-events-c-search__input-control--location {
+
+		.tribe-events-c-search__input {
+			background-image: svg-inline(location);
+			background-size: 10px 15px;
+
+			&:focus {
+				background-image: svg-inline(location-focus);
+			}
+		}
+	}
+
+	.tribe-events-c-search__input-control--location-focus {
+
+		.tribe-events-c-search__input {
+			background-image: svg-inline(location-focus);
+		}
+	}
+
+	.tribe-events-c-search__button {
+		margin-top: var(--spacer-5);
+
+		@media (--viewport-medium) {
+			flex: none;
+			margin-top: 0;
+		}
+	}
+
+
+	/* -----------------------------------------------------------------------------
+	 *
+	 * Search: Theme Overrides
+	 *
+	 * ----------------------------------------------------------------------------- */
+
+	/* -----------------------------------------------------------------------------
+	 * Theme Overrides - Enfold
+	 * ----------------------------------------------------------------------------- */
+
+	#top.tribe-theme-enfold & {
+
+		.tribe-events-c-search__input {
+			@media (--viewport-medium) {
+				margin: calc(var(--spacer-2) * -1) 0;
+			}
+		}
+
+		.tribe-events-c-search__input--icon {
+			background-repeat: no-repeat;
+			background-position: right center;
+
+			@media (--viewport-medium) {
+				background-position: 16px center;
+			}
+		}
+
+		.tribe-events-c-search__input-control--keyword {
+
+			.tribe-events-c-search__input {
+				background-image: svg-inline(search);
+				background-size: 16px;
+
+				&:focus {
+					background-image: svg-inline(search-focus);
+				}
+			}
+		}
+
+		.tribe-events-c-search__input-control--keyword-focus {
+
+			.tribe-events-c-search__input {
+				background-image: svg-inline(search-focus);
+			}
+		}
+
+		.tribe-events-c-search__input-control--location {
+
+			.tribe-events-c-search__input {
+				background-image: svg-inline(location);
+				background-size: 10px 15px;
+
+				&:focus {
+					background-image: svg-inline(location-focus);
+				}
+			}
+		}
+
+		.tribe-events-c-search__input-control--location-focus {
+
+			.tribe-events-c-search__input {
+				background-image: svg-inline(location-focus);
+			}
+		}
+	}
+
+	/* -----------------------------------------------------------------------------
+	 * Theme Overrides - Avada
+	 * ----------------------------------------------------------------------------- */
+
+	.tribe-theme-avada & {
+
+		.tribe-events-c-search__input {
+			@media (--viewport-medium) {
+				margin: calc(var(--spacer-2) * -1) 0;
+			}
+		}
+	}
+}

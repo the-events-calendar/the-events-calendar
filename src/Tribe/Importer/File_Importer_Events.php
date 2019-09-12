@@ -270,7 +270,12 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 
 		if ( ! empty ( $additional_fields ) ) {
 			foreach ( $additional_fields as $key => $csv_column ) {
-				$event[ $key ] = $this->get_value_by_key( $record, $key );
+				$value = $this->get_value_by_key( $record, $key );
+				if ( strpos( $value, '|' ) > -1 ) {
+					$event[ $key ] = explode( '|', $value );
+				} else {
+					$event[ $key ] = $value;
+				}
 			}
 		}
 

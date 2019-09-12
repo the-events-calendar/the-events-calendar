@@ -1,0 +1,55 @@
+{
+  "ID": 7,
+  "post_author": "0",
+  "post_date": "2019-06-11 13:59:35",
+  "post_date_gmt": "2019-06-11 13:59:35",
+  "post_content": "",
+  "post_title": "Test Event - +9 days",
+  "post_excerpt": "",
+  "post_status": "publish",
+  "comment_status": "open",
+  "ping_status": "closed",
+  "post_password": "",
+  "post_name": "test-event-9-days-2",
+  "to_ping": "",
+  "pinged": "",
+  "post_modified": "2019-06-11 13:59:35",
+  "post_modified_gmt": "2019-06-11 13:59:35",
+  "post_content_filtered": "",
+  "post_parent": 0,
+  "guid": "http:\/\/test.tri.be\/?tribe_events=test-event-9-days-2",
+  "menu_order": 0,
+  "post_type": "tribe_events",
+  "post_mime_type": "",
+  "comment_count": "0",
+  "filter": "raw",
+  "meta_input": {
+    "_tribe_featured": [
+      "1"
+    ],
+    "_EventStartDate": [
+      "2019-06-20 13:01:20"
+    ],
+    "_EventStartDateUTC": [
+      "2019-06-20 13:01:20"
+    ],
+    "_EventEndDate": [
+      "2019-06-20 17:01:20"
+    ],
+    "_EventEndDateUTC": [
+      "2019-06-20 17:01:20"
+    ],
+    "_EventTimezoneAbbr": [
+      "CEST"
+    ],
+    "_EventOrigin": [
+      "events-calendar"
+    ],
+    "_EventShowMap": [
+      "1"
+    ],
+    "_EventShowMapLink": [
+      "1"
+    ]
+  }
+}

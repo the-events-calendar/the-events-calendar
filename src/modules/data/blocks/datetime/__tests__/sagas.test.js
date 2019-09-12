@@ -244,6 +244,7 @@ describe( 'Event Date time Block sagas', () => {
 						put( actions.setStartDateTime( dates.start ) ),
 						put( actions.setEndDateTime( dates.end ) ),
 						put( actions.setMultiDay( false ) ),
+						put( actions.setAllDay( false ) ),
 					] )
 				);
 
@@ -631,6 +632,9 @@ describe( 'Event Date time Block sagas', () => {
 			const gen = sagas.handleStartTimeChange( action );
 
 			expect( gen.next().value ).toEqual(
+				put( actions.setAllDay( false ) )
+			);
+			expect( gen.next().value ).toEqual(
 				call( sagas.deriveMomentsFromDates )
 			);
 			expect( gen.next( { start: 55000 } ).value ).toEqual(
@@ -667,6 +671,9 @@ describe( 'Event Date time Block sagas', () => {
 			};
 			const gen = sagas.handleEndTimeChange( action );
 
+			expect( gen.next().value ).toEqual(
+				put( actions.setAllDay( false ) )
+			);
 			expect( gen.next().value ).toEqual(
 				call( sagas.deriveMomentsFromDates )
 			);

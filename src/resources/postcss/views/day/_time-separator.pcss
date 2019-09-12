@@ -1,0 +1,25 @@
+.tribe-events {
+
+	/* -----------------------------------------------------------------------------
+	 * Time separator
+	 * ----------------------------------------------------------------------------- */
+
+	.tribe-events-calendar-day__time-separator {
+		display: flex;
+		align-items: center;
+
+		&:after {
+			background-color: var(--color-border-default);
+			content: '';
+			display: block;
+			flex: auto;
+			height: 1px;
+			margin-left: 20px;
+		}
+	}
+
+	.tribe-events-calendar-day__time-separator-text {
+		flex: none;
+	}
+}
+

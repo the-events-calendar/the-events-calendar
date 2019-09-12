@@ -36,11 +36,17 @@
 		<br/>
 		<h2><?php esc_html_e( 'PSST... Want a Discount?', 'the-events-calendar' ); ?></h2>
 		<p><?php esc_html_e( 'We send out discounts to our core users via our newsletter.', 'the-events-calendar' ); ?></p>
-		<form action="https://moderntribe.createsend.com/t/r/s/athqh/" method="post">
-			<p><input id="listthkduyk" name="cm-ol-thkduyk" type="checkbox" /> <label for="listthkduyk">Developer News</label></p>
-			<p><input id="listathqh" name="cm-ol-athqh" checked type="checkbox" /> <label for="listathqh">News and Announcements</label></p>
-			<p><input id="fieldEmail" class="regular-text" name="cm-athqh-athqh" type="email" placeholder="Email" required /></p>
-			<button type="submit" class="button-primary"><?php esc_html_e( 'Sign Up', 'the-events-calendar' ); ?></button>
+		<form action="https://support-api.tri.be/mailing-list/subscribe" method="post">
+			<p><input id="fieldEmail" class="regular-text" name="email" type="email" placeholder="Email" required /></p>
+			<div>
+				<input id="cm-privacy-consent" name="consent" required type="checkbox" role="checkbox" aria-checked="false" />
+				<label for="cm-privacy-consent"><?php esc_html_e( 'Add me to the list', 'the-events-calendar' ); ?></label>
+			</div>
+			<p>
+				<input type="hidden" name="list" value="tec-newsletter" />
+				<input type="hidden" name="source" value="plugin:tec" />
+				<button type="submit" class="button-primary"><?php esc_html_e( 'Sign Up', 'the-events-calendar' ); ?></button>
+			</p>
 		</form>
 		<br/>
 		<hr/>

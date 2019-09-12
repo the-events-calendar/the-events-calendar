@@ -14,7 +14,7 @@ add_action( 'plugins_loaded', static function () {
 
 // Register the view for the `test-list` slug.
 add_filter( 'tribe_events_views', static function ( array $views ) {
-	$views ['test-list'] = 'Test_List_View';
+	$views = array_merge( [ 'test-list' => 'Test_List_View' ], $views );
 
 	return $views;
 } );
