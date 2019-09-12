@@ -355,13 +355,6 @@ class List_ViewTest extends ViewTestCase {
 		$list_view = View::make( List_View::class, $context );
 		$html      = $list_view->get_html();
 
-		// Let's make sure the View is displaying what events we expect it to display.
-		$expected_post_ids = [];
-		$this->assertEquals(
-			$expected_post_ids,
-			$list_view->found_post_ids()
-		);
-
 		$this->assertMatchesSnapshot( $html );
 	}
 
