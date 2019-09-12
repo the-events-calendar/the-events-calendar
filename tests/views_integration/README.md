@@ -317,9 +317,11 @@ This second test example shows what is, probably, the main feature of data-drive
 
 ### Snapshot testing
 
+Snapshot testing is a simple concept, the outputof your test is written to disk, and that file is called a snapshot. The next time you run your tests, the content of the test is compared to the snapshot, and it checks check if they succeed or fail.
+
 This type of testing answers the following question:
 
-> Is this View, or View partial, rendering the correct markup (HTML structure, attributes, and data output) given a specific set of template variables?
+> Is this View rendering the correct markup (HTML structure, attributes, and data output) given a specific set of template variables?
 
 On the initial test, snapshot testing will create a snapshot of the HTML markup that is output by the view or partial. Each subsequent test will be compared against the initial snapshot.
 
@@ -411,6 +413,8 @@ class List_ViewTest extends ViewTestCase {
 By using the `MatchesSnapshots` trait and calling the `assertMatchesSnapshot` method, we can set an initial snapshot and compare the markup each time the test is run.
 
 When a markup change occurs, the test will fail as the html markup will not match the snapshot. In this case, review the differences. if they are what you expect, then delete the snapshot file and run the test again to generate a new snapshot. Commit this snapshot to the repo so that all others running tests will have the latest snapshot to compare to.
+
+You can also use the `--debug` flag to get some more information about why the tests could be failing.
 
 ### Component (HTML) Testing
 
