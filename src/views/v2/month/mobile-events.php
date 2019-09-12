@@ -16,11 +16,11 @@
  */
 
 ?>
-<section class="tribe-events-calendar-month-mobile-events" data-js="tribe-events-pro-week-mobile-events">
+<section class="tribe-events-calendar-month-mobile-events" data-js="tribe-events-calendar-month-mobile-events">
 
 	<?php foreach ( $days as $day_date => $day ) : ?>
 
-		<?php if ( ! empty( $day[ 'events' ] ) ) : ?>
+		<?php if ( ! empty( $day['found_events'] ) ) : ?>
 
 			<?php $this->template( 'month/mobile-events/mobile-day', [ 'day' => $day, 'day_date' => $day_date ] ); ?>
 

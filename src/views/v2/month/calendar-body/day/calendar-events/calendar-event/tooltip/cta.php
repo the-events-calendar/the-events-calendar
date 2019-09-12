@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.4
+ * @version TBD
  *
  * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
  *
@@ -19,17 +19,20 @@
 if ( empty( $event->cost ) ) {
 	return;
 }
-/**
- * @todo @fe make this dynamic depending on the cost.
- *       @be @bordoni get buy now url
- */
 ?>
-
 <div class="tribe-events-c-small-cta tribe-events-calendar-month__calendar-event-tooltip-cta">
-	<a href="#" class="tribe-events-c-small-cta__link tribe-common-cta tribe-common-cta--alt">
+	<a
+		<?php
+		/**
+		 * @todo @be @bordoni get buy now url
+		 */
+		?>
+		href="#"
+		class="tribe-events-c-small-cta__link tribe-common-cta tribe-common-cta--thin-alt"
+	>
 		<?php esc_html_e( 'Buy Now', 'the-events-calendar' ); ?>
 	</a>
 	<span class="tribe-events-c-small-cta__price">
-		<?php echo esc_html( $event->cost ) ?>
+		<?php echo esc_html( $event->cost ); ?>
 	</span>
 </div>

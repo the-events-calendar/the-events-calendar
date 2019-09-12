@@ -2,10 +2,11 @@
 
 namespace Tribe\Events;
 
+use Codeception\Test\Unit;
 use Codeception\TestCase\WPTestCase;
 use Tribe\Events\Test\Factories\Event;
-use Tribe__Events__iCal as iCal;
 use Tribe__Events__API;
+use Tribe__Events__iCal as iCal;
 use WP_Post;
 
 class iCalTest extends WPTestCase {
@@ -254,7 +255,7 @@ class iCalTest extends WPTestCase {
 
 		$sut = $this->make_instance();
 
-		$this->assertStringContainsString( $expected, $sut->generate_ical_feed( get_post( $event ), false ) );
+		$this->assertContains( $expected, $sut->generate_ical_feed( get_post( $event ), false ) );
 	}
 
 	public function ical_content_provider() {
@@ -305,7 +306,7 @@ multiple lines",
 		$event = get_post( $event );
 		$ical = $sut->generate_ical_feed( $event, false );
 
-		$this->assertStringContainsString( "SUMMARY:" . $args['post_title'], $ical );
+		$this->assertContains( "SUMMARY:" . $args['post_title'], $ical );
 
 		$content = apply_filters( 'the_content', tribe( 'editor.utils' )->exclude_tribe_blocks( $event->post_content ) );
 
@@ -314,6 +315,6 @@ multiple lines",
 			[  '\,', '\n', '' ],
 			strip_tags( str_replace( '</p>', '</p> ', $content ) )
 		);
-		$this->assertStringContainsString( "DESCRIPTION:" . $content, $ical );
+		$this->assertContains( "DESCRIPTION:" . $content, $ical );
 	}
 }

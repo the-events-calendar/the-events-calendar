@@ -9,19 +9,18 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.4
+ * @version TBD
  *
  */
+use Tribe__Date_Utils as Dates;
 
 $event       = $this->get( 'event' );
 $event_id    = $event->ID;
 $is_featured = tribe( 'tec.featured_events' )->is_featured( $event_id );
+$event_date_attr = $event->dates->start->format( Dates::DBDATEFORMAT );
 
 ?>
-<div class="tribe-events-calendar-day__event-datetime-wrapper">
-	<time class="tribe-events-calendar-day__event-datetime tribe-common-b2" datetime="1970-01-01T00:00:00+00:00">
-		<?php echo tribe_events_event_schedule_details( $event ); ?>
-	</time>
+<div class="tribe-events-calendar-day__event-datetime-wrapper tribe-common-b2">
 	<?php if ( $is_featured ) : ?>
 		<em
 			class="tribe-events-calendar-day__event-datetime-featured-icon tribe-common-svgicon tribe-common-svgicon--featured"
@@ -29,5 +28,12 @@ $is_featured = tribe( 'tec.featured_events' )->is_featured( $event_id );
 			title="<?php esc_attr_e( 'Featured', 'the-events-calendar' ); ?>"
 		>
 		</em>
+		<span class="tribe-events-calendar-day__event-datetime-featured-text tribe-common-a11y-visual-hide">
+			<?php esc_html_e( 'Featured', 'the-events-calendar' ); ?>
+		</span>
 	<?php endif; ?>
+	<time class="tribe-events-calendar-day__event-datetime" datetime="<?php echo esc_attr( $event_date_attr ); ?>">
+		<?php echo $event->schedule_details->value(); ?>
+	</time>
+	<?php $this->template( 'day/event/date/meta', [ 'event' => $event ] ); ?>
 </div>

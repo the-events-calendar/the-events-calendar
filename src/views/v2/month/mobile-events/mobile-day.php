@@ -14,6 +14,9 @@
  */
 
 $events = $day['events'];
+if ( ! empty( $day['multiday_events'] ) ) {
+	$events = array_filter( array_merge( $day['multiday_events'], $events ) );
+}
 $mobile_day_id = 'tribe-events-calendar-mobile-day-' . $day['year_number'] . '-' . $day['month_number'] . '-' . $day['day_number'];
 
 $classes = [ 'tribe-events-calendar-month-mobile-events__mobile-day' ];
@@ -24,7 +27,6 @@ if ( $today_date === $day_date ) {
 ?>
 
 <div <?php tribe_classes( $classes ); ?> id="<?php echo sanitize_html_class( $mobile_day_id ); ?>">
-
 	<?php $this->template( 'month/mobile-events/mobile-day/day-marker', [ 'day_date' => $day_date ] ); ?>
 
 	<?php foreach( $events as $event ) : ?>

@@ -34,6 +34,6 @@ $event_id = $event->ID;
 		data-tooltip-content="#tribe-events-tooltip-content-<?php echo esc_attr( $event_id ); ?>"
 		aria-describedby="tribe-events-tooltip-content-<?php echo esc_attr( $event_id ); ?>"
 	>
-		<?php echo esc_html( get_the_title($event_id) ); ?>
+		<?php echo get_the_title( $event_id ); ?>
 	</a>
 </h3>

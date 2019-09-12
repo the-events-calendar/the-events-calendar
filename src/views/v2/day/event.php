@@ -16,7 +16,7 @@
 $event    = $this->get( 'event' );
 $event_id = $event->ID;
 
-$classes = [ 'tribe-common-g-row', 'tribe-common-g-row--gutters', 'tribe-events-calendar-day__event' ];
+$classes = get_post_class( [ 'tribe-common-g-row', 'tribe-common-g-row--gutters', 'tribe-events-calendar-day__event' ], $event->ID );
 
 if ( tribe( 'tec.featured_events' )->is_featured( $event_id ) ) {
 	$classes[] = 'tribe-events-calendar-day__event--featured';
