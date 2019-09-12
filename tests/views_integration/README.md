@@ -382,7 +382,8 @@ class List_ViewTest extends ViewTestCase {
 		}
 		// Sanity check
 		$this->assertEquals( 3, tribe_events()->where( 'ends_after', 'now' )->count() );
-
+		
+		// We are remapping posts in order to avoid snapshot failure due to different IDs, dates, or similar.
 		$this->remap_posts( $events, [
 			'events/featured/1.json',
 			'events/single/1.json',
