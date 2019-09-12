@@ -38,7 +38,7 @@ class Tribe__Events__Integrations__WPML__Meta {
 		$value = $this->get_post_meta( $object_id, $meta_key );
 
 		if ( empty( $value ) ) {
-			return null;
+			return false;
 		}
 
 		$type = strpos( 'Organizer', $meta_key )
