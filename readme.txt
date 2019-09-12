@@ -218,6 +218,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 = [4.9.9] TBD =
 
 * Fix - Set the start date with the current day for the "All" events page for recurring events. Thanks Andy, leapness and others for flagging this! [130350]
+* Tweak - Updated Freemius integration code [133148]
 
 = [4.9.8] 2019-09-04 =
 
