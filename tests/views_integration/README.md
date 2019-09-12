@@ -389,13 +389,17 @@ class List_ViewTest extends ViewTestCase {
 			'events/single/1.json',
 			'events/single/2.json'
 		] );
-
+		
+		// We initialize the view and set context.
 		$list_view = View::make( List_View::class );
 		$list_view->set_context( tribe_context()->alter( [
-			'today'      => $this->mock_date_value,
+			// We're mocking "Today" and "Now" date to avoid failed tests when they run it in a different date.
+			'today'      => $this->mock_date_value, 
 			'now'        => $this->mock_date_value,
 			'events_per_page' => 2,
 		] ) );
+		
+		// We get the view HTML.
 		$html = $list_view->get_html();
 
 		// Let's make sure the View is displaying what events we expect it to display.
@@ -404,7 +408,8 @@ class List_ViewTest extends ViewTestCase {
 			$expected_post_ids,
 			$list_view->found_post_ids()
 		);
-
+		
+		// And let's be sure that the snapshot test is correct.
 		$this->assertMatchesSnapshot( $html );
 	}
 }
