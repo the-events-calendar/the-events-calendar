@@ -1,0 +1,56 @@
+{
+  "ID": 8,
+  "post_author": "1",
+  "post_date": "2019-06-11 13:59:35",
+  "post_date_gmt": "2019-06-11 13:59:35",
+  "post_content": "",
+  "post_title": "Single Event 1",
+  "post_excerpt": "",
+  "post_status": "publish",
+  "comment_status": "open",
+  "ping_status": "closed",
+  "post_password": "",
+  "post_name": "single-event-1",
+  "to_ping": "",
+  "pinged": "",
+  "post_modified": "2019-06-11 13:59:35",
+  "post_modified_gmt": "2019-06-11 13:59:35",
+  "post_content_filtered": "",
+  "post_parent": 0,
+  "guid": "http:\/\/test.tri.be\/?tribe_events=test-event-9-days-2",
+  "menu_order": 0,
+  "post_type": "tribe_events",
+  "post_mime_type": "",
+  "comment_count": "0",
+  "filter": "raw",
+  "meta_input": {
+    "_EventStartDate": [
+      "{{ start_date }} 08:00:00"
+    ],
+    "_EventStartDateUTC": [
+      "{{ start_date }} 06:00:00"
+    ],
+    "_EventEndDate": [
+      "{{ end_date }} 17:00:00"
+    ],
+    "_EventEndDateUTC": [
+      "{{ end_date }} 15:00:00"
+    ],
+    "_EventTimezoneAbbr": [
+      "CEST"
+    ],
+    "_EventTimezone": [
+      "Europe/Paris"
+    ],
+    "_EventOrigin": [
+      "events-calendar"
+    ],
+    "_EventShowMap": [
+      "1"
+    ],
+    "_EventShowMapLink": [
+      "1"
+    ]
+  }
+}
+
