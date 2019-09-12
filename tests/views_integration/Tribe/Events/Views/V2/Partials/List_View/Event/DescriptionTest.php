@@ -5,25 +5,26 @@ namespace Tribe\Events\Views\V2\Partials\List_View\Event;
 use Tribe\Test\PHPUnit\Traits\With_Post_Remapping;
 use Tribe\Test\Products\WPBrowser\Views\V2\HtmlPartialTestCase;
 
-class DateTest extends HtmlPartialTestCase
+class DescriptionTest extends HtmlPartialTestCase
 {
 	use With_Post_Remapping;
 
-	protected $partial_path = 'list/event/date';
+	protected $partial_path = 'list/event/description';
 
 	/**
-	 * Test render with event
+	 * Test render with event without description
 	 */
-	public function test_render_with_event() {
+	public function test_render_with_event_without_description() {
 		$event = $this->mock_event( 'events/single/1.json' )->get();
 		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => $event ] ) );
 	}
 
 	/**
-	 * Test render with featured event
+	 * Test render with event with description
 	 */
-	public function test_render_with_featured_event() {
-		$event = $this->mock_event( 'events/featured/1.json' )->get();
+	public function test_render_with_event_with_description() {
+		$event = $this->mock_event( 'events/single/1.json' )->get();
+		$event->post_content = $event->post_excerpt = 'Hello world!';
 		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => $event ] ) );
 	}
 }
