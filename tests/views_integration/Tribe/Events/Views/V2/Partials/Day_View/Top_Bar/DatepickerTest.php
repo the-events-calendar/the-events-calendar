@@ -1,13 +1,13 @@
 <?php
 
-namespace Tribe\Events\Views\V2\Partials\List_View\Top_Bar;
+namespace Tribe\Events\Views\V2\Partials\Day_View\Top_Bar;
 
 use Tribe\Test\Products\WPBrowser\Views\V2\HtmlPartialTestCase;
 
 class DatepickerTest extends HtmlPartialTestCase
 {
 
-	protected $partial_path = 'list/top-bar/datepicker';
+	protected $partial_path = 'day/top-bar/datepicker';
 
 	/**
 	 * Test render

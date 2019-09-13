@@ -5,8 +5,8 @@
 		rel="bookmark"
 		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
 				data-js="tribe-events-tooltip"
-		data-tooltip-content="#tribe-events-tooltip-content-54"
-		aria-describedby="tribe-events-tooltip-content-54"
+		data-tooltip-content="#tribe-events-tooltip-content-68"
+		aria-describedby="tribe-events-tooltip-content-68"
 	>
 		Test Event &#8211; 2018-01-01 10am	</a>
 </h3>
