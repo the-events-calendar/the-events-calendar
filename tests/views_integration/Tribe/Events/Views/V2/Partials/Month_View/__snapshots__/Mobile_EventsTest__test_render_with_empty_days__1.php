@@ -1,4 +1,7 @@
-<?php return '<nav class="tribe-events-calendar-month-nav tribe-events-calendar-month-nav--calendar tribe-events-c-nav">
+<?php return '<section class="tribe-events-calendar-month-mobile-events" data-js="tribe-events-calendar-month-mobile-events">
+
+	
+	<nav class="tribe-events-calendar-month-nav tribe-events-calendar-month-nav--mobile tribe-events-c-nav">
 	<ul class="tribe-events-c-nav__list">
 		<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--prev">
 	<a
@@ -12,7 +15,7 @@
 
 		<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--today">
 	<a
-		href="http://test.tri.be/events/month/"
+		href="#"
 		class="tribe-events-c-nav__today tribe-common-b2"
 		data-js="tribe-events-view-link"
 	>
@@ -30,4 +33,6 @@
 </li>
 	</ul>
 </nav>
+
+</section>
 ';

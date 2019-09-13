@@ -18,7 +18,6 @@ class Mobile_DayTest extends HtmlPartialTestCase
 		$context = [
 			'today_date'       => '2018-06-01',
 			'day_date'         => '2018-06-01',
-			'is_start_of_week' => false,
 			'day'              => [
 				'year_number'  => '2018',
 				'month_number' => '06',
@@ -36,7 +35,6 @@ class Mobile_DayTest extends HtmlPartialTestCase
 		$context = [
 			'today_date'       => '2018-06-01',
 			'day_date'         => '2018-06-02',
-			'is_start_of_week' => false,
 			'day'              => [
 				'year_number'  => '2018',
 				'month_number' => '06',
@@ -55,7 +53,6 @@ class Mobile_DayTest extends HtmlPartialTestCase
 		$context = [
 			'today_date'       => '2018-06-01',
 			'day_date'         => '2018-06-20',
-			'is_start_of_week' => false,
 			'day'              => [
 				'year_number'  => '2018',
 				'month_number' => '06',
@@ -75,7 +72,6 @@ class Mobile_DayTest extends HtmlPartialTestCase
 		$context = [
 			'today_date'       => '2018-06-01',
 			'day_date'         => '2018-06-20',
-			'is_start_of_week' => false,
 			'day'              => [
 				'year_number'  => '2018',
 				'month_number' => '06',
@@ -99,7 +95,6 @@ class Mobile_DayTest extends HtmlPartialTestCase
 		$context = [
 			'today_date'       => '2018-06-01',
 			'day_date'         => '2018-06-20',
-			'is_start_of_week' => false,
 			'day'              => [
 				'year_number'     => '2018',
 				'month_number'    => '06',
@@ -124,7 +119,6 @@ class Mobile_DayTest extends HtmlPartialTestCase
 		$context = [
 			'today_date'       => '2018-06-01',
 			'day_date'         => '2018-06-20',
-			'is_start_of_week' => false,
 			'day'              => [
 				'year_number'     => '2018',
 				'month_number'    => '06',
@@ -150,7 +144,6 @@ class Mobile_DayTest extends HtmlPartialTestCase
 		$context = [
 			'today_date'       => '2018-06-01',
 			'day_date'         => '2018-06-20',
-			'is_start_of_week' => false,
 			'day'              => [
 				'year_number'     => '2018',
 				'month_number'    => '06',
