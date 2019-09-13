@@ -9,18 +9,14 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.8
+ * @version TBD
  *
  */
 
-$event    = $this->get( 'event' );
-$event_id = $event->ID;
-
 $container_classes = [ 'tribe-common-g-row', 'tribe-events-calendar-list__event-row' ];
-$container_classes['tribe-events-calendar-list__event-row--featured'] = tribe( 'tec.featured_events' )->is_featured( $event_id );
+$container_classes['tribe-events-calendar-list__event-row--featured'] = $event->featured;;
 
 $event_classes = get_post_class( [ 'tribe-events-calendar-list__event', 'tribe-common-g-row', 'tribe-common-g-row--gutters' ], $event->ID );
-
 ?>
 <div <?php tribe_classes( $container_classes ); ?>>
 

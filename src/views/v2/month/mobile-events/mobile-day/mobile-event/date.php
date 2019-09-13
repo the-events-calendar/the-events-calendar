@@ -42,7 +42,7 @@ $time_format = tribe_get_time_format();
 		<span class="tribe-events-calendar-month-mobile-events__mobile-event-datetime-separator">
 			<?php echo esc_html( tribe_get_option( 'timeRangeSeparator', ' - ' ) ); ?>
 		</span>
-		<time datetime="<?php echo esc_attr($event->dates->end->format( 'H:i' )) ?>">
+		<time datetime="<?php echo esc_attr( $event->dates->end->format( 'H:i' ) ) ?>">
 			<?php echo esc_html( $event->dates->end->format( $time_format ) ) ?>
 		</time>
 	<?php endif; ?>

@@ -9,14 +9,12 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.4
+ * @version TBD
  *
  */
-$event    = $this->get( 'event' );
-$event_id = $event->ID;
 
 // Setup an array of venue details for use later in the template
-$venue_details = tribe_get_venue_details( $event_id );
+$venue_details = tribe_get_venue_details( $event->ID );
 
 if ( ! $venue_details ) {
 	return;

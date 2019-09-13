@@ -9,21 +9,18 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.4
+ * @version TBD
  *
  */
 
-$event    = $this->get( 'event' );
-$event_id = $event->ID;
-
 $classes = get_post_class( [ 'tribe-common-g-row', 'tribe-common-g-row--gutters', 'tribe-events-calendar-day__event' ], $event->ID );
 
-if ( tribe( 'tec.featured_events' )->is_featured( $event_id ) ) {
+if ( $event->featured ) {
 	$classes[] = 'tribe-events-calendar-day__event--featured';
 }
 
 ?>
-<article class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>">
+<article <?php tribe_classes( $classes ); ?>>
 
 	<?php $this->template( 'day/event/featured-image', [ 'event' => $event ] ); ?>
 

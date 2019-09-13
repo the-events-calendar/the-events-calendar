@@ -9,15 +9,15 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.7
+ * @version TBD
  *
+ * @var array  $events The array containing the events.
  * @var string $rest_url The REST URL.
  * @var string $rest_nonce The REST nonce.
  * @var int    $should_manage_url int containing if it should manage the URL.
  *
  */
 
-$events = $this->get( 'events' );
 ?>
 <div
 	class="tribe-common tribe-events tribe-events-view tribe-events-view--list"
