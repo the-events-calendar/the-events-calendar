@@ -2004,12 +2004,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/moderntribe/tribe-testing-facilities",
-                "reference": "f513e4f661194aa5a7898a0cd335170f86f5c363"
+                "reference": "85761cdc09674526cb26e3e1da5314e44da22b13"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/moderntribe/tribe-testing-facilities/zipball/f513e4f661194aa5a7898a0cd335170f86f5c363",
-                "reference": "f513e4f661194aa5a7898a0cd335170f86f5c363",
+                "url": "https://api.github.com/repos/moderntribe/tribe-testing-facilities/zipball/85761cdc09674526cb26e3e1da5314e44da22b13",
+                "reference": "85761cdc09674526cb26e3e1da5314e44da22b13",
                 "shasum": ""
             },
             "require": {
@@ -2067,7 +2067,7 @@
                 }
             ],
             "description": "Testing facilities, helpers and examples.",
-            "time": "2019-09-12T16:29:01+00:00"
+            "time": "2019-09-12T18:05:04+00:00"
         },
         {
             "name": "mustache/mustache",
