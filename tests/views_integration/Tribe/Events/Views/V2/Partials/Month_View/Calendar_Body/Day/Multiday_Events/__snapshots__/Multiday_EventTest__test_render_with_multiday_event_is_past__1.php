@@ -1,5 +1,5 @@
 <?php return '<div class="tribe-events-calendar-month__multiday-event-wrapper">
-	<article  class="tribe-events-calendar-month__multiday-event post-8 tribe_events type-tribe_events status-publish hentry entry tribe-events-calendar-month__multiday-event--width-3 tribe-events-calendar-month__multiday-event--start"  data-event-id="8">
+	<article  class="tribe-events-calendar-month__multiday-event post-8 tribe_events type-tribe_events status-publish hentry entry tribe-events-calendar-month__multiday-event--width-5 tribe-events-calendar-month__multiday-event--end tribe-events-calendar-month__multiday-event--past"  data-event-id="8">
 		<time
 			datetime="2019-06-20"
 			class="tribe-common-a11y-visual-hide"
