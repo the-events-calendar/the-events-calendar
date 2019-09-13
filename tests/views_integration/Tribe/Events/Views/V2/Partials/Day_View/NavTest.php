@@ -10,20 +10,37 @@ class NavTest extends HtmlPartialTestCase
 	protected $partial_path = 'day/nav';
 
 	/**
-	 * Test static render
-	 * @todo remove this static HTML test once the partial is dynamic.
+	 * Test render with all links
 	 */
-	public function test_static_render() {
-		$this->assertMatchesSnapshot( $this->get_partial_html() );
+	public function test_render_with_all_links() {
+		$this->assertMatchesSnapshot( $this->get_partial_html( [
+			'prev_url'  => '#',
+			'next_url'  => '#',
+		] ) );
 	}
 
 	/**
-	 * Test render with context
+	 * Test render without prev url
 	 */
-	public function test_render_with_context() {
+	public function test_render_without_prev_url() {
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
-			'prev_url' => '#',
-			'next_url' => '#',
+			'next_url'  => '#',
 		] ) );
+	}
+
+	/**
+	 * Test render without next url
+	 */
+	public function test_render_without_next_url() {
+		$this->assertMatchesSnapshot( $this->get_partial_html( [
+			'prev_url'  => '#',
+		] ) );
+	}
+
+	/**
+	 * Test render without prev and next url
+	 */
+	public function test_render_without_prev_and_next_url() {
+		$this->assertMatchesSnapshot( $this->get_partial_html() );
 	}
 }
