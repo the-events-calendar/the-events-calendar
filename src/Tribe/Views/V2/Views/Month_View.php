@@ -44,27 +44,6 @@ class Month_View extends By_Day_View {
 	protected $publicly_visible = true;
 
 	/**
-     * An instance of the Week Stack object.
-	 *
-	 * @since 4.9.7
-	 *
-	 * @var Stack
-	 */
-	protected $stack;
-
-	/**
-	 * Month_View constructor.
-	 *
-	 * @since 4.9.7
-	 *
-	 * @param Stack $stack An instance of the Stack object.
-	 */
-	public function __construct( Stack $stack) {
-		parent::__construct();
-		$this->stack = $stack;
-	}
-
-	/**
 	 * {@inheritDoc}
 	 */
 	public function prev_url( $canonical = false, array $passthru_vars = [] ) {
@@ -243,36 +222,6 @@ class Month_View extends By_Day_View {
 		}
 
 		return array_merge( ...$week_stacks );
-	}
-
-	/**
-	 * Returns a portion of the parsed multi-day stacks.
-	 *
-	 * @since 4.9.7
-	 *
-	 * @param \DateTime|string $from The start of the portion to return.
-	 * @param \DateTime|string $to   The end of the portion to return.
-	 *
-	 * @return array|null A slice of the multi-day stack, in the shape
-	 *               `[ '2019-07-01' => [2, 3, false], , '2019-07-03' => [false, 3, 4]]`.
-	 */
-	public function get_multiday_stack( $from, $to ) {
-		$from = Dates::build_date_object( $from )->setTime( 0, 0 );
-		$to   = Dates::build_date_object( $to )->setTime( 23, 59, 59 );
-
-		$events = $this->get_grid_days();
-		$multiday_stack = $this->build_day_stacks( $events );
-
-		$start_index = array_key_exists( $from->format( 'Y-m-d' ), $multiday_stack )
-			? array_search( $from->format( 'Y-m-d' ), array_keys( $multiday_stack ), true )
-			: 0;
-		$end_index   = array_key_exists( $to->format( 'Y-m-d' ), $multiday_stack )
-			? array_search( $to->format( 'Y-m-d' ), array_keys( $multiday_stack ), true )
-			: count( $multiday_stack ) - 1;
-
-		$stack = array_slice( $multiday_stack, $start_index, $end_index - $start_index + 1, true );
-
-		return $stack;
 	}
 
 	/**

@@ -392,7 +392,8 @@ class eventTest extends WPTestCase {
 				$event->organizers->all();
 				do_action( 'shutdown' );
 				$cached = $cache->get( $cache_key, \Tribe__Cache_Listener::TRIGGER_SAVE_POST );
-				$this->assertInstanceOf( \WP_Post::class, $cached );
+				$this->assertInternalType('array' , $cached );
+				$this->assertNotEmpty( array_intersect_key( get_object_vars( $event ), $cached ) );
 			}
 		);
 	}

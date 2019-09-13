@@ -619,8 +619,8 @@ class Tribe__Events__iCal {
 				$timezone_name = $this->get_timezone( $event_post );
 				$timezone = Tribe__Events__Timezones::build_timezone_object( $timezone_name );
 
-				$item[] = 'DTSTART;TZID="' . $timezone->getName() . '":' . $dtstart;
-				$item[] = 'DTEND;TZID="' . $timezone->getName() . '":' . $dtend;
+				$item[] = 'DTSTART;TZID=' . $timezone->getName() . ':' . $dtstart;
+				$item[] = 'DTEND;TZID=' . $timezone->getName() . ':' . $dtend;
 			}
 
 			$item[] = 'DTSTAMP:' . date( $full_format, time() );
