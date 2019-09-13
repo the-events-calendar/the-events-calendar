@@ -9,22 +9,15 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @var string $link The URL to the today page, if any, or an empty string.
+ * @var string $today_url The URL to the today page.
  *
- * @version 4.9.4
+ * @version TBD
  *
  */
-
-// If we didn't have a view setup we cannot print today's link
-if ( ! $this->get( 'view' ) ) {
-	return false;
-}
-
-$today_url = tribe_events_get_url( [ 'paged' => 1 ], $this->get( 'view' )->get_url() );
 ?>
 <li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--today">
 	<a
-		href="<?php echo esc_url( $link ); ?>"
+		href="<?php echo esc_url( $today_url ); ?>"
 		class="tribe-events-c-nav__today tribe-common-b2"
 		data-js="tribe-events-view-link"
 	>

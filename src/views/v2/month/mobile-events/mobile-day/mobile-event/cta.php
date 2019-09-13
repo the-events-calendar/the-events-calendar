@@ -16,7 +16,7 @@
  * @see tribe_get_event() For the format of the event object.
  */
 
-if ( ! $event->featured ) {
+if ( empty( $event->featured ) ) {
 	return;
 }
 
@@ -25,6 +25,11 @@ if ( empty( $event->cost ) ) {
 }
 ?>
 <div class="tribe-events-c-small-cta tribe-events-calendar-month-mobile-events__mobile-event-cta">
+	<?php
+	/**
+	 * @todo @bordoni fill in buy now url
+	 */
+	?>
 	<a href="#" class="tribe-events-c-small-cta__link tribe-common-cta tribe-common-cta--thin-alt">
 		<?php esc_html_e( 'Buy Now', 'the-events-calendar' ); ?>
 	</a>

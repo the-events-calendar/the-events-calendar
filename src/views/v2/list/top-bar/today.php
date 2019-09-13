@@ -9,9 +9,9 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version TBD
+ * @var string $today_url The URL to the today page.
  *
- * @var string $link The URL to the today page.
+ * @version TBD
  */
 
 ?>
