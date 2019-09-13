@@ -4,8 +4,8 @@
 		data-js="tribe-events-top-bar-datepicker-button"
 	>
 					Now				&mdash;
-		<time datetime="2018-01-01">
-			January 1, 2018		</time>
+		<time datetime="2017-11-22">
+			November 22, 2017		</time>
 	</button>
 	<label
 		class="tribe-events-c-top-bar__datepicker-label tribe-common-a11y-visual-hide"

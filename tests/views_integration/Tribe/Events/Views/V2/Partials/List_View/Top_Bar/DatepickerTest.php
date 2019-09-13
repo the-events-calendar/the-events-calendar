@@ -10,11 +10,9 @@ class DatepickerTest extends HtmlPartialTestCase
 	protected $partial_path = 'list/top-bar/datepicker';
 
 	/**
-	 * Test render with context
+	 * Test render
 	 */
-	public function test_render_with_context() {
-		$this->assertMatchesSnapshot( $this->get_partial_html( [
-			'today' => '2018-01-01',
-		] ) );
+	public function test_render() {
+		$this->assertMatchesSnapshot( $this->get_partial_html() );
 	}
 }
