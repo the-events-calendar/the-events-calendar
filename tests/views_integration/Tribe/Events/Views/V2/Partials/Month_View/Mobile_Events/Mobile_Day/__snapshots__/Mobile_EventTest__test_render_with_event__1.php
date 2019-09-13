@@ -1,25 +1,25 @@
 <?php return '
-<article  class="tribe-events-calendar-month-mobile-events__mobile-event post-102 tribe_events type-tribe_events status-publish hentry entry" >
+<article  class="tribe-events-calendar-month-mobile-events__mobile-event post-8 tribe_events type-tribe_events status-publish hentry entry" >
 
 	
 	<div class="tribe-events-calendar-month-mobile-events__mobile-event-details">
 
 		<div class="tribe-events-calendar-month-mobile-events__mobile-event-datetime tribe-common-b2">
-				<time datetime="10:00">
-			10:00 am		</time>
+				<time datetime="13:04">
+			1:04 pm		</time>
 		<span class="tribe-events-calendar-month-mobile-events__mobile-event-datetime-separator">
 			 - 		</span>
-		<time datetime="12:00">
-			12:00 pm		</time>
+		<time datetime="17:04">
+			5:04 pm		</time>
 		</div>
 		<h3  class="tribe-events-calendar-month-mobile-events__mobile-event-title tribe-common-h8" >
 	<a
-		href="http://test.tri.be/?tribe_events=test-event-2018-01-01-10am"
-		title="Test Event &#8211; 2018-01-01 10am"
+		href="http://test.tri.be/?tribe_events=single-event-1"
+		title="Single Event 1"
 		rel="bookmark"
 		class="tribe-events-calendar-month-mobile-events__mobile-event-title-link tribe-common-anchor"
 	>
-		Test Event &#8211; 2018-01-01 10am	</a>
+		Single Event 1	</a>
 </h3>
 		
 	</div>

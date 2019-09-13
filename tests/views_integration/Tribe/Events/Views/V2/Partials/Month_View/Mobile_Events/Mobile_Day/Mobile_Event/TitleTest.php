@@ -1,10 +1,12 @@
 <?php
 namespace Tribe\Events\Views\V2\Partials\Month_View\Mobile_Events\Mobile_Day\Mobile_Event;
 
+use Tribe\Test\PHPUnit\Traits\With_Post_Remapping;
 use Tribe\Test\Products\WPBrowser\Views\V2\HtmlPartialTestCase;
 
 class TitleTest extends HtmlPartialTestCase
 {
+	use With_Post_Remapping;
 
 	protected $partial_path = 'month/mobile-events/mobile-day/mobile-event/title';
 
