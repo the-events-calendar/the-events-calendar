@@ -10,9 +10,9 @@ class Calendar_HeaderTest extends HtmlPartialTestCase
 	protected $partial_path = 'month/calendar-header';
 
 	/**
-	 * Test static render
+	 * Test render
 	 */
-	public function test_static_render() {
+	public function test_render() {
 		$this->assertMatchesSnapshot( $this->get_partial_html() );
 	}
 }
