@@ -9,9 +9,9 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.8
+ * @version TBD
  *
- * @var string $today_url The URL to the today, current, version of the View.
+ * @var string $link The URL to the today page.
  */
 
 ?>
