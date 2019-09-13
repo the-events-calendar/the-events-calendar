@@ -14,7 +14,6 @@ class Top_BarTest extends HtmlPartialTestCase
 	 */
 	public function test_render_with_context() {
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
-			'today'     => '2018-01-01',
 			'today_url' => '#',
 		] ) );
 	}

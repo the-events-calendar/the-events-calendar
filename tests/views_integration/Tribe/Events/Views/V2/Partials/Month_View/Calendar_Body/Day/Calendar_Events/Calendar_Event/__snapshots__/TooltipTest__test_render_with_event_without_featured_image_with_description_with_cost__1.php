@@ -3,10 +3,9 @@
 	data-js="tribe-events-tooltip-content"
 	role="tooltip"
 >
-	<div id="tribe-events-tooltip-content-4">
+	<div id="tribe-events-tooltip-content-8">
 				<div class="tribe-events-calendar-month__calendar-event-tooltip-description tribe-common-b3">
-	<p>Post excerpt 3</p>
-</div>
+	</div>
 		<div class="tribe-events-c-small-cta tribe-events-calendar-month__calendar-event-tooltip-cta">
 	<a
 				href="#"

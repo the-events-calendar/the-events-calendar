@@ -13,8 +13,6 @@ class DatepickerTest extends HtmlPartialTestCase
 	 * Test render
 	 */
 	public function test_render() {
-		$this->assertMatchesSnapshot( $this->get_partial_html( [
-			'today' => '2018-01-01',
-		] ) );
+		$this->assertMatchesSnapshot( $this->get_partial_html() );
 	}
 }
