@@ -27,7 +27,7 @@
 		}
 		?>
 
-		<?php $this->template( 'list/nav/today', [ 'link' => '#' ] ); ?>
+		<?php $this->template( 'list/nav/today', [ 'link' => $today_url ] ); ?>
 
 		<?php
 		if ( ! empty( $next_url ) ) {

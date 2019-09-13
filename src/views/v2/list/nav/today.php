@@ -11,16 +11,9 @@
  *
  * @var string $link The URL to the today page, if any, or an empty string.
  *
- * @version 4.9.4
+ * @version TBD
  *
  */
-
-// If we didn't have a view setup we cannot print today's link
-if ( ! $this->get( 'view' ) ) {
-	return false;
-}
-
-$today_url = tribe_events_get_url( [ 'paged' => 1 ], $this->get( 'view' )->get_url() );
 ?>
 <li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--today">
 	<a
