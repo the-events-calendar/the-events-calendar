@@ -1029,13 +1029,14 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @category Events
 	 * @TODO use tribe_get_datetime_format() and related functions if possible
 	 *
-	 * @param int|null $event
-	 * @param string $before
-	 * @param string $after
+	 * @param int|null $event The event post ID, or `null` to use the global event.
+	 * @param string $before A string to prepend before the schedule details.
+	 * @param string $after A string to append after the schedule details.
+	 * @param bool $html Whether to use HTML elements in the output string or not; defaults to `true`.
 	 *
-	 * @return mixed|void
+	 * @return string The human-readable event schedule details formatted according to the current settings.
 	 */
-	function tribe_events_event_schedule_details( $event = null, $before = '', $after = '' ) {
+	function tribe_events_event_schedule_details( $event = null, $before = '', $after = '', $html = true ) {
 		if ( is_null( $event ) ) {
 			global $post;
 			$event = $post;
@@ -1045,7 +1046,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$event = get_post( $event );
 		}
 
-		$inner                    = '<span class="tribe-event-date-start">';
+		$inner                    = $html ? '<span class="tribe-event-date-start">' : '';
 		$format                   = '';
 		$date_without_year_format = tribe_get_date_format();
 		$date_with_year_format    = tribe_get_date_format( true );
@@ -1097,8 +1098,8 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 			if ( tribe_event_is_all_day( $event ) ) {
 				$inner .= tribe_get_start_date( $event, true, $format );
-				$inner .= '</span>' . $time_range_separator;
-				$inner .= '<span class="tribe-event-date-end">';
+				$inner .= ( $html ? '</span>' : '' ) . $time_range_separator;
+				$inner .= $html ? '<span class="tribe-event-date-end">' : '';
 
 				$end_date_full = tribe_get_end_date( $event, true, Tribe__Date_Utils::DBDATETIMEFORMAT );
 				$end_date_full_timestamp = strtotime( $end_date_full );
@@ -1113,8 +1114,8 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				$inner .= $end_date;
 			} else {
 				$inner .= tribe_get_start_date( $event, false, $format ) . ( $time ? $datetime_separator . tribe_get_start_date( $event, false, $time_format ) : '' );
-				$inner .= '</span>' . $time_range_separator;
-				$inner .= '<span class="tribe-event-date-end">';
+				$inner .= ( $html ? '</span>' : '' )  . $time_range_separator;
+				$inner .= $html ? '<span class="tribe-event-date-end">' : '';
 				$inner .= tribe_get_end_date( $event, false, $format2ndday ) . ( $time ? $datetime_separator . tribe_get_end_date( $event, false, $time_format ) : '' );
 			}
 		} elseif ( tribe_event_is_all_day( $event ) ) { // all day event
@@ -1124,13 +1125,13 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				$inner .= tribe_get_start_date( $event, false, $format ) . ( $time ? $datetime_separator . tribe_get_start_date( $event, false, $time_format ) : '' );
 			} else { // defined start/end time
 				$inner .= tribe_get_start_date( $event, false, $format ) . ( $time ? $datetime_separator . tribe_get_start_date( $event, false, $time_format ) : '' );
-				$inner .= '</span>' . ( $show_end_time ? $time_range_separator : '' );
-				$inner .= '<span class="tribe-event-time">';
+				$inner .= ( $html ? '</span>' : '' ) . ( $show_end_time ? $time_range_separator : '' );
+				$inner .= $html ? '<span class="tribe-event-time">' : '';
 				$inner .= ( $show_end_time ? tribe_get_end_date( $event, false, $time_format ) : '' );
 			}
 		}
 
-		$inner .= '</span>';
+		$inner .= $html ? '</span>' : '';
 
 		/**
 		 * Provides an opportunity to modify the *inner* schedule details HTML (ie before it is
