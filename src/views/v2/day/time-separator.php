@@ -9,14 +9,13 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.8
+ * @version TBD
  *
  */
 
 use Tribe\Events\Views\V2\Utils;
 use Tribe__Date_Utils as Dates;
 
-$event = $this->get( 'event' );
 $should_have_time_separator = Utils\Separators::should_have_time( $this->get( 'events' ), $event );
 
 if ( ! $should_have_time_separator ) {

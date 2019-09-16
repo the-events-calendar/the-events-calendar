@@ -5,8 +5,7 @@ namespace Tribe\Events\Views\V2\Partials\Month_View\Calendar_Body\Day\Calendar_E
 use Tribe\Test\PHPUnit\Traits\With_Post_Remapping;
 use Tribe\Test\Products\WPBrowser\Views\V2\HtmlPartialTestCase;
 
-class Featured_ImageTest extends HtmlPartialTestCase
-{
+class Featured_ImageTest extends HtmlPartialTestCase {
 	use With_Post_Remapping;
 
 	protected $partial_path = 'month/calendar-body/day/calendar-events/calendar-event/tooltip/featured-image';

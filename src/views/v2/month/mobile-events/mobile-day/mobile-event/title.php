@@ -26,6 +26,6 @@ $classes = [ 'tribe-events-calendar-month-mobile-events__mobile-event-title', 't
 		rel="bookmark"
 		class="tribe-events-calendar-month-mobile-events__mobile-event-title-link tribe-common-anchor"
 	>
-		<?php echo get_the_title( $event ) ?>
+		<?php echo get_the_title( $event->ID ) ?>
 	</a>
 </h3>

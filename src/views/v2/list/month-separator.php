@@ -18,20 +18,18 @@
 
 use Tribe\Events\Views\V2\Utils;
 
-$event = $this->get( 'event' );
 $should_have_month_separator = Utils\Separators::should_have_month( $this->get( 'events' ), $event );
 
 if ( ! $should_have_month_separator ) {
 	return;
 }
 
-$separator_text = tribe_get_start_date( $event->ID, true, 'F Y' );
 ?>
 <div class="tribe-events-calendar-list__month-separator">
 	<time
 		class="tribe-events-calendar-list__month-separator-text tribe-common-h7 tribe-common-h6--min-medium tribe-common-h--alt"
-		datetime="<?php echo esc_attr( tribe_get_start_date( $event->ID, true, 'Y-m' ) ); ?>"
+		datetime="<?php echo esc_attr( $event->dates->start->format( 'Y-m' ) ); ?>"
 	>
-		<?php echo esc_html( $separator_text ); ?>
+		<?php echo esc_html( $event->dates->start->format( 'F Y' ) ); ?>
 	</time>
 </div>
