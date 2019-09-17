@@ -39,4 +39,9 @@ class Events_BarTest extends HtmlPartialTestCase
 			'view'  => $view,
 		] ) );
 	}
+
+	public function tearDown(){
+		Test::tearDown();
+		parent::tearDown();
+	}
 }

@@ -24,4 +24,9 @@ class SearchTest extends HtmlPartialTestCase
 	public function test_render_with_context() {
 		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'url' => 'http://test.tri.be' ] ) );
 	}
+
+	public function tearDown(){
+		Test::tearDown();
+		parent::tearDown();
+	}
 }
