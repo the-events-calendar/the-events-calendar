@@ -21,7 +21,7 @@ $event_date_attr = $event->dates->start->format( Dates::DBDATEFORMAT );
 
 ?>
 <div class="tribe-events-calendar-day__event-datetime-wrapper tribe-common-b2">
-	<?php if ( $event->featured) : ?>
+	<?php if ( $event->featured ) : ?>
 		<em
 			class="tribe-events-calendar-day__event-datetime-featured-icon tribe-common-svgicon tribe-common-svgicon--featured"
 			aria-label="<?php esc_attr_e( 'Featured', 'the-events-calendar' ); ?>"
