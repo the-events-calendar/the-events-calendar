@@ -14,7 +14,7 @@ class CtaTest extends HtmlPartialTestCase
 	 * Test render with normal event without cost
 	 */
 	public function test_render_with_normal_event_without_cost() {
-		$event = $this->mock_event( 'events/single/1.json' )->get();
+		$event = $this->get_mock_event( 'events/single/1.json' );
 		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => $event ] ) );
 	}
 
@@ -22,7 +22,7 @@ class CtaTest extends HtmlPartialTestCase
 	 * Test render with featured event without cost
 	 */
 	public function test_render_with_featured_event_without_cost() {
-		$event = $this->mock_event( 'events/single/1.json' )->is_featured()->get();
+		$event = $this->get_mock_event( 'events/featured/1.json' );
 		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => $event ] ) );
 	}
 
@@ -30,7 +30,7 @@ class CtaTest extends HtmlPartialTestCase
 	 * Test render with normal event with cost
 	 */
 	public function test_render_with_normal_event_with_cost() {
-		$event = $this->mock_event( 'events/single/1.json' )->get();
+		$event = $this->get_mock_event( 'events/single/1.json' );
 		$event->cost = '$10';
 		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => $event ] ) );
 	}
@@ -39,7 +39,7 @@ class CtaTest extends HtmlPartialTestCase
 	 * Test render with featured event with cost
 	 */
 	public function test_render_with_featured_event_with_cost() {
-		$event = $this->mock_event( 'events/single/1.json' )->is_featured()->get();
+		$event = $this->get_mock_event( 'events/featured/1.json' );
 		$event->cost = '$10';
 		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => $event ] ) );
 	}

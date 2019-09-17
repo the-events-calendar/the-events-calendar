@@ -14,7 +14,7 @@ class Featured_ImageTest extends HtmlPartialTestCase {
 	 * Test render with event without featured image
 	 */
 	public function test_render_with_event_without_featured_image() {
-		$event = $this->mock_event( 'events/single/1.json' )->get();
+		$event = $this->get_mock_event( 'events/single/1.json' );
 		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => $event ] ) );
 	}
 

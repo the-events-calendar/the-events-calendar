@@ -4,7 +4,7 @@
 			class="tribe-common-c-image__bg"
 			style="background-image: url(\'http://test.tri.be/wp-content/uploads/2018/08/featured-image.jpg\');"
 			role="img"
-			aria-label="Single Event 1"
+			aria-label="Test Event &#8211; +9 days"
 		>
 		</div>
 	</div>

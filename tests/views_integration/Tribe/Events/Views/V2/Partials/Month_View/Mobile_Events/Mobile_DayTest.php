@@ -49,7 +49,7 @@ class Mobile_DayTest extends HtmlPartialTestCase
 	 * Test render with one event
 	 */
 	public function test_render_with_one_event() {
-		$event = $this->mock_event( 'events/single/1.json' )->get();
+		$event = $this->get_mock_event( 'events/single/1.json' );
 		$context = [
 			'today_date'       => '2018-06-01',
 			'day_date'         => '2018-06-20',
@@ -67,8 +67,8 @@ class Mobile_DayTest extends HtmlPartialTestCase
 	 * Test render with multiple events
 	 */
 	public function test_render_with_multiple_events() {
-		$event_1 = $this->mock_event( 'events/single/1.json' )->get();
-		$event_2 = $this->mock_event( 'events/single/2.json' )->get();
+		$event_1 = $this->get_mock_event( 'events/single/1.json' );
+		$event_2 = $this->get_mock_event( 'events/single/2.json' );
 		$context = [
 			'today_date'       => '2018-06-01',
 			'day_date'         => '2018-06-20',
@@ -137,7 +137,7 @@ class Mobile_DayTest extends HtmlPartialTestCase
 	 * Test render with normal and multiday events
 	 */
 	public function test_render_with_normal_and_multiday_events() {
-		$event_1 = $this->mock_event( 'events/single/1.json' )->get();
+		$event_1 = $this->get_mock_event( 'events/single/1.json' );
 		$event_2 = $this->mock_event( 'events/single/2.json' )->is_multiday( 3 )->get();
 		$event_2->this_week_duration = 3;
 		$event_2->starts_this_week = true;

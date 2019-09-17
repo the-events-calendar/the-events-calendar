@@ -24,7 +24,7 @@ class Calendar_EventsTest extends HtmlPartialTestCase
 	 * Test render with one event
 	 */
 	public function test_render_with_one_event() {
-		$event_1 = $this->mock_event( 'events/single/1.json' )->get();
+		$event_1 = $this->get_mock_event( 'events/single/1.json' );
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
 			'day_events' => [ $event_1 ],
 		] ) );
@@ -34,9 +34,9 @@ class Calendar_EventsTest extends HtmlPartialTestCase
 	 * Test render with multiple events
 	 */
 	public function test_render_with_multiple_events() {
-		$event_1 = $this->mock_event( 'events/featured/1.json' )->get();
-		$event_2 = $this->mock_event( 'events/single/1.json' )->get();
-		$event_3 = $this->mock_event( 'events/single/2.json' )->get();
+		$event_1 = $this->get_mock_event( 'events/featured/1.json' );
+		$event_2 = $this->get_mock_event( 'events/single/1.json' );
+		$event_3 = $this->get_mock_event( 'events/single/2.json' );
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
 			'day_events' => [
 				$event_1,

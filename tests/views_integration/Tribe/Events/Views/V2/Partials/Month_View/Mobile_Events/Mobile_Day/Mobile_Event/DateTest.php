@@ -14,7 +14,7 @@ class DateTest extends HtmlPartialTestCase
 	 * Test render with event
 	 */
 	public function test_render_with_event() {
-		$event = $this->mock_event( 'events/single/1.json' )->get();
+		$event = $this->get_mock_event( 'events/single/1.json' );
 		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => $event ] ) );
 	}
 
@@ -22,7 +22,7 @@ class DateTest extends HtmlPartialTestCase
 	 * Test render with featured event
 	 */
 	public function test_render_with_featured_event() {
-		$event = $this->mock_event( 'events/single/1.json' )->is_featured()->get();
+		$event = $this->get_mock_event( 'events/featured/1.json' );
 		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => $event ] ) );
 	}
 
@@ -38,7 +38,7 @@ class DateTest extends HtmlPartialTestCase
 	 * Test render with featured all day event
 	 */
 	public function test_render_with_featured_all_day_event() {
-		$event = $this->mock_event( 'events/single/1.json' )->is_featured()->is_all_day()->get();
+		$event = $this->mock_event( 'events/featured/1.json' )->is_all_day()->get();
 		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => $event ] ) );
 	}
 }

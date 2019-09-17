@@ -50,8 +50,8 @@ class Mobile_EventsTest extends HtmlPartialTestCase
 	 * Test render with days with found events
 	 */
 	public function test_render_with_days_with_found_events() {
-		$event_1 = $this->mock_event( 'events/featured/1.json' )->get();
-		$event_2 = $this->mock_event( 'events/single/1.json' )->get();
+		$event_1 = $this->get_mock_event( 'events/featured/1.json' );
+		$event_2 = $this->get_mock_event( 'events/single/1.json' );
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
 			'days'       => [
 				'2018-06-20' => [

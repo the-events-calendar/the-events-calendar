@@ -15,7 +15,7 @@ class DescriptionTest extends HtmlPartialTestCase
 	 * Test render with event without description
 	 */
 	public function test_render_with_event_without_description() {
-		$event = $this->mock_event( 'events/single/1.json' )->get();
+		$event = $this->get_mock_event( 'events/single/1.json' );
 		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => $event ] ) );
 	}
 
@@ -23,7 +23,7 @@ class DescriptionTest extends HtmlPartialTestCase
 	 * Test render with event with description
 	 */
 	public function test_render_with_event_with_description() {
-		$event = $this->mock_event( 'events/single/1.json' )->get();
+		$event = $this->get_mock_event( 'events/single/1.json' );
 		$event->post_content = $event->post_excerpt = 'Hello world!';
 		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => $event ] ) );
 	}

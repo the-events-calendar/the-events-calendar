@@ -15,7 +15,7 @@ class Date_TagTest extends HtmlPartialTestCase
 	 * Test render with event
 	 */
 	public function test_render_with_event() {
-		$event = $this->mock_event( 'events/single/1.json' )->get();
+		$event = $this->get_mock_event( 'events/single/1.json' );
 		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => $event ] ) );
 	}
 }
