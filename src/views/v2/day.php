@@ -25,7 +25,7 @@
 	data-view-rest-url="<?php echo esc_url( $rest_url ); ?>"
 >
 	<div class="tribe-common-l-container tribe-events-l-container">
-		<?php $this->template( 'components/loader', [ 'text' => 'Loading...' ] ); ?>
+		<?php $this->template( 'components/loader', [ 'text' => __( 'Loading...', 'the-events-calendar' ) ] ); ?>
 
 		<?php $this->template( 'components/data' ); ?>
 
