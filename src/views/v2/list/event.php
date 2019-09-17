@@ -39,6 +39,7 @@ $event_classes = get_post_class( [ 'tribe-events-calendar-list__event', 'tribe-c
 				</header>
 
 				<?php $this->template( 'list/event/description', [ 'event' => $event ] ); ?>
+				<?php $this->template( 'list/event/cost', [ 'event' => $event ] ); ?>
 
 			</div>
 		</article>
