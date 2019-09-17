@@ -3,6 +3,8 @@
 namespace Tribe\Events\Views\V2\Partials\Components\Events_Bar\Views\Views_List;
 
 use Tribe\Events\Views\V2\View;
+use Tribe\Events\Views\V2\Views\List_View;
+use Tribe\Events\Views\V2\Views\Month_View;
 use Tribe\Test\Products\WPBrowser\Views\V2\HtmlPartialTestCase;
 
 class ItemTest extends HtmlPartialTestCase
@@ -21,8 +23,8 @@ class ItemTest extends HtmlPartialTestCase
 	 * Test render with view class name not equal to current view
 	 */
 	public function test_render_with_view_class_name_not_equal_to_current_view() {
-		$view_class_name = 'Tribe\Events\Views\V2\Views\Month_View';
-		$view            = View::make( 'Tribe\Events\Views\V2\Views\List_View' );
+		$view_class_name = Month_View::class;
+		$view            = View::make( List_View::class );
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
 			'view_class_name' => $view_class_name,
 			'view'            => $view,
@@ -33,8 +35,8 @@ class ItemTest extends HtmlPartialTestCase
 	 * Test render with view class name equal to current view
 	 */
 	public function test_render_with_view_class_name_equal_to_current_view() {
-		$view_class_name = 'Tribe\Events\Views\V2\Views\Month_View';
-		$view            = View::make( 'Tribe\Events\Views\V2\Views\Month_View' );
+		$view_class_name = Month_View::class;
+		$view            = View::make( Month_View::class );
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
 			'view_class_name' => $view_class_name,
 			'view'            => $view,
