@@ -1,9 +1,9 @@
 <?php
 /**
- * View: Month View - Single Event Tooltip CTA
+ * View: Month View - Mobile Event Cost
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/views/v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/cta.php
+ * [your-theme]/tribe/events/views/v2/month/mobile-events/mobile-day/mobile-event/cost.php
  *
  * See more documentation about our views templating system.
  *
@@ -14,25 +14,22 @@
  * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
  *
  * @see tribe_get_event() For the format of the event object.
+ *
  */
+
+if ( ! $event->featured ) {
+	return;
+}
 
 if ( empty( $event->cost ) ) {
 	return;
 }
 ?>
-<div class="tribe-events-c-small-cta tribe-events-calendar-month__calendar-event-tooltip-cta">
-	<a
-		<?php
-		/**
-		 * @todo @be @bordoni get buy now url
-		 */
-		?>
-		href="#"
-		class="tribe-events-c-small-cta__link tribe-common-cta tribe-common-cta--thin-alt"
-	>
+<div class="tribe-events-c-small-cta tribe-events-calendar-month-mobile-events__mobile-event-cost">
+	<a href="#" class="tribe-events-c-small-cta__link tribe-common-cta tribe-common-cta--thin-alt">
 		<?php esc_html_e( 'Buy Now', 'the-events-calendar' ); ?>
 	</a>
 	<span class="tribe-events-c-small-cta__price">
-		<?php echo esc_html( $event->cost ); ?>
+		<?php echo esc_html( $event->cost ) ?>
 	</span>
 </div>
