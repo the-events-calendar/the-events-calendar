@@ -1,11 +1,4 @@
-<?php return '<section class="tribe-events-calendar-month-mobile-events" data-js="tribe-events-calendar-month-mobile-events">
-
-	
-		
-	
-		
-	
-	<nav class="tribe-events-calendar-month-nav tribe-events-c-nav">
+<?php return '<nav class="tribe-events-calendar-month-nav tribe-events-c-nav">
 	<ul class="tribe-events-c-nav__list">
 		<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--prev">
 	<a
@@ -37,6 +30,4 @@
 </li>
 	</ul>
 </nav>
-
-</section>
 ';

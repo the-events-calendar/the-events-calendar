@@ -1,9 +1,9 @@
 <?php
 /**
- * View: Month View Nav Next Button
+ * View: Month View Nav Disabled Next Button
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/views/v2/month/nav/next.php
+ * [your-theme]/tribe/events/views/v2/month/mobile-events/nav/next-disabled.php
  *
  * See more documentation about our views templating system.
  *
@@ -12,17 +12,12 @@
  * @var string $link The URL to the next page, if any, or an empty string.
  * @var string $label The label for the next link.
  *
- * @version 4.9.4
+ * @version TBD
  *
  */
 ?>
 <li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--next">
-	<a
-		href="<?php echo esc_url( $link ); ?>"
-		rel="next"
-		class="tribe-events-c-nav__next tribe-common-b2"
-		data-js="tribe-events-view-link"
-	>
+	<button class="tribe-events-c-nav__next tribe-common-b2" disabled>
 		<?php echo esc_html( $label ); ?>
-	</a>
+	</button>
 </li>

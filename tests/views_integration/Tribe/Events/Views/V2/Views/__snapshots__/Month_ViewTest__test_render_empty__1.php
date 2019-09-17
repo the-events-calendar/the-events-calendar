@@ -2080,7 +2080,7 @@
 	
 		
 	
-	<nav class="tribe-events-calendar-month-nav tribe-events-calendar-month-nav--mobile tribe-events-c-nav">
+	<nav class="tribe-events-calendar-month-nav tribe-events-c-nav">
 	<ul class="tribe-events-c-nav__list">
 		<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--prev">
 	<a

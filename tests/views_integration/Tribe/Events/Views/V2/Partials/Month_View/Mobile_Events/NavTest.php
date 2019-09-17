@@ -1,13 +1,13 @@
 <?php
 
-namespace Tribe\Events\Views\V2\Partials\Month_View;
+namespace Tribe\Events\Views\V2\Partials\Month_View\Mobile_Events;
 
 use Tribe\Test\Products\WPBrowser\Views\V2\HtmlPartialTestCase;
 
 class NavTest extends HtmlPartialTestCase
 {
 
-	protected $partial_path = 'month/nav';
+	protected $partial_path = 'month/mobile-events/nav';
 
 	/**
 	 * Test render with prev url with next url
