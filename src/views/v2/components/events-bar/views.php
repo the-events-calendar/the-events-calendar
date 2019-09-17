@@ -3,13 +3,13 @@
  * View: Events Bar Views
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/views/v2/events-bar/views.php
+ * [your-theme]/tribe/events/views/v2/components/events-bar/views.php
  *
  * See more documentation about our views templating system.
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.7
+ * @version TBD
  *
  */
 use Tribe\Events\Views\V2\Manager;
@@ -38,6 +38,6 @@ $view_selector_classes = [
 				<?php echo esc_html( $view_label ); ?>
 			</span>
 		</button>
-		<?php $this->template( 'events-bar/views/list', [ 'views' => $public_views ] ); ?>
+		<?php $this->template( 'components/events-bar/views/list', [ 'views' => $public_views ] ); ?>
 	</div>
 </div>
