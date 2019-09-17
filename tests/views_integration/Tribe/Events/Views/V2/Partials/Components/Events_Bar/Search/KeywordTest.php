@@ -15,4 +15,18 @@ class KeywordTest extends HtmlPartialTestCase
 	public function test_render() {
 		$this->assertMatchesSnapshot( $this->get_partial_html() );
 	}
+
+	/**
+	 * Test render with keyword
+	 */
+	public function test_render_with_keyword() {
+		add_filter( 'tribe_events_template_var', function( $value, $key, $default, $view_slug ) {
+			if ( 'bar-keyword' === implode( '-', $key ) ) {
+				return 'keyword_value';
+			}
+
+			return $value;
+		}, 10, 4 );
+		$this->assertMatchesSnapshot( $this->get_partial_html() );
+	}
 }
