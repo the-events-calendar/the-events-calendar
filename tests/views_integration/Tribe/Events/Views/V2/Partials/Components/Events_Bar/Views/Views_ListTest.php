@@ -26,7 +26,7 @@ class Views_ListTest extends HtmlPartialTestCase
 		$views = [
 			'list'  => 'Tribe\Events\Views\V2\Views\List_View',
 			'month' => 'Tribe\Events\Views\V2\Views\Month_View',
-			'day'   => 'Tribe\Events\Views\V2\Views\Day_View'
+			'day'   => 'Tribe\Events\Views\V2\Views\Day_View',
 		];
 		$view  = View::make( 'Tribe\Events\Views\V2\Views\List_View' );
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
