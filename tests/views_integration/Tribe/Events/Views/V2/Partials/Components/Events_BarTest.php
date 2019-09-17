@@ -27,11 +27,11 @@ class Events_BarTest extends HtmlPartialTestCase
 	 */
 	public function test_render_with_context() {
 		$views = [
-			'list'  => 'Tribe\Events\Views\V2\Views\List_View',
-			'month' => 'Tribe\Events\Views\V2\Views\Month_View',
-			'day'   => 'Tribe\Events\Views\V2\Views\Day_View',
+			'list'  => List_View::class,
+			'month' => Month_View::class,
+			'day'   => Day_View::class,
 		];
-		$view  = View::make( 'Tribe\Events\Views\V2\Views\List_View' );
+		$view  = View::make( List_View::class );
 
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
 			'url'   => '#',
