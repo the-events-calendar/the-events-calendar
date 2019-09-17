@@ -18,7 +18,9 @@
 	data-js="tribe-events-events-bar"
 >
 
-	<h2 class="tribe-common-a11y-visual-hide"><?php printf( esc_html__( '%s Search and Views Navigation', 'the-events-calendar' ), tribe_get_event_label_plural() ); ?></h2>
+	<h2 class="tribe-common-a11y-visual-hide">
+		<?php printf( esc_html__( '%s Search and Views Navigation', 'the-events-calendar' ), tribe_get_event_label_plural() ); ?>
+	</h2>
 
 	<?php $this->template( 'components/events-bar/search-button' ); ?>
 

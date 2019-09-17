@@ -1,6 +1,7 @@
 <?php return '<header class="tribe-events-calendar-month__header" role="rowgroup">
 
-	<h2 class="tribe-common-a11y-visual-hide" id="tribe-events-calendar-header">Calendar of Events</h2>
+	<h2 class="tribe-common-a11y-visual-hide" id="tribe-events-calendar-header">
+		Calendar of Events	</h2>
 
 	<div role="row" class="tribe-events-calendar-month__header-row">
 					<div

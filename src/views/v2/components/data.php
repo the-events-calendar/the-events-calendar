@@ -26,4 +26,6 @@ $data = apply_filters( 'tribe_events_views_v2_view_data', $this->get_values(), $
 <script
 	data-js="tribe-events-view-data"
 	type="application/json"
-><?php echo json_encode( $data ); ?></script>
+>
+	<?php echo json_encode( $data ); ?>
+</script>
