@@ -35,7 +35,7 @@ class More_EventsTest extends HtmlPartialTestCase
 	public function test_render_without_more_events_with_more_url() {
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
 			'more_events' => 0,
-			'more_url'    => '#',
+			'more_url'    => 'http://test.tri.be',
 		] ) );
 	}
 	/**
@@ -44,7 +44,7 @@ class More_EventsTest extends HtmlPartialTestCase
 	public function test_render_with_more_events_with_more_url() {
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
 			'more_events' => 2,
-			'more_url'    => '#',
+			'more_url'    => 'http://test.tri.be',
 		] ) );
 	}
 }

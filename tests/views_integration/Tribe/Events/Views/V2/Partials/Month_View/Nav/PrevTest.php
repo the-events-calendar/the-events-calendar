@@ -15,7 +15,7 @@ class PrevTest extends HtmlPartialTestCase
 	public function test_render_with_label_and_link() {
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
 			'label' => 'May',
-			'link'  => '#',
+			'link'  => 'http://test.tri.be',
 		] ) );
 	}
 }

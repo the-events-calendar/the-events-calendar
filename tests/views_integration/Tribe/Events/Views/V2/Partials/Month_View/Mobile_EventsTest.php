@@ -17,9 +17,9 @@ class Mobile_EventsTest extends HtmlPartialTestCase
 	public function test_render_with_empty_days() {
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
 			'days'       => [],
-			'today_url'  => '#',
-			'prev_url'   => '#',
-			'next_url'   => '#',
+			'today_url'  => 'http://test.tri.be',
+			'prev_url'   => 'http://test.tri.be',
+			'next_url'   => 'http://test.tri.be',
 			'prev_label' => 'May',
 			'next_label' => 'July',
 		] ) );
@@ -38,9 +38,9 @@ class Mobile_EventsTest extends HtmlPartialTestCase
 					'found_events' => 0,
 				],
 			],
-			'today_url'  => '#',
-			'prev_url'   => '#',
-			'next_url'   => '#',
+			'today_url'  => 'http://test.tri.be',
+			'prev_url'   => 'http://test.tri.be',
+			'next_url'   => 'http://test.tri.be',
 			'prev_label' => 'May',
 			'next_label' => 'July',
 		] ) );
@@ -67,9 +67,9 @@ class Mobile_EventsTest extends HtmlPartialTestCase
 				],
 			],
 			'today_date'       => '2018-06-01',
-			'today_url'        => '#',
-			'prev_url'         => '#',
-			'next_url'         => '#',
+			'today_url'        => 'http://test.tri.be',
+			'prev_url'         => 'http://test.tri.be',
+			'next_url'         => 'http://test.tri.be',
 			'prev_label'       => 'May',
 			'next_label'       => 'July',
 		] ) );

@@ -14,9 +14,9 @@ class NavTest extends HtmlPartialTestCase
 	 */
 	public function test_render_with_prev_url_with_next_url() {
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
-			'today_url'  => '#',
-			'prev_url'   => '#',
-			'next_url'   => '#',
+			'today_url'  => 'http://test.tri.be',
+			'prev_url'   => 'http://test.tri.be',
+			'next_url'   => 'http://test.tri.be',
 			'prev_label' => 'May',
 			'next_label' => 'July',
 			'location'   => 'calendar',
@@ -28,8 +28,8 @@ class NavTest extends HtmlPartialTestCase
 	 */
 	public function test_render_with_prev_url_without_next_url() {
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
-			'today_url'  => '#',
-			'prev_url'   => '#',
+			'today_url'  => 'http://test.tri.be',
+			'prev_url'   => 'http://test.tri.be',
 			'next_url'   => '',
 			'prev_label' => 'May',
 			'next_label' => 'July',
@@ -42,9 +42,9 @@ class NavTest extends HtmlPartialTestCase
 	 */
 	public function test_render_without_prev_url_with_next_url() {
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
-			'today_url'  => '#',
+			'today_url'  => 'http://test.tri.be',
 			'prev_url'   => '',
-			'next_url'   => '#',
+			'next_url'   => 'http://test.tri.be',
 			'prev_label' => 'May',
 			'next_label' => 'July',
 			'location'   => 'calendar',
@@ -56,7 +56,7 @@ class NavTest extends HtmlPartialTestCase
 	 */
 	public function test_render_without_prev_url_without_next_url() {
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
-			'today_url'  => '#',
+			'today_url'  => 'http://test.tri.be',
 			'prev_url'   => '',
 			'next_url'   => '',
 			'prev_label' => 'May',

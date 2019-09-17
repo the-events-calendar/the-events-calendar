@@ -22,6 +22,6 @@ class SearchTest extends HtmlPartialTestCase
 	 * Test render with context
 	 */
 	public function test_render_with_context() {
-		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'url' => '#' ] ) );
+		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'url' => 'http://test.tri.be' ] ) );
 	}
 }

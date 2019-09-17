@@ -2,7 +2,7 @@
 	<ul class="tribe-events-c-top-bar__nav-list">
 		<li class="tribe-events-c-top-bar__nav-list-item">
 	<a
-		href="#"
+		href="http://test.tri.be"
 		class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-left tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--prev"
 		aria-label="Previous"
 		title="Previous"
@@ -13,7 +13,7 @@
 
 		<li class="tribe-events-c-top-bar__nav-list-item">
 	<a
-		href="#"
+		href="http://test.tri.be"
 		class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-right tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--next"
 		aria-label="Next"
 		title="Next"

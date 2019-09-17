@@ -22,7 +22,7 @@ class Top_BarTest extends HtmlPartialTestCase
 
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
 			'today'     => '2018-01-01',
-			'today_url' => '#',
+			'today_url' => 'http://test.tri.be',
 		] ) );
 	}
 }

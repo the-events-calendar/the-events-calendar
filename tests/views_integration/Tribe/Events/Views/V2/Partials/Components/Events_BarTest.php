@@ -34,7 +34,7 @@ class Events_BarTest extends HtmlPartialTestCase
 		$view  = View::make( List_View::class );
 
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
-			'url'   => '#',
+			'url'   => 'http://test.tri.be',
 			'views' => $views,
 			'view'  => $view,
 		] ) );
