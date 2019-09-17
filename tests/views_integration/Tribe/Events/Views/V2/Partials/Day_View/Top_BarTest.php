@@ -13,6 +13,11 @@ class Top_BarTest extends HtmlPartialTestCase
 	 * Test render with context
 	 */
 	public function test_render_with_context() {
+		/**
+		 * @todo: @lucatume the today variable does not work as expected.
+		 *                  different behaviour when 'today' is passed
+		 *                  vs when 'today' is not passed.
+		 */
 		$this->markTestSkipped( 'The "today" variable is not working as expected' );
 
 		$this->assertMatchesSnapshot( $this->get_partial_html( [

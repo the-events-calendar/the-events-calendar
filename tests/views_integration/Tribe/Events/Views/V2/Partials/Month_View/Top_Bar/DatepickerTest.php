@@ -13,6 +13,11 @@ class DatepickerTest extends HtmlPartialTestCase
 	 * Test render
 	 */
 	public function test_render() {
+		/**
+		 * @todo: @lucatume the today variable does not work as expected.
+		 *                  different behaviour when 'today' is passed
+		 *                  vs when 'today' is not passed.
+		 */
 		$this->markTestSkipped( 'The "today" variable is not working as expected' );
 
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
@@ -24,6 +29,11 @@ class DatepickerTest extends HtmlPartialTestCase
 	 * Test render with date
 	 */
 	public function test_render_with_date() {
+		/**
+		 * @todo: @lucatume the today variable does not work as expected.
+		 *                  different behaviour when 'today' is passed
+		 *                  vs when 'today' is not passed.
+		 */
 		$this->markTestSkipped( 'The "today" variable is not working as expected' );
 
 		add_filter( 'tribe_events_template_var', function( $value, $key, $default, $view_slug ) {
