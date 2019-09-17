@@ -37,6 +37,7 @@ if ( $event->featured ) {
 		</header>
 
 		<?php $this->template( 'day/event/description', [ 'event' => $event ] ); ?>
+		<?php $this->template( 'day/event/cost', [ 'event' => $event ] ); ?>
 
 	</div>
 
