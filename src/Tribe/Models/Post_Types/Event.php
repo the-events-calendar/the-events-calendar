@@ -169,7 +169,7 @@ class Event extends Base {
 	 * {@inheritDoc}
 	 */
 	protected function get_cache_slug() {
-		return 'events_';
+		return 'events';
 	}
 
 }
