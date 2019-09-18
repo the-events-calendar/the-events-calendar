@@ -256,13 +256,13 @@ tribe.events.views.datepicker = {};
 		var $container = data.container;
 		return function( mutationsList, observer ) {
 			for ( var mutation of mutationsList ) {
-				// if datepicker switches months
+				// if datepicker switches months via prev/next arrows or by selecting a month on month picker
 				if (
 					'childList' === mutation.type &&
 					$container.find( obj.selectors.datepickerDaysBody ).is( mutation.target ) &&
 					mutation.addedNodes.length
 				) {
-					$container.trigger( 'handleMutation.tribeEvents' );
+					$container.trigger( 'handleMutationMonthChange.tribeEvents' );
 				}
 			}
 		};
