@@ -701,8 +701,10 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 		return static function () use ( $event ) {
 			$venue_ids = tribe_venues()->by( 'event', $event )->get_ids();
 			$venues    = ! empty( $venue_ids )
-				? array_map( 'tribe_get_venue', $venue_ids )
+				? array_map( 'tribe_get_venue_object', $venue_ids )
 				: [];
+
+			$venues = array_filter( $venues );
 
 			return $venues;
 		};

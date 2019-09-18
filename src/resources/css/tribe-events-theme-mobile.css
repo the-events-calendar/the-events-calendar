@@ -82,7 +82,8 @@
 }
 
 #tribe-events-content .tribe-events-calendar td {
-	transition: none;
+	-webkit-transition: none;
+	        transition: none;
 }
 
 #tribe-events-content .tribe-events-calendar td:hover {
