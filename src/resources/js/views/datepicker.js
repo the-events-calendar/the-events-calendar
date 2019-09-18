@@ -76,8 +76,8 @@ tribe.events.views.datepicker = {};
 		orientation: 'bottom left',
 		showOnFocus: false,
 		templates: {
-			leftArrow: '<span class="tribe-common-svgicon"></span><span class="tribe-common-a11y-visual-hide">' + prevText + '</span>',
-			rightArrow: '<span class="tribe-common-svgicon"></span><span class="tribe-common-a11y-visual-hide">' + nextText + '</span>',
+			leftArrow: '',
+			rightArrow: '',
 		},
 	};
 
