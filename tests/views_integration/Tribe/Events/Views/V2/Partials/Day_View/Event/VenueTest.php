@@ -23,11 +23,7 @@ class VenueTest extends HtmlPartialTestCase
 	 * Test render with event with venue
 	 */
 	public function test_render_with_event_with_venue() {
-		/**
-		 * @todo: @paulmskim remove once with_venue() is fixed.
-		 */
-		$this->markTestSkipped( 'revisit once venue testing is fixed' );
-		$event = $this->mock_event( 'events/single/1.json' )->with_venue()->get();
+		$event = $this->mock_event( 'events/single/1.json' )->with_venue( 'venues/1.json' )->get();
 		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => $event ] ) );
 	}
 }
