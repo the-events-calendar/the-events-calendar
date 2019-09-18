@@ -4,7 +4,7 @@ namespace Tribe\Events\Views\V2\Views\HTML\Month\Tooltip;
 
 use Tribe\Test\Products\WPBrowser\Views\V2\HtmlTestCase;
 
-class MonthTooltipCTATest extends HtmlTestCase {
+class MonthTooltipCostTest extends HtmlTestCase {
 
 	/**
 	 * @test
@@ -14,24 +14,19 @@ class MonthTooltipCTATest extends HtmlTestCase {
 		$event    = tribe_get_event( $event_id );
 		$event->cost = '$10';
 		$template = $this->template->template(
-			'month/calendar-body/day/calendar-events/calendar-event/tooltip/cta',
+			'month/calendar-body/day/calendar-events/calendar-event/tooltip/cost',
 			[ 'event' => $event ]
 		);
 		$html     = $this->document->html( $template );
 
 		$this->assertEquals(
-			$html->find( '.tribe-events-c-small-cta' )->count(),
+			$html->find( '.tribe-events-c-small-cost' )->count(),
 			1,
 			'Month Tooltip CTA HTML needs to contain one ".tribe-events-c-small-cta" element'
 		);
 
 		$this->assertTrue(
-			$html->find( '.tribe-events-c-small-cta' )->children()->is( '.tribe-events-c-small-cta__link' ),
-			'Month Tooltip CTA HTML needs to contain ".tribe-events-c-small-cta__link" element'
-		);
-
-		$this->assertTrue(
-			$html->find( '.tribe-events-c-small-cta' )->children()->is( '.tribe-events-c-small-cta__price' ),
+			$html->find( '.tribe-events-c-small-cost' )->children()->is( '.tribe-events-c-small-cta__price' ),
 			'Month Tooltip CTA HTML needs to contain ".tribe-events-c-small-cta__price" element'
 		);
 	}
