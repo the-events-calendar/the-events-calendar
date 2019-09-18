@@ -68,7 +68,7 @@ tribe.events.views.datepicker = {};
 		container: null,
 		daysOfWeekDisabled: [],
 		/**
-		 * @todo: use format from BE. Paul.
+		 * @todo: @paulmskim use format from BE.
 		 */
 		format: 'yyyy-mm-dd',
 		maxViewMode: 'decade',
@@ -144,7 +144,7 @@ tribe.events.views.datepicker = {};
 		var paddedMonth = obj.padNumber( month );
 
 		/**
-		 * @todo: use format from BE. Paul.
+		 * @todo: @paulmskim use format from BE.
 		 */
 		var viewData = {
 			[ 'tribe-bar-date' ]: [ year, paddedMonth, paddedDate ].join( '-' ),
@@ -170,7 +170,7 @@ tribe.events.views.datepicker = {};
 		var paddedMonth = obj.padNumber( month );
 
 		/**
-		 * @todo: use format from BE. Paul.
+		 * @todo: @paulmskim use format from BE.
 		 */
 		var viewData = {
 			[ 'tribe-bar-date' ]: [ year, paddedMonth ].join( '-' ),
