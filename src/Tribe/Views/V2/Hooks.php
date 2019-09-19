@@ -19,6 +19,7 @@ namespace Tribe\Events\Views\V2;
 
 use Tribe\Events\Views\V2\Query\Abstract_Query_Controller;
 use Tribe\Events\Views\V2\Query\Event_Query_Controller;
+use Tribe\Events\Views\V2\Template\Title;
 use Tribe__Events__Main as TEC;
 use Tribe__Rewrite as Rewrite;
 
@@ -70,6 +71,9 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'body_class', [ $this, 'filter_body_class' ] );
 		add_filter( 'query_vars', [ $this, 'filter_query_vars' ], 15 );
 		add_filter( 'tribe_rewrite_canonical_query_args', [ $this, 'filter_map_canonical_query_args' ], 15, 3 );
+		add_filter( 'wp_title', [ $this, 'filter_wp_title' ], 10, 2 );
+		add_filter( 'document_title_parts', [ $this, 'filter_document_title_parts' ] );
+
 	}
 
 	/**
@@ -205,5 +209,42 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 */
 	public function filter_body_class( $classes ) {
 		return $this->container->make( Theme_Compatibility::class )->filter_add_body_classes( $classes );
+	}
+
+	/**
+	 * Filters the `wp_title` template tag.
+	 *
+	 * @since TBD
+	 *
+	 * @param      string $title The current title value.
+	 * @param string|null $sep The separator char, or sequence, to use to separate the page title from the blog one.
+	 *
+	 * @return string The modified page title, if required.
+	 */
+	public function filter_wp_title( $title, $sep = null ) {
+		if ( ! ( tribe_context()->is( 'tec_post_type' ) ) ) {
+			return $title;
+		}
+
+		return $this->container->make( Title::class )->filter_wp_title( $title, $sep );
+	}
+
+	/**
+	 * Filters the `wp_get_document_title` template tag.
+	 *
+	 * This is the template tag introduced in WP 4.4 to get the page title.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $title The page title.
+	 *
+	 * @return string The modified page title, if required.
+	 */
+	public function filter_document_title_parts( $title ) {
+		if ( ! ( tribe_context()->is( 'tec_post_type' ) ) ) {
+			return $title;
+		}
+
+		return $this->container->make( Title::class )->filter_document_title_parts( $title );
 	}
 }

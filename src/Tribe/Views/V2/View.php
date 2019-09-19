@@ -8,6 +8,7 @@
 
 namespace Tribe\Events\Views\V2;
 
+use Tribe\Events\Views\V2\Template\Title;
 use Tribe__Container as Container;
 use Tribe__Context as Context;
 use Tribe__Date_Utils as Dates;
@@ -917,7 +918,7 @@ class View implements View_Interface {
 	 */
 	protected function setup_template_vars() {
 		$template_vars = [
-			'title'             => wp_title( null, false ),
+			'title'             => $this->get_title(),
 			'events'            => $this->repository->all(),
 			'url'               => $this->get_url( true ),
 			'prev_url'          => $this->prev_url( true ),
@@ -1118,5 +1119,40 @@ class View implements View_Interface {
 	 */
 	protected function get_label_format() {
 		return 'Y-m-d';
+	}
+
+	/**
+	 * Gets this View title, the one that will be set in the `title` tag of the page.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The filtered view title.
+	 */
+	public function get_title() {
+		$title   = static::$container->make( Title::class )->filter_wp_title( '' );
+
+		$slug    = $this->get_slug();
+
+		/**
+		 * Filters the title for all views.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $title This view filtered title.
+		 * @param View   $this  This view object.
+		 */
+		$title = apply_filters( "tribe_events_views_v2_title", $title, $this );
+
+		/**
+		 * Filters the title for this view.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $title This view filtered title.
+		 * @param View   $this  This view object.
+		 */
+		$title = apply_filters( "tribe_events_views_v2_{$slug}_title", $title, $this );
+
+		return $title;
 	}
 }
