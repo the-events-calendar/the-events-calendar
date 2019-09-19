@@ -4,10 +4,10 @@ namespace Tribe\Events\Views\V2\Partials\Month_View\Calendar_Body\Day\Calendar_E
 
 use Tribe\Test\Products\WPBrowser\Views\V2\HtmlPartialTestCase;
 
-class CtaTest extends HtmlPartialTestCase
+class CostTest extends HtmlPartialTestCase
 {
 
-	protected $partial_path = 'month/calendar-body/day/calendar-events/calendar-event/tooltip/cta';
+	protected $partial_path = 'month/calendar-body/day/calendar-events/calendar-event/tooltip/cost';
 
 	/**
 	 * Test render with context
