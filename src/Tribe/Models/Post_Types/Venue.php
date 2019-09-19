@@ -1,6 +1,6 @@
 <?php
 /**
- * Models an Venue.
+ * Models a Venue.
  *
  * @since   TBD
  *
