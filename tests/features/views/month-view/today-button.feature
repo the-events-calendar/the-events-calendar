@@ -2,10 +2,11 @@ Feature: Today button in Month View
 
 A Site Visitor can always click the Today button at the top of a view to return to a display which includes events on today's date.
 
+# This feature is part of the Views Redesign project. There is not currently a Today button.
+
 Background:
     Given that I am a Visitor on a site with TEC
     Given I am on Month View
-    Given Views V2 is active
 
 Scenario Outline: Today Button in Month View
     Given today's date is <today> of this year

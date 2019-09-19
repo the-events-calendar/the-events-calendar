@@ -69,8 +69,5 @@ Scenario: Keyword search in Month View with no results
 	Then I should see no events in the calendar grid
 	And I should see a "There were no results found." message
 
-Scenario: Keyword search from a paginated page
-# e.g. performing a search from /events/list/?tribe_paged=2&tribe_event_display=list
-
 
 
