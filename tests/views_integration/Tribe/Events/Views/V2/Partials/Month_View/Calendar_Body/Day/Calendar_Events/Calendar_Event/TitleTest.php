@@ -11,10 +11,36 @@ class TitleTest extends HtmlPartialTestCase {
 	protected $partial_path = 'month/calendar-body/day/calendar-events/calendar-event/title';
 
 	/**
-	 * Test render with event
+	 * Test render with event with featured image
 	 */
-	public function test_render_with_event() {
-		$event = $this->get_mock_event( 'events/single/1.json' );
+	public function test_render_with_event_with_featured_image() {
+		$event = $this->mock_event( 'events/single/1.json' )->with_thumbnail()->get();
+		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => $event ] ) );
+	}
+
+	/**
+	 * Test render with event with excerpt
+	 */
+	public function test_render_with_event_with_excerpt() {
+		$event = $this->mock_event( 'events/single/1.json' )->get();
+		$event->post_content = $event->post_excerpt = 'Hello world!';
+		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => $event ] ) );
+	}
+
+	/**
+	 * Test render with event with cost
+	 */
+	public function test_render_with_event_with_cost() {
+		$event = $this->mock_event( 'events/single/1.json' )->with_thumbnail()->get();
+		$event->cost = '$10';
+		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => $event ] ) );
+	}
+
+	/**
+	 * Test render with event with no featured image no excerpt no cost
+	 */
+	public function test_render_with_event_with_no_featured_image_no_excerpt_no_cost() {
+		$event = $this->mock_event( 'events/single/1.json' )->with_thumbnail()->get();
 		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => $event ] ) );
 	}
 }
