@@ -33,7 +33,7 @@ class Venue extends Base {
 			$state_province        = tribe_get_stateprovince( $this->post->ID );
 			$state                 = tribe_get_state( $this->post->ID );
 			$province              = tribe_get_province( $this->post->ID );
-			$zip                   = tribe_get_country( $this->post->ID );
+			$zip                   = tribe_get_zip( $this->post->ID );
 
 			$properties = [
 				'address'               => $address,
