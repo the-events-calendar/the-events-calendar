@@ -7,7 +7,7 @@
 use Tribe\Events\Models\Post_Types\Venue;
 
 /**
- * Fetches and returns a decorated post object representing an Venue.
+ * Fetches and returns a decorated post object representing a Venue.
  *
  * @since TBD
  *
