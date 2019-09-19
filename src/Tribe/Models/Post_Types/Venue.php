@@ -9,11 +9,7 @@
 namespace Tribe\Events\Models\Post_Types;
 
 use Tribe\Models\Post_Types\Base;
-use Tribe\Utils\Lazy_Collection;
-use Tribe\Utils\Lazy_String;
 use Tribe\Utils\Post_Thumbnail;
-use Tribe__Events__Venue as Venue_Manager;
-use Tribe__Events__Timezones as Timezones;
 use Tribe__Events__Pro__Geo_Loc as Geolocalization;
 
 /**
@@ -32,7 +28,6 @@ class Venue extends Base {
 		try {
 			$cache_this = $this->get_caching_callback( $filter );
 
-			$post_id               = $this->post->ID;
 			$address               = tribe_get_address( $this->post->ID );
 			$country               = tribe_get_country( $this->post->ID );
 			$city                  = tribe_get_city( $this->post->ID );
@@ -57,6 +52,8 @@ class Venue extends Base {
 				'latitude'              => $latitude,
 				'longitude'             => $longitude,
 				'geolocation_string'    => $geolocation_string,
+				'thumbnail'             => ( new Post_Thumbnail( $this->post->ID ) )->on_resolve( $cache_this ),
+				'permalink'             => get_permalink( $this->post->ID ),
 			];
 		} catch ( \Exception $e ) {
 			return [];
@@ -71,5 +68,4 @@ class Venue extends Base {
 	protected function get_cache_slug() {
 		return 'venues';
 	}
-
 }

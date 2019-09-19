@@ -49,7 +49,7 @@ function tribe_get_venue_object( $venue = null, $output = OBJECT, $filter = 'raw
 	 *                                 respectively. Defaults to `OBJECT`.
 	 * @param string      $filter      Type of filter to apply. Accepts 'raw'.
 	 */
-	$return = apply_filters( 'tribe_get_venue_before', null, $venue, $output, $filter );
+	$return = apply_filters( 'tribe_get_venue_object_before', null, $venue, $output, $filter );
 
 	if ( null !== $return ) {
 		return $return;
@@ -65,7 +65,7 @@ function tribe_get_venue_object( $venue = null, $output = OBJECT, $filter = 'raw
 	 * Filters the venue post object before caching it and returning it.
 	 *
 	 * Note: this value will be cached; as such this filter might not run on each request.
-	 * If you need to filter the output value on each call of this function then use the `tribe_get_venue_before`
+	 * If you need to filter the output value on each call of this function then use the `tribe_get_venue_object_before`
 	 * filter.
 	 *
 	 * @since 4.9.7
