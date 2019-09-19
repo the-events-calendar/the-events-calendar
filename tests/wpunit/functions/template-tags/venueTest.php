@@ -246,7 +246,7 @@ class venueTest extends Events_TestCase {
 	public function test_tribe_get_venue_object_attaches_a_default_set_of_properties_to_the_post() {
 		$venue_id = static::factory()->venue->create();
 
-		$venue = tribe_get_event( $venue_id );
+		$venue = tribe_get_venue_object( $venue_id );
 
 		$expected = [
 			'address'               => get_post_meta( $venue_id, '_VenueAddress', true ),
@@ -263,7 +263,7 @@ class venueTest extends Events_TestCase {
 		];
 
 		foreach ( $expected as $key => $value ) {
-			$isset_message = "Property '{$key}'' is not set on the venue object.";
+			$isset_message = "Property '{$key}' is not set on the venue object.";
 			$this->assertTrue( isset( $venue->{$key} ), $isset_message );
 			$value_message = "Property '{$key}' has wrong value.";
 			$this->assertEquals( $value, $venue->{$key}, $value_message );
