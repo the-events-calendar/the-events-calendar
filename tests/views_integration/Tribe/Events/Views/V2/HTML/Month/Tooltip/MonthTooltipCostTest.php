@@ -20,13 +20,13 @@ class MonthTooltipCostTest extends HtmlTestCase {
 		$html     = $this->document->html( $template );
 
 		$this->assertEquals(
-			$html->find( '.tribe-events-c-small-cost' )->count(),
+			$html->find( '.tribe-events-c-small-cta' )->count(),
 			1,
 			'Month Tooltip CTA HTML needs to contain one ".tribe-events-c-small-cta" element'
 		);
 
 		$this->assertTrue(
-			$html->find( '.tribe-events-c-small-cost' )->children()->is( '.tribe-events-c-small-cta__price' ),
+			$html->find( '.tribe-events-c-small-cta' )->children()->is( '.tribe-events-c-small-cta__price' ),
 			'Month Tooltip CTA HTML needs to contain ".tribe-events-c-small-cta__price" element'
 		);
 	}
