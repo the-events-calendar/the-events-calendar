@@ -25,8 +25,6 @@ class Venue extends Base {
 	 */
 	protected function build_properties( $filter ) {
 		try {
-			$cache_this = $this->get_caching_callback( $filter );
-
 			$address               = tribe_get_address( $this->post->ID );
 			$country               = tribe_get_country( $this->post->ID );
 			$city                  = tribe_get_city( $this->post->ID );
@@ -43,7 +41,6 @@ class Venue extends Base {
 				'state'                 => $state,
 				'province'              => $province,
 				'zip'                   => $zip,
-				'thumbnail'             => ( new Post_Thumbnail( $this->post->ID ) )->on_resolve( $cache_this ),
 				'permalink'             => get_permalink( $this->post->ID ),
 			];
 		} catch ( \Exception $e ) {

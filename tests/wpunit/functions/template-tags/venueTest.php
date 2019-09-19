@@ -343,32 +343,4 @@ class venueTest extends Events_TestCase {
 		$this->assertEquals( array_values( (array) $venue ), tribe_get_venue_object( $venue_id, ARRAY_N ) );
 		$this->assertEquals( $queries_count, $this->queries()->countQueries() );
 	}
-
-	/**
-	 * It should cache on shutdown and only if a lazy property was accessed
-	 *
-	 * @test
-	 */
-	public function should_cache_on_shutdown_and_only_if_a_lazy_property_was_accessed() {
-		$post_id = static::factory()->venue->create();
-
-		$cache_key = 'venues_' . $post_id . '_raw';
-		$cache     = new \Tribe__Cache();
-
-		$venue = tribe_get_venue_object( $post_id );
-
-		$cached_before = $cache->get( $cache_key, \Tribe__Cache_Listener::TRIGGER_SAVE_POST );
-
-		$this->assertFalse( $cached_before );
-
-		$this->suspending_filter_do( 'shutdown',
-			function () use ( $cache, $cache_key, $venue ) {
-				$venue->thumbnail->thumbnail_id;
-				do_action( 'shutdown' );
-				$cached = $cache->get( $cache_key, \Tribe__Cache_Listener::TRIGGER_SAVE_POST );
-				$this->assertInternalType( 'array' , $cached );
-				$this->assertNotEmpty( array_intersect_key( get_object_vars( $venue ), $cached ) );
-			}
-		);
-	}
 }
