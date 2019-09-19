@@ -10,7 +10,6 @@ namespace Tribe\Events\Models\Post_Types;
 
 use Tribe\Models\Post_Types\Base;
 use Tribe\Utils\Post_Thumbnail;
-use Tribe__Events__Pro__Geo_Loc as Geolocalization;
 
 /**
  * Class Venue.
@@ -35,10 +34,6 @@ class Venue extends Base {
 			$state                 = tribe_get_state( $this->post->ID );
 			$province              = tribe_get_province( $this->post->ID );
 			$zip                   = tribe_get_country( $this->post->ID );
-			$overwrite_coordinates = tribe_is_truthy( get_post_meta( $this->post->ID, Geolocalization::OVERWRITE, true ) );
-			$latitude              = get_post_meta( $this->post->ID, Geolocalization::LAT, true );
-			$longitude             = get_post_meta( $this->post->ID, Geolocalization::LNG, true );
-			$geolocation_string    = get_post_meta( $this->post->ID, Geolocalization::ADDRESS, true );
 
 			$properties = [
 				'address'               => $address,
@@ -48,10 +43,6 @@ class Venue extends Base {
 				'state'                 => $state,
 				'province'              => $province,
 				'zip'                   => $zip,
-				'overwrite_coordinates' => $overwrite_coordinates,
-				'latitude'              => $latitude,
-				'longitude'             => $longitude,
-				'geolocation_string'    => $geolocation_string,
 				'thumbnail'             => ( new Post_Thumbnail( $this->post->ID ) )->on_resolve( $cache_this ),
 				'permalink'             => get_permalink( $this->post->ID ),
 			];

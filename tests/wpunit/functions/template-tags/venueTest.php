@@ -256,10 +256,6 @@ class venueTest extends Events_TestCase {
 			'state'                 => get_post_meta( $venue_id, '_VenueState', true ),
 			'province'              => get_post_meta( $venue_id, '_VenueProvince', true ),
 			'zip'                   => get_post_meta( $venue_id, '_VenueZip', true ),
-			'overwrite_coordinates' => get_post_meta( $venue_id, '_VenueOverwriteCoords', true ),
-			'latitude'              => get_post_meta( $venue_id, '_VenueLat', true ),
-			'longitude'             => get_post_meta( $venue_id, '_VenueLng', true ),
-			'geolocation_string'    => get_post_meta( $venue_id, '_VenueGeoAddress', true ),
 		];
 
 		foreach ( $expected as $key => $value ) {
