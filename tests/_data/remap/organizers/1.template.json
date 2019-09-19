@@ -1,0 +1,39 @@
+{
+  "ID": {{ id }},
+  "post_author": 1,
+  "post_date": "2019-09-18 15:22:45",
+  "post_date_gmt": "2019-09-18 13:22:45",
+  "post_content": "Organizer {{ id }} content",
+  "post_title": "Organizer {{ id }}",
+  "post_excerpt": "Organizer {{ id }} excerpt",
+  "post_status": "publish",
+  "comment_status": "closed",
+  "ping_status": "closed",
+  "post_password": "",
+  "post_name": "organizer-{{ id }}",
+  "to_ping": "",
+  "pinged": "",
+  "post_modified": "2019-09-18 15:22:45",
+  "post_modified_gmt": "2019-09-18 13:22:45",
+  "post_content_filtered": "",
+  "post_parent": 0,
+  "guid": "http://products.tribe/?post_type=tribe_organizer&#038;p={{ id }}",
+  "menu_order": 0,
+  "post_type": "tribe_organizer",
+  "post_mime_type": "",
+  "comment_count": 0,
+  "meta_input": {
+    "_OrganizerOrigin": [
+      "events-calendar"
+    ],
+    "_OrganizerPhone": [
+      "111223344"
+    ],
+    "_OrganizerWebsite": [
+      "http://organizer.org"
+    ],
+    "_OrganizerEmail": [
+      "organizer@organizer.org"
+    ]
+  }
+}
