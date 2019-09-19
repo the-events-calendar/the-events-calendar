@@ -2,12 +2,11 @@ Feature: Events Bar view selector
 
 A Site Visitor should be able to switch from any calendar view to any other enabled view so that they can see the events in a display that is most relevant for them.
 
-#This feature describes the newly redesigned Month View and does not reflect the current Month View functionality.
-
 Background:
     Given that I am a Visitor on a site with TEC
     Given "Number of events to show per page" is set to 10
     Given "Display up to X single-day events per day in Month View" is set to 3
+    Given Views V2 is active
 
 Scenario: View selector displays with 2+ enabled views
     Given that 2 or more views are enabled under Events --> Settings --> Display
@@ -63,7 +62,7 @@ Scenario: Switching from List View to Month View
         | February 29 | February      | February                |
 
 Scenario: Switching from Day View to Month View
-    Given I am on Day View
+    Given I am on Day View V2
     And the Datepicker is set to <selection>
     When I switch to Month View
     Then I should see the calendar grid for <month>

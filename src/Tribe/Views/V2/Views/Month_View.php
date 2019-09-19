@@ -122,6 +122,7 @@ class Month_View extends By_Day_View {
 
 		return $this->filter_next_url( $canonical, $url );
 	}
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -333,52 +334,6 @@ class Month_View extends By_Day_View {
 	}
 
 	/**
-	 * Builds the next or prev URL given the date that should be used.
-	 *
-	 * @since TBD
-	 *
-	 * @param mixed $date          The date to build the URL from, a date object or string.
-	 * @param bool  $canonical     Whether to return the canonical version of the URL or not.
-	 * @param array $passthru_vars An array of variables that should be preserved and applied to the resulting URL.
-	 *
-	 * @return string The URL as built from the event.
-	 */
-	protected function build_url_for_date( $date, $canonical, array $passthru_vars = [] ) {
-		$url = $this->get_url();
-		$date = Dates::build_date_object( $date );
-
-		$event_date_aliases = $this->url->get_query_args_aliases_of( 'event_date', $this->context );
-		$event_date_aliases = array_unique( array_merge( $event_date_aliases, [ 'eventDate', 'tribe-bar-date' ] ) );
-
-		if ( ! empty( $event_date_aliases ) ) {
-			$url = remove_query_arg( $event_date_aliases, $this->get_url() );
-		}
-
-		$url = add_query_arg( [ 'eventDate' => $date->format( 'Y-m' ) ], $url );
-
-		if ( ! empty( $url ) && $canonical ) {
-			$input_url = $url;
-
-			if ( ! empty( $passthru_vars ) ) {
-				$input_url = remove_query_arg( array_keys( $passthru_vars ), $url );
-			}
-
-			// Make sure the view slug is always set to correctly match rewrites.
-			$input_url = add_query_arg( [ 'eventDisplay' => $this->slug ], $input_url );
-
-			$canonical_url = tribe( 'events.rewrite' )->get_clean_url( $input_url );
-
-			if ( ! empty( $passthru_vars ) ) {
-				$canonical_url = add_query_arg( $passthru_vars, $canonical_url );
-			}
-
-			$url = $canonical_url;
-		}
-
-		return $url;
-	}
-
-	/**
 	 * {@inheritDoc}
 	 *
 	 * @since TBD
@@ -408,5 +363,12 @@ class Month_View extends By_Day_View {
 		 * @param Month_View $this         This Month View instance.
 		 */
 		return (bool) apply_filters( 'tribe_events_views_v2_month_nav_skip_empty', false, $this );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	protected function get_url_date_format() {
+		return 'Y-m';
 	}
 }
