@@ -1,10 +1,19 @@
 <?php
-
 namespace Tribe\Events\functions\templateTags;
 
 use Tribe\Events\Test\Testcases\Events_TestCase;
+use Codeception\TestCase\WPTestCase;
+use PHPUnit\Framework\AssertionFailedError;
+use Tribe\Events\Test\Factories\Event;
+use Tribe\Events\Test\Factories\Organizer;
+use Tribe\Events\Test\Factories\Venue;
+use Tribe\Test\PHPUnit\Traits\With_Filter_Manipulation;
+use Tribe__Events__Timezones as Timezones;
+
 
 class venueTest extends Events_TestCase {
+	use With_Filter_Manipulation;
+
 	protected $posts = [];
 	protected $venue_url = 'http://power.of.greyskull/by-the';
 
@@ -13,6 +22,9 @@ class venueTest extends Events_TestCase {
 	 */
 	public function setUp() {
 		parent::setUp();
+		static::factory()->event     = new Event();
+		static::factory()->organizer = new Organizer();
+		static::factory()->venue     = new Venue();
 	}
 
 	/**
@@ -195,5 +207,172 @@ class venueTest extends Events_TestCase {
 		// Create an event with a venue
 		$settings['EventVenueID'] = $this->posts['venue_with_url'];
 		$this->posts['has_venue'] = tribe_create_event( $settings );
+	}
+
+	/**
+	 * Test tribe_get_venue_object returns null for non-existing venue
+	 */
+	public function test_tribe_get_venue_object_returns_null_for_non_existing_venue() {
+		// Sanity check: let's make sure this does not exist.
+		$this->assertNull( get_post( 23 ) );
+
+		$this->assertNull( tribe_get_venue_object( 23 ) );
+	}
+
+	/**
+	 * Test tribe_get_venue_object allows filtering the post before any request is made
+	 */
+	public function test_tribe_get_venue_object_allows_filtering_the_post_before_any_request_is_made() {
+		$venue = static::factory()->venue->create_and_get();
+
+		$count = $this->queries()->countQueries();
+
+		// Delete the cache to make sure a new fetch would be triggered by `get_post` calls.
+		wp_cache_delete( $venue->ID, 'posts' );
+
+		add_filter( 'tribe_get_venue_object_before', static function () use ( $venue ) {
+			return $venue;
+		} );
+
+		// Pass the ID to force a `get_post` call if not filtered.
+		tribe_get_venue_object( $venue->ID );
+
+		$this->assertEquals( $count, $this->queries()->countQueries() );
+	}
+
+	/**
+	 * Test tribe_get_venue_object attaches a default set of properties to the post
+	 */
+	public function test_tribe_get_venue_object_attaches_a_default_set_of_properties_to_the_post() {
+		$venue_id = static::factory()->venue->create();
+
+		$venue = tribe_get_event( $venue_id );
+
+		$expected = [
+			'address'               => get_post_meta( $event_id, '_VenueAddress', true ),
+			'country'               => get_post_meta( $event_id, '_VenueCountry', true ),
+			'city'                  => get_post_meta( $event_id, '_VenueCity', true ),
+			'state_province'        => get_post_meta( $event_id, '_VenueStateProvince', true ),
+			'state'                 => get_post_meta( $event_id, '_VenueState', true ),
+			'province'              => get_post_meta( $event_id, '_VenueProvince', true ),
+			'zip'                   => get_post_meta( $event_id, '_VenueZip', true ),
+			'overwrite_coordinates' => get_post_meta( $event_id, '_VenueOverwriteCoords', true ),
+			'latitude'              => get_post_meta( $event_id, '_VenueLat', true ),
+			'longitude'             => get_post_meta( $event_id, '_VenueLng', true ),
+			'geolocation_string'    => get_post_meta( $event_id, '_VenueGeoAddress', true ),
+		];
+
+		foreach ( $expected as $key => $value ) {
+			$isset_message = "Property '{$key}'' is not set on the venue object.";
+			$this->assertTrue( isset( $venue->{$key} ), $isset_message );
+			$value_message = "Property '{$key}' has wrong value.";
+			$this->assertEquals( $value, $venue->{$key}, $value_message );
+		}
+	}
+	/**
+	 * Test tribe_get_venue_object returns a WP_Post object
+	 */
+	public function test_tribe_get_venue_object_returns_a_wp_post_object() {
+		$venue = static::factory()->venue->create_and_get();
+
+		$result = tribe_get_venue_object( $venue );
+
+		$this->assertInstanceOf( \WP_Post::class, $result );
+	}
+
+	/**
+	 * @test tribe_get_venue_object results are cached until post save
+	 */
+	public function test_tribe_get_venue_object_results_are_cached_until_post_save() {
+		$venue_id = static::factory()->venue->create();
+
+		$first_fetch = tribe_get_venue_object( $venue_id );
+
+		$first_fetch_count = $this->queries()->countQueries();
+
+		// Sanity check.
+		$this->assertInstanceOf( \WP_Post::class, $first_fetch );
+		$this->assertEquals( $venue_id, $first_fetch->ID );
+
+		$second_fetch = tribe_get_venue_object( $venue_id );
+
+		$second_fetch_count = $this->queries()->countQueries();
+
+		$this->assertInstanceOf( \WP_Post::class, $second_fetch );
+		$this->assertEquals( $venue_id, $second_fetch->ID );
+		$this->assertEquals( $first_fetch_count, $second_fetch_count );
+
+		// Update the venue thus triggering a cache invalidation.
+		wp_update_post( [ 'ID' => $venue_id, 'post_title' => 'Updated' ] );
+
+		$third_fetch = tribe_get_venue_object( $venue_id );
+
+		$third_fetch_count = $this->queries()->countQueries();
+
+		$this->assertInstanceOf( \WP_Post::class, $third_fetch );
+		$this->assertEquals( $venue_id, $third_fetch->ID );
+		$this->assertGreaterThan( $first_fetch_count, $third_fetch_count );
+	}
+
+	/**
+	 * Test tribe_get_venue_object result is filterable
+	 */
+	public function test_tribe_get_venue_object_result_is_filterable() {
+		$venue_id = static::factory()->venue->create();
+
+		add_filter( 'tribe_get_venue_object', static function ( \WP_Post $venue ) {
+			$venue->foo = 'bar';
+
+			return $venue;
+		} );
+
+		$venue = tribe_get_venue_object( $venue_id );
+
+		$this->assertTrue( isset( $venue->foo ) );
+		$this->assertEquals( 'bar', $venue->foo );
+	}
+
+	/**
+	 * Test tribe_get_venue_object allows specifying the output format.
+	 */
+	public function test_tribe_get_venue_object_allows_specifying_the_output_format() {
+		$venue_id = static::factory()->venue->create();
+
+		$venue = tribe_get_venue_object( $venue_id );
+
+		$queries_count = $this->queries()->countQueries();
+
+		$this->assertEquals( (array) $venue, tribe_get_venue_object( $venue_id, ARRAY_A ) );
+		$this->assertEquals( $queries_count, $this->queries()->countQueries() );
+		$this->assertEquals( array_values( (array) $venue ), tribe_get_venue_object( $venue_id, ARRAY_N ) );
+		$this->assertEquals( $queries_count, $this->queries()->countQueries() );
+	}
+
+	/**
+	 * It should cache on shutdown and only if a lazy property was accessed
+	 *
+	 * @test
+	 */
+	public function should_cache_on_shutdown_and_only_if_a_lazy_property_was_accessed() {
+		$post_id = static::factory()->venue->create();
+
+		$cache_key = 'venues_' . $post_id . '_raw';
+		$cache     = new \Tribe__Cache();
+
+		$venue = tribe_get_venue_object( $post_id );
+
+		$cached_before = $cache->get( $cache_key, \Tribe__Cache_Listener::TRIGGER_SAVE_POST );
+
+		$this->assertFalse( $cached_before );
+
+		$this->suspending_filter_do( 'shutdown',
+			function () use ( $cache, $cache_key, $venue ) {
+				$venue->thumbnail->thumbnail_id;
+				do_action( 'shutdown' );
+				$cached = $cache->get( $cache_key, \Tribe__Cache_Listener::TRIGGER_SAVE_POST );
+				$this->assertInternalType( 'array' , $cached );
+				$this->assertNotEmpty( array_intersect_key( get_object_vars( $venue ), $cached ) );
+			}
+		);
 	}
 }
