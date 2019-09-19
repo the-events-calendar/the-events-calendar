@@ -20,7 +20,7 @@ if ( empty( $event->cost ) ) {
 	return;
 }
 ?>
-<div class="tribe-events-c-small-cta tribe-events-calendar-list__event-cost">
+<div class="tribe-events-c-small-cta tribe-common-b3 tribe-events-calendar-list__event-cost">
 	<span class="tribe-events-c-small-cta__price">
 		<?php echo esc_html( $event->cost ) ?>
 	</span>
