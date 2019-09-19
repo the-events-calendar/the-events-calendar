@@ -249,17 +249,17 @@ class venueTest extends Events_TestCase {
 		$venue = tribe_get_event( $venue_id );
 
 		$expected = [
-			'address'               => get_post_meta( $event_id, '_VenueAddress', true ),
-			'country'               => get_post_meta( $event_id, '_VenueCountry', true ),
-			'city'                  => get_post_meta( $event_id, '_VenueCity', true ),
-			'state_province'        => get_post_meta( $event_id, '_VenueStateProvince', true ),
-			'state'                 => get_post_meta( $event_id, '_VenueState', true ),
-			'province'              => get_post_meta( $event_id, '_VenueProvince', true ),
-			'zip'                   => get_post_meta( $event_id, '_VenueZip', true ),
-			'overwrite_coordinates' => get_post_meta( $event_id, '_VenueOverwriteCoords', true ),
-			'latitude'              => get_post_meta( $event_id, '_VenueLat', true ),
-			'longitude'             => get_post_meta( $event_id, '_VenueLng', true ),
-			'geolocation_string'    => get_post_meta( $event_id, '_VenueGeoAddress', true ),
+			'address'               => get_post_meta( $venue_id, '_VenueAddress', true ),
+			'country'               => get_post_meta( $venue_id, '_VenueCountry', true ),
+			'city'                  => get_post_meta( $venue_id, '_VenueCity', true ),
+			'state_province'        => get_post_meta( $venue_id, '_VenueStateProvince', true ),
+			'state'                 => get_post_meta( $venue_id, '_VenueState', true ),
+			'province'              => get_post_meta( $venue_id, '_VenueProvince', true ),
+			'zip'                   => get_post_meta( $venue_id, '_VenueZip', true ),
+			'overwrite_coordinates' => get_post_meta( $venue_id, '_VenueOverwriteCoords', true ),
+			'latitude'              => get_post_meta( $venue_id, '_VenueLat', true ),
+			'longitude'             => get_post_meta( $venue_id, '_VenueLng', true ),
+			'geolocation_string'    => get_post_meta( $venue_id, '_VenueGeoAddress', true ),
 		];
 
 		foreach ( $expected as $key => $value ) {
