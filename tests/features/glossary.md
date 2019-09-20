@@ -1,5 +1,7 @@
 <h3>Glossary of Terms</h3>
 
+**Date header** - the text which displays the date or date range of the events on that page. Appears under the Events Bar but above the events in V2.
+
 **Date marker** - the visual element which displays the date for an event in V2 List, Photo, and Map Views. This is not the same as the text which shows the full date and time of the event.
 
 **Day segment** - The individual section of the Month View grid that is dedicated to one date.
