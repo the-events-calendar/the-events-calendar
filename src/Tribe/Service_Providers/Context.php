@@ -233,6 +233,43 @@ class Context extends \tad_DI52_ServiceProvider {
 					],
 				],
 			],
+			'event_post_type' => [
+				'read' => [
+					Tribe__Context::LOCATION_FUNC => [
+						'post_type',
+						static function ( $post_type ) {
+							return (array) $post_type === [ TEC::POSTTYPE ];
+						}
+					]
+				]
+			],
+			'venue_post_type' => [
+				'read' => [
+					Tribe__Context::LOCATION_FUNC => [
+						'post_type',
+						static function ( $post_type ) {
+							return (array) $post_type === [ Venue::POSTTYPE ];
+						}
+					]
+				]
+			],
+			'organizer_post_type' => [
+				'read' => [
+					Tribe__Context::LOCATION_FUNC => [
+						'post_type',
+						static function ( $post_type ) {
+							return (array) $post_type === [ Organizer::POSTTYPE ];
+						}
+					]
+				]
+			],
+			'event_category' => [
+				'read' => [
+					Tribe__Context::QUERY_PROP  => [ TEC::TAXONOMY ],
+					Tribe__Context::QUERY_VAR   => [ TEC::TAXONOMY ],
+					Tribe__Context::REQUEST_VAR => [ TEC::TAXONOMY ],
+				],
+			],
 		] );
 
 		return $locations;
