@@ -917,9 +917,11 @@ class View implements View_Interface {
 	 * @return array An array of Template variables for the View Template.
 	 */
 	protected function setup_template_vars() {
+		$events = $this->repository->all();
+
 		$template_vars = [
-			'title'             => $this->get_title(),
-			'events'            => $this->repository->all(),
+			'title'             => $this->get_title( $events ),
+			'events'            => $events,
 			'url'               => $this->get_url( true ),
 			'prev_url'          => $this->prev_url( true ),
 			'next_url'          => $this->next_url( true ),
@@ -1126,10 +1128,19 @@ class View implements View_Interface {
 	 *
 	 * @since TBD
 	 *
+	 * @param  array $events An array of events to generate the title for.
+	 *
 	 * @return string The filtered view title.
 	 */
-	public function get_title() {
-		$title   = static::$container->make( Title::class )->filter_wp_title( '' );
+	public function get_title( array $events = [] ) {
+		if ( $this->context->doing_ajax() || $this->context->doing_rest() ) {
+			$this->context->dangerously_set_global_context();
+		}
+
+		$title = static::$container->make( Title::class )
+		                           ->set_context( $this->context )
+		                           ->set_posts( $events )
+		                           ->build_title();
 
 		$slug    = $this->get_slug();
 
