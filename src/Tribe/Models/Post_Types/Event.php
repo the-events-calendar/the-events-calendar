@@ -20,8 +20,8 @@ use Tribe\Utils\Post_Thumbnail;
 use Tribe__Date_Utils as Dates;
 use Tribe__Events__Featured_Events as Featured;
 use Tribe__Events__Organizer as Organizer;
-use Tribe__Events__Venue as Venue;
 use Tribe__Events__Timezones as Timezones;
+use Tribe__Events__Venue as Venue;
 
 /**
  * Class Event
@@ -40,17 +40,16 @@ class Event extends Base {
 		try {
 			$cache_this = $this->get_caching_callback( $filter );
 
-			$now                   = Dates::build_date_object( 'now' );
-			$post_id               = $this->post->ID;
+			$now     = Dates::build_date_object( 'now' );
+			$post_id = $this->post->ID;
+
 			$start_date            = get_post_meta( $post_id, '_EventStartDate', true );
 			$start_date_utc        = get_post_meta( $post_id, '_EventStartDateUTC', true );
 			$end_date              = get_post_meta( $post_id, '_EventEndDate', true );
 			$end_date_utc          = get_post_meta( $post_id, '_EventEndDateUTC', true );
 			$duration              = (int) get_post_meta( $post_id, '_EventDuration', true );
 			$timezone_string       = Timezones::get_event_timezone_string( $post_id );
-			$all_day               = tribe_is_truthy( get_post_meta( $post_id,
-			                                                         '_EventAllDay',
-			                                                         true ) );// An event is multi-day if its end date is after the end-of-day cutoff of the start date.
+			$all_day               = tribe_is_truthy( get_post_meta( $post_id, '_EventAllDay', true ) );
 			$end_of_day            = tribe_end_of_day( $start_date );
 			$timezone              = Timezones::build_timezone_object( $timezone_string );
 			$utc_timezone          = new DateTimezone( 'UTC' );
@@ -59,12 +58,22 @@ class Event extends Base {
 			$start_date_utc_object = new DateTimeImmutable( $start_date_utc, $utc_timezone );
 			$end_date_utc_object   = new DateTimeImmutable( $end_date_utc, $utc_timezone );
 			$end_of_day_object     = new DateTimeImmutable( $end_of_day, $timezone );
+
+			if ( empty( $duration ) ) {
+				// This is really an edge case, but here we have the information to rebuild it.
+				$duration = $end_date_utc_object->getTimestamp() - $start_date_utc_object->getTimestamp();
+			}
+
+			// An event is multi-day if its end date is after the end-of-day cutoff of the start date.
 			$is_multiday           = $end_of_day_object < $end_date_object;
-			$multiday              = false;// Without a context these values will not make sense; we'll set them if the `$filter` argument is a date.
+			$multiday              = false;
+
+			// Without a context these values will not make sense; we'll set them if the `$filter` argument is a date.
 			$starts_this_week      = null;
 			$ends_this_week        = null;
 			$happens_this_week     = null;
 			$this_week_duration    = null;
+
 			if ( Dates::is_valid_date( $filter ) ) {
 				$week_start = Dates::build_date_object( $filter, $timezone );
 				// Sunday is 0.
