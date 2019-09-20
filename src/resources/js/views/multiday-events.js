@@ -219,7 +219,9 @@ tribe.events.views.multidayEvents = {};
 		var viewSlug = data.slug;
 		var allowedViews = $container.data( 'tribeEventsMultidayEventsAllowedViews' );
 
-		if ( -1 === allowedViews.indexOf( viewSlug ) ) return;
+		if ( -1 === allowedViews.indexOf( viewSlug ) ) {
+			return;
+		}
 
 		obj.initSelectors( viewSlug );
 		obj.bindMultidayEvents( $container );

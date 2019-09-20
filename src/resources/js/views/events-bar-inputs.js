@@ -149,7 +149,9 @@ tribe.events.views.eventsBarInputs = {};
 	obj.bindEvents = function( event, index, $container, data ) {
 		var $inputWrapper = $container.find( obj.selectors.inputWrapper );
 
-		if ( ! $inputWrapper.length ) return;
+		if ( ! $inputWrapper.length ) {
+			return;
+		}
 
 		obj.bindInputEvents( $container );
 		$container.on( 'beforeAjaxSuccess.tribeEvents', { container: $container }, obj.unbindEvents );

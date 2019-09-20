@@ -382,7 +382,9 @@ tribe.events.views.monthGrid = {};
 	obj.init = function( event, index, $container, data ) {
 		var $grid = $container.find( obj.selectors.grid );
 
-		if ( ! $grid.length ) return;
+		if ( ! $grid.length ) {
+			return;
+		}
 
 		obj.initState( $grid );
 		obj.setupGrid( $grid );
