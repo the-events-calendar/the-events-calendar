@@ -6,9 +6,6 @@
  */
 
 use Tribe\Events\Models\Post_Types\Event;
-use Tribe\Utils\Lazy_Collection;
-use Tribe\Utils\Lazy_String;
-use Tribe\Utils\Post_Thumbnail;
 
 if ( ! function_exists( 'tribe_get_event' ) ) {
 	/**
