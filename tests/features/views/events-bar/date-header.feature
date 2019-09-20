@@ -4,6 +4,7 @@ Feature: Date Header under the Events Bar
 
 Background:
     Given I am a Visitor on a site with TEC
+    Given all views are active
     Given the site timezone is America/Los_Angeles
     Given Views V2 is active
     Given "Date with year" is set to "F j, Y"
@@ -13,7 +14,8 @@ Background:
     Given "Number of events to show per page" is set to 10
 
 Scenario Outline: Date header format in List View (desktop) for a date range
-    Given the Datepicker is set to September 1 of this year
+    Given the Datepicker is set to September 1, 2025
+    And today's date is on or before August 30, 2025
     And there are 10 public, published events on this site
     And the first event starts on <start date>
     And the last event ends on <end date> of this year
@@ -29,6 +31,7 @@ Scenario Outline: Date header format in List View (desktop) for a date range
 
 Scenario: Date header format in List View (mobile) for a date range
     Given the Datepicker is set to September 1, 2025
+    And today's date is on or before August 30, 2025
     And there are 10 public, published events on this site
     And the first event starts on September 1, 2025
     And the last event ends on <end date>
@@ -60,13 +63,25 @@ Scenario: Date header format in Month View (desktop & mobile)
     When I look at Month View
     Then I should see the Date Header "March 2019"
 
-Scenario: Date header format in Day View (desktop & mobile) for a day outside the current year
+Scenario: Date header format in Day View (desktop) for a day outside the current year
+    Given the Datepicker is set to March 5 2019
+    When I look at Day View
+    Then I should see the Date Header "Tuesday, March 5, 2019"
+
+Scenario: Date header format in Day View (mobile) for a day outside the current year
     Given the Datepicker is set to March 5 2019
     When I look at Day View
     Then I should see the Date Header "March 5, 2019"
 
-Scenario: Date header format in Day View (desktop & mobile) for today
-    Given the Datepicker is on default (today’s date)
+Scenario: Date header format in Day View (desktop) for today
+    Given today's date is April 10 2022
+    And the Datepicker is on default (today’s date & current time)
     When I look at Day View
-    Then I should see the Date Header showing today's date in "F j" format
+    Then I should see the Date Header "Sunday, April 10"
+
+Scenario: Date header format in Day View (mobile) for today
+    Given today's date is April 10 2022
+    And the Datepicker is on default (today’s date & current time)
+    When I look at Day View
+    Then I should see the Date Header "April 10"
 
