@@ -15,6 +15,7 @@ class Featured_ImageTest extends HtmlPartialTestCase {
 	 */
 	public function test_render_with_featured_image() {
 		$event = $this->mock_event( 'events/single/1.template.json', [
+			'id'         => 8,
 			'start_date' => '2018-01-01',
 			'end_date'   => '2018-01-01'
 		] )->with_thumbnail()->get();
@@ -27,6 +28,7 @@ class Featured_ImageTest extends HtmlPartialTestCase {
 	 */
 	public function test_render_with_no_featured_image() {
 		$event = $this->get_mock_event( 'events/single/1.template.json', [
+			'id'         => 8,
 			'start_date' => '2018-01-01',
 			'end_date'   => '2018-01-01'
 		] );
