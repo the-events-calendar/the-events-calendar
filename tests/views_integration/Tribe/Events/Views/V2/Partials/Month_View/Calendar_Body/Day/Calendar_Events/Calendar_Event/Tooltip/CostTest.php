@@ -28,7 +28,6 @@ class CostTest extends HtmlPartialTestCase
 
 		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => $event ] ) );
 	}
-}
 
 }
 
