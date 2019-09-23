@@ -665,9 +665,9 @@
             "authors": [
                 {
                     "name": "Franck Nijhof",
+                    "role": "Developer",
                     "email": "f.nijhof@dealerdirect.nl",
-                    "homepage": "http://workingatdealerdirect.eu",
-                    "role": "Developer"
+                    "homepage": "http://workingatdealerdirect.eu"
                 }
             ],
             "description": "PHP_CodeSniffer Standards Composer Installer Plugin",
@@ -997,9 +997,9 @@
             "authors": [
                 {
                     "name": "Oscar Otero",
+                    "role": "Developer",
                     "email": "oom@oscarotero.com",
-                    "homepage": "http://oscarotero.com",
-                    "role": "Developer"
+                    "homepage": "http://oscarotero.com"
                 }
             ],
             "description": "PHP gettext manager",
@@ -1051,8 +1051,8 @@
             "authors": [
                 {
                     "name": "Michele Locati",
-                    "email": "mlocati@gmail.com",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "mlocati@gmail.com"
                 }
             ],
             "description": "gettext languages with plural rules",
@@ -2004,12 +2004,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/moderntribe/tribe-testing-facilities",
-                "reference": "b8e60ed3ad409aad31e8b2c317c419b038102d9e"
+                "reference": "0dc8e85287c2c1f68ffcc6d96578709d80b12909"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/moderntribe/tribe-testing-facilities/zipball/b8e60ed3ad409aad31e8b2c317c419b038102d9e",
-                "reference": "b8e60ed3ad409aad31e8b2c317c419b038102d9e",
+                "url": "https://api.github.com/repos/moderntribe/tribe-testing-facilities/zipball/0dc8e85287c2c1f68ffcc6d96578709d80b12909",
+                "reference": "0dc8e85287c2c1f68ffcc6d96578709d80b12909",
                 "shasum": ""
             },
             "require": {
@@ -2067,7 +2067,7 @@
                 }
             ],
             "description": "Testing facilities, helpers and examples.",
-            "time": "2019-09-10T18:15:59+00:00"
+            "time": "2019-09-19T15:57:35+00:00"
         },
         {
             "name": "mustache/mustache",
@@ -2300,18 +2300,18 @@
             "authors": [
                 {
                     "name": "Arne Blankerts",
-                    "email": "arne@blankerts.de",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "arne@blankerts.de"
                 },
                 {
                     "name": "Sebastian Heuer",
-                    "email": "sebastian@phpeople.de",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "sebastian@phpeople.de"
                 },
                 {
                     "name": "Sebastian Bergmann",
-                    "email": "sebastian@phpunit.de",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "sebastian@phpunit.de"
                 }
             ],
             "description": "Component for reading phar.io manifest information from a PHP Archive (PHAR)",
@@ -4045,9 +4045,9 @@
             "authors": [
                 {
                     "name": "Sebastian De Deyne",
+                    "role": "Developer",
                     "email": "sebastian@spatie.be",
-                    "homepage": "https://spatie.be",
-                    "role": "Developer"
+                    "homepage": "https://spatie.be"
                 }
             ],
             "description": "Snapshot testing with PHPUnit",
@@ -4898,8 +4898,8 @@
             "authors": [
                 {
                     "name": "Arne Blankerts",
-                    "email": "arne@blankerts.de",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "arne@blankerts.de"
                 }
             ],
             "description": "A small library for converting tokenized PHP source code into XML and potentially other formats",
@@ -6316,13 +6316,13 @@
             "authors": [
                 {
                     "name": "James Logsdon",
-                    "email": "jlogsdon@php.net",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "jlogsdon@php.net"
                 },
                 {
                     "name": "Daniel Bachhuber",
-                    "email": "daniel@handbuilt.co",
-                    "role": "Maintainer"
+                    "role": "Maintainer",
+                    "email": "daniel@handbuilt.co"
                 }
             ],
             "description": "Console utilities for PHP",

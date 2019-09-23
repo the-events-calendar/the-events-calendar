@@ -62,4 +62,9 @@ class Calendar_BodyTest extends HtmlPartialTestCase {
 			false
 		);
 	}
+
+	public function tearDown(){
+		Test::tearDown();
+		parent::tearDown();
+	}
 }

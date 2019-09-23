@@ -14,7 +14,7 @@ class PrevTest extends HtmlPartialTestCase
 	 */
 	public function test_render_with_context() {
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
-			'link' => '#',
+			'link' => 'http://test.tri.be',
 		] ) );
 	}
 }

@@ -11,26 +11,18 @@ class Featured_ImageTest extends HtmlPartialTestCase {
 	protected $partial_path = 'month/calendar-body/day/calendar-events/calendar-event/tooltip/featured-image';
 
 	/**
-	 * Test render with featured image
+	 * Test render with event without featured image
 	 */
-	public function test_render_with_featured_image() {
-		$event = $this->mock_event( 'events/single/1.template.json', [
-			'start_date' => '2018-01-01',
-			'end_date'   => '2018-01-01'
-		] )->with_thumbnail()->get();
-
+	public function test_render_with_event_without_featured_image() {
+		$event = $this->get_mock_event( 'events/single/1.json' );
 		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => $event ] ) );
 	}
 
 	/**
-	 * Test render with no featured image
+	 * Test render with event with featured image
 	 */
-	public function test_render_with_no_featured_image() {
-		$event = $this->get_mock_event( 'events/single/1.template.json', [
-			'start_date' => '2018-01-01',
-			'end_date'   => '2018-01-01'
-		] );
-
+	public function test_render_with_event_with_featured_image() {
+		$event = $this->mock_event( 'events/single/1.json' )->with_thumbnail()->get();
 		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => $event ] ) );
 	}
 }
