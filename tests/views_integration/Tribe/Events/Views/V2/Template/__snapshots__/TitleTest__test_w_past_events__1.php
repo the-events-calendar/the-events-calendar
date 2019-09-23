@@ -1,1 +1,1 @@
-<?php return 'Past Events';
+<?php return 'Upcoming Events';

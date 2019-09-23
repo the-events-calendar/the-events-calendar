@@ -1,1 +1,1 @@
-<?php return 'Events for February 2019';
+<?php return 'Upcoming Events';
