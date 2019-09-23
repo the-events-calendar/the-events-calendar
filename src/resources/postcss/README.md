@@ -149,3 +149,67 @@ In the case of an element, we might get the following scenario:
 	...
 }
 ```
+
+## Structure of The Events Calendar styles
+
+The Events Calendar styles are comprised of 2 files: `views-skeleton.pcss` and `views-full.pcss`. The views skeleton styles cover basic layout styles for the views and components. The views full styles, combined with the skeleton styles, make up the full suite of styles for The Events Calendar plugin views.
+
+The Events Calendar styles are broken into 4 main sections: utilities, base, components, and views.
+
+### Utilities
+
+The utilities are a set of common PostCSS variables, icons, and mixins used throughout the plugins. These come from the Tribe Common Styles repository. See Tribe Common Styles for more details.
+
+### Base
+
+The base styles are very general styles that can be applied to all views. The two main partials are layouts and views. These cover styles for the general layout and view containers.
+
+### Components
+
+Components are groups of reusable markup and styles. The component style structure is meant to mirror the markup structure.
+
+### Views
+
+The views styles are styles that are specific to each view and the sub-elements of each view. These are generally more layout-focused after applying common styles, though some elements, such as in the month view, require more custom styles.
+
+### Media queries
+
+These styles use a mobile-first approach. Given this, there are only `min-width:` breakpoints, never `max-width:` breakpoints. This also lends to using the `--min-medium` modifier.
+
+## Theme overrides
+
+Modern Tribe plugins support a handful of themes. Some themes provide stylesheets that have high specificity for elements and override the plugin styles. To counter this, we've included theme overrides to ensure our plugin styles display as expected with the supported themes.
+
+The specificity to override the styles are matched to those applied to the theme. This means that if, for example, a theme applied an ID and 2 extra classes to a `button` style, we might see the following theme override:
+
+```
+.tribe-events {
+
+	/* -------------------------------------------------------------------------
+	 * Datepicker: Theme Overrides
+	 * ------------------------------------------------------------------------- */
+
+	#id-1 .class-1 .class-2 & {
+
+		.datepicker {
+			/* datepicker theme override styles */
+		}
+	}
+}
+```
+
+## How to contribute
+
+You want to contribute to these styles? Great! There are a few things to consider when making changes:
+
+### Additions
+
+Additions are generally safe, as long as the selectors do not conflict with existing selectors.
+
+### Alterations
+
+Alterations should be done carefully, as they will affect all element styles using the selectors being altered.
+
+### Deletions
+
+Deletions should also be done carefully, for the same reasons as **Alterations** above. Removing a style from a selector that is still being used will result in unintended styles.
