@@ -12,13 +12,23 @@ class CostTest extends HtmlPartialTestCase
 	protected $partial_path = 'month/calendar-body/day/calendar-events/calendar-event/tooltip/cost';
 
 	/**
-	 * Test render with context
+	 * Test render with cost
 	 */
 	public function test_render_with_cost() {
 
-		$event = $this->get_mock_event( 'events/single/1.template.json', [ 'ID' => 23, 'start_date' => '2018-01-01', 'end_date' => '2018-01-01' ] );
+		$event = $this->get_mock_event( 'events/single/1.template.json', [ 'id' => 23, 'start_date' => '2018-01-01', 'end_date' => '2018-01-01' ] );
 		$event->cost = '$10';
 
 		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => $event ] ) );
 	}
+
+	public function test_render_without_cost() {
+
+		$event = $this->get_mock_event( 'events/single/1.template.json', [ 'id' => 23, 'start_date' => '2018-01-01', 'end_date' => '2018-01-01' ] );
+
+		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => $event ] ) );
+	}
 }
+
+}
+

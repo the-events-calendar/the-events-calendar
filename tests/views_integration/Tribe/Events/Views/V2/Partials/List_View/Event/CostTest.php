@@ -27,7 +27,6 @@ class CostTest extends HtmlPartialTestCase
 	 */
 	public function test_render_without_cost() {
 		$event = $this->get_mock_event( 'events/single/1.template.json', [ 'ID' => 23, 'start_date' => '2018-01-01', 'end_date' => '2018-01-01' ] );
-		$event->cost = '$10';
 
 		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => $event ] ) );
 	}

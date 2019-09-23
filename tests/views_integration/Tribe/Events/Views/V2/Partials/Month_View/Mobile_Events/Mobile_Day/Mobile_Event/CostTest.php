@@ -11,12 +11,19 @@ class CostTest extends HtmlPartialTestCase
 	protected $partial_path = 'month/mobile-events/mobile-day/mobile-event/cost';
 
 	/**
-	 * Test render with context
+	 * Test render with cost
 	 */
 	public function test_render_with_cost() {
 
 		$event = $this->get_mock_event( 'events/featured/1.json', [] );
 		$event->cost = '$10';
+
+		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => $event ] ) );
+	}
+
+	public function test_render_without_cost() {
+
+		$event = $this->get_mock_event( 'events/featured/1.json', [] );
 
 		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => $event ] ) );
 	}
