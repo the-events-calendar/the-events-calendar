@@ -790,7 +790,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		$venue_details = [];
-		$venue_details['ID'] = $post_id;
 
 		if ( $venue_link = tribe_get_venue_link( $post_id ) ) {
 			$venue_details['linked_name'] = $venue_link;
@@ -799,8 +798,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		if ( $venue_address = tribe_get_full_address( $post_id ) ) {
 			$venue_details['address'] = $venue_address;
 		}
-
-		$venue_details['text_address'] = tribe_get_venue_single_line_address( $post_id, false );
 
 		/**
 		 * Allows customization of the retrieved venue details.
