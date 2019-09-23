@@ -37,3 +37,115 @@ Given this markup, the PostCSS will look like the following:
 ```
 
 We need the `tribe-events` wrapper class in order to override Common resets and styles, as they use the `tribe-common` wrapper class. This also allows us to target only the elements we intend to target within the Modern Tribe plugin views while reducing the probability of clashing styles with themes.
+
+## CSS specificity
+
+Given the above structure of using a wrapper class, we've increased the [CSS specificity](https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity) needed for theme developers to override our styles. For class-based styles, the minimum specificity required is 2 classes. With some modifiers, the minimum specificity required may be 3 classes. For example:
+
+```
+.tribe-events {
+	...
+
+	.tribe-events-calendar-month__day--current {
+
+		.tribe-events-calendar-month__day-date {
+			/* month day date styles */
+		}
+	}
+
+	...
+}
+```
+
+In this case, the day date is an element of the month day. However, the `--current` modifier is applied to the top level element day. Given this structure, our minimum specificity becomes 3 classes.
+
+For overriding styles, it is recommended to only use classes to keep overriding specificity consistent. All elements should have classes and should be targetted using those classes.
+
+## Modifiers, pseudo-classes, and media queries
+
+As you get into building upon these styles and creating new styles, the order of modifiers, pseudo-classes, and media queries comes into question. The general rule is to apply them in the following order: media queries, pseudo-classes, modifiers. See the examples below:
+
+```
+.tribe-events {
+	...
+
+	.tribe-events-c-view-selector__button {
+		/* view selector button styles */
+
+		@media (--viewport-medium) {
+			/* viewport medium view selector button styles */
+		}
+
+		&:before {
+			/* :before pseudo-class styles */
+
+			@media (--viewport-medium) {
+				/* viewport medium :before pseudo-class styles */
+			}
+		}
+	}
+
+	.tribe-events-c-view-selector__button--active {
+		/* active view selector button styles */
+
+		@media (--viewport-medium) {
+			/* viewport medium active view selector button styles */
+		}
+
+		&:before {
+			/* :before pseudo-class styles */
+
+			@media (--viewport-medium) {
+				/* viewport medium :before pseudo-class styles */
+			}
+		}
+	}
+
+	...
+}
+```
+
+In the case of an element, we might get the following scenario:
+
+```
+.tribe-common {
+	...
+
+	.tribe-events-c-view-selector__button {
+		/* view selector button styles */
+
+		@media (--viewport-medium) {
+			/* viewport medium view selector button styles */
+		}
+
+		&:before {
+			/* :before pseudo-class styles */
+
+			@media (--viewport-medium) {
+				/* viewport medium :before pseudo-class styles */
+			}
+		}
+	}
+
+	.tribe-events-c-view-selector--tabs {
+
+		.tribe-events-c-view-selector__button {
+			/* tabs view selector button styles */
+
+			@media (--viewport-medium) {
+				/* viewport medium tabs view selector button styles */
+			}
+
+			&:before {
+				/* :before pseudo-class styles */
+
+				@media (--viewport-medium) {
+					/* viewport medium :before pseudo-class styles */
+				}
+			}
+		}
+	}
+
+	...
+}
+```
