@@ -28,7 +28,7 @@ $classes['tribe-events-calendar-month-mobile-events__mobile-event--featured'] = 
 
 		<?php $this->template( 'month/mobile-events/mobile-day/mobile-event/date', [ 'event' => $event ] ); ?>
 		<?php $this->template( 'month/mobile-events/mobile-day/mobile-event/title', [ 'event' => $event ] ); ?>
-		<?php $this->template( 'month/mobile-events/mobile-day/mobile-event/cta', [ 'event' => $event ] ); ?>
+		<?php $this->template( 'month/mobile-events/mobile-day/mobile-event/cost', [ 'event' => $event ] ); ?>
 
 	</div>
 </article>

@@ -149,7 +149,7 @@ class Event extends Base {
 				'this_week_duration'     => $this_week_duration,
 				'happens_this_week'      => $happens_this_week,
 				'featured'               => $featured,
-				'cost'                   => tribe_get_cost( $post_id ),
+				'cost'                   => tribe_get_cost( $post_id, true ),
 				'organizers'             => ( new Lazy_Collection( $organizer_fetch ) )->on_resolve( $cache_this ),
 				'venues'                 => ( new Lazy_Collection( $venue_fetch ) )->on_resolve( $cache_this ),
 				'thumbnail'              => ( new Post_Thumbnail( $post_id ) )->on_resolve( $cache_this ),
