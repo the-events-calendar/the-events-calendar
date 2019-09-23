@@ -1133,14 +1133,23 @@ class View implements View_Interface {
 	 * @return string The filtered view title.
 	 */
 	public function get_title( array $events = [] ) {
-		if ( $this->context->doing_ajax() || $this->context->doing_rest() ) {
-			$this->context->dangerously_set_global_context();
+		if ( ! $this->context->doing_php_initial_state() ) {
+			/** @var Title $title_filter */
+			$title_filter = static::$container->make( Title::class )
+			                                  ->set_context( $this->context )
+			                                  ->set_posts( $events );
+
+			add_filter( 'document_title_parts', [ $title_filter, 'filter_document_title_parts' ] );
+			// We disable the filter to avoid the double encoding that would come from our preparation of the data.
+			add_filter( 'run_wptexturize', '__return_false' );
 		}
 
-		$title = static::$container->make( Title::class )
-		                           ->set_context( $this->context )
-		                           ->set_posts( $events )
-		                           ->build_title();
+		$title = wp_get_document_title();
+
+		if ( isset( $title_filter ) ) {
+			remove_filter( 'run_wptexturize', '__return_false' );
+			remove_filter( 'document_title_parts', [ $title_filter, 'filter_document_title_parts' ] );
+		}
 
 		$slug    = $this->get_slug();
 
@@ -1164,6 +1173,6 @@ class View implements View_Interface {
 		 */
 		$title = apply_filters( "tribe_events_views_v2_{$slug}_title", $title, $this );
 
-		return $title;
+		return htmlspecialchars_decode($title);
 	}
 }

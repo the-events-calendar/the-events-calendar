@@ -1,6 +1,6 @@
 <?php
 /**
- * Handles the manipulation of the template.
+ * Handles the manipulation of the template title to correctly render it in the context of a Views v2 request.
  *
  * @since   TBD
  *
@@ -118,18 +118,18 @@ class Title {
 		// If there's a date selected in the tribe bar, show the date range of the currently showing events
 		$event_date = $context->get( 'event_date', false );
 
-		$event_display = $context->get( 'event_display' );
+		$event_display_mode = $context->get( 'event_display_mode' );
 		if ( $event_date && count( $posts ) ) {
 			$title = $this->build_post_range_title( $context, $event_date );
-		} elseif ( 'past' === $event_display ) {
+		} elseif ( 'past' === $event_display_mode ) {
 			$title = sprintf( esc_html__( 'Past %s', 'the-events-calendar' ), $this->events_label_plural );
 		}
 
-		if ( 'month' === $event_display ) {
+		if ( 'month' === $event_display_mode ) {
 			$title = $this->build_month_title( $event_date );
 		}
 
-		if ( 'day' === $event_display ) {
+		if ( 'day' === $event_display_mode ) {
 			$title = $this->build_day_title( $event_date );
 		}
 
@@ -156,7 +156,23 @@ class Title {
 		 * @param Context $context The context used to build the title, it could be the global one, or one externally
 		 *                         set.
 		 */
-		return apply_filters( 'tribe_get_events_title', $title, $depth, $context );
+		$title = apply_filters( 'tribe_get_events_title', $title, $depth, $context );
+
+		/**
+		 * Filters the view title, specific to Views V2.
+		 *
+		 * While the `tribe_get_events_title` is called above this one for back-compatibility purposes, this filter
+		 * is exclusive to the Views V2 implementation.
+		 *
+		 * @since TBD
+		 *
+		 * @param string  $title   The "Events" page title as it's been generated thus far.
+		 * @param bool    $depth   Whether to include the linked title or not.
+		 * @param Context $context The context used to build the title, it could be the global one, or one externally
+		 *                         set.
+		 * @param array $posts An array of posts fetched by the View.
+		 */
+		return apply_filters( 'tribe_events_v2_view_title', $title, $depth, $context, $posts );
 	}
 
 	/**

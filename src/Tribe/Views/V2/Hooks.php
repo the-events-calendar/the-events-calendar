@@ -38,9 +38,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @since 4.9.2
 	 */
 	public function register() {
-		$this->container->tag( [
-			Event_Query_Controller::class,
-		], 'query_controllers' );
+		$this->container->tag( [ Event_Query_Controller::class, ], 'query_controllers' );
 		$this->add_actions();
 		$this->add_filters();
 	}
@@ -71,9 +69,11 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'body_class', [ $this, 'filter_body_class' ] );
 		add_filter( 'query_vars', [ $this, 'filter_query_vars' ], 15 );
 		add_filter( 'tribe_rewrite_canonical_query_args', [ $this, 'filter_map_canonical_query_args' ], 15, 3 );
-		add_filter( 'wp_title', [ $this, 'filter_wp_title' ], 10, 2 );
-		add_filter( 'document_title_parts', [ $this, 'filter_document_title_parts' ] );
 
+		if ( tribe_context()->doing_php_initial_state() ) {
+			add_filter( 'wp_title', [ $this, 'filter_wp_title' ], 10, 2 );
+			add_filter( 'document_title_parts', [ $this, 'filter_document_title_parts' ] );
+		}
 	}
 
 	/**
@@ -222,10 +222,6 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @return string The modified page title, if required.
 	 */
 	public function filter_wp_title( $title, $sep = null ) {
-		if ( ! ( tribe_context()->is( 'tec_post_type' ) ) ) {
-			return $title;
-		}
-
 		return $this->container->make( Title::class )->filter_wp_title( $title, $sep );
 	}
 
@@ -241,10 +237,6 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @return string The modified page title, if required.
 	 */
 	public function filter_document_title_parts( $title ) {
-		if ( ! ( tribe_context()->is( 'tec_post_type' ) ) ) {
-			return $title;
-		}
-
 		return $this->container->make( Title::class )->filter_document_title_parts( $title );
 	}
 }
