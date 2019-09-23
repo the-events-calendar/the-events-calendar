@@ -9,7 +9,7 @@
 	.tribe-events-c-small-cta {
 
 		> * {
-			margin-left: 10px;
+			margin-left: var(--spacer-1);
 
 			&:first-child {
 				margin-left: 0;
@@ -21,13 +21,8 @@
 		cursor: pointer;
 	}
 
-	.tribe-events-c-small-cta__price,
-	.tribe-events-c-small-cta__stock {
-		@mixin desktop-body-3;
-	}
-
 	.tribe-events-c-small-cta__stock {
 		color: var(--color-text-secondary);
-		margin-left: 5px;
+		margin-left: var(--spacer-0);
 	}
 }
