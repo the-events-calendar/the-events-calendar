@@ -439,7 +439,7 @@ class Stack {
 	 *
 	 * This method will "fill" empty spaces in the stack to recycle the space.
 	 *
-	 * @since TBD
+	 * @since 4.9.9
 	 *
 	 * @param array $stack_positions        The currently assigned stack positions, in the shape
 	 *                                      `[ <id> => <position> ]`.
@@ -467,7 +467,7 @@ class Stack {
 	/**
 	 * Assigns a stack postion to each event w/o one not recycling space.
 	 *
-	 * @since TBD
+	 * @since 4.9.9
 	 *
 	 * @param array $stack_positions The current stack positions.
 	 * @param array $event_ids       The events to position in the stack, events that already have a position will not

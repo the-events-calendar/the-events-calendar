@@ -50,7 +50,7 @@ abstract class By_Day_View extends View{
 	/**
 	 * An instance of the Stack object.
 	 *
-	 * @since TBD
+	 * @since 4.9.9
 	 *
 	 * @var Stack
 	 */
@@ -219,7 +219,7 @@ abstract class By_Day_View extends View{
 	/**
 	 * Builds the next or prev URL given the date that should be used.
 	 *
-	 * @since TBD
+	 * @since 4.9.9
 	 *
 	 * @param mixed $date          The date to build the URL from, a date object or string.
 	 * @param bool  $canonical     Whether to return the canonical version of the URL or not.
@@ -265,7 +265,7 @@ abstract class By_Day_View extends View{
 	/**
 	 * Return the PHP `date` format that should be used to build the View URL when targeting a specific date.
 	 *
-	 * @since TBD
+	 * @since 4.9.9
 	 *
 	 * @return string The PHP `date` format that should be used to build the View URL when targeting a specific date;
 	 *                e.g. `Y-m` for Month View, or `Y-m-d` for Week View.

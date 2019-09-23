@@ -208,7 +208,7 @@ tribe.events.views.multidayEvents = {};
 	/**
 	 * Binds events for container.
 	 *
-	 * @since TBD
+	 * @since 4.9.9
 	 *
 	 * @param {jQuery}  $container jQuery object of view container.
 	 * @param {object}  data       data object passed from 'afterSetup.tribeEvents' event.
@@ -229,7 +229,7 @@ tribe.events.views.multidayEvents = {};
 	/**
 	 * Initialize allowed views
 	 *
-	 * @since TBD
+	 * @since 4.9.9
 	 *
 	 * @param {jQuery} $container jQuery object of view container.
 	 *
@@ -247,7 +247,7 @@ tribe.events.views.multidayEvents = {};
 	/**
 	 * Initialize multiday events.
 	 *
-	 * @since TBD
+	 * @since 4.9.9
 	 *
 	 * @param {Event}   event      event object for 'afterSetup.tribeEvents' event
 	 * @param {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event.
