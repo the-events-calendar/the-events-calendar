@@ -373,6 +373,6 @@ class Title {
 		 * @param string $title     The original title.
 		 * @param \WP_Term The Event Category term used to build the title.
 		 */
-		return apply_filters( 'tribe_events_views_v2_day_title', $new_title, $title, $cat );
+		return apply_filters( 'tribe_events_views_v2_category_title', $new_title, $title, $cat );
 	}
 }
