@@ -493,7 +493,7 @@ class View implements View_Interface {
 		];
 
 		if ( ! empty( $query_args['tribe-bar-date'] ) ) {
-			// If the Events Bar date is the same ad today's date, then drop it.
+			// If the Events Bar date is the same as today's date, then drop it.
 			$today          = $this->context->get( 'today', 'today' );
 			$today_date     = Dates::build_date_object( $today )->format( Dates::DBDATEFORMAT );
 			$tribe_bar_date = Dates::build_date_object( $query_args['tribe-bar-date'] )->format( Dates::DBDATEFORMAT );
