@@ -435,9 +435,7 @@
 	role="tooltip"
 >
 	<div id="tribe-events-tooltip-content-7">
-				<div class="tribe-events-calendar-month__calendar-event-tooltip-description tribe-common-b3">
-	</div>
-			</div>
+							</div>
 </div>
 
 	</div>
@@ -477,9 +475,7 @@
 	role="tooltip"
 >
 	<div id="tribe-events-tooltip-content-8">
-				<div class="tribe-events-calendar-month__calendar-event-tooltip-description tribe-common-b3">
-	</div>
-			</div>
+							</div>
 </div>
 
 	</div>
@@ -519,9 +515,7 @@
 	role="tooltip"
 >
 	<div id="tribe-events-tooltip-content-9">
-				<div class="tribe-events-calendar-month__calendar-event-tooltip-description tribe-common-b3">
-	</div>
-			</div>
+							</div>
 </div>
 
 	</div>
