@@ -10,6 +10,15 @@ class TitleTest extends \Codeception\TestCase\WPTestCase {
 	use MatchesSnapshots;
 	use With_Post_Remapping;
 
+	public function setUp() {
+		parent::setUp();
+		$return_mock_url = static function () {
+			return 'http://products.tribe';
+		};
+		add_filter( 'option_home', $return_mock_url );
+	}
+
+
 	public function test_featured_single_event_title() {
 		$event = $this->get_mock_event( 'events/single/1.json' );
 		$context = tribe_context()->alter( [
