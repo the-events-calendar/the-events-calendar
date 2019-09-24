@@ -12,6 +12,8 @@ use Tribe\Events\Views\V2\Utils;
 use Tribe__Context;
 use Tribe__Date_Utils as Dates;
 use Tribe__Events__Main as TEC;
+use Tribe__Events__Organizer as Organizer;
+use Tribe__Events__Venue as Venue;
 
 class Context extends \tad_DI52_ServiceProvider {
 
@@ -217,6 +219,56 @@ class Context extends \tad_DI52_ServiceProvider {
 			'start_of_week' => [
 				'read'  => [ Tribe__Context::OPTION => 'start_of_week' ],
 				'write' => [ Tribe__Context::OPTION => 'start_of_week' ],
+			],
+			'tec_post_type' => [
+				'read' => [
+					Tribe__Context::LOCATION_FUNC => [
+						'post_type',
+						static function ( $post_type ) {
+							return count( array_intersect(
+									(array) $post_type,
+									[ TEC::POSTTYPE, Venue::POSTTYPE, Organizer::POSTTYPE ] )
+							);
+						}
+					],
+				],
+			],
+			'event_post_type' => [
+				'read' => [
+					Tribe__Context::LOCATION_FUNC => [
+						'post_type',
+						static function ( $post_type ) {
+							return (array) $post_type === [ TEC::POSTTYPE ];
+						}
+					]
+				]
+			],
+			'venue_post_type' => [
+				'read' => [
+					Tribe__Context::LOCATION_FUNC => [
+						'post_type',
+						static function ( $post_type ) {
+							return (array) $post_type === [ Venue::POSTTYPE ];
+						}
+					]
+				]
+			],
+			'organizer_post_type' => [
+				'read' => [
+					Tribe__Context::LOCATION_FUNC => [
+						'post_type',
+						static function ( $post_type ) {
+							return (array) $post_type === [ Organizer::POSTTYPE ];
+						}
+					]
+				]
+			],
+			'event_category' => [
+				'read' => [
+					Tribe__Context::QUERY_PROP  => [ TEC::TAXONOMY ],
+					Tribe__Context::QUERY_VAR   => [ TEC::TAXONOMY ],
+					Tribe__Context::REQUEST_VAR => [ TEC::TAXONOMY ],
+				],
 			],
 		] );
 

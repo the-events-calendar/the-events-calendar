@@ -8,6 +8,7 @@
 
 namespace Tribe\Events\Views\V2;
 
+use Tribe\Events\Views\V2\Template\Title;
 use Tribe__Container as Container;
 use Tribe__Context as Context;
 use Tribe__Date_Utils as Dates;
@@ -916,9 +917,11 @@ class View implements View_Interface {
 	 * @return array An array of Template variables for the View Template.
 	 */
 	protected function setup_template_vars() {
+		$events = $this->repository->all();
+
 		$template_vars = [
-			'title'             => wp_title( null, false ),
-			'events'            => $this->repository->all(),
+			'title'             => $this->get_title( $events ),
+			'events'            => $events,
 			'url'               => $this->get_url( true ),
 			'prev_url'          => $this->prev_url( true ),
 			'next_url'          => $this->next_url( true ),
@@ -1118,5 +1121,58 @@ class View implements View_Interface {
 	 */
 	protected function get_label_format() {
 		return 'Y-m-d';
+	}
+
+	/**
+	 * Gets this View title, the one that will be set in the `title` tag of the page.
+	 *
+	 * @since TBD
+	 *
+	 * @param  array $events An array of events to generate the title for.
+	 *
+	 * @return string The filtered view title.
+	 */
+	public function get_title( array $events = [] ) {
+		if ( ! $this->context->doing_php_initial_state() ) {
+			/** @var Title $title_filter */
+			$title_filter = static::$container->make( Title::class )
+			                                  ->set_context( $this->context )
+			                                  ->set_posts( $events );
+
+			add_filter( 'document_title_parts', [ $title_filter, 'filter_document_title_parts' ] );
+			// We disable the filter to avoid the double encoding that would come from our preparation of the data.
+			add_filter( 'run_wptexturize', '__return_false' );
+		}
+
+		$title = wp_get_document_title();
+
+		if ( isset( $title_filter ) ) {
+			remove_filter( 'run_wptexturize', '__return_false' );
+			remove_filter( 'document_title_parts', [ $title_filter, 'filter_document_title_parts' ] );
+		}
+
+		$slug    = $this->get_slug();
+
+		/**
+		 * Filters the title for all views.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $title This view filtered title.
+		 * @param View   $this  This view object.
+		 */
+		$title = apply_filters( "tribe_events_views_v2_title", $title, $this );
+
+		/**
+		 * Filters the title for this view.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $title This view filtered title.
+		 * @param View   $this  This view object.
+		 */
+		$title = apply_filters( "tribe_events_views_v2_{$slug}_title", $title, $this );
+
+		return htmlspecialchars_decode($title);
 	}
 }
