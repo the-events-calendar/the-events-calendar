@@ -8,6 +8,7 @@
 
 namespace Tribe\Events\Views\V2\Views;
 
+use Tribe\Events\Views\V2\Url;
 use Tribe\Events\Views\V2\View;
 use Tribe__Date_Utils as Dates;
 use Tribe__Utils__Array as Arr;
@@ -105,7 +106,8 @@ class Day_View extends View {
 	 */
 	protected function build_url_for_date( $url_date, $canonical, array $passthru_vars = [] ) {
 		$url_date        = Dates::build_date_object( $url_date );
-		$date_query_args = (array) $this->url->get_query_args_aliases_of( 'event_date', $this->context );
+		$url = new Url( $this->get_url() );
+		$date_query_args = (array) $url->get_query_args_aliases_of( 'event_date', $this->context );
 
 		$url             = add_query_arg(
 			[ 'eventDate' => $url_date->format( Dates::DBDATEFORMAT ) ],
