@@ -4,11 +4,10 @@ namespace Tribe\Events\Views\V2\Partials\Month_View\Mobile_Events\Mobile_Day\Mob
 use Tribe\Test\PHPUnit\Traits\With_Post_Remapping;
 use Tribe\Test\Products\WPBrowser\Views\V2\HtmlPartialTestCase;
 
-class CtaTest extends HtmlPartialTestCase
-{
+class CtaTest extends HtmlPartialTestCase {
 	use With_Post_Remapping;
 
-	protected $partial_path = 'month/mobile-events/mobile-day/mobile-event/cta';
+	protected $partial_path = 'month/mobile-events/mobile-day/mobile-event/cost';
 
 	/**
 	 * Test render with normal event without cost
