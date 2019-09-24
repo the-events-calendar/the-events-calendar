@@ -106,7 +106,7 @@ class Day_View extends View {
 	 */
 	protected function build_url_for_date( $url_date, $canonical, array $passthru_vars = [] ) {
 		$url_date        = Dates::build_date_object( $url_date );
-		$url = new Url( $this->get_url() );
+		$url             = new Url( $this->get_url() );
 		$date_query_args = (array) $url->get_query_args_aliases_of( 'event_date', $this->context );
 
 		$url             = add_query_arg(
