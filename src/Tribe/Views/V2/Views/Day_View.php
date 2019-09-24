@@ -9,10 +9,8 @@
 namespace Tribe\Events\Views\V2\Views;
 
 use Tribe\Events\Views\V2\View;
-use Tribe__Events__Main as TEC;
-use Tribe__Events__Rewrite as Rewrite;
-use Tribe__Utils__Array as Arr;
 use Tribe__Date_Utils as Dates;
+use Tribe__Utils__Array as Arr;
 
 class Day_View extends View {
 	/**
@@ -37,142 +35,40 @@ class Day_View extends View {
 	 * {@inheritDoc}
 	 */
 	public function prev_url( $canonical = false, array $passthru_vars = [] ) {
-		// Get the current repository arguments.
-		$current_args = $this->setup_repository_args();
+		$date = $this->context->get( 'event_date', $this->context->get( 'today', 'today' ) );
 
-		// Remove any date related arguments.
-		unset( $current_args['date_overlaps'] );
+		$one_day       = new \DateInterval( 'P1D' );
+		$url_date      = Dates::build_date_object( $date )->sub( $one_day );
+		$earliest      = tribe_get_option( 'earliest_date', $url_date );
+		$earliest_date = Dates::build_date_object( $earliest )->setTime( 0, 0, 0 );
 
-		// Use the updated repository arguments.
-		$current_repository = tribe_events()->by_args( $current_args );
-
-		$default_date   = 'today';
-		$date           = $this->context->get( 'event_date', $default_date );
-		$event_date_var = $default_date === $date ? '' : $date;
-
-		$one_day = new \DateInterval( 'P1D' );
-		$previous_date = Dates::build_date_object( $date )->sub( $one_day )->format( Dates::DBDATEFORMAT );
-
-		$prev = clone $current_repository;
-		$start = tribe_beginning_of_day( $previous_date );
-		$end  = tribe_end_of_day( $previous_date );
-		$prev->where( 'date_overlaps', $start, $end )->order( 'DESC' )->per_page( 1 );
-
-		$prev_event = $prev->first();
-		$has_prev = $prev->found();
-
-		if ( ! $has_prev ) {
-			$prev = clone $current_repository;
-			$prev->where( 'starts_before', tribe_beginning_of_day( $date ) )
-			->order( 'DESC' )
-			->per_page( 1 );
-
-			$prev_event = $prev->first();
-			$has_prev = $prev->found();
-
-			if ( ! $has_prev ) {
-				return '';
-			}
-
-			$previous_date = tribe_get_start_date( $prev_event, false, Dates::DBDATEFORMAT );
+		if ( $url_date < $earliest_date ) {
+			$url = '';
+		} else {
+			$url = $this->build_url_for_date( $url_date, $canonical, $passthru_vars );
 		}
 
-		$query_args = [ 'eventDate' => $previous_date ];
-		$url = remove_query_arg( [ 'tribe-bar-date' ], $this->get_url() );
-		$url = add_query_arg( $query_args, $url );
-
-		if ( ! empty( $url ) && $canonical ) {
-			$input_url = $url;
-
-			if ( ! empty( $passthru_vars ) ) {
-				$input_url = remove_query_arg( array_keys( $passthru_vars ), $url );
-			}
-
-			// Make sure the view slug is always set to correctly match rewrites.
-			$input_url = add_query_arg( [ 'eventDisplay' => $this->slug ], $input_url );
-
-			$canonical_url = tribe( 'events.rewrite' )->get_clean_url( $input_url );
-
-			if ( ! empty( $passthru_vars ) ) {
-				$canonical_url = add_query_arg( $passthru_vars, $canonical_url );
-			}
-
-			$url = $canonical_url;
-		}
-
-		$url = $this->filter_prev_url( $canonical, $url );
-
-		return $url;
+		return $this->filter_prev_url( $canonical, $url );
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public function next_url( $canonical = false, array $passthru_vars = [] ) {
-		// Get the current repository arguments.
-		$current_args = $this->setup_repository_args();
+		$date = $this->context->get( 'event_date', $this->context->get( 'today', 'today' ) );
 
-		// Remove any date related arguments.
-		unset( $current_args['date_overlaps'] );
+		$one_day     = new \DateInterval( 'P1D' );
+		$url_date    = Dates::build_date_object( $date )->add( $one_day );
+		$latest      = tribe_get_option( 'latest_date', $url_date );
+		$latest_date = Dates::build_date_object( $latest )->setTime( 0, 0, 0 );
 
-		// Use the updated repository arguments.
-		$current_repository = tribe_events()->by_args( $current_args );
-
-		$default_date   = 'today';
-		$date           = $this->context->get( 'event_date', $default_date );
-		$event_date_var = $default_date === $date ? '' : $date;
-
-		$one_day = new \DateInterval( 'P1D' );
-		$next_date = Dates::build_date_object( $date )->add( $one_day )->format( Dates::DBDATEFORMAT );
-
-		$next = clone $current_repository;
-		$start = tribe_beginning_of_day( $next_date );
-		$end   = tribe_end_of_day( $next_date );
-		$next->where( 'date_overlaps', $start, $end )->order( 'DESC' )->per_page( 1 );
-
-		$next_event = $next->first();
-		$has_next = $next->found();
-
-		if ( ! $has_next ) {
-			$next = clone $current_repository;
-			$next->where( 'starts_after', tribe_end_of_day( $date ) )->order( 'DESC' )->per_page( 1 );
-
-			$next_event = $next->first();
-			$has_next = $next->found();
-
-			if ( ! $has_next ) {
-				return '';
-			}
-
-			$next_date = tribe_get_start_date( $next_event, false, Dates::DBDATEFORMAT );
+		if ( $url_date > $latest_date ) {
+			$url = '';
+		} else {
+			$url = $this->build_url_for_date( $url_date, $canonical, $passthru_vars );
 		}
 
-		$query_args = [ 'eventDate' => $next_date ];
-		$url = remove_query_arg( [ 'tribe-bar-date' ], $this->get_url() );
-		$url = add_query_arg( $query_args, $url );
-
-		if ( ! empty( $url ) && $canonical ) {
-			$input_url = $url;
-
-			if ( ! empty( $passthru_vars ) ) {
-				$input_url = remove_query_arg( array_keys( $passthru_vars ), $url );
-			}
-
-			// Make sure the view slug is always set to correctly match rewrites.
-			$input_url = add_query_arg( [ 'eventDisplay' => $this->slug ], $input_url );
-
-			$canonical_url = tribe( 'events.rewrite' )->get_clean_url( $input_url );
-
-			if ( ! empty( $passthru_vars ) ) {
-				$canonical_url = add_query_arg( $passthru_vars, $canonical_url );
-			}
-
-			$url = $canonical_url;
-		}
-
-		$url = $this->filter_next_url( $canonical, $url );
-
-		return $url;
+		return $this->filter_next_url( $canonical, $url );
 	}
 
 	/**
@@ -191,5 +87,50 @@ class Day_View extends View {
 		$args['date_overlaps'] = [ tribe_beginning_of_day( $date ), tribe_end_of_day( $date ) ];
 
 		return $args;
+	}
+
+	/**
+	 * Builds the Day View URL for a specific date.
+	 *
+	 * This is the method underlying the construction of the previous and next URLs.
+	 *
+	 * @since TBD
+	 *
+	 * @param mixed $url_date          The date to build the URL for, a \DateTime object, a string or a timestamp.
+	 * @param bool  $canonical         Whether to return the canonical (pretty) version of the URL or not.
+	 * @param array $passthru_vars     An optional array of query variables that should pass thru the method untouched
+	 *                                 in key in value.
+	 *
+	 * @return string The Day View URL for the date.
+	 */
+	protected function build_url_for_date( $url_date, $canonical, array $passthru_vars = [] ) {
+		$url_date        = Dates::build_date_object( $url_date );
+		$date_query_args = (array) $this->url->get_query_args_aliases_of( 'event_date', $this->context );
+
+		$url             = add_query_arg(
+			[ 'eventDate' => $url_date->format( Dates::DBDATEFORMAT ) ],
+			remove_query_arg( $date_query_args, $this->get_url() )
+		);
+
+		if ( ! empty( $url ) && $canonical ) {
+			$input_url = $url;
+
+			if ( ! empty( $passthru_vars ) ) {
+				$input_url = remove_query_arg( array_keys( $passthru_vars ), $url );
+			}
+
+			// Make sure the view slug is always set to correctly match rewrites.
+			$input_url = add_query_arg( [ 'eventDisplay' => $this->slug ], $input_url );
+
+			$canonical_url = tribe( 'events.rewrite' )->get_clean_url( $input_url );
+
+			if ( ! empty( $passthru_vars ) ) {
+				$canonical_url = add_query_arg( $passthru_vars, $canonical_url );
+			}
+
+			$url = $canonical_url;
+		}
+
+		return $url;
 	}
 }
