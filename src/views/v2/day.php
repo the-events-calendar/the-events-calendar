@@ -25,12 +25,12 @@
 	data-view-rest-url="<?php echo esc_url( $rest_url ); ?>"
 >
 	<div class="tribe-common-l-container tribe-events-l-container">
-		<?php $this->template( 'loader', [ 'text' => 'Loading...' ] ); ?>
+		<?php $this->template( 'components/loader', [ 'text' => __( 'Loading...', 'the-events-calendar' ) ] ); ?>
 
-		<?php $this->template( 'data' ); ?>
+		<?php $this->template( 'components/data' ); ?>
 
 		<header class="tribe-events-header">
-			<?php $this->template( 'events-bar' ); ?>
+			<?php $this->template( 'components/events-bar' ); ?>
 
 			<?php $this->template( 'day/top-bar' ); ?>
 		</header>

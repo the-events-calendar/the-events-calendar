@@ -306,7 +306,9 @@ tribe.events.views.viewSelector = {};
 	obj.init = function( event, index, $container, data ) {
 		var $viewSelector = $container.find( obj.selectors.viewSelector );
 
-		if ( ! $viewSelector.length ) return;
+		if ( ! $viewSelector.length ) {
+			return;
+		}
 
 		obj.initState( $container );
 		obj.initViewSelector( $container );

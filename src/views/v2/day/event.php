@@ -14,7 +14,6 @@
  * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
  *
  * @see tribe_get_event() For the format of the event object.
- *
  */
 
 $classes = get_post_class( [ 'tribe-common-g-row', 'tribe-common-g-row--gutters', 'tribe-events-calendar-day__event' ], $event->ID );

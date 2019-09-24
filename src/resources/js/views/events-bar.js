@@ -570,7 +570,9 @@ tribe.events.views.eventsBar = {};
 	obj.init = function( event, index, $container, data ) {
 		var $eventsBar = $container.find( obj.selectors.eventsBar );
 
-		if ( ! $eventsBar.length ) return;
+		if ( ! $eventsBar.length ) {
+			return;
+		}
 
 		obj.initState( $container );
 		obj.initEventsBar( $container );

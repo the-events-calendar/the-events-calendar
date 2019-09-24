@@ -11,9 +11,9 @@
  *
  * @version 4.9.9
  *
- * @var WP_Post $event The event post object, decorated with custom properties from the `tribe_get_event` function.
+ * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
  *
- * @see tribe_get_event()
+ * @see tribe_get_event() For the format of the event object.
  */
 
 $classes = [ 'tribe-events-calendar-month-mobile-events__mobile-event-title', 'tribe-common-h8' ];

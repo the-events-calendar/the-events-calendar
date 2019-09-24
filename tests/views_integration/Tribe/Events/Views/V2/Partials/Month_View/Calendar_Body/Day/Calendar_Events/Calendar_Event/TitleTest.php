@@ -2,27 +2,45 @@
 
 namespace Tribe\Events\Views\V2\Partials\Month_View\Calendar_Body\Day\Calendar_Events\Calendar_Event;
 
+use Tribe\Test\PHPUnit\Traits\With_Post_Remapping;
 use Tribe\Test\Products\WPBrowser\Views\V2\HtmlPartialTestCase;
 
 class TitleTest extends HtmlPartialTestCase {
+	use With_Post_Remapping;
 
 	protected $partial_path = 'month/calendar-body/day/calendar-events/calendar-event/title';
 
 	/**
-	 * Test render with context
+	 * Test render with event with featured image
 	 */
-	public function test_render_with_context() {
-		$event = tribe_events()->set_args(
-			[
-				'start_date' => '2018-01-01 10am',
-				'timezone'   => 'Europe/Paris',
-				'duration'   => 3 * HOUR_IN_SECONDS,
-				'title'      => 'Test Event - 2018-01-01 10am',
-				'status'     => 'publish',
-			]
-		)->create();
-		$event = tribe_get_event( $event );
+	public function test_render_with_event_with_featured_image() {
+		$event = $this->mock_event( 'events/single/1.json' )->with_thumbnail()->get();
+		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => $event ] ) );
+	}
 
+	/**
+	 * Test render with event with excerpt
+	 */
+	public function test_render_with_event_with_excerpt() {
+		$event = $this->mock_event( 'events/single/1.json' )->get();
+		$event->post_content = $event->post_excerpt = 'Hello world!';
+		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => $event ] ) );
+	}
+
+	/**
+	 * Test render with event with cost
+	 */
+	public function test_render_with_event_with_cost() {
+		$event = $this->mock_event( 'events/single/1.json' )->with_thumbnail()->get();
+		$event->cost = '$10';
+		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => $event ] ) );
+	}
+
+	/**
+	 * Test render with event with no featured image no excerpt no cost
+	 */
+	public function test_render_with_event_with_no_featured_image_no_excerpt_no_cost() {
+		$event = $this->mock_event( 'events/single/1.json' )->with_thumbnail()->get();
 		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => $event ] ) );
 	}
 }

@@ -9,9 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @var string $link The URL to the previous page, if any, or an empty string.
- *
- * @version 4.9.5
+ * @version TBD
  *
  */
 ?>

@@ -5,10 +5,10 @@
 			title="Featured"
 		>
 		</em>
-		<time datetime="10:00">
-		10:00 am	</time>
+		<time datetime="13:01">
+		1:01 pm	</time>
 	<span class="tribe-events-calendar-month__calendar-event-datetime-separator"> - </span>
-	<time datetime="12:00">
-		12:00 pm	</time>
+	<time datetime="17:01">
+		5:01 pm	</time>
 	</div>
 ';
