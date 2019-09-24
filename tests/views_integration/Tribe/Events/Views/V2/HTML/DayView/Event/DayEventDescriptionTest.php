@@ -17,10 +17,11 @@ class DayEventDescriptionTest extends HtmlTestCase {
 	public function it_should_contain_correct_html_classes() {
 
 		$args  = [
-			'start_date' => '2018-01-01 09:00:00',
-			'end_date'   => '2018-01-01 11:00:00',
-			'timezone'   => 'Europe/Paris',
-			'title'      => 'A test event',
+			'start_date'   => '2018-01-01 09:00:00',
+			'end_date'     => '2018-01-01 11:00:00',
+			'timezone'     => 'Europe/Paris',
+			'title'        => 'A test event',
+			'post_content' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
 		];
 
 		$event = tribe_events()->set_args( $args )->create();
