@@ -336,7 +336,7 @@ class Month_View extends By_Day_View {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @since TBD
+	 * @since 4.9.9
 	 */
 	protected function get_label_format() {
 		// Something like "January".
@@ -348,7 +348,7 @@ class Month_View extends By_Day_View {
 	 *
 	 * By default empty months will not be skipped.
 	 *
-	 * @since TBD
+	 * @since 4.9.9
 	 *
 	 * @return bool Whether to skip empty months or not.
 	 */
@@ -356,7 +356,7 @@ class Month_View extends By_Day_View {
 		/**
 		 * Filters whether months w/o any event should be skipped while building navigation links or not.
 		 *
-		 * @since TBD
+		 * @since 4.9.9
 		 *
 		 * @param bool       $skip_empty   Whether months w/o any event should be skipped while building
 		 *                                 navigation links or not; defaults to `false`.

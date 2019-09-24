@@ -4,7 +4,7 @@ Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.7
-Stable tag: 4.9.8
+Stable tag: 4.9.9
 Tested up to: 5.2.2
 Requires PHP: 5.6
 License: GPLv2 or later
@@ -220,6 +220,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - Set the start date with the current day for the "All" events page for recurring events. Thanks Andy, leapness and others for flagging this! [130350]
 * Tweak - Updated Freemius integration code [133148]
 * Tweak - Conform iCalendar feed to specifications by not putting quotes around the timezone ID. This fixes some custom parsers [133626]
+* Language - 0 new strings added, 16 updated, 0 fuzzied, and 1 obsoleted
 
 = [4.9.8] 2019-09-04 =
 

@@ -14,8 +14,6 @@ class Day_MarkerTest extends HtmlPartialTestCase
 	public function test_render_with_context() {
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
 			'day_date' => '2018-05-06',
-			'foo' => 23,
-			'bar' => 89,
 		] ) );
 	}
 }

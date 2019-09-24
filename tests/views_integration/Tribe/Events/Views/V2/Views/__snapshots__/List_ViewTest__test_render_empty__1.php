@@ -18,7 +18,8 @@
 		<script
 	data-js="tribe-events-view-data"
 	type="application/json"
->{"slug":"list","prev_url":"","next_url":"","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_slug":"list","view":{},"title":"Upcoming Events &#8211; The Events Calendar Tests","events":[],"url":"http:\\/\\/test.tri.be\\/events\\/list\\/","bar":{"keyword":"","date":""},"today":"2019-01-01 09:00:00","now":"2019-01-01 09:00:00","rest_url":"http:\\/\\/test.tri.be\\/index.php?rest_route=\\/tribe\\/views\\/v2\\/html","rest_nonce":"2ab7cc6b39","should_manage_url":true,"today_url":"http:\\/\\/test.tri.be\\/events\\/list\\/","prev_label":"","next_label":""}</script>
+>
+	{"slug":"list","prev_url":"","next_url":"","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_slug":"list","view":{},"title":"Upcoming Events &#8211; The Events Calendar Tests","events":[],"url":"http:\\/\\/test.tri.be\\/events\\/list\\/","bar":{"keyword":"","date":""},"today":"2019-01-01 09:00:00","now":"2019-01-01 09:00:00","rest_url":"http:\\/\\/test.tri.be\\/index.php?rest_route=\\/tribe\\/views\\/v2\\/html","rest_nonce":"2ab7cc6b39","should_manage_url":true,"today_url":"http:\\/\\/test.tri.be\\/events\\/list\\/","prev_label":"","next_label":""}</script>
 
 		<header class="tribe-events-header">
 			<div
@@ -26,7 +27,8 @@
 	data-js="tribe-events-events-bar"
 >
 
-	<h2 class="tribe-common-a11y-visual-hide">Events Search and Views Navigation</h2>
+	<h2 class="tribe-common-a11y-visual-hide">
+		Events Search and Views Navigation	</h2>
 
 	<button
 	class="tribe-events-c-events-bar__search-button"
@@ -82,7 +84,8 @@
 	class="tribe-common-c-btn tribe-events-c-search__button"
 	type="submit"
 	name="submit-bar"
->Find Events</button>
+>
+	Find Events</button>
 	</form>
 </div>
 
@@ -226,7 +229,7 @@
 
 		<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--today">
 	<a
-		href="#"
+		href="http://test.tri.be/events/list/"
 		class="tribe-events-c-nav__today tribe-common-b2"
 		data-js="tribe-events-view-link"
 	>

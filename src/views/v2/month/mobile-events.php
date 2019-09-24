@@ -28,6 +28,6 @@
 
 	<?php endforeach; ?>
 
-	<?php $this->template( 'month/nav', [ 'location' => 'mobile' ] ); ?>
+	<?php $this->template( 'month/mobile-events/nav' ); ?>
 
 </section>

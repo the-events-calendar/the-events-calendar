@@ -2,7 +2,7 @@
 /**
  * Models an Event.
  *
- * @since   TBD
+ * @since   4.9.9
  *
  * @package Tribe\Events\Models\Post_Types
  */
@@ -26,7 +26,7 @@ use Tribe__Events__Venue as Venue;
 /**
  * Class Event
  *
- * @since   TBD
+ * @since   4.9.9
  *
  * @package Tribe\Events\Post_Types
  */
@@ -149,7 +149,7 @@ class Event extends Base {
 				'this_week_duration'     => $this_week_duration,
 				'happens_this_week'      => $happens_this_week,
 				'featured'               => $featured,
-				'cost'                   => tribe_get_cost( $post_id ),
+				'cost'                   => tribe_get_cost( $post_id, true ),
 				'organizers'             => ( new Lazy_Collection( $organizer_fetch ) )->on_resolve( $cache_this ),
 				'venues'                 => ( new Lazy_Collection( $venue_fetch ) )->on_resolve( $cache_this ),
 				'thumbnail'              => ( new Post_Thumbnail( $post_id ) )->on_resolve( $cache_this ),

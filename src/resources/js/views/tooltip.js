@@ -169,7 +169,7 @@ tribe.events.views.tooltip = {};
 	/**
 	 * Initialize tooltip theme
 	 *
-	 * @since TBD
+	 * @since 4.9.9
 	 *
 	 * @param {jQuery} $container jQuery object of view container.
 	 *

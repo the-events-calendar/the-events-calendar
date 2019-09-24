@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version TBD
+ * @version 4.9.9
  *
  * @var array  $events The array containing the events.
  * @var string $rest_url The REST URL.
@@ -27,12 +27,12 @@
 	data-view-manage-url="<?php echo esc_attr( $should_manage_url ); ?>"
 >
 	<div class="tribe-common-l-container tribe-events-l-container">
-		<?php $this->template( 'loader', [ 'text' => 'Loading...' ] ); ?>
+		<?php $this->template( 'components/loader', [ 'text' => __( 'Loading...', 'the-events-calendar' ) ] ); ?>
 
-		<?php $this->template( 'data' ); ?>
+		<?php $this->template( 'components/data' ); ?>
 
 		<header class="tribe-events-header">
-			<?php $this->template( 'events-bar' ); ?>
+			<?php $this->template( 'components/events-bar' ); ?>
 
 			<?php $this->template( 'list/top-bar' ); ?>
 		</header>

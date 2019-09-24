@@ -2,42 +2,44 @@
 
 namespace Tribe\Events\Views\V2\Partials\Month_View\Calendar_Body\Day\Calendar_Events\Calendar_Event;
 
+use Tribe\Test\PHPUnit\Traits\With_Post_Remapping;
 use Tribe\Test\Products\WPBrowser\Views\V2\HtmlPartialTestCase;
 
 class Featured_ImageTest extends HtmlPartialTestCase
 {
+	use With_Post_Remapping;
 
 	protected $partial_path = 'month/calendar-body/day/calendar-events/calendar-event/featured-image';
 
 	/**
-	 * Test render with context
+	 * Test render with normal event without featured image
 	 */
-	public function test_render_with_context() {
-		tribe_events()->set_args( [
-			'start_date' => '2018-01-01 10am',
-			'timezone'   => 'Europe/Paris',
-			'duration'   => 3 * HOUR_IN_SECONDS,
-			'title'      => 'Test Event - 2018-01-01 10am',
-			'status'     => 'publish',
-		] )->create();
-
-		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => tribe_events()->first() ] ) );
+	public function test_render_with_normal_event_without_featured_image() {
+		$event = $this->get_mock_event( 'events/single/1.json' );
+		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => $event ] ) );
 	}
 
 	/**
-	 * Test render with featured image
+	 * Test render with normal event with featured image
 	 */
-	public function test_render_with_featured_image() {
-		$this->markTestSkipped( 'Fix test to get event featured image' );
-		tribe_events()->set_args( [
-			'start_date' => '2018-01-01 10am',
-			'timezone'   => 'Europe/Paris',
-			'duration'   => 3 * HOUR_IN_SECONDS,
-			'title'      => 'Test Event - 2018-01-01 10am',
-			'status'     => 'publish',
-			'image'      => '#',
-		] )->create();
+	public function test_render_with_normal_event_with_featured_image() {
+		$event = $this->mock_event( 'events/single/1.json' )->with_thumbnail()->get();
+		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => $event ] ) );
+	}
 
-		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => tribe_events()->first() ] ) );
+	/**
+	 * Test render with featured event without featured image
+	 */
+	public function test_render_with_featured_event_without_featured_image() {
+		$event = $this->get_mock_event( 'events/featured/1.json' );
+		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => $event ] ) );
+	}
+
+	/**
+	 * Test render with featured event with featured image
+	 */
+	public function test_render_with_featured_event_with_featured_image() {
+		$event = $this->mock_event( 'events/featured/1.json' )->with_thumbnail()->get();
+		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => $event ] ) );
 	}
 }

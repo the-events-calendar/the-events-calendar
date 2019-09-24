@@ -9,12 +9,11 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version TBD
+ * @version 4.9.9
  *
  * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
  *
  * @see tribe_get_event() For the format of the event object.
- *
  */
 
 $container_classes = [ 'tribe-common-g-row', 'tribe-events-calendar-list__event-row' ];
@@ -39,6 +38,7 @@ $event_classes = get_post_class( [ 'tribe-events-calendar-list__event', 'tribe-c
 				</header>
 
 				<?php $this->template( 'list/event/description', [ 'event' => $event ] ); ?>
+				<?php $this->template( 'list/event/cost', [ 'event' => $event ] ); ?>
 
 			</div>
 		</article>

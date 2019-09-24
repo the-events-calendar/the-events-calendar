@@ -9,7 +9,7 @@ use Tribe\Events\Models\Post_Types\Venue;
 /**
  * Fetches and returns a decorated post object representing a Venue.
  *
- * @since TBD
+ * @since 4.9.9
  *
  * @param null|int|WP_Post $venue  The venue ID or post object or `null` to use the global one.
  * @param string|null      $output The required return type. One of `OBJECT`, `ARRAY_A`, or `ARRAY_N`, which
@@ -40,7 +40,7 @@ function tribe_get_venue_object( $venue = null, $output = OBJECT, $filter = 'raw
 	 * Returning a non `null` value here will short-circuit the function and return the value.
 	 * Note: this value will not be cached and the caching of this value is a duty left to the filtering function.
 	 *
-	 * @since TBD
+	 * @since 4.9.9
 	 *
 	 * @param mixed       $return      The venue object to return.
 	 * @param mixed       $venue       The venue object to fetch.
@@ -790,7 +790,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		$venue_details = [];
-		$venue_details['ID'] = $post_id;
 
 		if ( $venue_link = tribe_get_venue_link( $post_id ) ) {
 			$venue_details['linked_name'] = $venue_link;
@@ -799,8 +798,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		if ( $venue_address = tribe_get_full_address( $post_id ) ) {
 			$venue_details['address'] = $venue_address;
 		}
-
-		$venue_details['text_address'] = tribe_get_venue_single_line_address( $post_id, false );
 
 		/**
 		 * Allows customization of the retrieved venue details.
