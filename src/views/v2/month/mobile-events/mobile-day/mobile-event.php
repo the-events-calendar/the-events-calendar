@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version TBD
+ * @version 4.9.9
  *
  * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
  *
@@ -27,7 +27,7 @@ $classes['tribe-events-calendar-month-mobile-events__mobile-event--featured'] = 
 
 		<?php $this->template( 'month/mobile-events/mobile-day/mobile-event/date', [ 'event' => $event ] ); ?>
 		<?php $this->template( 'month/mobile-events/mobile-day/mobile-event/title', [ 'event' => $event ] ); ?>
-		<?php $this->template( 'month/mobile-events/mobile-day/mobile-event/cta', [ 'event' => $event ] ); ?>
+		<?php $this->template( 'month/mobile-events/mobile-day/mobile-event/cost', [ 'event' => $event ] ); ?>
 
 	</div>
 </article>

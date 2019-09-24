@@ -2,7 +2,7 @@
 /**
  *
  *
- * @since   TBD
+ * @since   4.9.9
  * @package Tribe\Events\ORM\Events
  */
 

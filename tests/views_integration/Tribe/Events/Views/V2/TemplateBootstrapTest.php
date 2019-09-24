@@ -8,7 +8,6 @@ class TemplateBootstrapTest extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * @test
-	 * it should be instantiatable
 	 */
 	public function it_should_be_instantiatable() {
 		$sut = $this->make_instance();
@@ -62,8 +61,6 @@ class TemplateBootstrapTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * It should only allow permitted values on base template option
-	 *
 	 * @test
 	 * @dataProvider base_template_options
 	 */
@@ -76,8 +73,6 @@ class TemplateBootstrapTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * It should return template event instance
-	 *
 	 * @test
 	 */
 	public function it_should_return_template_event_instance() {
@@ -89,8 +84,6 @@ class TemplateBootstrapTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * It should return template page instance
-	 *
 	 * @test
 	 */
 	public function it_should_return_template_page_instance() {
@@ -123,8 +116,6 @@ class TemplateBootstrapTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * It should load only on correct wp query
-	 *
 	 * @test
 	 * @dataProvider query_args_to_load
 	 */
@@ -160,8 +151,6 @@ class TemplateBootstrapTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * It should use global query on invalid query
-	 *
 	 * @test
 	 * @dataProvider invalid_queries
 	 */

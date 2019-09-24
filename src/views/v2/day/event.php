@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version TBD
+ * @version 4.9.9
  *
  * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
  *
@@ -36,6 +36,7 @@ if ( $event->featured ) {
 		</header>
 
 		<?php $this->template( 'day/event/description', [ 'event' => $event ] ); ?>
+		<?php $this->template( 'day/event/cost', [ 'event' => $event ] ); ?>
 
 	</div>
 

@@ -1,15 +1,15 @@
 <?php
 /**
- * View: Month View - Single Event Tooltip CTA
+ * View: Month View - Single Event Tooltip Cost
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/views/v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/cta.php
+ * [your-theme]/tribe/events/views/v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/cost.php
  *
  * See more documentation about our views templating system.
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version TBD
+ * @version 4.9.9
  *
  * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
  *
@@ -20,18 +20,7 @@ if ( empty( $event->cost ) ) {
 	return;
 }
 ?>
-<div class="tribe-events-c-small-cta tribe-events-calendar-month__calendar-event-tooltip-cta">
-	<a
-		<?php
-		/**
-		 * @todo @be @bordoni get buy now url
-		 */
-		?>
-		href="#"
-		class="tribe-events-c-small-cta__link tribe-common-cta tribe-common-cta--thin-alt"
-	>
-		<?php esc_html_e( 'Buy Now', 'the-events-calendar' ); ?>
-	</a>
+<div class="tribe-events-c-small-cta tribe-common-b3 tribe-events-calendar-month__calendar-event-tooltip-cost">
 	<span class="tribe-events-c-small-cta__price">
 		<?php echo esc_html( $event->cost ); ?>
 	</span>

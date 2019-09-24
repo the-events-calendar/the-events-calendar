@@ -2,7 +2,7 @@
 /**
  * Models a Venue.
  *
- * @since   TBD
+ * @since   4.9.9
  *
  * @package Tribe\Events\Models\Post_Types
  */
@@ -14,7 +14,7 @@ use Tribe\Utils\Post_Thumbnail;
 /**
  * Class Venue.
  *
- * @since   TBD
+ * @since   4.9.9
  *
  * @package Tribe\Events\Post_Types
  */

@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.4
+ * @version 4.9.9
  *
  * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
  *
@@ -29,6 +29,6 @@
 	<div id="tribe-events-tooltip-content-<?php echo esc_attr( $event->ID ); ?>">
 		<?php $this->template( 'month/calendar-body/day/calendar-events/calendar-event/tooltip/featured-image', [ 'event' => $event ] ); ?>
 		<?php $this->template( 'month/calendar-body/day/calendar-events/calendar-event/tooltip/description', [ 'event' => $event ] ); ?>
-		<?php $this->template( 'month/calendar-body/day/calendar-events/calendar-event/tooltip/cta', [ 'event' => $event ] ); ?>
+		<?php $this->template( 'month/calendar-body/day/calendar-events/calendar-event/tooltip/cost', [ 'event' => $event ] ); ?>
 	</div>
 </div>

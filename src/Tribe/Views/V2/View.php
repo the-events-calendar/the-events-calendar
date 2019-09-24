@@ -1058,7 +1058,7 @@ class View implements View_Interface {
 	 * This is usually used to build the next and prev link URLs labels.
 	 * Extending classes can customize the format of the the label by overriding the `get_label_format` method.
 	 *
-	 * @since TBD
+	 * @since 4.9.9
 	 *
 	 * @param string $url The input URL to build the link label from.
 	 *
@@ -1092,7 +1092,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the `date` format that will be used to produce a View link label.
 		 *
-		 * @since TBD
+		 * @since 4.9.9
 		 *
 		 * @param string    $format    The label format the View will use to product a View link label; e.g. the
 		 *                             previous and next links.
@@ -1109,7 +1109,7 @@ class View implements View_Interface {
 	 *
 	 * This format will, usually, apply to next and previous links.
 	 *
-	 * @since TBD
+	 * @since 4.9.9
 	 *
 	 * @return string The date format, a valid PHP `date` function format, that should be used to build link labels.
 	 *
