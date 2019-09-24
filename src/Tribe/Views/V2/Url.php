@@ -260,8 +260,8 @@ class Url {
 		$context_aliases = array_unique( array_merge( $query_aliases, $request_aliases ) );
 
 		$aliases = array_intersect_key(
-			array_merge( $query_args, tribe_get_request_vars() ),
-			array_merge( $aliases, array_combine( $context_aliases, $context_aliases ) )
+			array_unique( array_merge( $query_args, tribe_get_request_vars(), array_flip( $context_aliases ) ) ),
+			array_flip( array_unique( array_merge( $query_aliases, $request_aliases ) ) )
 		);
 
 		return array_keys( $aliases );
