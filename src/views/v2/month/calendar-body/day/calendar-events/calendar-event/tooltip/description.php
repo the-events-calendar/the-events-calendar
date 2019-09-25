@@ -15,12 +15,11 @@
  *
  * @see tribe_get_event() For the format of the event object.
  */
-$description = tribe_events_get_the_excerpt( $event->ID, wp_kses_allowed_html( 'post' ) );
 
-if ( empty( $description ) ) {
+if ( empty( $event->excerpt ) ) {
 	return;
 }
 ?>
 <div class="tribe-events-calendar-month__calendar-event-tooltip-description tribe-common-b3">
-	<?php echo $description; ?>
+	<?php echo $event->excerpt; ?>
 </div>
