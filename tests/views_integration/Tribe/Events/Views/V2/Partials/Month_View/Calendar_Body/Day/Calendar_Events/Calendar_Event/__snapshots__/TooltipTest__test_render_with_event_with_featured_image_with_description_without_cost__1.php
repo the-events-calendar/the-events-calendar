@@ -6,7 +6,7 @@
 	<div id="tribe-events-tooltip-content-8">
 		<div class="tribe-events-calendar-month__calendar-event-tooltip-featured-image-wrapper">
 	<a
-		href=""
+		href="http://test.tri.be/?tribe_events=single-event-1"
 		title="Single Event 1"
 		rel="bookmark"
 		class="tribe-events-calendar-month__calendar-event-tooltip-featured-image-link"
@@ -23,8 +23,7 @@
 	</a>
 </div>
 		<div class="tribe-events-calendar-month__calendar-event-tooltip-description tribe-common-b3">
-	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-</div>
+	Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
 			</div>
 </div>
 ';
