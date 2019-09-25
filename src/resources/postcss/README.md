@@ -158,7 +158,7 @@ The Events Calendar styles are broken into 4 main sections: utilities, base, com
 
 ### Utilities
 
-The utilities are a set of common PostCSS variables, icons, and mixins used throughout the plugins. These come from the Tribe Common Styles repository. See Tribe Common Styles for more details.
+The utilities are a set of common PostCSS variables, icons, and mixins used throughout the plugins. These come from the Tribe Common Styles repository. See [Tribe Common Styles](https://github.com/moderntribe/tribe-common-styles) for more details.
 
 ### Base
 
