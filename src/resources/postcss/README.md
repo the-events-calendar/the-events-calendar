@@ -200,7 +200,7 @@ The specificity to override the styles are matched to those applied to the theme
 
 ## How to contribute
 
-You want to contribute to these styles? Great! There are a few things to consider when making changes:
+You want to [contribute](https://github.com/moderntribe/the-events-calendar/blob/master/CONTRIBUTING.md) to these styles? Great! There are a few things to consider when making changes:
 
 ### Additions
 
