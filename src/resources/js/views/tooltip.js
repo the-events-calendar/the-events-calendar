@@ -32,6 +32,18 @@ tribe.events.views.tooltip = {};
 	var $document = $( document );
 
 	/**
+	 * config used for tooltip setup
+	 *
+	 * @since TBD
+	 *
+	 * @type {PlainObject}
+	 */
+	obj.config = {
+		delayHoverIn: 600,
+		delayHoverOut: 300,
+	};
+
+	/**
 	 * Selectors used for configuration and setup
 	 *
 	 * @since 4.9.4
@@ -44,6 +56,34 @@ tribe.events.views.tooltip = {};
 		tribeEventsTooltipThemeClass: '.tribe-events-tooltip-theme',
 		tribeCommonClass: '.tribe-common',
 		tribeEventsClass: '.tribe-events',
+	};
+
+	/**
+	 * Handle tooltip focus event
+	 *
+	 * @since 4.9.4
+	 *
+	 * @param {Event} event event object
+	 *
+	 * @return {void}
+	 */
+	obj.handleOriginFocus = function( event ) {
+		setTimeout( function() {
+			event.data.target.tooltipster( 'open' );
+		}, obj.config.delayHoverIn );
+	};
+
+	/**
+	 * Handle tooltip blur event
+	 *
+	 * @since 4.9.4
+	 *
+	 * @param {Event} event event object
+	 *
+	 * @return {void}
+	 */
+	obj.handleOriginBlur = function( event ) {
+		event.data.target.tooltipster( 'close' );
 	};
 
 	/**
@@ -64,32 +104,6 @@ tribe.events.views.tooltip = {};
 		$origin
 			.on( 'focus', { target: $origin }, obj.handleOriginFocus )
 			.on( 'blur', { target: $origin }, obj.handleOriginBlur );
-	};
-
-	/**
-	 * Handle tooltip focus event
-	 *
-	 * @since 4.9.4
-	 *
-	 * @param {Event} event event object
-	 *
-	 * @return {void}
-	 */
-	obj.handleOriginFocus = function( event ) {
-		event.data.target.tooltipster( 'open' );
-	};
-
-	/**
-	 * Handle tooltip blur event
-	 *
-	 * @since 4.9.4
-	 *
-	 * @param {Event} event event object
-	 *
-	 * @return {void}
-	 */
-	obj.handleOriginBlur = function( event ) {
-		event.data.target.tooltipster( 'close' );
 	};
 
 	/**
@@ -158,6 +172,8 @@ tribe.events.views.tooltip = {};
 			.each( function( index, tooltip ) {
 				$( tooltip ).tooltipster( {
 					interactive: true,
+					delay: [ obj.config.delayHoverIn, obj.config.delayHoverOut ],
+					delayTouch: [ obj.config.delayHoverIn, obj.config.delayHoverOut ],
 					theme: theme,
 					functionInit: obj.onFunctionInit,
 					functionReady: obj.onFunctionReady,
