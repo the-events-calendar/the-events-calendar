@@ -32,7 +32,7 @@ tribe.events.views.tooltip = {};
 	var $document = $( document );
 
 	/**
-	 * config used for tooltip setup
+	 * Config used for tooltip setup
 	 *
 	 * @since TBD
 	 *
