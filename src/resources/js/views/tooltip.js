@@ -51,7 +51,7 @@ tribe.events.views.tooltip = {};
 	 * @type {PlainObject}
 	 */
 	obj.selectors = {
-		tooltip: '[data-js="tribe-events-tooltip"]',
+		tooltip: '[data-js~="tribe-events-tooltip"]',
 		tooltipContent: '[data-js="tribe-events-tooltip-content"]',
 		tribeEventsTooltipThemeClass: '.tribe-events-tooltip-theme',
 		tribeCommonClass: '.tribe-common',
