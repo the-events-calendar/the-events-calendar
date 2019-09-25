@@ -150,6 +150,7 @@ class Event extends Base {
 				'happens_this_week'      => $happens_this_week,
 				'featured'               => $featured,
 				'cost'                   => tribe_get_cost( $post_id, true ),
+				'excerpt'                => tribe_events_get_the_excerpt( $post_id, wp_kses_allowed_html( 'post' ) ),
 				'organizers'             => ( new Lazy_Collection( $organizer_fetch ) )->on_resolve( $cache_this ),
 				'venues'                 => ( new Lazy_Collection( $venue_fetch ) )->on_resolve( $cache_this ),
 				'thumbnail'              => ( new Post_Thumbnail( $post_id ) )->on_resolve( $cache_this ),
