@@ -53,8 +53,8 @@ tribe.events.views.tooltip = {};
 	obj.selectors = {
 		tooltipTrigger: '[data-js~="tribe-events-tooltip-trigger"]',
 		tribeEventsTooltipTriggerHoverClass: '.tribe-events-tooltip-trigger--hover',
-		tribeEventsTooltipClass: '.tribe-events-tooltip',
-		tribeEventsTooltipHoverClass: '.tribe-events-tooltip--hover',
+		tribeEventsTooltipThemeClass: '.tribe-events-tooltip-theme',
+		tribeEventsTooltipThemeHoverClass: '.tribe-events-tooltip-theme--hover',
 		tribeCommonClass: '.tribe-common',
 		tribeEventsClass: '.tribe-events',
 	};
@@ -128,7 +128,7 @@ tribe.events.views.tooltip = {};
 	 * @return {void}
 	 */
 	obj.handleTooltipHoverIn = function( event ) {
-		event.data.target.addClass( obj.selectors.tribeEventsTooltipHoverClass.className() );
+		event.data.target.addClass( obj.selectors.tribeEventsTooltipThemeHoverClass.className() );
 	};
 
 	/**
@@ -141,7 +141,7 @@ tribe.events.views.tooltip = {};
 	 * @return {void}
 	 */
 	obj.handleTooltipHoverOut = function( event ) {
-		event.data.target.removeClass( obj.selectors.tribeEventsTooltipHoverClass.className() );
+		event.data.target.removeClass( obj.selectors.tribeEventsTooltipThemeHoverClass.className() );
 	};
 
 	/**
@@ -161,7 +161,7 @@ tribe.events.views.tooltip = {};
 		if (
 			$origin.is( ':focus' ) ||
 			$origin.hasClass( obj.selectors.tribeEventsTooltipTriggerHoverClass.className() ) ||
-			$tooltip.hasClass( obj.selectors.tribeEventsTooltipHoverClass.className() )
+			$tooltip.hasClass( obj.selectors.tribeEventsTooltipThemeHoverClass.className() )
 		) {
 			event.stop();
 		}
@@ -263,7 +263,6 @@ tribe.events.views.tooltip = {};
 			.find( obj.selectors.tooltipTrigger )
 			.each( function( index, trigger ) {
 				$( trigger ).tooltipster( {
-					contentAsHTML: true,
 					interactive: true,
 					delay: [ obj.config.delayHoverIn, obj.config.delayHoverOut ],
 					delayTouch: [ obj.config.delayHoverIn, obj.config.delayHoverOut ],
@@ -287,7 +286,7 @@ tribe.events.views.tooltip = {};
 		$container.trigger( 'beforeTooltipInitTheme.tribeEvents', [ $container ] );
 
 		var theme = [
-			obj.selectors.tribeEventsTooltipClass.className(),
+			obj.selectors.tribeEventsTooltipThemeClass.className(),
 			obj.selectors.tribeCommonClass.className(),
 			obj.selectors.tribeEventsClass.className(),
 		];
