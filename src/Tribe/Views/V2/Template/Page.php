@@ -37,6 +37,20 @@ class Page {
 	}
 
 	/**
+	 * Fires when the loop starts, and tries to hijack the loop for post.
+	 *
+	 * @since  TBD
+	 *
+	 * @param  \WP_Query  $query
+	 */
+	public function hijack_on_loop_start( \WP_Query $query ) {
+		// After attaching itself it will prevent it from happening again
+		remove_action( 'loop_start', [ $this, 'hijack_on_loop_start' ], PHP_INT_MAX );
+
+		$this->maybe_hijack_page_template( $query );
+	}
+
+	/**
 	 * When using Page template we need to specifically hijack the WordPress templating
 	 * system at a specific point after `loop_start`.
 	 *
@@ -155,6 +169,8 @@ class Page {
 
 		// re-do counting
 		$wp_query->rewind_posts();
+
+		add_action( 'loop_start', [ $this, 'hijack_on_loop_start' ], PHP_INT_MAX );
 	}
 
 	/**
