@@ -17,19 +17,19 @@
 		title="Single Event 1"
 		rel="bookmark"
 		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
-				data-js="tribe-events-tooltip"
+				data-js="tribe-events-tooltip-trigger"
 		data-tooltip-content="#tribe-events-tooltip-content-8"
 		aria-describedby="tribe-events-tooltip-content-8"
 	>
 		Single Event 1	</a>
 </h3>
 
-		<div
-	class="tribe-events-calendar-month__calendar-event-tooltip"
-	data-js="tribe-events-tooltip-content"
-	role="tooltip"
->
-	<div id="tribe-events-tooltip-content-8">
+		<div class="tribe-events-calendar-month__calendar-event-tooltip-template tribe-common-a11y-hidden">
+	<div
+		class="tribe-events-calendar-month__calendar-event-tooltip"
+		id="tribe-events-tooltip-content-8"
+		role="tooltip"
+	>
 				<div class="tribe-events-calendar-month__calendar-event-tooltip-description tribe-common-b3">
 	</div>
 			</div>
