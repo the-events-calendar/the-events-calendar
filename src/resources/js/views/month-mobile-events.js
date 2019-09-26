@@ -34,7 +34,7 @@ tribe.events.views.monthMobileEvents = {};
 	/**
 	 * Selectors used for configuration and setup
 	 *
-	 * @since TBD
+	 * @since 4.9.8
 	 *
 	 * @type {PlainObject}
 	 */
@@ -42,7 +42,7 @@ tribe.events.views.monthMobileEvents = {};
 		calendar: '[data-js="tribe-events-month-grid"]',
 		calendarDay: '[data-js="tribe-events-calendar-month-day-cell-mobile"]',
 		calendarDaySelectedClass: '.tribe-events-calendar-month__day-cell--selected',
-		mobileEvents: '[data-js="tribe-events-pro-week-mobile-events"]',
+		mobileEvents: '[data-js="tribe-events-calendar-month-mobile-events"]',
 		mobileEventsMobileDayShowClass: '.tribe-events-calendar-month-mobile-events__mobile-day--show',
 	};
 
@@ -78,7 +78,7 @@ tribe.events.views.monthMobileEvents = {};
 	/**
 	 * Opens mobile events
 	 *
-	 * @since TBD
+	 * @since 4.9.8
 	 *
 	 * @param {jQuery} $header jQuery object of mobile day button
 	 * @param {jQuery} $content jQuery object of mobile events container
@@ -99,7 +99,7 @@ tribe.events.views.monthMobileEvents = {};
 	/**
 	 * Closes mobile events
 	 *
-	 * @since TBD
+	 * @since 4.9.8
 	 *
 	 * @param {jQuery} $header jQuery object of mobile day button
 	 * @param {jQuery} $content jQuery object of mobile events container
@@ -191,7 +191,7 @@ tribe.events.views.monthMobileEvents = {};
 	/**
 	 * Initializes mobile events state
 	 *
-	 * @since TBD
+	 * @since 4.9.8
 	 *
 	 * @param {jQuery} $container jQuery object of view container
 	 *
@@ -209,7 +209,7 @@ tribe.events.views.monthMobileEvents = {};
 	/**
 	 * Handles resize event
 	 *
-	 * @since TBD
+	 * @since 4.9.8
 	 *
 	 * @param {Event} event event object for 'beforeAjaxSuccess.tribeEvents' event
 	 *
@@ -232,7 +232,7 @@ tribe.events.views.monthMobileEvents = {};
 	/**
 	 * Deinitializes mobile days
 	 *
-	 * @since TBD
+	 * @since 4.9.8
 	 *
 	 * @param  {Event}       event    event object for 'beforeAjaxSuccess.tribeEvents' event
 	 * @param  {jqXHR}       jqXHR    Request object
@@ -249,7 +249,7 @@ tribe.events.views.monthMobileEvents = {};
 	/**
 	 * Initializes mobile days
 	 *
-	 * @since TBD
+	 * @since 4.9.8
 	 *
 	 * @param  {Event}   event      event object for 'afterSetup.tribeEvents' event
 	 * @param  {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event
@@ -261,7 +261,9 @@ tribe.events.views.monthMobileEvents = {};
 	obj.init = function( event, index, $container, data ) {
 		var $mobileEvents = $container.find( obj.selectors.mobileEvents );
 
-		if ( ! $mobileEvents.length ) return;
+		if ( ! $mobileEvents.length ) {
+			return;
+		}
 
 		obj.initState( $container );
 		obj.bindCalendarEvents( $container );

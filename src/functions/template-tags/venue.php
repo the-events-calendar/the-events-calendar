@@ -4,10 +4,83 @@
  *
  * Display functions (template-tags) for use in WordPress templates.
  */
+use Tribe\Events\Models\Post_Types\Venue;
 
-// Don't load directly
-if ( ! defined( 'ABSPATH' ) ) {
-	die( '-1' );
+/**
+ * Fetches and returns a decorated post object representing a Venue.
+ *
+ * @since 4.9.9
+ *
+ * @param null|int|WP_Post $venue  The venue ID or post object or `null` to use the global one.
+ * @param string|null      $output The required return type. One of `OBJECT`, `ARRAY_A`, or `ARRAY_N`, which
+ *                                 correspond to a WP_Post object, an associative array, or a numeric array,
+ *                                 respectively. Defaults to `OBJECT`.
+ * @param string           $filter Type of filter to apply. Accepts 'raw'.
+ *
+ * @return array|mixed|void|WP_Post|null {
+ *                              The Venue post object or array, `null` if not found.
+ *
+ *                              @type string $address The venue address field, normally street and number.
+ *                              @type string $country Which country the venue happens, full name of the country, no abbr.
+ *                              @type string $city The city for the venue.
+ *                              @type string $state_province State or province for the venue, avaiable for venues outside of the US.
+ *                              @type string $state The state for the venue in case of a US based venue.
+ *                              @type string $province Province for the venue, mostly deprecated, use state_province.
+ *                              @type string $zip Zip code of the venue.
+ *                              @type boolean $overwrite_coordinates Did this venue get it's coordinates overwritten manually.
+ *                              @type string $latitude The latitude of the venue.
+ *                              @type string $longitude The longitude of the venue.
+ *                              @type string $geolocation_string The string we use to crawl and link to the maps provider.
+ *                          }
+ */
+function tribe_get_venue_object( $venue = null, $output = OBJECT, $filter = 'raw' ) {
+	/**
+	 * Filters the venue result before any logic applies.
+	 *
+	 * Returning a non `null` value here will short-circuit the function and return the value.
+	 * Note: this value will not be cached and the caching of this value is a duty left to the filtering function.
+	 *
+	 * @since 4.9.9
+	 *
+	 * @param mixed       $return      The venue object to return.
+	 * @param mixed       $venue       The venue object to fetch.
+	 * @param string|null $output      The required return type. One of OBJECT, ARRAY_A, or ARRAY_N, which
+	 *                                 correspond to a `WP_Post` object, an associative array, or a numeric array,
+	 *                                 respectively. Defaults to `OBJECT`.
+	 * @param string      $filter      Type of filter to apply. Accepts 'raw'.
+	 */
+	$return = apply_filters( 'tribe_get_venue_object_before', null, $venue, $output, $filter );
+
+	if ( null !== $return ) {
+		return $return;
+	}
+
+	$post = Venue::from_post( $venue )->to_post( $output, $filter );
+
+	if ( empty( $post ) ) {
+		return null;
+	}
+
+	/**
+	 * Filters the venue post object before caching it and returning it.
+	 *
+	 * Note: this value will be cached; as such this filter might not run on each request.
+	 * If you need to filter the output value on each call of this function then use the `tribe_get_venue_object_before`
+	 * filter.
+	 *
+	 * @since 4.9.7
+	 *
+	 * @param WP_Post $post   The venue post object, decorated with a set of custom properties.
+	 * @param string  $output The output format to use.
+	 * @param string  $filter The filter, or context of the fetch.
+	 */
+	$post = apply_filters( 'tribe_get_venue_object', $post, $output, $filter );
+
+	if ( OBJECT !== $output ) {
+		$post = ARRAY_A === $output ? (array) $post : array_values( (array) $post );
+	}
+
+	return $post;
 }
 
 if ( class_exists( 'Tribe__Events__Main' ) ) {
@@ -716,7 +789,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			return array();
 		}
 
-		$venue_details = array();
+		$venue_details = [];
 
 		if ( $venue_link = tribe_get_venue_link( $post_id ) ) {
 			$venue_details['linked_name'] = $venue_link;

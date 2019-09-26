@@ -13,7 +13,7 @@
  * @var string $next_url The URL to the next page, if any, or an empty string.
  * @var string $today_url The URL to the today page, if any, or an empty string.
  *
- * @version 4.9.4
+ * @version TBD
  *
  */
 ?>
@@ -27,7 +27,7 @@
 		}
 		?>
 
-		<?php $this->template( 'list/nav/today', [ 'link' => '#' ] ); ?>
+		<?php $this->template( 'list/nav/today' ); ?>
 
 		<?php
 		if ( ! empty( $next_url ) ) {

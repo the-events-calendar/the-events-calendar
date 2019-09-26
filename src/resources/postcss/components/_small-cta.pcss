@@ -6,13 +6,23 @@
 
 .tribe-events {
 
+	.tribe-events-c-small-cta {
+
+		> * {
+			margin-left: var(--spacer-1);
+
+			&:first-child {
+				margin-left: 0;
+			}
+		}
+	}
+
 	.tribe-events-c-small-cta__link {
 		cursor: pointer;
 	}
 
-	.tribe-events-c-small-cta__price {
-		@mixin desktop-body-3;
-		padding-left: 10px;
-
+	.tribe-events-c-small-cta__stock {
+		color: var(--color-text-secondary);
+		margin-left: var(--spacer-0);
 	}
 }

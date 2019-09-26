@@ -234,7 +234,7 @@ class Url {
 	/**
 	 * Returns all the aliases of the variable set in the Url query args, if any.
 	 *
-	 * @since TBD
+	 * @since 4.9.9
 	 *
 	 * @param string       $var     The name of the variable to search the aliases for.
 	 * @param Context|null $context The Context object to use to fetch locations, if `null` the global Context will be
@@ -259,11 +259,11 @@ class Url {
 		$request_aliases = (array) Arr::get( $context->get_locations(), [ $var, 'read', Context::REQUEST_VAR ], [] );
 		$context_aliases = array_unique( array_merge( $query_aliases, $request_aliases ) );
 
-		$aliases = array_intersect_key(
-			array_merge( $query_args, tribe_get_request_vars() ),
-			array_merge( $aliases, array_combine( $context_aliases, $context_aliases ) )
+		$matches = array_intersect(
+			array_unique( array_merge( $context_aliases, [ $var ] ) ),
+			array_keys( array_merge( $query_args, tribe_get_request_vars() ) )
 		);
 
-		return array_keys( $aliases );
+		return $matches;
 	}
 }

@@ -76,7 +76,7 @@ class Month_ViewTest extends ViewTestCase {
 		update_option( 'timezone_string', $timezone_string );
 
 		$now = new \DateTimeImmutable( $this->mock_date_value, $timezone );
-
+    
 		// Create some events that will be available in the Month timeframe.
 		$events    = array_map(
 			static function ( $i ) use ( $now, $timezone ) {
@@ -463,4 +463,84 @@ class NavTest extends HtmlPartialTestCase
 When a markup change occurs in the partial, the test will fail as the html markup will not match the snapshot. See **Snapshot Testing** above for more details on updating snapshots.
 
 ### Other Testing
-@todo @bordoni
+
+Besides all the tests mentioned above, due to the multiple moving parts of the software, its important to make sure we cover the current behavior with tests to ensure they are not broken in the next iterations.
+
+In the test below we cover the class bootstrapping the templates with tests to ensure it handles all the possible admin setting combinations, good and bad alike, in a predictable way.
+Any change of the code causing a test failure would signal a change in the class behavior we want to avoid.
+
+```php
+<?php
+namespace Tribe\Events\Views\V2;
+
+class TemplateBootstrapTest extends \Codeception\TestCase\WPTestCase {
+	public function base_template_options() {
+		return [
+			'invalid' => [
+				'foo',
+				'event',
+			],
+			'numeric' => [
+				2,
+				'event',
+			],
+			'default' => [
+				'default',
+				'page',
+			],
+			'empty_string' => [
+				'',
+				'event',
+			],
+			'numeric_zero' => [
+				0,
+				'event',
+			],
+			'null' => [
+				null,
+				'event',
+			],
+			'boolean_false' => [
+				false,
+				'event',
+			],
+			'boolean_true' => [
+				false,
+				'event',
+			],
+			'slug_event' => [
+				'event',
+				'event',
+			],
+			'slug_page' => [
+				'page',
+				'event',
+			],
+		];
+	}
+
+	/**
+	 * @test
+	 * @dataProvider base_template_options
+	 */
+	public function should_only_allow_permitted_values_on_base_template_option( $input, $expected ) {
+		// The bootstrapping depends on this option, rather than arguments, here we "mock" the test context.
+		tribe_update_option( 'tribeEventsTemplate', $input );
+
+		$template_bootstrap = new Template_Bootstrap();
+		$template_setting = $template_bootstrap->get_template_setting();
+
+		// PHPUnit will format a message for us comparing the two strings.
+		$this->assertEquals( $template_setting, $expected );
+	}
+
+	// ...
+}
+```
+
+There are many examples of things that would benefit from tests like this one.
+A good example is the handling of multiple display settings to format date and time depending on a number of arguments and settings: creating [snapshot tests](#snapshot-testing) to cover all the combinations would be another example of this "accessory" testing.
+
+These tests should test positive and negative behavior alike to ensure correct handling of "good" and "bad" combinations of arguments and settings.
+
+

@@ -7,7 +7,6 @@
  */
 tribe.events = tribe.events || {};
 tribe.events.views = tribe.events.views || {};
-tribe.events.views.manager = tribe.events.views.manager || {};
 
 /**
  * Configures Views Tooltip Object in the Global Tribe variable
@@ -42,6 +41,9 @@ tribe.events.views.tooltip = {};
 	obj.selectors = {
 		tooltip: '[data-js="tribe-events-tooltip"]',
 		tooltipContent: '[data-js="tribe-events-tooltip-content"]',
+		tribeEventsTooltipThemeClass: '.tribe-events-tooltip-theme',
+		tribeCommonClass: '.tribe-common',
+		tribeEventsClass: '.tribe-events',
 	};
 
 	/**
@@ -149,17 +151,41 @@ tribe.events.views.tooltip = {};
 	 * @return {void}
 	 */
 	obj.initTooltips = function( $container ) {
+		var theme = $container.data( 'tribeEventsTooltipTheme' );
+
 		$container
 			.find( obj.selectors.tooltip )
 			.each( function( index, tooltip ) {
 				$( tooltip ).tooltipster( {
 					interactive: true,
-					theme: [ 'tribe-common', 'tribe-events', 'tribe-events-tooltip-theme' ],
+					theme: theme,
 					functionInit: obj.onFunctionInit,
 					functionReady: obj.onFunctionReady,
 					functionAfter: obj.onFunctionAfter,
 				} );
 			} );
+	};
+
+	/**
+	 * Initialize tooltip theme
+	 *
+	 * @since 4.9.9
+	 *
+	 * @param {jQuery} $container jQuery object of view container.
+	 *
+	 * @return {void}
+	 */
+	obj.initTheme = function( $container ) {
+		$container.trigger( 'beforeTooltipInitTheme.tribeEvents', [ $container ] );
+
+		var theme = [
+			obj.selectors.tribeEventsTooltipThemeClass.className(),
+			obj.selectors.tribeCommonClass.className(),
+			obj.selectors.tribeEventsClass.className(),
+		];
+		$container.data( 'tribeEventsTooltipTheme', theme );
+
+		$container.trigger( 'afterTooltipInitTheme.tribeEvents', [ $container ] );
 	};
 
 	/**
@@ -191,6 +217,7 @@ tribe.events.views.tooltip = {};
 	 * @return {void}
 	 */
 	obj.init = function( event, index, $container, data ) {
+		obj.initTheme( $container );
 		obj.initTooltips( $container );
 		$container.on( 'beforeAjaxSuccess.tribeEvents', { container: $container }, obj.deinit );
 	};

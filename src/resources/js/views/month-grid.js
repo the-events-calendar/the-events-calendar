@@ -47,19 +47,6 @@ tribe.events.views.monthGrid = {};
 	};
 
 	/**
-	 * State data for month grid
-	 *
-	 * @since 4.9.4
-	 *
-	 * @type {PlainObject}
-	 */
-	obj.state = {
-		grid: [],
-		currentRow: 0,
-		currentCol: 0,
-	};
-
-	/**
 	 * Object of key codes
 	 *
 	 * @since 4.9.4
@@ -132,7 +119,7 @@ tribe.events.views.monthGrid = {};
 	/**
 	 * Set focus pointer to given row and column
 	 *
-	 * @since TBD
+	 * @since 4.9.8
 	 *
 	 * @param {jQuery}  $grid jQuery object of grid
 	 * @param {integer} row   index of row
@@ -160,7 +147,7 @@ tribe.events.views.monthGrid = {};
 	/**
 	 * Focus cell at given row and column
 	 *
-	 * @since TBD
+	 * @since 4.9.8
 	 *
 	 * @param {jQuery}  $grid jQuery object of grid
 	 * @param {integer} row   index of row
@@ -178,7 +165,7 @@ tribe.events.views.monthGrid = {};
 	/**
 	 * Handle keydown event to move focused grid cell
 	 *
-	 * @since TBD
+	 * @since 4.9.8
 	 *
 	 * @param {Event} event event object
 	 *
@@ -236,7 +223,7 @@ tribe.events.views.monthGrid = {};
 	/**
 	 * Handle click event to focus cell
 	 *
-	 * @since TBD
+	 * @since 4.9.8
 	 *
 	 * @param {Event} event event object
 	 *
@@ -260,7 +247,7 @@ tribe.events.views.monthGrid = {};
 	/**
 	 * Initializes grid state
 	 *
-	 * @since TBD
+	 * @since 4.9.8
 	 *
 	 * @param {jQuery} $grid jQuery object of grid.
 	 *
@@ -279,7 +266,7 @@ tribe.events.views.monthGrid = {};
 	/**
 	 * Set up grid to state array
 	 *
-	 * @since TBD
+	 * @since 4.9.8
 	 *
 	 * @param {jQuery} $grid jQuery object of grid.
 	 *
@@ -383,7 +370,7 @@ tribe.events.views.monthGrid = {};
 	/**
 	 * Initialize grid.
 	 *
-	 * @since TBD
+	 * @since 4.9.8
 	 *
 	 * @param {Event}   event      JS event triggered.
 	 * @param {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event.
@@ -395,7 +382,9 @@ tribe.events.views.monthGrid = {};
 	obj.init = function( event, index, $container, data ) {
 		var $grid = $container.find( obj.selectors.grid );
 
-		if ( ! $grid.length ) return;
+		if ( ! $grid.length ) {
+			return;
+		}
 
 		obj.initState( $grid );
 		obj.setupGrid( $grid );

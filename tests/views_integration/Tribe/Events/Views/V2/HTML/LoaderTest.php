@@ -10,7 +10,7 @@ class LoaderTest extends HtmlTestCase {
 	 */
 	public function it_should_render() {
 		$text = '%placeholder-text%';
-		$html = $this->template->template( 'loader', [ 'text' => $text ] );
+		$html = $this->template->template( 'components/loader', [ 'text' => $text ] );
 
 		$this->assertMatchesSnapshot( $html, $this->driver );
 	}
@@ -19,7 +19,7 @@ class LoaderTest extends HtmlTestCase {
 	 * @test
 	 */
 	public function it_should_contain_correct_html_classes() {
-		$template = $this->template->template( 'loader', [ 'text' => 'test' ] );
+		$template = $this->template->template( 'components/loader', [ 'text' => 'test' ] );
 		$html = $this->document->html( $template );
 
 		$this->assertEquals(
@@ -44,7 +44,7 @@ class LoaderTest extends HtmlTestCase {
 	 * @test
 	 */
 	public function it_should_contain_a11y_attributes() {
-		$template = $this->template->template( 'loader', [ 'text' => 'test' ] );
+		$template = $this->template->template( 'components/loader', [ 'text' => 'test' ] );
 		$html = $this->document->html( $template );
 		$loader = $html->find( '.tribe-events-view-loader' );
 
@@ -64,7 +64,7 @@ class LoaderTest extends HtmlTestCase {
 	 */
 	public function it_should_contain_text() {
 		$text = '%placeholder-text%';
-		$template = $this->template->template( 'loader', [ 'text' => $text ] );
+		$template = $this->template->template( 'components/loader', [ 'text' => $text ] );
 		$html = $this->document->html( $template );
 		$spinner = $html->find( '.tribe-events-view-loader__spinner' );
 
@@ -79,7 +79,7 @@ class LoaderTest extends HtmlTestCase {
 	 */
 	public function it_should_escape_html_for_text() {
 		$text = '<strong class="find-me">%placeholder-text%</strong>';
-		$template = $this->template->template( 'loader', [ 'text' => $text ] );
+		$template = $this->template->template( 'components/loader', [ 'text' => $text ] );
 		$html = $this->document->html( $template );
 		$spinner = $html->find( '.tribe-events-view-loader__spinner' );
 		$find_element = $html->find( '.find-me' );

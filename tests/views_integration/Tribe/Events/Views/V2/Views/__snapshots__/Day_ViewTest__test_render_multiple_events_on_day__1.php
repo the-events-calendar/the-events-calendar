@@ -17,7 +17,8 @@
 		<script
 	data-js="tribe-events-view-data"
 	type="application/json"
->{"slug":"day","prev_url":"","next_url":"","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Day_View","view_slug":"day","view":{},"title":"","events":[{"ID":7,"post_author":"0","post_date":"2019-06-11 13:59:35","post_date_gmt":"2019-06-11 13:59:35","post_content":"","post_title":"Test Event - +9 days","post_excerpt":"","post_status":"publish","comment_status":"open","ping_status":"closed","post_password":"","post_name":"test-event-9-days-2","to_ping":"","pinged":"","post_modified":"2019-06-11 13:59:35","post_modified_gmt":"2019-06-11 13:59:35","post_content_filtered":"","post_parent":0,"guid":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-9-days-2","menu_order":0,"post_type":"tribe_events","post_mime_type":"","comment_count":"0","filter":"raw","start_date":"2019-06-20 13:01:20","start_date_utc":"2019-06-20 13:01:20","end_date":"2019-06-20 17:01:20","end_date_utc":"2019-06-20 17:01:20","dates":{"start":{"date":"2019-06-20 13:01:20.000000","timezone_type":3,"timezone":"America\\/Sao_Paulo"},"start_utc":{"date":"2019-06-20 13:01:20.000000","timezone_type":3,"timezone":"UTC"},"end":{"date":"2019-06-20 17:01:20.000000","timezone_type":3,"timezone":"America\\/Sao_Paulo"},"end_utc":{"date":"2019-06-20 17:01:20.000000","timezone_type":3,"timezone":"UTC"}},"timezone":"America\\/Sao_Paulo","duration":0,"multiday":false,"all_day":false,"starts_this_week":null,"ends_this_week":null,"this_week_duration":null,"happens_this_week":null,"featured":true,"cost":"","organizers":[],"venues":[],"thumbnail":{},"permalink":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-9-days-2","schedule_details":"<span class=\\"tribe-event-date-start\\">June 20 @ 1:01 pm<\\/span> - <span class=\\"tribe-event-time\\">5:01 pm<\\/span>"},{"ID":8,"post_author":"1","post_date":"2019-06-11 13:59:35","post_date_gmt":"2019-06-11 13:59:35","post_content":"","post_title":"Single Event 1","post_excerpt":"","post_status":"publish","comment_status":"open","ping_status":"closed","post_password":"","post_name":"single-event-1","to_ping":"","pinged":"","post_modified":"2019-06-11 13:59:35","post_modified_gmt":"2019-06-11 13:59:35","post_content_filtered":"","post_parent":0,"guid":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-9-days-2","menu_order":0,"post_type":"tribe_events","post_mime_type":"","comment_count":"0","filter":"raw","start_date":"2019-06-20 13:04:08","start_date_utc":"2019-06-20 13:04:08","end_date":"2019-06-20 17:04:08","end_date_utc":"2019-06-20 17:04:08","dates":{"start":{"date":"2019-06-20 13:04:08.000000","timezone_type":3,"timezone":"America\\/Sao_Paulo"},"start_utc":{"date":"2019-06-20 13:04:08.000000","timezone_type":3,"timezone":"UTC"},"end":{"date":"2019-06-20 17:04:08.000000","timezone_type":3,"timezone":"America\\/Sao_Paulo"},"end_utc":{"date":"2019-06-20 17:04:08.000000","timezone_type":3,"timezone":"UTC"}},"timezone":"America\\/Sao_Paulo","duration":0,"multiday":false,"all_day":false,"starts_this_week":null,"ends_this_week":null,"this_week_duration":null,"happens_this_week":null,"featured":false,"cost":"","organizers":[],"venues":[],"thumbnail":{},"permalink":"http:\\/\\/test.tri.be\\/?tribe_events=single-event-1","schedule_details":"<span class=\\"tribe-event-date-start\\">June 20 @ 1:04 pm<\\/span> - <span class=\\"tribe-event-time\\">5:04 pm<\\/span>"}],"url":"http:\\/\\/test.tri.be\\/events\\/today\\/","bar":{"keyword":"","date":"2019-01-01 09:00:00"},"today":"2019-01-01 09:00:00","now":"2019-01-01 09:00:00","rest_url":"http:\\/\\/test.tri.be\\/index.php?rest_route=\\/tribe\\/views\\/v2\\/html","rest_nonce":"2ab7cc6b39","should_manage_url":true,"today_url":"http:\\/\\/test.tri.be\\/events\\/today\\/","prev_label":"","next_label":""}</script>
+>
+	{"slug":"day","prev_url":"http:\\/\\/test.tri.be\\/events\\/2018-12-31\\/","next_url":"","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Day_View","view_slug":"day","view":{},"title":"Upcoming Events &#8211; The Events Calendar Tests","events":[{"ID":7,"post_author":"0","post_date":"2019-06-11 13:59:35","post_date_gmt":"2019-06-11 13:59:35","post_content":"","post_title":"Test Event - +9 days","post_excerpt":"","post_status":"publish","comment_status":"open","ping_status":"closed","post_password":"","post_name":"test-event-9-days-2","to_ping":"","pinged":"","post_modified":"2019-06-11 13:59:35","post_modified_gmt":"2019-06-11 13:59:35","post_content_filtered":"","post_parent":0,"guid":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-9-days-2","menu_order":0,"post_type":"tribe_events","post_mime_type":"","comment_count":"0","filter":"raw","start_date":"2019-06-20 13:01:20","start_date_utc":"2019-06-20 13:01:20","end_date":"2019-06-20 17:01:20","end_date_utc":"2019-06-20 17:01:20","dates":{"start":{"date":"2019-06-20 13:01:20.000000","timezone_type":3,"timezone":"America\\/Sao_Paulo"},"start_utc":{"date":"2019-06-20 13:01:20.000000","timezone_type":3,"timezone":"UTC"},"end":{"date":"2019-06-20 17:01:20.000000","timezone_type":3,"timezone":"America\\/Sao_Paulo"},"end_utc":{"date":"2019-06-20 17:01:20.000000","timezone_type":3,"timezone":"UTC"}},"timezone":"America\\/Sao_Paulo","duration":14400,"multiday":false,"is_past":true,"all_day":false,"starts_this_week":null,"ends_this_week":null,"this_week_duration":null,"happens_this_week":null,"featured":true,"cost":"","organizers":[],"venues":[],"thumbnail":{},"permalink":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-9-days-2","schedule_details":"<span class=\\"tribe-event-date-start\\">June 20 @ 1:01 pm<\\/span> - <span class=\\"tribe-event-time\\">5:01 pm<\\/span>","plain_schedule_details":"June 20 @ 1:01 pm - 5:01 pm"},{"ID":8,"post_author":"1","post_date":"2019-06-11 13:59:35","post_date_gmt":"2019-06-11 13:59:35","post_content":"","post_title":"Single Event 1","post_excerpt":"","post_status":"publish","comment_status":"open","ping_status":"closed","post_password":"","post_name":"single-event-1","to_ping":"","pinged":"","post_modified":"2019-06-11 13:59:35","post_modified_gmt":"2019-06-11 13:59:35","post_content_filtered":"","post_parent":0,"guid":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-9-days-2","menu_order":0,"post_type":"tribe_events","post_mime_type":"","comment_count":"0","filter":"raw","start_date":"2019-06-20 13:04:08","start_date_utc":"2019-06-20 13:04:08","end_date":"2019-06-20 17:04:08","end_date_utc":"2019-06-20 17:04:08","dates":{"start":{"date":"2019-06-20 13:04:08.000000","timezone_type":3,"timezone":"America\\/Sao_Paulo"},"start_utc":{"date":"2019-06-20 13:04:08.000000","timezone_type":3,"timezone":"UTC"},"end":{"date":"2019-06-20 17:04:08.000000","timezone_type":3,"timezone":"America\\/Sao_Paulo"},"end_utc":{"date":"2019-06-20 17:04:08.000000","timezone_type":3,"timezone":"UTC"}},"timezone":"America\\/Sao_Paulo","duration":14400,"multiday":false,"is_past":true,"all_day":false,"starts_this_week":null,"ends_this_week":null,"this_week_duration":null,"happens_this_week":null,"featured":false,"cost":"","organizers":[],"venues":[],"thumbnail":{},"permalink":"http:\\/\\/test.tri.be\\/?tribe_events=single-event-1","schedule_details":"<span class=\\"tribe-event-date-start\\">June 20 @ 1:04 pm<\\/span> - <span class=\\"tribe-event-time\\">5:04 pm<\\/span>","plain_schedule_details":"June 20 @ 1:04 pm - 5:04 pm"}],"url":"http:\\/\\/test.tri.be\\/events\\/today\\/","bar":{"keyword":"","date":"2019-01-01 09:00:00"},"today":"2019-01-01 09:00:00","now":"2019-01-01 09:00:00","rest_url":"http:\\/\\/test.tri.be\\/index.php?rest_route=\\/tribe\\/views\\/v2\\/html","rest_nonce":"2ab7cc6b39","should_manage_url":true,"today_url":"http:\\/\\/test.tri.be\\/events\\/today\\/","prev_label":"2018-12-31","next_label":""}</script>
 
 		<header class="tribe-events-header">
 			<div
@@ -25,7 +26,8 @@
 	data-js="tribe-events-events-bar"
 >
 
-	<h2 class="tribe-common-a11y-visual-hide">Events Search and Views Navigation</h2>
+	<h2 class="tribe-common-a11y-visual-hide">
+		Events Search and Views Navigation	</h2>
 
 	<button
 	class="tribe-events-c-events-bar__search-button"
@@ -81,7 +83,8 @@
 	class="tribe-common-c-btn tribe-events-c-search__button"
 	type="submit"
 	name="submit-bar"
->Find Events</button>
+>
+	Find Events</button>
 	</form>
 </div>
 
@@ -150,13 +153,14 @@
 	<nav class="tribe-events-c-top-bar__nav">
 	<ul class="tribe-events-c-top-bar__nav-list">
 		<li class="tribe-events-c-top-bar__nav-list-item">
-	<button
+	<a
+		href="http://test.tri.be/events/2018-12-31/"
 		class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-left tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--prev"
-		aria-label="Prev"
-		title="Prev"
-		disabled
+		aria-label="Previous"
+		title="Previous"
+		data-js="tribe-events-view-link"
 	>
-	</button>
+	</a>
 </li>
 
 		<li class="tribe-events-c-top-bar__nav-list-item">
@@ -220,28 +224,28 @@
 	>
 		1:00 pm	</time>
 </div>
-				<article class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-day__event tribe-events-calendar-day__event--featured">
+				<article  class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-day__event post-7 tribe_events type-tribe_events status-publish hentry entry tribe-events-calendar-day__event--featured" >
 
 	
 	<div class="tribe-events-calendar-day__event-details tribe-common-g-col">
 
 		<header class="tribe-events-calendar-day__event-header">
-			<div class="tribe-events-calendar-day__event-datetime-wrapper">
+			<div class="tribe-events-calendar-day__event-datetime-wrapper tribe-common-b2">
 			<em
 			class="tribe-events-calendar-day__event-datetime-featured-icon tribe-common-svgicon tribe-common-svgicon--featured"
 			aria-label="Featured"
 			title="Featured"
 		>
 		</em>
-		<span class="tribe-events-calendar-day__event-datetime-featured-text tribe-common-b2">
+		<span class="tribe-events-calendar-day__event-datetime-featured-text tribe-common-a11y-visual-hide">
 			Featured		</span>
-		<time class="tribe-events-calendar-day__event-datetime tribe-common-b2" datetime="2019-06-20">
+		<time class="tribe-events-calendar-day__event-datetime" datetime="2019-06-20">
 		<span class="tribe-event-date-start">June 20 @ 1:01 pm</span> - <span class="tribe-event-time">5:01 pm</span>	</time>
-</div>
+	</div>
 			<h3 class="tribe-events-calendar-day__event-title tribe-common-h6 tribe-common-h5--min-medium">
 	<a
-		href="http://test.tri.be/?tribe_events=test-event-9-days-2%2F"
-		title=""
+		href="http://test.tri.be/?tribe_events=test-event-9-days-2"
+		title="Test Event &#8211; +9 days"
 		rel="bookmark"
 		class="tribe-events-calendar-day__event-title-link tribe-common-anchor-thin"
 	>
@@ -265,26 +269,26 @@
 
 		<div class="tribe-events-calendar-day__event-description tribe-common-b2">
 	</div>
-
+		
 	</div>
 
 </article>
 
 			
-								<article class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-day__event">
+								<article  class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-day__event post-8 tribe_events type-tribe_events status-publish hentry entry" >
 
 	
 	<div class="tribe-events-calendar-day__event-details tribe-common-g-col">
 
 		<header class="tribe-events-calendar-day__event-header">
-			<div class="tribe-events-calendar-day__event-datetime-wrapper">
-		<time class="tribe-events-calendar-day__event-datetime tribe-common-b2" datetime="2019-06-20">
+			<div class="tribe-events-calendar-day__event-datetime-wrapper tribe-common-b2">
+		<time class="tribe-events-calendar-day__event-datetime" datetime="2019-06-20">
 		<span class="tribe-event-date-start">June 20 @ 1:04 pm</span> - <span class="tribe-event-time">5:04 pm</span>	</time>
-</div>
+	</div>
 			<h3 class="tribe-events-calendar-day__event-title tribe-common-h6 tribe-common-h5--min-medium">
 	<a
-		href="http://test.tri.be/?tribe_events=single-event-1%2F"
-		title=""
+		href="http://test.tri.be/?tribe_events=single-event-1"
+		title="Single Event 1"
 		rel="bookmark"
 		class="tribe-events-calendar-day__event-title-link tribe-common-anchor-thin"
 	>
@@ -308,7 +312,7 @@
 
 		<div class="tribe-events-calendar-day__event-description tribe-common-b2">
 	</div>
-
+		
 	</div>
 
 </article>
@@ -319,8 +323,13 @@
 		<nav class="tribe-events-calendar-day-nav tribe-events-c-nav">
 	<ul class="tribe-events-c-nav__list">
 		<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--prev">
-	<button class="tribe-events-c-nav__prev tribe-common-b2 tribe-common-b1--min-medium" disabled>
-		Previous Day	</button>
+	<a
+		href="http://test.tri.be/events/2018-12-31/"
+		rel="prev"
+		class="tribe-events-c-nav__prev tribe-common-b2 tribe-common-b1--min-medium"
+		data-js="tribe-events-view-link"
+	>
+		Previous Day	</a>
 </li>
 
 		<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--next">

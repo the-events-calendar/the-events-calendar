@@ -9,14 +9,15 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.3
+ * @version 4.9.9
  *
+ * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
+ *
+ * @see tribe_get_event() For the format of the event object.
  */
-$event    = $this->get( 'event' );
-$event_id = $event->ID;
 
 // Setup an array of venue details for use later in the template
-$venue_details = tribe_get_venue_details( $event_id );
+$venue_details = tribe_get_venue_details( $event->ID );
 
 if ( ! $venue_details ) {
 	return;

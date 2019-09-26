@@ -278,32 +278,12 @@ class Stack {
 		 * whenever possible.
 		 */
 		if ( $this->recycle_space ) {
-			// Only run the reordering logic if there are events, in the current day, that are not positioned yet.
-			$day_events_wo_position = array_diff( $this->day_events, array_keys( $this->stack_positions ) );
+			$this->stack_positions = $this->assign_open_positions( $this->stack_positions, $this->day_events );
 
-			if ( count( $day_events_wo_position ) ) {
-				// Try and move each event that starts today in the first open position from the top of the day stack.
-				usort( $this->day_events, [ $this, 'recycle_day_stack_space' ] );
-			}
+			return;
 		}
 
-		foreach ( $this->day_events as $position_in_day => $event_id ) {
-			if ( isset( $this->stack_positions[ $event_id ] ) ) {
-				continue;
-			}
-
-			if ( $this->recycle_space ) {
-				// Events have been already ordered and the event position in the day stack is the correct one.
-				$the_event_position = $position_in_day;
-			} else {
-				// The event position is the next one.
-				$the_event_position = count( $this->stack_positions )
-					? max( $this->stack_positions ) + 1
-					: 0;
-			}
-
-			$this->stack_positions[ $event_id ] = $the_event_position;
-		}
+		$this->stack_positions = $this->assign_next_positions( $this->stack_positions, $this->day_events );
 	}
 
 	/**
@@ -322,7 +302,8 @@ class Stack {
 			array_combine( $this->day_events, $this->day_events )
 		);
 
-		foreach ( range( 0, max( $day_positions ) ) as $j ) {
+		$max_day_position = count( $day_positions ) ? max( $day_positions ) : 0;
+		foreach ( range( 0, $max_day_position ) as $j ) {
 			if ( in_array( $j, $day_positions, true ) ) {
 				$day_stack[ $j ] = array_search( $j, $day_positions, true );
 			} else {
@@ -352,55 +333,6 @@ class Stack {
 				$this->spacer
 			);
 		}
-	}
-
-	/**
-	 * A comparison function to sort events depending on their positions in the stack and the available stack positions.
-	 *
-	 * The purpose of this method is to move B over A if:
-	 * - B starts on the current day
-	 * - B has not a stack position assigned
-	 * - there is an open position over A
-	 *
-	 * @since 4.9.7
-	 *
-	 * @param int $event_a The post ID of the event that is currently first.
-	 * @param int $event_b The post ID of the event that is currently second.
-	 *
-	 * @return int An integer to indicate whether the positions should remain the same (`0`), A should stay before B
-	 *            (`-1`) or if B should list before A (`1`).
-	 */
-	protected function recycle_day_stack_space( $event_a, $event_b ) {
-		if (
-			isset( $this->stack_positions[ $event_b ] )
-			|| ! isset( $this->stack_positions[ $event_a ] )
-		) {
-			// The event already has a position in the stack or event A does not have a stack position assigned.
-			return 0;
-		}
-
-		$b_start = tribe_get_event( $event_b )->dates->start->format( 'Y-m-d' );
-		$a_start = tribe_get_event( $event_a )->dates->start->format( 'Y-m-d' );
-
-		if ( $a_start === $b_start ) {
-			// The two events start on the same day, let them be.
-			return 0;
-		}
-
-		// What positions are taken on this day?
-		$taken_positions        = array_intersect_key( $this->stack_positions, array_flip( $this->day_events ) );
-		$all_possible_positions = range( 0, count( $this->stack_positions ) );
-
-		// What positions are available on this day?
-		$available_stack_positions = array_diff( $all_possible_positions, $taken_positions );
-
-		$first_open_position = min( $available_stack_positions );
-
-		// What's A current position?
-		$a_position = isset( $this->stack_positions[ $event_a ] ) ? $this->stack_positions[ $event_a ] : 0;
-
-		// If A current position is after the first open positions then let's put B in that open position.
-		return $a_position < $first_open_position ? - 1 : 1;
 	}
 
 	/**
@@ -500,5 +432,56 @@ class Stack {
 		ksort( $events_by_day );
 
 		return $events_by_day;
+	}
+
+	/**
+	 * Assigns to each event the first available position in the day stack.
+	 *
+	 * This method will "fill" empty spaces in the stack to recycle the space.
+	 *
+	 * @since 4.9.9
+	 *
+	 * @param array $stack_positions        The currently assigned stack positions, in the shape
+	 *                                      `[ <id> => <position> ]`.
+	 * @param array $wo_position            An array of event post IDs for events that do not have a position assigned
+	 *                                      in the day stack.
+	 *
+	 * @return array An updated array of stack positions, in the shape `[ <id> => <position> ]`.
+	 */
+	protected function assign_open_positions( array $stack_positions, array $events ) {
+		$wo_position = array_diff( $events, array_keys( $stack_positions ) );
+
+		if ( ! count( $wo_position ) ) {
+			return $stack_positions;
+		}
+		$taken_day_positions    = array_intersect_key( $stack_positions, array_flip( $events ) );
+		$all_possible_positions = range( 0, count( $stack_positions ) + count( $wo_position ) );
+		$open_day_positions     = array_values( array_diff( $all_possible_positions, $taken_day_positions ) );
+		$assigned_day_positions = array_combine( $wo_position, array_slice( $open_day_positions, 0, count( $wo_position ) ) );
+		// Use the `+` to avoid the re-indexing: the indexes here are the event post IDs.
+		$stack_positions += $assigned_day_positions;
+
+		return $stack_positions;
+	}
+
+	/**
+	 * Assigns a stack postion to each event w/o one not recycling space.
+	 *
+	 * @since 4.9.9
+	 *
+	 * @param array $stack_positions The current stack positions.
+	 * @param array $event_ids       The events to position in the stack, events that already have a position will not
+	 *                               be re-positioned.
+	 *
+	 * @return array The finalized stack positions, where each event has been assigned a position in the stack.
+	 */
+	protected function assign_next_positions( array $stack_positions, array $event_ids ) {
+		$wo_position = array_diff( $event_ids, array_keys( $stack_positions ) );
+		foreach ( $wo_position as $position_in_day => $event_id ) {
+			// The event position is the next one.
+			$stack_positions[ $event_id ] = count( $stack_positions ) ? max( $stack_positions ) + 1 : 0;
+		}
+
+		return $stack_positions;
 	}
 }

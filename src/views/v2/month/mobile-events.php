@@ -9,14 +9,14 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version TBD
+ * @version 4.9.8
  *
  * @var array $days An array containing the data for each day on the calendar grid, divided by day.
  *                  Shape `[ <Y-m-d> => [ ...<day_data> ] ]`.
  */
 
 ?>
-<section class="tribe-events-calendar-month-mobile-events" data-js="tribe-events-pro-week-mobile-events">
+<section class="tribe-events-calendar-month-mobile-events" data-js="tribe-events-calendar-month-mobile-events">
 
 	<?php foreach ( $days as $day_date => $day ) : ?>
 
@@ -28,6 +28,6 @@
 
 	<?php endforeach; ?>
 
-	<?php $this->template( 'month/nav', [ 'location' => 'mobile' ] ); ?>
+	<?php $this->template( 'month/mobile-events/nav' ); ?>
 
 </section>

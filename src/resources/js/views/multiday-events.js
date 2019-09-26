@@ -49,7 +49,6 @@ tribe.events.views.multidayEvents = {};
 	 */
 	obj.selectorPrefixes = {
 		month: '.tribe-events-calendar-month__',
-		week: '.tribe-events-pro-week-grid__',
 	};
 
 	/**
@@ -209,7 +208,48 @@ tribe.events.views.multidayEvents = {};
 	/**
 	 * Binds events for container.
 	 *
-	 * @since TBD
+	 * @since 4.9.9
+	 *
+	 * @param {jQuery}  $container jQuery object of view container.
+	 * @param {object}  data       data object passed from 'afterSetup.tribeEvents' event.
+	 *
+	 * @return {void}
+	 */
+	obj.bindEvents = function( $container, data ) {
+		var viewSlug = data.slug;
+		var allowedViews = $container.data( 'tribeEventsMultidayEventsAllowedViews' );
+
+		if ( -1 === allowedViews.indexOf( viewSlug ) ) {
+			return;
+		}
+
+		obj.initSelectors( viewSlug );
+		obj.bindMultidayEvents( $container );
+		$container.on( 'beforeAjaxSuccess.tribeEvents', { container: $container }, obj.unbindEvents );
+	};
+
+	/**
+	 * Initialize allowed views
+	 *
+	 * @since 4.9.9
+	 *
+	 * @param {jQuery} $container jQuery object of view container.
+	 *
+	 * @return {void}
+	 */
+	obj.initAllowedViews = function( $container ) {
+		$container.trigger( 'beforeMultidayEventsInitAllowedViews.tribeEvents', [ $container ] );
+
+		var theme = [ 'month' ];
+		$container.data( 'tribeEventsMultidayEventsAllowedViews', theme );
+
+		$container.trigger( 'afterMultidayEventsInitAllowedViews.tribeEvents', [ $container ] );
+	};
+
+	/**
+	 * Initialize multiday events.
+	 *
+	 * @since 4.9.9
 	 *
 	 * @param {Event}   event      event object for 'afterSetup.tribeEvents' event
 	 * @param {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event.
@@ -218,14 +258,9 @@ tribe.events.views.multidayEvents = {};
 	 *
 	 * @return {void}
 	 */
-	obj.bindEvents = function( event, index, $container, data ) {
-		var viewSlug = data.slug;
-
-		if ( -1 === [ 'month', 'week' ].indexOf( viewSlug ) ) return;
-
-		obj.initSelectors( viewSlug );
-		obj.bindMultidayEvents( $container );
-		$container.on( 'beforeAjaxSuccess.tribeEvents', { container: $container }, obj.unbindEvents );
+	obj.init = function( event, index, $container, data ) {
+		obj.initAllowedViews( $container );
+		obj.bindEvents( $container, data );
 	};
 
 	/**
@@ -236,7 +271,7 @@ tribe.events.views.multidayEvents = {};
 	 * @return {void}
 	 */
 	obj.ready = function() {
-		$document.on( 'afterSetup.tribeEvents', tribe.events.views.manager.selectors.container, obj.bindEvents );
+		$document.on( 'afterSetup.tribeEvents', tribe.events.views.manager.selectors.container, obj.init );
 	};
 
 	// Configure on document ready

@@ -102,7 +102,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Select tab based on index
 	 *
-	 * @since TBD
+	 * @since 4.9.8
 	 *
 	 * @param {array} tabs array of jQuery objects of tabs
 	 * @param {array} tabPanels array of jQuery objects of tabPanels
@@ -149,7 +149,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Handles 'click' event on tab
 	 *
-	 * @since TBD
+	 * @since 4.9.8
 	 *
 	 * @param {Event} event event object of click event
 	 *
@@ -169,7 +169,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Handles 'keydown' event on tab
 	 *
-	 * @since TBD
+	 * @since 4.9.8
 	 *
 	 * @param {Event} event event object of keydown event
 	 *
@@ -238,7 +238,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Initializes tablist
 	 *
-	 * @since TBD
+	 * @since 4.9.8
 	 *
 	 * @param {jQuery} $container jQuery object of view container
 	 *
@@ -362,7 +362,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Deinitialize search button accordion
 	 *
-	 * @since TBD
+	 * @since 4.9.8
 	 *
 	 * @param {jQuery} $container jQuery object of view container
 	 *
@@ -395,7 +395,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Initializes events bar state
 	 *
-	 * @since TBD
+	 * @since 4.9.8
 	 *
 	 * @param {jQuery} $container jQuery object of view container
 	 *
@@ -432,7 +432,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Initializes events bar
 	 *
-	 * @since TBD
+	 * @since 4.9.8
 	 *
 	 * @param {jQuery} $container jQuery object of view container
 	 *
@@ -558,7 +558,7 @@ tribe.events.views.eventsBar = {};
 	/**
 	 * Initialize events bar JS
 	 *
-	 * @since  TBD
+	 * @since  4.9.8
 	 *
 	 * @param  {Event}   event      event object for 'afterSetup.tribeEvents' event
 	 * @param  {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event
@@ -570,7 +570,9 @@ tribe.events.views.eventsBar = {};
 	obj.init = function( event, index, $container, data ) {
 		var $eventsBar = $container.find( obj.selectors.eventsBar );
 
-		if ( ! $eventsBar.length ) return;
+		if ( ! $eventsBar.length ) {
+			return;
+		}
 
 		obj.initState( $container );
 		obj.initEventsBar( $container );

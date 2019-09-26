@@ -44,27 +44,6 @@ class Month_View extends By_Day_View {
 	protected $publicly_visible = true;
 
 	/**
-     * An instance of the Week Stack object.
-	 *
-	 * @since 4.9.7
-	 *
-	 * @var Stack
-	 */
-	protected $stack;
-
-	/**
-	 * Month_View constructor.
-	 *
-	 * @since 4.9.7
-	 *
-	 * @param Stack $stack An instance of the Stack object.
-	 */
-	public function __construct( Stack $stack) {
-		parent::__construct();
-		$this->stack = $stack;
-	}
-
-	/**
 	 * {@inheritDoc}
 	 */
 	public function prev_url( $canonical = false, array $passthru_vars = [] ) {
@@ -143,6 +122,7 @@ class Month_View extends By_Day_View {
 
 		return $this->filter_next_url( $canonical, $url );
 	}
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -243,36 +223,6 @@ class Month_View extends By_Day_View {
 		}
 
 		return array_merge( ...$week_stacks );
-	}
-
-	/**
-	 * Returns a portion of the parsed multi-day stacks.
-	 *
-	 * @since 4.9.7
-	 *
-	 * @param \DateTime|string $from The start of the portion to return.
-	 * @param \DateTime|string $to   The end of the portion to return.
-	 *
-	 * @return array|null A slice of the multi-day stack, in the shape
-	 *               `[ '2019-07-01' => [2, 3, false], , '2019-07-03' => [false, 3, 4]]`.
-	 */
-	public function get_multiday_stack( $from, $to ) {
-		$from = Dates::build_date_object( $from )->setTime( 0, 0 );
-		$to   = Dates::build_date_object( $to )->setTime( 23, 59, 59 );
-
-		$events = $this->get_grid_days();
-		$multiday_stack = $this->build_day_stacks( $events );
-
-		$start_index = array_key_exists( $from->format( 'Y-m-d' ), $multiday_stack )
-			? array_search( $from->format( 'Y-m-d' ), array_keys( $multiday_stack ), true )
-			: 0;
-		$end_index   = array_key_exists( $to->format( 'Y-m-d' ), $multiday_stack )
-			? array_search( $to->format( 'Y-m-d' ), array_keys( $multiday_stack ), true )
-			: count( $multiday_stack ) - 1;
-
-		$stack = array_slice( $multiday_stack, $start_index, $end_index - $start_index + 1, true );
-
-		return $stack;
 	}
 
 	/**
@@ -384,55 +334,9 @@ class Month_View extends By_Day_View {
 	}
 
 	/**
-	 * Builds the next or prev URL given the date that should be used.
-	 *
-	 * @since TBD
-	 *
-	 * @param mixed $date          The date to build the URL from, a date object or string.
-	 * @param bool  $canonical     Whether to return the canonical version of the URL or not.
-	 * @param array $passthru_vars An array of variables that should be preserved and applied to the resulting URL.
-	 *
-	 * @return string The URL as built from the event.
-	 */
-	protected function build_url_for_date( $date, $canonical, array $passthru_vars = [] ) {
-		$url = $this->get_url();
-		$date = Dates::build_date_object( $date );
-
-		$event_date_aliases = $this->url->get_query_args_aliases_of( 'event_date', $this->context );
-		$event_date_aliases = array_unique( array_merge( $event_date_aliases, [ 'eventDate', 'tribe-bar-date' ] ) );
-
-		if ( ! empty( $event_date_aliases ) ) {
-			$url = remove_query_arg( $event_date_aliases, $this->get_url() );
-		}
-
-		$url = add_query_arg( [ 'eventDate' => $date->format( 'Y-m' ) ], $url );
-
-		if ( ! empty( $url ) && $canonical ) {
-			$input_url = $url;
-
-			if ( ! empty( $passthru_vars ) ) {
-				$input_url = remove_query_arg( array_keys( $passthru_vars ), $url );
-			}
-
-			// Make sure the view slug is always set to correctly match rewrites.
-			$input_url = add_query_arg( [ 'eventDisplay' => $this->slug ], $input_url );
-
-			$canonical_url = tribe( 'events.rewrite' )->get_clean_url( $input_url );
-
-			if ( ! empty( $passthru_vars ) ) {
-				$canonical_url = add_query_arg( $passthru_vars, $canonical_url );
-			}
-
-			$url = $canonical_url;
-		}
-
-		return $url;
-	}
-
-	/**
 	 * {@inheritDoc}
 	 *
-	 * @since TBD
+	 * @since 4.9.9
 	 */
 	protected function get_label_format() {
 		// Something like "January".
@@ -444,7 +348,7 @@ class Month_View extends By_Day_View {
 	 *
 	 * By default empty months will not be skipped.
 	 *
-	 * @since TBD
+	 * @since 4.9.9
 	 *
 	 * @return bool Whether to skip empty months or not.
 	 */
@@ -452,12 +356,19 @@ class Month_View extends By_Day_View {
 		/**
 		 * Filters whether months w/o any event should be skipped while building navigation links or not.
 		 *
-		 * @since TBD
+		 * @since 4.9.9
 		 *
 		 * @param bool       $skip_empty   Whether months w/o any event should be skipped while building
 		 *                                 navigation links or not; defaults to `false`.
 		 * @param Month_View $this         This Month View instance.
 		 */
 		return (bool) apply_filters( 'tribe_events_views_v2_month_nav_skip_empty', false, $this );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	protected function get_url_date_format() {
+		return 'Y-m';
 	}
 }

@@ -80,7 +80,7 @@ class Tribe__Events__Integrations__Freemius {
 		 *
 		 * @param  bool  $should_load
 		 */
-		$should_load = apply_filters( 'tribe_events_integrations_should_load_freemius', $this->should_load( 10 ) );
+		$should_load = apply_filters( 'tribe_events_integrations_should_load_freemius', $this->should_load( 50 ) );
 
 		if ( ! $should_load ) {
 			return;

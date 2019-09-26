@@ -13,6 +13,7 @@ namespace Tribe\Events\Views\V2;
 use Tribe__Events__Main as TEC;
 use Tribe__Utils__Array as Arr;
 use WP_Query;
+use Tribe__Notices;
 
 class Template_Bootstrap {
 	/**
@@ -72,8 +73,17 @@ class Template_Bootstrap {
 	 * @return string
 	 */
 	protected function get_v1_single_event_html() {
+		if ( ! tribe_is_showing_all() && tribe_is_past_event() ) {
+			Tribe__Notices::set_notice( 'event-past', sprintf( esc_html__( 'This %s has passed.', 'the-events-calendar' ), tribe_get_event_label_singular_lowercase() ) );
+		}
+
 		ob_start();
+		echo '<main id="tribe-events-pg-template" class="tribe-events-pg-template">';
+		tribe_events_before_html();
 		tribe_get_view( 'single-event' );
+		tribe_events_after_html();
+		echo '</main>';
+
 		$html = ob_get_clean();
 
 		return $html;

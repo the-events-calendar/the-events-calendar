@@ -70,6 +70,16 @@
 		.tribe-events-calendar-month__day-date {
 			opacity: 0.4;
 		}
+
+		.tribe-events-calendar-month__mobile-events-icon--event {
+			background-color: var(--color-icon-active);
+			opacity: 0.5;
+		}
+
+		.tribe-events-calendar-month__mobile-events-icon--featured {
+			background-image: svg-inline(featured-active);
+			opacity: 0.5;
+		}
 	}
 
 	.tribe-events-calendar-month__day-cell {
@@ -118,10 +128,12 @@
 
 		.tribe-events-calendar-month__mobile-events-icon--event {
 			background-color: var(--color-background);
+			opacity: var(--opacity-default);
 		}
 
 		.tribe-events-calendar-month__mobile-events-icon--featured {
 			background-image: svg-inline(featured-white);
+			opacity: var(--opacity-default);
 		}
 	}
 
@@ -167,6 +179,21 @@
 	/* -----------------------------------------------------------------------------
 	 * Day: Theme Overrides
 	 * ----------------------------------------------------------------------------- */
+
+	/* -------------------------------------------------------------------------
+	 * Theme Overrides - Twenty Seventeen
+	 * ------------------------------------------------------------------------- */
+
+	.tribe-theme-twentyseventeen & {
+
+		.tribe-events-calendar-month__day-cell--selected {
+
+			&:hover,
+			&:focus {
+				background-color: var(--color-accent-primary);
+			}
+		}
+	}
 
 	/* -----------------------------------------------------------------------------
 	 * Theme Overrides - Avada
