@@ -106,7 +106,10 @@ abstract class By_Day_View extends View{
 		}
 
 		if ( empty( $this->repository_args ) ) {
-			$this->setup_repository_args();
+			/**
+			 * If repository arguments have not ben set up yet, let's do it now.
+			 */
+			$this->repository_args = $this->filter_repository_args( $this->setup_repository_args() );
 		}
 
 		$repository_args = $this->repository_args;
