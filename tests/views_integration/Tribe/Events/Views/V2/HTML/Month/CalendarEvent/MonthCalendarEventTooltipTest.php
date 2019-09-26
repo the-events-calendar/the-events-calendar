@@ -1,17 +1,17 @@
 <?php
-
 namespace Tribe\Events\Views\V2\Views\HTML\Month\CalendarEvent;
 
+use Tribe\Test\PHPUnit\Traits\With_Post_Remapping;
 use Tribe\Test\Products\WPBrowser\Views\V2\HtmlTestCase;
 
 class MonthCalendarEventTooltipTest extends HtmlTestCase {
+	use With_Post_Remapping;
 
 	/**
 	 * @test
 	 */
 	public function it_should_contain_correct_html_classes() {
-		$event_id = static::factory()->event->create();
-		$event    = tribe_get_event( $event_id );
+		$event = $this->get_mock_event( 'events/single/1.json' );
 		$template = $this->template->template(
 			'month/calendar-body/day/calendar-events/calendar-event/tooltip',
 			[ 'event' => $event ]
@@ -26,8 +26,7 @@ class MonthCalendarEventTooltipTest extends HtmlTestCase {
 	}
 
 	public function it_should_contain_correct_html_attributes() {
-		$event_id = static::factory()->event->create();
-		$event    = tribe_get_event( $event_id );
+		$event = $this->get_mock_event( 'events/single/1.json' );
 		$template = $this->template->template(
 			'month/calendar-body/day/calendar-events/calendar-event/tooltip',
 			[ 'event' =>  $event ]
