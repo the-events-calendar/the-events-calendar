@@ -33,9 +33,31 @@ class List_View extends View {
 	protected $publicly_visible = true;
 
 	/**
+	 * Cache property for the next URL value to avoid running queries twice.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	protected $next_url;
+
+	/**
+	 * Cache property for the previous URL value to avoid running queries twice.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	protected $prev_url;
+
+	/**
 	 * {@inheritDoc}
 	 */
 	public function prev_url( $canonical = false, array $passthru_vars = [] ) {
+		if ( isset( $this->prev_url ) ) {
+			return $this->prev_url;
+		}
+
 		$current_page = (int) $this->context->get( 'page', 1 );
 		$display      = $this->context->get( 'event_display_mode', 'list' );
 
@@ -49,6 +71,8 @@ class List_View extends View {
 
 		$url = $this->filter_prev_url( $canonical, $url );
 
+		$this->prev_url = $url;
+
 		return $url;
 	}
 
@@ -56,6 +80,10 @@ class List_View extends View {
 	 * {@inheritDoc}
 	 */
 	public function next_url( $canonical = false, array $passthru_vars = [] ) {
+		if ( isset( $this->next_url ) ) {
+			return $this->next_url;
+		}
+
 		$current_page = (int) $this->context->get( 'page', 1 );
 		$display      = $this->context->get( 'event_display_mode', 'list' );
 
@@ -68,6 +96,8 @@ class List_View extends View {
 		}
 
 		$url = $this->filter_next_url( $canonical, $url );
+
+		$this->next_url = $url;
 
 		return $url;
 	}
