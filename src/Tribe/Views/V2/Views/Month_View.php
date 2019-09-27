@@ -146,12 +146,6 @@ class Month_View extends By_Day_View {
 		$args['order_by'] = 'event_date';
 		$args['order']    = 'ASC';
 
-		/*
-		 * The event fetching will happen day-by-day so we set here the repository args we'll re-use fetching each
-		 * day events.
-		 */
-		$this->repository_args = $args;
-
 		return $args;
 	}
 
