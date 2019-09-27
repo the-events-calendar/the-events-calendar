@@ -33,24 +33,6 @@ class List_View extends View {
 	protected $publicly_visible = true;
 
 	/**
-	 * Cache property for the next URL value to avoid running queries twice.
-	 *
-	 * @since TBD
-	 *
-	 * @var string
-	 */
-	protected $next_url;
-
-	/**
-	 * Cache property for the previous URL value to avoid running queries twice.
-	 *
-	 * @since TBD
-	 *
-	 * @var string
-	 */
-	protected $prev_url;
-
-	/**
 	 * {@inheritDoc}
 	 */
 	public function prev_url( $canonical = false, array $passthru_vars = [] ) {
@@ -62,7 +44,11 @@ class List_View extends View {
 		$display      = $this->context->get( 'event_display_mode', 'list' );
 
 		if ( 'past' === $display ) {
+			// Ensure we start fresh.
+			unset( $this->next_url );
 			$url = parent::next_url( $canonical, [ 'eventDisplay' => 'past' ] );
+			// Avoid messing up the caching since we're using the prev URL in the next URL function.
+			unset( $this->next_url );
 		} else if ( $current_page > 1 ) {
 			$url = parent::prev_url( $canonical );
 		} else {
@@ -90,7 +76,11 @@ class List_View extends View {
 		if ( $this->slug === $display || 'default' === $display ) {
 			$url = parent::next_url( $canonical );
 		} else if ( $current_page > 1 ) {
+			// Ensure we start fresh.
+			unset( $this->prev_url );
 			$url = parent::prev_url( $canonical, [ 'eventDisplay' => 'past' ] );
+			// Avoid messing up the caching since we're using the prev URL in the next URL function.
+			unset( $this->prev_url );
 		} else {
 			$url = $this->get_upcoming_url( $canonical );
 		}
@@ -209,11 +199,9 @@ class List_View extends View {
 			) ) {
 				$url = add_query_arg( [ 'eventDate' => $event_date_var ], $url );
 			}
-
-			return $url;
 		}
 
-		return '';
+		return $url;
 	}
 
 	/**
