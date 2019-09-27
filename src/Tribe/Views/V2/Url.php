@@ -280,7 +280,11 @@ class Url {
 	 *
 	 * @return static The built instance of this class.
 	 */
-	public static function from_url_and_params( string $url, array $params ) {
+	public static function from_url_and_params( string $url = null, array $params = [] ) {
+		if ( empty( $url ) ) {
+			$url = home_url( add_query_arg( [] ) );
+		}
+
 		if ( isset( $params['view_data'] ) ) {
 			// If we have it, then use the up-to-date View data to "correct" the URL.
 			$bar_params           = array_intersect_key(
