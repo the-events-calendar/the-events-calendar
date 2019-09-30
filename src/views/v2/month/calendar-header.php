@@ -29,7 +29,12 @@ global $wp_locale;
 				aria-label="<?php echo esc_attr( $day ); ?>"
 			>
 				<h3 class="tribe-events-calendar-month__header-column-title tribe-common-b3">
-					<?php echo esc_html( $wp_locale->get_weekday_abbrev( $day ) ); ?>
+					<span class="tribe-events-calendar-month__header-column-title-mobile">
+						<?php echo esc_html( $wp_locale->get_weekday_initial( $day ) ); ?>
+					</span>
+					<span class="tribe-events-calendar-month__header-column-title-desktop">
+						<?php echo esc_html( $wp_locale->get_weekday_abbrev( $day ) ); ?>
+					</span>
 				</h3>
 			</div>
 		<?php endforeach; ?>
