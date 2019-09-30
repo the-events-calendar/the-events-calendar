@@ -9,13 +9,13 @@
  *
  * @link {INSERT_ARTICLE_LINK_HERE}
  *
- * @version 4.9.8
+ * @version TBD
  *
  * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
  *
  * @see tribe_get_event() For the format of the event object.
  */
-$event_id = $event->ID;
+$display_tooltip = ! empty( $event->excerpt ) || ! empty( $event->cost ) || $event->thumbnail->exists;
 ?>
 <h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h--alt">
 	<a
@@ -23,17 +23,12 @@ $event_id = $event->ID;
 		title="<?php echo esc_attr( get_the_title( $event->ID ) ); ?>"
 		rel="bookmark"
 		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
-		<?php
-		/**
-		 * @todo @be @bordoni
-		 *       only show data and aria attributes below if tooltip is shown
-		 *       (if one of featured image, description, or cost exists)
-		 */
-		?>
-		data-js="tribe-events-tooltip"
-		data-tooltip-content="#tribe-events-tooltip-content-<?php echo esc_attr( $event_id ); ?>"
-		aria-describedby="tribe-events-tooltip-content-<?php echo esc_attr( $event_id ); ?>"
+		<?php if ( $display_tooltip ) : ?>
+			data-js="tribe-events-tooltip"
+			data-tooltip-content="#tribe-events-tooltip-content-<?php echo esc_attr( $event->ID ); ?>"
+			aria-describedby="tribe-events-tooltip-content-<?php echo esc_attr( $event->ID ); ?>"
+		<?php endif; ?>
 	>
-		<?php echo get_the_title( $event_id ); ?>
+		<?php echo get_the_title( $event->ID ); ?>
 	</a>
 </h3>

@@ -33,6 +33,7 @@ class TooltipTest extends HtmlPartialTestCase
 	public function test_render_with_event_without_featured_image_with_description_without_cost() {
 		$event = $this->get_mock_event( 'events/single/1.json' );
 		$event->post_content = $event->post_excerpt = 'Hello World!';
+		$event->excerpt = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
 		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => $event ] ) );
 	}
 
@@ -51,6 +52,7 @@ class TooltipTest extends HtmlPartialTestCase
 	public function test_render_with_event_with_featured_image_with_description_without_cost() {
 		$event = $this->mock_event( 'events/single/1.json' )->with_thumbnail()->get();
 		$event->post_content = $event->post_excerpt = 'Hello World!';
+		$event->excerpt = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
 		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => $event ] ) );
 	}
 
@@ -69,6 +71,7 @@ class TooltipTest extends HtmlPartialTestCase
 	public function test_render_with_event_without_featured_image_with_description_with_cost() {
 		$event = $this->get_mock_event( 'events/single/1.json' );
 		$event->post_content = $event->post_excerpt = 'Hello World!';
+		$event->excerpt = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
 		$event->cost = '$10';
 		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => $event ] ) );
 	}
@@ -79,6 +82,7 @@ class TooltipTest extends HtmlPartialTestCase
 	public function test_render_with_event_with_featured_image_with_description_with_cost() {
 		$event = $this->mock_event( 'events/single/1.json' )->with_thumbnail()->get();
 		$event->post_content = $event->post_excerpt = 'Hello World!';
+		$event->excerpt = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
 		$event->cost = '$10';
 		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => $event ] ) );
 	}
