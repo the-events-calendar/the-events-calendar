@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.9
+ * @version TBD
  *
  * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
  *
@@ -18,6 +18,7 @@
 use Tribe__Date_Utils as Dates;
 
 $time_format = tribe_get_time_format();
+$event_date_attr = $event->dates->start->format( Dates::DBDATEFORMAT );
 ?>
 <div class="tribe-events-calendar-month-mobile-events__mobile-event-datetime tribe-common-b2">
 	<?php if ( ! empty( $event->featured ) ) : ?>
@@ -35,15 +36,9 @@ $time_format = tribe_get_time_format();
 		<time datetime="<?php echo esc_attr( $event->dates->start->format( Dates::DBDATEFORMAT ) ) ?>">
 			<?php esc_html_e( 'All day', 'the-events-calendar' ); ?>
 		</time>
-	<?php else: ?>
-		<time datetime="<?php echo esc_attr( $event->dates->start->format( 'H:i' ) ) ?>">
-			<?php echo esc_html( $event->dates->start->format( $time_format ) ) ?>
-		</time>
-		<span class="tribe-events-calendar-month-mobile-events__mobile-event-datetime-separator">
-			<?php echo esc_html( tribe_get_option( 'timeRangeSeparator', ' - ' ) ); ?>
-		</span>
-		<time datetime="<?php echo esc_attr( $event->dates->end->format( 'H:i' ) ) ?>">
-			<?php echo esc_html( $event->dates->end->format( $time_format ) ) ?>
+	<?php else : ?>
+		<time datetime="<?php echo esc_attr( $event_date_attr ); ?>">
+			<?php echo $event->schedule_details->value(); ?>
 		</time>
 	<?php endif; ?>
 	<?php $this->template( 'month/mobile-events/mobile-day/mobile-event/date/meta', [ 'event' => $event ] ); ?>
