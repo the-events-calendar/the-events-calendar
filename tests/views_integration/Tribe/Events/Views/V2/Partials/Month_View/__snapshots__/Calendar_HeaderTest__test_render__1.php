@@ -12,7 +12,7 @@
 				<h3 class="tribe-events-calendar-month__header-column-title tribe-common-b3">
 					<span class="tribe-events-calendar-month__header-column-title-mobile">
 						M					</span>
-					<span class="tribe-events-calendar-month__header-column-title-desktop">
+					<span class="tribe-events-calendar-month__header-column-title-desktop tribe-common-a11y-hidden">
 						Mon					</span>
 				</h3>
 			</div>
@@ -24,7 +24,7 @@
 				<h3 class="tribe-events-calendar-month__header-column-title tribe-common-b3">
 					<span class="tribe-events-calendar-month__header-column-title-mobile">
 						T					</span>
-					<span class="tribe-events-calendar-month__header-column-title-desktop">
+					<span class="tribe-events-calendar-month__header-column-title-desktop tribe-common-a11y-hidden">
 						Tue					</span>
 				</h3>
 			</div>
@@ -36,7 +36,7 @@
 				<h3 class="tribe-events-calendar-month__header-column-title tribe-common-b3">
 					<span class="tribe-events-calendar-month__header-column-title-mobile">
 						W					</span>
-					<span class="tribe-events-calendar-month__header-column-title-desktop">
+					<span class="tribe-events-calendar-month__header-column-title-desktop tribe-common-a11y-hidden">
 						Wed					</span>
 				</h3>
 			</div>
@@ -48,7 +48,7 @@
 				<h3 class="tribe-events-calendar-month__header-column-title tribe-common-b3">
 					<span class="tribe-events-calendar-month__header-column-title-mobile">
 						T					</span>
-					<span class="tribe-events-calendar-month__header-column-title-desktop">
+					<span class="tribe-events-calendar-month__header-column-title-desktop tribe-common-a11y-hidden">
 						Thu					</span>
 				</h3>
 			</div>
@@ -60,7 +60,7 @@
 				<h3 class="tribe-events-calendar-month__header-column-title tribe-common-b3">
 					<span class="tribe-events-calendar-month__header-column-title-mobile">
 						F					</span>
-					<span class="tribe-events-calendar-month__header-column-title-desktop">
+					<span class="tribe-events-calendar-month__header-column-title-desktop tribe-common-a11y-hidden">
 						Fri					</span>
 				</h3>
 			</div>
@@ -72,7 +72,7 @@
 				<h3 class="tribe-events-calendar-month__header-column-title tribe-common-b3">
 					<span class="tribe-events-calendar-month__header-column-title-mobile">
 						S					</span>
-					<span class="tribe-events-calendar-month__header-column-title-desktop">
+					<span class="tribe-events-calendar-month__header-column-title-desktop tribe-common-a11y-hidden">
 						Sat					</span>
 				</h3>
 			</div>
@@ -84,7 +84,7 @@
 				<h3 class="tribe-events-calendar-month__header-column-title tribe-common-b3">
 					<span class="tribe-events-calendar-month__header-column-title-mobile">
 						S					</span>
-					<span class="tribe-events-calendar-month__header-column-title-desktop">
+					<span class="tribe-events-calendar-month__header-column-title-desktop tribe-common-a11y-hidden">
 						Sun					</span>
 				</h3>
 			</div>
