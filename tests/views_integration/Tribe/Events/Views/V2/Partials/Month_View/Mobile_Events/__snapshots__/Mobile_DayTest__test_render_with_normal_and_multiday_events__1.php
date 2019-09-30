@@ -16,12 +16,8 @@
 	<div class="tribe-events-calendar-month-mobile-events__mobile-event-details">
 
 		<div class="tribe-events-calendar-month-mobile-events__mobile-event-datetime tribe-common-b2">
-				<time datetime="13:04">
-			1:04 pm		</time>
-		<span class="tribe-events-calendar-month-mobile-events__mobile-event-datetime-separator">
-			 - 		</span>
-		<time datetime="17:04">
-			5:04 pm		</time>
+				<time datetime="2019-06-20">
+			<span class="tribe-event-date-start">June 20 @ 1:04 pm</span> - <span class="tribe-event-time">5:04 pm</span>		</time>
 		</div>
 		<h3  class="tribe-events-calendar-month-mobile-events__mobile-event-title tribe-common-h8" >
 	<a
@@ -44,12 +40,8 @@
 	<div class="tribe-events-calendar-month-mobile-events__mobile-event-details">
 
 		<div class="tribe-events-calendar-month-mobile-events__mobile-event-datetime tribe-common-b2">
-				<time datetime="13:04">
-			1:04 pm		</time>
-		<span class="tribe-events-calendar-month-mobile-events__mobile-event-datetime-separator">
-			 - 		</span>
-		<time datetime="17:04">
-			5:04 pm		</time>
+				<time datetime="2019-06-20">
+			<span class="tribe-event-date-start">June 20 @ 1:04 pm</span> - <span class="tribe-event-time">5:04 pm</span>		</time>
 		</div>
 		<h3  class="tribe-events-calendar-month-mobile-events__mobile-event-title tribe-common-h8" >
 	<a
