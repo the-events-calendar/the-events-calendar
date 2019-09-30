@@ -33,7 +33,6 @@ class TestCaseTest extends TestCase {
 		add_filter( 'tribe_events_views', function () {
 			return [ 'test' => Test_View::class ];
 		} );
-		$global_context = tribe_context()->to_array();
 
 		$this->given_a_main_query_request()
 		     ->for_view( Test_View::class )

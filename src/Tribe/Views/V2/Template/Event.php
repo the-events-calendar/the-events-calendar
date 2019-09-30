@@ -10,8 +10,6 @@
  */
 namespace Tribe\Events\Views\V2\Template;
 
-use Tribe__Events__Main as TEC;
-use Tribe\Events\Views\V2\Index as Index;
 use Tribe\Events\Views\V2\View;
 
 class Event {
