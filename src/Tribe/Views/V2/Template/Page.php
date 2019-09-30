@@ -17,23 +17,37 @@ use Tribe__Utils__Array as Arr;
 
 class Page {
 	/**
-	 * Determines the Path for the PHP file to be used as the main template
-	 * For Page base template setting it will select from theme or child theme
+	 * Determines the Path for the PHP file to be used as the main template.
+	 * For Page base template setting it will select from theme or child theme.
 	 *
 	 * @since  4.9.2
 	 *
 	 * @return string
 	 */
 	public function get_path() {
-		// Fetches the WP default path for Page
+		// Fetches the WP default path for Page.
 		$template = get_page_template();
 
-		// If there wasn't any defined we fetch the Index
+		// If there wasn't any defined we fetch the Index.
 		if ( empty( $template ) ) {
 			$template = get_index_template();
 		}
 
 		return $template;
+	}
+
+	/**
+	 * Fires when the loop starts, and tries to hijack the loop for post.
+	 *
+	 * @since  TBD
+	 *
+	 * @param  \WP_Query  $query
+	 */
+	public function hijack_on_loop_start( \WP_Query $query ) {
+		// After attaching itself it will prevent it from happening again.
+		remove_action( 'loop_start', [ $this, 'hijack_on_loop_start' ], 1000 );
+
+		$this->maybe_hijack_page_template( $query );
 	}
 
 	/**
@@ -53,27 +67,27 @@ class Page {
 
 		$mock_page = $this->get_mocked_page();
 
-		// don't query the database for the spoofed post
+		// don't query the database for the spoofed post.
 		wp_cache_set( $mock_page->ID, $mock_page, 'posts' );
 		wp_cache_set( $mock_page->ID, [ true ], 'post_meta' );
 
-		// on loop start, unset the global post so that template tags don't work before the_content()
+		// on loop start, unset the global post so that template tags don't work before the_content().
 		add_action( 'the_post', [ $this, 'hijack_the_post' ], 25 );
 
-		// Load our page Content
+		// Load our page Content.
 		add_filter( 'the_content', [ $this, 'filter_hijack_page_content' ], 25 );
 
-		// Prevent edit link from showing
+		// Prevent edit link from showing.
 		add_filter( 'get_edit_post_link', [ $this, 'filter_prevent_edit_link' ], 25, 2 );
 
-		// Makes sure Comments are not active
+		// Makes sure Comments are not active.
 		add_filter( 'comments_template', [ $this, 'filter_remove_comments' ], 25 );
 	}
 
 	/**
-	 * Remove any possible comments template from Page that the theme might have
+	 * Remove any possible comments template from Page that the theme might have.
 	 *
-	 * @todo  Take in consideration tribe_get_option( 'showComments', false ) values later on
+	 * @todo  Take in consideration tribe_get_option( 'showComments', false ) values later on.
 	 *
 	 * @since  4.9.2
 	 */
@@ -84,8 +98,8 @@ class Page {
 	}
 
 	/**
-	 * Prevents the Edit link to ever be displayed on any well designed theme
-	 * Ideally this method is here to return an empty string for the Mock Page
+	 * Prevents the Edit link to ever be displayed on any well designed theme.
+	 * Ideally this method is here to return an empty string for the Mock Page.
 	 *
 	 * @since  4.9.2
 	 *
@@ -155,6 +169,8 @@ class Page {
 
 		// re-do counting
 		$wp_query->rewind_posts();
+
+		add_action( 'loop_start', [ $this, 'hijack_on_loop_start' ], 1000 );
 	}
 
 	/**

@@ -36,6 +36,10 @@ class Day_View extends View {
 	 * {@inheritDoc}
 	 */
 	public function prev_url( $canonical = false, array $passthru_vars = [] ) {
+		if ( isset( $this->prev_url ) ) {
+			return $this->prev_url;
+		}
+
 		$date = $this->context->get( 'event_date', $this->context->get( 'today', 'today' ) );
 
 		$one_day       = new \DateInterval( 'P1D' );
@@ -49,6 +53,8 @@ class Day_View extends View {
 			$url = $this->build_url_for_date( $url_date, $canonical, $passthru_vars );
 		}
 
+		$this->prev_url = $url;
+
 		return $this->filter_prev_url( $canonical, $url );
 	}
 
@@ -56,6 +62,9 @@ class Day_View extends View {
 	 * {@inheritDoc}
 	 */
 	public function next_url( $canonical = false, array $passthru_vars = [] ) {
+		if ( isset( $this->next_url ) ) {
+			return $this->next_url;
+		}
 		$date = $this->context->get( 'event_date', $this->context->get( 'today', 'today' ) );
 
 		$one_day     = new \DateInterval( 'P1D' );
@@ -68,6 +77,8 @@ class Day_View extends View {
 		} else {
 			$url = $this->build_url_for_date( $url_date, $canonical, $passthru_vars );
 		}
+
+		$this->next_url = $url;
 
 		return $this->filter_next_url( $canonical, $url );
 	}
