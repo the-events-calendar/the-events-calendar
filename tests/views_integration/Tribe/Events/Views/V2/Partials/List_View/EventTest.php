@@ -1,5 +1,4 @@
 <?php
-
 namespace Tribe\Events\Views\V2\Partials\List_View;
 
 use Tribe\Test\PHPUnit\Traits\With_Post_Remapping;

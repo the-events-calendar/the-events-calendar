@@ -1,19 +1,21 @@
 <?php
-
 namespace Tribe\Events\Views\V2\Views\HTML\Month\CalendarEvent;
 
+use Tribe\Test\PHPUnit\Traits\With_Post_Remapping;
 use Tribe\Test\Products\WPBrowser\Views\V2\HtmlTestCase;
 
 class MonthCalendarEventDateTest extends HtmlTestCase {
+	use With_Post_Remapping;
 
 	/**
 	 * @test
 	 */
 	public function it_should_contain_correct_html_classes() {
-		$event    = static::factory()->event->create();
+		$event = $this->get_mock_event( 'events/single/1.json' );
+
 		$template = $this->template->template(
 			'month/calendar-body/day/calendar-events/calendar-event/date',
-			[ 'event' => tribe_get_event( $event ) ]
+			[ 'event' => $event ]
 		);
 		$html     = $this->document->html( $template );
 
@@ -28,10 +30,7 @@ class MonthCalendarEventDateTest extends HtmlTestCase {
 	 * @test
 	 */
 	public function it_should_contain_a11y_attributes() {
-		$event_id         = static::factory()->event->create();
-		$event            = tribe_get_event( $event_id );
-		$event->featured  = true;
-		$event->recurring = true;
+		$event = $this->mock_event( 'events/featured/1.json' )->is_recurring()->get();
 
 		$template = $this->template->template(
 			'month/calendar-body/day/calendar-events/calendar-event/date',

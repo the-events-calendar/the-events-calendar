@@ -1,31 +1,18 @@
 <?php
 namespace Tribe\Events\Views\V2\Views\HTML\DayView;
 
+use Tribe\Test\PHPUnit\Traits\With_Post_Remapping;
 use Tribe\Test\Products\WPBrowser\Views\V2\HtmlTestCase;
-use Tribe\Events\Test\Factories\Event;
 
 class DayEventTest extends HtmlTestCase {
-
-	public function setUp() {
-		parent::setUp();
-		$this->factory()->event = new Event();
-	}
-
+	use With_Post_Remapping;
 
 	/**
 	 * @test
 	 */
 	public function it_should_contain_correct_html_classes() {
 
-		$args  = [
-			'start_date' => '2018-01-01 09:00:00',
-			'end_date'   => '2018-01-01 11:00:00',
-			'timezone'   => 'Europe/Paris',
-			'title'      => 'A test event',
-		];
-
-		$event = tribe_events()->set_args( $args )->create();
-		$event = tribe_get_event( $event );
+		$event = $this->get_mock_event( 'events/single/1.json' );
 
 		$template = $this->template->template( 'day/event', [ 'event' => $event ] );
 		$html = $this->document->html( $template );
@@ -48,18 +35,7 @@ class DayEventTest extends HtmlTestCase {
 	 */
 	public function it_should_contain_featured_when_featured() {
 
-		$args  = [
-			'start_date' => '2018-01-01 09:00:00',
-			'end_date'   => '2018-01-01 11:00:00',
-			'timezone'   => 'Europe/Paris',
-			'title'      => 'A featured test event',
-			'featured'   => true,
-		];
-
-		$event = tribe_events()->set_args( $args )->create();
-		$event = tribe_get_event( $event );
-
-		$event = tribe_get_event( $event );
+		$event = $this->get_mock_event( 'events/featured/1.json' );
 
 		$template = $this->template->template( 'day/event', [ 'event' => $event ] );
 		$html = $this->document->html( $template );

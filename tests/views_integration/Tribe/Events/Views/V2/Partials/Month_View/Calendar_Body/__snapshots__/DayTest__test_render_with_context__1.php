@@ -107,24 +107,11 @@
 		title=""
 		rel="bookmark"
 		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
-				data-js="tribe-events-tooltip-trigger"
-		data-tooltip-content="#tribe-events-tooltip-content-999999"
-		aria-describedby="tribe-events-tooltip-content-999999"
-	>
+			>
 			</a>
 </h3>
 
-		<div class="tribe-events-calendar-month__calendar-event-tooltip-template tribe-common-a11y-hidden">
-	<div
-		class="tribe-events-calendar-month__calendar-event-tooltip"
-		id="tribe-events-tooltip-content-999999"
-		role="tooltip"
-	>
-				<div class="tribe-events-calendar-month__calendar-event-tooltip-description tribe-common-b3">
-	</div>
-			</div>
-</div>
-
+		
 	</div>
 
 </article>
@@ -149,24 +136,11 @@
 		title=""
 		rel="bookmark"
 		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
-				data-js="tribe-events-tooltip-trigger"
-		data-tooltip-content="#tribe-events-tooltip-content-999998"
-		aria-describedby="tribe-events-tooltip-content-999998"
-	>
+			>
 			</a>
 </h3>
 
-		<div class="tribe-events-calendar-month__calendar-event-tooltip-template tribe-common-a11y-hidden">
-	<div
-		class="tribe-events-calendar-month__calendar-event-tooltip"
-		id="tribe-events-tooltip-content-999998"
-		role="tooltip"
-	>
-				<div class="tribe-events-calendar-month__calendar-event-tooltip-description tribe-common-b3">
-	</div>
-			</div>
-</div>
-
+		
 	</div>
 
 </article>

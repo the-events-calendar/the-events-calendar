@@ -23,24 +23,11 @@
 		title="Test Event &#8211; +9 days"
 		rel="bookmark"
 		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
-				data-js="tribe-events-tooltip-trigger"
-		data-tooltip-content="#tribe-events-tooltip-content-7"
-		aria-describedby="tribe-events-tooltip-content-7"
-	>
+			>
 		Test Event &#8211; +9 days	</a>
 </h3>
 
-		<div class="tribe-events-calendar-month__calendar-event-tooltip-template tribe-common-a11y-hidden">
-	<div
-		class="tribe-events-calendar-month__calendar-event-tooltip"
-		id="tribe-events-tooltip-content-7"
-		role="tooltip"
-	>
-				<div class="tribe-events-calendar-month__calendar-event-tooltip-description tribe-common-b3">
-	</div>
-			</div>
-</div>
-
+		
 	</div>
 
 </article>
