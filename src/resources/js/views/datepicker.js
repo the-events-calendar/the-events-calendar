@@ -247,7 +247,7 @@ tribe.events.views.datepicker = {};
 	 * Curry function to handle mutations
 	 * Used to pass in `data`
 	 *
-	 * @since TBD
+	 * @since 4.9.7
 	 *
 	 * @param {PlainObject} data data object to be passed for use in handler
 	 *
@@ -259,7 +259,7 @@ tribe.events.views.datepicker = {};
 		/**
 		 * Handle mutations from mutation observer
 		 *
-		 * @since TBD
+		 * @since 4.9.7
 		 *
 		 * @param {array} mutationsList list of mutations that have occurred
 		 * @param {MutationObserver} observer mutation observer instance

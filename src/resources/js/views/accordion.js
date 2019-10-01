@@ -204,7 +204,7 @@ tribe.events.views.accordion = {};
 	 * Curry function to initialize accordion
 	 * Used to pass in `$container`
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param {jQuery} $container jQuery object of view container
 	 *
@@ -214,7 +214,7 @@ tribe.events.views.accordion = {};
 		/**
 		 * Initializes accordion
 		 *
-		 * @since TBD
+		 * @since 4.9.4
 		 *
 		 * @param {integer} index jQuery.each index param
 		 * @param {HTMLElement} header header element from which to remove event
