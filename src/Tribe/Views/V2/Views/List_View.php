@@ -166,6 +166,7 @@ class List_View extends View {
 		$default_date   = 'now';
 		$date           = $this->context->get( 'event_date', $default_date );
 		$event_date_var = $default_date === $date ? '' : $date;
+		$url = '';
 
 		$upcoming = tribe_events()->by_args( $this->setup_repository_args( $this->context->alter( [
 			'eventDisplay' => 'list',
@@ -201,7 +202,7 @@ class List_View extends View {
 			}
 		}
 
-		return $url;
+		return $url ?: $this->get_today_url( $canonical );
 	}
 
 	/**
