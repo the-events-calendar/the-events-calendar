@@ -24,7 +24,7 @@ class DescriptionTest extends HtmlPartialTestCase
 	 */
 	public function test_render_with_event_with_description() {
 		$event = $this->get_mock_event( 'events/single/1.json' );
-		$event->post_content = $event->post_excerpt = 'Hello world!';
+		$event->excerpt = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
 		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => $event ] ) );
 	}
 }

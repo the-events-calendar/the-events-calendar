@@ -12,6 +12,7 @@ class MonthCalendarEventTooltipTest extends HtmlTestCase {
 	 */
 	public function it_should_contain_correct_html_classes() {
 		$event = $this->get_mock_event( 'events/single/1.json' );
+		$event->cost = "$10";
 		$template = $this->template->template(
 			'month/calendar-body/day/calendar-events/calendar-event/tooltip',
 			[ 'event' => $event ]
@@ -27,6 +28,7 @@ class MonthCalendarEventTooltipTest extends HtmlTestCase {
 
 	public function it_should_contain_correct_html_attributes() {
 		$event = $this->get_mock_event( 'events/single/1.json' );
+		$event->cost = "$10";
 		$template = $this->template->template(
 			'month/calendar-body/day/calendar-events/calendar-event/tooltip',
 			[ 'event' =>  $event ]

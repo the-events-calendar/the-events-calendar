@@ -267,9 +267,7 @@
 </address>
 		</header>
 
-		<div class="tribe-events-calendar-day__event-description tribe-common-b2">
-	</div>
-		
+				
 	</div>
 
 </article>
@@ -310,9 +308,7 @@
 </address>
 		</header>
 
-		<div class="tribe-events-calendar-day__event-description tribe-common-b2">
-	</div>
-		
+				
 	</div>
 
 </article>
