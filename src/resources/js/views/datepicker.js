@@ -244,16 +244,28 @@ tribe.events.views.datepicker = {};
 	};
 
 	/**
-	 * Handle mutations from mutation observer
+	 * Curry function to handle mutations
+	 * Used to pass in `data`
 	 *
 	 * @since 4.9.7
 	 *
 	 * @param {PlainObject} data data object to be passed for use in handler
 	 *
-	 * @return {void}
+	 * @return {function}
 	 */
 	obj.handleMutation = function( data ) {
 		var $container = data.container;
+
+		/**
+		 * Handle mutations from mutation observer
+		 *
+		 * @since 4.9.7
+		 *
+		 * @param {array} mutationsList list of mutations that have occurred
+		 * @param {MutationObserver} observer mutation observer instance
+		 *
+		 * @return {void}
+		 */
 		return function( mutationsList, observer ) {
 			for ( var mutation of mutationsList ) {
 				// if datepicker switches months via prev/next arrows or by selecting a month on month picker

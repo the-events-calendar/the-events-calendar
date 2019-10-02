@@ -31,7 +31,7 @@ class TitleTest extends HtmlPartialTestCase {
 	 * Test render with event with cost
 	 */
 	public function test_render_with_event_with_cost() {
-		$event = $this->mock_event( 'events/single/1.json' )->with_thumbnail()->get();
+		$event = $this->mock_event( 'events/single/1.json' )->get();
 		$event->cost = '$10';
 		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => $event ] ) );
 	}
@@ -40,7 +40,7 @@ class TitleTest extends HtmlPartialTestCase {
 	 * Test render with event with no featured image no excerpt no cost
 	 */
 	public function test_render_with_event_with_no_featured_image_no_excerpt_no_cost() {
-		$event = $this->mock_event( 'events/single/1.json' )->with_thumbnail()->get();
+		$event = $this->mock_event( 'events/single/1.json' )->get();
 		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => $event ] ) );
 	}
 }
