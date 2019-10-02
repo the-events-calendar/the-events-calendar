@@ -959,6 +959,11 @@ class View implements View_Interface {
 	 * @return array An array of Template variables for the View Template.
 	 */
 	protected function setup_template_vars() {
+		if ( empty( $this->repository_args ) ) {
+			$this->repository_args = $this->filter_repository_args( $this->setup_repository_args() );
+			$this->repository->by_args( $this->repository_args );
+		}
+
 		$events = $this->repository->all();
 
 		$template_vars = [
