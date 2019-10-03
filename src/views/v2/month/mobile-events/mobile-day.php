@@ -19,6 +19,7 @@
  *          @type string $year_number The day year number, e.g. `2019`.
  *          @type string $month_number The day year number, e.g. `6` for June.
  *          @type string $day_number The day number in the month, e.g. `11` for June 11th.
+ *          @type string $day_number_no_pad The day number in the month without leading 0, e.g. `8` for June 8th.
  *          @type string $day_url The day url, e.g. `http://yoursite.com/events/2019-06-11/`.
  *          @type int $found_events The total number of events in the day including the ones not fetched due to the per
  *                                  page limit, including the multi-day ones.
