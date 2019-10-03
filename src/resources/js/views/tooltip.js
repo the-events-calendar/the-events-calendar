@@ -51,7 +51,7 @@ tribe.events.views.tooltip = {};
 	 * @type {PlainObject}
 	 */
 	obj.selectors = {
-		tooltipTrigger: '[data-js~="tribe-events-tooltip-trigger"]',
+		tooltipTrigger: '[data-js~="tribe-events-tooltip"]',
 		tribeEventsTooltipTriggerHoverClass: '.tribe-events-tooltip-trigger--hover',
 		tribeEventsTooltipThemeClass: '.tribe-events-tooltip-theme',
 		tribeEventsTooltipThemeHoverClass: '.tribe-events-tooltip-theme--hover',
@@ -262,6 +262,7 @@ tribe.events.views.tooltip = {};
 		$container
 			.find( obj.selectors.tooltipTrigger )
 			.each( function( index, trigger ) {
+				console.log($(trigger));
 				$( trigger ).tooltipster( {
 					interactive: true,
 					delay: [ obj.config.delayHoverIn, obj.config.delayHoverOut ],
