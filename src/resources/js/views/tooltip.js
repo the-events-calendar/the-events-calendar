@@ -262,7 +262,6 @@ tribe.events.views.tooltip = {};
 		$container
 			.find( obj.selectors.tooltipTrigger )
 			.each( function( index, trigger ) {
-				console.log($(trigger));
 				$( trigger ).tooltipster( {
 					interactive: true,
 					delay: [ obj.config.delayHoverIn, obj.config.delayHoverOut ],
