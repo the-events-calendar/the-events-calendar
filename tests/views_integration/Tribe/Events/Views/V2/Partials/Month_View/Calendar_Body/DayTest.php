@@ -27,17 +27,18 @@ class DayTest extends HtmlPartialTestCase {
 		$more_events      = 2;
 		$day_url          = 'http://tribe.tests/events/' . $date_object->format( 'Y-m-d' );
 		$day_data         = [
-			'date'             => $day_date,
-			'is_start_of_week' => $start_of_week === $date_object->format( 'N' ),
-			'year_number'      => (int) $date_object->format( 'Y' ),
-			'month_number'     => (int) $date_object->format( 'm' ),
-			'day_number'       => (int) $date_object->format( 'd' ),
-			'events'           => $the_day_events,
-			'featured_events'  => $featured_events,
-			'multiday_events'  => $day_stack,
-			'found_events'     => $day_found_events,
-			'more_events'      => $more_events,
-			'day_url'          => $day_url,
+			'date'              => $day_date,
+			'is_start_of_week'  => $start_of_week === $date_object->format( 'N' ),
+			'year_number'       => (int) $date_object->format( 'Y' ),
+			'month_number'      => (int) $date_object->format( 'm' ),
+			'day_number'        => (int) $date_object->format( 'd' ),
+			'day_number_no_pad' => (int) $date_object->format( 'j' ),
+			'events'            => $the_day_events,
+			'featured_events'   => $featured_events,
+			'multiday_events'   => $day_stack,
+			'found_events'      => $day_found_events,
+			'more_events'       => $more_events,
+			'day_url'           => $day_url,
 		];
 		$this->assertMatchesSnapshot(
 			$this->get_partial_html(

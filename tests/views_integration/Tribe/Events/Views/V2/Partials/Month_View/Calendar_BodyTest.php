@@ -36,17 +36,18 @@ class Calendar_BodyTest extends HtmlPartialTestCase {
 		foreach ( $period as $date_object ) {
 			$day_date          = $date_object->format( 'Y-m-d' );
 			$days[ $day_date ] = [
-				'date'             => $day_date,
-				'is_start_of_week' => 1 === $date_object->format( 'N' ),
-				'year_number'      => (int) $date_object->format( 'Y' ),
-				'month_number'     => (int) $date_object->format( 'm' ),
-				'day_number'       => (int) $date_object->format( 'd' ),
-				'events'           => [],
-				'featured_events'  => [],
-				'multiday_events'  => [],
-				'found_events'     => 0,
-				'more_events'      => 0,
-				'day_url'          => tribe_events_get_url( [ 'eventDisplay' => 'day', 'eventDate' => $day_date ] ),
+				'date'              => $day_date,
+				'is_start_of_week'  => 1 === $date_object->format( 'N' ),
+				'year_number'       => (int) $date_object->format( 'Y' ),
+				'month_number'      => (int) $date_object->format( 'm' ),
+				'day_number'        => (int) $date_object->format( 'd' ),
+				'day_number_no_pad' => (int) $date_object->format( 'j' ),
+				'events'            => [],
+				'featured_events'   => [],
+				'multiday_events'   => [],
+				'found_events'      => 0,
+				'more_events'       => 0,
+				'day_url'           => tribe_events_get_url( [ 'eventDisplay' => 'day', 'eventDate' => $day_date ] ),
 			];
 		}
 		$this->template->set_values(
