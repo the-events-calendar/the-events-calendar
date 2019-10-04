@@ -186,14 +186,22 @@
 
 	<div class="tribe-events-c-top-bar__datepicker">
 	<button
-		class="tribe-common-h2 tribe-common-h3--min-medium tribe-common-h--alt tribe-events-c-top-bar__datepicker-button"
+		class="tribe-common-h3 tribe-common-h--alt tribe-events-c-top-bar__datepicker-button"
 		data-js="tribe-events-top-bar-datepicker-button"
 	>
 					<time datetime="2019-06-20">
-				June 20			</time>
+				<span class="tribe-events-c-top-bar__datepicker-date-mobile">
+					2019-06-20				</span>
+				<span class="tribe-events-c-top-bar__datepicker-date-desktop tribe-common-a11y-hidden">
+					June 20				</span>
+			</time>
 				&mdash;
 		<time datetime="2019-06-20">
-			June 20		</time>
+			<span class="tribe-events-c-top-bar__datepicker-date-mobile">
+				2019-06-20			</span>
+			<span class="tribe-events-c-top-bar__datepicker-date-desktop tribe-common-a11y-hidden">
+				June 20			</span>
+		</time>
 	</button>
 	<label
 		class="tribe-events-c-top-bar__datepicker-label tribe-common-a11y-visual-hide"
