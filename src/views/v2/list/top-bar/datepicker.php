@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.7
+ * @version TBD
  *
  * @var string $today Today date in the `Y-m-d` format.
  *
@@ -21,6 +21,8 @@ use Tribe__Date_Utils as Dates;
  */
 $default_start_date = 'now';
 $selected_start_date_value = $this->get( [ 'bar', 'date' ], $default_start_date );
+$date_compact_format = Dates::datepicker_formats( tribe_get_option( 'datepickerFormat' ) );
+
 if ( empty( $selected_start_date_value ) ) {
 	$first_event = $this->get( 'view' )->get_repository()->first();
 
@@ -51,19 +53,29 @@ $selected_end_date_label = date_i18n( $selected_end_date_label_format, $selected
 ?>
 <div class="tribe-events-c-top-bar__datepicker">
 	<button
-		class="tribe-common-h2 tribe-common-h3--min-medium tribe-common-h--alt tribe-events-c-top-bar__datepicker-button"
+		class="tribe-common-h3 tribe-common-h--alt tribe-events-c-top-bar__datepicker-button"
 		data-js="tribe-events-top-bar-datepicker-button"
 	>
 		<?php if ( $is_now ) : ?>
 			<?php esc_html_e( 'Now', 'the-events-calendar' ); ?>
 		<?php else: ?>
 			<time datetime="<?php echo esc_attr( date_i18n( 'Y-m-d', $selected_start_datetime ) ); ?>">
-				<?php echo esc_html( $selected_start_date_label ); ?>
+				<span class="tribe-events-c-top-bar__datepicker-date-mobile">
+					<?php echo Dates::build_date_object( $selected_start_datetime )->format( $date_compact_format ); ?>
+				</span>
+				<span class="tribe-events-c-top-bar__datepicker-date-desktop tribe-common-a11y-hidden">
+					<?php echo esc_html( $selected_start_date_label ); ?>
+				</span>
 			</time>
 		<?php endif; ?>
 		&mdash;
 		<time datetime="<?php echo esc_attr( date_i18n( 'Y-m-d', $selected_end_datetime ) ); ?>">
-			<?php echo esc_html( $selected_end_date_label ); ?>
+			<span class="tribe-events-c-top-bar__datepicker-date-mobile">
+				<?php echo Dates::build_date_object( $selected_end_datetime )->format( $date_compact_format ); ?>
+			</span>
+			<span class="tribe-events-c-top-bar__datepicker-date-desktop tribe-common-a11y-hidden">
+				<?php echo esc_html( $selected_end_date_label ); ?>
+			</span>
 		</time>
 	</button>
 	<label

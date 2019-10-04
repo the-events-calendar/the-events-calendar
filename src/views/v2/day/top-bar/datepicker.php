@@ -24,7 +24,7 @@ $selected_date_label = date_i18n( tribe_get_date_format( true ), $selected_datet
 ?>
 <div class="tribe-events-c-top-bar__datepicker">
 	<button
-		class="tribe-common-h2 tribe-common-h3--min-medium tribe-common-h--alt tribe-events-c-top-bar__datepicker-button"
+		class="tribe-common-h3 tribe-common-h--alt tribe-events-c-top-bar__datepicker-button"
 		data-js="tribe-events-top-bar-datepicker-button"
 	>
 		<time datetime="<?php echo esc_attr( date( 'Y-m-d', $selected_datetime ) ); ?>">
