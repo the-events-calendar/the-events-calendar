@@ -64,7 +64,7 @@ $selected_end_date_mobile   = Dates::build_date_object( $selected_end_datetime )
 		<?php else: ?>
 			<time datetime="<?php echo esc_attr( date_i18n( 'Y-m-d', $selected_start_datetime ) ); ?>">
 				<span class="tribe-events-c-top-bar__datepicker-date-mobile">
-					<?php echo $selected_start_date_mobile ?>
+					<?php echo esc_html( $selected_start_date_mobile ); ?>
 				</span>
 				<span class="tribe-events-c-top-bar__datepicker-date-desktop tribe-common-a11y-hidden">
 					<?php echo esc_html( $selected_start_date_label ); ?>
