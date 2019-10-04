@@ -51,6 +51,8 @@ $selected_end_date_label_format = tribe_get_date_format( date( 'Y' ) !== date( '
 $selected_start_date_label = date_i18n( $selected_start_date_label_format, $selected_start_datetime );
 $selected_end_date_label = date_i18n( $selected_end_date_label_format, $selected_end_datetime );
 
+$selected_start_date_mobile = Dates::build_date_object( $selected_start_datetime )->format( $date_compact_format );
+$selected_end_date_mobile   = Dates::build_date_object( $selected_end_datetime )->format( $date_compact_format )
 ?>
 <div class="tribe-events-c-top-bar__datepicker">
 	<button
@@ -62,7 +64,7 @@ $selected_end_date_label = date_i18n( $selected_end_date_label_format, $selected
 		<?php else: ?>
 			<time datetime="<?php echo esc_attr( date_i18n( 'Y-m-d', $selected_start_datetime ) ); ?>">
 				<span class="tribe-events-c-top-bar__datepicker-date-mobile">
-					<?php echo Dates::build_date_object( $selected_start_datetime )->format( $date_compact_format ); ?>
+					<?php echo $selected_start_date_mobile ?>
 				</span>
 				<span class="tribe-events-c-top-bar__datepicker-date-desktop tribe-common-a11y-hidden">
 					<?php echo esc_html( $selected_start_date_label ); ?>
@@ -72,7 +74,7 @@ $selected_end_date_label = date_i18n( $selected_end_date_label_format, $selected
 		&mdash;
 		<time datetime="<?php echo esc_attr( date_i18n( 'Y-m-d', $selected_end_datetime ) ); ?>">
 			<span class="tribe-events-c-top-bar__datepicker-date-mobile">
-				<?php echo Dates::build_date_object( $selected_end_datetime )->format( $date_compact_format ); ?>
+				<?php echo esc_html( $selected_end_date_mobile ); ?>
 			</span>
 			<span class="tribe-events-c-top-bar__datepicker-date-desktop tribe-common-a11y-hidden">
 				<?php echo esc_html( $selected_end_date_label ); ?>
