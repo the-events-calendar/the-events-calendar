@@ -12,6 +12,7 @@ use Tribe\Events\Views\V2\View;
 use Tribe__Events__Main as TEC;
 use Tribe__Events__Rewrite as Rewrite;
 use Tribe__Utils__Array as Arr;
+use Tribe__Date_Utils as Dates;
 
 class List_View extends View {
 	/**
@@ -227,4 +228,16 @@ class List_View extends View {
 
 		return $args;
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	protected function setup_template_vars() {
+		$template_vars = parent::setup_template_vars();
+
+		$template_vars['date_compact_format'] = Dates::datepicker_formats( tribe_get_option( 'datepickerFormat' ) );
+
+		return $template_vars;
+	}
+
 }

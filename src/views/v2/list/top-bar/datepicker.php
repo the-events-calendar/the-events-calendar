@@ -12,6 +12,7 @@
  * @version TBD
  *
  * @var string $today Today date in the `Y-m-d` format.
+ * @var string $date_compact_format The date compact format.
  *
  */
 use Tribe__Date_Utils as Dates;
@@ -21,7 +22,7 @@ use Tribe__Date_Utils as Dates;
  */
 $default_start_date = 'now';
 $selected_start_date_value = $this->get( [ 'bar', 'date' ], $default_start_date );
-$date_compact_format = Dates::datepicker_formats( tribe_get_option( 'datepickerFormat' ) );
+
 
 if ( empty( $selected_start_date_value ) ) {
 	$first_event = $this->get( 'view' )->get_repository()->first();
