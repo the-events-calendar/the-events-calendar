@@ -37,6 +37,8 @@
 			<?php $this->template( 'list/top-bar' ); ?>
 		</header>
 
+		<?php $this->template( 'components/filter-bar' ); ?>
+
 		<div class="tribe-events-calendar-list">
 
 			<?php foreach ( $events as $event ) : ?>
