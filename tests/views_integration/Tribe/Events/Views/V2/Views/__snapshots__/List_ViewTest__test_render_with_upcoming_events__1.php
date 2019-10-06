@@ -219,6 +219,7 @@
 </div>
 		</header>
 
+		
 		<div class="tribe-events-calendar-list">
 
 			
