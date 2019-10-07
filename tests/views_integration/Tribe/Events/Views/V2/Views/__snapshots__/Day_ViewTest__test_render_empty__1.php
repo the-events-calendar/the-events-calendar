@@ -18,7 +18,7 @@
 	data-js="tribe-events-view-data"
 	type="application/json"
 >
-	{"slug":"day","prev_url":"http:\\/\\/test.tri.be\\/events\\/2018-12-31\\/","next_url":"","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Day_View","view_slug":"day","view":{},"title":"Upcoming Events &#8211; The Events Calendar Tests","events":[],"url":"http:\\/\\/test.tri.be\\/events\\/today\\/","bar":{"keyword":"","date":"2019-01-01 09:00:00"},"today":"2019-01-01 09:00:00","now":"2019-01-01 09:00:00","rest_url":"http:\\/\\/test.tri.be\\/index.php?rest_route=\\/tribe\\/views\\/v2\\/html","rest_nonce":"2ab7cc6b39","should_manage_url":true,"today_url":"http:\\/\\/test.tri.be\\/events\\/today\\/","prev_label":"","next_label":"","date_formats":{"compact":"Y-m-d"}}</script>
+	{"slug":"day","prev_url":"http:\\/\\/test.tri.be\\/events\\/2018-12-31\\/","next_url":"","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Day_View","view_slug":"day","view":{},"title":"Upcoming Events &#8211; The Events Calendar Tests","events":[],"url":"http:\\/\\/test.tri.be\\/events\\/today\\/","bar":{"keyword":"","date":"2019-01-01 09:00:00"},"today":"2019-01-01 09:00:00","now":"2019-01-01 09:00:00","rest_url":"http:\\/\\/test.tri.be\\/index.php?rest_route=\\/tribe\\/views\\/v2\\/html","rest_nonce":"2ab7cc6b39","should_manage_url":true,"today_url":"http:\\/\\/test.tri.be\\/events\\/today\\/","prev_label":"","next_label":"","date_formats":{"compact":"Y-m-d","month_and_year":"F Y"}}</script>
 
 		<header class="tribe-events-header">
 			<div
