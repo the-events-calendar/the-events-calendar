@@ -999,7 +999,8 @@ class View implements View_Interface {
 			'prev_label'        => $this->get_link_label( $this->prev_url( false ) ),
 			'next_label'        => $this->get_link_label( $this->next_url( false ) ),
 			'date_formats'      => (object) [
-				'compact' => Dates::datepicker_formats( tribe_get_option( 'datepickerFormat' ) ),
+				'compact'        => Dates::datepicker_formats( tribe_get_option( 'datepickerFormat' ) ),
+				'month_and_year' => tribe_get_option( 'monthAndYearFormat', 'F Y' ),
 			]
 		];
 

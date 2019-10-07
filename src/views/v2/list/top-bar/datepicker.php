@@ -12,7 +12,7 @@
  * @version TBD
  *
  * @var string $today Today date in the `Y-m-d` format.
- * @var obj $date_formats Object containing the date formats..
+ * @var obj $date_formats Object containing the date formats.
  *
  */
 use Tribe__Date_Utils as Dates;
