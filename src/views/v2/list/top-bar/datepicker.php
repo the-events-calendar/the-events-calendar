@@ -12,7 +12,7 @@
  * @version TBD
  *
  * @var string $today Today date in the `Y-m-d` format.
- * @var string $date_compact_format The date compact format.
+ * @var obj $date_formats Object containing the date formats..
  *
  */
 use Tribe__Date_Utils as Dates;
@@ -22,7 +22,6 @@ use Tribe__Date_Utils as Dates;
  */
 $default_start_date = 'now';
 $selected_start_date_value = $this->get( [ 'bar', 'date' ], $default_start_date );
-
 
 if ( empty( $selected_start_date_value ) ) {
 	$first_event = $this->get( 'view' )->get_repository()->first();
@@ -51,8 +50,8 @@ $selected_end_date_label_format = tribe_get_date_format( date( 'Y' ) !== date( '
 $selected_start_date_label = date_i18n( $selected_start_date_label_format, $selected_start_datetime );
 $selected_end_date_label = date_i18n( $selected_end_date_label_format, $selected_end_datetime );
 
-$selected_start_date_mobile = Dates::build_date_object( $selected_start_datetime )->format( $date_compact_format );
-$selected_end_date_mobile   = Dates::build_date_object( $selected_end_datetime )->format( $date_compact_format )
+$selected_start_date_mobile = Dates::build_date_object( $selected_start_datetime )->format( $date_formats->compact );
+$selected_end_date_mobile   = Dates::build_date_object( $selected_end_datetime )->format( $date_formats->compact );
 ?>
 <div class="tribe-events-c-top-bar__datepicker">
 	<button

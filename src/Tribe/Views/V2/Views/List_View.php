@@ -235,8 +235,6 @@ class List_View extends View {
 	protected function setup_template_vars() {
 		$template_vars = parent::setup_template_vars();
 
-		$template_vars['date_compact_format'] = Dates::datepicker_formats( tribe_get_option( 'datepickerFormat' ) );
-
 		return $template_vars;
 	}
 
