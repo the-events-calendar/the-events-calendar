@@ -20,6 +20,7 @@ namespace Tribe\Events\Views\V2;
 use Tribe\Events\Views\V2\Query\Abstract_Query_Controller;
 use Tribe\Events\Views\V2\Query\Event_Query_Controller;
 use Tribe\Events\Views\V2\Template\Title;
+use Tribe\Events\Views\V2\Template\Excerpt;
 use Tribe__Events__Main as TEC;
 use Tribe__Rewrite as Rewrite;
 
@@ -68,6 +69,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'body_class', [ $this, 'filter_body_class' ] );
 		add_filter( 'query_vars', [ $this, 'filter_query_vars' ], 15 );
 		add_filter( 'tribe_rewrite_canonical_query_args', [ $this, 'filter_map_canonical_query_args' ], 15, 3 );
+		add_filter( 'excerpt_length', [ $this, 'filter_excerpt_length' ] );
 
 		if ( tribe_context()->doing_php_initial_state() ) {
 			add_filter( 'wp_title', [ $this, 'filter_wp_title' ], 10, 2 );
@@ -227,5 +229,18 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 */
 	public function filter_document_title_parts( $title ) {
 		return $this->container->make( Title::class )->filter_document_title_parts( $title );
+	}
+
+	/**
+	 * Filters the `excerpt_length`.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $length The excerpt length.
+	 *
+	 * @return int The modified excerpt length, if required.
+	 */
+	public function filter_excerpt_length( $length ) {
+		return $this->container->make( Template\Excerpt::class )->maybe_filter_excerpt_length( $length );
 	}
 }
