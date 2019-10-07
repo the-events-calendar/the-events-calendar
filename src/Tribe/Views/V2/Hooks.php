@@ -70,6 +70,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'query_vars', [ $this, 'filter_query_vars' ], 15 );
 		add_filter( 'tribe_rewrite_canonical_query_args', [ $this, 'filter_map_canonical_query_args' ], 15, 3 );
 		add_filter( 'excerpt_length', [ $this, 'filter_excerpt_length' ] );
+		add_filter( 'excerpt_more', [ $this, 'filter_excerpt_more' ], 999 );
 
 		if ( tribe_context()->doing_php_initial_state() ) {
 			add_filter( 'wp_title', [ $this, 'filter_wp_title' ], 10, 2 );
@@ -242,5 +243,18 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 */
 	public function filter_excerpt_length( $length ) {
 		return $this->container->make( Template\Excerpt::class )->maybe_filter_excerpt_length( $length );
+	}
+
+	/**
+	 * Filters the `excerpt_more`.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $link The excerpt read more link.
+	 *
+	 * @return int The modified excerpt read more link, if required.
+	 */
+	public function filter_excerpt_more( $link ) {
+		return $this->container->make( Template\Excerpt::class )->maybe_filter_excerpt_more( $link );
 	}
 }
