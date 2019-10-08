@@ -19,13 +19,6 @@ namespace Tribe\Events\Views\V2\Template;
 class Excerpt {
 
 	/**
-	 * Excerpt constructor.
-	 *
-	 * @since TBD
-	 */
-	public function __construct() {}
-
-	/**
 	 * Filters the excerpt length.
 	 *
 	 * Set the excerpt length for list and day view.
@@ -40,11 +33,7 @@ class Excerpt {
 		$context = tribe_context();
 		$view = $context->get( 'event_display_mode', 'list' );
 
-		if ( 'list' === $view || 'day' === $view ) {
-			$length = 30;
-		}
-
-		return $length;
+		return in_array( $view, [ 'list', 'day' ] ) ? 30 : $length;
 	}
 
 	/**
