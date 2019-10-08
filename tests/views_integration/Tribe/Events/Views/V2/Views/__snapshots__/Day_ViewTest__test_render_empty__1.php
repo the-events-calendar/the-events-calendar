@@ -187,7 +187,10 @@
 		class="tribe-common-h3 tribe-common-h--alt tribe-events-c-top-bar__datepicker-button"
 		data-js="tribe-events-top-bar-datepicker-button"
 	>
-		<time datetime="2019-01-01">
+		<time
+			datetime="2019-01-01"
+			class="tribe-events-c-top-bar__datepicker-time"
+		>
 			January 1, 2019		</time>
 	</button>
 	<label
