@@ -8,6 +8,8 @@
  */
 
 namespace Tribe\Events\Views\V2\Template;
+use Tribe__Template as Base_Template;
+use Tribe__Events__Main as Plugin;
 
 /**
  * Class Excerpt
@@ -16,7 +18,19 @@ namespace Tribe\Events\Views\V2\Template;
  *
  * @package Tribe\Events\Views\V2\Template
  */
-class Excerpt {
+class Excerpt extends Base_Template {
+
+	/**
+	 * Excerpt constructor.
+	 *
+	 * @since TBD
+	 */
+	public function __construct() {
+		$this->set_template_origin( Plugin::instance() );
+		$this->set_template_folder( 'src/views/v2' );
+		$this->set_template_context_extract( true );
+		$this->set_template_folder_lookup( true );
+	}
 
 	/**
 	 * Filters the excerpt length.
@@ -49,6 +63,10 @@ class Excerpt {
 	 */
 	public function maybe_filter_excerpt_more( $link ) {
 
+		if ( is_admin() ) {
+			return $link;
+		}
+
 		$template = strtolower( get_template() );
 
 		// Check if theme is twentyseventeen.
@@ -56,13 +74,7 @@ class Excerpt {
 			return $link;
 		}
 
-		$link  = '<div class="tribe-events-c-small-cta tribe-common-b3 tribe-events-c-small-cta--readmore">';
-		$link .= '<a href="' . esc_url( get_permalink( get_the_ID() ) ) . '" class="tribe-events-c-small-cta__link tribe-common-cta tribe-common-cta--thin-alt">';
-		$link .= esc_html__( 'Continue Reading' , 'the-events-calendar' );
-		$link .= '</a>';
-		$link .= '</div>';
-
-		return $link;
+		return $this->template( 'components/read-more', [], false );
 	}
 
 }
