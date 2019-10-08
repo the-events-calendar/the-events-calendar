@@ -61,21 +61,27 @@ $selected_end_date_mobile   = Dates::build_date_object( $selected_end_datetime )
 		<?php if ( $is_now ) : ?>
 			<?php esc_html_e( 'Now', 'the-events-calendar' ); ?>
 		<?php else: ?>
-			<time datetime="<?php echo esc_attr( date_i18n( 'Y-m-d', $selected_start_datetime ) ); ?>">
-				<span class="tribe-events-c-top-bar__datepicker-date-mobile">
+			<time
+				datetime="<?php echo esc_attr( date_i18n( 'Y-m-d', $selected_start_datetime ) ); ?>"
+				class="tribe-events-c-top-bar__datepicker-time"
+			>
+				<span class="tribe-events-c-top-bar__datepicker-mobile">
 					<?php echo esc_html( $selected_start_date_mobile ); ?>
 				</span>
-				<span class="tribe-events-c-top-bar__datepicker-date-desktop tribe-common-a11y-hidden">
+				<span class="tribe-events-c-top-bar__datepicker-desktop tribe-common-a11y-hidden">
 					<?php echo esc_html( $selected_start_date_label ); ?>
 				</span>
 			</time>
 		<?php endif; ?>
-		&mdash;
-		<time datetime="<?php echo esc_attr( date_i18n( 'Y-m-d', $selected_end_datetime ) ); ?>">
-			<span class="tribe-events-c-top-bar__datepicker-date-mobile">
+		<span class="tribe-events-c-top-bar__datepicker-separator">&mdash;</span>
+		<time
+			datetime="<?php echo esc_attr( date_i18n( 'Y-m-d', $selected_end_datetime ) ); ?>"
+			class="tribe-events-c-top-bar__datepicker-time"
+		>
+			<span class="tribe-events-c-top-bar__datepicker-mobile">
 				<?php echo esc_html( $selected_end_date_mobile ); ?>
 			</span>
-			<span class="tribe-events-c-top-bar__datepicker-date-desktop tribe-common-a11y-hidden">
+			<span class="tribe-events-c-top-bar__datepicker-desktop tribe-common-a11y-hidden">
 				<?php echo esc_html( $selected_end_date_label ); ?>
 			</span>
 		</time>
