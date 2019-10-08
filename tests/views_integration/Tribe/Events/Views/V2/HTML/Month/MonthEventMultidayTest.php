@@ -2,27 +2,18 @@
 
 namespace Tribe\Events\Views\V2\Views\HTML\Month;
 
+use Tribe\Test\PHPUnit\Traits\With_Post_Remapping;
 use Tribe\Test\Products\WPBrowser\Views\V2\HtmlTestCase;
 
 class MonthEventMultidayTest extends HtmlTestCase {
+	use With_Post_Remapping;
 
 	/**
 	 * @test
 	 */
 	public function it_should_contain_correct_html_classes() {
-		$thumbnail_id            = static::factory()->attachment->create_upload_object(
-			codecept_data_dir( 'images/featured-image.jpg' )
-		);
-		$event_id                = static::factory()->event->create(
-			[
-				'meta_input' => [
-					'_thumbnail_id' => $thumbnail_id,
-				]
-			]
-		);
-		$event                   = tribe_get_event( $event_id );
-		$event->featured         = true;
-		$event->multiday         = 2;
+
+		$event = $this->mock_event( 'events/featured/1.json' )->with_thumbnail()->is_multiday( 2 )->get();
 		$event->starts_this_week = true;
 		$event->ends_this_week   = true;
 
@@ -59,19 +50,8 @@ class MonthEventMultidayTest extends HtmlTestCase {
 	 * @test
 	 */
 	public function it_should_contain_a11y_attributes() {
-		$thumbnail_id            = static::factory()->attachment->create_upload_object(
-			codecept_data_dir( 'images/featured-image.jpg' )
-		);
-		$event_id                = static::factory()->event->create(
-			[
-				'meta_input' => [
-					'_thumbnail_id' => $thumbnail_id,
-				]
-			]
-		);
-		$event                   = tribe_get_event( $event_id );
-		$event->featured         = true;
-		$event->multiday         = 2;
+
+		$event = $this->mock_event( 'events/featured/1.json' )->with_thumbnail()->is_multiday( 2 )->get();
 		$event->starts_this_week = true;
 		$event->ends_this_week   = true;
 

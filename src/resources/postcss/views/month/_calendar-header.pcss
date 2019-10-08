@@ -22,4 +22,18 @@
 			text-align: left;
 		}
 	}
+
+	.tribe-events-calendar-month__header-column-title-mobile {
+		@media (--viewport-medium) {
+			@mixin hidden;
+		}
+	}
+
+	.tribe-events-calendar-month__header-column-title-desktop {
+
+		@media (--viewport-medium) {
+			display: block !important;
+			visibility: visible
+		}
+	}
 }

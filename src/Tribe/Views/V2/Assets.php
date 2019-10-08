@@ -44,7 +44,10 @@ class Assets extends \tad_DI52_ServiceProvider {
 			$plugin,
 			'tribe-events-views-v2-full',
 			'views-full.css',
-			[ 'tribe-common-style', 'tribe-tooltipster-css' ],
+			[
+				'tribe-common-style',
+				'tribe-tooltipster-css',
+			],
 			'wp_enqueue_scripts',
 			[
 				'priority'     => 10,
@@ -99,7 +102,10 @@ class Assets extends \tad_DI52_ServiceProvider {
 			$plugin,
 			'tribe-events-views-v2-viewport',
 			'views/viewport.js',
-			[ 'jquery', 'tribe-common' ],
+			[
+				'jquery',
+				'tribe-common',
+			],
 			null,
 			[
 				'priority' => 10,
@@ -110,7 +116,10 @@ class Assets extends \tad_DI52_ServiceProvider {
 			$plugin,
 			'tribe-events-views-v2-accordion',
 			'views/accordion.js',
-			[ 'jquery', 'tribe-common' ],
+			[
+				'jquery',
+				'tribe-common',
+			],
 			null,
 			[
 				'priority' => 10,
@@ -121,7 +130,12 @@ class Assets extends \tad_DI52_ServiceProvider {
 			$plugin,
 			'tribe-events-views-v2-view-selector',
 			'views/view-selector.js',
-			[ 'jquery', 'tribe-common', 'tribe-events-views-v2-viewport', 'tribe-events-views-v2-accordion', ],
+			[
+				'jquery',
+				'tribe-common',
+				'tribe-events-views-v2-viewport',
+				'tribe-events-views-v2-accordion',
+			],
 			null,
 			[
 				'priority' => 10,
@@ -132,7 +146,10 @@ class Assets extends \tad_DI52_ServiceProvider {
 			$plugin,
 			'tribe-events-views-v2-navigation-scroll',
 			'views/navigation-scroll.js',
-			[ 'jquery', 'tribe-common' ],
+			[
+				'jquery',
+				'tribe-common',
+			],
 			null,
 			[
 				'priority' => 15,
@@ -143,7 +160,10 @@ class Assets extends \tad_DI52_ServiceProvider {
 			$plugin,
 			'tribe-events-views-v2-multiday-events',
 			'views/multiday-events.js',
-			[ 'jquery', 'tribe-common' ],
+			[
+				'jquery',
+				'tribe-common',
+			],
 			null,
 			[
 				'priority' => 10,
@@ -154,7 +174,12 @@ class Assets extends \tad_DI52_ServiceProvider {
 			$plugin,
 			'tribe-events-views-v2-month-mobile-events',
 			'views/month-mobile-events.js',
-			[ 'jquery', 'tribe-common', 'tribe-events-views-v2-viewport', 'tribe-events-views-v2-accordion' ],
+			[
+				'jquery',
+				'tribe-common',
+				'tribe-events-views-v2-viewport',
+				'tribe-events-views-v2-accordion',
+			],
 			null,
 			[
 				'priority' => 10,
@@ -176,7 +201,11 @@ class Assets extends \tad_DI52_ServiceProvider {
 			$plugin,
 			'tribe-events-views-v2-tooltip',
 			'views/tooltip.js',
-			[ 'jquery', 'tribe-common', 'tribe-tooltipster' ],
+			[
+				'jquery',
+				'tribe-common',
+				'tribe-tooltipster',
+			],
 			null,
 			[
 				'priority' => 10,
@@ -187,7 +216,11 @@ class Assets extends \tad_DI52_ServiceProvider {
 			$plugin,
 			'tribe-events-views-v2-events-bar',
 			'views/events-bar.js',
-			[ 'jquery', 'tribe-common', 'tribe-events-views-v2-accordion' ],
+			[
+				'jquery',
+				'tribe-common',
+				'tribe-events-views-v2-accordion',
+			],
 			null,
 			[
 				'priority' => 10,
@@ -198,7 +231,10 @@ class Assets extends \tad_DI52_ServiceProvider {
 			$plugin,
 			'tribe-events-views-v2-events-bar-inputs',
 			'views/events-bar-inputs.js',
-			[ 'jquery', 'tribe-common' ],
+			[
+				'jquery',
+				'tribe-common',
+			],
 			null,
 			[
 				'priority' => 10,
@@ -209,7 +245,11 @@ class Assets extends \tad_DI52_ServiceProvider {
 			$plugin,
 			'tribe-events-views-v2-datepicker',
 			'views/datepicker.js',
-			[ 'jquery', 'tribe-common', 'tribe-events-views-v2-bootstrap-datepicker' ],
+			[
+				'jquery',
+				'tribe-common',
+				'tribe-events-views-v2-bootstrap-datepicker',
+			],
 			null,
 			[
 				'priority' => 10,

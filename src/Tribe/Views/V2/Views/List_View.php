@@ -36,11 +36,19 @@ class List_View extends View {
 	 * {@inheritDoc}
 	 */
 	public function prev_url( $canonical = false, array $passthru_vars = [] ) {
+		if ( isset( $this->prev_url ) ) {
+			return $this->prev_url;
+		}
+
 		$current_page = (int) $this->context->get( 'page', 1 );
 		$display      = $this->context->get( 'event_display_mode', 'list' );
 
 		if ( 'past' === $display ) {
+			// Ensure we start fresh.
+			unset( $this->next_url );
 			$url = parent::next_url( $canonical, [ 'eventDisplay' => 'past' ] );
+			// Avoid messing up the caching since we're using the prev URL in the next URL function.
+			unset( $this->next_url );
 		} else if ( $current_page > 1 ) {
 			$url = parent::prev_url( $canonical );
 		} else {
@@ -49,6 +57,8 @@ class List_View extends View {
 
 		$url = $this->filter_prev_url( $canonical, $url );
 
+		$this->prev_url = $url;
+
 		return $url;
 	}
 
@@ -56,18 +66,28 @@ class List_View extends View {
 	 * {@inheritDoc}
 	 */
 	public function next_url( $canonical = false, array $passthru_vars = [] ) {
+		if ( isset( $this->next_url ) ) {
+			return $this->next_url;
+		}
+
 		$current_page = (int) $this->context->get( 'page', 1 );
 		$display      = $this->context->get( 'event_display_mode', 'list' );
 
 		if ( $this->slug === $display || 'default' === $display ) {
 			$url = parent::next_url( $canonical );
 		} else if ( $current_page > 1 ) {
+			// Ensure we start fresh.
+			unset( $this->prev_url );
 			$url = parent::prev_url( $canonical, [ 'eventDisplay' => 'past' ] );
+			// Avoid messing up the caching since we're using the prev URL in the next URL function.
+			unset( $this->prev_url );
 		} else {
 			$url = $this->get_upcoming_url( $canonical );
 		}
 
 		$url = $this->filter_next_url( $canonical, $url );
+
+		$this->next_url = $url;
 
 		return $url;
 	}
@@ -146,6 +166,7 @@ class List_View extends View {
 		$default_date   = 'now';
 		$date           = $this->context->get( 'event_date', $default_date );
 		$event_date_var = $default_date === $date ? '' : $date;
+		$url = '';
 
 		$upcoming = tribe_events()->by_args( $this->setup_repository_args( $this->context->alter( [
 			'eventDisplay' => 'list',
@@ -179,11 +200,9 @@ class List_View extends View {
 			) ) {
 				$url = add_query_arg( [ 'eventDate' => $event_date_var ], $url );
 			}
-
-			return $url;
 		}
 
-		return '';
+		return $url ?: $this->get_today_url( $canonical );
 	}
 
 	/**

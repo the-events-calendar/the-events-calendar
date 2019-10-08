@@ -89,6 +89,24 @@ class View implements View_Interface {
 	protected $url;
 
 	/**
+	 * Cache property for the next URL value to avoid running queries twice.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	protected $next_url;
+
+	/**
+	 * Cache property for the previous URL value to avoid running queries twice.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	protected $prev_url;
+
+	/**
 	 * An associative array of global variables backed up by the view before replacing the global loop.
 	 *
 	 * @since 4.9.3
@@ -145,11 +163,16 @@ class View implements View_Interface {
 	 */
 	public static function make_for_rest( \WP_REST_Request $request ) {
 		// Try to read the slug from the REST request.
-		$params = $request->get_params();
-		$slug = Arr::get( $params, 'view', false );
-		$url = Arr::get( $params, 'url' );
-		$url_object = new Url( $url );
-		$params = array_merge( $params, $url_object->get_query_args() );
+		$params     = $request->get_params();
+		$slug       = Arr::get( $params, 'view', false );
+		$url_object = Url::from_url_and_params( Arr::get( $params, 'url' ), $params );
+
+		$url = $url_object->__toString();
+		$params['url'] = $url;
+		if ( isset( $params['view_data'] ) ) {
+			$params['view_data']['url'] = $url;
+		}
+		$params     = array_merge( $params, $url_object->get_query_args() );
 
 		// Let View data override any other data.
 		if ( isset( $params['view_data'] ) && is_array( $params['view_data'] ) ) {
@@ -392,6 +415,12 @@ class View implements View_Interface {
 
 		$repository_args = $this->filter_repository_args( $this->setup_repository_args() );
 
+		/*
+		 * Some Views might need to access this out of this method, let's make the filtered repository arguments
+		 * available.
+		 */
+		$this->repository_args = $repository_args;
+
 		$this->setup_the_loop( $repository_args );
 
 		$template_vars = $this->filter_template_vars( $this->setup_template_vars() );
@@ -493,6 +522,20 @@ class View implements View_Interface {
 			'tribe-bar-search' => $this->context->get( 'keyword', '' ),
 		];
 
+
+		//@todo lucatume check geoloc!
+
+		/**
+		 * Filters the query arguments that will be used to build a View URL.
+		 *
+		 * @since TBD
+		 *
+		 * @param array          $query_args An array of query args that will be used to build the URL for the View.
+		 * @param View_Interface $this       This View instance.
+		 * @param bool           $canonical  Whether the URL should be the canonical one or not.
+		 */
+		$query_args = apply_filters( 'tribe_events_views_v2_url_query_args', $query_args, $this, $canonical );
+
 		if ( ! empty( $query_args['tribe-bar-date'] ) ) {
 			// If the Events Bar date is the same as today's date, then drop it.
 			$today          = $this->context->get( 'today', 'today' );
@@ -531,6 +574,10 @@ class View implements View_Interface {
 	 * {@inheritDoc}
 	 */
 	public function next_url( $canonical = false, array $passthru_vars = [] ) {
+		if ( isset( $this->next_url ) ) {
+			return $this->next_url;
+		}
+
 		$next_page = $this->repository->next();
 
 		$url            = $next_page->count() > 0 ?
@@ -553,10 +600,13 @@ class View implements View_Interface {
 				$canonical_url = add_query_arg( $passthru_vars, $canonical_url );
 			}
 
+
 			$url = $canonical_url;
 		}
 
 		$url = $this->filter_next_url( $canonical, $url );
+
+		$this->next_url = $url;
 
 		return $url;
 	}
@@ -565,6 +615,10 @@ class View implements View_Interface {
 	 * {@inheritDoc}
 	 */
 	public function prev_url( $canonical = false, array $passthru_vars = [] ) {
+		if ( isset( $this->prev_url ) ) {
+			return $this->prev_url;
+		}
+
 		$prev_page  = $this->repository->prev();
 		$paged      = $this->url->get_current_page() - 1;
 		$query_args = $paged > 1
@@ -599,6 +653,8 @@ class View implements View_Interface {
 		}
 
 		$url = $this->filter_prev_url( $canonical, $url );
+
+		$this->prev_url = $url;
 
 		return $url;
 	}
@@ -854,7 +910,7 @@ class View implements View_Interface {
 
 		return [
 			'posts_per_page' => $context_arr['events_per_page'],
-			'paged'          => max( Arr::get_first_set( $context_arr, [ 'paged', 'page' ], 1 ), 1 ),
+			'paged' => max( Arr::get_first_set( array_filter( $context_arr ), [ 'paged', 'page' ], 1 ), 1 ),
 			'search'         => $context->get( 'keyword', '' ),
 		];
 	}
@@ -917,6 +973,11 @@ class View implements View_Interface {
 	 * @return array An array of Template variables for the View Template.
 	 */
 	protected function setup_template_vars() {
+		if ( empty( $this->repository_args ) ) {
+			$this->repository_args = $this->filter_repository_args( $this->setup_repository_args() );
+			$this->repository->by_args( $this->repository_args );
+		}
+
 		$events = $this->repository->all();
 
 		$template_vars = [
@@ -1037,7 +1098,7 @@ class View implements View_Interface {
 	 * {@inheritDoc}
 	 */
 	public function get_today_url( $canonical = false ) {
-		$remove = [ 'tribe-bar-date', 'paged', 'page', 'eventDate' ];
+		$to_remove = [ 'tribe-bar-date', 'paged', 'page', 'eventDate' ];
 
 		// While we want to remove the date query vars, we want to keep any other query var.
 		$query_args = $this->url->get_query_args();
@@ -1046,7 +1107,7 @@ class View implements View_Interface {
 		$query_args['eventDisplay'] = $this->slug;
 
 		$ugly_url = add_query_arg( $query_args, $this->get_url( false ) );
-		$ugly_url = remove_query_arg( $remove, $ugly_url );
+		$ugly_url = remove_query_arg( $to_remove, $ugly_url );
 
 		if ( ! $canonical ) {
 			return $ugly_url;

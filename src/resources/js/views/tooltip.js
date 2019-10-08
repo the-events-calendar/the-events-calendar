@@ -32,51 +32,51 @@ tribe.events.views.tooltip = {};
 	var $document = $( document );
 
 	/**
+	 * Config used for tooltip setup
+	 *
+	 * @since TBD
+	 *
+	 * @type {PlainObject}
+	 */
+	obj.config = {
+		delayHoverIn: 600,
+		delayHoverOut: 300,
+	};
+
+	/**
 	 * Selectors used for configuration and setup
 	 *
-	 * @since 4.9.4
+	 * @since TBD
 	 *
 	 * @type {PlainObject}
 	 */
 	obj.selectors = {
-		tooltip: '[data-js="tribe-events-tooltip"]',
-		tooltipContent: '[data-js="tribe-events-tooltip-content"]',
+		tooltipTrigger: '[data-js~="tribe-events-tooltip"]',
+		tribeEventsTooltipTriggerHoverClass: '.tribe-events-tooltip-trigger--hover',
 		tribeEventsTooltipThemeClass: '.tribe-events-tooltip-theme',
+		tribeEventsTooltipThemeHoverClass: '.tribe-events-tooltip-theme--hover',
 		tribeCommonClass: '.tribe-common',
 		tribeEventsClass: '.tribe-events',
 	};
 
 	/**
-	 * Override of the `functionInit` tooltipster method.
-	 * A custom function to be fired only once at instantiation.
-	 *
-	 * @since 4.9.4
-	 *
-	 * @param {Tooltipster} instance instance of Tooltipster
-	 * @param {PlainObject} helper   helper object with tooltip origin
-	 *
-	 * @return {void}
-	 */
-	obj.onFunctionInit = function( instance, helper ) {
-		var $origin = $( helper.origin );
-		var content = $origin.find( obj.selectors.tooltipContent ).html();
-		instance.content( content );
-		$origin
-			.on( 'focus', { target: $origin }, obj.handleOriginFocus )
-			.on( 'blur', { target: $origin }, obj.handleOriginBlur );
-	};
-
-	/**
 	 * Handle tooltip focus event
 	 *
-	 * @since 4.9.4
+	 * @since TBD
 	 *
 	 * @param {Event} event event object
 	 *
 	 * @return {void}
 	 */
 	obj.handleOriginFocus = function( event ) {
-		event.data.target.tooltipster( 'open' );
+		setTimeout( function() {
+			if (
+				event.data.target.is( ':focus' ) ||
+				event.data.target.hasClass( obj.selectors.tribeEventsTooltipTriggerHoverClass.className() )
+			) {
+				event.data.target.tooltipster( 'open' );
+			}
+		}, obj.config.delayHoverIn );
 	};
 
 	/**
@@ -93,10 +93,123 @@ tribe.events.views.tooltip = {};
 	};
 
 	/**
+	 * Handle origin mouseenter and touchstart events
+	 *
+	 * @since TBD
+	 *
+	 * @param {Event} event event object
+	 *
+	 * @return {void}
+	 */
+	obj.handleOriginHoverIn = function( event ) {
+		event.data.target.addClass( obj.selectors.tribeEventsTooltipTriggerHoverClass.className() );
+	};
+
+	/**
+	 * Handle origin mouseleave and touchleave events
+	 *
+	 * @since TBD
+	 *
+	 * @param {Event} event event object
+	 *
+	 * @return {void}
+	 */
+	obj.handleOriginHoverOut = function( event ) {
+		event.data.target.removeClass( obj.selectors.tribeEventsTooltipTriggerHoverClass.className() );
+	};
+
+	/**
+	 * Handle tooltip mouseenter and touchstart event
+	 *
+	 * @since TBD
+	 *
+	 * @param {Event} event event object
+	 *
+	 * @return {void}
+	 */
+	obj.handleTooltipHoverIn = function( event ) {
+		event.data.target.addClass( obj.selectors.tribeEventsTooltipThemeHoverClass.className() );
+	};
+
+	/**
+	 * Handle tooltip mouseleave and touchleave events
+	 *
+	 * @since TBD
+	 *
+	 * @param {Event} event event object
+	 *
+	 * @return {void}
+	 */
+	obj.handleTooltipHoverOut = function( event ) {
+		event.data.target.removeClass( obj.selectors.tribeEventsTooltipThemeHoverClass.className() );
+	};
+
+	/**
+	 * Handle tooltip instance closing event
+	 *
+	 * @since TBD
+	 *
+	 * @param {Event} event event object
+	 *
+	 * @return {void}
+	 */
+	obj.handleInstanceClose = function( event ) {
+		var $origin = event.data.origin;
+		var $tooltip = $( event.tooltip );
+
+		// if trigger is focused, hovered, or tooltip is hovered, do not close tooltip
+		if (
+			$origin.is( ':focus' ) ||
+			$origin.hasClass( obj.selectors.tribeEventsTooltipTriggerHoverClass.className() ) ||
+			$tooltip.hasClass( obj.selectors.tribeEventsTooltipThemeHoverClass.className() )
+		) {
+			event.stop();
+		}
+	};
+
+	/**
+	 * Handle tooltip instance close event
+	 *
+	 * @since TBD
+	 *
+	 * @param {Event} event event object
+	 *
+	 * @return {void}
+	 */
+	obj.handleInstanceClosing = function( event ) {
+		$( event.tooltip )
+			.off( 'mouseenter touchstart', obj.handleTooltipHoverIn )
+			.off( 'mouseleave touchleave', obj.handleTooltipHoverOut );
+	};
+
+	/**
+	 * Override of the `functionInit` tooltipster method.
+	 * A custom function to be fired only once at instantiation.
+	 *
+	 * @since TBD
+	 *
+	 * @param {Tooltipster} instance instance of Tooltipster
+	 * @param {PlainObject} helper   helper object with tooltip origin
+	 *
+	 * @return {void}
+	 */
+	obj.onFunctionInit = function( instance, helper ) {
+		var $origin = $( helper.origin );
+		$origin
+			.on( 'focus', { target: $origin }, obj.handleOriginFocus )
+			.on( 'blur', { target: $origin }, obj.handleOriginBlur )
+			.on( 'mouseenter touchstart', { target: $origin }, obj.handleOriginHoverIn )
+			.on( 'mouseleave touchleave', { target: $origin }, obj.handleOriginHoverOut );
+		instance
+			.on( 'close', { origin: $origin }, obj.handleInstanceClose )
+			.on( 'closing', { origin: $origin }, obj.handleInstanceClosing );
+	};
+
+	/**
 	 * Override of the `functionReady` tooltipster method.
 	 * A custom function to be fired when the tooltip and its contents have been added to the DOM.
 	 *
-	 * @since 4.9.4
+	 * @since TBD
 	 *
 	 * @param {Tooltipster} instance instance of Tooltipster
 	 * @param {PlainObject} helper   helper object with tooltip origin
@@ -104,28 +217,16 @@ tribe.events.views.tooltip = {};
 	 * @return {void}
 	 */
 	obj.onFunctionReady = function( instance, helper ) {
-		$( helper.origin ).find( obj.selectors.tooltipContent ).attr( 'aria-hidden', 'false' );
-	};
-
-	/**
-	 * Override of the `functionAfter` tooltipster method.
-	 * A custom function to be fired once the tooltip has been closed and removed from the DOM.
-	 *
-	 * @since 4.9.4
-	 *
-	 * @param {Tooltipster} instance instance of Tooltipster
-	 * @param {PlainObject} helper   helper object with tooltip origin
-	 *
-	 * @return {void}
-	 */
-	obj.onFunctionAfter = function( instance, helper ) {
-		$( helper.origin ).find( obj.selectors.tooltipContent ).attr( 'aria-hidden', 'true' );
+		var $tooltip = $( helper.tooltip );
+		$tooltip
+			.on( 'mouseenter touchstart', { target: $tooltip }, obj.handleTooltipHoverIn )
+			.on( 'mouseleave touchleave', { target: $tooltip }, obj.handleTooltipHoverOut );
 	};
 
 	/**
 	 * Deinitialize accessible tooltips via tooltipster
 	 *
-	 * @since 4.9.5
+	 * @since TBD
 	 *
 	 * @param {jQuery} $container jQuery object of view container.
 	 *
@@ -133,18 +234,23 @@ tribe.events.views.tooltip = {};
 	 */
 	obj.deinitTooltips = function( $container ) {
 		$container
-			.find( obj.selectors.tooltip )
-			.each( function( index, tooltip ) {
-				$( tooltip )
+			.find( obj.selectors.tooltipTrigger )
+			.each( function( index, trigger ) {
+				$( trigger )
 					.off( 'focus', obj.handleOriginFocus )
-					.off( 'blur', obj.handleOriginBlur );
+					.off( 'blur', obj.handleOriginBlur )
+					.off( 'mouseenter touchstart', obj.handleOriginHoverIn )
+					.off( 'mouseleave touchleave', obj.handleOriginHoverOut )
+					.tooltipster( 'instance' )
+					.off( 'close', obj.handleInstanceClose )
+					.off( 'closing', obj.handleInstanceClosing );
 			} );
 	};
 
 	/**
 	 * Initialize accessible tooltips via tooltipster
 	 *
-	 * @since 4.9.4
+	 * @since TBD
 	 *
 	 * @param {jQuery} $container jQuery object of view container.
 	 *
@@ -154,14 +260,15 @@ tribe.events.views.tooltip = {};
 		var theme = $container.data( 'tribeEventsTooltipTheme' );
 
 		$container
-			.find( obj.selectors.tooltip )
-			.each( function( index, tooltip ) {
-				$( tooltip ).tooltipster( {
+			.find( obj.selectors.tooltipTrigger )
+			.each( function( index, trigger ) {
+				$( trigger ).tooltipster( {
 					interactive: true,
+					delay: [ obj.config.delayHoverIn, obj.config.delayHoverOut ],
+					delayTouch: [ obj.config.delayHoverIn, obj.config.delayHoverOut ],
 					theme: theme,
 					functionInit: obj.onFunctionInit,
 					functionReady: obj.onFunctionReady,
-					functionAfter: obj.onFunctionAfter,
 				} );
 			} );
 	};
@@ -169,7 +276,7 @@ tribe.events.views.tooltip = {};
 	/**
 	 * Initialize tooltip theme
 	 *
-	 * @since 4.9.9
+	 * @since TBD
 	 *
 	 * @param {jQuery} $container jQuery object of view container.
 	 *

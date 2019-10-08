@@ -107,24 +107,11 @@
 		title=""
 		rel="bookmark"
 		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
-				data-js="tribe-events-tooltip"
-		data-tooltip-content="#tribe-events-tooltip-content-999999"
-		aria-describedby="tribe-events-tooltip-content-999999"
-	>
+			>
 			</a>
 </h3>
 
-		<div
-	class="tribe-events-calendar-month__calendar-event-tooltip"
-	data-js="tribe-events-tooltip-content"
-	role="tooltip"
->
-	<div id="tribe-events-tooltip-content-999999">
-				<div class="tribe-events-calendar-month__calendar-event-tooltip-description tribe-common-b3">
-	</div>
-			</div>
-</div>
-
+		
 	</div>
 
 </article>
@@ -149,24 +136,11 @@
 		title=""
 		rel="bookmark"
 		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
-				data-js="tribe-events-tooltip"
-		data-tooltip-content="#tribe-events-tooltip-content-999998"
-		aria-describedby="tribe-events-tooltip-content-999998"
-	>
+			>
 			</a>
 </h3>
 
-		<div
-	class="tribe-events-calendar-month__calendar-event-tooltip"
-	data-js="tribe-events-tooltip-content"
-	role="tooltip"
->
-	<div id="tribe-events-tooltip-content-999998">
-				<div class="tribe-events-calendar-month__calendar-event-tooltip-description tribe-common-b3">
-	</div>
-			</div>
-</div>
-
+		
 	</div>
 
 </article>

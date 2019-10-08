@@ -105,4 +105,40 @@ class UrlTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertEquals( $expected, $found );
 	}
+
+	/**
+	 * It should build the URL as __construct would when providing empty params
+	 *
+	 * @test
+	 */
+	public function should_build_the_url_as_construct_would_when_providing_empty_params() {
+		$input_url     = add_query_arg( [ 'one' => 23, 'two' => 89 ], home_url( '/foo/bar' ) );
+		$construct_url = new Url( $input_url );
+		$params_url    = Url::from_url_and_params( $input_url, [] );
+
+		$this->assertEquals( (string) $construct_url, (string) $params_url );
+	}
+
+	/**
+	 * It should update the URL when providing tribe-bar- view data
+	 *
+	 * @test
+	 */
+	public function should_update_the_url_when_providing_tribe_bar_view_data() {
+		$input_url     = add_query_arg( [
+			'tribe-bar-location' => 'paris' ,
+			'tribe-bar-date' => '2019-03-23' ,
+		], home_url( '/foo/bar' ) );
+		$construct_url = new Url( $input_url );
+		$params_url    = Url::from_url_and_params( $input_url, [
+			'view_data' => [
+				'tribe-bar-location' => 'cairo',
+				'tribe-bar-date' => '',
+			],
+		] );
+
+		$this->assertNotEquals( (string) $construct_url, (string) $params_url );
+		$expected = add_query_arg( [ 'tribe-bar-location' => 'cairo' ], home_url( '/foo/bar' ) );
+		$this->assertEquals( $expected, (string) $params_url );
+	}
 }

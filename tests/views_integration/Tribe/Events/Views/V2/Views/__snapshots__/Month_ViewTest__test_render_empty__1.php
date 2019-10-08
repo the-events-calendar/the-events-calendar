@@ -237,7 +237,11 @@
 				aria-label="Monday"
 			>
 				<h3 class="tribe-events-calendar-month__header-column-title tribe-common-b3">
-					Mon				</h3>
+					<span class="tribe-events-calendar-month__header-column-title-mobile">
+						M					</span>
+					<span class="tribe-events-calendar-month__header-column-title-desktop tribe-common-a11y-hidden">
+						Mon					</span>
+				</h3>
 			</div>
 					<div
 				class="tribe-events-calendar-month__header-column"
@@ -245,7 +249,11 @@
 				aria-label="Tuesday"
 			>
 				<h3 class="tribe-events-calendar-month__header-column-title tribe-common-b3">
-					Tue				</h3>
+					<span class="tribe-events-calendar-month__header-column-title-mobile">
+						T					</span>
+					<span class="tribe-events-calendar-month__header-column-title-desktop tribe-common-a11y-hidden">
+						Tue					</span>
+				</h3>
 			</div>
 					<div
 				class="tribe-events-calendar-month__header-column"
@@ -253,7 +261,11 @@
 				aria-label="Wednesday"
 			>
 				<h3 class="tribe-events-calendar-month__header-column-title tribe-common-b3">
-					Wed				</h3>
+					<span class="tribe-events-calendar-month__header-column-title-mobile">
+						W					</span>
+					<span class="tribe-events-calendar-month__header-column-title-desktop tribe-common-a11y-hidden">
+						Wed					</span>
+				</h3>
 			</div>
 					<div
 				class="tribe-events-calendar-month__header-column"
@@ -261,7 +273,11 @@
 				aria-label="Thursday"
 			>
 				<h3 class="tribe-events-calendar-month__header-column-title tribe-common-b3">
-					Thu				</h3>
+					<span class="tribe-events-calendar-month__header-column-title-mobile">
+						T					</span>
+					<span class="tribe-events-calendar-month__header-column-title-desktop tribe-common-a11y-hidden">
+						Thu					</span>
+				</h3>
 			</div>
 					<div
 				class="tribe-events-calendar-month__header-column"
@@ -269,7 +285,11 @@
 				aria-label="Friday"
 			>
 				<h3 class="tribe-events-calendar-month__header-column-title tribe-common-b3">
-					Fri				</h3>
+					<span class="tribe-events-calendar-month__header-column-title-mobile">
+						F					</span>
+					<span class="tribe-events-calendar-month__header-column-title-desktop tribe-common-a11y-hidden">
+						Fri					</span>
+				</h3>
 			</div>
 					<div
 				class="tribe-events-calendar-month__header-column"
@@ -277,7 +297,11 @@
 				aria-label="Saturday"
 			>
 				<h3 class="tribe-events-calendar-month__header-column-title tribe-common-b3">
-					Sat				</h3>
+					<span class="tribe-events-calendar-month__header-column-title-mobile">
+						S					</span>
+					<span class="tribe-events-calendar-month__header-column-title-desktop tribe-common-a11y-hidden">
+						Sat					</span>
+				</h3>
 			</div>
 					<div
 				class="tribe-events-calendar-month__header-column"
@@ -285,7 +309,11 @@
 				aria-label="Sunday"
 			>
 				<h3 class="tribe-events-calendar-month__header-column-title tribe-common-b3">
-					Sun				</h3>
+					<span class="tribe-events-calendar-month__header-column-title-mobile">
+						S					</span>
+					<span class="tribe-events-calendar-month__header-column-title-desktop tribe-common-a11y-hidden">
+						Sun					</span>
+				</h3>
 			</div>
 			</div>
 </header>
