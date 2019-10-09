@@ -19,6 +19,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - uses: gimenete/eslint-action@master
+      - uses: hallee/eslint-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GH_BOT_TOKEN }}
