@@ -1,4 +1,4 @@
-name: PHP CodeSniffer
+name: 'PHP CodeSniffer'
 on:
   pull_request:
     paths:

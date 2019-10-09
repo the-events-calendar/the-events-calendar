@@ -1,4 +1,4 @@
-name: ESLint
+name: 'ESLint'
 on:
   pull_request:
     paths:
