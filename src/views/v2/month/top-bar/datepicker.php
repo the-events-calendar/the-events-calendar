@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.8
+ * @version TBD
  *
  * @var string $grid_date The current calendar grid date in the `Y-m-d` format.
  * @var string $formatted_grid_date The current calendar grid date in the format specified by the "Month and year
@@ -18,11 +18,14 @@
 ?>
 <div class="tribe-events-c-top-bar__datepicker">
 	<button
-		class="tribe-common-h2 tribe-common-h3--min-medium tribe-common-h--alt tribe-events-c-top-bar__datepicker-button"
+		class="tribe-common-h3 tribe-common-h--alt tribe-events-c-top-bar__datepicker-button"
 		data-js="tribe-events-top-bar-datepicker-button"
 	>
 		<?php // @todo @fe the datepicker width seems to depend on the width of the grid title, it should not. ?>
-		<time datetime="<?php echo esc_attr( $grid_date ); ?>">
+		<time
+			datetime="<?php echo esc_attr( $grid_date ); ?>"
+			class="tribe-events-c-top-bar__datepicker-time"
+		>
 			<?php echo esc_html( $formatted_grid_date ); ?>
 		</time>
 	</button>

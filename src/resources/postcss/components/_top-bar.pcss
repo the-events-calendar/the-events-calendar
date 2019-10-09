@@ -67,6 +67,19 @@
 		}
 	}
 
+	.tribe-events-c-top-bar__datepicker-mobile {
+		@media (--viewport-medium) {
+			@mixin hidden;
+		}
+	}
+
+	.tribe-events-c-top-bar__datepicker-desktop {
+		@media (--viewport-medium) {
+			display: block !important;
+			visibility: visible
+		}
+	}
+
 	.tribe-events-c-top-bar__datepicker-button {
 		align-items: center;
 		display: flex;
