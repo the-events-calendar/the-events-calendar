@@ -35,8 +35,8 @@ class LoaderTest extends HtmlTestCase {
 		);
 
 		$this->assertTrue(
-			$html->find( '.tribe-events-view-loader' )->children()->is( '.tribe-events-view-loader__spinner' ),
-			'Loader HTML needs to contain ".tribe-events-view-loader__spinner" element'
+			$html->find( '.tribe-events-view-loader' )->children()->is( '.tribe-events-view-loader__dots' ),
+			'Loader HTML needs to contain ".tribe-events-view-loader__dots" element'
 		);
 	}
 
@@ -56,21 +56,6 @@ class LoaderTest extends HtmlTestCase {
 		$this->assertTrue(
 			$loader->is( '[aria-live="assertive"]' ),
 			'Loader needs to be aria-live="assertive"'
-		);
-	}
-
-	/**
-	 * @test
-	 */
-	public function it_should_contain_text() {
-		$text = '%placeholder-text%';
-		$template = $this->template->template( 'components/loader', [ 'text' => $text ] );
-		$html = $this->document->html( $template );
-		$spinner = $html->find( '.tribe-events-view-loader__spinner' );
-
-		$this->assertEquals(
-			$text,
-			trim( $spinner->text() )
 		);
 	}
 
