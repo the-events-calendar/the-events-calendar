@@ -1,7 +1,8 @@
-name: Code Review
+name: ESLint
 on:
   pull_request:
     paths:
+      - 'src/modules/**.js'
       - 'src/resources/js/**.js'
 jobs:
   eslint:

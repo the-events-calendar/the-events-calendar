@@ -1,4 +1,4 @@
-name: Code Review
+name: PHP CodeSniffer
 on:
   pull_request:
     paths:
