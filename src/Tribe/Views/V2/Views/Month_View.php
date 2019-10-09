@@ -309,18 +309,17 @@ class Month_View extends By_Day_View {
 			$day_url = tribe_events_get_url( [ 'eventDisplay' => 'day', 'eventDate' => $day_date ] );
 
 			$day_data = [
-				'date'              => $day_date,
-				'is_start_of_week'  => $start_of_week === $date_object->format( 'N' ),
-				'year_number'       => $date_object->format( 'Y' ),
-				'month_number'      => $date_object->format( 'm' ),
-				'day_number'        => $date_object->format( 'd' ),
-				'day_number_no_pad' => $date_object->format( 'j' ),
-				'events'            => $the_day_events,
-				'featured_events'   => $featured_events,
-				'multiday_events'   => $day_stack,
-				'found_events'      => $day_found_events,
-				'more_events'       => $more_events,
-				'day_url'           => $day_url,
+				'date'             => $day_date,
+				'is_start_of_week' => $start_of_week === $date_object->format( 'N' ),
+				'year_number'      => $date_object->format( 'Y' ),
+				'month_number'     => $date_object->format( 'm' ),
+				'day_number'       => $date_object->format( 'j' ),
+				'events'           => $the_day_events,
+				'featured_events'  => $featured_events,
+				'multiday_events'  => $day_stack,
+				'found_events'     => $day_found_events,
+				'more_events'      => $more_events,
+				'day_url'          => $day_url,
 			];
 
 			$days[ $day_date ] = $day_data;
