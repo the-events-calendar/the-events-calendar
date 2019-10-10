@@ -77,4 +77,44 @@ class Separators {
 
 		return isset( $start_hours_ids[ $event_id ] );
 	}
+
+	/**
+	 * Determines if a given event from a list of events should have a type separator
+	 * for the day view template structure.
+	 *
+	 * @since  TBD
+	 *
+	 * @param  array       $events WP_Post or numeric ID for events.
+	 * @param  WP_Post|int $event  Event we want to determine.
+	 *
+	 * @return boolean
+	 */
+	public static function should_have_type( $events, $event ) {
+		if ( ! is_array( $events ) ) {
+			return false;
+		}
+
+		if ( empty( $event->timeslot ) ) {
+			return false;
+		}
+
+		$event_id = is_numeric( $event ) ? $event : $event->ID;
+		$index = false;
+
+		foreach ( $events as $k => $v ) {
+			if ( $v->ID === $event_id ) {
+				$index = $k;
+				break;
+			}
+		}
+
+		if ( false === $index ) {
+			return false;
+		}
+
+		$should_have = $index === 0 || $events[ $index ]->timeslot !== $events[ $index -1 ]->timeslot;
+
+		return $should_have;
+	}
+
 }

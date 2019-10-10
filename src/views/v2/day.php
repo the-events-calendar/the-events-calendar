@@ -39,6 +39,7 @@
 
 			<?php foreach ( $events as $event ) : ?>
 
+				<?php $this->template( 'day/type-separator', [ 'event' => $event ] ); ?>
 				<?php $this->template( 'day/time-separator', [ 'event' => $event ] ); ?>
 				<?php $this->template( 'day/event', [ 'event' => $event ] ); ?>
 
