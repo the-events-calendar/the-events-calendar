@@ -12,7 +12,6 @@
  * @version TBD
  *
  */
-
 use Tribe\Events\Views\V2\Utils;
 use Tribe__Date_Utils as Dates;
 

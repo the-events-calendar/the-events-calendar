@@ -99,7 +99,7 @@ class Separators {
 		}
 
 		$event_id = is_numeric( $event ) ? $event : $event->ID;
-		$index = false;
+		$index    = false;
 
 		foreach ( $events as $k => $v ) {
 			if ( $v->ID === $event_id ) {
@@ -108,7 +108,8 @@ class Separators {
 			}
 		}
 
-		$should_have = ( $index !== false ) && ( $index === 0 || $events[ $index ]->timeslot !== $events[ $index -1 ]->timeslot );
+		$should_have = ( false !== $index )
+		               && ( 0 === $index || $events[ $index ]->timeslot !== $events[ $index -1 ]->timeslot );
 
 		return $should_have;
 	}
