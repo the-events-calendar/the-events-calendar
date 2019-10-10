@@ -108,8 +108,7 @@ class Separators {
 			}
 		}
 
-		$should_have = ( false !== $index )
-		               && ( 0 === $index || $events[ $index ]->timeslot !== $events[ $index -1 ]->timeslot );
+		$should_have = ( false !== $index ) && ( 0 === $index || $events[ $index ]->timeslot !== $events[ $index -1 ]->timeslot );
 
 		return $should_have;
 	}
