@@ -223,7 +223,7 @@
 		<div class="tribe-events-calendar-day">
 
 			
-				<div class="tribe-events-calendar-day__time-separator">
+								<div class="tribe-events-calendar-day__time-separator">
 	<time
 		class="tribe-events-calendar-day__time-separator-text tribe-common-h7 tribe-common-h6--min-medium tribe-common-h--alt"
 		datetime="13:00"
@@ -279,7 +279,7 @@
 </article>
 
 			
-								<article  class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-day__event post-8 tribe_events type-tribe_events status-publish hentry entry" >
+												<article  class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-day__event post-8 tribe_events type-tribe_events status-publish hentry entry" >
 
 	
 	<div class="tribe-events-calendar-day__event-details tribe-common-g-col">
