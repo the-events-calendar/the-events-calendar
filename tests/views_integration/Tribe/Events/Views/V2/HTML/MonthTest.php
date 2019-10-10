@@ -69,7 +69,7 @@ class MonthTest extends HtmlTestCase {
 				'is_start_of_week' => 1 === $date_object->format( 'N' ),
 				'year_number'      => $date_object->format( 'Y' ),
 				'month_number'     => $date_object->format( 'm' ),
-				'day_number'       => $date_object->format( 'd' ),
+				'day_number'       => $date_object->format( 'j' ),
 				'events'           => [],
 				'featured_events'  => [],
 				'multiday_events'  => [],

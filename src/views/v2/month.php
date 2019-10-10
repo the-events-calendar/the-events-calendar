@@ -34,6 +34,8 @@
 			<?php $this->template( 'month/top-bar' ); ?>
 		</header>
 
+		<?php $this->template( 'components/filter-bar' ); ?>
+
 		<div
 			class="tribe-events-calendar-month"
 			role="grid"

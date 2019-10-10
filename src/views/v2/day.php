@@ -35,6 +35,8 @@
 			<?php $this->template( 'day/top-bar' ); ?>
 		</header>
 
+		<?php $this->template( 'components/filter-bar' ); ?>
+
 		<div class="tribe-events-calendar-day">
 
 			<?php foreach ( $events as $event ) : ?>
