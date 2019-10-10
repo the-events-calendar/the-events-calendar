@@ -10,8 +10,8 @@
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
  * @version TBD
- *
  */
+
 use Tribe\Events\Views\V2\Utils;
 use Tribe__Date_Utils as Dates;
 
