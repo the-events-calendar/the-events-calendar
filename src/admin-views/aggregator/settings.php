@@ -5,7 +5,7 @@
  */
 $internal = array();
 $use_global_settings_phrase = esc_html__( 'Use global import settings', 'the-events-calendar' );
-$post_statuses = get_post_statuses( array() );
+$post_statuses = get_post_statuses();
 $category_dropdown = wp_dropdown_categories( [
 	'echo'       => false,
 	'hide_empty' => false,
