@@ -26,12 +26,12 @@ $append_after_address = array_filter( array_map( 'trim', [ $venue->city, $venue-
 ?>
 <address class="tribe-events-calendar-day__event-venue tribe-common-b2">
 	<span class="tribe-events-calendar-day__event-venue-title tribe-common-b2--bold">
-		<?php echo esc_html( $venue->post_title ) ?>
+		<?php echo esc_html( $venue->post_title ); ?>
 	</span>
 	<span class="tribe-events-calendar-day__event-venue-address">
 		<?php echo esc_html( $venue->address . ( $venue->address && $append_after_address ? $separator : '' ) ); ?>
 		<?php if ( $append_after_address ) : ?>
-			<?php echo esc_html( reset( $append_after_address ) ) ?>
+			<?php echo esc_html( reset( $append_after_address ) ) ;?>
 		<?php endif; ?>
 	</span>
 </address>
