@@ -100,9 +100,12 @@ class Separators {
 			return false;
 		}
 
-		$ids = array_map( static function( $event ) {
-			return absint( is_numeric( $event ) ? $event : $event->ID );
-		}, $events );
+		$ids = array_map(
+			static function( $event ) {
+				return absint( is_numeric( $event ) ? $event : $event->ID );
+			},
+			$events
+		);
 
 
 		$index = array_search( $event_id, $ids );
@@ -116,7 +119,7 @@ class Separators {
 		$is_new_timeslot = ! $is_first && $events[ $index ]->timeslot !== $events[ $index - 1 ]->timeslot;
 
 		// Should have type separator if it's the first element or if it's a new timeslot.
-		$should_have     = $is_first || $is_new_timeslot;
+		$should_have = $is_first || $is_new_timeslot;
 
 		return $should_have;
 	}
