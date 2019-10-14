@@ -31,7 +31,7 @@ $append_after_address = array_filter( array_map( 'trim', [ $venue->city, $venue-
 	<span class="tribe-events-calendar-day__event-venue-address">
 		<?php echo esc_html( $venue->address . ( $venue->address && $append_after_address ? $separator : '' ) ); ?>
 		<?php if ( $append_after_address ) : ?>
-			<?php echo esc_html( reset( $append_after_address ) ) ;?>
+			<?php echo esc_html( reset( $append_after_address ) ); ?>
 		<?php endif; ?>
 	</span>
 </address>
