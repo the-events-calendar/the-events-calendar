@@ -89,26 +89,34 @@ class Separators {
 	 *
 	 * @return boolean
 	 */
-	public static function should_have_type( $events, $event ) {
+	public static function should_have_type( array $events, \WP_Post $event ) {
 		if ( ! is_array( $events ) ) {
 			return false;
 		}
+
+		$event_id = is_numeric( $event ) ? $event : $event->ID;
 
 		if ( empty( $event->timeslot ) ) {
 			return false;
 		}
 
-		$event_id = is_numeric( $event ) ? $event : $event->ID;
-		$index    = false;
+		$ids = array_map( static function( $event ) {
+			return absint( is_numeric( $event ) ? $event : $event->ID );
+		}, $events );
 
-		foreach ( $events as $k => $v ) {
-			if ( $v->ID === $event_id ) {
-				$index = $k;
-				break;
-			}
+
+		$index = array_search( $event_id, $ids );
+
+		// Return false if it wasn't found.
+		if ( false === $index ) {
+			return $index;
 		}
 
-		$should_have = ( false !== $index ) && ( 0 === $index || $events[ $index ]->timeslot !== $events[ $index -1 ]->timeslot );
+		$is_first        = 0 === $index;
+		$is_new_timeslot = ! $is_first && $events[ $index ]->timeslot !== $events[ $index - 1 ]->timeslot;
+
+		// Should have type separator if it's the first element or if it's a new timeslot.
+		$should_have     = $is_first || $is_new_timeslot;
 
 		return $should_have;
 	}
