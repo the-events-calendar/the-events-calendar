@@ -180,10 +180,10 @@ class Day_View extends View {
 		foreach ( $events as $i => $event ) {
 			if ( ! empty( $event->all_day ) ) {
 				$event->timeslot = 'all_day';
-				$all_day[ $i ] = $event;
+				$all_day[ $i ]   = $event;
 			} elseif ( ! empty( $event->multiday ) ) {
 				$event->timeslot = 'multiday';
-				$ongoing[ $i ] = $event;
+				$ongoing[ $i ]   = $event;
 			} else {
 				$hourly[ $i ] = $event;
 			}
