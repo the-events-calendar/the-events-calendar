@@ -271,6 +271,10 @@ class Assets extends \tad_DI52_ServiceProvider {
 	 */
 	public function disable_v1() {
 		wp_deregister_script( 'tribe-events-calendar-script' );
+		wp_deregister_script( 'tribe-events-bar' );
+		wp_deregister_script( 'the-events-calendar' );
+		wp_deregister_script( 'tribe-events-ajax-day' );
+		wp_deregister_script( 'tribe-events-list' );
 	}
 
 	/**

@@ -4,7 +4,7 @@ Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.7
-Stable tag: 4.9.9
+Stable tag: 4.9.10
 Tested up to: 5.2.2
 Requires PHP: 5.6
 License: GPLv2 or later
@@ -16,7 +16,7 @@ The Events Calendar is a carefully crafted, extensible plugin that lets you easi
 
 Create an events calendar and manage it with ease. The Events Calendar plugin provides professional-level quality and features backed by a team you can trust.
 
-Packed with loads of useful features, The Events Calendar by Modern Tribe is ready to go right out of the box. It’s extensible, easy to use, and completely customizable.
+Packed with loads of useful features, The Events Ca`lendar by Modern Tribe is ready to go right out of the box. It’s extensible, easy to use, and completely customizable.
 
 Just getting started? Read through the [New User Primer](http://m.tri.be/2d) to get set up.
 
@@ -215,7 +215,9 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
-= [4.9.9] TBD =
+= [4.9.10] TBD =
+
+= [4.9.9] 2019-09-25 =
 
 * Fix - Set the start date with the current day for the "All" events page for recurring events. Thanks Andy, leapness and others for flagging this! [130350]
 * Tweak - Updated Freemius integration code [133148]
