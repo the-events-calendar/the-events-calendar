@@ -173,27 +173,19 @@ class Day_View extends View {
 	 */
 	protected function sort_events( $events ) {
 
-		foreach ( $events as $event ) {
-			if ( ! empty( $event->all_day ) ) {
-				$event->timeslot = esc_html__( 'All Day', 'the-events-calendar' );
-			} elseif ( ! empty( $event->multiday ) ) {
-				$event->timeslot = esc_html__( 'Ongoing', 'the-events-calendar' );
-			}
-		}
-
-		// Make sure All Day and ongoing events come first.
 		$all_day = [];
 		$ongoing = [];
 		$hourly  = [];
+
 		foreach ( $events as $i => $event ) {
-			if ( esc_html__( 'All Day', 'the-events-calendar' ) == $event->timeslot ) {
+			if ( ! empty( $event->all_day ) ) {
+				$event->timeslot = 'all_day';
 				$all_day[ $i ] = $event;
+			} elseif ( ! empty( $event->multiday ) ) {
+				$event->timeslot = 'multiday';
+				$ongoing[ $i ] = $event;
 			} else {
-				if ( esc_html__( 'Ongoing', 'the-events-calendar' ) == $event->timeslot ) {
-					$ongoing[ $i ] = $event;
-				} else {
-					$hourly[ $i ] = $event;
-				}
+				$hourly[ $i ] = $event;
 			}
 		}
 

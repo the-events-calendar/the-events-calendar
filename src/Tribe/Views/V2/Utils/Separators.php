@@ -121,4 +121,23 @@ class Separators {
 		return $should_have;
 	}
 
+	/**
+	 * Returns the text for a type separator.
+	 *
+	 * @since  TBD
+	 *
+	 * @param  WP_Post|int $event  Event we want to determine.
+	 *
+	 * @return string
+	 */
+	public static function get_type_text( \WP_Post $event ) {
+
+		if ( 'all_day' === $event->timeslot ) {
+			return __( 'All Day', 'the-events-calendar' );
+		} elseif ( 'multiday' === $event->timeslot ) {
+			return __( 'Ongoing', 'the-events-calendar' );
+		}
+
+	}
+
 }
