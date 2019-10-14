@@ -16,7 +16,7 @@ class Type_SeparatorTest extends HtmlPartialTestCase
 	 */
 	public function test_should_render_type_separator() {
 		$event_1 = $this->get_mock_event( 'events/single/1.json' );
-		$event_1->timeslot = 'Ongoing';
+		$event_1->timeslot = 'multiday';
 		$event_2 = $this->get_mock_event( 'events/single/2.json' );
 		$events = [ $event_1, $event_2 ];
 		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'events' => $events, 'event' => $event_1 ] ) );

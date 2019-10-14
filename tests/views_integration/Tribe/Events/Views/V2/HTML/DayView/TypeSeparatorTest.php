@@ -12,7 +12,7 @@ class TypeSeparatorTest extends HtmlTestCase {
 	 */
 	public function it_should_contain_correct_html_classes() {
 		$event = $this->get_mock_event( 'events/single/1.json' );
-		$event->timeslot = 'Ongoing';
+		$event->timeslot = 'multiday';
 
 		$args = [
 			'events' => [ $event ],
