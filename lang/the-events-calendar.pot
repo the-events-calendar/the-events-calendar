@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the The Events Calendar package.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 4.9.9\n"
+"Project-Id-Version: The Events Calendar 4.9.10\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/the-events-"
 "calendar\n"
-"POT-Creation-Date: 2019-09-20 16:20:56+00:00\n"
+"POT-Creation-Date: 2019-10-15 06:31:59+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2019-09-20 16:20\n"
+"PO-Revision-Date: 2019-10-15 06:31\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -2254,8 +2254,8 @@ msgstr ""
 msgid "Event Allow Trackbacks and Pingbacks"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:101 src/views/v2/day/event/venue.php:29
-#: src/views/v2/list/event/venue.php:29
+#: src/Tribe/Importer/Column_Mapper.php:101 src/views/v2/day/event/venue.php:28
+#: src/views/v2/list/event/venue.php:28
 msgid "Venue Name"
 msgstr ""
 
@@ -2501,7 +2501,7 @@ msgstr ""
 msgid "Upcoming Events"
 msgstr ""
 
-#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 4.9.9)  #-#-#-#-#
+#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 4.9.10)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: src/Tribe/Main.php:905 src/Tribe/Main.php:1259 src/Tribe/Privacy.php:29
 #: src/functions/template-tags/general.php:1358 the-events-calendar.php:56
@@ -2989,7 +2989,8 @@ msgstr ""
 msgid "Search for %s by Keyword."
 msgstr ""
 
-#: src/Tribe/Main.php:4171 src/views/v2/events-bar/search-button.php:25
+#: src/Tribe/Main.php:4171
+#: src/views/v2/components/events-bar/search-button.php:25
 msgid "Search"
 msgstr ""
 
@@ -4521,6 +4522,39 @@ msgstr ""
 
 #: src/Tribe/Venue.php:395
 msgid "Unnamed Venue"
+msgstr ""
+
+#: src/Tribe/Views/V2/Template/Title.php:105
+#: src/functions/template-tags/loop.php:177
+msgctxt "featured events title"
+msgid "Featured %s"
+msgstr ""
+
+#: src/Tribe/Views/V2/Template/Title.php:115
+#: src/functions/template-tags/loop.php:187
+msgid "Upcoming %s"
+msgstr ""
+
+#: src/Tribe/Views/V2/Template/Title.php:125
+#: src/functions/template-tags/loop.php:204
+msgid "Past %s"
+msgstr ""
+
+#: src/Tribe/Views/V2/Template/Title.php:208
+#: src/functions/template-tags/loop.php:202
+msgid "%1$s for %2$s - %3$s"
+msgstr ""
+
+#: src/Tribe/Views/V2/Template/Title.php:309
+#: src/functions/template-tags/loop.php:209
+msgctxt "month view"
+msgid "%1$s for %2$s"
+msgstr ""
+
+#: src/Tribe/Views/V2/Template/Title.php:336
+#: src/functions/template-tags/loop.php:218
+msgctxt "day_view"
+msgid "%1$s for %2$s"
 msgstr ""
 
 #: src/Tribe/Views/V2/month-view-demo-template-tags.php:150
@@ -6764,9 +6798,9 @@ msgstr ""
 
 #: src/deprecated/Tribe__Events__Asset__Bootstrap_Datepicker.php:28
 #: src/functions/template-tags/day.php:104
-#: src/views/v2/day/top-bar/today.php:23 src/views/v2/list/nav/today.php:31
-#: src/views/v2/list/top-bar/today.php:23 src/views/v2/month/nav/today.php:31
-#: src/views/v2/month/top-bar/today.php:23
+#: src/views/v2/components/top-bar/today.php:22
+#: src/views/v2/list/nav/today.php:24
+#: src/views/v2/month/mobile-events/nav/today.php:24
 msgid "Today"
 msgstr ""
 
@@ -6896,12 +6930,12 @@ msgid "The function needs to be passed an $event or used in the loop."
 msgstr ""
 
 #: src/functions/template-tags/day.php:106
-#: src/views/v2/day/nav/prev-disabled.php:20 src/views/v2/day/nav/prev.php:25
+#: src/views/v2/day/nav/prev-disabled.php:18 src/views/v2/day/nav/prev.php:25
 msgid "Previous Day"
 msgstr ""
 
 #: src/functions/template-tags/day.php:108
-#: src/views/v2/day/nav/next-disabled.php:20 src/views/v2/day/nav/next.php:25
+#: src/views/v2/day/nav/next-disabled.php:18 src/views/v2/day/nav/next.php:25
 msgid "Next Day"
 msgstr ""
 
@@ -6953,33 +6987,6 @@ msgstr ""
 msgid "+ Google Map"
 msgstr ""
 
-#: src/functions/template-tags/loop.php:177
-msgctxt "featured events title"
-msgid "Featured %s"
-msgstr ""
-
-#: src/functions/template-tags/loop.php:187
-msgid "Upcoming %s"
-msgstr ""
-
-#: src/functions/template-tags/loop.php:202
-msgid "%1$s for %2$s - %3$s"
-msgstr ""
-
-#: src/functions/template-tags/loop.php:204
-msgid "Past %s"
-msgstr ""
-
-#: src/functions/template-tags/loop.php:209
-msgctxt "month view"
-msgid "%1$s for %2$s"
-msgstr ""
-
-#: src/functions/template-tags/loop.php:218
-msgctxt "day_view"
-msgid "%1$s for %2$s"
-msgstr ""
-
 #: src/functions/template-tags/options.php:20
 msgid "Your current Events URL is %s"
 msgstr ""
@@ -6990,13 +6997,13 @@ msgid ""
 "plural, and this singular.%3$sYour single Event URL is like: %4$s"
 msgstr ""
 
-#: src/functions/template-tags/venue.php:855
+#: src/functions/template-tags/venue.php:852
 msgctxt "Address separator"
 msgid ", "
 msgstr ""
 
 #: src/views/blocks/event-datetime.php:80
-#: src/views/v2/month/mobile-events/mobile-day/mobile-event/date.php:36
+#: src/views/v2/month/mobile-events/mobile-day/mobile-event/date.php:37
 msgid "All day"
 msgstr ""
 
@@ -7023,7 +7030,7 @@ msgid "Find out more"
 msgstr ""
 
 #: src/views/kitchen-sink/page.php:255
-#: src/views/v2/events-bar/search/keyword.php:32
+#: src/views/v2/components/events-bar/search/keyword.php:32
 msgid "Search for events"
 msgstr ""
 
@@ -7043,7 +7050,7 @@ msgstr ""
 msgid "Next %s"
 msgstr ""
 
-#: src/views/modules/bar.php:38 src/views/v2/events-bar.php:21
+#: src/views/modules/bar.php:38 src/views/v2/components/events-bar.php:22
 msgid "%s Search and Views Navigation"
 msgstr ""
 
@@ -7063,11 +7070,12 @@ msgstr ""
 msgid "Submit %s search"
 msgstr ""
 
-#: src/views/modules/bar.php:74 src/views/v2/events-bar/search/submit.php:20
+#: src/views/modules/bar.php:74
+#: src/views/v2/components/events-bar/search/submit.php:21
 msgid "Find %s"
 msgstr ""
 
-#: src/views/modules/bar.php:86 src/views/v2/events-bar/views.php:29
+#: src/views/modules/bar.php:86 src/views/v2/components/events-bar/views.php:29
 msgid "%s Views Navigation"
 msgstr ""
 
@@ -7080,7 +7088,7 @@ msgid "View As"
 msgstr ""
 
 #: src/views/month/loop-grid.php:25 src/views/month/loop-grid.php:28
-#: src/views/v2/month/calendar-header.php:20
+#: src/views/v2/month/calendar-header.php:21
 msgid "Calendar of %s"
 msgstr ""
 
@@ -7116,6 +7124,14 @@ msgstr ""
 msgid "see all"
 msgstr ""
 
+#: src/views/v2/components/events-bar/search/keyword.php:23
+msgid "Enter Keyword. Search for %s by Keyword."
+msgstr ""
+
+#: src/views/v2/components/read-more.php:21
+msgid "Continue Reading"
+msgstr ""
+
 #: src/views/v2/components/top-bar/nav/next-disabled.php:21
 #: src/views/v2/components/top-bar/nav/next-disabled.php:22
 #: src/views/v2/components/top-bar/nav/next.php:22
@@ -7133,46 +7149,41 @@ msgstr ""
 msgid "Previous"
 msgstr ""
 
-#: src/views/v2/day/event/date.php:28 src/views/v2/day/event/date.php:29
-#: src/views/v2/day/event/date.php:33 src/views/v2/list/event/date.php:28
-#: src/views/v2/list/event/date.php:29 src/views/v2/list/event/date.php:33
+#: src/views/v2/day/event/date.php:27 src/views/v2/day/event/date.php:28
+#: src/views/v2/day/event/date.php:32 src/views/v2/list/event/date.php:27
+#: src/views/v2/list/event/date.php:28 src/views/v2/list/event/date.php:32
 #: src/views/v2/month/calendar-body/day/calendar-events/calendar-event/date.php:24
 #: src/views/v2/month/calendar-body/day/calendar-events/calendar-event/date.php:25
 #: src/views/v2/month/calendar-body/day/multiday-events/multiday-event.php:81
 #: src/views/v2/month/calendar-body/day/multiday-events/multiday-event.php:82
-#: src/views/v2/month/mobile-events/mobile-day/mobile-event/date.php:26
 #: src/views/v2/month/mobile-events/mobile-day/mobile-event/date.php:27
-#: src/views/v2/month/mobile-events/mobile-day/mobile-event/date.php:31
+#: src/views/v2/month/mobile-events/mobile-day/mobile-event/date.php:28
+#: src/views/v2/month/mobile-events/mobile-day/mobile-event/date.php:32
 msgid "Featured"
 msgstr ""
 
-#: src/views/v2/day/top-bar/datepicker.php:38
-#: src/views/v2/list/top-bar/datepicker.php:73
-#: src/views/v2/month/top-bar/datepicker.php:33
+#: src/views/v2/day/top-bar/datepicker.php:41
+#: src/views/v2/list/top-bar/datepicker.php:93
+#: src/views/v2/month/top-bar/datepicker.php:36
 msgid "Select date."
 msgstr ""
 
-#: src/views/v2/events-bar/search/keyword.php:23
-msgid "Enter Keyword. Search for %s by Keyword."
+#: src/views/v2/day.php:28 src/views/v2/list.php:30 src/views/v2/month.php:27
+msgid "Loading..."
 msgstr ""
 
 #. translators: %s: Event (plural or singular).
-#: src/views/v2/list/nav/next-disabled.php:24 src/views/v2/list/nav/next.php:29
+#: src/views/v2/list/nav/next-disabled.php:22 src/views/v2/list/nav/next.php:29
 msgid "Next %1$s"
 msgstr ""
 
 #. translators: %s: Event (plural or singular).
-#: src/views/v2/list/nav/prev-disabled.php:24 src/views/v2/list/nav/prev.php:29
+#: src/views/v2/list/nav/prev-disabled.php:22 src/views/v2/list/nav/prev.php:29
 msgid "Previous %1$s"
 msgstr ""
 
-#: src/views/v2/list/top-bar/datepicker.php:58
+#: src/views/v2/list/top-bar/datepicker.php:62
 msgid "Now"
-msgstr ""
-
-#: src/views/v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/cta.php:33
-#: src/views/v2/month/mobile-events/mobile-day/mobile-event/cta.php:30
-msgid "Buy Now"
 msgstr ""
 
 #: src/views/v2/month/calendar-body/day/more-events.php:35
