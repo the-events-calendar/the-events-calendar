@@ -76,7 +76,7 @@ class Messages {
 	 * @since TBD
 	 *
 	 * @param string $key The message identification key or slug.
-	 * @param mixed  $values A variadic number of arguments that should be used to fill in the message placeholders, if
+	 * @param mixed  ...$values A variadic number of arguments that should be used to fill in the message placeholders, if
 	 *                       the message contains `sprintf` compatible placeholders at all.
 	 *
 	 * @return string The human readable message for the specified key, if found, or the key itself.
@@ -143,7 +143,7 @@ class Messages {
 						// Keep only the last message.
 						$highest = reset( $value );
 						$value   = [ end( $highest ) ];
-					} 
+					}
 				);
 				break;
 			case static::RENDER_STRATEGY_PRIORITY_FIRST:
@@ -154,7 +154,7 @@ class Messages {
 						// Keep only the last message.
 						$highest = reset( $value );
 						$value   = [ reset( $highest ) ];
-					} 
+					}
 				);
 				break;
 			default:
