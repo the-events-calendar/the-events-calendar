@@ -12,6 +12,8 @@
  * @version TBD
  *
  * @var array $messges An array of user-facing messages, managed by the View.
+ *
+ * @package the-events-calendar/views/v2
  */
 
 if ( empty( $messages ) ) {
@@ -22,10 +24,12 @@ if ( empty( $messages ) ) {
 ?>
 
 <div class="tribe-events-notices" style="text-align: center; width: 100%; margin: 0 0 1em auto;">
-	<?php foreach ( $messages as $message_type => $message_group ) {
+	<?php
+	foreach ( $messages as $message_type => $message_group ) {
 		foreach ( $message_group as $message ) {
-			echo "{$message_type}: $message";
+			echo wp_kses_post( "{$message_type}: $message" );
 		}
-	} ?>
+	}
+	?>
 </div>
 

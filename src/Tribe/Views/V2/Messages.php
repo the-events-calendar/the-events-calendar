@@ -38,7 +38,7 @@ class Messages {
 	 *
 	 * @since TBD
 	 */
-	const RENDER_STRATEGY_PRIORITY_FIRST =  'priority_first';
+	const RENDER_STRATEGY_PRIORITY_FIRST = 'priority_first';
 
 	/**
 	 * An array of the messages handled by the object.
@@ -63,7 +63,7 @@ class Messages {
 	 *
 	 * @param null|string $render_strategy The render strategy that should be used to render the messages in the
 	 *                                     `to_array` method.
-	 * @param array $messages A list of messages to hydrate the collection with.
+	 * @param array       $messages A list of messages to hydrate the collection with.
 	 */
 	public function __construct( $render_strategy = null, array $messages = [] ) {
 		$this->render_strategy = $render_strategy ?: static::RENDER_STRATEGY_PRIORITY_LAST;
@@ -76,18 +76,18 @@ class Messages {
 	 * @since TBD
 	 *
 	 * @param string $key The message identification key or slug.
-	 * @param mixed $values A variadic number of arguments that should be used to fill in the message placeholders, if
-	 *                      the message contains `sprintf` compatible placeholders at all.
+	 * @param mixed  $values A variadic number of arguments that should be used to fill in the message placeholders, if
+	 *                       the message contains `sprintf` compatible placeholders at all.
 	 *
 	 * @return string The human readable message for the specified key, if found, or the key itself.
 	 */
 	public static function for_key( string $key, ...$values ) {
 		$map = [
-			'no_results_found' => __( 'There were no results found.', 'the-events-calendar' ),
+			'no_results_found'                 => __( 'There were no results found.', 'the-events-calendar' ),
 			'month_no_results_found_w_keyword' => __(
 				'There were no results found for <strong>"%1$s"</strong> this month. Try searching next month.',
 				'the-events-calendar'
-			)
+			), ,
 		];
 
 		/**
@@ -134,22 +134,28 @@ class Messages {
 
 		$updated_messages = $this->messages;
 
-		switch ($this->render_strategy) {
+		switch ( $this->render_strategy ) {
 			case static::RENDER_STRATEGY_PRIORITY_LAST:
-				array_walk( $updated_messages, static function ( array &$value, $message_type ) {
-					ksort($value);
-					// Keep only the last message.
-					$highest = reset( $value );
-					$value   = [ end( $highest ) ];
-				} );
+				array_walk(
+					$updated_messages,
+					static function ( array &$value, $message_type ) {
+						ksort( $value );
+						// Keep only the last message.
+						$highest = reset( $value );
+						$value   = [ end( $highest ) ];
+					} 
+				);
 				break;
 			case static::RENDER_STRATEGY_PRIORITY_FIRST:
-				array_walk( $updated_messages, static function ( array &$value, $message_type ) {
-					ksort($value);
-					// Keep only the last message.
-					$highest = reset( $value );
-					$value   = [ reset( $highest ) ];
-				} );
+				array_walk(
+					$updated_messages,
+					static function ( array &$value, $message_type ) {
+						ksort( $value );
+						// Keep only the last message.
+						$highest = reset( $value );
+						$value   = [ reset( $highest ) ];
+					} 
+				);
 				break;
 			default:
 				break;
