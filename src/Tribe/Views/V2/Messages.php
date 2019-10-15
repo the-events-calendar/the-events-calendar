@@ -84,7 +84,7 @@ class Messages {
 	public static function for_key( string $key, ...$values ) {
 		$map = [
 			'no_results_found'                 => __( 'There were no results found.', 'the-events-calendar' ),
-			'no_results_found_w_keyword' => __(
+			'no_results_found_w_keyword'       => __(
 				'There were no results found for <strong>"%1$s"</strong>.',
 				'the-events-calendar'
 			),

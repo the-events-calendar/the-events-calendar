@@ -1292,7 +1292,7 @@ class View implements View_Interface {
 		 */
 		do_action( 'tribe_events_views_v2_view_messages_before_render', $this->messages, $this );
 
-		$messages =  $this->messages->to_array();
+		$messages = $this->messages->to_array();
 
 		/**
 		 * Filters the user-facing messages a specific View will print on the frontend.
