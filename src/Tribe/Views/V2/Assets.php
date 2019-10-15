@@ -45,7 +45,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 			'tribe-events-views-v2-full',
 			'views-full.css',
 			[
-				'tribe-common-style',
+				'tribe-common-skeleton-style',
 				'tribe-tooltipster-css',
 			],
 			'wp_enqueue_scripts',
