@@ -42,38 +42,15 @@
 	 *
 	 * ----------------------------------------------------------------------------- */
 
-	.tribe-events-c-search {
-		@media (--viewport-medium) {
-			display: flex;
-			align-items: center;
-		}
-	}
-
-	.tribe-events-c-search__input-group {
-		@media (--viewport-medium) {
-			align-items: center;
-			display: flex;
-			flex: auto;
-		}
-	}
-
 	.tribe-events-c-search__input-control {
 		@media (--viewport-medium) {
 			border-right: 1px solid var(--color-border-secondary);
-			flex: auto;
-			margin: var(--spacer-2) 0;
 		}
 
 		&:last-child {
 			@media (--viewport-medium) {
 				border-right: 0;
 			}
-		}
-	}
-
-	.tribe-events-c-search__input {
-		@media (--viewport-medium) {
-			margin: calc(var(--spacer-2) * -1) 0;
 		}
 	}
 
@@ -124,16 +101,6 @@
 		}
 	}
 
-	.tribe-events-c-search__button {
-		margin-top: var(--spacer-5);
-
-		@media (--viewport-medium) {
-			flex: none;
-			margin-top: 0;
-		}
-	}
-
-
 	/* -----------------------------------------------------------------------------
 	 *
 	 * Search: Theme Overrides
@@ -145,12 +112,6 @@
 	 * ----------------------------------------------------------------------------- */
 
 	#top.tribe-theme-enfold & {
-
-		.tribe-events-c-search__input {
-			@media (--viewport-medium) {
-				margin: calc(var(--spacer-2) * -1) 0;
-			}
-		}
 
 		.tribe-events-c-search__input--icon {
 			background-repeat: no-repeat;
@@ -196,19 +157,6 @@
 
 			.tribe-events-c-search__input {
 				background-image: svg-inline(location-focus);
-			}
-		}
-	}
-
-	/* -----------------------------------------------------------------------------
-	 * Theme Overrides - Avada
-	 * ----------------------------------------------------------------------------- */
-
-	.tribe-theme-avada & {
-
-		.tribe-events-c-search__input {
-			@media (--viewport-medium) {
-				margin: calc(var(--spacer-2) * -1) 0;
 			}
 		}
 	}
