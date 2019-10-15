@@ -217,6 +217,7 @@ class Month_View extends By_Day_View {
 		$template_vars['formatted_grid_date'] = $grid_date->format( $month_and_year_format );
 		$template_vars['events']              = $grid_days;
 		$template_vars['days']                = $days;
+		$template_vars['messages']            = $this->messages->to_array();
 
 		return $template_vars;
 	}
