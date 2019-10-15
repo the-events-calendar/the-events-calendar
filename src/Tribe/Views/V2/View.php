@@ -153,6 +153,24 @@ class View implements View_Interface {
 	protected $should_manage_url = true;
 
 	/**
+	 * An collection of user-facing messages the View should display.
+	 *
+	 * @since TBD
+	 *
+	 * @var Messages
+	 */
+	protected $messages;
+
+	/**
+	 * View constructor.
+	 *
+	 * @param Messages $messages An instance of the messages collection.
+	 */
+	public function __construct( Messages $messages ) {
+		$this->messages = $messages;
+	}
+
+	/**
 	 * Builds a View instance in response to a REST request to the Views endpoint.
 	 *
 	 * @since 4.9.2
@@ -978,7 +996,7 @@ class View implements View_Interface {
 			$this->repository->by_args( $this->repository_args );
 		}
 
-		$events = $this->repository->all();
+		$events = (array) $this->repository->all();
 
 		$template_vars = [
 			'title'             => $this->get_title( $events ),
@@ -1001,7 +1019,8 @@ class View implements View_Interface {
 			'date_formats'      => (object) [
 				'compact'        => Dates::datepicker_formats( tribe_get_option( 'datepickerFormat' ) ),
 				'month_and_year' => tribe_get_date_option( 'monthAndYearFormat', 'F Y' ),
-			]
+			],
+			'messages'           => $this->get_messages(),
 		];
 
 		return $template_vars;
@@ -1239,5 +1258,16 @@ class View implements View_Interface {
 		$title = apply_filters( "tribe_events_views_v2_{$slug}_title", $title, $this );
 
 		return htmlspecialchars_decode($title);
+	}
+
+	/**
+	 * Returns a collection of user-facing messages the View will display on the front-end.
+	 *
+	 * @since TBD
+	 *
+	 * @return Messages A collection of user-facing messages the View will display on the front-end.
+	 */
+	public function get_messages() {
+		return $this->messages->to_array();
 	}
 }

@@ -27,7 +27,7 @@ class ViewTest extends \Codeception\TestCase\WPTestCase {
 	 * @return View
 	 */
 	private function make_instance() {
-		return new View();
+		return new View( new Messages() );
 	}
 
 	/**
