@@ -998,6 +998,15 @@ class View implements View_Interface {
 
 		$events = (array) $this->repository->all();
 
+		if ( empty( $events ) ) {
+			$keyword = $this->context->get( 'keyword', false );
+			if ( $keyword ) {
+				$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( 'no_results_found_w_keyword', trim( $keyword ) ) );
+			} else {
+				$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( 'no_results_found' ) );
+			}
+		}
+
 		$template_vars = [
 			'title'             => $this->get_title( $events ),
 			'events'            => $events,
@@ -1268,6 +1277,43 @@ class View implements View_Interface {
 	 * @return Messages A collection of user-facing messages the View will display on the front-end.
 	 */
 	public function get_messages() {
-		return $this->messages->to_array();
+		$slug = $this->get_slug();
+
+		/**
+		 * Fires before the view "renders" the array of user-facing messages.
+		 *
+		 * Differently from the filters below this action allow manipulating the messages handler before the messages
+		 * render to, as an example, change rendering strategy and manipulate the message "ingredients".
+		 *
+		 * @since TBD
+		 *
+		 * @param Messages $messages The object instance handling the messages for the View.
+		 * @param View $this The View instance currently rendering.
+		 */
+		do_action( 'tribe_events_views_v2_view_messages_before_render', $this->messages, $this );
+
+		$messages =  $this->messages->to_array();
+
+		/**
+		 * Filters the user-facing messages a specific View will print on the frontend.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $messages An array of messages in the shape `[ <message_type> => [ ...<messages> ] ]`.
+		 * @param View $this The current View instance being rendered.
+		 * @param Messages $messages_handler The messages handler object the View used to render the messages.
+		 */
+		$messages = apply_filters( "tribe_events_views_v2_{$slug}_messages", $messages, $this, $this->messages );
+
+		/**
+		 * Filters the user-facing messages the View will print on the frontend.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $messages An array of messages in the shape `[ <message_type> => [ ...<messages> ] ]`.
+		 * @param View $this The current View instance being rendered.
+		 * @param Messages $messages_handler The messages handler object the View used to render the messages.
+		 */
+		return apply_filters( 'tribe_events_views_v2_view_messages', $messages, $this, $this->messages );
 	}
 }
