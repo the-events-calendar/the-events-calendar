@@ -17,9 +17,11 @@
 if ( empty( $messages ) ) {
 	return;
 }
+
+// @todo @juanfra Make this beautiful.
 ?>
 
-<div class="tribe_messaging" style="text-align: center; margin: 0 auto;">
+<div class="tribe-events-notices" style="text-align: center; width: 100%; margin: 0 0 1em auto;">
 	<?php foreach ( $messages as $message_type => $message_group ) {
 		foreach ( $message_group as $message ) {
 			echo "{$message_type}: $message";
