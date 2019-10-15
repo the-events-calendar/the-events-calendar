@@ -1,0 +1,77 @@
+.tribe-events {
+
+	/* -----------------------------------------------------------------------------
+	 * Mobile Events
+	 * ----------------------------------------------------------------------------- */
+
+	.tribe-events-calendar-month-mobile-events {
+		@media (--viewport-medium) {
+			@mixin hidden;
+		}
+	}
+
+	.tribe-events-calendar-month-mobile-events__mobile-day {
+		display: none;
+	}
+
+	.tribe-events-calendar-month-mobile-events__mobile-day--show {
+		display: block;
+	}
+
+	.tribe-events-calendar-month-mobile-events__day-marker {
+		padding-top: var(--spacer-3);
+	}
+
+	.tribe-events-calendar-month-mobile-events__mobile-event {
+		border-bottom: 1px solid var(--color-border-default);
+		padding: var(--spacer-2) 0;
+
+		&:last-child {
+			border: 0;
+		}
+	}
+
+	.tribe-events-calendar-month-mobile-events__mobile-event--featured {
+		padding-bottom: var(--spacer-4);
+	}
+
+	.tribe-events-calendar-month-mobile-events__mobile-event-featured-image-wrapper {
+		margin-bottom: var(--spacer-2);
+	}
+
+	.tribe-events-calendar-month-mobile-events__mobile-event-featured-image {
+		padding-bottom: 56.25%;
+	}
+
+	.tribe-events-calendar-month-mobile-events__mobile-event-datetime {
+		color: var(--color-text-secondary);
+		margin-bottom: var(--spacer-0);
+
+		> * {
+			vertical-align: middle;
+		}
+	}
+
+	.tribe-events-calendar-month-mobile-events__mobile-event-datetime-featured-icon,
+	.tribe-events-calendar-month-mobile-events__mobile-event-datetime-recurring-icon {
+		display: inline-block;
+	}
+
+	.tribe-events-calendar-month-mobile-events__mobile-event-datetime-featured-icon {
+		margin-right: var(--spacer-0);
+	}
+
+	.tribe-events-calendar-month-mobile-events__mobile-event-datetime-recurring-icon {
+		margin-left: var(--spacer-0);
+	}
+
+	.tribe-events-calendar-month-mobile-events__mobile-event-datetime-featured-text {
+		color: var(--color-accent-primary);
+		font-weight: var(--font-weight-bold);
+		margin-right: var(--spacer-1);
+	}
+
+	.tribe-events-calendar-month-mobile-events__mobile-event-cost {
+		margin-top: var(--spacer-1);
+	}
+}
