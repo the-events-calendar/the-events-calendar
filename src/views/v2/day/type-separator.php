@@ -20,7 +20,14 @@ $should_have_type_separator = Utils\Separators::should_have_type( $this->get( 'e
 if ( ! $should_have_type_separator ) {
 	return;
 }
-$separator_text = Utils\Separators::get_type_text( $event );
+
+$separator_text = '';
+
+if ( 'all_day' === $event->timeslot ) {
+	$separator_text = __( 'All Day', 'the-events-calendar' );
+} elseif ( 'multiday' === $event->timeslot ) {
+	$separator_text = __( 'Ongoing', 'the-events-calendar' );
+}
 ?>
 <div class="tribe-events-calendar-day__type-separator">
 	<span class="tribe-events-calendar-day__type-separator-text tribe-common-h7 tribe-common-h6--min-medium tribe-common-h--alt">

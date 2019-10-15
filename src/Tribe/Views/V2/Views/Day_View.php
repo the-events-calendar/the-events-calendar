@@ -185,6 +185,7 @@ class Day_View extends View {
 				$event->timeslot = 'multiday';
 				$ongoing[ $i ]   = $event;
 			} else {
+				$event->timeslot = null;
 				$hourly[ $i ] = $event;
 			}
 		}
