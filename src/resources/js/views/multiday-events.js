@@ -59,6 +59,7 @@ tribe.events.views.multidayEvents = {};
 	 * @type {PlainObject}
 	 */
 	obj.selectorSuffixes = {
+		multidayWrapper: 'multiday-event-wrapper-inner',
 		multidayEvent: 'multiday-event',
 		hiddenMultidayEvent: 'multiday-event--hidden',
 		multidayEventInner: 'multiday-event-inner',
@@ -77,11 +78,11 @@ tribe.events.views.multidayEvents = {};
 	 * @return {jQuery} jQuery object of visible multiday event or false if none found
 	 */
 	obj.findVisibleMultidayEvents = function( $container, $hiddenMultidayEvent ) {
-		var eventId = $hiddenMultidayEvent.data( 'event-id' );
+		var eventId = $hiddenMultidayEvent.parent().data( 'event-id' );
 
 		return $container
-			.find( obj.selectors.multidayEvent + '[data-event-id=' + eventId + ']' )
-			.not( obj.selectors.hiddenMultidayEvent );
+			.find( obj.selectors.multidayWrapper + '[data-event-id=' + eventId + ']' )
+			.find( obj.selectors.multidayEvent );
 	};
 
 	/**
@@ -120,11 +121,11 @@ tribe.events.views.multidayEvents = {};
 	 * @return {void}
 	 */
 	obj.unbindMultidayEvents = function( $container ) {
-		var $hiddenMultidayEvents = $container.find( obj.selectors.multidayEvent );
+		var $hiddenMultidayEvents = $container.find( obj.selectors.hiddenMultidayEvent );
 
 		$hiddenMultidayEvents.each( function( hiddenIndex, hiddenMultidayEvent ) {
-			var $hiddenMultidayEventInner = $( hiddenMultidayEvent ).find( obj.selectors.multidayEventInner );
-			$hiddenMultidayEventInner
+			var $hiddenMultidayEvent = $( hiddenMultidayEvent );
+			$hiddenMultidayEvent
 				.off( 'mouseenter mouseleave', obj.toggleHoverClass )
 				.off( 'focus blur', obj.toggleFocusClass );
 		} );
@@ -140,7 +141,7 @@ tribe.events.views.multidayEvents = {};
 	 * @return {void}
 	 */
 	obj.bindMultidayEvents = function( $container ) {
-		var $hiddenMultidayEvents = $container.find( obj.selectors.multidayEvent );
+		var $hiddenMultidayEvents = $container.find( obj.selectors.hiddenMultidayEvent );
 
 		$hiddenMultidayEvents.each( function( hiddenIndex, hiddenMultidayEvent ) {
 			var $hiddenMultidayEvent = $( hiddenMultidayEvent );
@@ -149,9 +150,8 @@ tribe.events.views.multidayEvents = {};
 			$visibleMultidayEvents.each( function( visibleIndex, visibleMultidayEvent ) {
 				var $visibleMultidayEvent = $( visibleMultidayEvent );
 				var $visibleMultidayEventInner = $visibleMultidayEvent.find( obj.selectors.multidayEventInner );
-				var $hiddenMultidayEventInner = $hiddenMultidayEvent.find( obj.selectors.multidayEventInner );
 
-				$hiddenMultidayEventInner
+				$hiddenMultidayEvent
 					.on( 'mouseenter mouseleave', { target: $visibleMultidayEventInner }, obj.toggleHoverClass )
 					.on( 'focus blur', { target: $visibleMultidayEventInner }, obj.toggleFocusClass );
 			} );
