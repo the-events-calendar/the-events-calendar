@@ -48,7 +48,7 @@ if ( $should_display ) {
 	 * The two values might be the same but they will differ for events that last more than one week.
 	 */
 	$classes[] = 'tribe-events-calendar-month__multiday-event--width-' . $event->this_week_duration;
-	$classes[]    = 'tribe-events-calendar-month__multiday-event--display';
+	$classes[] = 'tribe-events-calendar-month__multiday-event--display';
 
 	// If it ends this week, let's add the start class (left border).
 	if ( $event->starts_this_week ) {
