@@ -152,6 +152,7 @@
 
 </div>
 
+			
 			<div class="tribe-events-c-top-bar tribe-events-header__top-bar">
 
 	<nav class="tribe-events-c-top-bar__nav">
