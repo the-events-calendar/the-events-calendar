@@ -998,14 +998,7 @@ class View implements View_Interface {
 
 		$events = (array) $this->repository->all();
 
-		if ( empty( $events ) ) {
-			$keyword = $this->context->get( 'keyword', false );
-			if ( $keyword ) {
-				$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( 'no_results_found_w_keyword', trim( $keyword ) ) );
-			} else {
-				$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( 'no_results_found' ) );
-			}
-		}
+		$this->setup_messages( $events );
 
 		$template_vars = [
 			'title'             => $this->get_title( $events ),
@@ -1315,5 +1308,23 @@ class View implements View_Interface {
 		 * @param Messages $messages_handler The messages handler object the View used to render the messages.
 		 */
 		return apply_filters( 'tribe_events_views_v2_view_messages', $messages, $this, $this->messages );
+	}
+
+	/**
+	 * Sets up the user-facing messages the View will print on the frontend.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $events An array of the View events, if any.
+	 */
+	protected function setup_messages( array $events ) {
+		if ( empty( $events ) ) {
+			$keyword = $this->context->get( 'keyword', false );
+			if ( $keyword ) {
+				$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( 'no_results_found_w_keyword', trim( $keyword ) ) );
+			} else {
+				$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( 'no_results_found' ) );
+			}
+		}
 	}
 }
