@@ -65,8 +65,8 @@ class Context extends \tad_DI52_ServiceProvider {
 			],
 			'view_data'                   => [
 				'read'  => [
-					Tribe__Context::REQUEST_VAR => 'tribe_view_data',
-					Tribe__Context::QUERY_VAR   => 'tribe_view_data',
+					Tribe__Context::REQUEST_VAR => [ 'tribe_view_data', 'view_data' ],
+					Tribe__Context::QUERY_VAR   => [ 'tribe_view_data', 'view_data' ],
 					Tribe__Context::FILTER      => 'tribe_view_data',
 				],
 				'write' => [

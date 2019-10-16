@@ -540,9 +540,6 @@ class View implements View_Interface {
 			'tribe-bar-search' => $this->context->get( 'keyword', '' ),
 		];
 
-
-		//@todo lucatume check geoloc!
-
 		/**
 		 * Filters the query arguments that will be used to build a View URL.
 		 *
