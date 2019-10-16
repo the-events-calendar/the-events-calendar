@@ -95,7 +95,7 @@ class Messages {
 				'the-events-calendar'
 			),
 			// translators: the placeholder is the formatted date string, e.g. "February 22, 2020".
-			'day_no_results_found' => __(
+			'day_no_results_found'             => __(
 				'No events scheduled for %s. Please try another day.',
 				'the-events-calendar'
 			),
