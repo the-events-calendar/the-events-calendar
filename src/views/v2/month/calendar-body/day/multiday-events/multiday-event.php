@@ -78,9 +78,11 @@ if ( $should_display ) {
 			</time>
 			<a
 				href="<?php echo esc_url( $event->permalink ) ?>"
-				data-js="tribe-events-tooltip"
-				data-tooltip-content="#tribe-events-tooltip-content-<?php echo esc_attr( $event->ID ); ?>"
-				aria-describedby="tribe-events-tooltip-content-<?php echo esc_attr( $event->ID ); ?>"
+				<?php if ( $display_tooltip ) : ?>
+					data-js="tribe-events-tooltip"
+					data-tooltip-content="#tribe-events-tooltip-content-<?php echo esc_attr( $event->ID ); ?>"
+					aria-describedby="tribe-events-tooltip-content-<?php echo esc_attr( $event->ID ); ?>"
+				<?php endif; ?>
 			>
 				<?php if ( $event->featured ) : ?>
 					<em
