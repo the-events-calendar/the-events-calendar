@@ -390,7 +390,7 @@ class View implements View_Interface {
 		 *
 		 * @since  TBD
 		 *
-		 * @param \Tribe\Events\Views\V2\View   $instance        The current View object.
+		 * @param \Tribe\Events\Views\V2\View   $instance  The current View object.
 		 */
 		do_action( 'tribe_events_views_v2_after_make_view', $instance );
 
