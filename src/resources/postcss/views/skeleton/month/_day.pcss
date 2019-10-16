@@ -15,29 +15,6 @@
 			min-height: 168px;
 			overflow: visible;
 		}
-
-		&:after {
-			@media (--viewport-medium) {
-				background-color: transparent;
-				bottom: 0;
-				content: '';
-				display: block;
-				height: 2px;
-				left: -1px;
-				position: absolute;
-				transition: var(--transition-background-color);
-				width: calc(100% + 2px);
-			}
-		}
-
-		&:hover {
-
-			&:after {
-				@media (--viewport-medium) {
-					background-color: var(--color-border-active);
-				}
-			}
-		}
 	}
 
 	.tribe-events-calendar-month__day-cell {
