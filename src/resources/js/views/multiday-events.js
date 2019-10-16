@@ -59,9 +59,8 @@ tribe.events.views.multidayEvents = {};
 	 * @type {PlainObject}
 	 */
 	obj.selectorSuffixes = {
-		multidayWrapper: 'multiday-event-wrapper-inner',
 		multidayEvent: 'multiday-event',
-		hiddenMultidayEvent: 'multiday-event--hidden',
+		hiddenMultidayEvent: 'multiday-event-hidden',
 		multidayEventInner: 'multiday-event-inner',
 		multidayEventInnerFocus: 'multiday-event-inner--focus',
 		multidayEventInnerHover: 'multiday-event-inner--hover',
@@ -81,8 +80,7 @@ tribe.events.views.multidayEvents = {};
 		var eventId = $hiddenMultidayEvent.parent().data( 'event-id' );
 
 		return $container
-			.find( obj.selectors.multidayWrapper + '[data-event-id=' + eventId + ']' )
-			.find( obj.selectors.multidayEvent );
+			.find( obj.selectors.multidayEvent + '[data-event-id=' + eventId + ']' )
 	};
 
 	/**

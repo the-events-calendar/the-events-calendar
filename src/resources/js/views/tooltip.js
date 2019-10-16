@@ -40,7 +40,7 @@ tribe.events.views.tooltip = {};
 	 */
 	obj.config = {
 		delayHoverIn: 600,
-		delayHoverOut: 300,
+		delayHoverOut: 10,
 	};
 
 	/**
