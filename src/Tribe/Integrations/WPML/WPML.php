@@ -51,6 +51,8 @@ class Tribe__Events__Integrations__WPML__WPML {
 	}
 
 	protected function hook_filters() {
+		add_filter( 'wpml_tm_dashboard_post_query_args', array( 'Tribe__Events__Integrations__WPML__Utils', 'remove_tribe_events_query_filters' ) );
+
 		$filters = Tribe__Events__Integrations__WPML__Filters::instance();
 		add_filter( 'tribe_events_rewrite_i18n_slugs_raw', array( $filters, 'filter_tribe_events_rewrite_i18n_slugs_raw' ), 10, 3 );
 

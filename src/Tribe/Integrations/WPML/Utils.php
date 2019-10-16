@@ -133,4 +133,16 @@ class Tribe__Events__Integrations__WPML__Utils {
 
 		return $locales;
 	}
+
+	/**
+	 * Remove filters added in Tribe__Events__Query
+	 * for WPML's Translation Management Dashboard to be able to show past events.
+	 */
+	public static function remove_tribe_events_query_filters( $args ) {
+		remove_action( 'pre_get_posts', array( 'Tribe__Events__Query', 'pre_get_posts' ), 50 );
+		remove_action( 'parse_query', array( 'Tribe__Events__Query', 'parse_query' ), 50 );
+
+		return $args;
+	}
+
 }
