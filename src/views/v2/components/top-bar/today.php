@@ -11,7 +11,7 @@
  *
  * @var string $today_url The URL to the today page.
  *
- * @version TBD
+ * @version 4.9.10
  */
 ?>
 <a

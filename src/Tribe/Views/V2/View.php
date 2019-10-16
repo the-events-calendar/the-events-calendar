@@ -91,7 +91,7 @@ class View implements View_Interface {
 	/**
 	 * Cache property for the next URL value to avoid running queries twice.
 	 *
-	 * @since TBD
+	 * @since 4.9.10
 	 *
 	 * @var string
 	 */
@@ -100,7 +100,7 @@ class View implements View_Interface {
 	/**
 	 * Cache property for the previous URL value to avoid running queries twice.
 	 *
-	 * @since TBD
+	 * @since 4.9.10
 	 *
 	 * @var string
 	 */
@@ -528,7 +528,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the query arguments that will be used to build a View URL.
 		 *
-		 * @since TBD
+		 * @since 4.9.10
 		 *
 		 * @param array          $query_args An array of query args that will be used to build the URL for the View.
 		 * @param View_Interface $this       This View instance.
@@ -1191,7 +1191,7 @@ class View implements View_Interface {
 	/**
 	 * Gets this View title, the one that will be set in the `title` tag of the page.
 	 *
-	 * @since TBD
+	 * @since 4.9.10
 	 *
 	 * @param  array $events An array of events to generate the title for.
 	 *
@@ -1221,7 +1221,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the title for all views.
 		 *
-		 * @since TBD
+		 * @since 4.9.10
 		 *
 		 * @param string $title This view filtered title.
 		 * @param View   $this  This view object.
@@ -1231,7 +1231,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the title for this view.
 		 *
-		 * @since TBD
+		 * @since 4.9.10
 		 *
 		 * @param string $title This view filtered title.
 		 * @param View   $this  This view object.
