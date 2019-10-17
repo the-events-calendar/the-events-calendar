@@ -1038,7 +1038,7 @@ class View implements View_Interface {
 				'compact'        => Dates::datepicker_formats( tribe_get_option( 'datepickerFormat' ) ),
 				'month_and_year' => tribe_get_date_option( 'monthAndYearFormat', 'F Y' ),
 			],
-			'messages'           => $this->get_messages( $events ),
+			'messages'          => $this->get_messages( $events ),
 		];
 
 		return $template_vars;
