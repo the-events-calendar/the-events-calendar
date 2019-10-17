@@ -7,11 +7,9 @@
 .tribe-events {
 
 	.tribe-events-c-events-bar {
-		background-color: var(--color-background);
 		display: flex;
 
 		@media (--viewport-medium) {
-			border: 1px solid var(--color-border-secondary);
 			flex-direction: row;
 			margin-bottom: var(--spacer-7);
 		}
@@ -60,7 +58,6 @@
 		margin-right: -12px;
 
 		@media (--viewport-medium) {
-			border-right: 1px solid var(--color-border-secondary);
 			margin: var(--spacer-2) 0;
 		}
 	}
@@ -113,40 +110,6 @@
 		@media (--viewport-medium) {
 			@mixin hidden;
 		}
-
-		&:hover,
-		&:focus {
-
-			.tribe-events-c-events-bar__search-button-icon {
-				opacity: var(--opacity-icon-hover);
-			}
-		}
-
-		&:active {
-
-			.tribe-events-c-events-bar__search-button-icon {
-				opacity: var(--opacity-icon-active);
-			}
-		}
-
-		&:before {
-			background-color: var(--color-accent-primary);
-			content: '';
-			display: none;
-			height: 2px;
-			pointer-events: none;
-			position: absolute;
-			top: 100%;
-			transform: translateY(var(--spacer-0));
-			width: calc(100% - (2 * var(--spacer-0)));
-		}
-	}
-
-	.tribe-events-c-events-bar__search-button--active {
-
-		&:before {
-			display: block;
-		}
 	}
 
 	.tribe-events-c-events-bar__search-button-icon {
@@ -176,7 +139,6 @@
 
 	.tribe-events-c-events-bar__tab {
 		align-items: center;
-		border-radius: var(--border-radius-default);
 		display: flex;
 		flex: 1 1 50%;
 		flex-direction: column;
@@ -186,10 +148,6 @@
 		&:hover,
 		&:focus,
 		&:active {
-
-			.tribe-events-c-events-bar__tab-text {
-				font-weight: var(--font-weight-bold);
-			}
 
 			.tribe-common-svgicon--search {
 				background-image: svg-inline(search-active);
@@ -210,16 +168,6 @@
 	}
 
 	.tribe-events-c-events-bar__tab--active {
-		background-color: var(--color-background-secondary);
-
-		&:hover,
-		&:focus {
-			background-color: var(--color-background-secondary);
-		}
-
-		.tribe-events-c-events-bar__tab-text {
-			font-weight: var(--font-weight-bold);
-		}
 
 		.tribe-common-svgicon--search {
 			background-image: svg-inline(search-active);
@@ -241,21 +189,5 @@
 	 * Events Bar: Theme Overrides
 	 *
 	 * ----------------------------------------------------------------------------- */
-
-	/* -----------------------------------------------------------------------------
-	 * Theme Overrides - Twenty Seventeen
-	 * ----------------------------------------------------------------------------- */
-
-	.tribe-theme-twentyseventeen & {
-
-		.tribe-events-c-events-bar__tab--active {
-			background-color: var(--color-background-secondary);
-
-			&:hover,
-			&:focus {
-				background-color: var(--color-background-secondary);
-			}
-		}
-	}
 
 }
