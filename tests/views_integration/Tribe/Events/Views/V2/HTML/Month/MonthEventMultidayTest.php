@@ -40,7 +40,7 @@ class MonthEventMultidayTest extends HtmlTestCase {
 
 		$this->assertEquals(
 			$html->find( '.tribe-events-calendar-month__multiday-event-bar-title' )->count(),
-			2,
+			1,
 			'Multiday HTML needs to contain one ".tribe-events-calendar-month__multiday-event-bar-title" element'
 		);
 
