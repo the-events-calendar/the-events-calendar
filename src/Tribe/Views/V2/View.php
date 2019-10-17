@@ -306,6 +306,16 @@ class View implements View_Interface {
 			throw new \RuntimeException( $message );
 		}
 
+		/**
+		 * Run an action before we start making a new View instance.
+		 *
+		 * @since  TBD
+		 *
+		 * @param  string  $view_class The current view class.
+		 * @param  string  $view_slug The current view slug.
+		 */
+		do_action( 'tribe_events_views_v2_before_make_view', $view_class, $view_slug );
+
 		/** @var \Tribe\Events\Views\V2\View_Interface $instance */
 		$instance  = self::$container->make( $view_class );
 
@@ -392,6 +402,15 @@ class View implements View_Interface {
 		$instance->set_repository( $view_repository );
 
 		$instance->set_url();
+
+		/**
+		 * Run an action after we are done making a new View instance.
+		 *
+		 * @since  TBD
+		 *
+		 * @param \Tribe\Events\Views\V2\View   $instance  The current View object.
+		 */
+		do_action( 'tribe_events_views_v2_after_make_view', $instance );
 
 		return $instance;
 	}
