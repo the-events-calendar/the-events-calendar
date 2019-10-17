@@ -10,7 +10,6 @@
 
 namespace Tribe\Events\Views\V2\Views;
 
-
 use Tribe\Events\Views\V2\Messages;
 use Tribe\Events\Views\V2\Utils\Stack;
 use Tribe\Events\Views\V2\View;
@@ -19,7 +18,7 @@ use Tribe__Cache_Listener as Cache_Listener;
 use Tribe__Date_Utils as Dates;
 use Tribe__Utils__Array as Arr;
 
-abstract class By_Day_View extends View{
+abstract class By_Day_View extends View {
 	use Cache_User;
 
 	/**
@@ -143,9 +142,9 @@ abstract class By_Day_View extends View{
 			 * This prevents events ending on the cutoff from showing up here.
 			 */
 			$day_query = tribe_events()->by_args( $repository_args )
-			                           ->where( 'date_overlaps', $start, $end, null, 2 )
-			                           ->per_page( $events_per_day )
-			                           ->order_by( $order_by, $order );
+									   ->where( 'date_overlaps', $start, $end, null, 2 )
+									   ->per_page( $events_per_day )
+									   ->order_by( $order_by, $order );
 			$event_ids = $day_query->get_ids();
 			$found     = $day_query->found();
 
