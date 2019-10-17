@@ -32,9 +32,9 @@ class MonthEventMultidayTest extends HtmlTestCase {
 
 		$this->assertTrue(
 			$html->find( '.tribe-events-calendar-month__multiday-event-bar' )->children()->is(
-				'.tribe-events-calendar-month__multiday-event-inner'
+				'.tribe-events-calendar-month__multiday-event-bar-inner'
 			),
-			'Multiday HTML needs to contain ".tribe-events-calendar-month__multiday-event-inner" element'
+			'Multiday HTML needs to contain ".tribe-events-calendar-month__multiday-event-bar-inner" element'
 		);
 
 
