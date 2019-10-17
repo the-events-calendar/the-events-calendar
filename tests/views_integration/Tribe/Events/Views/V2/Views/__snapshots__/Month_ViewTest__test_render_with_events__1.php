@@ -153,8 +153,11 @@
 </div>
 
 			
-<div class="tribe-events-notices" style="text-align: center; width: 100%; margin: 0 0 1em auto;">
-	notice: There were no results found.</div>
+<div  class="tribe-events-c-messages tribe-common-b2" >
+						<div class="tribe-events-c-messages__inner tribe-events-c-messages__inner--notice">
+				<span>There were no results found.</span>
+			</div>
+			</div>
 
 
 			<div class="tribe-events-c-top-bar tribe-events-header__top-bar">
