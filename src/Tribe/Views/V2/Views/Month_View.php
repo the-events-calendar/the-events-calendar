@@ -206,13 +206,12 @@ class Month_View extends By_Day_View {
 			}
 		}
 
-		$days = $this->get_days_data( $grid_days );
+		$days      = $this->get_days_data( $grid_days );
 
 		$grid_date             = Dates::build_date_object( $this->context->get( 'event_date', 'today' ) );
 		$month_and_year_format = tribe_get_option( 'monthAndYearFormat', 'F Y' );
 
 		$today                                = $this->context->get( 'today' );
-		$template_vars['the_date']            = $grid_date;
 		$template_vars['today_date']          = Dates::build_date_object( $today )->format( 'Y-m-d' );
 		$template_vars['grid_date']           = $grid_date->format( 'Y-m-d' );
 		$template_vars['formatted_grid_date'] = $grid_date->format( $month_and_year_format );
