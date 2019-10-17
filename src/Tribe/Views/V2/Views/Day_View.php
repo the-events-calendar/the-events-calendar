@@ -106,7 +106,7 @@ class Day_View extends View {
 	 *
 	 * This is the method underlying the construction of the previous and next URLs.
 	 *
-	 * @since TBD
+	 * @since 4.9.10
 	 *
 	 * @param mixed $url_date          The date to build the URL for, a \DateTime object, a string or a timestamp.
 	 * @param bool  $canonical         Whether to return the canonical (pretty) version of the URL or not.

@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version TBD
+ * @version 4.9.10
  *
  * @var string $rest_url The REST URL.
  * @var string $rest_nonce The REST nonce.
@@ -30,6 +30,8 @@
 
 		<header class="tribe-events-header">
 			<?php $this->template( 'components/events-bar' ); ?>
+
+			<?php $this->template( 'components/messages' ); ?>
 
 			<?php $this->template( 'month/top-bar' ); ?>
 		</header>

@@ -39,7 +39,7 @@ class Page {
 	/**
 	 * Fires when the loop starts, and tries to hijack the loop for post.
 	 *
-	 * @since  TBD
+	 * @since  4.9.10
 	 *
 	 * @param  \WP_Query  $query
 	 */

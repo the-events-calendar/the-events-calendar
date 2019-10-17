@@ -91,7 +91,7 @@ class View implements View_Interface {
 	/**
 	 * Cache property for the next URL value to avoid running queries twice.
 	 *
-	 * @since TBD
+	 * @since 4.9.10
 	 *
 	 * @var string
 	 */
@@ -100,7 +100,7 @@ class View implements View_Interface {
 	/**
 	 * Cache property for the previous URL value to avoid running queries twice.
 	 *
-	 * @since TBD
+	 * @since 4.9.10
 	 *
 	 * @var string
 	 */
@@ -151,6 +151,24 @@ class View implements View_Interface {
 	 * @var bool
 	 */
 	protected $should_manage_url = true;
+
+	/**
+	 * An collection of user-facing messages the View should display.
+	 *
+	 * @since TBD
+	 *
+	 * @var Messages
+	 */
+	protected $messages;
+
+	/**
+	 * View constructor.
+	 *
+	 * @param Messages $messages An instance of the messages collection.
+	 */
+	public function __construct( Messages $messages ) {
+		$this->messages = $messages;
+	}
 
 	/**
 	 * Builds a View instance in response to a REST request to the Views endpoint.
@@ -288,6 +306,16 @@ class View implements View_Interface {
 			throw new \RuntimeException( $message );
 		}
 
+		/**
+		 * Run an action before we start making a new View instance.
+		 *
+		 * @since  TBD
+		 *
+		 * @param  string  $view_class The current view class.
+		 * @param  string  $view_slug The current view slug.
+		 */
+		do_action( 'tribe_events_views_v2_before_make_view', $view_class, $view_slug );
+
 		/** @var \Tribe\Events\Views\V2\View_Interface $instance */
 		$instance  = self::$container->make( $view_class );
 
@@ -374,6 +402,15 @@ class View implements View_Interface {
 		$instance->set_repository( $view_repository );
 
 		$instance->set_url();
+
+		/**
+		 * Run an action after we are done making a new View instance.
+		 *
+		 * @since  TBD
+		 *
+		 * @param \Tribe\Events\Views\V2\View   $instance  The current View object.
+		 */
+		do_action( 'tribe_events_views_v2_after_make_view', $instance );
 
 		return $instance;
 	}
@@ -522,13 +559,10 @@ class View implements View_Interface {
 			'tribe-bar-search' => $this->context->get( 'keyword', '' ),
 		];
 
-
-		//@todo lucatume check geoloc!
-
 		/**
 		 * Filters the query arguments that will be used to build a View URL.
 		 *
-		 * @since TBD
+		 * @since 4.9.10
 		 *
 		 * @param array          $query_args An array of query args that will be used to build the URL for the View.
 		 * @param View_Interface $this       This View instance.
@@ -978,7 +1012,16 @@ class View implements View_Interface {
 			$this->repository->by_args( $this->repository_args );
 		}
 
-		$events = $this->repository->all();
+		$events = (array) $this->repository->all();
+
+		if ( empty( $events ) ) {
+			$keyword = $this->context->get( 'keyword', false );
+			if ( $keyword ) {
+				$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( 'no_results_found_w_keyword', trim( $keyword ) ) );
+			} else {
+				$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( 'no_results_found' ) );
+			}
+		}
 
 		$template_vars = [
 			'title'             => $this->get_title( $events ),
@@ -1001,7 +1044,8 @@ class View implements View_Interface {
 			'date_formats'      => (object) [
 				'compact'        => Dates::datepicker_formats( tribe_get_option( 'datepickerFormat' ) ),
 				'month_and_year' => tribe_get_date_option( 'monthAndYearFormat', 'F Y' ),
-			]
+			],
+			'messages'           => $this->get_messages(),
 		];
 
 		return $template_vars;
@@ -1191,7 +1235,7 @@ class View implements View_Interface {
 	/**
 	 * Gets this View title, the one that will be set in the `title` tag of the page.
 	 *
-	 * @since TBD
+	 * @since 4.9.10
 	 *
 	 * @param  array $events An array of events to generate the title for.
 	 *
@@ -1221,7 +1265,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the title for all views.
 		 *
-		 * @since TBD
+		 * @since 4.9.10
 		 *
 		 * @param string $title This view filtered title.
 		 * @param View   $this  This view object.
@@ -1231,7 +1275,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the title for this view.
 		 *
-		 * @since TBD
+		 * @since 4.9.10
 		 *
 		 * @param string $title This view filtered title.
 		 * @param View   $this  This view object.
@@ -1239,5 +1283,53 @@ class View implements View_Interface {
 		$title = apply_filters( "tribe_events_views_v2_{$slug}_title", $title, $this );
 
 		return htmlspecialchars_decode($title);
+	}
+
+	/**
+	 * Returns a collection of user-facing messages the View will display on the front-end.
+	 *
+	 * @since TBD
+	 *
+	 * @return Messages A collection of user-facing messages the View will display on the front-end.
+	 */
+	public function get_messages() {
+		$slug = $this->get_slug();
+
+		/**
+		 * Fires before the view "renders" the array of user-facing messages.
+		 *
+		 * Differently from the filters below this action allow manipulating the messages handler before the messages
+		 * render to, as an example, change rendering strategy and manipulate the message "ingredients".
+		 *
+		 * @since TBD
+		 *
+		 * @param Messages $messages The object instance handling the messages for the View.
+		 * @param View $this The View instance currently rendering.
+		 */
+		do_action( 'tribe_events_views_v2_view_messages_before_render', $this->messages, $this );
+
+		$messages = $this->messages->to_array();
+
+		/**
+		 * Filters the user-facing messages a specific View will print on the frontend.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $messages An array of messages in the shape `[ <message_type> => [ ...<messages> ] ]`.
+		 * @param View $this The current View instance being rendered.
+		 * @param Messages $messages_handler The messages handler object the View used to render the messages.
+		 */
+		$messages = apply_filters( "tribe_events_views_v2_{$slug}_messages", $messages, $this, $this->messages );
+
+		/**
+		 * Filters the user-facing messages the View will print on the frontend.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $messages An array of messages in the shape `[ <message_type> => [ ...<messages> ] ]`.
+		 * @param View $this The current View instance being rendered.
+		 * @param Messages $messages_handler The messages handler object the View used to render the messages.
+		 */
+		return apply_filters( 'tribe_events_views_v2_view_messages', $messages, $this, $this->messages );
 	}
 }
