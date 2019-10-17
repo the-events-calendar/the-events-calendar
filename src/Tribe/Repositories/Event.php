@@ -416,6 +416,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 * Will include multi-day events.
 	 *
 	 * @since 4.9
+	 * @since TBD Add the `$min_sec_overlap` parameter.
 	 *
 	 * @param string|DateTime|int $start_datetime A `strtotime` parse-able string, a DateTime object or
 	 *                                            a timestamp.
@@ -424,9 +425,10 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 * @param string|DateTimeZone $timezone       A timezone string, UTC offset or DateTimeZone object;
 	 *                                            defaults to the site timezone; this parameter is ignored
 	 *                                            if the `$datetime` parameter is a DatTime object.
-	 *
+	 * @param null|int $min_sec_overlap           The minimum overlap, in seconds, an event should have with the
+	 *                                            interval; defaults to at least a second.
 	 */
-	public function filter_by_date_overlaps( $start_datetime, $end_datetime, $timezone = null ) {
+	public function filter_by_date_overlaps( $start_datetime, $end_datetime, $timezone = null, $min_sec_overlap = 1 ) {
 		global $wpdb;
 		$utc = $this->normal_timezone;
 
@@ -452,21 +454,17 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			AND {$join_end_key}.meta_key = '{$end_key}' )"
 		);
 
-		$this->filter_query->where(
-			"
-			(
-				CAST({$join_start_key}.meta_value AS DATETIME) >= '{$lower_string}'
-				AND CAST({$join_start_key}.meta_value AS DATETIME) <= '{$upper_string}'
-			) OR (
-				CAST({$join_end_key}.meta_value AS DATETIME) >= '{$lower_string}'
-				AND CAST({$join_start_key}.meta_value AS DATETIME) <= '{$upper_string}'
-			) OR (
-				CAST({$join_start_key}.meta_value AS DATETIME) < '{$lower_string}'
-				AND CAST({$join_end_key}.meta_value AS DATETIME) >= '{$upper_string}'
-			)
-			"
+		$alt_where = $wpdb->prepare(
+			"(
+				TIMESTAMPDIFF ( SECOND, {$join_start_key}.meta_value, '${upper_string}' ) >= %d
+				AND
+				TIMESTAMPDIFF ( SECOND, '${lower_string}', {$join_end_key}.meta_value ) >= %d
+			)",
+			$min_sec_overlap,
+			$min_sec_overlap
 		);
 
+		$this->filter_query->where( $alt_where );
 	}
 
 	/**
