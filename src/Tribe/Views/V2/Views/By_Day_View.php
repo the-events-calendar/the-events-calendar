@@ -11,6 +11,7 @@
 namespace Tribe\Events\Views\V2\Views;
 
 
+use Tribe\Events\Views\V2\Messages;
 use Tribe\Events\Views\V2\Utils\Stack;
 use Tribe\Events\Views\V2\View;
 use Tribe\Traits\Cache_User;
@@ -60,8 +61,13 @@ abstract class By_Day_View extends View{
 	 * By_Day_View constructor.
 	 *
 	 * @since 4.9.7
+	 * @since TBD Added inheritance from View object and `$messages` parameter.
+	 *
+	 * @param Messages $messages An instance of the view messages handler.
+	 * @param Stack    $stack    An instance of the stack handler.
 	 */
-	public function __construct( Stack $stack ) {
+	public function __construct( Messages $messages, Stack $stack ) {
+		parent::__construct( $messages );
 		add_action( 'shutdown', [ $this, 'dump_cache' ] );
 		$this->stack = $stack;
 	}
@@ -139,8 +145,8 @@ abstract class By_Day_View extends View{
 			$event_ids = $day_query->get_ids();
 			$found     = $day_query->found();
 
-			$this->grid_days_cache[ $day_string ]       = $event_ids;
-			$this->grid_days_found_cache[ $day_string ] = $found;
+			$this->grid_days_cache[ $day_string ]       = (array) $event_ids;
+			$this->grid_days_found_cache[ $day_string ] = (int) $found;
 		}
 
 		return $this->grid_days_cache;

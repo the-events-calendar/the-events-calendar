@@ -8,6 +8,7 @@
 
 namespace Tribe\Events\Views\V2\Views;
 
+use Tribe\Events\Views\V2\Messages;
 use Tribe__Context as Context;
 use Tribe__Date_Utils as Dates;
 use Tribe__Events__Template__Month as Month;
@@ -195,6 +196,16 @@ class Month_View extends By_Day_View {
 
 		// The events will be returned in an array with shape `[ <Y-m-d> => [...<events>], <Y-m-d> => [...<events>] ]`.
 		$grid_days = $this->get_grid_days();
+
+		if ( empty( $grid_days ) || 0 === array_sum( array_map( 'count', $grid_days ) ) ) {
+			$keyword = $this->context->get( 'keyword', false );
+			if ( $keyword ) {
+				$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( 'month_no_results_found_w_keyword', trim( $keyword ) ) );
+			} else {
+				$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( 'no_results_found' ) );
+			}
+		}
+
 		$days      = $this->get_days_data( $grid_days );
 
 		$grid_date             = Dates::build_date_object( $this->context->get( 'event_date', 'today' ) );
@@ -206,6 +217,7 @@ class Month_View extends By_Day_View {
 		$template_vars['formatted_grid_date'] = $grid_date->format( $month_and_year_format );
 		$template_vars['events']              = $grid_days;
 		$template_vars['days']                = $days;
+		$template_vars['messages']            = $this->messages->to_array();
 
 		return $template_vars;
 	}
