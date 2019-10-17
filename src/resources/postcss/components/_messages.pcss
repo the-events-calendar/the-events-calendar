@@ -1,0 +1,50 @@
+.tribe-events {
+	/* -----------------------------------------------------------------------------
+	 *
+	 * Messages
+	 *
+	 * Example:
+	 * <div class="tribe-events-c-nav">
+	 *     <p>There were no results found</p>
+	 * </div>
+	 *
+	 * ----------------------------------------------------------------------------- */
+
+	.tribe-events-c-messages {
+		background-color: var(--color-background-messages);
+		border-radius: var(--border-radius-default);
+		padding: var(--spacer-2);
+		margin: 0 0 var(--spacer-3) auto;
+		width: 100%;
+		flex: 0 0 100%;
+		order: -1;
+
+		@media (--viewport-medium) {
+			order: 3;
+			padding: var(--spacer-3);
+			margin: 0 0 var(--spacer-7) auto;
+		}
+	}
+
+	.tribe-events-c-messages__inner {
+		display: flex;
+		align-items: center;
+
+		@media (--viewport-medium) {
+			justify-content: center;
+		}
+	}
+
+	.tribe-events-c-messages__inner--notice {
+		&:before {
+			background-image: svg-inline(messages-not-found);
+			background-repeat: no-repeat;
+			background-size: 22px;
+			display: inline-flex;
+			content: '';
+			min-width: 22px;
+			height: 24px;
+			margin-right: var(--spacer-2);
+		}
+	}
+}

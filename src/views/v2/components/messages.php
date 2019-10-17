@@ -20,16 +20,17 @@ if ( empty( $messages ) ) {
 	return;
 }
 
-// @todo @juanfra Make this beautiful.
+$classes = [ 'tribe-events-c-messages', 'tribe-common-b2' ];
+
 ?>
 
-<div class="tribe-events-notices" style="text-align: center; width: 100%; margin: 0 0 1em auto;">
-	<?php
-	foreach ( $messages as $message_type => $message_group ) {
-		foreach ( $message_group as $message ) {
-			echo wp_kses_post( "{$message_type}: $message" );
-		}
-	}
-	?>
+<div <?php tribe_classes( $classes ); ?>>
+	<?php foreach ( $messages as $message_type => $message_group ) : ?>
+		<?php foreach ( $message_group as $message ) : ?>
+			<div class="tribe-events-c-messages__inner tribe-events-c-messages__inner--<?php echo esc_attr( $message_type ); ?>">
+				<span><?php echo wp_kses_post( $message ); ?></span>
+			</div>
+		<?php endforeach; ?>
+	<?php endforeach; ?>
 </div>
 
