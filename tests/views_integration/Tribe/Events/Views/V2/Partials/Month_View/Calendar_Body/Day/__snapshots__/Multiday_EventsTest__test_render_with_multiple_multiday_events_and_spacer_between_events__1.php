@@ -10,13 +10,14 @@
 				2019-06-20			</time>
 			<a
 				href="http://test.tri.be/?tribe_events=test-event-9-days-2"
+				class="tribe-events-calendar-month__multiday-event-hidden-link"
 							>
 									<em
-						class="tribe-events-calendar-month__multiday-event-featured-icon tribe-common-svgicon tribe-common-svgicon--featured"
+						class="tribe-events-calendar-month__multiday-event-hidden-featured-icon tribe-common-svgicon tribe-common-svgicon--featured"
 						aria-label="Featured"
 						title="Featured"
 					></em>
-								<h3 class="tribe-events-calendar-month__multiday-event-title tribe-common-h8">
+								<h3 class="tribe-events-calendar-month__multiday-event-hidden-title tribe-common-h8">
 					Test Event &#8211; +9 days				</h3>
 			</a>
 		</div>
@@ -34,8 +35,9 @@
 				2019-06-20			</time>
 			<a
 				href="http://test.tri.be/?tribe_events=single-event-1"
+				class="tribe-events-calendar-month__multiday-event-hidden-link"
 							>
-								<h3 class="tribe-events-calendar-month__multiday-event-title tribe-common-h8">
+								<h3 class="tribe-events-calendar-month__multiday-event-hidden-title tribe-common-h8">
 					Single Event 1				</h3>
 			</a>
 		</div>
@@ -55,8 +57,9 @@
 				2019-06-20			</time>
 			<a
 				href="http://test.tri.be/?tribe_events=single-event-2"
+				class="tribe-events-calendar-month__multiday-event-hidden-link"
 							>
-								<h3 class="tribe-events-calendar-month__multiday-event-title tribe-common-h8">
+								<h3 class="tribe-events-calendar-month__multiday-event-hidden-title tribe-common-h8">
 					Single Event 2				</h3>
 			</a>
 		</div>

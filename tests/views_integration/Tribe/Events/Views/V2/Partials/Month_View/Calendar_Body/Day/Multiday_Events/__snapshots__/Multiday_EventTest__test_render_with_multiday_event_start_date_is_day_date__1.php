@@ -8,14 +8,15 @@
 				2019-06-20			</time>
 			<a
 				href="http://test.tri.be/?tribe_events=single-event-1"
+				class="tribe-events-calendar-month__multiday-event-hidden-link"
 							>
-								<h3 class="tribe-events-calendar-month__multiday-event-title tribe-common-h8">
+								<h3 class="tribe-events-calendar-month__multiday-event-hidden-title tribe-common-h8">
 					Single Event 1				</h3>
 			</a>
 		</div>
 					<div class="tribe-events-calendar-month__multiday-event-bar">
-				<div class="tribe-events-calendar-month__multiday-event-inner">
-										<h3 class="tribe-events-calendar-month__multiday-event-title tribe-common-h8">
+				<div class="tribe-events-calendar-month__multiday-event-bar-inner">
+										<h3 class="tribe-events-calendar-month__multiday-event-bar-title tribe-common-h8">
 						Single Event 1					</h3>
 				</div>
 			</div>
