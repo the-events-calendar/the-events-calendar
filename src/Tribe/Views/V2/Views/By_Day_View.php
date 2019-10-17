@@ -138,8 +138,12 @@ abstract class By_Day_View extends View{
 			$start = tribe_beginning_of_day( $day->format( Dates::DBDATETIMEFORMAT ) );
 			$end   = tribe_end_of_day( $day->format( Dates::DBDATETIMEFORMAT ) );
 
+			/*
+			 * We want events overlapping the current day, by more than 1 second.
+			 * This prevents events ending on the cutoff from showing up here.
+			 */
 			$day_query = tribe_events()->by_args( $repository_args )
-			                           ->where( 'date_overlaps', $start, $end )
+			                           ->where( 'date_overlaps', $start, $end, null, 2 )
 			                           ->per_page( $events_per_day )
 			                           ->order_by( $order_by, $order );
 			$event_ids = $day_query->get_ids();
