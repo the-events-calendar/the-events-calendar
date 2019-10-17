@@ -11,26 +11,15 @@
 		border: 1px solid var(--color-border-default);
 		border-radius: var(--border-radius-default);
 		box-shadow: var(--box-shadow-tooltip);
-		margin-top: var(--spacer-1);
-		padding: 0 var(--spacer-3) var(--spacer-3);
-
-		@media (--viewport-medium) {
-			margin-top: var(--spacer-3);
-		}
 
 		&:before,
 		&:after {
 			content: none;
 		}
 
-		table {
-			border-collapse: collapse;
-		}
-
 		.datepicker-switch,
 		.prev,
 		.next {
-			padding: var(--spacer-4) 0;
 
 			&:hover,
 			&:focus,
@@ -52,77 +41,12 @@
 			}
 		}
 
-		.prev,
-		.next {
-
-			.tribe-common-svgicon {
-				display: block;
-				height: 14px;
-				width: 9px;
-			}
-		}
-
-		.prev {
-
-			&:hover,
-			&:focus,
-			&:active {
-
-				.tribe-common-svgicon {
-					background-image: svg-inline(caret-left-active);
-				}
-			}
-
-			.tribe-common-svgicon {
-				background-image: svg-inline(caret-left-secondary);
-				margin-right: auto;
-			}
-		}
-
-		.next {
-
-			&:hover,
-			&:focus,
-			&:active {
-
-				.tribe-common-svgicon {
-					background-image: svg-inline(caret-right-active);
-				}
-			}
-
-			.tribe-common-svgicon {
-				background-image: svg-inline(caret-right-secondary);
-				margin-left: auto;
-			}
-		}
-
-		.datepicker-months,
-		.datepicker-years {
-
-			th,
-			td {
-				padding: 0;
-			}
-
-			.datepicker-switch,
-			.prev,
-			.next {
-				padding: var(--spacer-4) 0 var(--spacer-1);
-			}
-		}
-
 		.dow {
 			@mixin mobile-body-3;
-
-			padding: 0;
-			width: var(--grid-width-1-of-7);
 		}
 
 		.day {
 			@mixin desktop-body-1;
-
-			padding: 11px 0;
-			width: 48px; /* this is a hack to max out the day width to the container, not exactly 48px */
 
 			&.old {
 				color: var(--color-text-disabled);
@@ -132,11 +56,6 @@
 		.month,
 		.year {
 			@mixin desktop-body-3;
-
-			height: auto;
-			margin: 0;
-			padding: 15px 0;
-			width: 25%;
 		}
 
 		.day,
@@ -169,7 +88,6 @@
 		tbody tr {
 
 			&.active {
-				position: relative;
 
 				&:after {
 					border: 1px solid var(--color-accent-primary);
@@ -210,22 +128,11 @@
 
 			&.disabled {
 				color: var(--color-text-primary);
-				cursor: pointer;
 
 				&:hover,
 				&:focus,
 				&.focused {
 					color: var(--color-text-primary);
-				}
-			}
-
-			&.old {
-				color: var(--color-text-disabled);
-
-				&:hover,
-				&:focus,
-				&.focused {
-					color: var(--color-text-disabled);
 				}
 			}
 		}
@@ -264,37 +171,6 @@
 	 * ----------------------------------------------------------------------------- */
 
 	/* -----------------------------------------------------------------------------
-	 * Theme Overrides - Divi
-	 * ----------------------------------------------------------------------------- */
-
-	.tribe-theme-divi #content-area & .datepicker {
-
-		.datepicker-switch,
-		.prev,
-		.next {
-			padding: var(--spacer-4) 0;
-		}
-
-		.datepicker-months,
-		.datepicker-years {
-
-			.datepicker-switch,
-			.prev,
-			.next {
-				padding: var(--spacer-4) 0 var(--spacer-1);
-			}
-		}
-
-		.dow {
-			padding: 0;
-		}
-
-		.day {
-			padding: 11px 0;
-		}
-	}
-
-	/* -----------------------------------------------------------------------------
 	 * Theme Overrides - Enfold
 	 * ----------------------------------------------------------------------------- */
 
@@ -302,12 +178,9 @@
 		border: 1px solid var(--color-border-default);
 		border-radius: var(--border-radius-default);
 		box-shadow: var(--box-shadow-tooltip);
-		min-width: 0;
-		padding: 0 var(--spacer-3) var(--spacer-3);
 
 		.datepicker-switch {
 			color: var(--color-text-primary) !important;
-			cursor: pointer !important;
 
 			&:hover,
 			&:focus {
@@ -392,14 +265,9 @@
 	.tribe-theme-avada & .datepicker {
 		border: 1px solid var(--color-border-default);
 		border-radius: var(--border-radius-default);
-		padding: 0 var(--spacer-3) var(--spacer-3);
 
 		tbody td {
 			border: 0;
-		}
-
-		.datepicker-months td {
-			padding: 0;
 		}
 
 		.datepicker-switch,
