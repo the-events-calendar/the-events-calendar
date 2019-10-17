@@ -39,9 +39,9 @@ class MonthEventMultidayTest extends HtmlTestCase {
 
 
 		$this->assertEquals(
-			$html->find( '.tribe-events-calendar-month__multiday-event-title' )->count(),
+			$html->find( '.tribe-events-calendar-month__multiday-event-bar-title' )->count(),
 			2,
-			'Multiday HTML needs to contain one ".tribe-events-calendar-month__multiday-event-title" element'
+			'Multiday HTML needs to contain one ".tribe-events-calendar-month__multiday-event-bar-title" element'
 		);
 
 	}
@@ -61,7 +61,7 @@ class MonthEventMultidayTest extends HtmlTestCase {
 		);
 		$html     = $this->document->html( $template );
 		$html     = $html->find( '.tribe-events-calendar-month__multiday-event' );
-		$icon     = $html->find( '.tribe-events-calendar-month__multiday-event-featured-icon' );
+		$icon     = $html->find( '.tribe-events-calendar-month__multiday-event-bar-featured-icon' );
 
 
 		$this->markTestSkipped( 'The month multi-day event does not receive data yet' );

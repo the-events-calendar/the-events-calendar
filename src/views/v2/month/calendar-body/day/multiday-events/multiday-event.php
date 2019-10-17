@@ -77,6 +77,7 @@ if ( $should_display ) {
 			</time>
 			<a
 				href="<?php echo esc_url( $event->permalink ); ?>"
+				class="tribe-events-calendar-month__multiday-event-hidden-link"
 				<?php if ( $display_tooltip ) : ?>
 					data-js="tribe-events-tooltip"
 					data-tooltip-content="#tribe-events-tooltip-content-<?php echo esc_attr( $event->ID ); ?>"
@@ -85,27 +86,27 @@ if ( $should_display ) {
 			>
 				<?php if ( $event->featured ) : ?>
 					<em
-						class="tribe-events-calendar-month__multiday-event-featured-icon tribe-common-svgicon tribe-common-svgicon--featured"
+						class="tribe-events-calendar-month__multiday-event-hidden-featured-icon tribe-common-svgicon tribe-common-svgicon--featured"
 						aria-label="<?php esc_attr_e( 'Featured', 'the-events-calendar' ); ?>"
 						title="<?php esc_attr_e( 'Featured', 'the-events-calendar' ); ?>"
 					></em>
 				<?php endif; ?>
-				<h3 class="tribe-events-calendar-month__multiday-event-title tribe-common-h8">
+				<h3 class="tribe-events-calendar-month__multiday-event-hidden-title tribe-common-h8">
 					<?php echo wp_kses_post( get_the_title( $event->ID ) ); ?>
 				</h3>
 			</a>
 		</div>
 		<?php if ( $should_display ) : ?>
 			<div class="tribe-events-calendar-month__multiday-event-bar">
-				<div class="tribe-events-calendar-month__multiday-event-inner">
+				<div class="tribe-events-calendar-month__multiday-event-bar-inner">
 					<?php if ( $event->featured ) : ?>
 						<em
-							class="tribe-events-calendar-month__multiday-event-featured-icon tribe-common-svgicon tribe-common-svgicon--featured"
+							class="tribe-events-calendar-month__multiday-event-bar-featured-icon tribe-common-svgicon tribe-common-svgicon--featured"
 							aria-label="<?php esc_attr_e( 'Featured', 'the-events-calendar' ); ?>"
 							title="<?php esc_attr_e( 'Featured', 'the-events-calendar' ); ?>"
 						></em>
 					<?php endif; ?>
-					<h3 class="tribe-events-calendar-month__multiday-event-title tribe-common-h8">
+					<h3 class="tribe-events-calendar-month__multiday-event-bar-title tribe-common-h8">
 						<?php echo wp_kses_post( get_the_title( $event->ID ) ); ?>
 					</h3>
 				</div>
