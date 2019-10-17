@@ -27,7 +27,7 @@ $address              = $venue->address . ( $venue->address && $append_after_add
 ?>
 <address class="tribe-events-calendar-list__event-venue tribe-common-b2">
 	<span class="tribe-events-calendar-list__event-venue-title tribe-common-b2--bold">
-		<?php echo esc_html( $venue->post_title ); ?>
+		<?php echo wp_kses_post( $venue->post_title ); ?>
 	</span>
 	<span class="tribe-events-calendar-list__event-venue-address">
 		<?php echo esc_html( $address ); ?>
