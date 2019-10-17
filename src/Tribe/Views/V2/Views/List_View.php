@@ -108,8 +108,8 @@ class List_View extends View {
 		$event_date_var = $default_date === $date ? '' : $date;
 
 		$past = tribe_events()->by_args( $this->setup_repository_args( $this->context->alter( [
-			'eventDisplay' => 'past',
-			'paged'        => $page,
+			'event_display_mode' => 'past',
+			'paged'              => $page,
 		] ) ) );
 
 		if ( $past->count() > 0 ) {
