@@ -41,6 +41,8 @@ class Event extends Base {
 			$cache_this = $this->get_caching_callback( $filter );
 
 			$now     = Dates::build_date_object( 'now' );
+			$one_second = new DateInterval( 'PT1S' );
+
 			$post_id = $this->post->ID;
 
 			$start_date            = get_post_meta( $post_id, '_EventStartDate', true );
@@ -64,15 +66,33 @@ class Event extends Base {
 				$duration = $end_date_utc_object->getTimestamp() - $start_date_utc_object->getTimestamp();
 			}
 
-			// An event is multi-day if its end date is after the end-of-day cutoff of the start date.
-			$is_multiday           = $end_of_day_object < $end_date_object;
-			$multiday              = false;
+			/*
+			 * An event is multi-day if its end date is after the end-of-day cutoff of the start date.
+			 * We add one second to make sure events ending at end-of-day, same day, cutoff are not marked as multi-day.
+			 */
+			$is_multiday = $end_of_day_object->add( $one_second ) < $end_date_object;
+			$multiday    = false;
 
 			// Without a context these values will not make sense; we'll set them if the `$filter` argument is a date.
 			$starts_this_week      = null;
 			$ends_this_week        = null;
 			$happens_this_week     = null;
 			$this_week_duration    = null;
+
+			// Multi-day events will span at least two days: the day they start on and the following one.
+			if ( $is_multiday ) {
+				/*
+				 * Count the number of cut-offs happening before the end date and add 1.
+				 * Do not add 1 for all-day events as they span cut-off to cut-off.
+				 */
+				$multiday       = $all_day ? 0 : 1;
+				$one_day        = new DateInterval( 'P1D' );
+				// The end date should be inclusive, since it's not in the DatePeriod we work-around it adding a second.
+				$period = new DatePeriod( $end_of_day_object, $one_day, $end_date_object );
+				foreach ( $period as $date ) {
+					++ $multiday;
+				};
+			}
 
 			if ( Dates::is_valid_date( $filter ) ) {
 				$week_start = Dates::build_date_object( $filter, $timezone );
@@ -96,32 +116,16 @@ class Event extends Base {
 						/*
 						 * We add one second during this calculation to cope with all-day events starting on 12:00 AM.
 						 * Due to how DateTime diff works diffing two following midnights would yield a diff of 2 days.
+						 * Furthermore, a multi-day event will always last at least 2 days.
 						 */
-						$one_second = new DateInterval( 'PT1S' );
-
-						$this_week_duration = min(
+						$this_week_duration = max( $multiday, min(
 							7,
 							$week_end->diff( $start_date_object->add( $one_second ) )->days + 1,
 							$end_date_object->diff( $week_start )->days + 1,
 							$end_date_object->diff( $start_date_object->add( $one_second ) )->days + 1
-						);
+						) );
 					}
 				}
-			}
-
-			// Multi-day events will span at least two days: the day they start on and the following one.
-			if ( $is_multiday ) {
-				/*
-				 * Count the number of cut-offs happening before the end date and add 1.
-				 * Do not add 1 for all-day events as they span cut-off to cut-off.
-				 */
-				$multiday = $all_day ? 0 : 1;
-				$one_day  = new DateInterval( 'P1D' );
-				// The end date should be inclusive, since it's not in the DatePeriod we work-around it adding a second.
-				$period = new DatePeriod( $end_of_day_object, $one_day, $end_date_object );
-				foreach ( $period as $date ) {
-					++ $multiday;
-				};
 			}
 
 			$featured        = tribe_is_truthy( get_post_meta( $post_id, Featured::FEATURED_EVENT_KEY, true ) );
