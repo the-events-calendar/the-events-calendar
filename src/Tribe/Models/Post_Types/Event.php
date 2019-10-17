@@ -40,8 +40,9 @@ class Event extends Base {
 		try {
 			$cache_this = $this->get_caching_callback( $filter );
 
-			$now     = Dates::build_date_object( 'now' );
+			$now        = Dates::build_date_object( 'now' );
 			$one_second = new DateInterval( 'PT1S' );
+			$one_day    = new DateInterval( 'P1D' );
 
 			$post_id = $this->post->ID;
 
@@ -74,10 +75,10 @@ class Event extends Base {
 			$multiday    = false;
 
 			// Without a context these values will not make sense; we'll set them if the `$filter` argument is a date.
-			$starts_this_week      = null;
-			$ends_this_week        = null;
-			$happens_this_week     = null;
-			$this_week_duration    = null;
+			$starts_this_week   = null;
+			$ends_this_week     = null;
+			$happens_this_week  = null;
+			$this_week_duration = null;
 
 			// Multi-day events will span at least two days: the day they start on and the following one.
 			if ( $is_multiday ) {
@@ -85,8 +86,8 @@ class Event extends Base {
 				 * Count the number of cut-offs happening before the end date and add 1.
 				 * Do not add 1 for all-day events as they span cut-off to cut-off.
 				 */
-				$multiday       = $all_day ? 0 : 1;
-				$one_day        = new DateInterval( 'P1D' );
+				$multiday = $all_day ? 0 : 1;
+
 				// The end date should be inclusive, since it's not in the DatePeriod we work-around it adding a second.
 				$period = new DatePeriod( $end_of_day_object, $one_day, $end_date_object );
 				foreach ( $period as $date ) {
@@ -118,12 +119,15 @@ class Event extends Base {
 						 * Due to how DateTime diff works diffing two following midnights would yield a diff of 2 days.
 						 * Furthermore, a multi-day event will always last at least 2 days.
 						 */
-						$this_week_duration = max( $multiday, min(
-							7,
-							$week_end->diff( $start_date_object->add( $one_second ) )->days + 1,
-							$end_date_object->diff( $week_start )->days + 1,
-							$end_date_object->diff( $start_date_object->add( $one_second ) )->days + 1
-						) );
+						$this_week_duration = max(
+							$multiday,
+							min(
+								7,
+								$week_end->diff( $start_date_object->add( $one_second ) )->days + 1,
+								$end_date_object->diff( $week_start )->days + 1,
+								$end_date_object->diff( $start_date_object->add( $one_second ) )->days + 1
+							)
+						);
 					}
 				}
 			}
@@ -160,17 +164,17 @@ class Event extends Base {
 				'thumbnail'              => ( new Post_Thumbnail( $post_id ) )->on_resolve( $cache_this ),
 				'permalink'              => get_permalink( $post_id ),
 				'schedule_details'       => ( new Lazy_String(
-					static function () use ( $post_id )
-					{
+					static function () use ( $post_id ) {
 						return tribe_events_event_schedule_details( $post_id );
-					}, false
+					},
+					false
 				) )->on_resolve( $cache_this ),
 				'plain_schedule_details' => ( new Lazy_String(
-					static function () use ( $post_id )
-					{
+					static function () use ( $post_id ) {
 						return tribe_events_event_schedule_details( $post_id, '', '', false );
-					}, false
-				) )->on_resolve( $cache_this )
+					},
+					false
+				) )->on_resolve( $cache_this ),
 			];
 		} catch ( \Exception $e ) {
 			return [];

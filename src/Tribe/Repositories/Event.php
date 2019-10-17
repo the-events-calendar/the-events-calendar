@@ -418,15 +418,15 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 * @since 4.9
 	 * @since TBD Add the `$min_sec_overlap` parameter.
 	 *
-	 * @param string|DateTime|int $start_datetime A `strtotime` parse-able string, a DateTime object or
-	 *                                            a timestamp.
-	 * @param string|DateTime|int $end_datetime   A `strtotime` parse-able string, a DateTime object or
-	 *                                            a timestamp.
-	 * @param string|DateTimeZone $timezone       A timezone string, UTC offset or DateTimeZone object;
-	 *                                            defaults to the site timezone; this parameter is ignored
-	 *                                            if the `$datetime` parameter is a DatTime object.
-	 * @param null|int $min_sec_overlap           The minimum overlap, in seconds, an event should have with the
-	 *                                            interval; defaults to at least a second.
+	 * @param string|DateTime|int $start_datetime  A `strtotime` parse-able string, a DateTime object or
+	 *                                             a timestamp.
+	 * @param string|DateTime|int $end_datetime    A `strtotime` parse-able string, a DateTime object or
+	 *                                             a timestamp.
+	 * @param string|DateTimeZone $timezone        A timezone string, UTC offset or DateTimeZone object;
+	 *                                             defaults to the site timezone; this parameter is ignored
+	 *                                             if the `$datetime` parameter is a DatTime object.
+	 * @param null|int            $min_sec_overlap The minimum overlap, in seconds, an event should have with the
+	 *                                             interval; defaults to at least a second.
 	 */
 	public function filter_by_date_overlaps( $start_datetime, $end_datetime, $timezone = null, $min_sec_overlap = 1 ) {
 		global $wpdb;
