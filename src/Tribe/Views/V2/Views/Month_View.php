@@ -12,6 +12,7 @@ use Tribe\Events\Views\V2\Messages;
 use Tribe__Context as Context;
 use Tribe__Date_Utils as Dates;
 use Tribe__Events__Template__Month as Month;
+use Tribe__Repository__Query_Filters as Query_Filters;
 use Tribe__Utils__Array as Arr;
 
 class Month_View extends By_Day_View {
@@ -155,7 +156,14 @@ class Month_View extends By_Day_View {
 
 		$this->user_date = ( new \DateTime( $date ) )->format( 'Y-m' );
 
-		$args['order_by'] = 'event_date';
+		/*
+		 * By default the `event_date` filter order criteria would apply before the WordPress default ones.
+		 * Here we specify we want it to be applied after as we want events ordered by `menu_order` then `event_date`.
+		 */
+		$args['order_by'] = [
+			'menu_order'                        => 'ASC',
+			Query_Filters::AFTER . 'event_date' => 'ASC'
+		];
 		$args['order']    = 'ASC';
 
 		return $args;
@@ -235,9 +243,15 @@ class Month_View extends By_Day_View {
 	 */
 	protected function build_day_stacks( array $grid_events_by_day ) {
 		$week_stacks = [];
+
+		// Include "Sticky in Month View" events in the stack.
+		add_filter( 'tribe_events_views_v2_stack_filter_event', [ $this, 'include_sticky_event_in_stack' ], 10, 2 );
+
 		foreach ( array_chunk( $grid_events_by_day, 7, true ) as $week_events_by_day ) {
 			$week_stacks[] = $this->stack->build_from_events( $week_events_by_day );
 		}
+
+		remove_filter( 'tribe_events_views_v2_stack_filter_event', [ $this, 'include_sticky_event_in_stack' ] );
 
 		return array_merge( ...$week_stacks );
 	}
@@ -387,5 +401,19 @@ class Month_View extends By_Day_View {
 	 */
 	protected function get_url_date_format() {
 		return 'Y-m';
+	}
+
+	/**
+	 * Include "Sticky in Month View" events in the stack.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $keep Whether to keep the event in the stack or discard it.
+	 * @param mixed|\WP_Post $event The event object.
+	 *
+	 * @return bool Whether to keep the event in the stack, based on Month View criteria, or not.
+	 */
+	public function include_sticky_event_in_stack( $keep, $event ) {
+		return $keep || ( $event instanceof \WP_Post && $event->sticky );
 	}
 }
