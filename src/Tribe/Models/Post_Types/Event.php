@@ -125,6 +125,7 @@ class Event extends Base {
 			}
 
 			$featured        = tribe_is_truthy( get_post_meta( $post_id, Featured::FEATURED_EVENT_KEY, true ) );
+			$sticky          = get_post_field( 'menu_order', $post_id ) === -1;
 			$organizer_fetch = Organizer::get_fetch_callback( $post_id );
 			$venue_fetch     = Venue::get_fetch_callback( $post_id );
 
@@ -149,6 +150,7 @@ class Event extends Base {
 				'this_week_duration'     => $this_week_duration,
 				'happens_this_week'      => $happens_this_week,
 				'featured'               => $featured,
+				'sticky'                 => $sticky,
 				'cost'                   => tribe_get_cost( $post_id, true ),
 				'excerpt'                => tribe_events_get_the_excerpt( $post_id, wp_kses_allowed_html( 'post' ) ),
 				'organizers'             => ( new Lazy_Collection( $organizer_fetch ) )->on_resolve( $cache_this ),
