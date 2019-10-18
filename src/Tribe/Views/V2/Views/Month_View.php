@@ -12,7 +12,6 @@ use Tribe\Events\Views\V2\Messages;
 use Tribe__Context as Context;
 use Tribe__Date_Utils as Dates;
 use Tribe__Events__Template__Month as Month;
-use Tribe__Repository__Query_Filters as Query_Filters;
 use Tribe__Utils__Array as Arr;
 
 class Month_View extends By_Day_View {
@@ -156,13 +155,9 @@ class Month_View extends By_Day_View {
 
 		$this->user_date = ( new \DateTime( $date ) )->format( 'Y-m' );
 
-		/*
-		 * By default the `event_date` filter order criteria would apply before the WordPress default ones.
-		 * Here we specify we want it to be applied after as we want events ordered by `menu_order` then `event_date`.
-		 */
 		$args['order_by'] = [
-			'menu_order'                        => 'ASC',
-			Query_Filters::AFTER . 'event_date' => 'ASC'
+			'menu_order' => 'ASC',
+			'event_date' => 'ASC',
 		];
 		$args['order']    = 'ASC';
 

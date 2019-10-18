@@ -1463,14 +1463,13 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 
 		$timestamp_key = 'TIMESTAMP(mt1.meta_value)';
 
+		$after    = false;
+		$loop = 0;
+
 		foreach ( $check_orderby as $key => $value ) {
+			$loop++;
 			$order_by = is_numeric( $key ) ? $value : $key;
 			$order    = is_numeric( $key ) ? 'ASC' : $value;
-			$after    = false;
-			if ( 0 === strpos( $order_by, Query_Filters::AFTER ) ) {
-				$after    = true;
-				$order_by = str_replace( Query_Filters::AFTER, '', $order_by );
-			}
 
 			switch ( $order_by ) {
 				case 'event_date':
@@ -1489,6 +1488,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 					$this->filter_query->orderby( $timestamp_key, null, null, $after );
 					break;
 				default:
+					$after = $after || $loop === 1;
 					if ( empty( $this->query_args['orderby'] ) ) {
 						$this->query_args['orderby'] = [ $order_by => $order ];
 					} else {
