@@ -349,7 +349,16 @@ class Stack {
 	protected function filter_stack_event( $event ) {
 		$post = tribe_get_event( $event );
 
-		return $post instanceof \WP_Post && ( ! empty( $post->multiday ) || ! empty( $post->all_day ) );
+		$keep = $post instanceof \WP_Post && ( ! empty( $post->multiday ) || ! empty( $post->all_day ) );
+
+		/**
+		 * Filters the result of the check to keep or discard an event from the stack.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool $keep Whether the event should be part of the stack or not.
+		 */
+		return apply_filters( 'tribe_events_views_v2_stack_filter_event', $keep, $event );
 	}
 
 	/**
@@ -363,7 +372,7 @@ class Stack {
 	 * @return bool Whether the stack should be normalized by padding each one of its elements with spacers at the
 	 *              bottom or not.
 	 */
-	protected function should_normalize_stack(array $events_by_day = []) {
+	protected function should_normalize_stack( array $events_by_day = [] ) {
 		/**
 		 * Filters the value to decide if the stack should be normalized or not padding each element with spacers
 		 * to the same height as the one of the stack elements with more events in it or not.
