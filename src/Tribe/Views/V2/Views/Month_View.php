@@ -243,15 +243,9 @@ class Month_View extends By_Day_View {
 	 */
 	protected function build_day_stacks( array $grid_events_by_day ) {
 		$week_stacks = [];
-
-		// Include "Sticky in Month View" events in the stack.
-		add_filter( 'tribe_events_views_v2_stack_filter_event', [ $this, 'include_sticky_event_in_stack' ], 10, 2 );
-
 		foreach ( array_chunk( $grid_events_by_day, 7, true ) as $week_events_by_day ) {
 			$week_stacks[] = $this->stack->build_from_events( $week_events_by_day );
 		}
-
-		remove_filter( 'tribe_events_views_v2_stack_filter_event', [ $this, 'include_sticky_event_in_stack' ] );
 
 		return array_merge( ...$week_stacks );
 	}
@@ -401,19 +395,5 @@ class Month_View extends By_Day_View {
 	 */
 	protected function get_url_date_format() {
 		return 'Y-m';
-	}
-
-	/**
-	 * Include "Sticky in Month View" events in the stack.
-	 *
-	 * @since TBD
-	 *
-	 * @param bool $keep Whether to keep the event in the stack or discard it.
-	 * @param mixed|\WP_Post $event The event object.
-	 *
-	 * @return bool Whether to keep the event in the stack, based on Month View criteria, or not.
-	 */
-	public function include_sticky_event_in_stack( $keep, $event ) {
-		return $keep || ( $event instanceof \WP_Post && $event->sticky );
 	}
 }
