@@ -6,6 +6,7 @@
  */
 
 use Tribe__Date_Utils as Dates;
+use Tribe__Repository__Query_Filters as Query_Filters;
 use Tribe__Timezones as Timezones;
 use Tribe__Utils__Array as Arr;
 
@@ -1454,9 +1455,6 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 * @param string $order_by The key used to order events; e.g. `event_date` to order events by start date.
 	 */
 	public function handle_order_by( $order_by ) {
-		/** @var \wpdb $wpdb */
-		global $wpdb;
-
 		$check_orderby = $order_by;
 
 		if ( ! is_array( $check_orderby ) ) {
@@ -1465,26 +1463,48 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 
 		$timestamp_key = 'TIMESTAMP(mt1.meta_value)';
 
-		$by_event_start_date     = isset( $check_orderby['event_date'] )
-		                           || in_array( 'event_date', $check_orderby, true );
-		$by_event_start_date_utc = isset( $check_orderby['event_date_utc'] )
-		                           || in_array( 'event_date_utc', $check_orderby, true );
-		$by_organizer            = isset( $check_orderby['organizer'] )
-		                           || in_array( 'organizer', $check_orderby, true );
-		$by_venue                = isset( $check_orderby['venue'] ) || in_array( 'venue', $check_orderby, true );
-		$by_timestamp_key        = isset( $check_orderby[ $timestamp_key ] )
-		                           || in_array( $timestamp_key, $check_orderby, true );
+		foreach ( $check_orderby as $key => $value ) {
+			$order_by = is_numeric( $key ) ? $value : $key;
+			$order    = is_numeric( $key ) ? 'ASC' : $value;
+			$after    = false;
+			if ( 0 === strpos( $order_by, Query_Filters::AFTER ) ) {
+				$after    = true;
+				$order_by = str_replace( Query_Filters::AFTER, '', $order_by );
+			}
 
-		if ( $by_event_start_date || $by_event_start_date_utc ) {
-			$this->order_by_date( $by_event_start_date_utc );
-		} elseif ( $by_organizer ) {
-			$this->order_by_organizer();
-		} elseif ( $by_venue ) {
-			$this->order_by_venue();
-		} elseif ( $by_timestamp_key ) {
-			$this->filter_query->orderby( $timestamp_key );
-		} else {
-			$this->query_args['orderby'] = $order_by;
+			switch ( $order_by ) {
+				case 'event_date':
+					$this->order_by_date( false, $after );
+					break;
+				case 'event_date_utc':
+					$this->order_by_date( true, $after );
+					break;
+				case 'organizer':
+					$this->order_by_organizer( $after );
+					break;
+				case 'venue':
+					$this->order_by_venue( $after );
+					break;
+				case $timestamp_key:
+					$this->filter_query->orderby( $timestamp_key, null, null, $after );
+					break;
+				default:
+					if ( empty( $this->query_args['orderby'] ) ) {
+						$this->query_args['orderby'] = [ $order_by => $order ];
+					} else {
+						// Make sure all `orderby` clauses have the shape `<orderby> => <order>`.
+						$this->query_args['orderby'] = (array) $this->query_args['orderby'];
+						array_reduce( $this->query_args['orderby'], static function ( array $q, $v, $k ) {
+							$order_by        = is_numeric( $k ) ? $v : $k;
+							$order           = is_numeric( $k ) ? 'ASC' : $v;
+							$q [ $order_by ] = $order;
+
+							return $q;
+						}, [] );
+						$this->query_args[ $order_by ] = $order;
+					}
+					break;
+			}
 		}
 	}
 
@@ -1512,10 +1532,13 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 * Applies start-date-based ordering to the query.
 	 *
 	 * @since 4.9.7
+	 * @since TBD Added the `$after` parameter.
 	 *
-	 * @param      bool $use_utc Whether to use the events UTC start dates or their localized dates.
+	 * @param bool $use_utc      Whether to use the events UTC start dates or their localized dates.
+	 * @param bool $after        Whether to append the order by clause to the ones managed by WordPress or not.
+	 *                           Defaults to `false`,to prepend them to the ones managed by WordPress.
 	 */
-	protected function order_by_date( $use_utc ) {
+	protected function order_by_date( $use_utc, $after = false ) {
 		global $wpdb;
 
 		$meta_alias = 'event_date';
@@ -1571,7 +1594,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			true
 		);
 
-		$this->filter_query->orderby( $meta_alias, $filter_id, true );
+		$this->filter_query->orderby( $meta_alias, $filter_id, true, $after );
 		$this->filter_query->fields( "MIN( {$postmeta_table}.meta_value ) AS {$meta_alias}", $filter_id, true );
 	}
 
@@ -1579,8 +1602,12 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 * Applies Organizer-based ordering to the query.
 	 *
 	 * @since 4.9.7
+	 * @since TBD Added the `$after` parameter.
+	 *
+	 * @param bool $after        Whether to append the order by clause to the ones managed by WordPress or not.
+	 *                           Defaults to `false`,to prepend them to the ones managed by WordPress.
 	 */
-	protected function order_by_organizer() {
+	protected function order_by_organizer( $after = false ) {
 		global $wpdb;
 
 		$postmeta_table = 'orderby_organizer_meta';
@@ -1604,7 +1631,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		);
 
 		$filter_id = 'order_by_organizer';
-		$this->filter_query->orderby( 'organizer', $filter_id, true );
+		$this->filter_query->orderby( 'organizer', $filter_id, true, $after );
 		$this->filter_query->fields( "{$posts_table}.post_title AS organizer", $filter_id, true );
 	}
 
@@ -1612,8 +1639,12 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 * Applies Venue-based ordering to the query.
 	 *
 	 * @since 4.9.7
+	 * @since TBD Added the `$after` parameter.
+	 *
+	 * @param bool $after        Whether to append the order by clause to the ones managed by WordPress or not.
+	 *                           Defaults to `false`,to prepend them to the ones managed by WordPress.
 	 */
-	protected function order_by_venue() {
+	protected function order_by_venue( $after = false ) {
 		global $wpdb;
 
 		$postmeta_table = 'orderby_venue_meta';
@@ -1637,7 +1668,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		);
 
 		$filter_id = 'order_by_venue';
-		$this->filter_query->orderby( 'venue', $filter_id, true );
+		$this->filter_query->orderby( 'venue', $filter_id, true, $after );
 		$this->filter_query->fields( "{$posts_table}.post_title AS venue", $filter_id, true );
 	}
 
