@@ -201,14 +201,14 @@ class Month_View extends By_Day_View {
 		 * The messages set up before will be wrong due to an always empty `$events` array.
 		 * To remedy that we re-build them here with update information.
 		 */
-		$this->messages->reset( Messages::TYPE_NOTICE );
+		$this->messages->reset( Messages::TYPE_NOTICE, 10 );
 
 		if ( empty( $grid_days ) || 0 === array_sum( array_map( 'count', $grid_days ) ) ) {
 			$keyword = $this->context->get( 'keyword', false );
 			if ( $keyword ) {
 				$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( 'month_no_results_found_w_keyword', trim( $keyword ) ) );
 			} else {
-				$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( 'no_results_found' ) );
+				$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( 'no_results_found' ), 9 );
 			}
 		}
 
