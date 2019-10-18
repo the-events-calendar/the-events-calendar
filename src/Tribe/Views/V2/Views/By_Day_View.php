@@ -1,12 +1,11 @@
 <?php
 /**
- * ${CARET}
+ * The parent, abstract, View that models a view rendering on a per-day basis.
  *
  * @since   4.9.7
  *
  * @package Tribe\Events\Views\V2\Views
  */
-
 
 namespace Tribe\Events\Views\V2\Views;
 
@@ -18,6 +17,13 @@ use Tribe__Cache_Listener as Cache_Listener;
 use Tribe__Date_Utils as Dates;
 use Tribe__Utils__Array as Arr;
 
+/**
+ * Class By_Day_View
+ *
+ * @since   4.9.7
+ *
+ * @package Tribe\Events\Views\V2\Views
+ */
 abstract class By_Day_View extends View {
 	use Cache_User;
 
@@ -126,6 +132,7 @@ abstract class By_Day_View extends View {
 		$this->warmup_cache( 'grid_days_found', 0, Cache_Listener::TRIGGER_SAVE_POST );
 		$events_per_day = $this->get_events_per_day();
 
+		// phpcs:ignore
 		/** @var \DateTime $day */
 		foreach ( $days as $day ) {
 			$day_string = $day->format( 'Y-m-d' );
@@ -141,10 +148,11 @@ abstract class By_Day_View extends View {
 			 * We want events overlapping the current day, by more than 1 second.
 			 * This prevents events ending on the cutoff from showing up here.
 			 */
-			$day_query = tribe_events()->by_args( $repository_args )
-									   ->where( 'date_overlaps', $start, $end, null, 2 )
-									   ->per_page( $events_per_day )
-									   ->order_by( $order_by, $order );
+			$day_query = tribe_events()
+				->by_args( $repository_args )
+				->where( 'date_overlaps', $start, $end, null, 2 )
+				->per_page( $events_per_day )
+				->order_by( $order_by, $order );
 			$event_ids = $day_query->get_ids();
 			$found     = $day_query->found();
 
