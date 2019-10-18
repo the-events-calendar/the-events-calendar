@@ -32,6 +32,8 @@
 		<header class="tribe-events-header">
 			<?php $this->template( 'components/events-bar' ); ?>
 
+			<?php $this->template( 'components/messages' ); ?>
+
 			<?php $this->template( 'day/top-bar' ); ?>
 		</header>
 

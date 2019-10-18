@@ -2,7 +2,7 @@
 /**
  * Handles the manipulation of the excerpt.
  *
- * @since   TBD
+ * @since   4.9.10
  *
  * @package Tribe\Events\Views\V2\Template
  */
@@ -14,7 +14,7 @@ use Tribe__Events__Main as Plugin;
 /**
  * Class Excerpt
  *
- * @since   TBD
+ * @since   4.9.10
  *
  * @package Tribe\Events\Views\V2\Template
  */
@@ -23,7 +23,7 @@ class Excerpt extends Base_Template {
 	/**
 	 * Excerpt constructor.
 	 *
-	 * @since TBD
+	 * @since 4.9.10
 	 */
 	public function __construct() {
 		$this->set_template_origin( Plugin::instance() );
@@ -37,7 +37,7 @@ class Excerpt extends Base_Template {
 	 *
 	 * Set the excerpt length for list and day view.
 	 *
-	 * @since TBD
+	 * @since 4.9.10
 	 *
 	 * @param int $length The excerpt length.
 	 *
@@ -55,7 +55,7 @@ class Excerpt extends Base_Template {
 	 *
 	 * Set the excerpt more button styles for twentyseventeen.
 	 *
-	 * @since TBD
+	 * @since 4.9.10
 	 *
 	 * @param string $link The excerpt read more link.
 	 *

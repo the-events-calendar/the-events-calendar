@@ -270,7 +270,7 @@ class Url {
 	/**
 	 * Builds and returns an instance of the object taking care to parse additional parameters to use the correct URL.
 	 *
-	 * @since TBD
+	 * @since 4.9.10
 	 *
 	 * @param string $url The URL address to build the object on.
 	 * @param array  $params An array of additional parameters to parse; these parameters might be more up to date in
