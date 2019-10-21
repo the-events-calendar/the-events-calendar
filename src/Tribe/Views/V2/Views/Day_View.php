@@ -8,6 +8,7 @@
 
 namespace Tribe\Events\Views\V2\Views;
 
+use Tribe\Events\Views\V2\Messages;
 use Tribe\Events\Views\V2\Url;
 use Tribe\Events\Views\V2\View;
 use Tribe__Date_Utils as Dates;
@@ -193,4 +194,32 @@ class Day_View extends View {
 		return array_values( $all_day + $ongoing + $hourly );
 
 	}
+  
+	/**
+	 * Overrides the base View method to implement logic tailored to the Day View.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $events An array of the View events, if any.
+	 */
+	protected function setup_messages( array $events ) {
+		if ( empty( $events ) ) {
+			$keyword = $this->context->get( 'keyword', false );
+
+			if ( $keyword ) {
+				$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( 'no_results_found_w_keyword', trim( $keyword ) ) );
+			} else {
+				$date_time  = Dates::build_date_object( $this->context->get( 'event_date', 'today' ) );
+				$date_label = date_i18n(
+					tribe_get_date_format( true ),
+					$date_time->getTimestamp() + $date_time->getOffset()
+				);
+				$this->messages->insert(
+					Messages::TYPE_NOTICE,
+					Messages::for_key( 'day_no_results_found', $date_label )
+				);
+			}
+		}
+	}
+
 }

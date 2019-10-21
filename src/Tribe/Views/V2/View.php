@@ -1014,14 +1014,7 @@ class View implements View_Interface {
 
 		$events = (array) $this->repository->all();
 
-		if ( empty( $events ) ) {
-			$keyword = $this->context->get( 'keyword', false );
-			if ( $keyword ) {
-				$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( 'no_results_found_w_keyword', trim( $keyword ) ) );
-			} else {
-				$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( 'no_results_found' ) );
-			}
-		}
+		$this->setup_messages( $events );
 
 		$template_vars = [
 			'title'             => $this->get_title( $events ),
@@ -1045,7 +1038,7 @@ class View implements View_Interface {
 				'compact'        => Dates::datepicker_formats( tribe_get_option( 'datepickerFormat' ) ),
 				'month_and_year' => tribe_get_date_option( 'monthAndYearFormat', 'F Y' ),
 			],
-			'messages'           => $this->get_messages(),
+			'messages'          => $this->get_messages( $events ),
 		];
 
 		return $template_vars;
@@ -1290,9 +1283,11 @@ class View implements View_Interface {
 	 *
 	 * @since TBD
 	 *
+	 * @param array $events An array of the events found by the View that is currently rendering.
+	 *
 	 * @return Messages A collection of user-facing messages the View will display on the front-end.
 	 */
-	public function get_messages() {
+	public function get_messages( array $events = [] ) {
 		$slug = $this->get_slug();
 
 		/**
@@ -1304,9 +1299,10 @@ class View implements View_Interface {
 		 * @since TBD
 		 *
 		 * @param Messages $messages The object instance handling the messages for the View.
-		 * @param View $this The View instance currently rendering.
+		 * @param array    $events   An array of the events found by the View that is currently rendering.
+		 * @param View     $this     The View instance currently rendering.
 		 */
-		do_action( 'tribe_events_views_v2_view_messages_before_render', $this->messages, $this );
+		do_action( 'tribe_events_views_v2_view_messages_before_render', $this->messages, $events, $this );
 
 		$messages = $this->messages->to_array();
 
@@ -1315,11 +1311,12 @@ class View implements View_Interface {
 		 *
 		 * @since TBD
 		 *
-		 * @param array $messages An array of messages in the shape `[ <message_type> => [ ...<messages> ] ]`.
-		 * @param View $this The current View instance being rendered.
+		 * @param array    $messages         An array of messages in the shape `[ <message_type> => [ ...<messages> ] ]`.
+		 * @param array    $events           An array of the events found by the View that is currently rendering.
+		 * @param View     $this             The current View instance being rendered.
 		 * @param Messages $messages_handler The messages handler object the View used to render the messages.
 		 */
-		$messages = apply_filters( "tribe_events_views_v2_{$slug}_messages", $messages, $this, $this->messages );
+		$messages = apply_filters( "tribe_events_views_v2_{$slug}_messages", $messages, $events, $this, $this->messages );
 
 		/**
 		 * Filters the user-facing messages the View will print on the frontend.
@@ -1331,5 +1328,23 @@ class View implements View_Interface {
 		 * @param Messages $messages_handler The messages handler object the View used to render the messages.
 		 */
 		return apply_filters( 'tribe_events_views_v2_view_messages', $messages, $this, $this->messages );
+	}
+
+	/**
+	 * Sets up the user-facing messages the View will print on the frontend.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $events An array of the View events, if any.
+	 */
+	protected function setup_messages( array $events ) {
+		if ( empty( $events ) ) {
+			$keyword = $this->context->get( 'keyword', false );
+			if ( $keyword ) {
+				$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( 'no_results_found_w_keyword', trim( $keyword ) ) );
+			} else {
+				$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( 'no_results_found' ) );
+			}
+		}
 	}
 }
