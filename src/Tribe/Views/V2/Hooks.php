@@ -206,7 +206,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Filters the `wp_title` template tag.
 	 *
-	 * @since TBD
+	 * @since 4.9.10
 	 *
 	 * @param      string $title The current title value.
 	 * @param string|null $sep The separator char, or sequence, to use to separate the page title from the blog one.
@@ -222,7 +222,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * This is the template tag introduced in WP 4.4 to get the page title.
 	 *
-	 * @since TBD
+	 * @since 4.9.10
 	 *
 	 * @param string $title The page title.
 	 *
@@ -235,7 +235,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Filters the `excerpt_length`.
 	 *
-	 * @since TBD
+	 * @since 4.9.10
 	 *
 	 * @param int $length The excerpt length.
 	 *
@@ -248,7 +248,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Filters the `excerpt_more`.
 	 *
-	 * @since TBD
+	 * @since 4.9.10
 	 *
 	 * @param string $link The excerpt read more link.
 	 *

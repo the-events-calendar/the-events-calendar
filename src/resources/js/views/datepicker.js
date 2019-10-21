@@ -60,7 +60,7 @@ tribe.events.views.datepicker = {};
 	/**
 	 * Object of datepicker options
 	 *
-	 * @since TBD
+	 * @since 4.9.10
 	 *
 	 * @type {PlainObject}
 	 */
@@ -84,7 +84,7 @@ tribe.events.views.datepicker = {};
 	/**
 	 * Mutation observer to watch for mutations
 	 *
-	 * @since TBD
+	 * @since 4.9.10
 	 *
 	 * @type {MutationObserver}
 	 */

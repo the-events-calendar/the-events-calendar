@@ -2,7 +2,7 @@
 /**
  * Handles the manipulation of the template title to correctly render it in the context of a Views v2 request.
  *
- * @since   TBD
+ * @since   4.9.10
  *
  * @package Tribe\Events\Views\V2\Template
  */
@@ -16,7 +16,7 @@ use Tribe__Events__Main as TEC;
 /**
  * Class Title
  *
- * @since   TBD
+ * @since   4.9.10
  *
  * @package Tribe\Events\Views\V2\Template
  */
@@ -25,7 +25,7 @@ class Title {
 	/**
 	 * The instance of the Context object that will be used to build the title, the global one otherwise.
 	 *
-	 * @since TBD
+	 * @since 4.9.10
 	 *
 	 * @var Context
 	 */
@@ -33,7 +33,7 @@ class Title {
 	/**
 	 * An array of the events matching the query the title should be built for.
 	 *
-	 * @since TBD
+	 * @since 4.9.10
 	 *
 	 * @var array
 	 */
@@ -42,7 +42,7 @@ class Title {
 	/**
 	 * The plural Events label.
 	 *
-	 * @since TBD
+	 * @since 4.9.10
 	 *
 	 * @var string
 	 */
@@ -51,7 +51,7 @@ class Title {
 	/**
 	 * Title constructor.
 	 *
-	 * @since TBD
+	 * @since 4.9.10
 	 */
 	public function __construct() {
 		$this->events_label_plural = tribe_get_event_label_plural();
@@ -60,7 +60,7 @@ class Title {
 	/**
 	 * Builds and returns the page title, to be used to filter the `wp_title` tag.
 	 *
-	 * @since TBD
+	 * @since 4.9.10
 	 *
 	 * @param string      $title The page title built so far.
 	 * @param null|string $sep   The separator sequence to separate the title components..
@@ -73,7 +73,7 @@ class Title {
 		/**
 		 * Filters the page title built for event single or archive pages.
 		 *
-		 * @since TBD
+		 * @since 4.9.10
 		 *
 		 * @param string      $new_title The new title built for the page.
 		 * @param string      $title     The original title.
@@ -90,7 +90,7 @@ class Title {
 	 * This method is a rewrite of the `tribe_get_events_title` function to make it leverage the local context,
 	 * injectable and controllable, in place of the global one.
 	 *
-	 * @since TBD
+	 * @since 4.9.10
 	 *
 	 * @param bool $depth Whether to use depth to build the taxonomy archive title, or not.
 	 *
@@ -149,7 +149,7 @@ class Title {
 		 * This is by design, to allow the same filtering to apply. Since this method built the value using the context
 		 * that is passed to filtering functions as a third parameter.
 		 *
-		 * @since TBD
+		 * @since 4.9.10
 		 *
 		 * @param string  $title   The "Events" page title as it's been generated thus far.
 		 * @param bool    $depth   Whether to include the linked title or not.
@@ -164,7 +164,7 @@ class Title {
 		 * While the `tribe_get_events_title` is called above this one for back-compatibility purposes, this filter
 		 * is exclusive to the Views V2 implementation.
 		 *
-		 * @since TBD
+		 * @since 4.9.10
 		 *
 		 * @param string  $title   The "Events" page title as it's been generated thus far.
 		 * @param bool    $depth   Whether to include the linked title or not.
@@ -178,7 +178,7 @@ class Title {
 	/**
 	 * Builds the title for a range of posts.
 	 *
-	 * @since TBD
+	 * @since 4.9.10
 	 *
 	 * @param Context $context    The context to use to build the title.
 	 * @param mixed   $event_date The event date object, string or timestamp.
@@ -213,7 +213,7 @@ class Title {
 	/**
 	 * Filters and returns the `title` part of the array produced by the  `wp_get_document_title` function.
 	 *
-	 * @since TBD
+	 * @since 4.9.10
 	 *
 	 * @param array $title The document title parts.
 	 *
@@ -228,7 +228,7 @@ class Title {
 		/**
 		 * Filters the page title built for event single or archive pages.
 		 *
-		 * @since TBD
+		 * @since 4.9.10
 		 *
 		 * @param string      $new_title The new title built for the page.
 		 * @param string      $title     The original title.
@@ -244,7 +244,7 @@ class Title {
 	/**
 	 * Sets the context this title object should use to build the title.
 	 *
-	 * @since TBD
+	 * @since 4.9.10
 	 *
 	 * @param Context|null $context The context to use, `null` values will unset it causing the object ot use the
 	 *                              global context.
@@ -262,7 +262,7 @@ class Title {
 	 *
 	 * We build some title components with notion of what events we found for a View. Here we set them.
 	 *
-	 * @since TBD
+	 * @since 4.9.10
 	 *
 	 * @param array|null $posts  An array of posts matching the context query, `null` will unset it causing the object
 	 *                           to use the posts found by the global `$wp_query` object.
@@ -278,7 +278,7 @@ class Title {
 	/**
 	 * Returns the post the title should use to build some title fragments.
 	 *
-	 * @since TBD
+	 * @since 4.9.10
 	 *
 	 * @return array An array of injected posts, or the globally found posts.
 	 */
@@ -296,7 +296,7 @@ class Title {
 	/**
 	 * Builds the Month view title.
 	 *
-	 * @since TBD
+	 * @since 4.9.10
 	 *
 	 * @param mixed $event_date The date to use to build the title.
 	 *
@@ -314,7 +314,7 @@ class Title {
 		/**
 		 * Filters the Month view title.
 		 *
-		 * @since TBD
+		 * @since 4.9.10
 		 *
 		 * @param string $title The Month view title.
 		 * @param string The date to use to build the title, in the `Y-m-d` format.
@@ -325,7 +325,7 @@ class Title {
 	/**
 	 * Builds the Day view title.
 	 *
-	 * @since TBD
+	 * @since 4.9.10
 	 *
 	 * @param mixed $event_date The date to use to build the title.
 	 *
@@ -341,7 +341,7 @@ class Title {
 		/**
 		 * Filters the Day view title.
 		 *
-		 * @since TBD
+		 * @since 4.9.10
 		 *
 		 * @param string $title The Day view title.
 		 * @param string The date to use to build the title, in the `Y-m-d` format.
@@ -352,7 +352,7 @@ class Title {
 	/**
 	 * Builds, wrapping the current  title, the Event Category archive title.
 	 *
-	 * @since TBD
+	 * @since 4.9.10
 	 *
 	 * @param string $title The input title.
 	 * @param  \WP_Term $cat The category term to use to build the title.
@@ -366,7 +366,7 @@ class Title {
 		/**
 		 * Filters the Event Category Archive title.
 		 *
-		 * @since TBD
+		 * @since 4.9.10
 		 *
 		 *
 		 * @param string $new_title The Event Category archive title.
