@@ -149,6 +149,53 @@ class Day_View extends View {
 	}
 
 	/**
+	 * {@inheritDoc}
+	 */
+	protected function setup_template_vars() {
+
+		$template_vars = parent::setup_template_vars();
+		$sorted_events = $this->sort_events( $template_vars['events'] );
+
+		$template_vars['events'] = $sorted_events;
+
+		return $template_vars;
+	}
+
+	/**
+	 * Add timeslot and sort events for the day view.
+	 *
+	 * Iterate over the day events to add timeslots and sort them.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $events  An array of events.
+	 *
+	 * @return array The sorted and modified array.
+	 */
+	protected function sort_events( $events ) {
+
+		$all_day = [];
+		$ongoing = [];
+		$hourly  = [];
+
+		foreach ( $events as $i => $event ) {
+			if ( ! empty( $event->all_day ) ) {
+				$event->timeslot = 'all_day';
+				$all_day[ $i ]   = $event;
+			} elseif ( ! empty( $event->multiday ) ) {
+				$event->timeslot = 'multiday';
+				$ongoing[ $i ]   = $event;
+			} else {
+				$event->timeslot = null;
+				$hourly[ $i ]    = $event;
+			}
+		}
+
+		return array_values( $all_day + $ongoing + $hourly );
+
+	}
+  
+	/**
 	 * Overrides the base View method to implement logic tailored to the Day View.
 	 *
 	 * @since TBD
