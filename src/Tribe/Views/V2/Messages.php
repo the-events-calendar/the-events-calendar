@@ -41,6 +41,13 @@ class Messages {
 	const RENDER_STRATEGY_PRIORITY_FIRST = 'priority_first';
 
 	/**
+	 * The strategy that will print all messages, of all types.
+	 *
+	 * @since TBD
+	 */
+	const RENDER_STRATEGY_LIST = 'list';
+
+	/**
 	 * An array of the messages handled by the object.
 	 *
 	 * @since TBD
@@ -151,9 +158,10 @@ class Messages {
 					$updated_messages,
 					static function ( array &$value, $message_type ) {
 						ksort( $value );
+						// Keep the highest priority (lower number).
+						$highest = (array) reset( $value );
 						// Keep only the last message.
-						$highest = reset( $value );
-						$value   = [ end( $highest ) ];
+						$value = [ end( $highest ) ];
 					}
 				);
 				break;
@@ -162,14 +170,22 @@ class Messages {
 					$updated_messages,
 					static function ( array &$value, $message_type ) {
 						ksort( $value );
-						// Keep only the last message.
-						$highest = reset( $value );
-						$value   = [ reset( $highest ) ];
+						// Keep the highest priority (lower number).
+						$highest = (array) reset( $value );
+						// Keep only the first message.
+						$value = [ reset( $highest ) ];
 					}
 				);
 				break;
 			default:
-				break;
+			case static::RENDER_STRATEGY_LIST:
+			array_walk(
+				$updated_messages,
+				static function ( array &$value, $message_type ) {
+					ksort( $value );
+				}
+			);
+			break;
 		}
 
 		// Remove empty entries.
@@ -205,5 +221,28 @@ class Messages {
 			return;
 		}
 		$this->messages[ $message_type ][ $priority ][] = $message;
+	}
+
+	/**
+	 * Resets a specific type of messages or all of them.
+	 *
+	 * @since TBD
+	 *
+	 * @param null|string $type     The type of message to reset, or `null` to reset all messages.
+	 * @param null|int    $priority The specific priority to reset, this will be ignored if the `$type` parameter
+	 *                              is not set.
+	 */
+	public function reset( $type = null, $priority = null ) {
+		if ( null !== $type && isset( $this->messages[ $type ] ) ) {
+			if ( null !== $priority ) {
+				if ( isset( $this->messages[ $type ][ $priority ] ) ) {
+					unset( $this->messages[ $type ][ $priority ] );
+				}
+			} else {
+				unset( $this->messages[ $type ] );
+			}
+		} else {
+			$this->messages = [];
+		}
 	}
 }

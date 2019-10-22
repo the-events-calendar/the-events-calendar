@@ -67,4 +67,56 @@ class MessagesTest extends WPTestCase {
 
 		$this->assertEquals( $expected, Messages::for_key( 'test', ...$values ) );
 	}
+
+	/**
+	 * It should allow resetting messages
+	 *
+	 * @test
+	 */
+	public function should_allow_resetting_messages() {
+		$messages = new Messages( Messages::RENDER_STRATEGY_LIST );
+		$messages->insert( Messages::TYPE_NOTICE, 'Notice 1', 10 );
+		$messages->insert( Messages::TYPE_NOTICE, 'Notice 2', 12 );
+		$messages->insert( 'some_other_type', 'Message 1', 10 );
+		$messages->insert( 'some_other_type', 'Message 2', 12 );
+
+		$expected = [
+			Messages::TYPE_NOTICE => [
+				10 => [ 'Notice 1' ],
+				12 => [ 'Notice 2' ],
+			],
+			'some_other_type'     => [
+				10 => [ 'Message 1' ],
+				12 => [ 'Message 2' ],
+			],
+		];
+		$this->assertEquals( $expected, $messages->to_array() );
+
+		$messages->reset( Messages::TYPE_NOTICE, 10 );
+
+		$expected = [
+			Messages::TYPE_NOTICE => [
+				12 => [ 'Notice 2' ],
+			],
+			'some_other_type'     => [
+				10 => [ 'Message 1' ],
+				12 => [ 'Message 2' ],
+			],
+		];
+		$this->assertEquals( $expected, $messages->to_array() );
+
+		$messages->reset( Messages::TYPE_NOTICE );
+
+		$expected = [
+			'some_other_type' => [
+				10 => [ 'Message 1' ],
+				12 => [ 'Message 2' ],
+			],
+		];
+		$this->assertEquals( $expected, $messages->to_array() );
+
+		$messages->reset();
+
+		$this->assertEquals( [], $messages->to_array() );
+	}
 }
