@@ -21,6 +21,7 @@ use Tribe\Events\Views\V2\Query\Abstract_Query_Controller;
 use Tribe\Events\Views\V2\Query\Event_Query_Controller;
 use Tribe\Events\Views\V2\Template\Title;
 use Tribe\Events\Views\V2\Template\Excerpt;
+use Tribe\Events\Views\V2\Assets;
 use Tribe__Events__Main as TEC;
 use Tribe__Rewrite as Rewrite;
 
@@ -54,6 +55,8 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_action( 'tribe_common_loaded', [ $this, 'on_tribe_common_loaded' ], 1 );
 		add_action( 'wp_head', [ $this, 'on_wp_head' ], 1000 );
 		add_action( 'tribe_events_pre_rewrite', [ $this, 'on_tribe_events_pre_rewrite' ] );
+		add_action( 'wp_enqueue_scripts', [ $this, 'action_disable_assets_v1' ] );
+		add_action( 'tribe_events_pro_shortcode_tribe_events_assets', [ $this, 'action_disable_shortcode_assets_v1' ] );
 	}
 
 	/**
@@ -79,6 +82,34 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	}
 
 	/**
+	 * Fires to deregister v1 assets correctly.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function action_disable_assets_v1() {
+		$assets = $this->container->make( Assets::class );
+		if ( ! $assets->should_enqueue_frontend() ) {
+			return;
+		}
+
+		$assets->disable_v1();
+	}
+
+	/**
+	 * Fires to deregister v1 assets correctly for shortcodes.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function action_disable_shortcode_assets_v1() {
+		$assets = $this->container->make( Assets::class );
+		$assets->disable_v1();
+	}
+
+	/**
 	 * Fires when common is loaded.
 	 *
 	 * @since 4.9.2
@@ -87,7 +118,6 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		$this->container->make( Template_Bootstrap::class )->disable_v1();
 		$this->container->make( Rest_Endpoint::class )->maybe_enable_ajax_fallback();
 	}
-
 
 	/**
 	 * Fires when WordPress head is printed.
