@@ -152,12 +152,12 @@
 </div>
 
 			
-<div  class="tribe-events-c-messages tribe-common-b2"  role="alert">
-						<div class="tribe-events-c-messages__inner tribe-events-c-messages__inner--notice">
-				<span>No events scheduled for January 1, 2019. Please try another day.</span>
-			</div>
-			</div>
-
+	<div class="tribe-events-c-messages tribe-common-b2 tribe-events-c-messages--notice" role="alert">
+		<ul class="tribe-events-c-messages__list">
+							<li class="tribe-events-c-messages__list-message">
+					No events scheduled for January 1, 2019. Please try another day.				</li>
+					</ul>
+	</div>
 
 			<div class="tribe-events-c-top-bar tribe-events-header__top-bar">
 
