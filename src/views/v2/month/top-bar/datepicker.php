@@ -11,11 +11,12 @@
  *
  * @version TBD
  *
- * @var string $now                 The current date and time in the `Y-m-d H:i:s` format.
- * @var string $grid_date           The current calendar grid date in the `Y-m-d` format.
- * @var string $formatted_grid_date The current calendar grid date in the format specified by the "Month and year
- *                                  format" option.
- * @var obj    $date_formats        Object containing the date formats.
+ * @var string    $now                 The current date and time in the `Y-m-d H:i:s` format.
+ * @var string    $grid_date           The current calendar grid date in the `Y-m-d` format.
+ * @var string    $formatted_grid_date The current calendar grid date in the format specified by the "Month and year
+ *                                     format" option.
+ * @var obj       $date_formats        Object containing the date formats.
+ * @var \DateTime $the_date            The Month current date object.
  */
 use Tribe__Date_Utils as Dates;
 
@@ -29,7 +30,7 @@ $datepicker_date     = Dates::build_date_object( $selected_date_value )->format(
 		data-js="tribe-events-top-bar-datepicker-button"
 	>
 		<time
-			datetime="<?php echo esc_attr( $grid_date ); ?>"
+			datetime="<?php echo esc_attr( $the_date->format( 'Y-m' ) ); ?>"
 			class="tribe-events-c-top-bar__datepicker-time"
 		>
 			<?php echo esc_html( $formatted_grid_date ); ?>
