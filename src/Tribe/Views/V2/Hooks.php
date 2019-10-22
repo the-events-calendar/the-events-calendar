@@ -20,6 +20,7 @@ namespace Tribe\Events\Views\V2;
 use Tribe\Events\Views\V2\Query\Abstract_Query_Controller;
 use Tribe\Events\Views\V2\Query\Event_Query_Controller;
 use Tribe\Events\Views\V2\Template\Title;
+use Tribe\Events\Views\V2\Template\Excerpt;
 use Tribe__Events__Main as TEC;
 use Tribe__Rewrite as Rewrite;
 
@@ -68,6 +69,8 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'body_class', [ $this, 'filter_body_class' ] );
 		add_filter( 'query_vars', [ $this, 'filter_query_vars' ], 15 );
 		add_filter( 'tribe_rewrite_canonical_query_args', [ $this, 'filter_map_canonical_query_args' ], 15, 3 );
+		add_filter( 'excerpt_length', [ $this, 'filter_excerpt_length' ] );
+		add_filter( 'excerpt_more', [ $this, 'filter_excerpt_more' ], 999 );
 
 		if ( tribe_context()->doing_php_initial_state() ) {
 			add_filter( 'wp_title', [ $this, 'filter_wp_title' ], 10, 2 );
@@ -203,7 +206,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Filters the `wp_title` template tag.
 	 *
-	 * @since TBD
+	 * @since 4.9.10
 	 *
 	 * @param      string $title The current title value.
 	 * @param string|null $sep The separator char, or sequence, to use to separate the page title from the blog one.
@@ -219,7 +222,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * This is the template tag introduced in WP 4.4 to get the page title.
 	 *
-	 * @since TBD
+	 * @since 4.9.10
 	 *
 	 * @param string $title The page title.
 	 *
@@ -227,5 +230,31 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 */
 	public function filter_document_title_parts( $title ) {
 		return $this->container->make( Title::class )->filter_document_title_parts( $title );
+	}
+
+	/**
+	 * Filters the `excerpt_length`.
+	 *
+	 * @since 4.9.10
+	 *
+	 * @param int $length The excerpt length.
+	 *
+	 * @return int The modified excerpt length, if required.
+	 */
+	public function filter_excerpt_length( $length ) {
+		return $this->container->make( Template\Excerpt::class )->maybe_filter_excerpt_length( $length );
+	}
+
+	/**
+	 * Filters the `excerpt_more`.
+	 *
+	 * @since 4.9.10
+	 *
+	 * @param string $link The excerpt read more link.
+	 *
+	 * @return int The modified excerpt read more link, if required.
+	 */
+	public function filter_excerpt_more( $link ) {
+		return $this->container->make( Template\Excerpt::class )->maybe_filter_excerpt_more( $link );
 	}
 }

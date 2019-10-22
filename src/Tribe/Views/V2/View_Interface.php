@@ -177,4 +177,13 @@ interface View_Interface  extends View_Url_Provider_Interface, Repository_User_I
 	 * @return string
 	 */
 	public function get_today_url( $canonical = false );
+
+	/**
+	 * Returns an array of user-facing messages the View will display on the front-end.
+	 *
+	 * @since TBD
+	 *
+	 * @return array An array of user-facing messages the View will display on the front-end.
+	 */
+	public function get_messages();
 }

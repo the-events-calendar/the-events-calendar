@@ -32,6 +32,8 @@
 		<header class="tribe-events-header">
 			<?php $this->template( 'components/events-bar' ); ?>
 
+			<?php $this->template( 'components/messages' ); ?>
+
 			<?php $this->template( 'day/top-bar' ); ?>
 		</header>
 
@@ -41,6 +43,7 @@
 
 			<?php foreach ( $events as $event ) : ?>
 
+				<?php $this->template( 'day/type-separator', [ 'event' => $event ] ); ?>
 				<?php $this->template( 'day/time-separator', [ 'event' => $event ] ); ?>
 				<?php $this->template( 'day/event', [ 'event' => $event ] ); ?>
 
