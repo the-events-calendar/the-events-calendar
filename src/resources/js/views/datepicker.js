@@ -389,6 +389,7 @@ tribe.events.views.datepicker = {};
 
 		// set options for datepicker
 		obj.initDateFormat( data );
+		obj.options.weekStart = data.start_of_week;
 		obj.options.container = $container.find( obj.selectors.datepickerContainer );
 		obj.options.minViewMode = isMonthView ? 'year' : 'month';
 		var tribeL10nDatatables = window.tribe_l10n_datatables || {};
