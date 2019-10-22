@@ -728,4 +728,54 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 			'America/Los_Angeles',
 		], $ten_utc_events->pluck_meta( '_EventTimezone' ) );
 	}
+
+	/**
+	 * It should allow fetching events by overlapping dates
+	 *
+	 * @test
+	 */
+	public function should_allow_fetching_events_by_overlapping_dates() {
+		$site_timezone = 'Europe/Paris';
+		update_option( 'timezone_string', $site_timezone );
+
+		extract( $this->create_events_from_dates( [
+			'paris_nine_event' => [ '2019-04-09 10:00:00', 2 * HOUR_IN_SECONDS ],
+			'paris_ten_event'  => [ '2019-04-10 11:00:00', 2 * HOUR_IN_SECONDS ],
+		], 'Europe/Paris' ) );
+		extract( $this->create_events_from_dates( [
+			// 4/10 1:30am in Europe/Paris.
+			'la_nine_event' => [ '2019-04-09 16:30:00', 2 * HOUR_IN_SECONDS ],
+			// 4/10 11:30pm in Europe/Paris.
+			'la_ten_event'  => [ '2019-04-10 14:30:00', 2 * HOUR_IN_SECONDS ],
+		], 'America/Los_Angeles' ) );
+
+		$this->assertEquals(
+			[ $paris_nine_event ],
+			tribe_events()->where( 'date_overlaps', '2019-04-09 00:00:00', '2019-04-09 12:00:00' )->get_ids()
+		);
+		$this->assertEquals(
+			[ $paris_nine_event, $la_nine_event, ],
+			tribe_events()->where( 'date_overlaps', '2019-04-09 00:00:00', '2019-04-10 02:00:00' )->get_ids()
+		);
+		$this->assertEquals(
+			[ $paris_nine_event, $la_nine_event, ],
+			tribe_events()->where(
+				'date_overlaps',
+				'2019-04-09 00:00:00',
+				'2019-04-10 02:30:00',
+				$site_timezone,
+				.4 * HOUR_IN_SECONDS
+			)->get_ids()
+		);
+		$this->assertEquals(
+			[ $paris_nine_event ],
+			tribe_events()->where(
+				'date_overlaps',
+				'2019-04-09 00:00:00',
+				'2019-04-10 02:00:00',
+				$site_timezone,
+				2 * HOUR_IN_SECONDS
+			)->get_ids()
+		);
+	}
 }
