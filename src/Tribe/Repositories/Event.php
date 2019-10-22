@@ -6,7 +6,6 @@
  */
 
 use Tribe__Date_Utils as Dates;
-use Tribe__Repository__Query_Filters as Query_Filters;
 use Tribe__Timezones as Timezones;
 use Tribe__Utils__Array as Arr;
 
@@ -1468,8 +1467,9 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 
 		foreach ( $check_orderby as $key => $value ) {
 			$loop++;
-			$order_by = is_numeric( $key ) ? $value : $key;
-			$order    = is_numeric( $key ) ? 'ASC' : $value;
+			$order_by      = is_numeric( $key ) ? $value : $key;
+			$order         = is_numeric( $key ) ? 'ASC' : $value;
+			$default_order = Arr::get_in_any( [ $this->query_args, $this->default_args ], 'order', 'ASC' );
 
 			switch ( $order_by ) {
 				case 'event_date':
@@ -1485,23 +1485,23 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 					$this->order_by_venue( $after );
 					break;
 				case $timestamp_key:
-					$this->filter_query->orderby( $timestamp_key, null, null, $after );
+					$this->filter_query->orderby( [ $timestamp_key => $default_order ], null, null, $after );
 					break;
 				default:
 					$after = $after || $loop === 1;
 					if ( empty( $this->query_args['orderby'] ) ) {
 						$this->query_args['orderby'] = [ $order_by => $order ];
 					} else {
+						$add           = [ $order_by => $order ];
 						// Make sure all `orderby` clauses have the shape `<orderby> => <order>`.
-						$this->query_args['orderby'] = (array) $this->query_args['orderby'];
-						array_reduce( $this->query_args['orderby'], static function ( array $q, $v, $k ) {
-							$order_by        = is_numeric( $k ) ? $v : $k;
-							$order           = is_numeric( $k ) ? 'ASC' : $v;
-							$q [ $order_by ] = $order;
-
-							return $q;
-						}, [] );
-						$this->query_args[ $order_by ] = $order;
+						$normalized = [];
+						foreach ( $this->query_args['orderby'] as $k => $v ) {
+							$the_order_by                = is_numeric( $k ) ? $v : $k;
+							$the_order                   = is_numeric( $k ) ? $default_order : $v;
+							$normalized[ $the_order_by ] = $the_order;
+						}
+						$this->query_args['orderby'] = $normalized;
+						$this->query_args['orderby'] = array_merge( $this->query_args['orderby'], $add );
 					}
 					break;
 			}
@@ -1594,7 +1594,8 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			true
 		);
 
-		$this->filter_query->orderby( $meta_alias, $filter_id, true, $after );
+		$order = Arr::get_in_any( [ $this->query_args, $this->default_args ], 'order', 'ASC' );
+		$this->filter_query->orderby( [ $meta_alias => $order ], $filter_id, true, $after );
 		$this->filter_query->fields( "MIN( {$postmeta_table}.meta_value ) AS {$meta_alias}", $filter_id, true );
 	}
 
@@ -1631,7 +1632,9 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		);
 
 		$filter_id = 'order_by_organizer';
-		$this->filter_query->orderby( 'organizer', $filter_id, true, $after );
+
+		$order = Arr::get_in_any( [ $this->query_args, $this->default_args ], 'order', 'ASC' );
+		$this->filter_query->orderby( [ 'organizer' => $order ], $filter_id, true, $after );
 		$this->filter_query->fields( "{$posts_table}.post_title AS organizer", $filter_id, true );
 	}
 
@@ -1668,7 +1671,8 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		);
 
 		$filter_id = 'order_by_venue';
-		$this->filter_query->orderby( 'venue', $filter_id, true, $after );
+		$order = Arr::get_in_any( [ $this->query_args, $this->default_args ], 'order', 'ASC' );
+		$this->filter_query->orderby( [ 'venue' => $order ], $filter_id, true, $after );
 		$this->filter_query->fields( "{$posts_table}.post_title AS venue", $filter_id, true );
 	}
 
