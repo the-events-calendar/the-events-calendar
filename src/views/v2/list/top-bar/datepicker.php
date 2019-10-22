@@ -33,7 +33,7 @@ if ( empty( $selected_start_date_value ) ) {
 }
 
 $selected_start_datetime = strtotime( $selected_start_date_value );
-$is_now =  Dates::build_date_object( $selected_start_datetime )->format( Dates::DBDATEFORMAT ) === Dates::build_date_object( $default_start_date )->format( Dates::DBDATEFORMAT );
+$is_now = Dates::build_date_object( $selected_start_datetime )->format( Dates::DBDATEFORMAT ) === Dates::build_date_object( $default_start_date )->format( Dates::DBDATEFORMAT );
 
 $selected_end_date_value = $today;
 $last_event = $this->get( 'view' )->get_repository()->last();
