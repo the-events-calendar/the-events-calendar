@@ -24,7 +24,7 @@ $classes = [ 'tribe-events-c-messages', 'tribe-common-b2' ];
 
 ?>
 
-<div <?php tribe_classes( $classes ); ?>>
+<div <?php tribe_classes( $classes ); ?> role="alert">
 	<?php foreach ( $messages as $message_type => $message_group ) : ?>
 		<?php foreach ( $message_group as $message ) : ?>
 			<div class="tribe-events-c-messages__inner tribe-events-c-messages__inner--<?php echo esc_attr( $message_type ); ?>">
