@@ -13,31 +13,27 @@
 	 * ----------------------------------------------------------------------------- */
 
 	.tribe-events-c-messages {
+		align-items: center;
 		background-color: var(--color-background-messages);
 		border-radius: var(--border-radius-default);
-		padding: var(--spacer-2);
-		margin: 0 0 var(--spacer-3) auto;
-		width: 100%;
 		flex: 0 0 100%;
-		order: -1;
-
-		@media (--viewport-medium) {
-			order: 3;
-			padding: var(--spacer-3);
-			margin: 0 0 var(--spacer-7) auto;
-		}
-	}
-
-	.tribe-events-c-messages__inner {
 		display: flex;
-		align-items: center;
+		margin: 0 0 var(--spacer-3) auto;
+		order: -1;
+		padding: var(--spacer-2);
+		width: 100%;
 
 		@media (--viewport-medium) {
 			justify-content: center;
+			margin: 0 0 var(--spacer-7) auto;
+			order: 3;
+			padding: var(--spacer-3);
+
 		}
+
 	}
 
-	.tribe-events-c-messages__inner--notice {
+	.tribe-events-c-messages--notice {
 		&:before {
 			background-image: svg-inline(messages-not-found);
 			background-repeat: no-repeat;
@@ -47,6 +43,14 @@
 			min-width: 22px;
 			height: 24px;
 			margin-right: var(--spacer-2);
+		}
+	}
+
+	.tribe-events-c-messages__list {
+		flex-direction: column;
+
+		@media (--viewport-medium) {
+			text-align: center;
 		}
 	}
 }

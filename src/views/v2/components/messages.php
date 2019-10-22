@@ -20,17 +20,16 @@ if ( empty( $messages ) ) {
 	return;
 }
 
-$classes = [ 'tribe-events-c-messages', 'tribe-common-b2' ];
-
 ?>
 
-<div <?php tribe_classes( $classes ); ?> role="alert">
-	<?php foreach ( $messages as $message_type => $message_group ) : ?>
-		<?php foreach ( $message_group as $message ) : ?>
-			<div class="tribe-events-c-messages__inner tribe-events-c-messages__inner--<?php echo esc_attr( $message_type ); ?>">
-				<span><?php echo wp_kses_post( $message ); ?></span>
-			</div>
-		<?php endforeach; ?>
-	<?php endforeach; ?>
-</div>
-
+<?php foreach ( $messages as $message_type => $message_group ) : ?>
+	<div class="tribe-events-c-messages tribe-common-b2 tribe-events-c-messages--<?php echo esc_attr( $message_type ); ?>" role="alert">
+		<ul class="tribe-events-c-messages__list">
+			<?php foreach ( $message_group as $message ) : ?>
+				<li class="tribe-events-c-messages__list-message">
+					<?php echo wp_kses_post( $message ); ?>
+				</li>
+			<?php endforeach; ?>
+		</ul>
+	</div>
+<?php endforeach; ?>
