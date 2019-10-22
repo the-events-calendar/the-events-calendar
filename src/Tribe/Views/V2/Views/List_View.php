@@ -227,4 +227,26 @@ class List_View extends View {
 
 		return $args;
 	}
+
+	/**
+	 * Overrides the base View method to fix the order of the events in the `past` display mode.
+	 *
+	 * @since TBD
+	 *
+	 * @return array The List View template vars, modified if required.
+	 */
+	protected function setup_template_vars() {
+		$template_vars = parent::setup_template_vars();
+
+		// While we fetch events in DESC order, we want to show the results in ASC order in `past` display mode.
+		if (
+			! empty( $template_vars['events'] )
+			&& is_array( $template_vars['events'] )
+			&& 'past' === $this->context->get( 'event_display_mode', 'map' )
+		) {
+			$template_vars['events'] = array_reverse( $template_vars['events'] );
+		}
+
+		return $template_vars;
+	}
 }
