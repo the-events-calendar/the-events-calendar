@@ -33,10 +33,10 @@ if ( empty( $selected_start_date_value ) ) {
 }
 
 $selected_start_datetime = strtotime( $selected_start_date_value );
-$is_now = Dates::build_date_object( $selected_start_datetime )->format( Dates::DBDATEFORMAT ) === Dates::build_date_object( $default_start_date )->format( Dates::DBDATEFORMAT );
+$is_now                  = Dates::build_date_object( $selected_start_datetime )->format( Dates::DBDATEFORMAT ) === Dates::build_date_object( $default_start_date )->format( Dates::DBDATEFORMAT );
 
 $selected_end_date_value = $today;
-$last_event = $this->get( 'view' )->get_repository()->last();
+$last_event              = $this->get( 'view' )->get_repository()->last();
 
 if ( $last_event instanceof WP_Post ) {
 	$selected_end_date_value = $last_event->dates->start->format( Dates::DBDATEFORMAT );
@@ -44,10 +44,10 @@ if ( $last_event instanceof WP_Post ) {
 $selected_end_datetime = strtotime( $selected_end_date_value );
 
 $selected_start_date_label_format = tribe_get_date_format( date( 'Y' ) !== date( 'Y', $selected_start_datetime ) );
-$selected_end_date_label_format = tribe_get_date_format( date( 'Y' ) !== date( 'Y', $selected_end_datetime ) );
+$selected_end_date_label_format   = tribe_get_date_format( date( 'Y' ) !== date( 'Y', $selected_end_datetime ) );
 
 $selected_start_date_label = date_i18n( $selected_start_date_label_format, $selected_start_datetime );
-$selected_end_date_label = date_i18n( $selected_end_date_label_format, $selected_end_datetime );
+$selected_end_date_label   = date_i18n( $selected_end_date_label_format, $selected_end_datetime );
 
 $selected_start_date_mobile = Dates::build_date_object( $selected_start_datetime )->format( $date_formats->compact );
 $selected_end_date_mobile   = Dates::build_date_object( $selected_end_datetime )->format( $date_formats->compact );
