@@ -1460,8 +1460,8 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 
 		$timestamp_key = 'TIMESTAMP(mt1.meta_value)';
 
-		$after    = false;
-		$loop = 0;
+		$after = false;
+		$loop  = 0;
 
 		foreach ( $check_orderby as $key => $value ) {
 			$loop++;
@@ -1486,11 +1486,11 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 					$this->filter_query->orderby( [ $timestamp_key => $default_order ], null, null, $after );
 					break;
 				default:
-					$after = $after || $loop === 1;
+					$after = $after || 1 === $loop;
 					if ( empty( $this->query_args['orderby'] ) ) {
 						$this->query_args['orderby'] = [ $order_by => $order ];
 					} else {
-						$add           = [ $order_by => $order ];
+						$add = [ $order_by => $order ];
 						// Make sure all `orderby` clauses have the shape `<orderby> => <order>`.
 						$normalized = [];
 						foreach ( $this->query_args['orderby'] as $k => $v ) {
@@ -1669,7 +1669,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		);
 
 		$filter_id = 'order_by_venue';
-		$order = Arr::get_in_any( [ $this->query_args, $this->default_args ], 'order', 'ASC' );
+		$order     = Arr::get_in_any( [ $this->query_args, $this->default_args ], 'order', 'ASC' );
 		$this->filter_query->orderby( [ 'venue' => $order ], $filter_id, true, $after );
 		$this->filter_query->fields( "{$posts_table}.post_title AS venue", $filter_id, true );
 	}
