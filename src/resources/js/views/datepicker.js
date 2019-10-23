@@ -247,7 +247,6 @@ tribe.events.views.datepicker = {};
 			.toggleClass( obj.selectors.buttonOpenClass.className() )
 			.data( 'tribeEventsState', state );
 		$input
-			.focus()
 			.bootstrapDatepicker( method );
 	};
 
