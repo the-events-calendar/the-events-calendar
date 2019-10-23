@@ -5,14 +5,26 @@
 	 *
 	 * Example:
 	 * <div class="tribe-events-c-messages">
-	 *   <ul class="tribe-events-c-messages__list">
-	 *     <li class="tribe-events-c-messages__list-message">There were no results found</li>
-	 *   </ul>
+	 *    <div class="tribe-events-c-messages__message">
+	 *      <ul class="tribe-events-c-messages__message-list">
+	 *        <li class="tribe-events-c-messages__message-list-item">There were no results found</li>
+	 *      </ul>
+	 *    </div>
 	 * </div>
 	 *
 	 * ----------------------------------------------------------------------------- */
 
 	.tribe-events-c-messages {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+
+		@media (--viewport-medium) {
+			order: 3;
+		}
+	}
+
+	.tribe-events-c-messages__message {
 		align-items: center;
 		background-color: var(--color-background-messages);
 		border-radius: var(--border-radius-default);
@@ -24,12 +36,11 @@
 		@media (--viewport-medium) {
 			justify-content: center;
 			margin: 0 0 var(--spacer-7) 0;
-			order: 3;
 			padding: var(--spacer-3);
 		}
 	}
 
-	.tribe-events-c-messages--notice {
+	.tribe-events-c-messages__message--notice {
 		&:before {
 			background-image: svg-inline(messages-not-found);
 			background-repeat: no-repeat;
@@ -42,7 +53,7 @@
 		}
 	}
 
-	.tribe-events-c-messages__list {
+	.tribe-events-c-messages__message-list {
 		flex-direction: column;
 
 		@media (--viewport-medium) {
