@@ -106,7 +106,7 @@ class Event extends Base {
 				if ( Timezones::is_mode( Timezones::SITE_TIMEZONE ) ) {
 					// Move the event to the site timezone.
 					$the_start = $the_start->setTimezone( $site_timezone );
-					$the_end = $the_end->setTimezone( $site_timezone );
+					$the_end   = $the_end->setTimezone( $site_timezone );
 				}
 
 				$week_start_ymd = (int) $week_start->format( 'Ymd' );
@@ -117,6 +117,7 @@ class Event extends Base {
 				$starts_this_week  = $week_start_ymd <= $the_start_ymd && $the_start_ymd <= $week_end_ymd;
 				$ends_this_week    = $week_start_ymd <= $the_end_ymd && $the_end_ymd <= $week_end_ymd;
 				$happens_this_week = $week_start_ymd <= $the_end_ymd && $the_start_ymd <= $week_end_ymd;
+
 				/*
 				 * A day "crosses the EOD cutoff time" if the end is after the EOD cutoff of the start.
 				 * Here we look just for a boolean.
@@ -149,7 +150,7 @@ class Event extends Base {
 			$end_site           = $end_date_object->setTimezone( $site_timezone );
 			$use_event_timezone = Timezones::is_mode( Timezones::EVENT_TIMEZONE );
 
-			$properties         = [
+			$properties = [
 				'start_date'             => $start_date,
 				'start_date_utc'         => $start_date_utc,
 				'end_date'               => $end_date,
