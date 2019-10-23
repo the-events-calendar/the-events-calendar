@@ -117,16 +117,24 @@ class Event extends Base {
 				$starts_this_week  = $week_start_ymd <= $the_start_ymd && $the_start_ymd <= $week_end_ymd;
 				$ends_this_week    = $week_start_ymd <= $the_end_ymd && $the_end_ymd <= $week_end_ymd;
 				$happens_this_week = $week_start_ymd <= $the_end_ymd && $the_start_ymd <= $week_end_ymd;
+				/*
+				 * A day "crosses the EOD cutoff time" if the end is after the EOD cutoff of the start.
+				 * Here we look just for a boolean.
+				 */
+				$cross_day = tribe_end_of_day( $the_start->format( 'Y-m-d' ) ) < $the_end->format( 'Y-m-d H:i:s' );
 
 				if ( $happens_this_week ) {
 					$this_week_duration = 1;
 					if ( $is_multiday ) {
 						if ( $starts_this_week && $ends_this_week ) {
-							$this_week_duration = min( 7, max( 1, $the_end_ymd - $the_start_ymd ) + 1 );
+							$this_week_duration = min( 7, max( 1, $the_end_ymd - $the_start_ymd ) + $cross_day );
 						} elseif ( $ends_this_week ) {
-							$this_week_duration = $the_end_ymd - $week_start_ymd + 1;
+							$this_week_duration = $the_end_ymd - $week_start_ymd + $cross_day;
 						} elseif ( $starts_this_week ) {
-							$this_week_duration = $week_end_ymd - $the_start_ymd + 1;
+							$this_week_duration = $week_end_ymd - $the_start_ymd + $cross_day;
+						} else {
+							// If it happens this week and it doesn't start or end this week, then it spans the week.
+							$this_week_duration = 7;
 						}
 					}
 				}
@@ -149,11 +157,11 @@ class Event extends Base {
 				'dates'                  => (object) [
 					'start'         => $start_date_object,
 					'start_utc'     => $start_date_utc_object,
+					'start_site'    => $start_site,
+					'start_display' => $use_event_timezone ? $start_date_object : $start_site,
 					'end'           => $end_date_object,
 					'end_utc'       => $end_date_utc_object,
-					'start_site'    => $start_site,
 					'end_site'      => $end_site,
-					'start_display' => $use_event_timezone ? $start_date_object : $start_site,
 					'end_display'   => $use_event_timezone ? $end_date_object : $end_site,
 				],
 				'timezone'               => $timezone_string,
