@@ -25,13 +25,13 @@
 
 		<header class="tribe-events-header">
 			<div  class="tribe-events-c-messages tribe-common-b2" >
-	<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
-		<ul class="tribe-events-c-messages__message-list">
-							<li class="tribe-events-c-messages__message-list-item">
-					No events scheduled for January 1, 2019. Please try another day.				</li>
-					</ul>
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<ul class="tribe-events-c-messages__message-list">
+									<li class="tribe-events-c-messages__message-list-item">
+						No events scheduled for January 1, 2019. Please try another day.					</li>
+							</ul>
+		</div>
 	</div>
-</div>
 
 			<div
 	class="tribe-events-header__events-bar tribe-events-c-events-bar"
