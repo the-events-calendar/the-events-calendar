@@ -7,7 +7,7 @@
 	>
 		<img
 			src="http://test.tri.be/wp-content/uploads/2018/08/featured-image.jpg"
-									class="tribe-events-calendar-list__event-featured-image"
+												class="tribe-events-calendar-list__event-featured-image"
 		/>
 	</a>
 </div>
