@@ -29,7 +29,7 @@ if ( ! $event->thumbnail->exists ) {
 		class="tribe-events-calendar-list__event-featured-image-link"
 	>
 		<img
-			src="<?php echo esc_attr( $event->thumbnail->full->url ); ?>"
+			src="<?php echo esc_url( $event->thumbnail->full->url ); ?>"
 			<?php if ( ! empty( $event->thumbnail->srcset ) ) : ?>
 				srcset="<?php echo esc_attr( $event->thumbnail->srcset ); ?>"
 			<?php endif; ?>
