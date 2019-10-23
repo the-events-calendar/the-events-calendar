@@ -23,10 +23,13 @@ if ( ! $event->featured || ! $event->thumbnail->exists ) {
 ?>
 <div class="tribe-events-calendar-month-mobile-events__mobile-event-featured-image-wrapper">
 	<img
-			src="<?php echo esc_attr( $event->thumbnail->full->url ); ?>"
-			<?php if ( ! empty( $event->thumbnail->srcset ) ) : ?>
-				srcset="<?php echo esc_attr( $event->thumbnail->srcset ); ?>"
-			<?php endif; ?>
-			class="tribe-events-calendar-month-mobile-events__mobile-event-featured-image"
-		/>
+		src="<?php echo esc_attr( $event->thumbnail->full->url ); ?>"
+		<?php if ( ! empty( $event->thumbnail->srcset ) ) : ?>
+			srcset="<?php echo esc_attr( $event->thumbnail->srcset ); ?>"
+		<?php endif; ?>
+		<?php if ( ! empty( $event->thumbnail->alt ) ) : ?>
+			alt="<?php echo esc_attr( $event->thumbnail->alt ); ?>"
+		<?php endif; ?>
+		class="tribe-events-calendar-month-mobile-events__mobile-event-featured-image"
+	/>
 </div>

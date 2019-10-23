@@ -34,6 +34,9 @@ if ( ! $event->featured || ! $event->thumbnail->exists ) {
 			<?php if ( ! empty( $event->thumbnail->srcset ) ) : ?>
 				srcset="<?php echo esc_attr( $event->thumbnail->srcset ); ?>"
 			<?php endif; ?>
+			<?php if ( ! empty( $event->thumbnail->alt ) ) : ?>
+				alt="<?php echo esc_attr( $event->thumbnail->alt ); ?>"
+			<?php endif; ?>
 			class="tribe-events-calendar-month__calendar-event-featured-image"
 		/>
 	</a>
