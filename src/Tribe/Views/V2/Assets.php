@@ -68,6 +68,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 			[
 				'priority'     => 10,
 				'conditionals' => [
+					'operator' => 'AND',
 					[ $this, 'should_enqueue_frontend' ],
 					[ $this, 'should_enqueue_full_styles' ],
 				],
