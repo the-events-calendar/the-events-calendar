@@ -1039,6 +1039,7 @@ class View implements View_Interface {
 				'month_and_year' => tribe_get_date_option( 'monthAndYearFormat', 'F Y' ),
 			],
 			'messages'          => $this->get_messages( $events ),
+			'start_of_week'     => get_option( 'start_of_week', 0 ),
 		];
 
 		return $template_vars;

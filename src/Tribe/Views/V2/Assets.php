@@ -255,11 +255,6 @@ class Assets extends \tad_DI52_ServiceProvider {
 				'priority' => 10,
 			]
 		);
-
-		/**
-		 * @todo: remove once we can not load v1 scripts in v2
-		 */
-		add_action( 'wp_enqueue_scripts', [ $this, 'disable_v1' ], 200 );
 	}
 
 	/**
@@ -275,6 +270,12 @@ class Assets extends \tad_DI52_ServiceProvider {
 		wp_deregister_script( 'the-events-calendar' );
 		wp_deregister_script( 'tribe-events-ajax-day' );
 		wp_deregister_script( 'tribe-events-list' );
+
+		wp_deregister_style( 'tribe-events-calendar-mobile-style' );
+		wp_deregister_style( 'tribe-events-calendar-full-mobile-style' );
+		wp_deregister_style( 'tribe-events-full-calendar-style' );
+		wp_deregister_style( 'tribe-events-calendar-style' );
+		wp_deregister_style( 'tribe-events-calendar-override-style' );
 	}
 
 	/**
