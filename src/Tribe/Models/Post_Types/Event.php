@@ -105,8 +105,8 @@ class Event extends Base {
 				// Take into account the timezone settings.
 				if ( Timezones::is_mode( Timezones::SITE_TIMEZONE ) ) {
 					// Move the event to the site timezone.
-					$the_start->setTimezone( $site_timezone );
-					$the_end->setTimezone( $site_timezone );
+					$the_start = $the_start->setTimezone( $site_timezone );
+					$the_end = $the_end->setTimezone( $site_timezone );
 				}
 
 				$week_start_ymd = (int) $week_start->format( 'Ymd' );
@@ -121,12 +121,12 @@ class Event extends Base {
 				if ( $happens_this_week ) {
 					$this_week_duration = 1;
 					if ( $is_multiday ) {
-						if ( $ends_this_week ) {
+						if ( $starts_this_week && $ends_this_week ) {
+							$this_week_duration = min( 7, max( 1, $the_end_ymd - $the_start_ymd ) + 1 );
+						} elseif ( $ends_this_week ) {
 							$this_week_duration = $the_end_ymd - $week_start_ymd + 1;
 						} elseif ( $starts_this_week ) {
 							$this_week_duration = $week_end_ymd - $the_start_ymd + 1;
-						} else {
-							$this_week_duration = min( 7, $the_end_ymd - $the_start_ymd );
 						}
 					}
 				}
@@ -137,16 +137,24 @@ class Event extends Base {
 			$organizer_fetch = Organizer::get_fetch_callback( $post_id );
 			$venue_fetch     = Venue::get_fetch_callback( $post_id );
 
-			$properties = [
+			$start_site         = $start_date_object->setTimezone( $site_timezone );
+			$end_site           = $end_date_object->setTimezone( $site_timezone );
+			$use_event_timezone = Timezones::is_mode( Timezones::EVENT_TIMEZONE );
+
+			$properties         = [
 				'start_date'             => $start_date,
 				'start_date_utc'         => $start_date_utc,
 				'end_date'               => $end_date,
 				'end_date_utc'           => $end_date_utc,
 				'dates'                  => (object) [
-					'start'     => $start_date_object,
-					'start_utc' => $start_date_utc_object,
-					'end'       => $end_date_object,
-					'end_utc'   => $end_date_utc_object,
+					'start'         => $start_date_object,
+					'start_utc'     => $start_date_utc_object,
+					'end'           => $end_date_object,
+					'end_utc'       => $end_date_utc_object,
+					'start_site'    => $start_site,
+					'end_site'      => $end_site,
+					'start_display' => $use_event_timezone ? $start_date_object : $start_site,
+					'end_display'   => $use_event_timezone ? $end_date_object : $end_site,
 				],
 				'timezone'               => $timezone_string,
 				'duration'               => $duration,
