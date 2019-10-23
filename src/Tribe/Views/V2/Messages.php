@@ -159,9 +159,9 @@ class Messages {
 					static function ( array &$value, $message_type ) {
 						ksort( $value );
 						// Keep the highest priority (lower number).
-						$highest = (array) reset( $value );
+						$highest = array_filter( (array) reset( $value ) );
 						// Keep only the last message.
-						$value = [ end( $highest ) ];
+						$value = ! empty( $highest ) ? [ end( $highest ) ] : [];
 					}
 				);
 				break;
@@ -171,9 +171,9 @@ class Messages {
 					static function ( array &$value, $message_type ) {
 						ksort( $value );
 						// Keep the highest priority (lower number).
-						$highest = (array) reset( $value );
+						$highest = array_filter( (array) reset( $value ) );
 						// Keep only the first message.
-						$value = [ reset( $highest ) ];
+						$value = ! empty( $highest ) ? [ reset( $highest ) ] : [];
 					}
 				);
 				break;
