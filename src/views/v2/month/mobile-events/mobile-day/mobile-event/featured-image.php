@@ -30,6 +30,9 @@ if ( ! $event->featured || ! $event->thumbnail->exists ) {
 		<?php if ( ! empty( $event->thumbnail->alt ) ) : ?>
 			alt="<?php echo esc_attr( $event->thumbnail->alt ); ?>"
 		<?php endif; ?>
+		<?php if ( ! empty( $event->thumbnail->title ) ) : ?>
+			title="<?php echo esc_attr( $event->thumbnail->title ); ?>"
+		<?php endif; ?>
 		class="tribe-events-calendar-month-mobile-events__mobile-event-featured-image"
 	/>
 </div>
