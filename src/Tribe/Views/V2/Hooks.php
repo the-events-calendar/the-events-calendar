@@ -74,6 +74,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'tribe_rewrite_canonical_query_args', [ $this, 'filter_map_canonical_query_args' ], 15, 3 );
 		add_filter( 'excerpt_length', [ $this, 'filter_excerpt_length' ] );
 		add_filter( 'excerpt_more', [ $this, 'filter_excerpt_more' ], 999 );
+		add_filter( 'admin_post_thumbnail_html', [ $this, 'filter_admin_post_thumbnail_html' ] );
 
 		if ( tribe_context()->doing_php_initial_state() ) {
 			add_filter( 'wp_title', [ $this, 'filter_wp_title' ], 10, 2 );
@@ -282,9 +283,28 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @param string $link The excerpt read more link.
 	 *
-	 * @return int The modified excerpt read more link, if required.
+	 * @return string The modified excerpt read more link, if required.
 	 */
 	public function filter_excerpt_more( $link ) {
 		return $this->container->make( Template\Excerpt::class )->maybe_filter_excerpt_more( $link );
+	}
+
+	/**
+	 * Filters the `admin_post_thumbnail_html` to add image aspect ratio recommendation.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $html The HTML for the featured image box.
+	 *
+	 * @return string The modified html, if required.
+	 */
+	public function filter_admin_post_thumbnail_html( $html ) {
+
+		if ( TEC::POSTTYPE !== get_current_screen()->post_type ) {
+			return $html;
+		}
+
+		return $html . __( 'We recommend a 16:9 aspect ratio for featured images.', 'the-events-calendar' );
+
 	}
 }
