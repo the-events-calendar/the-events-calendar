@@ -34,19 +34,19 @@ tribe.events.views.tooltip = {};
 	/**
 	 * Config used for tooltip setup
 	 *
-	 * @since TBD
+	 * @since 4.9.10
 	 *
 	 * @type {PlainObject}
 	 */
 	obj.config = {
-		delayHoverIn: 600,
+		delayHoverIn: 300,
 		delayHoverOut: 300,
 	};
 
 	/**
 	 * Selectors used for configuration and setup
 	 *
-	 * @since TBD
+	 * @since 4.9.10
 	 *
 	 * @type {PlainObject}
 	 */
@@ -62,7 +62,7 @@ tribe.events.views.tooltip = {};
 	/**
 	 * Handle tooltip focus event
 	 *
-	 * @since TBD
+	 * @since 4.9.10
 	 *
 	 * @param {Event} event event object
 	 *
@@ -95,7 +95,7 @@ tribe.events.views.tooltip = {};
 	/**
 	 * Handle origin mouseenter and touchstart events
 	 *
-	 * @since TBD
+	 * @since 4.9.10
 	 *
 	 * @param {Event} event event object
 	 *
@@ -108,7 +108,7 @@ tribe.events.views.tooltip = {};
 	/**
 	 * Handle origin mouseleave and touchleave events
 	 *
-	 * @since TBD
+	 * @since 4.9.10
 	 *
 	 * @param {Event} event event object
 	 *
@@ -121,7 +121,7 @@ tribe.events.views.tooltip = {};
 	/**
 	 * Handle tooltip mouseenter and touchstart event
 	 *
-	 * @since TBD
+	 * @since 4.9.10
 	 *
 	 * @param {Event} event event object
 	 *
@@ -134,7 +134,7 @@ tribe.events.views.tooltip = {};
 	/**
 	 * Handle tooltip mouseleave and touchleave events
 	 *
-	 * @since TBD
+	 * @since 4.9.10
 	 *
 	 * @param {Event} event event object
 	 *
@@ -147,7 +147,7 @@ tribe.events.views.tooltip = {};
 	/**
 	 * Handle tooltip instance closing event
 	 *
-	 * @since TBD
+	 * @since 4.9.10
 	 *
 	 * @param {Event} event event object
 	 *
@@ -170,7 +170,7 @@ tribe.events.views.tooltip = {};
 	/**
 	 * Handle tooltip instance close event
 	 *
-	 * @since TBD
+	 * @since 4.9.10
 	 *
 	 * @param {Event} event event object
 	 *
@@ -186,7 +186,7 @@ tribe.events.views.tooltip = {};
 	 * Override of the `functionInit` tooltipster method.
 	 * A custom function to be fired only once at instantiation.
 	 *
-	 * @since TBD
+	 * @since 4.9.10
 	 *
 	 * @param {Tooltipster} instance instance of Tooltipster
 	 * @param {PlainObject} helper   helper object with tooltip origin
@@ -209,7 +209,7 @@ tribe.events.views.tooltip = {};
 	 * Override of the `functionReady` tooltipster method.
 	 * A custom function to be fired when the tooltip and its contents have been added to the DOM.
 	 *
-	 * @since TBD
+	 * @since 4.9.10
 	 *
 	 * @param {Tooltipster} instance instance of Tooltipster
 	 * @param {PlainObject} helper   helper object with tooltip origin
@@ -226,7 +226,7 @@ tribe.events.views.tooltip = {};
 	/**
 	 * Deinitialize accessible tooltips via tooltipster
 	 *
-	 * @since TBD
+	 * @since 4.9.10
 	 *
 	 * @param {jQuery} $container jQuery object of view container.
 	 *
@@ -250,7 +250,7 @@ tribe.events.views.tooltip = {};
 	/**
 	 * Initialize accessible tooltips via tooltipster
 	 *
-	 * @since TBD
+	 * @since 4.9.10
 	 *
 	 * @param {jQuery} $container jQuery object of view container.
 	 *
@@ -276,7 +276,7 @@ tribe.events.views.tooltip = {};
 	/**
 	 * Initialize tooltip theme
 	 *
-	 * @since TBD
+	 * @since 4.9.10
 	 *
 	 * @param {jQuery} $container jQuery object of view container.
 	 *

@@ -639,21 +639,14 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 			return $callback;
 		}
 
-		// This query is bound by `posts_per_page` and it's fine and reasonable; do not make it unbound.
 		return static function () use ( $event ) {
-			$organizer_ids = (array) get_post_meta( $event, '_EventOrganizerID' );
-			if ( empty( $organizer_ids ) ) {
-				return [];
-			}
-			$organizer_ids = (array) tribe_organizers()
-				->by( 'event', $event )
-				->order_by( 'post__in', $organizer_ids )
-				->get_ids();
+			$organizer_ids = array_map( 'absint', (array) get_post_meta( $event, '_EventOrganizerID' ) );
+
 			$organizers    = ! empty( $organizer_ids )
 				? array_map( 'tribe_get_organizer', $organizer_ids )
 				: [];
 
-			return $organizers;
+			return array_filter( $organizers );
 		};
 	}
 

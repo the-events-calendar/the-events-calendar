@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.8
+ * @version TBD
  *
  * @var string $day_date The `Y-m-d` date of the day currently being displayed.
  * @var string $today_date Today's date in the `Y-m-d` format.
@@ -37,6 +37,9 @@ if ( $event->featured ) {
 	$classes[] = 'tribe-events-calendar-month__multiday-event--featured';
 }
 
+$display_tooltip        = ! empty( $event->excerpt ) || ! empty( $event->cost ) || $event->thumbnail->exists;
+$should_display_tooltip = $event->dates->start->format( 'Y-m-d' ) === $day_date && $display_tooltip;
+
 // If it starts today and this week, let's add the left border and set the width.
 if ( $should_display ) {
 
@@ -45,6 +48,7 @@ if ( $should_display ) {
 	 * The two values might be the same but they will differ for events that last more than one week.
 	 */
 	$classes[] = 'tribe-events-calendar-month__multiday-event--width-' . $event->this_week_duration;
+	$classes[] = 'tribe-events-calendar-month__multiday-event--display';
 
 	// If it ends this week, let's add the start class (left border).
 	if ( $event->starts_this_week ) {
@@ -59,32 +63,57 @@ if ( $should_display ) {
 	if ( $event->dates->end->format( 'Y-m-d' ) < $today_date ) {
 		$classes[] = 'tribe-events-calendar-month__multiday-event--past';
 	}
-
-
-} else {
-	$classes[] = 'tribe-events-calendar-month__multiday-event--hidden';
 }
 
 ?>
 <div class="tribe-events-calendar-month__multiday-event-wrapper">
 	<article <?php tribe_classes( $classes ); ?> data-event-id="<?php echo esc_attr( $event->ID ); ?>">
-		<time
-			datetime="<?php echo esc_attr( $event->dates->start->format( Dates::DBDATEFORMAT ) ); ?>"
-			class="tribe-common-a11y-visual-hide"
-		>
-			<?php echo esc_attr( $event->dates->start->format( Dates::DBDATEFORMAT ) ); ?>
-		</time>
-		<a href="<?php echo esc_url( $event->permalink ) ?>" class="tribe-events-calendar-month__multiday-event-inner">
-			<?php if ( $event->featured ) : ?>
-				<em
-					class="tribe-events-calendar-month__multiday-event-featured-icon tribe-common-svgicon tribe-common-svgicon--featured"
-					aria-label="<?php esc_attr_e( 'Featured', 'the-events-calendar' ); ?>"
-					title="<?php esc_attr_e( 'Featured', 'the-events-calendar' ); ?>"
-				></em>
+		<div class="tribe-events-calendar-month__multiday-event-hidden">
+			<time
+				datetime="<?php echo esc_attr( $event->dates->start->format( Dates::DBDATEFORMAT ) ); ?>"
+				class="tribe-common-a11y-visual-hide"
+			>
+				<?php echo esc_attr( $event->dates->start->format( Dates::DBDATEFORMAT ) ); ?>
+			</time>
+			<a
+				href="<?php echo esc_url( $event->permalink ); ?>"
+				class="tribe-events-calendar-month__multiday-event-hidden-link"
+				<?php if ( $display_tooltip ) : ?>
+					data-js="tribe-events-tooltip"
+					data-tooltip-content="#tribe-events-tooltip-content-<?php echo esc_attr( $event->ID ); ?>"
+					aria-describedby="tribe-events-tooltip-content-<?php echo esc_attr( $event->ID ); ?>"
+				<?php endif; ?>
+			>
+				<?php if ( $event->featured ) : ?>
+					<em
+						class="tribe-events-calendar-month__multiday-event-hidden-featured-icon tribe-common-svgicon tribe-common-svgicon--featured"
+						aria-label="<?php esc_attr_e( 'Featured', 'the-events-calendar' ); ?>"
+						title="<?php esc_attr_e( 'Featured', 'the-events-calendar' ); ?>"
+					></em>
+				<?php endif; ?>
+				<h3 class="tribe-events-calendar-month__multiday-event-hidden-title tribe-common-h8">
+					<?php echo wp_kses_post( get_the_title( $event->ID ) ); ?>
+				</h3>
+			</a>
+		</div>
+		<?php if ( $should_display ) : ?>
+			<div class="tribe-events-calendar-month__multiday-event-bar">
+				<div class="tribe-events-calendar-month__multiday-event-bar-inner">
+					<?php if ( $event->featured ) : ?>
+						<em
+							class="tribe-events-calendar-month__multiday-event-bar-featured-icon tribe-common-svgicon tribe-common-svgicon--featured"
+							aria-label="<?php esc_attr_e( 'Featured', 'the-events-calendar' ); ?>"
+							title="<?php esc_attr_e( 'Featured', 'the-events-calendar' ); ?>"
+						></em>
+					<?php endif; ?>
+					<h3 class="tribe-events-calendar-month__multiday-event-bar-title tribe-common-h8">
+						<?php echo wp_kses_post( get_the_title( $event->ID ) ); ?>
+					</h3>
+				</div>
+			</div>
+			<?php if ( $should_display_tooltip ) : ?>
+				<?php $this->template( 'month/calendar-body/day/calendar-events/calendar-event/tooltip', [ 'event' => $event ] ); ?>
 			<?php endif; ?>
-			<h3 class="tribe-events-calendar-month__multiday-event-title tribe-common-h8">
-				<?php echo get_the_title( $event ); ?>
-			</h3>
-		</a>
+		<?php endif; ?>
 	</article>
 </div>

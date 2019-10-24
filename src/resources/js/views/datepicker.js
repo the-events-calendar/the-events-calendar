@@ -60,17 +60,13 @@ tribe.events.views.datepicker = {};
 	/**
 	 * Object of datepicker options
 	 *
-	 * @since TBD
+	 * @since 4.9.10
 	 *
 	 * @type {PlainObject}
 	 */
 	obj.options = {
 		container: null,
 		daysOfWeekDisabled: [],
-		/**
-		 * @todo: @paulmskim use format from BE.
-		 */
-		format: 'yyyy-mm-dd',
 		maxViewMode: 'decade',
 		minViewMode: 'month',
 		orientation: 'bottom left',
@@ -82,9 +78,27 @@ tribe.events.views.datepicker = {};
 	};
 
 	/**
-	 * Mutation observer to watch for mutations
+	 * Object of date format map.
+	 * Date formats are mapped from PHP to Bootstrap Datepicker format.
 	 *
 	 * @since TBD
+	 *
+	 * @type {PlainObject}
+	 *
+	 * @see https://bootstrap-datepicker.readthedocs.io/en/latest/options.html#format
+	 */
+	obj.dateFormatMap = {
+		d: 'dd',
+		j: 'd',
+		m: 'mm',
+		n: 'm',
+		Y: 'yyyy',
+	};
+
+	/**
+	 * Mutation observer to watch for mutations
+	 *
+	 * @since 4.9.10
 	 *
 	 * @type {MutationObserver}
 	 */
@@ -143,9 +157,6 @@ tribe.events.views.datepicker = {};
 		var paddedDate = obj.padNumber( date );
 		var paddedMonth = obj.padNumber( month );
 
-		/**
-		 * @todo: @paulmskim use format from BE.
-		 */
 		var viewData = {
 			[ 'tribe-bar-date' ]: [ year, paddedMonth, paddedDate ].join( '-' ),
 		};
@@ -169,9 +180,6 @@ tribe.events.views.datepicker = {};
 
 		var paddedMonth = obj.padNumber( month );
 
-		/**
-		 * @todo: @paulmskim use format from BE.
-		 */
 		var viewData = {
 			[ 'tribe-bar-date' ]: [ year, paddedMonth ].join( '-' ),
 		};
@@ -239,7 +247,6 @@ tribe.events.views.datepicker = {};
 			.toggleClass( obj.selectors.buttonOpenClass.className() )
 			.data( 'tribeEventsState', state );
 		$input
-			.focus()
 			.bootstrapDatepicker( method );
 	};
 
@@ -278,6 +285,40 @@ tribe.events.views.datepicker = {};
 				}
 			}
 		};
+	};
+
+	/**
+	 * Convert date format from PHP to Bootstrap datepicker format.
+	 *
+	 * @since TBD
+	 *
+	 * @param {string} dateFormat datepicker date format in PHP format.
+	 *
+	 * @return {string}
+	 */
+	obj.convertDateFormat = function( dateFormat ) {
+		var convertedDateFormat = dateFormat;
+		Object.keys( obj.dateFormatMap ).forEach( function( key ) {
+			convertedDateFormat = convertedDateFormat.replace( key, obj.dateFormatMap[ key ] );
+		} );
+
+		return convertedDateFormat;
+	};
+
+	/**
+	 * Initialize datepicker date format.
+	 *
+	 * @since TBD
+	 *
+	 * @param {object} data data object passed from 'afterSetup.tribeEvents' event
+	 *
+	 * @return {void}
+	 */
+	obj.initDateFormat = function( data ) {
+		var dateFormats = data.date_formats || {};
+		var dateFormat = dateFormats.compact;
+		var convertedDateFormat = obj.convertDateFormat( dateFormat );
+		obj.options.format = convertedDateFormat;
 	};
 
 	/**
@@ -346,6 +387,8 @@ tribe.events.views.datepicker = {};
 		obj.observer = new MutationObserver( obj.handleMutation( { container: $container } ) );
 
 		// set options for datepicker
+		obj.initDateFormat( data );
+		obj.options.weekStart = data.start_of_week;
 		obj.options.container = $container.find( obj.selectors.datepickerContainer );
 		obj.options.minViewMode = isMonthView ? 'year' : 'month';
 		var tribeL10nDatatables = window.tribe_l10n_datatables || {};

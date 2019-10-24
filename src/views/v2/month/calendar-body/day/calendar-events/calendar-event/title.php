@@ -29,6 +29,6 @@ $display_tooltip = ! empty( $event->excerpt ) || ! empty( $event->cost ) || $eve
 			aria-describedby="tribe-events-tooltip-content-<?php echo esc_attr( $event->ID ); ?>"
 		<?php endif; ?>
 	>
-		<?php echo get_the_title( $event->ID ); ?>
+		<?php echo wp_kses_post( get_the_title( $event->ID ) ); ?>
 	</a>
 </h3>

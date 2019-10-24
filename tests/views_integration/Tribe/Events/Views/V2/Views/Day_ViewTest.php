@@ -3,6 +3,7 @@
 namespace Tribe\Events\Views\V2\Views;
 
 use Spatie\Snapshots\MatchesSnapshots;
+use Tribe\Events\Views\V2\Messages;
 use Tribe\Events\Views\V2\View;
 use Tribe\Test\Products\WPBrowser\Views\V2\ViewTestCase;
 use Tribe__Date_Utils as Dates;
@@ -142,5 +143,54 @@ class Day_ViewTest extends ViewTestCase {
 		$view->set_repository( $mock_repository );
 
 		$this->assertEquals( home_url( $expected ), $view->get_today_url( true ) );
+	}
+
+	public function message_data_sets(  ) {
+		yield 'no_results_found' => [
+			[],
+			[
+				Messages::TYPE_NOTICE => [
+					Messages::for_key(
+						'day_no_results_found',
+						date_i18n( tribe_get_date_format( true ), Dates::build_date_object( '2019-09-11' )->getTimestamp() )
+					)
+				],
+			]
+		];
+
+		yield 'no_results_found_w_keyword' => [
+			[ 'keyword' => 'cabbage' ],
+			[
+				Messages::TYPE_NOTICE => [ Messages::for_key( 'no_results_found_w_keyword', 'cabbage' ) ],
+			]
+		];
+	}
+
+	/**
+	 * It should display the correct messages to the user
+	 *
+	 * @test
+	 * @dataProvider message_data_sets
+	 */
+	public function should_display_the_correct_messages_to_the_user( $context_alterations, $expected ) {
+		$values  = array_merge( [
+			'today'      => '2019-09-11',
+			'now'        => '2019-09-11 09:00:00',
+			'event_date' => '2019-09-11',
+		], $context_alterations );
+		$context = $this->get_mock_context()->alter( array_filter( $values ) );
+
+		$view    = View::make( Day_View::class, $context );
+		$view->set_repository( $this->makeEmpty( \Tribe__Repository__Interface::class, [
+			'found'   => 0,
+			'get_ids' => [],
+			'all' => [],
+			'prev' => $this->makeEmpty(\Tribe__Repository__Interface::class),
+			'next' => $this->makeEmpty(\Tribe__Repository__Interface::class),
+		] ) );
+		// Call this method to trigger the message population in the View.
+		$view->get_template_vars();
+
+		$this->assertEquals( $expected, $view->get_messages() );
 	}
 }

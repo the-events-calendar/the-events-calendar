@@ -19,7 +19,7 @@ Without further ado, here are the main four types of testing you can find in thi
 
 ### Data testing
 
-This kind of tests deals with answering the question:
+This kind of tests deals with answering the questions:
 
 > Is this View, or View moving part, fetching the correct data from the database?
 > Is this View, or View moving part, providing data, to the code that must consume it, correctly?
@@ -76,8 +76,8 @@ class Month_ViewTest extends ViewTestCase {
 		update_option( 'timezone_string', $timezone_string );
 
 		$now = new \DateTimeImmutable( $this->mock_date_value, $timezone );
-
-        // Create some events that will be available in the Month timeframe.
+    
+		// Create some events that will be available in the Month timeframe.
 		$events    = array_map(
 			static function ( $i ) use ( $now, $timezone ) {
 				return tribe_events()->set_args(
@@ -97,10 +97,10 @@ class Month_ViewTest extends ViewTestCase {
 		/** @var Month_View $month_view */
 		$month_view      = View::make( Month_View::class, $this->context );
 
-        // Let's make sure the list of events in the whole month grid, a conflation of each day events, is correct.
+		// Let's make sure the list of events in the whole month grid, a conflation of each day events, is correct.
 		$this->assertEquals( $event_ids, $month_view->found_post_ids() );
 
-        // Let's check, now, day by day.
+		// Let's check, now, day by day.
 		foreach ( $month_view->get_grid_days( $now->format( 'Y-m' ) ) as $date => $found_day_ids ) {
 			$day          = new \DateTimeImmutable( $date, $timezone );
 			$expected_ids = tribe_events()
@@ -198,7 +198,7 @@ class StackTest extends \Codeception\TestCase\WPTestCase {
 					],
 				],
 			],
-            // [...]
+			// [...]
 		];
 
 		$sets = [];
@@ -316,10 +316,151 @@ This second test example shows what is, probably, the main feature of data-drive
 * we manipulate data as the full View, in production, would do
 
 ### Snapshot testing
-@todo @juanfra
+
+Snapshot testing is a simple concept, the outputof your test is written to disk, and that file is called a snapshot. The next time you run your tests, the content of the test is compared to the snapshot, and it checks check if they succeed or fail.
+
+This type of testing answers the following question:
+
+> Is this View rendering the correct markup (HTML structure, attributes, and data output) given a specific set of template variables?
+
+On the initial test, snapshot testing will create a snapshot of the HTML markup that is output by the view or partial. Each subsequent test will be compared against the initial snapshot.
+
+Below is an example of List View:
+
+```php
+<?php
+
+namespace Tribe\Events\Views\V2\Views;
+
+use Spatie\Snapshots\MatchesSnapshots;
+use Tribe\Events\Views\V2\View;
+use Tribe\Test\Products\WPBrowser\Views\V2\ViewTestCase;
+
+class List_ViewTest extends ViewTestCase {
+
+	use MatchesSnapshots;
+
+	/**
+	 * Test render empty
+	 */
+	public function test_render_empty() {
+		// Sanity check
+		$this->assertEmpty( tribe_events()->found() );
+
+		$context = tribe_context()->alter(
+			[
+				'today'      => $this->mock_date_value,
+				'now'        => $this->mock_date_value,
+			]
+		);
+
+		$list_view = View::make( List_View::class, $context );
+		$html      = $list_view->get_html();
+
+		$this->assertMatchesSnapshot( $html );
+	}
+
+	/**
+	 * Test render with upcoming events
+	 */
+	public function test_render_with_upcoming_events() {
+		$events = [];
+
+		// Create the events.
+		foreach (
+			[
+				'tomorrow 9am',
+				'+1 week',
+				'+9 days',
+			] as $start_date
+		) {
+			$events[] = tribe_events()->set_args( [
+				'start_date' => $start_date,
+				'timezone'   => 'Europe/Paris',
+				'duration'   => 3 * HOUR_IN_SECONDS,
+				'title'      => 'Test Event - ' . $start_date,
+				'status'     => 'publish',
+			] )->create();
+		}
+		// Sanity check
+		$this->assertEquals( 3, tribe_events()->where( 'ends_after', 'now' )->count() );
+		
+		// We are remapping posts in order to avoid snapshot failure due to different IDs, dates, or similar.
+		$this->remap_posts( $events, [
+			'events/featured/1.json',
+			'events/single/1.json',
+			'events/single/2.json'
+		] );
+		
+		// We initialize the view and set context.
+		$list_view = View::make( List_View::class );
+		$list_view->set_context( tribe_context()->alter( [
+			// We're mocking "Today" and "Now" date to avoid failed tests when they run it in a different date.
+			'today'      => $this->mock_date_value, 
+			'now'        => $this->mock_date_value,
+			'events_per_page' => 2,
+		] ) );
+		
+		// We get the view HTML.
+		$html = $list_view->get_html();
+		
+		// And we make sure that the snapshot test is correct.
+		$this->assertMatchesSnapshot( $html );
+	}
+}
+```
+
+By using the `MatchesSnapshots` trait and calling the `assertMatchesSnapshot` method, we can set an initial snapshot and compare the markup each time the test is run.
+
+When a markup change occurs, the test will fail as the HTML markup will not match the snapshot. In this case, review the differences. if they are what you expect, then delete the snapshot file and run the test again to generate a new snapshot. Commit this snapshot to the repo so that all others running tests will have the latest snapshot to compare to.
+
+You can also use the `--debug` flag to get some more information about why the tests could be failing.
 
 ### Component (HTML) Testing
-@todo @paulmskim
+
+This type of testing deals with the following question:
+
+> Is this View partial rendering the correct markup (HTML structure, attributes, and data output) given a specific set of template variables?
+
+This testing is often run using snapshot testing as we are most interested in the View partial markup. See **Snapshot Testing** above for details.
+
+The View partials folder structure is organized in the same structure as the view partials. When creating a new test for a partial, place the test within the appropriate folder matching that of the actual markup.
+
+Below is an example of List View Nav:
+
+```php
+<?php
+
+namespace Tribe\Events\Views\V2\Partials\List_View;
+
+use Tribe\Test\Products\WPBrowser\Views\V2\HtmlPartialTestCase;
+
+class NavTest extends HtmlPartialTestCase
+{
+
+	protected $partial_path = 'list/nav';
+
+	/**
+	 * Test static render
+	 * @todo remove this static HTML test once the partial is dynamic.
+	 */
+	public function test_static_render() {
+		$this->assertMatchesSnapshot( $this->get_partial_html() );
+	}
+
+	/**
+	 * Test render with context
+	 */
+	public function test_render_with_context() {
+		$this->assertMatchesSnapshot( $this->get_partial_html( [
+			'prev_url' => '#',
+			'next_url' => '#',
+		] ) );
+	}
+}
+```
+
+When a markup change occurs in the partial, the test will fail as the html markup will not match the snapshot. See **Snapshot Testing** above for more details on updating snapshots.
 
 ### Other Testing
 
