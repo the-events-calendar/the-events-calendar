@@ -1060,7 +1060,7 @@ class View implements View_Interface {
 				$template_vars['breadcrumb_header'][] = [
 					'priority' => 10,
 					'slug' => 'taxonomy-' . $this->context->get( 'taxonomy' ),
-					'text' => $term->name,
+					'html' => $term->name,
 				];
 			}
 		}
