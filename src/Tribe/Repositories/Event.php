@@ -167,6 +167,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 				'cost_less_than'          => [ $this, 'filter_by_cost_less_than' ],
 				'cost_greater_than'       => [ $this, 'filter_by_cost_greater_than' ],
 				'on_date'                 => [ $this, 'filter_by_on_date' ],
+				'hidden_from_upcoming'    => [ $this, 'filter_by_hidden_on_upcoming' ],
 			]
 		);
 
@@ -1686,5 +1687,28 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 */
 	public function order_by( $order_by, $order = 'ASC' ) {
 		return parent::order_by( $order_by, $order );
+	}
+
+	/**
+	 * Filters events by their "Hidden from Event Listings" status.
+	 *
+	 * This method assumes that we keep the following structure:
+	 * - if an event should be hidden its `_EventHideFromUpcoming` meta will be set to `yes` (or another truthy value).
+	 * - if an event should not be hidden its `_EventHideFromUpcoming` meta will not be set at all.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $hidden Whether the events should be hidden from event listings or not.
+	 */
+	public function filter_by_hidden_on_upcoming( $hidden ) {
+		$hidden = tribe_is_truthy( $hidden );
+
+		if ( $hidden ) {
+			$this->by( 'meta_equals', '_EventHideFromUpcoming', 'yes' );
+
+			return;
+		}
+
+		$this->by( 'meta_not_exists', '_EventHideFromUpcoming' );
 	}
 }
