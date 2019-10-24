@@ -1059,8 +1059,8 @@ class View implements View_Interface {
 			if ( ! empty( $term ) ) {
 				$template_vars['breadcrumb_header'][] = [
 					'priority' => 10,
-					'slug' => 'taxonomy-' . $this->context->get( 'taxonomy' ),
-					'html' => $term->name,
+					'slug'     => 'taxonomy-' . $this->context->get( 'taxonomy' ),
+					'html'     => $term->name,
 				];
 			}
 		}
