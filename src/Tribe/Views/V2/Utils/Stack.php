@@ -357,6 +357,7 @@ class Stack {
 		 * @since TBD
 		 *
 		 * @param bool $keep Whether the event should be part of the stack or not.
+		 * @param mixed $event An event post object, post ID, or any possible representation an event might have.
 		 */
 		return apply_filters( 'tribe_events_views_v2_stack_filter_event', $keep, $event );
 	}
