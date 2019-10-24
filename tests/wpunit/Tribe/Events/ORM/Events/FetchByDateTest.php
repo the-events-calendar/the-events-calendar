@@ -626,11 +626,11 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 
 		$taipei_matches = tribe_events()
 			->where( 'on_date', '2018-01-10', 'Asia/Taipei' )
-			->order_by( 'event_date', 'DESC' )
-			->collect();
+			->order_by( 'event_date', 'ASC' )->collect();
+		codecept_debug( 'Asia/Taipei UTC Matches: ' . json_encode( $taipei_matches->pluck_meta( '_EventStartDateUTC' ) ) );
 		$this->assertEquals( [
-			'2018-01-10 10:00:00',
 			'2018-01-09 23:00:00',
+			'2018-01-10 10:00:00',
 		], $taipei_matches->pluck_meta( '_EventStartDate' ) );
 
 		codecept_debug( 'Event dates in ASC America/New_York date order: '
@@ -638,11 +638,12 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 
 		$ny_matches = tribe_events()
 			->where( 'on_date', '2018-01-10', 'America/New_York' )
-			->order_by( 'event_date', 'DESC' )
+			->order_by( 'event_date', 'ASC' )
 			->collect();
+		codecept_debug( 'America/New_York UTC Matches: ' . json_encode( $ny_matches->pluck_meta( '_EventStartDateUTC' ) ) );
 		$this->assertEquals( [
-			'2018-01-10 14:00:00',
 			'2018-01-10 10:00:00',
+			'2018-01-10 14:00:00',
 		], $ny_matches->pluck_meta( '_EventStartDate' ) );
 	}
 
@@ -669,8 +670,9 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 		$nine_events = tribe_events()
 			->use_utc( false )
 			->where( 'on_date', '2019-04-09' )
-			->order_by( 'event_date' )
+			->order_by( 'event_date', 'ASC' )
 			->collect();
+
 		codecept_debug(
 			'4/9 events UTC dates: ' . implode( PHP_EOL, $nine_events->pluck_meta( '_EventStartDateUTC' ) )
 		);
@@ -689,7 +691,7 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 		$ten_events = tribe_events()
 			->use_utc( false )
 			->where( 'on_date', '2019-04-10' )
-			->order_by( 'event_date' )
+			->order_by( 'event_date', 'ASC' )
 			->collect();
 		codecept_debug(
 			'4/10 events UTC dates: ' . implode( PHP_EOL, $ten_events->pluck_meta( '_EventStartDateUTC' ) )
@@ -707,7 +709,7 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 		$ten_utc_events = tribe_events()
 			->use_utc( true )
 			->where( 'on_date', '2019-04-10' )
-			->order_by( 'event_date' )
+			->order_by( 'event_date', 'ASC' )
 			->collect();
 		codecept_debug(
 			'4/10 events Europe/Paris dates: ' . implode( PHP_EOL, array_map( function ( $utc_date ) {
