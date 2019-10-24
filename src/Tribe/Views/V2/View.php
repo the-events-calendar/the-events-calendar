@@ -942,11 +942,18 @@ class View implements View_Interface {
 
 		$context_arr = $context->to_array();
 
-		return [
+		$args = [
 			'posts_per_page' => $context_arr['events_per_page'],
 			'paged' => max( Arr::get_first_set( array_filter( $context_arr ), [ 'paged', 'page' ], 1 ), 1 ),
 			'search'         => $context->get( 'keyword', '' ),
 		];
+
+		// Set's up catergory URL for all views.
+		if ( ! empty( $context_arr[ TEC::TAXONOMY ] ) ) {
+			$args[ TEC::TAXONOMY] = $context_arr[ TEC::TAXONOMY ];
+		}
+
+		return $args;
 	}
 
 	/**
