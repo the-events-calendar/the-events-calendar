@@ -1046,8 +1046,24 @@ class View implements View_Interface {
 				'month_and_year' => tribe_get_date_option( 'monthAndYearFormat', 'F Y' ),
 			],
 			'messages'          => $this->get_messages( $events ),
+			'breadcrumb_header' => [],
 			'start_of_week'     => get_option( 'start_of_week', 0 ),
 		];
+
+		/**
+		 * @todo  @bordoni move this to a template vars modifier of sorts, pending convo with @lucatume
+		 */
+		if ( ! empty( $this->context->get( 'taxonomy' ) ) && ! empty( $this->context->get( $this->context->get( 'taxonomy' ) ) ) ) {
+			$term = get_term_by( 'slug', $this->context->get( $this->context->get( 'taxonomy' ) ), $this->context->get( 'taxonomy' ) );
+
+			if ( ! empty( $term ) ) {
+				$template_vars['breadcrumb_header'][] = [
+					'priority' => 10,
+					'slug' => 'taxonomy-' . $this->context->get( 'taxonomy' ),
+					'text' => $term->name,
+				];
+			}
+		}
 
 		return $template_vars;
 	}
