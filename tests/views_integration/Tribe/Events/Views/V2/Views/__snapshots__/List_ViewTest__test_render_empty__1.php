@@ -25,6 +25,15 @@
 	{"slug":"list","prev_url":"","next_url":"","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_slug":"list","view":{},"title":"Upcoming Events &#8211; The Events Calendar Tests","events":[],"url":"http:\\/\\/test.tri.be\\/events\\/list\\/","bar":{"keyword":"","date":""},"today":"2019-01-01 09:00:00","now":"2019-01-01 09:00:00","rest_url":"http:\\/\\/test.tri.be\\/index.php?rest_route=\\/tribe\\/views\\/v2\\/html","rest_nonce":"2ab7cc6b39","should_manage_url":true,"today_url":"http:\\/\\/test.tri.be\\/events\\/list\\/","prev_label":"","next_label":"","date_formats":{"compact":"Y-m-d","month_and_year":"F Y"},"messages":{"notice":["There were no results found."]},"start_of_week":"1"}</script>
 
 		<header class="tribe-events-header">
+			<div  class="tribe-events-c-messages tribe-common-b2" >
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<ul class="tribe-events-c-messages__message-list">
+									<li class="tribe-events-c-messages__message-list-item">
+						There were no results found.					</li>
+							</ul>
+		</div>
+	</div>
+
 			<div
 	class="tribe-events-header__events-bar tribe-events-c-events-bar"
 	data-js="tribe-events-events-bar"
@@ -151,11 +160,6 @@
 </div>
 
 </div>
-
-			
-<div class="tribe-events-notices" style="text-align: center; width: 100%; margin: 0 0 1em auto;">
-	notice: There were no results found.</div>
-
 
 			<div class="tribe-events-c-top-bar tribe-events-header__top-bar">
 
