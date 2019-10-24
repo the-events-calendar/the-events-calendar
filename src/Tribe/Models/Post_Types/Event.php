@@ -55,6 +55,7 @@ class Event extends Base {
 			$all_day               = tribe_is_truthy( get_post_meta( $post_id, '_EventAllDay', true ) );
 			$end_of_day            = tribe_end_of_day( $start_date );
 			$timezone              = Timezones::build_timezone_object( $timezone_string );
+			$site_timezone         = Timezones::build_timezone_object();
 			$utc_timezone          = new DateTimezone( 'UTC' );
 			$start_date_object     = new DateTimeImmutable( $start_date, $timezone );
 			$end_date_object       = new DateTimeImmutable( $end_date, $timezone );
@@ -96,45 +97,58 @@ class Event extends Base {
 			}
 
 			if ( Dates::is_valid_date( $filter ) ) {
-				$week_start = Dates::build_date_object( $filter, $timezone );
-				// Sunday is 0.
-				$week_start_day = (int) get_option( 'start_of_week' );
-				$offset         = (int) $week_start->format( 'N' ) >= $week_start_day
-					? $week_start_day
-					: $week_start->format( 'N' ) - $week_start_day;
+				list( $week_start, $week_end ) = Dates::get_week_start_end( $filter );
 
-				$week_start->setISODate( (int) $week_start->format( 'o' ), (int) $week_start->format( 'W' ), $offset );
-				$week_end = clone $week_start;
-				// 7 days later the week ends.
-				$week_end->add( new DateInterval( 'P7D' ) );
-				// Inclusive in respect to the start, exclusive to the end.
-				$starts_this_week  = $week_start <= $start_date_object && $start_date_object < $week_end;
-				$ends_this_week    = $week_start <= $end_date_object && $end_date_object < $week_end;
-				$happens_this_week = $week_start <= $end_date_object && $start_date_object <= $week_end;
+				$the_start = $start_date_object;
+				$the_end   = $end_date_object;
+
+				// Take into account the timezone settings.
+				if ( Timezones::is_mode( Timezones::SITE_TIMEZONE ) ) {
+					// Move the event to the site timezone.
+					$the_start = $the_start->setTimezone( $site_timezone );
+					$the_end   = $the_end->setTimezone( $site_timezone );
+				}
+
+				$week_start_ymd = (int) $week_start->format( 'Ymd' );
+				$week_end_ymd   = (int) $week_end->format( 'Ymd' );
+				$the_start_ymd  = (int) $the_start->format( 'Ymd' );
+				$the_end_ymd    = (int) $the_end->format( 'Ymd' );
+
+				$starts_this_week  = $week_start_ymd <= $the_start_ymd && $the_start_ymd <= $week_end_ymd;
+				$ends_this_week    = $week_start_ymd <= $the_end_ymd && $the_end_ymd <= $week_end_ymd;
+				$happens_this_week = $week_start_ymd <= $the_end_ymd && $the_start_ymd <= $week_end_ymd;
+
+				/*
+				 * A day "crosses the EOD cutoff time" if the end is after the EOD cutoff of the start.
+				 * Here we look just for a boolean.
+				 */
+				$cross_day = tribe_end_of_day( $the_start->format( 'Y-m-d' ) ) < $the_end->format( 'Y-m-d H:i:s' );
+
 				if ( $happens_this_week ) {
 					$this_week_duration = 1;
 					if ( $is_multiday ) {
-						/*
-						 * We add one second during this calculation to cope with all-day events starting on 12:00 AM.
-						 * Due to how DateTime diff works diffing two following midnights would yield a diff of 2 days.
-						 * Furthermore, a multi-day event will always last at least 2 days.
-						 */
-						$this_week_duration = max(
-							$multiday,
-							min(
-								7,
-								$week_end->diff( $start_date_object->add( $one_second ) )->days + 1,
-								$end_date_object->diff( $week_start )->days + 1,
-								$end_date_object->diff( $start_date_object->add( $one_second ) )->days + 1
-							)
-						);
+						if ( $starts_this_week && $ends_this_week ) {
+							$this_week_duration = min( 7, max( 1, $the_end_ymd - $the_start_ymd ) + $cross_day );
+						} elseif ( $ends_this_week ) {
+							$this_week_duration = $the_end_ymd - $week_start_ymd + $cross_day;
+						} elseif ( $starts_this_week ) {
+							$this_week_duration = $week_end_ymd - $the_start_ymd + $cross_day;
+						} else {
+							// If it happens this week and it doesn't start or end this week, then it spans the week.
+							$this_week_duration = 7;
+						}
 					}
 				}
 			}
 
 			$featured        = tribe_is_truthy( get_post_meta( $post_id, Featured::FEATURED_EVENT_KEY, true ) );
+			$sticky          = get_post_field( 'menu_order', $post_id ) === -1;
 			$organizer_fetch = Organizer::get_fetch_callback( $post_id );
 			$venue_fetch     = Venue::get_fetch_callback( $post_id );
+
+			$start_site         = $start_date_object->setTimezone( $site_timezone );
+			$end_site           = $end_date_object->setTimezone( $site_timezone );
+			$use_event_timezone = Timezones::is_mode( Timezones::EVENT_TIMEZONE );
 
 			$properties = [
 				'start_date'             => $start_date,
@@ -142,10 +156,14 @@ class Event extends Base {
 				'end_date'               => $end_date,
 				'end_date_utc'           => $end_date_utc,
 				'dates'                  => (object) [
-					'start'     => $start_date_object,
-					'start_utc' => $start_date_utc_object,
-					'end'       => $end_date_object,
-					'end_utc'   => $end_date_utc_object,
+					'start'         => $start_date_object,
+					'start_utc'     => $start_date_utc_object,
+					'start_site'    => $start_site,
+					'start_display' => $use_event_timezone ? $start_date_object : $start_site,
+					'end'           => $end_date_object,
+					'end_utc'       => $end_date_utc_object,
+					'end_site'      => $end_site,
+					'end_display'   => $use_event_timezone ? $end_date_object : $end_site,
 				],
 				'timezone'               => $timezone_string,
 				'duration'               => $duration,
@@ -157,6 +175,7 @@ class Event extends Base {
 				'this_week_duration'     => $this_week_duration,
 				'happens_this_week'      => $happens_this_week,
 				'featured'               => $featured,
+				'sticky'                 => $sticky,
 				'cost'                   => tribe_get_cost( $post_id, true ),
 				'excerpt'                => tribe_events_get_the_excerpt( $post_id, wp_kses_allowed_html( 'post' ) ),
 				'organizers'             => ( new Lazy_Collection( $organizer_fetch ) )->on_resolve( $cache_this ),
