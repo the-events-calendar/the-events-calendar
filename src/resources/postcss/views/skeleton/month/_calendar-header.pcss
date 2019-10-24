@@ -1,0 +1,28 @@
+.tribe-events {
+
+	/* -----------------------------------------------------------------------------
+	 * Calendar Header
+	 * ----------------------------------------------------------------------------- */
+
+	.tribe-events-calendar-month__header-row {
+		display: flex;
+	}
+
+	.tribe-events-calendar-month__header-column {
+		width: var(--grid-width-1-of-7);
+		padding-bottom: var(--spacer-3);
+	}
+
+	.tribe-events-calendar-month__header-column-title-mobile {
+		@media (--viewport-medium) {
+			@mixin hidden;
+		}
+	}
+
+	.tribe-events-calendar-month__header-column-title-desktop {
+		@media (--viewport-medium) {
+			display: block !important;
+			visibility: visible
+		}
+	}
+}

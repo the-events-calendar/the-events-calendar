@@ -201,4 +201,23 @@ class FetchOtherFiltersTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertCount( 7, tribe_events()->get_ids() );
 	}
+
+	/**
+	 * It should allow fetching events by their hidden from event listings status
+	 *
+	 * This test assumes that we keep hiding events from event listings this way:
+	 * - the `_EventHideFromUpcoming` is set to `yes`, or another truthy value, if the event should be hidden.
+	 * - the `_EventHideFromUpcoming` is not set at all if the event should not be hidden.
+	 *
+	 * @test
+	 */
+	public function should_allow_fetching_events_by_their_hidden_from_event_listings_status() {
+		$hidden     = static::factory()->event->create( [ 'meta_input' => [ '_EventHideFromUpcoming' => 'yes' ] ] );
+		$not_hidden = static::factory()->event->create();
+
+		$this->assertEquals( [ $hidden ], tribe_events()->where( 'hidden_from_upcoming', true )->get_ids() );
+		$this->assertEquals( [ $not_hidden ], tribe_events()->where( 'hidden_from_upcoming', false )->get_ids() );
+		// Not specifying the hidden_from_upcoming filter should yield both.
+		$this->assertEqualSets( [ $hidden, $not_hidden ], tribe_events()->get_ids() );
+	}
 }
