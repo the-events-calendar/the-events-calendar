@@ -950,7 +950,7 @@ class View implements View_Interface {
 
 		// Set's up catergory URL for all views.
 		if ( ! empty( $context_arr[ TEC::TAXONOMY ] ) ) {
-			$args[ TEC::TAXONOMY] = $context_arr[ TEC::TAXONOMY ];
+			$args[ TEC::TAXONOMY ] = $context_arr[ TEC::TAXONOMY ];
 		}
 
 		return $args;
