@@ -9,7 +9,7 @@
 		flex-direction: column;
 		margin-bottom: var(--spacer-5);
 		margin-top: var(--spacer-7);
-		padding-left: var(--grid-gutter-small);
+		padding-left: 54px;
 
 		@media (--viewport-medium) {
 			flex-direction: row-reverse;
@@ -42,6 +42,14 @@
 			@media (--viewport-medium) {
 				left: calc(var(--grid-width-1-of-9) - var(--grid-gutter-half));
 				width: 4px;
+			}
+		}
+
+		&:after {
+			@media (--viewport-medium) {
+				content: '';
+				min-width: 90px;
+				width: var(--grid-width-1-of-9);
 			}
 		}
 	}
