@@ -5,15 +5,11 @@
 	 * ----------------------------------------------------------------------------- */
 
 	.tribe-events-calendar-day__event {
-		display: flex;
-		flex-direction: column;
 		margin-bottom: var(--spacer-5);
 		margin-top: var(--spacer-7);
 		padding-left: 54px;
 
 		@media (--viewport-medium) {
-			flex-direction: row-reverse;
-			justify-content: flex-end;
 			margin-bottom: var(--spacer-8);
 			margin-top: var(--spacer-9);
 			padding-left: 0;
@@ -32,6 +28,14 @@
 		position: relative;
 
 		&:before {
+			@media (--viewport-medium) {
+				content: '';
+				min-width: 90px;
+				width: var(--grid-width-1-of-9);
+			}
+		}
+
+		&:after {
 			background: var(--color-accent-primary);
 			content: '';
 			height: 100%;
@@ -44,14 +48,6 @@
 				width: 4px;
 			}
 		}
-
-		&:after {
-			@media (--viewport-medium) {
-				content: '';
-				min-width: 90px;
-				width: var(--grid-width-1-of-9);
-			}
-		}
 	}
 
 	.tribe-events-calendar-day__time-separator + .tribe-events-calendar-day__event {
@@ -62,13 +58,33 @@
 		}
 	}
 
-	.tribe-events-calendar-day__event-featured-image-wrapper {
+	.tribe-events-calendar-day__event-content {
 		flex: none;
+
+		@media (--viewport-medium) {
+			display: flex;
+			flex-direction: row-reverse;
+			justify-content: flex-end;
+			flex: 1 1 calc(8 * var(--grid-width-1-of-9));
+			margin-left: var(--grid-gutter-half-negative);
+			margin-right: var(--grid-gutter-half-negative);
+		}
+
+		& > * {
+			@media (--viewport-medium) {
+				padding-left: var(--grid-gutter-half);
+				padding-right: var(--grid-gutter-half);
+			}
+		}
+	}
+
+	.tribe-events-calendar-day__event-featured-image-wrapper {
 		margin-bottom: var(--spacer-3);
 
 		@media (--viewport-medium) {
+			flex: none;
 			margin-bottom: 0;
-			width: calc(3 * var(--grid-width-1-of-9));
+			width: calc(3 * var(--grid-width-1-of-8));
 		}
 	}
 
@@ -91,12 +107,11 @@
 	}
 
 	.tribe-events-calendar-day__event-details {
-		flex: none;
 		position: relative;
 
 		@media (--viewport-medium) {
-			margin-left: var(--grid-width-1-of-9);
-			width: calc(5 * var(--grid-width-1-of-9));
+			flex: none;
+			width: calc(5 * var(--grid-width-1-of-8));
 		}
 	}
 
