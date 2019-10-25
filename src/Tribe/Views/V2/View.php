@@ -591,7 +591,7 @@ class View implements View_Interface {
 			}
 		}
 
-		if( $this->should_reset_page() ){
+		if ( $this->should_reset_page() ) {
 			$page = 1;
 		} else {
 			// When we find nothing we're always on page 1.
@@ -956,10 +956,13 @@ class View implements View_Interface {
 
 		$context_arr = $context->to_array();
 
-		$args =  [
-			'posts_per_page' => $context_arr['events_per_page'],
-			'paged' => max( Arr::get_first_set( array_filter( $context_arr ), [ 'paged', 'page' ], 1 ), 1 ),
-			'search' => $context->get( 'keyword', '' ),
+		$args = [
+			'posts_per_page'       => $context_arr['events_per_page'],
+			'paged'                => max( Arr::get_first_set( array_filter( $context_arr ), [
+				'paged',
+				'page',
+			], 1 ), 1 ),
+			'search'               => $context->get( 'keyword', '' ),
 			'hidden_from_upcoming' => false,
 		];
 
@@ -1385,9 +1388,13 @@ class View implements View_Interface {
 			$current_url = $this->context->get( 'view_url', '' );
 
 			$view_data = $this->context->get( 'view_data', [] );
-			$bar_data  = array_filter( $view_data, static function ( $value, $key ) {
-				return 0 === strpos( $key, 'tribe-bar-' ) && ! empty( $value );
-			}, ARRAY_FILTER_USE_BOTH );
+			$bar_data  = array_filter(
+				$view_data,
+				static function ( $value, $key ) {
+					return 0 === strpos( $key, 'tribe-bar-' ) && ! empty( $value );
+				},
+				ARRAY_FILTER_USE_BOTH
+			);
 			if ( ! empty( $bar_data ) ) {
 				$current_url = add_query_arg( $bar_data, $current_url );
 			}
