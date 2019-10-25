@@ -1,4 +1,4 @@
-<?php return '<div class="tribe-events-calendar-day__event-featured-image-wrapper tribe-common-g-col">
+<?php return '<div class="tribe-events-calendar-day__event-featured-image-wrapper">
 	<a
 		href="http://test.tri.be/?tribe_events=single-event-1"
 		title="Single Event 1"
