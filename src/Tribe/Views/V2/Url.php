@@ -315,4 +315,46 @@ class Url {
 
 		return new static( $url );
 	}
+
+	/**
+	 * Differentiates two URLs with knowledge of rewrite rules to check if, resolved request arguments wise, they are
+	 * the same or not.
+	 *
+	 * @since TBD
+	 *
+	 * @param       string $url_a The first URL to check.
+	 * @param       string $url_b The second URL to check.
+	 * @param array $ignore An array of resolved query arguments that should not be taken into account in the check.
+	 *
+	 * @return bool Whether the two URLs, resolved request arguments wise, they are the same or not.
+	 */
+	public static function is_diff( $url_a, $url_b, array $ignore = [] ) {
+		if ( $url_a === $url_b ) {
+			return false;
+		}
+
+		if ( empty( $url_a ) || empty( $url_b ) ) {
+			// We cannot know if one or both are empty.
+			return false;
+		}
+
+		if ( $url_a && $url_b ) {
+			$a_args = ( new static( $url_a ) )->get_query_args();
+			$b_args = ( new static( $url_b ) )->get_query_args();
+			// Ignore any argument that should not trigger a reset.
+			$a_args = array_diff_key( $a_args, array_combine( $ignore, $ignore ) );
+			$b_args = array_diff_key( $b_args, array_combine( $ignore, $ignore ) );
+
+			// Query vars might just be ordered differently, so we sort them.
+			ksort( $a_args );
+			ksort( $b_args );
+
+			if ( array_merge( $a_args, $b_args ) !== $a_args ) {
+				// If the quantity or quality of the arguments changes, then reset.
+				return true;
+			}
+		}
+
+		return false;
+	}
 }
