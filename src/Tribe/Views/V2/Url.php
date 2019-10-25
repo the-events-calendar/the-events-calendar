@@ -322,9 +322,9 @@ class Url {
 	 *
 	 * @since TBD
 	 *
-	 * @param       string $url_a The first URL to check.
-	 * @param       string $url_b The second URL to check.
-	 * @param array $ignore An array of resolved query arguments that should not be taken into account in the check.
+	 * @param string $url_a  The first URL to check.
+	 * @param string $url_b  The second URL to check.
+	 * @param array  $ignore An array of resolved query arguments that should not be taken into account in the check.
 	 *
 	 * @return bool Whether the two URLs, resolved request arguments wise, they are the same or not.
 	 */

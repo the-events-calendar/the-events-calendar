@@ -1385,14 +1385,14 @@ class View implements View_Interface {
 			$current_url = $this->context->get( 'view_url', '' );
 
 			$view_data = $this->context->get( 'view_data', [] );
-			$bar_data = array_filter( $view_data, static function ( $value, $key ) {
+			$bar_data  = array_filter( $view_data, static function ( $value, $key ) {
 				return 0 === strpos( $key, 'tribe-bar-' ) && ! empty( $value );
 			}, ARRAY_FILTER_USE_BOTH );
 			if ( ! empty( $bar_data ) ) {
 				$current_url = add_query_arg( $bar_data, $current_url );
 			}
 
-			$this->should_reset_page =  Url::is_diff( $prev_url, $current_url, [ 'page', 'paged' ] );
+			$this->should_reset_page = Url::is_diff( $prev_url, $current_url, [ 'page', 'paged' ] );
 		}
 
 		return $this->should_reset_page;
