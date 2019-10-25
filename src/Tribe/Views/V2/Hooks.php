@@ -304,7 +304,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 			return $html;
 		}
 
-		return $html . __( 'We recommend a 16:9 aspect ratio for featured images.', 'the-events-calendar' );
+		return $html . '<p class="hide-if-no-js howto">' . __( 'We recommend a 16:9 aspect ratio for featured images.', 'the-events-calendar' ) . '</p>';
 
 	}
 }
