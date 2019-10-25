@@ -88,7 +88,7 @@ class Messages {
 	 *
 	 * @return string The human readable message for the specified key, if found, or the key itself.
 	 */
-	public static function for_key( string $key, ...$values ) {
+	public static function for_key( $key, ...$values ) {
 		$map = [
 			'no_results_found'                 => __( 'There were no results found.', 'the-events-calendar' ),
 			// translators: the placeholder is the keyword(s), as the user entered it in the bar.

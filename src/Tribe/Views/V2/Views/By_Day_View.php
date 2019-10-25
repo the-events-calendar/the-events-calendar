@@ -160,6 +160,10 @@ abstract class By_Day_View extends View {
 			$this->grid_days_found_cache[ $day_string ] = (int) $found;
 		}
 
+		if ( is_array( $this->grid_days_cache ) && count( $this->grid_days_cache ) ) {
+			$this->grid_days_cache = $this->add_implied_events( $this->grid_days_cache );
+		}
+
 		return $this->grid_days_cache;
 	}
 
@@ -291,4 +295,52 @@ abstract class By_Day_View extends View {
 	 *                e.g. `Y-m` for Month View, or `Y-m-d` for Week View.
 	 */
 	abstract  protected function get_url_date_format();
+
+	/**
+	 * Adds the implied events to the grid days results.
+	 *
+	 * The combination of sticky events, other order rules and a limit to the number of events per day,
+	 * might yield incoherent results.
+	 * Fact: events do not have "gaps" in them (in the way we model them).
+	 * To avoid other queries here we apply the principle below and add "implied" events:
+	 * if a an event is present on day 1 and 3 or later, then it must be present on day 2 too.
+	 *
+	 * Note there's a fallacy in this method: if an event appears once and never again, in any of the days, then it
+	 * will never be implied. This is an issue, but this provides a close enough solution on most scenarios.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $grid_days The current array of grid days.
+	 *
+	 * @return array The grid days, modified to contain implied events, if required.
+	 */
+	protected function add_implied_events( array $grid_days ) {
+		$next_days = array_values( $grid_days );
+
+		foreach ( $grid_days as $day_string => &$event_ids ) {
+			$prev_day_events = isset( $prev_day_string ) ? $grid_days[ $prev_day_string ] : [];
+			$prev_day_string = $day_string;
+
+			// Move the next days forward by "cutting" the head.
+			array_shift( $next_days );
+			$next_events = $next_days;
+
+			if ( empty( $next_events ) ) {
+				// We're done: there cannot be more implied events.
+				break;
+			}
+
+			// We use `array_unique` here to speed up the following intersect and diff functions.
+			$next_events = array_unique( array_merge( ...$next_events ) );
+
+			$implied = array_diff( array_intersect( $prev_day_events, $next_events ), $event_ids );
+
+			if ( count( $implied ) ) {
+				// We append the days at the end; this might not in line w/ ordering criteria.
+				array_push( $event_ids, ...$implied );
+			}
+		}
+
+		return $grid_days;
+	}
 }

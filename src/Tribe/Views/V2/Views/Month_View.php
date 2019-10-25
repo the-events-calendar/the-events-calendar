@@ -155,7 +155,10 @@ class Month_View extends By_Day_View {
 
 		$this->user_date = ( new \DateTime( $date ) )->format( 'Y-m' );
 
-		$args['order_by'] = 'event_date';
+		$args['order_by'] = [
+			'menu_order' => 'ASC',
+			'event_date' => 'ASC',
+		];
 		$args['order']    = 'ASC';
 
 		return $args;

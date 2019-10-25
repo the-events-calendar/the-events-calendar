@@ -945,7 +945,8 @@ class View implements View_Interface {
 		return [
 			'posts_per_page' => $context_arr['events_per_page'],
 			'paged' => max( Arr::get_first_set( array_filter( $context_arr ), [ 'paged', 'page' ], 1 ), 1 ),
-			'search'         => $context->get( 'keyword', '' ),
+			'search' => $context->get( 'keyword', '' ),
+			'hidden_from_upcoming' => false,
 		];
 	}
 
