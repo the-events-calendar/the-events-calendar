@@ -270,6 +270,38 @@ class Context extends \tad_DI52_ServiceProvider {
 					Tribe__Context::REQUEST_VAR => [ TEC::TAXONOMY ],
 				],
 			],
+			'view_url' => [
+				'read'  => [
+					Tribe__Context::FUNC => [
+						static function () {
+							return Utils\View::get_data( 'url', Tribe__Context::NOT_FOUND );
+						},
+					],
+					Tribe__Context::LOCATION_FUNC => [
+						// Handles the datepicker request.
+						'view_data',
+						static function ( $data ) {
+							$date_k = 'tribe-bar-date';
+							return is_array( $data ) && isset($data[ $date_k ])
+								? add_query_arg( [ $date_k => $data[ $date_k ]], tribe_get_request_var( 'url', home_url() ) )
+								: Tribe__Context::NOT_FOUND;
+						}
+					],
+				],
+			],
+			'view_prev_url' => [
+				'read'  => [
+					Tribe__Context::FUNC        => [
+						static function () {
+							return Utils\View::get_data( 'prev_url', Tribe__Context::NOT_FOUND );
+						},
+						static function () {
+							// Handles the datepicker request.
+							return tribe_get_request_var( 'url', Tribe__Context::NOT_FOUND );
+						},
+					],
+				],
+			],
 		] );
 
 		return $locations;
