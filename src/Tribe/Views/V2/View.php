@@ -966,7 +966,7 @@ class View implements View_Interface {
 			'hidden_from_upcoming' => false,
 		];
 
-		if( $this->should_reset_page() ){
+		if ( $this->should_reset_page() ) {
 			$args['paged'] = 1;
 		}
 
