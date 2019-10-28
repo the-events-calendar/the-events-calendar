@@ -8,6 +8,7 @@
 
 namespace Tribe\Events\Views\V2\Views;
 
+use Tribe\Events\Views\V2\Messages;
 use Tribe__Context as Context;
 use Tribe__Date_Utils as Dates;
 use Tribe__Events__Template__Month as Month;
@@ -154,7 +155,10 @@ class Month_View extends By_Day_View {
 
 		$this->user_date = ( new \DateTime( $date ) )->format( 'Y-m' );
 
-		$args['order_by'] = 'event_date';
+		$args['order_by'] = [
+			'menu_order' => 'ASC',
+			'event_date' => 'ASC',
+		];
 		$args['order']    = 'ASC';
 
 		return $args;
@@ -195,17 +199,43 @@ class Month_View extends By_Day_View {
 
 		// The events will be returned in an array with shape `[ <Y-m-d> => [...<events>], <Y-m-d> => [...<events>] ]`.
 		$grid_days = $this->get_grid_days();
-		$days      = $this->get_days_data( $grid_days );
 
-		$grid_date             = Dates::build_date_object( $this->context->get( 'event_date', 'today' ) );
+		/*
+		 * The messages set up before will be wrong due to an always empty `$events` array.
+		 * To remedy that we re-build them here with update information.
+		 */
+		$this->messages->reset( Messages::TYPE_NOTICE, 10 );
+
+		if ( empty( $grid_days ) || 0 === array_sum( array_map( 'count', $grid_days ) ) ) {
+			$keyword = $this->context->get( 'keyword', false );
+			if ( $keyword ) {
+				$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( 'month_no_results_found_w_keyword', trim( $keyword ) ) );
+			} else {
+				$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( 'no_results_found' ), 9 );
+			}
+		}
+
+		$days = $this->get_days_data( $grid_days );
+
+		$grid_date_str         = $this->context->get( 'event_date', 'today' );
+		$grid_date             = Dates::build_date_object( $grid_date_str );
 		$month_and_year_format = tribe_get_option( 'monthAndYearFormat', 'F Y' );
 
+		$prev_month_num = Dates::build_date_object( $grid_date_str )->modify( 'first day of last month' )->format( 'n' );
+		$next_month_num = Dates::build_date_object( $grid_date_str )->modify( 'first day of next month' )->format( 'n' );
+		$prev_month     = Dates::wp_locale_month( $prev_month_num, 'short' );
+		$next_month     = Dates::wp_locale_month( $next_month_num, 'short' );
+
 		$today                                = $this->context->get( 'today' );
+		$template_vars['the_date']            = $grid_date;
 		$template_vars['today_date']          = Dates::build_date_object( $today )->format( 'Y-m-d' );
 		$template_vars['grid_date']           = $grid_date->format( 'Y-m-d' );
 		$template_vars['formatted_grid_date'] = $grid_date->format( $month_and_year_format );
 		$template_vars['events']              = $grid_days;
 		$template_vars['days']                = $days;
+		$template_vars['prev_label']          = $prev_month;
+		$template_vars['next_label']          = $next_month;
+		$template_vars['messages']            = $this->messages->to_array();
 
 		return $template_vars;
 	}
@@ -310,10 +340,10 @@ class Month_View extends By_Day_View {
 
 			$day_data = [
 				'date'             => $day_date,
-				'is_start_of_week' => $start_of_week === $date_object->format( 'N' ),
+				'is_start_of_week' => $start_of_week === $date_object->format( 'w' ),
 				'year_number'      => $date_object->format( 'Y' ),
 				'month_number'     => $date_object->format( 'm' ),
-				'day_number'       => $date_object->format( 'd' ),
+				'day_number'       => $date_object->format( 'j' ),
 				'events'           => $the_day_events,
 				'featured_events'  => $featured_events,
 				'multiday_events'  => $day_stack,

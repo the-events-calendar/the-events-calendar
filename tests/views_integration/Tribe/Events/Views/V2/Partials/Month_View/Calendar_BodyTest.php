@@ -40,7 +40,7 @@ class Calendar_BodyTest extends HtmlPartialTestCase {
 				'is_start_of_week' => 1 === $date_object->format( 'N' ),
 				'year_number'      => (int) $date_object->format( 'Y' ),
 				'month_number'     => (int) $date_object->format( 'm' ),
-				'day_number'       => (int) $date_object->format( 'd' ),
+				'day_number'       => (int) $date_object->format( 'j' ),
 				'events'           => [],
 				'featured_events'  => [],
 				'multiday_events'  => [],

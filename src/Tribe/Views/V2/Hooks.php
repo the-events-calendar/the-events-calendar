@@ -20,6 +20,8 @@ namespace Tribe\Events\Views\V2;
 use Tribe\Events\Views\V2\Query\Abstract_Query_Controller;
 use Tribe\Events\Views\V2\Query\Event_Query_Controller;
 use Tribe\Events\Views\V2\Template\Title;
+use Tribe\Events\Views\V2\Template\Excerpt;
+use Tribe\Events\Views\V2\Assets;
 use Tribe__Events__Main as TEC;
 use Tribe__Rewrite as Rewrite;
 
@@ -53,6 +55,8 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_action( 'tribe_common_loaded', [ $this, 'on_tribe_common_loaded' ], 1 );
 		add_action( 'wp_head', [ $this, 'on_wp_head' ], 1000 );
 		add_action( 'tribe_events_pre_rewrite', [ $this, 'on_tribe_events_pre_rewrite' ] );
+		add_action( 'wp_enqueue_scripts', [ $this, 'action_disable_assets_v1' ] );
+		add_action( 'tribe_events_pro_shortcode_tribe_events_assets', [ $this, 'action_disable_shortcode_assets_v1' ] );
 	}
 
 	/**
@@ -62,17 +66,48 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 */
 	protected function add_filters() {
 		// Let's make sure to suppress query filters from the main query.
-		add_filter( 'tribe_suppress_query_filters', '__return_true' );
+		add_filter( 'tribe_events_suppress_query_filters', '__return_true' );
 		add_filter( 'template_include', [ $this, 'filter_template_include' ], 50 );
 		add_filter( 'posts_pre_query', [ $this, 'filter_posts_pre_query' ], 20, 2 );
 		add_filter( 'body_class', [ $this, 'filter_body_class' ] );
 		add_filter( 'query_vars', [ $this, 'filter_query_vars' ], 15 );
 		add_filter( 'tribe_rewrite_canonical_query_args', [ $this, 'filter_map_canonical_query_args' ], 15, 3 );
+		add_filter( 'excerpt_length', [ $this, 'filter_excerpt_length' ] );
+		add_filter( 'excerpt_more', [ $this, 'filter_excerpt_more' ], 999 );
+		add_filter( 'admin_post_thumbnail_html', [ $this, 'filter_admin_post_thumbnail_html' ] );
 
 		if ( tribe_context()->doing_php_initial_state() ) {
 			add_filter( 'wp_title', [ $this, 'filter_wp_title' ], 10, 2 );
 			add_filter( 'document_title_parts', [ $this, 'filter_document_title_parts' ] );
 		}
+	}
+
+	/**
+	 * Fires to deregister v1 assets correctly.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function action_disable_assets_v1() {
+		$assets = $this->container->make( Assets::class );
+		if ( ! $assets->should_enqueue_frontend() ) {
+			return;
+		}
+
+		$assets->disable_v1();
+	}
+
+	/**
+	 * Fires to deregister v1 assets correctly for shortcodes.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function action_disable_shortcode_assets_v1() {
+		$assets = $this->container->make( Assets::class );
+		$assets->disable_v1();
 	}
 
 	/**
@@ -84,7 +119,6 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		$this->container->make( Template_Bootstrap::class )->disable_v1();
 		$this->container->make( Rest_Endpoint::class )->maybe_enable_ajax_fallback();
 	}
-
 
 	/**
 	 * Fires when WordPress head is printed.
@@ -203,7 +237,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Filters the `wp_title` template tag.
 	 *
-	 * @since TBD
+	 * @since 4.9.10
 	 *
 	 * @param      string $title The current title value.
 	 * @param string|null $sep The separator char, or sequence, to use to separate the page title from the blog one.
@@ -219,7 +253,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * This is the template tag introduced in WP 4.4 to get the page title.
 	 *
-	 * @since TBD
+	 * @since 4.9.10
 	 *
 	 * @param string $title The page title.
 	 *
@@ -227,5 +261,50 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 */
 	public function filter_document_title_parts( $title ) {
 		return $this->container->make( Title::class )->filter_document_title_parts( $title );
+	}
+
+	/**
+	 * Filters the `excerpt_length`.
+	 *
+	 * @since 4.9.10
+	 *
+	 * @param int $length The excerpt length.
+	 *
+	 * @return int The modified excerpt length, if required.
+	 */
+	public function filter_excerpt_length( $length ) {
+		return $this->container->make( Template\Excerpt::class )->maybe_filter_excerpt_length( $length );
+	}
+
+	/**
+	 * Filters the `excerpt_more`.
+	 *
+	 * @since 4.9.10
+	 *
+	 * @param string $link The excerpt read more link.
+	 *
+	 * @return string The modified excerpt read more link, if required.
+	 */
+	public function filter_excerpt_more( $link ) {
+		return $this->container->make( Template\Excerpt::class )->maybe_filter_excerpt_more( $link );
+	}
+
+	/**
+	 * Filters the `admin_post_thumbnail_html` to add image aspect ratio recommendation.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $html The HTML for the featured image box.
+	 *
+	 * @return string The modified html, if required.
+	 */
+	public function filter_admin_post_thumbnail_html( $html ) {
+
+		if ( TEC::POSTTYPE !== get_current_screen()->post_type ) {
+			return $html;
+		}
+
+		return $html . '<p class="hide-if-no-js howto">' . __( 'We recommend a 16:9 aspect ratio for featured images.', 'the-events-calendar' ) . '</p>';
+
 	}
 }

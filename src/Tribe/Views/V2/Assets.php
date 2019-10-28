@@ -42,16 +42,36 @@ class Assets extends \tad_DI52_ServiceProvider {
 
 		tribe_asset(
 			$plugin,
-			'tribe-events-views-v2-full',
-			'views-full.css',
+			'tribe-events-views-v2-skeleton',
+			'views-skeleton.css',
 			[
-				'tribe-common-style',
+				'tribe-common-skeleton-style',
 				'tribe-tooltipster-css',
 			],
 			'wp_enqueue_scripts',
 			[
 				'priority'     => 10,
 				'conditionals' => [ $this, 'should_enqueue_frontend' ],
+				'groups'       => [ static::$group_key ],
+			]
+		);
+
+		tribe_asset(
+			$plugin,
+			'tribe-events-views-v2-full',
+			'views-full.css',
+			[
+				'tribe-common-full-style',
+				'tribe-events-views-v2-skeleton',
+			],
+			'wp_enqueue_scripts',
+			[
+				'priority'     => 10,
+				'conditionals' => [
+					'operator' => 'AND',
+					[ $this, 'should_enqueue_frontend' ],
+					[ $this, 'should_enqueue_full_styles' ],
+				],
 				'groups'       => [ static::$group_key ],
 			]
 		);
@@ -255,11 +275,6 @@ class Assets extends \tad_DI52_ServiceProvider {
 				'priority' => 10,
 			]
 		);
-
-		/**
-		 * @todo: remove once we can not load v1 scripts in v2
-		 */
-		add_action( 'wp_enqueue_scripts', [ $this, 'disable_v1' ], 200 );
 	}
 
 	/**
@@ -271,10 +286,20 @@ class Assets extends \tad_DI52_ServiceProvider {
 	 */
 	public function disable_v1() {
 		wp_deregister_script( 'tribe-events-calendar-script' );
+		wp_deregister_script( 'tribe-events-bar' );
+		wp_deregister_script( 'the-events-calendar' );
+		wp_deregister_script( 'tribe-events-ajax-day' );
+		wp_deregister_script( 'tribe-events-list' );
+
+		wp_deregister_style( 'tribe-events-calendar-mobile-style' );
+		wp_deregister_style( 'tribe-events-calendar-full-mobile-style' );
+		wp_deregister_style( 'tribe-events-full-calendar-style' );
+		wp_deregister_style( 'tribe-events-calendar-style' );
+		wp_deregister_style( 'tribe-events-calendar-override-style' );
 	}
 
 	/**
-	 * Checks if we should enqueue frontend assets for the V2 views
+	 * Checks if we should enqueue frontend assets for the V2 views.
 	 *
 	 * @since 4.9.4
 	 *
@@ -285,12 +310,48 @@ class Assets extends \tad_DI52_ServiceProvider {
 		$should_enqueue = tribe( Template_Bootstrap::class )->should_load();
 
 		/**
-		 * Allow filtering of where the base Frontend Assets will be loaded
+		 * Allow filtering of where the base Frontend Assets will be loaded.
 		 *
 		 * @since 4.9.4
 		 *
 		 * @param bool $should_enqueue
 		 */
 		return apply_filters( 'tribe_events_views_v2_assets_should_enqueue_frontend', $should_enqueue );
+	}
+
+
+	/**
+	 * Checks if we are using skeleton setting for Style.
+	 *
+	 * @since  TBD
+	 *
+	 * @return bool
+	 */
+	public function is_skeleton_style() {
+		$style_option = tribe_get_option( 'stylesheetOption', 'tribe' );
+		return 'skeleton' === $style_option;
+	}
+
+	/**
+	 * Verifies if we dont have skeleton active, which will trigger true for the two other possible options.
+	 * Options:
+	 * - `tribe` - Deprecated
+	 * - `full`  - All styles load
+	 *
+	 * @since  TBD
+	 *
+	 * @return bool
+	 */
+	public function should_enqueue_full_styles() {
+		$should_enqueue = ! $this->is_skeleton_style();
+
+		/**
+		 * Allow filtering of where the base Frontend Assets will be loaded.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool $is_skeleton_style
+		 */
+		return apply_filters( 'tribe_events_views_v2_assets_should_enqueue_full_styles', $should_enqueue );
 	}
 }

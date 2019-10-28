@@ -32,6 +32,16 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 	 *                                              @type DateTimeImmutable $start_utc The event UTC start date object.
 	 *                                              @type DateTimeImmutable $end The event end date object.
 	 *                                              @type DateTimeImmutable $end_utc The event UTC end date object.
+	 *                                              @type DateTimeImmutable $start_site The event start date object in
+	 *                                                                                  the site timezone.
+	 *                                              @type DateTimeImmutable $end_site The event end date object in the
+	 *                                                                                  site timezone.
+	 *                                              @type DateTimeImmutable $start_display The event start date object
+	 *                                                                                     in the site or event timezone
+	 *                                                                                     depending on the setting.
+	 *                                              @type DateTimeImmutable $end_display The event end date object in
+	 *                                                                                     the site or event timezone
+	 *                                                                                     depending on the setting.
 	 *                                          }
 	 *                              @type string $timezone The event timezone string.
 	 *                              @type int $duration The event duration in seconds.

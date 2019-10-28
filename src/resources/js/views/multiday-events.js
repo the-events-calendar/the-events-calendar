@@ -60,10 +60,10 @@ tribe.events.views.multidayEvents = {};
 	 */
 	obj.selectorSuffixes = {
 		multidayEvent: 'multiday-event',
-		hiddenMultidayEvent: 'multiday-event--hidden',
-		multidayEventInner: 'multiday-event-inner',
-		multidayEventInnerFocus: 'multiday-event-inner--focus',
-		multidayEventInnerHover: 'multiday-event-inner--hover',
+		hiddenMultidayEvent: 'multiday-event-hidden',
+		multidayEventBarInner: 'multiday-event-bar-inner',
+		multidayEventBarInnerFocus: 'multiday-event-bar-inner--focus',
+		multidayEventBarInnerHover: 'multiday-event-bar-inner--hover',
 	};
 
 	/**
@@ -77,11 +77,10 @@ tribe.events.views.multidayEvents = {};
 	 * @return {jQuery} jQuery object of visible multiday event or false if none found
 	 */
 	obj.findVisibleMultidayEvents = function( $container, $hiddenMultidayEvent ) {
-		var eventId = $hiddenMultidayEvent.data( 'event-id' );
+		var eventId = $hiddenMultidayEvent.closest( obj.selectors.multidayEvent ).data( 'event-id' );
 
 		return $container
 			.find( obj.selectors.multidayEvent + '[data-event-id=' + eventId + ']' )
-			.not( obj.selectors.hiddenMultidayEvent );
 	};
 
 	/**
@@ -94,7 +93,7 @@ tribe.events.views.multidayEvents = {};
 	 * @return {void}
 	 */
 	obj.toggleHoverClass = function( event ) {
-		event.data.target.toggleClass( obj.selectors.multidayEventInnerHover.className() );
+		event.data.target.toggleClass( obj.selectors.multidayEventBarInnerHover.className() );
 	};
 
 	/**
@@ -107,7 +106,7 @@ tribe.events.views.multidayEvents = {};
 	 * @return {void}
 	 */
 	obj.toggleFocusClass = function( event ) {
-		event.data.target.toggleClass( obj.selectors.multidayEventInnerFocus.className() );
+		event.data.target.toggleClass( obj.selectors.multidayEventBarInnerFocus.className() );
 	};
 
 	/**
@@ -120,11 +119,11 @@ tribe.events.views.multidayEvents = {};
 	 * @return {void}
 	 */
 	obj.unbindMultidayEvents = function( $container ) {
-		var $hiddenMultidayEvents = $container.find( obj.selectors.multidayEvent );
+		var $hiddenMultidayEvents = $container.find( obj.selectors.hiddenMultidayEvent );
 
 		$hiddenMultidayEvents.each( function( hiddenIndex, hiddenMultidayEvent ) {
-			var $hiddenMultidayEventInner = $( hiddenMultidayEvent ).find( obj.selectors.multidayEventInner );
-			$hiddenMultidayEventInner
+			var $hiddenMultidayEvent = $( hiddenMultidayEvent );
+			$hiddenMultidayEvent
 				.off( 'mouseenter mouseleave', obj.toggleHoverClass )
 				.off( 'focus blur', obj.toggleFocusClass );
 		} );
@@ -140,7 +139,7 @@ tribe.events.views.multidayEvents = {};
 	 * @return {void}
 	 */
 	obj.bindMultidayEvents = function( $container ) {
-		var $hiddenMultidayEvents = $container.find( obj.selectors.multidayEvent );
+		var $hiddenMultidayEvents = $container.find( obj.selectors.hiddenMultidayEvent );
 
 		$hiddenMultidayEvents.each( function( hiddenIndex, hiddenMultidayEvent ) {
 			var $hiddenMultidayEvent = $( hiddenMultidayEvent );
@@ -148,12 +147,11 @@ tribe.events.views.multidayEvents = {};
 
 			$visibleMultidayEvents.each( function( visibleIndex, visibleMultidayEvent ) {
 				var $visibleMultidayEvent = $( visibleMultidayEvent );
-				var $visibleMultidayEventInner = $visibleMultidayEvent.find( obj.selectors.multidayEventInner );
-				var $hiddenMultidayEventInner = $hiddenMultidayEvent.find( obj.selectors.multidayEventInner );
+				var $visiblemultidayEventBarInner = $visibleMultidayEvent.find( obj.selectors.multidayEventBarInner );
 
-				$hiddenMultidayEventInner
-					.on( 'mouseenter mouseleave', { target: $visibleMultidayEventInner }, obj.toggleHoverClass )
-					.on( 'focus blur', { target: $visibleMultidayEventInner }, obj.toggleFocusClass );
+				$hiddenMultidayEvent
+					.on( 'mouseenter mouseleave', { target: $visiblemultidayEventBarInner }, obj.toggleHoverClass )
+					.on( 'focus blur', { target: $visiblemultidayEventBarInner }, obj.toggleFocusClass );
 			} );
 		} );
 	};

@@ -21,9 +21,18 @@
 	data-js="tribe-events-view-data"
 	type="application/json"
 >
-	{"slug":"day","prev_url":"http:\\/\\/test.tri.be\\/events\\/2018-12-31\\/","next_url":"","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Day_View","view_slug":"day","view":{},"title":"Upcoming Events &#8211; The Events Calendar Tests","events":[],"url":"http:\\/\\/test.tri.be\\/events\\/today\\/","bar":{"keyword":"","date":"2019-01-01 09:00:00"},"today":"2019-01-01 09:00:00","now":"2019-01-01 09:00:00","rest_url":"http:\\/\\/test.tri.be\\/index.php?rest_route=\\/tribe\\/views\\/v2\\/html","rest_nonce":"2ab7cc6b39","should_manage_url":true,"today_url":"http:\\/\\/test.tri.be\\/events\\/today\\/","prev_label":"","next_label":""}</script>
+	{"slug":"day","prev_url":"http:\\/\\/test.tri.be\\/events\\/2018-12-31\\/","next_url":"","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Day_View","view_slug":"day","view":{},"title":"Upcoming Events &#8211; The Events Calendar Tests","events":[],"url":"http:\\/\\/test.tri.be\\/events\\/today\\/","bar":{"keyword":"","date":"2019-01-01 09:00:00"},"today":"2019-01-01 09:00:00","now":"2019-01-01 09:00:00","rest_url":"http:\\/\\/test.tri.be\\/index.php?rest_route=\\/tribe\\/views\\/v2\\/html","rest_nonce":"2ab7cc6b39","should_manage_url":true,"today_url":"http:\\/\\/test.tri.be\\/events\\/today\\/","prev_label":"","next_label":"","date_formats":{"compact":"Y-m-d","month_and_year":"F Y"},"messages":{"notice":["No events scheduled for January 1, 2019. Please try another day."]},"start_of_week":"1"}</script>
 
 		<header class="tribe-events-header">
+			<div  class="tribe-events-c-messages tribe-common-b2" >
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<ul class="tribe-events-c-messages__message-list">
+									<li class="tribe-events-c-messages__message-list-item">
+						No events scheduled for January 1, 2019. Please try another day.					</li>
+							</ul>
+		</div>
+	</div>
+
 			<div
 	class="tribe-events-header__events-bar tribe-events-c-events-bar"
 	data-js="tribe-events-events-bar"
@@ -187,10 +196,13 @@
 
 	<div class="tribe-events-c-top-bar__datepicker">
 	<button
-		class="tribe-common-h2 tribe-common-h3--min-medium tribe-common-h--alt tribe-events-c-top-bar__datepicker-button"
+		class="tribe-common-h3 tribe-common-h--alt tribe-events-c-top-bar__datepicker-button"
 		data-js="tribe-events-top-bar-datepicker-button"
 	>
-		<time datetime="2019-01-01">
+		<time
+			datetime="2019-01-01"
+			class="tribe-events-c-top-bar__datepicker-time"
+		>
 			January 1, 2019		</time>
 	</button>
 	<label
@@ -204,7 +216,7 @@
 		data-js="tribe-events-top-bar-date"
 		id="tribe-events-top-bar-date"
 		name="tribe-events-views[tribe-bar-search]"
-		value="2019-01-01 09:00:00"
+		value="2019-01-01"
 		tabindex="-1"
 		autocomplete="off"
 	/>
@@ -217,6 +229,7 @@
 </div>
 		</header>
 
+		
 		<div class="tribe-events-calendar-day">
 
 			

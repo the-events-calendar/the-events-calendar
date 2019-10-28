@@ -202,10 +202,12 @@ tribe.events.views.manager = {};
 	 * @return {boolean}
 	 */
 	obj.onLinkClick = function( event ) {
+		var $container = obj.getContainer( this );
+		$container.trigger( 'beforeOnLinkClick.tribeEvents', event );
+
 		event.preventDefault();
 
 		var $link = $( this );
-		var $container = obj.getContainer( this );
 		var url = $link.attr( 'href' );
 		var nonce = $link.data( 'view-rest-nonce' );
 		var shouldManageUrl = obj.shouldManageUrl( $container );
@@ -223,6 +225,8 @@ tribe.events.views.manager = {};
 
 		obj.request( data, $container );
 
+		$container.trigger( 'afterOnLinkClick.tribeEvents', event );
+
 		return false;
 	};
 
@@ -238,11 +242,13 @@ tribe.events.views.manager = {};
 	 * @return {boolean}
 	 */
 	obj.onSubmit = function( event ) {
+		var $container = obj.getContainer( this );
+		$container.trigger( 'beforeOnSubmit.tribeEvents', event );
+
 		event.preventDefault();
 
 		// The submit event is triggered on the form, not the container.
 		var $form = $( this );
-		var $container = $form.closest( obj.selectors.container );
 		var nonce = $container.data( 'view-rest-nonce' );
 
 		var formData = Qs.parse( $form.serialize() );
@@ -255,6 +261,8 @@ tribe.events.views.manager = {};
 
 		// Pass the data to the request reading it from `tribe-events-views`.
 		obj.request( data, $container );
+
+		$container.trigger( 'afterOnSubmit.tribeEvents', event );
 
 		return false;
 	};

@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.9
+ * @version TBD
  *
  * @var array  $events The array containing the events.
  * @var string $rest_url The REST URL.
@@ -32,10 +32,14 @@
 		<?php $this->template( 'components/data' ); ?>
 
 		<header class="tribe-events-header">
+			<?php $this->template( 'components/messages' ); ?>
+
 			<?php $this->template( 'components/events-bar' ); ?>
 
 			<?php $this->template( 'list/top-bar' ); ?>
 		</header>
+
+		<?php $this->template( 'components/filter-bar' ); ?>
 
 		<div class="tribe-events-calendar-list">
 

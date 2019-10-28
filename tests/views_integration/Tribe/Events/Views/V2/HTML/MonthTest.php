@@ -3,6 +3,7 @@
 namespace Tribe\Events\Views\V2\Views\HTML;
 
 use Tribe\Test\Products\WPBrowser\Views\V2\HtmlTestCase;
+use Tribe__Date_Utils as Dates;
 
 class MonthTest extends HtmlTestCase {
 
@@ -11,6 +12,10 @@ class MonthTest extends HtmlTestCase {
 	 */
 	public function it_should_contain_correct_html_classes() {
 		$this->given_month_data();
+
+		$this->template->add_template_globals( [
+			'the_date' => Dates::build_date_object( '2019-08-01' )
+		] );
 		$template = $this->template->template( 'month' );
 		$html     = $this->document->html( $template );
 
@@ -31,7 +36,10 @@ class MonthTest extends HtmlTestCase {
 	 */
 	public function it_should_contain_a11y_attributes() {
 		$this->given_month_data();
-		$template   = $this->template->template( 'month' );
+		$this->template->add_template_globals( [
+			'the_date' => Dates::build_date_object( '2019-08-01' )
+		] );
+		$template = $this->template->template( 'month' );
 		$html       = $this->document->html( $template );
 		$month      = $html->find( '.tribe-events-calendar-month' );
 		$month_body = $month->find( '.tribe-events-calendar-month__body' );
@@ -69,7 +77,7 @@ class MonthTest extends HtmlTestCase {
 				'is_start_of_week' => 1 === $date_object->format( 'N' ),
 				'year_number'      => $date_object->format( 'Y' ),
 				'month_number'     => $date_object->format( 'm' ),
-				'day_number'       => $date_object->format( 'd' ),
+				'day_number'       => $date_object->format( 'j' ),
 				'events'           => [],
 				'featured_events'  => [],
 				'multiday_events'  => [],
