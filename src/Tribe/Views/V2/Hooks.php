@@ -20,8 +20,6 @@ namespace Tribe\Events\Views\V2;
 use Tribe\Events\Views\V2\Query\Abstract_Query_Controller;
 use Tribe\Events\Views\V2\Query\Event_Query_Controller;
 use Tribe\Events\Views\V2\Template\Title;
-use Tribe\Events\Views\V2\Template\Excerpt;
-use Tribe\Events\Views\V2\Assets;
 use Tribe__Events__Main as TEC;
 use Tribe__Rewrite as Rewrite;
 
