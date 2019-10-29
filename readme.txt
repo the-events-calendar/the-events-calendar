@@ -215,10 +215,6 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
-= [TBD] TBD =
-
-* Tweak - added the `tribe_events_suppress_query_filters` filter to allow suppressing `Tribe__Events__Query` filters [134827]
-
 = [4.9.10] 2019-10-16 =
 
 * Tweak - added the `tribe_sanitize_deep` function to sanitize and validate input values [134427]
