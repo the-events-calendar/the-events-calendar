@@ -74,7 +74,7 @@ class Excerpt extends Base_Template {
 			return $link;
 		}
 
-		return $this->template( 'components/read-more', [], false );
+		return ' &hellip; ' . $this->template( 'components/read-more', [], false );
 	}
 
 }
