@@ -1,0 +1,17 @@
+name: 'ESLint'
+on:
+  pull_request:
+    paths:
+      - 'src/modules/**.js'
+      - 'src/resources/js/**.js'
+jobs:
+  eslint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+      - uses: reviewdog/action-eslint@v1
+        with:
+          github_token: ${{ secrets.GH_BOT_TOKEN }}
+          eslint_flags: 'src/modules/**.js src/resources/js/**.js'

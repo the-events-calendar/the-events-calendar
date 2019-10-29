@@ -340,7 +340,7 @@ class Month_View extends By_Day_View {
 
 			$day_data = [
 				'date'             => $day_date,
-				'is_start_of_week' => $start_of_week === $date_object->format( 'N' ),
+				'is_start_of_week' => $start_of_week === $date_object->format( 'w' ),
 				'year_number'      => $date_object->format( 'Y' ),
 				'month_number'     => $date_object->format( 'm' ),
 				'day_number'       => $date_object->format( 'j' ),

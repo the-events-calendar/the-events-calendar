@@ -8,6 +8,14 @@
 		position: relative;
 
 		&:before {
+			@media (--viewport-medium) {
+				content: '';
+				min-width: 90px;
+				width: var(--grid-width-1-of-9);
+			}
+		}
+
+		&:after {
 			background: var(--color-accent-primary);
 			content: '';
 			height: 100%;
