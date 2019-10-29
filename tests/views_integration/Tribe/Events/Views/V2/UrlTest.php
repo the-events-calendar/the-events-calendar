@@ -141,4 +141,67 @@ class UrlTest extends \Codeception\TestCase\WPTestCase {
 		$expected = add_query_arg( [ 'tribe-bar-location' => 'cairo' ], home_url( '/foo/bar' ) );
 		$this->assertEquals( $expected, (string) $params_url );
 	}
+
+	public function is_diff_data_set() {
+		yield 'list_w_added_date' => [
+			home_url( '/events/list/' ),
+			home_url( '/events/list/?tribe-bar-date=2019-10-12' ),
+			true,
+		];
+
+		yield 'list_w_diff_dates' => [
+			home_url( '/events/list/?tribe-bar-date=2019-10-01' ),
+			home_url( '/events/list/?tribe-bar-date=2019-10-12' ),
+			true,
+		];
+
+		yield 'diff_views_same_dates' => [
+			home_url( '/events/list/?tribe-bar-date=2019-10-12' ),
+			home_url( '/events/day/?tribe-bar-date=2019-10-12' ),
+			true,
+		];
+
+		yield 'same_view_diff_page' => [
+			home_url( '/events/list/?tribe-bar-date=2019-10-12' ),
+			home_url( '/events/list/page/2/?tribe-bar-date=2019-10-12' ),
+			false,
+			[ 'page', 'paged' ],
+		];
+
+		yield 'same_view_diff_filters' => [
+			home_url( '/events/list/?tribe-bar-search=one' ),
+			home_url( '/events/list/?tribe-bar-search=two' ),
+			true,
+		];
+
+		yield 'same_view_diff_dates_same_filters' => [
+			home_url( '/events/list/?tribe-bar-search=one&tribe-bar-date=2019-10-12' ),
+			home_url( '/events/list/?tribe-bar-search=one&tribe-bar-date=2019-10-01' ),
+			true,
+		];
+
+		yield 'same_view_same_filter_diff_page' => [
+			home_url( '/events/list/page/2/?tribe-bar-search=one' ),
+			home_url( '/events/list/?tribe-bar-search=one' ),
+			false,
+			[ 'page', 'paged' ],
+		];
+
+		yield 'same_view_diff_arg_order' => [
+			home_url( '/events/list/page/2/?tribe-bar-search=one&tribe-bar-date=2019-10-12' ),
+			home_url( '/events/list/?tribe-bar-date=2019-10-12&tribe-bar-search=one' ),
+			false,
+			[ 'page', 'paged' ],
+		];
+	}
+
+	/**
+	 * It should correctly spot different requests
+	 *
+	 * @test
+	 * @dataProvider is_diff_data_set
+	 */
+	public function should_correctly_spot_different_requests( $url_a, $url_b, $is_diff, $ignore = [] ) {
+		$this->assertEquals( $is_diff, URL::is_diff( $url_a, $url_b, $ignore ) );
+	}
 }

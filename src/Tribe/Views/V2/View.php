@@ -162,6 +162,16 @@ class View implements View_Interface {
 	protected $messages;
 
 	/**
+	 * Whether this View should reset the page/pagination or not.
+	 * This acts as an instance cache for the `View::should_reset_page` method.
+	 *
+	 * @since TBD
+	 *
+	 * @var bool
+	 */
+	protected $should_reset_page;
+
+	/**
 	 * View constructor.
 	 *
 	 * @param Messages $messages An instance of the messages collection.
@@ -581,8 +591,12 @@ class View implements View_Interface {
 			}
 		}
 
-		// When we find nothing we're always on page 1.
-		$page = $this->repository->count() > 0 ? $this->url->get_current_page() : 1;
+		if ( $this->should_reset_page() ) {
+			$page = 1;
+		} else {
+			// When we find nothing we're always on page 1.
+			$page = $this->repository->count() > 0 ? $this->url->get_current_page() : 1;
+		}
 
 		if ( $page > 1 ) {
 			$query_args[ $this->page_key ] = $page;
@@ -942,12 +956,21 @@ class View implements View_Interface {
 
 		$context_arr = $context->to_array();
 
-		return [
-			'posts_per_page' => $context_arr['events_per_page'],
-			'paged' => max( Arr::get_first_set( array_filter( $context_arr ), [ 'paged', 'page' ], 1 ), 1 ),
-			'search' => $context->get( 'keyword', '' ),
+		$args = [
+			'posts_per_page'       => $context_arr['events_per_page'],
+			'paged'                => max( Arr::get_first_set( array_filter( $context_arr ), [
+				'paged',
+				'page',
+			], 1 ), 1 ),
+			'search'               => $context->get( 'keyword', '' ),
 			'hidden_from_upcoming' => false,
 		];
+
+		if ( $this->should_reset_page() ) {
+			$args['paged'] = 1;
+		}
+
+		return $args;
 	}
 
 	/**
@@ -1348,5 +1371,37 @@ class View implements View_Interface {
 				$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( 'no_results_found' ) );
 			}
 		}
+	}
+
+	/**
+	 * Returns whether the View page should be reset or not.
+	 *
+	 * The View page should be reset when the View or filtering parameters that are not the page change.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool Whether the View page should be reset or not.
+	 */
+	protected function should_reset_page() {
+		if ( null === $this->should_reset_page ) {
+			$prev_url    = $this->context->get( 'view_prev_url', '' );
+			$current_url = $this->context->get( 'view_url', '' );
+
+			$view_data = $this->context->get( 'view_data', [] );
+			$bar_data  = array_filter(
+				$view_data,
+				static function ( $value, $key ) {
+					return 0 === strpos( $key, 'tribe-bar-' ) && ! empty( $value );
+				},
+				ARRAY_FILTER_USE_BOTH
+			);
+			if ( ! empty( $bar_data ) ) {
+				$current_url = add_query_arg( $bar_data, $current_url );
+			}
+
+			$this->should_reset_page = Url::is_diff( $prev_url, $current_url, [ 'page', 'paged' ] );
+		}
+
+		return $this->should_reset_page;
 	}
 }
