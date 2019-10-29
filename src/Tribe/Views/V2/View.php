@@ -89,24 +89,6 @@ class View implements View_Interface {
 	protected $url;
 
 	/**
-	 * Cache property for the next URL value to avoid running queries twice.
-	 *
-	 * @since 4.9.10
-	 *
-	 * @var string
-	 */
-	protected $next_url;
-
-	/**
-	 * Cache property for the previous URL value to avoid running queries twice.
-	 *
-	 * @since 4.9.10
-	 *
-	 * @var string
-	 */
-	protected $prev_url;
-
-	/**
 	 * An associative array of global variables backed up by the view before replacing the global loop.
 	 *
 	 * @since 4.9.3
@@ -160,6 +142,16 @@ class View implements View_Interface {
 	 * @var Messages
 	 */
 	protected $messages;
+
+	/**
+	 * Whether this View should reset the page/pagination or not.
+	 * This acts as an instance cache for the `View::should_reset_page` method.
+	 *
+	 * @since TBD
+	 *
+	 * @var bool
+	 */
+	protected $should_reset_page;
 
 	/**
 	 * View constructor.
@@ -581,8 +573,12 @@ class View implements View_Interface {
 			}
 		}
 
-		// When we find nothing we're always on page 1.
-		$page = $this->repository->count() > 0 ? $this->url->get_current_page() : 1;
+		if ( $this->should_reset_page() ) {
+			$page = 1;
+		} else {
+			// When we find nothing we're always on page 1.
+			$page = $this->repository->count() > 0 ? $this->url->get_current_page() : 1;
+		}
 
 		if ( $page > 1 ) {
 			$query_args[ $this->page_key ] = $page;
@@ -608,39 +604,32 @@ class View implements View_Interface {
 	 * {@inheritDoc}
 	 */
 	public function next_url( $canonical = false, array $passthru_vars = [] ) {
-		if ( isset( $this->next_url ) ) {
-			return $this->next_url;
-		}
-
 		$next_page = $this->repository->next();
 
-		$url            = $next_page->count() > 0 ?
-			add_query_arg( [ $this->page_key => $this->url->get_current_page() + 1 ], $this->get_url() )
+		$url = $this->get_url();
+
+		if ( ! empty( $passthru_vars ) ) {
+			// Remove the pass-thru vars, we'll re-apply them to the URL later.
+			$url = remove_query_arg( array_keys( $passthru_vars ), $url );
+		}
+
+		// Make sure the view slug is always set to correctly match rewrites.
+		$url = add_query_arg( [ 'eventDisplay' => $this->slug ], $url );
+
+		$url = $next_page->count() > 0 ?
+			add_query_arg( [ $this->page_key => $this->url->get_current_page() + 1 ], $url )
 			: '';
 
 		if ( ! empty( $url ) && $canonical ) {
-			$input_url = $url;
+			$url = tribe( 'events.rewrite' )->get_clean_url( $url );
+		}
 
-			if ( ! empty( $passthru_vars ) ) {
-				$input_url = remove_query_arg( array_keys( $passthru_vars ), $url );
-			}
-
-			// Make sure the view slug is always set to correctly match rewrites.
-			$input_url = add_query_arg( [ 'eventDisplay' => $this->slug ], $input_url );
-
-			$canonical_url = tribe( 'events.rewrite' )->get_clean_url( $input_url );
-
-			if ( ! empty( $passthru_vars ) ) {
-				$canonical_url = add_query_arg( $passthru_vars, $canonical_url );
-			}
-
-
-			$url = $canonical_url;
+		if ( ! empty( $passthru_vars ) && ! empty( $url ) ) {
+			// Re-apply the pass-thru query arguments.
+			$url = add_query_arg( $passthru_vars, $url );
 		}
 
 		$url = $this->filter_next_url( $canonical, $url );
-
-		$this->next_url = $url;
 
 		return $url;
 	}
@@ -649,46 +638,38 @@ class View implements View_Interface {
 	 * {@inheritDoc}
 	 */
 	public function prev_url( $canonical = false, array $passthru_vars = [] ) {
-		if ( isset( $this->prev_url ) ) {
-			return $this->prev_url;
-		}
-
 		$prev_page  = $this->repository->prev();
 		$paged      = $this->url->get_current_page() - 1;
 		$query_args = $paged > 1
 			? [ $this->page_key => $paged ]
 			: [];
 
-		$url = $prev_page->count() > 0 ?
-			add_query_arg( $query_args, $this->get_url() )
-			: '';
+		$url = $this->get_url();
+
+		if ( ! empty( $passthru_vars ) ) {
+			// Remove the pass-thru vars, we'll re-apply them to the URL later.
+			$url = remove_query_arg( array_keys( $passthru_vars ), $url );
+		}
+
+		// Make sure the view slug is always set to correctly match rewrites.
+		$url = add_query_arg( [ 'eventDisplay' => $this->slug ], $url );
+
+		$url = $prev_page->count() > 0 ? add_query_arg( $query_args, $url ) : '';
 
 		if ( ! empty( $url ) && $paged === 1 ) {
 			$url = remove_query_arg( $this->page_key, $url );
 		}
 
 		if ( ! empty( $url ) && $canonical ) {
-			$input_url = $url;
+			$url = tribe( 'events.rewrite' )->get_clean_url( $url );
+		}
 
-			if ( ! empty( $passthru_vars ) ) {
-				$input_url = remove_query_arg( array_keys( $passthru_vars ), $url );
-			}
-
-			// Make sure the view slug is always set to correctly match rewrites.
-			$input_url = add_query_arg( [ 'eventDisplay' => $this->slug ], $input_url );
-
-			$canonical_url = tribe( 'events.rewrite' )->get_clean_url( $input_url );
-
-			if ( ! empty( $passthru_vars ) ) {
-				$canonical_url = add_query_arg( $passthru_vars, $canonical_url );
-			}
-
-			$url = $canonical_url;
+		if ( ! empty( $passthru_vars ) && ! empty( $url ) ) {
+			// Re-apply the pass-thru query arguments.
+			$url = add_query_arg( $passthru_vars, $url );
 		}
 
 		$url = $this->filter_prev_url( $canonical, $url );
-
-		$this->prev_url = $url;
 
 		return $url;
 	}
@@ -942,12 +923,21 @@ class View implements View_Interface {
 
 		$context_arr = $context->to_array();
 
-		return [
-			'posts_per_page' => $context_arr['events_per_page'],
-			'paged' => max( Arr::get_first_set( array_filter( $context_arr ), [ 'paged', 'page' ], 1 ), 1 ),
-			'search' => $context->get( 'keyword', '' ),
+		$args = [
+			'posts_per_page'       => $context_arr['events_per_page'],
+			'paged'                => max( Arr::get_first_set( array_filter( $context_arr ), [
+				'paged',
+				'page',
+			], 1 ), 1 ),
+			'search'               => $context->get( 'keyword', '' ),
 			'hidden_from_upcoming' => false,
 		];
+
+		if ( $this->should_reset_page() ) {
+			$args['paged'] = 1;
+		}
+
+		return $args;
 	}
 
 	/**
@@ -1348,5 +1338,37 @@ class View implements View_Interface {
 				$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( 'no_results_found' ) );
 			}
 		}
+	}
+
+	/**
+	 * Returns whether the View page should be reset or not.
+	 *
+	 * The View page should be reset when the View or filtering parameters that are not the page change.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool Whether the View page should be reset or not.
+	 */
+	protected function should_reset_page() {
+		if ( null === $this->should_reset_page ) {
+			$prev_url    = $this->context->get( 'view_prev_url', '' );
+			$current_url = $this->context->get( 'view_url', '' );
+
+			$view_data = $this->context->get( 'view_data', [] );
+			$bar_data  = array_filter(
+				$view_data,
+				static function ( $value, $key ) {
+					return 0 === strpos( $key, 'tribe-bar-' ) && ! empty( $value );
+				},
+				ARRAY_FILTER_USE_BOTH
+			);
+			if ( ! empty( $bar_data ) ) {
+				$current_url = add_query_arg( $bar_data, $current_url );
+			}
+
+			$this->should_reset_page = Url::is_diff( $prev_url, $current_url, [ 'page', 'paged' ] );
+		}
+
+		return $this->should_reset_page;
 	}
 }
