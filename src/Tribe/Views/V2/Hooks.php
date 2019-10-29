@@ -20,8 +20,6 @@ namespace Tribe\Events\Views\V2;
 use Tribe\Events\Views\V2\Query\Abstract_Query_Controller;
 use Tribe\Events\Views\V2\Query\Event_Query_Controller;
 use Tribe\Events\Views\V2\Template\Title;
-use Tribe\Events\Views\V2\Template\Excerpt;
-use Tribe\Events\Views\V2\Assets;
 use Tribe__Events__Main as TEC;
 use Tribe__Rewrite as Rewrite;
 
@@ -65,7 +63,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @since 4.9.2
 	 */
 	protected function add_filters() {
-		// Let's make sure to suppress query filters from the main query.
+		add_action( 'tribe_events_parse_query', [ $this, 'parse_query' ] );
 		add_filter( 'template_include', [ $this, 'filter_template_include' ], 50 );
 		add_filter( 'posts_pre_query', [ $this, 'filter_posts_pre_query' ], 20, 2 );
 		add_filter( 'body_class', [ $this, 'filter_body_class' ] );
@@ -304,5 +302,21 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		}
 
 		return $html . '<p class="hide-if-no-js howto">' . __( 'We recommend a 16:9 aspect ratio for featured images.', 'the-events-calendar' ) . '</p>';
+	}
+
+	/**
+	 * Suppress v1 query filters on a per-query basis, if required.
+	 *
+	 * @since TBD
+	 *
+	 * @param \WP_Query $query The current WordPress query object.
+	 */
+	public function parse_query( $query ) {
+		if ( ! $query instanceof \WP_Query ) {
+			return;
+		}
+
+		$event_query = $this->container->make( Event_Query_Controller::class );
+		$event_query->parse_query( $query );
 	}
 }
