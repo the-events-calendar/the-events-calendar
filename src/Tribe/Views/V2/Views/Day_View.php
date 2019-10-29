@@ -99,6 +99,12 @@ class Day_View extends View {
 
 		$args['date_overlaps'] = [ tribe_beginning_of_day( $date ), tribe_end_of_day( $date ) ];
 
+		/**
+		 * @todo  @bordoni We need to consider fetching events on a given day from a cache
+		 *        base on what @lucatume suggested on dev meeting for caching more efficiently.
+		 */
+		$args['posts_per_page'] = -1;
+
 		return $args;
 	}
 
@@ -194,7 +200,7 @@ class Day_View extends View {
 		return array_values( $all_day + $ongoing + $hourly );
 
 	}
-  
+
 	/**
 	 * Overrides the base View method to implement logic tailored to the Day View.
 	 *
