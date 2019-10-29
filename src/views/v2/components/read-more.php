@@ -10,13 +10,13 @@
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
  * @version TBD
- *
  */
+
 ?>
 <span class="tribe-events-c-small-cta-hellip"> &hellip; </span>
 <div class="tribe-events-c-small-cta tribe-common-b3 tribe-events-c-small-cta--readmore">
 	<a
-		href="<?php echo esc_url( get_permalink( get_the_ID() ) ) ?>"
+		href="<?php echo esc_url( get_permalink( get_the_ID() ) ); ?>"
 		class="tribe-events-c-small-cta__link tribe-common-cta tribe-common-cta--thin-alt"
-	><?php esc_html_e( 'Continue Reading' , 'the-events-calendar' ); ?></a>
+	><?php esc_html_e( 'Continue Reading', 'the-events-calendar' ); ?></a>
 </div>
