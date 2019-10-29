@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.10
+ * @version TBD
  *
  */
 ?>
@@ -17,7 +17,5 @@
 	<a
 		href="<?php echo esc_url( get_permalink( get_the_ID() ) ) ?>"
 		class="tribe-events-c-small-cta__link tribe-common-cta tribe-common-cta--thin-alt"
-	>
-		<?php esc_html_e( 'Continue Reading' , 'the-events-calendar' ); ?>
-	</a>
+	><?php esc_html_e( 'Continue Reading' , 'the-events-calendar' ); ?></a>
 </div>
