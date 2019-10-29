@@ -13,6 +13,7 @@
  *
  */
 ?>
+<span class="tribe-events-c-small-hellip"> &hellip; </span>
 <div class="tribe-events-c-small-cta tribe-common-b3 tribe-events-c-small-cta--readmore">
 	<a
 		href="<?php echo esc_url( get_permalink( get_the_ID() ) ) ?>"
