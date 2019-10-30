@@ -2,6 +2,7 @@
 
 namespace Tribe\Events\Views\V2\Partials\Components;
 
+use Tribe\Test\PHPUnit\Traits\With_Post_Remapping;
 use Tribe\Test\Products\WPBrowser\Views\V2\HtmlPartialTestCase;
 
 class Read_MoreTest extends HtmlPartialTestCase {
