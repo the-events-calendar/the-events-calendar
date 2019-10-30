@@ -19,7 +19,6 @@
 	<a
 		href="<?php echo esc_url( $event->permalink ); ?>"
 		class="tribe-events-c-small-cta__link tribe-common-cta tribe-common-cta--thin-alt"
-	>
-		<?php esc_html_e( 'Continue Reading', 'the-events-calendar' ); ?>
+	><?php esc_html_e( 'Continue Reading', 'the-events-calendar' ); ?>
 	</a>
 </div>
