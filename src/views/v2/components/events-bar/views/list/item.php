@@ -21,7 +21,7 @@ if ( ! $this->get( 'view_class_name' ) ) {
 $view_instance = View::make( $this->get( 'view_class_name' ) );
 $view_slug = $view_instance->get_slug();
 $is_current_view = $view->get_slug() === $view_instance->get_slug();
-$view_url = tribe_events_get_url( [ 'eventDisplay' => $view_slug ], $this->get( 'view' )->get_url( false ) );
+$view_url = tribe_events_get_url( [ 'eventDisplay' => $view_slug ] );
 
 $list_item_classes = [ 'tribe-events-c-view-selector__list-item', "tribe-events-c-view-selector__list-item--$view_slug" ];
 if ( $is_current_view ) {
