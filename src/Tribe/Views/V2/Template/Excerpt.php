@@ -84,7 +84,7 @@ class Excerpt extends Base_Template {
 		$template = strtolower( get_template() );
 
 		// Check if theme is twentyseventeen.
-		$should_replace_read_more = $template || 'twentyseventeen' !== $template;
+		$should_replace_read_more = $template && 'twentyseventeen' === $template;
 
 		/**
 		 * Detemines the require
