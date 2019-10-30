@@ -10,6 +10,8 @@
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
  * @version TBD
+ *
+ * @var string $permalink The permalink.
  */
 
 ?>
