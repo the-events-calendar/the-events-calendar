@@ -134,10 +134,13 @@ abstract class Abstract_Query_Controller {
 		 * Since we have the information here, we set it now.
 		 */
 		$query->found_posts = $repository->found();
-		// Set the request (SQL code) the repository used to fetch the events.
+		// Again: we have the information now, it makes sense to set it.
+		$query->post_count = count( $injected_posts );
+		$query->post = $query->post_count ? reset( $injected_posts ) : null;
+		// Set the request (SQL code) the repository used to fetch the events.;
 		$query->request = $repository->get_query()->request;
 		$query->max_num_pages = $query->post_count > 0
-			? ceil( $query->found_posts / $query->post_count )
+			? (int) ( ceil( $query->found_posts / $query->post_count ) )
 			: 1;
 		$query->is_single = false;
 		$query->is_singular = false;
