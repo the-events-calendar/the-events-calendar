@@ -287,7 +287,7 @@ class Title {
 
 		if ( null === $this->posts ) {
 			global $wp_query;
-			$posts = $wp_query->get_posts();
+			$posts = null !== $wp_query->posts ? $wp_query->posts : $wp_query->get_posts();
 		}
 
 		return $posts;

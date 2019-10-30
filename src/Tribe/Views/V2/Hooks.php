@@ -168,12 +168,30 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @param  null|array  $posts The posts to filter, a `null` value by default or an array if set by other methods.
 	 * @param  \WP_Query|null  $query The query object to (maybe) control and whose posts will be populated.
+	 *
+	 * @return array An array of injected posts, or the original array of posts if no post injection is required.
 	 */
 	public function filter_posts_pre_query( $posts = null, \WP_Query $query = null ) {
+
+		/*
+		 * We should only inject posts if doing PHP initial state render and if this is the main query.
+		 * We can correctly use the global context as that's the only context we're interested in.
+		 * Else bail early and inexpensively.
+		 */
+		if ( ! (
+			tribe_context()->doing_php_initial_state()
+			&& $query instanceof \WP_Query
+			&& $query->is_main_query()
+		) ) {
+			return $posts;
+		}
+
 		foreach ( $this->container->tagged( 'query_controllers' ) as $controller ) {
 			/** @var Abstract_Query_Controller $controller */
-			$controller->inject_posts( $posts, $query );
+			$posts = $controller->inject_posts( $posts, $query );
 		}
+
+		return $posts;
 	}
 
 	/**
