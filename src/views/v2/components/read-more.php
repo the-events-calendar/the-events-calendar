@@ -11,7 +11,9 @@
  *
  * @version TBD
  *
- * @var string $permalink The permalink.
+ * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
+ *
+ * @see tribe_get_event() For the format of the event object.
  */
 ?>
 <span class="tribe-events-c-read-more-hellip"> &hellip; </span>
