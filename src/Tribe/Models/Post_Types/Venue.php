@@ -44,7 +44,7 @@ class Venue extends Base {
 				'province'              => $province,
 				'zip'                   => $zip,
 				'permalink'             => $permalink,
-				'directions_link'       => esc_url( $directions_link ),
+				'directions_link'       => $directions_link,
 			];
 		} catch ( \Exception $e ) {
 			return [];
