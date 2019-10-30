@@ -13,12 +13,13 @@
  *
  * @var string $permalink The permalink.
  */
-
 ?>
 <span class="tribe-events-c-read-more-hellip"> &hellip; </span>
 <div class="tribe-events-c-small-cta tribe-common-b3 tribe-events-c-read-more">
 	<a
-		href="<?php echo esc_url( $permalink ); ?>"
+		href="<?php echo esc_url( $event->permalink ); ?>"
 		class="tribe-events-c-small-cta__link tribe-common-cta tribe-common-cta--thin-alt"
-	><?php esc_html_e( 'Continue Reading', 'the-events-calendar' ); ?></a>
+	>
+		<?php esc_html_e( 'Continue Reading', 'the-events-calendar' ); ?>
+	</a>
 </div>

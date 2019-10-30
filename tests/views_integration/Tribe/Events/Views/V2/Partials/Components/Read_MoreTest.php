@@ -4,8 +4,8 @@ namespace Tribe\Events\Views\V2\Partials\Components;
 
 use Tribe\Test\Products\WPBrowser\Views\V2\HtmlPartialTestCase;
 
-class Read_MoreTest extends HtmlPartialTestCase
-{
+class Read_MoreTest extends HtmlPartialTestCase {
+	use With_Post_Remapping;
 
 	protected $partial_path = 'components/read-more';
 
@@ -13,8 +13,8 @@ class Read_MoreTest extends HtmlPartialTestCase
 	 * Test render with context
 	 */
 	public function test_render_with_context() {
+		$event = $this->get_mock_event( 'events/single/1.json' );
 
-		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'permalink' => 'http://theeventscalendar.com' ] ) );
+		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => $event ] ) );
 	}
-
 }

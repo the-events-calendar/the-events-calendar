@@ -6,10 +6,11 @@
  *
  * @package Tribe\Events\Views\V2\Template
  */
-
 namespace Tribe\Events\Views\V2\Template;
+
 use Tribe__Template as Base_Template;
 use Tribe__Events__Main as Plugin;
+use Tribe\Events\Views\V2\Hooks;
 
 /**
  * Class Excerpt
@@ -62,19 +63,46 @@ class Excerpt extends Base_Template {
 	 * @return string The excerpt read more link modified, if necessary.
 	 */
 	public function maybe_filter_excerpt_more( $link ) {
+		/**
+		 * Because `maybe_filter_excerpt_more` needs to call `tribe_get_event` it creates
+		 * a infinite loop with adding excerpt calls again.
+		 */
+		remove_filter( 'excerpt_more', [ tribe( Hooks::class ), 'filter_excerpt_more' ], 50 );
 
 		if ( is_admin() ) {
 			return $link;
 		}
 
+		$event = tribe_get_event( get_the_ID() );
+
+		/**
+		 * Because `maybe_filter_excerpt_more` needs to call `tribe_get_event` it creates
+		 * a infinite loop with adding excerpt calls again.
+		 */
+		add_filter( 'excerpt_more', [ tribe( Hooks::class ), 'filter_excerpt_more' ], 50 );
+
 		$template = strtolower( get_template() );
 
 		// Check if theme is twentyseventeen.
-		if ( ! $template || 'twentyseventeen' !== $template ) {
+		$should_replace_read_more = $template || 'twentyseventeen' !== $template;
+
+		/**
+		 * Detemines the require
+		 *
+		 * @since TBD
+		 *
+		 * @param bool    $should_replace_read_more Determines if we need to replace the excerpt read more link
+		 *                                          in a given scenario.
+		 * @param WP_Post $event                    Event that we are dealing with.
+		 */
+		$should_replace_read_more = apply_filters( 'tribe_events_views_v2_should_replace_excerpt_more_link', $should_replace_read_more, $event );
+
+		// If shouldn't replace we bail.
+		if ( ! $should_replace_read_more ) {
 			return $link;
 		}
 
-		return $this->template( 'components/read-more', [ 'permalink' => get_permalink( get_the_ID() ) ], false );
+		return $this->template( 'components/read-more', [ 'event' => $event ], false );
 	}
 
 }
