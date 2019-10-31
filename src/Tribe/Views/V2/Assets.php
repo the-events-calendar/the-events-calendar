@@ -42,10 +42,24 @@ class Assets extends \tad_DI52_ServiceProvider {
 
 		tribe_asset(
 			$plugin,
+			'tribe-events-views-v2-bootstrap-datepicker-styles',
+			'vendor/bootstrap-datepicker/css/bootstrap-datepicker.standalone.css',
+			[],
+			'wp_enqueue_scripts',
+			[
+				'priority'     => 10,
+				'conditionals' => [ $this, 'should_enqueue_frontend' ],
+				'groups'       => [ static::$group_key ],
+			]
+		);
+
+		tribe_asset(
+			$plugin,
 			'tribe-events-views-v2-skeleton',
 			'views-skeleton.css',
 			[
 				'tribe-common-skeleton-style',
+				'tribe-events-views-v2-bootstrap-datepicker-styles',
 				'tribe-tooltipster-css',
 			],
 			'wp_enqueue_scripts',
@@ -285,17 +299,17 @@ class Assets extends \tad_DI52_ServiceProvider {
 	 * @return void
 	 */
 	public function disable_v1() {
-		wp_deregister_script( 'tribe-events-calendar-script' );
-		wp_deregister_script( 'tribe-events-bar' );
-		wp_deregister_script( 'the-events-calendar' );
-		wp_deregister_script( 'tribe-events-ajax-day' );
-		wp_deregister_script( 'tribe-events-list' );
+		add_filter( 'tribe_asset_enqueue_tribe-events-calendar-script', '__return_false' );
+		add_filter( 'tribe_asset_enqueue_tribe-events-bar', '__return_false' );
+		add_filter( 'tribe_asset_enqueue_the-events-calendar', '__return_false' );
+		add_filter( 'tribe_asset_enqueue_tribe-events-ajax-day', '__return_false' );
+		add_filter( 'tribe_asset_enqueue_tribe-events-list', '__return_false' );
 
-		wp_deregister_style( 'tribe-events-calendar-mobile-style' );
-		wp_deregister_style( 'tribe-events-calendar-full-mobile-style' );
-		wp_deregister_style( 'tribe-events-full-calendar-style' );
-		wp_deregister_style( 'tribe-events-calendar-style' );
-		wp_deregister_style( 'tribe-events-calendar-override-style' );
+		add_filter( 'tribe_asset_enqueue_tribe-events-calendar-mobile-style', '__return_false' );
+		add_filter( 'tribe_asset_enqueue_tribe-events-calendar-full-mobile-style', '__return_false' );
+		add_filter( 'tribe_asset_enqueue_tribe-events-full-calendar-style', '__return_false' );
+		add_filter( 'tribe_asset_enqueue_tribe-events-calendar-style', '__return_false' );
+		add_filter( 'tribe_asset_enqueue_tribe-events-calendar-override-style', '__return_false' );
 	}
 
 	/**
