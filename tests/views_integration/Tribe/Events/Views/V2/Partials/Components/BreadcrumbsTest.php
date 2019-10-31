@@ -17,10 +17,19 @@ class BreadcrumbsTest extends HtmlPartialTestCase
 	}
 
 	/**
-	 * Test render with category.
+	 * Test render with breadcrumbs.
 	 */
-	public function test_render_with_category() {
-		$this->markTestSkipped( 'Finish test when we can mock categories' );
-		$this->assertMatchesSnapshot( $this->get_partial_html( [] ) );
+	public function test_render_with_breadcrumbs() {
+		$breadcrumbs = [
+			[
+				'link'  => 'https://test.tri.be/events/list',
+				'label' => 'Events',
+			], [
+				'link'  => '',
+				'label' => 'Category',
+			],
+		];
+
+		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'breadcrumbs' => $breadcrumbs ] ) );
 	}
 }
