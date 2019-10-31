@@ -42,10 +42,24 @@ class Assets extends \tad_DI52_ServiceProvider {
 
 		tribe_asset(
 			$plugin,
+			'tribe-events-views-v2-bootstrap-datepicker-styles',
+			'vendor/bootstrap-datepicker/css/bootstrap-datepicker.standalone.css',
+			[],
+			'wp_enqueue_scripts',
+			[
+				'priority'     => 10,
+				'conditionals' => [ $this, 'should_enqueue_frontend' ],
+				'groups'       => [ static::$group_key ],
+			]
+		);
+
+		tribe_asset(
+			$plugin,
 			'tribe-events-views-v2-skeleton',
 			'views-skeleton.css',
 			[
 				'tribe-common-skeleton-style',
+				'tribe-events-views-v2-bootstrap-datepicker-styles',
 				'tribe-tooltipster-css',
 			],
 			'wp_enqueue_scripts',
