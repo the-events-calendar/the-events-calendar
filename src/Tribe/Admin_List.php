@@ -90,7 +90,7 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 		 * @return  Array                   Modified SQL clauses
 		 */
 		public static function sort_by_event_date( Array $clauses, WP_Query $wp_query ) {
-			// bail if this is not a query for event post type
+			// Bail if this is not a query for event post type
 			if ( $wp_query->get( 'post_type' ) !== Tribe__Events__Main::POSTTYPE ) {
 				return $clauses;
 			}
@@ -99,43 +99,35 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 
 			$sort_direction = self::get_sort_direction( $wp_query );
 
-			// only add the start meta query if it is missing
+			// Only add the start meta query if it is missing
 			if ( ! preg_match( '/tribe_event_start_date/', $clauses['join'] ) ) {
 				$clauses['join'] .= " LEFT JOIN {$wpdb->postmeta} AS tribe_event_start_date ON {$wpdb->posts}.ID = tribe_event_start_date.post_id AND tribe_event_start_date.meta_key = '_EventStartDate' ";
 			}
 
-			// only add the end meta query if it is missing
+			// Only add the end meta query if it is missing
 			if ( ! preg_match( '/tribe_event_end_date/', $clauses['join'] ) ) {
 				$clauses['join'] .= " LEFT JOIN {$wpdb->postmeta} AS tribe_event_end_date ON {$wpdb->posts}.ID = tribe_event_end_date.post_id AND tribe_event_end_date.meta_key = '_EventEndDate' ";
 			}
 
-			$append_orderby   = false;
-			$original_orderby = null;
+			$original_orderby = $clauses['orderby'];
+			$default_order_by_post_date = preg_match( '/^[a-zA-Z0-9\-_]+\.post_date (DESC|ASC)$/i', $original_orderby );
 
-			if ( ! empty( $clauses['orderby'] ) ) {
-				$original_orderby = $clauses['orderby'];
-
-				// if the ONLY orderby clause is the post date, then let's move that toss move that to the
-				// end of the orderby. This will forever make post_date play second fiddle to the event start/end dates
-				// and that's ok
-				$append_orderby = preg_match( '/^[a-zA-Z0-9\-_]+\.post_date (DESC|ASC)$/i', $original_orderby );
-			}
-
+			// Set up default start date and end date order by clause
 			$start_orderby = "tribe_event_start_date.meta_value {$sort_direction}";
 			$end_orderby   = "tribe_event_end_date.meta_value {$sort_direction}";
-
 			$date_orderby = "{$start_orderby}, {$end_orderby}";
 
+			// Flip the start date and end date ordering when ordered by end date
 			if ( ! empty( $wp_query->query['orderby'] ) && 'end-date' == $wp_query->query['orderby'] ) {
 				$date_orderby = "{$end_orderby}, {$start_orderby}";
 			}
 
-			// Add the date orderby rules *before* any pre-existing orderby rules (to stop them being "trumped")
-			if ( empty( $original_orderby ) ) {
-				$revised_orderby = $date_orderby;
-			} elseif ( $append_orderby ) {
+
+			if($wp_query->query['orderby'] ===  'date'){ // Explicitly Ordering by post_date so order by event dates at the end
+				$revised_orderby = "$original_orderby, $date_orderby";
+			} elseif ($default_order_by_post_date) { // There's a default order by of post_date so order by event start date followed by post_date
 				$revised_orderby = "$date_orderby, $original_orderby";
-			} else {
+			} else { // Ordering by some other column so order by that and then by start date followed by end date
 				$revised_orderby = "$original_orderby, $date_orderby";
 			}
 
