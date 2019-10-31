@@ -208,6 +208,7 @@ tribe.events.views.manager = {};
 		event.preventDefault();
 
 		var $link = $( this );
+		var currentUrl = window.location.href;
 		var url = $link.attr( 'href' );
 		var nonce = $link.data( 'view-rest-nonce' );
 		var shouldManageUrl = obj.shouldManageUrl( $container );
@@ -218,6 +219,7 @@ tribe.events.views.manager = {};
 		}
 
 		var data = {
+			prev_url: currentUrl,
 			url: url,
 			should_manage_url: shouldManageUrl,
 			_wpnonce: nonce

@@ -14,7 +14,7 @@ vendor
 # Tests - local config files
 codeception.yml
 tests/*.suite.yml
-.env.local
+.env*.local
 
 # Tests - local output files
 tests/_output

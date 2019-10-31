@@ -32,6 +32,8 @@ class Venue extends Base {
 			$state                 = tribe_get_state( $this->post->ID );
 			$province              = tribe_get_province( $this->post->ID );
 			$zip                   = tribe_get_zip( $this->post->ID );
+			$permalink             = get_permalink( $this->post->ID );
+			$directions_link       = tribe_get_map_link( $this->post->ID );
 
 			$properties = [
 				'address'               => $address,
@@ -41,7 +43,8 @@ class Venue extends Base {
 				'state'                 => $state,
 				'province'              => $province,
 				'zip'                   => $zip,
-				'permalink'             => get_permalink( $this->post->ID ),
+				'permalink'             => $permalink,
+				'directions_link'       => $directions_link,
 			];
 		} catch ( \Exception $e ) {
 			return [];
