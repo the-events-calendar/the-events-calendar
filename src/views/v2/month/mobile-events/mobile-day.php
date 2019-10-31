@@ -57,4 +57,5 @@ if ( $today_date === $day_date ) {
 
 	<?php endforeach; ?>
 
+	<?php $this->template( 'month/mobile-events/mobile-day/more-events', [ 'more_events' => $day['more_events'], 'more_url' => $day['day_url'] ] ); ?>
 </div>
