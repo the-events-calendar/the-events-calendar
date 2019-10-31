@@ -10,6 +10,7 @@ class ControllerTest extends \Codeception\TestCase\WPTestCase {
 	public function setUp() {
 		parent::setUp();
 		static::factory()->event = new Event();
+		tribe_events()->per_page( - 1 )->delete();
 	}
 
 	/**

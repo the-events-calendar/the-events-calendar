@@ -47,10 +47,6 @@ class Month_View extends By_Day_View {
 	 * {@inheritDoc}
 	 */
 	public function prev_url( $canonical = false, array $passthru_vars = [] ) {
-		if ( isset( $this->prev_url ) ) {
-			return $this->prev_url;
-		}
-
 		// Setup the Default date for the month view here.
 		$default_date = 'today';
 		$date         = $this->context->get( 'event_date', $default_date );
@@ -84,8 +80,6 @@ class Month_View extends By_Day_View {
 
 		$url = $this->build_url_for_date( $prev_date, $canonical, $passthru_vars );
 
-		$this->prev_url = $url;
-
 		return $this->filter_prev_url( $canonical, $url );
 	}
 
@@ -93,10 +87,6 @@ class Month_View extends By_Day_View {
 	 * {@inheritDoc}
 	 */
 	public function next_url( $canonical = false, array $passthru_vars = [] ) {
-		if ( isset( $this->next_url ) ) {
-			return $this->next_url;
-		}
-
 		// Setup the Default date for the month view here.
 		$default_date = 'today';
 		$date         = $this->context->get( 'event_date', $default_date );
@@ -129,8 +119,6 @@ class Month_View extends By_Day_View {
 		}
 
 		$url = $this->build_url_for_date( $next_date, $canonical, $passthru_vars );
-
-		$this->next_url = $url;
 
 		return $this->filter_next_url( $canonical, $url );
 	}
