@@ -1036,6 +1036,7 @@ class View implements View_Interface {
 			],
 			'messages'          => $this->get_messages( $events ),
 			'start_of_week'     => get_option( 'start_of_week', 0 ),
+			'breadcrumbs'       => $this->get_breadcrumbs(),
 		];
 
 		return $template_vars;
@@ -1389,5 +1390,41 @@ class View implements View_Interface {
 		}
 
 		return $this->should_reset_page;
+	}
+
+	/**
+	 * Returns the breadcrumbs data the View will display on the front-end.
+	 *
+	 * @since TBD
+	 *
+	 * @return array
+	 */
+	protected function get_breadcrumbs() {
+		$context     = $this->context;
+		$context_arr = $context->to_array();
+		$breadcrumbs = [];
+
+		// Get term slug if taxonomy is not empty
+		if ( ! empty( $context_arr[ TEC::TAXONOMY ] ) ) {
+			$taxonomy  = $context->get( 'taxonomy', false );
+			$term_slug = $taxonomy ? $context->get( $taxonomy, false ) : false;
+
+			// Set up breadcrumbs for category
+			if ( ! empty( $term_slug ) ) {
+				$term  = get_term_by( 'slug', $term_slug, $taxonomy );
+				$label = $term->name;
+
+				$breadcrumbs[] = [
+					'link'  => $this->get_today_url( true ),
+					'label' => tribe_get_event_label_plural(),
+				];
+				$breadcrumbs[] = [
+					'link'  => '',
+					'label' => $label,
+				];
+			}
+		}
+
+		return $breadcrumbs;
 	}
 }
