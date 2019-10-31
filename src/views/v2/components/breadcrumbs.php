@@ -11,34 +11,23 @@
  *
  * @version TBD
  *
- * @var string $today_url The URL to the today page.
+ * @var array $breadcrumbs An array of data for breadcrumbs.
  */
 
-$context   = $this->view->get_context();
-$tax       = $context->get( 'taxonomy', false );
-$term_slug = $tax ? $context->get( $tax, false ) : false;
-
-if ( ! $term_slug ) {
+if ( empty( $breadcrumbs ) ) {
 	return;
 }
-
-$term = get_term_by( 'slug', $term_slug, $tax );
 ?>
 <div class="tribe-events-header__breadcrumbs tribe-events-c-breadcrumbs">
 	<ol class="tribe-events-c-breadcrumbs__list">
-		<li class="tribe-events-c-breadcrumbs__list-item">
-			<a
-				href="<?php echo esc_url( $today_url ); ?>"
-				class="tribe-events-c-breadcrumbs__list-item-link"
-				data-js="tribe-events-view-link"
-			>
-				<?php echo esc_html( tribe_get_event_label_plural() ); ?>
-			</a>
-		</li>
-		<li class="tribe-events-c-breadcrumbs__list-item">
-			<span class="tribe-events-c-breadcrumbs__list-item-text">
-				<?php echo esc_html( $term ); ?>
-			</span>
-		</li>
+		<?php foreach ( $breadcrumbs as $breadcrumb ) : ?>
+
+			<?php if ( ! empty( $breadcrumb['link'] ) ) : ?>
+				<?php $this->template( 'components/breadcrumbs/linked-breadcrumb', [ 'breadcrumb' => $breadcrumb ] ); ?>
+			<?php else : ?>
+				<?php $this->template( 'components/breadcrumbs/breadcrumb', [ 'breadcrumb' => $breadcrumb ] ); ?>
+			<?php endif; ?>
+
+		<?php endforeach; ?>
 	</ol>
 </div>
