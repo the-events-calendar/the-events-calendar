@@ -187,6 +187,9 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @return array An array of injected posts, or the original array of posts if no post injection is required.
 	 */
 	public function filter_posts_pre_query( $posts = null, \WP_Query $query = null ) {
+		if ( is_admin() ) {
+			return $posts;
+		}
 
 		/*
 		 * We should only inject posts if doing PHP initial state render and if this is the main query.
@@ -198,6 +201,11 @@ class Hooks extends \tad_DI52_ServiceProvider {
 			&& $query instanceof \WP_Query
 			&& $query->is_main_query()
 		) ) {
+			return $posts;
+		}
+
+		// Verifies and only applies it to the correct queries.
+		if ( tribe( Template_Bootstrap::class )->should_load( $query ) ) {
 			return $posts;
 		}
 
