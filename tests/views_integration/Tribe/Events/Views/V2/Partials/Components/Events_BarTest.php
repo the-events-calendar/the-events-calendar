@@ -37,6 +37,17 @@ class Events_BarTest extends HtmlPartialTestCase
 			'url'   => 'http://test.tri.be',
 			'views' => $views,
 			'view'  => $view,
+			'display_events_bar' => true,
+		] ) );
+	}
+
+	/**
+	 * Test render empty
+	 */
+	public function test_render_empty() {
+
+		$this->assertMatchesSnapshot( $this->get_partial_html( [
+			'display_events_bar' => false,
 		] ) );
 	}
 
