@@ -1434,7 +1434,7 @@ class View implements View_Interface {
 		 * @param array $breadcrumbs An array of breadcrumbs.
 		 * @param View  $this        The current View instance being rendered.
 		 */
-		$messages = apply_filters( 'tribe_events_views_v2_view_breadcrumbs', $messages, $this );
+		$breadcrumbs = apply_filters( 'tribe_events_views_v2_view_breadcrumbs', $breadcrumbs, $this );
 
 		/**
 		 * Filters the breadcrumbs a specific View will print on the frontend.
@@ -1444,7 +1444,7 @@ class View implements View_Interface {
 		 * @param array $breadcrumbs An array of breadcrumbs.
 		 * @param View  $this        The current View instance being rendered.
 		 */
-		$messages = apply_filters( "tribe_events_views_v2_view_{$this->slug}_breadcrumbs", $messages, $this );
+		$breadcrumbs = apply_filters( "tribe_events_views_v2_view_{$this->slug}_breadcrumbs", $breadcrumbs, $this );
 
 		return $breadcrumbs;
 	}
