@@ -9,6 +9,13 @@ class ListTest extends HtmlTestCase {
 	 * @test
 	 */
 	public function it_should_contain_correct_html_classes() {
+		$this->template->set_values( [
+			                             'show_now'        => true,
+			                             'now_label'       => 'Now',
+			                             'show_end'        => false,
+			                             'datepicker_date' => '2019-01-01',
+		                             ],
+		                             false );
 		$template = $this->template->template( 'list', [ 'events' => [] ] );
 		$html = $this->document->html( $template );
 
