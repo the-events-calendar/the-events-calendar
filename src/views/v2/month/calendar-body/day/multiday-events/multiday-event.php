@@ -11,12 +11,12 @@
  *
  * @version TBD
  *
- * @var string $day_date The `Y-m-d` date of the day currently being displayed.
- * @var string $today_date Today's date in the `Y-m-d` format.
+ * @var string $day_date        The `Y-m-d` date of the day currently being displayed.
+ * @var string $today_date      Today's date in the `Y-m-d` format.
  * @var string $grid_start_date The `Y-m-d` date of the day where the grid starts.
- * @var WP_Post $event An event post object with event-specific properties added from the the `tribe_get_event`
- *                     function.
- * @var bool $is_start_of_week Whether the current grid day being rendered is the first day of the week or not.
+ * @var WP_Post $event          An event post object with event-specific properties added from the the `tribe_get_event`
+ *                              function.
+ * @var bool $is_start_of_week  Whether the current grid day being rendered is the first day of the week or not.
  *
  * @see tribe_get_event() For the format of the event object and its properties.
  *
