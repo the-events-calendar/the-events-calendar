@@ -13,6 +13,7 @@
  *
  * @var string $day_date The `Y-m-d` date of the day currently being displayed.
  * @var string $today_date Today's date in the `Y-m-d` format.
+ * @var string $grid_start_date The `Y-m-d` date of the day where the grid starts.
  * @var WP_Post $event An event post object with event-specific properties added from the the `tribe_get_event`
  *                     function.
  * @var bool $is_start_of_week Whether the current grid day being rendered is the first day of the week or not.
@@ -38,8 +39,15 @@ if ( $event->featured ) {
 	$classes[] = 'tribe-events-calendar-month__multiday-event--featured';
 }
 
+// If the event started on a previous month.
+$started_previous_month = $event->dates->start->format( 'Y-m-d' ) < $grid_start_date;
+
+// We display the tooltip only if there's excpert or cost or it has a thumbnail.
 $display_tooltip        = ! empty( $event->excerpt ) || ! empty( $event->cost ) || $event->thumbnail->exists;
-$should_display_tooltip = $event->dates->start->format( 'Y-m-d' ) === $day_date && $display_tooltip;
+$is_first_appearance    = ( $event->dates->start->format( 'Y-m-d' ) === $day_date )
+                          || ( $started_previous_month && $grid_start_date === $day_date );
+// We print the tooltip contents if it's the first appearrance and we should display it.
+$should_print_tooltip   = $is_first_appearance && $display_tooltip;
 
 // If it starts today and this week, let's add the left border and set the width.
 if ( $should_display ) {
@@ -112,7 +120,7 @@ if ( $should_display ) {
 					</h3>
 				</div>
 			</div>
-			<?php if ( $should_display_tooltip ) : ?>
+			<?php if ( $should_print_tooltip ) : ?>
 				<?php $this->template( 'month/calendar-body/day/calendar-events/calendar-event/tooltip', [ 'event' => $event ] ); ?>
 			<?php endif; ?>
 		<?php endif; ?>
