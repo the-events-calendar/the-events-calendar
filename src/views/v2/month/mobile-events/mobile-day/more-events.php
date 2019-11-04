@@ -28,7 +28,7 @@ if ( empty( $more_events ) || empty( $more_url ) ) {
 		data-js="tribe-events-view-link"
 	>
 		<?php
-		 echo esc_html(
+		echo esc_html(
 			 sprintf(
 				_n( '+ %d More', '+ %d More', $more_events, 'the-events-calendar' ),
 				$more_events
