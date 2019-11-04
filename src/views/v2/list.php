@@ -34,6 +34,8 @@
 		<header class="tribe-events-header">
 			<?php $this->template( 'components/messages' ); ?>
 
+			<?php $this->template( 'components/breadcrumbs' ); ?>
+
 			<?php $this->template( 'components/events-bar' ); ?>
 
 			<?php $this->template( 'list/top-bar' ); ?>

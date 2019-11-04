@@ -373,23 +373,23 @@ class View implements View_Interface {
 		/**
 		 * Filters the Repository object for a View.
 		 *
-		 * @since 4.9.3
+		 * @since TBD
 		 *
 		 * @param \Tribe__Repository__Interface $view_repository The repository instance the View will use.
 		 * @param string                        $view            The current view slug.
 		 * @param \Tribe\Events\Views\V2\View   $instance        The current View object.
 		 */
-		$view_repository = apply_filters( 'tribe_events_views_v2_view_context', $view_repository, $view, $instance );
+		$view_repository = apply_filters( 'tribe_events_views_v2_view_repository', $view_repository, $view, $instance );
 
 		/**
 		 * Filters the Repository object for a specific View.
 		 *
-		 * @since 4.9.3
+		 * @since TBD
 		 *
 		 * @param \Tribe__Repository__Interface $view_repository The repository instance the View will use.
 		 * @param \Tribe\Events\Views\V2\View   $instance        The current View object.
 		 */
-		$view_repository = apply_filters( "tribe_events_views_v2_{$view_slug}_view_context", $view_repository, $instance );
+		$view_repository = apply_filters( "tribe_events_views_v2_{$view_slug}_view_repository", $view_repository, $instance );
 
 		$instance->set_repository( $view_repository );
 
@@ -862,13 +862,13 @@ class View implements View_Interface {
 		/**
 		 * Filters the previous (page, event, etc.) URL returned for a specific View.
 		 *
-		 * @since 4.9.3
+		 * @since TBD
 		 *
 		 * @param string         $url       The View previous (page, event, etc.) URL.
 		 * @param bool           $canonical Whether the URL is a canonical one or not.
 		 * @param View_Interface $this      This view instance.
 		 */
-		$url = apply_filters( "tribe_events_views_v2_{$this->slug}_prev_url", $url, $canonical, $this );
+		$url = apply_filters( "tribe_events_views_v2_view_{$this->slug}_prev_url", $url, $canonical, $this );
 
 		return $url;
 	}
@@ -898,13 +898,13 @@ class View implements View_Interface {
 		/**
 		 * Filters the next (page, event, etc.) URL returned for a specific View.
 		 *
-		 * @since 4.9.3
+		 * @since TBD
 		 *
 		 * @param string         $url       The View next (page, event, etc.) URL.
 		 * @param bool           $canonical Whether the URL is a canonical one or not.
 		 * @param View_Interface $this      This view instance.
 		 */
-		$url = apply_filters( "tribe_events_views_v2_{$this->slug}_next_url", $url, $canonical, $this );
+		$url = apply_filters( "tribe_events_views_v2_view_{$this->slug}_next_url", $url, $canonical, $this );
 
 		return $url;
 	}
@@ -932,6 +932,11 @@ class View implements View_Interface {
 			'search'               => $context->get( 'keyword', '' ),
 			'hidden_from_upcoming' => false,
 		];
+
+		// Set's up catergory URL for all views.
+		if ( ! empty( $context_arr[ TEC::TAXONOMY ] ) ) {
+			$args[ TEC::TAXONOMY ] = $context_arr[ TEC::TAXONOMY ];
+		}
 
 		if ( $this->should_reset_page() ) {
 			$args['paged'] = 1;
@@ -965,13 +970,13 @@ class View implements View_Interface {
 		/**
 		 * Filters the URL returned for a specific View.
 		 *
-		 * @since 4.9.3
+		 * @since TBD
 		 *
 		 * @param string         $url       The View current URL.
 		 * @param bool           $canonical Whether the URL is a canonical one or not.
 		 * @param View_Interface $this      This view instance.
 		 */
-		$url = apply_filters( "tribe_events_views_v2_{$this->slug}_url", $url, $canonical, $this );
+		$url = apply_filters( "tribe_events_views_v2_view_{$this->slug}_url", $url, $canonical, $this );
 
 		return $url;
 	}
@@ -1031,6 +1036,7 @@ class View implements View_Interface {
 			],
 			'messages'          => $this->get_messages( $events ),
 			'start_of_week'     => get_option( 'start_of_week', 0 ),
+			'breadcrumbs'       => $this->get_breadcrumbs(),
 		];
 
 		return $template_vars;
@@ -1187,16 +1193,28 @@ class View implements View_Interface {
 		$format = $this->get_label_format();
 
 		/**
-		 * Filters the `date` format that will be used to produce a View link label.
+		 * Filters the `date` format that will be used to produce a View link label for a View.
 		 *
-		 * @since 4.9.9
+		 * @since TBD
 		 *
 		 * @param string    $format    The label format the View will use to product a View link label; e.g. the
 		 *                             previous and next links.
 		 * @param \DateTime $date      The date object that is being used to build the label.
 		 * @param View      $view      This View instance.
 		 */
-		$format = apply_filters( "tribe_events_views_v2_{$this->slug}_link_label_format", $format, $this, $date );
+		$format = apply_filters( "tribe_events_views_v2_view_link_label_format", $format, $this, $date );
+
+		/**
+		 * Filters the `date` format that will be used to produce a View link label for a specific View.
+		 *
+		 * @since TBD
+		 *
+		 * @param string    $format    The label format the View will use to product a View link label; e.g. the
+		 *                             previous and next links.
+		 * @param \DateTime $date      The date object that is being used to build the label.
+		 * @param View      $view      This View instance.
+		 */
+		$format = apply_filters( "tribe_events_views_v2_view_{$this->slug}_link_label_format", $format, $this, $date );
 
 		return date_i18n( $format, $date_object->getTimestamp() + $date_object->getOffset() );
 	}
@@ -1250,22 +1268,22 @@ class View implements View_Interface {
 		/**
 		 * Filters the title for all views.
 		 *
-		 * @since 4.9.10
+		 * @since TBD
 		 *
 		 * @param string $title This view filtered title.
 		 * @param View   $this  This view object.
 		 */
-		$title = apply_filters( "tribe_events_views_v2_title", $title, $this );
+		$title = apply_filters( "tribe_events_views_v2_view_title", $title, $this );
 
 		/**
 		 * Filters the title for this view.
 		 *
-		 * @since 4.9.10
+		 * @since TBD
 		 *
 		 * @param string $title This view filtered title.
 		 * @param View   $this  This view object.
 		 */
-		$title = apply_filters( "tribe_events_views_v2_{$slug}_title", $title, $this );
+		$title = apply_filters( "tribe_events_views_v2_view_{$slug}_title", $title, $this );
 
 		return htmlspecialchars_decode($title);
 	}
@@ -1299,6 +1317,17 @@ class View implements View_Interface {
 		$messages = $this->messages->to_array();
 
 		/**
+		 * Filters the user-facing messages the View will print on the frontend.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $messages An array of messages in the shape `[ <message_type> => [ ...<messages> ] ]`.
+		 * @param View $this The current View instance being rendered.
+		 * @param Messages $messages_handler The messages handler object the View used to render the messages.
+		 */
+		$messages = apply_filters( 'tribe_events_views_v2_view_messages', $messages, $this, $this->messages );
+
+		/**
 		 * Filters the user-facing messages a specific View will print on the frontend.
 		 *
 		 * @since TBD
@@ -1308,18 +1337,9 @@ class View implements View_Interface {
 		 * @param View     $this             The current View instance being rendered.
 		 * @param Messages $messages_handler The messages handler object the View used to render the messages.
 		 */
-		$messages = apply_filters( "tribe_events_views_v2_{$slug}_messages", $messages, $events, $this, $this->messages );
+		$messages = apply_filters( "tribe_events_views_v2_view_{$slug}_messages", $messages, $events, $this, $this->messages );
 
-		/**
-		 * Filters the user-facing messages the View will print on the frontend.
-		 *
-		 * @since TBD
-		 *
-		 * @param array $messages An array of messages in the shape `[ <message_type> => [ ...<messages> ] ]`.
-		 * @param View $this The current View instance being rendered.
-		 * @param Messages $messages_handler The messages handler object the View used to render the messages.
-		 */
-		return apply_filters( 'tribe_events_views_v2_view_messages', $messages, $this, $this->messages );
+		return $messages;
 	}
 
 	/**
@@ -1370,5 +1390,61 @@ class View implements View_Interface {
 		}
 
 		return $this->should_reset_page;
+	}
+
+	/**
+	 * Returns the breadcrumbs data the View will display on the front-end.
+	 *
+	 * @since TBD
+	 *
+	 * @return array
+	 */
+	protected function get_breadcrumbs() {
+		$context     = $this->context;
+		$breadcrumbs = [];
+		$context_tax = $context->get( TEC::TAXONOMY, false );
+
+		// Get term slug if taxonomy is not empty
+		if ( ! empty( $context_tax ) ) {
+			$taxonomy  = $context->get( 'taxonomy', false );
+			$term_slug = $taxonomy ? $context->get( $taxonomy, false ) : false;
+
+			// Set up breadcrumbs for category
+			if ( ! empty( $term_slug ) ) {
+				$term  = get_term_by( 'slug', $term_slug, $taxonomy );
+				$label = $term->name;
+
+				$breadcrumbs[] = [
+					'link'  => $this->get_today_url( true ),
+					'label' => tribe_get_event_label_plural(),
+				];
+				$breadcrumbs[] = [
+					'link'  => '',
+					'label' => $label,
+				];
+			}
+		}
+
+		/**
+		 * Filters the breadcrumbs the View will print on the frontend.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $breadcrumbs An array of breadcrumbs.
+		 * @param View  $this        The current View instance being rendered.
+		 */
+		$breadcrumbs = apply_filters( 'tribe_events_views_v2_view_breadcrumbs', $breadcrumbs, $this );
+
+		/**
+		 * Filters the breadcrumbs a specific View will print on the frontend.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $breadcrumbs An array of breadcrumbs.
+		 * @param View  $this        The current View instance being rendered.
+		 */
+		$breadcrumbs = apply_filters( "tribe_events_views_v2_view_{$this->slug}_breadcrumbs", $breadcrumbs, $this );
+
+		return $breadcrumbs;
 	}
 }
