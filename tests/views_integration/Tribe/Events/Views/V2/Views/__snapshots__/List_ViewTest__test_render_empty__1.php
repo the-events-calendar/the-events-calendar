@@ -22,7 +22,7 @@
 	data-js="tribe-events-view-data"
 	type="application/json"
 >
-	{"slug":"list","prev_url":"","next_url":"","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_slug":"list","view":{},"title":"Upcoming Events &#8211; The Events Calendar Tests","events":[],"url":"http:\\/\\/test.tri.be\\/events\\/list\\/","bar":{"keyword":"","date":""},"today":"2019-01-01 09:00:00","now":"2019-01-01 09:00:00","rest_url":"http:\\/\\/test.tri.be\\/index.php?rest_route=\\/tribe\\/views\\/v2\\/html","rest_nonce":"2ab7cc6b39","should_manage_url":true,"today_url":"http:\\/\\/test.tri.be\\/events\\/list\\/","prev_label":"","next_label":"","date_formats":{"compact":"Y-m-d","month_and_year":"F Y"},"messages":{"notice":["There were no results found."]},"start_of_week":"1","show_now":true,"now_label":"November 1 onwards","show_end":false,"selected_start_datetime":"2019-11-01","selected_start_date_mobile":"1","selected_start_date_label":"November 1","selected_end_datetime":"2019-11-01","selected_end_date_mobile":"1","selected_end_date_label":"November 1","datepicker_date":"1"}</script>
+	{"slug":"list","prev_url":"","next_url":"","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_slug":"list","view":{},"title":"Upcoming Events &#8211; The Events Calendar Tests","events":[],"url":"http:\\/\\/test.tri.be\\/events\\/list\\/","bar":{"keyword":"","date":""},"today":"2019-01-01 09:00:00","now":"2019-01-01 09:00:00","rest_url":"http:\\/\\/test.tri.be\\/index.php?rest_route=\\/tribe\\/views\\/v2\\/html","rest_nonce":"2ab7cc6b39","should_manage_url":true,"today_url":"http:\\/\\/test.tri.be\\/events\\/list\\/","prev_label":"","next_label":"","date_formats":{"compact":"Y-m-d","month_and_year":"F Y"},"messages":{"notice":["There were no results found."]},"start_of_week":"1","show_now":true,"now_label":"November 4 onwards","show_end":false,"selected_start_datetime":"2019-11-04","selected_start_date_mobile":"1","selected_start_date_label":"November 4","selected_end_datetime":"2019-11-04","selected_end_date_mobile":"1","selected_end_date_label":"November 4","datepicker_date":"1"}</script>
 
 		<header class="tribe-events-header">
 			<div  class="tribe-events-c-messages tribe-common-b2" >
@@ -199,7 +199,7 @@
 		class="tribe-common-h3 tribe-common-h--alt tribe-events-c-top-bar__datepicker-button"
 		data-js="tribe-events-top-bar-datepicker-button"
 	>
-					November 1 onwards		        	</button>
+					November 4 onwards		        	</button>
 	<label
 		class="tribe-events-c-top-bar__datepicker-label tribe-common-a11y-visual-hide"
 		for="tribe-events-top-bar-date"

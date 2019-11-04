@@ -40,7 +40,9 @@ trait List_Behavior {
 
 		$now                 = Dates::build_date_object( Arr::get( $template_vars, 'now', 'now' ) );
 		$today               = Dates::build_date_object( Arr::get( $template_vars, 'today', 'today' ) );
-		$user_date           = Dates::build_date_object( Arr::get( $template_vars, [ 'bar', 'date' ], $now ) );
+		// This could yield an empty string, that we want to discard to keep "now" if that's the case.
+		$bar_date            = Arr::get( $template_vars, [ 'bar', 'date' ]) ?: $now;
+		$user_date           = Dates::build_date_object( $bar_date );
 		$compact_date_format = isset( $template_vars['date_formats']->compact )
 			?: Dates::datepicker_formats( tribe_get_option( 'datepickerFormat' ) );
 		$now_text            = _x( 'Now', 'The datepicker label when the range start is now.', 'the-events-calendar' );
