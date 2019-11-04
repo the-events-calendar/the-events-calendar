@@ -33,7 +33,7 @@ if ( empty( $more_events ) || empty( $more_url ) ) {
 				_n( '+ %d More', '+ %d More', $more_events, 'the-events-calendar' ),
 				$more_events
 			)
-		 )
+		);
 		?>
 	</a>
 </div>
