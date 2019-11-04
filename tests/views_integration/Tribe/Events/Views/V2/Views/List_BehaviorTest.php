@@ -10,25 +10,23 @@ class List_BehaviorTest extends \Codeception\TestCase\WPTestCase {
 	use With_Post_Remapping;
 
 	public function setup_datepicker_template_vars_data_set() {
-		$context = static function ( array $alterations = [] )
-		{
-			return static function () use ( $alterations )
-			{
+		$context = static function ( array $alterations = [] ) {
+			return static function () use ( $alterations ) {
 				return tribe_context()->alter( $alterations );
 			};
 		};
 
-		$event = function ( $start_date )
-		{
-			return function () use ( $start_date )
-			{
-				return $this->get_mock_event( "events/single/1.template.json",
-				                              [
-					                              'post_content' => $start_date . ' event',
-					                              'start_date'   => $start_date,
-					                              'end_date'     => $start_date,
-				                              ] );
-			};
+		$event = function ( $start_date ) {
+			 return function () use ( $start_date ) {
+				return $this->get_mock_event(
+					'events/single/1.template.json',
+					[
+						'post_content' => $start_date . ' event',
+						'start_date'   => $start_date,
+						'end_date'     => $start_date,
+					] 
+				);
+			 };
 		};
 
 		yield 'now_wo_events' => [
@@ -51,7 +49,7 @@ class List_BehaviorTest extends \Codeception\TestCase\WPTestCase {
 				'selected_end_date_mobile'   => '2019-01-01',
 				'selected_end_date_label'    => 'Now',
 				'datepicker_date'            => '2019-01-01',
-			]
+			],
 		];
 
 		yield 'now_w_events_on_diff_dates' => [
@@ -343,7 +341,7 @@ class List_BehaviorTest extends \Codeception\TestCase\WPTestCase {
 	 * @return View|List_Behavior
 	 */
 	protected function make_view( Context $context = null ): View {
-		$view = new class extends View {
+		$view = new class() extends View {
 			use List_Behavior;
 
 			public function open_setup_datepicker_template_vars( array $template_vars ) {
@@ -369,11 +367,12 @@ class List_BehaviorTest extends \Codeception\TestCase\WPTestCase {
 	public function should_correctly_setup_the_template_vars( $template_vars, $context, $expected ) {
 		$view = $this->make_view( $context() );
 		if ( isset( $template_vars['events'] ) ) {
-			$template_vars['events'] = array_map( static function ( $fetch )
-			{
-				return $fetch();
-			},
-				$template_vars['events'] );
+			$template_vars['events'] = array_map(
+				static function ( $fetch ) {
+					return $fetch();
+				},
+				$template_vars['events'] 
+			);
 		}
 
 		$updated = $view->open_setup_datepicker_template_vars( $template_vars );
@@ -391,14 +390,16 @@ class List_BehaviorTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function should_correctly_remove_past_query_args() {
 		$past_url = home_url( '/events/list/?eventDisplay=past' );
-		$context  = tribe_context()->alter( [
-			                                    'event_display_mode' => 'past',
-			                                    'event_display'      => 'list',
-			                                    'url'                => $past_url,
-			                                    'view_data'          => [
-				                                    'url' => $past_url,
-			                                    ]
-		                                    ] );
+		$context  = tribe_context()->alter(
+			[
+				'event_display_mode' => 'past',
+				'event_display'      => 'list',
+				'url'                => $past_url,
+				'view_data'          => [
+					'url' => $past_url,
+				], ,
+			] 
+		);
 
 		$view = $this->make_view( $context );
 		$view->open_remove_past_query_args();

@@ -32,7 +32,7 @@
 	>
 		<?php if ( $show_now ) : ?>
 			<?php echo esc_html( $now_label ); ?>
-		<?php else: ?>
+		<?php else : ?>
 			<time
 				datetime="<?php echo esc_attr( $selected_start_datetime ); ?>"
 				class="tribe-events-c-top-bar__datepicker-time"
@@ -45,20 +45,20 @@
 				</span>
 			</time>
 		<?php endif; ?>
-        <?php if ( $show_end ) : ?>
-            <span class="tribe-events-c-top-bar__datepicker-separator">&mdash;</span>
-            <time
-                    datetime="<?php echo esc_attr( $selected_end_datetime ); ?>"
-                    class="tribe-events-c-top-bar__datepicker-time"
-            >
+		<?php if ( $show_end ) : ?>
+			<span class="tribe-events-c-top-bar__datepicker-separator">&mdash;</span>
+			<time
+					datetime="<?php echo esc_attr( $selected_end_datetime ); ?>"
+					class="tribe-events-c-top-bar__datepicker-time"
+			>
 			<span class="tribe-events-c-top-bar__datepicker-mobile">
 				<?php echo esc_html( $selected_end_date_mobile ); ?>
 			</span>
-                <span class="tribe-events-c-top-bar__datepicker-desktop tribe-common-a11y-hidden">
+				<span class="tribe-events-c-top-bar__datepicker-desktop tribe-common-a11y-hidden">
 				<?php echo esc_html( $selected_end_date_label ); ?>
 			</span>
-            </time>
-        <?php endif; ?>
+			</time>
+		<?php endif; ?>
 	</button>
 	<label
 		class="tribe-events-c-top-bar__datepicker-label tribe-common-a11y-visual-hide"
@@ -72,8 +72,8 @@
 		data-js="tribe-events-top-bar-date"
 		id="tribe-events-top-bar-date"
 		name="tribe-events-views[tribe-bar-search]"
-        value="<?php echo esc_attr( $datepicker_date ); ?>"
-        tabindex="-1"
+		value="<?php echo esc_attr( $datepicker_date ); ?>"
+		tabindex="-1"
 		autocomplete="off"
 	/>
 	<div class="tribe-events-c-top-bar__datepicker-container" data-js="tribe-events-top-bar-datepicker-container"></div>
