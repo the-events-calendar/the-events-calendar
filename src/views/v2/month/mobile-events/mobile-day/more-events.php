@@ -29,7 +29,7 @@ if ( empty( $more_events ) || empty( $more_url ) ) {
 	>
 		<?php
 		echo esc_html(
-			 sprintf(
+			sprintf(
 				_n( '+ %d More', '+ %d More', $more_events, 'the-events-calendar' ),
 				$more_events
 			 )
