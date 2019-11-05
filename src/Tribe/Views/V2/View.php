@@ -1402,11 +1402,11 @@ class View implements View_Interface {
 	 */
 	protected function get_breadcrumbs() {
 		$context     = $this->context;
-		$context_arr = $context->to_array();
 		$breadcrumbs = [];
+		$context_tax = $context->get( TEC::TAXONOMY, false );
 
 		// Get term slug if taxonomy is not empty
-		if ( ! empty( $context_arr[ TEC::TAXONOMY ] ) ) {
+		if ( ! empty( $context_tax ) ) {
 			$taxonomy  = $context->get( 'taxonomy', false );
 			$term_slug = $taxonomy ? $context->get( $taxonomy, false ) : false;
 
