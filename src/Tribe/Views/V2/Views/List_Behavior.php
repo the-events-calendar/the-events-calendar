@@ -43,8 +43,9 @@ trait List_Behavior {
 		// This could yield an empty string, that we want to discard to keep "now" if that's the case.
 		$bar_date            = Arr::get( $template_vars, [ 'bar', 'date' ] ) ?: $now;
 		$user_date           = Dates::build_date_object( $bar_date );
-		$compact_date_format = $template_vars['date_formats']->compact
-			?: Dates::datepicker_formats( tribe_get_option( 'datepickerFormat' ) );
+		$compact_date_format = ! empty( $template_vars['date_formats']->compact )
+			? $template_vars['date_formats']->compact
+			: Dates::datepicker_formats( tribe_get_option( 'datepickerFormat' ) );
 		$now_text            = _x( 'Now', 'The datepicker label when the range start is now.', 'the-events-calendar' );
 		$is_past             = 'past' === $this->context->get( 'event_display_mode', false );
 		$page                = max( 1, (int) $this->context->get( 'page', 1 ) );
