@@ -22,7 +22,7 @@
 	data-js="tribe-events-view-data"
 	type="application/json"
 >
-	{"slug":"list","prev_url":"","next_url":"","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_slug":"list","view":{},"title":"Upcoming Events &#8211; The Events Calendar Tests","events":[],"url":"http:\\/\\/test.tri.be\\/events\\/list\\/","bar":{"keyword":"","date":""},"today":"2019-01-01 09:00:00","now":"2019-01-01 09:00:00","rest_url":"http:\\/\\/test.tri.be\\/index.php?rest_route=\\/tribe\\/views\\/v2\\/html","rest_nonce":"2ab7cc6b39","should_manage_url":true,"today_url":"http:\\/\\/test.tri.be\\/events\\/list\\/","prev_label":"","next_label":"","date_formats":{"compact":"Y-m-d","month_and_year":"F Y"},"messages":{"notice":["There were no results found."]},"start_of_week":"1","breadcrumbs":[],"display_events_bar":true}</script>
+	{"slug":"list","prev_url":"","next_url":"","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_slug":"list","view":{},"title":"Upcoming Events &#8211; The Events Calendar Tests","events":[],"url":"http:\\/\\/test.tri.be\\/events\\/list\\/","bar":{"keyword":"","date":""},"today":"2019-01-01 09:00:00","now":"2019-01-01 09:00:00","rest_url":"http:\\/\\/test.tri.be\\/index.php?rest_route=\\/tribe\\/views\\/v2\\/html","rest_nonce":"2ab7cc6b39","should_manage_url":true,"today_url":"http:\\/\\/test.tri.be\\/events\\/list\\/","prev_label":"","next_label":"","date_formats":{"compact":"Y-m-d","month_and_year":"F Y"},"messages":{"notice":["There were no results found."]},"start_of_week":"1","breadcrumbs":[],"display_events_bar":true,"show_now":true,"now_label":"Now onwards","show_end":false,"selected_start_datetime":"2019-01-01","selected_start_date_mobile":"2019-01-01","selected_start_date_label":"January 1","selected_end_datetime":"2019-01-01","selected_end_date_mobile":"2019-01-01","selected_end_date_label":"Now","datepicker_date":"2019-01-01"}</script>
 
 		<header class="tribe-events-header">
 			<div  class="tribe-events-c-messages tribe-common-b2" >
@@ -200,17 +200,7 @@
 		class="tribe-common-h3 tribe-common-h--alt tribe-events-c-top-bar__datepicker-button"
 		data-js="tribe-events-top-bar-datepicker-button"
 	>
-					Now				<span class="tribe-events-c-top-bar__datepicker-separator">&mdash;</span>
-		<time
-			datetime="2019-01-01"
-			class="tribe-events-c-top-bar__datepicker-time"
-		>
-			<span class="tribe-events-c-top-bar__datepicker-mobile">
-				2019-01-01			</span>
-			<span class="tribe-events-c-top-bar__datepicker-desktop tribe-common-a11y-hidden">
-				January 1			</span>
-		</time>
-	</button>
+					Now onwards					</button>
 	<label
 		class="tribe-events-c-top-bar__datepicker-label tribe-common-a11y-visual-hide"
 		for="tribe-events-top-bar-date"

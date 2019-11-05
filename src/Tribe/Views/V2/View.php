@@ -165,10 +165,12 @@ class View implements View_Interface {
 	/**
 	 * View constructor.
 	 *
-	 * @param Messages $messages An instance of the messages collection.
+	 * @since TBD
+	 *
+	 * @param Messages|null $messages An instance of the messages collection.
 	 */
-	public function __construct( Messages $messages ) {
-		$this->messages = $messages;
+	public function __construct( Messages $messages = null ) {
+		$this->messages = $messages ?: new Messages();
 	}
 
 	/**
@@ -451,6 +453,24 @@ class View implements View_Interface {
 			return $this->template->render();
 		}
 
+		if ( $this->should_reset_page() ) {
+
+			/**
+			 * Fires when the combination of the current request and View context requires a page reset.
+			 *
+			 * Additional information about the View current state and context are available using the View getter
+			 * methods.
+			 *
+			 * @since TBD
+			 *
+			 * @param View $this The current View instance.
+			 * @param Context The View current context
+			 */
+			do_action( 'tribe_events_views_v2_on_page_reset', $this, $this->context );
+
+			$this->on_page_reset();
+		}
+
 		$repository_args = $this->filter_repository_args( $this->setup_repository_args() );
 
 		/*
@@ -582,12 +602,8 @@ class View implements View_Interface {
 			}
 		}
 
-		if ( $this->should_reset_page() ) {
-			$page = 1;
-		} else {
-			// When we find nothing we're always on page 1.
-			$page = $this->repository->count() > 0 ? $this->url->get_current_page() : 1;
-		}
+		// When we find nothing we're always on page 1.
+		$page = $this->repository->count() > 0 ? $this->url->get_current_page() : 1;
 
 		if ( $page > 1 ) {
 			$query_args[ $this->page_key ] = $page;
@@ -945,10 +961,6 @@ class View implements View_Interface {
 		// Set's up catergory URL for all views.
 		if ( ! empty( $context_arr[ TEC::TAXONOMY ] ) ) {
 			$args[ TEC::TAXONOMY ] = $context_arr[ TEC::TAXONOMY ];
-		}
-
-		if ( $this->should_reset_page() ) {
-			$args['paged'] = 1;
 		}
 
 		return $args;
@@ -1400,6 +1412,32 @@ class View implements View_Interface {
 		}
 
 		return $this->should_reset_page;
+	}
+
+	/**
+	 * Acts on the View variables, properties and context when a page reset is required.
+	 *
+	 * By default this method will reset the page in the context, but extending classes can implement their own,
+	 * custom version.
+	 *
+	 * @since TBD
+	 */
+	protected function on_page_reset() {
+		if ( ! isset( $this->context ) || ! $this->context instanceof Context ) {
+			return;
+		}
+
+		$url                      = $this->context->get( 'url', home_url() );
+		$updated_url              = remove_query_arg( [ 'paged', 'page' ], $url );
+		$view_data                = $this->context->get( 'view_data', [] );
+		$alterations              = [
+			'page'  => 1,
+			'paged' => 1,
+			'url'   => $updated_url,
+		];
+		$alterations['view_data'] = array_merge( $view_data, $alterations );
+
+		$this->context = $this->context->alter( $alterations );
 	}
 
 	/**
