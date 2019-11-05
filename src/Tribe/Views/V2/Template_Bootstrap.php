@@ -76,9 +76,14 @@ class Template_Bootstrap {
 		if ( ! tribe_is_showing_all() && tribe_is_past_event() ) {
 			Tribe__Notices::set_notice( 'event-past', sprintf( esc_html__( 'This %s has passed.', 'the-events-calendar' ), tribe_get_event_label_singular_lowercase() ) );
 		}
+		$setting = $this->get_template_setting();
 
 		ob_start();
-		echo '<main id="tribe-events-pg-template" class="tribe-events-pg-template">';
+		if ( 'page' === $setting ) {
+			echo '<main id="tribe-events">';
+		} else {
+			echo '<main id="tribe-events-pg-template" class="tribe-events-pg-template">';
+		}
 		tribe_events_before_html();
 		tribe_get_view( 'single-event' );
 		tribe_events_after_html();
@@ -177,5 +182,33 @@ class Template_Bootstrap {
 		}
 
 		return $this->get_template_object()->get_path();
+	}
+
+	/**
+	 * Set the correct body classes for our plugin.
+	 *
+	 * @since  TBD
+	 *
+	 * @return array The array containing the body classes
+	 */
+	public function filter_add_body_classes( $classes ) {
+		$setting  = $this->get_template_setting();
+		$template = $this->get_template_object()->get_path();
+
+		if ( 'page' === $setting ) {
+			$classes[] = 'page-template-' . sanitize_title( $template );
+
+			if ( ! is_tax() ) {
+				$key = array_search( 'archive', $classes );
+
+				if ( false !== $key ) {
+					unset( $classes[ $key ] );
+				}
+			}
+		} else {
+			$classes[] = 'tribe-events-page-template';
+		}
+
+		return $classes;
 	}
 }
