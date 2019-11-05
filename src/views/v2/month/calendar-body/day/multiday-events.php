@@ -17,7 +17,6 @@
  *                               and spacer indicators.
  *                               The stack is pre-calculated for the day, events and spacers are in the correct order.
  * @var bool   $is_start_of_week Whether the current day is the first day in the week or not.
- * @var string $grid_start_date  The `Y-m-d` date of the day where the grid starts.
  *
  * @see tribe_get_event() For the format of the event object and its properties.
  */
@@ -40,7 +39,6 @@ if ( 0 === count( $multiday_events ) ) {
 		'day_date'         => $day_date,
 		'event'            => $event,
 		'is_start_of_week' => $is_start_of_week,
-		'grid_start_date'  => $grid_start_date,
 	] );
 	?>
 
