@@ -154,6 +154,15 @@ class View implements View_Interface {
 	protected $should_reset_page;
 
 	/**
+	 * Whether the View should display the events bar or not.
+	 *
+	 * @since TBD
+	 *
+	 * @var bool
+	 */
+	protected $display_events_bar = true;
+
+	/**
 	 * View constructor.
 	 *
 	 * @param Messages $messages An instance of the messages collection.
@@ -1037,7 +1046,7 @@ class View implements View_Interface {
 			'messages'           => $this->get_messages( $events ),
 			'start_of_week'      => get_option( 'start_of_week', 0 ),
 			'breadcrumbs'        => $this->get_breadcrumbs(),
-			'display_events_bar' => true,
+			'display_events_bar' => $this->filter_display_events_bar( $this->display_events_bar ),
 		];
 
 		return $template_vars;
@@ -1447,5 +1456,26 @@ class View implements View_Interface {
 		$breadcrumbs = apply_filters( "tribe_events_views_v2_view_{$this->slug}_breadcrumbs", $breadcrumbs, $this );
 
 		return $breadcrumbs;
+	}
+
+
+	/**
+	 * Returns if the view should display the events bar.
+	 *
+	 * @since TBD
+	 *
+	 * @return array
+	 */
+	protected function filter_display_events_bar( $display ) {
+
+		/**
+		 * Filters if the events bar should be displayed.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool $display An bool saying if it should be displayed or not.
+		 * @param View $this    The current View instance being rendered.
+		 */
+		return apply_filters( "tribe_events_views_v2_view_{$this->slug}_display_events_bar", $display, $this );
 	}
 }
