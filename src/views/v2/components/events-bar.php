@@ -9,9 +9,14 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.10
+ * @version TBD
  *
+ * @var bool $display_events_bar Bool containing if we should display the events bar.
  */
+
+if ( empty( $display_events_bar ) ) {
+	return;
+}
 ?>
 <div
 	class="tribe-events-header__events-bar tribe-events-c-events-bar"

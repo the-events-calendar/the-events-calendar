@@ -154,6 +154,15 @@ class View implements View_Interface {
 	protected $should_reset_page;
 
 	/**
+	 * Whether the View should display the events bar or not.
+	 *
+	 * @since TBD
+	 *
+	 * @var bool
+	 */
+	protected $display_events_bar = true;
+
+	/**
 	 * View constructor.
 	 *
 	 * @since TBD
@@ -1025,30 +1034,31 @@ class View implements View_Interface {
 		$this->setup_messages( $events );
 
 		$template_vars = [
-			'title'             => $this->get_title( $events ),
-			'events'            => $events,
-			'url'               => $this->get_url( true ),
-			'prev_url'          => $this->prev_url( true ),
-			'next_url'          => $this->next_url( true ),
-			'bar'               => [
+			'title'              => $this->get_title( $events ),
+			'events'             => $events,
+			'url'                => $this->get_url( true ),
+			'prev_url'           => $this->prev_url( true ),
+			'next_url'           => $this->next_url( true ),
+			'bar'                => [
 				'keyword' => $this->context->get( 'keyword', '' ),
 				'date'    => $this->context->get( 'event_date', '' ),
 			],
-			'today'             => $this->context->get( 'today', 'today' ),
-			'now'               => $this->context->get( 'now', 'now' ),
-			'rest_url'          => tribe( Rest_Endpoint::class )->get_url(),
-			'rest_nonce'        => wp_create_nonce( 'wp_rest' ),
-			'should_manage_url' => $this->should_manage_url,
-			'today_url'         => $this->get_today_url( true ),
-			'prev_label'        => $this->get_link_label( $this->prev_url( false ) ),
-			'next_label'        => $this->get_link_label( $this->next_url( false ) ),
-			'date_formats'      => (object) [
+			'today'              => $this->context->get( 'today', 'today' ),
+			'now'                => $this->context->get( 'now', 'now' ),
+			'rest_url'           => tribe( Rest_Endpoint::class )->get_url(),
+			'rest_nonce'         => wp_create_nonce( 'wp_rest' ),
+			'should_manage_url'  => $this->should_manage_url,
+			'today_url'          => $this->get_today_url( true ),
+			'prev_label'         => $this->get_link_label( $this->prev_url( false ) ),
+			'next_label'         => $this->get_link_label( $this->next_url( false ) ),
+			'date_formats'       => (object) [
 				'compact'        => Dates::datepicker_formats( tribe_get_option( 'datepickerFormat' ) ),
 				'month_and_year' => tribe_get_date_option( 'monthAndYearFormat', 'F Y' ),
 			],
-			'messages'          => $this->get_messages( $events ),
-			'start_of_week'     => get_option( 'start_of_week', 0 ),
-			'breadcrumbs'       => $this->get_breadcrumbs(),
+			'messages'           => $this->get_messages( $events ),
+			'start_of_week'      => get_option( 'start_of_week', 0 ),
+			'breadcrumbs'        => $this->get_breadcrumbs(),
+			'display_events_bar' => $this->filter_display_events_bar( $this->display_events_bar ),
 		];
 
 		return $template_vars;
@@ -1484,5 +1494,38 @@ class View implements View_Interface {
 		$breadcrumbs = apply_filters( "tribe_events_views_v2_view_{$this->slug}_breadcrumbs", $breadcrumbs, $this );
 
 		return $breadcrumbs;
+	}
+
+
+	/**
+	 * Returns if the view should display the events bar.
+	 *
+	 * @since TBD
+	 *
+	 * @return array
+	 */
+	protected function filter_display_events_bar( $display ) {
+
+		/**
+		 * Filters if the events bar should be displayed.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool $display An bool saying if it should be displayed or not.
+		 * @param View $this    The current View instance being rendered.
+		 */
+		$display = apply_filters( "tribe_events_views_v2_view_display_events_bar", $display, $this );
+
+		/**
+		 * Filters if the events bar should be displayed for the specific view.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool $display An bool saying if it should be displayed or not.
+		 * @param View $this    The current View instance being rendered.
+		 */
+		$display = apply_filters( "tribe_events_views_v2_view_{$this->slug}_display_events_bar", $display, $this );
+
+		return $display;
 	}
 }
