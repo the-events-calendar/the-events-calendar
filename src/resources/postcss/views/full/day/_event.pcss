@@ -16,7 +16,7 @@
 		}
 
 		&:after {
-			background: var(--color-accent-primary);
+			background-color: var(--color-accent-primary);
 			content: '';
 			height: 100%;
 			left: var(--grid-gutter-small-half);
@@ -47,6 +47,17 @@
 		@media (--viewport-medium) {
 			color: var(--color-accent-primary);
 			font-weight: var(--font-weight-bold);
+		}
+	}
+
+	.tribe-events-calendar-day__event-datetime-recurring-link {
+
+		&:hover,
+		&:focus {
+
+			.tribe-events-calendar-day__event-datetime-recurring-icon {
+				background-image: svg-inline(recurring);
+			}
 		}
 	}
 }

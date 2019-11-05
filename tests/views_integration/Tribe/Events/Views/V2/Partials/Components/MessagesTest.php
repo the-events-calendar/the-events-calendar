@@ -10,10 +10,16 @@ class MessagesTest extends HtmlPartialTestCase
 	protected $partial_path = 'components/messages';
 
 	/**
-	 * Test render with context
+	 * Test render no messages.
 	 */
-	public function test_render_with_context() {
+	public function test_render_no_messages() {
+		$this->assertMatchesSnapshot( $this->get_partial_html( [] ) );
+	}
 
+	/**
+	 * Test render with single message.
+	 */
+	public function test_render_with_single_message() {
 		$messages = [
 			'notice' => [
 				'There were no results found',
@@ -26,8 +32,7 @@ class MessagesTest extends HtmlPartialTestCase
 	/**
 	 * Test render with multiple messages.
 	 */
-	public function test_render_with_multiple_messages_html() {
-
+	public function test_render_with_multiple_messages() {
 		$messages = [
 			'notice' => [
 				'There were no results found',
@@ -42,17 +47,9 @@ class MessagesTest extends HtmlPartialTestCase
 	}
 
 	/**
-	 * Test render empty
+	 * Test render with message with HTML
 	 */
-	public function test_render_no_messages() {
-		$this->assertMatchesSnapshot( $this->get_partial_html( [] ) );
-	}
-
-	/**
-	 * Test render with HTML
-	 */
-	public function test_render_with_html() {
-
+	public function test_render_with_message_with_html() {
 		$messages = [
 			'notice' => [
 				'There were no results found for <strong>this amazing search</strong>',

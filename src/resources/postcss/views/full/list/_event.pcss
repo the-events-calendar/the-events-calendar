@@ -9,7 +9,7 @@
 		.tribe-events-calendar-list__event-date-tag-datetime {
 
 			&:after {
-				background: var(--color-accent-primary);
+				background-color: var(--color-accent-primary);
 				content: '';
 				height: 100%;
 				right: calc(100% - 3px);
@@ -48,6 +48,17 @@
 		@media (--viewport-medium) {
 			color: var(--color-accent-primary);
 			font-weight: var(--font-weight-bold);
+		}
+	}
+
+	.tribe-events-calendar-list__event-datetime-recurring-link {
+
+		&:hover,
+		&:focus {
+
+			.tribe-events-calendar-list__event-datetime-recurring-icon {
+				background-image: svg-inline(recurring);
+			}
 		}
 	}
 }
