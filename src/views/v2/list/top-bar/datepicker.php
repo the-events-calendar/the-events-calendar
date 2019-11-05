@@ -54,7 +54,7 @@
 			<span class="tribe-events-c-top-bar__datepicker-mobile">
 				<?php echo esc_html( $selected_end_date_mobile ); ?>
 			</span>
-				<span class="tribe-events-c-top-bar__datepicker-desktop tribe-common-a11y-hidden">
+			<span class="tribe-events-c-top-bar__datepicker-desktop tribe-common-a11y-hidden">
 				<?php echo esc_html( $selected_end_date_label ); ?>
 			</span>
 			</time>
