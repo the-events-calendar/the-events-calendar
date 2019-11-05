@@ -59,32 +59,45 @@ class V1_Compat extends \tad_DI52_ServiceProvider {
 	 */
 	public function remove_v1_filters() {
 		$backcompat        = V1_Backcompat::instance();
+		$tec_bar           = tribe( 'tec.bar' );
 
 		$filters_to_remove = [
-			'query_vars'              => [
+			'query_vars'                       => [
 				[ 'callback' => [ TEC::instance(), 'eventQueryVars' ] ],
 			],
-			'parse_query'             => [
+			'parse_query'                      => [
 				[ 'callback' => [ TEC::instance(), 'setDisplay' ], 'priority' => 51 ],
 				[ 'callback' => [ $backcompat, 'change_qv_to_list' ], 'priority' => 45 ],
 				[ 'callback' => [ V1_Query::class, 'parse_query' ], 'priority' => 50 ],
 			],
-			'pre_get_posts'           => [
+			'pre_get_posts'                    => [
 				[ 'callback' => [ V1_Query::class, 'pre_get_posts' ], 'priority' => 50 ],
 			],
-			'posts_results'           => [
+			'posts_results'                    => [
 				[ 'callback' => [ V1_Query::class, 'posts_results' ], 'priority' => 10 ],
 			],
-			'wp'                      => [
+			'wp'                               => [
 				[ 'callback' => [ TEC::instance(), 'issue_noindex' ], 'priority' => 10 ],
 			],
-			'tribe_get_single_option' => [
+			'tribe_get_single_option'          => [
 				[
 					'callback' => [ $backcompat, 'filter_multiday_cutoff' ],
 					'priority' => 10,
 				],
 				[ 'callback' => [ $backcompat, 'filter_enabled_views' ], 'priority' => 10 ],
 				[ 'callback' => [ $backcompat, 'filter_default_view' ], 'priority' => 10 ],
+			],
+			'wp_enqueue_scripts'               => [
+				[ 'callback' => [ $tec_bar, 'load_script' ], 'priority' => 9 ]
+			],
+			'body_class'                       => [
+				[ 'callback' => [ $tec_bar, 'body_class' ], 'priority' => 10 ]
+			],
+			'tribe_events_bar_before_template' => [
+				[ 'callback' => [ $tec_bar, 'disabled_bar_before' ], 'priority' => 10 ]
+			],
+			'tribe_events_bar_after_template'  => [
+				[ 'callback' => [ $tec_bar, 'disabled_bar_after' ], 'priority' => 10 ]
 			],
 		];
 
