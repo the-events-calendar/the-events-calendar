@@ -249,7 +249,7 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract extends Tribe__Tabbed_V
 	 * @return int
 	 */
 	protected function to_timestamp( $time, $default = '' ) {
-		$time = Tribe__Date_Utils::is_timestamp( $time ) ? $time : strtotime( $time );
+		$time = Tribe__Date_Utils::is_timestamp( $time ) ? $time : strtotime( Tribe__Date_Utils::maybe_format_from_datepicker( $time ) );
 
 		return false !== $time ? $time : $default;
 	}

@@ -188,7 +188,8 @@ class Month_View extends By_Day_View {
 		// The events will be returned in an array with shape `[ <Y-m-d> => [...<events>], <Y-m-d> => [...<events>] ]`.
 		$grid_days = $this->get_grid_days();
 
-		$grid_start_date = reset( array_keys( $grid_days ) );
+		$grid_start_date = array_keys( $grid_days );
+		$grid_start_date = reset( $grid_start_date );
 
 		/*
 		 * The messages set up before will be wrong due to an always empty `$events` array.
