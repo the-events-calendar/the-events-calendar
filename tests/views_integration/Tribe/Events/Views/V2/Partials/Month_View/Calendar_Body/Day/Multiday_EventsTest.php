@@ -19,6 +19,7 @@ class Multiday_EventsTest extends HtmlPartialTestCase {
 			'multiday_events'  => [],
 			'is_start_of_week' => false,
 			'today_date'       => '2019-06-01',
+			'grid_start_date'  => '2019-01-01',
 		] ) );
 	}
 
@@ -37,6 +38,7 @@ class Multiday_EventsTest extends HtmlPartialTestCase {
 			'multiday_events'  => $multiday_events,
 			'is_start_of_week' => false,
 			'today_date'       => '2019-06-01',
+			'grid_start_date'  => '2019-01-01',
 		] ) );
 	}
 
@@ -69,6 +71,7 @@ class Multiday_EventsTest extends HtmlPartialTestCase {
 			'multiday_events'  => $multiday_events,
 			'is_start_of_week' => false,
 			'today_date'       => '2019-06-01',
+			'grid_start_date'  => '2019-01-01',
 		] ) );
 	}
 
@@ -87,6 +90,7 @@ class Multiday_EventsTest extends HtmlPartialTestCase {
 			'multiday_events'  => $multiday_events,
 			'is_start_of_week' => false,
 			'today_date'       => '2019-06-01',
+			'grid_start_date'  => '2019-01-01',
 		] ) );
 	}
 	/**
@@ -119,6 +123,7 @@ class Multiday_EventsTest extends HtmlPartialTestCase {
 			'multiday_events'  => $multiday_events,
 			'is_start_of_week' => false,
 			'today_date'       => '2019-06-01',
+			'grid_start_date'  => '2019-01-01',
 		] ) );
 	}
 
@@ -152,6 +157,7 @@ class Multiday_EventsTest extends HtmlPartialTestCase {
 			'multiday_events'  => $multiday_events,
 			'is_start_of_week' => false,
 			'today_date'       => '2019-06-01',
+			'grid_start_date'  => '2019-01-01',
 		] ) );
 	}
 
@@ -186,6 +192,7 @@ class Multiday_EventsTest extends HtmlPartialTestCase {
 			'multiday_events'  => $multiday_events,
 			'is_start_of_week' => false,
 			'today_date'       => '2019-06-01',
+			'grid_start_date'  => '2019-01-01',
 		] ) );
 	}
 }
