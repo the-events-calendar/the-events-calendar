@@ -24,7 +24,7 @@ class List_BehaviorTest extends \Codeception\TestCase\WPTestCase {
 						'post_content' => $start_date . ' event',
 						'start_date'   => $start_date,
 						'end_date'     => $start_date,
-					] 
+					]
 				);
 			 };
 		};
@@ -371,7 +371,7 @@ class List_BehaviorTest extends \Codeception\TestCase\WPTestCase {
 				static function ( $fetch ) {
 					return $fetch();
 				},
-				$template_vars['events'] 
+				$template_vars['events']
 			);
 		}
 
@@ -397,8 +397,8 @@ class List_BehaviorTest extends \Codeception\TestCase\WPTestCase {
 				'url'                => $past_url,
 				'view_data'          => [
 					'url' => $past_url,
-				], ,
-			] 
+				],
+			]
 		);
 
 		$view = $this->make_view( $context );
