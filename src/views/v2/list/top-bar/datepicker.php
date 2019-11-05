@@ -7,7 +7,7 @@
  *
  * See more documentation about our views templating system.
  *
- * @link {INSERT_ARTCILE_LINK_HERE}
+ * @link    {INSERT_ARTCILE_LINK_HERE}
  *
  * @version TBD
  *
@@ -48,13 +48,13 @@
 		<?php if ( $show_end ) : ?>
 			<span class="tribe-events-c-top-bar__datepicker-separator">&mdash;</span>
 			<time
-					datetime="<?php echo esc_attr( $selected_end_datetime ); ?>"
-					class="tribe-events-c-top-bar__datepicker-time"
+				datetime="<?php echo esc_attr( $selected_end_datetime ); ?>"
+				class="tribe-events-c-top-bar__datepicker-time"
 			>
 			<span class="tribe-events-c-top-bar__datepicker-mobile">
 				<?php echo esc_html( $selected_end_date_mobile ); ?>
 			</span>
-			<span class="tribe-events-c-top-bar__datepicker-desktop tribe-common-a11y-hidden">
+				<span class="tribe-events-c-top-bar__datepicker-desktop tribe-common-a11y-hidden">
 				<?php echo esc_html( $selected_end_date_label ); ?>
 			</span>
 			</time>
