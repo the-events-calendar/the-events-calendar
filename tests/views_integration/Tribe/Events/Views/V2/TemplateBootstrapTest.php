@@ -126,7 +126,7 @@ class TemplateBootstrapTest extends \Codeception\TestCase\WPTestCase {
 	public function it_should_load_only_on_correct_wp_query( $is_event_query, $is_main_query, $expected ) {
 		global $wp_query;
 		$query                       = $this->make(
-			\WP_Query::class, 
+			\WP_Query::class,
 			[
 				'is_main_query' => $is_main_query,
 			]
@@ -148,7 +148,7 @@ class TemplateBootstrapTest extends \Codeception\TestCase\WPTestCase {
 		$query = $this->make(
 			\WP_Query::class,
 			[
-				'is_main_query' => false, ,
+				'is_main_query' => false,
 			]
 		);
 
@@ -190,8 +190,8 @@ class TemplateBootstrapTest extends \Codeception\TestCase\WPTestCase {
 			[
 				'is_main_query' => static function () use ( &$called ) {
 					return $called = true;
-				}, ,
-			] 
+				},
+			]
 		);
 		$wp_query->tribe_is_event_query = true;
 
