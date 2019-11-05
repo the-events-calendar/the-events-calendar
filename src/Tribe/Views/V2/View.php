@@ -1476,6 +1476,18 @@ class View implements View_Interface {
 		 * @param bool $display An bool saying if it should be displayed or not.
 		 * @param View $this    The current View instance being rendered.
 		 */
-		return apply_filters( "tribe_events_views_v2_view_{$this->slug}_display_events_bar", $display, $this );
+		$display = apply_filters( "tribe_events_views_v2_view_display_events_bar", $display, $this );
+
+		/**
+		 * Filters if the events bar should be displayed for the specific view.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool $display An bool saying if it should be displayed or not.
+		 * @param View $this    The current View instance being rendered.
+		 */
+		$display = apply_filters( "tribe_events_views_v2_view_{$this->slug}_display_events_bar", $display, $this );
+
+		return $display;
 	}
 }
