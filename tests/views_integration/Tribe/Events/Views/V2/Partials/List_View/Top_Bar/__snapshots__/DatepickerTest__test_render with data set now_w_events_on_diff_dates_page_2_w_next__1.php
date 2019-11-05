@@ -5,8 +5,8 @@
 	>
 					Now							<span class="tribe-events-c-top-bar__datepicker-separator">&mdash;</span>
 			<time
-					datetime="2019-01-05"
-					class="tribe-events-c-top-bar__datepicker-time"
+				datetime="2019-01-05"
+				class="tribe-events-c-top-bar__datepicker-time"
 			>
 			<span class="tribe-events-c-top-bar__datepicker-mobile">
 				2019-01-05			</span>
