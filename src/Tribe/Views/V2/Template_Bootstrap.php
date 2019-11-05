@@ -10,10 +10,9 @@
  */
 namespace Tribe\Events\Views\V2;
 
-use Tribe__Events__Main as TEC;
+use Tribe__Notices;
 use Tribe__Utils__Array as Arr;
 use WP_Query;
-use Tribe__Notices;
 
 class Template_Bootstrap {
 	/**
@@ -142,27 +141,25 @@ class Template_Bootstrap {
 	 *
 	 * @param  WP_Query $query Which WP_Query object we are going to load on
 	 *
-	 * @return boolean
+	 * @return boolean Whether any template managed by this class should load at all or not.
 	 */
 	public function should_load( $query = null ) {
-		if ( ! $query instanceof WP_Query ) {
+		if ( ! $query instanceof \WP_Query ) {
 			$query = tribe_get_global_query_object();
 		}
 
-		if ( ! $query instanceof WP_Query ) {
+		if ( ! $query instanceof \WP_Query ) {
 			return false;
 		}
 
 		/**
-		 * Bail if we are not dealing with our Post Type
+		 * Bail if we are not dealing with an Event, Venue or Organizer main query.
 		 *
-		 * @todo  needs support for Venues and Template
+		 * The `tribe_is_event_query` property is a logic `OR` of any post type and taxonomy we manage.
+		 *
+		 * @see \Tribe__Events__Query::parse_query() where this property is set.
 		 */
-		if ( ! in_array( TEC::POSTTYPE, (array) $query->get( 'post_type' ) ) ) {
-			return false;
-		}
-
-		return true;
+		return $query->is_main_query() && ! empty( $query->tribe_is_event_query );
 	}
 
 	/**
