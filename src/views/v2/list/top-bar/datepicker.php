@@ -51,12 +51,12 @@
 				datetime="<?php echo esc_attr( $selected_end_datetime ); ?>"
 				class="tribe-events-c-top-bar__datepicker-time"
 			>
-			<span class="tribe-events-c-top-bar__datepicker-mobile">
-				<?php echo esc_html( $selected_end_date_mobile ); ?>
-			</span>
-			<span class="tribe-events-c-top-bar__datepicker-desktop tribe-common-a11y-hidden">
-				<?php echo esc_html( $selected_end_date_label ); ?>
-			</span>
+				<span class="tribe-events-c-top-bar__datepicker-mobile">
+					<?php echo esc_html( $selected_end_date_mobile ); ?>
+				</span>
+				<span class="tribe-events-c-top-bar__datepicker-desktop tribe-common-a11y-hidden">
+					<?php echo esc_html( $selected_end_date_label ); ?>
+				</span>
 			</time>
 		<?php endif; ?>
 	</button>

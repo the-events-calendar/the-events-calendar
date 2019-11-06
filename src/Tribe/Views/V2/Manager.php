@@ -5,7 +5,6 @@ use Tribe\Events\Views\V2\Views\Day_View;
 use Tribe\Events\Views\V2\Views\List_View;
 use Tribe\Events\Views\V2\Views\Month_View;
 use Tribe\Events\Views\V2\Views\Reflector_View;
-
 use Tribe__Utils__Array as Arr;
 
 /**
@@ -52,9 +51,18 @@ class Manager {
 			'list'      => List_View::class,
 			'month'     => Month_View::class,
 			'day'       => Day_View::class,
-		] );
+		]);
 
-		// Make sure reflector is always available.
+		/*
+		 * Remove the Views that are not enabled, if the setting has been set.
+		 * This applies the setting Events > Settings > "Enable event views".
+		 */
+		$enabled = tribe_get_option( 'tribeEnableViews', null );
+		if ( is_array( $enabled ) ) {
+			$views = array_intersect_key( $views, array_combine( $enabled, $enabled ) );
+		}
+
+		// Make sure the Reflector View is always available.
 		$views['reflector'] = Reflector_View::class;
 
 		return $views;

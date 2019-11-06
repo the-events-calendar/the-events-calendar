@@ -11,10 +11,15 @@
  *
  * @version TBD
  *
+ * @var bool $display_events_bar   Boolean on whether to display the events bar.
  * @var bool $disable_event_search Boolean on whether to disable the event search.
  */
 
- $heading = $disable_event_search
+if ( empty( $display_events_bar ) ) {
+	return;
+}
+
+$heading = $disable_event_search
 	? __( 'Views Navigation', 'the-events-calendar' )
 	: sprintf( __( '%s Search and Views Navigation', 'the-events-calendar' ), tribe_get_event_label_plural() );
 ?>

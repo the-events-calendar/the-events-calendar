@@ -8,10 +8,10 @@
 				datetime="2019-01-05"
 				class="tribe-events-c-top-bar__datepicker-time"
 			>
-			<span class="tribe-events-c-top-bar__datepicker-mobile">
-				2019-01-05			</span>
-			<span class="tribe-events-c-top-bar__datepicker-desktop tribe-common-a11y-hidden">
-				January 5			</span>
+				<span class="tribe-events-c-top-bar__datepicker-mobile">
+					2019-01-05				</span>
+				<span class="tribe-events-c-top-bar__datepicker-desktop tribe-common-a11y-hidden">
+					January 5				</span>
 			</time>
 			</button>
 	<label

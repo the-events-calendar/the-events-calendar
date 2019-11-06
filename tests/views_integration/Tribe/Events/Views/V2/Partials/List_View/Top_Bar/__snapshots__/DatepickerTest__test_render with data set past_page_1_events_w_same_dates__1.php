@@ -17,10 +17,10 @@
 				datetime="2019-01-02"
 				class="tribe-events-c-top-bar__datepicker-time"
 			>
-			<span class="tribe-events-c-top-bar__datepicker-mobile">
-				2019-01-02			</span>
-			<span class="tribe-events-c-top-bar__datepicker-desktop tribe-common-a11y-hidden">
-				Now			</span>
+				<span class="tribe-events-c-top-bar__datepicker-mobile">
+					2019-01-02				</span>
+				<span class="tribe-events-c-top-bar__datepicker-desktop tribe-common-a11y-hidden">
+					Now				</span>
 			</time>
 			</button>
 	<label

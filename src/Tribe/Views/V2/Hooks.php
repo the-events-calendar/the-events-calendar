@@ -53,7 +53,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_action( 'tribe_common_loaded', [ $this, 'on_tribe_common_loaded' ], 1 );
 		add_action( 'wp_head', [ $this, 'on_wp_head' ], 1000 );
 		add_action( 'tribe_events_pre_rewrite', [ $this, 'on_tribe_events_pre_rewrite' ] );
-		add_action( 'wp_enqueue_scripts', [ $this, 'action_disable_assets_v1' ] );
+		add_action( 'wp_enqueue_scripts', [ $this, 'action_disable_assets_v1' ], 0 );
 		add_action( 'tribe_events_pro_shortcode_tribe_events_assets', [ $this, 'action_disable_shortcode_assets_v1' ] );
 		add_filter( 'tribe_events_views_v2_after_make_view', [ $this, 'action_include_filters_excerpt' ] );
 

@@ -42,9 +42,10 @@ class DayTest extends HtmlPartialTestCase {
 		$this->assertMatchesSnapshot(
 			$this->get_partial_html(
 				[
-					'today_date' => '2019-07-01',
-					'day_date'   => '2019-07-01',
-					'day'        => $day_data,
+					'today_date'      => '2019-07-01',
+					'day_date'        => '2019-07-01',
+					'day'             => $day_data,
+					'grid_start_date' => '2019-07-01',
 				]
 			)
 		);
