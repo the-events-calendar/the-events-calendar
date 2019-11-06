@@ -93,6 +93,14 @@ class Template_Bootstrap {
 			: tribe( Template\Event::class );
 	}
 
+	/**
+	 * Detemines wether we are in a Single event page or not,
+	 * base only on global context.
+	 *
+	 * @since  TBD
+	 *
+	 * @return bool
+	 */
 	public function is_single_event() {
 		$conditions = [
 			is_singular( TEC::POSTTYPE ),
