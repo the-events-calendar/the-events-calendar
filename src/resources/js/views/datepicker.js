@@ -175,21 +175,33 @@ tribe.events.views.datepicker = {};
 
 			obj.request( viewData, $container );
 		} else {
-			var $input = $( '<input>' );
-			$input.attr( {
-				type: 'hidden',
-				name: 'tribe-events-views[tribe-bar-date]',
-				value: [ year, paddedMonth, paddedDate ].join( '-' ),
-			} );
-
+			var $input = obj.createDateInputObj( [ year, paddedMonth, paddedDate ].join( '-' ) );
 			var $forms = $container.find( tribe.events.views.manager.selectors.form );
 
 			$forms
 				.find( '[name="tribe-events-views[tribe-bar-date]"]' )
 				.remove();
 
-			$forms.append( $input );
+			$forms.prepend( $input );
 		}
+	};
+
+	/**
+	 * Create the Date input that will be preprended on the form created.
+	 *
+	 * @since TBD
+	 *
+	 * @return {jQuery}
+	 */
+	obj.createDateInputObj = function( value ) {
+		var $input = $( '<input>' );
+		$input.attr( {
+			type: 'hidden',
+			name: 'tribe-events-views[tribe-bar-date]',
+			value: value,
+		} );
+
+		return $input;
 	};
 
 	/**
@@ -215,20 +227,14 @@ tribe.events.views.datepicker = {};
 
 			obj.request( viewData, $container );
 		} else {
-			var $input = $( '<input>' );
-			$input.attr( {
-				type: 'hidden',
-				name: 'tribe-events-views[tribe-bar-date]',
-				value: [ year, paddedMonth ].join( '-' ),
-			} );
-
+			var $input = obj.createDateInputObj( [ year, paddedMonth ].join( '-' ) );
 			var $forms = $container.find( tribe.events.views.manager.selectors.form );
 
 			$forms
 				.find( '[name="tribe-events-views[tribe-bar-date]"]' )
 				.remove();
 
-			$forms.append( $input );
+			$forms.prepend( $input );
 		}
 	};
 
