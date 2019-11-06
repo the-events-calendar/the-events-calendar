@@ -93,6 +93,17 @@ class Template_Bootstrap {
 			: tribe( Template\Event::class );
 	}
 
+	public function is_single_event() {
+		$conditions = [
+			is_singular( TEC::POSTTYPE ),
+			'single-event' === tribe_context()->get( 'view' ),
+		];
+
+		$is_single_event = in_array( true, $conditions );
+
+		return $is_single_event;
+	}
+
 	/**
 	 * Fetches the HTML for the Single Event page using the legacy view system
 	 *
