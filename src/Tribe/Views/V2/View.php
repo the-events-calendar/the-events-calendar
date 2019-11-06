@@ -1059,6 +1059,7 @@ class View implements View_Interface {
 			'start_of_week'      => get_option( 'start_of_week', 0 ),
 			'breadcrumbs'        => $this->get_breadcrumbs(),
 			'display_events_bar' => $this->filter_display_events_bar( $this->display_events_bar ),
+			'live_refresh'       => tribe_is_truthy( tribe_get_option( 'liveFiltersUpdate', true ) ),
 		];
 
 		return $template_vars;
