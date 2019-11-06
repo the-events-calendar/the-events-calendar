@@ -9,8 +9,13 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.10
+ * @version TBD
  *
+ * @var bool $disable_event_search Boolean on whether to disable the event search.
+ */
+
+/**
+ * @todo: @bordoni can we move this to context?
  */
 use Tribe\Events\Views\V2\Manager;
 
@@ -18,10 +23,11 @@ $public_views = tribe( Manager::class )->get_publicly_visible_views();
 $view_slug = $this->get( 'view' )->get_slug();
 $view_label = $this->get( 'view' )->get_label();
 
-$is_tabs_style         = 3 >= count( $public_views );
+$is_tabs_style         = empty( $disable_event_search ) && 3 >= count( $public_views );
 $view_selector_classes = [
-	'tribe-events-c-view-selector'       => true,
-	'tribe-events-c-view-selector--tabs' => $is_tabs_style,
+	'tribe-events-c-view-selector'         => true,
+	'tribe-events-c-view-selector--tabs'   => $is_tabs_style,
+	'tribe-events-c-view-selector--labels' => empty( $disable_event_search ),
 ];
 ?>
 <div class="tribe-events-c-events-bar__views">
