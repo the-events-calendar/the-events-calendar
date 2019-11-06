@@ -20,7 +20,7 @@ if ( empty( $messages ) ) {
 	return;
 }
 
-$classes = [ 'tribe-events-c-messages', 'tribe-common-b2' ];
+$classes = [ 'tribe-events-header__messages', 'tribe-events-c-messages', 'tribe-common-b2' ];
 
 ?>
 <div <?php tribe_classes( $classes ); ?>>
