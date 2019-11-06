@@ -156,12 +156,17 @@ tribe.events.views.datepicker = {};
 
 		var paddedDate = obj.padNumber( date );
 		var paddedMonth = obj.padNumber( month );
+		var isLiveRefresh = true;
 
-		var viewData = {
-			[ 'tribe-bar-date' ]: [ year, paddedMonth, paddedDate ].join( '-' ),
-		};
+		if ( isLiveRefresh ) {
+			var viewData = {
+				[ 'tribe-bar-date' ]: [ year, paddedMonth, paddedDate ].join( '-' ),
+			};
 
-		obj.request( viewData, $container );
+			obj.request( viewData, $container );
+		} else {
+
+		}
 	};
 
 	/**
@@ -179,12 +184,17 @@ tribe.events.views.datepicker = {};
 		var year = event.date.getFullYear();
 
 		var paddedMonth = obj.padNumber( month );
+		var isLiveRefresh = true;
 
-		var viewData = {
-			[ 'tribe-bar-date' ]: [ year, paddedMonth ].join( '-' ),
-		};
+		if ( isLiveRefresh ) {
+			var viewData = {
+				[ 'tribe-bar-date' ]: [ year, paddedMonth ].join( '-' ),
+			};
 
-		obj.request( viewData, $container );
+			obj.request( viewData, $container );
+		} else {
+
+		}
 	};
 
 	/**
