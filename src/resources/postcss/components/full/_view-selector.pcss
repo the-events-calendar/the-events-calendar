@@ -49,6 +49,53 @@
 	 *
 	 * ----------------------------------------------------------------------------- */
 
+	.tribe-events-c-view-selector--labels {
+
+		.tribe-events-c-view-selector__button {
+
+			&:before {
+				@media (--viewport-medium) {
+					content: none;
+				}
+			}
+
+			&:after {
+				@media (--viewport-medium) {
+					background-image: svg-inline(caret-down);
+					background-repeat: no-repeat;
+					background-size: contain;
+					content: '';
+					display: block;
+					flex: none;
+					height: 6px;
+					margin-left: var(--spacer-1);
+					width: 10px;
+				}
+			}
+		}
+
+		.tribe-events-c-view-selector__button--active {
+
+			&:after {
+				@media (--viewport-medium) {
+					background-image: svg-inline(caret-up);
+				}
+			}
+		}
+
+		.tribe-events-c-view-selector__button-text {
+			@media (--viewport-medium) {
+				@mixin desktop-body-2-bold;
+			}
+		}
+
+		.tribe-events-c-view-selector__content {
+			@media (--viewport-medium) {
+				box-shadow: var(--box-shadow-default);
+			}
+		}
+	}
+
 	.tribe-events-c-view-selector--tabs {
 
 		.tribe-events-c-view-selector__content {
@@ -109,39 +156,13 @@
 			top: 100%;
 			transform: translateY(var(--spacer-0));
 			width: calc(100% - (2 * var(--spacer-0)));
-
-			@media (--viewport-medium) {
-				content: none;
-			}
-		}
-
-		&:after {
-			@media (--viewport-medium) {
-				background-image: svg-inline(caret-down);
-				background-repeat: no-repeat;
-				background-size: contain;
-				content: '';
-				display: block;
-				flex: none;
-				height: 6px;
-				margin-left: var(--spacer-1);
-				width: 10px;
-			}
 		}
 	}
 
 	.tribe-events-c-view-selector__button--active {
 
-		&:after {
-			@media (--viewport-medium) {
-				background-image: svg-inline(caret-up);
-			}
-		}
-	}
-
-	.tribe-events-c-view-selector__button-text {
-		@media (--viewport-medium) {
-			@mixin desktop-body-2-bold;
+		&:before {
+			display: block;
 		}
 	}
 
@@ -149,10 +170,6 @@
 		border: 1px solid var(--color-border-secondary);
 		border-radius: var(--border-radius-default);
 		box-shadow: var(--box-shadow-tooltip);
-
-		@media (--viewport-medium) {
-			box-shadow: var(--box-shadow-default);
-		}
 	}
 
 	.tribe-events-c-view-selector__list-item--active {
