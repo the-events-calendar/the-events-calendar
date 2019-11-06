@@ -200,7 +200,7 @@ class Month_View extends By_Day_View {
 		 * repository query with results we already have.
 		 * We replace the repository for the benefit of the parent method, and then restore it.
 		 */
-		$original_repository= $this->repository;
+		$original_repository = $this->repository;
 		$this->repository = tribe_events();
 		$all_month_events = array_unique( array_merge( ...array_values( $grid_days ) ) );
 		$this->repository->set_query( Query::for_posts( $all_month_events ) );
