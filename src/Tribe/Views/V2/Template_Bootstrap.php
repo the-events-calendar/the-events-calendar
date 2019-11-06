@@ -10,11 +10,40 @@
  */
 namespace Tribe\Events\Views\V2;
 
+use Tribe__Events__Main as TEC;
+use Tribe__Events__Rewrite as Rewrite;
 use Tribe__Notices;
 use Tribe__Utils__Array as Arr;
 use WP_Query;
 
+
+/**
+ * Class Template_Bootstrap
+ *
+ * @since   4.9.2
+ *
+ * @package Tribe\Events\Views\V2
+ */
 class Template_Bootstrap {
+
+	/**
+	 * An instance of the Template Manager object.
+	 *
+	 * @since TBD
+	 *
+	 * @var Manager
+	 */
+	protected $manager;
+
+	/**
+	 * Template_Bootstrap constructor.
+	 *
+	 * @param Manager $manager An instance of the manager object.
+	 */
+	public function __construct( Manager $manager  ) {
+		$this->manager = $manager;
+	}
+
 	/**
 	 * Disables the Views V1 implementation of a Template Hijack
 	 *
@@ -62,6 +91,25 @@ class Template_Bootstrap {
 		return $setting === 'page'
 			? tribe( Template\Page::class )
 			: tribe( Template\Event::class );
+	}
+
+	/**
+	 * Detemines wether we are in a Single event page or not,
+	 * base only on global context.
+	 *
+	 * @since  TBD
+	 *
+	 * @return bool Whether the current request is for the single event template or not.
+	 */
+	public function is_single_event() {
+		$conditions = [
+			is_singular( TEC::POSTTYPE ),
+			'single-event' === tribe_context()->get( 'view' ),
+		];
+
+		$is_single_event = in_array( true, $conditions );
+
+		return $is_single_event;
 	}
 
 	/**
@@ -207,5 +255,48 @@ class Template_Bootstrap {
 		}
 
 		return $classes;
+	}
+
+	/**
+	 * Redirects the user to the default mobile view if required.
+	 *
+	 * When on mobile (in terms of device capacity) we redirect to the default mobile View.
+	 * To avoid caching issues, where the cache provider would need to keep a mobile and non-mobile version of the
+	 * cached pages, we redirect with explicit View slug.
+	 *
+	 * @since TBD
+	 *
+	 * @see   wp_is_mobile()
+	 * @link  https://developer.wordpress.org/reference/functions/wp_is_mobile/
+	 */
+	public function on_template_redirect() {
+		if ( ! wp_is_mobile() || tribe_is_truthy( tribe_get_request_var( 'tribe_redirected' ) ) ) {
+			return;
+		}
+
+		$default_view        = $this->manager->get_default_view_option( 'desktop' );
+		$default_mobile_view = $this->manager->get_default_view_option( 'mobile' );
+
+		if ( $default_view === $default_mobile_view ) {
+			return;
+		}
+
+		$ugly_url = add_query_arg(
+			[
+				'post_type'        => TEC::POSTTYPE,
+				'eventDisplay'     => $default_mobile_view,
+				'tribe_redirected' => true,
+			],
+			home_url()
+		);
+
+		$location = Rewrite::instance()->get_canonical_url( $ugly_url );
+
+		wp_redirect(
+			$location,
+			302
+		);
+
+		tribe_exit();
 	}
 }

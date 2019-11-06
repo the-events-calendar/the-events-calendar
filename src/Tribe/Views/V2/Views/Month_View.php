@@ -9,6 +9,7 @@
 namespace Tribe\Events\Views\V2\Views;
 
 use Tribe\Events\Views\V2\Messages;
+use Tribe\Utils\Query;
 use Tribe__Context as Context;
 use Tribe__Date_Utils as Dates;
 use Tribe__Events__Template__Month as Month;
@@ -42,6 +43,15 @@ class Month_View extends By_Day_View {
 	 * @var bool
 	 */
 	protected $publicly_visible = true;
+
+	/**
+	 * A instance cache property to store the currently fetched grid days.
+	 *
+	 * @since TBD
+	 *
+	 * @var array
+	 */
+	protected $grid_days = [];
 
 	/**
 	 * {@inheritDoc}
@@ -177,34 +187,27 @@ class Month_View extends By_Day_View {
 	 * {@inheritDoc}
 	 */
 	protected function setup_template_vars() {
-		/*
-		 * We'll run the fetches day-by-day, we do not want to run a potentially expensive query for ALL the events
-		 * in the month.
-		 */
-		$this->repository->void_query( true );
-		$template_vars = parent::setup_template_vars();
-		$this->repository->void_query( false );
-
 		// The events will be returned in an array with shape `[ <Y-m-d> => [...<events>], <Y-m-d> => [...<events>] ]`.
 		$grid_days = $this->get_grid_days();
+		// Set this to be used in the following methods.
+		$this->grid_days = $grid_days;
 
 		$grid_start_date = array_keys( $grid_days );
 		$grid_start_date = reset( $grid_start_date );
 
 		/*
-		 * The messages set up before will be wrong due to an always empty `$events` array.
-		 * To remedy that we re-build them here with update information.
+		 * We'll run the fetches day-by-day, we do not want to run a potentially expensive query so we pre-fill the
+		 * repository query with results we already have.
+		 * We replace the repository for the benefit of the parent method, and then restore it.
 		 */
-		$this->messages->reset( Messages::TYPE_NOTICE, 10 );
+		$original_repository = $this->repository;
+		$this->repository = tribe_events();
+		$all_month_events = array_unique( array_merge( ...array_values( $grid_days ) ) );
+		$this->repository->set_query( Query::for_posts( $all_month_events ) );
 
-		if ( empty( $grid_days ) || 0 === array_sum( array_map( 'count', $grid_days ) ) ) {
-			$keyword = $this->context->get( 'keyword', false );
-			if ( $keyword ) {
-				$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( 'month_no_results_found_w_keyword', trim( $keyword ) ) );
-			} else {
-				$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( 'no_results_found' ), 9 );
-			}
-		}
+		$template_vars = parent::setup_template_vars();
+
+		$this->repository = $original_repository;
 
 		$days = $this->get_days_data( $grid_days );
 
@@ -397,5 +400,36 @@ class Month_View extends By_Day_View {
 	 */
 	protected function get_url_date_format() {
 		return 'Y-m';
+	}
+
+	/**
+	 * Overrides the base method to handle messages specific to the Month View.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $events An array of events found on the Month.
+	 */
+	protected function setup_messages( array $events ) {
+		if ( ! empty( $events )
+		     || (
+			     ! empty( $this->grid_days )
+			     && 0 !== array_sum( array_map( 'count', $this->grid_days ) )
+		     )
+		) {
+			return;
+		}
+
+		$keyword = $this->context->get( 'keyword', false );
+
+		if ( $keyword ) {
+			$this->messages->insert(
+				Messages::TYPE_NOTICE,
+				Messages::for_key( 'month_no_results_found_w_keyword', trim( $keyword ) )
+			);
+
+			return;
+		}
+
+		$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( 'no_results_found' ), 9 );
 	}
 }

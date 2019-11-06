@@ -91,6 +91,7 @@ tribe.events.views.viewSelector = {};
 		var $viewSelectorButton = $container.find( obj.selectors.viewSelectorButton );
 		var $viewSelectorListContainer = $container.find( obj.selectors.viewSelectorListContainer );
 		obj.deinitAccordion( $viewSelectorButton, $viewSelectorListContainer );
+		$viewSelectorButton.removeClass( obj.selectors.viewSelectorButtonActiveClass.className() );
 	};
 
 	/**

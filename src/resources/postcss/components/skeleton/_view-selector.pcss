@@ -58,6 +58,52 @@
 		}
 	}
 
+	.tribe-events-c-view-selector--labels {
+
+		.tribe-events-c-view-selector__button {
+			@media (--viewport-medium) {
+				height: 100%;
+				padding: var(--spacer-4) var(--spacer-5);
+			}
+		}
+
+		.tribe-events-c-view-selector__button-icon {
+			@media (--viewport-medium) {
+				@mixin hidden;
+			}
+		}
+
+		.tribe-events-c-view-selector__button-text {
+			@media (--viewport-medium) {
+				@mixin visually-show;
+
+				flex: auto;
+			}
+		}
+
+		.tribe-events-c-view-selector__content {
+			@media (--viewport-medium) {
+				left: 0;
+				padding: var(--spacer-1);
+				right: auto;
+				transform: translateY(var(--spacer-1));
+				width: auto;
+			}
+		}
+
+		.tribe-events-c-view-selector__list-item-link {
+			@media (--viewport-medium) {
+				padding: var(--spacer-0) var(--spacer-7) var(--spacer-0) var(--spacer-3);
+			}
+		}
+
+		.tribe-events-c-view-selector__list-item-icon {
+			@media (--viewport-medium) {
+				@mixin hidden;
+			}
+		}
+	}
+
 	.tribe-events-c-view-selector--tabs {
 		@media (--viewport-medium) {
 			width: auto;
@@ -109,15 +155,7 @@
 		width: 100%;
 
 		@media (--viewport-medium) {
-			height: 100%;
-			padding: var(--spacer-4) var(--spacer-5);
-		}
-	}
-
-	.tribe-events-c-view-selector__button--active {
-
-		&:before {
-			display: block;
+			padding: var(--spacer-1);
 		}
 	}
 
@@ -127,17 +165,8 @@
 		width: 21px;
 
 		@media (--viewport-medium) {
-			@mixin hidden;
-		}
-	}
-
-	.tribe-events-c-view-selector__button-text {
-		@mixin visually-hide;
-
-		@media (--viewport-medium) {
-			@mixin visually-show;
-
-			flex: auto;
+			height: 23px;
+			width: 23px;
 		}
 	}
 
@@ -152,11 +181,7 @@
 		z-index: var(--z-index-dropdown);
 
 		@media (--viewport-medium) {
-			left: 0;
-			padding: var(--spacer-1);
-			right: auto;
-			transform: translateY(var(--spacer-1));
-			width: auto;
+			transform: translateY(var(--spacer-2));
 		}
 	}
 
@@ -164,10 +189,6 @@
 		align-items: center;
 		display: flex;
 		padding: var(--spacer-1) var(--spacer-5) var(--spacer-1) var(--spacer-2);
-
-		@media (--viewport-medium) {
-			padding: var(--spacer-0) var(--spacer-7) var(--spacer-0) var(--spacer-3);
-		}
 	}
 
 	.tribe-events-c-view-selector__list-item-icon {
@@ -175,10 +196,6 @@
 		height: 18px;
 		margin-right: 12px;
 		width: 18px;
-
-		@media (--viewport-medium) {
-			@mixin hidden;
-		}
 	}
 
 	.tribe-events-c-view-selector__list-item-text {

@@ -55,8 +55,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_action( 'tribe_events_pre_rewrite', [ $this, 'on_tribe_events_pre_rewrite' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'action_disable_assets_v1' ], 0 );
 		add_action( 'tribe_events_pro_shortcode_tribe_events_assets', [ $this, 'action_disable_shortcode_assets_v1' ] );
-		add_filter( 'tribe_events_views_v2_after_make_view', [ $this, 'action_include_filters_excerpt' ] );
-
+		add_action( 'template_redirect', [ $this, 'on_template_redirect' ], 50 );
 	}
 
 	/**
@@ -73,6 +72,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'tribe_rewrite_canonical_query_args', [ $this, 'filter_map_canonical_query_args' ], 15, 3 );
 		add_filter( 'admin_post_thumbnail_html', [ $this, 'filter_admin_post_thumbnail_html' ] );
 		add_filter( 'excerpt_length', [ $this, 'filter_excerpt_length' ] );
+		add_filter( 'tribe_events_views_v2_after_make_view', [ $this, 'action_include_filters_excerpt' ] );
 
 		if ( tribe_context()->doing_php_initial_state() ) {
 			add_filter( 'wp_title', [ $this, 'filter_wp_title' ], 10, 2 );
@@ -362,5 +362,14 @@ class Hooks extends \tad_DI52_ServiceProvider {
 
 		$event_query = $this->container->make( Event_Query_Controller::class );
 		$event_query->parse_query( $query );
+	}
+
+	/**
+	 * Fires on the `template_redirect` action to allow the template bootstrap to conditionally redirect, if required.
+	 *
+	 * @since TBD
+	 */
+	public function on_template_redirect() {
+		$this->container->make( Template_Bootstrap::class )->on_template_redirect();
 	}
 }

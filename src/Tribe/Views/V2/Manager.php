@@ -25,9 +25,20 @@ class Manager {
 	/**
 	 * The name of the Tribe option the default Views v2 slug will live in.
 	 *
+	 * @since TBD Use v1 option.
+	 *
 	 * @var string
 	 */
-	public static $option_default = 'views_v2_default_view';
+	public static $option_default = 'viewOption';
+
+	/**
+	 * The name of the Tribe option the default mobile Views v2 slug will live in.
+	 *
+	 * @since TBD Use v1 option.
+	 *
+	 * @var string
+	 */
+	public static $option_mobile_default = 'mobile_default_view';
 
 	/**
 	 * Returns an associative array of Views currently registered.
@@ -71,12 +82,29 @@ class Manager {
 	/**
 	 * Get the class name for the default registered view.
 	 *
+	 * The use of the `wp_is_mobile` function is not about screen width, but about payloads and how "heavy" a page is.
+	 * All the Views are responsive, what we want to achieve here is serving users a version of the View that is
+	 * less "heavy" on mobile devices (limited CPU and connection capabilities).
+	 * This allows users to, as an example, serve the Month View to desktop users and the day view to mobile users.
+	 *
 	 * @since  4.9.4
 	 *
-	 * @return string
+	 * @param string|null $type The type of default View to return, either 'desktop' or 'mobile'; defaults to `mobile`.
+	 *
+	 * @return string The default View slug, this value could be different depending on the requested `$type` or
+	 *                the context.
+	 *
+	 * @see wp_is_mobile()
+	 * @link https://developer.wordpress.org/reference/functions/wp_is_mobile/
 	 */
-	public function get_default_view_option() {
-		return (string) tribe_get_option( static::$option_default, 'default' );
+	public function get_default_view_option( $type = null ) {
+		if ( null === $type ) {
+			$type = wp_is_mobile() ? 'mobile' : 'desktop';
+		}
+
+		return ( 'mobile' === $type )
+			? (string) tribe_get_option( static::$option_mobile_default, 'default' )
+			: (string) tribe_get_option( static::$option_default, 'default' );
 	}
 
 	/**
