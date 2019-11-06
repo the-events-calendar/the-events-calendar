@@ -176,6 +176,7 @@ class Template_Bootstrap {
 
 			$html = tribe( Kitchen_Sink::class )->template( $template, $context, false );
 		} else {
+			$view_slug = apply_filters( 'tribe_events_views_v2_bootstrap_view_slug', $view_slug, $context, $query );
 			$html = View::make( $view_slug, $context )->get_html();
 		}
 
