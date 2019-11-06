@@ -137,12 +137,8 @@ class Manager {
 		foreach ( $views as $slug => $view_class ) {
 			$view = View::make( $slug );
 
-			// Remove all "private" views
-			if ( $view->is_publicly_visible() ) {
-				continue;
-			}
-
-			if ( in_array( $slug, $enabled_views ) ) {
+			// Remove all "private" views, and those who are not part of enabled views.
+			if ( $view->is_publicly_visible() && in_array( $slug, $enabled_views ) ) {
 				continue;
 			}
 
