@@ -1025,31 +1025,31 @@ class View implements View_Interface {
 		$this->setup_messages( $events );
 
 		$template_vars = [
-			'title'              => $this->get_title( $events ),
-			'events'             => $events,
-			'url'                => $this->get_url( true ),
-			'prev_url'           => $this->prev_url( true ),
-			'next_url'           => $this->next_url( true ),
-			'bar'                => [
+			'title'                => $this->get_title( $events ),
+			'events'               => $events,
+			'url'                  => $this->get_url( true ),
+			'prev_url'             => $this->prev_url( true ),
+			'next_url'             => $this->next_url( true ),
+			'bar'                  => [
 				'keyword' => $this->context->get( 'keyword', '' ),
 				'date'    => $this->context->get( 'event_date', '' ),
 			],
-			'today'              => $this->context->get( 'today', 'today' ),
-			'now'                => $this->context->get( 'now', 'now' ),
-			'rest_url'           => tribe( Rest_Endpoint::class )->get_url(),
-			'rest_nonce'         => wp_create_nonce( 'wp_rest' ),
-			'should_manage_url'  => $this->should_manage_url,
-			'today_url'          => $this->get_today_url( true ),
-			'prev_label'         => $this->get_link_label( $this->prev_url( false ) ),
-			'next_label'         => $this->get_link_label( $this->next_url( false ) ),
-			'date_formats'       => (object) [
+			'today'                => $this->context->get( 'today', 'today' ),
+			'now'                  => $this->context->get( 'now', 'now' ),
+			'rest_url'             => tribe( Rest_Endpoint::class )->get_url(),
+			'rest_nonce'           => wp_create_nonce( 'wp_rest' ),
+			'should_manage_url'    => $this->should_manage_url,
+			'today_url'            => $this->get_today_url( true ),
+			'prev_label'           => $this->get_link_label( $this->prev_url( false ) ),
+			'next_label'           => $this->get_link_label( $this->next_url( false ) ),
+			'date_formats'         => (object) [
 				'compact'        => Dates::datepicker_formats( tribe_get_option( 'datepickerFormat' ) ),
 				'month_and_year' => tribe_get_date_option( 'monthAndYearFormat', 'F Y' ),
 			],
-			'messages'           => $this->get_messages( $events ),
-			'start_of_week'      => get_option( 'start_of_week', 0 ),
-			'breadcrumbs'        => $this->get_breadcrumbs(),
-			'disable_events_bar' => tribe_get_option( 'tribeDisableTribeBar', false ),
+			'messages'             => $this->get_messages( $events ),
+			'start_of_week'        => get_option( 'start_of_week', 0 ),
+			'breadcrumbs'          => $this->get_breadcrumbs(),
+			'disable_event_search' => tribe_get_option( 'tribeDisableTribeBar', false ),
 		];
 
 		return $template_vars;
