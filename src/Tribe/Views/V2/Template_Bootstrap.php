@@ -99,7 +99,7 @@ class Template_Bootstrap {
 	 *
 	 * @since  TBD
 	 *
-	 * @return bool
+	 * @return bool Whether the current request is for the single event template or not.
 	 */
 	public function is_single_event() {
 		$conditions = [
