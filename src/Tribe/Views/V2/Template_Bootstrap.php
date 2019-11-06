@@ -94,6 +94,25 @@ class Template_Bootstrap {
 	}
 
 	/**
+	 * Detemines wether we are in a Single event page or not,
+	 * base only on global context.
+	 *
+	 * @since  TBD
+	 *
+	 * @return bool Whether the current request is for the single event template or not.
+	 */
+	public function is_single_event() {
+		$conditions = [
+			is_singular( TEC::POSTTYPE ),
+			'single-event' === tribe_context()->get( 'view' ),
+		];
+
+		$is_single_event = in_array( true, $conditions );
+
+		return $is_single_event;
+	}
+
+	/**
 	 * Fetches the HTML for the Single Event page using the legacy view system
 	 *
 	 * @since  4.9.4
