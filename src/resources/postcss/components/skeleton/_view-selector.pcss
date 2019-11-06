@@ -153,12 +153,21 @@
 		padding: var(--spacer-0);
 		position: relative;
 		width: 100%;
+
+		@media (--viewport-medium) {
+			padding: var(--spacer-1);
+		}
 	}
 
 	.tribe-events-c-view-selector__button-icon {
 		display: block;
 		height: 21px;
 		width: 21px;
+
+		@media (--viewport-medium) {
+			height: 23px;
+			width: 23px;
+		}
 	}
 
 	.tribe-events-c-view-selector__content {
