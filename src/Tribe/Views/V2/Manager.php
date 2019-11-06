@@ -70,7 +70,8 @@ class Manager {
 		 */
 		$enabled = tribe_get_option( 'tribeEnableViews', null );
 		if ( is_array( $enabled ) ) {
-			$views = array_intersect_key( $views, array_combine( $enabled, $enabled ) );
+			$enabled[] = ! empty( $views['all'] ) ? 'all' : '';
+			$views       = array_intersect_key( $views, array_combine( $enabled, $enabled ) );
 		}
 
 		// Make sure the Reflector View is always available.
