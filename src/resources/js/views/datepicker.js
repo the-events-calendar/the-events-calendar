@@ -96,6 +96,17 @@ tribe.events.views.datepicker = {};
 	};
 
 	/**
+	 * Determines if Live Refresh is active for the datepicker.
+	 *    True  - Will request a new view every click of a date.
+	 *    False - Will populate a field on the search form doesnt refresh until search button is clicked.
+	 *
+	 * @since TBD
+	 *
+	 * @type bool
+	 */
+	obj.isLiveRefresh = true;
+
+	/**
 	 * Mutation observer to watch for mutations
 	 *
 	 * @since 4.9.10
@@ -156,16 +167,28 @@ tribe.events.views.datepicker = {};
 
 		var paddedDate = obj.padNumber( date );
 		var paddedMonth = obj.padNumber( month );
-		var isLiveRefresh = true;
 
-		if ( isLiveRefresh ) {
+		if ( obj.isLiveRefresh ) {
 			var viewData = {
 				[ 'tribe-bar-date' ]: [ year, paddedMonth, paddedDate ].join( '-' ),
 			};
 
 			obj.request( viewData, $container );
 		} else {
+			var $input = $( '<input>' );
+			$input.attr( {
+				type: 'hidden',
+				name: 'tribe-events-views[tribe-bar-date]',
+				value: [ year, paddedMonth, paddedDate ].join( '-' ),
+			} );
 
+			var $forms = $container.find( tribe.events.views.manager.selectors.form );
+
+			$forms
+				.find( '[name="tribe-events-views[tribe-bar-date]"]' )
+				.remove();
+
+			$forms.append( $input );
 		}
 	};
 
@@ -184,16 +207,28 @@ tribe.events.views.datepicker = {};
 		var year = event.date.getFullYear();
 
 		var paddedMonth = obj.padNumber( month );
-		var isLiveRefresh = true;
 
-		if ( isLiveRefresh ) {
+		if ( obj.isLiveRefresh ) {
 			var viewData = {
 				[ 'tribe-bar-date' ]: [ year, paddedMonth ].join( '-' ),
 			};
 
 			obj.request( viewData, $container );
 		} else {
+			var $input = $( '<input>' );
+			$input.attr( {
+				type: 'hidden',
+				name: 'tribe-events-views[tribe-bar-date]',
+				value: [ year, paddedMonth ].join( '-' ),
+			} );
 
+			var $forms = $container.find( tribe.events.views.manager.selectors.form );
+
+			$forms
+				.find( '[name="tribe-events-views[tribe-bar-date]"]' )
+				.remove();
+
+			$forms.append( $input );
 		}
 	};
 
@@ -398,6 +433,7 @@ tribe.events.views.datepicker = {};
 
 		// set options for datepicker
 		obj.initDateFormat( data );
+		obj.isLiveRefresh = data.live_refresh ? data.live_refresh : false;
 		obj.options.weekStart = data.start_of_week;
 		obj.options.container = $container.find( obj.selectors.datepickerContainer );
 		obj.options.minViewMode = isMonthView ? 'year' : 'month';
