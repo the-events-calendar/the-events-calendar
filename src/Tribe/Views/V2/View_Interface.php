@@ -124,8 +124,9 @@ interface View_Interface  extends View_Url_Provider_Interface, Repository_User_I
 	 *
 	 * @since 4.9.3
 	 *
-	 * @param  array|null  $args An associative array of arguments that will be mapped to the corresponding query
+	 * @param array|null $args   An associative array of arguments that will be mapped to the corresponding query
 	 *                           arguments by the View, or `null` to use the current URL.
+	 * @param bool       $merge  Whether to merge the arguments or override them.
 	 */
 	public function set_url( array $args = null, $merge = false );
 
@@ -187,4 +188,14 @@ interface View_Interface  extends View_Url_Provider_Interface, Repository_User_I
 	 * @return array An array of user-facing messages the View will display on the front-end.
 	 */
 	public function get_messages();
+
+	/**
+	 * Sets the URL in shortcode form.
+	 *
+	 * @since TBD
+	 *
+	 * @param array|null $args   An associative array of arguments that will be mapped to the corresponding query
+	 *                           arguments by the View.
+	 */
+	public function set_shortcode_url( array $args = null );
 }

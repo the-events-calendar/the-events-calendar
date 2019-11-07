@@ -405,7 +405,17 @@ class View implements View_Interface {
 
 		$instance->set_repository( $view_repository );
 
-		$instance->set_url();
+
+		if ( $context instanceof Context && $context->is( 'shortcode' ) ) {
+			/*
+			 * On initial render we set the shortcode ID in the view URLs to uniquely identify each request coming
+			 * from shortcodes.
+			 */
+			$instance->set_shortcode_url( [ 'shortcode' => $context->get( 'shortcode', true ) ] );
+		} else {
+			$instance->set_url();
+		}
+
 
 		/**
 		 * Run an action after we are done making a new View instance.
@@ -775,8 +785,9 @@ class View implements View_Interface {
 	 *
 	 * @since 4.9.3
 	 *
-	 * @param  array|null  $args An associative array of arguments that will be mapped to the corresponding query
+	 * @param array|null $args   An associative array of arguments that will be mapped to the corresponding query
 	 *                           arguments by the View, or `null` to use the current URL.
+	 * @param bool       $merge  Whether to merge the arguments or override them.
 	 */
 	public function set_url( array $args = null, $merge = false ) {
 		if ( null !== $args ) {
@@ -959,7 +970,7 @@ class View implements View_Interface {
 			'hidden_from_upcoming' => false,
 		];
 
-		// Set's up catergory URL for all views.
+		// Set's up category URL for all views.
 		if ( ! empty( $context_arr[ TEC::TAXONOMY ] ) ) {
 			$args[ TEC::TAXONOMY ] = $context_arr[ TEC::TAXONOMY ];
 		}
@@ -1530,5 +1541,17 @@ class View implements View_Interface {
 		$display = apply_filters( "tribe_events_views_v2_view_{$this->slug}_display_events_bar", $display, $this );
 
 		return $display;
+	}
+
+	/**
+	 * Sets the URL in shortcode form.
+	 *
+	 * @since TBD
+	 *
+	 * @param array|null $args   An associative array of arguments that will be mapped to the corresponding query
+	 *                           arguments by the View.
+	 */
+	public function set_shortcode_url( array $args = [] ) {
+		$this->url = new Url( add_query_arg( $args, '/' ) );
 	}
 }
