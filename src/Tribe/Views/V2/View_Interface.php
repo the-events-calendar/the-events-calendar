@@ -43,10 +43,11 @@ interface View_Interface  extends View_Url_Provider_Interface, Repository_User_I
 	 * on the events-bar of the views UI.
 	 *
 	 * @since 4.9.4
+	 * @since TBD Made the method static.
 	 *
 	 * @return bool
 	 */
-	public function is_publicly_visible();
+	public static function is_publicly_visible();
 
 	/**
 	 * Returns the context instance the view will render from.

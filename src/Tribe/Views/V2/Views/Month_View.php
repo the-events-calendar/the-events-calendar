@@ -39,10 +39,11 @@ class Month_View extends By_Day_View {
 	 * Visibility for this view.
 	 *
 	 * @since 4.9.4
+	 * @since TBD Made the property static.
 	 *
 	 * @var bool
 	 */
-	protected $publicly_visible = true;
+	protected static $publicly_visible = true;
 
 	/**
 	 * A instance cache property to store the currently fetched grid days.

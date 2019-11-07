@@ -131,19 +131,19 @@ class Manager {
 		/*
 		 * Remove the Views that are not enabled, if the setting has been set.
 		 * This applies the setting Events > Settings > "Enable event views".
+		 * Default to all available views if the option is not set.
 		 */
-		$enabled_views = tribe_get_option( 'tribeEnableViews', [] );
+		$enabled_views = tribe_get_option( 'tribeEnableViews', array_keys($views) );
 
-		foreach ( $views as $slug => $view_class ) {
-			$view = View::make( $slug );
-
-			// Remove all "private" views, and those who are not part of enabled views.
-			if ( $view->is_publicly_visible() && in_array( $slug, $enabled_views ) ) {
-				continue;
-			}
-
-			unset( $views[ $slug ] );
-		}
+		$views = array_filter(
+			$views,
+			static function ( $view_class, $slug ) use ( $enabled_views )
+			{
+				return in_array( $slug, $enabled_views, true )
+				       && (bool) call_user_func( [ $view_class, 'is_publicly_visible' ] );
+			},
+			ARRAY_FILTER_USE_BOTH
+		);
 
 		return $views;
 	}

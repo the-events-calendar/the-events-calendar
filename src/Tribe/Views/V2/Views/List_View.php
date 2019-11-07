@@ -29,10 +29,11 @@ class List_View extends View {
 	 * Visibility for this view.
 	 *
 	 * @since 4.9.4
+	 * @since TBD Made the property static.
 	 *
 	 * @var bool
 	 */
-	protected $publicly_visible = true;
+	protected static $publicly_visible = true;
 
 	/**
 	 * {@inheritDoc}
