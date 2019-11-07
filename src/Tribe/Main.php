@@ -4245,15 +4245,24 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$format  = Tribe__Utils__Array::get( $formats_full, $datepicker_format, $formats_full[0] );
 			$label   = sprintf( esc_html__( 'Search for %s by Date. Please use the format %s.', 'the-events-calendar' ), $this->plural_event_label, $format );
 
+			// If there is a value set via the query string or a filter, use that.
+			// Otherwise use wp_query if possible. Failover to today's date.
+			if ( $value ) {
+				$date = $value;
+			} elseif ( ! empty( $wp_query->query_vars['eventDate'] ) ) {
+				$date = $wp_query->query_vars['eventDate'];
+			} else {
+				$date = date( 'Y-m-d' );
+			}
+
 			if ( tribe_is_month() ) {
-				$date    = empty( $wp_query->query_vars['eventDate'] ) ? date( 'Y-m-d' ) : $wp_query->query_vars['eventDate'];
 				$caption = sprintf( esc_html__( '%s In', 'the-events-calendar' ), $this->plural_event_label );
 				$format  = Tribe__Utils__Array::get( $formats_month, $datepicker_format, $formats_month[0] );
 				$label   = sprintf( esc_html__( 'Search for %s by month. Please use the format %s.', 'the-events-calendar' ), $this->plural_event_label, $format );
 				$value   = date( Tribe__Date_Utils::datepicker_formats( "m{$datepicker_format}" ), strtotime( $date ) );
 			} elseif ( tribe_is_list_view() ) {
 				$caption = sprintf( esc_html__( '%s From', 'the-events-calendar' ), $this->plural_event_label );
-				$value   = date( Tribe__Date_Utils::datepicker_formats( $datepicker_format ), strtotime( $value ) );
+				$value   = date( Tribe__Date_Utils::datepicker_formats( $datepicker_format ), strtotime( $date ) );
 			} elseif ( tribe_is_day() ) {
 				$caption = esc_html__( 'Day Of', 'the-events-calendar' );
 				$value   = date( Tribe__Date_Utils::datepicker_formats( $datepicker_format ), strtotime( $wp_query->query_vars['eventDate'] ) );
