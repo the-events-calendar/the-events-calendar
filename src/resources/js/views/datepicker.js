@@ -44,6 +44,7 @@ tribe.events.views.datepicker = {};
 		input: '[data-js="tribe-events-top-bar-date"]',
 		button: '[data-js="tribe-events-top-bar-datepicker-button"]',
 		buttonOpenClass: '.tribe-events-c-top-bar__datepicker-button--open',
+		dateInput: '[name="tribe-events-views[tribe-bar-date]"]',
 	};
 
 	/**
@@ -179,7 +180,7 @@ tribe.events.views.datepicker = {};
 			var $forms = $container.find( tribe.events.views.manager.selectors.form );
 
 			$forms
-				.find( '[name="tribe-events-views[tribe-bar-date]"]' )
+				.find( obj.selectors.dateInput )
 				.remove();
 
 			$forms.prepend( $input );
@@ -231,7 +232,7 @@ tribe.events.views.datepicker = {};
 			var $forms = $container.find( tribe.events.views.manager.selectors.form );
 
 			$forms
-				.find( '[name="tribe-events-views[tribe-bar-date]"]' )
+				.find( obj.selectors.dateInput )
 				.remove();
 
 			$forms.prepend( $input );
