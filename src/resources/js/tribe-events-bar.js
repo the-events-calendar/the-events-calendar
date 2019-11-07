@@ -87,26 +87,13 @@ var tribe_events_bar_action;
 
 				// begin display date formatting
 
-				var date_format = 'yyyy-mm-dd';
+				let maskKey       = ts.datepicker_format.toString();
+				let dateFormat    = tribeDateFormat.masks[maskKey] || 'yyyy-mm-dd';
 
-				if ( ts.datepicker_format !== '0' ) {
+				let initialDateInfo = tribeUtils.getInitialDateInfo( maskKey, dateFormat );
 
-					// we are not using the default query date format, lets grab it from the data array
-
-					date_format = td.datepicker_formats.main[ ts.datepicker_format ];
-
-					var url_date = tf.get_url_param( 'tribe-bar-date' );
-
-					// if url date is set and datepicker format is different from query format
-					// we need to fix the input value to emulate that before kicking in the datepicker
-
-					if ( url_date ) {
-						$tribedate.val( tribeDateFormat( url_date, ts.datepicker_format ) );
-					}
-					else if ( ts.view === 'day' && $tribedate.val().length !== 0 ) {
-						$tribedate.val( tribeDateFormat( $tribedate.val(), ts.datepicker_format ) );
-					}
-				}
+				$( document.getElementById( 'tribe-bar-date-day' ) ).val( tribeUtils.formatMoment( initialDateInfo.dateMoment, 'tribeQuery' ) );
+				$tribedate.val( initialDateInfo.formattedDate );
 
 				// @ifdef DEBUG
 				dbug && tec_debug.info( 'TEC Debug: bootstrapDatepicker was just initialized in "tribe-events-bar.js" on:', $tribedate );
@@ -114,7 +101,7 @@ var tribe_events_bar_action;
 
 				td.datepicker_opts = {
 					weekStart : start_day,
-					format    : date_format,
+					format    : dateFormat,
 					autoclose : true
 				};
 
@@ -456,22 +443,6 @@ var tribe_events_bar_action;
 
 			tribe_events_bar_action = 'change_view';
 
-			if ( 'month' === ts.view && $tribedate.length ) {
-				var dp_date = $tribedate.val();
-				var day     = tf.get_day();
-
-				if ( '0' != ts.datepicker_format ) {
-					dp_date = tribeDateFormat( $tribedate.bootstrapDatepicker( 'getDate' ), 'tribeMonthQuery' );
-					$tribedate.val( dp_date + day );
-				}
-				else {
-					if ( 7 === dp_date.length ) {
-						$tribedate.val( dp_date + day );
-					}
-				}
-
-			}
-
 			ts.url_params = {};
 
 			/**
@@ -522,6 +493,14 @@ var tribe_events_bar_action;
 			var redirected = $( '#tribe-bar-views-option-' + td.default_mobile_view ).data( 'redirected' );
 			if ( td.redirected_view || redirected ) {
 				ts.url_params['tribe_redirected'] = true;
+			}
+
+			if ( 'month' === ts.view && $tribedate.length ) {
+				const maskKey   = 'm' + ts.datepicker_format.toString();
+				const dp_date   = $tribedate.val() || $tribedate.bootstrapDatepicker( 'getDate' );
+				const theMoment = tribeUtils.maybeAlterMonthViewDate( dp_date, maskKey );
+
+				ts.url_params['tribe-bar-date'] = tribeUtils.formatDateWithMoment( theMoment, 'tribeQuery' );
 			}
 
 			ts.url_params = $.param( ts.url_params );
