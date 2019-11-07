@@ -152,6 +152,55 @@ tribe.events.views.datepicker = {};
 	};
 
 	/**
+	 * Create the Date input that will be preprended on the form created.
+	 *
+	 * @since TBD
+	 *
+	 * @param {string} value string representation of the date value
+	 *
+	 * @return {jQuery}
+	 */
+	obj.createDateInputObj = function( value ) {
+		var $input = $( '<input>' );
+		$input.attr( {
+			type: 'hidden',
+			name: 'tribe-events-views[tribe-bar-date]',
+			value: value,
+		} );
+
+		return $input;
+	};
+
+	/**
+	 * Submits request after date change from datepicker based on live refresh setting.
+	 *
+	 * @since TBD
+	 *
+	 * @param {jQuery} $container jQuery object of view container
+	 * @param {string} value string representation of the date value
+	 *
+	 * @return {void}
+	 */
+	obj.submitRequest = function( $container, value ) {
+		if ( obj.isLiveRefresh ) {
+			var viewData = {
+				[ 'tribe-bar-date' ]: value,
+			};
+
+			obj.request( viewData, $container );
+		} else {
+			var $input = obj.createDateInputObj( value );
+			var $forms = $container.find( tribe.events.views.manager.selectors.form );
+
+			$forms
+				.find( obj.selectors.dateInput )
+				.remove();
+
+			$forms.prepend( $input );
+		}
+	};
+
+	/**
 	 * Handle datepicker changeDate event
 	 *
 	 * @since 4.9.5
@@ -169,40 +218,9 @@ tribe.events.views.datepicker = {};
 		var paddedDate = obj.padNumber( date );
 		var paddedMonth = obj.padNumber( month );
 
-		if ( obj.isLiveRefresh ) {
-			var viewData = {
-				[ 'tribe-bar-date' ]: [ year, paddedMonth, paddedDate ].join( '-' ),
-			};
+		var dateValue = [ year, paddedMonth, paddedDate ].join( '-' );
 
-			obj.request( viewData, $container );
-		} else {
-			var $input = obj.createDateInputObj( [ year, paddedMonth, paddedDate ].join( '-' ) );
-			var $forms = $container.find( tribe.events.views.manager.selectors.form );
-
-			$forms
-				.find( obj.selectors.dateInput )
-				.remove();
-
-			$forms.prepend( $input );
-		}
-	};
-
-	/**
-	 * Create the Date input that will be preprended on the form created.
-	 *
-	 * @since TBD
-	 *
-	 * @return {jQuery}
-	 */
-	obj.createDateInputObj = function( value ) {
-		var $input = $( '<input>' );
-		$input.attr( {
-			type: 'hidden',
-			name: 'tribe-events-views[tribe-bar-date]',
-			value: value,
-		} );
-
-		return $input;
+		obj.submitRequest( $container, dateValue );
 	};
 
 	/**
@@ -221,22 +239,9 @@ tribe.events.views.datepicker = {};
 
 		var paddedMonth = obj.padNumber( month );
 
-		if ( obj.isLiveRefresh ) {
-			var viewData = {
-				[ 'tribe-bar-date' ]: [ year, paddedMonth ].join( '-' ),
-			};
+		var dateValue = [ year, paddedMonth ].join( '-' );
 
-			obj.request( viewData, $container );
-		} else {
-			var $input = obj.createDateInputObj( [ year, paddedMonth ].join( '-' ) );
-			var $forms = $container.find( tribe.events.views.manager.selectors.form );
-
-			$forms
-				.find( obj.selectors.dateInput )
-				.remove();
-
-			$forms.prepend( $input );
-		}
+		obj.submitRequest( $container, dateValue );
 	};
 
 	/**
