@@ -101,10 +101,11 @@ class View implements View_Interface {
 	 * Whether a given View is visible publicly or not.
 	 *
 	 * @since 4.9.4
+	 * @since TBD Made the property static.
 	 *
 	 * @var bool
 	 */
-	protected $publicly_visible = false;
+	protected static $publicly_visible = false;
 
 	/**
 	 * An associative array of the arguments used to setup the repository filters.
@@ -1012,8 +1013,8 @@ class View implements View_Interface {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function is_publicly_visible() {
-		return $this->publicly_visible;
+	public static function is_publicly_visible() {
+		return static::$publicly_visible;
 	}
 
 	/**

@@ -64,15 +64,6 @@ class Manager {
 			'day'       => Day_View::class,
 		]);
 
-		/*
-		 * Remove the Views that are not enabled, if the setting has been set.
-		 * This applies the setting Events > Settings > "Enable event views".
-		 */
-		$enabled = tribe_get_option( 'tribeEnableViews', null );
-		if ( is_array( $enabled ) ) {
-			$views = array_intersect_key( $views, array_combine( $enabled, $enabled ) );
-		}
-
 		// Make sure the Reflector View is always available.
 		$views['reflector'] = Reflector_View::class;
 
@@ -137,16 +128,22 @@ class Manager {
 	public function get_publicly_visible_views() {
 		$views = $this->get_registered_views();
 
-		foreach ( $views as $slug => $view_class ) {
-			$view = View::make( $slug );
+		/*
+		 * Remove the Views that are not enabled, if the setting has been set.
+		 * This applies the setting Events > Settings > "Enable event views".
+		 * Default to all available views if the option is not set.
+		 */
+		$enabled_views = tribe_get_option( 'tribeEnableViews', array_keys($views) );
 
-			// Remove all "private" views
-			if ( $view->is_publicly_visible() ) {
-				continue;
-			}
-
-			unset( $views[ $slug ] );
-		}
+		$views = array_filter(
+			$views,
+			static function ( $view_class, $slug ) use ( $enabled_views )
+			{
+				return in_array( $slug, $enabled_views, true )
+				       && (bool) call_user_func( [ $view_class, 'is_publicly_visible' ] );
+			},
+			ARRAY_FILTER_USE_BOTH
+		);
 
 		return $views;
 	}
