@@ -390,7 +390,7 @@
 	<button
 					aria-expanded="true"
 			aria-selected="true"
-			aria-controls="tribe-events-calendar-mobile-day-2019-01-01"
+			aria-controls="tribe-events-calendar-mobile-day-2019-01-1"
 				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile tribe-events-calendar-month__day-cell--selected" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
