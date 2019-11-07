@@ -197,6 +197,10 @@ tribe.events.views.datepicker = {};
 				.remove();
 
 			$forms.prepend( $input );
+
+			$container
+				.find( obj.selectors.input )
+				.bootstrapDatepicker( 'hide' );
 		}
 	};
 
