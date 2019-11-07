@@ -176,6 +176,18 @@ class Template_Bootstrap {
 
 			$html = tribe( Kitchen_Sink::class )->template( $template, $context, false );
 		} else {
+			/**
+			 * Filters the slug of the view that will be loaded, to allow changing view  based on the context of a given
+			 * request.
+			 *
+			 * @since  TBD
+			 *
+			 * @param string          $view_slug The slug of the View that will be built, based on the context.
+			 * @param \Tribe__Context $context   Tribe context used to setup the view.
+			 * @param \WP_Query       $query     The current WP Query object.
+			 */
+			$view_slug = apply_filters( 'tribe_events_views_v2_bootstrap_view_slug', $view_slug, $context, $query );
+
 			$html = View::make( $view_slug, $context )->get_html();
 		}
 

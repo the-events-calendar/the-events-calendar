@@ -321,7 +321,7 @@ class View implements View_Interface {
 		do_action( 'tribe_events_views_v2_before_make_view', $view_class, $view_slug );
 
 		/** @var \Tribe\Events\Views\V2\View_Interface $instance */
-		$instance  = self::$container->make( $view_class );
+		$instance = self::$container->make( $view_class );
 
 		$template = new Template( $instance );
 
