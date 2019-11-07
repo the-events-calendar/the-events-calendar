@@ -12,8 +12,6 @@
 			display: flex;
 			flex-direction: row;
 			flex-wrap: wrap;
-			margin-bottom: var(--spacer-7);
-			width: 100%;
 		}
 	}
 
@@ -68,13 +66,13 @@
 	}
 
 	.tribe-events-c-top-bar__datepicker-mobile {
-		@media (--viewport-medium) {
+		@media (--viewport-full) {
 			@mixin hidden;
 		}
 	}
 
 	.tribe-events-c-top-bar__datepicker-desktop {
-		@media (--viewport-medium) {
+		@media (--viewport-full) {
 			display: block !important;
 			visibility: visible
 		}

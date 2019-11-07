@@ -29,9 +29,9 @@ class DayTest extends HtmlPartialTestCase {
 		$day_data         = [
 			'date'             => $day_date,
 			'is_start_of_week' => $start_of_week === $date_object->format( 'N' ),
-			'year_number'      => (int) $date_object->format( 'Y' ),
-			'month_number'     => (int) $date_object->format( 'm' ),
-			'day_number'       => (int) $date_object->format( 'j' ),
+			'year_number'      => $date_object->format( 'Y' ),
+			'month_number'     => $date_object->format( 'm' ),
+			'day_number'       => $date_object->format( 'j' ),
 			'events'           => $the_day_events,
 			'featured_events'  => $featured_events,
 			'multiday_events'  => $day_stack,
@@ -42,9 +42,10 @@ class DayTest extends HtmlPartialTestCase {
 		$this->assertMatchesSnapshot(
 			$this->get_partial_html(
 				[
-					'today_date' => '2019-07-01',
-					'day_date'   => '2019-07-01',
-					'day'        => $day_data,
+					'today_date'      => '2019-07-01',
+					'day_date'        => '2019-07-01',
+					'day'             => $day_data,
+					'grid_start_date' => '2019-07-01',
 				]
 			)
 		);

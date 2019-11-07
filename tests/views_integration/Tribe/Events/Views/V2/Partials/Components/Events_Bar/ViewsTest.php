@@ -24,15 +24,16 @@ class ViewsTest extends HtmlPartialTestCase
 		];
 		$view  = View::make( List_View::class );
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
-			'views' => $views,
-			'view'  => $view,
+			'disable_event_search' => false,
+			'views'                => $views,
+			'view'                 => $view,
 		] ) );
 	}
 
 	/**
-	 * Test render with views without tabs style
+	 * Test render with views with label style
 	 */
-	public function test_render_with_views_without_tabs_style() {
+	public function test_render_with_views_with_label_style() {
 		// fake a 4th view by reusing month view to force Manager to return more than 3 publicly visible views
 		add_filter( 'tribe_events_views', function( $views ) {
 			return array_merge( $views, [ 'month2' => Month_View::class ] );
@@ -45,8 +46,26 @@ class ViewsTest extends HtmlPartialTestCase
 		];
 		$view  = View::make( List_View::class );
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
-			'views' => $views,
-			'view'  => $view,
+			'disable_event_search' => false,
+			'views'                => $views,
+			'view'                 => $view,
+		] ) );
+	}
+
+	/**
+	 * Test render with views with disabled event search
+	 */
+	public function test_render_with_views_with_disabled_event_search() {
+		$views = [
+			'list'  => List_View::class,
+			'month' => Month_View::class,
+			'day'   => Day_View::class,
+		];
+		$view  = View::make( List_View::class );
+		$this->assertMatchesSnapshot( $this->get_partial_html( [
+			'disable_event_search' => true,
+			'views'                => $views,
+			'view'                 => $view,
 		] ) );
 	}
 }

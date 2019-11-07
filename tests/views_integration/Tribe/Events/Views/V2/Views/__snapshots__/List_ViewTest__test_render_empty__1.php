@@ -22,10 +22,10 @@
 	data-js="tribe-events-view-data"
 	type="application/json"
 >
-	{"slug":"list","prev_url":"","next_url":"","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_slug":"list","view":{},"title":"Upcoming Events &#8211; The Events Calendar Tests","events":[],"url":"http:\\/\\/test.tri.be\\/events\\/list\\/","bar":{"keyword":"","date":""},"today":"2019-01-01 09:00:00","now":"2019-01-01 09:00:00","rest_url":"http:\\/\\/test.tri.be\\/index.php?rest_route=\\/tribe\\/views\\/v2\\/html","rest_nonce":"2ab7cc6b39","should_manage_url":true,"today_url":"http:\\/\\/test.tri.be\\/events\\/list\\/","prev_label":"","next_label":"","date_formats":{"compact":"Y-m-d","month_and_year":"F Y"},"messages":{"notice":["There were no results found."]},"start_of_week":"1"}</script>
+	{"slug":"list","prev_url":"","next_url":"","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_slug":"list","view":{},"title":"Upcoming Events &#8211; The Events Calendar Tests","events":[],"url":"http:\\/\\/test.tri.be\\/events\\/list\\/","bar":{"keyword":"","date":""},"today":"2019-01-01 09:00:00","now":"2019-01-01 09:00:00","rest_url":"http:\\/\\/test.tri.be\\/index.php?rest_route=\\/tribe\\/views\\/v2\\/html","rest_nonce":"2ab7cc6b39","should_manage_url":true,"today_url":"http:\\/\\/test.tri.be\\/events\\/list\\/","prev_label":"","next_label":"","date_formats":{"compact":"Y-m-d","month_and_year":"F Y"},"messages":{"notice":["There were no results found."]},"start_of_week":"1","breadcrumbs":[],"display_events_bar":true,"disable_event_search":false,"live_refresh":true,"show_now":true,"now_label":"Now onwards","show_end":false,"selected_start_datetime":"2019-01-01","selected_start_date_mobile":"2019-01-01","selected_start_date_label":"January 1","selected_end_datetime":"2019-01-01","selected_end_date_mobile":"2019-01-01","selected_end_date_label":"Now","datepicker_date":"2019-01-01"}</script>
 
-		<header class="tribe-events-header">
-			<div  class="tribe-events-c-messages tribe-common-b2" >
+		<header  class="tribe-events-header tribe-events-header--has-event-search" >
+			<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2" >
 			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
 			<ul class="tribe-events-c-messages__message-list">
 									<li class="tribe-events-c-messages__message-list-item">
@@ -34,15 +34,15 @@
 		</div>
 	</div>
 
+			
 			<div
-	class="tribe-events-header__events-bar tribe-events-c-events-bar"
-	data-js="tribe-events-events-bar"
+	 class="tribe-events-header__events-bar tribe-events-c-events-bar tribe-events-c-events-bar--border" 	data-js="tribe-events-events-bar"
 >
 
 	<h2 class="tribe-common-a11y-visual-hide">
 		Events Search and Views Navigation	</h2>
 
-	<button
+			<button
 	class="tribe-events-c-events-bar__search-button"
 	aria-controls="tribe-events-search-filter-container"
 	aria-expanded="false"
@@ -54,13 +54,13 @@
 		Search	</span>
 </button>
 
-	<div
-		class="tribe-events-c-events-bar__search-filters-container"
-		id="tribe-events-search-filters-container"
-		data-js="tribe-events-search-filters-container"
-	>
-		
 		<div
+			class="tribe-events-c-events-bar__search-filters-container"
+			id="tribe-events-search-filters-container"
+			data-js="tribe-events-search-filters-container"
+		>
+			
+			<div
 	class="tribe-events-c-events-bar__search"
 	id="tribe-events-events-bar-search"
 	data-js="tribe-events-events-bar-tabpanel tribe-events-events-bar-search"
@@ -101,18 +101,18 @@
 	</form>
 </div>
 
-			</div>
-
+					</div>
+	
 	<div class="tribe-events-c-events-bar__views">
 	<h3 class="tribe-common-a11y-visual-hide">
 		Event Views Navigation	</h3>
-	<div  class="tribe-events-c-view-selector tribe-events-c-view-selector--tabs"  data-js="tribe-events-view-selector">
+	<div  class="tribe-events-c-view-selector tribe-events-c-view-selector--labels tribe-events-c-view-selector--tabs"  data-js="tribe-events-view-selector">
 		<button
 			class="tribe-events-c-view-selector__button"
 			data-js="tribe-events-view-selector-button"
 		>
 			<span class="tribe-events-c-view-selector__button-icon tribe-common-svgicon tribe-common-svgicon--list"></span>
-			<span class="tribe-events-c-view-selector__button-text">
+			<span class="tribe-events-c-view-selector__button-text tribe-common-a11y-visual-hide">
 				List			</span>
 		</button>
 		<div
@@ -199,17 +199,7 @@
 		class="tribe-common-h3 tribe-common-h--alt tribe-events-c-top-bar__datepicker-button"
 		data-js="tribe-events-top-bar-datepicker-button"
 	>
-					Now				<span class="tribe-events-c-top-bar__datepicker-separator">&mdash;</span>
-		<time
-			datetime="2019-01-01"
-			class="tribe-events-c-top-bar__datepicker-time"
-		>
-			<span class="tribe-events-c-top-bar__datepicker-mobile">
-				2019-01-01			</span>
-			<span class="tribe-events-c-top-bar__datepicker-desktop tribe-common-a11y-hidden">
-				January 1			</span>
-		</time>
-	</button>
+					Now onwards					</button>
 	<label
 		class="tribe-events-c-top-bar__datepicker-label tribe-common-a11y-visual-hide"
 		for="tribe-events-top-bar-date"

@@ -11,12 +11,16 @@
  *
  * @version TBD
  *
- * @var array  $events The array containing the events.
- * @var string $rest_url The REST URL.
- * @var string $rest_nonce The REST nonce.
- *
+ * @var array  $events               The array containing the events.
+ * @var string $rest_url             The REST URL.
+ * @var string $rest_nonce           The REST nonce.
+ * @var bool   $disable_event_search Boolean on whether to disable the event search.
  */
 
+$header_classes = [ 'tribe-events-header' ];
+if ( empty( $disable_event_search ) ) {
+	$header_classes[] = 'tribe-events-header--has-event-search';
+}
 ?>
 <div
 	class="tribe-common tribe-events tribe-events-view tribe-events-view--day"
@@ -29,8 +33,10 @@
 
 		<?php $this->template( 'components/data' ); ?>
 
-		<header class="tribe-events-header">
+		<header <?php tribe_classes( $header_classes ); ?>>
 			<?php $this->template( 'components/messages' ); ?>
+
+			<?php $this->template( 'components/breadcrumbs' ); ?>
 
 			<?php $this->template( 'components/events-bar' ); ?>
 

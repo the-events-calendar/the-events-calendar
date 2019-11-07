@@ -7,7 +7,7 @@ class Publicly_Visible_Test_View extends View {
 
 	protected $slug = 'publicly-visible-test';
 
-	protected $publicly_visible = true;
+	protected static $publicly_visible = true;
 
 	public function get_html() {
 		return __CLASS__;

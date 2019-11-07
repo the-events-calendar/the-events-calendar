@@ -9,11 +9,13 @@
 namespace Tribe\Events\Views\V2\Views;
 
 use Tribe\Events\Views\V2\View;
+use Tribe__Context;
 use Tribe__Events__Main as TEC;
 use Tribe__Events__Rewrite as Rewrite;
 use Tribe__Utils__Array as Arr;
 
 class List_View extends View {
+	use List_Behavior;
 	/**
 	 * Slug for this view
 	 *
@@ -27,10 +29,11 @@ class List_View extends View {
 	 * Visibility for this view.
 	 *
 	 * @since 4.9.4
+	 * @since TBD Made the property static.
 	 *
 	 * @var bool
 	 */
-	protected $publicly_visible = true;
+	protected static $publicly_visible = true;
 
 	/**
 	 * {@inheritDoc}
@@ -188,7 +191,7 @@ class List_View extends View {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function setup_repository_args( \Tribe__Context $context = null ) {
+	protected function setup_repository_args( Tribe__Context $context = null ) {
 		$context = null !== $context ? $context : $this->context;
 
 		$args = parent::setup_repository_args( $context );
@@ -227,6 +230,18 @@ class List_View extends View {
 			$template_vars['events'] = array_reverse( $template_vars['events'] );
 		}
 
+		$template_vars = $this->setup_datepicker_template_vars( $template_vars );
+
 		return $template_vars;
+	}
+
+	/**
+	 * Overrides the base implementation to remove notions of a "past" events request on page reset.
+	 *
+	 * @since TBD
+	 */
+	protected function on_page_reset() {
+		parent::on_page_reset();
+		$this->remove_past_query_args();
 	}
 }

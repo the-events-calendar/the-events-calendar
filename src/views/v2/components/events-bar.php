@@ -9,32 +9,49 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.10
+ * @version TBD
  *
+ * @var bool $display_events_bar   Boolean on whether to display the events bar.
+ * @var bool $disable_event_search Boolean on whether to disable the event search.
  */
+
+if ( empty( $display_events_bar ) ) {
+	return;
+}
+
+$heading = $disable_event_search
+	? __( 'Views Navigation', 'the-events-calendar' )
+	: sprintf( __( '%s Search and Views Navigation', 'the-events-calendar' ), tribe_get_event_label_plural() );
+
+$classes = [ 'tribe-events-header__events-bar', 'tribe-events-c-events-bar' ];
+if ( empty( $disable_event_search ) ) {
+	$classes[] = 'tribe-events-c-events-bar--border';
+}
 ?>
 <div
-	class="tribe-events-header__events-bar tribe-events-c-events-bar"
+	<?php tribe_classes( $classes ); ?>
 	data-js="tribe-events-events-bar"
 >
 
 	<h2 class="tribe-common-a11y-visual-hide">
-		<?php printf( esc_html__( '%s Search and Views Navigation', 'the-events-calendar' ), tribe_get_event_label_plural() ); ?>
+		<?php echo esc_html( $heading ); ?>
 	</h2>
 
-	<?php $this->template( 'components/events-bar/search-button' ); ?>
+	<?php if ( empty( $disable_event_search ) ) : ?>
+		<?php $this->template( 'components/events-bar/search-button' ); ?>
 
-	<div
-		class="tribe-events-c-events-bar__search-filters-container"
-		id="tribe-events-search-filters-container"
-		data-js="tribe-events-search-filters-container"
-	>
-		<?php $this->template( 'components/events-bar/tabs' ); ?>
+		<div
+			class="tribe-events-c-events-bar__search-filters-container"
+			id="tribe-events-search-filters-container"
+			data-js="tribe-events-search-filters-container"
+		>
+			<?php $this->template( 'components/events-bar/tabs' ); ?>
 
-		<?php $this->template( 'components/events-bar/search' ); ?>
+			<?php $this->template( 'components/events-bar/search' ); ?>
 
-		<?php $this->template( 'components/events-bar/filters' ); ?>
-	</div>
+			<?php $this->template( 'components/events-bar/filters' ); ?>
+		</div>
+	<?php endif; ?>
 
 	<?php $this->template( 'components/events-bar/views' ); ?>
 

@@ -11,11 +11,39 @@
 namespace Tribe\Events\Views\V2;
 
 use Tribe__Events__Main as TEC;
+use Tribe__Events__Rewrite as Rewrite;
+use Tribe__Notices;
 use Tribe__Utils__Array as Arr;
 use WP_Query;
-use Tribe__Notices;
 
+
+/**
+ * Class Template_Bootstrap
+ *
+ * @since   4.9.2
+ *
+ * @package Tribe\Events\Views\V2
+ */
 class Template_Bootstrap {
+
+	/**
+	 * An instance of the Template Manager object.
+	 *
+	 * @since TBD
+	 *
+	 * @var Manager
+	 */
+	protected $manager;
+
+	/**
+	 * Template_Bootstrap constructor.
+	 *
+	 * @param Manager $manager An instance of the manager object.
+	 */
+	public function __construct( Manager $manager  ) {
+		$this->manager = $manager;
+	}
+
 	/**
 	 * Disables the Views V1 implementation of a Template Hijack
 	 *
@@ -66,6 +94,25 @@ class Template_Bootstrap {
 	}
 
 	/**
+	 * Detemines wether we are in a Single event page or not,
+	 * base only on global context.
+	 *
+	 * @since  TBD
+	 *
+	 * @return bool Whether the current request is for the single event template or not.
+	 */
+	public function is_single_event() {
+		$conditions = [
+			is_singular( TEC::POSTTYPE ),
+			'single-event' === tribe_context()->get( 'view' ),
+		];
+
+		$is_single_event = in_array( true, $conditions );
+
+		return $is_single_event;
+	}
+
+	/**
 	 * Fetches the HTML for the Single Event page using the legacy view system
 	 *
 	 * @since  4.9.4
@@ -76,9 +123,14 @@ class Template_Bootstrap {
 		if ( ! tribe_is_showing_all() && tribe_is_past_event() ) {
 			Tribe__Notices::set_notice( 'event-past', sprintf( esc_html__( 'This %s has passed.', 'the-events-calendar' ), tribe_get_event_label_singular_lowercase() ) );
 		}
+		$setting = $this->get_template_setting();
 
 		ob_start();
-		echo '<main id="tribe-events-pg-template" class="tribe-events-pg-template">';
+		if ( 'page' === $setting ) {
+			echo '<main id="tribe-events">';
+		} else {
+			echo '<main id="tribe-events-pg-template" class="tribe-events-pg-template">';
+		}
 		tribe_events_before_html();
 		tribe_get_view( 'single-event' );
 		tribe_events_after_html();
@@ -124,6 +176,18 @@ class Template_Bootstrap {
 
 			$html = tribe( Kitchen_Sink::class )->template( $template, $context, false );
 		} else {
+			/**
+			 * Filters the slug of the view that will be loaded, to allow changing view  based on the context of a given
+			 * request.
+			 *
+			 * @since  TBD
+			 *
+			 * @param string          $view_slug The slug of the View that will be built, based on the context.
+			 * @param \Tribe__Context $context   Tribe context used to setup the view.
+			 * @param \WP_Query       $query     The current WP Query object.
+			 */
+			$view_slug = apply_filters( 'tribe_events_views_v2_bootstrap_view_slug', $view_slug, $context, $query );
+
 			$html = View::make( $view_slug, $context )->get_html();
 		}
 
@@ -137,27 +201,25 @@ class Template_Bootstrap {
 	 *
 	 * @param  WP_Query $query Which WP_Query object we are going to load on
 	 *
-	 * @return boolean
+	 * @return boolean Whether any template managed by this class should load at all or not.
 	 */
 	public function should_load( $query = null ) {
-		if ( ! $query instanceof WP_Query ) {
+		if ( ! $query instanceof \WP_Query ) {
 			$query = tribe_get_global_query_object();
 		}
 
-		if ( ! $query instanceof WP_Query ) {
+		if ( ! $query instanceof \WP_Query ) {
 			return false;
 		}
 
 		/**
-		 * Bail if we are not dealing with our Post Type
+		 * Bail if we are not dealing with an Event, Venue or Organizer main query.
 		 *
-		 * @todo  needs support for Venues and Template
+		 * The `tribe_is_event_query` property is a logic `OR` of any post type and taxonomy we manage.
+		 *
+		 * @see \Tribe__Events__Query::parse_query() where this property is set.
 		 */
-		if ( ! in_array( TEC::POSTTYPE, (array) $query->get( 'post_type' ) ) ) {
-			return false;
-		}
-
-		return true;
+		return $query->is_main_query() && ! empty( $query->tribe_is_event_query );
 	}
 
 	/**
@@ -177,5 +239,76 @@ class Template_Bootstrap {
 		}
 
 		return $this->get_template_object()->get_path();
+	}
+
+	/**
+	 * Set the correct body classes for our plugin.
+	 *
+	 * @since  TBD
+	 *
+	 * @return array The array containing the body classes
+	 */
+	public function filter_add_body_classes( $classes ) {
+		$setting  = $this->get_template_setting();
+		$template = $this->get_template_object()->get_path();
+
+		if ( 'page' === $setting ) {
+			$classes[] = 'page-template-' . sanitize_title( $template );
+
+			if ( ! is_tax() ) {
+				$key = array_search( 'archive', $classes );
+
+				if ( false !== $key ) {
+					unset( $classes[ $key ] );
+				}
+			}
+		} else {
+			$classes[] = 'tribe-events-page-template';
+		}
+
+		return $classes;
+	}
+
+	/**
+	 * Redirects the user to the default mobile view if required.
+	 *
+	 * When on mobile (in terms of device capacity) we redirect to the default mobile View.
+	 * To avoid caching issues, where the cache provider would need to keep a mobile and non-mobile version of the
+	 * cached pages, we redirect with explicit View slug.
+	 *
+	 * @since TBD
+	 *
+	 * @see   wp_is_mobile()
+	 * @link  https://developer.wordpress.org/reference/functions/wp_is_mobile/
+	 */
+	public function on_template_redirect() {
+		if ( ! wp_is_mobile() || tribe_is_truthy( tribe_get_request_var( 'tribe_redirected' ) ) ) {
+			return;
+		}
+
+		$default_view        = $this->manager->get_default_view_option( 'desktop' );
+		$default_mobile_view = $this->manager->get_default_view_option( 'mobile' );
+
+		if ( $default_view === $default_mobile_view ) {
+			return;
+		}
+
+		$ugly_url = add_query_arg(
+			[
+				'post_type'        => TEC::POSTTYPE,
+				'eventDisplay'     => $default_mobile_view,
+				'tribe_redirected' => true,
+			],
+			home_url()
+		);
+
+		$location = Rewrite::instance()->get_canonical_url( $ugly_url );
+
+		wp_redirect(
+			$location,
+			302
+		);
+
+		tribe_exit();
 	}
 }

@@ -23,9 +23,9 @@ class Events_BarTest extends HtmlPartialTestCase
 	}
 
 	/**
-	 * Test render with context
+	 * Test render with views
 	 */
-	public function test_render_with_context() {
+	public function test_render_with_views() {
 		$views = [
 			'list'  => List_View::class,
 			'month' => Month_View::class,
@@ -34,9 +34,41 @@ class Events_BarTest extends HtmlPartialTestCase
 		$view  = View::make( List_View::class );
 
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
-			'url'   => 'http://test.tri.be',
-			'views' => $views,
-			'view'  => $view,
+			'url'                  => 'http://test.tri.be',
+			'views'                => $views,
+			'view'                 => $view,
+			'display_events_bar'   => true,
+			'disable_event_search' => false,
+		] ) );
+	}
+
+	/**
+	 * Test render with views disabled event search
+	 */
+	public function test_render_with_views_disabled_event_search() {
+		$views = [
+			'list'  => List_View::class,
+			'month' => Month_View::class,
+			'day'   => Day_View::class,
+		];
+		$view  = View::make( List_View::class );
+
+		$this->assertMatchesSnapshot( $this->get_partial_html( [
+			'url'                  => 'http://test.tri.be',
+			'views'                => $views,
+			'view'                 => $view,
+			'display_events_bar'   => true,
+			'disable_event_search' => true,
+		] ) );
+	}
+
+	/**
+	 * Test render empty
+	 */
+	public function test_render_empty() {
+
+		$this->assertMatchesSnapshot( $this->get_partial_html( [
+			'display_events_bar' => false,
 		] ) );
 	}
 

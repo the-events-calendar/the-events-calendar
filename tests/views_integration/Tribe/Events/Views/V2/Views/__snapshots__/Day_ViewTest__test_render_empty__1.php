@@ -21,10 +21,10 @@
 	data-js="tribe-events-view-data"
 	type="application/json"
 >
-	{"slug":"day","prev_url":"http:\\/\\/test.tri.be\\/events\\/2018-12-31\\/","next_url":"","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Day_View","view_slug":"day","view":{},"title":"Upcoming Events &#8211; The Events Calendar Tests","events":[],"url":"http:\\/\\/test.tri.be\\/events\\/today\\/","bar":{"keyword":"","date":"2019-01-01 09:00:00"},"today":"2019-01-01 09:00:00","now":"2019-01-01 09:00:00","rest_url":"http:\\/\\/test.tri.be\\/index.php?rest_route=\\/tribe\\/views\\/v2\\/html","rest_nonce":"2ab7cc6b39","should_manage_url":true,"today_url":"http:\\/\\/test.tri.be\\/events\\/today\\/","prev_label":"2018-12-31","next_label":"","date_formats":{"compact":"Y-m-d","month_and_year":"F Y"},"messages":{"notice":["No events scheduled for January 1, 2019. Please try another day."]},"start_of_week":"1"}</script>
+	{"slug":"day","prev_url":"http:\\/\\/test.tri.be\\/events\\/2018-12-31\\/","next_url":"","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Day_View","view_slug":"day","view":{},"title":"Upcoming Events &#8211; The Events Calendar Tests","events":[],"url":"http:\\/\\/test.tri.be\\/events\\/today\\/","bar":{"keyword":"","date":"2019-01-01 09:00:00"},"today":"2019-01-01 09:00:00","now":"2019-01-01 09:00:00","rest_url":"http:\\/\\/test.tri.be\\/index.php?rest_route=\\/tribe\\/views\\/v2\\/html","rest_nonce":"2ab7cc6b39","should_manage_url":true,"today_url":"http:\\/\\/test.tri.be\\/events\\/today\\/","prev_label":"2018-12-31","next_label":"","date_formats":{"compact":"Y-m-d","month_and_year":"F Y"},"messages":{"notice":["No events scheduled for January 1, 2019. Please try another day."]},"start_of_week":"1","breadcrumbs":[],"display_events_bar":true,"disable_event_search":false,"live_refresh":true}</script>
 
-		<header class="tribe-events-header">
-			<div  class="tribe-events-c-messages tribe-common-b2" >
+		<header  class="tribe-events-header tribe-events-header--has-event-search" >
+			<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2" >
 			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
 			<ul class="tribe-events-c-messages__message-list">
 									<li class="tribe-events-c-messages__message-list-item">
@@ -33,15 +33,15 @@
 		</div>
 	</div>
 
+			
 			<div
-	class="tribe-events-header__events-bar tribe-events-c-events-bar"
-	data-js="tribe-events-events-bar"
+	 class="tribe-events-header__events-bar tribe-events-c-events-bar tribe-events-c-events-bar--border" 	data-js="tribe-events-events-bar"
 >
 
 	<h2 class="tribe-common-a11y-visual-hide">
 		Events Search and Views Navigation	</h2>
 
-	<button
+			<button
 	class="tribe-events-c-events-bar__search-button"
 	aria-controls="tribe-events-search-filter-container"
 	aria-expanded="false"
@@ -53,13 +53,13 @@
 		Search	</span>
 </button>
 
-	<div
-		class="tribe-events-c-events-bar__search-filters-container"
-		id="tribe-events-search-filters-container"
-		data-js="tribe-events-search-filters-container"
-	>
-		
 		<div
+			class="tribe-events-c-events-bar__search-filters-container"
+			id="tribe-events-search-filters-container"
+			data-js="tribe-events-search-filters-container"
+		>
+			
+			<div
 	class="tribe-events-c-events-bar__search"
 	id="tribe-events-events-bar-search"
 	data-js="tribe-events-events-bar-tabpanel tribe-events-events-bar-search"
@@ -100,18 +100,18 @@
 	</form>
 </div>
 
-			</div>
-
+					</div>
+	
 	<div class="tribe-events-c-events-bar__views">
 	<h3 class="tribe-common-a11y-visual-hide">
 		Event Views Navigation	</h3>
-	<div  class="tribe-events-c-view-selector tribe-events-c-view-selector--tabs"  data-js="tribe-events-view-selector">
+	<div  class="tribe-events-c-view-selector tribe-events-c-view-selector--labels tribe-events-c-view-selector--tabs"  data-js="tribe-events-view-selector">
 		<button
 			class="tribe-events-c-view-selector__button"
 			data-js="tribe-events-view-selector-button"
 		>
 			<span class="tribe-events-c-view-selector__button-icon tribe-common-svgicon tribe-common-svgicon--day"></span>
-			<span class="tribe-events-c-view-selector__button-text">
+			<span class="tribe-events-c-view-selector__button-text tribe-common-a11y-visual-hide">
 				Day			</span>
 		</button>
 		<div
