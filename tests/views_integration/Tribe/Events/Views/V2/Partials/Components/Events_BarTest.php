@@ -25,10 +25,7 @@ class Events_BarTest extends HtmlPartialTestCase
 	/**
 	 * Test render with views
 	 */
-	public function test_render_with_context() {
-
-		tribe_update_option( 'tribeEnableViews', [ 'month', 'list', 'day' ] );
-
+	public function test_render_with_views() {
 		$views = [
 			'list'  => List_View::class,
 			'month' => Month_View::class,

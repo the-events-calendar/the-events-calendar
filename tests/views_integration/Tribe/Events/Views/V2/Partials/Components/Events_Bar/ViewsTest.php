@@ -17,9 +17,6 @@ class ViewsTest extends HtmlPartialTestCase
 	 * Test render with views with tabs style
 	 */
 	public function test_render_with_views_with_tabs_style() {
-
-		tribe_update_option( 'tribeEnableViews', [ 'month', 'list', 'day' ] );
-
 		$views = [
 			'list'  => List_View::class,
 			'month' => Month_View::class,
@@ -41,7 +38,6 @@ class ViewsTest extends HtmlPartialTestCase
 		add_filter( 'tribe_events_views', function( $views ) {
 			return array_merge( $views, [ 'month2' => Month_View::class ] );
 		} );
-		tribe_update_option( 'tribeEnableViews', [ 'month', 'month2', 'list', 'day' ] );
 		$views = [
 			'list'   => List_View::class,
 			'month'  => Month_View::class,
