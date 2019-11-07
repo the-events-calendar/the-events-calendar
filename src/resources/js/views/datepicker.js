@@ -44,6 +44,7 @@ tribe.events.views.datepicker = {};
 		input: '[data-js="tribe-events-top-bar-date"]',
 		button: '[data-js="tribe-events-top-bar-datepicker-button"]',
 		buttonOpenClass: '.tribe-events-c-top-bar__datepicker-button--open',
+		dateInput: '[name="tribe-events-views[tribe-bar-date]"]',
 	};
 
 	/**
@@ -96,6 +97,17 @@ tribe.events.views.datepicker = {};
 	};
 
 	/**
+	 * Determines if Live Refresh is active for the datepicker.
+	 *    True  - Will request a new view every click of a date.
+	 *    False - Will populate a field on the search form doesnt refresh until search button is clicked.
+	 *
+	 * @since TBD
+	 *
+	 * @type bool
+	 */
+	obj.isLiveRefresh = true;
+
+	/**
 	 * Mutation observer to watch for mutations
 	 *
 	 * @since 4.9.10
@@ -140,6 +152,59 @@ tribe.events.views.datepicker = {};
 	};
 
 	/**
+	 * Create the Date input that will be preprended on the form created.
+	 *
+	 * @since TBD
+	 *
+	 * @param {string} value string representation of the date value
+	 *
+	 * @return {jQuery}
+	 */
+	obj.createDateInputObj = function( value ) {
+		var $input = $( '<input>' );
+		$input.attr( {
+			type: 'hidden',
+			name: 'tribe-events-views[tribe-bar-date]',
+			value: value,
+		} );
+
+		return $input;
+	};
+
+	/**
+	 * Submits request after date change from datepicker based on live refresh setting.
+	 *
+	 * @since TBD
+	 *
+	 * @param {jQuery} $container jQuery object of view container
+	 * @param {string} value string representation of the date value
+	 *
+	 * @return {void}
+	 */
+	obj.submitRequest = function( $container, value ) {
+		if ( obj.isLiveRefresh ) {
+			var viewData = {
+				[ 'tribe-bar-date' ]: value,
+			};
+
+			obj.request( viewData, $container );
+		} else {
+			var $input = obj.createDateInputObj( value );
+			var $forms = $container.find( tribe.events.views.manager.selectors.form );
+
+			$forms
+				.find( obj.selectors.dateInput )
+				.remove();
+
+			$forms.prepend( $input );
+
+			$container
+				.find( obj.selectors.input )
+				.bootstrapDatepicker( 'hide' );
+		}
+	};
+
+	/**
 	 * Handle datepicker changeDate event
 	 *
 	 * @since 4.9.5
@@ -157,11 +222,9 @@ tribe.events.views.datepicker = {};
 		var paddedDate = obj.padNumber( date );
 		var paddedMonth = obj.padNumber( month );
 
-		var viewData = {
-			[ 'tribe-bar-date' ]: [ year, paddedMonth, paddedDate ].join( '-' ),
-		};
+		var dateValue = [ year, paddedMonth, paddedDate ].join( '-' );
 
-		obj.request( viewData, $container );
+		obj.submitRequest( $container, dateValue );
 	};
 
 	/**
@@ -180,11 +243,9 @@ tribe.events.views.datepicker = {};
 
 		var paddedMonth = obj.padNumber( month );
 
-		var viewData = {
-			[ 'tribe-bar-date' ]: [ year, paddedMonth ].join( '-' ),
-		};
+		var dateValue = [ year, paddedMonth ].join( '-' );
 
-		obj.request( viewData, $container );
+		obj.submitRequest( $container, dateValue );
 	};
 
 	/**
@@ -388,6 +449,7 @@ tribe.events.views.datepicker = {};
 
 		// set options for datepicker
 		obj.initDateFormat( data );
+		obj.isLiveRefresh = data.live_refresh ? data.live_refresh : false;
 		obj.options.weekStart = data.start_of_week;
 		obj.options.container = $container.find( obj.selectors.datepickerContainer );
 		obj.options.minViewMode = isMonthView ? 'year' : 'month';
