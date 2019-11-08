@@ -383,22 +383,24 @@ var tribe_events_bar_action;
 			$( 'form#tribe-bar-form input, form#tribe-bar-form select, #tribeHideRecurrence' ).each( function() {
 				var $this = $( this );
 				if ( $this.is( '#tribe-bar-date' ) ) {
-					var this_val = $this.val();
+					let this_val = $this.val();
+					let maskKey  = ts.datepicker_format.toString();
 
 					if ( this_val.length ) {
 						if ( ts.view === 'month' ) {
-							ts.params[$this.attr( 'name' )] = tribeDateFormat( ts.mdate, "tribeMonthQuery" );
-							ts.url_params[$this.attr( 'name' )] = tribeDateFormat( ts.mdate, "tribeMonthQuery" );
+							maskKey = "m" + maskKey;
+							ts.params[$this.attr( 'name' )] = tribeUtils.formatDateWithMoment( ts.mdate, "tribeMonthQuery", maskKey );
+							ts.url_params[$this.attr( 'name' )] = tribeUtils.formatDateWithMoment( ts.mdate, "tribeMonthQuery", maskKey );
 						}
 						// If this is not month view, but we came from there, the value of #tribe-bar-date will
 						// describe a year and a month: preserve this if so to ensure accuracy of pagination
-						else if ( this_val.match( /[0-9]{4}-[0-9]{2}/ ) ) {
-							ts.params[ $this.attr( 'name') ] = ts.url_params[ $this.attr( 'name' ) ] = this_val;
+						else if ( this_val.match( /^[0-9]+[\-\.\/][0-9]+$/ ) ) {
+							ts.params[ $this.attr( 'name') ] = ts.url_params[ $this.attr( 'name' ) ] = tribeUtils.formatDateWithMoment( this_val, 'tribeQuery', maskKey );
 						}
 						// In all other cases, pull the date from the datepicker
 						else {
-							ts.params[ $this.attr( 'name' ) ]     = tribeDateFormat( $this.bootstrapDatepicker( 'getDate' ), 'tribeQuery' );
-							ts.url_params[ $this.attr( 'name' ) ] = tribeDateFormat( $this.bootstrapDatepicker( 'getDate' ), 'tribeQuery' );
+							ts.params[ $this.attr( 'name' ) ]     = tribeUtils.formatDateWithMoment( $this.bootstrapDatepicker( 'getDate' ), 'tribeQuery', maskKey );
+							ts.url_params[ $this.attr( 'name' ) ] = tribeUtils.formatDateWithMoment( $this.bootstrapDatepicker( 'getDate' ), 'tribeQuery', maskKey );
 						}
 					}
 					else if ( $this.is( '.placeholder' ) && $this.is( '.bd-updated' ) ) {
@@ -455,13 +457,14 @@ var tribe_events_bar_action;
 			// Normal Form + Filter Bar
 			var $forms  = $( document.getElementById( 'tribe-bar-form' ) ).add( document.getElementById( 'tribe_events_filters_wrapper' ) );
 			var $inputs = $forms.find( 'input, select' );
+			let maskKey = ts.datepicker_format.toString();
 
 			$inputs.each( function() {
 				var $this = $( this );
 				if ( $this.val() && $this.val().length && ! $this.hasClass( 'tribe-no-param' ) ) {
 					if ( 'month' !== ts.view  && '0' !== ts.datepicker_format && $this.is( $tribedate ) ) {
 
-						ts.url_params[ $this.attr( 'name' ) ] = tribeDateFormat( $this.bootstrapDatepicker( 'getDate' ), 'tribeQuery' );
+						ts.url_params[ $this.attr( 'name' ) ] = tribeUtils.formatDateWithMoment( $this.bootstrapDatepicker( 'getDate' ), "tribeQuery", maskKey );
 
 					}
 					else {

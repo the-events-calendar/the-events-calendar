@@ -160,8 +160,11 @@
 
 				if ( !tt.reset_on() ) {
 					ts.popping = false;
+
+					let maskKey = ts.datepicker_format.toString();
+
 					if ( ts.datepicker_format !== '0' ) {
-						ts.date = tribeDateFormat( $( this ).bootstrapDatepicker( 'getDate' ), "tribeQuery" );
+						ts.date = tribeUtils.formatDateWithMoment( $( this ).bootstrapDatepicker( 'getDate' ), "tribeQuery", maskKey );
 					}
 					else {
 						ts.date = $( this ).val();

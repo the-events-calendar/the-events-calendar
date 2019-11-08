@@ -387,7 +387,8 @@
 					&& $tribedate.val().length
 				) {
 					if ( '0' !== ts.datepicker_format ) {
-						ts.date = tribeDateFormat( $tribedate.bootstrapDatepicker( 'getDate' ), 'tribeMonthQuery' );
+						let maskKey = ts.datepicker_format.toString();
+						ts.date = tribeUtils.formatDateWithMoment( $tribedate.bootstrapDatepicker( 'getDate' ), "tribeMonthQuery", maskKey );
 					}
 					else {
 						ts.date = $tribedate.val();
