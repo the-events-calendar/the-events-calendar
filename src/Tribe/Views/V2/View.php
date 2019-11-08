@@ -388,10 +388,10 @@ class View implements View_Interface {
 		 * @since TBD
 		 *
 		 * @param \Tribe__Repository__Interface $view_repository The repository instance the View will use.
-		 * @param string                        $view            The current view slug.
+		 * @param string                        $view_slug       The current view slug.
 		 * @param \Tribe\Events\Views\V2\View   $instance        The current View object.
 		 */
-		$view_repository = apply_filters( 'tribe_events_views_v2_view_repository', $view_repository, $view, $instance );
+		$view_repository = apply_filters( 'tribe_events_views_v2_view_repository', $view_repository, $view_slug, $instance );
 
 		/**
 		 * Filters the Repository object for a specific View.
@@ -405,17 +405,28 @@ class View implements View_Interface {
 
 		$instance->set_repository( $view_repository );
 
+		/**
+		 * Filters the Repository object for a View.
+		 *
+		 * @since TBD
+		 *
+		 * @param \Tribe__Repository__Interface $view_repository The repository instance the View will use.
+		 * @param string                        $view_slug       The current view slug.
+		 * @param \Tribe\Events\Views\V2\View   $instance        The current View object.
+		 */
+		$view_url_query_args = apply_filters( 'tribe_events_views_v2_view_url_query_args', [], $view_slug. $instance );
 
-		if ( $context instanceof Context && $context->is( 'shortcode' ) ) {
-			/*
-			 * On initial render we set the shortcode ID in the view URLs to uniquely identify each request coming
-			 * from shortcodes.
-			 */
-			$instance->set_shortcode_url( [ 'shortcode' => $context->get( 'shortcode', true ) ] );
-		} else {
-			$instance->set_url();
-		}
+		/**
+		 * Filters the Repository object for a specific View.
+		 *
+		 * @since TBD
+		 *
+		 * @param \Tribe__Repository__Interface $view_repository The repository instance the View will use.
+		 * @param \Tribe\Events\Views\V2\View   $instance        The current View object.
+		 */
+		$view_url_query_args = apply_filters( "tribe_events_views_v2_{$view_slug}_view_url_query_args", $view_url_query_args, $instance );
 
+		$instance->set_url( $view_url_query_args, true );
 
 		/**
 		 * Run an action after we are done making a new View instance.
@@ -1510,7 +1521,6 @@ class View implements View_Interface {
 		return $breadcrumbs;
 	}
 
-
 	/**
 	 * Returns if the view should display the events bar.
 	 *
@@ -1541,17 +1551,5 @@ class View implements View_Interface {
 		$display = apply_filters( "tribe_events_views_v2_view_{$this->slug}_display_events_bar", $display, $this );
 
 		return $display;
-	}
-
-	/**
-	 * Sets the URL in shortcode form.
-	 *
-	 * @since TBD
-	 *
-	 * @param array|null $args   An associative array of arguments that will be mapped to the corresponding query
-	 *                           arguments by the View.
-	 */
-	public function set_shortcode_url( array $args = [] ) {
-		$this->url = new Url( add_query_arg( $args, '/' ) );
 	}
 }
