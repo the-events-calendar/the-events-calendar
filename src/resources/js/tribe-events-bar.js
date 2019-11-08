@@ -87,9 +87,8 @@ var tribe_events_bar_action;
 
 				// begin display date formatting
 
-				let maskKey       = ts.datepicker_format.toString();
-				let dateFormat    = tribeDateFormat.masks[maskKey] || 'yyyy-mm-dd';
-
+				let maskKey         = ts.datepicker_format.toString();
+				let dateFormat      = tribeDateFormat.masks[maskKey] || 'yyyy-mm-dd';
 				let initialDateInfo = tribeUtils.getInitialDateInfo( maskKey, dateFormat );
 
 				$( document.getElementById( 'tribe-bar-date-day' ) ).val( tribeUtils.formatMoment( initialDateInfo.dateMoment, 'tribeQuery' ) );
@@ -389,7 +388,7 @@ var tribe_events_bar_action;
 					if ( this_val.length ) {
 						if ( ts.view === 'month' ) {
 							maskKey = "m" + maskKey;
-							ts.params[$this.attr( 'name' )] = tribeUtils.formatDateWithMoment( ts.mdate, "tribeMonthQuery", maskKey );
+							ts.params[$this.attr( 'name' )]     = tribeUtils.formatDateWithMoment( ts.mdate, "tribeMonthQuery", maskKey );
 							ts.url_params[$this.attr( 'name' )] = tribeUtils.formatDateWithMoment( ts.mdate, "tribeMonthQuery", maskKey );
 						}
 						// If this is not month view, but we came from there, the value of #tribe-bar-date will

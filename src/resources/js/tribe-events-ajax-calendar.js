@@ -25,6 +25,7 @@
 		var dateMod      = false;
 		var maskKey      = 'm' + ts.datepicker_format.toString();
 		var dateFormat   = tribeDateFormat.masks[maskKey] || 'yyyy-mm';
+
 		let initialDateInfo = tribeUtils.getInitialDateInfo( maskKey, dateFormat, true );
 
 		if ( 1 > $wrapper.length ) {
