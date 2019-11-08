@@ -414,7 +414,7 @@ class View implements View_Interface {
 		 * @param string                       $view_slug   The current view slug.
 		 * @param \Tribe\Events\Views\V2\View  $instance    The current View object.
 		 */
-		$view_url_query_args = apply_filters( 'tribe_events_views_v2_view_url_query_args', [], $view_slug. $instance );
+		$view_url_query_args = apply_filters( 'tribe_events_views_v2_view_url_query_args', [], $view_slug, $instance );
 
 		/**
 		 * Filters the query arguments array for a specific View URL.
@@ -801,6 +801,10 @@ class View implements View_Interface {
 	 * @param bool       $merge  Whether to merge the arguments or override them.
 	 */
 	public function set_url( array $args = null, $merge = false ) {
+		if ( ! isset( $this->url ) ) {
+			$this->url = new Url();
+		}
+
 		if ( null !== $args ) {
 			$query_args = $this->map_args_to_query_args( $args );
 
@@ -818,8 +822,6 @@ class View implements View_Interface {
 
 			return;
 		}
-
-		$this->url = new Url();
 	}
 
 	/**
