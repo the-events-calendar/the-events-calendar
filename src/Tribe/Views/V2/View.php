@@ -406,23 +406,23 @@ class View implements View_Interface {
 		$instance->set_repository( $view_repository );
 
 		/**
-		 * Filters the Repository object for a View.
+		 * Filters the query arguments array for a View URL.
 		 *
 		 * @since TBD
 		 *
-		 * @param \Tribe__Repository__Interface $view_repository The repository instance the View will use.
-		 * @param string                        $view_slug       The current view slug.
-		 * @param \Tribe\Events\Views\V2\View   $instance        The current View object.
+		 * @param array                        $query_args  Arguments used to build the URL.
+		 * @param string                       $view_slug   The current view slug.
+		 * @param \Tribe\Events\Views\V2\View  $instance    The current View object.
 		 */
 		$view_url_query_args = apply_filters( 'tribe_events_views_v2_view_url_query_args', [], $view_slug. $instance );
 
 		/**
-		 * Filters the Repository object for a specific View.
+		 * Filters the query arguments array for a specific View URL.
 		 *
 		 * @since TBD
 		 *
-		 * @param \Tribe__Repository__Interface $view_repository The repository instance the View will use.
-		 * @param \Tribe\Events\Views\V2\View   $instance        The current View object.
+		 * @param array                        $query_args  Arguments used to build the URL.
+		 * @param \Tribe\Events\Views\V2\View  $instance    The current View object.
 		 */
 		$view_url_query_args = apply_filters( "tribe_events_views_v2_{$view_slug}_view_url_query_args", $view_url_query_args, $instance );
 
