@@ -282,7 +282,12 @@ class Template_Bootstrap {
 	 * @link  https://developer.wordpress.org/reference/functions/wp_is_mobile/
 	 */
 	public function on_template_redirect() {
-		if ( ! wp_is_mobile() || tribe_is_truthy( tribe_get_request_var( 'tribe_redirected' ) ) ) {
+		if (
+			! wp_is_mobile()
+			|| tribe_is_truthy( tribe_get_request_var( 'tribe_redirected' ) )
+			|| is_singular()
+			|| is_tax()
+		) {
 			return;
 		}
 
