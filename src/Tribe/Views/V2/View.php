@@ -388,10 +388,10 @@ class View implements View_Interface {
 		 * @since TBD
 		 *
 		 * @param \Tribe__Repository__Interface $view_repository The repository instance the View will use.
-		 * @param string                        $view            The current view slug.
+		 * @param string                        $view_slug       The current view slug.
 		 * @param \Tribe\Events\Views\V2\View   $instance        The current View object.
 		 */
-		$view_repository = apply_filters( 'tribe_events_views_v2_view_repository', $view_repository, $view, $instance );
+		$view_repository = apply_filters( 'tribe_events_views_v2_view_repository', $view_repository, $view_slug, $instance );
 
 		/**
 		 * Filters the Repository object for a specific View.
@@ -405,7 +405,28 @@ class View implements View_Interface {
 
 		$instance->set_repository( $view_repository );
 
-		$instance->set_url();
+		/**
+		 * Filters the query arguments array for a View URL.
+		 *
+		 * @since TBD
+		 *
+		 * @param array                        $query_args  Arguments used to build the URL.
+		 * @param string                       $view_slug   The current view slug.
+		 * @param \Tribe\Events\Views\V2\View  $instance    The current View object.
+		 */
+		$view_url_query_args = apply_filters( 'tribe_events_views_v2_view_url_query_args', [], $view_slug, $instance );
+
+		/**
+		 * Filters the query arguments array for a specific View URL.
+		 *
+		 * @since TBD
+		 *
+		 * @param array                        $query_args  Arguments used to build the URL.
+		 * @param \Tribe\Events\Views\V2\View  $instance    The current View object.
+		 */
+		$view_url_query_args = apply_filters( "tribe_events_views_v2_{$view_slug}_view_url_query_args", $view_url_query_args, $instance );
+
+		$instance->set_url( $view_url_query_args, true );
 
 		/**
 		 * Run an action after we are done making a new View instance.
@@ -775,10 +796,15 @@ class View implements View_Interface {
 	 *
 	 * @since 4.9.3
 	 *
-	 * @param  array|null  $args An associative array of arguments that will be mapped to the corresponding query
+	 * @param array|null $args   An associative array of arguments that will be mapped to the corresponding query
 	 *                           arguments by the View, or `null` to use the current URL.
+	 * @param bool       $merge  Whether to merge the arguments or override them.
 	 */
 	public function set_url( array $args = null, $merge = false ) {
+		if ( ! isset( $this->url ) ) {
+			$this->url = new Url();
+		}
+
 		if ( null !== $args ) {
 			$query_args = $this->map_args_to_query_args( $args );
 
@@ -796,8 +822,6 @@ class View implements View_Interface {
 
 			return;
 		}
-
-		$this->url = new Url();
 	}
 
 	/**
@@ -959,7 +983,7 @@ class View implements View_Interface {
 			'hidden_from_upcoming' => false,
 		];
 
-		// Set's up catergory URL for all views.
+		// Set's up category URL for all views.
 		if ( ! empty( $context_arr[ TEC::TAXONOMY ] ) ) {
 			$args[ TEC::TAXONOMY ] = $context_arr[ TEC::TAXONOMY ];
 		}
@@ -1498,7 +1522,6 @@ class View implements View_Interface {
 
 		return $breadcrumbs;
 	}
-
 
 	/**
 	 * Returns if the view should display the events bar.
