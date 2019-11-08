@@ -87,26 +87,12 @@ var tribe_events_bar_action;
 
 				// begin display date formatting
 
-				var date_format = 'yyyy-mm-dd';
+				let maskKey         = ts.datepicker_format.toString();
+				let dateFormat      = tribeDateFormat.masks[maskKey] || 'yyyy-mm-dd';
+				let initialDateInfo = tribeUtils.getInitialDateInfo( maskKey, dateFormat );
 
-				if ( ts.datepicker_format !== '0' ) {
-
-					// we are not using the default query date format, lets grab it from the data array
-
-					date_format = td.datepicker_formats.main[ ts.datepicker_format ];
-
-					var url_date = tf.get_url_param( 'tribe-bar-date' );
-
-					// if url date is set and datepicker format is different from query format
-					// we need to fix the input value to emulate that before kicking in the datepicker
-
-					if ( url_date ) {
-						$tribedate.val( tribeDateFormat( url_date, ts.datepicker_format ) );
-					}
-					else if ( ts.view === 'day' && $tribedate.val().length !== 0 ) {
-						$tribedate.val( tribeDateFormat( $tribedate.val(), ts.datepicker_format ) );
-					}
-				}
+				$( document.getElementById( 'tribe-bar-date-day' ) ).val( tribeUtils.formatMoment( initialDateInfo.dateMoment, 'tribeQuery' ) );
+				$tribedate.val( initialDateInfo.formattedDate );
 
 				// @ifdef DEBUG
 				dbug && tec_debug.info( 'TEC Debug: bootstrapDatepicker was just initialized in "tribe-events-bar.js" on:', $tribedate );
@@ -114,7 +100,7 @@ var tribe_events_bar_action;
 
 				td.datepicker_opts = {
 					weekStart : start_day,
-					format    : date_format,
+					format    : dateFormat,
 					autoclose : true
 				};
 
@@ -396,22 +382,24 @@ var tribe_events_bar_action;
 			$( 'form#tribe-bar-form input, form#tribe-bar-form select, #tribeHideRecurrence' ).each( function() {
 				var $this = $( this );
 				if ( $this.is( '#tribe-bar-date' ) ) {
-					var this_val = $this.val();
+					let this_val = $this.val();
+					let maskKey  = ts.datepicker_format.toString();
 
 					if ( this_val.length ) {
 						if ( ts.view === 'month' ) {
-							ts.params[$this.attr( 'name' )] = tribeDateFormat( ts.mdate, "tribeMonthQuery" );
-							ts.url_params[$this.attr( 'name' )] = tribeDateFormat( ts.mdate, "tribeMonthQuery" );
+							maskKey = "m" + maskKey;
+							ts.params[$this.attr( 'name' )]     = tribeUtils.formatDateWithMoment( ts.mdate, "tribeMonthQuery", maskKey );
+							ts.url_params[$this.attr( 'name' )] = tribeUtils.formatDateWithMoment( ts.mdate, "tribeMonthQuery", maskKey );
 						}
 						// If this is not month view, but we came from there, the value of #tribe-bar-date will
 						// describe a year and a month: preserve this if so to ensure accuracy of pagination
-						else if ( this_val.match( /[0-9]{4}-[0-9]{2}/ ) ) {
-							ts.params[ $this.attr( 'name') ] = ts.url_params[ $this.attr( 'name' ) ] = this_val;
+						else if ( this_val.match( /^[0-9]+[\-\.\/][0-9]+$/ ) ) {
+							ts.params[ $this.attr( 'name') ] = ts.url_params[ $this.attr( 'name' ) ] = tribeUtils.formatDateWithMoment( this_val, 'tribeQuery', maskKey );
 						}
 						// In all other cases, pull the date from the datepicker
 						else {
-							ts.params[ $this.attr( 'name' ) ]     = tribeDateFormat( $this.bootstrapDatepicker( 'getDate' ), 'tribeQuery' );
-							ts.url_params[ $this.attr( 'name' ) ] = tribeDateFormat( $this.bootstrapDatepicker( 'getDate' ), 'tribeQuery' );
+							ts.params[ $this.attr( 'name' ) ]     = tribeUtils.formatDateWithMoment( $this.bootstrapDatepicker( 'getDate' ), 'tribeQuery', maskKey );
+							ts.url_params[ $this.attr( 'name' ) ] = tribeUtils.formatDateWithMoment( $this.bootstrapDatepicker( 'getDate' ), 'tribeQuery', maskKey );
 						}
 					}
 					else if ( $this.is( '.placeholder' ) && $this.is( '.bd-updated' ) ) {
@@ -456,22 +444,6 @@ var tribe_events_bar_action;
 
 			tribe_events_bar_action = 'change_view';
 
-			if ( 'month' === ts.view && $tribedate.length ) {
-				var dp_date = $tribedate.val();
-				var day     = tf.get_day();
-
-				if ( '0' != ts.datepicker_format ) {
-					dp_date = tribeDateFormat( $tribedate.bootstrapDatepicker( 'getDate' ), 'tribeMonthQuery' );
-					$tribedate.val( dp_date + day );
-				}
-				else {
-					if ( 7 === dp_date.length ) {
-						$tribedate.val( dp_date + day );
-					}
-				}
-
-			}
-
 			ts.url_params = {};
 
 			/**
@@ -484,13 +456,14 @@ var tribe_events_bar_action;
 			// Normal Form + Filter Bar
 			var $forms  = $( document.getElementById( 'tribe-bar-form' ) ).add( document.getElementById( 'tribe_events_filters_wrapper' ) );
 			var $inputs = $forms.find( 'input, select' );
+			let maskKey = ts.datepicker_format.toString();
 
 			$inputs.each( function() {
 				var $this = $( this );
 				if ( $this.val() && $this.val().length && ! $this.hasClass( 'tribe-no-param' ) ) {
 					if ( 'month' !== ts.view  && '0' !== ts.datepicker_format && $this.is( $tribedate ) ) {
 
-						ts.url_params[ $this.attr( 'name' ) ] = tribeDateFormat( $this.bootstrapDatepicker( 'getDate' ), 'tribeQuery' );
+						ts.url_params[ $this.attr( 'name' ) ] = tribeUtils.formatDateWithMoment( $this.bootstrapDatepicker( 'getDate' ), "tribeQuery", maskKey );
 
 					}
 					else {
@@ -522,6 +495,14 @@ var tribe_events_bar_action;
 			var redirected = $( '#tribe-bar-views-option-' + td.default_mobile_view ).data( 'redirected' );
 			if ( td.redirected_view || redirected ) {
 				ts.url_params['tribe_redirected'] = true;
+			}
+
+			if ( 'month' === ts.view && $tribedate.length ) {
+				const maskKey   = 'm' + ts.datepicker_format.toString();
+				const dp_date   = $tribedate.val() || $tribedate.bootstrapDatepicker( 'getDate' );
+				const theMoment = tribeUtils.maybeAlterMonthViewDate( dp_date, maskKey );
+
+				ts.url_params['tribe-bar-date'] = tribeUtils.formatDateWithMoment( theMoment, 'tribeQuery' );
 			}
 
 			ts.url_params = $.param( ts.url_params );

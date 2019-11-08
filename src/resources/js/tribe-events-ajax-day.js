@@ -108,12 +108,9 @@
 			else {
 				td.cur_url = $this.attr( "href" );
 			}
-			if ( ts.datepicker_format !== '0' ) {
-				tf.update_picker( tribeDateFormat( ts.date, td.datepicker_formats.main[ts.datepicker_format] ) );
-			}
-			else {
-				tf.update_picker( ts.date );
-			}
+
+			tf.update_picker( ts.date );
+
 			tf.pre_ajax( function() {
 				tribe_events_day_ajax_post();
 			} );
@@ -163,8 +160,11 @@
 
 				if ( !tt.reset_on() ) {
 					ts.popping = false;
+
+					let maskKey = ts.datepicker_format.toString();
+
 					if ( ts.datepicker_format !== '0' ) {
-						ts.date = tribeDateFormat( $( this ).bootstrapDatepicker( 'getDate' ), "tribeQuery" );
+						ts.date = tribeUtils.formatDateWithMoment( $( this ).bootstrapDatepicker( 'getDate' ), "tribeQuery", maskKey );
 					}
 					else {
 						ts.date = $( this ).val();
