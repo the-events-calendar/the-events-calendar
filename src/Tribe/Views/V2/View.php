@@ -759,13 +759,7 @@ class View implements View_Interface {
 
 		$this->set_url( $args, true );
 
-		/**
-		 * Problematic replacement as context relies on that to have access to the variables
-		 * in the global context, which creates a hard problem to do navigation.
-		 *
-		 * @todo  have conversation with @lucatume about this
-		 */
-		// $wp_query = $this->repository->get_query();
+		$wp_query = $this->repository->get_query();
 		wp_reset_postdata();
 
 		// Set the $_SERVER['REQUEST_URI'] as many WordPress functions rely on it to correctly work.
