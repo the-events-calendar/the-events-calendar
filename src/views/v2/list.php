@@ -35,6 +35,8 @@ if ( empty( $disable_event_search ) ) {
 
 		<?php $this->template( 'components/data' ); ?>
 
+		<?php $this->template( 'components/before' ); ?>
+
 		<header <?php tribe_classes( $header_classes ); ?>>
 			<?php $this->template( 'components/messages' ); ?>
 
@@ -60,5 +62,8 @@ if ( empty( $disable_event_search ) ) {
 		</div>
 
 		<?php $this->template( 'list/nav' ); ?>
+
+		<?php $this->template( 'components/after' ); ?>
+
 	</div>
 </div>

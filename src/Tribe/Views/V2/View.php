@@ -9,6 +9,7 @@
 namespace Tribe\Events\Views\V2;
 
 use Tribe\Events\Views\V2\Template\Title;
+use Tribe\Events\Views\V2\Template\Settings\Advanced_Display;
 use Tribe__Container as Container;
 use Tribe__Context as Context;
 use Tribe__Date_Utils as Dates;
@@ -1077,6 +1078,8 @@ class View implements View_Interface {
 			'messages'             => $this->get_messages( $events ),
 			'start_of_week'        => get_option( 'start_of_week', 0 ),
 			'breadcrumbs'          => $this->get_breadcrumbs(),
+			'before_events'        => tribe( Advanced_Display::class )->get_before_events_html( $this ),
+			'after_events'         => tribe( Advanced_Display::class )->get_after_events_html( $this ),
 			'display_events_bar'   => $this->filter_display_events_bar( $this->display_events_bar ),
 			'disable_event_search' => tribe_is_truthy( tribe_get_option( 'tribeDisableTribeBar', false ) ),
 			'live_refresh'         => tribe_is_truthy( tribe_get_option( 'liveFiltersUpdate', true ) ),
@@ -1084,7 +1087,6 @@ class View implements View_Interface {
 
 		return $template_vars;
 	}
-
 
 	/**
 	 * Filters the repository arguments that will be used to set up the View repository instance.
