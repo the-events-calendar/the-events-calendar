@@ -21,8 +21,9 @@
 	data-js="tribe-events-view-data"
 	type="application/json"
 >
-	{"slug":"day","prev_url":"http:\\/\\/test.tri.be\\/events\\/2018-12-31\\/","next_url":"","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Day_View","view_slug":"day","view":{},"title":"Upcoming Events &#8211; The Events Calendar Tests","events":[],"url":"http:\\/\\/test.tri.be\\/events\\/today\\/","bar":{"keyword":"","date":"2019-01-01 09:00:00"},"today":"2019-01-01 09:00:00","now":"2019-01-01 09:00:00","rest_url":"http:\\/\\/test.tri.be\\/index.php?rest_route=\\/tribe\\/views\\/v2\\/html","rest_nonce":"2ab7cc6b39","should_manage_url":true,"today_url":"http:\\/\\/test.tri.be\\/events\\/today\\/","prev_label":"2018-12-31","next_label":"","date_formats":{"compact":"Y-m-d","month_and_year":"F Y"},"messages":{"notice":["No events scheduled for January 1, 2019. Please try another day."]},"start_of_week":"1","breadcrumbs":[],"display_events_bar":true,"disable_event_search":false,"live_refresh":true}</script>
+	{"slug":"day","prev_url":"http:\\/\\/test.tri.be\\/events\\/2018-12-31\\/","next_url":"","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Day_View","view_slug":"day","view":{},"title":"Upcoming Events &#8211; The Events Calendar Tests","events":[],"url":"http:\\/\\/test.tri.be\\/events\\/today\\/","bar":{"keyword":"","date":"2019-01-01 09:00:00"},"today":"2019-01-01 09:00:00","now":"2019-01-01 09:00:00","rest_url":"http:\\/\\/test.tri.be\\/index.php?rest_route=\\/tribe\\/views\\/v2\\/html","rest_nonce":"2ab7cc6b39","should_manage_url":true,"today_url":"http:\\/\\/test.tri.be\\/events\\/today\\/","prev_label":"2018-12-31","next_label":"","date_formats":{"compact":"Y-m-d","month_and_year":"F Y"},"messages":{"notice":["No events scheduled for January 1, 2019. Please try another day."]},"start_of_week":"1","breadcrumbs":[],"before_events":"","after_events":"\\n<!--\\nThis calendar is powered by The Events Calendar.\\nhttp:\\/\\/m.tri.be\\/18wn\\n-->\\n","display_events_bar":true,"disable_event_search":false,"live_refresh":true}</script>
 
+		
 		<header  class="tribe-events-header tribe-events-header--has-event-search" >
 			<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2" >
 			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
@@ -253,6 +254,16 @@
 </li>
 	</ul>
 </nav>
+
+		<div class="tribe-events-after-html">
+	
+<!--
+This calendar is powered by The Events Calendar.
+http://m.tri.be/18wn
+-->
+</div>
+
+
 	</div>
 
 </div>
