@@ -133,7 +133,7 @@ class Manager {
 		 * This applies the setting Events > Settings > "Enable event views".
 		 * Default to all available views if the option is not set.
 		 */
-		$enabled_views = tribe_get_option( 'tribeEnableViews', array_keys($views) );
+		$enabled_views = tribe_get_option( 'tribeEnableViews', array_keys( $views ) );
 
 		$views = array_filter(
 			$views,
