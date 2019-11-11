@@ -128,12 +128,15 @@ class Manager {
 	public function get_publicly_visible_views() {
 		$views = $this->get_registered_views();
 
+		var_dump( __METHOD__ );
+		var_dump( $views );
+
 		/*
 		 * Remove the Views that are not enabled, if the setting has been set.
 		 * This applies the setting Events > Settings > "Enable event views".
 		 * Default to all available views if the option is not set.
 		 */
-		$enabled_views = tribe_get_option( 'tribeEnableViews', array_keys($views) );
+		$enabled_views = tribe_get_option( 'tribeEnableViews', array_keys( $views ) );
 
 		$views = array_filter(
 			$views,
