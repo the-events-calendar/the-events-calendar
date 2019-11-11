@@ -17,6 +17,7 @@ import {
 import { DEFAULT_STATE } from './reducer';
 import { maybeBulkDispatch } from '@moderntribe/events/data/utils';
 import { date, moment } from '@moderntribe/common/utils';
+import { isEmpty } from 'lodash';
 
 const {
 	parseFormats,
@@ -27,6 +28,10 @@ const {
 export const setInitialState = ( { get, attributes } ) => ( dispatch ) => {
 	const timeZone = get( 'timeZone', DEFAULT_STATE.timeZone );
 	const timeZoneLabel = get( 'timeZoneLabel', timeZone );
+
+	if ( isEmpty( attributes ) ) {
+		return;
+	}
 
 	/**
 	 * @todo: remove maybeBuildDispatch, dispatch declaratively instead
