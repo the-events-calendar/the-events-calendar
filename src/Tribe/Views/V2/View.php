@@ -1483,16 +1483,18 @@ class View implements View_Interface {
 			// Set up breadcrumbs for category
 			if ( ! empty( $term_slug ) ) {
 				$term  = get_term_by( 'slug', $term_slug, $taxonomy );
-				$label = $term->name;
+				if ( ! empty( $term->name ) ) {
+					$label = $term->name;
 
-				$breadcrumbs[] = [
-					'link'  => $this->get_today_url( true ),
-					'label' => tribe_get_event_label_plural(),
-				];
-				$breadcrumbs[] = [
-					'link'  => '',
-					'label' => $label,
-				];
+					$breadcrumbs[] = [
+						'link'  => $this->get_today_url( true ),
+						'label' => tribe_get_event_label_plural(),
+					];
+					$breadcrumbs[] = [
+						'link'  => '',
+						'label' => $label,
+					];
+				}
 			}
 		}
 
