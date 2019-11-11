@@ -219,7 +219,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 * Fix - Fixed issue where DD/MM/YYYY style dates were not supported during Event Aggregator imports [117691]
 * Fix - Resolved issue where non YYYY-MM-DD datepicker formats resulted in unpredictable behavior while navigating views [116086, 126472, 117909]
-* Fix - Fixed date attributes when editing the "Event Date Time" block [132735]
+* Fix - Fixed date issue where the event date was defaulting to current date when editing an event with the block editor [132735]
 * Tweak - added the `tribe_events_suppress_query_filters` filter to allow suppressing `Tribe__Events__Query` filters [134827]
 
 = [4.9.10] 2019-10-16 =
