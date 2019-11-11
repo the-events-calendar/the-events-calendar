@@ -603,6 +603,10 @@ class View implements View_Interface {
 			'tribe-bar-search' => $this->context->get( 'keyword', '' ),
 		];
 
+		if ( $is_featured = tribe_is_truthy( $this->context->get( 'featured', false ) ) ) {
+			$query_args['featured'] = $is_featured;
+		}
+
 		/**
 		 * Filters the query arguments that will be used to build a View URL.
 		 *
@@ -981,6 +985,11 @@ class View implements View_Interface {
 		// Set's up category URL for all views.
 		if ( ! empty( $context_arr[ TEC::TAXONOMY ] ) ) {
 			$args[ TEC::TAXONOMY ] = $context_arr[ TEC::TAXONOMY ];
+		}
+
+		// Setup featured only when set to true.
+		if ( $is_featured = tribe_is_truthy( $context->get( 'featured', false ) ) ) {
+			$args['featured'] = $is_featured;
 		}
 
 		return $args;
@@ -1483,16 +1492,18 @@ class View implements View_Interface {
 			// Set up breadcrumbs for category
 			if ( ! empty( $term_slug ) ) {
 				$term  = get_term_by( 'slug', $term_slug, $taxonomy );
-				$label = $term->name;
+				if ( ! empty( $term->name ) ) {
+					$label = $term->name;
 
-				$breadcrumbs[] = [
-					'link'  => $this->get_today_url( true ),
-					'label' => tribe_get_event_label_plural(),
-				];
-				$breadcrumbs[] = [
-					'link'  => '',
-					'label' => $label,
-				];
+					$breadcrumbs[] = [
+						'link'  => $this->get_today_url( true ),
+						'label' => tribe_get_event_label_plural(),
+					];
+					$breadcrumbs[] = [
+						'link'  => '',
+						'label' => $label,
+					];
+				}
 			}
 		}
 
