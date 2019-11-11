@@ -603,8 +603,8 @@ class View implements View_Interface {
 			'tribe-bar-search' => $this->context->get( 'keyword', '' ),
 		];
 
-		if ( tribe_is_truthy( $this->context->get( 'featured', false ) ) ) {
-			$query_args['featured'] = tribe_is_truthy( $this->context->get( 'featured', false ) );
+		if ( $is_featured = tribe_is_truthy( $this->context->get( 'featured', false ) ) ) {
+			$query_args['featured'] = $is_featured;
 		}
 
 		/**
@@ -988,8 +988,8 @@ class View implements View_Interface {
 		}
 
 		// Setup featured only when set to true.
-		if ( tribe_is_truthy( $context->get( 'featured', false ) ) ) {
-			$args['featured'] = tribe_is_truthy( $context->get( 'featured', false ) );
+		if ( $is_featured = tribe_is_truthy( $context->get( 'featured', false ) ) ) {
+			$args['featured'] = $is_featured;
 		}
 
 		return $args;
