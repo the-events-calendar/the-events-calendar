@@ -603,6 +603,10 @@ class View implements View_Interface {
 			'tribe-bar-search' => $this->context->get( 'keyword', '' ),
 		];
 
+		if ( tribe_is_truthy( $this->context->get( 'featured', false ) ) ) {
+			$query_args['featured'] = tribe_is_truthy( $this->context->get( 'featured', false ) );
+		}
+
 		/**
 		 * Filters the query arguments that will be used to build a View URL.
 		 *
@@ -981,6 +985,11 @@ class View implements View_Interface {
 		// Set's up category URL for all views.
 		if ( ! empty( $context_arr[ TEC::TAXONOMY ] ) ) {
 			$args[ TEC::TAXONOMY ] = $context_arr[ TEC::TAXONOMY ];
+		}
+
+		// Setup featured only when set to true.
+		if ( tribe_is_truthy( $context->get( 'featured', false ) ) ) {
+			$args['featured'] = tribe_is_truthy( $context->get( 'featured', false ) );
 		}
 
 		return $args;
