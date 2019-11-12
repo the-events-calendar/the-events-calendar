@@ -29,7 +29,7 @@ class List_View extends View {
 	 * Visibility for this view.
 	 *
 	 * @since 4.9.4
-	 * @since TBD Made the property static.
+	 * @since 4.9.11 Made the property static.
 	 *
 	 * @var bool
 	 */
@@ -214,7 +214,7 @@ class List_View extends View {
 	/**
 	 * Overrides the base View method to fix the order of the events in the `past` display mode.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @return array The List View template vars, modified if required.
 	 */
@@ -238,7 +238,7 @@ class List_View extends View {
 	/**
 	 * Overrides the base implementation to remove notions of a "past" events request on page reset.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 */
 	protected function on_page_reset() {
 		parent::on_page_reset();

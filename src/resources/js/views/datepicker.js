@@ -82,7 +82,7 @@ tribe.events.views.datepicker = {};
 	 * Object of date format map.
 	 * Date formats are mapped from PHP to Bootstrap Datepicker format.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @type {PlainObject}
 	 *
@@ -101,7 +101,7 @@ tribe.events.views.datepicker = {};
 	 *    True  - Will request a new view every click of a date.
 	 *    False - Will populate a field on the search form doesnt refresh until search button is clicked.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @type bool
 	 */
@@ -153,7 +153,7 @@ tribe.events.views.datepicker = {};
 	/**
 	 * Create the Date input that will be preprended on the form created.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @param {string} value string representation of the date value
 	 *
@@ -173,7 +173,7 @@ tribe.events.views.datepicker = {};
 	/**
 	 * Submits request after date change from datepicker based on live refresh setting.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @param {jQuery} $container jQuery object of view container
 	 * @param {string} value string representation of the date value
@@ -350,7 +350,7 @@ tribe.events.views.datepicker = {};
 	/**
 	 * Convert date format from PHP to Bootstrap datepicker format.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @param {string} dateFormat datepicker date format in PHP format.
 	 *
@@ -368,7 +368,7 @@ tribe.events.views.datepicker = {};
 	/**
 	 * Initialize datepicker date format.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @param {object} data data object passed from 'afterSetup.tribeEvents' event
 	 *

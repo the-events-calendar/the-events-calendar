@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version TBD
+ * @version 4.9.11
  *
  * @var string $after_events HTML stored on the Advanced settings to be printed after the Events.
  */

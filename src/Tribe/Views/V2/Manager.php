@@ -25,7 +25,7 @@ class Manager {
 	/**
 	 * The name of the Tribe option the default Views v2 slug will live in.
 	 *
-	 * @since TBD Use v1 option.
+	 * @since 4.9.11 Use v1 option.
 	 *
 	 * @var string
 	 */
@@ -34,7 +34,7 @@ class Manager {
 	/**
 	 * The name of the Tribe option the default mobile Views v2 slug will live in.
 	 *
-	 * @since TBD Use v1 option.
+	 * @since 4.9.11 Use v1 option.
 	 *
 	 * @var string
 	 */
@@ -118,7 +118,7 @@ class Manager {
 		/**
 		 * Allows overwriting the default view.
 		 *
-		 * @since  TBD
+		 * @since  4.9.11
 		 *
 		 * @param string $view_class Fully qualified class name for default view.
 		 * @param string $view_slug  Default view slug.

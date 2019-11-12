@@ -2,7 +2,7 @@
 /**
  * Handles a collection of View Messages.
  *
- * @since   TBD
+ * @since   4.9.11
  *
  * @package Tribe\Events\Views\V2
  */
@@ -14,7 +14,7 @@ use Tribe__Utils__Array as Arr;
 /**
  * Class Messages
  *
- * @since   TBD
+ * @since   4.9.11
  *
  * @package Tribe\Events\Views\V2
  */
@@ -22,35 +22,35 @@ class Messages {
 	/**
 	 * A notice type of message.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 */
 	const TYPE_NOTICE = 'notice';
 
 	/**
 	 * The strategy that will print a single message, the last, per priority collection, per type.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 */
 	const RENDER_STRATEGY_PRIORITY_LAST = 'priority_last';
 
 	/**
 	 * The strategy that will print a single message, the first, per priority collection, per type.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 */
 	const RENDER_STRATEGY_PRIORITY_FIRST = 'priority_first';
 
 	/**
 	 * The strategy that will print all messages, of all types.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 */
 	const RENDER_STRATEGY_LIST = 'list';
 
 	/**
 	 * An array of the messages handled by the object.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @var array
 	 */
@@ -59,7 +59,7 @@ class Messages {
 	/**
 	 * The render strategy the collection will use to "render" the messages in the `to_array` method.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @var string
 	 */
@@ -80,7 +80,7 @@ class Messages {
 	/**
 	 * Returns the human-readable message for a key.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @param string $key The message identification key or slug.
 	 * @param mixed  ...$values A variadic number of arguments that should be used to fill in the message placeholders, if
@@ -111,7 +111,7 @@ class Messages {
 		/**
 		 * Filters the map of user-facing messages that will be used in the Views.
 		 *
-		 * @since TBD
+		 * @since 4.9.11
 		 *
 		 * @param array $map An map of message keys to localized, user-facing, messages.
 		 */
@@ -126,7 +126,7 @@ class Messages {
 	/**
 	 * Applies the current message render policy to the messages and returns an array of messages.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @return array An array of messages in the shape `[ <message_type> => [ ...<messages> ] ]`.
 	 */
@@ -137,7 +137,7 @@ class Messages {
 	/**
 	 * Applies the render strategy to the collection of messages.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @param array $messages The collection of messages to apply the render strategy to.
 	 *
@@ -195,7 +195,7 @@ class Messages {
 	/**
 	 * Sets the render strategy that the collection should use to render the messages in the `to_array` method.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @param string $render_strategy One of the `RENDER_STRATEGY_` constants.
 	 */
@@ -206,7 +206,7 @@ class Messages {
 	/**
 	 * Inserts a message in the collection, at a specific priority.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @param string $message_type    The type of message to insert, while there is no check on the type, the suggestion
 	 *                                is to use one of the `TYPE_` constants.
@@ -226,7 +226,7 @@ class Messages {
 	/**
 	 * Resets a specific type of messages or all of them.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @param null|string $type     The type of message to reset, or `null` to reset all messages.
 	 * @param null|int    $priority The specific priority to reset, this will be ignored if the `$type` parameter

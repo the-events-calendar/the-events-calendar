@@ -82,7 +82,7 @@ class Separators {
 	 * Determines if a given event from a list of events should have a type separator
 	 * for the day view template structure.
 	 *
-	 * @since  TBD
+	 * @since  4.9.11
 	 *
 	 * @param  array       $events WP_Post or numeric ID for events.
 	 * @param  WP_Post|int $event  Event we want to determine.

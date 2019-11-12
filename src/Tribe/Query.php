@@ -27,7 +27,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			/**
 			 * A toggle filter to completely suppress all query filters for the whole request.
 			 *
-			 * @since TBD
+			 * @since 4.9.11
 			 *
 			 * @param bool $suppress_filters Whether to completely suppress all query filters for the whole request.
 			 */

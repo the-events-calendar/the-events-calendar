@@ -344,7 +344,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 	/**
 	 * Checks if we are using skeleton setting for Style.
 	 *
-	 * @since  TBD
+	 * @since  4.9.11
 	 *
 	 * @return bool
 	 */
@@ -359,7 +359,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 	 * - `tribe` - Deprecated
 	 * - `full`  - All styles load
 	 *
-	 * @since  TBD
+	 * @since  4.9.11
 	 *
 	 * @return bool
 	 */
@@ -369,7 +369,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 		/**
 		 * Allow filtering of where the base Frontend Assets will be loaded.
 		 *
-		 * @since TBD
+		 * @since 4.9.11
 		 *
 		 * @param bool $is_skeleton_style
 		 */
