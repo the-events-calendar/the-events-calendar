@@ -195,7 +195,8 @@ class View implements View_Interface {
 		if ( isset( $params['view_data'] ) ) {
 			$params['view_data']['url'] = $url;
 		}
-		$params     = array_merge( $params, $url_object->get_query_args() );
+
+		$params = array_merge( $params, $url_object->get_query_args() );
 
 		// Let View data override any other data.
 		if ( isset( $params['view_data'] ) && is_array( $params['view_data'] ) ) {
@@ -923,7 +924,6 @@ class View implements View_Interface {
 		} else {
 			unset( $args['featured'] );
 		}
-
 
 		return $args;
 	}
