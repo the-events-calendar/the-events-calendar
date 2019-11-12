@@ -16,7 +16,7 @@
  * @see tribe_get_event() For the format of the event object.
  */
 
-$time_format             = tribe_get_time_format();
+$time_format      = tribe_get_time_format();
 $display_end_date = $event->dates->start->format( 'H:i' ) !== $event->dates->end->format( 'H:i' );
 ?>
 <div class="tribe-events-calendar-month__calendar-event-datetime">
