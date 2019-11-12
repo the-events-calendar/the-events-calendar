@@ -46,7 +46,7 @@
 			</time>
 		<?php endif; ?>
 		<?php if ( $show_end ) : ?>
-			<span class="tribe-events-c-top-bar__datepicker-separator">&mdash;</span>
+			<span class="tribe-events-c-top-bar__datepicker-separator"> - </span>
 			<time
 				datetime="<?php echo esc_attr( $selected_end_datetime ); ?>"
 				class="tribe-events-c-top-bar__datepicker-time"
