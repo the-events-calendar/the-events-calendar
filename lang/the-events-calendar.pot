@@ -5,11 +5,11 @@ msgstr ""
 "Project-Id-Version: The Events Calendar 4.9.10\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/the-events-"
 "calendar\n"
-"POT-Creation-Date: 2019-10-15 06:31:59+00:00\n"
+"POT-Creation-Date: 2019-11-12 19:15:49+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2019-10-15 06:31\n"
+"PO-Revision-Date: 2019-11-12 19:15\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -57,7 +57,7 @@ msgstr ""
 
 #: src/Tribe/Admin/Bar/Default_Configurator.php:62
 #: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:211 src/Tribe/Main.php:1904
-#: src/Tribe/Main.php:5129 src/Tribe/Main.php:5176 src/Tribe/Organizer.php:93
+#: src/Tribe/Main.php:5141 src/Tribe/Main.php:5188 src/Tribe/Organizer.php:93
 #: src/Tribe/Venue.php:112
 msgid "Edit %s"
 msgstr ""
@@ -450,7 +450,7 @@ msgid ""
 msgstr ""
 
 #: src/Tribe/Aggregator/Page.php:82 src/Tribe/Template/Day.php:115
-#: src/Tribe/Template/Day.php:131
+#: src/Tribe/Template/Day.php:131 src/views/v2/day/type-separator.php:27
 msgid "All Day"
 msgstr ""
 
@@ -1897,7 +1897,7 @@ msgstr ""
 
 #: src/Tribe/Editor/Template.php:70 src/Tribe/Template/Embed.php:59
 #: src/Tribe/Template/Single_Event.php:119
-#: src/Tribe/Views/V2/Template_Bootstrap.php:77
+#: src/Tribe/Views/V2/Template_Bootstrap.php:124
 msgid "This %s has passed."
 msgstr ""
 
@@ -2254,8 +2254,7 @@ msgstr ""
 msgid "Event Allow Trackbacks and Pingbacks"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:101 src/views/v2/day/event/venue.php:28
-#: src/views/v2/list/event/venue.php:28
+#: src/Tribe/Importer/Column_Mapper.php:101
 msgid "Venue Name"
 msgstr ""
 
@@ -3074,7 +3073,7 @@ msgstr ""
 msgid "2 digit month dot 4 digit year"
 msgstr ""
 
-#: src/Tribe/Main.php:4244 src/Tribe/Main.php:4269
+#: src/Tribe/Main.php:4244 src/Tribe/Main.php:4281
 #: src/admin-views/aggregator/origins/refine.php:7
 msgid "Date"
 msgstr ""
@@ -3083,40 +3082,40 @@ msgstr ""
 msgid "Search for %s by Date. Please use the format %s."
 msgstr ""
 
-#: src/Tribe/Main.php:4249
+#: src/Tribe/Main.php:4259
 msgid "%s In"
 msgstr ""
 
-#: src/Tribe/Main.php:4251
+#: src/Tribe/Main.php:4261
 msgid "Search for %s by month. Please use the format %s."
 msgstr ""
 
-#: src/Tribe/Main.php:4253
+#: src/Tribe/Main.php:4264
 msgid "%s From"
 msgstr ""
 
-#: src/Tribe/Main.php:4255
+#: src/Tribe/Main.php:4267
 msgid "Day Of"
 msgstr ""
 
-#: src/Tribe/Main.php:4335
+#: src/Tribe/Main.php:4347
 msgid "Once Every 30 Mins"
 msgstr ""
 
-#: src/Tribe/Main.php:5062
+#: src/Tribe/Main.php:5074
 msgid ""
 "Your version of The Events Calendar is not up-to-date with one of your The "
 "Events Calendar add-ons. Please %supdate now.%s"
 msgstr ""
 
-#: src/Tribe/Main.php:5074
+#: src/Tribe/Main.php:5086
 msgid ""
 "The following plugins are out of date: %1$s. All add-ons contain "
 "dependencies on The Events Calendar and will not function properly unless "
 "paired with the right version. %2$sLearn More%3$s."
 msgstr ""
 
-#: src/Tribe/Main.php:5113 src/Tribe/Main.php:5170
+#: src/Tribe/Main.php:5125 src/Tribe/Main.php:5182
 msgid "Use Saved %s:"
 msgstr ""
 
@@ -4405,6 +4404,7 @@ msgid "page"
 msgstr ""
 
 #: src/Tribe/Template/Day.php:118 src/Tribe/Template/Day.php:134
+#: src/views/v2/day/type-separator.php:29
 msgid "Ongoing"
 msgstr ""
 
@@ -4430,6 +4430,7 @@ msgid ""
 msgstr ""
 
 #: src/Tribe/Template/Month.php:463 src/Tribe/Template_Factory.php:244
+#: src/Tribe/Views/V2/Messages.php:93
 msgid "There were no results found."
 msgstr ""
 
@@ -4524,6 +4525,30 @@ msgstr ""
 msgid "Unnamed Venue"
 msgstr ""
 
+#: src/Tribe/Views/V2/Hooks.php:348
+msgid "We recommend a 16:9 aspect ratio for featured images."
+msgstr ""
+
+#. translators: the placeholder is the keyword(s), as the user entered it in
+#. the bar.
+#: src/Tribe/Views/V2/Messages.php:95
+msgid "There were no results found for <strong>\"%1$s\"</strong>."
+msgstr ""
+
+#. translators: the placeholder is the keyword(s), as the user entered it in
+#. the bar.
+#: src/Tribe/Views/V2/Messages.php:100
+msgid ""
+"There were no results found for <strong>\"%1$s\"</strong> this month. Try "
+"searching next month."
+msgstr ""
+
+#. translators: the placeholder is the formatted date string, e.g. "February
+#. 22, 2020".
+#: src/Tribe/Views/V2/Messages.php:105
+msgid "No events scheduled for %s. Please try another day."
+msgstr ""
+
 #: src/Tribe/Views/V2/Template/Title.php:105
 #: src/functions/template-tags/loop.php:177
 msgctxt "featured events title"
@@ -4557,53 +4582,16 @@ msgctxt "day_view"
 msgid "%1$s for %2$s"
 msgstr ""
 
-#: src/Tribe/Views/V2/month-view-demo-template-tags.php:150
-msgid "WordCamp Buenos Aires"
+#: src/Tribe/Views/V2/Views/List_Behavior.php:49
+msgctxt "The datepicker label when the range start is now."
+msgid "Now"
 msgstr ""
 
-#: src/Tribe/Views/V2/month-view-demo-template-tags.php:160
-msgid "TedX Argentina"
-msgstr ""
-
-#: src/Tribe/Views/V2/month-view-demo-template-tags.php:171
-msgid "UX and UI Workshop"
-msgstr ""
-
-#: src/Tribe/Views/V2/month-view-demo-template-tags.php:181
-msgid "Contributors hackaton"
-msgstr ""
-
-#: src/Tribe/Views/V2/month-view-demo-template-tags.php:192
-msgid "Prepping long weekend"
-msgstr ""
-
-#: src/Tribe/Views/V2/month-view-demo-template-tags.php:203
-#: src/Tribe/Views/V2/month-view-demo-template-tags.php:214
-msgid "Long weekend"
-msgstr ""
-
-#: src/Tribe/Views/V2/month-view-demo-template-tags.php:225
-msgid "Melbourne WordPress Meetup"
-msgstr ""
-
-#: src/Tribe/Views/V2/month-view-demo-template-tags.php:233
-msgid "North Sydney Meetup"
-msgstr ""
-
-#: src/Tribe/Views/V2/month-view-demo-template-tags.php:242
-msgid "HackNight #CodeforthePeople"
-msgstr ""
-
-#: src/Tribe/Views/V2/month-view-demo-template-tags.php:251
-msgid "Winnipeg WordPress Meetup"
-msgstr ""
-
-#: src/Tribe/Views/V2/month-view-demo-template-tags.php:260
-msgid "Hannover WordPress Meetup"
-msgstr ""
-
-#: src/Tribe/Views/V2/month-view-demo-template-tags.php:268
-msgid "Taco Tuesdays!"
+#. translators: the placeholder is for the date range start, e.g. "Now" or
+#. "October 23".
+#: src/Tribe/Views/V2/Views/List_Behavior.php:127
+msgctxt "The datepicker range definition when no events are found."
+msgid "%s onwards"
 msgstr ""
 
 #: src/Tribe/iCal.php:53
@@ -6998,6 +6986,7 @@ msgid ""
 msgstr ""
 
 #: src/functions/template-tags/venue.php:852
+#: src/views/v2/day/event/venue.php:23 src/views/v2/list/event/venue.php:23
 msgctxt "Address separator"
 msgid ", "
 msgstr ""
@@ -7050,7 +7039,7 @@ msgstr ""
 msgid "Next %s"
 msgstr ""
 
-#: src/views/modules/bar.php:38 src/views/v2/components/events-bar.php:22
+#: src/views/modules/bar.php:38 src/views/v2/components/events-bar.php:24
 msgid "%s Search and Views Navigation"
 msgstr ""
 
@@ -7075,7 +7064,7 @@ msgstr ""
 msgid "Find %s"
 msgstr ""
 
-#: src/views/modules/bar.php:86 src/views/v2/components/events-bar/views.php:29
+#: src/views/modules/bar.php:86 src/views/v2/components/events-bar/views.php:35
 msgid "%s Views Navigation"
 msgstr ""
 
@@ -7128,7 +7117,11 @@ msgstr ""
 msgid "Enter Keyword. Search for %s by Keyword."
 msgstr ""
 
-#: src/views/v2/components/read-more.php:21
+#: src/views/v2/components/events-bar.php:23
+msgid "Views Navigation"
+msgstr ""
+
+#: src/views/v2/components/read-more.php:24
 msgid "Continue Reading"
 msgstr ""
 
@@ -7154,21 +7147,23 @@ msgstr ""
 #: src/views/v2/list/event/date.php:28 src/views/v2/list/event/date.php:32
 #: src/views/v2/month/calendar-body/day/calendar-events/calendar-event/date.php:24
 #: src/views/v2/month/calendar-body/day/calendar-events/calendar-event/date.php:25
-#: src/views/v2/month/calendar-body/day/multiday-events/multiday-event.php:81
-#: src/views/v2/month/calendar-body/day/multiday-events/multiday-event.php:82
+#: src/views/v2/month/calendar-body/day/multiday-events/multiday-event.php:99
+#: src/views/v2/month/calendar-body/day/multiday-events/multiday-event.php:100
+#: src/views/v2/month/calendar-body/day/multiday-events/multiday-event.php:114
+#: src/views/v2/month/calendar-body/day/multiday-events/multiday-event.php:115
 #: src/views/v2/month/mobile-events/mobile-day/mobile-event/date.php:27
 #: src/views/v2/month/mobile-events/mobile-day/mobile-event/date.php:28
 #: src/views/v2/month/mobile-events/mobile-day/mobile-event/date.php:32
 msgid "Featured"
 msgstr ""
 
-#: src/views/v2/day/top-bar/datepicker.php:41
-#: src/views/v2/list/top-bar/datepicker.php:93
-#: src/views/v2/month/top-bar/datepicker.php:36
+#: src/views/v2/day/top-bar/datepicker.php:46
+#: src/views/v2/list/top-bar/datepicker.php:67
+#: src/views/v2/month/top-bar/datepicker.php:43
 msgid "Select date."
 msgstr ""
 
-#: src/views/v2/day.php:28 src/views/v2/list.php:30 src/views/v2/month.php:27
+#: src/views/v2/day.php:33 src/views/v2/list.php:34 src/views/v2/month.php:33
 msgid "Loading..."
 msgstr ""
 
@@ -7182,11 +7177,8 @@ msgstr ""
 msgid "Previous %1$s"
 msgstr ""
 
-#: src/views/v2/list/top-bar/datepicker.php:62
-msgid "Now"
-msgstr ""
-
 #: src/views/v2/month/calendar-body/day/more-events.php:35
+#: src/views/v2/month/mobile-events/mobile-day/more-events.php:33
 msgid "+ %d More"
 msgid_plural "+ %d More"
 msgstr[0] ""
