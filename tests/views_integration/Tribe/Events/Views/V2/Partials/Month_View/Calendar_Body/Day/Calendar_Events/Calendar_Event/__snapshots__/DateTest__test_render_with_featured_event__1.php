@@ -7,8 +7,8 @@
 		</em>
 		<time datetime="13:01">
 		1:01 pm	</time>
-	<span class="tribe-events-calendar-month__calendar-event-datetime-separator"> - </span>
-	<time datetime="17:01">
-		5:01 pm	</time>
-	</div>
+			<span class="tribe-events-calendar-month__calendar-event-datetime-separator"> - </span>
+		<time datetime="17:01">
+			5:01 pm		</time>
+		</div>
 ';
