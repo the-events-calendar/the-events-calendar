@@ -605,6 +605,8 @@ class View implements View_Interface {
 
 		if ( $is_featured = tribe_is_truthy( $this->context->get( 'featured', false ) ) ) {
 			$query_args['featured'] = $is_featured;
+		} else {
+			unset( $query_args['featured'] );
 		}
 
 		/**
@@ -887,6 +889,82 @@ class View implements View_Interface {
 	}
 
 	/**
+	 * Sets up the View repository arguments from the View context or a provided Context object.
+	 *
+	 * @since 4.9.3
+	 *
+	 * @param \Tribe__Context|null $context A context to use to setup the args, or `null` to use the View Context.
+	 *
+	 * @return array The arguments, ready to be set on the View repository instance.
+	 */
+	protected function setup_repository_args( \Tribe__Context $context = null ) {
+		$context = null !== $context ? $context : $this->context;
+
+		$context_arr = $context->to_array();
+
+		$args = [
+			'posts_per_page'       => $context_arr['events_per_page'],
+			'paged'                => max( Arr::get_first_set( array_filter( $context_arr ), [
+				'paged',
+				'page',
+			], 1 ), 1 ),
+			'search'               => $context->get( 'keyword', '' ),
+			'hidden_from_upcoming' => false,
+		];
+
+		// Set's up category URL for all views.
+		if ( ! empty( $context_arr[ TEC::TAXONOMY ] ) ) {
+			$args[ TEC::TAXONOMY ] = $context_arr[ TEC::TAXONOMY ];
+		}
+
+		// Setup featured only when set to true.
+		if ( $is_featured = tribe_is_truthy( $this->context->get( 'featured', false ) ) ) {
+			$args['featured'] = $is_featured;
+		} else {
+			unset( $args['featured'] );
+		}
+
+
+		return $args;
+	}
+
+	/**
+	 * Filters the current URL returned for a specific View.
+	 *
+	 * @since 4.9.3
+	 *
+	 * @param  bool $canonical Whether the normal or canonical version of the next URL is being requested.
+	 * @param string $url The previous URL, this could be an empty string if the View does not have a next.
+	 *
+	 * @return string The filtered previous URL.
+	 */
+	protected function filter_view_url( $canonical, $url ) {
+		/**
+		 * Filters the URL returned for a View.
+		 *
+		 * @since 4.9.3
+		 *
+		 * @param string         $url       The View current URL.
+		 * @param bool           $canonical Whether the URL is a canonical one or not.
+		 * @param View_Interface $this      This view instance.
+		 */
+		$url = apply_filters( 'tribe_events_views_v2_view_url', $url, $canonical, $this );
+
+		/**
+		 * Filters the URL returned for a specific View.
+		 *
+		 * @since TBD
+		 *
+		 * @param string         $url       The View current URL.
+		 * @param bool           $canonical Whether the URL is a canonical one or not.
+		 * @param View_Interface $this      This view instance.
+		 */
+		$url = apply_filters( "tribe_events_views_v2_view_{$this->slug}_url", $url, $canonical, $this );
+
+		return $url;
+	}
+
+	/**
 	 * Filters the previous (page, event, etc.) URL returned for a specific View.
 	 *
 	 * @since 4.9.3
@@ -954,79 +1032,6 @@ class View implements View_Interface {
 		 * @param View_Interface $this      This view instance.
 		 */
 		$url = apply_filters( "tribe_events_views_v2_view_{$this->slug}_next_url", $url, $canonical, $this );
-
-		return $url;
-	}
-
-	/**
-	 * Sets up the View repository arguments from the View context or a provided Context object.
-	 *
-	 * @since 4.9.3
-	 *
-	 * @param \Tribe__Context|null $context A context to use to setup the args, or `null` to use the View Context.
-	 *
-	 * @return array The arguments, ready to be set on the View repository instance.
-	 */
-	protected function setup_repository_args( \Tribe__Context $context = null ) {
-		$context = null !== $context ? $context : $this->context;
-
-		$context_arr = $context->to_array();
-
-		$args = [
-			'posts_per_page'       => $context_arr['events_per_page'],
-			'paged'                => max( Arr::get_first_set( array_filter( $context_arr ), [
-				'paged',
-				'page',
-			], 1 ), 1 ),
-			'search'               => $context->get( 'keyword', '' ),
-			'hidden_from_upcoming' => false,
-		];
-
-		// Set's up category URL for all views.
-		if ( ! empty( $context_arr[ TEC::TAXONOMY ] ) ) {
-			$args[ TEC::TAXONOMY ] = $context_arr[ TEC::TAXONOMY ];
-		}
-
-		// Setup featured only when set to true.
-		if ( $is_featured = tribe_is_truthy( $context->get( 'featured', false ) ) ) {
-			$args['featured'] = $is_featured;
-		}
-
-		return $args;
-	}
-
-	/**
-	 * Filters the current URL returned for a specific View.
-	 *
-	 * @since 4.9.3
-	 *
-	 * @param  bool $canonical Whether the normal or canonical version of the next URL is being requested.
-	 * @param string $url The previous URL, this could be an empty string if the View does not have a next.
-	 *
-	 * @return string The filtered previous URL.
-	 */
-	protected function filter_view_url( $canonical, $url ) {
-		/**
-		 * Filters the URL returned for a View.
-		 *
-		 * @since 4.9.3
-		 *
-		 * @param string         $url       The View current URL.
-		 * @param bool           $canonical Whether the URL is a canonical one or not.
-		 * @param View_Interface $this      This view instance.
-		 */
-		$url = apply_filters( 'tribe_events_views_v2_view_url', $url, $canonical, $this );
-
-		/**
-		 * Filters the URL returned for a specific View.
-		 *
-		 * @since TBD
-		 *
-		 * @param string         $url       The View current URL.
-		 * @param bool           $canonical Whether the URL is a canonical one or not.
-		 * @param View_Interface $this      This view instance.
-		 */
-		$url = apply_filters( "tribe_events_views_v2_view_{$this->slug}_url", $url, $canonical, $this );
 
 		return $url;
 	}
@@ -1317,7 +1322,7 @@ class View implements View_Interface {
 			remove_filter( 'document_title_parts', [ $title_filter, 'filter_document_title_parts' ] );
 		}
 
-		$slug    = $this->get_slug();
+		$slug = $this->get_slug();
 
 		/**
 		 * Filters the title for all views.
