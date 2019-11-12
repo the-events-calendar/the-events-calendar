@@ -278,7 +278,6 @@ tribe.events.views.manager = {};
 		var formData = Qs.parse( $form.serialize() );
 
 		var data = {
-			url: window.location.href,
 			view_data: formData['tribe-events-views'],
 			_wpnonce: nonce
 		};
