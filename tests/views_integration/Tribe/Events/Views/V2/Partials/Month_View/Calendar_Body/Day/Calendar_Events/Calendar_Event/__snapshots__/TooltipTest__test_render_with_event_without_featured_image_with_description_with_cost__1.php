@@ -4,7 +4,23 @@
 		id="tribe-events-tooltip-content-8"
 		role="tooltip"
 	>
-				<div class="tribe-events-calendar-month__calendar-event-tooltip-description tribe-common-b3">
+				<div class="tribe-events-calendar-month__calendar-event-tooltip-datetime">
+		<time datetime="13:04">
+		1:04 pm	</time>
+			<span class="tribe-events-calendar-month__calendar-event-tooltip-datetime-separator"> - </span>
+		<time datetime="17:04">
+			5:04 pm		</time>
+		</div>
+		<h3 class="tribe-events-calendar-month__calendar-event-tooltip-title tribe-common-h7">
+	<a
+		href="http://test.tri.be/?tribe_events=single-event-1"
+		title="Single Event 1"
+		rel="bookmark"
+		class="tribe-events-calendar-month__calendar-event-tooltip-title-link tribe-common-anchor-thin"
+	>
+		Single Event 1	</a>
+</h3>
+		<div class="tribe-events-calendar-month__calendar-event-tooltip-description tribe-common-b3">
 	Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
 		<div class="tribe-events-c-small-cta tribe-common-b3 tribe-events-calendar-month__calendar-event-tooltip-cost">
 	<span class="tribe-events-c-small-cta__price">
