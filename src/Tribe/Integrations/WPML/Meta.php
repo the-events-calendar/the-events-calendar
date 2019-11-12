@@ -99,7 +99,7 @@ class Tribe__Events__Integrations__WPML__Meta {
 	 * @param object $q
 	 */
 	public function include_all_languages( $q ) {
-		$keys       = array( '_eventvenueid_in', '_eventorganizerid_im' );
+		$keys       = array( '_eventvenueid_in', '_eventorganizerid_in' );
 		$meta_query = $q->get( 'meta_query' );
 
 		foreach ( $keys as $key ) {
