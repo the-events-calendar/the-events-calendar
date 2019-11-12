@@ -220,6 +220,9 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - Fixed issue where DD/MM/YYYY style dates were not supported during Event Aggregator imports [117691]
 * Fix - Resolved issue where non YYYY-MM-DD datepicker formats resulted in unpredictable behavior while navigating views [116086, 126472, 117909]
 * Fix - Fixed date issue where the event date was defaulting to current date when editing an event with the block editor [132735]
+* Tweak - Added additional datepicker formats for simpler selection [116086, 126472, 117909]
+* Tweak - Updated the Repository implementation to handle more complex `orderby` constructs [133303]
+* Tweak - Added the `Tribe__Date_Utils::get_week_start_end` method [133303]
 * Tweak - added the `tribe_events_suppress_query_filters` filter to allow suppressing `Tribe__Events__Query` filters [134827]
 * Language - 5 new strings added, 23 updated, 2 fuzzied, and 13 obsoleted
 
