@@ -36,9 +36,9 @@
 
 
 	
+<article  class="tribe-events-calendar-month__calendar-event post-8 tribe_events type-tribe_events status-publish hentry entry" >
 
 	
-<article  class="tribe-events-calendar-month__calendar-event post-8 tribe_events type-tribe_events status-publish hentry entry" >
 	<div class="tribe-events-calendar-month__calendar-event-details">
 
 		<div class="tribe-events-calendar-month__calendar-event-datetime">
@@ -65,9 +65,9 @@
 
 
 	
+<article  class="tribe-events-calendar-month__calendar-event post-9 tribe_events type-tribe_events status-publish hentry entry" >
 
 	
-<article  class="tribe-events-calendar-month__calendar-event post-9 tribe_events type-tribe_events status-publish hentry entry" >
 	<div class="tribe-events-calendar-month__calendar-event-details">
 
 		<div class="tribe-events-calendar-month__calendar-event-datetime">
