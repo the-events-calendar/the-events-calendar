@@ -190,7 +190,7 @@ $display_tab_fields = Tribe__Main::array_insert_before_key(
 	]
 );
 
-if ( Tribe__Events__Main::instance()->show_upgrade() ) {
+if ( tribe( 'tec.main' )->show_upgrade() ) {
 	$display_tab_fields = Tribe__Main::array_insert_before_key(
 		'tribeEventsDateFormatSettingsTitle',
 		$display_tab_fields,

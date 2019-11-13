@@ -1178,6 +1178,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 		/**
 		 * should we show the upgrade nags?
+		 *
+		 * @since TBD
+		 *
+		 * @return boolean
 		 */
 		public function show_upgrade() {
 			$show_tab = current_user_can( 'activate_plugins' );
@@ -1197,7 +1201,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			/**
 			 * This constant was introduced in the View Alpha
 			 * for agencies or others who'd like to hide the V2 Views upgrade prompt.
-			 * let them set a constant in wp-config that will be respected
+			 * Let them set a constant in wp-config that will be respected.
 			 */
 			if ( defined( 'TRIBE_HIDE_V2_VIEWS_UPGRADE' ) ) {
 				return false;
@@ -1208,6 +1212,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 		/**
 		 * Create the upgrade tab
+		 *
+		 * @since TBD
 		 */
 		public function do_upgrade_tab() {
 			if ( ! $this->show_upgrade() ) {

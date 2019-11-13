@@ -10,7 +10,7 @@ tribe.upgradePage =  tribe.upgradePage || {};
 				return;
 			}
 
-			$('h1').append( '<button id="upgrade-button">✨ Upgrade your calendar views</button>' );
+			$( '.tribe_settings > h1' ).append( '<button id="upgrade-button">✨ Upgrade your calendar views</button>' );
 			$( document ).on( 'click', '#upgrade-button', function( e ) {
 				document.location = '?page=tribe-common&tab=upgrade&post_type=tribe_events';
 			} );
