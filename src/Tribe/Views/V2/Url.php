@@ -320,7 +320,7 @@ class Url {
 	 * Differentiates two URLs with knowledge of rewrite rules to check if, resolved request arguments wise, they are
 	 * the same or not.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @param string $url_a  The first URL to check.
 	 * @param string $url_b  The second URL to check.

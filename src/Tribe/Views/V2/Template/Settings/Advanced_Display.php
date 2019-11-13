@@ -4,7 +4,7 @@
  *
  * Can be changed on Events > Settings > Display > Advanced Settings
  *
- * @since   TBD
+ * @since   4.9.11
  *
  * @package Tribe\Events\Views\V2
  */
@@ -17,7 +17,7 @@ class Advanced_Display {
 	/**
 	 * Key for the Before HTML settings on the tribe option.
 	 *
-	 * @since  TBD
+	 * @since  4.9.11
 	 *
 	 * @var string
 	 */
@@ -26,7 +26,7 @@ class Advanced_Display {
 	/**
 	 * Key for the After HTML settings on the tribe option.
 	 *
-	 * @since  TBD
+	 * @since  4.9.11
 	 *
 	 * @var string
 	 */
@@ -36,7 +36,7 @@ class Advanced_Display {
 	 * Fetches from the tribe options setting the string for the before events,
 	 * applies all the required methods for proper usage and returns it.
 	 *
-	 * @since  TBD
+	 * @since  4.9.11
 	 *
 	 * @param  View_Interface|null $view Instance of the view we are getting this for.
 	 *
@@ -54,7 +54,7 @@ class Advanced_Display {
 		 * remove the backwards compatibility here.
 		 *
 		 * @since  ???  Unsure which verison this was introduced to the codebase.
-		 * @since  TBD  Moved to the a class method in V2, and removed Loader HTML.
+		 * @since  4.9.11  Moved to the a class method in V2, and removed Loader HTML.
 		 *
 		 * @param  string              $before HTML after passing all the params.
 		 * @param  View_Interface|null $view   Instance of the view we are getting this for.
@@ -65,7 +65,7 @@ class Advanced_Display {
 		 * Filter imported from V1 of Views, kept since there was no requirement to
 		 * remove the backwards compatibility here.
 		 *
-		 * @since  TBD
+		 * @since  4.9.11
 		 *
 		 * @param  string              $before  HTML after passing all the params.
 		 * @param  View_Interface|null $view    Instance of the view we are getting this for.
@@ -79,7 +79,7 @@ class Advanced_Display {
 	 * Fetches from the tribe options setting the string for after the events,
 	 * applies all the required methods for proper usage and returns it.
 	 *
-	 * @since  TBD
+	 * @since  4.9.11
 	 *
 	 * @param  View_Interface|null $view Instance of the view we are getting this for.
 	 *
@@ -97,7 +97,7 @@ class Advanced_Display {
 		 * remove the backwards compatibility here.
 		 *
 		 * @since  ???  Unsure which verison this was introduced to the codebase.
-		 * @since  TBD  Moved to the a class method in V2.
+		 * @since  4.9.11  Moved to the a class method in V2.
 		 *
 		 * @param  string              $after  HTML after passing all the params.
 		 * @param  View_Interface|null $view   Instance of the view we are getting this for.
@@ -108,7 +108,7 @@ class Advanced_Display {
 		 * Filter imported from V1 of Views, kept since there was no requirement to
 		 * remove the backwards compatibility here.
 		 *
-		 * @since  TBD
+		 * @since  4.9.11
 		 *
 		 * @param  string              $after HTML after passing all the params.
 		 * @param  View_Interface|null $view  Instance of the view we are getting this for.

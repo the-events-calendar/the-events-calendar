@@ -86,7 +86,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @see   tribe_events_get_the_excerpt
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @return void
 	 */
@@ -97,7 +97,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Fires to deregister v1 assets correctly.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @return void
 	 */
@@ -113,7 +113,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Fires to deregister v1 assets correctly for shortcodes.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @return void
 	 */
@@ -333,7 +333,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Filters the `admin_post_thumbnail_html` to add image aspect ratio recommendation.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @param string $html The HTML for the featured image box.
 	 *
@@ -351,7 +351,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Suppress v1 query filters on a per-query basis, if required.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @param \WP_Query $query The current WordPress query object.
 	 */
@@ -367,7 +367,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Fires on the `template_redirect` action to allow the template bootstrap to conditionally redirect, if required.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 */
 	public function on_template_redirect() {
 		$this->container->make( Template_Bootstrap::class )->on_template_redirect();

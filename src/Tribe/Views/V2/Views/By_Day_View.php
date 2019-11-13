@@ -66,7 +66,7 @@ abstract class By_Day_View extends View {
 	 * By_Day_View constructor.
 	 *
 	 * @since 4.9.7
-	 * @since TBD Added inheritance from View object and `$messages` parameter.
+	 * @since 4.9.11 Added inheritance from View object and `$messages` parameter.
 	 *
 	 * @param Messages $messages An instance of the view messages handler.
 	 * @param Stack    $stack    An instance of the stack handler.
@@ -308,7 +308,7 @@ abstract class By_Day_View extends View {
 	 * Note there's a fallacy in this method: if an event appears once and never again, in any of the days, then it
 	 * will never be implied. This is an issue, but this provides a close enough solution on most scenarios.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @param array $grid_days The current array of grid days.
 	 *
