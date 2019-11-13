@@ -1192,7 +1192,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 * Normally it will only show if the current user has the "activate_plugins" capability
 			 * and there are some currently-activated premium plugins.
 			 *
-			 * @var bool
+			 * @since TBD
+			 * 
+			 * @param bool $show_tab True or False for showing the Upgrade Tab.
 			 */
 			if ( ! apply_filters( 'tribe_events_show_upgrade_tab', $show_tab ) ) {
 				return false;
