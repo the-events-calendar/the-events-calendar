@@ -50,7 +50,7 @@
 				<p><?php esc_html_e( 'We\'ve redesigned all of the calendar views to give you and your users a better experience. Beyond a brand new look, we\'ve optimized each look for mobile and introduced key improvements for each view.', 'tribe-common' ); ?></p>
 
 				<button type="button"><?php esc_html_e( 'Start your update', 'tribe-common' ); ?></button>
-				<a href="<?php echo esc_url( '#tbd' ); ?>" target="_blank" rel="noopener"><?php esc_html_e( 'Learn more about the update', 'tribe-common' ); ?></a>
+				<a href="http://m.tri.be/updated-views" target="_blank" rel="noopener"><?php esc_html_e( 'Learn more about the update', 'tribe-common' ); ?></a>
 
 				<div class="step"><?php esc_html_e( 'Step 1 of 2', 'tribe-common' ); ?></div>
 			</div>
@@ -88,7 +88,7 @@
 						<h4><span class="dashicons dashicons-warning"></span>
 						<?php echo sprintf(
 							esc_html__( 'We recommend making this update on a %1$sstaging site%2$s.', 'tribe-common' ),
-							'<a href="' . esc_url( '#tbd' ) . '">',
+							'<a href="http://m.tri.be/kb-staging" target="_blank">',
 							'</a>'
 						); ?></h4>
 						<p><?php esc_html_e( 'This is especially true if you have made any code customizations to your calendar', 'tribe-common' ); ?></p>
