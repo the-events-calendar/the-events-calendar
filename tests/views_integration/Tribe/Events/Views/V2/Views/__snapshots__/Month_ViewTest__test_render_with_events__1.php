@@ -446,7 +446,7 @@
 
 		<div class="tribe-events-calendar-month__calendar-event-datetime">
 			<em
-			class="tribe-events-calendar-month__calendar-event-datetime-featured tribe-common-svgicon tribe-common-svgicon--featured"
+			class="tribe-events-calendar-month__calendar-event-datetime-featured-icon tribe-common-svgicon tribe-common-svgicon--featured"
 			aria-label="Featured"
 			title="Featured"
 		>
