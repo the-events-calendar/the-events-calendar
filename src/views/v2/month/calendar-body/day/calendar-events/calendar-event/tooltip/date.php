@@ -11,7 +11,8 @@
  *
  * @version TBD
  *
- * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
+ * @var WP_Post $event        The event post object with properties added by the `tribe_get_event` function.
+ * @var obj     $date_formats Object containing the date formats.
  *
  * @see tribe_get_event() For the format of the event object.
  */
@@ -22,7 +23,7 @@ $display_end_date = $event->dates->start->format( 'H:i' ) !== $event->dates->end
 <div class="tribe-events-calendar-month__calendar-event-tooltip-datetime">
 	<?php if ( ! empty( $event->featured ) ) : ?>
 		<em
-			class="tribe-events-calendar-month__calendar-event-tooltip-datetime-featured tribe-common-svgicon tribe-common-svgicon--featured"
+			class="tribe-events-calendar-month__calendar-event-tooltip-datetime-featured-icon tribe-common-svgicon tribe-common-svgicon--featured"
 			aria-label="<?php esc_attr_e( 'Featured', 'the-events-calendar' ) ?>"
 			title="<?php esc_attr_e( 'Featured', 'the-events-calendar' ) ?>"
 		>
@@ -32,7 +33,7 @@ $display_end_date = $event->dates->start->format( 'H:i' ) !== $event->dates->end
 		<?php echo esc_html( $event->dates->start->format( $time_format ) ); ?>
 	</time>
 	<?php if ( $display_end_date ) : ?>
-		<span class="tribe-events-calendar-month__calendar-event-tooltip-datetime-separator"> - </span>
+		<span class="tribe-events-calendar-month__calendar-event-tooltip-datetime-separator"><?php echo esc_html( $date_formats->time_range_separator ); ?></span>
 		<time datetime="<?php echo esc_attr($event->dates->end->format( 'H:i' ) ); ?>">
 			<?php echo esc_html( $event->dates->end->format( $time_format ) ); ?>
 		</time>
