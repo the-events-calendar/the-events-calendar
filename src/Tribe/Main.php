@@ -828,7 +828,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_filter( 'tribe_general_settings_tab_fields', array( $this, 'general_settings_tab_fields' ) );
 			add_filter( 'tribe_display_settings_tab_fields', array( $this, 'display_settings_tab_fields' ) );
 			add_filter( 'tribe_settings_url', array( $this, 'tribe_settings_url' ) );
-			add_action( 'tribe_settings_do_tabs', array( $this, 'do_upgrade_tab' ) );
+			add_action( 'tribe_settings_do_tabs', [ $this, 'do_upgrade_tab' ] );
 
 			// Setup Help Tab texting
 			add_action( 'tribe_help_pre_get_sections', array( $this, 'add_help_section_feature_box_content' ) );
@@ -1262,14 +1262,16 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			/**
 			 * Allows the fields displayed in the upgrade tab to be modified.
 			 *
-			 * @var array
+			 * @since TBD
+			 * 
+			 * @param array $upgrade_tab Array of fields used to setup the Upgrade Tab.
 			 */
 			$upgrade_fields = apply_filters( 'tribe_upgrade_fields', $upgrade_tab );
 
 			new Tribe__Settings_Tab( 'upgrade', esc_html__( 'Upgrade', 'tribe-common' ), array(
 				'priority'      => 100,
 				'fields'        => $upgrade_fields,
-				'network_admin' => is_network_admin() ? true : false,
+				'network_admin' => is_network_admin(),
 				'show_save'     => true,
 			) );
 		}

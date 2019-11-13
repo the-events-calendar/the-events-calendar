@@ -6,6 +6,8 @@
 			<?php
 			/**
 			 * Fires at the top of the upgrade complete on Settings > Upgrade
+			 *
+			 * @since TBD
 			 */
 			do_action( 'tribe_upgrade_complete_before' );
 			?>
@@ -25,6 +27,8 @@
 			<?php
 			/**
 			 * Fires at the bottom of the upgrade complete on Settings > Upgrade
+			 *
+			 * @since TBD
 			 */
 			do_action( 'tribe_upgrade_complete_after' );
 			?>
@@ -36,6 +40,8 @@
 			<?php
 			/**
 			 * Fires at the top of the upgrade step 1 on Settings > Upgrade
+			 *
+			 * @since TBD
 			 */
 			do_action( 'tribe_upgrade_step1_before' );
 			?>
@@ -60,6 +66,8 @@
 			<?php
 			/**
 			 * Fires at the bottom of the upgrade step 1 on Settings > Upgrade
+			 *
+			 * @since TBD
 			 */
 			do_action( 'tribe_upgrade_step1_after' );
 			?>
@@ -69,6 +77,8 @@
 			<?php
 			/**
 			 * Fires at the top of the upgrade step 2 on Settings > Upgrade
+			 *
+			 * @since TBD
 			 */
 			do_action( 'tribe_upgrade_step2_before' );
 			?>
@@ -106,6 +116,8 @@
 			<?php
 			/**
 			 * Fires at the bottom of the upgrade step 2 on Settings > Upgrade
+			 *
+			 * @since TBD
 			 */
 			do_action( 'tribe_upgrade_step2_after' );
 			?>
