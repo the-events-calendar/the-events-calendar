@@ -217,6 +217,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 = [4.9.11] 2019-11-12 =
 
+* Feature - Opt-in to the newly redesigned views
 * Fix - Fixed issue where DD/MM/YYYY style dates were not supported during Event Aggregator imports [117691]
 * Fix - Resolved issue where non YYYY-MM-DD datepicker formats resulted in unpredictable behavior while navigating views [116086, 126472, 117909]
 * Fix - Fixed date issue where the event date was defaulting to current date when editing an event with the block editor [132735]
