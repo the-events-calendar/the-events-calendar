@@ -47,9 +47,9 @@
 			?>
 
 			<div class="content-container">
-				<span>✨ <?php esc_html_e( 'A new look for views is here!', 'the-events-calendar' ); ?></span>
+				<span>✨ <?php esc_html_e( 'A new look for The Events Calendar is here!', 'the-events-calendar' ); ?></span>
 
-				<h3><?php esc_html_e( 'Upgrade your calendar views.', 'the-events-calendar' ); ?></h3>
+				<h3><?php esc_html_e( 'Upgrade your calendar.', 'the-events-calendar' ); ?></h3>
 
 				<p><?php esc_html_e( 'We\'ve redesigned all of the calendar views to give you and your users a better experience. Beyond a brand new look, we\'ve optimized each look for mobile and introduced key improvements for each view.', 'the-events-calendar' ); ?></p>
 
