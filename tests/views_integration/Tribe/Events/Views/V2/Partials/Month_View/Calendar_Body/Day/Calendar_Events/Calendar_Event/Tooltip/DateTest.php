@@ -25,4 +25,30 @@ class DateTest extends HtmlPartialTestCase {
 		$event = $this->get_mock_event( 'events/featured/1.json' );
 		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => $event ] ) );
 	}
+
+	/**
+	 * Test render with event same start/end time
+	 */
+	public function test_render_with_event_same_start_end_time() {
+		$event_data = [
+			'ID'                     => 23,
+			'start_date'             => '2018-01-01',
+			'start_date_hour'        => '13',
+			'start_date_minutes'     => '00',
+			'start_date_seconds'     => '00',
+			'start_date_utc_hour'    => '17',
+			'start_date_utc_minutes' => '00',
+			'start_date_utc_seconds' => '00',
+			'end_date'               => '2018-01-01',
+			'end_date_hour'          => '13',
+			'end_date_minutes'       => '00',
+			'end_date_seconds'       => '00',
+			'end_date_utc_hour'      => '17',
+			'end_date_utc_minutes'   => '00',
+			'end_date_utc_seconds'   => '00',
+		];
+		$event = $this->get_mock_event( 'events/single/2.template.json', $event_data );
+
+		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => $event ] ) );
+	}
 }
