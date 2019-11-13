@@ -1237,9 +1237,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			);
 
 			/**
-			 * Include Upgrade tab Assets here
+			 * Get Upgrade tab template.
 			 */
+			ob_start();
 			include_once $this->plugin_path . 'src/admin-views/tribe-options-upgrade.php';
+			$upgrade_tab_html = ob_get_clean();
 
 			$upgrade_tab = [
 				'info-box-description' => [

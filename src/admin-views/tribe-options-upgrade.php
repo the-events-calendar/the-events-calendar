@@ -1,5 +1,3 @@
-<?php ob_start(); ?>
-
 <div id="modern-tribe-info" class="tribe-upgrade">
 	<?php
 	if ( tribe_events_views_v2_is_enabled() ) {
@@ -117,5 +115,3 @@
 	?>
 
 </div>
-
-<?php $upgrade_tab_html = ob_get_clean(); ?>
