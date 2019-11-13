@@ -1233,6 +1233,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 						'name' => 'tribe_upgrade',
 						'data' => [
 							'v2_is_enabled' => tribe_events_views_v2_is_enabled(),
+							'button_text' => __( 'Upgrade your calendar views', 'the-events-calendar' ),
 						],
 					],
 				]

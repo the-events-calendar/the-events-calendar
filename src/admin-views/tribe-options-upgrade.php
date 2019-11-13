@@ -13,15 +13,15 @@
 			?>
 
 			<div class="content-container">
-				<h3><?php esc_html_e( 'You\'re all set!', 'tribe-common' ); ?></h3>
+				<h3><?php esc_html_e( 'You\'re all set!', 'the-events-calendar' ); ?></h3>
 
-				<p><?php esc_html_e( 'Go checkout your new views! Remember, each view has been updated so feel free to enable views you may not have been using. If necessary, you can revert back to the legacy views in the Display tab of your Event Settings.', 'tribe-common' ); ?></p>
+				<p><?php esc_html_e( 'Go checkout your new views! Remember, each view has been updated so feel free to enable views you may not have been using. If necessary, you can revert back to the legacy views in the Display tab of your Event Settings.', 'the-events-calendar' ); ?></p>
 
-				<a class="button" href="<?php echo esc_url( Tribe__Events__Main::instance()->getLink() ); ?>"><?php esc_html_e( 'View Calendar', 'tribe-common' ); ?></a>
+				<a class="button" href="<?php echo esc_url( Tribe__Events__Main::instance()->getLink() ); ?>"><?php esc_html_e( 'View Calendar', 'the-events-calendar' ); ?></a>
 			</div>
 
 			<div class="image-container">
-				<img class="screenshot" src="<?php echo esc_url( plugins_url( 'resources/images/upgrade-views-success.png', dirname( __FILE__ ) ) ); ?>" alt="<?php esc_attr_e( 'screenshot of updated calendar views', 'tribe-common' ); ?>" />
+				<img class="screenshot" src="<?php echo esc_url( plugins_url( 'resources/images/upgrade-views-success.png', dirname( __FILE__ ) ) ); ?>" alt="<?php esc_attr_e( 'screenshot of updated calendar views', 'the-events-calendar' ); ?>" />
 			</div>
 
 			<?php
@@ -47,20 +47,20 @@
 			?>
 
 			<div class="content-container">
-				<span>✨ <?php esc_html_e( 'A new look for views is here!', 'tribe-common' ); ?></span>
+				<span>✨ <?php esc_html_e( 'A new look for views is here!', 'the-events-calendar' ); ?></span>
 
-				<h3><?php esc_html_e( 'Upgrade your calendar views.', 'tribe-common' ); ?></h3>
+				<h3><?php esc_html_e( 'Upgrade your calendar views.', 'the-events-calendar' ); ?></h3>
 
-				<p><?php esc_html_e( 'We\'ve redesigned all of the calendar views to give you and your users a better experience. Beyond a brand new look, we\'ve optimized each look for mobile and introduced key improvements for each view.', 'tribe-common' ); ?></p>
+				<p><?php esc_html_e( 'We\'ve redesigned all of the calendar views to give you and your users a better experience. Beyond a brand new look, we\'ve optimized each look for mobile and introduced key improvements for each view.', 'the-events-calendar' ); ?></p>
 
-				<button type="button"><?php esc_html_e( 'Start your update', 'tribe-common' ); ?></button>
-				<a href="http://m.tri.be/updated-views" target="_blank" rel="noopener"><?php esc_html_e( 'Learn more about the update', 'tribe-common' ); ?></a>
+				<button type="button"><?php esc_html_e( 'Start your update', 'the-events-calendar' ); ?></button>
+				<a href="http://m.tri.be/updated-views" target="_blank" rel="noopener"><?php esc_html_e( 'Learn more about the update', 'the-events-calendar' ); ?></a>
 
-				<div class="step"><?php esc_html_e( 'Step 1 of 2', 'tribe-common' ); ?></div>
+				<div class="step"><?php esc_html_e( 'Step 1 of 2', 'the-events-calendar' ); ?></div>
 			</div>
 
 			<div class="image-container">
-				<img class="screenshot" src="<?php echo esc_url( plugins_url( 'resources/images/upgrade-views-screenshot.png', dirname( __FILE__ ) ) ); ?>" alt="<?php esc_attr_e( 'screenshot of updated calendar views', 'tribe-common' ); ?>" />
+				<img class="screenshot" src="<?php echo esc_url( plugins_url( 'resources/images/upgrade-views-screenshot.png', dirname( __FILE__ ) ) ); ?>" alt="<?php esc_attr_e( 'screenshot of updated calendar views', 'the-events-calendar' ); ?>" />
 			</div>
 
 			<?php
@@ -84,33 +84,33 @@
 			?>
 
 			<div class="content-container">
-				<h3><?php esc_html_e( 'Confirm your update', 'tribe-common' ); ?></h3>
+				<h3><?php esc_html_e( 'Confirm your update', 'the-events-calendar' ); ?></h3>
 
 				<ul>
 					<li>
 						<h4><span class="dashicons dashicons-warning"></span>
-						<?php esc_html_e( 'Existing calendar customizations will be overridden.', 'tribe-common' ); ?></h4>
-						<p><?php esc_html_e( 'If you have any template overrides, custom calendar CSS, or other code customizations to you calendar, those modifications will be overridden by the new views', 'tribe-common' ); ?></p>
+						<?php esc_html_e( 'Existing calendar customizations will be overridden.', 'the-events-calendar' ); ?></h4>
+						<p><?php esc_html_e( 'If you have any template overrides, custom calendar CSS, or other code customizations to you calendar, those modifications will be overridden by the new views', 'the-events-calendar' ); ?></p>
 					</li>
 					<li>
 						<h4><span class="dashicons dashicons-warning"></span>
 						<?php echo sprintf(
-							esc_html__( 'We recommend making this update on a %1$sstaging site%2$s.', 'tribe-common' ),
+							esc_html__( 'We recommend making this update on a %1$sstaging site%2$s.', 'the-events-calendar' ),
 							'<a href="http://m.tri.be/kb-staging" target="_blank">',
 							'</a>'
 						); ?></h4>
-						<p><?php esc_html_e( 'This is especially true if you have made any code customizations to your calendar', 'tribe-common' ); ?></p>
+						<p><?php esc_html_e( 'This is especially true if you have made any code customizations to your calendar', 'the-events-calendar' ); ?></p>
 					</li>
 				</ul>
 
-				<button type="submit"><?php esc_html_e( 'Let\'s go!', 'tribe-common' ); ?></button>
-				<a href="<?php echo esc_url( Tribe__Settings::instance()->get_url() ); ?>" rel="noopener"><?php esc_html_e( 'I\'m not ready', 'tribe-common' ); ?></a>
+				<button type="submit"><?php esc_html_e( 'Let\'s go!', 'the-events-calendar' ); ?></button>
+				<a href="<?php echo esc_url( Tribe__Settings::instance()->get_url() ); ?>" rel="noopener"><?php esc_html_e( 'I\'m not ready', 'the-events-calendar' ); ?></a>
 
-				<div class="step"><?php esc_html_e( 'Step 2 of 2', 'tribe-common' ); ?></div>
+				<div class="step"><?php esc_html_e( 'Step 2 of 2', 'the-events-calendar' ); ?></div>
 			</div>
 
 			<div class="image-container">
-				<img class="screenshot" src="<?php echo esc_url( plugins_url( 'resources/images/upgrade-views-screenshot.png', dirname( __FILE__ ) ) ); ?>" alt="<?php esc_attr_e( 'screenshot of updated calendar views', 'tribe-common' ); ?>" />
+				<img class="screenshot" src="<?php echo esc_url( plugins_url( 'resources/images/upgrade-views-screenshot.png', dirname( __FILE__ ) ) ); ?>" alt="<?php esc_attr_e( 'screenshot of updated calendar views', 'the-events-calendar' ); ?>" />
 			</div>
 
 			<?php
