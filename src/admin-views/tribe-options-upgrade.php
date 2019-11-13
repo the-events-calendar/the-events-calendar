@@ -15,7 +15,7 @@
 			<div class="content-container">
 				<h3><?php esc_html_e( 'You\'re all set!', 'the-events-calendar' ); ?></h3>
 
-				<p><?php esc_html_e( 'Go check out your new view designs! Remember, each view has been updated so feel free to enable views you may not have been using. If necessary, you can revert back to the legacy views in the Display tab of your Event Settings.', 'the-events-calendar' ); ?></p>
+				<p><?php esc_html_e( 'Go check out your new calendar designs! Each calendar view has been updated, so feel free to enable views you may not have been using. If necessary, you can revert back to the legacy calendar views in the Display tab of your Event Settings.', 'the-events-calendar' ); ?></p>
 
 				<a class="button" href="<?php echo esc_url( Tribe__Events__Main::instance()->getLink() ); ?>"><?php esc_html_e( 'View Calendar', 'the-events-calendar' ); ?></a>
 			</div>
@@ -90,7 +90,7 @@
 					<li>
 						<h4><span class="dashicons dashicons-warning"></span>
 						<?php esc_html_e( 'Existing calendar customizations will be overridden.', 'the-events-calendar' ); ?></h4>
-						<p><?php esc_html_e( 'If you have any template overrides, custom calendar CSS, or other code customizations to you calendar, those modifications will be overridden by the new views', 'the-events-calendar' ); ?></p>
+						<p><?php esc_html_e( 'If you have any template overrides, custom calendar CSS, or other code customizations to you calendar, those modifications will be overridden by the new designs.', 'the-events-calendar' ); ?></p>
 					</li>
 					<li>
 						<h4><span class="dashicons dashicons-warning"></span>
@@ -99,7 +99,7 @@
 							'<a href="http://m.tri.be/kb-staging" target="_blank">',
 							'</a>'
 						); ?></h4>
-						<p><?php esc_html_e( 'This is especially true if you have made any code customizations to your calendar', 'the-events-calendar' ); ?></p>
+						<p><?php esc_html_e( 'This is especially true if you have made any code customizations to your calendar.', 'the-events-calendar' ); ?></p>
 					</li>
 				</ul>
 
