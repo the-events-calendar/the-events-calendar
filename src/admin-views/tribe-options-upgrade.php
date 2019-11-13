@@ -15,7 +15,7 @@
 			<div class="content-container">
 				<h3><?php esc_html_e( 'You\'re all set!', 'the-events-calendar' ); ?></h3>
 
-				<p><?php esc_html_e( 'Go checkout your new views! Remember, each view has been updated so feel free to enable views you may not have been using. If necessary, you can revert back to the legacy views in the Display tab of your Event Settings.', 'the-events-calendar' ); ?></p>
+				<p><?php esc_html_e( 'Go check out your new view designs! Remember, each view has been updated so feel free to enable views you may not have been using. If necessary, you can revert back to the legacy views in the Display tab of your Event Settings.', 'the-events-calendar' ); ?></p>
 
 				<a class="button" href="<?php echo esc_url( Tribe__Events__Main::instance()->getLink() ); ?>"><?php esc_html_e( 'View Calendar', 'the-events-calendar' ); ?></a>
 			</div>
