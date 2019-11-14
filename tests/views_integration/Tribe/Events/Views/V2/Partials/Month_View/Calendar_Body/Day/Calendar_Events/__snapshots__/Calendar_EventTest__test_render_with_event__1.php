@@ -1,5 +1,5 @@
 <?php return '
-<article  class="tribe-events-calendar-month__calendar-event post-8 tribe_events type-tribe_events status-publish hentry" >
+<article  class="tribe-events-calendar-month__calendar-event post-8 tribe_events type-tribe_events status-publish hentry entry" >
 
 	
 	<div class="tribe-events-calendar-month__calendar-event-details">
