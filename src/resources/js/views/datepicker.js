@@ -282,8 +282,12 @@ tribe.events.views.datepicker = {};
 	obj.handleMousedown = function( event ) {
 		var $datepickerButton = event.data.target;
 		var state = $datepickerButton.data( 'tribeEventsState' );
-		state.isTarget = true;
-		$datepickerButton.data( 'tribeEventsState', state );
+		var method = $datepickerButton.hasClass( obj.selectors.buttonOpenClass.className() ) ? 'hide' : 'show';
+
+		state.isTarget = false;
+		$datepickerButton
+			.toggleClass( obj.selectors.buttonOpenClass.className() )
+			.data( 'tribeEventsState', state );
 	};
 
 	/**
