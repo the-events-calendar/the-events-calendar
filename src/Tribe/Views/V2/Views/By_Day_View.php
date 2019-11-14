@@ -105,8 +105,9 @@ abstract class By_Day_View extends View {
 
 		try {
 			$grid_start_date = $grid_start->setTime( 0, 0 );
-			$grid_end_date   = $grid_end->setTime( 23, 59, 59 );
-			$days            = new \DatePeriod(
+			// Add a day at the end to pick-up multi-day events starting on the last day.
+			$grid_end_date = $grid_end->setTime( 23, 59, 59 )->add( new \DateInterval( 'P1D' ) );
+			$days          = new \DatePeriod(
 				$grid_start_date,
 				new \DateInterval( 'P1D' ),
 				$grid_end_date
@@ -169,6 +170,10 @@ abstract class By_Day_View extends View {
 		if ( is_array( $this->grid_days_cache ) && count( $this->grid_days_cache ) ) {
 			$this->grid_days_cache = $this->add_implied_events( $this->grid_days_cache );
 		}
+
+		// Drop the last day we've added before.
+		array_pop( $this->grid_days_cache );
+		array_pop( $this->grid_days_found_cache );
 
 		return $this->grid_days_cache;
 	}
