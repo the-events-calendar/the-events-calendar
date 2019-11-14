@@ -225,8 +225,6 @@ tribe.events.views.manager = {};
 		 */
 		document.title = data.title;
 
-		console.log( data.url );
-
 		// Push browser history
 		window.history.pushState( null, data.title, data.url );
 	};
