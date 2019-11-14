@@ -234,7 +234,7 @@
 	>
 		1:00 pm	</time>
 </div>
-				<article  class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-day__event post-7 tribe_events type-tribe_events status-publish hentry entry tribe-events-calendar-day__event--featured" >
+				<article  class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-day__event post-7 tribe_events type-tribe_events status-publish hentry tribe-events-calendar-day__event--featured" >
 	<div class="tribe-events-calendar-day__event-content tribe-common-g-col">
 
 		
@@ -271,7 +271,7 @@
 </article>
 
 			
-												<article  class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-day__event post-8 tribe_events type-tribe_events status-publish hentry entry" >
+												<article  class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-day__event post-8 tribe_events type-tribe_events status-publish hentry" >
 	<div class="tribe-events-calendar-day__event-content tribe-common-g-col">
 
 		
@@ -300,7 +300,7 @@
 </article>
 
 			
-												<article  class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-day__event post-9 tribe_events type-tribe_events status-publish hentry entry" >
+												<article  class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-day__event post-9 tribe_events type-tribe_events status-publish hentry" >
 	<div class="tribe-events-calendar-day__event-content tribe-common-g-col">
 
 		
