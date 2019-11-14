@@ -10,6 +10,7 @@
 namespace Tribe\Events\Views\V2\Views;
 
 use Tribe\Events\Views\V2\Messages;
+use Tribe\Events\Views\V2\Query\Query;
 use Tribe\Events\Views\V2\Utils\Stack;
 use Tribe\Events\Views\V2\View;
 use Tribe\Traits\Cache_User;
@@ -132,33 +133,28 @@ abstract class By_Day_View extends View {
 		$this->warmup_cache( 'grid_days_found', 0, Cache_Listener::TRIGGER_SAVE_POST );
 		$events_per_day = $this->get_events_per_day();
 
+		// @todo @lucatume move this to the event repository?
+		Query::update_period_cache( $grid_start_date, $grid_end_date );
+
 		// phpcs:ignore
 		/** @var \DateTime $day */
 		foreach ( $days as $day ) {
 			$day_string = $day->format( 'Y-m-d' );
 
-			if ( isset( $this->grid_days_cache[ $day_string ] ) ) {
-				continue;
+			$event_ids = array_column( (array) wp_cache_get( $day_string, 'tribe_days' ), 'ID' );
+
+			if ( empty( $event_ids ) ) {
+				$event_ids = [];
 			}
 
-			$start = tribe_beginning_of_day( $day->format( Dates::DBDATETIMEFORMAT ) );
-			$end   = tribe_end_of_day( $day->format( Dates::DBDATETIMEFORMAT ) );
+			// @todo @lucatume here apply order and events-per-day criteria.
+			$filtered_event_ids = array_slice( $event_ids, 0, $events_per_day );
 
-			/*
-			 * We want events overlapping the current day, by more than 1 second.
-			 * This prevents events ending on the cutoff from showing up here.
-			 */
-			$day_query = tribe_events()
-				->by_args( $repository_args )
-				->where( 'date_overlaps', $start, $end, null, 2 )
-				->per_page( $events_per_day )
-				->order_by( $order_by, $order );
-			$event_ids = $day_query->get_ids();
-			$found     = $day_query->found();
-
-			$this->grid_days_cache[ $day_string ]       = (array) $event_ids;
-			$this->grid_days_found_cache[ $day_string ] = (int) $found;
+			$this->grid_days_cache[ $day_string ]       = $filtered_event_ids;
+			$this->grid_days_found_cache[ $day_string ] = count($event_ids);
 		}
+
+		Query::update_posts_cache( array_filter( array_unique( array_merge( ... array_values( $this->grid_days_cache ) ) ) ) );
 
 		if ( is_array( $this->grid_days_cache ) && count( $this->grid_days_cache ) ) {
 			$this->grid_days_cache = $this->add_implied_events( $this->grid_days_cache );
