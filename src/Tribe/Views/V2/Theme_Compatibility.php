@@ -28,6 +28,7 @@ class Theme_Compatibility {
 		'genesis',
 		'twentyseventeen',
 		'twentynineteen',
+		'twentytwenty',
 	];
 
 	/**
