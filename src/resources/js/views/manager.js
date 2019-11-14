@@ -156,11 +156,6 @@ tribe.events.views.manager = {};
 	 * @return {Boolean}
 	 */
 	obj.shouldManageUrl = function( $container ) {
-		// When handling popstate (broswer back/next) it will not handle this part.
-		if ( obj.doingPopstate ) {
-			return false;
-		}
-
 		var shouldManageUrl = $container.data( 'view-manage-url' );
 		var tribeIsTruthy   = /^(true|1|on|yes)$/;
 
@@ -190,6 +185,11 @@ tribe.events.views.manager = {};
 	 */
 	obj.onUpdateUrl = function( event ) {
 		var $container = $( this );
+
+		// When handling popstate (broswer back/next) it will not handle this part.
+		if ( obj.doingPopstate ) {
+			return false;
+		}
 
 		// Bail when we dont manage URLs
 		if ( ! obj.shouldManageUrl( $container ) ) {
@@ -224,6 +224,8 @@ tribe.events.views.manager = {};
 		 * Compatitiblity for browsers updating title
 		 */
 		document.title = data.title;
+
+		console.log( data.url );
 
 		// Push browser history
 		window.history.pushState( null, data.title, data.url );
