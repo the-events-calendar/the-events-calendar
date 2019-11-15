@@ -61,14 +61,14 @@ tribe.events.views.manager = {};
 	/**
 	 * Stores the last container that used PushState, which prevents fails.
 	 *
-	 * Note: once shortcodes start managing URLs this will need to improve to a full
-	 * tracker of history.
+	 * @todo @bordoni @paul once shortcodes start managing URLs this will need
+	 *       to improve to a full tracker of history.
 	 *
 	 * @since TBD
 	 *
 	 * @type {jQuery}
 	 */
-	obj.$lastContainerPushState = $();
+	obj.$lastContainer = $();
 
 	/**
 	 * Containers on the current page that were initialized.
@@ -239,9 +239,6 @@ tribe.events.views.manager = {};
 
 		// Push browser history
 		window.history.pushState( null, data.title, data.url );
-
-		// Save which container used PushState
-		obj.$lastContainerPushState = $container;
 	};
 
 	/**
@@ -332,13 +329,15 @@ tribe.events.views.manager = {};
 	 *
 	 * @return {boolean}     Will always return false on this one.
 	 */
-	obj.popstate = function( event ) {
-		// Only continue if we have any items on container
-		if ( ! obj.$lastContainerPushState.length ) {
+	obj.onPopState = function( event ) {
+		var target = event.originalEvent.target;
+		var url = target.location.href;
+		var $container = obj.getLastContainer();
+
+		if ( ! $container ) {
 			return false;
 		}
 
-		var $container = obj.$lastContainerPushState;
 		var containerData = obj.getContainerData( $container );
 
 		// Flag that we are doing popstate globally.
@@ -346,8 +345,6 @@ tribe.events.views.manager = {};
 
 		$container.trigger( 'beforePopState.tribeEvents', event );
 
-		var target = event.originalEvent.target;
-		var url = target.location.href;
 		var nonce = $container.data( 'view-rest-nonce' );
 		var shouldManageUrl = obj.shouldManageUrl( $container );
 
@@ -357,8 +354,6 @@ tribe.events.views.manager = {};
 		};
 
 		obj.request( data, $container );
-
-		$container.trigger( 'afterPopState.tribeEvents', event );
 
 		return false;
 	};
@@ -510,10 +505,19 @@ tribe.events.views.manager = {};
 		// Setup the container with the data received
 		obj.setup( 0, $html );
 
+		// Update the global set of containers with all of the
+		obj.selectContainers();
+
 		// Trigger the browser pushState
 		$container.trigger( 'updateUrl.tribeEvents' );
 
 		$container.trigger( 'afterAjaxSuccess.tribeEvents', [ data, textStatus, jqXHR ] );
+
+		var shouldManageUrl = obj.shouldManageUrl( $container );
+
+		if ( shouldManageUrl ) {
+			obj.$lastContainer = $container;
+		}
 	};
 
 	/**
@@ -544,6 +548,35 @@ tribe.events.views.manager = {};
 	};
 
 	/**
+	 * Saves all the containers in the page into the object.
+	 *
+	 * @since  TBD
+	 *
+	 * @return {void}
+	 */
+	obj.selectContainers = function() {
+		obj.$containers = $( obj.selectors.container );
+	};
+
+	/**
+	 * Selects the last container to change the URL.
+	 *
+	 * @since  TBD
+	 *
+	 * @return {jQuery}
+	 */
+	obj.getLastContainer = function() {
+		/**
+		 * @todo @bordoni @paul improve this when shortcodes are also managing the URL.
+		 */
+		if ( ! obj.$lastContainer.length ) {
+			obj.$lastContainer = obj.$containers.filter( '[data-view-manage-url="1"]' ).eq( 0 );
+		}
+
+		return obj.$lastContainer;
+	}
+
+	/**
 	 * Handles the initialization of the manager when Document is ready.
 	 *
 	 * @since  4.9.2
@@ -551,7 +584,7 @@ tribe.events.views.manager = {};
 	 * @return {void}
 	 */
 	obj.ready = function() {
-		obj.$containers = $( obj.selectors.container );
+		obj.selectContainers();
 		obj.$containers.each( obj.setup );
 	};
 
@@ -559,5 +592,5 @@ tribe.events.views.manager = {};
 	$document.ready( obj.ready );
 
 	// Attaches the popstate method to the window object.
-	$window.on( 'popstate', obj.popstate );
+	$window.on( 'popstate', obj.onPopState );
 } )( jQuery, window.underscore || window._, tribe.events.views.manager );
