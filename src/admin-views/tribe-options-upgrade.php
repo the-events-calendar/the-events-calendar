@@ -51,10 +51,10 @@
 
 				<h3><?php esc_html_e( 'Upgrade your calendar.', 'the-events-calendar' ); ?></h3>
 
-				<p><?php esc_html_e( 'We\'ve redesigned all of the calendar views to give you and your users a better experience. Beyond a brand new look, we\'ve optimized each look for mobile and introduced key improvements for each view.', 'the-events-calendar' ); ?></p>
+				<p><?php esc_html_e( 'We\'ve redesigned all of the calendar views to give you and your users a better experience. Beyond a brand new look, we\'ve optimized every design for mobile and introduced key improvements for each view.', 'the-events-calendar' ); ?></p>
 
-				<button type="button"><?php esc_html_e( 'Start your update', 'the-events-calendar' ); ?></button>
-				<a href="http://m.tri.be/updated-views" target="_blank" rel="noopener"><?php esc_html_e( 'Learn more about the update', 'the-events-calendar' ); ?></a>
+				<button type="button"><?php esc_html_e( 'Start your upgrade', 'the-events-calendar' ); ?></button>
+				<a href="http://m.tri.be/updated-views" target="_blank" rel="noopener"><?php esc_html_e( 'Learn more about the upgrade', 'the-events-calendar' ); ?></a>
 
 				<div class="step"><?php esc_html_e( 'Step 1 of 2', 'the-events-calendar' ); ?></div>
 			</div>
@@ -84,13 +84,13 @@
 			?>
 
 			<div class="content-container">
-				<h3><?php esc_html_e( 'Confirm your update', 'the-events-calendar' ); ?></h3>
+				<h3><?php esc_html_e( 'Confirm your upgrade', 'the-events-calendar' ); ?></h3>
 
 				<ul>
 					<li>
 						<h4><span class="dashicons dashicons-warning"></span>
 						<?php esc_html_e( 'Existing calendar customizations will be overridden.', 'the-events-calendar' ); ?></h4>
-						<p><?php esc_html_e( 'If you have any template overrides, custom calendar CSS, or other code customizations to you calendar, those modifications will be overridden by the new designs.', 'the-events-calendar' ); ?></p>
+						<p><?php esc_html_e( 'If you have any template overrides, custom calendar CSS, or other code customizations to your calendar, those modifications will be overridden by the new designs.', 'the-events-calendar' ); ?></p>
 					</li>
 					<li>
 						<h4><span class="dashicons dashicons-warning"></span>
