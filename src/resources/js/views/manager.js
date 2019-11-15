@@ -59,6 +59,18 @@ tribe.events.views.manager = {};
 	obj.doingPopstate = false;
 
 	/**
+	 * Stores the last container that used PushState, which prevents fails.
+	 *
+	 * Note: once shortcodes start managing URLs this will need to improve to a full
+	 * tracker of history.
+	 *
+	 * @since TBD
+	 *
+	 * @type {jQuery}
+	 */
+	obj.$lastContainerPushState = $();
+
+	/**
 	 * Containers on the current page that were initialized.
 	 *
 	 * @since 4.9.2
@@ -227,6 +239,9 @@ tribe.events.views.manager = {};
 
 		// Push browser history
 		window.history.pushState( null, data.title, data.url );
+
+		// Save which container used PushState
+		obj.$lastContainerPushState = $container;
 	};
 
 	/**
@@ -318,7 +333,12 @@ tribe.events.views.manager = {};
 	 * @return {boolean}     Will always return false on this one.
 	 */
 	obj.popstate = function( event ) {
-		var $container = $( obj.selectors.container );
+		// Only continue if we have any items on container
+		if ( ! obj.$lastContainerPushState.length ) {
+			return false;
+		}
+
+		var $container = obj.$lastContainerPushState;
 		var containerData = obj.getContainerData( $container );
 
 		// Flag that we are doing popstate globally.
@@ -326,7 +346,8 @@ tribe.events.views.manager = {};
 
 		$container.trigger( 'beforePopState.tribeEvents', event );
 
-		var url = event.originalEvent.originalTarget.location.href;
+		var target = event.originalEvent.target;
+		var url = target.location.href;
 		var nonce = $container.data( 'view-rest-nonce' );
 		var shouldManageUrl = obj.shouldManageUrl( $container );
 
