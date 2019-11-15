@@ -31,6 +31,7 @@ tribe.events.views.manager = {};
 ( function( $, _, obj ) {
 	'use strict';
 	var $document = $( document );
+	var $window = $( window );
 
 	/**
 	 * Selectors used for configuration and setup
@@ -49,7 +50,16 @@ tribe.events.views.manager = {};
 	};
 
 	/**
-	 * Containers on the current page that were initialized
+	 * Flag when a popstate change is happening.
+	 *
+	 * @since TBD
+	 *
+	 * @type {boolean}
+	 */
+	obj.doingPopstate = false;
+
+	/**
+	 * Containers on the current page that were initialized.
 	 *
 	 * @since 4.9.2
 	 *
@@ -176,6 +186,11 @@ tribe.events.views.manager = {};
 	obj.onUpdateUrl = function( event ) {
 		var $container = $( this );
 
+		// When handling popstate (broswer back/next) it will not handle this part.
+		if ( obj.doingPopstate ) {
+			return false;
+		}
+
 		// Bail when we dont manage URLs
 		if ( ! obj.shouldManageUrl( $container ) ) {
 			return;
@@ -292,6 +307,42 @@ tribe.events.views.manager = {};
 	};
 
 	/**
+	 * Catches the normal browser interactions for Next and Previous pages
+	 * so that we can use the manager to load the page requested instead
+	 * of just chaning the URL.
+	 *
+	 * @since  TBD
+	 *
+	 * @param  {Event} event DOM Event related to the window popstate
+	 *
+	 * @return {boolean}     Will always return false on this one.
+	 */
+	obj.popstate = function( event ) {
+		var $container = $( obj.selectors.container );
+		var containerData = obj.getContainerData( $container );
+
+		// Flag that we are doing popstate globally.
+		obj.doingPopstate = true;
+
+		$container.trigger( 'beforePopState.tribeEvents', event );
+
+		var url = event.originalEvent.originalTarget.location.href;
+		var nonce = $container.data( 'view-rest-nonce' );
+		var shouldManageUrl = obj.shouldManageUrl( $container );
+
+		var data = {
+			url: url,
+			_wpnonce: nonce
+		};
+
+		obj.request( data, $container );
+
+		$container.trigger( 'afterPopState.tribeEvents', event );
+
+		return false;
+	};
+
+	/**
 	 * Performs an AJAX request given the data for the REST API and which container
 	 * we are going to pass the answer to.
 	 *
@@ -401,6 +452,11 @@ tribe.events.views.manager = {};
 		}
 
 		$container.trigger( 'afterAjaxComplete.tribeEvents', [ jqXHR, textStatus ] );
+
+		// Flag that we are done with popstate if that was the case.
+		if ( obj.doingPopstate ) {
+			obj.doingPopstate = false;
+		}
 	};
 
 	/**
@@ -467,7 +523,7 @@ tribe.events.views.manager = {};
 	};
 
 	/**
-	 * Handles the initialization of the manager when Document is ready
+	 * Handles the initialization of the manager when Document is ready.
 	 *
 	 * @since  4.9.2
 	 *
@@ -478,6 +534,9 @@ tribe.events.views.manager = {};
 		obj.$containers.each( obj.setup );
 	};
 
-	// Configure on document ready
+	// Configure on document ready.
 	$document.ready( obj.ready );
+
+	// Attaches the popstate method to the window object.
+	$window.on( 'popstate', obj.popstate );
 } )( jQuery, window.underscore || window._, tribe.events.views.manager );
