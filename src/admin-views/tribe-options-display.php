@@ -198,7 +198,7 @@ if ( tribe( 'tec.main' )->show_upgrade() ) {
 			'views_v2_enabled' => [
 				'type'            => 'checkbox_bool',
 				'label'           => __( 'Use updated calendar designs', 'the-events-calendar' ),
-				'tooltip'         => __( 'Enable the improved redesign for all calendar views', 'the-events-calendar' ),
+				'tooltip'         => __( 'Enable updated designs for all calendar views', 'the-events-calendar' ),
 				'validation_type' => 'boolean',
 				'default'         => false,
 			],
