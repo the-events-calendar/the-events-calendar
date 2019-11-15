@@ -28,7 +28,7 @@ class Day_View extends View {
 	 * Visibility for this view.
 	 *
 	 * @since 4.9.4
-	 * @since TBD Made the property static.
+	 * @since 4.9.11 Made the property static.
 	 *
 	 * @var bool
 	 */
@@ -162,7 +162,7 @@ class Day_View extends View {
 	 *
 	 * Iterate over the day events to add timeslots and sort them.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @param array $events  An array of events.
 	 *
@@ -194,7 +194,7 @@ class Day_View extends View {
 	/**
 	 * Overrides the base View method to implement logic tailored to the Day View.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @param array $events An array of the View events, if any.
 	 */

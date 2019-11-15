@@ -3,6 +3,7 @@
 	data-js="tribe-events-view"
 	data-view-rest-nonce="2ab7cc6b39"
 	data-view-rest-url="http://test.tri.be/index.php?rest_route=/tribe/views/v2/html"
+	data-view-manage-url="1"
 >
 	<div class="tribe-common-l-container tribe-events-l-container">
 		<div

@@ -43,7 +43,7 @@ interface View_Interface  extends View_Url_Provider_Interface, Repository_User_I
 	 * on the events-bar of the views UI.
 	 *
 	 * @since 4.9.4
-	 * @since TBD Made the method static.
+	 * @since 4.9.11 Made the method static.
 	 *
 	 * @return bool
 	 */
@@ -183,7 +183,7 @@ interface View_Interface  extends View_Url_Provider_Interface, Repository_User_I
 	/**
 	 * Returns an array of user-facing messages the View will display on the front-end.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @return array An array of user-facing messages the View will display on the front-end.
 	 */
