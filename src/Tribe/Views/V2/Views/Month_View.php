@@ -39,7 +39,7 @@ class Month_View extends By_Day_View {
 	 * Visibility for this view.
 	 *
 	 * @since 4.9.4
-	 * @since TBD Made the property static.
+	 * @since 4.9.11 Made the property static.
 	 *
 	 * @var bool
 	 */
@@ -48,7 +48,7 @@ class Month_View extends By_Day_View {
 	/**
 	 * A instance cache property to store the currently fetched grid days.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @var array
 	 */
@@ -406,7 +406,7 @@ class Month_View extends By_Day_View {
 	/**
 	 * Overrides the base method to handle messages specific to the Month View.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @param array $events An array of events found on the Month.
 	 */

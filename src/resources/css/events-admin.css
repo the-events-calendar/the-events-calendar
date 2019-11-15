@@ -296,6 +296,122 @@
 	display: none;
 }
 
+/* upgrades */
+
+#modern-tribe-info.tribe-upgrade{
+	padding: 0;
+}
+
+#modern-tribe-info.tribe-upgrade a, #modern-tribe-info.tribe-upgrade .dashicons {
+		color: #334AFF;
+	}
+
+#modern-tribe-info.tribe-upgrade h3 {
+		font-size: 24px;
+	}
+
+#modern-tribe-info.tribe-upgrade ul {
+		list-style-type: none;
+		margin-left: 0;
+	}
+
+#modern-tribe-info.tribe-upgrade li > h4 {
+			margin-bottom: 0;
+		}
+
+#modern-tribe-info.tribe-upgrade li > p {
+			margin-top: 0;
+			padding-left: 1.5rem;
+		}
+
+#modern-tribe-info.tribe-upgrade #tribe-upgrade-step1,
+	#modern-tribe-info.tribe-upgrade #tribe-upgrade-step2,
+	#modern-tribe-info.tribe-upgrade #tribe-upgrade-complete {
+		display: -webkit-box;
+		display: flex;
+		-webkit-box-orient: horizontal;
+		-webkit-box-direction: normal;
+		        flex-direction: row;
+		-webkit-box-pack: justify;
+		        justify-content: space-between;
+	}
+
+#modern-tribe-info.tribe-upgrade #tribe-upgrade-step1.hidden, #modern-tribe-info.tribe-upgrade #tribe-upgrade-step2.hidden, #modern-tribe-info.tribe-upgrade #tribe-upgrade-complete.hidden {
+			display: none;
+		}
+
+#modern-tribe-info.tribe-upgrade #tribe-upgrade-step1 span {
+			color: #334AFF;
+		}
+
+#modern-tribe-info.tribe-upgrade .button, #modern-tribe-info.tribe-upgrade button {
+		background: #334AFF;
+		border-radius: 0.25rem;
+		border: 0;
+		box-shadow: 0 2px black;
+		color: white;
+		cursor: pointer;
+		font-size: 1rem;
+		line-height: 1.2;
+		margin: 2rem 1.5rem 0.25rem 0.25rem;
+		padding: 1rem 0.5rem;
+		text-decoration: none;
+		white-space: nowrap;
+		width: 200px;
+	}
+
+#modern-tribe-info.tribe-upgrade .button {
+		height: 3rem;
+		line-height: 1rem;
+		text-align: center;
+	}
+
+#modern-tribe-info.tribe-upgrade .content-container {
+		max-width: 600px;
+		padding: 2rem;
+	}
+
+#modern-tribe-info.tribe-upgrade .image-container {
+		text-align: right;
+	}
+
+#modern-tribe-info.tribe-upgrade .image-container img {
+			border-radius: 0.5rem;
+			display: inline-block;
+			-webkit-filter: drop-shadow( 0 0 6px #ccc );
+			        filter: drop-shadow( 0 0 6px #ccc );
+			height: auto;
+			margin: 0;
+			vertical-align: top;
+			width: 100%;
+		}
+
+#modern-tribe-info.tribe-upgrade .screenshot {
+		float: left;
+	}
+
+#modern-tribe-info.tribe-upgrade .step {
+		font-size: 0.9rem;
+		font-weight: 200;
+		padding-top: 0.5rem;
+		text-align: center;
+		width: 200px;
+	}
+
+#upgrade-button {
+	background: #334AFF;
+	border-radius: 0.25rem;
+	border: 0;
+	box-shadow: 0 2px black;
+	color: white;
+	cursor: pointer;
+	font-size: 0.8rem;
+	height: 1.6rem;
+	padding-right: 0.8rem;
+	vertical-align: top;
+	margin: 2px 0 0 0.75rem;
+}
+
 /* = Eventbrite
 =============================================*/
 

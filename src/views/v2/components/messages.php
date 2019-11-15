@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version TBD
+ * @version 4.9.11
  *
  * @var array $messges An array of user-facing messages, managed by the View.
  *

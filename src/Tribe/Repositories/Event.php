@@ -417,7 +417,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 * Will include multi-day events.
 	 *
 	 * @since 4.9
-	 * @since TBD Add the `$min_sec_overlap` parameter.
+	 * @since 4.9.11 Add the `$min_sec_overlap` parameter.
 	 *
 	 * @param string|DateTime|int $start_datetime  A `strtotime` parse-able string, a DateTime object or
 	 *                                             a timestamp.
@@ -1531,7 +1531,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 * Applies start-date-based ordering to the query.
 	 *
 	 * @since 4.9.7
-	 * @since TBD Added the `$after` parameter.
+	 * @since 4.9.11 Added the `$after` parameter.
 	 *
 	 * @param bool $use_utc      Whether to use the events UTC start dates or their localized dates.
 	 * @param bool $after        Whether to append the order by clause to the ones managed by WordPress or not.
@@ -1602,7 +1602,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 * Applies Organizer-based ordering to the query.
 	 *
 	 * @since 4.9.7
-	 * @since TBD Added the `$after` parameter.
+	 * @since 4.9.11 Added the `$after` parameter.
 	 *
 	 * @param bool $after        Whether to append the order by clause to the ones managed by WordPress or not.
 	 *                           Defaults to `false`,to prepend them to the ones managed by WordPress.
@@ -1641,7 +1641,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 * Applies Venue-based ordering to the query.
 	 *
 	 * @since 4.9.7
-	 * @since TBD Added the `$after` parameter.
+	 * @since 4.9.11 Added the `$after` parameter.
 	 *
 	 * @param bool $after        Whether to append the order by clause to the ones managed by WordPress or not.
 	 *                           Defaults to `false`,to prepend them to the ones managed by WordPress.
@@ -1696,7 +1696,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 * - if an event should be hidden its `_EventHideFromUpcoming` meta will be set to `yes` (or another truthy value).
 	 * - if an event should not be hidden its `_EventHideFromUpcoming` meta will not be set at all.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @param bool $hidden Whether the events should be hidden from event listings or not.
 	 */

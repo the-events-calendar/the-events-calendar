@@ -89,7 +89,7 @@ class Excerpt extends Base_Template {
 		/**
 		 * Detemines the require
 		 *
-		 * @since TBD
+		 * @since 4.9.11
 		 *
 		 * @param bool    $should_replace_read_more Determines if we need to replace the excerpt read more link
 		 *                                          in a given scenario.

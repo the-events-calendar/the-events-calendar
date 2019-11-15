@@ -25,7 +25,7 @@ class Manager {
 	/**
 	 * The name of the Tribe option the default Views v2 slug will live in.
 	 *
-	 * @since TBD Use v1 option.
+	 * @since 4.9.11 Use v1 option.
 	 *
 	 * @var string
 	 */
@@ -34,7 +34,7 @@ class Manager {
 	/**
 	 * The name of the Tribe option the default mobile Views v2 slug will live in.
 	 *
-	 * @since TBD Use v1 option.
+	 * @since 4.9.11 Use v1 option.
 	 *
 	 * @var string
 	 */
@@ -62,7 +62,7 @@ class Manager {
 			'list'      => List_View::class,
 			'month'     => Month_View::class,
 			'day'       => Day_View::class,
-		]);
+		] );
 
 		// Make sure the Reflector View is always available.
 		$views['reflector'] = Reflector_View::class;
@@ -115,7 +115,15 @@ class Manager {
 			return false;
 		}
 
-		return (string) $view_class;
+		/**
+		 * Allows overwriting the default view.
+		 *
+		 * @since  4.9.11
+		 *
+		 * @param string $view_class Fully qualified class name for default view.
+		 * @param string $view_slug  Default view slug.
+		 */
+		return apply_filters( 'tribe_events_views_v2_manager_default_view', (string) $view_class, $view_slug );
 	}
 
 	/**

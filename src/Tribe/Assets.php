@@ -223,7 +223,7 @@ class Tribe__Events__Assets {
 			$plugin,
 			'tribe-events-calendar-script',
 			'tribe-events.js',
-			array( 'jquery', 'tribe-events-bootstrap-datepicker', 'tribe-events-jquery-resize', 'jquery-placeholder' ),
+			array( 'jquery', 'tribe-events-bootstrap-datepicker', 'tribe-events-jquery-resize', 'jquery-placeholder', 'tribe-moment' ),
 			'wp_enqueue_scripts',
 			array(
 				'conditionals' => array( $this, 'should_enqueue_frontend' ),
@@ -330,7 +330,7 @@ class Tribe__Events__Assets {
 			$plugin,
 			'the-events-calendar',
 			'tribe-events-ajax-calendar.js',
-			array( 'jquery', 'tribe-events-calendar-script', 'tribe-events-bootstrap-datepicker', 'tribe-events-jquery-resize', 'jquery-placeholder' ),
+			array( 'jquery', 'tribe-events-calendar-script', 'tribe-events-bootstrap-datepicker', 'tribe-events-jquery-resize', 'jquery-placeholder', 'tribe-moment' ),
 			null,
 			array(
 				'localize'     => array(

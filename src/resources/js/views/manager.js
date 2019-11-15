@@ -115,6 +115,28 @@ tribe.events.views.manager = {};
 	};
 
 	/**
+	 * Given an Element determines it's view container data from the script.
+	 *
+	 * @since 4.9.2
+	 *
+	 * @param  {jQuery} $container Which element we getting the data from.
+	 *
+	 * @return {mixed}
+	 */
+	obj.getContainerData = function( $container ) {
+		var $data = $container.find( obj.selectors.dataScript );
+
+		// Bail in case we dont find data script.
+		if ( ! $data.length ) {
+			return;
+		}
+
+		var data = JSON.parse( $.trim( $data.text() ) );
+
+		return data;
+	};
+
+	/**
 	 * Given an container determines if it should manage URL.
 	 *
 	 * @since 4.9.4
@@ -208,8 +230,8 @@ tribe.events.views.manager = {};
 		event.preventDefault();
 
 		var $link = $( this );
-		var currentUrl = window.location.href;
 		var url = $link.attr( 'href' );
+		var currentUrl = window.location.href;
 		var nonce = $link.data( 'view-rest-nonce' );
 		var shouldManageUrl = obj.shouldManageUrl( $container );
 
@@ -282,6 +304,18 @@ tribe.events.views.manager = {};
 	 */
 	obj.request = function( data, $container ) {
 		var settings = obj.getAjaxSettings( $container );
+		var shouldManageUrl = obj.shouldManageUrl( $container );
+		var containerData = obj.getContainerData( $container );
+
+		if ( ! data.url ) {
+			data.url = containerData.url;
+		}
+
+		if ( ! data.prev_url ) {
+			data.prev_url = containerData.prev_url;
+		}
+
+		data.should_manage_url = shouldManageUrl;
 
 		// Pass the data received to the $.ajax settings
 		settings.data = data;
