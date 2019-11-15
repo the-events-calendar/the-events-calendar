@@ -293,7 +293,7 @@ tribe.events.views.datepicker = {};
 			}
 
 			$datepickerButton
-				.data( 'tapHide', tapHide )
+				.data( 'tribeTapHide', tapHide )
 				.data( 'tribeEventsState', state )
 				.off( 'mousedown', obj.handleMousedown );
 
@@ -318,7 +318,7 @@ tribe.events.views.datepicker = {};
 		var $datepickerButton = event.data.target;
 		var state = $datepickerButton.data( 'tribeEventsState' );
 		var method = $datepickerButton.hasClass( obj.selectors.buttonOpenClass.className() ) ? 'hide' : 'show';
-		var tapHide = $datepickerButton.data( 'tapHide' );
+		var tapHide = $datepickerButton.data( 'tribeTapHide' );
 
 		if ( tapHide ) {
 			return;
