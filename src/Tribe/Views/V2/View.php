@@ -102,7 +102,7 @@ class View implements View_Interface {
 	 * Whether a given View is visible publicly or not.
 	 *
 	 * @since 4.9.4
-	 * @since TBD Made the property static.
+	 * @since 4.9.11 Made the property static.
 	 *
 	 * @var bool
 	 */
@@ -139,7 +139,7 @@ class View implements View_Interface {
 	/**
 	 * An collection of user-facing messages the View should display.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @var Messages
 	 */
@@ -149,7 +149,7 @@ class View implements View_Interface {
 	 * Whether this View should reset the page/pagination or not.
 	 * This acts as an instance cache for the `View::should_reset_page` method.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @var bool
 	 */
@@ -158,7 +158,7 @@ class View implements View_Interface {
 	/**
 	 * Whether the View should display the events bar or not.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @var bool
 	 */
@@ -167,7 +167,7 @@ class View implements View_Interface {
 	/**
 	 * View constructor.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @param Messages|null $messages An instance of the messages collection.
 	 */
@@ -195,7 +195,8 @@ class View implements View_Interface {
 		if ( isset( $params['view_data'] ) ) {
 			$params['view_data']['url'] = $url;
 		}
-		$params     = array_merge( $params, $url_object->get_query_args() );
+
+		$params = array_merge( $params, $url_object->get_query_args() );
 
 		// Let View data override any other data.
 		if ( isset( $params['view_data'] ) && is_array( $params['view_data'] ) ) {
@@ -314,7 +315,7 @@ class View implements View_Interface {
 		/**
 		 * Run an action before we start making a new View instance.
 		 *
-		 * @since  TBD
+		 * @since  4.9.11
 		 *
 		 * @param  string  $view_class The current view class.
 		 * @param  string  $view_slug The current view slug.
@@ -386,7 +387,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the Repository object for a View.
 		 *
-		 * @since TBD
+		 * @since 4.9.11
 		 *
 		 * @param \Tribe__Repository__Interface $view_repository The repository instance the View will use.
 		 * @param string                        $view_slug       The current view slug.
@@ -397,7 +398,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the Repository object for a specific View.
 		 *
-		 * @since TBD
+		 * @since 4.9.11
 		 *
 		 * @param \Tribe__Repository__Interface $view_repository The repository instance the View will use.
 		 * @param \Tribe\Events\Views\V2\View   $instance        The current View object.
@@ -409,7 +410,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the query arguments array for a View URL.
 		 *
-		 * @since TBD
+		 * @since 4.9.11
 		 *
 		 * @param array                        $query_args  Arguments used to build the URL.
 		 * @param string                       $view_slug   The current view slug.
@@ -420,7 +421,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the query arguments array for a specific View URL.
 		 *
-		 * @since TBD
+		 * @since 4.9.11
 		 *
 		 * @param array                        $query_args  Arguments used to build the URL.
 		 * @param \Tribe\Events\Views\V2\View  $instance    The current View object.
@@ -432,7 +433,7 @@ class View implements View_Interface {
 		/**
 		 * Run an action after we are done making a new View instance.
 		 *
-		 * @since  TBD
+		 * @since  4.9.11
 		 *
 		 * @param \Tribe\Events\Views\V2\View   $instance  The current View object.
 		 */
@@ -484,7 +485,7 @@ class View implements View_Interface {
 			 * Additional information about the View current state and context are available using the View getter
 			 * methods.
 			 *
-			 * @since TBD
+			 * @since 4.9.11
 			 *
 			 * @param View $this The current View instance.
 			 * @param Context The View current context
@@ -605,6 +606,8 @@ class View implements View_Interface {
 
 		if ( $is_featured = tribe_is_truthy( $this->context->get( 'featured', false ) ) ) {
 			$query_args['featured'] = $is_featured;
+		} else {
+			unset( $query_args['featured'] );
 		}
 
 		/**
@@ -887,6 +890,81 @@ class View implements View_Interface {
 	}
 
 	/**
+	 * Sets up the View repository arguments from the View context or a provided Context object.
+	 *
+	 * @since 4.9.3
+	 *
+	 * @param \Tribe__Context|null $context A context to use to setup the args, or `null` to use the View Context.
+	 *
+	 * @return array The arguments, ready to be set on the View repository instance.
+	 */
+	protected function setup_repository_args( \Tribe__Context $context = null ) {
+		$context = null !== $context ? $context : $this->context;
+
+		$context_arr = $context->to_array();
+
+		$args = [
+			'posts_per_page'       => $context_arr['events_per_page'],
+			'paged'                => max( Arr::get_first_set( array_filter( $context_arr ), [
+				'paged',
+				'page',
+			], 1 ), 1 ),
+			'search'               => $context->get( 'keyword', '' ),
+			'hidden_from_upcoming' => false,
+		];
+
+		// Set's up category URL for all views.
+		if ( ! empty( $context_arr[ TEC::TAXONOMY ] ) ) {
+			$args[ TEC::TAXONOMY ] = $context_arr[ TEC::TAXONOMY ];
+		}
+
+		// Setup featured only when set to true.
+		if ( $is_featured = tribe_is_truthy( $this->context->get( 'featured', false ) ) ) {
+			$args['featured'] = $is_featured;
+		} else {
+			unset( $args['featured'] );
+		}
+
+		return $args;
+	}
+
+	/**
+	 * Filters the current URL returned for a specific View.
+	 *
+	 * @since 4.9.3
+	 *
+	 * @param  bool $canonical Whether the normal or canonical version of the next URL is being requested.
+	 * @param string $url The previous URL, this could be an empty string if the View does not have a next.
+	 *
+	 * @return string The filtered previous URL.
+	 */
+	protected function filter_view_url( $canonical, $url ) {
+		/**
+		 * Filters the URL returned for a View.
+		 *
+		 * @since 4.9.3
+		 *
+		 * @param string         $url       The View current URL.
+		 * @param bool           $canonical Whether the URL is a canonical one or not.
+		 * @param View_Interface $this      This view instance.
+		 */
+		$url = apply_filters( 'tribe_events_views_v2_view_url', $url, $canonical, $this );
+
+		/**
+		 * Filters the URL returned for a specific View.
+		 *
+		 * @since 4.9.11
+		 *
+		 * @param string         $url       The View current URL.
+		 * @param bool           $canonical Whether the URL is a canonical one or not.
+		 * @param View_Interface $this      This view instance.
+		 */
+		$url = apply_filters( "tribe_events_views_v2_view_{$this->slug}_url", $url, $canonical, $this );
+
+		return $url;
+	}
+
+	/**
 	 * Filters the previous (page, event, etc.) URL returned for a specific View.
 	 *
 	 * @since 4.9.3
@@ -911,7 +989,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the previous (page, event, etc.) URL returned for a specific View.
 		 *
-		 * @since TBD
+		 * @since 4.9.11
 		 *
 		 * @param string         $url       The View previous (page, event, etc.) URL.
 		 * @param bool           $canonical Whether the URL is a canonical one or not.
@@ -947,86 +1025,13 @@ class View implements View_Interface {
 		/**
 		 * Filters the next (page, event, etc.) URL returned for a specific View.
 		 *
-		 * @since TBD
+		 * @since 4.9.11
 		 *
 		 * @param string         $url       The View next (page, event, etc.) URL.
 		 * @param bool           $canonical Whether the URL is a canonical one or not.
 		 * @param View_Interface $this      This view instance.
 		 */
 		$url = apply_filters( "tribe_events_views_v2_view_{$this->slug}_next_url", $url, $canonical, $this );
-
-		return $url;
-	}
-
-	/**
-	 * Sets up the View repository arguments from the View context or a provided Context object.
-	 *
-	 * @since 4.9.3
-	 *
-	 * @param \Tribe__Context|null $context A context to use to setup the args, or `null` to use the View Context.
-	 *
-	 * @return array The arguments, ready to be set on the View repository instance.
-	 */
-	protected function setup_repository_args( \Tribe__Context $context = null ) {
-		$context = null !== $context ? $context : $this->context;
-
-		$context_arr = $context->to_array();
-
-		$args = [
-			'posts_per_page'       => $context_arr['events_per_page'],
-			'paged'                => max( Arr::get_first_set( array_filter( $context_arr ), [
-				'paged',
-				'page',
-			], 1 ), 1 ),
-			'search'               => $context->get( 'keyword', '' ),
-			'hidden_from_upcoming' => false,
-		];
-
-		// Set's up category URL for all views.
-		if ( ! empty( $context_arr[ TEC::TAXONOMY ] ) ) {
-			$args[ TEC::TAXONOMY ] = $context_arr[ TEC::TAXONOMY ];
-		}
-
-		// Setup featured only when set to true.
-		if ( $is_featured = tribe_is_truthy( $context->get( 'featured', false ) ) ) {
-			$args['featured'] = $is_featured;
-		}
-
-		return $args;
-	}
-
-	/**
-	 * Filters the current URL returned for a specific View.
-	 *
-	 * @since 4.9.3
-	 *
-	 * @param  bool $canonical Whether the normal or canonical version of the next URL is being requested.
-	 * @param string $url The previous URL, this could be an empty string if the View does not have a next.
-	 *
-	 * @return string The filtered previous URL.
-	 */
-	protected function filter_view_url( $canonical, $url ) {
-		/**
-		 * Filters the URL returned for a View.
-		 *
-		 * @since 4.9.3
-		 *
-		 * @param string         $url       The View current URL.
-		 * @param bool           $canonical Whether the URL is a canonical one or not.
-		 * @param View_Interface $this      This view instance.
-		 */
-		$url = apply_filters( 'tribe_events_views_v2_view_url', $url, $canonical, $this );
-
-		/**
-		 * Filters the URL returned for a specific View.
-		 *
-		 * @since TBD
-		 *
-		 * @param string         $url       The View current URL.
-		 * @param bool           $canonical Whether the URL is a canonical one or not.
-		 * @param View_Interface $this      This view instance.
-		 */
-		$url = apply_filters( "tribe_events_views_v2_view_{$this->slug}_url", $url, $canonical, $this );
 
 		return $url;
 	}
@@ -1251,7 +1256,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the `date` format that will be used to produce a View link label for a View.
 		 *
-		 * @since TBD
+		 * @since 4.9.11
 		 *
 		 * @param string    $format    The label format the View will use to product a View link label; e.g. the
 		 *                             previous and next links.
@@ -1263,7 +1268,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the `date` format that will be used to produce a View link label for a specific View.
 		 *
-		 * @since TBD
+		 * @since 4.9.11
 		 *
 		 * @param string    $format    The label format the View will use to product a View link label; e.g. the
 		 *                             previous and next links.
@@ -1319,12 +1324,12 @@ class View implements View_Interface {
 			remove_filter( 'document_title_parts', [ $title_filter, 'filter_document_title_parts' ] );
 		}
 
-		$slug    = $this->get_slug();
+		$slug = $this->get_slug();
 
 		/**
 		 * Filters the title for all views.
 		 *
-		 * @since TBD
+		 * @since 4.9.11
 		 *
 		 * @param string $title This view filtered title.
 		 * @param View   $this  This view object.
@@ -1334,7 +1339,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the title for this view.
 		 *
-		 * @since TBD
+		 * @since 4.9.11
 		 *
 		 * @param string $title This view filtered title.
 		 * @param View   $this  This view object.
@@ -1347,7 +1352,7 @@ class View implements View_Interface {
 	/**
 	 * Returns a collection of user-facing messages the View will display on the front-end.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @param array $events An array of the events found by the View that is currently rendering.
 	 *
@@ -1362,7 +1367,7 @@ class View implements View_Interface {
 		 * Differently from the filters below this action allow manipulating the messages handler before the messages
 		 * render to, as an example, change rendering strategy and manipulate the message "ingredients".
 		 *
-		 * @since TBD
+		 * @since 4.9.11
 		 *
 		 * @param Messages $messages The object instance handling the messages for the View.
 		 * @param array    $events   An array of the events found by the View that is currently rendering.
@@ -1375,7 +1380,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the user-facing messages the View will print on the frontend.
 		 *
-		 * @since TBD
+		 * @since 4.9.11
 		 *
 		 * @param array $messages An array of messages in the shape `[ <message_type> => [ ...<messages> ] ]`.
 		 * @param View $this The current View instance being rendered.
@@ -1386,7 +1391,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the user-facing messages a specific View will print on the frontend.
 		 *
-		 * @since TBD
+		 * @since 4.9.11
 		 *
 		 * @param array    $messages         An array of messages in the shape `[ <message_type> => [ ...<messages> ] ]`.
 		 * @param array    $events           An array of the events found by the View that is currently rendering.
@@ -1401,7 +1406,7 @@ class View implements View_Interface {
 	/**
 	 * Sets up the user-facing messages the View will print on the frontend.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @param array $events An array of the View events, if any.
 	 */
@@ -1421,7 +1426,7 @@ class View implements View_Interface {
 	 *
 	 * The View page should be reset when the View or filtering parameters that are not the page change.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @return bool Whether the View page should be reset or not.
 	 */
@@ -1454,7 +1459,7 @@ class View implements View_Interface {
 	 * By default this method will reset the page in the context, but extending classes can implement their own,
 	 * custom version.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 */
 	protected function on_page_reset() {
 		if ( ! isset( $this->context ) || ! $this->context instanceof Context ) {
@@ -1477,7 +1482,7 @@ class View implements View_Interface {
 	/**
 	 * Returns the breadcrumbs data the View will display on the front-end.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @return array
 	 */
@@ -1512,7 +1517,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the breadcrumbs the View will print on the frontend.
 		 *
-		 * @since TBD
+		 * @since 4.9.11
 		 *
 		 * @param array $breadcrumbs An array of breadcrumbs.
 		 * @param View  $this        The current View instance being rendered.
@@ -1522,7 +1527,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the breadcrumbs a specific View will print on the frontend.
 		 *
-		 * @since TBD
+		 * @since 4.9.11
 		 *
 		 * @param array $breadcrumbs An array of breadcrumbs.
 		 * @param View  $this        The current View instance being rendered.
@@ -1535,7 +1540,7 @@ class View implements View_Interface {
 	/**
 	 * Returns if the view should display the events bar.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @return array
 	 */
@@ -1544,7 +1549,7 @@ class View implements View_Interface {
 		/**
 		 * Filters if the events bar should be displayed.
 		 *
-		 * @since TBD
+		 * @since 4.9.11
 		 *
 		 * @param bool $display An bool saying if it should be displayed or not.
 		 * @param View $this    The current View instance being rendered.
@@ -1554,7 +1559,7 @@ class View implements View_Interface {
 		/**
 		 * Filters if the events bar should be displayed for the specific view.
 		 *
-		 * @since TBD
+		 * @since 4.9.11
 		 *
 		 * @param bool $display An bool saying if it should be displayed or not.
 		 * @param View $this    The current View instance being rendered.

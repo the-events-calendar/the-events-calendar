@@ -4,8 +4,8 @@ Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.7
-Stable tag: 4.9.10
-Tested up to: 5.2.4
+Stable tag: 4.9.11
+Tested up to: 5.3
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -215,12 +215,17 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
-= [TBD] TBD =
+= [4.9.11] 2019-11-12 =
 
+* Feature - Opt-in to the newly redesigned views
 * Fix - Fixed issue where DD/MM/YYYY style dates were not supported during Event Aggregator imports [117691]
 * Fix - Resolved issue where non YYYY-MM-DD datepicker formats resulted in unpredictable behavior while navigating views [116086, 126472, 117909]
 * Fix - Fixed date issue where the event date was defaulting to current date when editing an event with the block editor [132735]
+* Tweak - Added additional datepicker formats for simpler selection [116086, 126472, 117909]
+* Tweak - Updated the Repository implementation to handle more complex `orderby` constructs [133303]
+* Tweak - Added the `Tribe__Date_Utils::get_week_start_end` method [133303]
 * Tweak - added the `tribe_events_suppress_query_filters` filter to allow suppressing `Tribe__Events__Query` filters [134827]
+* Language - 5 new strings added, 23 updated, 2 fuzzied, and 13 obsoleted
 
 = [4.9.10] 2019-10-16 =
 

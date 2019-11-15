@@ -354,7 +354,7 @@ class Stack {
 		/**
 		 * Filters the result of the check to keep or discard an event from the stack.
 		 *
-		 * @since TBD
+		 * @since 4.9.11
 		 *
 		 * @param bool $keep Whether the event should be part of the stack or not.
 		 * @param mixed $event An event post object, post ID, or any possible representation an event might have.

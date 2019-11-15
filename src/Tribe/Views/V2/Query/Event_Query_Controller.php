@@ -45,7 +45,7 @@ class Event_Query_Controller extends Abstract_Query_Controller {
 	/**
 	 * Parses the query to add/remove properties.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @param \WP_Query $query The current WordPress query object.
 	 */

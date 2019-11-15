@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTICLE_LINK_HERE}
  *
- * @version TBD
+ * @version 4.9.11
  *
  * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
  *

@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version TBD
+ * @version 4.9.11
  *
  * @var string $now          The current date and time in the `Y-m-d H:i:s` format.
  * @var obj    $date_formats Object containing the date formats.

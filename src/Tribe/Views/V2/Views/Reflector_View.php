@@ -31,7 +31,7 @@ class Reflector_View extends View {
 	 * Visibility for this view.
 	 *
 	 * @since 4.9.4
-	 * @since TBD Made the property static.
+	 * @since 4.9.11 Made the property static.
 	 *
 	 * @var bool
 	 */

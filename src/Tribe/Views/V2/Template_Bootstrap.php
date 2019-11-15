@@ -29,7 +29,7 @@ class Template_Bootstrap {
 	/**
 	 * An instance of the Template Manager object.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @var Manager
 	 */
@@ -97,7 +97,7 @@ class Template_Bootstrap {
 	 * Detemines wether we are in a Single event page or not,
 	 * base only on global context.
 	 *
-	 * @since  TBD
+	 * @since  4.9.11
 	 *
 	 * @return bool Whether the current request is for the single event template or not.
 	 */
@@ -180,7 +180,7 @@ class Template_Bootstrap {
 			 * Filters the slug of the view that will be loaded, to allow changing view  based on the context of a given
 			 * request.
 			 *
-			 * @since  TBD
+			 * @since  4.9.11
 			 *
 			 * @param string          $view_slug The slug of the View that will be built, based on the context.
 			 * @param \Tribe__Context $context   Tribe context used to setup the view.
@@ -244,7 +244,7 @@ class Template_Bootstrap {
 	/**
 	 * Set the correct body classes for our plugin.
 	 *
-	 * @since  TBD
+	 * @since  4.9.11
 	 *
 	 * @return array The array containing the body classes
 	 */
@@ -276,7 +276,7 @@ class Template_Bootstrap {
 	 * To avoid caching issues, where the cache provider would need to keep a mobile and non-mobile version of the
 	 * cached pages, we redirect with explicit View slug.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @see   wp_is_mobile()
 	 * @link  https://developer.wordpress.org/reference/functions/wp_is_mobile/

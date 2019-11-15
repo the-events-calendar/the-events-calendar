@@ -2,7 +2,7 @@
 /**
  * Provides methods for Views that behave like a List View.
  *
- * @since   TBD
+ * @since   4.9.11
  *
  * @package Tribe\Events\Views\V2\Views
  */
@@ -16,7 +16,7 @@ use Tribe__Utils__Array as Arr;
 /**
  * Trait List_Behavior
  *
- * @since   TBD
+ * @since   4.9.11
  *
  * @package Tribe\Events\Views\V2\Views
  *
@@ -27,7 +27,7 @@ trait List_Behavior {
 	/**
 	 * Set up the datepicker-related template vars for the View.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @param array $template_vars The current template vars.
 	 *
@@ -154,7 +154,7 @@ trait List_Behavior {
 	 *
 	 * The method will alter the View context to remove notions of a "past" view request from it.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 */
 	protected function remove_past_query_args() {
 		$display_mode = $this->context->get( 'event_display_mode', false );

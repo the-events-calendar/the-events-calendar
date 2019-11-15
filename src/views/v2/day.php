@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version TBD
+ * @version 4.9.11
  *
  * @var array  $events               The array containing the events.
  * @var string $rest_url             The REST URL.
@@ -27,6 +27,7 @@ if ( empty( $disable_event_search ) ) {
 	data-js="tribe-events-view"
 	data-view-rest-nonce="<?php echo esc_attr( $rest_nonce ); ?>"
 	data-view-rest-url="<?php echo esc_url( $rest_url ); ?>"
+	data-view-manage-url="<?php echo esc_attr( $should_manage_url ); ?>"
 >
 	<div class="tribe-common-l-container tribe-events-l-container">
 		<?php $this->template( 'components/loader', [ 'text' => __( 'Loading...', 'the-events-calendar' ) ] ); ?>
