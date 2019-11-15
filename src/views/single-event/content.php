@@ -12,9 +12,20 @@
  * @version 4.7
  *
  */
-?>
 
-<?php $event_id = $this->get( 'post_id' ); ?>
+$event_id = $this->get( 'post_id' );
+$content = get_the_content( null, false, $event_id );
+
+/**
+ * Filters the post content.
+ *
+ * @since 0.71
+ *
+ * @param string $content Content of the current post.
+ */
+$content = apply_filters( 'the_content', $content );
+$content = str_replace( ']]>', ']]&gt;', $content );
+?>
 <div id="post-<?php echo absint( $event_id ); ?>" <?php post_class(); ?>>
-	<?php the_content(); ?>
+	<?php echo $content; ?>
 </div>
