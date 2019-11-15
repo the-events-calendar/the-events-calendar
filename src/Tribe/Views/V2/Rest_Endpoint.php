@@ -39,6 +39,15 @@ class Rest_Endpoint {
 	public static $ajax_action = 'tribe_events_views_v2_fallback';
 
 	/**
+	 * A flag, set on a per-request basis, to indicate if the `rest_authentication_errors` filter fired or not.
+	 *
+	 * @since TBD
+	 *
+	 * @var bool
+	 */
+	protected static $did_rest_authentication_errors;
+
+	/**
 	 * Returns the final REST URL for the HTML
 	 *
 	 * @since   4.9.2
@@ -244,7 +253,7 @@ class Rest_Endpoint {
 		 * If we call `WP_REST_Server::check_authentication` before the user will be set to `0` and any following
 		 * auth check will be altered.
 		 */
-		if ( did_action( 'rest_authentication_errors' ) ) {
+		if ( static::$did_rest_authentication_errors ) {
 			/**
 			 * There is no good way to check if rest API is really disabled since `rest_enabled` is deprecated since 4.7
 			 *
@@ -270,5 +279,24 @@ class Rest_Endpoint {
 		$is_available = apply_filters( 'tribe_events_views_v2_rest_endpoint_available', $is_available );
 
 		return $is_available;
+	}
+
+	/**
+	 * Tracks if the `rest_authentication_errors` filter fired or not, using this filter as an action.
+	 *
+	 * This is a work-around fro the lack of the `did_filter` function.
+	 *
+	 * @since TBD
+	 *
+	 * @param mixed $errors The authentication error, if any, unused by the method.
+	 *
+	 * @return mixed The authentication error.
+	 */
+	public static function did_rest_authentication_errors( $errors = null ) {
+		remove_filter( 'rest_authentication_errors', [ static::class, 'did_rest_authentication_errors' ] );
+
+		static::$did_rest_authentication_errors = true;
+
+		return $errors;
 	}
 }

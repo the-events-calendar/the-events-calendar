@@ -73,6 +73,8 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'admin_post_thumbnail_html', [ $this, 'filter_admin_post_thumbnail_html' ] );
 		add_filter( 'excerpt_length', [ $this, 'filter_excerpt_length' ] );
 		add_filter( 'tribe_events_views_v2_after_make_view', [ $this, 'action_include_filters_excerpt' ] );
+		// 100 is the WordPress cookie-based auth check.
+		add_filter( 'rest_authentication_errors', [ Rest_Endpoint::class, 'did_rest_authentication_errors' ], 150 );
 
 		if ( tribe_context()->doing_php_initial_state() ) {
 			add_filter( 'wp_title', [ $this, 'filter_wp_title' ], 10, 2 );
