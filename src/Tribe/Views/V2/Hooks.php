@@ -129,7 +129,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 */
 	public function on_tribe_common_loaded() {
 		$this->container->make( Template_Bootstrap::class )->disable_v1();
-		$this->container->make( Rest_Endpoint::class )->maybe_enable_ajax_fallback();
+		$this->container->make( Rest_Endpoint::class )->enable_ajax_fallback();
 	}
 
 	/**
