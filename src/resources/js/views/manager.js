@@ -59,6 +59,15 @@ tribe.events.views.manager = {};
 	obj.doingPopstate = false;
 
 	/**
+	 * Stores the current ajax request been handled by the manager.
+	 *
+	 * @since TBD
+	 *
+	 * @type {jqXHR|null}
+	 */
+	obj.currentAjaxRequest = null;
+
+	/**
 	 * Stores the last container that used PushState, which prevents fails.
 	 *
 	 * @todo @bordoni @paul once shortcodes start managing URLs this will need
@@ -338,6 +347,10 @@ tribe.events.views.manager = {};
 			return false;
 		}
 
+		if ( obj.currentAjaxRequest ) {
+			obj.currentAjaxRequest.abort();
+		}
+
 		var containerData = obj.getContainerData( $container );
 
 		// Flag that we are doing popstate globally.
@@ -387,7 +400,7 @@ tribe.events.views.manager = {};
 		// Pass the data received to the $.ajax settings
 		settings.data = data;
 
-		$.ajax( settings );
+		obj.currentAjaxRequest = $.ajax( settings );
 	};
 
 	/**
@@ -473,6 +486,9 @@ tribe.events.views.manager = {};
 		if ( obj.doingPopstate ) {
 			obj.doingPopstate = false;
 		}
+
+		// Reset the current ajax request on the manager object.
+		obj.currentAjaxRequest = null;
 	};
 
 	/**
@@ -498,14 +514,14 @@ tribe.events.views.manager = {};
 
 		var $html = $( data );
 
-		// Replace the current container with the new Data
+		// Replace the current container with the new Data.
 		$container.replaceWith( $html );
 		$container = $html;
 
-		// Setup the container with the data received
+		// Setup the container with the data received.
 		obj.setup( 0, $html );
 
-		// Update the global set of containers with all of the
+		// Update the global set of containers with all of the manager object.
 		obj.selectContainers();
 
 		// Trigger the browser pushState
@@ -513,9 +529,7 @@ tribe.events.views.manager = {};
 
 		$container.trigger( 'afterAjaxSuccess.tribeEvents', [ data, textStatus, jqXHR ] );
 
-		var shouldManageUrl = obj.shouldManageUrl( $container );
-
-		if ( shouldManageUrl ) {
+		if ( obj.shouldManageUrl( $container ) ) {
 			obj.$lastContainer = $container;
 		}
 	};
