@@ -16,5 +16,5 @@
 
 <?php $event_id = $this->get( 'post_id' ); ?>
 <div id="post-<?php echo absint( $event_id ); ?>" <?php post_class(); ?>>
-	<?php the_content(); ?>
+	<?php tribe_the_content( null, false, $event_id ); ?>
 </div>
