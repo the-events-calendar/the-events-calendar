@@ -1086,8 +1086,10 @@ class View implements View_Interface {
 			'prev_label'           => $this->get_link_label( $this->prev_url( false ) ),
 			'next_label'           => $this->get_link_label( $this->next_url( false ) ),
 			'date_formats'         => (object) [
-				'compact'        => Dates::datepicker_formats( tribe_get_option( 'datepickerFormat' ) ),
-				'month_and_year' => tribe_get_date_option( 'monthAndYearFormat', 'F Y' ),
+				'compact'              => Dates::datepicker_formats( tribe_get_option( 'datepickerFormat' ) ),
+				'month_and_year'       => tribe_get_date_option( 'monthAndYearFormat', 'F Y' ),
+				'time_range_separator' => tribe_get_date_option( 'timeRangeSeparator', ' - ' ),
+				'date_time_separator'  => tribe_get_date_option( 'dateTimeSeparator', ' @ ' ),
 			],
 			'messages'             => $this->get_messages( $events ),
 			'start_of_week'        => get_option( 'start_of_week', 0 ),
