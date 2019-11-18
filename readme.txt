@@ -218,6 +218,9 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 = [4.9.12] 2019-11-20 =
 
 * Fix - Blocks Editor date time saving correctly for WordPress 5.3 compatibility. [137421]
+* Tweak - Add the `tribe_get_query_var` function [137262]
+* Tweak - Add `tribe_get_the_content()` and `tribe_the_content()` for PHP 7.2 compatibility with WordPress 5.2
+
 
 = [4.9.11] 2019-11-12 =
 
