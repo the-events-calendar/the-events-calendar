@@ -52,10 +52,6 @@ class Event_Result {
 		$this->data['all_day'] = ! empty( $this->data['all_day'] );
 	}
 
-	public static function order_by( $order_by, $order ) {
-
-	}
-
 	/**
 	 * Returns the event post ID.
 	 *
