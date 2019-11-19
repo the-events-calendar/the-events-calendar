@@ -60,13 +60,14 @@ class Day_ViewTest extends ViewTestCase {
 		// Sanity check
 		$day_start = tribe_beginning_of_day( $today );
 		$day_end   = tribe_end_of_day( $today );
-		$this->assertEquals( 3, tribe_events()->where( 'date_overlaps', $day_start, $day_end )->count() );
 
 		$this->remap_posts( $events, [
 			'events/featured/1.json',
 			'events/single/1.json',
 			'events/single/2.json'
 		] );
+
+		$this->assertEquals( 3, tribe_events()->where( 'date_overlaps', $day_start, $day_end )->count() );
 
 		$context = tribe_context()->alter( [
 				'today'      => $this->mock_date_value,
