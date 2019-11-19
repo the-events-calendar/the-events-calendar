@@ -16,7 +16,7 @@ The Events Calendar is a carefully crafted, extensible plugin that lets you easi
 
 Create an events calendar and manage it with ease. The Events Calendar plugin provides professional-level quality and features backed by a team you can trust.
 
-Packed with loads of useful features, The Events Ca`lendar by Modern Tribe is ready to go right out of the box. It’s extensible, easy to use, and completely customizable.
+Packed with loads of useful features, The Events Calendar by Modern Tribe is ready to go right out of the box. It’s extensible, easy to use, and completely customizable.
 
 Just getting started? Read through the [New User Primer](http://m.tri.be/2d) to get set up.
 
