@@ -52,7 +52,7 @@ tribe.events.views.manager = {};
 	/**
 	 * Flag when a popstate change is happening.
 	 *
-	 * @since TBD
+	 * @since 4.9.12
 	 *
 	 * @type {boolean}
 	 */
@@ -61,7 +61,7 @@ tribe.events.views.manager = {};
 	/**
 	 * Stores the current ajax request been handled by the manager.
 	 *
-	 * @since TBD
+	 * @since 4.9.12
 	 *
 	 * @type {jqXHR|null}
 	 */
@@ -73,7 +73,7 @@ tribe.events.views.manager = {};
 	 * @todo @bordoni @paul once shortcodes start managing URLs this will need
 	 *       to improve to a full tracker of history.
 	 *
-	 * @since TBD
+	 * @since 4.9.12
 	 *
 	 * @type {jQuery}
 	 */
@@ -332,7 +332,7 @@ tribe.events.views.manager = {};
 	 * so that we can use the manager to load the page requested instead
 	 * of just chaning the URL.
 	 *
-	 * @since  TBD
+	 * @since  4.9.12
 	 *
 	 * @param  {Event} event DOM Event related to the window popstate
 	 *
@@ -564,7 +564,7 @@ tribe.events.views.manager = {};
 	/**
 	 * Saves all the containers in the page into the object.
 	 *
-	 * @since  TBD
+	 * @since  4.9.12
 	 *
 	 * @return {void}
 	 */
@@ -575,7 +575,7 @@ tribe.events.views.manager = {};
 	/**
 	 * Selects the last container to change the URL.
 	 *
-	 * @since  TBD
+	 * @since  4.9.12
 	 *
 	 * @return {jQuery}
 	 */
