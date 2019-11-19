@@ -28,6 +28,32 @@ class Events_Result_Set implements Collection_Interface {
 		$this->event_results = $event_results;
 	}
 
+	/**
+	 * Builds a result set from different type of values.
+	 *
+	 * @since TBD
+	 *
+	 * @param mixed $value A result set, that will be returned intact, an array of event results
+	 *
+	 * @return Events_Result_Set The original set, a set built on an array of `Event_Result` instances, or a set
+	 *                           built on an empty array if the set could not be built.
+	 */
+	public static function from_value( $value ) {
+		if ( $value instanceof Events_Result_Set ) {
+			return $value;
+		}
+
+		if ( is_array( $value ) ) {
+			try {
+				return new Events_Result_Set( $value );
+			} catch ( \Exception $e ) {
+				return new Events_Result_Set( [] );
+			}
+		}
+
+		return new Events_Result_Set( [] );
+	}
+
 	public function count() {
 		return count( $this->event_results );
 	}

@@ -21,6 +21,12 @@ use Tribe__Utils__Array as Arr;
  * @package Tribe\Events\Views\V2\Query
  */
 class Query {
+	/**
+	 * The prefix used to store the values cached by this class.
+	 *
+	 * @since TBD
+	 */
+	const CACHE_PREFIX = 'tribe_days_';
 
 	/**
 	 * Fetches the event-relevant post information of all events for a period and updates the `tribe_days` cache.
@@ -128,10 +134,16 @@ class Query {
 				return $buffer;
 			}, [] );
 
+		$cache = new \Tribe__Cache();
 		foreach ( $grouped_by_start_date as $day_string => $group ) {
 			// Note: unsorted and "raw".
 			$day_event_results = Arr::get( $grouped_by_start_date, $day_string, [] );
-			wp_cache_set( $day_string, $day_event_results, 'tribe_days' );
+			$cache->set(
+				static::get_cache_key( $day_string ),
+				$day_event_results,
+				WEEK_IN_SECONDS,
+				'save_post'
+			);
 		}
 	}
 
@@ -167,5 +179,22 @@ class Query {
 				wp_cache_set( $post_object->ID, $post, 'posts' );
 			}
 		}
+	}
+
+	/**
+	 * Returns the cache key used to store a value, including the prefix used by the class.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $key The prefixed or non prefixed key.
+	 *
+	 * @return string The full, prefixed, cache key for a value.
+	 */
+	public static function get_cache_key( $key ) {
+		if ( 0 === strpos( $key, static::CACHE_PREFIX ) ) {
+			$key = substr( $key, strlen( static::CACHE_PREFIX ) );
+		}
+
+		return self::CACHE_PREFIX . $key;
 	}
 }

@@ -137,13 +137,15 @@ abstract class By_Day_View extends View {
 
 		// @todo @lucatume move this to the event repository?
 		Query::update_period_cache( $grid_start_date, $grid_end_date );
+		$cache = new \Tribe__Cache();
 
 		// phpcs:ignore
 		/** @var \DateTime $day */
 		foreach ( $days as $day ) {
 			$day_string = $day->format( 'Y-m-d' );
 
-			$day_results = new Events_Result_Set( (array) wp_cache_get( $day_string, 'tribe_days' ) );
+			$cache_key   = Query::get_cache_key( $day_string );
+			$day_results = Events_Result_Set::from_value( (array) $cache->get( $cache_key, 'save_post' ) );
 
 			if ( ! $day_results->count() ) {
 				$event_ids = [];
@@ -153,10 +155,12 @@ abstract class By_Day_View extends View {
 				$event_ids = $day_results->pluck( 'ID' );
 			}
 
-			$filtered_event_ids = array_slice( $event_ids, 0, $events_per_day );
+			$day_event_ids = array_slice( $event_ids, 0, $events_per_day );
 
-			$this->grid_days_cache[ $day_string ]       = $filtered_event_ids;
+			$this->grid_days_cache[ $day_string ]       = $day_event_ids;
 			$this->grid_days_found_cache[ $day_string ] = $day_results->count();
+
+			$this->backfill_multiday_event_ids($day_event_ids);
 		}
 
 		Query::update_posts_cache( array_filter( array_unique( array_merge( ... array_values( $this->grid_days_cache ) ) ) ) );
@@ -164,6 +168,7 @@ abstract class By_Day_View extends View {
 		if ( is_array( $this->grid_days_cache ) && count( $this->grid_days_cache ) ) {
 			$this->grid_days_cache = $this->add_implied_events( $this->grid_days_cache );
 		}
+
 
 		// Drop the last day we've added before.
 		array_pop( $this->grid_days_cache );
