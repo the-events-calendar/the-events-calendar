@@ -9,6 +9,7 @@
 
 namespace Tribe\Events\Views\V2\Query;
 
+use Tribe__Cache_Listener as Cache_Listener;
 use Tribe__Date_Utils as Dates;
 use Tribe__Timezones as Timezones;
 use Tribe__Utils__Array as Arr;
@@ -47,6 +48,7 @@ class Query {
 
 		$use_site_timezone = Timezones::is_mode( Timezones::SITE_TIMEZONE );
 
+		// @todo @lucatume wherever this SQL lives it should have a filterable limit and run until a set does not fill it.
 		$query = "
 		SELECT p.ID,
 		   start_date.meta_value AS 'start_date',
@@ -90,7 +92,6 @@ class Query {
 			ARRAY_A
 		);
 
-		$site_timezone     = Timezones::build_timezone_object();
 		try {
 			$one_day = new \DateInterval( 'P1D' );
 		} catch ( \Exception $e ) {
@@ -98,51 +99,73 @@ class Query {
 			return;
 		}
 
-		$grouped_by_start_date = array_reduce( $results,
-			static function ( array $buffer, array $result ) use ( $use_site_timezone, $site_timezone, $one_day )
-			{
-				$display_timezone = $use_site_timezone
-					? $site_timezone
-					: Timezones::build_timezone_object( $result['timezone'] );
-				$start_date       = Dates::build_date_object( $result['start_date'], $display_timezone );
-				$end_date         = Dates::build_date_object( $result['end_date'], $display_timezone );
-				if (
-					$start_date->format( Dates::DBDATEFORMAT ) === $end_date->format( Dates::DBDATEFORMAT )
-				) {
-					$overlapping_days = [ $start_date->format( Dates::DBDATEFORMAT ) ];
-				} else {
-					$period           = new \DatePeriod( $start_date, $one_day, $end_date );
-					$overlapping_days = [];
-					/** @var \DateTimeInterface $d */
-					foreach ( $period as $d ) {
-						$overlapping_days[] = $d->format( Dates::DBDATEFORMAT );
-					}
-				}
+		$request_period = new \DatePeriod( $start, $one_day, $end );
 
-				// Normalize the timezone to the site one.
-				$result['start_date'] = $start_date->setTimezone( $site_timezone )->format( 'Y-m-d H:i:s' );
-				$result['end_date']   = $end_date->setTimezone( $site_timezone )->format( 'Y-m-d H:i:s' );
+		$grouped_by_start_date = [];
+		if ( ! empty( $results ) ) {
+			$site_timezone = Timezones::build_timezone_object();
 
-				foreach ( $overlapping_days as $overlap_day ) {
-					if ( isset( $buffer[ $overlap_day ] ) ) {
-						$buffer[ $overlap_day ][] = new Event_Result($result);
+			// @todo refactor this into smaller methods.
+			$grouped_by_start_date = array_reduce( $results,
+				static function ( array $buffer, array $result ) use ( $use_site_timezone, $site_timezone, $one_day )
+				{
+					$display_timezone = $use_site_timezone
+						? $site_timezone
+						: Timezones::build_timezone_object( $result['timezone'] );
+					$start_date       = Dates::build_date_object( $result['start_date'], $display_timezone );
+					$end_date         = Dates::build_date_object( $result['end_date'], $display_timezone );
+					if (
+						$start_date->format( Dates::DBDATEFORMAT ) === $end_date->format( Dates::DBDATEFORMAT )
+					) {
+						$overlapping_days = [ $start_date->format( Dates::DBDATEFORMAT ) ];
 					} else {
-						$buffer[ $overlap_day ] = [ new Event_Result($result) ];
+						/*
+						 * "Move" the end date, adding a day to it, to make sure the end date is included in the period.
+						 * Else multi-day events would only overlap the first two dates.
+						 */
+						$moved_end_date = clone $end_date;
+						$moved_end_date->add( $one_day );
+						$period           = new \DatePeriod( $start_date, $one_day, $moved_end_date );
+						$overlapping_days = [];
+						/** @var \DateTimeInterface $d */
+						foreach ( $period as $d ) {
+							// This is skipping the end day on multi-day events.
+							$overlapping_days[] = $d->format( Dates::DBDATEFORMAT );
+							// Sanity check: break when the current day is equal to the event end date.
+							$reached_end = $d->format( Dates::DBDATEFORMAT ) === $end_date->format( Dates::DBDATEFORMAT );
+							if ( $reached_end ) {
+								break;
+							}
+						}
 					}
-				}
 
-				return $buffer;
-			}, [] );
+					// Normalize the timezone to the site one.
+					$result['start_date'] = $start_date->setTimezone( $site_timezone )->format( 'Y-m-d H:i:s' );
+					$result['end_date']   = $end_date->setTimezone( $site_timezone )->format( 'Y-m-d H:i:s' );
+
+					foreach ( $overlapping_days as $overlap_day ) {
+						if ( isset( $buffer[ $overlap_day ] ) ) {
+							$buffer[ $overlap_day ][] = new Event_Result( $result );
+						} else {
+							$buffer[ $overlap_day ] = [ new Event_Result( $result ) ];
+						}
+					}
+
+					return $buffer;
+				}, [] );
+		}
 
 		$cache = new \Tribe__Cache();
-		foreach ( $grouped_by_start_date as $day_string => $group ) {
+		/** @var \DateTime $day */
+		foreach ( $request_period as $day ) {
+			$day_string = $day->format(Dates::DBDATEFORMAT);
 			// Note: unsorted and "raw".
 			$day_event_results = Arr::get( $grouped_by_start_date, $day_string, [] );
 			$cache->set(
 				static::get_cache_key( $day_string ),
 				$day_event_results,
 				WEEK_IN_SECONDS,
-				'save_post'
+				Cache_Listener::TRIGGER_SAVE_POST
 			);
 		}
 	}
@@ -169,6 +192,8 @@ class Query {
 		if ( empty( $required ) ) {
 			return;
 		}
+
+		// @todo @lucatume this should have a filterable limit and run until it does not fill it.
 
 		$interval     = implode( ',', array_map( 'absint', $post_ids ) );
 		$posts_query  = "SELECT * FROM {$wpdb->posts} WHERE ID IN ({$interval})";

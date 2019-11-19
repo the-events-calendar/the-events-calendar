@@ -137,7 +137,8 @@ abstract class By_Day_View extends View {
 
 		// @todo @lucatume move this to the event repository?
 		Query::update_period_cache( $grid_start_date, $grid_end_date );
-		$cache = new \Tribe__Cache();
+		/** @var \Tribe__Cache $cache */
+		$cache = tribe('cache');
 
 		// phpcs:ignore
 		/** @var \DateTime $day */
@@ -145,16 +146,19 @@ abstract class By_Day_View extends View {
 			$day_string = $day->format( 'Y-m-d' );
 
 			$cache_key   = Query::get_cache_key( $day_string );
-			$day_results = Events_Result_Set::from_value( (array) $cache->get( $cache_key, 'save_post' ) );
+			$day_results = Events_Result_Set::from_value(
+				(array) $cache->get( $cache_key, Cache_Listener::TRIGGER_SAVE_POST )
+			);
 
 			if ( ! $day_results->count() ) {
 				$event_ids = [];
 			} else {
 				// Sort events by honoring order and direction.
 				$day_results->order_by( $order_by, $order );
-				$event_ids = $day_results->pluck( 'ID' );
+				$event_ids = array_map( 'absint', $day_results->pluck( 'ID' ) );
 			}
 
+			// @todo @lucatume truncating here does not make sense as we already have all the events we need, do in template?
 			$day_event_ids = array_slice( $event_ids, 0, $events_per_day );
 
 			$this->grid_days_cache[ $day_string ]       = $day_event_ids;

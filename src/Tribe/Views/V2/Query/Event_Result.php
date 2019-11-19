@@ -26,7 +26,7 @@ class Event_Result {
 	 *
 	 * @var array
 	 */
-	protected static $required_keys = [ 'ID', 'start_date', 'end_date', 'timezone', 'all_day' ];
+	protected static $required_keys = [ 'ID', 'post_status', 'start_date', 'end_date', 'timezone', 'all_day' ];
 	/**
 	 * The data wrapped by the value object.
 	 *
@@ -112,31 +112,24 @@ class Event_Result {
 	}
 
 	/**
-	 * Implemented to allow methods like `wp_list_pluck` and `wp_list_sort` to correctly work.
+	 * Returns the event post status.
 	 *
 	 * @since TBD
 	 *
-	 * {@inheritDoc}
+	 * @return bool The event post status.
 	 */
-	public function __get( $property ) {
-		return $this->data[ $property ];
+	public function status() {
+		return $this->data['post_status'];
 	}
 
 	/**
-	 * Overrides the base method to block write access to the result properties.
+	 * Dumps the event result data to array.
 	 *
 	 * @since TBD
 	 *
-	 * {@inheritDoc}
+	 * @return array The event result data.
 	 */
-	public function __set( $property, $value = null ) {
-		throw new \RuntimeException( 'Properties of the "Event_Result" class cannot be set.' );
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public function __isset( $property ) {
-		return isset( $this->data[ $property ] );
+	public function to_array() {
+		return $this->data;
 	}
 }

@@ -71,7 +71,18 @@ class Events_Result_Set implements Collection_Interface {
 
 		$order_by_key = Arr::get( $order_by_key_map, $order_by, 'start_date' );
 
-		$this->event_results = wp_list_sort( $this->event_results, $order_by_key, $order );
+		/*
+		 * The `wp_list_sort` function will convert each element of the set in an array.
+		 * Since we cannot control that `(array)$item` cast, we pre-convert each
+		 * element into an array and convert it back to a set of `Event_Result` after the sorting.
+		 */
+		$this->event_results = static::from_value(
+			wp_list_sort(
+				$this->to_array(),
+				$order_by_key,
+				$order
+			)
+		);
 
 		return $this;
 	}
@@ -101,5 +112,18 @@ class Events_Result_Set implements Collection_Interface {
 	 */
 	public function pluck( $column ) {
 		return wp_list_pluck( $this->event_results, $column );
+	}
+
+	/**
+	 * Iterates over the result set and to return the array version of each result.
+	 *
+	 * @since TBD
+	 *
+	 * @return array An array of arrays, each one the array version of an `Event_Result`.
+	 */
+	public function to_array() {
+		return array_map( static function ( Event_Result $event_result ) {
+			return $event_result->to_array();
+		}, $this->event_results );
 	}
 }

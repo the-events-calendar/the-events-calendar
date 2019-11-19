@@ -75,8 +75,6 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 	 *                          }
 	 */
 	function tribe_get_event( $event = null, $output = OBJECT, $filter = 'raw' ) {
-		static $cache = [];
-
 		/**
 		 * Filters the event result before any logic applies.
 		 *
@@ -99,9 +97,12 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 			return $return;
 		}
 
-		$cache_key = md5( json_encode( [ $event, $output, $filter ] ) );
+		$cache_key = 'tribe_get_event_' . md5( json_encode( [ $event, $output, $filter ] ) );
+		/** @var Tribe__Cache $cache */
+		$cache  = tribe( 'cache' );
+		$post = $cache->get( $cache_key, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
 
-		if ( ! isset( $cache[ $cache_key ] ) ) {
+		if ( false === $post ) {
 			$post = Event::from_post( $event )->to_post( $output, $filter );
 
 			if ( empty( $post ) ) {
@@ -123,9 +124,7 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 			 */
 			$post = apply_filters( 'tribe_get_event', $post, $output, $filter );
 
-			$cache[ $cache_key ] = $post;
-		} else {
-			$post = $cache[ $cache_key ];
+			$cache->set( $cache_key, $post, WEEK_IN_SECONDS, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
 		}
 
 		if ( OBJECT !== $output ) {
