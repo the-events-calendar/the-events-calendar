@@ -28,14 +28,8 @@ class Query {
 	 * The result of this method, the one stored in cache ,is a raw one, code using the results of this query is
 	 * supposed to manipulate the data to order, filter and sort it!
 	 * The method will cache the results for each day in the `tribe_days` cache.
-	 * The results stored in cache, each an array, for the period, not sorted, not ordered, have the shape:
-	 *               {
-	 *                  @param int    $ID         The event post ID.
-	 *                  @param string $start_date The event start date, in `Y-m-d H:i:s` format, in the site timezone.
-	 *                  @param string $end_date   The event end date, in `Y-m-d H:i:s` format, in the site timezone.
-	 *                  @param string $timezone   The event timezone string.
-	 *                  @param bool   $all_day    A flag to indicate whether the event is all-day or not.
-	 *               }
+	 * The results stored in cache, each an array, for the period, not sorted, not ordered, are instances of the
+	 * `Event_Result` class.
 	 *
 	 * @since TBD
 	 *
@@ -101,7 +95,6 @@ class Query {
 		$grouped_by_start_date = array_reduce( $results,
 			static function ( array $buffer, array $result ) use ( $use_site_timezone, $site_timezone, $one_day )
 			{
-				$result['all_day'] = ! empty( $result['all_day'] );
 				$display_timezone = $use_site_timezone
 					? $site_timezone
 					: Timezones::build_timezone_object( $result['timezone'] );
@@ -126,9 +119,9 @@ class Query {
 
 				foreach ( $overlapping_days as $overlap_day ) {
 					if ( isset( $buffer[ $overlap_day ] ) ) {
-						$buffer[ $overlap_day ][] = $result;
+						$buffer[ $overlap_day ][] = new Event_Result($result);
 					} else {
-						$buffer[ $overlap_day ] = [ $result ];
+						$buffer[ $overlap_day ] = [ new Event_Result($result) ];
 					}
 				}
 

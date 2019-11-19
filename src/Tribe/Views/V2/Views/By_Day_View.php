@@ -10,6 +10,7 @@
 namespace Tribe\Events\Views\V2\Views;
 
 use Tribe\Events\Views\V2\Messages;
+use Tribe\Events\Views\V2\Query\Events_Result_Set;
 use Tribe\Events\Views\V2\Query\Query;
 use Tribe\Events\Views\V2\Utils\Stack;
 use Tribe\Events\Views\V2\View;
@@ -142,17 +143,20 @@ abstract class By_Day_View extends View {
 		foreach ( $days as $day ) {
 			$day_string = $day->format( 'Y-m-d' );
 
-			$event_ids = array_column( (array) wp_cache_get( $day_string, 'tribe_days' ), 'ID' );
+			$day_results = new Events_Result_Set( (array) wp_cache_get( $day_string, 'tribe_days' ) );
 
-			if ( empty( $event_ids ) ) {
+			if ( ! $day_results->count() ) {
 				$event_ids = [];
+			} else {
+				// Sort events by honoring order and direction.
+				$day_results->order_by( $order_by, $order );
+				$event_ids = $day_results->pluck( 'ID' );
 			}
 
-			// @todo @lucatume here apply order and events-per-day criteria.
 			$filtered_event_ids = array_slice( $event_ids, 0, $events_per_day );
 
 			$this->grid_days_cache[ $day_string ]       = $filtered_event_ids;
-			$this->grid_days_found_cache[ $day_string ] = count($event_ids);
+			$this->grid_days_found_cache[ $day_string ] = $day_results->count();
 		}
 
 		Query::update_posts_cache( array_filter( array_unique( array_merge( ... array_values( $this->grid_days_cache ) ) ) ) );
