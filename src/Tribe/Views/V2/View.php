@@ -1099,6 +1099,7 @@ class View implements View_Interface {
 			'display_events_bar'   => $this->filter_display_events_bar( $this->display_events_bar ),
 			'disable_event_search' => tribe_is_truthy( tribe_get_option( 'tribeDisableTribeBar', false ) ),
 			'live_refresh'         => tribe_is_truthy( tribe_get_option( 'liveFiltersUpdate', true ) ),
+			'ical'                 => $this->get_ical_data(),
 		];
 
 		return $template_vars;
@@ -1567,5 +1568,45 @@ class View implements View_Interface {
 		$display = apply_filters( "tribe_events_views_v2_view_{$this->slug}_display_events_bar", $display, $this );
 
 		return $display;
+	}
+
+	/**
+	 * Returns the iCal data we're sending to the view.
+	 *
+	 * @since TBD
+	 *
+	 * @return array
+	 */
+	protected function get_ical_data() {
+		/**
+		 * A filter to control whether the "iCal Import" link shows up or not.
+		 *
+		 * @since unknown
+		 *
+		 * @param boolean $show Whether to show the "iCal Import" link; defaults to true.
+		 */
+		$display_ical = apply_filters( 'tribe_events_list_show_ical_link', true );
+
+		/**
+		 * Allow for customization of the iCal export link "Export Events" text.
+		 *
+		 * @since unknown
+		 *
+		 * @param string $text The default link text, which is "Export Events".
+		 */
+		$link_text  = apply_filters( 'tribe_events_ical_export_text', __( 'Export Events', 'the-events-calendar' ) );
+
+		$link_title = __( 'Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps', 'the-events-calendar' );
+
+		$ical_data = [
+			'display_link' => $display_ical,
+			'link'         => (object) [
+				'url'    => esc_url( tribe_get_ical_link() ),
+				'anchor' => $link_text,
+				'title'  => $link_title,
+			],
+		];
+
+		return (object) $ical_data;
 	}
 }
