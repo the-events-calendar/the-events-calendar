@@ -62,6 +62,8 @@ if ( empty( $disable_event_search ) ) {
 
 		<?php $this->template( 'day/nav' ); ?>
 
+		<?php $this->template( 'components/ical-link' ); ?>
+
 		<?php $this->template( 'components/after' ); ?>
 
 	</div>
