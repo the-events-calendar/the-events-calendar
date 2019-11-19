@@ -97,7 +97,7 @@ class Title {
 	 *
 	 * @return string The page title.
 	 */
-	public function build_title( $current_title, $depth = true ) {
+	public function build_title( $current_title = '', $depth = true ) {
 		$context = $this->context ?: tribe_context();
 		$posts   = $this->get_posts();
 
