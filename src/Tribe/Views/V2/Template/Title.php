@@ -68,7 +68,7 @@ class Title {
 	 * @return string the filtered page title.
 	 */
 	public function filter_wp_title( $title, $sep = null ) {
-		$new_title = $this->build_title( false );
+		$new_title = $this->build_title( $title, false );
 
 		/**
 		 * Filters the page title built for event single or archive pages.
@@ -92,13 +92,18 @@ class Title {
 	 *
 	 * @since 4.9.10
 	 *
-	 * @param bool $depth Whether to use depth to build the taxonomy archive title, or not.
+	 * @param string $current_title Current Title used on the page.
+	 * @param bool   $depth         Whether to use depth to build the taxonomy archive title, or not.
 	 *
 	 * @return string The page title.
 	 */
-	public function build_title( $depth = true ) {
+	public function build_title( $current_title = '', $depth = true ) {
 		$context = $this->context ?: tribe_context();
 		$posts   = $this->get_posts();
+
+		if ( 'single-event' === $context->get( 'view' ) ) {
+			return $current_title;
+		}
 
 		if ( $context->is( 'featured' ) ) {
 			$this->events_label_plural = sprintf(
@@ -223,7 +228,7 @@ class Title {
 		$sep       = apply_filters( 'document_title_separator', '-' );
 		$the_title = $title['title'];
 
-		$new_title = $this->build_title( false );
+		$new_title = $this->build_title( $title['title'], false );
 
 		/**
 		 * Filters the page title built for event single or archive pages.

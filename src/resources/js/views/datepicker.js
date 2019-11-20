@@ -72,6 +72,7 @@ tribe.events.views.datepicker = {};
 		minViewMode: 'month',
 		orientation: 'bottom left',
 		showOnFocus: false,
+		todayHighlight: true,
 		templates: {
 			leftArrow: '',
 			rightArrow: '',
