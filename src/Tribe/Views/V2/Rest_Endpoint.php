@@ -41,7 +41,7 @@ class Rest_Endpoint {
 	/**
 	 * A flag, set on a per-request basis, to indicate if the `rest_authentication_errors` filter fired or not.
 	 *
-	 * @since TBD
+	 * @since 4.9.12
 	 *
 	 * @var bool
 	 */
@@ -172,7 +172,7 @@ class Rest_Endpoint {
 	 * When REST is not available add AJAX fallback into the correct action.
 	 *
 	 * @since  4.9.7
-	 * @since  TBD Always enable this.
+	 * @since  4.9.12 Always enable this.
 	 *
 	 * @return void
 	 */
@@ -286,7 +286,7 @@ class Rest_Endpoint {
 	 *
 	 * This is a work-around fro the lack of the `did_filter` function.
 	 *
-	 * @since TBD
+	 * @since 4.9.12
 	 *
 	 * @param mixed $errors The authentication error, if any, unused by the method.
 	 *
