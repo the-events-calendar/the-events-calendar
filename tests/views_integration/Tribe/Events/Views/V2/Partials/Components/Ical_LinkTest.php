@@ -4,7 +4,7 @@ namespace Tribe\Events\Views\V2\Partials\Components;
 
 use Tribe\Test\Products\WPBrowser\Views\V2\HtmlPartialTestCase;
 
-class iCalTest extends HtmlPartialTestCase
+class Ical_LinkTest extends HtmlPartialTestCase
 {
 
 	protected $partial_path = 'components/ical-link';
