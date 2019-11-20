@@ -1575,7 +1575,7 @@ class View implements View_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @return array
+	 * @return object
 	 */
 	protected function get_ical_data() {
 		/**
@@ -1598,15 +1598,35 @@ class View implements View_Interface {
 
 		$link_title = __( 'Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps', 'the-events-calendar' );
 
-		$ical_data = [
+		$ical_data = (object) [
 			'display_link' => $display_ical,
 			'link'         => (object) [
-				'url'    => esc_url( tribe_get_ical_link() ),
-				'anchor' => $link_text,
-				'title'  => $link_title,
+				'url'   => esc_url( tribe_get_ical_link() ),
+				'text'  => $link_text,
+				'title' => $link_title,
 			],
 		];
 
-		return (object) $ical_data;
+		/**
+		 * Filters the ical data.
+		 *
+		 * @since TBD
+		 *
+		 * @param obj  $ical_data An object containing the ical data.
+		 * @param View $this     The current View instance being rendered.
+		 */
+		$ical_data = apply_filters( "tribe_events_views_v2_view_ical_data", $ical_data, $this );
+
+		/**
+		 * Filters the ical data for a specific view.
+		 *
+		 * @since TBD
+		 *
+		 * @param obj  $ical_data An object containing the ical data.
+		 * @param View $this     The current View instance being rendered.
+		 */
+		$ical_data = apply_filters( "tribe_events_views_v2_view_{$this->slug}_ical_data", $ical_data, $this );
+
+		return $ical_data;
 	}
 }

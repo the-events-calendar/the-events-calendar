@@ -14,9 +14,9 @@ class Ical_LinkTest extends HtmlPartialTestCase
 		$ical = [
 			'display_link' => true,
 			'link'         => (object) [
-				'url'    => 'http://tests.tri.be/?ical=something',
-				'anchor' => 'Export Events',
-				'title'  => 'Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps',
+				'url'   => 'http://tests.tri.be/?ical=something',
+				'text'  => 'Export Events',
+				'title' => 'Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps',
 			],
 		];
 
