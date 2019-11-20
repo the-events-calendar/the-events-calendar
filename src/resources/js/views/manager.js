@@ -31,6 +31,7 @@ tribe.events.views.manager = {};
 ( function( $, _, obj ) {
 	'use strict';
 	var $document = $( document );
+	var $window = $( window );
 
 	/**
 	 * Selectors used for configuration and setup
@@ -49,7 +50,37 @@ tribe.events.views.manager = {};
 	};
 
 	/**
-	 * Containers on the current page that were initialized
+	 * Flag when a popstate change is happening.
+	 *
+	 * @since 4.9.12
+	 *
+	 * @type {boolean}
+	 */
+	obj.doingPopstate = false;
+
+	/**
+	 * Stores the current ajax request been handled by the manager.
+	 *
+	 * @since 4.9.12
+	 *
+	 * @type {jqXHR|null}
+	 */
+	obj.currentAjaxRequest = null;
+
+	/**
+	 * Stores the last container that used PushState, which prevents fails.
+	 *
+	 * @todo @bordoni @paul once shortcodes start managing URLs this will need
+	 *       to improve to a full tracker of history.
+	 *
+	 * @since 4.9.12
+	 *
+	 * @type {jQuery}
+	 */
+	obj.$lastContainer = $();
+
+	/**
+	 * Containers on the current page that were initialized.
 	 *
 	 * @since 4.9.2
 	 *
@@ -176,6 +207,11 @@ tribe.events.views.manager = {};
 	obj.onUpdateUrl = function( event ) {
 		var $container = $( this );
 
+		// When handling popstate (broswer back/next) it will not handle this part.
+		if ( obj.doingPopstate ) {
+			return false;
+		}
+
 		// Bail when we dont manage URLs
 		if ( ! obj.shouldManageUrl( $container ) ) {
 			return;
@@ -292,6 +328,50 @@ tribe.events.views.manager = {};
 	};
 
 	/**
+	 * Catches the normal browser interactions for Next and Previous pages
+	 * so that we can use the manager to load the page requested instead
+	 * of just chaning the URL.
+	 *
+	 * @since  4.9.12
+	 *
+	 * @param  {Event} event DOM Event related to the window popstate
+	 *
+	 * @return {boolean}     Will always return false on this one.
+	 */
+	obj.onPopState = function( event ) {
+		var target = event.originalEvent.target;
+		var url = target.location.href;
+		var $container = obj.getLastContainer();
+
+		if ( ! $container ) {
+			return false;
+		}
+
+		if ( obj.currentAjaxRequest ) {
+			obj.currentAjaxRequest.abort();
+		}
+
+		var containerData = obj.getContainerData( $container );
+
+		// Flag that we are doing popstate globally.
+		obj.doingPopstate = true;
+
+		$container.trigger( 'beforePopState.tribeEvents', event );
+
+		var nonce = $container.data( 'view-rest-nonce' );
+		var shouldManageUrl = obj.shouldManageUrl( $container );
+
+		var data = {
+			url: url,
+			_wpnonce: nonce
+		};
+
+		obj.request( data, $container );
+
+		return false;
+	};
+
+	/**
 	 * Performs an AJAX request given the data for the REST API and which container
 	 * we are going to pass the answer to.
 	 *
@@ -320,7 +400,7 @@ tribe.events.views.manager = {};
 		// Pass the data received to the $.ajax settings
 		settings.data = data;
 
-		$.ajax( settings );
+		obj.currentAjaxRequest = $.ajax( settings );
 	};
 
 	/**
@@ -401,6 +481,14 @@ tribe.events.views.manager = {};
 		}
 
 		$container.trigger( 'afterAjaxComplete.tribeEvents', [ jqXHR, textStatus ] );
+
+		// Flag that we are done with popstate if that was the case.
+		if ( obj.doingPopstate ) {
+			obj.doingPopstate = false;
+		}
+
+		// Reset the current ajax request on the manager object.
+		obj.currentAjaxRequest = null;
 	};
 
 	/**
@@ -426,17 +514,24 @@ tribe.events.views.manager = {};
 
 		var $html = $( data );
 
-		// Replace the current container with the new Data
+		// Replace the current container with the new Data.
 		$container.replaceWith( $html );
 		$container = $html;
 
-		// Setup the container with the data received
+		// Setup the container with the data received.
 		obj.setup( 0, $html );
+
+		// Update the global set of containers with all of the manager object.
+		obj.selectContainers();
 
 		// Trigger the browser pushState
 		$container.trigger( 'updateUrl.tribeEvents' );
 
 		$container.trigger( 'afterAjaxSuccess.tribeEvents', [ data, textStatus, jqXHR ] );
+
+		if ( obj.shouldManageUrl( $container ) ) {
+			obj.$lastContainer = $container;
+		}
 	};
 
 	/**
@@ -467,17 +562,49 @@ tribe.events.views.manager = {};
 	};
 
 	/**
-	 * Handles the initialization of the manager when Document is ready
+	 * Saves all the containers in the page into the object.
+	 *
+	 * @since  4.9.12
+	 *
+	 * @return {void}
+	 */
+	obj.selectContainers = function() {
+		obj.$containers = $( obj.selectors.container );
+	};
+
+	/**
+	 * Selects the last container to change the URL.
+	 *
+	 * @since  4.9.12
+	 *
+	 * @return {jQuery}
+	 */
+	obj.getLastContainer = function() {
+		/**
+		 * @todo @bordoni @paul improve this when shortcodes are also managing the URL.
+		 */
+		if ( ! obj.$lastContainer.length ) {
+			obj.$lastContainer = obj.$containers.filter( '[data-view-manage-url="1"]' ).eq( 0 );
+		}
+
+		return obj.$lastContainer;
+	}
+
+	/**
+	 * Handles the initialization of the manager when Document is ready.
 	 *
 	 * @since  4.9.2
 	 *
 	 * @return {void}
 	 */
 	obj.ready = function() {
-		obj.$containers = $( obj.selectors.container );
+		obj.selectContainers();
 		obj.$containers.each( obj.setup );
 	};
 
-	// Configure on document ready
+	// Configure on document ready.
 	$document.ready( obj.ready );
+
+	// Attaches the popstate method to the window object.
+	$window.on( 'popstate', obj.onPopState );
 } )( jQuery, window.underscore || window._, tribe.events.views.manager );

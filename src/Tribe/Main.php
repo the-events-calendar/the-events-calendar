@@ -32,7 +32,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '4.9.11';
+		const VERSION             = '4.9.12';
 
 		/**
 		 * Min Pro Addon
@@ -1179,7 +1179,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * should we show the upgrade nags?
 		 *
-		 * @since TBD
+		 * @since 4.9.12
 		 *
 		 * @return boolean
 		 */
@@ -1192,8 +1192,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 * Normally it will only show if the current user has the "activate_plugins" capability
 			 * and there are some currently-activated premium plugins.
 			 *
-			 * @since TBD
-			 * 
+			 * @since 4.9.12
+			 *
 			 * @param bool $show_tab True or False for showing the Upgrade Tab.
 			 */
 			if ( ! apply_filters( 'tribe_events_show_upgrade_tab', $show_tab ) ) {
@@ -1215,7 +1215,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Create the upgrade tab
 		 *
-		 * @since TBD
+		 * @since 4.9.12
 		 */
 		public function do_upgrade_tab() {
 			if ( ! $this->show_upgrade() ) {
@@ -1263,8 +1263,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			/**
 			 * Allows the fields displayed in the upgrade tab to be modified.
 			 *
-			 * @since TBD
-			 * 
+			 * @since 4.9.12
+			 *
 			 * @param array $upgrade_tab Array of fields used to setup the Upgrade Tab.
 			 */
 			$upgrade_fields = apply_filters( 'tribe_upgrade_fields', $upgrade_tab );
@@ -2792,7 +2792,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Fetch the
 			$location = trim( $this->fullAddressString( $post->ID ) );
 
-			$event_details = apply_filters( 'the_content', get_the_content( $post->ID ) );
+			$event_details = tribe_get_the_content( null, false, $post->ID );
 
 			// Hack: Add space after paragraph
 			// Normally Google Cal understands the newline character %0a
