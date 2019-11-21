@@ -458,6 +458,8 @@ tribe.events.views.datepicker = {};
 	obj.filterDayCells = function( date ) {
 		if ( obj.isBefore( date, obj.today, 'day' ) ) {
 			return 'past';
+		} else if ( obj.isSame( date, obj.today, 'day' ) ) {
+			return 'current';
 		}
 	};
 
@@ -471,6 +473,8 @@ tribe.events.views.datepicker = {};
 	obj.filterMonthCells = function( date ) {
 		if ( obj.isBefore( date, obj.today, 'month' ) ) {
 			return 'past';
+		} else if ( obj.isSame( date, obj.today, 'month' ) ) {
+			return 'current';
 		}
 	};
 
@@ -484,6 +488,8 @@ tribe.events.views.datepicker = {};
 	obj.filterYearCells = function( date ) {
 		if ( obj.isBefore( date, obj.today, 'year' ) ) {
 			return 'past';
+		} else if ( obj.isSame( date, obj.today, 'year' ) ) {
+			return 'current';
 		}
 	};
 
