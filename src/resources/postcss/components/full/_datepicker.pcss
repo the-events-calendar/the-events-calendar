@@ -106,7 +106,7 @@
 					border-radius: var(--border-radius-default);
 					content: '';
 					display: block;
-					height: 48px;
+					height: 47px;
 					left: var(--spacer-3);
 					pointer-events: none;
 					position: absolute;
@@ -139,16 +139,6 @@
 				}
 			}
 
-			&.past {
-				color: var(--color-text-primary-light);
-
-				&:hover,
-				&:focus,
-				&.focused {
-					color: var(--color-text-primary-light);
-				}
-			}
-
 			&.active {
 				color: var(--color-text-primary);
 				background: transparent;
@@ -156,8 +146,14 @@
 				&:hover {
 					background: transparent;
 				}
+			}
 
-				&.past {
+			&.past {
+				color: var(--color-text-primary-light);
+
+				&:hover,
+				&:focus,
+				&.focused {
 					color: var(--color-text-primary-light);
 				}
 			}
@@ -277,6 +273,16 @@
 				color: var(--color-text-primary-light);
 			}
 
+			&.current {
+				background: var(--color-accent-primary-background);
+
+				&:hover,
+				&:focus,
+				&.focused {
+					background: var(--color-accent-primary-background);
+				}
+			}
+
 			&.active {
 				color: var(--color-background);
 				background: var(--color-accent-primary);
@@ -307,6 +313,16 @@
 			&.past {
 				color: var(--color-text-primary-light);
 			}
+
+			&.current {
+				color: var(--color-background);
+
+				&:hover,
+				&:focus,
+				&.focused {
+					color: var(--color-background);
+				}
+			}
 		}
 
 		.hovered,
@@ -317,6 +333,17 @@
 
 				&:hover {
 					background: var(--color-background-secondary);
+				}
+			}
+		}
+
+		.current {
+
+			.day {
+				background: var(--color-accent-primary-background);
+
+				&:hover {
+					background: var(--color-accent-primary-background);
 				}
 			}
 		}
