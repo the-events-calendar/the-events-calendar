@@ -3,3 +3,24 @@
  * iCal Link
  *
  * ----------------------------------------------------------------------------- */
+.tribe-events {
+
+	.tribe-events-c-ical__link {
+		@mixin anchor-alt;
+	}
+
+	/* -------------------------------------------------------------------------
+	 * Theme Overrides - Twenty Seventeen
+	 * ------------------------------------------------------------------------- */
+
+	.tribe-theme-twentyseventeen & {
+
+		.tribe-events-c-ical__link {
+
+			&:hover,
+			&:focus {
+				color: var(--color-accent-primary);
+			}
+		}
+	}
+}
