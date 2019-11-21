@@ -72,7 +72,6 @@ tribe.events.views.datepicker = {};
 		minViewMode: 'month',
 		orientation: 'bottom left',
 		showOnFocus: false,
-		todayHighlight: true,
 		templates: {
 			leftArrow: '',
 			rightArrow: '',
@@ -385,66 +384,64 @@ tribe.events.views.datepicker = {};
 	 *
 	 * @since TBD
 	 *
+	 * @param {string} today string representation of today's date according to website time
+	 *
 	 * @return {void}
 	 */
-	obj.setToday = function() {
-		obj.today = new Date();
+	obj.setToday = function( today ) {
+		var date = today.split( ' ' )[0];
+		obj.today = new Date( date );
 	};
 
 	/**
-	 * Determine whether or not date1 is the same as date2
+	 * Determine whether or not date is the same as today.
+	 * The function uses UTC values to maintain consistency with website date.
+	 * Function will return false if proper unit is not provided.
 	 *
 	 * @since TBD
 	 *
+	 * @param {Date}   date Date object representing the date being compared
+	 * @param {string} unit Unit to compare dates to
+	 *
 	 * @return {bool}
 	 */
-	obj.isSame = function( date1, date2, unit = null ) {
+	obj.isSameAsToday = function( date, unit ) {
 		switch ( unit ) {
 			case 'year':
-				return date1.getFullYear() === date2.getFullYear();
+				return date.getFullYear() === obj.today.getUTCFullYear();
 			case 'month':
-				return obj.isSame( date1, date2, 'year' ) && date1.getMonth() === date2.getMonth();
+				return obj.isSameAsToday( date, 'year' ) && date.getMonth() === obj.today.getUTCMonth();
 			case 'day':
-				return obj.isSame( date1, date2, 'month' ) && date1.getDate() === date2.getDate();
-			case 'hour':
-				return obj.isSame( date1, date2, 'day' ) && date1.getHours() === date2.getHours();
-			case 'minute':
-				return obj.isSame( date1, date2, 'hour' ) && date1.getMinutes() === date2.getMinutes();
-			case 'second':
-				return obj.isSame( date1, date2, 'minute' ) && date1.getSeconds() === date2.getSeconds();
+				return obj.isSameAsToday( date, 'month' ) && date.getDate() === obj.today.getUTCDate();
 			default:
-				return date1.getTime() === date2.getTime();
+				return false;
 		}
 	}
 
 	/**
-	 * Determine whether or not date1 is before date2
+	 * Determine whether or not date is before today.
+	 * The function uses UTC values to maintain consistency with website date.
+	 * Function will return false if proper unit is not provided.
 	 *
 	 * @since TBD
 	 *
+	 * @param {Date}   date Date object representing the date being compared
+	 * @param {string} unit Unit to compare dates to
+	 *
 	 * @return {bool}
 	 */
-	obj.isBefore = function( date1, date2, unit = null ) {
+	obj.isBeforeToday = function( date, unit ) {
 		switch ( unit ) {
 			case 'year':
-				return date1.getFullYear() < date2.getFullYear();
+				return date.getFullYear() < obj.today.getUTCFullYear();
 			case 'month':
-				return obj.isBefore( date1, date2, 'year' )
-					|| ( obj.isSame( date1, date2, 'year' ) && date1.getMonth() < date2.getMonth() );
+				return obj.isBeforeToday( date, 'year' )
+					|| ( obj.isSameAsToday( date, 'year' ) && date.getMonth() < obj.today.getUTCMonth() );
 			case 'day':
-				return obj.isBefore( date1, date2, 'month' )
-					|| ( obj.isSame( date1, date2, 'month' ) && date1.getDate() < date2.getDate() );
-			case 'hour':
-				return obj.isBefore( date1, date2, 'day' )
-					|| ( obj.isSame( date1, date2, 'day' ) && date1.getHours() < date2.getHours() );
-			case 'minute':
-				return obj.isBefore( date1, date2, 'hour' )
-					|| ( obj.isSame( date1, date2, 'hour' ) && date1.getMinutes() < date2.getMinutes() );
-			case 'second':
-				return obj.isBefore( date1, date2, 'minute' )
-					|| ( obj.isSame( date1, date2, 'minute' ) && date1.getSeconds() < date2.getSeconds() );
+				return obj.isBeforeToday( date, 'month' )
+					|| ( obj.isSameAsToday( date, 'month' ) && date.getDate() < obj.today.getUTCDate() );
 			default:
-				return date1 < date2;
+				return false;
 		}
 	};
 
@@ -456,9 +453,9 @@ tribe.events.views.datepicker = {};
 	 * @return {string|void}
 	 */
 	obj.filterDayCells = function( date ) {
-		if ( obj.isBefore( date, obj.today, 'day' ) ) {
+		if ( obj.isBeforeToday( date, 'day' ) ) {
 			return 'past';
-		} else if ( obj.isSame( date, obj.today, 'day' ) ) {
+		} else if ( obj.isSameAsToday( date, 'day' ) ) {
 			return 'current';
 		}
 	};
@@ -471,9 +468,9 @@ tribe.events.views.datepicker = {};
 	 * @return {string|void}
 	 */
 	obj.filterMonthCells = function( date ) {
-		if ( obj.isBefore( date, obj.today, 'month' ) ) {
+		if ( obj.isBeforeToday( date, 'month' ) ) {
 			return 'past';
-		} else if ( obj.isSame( date, obj.today, 'month' ) ) {
+		} else if ( obj.isSameAsToday( date, 'month' ) ) {
 			return 'current';
 		}
 	};
@@ -486,9 +483,9 @@ tribe.events.views.datepicker = {};
 	 * @return {string|void}
 	 */
 	obj.filterYearCells = function( date ) {
-		if ( obj.isBefore( date, obj.today, 'year' ) ) {
+		if ( obj.isBeforeToday( date, 'year' ) ) {
 			return 'past';
-		} else if ( obj.isSame( date, obj.today, 'year' ) ) {
+		} else if ( obj.isSameAsToday( date, 'year' ) ) {
 			return 'current';
 		}
 	};
@@ -593,7 +590,7 @@ tribe.events.views.datepicker = {};
 		obj.observer = new MutationObserver( obj.handleMutation( { container: $container } ) );
 
 		// set up today's date
-		obj.setToday();
+		obj.setToday( data.today );
 
 		// set options for datepicker
 		obj.initDateFormat( data );
