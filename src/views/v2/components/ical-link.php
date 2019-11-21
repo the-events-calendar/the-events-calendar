@@ -11,7 +11,7 @@
  *
  * @version TBD
  *
- * @var obj $ical Object containing iCal data
+ * @var object $ical Object containing iCal data
  */
 
 if ( empty( $ical->display_link ) ) {

@@ -1612,8 +1612,8 @@ class View implements View_Interface {
 		 *
 		 * @since TBD
 		 *
-		 * @param obj  $ical_data An object containing the ical data.
-		 * @param View $this     The current View instance being rendered.
+		 * @param object $ical_data An object containing the ical data.
+		 * @param View   $this      The current View instance being rendered.
 		 */
 		$ical_data = apply_filters( "tribe_events_views_v2_view_ical_data", $ical_data, $this );
 
@@ -1622,8 +1622,8 @@ class View implements View_Interface {
 		 *
 		 * @since TBD
 		 *
-		 * @param obj  $ical_data An object containing the ical data.
-		 * @param View $this     The current View instance being rendered.
+		 * @param object $ical_data An object containing the ical data.
+		 * @param View   $this      The current View instance being rendered.
 		 */
 		$ical_data = apply_filters( "tribe_events_views_v2_view_{$this->slug}_ical_data", $ical_data, $this );
 
