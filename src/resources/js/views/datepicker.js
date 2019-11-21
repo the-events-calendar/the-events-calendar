@@ -80,6 +80,15 @@ tribe.events.views.datepicker = {};
 	};
 
 	/**
+	 * Date object representing today
+	 *
+	 * @since TBD
+	 *
+	 * @type {Date|null}
+	 */
+	obj.today = null;
+
+	/**
 	 * Object of date format map.
 	 * Date formats are mapped from PHP to Bootstrap Datepicker format.
 	 *
@@ -372,6 +381,113 @@ tribe.events.views.datepicker = {};
 	};
 
 	/**
+	 * Set today to date object representing today
+	 *
+	 * @since TBD
+	 *
+	 * @return {void}
+	 */
+	obj.setToday = function() {
+		obj.today = new Date();
+	};
+
+	/**
+	 * Determine whether or not date1 is the same as date2
+	 *
+	 * @since TBD
+	 *
+	 * @return {bool}
+	 */
+	obj.isSame = function( date1, date2, unit = null ) {
+		switch ( unit ) {
+			case 'year':
+				return date1.getFullYear() === date2.getFullYear();
+			case 'month':
+				return obj.isSame( date1, date2, 'year' ) && date1.getMonth() === date2.getMonth();
+			case 'day':
+				return obj.isSame( date1, date2, 'month' ) && date1.getDate() === date2.getDate();
+			case 'hour':
+				return obj.isSame( date1, date2, 'day' ) && date1.getHours() === date2.getHours();
+			case 'minute':
+				return obj.isSame( date1, date2, 'hour' ) && date1.getMinutes() === date2.getMinutes();
+			case 'second':
+				return obj.isSame( date1, date2, 'minute' ) && date1.getSeconds() === date2.getSeconds();
+			default:
+				return date1.getTime() === date2.getTime();
+		}
+	}
+
+	/**
+	 * Determine whether or not date1 is before date2
+	 *
+	 * @since TBD
+	 *
+	 * @return {bool}
+	 */
+	obj.isBefore = function( date1, date2, unit = null ) {
+		switch ( unit ) {
+			case 'year':
+				return date1.getFullYear() < date2.getFullYear();
+			case 'month':
+				return obj.isBefore( date1, date2, 'year' )
+					|| ( obj.isSame( date1, date2, 'year' ) && date1.getMonth() < date2.getMonth() );
+			case 'day':
+				return obj.isBefore( date1, date2, 'month' )
+					|| ( obj.isSame( date1, date2, 'month' ) && date1.getDate() < date2.getDate() );
+			case 'hour':
+				return obj.isBefore( date1, date2, 'day' )
+					|| ( obj.isSame( date1, date2, 'day' ) && date1.getHours() < date2.getHours() );
+			case 'minute':
+				return obj.isBefore( date1, date2, 'hour' )
+					|| ( obj.isSame( date1, date2, 'hour' ) && date1.getMinutes() < date2.getMinutes() );
+			case 'second':
+				return obj.isBefore( date1, date2, 'minute' )
+					|| ( obj.isSame( date1, date2, 'minute' ) && date1.getSeconds() < date2.getSeconds() );
+			default:
+				return date1 < date2;
+		}
+	};
+
+	/**
+	 * Filter datepicker day cells
+	 *
+	 * @since TBD
+	 *
+	 * @return {string|void}
+	 */
+	obj.filterDayCells = function( date ) {
+		if ( obj.isBefore( date, obj.today, 'day' ) ) {
+			return 'past';
+		}
+	};
+
+	/**
+	 * Filter datepicker month cells
+	 *
+	 * @since TBD
+	 *
+	 * @return {string|void}
+	 */
+	obj.filterMonthCells = function( date ) {
+		if ( obj.isBefore( date, obj.today, 'month' ) ) {
+			return 'past';
+		}
+	};
+
+	/**
+	 * Filter datepicker year cells
+	 *
+	 * @since TBD
+	 *
+	 * @return {string|void}
+	 */
+	obj.filterYearCells = function( date ) {
+		if ( obj.isBefore( date, obj.today, 'year' ) ) {
+			return 'past';
+		}
+	};
+
+	/**
 	 * Convert date format from PHP to Bootstrap datepicker format.
 	 *
 	 * @since 4.9.11
@@ -470,6 +586,9 @@ tribe.events.views.datepicker = {};
 		// set up mutation observer
 		obj.observer = new MutationObserver( obj.handleMutation( { container: $container } ) );
 
+		// set up today's date
+		obj.setToday();
+
 		// set options for datepicker
 		obj.initDateFormat( data );
 		obj.isLiveRefresh = data.live_refresh ? data.live_refresh : false;
@@ -482,6 +601,9 @@ tribe.events.views.datepicker = {};
 		var prevText = datepickerI18n.prevText || 'Prev';
 		obj.options.templates.leftArrow = '<span class="tribe-common-svgicon"></span><span class="tribe-common-a11y-visual-hide">' + prevText + '</span>',
 		obj.options.templates.rightArrow = '<span class="tribe-common-svgicon"></span><span class="tribe-common-a11y-visual-hide">' + nextText + '</span>',
+		obj.options.beforeShowDay = obj.filterDayCells;
+		obj.options.beforeShowMonth = obj.filterMonthCells;
+		obj.options.beforeShowYear = obj.filterYearCells;
 
 		$input
 			.bootstrapDatepicker( obj.options )
