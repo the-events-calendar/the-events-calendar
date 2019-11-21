@@ -401,6 +401,16 @@
 				color: var(--color-text-primary-light) !important;
 			}
 
+			&.current {
+				background: var(--color-accent-primary-background);
+
+				&:hover,
+				&:focus,
+				&.focused {
+					background: var(--color-accent-primary-background);
+				}
+			}
+
 			&.active {
 				color: var(--color-background) !important;
 				background: var(--color-accent-primary) !important;
@@ -431,6 +441,16 @@
 			&.past {
 				color: var(--color-text-primary-light) !important;
 			}
+
+			&.current {
+				color: var(--color-background) !important;
+
+				&:hover,
+				&:focus,
+				&.focused {
+					color: var(--color-background) !important;
+				}
+			}
 		}
 
 		.hovered,
@@ -441,6 +461,17 @@
 
 				&:hover {
 					background: var(--color-background-secondary) !important;
+				}
+			}
+		}
+
+		.current {
+
+			.day {
+				background: var(--color-accent-primary-background) !important;
+
+				&:hover {
+					background: var(--color-accent-primary-background) !important;
 				}
 			}
 		}
