@@ -24,7 +24,7 @@ if ( empty( $disable_event_search ) ) {
 }
 ?>
 <div
-	class="tribe-common tribe-events tribe-events-view tribe-events-view--list"
+	<?php tribe_classes( $this->get_view()->get_html_classes() ); ?>
 	data-js="tribe-events-view"
 	data-view-rest-nonce="<?php echo esc_attr( $rest_nonce ); ?>"
 	data-view-rest-url="<?php echo esc_url( $rest_url ); ?>"

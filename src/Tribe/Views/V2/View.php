@@ -574,6 +574,58 @@ class View implements View_Interface {
 	/**
 	 * {@inheritDoc}
 	 */
+	public function get_parents_slug() {
+		$parents = class_parents( $this );
+		$parents = array_map( [ tribe( Manager::class ), 'get_view_slug_by_class' ], $parents );
+		$parents = array_filter( $parents );
+
+		return array_values( $parents );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_html_classes( array $classes = [] ) {
+		$base_classes = [
+			'tribe-common',
+			'tribe-events',
+			'tribe-events-view',
+			'tribe-events-view--' . $this->get_slug(),
+		];
+
+		$parents = array_map( static function ( $view_slug ) {
+			return 'tribe-events-view--' . $view_slug;
+		}, $this->get_parents_slug() );
+
+		$html_classes = array_merge( $base_classes, $parents, $classes );
+
+		/**
+		 * Filters the query arguments array for a View URL.
+		 *
+		 * @since TBD
+		 *
+		 * @param array                        $html_classes  Array of classes used for this view.
+		 * @param string                       $view_slug     The current view slug.
+		 * @param \Tribe\Events\Views\V2\View  $instance      The current View object.
+		 */
+		$html_classes = apply_filters( 'tribe_events_views_v2_view_html_classes', $html_classes, $this->get_slug(), $this );
+
+		/**
+		 * Filters the query arguments array for a specific View URL.
+		 *
+		 * @since TBD
+		 *
+		 * @param array                        $html_classes  Array of classes used for this view.
+		 * @param \Tribe\Events\Views\V2\View  $instance      The current View object.
+		 */
+		$html_classes = apply_filters( "tribe_events_views_v2_{$this->get_slug()}_view_html_classes", $html_classes, $this );
+
+		return $html_classes;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
 	public function set_slug( $slug ) {
 		$this->slug = $slug;
 		$this->template->set( 'slug', $slug );
