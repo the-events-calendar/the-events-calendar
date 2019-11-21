@@ -47,15 +47,15 @@
 
 		.day {
 			@mixin desktop-body-1;
-
-			&.old {
-				color: var(--color-text-disabled);
-			}
 		}
 
 		.month,
 		.year {
 			@mixin desktop-body-3;
+		}
+
+		.past {
+			color: var(--color-text-disabled);
 		}
 
 		.day,
@@ -72,6 +72,7 @@
 			&.active {
 				color: var(--color-background);
 				background: var(--color-accent-primary);
+				text-shadow: none;
 
 				&:hover,
 				&:focus,
@@ -199,10 +200,6 @@
 			&.new {
 				opacity: 1;
 			}
-
-			&.old {
-				color: var(--color-text-disabled);
-			}
 		}
 
 		.day,
@@ -215,6 +212,10 @@
 			&:focus,
 			&.focused {
 				background: var(--color-background-secondary);
+			}
+
+			&.past {
+				color: var(--color-text-disabled);
 			}
 
 			&.active {
@@ -242,6 +243,10 @@
 				&:hover {
 					background: transparent;
 				}
+			}
+
+			&.past {
+				color: var(--color-text-disabled);
 			}
 		}
 
@@ -285,20 +290,13 @@
 			&.old,
 			&.new {
 				background-color: transparent !important;
+				color: var(--color-text-primary) !important;
 
 				&:hover,
 				&:focus,
 				&.focused {
 					background: var(--color-background-secondary) !important;
 				}
-			}
-
-			&.old {
-				color: var(--color-text-disabled) !important;
-			}
-
-			&.new {
-				color: var(--color-text-primary) !important;
 			}
 		}
 
@@ -313,15 +311,19 @@
 				background: var(--color-background-secondary);
 			}
 
+			&.past {
+				color: var(--color-text-disabled) !important;
+			}
+
 			&.active {
-				color: var(--color-background);
-				background: var(--color-accent-primary);
+				color: var(--color-background) !important;
+				background: var(--color-accent-primary) !important;
 
 				&:hover,
 				&:focus,
 				&.focused {
-					color: var(--color-background);
-					background: var(--color-accent-primary);
+					color: var(--color-background) !important;
+					background: var(--color-accent-primary) !important;
 				}
 			}
 		}
@@ -332,12 +334,16 @@
 		.day {
 
 			&.active {
-				color: var(--color-text-primary);
-				background: transparent;
+				color: var(--color-text-primary) !important;
+				background: transparent !important;
 
 				&:hover {
-					background: transparent;
+					background: transparent !important;
 				}
+			}
+
+			&.past {
+				color: var(--color-text-disabled) !important;
 			}
 		}
 
@@ -345,15 +351,10 @@
 		.focused {
 
 			.day {
-				background: var(--color-background-secondary);
+				background: var(--color-background-secondary) !important;
 
 				&:hover {
-					background: var(--color-background-secondary);
-				}
-
-				&.old,
-				&.new {
-					background-color: var(--color-background-secondary) !important;
+					background: var(--color-background-secondary) !important;
 				}
 			}
 		}
