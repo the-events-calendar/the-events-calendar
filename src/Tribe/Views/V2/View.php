@@ -165,6 +165,16 @@ class View implements View_Interface {
 	protected $display_events_bar = true;
 
 	/**
+	 * The instance of the rewrite handling class to use.
+	 * Extending classes can override this to use more specific rewrite handlers (e.g. PRO Views).
+	 *
+	 * @since TBD
+	 *
+	 * @var Rewrite
+	 */
+	protected $rewrite;
+
+	/**
 	 * View constructor.
 	 *
 	 * @since 4.9.11
@@ -173,6 +183,7 @@ class View implements View_Interface {
 	 */
 	public function __construct( Messages $messages = null ) {
 		$this->messages = $messages ?: new Messages();
+		$this->rewrite = Rewrite::instance();
 	}
 
 	/**
@@ -694,7 +705,7 @@ class View implements View_Interface {
 		$url = add_query_arg( array_filter( $query_args ), home_url() );
 
 		if ( $canonical ) {
-			$url = Rewrite::instance()->get_clean_url( $url );
+			$url = $this->rewrite->get_clean_url( $url );
 		}
 
 		$event_display_mode = $this->context->get( 'event_display_mode', false );
@@ -1119,6 +1130,8 @@ class View implements View_Interface {
 
 		$this->setup_messages( $events );
 
+		$today_url     = $this->get_today_url( true );
+
 		$template_vars = [
 			'title'                => $this->get_title( $events ),
 			'events'               => $events,
@@ -1134,7 +1147,7 @@ class View implements View_Interface {
 			'rest_url'             => tribe( Rest_Endpoint::class )->get_url(),
 			'rest_nonce'           => wp_create_nonce( 'wp_rest' ),
 			'should_manage_url'    => $this->should_manage_url,
-			'today_url'            => $this->get_today_url( true ),
+			'today_url'            => $today_url,
 			'prev_label'           => $this->get_link_label( $this->prev_url( false ) ),
 			'next_label'           => $this->get_link_label( $this->next_url( false ) ),
 			'date_formats'         => (object) [
@@ -1214,7 +1227,7 @@ class View implements View_Interface {
 				str_replace(
 					home_url(),
 					'',
-					Rewrite::$instance->get_clean_url( (string) $this->get_url() ) ),
+					$this->rewrite->get_clean_url( (string) $this->get_url() ) ),
 				'/'
 			);
 
@@ -1265,7 +1278,7 @@ class View implements View_Interface {
 			return $ugly_url;
 		}
 
-		return Rewrite::instance()->get_canonical_url( $ugly_url );
+		return $this->rewrite->get_canonical_url( $ugly_url );
 	}
 
 	/**
