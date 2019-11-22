@@ -90,6 +90,26 @@ interface View_Interface  extends View_Url_Provider_Interface, Repository_User_I
 	public function get_slug();
 
 	/**
+	 * Returns all the parent views that the current class as an array of slugs.
+	 *
+	 * @since TBD
+	 *
+	 * @return string[] Array of string with the slugs of all the registered views.
+	 */
+	public function get_parents_slug();
+
+	/**
+	 * Returns all html classes for the view instance we are handling.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $classes  Array of classes that are going to be appended to this instance.
+	 *
+	 * @return string[]       Array of string with the classes used
+	 */
+	public function get_html_classes( array $classes = [] );
+
+	/**
 	 * Returns a View template class.
 	 *
 	 * @since 4.9.2
