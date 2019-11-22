@@ -389,7 +389,11 @@ tribe.events.views.datepicker = {};
 	 * @return {void}
 	 */
 	obj.setToday = function( today ) {
-		var date = today.split( ' ' )[0];
+		var date = today;
+		if ( today.indexOf( ' ' ) >= 0 ) {
+			date = today.split( ' ' )[0];
+		}
+
 		obj.today = new Date( date );
 	};
 
