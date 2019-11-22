@@ -1,9 +1,8 @@
 <?php
 
-namespace Tribe\Views\V2\Utils;
+namespace Tribe\Events\Views\V2\Utils;
 
 use Tribe\Events\Test\Factories\Event;
-use Tribe\Events\Views\V2\Utils\Stack;
 
 class StackTest extends \Codeception\TestCase\WPTestCase {
 	public function setUp() {

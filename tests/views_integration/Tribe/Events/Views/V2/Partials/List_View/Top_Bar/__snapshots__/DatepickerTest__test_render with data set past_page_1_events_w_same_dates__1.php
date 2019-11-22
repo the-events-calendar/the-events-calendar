@@ -12,7 +12,7 @@
 				<span class="tribe-events-c-top-bar__datepicker-desktop tribe-common-a11y-hidden">
 					January 2				</span>
 			</time>
-							<span class="tribe-events-c-top-bar__datepicker-separator">&mdash;</span>
+							<span class="tribe-events-c-top-bar__datepicker-separator"> - </span>
 			<time
 				datetime="2019-01-02"
 				class="tribe-events-c-top-bar__datepicker-time"

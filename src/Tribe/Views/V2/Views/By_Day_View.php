@@ -105,8 +105,9 @@ abstract class By_Day_View extends View {
 
 		try {
 			$grid_start_date = $grid_start->setTime( 0, 0 );
-			$grid_end_date   = $grid_end->setTime( 23, 59, 59 );
-			$days            = new \DatePeriod(
+			// Add a day at the end to pick-up multi-day events starting on the last day.
+			$grid_end_date = $grid_end->setTime( 23, 59, 59 )->add( new \DateInterval( 'P1D' ) );
+			$days          = new \DatePeriod(
 				$grid_start_date,
 				new \DateInterval( 'P1D' ),
 				$grid_end_date
@@ -158,11 +159,21 @@ abstract class By_Day_View extends View {
 
 			$this->grid_days_cache[ $day_string ]       = (array) $event_ids;
 			$this->grid_days_found_cache[ $day_string ] = (int) $found;
+
+			/*
+			 * Multi-day events will always appear on the second day and forward, back-fill if they did not make the
+			 * cut (of events per day) on previous days.
+			 */
+			$this->backfill_multiday_event_ids( $event_ids );
 		}
 
 		if ( is_array( $this->grid_days_cache ) && count( $this->grid_days_cache ) ) {
 			$this->grid_days_cache = $this->add_implied_events( $this->grid_days_cache );
 		}
+
+		// Drop the last day we've added before.
+		array_pop( $this->grid_days_cache );
+		array_pop( $this->grid_days_found_cache );
 
 		return $this->grid_days_cache;
 	}
@@ -342,5 +353,67 @@ abstract class By_Day_View extends View {
 		}
 
 		return $grid_days;
+	}
+
+	/**
+	 * Back-fills the days cache to add multi-day events that, due to events-per-day limits, might not appear on first
+	 * day.
+	 *
+	 * Multi-day events are pulled from the query as normal events.
+	 * When the LIMIT, imposed by events-per-day, is applied a multi-day event starting late in the day, might not
+	 * appear on the first day it starts as other, earlier, events, might fill the LIMIT for that day.
+	 * That same event will appear, but, on later days, starting from the 2nd one.
+	 * Here we go "back" and apply this principle to insert multi-days in previous day(s) cache(s) if required.
+	 *
+	 * @since 4.9.12
+	 *
+	 * @param array $event_ids An array of event post IDs for the day.
+	 */
+	protected function backfill_multiday_event_ids( array $event_ids = [] ) {
+		if ( empty( $event_ids ) ) {
+			return;
+		}
+
+		try {
+			$one_day = new \DateInterval( 'P1D' );
+		} catch ( \Exception $e ) {
+			return;
+		}
+
+		foreach ( $event_ids as $event_id ) {
+			$event = tribe_get_event( $event_id );
+
+			if ( ! $event instanceof \WP_Post ) {
+				continue;
+			}
+
+			if ( ! $event->multiday ) {
+				continue;
+			}
+
+			try {
+				$event_period = new \DatePeriod(
+					$event->dates->start_display->setTime( 0, 0, 0 ),
+					$one_day,
+					$event->dates->end_display
+				);
+			} catch ( \Exception $e ) {
+				continue;
+			}
+
+			/** @var \DateTime $event_day */
+			foreach ( $event_period as $event_day ) {
+				$event_day_string = $event_day->format( Dates::DBDATEFORMAT );
+
+				if ( ! isset( $this->grid_days_cache[ $event_day_string ] ) ) {
+					continue;
+				}
+
+				if ( ! in_array( $event_id, $this->grid_days_cache[ $event_day_string ], true ) ) {
+					$this->grid_days_cache[ $event_day_string ][] = $event_id;
+					// No need to update the found cache: that's already taking this event into account.
+				}
+			}
+		}
 	}
 }

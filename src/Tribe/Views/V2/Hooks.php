@@ -55,7 +55,6 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_action( 'tribe_events_pre_rewrite', [ $this, 'on_tribe_events_pre_rewrite' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'action_disable_assets_v1' ], 0 );
 		add_action( 'tribe_events_pro_shortcode_tribe_events_after_assets', [ $this, 'action_disable_shortcode_assets_v1' ] );
-		add_action( 'template_redirect', [ $this, 'on_template_redirect' ], 50 );
 	}
 
 	/**
@@ -73,6 +72,8 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'admin_post_thumbnail_html', [ $this, 'filter_admin_post_thumbnail_html' ] );
 		add_filter( 'excerpt_length', [ $this, 'filter_excerpt_length' ] );
 		add_filter( 'tribe_events_views_v2_after_make_view', [ $this, 'action_include_filters_excerpt' ] );
+		// 100 is the WordPress cookie-based auth check.
+		add_filter( 'rest_authentication_errors', [ Rest_Endpoint::class, 'did_rest_authentication_errors' ], 150 );
 
 		if ( tribe_context()->doing_php_initial_state() ) {
 			add_filter( 'wp_title', [ $this, 'filter_wp_title' ], 10, 2 );
@@ -129,7 +130,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 */
 	public function on_tribe_common_loaded() {
 		$this->container->make( Template_Bootstrap::class )->disable_v1();
-		$this->container->make( Rest_Endpoint::class )->maybe_enable_ajax_fallback();
+		$this->container->make( Rest_Endpoint::class )->enable_ajax_fallback();
 	}
 
 	/**
@@ -362,14 +363,5 @@ class Hooks extends \tad_DI52_ServiceProvider {
 
 		$event_query = $this->container->make( Event_Query_Controller::class );
 		$event_query->parse_query( $query );
-	}
-
-	/**
-	 * Fires on the `template_redirect` action to allow the template bootstrap to conditionally redirect, if required.
-	 *
-	 * @since 4.9.11
-	 */
-	public function on_template_redirect() {
-		$this->container->make( Template_Bootstrap::class )->on_template_redirect();
 	}
 }

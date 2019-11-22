@@ -72,6 +72,7 @@ tribe.events.views.datepicker = {};
 		minViewMode: 'month',
 		orientation: 'bottom left',
 		showOnFocus: false,
+		todayHighlight: true,
 		templates: {
 			leftArrow: '',
 			rightArrow: '',
@@ -267,7 +268,7 @@ tribe.events.views.datepicker = {};
 			return;
 		}
 
-		event.data.datepickerButton.removeClass( obj.selectors.buttonOpenClass.className() );
+		$datepickerButton.removeClass( obj.selectors.buttonOpenClass.className() );
 	};
 
 	/**
@@ -282,6 +283,24 @@ tribe.events.views.datepicker = {};
 	obj.handleMousedown = function( event ) {
 		var $datepickerButton = event.data.target;
 		var state = $datepickerButton.data( 'tribeEventsState' );
+		var tapHide = false;
+
+		if ( 'touchstart' === event.type ) {
+			var method = $datepickerButton.hasClass( obj.selectors.buttonOpenClass.className() ) ? 'hide' : 'show';
+			state.isTarget = false;
+
+			if ( 'hide' === method ) {
+				tapHide = true;
+			}
+
+			$datepickerButton
+				.data( 'tribeTapHide', tapHide )
+				.data( 'tribeEventsState', state )
+				.off( 'mousedown', obj.handleMousedown );
+
+			return;
+		}
+
 		state.isTarget = true;
 		$datepickerButton.data( 'tribeEventsState', state );
 	};
@@ -300,6 +319,11 @@ tribe.events.views.datepicker = {};
 		var $datepickerButton = event.data.target;
 		var state = $datepickerButton.data( 'tribeEventsState' );
 		var method = $datepickerButton.hasClass( obj.selectors.buttonOpenClass.className() ) ? 'hide' : 'show';
+		var tapHide = $datepickerButton.data( 'tribeTapHide' );
+
+		if ( tapHide ) {
+			return;
+		}
 
 		state.isTarget = false;
 
@@ -465,7 +489,7 @@ tribe.events.views.datepicker = {};
 			.on( 'hide', { datepickerButton: $datepickerButton, input: $input, observer: obj.observer }, obj.handleHide );
 
 		$datepickerButton
-			.on( 'mousedown touchstart', { target: $datepickerButton }, obj.handleMousedown )
+			.on( 'touchstart mousedown', { target: $datepickerButton }, obj.handleMousedown )
 			.on( 'click', { target: $datepickerButton, input: $input }, obj.handleClick )
 			.data( 'tribeEventsState', state );
 
