@@ -21,7 +21,7 @@ if ( empty( $ical->display_link ) ) {
 ?>
 <div class="tribe-events-c-ical tribe-common-b1">
 	<a
-		class="tribe-common-anchor-alt"
+		class="tribe-events-c-ical__link tribe-common-anchor-alt"
 		title="<?php echo esc_attr( $ical->link->title ); ?>"
 		href="<?php echo esc_url( $ical->link->url ); ?>"
 	><?php echo esc_html( $ical->link->text ); ?></a>
