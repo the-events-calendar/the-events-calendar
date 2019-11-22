@@ -11,19 +11,21 @@
  *
  * @version 4.9.11
  *
- * @var array  $events               The array containing the events.
- * @var string $rest_url             The REST URL.
- * @var string $rest_nonce           The REST nonce.
- * @var bool   $disable_event_search Boolean on whether to disable the event search.
+ * @var array    $events               The array containing the events.
+ * @var string   $rest_url             The REST URL.
+ * @var string   $rest_nonce           The REST nonce.
+ * @var bool     $disable_event_search Boolean on whether to disable the event search.
+ * @var string[] $container_classes    Classes used for the container of the view.
  */
 
 $header_classes = [ 'tribe-events-header' ];
 if ( empty( $disable_event_search ) ) {
 	$header_classes[] = 'tribe-events-header--has-event-search';
 }
+
 ?>
 <div
-	class="tribe-common tribe-events tribe-events-view tribe-events-view--day"
+	<?php tribe_classes( $container_classes ); ?>
 	data-js="tribe-events-view"
 	data-view-rest-nonce="<?php echo esc_attr( $rest_nonce ); ?>"
 	data-view-rest-url="<?php echo esc_url( $rest_url ); ?>"
