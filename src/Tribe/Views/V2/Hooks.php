@@ -361,7 +361,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 */
 	public function filter_register_template_updates( array $plugins = [] ) {
 		$plugins[ __( 'The Events Calendar - View V2', 'the-events-calendar' ) ] = [
-			self::VERSION,
+			TEC::VERSION,
 			$this->pluginPath . 'src/views/v2',
 			trailingslashit( get_stylesheet_directory() ) . 'tribe/events',
 		];
