@@ -694,7 +694,8 @@ class Tribe__Events__Aggregator__Service {
 		);
 
 		$meetup_api_changes_link = sprintf(
-			'<a href="https://m.tri.be/1afb">https://m.tri.be/1afb</a>'
+			'<a href="https://m.tri.be/1afb">%s</a>',
+			esc_html__( 'https://m.tri.be/1afb', 'the-events-calendar' )
 		);
 
 		$this->service_messages = [
