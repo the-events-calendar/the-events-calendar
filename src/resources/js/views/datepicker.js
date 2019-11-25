@@ -72,12 +72,20 @@ tribe.events.views.datepicker = {};
 		minViewMode: 'month',
 		orientation: 'bottom left',
 		showOnFocus: false,
-		todayHighlight: true,
 		templates: {
 			leftArrow: '',
 			rightArrow: '',
 		},
 	};
+
+	/**
+	 * Date object representing today
+	 *
+	 * @since TBD
+	 *
+	 * @type {Date|null}
+	 */
+	obj.today = null;
 
 	/**
 	 * Object of date format map.
@@ -372,6 +380,121 @@ tribe.events.views.datepicker = {};
 	};
 
 	/**
+	 * Set today to date object representing today
+	 *
+	 * @since TBD
+	 *
+	 * @param {string} today string representation of today's date according to website time
+	 *
+	 * @return {void}
+	 */
+	obj.setToday = function( today ) {
+		var date = today;
+		if ( today.indexOf( ' ' ) >= 0 ) {
+			date = today.split( ' ' )[0];
+		}
+
+		obj.today = new Date( date );
+	};
+
+	/**
+	 * Determine whether or not date is the same as today.
+	 * The function uses UTC values to maintain consistency with website date.
+	 * Function will return false if proper unit is not provided.
+	 *
+	 * @since TBD
+	 *
+	 * @param {Date}   date Date object representing the date being compared
+	 * @param {string} unit Unit to compare dates to
+	 *
+	 * @return {bool}
+	 */
+	obj.isSameAsToday = function( date, unit ) {
+		switch ( unit ) {
+			case 'year':
+				return date.getFullYear() === obj.today.getUTCFullYear();
+			case 'month':
+				return obj.isSameAsToday( date, 'year' ) && date.getMonth() === obj.today.getUTCMonth();
+			case 'day':
+				return obj.isSameAsToday( date, 'month' ) && date.getDate() === obj.today.getUTCDate();
+			default:
+				return false;
+		}
+	}
+
+	/**
+	 * Determine whether or not date is before today.
+	 * The function uses UTC values to maintain consistency with website date.
+	 * Function will return false if proper unit is not provided.
+	 *
+	 * @since TBD
+	 *
+	 * @param {Date}   date Date object representing the date being compared
+	 * @param {string} unit Unit to compare dates to
+	 *
+	 * @return {bool}
+	 */
+	obj.isBeforeToday = function( date, unit ) {
+		switch ( unit ) {
+			case 'year':
+				return date.getFullYear() < obj.today.getUTCFullYear();
+			case 'month':
+				return obj.isBeforeToday( date, 'year' )
+					|| ( obj.isSameAsToday( date, 'year' ) && date.getMonth() < obj.today.getUTCMonth() );
+			case 'day':
+				return obj.isBeforeToday( date, 'month' )
+					|| ( obj.isSameAsToday( date, 'month' ) && date.getDate() < obj.today.getUTCDate() );
+			default:
+				return false;
+		}
+	};
+
+	/**
+	 * Filter datepicker day cells
+	 *
+	 * @since TBD
+	 *
+	 * @return {string|void}
+	 */
+	obj.filterDayCells = function( date ) {
+		if ( obj.isBeforeToday( date, 'day' ) ) {
+			return 'past';
+		} else if ( obj.isSameAsToday( date, 'day' ) ) {
+			return 'current';
+		}
+	};
+
+	/**
+	 * Filter datepicker month cells
+	 *
+	 * @since TBD
+	 *
+	 * @return {string|void}
+	 */
+	obj.filterMonthCells = function( date ) {
+		if ( obj.isBeforeToday( date, 'month' ) ) {
+			return 'past';
+		} else if ( obj.isSameAsToday( date, 'month' ) ) {
+			return 'current';
+		}
+	};
+
+	/**
+	 * Filter datepicker year cells
+	 *
+	 * @since TBD
+	 *
+	 * @return {string|void}
+	 */
+	obj.filterYearCells = function( date ) {
+		if ( obj.isBeforeToday( date, 'year' ) ) {
+			return 'past';
+		} else if ( obj.isSameAsToday( date, 'year' ) ) {
+			return 'current';
+		}
+	};
+
+	/**
 	 * Convert date format from PHP to Bootstrap datepicker format.
 	 *
 	 * @since 4.9.11
@@ -470,6 +593,9 @@ tribe.events.views.datepicker = {};
 		// set up mutation observer
 		obj.observer = new MutationObserver( obj.handleMutation( { container: $container } ) );
 
+		// set up today's date
+		obj.setToday( data.today );
+
 		// set options for datepicker
 		obj.initDateFormat( data );
 		obj.isLiveRefresh = data.live_refresh ? data.live_refresh : false;
@@ -482,6 +608,9 @@ tribe.events.views.datepicker = {};
 		var prevText = datepickerI18n.prevText || 'Prev';
 		obj.options.templates.leftArrow = '<span class="tribe-common-svgicon"></span><span class="tribe-common-a11y-visual-hide">' + prevText + '</span>',
 		obj.options.templates.rightArrow = '<span class="tribe-common-svgicon"></span><span class="tribe-common-a11y-visual-hide">' + nextText + '</span>',
+		obj.options.beforeShowDay = obj.filterDayCells;
+		obj.options.beforeShowMonth = obj.filterMonthCells;
+		obj.options.beforeShowYear = obj.filterYearCells;
 
 		$input
 			.bootstrapDatepicker( obj.options )
