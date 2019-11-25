@@ -115,7 +115,7 @@ class Tribe__Events__Cost_Utils extends Tribe__Cost_Utils {
 				$currency_position = get_post_meta( $event_id, '_EventCurrencyPosition', true );
 
 				if ( empty( $currency_position ) ) {
-					$currency_position = tribe_get_option( 'reverseCurrencyPosition', false );
+					$currency_position = tribe_is_truthy( tribe_get_option( 'reverseCurrencyPosition', false ) ) ? 'suffix' : 'prefix';
 				}
 
 				$cost = $this->maybe_format_with_currency( $cost, $event, $currency_symbol, $currency_position );
