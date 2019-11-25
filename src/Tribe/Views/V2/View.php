@@ -8,8 +8,8 @@
 
 namespace Tribe\Events\Views\V2;
 
-use Tribe\Events\Views\V2\Template\Title;
 use Tribe\Events\Views\V2\Template\Settings\Advanced_Display;
+use Tribe\Events\Views\V2\Template\Title;
 use Tribe__Container as Container;
 use Tribe__Context as Context;
 use Tribe__Date_Utils as Dates;
@@ -1132,6 +1132,8 @@ class View implements View_Interface {
 
 		$today_url     = $this->get_today_url( true );
 
+		$today         = $this->context->get( 'today', 'today' );
+
 		$template_vars = [
 			'title'                => $this->get_title( $events ),
 			'events'               => $events,
@@ -1142,8 +1144,9 @@ class View implements View_Interface {
 				'keyword' => $this->context->get( 'keyword', '' ),
 				'date'    => $this->context->get( 'event_date', '' ),
 			],
-			'today'                => $this->context->get( 'today', 'today' ),
+			'today'                => $today,
 			'now'                  => $this->context->get( 'now', 'now' ),
+			'request_date'         => Dates::build_date_object( $this->context->get( 'event_date', $today ) ),
 			'rest_url'             => tribe( Rest_Endpoint::class )->get_url(),
 			'rest_nonce'           => wp_create_nonce( 'wp_rest' ),
 			'should_manage_url'    => $this->should_manage_url,
@@ -1166,6 +1169,7 @@ class View implements View_Interface {
 			'live_refresh'         => tribe_is_truthy( tribe_get_option( 'liveFiltersUpdate', true ) ),
 			'ical'                 => $this->get_ical_data(),
 			'container_classes'    => $this->get_html_classes(),
+			'is_past'              => 'past' === $this->context->get( 'event_display_mode', false ),
 		];
 
 		return $template_vars;
