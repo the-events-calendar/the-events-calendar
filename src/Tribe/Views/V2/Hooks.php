@@ -63,8 +63,11 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @since 4.9.2
 	 */
 	protected function add_filters() {
+		add_filter( 'wp_redirect', [ $this, 'filter_prevent_canonical_embed_redirect' ] );
+		add_filter( 'redirect_canonical', [ $this, 'filter_prevent_canonical_embed_redirect' ] );
 		add_action( 'tribe_events_parse_query', [ $this, 'parse_query' ] );
 		add_filter( 'template_include', [ $this, 'filter_template_include' ], 50 );
+		add_filter( 'embed_template', [ $this, 'filter_template_include' ], 50 );
 		add_filter( 'posts_pre_query', [ $this, 'filter_posts_pre_query' ], 20, 2 );
 		add_filter( 'body_class', [ $this, 'filter_body_class' ] );
 		add_filter( 'query_vars', [ $this, 'filter_query_vars' ], 15 );
@@ -288,6 +291,10 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @return string The modified page title, if required.
 	 */
 	public function filter_wp_title( $title, $sep = null ) {
+		if ( ! $this->container->make( Template_Bootstrap::class )->should_load() ) {
+			return $title;
+		}
+
 		return $this->container->make( Title::class )->filter_wp_title( $title, $sep );
 	}
 
@@ -303,6 +310,10 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @return string The modified page title, if required.
 	 */
 	public function filter_document_title_parts( $title ) {
+		if ( ! $this->container->make( Template_Bootstrap::class )->should_load() ) {
+			return $title;
+		}
+
 		return $this->container->make( Title::class )->filter_document_title_parts( $title );
 	}
 
@@ -351,6 +362,24 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	}
 
 	/**
+	 * Filters the `redirect_canonical` to prevent any redirects on embed URLs.
+	 *
+	 * @since TBD
+	 *
+	 * @param mixed $redirect_url URL which we will redirect to.
+	 *
+	 * @return string The modified html, if required.
+	 */
+	public function filter_prevent_canonical_embed_redirect( $redirect_url = null ) {
+		// Any other URL we bail with the URL return.
+		if ( 'embed' !== tribe_context()->get( 'view' ) ) {
+			return $redirect_url;
+		}
+
+		return false;
+  }
+
+ 	/**
 	 * Registers The Events Calendar with the views/overrides update checker.
 	 *
 	 * @since  TBD
