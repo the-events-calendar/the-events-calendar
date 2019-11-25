@@ -688,6 +688,15 @@ class Tribe__Events__Aggregator__Service {
 			esc_html__( 'the UID part of the iCalendar Specification', 'the-events-calendar' )
 		);
 
+		$facebook_restriction_link = sprintf(
+			'<a href="https://theeventscalendar.com/knowledgebase/import-errors/" target="_blank">%s</a>',
+			esc_html__( 'read more about Facebook restrictions in our knowledgebase', 'the-events-calendar')
+		);
+
+		$meetup_api_changes_link = sprintf(
+			'<a href="https://m.tri.be/1afb">https://m.tri.be/1afb</a>'
+		);
+
 		$this->service_messages = [
 			/* Error */
 			'error:create-import-failed'         => __( 'Sorry, but something went wrong. Please try again.', 'the-events-calendar' ),
@@ -733,6 +742,54 @@ class Tribe__Events__Aggregator__Service {
 					'the-events-calendar' ),
 				$ical_uid_specification_link
 			),
+			'success:facebook-get-token'         =>  __('Successfully fetched Facebook Token', 'the-events-calendar' ),
+			'success:eb-token-valid'             =>  __('Successfully connected to Eventbrite', 'the-events-calendar' ),
+			'success:eb-token-disconnected'      =>  __('Successfully disconnected Eventbrite', 'the-events-calendar' ),
+			'success:eb-webhook-success'         =>  __('Successfully marked event for import from Eventbrite', 'the-events-calendar' ),
+			'success:eb-event-synced'            =>  __('Successfully synced event to Eventbrite', 'the-events-calendar' ),
+			'error:import-id-not-queued'         =>  __('The import being fetched is not queued up for importing. Please try the import again.', 'the-events-calendar' ),
+			'error:fb-permissions'               =>  sprintf(
+				_x(
+					'Events cannot be imported because Facebook has returned an error. This could mean that the event ID does not exist, the event or source is marked as Private, or the event or source has been otherwise restricted by Facebook. You can %1$s.',
+					'Placeholder used for the facebook restriction link',
+					'the-events-calendar'
+				),
+				$facebook_restriction_link
+			),
+			'error:fb-error'                     =>  __('Events cannot be imported because we received an error from Facebook: ', 'the-events-calendar' ),
+			'error:eb-error'                     =>  __('Events cannot be imported because we received an error from Eventbrite: ', 'the-events-calendar' ),
+			'error:eb-sync-error'                =>  __('Event cannot be synced to Eventbrite because we received an error from Eventbrite.', 'the-events-calendar' ),
+			'error:eb-token-not-valid'           =>  __('Eventbrite token is not valid.', 'the-events-calendar' ),
+			'error:eb-parsed-object-empty'       =>  __('Eventbrite parsed object is empty.', 'the-events-calendar' ),
+			'error:eb-parsed-object-type-empty'  =>  __('Eventbrite parsed object type is empty.', 'the-events-calendar' ),
+			'error:eb-parsed-object-id-empty'    =>  __('Eventbrite parsed object ID is empty.', 'the-events-calendar' ),
+			'error:eb-object-empty'              =>  __('Eventbrite parsed object is empty.', 'the-events-calendar' ),
+			'error:eb-event-not-found'           =>  __('Eventbrite event not found.', 'the-events-calendar' ),
+			'error:eb-organizer-not-found'       =>  __('Eventbrite organizer not found.', 'the-events-calendar' ),
+			'error:eb-venue-not-found'           =>  __('Eventbrite venue not found.', 'the-events-calendar' ),
+			'error:eb-user-not-found'            =>  __('Eventbrite user not found.', 'the-events-calendar' ),
+			'error:eb-sync-data-invalid'         =>  __('Eventbrite sync data invalid.', 'the-events-calendar' ),
+			'error:eb-token-not-found'           =>  __('You do not have an active connection to Eventbrite through your account and Event Aggregator.', 'the-events-calendar' ),
+			'error:eb-webhook-not-registered'    =>  __('Webhook not registered properly.', 'the-events-calendar' ),
+			'error:eb-action-not-supported'      =>  __('This webhook action is not currently supported.', 'the-events-calendar' ),
+			'error:eb-event-not-owned'           =>  __('Event not owned, you cannot edit it.', 'the-events-calendar' ),
+			'warning:meetup-api-key-deprecated-plain'  =>  sprintf(
+				_x(
+					'Meetup is no longer supporting API keys, and will restrict access using your existing key starting from August 2019. As an alternative, you should use OAuth2 and update The Events Calendar to the latest version. Learn more at %1$s',
+					'Placeholder used for the meetup API changes',
+					'the-events-calendar'
+				),
+				$meetup_api_changes_link
+			),
+			'error:meetup-api-key-deprecated-plain'    =>  sprintf(
+				_x(
+					'Meetup is no longer supporting API keys, and has restricted access using your existing key starting from August 2019. As an alternative, you must use OAuth2 and update The Events Calendar to the latest version. Learn more at %1$s.',
+					'Placeholder used for the meetup API changes link when the KEY is plain',
+					'the-events-calendar'
+				),
+				$meetup_api_changes_link
+			),
+			'error:meetup-token-not-found'           =>  __('You do not have an active connection to Meetup through your account and Event Aggregator.', 'the-events-calendar' ),
 		];
 
 		/**
@@ -764,9 +821,9 @@ class Tribe__Events__Aggregator__Service {
 		$keys = array_combine( $keys, $keys );
 		$confirmation_args = array_intersect_key( $args, $keys );
 		$confirmation_args = array_merge( $confirmation_args, [
-			'eventbrite_token' => '1',
-			'meetup_api_key'   => '1',
-		]
+				'eventbrite_token' => '1',
+				'meetup_api_key'   => '1',
+			]
 		);
 
 		// Set site for origin(s) that need it for new token handling.
