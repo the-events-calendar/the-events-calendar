@@ -7,11 +7,19 @@ use Tribe\Events\Views\V2\Messages;
 use Tribe\Events\Views\V2\View;
 use Tribe\Test\Products\WPBrowser\Views\V2\ViewTestCase;
 use Tribe__Date_Utils as Dates;
+use Tribe__Events__Main as TEC;
 use Tribe__Timezones as Timezones;
 
 class Day_ViewTest extends ViewTestCase {
 
 	use MatchesSnapshots;
+
+	public function setUp() {
+		parent::setUp();
+		// Remove v1 filtering to have consistent results.
+		remove_filter( 'tribe_events_before_html', [ TEC::instance(), 'before_html_data_wrapper' ] );
+		remove_filter( 'tribe_events_after_html', [ TEC::instance(), 'after_html_data_wrapper' ] );
+	}
 
 	/**
 	 * Test render empty
@@ -32,7 +40,7 @@ class Day_ViewTest extends ViewTestCase {
 		$this->assertMatchesSnapshot( $html );
 	}
 
-	public function test_render_multiple_events_on_day() {
+	public function test_render_w_events() {
 		$timezone_string = 'America/Sao_Paulo';
 		$timezone        = Timezones::build_timezone_object( $timezone_string );
 		$today           = Dates::build_date_object( $this->mock_date_value, $timezone )->format( 'Y-m-d' );
@@ -60,14 +68,18 @@ class Day_ViewTest extends ViewTestCase {
 		// Sanity check
 		$day_start = tribe_beginning_of_day( $today );
 		$day_end   = tribe_end_of_day( $today );
-
-		$this->remap_posts( $events, [
-			'events/featured/1.json',
-			'events/single/1.json',
-			'events/single/2.json'
-		] );
-
 		$this->assertEquals( 3, tribe_events()->where( 'date_overlaps', $day_start, $day_end )->count() );
+
+		add_filter( 'tribe_events_views_v2_view_day_template_vars', function ( array $vars )
+		{
+			$vars['events'] = [
+				$this->get_mock_event( 'events/featured/id.template.json', [ 'id' => 904385349785 ] ),
+				$this->get_mock_event( 'events/single/id.template.json', [ 'id' => 349589759485 ] ),
+				$this->get_mock_event( 'events/single/id.template.json', [ 'id' => 340934095850 ] ),
+			];
+
+			return $vars;
+		} );
 
 		$context = tribe_context()->alter( [
 				'today'      => $this->mock_date_value,
@@ -82,10 +94,7 @@ class Day_ViewTest extends ViewTestCase {
 		// Let's make sure the View is displaying what events we expect it to display.
 		$expected_post_ids = wp_list_pluck( $events, 'ID' );
 
-		$this->assertEquals(
-			$expected_post_ids,
-			$day_view->found_post_ids()
-		);
+		$this->assertEquals( $expected_post_ids, $day_view->found_post_ids() );
 
 		$this->assertMatchesSnapshot( $html );
 	}

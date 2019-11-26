@@ -6,6 +6,7 @@ use Spatie\Snapshots\MatchesSnapshots;
 use Tribe\Events\Views\V2\Messages;
 use Tribe\Events\Views\V2\View;
 use Tribe\Test\Products\WPBrowser\Views\V2\ViewTestCase;
+use Tribe__Events__Main as TEC;
 
 class Month_ViewTest extends ViewTestCase {
 	use MatchesSnapshots;
@@ -29,6 +30,10 @@ class Month_ViewTest extends ViewTestCase {
 				'event_date' => $now->format( 'Y-m-d' ),
 			]
 		);
+
+		// Remove v1 filtering to have consistent results.
+		remove_filter( 'tribe_events_before_html', [ TEC::instance(), 'before_html_data_wrapper' ] );
+		remove_filter( 'tribe_events_after_html', [ TEC::instance(), 'after_html_data_wrapper' ] );
 	}
 
 	/**
@@ -67,11 +72,17 @@ class Month_ViewTest extends ViewTestCase {
 			range( 1, 3 )
 		);
 		$event_ids = wp_list_pluck($events,'ID') ;
-		$remapped_post_ids = $this->remap_posts( $events, [
-			'events/featured/1.json',
-			'events/single/1.json',
-			'events/single/2.json'
+		$mock_and_insert = function($template, $id){
+			$this->wp_insert_post($this->get_mock_event( $template, [ 'id' => $id ] ));
+
+			return $id;
+		};
+		$remapped_post_ids = array_combine( $event_ids, [
+			$mock_and_insert( 'events/featured/id.template.json', 234234234 ),
+			$mock_and_insert( 'events/single/id.template.json', 2453454355 ),
+			$mock_and_insert( 'events/single/id.template.json', 3094853477 ),
 		] );
+
 		add_filter(
 			'tribe_events_views_v2_view_data',
 			function ( array $data ) use ( $remapped_post_ids ) {
@@ -82,6 +93,17 @@ class Month_ViewTest extends ViewTestCase {
 				return $data;
 			}
 		);
+		add_filter( 'tribe_events_views_v2_view_month_template_vars', function ( $vars ) use ( $remapped_post_ids )
+		{
+			$vars['events']['2019-01-01']         = $this->remap_post_id_array( $vars['events']['2019-01-01'],
+				$remapped_post_ids );
+			$vars['days']['2019-01-01']['events'] = array_combine(
+				$remapped_post_ids,
+				array_map( 'tribe_get_event', $remapped_post_ids )
+			);
+
+			return $vars;
+		} );
 
 		/** @var Month_View $month_view */
 		$month_view      = View::make( Month_View::class, $this->context );

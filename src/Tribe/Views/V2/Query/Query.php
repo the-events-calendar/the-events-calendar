@@ -11,6 +11,7 @@ namespace Tribe\Events\Views\V2\Query;
 
 use Tribe__Cache_Listener as Cache_Listener;
 use Tribe__Date_Utils as Dates;
+use Tribe__Events__Main as TEC;
 use Tribe__Timezones as Timezones;
 use Tribe__Utils__Array as Arr;
 
@@ -48,7 +49,7 @@ class Query {
 
 		$use_site_timezone = Timezones::is_mode( Timezones::SITE_TIMEZONE );
 $meta_key_timezone = '_EventTimezone';
-$meta_key_all_day = '_EventAllDay'; 
+$meta_key_all_day = '_EventAllDay';
 $post_type = TEC::POSTTYPE;
 		// @todo @lucatume wherever this SQL lives it should have a filterable limit and run until a set does not fill it.
 		$query = "
@@ -202,6 +203,11 @@ $post_type = TEC::POSTTYPE;
 		$post_objects = $wpdb->get_results( $posts_query );
 		if ( is_array( $post_objects ) && ! empty( $post_objects ) ) {
 			foreach ( $post_objects as $post_object ) {
+				if ( false !== wp_cache_get( $post_object->ID, 'posts' ) ) {
+					// Do not override already set caches.
+					continue;
+				}
+
 				$post = new \WP_Post( $post_object );
 				wp_cache_set( $post_object->ID, $post, 'posts' );
 			}

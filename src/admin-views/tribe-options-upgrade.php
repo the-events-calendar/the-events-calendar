@@ -7,7 +7,7 @@
 			/**
 			 * Fires at the top of the upgrade complete on Settings > Upgrade
 			 *
-			 * @since TBD
+			 * @since 4.9.12
 			 */
 			do_action( 'tribe_upgrade_complete_before' );
 			?>
@@ -28,7 +28,7 @@
 			/**
 			 * Fires at the bottom of the upgrade complete on Settings > Upgrade
 			 *
-			 * @since TBD
+			 * @since 4.9.12
 			 */
 			do_action( 'tribe_upgrade_complete_after' );
 			?>
@@ -41,7 +41,7 @@
 			/**
 			 * Fires at the top of the upgrade step 1 on Settings > Upgrade
 			 *
-			 * @since TBD
+			 * @since 4.9.12
 			 */
 			do_action( 'tribe_upgrade_step1_before' );
 			?>
@@ -67,7 +67,7 @@
 			/**
 			 * Fires at the bottom of the upgrade step 1 on Settings > Upgrade
 			 *
-			 * @since TBD
+			 * @since 4.9.12
 			 */
 			do_action( 'tribe_upgrade_step1_after' );
 			?>
@@ -78,7 +78,7 @@
 			/**
 			 * Fires at the top of the upgrade step 2 on Settings > Upgrade
 			 *
-			 * @since TBD
+			 * @since 4.9.12
 			 */
 			do_action( 'tribe_upgrade_step2_before' );
 			?>
@@ -117,7 +117,7 @@
 			/**
 			 * Fires at the bottom of the upgrade step 2 on Settings > Upgrade
 			 *
-			 * @since TBD
+			 * @since 4.9.12
 			 */
 			do_action( 'tribe_upgrade_step2_after' );
 			?>

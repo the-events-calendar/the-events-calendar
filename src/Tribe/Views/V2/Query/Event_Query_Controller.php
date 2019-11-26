@@ -39,7 +39,7 @@ class Event_Query_Controller extends Abstract_Query_Controller {
 	 */
 	protected function repository() {
 		// @todo refine this to handle order depending on the View.
-		return tribe_events()->order_by('event_date', 'ASC');
+		return tribe_events()->order_by( 'event_date', 'ASC' );
 	}
 
 	/**
@@ -67,8 +67,8 @@ class Event_Query_Controller extends Abstract_Query_Controller {
 			]
 		);
 
-		if ( 3 === $suppress_filters ) {
-			$query->tribe_suppress_query_filters = true;
+		if ( 3 === $suppress_filters || $query->is_embed ) {
+			$query->set( 'tribe_suppress_query_filters', true );
 		}
 	}
 }

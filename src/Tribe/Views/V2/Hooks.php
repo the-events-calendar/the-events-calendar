@@ -63,8 +63,11 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @since 4.9.2
 	 */
 	protected function add_filters() {
+		add_filter( 'wp_redirect', [ $this, 'filter_prevent_canonical_embed_redirect' ] );
+		add_filter( 'redirect_canonical', [ $this, 'filter_prevent_canonical_embed_redirect' ] );
 		add_action( 'tribe_events_parse_query', [ $this, 'parse_query' ] );
 		add_filter( 'template_include', [ $this, 'filter_template_include' ], 50 );
+		add_filter( 'embed_template', [ $this, 'filter_template_include' ], 50 );
 		add_filter( 'posts_pre_query', [ $this, 'filter_posts_pre_query' ], 20, 2 );
 		add_filter( 'body_class', [ $this, 'filter_body_class' ] );
 		add_filter( 'query_vars', [ $this, 'filter_query_vars' ], 15 );
@@ -74,6 +77,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'tribe_events_views_v2_after_make_view', [ $this, 'action_include_filters_excerpt' ] );
 		// 100 is the WordPress cookie-based auth check.
 		add_filter( 'rest_authentication_errors', [ Rest_Endpoint::class, 'did_rest_authentication_errors' ], 150 );
+		add_filter( 'tribe_support_registered_template_systems', [ $this, 'filter_register_template_updates' ] );
 
 		if ( tribe_context()->doing_php_initial_state() ) {
 			add_filter( 'wp_title', [ $this, 'filter_wp_title' ], 10, 2 );
@@ -287,6 +291,10 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @return string The modified page title, if required.
 	 */
 	public function filter_wp_title( $title, $sep = null ) {
+		if ( ! $this->container->make( Template_Bootstrap::class )->should_load() ) {
+			return $title;
+		}
+
 		return $this->container->make( Title::class )->filter_wp_title( $title, $sep );
 	}
 
@@ -302,6 +310,10 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @return string The modified page title, if required.
 	 */
 	public function filter_document_title_parts( $title ) {
+		if ( ! $this->container->make( Template_Bootstrap::class )->should_load() ) {
+			return $title;
+		}
+
 		return $this->container->make( Title::class )->filter_document_title_parts( $title );
 	}
 
@@ -347,6 +359,43 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		}
 
 		return $html . '<p class="hide-if-no-js howto">' . __( 'We recommend a 16:9 aspect ratio for featured images.', 'the-events-calendar' ) . '</p>';
+	}
+
+	/**
+	 * Filters the `redirect_canonical` to prevent any redirects on embed URLs.
+	 *
+	 * @since TBD
+	 *
+	 * @param mixed $redirect_url URL which we will redirect to.
+	 *
+	 * @return string The modified html, if required.
+	 */
+	public function filter_prevent_canonical_embed_redirect( $redirect_url = null ) {
+		// Any other URL we bail with the URL return.
+		if ( 'embed' !== tribe_context()->get( 'view' ) ) {
+			return $redirect_url;
+		}
+
+		return false;
+  }
+
+ 	/**
+	 * Registers The Events Calendar with the views/overrides update checker.
+	 *
+	 * @since  TBD
+	 *
+	 * @param array $plugins List of plugisn to be checked.
+	 *
+	 * @return array
+	 */
+	public function filter_register_template_updates( array $plugins = [] ) {
+		$plugins[ __( 'The Events Calendar - View V2', 'the-events-calendar' ) ] = [
+			TEC::VERSION,
+			TEC::instance()->pluginPath . 'src/views/v2',
+			trailingslashit( get_stylesheet_directory() ) . 'tribe/events',
+		];
+
+		return $plugins;
 	}
 
 	/**

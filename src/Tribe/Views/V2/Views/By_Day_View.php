@@ -367,7 +367,7 @@ abstract class By_Day_View extends View {
 	 * That same event will appear, but, on later days, starting from the 2nd one.
 	 * Here we go "back" and apply this principle to insert multi-days in previous day(s) cache(s) if required.
 	 *
-	 * @since TBD
+	 * @since 4.9.12
 	 *
 	 * @param array $event_ids An array of event post IDs for the day.
 	 */
