@@ -47,7 +47,9 @@ class Query {
 		global $wpdb;
 
 		$use_site_timezone = Timezones::is_mode( Timezones::SITE_TIMEZONE );
-
+$meta_key_timezone = '_EventTimezone';
+$meta_key_all_day = '_EventAllDay'; 
+$post_type = TEC::POSTTYPE;
 		// @todo @lucatume wherever this SQL lives it should have a filterable limit and run until a set does not fill it.
 		$query = "
 		SELECT p.ID,
@@ -71,12 +73,12 @@ class Query {
 				 INNER JOIN {$wpdb->postmeta} end_date 
 				 	ON (p.ID = end_date.post_id AND end_date.meta_key = %s)
 				 INNER JOIN {$wpdb->postmeta} timezone 
-				 	ON (p.ID = timezone.post_id AND timezone.meta_key = '_EventTimezone')
+				 	ON (p.ID = timezone.post_id AND timezone.meta_key = '{$meta_key_timezone}')
 				 -- LEFT JOIN to allow NULL post_id if meta key not set.
 				 LEFT JOIN {$wpdb->postmeta} all_day 
-				 	ON (p.ID = all_day.post_id AND all_day.meta_key = '_EventAllDay')
+				 	ON (p.ID = all_day.post_id AND all_day.meta_key = '{$meta_key_all_day}')
 
-		WHERE p.post_type = 'tribe_events'
+		WHERE p.post_type = '{$post_type}'
 		  -- End after the period start.
 		  AND end_date.meta_value >= %s
 		  AND (all_day.post_id IS NULL OR all_day.meta_value = 'yes'); ";
@@ -141,7 +143,7 @@ class Query {
 
 					// Normalize the timezone to the site one.
 					$result['start_date'] = $start_date->setTimezone( $site_timezone )->format( 'Y-m-d H:i:s' );
-					$result['end_date']   = $end_date->setTimezone( $site_timezone )->format( 'Y-m-d H:i:s' );
+					$result['end_date']   = $end_date->setTimezone( $site_timezone )->format( Dates::DBDATEFORMAT );
 
 					foreach ( $overlapping_days as $overlap_day ) {
 						if ( isset( $buffer[ $overlap_day ] ) ) {

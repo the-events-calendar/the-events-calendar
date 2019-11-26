@@ -61,7 +61,7 @@ class Events_Result_Set implements Collection_Interface {
 	public function order_by( $order_by, $order ) {
 		$order = strtoupper( $order );
 		if ( ! in_array( $order, [ 'ASC', 'DESC' ], true ) ) {
-			throw new\InvalidArgumentException( 'Order "' . $order . '" is not supported, only "ASC" and "DESC" are.' );
+			throw new \InvalidArgumentException( 'Order "' . $order . '" is not supported, only "ASC" and "DESC" are.' );
 		}
 
 		// @todo @be here support more ordering criteria than date.
