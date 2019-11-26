@@ -145,16 +145,16 @@ if ( tribe_is_using_basic_gmaps_api() && class_exists( 'Tribe__Events__Pro__Main
 $display_tab_fields = Tribe__Main::array_insert_before_key(
 	'tribeEventsDateFormatSettingsTitle',
 	$display_tab_fields,
-	array(
-		'tribeEventsBasicSettingsTitle'      => array(
+	[
+		'tribeEventsBasicSettingsTitle'      => [
 			'type' => 'html',
 			'html' => '<h3>' . __( 'Basic Template Settings', 'the-events-calendar' ) . '</h3>',
-		),
-		'stylesheetOption'                   => array(
+		],
+		'stylesheetOption'                   => [
 			'type'            => 'radio',
 			'label'           => __( 'Default stylesheet used for events templates', 'the-events-calendar' ),
 			'default'         => 'tribe',
-			'options'         => array(
+			'options'         => [
 				'skeleton' => __( 'Skeleton Styles', 'the-events-calendar' ) .
 								'<p class=\'description tribe-style-selection\'>' .
 								__( 'Only includes enough css to achieve complex layouts like calendar and week view.', 'the-events-calendar' ) .
@@ -167,10 +167,10 @@ $display_tab_fields = Tribe__Main::array_insert_before_key(
 								'<p class=\'description tribe-style-selection\'>' .
 								__( 'A fully designed and styled theme for your events pages.', 'the-events-calendar' ) .
 								'</p>',
-			),
+			],
 			'validation_type' => 'options',
-		),
-		'tribeEventsTemplate'                => array(
+		],
+		'tribeEventsTemplate'                => [
 			'type'            => 'dropdown',
 			'label'           => __( 'Events template', 'the-events-calendar' ),
 			'tooltip'         => __( 'Choose a page template to control the appearance of your calendar and event content.', 'the-events-calendar' ),
@@ -178,15 +178,38 @@ $display_tab_fields = Tribe__Main::array_insert_before_key(
 			'size'            => 'large',
 			'default'         => 'default',
 			'options'         => $template_options,
-		),
-		'tribeEnableViews'                   => array(
+		],
+		'tribeEnableViews'                   => [
 			'type'            => 'checkbox_list',
 			'label'           => __( 'Enable event views', 'the-events-calendar' ),
 			'tooltip'         => $tribe_enable_views_tooltip,
 			'default'         => array_keys( $views_options ),
 			'options'         => $views_options,
 			'validation_type' => 'options_multi',
-		),
+		],
+	]
+);
+
+if ( tribe( 'tec.main' )->show_upgrade() ) {
+	$display_tab_fields = Tribe__Main::array_insert_before_key(
+		'tribeEventsDateFormatSettingsTitle',
+		$display_tab_fields,
+		[
+			'views_v2_enabled' => [
+				'type'            => 'checkbox_bool',
+				'label'           => __( 'Use updated calendar designs', 'the-events-calendar' ),
+				'tooltip'         => __( 'Enable updated designs for all calendar views', 'the-events-calendar' ),
+				'validation_type' => 'boolean',
+				'default'         => false,
+			],
+		]
+	);
+}
+
+$display_tab_fields = Tribe__Main::array_insert_before_key(
+	'tribeEventsDateFormatSettingsTitle',
+	$display_tab_fields,
+	array(
 		'viewOption'                         => array(
 			'type'            => 'dropdown',
 			'label'           => __( 'Default view', 'the-events-calendar' ),

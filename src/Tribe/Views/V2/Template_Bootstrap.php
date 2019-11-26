@@ -15,6 +15,8 @@ use Tribe__Events__Rewrite as Rewrite;
 use Tribe__Notices;
 use Tribe__Utils__Array as Arr;
 use WP_Query;
+use Tribe__Templates as V1_Templates;
+use Tribe__Events__Templates as V1_Event_Templates;
 
 
 /**
@@ -54,7 +56,7 @@ class Template_Bootstrap {
 	 * @return void
 	 */
 	public function disable_v1() {
-		remove_action( 'plugins_loaded', [ 'Tribe__Events__Templates', 'init' ] );
+		remove_action( 'plugins_loaded', [ V1_Event_Templates::class, 'init' ] );
 	}
 
 	/**
@@ -142,6 +144,25 @@ class Template_Bootstrap {
 	}
 
 	/**
+	 * Fetches the template for the Single Embed Event page using the legacy view system.
+	 *
+	 * @since  TBD
+	 *
+	 * @return string
+	 */
+	protected function get_v1_embed_template_path() {
+		global $post;
+		$query = tribe_get_global_query_object();
+
+		if ( ! tribe_is_showing_all() && tribe_is_past_event() ) {
+			Tribe__Notices::set_notice( 'event-past', sprintf( esc_html__( 'This %s has passed.', 'the-events-calendar' ), tribe_get_event_label_singular_lowercase() ) );
+		}
+
+		$template_path = V1_Event_Templates::getTemplateHierarchy( 'embed' );
+		return $template_path;
+	}
+
+	/**
 	 * Gets the View HTML
 	 *
 	 * @todo Stop handling kitchen sink template here.
@@ -158,7 +179,7 @@ class Template_Bootstrap {
 		if (
 			'single-event' === $view_slug
 			&& ! tribe_is_showing_all()
-			&& ! \Tribe__Templates::is_embed()
+			&& ! V1_Templates::is_embed()
 		) {
 			$html = $this->get_v1_single_event_html();
 		} elseif ( isset( $query->query_vars['tribe_events_views_kitchen_sink'] ) ) {
@@ -232,10 +253,16 @@ class Template_Bootstrap {
 	 * @return string Path to the File that initalizes the template
 	 */
 	public function filter_template_include( $template ) {
-
 		// Determine if we should load bootstrap or bail.
 		if ( ! $this->should_load() ) {
 			return $template;
+		}
+
+		$context   = tribe_context();
+		$view_slug = $context->get( 'view' );
+
+		if ( V1_Templates::is_embed() || 'embed' === $view_slug ) {
+			return $this->get_v1_embed_template_path();
 		}
 
 		return $this->get_template_object()->get_path();
@@ -267,53 +294,5 @@ class Template_Bootstrap {
 		}
 
 		return $classes;
-	}
-
-	/**
-	 * Redirects the user to the default mobile view if required.
-	 *
-	 * When on mobile (in terms of device capacity) we redirect to the default mobile View.
-	 * To avoid caching issues, where the cache provider would need to keep a mobile and non-mobile version of the
-	 * cached pages, we redirect with explicit View slug.
-	 *
-	 * @since 4.9.11
-	 *
-	 * @see   wp_is_mobile()
-	 * @link  https://developer.wordpress.org/reference/functions/wp_is_mobile/
-	 */
-	public function on_template_redirect() {
-		if (
-			! wp_is_mobile()
-			|| tribe_is_truthy( tribe_get_request_var( 'tribe_redirected' ) )
-			|| is_singular()
-			|| is_tax()
-		) {
-			return;
-		}
-
-		$default_view        = $this->manager->get_default_view_option( 'desktop' );
-		$default_mobile_view = $this->manager->get_default_view_option( 'mobile' );
-
-		if ( $default_view === $default_mobile_view ) {
-			return;
-		}
-
-		$ugly_url = add_query_arg(
-			[
-				'post_type'        => TEC::POSTTYPE,
-				'eventDisplay'     => $default_mobile_view,
-				'tribe_redirected' => true,
-			],
-			home_url()
-		);
-
-		$location = Rewrite::instance()->get_canonical_url( $ugly_url );
-
-		wp_redirect(
-			$location,
-			302
-		);
-
-		tribe_exit();
 	}
 }

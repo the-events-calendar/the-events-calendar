@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.11
+ * @version TBD
  *
  * @var string $day_date        The `Y-m-d` date of the day currently being displayed.
  * @var string $today_date      Today's date in the `Y-m-d` format.
@@ -74,6 +74,7 @@ if ( $should_display ) {
 	}
 }
 
+$classes = get_post_class( $classes, $event->ID );
 ?>
 <div class="tribe-events-calendar-month__multiday-event-wrapper">
 	<article <?php tribe_classes( $classes ); ?> data-event-id="<?php echo esc_attr( $event->ID ); ?>">
