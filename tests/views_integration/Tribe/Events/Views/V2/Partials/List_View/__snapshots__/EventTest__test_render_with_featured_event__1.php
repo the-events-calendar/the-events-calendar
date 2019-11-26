@@ -10,7 +10,7 @@
 </div>
 
 	<div class="tribe-events-calendar-list__event-wrapper tribe-common-g-col">
-		<article  class="tribe-events-calendar-list__event tribe-common-g-row tribe-common-g-row--gutters post-7 tribe_events type-tribe_events status-publish hentry entry" >
+		<article  class="tribe-events-calendar-list__event tribe-common-g-row tribe-common-g-row--gutters post-7 tribe_events type-tribe_events status-publish hentry" >
 			
 			<div class="tribe-events-calendar-list__event-details tribe-common-g-col">
 
@@ -36,21 +36,7 @@
 	>
 		Test Event &#8211; +9 days	</a>
 </h3>
-					<address class="tribe-events-calendar-list__event-venue tribe-common-b2">
-	<span class="tribe-events-calendar-list__event-venue-title tribe-common-b2--bold">
-		Venue Name	</span>
-	<span class="tribe-events-calendar-list__event-venue-address">
-		<span class="tribe-address">
-
-
-
-
-
-
-</span>
-	</span>
-</address>
-				</header>
+									</header>
 
 								
 			</div>

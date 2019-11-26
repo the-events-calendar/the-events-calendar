@@ -22,7 +22,9 @@ class Mobile_DayTest extends HtmlPartialTestCase
 				'year_number'  => '2018',
 				'month_number' => '06',
 				'day_number'   => '01',
+				'day_url'      => 'http://test.tri.be/events/2018-06-01/',
 				'events'       => [],
+				'more_events'  => 0,
 			],
 		];
 		$this->assertMatchesSnapshot( $this->get_partial_html( $context ) );
@@ -39,7 +41,9 @@ class Mobile_DayTest extends HtmlPartialTestCase
 				'year_number'  => '2018',
 				'month_number' => '06',
 				'day_number'   => '02',
+				'day_url'      => 'http://test.tri.be/events/2018-06-02/',
 				'events'       => [],
+				'more_events'  => 0,
 			],
 		];
 		$this->assertMatchesSnapshot( $this->get_partial_html( $context ) );
@@ -57,7 +61,9 @@ class Mobile_DayTest extends HtmlPartialTestCase
 				'year_number'  => '2018',
 				'month_number' => '06',
 				'day_number'   => '20',
+				'day_url'      => 'http://test.tri.be/events/2018-06-20/',
 				'events'       => [ $event ],
+				'more_events'  => 0,
 			],
 		];
 		$this->assertMatchesSnapshot( $this->get_partial_html( $context ) );
@@ -76,10 +82,12 @@ class Mobile_DayTest extends HtmlPartialTestCase
 				'year_number'  => '2018',
 				'month_number' => '06',
 				'day_number'   => '20',
+				'day_url'      => 'http://test.tri.be/events/2018-06-20/',
 				'events'       => [
 					$event_1,
 					$event_2,
 				],
+				'more_events'  => 0,
 			],
 		];
 		$this->assertMatchesSnapshot( $this->get_partial_html( $context ) );
@@ -99,8 +107,10 @@ class Mobile_DayTest extends HtmlPartialTestCase
 				'year_number'     => '2018',
 				'month_number'    => '06',
 				'day_number'      => '20',
+				'day_url'         => 'http://test.tri.be/events/2018-06-20/',
 				'events'          => [],
 				'multiday_events' => [ $event ],
+				'more_events'     => 0,
 			],
 		];
 		$this->assertMatchesSnapshot( $this->get_partial_html( $context ) );
@@ -123,11 +133,13 @@ class Mobile_DayTest extends HtmlPartialTestCase
 				'year_number'     => '2018',
 				'month_number'    => '06',
 				'day_number'      => '20',
+				'day_url'         => 'http://test.tri.be/events/2018-06-20/',
 				'events'          => [],
 				'multiday_events' => [
 					$event_1,
 					$event_2,
 				],
+				'more_events'     => 0,
 			],
 		];
 		$this->assertMatchesSnapshot( $this->get_partial_html( $context ) );
@@ -148,8 +160,10 @@ class Mobile_DayTest extends HtmlPartialTestCase
 				'year_number'     => '2018',
 				'month_number'    => '06',
 				'day_number'      => '20',
+				'day_url'         => 'http://test.tri.be/events/2018-06-20/',
 				'events'          => [ $event_1 ],
 				'multiday_events' => [ $event_2 ],
+				'more_events'     => 0,
 			],
 		];
 		$this->assertMatchesSnapshot( $this->get_partial_html( $context ) );

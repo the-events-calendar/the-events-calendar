@@ -18,9 +18,9 @@
 
 use Tribe__Date_Utils as Dates;
 
-$event_week_day  = $event->dates->start->format( 'D' );
-$event_day_num   = $event->dates->start->format( 'j' );
-$event_date_attr = $event->dates->start->format( Dates::DBDATEFORMAT );
+$event_week_day  = $event->dates->start_display->format( 'D' );
+$event_day_num   = $event->dates->start_display->format( 'j' );
+$event_date_attr = $event->dates->start_display->format( Dates::DBDATEFORMAT );
 ?>
 <div class="tribe-events-calendar-list__event-date-tag tribe-common-g-col">
 	<time class="tribe-events-calendar-list__event-date-tag-datetime" datetime="<?php echo esc_attr( $event_date_attr ); ?>">

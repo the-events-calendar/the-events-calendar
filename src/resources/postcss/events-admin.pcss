@@ -334,6 +334,121 @@
 	display: none;
 }
 
+/* upgrades */
+#modern-tribe-info.tribe-upgrade{
+	padding: 0;
+
+	a, .dashicons {
+		color: #334AFF;
+	}
+
+	h3 {
+		font-size: 24px;
+	}
+
+	ul {
+		list-style-type: none;
+		margin-left: 0;
+	}
+
+	li {
+
+		& > h4 {
+			margin-bottom: 0;
+		}
+
+		& > p {
+			margin-top: 0;
+			padding-left: 1.5rem;
+		}
+	}
+
+	#tribe-upgrade-step1,
+	#tribe-upgrade-step2,
+	#tribe-upgrade-complete {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+
+		&.hidden {
+			display: none;
+		}
+	}
+
+	#tribe-upgrade-step1 {
+		span {
+			color: #334AFF;
+		}
+	}
+
+	.button, button {
+		background: #334AFF;
+		border-radius: 0.25rem;
+		border: 0;
+		box-shadow: 0 2px black;
+		color: white;
+		cursor: pointer;
+		font-size: 1rem;
+		line-height: 1.2;
+		margin: 2rem 1.5rem 0.25rem 0.25rem;
+		padding: 1rem 0.5rem;
+		text-decoration: none;
+		white-space: nowrap;
+		width: 200px;
+	}
+
+	.button {
+		height: 3rem;
+		line-height: 1rem;
+		text-align: center;
+	}
+
+	.content-container {
+		max-width: 600px;
+		padding: 2rem;
+	}
+
+	.image-container {
+		text-align: right;
+
+		img {
+			border-radius: 0.5rem;
+			display: inline-block;
+			filter: drop-shadow( 0 0 6px #ccc );
+			height: auto;
+			margin: 0;
+			vertical-align: top;
+			width: 100%;
+		}
+	}
+
+	.screenshot {
+		float: left;
+	}
+
+	.step {
+		font-size: 0.9rem;
+		font-weight: 200;
+		padding-top: 0.5rem;
+		text-align: center;
+		width: 200px;
+	}
+}
+
+#upgrade-button {
+	background: #334AFF;
+	border-radius: 0.25rem;
+	border: 0;
+	box-shadow: 0 2px black;
+	color: white;
+	cursor: pointer;
+	font-size: 0.8rem;
+	height: 1.6rem;
+	padding-right: 0.8rem;
+	vertical-align: top;
+	margin: 2px 0 0 0.75rem;
+}
+
 /* = Eventbrite
 =============================================*/
 .tribe-community-event-info small,

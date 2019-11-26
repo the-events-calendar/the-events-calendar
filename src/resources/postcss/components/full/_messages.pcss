@@ -1,0 +1,41 @@
+.tribe-events {
+	/* -----------------------------------------------------------------------------
+	 *
+	 * Messages
+	 *
+	 * Example:
+	 * <div class="tribe-events-c-messages">
+	 *    <div class="tribe-events-c-messages__message">
+	 *      <ul class="tribe-events-c-messages__message-list">
+	 *        <li class="tribe-events-c-messages__message-list-item">There were no results found</li>
+	 *      </ul>
+	 *    </div>
+	 * </div>
+	 *
+	 * ----------------------------------------------------------------------------- */
+
+	.tribe-events-c-messages__message {
+		background-color: var(--color-background-messages);
+		border-radius: var(--border-radius-default);
+	}
+
+	.tribe-events-c-messages__message--notice {
+
+		&:before {
+			background-image: svg-inline(messages-not-found);
+			background-repeat: no-repeat;
+			background-size: 22px;
+			display: inline-block;
+			content: '';
+			min-width: 22px;
+			height: 24px;
+			margin-right: var(--spacer-2);
+		}
+	}
+
+	.tribe-events-c-messages__message-list {
+		@media (--viewport-medium) {
+			text-align: center;
+		}
+	}
+}

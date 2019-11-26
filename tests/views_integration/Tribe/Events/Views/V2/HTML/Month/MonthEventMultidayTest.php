@@ -19,7 +19,13 @@ class MonthEventMultidayTest extends HtmlTestCase {
 
 		$template = $this->template->template(
 			'month/calendar-body/day/multiday-events/multiday-event',
-			[ 'event' => $event, 'day_date' => '2019-01-01', 'is_start_of_week' => true, 'today_date' => '2019-01-01' ]
+			[
+				'event'            => $event,
+				'day_date'         => '2019-01-01',
+				'is_start_of_week' => true,
+				'today_date'       => '2019-01-01',
+				'grid_start_date'  => '2019-01-01'
+			]
 		);
 		$html     = $this->document->html( $template );
 
@@ -31,17 +37,17 @@ class MonthEventMultidayTest extends HtmlTestCase {
 
 
 		$this->assertTrue(
-			$html->find( '.tribe-events-calendar-month__multiday-event' )->children()->is(
-				'.tribe-events-calendar-month__multiday-event-inner'
+			$html->find( '.tribe-events-calendar-month__multiday-event-bar' )->children()->is(
+				'.tribe-events-calendar-month__multiday-event-bar-inner'
 			),
-			'Multiday HTML needs to contain ".tribe-events-calendar-month__multiday-event-inner" element'
+			'Multiday HTML needs to contain ".tribe-events-calendar-month__multiday-event-bar-inner" element'
 		);
 
 
 		$this->assertEquals(
-			$html->find( '.tribe-events-calendar-month__multiday-event-title' )->count(),
+			$html->find( '.tribe-events-calendar-month__multiday-event-bar-title' )->count(),
 			1,
-			'Multiday HTML needs to contain one ".tribe-events-calendar-month__multiday-event-title" element'
+			'Multiday HTML needs to contain one ".tribe-events-calendar-month__multiday-event-bar-title" element'
 		);
 
 	}
@@ -57,11 +63,17 @@ class MonthEventMultidayTest extends HtmlTestCase {
 
 		$template = $this->template->template(
 			'month/calendar-body/day/multiday-events/multiday-event',
-			[ 'event' => $event, 'day_date' => '2019-01-01', 'is_start_of_week' => true, 'today_date' => '2019-01-01' ]
+			[
+				'event'            => $event,
+				'day_date'         => '2019-01-01',
+				'is_start_of_week' => true,
+				'today_date'       => '2019-01-01',
+				'grid_start_date'  => '2019-01-01'
+			]
 		);
 		$html     = $this->document->html( $template );
 		$html     = $html->find( '.tribe-events-calendar-month__multiday-event' );
-		$icon     = $html->find( '.tribe-events-calendar-month__multiday-event-featured-icon' );
+		$icon     = $html->find( '.tribe-events-calendar-month__multiday-event-bar-featured-icon' );
 
 
 		$this->markTestSkipped( 'The month multi-day event does not receive data yet' );

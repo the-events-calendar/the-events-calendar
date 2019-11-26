@@ -20,7 +20,6 @@ namespace Tribe\Events\Views\V2;
 use Tribe\Events\Views\V2\Query\Abstract_Query_Controller;
 use Tribe\Events\Views\V2\Query\Event_Query_Controller;
 use Tribe\Events\Views\V2\Template\Title;
-use Tribe\Events\Views\V2\Template\Excerpt;
 use Tribe__Events__Main as TEC;
 use Tribe__Rewrite as Rewrite;
 
@@ -54,6 +53,8 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_action( 'tribe_common_loaded', [ $this, 'on_tribe_common_loaded' ], 1 );
 		add_action( 'wp_head', [ $this, 'on_wp_head' ], 1000 );
 		add_action( 'tribe_events_pre_rewrite', [ $this, 'on_tribe_events_pre_rewrite' ] );
+		add_action( 'wp_enqueue_scripts', [ $this, 'action_disable_assets_v1' ], 0 );
+		add_action( 'tribe_events_pro_shortcode_tribe_events_after_assets', [ $this, 'action_disable_shortcode_assets_v1' ] );
 	}
 
 	/**
@@ -62,20 +63,64 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @since 4.9.2
 	 */
 	protected function add_filters() {
-		// Let's make sure to suppress query filters from the main query.
-		add_filter( 'tribe_suppress_query_filters', '__return_true' );
+		add_action( 'tribe_events_parse_query', [ $this, 'parse_query' ] );
 		add_filter( 'template_include', [ $this, 'filter_template_include' ], 50 );
 		add_filter( 'posts_pre_query', [ $this, 'filter_posts_pre_query' ], 20, 2 );
 		add_filter( 'body_class', [ $this, 'filter_body_class' ] );
 		add_filter( 'query_vars', [ $this, 'filter_query_vars' ], 15 );
 		add_filter( 'tribe_rewrite_canonical_query_args', [ $this, 'filter_map_canonical_query_args' ], 15, 3 );
+		add_filter( 'admin_post_thumbnail_html', [ $this, 'filter_admin_post_thumbnail_html' ] );
 		add_filter( 'excerpt_length', [ $this, 'filter_excerpt_length' ] );
-		add_filter( 'excerpt_more', [ $this, 'filter_excerpt_more' ], 999 );
+		add_filter( 'tribe_events_views_v2_after_make_view', [ $this, 'action_include_filters_excerpt' ] );
+		// 100 is the WordPress cookie-based auth check.
+		add_filter( 'rest_authentication_errors', [ Rest_Endpoint::class, 'did_rest_authentication_errors' ], 150 );
 
 		if ( tribe_context()->doing_php_initial_state() ) {
 			add_filter( 'wp_title', [ $this, 'filter_wp_title' ], 10, 2 );
 			add_filter( 'document_title_parts', [ $this, 'filter_document_title_parts' ] );
 		}
+	}
+
+	/**
+	 * Includes includes edge cases for filtering when we need to manually overwrite theme's read
+	 * more link when excerpt is cut programatically.
+	 *
+	 * @see   tribe_events_get_the_excerpt
+	 *
+	 * @since 4.9.11
+	 *
+	 * @return void
+	 */
+	public function action_include_filters_excerpt() {
+		add_filter( 'excerpt_more', [ $this, 'filter_excerpt_more' ], 50 );
+	}
+
+	/**
+	 * Fires to deregister v1 assets correctly.
+	 *
+	 * @since 4.9.11
+	 *
+	 * @return void
+	 */
+	public function action_disable_assets_v1() {
+		$assets = $this->container->make( Assets::class );
+		if ( ! $assets->should_enqueue_frontend() ) {
+			return;
+		}
+
+		$assets->disable_v1();
+	}
+
+	/**
+	 * Fires to deregister v1 assets correctly for shortcodes.
+	 *
+	 * @since 4.9.11
+	 *
+	 * @return void
+	 */
+	public function action_disable_shortcode_assets_v1() {
+		$assets = $this->container->make( Assets::class );
+		$assets->disable_v1();
 	}
 
 	/**
@@ -85,9 +130,8 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 */
 	public function on_tribe_common_loaded() {
 		$this->container->make( Template_Bootstrap::class )->disable_v1();
-		$this->container->make( Rest_Endpoint::class )->maybe_enable_ajax_fallback();
+		$this->container->make( Rest_Endpoint::class )->enable_ajax_fallback();
 	}
-
 
 	/**
 	 * Fires when WordPress head is printed.
@@ -140,12 +184,38 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @param  null|array  $posts The posts to filter, a `null` value by default or an array if set by other methods.
 	 * @param  \WP_Query|null  $query The query object to (maybe) control and whose posts will be populated.
+	 *
+	 * @return array An array of injected posts, or the original array of posts if no post injection is required.
 	 */
 	public function filter_posts_pre_query( $posts = null, \WP_Query $query = null ) {
+		if ( is_admin() ) {
+			return $posts;
+		}
+
+		/*
+		 * We should only inject posts if doing PHP initial state render and if this is the main query.
+		 * We can correctly use the global context as that's the only context we're interested in.
+		 * Else bail early and inexpensively.
+		 */
+		if ( ! (
+			tribe_context()->doing_php_initial_state()
+			&& $query instanceof \WP_Query
+			&& $query->is_main_query()
+		) ) {
+			return $posts;
+		}
+
+		// Verifies and only applies it to the correct queries.
+		if ( tribe( Template_Bootstrap::class )->should_load( $query ) ) {
+			return $posts;
+		}
+
 		foreach ( $this->container->tagged( 'query_controllers' ) as $controller ) {
 			/** @var Abstract_Query_Controller $controller */
-			$controller->inject_posts( $posts, $query );
+			$posts = $controller->inject_posts( $posts, $query );
 		}
+
+		return $posts;
 	}
 
 	/**
@@ -200,7 +270,10 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @return array $classes
 	 */
 	public function filter_body_class( $classes ) {
-		return $this->container->make( Theme_Compatibility::class )->filter_add_body_classes( $classes );
+		$classes = $this->container->make( Theme_Compatibility::class )->filter_add_body_classes( $classes );
+		$classes = $this->container->make( Template_Bootstrap::class )->filter_add_body_classes( $classes );
+
+		return $classes;
 	}
 
 	/**
@@ -252,9 +325,43 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @param string $link The excerpt read more link.
 	 *
-	 * @return int The modified excerpt read more link, if required.
+	 * @return string The modified excerpt read more link, if required.
 	 */
 	public function filter_excerpt_more( $link ) {
 		return $this->container->make( Template\Excerpt::class )->maybe_filter_excerpt_more( $link );
+	}
+
+	/**
+	 * Filters the `admin_post_thumbnail_html` to add image aspect ratio recommendation.
+	 *
+	 * @since 4.9.11
+	 *
+	 * @param string $html The HTML for the featured image box.
+	 *
+	 * @return string The modified html, if required.
+	 */
+	public function filter_admin_post_thumbnail_html( $html ) {
+
+		if ( TEC::POSTTYPE !== get_current_screen()->post_type ) {
+			return $html;
+		}
+
+		return $html . '<p class="hide-if-no-js howto">' . __( 'We recommend a 16:9 aspect ratio for featured images.', 'the-events-calendar' ) . '</p>';
+	}
+
+	/**
+	 * Suppress v1 query filters on a per-query basis, if required.
+	 *
+	 * @since 4.9.11
+	 *
+	 * @param \WP_Query $query The current WordPress query object.
+	 */
+	public function parse_query( $query ) {
+		if ( ! $query instanceof \WP_Query ) {
+			return;
+		}
+
+		$event_query = $this->container->make( Event_Query_Controller::class );
+		$event_query->parse_query( $query );
 	}
 }

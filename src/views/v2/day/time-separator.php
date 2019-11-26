@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.9
+ * @version 4.9.11
  *
  */
 
@@ -18,7 +18,7 @@ use Tribe__Date_Utils as Dates;
 
 $should_have_time_separator = Utils\Separators::should_have_time( $this->get( 'events' ), $event );
 
-if ( ! $should_have_time_separator ) {
+if ( ! $should_have_time_separator || ! empty( $event->timeslot ) ) {
 	return;
 }
 

@@ -1,0 +1,204 @@
+.tribe-events {
+	/* -----------------------------------------------------------------------------
+	 *
+	 * View Selector
+	 *
+	 * Example (Select):
+	 * <div class="tribe-events-c-view-selector">
+	 *   <button
+	 *     class="tribe-events-c-view-selector__button"
+	 *     aria-controls="container-id"
+	 *     aria-expanded="false"
+	 *     aria-selected="false"
+	 *   >
+	 *     <span class="tribe-events-c-view-selector__button-icon tribe-common-svgicon tribe-common-svgicon--month"></span>
+	 *     <span class="tribe-events-c-view-selector__button-text">
+	 *       Month
+	 *     </span>
+	 *   </button>
+	 *   <div
+	 *     class="tribe-events-c-view-selector__content"
+	 *     id="container-id"
+	 *     aria-hidden="true"
+	 *   >
+	 *     <ul class="tribe-events-c-view-selector__list">
+	 *       <li class="tribe-events-c-view-selector__list-item">
+	 *         <a href="#" class="tribe-events-c-view-selector__list-item-link" data-js="tribe-events-view-link">
+	 *           <span class="tribe-events-c-view-selector__list-item-icon tribe-common-svgicon tribe-common-svgicon--month"></span>
+	 *           <span class="tribe-events-c-view-selector__list-item-text">
+	 *             Month
+	 *           </span>
+	 *         </a>
+	 *       </li>
+	 *       <li class="tribe-events-c-view-selector__list-item">
+	 *         <a href="#" class="tribe-events-c-view-selector__list-item-link" data-js="tribe-events-view-link">
+	 *           <span class="tribe-events-c-view-selector__list-item-icon tribe-common-svgicon tribe-common-svgicon--list"></span>
+	 *           <span class="tribe-events-c-view-selector__list-item-text">
+	 *             List
+	 *           </span>
+	 *         </a>
+	 *       </li>
+	 *     </ul>
+	 *   </div>
+	 * </div>
+	 *
+	 * Example (Tabs):
+	 * <div class="tribe-events-c-view-selector tribe-events-c-view-selector--tabs">
+	 *   ... (same as above)
+	 * </div>
+	 *
+	 * ----------------------------------------------------------------------------- */
+
+	.tribe-events-c-view-selector {
+		position: relative;
+		width: 29px;
+
+		@media (--viewport-medium) {
+			width: auto;
+		}
+	}
+
+	.tribe-events-c-view-selector--labels {
+
+		.tribe-events-c-view-selector__button {
+			@media (--viewport-medium) {
+				height: 100%;
+				padding: var(--spacer-4) var(--spacer-5);
+			}
+		}
+
+		.tribe-events-c-view-selector__button-icon {
+			@media (--viewport-medium) {
+				@mixin hidden;
+			}
+		}
+
+		.tribe-events-c-view-selector__button-text {
+			@media (--viewport-medium) {
+				@mixin visually-show;
+
+				flex: auto;
+			}
+		}
+
+		.tribe-events-c-view-selector__content {
+			@media (--viewport-medium) {
+				left: 0;
+				padding: var(--spacer-1);
+				right: auto;
+				transform: translateY(var(--spacer-1));
+				width: auto;
+			}
+		}
+
+		.tribe-events-c-view-selector__list-item-link {
+			@media (--viewport-medium) {
+				padding: var(--spacer-0) var(--spacer-7) var(--spacer-0) var(--spacer-3);
+			}
+		}
+
+		.tribe-events-c-view-selector__list-item-icon {
+			@media (--viewport-medium) {
+				@mixin hidden;
+			}
+		}
+	}
+
+	.tribe-events-c-view-selector--tabs {
+		@media (--viewport-medium) {
+			width: auto;
+		}
+
+		.tribe-events-c-view-selector__button {
+			@media (--viewport-medium) {
+				@mixin hidden;
+			}
+		}
+
+		.tribe-events-c-view-selector__content {
+			@media (--viewport-medium) {
+				display: block;
+				height: 100%;
+				padding: 0 var(--spacer-2);
+				position: static;
+				transform: none;
+			}
+		}
+
+		.tribe-events-c-view-selector__list {
+			@media (--viewport-medium) {
+				display: flex;
+				height: 100%;
+			}
+		}
+
+		.tribe-events-c-view-selector__list-item {
+			@media (--viewport-medium) {
+				margin: 0 var(--spacer-2);
+			}
+		}
+
+		.tribe-events-c-view-selector__list-item-link {
+			@media (--viewport-medium) {
+				height: 100%;
+				padding: var(--spacer-4) 0;
+				position: relative;
+			}
+		}
+	}
+
+	.tribe-events-c-view-selector__button {
+		align-items: center;
+		display: flex;
+		padding: var(--spacer-0);
+		position: relative;
+		width: 100%;
+
+		@media (--viewport-medium) {
+			padding: var(--spacer-1);
+		}
+	}
+
+	.tribe-events-c-view-selector__button-icon {
+		display: block;
+		height: 21px;
+		width: 21px;
+
+		@media (--viewport-medium) {
+			height: 23px;
+			width: 23px;
+		}
+	}
+
+	.tribe-events-c-view-selector__content {
+		display: none;
+		background-color: var(--color-background);
+		padding: var(--spacer-2) calc(var(--spacer-2) / 2);
+		position: absolute;
+		right: 0;
+		top: 100%;
+		transform: translateY(var(--spacer-3));
+		z-index: var(--z-index-dropdown);
+
+		@media (--viewport-medium) {
+			transform: translateY(var(--spacer-2));
+		}
+	}
+
+	.tribe-events-c-view-selector__list-item-link {
+		align-items: center;
+		display: flex;
+		padding: var(--spacer-1) var(--spacer-5) var(--spacer-1) var(--spacer-2);
+	}
+
+	.tribe-events-c-view-selector__list-item-icon {
+		flex: none;
+		height: 18px;
+		margin-right: 12px;
+		width: 18px;
+	}
+
+	.tribe-events-c-view-selector__list-item-text {
+		flex: auto;
+	}
+}

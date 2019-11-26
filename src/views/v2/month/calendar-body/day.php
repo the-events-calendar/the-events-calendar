@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.8
+ * @version 4.9.11
  *
  * @var string $today_date Today's date in the `Y-m-d` format.
  * @var string $day_date The current day date, in the `Y-m-d` format.
@@ -54,7 +54,7 @@ if ( $today_date > $day_date ) {
 }
 
 // Only add id if events exist on the day.
-$mobile_day_id = 'tribe-events-calendar-mobile-day-' . $day_date;
+$mobile_day_id = 'tribe-events-calendar-mobile-day-' . $day['year_number'] . '-' . $day['month_number'] . '-' . $day['day_number'];
 ?>
 
 <div

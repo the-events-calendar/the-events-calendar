@@ -8,7 +8,7 @@
 	<button
 					aria-expanded="true"
 			aria-selected="true"
-			aria-controls="tribe-events-calendar-mobile-day-2019-07-01"
+			aria-controls="tribe-events-calendar-mobile-day-2019-07-1"
 				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile tribe-events-calendar-month__day-cell--selected" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
@@ -55,34 +55,44 @@
 			
 
 	<div class="tribe-events-calendar-month__multiday-event-wrapper">
-	<article  class="tribe-events-calendar-month__multiday-event tribe-events-calendar-month__multiday-event--hidden"  data-event-id="999997">
-		<time
-			datetime="2018-07-01"
-			class="tribe-common-a11y-visual-hide"
-		>
-			2018-07-01		</time>
-		<a href="http://test.tri.be/?tribe_events=test-multi-day-event-2018-07-01-11am" class="tribe-events-calendar-month__multiday-event-inner">
-						<h3 class="tribe-events-calendar-month__multiday-event-title tribe-common-h8">
-				Test Multi-day Event &#8211; 2018-07-01 11am			</h3>
-		</a>
-	</article>
+	<article  class="tribe-events-calendar-month__multiday-event"  data-event-id="999997">
+		<div class="tribe-events-calendar-month__multiday-event-hidden">
+			<time
+				datetime="2018-07-01"
+				class="tribe-common-a11y-visual-hide"
+			>
+				2018-07-01			</time>
+			<a
+				href="http://test.tri.be/?tribe_events=test-multi-day-event-2018-07-01-11am"
+				class="tribe-events-calendar-month__multiday-event-hidden-link"
+							>
+								<h3 class="tribe-events-calendar-month__multiday-event-hidden-title tribe-common-h8">
+									</h3>
+			</a>
+		</div>
+			</article>
 </div>
 
 
 	<div class="tribe-events-calendar-month__multiday-event-wrapper tribe-events-calendar-month__multiday-event--empty"></div>
 
 	<div class="tribe-events-calendar-month__multiday-event-wrapper">
-	<article  class="tribe-events-calendar-month__multiday-event tribe-events-calendar-month__multiday-event--hidden"  data-event-id="999996">
-		<time
-			datetime="2018-07-01"
-			class="tribe-common-a11y-visual-hide"
-		>
-			2018-07-01		</time>
-		<a href="http://test.tri.be/?tribe_events=test-multi-day-event-2018-07-01-1pm" class="tribe-events-calendar-month__multiday-event-inner">
-						<h3 class="tribe-events-calendar-month__multiday-event-title tribe-common-h8">
-				Test Multi-day Event &#8211; 2018-07-01 1pm			</h3>
-		</a>
-	</article>
+	<article  class="tribe-events-calendar-month__multiday-event"  data-event-id="999996">
+		<div class="tribe-events-calendar-month__multiday-event-hidden">
+			<time
+				datetime="2018-07-01"
+				class="tribe-common-a11y-visual-hide"
+			>
+				2018-07-01			</time>
+			<a
+				href="http://test.tri.be/?tribe_events=test-multi-day-event-2018-07-01-1pm"
+				class="tribe-events-calendar-month__multiday-event-hidden-link"
+							>
+								<h3 class="tribe-events-calendar-month__multiday-event-hidden-title tribe-common-h8">
+									</h3>
+			</a>
+		</div>
+			</article>
 </div>
 
 
@@ -97,10 +107,10 @@
 		<div class="tribe-events-calendar-month__calendar-event-datetime">
 		<time datetime="10:00">
 		10:00 am	</time>
-	<span class="tribe-events-calendar-month__calendar-event-datetime-separator"> - </span>
-	<time datetime="11:00">
-		11:00 am	</time>
-	</div>
+			<span class="tribe-events-calendar-month__calendar-event-datetime-separator"> - </span>
+		<time datetime="11:00">
+			11:00 am		</time>
+		</div>
 		<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h--alt">
 	<a
 		href="http://test.tri.be/?tribe_events=test-event-2018-07-01-11am"
@@ -126,10 +136,10 @@
 		<div class="tribe-events-calendar-month__calendar-event-datetime">
 		<time datetime="11:00">
 		11:00 am	</time>
-	<span class="tribe-events-calendar-month__calendar-event-datetime-separator"> - </span>
-	<time datetime="12:00">
-		12:00 pm	</time>
-	</div>
+			<span class="tribe-events-calendar-month__calendar-event-datetime-separator"> - </span>
+		<time datetime="12:00">
+			12:00 pm		</time>
+		</div>
 		<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h--alt">
 	<a
 		href="http://test.tri.be/?tribe_events=test-event-2018-07-01-11am-2"

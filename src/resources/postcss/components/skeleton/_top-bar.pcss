@@ -1,0 +1,142 @@
+/* -----------------------------------------------------------------------------
+ *
+ * Top Bar
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe-events {
+
+	.tribe-events-c-top-bar {
+		@media (--viewport-medium) {
+			align-items: center;
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+		}
+	}
+
+	.tribe-events-c-top-bar__nav {
+		@mixin hidden;
+
+		@media (--viewport-medium) {
+			display: block !important;
+			flex: none;
+			visibility: visible;
+		}
+	}
+
+	.tribe-events-c-top-bar__nav-list {
+		display: flex;
+	}
+
+	.tribe-events-c-top-bar__nav-list-item {
+		flex: none;
+		padding-right: 15px;
+
+		> * {
+			vertical-align: middle;
+		}
+	}
+
+	.tribe-events-c-top-bar__nav-link {
+		display: block;
+
+		&:before {
+			@media (--viewport-medium) {
+				height: 18px;
+				width: 11px;
+			}
+		}
+	}
+
+	.tribe-events-c-top-bar__today-button {
+		@mixin hidden;
+
+		@media (--viewport-medium) {
+			display: block !important;
+			flex: none;
+			margin-right: 15px;
+			visibility: visible;
+		}
+	}
+
+	.tribe-events-c-top-bar__datepicker {
+		position: relative;
+
+		@media (--viewport-medium) {
+			margin: 0;
+			padding: 0;
+		}
+	}
+
+	.tribe-events-c-top-bar__datepicker-mobile {
+		@media (--viewport-full) {
+			@mixin hidden;
+		}
+	}
+
+	.tribe-events-c-top-bar__datepicker-desktop {
+		@media (--viewport-full) {
+			display: block !important;
+			visibility: visible
+		}
+	}
+
+	.tribe-events-c-top-bar__datepicker-button {
+		align-items: center;
+		display: flex;
+		flex: none;
+	}
+
+	.tribe-events-c-top-bar__datepicker-container {
+		bottom: 0;
+		left: 0;
+		max-width: calc(100% + 66px); /* mobile search and view selector buttons have 66px width */
+		position: absolute;
+		width: 363px;
+
+		@media (--viewport-medium) {
+			max-width: none;
+			min-width: 363px;
+		}
+	}
+
+	.tribe-events-c-top-bar__actions {
+		@mixin hidden;
+
+		@media (--viewport-medium) {
+			display: block !important;
+			flex: none;
+			margin-left: auto;
+			visibility: visible;
+		}
+	}
+
+	/* -----------------------------------------------------------------------------
+	 *
+	 * Top Bar: Theme Overrides
+	 *
+	 * ----------------------------------------------------------------------------- */
+
+	/* -----------------------------------------------------------------------------
+	 * Theme Overrides - Enfold
+	 * ----------------------------------------------------------------------------- */
+
+	#top.tribe-theme-enfold & {
+
+		.tribe-events-c-top-bar__datepicker-input {
+			@mixin visually-hide;
+		}
+	}
+
+	/* -----------------------------------------------------------------------------
+	 * Theme Overrides - Avada
+	 * ----------------------------------------------------------------------------- */
+
+	.tribe-theme-avada & {
+
+		.tribe-events-c-top-bar__datepicker-input {
+			@mixin visually-hide;
+		}
+	}
+}

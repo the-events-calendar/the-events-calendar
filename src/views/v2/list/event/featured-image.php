@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.9
+ * @version 4.9.11
  *
  * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
  *
@@ -28,14 +28,18 @@ if ( ! $event->thumbnail->exists ) {
 		rel="bookmark"
 		class="tribe-events-calendar-list__event-featured-image-link"
 	>
-		<div class="tribe-events-calendar-list__event-featured-image tribe-common-c-image tribe-common-c-image--bg">
-			<div
-				class="tribe-common-c-image__bg"
-				style="background-image: url('<?php echo esc_url( $event->thumbnail->full->url ); ?>');"
-				role="img"
-				aria-label="<?php echo esc_attr( get_the_title( $event->ID ) ); ?>"
-			>
-			</div>
-		</div>
+		<img
+			src="<?php echo esc_url( $event->thumbnail->full->url ); ?>"
+			<?php if ( ! empty( $event->thumbnail->srcset ) ) : ?>
+				srcset="<?php echo esc_attr( $event->thumbnail->srcset ); ?>"
+			<?php endif; ?>
+			<?php if ( ! empty( $event->thumbnail->alt ) ) : ?>
+				alt="<?php echo esc_attr( $event->thumbnail->alt ); ?>"
+			<?php endif; ?>
+			<?php if ( ! empty( $event->thumbnail->title ) ) : ?>
+				title="<?php echo esc_attr( $event->thumbnail->title ); ?>"
+			<?php endif; ?>
+			class="tribe-events-calendar-list__event-featured-image"
+		/>
 	</a>
 </div>

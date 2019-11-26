@@ -5,7 +5,6 @@ use Tribe\Events\Views\V2\Views\Day_View;
 use Tribe\Events\Views\V2\Views\List_View;
 use Tribe\Events\Views\V2\Views\Month_View;
 use Tribe\Events\Views\V2\Views\Reflector_View;
-
 use Tribe__Utils__Array as Arr;
 
 /**
@@ -26,9 +25,20 @@ class Manager {
 	/**
 	 * The name of the Tribe option the default Views v2 slug will live in.
 	 *
+	 * @since 4.9.11 Use v1 option.
+	 *
 	 * @var string
 	 */
-	public static $option_default = 'views_v2_default_view';
+	public static $option_default = 'viewOption';
+
+	/**
+	 * The name of the Tribe option the default mobile Views v2 slug will live in.
+	 *
+	 * @since 4.9.11 Use v1 option.
+	 *
+	 * @var string
+	 */
+	public static $option_mobile_default = 'mobile_default_view';
 
 	/**
 	 * Returns an associative array of Views currently registered.
@@ -54,7 +64,7 @@ class Manager {
 			'day'       => Day_View::class,
 		] );
 
-		// Make sure reflector is always available.
+		// Make sure the Reflector View is always available.
 		$views['reflector'] = Reflector_View::class;
 
 		return $views;
@@ -63,12 +73,29 @@ class Manager {
 	/**
 	 * Get the class name for the default registered view.
 	 *
+	 * The use of the `wp_is_mobile` function is not about screen width, but about payloads and how "heavy" a page is.
+	 * All the Views are responsive, what we want to achieve here is serving users a version of the View that is
+	 * less "heavy" on mobile devices (limited CPU and connection capabilities).
+	 * This allows users to, as an example, serve the Month View to desktop users and the day view to mobile users.
+	 *
 	 * @since  4.9.4
 	 *
-	 * @return string
+	 * @param string|null $type The type of default View to return, either 'desktop' or 'mobile'; defaults to `mobile`.
+	 *
+	 * @return string The default View slug, this value could be different depending on the requested `$type` or
+	 *                the context.
+	 *
+	 * @see wp_is_mobile()
+	 * @link https://developer.wordpress.org/reference/functions/wp_is_mobile/
 	 */
-	public function get_default_view_option() {
-		return (string) tribe_get_option( static::$option_default, 'default' );
+	public function get_default_view_option( $type = null ) {
+		if ( null === $type ) {
+			$type = wp_is_mobile() ? 'mobile' : 'desktop';
+		}
+
+		return ( 'mobile' === $type )
+			? (string) tribe_get_option( static::$option_mobile_default, 'default' )
+			: (string) tribe_get_option( static::$option_default, 'default' );
 	}
 
 	/**
@@ -88,7 +115,15 @@ class Manager {
 			return false;
 		}
 
-		return (string) $view_class;
+		/**
+		 * Allows overwriting the default view.
+		 *
+		 * @since  4.9.11
+		 *
+		 * @param string $view_class Fully qualified class name for default view.
+		 * @param string $view_slug  Default view slug.
+		 */
+		return apply_filters( 'tribe_events_views_v2_manager_default_view', (string) $view_class, $view_slug );
 	}
 
 	/**
@@ -101,16 +136,22 @@ class Manager {
 	public function get_publicly_visible_views() {
 		$views = $this->get_registered_views();
 
-		foreach ( $views as $slug => $view_class ) {
-			$view = View::make( $slug );
+		/*
+		 * Remove the Views that are not enabled, if the setting has been set.
+		 * This applies the setting Events > Settings > "Enable event views".
+		 * Default to all available views if the option is not set.
+		 */
+		$enabled_views = tribe_get_option( 'tribeEnableViews', array_keys( $views ) );
 
-			// Remove all "private" views
-			if ( $view->is_publicly_visible() ) {
-				continue;
-			}
-
-			unset( $views[ $slug ] );
-		}
+		$views = array_filter(
+			$views,
+			static function ( $view_class, $slug ) use ( $enabled_views )
+			{
+				return in_array( $slug, $enabled_views, true )
+				       && (bool) call_user_func( [ $view_class, 'is_publicly_visible' ] );
+			},
+			ARRAY_FILTER_USE_BOTH
+		);
 
 		return $views;
 	}

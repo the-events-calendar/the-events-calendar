@@ -167,6 +167,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 				'cost_less_than'          => [ $this, 'filter_by_cost_less_than' ],
 				'cost_greater_than'       => [ $this, 'filter_by_cost_greater_than' ],
 				'on_date'                 => [ $this, 'filter_by_on_date' ],
+				'hidden_from_upcoming'    => [ $this, 'filter_by_hidden_on_upcoming' ],
 			]
 		);
 
@@ -416,17 +417,19 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 * Will include multi-day events.
 	 *
 	 * @since 4.9
+	 * @since 4.9.11 Add the `$min_sec_overlap` parameter.
 	 *
-	 * @param string|DateTime|int $start_datetime A `strtotime` parse-able string, a DateTime object or
-	 *                                            a timestamp.
-	 * @param string|DateTime|int $end_datetime   A `strtotime` parse-able string, a DateTime object or
-	 *                                            a timestamp.
-	 * @param string|DateTimeZone $timezone       A timezone string, UTC offset or DateTimeZone object;
-	 *                                            defaults to the site timezone; this parameter is ignored
-	 *                                            if the `$datetime` parameter is a DatTime object.
-	 *
+	 * @param string|DateTime|int $start_datetime  A `strtotime` parse-able string, a DateTime object or
+	 *                                             a timestamp.
+	 * @param string|DateTime|int $end_datetime    A `strtotime` parse-able string, a DateTime object or
+	 *                                             a timestamp.
+	 * @param string|DateTimeZone $timezone        A timezone string, UTC offset or DateTimeZone object;
+	 *                                             defaults to the site timezone; this parameter is ignored
+	 *                                             if the `$datetime` parameter is a DatTime object.
+	 * @param null|int            $min_sec_overlap The minimum overlap, in seconds, an event should have with the
+	 *                                             interval; defaults to at least a second.
 	 */
-	public function filter_by_date_overlaps( $start_datetime, $end_datetime, $timezone = null ) {
+	public function filter_by_date_overlaps( $start_datetime, $end_datetime, $timezone = null, $min_sec_overlap = 1 ) {
 		global $wpdb;
 		$utc = $this->normal_timezone;
 
@@ -452,21 +455,17 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			AND {$join_end_key}.meta_key = '{$end_key}' )"
 		);
 
-		$this->filter_query->where(
-			"
-			(
-				CAST({$join_start_key}.meta_value AS DATETIME) >= '{$lower_string}'
-				AND CAST({$join_start_key}.meta_value AS DATETIME) <= '{$upper_string}'
-			) OR (
-				CAST({$join_end_key}.meta_value AS DATETIME) >= '{$lower_string}'
-				AND CAST({$join_start_key}.meta_value AS DATETIME) <= '{$upper_string}'
-			) OR (
-				CAST({$join_start_key}.meta_value AS DATETIME) < '{$lower_string}'
-				AND CAST({$join_end_key}.meta_value AS DATETIME) >= '{$upper_string}'
-			)
-			"
+		$alt_where = $wpdb->prepare(
+			"(
+				TIMESTAMPDIFF ( SECOND, {$join_start_key}.meta_value, '${upper_string}' ) >= %d
+				AND
+				TIMESTAMPDIFF ( SECOND, '${lower_string}', {$join_end_key}.meta_value ) >= %d
+			)",
+			$min_sec_overlap,
+			$min_sec_overlap
 		);
 
+		$this->filter_query->where( $alt_where );
 	}
 
 	/**
@@ -1381,7 +1380,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 *
 	 * @param      int|string|\DateTime $date     A date and time timestamp, string or object.
 	 * @param null                      $timezone The timezone that should be used to filter events, if not passed
-	 *                                            the site one will be used. This paramenter will be ignored if the
+	 *                                            the site one will be used. This parameter will be ignored if the
 	 *                                            `$date` parameter is an object.
 	 *
 	 * @throws Exception If the date and/or timezone provided for the filtering are not valid.
@@ -1454,9 +1453,6 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 * @param string $order_by The key used to order events; e.g. `event_date` to order events by start date.
 	 */
 	public function handle_order_by( $order_by ) {
-		/** @var \wpdb $wpdb */
-		global $wpdb;
-
 		$check_orderby = $order_by;
 
 		if ( ! is_array( $check_orderby ) ) {
@@ -1465,26 +1461,49 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 
 		$timestamp_key = 'TIMESTAMP(mt1.meta_value)';
 
-		$by_event_start_date     = isset( $check_orderby['event_date'] )
-		                           || in_array( 'event_date', $check_orderby, true );
-		$by_event_start_date_utc = isset( $check_orderby['event_date_utc'] )
-		                           || in_array( 'event_date_utc', $check_orderby, true );
-		$by_organizer            = isset( $check_orderby['organizer'] )
-		                           || in_array( 'organizer', $check_orderby, true );
-		$by_venue                = isset( $check_orderby['venue'] ) || in_array( 'venue', $check_orderby, true );
-		$by_timestamp_key        = isset( $check_orderby[ $timestamp_key ] )
-		                           || in_array( $timestamp_key, $check_orderby, true );
+		$after = false;
+		$loop  = 0;
 
-		if ( $by_event_start_date || $by_event_start_date_utc ) {
-			$this->order_by_date( $by_event_start_date_utc );
-		} elseif ( $by_organizer ) {
-			$this->order_by_organizer();
-		} elseif ( $by_venue ) {
-			$this->order_by_venue();
-		} elseif ( $by_timestamp_key ) {
-			$this->filter_query->orderby( $timestamp_key );
-		} else {
-			$this->query_args['orderby'] = $order_by;
+		foreach ( $check_orderby as $key => $value ) {
+			$loop++;
+			$order_by      = is_numeric( $key ) ? $value : $key;
+			$order         = is_numeric( $key ) ? 'ASC' : $value;
+			$default_order = Arr::get_in_any( [ $this->query_args, $this->default_args ], 'order', 'ASC' );
+
+			switch ( $order_by ) {
+				case 'event_date':
+					$this->order_by_date( false, $after );
+					break;
+				case 'event_date_utc':
+					$this->order_by_date( true, $after );
+					break;
+				case 'organizer':
+					$this->order_by_organizer( $after );
+					break;
+				case 'venue':
+					$this->order_by_venue( $after );
+					break;
+				case $timestamp_key:
+					$this->filter_query->orderby( [ $timestamp_key => $default_order ], null, null, $after );
+					break;
+				default:
+					$after = $after || 1 === $loop;
+					if ( empty( $this->query_args['orderby'] ) ) {
+						$this->query_args['orderby'] = [ $order_by => $order ];
+					} else {
+						$add = [ $order_by => $order ];
+						// Make sure all `orderby` clauses have the shape `<orderby> => <order>`.
+						$normalized = [];
+						foreach ( $this->query_args['orderby'] as $k => $v ) {
+							$the_order_by                = is_numeric( $k ) ? $v : $k;
+							$the_order                   = is_numeric( $k ) ? $default_order : $v;
+							$normalized[ $the_order_by ] = $the_order;
+						}
+						$this->query_args['orderby'] = $normalized;
+						$this->query_args['orderby'] = array_merge( $this->query_args['orderby'], $add );
+					}
+					break;
+			}
 		}
 	}
 
@@ -1512,10 +1531,13 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 * Applies start-date-based ordering to the query.
 	 *
 	 * @since 4.9.7
+	 * @since 4.9.11 Added the `$after` parameter.
 	 *
-	 * @param      bool $use_utc Whether to use the events UTC start dates or their localized dates.
+	 * @param bool $use_utc      Whether to use the events UTC start dates or their localized dates.
+	 * @param bool $after        Whether to append the order by clause to the ones managed by WordPress or not.
+	 *                           Defaults to `false`,to prepend them to the ones managed by WordPress.
 	 */
-	protected function order_by_date( $use_utc ) {
+	protected function order_by_date( $use_utc, $after = false ) {
 		global $wpdb;
 
 		$meta_alias = 'event_date';
@@ -1571,7 +1593,8 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			true
 		);
 
-		$this->filter_query->orderby( $meta_alias, $filter_id, true );
+		$order = Arr::get_in_any( [ $this->query_args, $this->default_args ], 'order', 'ASC' );
+		$this->filter_query->orderby( [ $meta_alias => $order ], $filter_id, true, $after );
 		$this->filter_query->fields( "MIN( {$postmeta_table}.meta_value ) AS {$meta_alias}", $filter_id, true );
 	}
 
@@ -1579,8 +1602,12 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 * Applies Organizer-based ordering to the query.
 	 *
 	 * @since 4.9.7
+	 * @since 4.9.11 Added the `$after` parameter.
+	 *
+	 * @param bool $after        Whether to append the order by clause to the ones managed by WordPress or not.
+	 *                           Defaults to `false`,to prepend them to the ones managed by WordPress.
 	 */
-	protected function order_by_organizer() {
+	protected function order_by_organizer( $after = false ) {
 		global $wpdb;
 
 		$postmeta_table = 'orderby_organizer_meta';
@@ -1604,7 +1631,9 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		);
 
 		$filter_id = 'order_by_organizer';
-		$this->filter_query->orderby( 'organizer', $filter_id, true );
+
+		$order = Arr::get_in_any( [ $this->query_args, $this->default_args ], 'order', 'ASC' );
+		$this->filter_query->orderby( [ 'organizer' => $order ], $filter_id, true, $after );
 		$this->filter_query->fields( "{$posts_table}.post_title AS organizer", $filter_id, true );
 	}
 
@@ -1612,8 +1641,12 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 * Applies Venue-based ordering to the query.
 	 *
 	 * @since 4.9.7
+	 * @since 4.9.11 Added the `$after` parameter.
+	 *
+	 * @param bool $after        Whether to append the order by clause to the ones managed by WordPress or not.
+	 *                           Defaults to `false`,to prepend them to the ones managed by WordPress.
 	 */
-	protected function order_by_venue() {
+	protected function order_by_venue( $after = false ) {
 		global $wpdb;
 
 		$postmeta_table = 'orderby_venue_meta';
@@ -1637,7 +1670,8 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		);
 
 		$filter_id = 'order_by_venue';
-		$this->filter_query->orderby( 'venue', $filter_id, true );
+		$order     = Arr::get_in_any( [ $this->query_args, $this->default_args ], 'order', 'ASC' );
+		$this->filter_query->orderby( [ 'venue' => $order ], $filter_id, true, $after );
 		$this->filter_query->fields( "{$posts_table}.post_title AS venue", $filter_id, true );
 	}
 
@@ -1653,5 +1687,28 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 */
 	public function order_by( $order_by, $order = 'ASC' ) {
 		return parent::order_by( $order_by, $order );
+	}
+
+	/**
+	 * Filters events by their "Hidden from Event Listings" status.
+	 *
+	 * This method assumes that we keep the following structure:
+	 * - if an event should be hidden its `_EventHideFromUpcoming` meta will be set to `yes` (or another truthy value).
+	 * - if an event should not be hidden its `_EventHideFromUpcoming` meta will not be set at all.
+	 *
+	 * @since 4.9.11
+	 *
+	 * @param bool $hidden Whether the events should be hidden from event listings or not.
+	 */
+	public function filter_by_hidden_on_upcoming( $hidden ) {
+		$hidden = tribe_is_truthy( $hidden );
+
+		if ( $hidden ) {
+			$this->by( 'meta_equals', '_EventHideFromUpcoming', 'yes' );
+
+			return;
+		}
+
+		$this->by( 'meta_not_exists', '_EventHideFromUpcoming' );
 	}
 }

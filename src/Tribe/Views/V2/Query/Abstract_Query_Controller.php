@@ -129,16 +129,23 @@ abstract class Abstract_Query_Controller {
 		$repository           = $this->repository()->by_args( $orm_args );
 		$injected_posts       = $repository->all();
 
-		// @todo why are we setting these here when WP does it?
-		$query->found_posts   = $repository->found();
-		$query->post_count    = $repository->count();
-		$query->post          = reset( $injected_posts );
+		/*
+		 * The `found_posts` property would be set only if the query has `no_found_rows` unset or set to `false`.
+		 * Since we have the information here, we set it now.
+		 */
+		$query->found_posts = $repository->found();
+		// Again: we have the information now, it makes sense to set it.
+		$query->post_count = count( $injected_posts );
+		$query->post = $query->post_count ? reset( $injected_posts ) : null;
+		// Set the request (SQL code) the repository used to fetch the events.;
+		$query->request = $repository->get_query()->request;
 		$query->max_num_pages = $query->post_count > 0
-			? ceil( $query->found_posts / $query->post_count )
+			? (int) ( ceil( $query->found_posts / $query->post_count ) )
 			: 1;
 		$query->is_single = false;
 		$query->is_singular = false;
 		$query->is_archive = true;
+		$query->is_page = false;
 
 		return $injected_posts;
 	}

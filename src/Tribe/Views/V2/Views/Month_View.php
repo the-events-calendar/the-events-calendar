@@ -8,6 +8,8 @@
 
 namespace Tribe\Events\Views\V2\Views;
 
+use Tribe\Events\Views\V2\Messages;
+use Tribe\Utils\Query;
 use Tribe__Context as Context;
 use Tribe__Date_Utils as Dates;
 use Tribe__Events__Template__Month as Month;
@@ -37,19 +39,25 @@ class Month_View extends By_Day_View {
 	 * Visibility for this view.
 	 *
 	 * @since 4.9.4
+	 * @since 4.9.11 Made the property static.
 	 *
 	 * @var bool
 	 */
-	protected $publicly_visible = true;
+	protected static $publicly_visible = true;
+
+	/**
+	 * A instance cache property to store the currently fetched grid days.
+	 *
+	 * @since 4.9.11
+	 *
+	 * @var array
+	 */
+	protected $grid_days = [];
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public function prev_url( $canonical = false, array $passthru_vars = [] ) {
-		if ( isset( $this->prev_url ) ) {
-			return $this->prev_url;
-		}
-
 		// Setup the Default date for the month view here.
 		$default_date = 'today';
 		$date         = $this->context->get( 'event_date', $default_date );
@@ -83,8 +91,6 @@ class Month_View extends By_Day_View {
 
 		$url = $this->build_url_for_date( $prev_date, $canonical, $passthru_vars );
 
-		$this->prev_url = $url;
-
 		return $this->filter_prev_url( $canonical, $url );
 	}
 
@@ -92,10 +98,6 @@ class Month_View extends By_Day_View {
 	 * {@inheritDoc}
 	 */
 	public function next_url( $canonical = false, array $passthru_vars = [] ) {
-		if ( isset( $this->next_url ) ) {
-			return $this->next_url;
-		}
-
 		// Setup the Default date for the month view here.
 		$default_date = 'today';
 		$date         = $this->context->get( 'event_date', $default_date );
@@ -129,8 +131,6 @@ class Month_View extends By_Day_View {
 
 		$url = $this->build_url_for_date( $next_date, $canonical, $passthru_vars );
 
-		$this->next_url = $url;
-
 		return $this->filter_next_url( $canonical, $url );
 	}
 
@@ -154,7 +154,10 @@ class Month_View extends By_Day_View {
 
 		$this->user_date = ( new \DateTime( $date ) )->format( 'Y-m' );
 
-		$args['order_by'] = 'event_date';
+		$args['order_by'] = [
+			'menu_order' => 'ASC',
+			'event_date' => 'ASC',
+		];
 		$args['order']    = 'ASC';
 
 		return $args;
@@ -185,27 +188,50 @@ class Month_View extends By_Day_View {
 	 * {@inheritDoc}
 	 */
 	protected function setup_template_vars() {
-		/*
-		 * We'll run the fetches day-by-day, we do not want to run a potentially expensive query for ALL the events
-		 * in the month.
-		 */
-		$this->repository->void_query( true );
-		$template_vars = parent::setup_template_vars();
-		$this->repository->void_query( false );
-
 		// The events will be returned in an array with shape `[ <Y-m-d> => [...<events>], <Y-m-d> => [...<events>] ]`.
 		$grid_days = $this->get_grid_days();
-		$days      = $this->get_days_data( $grid_days );
+		// Set this to be used in the following methods.
+		$this->grid_days = $grid_days;
 
-		$grid_date             = Dates::build_date_object( $this->context->get( 'event_date', 'today' ) );
+		$grid_start_date = array_keys( $grid_days );
+		$grid_start_date = reset( $grid_start_date );
+
+		/*
+		 * We'll run the fetches day-by-day, we do not want to run a potentially expensive query so we pre-fill the
+		 * repository query with results we already have.
+		 * We replace the repository for the benefit of the parent method, and then restore it.
+		 */
+		$original_repository = $this->repository;
+		$this->repository = tribe_events();
+		$all_month_events = array_unique( array_merge( ...array_values( $grid_days ) ) );
+		$this->repository->set_query( Query::for_posts( $all_month_events ) );
+
+		$template_vars = parent::setup_template_vars();
+
+		$this->repository = $original_repository;
+
+		$days = $this->get_days_data( $grid_days );
+
+		$grid_date_str         = $this->context->get( 'event_date', 'today' );
+		$grid_date             = Dates::build_date_object( $grid_date_str );
 		$month_and_year_format = tribe_get_option( 'monthAndYearFormat', 'F Y' );
 
+		$prev_month_num = Dates::build_date_object( $grid_date_str )->modify( 'first day of last month' )->format( 'n' );
+		$next_month_num = Dates::build_date_object( $grid_date_str )->modify( 'first day of next month' )->format( 'n' );
+		$prev_month     = Dates::wp_locale_month( $prev_month_num, 'short' );
+		$next_month     = Dates::wp_locale_month( $next_month_num, 'short' );
+
 		$today                                = $this->context->get( 'today' );
+		$template_vars['the_date']            = $grid_date;
 		$template_vars['today_date']          = Dates::build_date_object( $today )->format( 'Y-m-d' );
 		$template_vars['grid_date']           = $grid_date->format( 'Y-m-d' );
 		$template_vars['formatted_grid_date'] = $grid_date->format( $month_and_year_format );
 		$template_vars['events']              = $grid_days;
 		$template_vars['days']                = $days;
+		$template_vars['prev_label']          = $prev_month;
+		$template_vars['next_label']          = $next_month;
+		$template_vars['messages']            = $this->messages->to_array();
+		$template_vars['grid_start_date']     = $grid_start_date;
 
 		return $template_vars;
 	}
@@ -310,7 +336,7 @@ class Month_View extends By_Day_View {
 
 			$day_data = [
 				'date'             => $day_date,
-				'is_start_of_week' => $start_of_week === $date_object->format( 'N' ),
+				'is_start_of_week' => $start_of_week === $date_object->format( 'w' ),
 				'year_number'      => $date_object->format( 'Y' ),
 				'month_number'     => $date_object->format( 'm' ),
 				'day_number'       => $date_object->format( 'j' ),
@@ -375,5 +401,36 @@ class Month_View extends By_Day_View {
 	 */
 	protected function get_url_date_format() {
 		return 'Y-m';
+	}
+
+	/**
+	 * Overrides the base method to handle messages specific to the Month View.
+	 *
+	 * @since 4.9.11
+	 *
+	 * @param array $events An array of events found on the Month.
+	 */
+	protected function setup_messages( array $events ) {
+		if ( ! empty( $events )
+		     || (
+			     ! empty( $this->grid_days )
+			     && 0 !== array_sum( array_map( 'count', $this->grid_days ) )
+		     )
+		) {
+			return;
+		}
+
+		$keyword = $this->context->get( 'keyword', false );
+
+		if ( $keyword ) {
+			$this->messages->insert(
+				Messages::TYPE_NOTICE,
+				Messages::for_key( 'month_no_results_found_w_keyword', trim( $keyword ) )
+			);
+
+			return;
+		}
+
+		$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( 'no_results_found' ), 9 );
 	}
 }

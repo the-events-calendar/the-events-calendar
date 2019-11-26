@@ -9,11 +9,13 @@
 namespace Tribe\Events\Views\V2\Views;
 
 use Tribe\Events\Views\V2\View;
+use Tribe__Context;
 use Tribe__Events__Main as TEC;
 use Tribe__Events__Rewrite as Rewrite;
 use Tribe__Utils__Array as Arr;
 
 class List_View extends View {
+	use List_Behavior;
 	/**
 	 * Slug for this view
 	 *
@@ -27,28 +29,21 @@ class List_View extends View {
 	 * Visibility for this view.
 	 *
 	 * @since 4.9.4
+	 * @since 4.9.11 Made the property static.
 	 *
 	 * @var bool
 	 */
-	protected $publicly_visible = true;
+	protected static $publicly_visible = true;
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public function prev_url( $canonical = false, array $passthru_vars = [] ) {
-		if ( isset( $this->prev_url ) ) {
-			return $this->prev_url;
-		}
-
 		$current_page = (int) $this->context->get( 'page', 1 );
 		$display      = $this->context->get( 'event_display_mode', 'list' );
 
 		if ( 'past' === $display ) {
-			// Ensure we start fresh.
-			unset( $this->next_url );
 			$url = parent::next_url( $canonical, [ 'eventDisplay' => 'past' ] );
-			// Avoid messing up the caching since we're using the prev URL in the next URL function.
-			unset( $this->next_url );
 		} else if ( $current_page > 1 ) {
 			$url = parent::prev_url( $canonical );
 		} else {
@@ -57,8 +52,6 @@ class List_View extends View {
 
 		$url = $this->filter_prev_url( $canonical, $url );
 
-		$this->prev_url = $url;
-
 		return $url;
 	}
 
@@ -66,28 +59,18 @@ class List_View extends View {
 	 * {@inheritDoc}
 	 */
 	public function next_url( $canonical = false, array $passthru_vars = [] ) {
-		if ( isset( $this->next_url ) ) {
-			return $this->next_url;
-		}
-
 		$current_page = (int) $this->context->get( 'page', 1 );
 		$display      = $this->context->get( 'event_display_mode', 'list' );
 
 		if ( $this->slug === $display || 'default' === $display ) {
 			$url = parent::next_url( $canonical );
 		} else if ( $current_page > 1 ) {
-			// Ensure we start fresh.
-			unset( $this->prev_url );
 			$url = parent::prev_url( $canonical, [ 'eventDisplay' => 'past' ] );
-			// Avoid messing up the caching since we're using the prev URL in the next URL function.
-			unset( $this->prev_url );
 		} else {
 			$url = $this->get_upcoming_url( $canonical );
 		}
 
 		$url = $this->filter_next_url( $canonical, $url );
-
-		$this->next_url = $url;
 
 		return $url;
 	}
@@ -108,8 +91,8 @@ class List_View extends View {
 		$event_date_var = $default_date === $date ? '' : $date;
 
 		$past = tribe_events()->by_args( $this->setup_repository_args( $this->context->alter( [
-			'eventDisplay' => 'past',
-			'paged'        => $page,
+			'event_display_mode' => 'past',
+			'paged'              => $page,
 		] ) ) );
 
 		if ( $past->count() > 0 ) {
@@ -208,7 +191,7 @@ class List_View extends View {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function setup_repository_args( \Tribe__Context $context = null ) {
+	protected function setup_repository_args( Tribe__Context $context = null ) {
 		$context = null !== $context ? $context : $this->context;
 
 		$args = parent::setup_repository_args( $context );
@@ -226,5 +209,39 @@ class List_View extends View {
 		}
 
 		return $args;
+	}
+
+	/**
+	 * Overrides the base View method to fix the order of the events in the `past` display mode.
+	 *
+	 * @since 4.9.11
+	 *
+	 * @return array The List View template vars, modified if required.
+	 */
+	protected function setup_template_vars() {
+		$template_vars = parent::setup_template_vars();
+
+		// While we fetch events in DESC order, we want to show the results in ASC order in `past` display mode.
+		if (
+			! empty( $template_vars['events'] )
+			&& is_array( $template_vars['events'] )
+			&& 'past' === $this->context->get( 'event_display_mode', 'map' )
+		) {
+			$template_vars['events'] = array_reverse( $template_vars['events'] );
+		}
+
+		$template_vars = $this->setup_datepicker_template_vars( $template_vars );
+
+		return $template_vars;
+	}
+
+	/**
+	 * Overrides the base implementation to remove notions of a "past" events request on page reset.
+	 *
+	 * @since 4.9.11
+	 */
+	protected function on_page_reset() {
+		parent::on_page_reset();
+		$this->remove_past_query_args();
 	}
 }

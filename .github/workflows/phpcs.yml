@@ -1,0 +1,16 @@
+name: 'PHP CodeSniffer'
+on:
+  pull_request:
+    paths:
+      - 'src/**.php'
+      - '*.php'
+jobs:
+  phpcs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+      - uses: moderntribe/action-tribe-phpcs@master
+        with:
+          github-bot-token: ${{ secrets.GH_BOT_TOKEN }}

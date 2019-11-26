@@ -24,6 +24,18 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		 * Initialize The Events Calendar query filters and post processing.
 		 */
 		public static function init() {
+			/**
+			 * A toggle filter to completely suppress all query filters for the whole request.
+			 *
+			 * @since 4.9.11
+			 *
+			 * @param bool $suppress_filters Whether to completely suppress all query filters for the whole request.
+			 */
+			$suppress_filters = apply_filters( 'tribe_events_suppress_query_filters', false );
+
+			if ( $suppress_filters ) {
+				return;
+			}
 
 			// if tribe event query add filters
 			add_action( 'parse_query', array( __CLASS__, 'parse_query' ), 50 );

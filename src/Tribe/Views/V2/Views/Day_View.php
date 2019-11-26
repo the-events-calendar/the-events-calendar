@@ -8,6 +8,7 @@
 
 namespace Tribe\Events\Views\V2\Views;
 
+use Tribe\Events\Views\V2\Messages;
 use Tribe\Events\Views\V2\Url;
 use Tribe\Events\Views\V2\View;
 use Tribe__Date_Utils as Dates;
@@ -27,19 +28,16 @@ class Day_View extends View {
 	 * Visibility for this view.
 	 *
 	 * @since 4.9.4
+	 * @since 4.9.11 Made the property static.
 	 *
 	 * @var bool
 	 */
-	protected $publicly_visible = true;
+	protected static $publicly_visible = true;
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public function prev_url( $canonical = false, array $passthru_vars = [] ) {
-		if ( isset( $this->prev_url ) ) {
-			return $this->prev_url;
-		}
-
 		$date = $this->context->get( 'event_date', $this->context->get( 'today', 'today' ) );
 
 		$one_day       = new \DateInterval( 'P1D' );
@@ -53,8 +51,6 @@ class Day_View extends View {
 			$url = $this->build_url_for_date( $url_date, $canonical, $passthru_vars );
 		}
 
-		$this->prev_url = $url;
-
 		return $this->filter_prev_url( $canonical, $url );
 	}
 
@@ -62,9 +58,6 @@ class Day_View extends View {
 	 * {@inheritDoc}
 	 */
 	public function next_url( $canonical = false, array $passthru_vars = [] ) {
-		if ( isset( $this->next_url ) ) {
-			return $this->next_url;
-		}
 		$date = $this->context->get( 'event_date', $this->context->get( 'today', 'today' ) );
 
 		$one_day     = new \DateInterval( 'P1D' );
@@ -77,8 +70,6 @@ class Day_View extends View {
 		} else {
 			$url = $this->build_url_for_date( $url_date, $canonical, $passthru_vars );
 		}
-
-		$this->next_url = $url;
 
 		return $this->filter_next_url( $canonical, $url );
 	}
@@ -97,6 +88,12 @@ class Day_View extends View {
 		$event_display = Arr::get( $context_arr, 'event_display_mode', Arr::get( $context_arr, 'event_display' ), 'current' );
 
 		$args['date_overlaps'] = [ tribe_beginning_of_day( $date ), tribe_end_of_day( $date ) ];
+
+		/**
+		 * @todo  @bordoni We need to consider fetching events on a given day from a cache
+		 *        base on what @lucatume suggested on dev meeting for caching more efficiently.
+		 */
+		$args['posts_per_page'] = -1;
 
 		return $args;
 	}
@@ -146,4 +143,79 @@ class Day_View extends View {
 
 		return $url;
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	protected function setup_template_vars() {
+
+		$template_vars = parent::setup_template_vars();
+		$sorted_events = $this->sort_events( $template_vars['events'] );
+
+		$template_vars['events'] = $sorted_events;
+
+		return $template_vars;
+	}
+
+	/**
+	 * Add timeslot and sort events for the day view.
+	 *
+	 * Iterate over the day events to add timeslots and sort them.
+	 *
+	 * @since 4.9.11
+	 *
+	 * @param array $events  An array of events.
+	 *
+	 * @return array The sorted and modified array.
+	 */
+	protected function sort_events( $events ) {
+
+		$all_day = [];
+		$ongoing = [];
+		$hourly  = [];
+
+		foreach ( $events as $i => $event ) {
+			if ( ! empty( $event->all_day ) ) {
+				$event->timeslot = 'all_day';
+				$all_day[ $i ]   = $event;
+			} elseif ( ! empty( $event->multiday ) ) {
+				$event->timeslot = 'multiday';
+				$ongoing[ $i ]   = $event;
+			} else {
+				$event->timeslot = null;
+				$hourly[ $i ]    = $event;
+			}
+		}
+
+		return array_values( $all_day + $ongoing + $hourly );
+
+	}
+
+	/**
+	 * Overrides the base View method to implement logic tailored to the Day View.
+	 *
+	 * @since 4.9.11
+	 *
+	 * @param array $events An array of the View events, if any.
+	 */
+	protected function setup_messages( array $events ) {
+		if ( empty( $events ) ) {
+			$keyword = $this->context->get( 'keyword', false );
+
+			if ( $keyword ) {
+				$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( 'no_results_found_w_keyword', trim( $keyword ) ) );
+			} else {
+				$date_time  = Dates::build_date_object( $this->context->get( 'event_date', 'today' ) );
+				$date_label = date_i18n(
+					tribe_get_date_format( true ),
+					$date_time->getTimestamp() + $date_time->getOffset()
+				);
+				$this->messages->insert(
+					Messages::TYPE_NOTICE,
+					Messages::for_key( 'day_no_results_found', $date_label )
+				);
+			}
+		}
+	}
+
 }

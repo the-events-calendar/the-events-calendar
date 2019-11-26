@@ -31,10 +31,11 @@ class Reflector_View extends View {
 	 * Visibility for this view.
 	 *
 	 * @since 4.9.4
+	 * @since 4.9.11 Made the property static.
 	 *
 	 * @var bool
 	 */
-	protected $publicly_visible = false;
+	protected static $publicly_visible = false;
 
 	/**
 	 * Overrides the base HTML method to return the JSON representation of the view context.

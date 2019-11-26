@@ -9,6 +9,7 @@
 namespace Tribe\Events\Views\V2;
 
 use Tribe\Events\Views\V2\Template\Title;
+use Tribe\Events\Views\V2\Template\Settings\Advanced_Display;
 use Tribe__Container as Container;
 use Tribe__Context as Context;
 use Tribe__Date_Utils as Dates;
@@ -89,24 +90,6 @@ class View implements View_Interface {
 	protected $url;
 
 	/**
-	 * Cache property for the next URL value to avoid running queries twice.
-	 *
-	 * @since 4.9.10
-	 *
-	 * @var string
-	 */
-	protected $next_url;
-
-	/**
-	 * Cache property for the previous URL value to avoid running queries twice.
-	 *
-	 * @since 4.9.10
-	 *
-	 * @var string
-	 */
-	protected $prev_url;
-
-	/**
 	 * An associative array of global variables backed up by the view before replacing the global loop.
 	 *
 	 * @since 4.9.3
@@ -119,10 +102,11 @@ class View implements View_Interface {
 	 * Whether a given View is visible publicly or not.
 	 *
 	 * @since 4.9.4
+	 * @since 4.9.11 Made the property static.
 	 *
 	 * @var bool
 	 */
-	protected $publicly_visible = false;
+	protected static $publicly_visible = false;
 
 	/**
 	 * An associative array of the arguments used to setup the repository filters.
@@ -153,6 +137,45 @@ class View implements View_Interface {
 	protected $should_manage_url = true;
 
 	/**
+	 * An collection of user-facing messages the View should display.
+	 *
+	 * @since 4.9.11
+	 *
+	 * @var Messages
+	 */
+	protected $messages;
+
+	/**
+	 * Whether this View should reset the page/pagination or not.
+	 * This acts as an instance cache for the `View::should_reset_page` method.
+	 *
+	 * @since 4.9.11
+	 *
+	 * @var bool
+	 */
+	protected $should_reset_page;
+
+	/**
+	 * Whether the View should display the events bar or not.
+	 *
+	 * @since 4.9.11
+	 *
+	 * @var bool
+	 */
+	protected $display_events_bar = true;
+
+	/**
+	 * View constructor.
+	 *
+	 * @since 4.9.11
+	 *
+	 * @param Messages|null $messages An instance of the messages collection.
+	 */
+	public function __construct( Messages $messages = null ) {
+		$this->messages = $messages ?: new Messages();
+	}
+
+	/**
 	 * Builds a View instance in response to a REST request to the Views endpoint.
 	 *
 	 * @since 4.9.2
@@ -172,7 +195,8 @@ class View implements View_Interface {
 		if ( isset( $params['view_data'] ) ) {
 			$params['view_data']['url'] = $url;
 		}
-		$params     = array_merge( $params, $url_object->get_query_args() );
+
+		$params = array_merge( $params, $url_object->get_query_args() );
 
 		// Let View data override any other data.
 		if ( isset( $params['view_data'] ) && is_array( $params['view_data'] ) ) {
@@ -288,8 +312,18 @@ class View implements View_Interface {
 			throw new \RuntimeException( $message );
 		}
 
+		/**
+		 * Run an action before we start making a new View instance.
+		 *
+		 * @since  4.9.11
+		 *
+		 * @param  string  $view_class The current view class.
+		 * @param  string  $view_slug The current view slug.
+		 */
+		do_action( 'tribe_events_views_v2_before_make_view', $view_class, $view_slug );
+
 		/** @var \Tribe\Events\Views\V2\View_Interface $instance */
-		$instance  = self::$container->make( $view_class );
+		$instance = self::$container->make( $view_class );
 
 		$template = new Template( $instance );
 
@@ -353,27 +387,57 @@ class View implements View_Interface {
 		/**
 		 * Filters the Repository object for a View.
 		 *
-		 * @since 4.9.3
+		 * @since 4.9.11
 		 *
 		 * @param \Tribe__Repository__Interface $view_repository The repository instance the View will use.
-		 * @param string                        $view            The current view slug.
+		 * @param string                        $view_slug       The current view slug.
 		 * @param \Tribe\Events\Views\V2\View   $instance        The current View object.
 		 */
-		$view_repository = apply_filters( 'tribe_events_views_v2_view_context', $view_repository, $view, $instance );
+		$view_repository = apply_filters( 'tribe_events_views_v2_view_repository', $view_repository, $view_slug, $instance );
 
 		/**
 		 * Filters the Repository object for a specific View.
 		 *
-		 * @since 4.9.3
+		 * @since 4.9.11
 		 *
 		 * @param \Tribe__Repository__Interface $view_repository The repository instance the View will use.
 		 * @param \Tribe\Events\Views\V2\View   $instance        The current View object.
 		 */
-		$view_repository = apply_filters( "tribe_events_views_v2_{$view_slug}_view_context", $view_repository, $instance );
+		$view_repository = apply_filters( "tribe_events_views_v2_{$view_slug}_view_repository", $view_repository, $instance );
 
 		$instance->set_repository( $view_repository );
 
-		$instance->set_url();
+		/**
+		 * Filters the query arguments array for a View URL.
+		 *
+		 * @since 4.9.11
+		 *
+		 * @param array                        $query_args  Arguments used to build the URL.
+		 * @param string                       $view_slug   The current view slug.
+		 * @param \Tribe\Events\Views\V2\View  $instance    The current View object.
+		 */
+		$view_url_query_args = apply_filters( 'tribe_events_views_v2_view_url_query_args', [], $view_slug, $instance );
+
+		/**
+		 * Filters the query arguments array for a specific View URL.
+		 *
+		 * @since 4.9.11
+		 *
+		 * @param array                        $query_args  Arguments used to build the URL.
+		 * @param \Tribe\Events\Views\V2\View  $instance    The current View object.
+		 */
+		$view_url_query_args = apply_filters( "tribe_events_views_v2_{$view_slug}_view_url_query_args", $view_url_query_args, $instance );
+
+		$instance->set_url( $view_url_query_args, true );
+
+		/**
+		 * Run an action after we are done making a new View instance.
+		 *
+		 * @since  4.9.11
+		 *
+		 * @param \Tribe\Events\Views\V2\View   $instance  The current View object.
+		 */
+		do_action( 'tribe_events_views_v2_after_make_view', $instance );
 
 		return $instance;
 	}
@@ -411,6 +475,24 @@ class View implements View_Interface {
 	public function get_html() {
 		if ( self::class === static::class ) {
 			return $this->template->render();
+		}
+
+		if ( $this->should_reset_page() ) {
+
+			/**
+			 * Fires when the combination of the current request and View context requires a page reset.
+			 *
+			 * Additional information about the View current state and context are available using the View getter
+			 * methods.
+			 *
+			 * @since 4.9.11
+			 *
+			 * @param View $this The current View instance.
+			 * @param Context The View current context
+			 */
+			do_action( 'tribe_events_views_v2_on_page_reset', $this, $this->context );
+
+			$this->on_page_reset();
 		}
 
 		$repository_args = $this->filter_repository_args( $this->setup_repository_args() );
@@ -522,8 +604,11 @@ class View implements View_Interface {
 			'tribe-bar-search' => $this->context->get( 'keyword', '' ),
 		];
 
-
-		//@todo lucatume check geoloc!
+		if ( $is_featured = tribe_is_truthy( $this->context->get( 'featured', false ) ) ) {
+			$query_args['featured'] = $is_featured;
+		} else {
+			unset( $query_args['featured'] );
+		}
 
 		/**
 		 * Filters the query arguments that will be used to build a View URL.
@@ -574,39 +659,32 @@ class View implements View_Interface {
 	 * {@inheritDoc}
 	 */
 	public function next_url( $canonical = false, array $passthru_vars = [] ) {
-		if ( isset( $this->next_url ) ) {
-			return $this->next_url;
-		}
-
 		$next_page = $this->repository->next();
 
-		$url            = $next_page->count() > 0 ?
-			add_query_arg( [ $this->page_key => $this->url->get_current_page() + 1 ], $this->get_url() )
+		$url = $this->get_url();
+
+		if ( ! empty( $passthru_vars ) ) {
+			// Remove the pass-thru vars, we'll re-apply them to the URL later.
+			$url = remove_query_arg( array_keys( $passthru_vars ), $url );
+		}
+
+		// Make sure the view slug is always set to correctly match rewrites.
+		$url = add_query_arg( [ 'eventDisplay' => $this->slug ], $url );
+
+		$url = $next_page->count() > 0 ?
+			add_query_arg( [ $this->page_key => $this->url->get_current_page() + 1 ], $url )
 			: '';
 
 		if ( ! empty( $url ) && $canonical ) {
-			$input_url = $url;
+			$url = tribe( 'events.rewrite' )->get_clean_url( $url );
+		}
 
-			if ( ! empty( $passthru_vars ) ) {
-				$input_url = remove_query_arg( array_keys( $passthru_vars ), $url );
-			}
-
-			// Make sure the view slug is always set to correctly match rewrites.
-			$input_url = add_query_arg( [ 'eventDisplay' => $this->slug ], $input_url );
-
-			$canonical_url = tribe( 'events.rewrite' )->get_clean_url( $input_url );
-
-			if ( ! empty( $passthru_vars ) ) {
-				$canonical_url = add_query_arg( $passthru_vars, $canonical_url );
-			}
-
-
-			$url = $canonical_url;
+		if ( ! empty( $passthru_vars ) && ! empty( $url ) ) {
+			// Re-apply the pass-thru query arguments.
+			$url = add_query_arg( $passthru_vars, $url );
 		}
 
 		$url = $this->filter_next_url( $canonical, $url );
-
-		$this->next_url = $url;
 
 		return $url;
 	}
@@ -615,46 +693,38 @@ class View implements View_Interface {
 	 * {@inheritDoc}
 	 */
 	public function prev_url( $canonical = false, array $passthru_vars = [] ) {
-		if ( isset( $this->prev_url ) ) {
-			return $this->prev_url;
-		}
-
 		$prev_page  = $this->repository->prev();
 		$paged      = $this->url->get_current_page() - 1;
 		$query_args = $paged > 1
 			? [ $this->page_key => $paged ]
 			: [];
 
-		$url = $prev_page->count() > 0 ?
-			add_query_arg( $query_args, $this->get_url() )
-			: '';
+		$url = $this->get_url();
+
+		if ( ! empty( $passthru_vars ) ) {
+			// Remove the pass-thru vars, we'll re-apply them to the URL later.
+			$url = remove_query_arg( array_keys( $passthru_vars ), $url );
+		}
+
+		// Make sure the view slug is always set to correctly match rewrites.
+		$url = add_query_arg( [ 'eventDisplay' => $this->slug ], $url );
+
+		$url = $prev_page->count() > 0 ? add_query_arg( $query_args, $url ) : '';
 
 		if ( ! empty( $url ) && $paged === 1 ) {
 			$url = remove_query_arg( $this->page_key, $url );
 		}
 
 		if ( ! empty( $url ) && $canonical ) {
-			$input_url = $url;
+			$url = tribe( 'events.rewrite' )->get_clean_url( $url );
+		}
 
-			if ( ! empty( $passthru_vars ) ) {
-				$input_url = remove_query_arg( array_keys( $passthru_vars ), $url );
-			}
-
-			// Make sure the view slug is always set to correctly match rewrites.
-			$input_url = add_query_arg( [ 'eventDisplay' => $this->slug ], $input_url );
-
-			$canonical_url = tribe( 'events.rewrite' )->get_clean_url( $input_url );
-
-			if ( ! empty( $passthru_vars ) ) {
-				$canonical_url = add_query_arg( $passthru_vars, $canonical_url );
-			}
-
-			$url = $canonical_url;
+		if ( ! empty( $passthru_vars ) && ! empty( $url ) ) {
+			// Re-apply the pass-thru query arguments.
+			$url = add_query_arg( $passthru_vars, $url );
 		}
 
 		$url = $this->filter_prev_url( $canonical, $url );
-
-		$this->prev_url = $url;
 
 		return $url;
 	}
@@ -697,13 +767,7 @@ class View implements View_Interface {
 
 		$this->set_url( $args, true );
 
-		/**
-		 * Problematic replacement as context relies on that to have access to the variables
-		 * in the global context, which creates a hard problem to do navigation.
-		 *
-		 * @todo  have conversation with @lucatume about this
-		 */
-		// $wp_query = $this->repository->get_query();
+		$wp_query = $this->repository->get_query();
 		wp_reset_postdata();
 
 		// Set the $_SERVER['REQUEST_URI'] as many WordPress functions rely on it to correctly work.
@@ -734,10 +798,15 @@ class View implements View_Interface {
 	 *
 	 * @since 4.9.3
 	 *
-	 * @param  array|null  $args An associative array of arguments that will be mapped to the corresponding query
+	 * @param array|null $args   An associative array of arguments that will be mapped to the corresponding query
 	 *                           arguments by the View, or `null` to use the current URL.
+	 * @param bool       $merge  Whether to merge the arguments or override them.
 	 */
 	public function set_url( array $args = null, $merge = false ) {
+		if ( ! isset( $this->url ) ) {
+			$this->url = new Url();
+		}
+
 		if ( null !== $args ) {
 			$query_args = $this->map_args_to_query_args( $args );
 
@@ -755,8 +824,6 @@ class View implements View_Interface {
 
 			return;
 		}
-
-		$this->url = new Url();
 	}
 
 	/**
@@ -823,6 +890,81 @@ class View implements View_Interface {
 	}
 
 	/**
+	 * Sets up the View repository arguments from the View context or a provided Context object.
+	 *
+	 * @since 4.9.3
+	 *
+	 * @param \Tribe__Context|null $context A context to use to setup the args, or `null` to use the View Context.
+	 *
+	 * @return array The arguments, ready to be set on the View repository instance.
+	 */
+	protected function setup_repository_args( \Tribe__Context $context = null ) {
+		$context = null !== $context ? $context : $this->context;
+
+		$context_arr = $context->to_array();
+
+		$args = [
+			'posts_per_page'       => $context_arr['events_per_page'],
+			'paged'                => max( Arr::get_first_set( array_filter( $context_arr ), [
+				'paged',
+				'page',
+			], 1 ), 1 ),
+			'search'               => $context->get( 'keyword', '' ),
+			'hidden_from_upcoming' => false,
+		];
+
+		// Set's up category URL for all views.
+		if ( ! empty( $context_arr[ TEC::TAXONOMY ] ) ) {
+			$args[ TEC::TAXONOMY ] = $context_arr[ TEC::TAXONOMY ];
+		}
+
+		// Setup featured only when set to true.
+		if ( $is_featured = tribe_is_truthy( $this->context->get( 'featured', false ) ) ) {
+			$args['featured'] = $is_featured;
+		} else {
+			unset( $args['featured'] );
+		}
+
+		return $args;
+	}
+
+	/**
+	 * Filters the current URL returned for a specific View.
+	 *
+	 * @since 4.9.3
+	 *
+	 * @param  bool $canonical Whether the normal or canonical version of the next URL is being requested.
+	 * @param string $url The previous URL, this could be an empty string if the View does not have a next.
+	 *
+	 * @return string The filtered previous URL.
+	 */
+	protected function filter_view_url( $canonical, $url ) {
+		/**
+		 * Filters the URL returned for a View.
+		 *
+		 * @since 4.9.3
+		 *
+		 * @param string         $url       The View current URL.
+		 * @param bool           $canonical Whether the URL is a canonical one or not.
+		 * @param View_Interface $this      This view instance.
+		 */
+		$url = apply_filters( 'tribe_events_views_v2_view_url', $url, $canonical, $this );
+
+		/**
+		 * Filters the URL returned for a specific View.
+		 *
+		 * @since 4.9.11
+		 *
+		 * @param string         $url       The View current URL.
+		 * @param bool           $canonical Whether the URL is a canonical one or not.
+		 * @param View_Interface $this      This view instance.
+		 */
+		$url = apply_filters( "tribe_events_views_v2_view_{$this->slug}_url", $url, $canonical, $this );
+
+		return $url;
+	}
+
+	/**
 	 * Filters the previous (page, event, etc.) URL returned for a specific View.
 	 *
 	 * @since 4.9.3
@@ -847,13 +989,13 @@ class View implements View_Interface {
 		/**
 		 * Filters the previous (page, event, etc.) URL returned for a specific View.
 		 *
-		 * @since 4.9.3
+		 * @since 4.9.11
 		 *
 		 * @param string         $url       The View previous (page, event, etc.) URL.
 		 * @param bool           $canonical Whether the URL is a canonical one or not.
 		 * @param View_Interface $this      This view instance.
 		 */
-		$url = apply_filters( "tribe_events_views_v2_{$this->slug}_prev_url", $url, $canonical, $this );
+		$url = apply_filters( "tribe_events_views_v2_view_{$this->slug}_prev_url", $url, $canonical, $this );
 
 		return $url;
 	}
@@ -883,70 +1025,13 @@ class View implements View_Interface {
 		/**
 		 * Filters the next (page, event, etc.) URL returned for a specific View.
 		 *
-		 * @since 4.9.3
+		 * @since 4.9.11
 		 *
 		 * @param string         $url       The View next (page, event, etc.) URL.
 		 * @param bool           $canonical Whether the URL is a canonical one or not.
 		 * @param View_Interface $this      This view instance.
 		 */
-		$url = apply_filters( "tribe_events_views_v2_{$this->slug}_next_url", $url, $canonical, $this );
-
-		return $url;
-	}
-
-	/**
-	 * Sets up the View repository arguments from the View context or a provided Context object.
-	 *
-	 * @since 4.9.3
-	 *
-	 * @param \Tribe__Context|null $context A context to use to setup the args, or `null` to use the View Context.
-	 *
-	 * @return array The arguments, ready to be set on the View repository instance.
-	 */
-	protected function setup_repository_args( \Tribe__Context $context = null ) {
-		$context = null !== $context ? $context : $this->context;
-
-		$context_arr = $context->to_array();
-
-		return [
-			'posts_per_page' => $context_arr['events_per_page'],
-			'paged' => max( Arr::get_first_set( array_filter( $context_arr ), [ 'paged', 'page' ], 1 ), 1 ),
-			'search'         => $context->get( 'keyword', '' ),
-		];
-	}
-
-	/**
-	 * Filters the current URL returned for a specific View.
-	 *
-	 * @since 4.9.3
-	 *
-	 * @param  bool $canonical Whether the normal or canonical version of the next URL is being requested.
-	 * @param string $url The previous URL, this could be an empty string if the View does not have a next.
-	 *
-	 * @return string The filtered previous URL.
-	 */
-	protected function filter_view_url( $canonical, $url ) {
-		/**
-		 * Filters the URL returned for a View.
-		 *
-		 * @since 4.9.3
-		 *
-		 * @param string         $url       The View current URL.
-		 * @param bool           $canonical Whether the URL is a canonical one or not.
-		 * @param View_Interface $this      This view instance.
-		 */
-		$url = apply_filters( 'tribe_events_views_v2_view_url', $url, $canonical, $this );
-
-		/**
-		 * Filters the URL returned for a specific View.
-		 *
-		 * @since 4.9.3
-		 *
-		 * @param string         $url       The View current URL.
-		 * @param bool           $canonical Whether the URL is a canonical one or not.
-		 * @param View_Interface $this      This view instance.
-		 */
-		$url = apply_filters( "tribe_events_views_v2_{$this->slug}_url", $url, $canonical, $this );
+		$url = apply_filters( "tribe_events_views_v2_view_{$this->slug}_next_url", $url, $canonical, $this );
 
 		return $url;
 	}
@@ -961,8 +1046,8 @@ class View implements View_Interface {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function is_publicly_visible() {
-		return $this->publicly_visible;
+	public static function is_publicly_visible() {
+		return static::$publicly_visible;
 	}
 
 	/**
@@ -978,35 +1063,46 @@ class View implements View_Interface {
 			$this->repository->by_args( $this->repository_args );
 		}
 
-		$events = $this->repository->all();
+		$events = (array) $this->repository->all();
+
+		$this->setup_messages( $events );
 
 		$template_vars = [
-			'title'             => $this->get_title( $events ),
-			'events'            => $events,
-			'url'               => $this->get_url( true ),
-			'prev_url'          => $this->prev_url( true ),
-			'next_url'          => $this->next_url( true ),
-			'bar'               => [
+			'title'                => $this->get_title( $events ),
+			'events'               => $events,
+			'url'                  => $this->get_url( true ),
+			'prev_url'             => $this->prev_url( true ),
+			'next_url'             => $this->next_url( true ),
+			'bar'                  => [
 				'keyword' => $this->context->get( 'keyword', '' ),
 				'date'    => $this->context->get( 'event_date', '' ),
 			],
-			'today'             => $this->context->get( 'today', 'today' ),
-			'now'               => $this->context->get( 'now', 'now' ),
-			'rest_url'          => tribe( Rest_Endpoint::class )->get_url(),
-			'rest_nonce'        => wp_create_nonce( 'wp_rest' ),
-			'should_manage_url' => $this->should_manage_url,
-			'today_url'         => $this->get_today_url( true ),
-			'prev_label'        => $this->get_link_label( $this->prev_url( false ) ),
-			'next_label'        => $this->get_link_label( $this->next_url( false ) ),
-			'date_formats'      => (object) [
-				'compact'        => Dates::datepicker_formats( tribe_get_option( 'datepickerFormat' ) ),
-				'month_and_year' => tribe_get_date_option( 'monthAndYearFormat', 'F Y' ),
-			]
+			'today'                => $this->context->get( 'today', 'today' ),
+			'now'                  => $this->context->get( 'now', 'now' ),
+			'rest_url'             => tribe( Rest_Endpoint::class )->get_url(),
+			'rest_nonce'           => wp_create_nonce( 'wp_rest' ),
+			'should_manage_url'    => $this->should_manage_url,
+			'today_url'            => $this->get_today_url( true ),
+			'prev_label'           => $this->get_link_label( $this->prev_url( false ) ),
+			'next_label'           => $this->get_link_label( $this->next_url( false ) ),
+			'date_formats'         => (object) [
+				'compact'              => Dates::datepicker_formats( tribe_get_option( 'datepickerFormat' ) ),
+				'month_and_year'       => tribe_get_date_option( 'monthAndYearFormat', 'F Y' ),
+				'time_range_separator' => tribe_get_date_option( 'timeRangeSeparator', ' - ' ),
+				'date_time_separator'  => tribe_get_date_option( 'dateTimeSeparator', ' @ ' ),
+			],
+			'messages'             => $this->get_messages( $events ),
+			'start_of_week'        => get_option( 'start_of_week', 0 ),
+			'breadcrumbs'          => $this->get_breadcrumbs(),
+			'before_events'        => tribe( Advanced_Display::class )->get_before_events_html( $this ),
+			'after_events'         => tribe( Advanced_Display::class )->get_after_events_html( $this ),
+			'display_events_bar'   => $this->filter_display_events_bar( $this->display_events_bar ),
+			'disable_event_search' => tribe_is_truthy( tribe_get_option( 'tribeDisableTribeBar', false ) ),
+			'live_refresh'         => tribe_is_truthy( tribe_get_option( 'liveFiltersUpdate', true ) ),
 		];
 
 		return $template_vars;
 	}
-
 
 	/**
 	 * Filters the repository arguments that will be used to set up the View repository instance.
@@ -1158,16 +1254,28 @@ class View implements View_Interface {
 		$format = $this->get_label_format();
 
 		/**
-		 * Filters the `date` format that will be used to produce a View link label.
+		 * Filters the `date` format that will be used to produce a View link label for a View.
 		 *
-		 * @since 4.9.9
+		 * @since 4.9.11
 		 *
 		 * @param string    $format    The label format the View will use to product a View link label; e.g. the
 		 *                             previous and next links.
 		 * @param \DateTime $date      The date object that is being used to build the label.
 		 * @param View      $view      This View instance.
 		 */
-		$format = apply_filters( "tribe_events_views_v2_{$this->slug}_link_label_format", $format, $this, $date );
+		$format = apply_filters( "tribe_events_views_v2_view_link_label_format", $format, $this, $date );
+
+		/**
+		 * Filters the `date` format that will be used to produce a View link label for a specific View.
+		 *
+		 * @since 4.9.11
+		 *
+		 * @param string    $format    The label format the View will use to product a View link label; e.g. the
+		 *                             previous and next links.
+		 * @param \DateTime $date      The date object that is being used to build the label.
+		 * @param View      $view      This View instance.
+		 */
+		$format = apply_filters( "tribe_events_views_v2_view_{$this->slug}_link_label_format", $format, $this, $date );
 
 		return date_i18n( $format, $date_object->getTimestamp() + $date_object->getOffset() );
 	}
@@ -1216,28 +1324,248 @@ class View implements View_Interface {
 			remove_filter( 'document_title_parts', [ $title_filter, 'filter_document_title_parts' ] );
 		}
 
-		$slug    = $this->get_slug();
+		$slug = $this->get_slug();
 
 		/**
 		 * Filters the title for all views.
 		 *
-		 * @since 4.9.10
+		 * @since 4.9.11
 		 *
 		 * @param string $title This view filtered title.
 		 * @param View   $this  This view object.
 		 */
-		$title = apply_filters( "tribe_events_views_v2_title", $title, $this );
+		$title = apply_filters( "tribe_events_views_v2_view_title", $title, $this );
 
 		/**
 		 * Filters the title for this view.
 		 *
-		 * @since 4.9.10
+		 * @since 4.9.11
 		 *
 		 * @param string $title This view filtered title.
 		 * @param View   $this  This view object.
 		 */
-		$title = apply_filters( "tribe_events_views_v2_{$slug}_title", $title, $this );
+		$title = apply_filters( "tribe_events_views_v2_view_{$slug}_title", $title, $this );
 
 		return htmlspecialchars_decode($title);
+	}
+
+	/**
+	 * Returns a collection of user-facing messages the View will display on the front-end.
+	 *
+	 * @since 4.9.11
+	 *
+	 * @param array $events An array of the events found by the View that is currently rendering.
+	 *
+	 * @return Messages A collection of user-facing messages the View will display on the front-end.
+	 */
+	public function get_messages( array $events = [] ) {
+		$slug = $this->get_slug();
+
+		/**
+		 * Fires before the view "renders" the array of user-facing messages.
+		 *
+		 * Differently from the filters below this action allow manipulating the messages handler before the messages
+		 * render to, as an example, change rendering strategy and manipulate the message "ingredients".
+		 *
+		 * @since 4.9.11
+		 *
+		 * @param Messages $messages The object instance handling the messages for the View.
+		 * @param array    $events   An array of the events found by the View that is currently rendering.
+		 * @param View     $this     The View instance currently rendering.
+		 */
+		do_action( 'tribe_events_views_v2_view_messages_before_render', $this->messages, $events, $this );
+
+		$messages = $this->messages->to_array();
+
+		/**
+		 * Filters the user-facing messages the View will print on the frontend.
+		 *
+		 * @since 4.9.11
+		 *
+		 * @param array $messages An array of messages in the shape `[ <message_type> => [ ...<messages> ] ]`.
+		 * @param View $this The current View instance being rendered.
+		 * @param Messages $messages_handler The messages handler object the View used to render the messages.
+		 */
+		$messages = apply_filters( 'tribe_events_views_v2_view_messages', $messages, $this, $this->messages );
+
+		/**
+		 * Filters the user-facing messages a specific View will print on the frontend.
+		 *
+		 * @since 4.9.11
+		 *
+		 * @param array    $messages         An array of messages in the shape `[ <message_type> => [ ...<messages> ] ]`.
+		 * @param array    $events           An array of the events found by the View that is currently rendering.
+		 * @param View     $this             The current View instance being rendered.
+		 * @param Messages $messages_handler The messages handler object the View used to render the messages.
+		 */
+		$messages = apply_filters( "tribe_events_views_v2_view_{$slug}_messages", $messages, $events, $this, $this->messages );
+
+		return $messages;
+	}
+
+	/**
+	 * Sets up the user-facing messages the View will print on the frontend.
+	 *
+	 * @since 4.9.11
+	 *
+	 * @param array $events An array of the View events, if any.
+	 */
+	protected function setup_messages( array $events ) {
+		if ( empty( $events ) ) {
+			$keyword = $this->context->get( 'keyword', false );
+			if ( $keyword ) {
+				$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( 'no_results_found_w_keyword', trim( $keyword ) ) );
+			} else {
+				$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( 'no_results_found' ) );
+			}
+		}
+	}
+
+	/**
+	 * Returns whether the View page should be reset or not.
+	 *
+	 * The View page should be reset when the View or filtering parameters that are not the page change.
+	 *
+	 * @since 4.9.11
+	 *
+	 * @return bool Whether the View page should be reset or not.
+	 */
+	protected function should_reset_page() {
+		if ( null === $this->should_reset_page ) {
+			$prev_url    = $this->context->get( 'view_prev_url', '' );
+			$current_url = $this->context->get( 'view_url', '' );
+
+			$view_data = $this->context->get( 'view_data', [] );
+			$bar_data  = array_filter(
+				$view_data,
+				static function ( $value, $key ) {
+					return 0 === strpos( $key, 'tribe-bar-' ) && ! empty( $value );
+				},
+				ARRAY_FILTER_USE_BOTH
+			);
+			if ( ! empty( $bar_data ) ) {
+				$current_url = add_query_arg( $bar_data, $current_url );
+			}
+
+			$this->should_reset_page = Url::is_diff( $prev_url, $current_url, [ 'page', 'paged' ] );
+		}
+
+		return $this->should_reset_page;
+	}
+
+	/**
+	 * Acts on the View variables, properties and context when a page reset is required.
+	 *
+	 * By default this method will reset the page in the context, but extending classes can implement their own,
+	 * custom version.
+	 *
+	 * @since 4.9.11
+	 */
+	protected function on_page_reset() {
+		if ( ! isset( $this->context ) || ! $this->context instanceof Context ) {
+			return;
+		}
+
+		$url                      = $this->context->get( 'url', home_url() );
+		$updated_url              = remove_query_arg( [ 'paged', 'page' ], $url );
+		$view_data                = $this->context->get( 'view_data', [] );
+		$alterations              = [
+			'page'  => 1,
+			'paged' => 1,
+			'url'   => $updated_url,
+		];
+		$alterations['view_data'] = array_merge( $view_data, $alterations );
+
+		$this->context = $this->context->alter( $alterations );
+	}
+
+	/**
+	 * Returns the breadcrumbs data the View will display on the front-end.
+	 *
+	 * @since 4.9.11
+	 *
+	 * @return array
+	 */
+	protected function get_breadcrumbs() {
+		$context     = $this->context;
+		$breadcrumbs = [];
+		$context_tax = $context->get( TEC::TAXONOMY, false );
+
+		// Get term slug if taxonomy is not empty
+		if ( ! empty( $context_tax ) ) {
+			$taxonomy  = $context->get( 'taxonomy', false );
+			$term_slug = $taxonomy ? $context->get( $taxonomy, false ) : false;
+
+			// Set up breadcrumbs for category
+			if ( ! empty( $term_slug ) ) {
+				$term  = get_term_by( 'slug', $term_slug, $taxonomy );
+				if ( ! empty( $term->name ) ) {
+					$label = $term->name;
+
+					$breadcrumbs[] = [
+						'link'  => $this->get_today_url( true ),
+						'label' => tribe_get_event_label_plural(),
+					];
+					$breadcrumbs[] = [
+						'link'  => '',
+						'label' => $label,
+					];
+				}
+			}
+		}
+
+		/**
+		 * Filters the breadcrumbs the View will print on the frontend.
+		 *
+		 * @since 4.9.11
+		 *
+		 * @param array $breadcrumbs An array of breadcrumbs.
+		 * @param View  $this        The current View instance being rendered.
+		 */
+		$breadcrumbs = apply_filters( 'tribe_events_views_v2_view_breadcrumbs', $breadcrumbs, $this );
+
+		/**
+		 * Filters the breadcrumbs a specific View will print on the frontend.
+		 *
+		 * @since 4.9.11
+		 *
+		 * @param array $breadcrumbs An array of breadcrumbs.
+		 * @param View  $this        The current View instance being rendered.
+		 */
+		$breadcrumbs = apply_filters( "tribe_events_views_v2_view_{$this->slug}_breadcrumbs", $breadcrumbs, $this );
+
+		return $breadcrumbs;
+	}
+
+	/**
+	 * Returns if the view should display the events bar.
+	 *
+	 * @since 4.9.11
+	 *
+	 * @return array
+	 */
+	protected function filter_display_events_bar( $display ) {
+
+		/**
+		 * Filters if the events bar should be displayed.
+		 *
+		 * @since 4.9.11
+		 *
+		 * @param bool $display An bool saying if it should be displayed or not.
+		 * @param View $this    The current View instance being rendered.
+		 */
+		$display = apply_filters( "tribe_events_views_v2_view_display_events_bar", $display, $this );
+
+		/**
+		 * Filters if the events bar should be displayed for the specific view.
+		 *
+		 * @since 4.9.11
+		 *
+		 * @param bool $display An bool saying if it should be displayed or not.
+		 * @param View $this    The current View instance being rendered.
+		 */
+		$display = apply_filters( "tribe_events_views_v2_view_{$this->slug}_display_events_bar", $display, $this );
+
+		return $display;
 	}
 }

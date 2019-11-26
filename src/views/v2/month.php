@@ -9,12 +9,18 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.10
+ * @version 4.9.11
  *
- * @var string $rest_url The REST URL.
- * @var string $rest_nonce The REST nonce.
- * @var int    $should_manage_url int containing if it should manage the URL.
+ * @var string $rest_url             The REST URL.
+ * @var string $rest_nonce           The REST nonce.
+ * @var int    $should_manage_url    int containing if it should manage the URL.
+ * @var bool   $disable_event_search Boolean on whether to disable the event search.
  */
+
+$header_classes = [ 'tribe-events-header' ];
+if ( empty( $disable_event_search ) ) {
+	$header_classes[] = 'tribe-events-header--has-event-search';
+}
 ?>
 <div
 	class="tribe-common tribe-events tribe-events-view tribe-events-view--month"
@@ -28,7 +34,13 @@
 
 		<?php $this->template( 'components/data' ); ?>
 
-		<header class="tribe-events-header">
+		<?php $this->template( 'components/before' ); ?>
+
+		<header <?php tribe_classes( $header_classes ); ?>>
+			<?php $this->template( 'components/messages' ); ?>
+
+			<?php $this->template( 'components/breadcrumbs' ); ?>
+
 			<?php $this->template( 'components/events-bar' ); ?>
 
 			<?php $this->template( 'month/top-bar' ); ?>
@@ -51,6 +63,8 @@
 		</div>
 
 		<?php $this->template( 'month/mobile-events' ); ?>
+
+		<?php $this->template( 'components/after' ); ?>
 
 	</div>
 

@@ -1,0 +1,33 @@
+.tribe-events {
+	/* -----------------------------------------------------------------------------
+	 *
+	 * Messages
+	 *
+	 * Example:
+	 * <div class="tribe-events-c-messages">
+	 *    <div class="tribe-events-c-messages__message">
+	 *      <ul class="tribe-events-c-messages__message-list">
+	 *        <li class="tribe-events-c-messages__message-list-item">There were no results found</li>
+	 *      </ul>
+	 *    </div>
+	 * </div>
+	 *
+	 * ----------------------------------------------------------------------------- */
+
+	.tribe-events-c-messages {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.tribe-events-c-messages__message {
+		align-items: center;
+		display: flex;
+		padding: var(--spacer-2);
+		width: 100%;
+
+		@media (--viewport-medium) {
+			justify-content: center;
+			padding: var(--spacer-3);
+		}
+	}
+}

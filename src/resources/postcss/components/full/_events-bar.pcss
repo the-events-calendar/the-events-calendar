@@ -1,0 +1,110 @@
+/* -----------------------------------------------------------------------------
+ *
+ * Events Bar
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe-events {
+
+	.tribe-events-c-events-bar {
+		background-color: var(--color-background);
+	}
+
+	.tribe-events-c-events-bar--border {
+		@media (--viewport-medium) {
+			border: 1px solid var(--color-border-secondary);
+		}
+	}
+
+	.tribe-events-c-events-bar__filters {
+		@media (--viewport-medium) {
+			border-right: 1px solid var(--color-border-secondary);
+		}
+	}
+
+	.tribe-events-c-events-bar__search-button {
+
+		&:hover,
+		&:focus {
+
+			.tribe-events-c-events-bar__search-button-icon {
+				opacity: var(--opacity-icon-hover);
+			}
+		}
+
+		&:active {
+
+			.tribe-events-c-events-bar__search-button-icon {
+				opacity: var(--opacity-icon-active);
+			}
+		}
+
+		&:before {
+			background-color: var(--color-accent-primary);
+			content: '';
+			display: none;
+			height: 2px;
+			pointer-events: none;
+			position: absolute;
+			top: 100%;
+			transform: translateY(var(--spacer-0));
+			width: calc(100% - (2 * var(--spacer-0)));
+		}
+	}
+
+	.tribe-events-c-events-bar__search-button--active {
+
+		&:before {
+			display: block;
+		}
+	}
+
+	.tribe-events-c-events-bar__tab {
+		border-radius: var(--border-radius-default);
+
+		&:hover,
+		&:focus,
+		&:active {
+
+			.tribe-events-c-events-bar__tab-text {
+				font-weight: var(--font-weight-bold);
+			}
+		}
+	}
+
+	.tribe-events-c-events-bar__tab--active {
+		background-color: var(--color-background-secondary);
+
+		&:hover,
+		&:focus {
+			background-color: var(--color-background-secondary);
+		}
+
+		.tribe-events-c-events-bar__tab-text {
+			font-weight: var(--font-weight-bold);
+		}
+	}
+
+	/* -----------------------------------------------------------------------------
+	 *
+	 * Events Bar: Theme Overrides
+	 *
+	 * ----------------------------------------------------------------------------- */
+
+	/* -----------------------------------------------------------------------------
+	 * Theme Overrides - Twenty Seventeen
+	 * ----------------------------------------------------------------------------- */
+
+	.tribe-theme-twentyseventeen & {
+
+		.tribe-events-c-events-bar__tab--active {
+			background-color: var(--color-background-secondary);
+
+			&:hover,
+			&:focus {
+				background-color: var(--color-background-secondary);
+			}
+		}
+	}
+
+}
