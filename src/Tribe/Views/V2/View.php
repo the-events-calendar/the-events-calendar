@@ -8,8 +8,8 @@
 
 namespace Tribe\Events\Views\V2;
 
-use Tribe\Events\Views\V2\Template\Title;
 use Tribe\Events\Views\V2\Template\Settings\Advanced_Display;
+use Tribe\Events\Views\V2\Template\Title;
 use Tribe__Container as Container;
 use Tribe__Context as Context;
 use Tribe__Date_Utils as Dates;
@@ -165,6 +165,16 @@ class View implements View_Interface {
 	protected $display_events_bar = true;
 
 	/**
+	 * The instance of the rewrite handling class to use.
+	 * Extending classes can override this to use more specific rewrite handlers (e.g. PRO Views).
+	 *
+	 * @since TBD
+	 *
+	 * @var Rewrite
+	 */
+	protected $rewrite;
+
+	/**
 	 * View constructor.
 	 *
 	 * @since 4.9.11
@@ -173,6 +183,7 @@ class View implements View_Interface {
 	 */
 	public function __construct( Messages $messages = null ) {
 		$this->messages = $messages ?: new Messages();
+		$this->rewrite = Rewrite::instance();
 	}
 
 	/**
@@ -574,6 +585,58 @@ class View implements View_Interface {
 	/**
 	 * {@inheritDoc}
 	 */
+	public function get_parents_slug() {
+		$parents = class_parents( $this );
+		$parents = array_map( [ tribe( Manager::class ), 'get_view_slug_by_class' ], $parents );
+		$parents = array_filter( $parents );
+
+		return array_values( $parents );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_html_classes( array $classes = [] ) {
+		$base_classes = [
+			'tribe-common',
+			'tribe-events',
+			'tribe-events-view',
+			'tribe-events-view--' . $this->get_slug(),
+		];
+
+		$parents = array_map( static function ( $view_slug ) {
+			return 'tribe-events-view--' . $view_slug;
+		}, $this->get_parents_slug() );
+
+		$html_classes = array_merge( $base_classes, $parents, $classes );
+
+		/**
+		 * Filters the query arguments array for a View URL.
+		 *
+		 * @since TBD
+		 *
+		 * @param array                        $html_classes  Array of classes used for this view.
+		 * @param string                       $view_slug     The current view slug.
+		 * @param \Tribe\Events\Views\V2\View  $instance      The current View object.
+		 */
+		$html_classes = apply_filters( 'tribe_events_views_v2_view_html_classes', $html_classes, $this->get_slug(), $this );
+
+		/**
+		 * Filters the query arguments array for a specific View URL.
+		 *
+		 * @since TBD
+		 *
+		 * @param array                        $html_classes  Array of classes used for this view.
+		 * @param \Tribe\Events\Views\V2\View  $instance      The current View object.
+		 */
+		$html_classes = apply_filters( "tribe_events_views_v2_{$this->get_slug()}_view_html_classes", $html_classes, $this );
+
+		return $html_classes;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
 	public function set_slug( $slug ) {
 		$this->slug = $slug;
 		$this->template->set( 'slug', $slug );
@@ -642,7 +705,7 @@ class View implements View_Interface {
 		$url = add_query_arg( array_filter( $query_args ), home_url() );
 
 		if ( $canonical ) {
-			$url = Rewrite::instance()->get_clean_url( $url );
+			$url = $this->rewrite->get_clean_url( $url );
 		}
 
 		$event_display_mode = $this->context->get( 'event_display_mode', false );
@@ -1067,6 +1130,10 @@ class View implements View_Interface {
 
 		$this->setup_messages( $events );
 
+		$today_url     = $this->get_today_url( true );
+
+		$today         = $this->context->get( 'today', 'today' );
+
 		$template_vars = [
 			'title'                => $this->get_title( $events ),
 			'events'               => $events,
@@ -1077,17 +1144,20 @@ class View implements View_Interface {
 				'keyword' => $this->context->get( 'keyword', '' ),
 				'date'    => $this->context->get( 'event_date', '' ),
 			],
-			'today'                => $this->context->get( 'today', 'today' ),
+			'today'                => $today,
 			'now'                  => $this->context->get( 'now', 'now' ),
+			'request_date'         => Dates::build_date_object( $this->context->get( 'event_date', $today ) ),
 			'rest_url'             => tribe( Rest_Endpoint::class )->get_url(),
 			'rest_nonce'           => wp_create_nonce( 'wp_rest' ),
 			'should_manage_url'    => $this->should_manage_url,
-			'today_url'            => $this->get_today_url( true ),
+			'today_url'            => $today_url,
 			'prev_label'           => $this->get_link_label( $this->prev_url( false ) ),
 			'next_label'           => $this->get_link_label( $this->next_url( false ) ),
 			'date_formats'         => (object) [
-				'compact'        => Dates::datepicker_formats( tribe_get_option( 'datepickerFormat' ) ),
-				'month_and_year' => tribe_get_date_option( 'monthAndYearFormat', 'F Y' ),
+				'compact'              => Dates::datepicker_formats( tribe_get_option( 'datepickerFormat' ) ),
+				'month_and_year'       => tribe_get_date_option( 'monthAndYearFormat', 'F Y' ),
+				'time_range_separator' => tribe_get_date_option( 'timeRangeSeparator', ' - ' ),
+				'date_time_separator'  => tribe_get_date_option( 'dateTimeSeparator', ' @ ' ),
 			],
 			'messages'             => $this->get_messages( $events ),
 			'start_of_week'        => get_option( 'start_of_week', 0 ),
@@ -1097,6 +1167,9 @@ class View implements View_Interface {
 			'display_events_bar'   => $this->filter_display_events_bar( $this->display_events_bar ),
 			'disable_event_search' => tribe_is_truthy( tribe_get_option( 'tribeDisableTribeBar', false ) ),
 			'live_refresh'         => tribe_is_truthy( tribe_get_option( 'liveFiltersUpdate', true ) ),
+			'ical'                 => $this->get_ical_data(),
+			'container_classes'    => $this->get_html_classes(),
+			'is_past'              => 'past' === $this->context->get( 'event_display_mode', false ),
 		];
 
 		return $template_vars;
@@ -1160,7 +1233,7 @@ class View implements View_Interface {
 				str_replace(
 					home_url(),
 					'',
-					Rewrite::$instance->get_clean_url( (string) $this->get_url() ) ),
+					$this->rewrite->get_clean_url( (string) $this->get_url() ) ),
 				'/'
 			);
 
@@ -1211,7 +1284,7 @@ class View implements View_Interface {
 			return $ugly_url;
 		}
 
-		return Rewrite::instance()->get_canonical_url( $ugly_url );
+		return $this->rewrite->get_canonical_url( $ugly_url );
 	}
 
 	/**
@@ -1565,5 +1638,65 @@ class View implements View_Interface {
 		$display = apply_filters( "tribe_events_views_v2_view_{$this->slug}_display_events_bar", $display, $this );
 
 		return $display;
+	}
+
+	/**
+	 * Returns the iCal data we're sending to the view.
+	 *
+	 * @since TBD
+	 *
+	 * @return object
+	 */
+	protected function get_ical_data() {
+		/**
+		 * A filter to control whether the "iCal Import" link shows up or not.
+		 *
+		 * @since unknown
+		 *
+		 * @param boolean $show Whether to show the "iCal Import" link; defaults to true.
+		 */
+		$display_ical = apply_filters( 'tribe_events_list_show_ical_link', true );
+
+		/**
+		 * Allow for customization of the iCal export link "Export Events" text.
+		 *
+		 * @since unknown
+		 *
+		 * @param string $text The default link text, which is "Export Events".
+		 */
+		$link_text  = apply_filters( 'tribe_events_ical_export_text', __( 'Export Events', 'the-events-calendar' ) );
+
+		$link_title = __( 'Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps', 'the-events-calendar' );
+
+		$ical_data = (object) [
+			'display_link' => $display_ical,
+			'link'         => (object) [
+				'url'   => esc_url( tribe_get_ical_link() ),
+				'text'  => $link_text,
+				'title' => $link_title,
+			],
+		];
+
+		/**
+		 * Filters the ical data.
+		 *
+		 * @since TBD
+		 *
+		 * @param object $ical_data An object containing the ical data.
+		 * @param View   $this      The current View instance being rendered.
+		 */
+		$ical_data = apply_filters( "tribe_events_views_v2_view_ical_data", $ical_data, $this );
+
+		/**
+		 * Filters the ical data for a specific view.
+		 *
+		 * @since TBD
+		 *
+		 * @param object $ical_data An object containing the ical data.
+		 * @param View   $this      The current View instance being rendered.
+		 */
+		$ical_data = apply_filters( "tribe_events_views_v2_view_{$this->slug}_ical_data", $ical_data, $this );
+
+		return $ical_data;
 	}
 }

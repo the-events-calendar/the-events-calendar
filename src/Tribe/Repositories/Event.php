@@ -1380,7 +1380,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 *
 	 * @param      int|string|\DateTime $date     A date and time timestamp, string or object.
 	 * @param null                      $timezone The timezone that should be used to filter events, if not passed
-	 *                                            the site one will be used. This paramenter will be ignored if the
+	 *                                            the site one will be used. This parameter will be ignored if the
 	 *                                            `$date` parameter is an object.
 	 *
 	 * @throws Exception If the date and/or timezone provided for the filtering are not valid.

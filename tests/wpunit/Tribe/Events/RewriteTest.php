@@ -2,6 +2,7 @@
 
 namespace Tribe\Events;
 
+use Tribe\Events\Test\Factories\Event;
 use Tribe__Events__Main as TEC;
 use Tribe__Events__Rewrite as Rewrite;
 
@@ -33,6 +34,7 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 		list( $grandparent_id ) = array_values( wp_insert_term( 'grand-parent', TEC::TAXONOMY ) );
 		list( $parent_id ) = array_values( wp_insert_term( 'parent', TEC::TAXONOMY, [ 'parent' => $grandparent_id ] ) );
 		wp_insert_term( 'child', TEC::TAXONOMY, [ 'parent' => $parent_id ] );
+		static::factory()->event = new Event();
 	}
 
 	public function tearDown() {
@@ -376,5 +378,50 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 		$clean_url = $rewrite->get_clean_url( $input_uri );
 
 		$this->assertEquals( $expected, $clean_url );
+	}
+
+	public function changed_archive_url_data_set() {
+		return [
+			'list_page_1' => [
+				'/?post_type=tribe_events&eventDisplay=list',
+				'/courses/list/',
+			],
+			'list_page_2' => [
+				'/?post_type=tribe_events&eventDisplay=list&paged=2',
+				'/courses/list/page/2/',
+			],
+			'month_view' => [
+				'/?post_type=tribe_events&eventDisplay=month',
+				'/courses/month/',
+			],
+			'day_page_1' => [
+				'/?post_type=tribe_events&eventDisplay=day',
+				'/courses/today/',
+			],
+			/*
+			 * Where is past? The query var is removed and re-added before each transformation by Views that support it.
+			 * We do not need to test it here.
+			 */
+		];
+	}
+
+	/**
+	 * It should correctly build canonical URLs when /events archive slug changes
+	 *
+	 * @test
+	 *
+	 * @dataProvider changed_archive_url_data_set
+	 */
+	public function should_correctly_build_canonical_ur_ls_when_events_archive_slug_changes( $input_uri, $expected ) {
+		$input_uri = home_url( $input_uri );
+		$expected  = home_url( $expected );
+
+		tribe_update_option( 'eventsSlug', 'courses' );
+
+		$rewrite = new Rewrite;
+		global $wp_rewrite;
+		$rewrite->setup( $wp_rewrite );
+
+		$this->assertEquals( $expected, $rewrite->get_clean_url( $input_uri ) );
 	}
 }

@@ -3,7 +3,7 @@
 		class="tribe-common-h3 tribe-common-h--alt tribe-events-c-top-bar__datepicker-button"
 		data-js="tribe-events-top-bar-datepicker-button"
 	>
-					Now							<span class="tribe-events-c-top-bar__datepicker-separator">&mdash;</span>
+					Now							<span class="tribe-events-c-top-bar__datepicker-separator"> - </span>
 			<time
 				datetime="2019-01-05"
 				class="tribe-events-c-top-bar__datepicker-time"

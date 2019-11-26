@@ -39,6 +39,11 @@ class DayTest extends HtmlPartialTestCase {
 			'more_events'      => $more_events,
 			'day_url'          => $day_url,
 		];
+		$date_formats = (object) [
+			'month_and_year'       => 'F Y',
+			'time_range_separator' => ' - ',
+			'date_time_separator'  => ' @ ',
+		];
 		$this->assertMatchesSnapshot(
 			$this->get_partial_html(
 				[
@@ -46,6 +51,7 @@ class DayTest extends HtmlPartialTestCase {
 					'day_date'        => '2019-07-01',
 					'day'             => $day_data,
 					'grid_start_date' => '2019-07-01',
+					'date_formats'    => $date_formats,
 				]
 			)
 		);

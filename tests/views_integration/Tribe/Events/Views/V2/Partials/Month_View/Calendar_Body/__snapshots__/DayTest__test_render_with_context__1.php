@@ -107,10 +107,10 @@
 		<div class="tribe-events-calendar-month__calendar-event-datetime">
 		<time datetime="10:00">
 		10:00 am	</time>
-	<span class="tribe-events-calendar-month__calendar-event-datetime-separator"> - </span>
-	<time datetime="11:00">
-		11:00 am	</time>
-	</div>
+			<span class="tribe-events-calendar-month__calendar-event-datetime-separator"> - </span>
+		<time datetime="11:00">
+			11:00 am		</time>
+		</div>
 		<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h--alt">
 	<a
 		href="http://test.tri.be/?tribe_events=test-event-2018-07-01-11am"
@@ -136,10 +136,10 @@
 		<div class="tribe-events-calendar-month__calendar-event-datetime">
 		<time datetime="11:00">
 		11:00 am	</time>
-	<span class="tribe-events-calendar-month__calendar-event-datetime-separator"> - </span>
-	<time datetime="12:00">
-		12:00 pm	</time>
-	</div>
+			<span class="tribe-events-calendar-month__calendar-event-datetime-separator"> - </span>
+		<time datetime="12:00">
+			12:00 pm		</time>
+		</div>
 		<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h--alt">
 	<a
 		href="http://test.tri.be/?tribe_events=test-event-2018-07-01-11am-2"
