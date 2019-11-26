@@ -150,9 +150,8 @@ abstract class By_Day_View extends View {
 				(array) $cache->get( $cache_key, Cache_Listener::TRIGGER_SAVE_POST )
 			);
 
-			if ( ! $day_results->count() ) {
-				$event_ids = [];
-			} else {
+			$event_ids = [];
+			if ( $day_results->count() ) {
 				// Sort events by honoring order and direction.
 				$day_results->order_by( $order_by, $order );
 				$event_ids = array_map( 'absint', $day_results->pluck( 'ID' ) );
