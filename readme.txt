@@ -215,6 +215,10 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
+= [] TBD =
+
+* Tweak - Allow to refine the search on eventbrite account imports
+
 = [4.9.11] 2019-11-12 =
 
 * Fix - Fixed issue where DD/MM/YYYY style dates were not supported during Event Aggregator imports [117691]
