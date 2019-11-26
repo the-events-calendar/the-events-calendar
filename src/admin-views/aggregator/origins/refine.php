@@ -12,8 +12,8 @@ $depends_condition       = 'data-condition-not-empty';
 $location_depends = '#tribe-ea-field-origin';
 $keyword_depends = '#tribe-ea-field-origin';
 
-$keyword_exclusions = ['facebook'];
-$location_exclusions = ['url', 'facebook'];
+$keyword_exclusions = [ 'facebook' ];
+$location_exclusions = [ 'url', 'facebook' ];
 
 switch ( $origin_slug ) {
 	case 'ics':
@@ -50,6 +50,13 @@ switch ( $origin_slug ) {
 		break;
 }
 
+/**
+ * Allow filtering of origins excluded from refining EA results by keyword.
+ *
+ * @since 4.6.24
+ *
+ * @param array $keyword_exclusions List of origins excluded.
+ */
 $keyword_exclusions = json_encode( apply_filters( 'tribe_events_aggregator_refine_keyword_exclusions', $keyword_exclusions ) );
 /**
  * Allow filtering of origins excluded from refining EA results by location.
