@@ -215,6 +215,10 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
+= [] TBD =
+
+* Tweak - Allow to refine the search on eventbrite account imports
+
 = [4.9.12] 2019-11-20 =
 
 * Fix - Blocks Editor date time saving correctly for WordPress 5.3 compatibility. [137421]
