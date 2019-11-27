@@ -157,16 +157,10 @@ abstract class By_Day_View extends View {
 
 			$this->grid_days_cache[ $day_string ]       = $day_event_ids;
 			$this->grid_days_found_cache[ $day_string ] = $day_results->count();
-
-			$this->backfill_multiday_event_ids($day_event_ids);
 		}
 
 		$post_ids = array_filter( array_unique( array_merge( ... array_values( $this->grid_days_cache ) ) ) );
 		tribe( 'cache' )->warmup_post_caches( $post_ids );
-
-		if ( is_array( $this->grid_days_cache ) && count( $this->grid_days_cache ) ) {
-			$this->grid_days_cache = $this->add_implied_events( $this->grid_days_cache );
-		}
 
 		// Drop the last day we've added before.
 		array_pop( $this->grid_days_cache );
