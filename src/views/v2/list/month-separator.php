@@ -3,7 +3,7 @@
  * View: List View Month separator
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/views/v2/list/month-separator.php
+ * [your-theme]/tribe/events/v2/list/month-separator.php
  *
  * See more documentation about our views templating system.
  *

@@ -3,7 +3,7 @@
  * View: Day View - Single Event Featured Image
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/views/v2/day/event/featured-image.php
+ * [your-theme]/tribe/events/v2/day/event/featured-image.php
  *
  * See more documentation about our views templating system.
  *
