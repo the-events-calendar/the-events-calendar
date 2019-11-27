@@ -11,11 +11,13 @@ namespace Tribe\Events\Views\V2\Repository;
 
 use Tribe\Repository\Core_Read_Interface;
 use Tribe\Repository\Filter_Validation;
+use Tribe__Cache_Listener as Cache_Listener;
 use Tribe__Date_Utils as Dates;
 use Tribe__Events__Main as TEC;
 use Tribe__Repository__Read_Interface;
 use Tribe__Repository__Usage_Error as Usage_Error;
 use Tribe__Timezones as Timezones;
+use Tribe__Utils__Array as Arr;
 use WP_Post;
 
 /**
@@ -41,7 +43,14 @@ class Event_Period implements Core_Read_Interface {
 			'end date'   => [ Dates::class, 'is_valid_date' ]
 		],
 	];
-
+	/**
+	 * Whether the repository should cache sets and results in WP cache or not.
+	 *
+	 * @since TBD
+	 *
+	 * @var bool
+	 */
+	public $cache_results = false;
 	/**
 	 * The period start date.
 	 *
@@ -505,39 +514,6 @@ class Event_Period implements Core_Read_Interface {
 	}
 
 	/**
-	 * Sets up the filter to fetch events sets in a period.
-	 *
-	 * @since TBD
-	 *
-	 * @param string|int|\DateTimeInterface $start_date The period start date.
-	 * @param string|int|\DateTimeInterface $end_date   The period end date.
-	 *
-	 * @return static For chaining.
-	 */
-	public function by_period( $start_date, $end_date ) {
-		if ( null !== $this->sets ) {
-			// Do we REALLY need to re-fetch?
-			$the_start = Dates::build_date_object( $start_date );
-			$the_end   = Dates::build_date_object( $end_date );
-			$set_days = array_keys($this->sets);
-
-			if (
-				$the_start->format( Dates::DBDATEFORMAT ) < reset( $set_days )
-				|| $the_end->format( Dates::DBDATEFORMAT ) > end( $set_days )
-			) {
-				// We need to re-fetch.
-				$this->sets = null;
-			}
-		}
-
-		$this->period_start      = Dates::build_date_object( $start_date );
-		$this->period_end        = Dates::build_date_object( $end_date );
-		$this->use_site_timezone = Timezones::is_mode( Timezones::SITE_TIMEZONE );
-
-		return $this;
-	}
-
-	/**
 	 * Gets the ids of the posts matching the query.
 	 *
 	 * @since TBD
@@ -549,6 +525,32 @@ class Event_Period implements Core_Read_Interface {
 	}
 
 	/**
+	 * Flattens and returns the post IDs of all events in the a sets collection.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $sets The sets to parse.
+	 *
+	 * @return int[] An array of the sets post IDs.
+	 */
+	protected function get_sets_ids( array $sets ) {
+		$ids = array_filter( array_map(
+			static function ( Events_Result_Set $set ) {
+				return $set->pluck( 'ID' );
+			},
+			$sets
+		) );
+
+		if ( ! count( $ids ) ) {
+			return [];
+		}
+
+		$ids = array_values( array_map( 'absint', array_unique( array_merge( ...array_values( $ids ) ) ) ) );
+
+		return $ids;
+	}
+
+	/**
 	 * Returns an array of result sets, one for each period day.
 	 *
 	 * @since TBD
@@ -557,6 +559,7 @@ class Event_Period implements Core_Read_Interface {
 	 */
 	public function get_sets() {
 		if ( null !== $this->sets ) {
+			// Do we have them here?
 			return $this->get_sub_set( $this->sets, $this->period_start, $this->period_end );
 		}
 
@@ -571,30 +574,9 @@ class Event_Period implements Core_Read_Interface {
 		$sets = $this->cast_sets( $raw_sets );
 		$sets = $this->add_missing_sets( $sets );
 
-		$post_ids = $this->get_sets_ids( $sets );
-
-		// @todo refactor this behind a flag prop/arg.
-
-//		try {
-//			$one_day = new \DateInterval( 'P1D' );
-//		} catch ( \Exception $e ) {
-//			// This should not happen, but let's make sure.
-//			return [];
-//		}
-//		$request_period = new \DatePeriod( $start, $one_day, $end );
-//		$cache = new \Tribe__Cache();
-//		/** @var \DateTime $day */
-//		foreach ( $request_period as $day ) {
-//			$day_string = $day->format(Dates::DBDATEFORMAT);
-//			// Note: unsorted and "raw".
-//			$day_event_results = Arr::get( $grouped_by_start_date, $day_string, [] );
-//			$cache->set(
-//				static::get_cache_key( $day_string ),
-//				$day_event_results,
-//				WEEK_IN_SECONDS,
-//				Cache_Listener::TRIGGER_SAVE_POST
-//			);
-//		}
+		if ( $this->cache_results ) {
+			$this->wp_cache_set( $sets );
+		}
 
 		$this->sets = $sets;
 
@@ -616,7 +598,7 @@ class Event_Period implements Core_Read_Interface {
 		// The sets might have been previously fetched and be cached.
 		$days              = array_keys( $this->sets );
 		$request_start_ymd = $start->format( Dates::DBDATEFORMAT );
-		$request_end_ymd            = $end->format( Dates::DBDATEFORMAT );
+		$request_end_ymd   = $end->format( Dates::DBDATEFORMAT );
 		$same_start        = $request_start_ymd === reset( $days );
 		$same_end          = $request_end_ymd === end( $days );
 
@@ -626,7 +608,7 @@ class Event_Period implements Core_Read_Interface {
 
 		if ( $request_start_ymd === $request_end_ymd ) {
 			// It's a single day query, just return it.
-			return isset( $this->sets[ $request_start_ymd ] ) ? [$this->sets[ $request_start_ymd ]] : [];
+			return isset( $this->sets[ $request_start_ymd ] ) ? [ $this->sets[ $request_start_ymd ] ] : [];
 		}
 
 		// Let's restrict results to the current request period.
@@ -643,7 +625,7 @@ class Event_Period implements Core_Read_Interface {
 	 *
 	 * @return array|false Either the results of the query, or `false` on error.
 	 */
-	protected function query_for_sets(\DateTimeInterface $start, \DateTimeInterface $end) {
+	protected function query_for_sets( \DateTimeInterface $start, \DateTimeInterface $end ) {
 		$meta_key_timezone = '_EventTimezone';
 		$meta_key_all_day  = '_EventAllDay';
 		$post_type         = TEC::POSTTYPE;
@@ -833,6 +815,51 @@ class Event_Period implements Core_Read_Interface {
 		return $sets;
 	}
 
+	protected function wp_cache_set( $sets ) {
+		$days = array_keys( $sets );
+		// EOD cutoff does not apply here, we just do it for the interval.
+		$start          = Dates::build_date_object( reset( $days ) )->setTime( 0, 0, 0 );
+		$end            = Dates::build_date_object( end( $days ) )->setTime( 23, 59, 59 );
+		$one_day        = Dates::interval( 'P1D' );
+		$request_period = new \DatePeriod( $start, $one_day, $end );
+
+		/** @var \Tribe__Cache $cache */
+		$cache   = tribe( 'cache' );
+		$trigger = Cache_Listener::TRIGGER_SAVE_POST;
+
+		$periods_key      = static::get_cache_key( 'periods' );
+		$cached_periods   = $cache->get( $periods_key, $trigger, [], WEEK_IN_SECONDS );
+		$cached_periods[] = [ $start->format( Dates::DBDATEFORMAT ), $end->format( Dates::DBDATEFORMAT ) ];
+		$cache->set( $periods_key, $cached_periods, WEEK_IN_SECONDS, $trigger );
+
+		/** @var \DateTime $day */
+		foreach ( $request_period as $day ) {
+			$day_string        = $day->format( Dates::DBDATEFORMAT );
+			$day_event_results = Arr::get( $sets, $day_string, [] );
+			$cache->set(
+				static::get_cache_key( $day_string . '_set' ),
+				$day_event_results,
+				WEEK_IN_SECONDS,
+				$trigger
+			);
+		}
+	}
+
+	/**
+	 * Returns the full cache key for a partial key.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $key The partial key.
+	 *
+	 * @return string The full cache key.
+	 */
+	private static function get_cache_key( $key ) {
+		$key = preg_replace( '/^tribe_event_period_repository_/', '', $key );
+
+		return 'tribe_event_period_repository_' . $key;
+	}
+
 	/**
 	 * An alias of the `get_sets` method to stick with the convention of naming database-querying methods w/ "fetch".
 	 *
@@ -856,9 +883,101 @@ class Event_Period implements Core_Read_Interface {
 	 * @return $this For chaining.
 	 */
 	public function by_date( $date ) {
-		$normalized = Dates::build_date_object($date)->format(Dates::DBDATEFORMAT);
+		$normalized = Dates::build_date_object( $date )->format( Dates::DBDATEFORMAT );
 
 		return $this->by_period( tribe_beginning_of_day( $normalized ), tribe_end_of_day( $normalized ) );
+	}
+
+	/**
+	 * Sets up the filter to fetch events sets in a period.
+	 *
+	 * @since TBD
+	 *
+	 * @param string|int|\DateTimeInterface $start_date The period start date.
+	 * @param string|int|\DateTimeInterface $end_date   The period end date.
+	 *
+	 * @return static For chaining.
+	 */
+	public function by_period( $start_date, $end_date ) {
+		if ( null !== $this->sets ) {
+			// Do we REALLY need to re-fetch?
+			$the_start = Dates::build_date_object( $start_date );
+			$the_end   = Dates::build_date_object( $end_date );
+			$set_days  = array_keys( $this->sets );
+
+			if (
+				$the_start->format( Dates::DBDATEFORMAT ) < reset( $set_days )
+				|| $the_end->format( Dates::DBDATEFORMAT ) > end( $set_days )
+			) {
+				// We need to re-fetch.
+				$this->sets = null;
+			}
+		}
+
+		$this->period_start      = Dates::build_date_object( $start_date );
+		$this->period_end        = Dates::build_date_object( $end_date );
+		$this->use_site_timezone = Timezones::is_mode( Timezones::SITE_TIMEZONE );
+
+		if ( $this->sets === null && $this->cache_results ) {
+			// Maybe fetch them from the cache?
+			$this->sets = $this->fetch_cached_sets();
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Try and fetch sets from cache to share data between diff. instances of the repository.
+	 *
+	 * In cache we store periods.
+	 * A cached period has a start and an end.
+	 * If the current request period overlaps a cached period, then we fetch sets for each day in the period from the
+	 * cache.
+	 *
+	 * @since TBD
+	 *
+	 * @return array|null Either a set of results fetched from the cache, or `null` if nothing was found in cache.
+	 */
+	protected function fetch_cached_sets() {
+		/** @var \Tribe__Cache $cache */
+		$cache   = tribe( 'cache' );
+		$trigger = Cache_Listener::TRIGGER_SAVE_POST;
+		// Try and fetch them from the shared cache.
+		$periods_key = static::get_cache_key( 'periods' );
+
+		$cached_periods = $cache->get( $periods_key, $trigger, [], WEEK_IN_SECONDS );
+
+		foreach ( $cached_periods as $cached_period ) {
+			list( $start_date, $end_date ) = $cached_period;
+
+			if (
+				$this->period_start->format( Dates::DBDATEFORMAT ) <= $end_date
+				&& $this->period_end->format( Dates::DBDATEFORMAT ) >= $start_date
+			) {
+				$sets   = [];
+				$period = new \DatePeriod(
+					$this->period_start,
+					Dates::interval( 'P1D' ),
+					$this->period_end
+				);
+				/** @var \DateTimeInterface $day */
+				foreach ( $period as $day ) {
+					$day_string = $day->format( Dates::DBDATEFORMAT );
+
+					$sets[ $day_string ] = $cache->get(
+						static::get_cache_key( $day_string . '_set' ),
+						$trigger,
+						[],
+						WEEK_IN_SECONDS
+					);
+				}
+
+				return $sets;
+				break;
+			}
+		}
+
+		return null;
 	}
 
 	/**
@@ -872,31 +991,5 @@ class Event_Period implements Core_Read_Interface {
 		$sets = $this->get_sets();
 
 		return count( $sets ) ? reset( $sets ) : new Events_Result_Set;
-	}
-
-	/**
-	 * Flattens and returns the post IDs of all events in the a sets collection.
-	 *
-	 * @since TBD
-	 *
-	 * @param array $sets The sets to parse.
-	 *
-	 * @return int[] An array of the sets post IDs.
-	 */
-	protected function get_sets_ids( array $sets ) {
-		$ids = array_filter( array_map(
-			static function ( Events_Result_Set $set ) {
-				return $set->pluck( 'ID' );
-			},
-			$sets
-		) );
-
-		if ( ! count( $ids ) ) {
-			return [];
-		}
-
-		$ids = array_values( array_map( 'absint', array_unique( array_merge( ...array_values( $ids ) ) ) ) );
-
-		return $ids;
 	}
 }

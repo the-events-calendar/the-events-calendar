@@ -172,6 +172,41 @@ class Event_Period_Test extends WPTestCase {
 	 * @test
 	 */
 	public function should_allow_getting_the_caching_version_of_the_repository() {
-		$this->assertInstanceOf( Event_Period::class, tribe_events( 'period', 'caching' ) );
+		/** @var Event_Period $repository */
+		$repository = tribe_events( 'period', 'caching' );
+		$this->assertInstanceOf( Event_Period::class, $repository );
+		$this->assertTrue( $repository->cache_results );
+	}
+
+	/**
+	 * It should use cache if caching
+	 *
+	 * @test
+	 */
+	public function should_use_cache_if_caching() {
+		$start_date = Dates::build_date_object( '2019-08-26 00:00:00' );
+		$end_date   = Dates::build_date_object( '2019-10-04 23:59:59' );
+
+		list( $before, $in_period, $after ) = $this->setup_events( $start_date, $end_date );
+		$canary = static::factory()->event->create( [ 'when' => '2019-08-30 09:00:00' ] );
+
+		// e.g. Warmup.
+		tribe_events( 'period', 'caching' )->where( 'in_period', $start_date, $end_date )->get_ids();
+
+		$after_warmup_query_count = $this->queries()->countQueries();
+
+		// e.g.then fetch for a day in the calendar grid.
+		$day_ids = tribe_events( 'period', 'caching' )->by_date( '2019-08-30' )->get_ids();
+
+		$this->queries()->assertCountQueries( $after_warmup_query_count );
+		$this->assertEquals( [ $canary ], $day_ids );
+
+		// e.g.then fetch for three days in the calendar grid.
+		$three_day_ids = tribe_events( 'period', 'caching' )
+			->where( 'in_period', '2019-08-30 00:00:00', '2019-09-02 23:59:59' )
+			->get_ids();
+
+		$this->queries()->assertCountQueries( $after_warmup_query_count );
+		$this->assertEquals( [ $canary ], $three_day_ids );
 	}
 }

@@ -19,6 +19,7 @@ namespace Tribe\Events\Views\V2;
 
 use Tribe\Events\Views\V2\Query\Abstract_Query_Controller;
 use Tribe\Events\Views\V2\Query\Event_Query_Controller;
+use Tribe\Events\Views\V2\Repository\Caching_Set_Decorator;
 use Tribe\Events\Views\V2\Repository\Event_Period;
 use Tribe\Events\Views\V2\Template\Title;
 use Tribe__Events__Main as TEC;
@@ -79,7 +80,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		// 100 is the WordPress cookie-based auth check.
 		add_filter( 'rest_authentication_errors', [ Rest_Endpoint::class, 'did_rest_authentication_errors' ], 150 );
 		add_filter( 'tribe_support_registered_template_systems', [ $this, 'filter_register_template_updates' ] );
-		add_filter( 'tribe_events_event_repository_map', [ $this, 'add_period_repository' ] );
+		add_filter( 'tribe_events_event_repository_map', [ $this, 'add_period_repository' ], 10, 3 );
 
 		if ( tribe_context()->doing_php_initial_state() ) {
 			add_filter( 'wp_title', [ $this, 'filter_wp_title' ], 10, 2 );
@@ -425,9 +426,13 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @return array The filtered repository map.
 	 */
-	public function add_period_repository( array $repository_map ) {
-		// This is a new instance on each run, by design. Making this a singleton would create dangeorous dependencies.
-		$repository_map['period'] = $this->container->make( Event_Period::class );
+	public function add_period_repository( array $repository_map, $repository, array $args = [] ) {
+		if ( 'period' === $repository ) {
+			// This is a new instance on each run, by design. Making this a singleton would create dangerous dependencies.
+			$event_period_repository                = $this->container->make( Event_Period::class );
+			$event_period_repository->cache_results = in_array( 'caching', $args, true );
+			$repository_map['period']               = $event_period_repository;
+		}
 
 		return $repository_map;
 	}
