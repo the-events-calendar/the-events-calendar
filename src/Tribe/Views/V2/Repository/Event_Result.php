@@ -5,17 +5,17 @@
  *
  * @since   TBD
  *
- * @package Tribe\Events\Views\V2\Query
+ * @package Tribe\Events\Views\V2\Repository
  */
 
-namespace Tribe\Events\Views\V2\Query;
+namespace Tribe\Events\Views\V2\Repository;
 
 /**
  * Class Event_Result
  *
  * @since   TBD
  *
- * @package Tribe\Events\Views\V2\Query
+ * @package Tribe\Events\Views\V2\Repository
  */
 class Event_Result {
 
@@ -50,6 +50,19 @@ class Event_Result {
 		$this->data = $data;
 		// Normalized the `all_day` flag property.
 		$this->data['all_day'] = ! empty( $this->data['all_day'] );
+	}
+
+	/**
+	 * Builds and returns a result set from an array of values.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $value The value to build the instance from.
+	 *
+	 * @return static An result instance.
+	 */
+	public static function from_value( $value ) {
+		return $value instanceof static ? $value : new static( $value );
 	}
 
 	/**
@@ -127,5 +140,43 @@ class Event_Result {
 	 */
 	public function to_array() {
 		return $this->data;
+	}
+
+	public function __get( $name ) {
+		if ( isset( $this->data[ $name ] ) ) {
+			return $this->data[ $name ];
+		}
+
+		throw new \InvalidArgumentException( 'Property "' . $name . '" is not accessible or defined on Event Result.' );
+	}
+
+	/**
+	 * Sets a property on the result, returning a modified clone.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $name  The name of the property to set.
+	 * @param mixed  $value The property value.
+	 *
+	 * @return Event_Result A clone of this result.
+	 */
+	public function __set( $name, $value ) {
+		$clone          = clone $this;
+		$clone->{$name} = $value;
+
+		return $clone;
+	}
+
+	/**
+	 * Checks whether a data entry is set or not.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $name The name of the data entry to set.
+	 *
+	 * @return bool Whether a data entry is set or not.
+	 */
+	public function __isset( $name ) {
+		return isset( $this->data[ $name ] );
 	}
 }

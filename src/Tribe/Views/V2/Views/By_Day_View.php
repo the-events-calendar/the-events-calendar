@@ -10,8 +10,7 @@
 namespace Tribe\Events\Views\V2\Views;
 
 use Tribe\Events\Views\V2\Messages;
-use Tribe\Events\Views\V2\Query\Events_Result_Set;
-use Tribe\Events\Views\V2\Query\Query;
+use Tribe\Events\Views\V2\Repository\Event_Period;
 use Tribe\Events\Views\V2\Utils\Stack;
 use Tribe\Events\Views\V2\View;
 use Tribe\Traits\Cache_User;
@@ -135,20 +134,16 @@ abstract class By_Day_View extends View {
 		$this->warmup_cache( 'grid_days_found', 0, Cache_Listener::TRIGGER_SAVE_POST );
 		$events_per_day = $this->get_events_per_day();
 
-		// @todo @lucatume move this to the event repository?
-		Query::update_period_cache( $grid_start_date, $grid_end_date );
-		/** @var \Tribe__Cache $cache */
-		$cache = tribe('cache');
+		/** @var Event_Period $repository */
+		$repository = tribe_events( 'period' );
+		$repository->by_period( $grid_start_date, $grid_end_date )->fetch();
 
 		// phpcs:ignore
 		/** @var \DateTime $day */
 		foreach ( $days as $day ) {
 			$day_string = $day->format( 'Y-m-d' );
 
-			$cache_key   = Query::get_cache_key( $day_string );
-			$day_results = Events_Result_Set::from_value(
-				(array) $cache->get( $cache_key, Cache_Listener::TRIGGER_SAVE_POST )
-			);
+			$day_results = $repository->by_date( $day_string )->get_set();
 
 			$event_ids = [];
 			if ( $day_results->count() ) {
@@ -157,7 +152,7 @@ abstract class By_Day_View extends View {
 				$event_ids = array_map( 'absint', $day_results->pluck( 'ID' ) );
 			}
 
-			// @todo @lucatume truncating here does not make sense as we already have all the events we need, do in template?
+			// @todo @bluedevs truncating here does not make sense, do in template?
 			$day_event_ids = array_slice( $event_ids, 0, $events_per_day );
 
 			$this->grid_days_cache[ $day_string ]       = $day_event_ids;
@@ -166,12 +161,12 @@ abstract class By_Day_View extends View {
 			$this->backfill_multiday_event_ids($day_event_ids);
 		}
 
-		Query::update_posts_cache( array_filter( array_unique( array_merge( ... array_values( $this->grid_days_cache ) ) ) ) );
+		$post_ids = array_filter( array_unique( array_merge( ... array_values( $this->grid_days_cache ) ) ) );
+		tribe( 'cache' )->warmup_post_caches( $post_ids );
 
 		if ( is_array( $this->grid_days_cache ) && count( $this->grid_days_cache ) ) {
 			$this->grid_days_cache = $this->add_implied_events( $this->grid_days_cache );
 		}
-
 
 		// Drop the last day we've added before.
 		array_pop( $this->grid_days_cache );

@@ -19,6 +19,7 @@ namespace Tribe\Events\Views\V2;
 
 use Tribe\Events\Views\V2\Query\Abstract_Query_Controller;
 use Tribe\Events\Views\V2\Query\Event_Query_Controller;
+use Tribe\Events\Views\V2\Repository\Event_Period;
 use Tribe\Events\Views\V2\Template\Title;
 use Tribe__Events__Main as TEC;
 use Tribe__Rewrite as Rewrite;
@@ -78,6 +79,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		// 100 is the WordPress cookie-based auth check.
 		add_filter( 'rest_authentication_errors', [ Rest_Endpoint::class, 'did_rest_authentication_errors' ], 150 );
 		add_filter( 'tribe_support_registered_template_systems', [ $this, 'filter_register_template_updates' ] );
+		add_filter( 'tribe_events_event_repository_map', [ $this, 'add_period_repository' ] );
 
 		if ( tribe_context()->doing_php_initial_state() ) {
 			add_filter( 'wp_title', [ $this, 'filter_wp_title' ], 10, 2 );
@@ -412,5 +414,21 @@ class Hooks extends \tad_DI52_ServiceProvider {
 
 		$event_query = $this->container->make( Event_Query_Controller::class );
 		$event_query->parse_query( $query );
+	}
+
+	/**
+	 * Adds the period repository to the map of available repositories.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $repository_map The current repository map.
+	 *
+	 * @return array The filtered repository map.
+	 */
+	public function add_period_repository( array $repository_map ) {
+		// This is a new instance on each run, by design. Making this a singleton would create dangeorous dependencies.
+		$repository_map['period'] = $this->container->make( Event_Period::class );
+
+		return $repository_map;
 	}
 }

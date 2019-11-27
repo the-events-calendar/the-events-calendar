@@ -1,20 +1,28 @@
 <?php
 /**
- * ${CARET}
+ * A collection of Event_Results.
  *
  * @since   TBD
  *
- * @package Tribe\Events\Views\V2\Query
+ * @package Tribe\Events\Views\V2\Repository
  */
 
-namespace Tribe\Events\Views\V2\Query;
+namespace Tribe\Events\Views\V2\Repository;
 
 use Tribe\Utils\Collection_Interface;
 use Tribe\Utils\Collection_Trait;
 use Tribe__Utils__Array as Arr;
 
+/**
+ * Class Events_Result_Set
+ *
+ * @since   TBD
+ *
+ * @package Tribe\Events\Views\V2\Repository
+ */
 class Events_Result_Set implements Collection_Interface {
 	use Collection_Trait;
+
 	/**
 	 * An array of event results in this result set.
 	 *
@@ -24,8 +32,15 @@ class Events_Result_Set implements Collection_Interface {
 	 */
 	protected $event_results;
 
+	/**
+	 * Events_Result_Set constructor.
+	 *
+	 * @param Event_Result[]|array $event_results An array of event results.
+	 */
 	public function __construct( array $event_results = [] ) {
-		$this->event_results = $event_results;
+		$this->event_results = array_map( static function ( $result ) {
+			return Event_Result::from_value( $result );
+		}, $event_results );
 	}
 
 	/**
