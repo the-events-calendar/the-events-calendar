@@ -651,8 +651,8 @@ class Event_Period implements Core_Read_Interface {
 		 * @param \DateTimeInterface $start The period start date.
 		 * @param \DateTimeInterface $end   The period end date.
 		 */
-		$limit             = absint( apply_filters( 'tribe_events_event_period_repository_set_limit', $limit, $this,
-			$start, $end ) );
+		$limit = apply_filters( 'tribe_events_event_period_repository_set_limit', $limit, $this, $start, $end );
+		$limit = absint( $limit );
 
 		global $wpdb;
 
