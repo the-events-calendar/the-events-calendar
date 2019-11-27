@@ -19,6 +19,7 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 	 *                                 respectively. Defaults to `OBJECT`.
 	 * @param string           $filter Type of filter to apply. Accepts 'raw', a valid date string or
 	 *                                 object to localize the event in a specific time-frame.
+	 * @param bool             $force  Whether to force a re-fetch ignoring cached results or not.
 	 *
 	 * @return array|mixed|void|WP_Post|null {
 	 *                              The Event post object or array, `null` if not found.
@@ -74,7 +75,7 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 	 *                                                                        tags.
 	 *                          }
 	 */
-	function tribe_get_event( $event = null, $output = OBJECT, $filter = 'raw' ) {
+	function tribe_get_event( $event = null, $output = OBJECT, $filter = 'raw', $force = false ) {
 		/**
 		 * Filters the event result before any logic applies.
 		 *
@@ -97,10 +98,13 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 			return $return;
 		}
 
-		$cache_key = 'tribe_get_event_' . md5( json_encode( [ $event, $output, $filter ] ) );
-		/** @var Tribe__Cache $cache */
-		$cache  = tribe( 'cache' );
-		$post = $cache->get( $cache_key, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
+		$post = false;
+		if ( ! $force ) {
+			$cache_key = 'tribe_get_event_' . md5( json_encode( [ $event, $output, $filter ] ) );
+			/** @var Tribe__Cache $cache */
+			$cache = tribe( 'cache' );
+			$post  = $cache->get( $cache_key, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
+		}
 
 		if ( false === $post ) {
 			$post = Event::from_post( $event )->to_post( $output, $filter );
