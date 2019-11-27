@@ -3,7 +3,7 @@
  * View: Day View Nav Disabled Next Button
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/views/v2/day/nav/next-disabled.php
+ * [your-theme]/tribe/events/v2/day/nav/next-disabled.php
  *
  * See more documentation about our views templating system.
  *

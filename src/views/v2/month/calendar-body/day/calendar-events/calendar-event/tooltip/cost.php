@@ -3,7 +3,7 @@
  * View: Month View - Single Event Tooltip Cost
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/views/v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/cost.php
+ * [your-theme]/tribe/events/v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/cost.php
  *
  * See more documentation about our views templating system.
  *
