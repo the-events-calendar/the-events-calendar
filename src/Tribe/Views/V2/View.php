@@ -514,7 +514,8 @@ class View implements View_Interface {
 		 */
 		$this->repository_args = $repository_args;
 
-		$this->setup_the_loop( $repository_args );
+		// @todo @bluedevs do we still need this? It's slow and time-consuming!
+		// $this->setup_the_loop( $repository_args );
 
 		$template_vars = $this->filter_template_vars( $this->setup_template_vars() );
 
