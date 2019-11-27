@@ -630,6 +630,15 @@ class Event_Period implements Core_Read_Interface {
 		$meta_key_all_day  = '_EventAllDay';
 		$post_type         = TEC::POSTTYPE;
 
+		// Let's try and set the LIMIT as high as we can.
+		/** @var \Tribe__Feature_Detection $feature_detection */
+		$feature_detection = tribe( 'feature-detection' );
+		// Results will not be JSON, but this is a good approximation.
+		$example = '{"ID":"23098402348023849","start_date":"2019-11-18 08:00:00",' .
+		           '"end_date":"2019-11-18 17:00:00","timezone":"America\/New_York","all_day":null,' .
+		           '"post_status":"publish"}';
+		$limit   = $feature_detection->mysql_limit_for_string( $example );
+
 		/**
 		 * Filters the LIMIT that should be used to fetch event results set from the database.
 		 *
@@ -642,7 +651,8 @@ class Event_Period implements Core_Read_Interface {
 		 * @param \DateTimeInterface $start The period start date.
 		 * @param \DateTimeInterface $end   The period end date.
 		 */
-		$limit = absint( apply_filters( 'tribe_events_event_period_repository_set_limit', 5000, $this, $start, $end ) );
+		$limit             = absint( apply_filters( 'tribe_events_event_period_repository_set_limit', $limit, $this,
+			$start, $end ) );
 
 		global $wpdb;
 
