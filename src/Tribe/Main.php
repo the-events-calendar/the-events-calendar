@@ -2980,7 +2980,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				require_once self::instance()->plugin_path . 'src/functions/utils/install.php';
 			}
 
-			bdump( tribe_events_views_v2_smart_activation() );
+			tribe_events_views_v2_smart_activation();
 
 			self::flushRewriteRules();
 
