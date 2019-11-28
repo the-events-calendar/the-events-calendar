@@ -13,13 +13,15 @@ namespace Tribe\Events\Views\V2\Repository;
 
 use Codeception\TestCase\WPTestCase;
 use Tribe\Events\Test\Factories\Event;
+use Tribe\Events\Test\Factories\Venue;
 use Tribe__Date_Utils as Dates;
 
 class Event_Period_Test extends WPTestCase {
 
 	public function setUp() {
 		parent::setUp();
-		$this->factory()->event = new Event();
+		static::factory()->event = new Event();
+		static::factory()->venue = new Venue();
 	}
 
 	/**
@@ -208,5 +210,66 @@ class Event_Period_Test extends WPTestCase {
 
 		$this->queries()->assertCountQueries( $after_warmup_query_count );
 		$this->assertEquals( [ $canary ], $three_day_ids );
+	}
+
+	/**
+	 * It should allow fetching events by Venue
+	 *
+	 * @test
+	 */
+	public function should_allow_fetching_events_by_venue() {
+		$start_date = Dates::build_date_object( '2019-08-26 00:00:00' );
+		$end_date   = Dates::build_date_object( '2019-10-04 23:59:59' );
+
+		$venue_1   = static::factory()->venue->create();
+		$venue_2   = static::factory()->venue->create();
+		$venue_3   = static::factory()->venue->create();
+
+		$w_venue_1 = static::factory()->event->create(
+			[
+				'when'  => '2019-09-10 09:00:00',
+				'venue' => $venue_1,
+			]
+		);
+		$w_venue_2 = static::factory()->event->create(
+			[
+				'when'  => '2019-09-10 09:00:00',
+				'venue' => $venue_2
+			]
+		);
+		$wo_venue  = static::factory()->event->create( [ 'when' => '2019-09-10 09:00:00' ] );
+
+		$result_0 = tribe_events( 'period' )->where( 'in_period', $start_date, $end_date )->get_ids();
+		$this->assertEqualSets(
+			[ $w_venue_1, $w_venue_2, $wo_venue ],
+			$result_0,
+			'W/o the Venue filter the all 3 events should match the query.'
+		);
+
+		$result_1 = tribe_events( 'period' )
+			->where( 'in_period', $start_date, $end_date )
+			->where( 'venue', $venue_1 )
+			->get_ids();
+		$this->assertEquals(
+			[ $w_venue_1 ],
+			$result_1,
+			'Using venue_1 only the event w/ venue_1 should match.'
+		);
+
+		$result_2 = tribe_events( 'period' )
+			->where( 'in_period', $start_date, $end_date )
+			->where( 'venue', $venue_3 )
+			->get_ids();
+		$this->assertEmpty( $result_2, 'Using venue_3 no event should match.' );
+
+		$result_3 = tribe_events( 'period' )
+			->where( 'in_period', $start_date, $end_date )
+			->where( 'venue', [ $venue_3, $venue_2 ] )
+			->get_ids();
+		$this->assertEquals(
+			[ $w_venue_2 ],
+			$result_3,
+			'Using venue_3 and venue_2 the event w/ venue_2 should match.'
+		);
 	}
 }

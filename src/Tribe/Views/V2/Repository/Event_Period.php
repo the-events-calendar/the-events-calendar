@@ -15,7 +15,6 @@ use Tribe__Cache_Listener as Cache_Listener;
 use Tribe__Date_Utils as Dates;
 use Tribe__Events__Main as TEC;
 use Tribe__Repository__Read_Interface;
-use Tribe__Repository__Usage_Error as Usage_Error;
 use Tribe__Timezones as Timezones;
 use Tribe__Utils__Array as Arr;
 use WP_Post;
@@ -88,6 +87,25 @@ class Event_Period implements Core_Read_Interface {
 	protected $sets;
 
 	/**
+	 * The "base" repository used by this repository.
+	 * This repository will handle any non-period related filter.
+	 *
+	 * @since TBD
+	 *
+	 * @var \Tribe__Repository__Interface
+	 */
+	protected $base_repository;
+
+	/**
+	 * A flag property to indicate whether there are filters for the base repository or not.
+	 *
+	 * @since TBD
+	 *
+	 * @var bool
+	 */
+	protected $has_base_filters = false;
+
+	/**
 	 * Batch filter application method.
 	 *
 	 * This is the same as calling `by` multiple times with different arguments.
@@ -121,16 +139,22 @@ class Event_Period implements Core_Read_Interface {
 	 * @since TBD
 	 */
 	public function by( $key, $value = null ) {
+		$original_by_key = $key;
 		$key = preg_replace( '/^(on|in)_/', '', $key );
 
 		$call_args = func_get_args();
-		$this->ensure_args_for_filter( $key, $call_args );
 
 		$method = 'by_' . $key;
 
 		if ( ! method_exists( $this, $method ) ) {
-			throw Usage_Error::because_the_read_filter_is_not_defined( $key, $this );
+			// Redirect the call to the base repository.
+			$this->has_base_filters = true;
+			$this->base_repository()->by( $original_by_key, ...array_slice( $call_args, 1 ) );
+
+			return $this;
 		}
+
+		$this->ensure_args_for_filter( $key, $call_args );
 
 		array_shift( $call_args );
 
@@ -580,6 +604,10 @@ class Event_Period implements Core_Read_Interface {
 
 		$this->sets = $sets;
 
+		if ( $this->has_base_filters ) {
+			$this->filter_sets_w_base_repository( $sets );
+		}
+
 		return $sets;
 	}
 
@@ -1001,5 +1029,52 @@ class Event_Period implements Core_Read_Interface {
 		$sets = $this->get_sets();
 
 		return count( $sets ) ? reset( $sets ) : new Events_Result_Set;
+	}
+
+	/**
+	 * Returns the base event repository used by this repository.
+	 *
+	 * @since TBD
+	 *
+	 * @return \Tribe__Repository__Interface The base repository instance used by this repository.
+	 */
+	public function base_repository() {
+		if ( null !== $this->base_repository ) {
+			return $this->base_repository;
+		}
+
+		$this->base_repository = tribe_events();
+
+		return $this->base_repository;
+	}
+
+	/**
+	 * Sets, or unsets if the passed value is `null`, the base repository used by this repository.
+	 *
+	 * @since TBD
+	 *
+	 * @param Core_Read_Interface $base_repository The base repository this repository should use; a `null` value will
+	 *                                             unset it.
+	 */
+	public function set_base_repository( Core_Read_Interface $base_repository = null ) {
+		$this->base_repository = $base_repository;
+	}
+
+	/**
+	 * ${CARET}
+	 *
+	 * @since TBD
+	 *
+	 * @param array $sets
+	 */
+	protected function filter_sets_w_base_repository( array &$sets ) {
+		// Restrict the base repository to only operate on the IDs we already have.
+		$matching_ids = $this->base_repository->in( $this->get_sets_ids( $sets ) )->get_ids();
+		/** @var Events_Result_Set $set */
+		foreach ( $sets as $set ) {
+			$set->filter( static function ( Event_Result $result ) use ( $matching_ids ) {
+				return in_array( $result->id(), $matching_ids );
+			} );
+		}
 	}
 }
