@@ -101,7 +101,7 @@ class By_Day_ViewTest extends ViewTestCase {
 	 * @test
 	 * @dataProvider multi_day_backfill_data_set
 	 */
-	public function should_correctly_back_fill_multi_day_events( array $days, callable  $expected) {
+	public function should_correctly_back_fill_multi_day_events( array $days, callable $expected ) {
 		$events = $this->make_two_events_per_day( $days );
 		$md_event = static::factory()->event->create(
 			[
