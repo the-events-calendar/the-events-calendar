@@ -11,7 +11,6 @@ class DayEventTest extends HtmlTestCase {
 	 * @test
 	 */
 	public function it_should_contain_correct_html_classes() {
-		$this->markTestSkipped( 'For some reason this test is hanging on Travis CI' );
 
 		$event = $this->get_mock_event( 'events/single/1.json' );
 
