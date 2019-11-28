@@ -238,7 +238,7 @@ abstract class By_Day_View extends View {
 	 * @return int The number of events to show, per each day, in total, in the view.
 	 */
 	protected function get_events_per_day() {
-		$events_per_day = $this->context->get( 'events_per_page', 10 );
+		$events_per_day = $this->context->get( 'events_per_page', 12 );
 
 		/**
 		 * Filters the number of events per day to fetch in th View.

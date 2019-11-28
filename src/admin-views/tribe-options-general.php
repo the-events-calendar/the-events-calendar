@@ -44,7 +44,7 @@ $general_tab_fields = Tribe__Main::array_insert_before_key(
 			'label'           => esc_html__( 'Number of events to show per page', 'the-events-calendar' ),
 			'tooltip'         => $posts_per_page_tooltip,
 			'size'            => 'small',
-			'default'         => get_option( 'posts_per_page' ),
+			'default'         => tribe_events_views_v2_is_enabled() ? 12 : get_option( 'posts_per_page' ),
 			'validation_type' => 'positive_int',
 		),
 		'liveFiltersUpdate'             => array(

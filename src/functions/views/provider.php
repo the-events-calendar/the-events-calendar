@@ -51,5 +51,12 @@ function tribe_events_views_v2_smart_activation() {
 		return false;
 	}
 
-	return Tribe__Settings_Manager::set_option( Manager::$option_enabled, true );
+	$status = Tribe__Settings_Manager::set_option( Manager::$option_enabled, true );
+
+	if ( $status ) {
+		// Update the default for new users to 12
+		Tribe__Settings_Manager::set_option( 'postsPerPage', 12 );
+	}
+
+	return $status;
 }

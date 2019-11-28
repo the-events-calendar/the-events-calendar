@@ -24,7 +24,7 @@ class Month_View extends By_Day_View {
 	 *
 	 * @var int
 	 */
-	protected static $posts_per_page_default = 10;
+	protected static $posts_per_page_default = 12;
 
 	/**
 	 * Slug for this view.
@@ -171,7 +171,7 @@ class Month_View extends By_Day_View {
 	 * @return int The Month view number of events per day.
 	 */
 	protected function get_events_per_day() {
-		$events_per_day = $this->context->get( 'month_posts_per_page', 10 );
+		$events_per_day = $this->context->get( 'month_posts_per_page', 12 );
 
 		/**
 		 * Filters the number of events per day to fetch in the Month view.
