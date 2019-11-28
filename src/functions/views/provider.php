@@ -21,7 +21,7 @@ function tribe_events_views_v2_is_enabled() {
 		return (bool) $env_var;
 	}
 
-	$enabled = (bool) tribe_get_option( Manager::$option_enabled, false );
+	$enabled = (bool) Tribe__Settings_Manager::get_option( Manager::$option_enabled, false );
 
 	/**
 	 * Allows filtering of the Events Views V2 provider, doing so will render
@@ -32,4 +32,24 @@ function tribe_events_views_v2_is_enabled() {
 	 * @param boolean $enabled Determining if V2 Views is enabled\
 	 */
 	return apply_filters( 'tribe_events_views_v2_is_enabled', $enabled );
+}
+/**
+ * Checks smart activation of the view v2, is not a function for verification of v2 is active or not.
+ *
+ * Current only being triggered on plugin actiovation hook.
+ *
+ * @since TBD
+ *
+ * @return bool Wether we just activated the v2 on the database.
+ */
+function tribe_events_views_v2_smart_activation() {
+	if ( tribe_events_views_v2_is_enabled() ) {
+		return false;
+	}
+
+	if ( ! tribe_events_is_new_install() ) {
+		return false;
+	}
+
+	return Tribe__Settings_Manager::set_option( Manager::$option_enabled, true );
 }

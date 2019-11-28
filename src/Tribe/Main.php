@@ -652,6 +652,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			require_once $this->plugin_path . 'src/functions/advanced-functions/linked-posts.php';
 			require_once $this->plugin_path . 'src/functions/utils/array.php';
 			require_once $this->plugin_path . 'src/functions/utils/labels.php';
+			require_once $this->plugin_path . 'src/functions/utils/install.php';
 
 			// Load Deprecated Template Tags
 			if ( ! defined( 'TRIBE_DISABLE_DEPRECATED_TAGS' ) ) {
@@ -2973,6 +2974,13 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			if ( ! class_exists( 'Tribe__Settings_Manager' ) ) {
 				return;
 			}
+
+			if ( ! function_exists( 'tribe_events_views_v2_smart_activation' ) ) {
+				require_once self::instance()->plugin_path . 'src/functions/views/provider.php';
+				require_once self::instance()->plugin_path . 'src/functions/utils/install.php';
+			}
+
+			bdump( tribe_events_views_v2_smart_activation() );
 
 			self::flushRewriteRules();
 
