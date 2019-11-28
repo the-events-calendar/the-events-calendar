@@ -1,4 +1,5 @@
 <?php
+
 use Tribe\Events\Views\V2\Manager;
 
 /**
@@ -32,4 +33,33 @@ function tribe_events_views_v2_is_enabled() {
 	 * @param boolean $enabled Determining if V2 Views is enabled\
 	 */
 	return apply_filters( 'tribe_events_views_v2_is_enabled', $enabled );
+}
+
+/**
+ * Returns whether the Event Period repository should be used or not.
+ *
+ * @since TBD
+ *
+ * @return bool whether the Event Period repository should be used or not.
+ */
+function tribe_events_view_v2_use_period_repository() {
+	$enabled = false;
+
+	if ( defined( 'TRIBE_EVENTS_V2_VIEWS_USE_PERIOD_REPOSITORY' ) ) {
+		$enabled = (bool) TRIBE_EVENTS_V2_VIEWS_USE_PERIOD_REPOSITORY;
+	}
+
+	$env_var = getenv( 'TRIBE_EVENTS_V2_VIEWS_USE_PERIOD_REPOSITORY' );
+	if ( false !== $env_var ) {
+		$enabled = (bool) $env_var;
+	}
+
+	/**
+	 * Filters whether to use the period repository or not.
+	 *
+	 * @since TBD
+	 *
+	 * @param boolean $enabled Whether the Event Period repository should be used or not.
+	 */
+	return (bool) apply_filters( 'tribe_events_views_v2_use_period_repository', $enabled );
 }

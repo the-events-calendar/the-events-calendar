@@ -40,7 +40,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 *
 	 * @var string
 	 */
-	protected $start_meta_key = '_EventStarDateUTC';
+	protected $start_meta_key = '_EventStartDateUTC';
 
 	/**
 	 * The meta key that should be used for the end date.
@@ -51,7 +51,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 *
 	 * @var string
 	 */
-	protected $end_meta_key = '_EvenEndDateUTC';
+	protected $end_meta_key = '_EventEndDateUTC';
 
 	/**
 	 * The timezone object that should be used to normalize dates.
