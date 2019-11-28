@@ -1296,13 +1296,15 @@ class View implements View_Interface {
 	 * This is usually used to build the next and prev link URLs labels.
 	 * Extending classes can customize the format of the the label by overriding the `get_label_format` method.
 	 *
+	 * @todo  @bordoni move this method to a supporting class.
+	 *
+	 * @see View::get_label_format(), the method child classes should override to customize the link label format.
+	 *
 	 * @since 4.9.9
 	 *
 	 * @param string $url The input URL to build the link label from.
 	 *
 	 * @return string The formatted and localized, but not HTML escaped, link label.
-	 *
-	 * @see View::get_label_format(), the method child classes should override to customize the link label format.
 	 */
 	public function get_link_label( $url ) {
 		if ( empty( $url ) ) {
@@ -1359,12 +1361,14 @@ class View implements View_Interface {
 	 *
 	 * This format will, usually, apply to next and previous links.
 	 *
-	 * @since 4.9.9
-	 *
-	 * @return string The date format, a valid PHP `date` function format, that should be used to build link labels.
+	 * @todo  @bordoni move this method to a supporting class.
 	 *
 	 * @see View::get_link_label(), the method using this method to build a link label.
 	 * @see date_i18n() as the formatted date will, then, be localized using this method.
+	 *
+	 * @since 4.9.9
+	 *
+	 * @return string The date format, a valid PHP `date` function format, that should be used to build link labels.
 	 */
 	protected function get_label_format() {
 		return 'Y-m-d';
@@ -1645,6 +1649,8 @@ class View implements View_Interface {
 
 	/**
 	 * Returns the iCal data we're sending to the view.
+	 *
+	 * @todo  @bordoni move this method to a supporting class.
 	 *
 	 * @since TBD
 	 *
