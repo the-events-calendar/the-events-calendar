@@ -175,18 +175,18 @@ abstract class By_Day_View extends View {
 					->where( 'date_overlaps', $start, $end, null, 2 )
 					->per_page( $events_per_day )
 					->order_by( $order_by, $order );
-				$event_ids = $day_query->get_ids();
+				$day_event_ids = $day_query->get_ids();
 				$found     = $day_query->found();
 
-				$this->grid_days_cache[ $day_string ]       = (array) $event_ids;
+				$this->grid_days_cache[ $day_string ]       = (array) $day_event_ids;
 				$this->grid_days_found_cache[ $day_string ] = (int) $found;
-
-				/*
-				 * Multi-day events will always appear on the second day and forward, back-fill if they did not make the
-				 * cut (of events per day) on previous days.
-				 */
-				$this->backfill_multiday_event_ids( $event_ids );
 			}
+
+			/*
+			 * Multi-day events will always appear on the second day and forward, back-fill if they did not make the
+			 * cut (of events per day) on previous days.
+			 */
+			$this->backfill_multiday_event_ids( $day_event_ids );
 		}
 
 		if ( $using_period_repository ) {
