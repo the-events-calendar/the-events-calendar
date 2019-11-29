@@ -514,7 +514,10 @@ class View implements View_Interface {
 		 */
 		$this->repository_args = $repository_args;
 
-		$this->setup_the_loop( $repository_args );
+		if ( ! tribe_events_view_v2_use_period_repository() ) {
+			// @todo @bluedevs do we still need this? It's slow and time-consuming!
+			$this->setup_the_loop( $repository_args );
+		}
 
 		$template_vars = $this->filter_template_vars( $this->setup_template_vars() );
 
@@ -1587,6 +1590,20 @@ class View implements View_Interface {
 					];
 				}
 			}
+		}
+
+		// Setup breadcrumbs for when it's featured.
+		if ( $is_featured = tribe_is_truthy( $this->context->get( 'featured', false ) ) ) {
+			$non_featured_link = tribe_events_get_url( [ 'featured' => 0 ] );
+
+			$breadcrumbs[] = [
+				'link'  => $non_featured_link,
+				'label' => tribe_get_event_label_plural(),
+			];
+			$breadcrumbs[] = [
+				'link'  => '',
+				'label' => esc_html__( 'Featured', 'the-events-calendar' ),
+			];
 		}
 
 		/**

@@ -19,6 +19,7 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 	 *                                 respectively. Defaults to `OBJECT`.
 	 * @param string           $filter Type of filter to apply. Accepts 'raw', a valid date string or
 	 *                                 object to localize the event in a specific time-frame.
+	 * @param bool             $force  Whether to force a re-fetch ignoring cached results or not.
 	 *
 	 * @return array|mixed|void|WP_Post|null {
 	 *                              The Event post object or array, `null` if not found.
@@ -74,7 +75,7 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 	 *                                                                        tags.
 	 *                          }
 	 */
-	function tribe_get_event( $event = null, $output = OBJECT, $filter = 'raw' ) {
+	function tribe_get_event( $event = null, $output = OBJECT, $filter = 'raw', $force = false ) {
 		/**
 		 * Filters the event result before any logic applies.
 		 *
@@ -97,26 +98,38 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 			return $return;
 		}
 
-		$post = Event::from_post( $event )->to_post( $output, $filter );
-
-		if ( empty( $post ) ) {
-			return null;
+		$post = false;
+		if ( ! $force ) {
+			$cache_key = 'tribe_get_event_' . md5( json_encode( [ $event, $output, $filter ] ) );
+			/** @var Tribe__Cache $cache */
+			$cache = tribe( 'cache' );
+			$post  = $cache->get( $cache_key, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
 		}
 
-		/**
-		 * Filters the event post object before caching it and returning it.
-		 *
-		 * Note: this value will be cached; as such this filter might not run on each request.
-		 * If you need to filter the output value on each call of this function then use the `tribe_get_event_before`
-		 * filter.
-		 *
-		 * @since 4.9.7
-		 *
-		 * @param WP_Post $post   The event post object, decorated with a set of custom properties.
-		 * @param string  $output The output format to use.
-		 * @param string  $filter The filter, or context of the fetch.
-		 */
-		$post = apply_filters( 'tribe_get_event', $post, $output, $filter );
+		if ( false === $post ) {
+			$post = Event::from_post( $event )->to_post( $output, $filter );
+
+			if ( empty( $post ) ) {
+				return null;
+			}
+
+			/**
+			 * Filters the event post object before caching it and returning it.
+			 *
+			 * Note: this value will be cached; as such this filter might not run on each request.
+			 * If you need to filter the output value on each call of this function then use the `tribe_get_event_before`
+			 * filter.
+			 *
+			 * @since 4.9.7
+			 *
+			 * @param WP_Post $post   The event post object, decorated with a set of custom properties.
+			 * @param string  $output The output format to use.
+			 * @param string  $filter The filter, or context of the fetch.
+			 */
+			$post = apply_filters( 'tribe_get_event', $post, $output, $filter );
+
+			$cache->set( $cache_key, $post, WEEK_IN_SECONDS, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
+		}
 
 		if ( OBJECT !== $output ) {
 			$post = ARRAY_A === $output ? (array) $post : array_values( (array) $post );
