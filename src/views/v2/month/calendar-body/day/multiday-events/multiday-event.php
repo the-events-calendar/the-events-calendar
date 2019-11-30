@@ -41,13 +41,8 @@ if ( $event->featured ) {
 
 // If the event started on a previous month.
 $started_previous_month = $event->dates->start_display->format( 'Y-m-d' ) < $grid_start_date;
-
-// We display the tooltip only if there's excpert or cost or it has a thumbnail.
-$display_tooltip        = ! empty( $event->excerpt ) || ! empty( $event->cost ) || $event->thumbnail->exists;
 $is_first_appearance    = ( $event->dates->start_display->format( 'Y-m-d' ) === $day_date )
                           || ( $started_previous_month && $grid_start_date === $day_date );
-// We print the tooltip contents if it's the first appearrance and we should display it.
-$should_print_tooltip   = $is_first_appearance && $display_tooltip;
 
 // If it starts today and this week, let's add the left border and set the width.
 if ( $should_display ) {
@@ -88,11 +83,9 @@ $classes = get_post_class( $classes, $event->ID );
 			<a
 				href="<?php echo esc_url( $event->permalink ); ?>"
 				class="tribe-events-calendar-month__multiday-event-hidden-link"
-				<?php if ( $display_tooltip ) : ?>
-					data-js="tribe-events-tooltip"
-					data-tooltip-content="#tribe-events-tooltip-content-<?php echo esc_attr( $event->ID ); ?>"
-					aria-describedby="tribe-events-tooltip-content-<?php echo esc_attr( $event->ID ); ?>"
-				<?php endif; ?>
+				data-js="tribe-events-tooltip"
+				data-tooltip-content="#tribe-events-tooltip-content-<?php echo esc_attr( $event->ID ); ?>"
+				aria-describedby="tribe-events-tooltip-content-<?php echo esc_attr( $event->ID ); ?>"
 			>
 				<?php if ( $event->featured ) : ?>
 					<em
@@ -121,7 +114,7 @@ $classes = get_post_class( $classes, $event->ID );
 					</h3>
 				</div>
 			</div>
-			<?php if ( $should_print_tooltip ) : ?>
+			<?php if ( $is_first_appearance ) : ?>
 				<?php $this->template( 'month/calendar-body/day/calendar-events/calendar-event/tooltip', [ 'event' => $event ] ); ?>
 			<?php endif; ?>
 		<?php endif; ?>

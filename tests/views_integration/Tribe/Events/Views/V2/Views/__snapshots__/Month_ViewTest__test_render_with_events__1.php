@@ -462,11 +462,41 @@
 		title="Featured test event  234234234"
 		rel="bookmark"
 		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
-			>
+		data-js="tribe-events-tooltip"
+		data-tooltip-content="#tribe-events-tooltip-content-234234234"
+		aria-describedby="tribe-events-tooltip-content-234234234"
+	>
 		Featured test event  234234234	</a>
 </h3>
 
-		
+		<div class="tribe-events-calendar-month__calendar-event-tooltip-template tribe-common-a11y-hidden">
+	<div
+		class="tribe-events-calendar-month__calendar-event-tooltip"
+		id="tribe-events-tooltip-content-234234234"
+		role="tooltip"
+	>
+				<div class="tribe-events-calendar-month__calendar-event-tooltip-datetime">
+			<em
+			class="tribe-events-calendar-month__calendar-event-tooltip-datetime-featured-icon tribe-common-svgicon tribe-common-svgicon--featured"
+			aria-label="Featured"
+			title="Featured"
+		>
+		</em>
+		<time datetime="2019-06-20">
+		<span class="tribe-event-date-start">June 20 @ 1:01 pm</span> - <span class="tribe-event-time">5:01 pm</span>	</time>
+	</div>
+		<h3 class="tribe-events-calendar-month__calendar-event-tooltip-title tribe-common-h7">
+	<a
+		href="http://test.tri.be/?tribe_events=featured-test-event-234234234"
+		title="Featured test event  234234234"
+		rel="bookmark"
+		class="tribe-events-calendar-month__calendar-event-tooltip-title-link tribe-common-anchor-thin"
+	>
+		Featured test event  234234234	</a>
+</h3>
+					</div>
+</div>
+
 	</div>
 
 </article>
@@ -491,11 +521,35 @@
 		title="Single Event 2453454355"
 		rel="bookmark"
 		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
-			>
+		data-js="tribe-events-tooltip"
+		data-tooltip-content="#tribe-events-tooltip-content-2453454355"
+		aria-describedby="tribe-events-tooltip-content-2453454355"
+	>
 		Single Event 2453454355	</a>
 </h3>
 
-		
+		<div class="tribe-events-calendar-month__calendar-event-tooltip-template tribe-common-a11y-hidden">
+	<div
+		class="tribe-events-calendar-month__calendar-event-tooltip"
+		id="tribe-events-tooltip-content-2453454355"
+		role="tooltip"
+	>
+				<div class="tribe-events-calendar-month__calendar-event-tooltip-datetime">
+		<time datetime="2019-06-20">
+		<span class="tribe-event-date-start">June 20 @ 1:04 pm</span> - <span class="tribe-event-time">5:04 pm</span>	</time>
+	</div>
+		<h3 class="tribe-events-calendar-month__calendar-event-tooltip-title tribe-common-h7">
+	<a
+		href="http://test.tri.be/?tribe_events=single-event-2453454355"
+		title="Single Event 2453454355"
+		rel="bookmark"
+		class="tribe-events-calendar-month__calendar-event-tooltip-title-link tribe-common-anchor-thin"
+	>
+		Single Event 2453454355	</a>
+</h3>
+					</div>
+</div>
+
 	</div>
 
 </article>
@@ -520,11 +574,35 @@
 		title="Single Event 3094853477"
 		rel="bookmark"
 		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
-			>
+		data-js="tribe-events-tooltip"
+		data-tooltip-content="#tribe-events-tooltip-content-3094853477"
+		aria-describedby="tribe-events-tooltip-content-3094853477"
+	>
 		Single Event 3094853477	</a>
 </h3>
 
-		
+		<div class="tribe-events-calendar-month__calendar-event-tooltip-template tribe-common-a11y-hidden">
+	<div
+		class="tribe-events-calendar-month__calendar-event-tooltip"
+		id="tribe-events-tooltip-content-3094853477"
+		role="tooltip"
+	>
+				<div class="tribe-events-calendar-month__calendar-event-tooltip-datetime">
+		<time datetime="2019-06-20">
+		<span class="tribe-event-date-start">June 20 @ 1:04 pm</span> - <span class="tribe-event-time">5:04 pm</span>	</time>
+	</div>
+		<h3 class="tribe-events-calendar-month__calendar-event-tooltip-title tribe-common-h7">
+	<a
+		href="http://test.tri.be/?tribe_events=single-event-3094853477"
+		title="Single Event 3094853477"
+		rel="bookmark"
+		class="tribe-events-calendar-month__calendar-event-tooltip-title-link tribe-common-anchor-thin"
+	>
+		Single Event 3094853477	</a>
+</h3>
+					</div>
+</div>
+
 	</div>
 
 </article>
