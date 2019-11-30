@@ -701,7 +701,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Load Rewrite
 			add_action( 'plugins_loaded', array( Tribe__Events__Rewrite::instance(), 'hooks' ) );
-			add_action( 'plugins_loaded', 'tribe_events_views_v2_smart_activation' );
+
+			// Trigger smart activation of V2 as soon as possible.
+			add_action( 'tribe_plugins_loaded', 'tribe_events_views_v2_smart_activation', 0 );
 
 			add_action( 'init', array( $this, 'init' ), 10 );
 			add_action( 'admin_init', array( $this, 'admin_init' ) );
