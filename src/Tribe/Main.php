@@ -2975,13 +2975,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				return;
 			}
 
-			if ( ! function_exists( 'tribe_events_views_v2_smart_activation' ) ) {
-				require_once self::instance()->plugin_path . 'src/functions/views/provider.php';
-				require_once self::instance()->plugin_path . 'src/functions/utils/install.php';
-			}
-
-			tribe_events_views_v2_smart_activation();
-
 			self::flushRewriteRules();
 
 			if ( ! class_exists( 'Tribe__Events__Editor__Compatibility' ) ) {
