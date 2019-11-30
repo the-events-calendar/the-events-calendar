@@ -1,5 +1,4 @@
 <?php
-
 use Tribe\Events\Views\V2\Manager;
 
 /**
@@ -34,6 +33,26 @@ function tribe_events_views_v2_is_enabled() {
 	 */
 	return apply_filters( 'tribe_events_views_v2_is_enabled', $enabled );
 }
+/**
+ * Checks smart activation of the view v2, is not a function for verification of v2 is active or not.
+ *
+ * Current only being triggered on plugin actiovation hook.
+ *
+ * @since TBD
+ *
+ * @return bool Wether we just activated the v2 on the database.
+ */
+function tribe_events_views_v2_smart_activation() {
+	if ( tribe_events_views_v2_is_enabled() ) {
+		return false;
+	}
+
+	if ( ! tribe_events_is_new_install() ) {
+		return false;
+	}
+
+	return tribe_update_option( Manager::$option_enabled, true );
+}
 
 /**
  * Returns whether the Event Period repository should be used or not.
@@ -44,7 +63,6 @@ function tribe_events_views_v2_is_enabled() {
  */
 function tribe_events_view_v2_use_period_repository() {
 	$enabled = false;
-
 	if ( defined( 'TRIBE_EVENTS_V2_VIEWS_USE_PERIOD_REPOSITORY' ) ) {
 		$enabled = (bool) TRIBE_EVENTS_V2_VIEWS_USE_PERIOD_REPOSITORY;
 	}
@@ -53,7 +71,6 @@ function tribe_events_view_v2_use_period_repository() {
 	if ( false !== $env_var ) {
 		$enabled = (bool) $env_var;
 	}
-
 	/**
 	 * Filters whether to use the period repository or not.
 	 *
