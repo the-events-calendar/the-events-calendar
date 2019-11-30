@@ -33,6 +33,7 @@ function tribe_events_views_v2_is_enabled() {
 	 */
 	return apply_filters( 'tribe_events_views_v2_is_enabled', $enabled );
 }
+
 /**
  * Checks smart activation of the view v2, is not a function for verification of v2 is active or not.
  *
@@ -51,7 +52,14 @@ function tribe_events_views_v2_smart_activation() {
 		return false;
 	}
 
-	return tribe_update_option( Manager::$option_enabled, true );
+	$status = tribe_update_option( Manager::$option_enabled, true );
+
+	if ( $status ) {
+		// Update the default for new users to 12
+		tribe_update_option( 'postsPerPage', 12 );
+	}
+
+	return $status;
 }
 
 /**
