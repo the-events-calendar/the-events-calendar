@@ -2967,6 +2967,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param bool $network_deactivating
 		 */
 		public static function activate() {
+			$plugin_path = dirname( TRIBE_EVENTS_FILE );
 
 			self::instance()->plugins_loaded();
 
@@ -2978,7 +2979,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			self::flushRewriteRules();
 
 			if ( ! class_exists( 'Tribe__Events__Editor__Compatibility' ) ) {
-				require_once dirname( __FILE__ ) . '/Editor/Compatibility.php';
+				require_once $plugin_path . '/src/Tribe/Editor/Compatibility.php';
 			}
 
 			$editor_compatibility = new Tribe__Events__Editor__Compatibility();
@@ -2987,6 +2988,16 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			if ( ! is_network_admin() && ! isset( $_GET['activate-multi'] ) ) {
 				set_transient( '_tribe_events_activation_redirect', 1, 30 );
 			}
+
+			if ( ! function_exists( 'tribe_events_views_v2_smart_activation' ) ) {
+				require_once $plugin_path . '/src/functions/views/provider.php';
+			}
+
+			if ( ! function_exists( 'tribe_events_is_new_install' ) ) {
+				require_once $plugin_path . '/src/functions/utils/install.php';
+			}
+
+			tribe_events_views_v2_smart_activation();
 		}
 
 		/**
