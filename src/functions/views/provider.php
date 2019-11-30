@@ -53,7 +53,7 @@ function tribe_events_views_v2_smart_activation() {
 		return false;
 	}
 
-	return Tribe__Settings_Manager::set_option( Manager::$option_enabled, true );
+	// return Tribe__Settings_Manager::set_option( Manager::$option_enabled, true );
 }
 
 /**

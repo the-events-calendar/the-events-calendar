@@ -1,6 +1,4 @@
 <?php
-use Tribe__Events__Main as TEC;
-
 /**
  * Verifies that the current install of The Events Calendar is not
  * a pre-existing setup, and trigger the activation of View V2.
