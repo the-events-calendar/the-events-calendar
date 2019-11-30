@@ -23,7 +23,7 @@ if ( ! $should_have_time_separator || ! empty( $event->timeslot ) ) {
 }
 
 $event_start_datetime = strtotime( $event->dates->start->format( Dates::DBDATETIMEFORMAT ) );
-$event_start_hour = strtotime( date_i18n( 'Y-m-d H:00:00', $event_start_datetime ) );
+$event_start_hour = strtotime( date_i18n( 'Y-m-d H:i:00', $event_start_datetime ) );
 
 // Format to WP format
 $separator_text = date_i18n( tribe_get_time_format(), $event_start_hour );
