@@ -3,6 +3,8 @@
 namespace Tribe\Events\Test\Factories;
 
 use Tribe__Events__Main as Main;
+use Tribe__Timezones as Timezones;
+use Tribe__Utils__Array as Arr;
 
 class Event extends \WP_UnitTest_Factory_For_Post {
 
@@ -39,14 +41,15 @@ class Event extends \WP_UnitTest_Factory_For_Post {
 	 * @return int The generated event post ID
 	 */
 	function create_object( $args = array() ) {
-		$args['post_type'] = $this->get_post_type();
-		$args['post_status'] = isset( $args['post_status'] ) ? $args['post_status'] : 'publish';
-		// by default an event will happen tomorrow
-		$utc_start_time = isset( $args['when'] ) ? $args['when'] : '+24 hours';
-		// by default an event will last 2hrs
-		$duration = isset( $args['duration'] ) ? $args['duration'] : '7200';
-		// by default an event will be on UTC time
-		$utc_offset = isset( $args['utc_offset'] ) ? $args['utc_offset'] : 0;
+		$args['post_type']   = $this->get_post_type();
+		$args['post_status'] = Arr::get( $args, 'post_status', 'publish' );
+		// By default an event will happen tomorrow.
+		$utc_start_time = Arr::get( $args, 'when', '+24 hours' );
+		// By default an event will last 2hrs.
+		$duration = Arr::get( $args, 'duration', '7200' );
+		// By default an event will be on UTC time.
+		$utc_offset = Arr::get( $args, 'utc_offset', 0 );
+		$timezone   = Arr::get( $args, 'timezone', Timezones::build_timezone_object()->getName() );
 
 		$start_timestamp = is_numeric( $utc_start_time ) ? $utc_start_time : strtotime( $utc_start_time );
 		$end_timestamp   = $start_timestamp + $duration;
@@ -62,6 +65,8 @@ class Event extends \WP_UnitTest_Factory_For_Post {
 			'_EventStartDateUTC' => $utc_start,
 			'_EventEndDateUTC'   => $utc_end,
 			'_EventDuration'     => $duration,
+			'_EventTimezone'     => $timezone,
+			'_EventTimezoneAbbr' => Timezones::abbr( $local_start, $timezone ),
 		];
 
 		if ( isset( $args['venue'] ) ) {

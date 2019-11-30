@@ -53,7 +53,7 @@ class Advanced_Display {
 		 * Filter imported from V1 of Views, kept since there was no requirement to
 		 * remove the backwards compatibility here.
 		 *
-		 * @since  ???  Unsure which verison this was introduced to the codebase.
+		 * @since  ???  Unsure which version this was introduced to the codebase.
 		 * @since  4.9.11  Moved to the a class method in V2, and removed Loader HTML.
 		 *
 		 * @param  string              $before HTML after passing all the params.

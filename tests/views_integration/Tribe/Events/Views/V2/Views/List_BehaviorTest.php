@@ -9,6 +9,12 @@ use Tribe__Context as Context;
 class List_BehaviorTest extends \Codeception\TestCase\WPTestCase {
 	use With_Post_Remapping;
 
+	public function setUp() {
+		parent::setUp();
+		/** @var \Tribe__Cache $cache */
+		$cache = tribe( 'cache' );
+	}
+
 	public function setup_datepicker_template_vars_data_set() {
 		$context = static function ( array $alterations = [] ) {
 			return static function () use ( $alterations ) {
@@ -19,8 +25,9 @@ class List_BehaviorTest extends \Codeception\TestCase\WPTestCase {
 		$event = function ( $start_date ) {
 			 return function () use ( $start_date ) {
 				return $this->get_mock_event(
-					'events/single/1.template.json',
+					'events/single/id_and_date.template.json',
 					[
+						'id' => 2347927 + str_replace('-','',$start_date),
 						'post_content' => $start_date . ' event',
 						'start_date'   => $start_date,
 						'end_date'     => $start_date,

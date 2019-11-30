@@ -15,11 +15,7 @@
  *
  * @see tribe_get_event() For the format of the event object.
  */
-$display_tooltip = ! empty( $event->excerpt ) || ! empty( $event->cost ) || $event->thumbnail->exists;
 
-if ( ! $display_tooltip ) {
-	return;
-}
 ?>
 <div class="tribe-events-calendar-month__calendar-event-tooltip-template tribe-common-a11y-hidden">
 	<div

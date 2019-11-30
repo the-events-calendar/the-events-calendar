@@ -514,7 +514,10 @@ class View implements View_Interface {
 		 */
 		$this->repository_args = $repository_args;
 
-		$this->setup_the_loop( $repository_args );
+		if ( ! tribe_events_view_v2_use_period_repository() ) {
+			// @todo @bluedevs do we still need this? It's slow and time-consuming!
+			$this->setup_the_loop( $repository_args );
+		}
 
 		$template_vars = $this->filter_template_vars( $this->setup_template_vars() );
 
@@ -1130,16 +1133,21 @@ class View implements View_Interface {
 
 		$this->setup_messages( $events );
 
-		$today_url     = $this->get_today_url( true );
+		$today_url      = $this->get_today_url( true );
+		$today          = $this->context->get( 'today', 'today' );
 
-		$today         = $this->context->get( 'today', 'today' );
+		$event_date = $this->context->get( 'event_date', false );
+		$url_event_date = false !== $event_date
+			? Dates::build_date_object( $event_date )->format( Dates::DBDATEFORMAT )
+			: false;
 
-		$template_vars = [
+		$template_vars  = [
 			'title'                => $this->get_title( $events ),
 			'events'               => $events,
 			'url'                  => $this->get_url( true ),
 			'prev_url'             => $this->prev_url( true ),
 			'next_url'             => $this->next_url( true ),
+			'url_event_date'       => $url_event_date,
 			'bar'                  => [
 				'keyword' => $this->context->get( 'keyword', '' ),
 				'date'    => $this->context->get( 'event_date', '' ),
@@ -1589,6 +1597,20 @@ class View implements View_Interface {
 			}
 		}
 
+		// Setup breadcrumbs for when it's featured.
+		if ( $is_featured = tribe_is_truthy( $this->context->get( 'featured', false ) ) ) {
+			$non_featured_link = tribe_events_get_url( [ 'featured' => 0 ] );
+
+			$breadcrumbs[] = [
+				'link'  => $non_featured_link,
+				'label' => tribe_get_event_label_plural(),
+			];
+			$breadcrumbs[] = [
+				'link'  => '',
+				'label' => esc_html__( 'Featured', 'the-events-calendar' ),
+			];
+		}
+
 		/**
 		 * Filters the breadcrumbs the View will print on the frontend.
 		 *
@@ -1704,5 +1726,23 @@ class View implements View_Interface {
 		$ical_data = apply_filters( "tribe_events_views_v2_view_{$this->slug}_ical_data", $ical_data, $this );
 
 		return $ical_data;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function url_for_query_args( $date = null, $query_args = [] ) {
+		$event_date = Dates::build_date_object( $date )->format( Dates::DBDATEFORMAT );
+
+		if ( ! empty( $query_args ) && is_string( $query_args ) ) {
+			$str_args   = $query_args;
+			$query_args = [];
+			wp_parse_str( $str_args, $query_args );
+		}
+
+		return tribe_events_get_url( array_filter( array_merge( $query_args, [
+			'eventDisplay'   => $this->get_slug(),
+			'tribe-bar-date' => $event_date,
+		] ) ) );
 	}
 }

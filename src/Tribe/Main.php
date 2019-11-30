@@ -702,6 +702,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Load Rewrite
 			add_action( 'plugins_loaded', array( Tribe__Events__Rewrite::instance(), 'hooks' ) );
 
+			// Trigger smart activation of V2 as soon as possible.
+			add_action( 'tribe_plugins_loaded', 'tribe_events_views_v2_smart_activation', 0 );
+
 			add_action( 'init', array( $this, 'init' ), 10 );
 			add_action( 'admin_init', array( $this, 'admin_init' ) );
 
@@ -2967,6 +2970,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param bool $network_deactivating
 		 */
 		public static function activate() {
+			$plugin_path = dirname( TRIBE_EVENTS_FILE );
 
 			self::instance()->plugins_loaded();
 
@@ -2975,17 +2979,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				return;
 			}
 
-			if ( ! function_exists( 'tribe_events_views_v2_smart_activation' ) ) {
-				require_once self::instance()->plugin_path . 'src/functions/views/provider.php';
-				require_once self::instance()->plugin_path . 'src/functions/utils/install.php';
-			}
-
-			tribe_events_views_v2_smart_activation();
-
 			self::flushRewriteRules();
 
 			if ( ! class_exists( 'Tribe__Events__Editor__Compatibility' ) ) {
-				require_once dirname( __FILE__ ) . '/Editor/Compatibility.php';
+				require_once $plugin_path . '/src/Tribe/Editor/Compatibility.php';
 			}
 
 			$editor_compatibility = new Tribe__Events__Editor__Compatibility();
