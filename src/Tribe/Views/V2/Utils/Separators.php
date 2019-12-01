@@ -104,7 +104,7 @@ class Separators {
 		$event_id = is_numeric( $event ) ? $event : $event->ID;
 
 		$start_hours = array_map( static function( $id ) {
-			return tribe_get_start_date( $id, true, 'Y-m-d H' );
+			return Dates::round_nearest_half_hour( tribe_get_start_date( $id, true, Dates::DBDATETIMEFORMAT ) );
 		}, $ids );
 
 		$start_hours_ids = array_unique( array_combine( $ids, $start_hours ) );
