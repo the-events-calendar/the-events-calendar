@@ -332,7 +332,6 @@ class View implements View_Interface {
 		 * @param  string  $view_slug The current view slug.
 		 */
 		do_action( 'tribe_events_views_v2_before_make_view', $view_class, $view_slug );
-		bdump( $view_class, $view_slug );
 
 		/** @var \Tribe\Events\Views\V2\View_Interface $instance */
 		$instance = self::$container->make( $view_class );
