@@ -223,19 +223,10 @@ class View implements View_Interface {
 			$params['name'] = $params[ reset( $post_name ) ];
 		}
 
-		if ( false === $slug ) {
-			/*
-			 * If we cannot get the view slug from the request parameters let's try to get it from the URL.
-			 */
-			$slug = Arr::get( $params, 'eventDisplay', tribe_context()->get( 'view', 'default' ) );
-		}
-
 		// Let's check if we have a display mode set.
 		$query_args = $url_object->query_overrides_path( true )
 		                         ->parse_url()
 		                         ->get_query_args();
-
-		$params['event_display_mode'] = Arr::get( $query_args, 'eventDisplay', false );
 
 		/**
 		 * Filters the parameters that will be used to build the View class for a REST request.
@@ -248,6 +239,15 @@ class View implements View_Interface {
 		 * @param \WP_REST_Request $request The current REST request.
 		 */
 		$params = apply_filters( 'tribe_events_views_v2_rest_params', $params, $request );
+
+		if ( false === $slug ) {
+			/*
+			 * If we cannot get the view slug from the request parameters let's try to get it from the URL.
+			 */
+			$slug = Arr::get( $params, 'eventDisplay', tribe_context()->get( 'view', 'default' ) );
+		}
+
+		$params['event_display_mode'] = Arr::get( $query_args, 'eventDisplay', false );
 
 		if ( ! empty( $slug ) ) {
 			/**
@@ -332,6 +332,7 @@ class View implements View_Interface {
 		 * @param  string  $view_slug The current view slug.
 		 */
 		do_action( 'tribe_events_views_v2_before_make_view', $view_class, $view_slug );
+		bdump( $view_class, $view_slug );
 
 		/** @var \Tribe\Events\Views\V2\View_Interface $instance */
 		$instance = self::$container->make( $view_class );
@@ -712,7 +713,7 @@ class View implements View_Interface {
 		}
 
 		$event_display_mode = $this->context->get( 'event_display_mode', false );
-		if ( false !== $event_display_mode && $event_display_mode !== $this->context->get( 'eventDisplay' ) ) {
+		if ( 'past' === $event_display_mode && $event_display_mode !== $this->context->get( 'eventDisplay' ) ) {
 			$url = add_query_arg( [ 'eventDisplay' => $event_display_mode ], $url );
 		}
 
