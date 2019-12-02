@@ -702,8 +702,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Load Rewrite
 			add_action( 'plugins_loaded', array( Tribe__Events__Rewrite::instance(), 'hooks' ) );
 
-			// Trigger smart activation of V2 as soon as possible.
-			add_action( 'tribe_plugins_loaded', 'tribe_events_views_v2_smart_activation', 0 );
+			// Trigger smart activation of V2 after we triggered the Update version on Init@P10.
+			add_action( 'init', 'tribe_events_views_v2_smart_activation', 25 );
 
 			add_action( 'init', array( $this, 'init' ), 10 );
 			add_action( 'admin_init', array( $this, 'admin_init' ) );
