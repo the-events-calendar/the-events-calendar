@@ -154,11 +154,23 @@
 
 	.tribe-theme-twentynineteen & {
 
-		.tribe-events-calendar-day__event {
+		.entry.tribe-events-calendar-day__event {
+			margin-bottom: var(--spacer-5);
 			margin-top: var(--spacer-7);
+			padding-left: 54px;
 
 			@media (--viewport-medium) {
+				margin-bottom: var(--spacer-8);
 				margin-top: var(--spacer-9);
+				padding-left: 0;
+			}
+
+			&:last-child {
+				margin-bottom: var(--spacer-8);
+
+				@media (--viewport-medium) {
+					margin-bottom: var(--spacer-11);
+				}
 			}
 		}
 	}
