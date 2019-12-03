@@ -220,7 +220,7 @@
 		
 		<div class="tribe-events-calendar-list">
 
-			
+							
 				<div class="tribe-events-calendar-list__month-separator">
 	<time
 		class="tribe-events-calendar-list__month-separator-text tribe-common-h7 tribe-common-h6--min-medium tribe-common-h--alt"
@@ -276,7 +276,7 @@
 
 </div>
 
-			
+							
 				
 				<div  class="tribe-common-g-row tribe-events-calendar-list__event-row" >
 
