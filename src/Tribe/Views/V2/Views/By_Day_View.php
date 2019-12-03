@@ -191,7 +191,9 @@ abstract class By_Day_View extends View {
 
 		if ( $using_period_repository ) {
 			$post_ids = array_filter( array_unique( array_merge( ... array_values( $this->grid_days_cache ) ) ) );
-			tribe( 'cache' )->warmup_post_caches( $post_ids );
+			/** @var \Tribe__Cache $cache */
+			$cache = tribe( 'cache' );
+			$cache->warmup_post_caches( $post_ids, true );
 		} else {
 			if ( is_array( $this->grid_days_cache ) && count( $this->grid_days_cache ) ) {
 				$this->grid_days_cache = $this->add_implied_events( $this->grid_days_cache );
