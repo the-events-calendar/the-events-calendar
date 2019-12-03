@@ -53,6 +53,7 @@ if ( empty( $disable_event_search ) ) {
 		<div class="tribe-events-calendar-day">
 
 			<?php foreach ( $events as $event ) : ?>
+				<?php $this->setup_postdata( $event ); ?>
 
 				<?php $this->template( 'day/type-separator', [ 'event' => $event ] ); ?>
 				<?php $this->template( 'day/time-separator', [ 'event' => $event ] ); ?>
