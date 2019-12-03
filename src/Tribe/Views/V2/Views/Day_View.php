@@ -175,7 +175,7 @@ class Day_View extends View {
 		$hourly  = [];
 
 		$today        = Dates::build_date_object( $this->context->get( 'today', 'today' ) );
-		$request_date = $this->context->get( 'event_date', $today->format( 'Y-m-d' ) );
+		$request_date = $this->context->get( 'event_date', $today->format( Dates::DBDATEFORMAT ) );
 
 		foreach ( $events as $i => $event ) {
 			if ( ! empty( $event->all_day ) ) {
