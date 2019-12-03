@@ -140,7 +140,7 @@ class Event_Period implements Core_Read_Interface {
 	 */
 	public function by( $key, $value = null ) {
 		$original_by_key = $key;
-		$key = preg_replace( '/^(on|in)_/', '', $key );
+		$key             = preg_replace( '/^(on|in)_/', '', $key );
 
 		$call_args = func_get_args();
 
@@ -159,6 +159,23 @@ class Event_Period implements Core_Read_Interface {
 		array_shift( $call_args );
 
 		return $this->{$method}( ...$call_args );
+	}
+
+	/**
+	 * Returns the base event repository used by this repository.
+	 *
+	 * @since TBD
+	 *
+	 * @return \Tribe__Repository__Interface The base repository instance used by this repository.
+	 */
+	public function base_repository() {
+		if ( null !== $this->base_repository ) {
+			return $this->base_repository;
+		}
+
+		$this->base_repository = tribe_events();
+
+		return $this->base_repository;
 	}
 
 	/**
@@ -654,10 +671,6 @@ class Event_Period implements Core_Read_Interface {
 	 * @return array|false Either the results of the query, or `false` on error.
 	 */
 	protected function query_for_sets( \DateTimeInterface $start, \DateTimeInterface $end ) {
-		$meta_key_timezone = '_EventTimezone';
-		$meta_key_all_day  = '_EventAllDay';
-		$post_type         = TEC::POSTTYPE;
-
 		// Let's try and set the LIMIT as high as we can.
 		/** @var \Tribe__Feature_Detection $feature_detection */
 		$feature_detection = tribe( 'feature-detection' );
@@ -682,59 +695,234 @@ class Event_Period implements Core_Read_Interface {
 		$limit = apply_filters( 'tribe_events_event_period_repository_set_limit', $limit, $this, $start, $end );
 		$limit = absint( $limit );
 
+		$starting_before_period_end = $this->query_for_sets_starting_before_period_end( $limit, $end );
+
+		if ( empty( $starting_before_period_end ) ) {
+			return [];
+		}
+
+		$results = $this->query_for_sets_ending_after_period_start(
+			$limit,
+			$start,
+			array_column( $starting_before_period_end, 'ID' )
+		);
+
+		if ( empty( $results ) ) {
+			return [];
+		}
+
+		$starting_before_period_end = array_combine(
+			array_column( $starting_before_period_end, 'ID' ),
+			$starting_before_period_end
+		);
+
+		foreach ( $results as &$result ) {
+			$result ['start_date']  = $starting_before_period_end[ $result['ID'] ]['start_date'];
+			$result ['post_status'] = $starting_before_period_end[ $result['ID'] ]['post_status'];
+		}
+		unset( $result );
+
+		$post_ids         = array_column( $results, 'ID' );
+		$timezone_details = $this->query_for_meta( $limit, '_EventTimezone', $post_ids );
+		$all_day_details  = $this->query_for_meta( $limit, '_EventAllDay', $post_ids, 'LEFT' );
+
+		foreach ( $results as &$result ) {
+			$result ['timezone'] = $timezone_details[ $result['ID'] ]['_EventTimezone'];
+			$result ['all_day']  = (bool) $all_day_details[ $result['ID'] ]['_EventAllDay'];
+		}
+		unset( $result );
+
+		return $results;
+	}
+
+	/**
+	 * Queries for all the events that start before the period ends.
+	 *
+	 * @since TBD
+	 *
+	 * @param int                $limit   The value of the LIMIT that should be respected to send queries (in respect
+	 *                                    to the
+	 *                                    `$post_in` parameter) or fetch results (the SQL LIMIT clause). This limit
+	 *                                    should be defined using the
+	 *                                    `Tribe__Feature_Detection::mysql_limit_for_example` method.
+	 * @param \DateTimeInterface $end     The period end date.
+	 * @param array              $post_in An array of post IDs to limit the search to.
+	 *
+	 * @return array A result set, an array of arrays in the shape `[ <ID> => [ 'ID' => <ID>, 'start_date' =>
+	 *               <start_date> ] ]`;
+	 */
+	protected function query_for_sets_starting_before_period_end(
+		$limit,
+		\DateTimeInterface $end,
+		array $post_in = []
+	) {
 		global $wpdb;
+		$post_type = TEC::POSTTYPE;
 
 		$query = "
 		SELECT p.ID,
-		   start_date.meta_value AS 'start_date',
-		   end_date.meta_value   AS 'end_date',
-		   -- provided the UTC/local time and the event timezone we can always locate it in time, so we pull it here.
-		   timezone.meta_value   AS 'timezone',
-		   -- we cannot reconstruct if an event is all-day or not from its start and end dates, so we need the flag.
-		   all_day.meta_value    AS 'all_day',
-		   p.post_status
+			p.post_status,
+	   		start_date.meta_value AS 'start_date'
 
 		FROM {$wpdb->posts} p
-				 INNER JOIN (
-					SELECT p.ID, start_date.meta_value FROM {$wpdb->posts} p
-					INNER JOIN {$wpdb->postmeta} start_date 
-						ON (p.ID = start_date.post_id AND start_date.meta_key = %s)
-					WHERE p.post_type = 'tribe_events'
-					-- Starts before the period end.
-					AND start_date.meta_value <= %s
-				) start_date ON p.ID = start_date.ID
-				 INNER JOIN {$wpdb->postmeta} end_date 
-				 	ON (p.ID = end_date.post_id AND end_date.meta_key = %s)
-				 INNER JOIN {$wpdb->postmeta} timezone 
-				 	ON (p.ID = timezone.post_id AND timezone.meta_key = '{$meta_key_timezone}')
-				 -- LEFT JOIN to allow NULL post_id if meta key not set.
-				 LEFT JOIN {$wpdb->postmeta} all_day 
-				 	ON (p.ID = all_day.post_id AND all_day.meta_key = '{$meta_key_all_day}')
+				INNER JOIN {$wpdb->postmeta} start_date 
+					ON (p.ID = start_date.post_id AND start_date.meta_key = %s)
 
 		WHERE p.post_type = '{$post_type}'
-		  -- End after the period start.
-		  AND end_date.meta_value >= %s
-		  AND (all_day.post_id IS NULL OR all_day.meta_value = 'yes')";
+			-- Starts before the period ends.
+			AND start_date.meta_value <= %s";
 
-		$prepared = $wpdb->prepare(
-			$query,
+		$prepare_args = [
 			$this->use_site_timezone ? '_EventStartDateUTC' : '_EventStartDate',
 			$end->format( Dates::DBDATETIMEFORMAT ),
-			$this->use_site_timezone ? '_EventSTartDateUTC' : '_EventEndDate',
-			$start->format( Dates::DBDATETIMEFORMAT )
-		);
+		];
+
+		return $this->query_w_limit( $limit, $query, $prepare_args, $post_in );
+	}
+
+	/**
+	 * Runs a query within a SQL LIMIT.
+	 *
+	 * The method will run multiple queries if the limit is lower than the number of results or the number of post IDs
+	 * in the `$post_in` parameter.
+	 *
+	 * @since TBD
+	 *
+	 * @param int        $limit        The value of the LIMIT that should be respected to send queries (in respect to
+	 *                                 the
+	 *                                 `$post_in` parameter) or fetch results (the SQL LIMIT clause). This limit should
+	 *                                 be defined using the `Tribe__Feature_Detection::mysql_limit_for_example` method.
+	 * @param string     $query        The un-prepared SQL query to run, if should contains placeholders in the format
+	 *                                 used by the `wpdb::prepare` method.
+	 * @param array|null $prepare_args An array of arguments that will be used, in order, to prepare the query using
+	 *                                 the
+	 *                                 `wpdb::prepare` method.
+	 * @param array|null $post_in      An array of post IDs that will be  used to pivot the query. The `$limit`
+	 *                                 parameter will apply to these values too chunking them if they are too many to
+	 *                                 avoid hitting MySQL packet size. When applied to post IDs the limit is overly
+	 *                                 conservative.
+	 *
+	 * @return array An array of results. Whether one or more queries ran, the return value will always have the format
+	 *               a single query run would have.
+	 *
+	 * @see   Tribe__Feature_Detection::mysql_limit_for_example for the method that should be used to set the limit.
+	 * @see   wpdb::prepare() for the format of the placeholders to use to prepare the query.
+	 */
+	protected function query_w_limit( $limit, $query, array $prepare_args = [], array $post_in = [] ) {
+		global $wpdb;
+
+		$post_in = array_filter( array_unique( array_map( 'absint', $post_in ) ) );
+
+		$prepared = $wpdb->prepare( $query, ...$prepare_args );
 
 		$page    = 0;
 		$results = [];
+		$chunk   = array_splice( $post_in, 0, $limit );
+
 		do {
-			$limit_clause = sprintf( 'LIMIT %d,%d', $page * $limit, $limit );
-			$page ++;
-			$this_query    = $prepared . ' ' . $limit_clause;
-			$these_results = (array) $wpdb->get_results( $this_query, ARRAY_A );
-			$results[]     = $these_results;
+			do {
+				$interval_where_clause = count( $chunk )
+					? 'AND p.ID IN (' . implode( ',', array_map( 'absint', $chunk ) ) . ')'
+					: '';
+
+				$limit_clause = sprintf( 'LIMIT %d,%d', $page * $limit, $limit );
+
+				$page ++;
+
+				$this_query    = $prepared . ' ' . $interval_where_clause . ' ' . $limit_clause;
+				$these_results = (array) $wpdb->get_results( $this_query, ARRAY_A );
+				$results[]     = $these_results;
+			} while ( $chunk = array_splice( $post_in, 0, $limit ) );
 		} while ( ! empty( $these_results ) && is_array( $these_results ) && count( $these_results ) === $limit );
 
 		return array_merge( ...$results );
+	}
+
+	/**
+	 * Queries for all the events that end after the period starts.
+	 *
+	 * @since TBD
+	 *
+	 * @param int                $limit   The value of the LIMIT that should be respected to send queries (in respect
+	 *                                    to the
+	 *                                    `$post_in` parameter) or fetch results (the SQL LIMIT clause). This limit
+	 *                                    should be defined using the
+	 *                                    `Tribe__Feature_Detection::mysql_limit_for_example` method.
+	 * @param \DateTimeInterface $start   The period start date.
+	 * @param array              $post_in An array of post IDs to limit the search to.
+	 *
+	 * @return array A result set, an array of arrays in the shape `[ <ID> => [ 'ID' => <ID>, 'end_date' => <end_date>
+	 *               ] ]`;
+	 */
+	protected function query_for_sets_ending_after_period_start(
+		$limit,
+		\DateTimeInterface $start,
+		array $post_in = []
+	) {
+		global $wpdb;
+		$post_type = TEC::POSTTYPE;
+
+		$query = "
+		SELECT p.ID,
+	   		end_date.meta_value AS 'end_date'
+
+		FROM {$wpdb->posts} p
+				INNER JOIN {$wpdb->postmeta} end_date 
+					ON (p.ID = end_date.post_id AND end_date.meta_key = %s)
+
+		WHERE p.post_type = '{$post_type}'
+			-- Ends after the period starts.
+			AND end_date.meta_value >= %s";
+
+
+		$prepare_args = [
+			$this->use_site_timezone ? '_EventEndDateUTC' : '_EventEndDate',
+			$start->format( Dates::DBDATETIMEFORMAT )
+		];
+
+		return $this->query_w_limit( $limit, $query, $prepare_args, $post_in );
+	}
+
+	/**
+	 * Queries the database to fetch all the values of a single meta entry for all the post IDs in the datatbase or in
+	 * a defined interval.
+	 *
+	 * @since TBD
+	 *
+	 * @param int        $limit           The value of the LIMIT that should be respected to send queries (in respect
+	 *                                    to the
+	 *                                    `$post_in` parameter) or fetch results (the SQL LIMIT clause). This limit
+	 *                                    should be defined using the
+	 *                                    `Tribe__Feature_Detection::mysql_limit_for_example` method.
+	 * @param string     $meta_key        The meta key to fetch from the database, this is the value of the `meta_key`
+	 *                                    column, e.g. `_EventTimezone`.
+	 * @param array|null $post_ids        An array of post IDs to limit the query.
+	 * @param string     $join            The type of JOIN to use; defaults to `INNER`, but `LEFT` should be used when
+	 *                                    fetching meta that might be not set for all posts.
+	 *
+	 * @return array An array of meta results, the post IDs as keys.
+	 *
+	 * @see   Tribe__Feature_Detection::mysql_limit_for_example for the method that should be used to set the limit.
+	 * @see   wpdb::prepare() for the format of the placeholders to use to prepare the query.
+	 */
+	protected function query_for_meta( $limit, $meta_key, array $post_ids = null, $join = 'INNER' ) {
+		global $wpdb;
+		$post_type = TEC::POSTTYPE;
+
+		$query = "
+		SELECT p.ID, m.meta_value AS %s
+
+		FROM {$wpdb->posts} p
+				{$join} JOIN {$wpdb->postmeta} m
+					ON (p.ID = m.post_id AND m.meta_key = %s)
+
+		WHERE p.post_type = '{$post_type}'";
+
+		$prepare_args = [ $meta_key, $meta_key ];
+
+		$results = $this->query_w_limit( $limit, $query, $prepare_args, $post_ids );
+
+		return array_combine( array_column( $results, 'ID' ), $results );
 	}
 
 	/**
@@ -899,6 +1087,24 @@ class Event_Period implements Core_Read_Interface {
 	}
 
 	/**
+	 * Further filters the sets using a default event repository to handle the non-period related filters.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $sets The sets found by this repository so far.
+	 */
+	protected function filter_sets_w_base_repository( array &$sets ) {
+		// Restrict the base repository to only operate on the IDs we already have.
+		$matching_ids = $this->base_repository->in( $this->get_sets_ids( $sets ) )->get_ids();
+		/** @var Events_Result_Set $set */
+		foreach ( $sets as $set ) {
+			$set->filter( static function ( Event_Result $result ) use ( $matching_ids ) {
+				return in_array( $result->id(), $matching_ids );
+			} );
+		}
+	}
+
+	/**
 	 * An alias of the `get_sets` method to stick with the convention of naming database-querying methods w/ "fetch".
 	 *
 	 * This method will "warm up" the instance cache of the repository fetching the events in the period.
@@ -1032,23 +1238,6 @@ class Event_Period implements Core_Read_Interface {
 	}
 
 	/**
-	 * Returns the base event repository used by this repository.
-	 *
-	 * @since TBD
-	 *
-	 * @return \Tribe__Repository__Interface The base repository instance used by this repository.
-	 */
-	public function base_repository() {
-		if ( null !== $this->base_repository ) {
-			return $this->base_repository;
-		}
-
-		$this->base_repository = tribe_events();
-
-		return $this->base_repository;
-	}
-
-	/**
 	 * Sets, or unsets if the passed value is `null`, the base repository used by this repository.
 	 *
 	 * @since TBD
@@ -1058,23 +1247,5 @@ class Event_Period implements Core_Read_Interface {
 	 */
 	public function set_base_repository( Core_Read_Interface $base_repository = null ) {
 		$this->base_repository = $base_repository;
-	}
-
-	/**
-	 * ${CARET}
-	 *
-	 * @since TBD
-	 *
-	 * @param array $sets
-	 */
-	protected function filter_sets_w_base_repository( array &$sets ) {
-		// Restrict the base repository to only operate on the IDs we already have.
-		$matching_ids = $this->base_repository->in( $this->get_sets_ids( $sets ) )->get_ids();
-		/** @var Events_Result_Set $set */
-		foreach ( $sets as $set ) {
-			$set->filter( static function ( Event_Result $result ) use ( $matching_ids ) {
-				return in_array( $result->id(), $matching_ids );
-			} );
-		}
 	}
 }
