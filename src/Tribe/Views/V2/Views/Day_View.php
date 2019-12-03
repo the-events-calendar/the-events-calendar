@@ -174,11 +174,13 @@ class Day_View extends View {
 		$ongoing = [];
 		$hourly  = [];
 
+		$request_date = $this->context->get( 'event_date', $this->context->get( 'today', 'today' ) );
+
 		foreach ( $events as $i => $event ) {
 			if ( ! empty( $event->all_day ) ) {
 				$event->timeslot = 'all_day';
 				$all_day[ $i ]   = $event;
-			} elseif ( ! empty( $event->multiday ) ) {
+			} elseif ( ! empty( $event->multiday ) && $event->dates->start_display->format( 'Y-m-d' ) !== $request_date ) {
 				$event->timeslot = 'multiday';
 				$ongoing[ $i ]   = $event;
 			} else {
