@@ -789,9 +789,9 @@ class Event_Period implements Core_Read_Interface {
 	 * @since TBD
 	 *
 	 * @param int        $limit        The value of the LIMIT that should be respected to send queries (in respect to
-	 *                                 the
-	 *                                 `$post_in` parameter) or fetch results (the SQL LIMIT clause). This limit should
-	 *                                 be defined using the `Tribe__Feature_Detection::mysql_limit_for_example` method.
+	 *                                 the `$post_in` parameter) or fetch results (the SQL LIMIT clause). This limit
+	 *                                 should be defined using the `Tribe__Feature_Detection::mysql_limit_for_example`
+	 *                                 method.
 	 * @param string     $query        The un-prepared SQL query to run, if should contains placeholders in the format
 	 *                                 used by the `wpdb::prepare` method.
 	 * @param array|null $prepare_args An array of arguments that will be used, in order, to prepare the query using
