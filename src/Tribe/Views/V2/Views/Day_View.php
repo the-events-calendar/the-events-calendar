@@ -181,7 +181,7 @@ class Day_View extends View {
 			if ( ! empty( $event->all_day ) ) {
 				$event->timeslot = 'all_day';
 				$all_day[ $i ]   = $event;
-			} elseif ( ! empty( $event->multiday ) && $event->dates->start_display->format( 'Y-m-d' ) !== $request_date ) {
+			} elseif ( ! empty( $event->multiday ) && $event->dates->start_display->format( Dates::DBDATEFORMAT ) !== $request_date ) {
 				$event->timeslot = 'multiday';
 				$ongoing[ $i ]   = $event;
 			} else {
