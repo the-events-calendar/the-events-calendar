@@ -23,7 +23,6 @@ $header_classes = [ 'tribe-events-header' ];
 if ( empty( $disable_event_search ) ) {
 	$header_classes[] = 'tribe-events-header--has-event-search';
 }
-global $wp_query;
 ?>
 <div
 	<?php tribe_classes( $container_classes ); ?>
