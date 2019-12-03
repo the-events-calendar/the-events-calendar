@@ -24,6 +24,7 @@ if ( empty ( $day_events ) ) {
 ?>
 
 <?php foreach ( $day_events as $event ) : ?>
+	<?php $this->setup_postdata( $event ); ?>
 
 	<?php $this->template( 'month/calendar-body/day/calendar-events/calendar-event', [ 'event' => $event ] ); ?>
 

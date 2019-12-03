@@ -27,6 +27,7 @@ if ( 0 === count( $multiday_events ) ) {
 ?>
 
 <?php foreach ( $multiday_events as $event ) : ?>
+	<?php $this->setup_postdata( $event ); ?>
 
 	<?php
 	// If we receive a falsy value, then we need to add a spacer in the "stack".
