@@ -17,7 +17,7 @@
  */
 
 $container_classes = [ 'tribe-common-g-row', 'tribe-events-calendar-list__event-row' ];
-$container_classes['tribe-events-calendar-list__event-row--featured'] = $event->featured;;
+$container_classes['tribe-events-calendar-list__event-row--featured'] = $event->featured;
 
 $event_classes = get_post_class( [ 'tribe-events-calendar-list__event', 'tribe-common-g-row', 'tribe-common-g-row--gutters' ], $event->ID );
 ?>

@@ -225,7 +225,7 @@
 		
 		<div class="tribe-events-calendar-day">
 
-			
+							
 								<div class="tribe-events-calendar-day__time-separator">
 	<time
 		class="tribe-events-calendar-day__time-separator-text tribe-common-h7 tribe-common-h6--min-medium tribe-common-h--alt"
@@ -269,7 +269,7 @@
 	</div>
 </article>
 
-			
+							
 												<article  class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-day__event post-349589759485 tribe_events type-tribe_events status-publish hentry" >
 	<div class="tribe-events-calendar-day__event-content tribe-common-g-col">
 
@@ -298,7 +298,7 @@
 	</div>
 </article>
 
-			
+							
 												<article  class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-day__event post-340934095850 tribe_events type-tribe_events status-publish hentry" >
 	<div class="tribe-events-calendar-day__event-content tribe-common-g-col">
 

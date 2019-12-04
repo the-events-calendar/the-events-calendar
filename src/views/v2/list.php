@@ -53,6 +53,7 @@ if ( empty( $disable_event_search ) ) {
 		<div class="tribe-events-calendar-list">
 
 			<?php foreach ( $events as $event ) : ?>
+				<?php $this->setup_postdata( $event ); ?>
 
 				<?php $this->template( 'list/month-separator', [ 'event' => $event ] ); ?>
 

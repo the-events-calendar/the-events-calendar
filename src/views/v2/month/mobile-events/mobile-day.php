@@ -52,6 +52,7 @@ if ( $today_date === $day_date ) {
 	<?php $this->template( 'month/mobile-events/mobile-day/day-marker', [ 'day_date' => $day_date ] ); ?>
 
 	<?php foreach( $events as $event ) : ?>
+		<?php $this->setup_postdata( $event ); ?>
 
 		<?php $this->template( 'month/mobile-events/mobile-day/mobile-event', [ 'event' => $event ] ); ?>
 
