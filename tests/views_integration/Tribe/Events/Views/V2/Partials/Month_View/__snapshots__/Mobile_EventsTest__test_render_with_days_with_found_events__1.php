@@ -12,7 +12,7 @@
 		June 20	</time>
 </div>
 
-	
+			
 		
 <article  class="tribe-events-calendar-month-mobile-events__mobile-event post-7 tribe_events type-tribe_events status-publish hentry tribe-events-calendar-month-mobile-events__mobile-event--featured" >
 
@@ -44,7 +44,7 @@
 	</div>
 </article>
 
-	
+			
 		
 <article  class="tribe-events-calendar-month-mobile-events__mobile-event post-8 tribe_events type-tribe_events status-publish hentry" >
 

@@ -1,7 +1,5 @@
 <?php return '
-
 	<div class="tribe-events-calendar-month__multiday-event-wrapper tribe-events-calendar-month__multiday-event--empty"></div>
-
 	<div class="tribe-events-calendar-month__multiday-event-wrapper">
 	<article  class="tribe-events-calendar-month__multiday-event post-7 tribe_events type-tribe_events status-publish hentry tribe-events-calendar-month__multiday-event--featured"  data-event-id="7">
 		<div class="tribe-events-calendar-month__multiday-event-hidden">
@@ -29,7 +27,6 @@
 			</article>
 </div>
 
-
 	<div class="tribe-events-calendar-month__multiday-event-wrapper">
 	<article  class="tribe-events-calendar-month__multiday-event post-8 tribe_events type-tribe_events status-publish hentry"  data-event-id="8">
 		<div class="tribe-events-calendar-month__multiday-event-hidden">
@@ -51,7 +48,6 @@
 		</div>
 			</article>
 </div>
-
 
 	<div class="tribe-events-calendar-month__multiday-event-wrapper">
 	<article  class="tribe-events-calendar-month__multiday-event post-9 tribe_events type-tribe_events status-publish hentry"  data-event-id="9">
