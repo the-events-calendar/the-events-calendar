@@ -717,8 +717,8 @@ class Event_Period implements Core_Read_Interface {
 		);
 
 		foreach ( $results as &$result ) {
-			$result ['start_date']  = $starting_before_period_end[ $result['ID'] ]['start_date'];
-			$result ['post_status'] = $starting_before_period_end[ $result['ID'] ]['post_status'];
+			$result['start_date']  = $starting_before_period_end[ $result['ID'] ]['start_date'];
+			$result['post_status'] = $starting_before_period_end[ $result['ID'] ]['post_status'];
 		}
 		unset( $result );
 
