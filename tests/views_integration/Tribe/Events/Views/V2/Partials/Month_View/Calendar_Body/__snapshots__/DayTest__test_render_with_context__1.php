@@ -53,7 +53,6 @@
 
 		<div class="tribe-events-calendar-month__events">
 			
-
 	<div class="tribe-events-calendar-month__multiday-event-wrapper">
 	<article  class="tribe-events-calendar-month__multiday-event"  data-event-id="999997">
 		<div class="tribe-events-calendar-month__multiday-event-hidden">
@@ -76,9 +75,7 @@
 			</article>
 </div>
 
-
 	<div class="tribe-events-calendar-month__multiday-event-wrapper tribe-events-calendar-month__multiday-event--empty"></div>
-
 	<div class="tribe-events-calendar-month__multiday-event-wrapper">
 	<article  class="tribe-events-calendar-month__multiday-event"  data-event-id="999996">
 		<div class="tribe-events-calendar-month__multiday-event-hidden">
@@ -103,7 +100,7 @@
 
 
 			
-
+	
 	
 <article  class="tribe-events-calendar-month__calendar-event" >
 
@@ -156,7 +153,7 @@
 
 </article>
 
-
+	
 	
 <article  class="tribe-events-calendar-month__calendar-event" >
 
