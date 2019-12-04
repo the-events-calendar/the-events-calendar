@@ -48,6 +48,7 @@
 			</article>
 </div>
 
+	<div class="tribe-events-calendar-month__multiday-event-wrapper tribe-events-calendar-month__multiday-event--empty"></div>
 	<div class="tribe-events-calendar-month__multiday-event-wrapper">
 	<article  class="tribe-events-calendar-month__multiday-event post-9 tribe_events type-tribe_events status-publish hentry"  data-event-id="9">
 		<div class="tribe-events-calendar-month__multiday-event-hidden">

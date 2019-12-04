@@ -1,4 +1,5 @@
 <?php return '
+	<div class="tribe-events-calendar-month__multiday-event-wrapper tribe-events-calendar-month__multiday-event--empty"></div>
 	<div class="tribe-events-calendar-month__multiday-event-wrapper">
 	<article  class="tribe-events-calendar-month__multiday-event post-7 tribe_events type-tribe_events status-publish hentry tribe-events-calendar-month__multiday-event--featured"  data-event-id="7">
 		<div class="tribe-events-calendar-month__multiday-event-hidden">
