@@ -2265,7 +2265,7 @@
 				<time datetime="2019-06-20">
 			<span class="tribe-event-date-start">June 20 @ 1:01 pm</span> - <span class="tribe-event-time">5:01 pm</span>		</time>
 		</div>
-		<h3  class="tribe-events-calendar-month-mobile-events__mobile-event-title tribe-common-h8" >
+		<h3  class="tribe-events-calendar-month-mobile-events__mobile-event-title tribe-common-h7" >
 	<a
 		href="http://test.tri.be/?tribe_events=featured-test-event-234234234"
 		title="Featured test event  234234234"
@@ -2289,7 +2289,7 @@
 				<time datetime="2019-06-20">
 			<span class="tribe-event-date-start">June 20 @ 1:04 pm</span> - <span class="tribe-event-time">5:04 pm</span>		</time>
 		</div>
-		<h3  class="tribe-events-calendar-month-mobile-events__mobile-event-title tribe-common-h8" >
+		<h3  class="tribe-events-calendar-month-mobile-events__mobile-event-title tribe-common-h7" >
 	<a
 		href="http://test.tri.be/?tribe_events=single-event-2453454355"
 		title="Single Event 2453454355"
@@ -2313,7 +2313,7 @@
 				<time datetime="2019-06-20">
 			<span class="tribe-event-date-start">June 20 @ 1:04 pm</span> - <span class="tribe-event-time">5:04 pm</span>		</time>
 		</div>
-		<h3  class="tribe-events-calendar-month-mobile-events__mobile-event-title tribe-common-h8" >
+		<h3  class="tribe-events-calendar-month-mobile-events__mobile-event-title tribe-common-h7" >
 	<a
 		href="http://test.tri.be/?tribe_events=single-event-3094853477"
 		title="Single Event 3094853477"
