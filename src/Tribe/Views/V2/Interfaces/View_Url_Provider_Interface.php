@@ -23,11 +23,12 @@ interface View_Url_Provider_Interface {
 	 * @since 4.9.3
 	 *
 	 * @param bool $canonical Whether to return the canonical version of the URL or the normal one.
+	 * @param bool $force Whether to force the re-fetch and ignore cached values or not.
 	 *
 	 * @return string The current URL associated to the view or an empty string if this View does not correspond to a
 	 *                URL.
 	 */
-	public function get_url( $canonical = false );
+	public function get_url( $canonical = false, $force = false );
 
 	/**
 	 * Returns the URL associated to this View logical, next view.
