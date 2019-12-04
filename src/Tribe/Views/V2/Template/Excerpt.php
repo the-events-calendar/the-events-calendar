@@ -8,8 +8,9 @@
  */
 namespace Tribe\Events\Views\V2\Template;
 
-use Tribe__Events__Main as Plugin;
 use Tribe__Template as Base_Template;
+use Tribe__Events__Main as Plugin;
+use Tribe\Events\Views\V2\Hooks;
 
 /**
  * Class Excerpt
@@ -66,9 +67,7 @@ class Excerpt extends Base_Template {
 			return $link;
 		}
 
-		// This method could be called in the context of a call to `tribe_get_event`; here we only need the permalink.
-		$event            = get_post( get_the_ID() );
-		$event->permalink = get_the_permalink( $event );
+		$event = tribe_get_event( get_the_ID() );
 
 		$template = strtolower( get_template() );
 
@@ -76,13 +75,13 @@ class Excerpt extends Base_Template {
 		$should_replace_read_more = $template && 'twentyseventeen' === $template;
 
 		/**
-		 * Determines if the "Read more" link and text replacement is required.
+		 * Detemines the require
 		 *
 		 * @since 4.9.11
 		 *
-		 * @param bool     $should_replace_read_more Determines if we need to replace the excerpt read more link
-		 *                                           in a given scenario.
-		 * @param \WP_Post $event                    The event post that we are dealing with.
+		 * @param bool    $should_replace_read_more Determines if we need to replace the excerpt read more link
+		 *                                          in a given scenario.
+		 * @param WP_Post $event                    Event that we are dealing with.
 		 */
 		$should_replace_read_more = apply_filters( 'tribe_events_views_v2_should_replace_excerpt_more_link', $should_replace_read_more, $event );
 
