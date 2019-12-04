@@ -55,8 +55,11 @@ function tribe_events_views_v2_smart_activation() {
 	$status = tribe_update_option( Manager::$option_enabled, true );
 
 	if ( $status ) {
-		// Update the default for new users to 12
+		// Update the default posts_per_page to 12
 		tribe_update_option( 'postsPerPage', 12 );
+
+		// Update default events per day on month view amount to 3
+		tribe_update_option( 'monthEventAmount', 3 );
 	}
 
 	return $status;
