@@ -126,7 +126,7 @@
 </li>
 					<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--month tribe-events-c-view-selector__list-item--active">
 	<a
-		href="http://test.tri.be/events/month/?tribe-bar-date=2019-01-01"
+		href="http://test.tri.be/events/month/2019-01/"
 		class="tribe-events-c-view-selector__list-item-link"
 		data-js="tribe-events-view-link"
 	>
@@ -137,7 +137,7 @@
 </li>
 					<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--day">
 	<a
-		href="http://test.tri.be/events/today/?tribe-bar-date=2019-01-01"
+		href="http://test.tri.be/events/2019-01-01/"
 		class="tribe-events-c-view-selector__list-item-link"
 		data-js="tribe-events-view-link"
 	>

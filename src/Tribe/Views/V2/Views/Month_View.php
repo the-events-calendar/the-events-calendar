@@ -144,15 +144,14 @@ class Month_View extends By_Day_View {
 		$context = null !== $context ? $context : $this->context;
 
 		// Let's override the ones the Month View will use differently.
-		$context_arr = $context->to_array();
 		// The setting governing the Events > Settings > Display > "Month view events per day" setting.
-		$args['posts_per_page'] = Arr::get( $context_arr, 'month_posts_per_page', static::$posts_per_page_default );
+		$args['posts_per_page'] = $context->get( 'month_posts_per_page', static::$posts_per_page_default );
 		// Per-day events never paginate.
 		unset( $args['paged'] );
 
-		$date = Arr::get( $context_arr, 'event_date', 'now' );
+		$date = $context->get( 'event_date', 'now' );
 
-		$this->user_date = ( new \DateTime( $date ) )->format( 'Y-m' );
+		$this->user_date = Dates::build_date_object( $date )->format( 'Y-m' );
 
 		$args['order_by'] = [
 			'menu_order' => 'ASC',
