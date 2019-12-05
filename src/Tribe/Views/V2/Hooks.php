@@ -371,7 +371,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @param mixed $redirect_url URL which we will redirect to.
 	 *
-	 * @return string             URL or false to prevent redirect.
+	 * @return string A redirection URL, or `false` to prevent redirection.
 	 */
 	public function filter_prevent_canonical_embed_redirect( $redirect_url = null ) {
 		$context = tribe_context();
