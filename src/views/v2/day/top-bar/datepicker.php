@@ -11,8 +11,9 @@
  *
  * @version TBD
  *
- * @var string $now          The current date and time in the `Y-m-d H:i:s` format.
- * @var obj    $date_formats Object containing the date formats.
+ * @var string $now                    The current date and time in the `Y-m-d H:i:s` format.
+ * @var obj    $date_formats           Object containing the date formats.
+ * @var bool   $show_datepicker_submit Boolean on whether to show the datepicker submit button.
  */
 use Tribe__Date_Utils as Dates;
 
@@ -27,10 +28,22 @@ $selected_date_label = date_i18n( tribe_get_date_format( true ), $selected_datet
 
 $datepicker_date = Dates::build_date_object( $selected_date_value )->format( $date_formats->compact );
 ?>
-<div class="tribe-events-c-top-bar__datepicker">
+<?php if ( $show_datepicker_submit ) : ?>
+	<form
+		class="tribe-events-c-top-bar__datepicker"
+		method="get"
+		data-js="tribe-events-view-form"
+	>
+		<?php wp_nonce_field( 'wp_rest', 'tribe-events-views[_wpnonce]' ); ?>
+		<input type="hidden" name="tribe-events-views[url]" value="<?php echo esc_url( $this->get( 'url' ) ); ?>" />
+<?php else : ?>
+	<div class="tribe-events-c-top-bar__datepicker">
+<?php endif; ?>
+
 	<button
 		class="tribe-common-h3 tribe-common-h--alt tribe-events-c-top-bar__datepicker-button"
 		data-js="tribe-events-top-bar-datepicker-button"
+		type="button"
 	>
 		<time
 			datetime="<?php echo esc_attr( date( 'Y-m-d', $selected_datetime ) ); ?>"
@@ -56,4 +69,10 @@ $datepicker_date = Dates::build_date_object( $selected_date_value )->format( $da
 		autocomplete="off"
 	/>
 	<div class="tribe-events-c-top-bar__datepicker-container" data-js="tribe-events-top-bar-datepicker-container"></div>
-</div>
+
+<?php if ( $show_datepicker_submit ) : ?>
+		<?php $this->template( 'components/top-bar/datepicker/submit' ); ?>
+	</form>
+<?php else : ?>
+	</div>
+<?php endif; ?>

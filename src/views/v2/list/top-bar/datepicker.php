@@ -22,13 +22,26 @@
  * @var string $selected_end_date_mobile   The formatted date that will show in the datepicker mobile version.
  * @var string $selected_end_date_label    The label of the datepicker interval end.
  * @var string $datepicker_date            The datepicker selected date, in the `Y-m-d` format.
+ * @var bool   $show_datepicker_submit     Boolean on whether to show the datepicker submit button.
  */
 
 ?>
-<div class="tribe-events-c-top-bar__datepicker">
+<?php if ( $show_datepicker_submit ) : ?>
+	<form
+		class="tribe-events-c-top-bar__datepicker"
+		method="get"
+		data-js="tribe-events-view-form"
+	>
+		<?php wp_nonce_field( 'wp_rest', 'tribe-events-views[_wpnonce]' ); ?>
+		<input type="hidden" name="tribe-events-views[url]" value="<?php echo esc_url( $this->get( 'url' ) ); ?>" />
+<?php else : ?>
+	<div class="tribe-events-c-top-bar__datepicker">
+<?php endif; ?>
+
 	<button
 		class="tribe-common-h3 tribe-common-h--alt tribe-events-c-top-bar__datepicker-button"
 		data-js="tribe-events-top-bar-datepicker-button"
+		type="button"
 	>
 		<?php if ( $show_now ) : ?>
 			<?php echo esc_html( $now_label ); ?>
@@ -77,4 +90,10 @@
 		autocomplete="off"
 	/>
 	<div class="tribe-events-c-top-bar__datepicker-container" data-js="tribe-events-top-bar-datepicker-container"></div>
-</div>
+
+<?php if ( $show_datepicker_submit ) : ?>
+		<?php $this->template( 'components/top-bar/datepicker/submit' ); ?>
+	</form>
+<?php else : ?>
+	</div>
+<?php endif; ?>
