@@ -3,6 +3,7 @@ namespace Tribe\Events\Views\V2\Views\HTML\DayView\Event;
 
 use Tribe\Test\PHPUnit\Traits\With_Post_Remapping;
 use Tribe\Test\Products\WPBrowser\Views\V2\HtmlTestCase;
+use Tribe\Utils\Lazy_String;
 
 class DayEventDescriptionTest extends HtmlTestCase {
 	use With_Post_Remapping;
@@ -12,7 +13,11 @@ class DayEventDescriptionTest extends HtmlTestCase {
 	 */
 	public function it_should_contain_correct_html_classes() {
 		$event = $this->get_mock_event( 'events/single/1.json' );
-		$event->excerpt = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
+		$event->excerpt = new Lazy_String(
+			static function () {
+				return 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
+			}
+		);
 
 		$template = $this->template->template( 'day/event/description', [ 'event' => $event ] );
 		$html = $this->document->html( $template );

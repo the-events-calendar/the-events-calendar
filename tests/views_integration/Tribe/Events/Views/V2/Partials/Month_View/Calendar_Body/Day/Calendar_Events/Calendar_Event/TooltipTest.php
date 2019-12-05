@@ -4,6 +4,7 @@ namespace Tribe\Events\Views\V2\Partials\Month_View\Calendar_Body\Day\Calendar_E
 
 use Tribe\Test\PHPUnit\Traits\With_Post_Remapping;
 use Tribe\Test\Products\WPBrowser\Views\V2\HtmlPartialTestCase;
+use Tribe\Utils\Lazy_String;
 
 class TooltipTest extends HtmlPartialTestCase
 {
@@ -50,7 +51,11 @@ class TooltipTest extends HtmlPartialTestCase
 		];
 
 		$event = $this->get_mock_event( 'events/single/1.json' );
-		$event->excerpt = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
+		$event->excerpt = new Lazy_String(
+			static function () {
+				return 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
+			}
+		);
 		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => $event, 'date_formats' => $date_formats ] ) );
 	}
 
@@ -80,7 +85,11 @@ class TooltipTest extends HtmlPartialTestCase
 		];
 
 		$event = $this->mock_event( 'events/single/1.json' )->with_thumbnail()->get();
-		$event->excerpt = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
+		$event->excerpt = new Lazy_String(
+			static function () {
+				return 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
+			}
+		);
 		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => $event, 'date_formats' => $date_formats ] ) );
 	}
 
@@ -110,7 +119,11 @@ class TooltipTest extends HtmlPartialTestCase
 		];
 
 		$event = $this->get_mock_event(  'events/single/1.json'  );
-		$event->excerpt = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
+		$event->excerpt = new Lazy_String(
+			static function () {
+				return 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
+			}
+		);
 		$event->cost = '$10';
 		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => $event, 'date_formats' => $date_formats ] ) );
 	}
@@ -126,7 +139,11 @@ class TooltipTest extends HtmlPartialTestCase
 		];
 
 		$event = $this->mock_event( 'events/single/1.json' )->with_thumbnail()->get();
-		$event->excerpt = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
+		$event->excerpt = new Lazy_String(
+			static function () {
+				return 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
+			}
+		);
 		$event->cost = '$10';
 		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => $event, 'date_formats' => $date_formats ] ) );
 	}

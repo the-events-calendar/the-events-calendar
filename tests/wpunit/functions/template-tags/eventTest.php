@@ -376,6 +376,8 @@ class eventTest extends WPTestCase {
 	 * @test
 	 */
 	public function should_cache_on_shutdown_and_only_if_a_lazy_property_was_accessed() {
+		$using_backup = wp_using_ext_object_cache();
+		wp_using_ext_object_cache( true );
 		$post_id = static::factory()->event->create();
 
 		$cache_key = 'events_' . $post_id . '_raw';
@@ -392,9 +394,11 @@ class eventTest extends WPTestCase {
 				$event->organizers->all();
 				do_action( 'shutdown' );
 				$cached = $cache->get( $cache_key, \Tribe__Cache_Listener::TRIGGER_SAVE_POST );
-				$this->assertInternalType('array' , $cached );
+				$this->assertInternalType( 'array', $cached );
 				$this->assertNotEmpty( array_intersect_key( get_object_vars( $event ), $cached ) );
 			}
 		);
+
+		wp_using_ext_object_cache( $using_backup );
 	}
 }

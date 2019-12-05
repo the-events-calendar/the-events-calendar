@@ -141,7 +141,11 @@ abstract class By_Day_View extends View {
 
 		if ( $using_period_repository ) {
 			/** @var Event_Period $repository */
-			$repository = tribe_events( 'period' );
+			if ( tribe_is_truthy( tribe_get_option( 'enable_month_view_cache', false ) ) ) {
+				$repository = tribe_events( 'period', 'caching' );
+			} else {
+				$repository = tribe_events( 'period' );
+			}
 			$repository->by_period( $grid_start_date, $grid_end_date )->fetch();
 		}
 
@@ -194,7 +198,9 @@ abstract class By_Day_View extends View {
 
 		if ( $using_period_repository ) {
 			$post_ids = array_filter( array_unique( array_merge( ... array_values( $this->grid_days_cache ) ) ) );
-			tribe( 'cache' )->warmup_post_caches( $post_ids );
+			/** @var \Tribe__Cache $cache */
+			$cache = tribe( 'cache' );
+			$cache->warmup_post_caches( $post_ids, true );
 		} else {
 			if ( is_array( $this->grid_days_cache ) && count( $this->grid_days_cache ) ) {
 				$this->grid_days_cache = $this->add_implied_events( $this->grid_days_cache );

@@ -63,23 +63,11 @@ class Excerpt extends Base_Template {
 	 * @return string The excerpt read more link modified, if necessary.
 	 */
 	public function maybe_filter_excerpt_more( $link ) {
-		/**
-		 * Because `maybe_filter_excerpt_more` needs to call `tribe_get_event` it creates
-		 * a infinite loop with adding excerpt calls again.
-		 */
-		remove_filter( 'excerpt_more', [ tribe( Hooks::class ), 'filter_excerpt_more' ], 50 );
-
 		if ( is_admin() ) {
 			return $link;
 		}
 
 		$event = tribe_get_event( get_the_ID() );
-
-		/**
-		 * Because `maybe_filter_excerpt_more` needs to call `tribe_get_event` it creates
-		 * a infinite loop with adding excerpt calls again.
-		 */
-		add_filter( 'excerpt_more', [ tribe( Hooks::class ), 'filter_excerpt_more' ], 50 );
 
 		$template = strtolower( get_template() );
 

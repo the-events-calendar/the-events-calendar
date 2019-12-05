@@ -30,7 +30,7 @@ class Events_Result_Set implements Collection_Interface {
 	 *
 	 * @var array
 	 */
-	protected $event_results;
+	protected $items;
 
 	/**
 	 * Events_Result_Set constructor.
@@ -38,9 +38,7 @@ class Events_Result_Set implements Collection_Interface {
 	 * @param Event_Result[]|array $event_results An array of event results.
 	 */
 	public function __construct( array $event_results = [] ) {
-		$this->event_results = array_map( static function ( $result ) {
-			return Event_Result::from_value( $result );
-		}, $event_results );
+		$this->items = $this->normalize_event_results( $event_results );
 	}
 
 	/**
@@ -70,7 +68,7 @@ class Events_Result_Set implements Collection_Interface {
 	}
 
 	public function count() {
-		return count( $this->event_results );
+		return count( $this->items );
 	}
 
 	public function order_by( $order_by, $order ) {
@@ -91,7 +89,7 @@ class Events_Result_Set implements Collection_Interface {
 		 * Since we cannot control that `(array)$item` cast, we pre-convert each
 		 * element into an array and convert it back to a set of `Event_Result` after the sorting.
 		 */
-		$this->event_results = static::from_value(
+		$this->items = static::from_value(
 			wp_list_sort(
 				$this->to_array(),
 				$order_by_key,
@@ -106,14 +104,14 @@ class Events_Result_Set implements Collection_Interface {
 	 * {@inheritDoc}
 	 */
 	public function all() {
-		return $this->event_results;
+		return $this->items;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public function jsonSerialize() {
-		return wp_json_encode( $this->event_results );
+		return wp_json_encode( $this->items );
 	}
 
 	/**
@@ -126,7 +124,7 @@ class Events_Result_Set implements Collection_Interface {
 	 * @return array An array of all the values associated to the key for each event result in the set.
 	 */
 	public function pluck( $column ) {
-		return wp_list_pluck( $this->event_results, $column );
+		return wp_list_pluck( $this->items, $column );
 	}
 
 	/**
@@ -139,6 +137,33 @@ class Events_Result_Set implements Collection_Interface {
 	public function to_array() {
 		return array_map( static function ( Event_Result $event_result ) {
 			return $event_result->to_array();
-		}, $this->event_results );
+		}, $this->items );
+	}
+
+	/**
+	 * Overrides the base `Collection_Trait` implementation to normalize all the items in the result set.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $data The serialized data.
+	 */
+	public function unserialize( $data ) {
+		$event_results = unserialize( $data );
+		$this->items   = $this->normalize_event_results( $event_results );
+	}
+
+	/**
+	 * Normalizes the event results in this set ensuring each one is an instance of `Event_Result`.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $event_results A set of event results in array or object format..
+	 *
+	 * @return Event_Result[] The normalized set of results.
+	 */
+	protected function normalize_event_results( array $event_results ) {
+		return array_map( static function ( $result ) {
+			return Event_Result::from_value( $result );
+		}, $event_results );
 	}
 }
