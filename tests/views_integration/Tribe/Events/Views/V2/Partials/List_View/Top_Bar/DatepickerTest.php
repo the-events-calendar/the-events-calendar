@@ -2,12 +2,21 @@
 
 namespace Tribe\Events\Views\V2\Partials\List_View\Top_Bar;
 
+use tad\FunctionMocker\FunctionMocker as Test;
 use Tribe\Test\Products\WPBrowser\Views\V2\HtmlPartialTestCase;
 
 class DatepickerTest extends HtmlPartialTestCase
 {
 
 	protected $partial_path = 'list/top-bar/datepicker';
+
+	public function setUp() {
+		parent::setUp();
+		// Start Function Mocker.
+		Test::setUp();
+		// Always return the same value when creating nonces.
+		Test::replace( 'wp_create_nonce', '2ab7cc6b39' );
+	}
 
 	public function render_data_set() {
 		yield 'now_wo_events' => [
@@ -242,5 +251,10 @@ class DatepickerTest extends HtmlPartialTestCase
 	 */
 	public function test_render($context) {
 		$this->assertMatchesSnapshot( $this->get_partial_html( $context ) );
+	}
+
+	public function tearDown(){
+		Test::tearDown();
+		parent::tearDown();
 	}
 }

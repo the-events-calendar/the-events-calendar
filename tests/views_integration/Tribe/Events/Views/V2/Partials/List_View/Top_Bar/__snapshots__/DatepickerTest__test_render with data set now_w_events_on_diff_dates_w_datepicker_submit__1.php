@@ -3,7 +3,7 @@
 		method="get"
 		data-js="tribe-events-view-form"
 	>
-		<input type="hidden" id="tribe-events-views[_wpnonce]" name="tribe-events-views[_wpnonce]" value="256912d30f" /><input type="hidden" name="_wp_http_referer" value="" />		<input type="hidden" name="tribe-events-views[url]" value="https://test.tri.be/events/today/" />
+		<input type="hidden" id="tribe-events-views[_wpnonce]" name="tribe-events-views[_wpnonce]" value="2ab7cc6b39" /><input type="hidden" name="_wp_http_referer" value="" />		<input type="hidden" name="tribe-events-views[url]" value="https://test.tri.be/events/today/" />
 
 	<div class="tribe-events-c-top-bar__datepicker">
 		<button
