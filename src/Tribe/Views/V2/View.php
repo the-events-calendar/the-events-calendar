@@ -1754,7 +1754,7 @@ class View implements View_Interface {
 		$live_refresh       = tribe_is_truthy( tribe_get_option( 'liveFiltersUpdate', true ) );
 		$disable_events_bar = tribe_is_truthy( tribe_get_option( 'tribeDisableTribeBar', false ) );
 
-		if ( empty( $live_refresh ) && $disable_events_bar ) {
+		if ( empty( $live_refresh ) && ! empty( $disable_events_bar ) ) {
 			return true;
 		}
 
