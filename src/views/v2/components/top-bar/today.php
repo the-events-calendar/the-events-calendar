@@ -11,12 +11,12 @@
  *
  * @var string $today_url The URL to the today page.
  *
- * @version 4.9.10
+ * @version TBD
  */
 ?>
 <a
 	href="<?php echo esc_url( $today_url ); ?>"
-	class="tribe-common-c-btn-border tribe-events-c-top-bar__today-button"
+	class="tribe-common-c-btn-border tribe-events-c-top-bar__today-button tribe-common-a11y-hidden"
 	data-js="tribe-events-view-link"
 >
 	<?php esc_html_e( 'Today', 'the-events-calendar' ); ?>
