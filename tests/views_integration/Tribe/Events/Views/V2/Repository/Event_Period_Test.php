@@ -144,7 +144,7 @@ class Event_Period_Test extends WPTestCase {
 		$canary = static::factory()->event->create( [ 'when' => '2019-08-30 09:00:00' ] );
 
 		/** @var Event_Period $repo */
-		$repo       = tribe_events( 'period' );
+		$repo = tribe_events( 'period' );
 
 		// e.g. fetch as we would do on the calendar grid.
 		$repo->where( 'in_period', $start_date, $end_date )->get_ids();
@@ -154,13 +154,13 @@ class Event_Period_Test extends WPTestCase {
 		// e.g.then fetch for a day in the calendar grid.
 		$day_ids = $repo->by_date( '2019-08-30' )->get_ids();
 
-		$this->queries()->assertCountQueries($after_warmup_query_count);
+		$this->queries()->assertCountQueries( $after_warmup_query_count );
 		$this->assertEquals( [ $canary ], $day_ids );
 
 		// e.g.then fetch for three days in the calendar grid.
 		$three_day_ids = $repo->where( 'in_period', '2019-08-30 00:00:00', '2019-09-02 23:59:59' )->get_ids();
 
-		$this->queries()->assertCountQueries($after_warmup_query_count);
+		$this->queries()->assertCountQueries( $after_warmup_query_count );
 		$this->assertEquals( [ $canary ], $three_day_ids );
 	}
 

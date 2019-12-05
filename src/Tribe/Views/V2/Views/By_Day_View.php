@@ -141,7 +141,11 @@ abstract class By_Day_View extends View {
 
 		if ( $using_period_repository ) {
 			/** @var Event_Period $repository */
-			$repository = tribe_events( 'period' );
+			if ( tribe_is_truthy( tribe_get_option( 'enable_month_view_cache', false ) ) ) {
+				$repository = tribe_events( 'period', 'caching' );
+			} else {
+				$repository = tribe_events( 'period' );
+			}
 			$repository->by_period( $grid_start_date, $grid_end_date )->fetch();
 		}
 

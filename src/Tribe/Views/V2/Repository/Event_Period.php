@@ -606,7 +606,10 @@ class Event_Period implements Core_Read_Interface {
 
 		$results = $this->query_for_sets( $this->period_start, $this->period_end );
 
-		if ( false === $results ) {
+		if ( empty( $results ) ) {
+			// Store the value, do not run again.
+			$this->sets = [];
+
 			return [];
 		}
 
@@ -616,16 +619,16 @@ class Event_Period implements Core_Read_Interface {
 		$sets = $this->add_missing_sets( $sets );
 
 		if ( $this->cache_results ) {
-			$this->wp_cache_set( $sets );
+			$this->set_results_cache( $sets );
 		}
 
 		$this->sets = $sets;
 
 		if ( $this->has_base_filters ) {
-			$this->filter_sets_w_base_repository( $sets );
+			$this->sets = $this->filter_sets_w_base_repository( $sets );
 		}
 
-		return $sets;
+		return $this->sets;
 	}
 
 	/**
@@ -1041,7 +1044,14 @@ class Event_Period implements Core_Read_Interface {
 		return $sets;
 	}
 
-	protected function wp_cache_set( $sets ) {
+	/**
+	 * Caches the resulting sets using `Tribe__Cache`.
+	 *
+	 * As a result sets might be cached either in a real object cache or in transients.
+	 *
+	 * @param array $sets The sets to cache.
+	 */
+	protected function set_results_cache( $sets ) {
 		$days = array_keys( $sets );
 		// EOD cutoff does not apply here, we just do it for the interval.
 		$start          = Dates::build_date_object( reset( $days ) )->setTime( 0, 0, 0 );
@@ -1054,15 +1064,15 @@ class Event_Period implements Core_Read_Interface {
 		$trigger = Cache_Listener::TRIGGER_SAVE_POST;
 
 		$periods_key      = static::get_cache_key( 'periods' );
-		$cached_periods   = $cache->get( $periods_key, $trigger, [], WEEK_IN_SECONDS );
+		$cached_periods   = $cache->get_transient( $periods_key, $trigger );
 		$cached_periods[] = [ $start->format( Dates::DBDATEFORMAT ), $end->format( Dates::DBDATEFORMAT ) ];
-		$cache->set( $periods_key, $cached_periods, WEEK_IN_SECONDS, $trigger );
+		$cache->set_transient( $periods_key, $cached_periods, WEEK_IN_SECONDS, $trigger );
 
 		/** @var \DateTime $day */
 		foreach ( $request_period as $day ) {
 			$day_string        = $day->format( Dates::DBDATEFORMAT );
 			$day_event_results = Arr::get( $sets, $day_string, [] );
-			$cache->set(
+			$cache->set_transient(
 				static::get_cache_key( $day_string . '_set' ),
 				$day_event_results,
 				WEEK_IN_SECONDS,
@@ -1093,15 +1103,22 @@ class Event_Period implements Core_Read_Interface {
 	 *
 	 * @param array $sets The sets found by this repository so far.
 	 */
-	protected function filter_sets_w_base_repository( array &$sets ) {
+	protected function filter_sets_w_base_repository( array $sets ) {
 		// Restrict the base repository to only operate on the IDs we already have.
 		$matching_ids = $this->base_repository->in( $this->get_sets_ids( $sets ) )->get_ids();
-		/** @var Events_Result_Set $set */
-		foreach ( $sets as $set ) {
-			$set->filter( static function ( Event_Result $result ) use ( $matching_ids ) {
-				return in_array( $result->id(), $matching_ids );
-			} );
+
+		if ( empty( $matching_ids ) ) {
+			return [];
 		}
+
+		/** @var Events_Result_Set $set */
+		$filtered_sets = array_map( static function ( Events_Result_Set $set ) use ( $matching_ids ) {
+			return $set->filter( static function ( Event_Result $result ) use ( $matching_ids ) {
+				return in_array( $result->id(), $matching_ids, true );
+			} );
+		}, $sets );
+
+		return $filtered_sets;
 	}
 
 	/**
@@ -1189,11 +1206,9 @@ class Event_Period implements Core_Read_Interface {
 		// Try and fetch them from the shared cache.
 		$periods_key = static::get_cache_key( 'periods' );
 
-		$cached_periods = $cache->get( $periods_key, $trigger, [], WEEK_IN_SECONDS );
+		$cached_periods = (array)$cache->get_transient( $periods_key, $trigger );
 
-		foreach ( $cached_periods as $cached_period ) {
-			list( $start_date, $end_date ) = $cached_period;
-
+		foreach ( $cached_periods as list( $start_date, $end_date ) ) {
 			if (
 				$this->period_start->format( Dates::DBDATEFORMAT ) <= $end_date
 				&& $this->period_end->format( Dates::DBDATEFORMAT ) >= $start_date
@@ -1208,12 +1223,10 @@ class Event_Period implements Core_Read_Interface {
 				foreach ( $period as $day ) {
 					$day_string = $day->format( Dates::DBDATEFORMAT );
 
-					$sets[ $day_string ] = $cache->get(
+					$sets[ $day_string ] = unserialize( $cache->get_transient(
 						static::get_cache_key( $day_string . '_set' ),
-						$trigger,
-						[],
-						WEEK_IN_SECONDS
-					);
+						$trigger
+					) );
 				}
 
 				return $sets;
