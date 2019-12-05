@@ -73,7 +73,7 @@ class Event_Result {
 	 * @return int The event post ID.
 	 */
 	public function id() {
-		return $this->data['ID'];
+		return (int) $this->data['ID'];
 	}
 
 	/**
