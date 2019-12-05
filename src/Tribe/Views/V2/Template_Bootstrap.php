@@ -56,6 +56,8 @@ class Template_Bootstrap {
 	 * @return void
 	 */
 	public function disable_v1() {
+		remove_filter( 'tribe_events_before_html', [ TEC::instance(), 'before_html_data_wrapper' ] );
+		remove_filter( 'tribe_events_after_html', [ TEC::instance(), 'after_html_data_wrapper' ] );
 		remove_action( 'plugins_loaded', [ V1_Event_Templates::class, 'init' ] );
 	}
 

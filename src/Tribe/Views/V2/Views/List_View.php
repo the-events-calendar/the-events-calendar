@@ -36,6 +36,13 @@ class List_View extends View {
 	protected static $publicly_visible = true;
 
 	/**
+	 * Indicates List View supports the date as a query argument appended to its URL, not as part of a "pretty" URL.
+	 *
+	 * @var bool
+	 */
+	protected static $date_in_url = false;
+
+	/**
 	 * {@inheritDoc}
 	 */
 	public function prev_url( $canonical = false, array $passthru_vars = [] ) {

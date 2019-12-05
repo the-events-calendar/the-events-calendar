@@ -27,13 +27,14 @@ if ( 0 === count( $multiday_events ) ) {
 ?>
 
 <?php foreach ( $multiday_events as $event ) : ?>
-
 	<?php
 	// If we receive a falsy value, then we need to add a spacer in the "stack".
 	if ( false === $event ) {
 		$this->template( 'month/calendar-body/day/multiday-events/multiday-event-spacer' );
 		continue;
 	}
+
+	$this->setup_postdata( $event );
 
 	$this->template( 'month/calendar-body/day/multiday-events/multiday-event', [
 		'day_date'         => $day_date,

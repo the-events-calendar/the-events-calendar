@@ -12,7 +12,7 @@
 		June 20	</time>
 </div>
 
-	
+			
 		
 <article  class="tribe-events-calendar-month-mobile-events__mobile-event post-7 tribe_events type-tribe_events status-publish hentry tribe-events-calendar-month-mobile-events__mobile-event--featured" >
 
@@ -31,7 +31,7 @@
 				<time datetime="2019-06-20">
 			<span class="tribe-event-date-start">June 20 @ 1:01 pm</span> - <span class="tribe-event-time">5:01 pm</span>		</time>
 		</div>
-		<h3  class="tribe-events-calendar-month-mobile-events__mobile-event-title tribe-common-h8" >
+		<h3  class="tribe-events-calendar-month-mobile-events__mobile-event-title tribe-common-h7" >
 	<a
 		href="http://test.tri.be/?tribe_events=test-event-9-days-2"
 		title="Test Event &#8211; +9 days"
@@ -44,7 +44,7 @@
 	</div>
 </article>
 
-	
+			
 		
 <article  class="tribe-events-calendar-month-mobile-events__mobile-event post-8 tribe_events type-tribe_events status-publish hentry" >
 
@@ -55,7 +55,7 @@
 				<time datetime="2019-06-20">
 			<span class="tribe-event-date-start">June 20 @ 1:04 pm</span> - <span class="tribe-event-time">5:04 pm</span>		</time>
 		</div>
-		<h3  class="tribe-events-calendar-month-mobile-events__mobile-event-title tribe-common-h8" >
+		<h3  class="tribe-events-calendar-month-mobile-events__mobile-event-title tribe-common-h7" >
 	<a
 		href="http://test.tri.be/?tribe_events=single-event-1"
 		title="Single Event 1"

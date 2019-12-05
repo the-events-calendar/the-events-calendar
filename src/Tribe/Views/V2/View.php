@@ -175,6 +175,14 @@ class View implements View_Interface {
 	protected $rewrite;
 
 	/**
+	 * A flag property to indicate whether the View date is part of the "pretty" URL (true) or is supported only as
+	 * a query argument like. `tribe-bar-date` (false).
+	 *
+	 * @var bool
+	 */
+	protected static $date_in_url = true;
+
+	/**
 	 * View constructor.
 	 *
 	 * @since 4.9.11
@@ -662,7 +670,7 @@ class View implements View_Interface {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get_url( $canonical = false ) {
+	public function get_url( $canonical = false, $force = false ) {
 		$query_args = [
 			'post_type'        => TEC::POSTTYPE,
 			'eventDisplay'     => $this->slug,
@@ -690,10 +698,16 @@ class View implements View_Interface {
 		if ( ! empty( $query_args['tribe-bar-date'] ) ) {
 			// If the Events Bar date is the same as today's date, then drop it.
 			$today          = $this->context->get( 'today', 'today' );
-			$today_date     = Dates::build_date_object( $today )->format( Dates::DBDATEFORMAT );
-			$tribe_bar_date = Dates::build_date_object( $query_args['tribe-bar-date'] )->format( Dates::DBDATEFORMAT );
+			$url_date_format         = $this->get_url_date_format();
+			$today_date     = Dates::build_date_object( $today ) ->format( $url_date_format );
+			$tribe_bar_date = Dates::build_date_object( $query_args['tribe-bar-date'] ) ->format( $url_date_format );
 
-			if ( $today_date === $tribe_bar_date ) {
+			if ( static::$date_in_url ) {
+				if ( $today_date !== $tribe_bar_date ) {
+					// Default date is already today, no need to have it.
+					$query_args['eventDate'] = $tribe_bar_date;
+				}
+				// Replace `tribe-bar-date` with `eventDate` as that's the query var used by the rewrite rules.
 				unset( $query_args['tribe-bar-date'] );
 			}
 		}
@@ -708,7 +722,7 @@ class View implements View_Interface {
 		$url = add_query_arg( array_filter( $query_args ), home_url() );
 
 		if ( $canonical ) {
-			$url = $this->rewrite->get_clean_url( $url );
+			$url = $this->rewrite->get_clean_url( $url, $force );
 		}
 
 		$event_display_mode = $this->context->get( 'event_display_mode', false );
@@ -1732,7 +1746,7 @@ class View implements View_Interface {
 	 * {@inheritDoc}
 	 */
 	public function url_for_query_args( $date = null, $query_args = [] ) {
-		$event_date = Dates::build_date_object( $date )->format( Dates::DBDATEFORMAT );
+		$event_date = Dates::build_date_object( $date )->format( $this->get_url_date_format() );
 
 		if ( ! empty( $query_args ) && is_string( $query_args ) ) {
 			$str_args   = $query_args;
@@ -1740,9 +1754,37 @@ class View implements View_Interface {
 			wp_parse_str( $str_args, $query_args );
 		}
 
-		return tribe_events_get_url( array_filter( array_merge( $query_args, [
-			'eventDisplay'   => $this->get_slug(),
-			'tribe-bar-date' => $event_date,
-		] ) ) );
+		$url_query_args = array_filter( array_merge( $query_args, [
+			'eventDisplay' => $this->get_slug(),
+			'eventDate'    => $event_date,
+		] ) );
+
+		if ( static::$date_in_url ) {
+			unset( $url_query_args['tribe-bar-date'] );
+
+			// This is the case for Views that include the date in the "pretty" URL, e.g. Month, Day or Week.
+			return tribe_events_get_url( $url_query_args );
+		}
+
+		// This is the case for Views that don't include the date in the "pretty" URL, e.g. List.
+		unset( $url_query_args['eventDate'] );
+
+		return add_query_arg(
+			[ 'tribe-bar-date' => $event_date ],
+			tribe_events_get_url( $url_query_args )
+		);
+	}
+
+	/**
+	 * Returns the date format that should be used to format the date in the View URL.
+	 *
+	 * Extending Views cal override this to customize the URL output (e.g. Month View).
+	 *
+	 * @since TBD
+	 *
+	 * @return string The date format that should be used to format the date in the View URL.
+	 */
+	protected function get_url_date_format() {
+		return Dates::DBDATEFORMAT;
 	}
 }

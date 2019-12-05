@@ -48,6 +48,7 @@ class Advanced_Display {
 		$before = convert_chars( $before );
 		$before = wpautop( $before );
 		$before = do_shortcode( stripslashes( shortcode_unautop( $before ) ) );
+		$before = force_balance_tags( $before );
 
 		/**
 		 * Filter imported from V1 of Views, kept since there was no requirement to
@@ -91,6 +92,7 @@ class Advanced_Display {
 		$after = convert_chars( $after );
 		$after = wpautop( $after );
 		$after = do_shortcode( stripslashes( shortcode_unautop( $after ) ) );
+		$after = force_balance_tags( $after );
 
 		/**
 		 * Filter imported from V1 of Views, kept since there was no requirement to

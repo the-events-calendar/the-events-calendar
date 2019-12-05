@@ -16,7 +16,7 @@
 				<time datetime="2019-06-20">
 			<span class="tribe-event-date-start">June 20 @ 1:01 pm</span> - <span class="tribe-event-time">5:01 pm</span>		</time>
 		</div>
-		<h3  class="tribe-events-calendar-month-mobile-events__mobile-event-title tribe-common-h8" >
+		<h3  class="tribe-events-calendar-month-mobile-events__mobile-event-title tribe-common-h7" >
 	<a
 		href="http://test.tri.be/?tribe_events=test-event-9-days-2"
 		title="Test Event &#8211; +9 days"
