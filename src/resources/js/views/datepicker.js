@@ -259,7 +259,7 @@ tribe.events.views.datepicker = {};
 	/**
 	 * Handle datepicker show event
 	 *
-	 * @since 4.9.8
+	 * @since TBD
 	 *
 	 * @param {Event} event event object for 'show' event
 	 *
