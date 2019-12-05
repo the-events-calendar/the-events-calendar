@@ -257,6 +257,19 @@ tribe.events.views.datepicker = {};
 	};
 
 	/**
+	 * Handle datepicker show event
+	 *
+	 * @since TBD
+	 *
+	 * @param {Event} event event object for 'show' event
+	 *
+	 * @return {void}
+	 */
+	obj.handleShow = function( event ) {
+		event.data.datepickerButton.addClass( obj.selectors.buttonOpenClass.className() );
+	};
+
+	/**
 	 * Handle datepicker hide event
 	 *
 	 * @since 4.9.8
@@ -276,7 +289,9 @@ tribe.events.views.datepicker = {};
 			return;
 		}
 
-		$datepickerButton.removeClass( obj.selectors.buttonOpenClass.className() );
+		$datepickerButton
+			.removeClass( obj.selectors.buttonOpenClass.className() )
+			.focus();
 	};
 
 	/**
@@ -291,15 +306,11 @@ tribe.events.views.datepicker = {};
 	obj.handleMousedown = function( event ) {
 		var $datepickerButton = event.data.target;
 		var state = $datepickerButton.data( 'tribeEventsState' );
-		var tapHide = false;
 
 		if ( 'touchstart' === event.type ) {
 			var method = $datepickerButton.hasClass( obj.selectors.buttonOpenClass.className() ) ? 'hide' : 'show';
+			var tapHide = 'hide' === method;
 			state.isTarget = false;
-
-			if ( 'hide' === method ) {
-				tapHide = true;
-			}
 
 			$datepickerButton
 				.data( 'tribeTapHide', tapHide )
@@ -335,11 +346,12 @@ tribe.events.views.datepicker = {};
 
 		state.isTarget = false;
 
-		$datepickerButton
-			.toggleClass( obj.selectors.buttonOpenClass.className() )
-			.data( 'tribeEventsState', state );
-		$input
-			.bootstrapDatepicker( method );
+		$datepickerButton.data( 'tribeEventsState', state );
+		$input.bootstrapDatepicker( method );
+
+		if ( 'show' === method ) {
+			$input.focus();
+		}
 	};
 
 	/**
@@ -553,6 +565,7 @@ tribe.events.views.datepicker = {};
 		$input
 			.bootstrapDatepicker( 'destroy' )
 			.off( changeEvent, changeHandler )
+			.off( 'show', obj.handleShow )
 			.off( 'hide', obj.handleHide );
 		$datepickerButton
 			.off( 'mousedown', obj.handleMousedown )
@@ -615,6 +628,7 @@ tribe.events.views.datepicker = {};
 		$input
 			.bootstrapDatepicker( obj.options )
 			.on( changeEvent, { container: $container }, changeHandler )
+			.on( 'show', { datepickerButton: $datepickerButton }, obj.handleShow )
 			.on( 'hide', { datepickerButton: $datepickerButton, input: $input, observer: obj.observer }, obj.handleHide );
 
 		$datepickerButton
