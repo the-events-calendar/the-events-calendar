@@ -39,7 +39,7 @@ tribe.events.views.datepicker = {};
 	 * @type {PlainObject}
 	 */
 	obj.selectors = {
-		datepicker: '.tribe-events-c-top-bar__datepicker',
+		datepickerFormClass: '.tribe-events-c-top-bar__datepicker-form',
 		datepickerContainer: '[data-js="tribe-events-top-bar-datepicker-container"]',
 		datepickerDaysBody: '.datepicker-days tbody',
 		input: '[data-js="tribe-events-top-bar-date"]',
@@ -200,7 +200,7 @@ tribe.events.views.datepicker = {};
 		} else {
 			var $forms = $container
 				.find( tribe.events.views.manager.selectors.form )
-				.not( obj.selectors.datepicker );
+				.not( obj.selectors.datepickerFormClass );
 
 			if ( $forms.length ) {
 				var $input = obj.createDateInputObj( value );
