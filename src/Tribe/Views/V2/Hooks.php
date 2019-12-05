@@ -371,16 +371,18 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @param mixed $redirect_url URL which we will redirect to.
 	 *
-	 * @return string The modified html, if required.
+	 * @return string             URL or false to prevent redirect.
 	 */
 	public function filter_prevent_canonical_embed_redirect( $redirect_url = null ) {
+		$context = tribe_context();
+
 		// Any other URL we bail with the URL return.
-		if ( 'embed' !== tribe_context()->get( 'view' ) ) {
+		if ( 'embed' !== $context->get( 'view' ) ) {
 			return $redirect_url;
 		}
 
 		return false;
-  }
+	}
 
  	/**
 	 * Registers The Events Calendar with the views/overrides update checker.

@@ -232,7 +232,7 @@ class List_View extends View {
 		if (
 			! empty( $template_vars['events'] )
 			&& is_array( $template_vars['events'] )
-			&& 'past' === $this->context->get( 'event_display_mode', 'map' )
+			&& 'past' === $this->context->get( 'event_display_mode' )
 		) {
 			$template_vars['events'] = array_reverse( $template_vars['events'] );
 		}
