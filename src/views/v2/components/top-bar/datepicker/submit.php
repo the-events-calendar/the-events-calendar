@@ -1,4 +1,3 @@
-
 <?php
 /**
  * View: Top Bar - Datepicker Submit
