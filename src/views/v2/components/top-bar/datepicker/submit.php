@@ -21,7 +21,7 @@ if ( empty( $show_datepicker_submit ) ) {
 }
 ?>
 <button
-	class="tribe-common-c-btn tribe-events-c-top-bar__datepicker-submit"
+	class="tribe-common-c-btn tribe-common-a11y-hidden tribe-events-c-top-bar__datepicker-submit"
 	type="submit"
 	name="submit-bar"
 >

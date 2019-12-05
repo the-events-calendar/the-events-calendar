@@ -27,49 +27,47 @@ $datepicker_date     = Dates::build_date_object( $selected_date_value )->format(
 ?>
 <?php if ( $show_datepicker_submit ) : ?>
 	<form
-		class="tribe-events-c-top-bar__datepicker"
+		class="tribe-events-c-top-bar__datepicker-form"
 		method="get"
 		data-js="tribe-events-view-form"
 	>
 		<?php wp_nonce_field( 'wp_rest', 'tribe-events-views[_wpnonce]' ); ?>
 		<input type="hidden" name="tribe-events-views[url]" value="<?php echo esc_url( $this->get( 'url' ) ); ?>" />
-<?php else : ?>
-	<div class="tribe-events-c-top-bar__datepicker">
 <?php endif; ?>
 
-	<button
-		class="tribe-common-h3 tribe-common-h--alt tribe-events-c-top-bar__datepicker-button"
-		data-js="tribe-events-top-bar-datepicker-button"
-		type="button"
-	>
-		<time
-			datetime="<?php echo esc_attr( $the_date->format( 'Y-m' ) ); ?>"
-			class="tribe-events-c-top-bar__datepicker-time"
+	<div class="tribe-events-c-top-bar__datepicker">
+		<button
+			class="tribe-common-h3 tribe-common-h--alt tribe-events-c-top-bar__datepicker-button"
+			data-js="tribe-events-top-bar-datepicker-button"
+			type="button"
 		>
-			<?php echo esc_html( $formatted_grid_date ); ?>
-		</time>
-	</button>
-	<label
-		class="tribe-events-c-top-bar__datepicker-label tribe-common-a11y-visual-hide"
-		for="tribe-events-top-bar-date"
-	>
-		<?php esc_html_e( 'Select date.', 'the-events-calendar' ); ?>
-	</label>
-	<input
-		type="text"
-		class="tribe-events-c-top-bar__datepicker-input tribe-common-a11y-visual-hide"
-		data-js="tribe-events-top-bar-date"
-		id="tribe-events-top-bar-date"
-		name="tribe-events-views[tribe-bar-date]"
-		value="<?php echo esc_attr( $datepicker_date ); ?>"
-		tabindex="-1"
-		autocomplete="off"
-	/>
-	<div class="tribe-events-c-top-bar__datepicker-container" data-js="tribe-events-top-bar-datepicker-container"></div>
+			<time
+				datetime="<?php echo esc_attr( $the_date->format( 'Y-m' ) ); ?>"
+				class="tribe-events-c-top-bar__datepicker-time"
+			>
+				<?php echo esc_html( $formatted_grid_date ); ?>
+			</time>
+		</button>
+		<label
+			class="tribe-events-c-top-bar__datepicker-label tribe-common-a11y-visual-hide"
+			for="tribe-events-top-bar-date"
+		>
+			<?php esc_html_e( 'Select date.', 'the-events-calendar' ); ?>
+		</label>
+		<input
+			type="text"
+			class="tribe-events-c-top-bar__datepicker-input tribe-common-a11y-visual-hide"
+			data-js="tribe-events-top-bar-date"
+			id="tribe-events-top-bar-date"
+			name="tribe-events-views[tribe-bar-date]"
+			value="<?php echo esc_attr( $datepicker_date ); ?>"
+			tabindex="-1"
+			autocomplete="off"
+		/>
+		<div class="tribe-events-c-top-bar__datepicker-container" data-js="tribe-events-top-bar-datepicker-container"></div>
+	</div>
 
 <?php if ( $show_datepicker_submit ) : ?>
 		<?php $this->template( 'components/top-bar/datepicker/submit' ); ?>
 	</form>
-<?php else : ?>
-	</div>
 <?php endif; ?>
