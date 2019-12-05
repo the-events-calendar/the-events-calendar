@@ -100,7 +100,9 @@ abstract class By_Day_View extends View {
 			return $this->grid_days_cache;
 		}
 
-		$this->user_date = $date ?: $this->context->get( 'event_date', 'now' );
+		if ( empty( $this->user_date ) ) {
+			$this->user_date = $date ?: $this->context->get( 'event_date', 'now' );
+		}
 
 		list( $grid_start, $grid_end ) = $this->calculate_grid_start_end( $this->user_date );
 
@@ -171,6 +173,7 @@ abstract class By_Day_View extends View {
 				 * This prevents events ending on the cutoff from showing up here.
 				 */
 				$day_query = tribe_events()
+					->set_found_rows(true)
 					->by_args( $repository_args )
 					->where( 'date_overlaps', $start, $end, null, 2 )
 					->per_page( $events_per_day )
@@ -325,16 +328,6 @@ abstract class By_Day_View extends View {
 
 		return $url;
 	}
-
-	/**
-	 * Return the PHP `date` format that should be used to build the View URL when targeting a specific date.
-	 *
-	 * @since 4.9.9
-	 *
-	 * @return string The PHP `date` format that should be used to build the View URL when targeting a specific date;
-	 *                e.g. `Y-m` for Month View, or `Y-m-d` for Week View.
-	 */
-	abstract  protected function get_url_date_format();
 
 	/**
 	 * Adds the implied events to the grid days results.
