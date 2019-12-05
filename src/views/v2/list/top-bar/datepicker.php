@@ -9,7 +9,7 @@
  *
  * @link    {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.11
+ * @version TBD
  *
  * @var bool   $is_now                     Whether the date selected in the datepicker is "now" or not.
  * @var bool   $show_now                   Whether to show the "Now" label as range start or not.
@@ -71,7 +71,7 @@
 		class="tribe-events-c-top-bar__datepicker-input tribe-common-a11y-visual-hide"
 		data-js="tribe-events-top-bar-date"
 		id="tribe-events-top-bar-date"
-		name="tribe-events-views[tribe-bar-search]"
+		name="tribe-events-views[tribe-bar-date]"
 		value="<?php echo esc_attr( $datepicker_date ); ?>"
 		tabindex="-1"
 		autocomplete="off"

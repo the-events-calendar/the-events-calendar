@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.11
+ * @version TBD
  *
  * @var string $now          The current date and time in the `Y-m-d H:i:s` format.
  * @var obj    $date_formats Object containing the date formats.
@@ -50,7 +50,7 @@ $datepicker_date = Dates::build_date_object( $selected_date_value )->format( $da
 		class="tribe-events-c-top-bar__datepicker-input tribe-common-a11y-visual-hide"
 		data-js="tribe-events-top-bar-date"
 		id="tribe-events-top-bar-date"
-		name="tribe-events-views[tribe-bar-search]"
+		name="tribe-events-views[tribe-bar-date]"
 		value="<?php echo esc_attr( $datepicker_date ); ?>"
 		tabindex="-1"
 		autocomplete="off"
