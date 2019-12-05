@@ -15,7 +15,7 @@
  * @var string    $grid_date              The current calendar grid date in the `Y-m-d` format.
  * @var string    $formatted_grid_date    The current calendar grid date in the format specified by the "Month and year
  *                                        format" option.
- * @var obj       $date_formats           Object containing the date formats.
+ * @var object    $date_formats           Object containing the date formats.
  * @var \DateTime $the_date               The Month current date object.
  * @var bool      $show_datepicker_submit Boolean on whether to show the datepicker submit button.
  */
