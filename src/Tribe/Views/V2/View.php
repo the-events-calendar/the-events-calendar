@@ -1156,42 +1156,43 @@ class View implements View_Interface {
 			: false;
 
 		$template_vars  = [
-			'title'                => $this->get_title( $events ),
-			'events'               => $events,
-			'url'                  => $this->get_url( true ),
-			'prev_url'             => $this->prev_url( true ),
-			'next_url'             => $this->next_url( true ),
-			'url_event_date'       => $url_event_date,
-			'bar'                  => [
+			'title'                  => $this->get_title( $events ),
+			'events'                 => $events,
+			'url'                    => $this->get_url( true ),
+			'prev_url'               => $this->prev_url( true ),
+			'next_url'               => $this->next_url( true ),
+			'url_event_date'         => $url_event_date,
+			'bar'                    => [
 				'keyword' => $this->context->get( 'keyword', '' ),
 				'date'    => $this->context->get( 'event_date', '' ),
 			],
-			'today'                => $today,
-			'now'                  => $this->context->get( 'now', 'now' ),
-			'request_date'         => Dates::build_date_object( $this->context->get( 'event_date', $today ) ),
-			'rest_url'             => tribe( Rest_Endpoint::class )->get_url(),
-			'rest_nonce'           => wp_create_nonce( 'wp_rest' ),
-			'should_manage_url'    => $this->should_manage_url,
-			'today_url'            => $today_url,
-			'prev_label'           => $this->get_link_label( $this->prev_url( false ) ),
-			'next_label'           => $this->get_link_label( $this->next_url( false ) ),
-			'date_formats'         => (object) [
+			'today'                  => $today,
+			'now'                    => $this->context->get( 'now', 'now' ),
+			'request_date'           => Dates::build_date_object( $this->context->get( 'event_date', $today ) ),
+			'rest_url'               => tribe( Rest_Endpoint::class )->get_url(),
+			'rest_nonce'             => wp_create_nonce( 'wp_rest' ),
+			'should_manage_url'      => $this->should_manage_url,
+			'today_url'              => $today_url,
+			'prev_label'             => $this->get_link_label( $this->prev_url( false ) ),
+			'next_label'             => $this->get_link_label( $this->next_url( false ) ),
+			'date_formats'           => (object) [
 				'compact'              => Dates::datepicker_formats( tribe_get_option( 'datepickerFormat' ) ),
 				'month_and_year'       => tribe_get_date_option( 'monthAndYearFormat', 'F Y' ),
 				'time_range_separator' => tribe_get_date_option( 'timeRangeSeparator', ' - ' ),
 				'date_time_separator'  => tribe_get_date_option( 'dateTimeSeparator', ' @ ' ),
 			],
-			'messages'             => $this->get_messages( $events ),
-			'start_of_week'        => get_option( 'start_of_week', 0 ),
-			'breadcrumbs'          => $this->get_breadcrumbs(),
-			'before_events'        => tribe( Advanced_Display::class )->get_before_events_html( $this ),
-			'after_events'         => tribe( Advanced_Display::class )->get_after_events_html( $this ),
-			'display_events_bar'   => $this->filter_display_events_bar( $this->display_events_bar ),
-			'disable_event_search' => tribe_is_truthy( tribe_get_option( 'tribeDisableTribeBar', false ) ),
-			'live_refresh'         => tribe_is_truthy( tribe_get_option( 'liveFiltersUpdate', true ) ),
-			'ical'                 => $this->get_ical_data(),
-			'container_classes'    => $this->get_html_classes(),
-			'is_past'              => 'past' === $this->context->get( 'event_display_mode', false ),
+			'messages'               => $this->get_messages( $events ),
+			'start_of_week'          => get_option( 'start_of_week', 0 ),
+			'breadcrumbs'            => $this->get_breadcrumbs(),
+			'before_events'          => tribe( Advanced_Display::class )->get_before_events_html( $this ),
+			'after_events'           => tribe( Advanced_Display::class )->get_after_events_html( $this ),
+			'display_events_bar'     => $this->filter_display_events_bar( $this->display_events_bar ),
+			'disable_event_search'   => tribe_is_truthy( tribe_get_option( 'tribeDisableTribeBar', false ) ),
+			'live_refresh'           => tribe_is_truthy( tribe_get_option( 'liveFiltersUpdate', true ) ),
+			'ical'                   => $this->get_ical_data(),
+			'container_classes'      => $this->get_html_classes(),
+			'is_past'                => 'past' === $this->context->get( 'event_display_mode', false ),
+			'show_datepicker_submit' => $this->get_show_datepicker_submit(),
 		];
 
 		return $template_vars;
@@ -1740,6 +1741,24 @@ class View implements View_Interface {
 		$ical_data = apply_filters( "tribe_events_views_v2_view_{$this->slug}_ical_data", $ical_data, $this );
 
 		return $ical_data;
+	}
+
+	/**
+	 * Returns a boolean on whether to show the datepicker submit button.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	protected function get_show_datepicker_submit() {
+		$live_refresh       = tribe_is_truthy( tribe_get_option( 'liveFiltersUpdate', true ) );
+		$disable_events_bar = tribe_is_truthy( tribe_get_option( 'tribeDisableTribeBar', false ) );
+
+		if ( empty( $live_refresh ) && ! empty( $disable_events_bar ) ) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**

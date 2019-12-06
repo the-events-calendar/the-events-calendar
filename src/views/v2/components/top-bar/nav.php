@@ -9,11 +9,13 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.10
+ * @version TBD
  *
+ * @var string $prev_url The URL to the previous page, if any, or an empty string.
+ * @var string $next_url The URL to the next page, if any, or an empty string.
  */
 ?>
-<nav class="tribe-events-c-top-bar__nav">
+<nav class="tribe-events-c-top-bar__nav tribe-common-a11y-hidden">
 	<ul class="tribe-events-c-top-bar__nav-list">
 		<?php
 		if ( ! empty( $prev_url ) ) {
