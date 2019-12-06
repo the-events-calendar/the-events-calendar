@@ -57,6 +57,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_action( 'tribe_events_pre_rewrite', [ $this, 'on_tribe_events_pre_rewrite' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'action_disable_assets_v1' ], 0 );
 		add_action( 'tribe_events_pro_shortcode_tribe_events_after_assets', [ $this, 'action_disable_shortcode_assets_v1' ] );
+		add_action( 'updated_option', [ $this, 'action_save_wplang' ], 10, 3 );
 	}
 
 	/**
@@ -463,5 +464,25 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		}
 
 		return $repository_map;
+	}
+
+	/**
+	 * Flush rewrite rules after the site language setting changes.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $option The option name that was updated.
+	 * @param string $old    The option old value.
+	 * @param string $new    The option updated value.
+	 */
+	public function action_save_wplang( $option, $old, $new ) {
+
+		if ( 'WPLANG' !== $option ) {
+			return;
+		}
+
+		// Deleting `rewrite_rules` given that this is being executed after `init`
+		// And `flush_rewrite_rules()` doesn't take effect.
+		delete_option( 'rewrite_rules' );
 	}
 }
