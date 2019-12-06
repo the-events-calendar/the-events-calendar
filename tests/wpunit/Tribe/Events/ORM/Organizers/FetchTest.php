@@ -26,7 +26,7 @@ class FetchTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->factory()->organizer->create_many( 3 );
 
-		$this->assertEqualSets( $matching, tribe_organizers()->where( 'name', 'Izer' )->get_ids() );
+		$this->assertEqualSets( $matching, tribe_organizers()->where( 'name', 'organ-izer-example' )->get_ids() );
 		$this->assertCount( 5, tribe_organizers()->get_ids() );
 	}
 
