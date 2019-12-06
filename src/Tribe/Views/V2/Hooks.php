@@ -82,6 +82,8 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'tribe_support_registered_template_systems', [ $this, 'filter_register_template_updates' ] );
 		add_filter( 'tribe_events_event_repository_map', [ $this, 'add_period_repository' ], 10, 3 );
 
+		add_filter( 'tribe_general_settings_tab_fields', [ $this, 'filter_general_settings_tab_live_update' ], 20 );
+
 		if ( tribe_context()->doing_php_initial_state() ) {
 			add_filter( 'wp_title', [ $this, 'filter_wp_title' ], 10, 2 );
 			add_filter( 'document_title_parts', [ $this, 'filter_document_title_parts' ] );
@@ -382,6 +384,30 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		}
 
 		return false;
+	}
+
+	/**
+	 * Modifies the Live update tooltip properly.
+	 *
+	 * @since  TBD
+	 *
+	 * @param  array $fields  Fields that were passed for the Settigns tab.
+	 *
+	 * @return array          Fields after changing the tooltip.
+	 */
+	public function filter_general_settings_tab_live_update( $fields ) {
+		if ( empty( $fields['liveFiltersUpdate'] ) ) {
+			return $fields;
+		}
+
+		$disable_bar = tribe_is_truthy( tribe_get_option( 'tribeDisableTribeBar', false ) );
+		if ( $disable_bar ) {
+			return $fields;
+		}
+
+		$fields['liveFiltersUpdate']['tooltip'] .= '<br/>' . esc_html__( 'Recommended for all sites using the updated calendar views.', 'the-events-calendar' );
+
+		return $fields;
 	}
 
  	/**
