@@ -270,7 +270,7 @@ class Page {
 		}
 
 		// We wont hijack in case we are not dealing with a Post Type query
-		if ( ! in_array( TEC::POSTTYPE, (array) $query->get( 'post_type' ) ) ) {
+		if ( empty( $query->tribe_is_event_query ) ) {
 			$should_hijack = false;
 		}
 
