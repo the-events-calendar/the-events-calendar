@@ -44,11 +44,31 @@ function tribe_events_views_v2_is_enabled() {
  * @return bool Wether we just activated the v2 on the database.
  */
 function tribe_events_views_v2_smart_activation() {
+	/**
+	 * Allows filtering of the Events Views V2 smart activation..
+	 *
+	 * @since  TBD
+	 *
+	 * @param boolean $enabled Determining if V2 Views is enabled\
+	 */
+	$should_smart_activate = apply_filters( 'tribe_events_views_v2_should_smart_activate', true );
+
+	if ( ! $should_smart_activate ) {
+		return false;
+	}
+
 	if ( tribe_events_views_v2_is_enabled() ) {
 		return false;
 	}
 
 	if ( ! tribe_events_is_new_install() ) {
+		return false;
+	}
+
+	$current_status = tribe_get_option( Manager::$option_enabled, null );
+
+	// Only update when value is either null or empty string.
+	if ( null !== $current_status && '' !== $current_status ) {
 		return false;
 	}
 
