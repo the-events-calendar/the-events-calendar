@@ -22,12 +22,12 @@ class FetchTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_allow_getting_organizers_by_name() {
-		$matching = $this->factory()->organizer->create_many( 2, [ 'post_title' => 'Organ Izer Example' ] );
+		$matching = $this->factory()->organizer->create( [ 'post_title' => 'Organ Izer Example' ] );
 
 		$this->factory()->organizer->create_many( 3 );
 
-		$this->assertEqualSets( $matching, tribe_organizers()->where( 'name', 'organ-izer-example' )->get_ids() );
-		$this->assertCount( 5, tribe_organizers()->get_ids() );
+		$this->assertEqualSets( [ $matching ], tribe_organizers()->where( 'name', 'organ-izer-example' )->get_ids() );
+		$this->assertCount( 4, tribe_organizers()->get_ids() );
 	}
 
 	/**
