@@ -16,10 +16,10 @@
  * @see tribe_get_event() For the format of the event object.
  */
 
-if ( empty( $event->excerpt->value() ) ) {
+if ( empty( (string) $event->excerpt ) ) {
 	return;
 }
 ?>
 <div class="tribe-events-calendar-month__calendar-event-tooltip-description tribe-common-b3">
-	<?php echo $event->excerpt->value(); ?>
+	<?php echo (string) $event->excerpt; ?>
 </div>
