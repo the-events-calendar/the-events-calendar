@@ -30,8 +30,7 @@
 		<div class="tribe-events-c-top-bar__datepicker-container" data-js="tribe-events-top-bar-datepicker-container"></div>
 	</div>
 
-		
-<button
+		<button
 	class="tribe-common-c-btn tribe-common-a11y-hidden tribe-events-c-top-bar__datepicker-submit"
 	type="submit"
 	name="submit-bar"
