@@ -22,6 +22,7 @@ class List_ViewTest extends ViewTestCase {
 			[
 				'today'      => $this->mock_date_value,
 				'now'        => $this->mock_date_value,
+				'event_date' => $this->mock_date_value,
 			]
 		);
 
@@ -73,6 +74,7 @@ class List_ViewTest extends ViewTestCase {
 		$list_view->set_context( tribe_context()->alter( [
 			'today'      => $this->mock_date_value,
 			'now'        => $this->mock_date_value,
+			'event_date' => $this->mock_date_value,
 			'events_per_page' => 2,
 		] ) );
 		$html = $list_view->get_html();
