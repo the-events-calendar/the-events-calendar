@@ -93,6 +93,7 @@ class Context extends \tad_DI52_ServiceProvider {
 						],
 						Tribe__Context::REQUEST_VAR => [ 'eventDate', 'tribe-bar-date' ],
 						Tribe__Context::QUERY_VAR   => 'eventDate',
+						Tribe__Context::WP_PARSED   => 'eventDate',
 					],
 					'write' => [
 						Tribe__Context::REQUEST_VAR => [ 'eventDate', 'tribe-bar-date' ],
