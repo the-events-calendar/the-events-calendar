@@ -855,8 +855,8 @@ class View implements View_Interface {
 		 * We're replacing the wp_query w/ the one built from the repository, we need to restore values the
 		 * Context might look up during the request.
 		 */
-		$wp_query->query = array_merge( (array) $this->global_backup['query'], (array) $wp_query->query );
-		$wp_query->query_vars = array_merge( (array) $this->global_backup['query_vars'], (array) $wp_query->query_vars );
+		$wp_query->query = array_merge( (array) $wp_query->query, (array) $this->global_backup['query'] );
+		$wp_query->query_vars = array_merge( (array) $wp_query->query_vars, (array) $this->global_backup['query_vars'] );
 
 		wp_reset_postdata();
 
