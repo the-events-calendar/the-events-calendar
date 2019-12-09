@@ -837,8 +837,8 @@ class View implements View_Interface {
 		global $wp_query;
 
 		$this->global_backup = [
-			'wp_query' => $wp_query,
-			'$_SERVER' => isset( $_SERVER ) ? $_SERVER : [],
+			'wp_query'   => $wp_query,
+			'$_SERVER'   => isset( $_SERVER ) ? $_SERVER : []
 		];
 
 		$args = wp_parse_args( $args, $this->repository_args );
@@ -848,6 +848,7 @@ class View implements View_Interface {
 		$this->set_url( $args, true );
 
 		$wp_query = $this->repository->get_query();
+
 		wp_reset_postdata();
 
 		// Set the $_SERVER['REQUEST_URI'] as many WordPress functions rely on it to correctly work.
