@@ -11,6 +11,11 @@ class List_ViewTest extends ViewTestCase {
 
 	use MatchesSnapshots;
 
+	public function setUp() {
+		parent::setUp();
+		\Tribe__Rewrite::instance()->setup();
+	}
+
 	/**
 	 * Test render empty
 	 */

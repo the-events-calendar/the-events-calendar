@@ -838,9 +838,7 @@ class View implements View_Interface {
 
 		$this->global_backup = [
 			'wp_query'   => $wp_query,
-			'$_SERVER'   => isset( $_SERVER ) ? $_SERVER : [],
-			'query'      => $wp_query->query,
-			'query_vars' => $wp_query->query_vars,
+			'$_SERVER'   => isset( $_SERVER ) ? $_SERVER : []
 		];
 
 		$args = wp_parse_args( $args, $this->repository_args );
@@ -850,13 +848,6 @@ class View implements View_Interface {
 		$this->set_url( $args, true );
 
 		$wp_query = $this->repository->get_query();
-
-		/*
-		 * We're replacing the wp_query w/ the one built from the repository, we need to restore values the
-		 * Context might look up during the request.
-		 */
-		$wp_query->query = array_merge( (array) $wp_query->query, (array) $this->global_backup['query'] );
-		$wp_query->query_vars = array_merge( (array) $wp_query->query_vars, (array) $this->global_backup['query_vars'] );
 
 		wp_reset_postdata();
 
