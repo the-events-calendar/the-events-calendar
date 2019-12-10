@@ -83,8 +83,14 @@ trait List_Behavior {
 		$show_now = $show_now && $this->context->get( 'page' ) <= 1;
 
 		if ( ! $is_past ) {
-			$start = $first_event instanceof \WP_Post ? $first_event->dates->start_display : $user_date;
-			$end   = $last_event instanceof \WP_Post ? $last_event->dates->start_display : $user_date;
+			if ( $page === 1 ) {
+				// On the first page show the date the user has implicitly (today) or explicitly (w/ bar) selected.
+				$start = $user_date;
+			} else {
+				// On following pages use the date of the first event, if any.
+				$start = $first_event instanceof \WP_Post ? $first_event->dates->start_display : $user_date;
+			}
+			$end = $last_event instanceof \WP_Post ? $last_event->dates->start_display : $user_date;
 		} else {
 			$start = $first_event instanceof \WP_Post ? $first_event->dates->start_display : $user_date;
 			$end   = $last_event instanceof \WP_Post ? $last_event->dates->start_display : $user_date;
