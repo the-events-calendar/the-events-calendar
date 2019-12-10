@@ -159,7 +159,7 @@ class Template extends Base_Template {
 	/**
 	 * Sets up the post data and replace the global post variable on all required places.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @param WP_Post $event Which event will replace the Post for the templates
 	 *

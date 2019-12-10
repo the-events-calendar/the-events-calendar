@@ -3,7 +3,7 @@
  * A value object representing an event query database result and the minimal entity of information required to work
  * with events.
  *
- * @since   TBD
+ * @since   4.9.13
  *
  * @package Tribe\Events\Views\V2\Repository
  */
@@ -13,7 +13,7 @@ namespace Tribe\Events\Views\V2\Repository;
 /**
  * Class Event_Result
  *
- * @since   TBD
+ * @since   4.9.13
  *
  * @package Tribe\Events\Views\V2\Repository
  */
@@ -22,7 +22,7 @@ class Event_Result {
 	/**
 	 * An array of data keys that are required for an event result to be valid.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @var array
 	 */
@@ -30,7 +30,7 @@ class Event_Result {
 	/**
 	 * The data wrapped by the value object.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @var array
 	 */
@@ -55,7 +55,7 @@ class Event_Result {
 	/**
 	 * Builds and returns a result set from an array of values.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @param array $value The value to build the instance from.
 	 *
@@ -68,7 +68,7 @@ class Event_Result {
 	/**
 	 * Returns the event post ID.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @return int The event post ID.
 	 */
@@ -79,7 +79,7 @@ class Event_Result {
 	/**
 	 * Returns the event start date in the site timezone.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @return string The event start date and time, in the `Y-m-d H:i:s` format.
 	 */
@@ -90,7 +90,7 @@ class Event_Result {
 	/**
 	 * Returns the event end date in the site timezone.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @return string The event end date and time, in the `Y-m-d H:i:s` format.
 	 */
@@ -101,7 +101,7 @@ class Event_Result {
 	/**
 	 * Returns the event timezone string.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @return string The event timezone string.
 	 */
@@ -112,7 +112,7 @@ class Event_Result {
 	/**
 	 * Returns a flag indicating whether the event is an all-day one or not.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @return bool Whether the event is an all-day one or not.
 	 */
@@ -123,7 +123,7 @@ class Event_Result {
 	/**
 	 * Returns the event post status.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @return bool The event post status.
 	 */
@@ -134,7 +134,7 @@ class Event_Result {
 	/**
 	 * Dumps the event result data to array.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @return array The event result data.
 	 */
@@ -153,7 +153,7 @@ class Event_Result {
 	/**
 	 * Sets a property on the result, returning a modified clone.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @param string $name  The name of the property to set.
 	 * @param mixed  $value The property value.
@@ -170,7 +170,7 @@ class Event_Result {
 	/**
 	 * Checks whether a data entry is set or not.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @param string $name The name of the data entry to set.
 	 *

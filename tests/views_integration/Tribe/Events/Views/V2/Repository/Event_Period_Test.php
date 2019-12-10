@@ -2,7 +2,7 @@
 /**
  * ${CARET}
  *
- * @since   TBD
+ * @since   4.9.13
  *
  * @package Tribe\Events\Views\V2\Repository
  */

@@ -82,7 +82,7 @@ tribe.events.views.datepicker = {};
 	/**
 	 * Date object representing today
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @type {Date|null}
 	 */
@@ -265,7 +265,7 @@ tribe.events.views.datepicker = {};
 	/**
 	 * Handle datepicker show event
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @param {Event} event event object for 'show' event
 	 *
@@ -400,7 +400,7 @@ tribe.events.views.datepicker = {};
 	/**
 	 * Set today to date object representing today
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @param {string} today string representation of today's date according to website time
 	 *
@@ -420,7 +420,7 @@ tribe.events.views.datepicker = {};
 	 * The function uses UTC values to maintain consistency with website date.
 	 * Function will return false if proper unit is not provided.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @param {Date}   date Date object representing the date being compared
 	 * @param {string} unit Unit to compare dates to
@@ -445,7 +445,7 @@ tribe.events.views.datepicker = {};
 	 * The function uses UTC values to maintain consistency with website date.
 	 * Function will return false if proper unit is not provided.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @param {Date}   date Date object representing the date being compared
 	 * @param {string} unit Unit to compare dates to
@@ -470,7 +470,7 @@ tribe.events.views.datepicker = {};
 	/**
 	 * Filter datepicker day cells
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @return {string|void}
 	 */
@@ -485,7 +485,7 @@ tribe.events.views.datepicker = {};
 	/**
 	 * Filter datepicker month cells
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @return {string|void}
 	 */
@@ -500,7 +500,7 @@ tribe.events.views.datepicker = {};
 	/**
 	 * Filter datepicker year cells
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @return {string|void}
 	 */

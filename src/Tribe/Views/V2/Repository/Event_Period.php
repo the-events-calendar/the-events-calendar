@@ -2,7 +2,7 @@
 /**
  * A period-based repository to fetch events.
  *
- * @since   TBD
+ * @since   4.9.13
  *
  * @package Tribe\Events\Views\V2\Repository
  */
@@ -22,7 +22,7 @@ use WP_Post;
 /**
  * Class Event_Period
  *
- * @since   TBD
+ * @since   4.9.13
  *
  * @package Tribe\Events\Views\V2\Repository
  */
@@ -32,7 +32,7 @@ class Event_Period implements Core_Read_Interface {
 	/**
 	 * A definition of each filter required argument count and nature.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @var array
 	 */
@@ -45,7 +45,7 @@ class Event_Period implements Core_Read_Interface {
 	/**
 	 * Whether the repository should cache sets and results in WP cache or not.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @var bool
 	 */
@@ -53,7 +53,7 @@ class Event_Period implements Core_Read_Interface {
 	/**
 	 * The period start date.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @var \DateTime
 	 */
@@ -62,7 +62,7 @@ class Event_Period implements Core_Read_Interface {
 	/**
 	 * The period end date.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @var \DateTime
 	 */
@@ -71,7 +71,7 @@ class Event_Period implements Core_Read_Interface {
 	/**
 	 * A flag property to indicate whether the sets should be fetched and built using the site timezone or not.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @var bool
 	 */
@@ -80,7 +80,7 @@ class Event_Period implements Core_Read_Interface {
 	/**
 	 * The last fetched sets.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @var Events_Result_Set[]
 	 */
@@ -90,7 +90,7 @@ class Event_Period implements Core_Read_Interface {
 	 * The "base" repository used by this repository.
 	 * This repository will handle any non-period related filter.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @var \Tribe__Repository__Interface
 	 */
@@ -99,7 +99,7 @@ class Event_Period implements Core_Read_Interface {
 	/**
 	 * A flag property to indicate whether there are filters for the base repository or not.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @var bool
 	 */
@@ -136,7 +136,7 @@ class Event_Period implements Core_Read_Interface {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 */
 	public function by( $key, $value = null ) {
 		$original_by_key = $key;
@@ -164,7 +164,7 @@ class Event_Period implements Core_Read_Interface {
 	/**
 	 * Returns the base event repository used by this repository.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @return \Tribe__Repository__Interface The base repository instance used by this repository.
 	 */
@@ -557,7 +557,7 @@ class Event_Period implements Core_Read_Interface {
 	/**
 	 * Gets the ids of the posts matching the query.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @return array An array containing the post IDs to update.
 	 */
@@ -568,7 +568,7 @@ class Event_Period implements Core_Read_Interface {
 	/**
 	 * Flattens and returns the post IDs of all events in the a sets collection.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @param array $sets The sets to parse.
 	 *
@@ -594,7 +594,7 @@ class Event_Period implements Core_Read_Interface {
 	/**
 	 * Returns an array of result sets, one for each period day.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @return Events_Result_Set[] An array of result sets, in the shape `[ <Y-m-d> => <Event_Result_Set> ]`.
 	 */
@@ -634,7 +634,7 @@ class Event_Period implements Core_Read_Interface {
 	/**
 	 * Returns the already fetched set, or a sub-set of it.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @param array              $sets  The sets, by day, to get the subset from.
 	 * @param \DateTimeInterface $start The sub-set start.
@@ -669,7 +669,7 @@ class Event_Period implements Core_Read_Interface {
 	/**
 	 * Queries the database to fetch the sets.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @return array|false Either the results of the query, or `false` on error.
 	 */
@@ -688,7 +688,7 @@ class Event_Period implements Core_Read_Interface {
 		 *
 		 * Lower this value on less powerful hosts.
 		 *
-		 * @since TBD
+		 * @since 4.9.13
 		 *
 		 * @param int                $limit The SQL LIMIT to use for result set fetching.
 		 * @param static             $this  The current repository instance.
@@ -741,7 +741,7 @@ class Event_Period implements Core_Read_Interface {
 	/**
 	 * Queries for all the events that start before the period ends.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @param int                $limit   The value of the LIMIT that should be respected to send queries (in respect
 	 *                                    to the
@@ -768,7 +768,7 @@ class Event_Period implements Core_Read_Interface {
 	   		start_date.meta_value AS 'start_date'
 
 		FROM {$wpdb->posts} p
-				INNER JOIN {$wpdb->postmeta} start_date 
+				INNER JOIN {$wpdb->postmeta} start_date
 					ON (p.ID = start_date.post_id AND start_date.meta_key = %s)
 
 		WHERE p.post_type = '{$post_type}'
@@ -789,7 +789,7 @@ class Event_Period implements Core_Read_Interface {
 	 * The method will run multiple queries if the limit is lower than the number of results or the number of post IDs
 	 * in the `$post_in` parameter.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @param int        $limit        The value of the LIMIT that should be respected to send queries (in respect to
 	 *                                 the `$post_in` parameter) or fetch results (the SQL LIMIT clause). This limit
@@ -844,7 +844,7 @@ class Event_Period implements Core_Read_Interface {
 	/**
 	 * Queries for all the events that end after the period starts.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @param int                $limit   The value of the LIMIT that should be respected to send queries (in respect
 	 *                                    to the
@@ -870,7 +870,7 @@ class Event_Period implements Core_Read_Interface {
 	   		end_date.meta_value AS 'end_date'
 
 		FROM {$wpdb->posts} p
-				INNER JOIN {$wpdb->postmeta} end_date 
+				INNER JOIN {$wpdb->postmeta} end_date
 					ON (p.ID = end_date.post_id AND end_date.meta_key = %s)
 
 		WHERE p.post_type = '{$post_type}'
@@ -890,7 +890,7 @@ class Event_Period implements Core_Read_Interface {
 	 * Queries the database to fetch all the values of a single meta entry for all the post IDs in the datatbase or in
 	 * a defined interval.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @param int        $limit           The value of the LIMIT that should be respected to send queries (in respect
 	 *                                    to the
@@ -931,7 +931,7 @@ class Event_Period implements Core_Read_Interface {
 	/**
 	 * Groups a set of raw database results by start date.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @param array $results A raw set of database results.
 	 *
@@ -1004,7 +1004,7 @@ class Event_Period implements Core_Read_Interface {
 	/**
 	 * Casts each set to an `Event_Result_Set`.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @param array $raw_sets The raw sets.
 	 *
@@ -1024,7 +1024,7 @@ class Event_Period implements Core_Read_Interface {
 	/**
 	 * Adds to the sets any missing day.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @param array $sets The current sets, by day.
 	 *
@@ -1084,7 +1084,7 @@ class Event_Period implements Core_Read_Interface {
 	/**
 	 * Returns the full cache key for a partial key.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @param string $key The partial key.
 	 *
@@ -1099,7 +1099,7 @@ class Event_Period implements Core_Read_Interface {
 	/**
 	 * Further filters the sets using a default event repository to handle the non-period related filters.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @param array $sets The sets found by this repository so far.
 	 */
@@ -1126,7 +1126,7 @@ class Event_Period implements Core_Read_Interface {
 	 *
 	 * This method will "warm up" the instance cache of the repository fetching the events in the period.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 */
 	public function fetch() {
 		$this->get_sets();
@@ -1137,7 +1137,7 @@ class Event_Period implements Core_Read_Interface {
 	 *
 	 * A wrapper around the `by_period` method.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @param string|int|\DateTimeInterface $date The day date.
 	 *
@@ -1152,7 +1152,7 @@ class Event_Period implements Core_Read_Interface {
 	/**
 	 * Sets up the filter to fetch events sets in a period.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @param string|int|\DateTimeInterface $start_date The period start date.
 	 * @param string|int|\DateTimeInterface $end_date   The period end date.
@@ -1195,7 +1195,7 @@ class Event_Period implements Core_Read_Interface {
 	 * If the current request period overlaps a cached period, then we fetch sets for each day in the period from the
 	 * cache.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @return array|null Either a set of results fetched from the cache, or `null` if nothing was found in cache.
 	 */
@@ -1240,7 +1240,7 @@ class Event_Period implements Core_Read_Interface {
 	/**
 	 * Shorthand method to get the first set of a search.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @return Events_Result_Set Either the first found set, or an empty set.
 	 */
@@ -1253,7 +1253,7 @@ class Event_Period implements Core_Read_Interface {
 	/**
 	 * Sets, or unsets if the passed value is `null`, the base repository used by this repository.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @param Core_Read_Interface $base_repository The base repository this repository should use; a `null` value will
 	 *                                             unset it.

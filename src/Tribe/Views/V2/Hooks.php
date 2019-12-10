@@ -370,7 +370,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Filters the `redirect_canonical` to prevent any redirects on embed URLs.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @param mixed $redirect_url URL which we will redirect to.
 	 *
@@ -390,7 +390,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Modifies the Live update tooltip properly.
 	 *
-	 * @since  TBD
+	 * @since  4.9.13
 	 *
 	 * @param  array $fields  Fields that were passed for the Settigns tab.
 	 *
@@ -414,7 +414,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
  	/**
 	 * Registers The Events Calendar with the views/overrides update checker.
 	 *
-	 * @since  TBD
+	 * @since  4.9.13
 	 *
 	 * @param array $plugins List of plugisn to be checked.
 	 *
@@ -449,7 +449,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Adds the period repository to the map of available repositories.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @param array $repository_map The current repository map.
 	 *
@@ -469,7 +469,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Flush rewrite rules after the site language setting changes.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @param string $option The option name that was updated.
 	 * @param string $old    The option old value.
