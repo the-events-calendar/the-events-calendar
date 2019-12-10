@@ -157,6 +157,9 @@ class Tribe__Events__Integrations__Freemius {
 			return TRIBE_EVENTS_INTEGRATIONS_SHOULD_LOAD_FREEMIUS;
 		}
 
+		// activate Freemius in all instances
+		return true;
+
 		// If we have the option we use it
 		$seed                  = tribe_get_option( 'freemius_random_seed', null );
 		$seed_misses_threshold = null === $seed || $threshold < $seed;

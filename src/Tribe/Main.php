@@ -3020,6 +3020,15 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
+		 * plugin uninstall callback
+		 * @see register_uninstall_hook()
+		 */
+		public static function uninstall() {
+			Tribe__Events__Integrations__Manager::instance()->load_freemius();
+			tribe( 'events.integrations.freemius' )->uninstall();
+		}
+
+		/**
 		 * Adds an alias for get_post_meta so we can override empty values with defaults.
 		 * If you need the raw unfiltered data, use get_post_meta directly.
 		 * This is mainly for templates.
