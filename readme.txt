@@ -215,7 +215,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
-= [4.9.13] 2019-12-11 =
+= [4.9.13] 2019-12-10 =
 
 * Tweak - Allow Event Aggregator date refinements for Eventbrite source.
 * Language - 29 new strings added, 201 updated, 0 fuzzied, and 0 obsoleted
