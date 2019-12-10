@@ -15,7 +15,7 @@ tribe.events.views = tribe.events.views || {};
  *
  * @type   {PlainObject}
  */
-tribe.events.views.breakpoint = {};
+tribe.events.views.breakpoint = tribe.events.views.breakpoint || {};
 
 /**
  * Initializes in a Strict env the code that manages the Event Views
