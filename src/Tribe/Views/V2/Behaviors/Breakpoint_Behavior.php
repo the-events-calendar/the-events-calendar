@@ -23,104 +23,80 @@ use Tribe\Events\Views\V2\View;
 trait Breakpoint_Behavior {
 
 	/**
-	 * Returns the xsmall breakpoint value
+	 * Returns a given breakpoint.
 	 *
 	 * @since TBD
 	 *
-	 * @return int
+	 * @param string $name Which index we getting the breakpoint for.
+	 *
+	 * @return int   Returns the breakpoint with that given name or 0 when not available.
 	 */
-	protected function get_xsmall_breakpoint() {
-		// Default value for xsmall breakpoint is 500px
-		$bp_xsmall = 500;
+	public function get_breakpoint( $name ) {
+		$breakpoints = $this->get_breakpoints();
+		$breakpoint  = false;
+
+		if ( isset( $breakpoints[ $name ] ) ) {
+			$breakpoint = $breakpoints[ $name ];
+		}
 
 		/**
-		 * Filters the xsmall breakpoint value.
+		 * Filters the breakpoint value.
 		 *
 		 * @since TBD
 		 *
-		 * @param object $bp_xsmall The xsmall breakpoint value.
-		 * @param View   $this      The current View instance being rendered.
+		 * @param int    $breakpoint The breakpoint value.
+		 * @param View   $this       The current View instance being rendered.
 		 */
-		$bp_xsmall = apply_filters( "tribe_events_views_v2_view_breakpoint_xsmall", $bp_xsmall, $this );
+		$breakpoint = apply_filters( "tribe_events_views_v2_view_breakpoint_{$name}", $breakpoint, $this );
 
 		/**
-		 * Filters the xsmall breakpoint value for a specific view.
+		 * Filters the breakpoint value for a specific view.
 		 *
 		 * @since TBD
 		 *
-		 * @param object $bp_xsmall The xsmall breakpoint value.
-		 * @param View   $this      The current View instance being rendered.
+		 * @param int    $breakpoint The breakpoint value.
+		 * @param View   $this       The current View instance being rendered.
 		 */
-		$bp_xsmall = apply_filters( "tribe_events_views_v2_view_{$this->slug}_breakpoint_xsmall", $bp_xsmall, $this );
+		$breakpoint = apply_filters( "tribe_events_views_v2_view_{$this->slug}_breakpoint_{$name}", $breakpoint, $this );
 
-		return $bp_xsmall;
+		return absint( $breakpoint );
 	}
 
 	/**
-	 * Returns the medium breakpoint value
+	 * Returns all of the available breakpoints.
 	 *
 	 * @since TBD
 	 *
-	 * @return int
+	 * @return array Indexed array of all available breakpoints.
 	 */
-	protected function get_medium_breakpoint() {
-		// Default value for medium breakpoint is 768px
-		$bp_medium = 768;
+	public function get_breakpoints() {
+		// Default breakpoints.
+		$breakpoints = [
+			'xsmall' => 500,
+			'medium' => 768,
+			'full'   => 960,
+		];
 
 		/**
-		 * Filters the medium breakpoint value.
+		 * Filters all the breakpoints available.
 		 *
 		 * @since TBD
 		 *
-		 * @param object $bp_medium The medium breakpoint value.
-		 * @param View   $this      The current View instance being rendered.
+		 * @param array  $breakpoints All breapoints available.
+		 * @param View   $this        The current View instance being rendered.
 		 */
-		$bp_medium = apply_filters( "tribe_events_views_v2_view_breakpoint_medium", $bp_medium, $this );
+		$breakpoints = apply_filters( "tribe_events_views_v2_view_breakpoints", $breakpoints, $this );
 
 		/**
 		 * Filters the medium breakpoint value for a specific view.
 		 *
 		 * @since TBD
 		 *
-		 * @param object $bp_medium The medium breakpoint value.
-		 * @param View   $this      The current View instance being rendered.
+		 * @param array  $breakpoints All breapoints available.
+		 * @param View   $this        The current View instance being rendered.
 		 */
-		$bp_medium = apply_filters( "tribe_events_views_v2_view_{$this->slug}_breakpoint_medium", $bp_medium, $this );
+		$breakpoints = apply_filters( "tribe_events_views_v2_view_{$this->slug}_breakpoints", $breakpoints, $this );
 
-		return $bp_medium;
-	}
-
-	/**
-	 * Returns the full breakpoint value
-	 *
-	 * @since TBD
-	 *
-	 * @return int
-	 */
-	protected function get_full_breakpoint() {
-		// Default value for full breakpoint is 960px
-		$bp_full = 960;
-
-		/**
-		 * Filters the full breakpoint value.
-		 *
-		 * @since TBD
-		 *
-		 * @param object $bp_full The full breakpoint value.
-		 * @param View   $this    The current View instance being rendered.
-		 */
-		$bp_full = apply_filters( "tribe_events_views_v2_view_breakpoint_full", $bp_full, $this );
-
-		/**
-		 * Filters the full breakpoint value for a specific view.
-		 *
-		 * @since TBD
-		 *
-		 * @param object $bp_full The full breakpoint value.
-		 * @param View   $this    The current View instance being rendered.
-		 */
-		$bp_full = apply_filters( "tribe_events_views_v2_view_{$this->slug}_breakpoint_full", $bp_full, $this );
-
-		return $bp_full;
+		return $breakpoints;
 	}
 }

@@ -1199,9 +1199,9 @@ class View implements View_Interface {
 			'is_past'                => 'past' === $this->context->get( 'event_display_mode', false ),
 			'show_datepicker_submit' => $this->get_show_datepicker_submit(),
 			'breakpoints'            => [
-				'xsmall' => $this->get_xsmall_breakpoint(),
-				'medium' => $this->get_medium_breakpoint(),
-				'full'   => $this->get_full_breakpoint(),
+				'xsmall' => $this->get_breakpoint( 'xsmall' ),
+				'medium' => $this->get_breakpoint( 'medium' ),
+				'full'   => $this->get_breakpoint( 'full' ),
 			],
 		];
 
