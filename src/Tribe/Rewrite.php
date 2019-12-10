@@ -581,7 +581,7 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 	 *
 	 * E.g. the events archive can be changed from `/events` to somethings like `/trainings`.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @param array  $localized_matchers An array of the current localized matchers.
 	 * @param string $default_slug       The default slug for the option controlled slug; e.g. `events` for the events

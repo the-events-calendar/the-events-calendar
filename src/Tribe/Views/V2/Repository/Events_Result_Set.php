@@ -2,7 +2,7 @@
 /**
  * A collection of Event_Results.
  *
- * @since   TBD
+ * @since   4.9.13
  *
  * @package Tribe\Events\Views\V2\Repository
  */
@@ -16,7 +16,7 @@ use Tribe__Utils__Array as Arr;
 /**
  * Class Events_Result_Set
  *
- * @since   TBD
+ * @since   4.9.13
  *
  * @package Tribe\Events\Views\V2\Repository
  */
@@ -26,7 +26,7 @@ class Events_Result_Set implements Collection_Interface {
 	/**
 	 * An array of event results in this result set.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @var array
 	 */
@@ -44,7 +44,7 @@ class Events_Result_Set implements Collection_Interface {
 	/**
 	 * Builds a result set from different type of values.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @param mixed $value A result set, that will be returned intact, an array of event results
 	 *
@@ -117,7 +117,7 @@ class Events_Result_Set implements Collection_Interface {
 	/**
 	 * Plucks a key from all the event results in the collection.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @param string $column The key to pluck.
 	 *
@@ -130,7 +130,7 @@ class Events_Result_Set implements Collection_Interface {
 	/**
 	 * Iterates over the result set and to return the array version of each result.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @return array An array of arrays, each one the array version of an `Event_Result`.
 	 */
@@ -143,7 +143,7 @@ class Events_Result_Set implements Collection_Interface {
 	/**
 	 * Overrides the base `Collection_Trait` implementation to normalize all the items in the result set.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @param string $data The serialized data.
 	 */
@@ -155,7 +155,7 @@ class Events_Result_Set implements Collection_Interface {
 	/**
 	 * Normalizes the event results in this set ensuring each one is an instance of `Event_Result`.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @param array $event_results A set of event results in array or object format..
 	 *

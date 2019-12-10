@@ -148,7 +148,7 @@ class Template_Bootstrap {
 	/**
 	 * Fetches the template for the Single Embed Event page using the legacy view system.
 	 *
-	 * @since  TBD
+	 * @since  4.9.13
 	 *
 	 * @return string
 	 */

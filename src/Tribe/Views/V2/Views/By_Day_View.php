@@ -446,7 +446,7 @@ abstract class By_Day_View extends View {
 	/**
 	 * ${CARET}
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @return bool
 	 */

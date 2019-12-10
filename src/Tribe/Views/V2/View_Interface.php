@@ -92,7 +92,7 @@ interface View_Interface  extends View_Url_Provider_Interface, Repository_User_I
 	/**
 	 * Returns all the parent views that the current class as an array of slugs.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @return string[] Array of string with the slugs of all the registered views.
 	 */
@@ -101,7 +101,7 @@ interface View_Interface  extends View_Url_Provider_Interface, Repository_User_I
 	/**
 	 * Returns all html classes for the view instance we are handling.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @param array $classes  Array of classes that are going to be appended to this instance.
 	 *
@@ -212,7 +212,7 @@ interface View_Interface  extends View_Url_Provider_Interface, Repository_User_I
 	/**
 	 * Returns the URL to get the View for a date and a set of arguments.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @param string|int|\DateTimeInterface $date       The date to return the URL for.
 	 * @param array|string                  $query_args The query string or arguments to append to the URL.

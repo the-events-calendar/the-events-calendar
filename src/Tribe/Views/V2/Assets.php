@@ -34,7 +34,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 	/**
 	 * Caches the result of the `should_enqueue_frontend` check.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @var bool
 	 */
@@ -331,7 +331,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 	 * Checks if we should enqueue frontend assets for the V2 views.
 	 *
 	 * @since 4.9.4
-	 * @since TBD Cache the check value.
+	 * @since 4.9.13 Cache the check value.
 	 *
 	 * @return bool
 	 */

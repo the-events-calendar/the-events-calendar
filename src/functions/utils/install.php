@@ -5,7 +5,7 @@ use Tribe__Events__Main as TEC;
  * Verifies that the current install of The Events Calendar is not
  * a pre-existing setup, and trigger the activation of View V2.
  *
- * @since  TBD
+ * @since  4.9.13
  *
  * @return  bool  When to activate the View V2 or not.
  */

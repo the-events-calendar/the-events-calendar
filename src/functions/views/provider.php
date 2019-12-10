@@ -39,7 +39,7 @@ function tribe_events_views_v2_is_enabled() {
  *
  * Current only being triggered on plugin actiovation hook.
  *
- * @since TBD
+ * @since 4.9.13
  *
  * @return bool Wether we just activated the v2 on the database.
  */
@@ -47,7 +47,7 @@ function tribe_events_views_v2_smart_activation() {
 	/**
 	 * Allows filtering of the Events Views V2 smart activation..
 	 *
-	 * @since  TBD
+	 * @since  4.9.13
 	 *
 	 * @param boolean $enabled Determining if V2 Views is enabled\
 	 */
@@ -88,7 +88,7 @@ function tribe_events_views_v2_smart_activation() {
 /**
  * Returns whether the Event Period repository should be used or not.
  *
- * @since TBD
+ * @since 4.9.13
  *
  * @return bool whether the Event Period repository should be used or not.
  */
@@ -105,7 +105,7 @@ function tribe_events_view_v2_use_period_repository() {
 	/**
 	 * Filters whether to use the period repository or not.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @param boolean $enabled Whether the Event Period repository should be used or not.
 	 */

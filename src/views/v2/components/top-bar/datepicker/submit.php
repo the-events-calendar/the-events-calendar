@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version TBD
+ * @version 4.9.13
  *
  * @var bool $show_datepicker_submit Boolean on whether to show the datepicker submit button.
  *

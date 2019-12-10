@@ -168,7 +168,7 @@ class View implements View_Interface {
 	 * The instance of the rewrite handling class to use.
 	 * Extending classes can override this to use more specific rewrite handlers (e.g. PRO Views).
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @var Rewrite
 	 */
@@ -624,7 +624,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the query arguments array for a View URL.
 		 *
-		 * @since TBD
+		 * @since 4.9.13
 		 *
 		 * @param array                        $html_classes  Array of classes used for this view.
 		 * @param string                       $view_slug     The current view slug.
@@ -635,7 +635,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the query arguments array for a specific View URL.
 		 *
-		 * @since TBD
+		 * @since 4.9.13
 		 *
 		 * @param array                        $html_classes  Array of classes used for this view.
 		 * @param \Tribe\Events\Views\V2\View  $instance      The current View object.
@@ -1687,7 +1687,7 @@ class View implements View_Interface {
 	 *
 	 * @todo  @bordoni move this method to a supporting class.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @return object
 	 */
@@ -1724,7 +1724,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the ical data.
 		 *
-		 * @since TBD
+		 * @since 4.9.13
 		 *
 		 * @param object $ical_data An object containing the ical data.
 		 * @param View   $this      The current View instance being rendered.
@@ -1734,7 +1734,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the ical data for a specific view.
 		 *
-		 * @since TBD
+		 * @since 4.9.13
 		 *
 		 * @param object $ical_data An object containing the ical data.
 		 * @param View   $this      The current View instance being rendered.
@@ -1747,7 +1747,7 @@ class View implements View_Interface {
 	/**
 	 * Returns a boolean on whether to show the datepicker submit button.
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @return bool
 	 */
@@ -1800,7 +1800,7 @@ class View implements View_Interface {
 	 *
 	 * Extending Views cal override this to customize the URL output (e.g. Month View).
 	 *
-	 * @since TBD
+	 * @since 4.9.13
 	 *
 	 * @return string The date format that should be used to format the date in the View URL.
 	 */
