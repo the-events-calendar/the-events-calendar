@@ -311,7 +311,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @since TBD
 	 *
-	 * @param      string $title The current title value.
+	 * @param string $title The current title value.
 	 *
 	 * @return string The current title or empty string.
 	 */
