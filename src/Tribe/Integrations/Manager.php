@@ -47,7 +47,7 @@ class Tribe__Events__Integrations__Manager {
 	 *
 	 * @return bool
 	 */
-	public function load_freemius() {
+	private function load_freemius() {
 		/**
 		 * Allows third-party disabling of The Events Calendar integration
 		 *
