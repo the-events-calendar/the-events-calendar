@@ -21,6 +21,18 @@ use Tribe\Events\Views\V2\View;
  * @property string $string The slug of the View instance.
  */
 trait Breakpoint_Behavior {
+	/**
+	 * Default breakpoints used by TEC views.
+	 *
+	 * @since TBD
+	 *
+	 * @var array
+	 */
+	protected $default_breakpoints = [
+		'xsmall' => 500,
+		'medium' => 768,
+		'full'   => 960,
+	];
 
 	/**
 	 * Returns a given breakpoint.
@@ -39,26 +51,6 @@ trait Breakpoint_Behavior {
 			$breakpoint = $breakpoints[ $name ];
 		}
 
-		/**
-		 * Filters the breakpoint value.
-		 *
-		 * @since TBD
-		 *
-		 * @param int    $breakpoint The breakpoint value.
-		 * @param View   $this       The current View instance being rendered.
-		 */
-		$breakpoint = apply_filters( "tribe_events_views_v2_view_breakpoint_{$name}", $breakpoint, $this );
-
-		/**
-		 * Filters the breakpoint value for a specific view.
-		 *
-		 * @since TBD
-		 *
-		 * @param int    $breakpoint The breakpoint value.
-		 * @param View   $this       The current View instance being rendered.
-		 */
-		$breakpoint = apply_filters( "tribe_events_views_v2_view_{$this->slug}_breakpoint_{$name}", $breakpoint, $this );
-
 		return absint( $breakpoint );
 	}
 
@@ -70,12 +62,7 @@ trait Breakpoint_Behavior {
 	 * @return array Indexed array of all available breakpoints.
 	 */
 	public function get_breakpoints() {
-		// Default breakpoints.
-		$breakpoints = [
-			'xsmall' => 500,
-			'medium' => 768,
-			'full'   => 960,
-		];
+		$breakpoints = $this->default_breakpoints;
 
 		/**
 		 * Filters all the breakpoints available.
