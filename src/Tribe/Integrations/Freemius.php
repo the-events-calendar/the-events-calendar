@@ -94,7 +94,8 @@ class Tribe__Events__Integrations__Freemius {
 			[
 				'menu' => [
 					'slug'    => $this->page,
-					'account' => true,
+					'account' => false,
+					'contact' => false,
 					'support' => false,
 				],
 				'is_premium'     => false,
