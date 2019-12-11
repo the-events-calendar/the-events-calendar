@@ -16,8 +16,6 @@
 	}
 
 	.tribe-events-c-top-bar__nav {
-		@mixin hidden;
-
 		@media (--viewport-medium) {
 			display: block !important;
 			flex: none;
@@ -50,8 +48,6 @@
 	}
 
 	.tribe-events-c-top-bar__today-button {
-		@mixin hidden;
-
 		@media (--viewport-medium) {
 			display: block !important;
 			flex: none;
@@ -60,7 +56,13 @@
 		}
 	}
 
+	.tribe-events-c-top-bar__datepicker-form {
+		align-items: center;
+		display: flex;
+	}
+
 	.tribe-events-c-top-bar__datepicker {
+		flex: auto;
 		position: relative;
 
 		@media (--viewport-medium) {
@@ -98,6 +100,15 @@
 		@media (--viewport-medium) {
 			max-width: none;
 			min-width: 363px;
+		}
+	}
+
+	.tribe-events-c-top-bar__datepicker-submit {
+		@media (--viewport-medium) {
+			display: block !important;
+			flex: none;
+			margin-left: 15px;
+			visibility: visible;
 		}
 	}
 

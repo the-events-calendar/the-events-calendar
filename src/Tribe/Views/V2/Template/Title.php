@@ -101,10 +101,6 @@ class Title {
 		$context = $this->context ?: tribe_context();
 		$posts   = $this->get_posts();
 
-		if ( 'single-event' === $context->get( 'view' ) ) {
-			return $current_title;
-		}
-
 		if ( $context->is( 'featured' ) ) {
 			$this->events_label_plural = sprintf(
 				_x( 'Featured %s', 'featured events title', 'the-events-calendar' ),

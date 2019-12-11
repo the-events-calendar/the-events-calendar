@@ -5,10 +5,7 @@
 			title="Featured"
 		>
 		</em>
-		<time datetime="13:01">
-		1:01 pm	</time>
-			<span class="tribe-events-calendar-month__calendar-event-tooltip-datetime-separator"> - </span>
-		<time datetime="17:01">
-			5:01 pm		</time>
-		</div>
+		<time datetime="2019-06-20">
+		<span class="tribe-event-date-start">June 20 @ 1:01 pm</span> - <span class="tribe-event-time">5:01 pm</span>	</time>
+	</div>
 ';

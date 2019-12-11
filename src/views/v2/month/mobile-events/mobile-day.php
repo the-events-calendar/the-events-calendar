@@ -3,7 +3,7 @@
  * View: Month View Mobile Day
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/views/v2/month/mobile-events/mobile-day.php
+ * [your-theme]/tribe/events/v2/month/mobile-events/mobile-day.php
  *
  * See more documentation about our views templating system.
  *
@@ -52,6 +52,7 @@ if ( $today_date === $day_date ) {
 	<?php $this->template( 'month/mobile-events/mobile-day/day-marker', [ 'day_date' => $day_date ] ); ?>
 
 	<?php foreach( $events as $event ) : ?>
+		<?php $this->setup_postdata( $event ); ?>
 
 		<?php $this->template( 'month/mobile-events/mobile-day/mobile-event', [ 'event' => $event ] ); ?>
 

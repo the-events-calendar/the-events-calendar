@@ -3,7 +3,7 @@
  * View: Messages
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/views/v2/components/messaging.php
+ * [your-theme]/tribe/events/v2/components/messaging.php
  *
  * See more documentation about our views templating system.
  *

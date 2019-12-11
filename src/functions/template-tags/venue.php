@@ -4,6 +4,7 @@
  *
  * Display functions (template-tags) for use in WordPress templates.
  */
+
 use Tribe\Events\Models\Post_Types\Venue;
 
 /**
@@ -16,6 +17,7 @@ use Tribe\Events\Models\Post_Types\Venue;
  *                                 correspond to a WP_Post object, an associative array, or a numeric array,
  *                                 respectively. Defaults to `OBJECT`.
  * @param string           $filter Type of filter to apply. Accepts 'raw'.
+ * @param bool             $force  Whether to force a re-fetch ignoring cached results or not.
  *
  * @return array|mixed|void|WP_Post|null {
  *                              The Venue post object or array, `null` if not found.
@@ -33,7 +35,7 @@ use Tribe\Events\Models\Post_Types\Venue;
  *                              @type string $geolocation_string The string we use to crawl and link to the maps provider.
  *                          }
  */
-function tribe_get_venue_object( $venue = null, $output = OBJECT, $filter = 'raw' ) {
+function tribe_get_venue_object( $venue = null, $output = OBJECT, $filter = 'raw', $force = false ) {
 	/**
 	 * Filters the venue result before any logic applies.
 	 *
@@ -55,26 +57,37 @@ function tribe_get_venue_object( $venue = null, $output = OBJECT, $filter = 'raw
 		return $return;
 	}
 
-	$post = Venue::from_post( $venue )->to_post( $output, $filter );
-
-	if ( empty( $post ) ) {
-		return null;
+	$post = false;
+	if ( ! $force ) {
+		$cache_key = 'tribe_get_venue_object_' . md5( json_encode( [ $venue, $output, $filter ] ) );
+		/** @var Tribe__Cache $cache */
+		$cache = tribe( 'cache' );
+		$post  = $cache->get( $cache_key, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
 	}
 
-	/**
-	 * Filters the venue post object before caching it and returning it.
-	 *
-	 * Note: this value will be cached; as such this filter might not run on each request.
-	 * If you need to filter the output value on each call of this function then use the `tribe_get_venue_object_before`
-	 * filter.
-	 *
-	 * @since 4.9.7
-	 *
-	 * @param WP_Post $post   The venue post object, decorated with a set of custom properties.
-	 * @param string  $output The output format to use.
-	 * @param string  $filter The filter, or context of the fetch.
-	 */
-	$post = apply_filters( 'tribe_get_venue_object', $post, $output, $filter );
+	if ( false === $post ) {
+		$post = Venue::from_post( $venue )->to_post( $output, $filter );
+
+		if ( empty( $post ) ) {
+			return null;
+		}
+		/**
+		 * Filters the venue post object before caching it and returning it.
+		 *
+		 * Note: this value will be cached; as such this filter might not run on each request.
+		 * If you need to filter the output value on each call of this function then use the `tribe_get_venue_object_before`
+		 * filter.
+		 *
+		 * @since 4.9.7
+		 *
+		 * @param WP_Post $post   The venue post object, decorated with a set of custom properties.
+		 * @param string  $output The output format to use.
+		 * @param string  $filter The filter, or context of the fetch.
+		 */
+		$post = apply_filters( 'tribe_get_venue_object', $post, $output, $filter );
+
+		$cache->set( $cache_key, $post, WEEK_IN_SECONDS, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
+	}
 
 	if ( OBJECT !== $output ) {
 		$post = ARRAY_A === $output ? (array) $post : array_values( (array) $post );

@@ -23,15 +23,20 @@ if ( ! function_exists( 'tribe_events' ) ) {
 			'default' => 'events.event-repository',
 		);
 
+		$args = func_num_args() > 1 ? array_slice( func_get_args(), 1 ) : [];
+
 		/**
 		 * Filters the map relating event repository slugs to service container bindings.
 		 *
 		 * @since 4.9
+		 * @since 4.9.13 Added additional call arguements support.
 		 *
 		 * @param array  $map        A map in the shape [ <repository_slug> => <service_name> ]
 		 * @param string $repository The currently requested implementation.
+		 * @param array $args        An array of additional call arguments used to call the function beside the
+		 *                           repository slug.
 		 */
-		$map = apply_filters( 'tribe_events_event_repository_map', $map, $repository );
+		$map = apply_filters( 'tribe_events_event_repository_map', $map, $repository, $args );
 
 		return tribe( Tribe__Utils__Array::get( $map, $repository, $map['default'] ) );
 	}

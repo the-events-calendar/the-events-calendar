@@ -47,15 +47,15 @@
 
 		.day {
 			@mixin desktop-body-1;
-
-			&.old {
-				color: var(--color-text-disabled);
-			}
 		}
 
 		.month,
 		.year {
 			@mixin desktop-body-3;
+		}
+
+		.past {
+			color: var(--color-text-primary-light);
 		}
 
 		.day,
@@ -69,82 +69,27 @@
 				background: var(--color-background-secondary);
 			}
 
+			&.current {
+				background: var(--color-accent-primary-background);
+
+				&:hover,
+				&:focus,
+				&.focused {
+					background: var(--color-accent-primary-background);
+				}
+			}
+
 			&.active {
 				color: var(--color-background);
 				background: var(--color-accent-primary);
+				text-shadow: none;
 
 				&:hover,
 				&:focus,
 				&.focused {
 					color: var(--color-background);
 					background: var(--color-accent-primary);
-				}
-			}
-		}
-	}
-
-	&.tribe-events-view--week .datepicker {
-
-		tbody tr {
-
-			&.active {
-
-				&:after {
-					border: 1px solid var(--color-accent-primary);
-					border-radius: var(--border-radius-default);
-					content: '';
-					display: block;
-					height: 47px;
-					left: var(--spacer-3);
-					pointer-events: none;
-					position: absolute;
-					transform: translateY(-1px);
-					width: calc(100% - 34px); /* 16px left padding + 16px right padding + 1px left border + 1px right border */
-				}
-			}
-		}
-
-		.day {
-			border-radius: 0;
-
-			&:first-child {
-				border-bottom-left-radius: var(--border-radius-default);
-				border-top-left-radius: var(--border-radius-default);
-			}
-
-			&:last-child {
-				border-bottom-right-radius: var(--border-radius-default);
-				border-top-right-radius: var(--border-radius-default);
-			}
-
-			&.active {
-				color: var(--color-text-primary);
-				background: transparent;
-
-				&:hover {
-					background: transparent;
-				}
-			}
-
-			&.disabled {
-				color: var(--color-text-primary);
-
-				&:hover,
-				&:focus,
-				&.focused {
-					color: var(--color-text-primary);
-				}
-			}
-		}
-
-		.hovered,
-		.focused {
-
-			.day {
-				background: var(--color-background-secondary);
-
-				&:hover {
-					background: var(--color-background-secondary);
+					text-shadow: none;
 				}
 			}
 		}
@@ -199,10 +144,6 @@
 			&.new {
 				opacity: 1;
 			}
-
-			&.old {
-				color: var(--color-text-disabled);
-			}
 		}
 
 		.day,
@@ -217,6 +158,20 @@
 				background: var(--color-background-secondary);
 			}
 
+			&.past {
+				color: var(--color-text-primary-light);
+			}
+
+			&.current {
+				background: var(--color-accent-primary-background);
+
+				&:hover,
+				&:focus,
+				&.focused {
+					background: var(--color-accent-primary-background);
+				}
+			}
+
 			&.active {
 				color: var(--color-background);
 				background: var(--color-accent-primary);
@@ -226,33 +181,6 @@
 				&.focused {
 					color: var(--color-background);
 					background: var(--color-accent-primary);
-				}
-			}
-		}
-	}
-
-	.tribe-theme-enfold &.tribe-events-view--week .datepicker {
-
-		.day {
-
-			&.active {
-				color: var(--color-text-primary);
-				background: transparent;
-
-				&:hover {
-					background: transparent;
-				}
-			}
-		}
-
-		.hovered,
-		.focused {
-
-			.day {
-				background: var(--color-background-secondary);
-
-				&:hover {
-					background: var(--color-background-secondary);
 				}
 			}
 		}
@@ -285,20 +213,13 @@
 			&.old,
 			&.new {
 				background-color: transparent !important;
+				color: var(--color-text-primary) !important;
 
 				&:hover,
 				&:focus,
 				&.focused {
 					background: var(--color-background-secondary) !important;
 				}
-			}
-
-			&.old {
-				color: var(--color-text-disabled) !important;
-			}
-
-			&.new {
-				color: var(--color-text-primary) !important;
 			}
 		}
 
@@ -313,47 +234,29 @@
 				background: var(--color-background-secondary);
 			}
 
-			&.active {
-				color: var(--color-background);
-				background: var(--color-accent-primary);
+			&.past {
+				color: var(--color-text-primary-light) !important;
+			}
+
+			&.current {
+				background: var(--color-accent-primary-background);
 
 				&:hover,
 				&:focus,
 				&.focused {
-					color: var(--color-background);
-					background: var(--color-accent-primary);
+					background: var(--color-accent-primary-background);
 				}
 			}
-		}
-	}
-
-	.tribe-theme-avada &.tribe-events-view--week .datepicker {
-
-		.day {
 
 			&.active {
-				color: var(--color-text-primary);
-				background: transparent;
+				color: var(--color-background) !important;
+				background: var(--color-accent-primary) !important;
 
-				&:hover {
-					background: transparent;
-				}
-			}
-		}
-
-		.hovered,
-		.focused {
-
-			.day {
-				background: var(--color-background-secondary);
-
-				&:hover {
-					background: var(--color-background-secondary);
-				}
-
-				&.old,
-				&.new {
-					background-color: var(--color-background-secondary) !important;
+				&:hover,
+				&:focus,
+				&.focused {
+					color: var(--color-background) !important;
+					background: var(--color-accent-primary) !important;
 				}
 			}
 		}

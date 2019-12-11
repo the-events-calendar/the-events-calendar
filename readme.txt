@@ -4,7 +4,7 @@ Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.7
-Stable tag: 4.9.12
+Stable tag: 4.9.13
 Tested up to: 5.3
 Requires PHP: 5.6
 License: GPLv2 or later
@@ -214,6 +214,11 @@ Some things to consider before posting on the forum:
 Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to [@TheEventsCal](https://twitter.com/TheEventsCal) and tell us why. We'll do what we can to make it right.
 
 == Changelog ==
+
+= [4.9.13] 2019-12-10 =
+
+* Tweak - Allow Event Aggregator date refinements for Eventbrite source.
+* Language - 29 new strings added, 201 updated, 0 fuzzied, and 0 obsoleted
 
 = [4.9.12] 2019-11-20 =
 

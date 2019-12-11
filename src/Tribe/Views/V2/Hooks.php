@@ -19,6 +19,8 @@ namespace Tribe\Events\Views\V2;
 
 use Tribe\Events\Views\V2\Query\Abstract_Query_Controller;
 use Tribe\Events\Views\V2\Query\Event_Query_Controller;
+use Tribe\Events\Views\V2\Repository\Caching_Set_Decorator;
+use Tribe\Events\Views\V2\Repository\Event_Period;
 use Tribe\Events\Views\V2\Template\Title;
 use Tribe__Events__Main as TEC;
 use Tribe__Rewrite as Rewrite;
@@ -55,6 +57,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_action( 'tribe_events_pre_rewrite', [ $this, 'on_tribe_events_pre_rewrite' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'action_disable_assets_v1' ], 0 );
 		add_action( 'tribe_events_pro_shortcode_tribe_events_after_assets', [ $this, 'action_disable_shortcode_assets_v1' ] );
+		add_action( 'updated_option', [ $this, 'action_save_wplang' ], 10, 3 );
 	}
 
 	/**
@@ -63,8 +66,11 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @since 4.9.2
 	 */
 	protected function add_filters() {
+		add_filter( 'wp_redirect', [ $this, 'filter_prevent_canonical_embed_redirect' ] );
+		add_filter( 'redirect_canonical', [ $this, 'filter_prevent_canonical_embed_redirect' ] );
 		add_action( 'tribe_events_parse_query', [ $this, 'parse_query' ] );
 		add_filter( 'template_include', [ $this, 'filter_template_include' ], 50 );
+		add_filter( 'embed_template', [ $this, 'filter_template_include' ], 50 );
 		add_filter( 'posts_pre_query', [ $this, 'filter_posts_pre_query' ], 20, 2 );
 		add_filter( 'body_class', [ $this, 'filter_body_class' ] );
 		add_filter( 'query_vars', [ $this, 'filter_query_vars' ], 15 );
@@ -74,6 +80,10 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'tribe_events_views_v2_after_make_view', [ $this, 'action_include_filters_excerpt' ] );
 		// 100 is the WordPress cookie-based auth check.
 		add_filter( 'rest_authentication_errors', [ Rest_Endpoint::class, 'did_rest_authentication_errors' ], 150 );
+		add_filter( 'tribe_support_registered_template_systems', [ $this, 'filter_register_template_updates' ] );
+		add_filter( 'tribe_events_event_repository_map', [ $this, 'add_period_repository' ], 10, 3 );
+
+		add_filter( 'tribe_general_settings_tab_fields', [ $this, 'filter_general_settings_tab_live_update' ], 20 );
 
 		if ( tribe_context()->doing_php_initial_state() ) {
 			add_filter( 'wp_title', [ $this, 'filter_wp_title' ], 10, 2 );
@@ -287,6 +297,10 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @return string The modified page title, if required.
 	 */
 	public function filter_wp_title( $title, $sep = null ) {
+		if ( ! $this->container->make( Template_Bootstrap::class )->should_load() ) {
+			return $title;
+		}
+
 		return $this->container->make( Title::class )->filter_wp_title( $title, $sep );
 	}
 
@@ -302,6 +316,10 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @return string The modified page title, if required.
 	 */
 	public function filter_document_title_parts( $title ) {
+		if ( ! $this->container->make( Template_Bootstrap::class )->should_load() ) {
+			return $title;
+		}
+
 		return $this->container->make( Title::class )->filter_document_title_parts( $title );
 	}
 
@@ -350,6 +368,69 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	}
 
 	/**
+	 * Filters the `redirect_canonical` to prevent any redirects on embed URLs.
+	 *
+	 * @since 4.9.13
+	 *
+	 * @param mixed $redirect_url URL which we will redirect to.
+	 *
+	 * @return string A redirection URL, or `false` to prevent redirection.
+	 */
+	public function filter_prevent_canonical_embed_redirect( $redirect_url = null ) {
+		$context = tribe_context();
+
+		// Any other URL we bail with the URL return.
+		if ( 'embed' !== $context->get( 'view' ) ) {
+			return $redirect_url;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Modifies the Live update tooltip properly.
+	 *
+	 * @since  4.9.13
+	 *
+	 * @param  array $fields  Fields that were passed for the Settigns tab.
+	 *
+	 * @return array          Fields after changing the tooltip.
+	 */
+	public function filter_general_settings_tab_live_update( $fields ) {
+		if ( empty( $fields['liveFiltersUpdate'] ) ) {
+			return $fields;
+		}
+
+		$disable_bar = tribe_is_truthy( tribe_get_option( 'tribeDisableTribeBar', false ) );
+		if ( $disable_bar ) {
+			return $fields;
+		}
+
+		$fields['liveFiltersUpdate']['tooltip'] .= '<br/>' . esc_html__( 'Recommended for all sites using the updated calendar views.', 'the-events-calendar' );
+
+		return $fields;
+	}
+
+ 	/**
+	 * Registers The Events Calendar with the views/overrides update checker.
+	 *
+	 * @since  4.9.13
+	 *
+	 * @param array $plugins List of plugisn to be checked.
+	 *
+	 * @return array
+	 */
+	public function filter_register_template_updates( array $plugins = [] ) {
+		$plugins[ __( 'The Events Calendar - View V2', 'the-events-calendar' ) ] = [
+			TEC::VERSION,
+			TEC::instance()->pluginPath . 'src/views/v2',
+			trailingslashit( get_stylesheet_directory() ) . 'tribe/events',
+		];
+
+		return $plugins;
+	}
+
+	/**
 	 * Suppress v1 query filters on a per-query basis, if required.
 	 *
 	 * @since 4.9.11
@@ -363,5 +444,45 @@ class Hooks extends \tad_DI52_ServiceProvider {
 
 		$event_query = $this->container->make( Event_Query_Controller::class );
 		$event_query->parse_query( $query );
+	}
+
+	/**
+	 * Adds the period repository to the map of available repositories.
+	 *
+	 * @since 4.9.13
+	 *
+	 * @param array $repository_map The current repository map.
+	 *
+	 * @return array The filtered repository map.
+	 */
+	public function add_period_repository( array $repository_map, $repository, array $args = [] ) {
+		if ( 'period' === $repository ) {
+			// This is a new instance on each run, by design. Making this a singleton would create dangerous dependencies.
+			$event_period_repository                = $this->container->make( Event_Period::class );
+			$event_period_repository->cache_results = in_array( 'caching', $args, true );
+			$repository_map['period']               = $event_period_repository;
+		}
+
+		return $repository_map;
+	}
+
+	/**
+	 * Flush rewrite rules after the site language setting changes.
+	 *
+	 * @since 4.9.13
+	 *
+	 * @param string $option The option name that was updated.
+	 * @param string $old    The option old value.
+	 * @param string $new    The option updated value.
+	 */
+	public function action_save_wplang( $option, $old, $new ) {
+
+		if ( 'WPLANG' !== $option ) {
+			return;
+		}
+
+		// Deleting `rewrite_rules` given that this is being executed after `init`
+		// And `flush_rewrite_rules()` doesn't take effect.
+		delete_option( 'rewrite_rules' );
 	}
 }

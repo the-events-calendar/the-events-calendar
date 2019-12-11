@@ -3,22 +3,21 @@
  * View: Month View - Single Event Tooltip Date
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/views/v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/date.php
+ * [your-theme]/tribe/events/v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/date.php
  *
  * See more documentation about our views templating system.
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version TBD
+ * @version 4.9.13
  *
  * @var WP_Post $event        The event post object with properties added by the `tribe_get_event` function.
- * @var obj     $date_formats Object containing the date formats.
  *
  * @see tribe_get_event() For the format of the event object.
  */
 
-$time_format      = tribe_get_time_format();
-$display_end_date = $event->dates->start_display->format( 'H:i' ) !== $event->dates->end_display->format( 'H:i' );
+use Tribe__Date_Utils as Dates;
+$event_date_attr = $event->dates->start->format( Dates::DBDATEFORMAT );
 ?>
 <div class="tribe-events-calendar-month__calendar-event-tooltip-datetime">
 	<?php if ( ! empty( $event->featured ) ) : ?>
@@ -29,14 +28,8 @@ $display_end_date = $event->dates->start_display->format( 'H:i' ) !== $event->da
 		>
 		</em>
 	<?php endif; ?>
-	<time datetime="<?php echo esc_attr( $event->dates->start_display->format( 'H:i' ) ); ?>">
-		<?php echo esc_html( $event->dates->start_display->format( $time_format ) ); ?>
+	<time datetime="<?php echo esc_attr( $event_date_attr ); ?>">
+		<?php echo $event->schedule_details->value(); ?>
 	</time>
-	<?php if ( $display_end_date ) : ?>
-		<span class="tribe-events-calendar-month__calendar-event-tooltip-datetime-separator"><?php echo esc_html( $date_formats->time_range_separator ); ?></span>
-		<time datetime="<?php echo esc_attr($event->dates->end_display->format( 'H:i' ) ); ?>">
-			<?php echo esc_html( $event->dates->end_display->format( $time_format ) ); ?>
-		</time>
-	<?php endif; ?>
 	<?php $this->template( 'month/calendar-body/day/calendar-events/calendar-event/tooltip/date/meta', [ 'event' => $event ] ); ?>
 </div>
