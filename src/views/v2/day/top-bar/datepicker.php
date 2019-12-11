@@ -48,7 +48,12 @@ $datepicker_date = Dates::build_date_object( $selected_date_value )->format( $da
 				datetime="<?php echo esc_attr( date( 'Y-m-d', $selected_datetime ) ); ?>"
 				class="tribe-events-c-top-bar__datepicker-time"
 			>
-				<?php echo esc_html( $selected_date_label ); ?>
+				<span class="tribe-events-c-top-bar__datepicker-mobile">
+						<?php echo esc_html( $datepicker_date ); ?>
+					</span>
+				<span class="tribe-events-c-top-bar__datepicker-desktop tribe-common-a11y-hidden">
+						<?php echo esc_html( $selected_date_label ); ?>
+					</span>
 			</time>
 		</button>
 		<label

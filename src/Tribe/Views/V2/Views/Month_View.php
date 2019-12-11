@@ -211,26 +211,28 @@ class Month_View extends By_Day_View {
 
 		$days = $this->get_days_data( $grid_days );
 
-		$grid_date_str         = $this->context->get( 'event_date', 'today' );
-		$grid_date             = Dates::build_date_object( $grid_date_str );
-		$month_and_year_format = tribe_get_option( 'monthAndYearFormat', 'F Y' );
+		$grid_date_str                 = $this->context->get( 'event_date', 'today' );
+		$grid_date                     = Dates::build_date_object( $grid_date_str );
+		$month_and_year_format         = tribe_get_option( 'monthAndYearFormat', 'F Y' );
+		$month_and_year_format_compact = Dates::datepicker_formats( tribe_get_option( 'datepickerFormat', 'm1' ) );
 
 		$prev_month_num = Dates::build_date_object( $grid_date_str )->modify( 'first day of last month' )->format( 'n' );
 		$next_month_num = Dates::build_date_object( $grid_date_str )->modify( 'first day of next month' )->format( 'n' );
 		$prev_month     = Dates::wp_locale_month( $prev_month_num, 'short' );
 		$next_month     = Dates::wp_locale_month( $next_month_num, 'short' );
 
-		$today                                = $this->context->get( 'today' );
-		$template_vars['the_date']            = $grid_date;
-		$template_vars['today_date']          = Dates::build_date_object( $today )->format( 'Y-m-d' );
-		$template_vars['grid_date']           = $grid_date->format( 'Y-m-d' );
-		$template_vars['formatted_grid_date'] = $grid_date->format( $month_and_year_format );
-		$template_vars['events']              = $grid_days;
-		$template_vars['days']                = $days;
-		$template_vars['prev_label']          = $prev_month;
-		$template_vars['next_label']          = $next_month;
-		$template_vars['messages']            = $this->messages->to_array();
-		$template_vars['grid_start_date']     = $grid_start_date;
+		$today                                       = $this->context->get( 'today' );
+		$template_vars['the_date']                   = $grid_date;
+		$template_vars['today_date']                 = Dates::build_date_object( $today )->format( 'Y-m-d' );
+		$template_vars['grid_date']                  = $grid_date->format( 'Y-m-d' );
+		$template_vars['formatted_grid_date']        = $grid_date->format( $month_and_year_format );
+		$template_vars['formatted_grid_date_mobile'] = $grid_date->format( $month_and_year_format_compact );
+		$template_vars['events']                     = $grid_days;
+		$template_vars['days']                       = $days;
+		$template_vars['prev_label']                 = $prev_month;
+		$template_vars['next_label']                 = $next_month;
+		$template_vars['messages']                   = $this->messages->to_array();
+		$template_vars['grid_start_date']            = $grid_start_date;
 
 		return $template_vars;
 	}
