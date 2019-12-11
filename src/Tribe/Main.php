@@ -32,7 +32,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '4.9.12';
+		const VERSION             = '4.9.13';
 
 		/**
 		 * Min Pro Addon
@@ -652,6 +652,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			require_once $this->plugin_path . 'src/functions/advanced-functions/linked-posts.php';
 			require_once $this->plugin_path . 'src/functions/utils/array.php';
 			require_once $this->plugin_path . 'src/functions/utils/labels.php';
+			require_once $this->plugin_path . 'src/functions/utils/install.php';
 
 			// Load Deprecated Template Tags
 			if ( ! defined( 'TRIBE_DISABLE_DEPRECATED_TAGS' ) ) {
@@ -700,6 +701,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Load Rewrite
 			add_action( 'plugins_loaded', array( Tribe__Events__Rewrite::instance(), 'hooks' ) );
+
+			// Trigger smart activation of V2 after we triggered the Update version on Init@P10.
+			add_action( 'init', 'tribe_events_views_v2_smart_activation', 25 );
 
 			add_action( 'init', array( $this, 'init' ), 10 );
 			add_action( 'admin_init', array( $this, 'admin_init' ) );
@@ -2966,6 +2970,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param bool $network_deactivating
 		 */
 		public static function activate() {
+			$plugin_path = dirname( TRIBE_EVENTS_FILE );
 
 			self::instance()->plugins_loaded();
 
@@ -2977,7 +2982,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			self::flushRewriteRules();
 
 			if ( ! class_exists( 'Tribe__Events__Editor__Compatibility' ) ) {
-				require_once dirname( __FILE__ ) . '/Editor/Compatibility.php';
+				require_once $plugin_path . '/src/Tribe/Editor/Compatibility.php';
 			}
 
 			$editor_compatibility = new Tribe__Events__Editor__Compatibility();

@@ -53,7 +53,6 @@
 
 		<div class="tribe-events-calendar-month__events">
 			
-
 	<div class="tribe-events-calendar-month__multiday-event-wrapper">
 	<article  class="tribe-events-calendar-month__multiday-event"  data-event-id="999997">
 		<div class="tribe-events-calendar-month__multiday-event-hidden">
@@ -65,7 +64,10 @@
 			<a
 				href="http://test.tri.be/?tribe_events=test-multi-day-event-2018-07-01-11am"
 				class="tribe-events-calendar-month__multiday-event-hidden-link"
-							>
+				data-js="tribe-events-tooltip"
+				data-tooltip-content="#tribe-events-tooltip-content-999997"
+				aria-describedby="tribe-events-tooltip-content-999997"
+			>
 								<h3 class="tribe-events-calendar-month__multiday-event-hidden-title tribe-common-h8">
 									</h3>
 			</a>
@@ -73,9 +75,7 @@
 			</article>
 </div>
 
-
 	<div class="tribe-events-calendar-month__multiday-event-wrapper tribe-events-calendar-month__multiday-event--empty"></div>
-
 	<div class="tribe-events-calendar-month__multiday-event-wrapper">
 	<article  class="tribe-events-calendar-month__multiday-event"  data-event-id="999996">
 		<div class="tribe-events-calendar-month__multiday-event-hidden">
@@ -87,7 +87,10 @@
 			<a
 				href="http://test.tri.be/?tribe_events=test-multi-day-event-2018-07-01-1pm"
 				class="tribe-events-calendar-month__multiday-event-hidden-link"
-							>
+				data-js="tribe-events-tooltip"
+				data-tooltip-content="#tribe-events-tooltip-content-999996"
+				aria-describedby="tribe-events-tooltip-content-999996"
+			>
 								<h3 class="tribe-events-calendar-month__multiday-event-hidden-title tribe-common-h8">
 									</h3>
 			</a>
@@ -97,7 +100,7 @@
 
 
 			
-
+	
 	
 <article  class="tribe-events-calendar-month__calendar-event" >
 
@@ -117,16 +120,40 @@
 		title=""
 		rel="bookmark"
 		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
-			>
+		data-js="tribe-events-tooltip"
+		data-tooltip-content="#tribe-events-tooltip-content-999999"
+		aria-describedby="tribe-events-tooltip-content-999999"
+	>
 			</a>
 </h3>
 
-		
+		<div class="tribe-events-calendar-month__calendar-event-tooltip-template tribe-common-a11y-hidden">
+	<div
+		class="tribe-events-calendar-month__calendar-event-tooltip"
+		id="tribe-events-tooltip-content-999999"
+		role="tooltip"
+	>
+				<div class="tribe-events-calendar-month__calendar-event-tooltip-datetime">
+		<time datetime="2018-07-01">
+		<span class="tribe-event-date-start">July 1, 2018 @ 10:00 am</span> - <span class="tribe-event-time">11:00 am</span>	</time>
+	</div>
+		<h3 class="tribe-events-calendar-month__calendar-event-tooltip-title tribe-common-h7">
+	<a
+		href="http://test.tri.be/?tribe_events=test-event-2018-07-01-11am"
+		title=""
+		rel="bookmark"
+		class="tribe-events-calendar-month__calendar-event-tooltip-title-link tribe-common-anchor-thin"
+	>
+			</a>
+</h3>
+					</div>
+</div>
+
 	</div>
 
 </article>
 
-
+	
 	
 <article  class="tribe-events-calendar-month__calendar-event" >
 
@@ -146,11 +173,35 @@
 		title=""
 		rel="bookmark"
 		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
-			>
+		data-js="tribe-events-tooltip"
+		data-tooltip-content="#tribe-events-tooltip-content-999998"
+		aria-describedby="tribe-events-tooltip-content-999998"
+	>
 			</a>
 </h3>
 
-		
+		<div class="tribe-events-calendar-month__calendar-event-tooltip-template tribe-common-a11y-hidden">
+	<div
+		class="tribe-events-calendar-month__calendar-event-tooltip"
+		id="tribe-events-tooltip-content-999998"
+		role="tooltip"
+	>
+				<div class="tribe-events-calendar-month__calendar-event-tooltip-datetime">
+		<time datetime="2018-07-01">
+		<span class="tribe-event-date-start">July 1, 2018 @ 11:00 am</span> - <span class="tribe-event-time">12:00 pm</span>	</time>
+	</div>
+		<h3 class="tribe-events-calendar-month__calendar-event-tooltip-title tribe-common-h7">
+	<a
+		href="http://test.tri.be/?tribe_events=test-event-2018-07-01-11am-2"
+		title=""
+		rel="bookmark"
+		class="tribe-events-calendar-month__calendar-event-tooltip-title-link tribe-common-anchor-thin"
+	>
+			</a>
+</h3>
+					</div>
+</div>
+
 	</div>
 
 </article>

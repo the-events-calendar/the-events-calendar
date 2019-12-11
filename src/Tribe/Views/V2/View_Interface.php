@@ -90,6 +90,26 @@ interface View_Interface  extends View_Url_Provider_Interface, Repository_User_I
 	public function get_slug();
 
 	/**
+	 * Returns all the parent views that the current class as an array of slugs.
+	 *
+	 * @since 4.9.13
+	 *
+	 * @return string[] Array of string with the slugs of all the registered views.
+	 */
+	public function get_parents_slug();
+
+	/**
+	 * Returns all html classes for the view instance we are handling.
+	 *
+	 * @since 4.9.13
+	 *
+	 * @param array $classes  Array of classes that are going to be appended to this instance.
+	 *
+	 * @return string[]       Array of string with the classes used
+	 */
+	public function get_html_classes( array $classes = [] );
+
+	/**
 	 * Returns a View template class.
 	 *
 	 * @since 4.9.2
@@ -188,4 +208,16 @@ interface View_Interface  extends View_Url_Provider_Interface, Repository_User_I
 	 * @return array An array of user-facing messages the View will display on the front-end.
 	 */
 	public function get_messages();
+
+	/**
+	 * Returns the URL to get the View for a date and a set of arguments.
+	 *
+	 * @since 4.9.13
+	 *
+	 * @param string|int|\DateTimeInterface $date       The date to return the URL for.
+	 * @param array|string                  $query_args The query string or arguments to append to the URL.
+	 *
+	 * @return string The URL to fetch the View for a date.
+	 */
+	public function url_for_query_args( $date = null, $query_args = null );
 }

@@ -93,6 +93,7 @@ class Context extends \tad_DI52_ServiceProvider {
 						],
 						Tribe__Context::REQUEST_VAR => [ 'eventDate', 'tribe-bar-date' ],
 						Tribe__Context::QUERY_VAR   => 'eventDate',
+						Tribe__Context::WP_PARSED   => 'eventDate',
 					],
 					'write' => [
 						Tribe__Context::REQUEST_VAR => [ 'eventDate', 'tribe-bar-date' ],
@@ -141,12 +142,13 @@ class Context extends \tad_DI52_ServiceProvider {
 				],
 				'featured'             => [
 					'read'  => [
-						Tribe__Context::REQUEST_VAR => 'featured',
-						Tribe__Context::QUERY_VAR   => 'featured',
+						Tribe__Context::REQUEST_VAR      => 'featured',
+						Tribe__Context::QUERY_VAR        => 'featured',
+						Tribe__Context::WP_MATCHED_QUERY => 'featured',
 					],
 					'write' => [
-						Tribe__Context::REQUEST_VAR => 'featured',
-						Tribe__Context::QUERY_VAR   => 'featured',
+						Tribe__Context::REQUEST_VAR      => 'featured',
+						Tribe__Context::QUERY_VAR        => 'featured',
 					],
 				],
 				TEC::TAXONOMY          => [

@@ -15,6 +15,8 @@ use Tribe__Events__Rewrite as Rewrite;
 use Tribe__Notices;
 use Tribe__Utils__Array as Arr;
 use WP_Query;
+use Tribe__Templates as V1_Templates;
+use Tribe__Events__Templates as V1_Event_Templates;
 
 
 /**
@@ -54,7 +56,9 @@ class Template_Bootstrap {
 	 * @return void
 	 */
 	public function disable_v1() {
-		remove_action( 'plugins_loaded', [ 'Tribe__Events__Templates', 'init' ] );
+		remove_filter( 'tribe_events_before_html', [ TEC::instance(), 'before_html_data_wrapper' ] );
+		remove_filter( 'tribe_events_after_html', [ TEC::instance(), 'after_html_data_wrapper' ] );
+		remove_action( 'plugins_loaded', [ V1_Event_Templates::class, 'init' ] );
 	}
 
 	/**
@@ -142,6 +146,25 @@ class Template_Bootstrap {
 	}
 
 	/**
+	 * Fetches the template for the Single Embed Event page using the legacy view system.
+	 *
+	 * @since  4.9.13
+	 *
+	 * @return string
+	 */
+	protected function get_v1_embed_template_path() {
+		global $post;
+		$query = tribe_get_global_query_object();
+
+		if ( ! tribe_is_showing_all() && tribe_is_past_event() ) {
+			Tribe__Notices::set_notice( 'event-past', sprintf( esc_html__( 'This %s has passed.', 'the-events-calendar' ), tribe_get_event_label_singular_lowercase() ) );
+		}
+
+		$template_path = V1_Event_Templates::getTemplateHierarchy( 'embed' );
+		return $template_path;
+	}
+
+	/**
 	 * Gets the View HTML
 	 *
 	 * @todo Stop handling kitchen sink template here.
@@ -158,7 +181,7 @@ class Template_Bootstrap {
 		if (
 			'single-event' === $view_slug
 			&& ! tribe_is_showing_all()
-			&& ! \Tribe__Templates::is_embed()
+			&& ! V1_Templates::is_embed()
 		) {
 			$html = $this->get_v1_single_event_html();
 		} elseif ( isset( $query->query_vars['tribe_events_views_kitchen_sink'] ) ) {
@@ -232,10 +255,16 @@ class Template_Bootstrap {
 	 * @return string Path to the File that initalizes the template
 	 */
 	public function filter_template_include( $template ) {
-
 		// Determine if we should load bootstrap or bail.
 		if ( ! $this->should_load() ) {
 			return $template;
+		}
+
+		$context   = tribe_context();
+		$view_slug = $context->get( 'view' );
+
+		if ( V1_Templates::is_embed() || 'embed' === $view_slug ) {
+			return $this->get_v1_embed_template_path();
 		}
 
 		return $this->get_template_object()->get_path();

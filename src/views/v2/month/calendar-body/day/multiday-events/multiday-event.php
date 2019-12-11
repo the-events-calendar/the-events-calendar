@@ -3,13 +3,13 @@
  * View: Month View - Multiday Event
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/views/v2/month/calendar-body/day/multiday-events/multiday-event.php
+ * [your-theme]/tribe/events/v2/month/calendar-body/day/multiday-events/multiday-event.php
  *
  * See more documentation about our views templating system.
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.11
+ * @version 4.9.13
  *
  * @var string $day_date        The `Y-m-d` date of the day currently being displayed.
  * @var string $today_date      Today's date in the `Y-m-d` format.
@@ -41,13 +41,8 @@ if ( $event->featured ) {
 
 // If the event started on a previous month.
 $started_previous_month = $event->dates->start_display->format( 'Y-m-d' ) < $grid_start_date;
-
-// We display the tooltip only if there's excpert or cost or it has a thumbnail.
-$display_tooltip        = ! empty( $event->excerpt ) || ! empty( $event->cost ) || $event->thumbnail->exists;
 $is_first_appearance    = ( $event->dates->start_display->format( 'Y-m-d' ) === $day_date )
                           || ( $started_previous_month && $grid_start_date === $day_date );
-// We print the tooltip contents if it's the first appearrance and we should display it.
-$should_print_tooltip   = $is_first_appearance && $display_tooltip;
 
 // If it starts today and this week, let's add the left border and set the width.
 if ( $should_display ) {
@@ -74,6 +69,7 @@ if ( $should_display ) {
 	}
 }
 
+$classes = get_post_class( $classes, $event->ID );
 ?>
 <div class="tribe-events-calendar-month__multiday-event-wrapper">
 	<article <?php tribe_classes( $classes ); ?> data-event-id="<?php echo esc_attr( $event->ID ); ?>">
@@ -87,11 +83,9 @@ if ( $should_display ) {
 			<a
 				href="<?php echo esc_url( $event->permalink ); ?>"
 				class="tribe-events-calendar-month__multiday-event-hidden-link"
-				<?php if ( $display_tooltip ) : ?>
-					data-js="tribe-events-tooltip"
-					data-tooltip-content="#tribe-events-tooltip-content-<?php echo esc_attr( $event->ID ); ?>"
-					aria-describedby="tribe-events-tooltip-content-<?php echo esc_attr( $event->ID ); ?>"
-				<?php endif; ?>
+				data-js="tribe-events-tooltip"
+				data-tooltip-content="#tribe-events-tooltip-content-<?php echo esc_attr( $event->ID ); ?>"
+				aria-describedby="tribe-events-tooltip-content-<?php echo esc_attr( $event->ID ); ?>"
 			>
 				<?php if ( $event->featured ) : ?>
 					<em
@@ -120,7 +114,7 @@ if ( $should_display ) {
 					</h3>
 				</div>
 			</div>
-			<?php if ( $should_print_tooltip ) : ?>
+			<?php if ( $is_first_appearance ) : ?>
 				<?php $this->template( 'month/calendar-body/day/calendar-events/calendar-event/tooltip', [ 'event' => $event ] ); ?>
 			<?php endif; ?>
 		<?php endif; ?>

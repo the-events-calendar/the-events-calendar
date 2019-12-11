@@ -3,7 +3,7 @@
  * View: Read More
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/views/v2/components/read-more.php
+ * [your-theme]/tribe/events/v2/components/read-more.php
  *
  * See more documentation about our views templating system.
  *
@@ -11,9 +11,7 @@
  *
  * @version 4.9.11
  *
- * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
- *
- * @see tribe_get_event() For the format of the event object.
+ * @var WP_Post $event The event post object, with an added `permalink` property.
  */
 ?>
 <span class="tribe-events-c-read-more-hellip"> &hellip; </span>

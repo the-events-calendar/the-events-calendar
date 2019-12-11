@@ -39,6 +39,7 @@ tribe.events.views.datepicker = {};
 	 * @type {PlainObject}
 	 */
 	obj.selectors = {
+		datepickerFormClass: '.tribe-events-c-top-bar__datepicker-form',
 		datepickerContainer: '[data-js="tribe-events-top-bar-datepicker-container"]',
 		datepickerDaysBody: '.datepicker-days tbody',
 		input: '[data-js="tribe-events-top-bar-date"]',
@@ -72,12 +73,20 @@ tribe.events.views.datepicker = {};
 		minViewMode: 'month',
 		orientation: 'bottom left',
 		showOnFocus: false,
-		todayHighlight: true,
 		templates: {
 			leftArrow: '',
 			rightArrow: '',
 		},
 	};
+
+	/**
+	 * Date object representing today
+	 *
+	 * @since 4.9.13
+	 *
+	 * @type {Date|null}
+	 */
+	obj.today = null;
 
 	/**
 	 * Object of date format map.
@@ -189,14 +198,19 @@ tribe.events.views.datepicker = {};
 
 			obj.request( viewData, $container );
 		} else {
-			var $input = obj.createDateInputObj( value );
-			var $forms = $container.find( tribe.events.views.manager.selectors.form );
+			var $forms = $container
+				.find( tribe.events.views.manager.selectors.form )
+				.not( obj.selectors.datepickerFormClass );
 
-			$forms
-				.find( obj.selectors.dateInput )
-				.remove();
+			if ( $forms.length ) {
+				var $input = obj.createDateInputObj( value );
 
-			$forms.prepend( $input );
+				$forms
+					.find( obj.selectors.dateInput )
+					.remove();
+
+				$forms.prepend( $input );
+			}
 
 			$container
 				.find( obj.selectors.input )
@@ -249,6 +263,19 @@ tribe.events.views.datepicker = {};
 	};
 
 	/**
+	 * Handle datepicker show event
+	 *
+	 * @since 4.9.13
+	 *
+	 * @param {Event} event event object for 'show' event
+	 *
+	 * @return {void}
+	 */
+	obj.handleShow = function( event ) {
+		event.data.datepickerButton.addClass( obj.selectors.buttonOpenClass.className() );
+	};
+
+	/**
 	 * Handle datepicker hide event
 	 *
 	 * @since 4.9.8
@@ -268,7 +295,9 @@ tribe.events.views.datepicker = {};
 			return;
 		}
 
-		$datepickerButton.removeClass( obj.selectors.buttonOpenClass.className() );
+		$datepickerButton
+			.removeClass( obj.selectors.buttonOpenClass.className() )
+			.focus();
 	};
 
 	/**
@@ -283,15 +312,11 @@ tribe.events.views.datepicker = {};
 	obj.handleMousedown = function( event ) {
 		var $datepickerButton = event.data.target;
 		var state = $datepickerButton.data( 'tribeEventsState' );
-		var tapHide = false;
 
 		if ( 'touchstart' === event.type ) {
 			var method = $datepickerButton.hasClass( obj.selectors.buttonOpenClass.className() ) ? 'hide' : 'show';
+			var tapHide = 'hide' === method;
 			state.isTarget = false;
-
-			if ( 'hide' === method ) {
-				tapHide = true;
-			}
 
 			$datepickerButton
 				.data( 'tribeTapHide', tapHide )
@@ -327,11 +352,12 @@ tribe.events.views.datepicker = {};
 
 		state.isTarget = false;
 
-		$datepickerButton
-			.toggleClass( obj.selectors.buttonOpenClass.className() )
-			.data( 'tribeEventsState', state );
-		$input
-			.bootstrapDatepicker( method );
+		$datepickerButton.data( 'tribeEventsState', state );
+		$input.bootstrapDatepicker( method );
+
+		if ( 'show' === method ) {
+			$input.focus();
+		}
 	};
 
 	/**
@@ -369,6 +395,121 @@ tribe.events.views.datepicker = {};
 				}
 			}
 		};
+	};
+
+	/**
+	 * Set today to date object representing today
+	 *
+	 * @since 4.9.13
+	 *
+	 * @param {string} today string representation of today's date according to website time
+	 *
+	 * @return {void}
+	 */
+	obj.setToday = function( today ) {
+		var date = today;
+		if ( today.indexOf( ' ' ) >= 0 ) {
+			date = today.split( ' ' )[0];
+		}
+
+		obj.today = new Date( date );
+	};
+
+	/**
+	 * Determine whether or not date is the same as today.
+	 * The function uses UTC values to maintain consistency with website date.
+	 * Function will return false if proper unit is not provided.
+	 *
+	 * @since 4.9.13
+	 *
+	 * @param {Date}   date Date object representing the date being compared
+	 * @param {string} unit Unit to compare dates to
+	 *
+	 * @return {bool}
+	 */
+	obj.isSameAsToday = function( date, unit ) {
+		switch ( unit ) {
+			case 'year':
+				return date.getFullYear() === obj.today.getUTCFullYear();
+			case 'month':
+				return obj.isSameAsToday( date, 'year' ) && date.getMonth() === obj.today.getUTCMonth();
+			case 'day':
+				return obj.isSameAsToday( date, 'month' ) && date.getDate() === obj.today.getUTCDate();
+			default:
+				return false;
+		}
+	}
+
+	/**
+	 * Determine whether or not date is before today.
+	 * The function uses UTC values to maintain consistency with website date.
+	 * Function will return false if proper unit is not provided.
+	 *
+	 * @since 4.9.13
+	 *
+	 * @param {Date}   date Date object representing the date being compared
+	 * @param {string} unit Unit to compare dates to
+	 *
+	 * @return {bool}
+	 */
+	obj.isBeforeToday = function( date, unit ) {
+		switch ( unit ) {
+			case 'year':
+				return date.getFullYear() < obj.today.getUTCFullYear();
+			case 'month':
+				return obj.isBeforeToday( date, 'year' )
+					|| ( obj.isSameAsToday( date, 'year' ) && date.getMonth() < obj.today.getUTCMonth() );
+			case 'day':
+				return obj.isBeforeToday( date, 'month' )
+					|| ( obj.isSameAsToday( date, 'month' ) && date.getDate() < obj.today.getUTCDate() );
+			default:
+				return false;
+		}
+	};
+
+	/**
+	 * Filter datepicker day cells
+	 *
+	 * @since 4.9.13
+	 *
+	 * @return {string|void}
+	 */
+	obj.filterDayCells = function( date ) {
+		if ( obj.isBeforeToday( date, 'day' ) ) {
+			return 'past';
+		} else if ( obj.isSameAsToday( date, 'day' ) ) {
+			return 'current';
+		}
+	};
+
+	/**
+	 * Filter datepicker month cells
+	 *
+	 * @since 4.9.13
+	 *
+	 * @return {string|void}
+	 */
+	obj.filterMonthCells = function( date ) {
+		if ( obj.isBeforeToday( date, 'month' ) ) {
+			return 'past';
+		} else if ( obj.isSameAsToday( date, 'month' ) ) {
+			return 'current';
+		}
+	};
+
+	/**
+	 * Filter datepicker year cells
+	 *
+	 * @since 4.9.13
+	 *
+	 * @return {string|void}
+	 */
+	obj.filterYearCells = function( date ) {
+		if ( obj.isBeforeToday( date, 'year' ) ) {
+			return 'past';
+		} else if ( obj.isSameAsToday( date, 'year' ) ) {
+			return 'current';
+		}
 	};
 
 	/**
@@ -430,6 +571,7 @@ tribe.events.views.datepicker = {};
 		$input
 			.bootstrapDatepicker( 'destroy' )
 			.off( changeEvent, changeHandler )
+			.off( 'show', obj.handleShow )
 			.off( 'hide', obj.handleHide );
 		$datepickerButton
 			.off( 'mousedown', obj.handleMousedown )
@@ -470,6 +612,9 @@ tribe.events.views.datepicker = {};
 		// set up mutation observer
 		obj.observer = new MutationObserver( obj.handleMutation( { container: $container } ) );
 
+		// set up today's date
+		obj.setToday( data.today );
+
 		// set options for datepicker
 		obj.initDateFormat( data );
 		obj.isLiveRefresh = data.live_refresh ? data.live_refresh : false;
@@ -482,10 +627,14 @@ tribe.events.views.datepicker = {};
 		var prevText = datepickerI18n.prevText || 'Prev';
 		obj.options.templates.leftArrow = '<span class="tribe-common-svgicon"></span><span class="tribe-common-a11y-visual-hide">' + prevText + '</span>',
 		obj.options.templates.rightArrow = '<span class="tribe-common-svgicon"></span><span class="tribe-common-a11y-visual-hide">' + nextText + '</span>',
+		obj.options.beforeShowDay = obj.filterDayCells;
+		obj.options.beforeShowMonth = obj.filterMonthCells;
+		obj.options.beforeShowYear = obj.filterYearCells;
 
 		$input
 			.bootstrapDatepicker( obj.options )
 			.on( changeEvent, { container: $container }, changeHandler )
+			.on( 'show', { datepickerButton: $datepickerButton }, obj.handleShow )
 			.on( 'hide', { datepickerButton: $datepickerButton, input: $input, observer: obj.observer }, obj.handleHide );
 
 		$datepickerButton

@@ -36,6 +36,13 @@ class List_View extends View {
 	protected static $publicly_visible = true;
 
 	/**
+	 * Indicates List View supports the date as a query argument appended to its URL, not as part of a "pretty" URL.
+	 *
+	 * @var bool
+	 */
+	protected static $date_in_url = false;
+
+	/**
 	 * {@inheritDoc}
 	 */
 	public function prev_url( $canonical = false, array $passthru_vars = [] ) {
@@ -225,7 +232,7 @@ class List_View extends View {
 		if (
 			! empty( $template_vars['events'] )
 			&& is_array( $template_vars['events'] )
-			&& 'past' === $this->context->get( 'event_display_mode', 'map' )
+			&& 'past' === $this->context->get( 'event_display_mode' )
 		) {
 			$template_vars['events'] = array_reverse( $template_vars['events'] );
 		}

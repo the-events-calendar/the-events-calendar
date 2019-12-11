@@ -174,11 +174,14 @@ class Day_View extends View {
 		$ongoing = [];
 		$hourly  = [];
 
+		$today        = Dates::build_date_object( $this->context->get( 'today', 'today' ) );
+		$request_date = $this->context->get( 'event_date', $today->format( Dates::DBDATEFORMAT ) );
+
 		foreach ( $events as $i => $event ) {
 			if ( ! empty( $event->all_day ) ) {
 				$event->timeslot = 'all_day';
 				$all_day[ $i ]   = $event;
-			} elseif ( ! empty( $event->multiday ) ) {
+			} elseif ( ! empty( $event->multiday ) && $event->dates->start_display->format( Dates::DBDATEFORMAT ) !== $request_date ) {
 				$event->timeslot = 'multiday';
 				$ongoing[ $i ]   = $event;
 			} else {
