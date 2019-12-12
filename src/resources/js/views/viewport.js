@@ -23,7 +23,7 @@ tribe.events.views.viewport = {};
  * @since 4.9.7
  *
  * @param  {PlainObject} $   jQuery
- * @param  {PlainObject} obj tribe.events.views.manager
+ * @param  {PlainObject} obj tribe.events.views.viewport
  *
  * @return {void}
  */

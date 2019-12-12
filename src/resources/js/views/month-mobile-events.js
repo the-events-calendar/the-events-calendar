@@ -23,7 +23,7 @@ tribe.events.views.monthMobileEvents = {};
  * @since 4.9.4
  *
  * @param  {PlainObject} $   jQuery
- * @param  {PlainObject} obj tribe.events.views.manager
+ * @param  {PlainObject} obj tribe.events.views.monthMobileEvents
  *
  * @return {void}
  */
