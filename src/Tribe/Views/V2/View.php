@@ -1199,6 +1199,7 @@ class View implements View_Interface {
 			'is_past'                => 'past' === $this->context->get( 'event_display_mode', false ),
 			'show_datepicker_submit' => $this->get_show_datepicker_submit(),
 			'breakpoints'            => $this->get_breakpoints(),
+			'is_initial_load'        => $this->context->doing_php_initial_state(),
 		];
 
 		return $template_vars;
