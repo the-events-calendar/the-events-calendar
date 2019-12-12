@@ -71,3 +71,5 @@ if ( empty( $disable_event_search ) ) {
 
 	</div>
 </div>
+
+<?php $this->template( 'components/breakpoints' ); ?>
