@@ -46,6 +46,15 @@ tribe.events.views.breakpoints = {};
 	};
 
 	/**
+	 * Object of breakpoints
+	 *
+	 * @since TBD
+	 *
+	 * @type {PlainObject}
+	 */
+	obj.breakpoints = {};
+
+	/**
 	 * Sets container classes based on breakpoint
 	 *
 	 * @since  TBD
@@ -60,6 +69,7 @@ tribe.events.views.breakpoints = {};
 
 		breakpoints.forEach( function( breakpoint ) {
 			var className = obj.selectors.breakpointClassPrefix + breakpoint;
+			obj.breakpoints[ breakpoint ] = data.breakpoints[ breakpoint ];
 
 			if ( $container.outerWidth() < data.breakpoints[ breakpoint ] ) {
 				$container.removeClass( className );

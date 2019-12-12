@@ -40,7 +40,7 @@ tribe.events.views.viewport = {};
 	 * @type {PlainObject}
 	 */
 	obj.options = {
-		MOBILE_BREAKPOINT: tribe.events.views.breakpoints.medium,
+		MOBILE_BREAKPOINT: tribe.events.views.breakpoints.breakpoints.medium || 768,
 	};
 
 	/**
