@@ -1761,11 +1761,7 @@ class View implements View_Interface {
 		$live_refresh       = tribe_is_truthy( tribe_get_option( 'liveFiltersUpdate', true ) );
 		$disable_events_bar = tribe_is_truthy( tribe_get_option( 'tribeDisableTribeBar', false ) );
 
-		$show_datepicker_submit = false;
-
-		if ( empty( $live_refresh ) && ! empty( $disable_events_bar ) ) {
-			$show_datepicker_submit = true;
-		}
+		$show_datepicker_submit = empty( $live_refresh ) && ! empty( $disable_events_bar );
 
 		/**
 		 * Filters the show datepicker submit value.
