@@ -147,6 +147,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 			[
 				'jquery',
 				'tribe-common',
+				'tribe-events-views-v2-breakpoints',
 			],
 			null,
 			[
@@ -261,6 +262,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 			[
 				'jquery',
 				'tribe-common',
+				'tribe-events-views-v2-viewport',
 				'tribe-events-views-v2-accordion',
 			],
 			null,
