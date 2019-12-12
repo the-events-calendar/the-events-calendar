@@ -20,7 +20,7 @@ tribe.events.views.breakpoints = {};
 /**
  * Initializes in a Strict env the code that manages the Event Views
  *
- * @since 4.9.4
+ * @since  TBD
  *
  * @param  {PlainObject} $   jQuery
  * @param  {PlainObject} obj tribe.events.views.breakpoints
