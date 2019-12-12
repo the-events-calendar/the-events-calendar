@@ -8,9 +8,9 @@
 
 namespace Tribe\Events\Views\V2;
 
-use Tribe\Events\Views\V2\Behaviors\Breakpoint_Behavior;
 use Tribe\Events\Views\V2\Template\Settings\Advanced_Display;
 use Tribe\Events\Views\V2\Template\Title;
+use Tribe\Events\Views\V2\Traits\Breakpoint_Behavior;
 use Tribe__Container as Container;
 use Tribe__Context as Context;
 use Tribe__Date_Utils as Dates;
@@ -1199,6 +1199,7 @@ class View implements View_Interface {
 			'is_past'                => 'past' === $this->context->get( 'event_display_mode', false ),
 			'show_datepicker_submit' => $this->get_show_datepicker_submit(),
 			'breakpoints'            => $this->get_breakpoints(),
+			'is_initial_load'        => $this->context->doing_php_initial_state(),
 		];
 
 		return $template_vars;

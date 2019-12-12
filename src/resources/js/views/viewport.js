@@ -23,7 +23,7 @@ tribe.events.views.viewport = {};
  * @since 4.9.7
  *
  * @param  {PlainObject} $   jQuery
- * @param  {PlainObject} obj tribe.events.views.manager
+ * @param  {PlainObject} obj tribe.events.views.viewport
  *
  * @return {void}
  */
@@ -40,7 +40,7 @@ tribe.events.views.viewport = {};
 	 * @type {PlainObject}
 	 */
 	obj.options = {
-		MOBILE_BREAKPOINT: 768,
+		MOBILE_BREAKPOINT: tribe.events.views.breakpoints.breakpoints.medium || 768,
 	};
 
 	/**
