@@ -4,10 +4,10 @@
  *
  * @since   TBD
  *
- * @package Tribe\Events\Views\V2\Behaviors
+ * @package Tribe\Events\Views\V2\Traits
  */
 
-namespace Tribe\Events\Views\V2\Behaviors;
+namespace Tribe\Events\Views\V2\Traits;
 
 use Tribe\Events\Views\V2\View;
 
@@ -16,7 +16,7 @@ use Tribe\Events\Views\V2\View;
  *
  * @since   TBD
  *
- * @package Tribe\Events\Views\V2\Behaviors
+ * @package Tribe\Events\Views\V2\Traits
  *
  * @property string $string The slug of the View instance.
  */
