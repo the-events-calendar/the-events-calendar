@@ -130,9 +130,9 @@ class Event extends Base {
 						if ( $starts_this_week && $ends_this_week ) {
 							$this_week_duration = min( 7, max( 1, Dates::date_diff( $the_end_ymd, $the_start_ymd ) ) + $cross_day );
 						} elseif ( $ends_this_week ) {
-							$this_week_duration = $the_end_ymd - $week_start_ymd + $cross_day;
+							$this_week_duration = Dates::date_diff( $the_end_ymd, $week_start_ymd ) + $cross_day;
 						} elseif ( $starts_this_week ) {
-							$this_week_duration = $week_end_ymd - $the_start_ymd + $cross_day;
+							$this_week_duration = Dates::date_diff( $week_end_ymd, $the_start_ymd ) + $cross_day;
 						} else {
 							// If it happens this week and it doesn't start or end this week, then it spans the week.
 							$this_week_duration = 7;
