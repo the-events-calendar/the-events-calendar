@@ -49,11 +49,11 @@ $datepicker_date = Dates::build_date_object( $selected_date_value )->format( $da
 				class="tribe-events-c-top-bar__datepicker-time"
 			>
 				<span class="tribe-events-c-top-bar__datepicker-mobile">
-						<?php echo esc_html( $datepicker_date ); ?>
-					</span>
+					<?php echo esc_html( $datepicker_date ); ?>
+				</span>
 				<span class="tribe-events-c-top-bar__datepicker-desktop tribe-common-a11y-hidden">
-						<?php echo esc_html( $selected_date_label ); ?>
-					</span>
+					<?php echo esc_html( $selected_date_label ); ?>
+				</span>
 			</time>
 		</button>
 		<label
