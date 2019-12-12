@@ -57,11 +57,11 @@ class Event extends Base {
 			$timezone              = Timezones::build_timezone_object( $timezone_string );
 			$site_timezone         = Timezones::build_timezone_object();
 			$utc_timezone          = new DateTimezone( 'UTC' );
-			$start_date_object     = new DateTimeImmutable( $start_date, $timezone );
-			$end_date_object       = new DateTimeImmutable( $end_date, $timezone );
-			$start_date_utc_object = new DateTimeImmutable( $start_date_utc, $utc_timezone );
-			$end_date_utc_object   = new DateTimeImmutable( $end_date_utc, $utc_timezone );
-			$end_of_day_object     = new DateTimeImmutable( $end_of_day, $timezone );
+			$start_date_object     = Dates::immutable( $start_date, $timezone );
+			$end_date_object       = Dates::immutable( $end_date, $timezone );
+			$start_date_utc_object = Dates::immutable( $start_date_utc, $utc_timezone );
+			$end_date_utc_object   = Dates::immutable( $end_date_utc, $utc_timezone );
+			$end_of_day_object     = Dates::immutable( $end_of_day, $timezone );
 
 			if ( empty( $duration ) ) {
 				// This is really an edge case, but here we have the information to rebuild it.
