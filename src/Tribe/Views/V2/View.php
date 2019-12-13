@@ -10,7 +10,7 @@ namespace Tribe\Events\Views\V2;
 
 use Tribe\Events\Views\V2\Template\Settings\Advanced_Display;
 use Tribe\Events\Views\V2\Template\Title;
-use Tribe\Events\Views\V2\Traits\Breakpoint_Behavior;
+use Tribe\Events\Views\V2\Views\Traits\Breakpoint_Behavior;
 use Tribe__Container as Container;
 use Tribe__Context as Context;
 use Tribe__Date_Utils as Dates;
