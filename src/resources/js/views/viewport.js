@@ -59,10 +59,12 @@ tribe.events.views.viewport = {};
 	 *
 	 * @since 4.9.7
 	 *
+	 * @param {jQuery} $container jQuery object of view container
+	 *
 	 * @return {void}
 	 */
-	obj.setViewport = function() {
-		obj.state.isMobile = window.innerWidth < obj.options.MOBILE_BREAKPOINT;
+	obj.setViewport = function( $container ) {
+		obj.state.isMobile = $container.outerWidth() < obj.options.MOBILE_BREAKPOINT;
 		$document.trigger( 'resize.tribeEvents' );
 	};
 
@@ -76,7 +78,7 @@ tribe.events.views.viewport = {};
 	 * @return {void}
 	 */
 	obj.handleResize = function( event ) {
-		obj.setViewport();
+		obj.setViewport( event.data.container );
 	};
 
 	/**
@@ -89,7 +91,7 @@ tribe.events.views.viewport = {};
 	 * @return {void}
 	 */
 	obj.bindEvents = function( $container ) {
-		$window.on( 'resize', obj.handleResize );
+		$window.on( 'resize', { container: $container }, obj.handleResize );
 	};
 
 	/**
@@ -97,11 +99,16 @@ tribe.events.views.viewport = {};
 	 *
 	 * @since  4.9.7
 	 *
+	 * @param  {Event}   event      event object for 'afterSetup.tribeEvents' event
+	 * @param  {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event
+	 * @param  {jQuery}  $container jQuery object of view container
+	 * @param  {object}  data       data object passed from 'afterSetup.tribeEvents' event
+	 *
 	 * @return {void}
 	 */
-	obj.init = function() {
-		obj.bindEvents();
-		obj.setViewport();
+	obj.init = function( event, index, $container, data ) {
+		obj.bindEvents( $container );
+		obj.setViewport( $container );
 	};
 
 	/**
@@ -112,7 +119,7 @@ tribe.events.views.viewport = {};
 	 * @return {void}
 	 */
 	obj.ready = function() {
-		obj.init();
+		$document.on( 'afterSetup.tribeEvents', tribe.events.views.manager.selectors.container, obj.init );
 	};
 
 	// Configure on document ready
