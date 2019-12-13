@@ -23,7 +23,7 @@ tribe.events.views.datepicker = {};
  * @since 4.9.5
  *
  * @param  {PlainObject} $   jQuery
- * @param  {PlainObject} obj tribe.events.views.manager
+ * @param  {PlainObject} obj tribe.events.views.datepicker
  *
  * @return {void}
  */

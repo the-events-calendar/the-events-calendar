@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.11
+ * @version TBD
  *
  * @var array    $events               The array containing the events.
  * @var string   $rest_url             The REST URL.
@@ -72,3 +72,5 @@ if ( empty( $disable_event_search ) ) {
 	</div>
 
 </div>
+
+<?php $this->template( 'components/breakpoints' ); ?>
