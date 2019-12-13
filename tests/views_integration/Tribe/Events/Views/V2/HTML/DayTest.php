@@ -1,6 +1,7 @@
 <?php
 namespace Tribe\Events\Views\V2\Views\HTML;
 
+use Tribe\Events\Views\V2\View;
 use Tribe\Test\Products\WPBrowser\Views\V2\HtmlTestCase;
 
 class DayTest extends HtmlTestCase {
