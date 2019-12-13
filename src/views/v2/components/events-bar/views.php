@@ -13,7 +13,7 @@
  *
  * @var string $view_slug            Slug of the current view.
  * @var string $view_label           Label of the current view.
- * @var array  $public_views         Array of data of the public views.
+ * @var array  $public_views         Array of data of the public views, with the slug as the key.
  * @var bool   $disable_event_search Boolean on whether to disable the event search.
  */
 
