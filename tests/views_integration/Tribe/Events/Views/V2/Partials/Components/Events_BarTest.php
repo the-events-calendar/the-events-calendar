@@ -26,17 +26,32 @@ class Events_BarTest extends HtmlPartialTestCase
 	 * Test render with views
 	 */
 	public function test_render_with_views() {
-		$views = [
-			'list'  => List_View::class,
-			'month' => Month_View::class,
-			'day'   => Day_View::class,
+		$public_views = [
+			(object) [
+				'view_url'        => 'https://test.tri.be/events/list/',
+				'view_slug'       => 'list',
+				'view_label'      => 'List',
+				'is_current_view' => true,
+			],
+			(object) [
+				'view_url'        => 'https://test.tri.be/events/month/',
+				'view_slug'       => 'month',
+				'view_label'      => 'Month',
+				'is_current_view' => false,
+			],
+			(object) [
+				'view_url'        => 'https://test.tri.be/events/today/',
+				'view_slug'       => 'day',
+				'view_label'      => 'Day',
+				'is_current_view' => false,
+			],
 		];
-		$view  = View::make( List_View::class );
 
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
 			'url'                  => 'http://test.tri.be',
-			'views'                => $views,
-			'view'                 => $view,
+			'view_slug'            => 'list',
+			'view_label'           => 'List',
+			'public_views'         => $public_views,
 			'display_events_bar'   => true,
 			'disable_event_search' => false,
 		] ) );
@@ -46,27 +61,41 @@ class Events_BarTest extends HtmlPartialTestCase
 	 * Test render with views disabled event search
 	 */
 	public function test_render_with_views_disabled_event_search() {
-		$views = [
-			'list'  => List_View::class,
-			'month' => Month_View::class,
-			'day'   => Day_View::class,
+		$public_views = [
+			(object) [
+				'view_url'        => 'https://test.tri.be/events/list/',
+				'view_slug'       => 'list',
+				'view_label'      => 'List',
+				'is_current_view' => true,
+			],
+			(object) [
+				'view_url'        => 'https://test.tri.be/events/month/',
+				'view_slug'       => 'month',
+				'view_label'      => 'Month',
+				'is_current_view' => false,
+			],
+			(object) [
+				'view_url'        => 'https://test.tri.be/events/today/',
+				'view_slug'       => 'day',
+				'view_label'      => 'Day',
+				'is_current_view' => false,
+			],
 		];
-		$view  = View::make( List_View::class );
 
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
 			'url'                  => 'http://test.tri.be',
-			'views'                => $views,
-			'view'                 => $view,
+			'view_slug'            => 'list',
+			'view_label'           => 'List',
+			'public_views'         => $public_views,
 			'display_events_bar'   => true,
 			'disable_event_search' => true,
 		] ) );
 	}
 
 	/**
-	 * Test render empty
+	 * Test render with display events bar false
 	 */
-	public function test_render_empty() {
-
+	public function test_render_with_display_events_bar_false() {
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
 			'display_events_bar' => false,
 		] ) );

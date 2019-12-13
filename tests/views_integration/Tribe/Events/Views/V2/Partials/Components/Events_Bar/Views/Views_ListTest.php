@@ -2,10 +2,6 @@
 
 namespace Tribe\Events\Views\V2\Partials\Components\Events_Bar\Views;
 
-use Tribe\Events\Views\V2\View;
-use Tribe\Events\Views\V2\Views\Day_View;
-use Tribe\Events\Views\V2\Views\List_View;
-use Tribe\Events\Views\V2\Views\Month_View;
 use Tribe\Test\Products\WPBrowser\Views\V2\HtmlPartialTestCase;
 
 class Views_ListTest extends HtmlPartialTestCase
@@ -18,7 +14,7 @@ class Views_ListTest extends HtmlPartialTestCase
 	 */
 	public function test_render_without_views() {
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
-			'views' => [],
+			'public_views' => [],
 		] ) );
 	}
 
@@ -26,15 +22,29 @@ class Views_ListTest extends HtmlPartialTestCase
 	 * Test render with views
 	 */
 	public function test_render_with_views() {
-		$views = [
-			'list'  => List_View::class,
-			'month' => Month_View::class,
-			'day'   => Day_View::class,
+		$public_views = [
+			(object) [
+				'view_url'        => 'https://test.tri.be/events/list/',
+				'view_slug'       => 'list',
+				'view_label'      => 'List',
+				'is_current_view' => false,
+			],
+			(object) [
+				'view_url'        => 'https://test.tri.be/events/month/',
+				'view_slug'       => 'month',
+				'view_label'      => 'Month',
+				'is_current_view' => true,
+			],
+			(object) [
+				'view_url'        => 'https://test.tri.be/events/today/',
+				'view_slug'       => 'day',
+				'view_label'      => 'Day',
+				'is_current_view' => false,
+			],
 		];
-		$view  = View::make( List_View::class );
+
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
-			'views' => $views,
-			'view'  => $view,
+			'public_views' => $public_views,
 		] ) );
 	}
 }
