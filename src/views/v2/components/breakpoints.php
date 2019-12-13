@@ -18,7 +18,7 @@ if ( ! $is_initial_load ) {
 	return;
 }
 ?>
-<script class="tribe-events-views-breakpoints">
+<script class="tribe-events-breakpoints">
 	var scripts = document.getElementsByTagName( 'script' );
 	window.tribe.events.views.breakpoints.setup( scripts[ scripts.length - 1 ] );
 </script>
