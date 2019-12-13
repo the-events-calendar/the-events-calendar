@@ -9,6 +9,7 @@
 namespace Tribe\Events\Views\V2\Views;
 
 use Tribe\Events\Views\V2\View;
+use Tribe\Events\Views\V2\Views\Traits\List_Behavior;
 use Tribe__Context;
 use Tribe__Events__Main as TEC;
 use Tribe__Events__Rewrite as Rewrite;
