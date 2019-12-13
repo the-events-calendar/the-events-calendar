@@ -14,23 +14,20 @@ class ViewsTest extends HtmlPartialTestCase
 	 */
 	public function test_render_with_views_with_tabs_style() {
 		$public_views = [
-			(object) [
-				'view_url'        => 'https://test.tri.be/events/list/',
-				'view_slug'       => 'list',
-				'view_label'      => 'List',
-				'is_current_view' => true,
+			'list'  => (object) [
+				'view_url'   => 'https://test.tri.be/events/list/',
+				'view_class' => 'Tribe\Events\Views\V2\Views\List_View',
+				'view_label' => 'List',
 			],
-			(object) [
-				'view_url'        => 'https://test.tri.be/events/month/',
-				'view_slug'       => 'month',
-				'view_label'      => 'Month',
-				'is_current_view' => false,
+			'month' => (object) [
+				'view_url'   => 'https://test.tri.be/events/month/',
+				'view_class' => 'Tribe\Events\Views\V2\Views\Month_View',
+				'view_label' => 'Month',
 			],
-			(object) [
-				'view_url'        => 'https://test.tri.be/events/today/',
-				'view_slug'       => 'day',
-				'view_label'      => 'Day',
-				'is_current_view' => false,
+			'day'   => (object) [
+				'view_url'   => 'https://test.tri.be/events/today/',
+				'view_class' => 'Tribe\Events\Views\V2\Views\Day_View',
+				'view_label' => 'Day',
 			],
 		];
 
@@ -48,29 +45,25 @@ class ViewsTest extends HtmlPartialTestCase
 	public function test_render_with_views_with_label_style() {
 		// fake a 4th view
 		$public_views = [
-			(object) [
-				'view_url'        => 'https://test.tri.be/events/list/',
-				'view_slug'       => 'list',
-				'view_label'      => 'List',
-				'is_current_view' => true,
+			'list'  => (object) [
+				'view_url'   => 'https://test.tri.be/events/list/',
+				'view_class' => 'Tribe\Events\Views\V2\Views\List_View',
+				'view_label' => 'List',
 			],
-			(object) [
-				'view_url'        => 'https://test.tri.be/events/month/',
-				'view_slug'       => 'month',
-				'view_label'      => 'Month',
-				'is_current_view' => false,
+			'month' => (object) [
+				'view_url'   => 'https://test.tri.be/events/month/',
+				'view_class' => 'Tribe\Events\Views\V2\Views\Month_View',
+				'view_label' => 'Month',
 			],
-			(object) [
-				'view_url'        => 'https://test.tri.be/events/today/',
-				'view_slug'       => 'day',
-				'view_label'      => 'Day',
-				'is_current_view' => false,
+			'day'   => (object) [
+				'view_url'   => 'https://test.tri.be/events/today/',
+				'view_class' => 'Tribe\Events\Views\V2\Views\Day_View',
+				'view_label' => 'Day',
 			],
-			(object) [
-				'view_url'        => 'https://test.tri.be/events/month2/',
-				'view_slug'       => 'month2',
-				'view_label'      => 'Month2',
-				'is_current_view' => false,
+			'week'  => (object) [
+				'view_url'   => 'https://test.tri.be/events/week/',
+				'view_class' => 'Tribe\Events\Views\V2\Views\Week_View',
+				'view_label' => 'Week',
 			],
 		];
 
@@ -87,23 +80,20 @@ class ViewsTest extends HtmlPartialTestCase
 	 */
 	public function test_render_with_views_with_disabled_event_search() {
 		$public_views = [
-			(object) [
-				'view_url'        => 'https://test.tri.be/events/list/',
-				'view_slug'       => 'list',
-				'view_label'      => 'List',
-				'is_current_view' => true,
+			'list'  => (object) [
+				'view_url'   => 'https://test.tri.be/events/list/',
+				'view_class' => 'Tribe\Events\Views\V2\Views\List_View',
+				'view_label' => 'List',
 			],
-			(object) [
-				'view_url'        => 'https://test.tri.be/events/month/',
-				'view_slug'       => 'month',
-				'view_label'      => 'Month',
-				'is_current_view' => false,
+			'month' => (object) [
+				'view_url'   => 'https://test.tri.be/events/month/',
+				'view_class' => 'Tribe\Events\Views\V2\Views\Month_View',
+				'view_label' => 'Month',
 			],
-			(object) [
-				'view_url'        => 'https://test.tri.be/events/today/',
-				'view_slug'       => 'day',
-				'view_label'      => 'Day',
-				'is_current_view' => false,
+			'day'   => (object) [
+				'view_url'   => 'https://test.tri.be/events/today/',
+				'view_class' => 'Tribe\Events\Views\V2\Views\Day_View',
+				'view_label' => 'Day',
 			],
 		];
 

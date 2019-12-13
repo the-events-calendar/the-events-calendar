@@ -49,15 +49,15 @@
 			Day		</span>
 	</a>
 </li>
-					<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--month2">
+					<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--week">
 	<a
-		href="https://test.tri.be/events/month2/"
+		href="https://test.tri.be/events/week/"
 		class="tribe-events-c-view-selector__list-item-link"
 		data-js="tribe-events-view-link"
 	>
-		<span class="tribe-events-c-view-selector__list-item-icon tribe-common-svgicon tribe-common-svgicon--month2"></span>
+		<span class="tribe-events-c-view-selector__list-item-icon tribe-common-svgicon tribe-common-svgicon--week"></span>
 		<span class="tribe-events-c-view-selector__list-item-text">
-			Month2		</span>
+			Week		</span>
 	</a>
 </li>
 			</ul>

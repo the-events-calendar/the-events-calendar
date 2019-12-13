@@ -23,27 +23,25 @@ class Views_ListTest extends HtmlPartialTestCase
 	 */
 	public function test_render_with_views() {
 		$public_views = [
-			(object) [
-				'view_url'        => 'https://test.tri.be/events/list/',
-				'view_slug'       => 'list',
-				'view_label'      => 'List',
-				'is_current_view' => false,
+			'list'  => (object) [
+				'view_url'   => 'https://test.tri.be/events/list/',
+				'view_class' => 'Tribe\Events\Views\V2\Views\List_View',
+				'view_label' => 'List',
 			],
-			(object) [
-				'view_url'        => 'https://test.tri.be/events/month/',
-				'view_slug'       => 'month',
-				'view_label'      => 'Month',
-				'is_current_view' => true,
+			'month' => (object) [
+				'view_url'   => 'https://test.tri.be/events/month/',
+				'view_class' => 'Tribe\Events\Views\V2\Views\Month_View',
+				'view_label' => 'Month',
 			],
-			(object) [
-				'view_url'        => 'https://test.tri.be/events/today/',
-				'view_slug'       => 'day',
-				'view_label'      => 'Day',
-				'is_current_view' => false,
+			'day'   => (object) [
+				'view_url'   => 'https://test.tri.be/events/today/',
+				'view_class' => 'Tribe\Events\Views\V2\Views\Day_View',
+				'view_label' => 'Day',
 			],
 		];
 
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
+			'view_slug'    => 'month',
 			'public_views' => $public_views,
 		] ) );
 	}

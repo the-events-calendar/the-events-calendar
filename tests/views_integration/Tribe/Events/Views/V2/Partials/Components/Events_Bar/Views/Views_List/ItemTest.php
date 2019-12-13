@@ -14,11 +14,12 @@ class ItemTest extends HtmlPartialTestCase
 	 */
 	public function test_render_with_view_is_not_current_view() {
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
-			'public_view' => (object) [
-				'view_url'        => 'https://test.tri.be/events/month/',
-				'view_slug'       => 'month',
-				'view_label'      => 'Month',
-				'is_current_view' => false,
+			'view_slug'        => 'list',
+			'public_view_slug' => 'month',
+			'public_view_data' => (object) [
+				'view_url'   => 'https://test.tri.be/events/month/',
+				'view_class' => 'Tribe\Events\Views\V2\Views\Month_View',
+				'view_label' => 'Month',
 			],
 		] ) );
 	}
@@ -28,11 +29,12 @@ class ItemTest extends HtmlPartialTestCase
 	 */
 	public function test_render_with_view_is_current_view() {
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
-			'public_view' => (object) [
-				'view_url'        => 'https://test.tri.be/events/month/',
-				'view_slug'       => 'month',
-				'view_label'      => 'Month',
-				'is_current_view' => true,
+			'view_slug'        => 'month',
+			'public_view_slug' => 'month',
+			'public_view_data' => (object) [
+				'view_url'   => 'https://test.tri.be/events/month/',
+				'view_class' => 'Tribe\Events\Views\V2\Views\Month_View',
+				'view_label' => 'Month',
 			],
 		] ) );
 	}
