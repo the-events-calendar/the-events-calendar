@@ -9,8 +9,9 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.10
+ * @version TBD
  *
+ * @var array $public_views Array of data of the public views.
  */
 ?>
 <div
@@ -19,8 +20,8 @@
 	data-js="tribe-events-view-selector-list-container"
 >
 	<ul class="tribe-events-c-view-selector__list">
-		<?php foreach ( $this->get( 'views' ) as $view => $view_class_name ) : ?>
-			<?php $this->template( 'components/events-bar/views/list/item', [ 'view_class_name' => $view_class_name ] ); ?>
+		<?php foreach ( $public_views as $public_view ) : ?>
+			<?php $this->template( 'components/events-bar/views/list/item', [ 'public_view' => $public_view ] ); ?>
 		<?php endforeach; ?>
 	</ul>
 </div>

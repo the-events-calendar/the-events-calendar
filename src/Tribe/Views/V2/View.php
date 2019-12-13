@@ -1200,6 +1200,7 @@ class View implements View_Interface {
 			'show_datepicker_submit' => $this->get_show_datepicker_submit(),
 			'breakpoints'            => $this->get_breakpoints(),
 			'is_initial_load'        => $this->context->doing_php_initial_state(),
+			'public_views'           => $this->get_public_views( $url_event_date ),
 		];
 
 		return $template_vars;
@@ -1784,6 +1785,70 @@ class View implements View_Interface {
 		$show_datepicker_submit = apply_filters( "tribe_events_views_v2_view_{$this->slug}_show_datepicker_submit", $show_datepicker_submit, $this );
 
 		return $show_datepicker_submit;
+	}
+
+	/**
+	 * Returns an array of public views.
+	 *
+	 * @since TBD
+	 *
+	 * @param string|bool $url_event_date The value, `Y-m-d` format, of the `eventDate` request variable to
+	 *                                    append to the view URL, if any.
+	 *
+	 * @return array
+	 */
+	protected function get_public_views( $url_event_date ) {
+		$publicly_visible_views = tribe( Manager::class )->get_publicly_visible_views();
+
+		$public_views = [];
+
+		foreach ( $publicly_visible_views as $view => $view_class ) {
+			$view_instance   = View::make( $view_class );
+			$view_slug       = $view_instance->get_slug();
+			$is_current_view = $this->slug === $view_instance->get_slug();
+
+			if ( ! empty( $url_event_date ) ) {
+				// Each View expects the event date in a specific format, here we account for it.
+				$query_args = wp_parse_url( $this->get_url( false ), PHP_URL_QUERY );
+				$view_url   = $view_instance->url_for_query_args( $url_event_date, $query_args );
+			} else {
+				$view_url = tribe_events_get_url( array_filter( [ 'eventDisplay' => $view_slug ] ) );
+			}
+
+			$view_label = $view_instance->get_label();
+
+			array_push(
+				$public_views,
+				(object) [
+					'view_slug'       => $view_slug,
+					'view_url'        => $view_url,
+					'view_label'      => $view_label,
+					'is_current_view' => $is_current_view,
+				]
+			);
+		}
+
+		/**
+		 * Filters the public views.
+		 *
+		 * @since TBD
+		 *
+		 * @param object $public_views The public views.
+		 * @param View   $this         The current View instance being rendered.
+		 */
+		$public_views = apply_filters( "tribe_events_views_v2_view_public_views", $public_views, $this );
+
+		/**
+		 * Filters the public views for a specific view.
+		 *
+		 * @since TBD
+		 *
+		 * @param object $public_views The public views.
+		 * @param View   $this         The current View instance being rendered.
+		 */
+		$public_views = apply_filters( "tribe_events_views_v2_view_{$this->slug}_public_views", $public_views, $this );
+
+		return $public_views;
 	}
 
 	/**
