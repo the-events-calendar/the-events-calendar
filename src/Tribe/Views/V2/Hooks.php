@@ -88,6 +88,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		if ( tribe_context()->doing_php_initial_state() ) {
 			add_filter( 'wp_title', [ $this, 'filter_wp_title' ], 10, 2 );
 			add_filter( 'document_title_parts', [ $this, 'filter_document_title_parts' ] );
+			add_filter( 'pre_get_document_title', [ $this, 'pre_get_document_title' ], 20 );
 		}
 	}
 
@@ -302,6 +303,24 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		}
 
 		return $this->container->make( Title::class )->filter_wp_title( $title, $sep );
+	}
+
+	/**
+	 * Filters the `pre_get_document_title` to prevent conflicts when other plugins
+	 * modify this initial value on our pages.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $title The current title value.
+	 *
+	 * @return string The current title or empty string.
+	 */
+	public function pre_get_document_title( $title ) {
+		if ( ! tribe_context()->get( 'tec_post_type' ) ) {
+			return $title;
+		}
+
+		return '';
 	}
 
 	/**

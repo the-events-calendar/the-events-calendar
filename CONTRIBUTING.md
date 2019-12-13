@@ -22,6 +22,14 @@ with that.
 
 ### Prerequisites
 
+#### get the submodules
+
+We rely on a few submodules, you'll need those to continue.
+
+```
+git submodule update --init --recursive
+```
+
 #### Install Node.js
 
 If you don't already have Node.js installed, please do so first:
@@ -38,9 +46,9 @@ that with the npm `-g` flag.
 npm install -g gulp-cli
 ```
 
-#### Install all the things
+#### Install all the NPM packages
 
-With all of those in place, simply run:
+With all of those in place, run:
 
 ```
 npm install
@@ -51,6 +59,27 @@ rebuild and try again.
 
 ```
 npm rebuild
+```
+
+#### Install composer
+
+We use composer for some critical packages. Please [install composer](https://getcomposer.org/download/) (if you do not already have it).
+
+#### Install composer packages
+
+With composer in place, let's get those composer packages:
+```
+composer install
+```
+
+#### Install npm and composer packages in common
+
+One of our submodules is Tribe Common, which is a shared set of libraries in use by our plugins (see also [Event Tickets](https://github.com/moderntribe/event-tickets)). It uses npm and composer as well, so, let's get those as well.
+
+```
+cd common
+npm install
+composer install
 ```
 
 ### Using Gulp

@@ -224,7 +224,7 @@ class Month_View extends By_Day_View {
 		$template_vars['the_date']            = $grid_date;
 		$template_vars['today_date']          = Dates::build_date_object( $today )->format( 'Y-m-d' );
 		$template_vars['grid_date']           = $grid_date->format( 'Y-m-d' );
-		$template_vars['formatted_grid_date'] = $grid_date->format( $month_and_year_format );
+		$template_vars['formatted_grid_date'] = $grid_date->format_i18n( $month_and_year_format );
 		$template_vars['events']              = $grid_days;
 		$template_vars['days']                = $days;
 		$template_vars['prev_label']          = $prev_month;

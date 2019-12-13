@@ -32,7 +32,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '4.9.13';
+		const VERSION             = '4.9.13-beta3';
 
 		/**
 		 * Min Pro Addon
@@ -553,14 +553,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Assets loader
 			tribe_singleton( 'tec.assets', 'Tribe__Events__Assets', array( 'register', 'hook' ) );
 
-			// Register and start the Customizer Sections
-			tribe_singleton( 'tec.customizer.general-theme', new Tribe__Events__Customizer__General_Theme() );
-			tribe_singleton( 'tec.customizer.global-elements', new Tribe__Events__Customizer__Global_Elements() );
-			tribe_singleton( 'tec.customizer.day-list-view', new Tribe__Events__Customizer__Day_List_View() );
-			tribe_singleton( 'tec.customizer.month-week-view', new Tribe__Events__Customizer__Month_Week_View() );
-			tribe_singleton( 'tec.customizer.single-event', new Tribe__Events__Customizer__Single_Event() );
-			tribe_singleton( 'tec.customizer.widget', new Tribe__Events__Customizer__Widget() );
-
 			// Tribe Bar
 			tribe_singleton( 'tec.bar', 'Tribe__Events__Bar', array( 'hook' ) );
 
@@ -605,6 +597,21 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// The Views v2 service provider.
 			tribe_register_provider( Tribe\Events\Views\V2\Service_Provider::class );
+
+			// Register and start the Customizer Sections
+			if ( ! tribe_events_views_v2_is_enabled() ){
+				tribe_singleton( 'tec.customizer.general-theme', new Tribe__Events__Customizer__General_Theme() );
+			}
+
+			tribe_singleton( 'tec.customizer.global-elements', new Tribe__Events__Customizer__Global_Elements() );
+
+			if ( ! tribe_events_views_v2_is_enabled() ) {
+				tribe_singleton( 'tec.customizer.day-list-view', new Tribe__Events__Customizer__Day_List_View() );
+				tribe_singleton( 'tec.customizer.month-week-view', new Tribe__Events__Customizer__Month_Week_View() );
+			}
+
+			tribe_singleton( 'tec.customizer.single-event', new Tribe__Events__Customizer__Single_Event() );
+			tribe_singleton( 'tec.customizer.widget', new Tribe__Events__Customizer__Widget() );
 
 			/**
 			 * Allows other plugins and services to override/change the bound implementations.
