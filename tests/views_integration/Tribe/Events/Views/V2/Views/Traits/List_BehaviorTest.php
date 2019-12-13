@@ -1,6 +1,6 @@
 <?php
 
-namespace Tribe\Events\Views\V2\Views;
+namespace Tribe\Events\Views\V2\Views\Traits;
 
 use Tribe\Events\Views\V2\View;
 use Tribe\Test\PHPUnit\Traits\With_Post_Remapping;

@@ -7,7 +7,7 @@
  * @package Tribe\Events\Views\V2\Views
  */
 
-namespace Tribe\Events\Views\V2\Views;
+namespace Tribe\Events\Views\V2\Views\Traits;
 
 use Tribe__Context as Context;
 use Tribe__Date_Utils as Dates;
