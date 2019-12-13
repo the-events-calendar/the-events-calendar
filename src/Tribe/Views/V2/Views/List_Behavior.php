@@ -96,8 +96,13 @@ trait List_Behavior {
 			$end   = $last_event instanceof \WP_Post ? $last_event->dates->start_display : $user_date;
 		}
 
-		$end_is_now = ( $is_past && 1 === $page )
-		              || $now->format( 'Y-m-d' ) === $end->format( 'Y-m-d' );
+		$is_first_past_page = $is_past && 1 === $page;
+
+		if ( $is_first_past_page ) {
+			$end = $user_date;
+		}
+
+		$end_is_now = $now->format( 'Y-m-d' ) === $end->format( 'Y-m-d' );
 
 		// Do the events all have the same start dates?
 		$diff_dates = count(
@@ -112,7 +117,7 @@ trait List_Behavior {
 			              )
 		              ) > 1;
 
-		$show_end = ( $is_past && 1 === $page )
+		$show_end = ( $is_first_past_page )
 		            || (
 			            $has_next_page
 			            && $diff_dates

@@ -46,6 +46,6 @@ $sep_date = empty( $is_past ) && ! empty( $request_date )
 		datetime="<?php
 		echo esc_attr( $sep_date->format( 'Y-m' ) ); ?>"
 	>
-		<?php echo esc_html( $sep_date->format( 'F Y' ) ); ?>
+		<?php echo esc_html( $sep_date->format_i18n( 'F Y' ) ); ?>
 	</time>
 </div>
