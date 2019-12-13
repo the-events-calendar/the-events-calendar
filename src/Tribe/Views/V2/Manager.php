@@ -208,7 +208,7 @@ class Manager {
 	 *
 	 * @since 4.9.4
 	 *
-	 * @param  string $slug The view fully qualified class name.
+	 * @param  string $slug The view slug.
 	 *
 	 * @return string|false The class currently associated to a View slug if it is found, `false` otherwise.
 	 */
@@ -217,4 +217,167 @@ class Manager {
 
 		return Arr::get( $registered_views, $slug, false );
 	}
+
+	/**
+	 * Returns the view label based on the fully qualified class name.
+	 *
+	 * @since TBD
+	 *
+	 * @param  string $view_class The view fully qualified class name.
+	 *
+	 * @return string|false The label associated with a given View.
+	 */
+	public function get_view_label_by_class( $view_class ) {
+		$slug = $this->get_view_slug_by_class( $view_class );
+
+		if ( ! $slug ) {
+			return false;
+		}
+
+		return $this->prepare_view_label( $slug, $view_class );
+	}
+
+	/**
+	 * Returns the view label based on the view slug.
+	 *
+	 * @since TBD
+	 *
+	 * @param  string $slug The view slug.
+	 *
+	 * @return string|false The label associated with a given View.
+	 */
+	public function get_view_label_by_slug( $slug ) {
+		$view_class = $this->get_view_class_by_slug( $slug );
+
+		if ( ! $view_class ) {
+			return false;
+		}
+
+		return $this->prepare_view_label( $slug, $view_class );
+	}
+
+	/**
+	 * Prepare the view Label with filters for the domain and label.
+	 *
+	 * @param  string $slug       The view slug.
+	 * @param  string $view_class The view fully qualified class name.
+	 *
+	 * @return string             The filtered label associated with a given View.
+	 */
+	protected function prepare_view_label( $slug, $view_class ) {
+		$label = ucfirst( $slug );
+
+		/**
+		 * Filters the label that will be used on the UI for views listing.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $domain       Text Domain for the View label.
+		 * @param string $slug         Slug of the view we are getting the label for.
+		 * @param string $view_class   Class Name of the view we are getting the label for.
+		 */
+		$domain = apply_filters( 'tribe_events_views_v2_manager_view_label_domain', 'the-events-calendar', $slug, $view_class );
+
+		/**
+		 * Filters the label that will be used on the UI for views listing.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $domain       Text Domain for the View label.
+		 * @param string $view_class   Class Name of the view we are getting the label for.
+		 */
+		$domain = apply_filters( "tribe_events_views_v2_manager_{$slug}_view_label_domain", $domain, $view_class );
+
+		/**
+		 * Pass by the translation engine, dont remove.
+		 */
+		$label = __( $label, $domain );
+
+		/**
+		 * Filters the label that will be used on the UI for views listing.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $label        Label of the Current view.
+		 * @param string $slug         Slug of the view we are getting the label for.
+		 * @param string $view_class   Class Name of the view we are getting the label for.
+		 */
+		$label = apply_filters( 'tribe_events_views_v2_manager_view_label', $label, $slug, $view_class );
+
+		/**
+		 * Filters the label that will be used on the UI for views listing.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $label        Label of the Current view.
+		 * @param string $view_class   Class Name of the view we are getting the label for.
+		 */
+		$label = apply_filters( "tribe_events_views_v2_manager_{$slug}_view_label", $label, $view_class );
+
+		return $label;
+	}
+
+	/**
+	 * Returns an array of public views.
+	 *
+	 * @since TBD
+	 *
+	 * @param string|bool $url_event_date The value, `Y-m-d` format, of the `eventDate` request variable to
+	 *                                    append to the view URL, if any.
+	 *
+	 * @return array
+	 */
+	protected function get_public_views( $url_event_date ) {
+		$publicly_visible_views = tribe( Manager::class )->get_publicly_visible_views();
+
+		$public_views = [];
+
+		foreach ( $publicly_visible_views as $view_slug => $view_class ) {
+			$view_instance   = View::make( $view_class );
+			$is_current_view = $this->slug === $view_instance->get_slug();
+
+			if ( ! empty( $url_event_date ) ) {
+				// Each View expects the event date in a specific format, here we account for it.
+				$query_args = wp_parse_url( $this->get_url( false ), PHP_URL_QUERY );
+				$view_url   = $view_instance->url_for_query_args( $url_event_date, $query_args );
+			} else {
+				$view_url = tribe_events_get_url( array_filter( [ 'eventDisplay' => $view_slug ] ) );
+			}
+
+			$view_label = $view_instance->get_label();
+
+			array_push(
+				$public_views,
+				(object) [
+					'view_slug'       => $view_slug,
+					'view_url'        => $view_url,
+					'view_label'      => $view_label,
+					'is_current_view' => $is_current_view,
+				]
+			);
+		}
+
+		/**
+		 * Filters the public views.
+		 *
+		 * @since TBD
+		 *
+		 * @param object $public_views The public views.
+		 * @param View   $this         The current View instance being rendered.
+		 */
+		$public_views = apply_filters( "tribe_events_views_v2_view_public_views", $public_views, $this );
+
+		/**
+		 * Filters the public views for a specific view.
+		 *
+		 * @since TBD
+		 *
+		 * @param object $public_views The public views.
+		 * @param View   $this         The current View instance being rendered.
+		 */
+		$public_views = apply_filters( "tribe_events_views_v2_view_{$this->slug}_public_views", $public_views, $this );
+
+		return $public_views;
+	}
+
 }
