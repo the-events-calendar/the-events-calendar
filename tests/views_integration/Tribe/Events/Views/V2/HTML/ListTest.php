@@ -6,6 +6,15 @@ use Tribe\Test\Products\WPBrowser\Views\V2\HtmlTestCase;
 class ListTest extends HtmlTestCase {
 
 	/**
+	 * Returns a "safe" View to use in HTML partial testing.
+	 *
+	 * @return View_Interface A View instance safe to use in partial HTML testing.
+	 */
+	protected function make_view_instance() {
+		return View::make( 'list' );
+	}
+
+	/**
 	 * @test
 	 */
 	public function it_should_contain_correct_html_classes() {
@@ -16,7 +25,7 @@ class ListTest extends HtmlTestCase {
 				'show_end'        => false,
 				'datepicker_date' => '2019-01-01',
 			],
-			false 
+			false
 		);
 		$template = $this->template->template( 'list', [ 'events' => [] ] );
 		$html     = $this->document->html( $template );

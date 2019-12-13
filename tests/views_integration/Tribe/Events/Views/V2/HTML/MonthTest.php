@@ -2,10 +2,20 @@
 
 namespace Tribe\Events\Views\V2\Views\HTML;
 
+use Tribe\Events\Views\V2\View;
 use Tribe\Test\Products\WPBrowser\Views\V2\HtmlTestCase;
 use Tribe__Date_Utils as Dates;
 
 class MonthTest extends HtmlTestCase {
+
+	/**
+	 * Returns a "safe" View to use in HTML partial testing.
+	 *
+	 * @return View_Interface A View instance safe to use in partial HTML testing.
+	 */
+	protected function make_view_instance() {
+		return View::make( 'month' );
+	}
 
 	/**
 	 * @test
@@ -37,7 +47,7 @@ class MonthTest extends HtmlTestCase {
 	public function it_should_contain_a11y_attributes() {
 		$this->given_month_data();
 		$this->template->add_template_globals( [
-			'the_date' => Dates::build_date_object( '2019-08-01' )
+			'the_date' => Dates::build_date_object( '2019-08-01' ),
 		] );
 		$template = $this->template->template( 'month' );
 		$html       = $this->document->html( $template );
