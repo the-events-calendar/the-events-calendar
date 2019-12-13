@@ -41,6 +41,10 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 			';
 		}
 
+		if ( tribe_events_views_v2_is_enabled() ) {
+			return $template;
+		}
+
 		if ( $customizer->has_option( $this->ID, 'filterbar_color' ) ) {
 			$template .= '
 				#tribe-bar-form {
@@ -148,6 +152,12 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 			)
 		);
 
+		$customizer->add_setting_name( $customizer->get_setting_name( 'link_color', $section ) );
+
+		if ( tribe_events_views_v2_is_enabled() ) {
+			return;
+		}
+
 		$manager->add_setting(
 			$customizer->get_setting_name( 'filterbar_color', $section ),
 			array(
@@ -218,12 +228,10 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 		}
 
 		// Introduced to make Selective Refresh have less code duplication
-		$customizer->add_setting_name( $customizer->get_setting_name( 'link_color', $section ) );
 		$customizer->add_setting_name( $customizer->get_setting_name( 'filterbar_color', $section ) );
 		$customizer->add_setting_name( $customizer->get_setting_name( 'button_color', $section ) );
 
 		// To add Live Edit Pins will require some JS refactor to be able to work
 		// $customizer->add_setting_name( $customizer->get_setting_name( 'map_pin', $section ) );
-
 	}
 }

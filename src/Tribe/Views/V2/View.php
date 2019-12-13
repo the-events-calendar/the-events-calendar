@@ -1156,7 +1156,9 @@ class View implements View_Interface {
 		$today          = $this->context->get( 'today', 'today' );
 
 		$event_date = $this->context->get( 'event_date', false );
-		$url_event_date = false !== $event_date
+
+		// Set the URL event date only if it's not empty or "now": both are implicit, default, date selections.
+		$url_event_date = ( ! empty( $event_date ) && 'now' !== $event_date )
 			? Dates::build_date_object( $event_date )->format( Dates::DBDATEFORMAT )
 			: false;
 

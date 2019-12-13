@@ -83,15 +83,26 @@ trait List_Behavior {
 		$show_now = $show_now && $this->context->get( 'page' ) <= 1;
 
 		if ( ! $is_past ) {
-			$start = $first_event instanceof \WP_Post ? $first_event->dates->start_display : $user_date;
-			$end   = $last_event instanceof \WP_Post ? $last_event->dates->start_display : $user_date;
+			if ( $page === 1 ) {
+				// On the first page show the date the user has implicitly (today) or explicitly (w/ bar) selected.
+				$start = $user_date;
+			} else {
+				// On following pages use the date of the first event, if any.
+				$start = $first_event instanceof \WP_Post ? $first_event->dates->start_display : $user_date;
+			}
+			$end = $last_event instanceof \WP_Post ? $last_event->dates->start_display : $user_date;
 		} else {
 			$start = $first_event instanceof \WP_Post ? $first_event->dates->start_display : $user_date;
 			$end   = $last_event instanceof \WP_Post ? $last_event->dates->start_display : $user_date;
 		}
 
-		$end_is_now = ( $is_past && 1 === $page )
-		              || $now->format( 'Y-m-d' ) === $end->format( 'Y-m-d' );
+		$is_first_past_page = $is_past && 1 === $page;
+
+		if ( $is_first_past_page ) {
+			$end = $user_date;
+		}
+
+		$end_is_now = $now->format( 'Y-m-d' ) === $end->format( 'Y-m-d' );
 
 		// Do the events all have the same start dates?
 		$diff_dates = count(
@@ -106,7 +117,7 @@ trait List_Behavior {
 			              )
 		              ) > 1;
 
-		$show_end = ( $is_past && 1 === $page )
+		$show_end = ( $is_first_past_page )
 		            || (
 			            $has_next_page
 			            && $diff_dates

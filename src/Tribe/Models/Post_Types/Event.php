@@ -57,11 +57,11 @@ class Event extends Base {
 			$timezone              = Timezones::build_timezone_object( $timezone_string );
 			$site_timezone         = Timezones::build_timezone_object();
 			$utc_timezone          = new DateTimezone( 'UTC' );
-			$start_date_object     = new DateTimeImmutable( $start_date, $timezone );
-			$end_date_object       = new DateTimeImmutable( $end_date, $timezone );
-			$start_date_utc_object = new DateTimeImmutable( $start_date_utc, $utc_timezone );
-			$end_date_utc_object   = new DateTimeImmutable( $end_date_utc, $utc_timezone );
-			$end_of_day_object     = new DateTimeImmutable( $end_of_day, $timezone );
+			$start_date_object     = Dates::immutable( $start_date, $timezone );
+			$end_date_object       = Dates::immutable( $end_date, $timezone );
+			$start_date_utc_object = Dates::immutable( $start_date_utc, $utc_timezone );
+			$end_date_utc_object   = Dates::immutable( $end_date_utc, $utc_timezone );
+			$end_of_day_object     = Dates::immutable( $end_of_day, $timezone );
 
 			if ( empty( $duration ) ) {
 				// This is really an edge case, but here we have the information to rebuild it.
@@ -130,9 +130,9 @@ class Event extends Base {
 						if ( $starts_this_week && $ends_this_week ) {
 							$this_week_duration = min( 7, max( 1, Dates::date_diff( $the_end_ymd, $the_start_ymd ) ) + $cross_day );
 						} elseif ( $ends_this_week ) {
-							$this_week_duration = $the_end_ymd - $week_start_ymd + $cross_day;
+							$this_week_duration = Dates::date_diff( $the_end_ymd, $week_start_ymd ) + $cross_day;
 						} elseif ( $starts_this_week ) {
-							$this_week_duration = $week_end_ymd - $the_start_ymd + $cross_day;
+							$this_week_duration = Dates::date_diff( $week_end_ymd, $the_start_ymd ) + $cross_day;
 						} else {
 							// If it happens this week and it doesn't start or end this week, then it spans the week.
 							$this_week_duration = 7;
