@@ -103,7 +103,7 @@ tribe.events.views.breakpoints = {};
 	 */
 	obj.unbindEvents = function( $container ) {
 		$container.off( 'beforeAjaxSuccess.tribeEvents', obj.deinit );
-		$window.off( 'resize', obj.handleResize );
+		$document.off( 'resize.tribeEvents', obj.handleResize );
 	};
 
 	/**
@@ -118,7 +118,7 @@ tribe.events.views.breakpoints = {};
 	 */
 	obj.bindEvents = function( $container, data ) {
 		$container.on( 'beforeAjaxSuccess.tribeEvents', { container: $container }, obj.deinit );
-		$window.on( 'resize', { container: $container, data: data }, obj.handleResize );
+		$document.on( 'resize.tribeEvents', { container: $container, data: data }, obj.handleResize );
 	};
 
 	/**
