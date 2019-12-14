@@ -145,8 +145,7 @@ class Manager {
 
 		$views = array_filter(
 			$views,
-			static function ( $view_class, $slug ) use ( $enabled_views )
-			{
+			static function ( $view_class, $slug ) use ( $enabled_views ) {
 				return in_array( $slug, $enabled_views, true )
 				       && (bool) call_user_func( [ $view_class, 'is_publicly_visible' ] );
 			},
@@ -168,7 +167,7 @@ class Manager {
 
 		array_walk(
 			$views,
-			function ( &$value, $view_slug ) {
+			static function ( &$value, $view_slug ) {
 				$value = (object) [
 					'view_class' => $value,
 					'view_url'   => tribe_events_get_url( array_filter( [ 'eventDisplay' => $view_slug ] ) ),
