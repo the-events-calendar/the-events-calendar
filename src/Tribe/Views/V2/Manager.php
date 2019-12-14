@@ -167,7 +167,7 @@ class Manager {
 
 		array_walk(
 			$views,
-			static function ( &$value, $view_slug ) {
+			function ( &$value, $view_slug ) {
 				$value = (object) [
 					'view_class' => $value,
 					'view_url'   => tribe_events_get_url( array_filter( [ 'eventDisplay' => $view_slug ] ) ),
