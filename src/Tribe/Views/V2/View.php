@@ -10,7 +10,7 @@ namespace Tribe\Events\Views\V2;
 
 use Tribe\Events\Views\V2\Template\Settings\Advanced_Display;
 use Tribe\Events\Views\V2\Template\Title;
-use Tribe\Events\Views\V2\Traits\Breakpoint_Behavior;
+use Tribe\Events\Views\V2\Views\Traits\Breakpoint_Behavior;
 use Tribe__Container as Container;
 use Tribe__Context as Context;
 use Tribe__Date_Utils as Dates;
@@ -546,34 +546,7 @@ class View implements View_Interface {
 	 * {@inheritDoc}
 	 */
 	public function get_label() {
-		$label = ucfirst( $this->slug );
-
-		/**
-		 * Pass by the translation engine, dont remove.
-		 */
-		$label = __( $label, 'the-events-calendar' );
-
-		/**
-		 * Filters the label that will be used on the UI for views listing.
-		 *
-		 * @since 4.9.4
-		 *
-		 * @param string         $label  Label of the Current view.
-		 * @param View_Interface $view   The current view whose template variables are being set.
-		 */
-		$label = apply_filters( 'tribe_events_views_v2_view_label', $label, $this );
-
-		/**
-		 * Filters the label that will be used on the UI for views listing.
-		 *
-		 * @since 4.9.4
-		 *
-		 * @param string         $label  Label of the Current view.
-		 * @param View_Interface $view   The current view whose template variables are being set.
-		 */
-		$label = apply_filters( "tribe_events_views_v2_view_{$this->slug}_label", $label, $this );
-
-		return $label;
+		return tribe( Manager::class )->get_view_label_by_slug( $this->get_slug() );
 	}
 
 	/**
@@ -1202,6 +1175,7 @@ class View implements View_Interface {
 			'show_datepicker_submit' => $this->get_show_datepicker_submit(),
 			'breakpoints'            => $this->get_breakpoints(),
 			'is_initial_load'        => $this->context->doing_php_initial_state(),
+			'public_views'           => $this->get_public_views( $url_event_date ),
 		];
 
 		return $template_vars;
@@ -1786,6 +1760,55 @@ class View implements View_Interface {
 		$show_datepicker_submit = apply_filters( "tribe_events_views_v2_view_{$this->slug}_show_datepicker_submit", $show_datepicker_submit, $this );
 
 		return $show_datepicker_submit;
+	}
+
+	/**
+	 * Manipulates public views data, if necessary, and returns result.
+	 *
+	 * @since TBD
+	 *
+	 * @param string|bool $url_event_date The value, `Y-m-d` format, of the `eventDate` request variable to
+	 *                                    append to the view URL, if any.
+	 *
+	 * @return array
+	 */
+	protected function get_public_views( $url_event_date ) {
+		$public_views = tribe( Manager::class )->get_publicly_visible_views_data();
+
+		if ( ! empty( $url_event_date ) ) {
+			// Each View expects the event date in a specific format, here we account for it.
+			$query_args = wp_parse_url( $this->get_url( false ), PHP_URL_QUERY );
+
+			array_walk(
+				$public_views,
+				function ( &$view_data, $view_slug ) use ( $url_event_date, $query_args ) {
+					$view_instance       = View::make( $view_data->view_class );
+					$view_data->view_url = $view_instance->url_for_query_args( $url_event_date, $query_args );
+				}
+			);
+		}
+
+		/**
+		 * Filters the public views.
+		 *
+		 * @since TBD
+		 *
+		 * @param object $public_views The public views.
+		 * @param View   $this         The current View instance being rendered.
+		 */
+		$public_views = apply_filters( "tribe_events_views_v2_view_public_views", $public_views, $this );
+
+		/**
+		 * Filters the public views for a specific view.
+		 *
+		 * @since TBD
+		 *
+		 * @param object $public_views The public views.
+		 * @param View   $this         The current View instance being rendered.
+		 */
+		$public_views = apply_filters( "tribe_events_views_v2_view_{$this->slug}_public_views", $public_views, $this );
+
+		return $public_views;
 	}
 
 	/**
