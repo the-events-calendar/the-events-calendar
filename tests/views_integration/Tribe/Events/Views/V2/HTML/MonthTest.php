@@ -2,7 +2,6 @@
 
 namespace Tribe\Events\Views\V2\Views\HTML;
 
-use Tribe\Events\Views\V2\View;
 use Tribe\Test\Products\WPBrowser\Views\V2\HtmlTestCase;
 use Tribe__Date_Utils as Dates;
 

@@ -12,7 +12,6 @@ class TitleTest extends \Codeception\TestCase\WPTestCase {
 
 	public function setUp() {
 		parent::setUp();
-
 		$return_mock_url = static function () {
 			return 'http://products.tribe';
 		};
@@ -28,8 +27,6 @@ class TitleTest extends \Codeception\TestCase\WPTestCase {
 			'event_post_type' => true,
 			'featured'        => false,
 		] );
-
-		codecept_debug( $context );
 
 		$title = new Title();
 		$title->set_context( $context );
