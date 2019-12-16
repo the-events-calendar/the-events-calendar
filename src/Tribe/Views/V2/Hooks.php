@@ -298,7 +298,8 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @return string The modified page title, if required.
 	 */
 	public function filter_wp_title( $title, $sep = null ) {
-		if ( ! $this->container->make( Template_Bootstrap::class )->should_load() ) {
+		$bootstrap = $this->container->make( Template_Bootstrap::class );
+		if ( ! $bootstrap->should_load() || $bootstrap->is_single_event() ) {
 			return $title;
 		}
 
@@ -316,7 +317,8 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @return string The current title or empty string.
 	 */
 	public function pre_get_document_title( $title ) {
-		if ( ! tribe_context()->get( 'tec_post_type' ) ) {
+		$bootstrap = $this->container->make( Template_Bootstrap::class );
+		if ( ! $bootstrap->should_load() || $bootstrap->is_single_event() ) {
 			return $title;
 		}
 
@@ -335,9 +337,11 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @return string The modified page title, if required.
 	 */
 	public function filter_document_title_parts( $title ) {
-		if ( ! $this->container->make( Template_Bootstrap::class )->should_load() ) {
+		$bootstrap = $this->container->make( Template_Bootstrap::class );
+		if ( ! $bootstrap->should_load() || $bootstrap->is_single_event() ) {
 			return $title;
 		}
+
 
 		return $this->container->make( Title::class )->filter_document_title_parts( $title );
 	}
