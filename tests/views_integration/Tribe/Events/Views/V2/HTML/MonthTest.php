@@ -94,7 +94,7 @@ class MonthTest extends HtmlTestCase {
 					'grid_date'                  => '2019-07-03',
 					'formatted_grid_date'        => '2019-07-03',
 					'formatted_grid_date_mobile' => '7/3/2019',
-					'days'                       => $days
+					'days'                       => $days,
 				]
 			),
 			false
