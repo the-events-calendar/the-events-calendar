@@ -1223,10 +1223,11 @@ class Event_Period implements Core_Read_Interface {
 				foreach ( $period as $day ) {
 					$day_string = $day->format( Dates::DBDATEFORMAT );
 
-					$sets[ $day_string ] = unserialize( $cache->get_transient(
+					$transient           = $cache->get_transient(
 						static::get_cache_key( $day_string . '_set' ),
 						$trigger
-					) );
+					);
+					$sets[ $day_string ] = maybe_unserialize( $transient );
 				}
 
 				return $sets;
