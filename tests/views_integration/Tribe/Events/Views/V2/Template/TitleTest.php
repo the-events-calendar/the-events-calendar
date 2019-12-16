@@ -28,6 +28,8 @@ class TitleTest extends \Codeception\TestCase\WPTestCase {
 			'featured'        => false,
 		] );
 
+		codecept_debug( $context );
+
 		$title = new Title();
 		$title->set_context( $context );
 
