@@ -16,7 +16,7 @@ class ListTest extends HtmlTestCase {
 				'show_end'        => false,
 				'datepicker_date' => '2019-01-01',
 			],
-			false 
+			false
 		);
 		$template = $this->template->template( 'list', [ 'events' => [] ] );
 		$html     = $this->document->html( $template );

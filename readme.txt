@@ -215,6 +215,10 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
+= [4.10] TBD =
+
+* Tweak - Switch to a compact date while on day and month view in mobile [136789]
+
 = [4.9.13] 2019-12-10 =
 
 * Tweak - Allow Event Aggregator date refinements for Eventbrite source.
