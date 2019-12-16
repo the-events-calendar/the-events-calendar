@@ -9,15 +9,6 @@ use Tribe__Date_Utils as Dates;
 class MonthTest extends HtmlTestCase {
 
 	/**
-	 * Returns a "safe" View to use in HTML partial testing.
-	 *
-	 * @return View_Interface A View instance safe to use in partial HTML testing.
-	 */
-	protected function make_view_instance() {
-		return View::make( 'month' );
-	}
-
-	/**
 	 * @test
 	 */
 	public function it_should_contain_correct_html_classes() {
@@ -100,10 +91,11 @@ class MonthTest extends HtmlTestCase {
 			array_merge(
 				$this->template->get_global_values(),
 				[
-					'today_date'          => '2019-07-03',
-					'grid_date'           => '2019-07-03',
-					'formatted_grid_date' => '2019-07-03',
-					'days'                => $days
+					'today_date'                 => '2019-07-03',
+					'grid_date'                  => '2019-07-03',
+					'formatted_grid_date'        => '2019-07-03',
+					'formatted_grid_date_mobile' => '7/3/2019',
+					'days'                       => $days
 				]
 			),
 			false

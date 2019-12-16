@@ -13,9 +13,6 @@ class TitleTest extends \Codeception\TestCase\WPTestCase {
 	public function setUp() {
 		parent::setUp();
 
-		// Reset the context.
-		tribe_singleton( 'context', 'Tribe__Context' );
-
 		$return_mock_url = static function () {
 			return 'http://products.tribe';
 		};
