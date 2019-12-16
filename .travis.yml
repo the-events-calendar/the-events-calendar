@@ -131,7 +131,7 @@ before_script:
   - cd ${PLUGIN_DIR}
 
 script:
-  - codecept run -f views_integration -d
+  - codecept run -f views_integration
   - codecept run -f views_rest
   - codecept run -f views_ui
   - codecept run -f integration
