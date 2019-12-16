@@ -64,7 +64,10 @@ class Tribe__Events__Integrations__Freemius {
 			'tribe-help',
 		];
 
-		if ( ! in_array( $this->page, $valid_page ) && 'plugins.php' !== $pagenow ) {
+		if ( ! in_array( $this->page, $valid_page )
+			&& 'plugins.php' !== $pagenow
+			&& 'admin-ajax.php' !== $pagenow ) {
+			echo 'page: ' . $pagenow;
 			return;
 		}
 
@@ -85,7 +88,6 @@ class Tribe__Events__Integrations__Freemius {
 		if ( ! $should_load ) {
 			return;
 		}
-
 
 		$this->instance = tribe( 'freemius' )->initialize(
 			$this->slug,
