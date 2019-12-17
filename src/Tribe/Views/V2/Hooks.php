@@ -403,20 +403,21 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @return string A redirection URL, or `false` to prevent redirection.
 	 */
 	public function filter_redirect_canonical( $redirect_url = null, $original_url = null ) {
+		if ( trailingslashit( $original_url ) === trailingslashit( $redirect_url ) ) {
+			return $redirect_url;
+		}
+
 		$context = tribe_context();
 
 		$view = $context->get( 'view_request', null );
-
-		if ( empty( $view ) ) {
-			return $redirect_url;
-		}
 
 		if ( 'embed' === $view ) {
 			// Do not redirect embedded Views.
 			return false;
 		}
 
-		if ( trailingslashit( $original_url ) === trailingslashit( $redirect_url ) ) {
+		if ( empty( $view ) || 'single-event' === $view ) {
+			// Let the redirection go on.
 			return $redirect_url;
 		}
 
@@ -428,7 +429,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 			 * If we're here we know we should be looking at a View URL.
 			 * If the proposed URL does not resolve to a View, do not redirect.
 			 */
-			return $original_url;
+			return false;
 		}
 
 		return $redirect_url;
