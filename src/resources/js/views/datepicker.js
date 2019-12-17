@@ -267,8 +267,9 @@ tribe.events.views.datepicker = {};
 			var month = event.date.getMonth() + 1;
 			var year = event.date.getFullYear();
 		} else {
-			var $input = $container.find( obj.selectors.input );
-			var date = $input.bootstrapDatepicker( 'getDate' );
+			var date = $container
+				.find( obj.selectors.input )
+				.bootstrapDatepicker( 'getDate' );
 			var month = date.getMonth() + 1;
 			var year = date.getFullYear();
 		}
