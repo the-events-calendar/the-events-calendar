@@ -32,7 +32,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '4.9.13-beta3';
+		const VERSION             = '5.0.0-RC1';
 
 		/**
 		 * Min Pro Addon
@@ -611,7 +611,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			tribe_singleton( 'tec.customizer.single-event', new Tribe__Events__Customizer__Single_Event() );
-			tribe_singleton( 'tec.customizer.widget', new Tribe__Events__Customizer__Widget() );
+
+			if ( ! tribe_events_views_v2_is_enabled() ) {
+				tribe_singleton( 'tec.customizer.widget', new Tribe__Events__Customizer__Widget() );
+			}
 
 			/**
 			 * Allows other plugins and services to override/change the bound implementations.
