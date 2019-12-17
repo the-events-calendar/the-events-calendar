@@ -5,7 +5,16 @@
 			data-js="tribe-events-top-bar-datepicker-button"
 			type="button"
 		>
-							January 2 onwards								</button>
+			<time
+				datetime="2019-01-02"
+				class="tribe-events-c-top-bar__datepicker-time"
+			>
+									<span class="tribe-events-c-top-bar__datepicker-mobile">
+						1/2/2019 onwards					</span>
+					<span class="tribe-events-c-top-bar__datepicker-desktop tribe-common-a11y-hidden">
+						January 2 onwards					</span>
+							</time>
+					</button>
 		<label
 			class="tribe-events-c-top-bar__datepicker-label tribe-common-a11y-visual-hide"
 			for="tribe-events-top-bar-date"

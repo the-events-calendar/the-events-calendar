@@ -5,7 +5,16 @@
 			data-js="tribe-events-top-bar-datepicker-button"
 			type="button"
 		>
-							Now onwards								</button>
+			<time
+				datetime="2019-01-02"
+				class="tribe-events-c-top-bar__datepicker-time"
+			>
+									<span class="tribe-events-c-top-bar__datepicker-mobile">
+						Now onwards					</span>
+					<span class="tribe-events-c-top-bar__datepicker-desktop tribe-common-a11y-hidden">
+						Now onwards					</span>
+							</time>
+					</button>
 		<label
 			class="tribe-events-c-top-bar__datepicker-label tribe-common-a11y-visual-hide"
 			for="tribe-events-top-bar-date"
