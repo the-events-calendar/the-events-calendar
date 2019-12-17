@@ -2,8 +2,8 @@
 
 namespace Tribe\Events\Views\V2\Partials\Month_View;
 
-use Tribe\Test\Products\WPBrowser\Views\V2\HtmlPartialTestCase;
 use tad\FunctionMocker\FunctionMocker as Test;
+use Tribe\Test\Products\WPBrowser\Views\V2\HtmlPartialTestCase;
 use Tribe__Date_Utils as Dates;
 
 
