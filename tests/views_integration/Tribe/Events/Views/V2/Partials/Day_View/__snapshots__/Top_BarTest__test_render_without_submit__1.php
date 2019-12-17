@@ -67,7 +67,7 @@
 	</div>
 
 
-	<div class="tribe-events-c-top-bar__actions">
+	<div class="tribe-events-c-top-bar__actions tribe-common-a11y-hidden">
 	</div>
 
 </div>

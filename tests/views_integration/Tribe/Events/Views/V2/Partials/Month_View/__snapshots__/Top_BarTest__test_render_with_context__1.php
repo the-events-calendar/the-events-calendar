@@ -49,7 +49,7 @@
 				class="tribe-events-c-top-bar__datepicker-time"
 			>
 				<span class="tribe-events-c-top-bar__datepicker-mobile">
-					January 2018				</span>
+					1/2018				</span>
 				<span class="tribe-events-c-top-bar__datepicker-desktop tribe-common-a11y-hidden">
 					January 2018				</span>
 			</time>
@@ -80,7 +80,7 @@
 	Find Events</button>
 	</form>
 
-	<div class="tribe-events-c-top-bar__actions">
+	<div class="tribe-events-c-top-bar__actions tribe-common-a11y-hidden">
 	</div>
 
 </div>

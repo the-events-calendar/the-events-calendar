@@ -43,14 +43,16 @@
 	 * ----------------------------------------------------------------------------- */
 
 	.tribe-events-c-search {
-		@media (--viewport-medium) {
+
+		.tribe-common--breakpoint-medium& {
 			display: flex;
 			align-items: center;
 		}
 	}
 
 	.tribe-events-c-search__input-group {
-		@media (--viewport-medium) {
+
+		.tribe-common--breakpoint-medium& {
 			align-items: center;
 			display: flex;
 			flex: auto;
@@ -58,14 +60,16 @@
 	}
 
 	.tribe-events-c-search__input-control {
-		@media (--viewport-medium) {
+
+		.tribe-common--breakpoint-medium& {
 			flex: auto;
 			margin: var(--spacer-2) 0;
 		}
 	}
 
 	.tribe-events-c-search__input {
-		@media (--viewport-medium) {
+
+		.tribe-common--breakpoint-medium& {
 			margin: calc(var(--spacer-2) * -1) 0;
 		}
 	}
@@ -73,7 +77,7 @@
 	.tribe-events-c-search__button {
 		margin-top: var(--spacer-5);
 
-		@media (--viewport-medium) {
+		.tribe-common--breakpoint-medium& {
 			flex: none;
 			margin-top: 0;
 		}
@@ -91,10 +95,8 @@
 
 	#top.tribe-theme-enfold & {
 
-		.tribe-events-c-search__input {
-			@media (--viewport-medium) {
-				margin: calc(var(--spacer-2) * -1) 0;
-			}
+		&.tribe-common--breakpoint-medium .tribe-events-c-search__input {
+			margin: calc(var(--spacer-2) * -1) 0;
 		}
 	}
 
@@ -104,10 +106,8 @@
 
 	.tribe-theme-avada & {
 
-		.tribe-events-c-search__input {
-			@media (--viewport-medium) {
-				margin: calc(var(--spacer-2) * -1) 0;
-			}
+		&.tribe-common--breakpoint-medium .tribe-events-c-search__input {
+			margin: calc(var(--spacer-2) * -1) 0;
 		}
 	}
 }

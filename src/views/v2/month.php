@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.11
+ * @version TBD
  *
  * @var string   $rest_url             The REST URL.
  * @var string   $rest_nonce           The REST nonce.
@@ -72,3 +72,5 @@ if ( empty( $disable_event_search ) ) {
 	</div>
 
 </div>
+
+<?php $this->template( 'components/breakpoints' ); ?>
