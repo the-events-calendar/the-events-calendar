@@ -80,6 +80,17 @@ tribe.events.views.datepicker = {};
 	};
 
 	/**
+	 * Object of key codes
+	 *
+	 * @since TBD
+	 *
+	 * @type {PlainObject}
+	 */
+	obj.keyCode = {
+		ENTER: 13,
+	};
+
+	/**
 	 * Date object representing today
 	 *
 	 * @since 4.9.13
@@ -252,8 +263,15 @@ tribe.events.views.datepicker = {};
 	 */
 	obj.handleChangeMonth = function( event ) {
 		var $container = event.data.container;
-		var month = event.date.getMonth() + 1;
-		var year = event.date.getFullYear();
+		if ( event.date ) {
+			var month = event.date.getMonth() + 1;
+			var year = event.date.getFullYear();
+		} else {
+			var $input = $container.find( obj.selectors.input );
+			var date = $input.bootstrapDatepicker( 'getDate' );
+			var month = date.getMonth() + 1;
+			var year = date.getFullYear();
+		}
 
 		var paddedMonth = obj.padNumber( month );
 
@@ -261,6 +279,23 @@ tribe.events.views.datepicker = {};
 
 		obj.submitRequest( $container, dateValue );
 	};
+
+	/**
+	 * Handle datepicker keydown event
+	 *
+	 * @since TBD
+	 *
+	 * @param {Event} event event object for 'keydown' event
+	 *
+	 * @return {void}
+	 */
+	obj.handleKeyDown = function(event) {
+		if ( event.keyCode !== obj.keyCode.ENTER ) {
+			return;
+		}
+
+		event.data.input.bootstrapDatepicker().trigger( 'changeMonth' );
+	}
 
 	/**
 	 * Handle datepicker show event
@@ -564,18 +599,9 @@ tribe.events.views.datepicker = {};
 
 		var $input = $container.find( obj.selectors.input );
 		var $datepickerButton = $container.find( obj.selectors.button );
-		var isMonthView = 'month' === event.data.viewSlug;
-		var changeEvent = isMonthView ? 'changeMonth' : 'changeDate';
-		var changeHandler = isMonthView ? obj.handleChangeMonth : obj.handleChangeDate;
 
-		$input
-			.bootstrapDatepicker( 'destroy' )
-			.off( changeEvent, changeHandler )
-			.off( 'show', obj.handleShow )
-			.off( 'hide', obj.handleHide );
-		$datepickerButton
-			.off( 'mousedown', obj.handleMousedown )
-			.off( 'click', obj.handleClick );
+		$input.bootstrapDatepicker( 'destroy' ).off();
+		$datepickerButton.off();
 
 		$container.trigger( 'afterDatepickerDeinit.tribeEvents', [ jqXHR, settings ] );
 	};
@@ -636,6 +662,12 @@ tribe.events.views.datepicker = {};
 			.on( changeEvent, { container: $container }, changeHandler )
 			.on( 'show', { datepickerButton: $datepickerButton }, obj.handleShow )
 			.on( 'hide', { datepickerButton: $datepickerButton, input: $input, observer: obj.observer }, obj.handleHide );
+
+		if ( isMonthView ) {
+			$input
+				.bootstrapDatepicker()
+				.on( 'keydown', { input: $input }, obj.handleKeyDown );
+		}
 
 		$datepickerButton
 			.on( 'touchstart mousedown', { target: $datepickerButton }, obj.handleMousedown )
