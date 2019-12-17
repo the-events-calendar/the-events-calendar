@@ -38,9 +38,7 @@ class MonthCalendarEventDateTest extends HtmlTestCase {
 		);
 		$html     = $this->document->html( $template );
 
-		$this->markTestSkipped( 'The month calendar event date event does not receive data yet' );
-
-		$featured_icon = $html->find( '.tribe-events-calendar-month__calendar-event-datetime-featured' );
+		$featured_icon = $html->find( '.tribe-events-calendar-month__calendar-event-datetime-featured-icon' );
 		$this->assertTrue(
 			$featured_icon->is( '[aria-label="Featured"]' ),
 			'Month calendar event featured icon needs to be aria-label="Featured"'
@@ -49,17 +47,6 @@ class MonthCalendarEventDateTest extends HtmlTestCase {
 		$this->assertTrue(
 			$featured_icon->is( '[title="Featured"]' ),
 			'Month calendar event featured icon needs to be title="Featured"'
-		);
-
-		$recurring_icon = $html->find( '.tribe-events-calendar-month__calendar-event-datetime-featured' );
-		$this->assertTrue(
-			$recurring_icon->is( '[aria-label="Recurring"]' ),
-			'Month calendar event recurring icon needs to be aria-label="Recurring"'
-		);
-
-		$this->assertTrue(
-			$recurring_icon->is( '[title="Featured"]' ),
-			'Month calendar event recurring icon needs to be title="Recurring"'
 		);
 	}
 
