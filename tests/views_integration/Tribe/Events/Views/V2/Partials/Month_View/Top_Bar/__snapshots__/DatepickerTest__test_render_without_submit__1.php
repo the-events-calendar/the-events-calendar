@@ -9,7 +9,11 @@
 				datetime="2018-01"
 				class="tribe-events-c-top-bar__datepicker-time"
 			>
-				January 2018			</time>
+				<span class="tribe-events-c-top-bar__datepicker-mobile">
+					January 2018				</span>
+				<span class="tribe-events-c-top-bar__datepicker-desktop tribe-common-a11y-hidden">
+					January 2018				</span>
+			</time>
 		</button>
 		<label
 			class="tribe-events-c-top-bar__datepicker-label tribe-common-a11y-visual-hide"

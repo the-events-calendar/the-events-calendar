@@ -38,7 +38,16 @@
 			data-js="tribe-events-top-bar-datepicker-button"
 			type="button"
 		>
-							Now										<span class="tribe-events-c-top-bar__datepicker-separator"> - </span>
+			<time
+				datetime="2018-01-01"
+				class="tribe-events-c-top-bar__datepicker-time"
+			>
+									<span class="tribe-events-c-top-bar__datepicker-mobile">
+						Now					</span>
+					<span class="tribe-events-c-top-bar__datepicker-desktop tribe-common-a11y-hidden">
+						Now					</span>
+							</time>
+							<span class="tribe-events-c-top-bar__datepicker-separator"> - </span>
 				<time
 					datetime="2018-01-01"
 					class="tribe-events-c-top-bar__datepicker-time"

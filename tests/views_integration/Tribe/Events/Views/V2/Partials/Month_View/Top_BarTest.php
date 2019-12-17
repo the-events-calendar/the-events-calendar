@@ -2,8 +2,8 @@
 
 namespace Tribe\Events\Views\V2\Partials\Month_View;
 
-use Tribe\Test\Products\WPBrowser\Views\V2\HtmlPartialTestCase;
 use tad\FunctionMocker\FunctionMocker as Test;
+use Tribe\Test\Products\WPBrowser\Views\V2\HtmlPartialTestCase;
 use Tribe__Date_Utils as Dates;
 
 
@@ -33,14 +33,15 @@ class Top_BarTest extends HtmlPartialTestCase
 		];
 
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
-			'now'                    => '2018-01-01 12:00:00',
-			'today_url'              => 'http://test.tri.be',
-			'is_now'                 => true,
-			'show_now'               => true,
-			'formatted_grid_date'    => 'January 2018',
-			'the_date'               => Dates::build_date_object( '2018-01' ),
-			'show_datepicker_submit' => true,
-			'date_formats'           => $date_formats,
+			'now'                        => '2018-01-01 12:00:00',
+			'today_url'                  => 'http://test.tri.be',
+			'is_now'                     => true,
+			'show_now'                   => true,
+			'formatted_grid_date'        => 'January 2018',
+			'formatted_grid_date_mobile' => 'January 2018',
+			'the_date'                   => Dates::build_date_object( '2018-01' ),
+			'show_datepicker_submit'     => true,
+			'date_formats'               => $date_formats,
 		] ) );
 
 	}
@@ -58,14 +59,15 @@ class Top_BarTest extends HtmlPartialTestCase
 		];
 
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
-			'now'                    => '2018-01-01 12:00:00',
-			'today_url'              => 'http://test.tri.be',
-			'is_now'                 => true,
-			'show_now'               => true,
-			'formatted_grid_date'    => 'January 2018',
-			'the_date'               => Dates::build_date_object( '2018-01' ),
-			'show_datepicker_submit' => false,
-			'date_formats'           => $date_formats,
+			'now'                        => '2018-01-01 12:00:00',
+			'today_url'                  => 'http://test.tri.be',
+			'is_now'                     => true,
+			'show_now'                   => true,
+			'formatted_grid_date'        => 'January 2018',
+			'formatted_grid_date_mobile' => 'January 2018',
+			'the_date'                   => Dates::build_date_object( '2018-01' ),
+			'show_datepicker_submit'     => false,
+			'date_formats'               => $date_formats,
 		] ) );
 	}
 
