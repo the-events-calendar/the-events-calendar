@@ -235,6 +235,10 @@ class Template_Bootstrap {
 			return false;
 		}
 
+		if ( is_404() ) {
+			return false;
+		}
+
 		/**
 		 * Bail if we are not dealing with an Event, Venue or Organizer main query.
 		 *
