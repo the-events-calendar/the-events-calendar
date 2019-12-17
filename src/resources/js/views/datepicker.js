@@ -263,15 +263,17 @@ tribe.events.views.datepicker = {};
 	 */
 	obj.handleChangeMonth = function( event ) {
 		var $container = event.data.container;
+		var month, year;
+
 		if ( event.date ) {
-			var month = event.date.getMonth() + 1;
-			var year = event.date.getFullYear();
+			month = event.date.getMonth() + 1;
+			year = event.date.getFullYear();
 		} else {
 			var date = $container
 				.find( obj.selectors.input )
 				.bootstrapDatepicker( 'getDate' );
-			var month = date.getMonth() + 1;
-			var year = date.getFullYear();
+			month = date.getMonth() + 1;
+			year = date.getFullYear();
 		}
 
 		var paddedMonth = obj.padNumber( month );
