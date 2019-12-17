@@ -23,7 +23,7 @@ tribe.events.views.multidayEvents = {};
  * @since 4.9.4
  *
  * @param  {PlainObject} $   jQuery
- * @param  {PlainObject} obj tribe.events.views.manager
+ * @param  {PlainObject} obj tribe.events.views.multidayEvents
  *
  * @return {void}
  */

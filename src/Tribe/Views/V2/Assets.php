@@ -147,6 +147,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 			[
 				'jquery',
 				'tribe-common',
+				'tribe-events-views-v2-breakpoints',
 			],
 			null,
 			[
@@ -261,6 +262,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 			[
 				'jquery',
 				'tribe-common',
+				'tribe-events-views-v2-viewport',
 				'tribe-events-views-v2-accordion',
 			],
 			null,
@@ -295,6 +297,23 @@ class Assets extends \tad_DI52_ServiceProvider {
 			null,
 			[
 				'priority' => 10,
+			]
+		);
+
+		tribe_asset(
+			$plugin,
+			'tribe-events-views-v2-breakpoints',
+			'views/breakpoints.js',
+			[
+				'jquery',
+				'tribe-common',
+			],
+			'wp_enqueue_scripts',
+			[
+				'priority'     => 10,
+				'conditionals' => [ $this, 'should_enqueue_frontend' ],
+				'groups'       => [ static::$group_key ],
+				'in_footer'    => false,
 			]
 		);
 	}
