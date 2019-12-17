@@ -7,7 +7,7 @@
  * @package Tribe\Events\Views\V2\Views
  */
 
-namespace Tribe\Events\Views\V2\Views;
+namespace Tribe\Events\Views\V2\Views\Traits;
 
 use Tribe__Context as Context;
 use Tribe__Date_Utils as Dates;
@@ -128,17 +128,28 @@ trait List_Behavior {
 		$start_format_w_year      = $today->format( 'Y' ) !== $start->format( 'Y' );
 		$start_label_format       = tribe_get_date_format( $start_format_w_year );
 
-		$start_time_label = date_i18n( $start_label_format, $start_timestamp_w_offset );
+		$start_time_label  = date_i18n( $start_label_format, $start_timestamp_w_offset );
+		$start_date_mobile = $start->format( $compact_date_format );
 
-		$now_label = $now_text;
+		$now_label        = $now_text;
+		$now_label_mobile = $now_text;
 		if ( empty( $date_sorted_events ) || ! $has_next_page ) {
-			$onwards_label_start = $show_now ? $now_text : $start_time_label;
-			$now_label           = sprintf(
+			$onwards_label_start        = $show_now ? $now_text : $start_time_label;
+			$onwards_label_start_mobile = $show_now ? $now_text : $start_date_mobile;
+
+			$now_label = sprintf(
 			// translators: the placeholder is for the date range start, e.g. "Now" or "October 23".
 				_x( '%s onwards', 'The datepicker range definition when no events are found.', 'the-events-calendar' ),
 				$onwards_label_start
 			);
-			$show_now            = true;
+
+			$now_label_mobile = sprintf(
+			// translators: the placeholder is for the date range start, e.g. "Now" or "1/1/2020".
+				_x( '%s onwards', 'The datepicker range definition when no events are found (for mobile).', 'the-events-calendar' ),
+				$onwards_label_start_mobile
+			);
+
+			$show_now = true;
 		}
 
 		$end_timestamp_w_offset = $end->getTimestamp() + $end->getOffset();
@@ -148,9 +159,10 @@ trait List_Behavior {
 
 		$template_vars['show_now']                   = $show_now;
 		$template_vars['now_label']                  = $now_label;
+		$template_vars['now_label_mobile']           = $now_label_mobile;
 		$template_vars['show_end']                   = $show_end;
 		$template_vars['selected_start_datetime']    = date_i18n( 'Y-m-d', $start_timestamp_w_offset );
-		$template_vars['selected_start_date_mobile'] = $start->format( $compact_date_format );
+		$template_vars['selected_start_date_mobile'] = $start_date_mobile;
 		$template_vars['selected_start_date_label']  = $start_time_label;
 		$template_vars['selected_end_datetime']      = date_i18n( 'Y-m-d', $end_timestamp_w_offset );
 		$template_vars['selected_end_date_mobile']   = $end->format( $compact_date_format );
