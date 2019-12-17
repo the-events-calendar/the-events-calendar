@@ -25,6 +25,7 @@ use Tribe\Events\Views\V2\Rewrite as RewriteAlias;
 use Tribe\Events\Views\V2\Template\Title;
 use Tribe__Events__Main as TEC;
 use Tribe__Rewrite as Rewrite;
+use Tribe__Utils__Array as Arr;
 
 /**
  * Class Hooks
@@ -67,8 +68,8 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @since 4.9.2
 	 */
 	protected function add_filters() {
-		add_filter( 'wp_redirect', [ $this, 'filter_redirect_canonical' ] );
-		add_filter( 'redirect_canonical', [ $this, 'filter_redirect_canonical' ] );
+		add_filter( 'wp_redirect', [ $this, 'filter_redirect_canonical' ], 10, 2 );
+		add_filter( 'redirect_canonical', [ $this, 'filter_redirect_canonical' ], 10, 2 );
 		add_action( 'tribe_events_parse_query', [ $this, 'parse_query' ] );
 		add_filter( 'template_include', [ $this, 'filter_template_include' ], 50 );
 		add_filter( 'embed_template', [ $this, 'filter_template_include' ], 50 );
@@ -401,7 +402,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @return string A redirection URL, or `false` to prevent redirection.
 	 */
-	public function filter_redirect_canonical( $redirect_url = null ) {
+	public function filter_redirect_canonical( $redirect_url = null, $original_url = null ) {
 		$context = tribe_context();
 
 		$view = $context->get( 'view', false );
@@ -415,9 +416,19 @@ class Hooks extends \tad_DI52_ServiceProvider {
 			return false;
 		}
 
-		if ( $context->get( 'page', 1 ) > 1 ) {
-			// Do not redirect paginated views.
-			return false;
+		if ( trailingslashit( $original_url ) === trailingslashit( $redirect_url ) ) {
+			return $redirect_url;
+		}
+
+		$parsed = \Tribe__Events__Rewrite::instance()->parse_request( $redirect_url );
+
+		if ( $view !== Arr::get( (array) $parsed, 'eventDisplay' ) ) {
+
+			/*
+			 * If we're here we know we should be looking at a View URL.
+			 * If the proposed URL does not resolve to a View, do not redirect.
+			 */
+			return $original_url;
 		}
 
 		return $redirect_url;
