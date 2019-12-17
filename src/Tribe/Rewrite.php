@@ -530,7 +530,7 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 	}
 
 	/**
-	 * Overrides the base method, from commmon, to filter the parsed query variables and handle some cases related to
+	 * Overrides the base method, from common, to filter the parsed query variables and handle some cases related to
 	 * the `eventDisplay` query variable.
 	 *
 	 * {@inheritDoc}
