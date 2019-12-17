@@ -89,6 +89,7 @@ class Template extends Base_Template {
 		// Set some defaults on the template.
 		$this->set( 'view_class', get_class( $view ), false );
 		$this->set( 'view_slug', $view->get_slug(), false );
+		$this->set( 'view_label', $view->get_label(), false );
 
 		// Set which view globally.
 		$this->set( 'view', $view, false );
@@ -150,6 +151,7 @@ class Template extends Base_Template {
 
 		if ( $this->view instanceof View_Interface ) {
 			$this->set( 'view_slug', $this->view->get_slug(), false );
+			$this->set( 'view_label', $this->view->get_label(), false );
 			$this->set( 'view_class', get_class( $this->view ), false );
 		}
 
