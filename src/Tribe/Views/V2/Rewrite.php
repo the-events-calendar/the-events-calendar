@@ -33,7 +33,7 @@ class Rewrite {
 			return $bases;
 		}
 
-		$bases = $this->add_url_encoded_slugs($bases);
+		$bases = $this->add_url_encoded_slugs( $bases );
 
 		return $bases;
 	}
@@ -48,7 +48,7 @@ class Rewrite {
 	 *
 	 * @return array<string,array> The rules, updated to include the URL encoded version of the slugs.
 	 */
-	protected function add_url_encoded_slugs($bases) {
+	protected function add_url_encoded_slugs( $bases ) {
 		array_walk( $bases, static function ( array &$base_group ) {
 			foreach ( $base_group as $value ) {
 				$encoded = urlencode( $value );
