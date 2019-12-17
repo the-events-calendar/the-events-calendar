@@ -98,19 +98,34 @@ class List_View extends View {
 		$date           = $this->context->get( 'event_date', $default_date );
 		$event_date_var = $default_date === $date ? '' : $date;
 
+
 		$past = tribe_events()->by_args( $this->setup_repository_args( $this->context->alter( [
 			'event_display_mode' => 'past',
 			'paged'              => $page,
 		] ) ) );
 
 		if ( $past->count() > 0 ) {
-			$past_url_object = clone $this->url->add_query_args( array_filter( [
+
+			$query_args = [
 				'post_type'        => TEC::POSTTYPE,
 				'eventDisplay'     => 'past',
 				'eventDate'        => $event_date_var,
 				$this->page_key    => $page,
 				'tribe-bar-search' => $this->context->get( 'keyword' ),
-			] ) );
+			];
+
+			/**
+			 * Filters the query arguments that will be used to build a View URL.
+			 *
+			 * @since TBD
+			 *
+			 * @param array          $query_args An array of query args that will be used to build the URL for the View.
+			 * @param View_Interface $this       This View instance.
+			 * @param bool           $canonical  Whether the URL should be the canonical one or not.
+			 */
+			$query_args = apply_filters( 'tribe_events_views_v2_url_query_args', $query_args, $this, $canonical );
+
+			$past_url_object = clone $this->url->add_query_args( array_filter( $query_args ) );
 
 			$past_url = (string) $past_url_object;
 
@@ -160,18 +175,31 @@ class List_View extends View {
 		$url = '';
 
 		$upcoming = tribe_events()->by_args( $this->setup_repository_args( $this->context->alter( [
-			'eventDisplay' => 'list',
+			'eventDisplay' => $this->slug,
 			'paged'        => $page,
 		] ) ) );
 
 		if ( $upcoming->count() > 0 ) {
-			$upcoming_url_object = clone $this->url->add_query_args( array_filter( [
+			$query_args = [
 				'post_type'        => TEC::POSTTYPE,
-				'eventDisplay'     => 'list',
+				'eventDisplay'     => $this->slug,
 				$this->page_key    => $page,
 				'eventDate'        => $event_date_var,
 				'tribe-bar-search' => $this->context->get( 'keyword' ),
-			] ) );
+			];
+
+			/**
+			 * Filters the query arguments that will be used to build a View URL.
+			 *
+			 * @since TBD
+			 *
+			 * @param array          $query_args An array of query args that will be used to build the URL for the View.
+			 * @param View_Interface $this       This View instance.
+			 * @param bool           $canonical  Whether the URL should be the canonical one or not.
+			 */
+			$query_args = apply_filters( 'tribe_events_views_v2_url_query_args', $query_args, $this, $canonical );
+
+			$upcoming_url_object = clone $this->url->add_query_args( array_filter( $query_args ) );
 
 			$upcoming_url = (string) $upcoming_url_object;
 
