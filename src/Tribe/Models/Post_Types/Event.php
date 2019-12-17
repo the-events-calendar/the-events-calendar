@@ -11,8 +11,8 @@ namespace Tribe\Events\Models\Post_Types;
 
 use DateInterval;
 use DatePeriod;
-use DateTimeImmutable;
 use DateTimeZone;
+use Tribe\Events\Collections\Lazy_Post_Collection;
 use Tribe\Models\Post_Types\Base;
 use Tribe\Utils\Lazy_Collection;
 use Tribe\Utils\Lazy_String;
@@ -184,7 +184,10 @@ class Event extends Base {
 					false
 				) )->on_resolve( $cache_this ),
 				'organizers'             => ( new Lazy_Collection( $organizer_fetch ) )->on_resolve( $cache_this ),
-				'venues'                 => ( new Lazy_Collection( $venue_fetch ) )->on_resolve( $cache_this ),
+				'venues'                 => ( new Lazy_Post_Collection(
+					$venue_fetch,
+					'tribe_get_venue_object' )
+				)->on_resolve( $cache_this ),
 				'thumbnail'              => ( new Post_Thumbnail( $post_id ) )->on_resolve( $cache_this ),
 				'permalink'              => get_permalink( $post_id ),
 				'schedule_details'       => ( new Lazy_String(
