@@ -15,7 +15,11 @@
 				datetime="2018-01-01"
 				class="tribe-events-c-top-bar__datepicker-time"
 			>
-				January 1, 2018			</time>
+				<span class="tribe-events-c-top-bar__datepicker-mobile">
+					01/01/2018				</span>
+				<span class="tribe-events-c-top-bar__datepicker-desktop tribe-common-a11y-hidden">
+					January 1, 2018				</span>
+			</time>
 		</button>
 		<label
 			class="tribe-events-c-top-bar__datepicker-label tribe-common-a11y-visual-hide"
