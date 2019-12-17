@@ -405,9 +405,9 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	public function filter_redirect_canonical( $redirect_url = null, $original_url = null ) {
 		$context = tribe_context();
 
-		$view = $context->get( 'view', false );
+		$view = $context->get( 'view_request', null );
 
-		if ( false === $view ) {
+		if ( empty( $view ) ) {
 			return $redirect_url;
 		}
 
