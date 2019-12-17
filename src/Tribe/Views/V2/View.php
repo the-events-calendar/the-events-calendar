@@ -684,16 +684,7 @@ class View implements View_Interface {
 			unset( $query_args['featured'] );
 		}
 
-		/**
-		 * Filters the query arguments that will be used to build a View URL.
-		 *
-		 * @since 4.9.10
-		 *
-		 * @param array          $query_args An array of query args that will be used to build the URL for the View.
-		 * @param View_Interface $this       This View instance.
-		 * @param bool           $canonical  Whether the URL should be the canonical one or not.
-		 */
-		$query_args = apply_filters( 'tribe_events_views_v2_url_query_args', $query_args, $this, $canonical );
+		$query_args = $this->filter_query_args( $query_args, $canonical );
 
 		if ( ! empty( $query_args['tribe-bar-date'] ) ) {
 			// If the Events Bar date is the same as today's date, then drop it.
@@ -808,6 +799,30 @@ class View implements View_Interface {
 
 		return $url;
 	}
+
+	/**
+	 * Filters URL query args with a predictable filter
+	 *
+	 * @since TBD
+	 *
+	 * @param array $query_args An array of query args that will be used to build the URL for the View.
+	 * @param bool  $canonical  Whether the URL should be the canonical one or not.
+	 */
+	public function filter_query_args( $query_args, $canonical ) {
+		/**
+		 * Filters the query arguments that will be used to build a View URL.
+		 *
+		 * @since 4.9.10
+		 *
+		 * @param array          $query_args An array of query args that will be used to build the URL for the View.
+		 * @param View_Interface $this       This View instance.
+		 * @param bool           $canonical  Whether the URL should be the canonical one or not.
+		 */
+		$query_args = apply_filters( 'tribe_events_views_v2_url_query_args', $query_args, $this, $canonical );
+
+		return $query_args;
+	}
+
 
 	/**
 	 * {@inheritDoc}
