@@ -92,7 +92,6 @@ tribe.events.views.viewport = {};
 	 */
 	obj.unbindEvents = function( $container ) {
 		$window.off( 'resize', obj.handleResize );
-		$container.off( 'beforeAjaxSuccess.tribeEvents', obj.deinit );
 	};
 
 	/**
@@ -120,7 +119,9 @@ tribe.events.views.viewport = {};
 	 * @return {void}
 	 */
 	obj.deinit = function( event, jqXHR, settings ) {
-		obj.unbindEvents( event.data.container );
+		var $container = event.data.container;
+		obj.unbindEvents( $container );
+		$container.off( 'beforeAjaxSuccess.tribeEvents', obj.deinit );
 	};
 
 	/**

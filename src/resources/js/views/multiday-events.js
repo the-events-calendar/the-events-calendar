@@ -201,6 +201,7 @@ tribe.events.views.multidayEvents = {};
 		var $container = event.data.container;
 		obj.deinitSelectors();
 		obj.unbindMultidayEvents( $container );
+		$container.off( 'beforeAjaxSuccess.tribeEvents', obj.unbindEvents );
 	};
 
 	/**

@@ -244,6 +244,7 @@ tribe.events.views.monthMobileEvents = {};
 		var $container = event.data.container;
 		obj.unbindCalendarEvents( $container );
 		$document.off( 'resize.tribeEvents', obj.handleResize );
+		$container.off( 'beforeAjaxSuccess.tribeEvents', obj.deinit );
 	};
 
 	/**

@@ -553,6 +553,7 @@ tribe.events.views.eventsBar = {};
 		var $container = event.data.container;
 		obj.deinitEventsBar( $container );
 		obj.unbindEvents();
+		$container.off( 'beforeAjaxSuccess.tribeEvents', obj.deinit );
 	};
 
 	/**
