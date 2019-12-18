@@ -83,7 +83,7 @@ class Rewrite {
 	}
 
 	/**
-	 * Detects, in a very specifi manner, if the string is urlencoded or not.
+	 * Detects, in a very specific manner, if the string is urlencoded or not.
 	 *
 	 * Refrain from moving this into a general-purpose function: this detections system makes a number of assumptions
 	 * thare are just wrong in other contexts.
