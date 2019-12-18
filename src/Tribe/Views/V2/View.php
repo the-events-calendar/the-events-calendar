@@ -210,6 +210,14 @@ class View implements View_Interface {
 	public static function make_for_rest( \WP_REST_Request $request ) {
 		// Try to read the slug from the REST request.
 		$params     = $request->get_params();
+		if ( isset( $params['url'] ) ) {
+			$params['url'] = untrailingslashit( $params['url'] );
+		}
+
+		if ( isset( $params['prev_url'] ) ) {
+			$params['prev_url'] = untrailingslashit( $params['prev_url'] );
+		}
+
 		$slug       = Arr::get( $params, 'view', false );
 		$url_object = Url::from_url_and_params( Arr::get( $params, 'url' ), $params );
 
