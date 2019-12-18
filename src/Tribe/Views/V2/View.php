@@ -213,6 +213,7 @@ class View implements View_Interface {
 		if ( isset( $params['url'] ) ) {
 			$params['url'] = untrailingslashit( $params['url'] );
 		}
+
 		if ( isset( $params['prev_url'] ) ) {
 			$params['prev_url'] = untrailingslashit( $params['prev_url'] );
 		}
