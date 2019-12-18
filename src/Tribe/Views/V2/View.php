@@ -217,6 +217,7 @@ class View implements View_Interface {
 		if ( isset( $params['prev_url'] ) ) {
 			$params['prev_url'] = untrailingslashit( $params['prev_url'] );
 		}
+
 		$slug       = Arr::get( $params, 'view', false );
 		$url_object = Url::from_url_and_params( Arr::get( $params, 'url' ), $params );
 
