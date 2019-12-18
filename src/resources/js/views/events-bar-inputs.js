@@ -132,6 +132,7 @@ tribe.events.views.eventsBarInputs = {};
 	obj.unbindEvents = function( event, jqXHR, settings ) {
 		var $container = event.data.container;
 		obj.unbindInputEvents( $container );
+		$container.off( 'beforeAjaxSuccess.tribeEvents', obj.unbindEvents );
 	};
 
 	/**

@@ -270,6 +270,7 @@ tribe.events.views.accordion = {};
 	obj.unbindEvents = function( event, jqXHR, settings ) {
 		var $container = event.data.container;
 		obj.unbindAccordionEvents( $container );
+		$container.off( 'beforeAjaxSuccess.tribeEvents', obj.unbindEvents );
 	};
 
 	/**

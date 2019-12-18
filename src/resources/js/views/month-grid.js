@@ -363,8 +363,10 @@ tribe.events.views.monthGrid = {};
 	 * @return {void}
 	 */
 	obj.deinit = function( event, jqXHR, settings ) {
-		var $grid = event.data.container.find( obj.selectors.grid );
+		var $container = event.data.container;
+		var $grid = $container.find( obj.selectors.grid );
 		obj.unbindEvents( $grid );
+		$container.off( 'beforeAjaxSuccess.tribeEvents', obj.deinit );
 	};
 
 	/**
