@@ -57,10 +57,10 @@ class Rewrite {
 				$is_encoded = $this->is_encoded( $value );
 
 				if ( $is_encoded ) {
-					$encoded = $value;
+					$encoded = strtolower( $value );
 					$decoded = urldecode( $value );
 				} else {
-					$encoded = urlencode( $value );
+					$encoded = strtolower( urlencode( $value ) );
 					$decoded = $value;
 				}
 
@@ -70,9 +70,8 @@ class Rewrite {
 
 				// Some function expect, or provide, uppercase encoding chars, some don't. Cope w/ both.
 				$base_group[] = $decoded;
-				$base_group[] = $encoded;
-				$base_group[] = strtolower( $encoded );
 				$base_group[] = strtoupper( $encoded );
+				$base_group[] = $encoded;
 			}
 
 			// Remove duplicates and put the non-encoded strings first.
