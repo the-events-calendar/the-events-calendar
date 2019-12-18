@@ -3,49 +3,62 @@
 namespace Tribe\Events\Views\V2\Partials\Day_View\Top_Bar;
 
 use Tribe\Test\Products\WPBrowser\Views\V2\HtmlPartialTestCase;
+use tad\FunctionMocker\FunctionMocker as Test;
 
 class DatepickerTest extends HtmlPartialTestCase
 {
 
 	protected $partial_path = 'day/top-bar/datepicker';
 
+	public function setUp() {
+		parent::setUp();
+		// Start Function Mocker.
+		Test::setUp();
+		// Always return the same value when creating nonces.
+		Test::replace( 'wp_create_nonce', '2ab7cc6b39' );
+	}
+
 	/**
 	 * Test render
 	 */
 	public function test_render() {
-		/**
-		 * @todo: @lucatume the today variable does not work as expected.
-		 *                  different behaviour when 'today' is passed
-		 *                  vs when 'today' is not passed.
-		 */
-		$this->markTestSkipped( 'The "today" variable is not working as expected' );
+		$date_formats = (object) [
+			'month_and_year'       => 'F Y',
+			'time_range_separator' => ' - ',
+			'date_time_separator'  => ' @ ',
+			'compact'              => 'm/d/Y',
+		];
 
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
-			'today' => '2018-01-01',
+			'now'                    => '2018-01-01 12:00:00',
+			'today_url'              => 'http://test.tri.be',
+			'show_datepicker_submit' => true,
+			'date_formats'           => $date_formats,
 		] ) );
 	}
 
 	/**
-	 * Test render with date
+	 * Test render without submit
 	 */
-	public function test_render_with_date() {
-		/**
-		 * @todo: @lucatume the today variable does not work as expected.
-		 *                  different behaviour when 'today' is passed
-		 *                  vs when 'today' is not passed.
-		 */
-		$this->markTestSkipped( 'The "today" variable is not working as expected' );
+	public function test_render_without_submit() {
 
-		add_filter( 'tribe_events_template_var', function( $value, $key, $default, $view_slug ) {
-			if ( 'bar-date' === implode( '-', $key ) ) {
-				return '2018-06-01';
-			}
-
-			return $value;
-		}, 10, 4 );
+		$date_formats = (object) [
+			'month_and_year'       => 'F Y',
+			'time_range_separator' => ' - ',
+			'date_time_separator'  => ' @ ',
+			'compact'              => 'm/d/Y',
+		];
 
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
-			'today' => '2018-01-01',
+			'now'                    => '2018-01-01 12:00:00',
+			'today_url'              => 'http://test.tri.be',
+			'show_datepicker_submit' => false,
+			'date_formats'           => $date_formats,
 		] ) );
+	}
+
+	public function tearDown(){
+		Test::tearDown();
+		parent::tearDown();
 	}
 }

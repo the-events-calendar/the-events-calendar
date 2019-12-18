@@ -21,9 +21,11 @@ use Tribe\Events\Views\V2\Query\Abstract_Query_Controller;
 use Tribe\Events\Views\V2\Query\Event_Query_Controller;
 use Tribe\Events\Views\V2\Repository\Caching_Set_Decorator;
 use Tribe\Events\Views\V2\Repository\Event_Period;
+use Tribe\Events\Views\V2\Rewrite as RewriteAlias;
 use Tribe\Events\Views\V2\Template\Title;
 use Tribe__Events__Main as TEC;
 use Tribe__Rewrite as Rewrite;
+use Tribe__Utils__Array as Arr;
 
 /**
  * Class Hooks
@@ -66,8 +68,8 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @since 4.9.2
 	 */
 	protected function add_filters() {
-		add_filter( 'wp_redirect', [ $this, 'filter_prevent_canonical_embed_redirect' ] );
-		add_filter( 'redirect_canonical', [ $this, 'filter_prevent_canonical_embed_redirect' ] );
+		add_filter( 'wp_redirect', [ $this, 'filter_redirect_canonical' ], 10, 2 );
+		add_filter( 'redirect_canonical', [ $this, 'filter_redirect_canonical' ], 10, 2 );
 		add_action( 'tribe_events_parse_query', [ $this, 'parse_query' ] );
 		add_filter( 'template_include', [ $this, 'filter_template_include' ], 50 );
 		add_filter( 'embed_template', [ $this, 'filter_template_include' ], 50 );
@@ -84,10 +86,12 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'tribe_events_event_repository_map', [ $this, 'add_period_repository' ], 10, 3 );
 
 		add_filter( 'tribe_general_settings_tab_fields', [ $this, 'filter_general_settings_tab_live_update' ], 20 );
+		add_filter( 'tribe_events_rewrite_i18n_slugs_raw', [ $this, 'filter_rewrite_i18n_slugs_raw' ], 50, 2 );
 
 		if ( tribe_context()->doing_php_initial_state() ) {
 			add_filter( 'wp_title', [ $this, 'filter_wp_title' ], 10, 2 );
 			add_filter( 'document_title_parts', [ $this, 'filter_document_title_parts' ] );
+			add_filter( 'pre_get_document_title', [ $this, 'pre_get_document_title' ], 20 );
 		}
 	}
 
@@ -297,11 +301,31 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @return string The modified page title, if required.
 	 */
 	public function filter_wp_title( $title, $sep = null ) {
-		if ( ! $this->container->make( Template_Bootstrap::class )->should_load() ) {
+		$bootstrap = $this->container->make( Template_Bootstrap::class );
+		if ( ! $bootstrap->should_load() || $bootstrap->is_single_event() ) {
 			return $title;
 		}
 
 		return $this->container->make( Title::class )->filter_wp_title( $title, $sep );
+	}
+
+	/**
+	 * Filters the `pre_get_document_title` to prevent conflicts when other plugins
+	 * modify this initial value on our pages.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $title The current title value.
+	 *
+	 * @return string The current title or empty string.
+	 */
+	public function pre_get_document_title( $title ) {
+		$bootstrap = $this->container->make( Template_Bootstrap::class );
+		if ( ! $bootstrap->should_load() || $bootstrap->is_single_event() ) {
+			return $title;
+		}
+
+		return '';
 	}
 
 	/**
@@ -316,9 +340,11 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @return string The modified page title, if required.
 	 */
 	public function filter_document_title_parts( $title ) {
-		if ( ! $this->container->make( Template_Bootstrap::class )->should_load() ) {
+		$bootstrap = $this->container->make( Template_Bootstrap::class );
+		if ( ! $bootstrap->should_load() || $bootstrap->is_single_event() ) {
 			return $title;
 		}
+
 
 		return $this->container->make( Title::class )->filter_document_title_parts( $title );
 	}
@@ -376,15 +402,37 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @return string A redirection URL, or `false` to prevent redirection.
 	 */
-	public function filter_prevent_canonical_embed_redirect( $redirect_url = null ) {
-		$context = tribe_context();
-
-		// Any other URL we bail with the URL return.
-		if ( 'embed' !== $context->get( 'view' ) ) {
+	public function filter_redirect_canonical( $redirect_url = null, $original_url = null ) {
+		if ( trailingslashit( $original_url ) === trailingslashit( $redirect_url ) ) {
 			return $redirect_url;
 		}
 
-		return false;
+		$context = tribe_context();
+
+		$view = $context->get( 'view_request', null );
+
+		if ( 'embed' === $view ) {
+			// Do not redirect embedded Views.
+			return false;
+		}
+
+		if ( empty( $view ) || 'single-event' === $view ) {
+			// Let the redirection go on.
+			return $redirect_url;
+		}
+
+		$parsed = \Tribe__Events__Rewrite::instance()->parse_request( $redirect_url );
+
+		if ( $view !== Arr::get( (array) $parsed, 'eventDisplay' ) ) {
+
+			/*
+			 * If we're here we know we should be looking at a View URL.
+			 * If the proposed URL does not resolve to a View, do not redirect.
+			 */
+			return false;
+		}
+
+		return $redirect_url;
 	}
 
 	/**
@@ -484,5 +532,23 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		// Deleting `rewrite_rules` given that this is being executed after `init`
 		// And `flush_rewrite_rules()` doesn't take effect.
 		delete_option( 'rewrite_rules' );
+	}
+
+	/**
+	 * Filters rewrite rules to modify and update them for Views V2.
+	 *
+	 * @since TBD
+	 *
+	 * @param array  $bases  An array of rewrite bases that have been generated.
+	 * @param string $method The method that's being used to generate the bases; defaults to `regex`.
+	 *
+	 * @return array<string,array> An array of rewrite rules. Modified, if required, to support Views V2.
+	 */
+	public function filter_rewrite_i18n_slugs_raw( $bases, $method ) {
+		if ( ! is_array( $bases ) ) {
+			return $bases;
+		}
+
+		return $this->container->make( RewriteAlias::class )->filter_raw_i18n_slugs( $bases, $method );
 	}
 }

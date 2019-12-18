@@ -18,7 +18,7 @@
 	<ul class="tribe-events-c-view-selector__list">
 					<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--list tribe-events-c-view-selector__list-item--active">
 	<a
-		href="http://test.tri.be/events/list/"
+		href="https://test.tri.be/events/list/"
 		class="tribe-events-c-view-selector__list-item-link"
 		data-js="tribe-events-view-link"
 	>
@@ -29,7 +29,7 @@
 </li>
 					<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--month">
 	<a
-		href="http://test.tri.be/events/month/"
+		href="https://test.tri.be/events/month/"
 		class="tribe-events-c-view-selector__list-item-link"
 		data-js="tribe-events-view-link"
 	>
@@ -40,7 +40,7 @@
 </li>
 					<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--day">
 	<a
-		href="http://test.tri.be/events/today/"
+		href="https://test.tri.be/events/today/"
 		class="tribe-events-c-view-selector__list-item-link"
 		data-js="tribe-events-view-link"
 	>
@@ -49,15 +49,15 @@
 			Day		</span>
 	</a>
 </li>
-					<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--month">
+					<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--week">
 	<a
-		href="http://test.tri.be/events/month/"
+		href="https://test.tri.be/events/week/"
 		class="tribe-events-c-view-selector__list-item-link"
 		data-js="tribe-events-view-link"
 	>
-		<span class="tribe-events-c-view-selector__list-item-icon tribe-common-svgicon tribe-common-svgicon--month"></span>
+		<span class="tribe-events-c-view-selector__list-item-icon tribe-common-svgicon tribe-common-svgicon--week"></span>
 		<span class="tribe-events-c-view-selector__list-item-text">
-			Month		</span>
+			Week		</span>
 	</a>
 </li>
 			</ul>

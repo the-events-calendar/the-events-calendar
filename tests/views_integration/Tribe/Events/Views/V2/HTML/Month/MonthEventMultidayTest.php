@@ -75,9 +75,6 @@ class MonthEventMultidayTest extends HtmlTestCase {
 		$html     = $html->find( '.tribe-events-calendar-month__multiday-event' );
 		$icon     = $html->find( '.tribe-events-calendar-month__multiday-event-bar-featured-icon' );
 
-
-		$this->markTestSkipped( 'The month multi-day event does not receive data yet' );
-
 		$this->assertTrue(
 			$icon->is( '[aria-label="Featured"]' ),
 			'Month multiday featured icon needs to be aria-label="Featured"'
