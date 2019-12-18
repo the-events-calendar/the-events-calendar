@@ -82,6 +82,20 @@ tribe.events.views.viewport = {};
 	};
 
 	/**
+	 * Unbind events for window resize
+	 *
+	 * @since TBD
+	 *
+	 * @param {jQuery} $container jQuery object of view container
+	 *
+	 * @return {void}
+	 */
+	obj.unbindEvents = function( $container ) {
+		$window.off( 'resize', obj.handleResize );
+		$container.off( 'beforeAjaxSuccess.tribeEvents', obj.deinit );
+	};
+
+	/**
 	 * Bind events for window resize
 	 *
 	 * @since 4.9.7
@@ -92,6 +106,21 @@ tribe.events.views.viewport = {};
 	 */
 	obj.bindEvents = function( $container ) {
 		$window.on( 'resize', { container: $container }, obj.handleResize );
+	};
+
+	/**
+	 * Deinitialize viewport JS
+	 *
+	 * @since  TBD
+	 *
+	 * @param  {Event}       event    event object for 'beforeAjaxSuccess.tribeEvents' event
+	 * @param  {jqXHR}       jqXHR    Request object
+	 * @param  {PlainObject} settings Settings that this request was made with
+	 *
+	 * @return {void}
+	 */
+	obj.deinit = function( event, jqXHR, settings ) {
+		obj.unbindEvents( event.data.container );
 	};
 
 	/**
@@ -109,6 +138,7 @@ tribe.events.views.viewport = {};
 	obj.init = function( event, index, $container, data ) {
 		obj.bindEvents( $container );
 		obj.setViewport( $container );
+		$container.on( 'beforeAjaxSuccess.tribeEvents', { container: $container }, obj.deinit );
 	};
 
 	/**

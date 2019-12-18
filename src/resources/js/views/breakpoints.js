@@ -30,7 +30,6 @@ tribe.events.views.breakpoints = {};
 ( function( $, obj ) {
 	'use strict';
 	var $document = $( document );
-	var $window = $( window );
 
 	/**
 	 * Selectors used for configuration and setup
