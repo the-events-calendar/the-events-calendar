@@ -277,8 +277,8 @@ tribe.events.views.manager = {};
 		}
 
 		var data = {
-			prev_url: currentUrl,
-			url: url,
+			prev_url: encodeURI( currentUrl ),
+			url: encodeURI( url ) ,
 			should_manage_url: shouldManageUrl,
 			_wpnonce: nonce
 		};
