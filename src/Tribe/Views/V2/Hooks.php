@@ -449,11 +449,6 @@ class Hooks extends \tad_DI52_ServiceProvider {
 			return $fields;
 		}
 
-		$disable_bar = tribe_is_truthy( tribe_get_option( 'tribeDisableTribeBar', false ) );
-		if ( $disable_bar ) {
-			return $fields;
-		}
-
 		$fields['liveFiltersUpdate']['tooltip'] .= '<br/>' . esc_html__( 'Recommended for all sites using the updated calendar views.', 'the-events-calendar' );
 
 		return $fields;
