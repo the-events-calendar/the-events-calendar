@@ -93,6 +93,7 @@
 			value="<?php echo esc_attr( $datepicker_date ); ?>"
 			tabindex="-1"
 			autocomplete="off"
+			readonly="readonly"
 		/>
 		<div class="tribe-events-c-top-bar__datepicker-container" data-js="tribe-events-top-bar-datepicker-container"></div>
 	</div>

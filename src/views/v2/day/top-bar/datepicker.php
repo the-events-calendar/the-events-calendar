@@ -71,6 +71,7 @@ $datepicker_date = Dates::build_date_object( $selected_date_value )->format( $da
 			value="<?php echo esc_attr( $datepicker_date ); ?>"
 			tabindex="-1"
 			autocomplete="off"
+			readonly="readonly"
 		/>
 		<div class="tribe-events-c-top-bar__datepicker-container" data-js="tribe-events-top-bar-datepicker-container"></div>
 	</div>
