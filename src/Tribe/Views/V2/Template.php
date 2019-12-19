@@ -209,4 +209,15 @@ class Template extends Base_Template {
 	public function get_view() {
 		return $this->view;
 	}
+
+	/**
+	 * Returns the current template context.
+	 *
+	 * @since TBD
+	 *
+	 * @return \Tribe__Context The template context instance, or the global context if no context is set.
+	 */
+	public function get_context() {
+		return $this->context instanceof \Tribe__Context ? $this->context : tribe_context();
+	}
 }
