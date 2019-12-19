@@ -607,7 +607,7 @@ class View implements View_Interface {
 		$html_classes = array_merge( $base_classes, $parents, $classes );
 
 		/**
-		 * Filters the query arguments array for a View URL.
+		 * Filters the HTML classes applied to a View top-level container.
 		 *
 		 * @since 4.9.13
 		 *
@@ -618,7 +618,7 @@ class View implements View_Interface {
 		$html_classes = apply_filters( 'tribe_events_views_v2_view_html_classes', $html_classes, $this->get_slug(), $this );
 
 		/**
-		 * Filters the query arguments array for a specific View URL.
+		 * Filters the HTML classes applied to a specific View top-level container.
 		 *
 		 * @since 4.9.13
 		 *
@@ -1195,6 +1195,7 @@ class View implements View_Interface {
 			'live_refresh'           => tribe_is_truthy( tribe_get_option( 'liveFiltersUpdate', true ) ),
 			'ical'                   => $this->get_ical_data(),
 			'container_classes'      => $this->get_html_classes(),
+			'container_data'         => $this->get_container_data(),
 			'is_past'                => 'past' === $this->context->get( 'event_display_mode', false ),
 			'show_datepicker_submit' => $this->get_show_datepicker_submit(),
 			'breakpoints'            => $this->get_breakpoints(),
@@ -1879,5 +1880,32 @@ class View implements View_Interface {
 	 */
 	protected function get_url_date_format() {
 		return Dates::DBDATEFORMAT;
+	}
+
+	protected function get_container_data( array $data = [] ) {
+		$data = [];
+
+		/**
+		 * Filters the data for a View top-level container.
+		 *
+		 * @since TBD
+		 *
+		 * @param array<string,string>        $data      Associative array of data for the View top-level container.
+		 * @param string                      $view_slug The current view slug.
+		 * @param \Tribe\Events\Views\V2\View $instance  The current View object.
+		 */
+		$data = apply_filters( 'tribe_events_views_v2_view_data', $data, $this->get_slug(), $this );
+
+		/**
+		 * Filters the data for a specific View top-level container.
+		 *
+		 * @since 4.9.13
+		 *
+		 * @param array<string,string>        $data     Associative array of data for the View top-level container.
+		 * @param \Tribe\Events\Views\V2\View $instance The current View object.
+		 */
+		$data = apply_filters( "tribe_events_views_v2_{$this->get_slug()}_view_data", $data, $this );
+
+		return $data;
 	}
 }
