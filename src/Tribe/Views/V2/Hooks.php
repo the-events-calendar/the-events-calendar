@@ -21,10 +21,9 @@ use Tribe\Events\Views\V2\Query\Abstract_Query_Controller;
 use Tribe\Events\Views\V2\Query\Event_Query_Controller;
 use Tribe\Events\Views\V2\Repository\Caching_Set_Decorator;
 use Tribe\Events\Views\V2\Repository\Event_Period;
-use Tribe\Events\Views\V2\Rewrite as RewriteAlias;
 use Tribe\Events\Views\V2\Template\Title;
 use Tribe__Events__Main as TEC;
-use Tribe__Rewrite as Rewrite;
+use Tribe__Rewrite as TEC_Rewrite;
 use Tribe__Utils__Array as Arr;
 
 /**
@@ -163,7 +162,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @param  \Tribe__Events__Rewrite  $rewrite  An instance of the Tribe rewrite abstraction.
 	 */
-	public function on_tribe_events_pre_rewrite( Rewrite $rewrite ) {
+	public function on_tribe_events_pre_rewrite( TEC_Rewrite $rewrite ) {
 		$this->container->make( Kitchen_Sink::class )->generate_rules( $rewrite );
 	}
 
@@ -544,6 +543,6 @@ class Hooks extends \tad_DI52_ServiceProvider {
 			return $bases;
 		}
 
-		return $this->container->make( RewriteAlias::class )->filter_raw_i18n_slugs( $bases, $method );
+		return $this->container->make( Rewrite::class )->filter_raw_i18n_slugs( $bases, $method );
 	}
 }
