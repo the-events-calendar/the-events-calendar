@@ -9,7 +9,7 @@
 namespace Tribe\Events\Views\V2;
 
 use Tribe__Context as Context;
-use Tribe__Events__Rewrite as Rewrite;
+use Tribe__Events__Rewrite as TEC_Rewrite;
 use Tribe__Utils__Array as Arr;
 
 /**
@@ -152,7 +152,7 @@ class Url {
 	 */
 	public function parse_url() {
 		$this->components = array_merge( static::$default_url_components, parse_url( $this->url ) );
-		$this->query_args = Rewrite::instance()->parse_request( $this->url );
+		$this->query_args = TEC_Rewrite::instance()->parse_request( $this->url );
 		if ( ! empty( $this->components['query'] ) ) {
 			parse_str( $this->components['query'], $query_component_args );
 			$this->query_args     = $this->query_overrides_path

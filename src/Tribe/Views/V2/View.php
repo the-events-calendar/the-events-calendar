@@ -16,7 +16,7 @@ use Tribe__Context as Context;
 use Tribe__Date_Utils as Dates;
 use Tribe__Events__Main as TEC;
 use Tribe__Events__Organizer as Organizer;
-use Tribe__Events__Rewrite as Rewrite;
+use Tribe__Events__Rewrite as TEC_Rewrite;
 use Tribe__Events__Venue as Venue;
 use Tribe__Repository__Interface as Repository;
 use Tribe__Utils__Array as Arr;
@@ -174,7 +174,7 @@ class View implements View_Interface {
 	 *
 	 * @since 4.9.13
 	 *
-	 * @var Rewrite
+	 * @var TEC_Rewrite
 	 */
 	protected $rewrite;
 
@@ -195,7 +195,7 @@ class View implements View_Interface {
 	 */
 	public function __construct( Messages $messages = null ) {
 		$this->messages = $messages ?: new Messages();
-		$this->rewrite = Rewrite::instance();
+		$this->rewrite = TEC_Rewrite::instance();
 	}
 
 	/**
