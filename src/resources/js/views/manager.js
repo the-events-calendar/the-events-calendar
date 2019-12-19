@@ -270,6 +270,7 @@ tribe.events.views.manager = {};
 		var currentUrl = window.location.href;
 		var nonce = $link.data( 'view-rest-nonce' );
 		var shouldManageUrl = obj.shouldManageUrl( $container );
+		var shortcodeId = $container.data( 'view-shortcode' );
 
 		// Fetch nonce from container if the link doesnt have any
 		if ( ! nonce ) {
@@ -278,10 +279,14 @@ tribe.events.views.manager = {};
 
 		var data = {
 			prev_url: encodeURI( currentUrl ),
-			url: encodeURI( url ) ,
+			url: encodeURI( url ),
 			should_manage_url: shouldManageUrl,
-			_wpnonce: nonce
+			_wpnonce: nonce,
 		};
+
+		if ( shortcodeId ) {
+			data[ 'shortcode' ]	 = shortcodeId;
+		}
 
 		obj.request( data, $container );
 
