@@ -12,6 +12,7 @@
 namespace Tribe\Events\Views\V2;
 
 use Tribe__Events__Main as Plugin;
+use Tribe__Events__Templates;
 
 /**
  * Register
@@ -314,6 +315,22 @@ class Assets extends \tad_DI52_ServiceProvider {
 				'conditionals' => [ $this, 'should_enqueue_frontend' ],
 				'groups'       => [ static::$group_key ],
 				'in_footer'    => false,
+			]
+		);
+
+		tribe_asset(
+			$plugin,
+			'tribe-events-views-v2-override-style',
+			Tribe__Events__Templates::locate_stylesheet( 'tribe-events/tribe-events.css' ),
+			[
+				'tribe-common-full-style',
+				'tribe-events-views-v2-skeleton',
+			],
+			'wp_enqueue_scripts',
+			[
+				'priority'     => 10,
+				'conditionals' => [ $this, 'should_enqueue_frontend' ],
+				'groups'       => [ static::$group_key ],
 			]
 		);
 	}
