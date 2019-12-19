@@ -324,7 +324,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 			tribe_asset(
 				$plugin,
 				'tribe-events-views-v2-override-style',
-				Tribe__Events__Templates::locate_stylesheet( 'tribe-events/tribe-events.css' ),
+				$overrides_stylesheet,
 				[
 					'tribe-common-full-style',
 					'tribe-events-views-v2-skeleton',
