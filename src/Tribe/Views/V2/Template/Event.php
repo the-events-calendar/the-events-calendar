@@ -38,8 +38,9 @@ class Event {
 	/**
 	 * Add/remove filters to hide/show sensitive event info on password protected posts
 	 *
-	 * @param WP_Post $post
+	 * @since TBD
 	 *
+	 * @param WP_Post $post
 	 **/
 	public function manage_sensitive_info( $post ) {
 		if ( post_password_required( $post ) ) {
