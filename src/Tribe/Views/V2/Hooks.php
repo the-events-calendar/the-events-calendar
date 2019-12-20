@@ -55,6 +55,10 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_action( 'rest_api_init', [ $this, 'register_rest_endpoints' ] );
 		add_action( 'tribe_common_loaded', [ $this, 'on_tribe_common_loaded' ], 1 );
 		add_action( 'wp_head', [ $this, 'on_wp_head' ], 1000 );
+
+		// Hide sensitive event info if post is password protected.
+		add_action( 'the_post', array( $this, 'action_manage_sensitive_info' ) );
+
 		add_action( 'tribe_events_pre_rewrite', [ $this, 'on_tribe_events_pre_rewrite' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'action_disable_assets_v1' ], 0 );
 		add_action( 'tribe_events_pro_shortcode_tribe_events_after_assets', [ $this, 'action_disable_shortcode_assets_v1' ] );
@@ -134,6 +138,19 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	public function action_disable_shortcode_assets_v1() {
 		$assets = $this->container->make( Assets::class );
 		$assets->disable_v1();
+	}
+
+	/**
+	 * Fires to manage sensitive information on password protected posts
+	 *
+	 * @since TBD
+	 *
+	 * @param \WP_Post $post
+	 *
+	 * @return void
+	 */
+	public function action_manage_sensitive_info( $post ) {
+		$this->container->make( Template\Event::class )->manage_sensitive_info( $post );
 	}
 
 	/**
