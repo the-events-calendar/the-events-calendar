@@ -43,7 +43,9 @@ class Event {
 	 * @param WP_Post $post
 	 **/
 	public function manage_sensitive_info( $post ) {
-		if ( post_password_required( $post ) ) {
+		$password_required = post_password_required( $post );
+
+		if ( ! $this->managing_sensitive_info && $password_required ) {
 			add_filter( 'tribe_events_event_schedule_details', '__return_empty_string' );
 			add_filter( 'tribe_events_recurrence_tooltip', '__return_false' );
 			add_filter( 'tribe_event_meta_venue_name', '__return_empty_string' );
@@ -58,7 +60,7 @@ class Event {
 			}
 
 			$this->managing_sensitive_info = true;
-		} elseif ( $this->managing_sensitive_info ) {
+		} elseif ( $this->managing_sensitive_info && ! $password_required ) {
 			remove_filter( 'tribe_events_event_schedule_details', '__return_empty_string' );
 			remove_filter( 'tribe_events_recurrence_tooltip', '__return_false' );
 			remove_filter( 'tribe_event_meta_venue_name', '__return_empty_string' );
