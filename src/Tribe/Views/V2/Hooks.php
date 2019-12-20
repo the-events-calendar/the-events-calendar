@@ -422,7 +422,10 @@ class Hooks extends \tad_DI52_ServiceProvider {
 
 		$parsed = \Tribe__Events__Rewrite::instance()->parse_request( $redirect_url );
 
-		if ( $view !== Arr::get( (array) $parsed, 'eventDisplay' ) ) {
+		if (
+			empty( $parsed['tribe_redirected'] )
+			&& $view !== Arr::get( (array) $parsed, 'eventDisplay' )
+		) {
 
 			/*
 			 * If we're here we know we should be looking at a View URL.
