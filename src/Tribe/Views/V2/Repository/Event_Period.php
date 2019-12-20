@@ -175,6 +175,8 @@ class Event_Period implements Core_Read_Interface {
 
 		$this->base_repository = tribe_events();
 
+		// @todo here call two flags: one to skip ordering, the second one to run filters one by one.
+
 		return $this->base_repository;
 	}
 
@@ -596,30 +598,22 @@ class Event_Period implements Core_Read_Interface {
 	 *
 	 * @since 4.9.13
 	 *
-	 * @return Events_Result_Set[] An array of result sets, in the shape `[ <Y-m-d> => <Event_Result_Set> ]`.
+	 * @return array<string,Events_Result_Set> The result sets, in the shape `[ <Y-m-d> => <Event_Result_Set> ]`.
 	 */
 	public function get_sets() {
 		if ( null !== $this->sets ) {
-			// Do we have them here?
-			return $this->get_sub_set( $this->sets, $this->period_start, $this->period_end );
+			if ($this->is_period_defined()) { // Do we have them here?
+				return $this->get_sub_set( $this->sets, $this->period_start, $this->period_end );
+			}
+
+			return $this->sets;
 		}
 
-		$results = $this->query_for_sets( $this->period_start, $this->period_end );
-
-		if ( empty( $results ) ) {
-			// Store the value, do not run again.
-			$this->sets = [];
-
-			return [];
-		}
-
-		$raw_sets = $this->group_sets_by_start_date( $results );
-
-		$sets = $this->cast_sets( $raw_sets );
-		$sets = $this->add_missing_sets( $sets );
-
-		if ( $this->cache_results ) {
-			$this->set_results_cache( $sets );
+		if ( $this->is_period_defined() ) {
+			$sets = $this->fetch_sets();
+		} else {
+			// We do not have the elements to query for sets, this is a pass-thru call to the default event repository.
+			$sets = null;
 		}
 
 		$this->sets = $sets;
@@ -667,6 +661,35 @@ class Event_Period implements Core_Read_Interface {
 	}
 
 	/**
+	 * Fetches the sets for the specified period.
+	 *
+	 * @since TBD
+	 *
+	 * @return array<string,Events_Result_Set> The result sets, in the shape `[ <Y-m-d> => <Event_Result_Set> ]`.
+	 */
+	protected function fetch_sets() {
+		$results = $this->query_for_sets( $this->period_start, $this->period_end );
+
+		if ( empty( $results ) ) {
+			// Store the value, do not run again.
+			$this->sets = [];
+
+			return [];
+		}
+
+		$raw_sets = $this->group_sets_by_start_date( $results );
+
+		$sets = $this->cast_sets( $raw_sets );
+		$sets = $this->add_missing_sets( $sets );
+
+		if ( $this->cache_results ) {
+			$this->set_results_cache( $sets );
+		}
+
+		return $sets;
+	}
+
+	/**
 	 * Queries the database to fetch the sets.
 	 *
 	 * @since 4.9.13
@@ -674,29 +697,7 @@ class Event_Period implements Core_Read_Interface {
 	 * @return array|false Either the results of the query, or `false` on error.
 	 */
 	protected function query_for_sets( \DateTimeInterface $start, \DateTimeInterface $end ) {
-		// Let's try and set the LIMIT as high as we can.
-		/** @var \Tribe__Feature_Detection $feature_detection */
-		$feature_detection = tribe( 'feature-detection' );
-		// Results will not be JSON, but this is a good approximation.
-		$example = '{"ID":"23098402348023849","start_date":"2019-11-18 08:00:00",' .
-		           '"end_date":"2019-11-18 17:00:00","timezone":"America\/New_York","all_day":null,' .
-		           '"post_status":"publish"}';
-		$limit   = $feature_detection->mysql_limit_for_string( $example );
-
-		/**
-		 * Filters the LIMIT that should be used to fetch event results set from the database.
-		 *
-		 * Lower this value on less powerful hosts.
-		 *
-		 * @since 4.9.13
-		 *
-		 * @param int                $limit The SQL LIMIT to use for result set fetching.
-		 * @param static             $this  The current repository instance.
-		 * @param \DateTimeInterface $start The period start date.
-		 * @param \DateTimeInterface $end   The period end date.
-		 */
-		$limit = apply_filters( 'tribe_events_event_period_repository_set_limit', $limit, $this, $start, $end );
-		$limit = absint( $limit );
+		$limit = $this->get_set_query_limit( $start, $end );
 
 		$starting_before_period_end = $this->query_for_sets_starting_before_period_end( $limit, $end );
 
@@ -736,6 +737,43 @@ class Event_Period implements Core_Read_Interface {
 		unset( $result );
 
 		return $results;
+	}
+
+	/**
+	 * Returns the filtered SQL LIMIT value to use to query for sets, based on feature detection.
+	 *
+	 * @since TBD
+	 *
+	 * @param \DateTimeInterface|null $start The start date object we're querying for, if applicable.
+	 * @param \DateTimeInterface|null $end   The end date object we're querying for, if applicable.
+	 *
+	 * @return int The filtered SQL LIMIT value to use to query for sets, based on feature detection.
+	 */
+	protected function get_set_query_limit( \DateTimeInterface $start = null, \DateTimeInterface $end = null ) {
+		/** @var \Tribe__Feature_Detection $feature_detection */
+		$feature_detection = tribe( 'feature-detection' );
+		// Results will not be JSON, but this is a good approximation.
+		$example = '{"ID":"23098402348023849","start_date":"2019-11-18 08:00:00",' .
+		           '"end_date":"2019-11-18 17:00:00","timezone":"America\/New_York","all_day":null,' .
+		           '"post_status":"publish"}';
+		$limit   = $feature_detection->mysql_limit_for_string( $example );
+
+		/**
+		 * Filters the LIMIT that should be used to fetch event results set from the database.
+		 *
+		 * Lower this value on less powerful hosts.
+		 *
+		 * @since 4.9.13
+		 *
+		 * @param int                     $limit The SQL LIMIT to use for result set fetching.
+		 * @param static                  $this  The current repository instance.
+		 * @param \DateTimeInterface|null $start The period start date, if provided.
+		 * @param \DateTimeInterface|null $end   The period end date, if provided.
+		 */
+		$limit = apply_filters( 'tribe_events_event_period_repository_set_limit', $limit, $this, $start, $end );
+		$limit = absint( $limit );
+
+		return $limit;
 	}
 
 	/**
@@ -903,7 +941,7 @@ class Event_Period implements Core_Read_Interface {
 	 * @param string     $join            The type of JOIN to use; defaults to `INNER`, but `LEFT` should be used when
 	 *                                    fetching meta that might be not set for all posts.
 	 *
-	 * @return array An array of meta results, the post IDs as keys.
+	 * @return array<int,string|int> An array of meta results, the post IDs as keys.
 	 *
 	 * @see   Tribe__Feature_Detection::mysql_limit_for_example for the method that should be used to set the limit.
 	 * @see   wpdb::prepare() for the format of the placeholders to use to prepare the query.
@@ -1026,12 +1064,22 @@ class Event_Period implements Core_Read_Interface {
 	 *
 	 * @since 4.9.13
 	 *
-	 * @param array $sets The current sets, by day.
+	 * @param array<string,Events_Result_Set> $sets The current sets, by day.
 	 *
-	 * @return array The filled sets.
+	 * @return array<string,Events_Result_Set> The filled sets, by day.
 	 */
 	protected function add_missing_sets( array $sets ) {
-		$period = new \DatePeriod( $this->period_start, Dates::interval( 'P1D' ), $this->period_end );
+		if ( $this->is_period_defined() ) {
+			$period = new \DatePeriod( $this->period_start, Dates::interval( 'P1D' ), $this->period_end );
+		} else {
+			$days   = array_keys( $sets );
+			$period = new \DatePeriod(
+				Dates::build_date_object( reset( $days ) ),
+				Dates::interval( 'P1D' ),
+				Dates::build_date_object( end( $days ) )
+			);
+		}
+
 		foreach ( $period as $day ) {
 			$day_string = $day->format( Dates::DBDATEFORMAT );
 			if ( ! array_key_exists( $day_string, $sets ) ) {
@@ -1101,24 +1149,109 @@ class Event_Period implements Core_Read_Interface {
 	 *
 	 * @since 4.9.13
 	 *
-	 * @param array $sets The sets found by this repository so far.
+	 * @param array<string,Events_Result_Set>|null $sets The sets found by this repository so far.
 	 */
-	protected function filter_sets_w_base_repository( array $sets ) {
-		// Restrict the base repository to only operate on the IDs we already have.
-		$matching_ids = $this->base_repository->in( $this->get_sets_ids( $sets ) )->get_ids();
+	protected function filter_sets_w_base_repository( array $sets = null ) {
+		if ( null !== $sets ) {
+			// Restrict the base repository to only operate on the IDs we already have.
+			$matching_ids = $this->base_repository->in( $this->get_sets_ids( $sets ) )->get_ids();
 
-		if ( empty( $matching_ids ) ) {
+			if ( empty( $matching_ids ) ) {
+				return [];
+			}
+
+			/** @var Events_Result_Set $set */
+			$filtered_sets = array_map( static function ( Events_Result_Set $set ) use ( $matching_ids ) {
+				return $set->filter( static function ( Event_Result $result ) use ( $matching_ids ) {
+					return in_array( $result->id(), $matching_ids, true );
+				} );
+			}, $sets );
+		} else {
+			$matching_ids  = $this->base_repository->get_ids();
+			$filtered_sets = $this->add_missing_sets( $this->build_sets_from_ids( $matching_ids ) );
+		}
+
+		return $filtered_sets;
+	}
+
+	/**
+	 * Builds an array of sets, grouped by start date day, from an array of post IDs.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<int> $ids The post IDs to build the sets from.
+	 *
+	 * @return array<string,Events_Result_Set> An array of result sets, grouped by start date days. There might be gaps
+	 *                                         in the set.
+	 *
+	 * @see Event_Period::add_missing_sets() to fill in the missing days gaps.
+	 */
+	protected function build_sets_from_ids( array $ids ) {
+		if ( empty( $ids ) ) {
 			return [];
 		}
 
-		/** @var Events_Result_Set $set */
-		$filtered_sets = array_map( static function ( Events_Result_Set $set ) use ( $matching_ids ) {
-			return $set->filter( static function ( Event_Result $result ) use ( $matching_ids ) {
-				return in_array( $result->id(), $matching_ids, true );
-			} );
-		}, $sets );
+		global $wpdb;
+		$limit     = $this->get_set_query_limit();
+		$post_type = TEC::POSTTYPE;
 
-		return $filtered_sets;
+		$query = "
+		SELECT p.ID, p.post_status,
+	   		start_date.meta_value AS 'start_date'
+
+		FROM {$wpdb->posts} p
+				INNER JOIN {$wpdb->postmeta} start_date
+					ON (p.ID = start_date.post_id AND start_date.meta_key = %s)
+
+		WHERE p.post_type = '{$post_type}'";
+
+		$prepare_args = [
+			$this->use_site_timezone ? '_EventStartDateUTC' : '_EventStartDate',
+		];
+
+		// Here we get the post ID, post_status and start date.
+		$results = $this->query_w_limit( $limit, $query, $prepare_args, $ids );
+
+		if ( empty( $results ) ) {
+			return [];
+		}
+
+		$results = array_combine( array_column( $results, 'ID' ), $results );
+
+		$end_date_meta_key = $this->use_site_timezone ? '_EventEndDateUTC' : '_EventEndDate';
+
+		$map = [
+			$end_date_meta_key => [ 'end_date', 'INNER' ],
+			'_EventTimezone'   => [ 'timezone', 'INNER' ],
+			'_EventAllDay'     => [ 'all_day', 'LEFT' ],
+		];
+
+		foreach ( $map as $meta_key => list( $set_prop, $join ) ) {
+			$step_results = $this->query_for_meta( $limit, $meta_key, $ids, $join );
+			if ( count( $ids ) !== count( $step_results ) ) {
+				// Some events might be missing information, we're conservative and bail.
+				return [];
+			}
+
+			foreach ( $step_results as $post_id => $step_result ) {
+				$results[ $post_id ][ $set_prop ] = $step_result[ $meta_key ];
+			}
+		}
+
+		// Group them by start_date day and make each a result.
+		$grouped_sets = [];
+		foreach ( $results as $result ) {
+			$tz         = Timezones::is_mode( Timezones::EVENT_TIMEZONE ) ? $result['timezone'] : null;
+			$day_string = Dates::build_date_object( $result['start_date'], $tz )->format( Dates::DBDATEFORMAT );
+
+			if ( ! isset( $grouped_sets[ $day_string ] ) ) {
+				$grouped_sets[ $day_string ] = [ Event_Result::from_value( $result ) ];
+			} else {
+				$grouped_sets[ $day_string ][] = Event_Result::from_value( $result );
+			}
+		}
+
+		return array_map( [ Events_Result_Set::class, 'from_value' ], $grouped_sets );
 	}
 
 	/**
@@ -1206,7 +1339,7 @@ class Event_Period implements Core_Read_Interface {
 		// Try and fetch them from the shared cache.
 		$periods_key = static::get_cache_key( 'periods' );
 
-		$cached_periods = (array)$cache->get_transient( $periods_key, $trigger );
+		$cached_periods = (array) $cache->get_transient( $periods_key, $trigger );
 
 		foreach ( $cached_periods as list( $start_date, $end_date ) ) {
 			if (
@@ -1258,5 +1391,16 @@ class Event_Period implements Core_Read_Interface {
 	 */
 	public function set_base_repository( Core_Read_Interface $base_repository = null ) {
 		$this->base_repository = $base_repository;
+	}
+
+	/**
+	 * Checks whether the period start and end dates are correctly defined or not.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool Whether the period start and end dates are correctly defined or not.
+	 */
+	protected function is_period_defined() {
+		return $this->period_start instanceof \DateTimeInterface && $this->period_end instanceof \DateTimeInterface;
 	}
 }
