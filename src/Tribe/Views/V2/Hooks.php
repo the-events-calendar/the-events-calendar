@@ -19,7 +19,6 @@ namespace Tribe\Events\Views\V2;
 
 use Tribe\Events\Views\V2\Query\Abstract_Query_Controller;
 use Tribe\Events\Views\V2\Query\Event_Query_Controller;
-use Tribe\Events\Views\V2\Repository\Caching_Set_Decorator;
 use Tribe\Events\Views\V2\Repository\Event_Period;
 use Tribe\Events\Views\V2\Template\Title;
 use Tribe__Events__Main as TEC;
