@@ -54,14 +54,11 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_action( 'rest_api_init', [ $this, 'register_rest_endpoints' ] );
 		add_action( 'tribe_common_loaded', [ $this, 'on_tribe_common_loaded' ], 1 );
 		add_action( 'wp_head', [ $this, 'on_wp_head' ], 1000 );
-
-		// Hide sensitive event info if post is password protected.
-		add_action( 'the_post', array( $this, 'action_manage_sensitive_info' ) );
-
 		add_action( 'tribe_events_pre_rewrite', [ $this, 'on_tribe_events_pre_rewrite' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'action_disable_assets_v1' ], 0 );
 		add_action( 'tribe_events_pro_shortcode_tribe_events_after_assets', [ $this, 'action_disable_shortcode_assets_v1' ] );
 		add_action( 'updated_option', [ $this, 'action_save_wplang' ], 10, 3 );
+		add_action( 'the_post', [ $this, 'manage_sensitive_info' ] );
 	}
 
 	/**
@@ -89,6 +86,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 
 		add_filter( 'tribe_general_settings_tab_fields', [ $this, 'filter_general_settings_tab_live_update' ], 20 );
 		add_filter( 'tribe_events_rewrite_i18n_slugs_raw', [ $this, 'filter_rewrite_i18n_slugs_raw' ], 50, 2 );
+		add_filter( 'tribe_get_event_after', [ $this, 'filter_events_properties' ] );
 
 		if ( tribe_context()->doing_php_initial_state() ) {
 			add_filter( 'wp_title', [ $this, 'filter_wp_title' ], 10, 2 );
@@ -137,19 +135,6 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	public function action_disable_shortcode_assets_v1() {
 		$assets = $this->container->make( Assets::class );
 		$assets->disable_v1();
-	}
-
-	/**
-	 * Fires to manage sensitive information on password protected posts
-	 *
-	 * @since TBD
-	 *
-	 * @param \WP_Post $post
-	 *
-	 * @return void
-	 */
-	public function action_manage_sensitive_info( $post ) {
-		$this->container->make( Template\Event::class )->manage_sensitive_info( $post );
 	}
 
 	/**
@@ -563,5 +548,35 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		}
 
 		return $this->container->make( Rewrite::class )->filter_raw_i18n_slugs( $bases, $method );
+	}
+
+	/**
+	 * Fires to manage sensitive information on password protected posts.
+	 *
+	 * @since TBD
+	 *
+	 * @param \WP_Post|int $post The event post ID or object currently being decorated.
+	 */
+	public function manage_sensitive_info( $post ) {
+		$this->container->make( Template\Event::class )->manage_sensitive_info( $post );
+	}
+
+	/**
+	 * Updates and modifies the properties added to the event post object by the `tribe_get_event` function to
+	 * hide some sensitive information, if required.
+	 *
+	 * @since TBD
+	 *
+	 * @param \WP_Post $event The event post object, decorated w/ properties added by the `tribe_get_event` function.
+	 *
+	 * @return \WP_Post The event post object, decorated w/ properties added by the `tribe_get_event` function, some of
+	 *                  them updated to hide sensitive information, if required.
+	 */
+	public function filter_events_properties( $event ) {
+		if ( ! $event instanceof \WP_Post ) {
+			return $event;
+		}
+
+		return $this->container->make( Template\Event::class )->filter_event_properties( $event );
 	}
 }
