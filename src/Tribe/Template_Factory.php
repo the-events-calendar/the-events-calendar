@@ -408,6 +408,7 @@ class Tribe__Events__Template_Factory extends Tribe__Template_Factory {
 			add_filter( 'tribe_events_recurrence_tooltip', '__return_false' );
 			add_filter( 'tribe_event_meta_venue_name', '__return_empty_string' );
 			add_filter( 'tribe_event_meta_venue_address', '__return_empty_string' );
+			add_filter( 'tribe_get_full_address', '__return_empty_string' );
 			add_filter( 'tribe_event_featured_image', '__return_empty_string' );
 			add_filter( 'tribe_get_venue', '__return_empty_string' );
 			add_filter( 'tribe_get_cost', '__return_empty_string' );
