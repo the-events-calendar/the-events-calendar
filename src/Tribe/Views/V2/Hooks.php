@@ -558,7 +558,9 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @param \WP_Post|int $post The event post ID or object currently being decorated.
 	 */
 	public function manage_sensitive_info( $post ) {
-		$this->container->make( Template\Event::class )->manage_sensitive_info( $post );
+		if ( $this->container->make( Template_Bootstrap::class )->is_single_event() ) {
+			$this->container->make( Template\Event::class )->manage_sensitive_info( $post );
+		}
 	}
 
 	/**
