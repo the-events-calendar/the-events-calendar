@@ -122,11 +122,17 @@ class Event_Period implements Core_Read_Interface {
 	 *
 	 * @since 4.7.19
 	 *
-	 * @param array $args An associative array of arguments to filter
-	 *                    the posts by in the shape [ <key>, <value> ]. * * @return Tribe__Repository__Read_Interface
+	 * @param array<string,mixed> $args An associative array of arguments to filter
+	 *                    the posts by in the shape [ <key>, <value> ].
+	 *
+	 * @return static This repository, for chaining.
 	 */
 	public function by_args( array $args ) {
-		// TODO: Implement by_args() method.
+		foreach ( $args as $filter => $filter_args ) {
+			$this->by( $filter, $filter_args );
+		}
+
+		return $this;
 	}
 
 	/**
@@ -180,13 +186,7 @@ class Event_Period implements Core_Read_Interface {
 	 * @return \Tribe__Repository__Interface The base repository instance used by this repository.
 	 */
 	public function base_repository() {
-		if ( null !== $this->base_repository ) {
-			return $this->base_repository;
-		}
-
-		$this->base_repository = tribe_events();
-
-		return $this->base_repository;
+		return tribe_events();
 	}
 
 	/**
@@ -610,28 +610,28 @@ class Event_Period implements Core_Read_Interface {
 	 * @return array<string,Events_Result_Set> The result sets, in the shape `[ <Y-m-d> => <Event_Result_Set> ]`.
 	 */
 	public function get_sets() {
-		if ( null !== $this->sets ) {
-			if ( $this->is_period_defined() ) { // Do we have them here?
-				return $this->get_sub_set( $this->sets, $this->period_start, $this->period_end );
-			}
-
-			return $this->sets;
-		}
-
 		if ( $this->is_period_defined() ) {
-			$sets = $this->fetch_sets();
+			if ( null !== $this->sets ) {
+				// Do we have them here?
+				$matching_sets = $this->get_sub_set( $this->sets, $this->period_start, $this->period_end );
+			} else {
+				$matching_sets = $this->fetch_sets();
+				$this->sets    = $matching_sets;
+			}
 		} else {
 			// We do not have the elements to query for sets, this is a pass-thru call to the default event repository.
-			$sets = null;
+			$matching_sets = null;
 		}
-
-		$this->sets = $sets;
 
 		if ( $this->has_base_filters ) {
-			$this->sets = $this->filter_sets_w_base_repository( $sets );
+			$matching_sets = $this->filter_sets_w_base_repository( $matching_sets );
 		}
 
-		return $this->sets;
+		if ( null === $this->sets ) {
+			$this->sets = $matching_sets;
+		}
+
+		return $matching_sets;
 	}
 
 	/**

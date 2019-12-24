@@ -230,7 +230,7 @@ class Event_Period_Test extends WPTestCase {
 		/** @var Event_Period $repo */
 		$repo = tribe_events( 'period' )->where( 'starts_before', '2019-12-25' );
 
-		$this->assertEquals( [ $starting_before_date_1, $starting_before_date_2 ], $repo->get_ids() );
+	$this->assertEquals( [ $starting_before_date_1, $starting_before_date_2 ], $repo->get_ids() );
 		$sets = $repo->get_sets();
 		$this->assertEquals( [
 			'2019-12-20',
@@ -313,33 +313,4 @@ class Event_Period_Test extends WPTestCase {
 			'Using venue_3 and venue_2 the event w/ venue_2 should match.'
 		);
 	}
-
-//'starts_before'           => [ $this, 'filter_by_starts_before' ],
-//'starts_after'            => [ $this, 'filter_by_starts_after' ],
-//'starts_on_or_after'      => [ $this, 'filter_by_starts_on_or_after' ],
-//'starts_between'          => [ $this, 'filter_by_starts_between' ],
-//'ends_before'             => [ $this, 'filter_by_ends_before' ],
-//'ends_on_or_before'       => [ $this, 'filter_by_ends_on_or_before' ],
-//'ends_after'              => [ $this, 'filter_by_ends_after' ],
-//'ends_between'            => [ $this, 'filter_by_ends_between' ],
-//'date_overlaps'           => [ $this, 'filter_by_date_overlaps' ],
-//'starts_and_ends_between' => [ $this, 'filter_by_starts_and_ends_between' ],
-//'runs_between'            => [ $this, 'filter_by_runs_between' ],
-//'all_day'                 => [ $this, 'filter_by_all_day' ],
-//'multiday'                => [ $this, 'filter_by_multiday' ],
-//'on_calendar_grid'        => [ $this, 'filter_by_on_calendar_grid' ],
-//'timezone'                => [ $this, 'filter_by_timezone' ],
-//'featured'                => [ $this, 'filter_by_featured' ],
-//'hidden'                  => [ $this, 'filter_by_hidden' ],
-//'linked_post'             => [ $this, 'filter_by_linked_post' ],
-//'organizer'               => [ $this, 'filter_by_organizer' ],
-//'sticky'                  => [ $this, 'filter_by_sticky' ],
-//'venue'                   => [ $this, 'filter_by_venue' ],
-//'cost_currency_symbol'    => [ $this, 'filter_by_cost_currency_symbol' ],
-//'cost'                    => [ $this, 'filter_by_cost' ],
-//'cost_between'            => [ $this, 'filter_by_cost_between' ],
-//'cost_less_than'          => [ $this, 'filter_by_cost_less_than' ],
-//'cost_greater_than'       => [ $this, 'filter_by_cost_greater_than' ],
-//'on_date'                 => [ $this, 'filter_by_on_date' ],
-//'hidden_from_upcoming'    => [ $this, 'filter_by_hidden_on_upcoming' ],
 }

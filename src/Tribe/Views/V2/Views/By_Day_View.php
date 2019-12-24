@@ -146,6 +146,7 @@ abstract class By_Day_View extends View {
 			} else {
 				$repository = tribe_events( 'period' );
 			}
+
 			$repository->by_period( $grid_start_date, $grid_end_date )->fetch();
 		}
 
@@ -155,7 +156,7 @@ abstract class By_Day_View extends View {
 			$day_string = $day->format( 'Y-m-d' );
 
 			if ( $using_period_repository && isset( $repository ) ) {
-				$day_results = $repository->by_date( $day_string )->get_set();
+				$day_results = $repository->by_args( $repository_args )->by_date( $day_string )->get_set();
 
 				$event_ids = [];
 				if ( $day_results->count() ) {
