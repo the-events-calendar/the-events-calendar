@@ -22,6 +22,11 @@ class Event_Period_Test extends WPTestCase {
 		parent::setUp();
 		static::factory()->event = new Event();
 		static::factory()->venue = new Venue();
+
+		while ( tribe_events()->get_ids() ) {
+			// Let's make sure we're starting from a clean slate on each test and kill lingering events.
+			tribe_events()->delete();
+		}
 	}
 
 	/**
@@ -308,7 +313,6 @@ class Event_Period_Test extends WPTestCase {
 			'Using venue_3 and venue_2 the event w/ venue_2 should match.'
 		);
 	}
-
 
 //'starts_before'           => [ $this, 'filter_by_starts_before' ],
 //'starts_after'            => [ $this, 'filter_by_starts_after' ],
