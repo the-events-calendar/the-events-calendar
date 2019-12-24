@@ -16,7 +16,7 @@ use Tribe__Context as Context;
 use Tribe__Date_Utils as Dates;
 use Tribe__Events__Main as TEC;
 use Tribe__Events__Organizer as Organizer;
-use Tribe__Events__Rewrite as Rewrite;
+use Tribe__Events__Rewrite as TEC_Rewrite;
 use Tribe__Events__Venue as Venue;
 use Tribe__Repository__Interface as Repository;
 use Tribe__Utils__Array as Arr;
@@ -174,7 +174,7 @@ class View implements View_Interface {
 	 *
 	 * @since 4.9.13
 	 *
-	 * @var Rewrite
+	 * @var TEC_Rewrite
 	 */
 	protected $rewrite;
 
@@ -195,7 +195,7 @@ class View implements View_Interface {
 	 */
 	public function __construct( Messages $messages = null ) {
 		$this->messages = $messages ?: new Messages();
-		$this->rewrite = Rewrite::instance();
+		$this->rewrite = TEC_Rewrite::instance();
 	}
 
 	/**
@@ -210,6 +210,14 @@ class View implements View_Interface {
 	public static function make_for_rest( \WP_REST_Request $request ) {
 		// Try to read the slug from the REST request.
 		$params     = $request->get_params();
+		if ( isset( $params['url'] ) ) {
+			$params['url'] = untrailingslashit( $params['url'] );
+		}
+
+		if ( isset( $params['prev_url'] ) ) {
+			$params['prev_url'] = untrailingslashit( $params['prev_url'] );
+		}
+
 		$slug       = Arr::get( $params, 'view', false );
 		$url_object = Url::from_url_and_params( Arr::get( $params, 'url' ), $params );
 
@@ -355,9 +363,9 @@ class View implements View_Interface {
 		 *
 		 * @since  4.9.3
 		 *
-		 * @param  \Tribe\Events\Views\V2\Template  $template  The template object for the View.
-		 * @param  string                           $view_slug The current view slug.
-		 * @param  \Tribe\Events\Views\V2\View      $instance  The current View object.
+		 * @param  \Tribe\Events\Views\V2\Template $template  The template object for the View.
+		 * @param  string                          $view_slug The current view slug.
+		 * @param View                             $instance  The current View object.
 		 */
 		$template = apply_filters( 'tribe_events_views_v2_view_template', $template, $view_slug, $instance );
 
@@ -366,8 +374,8 @@ class View implements View_Interface {
 		 *
 		 * @since  4.9.3
 		 *
-		 * @param  \Tribe\Events\Views\V2\Template  $template  The template object for the View.
-		 * @param  \Tribe\Events\Views\V2\View      $instance  The current View object.
+		 * @param  \Tribe\Events\Views\V2\Template $template The template object for the View.
+		 * @param View                             $instance The current View object.
 		 */
 		$template = apply_filters( "tribe_events_views_v2_{$view_slug}_view_template", $template, $instance );
 
@@ -383,10 +391,10 @@ class View implements View_Interface {
 		 *
 		 * @since 4.9.3
 		 *
-		 * @param  \Tribe__Context  $view_context  The context abstraction object that will be passed to the
+		 * @param  \Tribe__Context $view_context   The context abstraction object that will be passed to the
 		 *                                         view.
-		 * @param  string                       $view          The current view slug.
-		 * @param  \Tribe\Events\Views\V2\View  $instance      The current View object.
+		 * @param  string          $view           The current view slug.
+		 * @param View             $instance       The current View object.
 		 */
 		$view_context = apply_filters( 'tribe_events_views_v2_view_context', $view_context, $view_slug, $instance );
 
@@ -395,9 +403,9 @@ class View implements View_Interface {
 		 *
 		 * @since 4.9.3
 		 *
-		 * @param  \Tribe__Context              $view_context  The context abstraction object that will be passed to the
+		 * @param  \Tribe__Context $view_context               The context abstraction object that will be passed to the
 		 *                                                     view.
-		 * @param  \Tribe\Events\Views\V2\View  $instance      The current View object.
+		 * @param View             $instance                   The current View object.
 		 */
 		$view_context = apply_filters( "tribe_events_views_v2_{$view_slug}_view_context", $view_context, $instance );
 
@@ -414,7 +422,7 @@ class View implements View_Interface {
 		 *
 		 * @param \Tribe__Repository__Interface $view_repository The repository instance the View will use.
 		 * @param string                        $view_slug       The current view slug.
-		 * @param \Tribe\Events\Views\V2\View   $instance        The current View object.
+		 * @param View                          $instance        The current View object.
 		 */
 		$view_repository = apply_filters( 'tribe_events_views_v2_view_repository', $view_repository, $view_slug, $instance );
 
@@ -424,7 +432,7 @@ class View implements View_Interface {
 		 * @since 4.9.11
 		 *
 		 * @param \Tribe__Repository__Interface $view_repository The repository instance the View will use.
-		 * @param \Tribe\Events\Views\V2\View   $instance        The current View object.
+		 * @param View                          $instance        The current View object.
 		 */
 		$view_repository = apply_filters( "tribe_events_views_v2_{$view_slug}_view_repository", $view_repository, $instance );
 
@@ -435,9 +443,9 @@ class View implements View_Interface {
 		 *
 		 * @since 4.9.11
 		 *
-		 * @param array                        $query_args  Arguments used to build the URL.
-		 * @param string                       $view_slug   The current view slug.
-		 * @param \Tribe\Events\Views\V2\View  $instance    The current View object.
+		 * @param array  $query_args Arguments used to build the URL.
+		 * @param string $view_slug  The current view slug.
+		 * @param View   $instance   The current View object.
 		 */
 		$view_url_query_args = apply_filters( 'tribe_events_views_v2_view_url_query_args', [], $view_slug, $instance );
 
@@ -446,8 +454,8 @@ class View implements View_Interface {
 		 *
 		 * @since 4.9.11
 		 *
-		 * @param array                        $query_args  Arguments used to build the URL.
-		 * @param \Tribe\Events\Views\V2\View  $instance    The current View object.
+		 * @param array $query_args Arguments used to build the URL.
+		 * @param View  $instance   The current View object.
 		 */
 		$view_url_query_args = apply_filters( "tribe_events_views_v2_{$view_slug}_view_url_query_args", $view_url_query_args, $instance );
 
@@ -458,7 +466,7 @@ class View implements View_Interface {
 		 *
 		 * @since  4.9.11
 		 *
-		 * @param \Tribe\Events\Views\V2\View   $instance  The current View object.
+		 * @param View $instance The current View object.
 		 */
 		do_action( 'tribe_events_views_v2_after_make_view', $instance );
 
@@ -599,23 +607,23 @@ class View implements View_Interface {
 		$html_classes = array_merge( $base_classes, $parents, $classes );
 
 		/**
-		 * Filters the query arguments array for a View URL.
+		 * Filters the HTML classes applied to a View top-level container.
 		 *
 		 * @since 4.9.13
 		 *
-		 * @param array                        $html_classes  Array of classes used for this view.
-		 * @param string                       $view_slug     The current view slug.
-		 * @param \Tribe\Events\Views\V2\View  $instance      The current View object.
+		 * @param array  $html_classes Array of classes used for this view.
+		 * @param string $view_slug    The current view slug.
+		 * @param View   $instance     The current View object.
 		 */
 		$html_classes = apply_filters( 'tribe_events_views_v2_view_html_classes', $html_classes, $this->get_slug(), $this );
 
 		/**
-		 * Filters the query arguments array for a specific View URL.
+		 * Filters the HTML classes applied to a specific View top-level container.
 		 *
 		 * @since 4.9.13
 		 *
-		 * @param array                        $html_classes  Array of classes used for this view.
-		 * @param \Tribe\Events\Views\V2\View  $instance      The current View object.
+		 * @param array $html_classes Array of classes used for this view.
+		 * @param View  $instance     The current View object.
 		 */
 		$html_classes = apply_filters( "tribe_events_views_v2_{$this->get_slug()}_view_html_classes", $html_classes, $this );
 
@@ -1187,6 +1195,7 @@ class View implements View_Interface {
 			'live_refresh'           => tribe_is_truthy( tribe_get_option( 'liveFiltersUpdate', true ) ),
 			'ical'                   => $this->get_ical_data(),
 			'container_classes'      => $this->get_html_classes(),
+			'container_data'         => $this->get_container_data(),
 			'is_past'                => 'past' === $this->context->get( 'event_display_mode', false ),
 			'show_datepicker_submit' => $this->get_show_datepicker_submit(),
 			'breakpoints'            => $this->get_breakpoints(),
@@ -1871,5 +1880,37 @@ class View implements View_Interface {
 	 */
 	protected function get_url_date_format() {
 		return Dates::DBDATEFORMAT;
+	}
+
+	/**
+	 * Returns the filtered container data attributes for the View top-level container.
+	 *
+	 * @since TBD
+	 *
+	 * @return array<string,string> The filtered list of data attributes for the View top-level container.
+	 */
+	protected function get_container_data() {
+		/**
+		 * Filters the data for a View top-level container.
+		 *
+		 * @since TBD
+		 *
+		 * @param array<string,string> $data      Associative array of data for the View top-level container.
+		 * @param string               $view_slug The current view slug.
+		 * @param View                 $instance  The current View object.
+		 */
+		$data = apply_filters( 'tribe_events_views_v2_view_data', [], $this->get_slug(), $this );
+
+		/**
+		 * Filters the data for a specific View top-level container.
+		 *
+		 * @since 4.9.13
+		 *
+		 * @param array<string,string> $data     Associative array of data for the View top-level container.
+		 * @param View                 $instance The current View object.
+		 */
+		$data = apply_filters( "tribe_events_views_v2_{$this->get_slug()}_view_data", $data, $this );
+
+		return $data;
 	}
 }

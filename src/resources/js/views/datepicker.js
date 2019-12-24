@@ -601,6 +601,7 @@ tribe.events.views.datepicker = {};
 
 		$input.bootstrapDatepicker( 'destroy' ).off();
 		$datepickerButton.off();
+		$container.off( 'beforeAjaxSuccess.tribeEvents', obj.deinit );
 
 		$container.trigger( 'afterDatepickerDeinit.tribeEvents', [ jqXHR, settings ] );
 	};

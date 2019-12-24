@@ -12,7 +12,7 @@ use Tribe\Events\Views\V2\View;
 use Tribe\Events\Views\V2\Views\Traits\List_Behavior;
 use Tribe__Context;
 use Tribe__Events__Main as TEC;
-use Tribe__Events__Rewrite as Rewrite;
+use Tribe__Events__Rewrite as TEC_Rewrite;
 use Tribe__Utils__Array as Arr;
 
 class List_View extends View {
@@ -124,7 +124,7 @@ class List_View extends View {
 			}
 
 			// We've got rewrite rules handling `eventDate` and `eventDisplay`, but not List. Let's remove it.
-			$canonical_url = Rewrite::instance()->get_clean_url(
+			$canonical_url = TEC_Rewrite::instance()->get_clean_url(
 				add_query_arg(
 					[ 'eventDisplay' => $this->slug ],
 					remove_query_arg( [ 'eventDate' ], $past_url )

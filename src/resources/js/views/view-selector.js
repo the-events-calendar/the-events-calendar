@@ -290,6 +290,7 @@ tribe.events.views.viewSelector = {};
 		var $container = event.data.container;
 		obj.deinitViewSelector( $container );
 		obj.unbindEvents( $container );
+		$container.off( 'beforeAjaxSuccess.tribeEvents', obj.deinit );
 	};
 
 	/**

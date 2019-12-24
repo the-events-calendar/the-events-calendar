@@ -11,7 +11,6 @@
 namespace Tribe\Events\Views\V2;
 
 use Tribe__Events__Main as TEC;
-use Tribe__Events__Rewrite as Rewrite;
 use Tribe__Notices;
 use Tribe__Utils__Array as Arr;
 use WP_Query;
