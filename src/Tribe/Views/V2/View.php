@@ -539,6 +539,10 @@ class View implements View_Interface {
 			$this->setup_the_loop( $repository_args );
 		}
 
+		// Make the template global to power template tags.
+		global $tribe_template;
+		$tribe_template = $this->template;
+
 		$template_vars = $this->filter_template_vars( $this->setup_template_vars() );
 
 		$this->template->set_values( $template_vars, false );
@@ -853,10 +857,6 @@ class View implements View_Interface {
 
 		// Set the $_SERVER['REQUEST_URI'] as many WordPress functions rely on it to correctly work.
 		$_SERVER['REQUEST_URI'] = $this->get_request_uri();
-
-		// Make the template global to power template tags.
-		global $tribe_template;
-		$tribe_template = $this->template;
 	}
 
 	/**
@@ -1800,18 +1800,19 @@ class View implements View_Interface {
 	protected function get_public_views( $url_event_date ) {
 		$public_views = tribe( Manager::class )->get_publicly_visible_views_data();
 
-		if ( ! empty( $url_event_date ) ) {
-			// Each View expects the event date in a specific format, here we account for it.
-			$query_args = wp_parse_url( $this->get_url( false ), PHP_URL_QUERY );
+		// Each View expects the event date in a specific format, here we account for it.
+		$query_args = wp_parse_url( $this->get_url( false ), PHP_URL_QUERY );
 
-			array_walk(
-				$public_views,
-				function ( &$view_data, $view_slug ) use ( $url_event_date, $query_args ) {
-					$view_instance       = View::make( $view_data->view_class );
-					$view_data->view_url = $view_instance->url_for_query_args( $url_event_date, $query_args );
-				}
-			);
-		}
+		// If he URL event date is not defined, then do not include it all.
+		$url_event_date = $url_event_date ?: false;
+
+		array_walk(
+			$public_views,
+			static function ( &$view_data ) use ( $url_event_date, $query_args ) {
+				$view_instance       = View::make( $view_data->view_class );
+				$view_data->view_url = $view_instance->url_for_query_args( $url_event_date, $query_args );
+			}
+		);
 
 		/**
 		 * Filters the public views.
@@ -1840,7 +1841,12 @@ class View implements View_Interface {
 	 * {@inheritDoc}
 	 */
 	public function url_for_query_args( $date = null, $query_args = [] ) {
-		$event_date = Dates::build_date_object( $date )->format( $this->get_url_date_format() );
+		if ( false === $date ) {
+			// If the date is explicitly set to `false` we take it as a request not to include it at all.
+			$event_date = false;
+		} else {
+			$event_date = Dates::build_date_object( $date )->format( $this->get_url_date_format() );
+		}
 
 		if ( ! empty( $query_args ) && is_string( $query_args ) ) {
 			$str_args   = $query_args;
