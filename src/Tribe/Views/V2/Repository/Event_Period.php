@@ -106,6 +106,16 @@ class Event_Period implements Core_Read_Interface {
 	protected $has_base_filters = false;
 
 	/**
+	 * An array of filters that should be handled by the base repository.
+	 * The key is the filter name, the value are the filter arguments.
+	 *
+	 * @since TBD
+	 *
+	 * @var array<string,array>
+	 */
+	protected $base_filters = [];
+
+	/**
 	 * Batch filter application method.
 	 *
 	 * This is the same as calling `by` multiple times with different arguments.
@@ -148,8 +158,9 @@ class Event_Period implements Core_Read_Interface {
 
 		if ( ! method_exists( $this, $method ) ) {
 			// Redirect the call to the base repository.
-			$this->has_base_filters = true;
-			$this->base_repository()->by( $original_by_key, ...array_slice( $call_args, 1 ) );
+			$this->has_base_filters                 = true;
+			$filter_args                            = array_slice( $call_args, 1 );
+			$this->base_filters[ $original_by_key ] = $filter_args;
 
 			return $this;
 		}
@@ -174,8 +185,6 @@ class Event_Period implements Core_Read_Interface {
 		}
 
 		$this->base_repository = tribe_events();
-
-		// @todo here call two flags: one to skip ordering, the second one to run filters one by one.
 
 		return $this->base_repository;
 	}
@@ -602,7 +611,7 @@ class Event_Period implements Core_Read_Interface {
 	 */
 	public function get_sets() {
 		if ( null !== $this->sets ) {
-			if ($this->is_period_defined()) { // Do we have them here?
+			if ( $this->is_period_defined() ) { // Do we have them here?
 				return $this->get_sub_set( $this->sets, $this->period_start, $this->period_end );
 			}
 
@@ -623,6 +632,17 @@ class Event_Period implements Core_Read_Interface {
 		}
 
 		return $this->sets;
+	}
+
+	/**
+	 * Checks whether the period start and end dates are correctly defined or not.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool Whether the period start and end dates are correctly defined or not.
+	 */
+	protected function is_period_defined() {
+		return $this->period_start instanceof \DateTimeInterface && $this->period_end instanceof \DateTimeInterface;
 	}
 
 	/**
@@ -1153,12 +1173,8 @@ class Event_Period implements Core_Read_Interface {
 	 */
 	protected function filter_sets_w_base_repository( array $sets = null ) {
 		if ( null !== $sets ) {
-			// Restrict the base repository to only operate on the IDs we already have.
-			$matching_ids = $this->base_repository->in( $this->get_sets_ids( $sets ) )->get_ids();
-
-			if ( empty( $matching_ids ) ) {
-				return [];
-			}
+			$sets_ids = $this->get_sets_ids( $sets );
+			$matching_ids = $this->reduce_w_base_repository( $sets_ids );
 
 			/** @var Events_Result_Set $set */
 			$filtered_sets = array_map( static function ( Events_Result_Set $set ) use ( $matching_ids ) {
@@ -1167,7 +1183,7 @@ class Event_Period implements Core_Read_Interface {
 				} );
 			}, $sets );
 		} else {
-			$matching_ids  = $this->base_repository->get_ids();
+			$matching_ids = $this->reduce_w_base_repository( );
 			$filtered_sets = $this->add_missing_sets( $this->build_sets_from_ids( $matching_ids ) );
 		}
 
@@ -1184,7 +1200,7 @@ class Event_Period implements Core_Read_Interface {
 	 * @return array<string,Events_Result_Set> An array of result sets, grouped by start date days. There might be gaps
 	 *                                         in the set.
 	 *
-	 * @see Event_Period::add_missing_sets() to fill in the missing days gaps.
+	 * @see   Event_Period::add_missing_sets() to fill in the missing days gaps.
 	 */
 	protected function build_sets_from_ids( array $ids ) {
 		if ( empty( $ids ) ) {
@@ -1394,13 +1410,34 @@ class Event_Period implements Core_Read_Interface {
 	}
 
 	/**
-	 * Checks whether the period start and end dates are correctly defined or not.
+	 * Runs the base repository filters one by one, to limit the number of JOINs per query.
 	 *
 	 * @since TBD
 	 *
-	 * @return bool Whether the period start and end dates are correctly defined or not.
+	 * @param array<int>|null $matching_ids An initial array of post IDs to constrain the queries or `null` to build
+	 *                                      it step by step.
+	 *
+	 * @return array<int> An array of post IDs that passed all filters.
 	 */
-	protected function is_period_defined() {
-		return $this->period_start instanceof \DateTimeInterface && $this->period_end instanceof \DateTimeInterface;
+	protected function reduce_w_base_repository( array $matching_ids = null ) {
+		if ( is_array( $matching_ids ) && ! count( $matching_ids ) ) {
+			return [];
+		}
+
+		foreach ( $this->base_filters as $filter => $filter_args ) {
+			$repository = $this->base_repository()->by( $filter, ...$filter_args );
+
+			if ( null !== $matching_ids ) {
+				$repository->in( (array) $matching_ids );
+			}
+
+			$matching_ids = $repository->get_ids();
+
+			if ( empty( $matching_ids ) ) {
+				return [];
+			}
+		}
+
+		return $matching_ids;
 	}
 }
