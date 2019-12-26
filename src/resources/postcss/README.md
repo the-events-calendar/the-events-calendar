@@ -105,51 +105,6 @@ As you get into building upon these styles and creating new styles, the order of
 }
 ```
 
-In the case of an element, we might get the following scenario:
-
-```
-.tribe-common {
-	...
-
-	.tribe-events-c-view-selector__button {
-		/* view selector button styles */
-
-		.tribe-common--breakpoint-medium& {
-			/* container medium view selector button styles */
-		}
-
-		&:before {
-			/* :before pseudo-class styles */
-
-			.tribe-common--breakpoint-medium& {
-				/* container medium :before pseudo-class styles */
-			}
-		}
-	}
-
-	.tribe-events-c-view-selector--tabs {
-
-		.tribe-events-c-view-selector__button {
-			/* tabs view selector button styles */
-
-			.tribe-common--breakpoint-medium& {
-				/* container medium tabs view selector button styles */
-			}
-
-			&:before {
-				/* :before pseudo-class styles */
-
-				.tribe-common--breakpoint-medium& {
-					/* container medium :before pseudo-class styles */
-				}
-			}
-		}
-	}
-
-	...
-}
-```
-
 ## Structure of The Events Calendar styles
 
 The Events Calendar styles are comprised of 2 files: `views-skeleton.pcss` and `views-full.pcss`. The views skeleton styles cover basic layout styles for the views and components. The views full styles, combined with the skeleton styles, make up the full suite of styles for The Events Calendar plugin views.
