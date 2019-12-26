@@ -139,7 +139,7 @@ To counter this, we've applied a type of container media queries. By applying Ja
 
 Modern Tribe plugins support a handful of themes. Some themes provide stylesheets that have high specificity for elements and override the plugin styles. To counter this, we've included theme overrides to ensure our plugin styles display as expected with the supported themes.
 
-The specificity to override the styles are matched to those applied to the theme. This means that if, for example, a theme applied an ID and 2 extra classes to a `button` style, we might see the following theme override:
+The specificity to override the styles are matched to those applied to the theme. This means that if, for example, a theme applied an ID and 2 extra classes to a `datepicker` style, we might see the following theme override:
 
 ```
 .tribe-events {
