@@ -222,8 +222,7 @@ tribe.events.views.eventsBar = {};
 				$( tab )
 					.removeAttr( 'aria-selected' )
 					.removeAttr( 'tabindex' )
-					.off( 'keydown', obj.handleTabKeydown )
-					.off( 'click', obj.handleTabClick );
+					.off();
 			} );
 		$container
 			.find( obj.selectors.tabPanel )
