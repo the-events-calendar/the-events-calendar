@@ -112,7 +112,7 @@ tribe.events.views.manager = {};
 
 		$container.find( obj.selectors.link ).off( 'click.tribeEvents', obj.onLinkClick );
 
-		if ( $form ) {
+		if ( $form.length ) {
 			$form.off( 'submit.tribeEvents', obj.onSubmit );
 		}
 
