@@ -103,13 +103,21 @@
 	.tribe-events-c-top-bar__datepicker-container {
 		bottom: 0;
 		left: 0;
-		max-width: calc(100% + 66px); /* mobile search and view selector buttons have 66px width */
+		max-width: calc(100% + 29px); /* view selector buttons have 29px width */
 		position: absolute;
 		width: 363px;
 
 		.tribe-common--breakpoint-medium& {
 			max-width: none;
 			min-width: 363px;
+		}
+	}
+
+	.tribe-events-header--has-event-search .tribe-events-c-top-bar__datepicker-container {
+		max-width: calc(100% + 66px); /* mobile search and view selector buttons have 66px width */
+
+		.tribe-common--breakpoint-medium& {
+			max-width: none;
 		}
 	}
 
