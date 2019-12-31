@@ -199,8 +199,11 @@ tribe.events.views.monthMobileEvents = {};
 	 */
 	obj.initState = function( $container ) {
 		var $mobileEvents = $container.find( obj.selectors.mobileEvents );
+		var containerState = $container.data( 'tribeEventsState' );
+		var isMobile = ( containerState && containerState.isMobile ) || true; // set isMobile to true if container state is undefined
+
 		var state = {
-			desktopInitialized: ! tribe.events.views.viewport.state.isMobile,
+			desktopInitialized: ! isMobile,
 		};
 
 		$mobileEvents.data( 'tribeEventsState', state );
@@ -216,13 +219,16 @@ tribe.events.views.monthMobileEvents = {};
 	 * @return {void}
 	 */
 	obj.handleResize = function( event ) {
-		var $mobileEvents = event.data.container.find( obj.selectors.mobileEvents );
+		var $container = event.data.container;
+		var $mobileEvents = $container.find( obj.selectors.mobileEvents );
 		var state = $mobileEvents.data( 'tribeEventsState' );
+		var containerState = $container.data( 'tribeEventsState' );
+		var isMobile = ( containerState && containerState.isMobile ) || true; // set isMobile to true if container state is undefined
 
-		if ( ! tribe.events.views.viewport.state.isMobile && ! state.desktopInitialized ) {
-			obj.closeAllEvents( event.data.container );
+		if ( ! isMobile && ! state.desktopInitialized ) {
+			obj.closeAllEvents( $container );
 			state.desktopInitialized = true;
-		} else if ( tribe.events.views.viewport.state.isMobile && state.desktopInitialized ) {
+		} else if ( isMobile && state.desktopInitialized ) {
 			state.desktopInitialized = false;
 		}
 
@@ -243,8 +249,9 @@ tribe.events.views.monthMobileEvents = {};
 	obj.deinit = function( event, jqXHR, settings ) {
 		var $container = event.data.container;
 		obj.unbindCalendarEvents( $container );
-		$document.off( 'resize.tribeEvents', obj.handleResize );
-		$container.off( 'beforeAjaxSuccess.tribeEvents', obj.deinit );
+		$container
+			.off( 'resize.tribeEvents', obj.handleResize )
+			.off( 'beforeAjaxSuccess.tribeEvents', obj.deinit );
 	};
 
 	/**
@@ -268,8 +275,9 @@ tribe.events.views.monthMobileEvents = {};
 
 		obj.initState( $container );
 		obj.bindCalendarEvents( $container );
-		$document.on( 'resize.tribeEvents', { container: $container }, obj.handleResize );
-		$container.on( 'beforeAjaxSuccess.tribeEvents', { container: $container }, obj.deinit );
+		$container
+			.on( 'resize.tribeEvents', { container: $container }, obj.handleResize )
+			.on( 'beforeAjaxSuccess.tribeEvents', { container: $container }, obj.deinit );
 	};
 
 	/**
