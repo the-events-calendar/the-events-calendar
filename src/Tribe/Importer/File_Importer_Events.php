@@ -456,7 +456,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		if ( $event_id ) {
 			$post_excerpt = get_post( $event_id )->post_excerpt;
 
-			return empty( $post_excerpt ) && ! empty( $import_excerpt ) ? $import_excerpt : $post_excerpt;
+			return !empty( $import_excerpt ) ? $import_excerpt : $post_excerpt;
 		}
 
 		return $import_excerpt;
