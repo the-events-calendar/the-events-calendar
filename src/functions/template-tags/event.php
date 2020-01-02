@@ -99,8 +99,11 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 		}
 
 		$post = false;
+
 		if ( ! $force ) {
-			$cache_key = 'tribe_get_event_' . md5( json_encode( [ $event, $output, $filter ] ) );
+			// Use the `post_password` field as we show/hide some information depending on that.
+			$post_password = get_post_field( 'post_password', $event );
+			$cache_key     = 'tribe_get_event_' . md5( json_encode( [ $event, $output, $filter, $post_password ] ) );
 			/** @var Tribe__Cache $cache */
 			$cache = tribe( 'cache' );
 			$post  = $cache->get( $cache_key, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
@@ -130,6 +133,23 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 
 			$cache->set( $cache_key, $post, WEEK_IN_SECONDS, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
 		}
+
+		/**
+		 * Filters the event result after the event has been built from the function.
+		 *
+		 * Note: this value will not be cached and the caching of this value is a duty left to the filtering function.
+		 *
+		 * @since TBD
+		 *
+		 * @param WP_Post     $post        The event post object to filter and return.
+		 * @param int|WP_Post $event       The event object to fetch.
+		 * @param string|null $output      The required return type. One of OBJECT, ARRAY_A, or ARRAY_N, which
+		 *                                 correspond to a `WP_Post` object, an associative array, or a numeric array,
+		 *                                 respectively. Defaults to `OBJECT`.
+		 * @param string      $filter      Type of filter to apply. Accepts 'raw', a valid date string or
+		 *                                 object to localize the event in a specific time-frame.
+		 */
+		$post = apply_filters( 'tribe_get_event_after', $post, $event, $output, $filter );
 
 		if ( OBJECT !== $output ) {
 			$post = ARRAY_A === $output ? (array) $post : array_values( (array) $post );
