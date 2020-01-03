@@ -171,7 +171,7 @@ class List_BehaviorTest extends \Codeception\TestCase\WPTestCase {
 				'selected_start_date_label'  => 'January 1',
 				'selected_end_datetime'      => '2019-01-05',
 				'selected_end_date_mobile'   => '1/5/2019',
-				'selected_end_date_label'    => 'January 5',
+				'selected_end_date_label'    => 'January 5, 2019',
 				'datepicker_date'            => '1/1/2019',
 				'page'                       => 2,
 				'next_url'                   => 'something',
