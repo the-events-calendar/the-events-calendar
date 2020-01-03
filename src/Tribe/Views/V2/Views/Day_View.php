@@ -40,16 +40,9 @@ class Day_View extends View {
 	public function prev_url( $canonical = false, array $passthru_vars = [] ) {
 		$date = $this->context->get( 'event_date', $this->context->get( 'today', 'today' ) );
 
-		$one_day       = new \DateInterval( 'P1D' );
-		$url_date      = Dates::build_date_object( $date )->sub( $one_day );
-		$earliest      = tribe_get_option( 'earliest_date', $url_date );
-		$earliest_date = Dates::build_date_object( $earliest )->setTime( 0, 0, 0 );
-
-		if ( $url_date < $earliest_date ) {
-			$url = '';
-		} else {
-			$url = $this->build_url_for_date( $url_date, $canonical, $passthru_vars );
-		}
+		$one_day  = new \DateInterval( 'P1D' );
+		$url_date = Dates::build_date_object( $date )->sub( $one_day );
+		$url      = $this->build_url_for_date( $url_date, $canonical, $passthru_vars );
 
 		return $this->filter_prev_url( $canonical, $url );
 	}
@@ -60,16 +53,9 @@ class Day_View extends View {
 	public function next_url( $canonical = false, array $passthru_vars = [] ) {
 		$date = $this->context->get( 'event_date', $this->context->get( 'today', 'today' ) );
 
-		$one_day     = new \DateInterval( 'P1D' );
-		$url_date    = Dates::build_date_object( $date )->add( $one_day );
-		$latest      = tribe_get_option( 'latest_date', $url_date );
-		$latest_date = Dates::build_date_object( $latest )->setTime( 0, 0, 0 );
-
-		if ( $url_date > $latest_date ) {
-			$url = '';
-		} else {
-			$url = $this->build_url_for_date( $url_date, $canonical, $passthru_vars );
-		}
+		$one_day  = new \DateInterval( 'P1D' );
+		$url_date = Dates::build_date_object( $date )->add( $one_day );
+		$url      = $this->build_url_for_date( $url_date, $canonical, $passthru_vars );
 
 		return $this->filter_next_url( $canonical, $url );
 	}
