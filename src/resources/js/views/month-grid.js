@@ -331,9 +331,7 @@ tribe.events.views.monthGrid = {};
 	 * @return {void}
 	 */
 	obj.unbindEvents = function( $grid ) {
-		$grid
-			.off( 'keydown', obj.handleKeydown )
-			.off( 'click', obj.handleClick );
+		$grid.off();
 	};
 
 	/**
