@@ -64,10 +64,10 @@ class Tribe__Events__Integrations__Freemius {
 			'tribe-help',
 		];
 
-		if ( ! in_array( $this->page, $valid_page )
-			&& 'plugins.php' !== $pagenow
-			&& 'admin-ajax.php' !== $pagenow ) {
-			echo 'page: ' . $pagenow;
+		if (
+			! in_array( $this->page, $valid_page )
+			&& ! in_array( $pagenow, [ 'plugins.php', 'admin-ajax.php' ] )
+		) {
 			return;
 		}
 
