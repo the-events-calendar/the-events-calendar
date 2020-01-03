@@ -16,7 +16,7 @@
 				position: absolute;
 				width: 3px;
 
-				@media (--viewport-medium) {
+				.tribe-common--breakpoint-medium& {
 					right: -1px;
 					width: 4px;
 				}
@@ -49,7 +49,8 @@
 	}
 
 	.tribe-events-calendar-list__event-datetime-featured-text {
-		@media (--viewport-medium) {
+
+		.tribe-common--breakpoint-medium& {
 			color: var(--color-accent-primary);
 			font-weight: var(--font-weight-bold);
 		}

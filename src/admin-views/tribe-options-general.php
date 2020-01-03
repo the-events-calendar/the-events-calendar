@@ -50,11 +50,11 @@ $general_tab_fields = Tribe__Main::array_insert_before_key(
 		'liveFiltersUpdate'             => [
 			'type'            => 'checkbox_bool',
 			'label'           => esc_html__( 'Enable live refresh', 'the-events-calendar' ),
-			'tooltip'         => tribe_get_option( 'tribeDisableTribeBar', false ) == true ? esc_html__( 'This option is disabled when "Disable the Event Search Bar" is checked on the Display settings tab.', 'the-events-calendar' ) : esc_html__( 'Instantly updates the calendar view when searching for or filtering events.', 'the-events-calendar' ),
-			'attributes'      => tribe_get_option( 'tribeDisableTribeBar', false ) == true ? [ 'disabled' => 'disabled' ] : null,
+			'tooltip'         => tribe_get_option( 'tribeDisableTribeBar', false ) == true && ! tribe_events_views_v2_is_enabled() ? esc_html__( 'This option is disabled when "Disable the Event Search Bar" is checked on the Display settings tab.', 'the-events-calendar' ) : esc_html__( 'Instantly updates the calendar view when searching for or filtering events.', 'the-events-calendar' ),
+			'attributes'      => tribe_get_option( 'tribeDisableTribeBar', false ) == true && ! tribe_events_views_v2_is_enabled() ? [ 'disabled' => 'disabled' ] : null,
 			'default'         => true,
 			'validation_type' => 'boolean',
-			'class'           => tribe_get_option( 'tribeDisableTribeBar', false ) == true ? 'tribe-fieldset-disabled' : null,
+			'class'           => tribe_get_option( 'tribeDisableTribeBar', false ) == true && ! tribe_events_views_v2_is_enabled() ? 'tribe-fieldset-disabled' : null,
 		],
 		'showComments'                  => [
 			'type'            => 'checkbox_bool',

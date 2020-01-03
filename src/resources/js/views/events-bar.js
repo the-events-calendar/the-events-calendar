@@ -23,7 +23,7 @@ tribe.events.views.eventsBar = {};
  * @since 4.9.4
  *
  * @param  {PlainObject} $   jQuery
- * @param  {PlainObject} obj tribe.events.views.manager
+ * @param  {PlainObject} obj tribe.events.views.eventsBar
  *
  * @return {void}
  */
@@ -553,6 +553,7 @@ tribe.events.views.eventsBar = {};
 		var $container = event.data.container;
 		obj.deinitEventsBar( $container );
 		obj.unbindEvents();
+		$container.off( 'beforeAjaxSuccess.tribeEvents', obj.deinit );
 	};
 
 	/**

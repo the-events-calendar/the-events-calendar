@@ -1046,6 +1046,11 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$event = get_post( $event );
 		}
 
+		// if the post is password protected, don't return the schedule details
+		if ( post_password_required( $event ) ) {
+			return '';
+		}
+
 		$inner                    = $html ? '<span class="tribe-event-date-start">' : '';
 		$format                   = '';
 		$date_without_year_format = tribe_get_date_format();

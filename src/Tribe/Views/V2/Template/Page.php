@@ -259,6 +259,16 @@ class Page {
 	public function should_hijack_page_template( \WP_Query $query ) {
 		$should_hijack = true;
 
+		// don't hijack a feed
+		if ( is_feed() ) {
+			$should_hijack = false;
+		}
+
+		// don't hijack a password protected page
+		if ( is_single() && post_password_required() ) {
+			$should_hijack = false;
+		}
+
 		// Dont hijack non-page event based
 		if ( 'page' !== tribe( Template_Bootstrap::class )->get_template_setting() ) {
 			$should_hijack = false;

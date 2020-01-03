@@ -9,9 +9,10 @@
 namespace Tribe\Events\Views\V2\Views;
 
 use Tribe\Events\Views\V2\View;
+use Tribe\Events\Views\V2\Views\Traits\List_Behavior;
 use Tribe__Context;
 use Tribe__Events__Main as TEC;
-use Tribe__Events__Rewrite as Rewrite;
+use Tribe__Events__Rewrite as TEC_Rewrite;
 use Tribe__Utils__Array as Arr;
 
 class List_View extends View {
@@ -103,13 +104,18 @@ class List_View extends View {
 		] ) ) );
 
 		if ( $past->count() > 0 ) {
-			$past_url_object = clone $this->url->add_query_args( array_filter( [
+
+			$query_args = [
 				'post_type'        => TEC::POSTTYPE,
 				'eventDisplay'     => 'past',
 				'eventDate'        => $event_date_var,
 				$this->page_key    => $page,
 				'tribe-bar-search' => $this->context->get( 'keyword' ),
-			] ) );
+			];
+
+			$query_args = $this->filter_query_args( $query_args, $canonical );
+
+			$past_url_object = clone $this->url->add_query_args( array_filter( $query_args ) );
 
 			$past_url = (string) $past_url_object;
 
@@ -118,7 +124,7 @@ class List_View extends View {
 			}
 
 			// We've got rewrite rules handling `eventDate` and `eventDisplay`, but not List. Let's remove it.
-			$canonical_url = Rewrite::instance()->get_clean_url(
+			$canonical_url = TEC_Rewrite::instance()->get_clean_url(
 				add_query_arg(
 					[ 'eventDisplay' => $this->slug ],
 					remove_query_arg( [ 'eventDate' ], $past_url )
@@ -159,18 +165,22 @@ class List_View extends View {
 		$url = '';
 
 		$upcoming = tribe_events()->by_args( $this->setup_repository_args( $this->context->alter( [
-			'eventDisplay' => 'list',
+			'eventDisplay' => $this->slug,
 			'paged'        => $page,
 		] ) ) );
 
 		if ( $upcoming->count() > 0 ) {
-			$upcoming_url_object = clone $this->url->add_query_args( array_filter( [
+			$query_args = [
 				'post_type'        => TEC::POSTTYPE,
-				'eventDisplay'     => 'list',
+				'eventDisplay'     => $this->slug,
 				$this->page_key    => $page,
 				'eventDate'        => $event_date_var,
 				'tribe-bar-search' => $this->context->get( 'keyword' ),
-			] ) );
+			];
+
+			$query_args = $this->filter_query_args( $query_args, $canonical );
+
+			$upcoming_url_object = clone $this->url->add_query_args( array_filter( $query_args ) );
 
 			$upcoming_url = (string) $upcoming_url_object;
 

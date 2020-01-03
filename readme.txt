@@ -4,7 +4,7 @@ Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.7
-Stable tag: 4.9.13
+Stable tag: 5.0.0-RC1
 Tested up to: 5.3
 Requires PHP: 5.6
 License: GPLv2 or later
@@ -214,6 +214,10 @@ Some things to consider before posting on the forum:
 Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to [@TheEventsCal](https://twitter.com/TheEventsCal) and tell us why. We'll do what we can to make it right.
 
 == Changelog ==
+
+= [4.10] TBD =
+
+* Tweak - Switch to a compact date while on day and month view in mobile [136789]
 
 = [4.9.13] 2019-12-10 =
 

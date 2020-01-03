@@ -1222,11 +1222,9 @@ class Event_Period implements Core_Read_Interface {
 				/** @var \DateTimeInterface $day */
 				foreach ( $period as $day ) {
 					$day_string = $day->format( Dates::DBDATEFORMAT );
+					$cached     = $cache->get_transient( static::get_cache_key( $day_string . '_set' ), $trigger );
 
-					$sets[ $day_string ] = unserialize( $cache->get_transient(
-						static::get_cache_key( $day_string . '_set' ),
-						$trigger
-					) );
+					$sets[ $day_string ] = Events_Result_Set::from_value( $cached );
 				}
 
 				return $sets;

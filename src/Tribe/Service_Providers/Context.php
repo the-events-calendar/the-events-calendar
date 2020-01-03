@@ -317,6 +317,14 @@ class Context extends \tad_DI52_ServiceProvider {
 						],
 					],
 				],
+				'view_request'         => [
+					'read'  => [
+						Tribe__Context::WP_MATCHED_QUERY => [ 'eventDisplay' ],
+						Tribe__Context::WP_PARSED        => [ 'eventDisplay' ],
+						Tribe__Context::REQUEST_VAR      => [ 'view', 'tribe_view', 'tribe_event_display', 'eventDisplay' ],
+						Tribe__Context::QUERY_VAR        => [ 'tribe_view', 'eventDisplay' ],
+					],
+				],
 			]
 		);
 

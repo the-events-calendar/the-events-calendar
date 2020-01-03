@@ -11,12 +11,11 @@
 namespace Tribe\Events\Views\V2;
 
 use Tribe__Events__Main as TEC;
-use Tribe__Events__Rewrite as Rewrite;
+use Tribe__Events__Templates as V1_Event_Templates;
 use Tribe__Notices;
+use Tribe__Templates as V1_Templates;
 use Tribe__Utils__Array as Arr;
 use WP_Query;
-use Tribe__Templates as V1_Templates;
-use Tribe__Events__Templates as V1_Event_Templates;
 
 
 /**
@@ -98,8 +97,7 @@ class Template_Bootstrap {
 	}
 
 	/**
-	 * Detemines wether we are in a Single event page or not,
-	 * base only on global context.
+	 * Determines whether we are in a Single event page or not, base only on global context.
 	 *
 	 * @since  4.9.11
 	 *
@@ -111,9 +109,7 @@ class Template_Bootstrap {
 			'single-event' === tribe_context()->get( 'view' ),
 		];
 
-		$is_single_event = in_array( true, $conditions );
-
-		return $is_single_event;
+		return in_array( true, $conditions, true );
 	}
 
 	/**
@@ -128,6 +124,10 @@ class Template_Bootstrap {
 			Tribe__Notices::set_notice( 'event-past', sprintf( esc_html__( 'This %s has passed.', 'the-events-calendar' ), tribe_get_event_label_singular_lowercase() ) );
 		}
 		$setting = $this->get_template_setting();
+
+		// A number of TEC, and third-party, functions, depend on this. Let's fire it.
+		global $post;
+		do_action( 'the_post', $post );
 
 		ob_start();
 		if ( 'page' === $setting ) {
@@ -232,6 +232,10 @@ class Template_Bootstrap {
 		}
 
 		if ( ! $query instanceof \WP_Query ) {
+			return false;
+		}
+
+		if ( is_404() ) {
 			return false;
 		}
 

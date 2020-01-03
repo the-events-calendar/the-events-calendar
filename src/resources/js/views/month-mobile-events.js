@@ -23,7 +23,7 @@ tribe.events.views.monthMobileEvents = {};
  * @since 4.9.4
  *
  * @param  {PlainObject} $   jQuery
- * @param  {PlainObject} obj tribe.events.views.manager
+ * @param  {PlainObject} obj tribe.events.views.monthMobileEvents
  *
  * @return {void}
  */
@@ -244,6 +244,7 @@ tribe.events.views.monthMobileEvents = {};
 		var $container = event.data.container;
 		obj.unbindCalendarEvents( $container );
 		$document.off( 'resize.tribeEvents', obj.handleResize );
+		$container.off( 'beforeAjaxSuccess.tribeEvents', obj.deinit );
 	};
 
 	/**
