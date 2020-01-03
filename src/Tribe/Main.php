@@ -1170,7 +1170,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			$settings_cap       = apply_filters( 'tribe_settings_req_cap', 'manage_options' );
-			$edit_settings_link = __( ' ask the site administrator set a different Events URL slug.', 'the-events-calendar' );
+			$edit_settings_link = __( ' ask the site administrator to set a different Events URL slug.', 'the-events-calendar' );
 
 			if ( current_user_can( $settings_cap ) ) {
 				$admin_slug         = apply_filters( 'tribe_settings_admin_slug', 'tribe-common' );
