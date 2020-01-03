@@ -237,13 +237,9 @@ tribe.events.views.tooltip = {};
 			.find( obj.selectors.tooltipTrigger )
 			.each( function( index, trigger ) {
 				$( trigger )
-					.off( 'focus', obj.handleOriginFocus )
-					.off( 'blur', obj.handleOriginBlur )
-					.off( 'mouseenter touchstart', obj.handleOriginHoverIn )
-					.off( 'mouseleave touchleave', obj.handleOriginHoverOut )
+					.off()
 					.tooltipster( 'instance' )
-					.off( 'close', obj.handleInstanceClose )
-					.off( 'closing', obj.handleInstanceClosing );
+					.off();
 			} );
 	};
 

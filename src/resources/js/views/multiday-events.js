@@ -122,10 +122,7 @@ tribe.events.views.multidayEvents = {};
 		var $hiddenMultidayEvents = $container.find( obj.selectors.hiddenMultidayEvent );
 
 		$hiddenMultidayEvents.each( function( hiddenIndex, hiddenMultidayEvent ) {
-			var $hiddenMultidayEvent = $( hiddenMultidayEvent );
-			$hiddenMultidayEvent
-				.off( 'mouseenter mouseleave', obj.toggleHoverClass )
-				.off( 'focus blur', obj.toggleFocusClass );
+			$( hiddenMultidayEvent ).off();
 		} );
 	};
 
