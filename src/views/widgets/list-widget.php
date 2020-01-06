@@ -33,7 +33,7 @@ $posts = tribe_get_list_widget_events();
 // Check if any event posts are found.
 if ( $posts ) : ?>
 
-	<ol class="tribe-list-widget">
+	<ul class="tribe-list-widget">
 		<?php
 		// Setup the post data for each event.
 		foreach ( $posts as $post ) :
@@ -106,7 +106,7 @@ if ( $posts ) : ?>
 		<?php
 		endforeach;
 		?>
-	</ol><!-- .tribe-list-widget -->
+	</ul><!-- .tribe-list-widget -->
 
 	<p class="tribe-events-widget-link">
 		<a href="<?php echo esc_url( tribe_get_events_link() ); ?>" rel="bookmark"><?php printf( esc_html__( 'View All %s', 'the-events-calendar' ), $events_label_plural ); ?></a>
