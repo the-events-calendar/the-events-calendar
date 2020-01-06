@@ -44,18 +44,7 @@ tribe.events.views.viewport = {};
 	};
 
 	/**
-	 * Object of state
-	 *
-	 * @since 4.9.7
-	 *
-	 * @type {PlainObject}
-	 */
-	obj.state = {
-		isMobile: true,
-	};
-
-	/**
-	 * Set viewport state
+	 * Set viewport state for container
 	 *
 	 * @since 4.9.7
 	 *
@@ -64,8 +53,14 @@ tribe.events.views.viewport = {};
 	 * @return {void}
 	 */
 	obj.setViewport = function( $container ) {
-		obj.state.isMobile = $container.outerWidth() < obj.options.MOBILE_BREAKPOINT;
-		$document.trigger( 'resize.tribeEvents' );
+		var state = $container.data( 'tribeEventsState' );
+
+		if ( ! state ) {
+			state = {};
+		}
+
+		state.isMobile = $container.outerWidth() < obj.options.MOBILE_BREAKPOINT;
+		$container.data( 'tribeEventsState', state );
 	};
 
 	/**
@@ -78,7 +73,9 @@ tribe.events.views.viewport = {};
 	 * @return {void}
 	 */
 	obj.handleResize = function( event ) {
-		obj.setViewport( event.data.container );
+		var $container = event.data.container;
+		obj.setViewport( $container );
+		$container.trigger( 'resize.tribeEvents' );
 	};
 
 	/**
