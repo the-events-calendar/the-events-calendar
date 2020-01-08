@@ -217,20 +217,20 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 = [5.0.0] TBD =
 
-* Feature - Month, Day and List views HTML, CSS and JavaScript were completely refactored.
-* Feature - Entirely new templating engine to power the Views, one that will pass all pieces of template more filters and actions. [See More]
-* Feature - Views initialization and instance contains a lot more filters and actions to allow improved customization and even addition of more views. (See all filters below)
+* Feature - Created new Month, Day, and List views with all new HTML, CSS, and JavaScript.
+* Feature - New templating engine to power the new Views. [See More]
+* Feature - Views initialization and instance includes more filters and actions to allow improved extensibility and customization. (See all filters below)
 * Feature - Views manager and bootstraping classes were created to allow more control over where and when views will be initialized. (See filters related to those below)
-* Feature - Increased granularity on the templates to help long term maintenance for theme customization on any of the Views refactored code. (See list of files now available below)
+* Feature - Reduced maintenance burden of customizations by leveraging atomic templates for the new views. (See list of files now available below)
 * Feature - CSS uses a Block Element Modifier (BEM) methodology to improve reusablility of components. [See More]
-* Feature - All of the Views share one JavaScript Manager, which contains mutiple jQuery actions, allowing a lot more customizations points. [See More]
-* Feature - Views navigation relies on the WP Rest API which improves overall AJAX reliability and possibility of caching.
-* Feature - SEO improved for Events permalinks which are more consistent across navigation, making use of `WP_Rewrite` to map params to their matching URL.
-* Feature - Event individual filtering for data, used across all refactored views: `tribe_get_event_before`, `tribe_get_event`, `tribe_get_event_after`, `tribe_events_organizers_fetch_callback`, `tribe_events_venues_fetch_callback`
-* Feature - Venue individual filtering for data, used across all refactored views: `tribe_get_venue_object_before`, `tribe_get_venue_object`
-* Tweak - Custom HTML for After and Before modified on the Events > Settings page, now will no longer use the Theme's CSS.
+* Feature - New Views share one JavaScript Manager, which contains multiple jQuery actions and customization points. [See More]
+* Feature - View navigation relies on the WP Rest API, improving reliability and caching opportunities.
+* Feature - Event permalinks are now more consistent across navigation using `WP_Rewrite` to map params to their matching URL, which improves SEO.
+* Feature - Event data filtering used across all new views: `tribe_get_event_before`, `tribe_get_event`, `tribe_get_event_after`, `tribe_events_organizers_fetch_callback`, `tribe_events_venues_fetch_callback`
+* Feature - Venue data filtering used across all new views: `tribe_get_venue_object_before`, `tribe_get_venue_object`
+* Tweak - Custom Before and After HTML on the Events > Settings page will now prefer event view styling over the Theme's CSS.
 * Tweak - Lowered the reliance on the global `$wp_query` to create more consistent output and faster maintenance. [See More]
-* Tweak - Views refactored templates will be looking for a new folder in your theme to avoid conflicting with old The Events Calendar theme customizations [See More]
+* Tweak - View overrides for the new views will look within a new folder in your theme to avoid conflicting with old The Events Calendar theme customizations [See More]
 * Tweak - Switch to a compact date while on day and month view in mobile [136789]
 * Hooks - View template include and render filters and actions: `tribe_template_before_include`, `tribe_template_before_include:{$template_path}`, `tribe_template_after_include`, `tribe_template_after_include:{$template_path}`, `tribe_template_html`, `tribe_template_html:{$template_path}`
 * Hooks - View instance filters and actions: `tribe_events_views_v2_view_template`, `tribe_events_views_v2_{$view_slug}_view_template`, `tribe_events_views_v2_view_context`, `tribe_events_views_v2_{$view_slug}_view_context`, `tribe_events_views_v2_view_repository`, `tribe_events_views_v2_{$view_slug}_view_repository`, `tribe_events_views_v2_view_url_query_args`, `tribe_events_views_v2_{$view_slug}_view_url_query_args`, `tribe_events_views_v2_view_html_classes`, `tribe_events_views_v2_{$view_slug}_view_html_classes`, `tribe_events_views_v2_url_query_args`, `tribe_events_views_v2_view_template_vars`, `tribe_events_views_v2_view_{$view_slug}_template_vars`, `tribe_events_views_v2_view_url`, `tribe_events_views_v2_view_{$view_slug}_url`, `tribe_events_views_v2_view_prev_url`, `tribe_events_views_v2_view_{$view_slug}_prev_url`, `tribe_events_views_v2_view_next_url`, `tribe_events_views_v2_view_{$view_slug}_next_url`, `tribe_events_views_v2_view_repository_args`, `tribe_events_views_v2_view_link_label_format`, `tribe_events_views_v2_view_{$view_slug}_link_label_format`, `tribe_events_views_v2_view_title`, `tribe_events_views_v2_view_{$view_slug}_title`, `tribe_events_views_v2_view_messages`, `tribe_events_views_v2_view_{$view_slug}_messages`, `tribe_events_views_v2_view_breadcrumbs`, `tribe_events_views_v2_view_{$view_slug}_breadcrumbs`, `tribe_events_views_v2_view_display_events_bar`, `tribe_events_views_v2_view_{$view_slug}_display_events_bar`, `tribe_events_views_v2_view_ical_data`, `tribe_events_views_v2_view_{$view_slug}_ical_data`, `tribe_events_views_v2_view_show_datepicker_submit`, `tribe_events_views_v2_view_{$view_slug}_show_datepicker_submit`, `tribe_events_views_v2_view_public_views`, `tribe_events_views_v2_view_{$view_slug}_public_views`, `tribe_events_views_v2_view_data`, `tribe_events_views_v2_{$view_slug}_view_data`, `tribe_events_views_v2_{$view_slug}_events_per_day`, `tribe_events_views_v2_month_events_per_day`, `tribe_events_views_v2_month_nav_skip_empty`, `tribe_events_views_v2_view_breakpoints`, `tribe_events_views_v2_view_{$view_slug}_breakpoints`, `tribe_events_views_v2_before_make_view`, `tribe_events_views_v2_after_make_view`, `tribe_events_views_v2_messages_map`, `tribe_events_views_v2_view_messages_before_render`
