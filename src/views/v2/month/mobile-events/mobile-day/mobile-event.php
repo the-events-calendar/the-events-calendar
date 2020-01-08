@@ -15,7 +15,7 @@
  *
  * @see tribe_get_event() For the format of the event object.
  */
-$classes = get_post_class( [ 'tribe-events-calendar-month-mobile-events__mobile-event' ], $event->ID );
+$classes = tribe_get_post_class( [ 'tribe-events-calendar-month-mobile-events__mobile-event' ], $event->ID );
 $classes['tribe-events-calendar-month-mobile-events__mobile-event--featured'] = $event->featured;
 ?>
 

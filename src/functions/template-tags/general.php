@@ -1051,6 +1051,13 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			return '';
 		}
 
+		static $cache_details = [];
+		$cache_details_key    = "{$event->ID}:{$before}:{$after}:{$html}";
+
+		if ( isset( $cache_details[ $cache_details_key ] ) ) {
+			return $cache_details[ $cache_details_key ];
+		}
+
 		$inner                    = $html ? '<span class="tribe-event-date-start">' : '';
 		$format                   = '';
 		$date_without_year_format = tribe_get_date_format();
@@ -1159,7 +1166,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param string $before    part of the HTML wrapper that was prepended
 		 * @param string $after     part of the HTML wrapper that was appended
 		 */
-		return apply_filters( 'tribe_events_event_schedule_details', $schedule, $event->ID, $before, $after );
+		return $cache_details[ $cache_details_key ] = apply_filters( 'tribe_events_event_schedule_details', $schedule, $event->ID, $before, $after );
 	}
 
 	/**
@@ -1453,6 +1460,8 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string|null Will return null on Bad Post Instances
 	 */
 	function tribe_events_get_the_excerpt( $post = null, $allowed_html = null, $skip_postdata_manipulation = false ) {
+		static $cache_excerpts = [];
+
 		// If post is not numeric or instance of WP_Post it defaults to the current Post ID
 		if ( ! is_numeric( $post ) && ! $post instanceof WP_Post ) {
 			$post = get_the_ID();
@@ -1518,48 +1527,60 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		$remove_shortcodes = apply_filters( 'tribe_events_excerpt_shortcode_removal', true );
 
-		// Get the Excerpt or content based on what is available
-		$excerpt = has_excerpt( $post->ID ) ? $post->post_excerpt : $post->post_content;
+		$cache_excerpts_key = implode( ':', [
+			$post->ID,
+			$skip_postdata_manipulation,
+			$allow_shortcodes,
+			$remove_shortcodes,
+			json_encode( $allowed_html )
+		] );
 
-		// If shortcode filter is enabled let's process them
-		if ( $allow_shortcodes ) {
-			$excerpt = do_shortcode( $excerpt );
-		}
+		if ( ! isset( $cache_excerpts[ $cache_excerpts_key ] ) ) {
+			// Get the Excerpt or content based on what is available
+			$excerpt = has_excerpt( $post->ID ) ? $post->post_excerpt : $post->post_content;
 
-		// Remove all shortcode Content before removing HTML
-		if ( $remove_shortcodes ) {
-			$excerpt = preg_replace( '#\[.+\]#U', '', $excerpt );
-		}
+			// If shortcode filter is enabled let's process them
+			if ( $allow_shortcodes ) {
+				$excerpt = do_shortcode( $excerpt );
+			}
 
-		// Remove "all" HTML based on what is allowed
-		$excerpt = wp_kses( $excerpt, $allowed_html );
+			// Remove all shortcode Content before removing HTML
+			if ( $remove_shortcodes ) {
+				$excerpt = preg_replace( '#\[.+\]#U', '', $excerpt );
+			}
 
-		if ( ! has_excerpt( $post->ID ) ) {
-			// Temporarily alter the global post in preparation for our filters.
-			$global_post = isset( $GLOBALS['post'] ) ? $GLOBALS['post'] : null;
-			$GLOBALS['post'] = $post;
+			// Remove "all" HTML based on what is allowed
+			$excerpt = wp_kses( $excerpt, $allowed_html );
 
-			// We will only trim Excerpt if it comes from Post Content
+			if ( ! has_excerpt( $post->ID ) ) {
+				// Temporarily alter the global post in preparation for our filters.
+				$global_post = isset( $GLOBALS['post'] ) ? $GLOBALS['post'] : null;
+				$GLOBALS['post'] = $post;
 
-			/**
-			 * Filter the number of words in an excerpt.
-			 *
-			 * @param int $number The number of words. Default 55.
-			 */
-			$excerpt_length = apply_filters( 'excerpt_length', 55 );
+				// We will only trim Excerpt if it comes from Post Content
 
-			/**
-			 * Filter the string in the "more" link displayed after a trimmed excerpt.
-			 *
-			 * @param string $more_string The string shown within the more link.
-			 */
-			$excerpt_more = apply_filters( 'excerpt_more', ' [&hellip;]' );
+				/**
+				 * Filter the number of words in an excerpt.
+				 *
+				 * @param int $number The number of words. Default 55.
+				 */
+				$excerpt_length = apply_filters( 'excerpt_length', 55 );
 
-			// Now we actually trim it
-			$excerpt = wp_trim_words( $excerpt, $excerpt_length, $excerpt_more );
+				/**
+				 * Filter the string in the "more" link displayed after a trimmed excerpt.
+				 *
+				 * @param string $more_string The string shown within the more link.
+				 */
+				$excerpt_more = apply_filters( 'excerpt_more', ' [&hellip;]' );
 
-			// Original post is back in action!
-			$GLOBALS['post'] = $global_post;
+				// Now we actually trim it
+				$excerpt = wp_trim_words( $excerpt, $excerpt_length, $excerpt_more );
+
+				// Original post is back in action!
+				$GLOBALS['post'] = $global_post;
+			}
+
+			$cache_excerpts[ $cache_excerpts_key ] = wpautop( $excerpt );
 		}
 
 		if ( ! $skip_postdata_manipulation ) {
@@ -1573,7 +1594,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param string  $excerpt
 		 * @param WP_Post $post
 		 */
-		$excerpt = apply_filters( 'tribe_events_get_the_excerpt', wpautop( $excerpt ), $post );
+		$excerpt = apply_filters( 'tribe_events_get_the_excerpt', $cache_excerpts[ $cache_excerpts_key ], $post );
 
 		if ( ! $skip_postdata_manipulation ) {
 			wp_reset_postdata();
