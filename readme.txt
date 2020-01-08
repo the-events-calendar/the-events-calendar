@@ -228,6 +228,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Feature - SEO improved for Events permalinks which are more consistent across navigation, making use of `WP_Rewrite` to map params to their matching URL.
 * Feature - Event individual filtering for data, used across all refactored views: `tribe_get_event_before`, `tribe_get_event`, `tribe_get_event_after`, `tribe_events_organizers_fetch_callback`, `tribe_events_venues_fetch_callback`
 * Feature - Venue individual filtering for data, used across all refactored views: `tribe_get_venue_object_before`, `tribe_get_venue_object`
+* Tweak - Custom HTML for After and Before modified on the Events > Settings page, now will no longer use the Theme's CSS.
 * Tweak - Lowered the reliance on the global `$wp_query` to create more consistent output and faster maintenance. [See More]
 * Tweak - Views refactored templates will be looking for a new folder in your theme to avoid conflicting with old The Events Calendar theme customizations [See More]
 * Tweak - Switch to a compact date while on day and month view in mobile [136789]
