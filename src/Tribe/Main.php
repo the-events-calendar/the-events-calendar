@@ -3807,17 +3807,25 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return bool Is it a venue?
 		 */
 		public function isVenue( $postId = null ) {
+			static $is_venue = [];
+
 			if ( $postId === null || ! is_numeric( $postId ) ) {
 				global $post;
 				if ( isset( $post->ID ) ) {
 					$postId = $post->ID;
 				}
 			}
-			if ( isset( $postId ) && get_post_field( 'post_type', $postId ) == Tribe__Events__Venue::POSTTYPE ) {
-				return true;
+
+			// Return if we've already fetched this info.
+			if ( isset( $is_venue[ $postId ] ) ) {
+				return $is_venue[ $postId ];
 			}
 
-			return false;
+			if ( isset( $postId ) && get_post_field( 'post_type', $postId ) == Tribe__Events__Venue::POSTTYPE ) {
+				return $is_venue[ $postId ] = true;
+			}
+
+			return $is_venue[ $postId ] = false;
 		}
 
 		/**
@@ -3828,17 +3836,25 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return bool Is it an organizer?
 		 */
 		public function isOrganizer( $postId = null ) {
+			static $is_organizer = [];
+
 			if ( $postId === null || ! is_numeric( $postId ) ) {
 				global $post;
 				if ( isset( $post->ID ) ) {
 					$postId = $post->ID;
 				}
 			}
-			if ( isset( $postId ) && get_post_field( 'post_type', $postId ) == Tribe__Events__Organizer::POSTTYPE ) {
-				return true;
+
+			// Return if we've already fetched this info.
+			if ( isset( $is_organizer[ $postId ] ) ) {
+				return $is_organizer[ $postId ];
 			}
 
-			return false;
+			if ( isset( $postId ) && get_post_field( 'post_type', $postId ) == Tribe__Events__Organizer::POSTTYPE ) {
+				return $is_organizer[ $postId ] = true;
+			}
+
+			return $is_organizer[ $postId ] = false;
 		}
 
 		/**
