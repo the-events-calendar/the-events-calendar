@@ -4,7 +4,6 @@
 		rel="prev"
 		class="tribe-events-c-nav__prev tribe-common-b2 tribe-common-b1--min-medium"
 		data-js="tribe-events-view-link"
-	>
-		Previous Day	</a>
+	>Previous Day</a>
 </li>
 ';

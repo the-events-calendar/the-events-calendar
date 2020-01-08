@@ -6,8 +6,7 @@
 		rel="prev"
 		class="tribe-events-c-nav__prev tribe-common-b2 tribe-common-b1--min-medium"
 		data-js="tribe-events-view-link"
-	>
-		Previous <span class="tribe-events-c-nav__prev-label-plural"> Events</span>	</a>
+	>Previous <span class="tribe-events-c-nav__prev-label-plural">Events</span></a>
 </li>
 
 		<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--today">
@@ -25,8 +24,7 @@
 		rel="next"
 		class="tribe-events-c-nav__next tribe-common-b2 tribe-common-b1--min-medium"
 		data-js="tribe-events-view-link"
-	>
-		Next <span class="tribe-events-c-nav__next-label-plural"> Events</span>	</a>
+	>Next <span class="tribe-events-c-nav__next-label-plural">Events</span></a>
 </li>
 	</ul>
 </nav>

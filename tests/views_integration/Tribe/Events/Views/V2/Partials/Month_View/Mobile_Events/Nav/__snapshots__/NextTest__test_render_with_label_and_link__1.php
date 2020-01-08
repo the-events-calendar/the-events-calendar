@@ -4,7 +4,6 @@
 		rel="next"
 		class="tribe-events-c-nav__next tribe-common-b2"
 		data-js="tribe-events-view-link"
-	>
-		May	</a>
+	>May</a>
 </li>
 ';

@@ -6,8 +6,7 @@
 		rel="prev"
 		class="tribe-events-c-nav__prev tribe-common-b2 tribe-common-b1--min-medium"
 		data-js="tribe-events-view-link"
-	>
-		Previous Day	</a>
+	>Previous Day</a>
 </li>
 
 		<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--next">
@@ -16,8 +15,7 @@
 		rel="next"
 		class="tribe-events-c-nav__next tribe-common-b2 tribe-common-b1--min-medium"
 		data-js="tribe-events-view-link"
-	>
-		Next Day	</a>
+	>Next Day</a>
 </li>
 	</ul>
 </nav>
