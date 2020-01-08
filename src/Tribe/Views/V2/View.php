@@ -1624,10 +1624,13 @@ class View implements View_Interface {
 		if ( $is_featured = tribe_is_truthy( $this->context->get( 'featured', false ) ) ) {
 			$non_featured_link = tribe_events_get_url( [ 'featured' => 0 ] );
 
-			$breadcrumbs[] = [
-				'link'  => $non_featured_link,
-				'label' => tribe_get_event_label_plural(),
-			];
+			if ( empty( $context_tax ) ) {
+				$breadcrumbs[] = [
+					'link'  => $non_featured_link,
+					'label' => tribe_get_event_label_plural(),
+				];
+			}
+			
 			$breadcrumbs[] = [
 				'link'  => '',
 				'label' => esc_html__( 'Featured', 'the-events-calendar' ),
