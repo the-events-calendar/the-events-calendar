@@ -3,7 +3,7 @@
 Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, cliffpaulick, courane01, faction23, GeoffBel, geoffgraham, ggwicz, jbrinley, jentheo, leahkoerper, lucatume, mastromktg, MZAWeb, neillmcshea, nicosantos, patriciahillebrandt, peterchester, reid.peifer, roblagatta, ryancurban, shane.pearlman, tribecari, vicskf, zbtirrell, juanfra
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
-Requires at least: 4.7
+Requires at least: 4.9
 Stable tag: 5.0.0
 Tested up to: 5.3
 Requires PHP: 5.6
@@ -218,6 +218,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 = [5.0.0] TBD =
 
 * Feature - Created new Month, Day, and List views with all new HTML, CSS, and JavaScript.
+* Feature - Add upgrade path for new Month, Day, and List views making it opt-in for any existing users.
 * Feature - New templating engine to power the new Views. [See More]
 * Feature - Views initialization and instance includes more filters and actions to allow improved extensibility and customization. (See all filters below)
 * Feature - Views manager and bootstraping classes were created to allow more control over where and when views will be initialized. (See filters related to those below)
