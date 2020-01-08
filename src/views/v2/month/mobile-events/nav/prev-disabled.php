@@ -11,12 +11,13 @@
  *
  * @var string $label The label for the previous link.
  *
- * @version 4.9.10
+ * @version TBD
  *
  */
 ?>
 <li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--prev">
-	<button class="tribe-events-c-nav__prev tribe-common-b2" disabled>
-		<?php echo esc_html( $label ); ?>
-	</button>
+	<button 
+		class="tribe-events-c-nav__prev tribe-common-b2" 
+		disabled
+	><?php echo esc_html( $label ); ?></button>
 </li>

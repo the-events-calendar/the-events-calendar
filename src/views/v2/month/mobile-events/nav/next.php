@@ -12,7 +12,7 @@
  * @var string $link The URL to the next page, if any, or an empty string.
  * @var string $label The label for the next link.
  *
- * @version 4.9.10
+ * @version TBD
  *
  */
 ?>
@@ -22,7 +22,5 @@
 		rel="next"
 		class="tribe-events-c-nav__next tribe-common-b2"
 		data-js="tribe-events-view-link"
-	>
-		<?php echo esc_html( $label ); ?>
-	</a>
+	><?php echo esc_html( $label ); ?></a>
 </li>
