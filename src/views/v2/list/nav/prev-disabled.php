@@ -18,7 +18,7 @@
 		class="tribe-events-c-nav__prev tribe-common-b2 tribe-common-b1--min-medium" 
 		disabled
 	><?php
-		$events_label = '<span class="tribe-events-c-nav__prev-label-plural"> ' . tribe_get_event_label_plural() . '</span>';
+		$events_label = '<span class="tribe-events-c-nav__prev-label-plural">' . tribe_get_event_label_plural() . '</span>';
 		echo wp_kses(
 			/* translators: %s: Event (plural or singular). */
 			sprintf( __( 'Previous %1$s', 'the-events-calendar' ), $events_label ),
