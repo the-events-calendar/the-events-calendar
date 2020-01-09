@@ -2582,6 +2582,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return string The link.
 		 */
 		public function getLink( $type = 'home', $secondary = false, $term = null, $featured = null ) {
+			static $cache_event_url_slugs = [];
+
 			// if permalinks are off or user doesn't want them: ugly.
 			if ( '' === get_option( 'permalink_structure' ) ) {
 				return esc_url_raw( $this->uglyLink( $type, $secondary ) );
@@ -2614,7 +2616,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Append Events structure
 			$slug = _x( Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' ), 'Archive Events Slug', 'the-events-calendar' );
-			$event_url .= trailingslashit( sanitize_title( $slug ) );
+
+			if ( ! isset( $cache_event_url_slugs[ $slug ] ) ) {
+				$cache_event_url_slugs[ $slug ] = trailingslashit( sanitize_title( $slug ) );
+			}
+
+			$event_url .= $cache_event_url_slugs[ $slug ];
 
 			// if we're on an Event Cat, show the cat link, except for home and days.
 			if ( $type !== 'home' && is_tax( self::TAXONOMY ) && $term !== false && ! is_numeric( $term ) ) {
