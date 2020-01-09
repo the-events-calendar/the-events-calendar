@@ -11,6 +11,7 @@ namespace Tribe\Events\Views\V2;
 use Tribe\Events\Views\V2\Template\Settings\Advanced_Display;
 use Tribe\Events\Views\V2\Template\Title;
 use Tribe\Events\Views\V2\Views\Traits\Breakpoint_Behavior;
+use Tribe__Cache_Listener as Cache_Listener;
 use Tribe__Container as Container;
 use Tribe__Context as Context;
 use Tribe__Date_Utils as Dates;
@@ -534,8 +535,24 @@ class View implements View_Interface {
 		 */
 		$this->repository_args = $repository_args;
 
+		$should_cache_html = $this->should_cache_html();
+
+		if ( $should_cache_html ) {
+			$cache_key = $this->get_cache_html_key();
+
+			$triggers = [
+				Cache_Listener::TRIGGER_SAVE_POST,
+				Cache_Listener::TRIGGER_UPDATED_OPTION,
+				Cache_Listener::TRIGGER_GENERATE_REWRITE_RULES,
+			];
+			//$triggers = Cache_Listener::TRIGGER_SAVE_POST;
+
+			if ( $cached_html = tribe( 'cache' )->get_transient( $cache_key, $triggers ) ) {
+				return $cached_html;
+			}
+		}
+
 		if ( ! tribe_events_view_v2_use_period_repository() ) {
-			// @todo @bluedevs do we still need this? It's slow and time-consuming!
 			$this->setup_the_loop( $repository_args );
 		}
 
@@ -547,7 +564,62 @@ class View implements View_Interface {
 
 		$this->restore_the_loop();
 
+		if ( $should_cache_html ) {
+			$result = tribe( 'cache' )->set_transient( $cache_key, $html, DAY_IN_SECONDS, $triggers );
+			$a = 1;
+		}
+
 		return $html;
+	}
+
+	/**
+	 * Determine if HTML of the current view needs to be cached
+	 *
+	 * @return bool
+	 */
+	public function should_cache_html() {
+		$context = $this->get_context();
+
+		$cached_views = [
+			'month',
+			'week',
+		];
+
+		/**
+		 * Should the v2 view HTML be cached?
+		 *
+		 * @since 5.0.0
+		 *
+		 * @param bool    $should_cache_html Should the current view have its HTML cached?
+		 * @param Context $context           The View current context.
+		 * @param View    $this              The current View instance.
+		 */
+		return (bool) apply_filters( 'tribe_events_views_v2_should_cache_html', in_array( $context->get( 'view' ), $cached_views ), $context, $this );
+	}
+
+	/**
+	 * Determine if HTML of the current view needs to be cached
+	 *
+	 * @return bool
+	 */
+	public function get_cache_html_key() {
+		$context = $this->get_context();
+		$args    = $context->to_array();
+
+		unset( $args['now'] );
+
+		$cache_key = 'tribe_views_v2_cache_' . substr( sha1( json_encode( $args ) ), 0, 12 ) . ':';
+
+		/**
+		 * Filter the cached html key for v2 event views
+		 *
+		 * @since 5.0.0
+		 *
+		 * @param string  $cache_html_key Cache HTML key.
+		 * @param Context $context        The View current context.
+		 * @param View    $this           The current View instance.
+		 */
+		return apply_filters( 'tribe_events_views_v2_cache_html_key', $cache_key, $context, $this );
 	}
 
 	/**

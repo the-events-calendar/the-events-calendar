@@ -267,17 +267,6 @@ class Month_View extends By_Day_View {
 	 * @return array An associative array of day data for each day in the shape `[ <Y-m-d> => <day_data> ]`.
 	 */
 	protected function get_days_data( array $grid_days ) {
-		$grid_keys = array_keys( $grid_days );
-		$first_day = reset( $grid_keys );
-		$last_day  = end( $grid_keys );
-
-		// @TODO: expire this cache
-		$cache_key = "tribe_events_v2_grid_{$first_day}_{$last_day}";
-
-		if ( $cache_result = get_transient( $cache_key ) ) {
-			return $cache_result;
-		}
-
 		$found_events = $this->get_grid_days_counts();
 
 		// The multi-day stack will contain spacers and post IDs.
@@ -362,8 +351,6 @@ class Month_View extends By_Day_View {
 
 			$days[ $day_date ] = $day_data;
 		}
-
-		set_transient( $cache_key, $days );
 
 		return $days;
 	}
