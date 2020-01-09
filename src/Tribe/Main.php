@@ -863,7 +863,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Register all of the post types in the chunker and start the chunker
 			add_filter( 'tribe_meta_chunker_post_types', array( $this, 'filter_meta_chunker_post_types' ) );
-			tribe( 'chunker' );
 
 			// Purge old events
 			add_action( 'update_option_' . Tribe__Main::OPTIONNAME, tribe_callback( 'tec.event-cleaner', 'move_old_events_to_trash' ), 10, 2 );

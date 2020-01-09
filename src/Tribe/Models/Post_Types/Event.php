@@ -189,7 +189,12 @@ class Event extends Base {
 					'tribe_get_venue_object' )
 				)->on_resolve( $cache_this ),
 				'thumbnail'              => ( new Post_Thumbnail( $post_id ) )->on_resolve( $cache_this ),
-				'permalink'              => get_permalink( $post_id ),
+				'permalink'              => ( new Lazy_String(
+					static function () use ( $post_id ) {
+						return get_permalink( $post_id );
+					},
+					false
+				) )->on_resolve( $cache_this ),
 				'schedule_details'       => ( new Lazy_String(
 					static function () use ( $post_id ) {
 						return tribe_events_event_schedule_details( $post_id );

@@ -1630,7 +1630,7 @@ class View implements View_Interface {
 					'label' => tribe_get_event_label_plural(),
 				];
 			}
-			
+
 			$breadcrumbs[] = [
 				'link'  => '',
 				'label' => esc_html__( 'Featured', 'the-events-calendar' ),

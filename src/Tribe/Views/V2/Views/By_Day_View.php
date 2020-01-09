@@ -16,6 +16,7 @@ use Tribe\Events\Views\V2\View;
 use Tribe\Traits\Cache_User;
 use Tribe__Cache_Listener as Cache_Listener;
 use Tribe__Date_Utils as Dates;
+use Tribe__Timezones as Timezones;
 use Tribe__Utils__Array as Arr;
 
 /**
@@ -147,6 +148,73 @@ abstract class By_Day_View extends View {
 				$repository = tribe_events( 'period' );
 			}
 			$repository->by_period( $grid_start_date, $grid_end_date )->fetch();
+		} else {
+			global $wpdb;
+
+			$first_grid_day = $days->start;
+			$start          = tribe_beginning_of_day( $first_grid_day->format( Dates::DBDATETIMEFORMAT ) );
+			$last_grid_day  = $days->end;
+			$end            = tribe_end_of_day( $last_grid_day->format( Dates::DBDATETIMEFORMAT ) );
+
+			$day_ids = tribe_events()
+				->set_found_rows( true )
+				->fields( 'ids' )
+				->by_args( $repository_args )
+				->where( 'date_overlaps', $start, $end, null, 2 )
+				->per_page( -1 )
+				->order_by( $order_by, $order )
+				->all();
+
+			$day_results = [];
+
+			$start_meta_key = '_EventStartDate';
+			$end_meta_key   = '_EventEndDate';
+
+			if ( Timezones::is_mode( 'site' ) ) {
+				$start_meta_key = '_EventStartDateUTC';
+				$end_meta_key   = '_EventEndDateUTC';
+			}
+
+			$results = [];
+			$request_chunks = array_chunk( $day_ids, 200 );
+
+			foreach ( $request_chunks as $chunk_ids ) {
+				$sql = "
+				SELECT
+				  post_id,
+					meta_key,
+					meta_value
+				FROM
+					{$wpdb->postmeta}
+				WHERE
+					meta_key IN ( %s, %s )
+					AND post_id IN ( " . implode( ',', $chunk_ids ) . " )
+			";
+
+				$chunk_results = $wpdb->get_results( $wpdb->prepare( $sql, [ $start_meta_key, $end_meta_key ] ) );
+
+				$results = array_merge( $results, $chunk_results );
+			}
+
+			$indexed_results = [];
+
+			foreach ( $results as $row ) {
+				if ( ! isset( $indexed_results[ $row->post_id ] ) ) {
+					$indexed_results[ $row->post_id ] = [
+						'ID'         => $row->post_id,
+						'start_date' => null,
+						'end_date'   => null,
+					];
+				}
+
+				$key = $start_meta_key === $row->meta_key ? 'start_date' : 'end_date';
+
+				$indexed_results[ $row->post_id ][ $key ] = $row->meta_value;
+			}
+
+			foreach ( $day_ids as $id ) {
+				$day_results[] = (object) $indexed_results[ $id ];
+			}
 		}
 
 		// phpcs:ignore
@@ -172,21 +240,21 @@ abstract class By_Day_View extends View {
 			} else {
 				$start = tribe_beginning_of_day( $day->format( Dates::DBDATETIMEFORMAT ) );
 				$end   = tribe_end_of_day( $day->format( Dates::DBDATETIMEFORMAT ) );
-				/*
-				 * We want events overlapping the current day, by more than 1 second.
-				 * This prevents events ending on the cutoff from showing up here.
-				 */
-				$day_query = tribe_events()
-					->set_found_rows(true)
-					->by_args( $repository_args )
-					->where( 'date_overlaps', $start, $end, null, 2 )
-					->per_page( $events_per_day )
-					->order_by( $order_by, $order );
-				$day_event_ids = $day_query->get_ids();
-				$found     = $day_query->found();
 
-				$this->grid_days_cache[ $day_string ]       = (array) $day_event_ids;
-				$this->grid_days_found_cache[ $day_string ] = (int) $found;
+				$results_in_day = array_filter( $day_results, static function( $event ) use ( $start, $end ) {
+					return (
+						( $start >= $event->start_date && $end <= $event->end_date )
+						|| ( $start >= $event->start_date && $start <= $event->end_date && $end >= $event->end_date )
+						|| ( $start < $event->start_date && $end >= $event->end_date )
+						|| ( $start < $event->start_date && $end <= $event->end_date && $end >= $event->start_date )
+					);
+				} );
+
+				$day_event_ids = array_column( $results_in_day, 'ID' );
+				$day_event_ids = array_slice( $day_event_ids, 0, $events_per_day );
+
+				$this->grid_days_cache[ $day_string ]       = $day_event_ids;
+				$this->grid_days_found_cache[ $day_string ] = count( $results_in_day );
 			}
 
 			/*
