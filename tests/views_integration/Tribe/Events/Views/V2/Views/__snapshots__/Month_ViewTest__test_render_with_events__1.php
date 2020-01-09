@@ -2438,9 +2438,9 @@
 
 </section>
 
-		<div class="tribe-events-c-ical tribe-common-b1">
+		<div class="tribe-events-c-ical tribe-common-b2 tribe-common-b3--min-medium">
 	<a
-		class="tribe-events-c-ical__link tribe-common-anchor-alt"
+		class="tribe-events-c-ical__link"
 		title="Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps"
 		href="http://test.tri.be/events/?ical=1"
 	>Export Events</a>
