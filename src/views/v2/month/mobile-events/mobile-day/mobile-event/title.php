@@ -22,10 +22,10 @@ $classes = [ 'tribe-events-calendar-month-mobile-events__mobile-event-title', 't
 <h3 <?php tribe_classes( $classes ); ?>>
 	<a
 		href="<?php echo esc_url( $event->permalink ) ?>"
-		title="<?php echo esc_attr( get_the_title( $event->ID ) ) ?>"
+		title="<?php echo esc_attr( $event->title ) ?>"
 		rel="bookmark"
 		class="tribe-events-calendar-month-mobile-events__mobile-event-title-link tribe-common-anchor"
 	>
-		<?php echo wp_kses_post( get_the_title( $event->ID ) ); ?>
+		<?php echo $event->title; ?>
 	</a>
 </h3>

@@ -474,7 +474,16 @@ abstract class By_Day_View extends View {
 			return;
 		}
 
+		/*
+		$events = tribe_events()
+			->in( $event_ids )
+			->per_page( -1 )
+			->all();
+		*/
+
+		//foreach ( $events as $event ) {
 		foreach ( $event_ids as $event_id ) {
+			//$event_id = $event->ID;
 			$event = tribe_get_event( $event_id );
 
 			if ( ! $event instanceof \WP_Post ) {

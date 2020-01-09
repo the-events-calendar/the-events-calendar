@@ -20,13 +20,13 @@
 <h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h--alt">
 	<a
 		href="<?php echo esc_url( $event->permalink ) ?>"
-		title="<?php echo esc_attr( get_the_title( $event->ID ) ); ?>"
+		title="<?php echo esc_attr( $event->title ); ?>"
 		rel="bookmark"
 		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
 		data-js="tribe-events-tooltip"
 		data-tooltip-content="#tribe-events-tooltip-content-<?php echo esc_attr( $event->ID ); ?>"
 		aria-describedby="tribe-events-tooltip-content-<?php echo esc_attr( $event->ID ); ?>"
 	>
-		<?php echo wp_kses_post( get_the_title( $event->ID ) ); ?>
+		<?php echo $event->title; ?>
 	</a>
 </h3>

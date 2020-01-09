@@ -207,6 +207,12 @@ class Event extends Base {
 					},
 					false
 				) )->on_resolve( $cache_this ),
+				'title'                  => ( new Lazy_String(
+					static function () use ( $post_id ) {
+						return get_the_title( $post_id );
+					},
+					false
+				) )->on_resolve( $cache_this ),
 			];
 		} catch ( \Exception $e ) {
 			return [];

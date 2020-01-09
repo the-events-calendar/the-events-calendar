@@ -93,7 +93,7 @@ if ( $should_display ) {
 					></em>
 				<?php endif; ?>
 				<h3 class="tribe-events-calendar-month__multiday-event-hidden-title tribe-common-h8">
-					<?php echo wp_kses_post( get_the_title( $event->ID ) ); ?>
+					<?php echo $event->title; ?>
 				</h3>
 			</a>
 		</div>
@@ -108,7 +108,7 @@ if ( $should_display ) {
 						></em>
 					<?php endif; ?>
 					<h3 class="tribe-events-calendar-month__multiday-event-bar-title tribe-common-h8">
-						<?php echo wp_kses_post( get_the_title( $event->ID ) ); ?>
+						<?php echo $event->title; ?>
 					</h3>
 				</div>
 			</div>

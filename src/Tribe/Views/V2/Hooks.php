@@ -24,6 +24,7 @@ use Tribe\Events\Views\V2\Template\Title;
 use Tribe__Events__Main as TEC;
 use Tribe__Rewrite as TEC_Rewrite;
 use Tribe__Utils__Array as Arr;
+use Tribe__Date_Utils as Dates;
 
 /**
  * Class Hooks
@@ -93,6 +94,9 @@ class Hooks extends \tad_DI52_ServiceProvider {
 			add_filter( 'document_title_parts', [ $this, 'filter_document_title_parts' ] );
 			add_filter( 'pre_get_document_title', [ $this, 'pre_get_document_title' ], 20 );
 		}
+
+		add_filter( 'tribe_template_pre_html:events/month', [ $this, 'filter_template_html_get_cache' ], 100, 4 );
+		add_filter( 'tribe_template_html:events/month', [ $this, 'filter_template_html_set_cache' ], 100, 4 );
 	}
 
 	/**
@@ -580,5 +584,147 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		}
 
 		return $this->container->make( Template\Event::class )->filter_event_properties( $event );
+	}
+
+	/**
+	 * @TODO: Fill this out and consolidate with its sister method
+	 * @param $html
+	 * @param $file
+	 * @param $name
+	 * @param $template
+	 * @return mixed
+	 */
+	public function filter_template_html_set_cache( $html, $file, $name, $template ) {
+
+		$args = $template->get_context()->to_array();
+		unset( $args['now'] );
+
+		/**
+		 * Controls whether or not month view caching is enabled.
+		 *
+		 * Filtering this value can be useful if you need to implement
+		 * a fine grained caching policy for month view.
+		 *
+		 * @param boolean $enable
+		 * @param array   $args
+		 */
+		$use_cache = apply_filters( 'tribe_events_enable_month_view_cache',
+			$this->should_enable_month_view_cache( $template->get_context() ),
+			$args
+		);
+
+		// Cache the result of month/content.php
+		if ( $use_cache ) {
+			$cache_expiration = apply_filters( 'tribe_events_month_view_transient_expiration', HOUR_IN_SECONDS );
+
+			$cache_id = serialize( $args );
+			if ( isset( $_REQUEST ) && is_array( $_REQUEST ) ) {
+				$cache_id .= serialize( $_REQUEST );
+			}
+			$cache_id = implode( '/', $name ) . ':' . md5( $cache_id );
+
+			$cache_value = get_transient( $cache_id );
+
+			if ( $cache_value ) {
+				return $cache_value;
+			}
+
+			// @TODO: do a save_post trigger
+			set_transient( $cache_id, $html, $cache_expiration );
+		}
+
+		return $html;
+	}
+
+	/**
+	 * @TODO: Fill this out and consolidate with its sister method
+	 * @param $html
+	 * @param $file
+	 * @param $name
+	 * @param $template
+	 * @return mixed
+	 */
+	public function filter_template_html_get_cache( $html, $file, $name, $template ) {
+
+		$args = $template->get_context()->to_array();
+
+		unset( $args['now'] );
+
+		/**
+		 * Controls whether or not month view caching is enabled.
+		 *
+		 * Filtering this value can be useful if you need to implement
+		 * a fine grained caching policy for month view.
+		 *
+		 * @param boolean $enable
+		 * @param array   $args
+		 */
+		$use_cache = apply_filters( 'tribe_events_enable_month_view_cache',
+			$this->should_enable_month_view_cache( $template->get_context() ),
+			$args
+		);
+
+		// Cache the result of month/content.php
+		if ( $use_cache ) {
+			$cache_id = serialize( $args );
+			if ( isset( $_REQUEST ) && is_array( $_REQUEST ) ) {
+				$cache_id .= serialize( $_REQUEST );
+			}
+			$cache_id = implode( '/', $name ) . ':' . md5( $cache_id );
+
+			$cache_value = get_transient( $cache_id );
+
+			if ( $cache_value ) {
+				return $cache_value;
+			}
+		}
+
+		return $html;
+	}
+
+	/**
+	 * Indicates if month view cache should be enabled or not.
+	 *
+	 * If the month view cache setting itself is not enabled (or not set) then this
+	 * method will always return false.
+	 *
+	 * In other cases, the default rules are to cache everything in the 2 months past
+	 * to 12 months in the future range. This policy can be refined or replaced via
+	 * the 'tribe_events_enable_month_view_cache' filter hook.
+	 *
+	 * @TODO: adjust this so it makes sense and move to an appropriate class
+	 *
+	 * @return bool
+	 */
+	protected function should_enable_month_view_cache( $context ) {
+		$event_date = $context->get( 'event_date' );
+
+		// Respect the month view caching setting
+		if ( ! tribe_get_option( 'enable_month_view_cache', true ) ) {
+			return false;
+		}
+
+		// Default to always caching the current month
+		if ( ! $event_date ) {
+			return true;
+		}
+
+		// If the eventDate argument is not in the expected format then do not cache
+		if ( ! preg_match( '/^[0-9]{4}-[0-9]{1,2}$/', $event_date ) ) {
+			return false;
+		}
+
+		// If the requested month is more than 2 months in the past, do not cache
+		if ( $event_date < date_i18n( 'Y-m', Dates::wp_strtotime( '-2 months' ) ) ) {
+			return false;
+		}
+
+		// If the requested month is more than 1yr in the future, do not cache
+		if ( $event_date > date_i18n( 'Y-m', Dates::wp_strtotime( '+1 year' ) ) ) {
+			return false;
+		}
+
+		// In all other cases, let's cache it!
+		return true;
 	}
 }

@@ -23,7 +23,7 @@ if ( ! $event->thumbnail->exists ) {
 <div class="tribe-events-calendar-month__calendar-event-tooltip-featured-image-wrapper">
 	<a
 		href="<?php echo esc_url( $event->permalink ); ?>"
-		title="<?php echo esc_attr( get_the_title( $event->ID ) ); ?>"
+		title="<?php echo esc_attr( $event->title ); ?>"
 		rel="bookmark"
 		class="tribe-events-calendar-month__calendar-event-tooltip-featured-image-link"
 	>

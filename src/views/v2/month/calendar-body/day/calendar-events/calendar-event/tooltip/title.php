@@ -20,10 +20,10 @@
 <h3 class="tribe-events-calendar-month__calendar-event-tooltip-title tribe-common-h7">
 	<a
 		href="<?php echo esc_url( $event->permalink ) ?>"
-		title="<?php echo esc_attr( get_the_title( $event->ID ) ); ?>"
+		title="<?php echo esc_attr( $event->title ); ?>"
 		rel="bookmark"
 		class="tribe-events-calendar-month__calendar-event-tooltip-title-link tribe-common-anchor-thin"
 	>
-		<?php echo wp_kses_post( get_the_title( $event->ID ) ); ?>
+		<?php echo $event->title; ?>
 	</a>
 </h3>
