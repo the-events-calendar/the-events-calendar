@@ -4,7 +4,7 @@ exports[`[STORE] - Venue reducer Should remove the venue 1`] = `
 Object {
   "showMap": true,
   "showMapLink": true,
-  "venue": undefined,
+  "venue": 0,
 }
 `;
 
