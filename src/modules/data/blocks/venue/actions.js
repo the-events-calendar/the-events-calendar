@@ -14,7 +14,7 @@ export const setVenue = ( id ) => ( {
 export const removeVenue = () => ( {
 	type: types.SET_VENUE,
 	payload: {
-		venue: undefined,
+		venue: 0,
 	},
 } );
 
