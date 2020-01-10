@@ -217,6 +217,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 = [5.0.1] TBD =
 
+* Fix - Fix website block label from disappearing when adding event details classic block. [TEC-2971]
 * Fix - Fix style overrides for new view shortcodes for Enfold theme. [ECP-315]
 * Fix - Fix events bar input class recognition for JS handling in new views. [TEC-3091]
 * Fix - Ensure datepicker does not get cut off in small width screens for new views. [TEC-2983]
@@ -227,7 +228,6 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - Fix tooltips being cut off and hidden in month view. [TEC-3000]
 * Fix - Fix event sharing block cutting off text in block editor admin when editing event. [TEC-2972]
 * Fix - Fix disappearing price description in block editor admin when editing event. [TEC-2992]
-* Fix - Fix website block label from disappearing when adding event details classic block. [TEC-2971]
 * Tweak - Remove find events button and related data when events bar is disabled. [TEC-3074]
 * Tweak - Ensure datepicker always updates view via live refresh. [TEC-3073]
 
