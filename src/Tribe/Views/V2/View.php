@@ -535,6 +535,17 @@ class View implements View_Interface {
 		 */
 		$this->repository_args = $repository_args;
 
+		/**
+		 * Filter the cache TTL
+		 *
+		 * @since 5.0.0
+		 *
+		 * @param int     $cache_ttl Cache time to live.
+		 * @param Context $context   The View current context.
+		 * @param View    $this      The current View instance.
+		 */
+		$cache_expiration = apply_filters( 'tribe_events_views_v2_cache_html_expiration', DAY_IN_SECONDS, $this->get_context(), $this );
+
 		$should_cache_html = $this->should_cache_html();
 
 		if ( $should_cache_html ) {
@@ -545,7 +556,6 @@ class View implements View_Interface {
 				Cache_Listener::TRIGGER_UPDATED_OPTION,
 				Cache_Listener::TRIGGER_GENERATE_REWRITE_RULES,
 			];
-			//$triggers = Cache_Listener::TRIGGER_SAVE_POST;
 
 			if ( $cached_html = tribe( 'cache' )->get_transient( $cache_key, $triggers ) ) {
 				return $cached_html;
@@ -565,8 +575,7 @@ class View implements View_Interface {
 		$this->restore_the_loop();
 
 		if ( $should_cache_html ) {
-			$result = tribe( 'cache' )->set_transient( $cache_key, $html, DAY_IN_SECONDS, $triggers );
-			$a = 1;
+			tribe( 'cache' )->set_transient( $cache_key, $html, $cache_expiration, $triggers );
 		}
 
 		return $html;

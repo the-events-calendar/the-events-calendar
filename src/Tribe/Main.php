@@ -3031,6 +3031,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				require_once dirname( __FILE__ ) . '/Deactivation.php';
 			}
 
+			if ( ! class_exists( 'Tribe__Cache' ) ) {
+				require_once dirname( dirname( __FILE__ ) ) . '/common/src/Tribe/Cache.php';
+			}
+
+			wp_clear_scheduled_hook( \Tribe__Cache::SCHEDULED_EVENT_DELETE_TRANSIENT );
+
 			$deactivation = new Tribe__Events__Deactivation( $network_deactivating );
 			add_action( 'shutdown', array( $deactivation, 'deactivate' ) );
 		}
