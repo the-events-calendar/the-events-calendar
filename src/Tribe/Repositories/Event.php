@@ -1509,7 +1509,6 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 					break;
 			}
 		}
-		$a = 1;
 	}
 
 	/**

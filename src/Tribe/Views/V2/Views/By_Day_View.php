@@ -105,7 +105,7 @@ abstract class By_Day_View extends View {
 			! $force
 			&& ! empty( $this->grid_days_cache )
 			&& isset( $this->user_date )
-			&& ( null === $date || $this->user_date === $date )
+			&& ( ! $date || $this->user_date === $date )
 		) {
 			return $this->grid_days_cache;
 		}

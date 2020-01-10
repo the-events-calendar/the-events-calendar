@@ -1204,7 +1204,7 @@ class View implements View_Interface {
 		 *
 		 * @since 5.0.0
 		 */
-		if ( count( $events ) > $this->repository_args['events_per_page'] ) {
+		if ( count( $events ) > $this->get_context()->get( 'events_per_page' ) ) {
 			array_pop( $events );
 
 			$this->has_next_event = true;
