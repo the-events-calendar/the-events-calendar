@@ -228,6 +228,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - Fix event sharing block cutting off text in block editor admin when editing event. [TEC-2972]
 * Fix - Fix disappearing price description in block editor admin when editing event. [TEC-2992]
 * Fix - Allow venues to be properly removed by clicking the remove venue button in the venue block. [TEC-2965]
+* Tweak - Adjust tooltip title styles for Twenty Twenty theme. [TEC-2998]
 * Tweak - Remove find events button and related data when events bar is disabled. [TEC-3074]
 * Tweak - Ensure datepicker always updates view via live refresh. [TEC-3073]
 
