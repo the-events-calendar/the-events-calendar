@@ -55,8 +55,8 @@ class Event {
 	 */
 	public function get_path() {
 		$fake_view = View::make( 'reflector' );
-		$path = $fake_view->get_template()->get_template_file( 'index' );
-		$override = V1_Event_Templates::getTemplateHierarchy( 'default-template' );
+		$path      = $fake_view->get_template()->get_template_file( 'index' );
+		$override  = V1_Event_Templates::getTemplateHierarchy( 'default-template' );
 
 		return ! empty( $override ) ? $override : $path;
 	}
