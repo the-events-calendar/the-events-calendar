@@ -94,9 +94,6 @@ class Hooks extends \tad_DI52_ServiceProvider {
 			add_filter( 'document_title_parts', [ $this, 'filter_document_title_parts' ] );
 			add_filter( 'pre_get_document_title', [ $this, 'pre_get_document_title' ], 20 );
 		}
-
-		add_filter( 'tribe_template_pre_html:events/month', [ $this, 'filter_template_html_get_cache' ], 100, 4 );
-		add_filter( 'tribe_template_html:events/month', [ $this, 'filter_template_html_set_cache' ], 100, 4 );
 	}
 
 	/**
@@ -584,102 +581,6 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		}
 
 		return $this->container->make( Template\Event::class )->filter_event_properties( $event );
-	}
-
-	/**
-	 * @TODO: Fill this out and consolidate with its sister method
-	 * @param $html
-	 * @param $file
-	 * @param $name
-	 * @param $template
-	 * @return mixed
-	 */
-	public function filter_template_html_set_cache( $html, $file, $name, $template ) {
-
-		$args = $template->get_context()->to_array();
-		unset( $args['now'] );
-
-		/**
-		 * Controls whether or not month view caching is enabled.
-		 *
-		 * Filtering this value can be useful if you need to implement
-		 * a fine grained caching policy for month view.
-		 *
-		 * @param boolean $enable
-		 * @param array   $args
-		 */
-		$use_cache = apply_filters( 'tribe_events_enable_month_view_cache',
-			$this->should_enable_month_view_cache( $template->get_context() ),
-			$args
-		);
-
-		// Cache the result of month/content.php
-		if ( $use_cache ) {
-			$cache_expiration = apply_filters( 'tribe_events_month_view_transient_expiration', HOUR_IN_SECONDS );
-
-			$cache_id = serialize( $args );
-			if ( isset( $_REQUEST ) && is_array( $_REQUEST ) ) {
-				$cache_id .= serialize( $_REQUEST );
-			}
-			$cache_id = implode( '/', $name ) . ':' . md5( $cache_id );
-
-			$cache_value = get_transient( $cache_id );
-
-			if ( $cache_value ) {
-				return $cache_value;
-			}
-
-			// @TODO: do a save_post trigger
-			set_transient( $cache_id, $html, $cache_expiration );
-		}
-
-		return $html;
-	}
-
-	/**
-	 * @TODO: Fill this out and consolidate with its sister method
-	 * @param $html
-	 * @param $file
-	 * @param $name
-	 * @param $template
-	 * @return mixed
-	 */
-	public function filter_template_html_get_cache( $html, $file, $name, $template ) {
-
-		$args = $template->get_context()->to_array();
-
-		unset( $args['now'] );
-
-		/**
-		 * Controls whether or not month view caching is enabled.
-		 *
-		 * Filtering this value can be useful if you need to implement
-		 * a fine grained caching policy for month view.
-		 *
-		 * @param boolean $enable
-		 * @param array   $args
-		 */
-		$use_cache = apply_filters( 'tribe_events_enable_month_view_cache',
-			$this->should_enable_month_view_cache( $template->get_context() ),
-			$args
-		);
-
-		// Cache the result of month/content.php
-		if ( $use_cache ) {
-			$cache_id = serialize( $args );
-			if ( isset( $_REQUEST ) && is_array( $_REQUEST ) ) {
-				$cache_id .= serialize( $_REQUEST );
-			}
-			$cache_id = implode( '/', $name ) . ':' . md5( $cache_id );
-
-			$cache_value = get_transient( $cache_id );
-
-			if ( $cache_value ) {
-				return $cache_value;
-			}
-		}
-
-		return $html;
 	}
 
 	/**
