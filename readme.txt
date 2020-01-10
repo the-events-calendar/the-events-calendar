@@ -227,6 +227,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - Fix tooltips being cut off and hidden in month view. [TEC-3000]
 * Fix - Fix event sharing block cutting off text in block editor admin when editing event. [TEC-2972]
 * Fix - Fix disappearing price description in block editor admin when editing event. [TEC-2992]
+* Fix - Fix website block label from disappearing when adding event details classic block. [TEC-2971]
 * Tweak - Remove find events button and related data when events bar is disabled. [TEC-3074]
 * Tweak - Ensure datepicker always updates view via live refresh. [TEC-3073]
 

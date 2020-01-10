@@ -75,6 +75,9 @@ const mergeProps = ( stateProps, dispatchProps, ownProps ) => {
 		...stateProps,
 		...restDispatchProps,
 		setInitialState: ( props ) => {
+			/**
+			 * @todo: this method causes many problems. need to remove and hydrate initial state properly.
+			 */
 			const { get } = props;
 
 			dispatch( classicActions.setInitialState( props ) );
