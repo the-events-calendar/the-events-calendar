@@ -700,7 +700,10 @@ class View implements View_Interface {
 		}
 
 		// When we find nothing we're always on page 1.
-		$page = $this->repository->count() > 0 ? $this->url->get_current_page() : 1;
+		$page = $this->url->get_current_page();
+		if ( ! $page ) {
+			$page = 1;
+		}
 
 		if ( $page > 1 ) {
 			$query_args[ $this->page_key ] = $page;
