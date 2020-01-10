@@ -189,6 +189,15 @@ class View implements View_Interface {
 	protected static $date_in_url = true;
 
 	/**
+	 * Cached URLs
+	 *
+	 * @since 5.0.0
+	 *
+	 * @var array
+	 */
+	protected $cached_urls = [];
+
+	/**
 	 * View constructor.
 	 *
 	 * @since 4.9.11
@@ -729,7 +738,11 @@ class View implements View_Interface {
 	 * {@inheritDoc}
 	 */
 	public function next_url( $canonical = false, array $passthru_vars = [] ) {
-		$next_page = $this->repository->next();
+		if ( isset( $this->cached_urls['next_url'] ) ) {
+			return $this->cached_urls['next_url'];
+		}
+
+		$next_page = $this->repository->next()->order_by( '__none' );
 
 		$url = $this->get_url();
 
@@ -756,6 +769,8 @@ class View implements View_Interface {
 
 		$url = $this->filter_next_url( $canonical, $url );
 
+		$this->cached_urls['next_url'] = $url;
+
 		return $url;
 	}
 
@@ -763,7 +778,12 @@ class View implements View_Interface {
 	 * {@inheritDoc}
 	 */
 	public function prev_url( $canonical = false, array $passthru_vars = [] ) {
-		$prev_page  = $this->repository->prev();
+		if ( isset( $this->cached_urls['prev_url'] ) ) {
+			return $this->cached_urls['prev_url'];
+		}
+
+		$prev_page  = $this->repository->prev()->order_by( '__none' );
+
 		$paged      = $this->url->get_current_page() - 1;
 		$query_args = $paged > 1
 			? [ $this->page_key => $paged ]
@@ -795,6 +815,8 @@ class View implements View_Interface {
 		}
 
 		$url = $this->filter_prev_url( $canonical, $url );
+
+		$this->cached_urls['prev_url'] = $url;
 
 		return $url;
 	}

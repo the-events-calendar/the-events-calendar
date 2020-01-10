@@ -47,6 +47,10 @@ class List_View extends View {
 	 * {@inheritDoc}
 	 */
 	public function prev_url( $canonical = false, array $passthru_vars = [] ) {
+		if ( isset( $this->cached_urls[ __METHOD__ ] ) ) {
+			return $this->cached_urls[ __METHOD__ ];
+		}
+
 		$current_page = (int) $this->context->get( 'page', 1 );
 		$display      = $this->context->get( 'event_display_mode', 'list' );
 
@@ -60,6 +64,8 @@ class List_View extends View {
 
 		$url = $this->filter_prev_url( $canonical, $url );
 
+		$this->cached_urls[ __METHOD__ ] = $url;
+
 		return $url;
 	}
 
@@ -67,6 +73,10 @@ class List_View extends View {
 	 * {@inheritDoc}
 	 */
 	public function next_url( $canonical = false, array $passthru_vars = [] ) {
+		if ( isset( $this->cached_urls[ __METHOD__ ] ) ) {
+			return $this->cached_urls[ __METHOD__ ];
+		}
+
 		$current_page = (int) $this->context->get( 'page', 1 );
 		$display      = $this->context->get( 'event_display_mode', 'list' );
 
@@ -79,6 +89,8 @@ class List_View extends View {
 		}
 
 		$url = $this->filter_next_url( $canonical, $url );
+
+		$this->cached_urls[ __METHOD__ ] = $url;
 
 		return $url;
 	}
@@ -102,6 +114,8 @@ class List_View extends View {
 			'event_display_mode' => 'past',
 			'paged'              => $page,
 		] ) ) );
+
+		$past->order_by( '__none' );
 
 		if ( $past->count() > 0 ) {
 
@@ -168,6 +182,8 @@ class List_View extends View {
 			'eventDisplay' => $this->slug,
 			'paged'        => $page,
 		] ) ) );
+
+		$upcoming->order_by( '__none' );
 
 		if ( $upcoming->count() > 0 ) {
 			$query_args = [
