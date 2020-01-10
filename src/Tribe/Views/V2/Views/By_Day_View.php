@@ -56,6 +56,15 @@ abstract class By_Day_View extends View {
 	protected $grid_days_found_cache = [];
 
 	/**
+	 * An array of cached events for the grid.
+	 *
+	 * @since 5.0.0
+	 *
+	 * @var array
+	 */
+	protected $grid_events = [];
+
+	/**
 	 * An instance of the Stack object.
 	 *
 	 * @since 4.9.9
@@ -217,6 +226,8 @@ abstract class By_Day_View extends View {
 			}
 		}
 
+		$all_day_event_ids = [];
+
 		// phpcs:ignore
 		/** @var \DateTime $day */
 		foreach ( $days as $day ) {
@@ -250,19 +261,23 @@ abstract class By_Day_View extends View {
 					);
 				} );
 
-				$day_event_ids = array_column( $results_in_day, 'ID' );
+				$day_event_ids = array_map( 'absint', array_column( $results_in_day, 'ID' ) );
 				$day_event_ids = array_slice( $day_event_ids, 0, $events_per_day );
 
 				$this->grid_days_cache[ $day_string ]       = $day_event_ids;
 				$this->grid_days_found_cache[ $day_string ] = count( $results_in_day );
 			}
 
-			/*
-			 * Multi-day events will always appear on the second day and forward, back-fill if they did not make the
-			 * cut (of events per day) on previous days.
-			 */
-			$this->backfill_multiday_event_ids( $day_event_ids );
+			$all_day_event_ids = array_merge( $all_day_event_ids, $day_event_ids );
 		}
+
+		$this->grid_events = $this->get_grid_events( $all_day_event_ids );
+
+		/*
+		 * Multi-day events will always appear on the second day and forward, back-fill if they did not make the
+		 * cut (of events per day) on previous days.
+		 */
+		$this->backfill_multiday_event_ids( $this->grid_events );
 
 		if ( $using_period_repository ) {
 			$post_ids = array_filter( array_unique( array_merge( ... array_values( $this->grid_days_cache ) ) ) );
@@ -450,6 +465,39 @@ abstract class By_Day_View extends View {
 	}
 
 	/**
+	 * Fetches events for the grid in chunks so we do not have to fetch events a second time.
+	 *
+	 * @since 5.0.0
+	 *
+	 * @param array $event_ids
+	 *
+	 * @return array|void
+	 */
+	protected function get_grid_events( array $event_ids = [] ) {
+		if ( empty( $event_ids ) ) {
+			return [];
+		}
+
+		$events = [];
+
+		$event_id_chunks = array_chunk( $event_ids, 200 );
+		foreach ( $event_id_chunks as $ids ) {
+			// Prefetch provided events in a single query.
+			$event_results = tribe_events()
+				->in( $ids )
+				->per_page( -1 )
+				->all();
+
+			// Massage events to be indexed by event ID.
+			foreach ( $event_results as $event_result ) {
+				$events[ $event_result->ID ] = $event_result;
+			}
+		}
+
+		return $events;
+	}
+
+	/**
 	 * Back-fills the days cache to add multi-day events that, due to events-per-day limits, might not appear on first
 	 * day.
 	 *
@@ -461,10 +509,10 @@ abstract class By_Day_View extends View {
 	 *
 	 * @since 4.9.12
 	 *
-	 * @param array $event_ids An array of event post IDs for the day.
+	 * @param array $events An array of event posts
 	 */
-	protected function backfill_multiday_event_ids( array $event_ids = [] ) {
-		if ( empty( $event_ids ) ) {
+	protected function backfill_multiday_event_ids( array $events = [] ) {
+		if ( empty( $events ) ) {
 			return;
 		}
 
@@ -474,17 +522,7 @@ abstract class By_Day_View extends View {
 			return;
 		}
 
-		// Prefetch provided events in a single query.
-		$event_results = tribe_events()
-			->in( $event_ids )
-			->per_page( -1 )
-			->all();
-
-		// Massage events to be indexed by event ID.
-		$events = [];
-		foreach ( $event_results as $event_result ) {
-			$events[ $event_result->ID ] = $event_result;
-		}
+		$event_ids = wp_list_pluck( $events, 'ID' );
 
 		foreach ( $event_ids as $event_id ) {
 			$event = $events[ $event_id ];
