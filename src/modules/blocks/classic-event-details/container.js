@@ -64,10 +64,10 @@ const mapDispatchToProps = ( dispatch ) => ( {
 	setInitialState: ( props ) => {
 		dispatch( priceActions.setInitialState( props ) );
 		dispatch( UIActions.setInitialState( props ) );
-		dispatch( websiteActions.setWebsite( props ) );
 		dispatch( dateTimeThunks.setInitialState( props ) );
 		dispatch( classicActions.setInitialState( props ) );
 		const { get } = props;
+		dispatch( websiteActions.setWebsite( get( 'url', '' ) ) );
 		dispatch( organizersActions.setOrganizersInClassic( get( 'organizers', [] ) ) );
 	},
 } );
