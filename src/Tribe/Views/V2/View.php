@@ -134,6 +134,15 @@ class View implements View_Interface {
 	protected $page_key = 'paged';
 
 	/**
+	 * Indicates whether there are more events beyond the current view
+	 *
+	 * @since 5.0.0
+	 *
+	 * @var bool
+	 */
+	protected $has_next_event = false;
+
+	/**
 	 * Whether the View instance should manage the URL
 	 *
 	 * @since 4.9.7
@@ -187,6 +196,15 @@ class View implements View_Interface {
 	 * @var bool
 	 */
 	protected static $date_in_url = true;
+
+	/**
+	 * Cached URLs
+	 *
+	 * @since 5.0.0
+	 *
+	 * @var array
+	 */
+	protected $cached_urls = [];
 
 	/**
 	 * View constructor.
@@ -700,7 +718,10 @@ class View implements View_Interface {
 		}
 
 		// When we find nothing we're always on page 1.
-		$page = $this->repository->count() > 0 ? $this->url->get_current_page() : 1;
+		$page = $this->url->get_current_page();
+		if ( ! $page ) {
+			$page = 1;
+		}
 
 		if ( $page > 1 ) {
 			$query_args[ $this->page_key ] = $page;
@@ -726,7 +747,9 @@ class View implements View_Interface {
 	 * {@inheritDoc}
 	 */
 	public function next_url( $canonical = false, array $passthru_vars = [] ) {
-		$next_page = $this->repository->next();
+		if ( isset( $this->cached_urls['next_url'] ) ) {
+			return $this->cached_urls['next_url'];
+		}
 
 		$url = $this->get_url();
 
@@ -738,7 +761,7 @@ class View implements View_Interface {
 		// Make sure the view slug is always set to correctly match rewrites.
 		$url = add_query_arg( [ 'eventDisplay' => $this->slug ], $url );
 
-		$url = $next_page->count() > 0 ?
+		$url = $this->has_next_event ?
 			add_query_arg( [ $this->page_key => $this->url->get_current_page() + 1 ], $url )
 			: '';
 
@@ -753,6 +776,8 @@ class View implements View_Interface {
 
 		$url = $this->filter_next_url( $canonical, $url );
 
+		$this->cached_urls['next_url'] = $url;
+
 		return $url;
 	}
 
@@ -760,7 +785,12 @@ class View implements View_Interface {
 	 * {@inheritDoc}
 	 */
 	public function prev_url( $canonical = false, array $passthru_vars = [] ) {
-		$prev_page  = $this->repository->prev();
+		if ( isset( $this->cached_urls['prev_url'] ) ) {
+			return $this->cached_urls['prev_url'];
+		}
+
+		$prev_page  = $this->repository->prev()->order_by( '__none' );
+
 		$paged      = $this->url->get_current_page() - 1;
 		$query_args = $paged > 1
 			? [ $this->page_key => $paged ]
@@ -792,6 +822,8 @@ class View implements View_Interface {
 		}
 
 		$url = $this->filter_prev_url( $canonical, $url );
+
+		$this->cached_urls['prev_url'] = $url;
 
 		return $url;
 	}
@@ -995,8 +1027,15 @@ class View implements View_Interface {
 
 		$context_arr = $context->to_array();
 
+		/*
+		 * Note: we are setting events_per_page to +1 so we don't need to query twice to
+		 * determine if there are subsequent pages. When running setup_template_vars, we pop
+		 * the last item off the array if the returned posts are > events_per_page.
+		 *
+		 * @since 5.0.0
+		 */
 		$args = [
-			'posts_per_page'       => $context_arr['events_per_page'],
+			'posts_per_page'       => $context_arr['events_per_page'] + 1,
 			'paged'                => max( Arr::get_first_set( array_filter( $context_arr ), [
 				'paged',
 				'page',
@@ -1156,6 +1195,20 @@ class View implements View_Interface {
 		}
 
 		$events = (array) $this->repository->all();
+
+		/*
+		 * To optimize the determination of whether there are future events, we
+		 * increased events_per_page by +1 during setup_repository_args. Because of that
+		 * if the number of events returned are greater than events_per_page, we need to
+		 * pop an element off the end and set a boolean.
+		 *
+		 * @since 5.0.0
+		 */
+		if ( count( $events ) > $this->get_context()->get( 'events_per_page' ) ) {
+			array_pop( $events );
+
+			$this->has_next_event = true;
+		}
 
 		$this->setup_messages( $events );
 
