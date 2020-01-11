@@ -1171,7 +1171,11 @@ class View implements View_Interface {
 	 * {@inheritDoc}
 	 */
 	public function found_post_ids() {
-		return $this->repository->get_ids();
+		$events = $this->repository->get_ids();
+		if ( $this->has_next_event( $events ) ) {
+			array_pop( $events );
+		}
+		return $events;
 	}
 
 	/**
@@ -1179,6 +1183,42 @@ class View implements View_Interface {
 	 */
 	public static function is_publicly_visible() {
 		return static::$publicly_visible;
+	}
+
+	/**
+	 * Sets the has_next_event boolean flag, which determines if we have events in the next page.
+	 *
+	 * This flag is required due to being required to optimize the determination of whether
+	 * there are future events, we increased events_per_page by +1 during setup_repository_args. Because of that
+	 * if the number of events returned are greater than events_per_page, we need to
+	 * pop an element off the end and set a boolean.
+	 *
+	 * @since 5.0.0
+	 *
+	 * @param boolean $value Which value will be set to has_next_event, will be casted as boolean.
+	 *
+	 * @return mixed         Value passed after being saved and casted as boolean.
+	 */
+	public function set_has_next_event( $value ) {
+		return $this->has_next_event = (bool) $value;
+	}
+
+	/**
+	 * Determines from a given array of events if we have next events or not.
+	 *
+	 * @since 5.0.0
+	 *
+	 * @param array   $events          Array that will be counted to verify if we have events.
+	 * @param boolean $overwrite_flag  If we should overwrite the flag when we discover the result.
+	 *
+	 * @return mixed                   Weather the array of events has a next page.
+	 */
+	public function has_next_event( array $events, $overwrite_flag = true ) {
+		$has_next_events = count( $events ) > $this->get_context()->get( 'events_per_page', 12 );
+		if ( (bool) $overwrite_flag ) {
+			$this->set_has_next_event( $has_next_events );
+		}
+		return $has_next_events;
 	}
 
 	/**
@@ -1204,10 +1244,8 @@ class View implements View_Interface {
 		 *
 		 * @since 5.0.0
 		 */
-		if ( count( $events ) > $this->get_context()->get( 'events_per_page' ) ) {
+		if ( $this->has_next_event( $events ) ) {
 			array_pop( $events );
-
-			$this->has_next_event = true;
 		}
 
 		$this->setup_messages( $events );
