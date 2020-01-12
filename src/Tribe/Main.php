@@ -3812,7 +3812,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return bool Is it a venue?
 		 */
 		public function isVenue( $postId = null ) {
-			static $is_venue = [];
+			static $cache_var_name = __METHOD__;
+
+			$is_venue = tribe_get_var( $cache_var_name, [] );
 
 			if ( $postId === null || ! is_numeric( $postId ) ) {
 				global $post;
@@ -3827,10 +3829,13 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			if ( isset( $postId ) && get_post_field( 'post_type', $postId ) == Tribe__Events__Venue::POSTTYPE ) {
-				return $is_venue[ $postId ] = true;
+				$is_venue[ $postId ] = true;
+			} else {
+				$is_venue[ $postId ] = false;
 			}
 
-			return $is_venue[ $postId ] = false;
+			tribe_set_var( $cache_var_name, $is_venue );
+			return $is_venue[ $postId ];
 		}
 
 		/**
@@ -3841,7 +3846,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return bool Is it an organizer?
 		 */
 		public function isOrganizer( $postId = null ) {
-			static $is_organizer = [];
+			static $cache_var_name = __METHOD__;
+
+			$is_organizer = tribe_get_var( $cache_var_name, [] );
 
 			if ( $postId === null || ! is_numeric( $postId ) ) {
 				global $post;
@@ -3856,10 +3863,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			if ( isset( $postId ) && get_post_field( 'post_type', $postId ) == Tribe__Events__Organizer::POSTTYPE ) {
-				return $is_organizer[ $postId ] = true;
+				$is_organizer[ $postId ] = true;
+			} else {
+				$is_organizer[ $postId ] = false;
 			}
 
-			return $is_organizer[ $postId ] = false;
+			tribe_set_var( $cache_var_name, $is_organizer );
+
+			return $is_organizer[ $postId ];
 		}
 
 		/**
