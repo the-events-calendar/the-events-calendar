@@ -2648,16 +2648,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					}
 					break;
 				case 'list':
-					$event_url = trailingslashit( esc_url_raw( $event_url . $this->listSlug ) );
-					break;
 				case 'upcoming':
 					$event_url = trailingslashit( esc_url_raw( $event_url . $this->listSlug ) );
 					break;
 				case 'past':
 					$event_url = esc_url_raw( add_query_arg( 'tribe_event_display', 'past', trailingslashit( $event_url . $this->listSlug ) ) );
-					break;
-				case 'dropdown':
-					$event_url = esc_url_raw( $event_url );
 					break;
 				case 'single':
 					global $post;
@@ -2680,11 +2675,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Filter get link
 			$event_url = apply_filters( 'tribe_events_get_link', $event_url, $type, $secondary, $term, $url_args, $featured );
-
-			/**
-			 * @deprecated 4.3
-			 */
-			$event_url = apply_filters( 'tribe_events_getLink', $event_url, $type, $secondary, $term, $url_args );
 
 			// Add the Arguments back
 			$event_url = add_query_arg( $url_args, $event_url );
