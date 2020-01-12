@@ -101,9 +101,17 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 		$post = false;
 
 		if ( ! $force ) {
-			// Use the `post_password` field as we show/hide some information depending on that.
-			$post_password = get_post_field( 'post_password', $event );
-			$cache_key     = 'tribe_get_event_' . md5( json_encode( [ $event->ID, $event->post_modified, $event->post_modified_gmt, $output, $filter, $post_password ] ) );
+
+			$key_fields    = [
+				get_post_field( 'ID', $event ),
+				get_post_field( 'post_modified', $event ),
+				// Use the `post_password` field as we show/hide some information depending on that.
+				get_post_field( 'post_password', $event ),
+				$output,
+				$filter
+			];
+
+			$cache_key     = 'tribe_get_event_' . md5( json_encode( $key_fields ) );
 			/** @var Tribe__Cache $cache */
 			$cache = tribe( 'cache' );
 			$post  = $cache->get( $cache_key, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
