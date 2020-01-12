@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.13
+ * @version 5.0.0
  *
  * @var string    $now                        The current date and time in the `Y-m-d H:i:s` format.
  * @var string    $grid_date                  The current calendar grid date in the `Y-m-d` format.
