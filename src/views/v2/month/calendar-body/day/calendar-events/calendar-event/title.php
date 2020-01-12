@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTICLE_LINK_HERE}
  *
- * @version 4.9.13
+ * @version 5.0.0
  *
  * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
  *
@@ -27,6 +27,9 @@
 		data-tooltip-content="#tribe-events-tooltip-content-<?php echo esc_attr( $event->ID ); ?>"
 		aria-describedby="tribe-events-tooltip-content-<?php echo esc_attr( $event->ID ); ?>"
 	>
-		<?php echo $event->title; ?>
+		<?php
+		// phpcs:ignore
+		echo $event->title;
+		?>
 	</a>
 </h3>

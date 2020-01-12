@@ -38,9 +38,13 @@ trait HTML_Cache {
 
 		$cache_key = $this->get_cache_html_key();
 
-		if ( $cached_html = tribe( 'cache' )->get_transient( $cache_key, $this->cache_html_triggers() ) ) {
-			return $cached_html;
+		$cached_html = tribe( 'cache' )->get_transient( $cache_key, $this->cache_html_triggers() );
+
+		if ( ! $cached_html ) {
+			return;
 		}
+
+		return $cached_html;
 	}
 
 	/**
@@ -130,7 +134,7 @@ trait HTML_Cache {
 
 		unset( $args['now'] );
 
-		$cache_key = 'tribe_views_v2_cache_' . substr( sha1( json_encode( $args ) ), 0, 12 ) . ':';
+		$cache_key = 'tribe_views_v2_cache_' . substr( sha1( wp_json_encode( $args ) ), 0, 12 ) . ':';
 
 		/**
 		 * Filter the cached html key for v2 event views
@@ -156,32 +160,34 @@ trait HTML_Cache {
 	 *
 	 * @since 5.0.0
 	 *
+	 * @param \Tribe__Context $context Context object of the request.
+	 *
 	 * @return bool
 	 */
 	protected function should_enable_html_cache( $context ) {
 		$event_date = $context->get( 'event_date' );
 
-		// Respect the month view caching setting
+		// Respect the month view caching setting.
 		if ( ! tribe_get_option( 'enable_month_view_cache', true ) ) {
 			return false;
 		}
 
-		// Default to always caching the current month
+		// Default to always caching the current month.
 		if ( ! $event_date ) {
 			return true;
 		}
 
-		// If the eventDate argument is not in the expected format then do not cache
+		// If the eventDate argument is not in the expected format then do not cache.
 		if ( ! preg_match( '/^[0-9]{4}-[0-9]{1,2}$/', $event_date ) ) {
 			return false;
 		}
 
-		// If the requested month is more than 2 months in the past, do not cache
+		// If the requested month is more than 2 months in the past, do not cache.
 		if ( $event_date < Dates::build_date_object( '-2 months' )->format( Dates::DBYEARMONTHTIMEFORMAT ) ) {
 			return false;
 		}
 
-		// If the requested month is more than 1yr in the future, do not cache
+		// If the requested month is more than 1yr in the future, do not cache.
 		if ( $event_date > Dates::build_date_object( '+1 year' )->format( Dates::DBYEARMONTHTIMEFORMAT ) ) {
 			return false;
 		}

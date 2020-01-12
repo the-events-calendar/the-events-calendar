@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTICLE_LINK_HERE}
  *
- * @version 4.9.13
+ * @version 5.0.0
  *
  * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
  *
@@ -24,6 +24,9 @@
 		rel="bookmark"
 		class="tribe-events-calendar-month__calendar-event-tooltip-title-link tribe-common-anchor-thin"
 	>
-		<?php echo $event->title; ?>
+		<?php
+		// phpcs:ignore
+		echo $event->title;
+		?>
 	</a>
 </h3>
