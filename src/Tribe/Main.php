@@ -2582,7 +2582,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return string The link.
 		 */
 		public function getLink( $type = 'home', $secondary = false, $term = null, $featured = null ) {
-			static $cache_event_url_slugs = [];
+			static $cache_var_name = __METHOD__;
 
 			// if permalinks are off or user doesn't want them: ugly.
 			if ( '' === get_option( 'permalink_structure' ) ) {
@@ -2617,8 +2617,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Append Events structure
 			$slug = _x( Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' ), 'Archive Events Slug', 'the-events-calendar' );
 
+			$cache_event_url_slugs = tribe_get_var( $cache_var_name, [] );
+
 			if ( ! isset( $cache_event_url_slugs[ $slug ] ) ) {
 				$cache_event_url_slugs[ $slug ] = trailingslashit( sanitize_title( $slug ) );
+				tribe_set_var( $cache_var_name, $cache_event_url_slugs );
 			}
 
 			$event_url .= $cache_event_url_slugs[ $slug ];
