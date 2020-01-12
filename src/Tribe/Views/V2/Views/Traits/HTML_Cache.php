@@ -12,6 +12,7 @@ namespace Tribe\Events\Views\V2\Views\Traits;
 use Tribe__Cache_Listener as Cache_Listener;
 use Tribe__Context as Context;
 use Tribe__Date_Utils as Dates;
+use Tribe\Events\Views\V2\View;
 
 /**
  * Trait HTML_Cache
@@ -53,6 +54,8 @@ trait HTML_Cache {
 	 * @since 5.0.0
 	 *
 	 * @param string $html HTML markup for view.
+	 *
+	 * @return boolean     If we successfully cached on the transient.
 	 */
 	public function maybe_cache_html( $html ) {
 		/**
@@ -60,19 +63,19 @@ trait HTML_Cache {
 		 *
 		 * @since 5.0.0
 		 *
-		 * @param int     $cache_ttl Cache time to live.
-		 * @param Context $context   The View current context.
-		 * @param View    $this      The current View instance.
+		 * @param int      $cache_ttl Cache time to live.
+		 * @param Context  $context   The View current context.
+		 * @param View     $this      The current View instance.
 		 */
 		$cache_expiration = apply_filters( 'tribe_events_views_v2_cache_html_expiration', DAY_IN_SECONDS, $this->get_context(), $this );
 
 		$cache_key = $this->get_cache_html_key();
 
 		if ( ! $this->should_cache_html() ) {
-			return;
+			return false;
 		}
 
-		tribe( 'cache' )->set_transient( $cache_key, $html, $cache_expiration, $this->cache_html_triggers() );
+		return tribe( 'cache' )->set_transient( $cache_key, $html, $cache_expiration, $this->cache_html_triggers() );
 	}
 
 	/**
@@ -160,7 +163,7 @@ trait HTML_Cache {
 	 *
 	 * @since 5.0.0
 	 *
-	 * @param \Tribe__Context $context Context object of the request.
+	 * @param  Context $context Context object of the request.
 	 *
 	 * @return bool
 	 */
