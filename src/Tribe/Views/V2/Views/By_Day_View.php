@@ -29,6 +29,8 @@ use Tribe__Utils__Array as Arr;
 abstract class By_Day_View extends View {
 	use Cache_User;
 
+	const CHUNK_SIZE = 200;
+
 	/**
 	 * The date input by the user, either by selecting the default view or using the bar.
 	 *
@@ -185,7 +187,7 @@ abstract class By_Day_View extends View {
 			}
 
 			$results = [];
-			$request_chunks = array_chunk( $day_ids, 200 );
+			$request_chunks = array_chunk( $day_ids, $this->get_chunk_size() );
 
 			foreach ( $request_chunks as $chunk_ids ) {
 				$sql = "
@@ -480,7 +482,7 @@ abstract class By_Day_View extends View {
 
 		$events = [];
 
-		$event_id_chunks = array_chunk( $event_ids, 200 );
+		$event_id_chunks = array_chunk( $event_ids, $this->get_chunk_size() );
 		foreach ( $event_id_chunks as $ids ) {
 			// Prefetch provided events in a single query.
 			$event_results = tribe_events()
@@ -571,5 +573,25 @@ abstract class By_Day_View extends View {
 	protected function using_period_repository() {
 		return defined( 'TRIBE_EVENTS_V2_VIEWS_USE_PERIOD_REPOSITORY' )
 		       && TRIBE_EVENTS_V2_VIEWS_USE_PERIOD_REPOSITORY;
+	}
+
+	/**
+	 * Gets the current desired chunk size for breaking up batched queries.
+	 *
+	 * @since 5.0.0
+	 *
+	 * @return int
+	 */
+	protected function get_chunk_size() {
+		/**
+		 * Filters the chunk size used for building grid dates.
+		 *
+		 * @since 5.0.0
+		 *
+		 * @param int $chunk_size Max number of values to query at a time.
+		 * @param \Tribe__Context $context Context of request.
+		 * @param By_Day_View $view Current view object.
+		 */
+		return apply_filters( 'tribe_events_views_v2_by_day_view_chunk_size', self::CHUNK_SIZE, $this->get_context(), $this );
 	}
 }

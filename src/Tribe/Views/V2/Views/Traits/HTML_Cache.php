@@ -86,13 +86,11 @@ trait HTML_Cache {
 	 * @return array
 	 */
 	protected function cache_html_triggers() {
-		$triggers = [
+		return [
 			Cache_Listener::TRIGGER_SAVE_POST,
 			Cache_Listener::TRIGGER_UPDATED_OPTION,
 			Cache_Listener::TRIGGER_GENERATE_REWRITE_RULES,
 		];
-
-		return $triggers;
 	}
 
 	/**
