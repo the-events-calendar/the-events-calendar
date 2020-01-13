@@ -576,6 +576,8 @@ class View implements View_Interface {
 			$this->maybe_cache_html( $html );
 		}
 
+		remove_filter( 'tribe_repository_query_arg_offset_override', [ $this, 'filter_repository_query_arg_offset_override' ], 10, 2 );
+
 		return $html;
 	}
 
@@ -1042,7 +1044,14 @@ class View implements View_Interface {
 			], 1 ), 1 ),
 			'search'               => $context->get( 'keyword', '' ),
 			'hidden_from_upcoming' => false,
+			/*
+			 * Passing this parameter that is only used in this object to control whether or not the
+			 * offset value should be overridden with the `tribe_repository_query_arg_offset_override` filter.
+			 */
+			'view_override_offset'      => true,
 		];
+
+		add_filter( 'tribe_repository_query_arg_offset_override', [ $this, 'filter_repository_query_arg_offset_override' ], 10, 2 );
 
 		// Set's up category URL for all views.
 		if ( ! empty( $context_arr[ TEC::TAXONOMY ] ) ) {
@@ -1057,6 +1066,33 @@ class View implements View_Interface {
 		}
 
 		return $args;
+	}
+
+	/**
+	 * Filters the offset value separate from the posts_per_page/paged calculation.
+	 *
+	 * This allows us to save a query when determining pagination for list-like views.
+	 *
+	 * @since 5.0.0
+	 *
+	 * @param null|int $offset_override Offset override value.
+	 * @param \WP_Query $query WP Query object.
+	 *
+	 * @return null|int
+	 */
+	public function filter_repository_query_arg_offset_override( $offset_override, $query ) {
+		if ( ! isset( $query['view_override_offset'] ) ) {
+			return $offset_override;
+		}
+
+		$context = $this->get_context();
+
+		$current_page = max(
+			$context->get( 'page' ),
+			$context->get( 'paged' ),
+			1
+		);
+		return ( $current_page - 1 ) * $this->get_context()->get( 'events_per_page' );
 	}
 
 	/**
