@@ -22,6 +22,6 @@ class Index extends Template {
 	 * Overrides the base implementation to allow plugins and themes to override the index file.
 	 */
 	public function __construct() {
-		parent::__construct( 'index' );
+		parent::__construct( 'default-template' );
 	}
 }
