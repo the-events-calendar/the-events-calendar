@@ -21,6 +21,11 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 		// before
 		parent::setUp();
 
+		tribe_unset_var( 'Tribe__Rewrite::get_handled_rewrite_rules' );
+		tribe_unset_var( 'Tribe__Rewrite::get_localized_matchers' );
+		tribe_unset_var( 'Tribe__Rewrite::get_rules_query_vars' );
+		tribe_unset_var( \Tribe__Settings_Manager::OPTION_CACHE_VAR_NAME );
+
 		// your set up methods here
 		$this->wp_rewrite = $this->prophesize( 'WP_Rewrite' );
 		// Let's make sure to set rewrite rules.

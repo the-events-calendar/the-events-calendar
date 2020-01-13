@@ -131,7 +131,9 @@ class Tribe__Events__Timezones extends Tribe__Timezones {
 	 * @return int
 	 */
 	protected static function get_event_timestamp( $event_id, $type = 'Start', $timezone = null ) {
-		static $timestamps = [];
+		static $cache_var_name = __METHOD__;
+
+		$timestamps = tribe_get_var( $cache_var_name, [] );
 
 		$cache_key = "{$event_id}:{$type}:{$timezone}";
 
@@ -172,7 +174,11 @@ class Tribe__Events__Timezones extends Tribe__Timezones {
 			: $timezone;
 
 		$localized = self::to_tz( $datetime, $tzstring );
-		return $timestamps[ $cache_key ] = strtotime( $localized );
+		$timestamps[ $cache_key ] = strtotime( $localized );
+
+		tribe_set_var( $cache_var_name, $timestamps );
+
+		return $timestamps[ $cache_key ];
 	}
 
 

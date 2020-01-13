@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version TBD
+ * @version 5.0.0
  *
  * @var bool $is_initial_load Boolean on whether view is being loaded for the first time.
  */

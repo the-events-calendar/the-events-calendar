@@ -1037,6 +1037,8 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string The human-readable event schedule details formatted according to the current settings.
 	 */
 	function tribe_events_event_schedule_details( $event = null, $before = '', $after = '', $html = true ) {
+		static $cache_var_name = __FUNCTION__;
+
 		if ( is_null( $event ) ) {
 			global $post;
 			$event = $post;
@@ -1051,7 +1053,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			return '';
 		}
 
-		static $cache_details = [];
+		$cache_details = tribe_get_var( $cache_var_name, [] );
 		$cache_details_key    = "{$event->ID}:{$before}:{$after}:{$html}";
 
 		if ( ! isset( $cache_details[ $cache_details_key ] ) ) {
@@ -1143,6 +1145,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$inner .= $html ? '</span>' : '';
 
 			$cache_details[ $cache_details_key ] = $inner;
+			tribe_set_var( $cache_var_name, $cache_details );
 		}
 
 		/**
@@ -1460,7 +1463,9 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string|null Will return null on Bad Post Instances
 	 */
 	function tribe_events_get_the_excerpt( $post = null, $allowed_html = null, $skip_postdata_manipulation = false ) {
-		static $cache_excerpts = [];
+		static $cache_var_name = __FUNCTION__;
+
+		$cache_excerpts = tribe_get_var( $cache_var_name, [] );
 
 		// If post is not numeric or instance of WP_Post it defaults to the current Post ID
 		if ( ! is_numeric( $post ) && ! $post instanceof WP_Post ) {
@@ -1581,6 +1586,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			$cache_excerpts[ $cache_excerpts_key ] = wpautop( $excerpt );
+			tribe_set_var( $cache_var_name, $cache_excerpts );
 		}
 
 		if ( ! $skip_postdata_manipulation ) {

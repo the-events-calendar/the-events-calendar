@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.13
+ * @version 5.0.0
  *
  * @var string $day_date        The `Y-m-d` date of the day currently being displayed.
  * @var string $today_date      Today's date in the `Y-m-d` format.
@@ -93,7 +93,10 @@ if ( $should_display ) {
 					></em>
 				<?php endif; ?>
 				<h3 class="tribe-events-calendar-month__multiday-event-hidden-title tribe-common-h8">
-					<?php echo wp_kses_post( get_the_title( $event->ID ) ); ?>
+					<?php
+					// phpcs:ignore
+					echo $event->title;
+					?>
 				</h3>
 			</a>
 		</div>
@@ -108,7 +111,10 @@ if ( $should_display ) {
 						></em>
 					<?php endif; ?>
 					<h3 class="tribe-events-calendar-month__multiday-event-bar-title tribe-common-h8">
-						<?php echo wp_kses_post( get_the_title( $event->ID ) ); ?>
+						<?php
+						// phpcs:ignore
+						echo $event->title;
+						?>
 					</h3>
 				</div>
 			</div>

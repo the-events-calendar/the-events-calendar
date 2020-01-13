@@ -863,7 +863,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Register all of the post types in the chunker and start the chunker
 			add_filter( 'tribe_meta_chunker_post_types', array( $this, 'filter_meta_chunker_post_types' ) );
-			tribe( 'chunker' );
 
 			// Purge old events
 			add_action( 'update_option_' . Tribe__Main::OPTIONNAME, tribe_callback( 'tec.event-cleaner', 'move_old_events_to_trash' ), 10, 2 );
@@ -2583,6 +2582,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return string The link.
 		 */
 		public function getLink( $type = 'home', $secondary = false, $term = null, $featured = null ) {
+			static $cache_var_name = __METHOD__;
+
 			// if permalinks are off or user doesn't want them: ugly.
 			if ( '' === get_option( 'permalink_structure' ) ) {
 				return esc_url_raw( $this->uglyLink( $type, $secondary ) );
@@ -2615,7 +2616,15 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Append Events structure
 			$slug = _x( Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' ), 'Archive Events Slug', 'the-events-calendar' );
-			$event_url .= trailingslashit( sanitize_title( $slug ) );
+
+			$cache_event_url_slugs = tribe_get_var( $cache_var_name, [] );
+
+			if ( ! isset( $cache_event_url_slugs[ $slug ] ) ) {
+				$cache_event_url_slugs[ $slug ] = trailingslashit( sanitize_title( $slug ) );
+				tribe_set_var( $cache_var_name, $cache_event_url_slugs );
+			}
+
+			$event_url .= $cache_event_url_slugs[ $slug ];
 
 			// if we're on an Event Cat, show the cat link, except for home and days.
 			if ( $type !== 'home' && is_tax( self::TAXONOMY ) && $term !== false && ! is_numeric( $term ) ) {
@@ -2642,16 +2651,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					}
 					break;
 				case 'list':
-					$event_url = trailingslashit( esc_url_raw( $event_url . $this->listSlug ) );
-					break;
 				case 'upcoming':
 					$event_url = trailingslashit( esc_url_raw( $event_url . $this->listSlug ) );
 					break;
 				case 'past':
 					$event_url = esc_url_raw( add_query_arg( 'tribe_event_display', 'past', trailingslashit( $event_url . $this->listSlug ) ) );
-					break;
-				case 'dropdown':
-					$event_url = esc_url_raw( $event_url );
 					break;
 				case 'single':
 					global $post;
@@ -2674,11 +2678,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Filter get link
 			$event_url = apply_filters( 'tribe_events_get_link', $event_url, $type, $secondary, $term, $url_args, $featured );
-
-			/**
-			 * @deprecated 4.3
-			 */
-			$event_url = apply_filters( 'tribe_events_getLink', $event_url, $type, $secondary, $term, $url_args );
 
 			// Add the Arguments back
 			$event_url = add_query_arg( $url_args, $event_url );
@@ -3024,6 +3023,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				require_once dirname( __FILE__ ) . '/Aggregator/Records.php';
 				require_once dirname( __FILE__ ) . '/Deactivation.php';
 			}
+
+			if ( ! class_exists( 'Tribe__Cache' ) ) {
+				require_once dirname( dirname( __FILE__ ) ) . '/common/src/Tribe/Cache.php';
+			}
+
+			wp_clear_scheduled_hook( \Tribe__Cache::SCHEDULED_EVENT_DELETE_TRANSIENT );
 
 			$deactivation = new Tribe__Events__Deactivation( $network_deactivating );
 			add_action( 'shutdown', array( $deactivation, 'deactivate' ) );
@@ -3807,7 +3812,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return bool Is it a venue?
 		 */
 		public function isVenue( $postId = null ) {
-			static $is_venue = [];
+			static $cache_var_name = __METHOD__;
+
+			$is_venue = tribe_get_var( $cache_var_name, [] );
 
 			if ( $postId === null || ! is_numeric( $postId ) ) {
 				global $post;
@@ -3822,10 +3829,13 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			if ( isset( $postId ) && get_post_field( 'post_type', $postId ) == Tribe__Events__Venue::POSTTYPE ) {
-				return $is_venue[ $postId ] = true;
+				$is_venue[ $postId ] = true;
+			} else {
+				$is_venue[ $postId ] = false;
 			}
 
-			return $is_venue[ $postId ] = false;
+			tribe_set_var( $cache_var_name, $is_venue );
+			return $is_venue[ $postId ];
 		}
 
 		/**
@@ -3836,7 +3846,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return bool Is it an organizer?
 		 */
 		public function isOrganizer( $postId = null ) {
-			static $is_organizer = [];
+			static $cache_var_name = __METHOD__;
+
+			$is_organizer = tribe_get_var( $cache_var_name, [] );
 
 			if ( $postId === null || ! is_numeric( $postId ) ) {
 				global $post;
@@ -3851,10 +3863,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			if ( isset( $postId ) && get_post_field( 'post_type', $postId ) == Tribe__Events__Organizer::POSTTYPE ) {
-				return $is_organizer[ $postId ] = true;
+				$is_organizer[ $postId ] = true;
+			} else {
+				$is_organizer[ $postId ] = false;
 			}
 
-			return $is_organizer[ $postId ] = false;
+			tribe_set_var( $cache_var_name, $is_organizer );
+
+			return $is_organizer[ $postId ];
 		}
 
 		/**
