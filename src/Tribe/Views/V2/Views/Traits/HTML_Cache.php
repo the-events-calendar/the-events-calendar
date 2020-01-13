@@ -104,11 +104,11 @@ trait HTML_Cache {
 		$context = $this->get_context();
 
 		$cached_views = [
-			'month',
-			'week',
+			'month' => true,
+			'week' => true,
 		];
 
-		$should_cache = in_array( $this->get_slug(), $cached_views ) && $this->should_enable_html_cache( $context );
+		$should_cache = isset( $cached_views[ $this->get_slug() ] ) && $this->should_enable_html_cache( $context );
 
 		/**
 		 * Should the v2 view HTML be cached?
