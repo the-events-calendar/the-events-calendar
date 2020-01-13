@@ -1335,7 +1335,6 @@ class View implements View_Interface {
 			'container_classes'      => $this->get_html_classes(),
 			'container_data'         => $this->get_container_data(),
 			'is_past'                => 'past' === $this->context->get( 'event_display_mode', false ),
-			'show_datepicker_submit' => $this->get_show_datepicker_submit(),
 			'breakpoints'            => $this->get_breakpoints(),
 			'is_initial_load'        => $this->context->doing_php_initial_state(),
 			'public_views'           => $this->get_public_views( $url_event_date ),
@@ -1890,42 +1889,6 @@ class View implements View_Interface {
 		$ical_data = apply_filters( "tribe_events_views_v2_view_{$this->slug}_ical_data", $ical_data, $this );
 
 		return $ical_data;
-	}
-
-	/**
-	 * Returns a boolean on whether to show the datepicker submit button.
-	 *
-	 * @since 4.9.13
-	 *
-	 * @return bool
-	 */
-	protected function get_show_datepicker_submit() {
-		$live_refresh       = tribe_is_truthy( tribe_get_option( 'liveFiltersUpdate', true ) );
-		$disable_events_bar = tribe_is_truthy( tribe_get_option( 'tribeDisableTribeBar', false ) );
-
-		$show_datepicker_submit = empty( $live_refresh ) && ! empty( $disable_events_bar );
-
-		/**
-		 * Filters the show datepicker submit value.
-		 *
-		 * @since TBD
-		 *
-		 * @param object $show_datepicker_submit The show datepicker submit value.
-		 * @param View   $this                   The current View instance being rendered.
-		 */
-		$show_datepicker_submit = apply_filters( "tribe_events_views_v2_view_show_datepicker_submit", $show_datepicker_submit, $this );
-
-		/**
-		 * Filters the show datepicker submit value for a specific view.
-		 *
-		 * @since TBD
-		 *
-		 * @param object $show_datepicker_submit The show datepicker submit value.
-		 * @param View   $this                   The current View instance being rendered.
-		 */
-		$show_datepicker_submit = apply_filters( "tribe_events_views_v2_view_{$this->slug}_show_datepicker_submit", $show_datepicker_submit, $this );
-
-		return $show_datepicker_submit;
 	}
 
 	/**

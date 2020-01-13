@@ -21,7 +21,11 @@
 	data-js="tribe-events-view-data"
 	type="application/json"
 >
+<<<<<<< HEAD
 	{"slug":"list","prev_url":"","next_url":"http:\\/\\/test.tri.be\\/events\\/list\\/?tribe-bar-date=2019-01-01 09:00:00","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_slug":"list","view_label":"List","view":{},"title":"Search Results for &#8220;&#8221; &#8211; The Events Calendar Tests","events":[7,8],"url":"http:\\/\\/test.tri.be\\/events\\/list\\/?tribe-bar-date=2019-01-01 09:00:00","url_event_date":"2019-01-01","bar":{"keyword":"","date":"2019-01-01 09:00:00"},"today":"2019-01-01 09:00:00","now":"2019-01-01 09:00:00","request_date":{"date":"2019-01-01 09:00:00.000000","timezone_type":3,"timezone":"UTC"},"rest_url":"http:\\/\\/test.tri.be\\/index.php?rest_route=\\/tribe\\/views\\/v2\\/html","rest_nonce":"2ab7cc6b39","should_manage_url":true,"today_url":"http:\\/\\/test.tri.be\\/events\\/list\\/","prev_label":"","next_label":"2019-01-01","date_formats":{"compact":"n\\/j\\/Y","month_and_year_compact":"n\\/j\\/Y","month_and_year":"F Y","time_range_separator":" - ","date_time_separator":" @ "},"messages":[],"start_of_week":"1","breadcrumbs":[],"before_events":"","after_events":"\\n<!--\\nThis calendar is powered by The Events Calendar.\\nhttp:\\/\\/m.tri.be\\/18wn\\n-->\\n","display_events_bar":true,"disable_event_search":false,"live_refresh":true,"ical":{"display_link":true,"link":{"url":"http:\\/\\/test.tri.be\\/events\\/?ical=1","text":"Export Events","title":"Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps"}},"container_classes":["tribe-common","tribe-events","tribe-events-view","tribe-events-view--list"],"container_data":[],"is_past":false,"show_datepicker_submit":false,"breakpoints":{"xsmall":500,"medium":768,"full":960},"is_initial_load":true,"public_views":{"list":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_url":"http:\\/\\/test.tri.be\\/events\\/list\\/?tribe-bar-date=2019-01-01","view_label":"List"},"month":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Month_View","view_url":"http:\\/\\/test.tri.be\\/events\\/month\\/2019-01\\/","view_label":"Month"},"day":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Day_View","view_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-01\\/","view_label":"Day"}},"show_now":true,"now_label":"Now","now_label_mobile":"Now","show_end":false,"selected_start_datetime":"2019-01-01","selected_start_date_mobile":"1\\/1\\/2019","selected_start_date_label":"January 1","selected_end_datetime":"2019-06-20","selected_end_date_mobile":"6\\/20\\/2019","selected_end_date_label":"June 20, 2019","datepicker_date":"1\\/1\\/2019"}</script>
+=======
+	{"slug":"list","prev_url":"","next_url":"http:\\/\\/test.tri.be\\/?tribe-bar-date=2019-01-01 09:00:00&post_type=tribe_events&eventDisplay=list&paged=1","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_slug":"list","view_label":"List","view":{},"title":"Search Results for &#8220;&#8221; &#8211; The Events Calendar Tests","events":[{"ID":7,"post_author":"0","post_date":"2019-06-11 13:59:35","post_date_gmt":"2019-06-11 13:59:35","post_content":"","post_title":"Test Event - +9 days","post_excerpt":"","post_status":"publish","comment_status":"open","ping_status":"closed","post_password":"","post_name":"test-event-9-days-2","to_ping":"","pinged":"","post_modified":"2019-06-11 13:59:35","post_modified_gmt":"2019-06-11 13:59:35","post_content_filtered":"","post_parent":0,"guid":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-9-days-2","menu_order":0,"post_type":"tribe_events","post_mime_type":"","comment_count":"0","filter":"raw","start_date":"2019-06-20 13:01:20","start_date_utc":"2019-06-20 13:01:20","end_date":"2019-06-20 17:01:20","end_date_utc":"2019-06-20 17:01:20","dates":{"start":{"date":"2019-06-20 13:01:20.000000","timezone_type":3,"timezone":"UTC"},"start_utc":{"date":"2019-06-20 13:01:20.000000","timezone_type":3,"timezone":"UTC"},"start_site":{"date":"2019-06-20 13:01:20.000000","timezone_type":3,"timezone":"UTC"},"start_display":{"date":"2019-06-20 13:01:20.000000","timezone_type":3,"timezone":"UTC"},"end":{"date":"2019-06-20 17:01:20.000000","timezone_type":3,"timezone":"UTC"},"end_utc":{"date":"2019-06-20 17:01:20.000000","timezone_type":3,"timezone":"UTC"},"end_site":{"date":"2019-06-20 17:01:20.000000","timezone_type":3,"timezone":"UTC"},"end_display":{"date":"2019-06-20 17:01:20.000000","timezone_type":3,"timezone":"UTC"}},"timezone":"UTC+0","duration":14400,"multiday":false,"is_past":true,"all_day":false,"starts_this_week":null,"ends_this_week":null,"this_week_duration":null,"happens_this_week":null,"featured":true,"sticky":false,"cost":"","excerpt":"","organizers":[],"venues":[],"thumbnail":{},"permalink":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-9-days-2","schedule_details":"<span class=\\"tribe-event-date-start\\">June 20 @ 1:01 pm<\\/span> - <span class=\\"tribe-event-time\\">5:01 pm<\\/span>","plain_schedule_details":"June 20 @ 1:01 pm - 5:01 pm"},{"ID":8,"post_author":"1","post_date":"2019-06-11 13:59:35","post_date_gmt":"2019-06-11 13:59:35","post_content":"","post_title":"Single Event 1","post_excerpt":"","post_status":"publish","comment_status":"open","ping_status":"closed","post_password":"","post_name":"single-event-1","to_ping":"","pinged":"","post_modified":"2019-06-11 13:59:35","post_modified_gmt":"2019-06-11 13:59:35","post_content_filtered":"","post_parent":0,"guid":"http:\\/\\/test.tri.be\\/?tribe_events=test-event-9-days-2","menu_order":0,"post_type":"tribe_events","post_mime_type":"","comment_count":"0","filter":"raw","start_date":"2019-06-20 13:04:08","start_date_utc":"2019-06-20 13:04:08","end_date":"2019-06-20 17:04:08","end_date_utc":"2019-06-20 17:04:08","dates":{"start":{"date":"2019-06-20 13:04:08.000000","timezone_type":3,"timezone":"UTC"},"start_utc":{"date":"2019-06-20 13:04:08.000000","timezone_type":3,"timezone":"UTC"},"start_site":{"date":"2019-06-20 13:04:08.000000","timezone_type":3,"timezone":"UTC"},"start_display":{"date":"2019-06-20 13:04:08.000000","timezone_type":3,"timezone":"UTC"},"end":{"date":"2019-06-20 17:04:08.000000","timezone_type":3,"timezone":"UTC"},"end_utc":{"date":"2019-06-20 17:04:08.000000","timezone_type":3,"timezone":"UTC"},"end_site":{"date":"2019-06-20 17:04:08.000000","timezone_type":3,"timezone":"UTC"},"end_display":{"date":"2019-06-20 17:04:08.000000","timezone_type":3,"timezone":"UTC"}},"timezone":"UTC+0","duration":14400,"multiday":false,"is_past":true,"all_day":false,"starts_this_week":null,"ends_this_week":null,"this_week_duration":null,"happens_this_week":null,"featured":false,"sticky":false,"cost":"","excerpt":"","organizers":[],"venues":[],"thumbnail":{},"permalink":"http:\\/\\/test.tri.be\\/?tribe_events=single-event-1","schedule_details":"<span class=\\"tribe-event-date-start\\">June 20 @ 1:04 pm<\\/span> - <span class=\\"tribe-event-time\\">5:04 pm<\\/span>","plain_schedule_details":"June 20 @ 1:04 pm - 5:04 pm"}],"url":"http:\\/\\/test.tri.be\\/events\\/list\\/?tribe-bar-date=2019-01-01 09:00:00","url_event_date":"2019-01-01","bar":{"keyword":"","date":"2019-01-01 09:00:00"},"today":"2019-01-01 09:00:00","now":"2019-01-01 09:00:00","request_date":{"date":"2019-01-01 09:00:00.000000","timezone_type":3,"timezone":"UTC"},"rest_url":"http:\\/\\/test.tri.be\\/index.php?rest_route=\\/tribe\\/views\\/v2\\/html","rest_nonce":"2ab7cc6b39","should_manage_url":true,"today_url":"http:\\/\\/test.tri.be\\/events\\/list\\/","prev_label":"","next_label":"2019-01-01","date_formats":{"compact":"n\\/j\\/Y","month_and_year_compact":"n\\/j\\/Y","month_and_year":"F Y","time_range_separator":" - ","date_time_separator":" @ "},"messages":[],"start_of_week":"1","breadcrumbs":[],"before_events":"","after_events":"\\n<!--\\nThis calendar is powered by The Events Calendar.\\nhttp:\\/\\/m.tri.be\\/18wn\\n-->\\n","display_events_bar":true,"disable_event_search":false,"live_refresh":true,"ical":{"display_link":true,"link":{"url":"http:\\/\\/test.tri.be\\/events\\/?ical=1","text":"Export Events","title":"Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps"}},"container_classes":["tribe-common","tribe-events","tribe-events-view","tribe-events-view--list"],"container_data":[],"is_past":false,"breakpoints":{"xsmall":500,"medium":768,"full":960},"is_initial_load":true,"public_views":{"list":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_url":"http:\\/\\/test.tri.be\\/events\\/list\\/?tribe-bar-date=2019-01-01","view_label":"List"},"month":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Month_View","view_url":"http:\\/\\/test.tri.be\\/events\\/month\\/2019-01\\/","view_label":"Month"},"day":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Day_View","view_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-01\\/","view_label":"Day"}},"show_now":true,"now_label":"Now","now_label_mobile":"Now","show_end":false,"selected_start_datetime":"2019-01-01","selected_start_date_mobile":"1\\/1\\/2019","selected_start_date_label":"January 1","selected_end_datetime":"2019-06-20","selected_end_date_mobile":"6\\/20\\/2019","selected_end_date_label":"June 20, 2019","datepicker_date":"1\\/1\\/2019"}</script>
+>>>>>>> 7c5a00874ebad95b40cda12a434002d2aa9ae13a
 
 		
 		<header  class="tribe-events-header tribe-events-header--has-event-search" >
@@ -187,42 +191,40 @@
 >
 	Today</a>
 
-	
 	<div class="tribe-events-c-top-bar__datepicker">
-		<button
-			class="tribe-common-h3 tribe-common-h--alt tribe-events-c-top-bar__datepicker-button"
-			data-js="tribe-events-top-bar-datepicker-button"
-			type="button"
+	<button
+		class="tribe-common-h3 tribe-common-h--alt tribe-events-c-top-bar__datepicker-button"
+		data-js="tribe-events-top-bar-datepicker-button"
+		type="button"
+	>
+		<time
+			datetime="2019-01-01"
+			class="tribe-events-c-top-bar__datepicker-time"
 		>
-			<time
-				datetime="2019-01-01"
-				class="tribe-events-c-top-bar__datepicker-time"
-			>
-									<span class="tribe-events-c-top-bar__datepicker-mobile">
-						Now					</span>
-					<span class="tribe-events-c-top-bar__datepicker-desktop tribe-common-a11y-hidden">
-						Now					</span>
-							</time>
-					</button>
-		<label
-			class="tribe-events-c-top-bar__datepicker-label tribe-common-a11y-visual-hide"
-			for="tribe-events-top-bar-date"
-		>
-			Select date.		</label>
-		<input
-			type="text"
-			class="tribe-events-c-top-bar__datepicker-input tribe-common-a11y-visual-hide"
-			data-js="tribe-events-top-bar-date"
-			id="tribe-events-top-bar-date"
-			name="tribe-events-views[tribe-bar-date]"
-			value="1/1/2019"
-			tabindex="-1"
-			autocomplete="off"
-			readonly="readonly"
-		/>
-		<div class="tribe-events-c-top-bar__datepicker-container" data-js="tribe-events-top-bar-datepicker-container"></div>
-	</div>
-
+							<span class="tribe-events-c-top-bar__datepicker-mobile">
+					Now				</span>
+				<span class="tribe-events-c-top-bar__datepicker-desktop tribe-common-a11y-hidden">
+					Now				</span>
+					</time>
+			</button>
+	<label
+		class="tribe-events-c-top-bar__datepicker-label tribe-common-a11y-visual-hide"
+		for="tribe-events-top-bar-date"
+	>
+		Select date.	</label>
+	<input
+		type="text"
+		class="tribe-events-c-top-bar__datepicker-input tribe-common-a11y-visual-hide"
+		data-js="tribe-events-top-bar-date"
+		id="tribe-events-top-bar-date"
+		name="tribe-events-views[tribe-bar-date]"
+		value="1/1/2019"
+		tabindex="-1"
+		autocomplete="off"
+		readonly="readonly"
+	/>
+	<div class="tribe-events-c-top-bar__datepicker-container" data-js="tribe-events-top-bar-datepicker-container"></div>
+</div>
 
 	<div class="tribe-events-c-top-bar__actions tribe-common-a11y-hidden">
 	</div>
@@ -365,9 +367,9 @@
 	</ul>
 </nav>
 
-		<div class="tribe-events-c-ical tribe-common-b1">
+		<div class="tribe-events-c-ical tribe-common-b2 tribe-common-b3--min-medium">
 	<a
-		class="tribe-events-c-ical__link tribe-common-anchor-alt"
+		class="tribe-events-c-ical__link"
 		title="Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps"
 		href="http://test.tri.be/events/?ical=1"
 	>Export Events</a>

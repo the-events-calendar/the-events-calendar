@@ -21,7 +21,7 @@
 	data-js="tribe-events-view-data"
 	type="application/json"
 >
-	{"slug":"list","prev_url":"","next_url":"http:\\/\\/test.tri.be\\/events\\/list\\/","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_slug":"list","view_label":"List","view":{},"title":"Search Results for &#8220;&#8221; &#8211; The Events Calendar Tests","events":[],"url":"http:\\/\\/test.tri.be\\/events\\/list\\/?tribe-bar-date=2019-01-01 09:00:00","url_event_date":"2019-01-01","bar":{"keyword":"","date":"2019-01-01 09:00:00"},"today":"2019-01-01 09:00:00","now":"2019-01-01 09:00:00","request_date":{"date":"2019-01-01 09:00:00.000000","timezone_type":3,"timezone":"UTC"},"rest_url":"http:\\/\\/test.tri.be\\/index.php?rest_route=\\/tribe\\/views\\/v2\\/html","rest_nonce":"2ab7cc6b39","should_manage_url":true,"today_url":"http:\\/\\/test.tri.be\\/events\\/list\\/","prev_label":"","next_label":"","date_formats":{"compact":"n\\/j\\/Y","month_and_year_compact":"n\\/j\\/Y","month_and_year":"F Y","time_range_separator":" - ","date_time_separator":" @ "},"messages":{"notice":["There were no results found."]},"start_of_week":"1","breadcrumbs":[],"before_events":"","after_events":"\\n<!--\\nThis calendar is powered by The Events Calendar.\\nhttp:\\/\\/m.tri.be\\/18wn\\n-->\\n","display_events_bar":true,"disable_event_search":false,"live_refresh":true,"ical":{"display_link":true,"link":{"url":"http:\\/\\/test.tri.be\\/events\\/?ical=1","text":"Export Events","title":"Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps"}},"container_classes":["tribe-common","tribe-events","tribe-events-view","tribe-events-view--list"],"container_data":[],"is_past":false,"show_datepicker_submit":false,"breakpoints":{"xsmall":500,"medium":768,"full":960},"is_initial_load":true,"public_views":{"list":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_url":"http:\\/\\/test.tri.be\\/events\\/list\\/?tribe-bar-date=2019-01-01","view_label":"List"},"month":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Month_View","view_url":"http:\\/\\/test.tri.be\\/events\\/month\\/2019-01\\/","view_label":"Month"},"day":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Day_View","view_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-01\\/","view_label":"Day"}},"show_now":true,"now_label":"Now onwards","now_label_mobile":"Now onwards","show_end":false,"selected_start_datetime":"2019-01-01","selected_start_date_mobile":"1\\/1\\/2019","selected_start_date_label":"January 1","selected_end_datetime":"2019-01-01","selected_end_date_mobile":"1\\/1\\/2019","selected_end_date_label":"Now","datepicker_date":"1\\/1\\/2019"}</script>
+	{"slug":"list","prev_url":"","next_url":"http:\\/\\/test.tri.be\\/events\\/list\\/","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_slug":"list","view_label":"List","view":{},"title":"Search Results for &#8220;&#8221; &#8211; The Events Calendar Tests","events":[],"url":"http:\\/\\/test.tri.be\\/events\\/list\\/?tribe-bar-date=2019-01-01 09:00:00","url_event_date":"2019-01-01","bar":{"keyword":"","date":"2019-01-01 09:00:00"},"today":"2019-01-01 09:00:00","now":"2019-01-01 09:00:00","request_date":{"date":"2019-01-01 09:00:00.000000","timezone_type":3,"timezone":"UTC"},"rest_url":"http:\\/\\/test.tri.be\\/index.php?rest_route=\\/tribe\\/views\\/v2\\/html","rest_nonce":"2ab7cc6b39","should_manage_url":true,"today_url":"http:\\/\\/test.tri.be\\/events\\/list\\/","prev_label":"","next_label":"","date_formats":{"compact":"n\\/j\\/Y","month_and_year_compact":"n\\/j\\/Y","month_and_year":"F Y","time_range_separator":" - ","date_time_separator":" @ "},"messages":{"notice":["There were no results found."]},"start_of_week":"1","breadcrumbs":[],"before_events":"","after_events":"\\n<!--\\nThis calendar is powered by The Events Calendar.\\nhttp:\\/\\/m.tri.be\\/18wn\\n-->\\n","display_events_bar":true,"disable_event_search":false,"live_refresh":true,"ical":{"display_link":true,"link":{"url":"http:\\/\\/test.tri.be\\/events\\/?ical=1","text":"Export Events","title":"Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps"}},"container_classes":["tribe-common","tribe-events","tribe-events-view","tribe-events-view--list"],"container_data":[],"is_past":false,"breakpoints":{"xsmall":500,"medium":768,"full":960},"is_initial_load":true,"public_views":{"list":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_url":"http:\\/\\/test.tri.be\\/events\\/list\\/?tribe-bar-date=2019-01-01","view_label":"List"},"month":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Month_View","view_url":"http:\\/\\/test.tri.be\\/events\\/month\\/2019-01\\/","view_label":"Month"},"day":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Day_View","view_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-01\\/","view_label":"Day"}},"show_now":true,"now_label":"Now onwards","now_label_mobile":"Now onwards","show_end":false,"selected_start_datetime":"2019-01-01","selected_start_date_mobile":"1\\/1\\/2019","selected_start_date_label":"January 1","selected_end_datetime":"2019-01-01","selected_end_date_mobile":"1\\/1\\/2019","selected_end_date_label":"Now","datepicker_date":"1\\/1\\/2019"}</script>
 
 		
 		<header  class="tribe-events-header tribe-events-header--has-event-search" >
@@ -195,42 +195,40 @@
 >
 	Today</a>
 
-	
 	<div class="tribe-events-c-top-bar__datepicker">
-		<button
-			class="tribe-common-h3 tribe-common-h--alt tribe-events-c-top-bar__datepicker-button"
-			data-js="tribe-events-top-bar-datepicker-button"
-			type="button"
+	<button
+		class="tribe-common-h3 tribe-common-h--alt tribe-events-c-top-bar__datepicker-button"
+		data-js="tribe-events-top-bar-datepicker-button"
+		type="button"
+	>
+		<time
+			datetime="2019-01-01"
+			class="tribe-events-c-top-bar__datepicker-time"
 		>
-			<time
-				datetime="2019-01-01"
-				class="tribe-events-c-top-bar__datepicker-time"
-			>
-									<span class="tribe-events-c-top-bar__datepicker-mobile">
-						Now onwards					</span>
-					<span class="tribe-events-c-top-bar__datepicker-desktop tribe-common-a11y-hidden">
-						Now onwards					</span>
-							</time>
-					</button>
-		<label
-			class="tribe-events-c-top-bar__datepicker-label tribe-common-a11y-visual-hide"
-			for="tribe-events-top-bar-date"
-		>
-			Select date.		</label>
-		<input
-			type="text"
-			class="tribe-events-c-top-bar__datepicker-input tribe-common-a11y-visual-hide"
-			data-js="tribe-events-top-bar-date"
-			id="tribe-events-top-bar-date"
-			name="tribe-events-views[tribe-bar-date]"
-			value="1/1/2019"
-			tabindex="-1"
-			autocomplete="off"
-			readonly="readonly"
-		/>
-		<div class="tribe-events-c-top-bar__datepicker-container" data-js="tribe-events-top-bar-datepicker-container"></div>
-	</div>
-
+							<span class="tribe-events-c-top-bar__datepicker-mobile">
+					Now onwards				</span>
+				<span class="tribe-events-c-top-bar__datepicker-desktop tribe-common-a11y-hidden">
+					Now onwards				</span>
+					</time>
+			</button>
+	<label
+		class="tribe-events-c-top-bar__datepicker-label tribe-common-a11y-visual-hide"
+		for="tribe-events-top-bar-date"
+	>
+		Select date.	</label>
+	<input
+		type="text"
+		class="tribe-events-c-top-bar__datepicker-input tribe-common-a11y-visual-hide"
+		data-js="tribe-events-top-bar-date"
+		id="tribe-events-top-bar-date"
+		name="tribe-events-views[tribe-bar-date]"
+		value="1/1/2019"
+		tabindex="-1"
+		autocomplete="off"
+		readonly="readonly"
+	/>
+	<div class="tribe-events-c-top-bar__datepicker-container" data-js="tribe-events-top-bar-datepicker-container"></div>
+</div>
 
 	<div class="tribe-events-c-top-bar__actions tribe-common-a11y-hidden">
 	</div>
@@ -276,9 +274,9 @@
 	</ul>
 </nav>
 
-		<div class="tribe-events-c-ical tribe-common-b1">
+		<div class="tribe-events-c-ical tribe-common-b2 tribe-common-b3--min-medium">
 	<a
-		class="tribe-events-c-ical__link tribe-common-anchor-alt"
+		class="tribe-events-c-ical__link"
 		title="Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps"
 		href="http://test.tri.be/events/?ical=1"
 	>Export Events</a>
