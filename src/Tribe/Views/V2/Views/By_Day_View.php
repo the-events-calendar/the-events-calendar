@@ -29,6 +29,8 @@ use Tribe__Utils__Array as Arr;
 abstract class By_Day_View extends View {
 	use Cache_User;
 
+	const CHUNK_SIZE = 200;
+
 	/**
 	 * The date input by the user, either by selecting the default view or using the bar.
 	 *
@@ -184,8 +186,19 @@ abstract class By_Day_View extends View {
 				$end_meta_key   = '_EventEndDateUTC';
 			}
 
+			/**
+			 * Filters the chunk size used for building grid dates.
+			 *
+			 * @since 5.0.0
+			 *
+			 * @param int $chunk_size Max number of values to query at a time.
+			 * @param \Tribe__Context $context Context of request.
+			 * @param By_Day_View $view Current view object.
+			 */
+			$chunk_size = apply_filters( 'tribe_events_views_v2_by_day_view_chunk_size', self::CHUNK_SIZE, $this->get_context(), $this );
+
 			$results = [];
-			$request_chunks = array_chunk( $day_ids, 200 );
+			$request_chunks = array_chunk( $day_ids, $chunk_size );
 
 			foreach ( $request_chunks as $chunk_ids ) {
 				$sql = "
