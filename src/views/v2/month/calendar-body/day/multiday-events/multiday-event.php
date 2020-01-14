@@ -93,10 +93,7 @@ if ( $should_display ) {
 					></em>
 				<?php endif; ?>
 				<h3 class="tribe-events-calendar-month__multiday-event-hidden-title tribe-common-h8">
-					<?php
-					// phpcs:ignore
-					echo $event->title;
-					?>
+					<?php echo $event->title; // phpcs:ignore ?>
 				</h3>
 			</a>
 		</div>
@@ -111,10 +108,7 @@ if ( $should_display ) {
 						></em>
 					<?php endif; ?>
 					<h3 class="tribe-events-calendar-month__multiday-event-bar-title tribe-common-h8">
-						<?php
-						// phpcs:ignore
-						echo $event->title;
-						?>
+						<?php echo $event->title; // phpcs:ignore ?>
 					</h3>
 				</div>
 			</div>
