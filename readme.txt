@@ -220,6 +220,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Feature - Add Repository filter `where_meta_related_by_meta` for getting a post by the meta value an associated post. [133333]
 * Tweak - Modifications to the Freemius code initalization to allow better data around plugin uninstalls.
 * Tweak - Adjust tooltip title styles for Twenty Twenty theme. [TEC-2998]
+* Tweak - Changed views: `blocks/event-venue`
 * Fix - Cost field description no longer disapears when editing the block. [TEC-2992]
 * Fix - Organizer theme no longer getting overwritten by Blocks editor styles. [TEC-2974]
 * Fix - Venue block properly receives the correct HTML class. [TEC-3020]
