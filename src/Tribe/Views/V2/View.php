@@ -11,6 +11,7 @@ namespace Tribe\Events\Views\V2;
 use Tribe\Events\Views\V2\Template\Settings\Advanced_Display;
 use Tribe\Events\Views\V2\Template\Title;
 use Tribe\Events\Views\V2\Views\Traits\Breakpoint_Behavior;
+use Tribe\Events\Views\V2\Views\Traits\HTML_Cache;
 use Tribe__Container as Container;
 use Tribe__Context as Context;
 use Tribe__Date_Utils as Dates;
@@ -30,6 +31,7 @@ use Tribe__Utils__Array as Arr;
 class View implements View_Interface {
 
 	use Breakpoint_Behavior;
+	use HTML_Cache;
 
 	/**
 	 * An instance of the DI container.
@@ -132,6 +134,15 @@ class View implements View_Interface {
 	protected $page_key = 'paged';
 
 	/**
+	 * Indicates whether there are more events beyond the current view
+	 *
+	 * @since 5.0.0
+	 *
+	 * @var bool
+	 */
+	protected $has_next_event = false;
+
+	/**
 	 * Whether the View instance should manage the URL
 	 *
 	 * @since 4.9.7
@@ -185,6 +196,15 @@ class View implements View_Interface {
 	 * @var bool
 	 */
 	protected static $date_in_url = true;
+
+	/**
+	 * Cached URLs
+	 *
+	 * @since 5.0.0
+	 *
+	 * @var array
+	 */
+	protected $cached_urls = [];
 
 	/**
 	 * View constructor.
@@ -534,8 +554,12 @@ class View implements View_Interface {
 		 */
 		$this->repository_args = $repository_args;
 
+		// If HTML_Cache is a class trait and we have content to display, display it.
+		if ( method_exists( $this, 'maybe_get_cached_html' ) && $cached_html = $this->maybe_get_cached_html() ) {
+			return $cached_html;
+		}
+
 		if ( ! tribe_events_view_v2_use_period_repository() ) {
-			// @todo @bluedevs do we still need this? It's slow and time-consuming!
 			$this->setup_the_loop( $repository_args );
 		}
 
@@ -546,6 +570,13 @@ class View implements View_Interface {
 		$html = $this->template->render();
 
 		$this->restore_the_loop();
+
+		// If HTML_Cache is a class trait, perhaps the markup should be cached.
+		if ( method_exists( $this, 'maybe_cache_html' ) ) {
+			$this->maybe_cache_html( $html );
+		}
+
+		remove_filter( 'tribe_repository_query_arg_offset_override', [ $this, 'filter_repository_query_arg_offset_override' ], 10, 2 );
 
 		return $html;
 	}
@@ -689,7 +720,10 @@ class View implements View_Interface {
 		}
 
 		// When we find nothing we're always on page 1.
-		$page = $this->repository->count() > 0 ? $this->url->get_current_page() : 1;
+		$page = $this->url->get_current_page();
+		if ( ! $page ) {
+			$page = 1;
+		}
 
 		if ( $page > 1 ) {
 			$query_args[ $this->page_key ] = $page;
@@ -715,7 +749,9 @@ class View implements View_Interface {
 	 * {@inheritDoc}
 	 */
 	public function next_url( $canonical = false, array $passthru_vars = [] ) {
-		$next_page = $this->repository->next();
+		if ( isset( $this->cached_urls['next_url'] ) ) {
+			return $this->cached_urls['next_url'];
+		}
 
 		$url = $this->get_url();
 
@@ -727,7 +763,7 @@ class View implements View_Interface {
 		// Make sure the view slug is always set to correctly match rewrites.
 		$url = add_query_arg( [ 'eventDisplay' => $this->slug ], $url );
 
-		$url = $next_page->count() > 0 ?
+		$url = $this->has_next_event ?
 			add_query_arg( [ $this->page_key => $this->url->get_current_page() + 1 ], $url )
 			: '';
 
@@ -742,6 +778,8 @@ class View implements View_Interface {
 
 		$url = $this->filter_next_url( $canonical, $url );
 
+		$this->cached_urls['next_url'] = $url;
+
 		return $url;
 	}
 
@@ -749,7 +787,12 @@ class View implements View_Interface {
 	 * {@inheritDoc}
 	 */
 	public function prev_url( $canonical = false, array $passthru_vars = [] ) {
-		$prev_page  = $this->repository->prev();
+		if ( isset( $this->cached_urls['prev_url'] ) ) {
+			return $this->cached_urls['prev_url'];
+		}
+
+		$prev_page  = $this->repository->prev()->order_by( '__none' );
+
 		$paged      = $this->url->get_current_page() - 1;
 		$query_args = $paged > 1
 			? [ $this->page_key => $paged ]
@@ -781,6 +824,8 @@ class View implements View_Interface {
 		}
 
 		$url = $this->filter_prev_url( $canonical, $url );
+
+		$this->cached_urls['prev_url'] = $url;
 
 		return $url;
 	}
@@ -984,15 +1029,29 @@ class View implements View_Interface {
 
 		$context_arr = $context->to_array();
 
+		/*
+		 * Note: we are setting events_per_page to +1 so we don't need to query twice to
+		 * determine if there are subsequent pages. When running setup_template_vars, we pop
+		 * the last item off the array if the returned posts are > events_per_page.
+		 *
+		 * @since 5.0.0
+		 */
 		$args = [
-			'posts_per_page'       => $context_arr['events_per_page'],
+			'posts_per_page'       => $context_arr['events_per_page'] + 1,
 			'paged'                => max( Arr::get_first_set( array_filter( $context_arr ), [
 				'paged',
 				'page',
 			], 1 ), 1 ),
 			'search'               => $context->get( 'keyword', '' ),
 			'hidden_from_upcoming' => false,
+			/*
+			 * Passing this parameter that is only used in this object to control whether or not the
+			 * offset value should be overridden with the `tribe_repository_query_arg_offset_override` filter.
+			 */
+			'view_override_offset'      => true,
 		];
+
+		add_filter( 'tribe_repository_query_arg_offset_override', [ $this, 'filter_repository_query_arg_offset_override' ], 10, 2 );
 
 		// Set's up category URL for all views.
 		if ( ! empty( $context_arr[ TEC::TAXONOMY ] ) ) {
@@ -1007,6 +1066,33 @@ class View implements View_Interface {
 		}
 
 		return $args;
+	}
+
+	/**
+	 * Filters the offset value separate from the posts_per_page/paged calculation.
+	 *
+	 * This allows us to save a query when determining pagination for list-like views.
+	 *
+	 * @since 5.0.0
+	 *
+	 * @param null|int $offset_override Offset override value.
+	 * @param \WP_Query $query WP Query object.
+	 *
+	 * @return null|int
+	 */
+	public function filter_repository_query_arg_offset_override( $offset_override, $query ) {
+		if ( ! isset( $query['view_override_offset'] ) ) {
+			return $offset_override;
+		}
+
+		$context = $this->get_context();
+
+		$current_page = max(
+			$context->get( 'page' ),
+			$context->get( 'paged' ),
+			1
+		);
+		return ( $current_page - 1 ) * $this->get_context()->get( 'events_per_page' );
 	}
 
 	/**
@@ -1121,7 +1207,11 @@ class View implements View_Interface {
 	 * {@inheritDoc}
 	 */
 	public function found_post_ids() {
-		return $this->repository->get_ids();
+		$events = $this->repository->get_ids();
+		if ( $this->has_next_event( $events ) ) {
+			array_pop( $events );
+		}
+		return $events;
 	}
 
 	/**
@@ -1129,6 +1219,42 @@ class View implements View_Interface {
 	 */
 	public static function is_publicly_visible() {
 		return static::$publicly_visible;
+	}
+
+	/**
+	 * Sets the has_next_event boolean flag, which determines if we have events in the next page.
+	 *
+	 * This flag is required due to being required to optimize the determination of whether
+	 * there are future events, we increased events_per_page by +1 during setup_repository_args. Because of that
+	 * if the number of events returned are greater than events_per_page, we need to
+	 * pop an element off the end and set a boolean.
+	 *
+	 * @since 5.0.0
+	 *
+	 * @param boolean $value Which value will be set to has_next_event, will be casted as boolean.
+	 *
+	 * @return mixed         Value passed after being saved and casted as boolean.
+	 */
+	public function set_has_next_event( $value ) {
+		return $this->has_next_event = (bool) $value;
+	}
+
+	/**
+	 * Determines from a given array of events if we have next events or not.
+	 *
+	 * @since 5.0.0
+	 *
+	 * @param array   $events          Array that will be counted to verify if we have events.
+	 * @param boolean $overwrite_flag  If we should overwrite the flag when we discover the result.
+	 *
+	 * @return mixed                   Weather the array of events has a next page.
+	 */
+	public function has_next_event( array $events, $overwrite_flag = true ) {
+		$has_next_events = count( $events ) > $this->get_context()->get( 'events_per_page', 12 );
+		if ( (bool) $overwrite_flag ) {
+			$this->set_has_next_event( $has_next_events );
+		}
+		return $has_next_events;
 	}
 
 	/**
@@ -1145,6 +1271,18 @@ class View implements View_Interface {
 		}
 
 		$events = (array) $this->repository->all();
+
+		/*
+		 * To optimize the determination of whether there are future events, we
+		 * increased events_per_page by +1 during setup_repository_args. Because of that
+		 * if the number of events returned are greater than events_per_page, we need to
+		 * pop an element off the end and set a boolean.
+		 *
+		 * @since 5.0.0
+		 */
+		if ( $this->has_next_event( $events ) ) {
+			array_pop( $events );
+		}
 
 		$this->setup_messages( $events );
 
@@ -1623,10 +1761,13 @@ class View implements View_Interface {
 		if ( $is_featured = tribe_is_truthy( $this->context->get( 'featured', false ) ) ) {
 			$non_featured_link = tribe_events_get_url( [ 'featured' => 0 ] );
 
-			$breadcrumbs[] = [
-				'link'  => $non_featured_link,
-				'label' => tribe_get_event_label_plural(),
-			];
+			if ( empty( $context_tax ) ) {
+				$breadcrumbs[] = [
+					'link'  => $non_featured_link,
+					'label' => tribe_get_event_label_plural(),
+				];
+			}
+
 			$breadcrumbs[] = [
 				'link'  => '',
 				'label' => esc_html__( 'Featured', 'the-events-calendar' ),

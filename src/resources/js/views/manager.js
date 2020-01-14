@@ -304,14 +304,14 @@ tribe.events.views.manager = {};
 		}
 
 		var data = {
-			prev_url: encodeURI( currentUrl ),
-			url: encodeURI( url ),
+			prev_url: encodeURI( decodeURI( currentUrl ) ),
+			url: encodeURI( decodeURI( url ) ),
 			should_manage_url: shouldManageUrl,
 			_wpnonce: nonce,
 		};
 
 		if ( shortcodeId ) {
-			data[ 'shortcode' ]	 = shortcodeId;
+			data['shortcode'] = shortcodeId;
 		}
 
 		obj.request( data, $container );

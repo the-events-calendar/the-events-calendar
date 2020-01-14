@@ -29,7 +29,7 @@ class Tribe__Events__Front_Page_View {
 		if ( tribe_get_option( 'front_page_event_archive', false ) ) {
 			// Implement front page view
 			add_action( 'parse_query', array( $this, 'parse_query' ), 5 );
-			add_filter( 'tribe_events_getLink', array( $this, 'main_event_page_links' ) );
+			add_filter( 'tribe_events_get_link', array( $this, 'main_event_page_links' ) );
 		}
 
 		add_action( 'parse_query', array( $this, 'parse_customizer_query' ) );

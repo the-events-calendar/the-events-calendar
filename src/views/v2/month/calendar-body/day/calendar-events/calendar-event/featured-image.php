@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.11
+ * @version 5.0.0
  *
  * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
  *
@@ -25,7 +25,7 @@ if ( ! $event->featured || ! $event->thumbnail->exists ) {
 <div class="tribe-events-calendar-month__calendar-event-featured-image-wrapper">
 	<a
 		href="<?php echo esc_url( $event->permalink ); ?>"
-		title="<?php echo esc_attr( get_the_title( $event->ID ) ); ?>"
+		title="<?php echo esc_attr( $event->title ); ?>"
 		rel="bookmark"
 		class="tribe-events-calendar-month__calendar-event-featured-image-link"
 	>

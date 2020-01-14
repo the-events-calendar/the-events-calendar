@@ -15,6 +15,9 @@ class eventTest extends WPTestCase {
 
 	public function setUp() {
 		parent::setUp();
+
+		tribe_unset_var( \Tribe__Settings_Manager::OPTION_CACHE_VAR_NAME );
+
 		static::factory()->event     = new Event();
 		static::factory()->organizer = new Organizer();
 		static::factory()->venue     = new Venue();
