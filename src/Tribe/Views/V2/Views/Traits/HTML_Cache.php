@@ -279,7 +279,7 @@ trait HTML_Cache {
 	 *
 	 * @since 5.0.0
 	 *
-	 * @param string   $html  HTML with the nonces to be replaced.
+	 * @param string $html  HTML with the nonces to be replaced.
 	 *
 	 * @return string  HTML after replacement is complete.
 	 */
@@ -309,7 +309,7 @@ trait HTML_Cache {
 	 *
 	 * @since 5.0.0
 	 *
-	 * @param string   $html  HTML with the nonces to be replaced.
+	 * @param string $html  HTML with the nonces to be replaced.
 	 *
 	 * @return string  HTML after replacement is complete.
 	 */
