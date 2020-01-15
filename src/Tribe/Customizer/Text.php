@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @package    The Events Calendar
  * @subpackage Customizer
- * @since TBD
+ * @since      TBD
  */
 final class Tribe__Events__Customizer__Text extends Tribe__Customizer__Section {
 
