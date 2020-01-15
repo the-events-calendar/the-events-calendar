@@ -494,6 +494,7 @@ export function* handler( action ) {
 			yield call( handleStartTimeChange, action );
 			yield call( preventEndTimeBeforeStartTime, action );
 			yield call( setStartTimeInput );
+			yield call( setEndTimeInput );
 			yield call( resetNaturalLanguageLabel );
 			break;
 
@@ -501,6 +502,7 @@ export function* handler( action ) {
 			yield call( handleEndTimeChange, action );
 			yield call( preventStartTimeAfterEndTime, action );
 			yield call( setEndTimeInput );
+			yield call( setStartTimeInput );
 			yield call( resetNaturalLanguageLabel );
 			break;
 
@@ -511,6 +513,8 @@ export function* handler( action ) {
 
 		case types.SET_NATURAL_LANGUAGE_LABEL:
 			yield call( onHumanReadableChange, action );
+			yield call( setStartTimeInput );
+			yield call( setEndTimeInput );
 			break;
 
 		default:
