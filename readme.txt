@@ -233,6 +233,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Tweak - Adjust tooltip title styles for Twenty Twenty theme. [TEC-2998]
 * Tweak - Remove find events button and related data when events bar is disabled. [TEC-3074]
 * Tweak - Ensure datepicker always updates view via live refresh. [TEC-3073]
+* Tweak - Adjust customizer labels for sites using the new views [TEC-3066]
 
 = [5.0.0] TBD =
 
