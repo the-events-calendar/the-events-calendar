@@ -45,6 +45,8 @@ trait HTML_Cache {
 			return;
 		}
 
+		$cached_html = $this->inject_nonces_into_cached_html( $cached_html );
+
 		return $cached_html;
 	}
 
@@ -74,6 +76,8 @@ trait HTML_Cache {
 		if ( ! $this->should_cache_html() ) {
 			return false;
 		}
+
+		$html = $this->extract_nonces_before_cache( $html );
 
 		return tribe( 'cache' )->set_transient( $cache_key, $html, $cache_expiration, $this->cache_html_triggers() );
 	}
@@ -195,5 +199,77 @@ trait HTML_Cache {
 
 		// In all other cases, let's cache it!
 		return true;
+	}
+
+	protected function get_view_nonce_fields() {
+		$nonces = [
+			'wp_rest' => 'tribe-events-views[_wpnonce]',
+		];
+
+		return apply_filters( 'tribe_events_views_v2_get_view_nonce_fields', $nonces, $this->get_context(), $this );
+	}
+
+	protected function get_view_nonce_attributes() {
+		$nonces = [
+			'wp_rest' => 'data-view-rest-nonce',
+		];
+
+		return apply_filters( 'tribe_events_views_v2_get_view_nonce_attributes', $nonces, $this->get_context(), $this );
+	}
+
+	protected function get_view_nonce_json_properties() {
+		$nonces = [
+			'wp_rest' => 'rest_nonce',
+		];
+
+		return apply_filters( 'tribe_events_views_v2_get_view_nonce_json_properties', $nonces, $this->get_context(), $this );
+	}
+
+	protected function extract_nonces_before_cache( $html ) {
+		$nonce_fields = $this->get_view_nonce_fields();
+		$nonce_attrs  = $this->get_view_nonce_attributes();
+		$nonce_props  = $this->get_view_nonce_json_properties();
+
+		foreach ( $nonce_fields as $action => $field ) {
+			$html = preg_replace( '!(<input[^>]+name="' . preg_quote( $field ) . '"[^>]+value=")[^"]*("[^>]*>)!', '\1%%NONCE:' . $action . '%%\2', $html );
+			$html = preg_replace( '!(<input[^>]+value=")[^"]*("[^>]+name="' . preg_quote( $field ) . '"[^>]*>)!', '\1%%NONCE:' . $action . '%%\2', $html );
+		}
+
+		foreach ( $nonce_attrs as $action => $attr ) {
+			$html = preg_replace( '!(' . preg_quote( $attr ) . '=")[^"]*(")!', '\1%%NONCE:' . $action . '%%\2', $html );
+		}
+
+		foreach ( $nonce_props as $action => $prop ) {
+			$html = preg_replace( '!("' . preg_quote( $prop ) . '":")[^"]*(")!', '\1%%NONCE:' . $action . '%%\2', $html );
+		}
+
+		return $html;
+	}
+
+	protected function inject_nonces_into_cached_html( $html ) {
+		$nonce_fields = $this->get_view_nonce_fields();
+		$nonce_attrs  = $this->get_view_nonce_attributes();
+		$nonce_props  = $this->get_view_nonce_json_properties();
+
+		$nonce_actions = array_merge( array_keys( $nonce_fields ), array_keys( $nonce_attrs ), array_keys( $nonce_props ) );
+		$nonce_actions = array_unique( $nonce_actions );
+
+		foreach ( $nonce_actions as $nonce_action ) {
+			$nonce = $this->maybe_generate_nonce( $nonce_action );
+			$html  = str_replace( "%%NONCE:{$nonce_action}", $nonce );
+		}
+
+		return $html;
+	}
+
+	protected function maybe_generate_nonce( $action ) {
+		$generated_nonces = tribe_get_var( __METHOD__, [] );
+
+		if ( ! isset( $generated_nonces[ $action ] ) ) {
+			$generated_nonces[ $action ] = wp_create_nonce( $action );
+			tribe_set_var( __METHOD__, $generated_nonces );
+		}
+
+		return $generated_nonces[ $action ];
 	}
 }
