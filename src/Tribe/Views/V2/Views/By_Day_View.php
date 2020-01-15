@@ -263,7 +263,7 @@ abstract class By_Day_View extends View {
 					);
 				} );
 
-				$day_event_ids = array_map( 'absint', array_column( $results_in_day, 'ID' ) );
+				$day_event_ids = array_map( 'absint', wp_list_pluck( $results_in_day, 'ID' ) );
 				$day_event_ids = array_slice( $day_event_ids, 0, $events_per_day );
 
 				$this->grid_days_cache[ $day_string ]       = $day_event_ids;

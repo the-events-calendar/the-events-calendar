@@ -36,7 +36,7 @@ class View implements View_Interface {
 	/**
 	 * An instance of the DI container.
 	 *
-	 * @var \tad_DI52_Container
+	 * @var Container
 	 */
 	protected static $container;
 
@@ -77,7 +77,7 @@ class View implements View_Interface {
 	 *
 	 * This value will be set by the `View::make()` method while building a View instance.
 	 *
-	 * @var \Tribe\Events\Views\V2\Template
+	 * @var Template
 	 */
 	protected $template;
 
@@ -91,7 +91,7 @@ class View implements View_Interface {
 	/**
 	 * The URL object the View is currently.
 	 *
-	 * @var \Tribe\Events\Views\V2\Url
+	 * @var Url
 	 */
 	protected $url;
 
@@ -383,9 +383,9 @@ class View implements View_Interface {
 		 *
 		 * @since  4.9.3
 		 *
-		 * @param  \Tribe\Events\Views\V2\Template $template  The template object for the View.
-		 * @param  string                          $view_slug The current view slug.
-		 * @param View                             $instance  The current View object.
+		 * @param  Template $template  The template object for the View.
+		 * @param  string   $view_slug The current view slug.
+		 * @param  View     $instance  The current View object.
 		 */
 		$template = apply_filters( 'tribe_events_views_v2_view_template', $template, $view_slug, $instance );
 
@@ -394,8 +394,8 @@ class View implements View_Interface {
 		 *
 		 * @since  4.9.3
 		 *
-		 * @param  \Tribe\Events\Views\V2\Template $template The template object for the View.
-		 * @param View                             $instance The current View object.
+		 * @param  Template $template The template object for the View.
+		 * @param  View     $instance The current View object.
 		 */
 		$template = apply_filters( "tribe_events_views_v2_{$view_slug}_view_template", $template, $instance );
 
@@ -496,7 +496,7 @@ class View implements View_Interface {
 	/**
 	 * Sets the DI container the class should use to build views.
 	 *
-	 * @param \tad_DI52_Container $container The DI container instance to use.
+	 * @param Container $container The DI container instance to use.
 	 *
 	 * @since 4.9.2
 	 *
@@ -837,6 +837,8 @@ class View implements View_Interface {
 	 *
 	 * @param array $query_args An array of query args that will be used to build the URL for the View.
 	 * @param bool  $canonical  Whether the URL should be the canonical one or not.
+	 *
+	 * @return array            Filtered array of query arguments.
 	 */
 	public function filter_query_args( $query_args, $canonical ) {
 		/**
@@ -1048,7 +1050,7 @@ class View implements View_Interface {
 			 * Passing this parameter that is only used in this object to control whether or not the
 			 * offset value should be overridden with the `tribe_repository_query_arg_offset_override` filter.
 			 */
-			'view_override_offset'      => true,
+			'view_override_offset' => true,
 		];
 
 		add_filter( 'tribe_repository_query_arg_offset_override', [ $this, 'filter_repository_query_arg_offset_override' ], 10, 2 );
@@ -1275,7 +1277,7 @@ class View implements View_Interface {
 		/*
 		 * To optimize the determination of whether there are future events, we
 		 * increased events_per_page by +1 during setup_repository_args. Because of that
-		 * if the number of events returned are greater than events_per_page, we need to
+		 * if the number of events returned are greater than events_per_page,ll we need to
 		 * pop an element off the end and set a boolean.
 		 *
 		 * @since 5.0.0
