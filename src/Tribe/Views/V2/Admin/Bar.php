@@ -20,7 +20,22 @@ use WP_Admin_Bar;
  * @package Tribe\Events\Views\V2\Admin
  */
 class Bar {
+	/**
+	 * Constant to store the Cache key.
+	 *
+	 * @since 5.0.0
+	 *
+	 * @var   string
+	 */
 	const SUSPEND_CACHE_KEY = 'tribe_events_suspend_view_html_cache';
+
+	/**
+	 * Constant to store the Nonce key.
+	 *
+	 * @since 5.0.0
+	 *
+	 * @var   string
+	 */
 	const SUSPEND_NONCE_KEY = 'tribe_events_views_v2_suspend_view_html_cache';
 
 	/**
