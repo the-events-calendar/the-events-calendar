@@ -114,7 +114,7 @@ class Bar {
 			'id'     => 'tribe-events-views-v2-suspen_view_html_cache',
 			'title'  => $label,
 			'parent' => 'top-secondary',
-			'href'   => wp_nonce_url( add_query_arg( [ 'action' => $action ] ), static::SUSPEND_NONCE_KEY )
+			'href'   => wp_nonce_url( add_query_arg( [ 'action' => $action, ] ), static::SUSPEND_NONCE_KEY ),
 		];
 		$wp_admin_bar->add_node( $args );
 	}
