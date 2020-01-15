@@ -481,9 +481,9 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @return boolean   Weather or not we should do caching.
 	 */
 	public function filter_suspend_cache_from_admin_bar( $should_cache ) {
-	    if ( ! $this->container->make( Admin\Bar::class )->is_view_html_cache_suspended() ) {
-	    	return $should_cache;
-	    }
+		if ( ! $this->container->make( Admin\Bar::class )->is_view_html_cache_suspended() ) {
+			return $should_cache;
+		}
 
 		return false;
 	}
