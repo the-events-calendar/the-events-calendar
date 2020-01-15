@@ -258,7 +258,7 @@ export function* preventEndTimeBeforeStartTime( action ) {
 	}
 
 	// If end time is earlier than start time, fix time
-	if ( seconds.end <= seconds.start ) {
+	if ( seconds.end < seconds.start ) {
 		// If there is less than half an hour left in the day, roll back one hour
 		if ( seconds.start + HALF_HOUR_IN_SECONDS >= DAY_IN_SECONDS ) {
 			seconds.start -= HOUR_IN_SECONDS;
@@ -310,7 +310,7 @@ export function* preventStartTimeAfterEndTime( action ) {
 		yield call( [ Object, 'assign' ], seconds, action.payload );
 	}
 
-	if ( seconds.start >= seconds.end ) {
+	if ( seconds.start > seconds.end ) {
 		seconds.start = Math.max( seconds.end - HALF_HOUR_IN_SECONDS, 0 );
 		seconds.end = Math.max( seconds.start + MINUTE_IN_SECONDS, seconds.end );
 
