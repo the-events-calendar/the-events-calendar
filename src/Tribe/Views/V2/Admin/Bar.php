@@ -20,8 +20,8 @@ use WP_Admin_Bar;
  * @package Tribe\Events\Views\V2\Admin
  */
 class Bar {
-	CONST SUSPEND_CACHE_KEY = 'tribe_events_suspend_view_html_cache';
-	CONST SUSPEND_NONCE_KEY = 'tribe_events_views_v2_suspend_view_html_cache';
+	const SUSPEND_CACHE_KEY = 'tribe_events_suspend_view_html_cache';
+	const SUSPEND_NONCE_KEY = 'tribe_events_views_v2_suspend_view_html_cache';
 
 	/**
 	 * Check if the current user has view html cache suspended.
@@ -36,7 +36,7 @@ class Bar {
 			return false;
 		}
 
-		// You can only suspend when you can `manage_options`
+		// You can only suspend when you can `manage_options`.
 		if ( ! current_user_can( 'manage_options' ) ) {
 			return false;
 		}
@@ -64,7 +64,7 @@ class Bar {
 
 		$actions_allowed = [
 			'unsuspend_view_cache' => 0,
-			'suspend_view_cache' => 1,
+			'suspend_view_cache'   => 1,
 		];
 
 		$action = tribe_get_request_var( 'action' );
@@ -107,8 +107,8 @@ class Bar {
 		}
 
 		$is_suspended = $this->is_view_html_cache_suspended();
-		$action = $is_suspended ? 'unsuspend_view_cache' : 'suspend_view_cache';
-		$label  = $is_suspended ? '<span style="color: red;">' . __( 'Unsuspend View Cache', 'the-events-calendar' ) . '</span>' : __( 'Suspend View Cache', 'the-events-calendar' );
+		$action       = $is_suspended ? 'unsuspend_view_cache' : 'suspend_view_cache';
+		$label        = $is_suspended ? '<span style="color: red;">' . __( 'Unsuspend View Cache', 'the-events-calendar' ) . '</span>' : __( 'Suspend View Cache', 'the-events-calendar' );
 
 		$args = [
 			'id'     => 'tribe-events-views-v2-suspen_view_html_cache',

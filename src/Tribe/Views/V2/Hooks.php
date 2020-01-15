@@ -145,6 +145,8 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Fires to add admin bar actions.
 	 *
+	 * @param   WP_Admin_Bar $wp_admin_bar Instance of the Admin bar that will be rendered.
+	 *
 	 * @since 5.0.0
 	 */
 	public function action_include_admin_bar_actions( WP_Admin_Bar $wp_admin_bar ) {
