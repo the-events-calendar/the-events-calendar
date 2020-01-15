@@ -440,17 +440,17 @@ class Tribe__Events__iCal {
 
 			$ordered = [
 				'start' => wp_list_pluck( $row['events'], 'start_year' ),
-				'end' => wp_list_pluck( $row['events'], 'end_year' ),
+				'end'   => wp_list_pluck( $row['events'], 'end_year' ),
 			];
 
 			sort( $ordered['start'] );
 			rsort( $ordered['end'] );
 
 			$ordered['start'] = array_values( $ordered['start'] );
-			$ordered['end'] = array_values( $ordered['end'] );
+			$ordered['end']   = array_values( $ordered['end'] );
 
 			$start = reset( $ordered['start'] );
-			$end = reset( $ordered['end'] );
+			$end   = reset( $ordered['end'] );
 
 			if ( empty( $start ) || empty( $end ) ) {
 				continue;
