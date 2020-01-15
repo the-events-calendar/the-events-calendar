@@ -25,6 +25,7 @@ use Tribe__Events__Main as TEC;
 use Tribe__Rewrite as TEC_Rewrite;
 use Tribe__Utils__Array as Arr;
 use Tribe__Date_Utils as Dates;
+use WP_Admin_Bar;
 
 /**
  * Class Hooks
@@ -60,6 +61,8 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_action( 'tribe_events_pro_shortcode_tribe_events_after_assets', [ $this, 'action_disable_shortcode_assets_v1' ] );
 		add_action( 'updated_option', [ $this, 'action_save_wplang' ], 10, 3 );
 		add_action( 'the_post', [ $this, 'manage_sensitive_info' ] );
+		add_action( 'admin_bar_menu', [ $this, 'action_include_admin_bar_actions' ] );
+		add_action( 'parse_request', [ $this, 'action_process_suspending_cache_from_admin_bar' ] );
 	}
 
 	/**
@@ -88,6 +91,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'tribe_general_settings_tab_fields', [ $this, 'filter_general_settings_tab_live_update' ], 20 );
 		add_filter( 'tribe_events_rewrite_i18n_slugs_raw', [ $this, 'filter_rewrite_i18n_slugs_raw' ], 50, 2 );
 		add_filter( 'tribe_get_event_after', [ $this, 'filter_events_properties' ] );
+		add_filter( 'tribe_events_views_v2_should_cache_html', [ $this, 'filter_suspend_cache_from_admin_bar' ] );
 
 		if ( tribe_context()->doing_php_initial_state() ) {
 			add_filter( 'wp_title', [ $this, 'filter_wp_title' ], 10, 2 );
@@ -139,6 +143,15 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	}
 
 	/**
+	 * Fires to add admin bar actions.
+	 *
+	 * @since 5.0.0
+	 */
+	public function action_include_admin_bar_actions( WP_Admin_Bar $wp_admin_bar ) {
+		$this->container->make( Admin\Bar::class )->suspend_view_html_cache_button( $wp_admin_bar );
+	}
+
+	/**
 	 * Fires when common is loaded.
 	 *
 	 * @since 4.9.2
@@ -162,7 +175,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @since 4.9.2
 	 *
-	 * @param  \Tribe__Events__Rewrite  $rewrite  An instance of the Tribe rewrite abstraction.
+	 * @param  TEC_Rewrite  $rewrite  An instance of the Tribe rewrite abstraction.
 	 */
 	public function on_tribe_events_pre_rewrite( TEC_Rewrite $rewrite ) {
 		$this->container->make( Kitchen_Sink::class )->generate_rules( $rewrite );
@@ -458,12 +471,29 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		return $fields;
 	}
 
+	/**
+	 * Ignore all other rules suspend html views cache for this user.
+	 *
+	 * @since  5.0.0
+	 *
+	 * @param  boolean  $should_cache  Weather or not caching was previously active.
+	 *
+	 * @return boolean   Weather or not we should do caching.
+	 */
+	public function filter_suspend_cache_from_admin_bar( $should_cache ) {
+	    if ( ! $this->container->make( Admin\Bar::class )->is_view_html_cache_suspended() ) {
+	    	return $should_cache;
+	    }
+
+		return false;
+	}
+
  	/**
 	 * Registers The Events Calendar with the views/overrides update checker.
 	 *
 	 * @since  4.9.13
 	 *
-	 * @param array $plugins List of plugisn to be checked.
+	 * @param array $plugins List of plugins to be checked.
 	 *
 	 * @return array
 	 */
@@ -531,6 +561,17 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		// Deleting `rewrite_rules` given that this is being executed after `init`
 		// And `flush_rewrite_rules()` doesn't take effect.
 		delete_option( 'rewrite_rules' );
+	}
+
+	/**
+	 * Process the saving of of suspend cache action from admin bar.
+	 *
+	 * @since 5.0.0
+	 *
+	 * @return void
+	 */
+	public function action_process_suspending_cache_from_admin_bar() {
+		$this->container->make( Admin\Bar::class )->process_suspending_cache();
 	}
 
 	/**
