@@ -289,16 +289,16 @@ trait HTML_Cache {
 		$nonce_props  = $this->get_view_nonce_json_properties();
 
 		foreach ( $nonce_fields as $action => $field ) {
-			$html = preg_replace( '!(<input[^>]+name="' . preg_quote( $field ) . '"[^>]+value=")[^"]*("[^>]*>)!', '\1%%NONCE:' . $action . '%%\2', $html );
-			$html = preg_replace( '!(<input[^>]+value=")[^"]*("[^>]+name="' . preg_quote( $field ) . '"[^>]*>)!', '\1%%NONCE:' . $action . '%%\2', $html );
+			$html = preg_replace( '!(<input[^>]+name="' . preg_quote( $field, '!' ) . '"[^>]+value=")[^"]*("[^>]*>)!', '\1%%NONCE:' . $action . '%%\2', $html );
+			$html = preg_replace( '!(<input[^>]+value=")[^"]*("[^>]+name="' . preg_quote( $field, '!' ) . '"[^>]*>)!', '\1%%NONCE:' . $action . '%%\2', $html );
 		}
 
 		foreach ( $nonce_attrs as $action => $attr ) {
-			$html = preg_replace( '!(' . preg_quote( $attr ) . '=")[^"]*(")!', '\1%%NONCE:' . $action . '%%\2', $html );
+			$html = preg_replace( '!(' . preg_quote( $attr, '!' ) . '=")[^"]*(")!', '\1%%NONCE:' . $action . '%%\2', $html );
 		}
 
 		foreach ( $nonce_props as $action => $prop ) {
-			$html = preg_replace( '!("' . preg_quote( $prop ) . '":")[^"]*(")!', '\1%%NONCE:' . $action . '%%\2', $html );
+			$html = preg_replace( '!("' . preg_quote( $prop, '!' ) . '":")[^"]*(")!', '\1%%NONCE:' . $action . '%%\2', $html );
 		}
 
 		return $html;
