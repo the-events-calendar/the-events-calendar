@@ -439,8 +439,8 @@ class Tribe__Events__iCal {
 			$timezone = $row['timezone'];
 
 			$ordered = [
-				'start' => array_column( $row['events'], 'start_year' ),
-				'end' => array_column( $row['events'], 'end_year' ),
+				'start' => wp_list_pluck( $row['events'], 'start_year' ),
+				'end' => wp_list_pluck( $row['events'], 'end_year' ),
 			];
 
 			sort( $ordered['start'] );

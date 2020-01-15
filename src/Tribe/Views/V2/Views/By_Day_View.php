@@ -244,7 +244,6 @@ abstract class By_Day_View extends View {
 					$day_results->order_by( $order_by, $order );
 					$event_ids = array_map( 'absint', $day_results->pluck( 'ID' ) );
 				}
-
 				// @todo @bluedevs truncating here does not make sense, do in template?
 				$day_event_ids = array_slice( $event_ids, 0, $events_per_day );
 
