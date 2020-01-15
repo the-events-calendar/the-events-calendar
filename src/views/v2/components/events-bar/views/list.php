@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version TBD
+ * @version 5.0.0
  *
  * @var array $public_views Array of data of the public views, with the slug as the key.
  */

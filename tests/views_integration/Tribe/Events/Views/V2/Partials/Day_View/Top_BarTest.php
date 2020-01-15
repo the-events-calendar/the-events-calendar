@@ -31,30 +31,9 @@ class Top_BarTest extends HtmlPartialTestCase
 		];
 
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
-			'now'                    => '2018-01-01 12:00:00',
-			'today_url'              => 'http://test.tri.be',
-			'show_datepicker_submit' => true,
-			'date_formats'           => $date_formats,
-		] ) );
-	}
-
-	/**
-	 * Test render without submit
-	 */
-	public function test_render_without_submit() {
-
-		$date_formats = (object) [
-			'month_and_year'       => 'F Y',
-			'time_range_separator' => ' - ',
-			'date_time_separator'  => ' @ ',
-			'compact'              => 'm/d/Y',
-		];
-
-		$this->assertMatchesSnapshot( $this->get_partial_html( [
-			'now'                    => '2018-01-01 12:00:00',
-			'today_url'              => 'http://test.tri.be',
-			'show_datepicker_submit' => false,
-			'date_formats'           => $date_formats,
+			'now'          => '2018-01-01 12:00:00',
+			'today_url'    => 'http://test.tri.be',
+			'date_formats' => $date_formats,
 		] ) );
 	}
 

@@ -80,7 +80,7 @@ tribe.events.views.eventsBarInputs = {};
 					return;
 				}
 
-				$input.off( 'change', obj.handleInputChange );
+				$input.off();
 			} );
 	};
 
@@ -97,7 +97,7 @@ tribe.events.views.eventsBarInputs = {};
 		$container
 			.find( obj.selectors.inputWrapper )
 			.each( function( index, wrapper ) {
-				var inputWrapperClass = wrapper.className.match( /tribe-common-c-search__input-control--[a-z]+/ );
+				var inputWrapperClass = wrapper.className.match( /tribe-events-c-search__input-control--[a-z]+/ );
 
 				if ( ! inputWrapperClass ) {
 					return;
