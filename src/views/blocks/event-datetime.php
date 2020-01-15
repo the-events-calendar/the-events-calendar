@@ -67,44 +67,44 @@ $is_same_start_end = $formatted_start_date == $formatted_end_date && $formatted_
 <div class="tribe-events-schedule tribe-clearfix">
 	<h2 class="tribe-events-schedule__datetime">
 		<span class="tribe-events-schedule__date tribe-events-schedule__date--start">
-			<?php echo $formatted_start_date; ?>
+			<?php echo esc_html( $formatted_start_date ); ?>
 		</span>
 
 		<?php if ( ! $is_all_day ) : ?>
 			<span class="tribe-events-schedule__separator tribe-events-schedule__separator--date">
-				<?php echo $separator_date; ?>
+				<?php echo esc_html( $separator_date ); ?>
 			</span>
 			<span class="tribe-events-schedule__time tribe-events-schedule__time--start">
-				<?php echo $formatted_start_time; ?>
+				<?php echo esc_html( $formatted_start_time ); ?>
 			</span>
 		<?php elseif ( $is_same_day ) : ?>
-			<span class="tribe-events-schedule__all-day"><?php echo __( 'All day', 'the-events-calendar' ); ?></span>
+			<span class="tribe-events-schedule__all-day"><?php echo esc_html__( 'All day', 'the-events-calendar' ); ?></span>
 		<?php endif; ?>
 
 		<?php if ( ! $is_same_start_end ) : ?>
 			<?php if ( ! $is_all_day || ! $is_same_day ) : ?>
 				<span class="tribe-events-schedule__separator tribe-events-schedule__separator--time">
-					<?php echo $separator_time; ?>
+					<?php echo esc_html( $separator_time ); ?>
 				</span>
 			<?php endif; ?>
 
 			<?php if ( ! $is_same_day ) : ?>
 				<span class="tribe-events-schedule__date tribe-events-schedule__date--end">
-					<?php echo $formatted_end_date; ?>
+					<?php echo esc_html( $formatted_end_date ); ?>
 				</span>
 
 				<?php if ( ! $is_all_day ) : ?>
 					<span class="tribe-events-schedule__separator tribe-events-schedule__separator--date">
-						<?php echo $separator_date; ?>
+						<?php echo esc_html( $separator_date ); ?>
 					</span>
 					<span class="tribe-events-schedule__time tribe-events-schedule__time--end">
-						<?php echo $formatted_end_time; ?>
+						<?php echo esc_html( $formatted_end_time ); ?>
 					</span>
 				<?php endif; ?>
 
 			<?php elseif ( ! $is_all_day ) : ?>
 				<span class="tribe-events-schedule__time tribe-events-schedule__time--end">
-					<?php echo $formatted_end_time; ?>
+					<?php echo esc_html( $formatted_end_time ); ?>
 				</span>
 			<?php endif; ?>
 
