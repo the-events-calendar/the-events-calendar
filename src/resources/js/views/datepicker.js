@@ -118,17 +118,6 @@ tribe.events.views.datepicker = {};
 	};
 
 	/**
-	 * Determines if Live Refresh is active for the datepicker.
-	 *    True  - Will request a new view every click of a date.
-	 *    False - Will populate a field on the search form doesnt refresh until search button is clicked.
-	 *
-	 * @since 4.9.11
-	 *
-	 * @type bool
-	 */
-	obj.isLiveRefresh = true;
-
-	/**
 	 * Mutation observer to watch for mutations
 	 *
 	 * @since 4.9.10
@@ -202,27 +191,11 @@ tribe.events.views.datepicker = {};
 	 * @return {void}
 	 */
 	obj.submitRequest = function( $container, value ) {
-		if ( obj.isLiveRefresh ) {
-			var viewData = {
-				[ 'tribe-bar-date' ]: value,
-			};
+		var viewData = {
+			[ 'tribe-bar-date' ]: value,
+		};
 
-			obj.request( viewData, $container );
-		} else {
-			var $forms = $container
-				.find( tribe.events.views.manager.selectors.form )
-				.not( obj.selectors.datepickerFormClass );
-
-			if ( $forms.length ) {
-				var $input = obj.createDateInputObj( value );
-
-				$forms
-					.find( obj.selectors.dateInput )
-					.remove();
-
-				$forms.prepend( $input );
-			}
-		}
+		obj.request( viewData, $container );
 	};
 
 	/**
@@ -643,7 +616,6 @@ tribe.events.views.datepicker = {};
 
 		// set options for datepicker
 		obj.initDateFormat( data );
-		obj.isLiveRefresh = data.live_refresh ? data.live_refresh : false;
 		obj.options.weekStart = data.start_of_week;
 		obj.options.container = $container.find( obj.selectors.datepickerContainer );
 		obj.options.minViewMode = isMonthView ? 'year' : 'month';

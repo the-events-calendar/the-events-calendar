@@ -104,7 +104,6 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			'date_utc'               => $event->post_date_gmt,
 			'modified'               => $event->post_modified,
 			'modified_utc'           => $event->post_modified_gmt,
-			'status'                 => $event->post_status,
 			'url'                    => get_the_permalink( $event_id ),
 			'rest_url'               => tribe_events_rest_url( 'events/' . $event_id ),
 			'title'                  => trim( apply_filters( 'the_title', $event->post_title, $event_id ) ),

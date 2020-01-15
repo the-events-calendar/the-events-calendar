@@ -14,7 +14,7 @@ export function* setInitialState( action ) {
 	const { get } = action.payload;
 
 	yield all( [
-		put( actions.setWebsite( get( 'url' ) ) ),
+		put( actions.setWebsite( get( 'url', DEFAULT_STATE.url ) ) ),
 		put( actions.setLabel( get( 'urlLabel', DEFAULT_STATE.label ) ) ),
 	] );
 }

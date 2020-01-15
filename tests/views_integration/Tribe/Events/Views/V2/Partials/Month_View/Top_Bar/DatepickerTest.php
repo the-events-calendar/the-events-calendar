@@ -40,36 +40,9 @@ class DatepickerTest extends HtmlPartialTestCase
 			'formatted_grid_date'        => 'January 2018',
 			'formatted_grid_date_mobile' => '1/2018',
 			'the_date'                   => Dates::build_date_object( '2018-01' ),
-			'show_datepicker_submit'     => true,
 			'date_formats'               => $date_formats,
 		] ) );
 
-	}
-
-	/**
-	 * Test render without submit
-	 */
-	public function test_render_without_submit() {
-
-		$date_formats = (object) [
-			'month_and_year'         => 'F Y',
-			'month_and_year_compact' => 'm/Y',
-			'time_range_separator'   => ' - ',
-			'date_time_separator'    => ' @ ',
-			'compact'                => 'm/d/Y',
-		];
-
-		$this->assertMatchesSnapshot( $this->get_partial_html( [
-			'now'                        => '2018-01-01 12:00:00',
-			'today_url'                  => 'http://test.tri.be',
-			'is_now'                     => true,
-			'show_now'                   => true,
-			'formatted_grid_date'        => 'January 2018',
-			'formatted_grid_date_mobile' => '1/2018',
-			'the_date'                   => Dates::build_date_object( '2018-01' ),
-			'show_datepicker_submit'     => false,
-			'date_formats'               => $date_formats,
-		] ) );
 	}
 
 	public function tearDown(){

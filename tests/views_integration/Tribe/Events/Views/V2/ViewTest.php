@@ -191,11 +191,13 @@ class ViewTest extends \Codeception\TestCase\WPTestCase {
 		$events = static::factory()->event->create_many( 3 );
 
 		$page_1_view = View::make( 'test' );
+		$page_1_view->set_has_next_event( true );
 		$page_1_view->setup_the_loop( [ 'posts_per_page' => 2, 'starts_after' => 'now' ] );
 
 		$this->assertEquals( home_url() . '?post_type=tribe_events&eventDisplay=test&paged=2', $page_1_view->next_url() );
 
 		$page_2_view = View::make( 'test' );
+		$page_2_view->set_has_next_event( false );
 		$page_2_view->setup_the_loop( [ 'posts_per_page' => 2, 'starts_after' => 'now', 'paged' => 2 ] );
 
 		$this->assertEquals( '', $page_2_view->next_url() );

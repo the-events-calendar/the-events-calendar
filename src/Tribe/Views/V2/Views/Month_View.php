@@ -58,6 +58,10 @@ class Month_View extends By_Day_View {
 	 * {@inheritDoc}
 	 */
 	public function prev_url( $canonical = false, array $passthru_vars = [] ) {
+		if ( isset( $this->cached_urls[ __METHOD__ ] ) ) {
+			return $this->cached_urls[ __METHOD__ ];
+		}
+
 		// Setup the Default date for the month view here.
 		$default_date = 'today';
 		$date         = $this->context->get( 'event_date', $default_date );
@@ -90,14 +94,21 @@ class Month_View extends By_Day_View {
 		}
 
 		$url = $this->build_url_for_date( $prev_date, $canonical, $passthru_vars );
+		$url = $this->filter_prev_url( $canonical, $url );
 
-		return $this->filter_prev_url( $canonical, $url );
+		$this->cached_urls[ __METHOD__ ] = $url;
+
+		return $url;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public function next_url( $canonical = false, array $passthru_vars = [] ) {
+		if ( isset( $this->cached_urls[ __METHOD__ ] ) ) {
+			return $this->cached_urls[ __METHOD__ ];
+		}
+
 		// Setup the Default date for the month view here.
 		$default_date = 'today';
 		$date         = $this->context->get( 'event_date', $default_date );
@@ -130,8 +141,11 @@ class Month_View extends By_Day_View {
 		}
 
 		$url = $this->build_url_for_date( $next_date, $canonical, $passthru_vars );
+		$url = $this->filter_next_url( $canonical, $url );
 
-		return $this->filter_next_url( $canonical, $url );
+		$this->cached_urls[ __METHOD__ ] = $url;
+
+		return $url;
 	}
 
 	/**

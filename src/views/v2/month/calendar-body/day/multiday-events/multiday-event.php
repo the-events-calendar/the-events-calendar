@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.13
+ * @version 5.0.0
  *
  * @var string $day_date        The `Y-m-d` date of the day currently being displayed.
  * @var string $today_date      Today's date in the `Y-m-d` format.
@@ -31,7 +31,7 @@ use Tribe__Date_Utils as Dates;
 $should_display = $event->dates->start_display->format( 'Y-m-d' ) === $day_date
                   || $is_start_of_week;
 
-$classes = get_post_class( [ 'tribe-events-calendar-month__multiday-event' ], $event->ID );
+$classes = tribe_get_post_class( [ 'tribe-events-calendar-month__multiday-event' ], $event->ID );
 
 // @todo @fe move class configuration to template tag
 
@@ -68,8 +68,6 @@ if ( $should_display ) {
 		$classes[] = 'tribe-events-calendar-month__multiday-event--past';
 	}
 }
-
-$classes = get_post_class( $classes, $event->ID );
 ?>
 <div class="tribe-events-calendar-month__multiday-event-wrapper">
 	<article <?php tribe_classes( $classes ); ?> data-event-id="<?php echo esc_attr( $event->ID ); ?>">
@@ -95,7 +93,10 @@ $classes = get_post_class( $classes, $event->ID );
 					></em>
 				<?php endif; ?>
 				<h3 class="tribe-events-calendar-month__multiday-event-hidden-title tribe-common-h8">
-					<?php echo wp_kses_post( get_the_title( $event->ID ) ); ?>
+					<?php
+					// phpcs:ignore
+					echo $event->title;
+					?>
 				</h3>
 			</a>
 		</div>
@@ -110,7 +111,10 @@ $classes = get_post_class( $classes, $event->ID );
 						></em>
 					<?php endif; ?>
 					<h3 class="tribe-events-calendar-month__multiday-event-bar-title tribe-common-h8">
-						<?php echo wp_kses_post( get_the_title( $event->ID ) ); ?>
+						<?php
+						// phpcs:ignore
+						echo $event->title;
+						?>
 					</h3>
 				</div>
 			</div>
