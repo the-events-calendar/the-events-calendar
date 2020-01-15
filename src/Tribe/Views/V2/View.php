@@ -1277,7 +1277,7 @@ class View implements View_Interface {
 		/*
 		 * To optimize the determination of whether there are future events, we
 		 * increased events_per_page by +1 during setup_repository_args. Because of that
-		 * if the number of events returned are greater than events_per_page,ll we need to
+		 * if the number of events returned is greater than events_per_page, we need to
 		 * pop an element off the end and set a boolean.
 		 *
 		 * @since 5.0.0
