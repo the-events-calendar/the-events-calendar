@@ -39,6 +39,7 @@ const mapStateToProps = ( state ) => ( {
 	end: dateTimeSelectors.getEnd( state ),
 	isEditable: dateTimeSelectors.isEditable( state ),
 	multiDay: dateTimeSelectors.getMultiDay( state ),
+	sameStartEnd: dateTimeSelectors.getSameStartEnd( state ),
 	separatorDate: dateTimeSelectors.getDateSeparator( state ),
 	separatorTime: dateTimeSelectors.getTimeSeparator( state ),
 	showDateInput: dateTimeSelectors.getDateInputVisibility( state ),
