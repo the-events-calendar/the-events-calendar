@@ -92,7 +92,7 @@ trait List_Behavior {
 			}
 			$end = $last_event instanceof \WP_Post ? $last_event->dates->start_display : $user_date;
 
-			// never let the start of the range be lower than the top bar date
+			// Never let the start of the range be lower than the top bar date.
 			if ( $start < $user_date ) {
 				$start = $user_date;
 			}
@@ -101,7 +101,7 @@ trait List_Behavior {
 			$end   = $last_event instanceof \WP_Post ? $last_event->dates->start_display : $user_date;
 		}
 
-		// never let the start of the range exceed the start
+		// Never let the start of the range exceed the start.
 		if ( $start > $end ) {
 			$end = $user_date;
 		}
