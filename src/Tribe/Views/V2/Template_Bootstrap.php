@@ -351,6 +351,10 @@ class Template_Bootstrap {
 	 *
 	 * @since  TBD
 	 *
+	 * @param string $file      Complete path to include the PHP File
+	 * @param array  $name      Template name
+	 * @param self   $template  Current instance of the Tribe__Template
+	 * 
 	 * @return string
 	 */
 	public function filter_template_file( $file, $name, $template ) {

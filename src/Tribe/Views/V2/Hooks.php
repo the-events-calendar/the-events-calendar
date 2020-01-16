@@ -587,10 +587,14 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * Filter the template file in case we're in single event
 	 * and we need to use the theme overrides.
 	 *
-	 * @see   tribe_filter_template_file
+	 * @see   tribe_template_file
 	 *
 	 * @since TBD
 	 *
+	 * @param string $file      Complete path to include the PHP File
+	 * @param array  $name      Template name
+	 * @param self   $template  Current instance of the Tribe__Template
+	 * 
 	 * @return string
 	 */
 	public function filter_template_file( $file, $name, $template ) {
