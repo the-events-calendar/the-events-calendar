@@ -91,9 +91,19 @@ trait List_Behavior {
 				$start = $first_event instanceof \WP_Post ? $first_event->dates->start_display : $user_date;
 			}
 			$end = $last_event instanceof \WP_Post ? $last_event->dates->start_display : $user_date;
+
+			// never let the start of the range be lower than the top bar date
+			if ( $start < $user_date ) {
+				$start = $user_date;
+			}
 		} else {
 			$start = $first_event instanceof \WP_Post ? $first_event->dates->start_display : $user_date;
 			$end   = $last_event instanceof \WP_Post ? $last_event->dates->start_display : $user_date;
+		}
+
+		// never let the start of the range exceed the start
+		if ( $start > $end ) {
+			$end = $user_date;
 		}
 
 		$is_first_past_page = $is_past && 1 === $page;
