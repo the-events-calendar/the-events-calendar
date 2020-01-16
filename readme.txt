@@ -230,10 +230,12 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - Fix event sharing block cutting off text in block editor admin when editing event. [TEC-2972]
 * Fix - Fix disappearing price description in block editor admin when editing event. [TEC-2992]
 * Fix - Allow venues to be properly removed by clicking the remove venue button in the venue block. [TEC-2965]
+* Fix - Fix the datepicker width problem in Google Chrome, for the new views. [TEC-2995]
 * Tweak - Adjust tooltip title styles for Twenty Twenty theme. [TEC-2998]
 * Tweak - Remove find events button and related data when events bar is disabled. [TEC-3074]
 * Tweak - Ensure datepicker always updates view via live refresh. [TEC-3073]
 * Tweak - Adjust customizer labels for sites using the new views [TEC-3066]
+* Tweak - Allow start datetime and end datetime to be the same to hide end datetime in frontend when using block editor. [TEC-3009]
 
 = [5.0.0] TBD =
 
