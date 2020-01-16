@@ -87,12 +87,27 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'tribe_general_settings_tab_fields', [ $this, 'filter_general_settings_tab_live_update' ], 20 );
 		add_filter( 'tribe_events_rewrite_i18n_slugs_raw', [ $this, 'filter_rewrite_i18n_slugs_raw' ], 50, 2 );
 		add_filter( 'tribe_get_event_after', [ $this, 'filter_events_properties' ] );
+		add_filter( 'tribe_template_file', [ $this, 'filter_template_file' ], 10, 3 );
 
 		if ( tribe_context()->doing_php_initial_state() ) {
 			add_filter( 'wp_title', [ $this, 'filter_wp_title' ], 10, 2 );
 			add_filter( 'document_title_parts', [ $this, 'filter_document_title_parts' ] );
 			add_filter( 'pre_get_document_title', [ $this, 'pre_get_document_title' ], 20 );
 		}
+	}
+
+	/**
+	 * Includes includes edge cases for filtering when we need to manually overwrite theme's read
+	 * more link when excerpt is cut programatically.
+	 *
+	 * @see   tribe_events_get_the_excerpt
+	 *
+	 * @since 4.9.11
+	 *
+	 * @return void
+	 */
+	public function filter_template_file( $file, $name, $template ) {
+		return $this->container->make( Template_Bootstrap::class )->filter_template_file( $file, $name, $template );
 	}
 
 	/**

@@ -15,8 +15,6 @@ use Tribe\Events\Views\V2\Template_Bootstrap;
 use Tribe\Events\Views\V2\View;
 use Tribe\Utils\Lazy_String;
 use Tribe\Utils\Post_Thumbnail;
-use Tribe__Events__Main as Plugin;
-use Tribe__Events__Templates as V1_Event_Templates;
 
 class Event {
 	/**
@@ -57,9 +55,8 @@ class Event {
 	public function get_path() {
 		$fake_view = View::make( 'reflector' );
 		$path      = $fake_view->get_template()->get_template_file( 'default-template' );
-		$override  = V1_Event_Templates::getTemplateHierarchy( 'default-template' );
 
-		return ! empty( $override ) && is_singular( Plugin::POSTTYPE ) ? $override : $path;
+		return $path;
 	}
 
 	/**
