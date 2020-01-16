@@ -167,7 +167,7 @@ abstract class By_Day_View extends View {
 			$last_grid_day  = $days->end;
 			$end            = tribe_end_of_day( $last_grid_day->format( Dates::DBDATETIMEFORMAT ) );
 
-			$day_ids = tribe_events()
+			$view_event_ids = tribe_events()
 				->set_found_rows( true )
 				->fields( 'ids' )
 				->by_args( $repository_args )
@@ -187,7 +187,7 @@ abstract class By_Day_View extends View {
 			}
 
 			$results = [];
-			$request_chunks = array_chunk( $day_ids, $this->get_chunk_size() );
+			$request_chunks = array_chunk( $view_event_ids, $this->get_chunk_size() );
 
 			foreach ( $request_chunks as $chunk_ids ) {
 				$sql = "
@@ -223,7 +223,7 @@ abstract class By_Day_View extends View {
 				$indexed_results[ $row->post_id ][ $key ] = $row->meta_value;
 			}
 
-			foreach ( $day_ids as $id ) {
+			foreach ( $view_event_ids as $id ) {
 				$day_results[] = (object) $indexed_results[ $id ];
 			}
 		}
