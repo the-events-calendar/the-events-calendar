@@ -404,6 +404,12 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @return string A redirection URL, or `false` to prevent redirection.
 	 */
 	public function filter_redirect_canonical( $redirect_url = null, $original_url = null ) {
+		// When dealing with admin urls bail early.
+		if ( is_admin() ) {
+			return $redirect_url;
+		}
+
+
 		if ( trailingslashit( $original_url ) === trailingslashit( $redirect_url ) ) {
 			return $redirect_url;
 		}
