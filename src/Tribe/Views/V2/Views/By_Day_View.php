@@ -244,8 +244,10 @@ abstract class By_Day_View extends View {
 					$day_results->order_by( $order_by, $order );
 					$event_ids = array_map( 'absint', $day_results->pluck( 'ID' ) );
 				}
-				// @todo @bluedevs truncating here does not make sense, do in template?
-				$day_event_ids = array_slice( $event_ids, 0, $events_per_day );
+
+				if ( $events_per_day > -1 ) {
+					$day_event_ids = array_slice( $event_ids, 0, $events_per_day );
+				}
 
 				$this->grid_days_cache[ $day_string ]       = $day_event_ids;
 				$this->grid_days_found_cache[ $day_string ] = $day_results->count();
@@ -263,7 +265,10 @@ abstract class By_Day_View extends View {
 				} );
 
 				$day_event_ids = array_map( 'absint', wp_list_pluck( $results_in_day, 'ID' ) );
-				$day_event_ids = array_slice( $day_event_ids, 0, $events_per_day );
+
+				if ( $events_per_day > -1 ) {
+					$day_event_ids = array_slice( $day_event_ids, 0, $events_per_day );
+				}
 
 				$this->grid_days_cache[ $day_string ]       = $day_event_ids;
 				$this->grid_days_found_cache[ $day_string ] = count( $results_in_day );
