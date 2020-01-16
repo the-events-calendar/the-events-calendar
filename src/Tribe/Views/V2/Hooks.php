@@ -106,20 +106,6 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @return void
 	 */
-	public function filter_template_file( $file, $name, $template ) {
-		return $this->container->make( Template_Bootstrap::class )->filter_template_file( $file, $name, $template );
-	}
-
-	/**
-	 * Includes includes edge cases for filtering when we need to manually overwrite theme's read
-	 * more link when excerpt is cut programatically.
-	 *
-	 * @see   tribe_events_get_the_excerpt
-	 *
-	 * @since 4.9.11
-	 *
-	 * @return void
-	 */
 	public function action_include_filters_excerpt() {
 		add_filter( 'excerpt_more', [ $this, 'filter_excerpt_more' ], 50 );
 	}
@@ -595,5 +581,19 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		}
 
 		return $this->container->make( Template\Event::class )->filter_event_properties( $event );
+	}
+
+	/**
+	 * Filter the template file in case we're in single event
+	 * and we need to use the theme overrides.
+	 *
+	 * @see   tribe_filter_template_file
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	public function filter_template_file( $file, $name, $template ) {
+		return $this->container->make( Template_Bootstrap::class )->filter_template_file( $file, $name, $template );
 	}
 }
