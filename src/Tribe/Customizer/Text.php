@@ -1,25 +1,29 @@
 <?php
+/**
+ * The Events Calendar Customizer Section: Text.
+ *
+ * @package The Events Calendar
+ * @since   TBD
+ */
+
 // Don't load directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-/**
- * The Events Calendar Customizer Section Class
- * Text
- *
- * @package    The Events Calendar
- * @subpackage Customizer
- * @since      TBD
- */
 final class Tribe__Events__Customizer__Text extends Tribe__Customizer__Section {
 
+	/**
+	 * Object instance.
+	 *
+	 * @return mixed|object|Tribe__Container The instance of the requested class.
+	 */
 	public static function instance() {
 		return tribe( 'tec.customizer.text' );
 	}
 
 	/**
-	 * Grab the CSS rules template
+	 * Grab the CSS rules template.
 	 * 
 	 * @since TBD
 	 *
@@ -120,7 +124,7 @@ final class Tribe__Events__Customizer__Text extends Tribe__Customizer__Section {
 				}
 			';
 			
-			// PRO
+			// PRO Styles.
 			$template .= '
 				.tribe-events-pro .tribe-events-pro-week-grid__events-time-tag,
 				.tribe-events-pro .tribe-events-pro-week-grid__event-tooltip-datetime,
@@ -171,7 +175,7 @@ final class Tribe__Events__Customizer__Text extends Tribe__Customizer__Section {
 				}
 			';
 
-			// PRO
+			// PRO Styles.
 			$template .= '
 				.tribe-events .tribe-events-calendar-month__calendar-event-datetime,
 				.tribe-events-pro .tribe-events-pro-photo__event-date-tag-month,
@@ -188,7 +192,7 @@ final class Tribe__Events__Customizer__Text extends Tribe__Customizer__Section {
 	}
 
 	/**
-	 * Setup the Customizer section
+	 * Setup the Customizer section.
 	 * 
 	 * @since TBD
 	 *
@@ -209,9 +213,9 @@ final class Tribe__Events__Customizer__Text extends Tribe__Customizer__Section {
 	}
 
 	/**
-	 * Create the Fields/Settings for this sections
+	 * Create the Fields/Settings for this sections.
 	 *
-	 * @param  WP_Customize_Section $section The WordPress section instance
+	 * @param  WP_Customize_Section $section The WordPress section instance.
 	 * @param  WP_Customize_Manager $manager [description]
 	 *
 	 * @return void
@@ -261,7 +265,7 @@ final class Tribe__Events__Customizer__Text extends Tribe__Customizer__Section {
 			)
 		);
 
-		// Introduced to make Selective Refresh have less code duplication
+		// Introduced to make Selective Refresh have less code duplication.
 		$customizer->add_setting_name( $customizer->get_setting_name( 'primary_text_color', $section ) );
 		$customizer->add_setting_name( $customizer->get_setting_name( 'secondary_text_color', $section ) );
 	}
