@@ -593,7 +593,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @param string $file      Complete path to include the PHP File
 	 * @param array  $name      Template name
-	 * @param self   $template  Current instance of the Tribe__Template
+	 * @param object $template  Instance of the Tribe__Template
 	 * 
 	 * @return string
 	 */
