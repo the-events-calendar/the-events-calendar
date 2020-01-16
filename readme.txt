@@ -217,7 +217,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 = [5.0.1] TBD =
 
-* Feature: Add the "Text" section in the customizer, for the new views. [TEC-3068]
+* Feature - Add the "Text" section in the customizer, for the new views. [TEC-3068]
 * Feature: Add the "Primary Text Color" option in the customizer, for the new views. [TEC-3070]
 * Feature: Add the "Secondary Text Color" option in the customizer, for the new views. [TEC-3071]
 * Fix - Fix venue block title from being indented in Twenty Twenty theme. [TEC-3140]
