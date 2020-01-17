@@ -13,4 +13,8 @@
 	<rule ref="WordPress.DB.DirectDatabaseQuery">
 		<exclude-pattern>src/Test.php</exclude-pattern>
 	</rule>
+
+	<rule ref="Generic">
+		<exclude name="Generic.Arrays.DisallowShortArraySyntax"/>
+	</rule>
 </ruleset>
