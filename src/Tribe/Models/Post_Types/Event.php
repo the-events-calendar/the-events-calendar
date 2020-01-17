@@ -95,7 +95,7 @@ class Event extends Base {
 					$period = new DatePeriod( $end_of_day_object, $one_day, $end_date_object );
 					foreach ( $period as $date ) {
 						++ $multiday;
-					};
+					}
 				}
 			}
 
