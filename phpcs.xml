@@ -9,12 +9,12 @@
 	<rule ref="WordPress-Core"></rule>
 	<rule ref="TribalScents"></rule>
 
+	<rule ref="Generic">
+		<exclude name="Generic.Arrays.DisallowShortArraySyntax"/>
+	</rule>
+
 	<!--exclude the rule for violation of direct DB calls as some have no alternative-->
 	<rule ref="WordPress.DB.DirectDatabaseQuery">
 		<exclude-pattern>src/Test.php</exclude-pattern>
-	</rule>
-
-	<rule ref="Generic">
-		<exclude name="Generic.Arrays.DisallowShortArraySyntax"/>
 	</rule>
 </ruleset>
