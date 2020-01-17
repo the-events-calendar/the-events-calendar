@@ -1274,6 +1274,8 @@ class View implements View_Interface {
 
 		$events = (array) $this->repository->all();
 
+		$is_paginated = isset( $this->repository_args['posts_per_page'] ) && -1 !== $this->repository_args['posts_per_page'];
+
 		/*
 		 * To optimize the determination of whether there are future events, we
 		 * increased events_per_page by +1 during setup_repository_args. Because of that
@@ -1282,7 +1284,7 @@ class View implements View_Interface {
 		 *
 		 * @since 5.0.0
 		 */
-		if ( $this->has_next_event( $events ) ) {
+		if ( $is_paginated && $this->has_next_event( $events ) ) {
 			array_pop( $events );
 		}
 
