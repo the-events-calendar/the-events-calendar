@@ -360,15 +360,15 @@ class Template_Bootstrap {
 	public function filter_template_file( $file, $name, $template ) {
 		
 		if ( 
-			is_singular( TEC::POSTTYPE )
-			&& 'single-event' === tribe_context()->get( 'view' )
+			! is_singular( TEC::POSTTYPE )
+			&& 'single-event' !== tribe_context()->get( 'view' )
 		) {
-			$override = V1_Event_Templates::getTemplateHierarchy( 'default-template' );
-			if ( ! empty( $override ) ) {
-				$file = $override;
-			}
-		}		
-		return $file;
+			return $file;
+		}
+		
+		$override = V1_Event_Templates::getTemplateHierarchy( 'default-template' );
+		
+		return ! empty( $override ) ? $override : $file;
 	}
 
 }
