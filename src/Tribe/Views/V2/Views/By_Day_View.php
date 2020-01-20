@@ -255,14 +255,13 @@ abstract class By_Day_View extends View {
 				$start = tribe_beginning_of_day( $day->format( Dates::DBDATETIMEFORMAT ) );
 				$end   = tribe_end_of_day( $day->format( Dates::DBDATETIMEFORMAT ) );
 
-				$results_in_day = array_filter( $day_results, static function( $event ) use ( $start, $end ) {
-					return (
-						( $start >= $event->start_date && $end <= $event->end_date )
-						|| ( $start >= $event->start_date && $start <= $event->end_date && $end >= $event->end_date )
-						|| ( $start < $event->start_date && $end >= $event->end_date )
-						|| ( $start < $event->start_date && $end <= $event->end_date && $end >= $event->start_date )
-					);
-				} );
+				// Events overlap a day if Event start date <= Day End AND Event end date >= Day Start.
+				$results_in_day = array_filter(
+					$day_results,
+					static function ( $event ) use ( $start, $end ) {
+						return $event->start_date <= $end && $event->end_date >= $start;
+					}
+				);
 
 				$day_event_ids = array_map( 'absint', wp_list_pluck( $results_in_day, 'ID' ) );
 
