@@ -344,4 +344,31 @@ class Template_Bootstrap {
 
 		return $classes;
 	}
+
+	/**
+	 * Filter the template file in case we're in single event
+	 * and we need to use the theme overrides.
+	 *
+	 * @since  TBD
+	 *
+	 * @param string $file      Complete path to include the PHP File
+	 * @param array  $name      Template name
+	 * @param object $template  Instance of the Tribe__Template
+	 * 
+	 * @return string
+	 */
+	public function filter_template_file( $file, $name, $template ) {
+		
+		if ( 
+			! is_singular( TEC::POSTTYPE )
+			&& 'single-event' !== tribe_context()->get( 'view' )
+		) {
+			return $file;
+		}
+		
+		$override = V1_Event_Templates::getTemplateHierarchy( 'default-template' );
+		
+		return ! empty( $override ) ? $override : $file;
+	}
+
 }
