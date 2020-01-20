@@ -614,6 +614,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			if ( ! tribe_events_views_v2_is_enabled() ) {
 				tribe_singleton( 'tec.customizer.widget', new Tribe__Events__Customizer__Widget() );
+			} else {
+				tribe_singleton( 'tec.customizer.text', new Tribe__Events__Customizer__Text() );
 			}
 
 			/**
