@@ -88,6 +88,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'tribe_general_settings_tab_fields', [ $this, 'filter_general_settings_tab_live_update' ], 20 );
 		add_filter( 'tribe_events_rewrite_i18n_slugs_raw', [ $this, 'filter_rewrite_i18n_slugs_raw' ], 50, 2 );
 		add_filter( 'tribe_get_event_after', [ $this, 'filter_events_properties' ] );
+		add_filter( 'tribe_template_file', [ $this, 'filter_template_file' ], 10, 3 );
 
 		if ( tribe_context()->doing_php_initial_state() ) {
 			add_filter( 'wp_title', [ $this, 'filter_wp_title' ], 10, 2 );
@@ -581,5 +582,23 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		}
 
 		return $this->container->make( Template\Event::class )->filter_event_properties( $event );
+	}
+
+	/**
+	 * Filter the template file in case we're in single event
+	 * and we need to use the theme overrides.
+	 *
+	 * @see   tribe_template_file
+	 *
+	 * @since TBD
+	 *
+	 * @param string $file      Complete path to include the PHP File
+	 * @param array  $name      Template name
+	 * @param object $template  Instance of the Tribe__Template
+	 * 
+	 * @return string
+	 */
+	public function filter_template_file( $file, $name, $template ) {
+		return $this->container->make( Template_Bootstrap::class )->filter_template_file( $file, $name, $template );
 	}
 }

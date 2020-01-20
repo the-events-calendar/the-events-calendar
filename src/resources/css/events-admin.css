@@ -171,6 +171,7 @@
 /* Apply a grey highlight to 'today' */
 
 .ui-datepicker-calendar .ui-datepicker-today a {
+		background: -o-linear-gradient(96deg, #ccc 0%, #eee 100%);
 		background: linear-gradient(354deg, #ccc 0%, #eee 100%);
 		color: black;
 	}
@@ -178,6 +179,7 @@
 /* If today is also the current selected day, prefer the default blue highlight */
 
 .ui-datepicker-calendar .ui-datepicker-today.ui-datepicker-current-day a {
+		background: -o-linear-gradient( 96deg, rgba( 10,85,160,1.00 ) 0%, rgba( 18,136,235,1.00 ) 100% );
 		background: linear-gradient( 354deg, rgba( 10,85,160,1.00 ) 0%, rgba( 18,136,235,1.00 ) 100% );
 		color: #fff;
 	}
@@ -328,11 +330,14 @@
 	#modern-tribe-info.tribe-upgrade #tribe-upgrade-step2,
 	#modern-tribe-info.tribe-upgrade #tribe-upgrade-complete {
 		display: -webkit-box;
+		display: -ms-flexbox;
 		display: flex;
 		-webkit-box-orient: horizontal;
 		-webkit-box-direction: normal;
+		    -ms-flex-direction: row;
 		        flex-direction: row;
 		-webkit-box-pack: justify;
+		    -ms-flex-pack: justify;
 		        justify-content: space-between;
 	}
 
@@ -348,7 +353,8 @@
 		background: #334AFF;
 		border-radius: 0.25rem;
 		border: 0;
-		box-shadow: 0 2px black;
+		-webkit-box-shadow: 0 2px black;
+		        box-shadow: 0 2px black;
 		color: white;
 		cursor: pointer;
 		font-size: 1rem;
@@ -402,7 +408,8 @@
 	background: #334AFF;
 	border-radius: 0.25rem;
 	border: 0;
-	box-shadow: 0 2px black;
+	-webkit-box-shadow: 0 2px black;
+	        box-shadow: 0 2px black;
 	color: white;
 	cursor: pointer;
 	font-size: 0.8rem;
@@ -557,6 +564,7 @@ table.eventForm {
 	padding: .5rem 1.5rem;
 	text-decoration: none;
 	-webkit-transition: background-color 0.5s ease;
+	-o-transition: background-color 0.5s ease;
 	transition: background-color 0.5s ease;
 }
 
@@ -598,6 +606,7 @@ table.eventForm {
 	padding: .5rem 1.5rem;
 	text-decoration: none;
 	-webkit-transition: background-color 0.5s ease;
+	-o-transition: background-color 0.5s ease;
 	transition: background-color 0.5s ease;
 }
 

@@ -167,7 +167,7 @@ abstract class By_Day_View extends View {
 			$last_grid_day  = $days->end;
 			$end            = tribe_end_of_day( $last_grid_day->format( Dates::DBDATETIMEFORMAT ) );
 
-			$day_ids = tribe_events()
+			$view_event_ids = tribe_events()
 				->set_found_rows( true )
 				->fields( 'ids' )
 				->by_args( $repository_args )
@@ -187,7 +187,7 @@ abstract class By_Day_View extends View {
 			}
 
 			$results = [];
-			$request_chunks = array_chunk( $day_ids, $this->get_chunk_size() );
+			$request_chunks = array_chunk( $view_event_ids, $this->get_chunk_size() );
 
 			foreach ( $request_chunks as $chunk_ids ) {
 				$sql = "
@@ -223,7 +223,7 @@ abstract class By_Day_View extends View {
 				$indexed_results[ $row->post_id ][ $key ] = $row->meta_value;
 			}
 
-			foreach ( $day_ids as $id ) {
+			foreach ( $view_event_ids as $id ) {
 				$day_results[] = (object) $indexed_results[ $id ];
 			}
 		}
@@ -245,8 +245,9 @@ abstract class By_Day_View extends View {
 					$event_ids = array_map( 'absint', $day_results->pluck( 'ID' ) );
 				}
 
-				// @todo @bluedevs truncating here does not make sense, do in template?
-				$day_event_ids = array_slice( $event_ids, 0, $events_per_day );
+				if ( $events_per_day > -1 ) {
+					$day_event_ids = array_slice( $event_ids, 0, $events_per_day );
+				}
 
 				$this->grid_days_cache[ $day_string ]       = $day_event_ids;
 				$this->grid_days_found_cache[ $day_string ] = $day_results->count();
@@ -263,8 +264,11 @@ abstract class By_Day_View extends View {
 					);
 				} );
 
-				$day_event_ids = array_map( 'absint', array_column( $results_in_day, 'ID' ) );
-				$day_event_ids = array_slice( $day_event_ids, 0, $events_per_day );
+				$day_event_ids = array_map( 'absint', wp_list_pluck( $results_in_day, 'ID' ) );
+
+				if ( $events_per_day > -1 ) {
+					$day_event_ids = array_slice( $day_event_ids, 0, $events_per_day );
+				}
 
 				$this->grid_days_cache[ $day_string ]       = $day_event_ids;
 				$this->grid_days_found_cache[ $day_string ] = count( $results_in_day );

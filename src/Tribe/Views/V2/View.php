@@ -36,7 +36,7 @@ class View implements View_Interface {
 	/**
 	 * An instance of the DI container.
 	 *
-	 * @var \tad_DI52_Container
+	 * @var Container
 	 */
 	protected static $container;
 
@@ -77,7 +77,7 @@ class View implements View_Interface {
 	 *
 	 * This value will be set by the `View::make()` method while building a View instance.
 	 *
-	 * @var \Tribe\Events\Views\V2\Template
+	 * @var Template
 	 */
 	protected $template;
 
@@ -91,7 +91,7 @@ class View implements View_Interface {
 	/**
 	 * The URL object the View is currently.
 	 *
-	 * @var \Tribe\Events\Views\V2\Url
+	 * @var Url
 	 */
 	protected $url;
 
@@ -383,9 +383,9 @@ class View implements View_Interface {
 		 *
 		 * @since  4.9.3
 		 *
-		 * @param  \Tribe\Events\Views\V2\Template $template  The template object for the View.
-		 * @param  string                          $view_slug The current view slug.
-		 * @param View                             $instance  The current View object.
+		 * @param  Template $template  The template object for the View.
+		 * @param  string   $view_slug The current view slug.
+		 * @param  View     $instance  The current View object.
 		 */
 		$template = apply_filters( 'tribe_events_views_v2_view_template', $template, $view_slug, $instance );
 
@@ -394,8 +394,8 @@ class View implements View_Interface {
 		 *
 		 * @since  4.9.3
 		 *
-		 * @param  \Tribe\Events\Views\V2\Template $template The template object for the View.
-		 * @param View                             $instance The current View object.
+		 * @param  Template $template The template object for the View.
+		 * @param  View     $instance The current View object.
 		 */
 		$template = apply_filters( "tribe_events_views_v2_{$view_slug}_view_template", $template, $instance );
 
@@ -496,7 +496,7 @@ class View implements View_Interface {
 	/**
 	 * Sets the DI container the class should use to build views.
 	 *
-	 * @param \tad_DI52_Container $container The DI container instance to use.
+	 * @param Container $container The DI container instance to use.
 	 *
 	 * @since 4.9.2
 	 *
@@ -755,17 +755,22 @@ class View implements View_Interface {
 
 		$url = $this->get_url();
 
+		$query_args = [];
+
 		if ( ! empty( $passthru_vars ) ) {
 			// Remove the pass-thru vars, we'll re-apply them to the URL later.
 			$url = remove_query_arg( array_keys( $passthru_vars ), $url );
 		}
 
 		// Make sure the view slug is always set to correctly match rewrites.
-		$url = add_query_arg( [ 'eventDisplay' => $this->slug ], $url );
+		$query_args['eventDisplay'] = $this->slug;
 
-		$url = $this->has_next_event ?
-			add_query_arg( [ $this->page_key => $this->url->get_current_page() + 1 ], $url )
-			: '';
+		if ( $this->has_next_event ) {
+			$query_args[ $this->page_key ] = $this->url->get_current_page() + 1;
+		} else {
+			$query_args = [];
+			$url        = '';
+		}
 
 		if ( ! empty( $url ) && $canonical ) {
 			$url = tribe( 'events.rewrite' )->get_clean_url( $url );
@@ -773,7 +778,14 @@ class View implements View_Interface {
 
 		if ( ! empty( $passthru_vars ) && ! empty( $url ) ) {
 			// Re-apply the pass-thru query arguments.
-			$url = add_query_arg( $passthru_vars, $url );
+			$query_args = array_merge( $query_args, $passthru_vars );
+		}
+
+		$query_args = $this->filter_query_args( $query_args, $url );
+		$query_args = array_filter( $query_args );
+
+		if ( ! empty( $url ) || ! empty( $query_args ) ) {
+			$url = add_query_arg( $query_args, $url );
 		}
 
 		$url = $this->filter_next_url( $canonical, $url );
@@ -793,8 +805,9 @@ class View implements View_Interface {
 
 		$prev_page  = $this->repository->prev()->order_by( '__none' );
 
-		$paged      = $this->url->get_current_page() - 1;
-		$query_args = $paged > 1
+		$paged           = $this->url->get_current_page() - 1;
+		$query_args      = [];
+		$page_query_args = $paged > 1
 			? [ $this->page_key => $paged ]
 			: [];
 
@@ -806,12 +819,18 @@ class View implements View_Interface {
 		}
 
 		// Make sure the view slug is always set to correctly match rewrites.
-		$url = add_query_arg( [ 'eventDisplay' => $this->slug ], $url );
+		$query_args['eventDisplay'] = $this->slug;
 
-		$url = $prev_page->count() > 0 ? add_query_arg( $query_args, $url ) : '';
+		if ( $prev_page->count() > 0 ) {
+			$query_args = array_merge( $query_args, $page_query_args );
+		} else {
+			$query_args = [];
+			$url        = '';
+		}
 
 		if ( ! empty( $url ) && $paged === 1 ) {
 			$url = remove_query_arg( $this->page_key, $url );
+			unset( $query_args[ $this->page_key ] );
 		}
 
 		if ( ! empty( $url ) && $canonical ) {
@@ -820,7 +839,14 @@ class View implements View_Interface {
 
 		if ( ! empty( $passthru_vars ) && ! empty( $url ) ) {
 			// Re-apply the pass-thru query arguments.
-			$url = add_query_arg( $passthru_vars, $url );
+			$query_args = array_merge( $query_args, $passthru_vars );
+		}
+
+		$query_args = $this->filter_query_args( $query_args, $url );
+		$query_args = array_filter( $query_args );
+
+		if ( ! empty( $url ) || ! empty( $query_args ) ) {
+			$url = add_query_arg( $query_args, $url );
 		}
 
 		$url = $this->filter_prev_url( $canonical, $url );
@@ -837,6 +863,8 @@ class View implements View_Interface {
 	 *
 	 * @param array $query_args An array of query args that will be used to build the URL for the View.
 	 * @param bool  $canonical  Whether the URL should be the canonical one or not.
+	 *
+	 * @return array            Filtered array of query arguments.
 	 */
 	public function filter_query_args( $query_args, $canonical ) {
 		/**
@@ -1048,7 +1076,7 @@ class View implements View_Interface {
 			 * Passing this parameter that is only used in this object to control whether or not the
 			 * offset value should be overridden with the `tribe_repository_query_arg_offset_override` filter.
 			 */
-			'view_override_offset'      => true,
+			'view_override_offset' => true,
 		];
 
 		add_filter( 'tribe_repository_query_arg_offset_override', [ $this, 'filter_repository_query_arg_offset_override' ], 10, 2 );
@@ -1272,15 +1300,17 @@ class View implements View_Interface {
 
 		$events = (array) $this->repository->all();
 
+		$is_paginated = isset( $this->repository_args['posts_per_page'] ) && -1 !== $this->repository_args['posts_per_page'];
+
 		/*
 		 * To optimize the determination of whether there are future events, we
 		 * increased events_per_page by +1 during setup_repository_args. Because of that
-		 * if the number of events returned are greater than events_per_page, we need to
+		 * if the number of events returned is greater than events_per_page, we need to
 		 * pop an element off the end and set a boolean.
 		 *
 		 * @since 5.0.0
 		 */
-		if ( $this->has_next_event( $events ) ) {
+		if ( $is_paginated && $this->has_next_event( $events ) ) {
 			array_pop( $events );
 		}
 
@@ -1444,6 +1474,8 @@ class View implements View_Interface {
 
 		// Handle the `eventDisplay` query arg due to its particular usage to indicate the mode too.
 		$query_args['eventDisplay'] = $this->slug;
+
+		$query_args = $this->filter_query_args( $query_args, $canonical );
 
 		$ugly_url = add_query_arg( $query_args, $this->get_url( false ) );
 		$ugly_url = remove_query_arg( $to_remove, $ugly_url );

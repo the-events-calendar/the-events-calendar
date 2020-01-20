@@ -74,29 +74,36 @@ class Event extends Base {
 			 * An event is multi-day if its end date is after the end-of-day cutoff of the start date.
 			 * We add one second to make sure events ending at end-of-day, same day, cutoff are not marked as multi-day.
 			 */
-			$is_multiday = $end_of_day_object->add( $one_second ) < $end_date_object;
-			$multiday    = false;
+			$multiday = false;
+
+			if ( $all_day ) {
+				$start_end_diff = $start_date_object->diff( $end_date_object );
+				$is_multiday    = $start_end_diff->days > 1;
+				$multiday       = $is_multiday ? $start_end_diff->days : false;
+			} else {
+				$is_multiday = $end_of_day_object->add( $one_second ) < $end_date_object;
+
+				// Multi-day events will span at least two days: the day they start on and the following one.
+				if ( $is_multiday ) {
+					/*
+					 * Count the number of cut-offs happening before the end date and add 1.
+					 * Do not add 1 for all-day events as they span cut-off to cut-off.
+					 */
+					$multiday = 1;
+
+					// The end date should be inclusive, since it's not in the DatePeriod we work-around it adding a second.
+					$period = new DatePeriod( $end_of_day_object, $one_day, $end_date_object );
+					foreach ( $period as $date ) {
+						++ $multiday;
+					}
+				}
+			}
 
 			// Without a context these values will not make sense; we'll set them if the `$filter` argument is a date.
 			$starts_this_week   = null;
 			$ends_this_week     = null;
 			$happens_this_week  = null;
 			$this_week_duration = null;
-
-			// Multi-day events will span at least two days: the day they start on and the following one.
-			if ( $is_multiday ) {
-				/*
-				 * Count the number of cut-offs happening before the end date and add 1.
-				 * Do not add 1 for all-day events as they span cut-off to cut-off.
-				 */
-				$multiday = $all_day ? 0 : 1;
-
-				// The end date should be inclusive, since it's not in the DatePeriod we work-around it adding a second.
-				$period = new DatePeriod( $end_of_day_object, $one_day, $end_date_object );
-				foreach ( $period as $date ) {
-					++ $multiday;
-				};
-			}
 
 			if ( Dates::is_valid_date( $filter ) ) {
 				list( $week_start, $week_end ) = Dates::get_week_start_end( $filter );

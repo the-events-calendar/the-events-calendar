@@ -59,7 +59,8 @@
 		line-height: 26px;
 		max-width: 200px;
 		overflow: hidden;
-		text-overflow: ellipsis;
+		-o-text-overflow: ellipsis;
+		   text-overflow: ellipsis;
 		white-space: nowrap;
 		width: auto;
 	}
@@ -198,7 +199,8 @@
 	.tribe-ea .tribe-ea-tab-scheduled td.column-source :not(.row-actions) a:first-of-type {
 				overflow : hidden;
 				white-space : nowrap;
-				text-overflow : ellipsis;
+				-o-text-overflow : ellipsis;
+				   text-overflow : ellipsis;
 				display : inline-block;
 				max-width : 100%;
 				vertical-align: bottom;
@@ -318,22 +320,28 @@
 
 	.tribe-ea .tribe-banner {
 		display: -webkit-box;
+		display: -ms-flexbox;
 		display: flex;
 		-webkit-box-align: center;
+		    -ms-flex-align: center;
 		        align-items: center;
 		-webkit-box-pack: center;
+		    -ms-flex-pack: center;
 		        justify-content: center;
 		-webkit-box-flex: 1;
+		    -ms-flex: 1 1 auto;
 		        flex: 1 1 auto;
 
 	}
 
 	.tribe-ea .tribe-banner.tribe-active.tribe-dependent {
 			display: -webkit-box;
+			display: -ms-flexbox;
 			display: flex;
 		}
 
 	.tribe-ea .tribe-banner.tribe-banner-eventbrite-tickets {
+			background-image: -o-linear-gradient(315deg, #0178ba 0%, #0178ba 25%, #01bdac 65%, #01bdac 100%);
 			background-image: linear-gradient(135deg, #0178ba 0%, #0178ba 25%, #01bdac 65%, #01bdac 100%);
 			background-size: cover;
 			padding: 0;

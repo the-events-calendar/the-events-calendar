@@ -54,7 +54,8 @@ class Event {
 	 */
 	public function get_path() {
 		$fake_view = View::make( 'reflector' );
-		$path = $fake_view->get_template()->get_template_file( 'index' );
+		$path      = $fake_view->get_template()->get_template_file( 'default-template' );
+
 		return $path;
 	}
 
