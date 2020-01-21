@@ -13,6 +13,7 @@ use Tribe__Cache as Cache;
 use Tribe__Cache_Listener as Cache_Listener;
 use Tribe__Context as Context;
 use Tribe__Date_Utils as Dates;
+use Tribe__Events__Main as TEC;
 
 /**
  * Trait HTML_Cache
@@ -122,7 +123,10 @@ trait HTML_Cache {
 			'week' => true,
 		];
 
-		$should_cache = isset( $cached_views[ $this->get_slug() ] ) && $this->should_enable_html_cache( $context );
+		$pre_conditions = 0 === $this->get_password_protected_events_count();
+		$should_cache   = $pre_conditions
+		                  && isset( $cached_views[ $this->get_slug() ] )
+		                  && $this->should_enable_html_cache( $context );
 
 		/**
 		 * Should the v2 view HTML be cached?
@@ -150,16 +154,19 @@ trait HTML_Cache {
 
 		unset( $args['now'] );
 
-		$cache_key = 'tribe_views_v2_cache_' . substr( sha1( wp_json_encode( $args ) ), 0, 12 ) . ':';
+		$salts     = wp_json_encode( $this->get_cache_html_key_salts() );
+		$hash      = substr( sha1( wp_json_encode( $args ) . $salts ), 0, 12 ) . ':';
+		$cache_key = 'tribe_views_v2_cache_' . $hash;
 
 		/**
 		 * Filter the cached html key for v2 event views
 		 *
 		 * @since 5.0.0
 		 *
-		 * @param string     $cache_html_key Cache HTML key.
-		 * @param Context    $context        The View current context.
-		 * @param HTML_Cache $this           The object using the trait.
+		 * @param string             $cache_html_key Cache HTML key.
+		 * @param Context            $context        The View current context.
+		 * @param array<string,bool> $salts          An array of salts used to generate the cache key.
+		 * @param HTML_Cache         $this           The object using the trait.
 		 */
 		return apply_filters( 'tribe_events_views_v2_cache_html_key', $cache_key, $context, $this );
 	}
@@ -358,5 +365,90 @@ trait HTML_Cache {
 		}
 
 		return $generated_nonces[ $action ];
+	}
+
+	/**
+	 * Returns the number of private events, `post_status => private`, currently in the database.
+	 *
+	 * The count is made database-wide to avoid having to fetch the View events (that would defeat the
+	 * purpose of caching) or running more complex logic.
+	 * The value is cached for a week or until an event is updated.
+	 *
+	 * @since TBD
+	 *
+	 * @return int The number of events in the database that have a `post_status` of `private`.
+	 */
+	protected function get_private_events_count(){
+		/** @var \Tribe__Cache $cache */
+		$cache     = tribe( 'cache' );
+		$cache_key = 'tribe_views_v2_cache_private_events_count';
+		$count     = $cache->get(
+			$cache_key,
+			Cache_Listener::TRIGGER_SAVE_POST,
+			false,
+			WEEK_IN_SECONDS
+		);
+
+		if ( false === $count ) {
+			$count = tribe_events()
+				->where( 'post_status', 'private' )
+				->order( '__none' )
+				->found();
+			$cache->set( $cache_key, $count, WEEK_IN_SECONDS, Cache_Listener::TRIGGER_SAVE_POST );
+		}
+
+		return max( 0, (int)$count );
+	}
+
+	/**
+	 * Returns the count, an integer, of password-protected events in the database.
+	 *
+	 * The count is made database-wide to avoid having to fetch the View events (that would defeat the
+	 * purpose of caching) or running more complex logic.
+	 * The value is cached for a week or until an event is updated.
+	 *
+	 * @since TBD
+	 *
+	 * @return int The number of password-protected events in the database.
+	 */
+	protected function get_password_protected_events_count(){
+		/** @var \Tribe__Cache $cache */
+		$cache     = tribe( 'cache' );
+		$cache_key = 'tribe_views_v2_cache_pwd_protected_events_count';
+		$count     = $cache->get(
+			$cache_key,
+			Cache_Listener::TRIGGER_SAVE_POST,
+			false,
+			WEEK_IN_SECONDS
+		);
+
+		if ( false === $count ) {
+			$count = tribe_events()
+				->where( 'post_status', 'any' )
+				->where( 'has_password', true )
+				->order( '__none' )
+				->found();
+			$cache->set( $cache_key, $count, WEEK_IN_SECONDS, Cache_Listener::TRIGGER_SAVE_POST );
+		}
+
+		return max( (int)$count, 0 );
+	}
+
+	/**
+	 * Returns a list of salts used to generate the HTML cache keys.
+	 *
+	 * Salts are used to diversify HTML caches depending on the user capabilities or any "wider" context.
+	 *
+	 * @since TBD
+	 *
+	 * @return array<string,bool> A list of salts, properties of the wider context, used to generate the HTML cache key.
+	 */
+	public function get_cache_html_key_salts() {
+		$can_read_private_posts = current_user_can( 'read_private_posts', TEC::POSTTYPE );
+		$salts                  = [
+			'current_user_can_read_private_events' => $can_read_private_posts,
+		];
+
+		return $salts;
 	}
 }
