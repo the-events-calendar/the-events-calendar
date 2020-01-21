@@ -346,7 +346,7 @@ class Month_View extends By_Day_View {
 			);
 
 			$start_of_week = get_option( 'start_of_week', 0 );
-			$is_start_of_week = (int)$start_of_week === (int)$date_object->format( 'w' );
+			$is_start_of_week = (int) $start_of_week === (int) $date_object->format( 'w' );
 
 			$day_url = tribe_events_get_url( [ 'eventDisplay' => 'day', 'eventDate' => $day_date ] );
 

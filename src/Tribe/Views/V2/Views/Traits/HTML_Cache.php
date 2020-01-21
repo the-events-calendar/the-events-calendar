@@ -378,7 +378,7 @@ trait HTML_Cache {
 	 *
 	 * @return int The number of events in the database that have a `post_status` of `private`.
 	 */
-	protected function get_private_events_count(){
+	protected function get_private_events_count() {
 		/** @var \Tribe__Cache $cache */
 		$cache     = tribe( 'cache' );
 		$cache_key = 'tribe_views_v2_cache_private_events_count';
@@ -397,7 +397,7 @@ trait HTML_Cache {
 			$cache->set( $cache_key, $count, WEEK_IN_SECONDS, Cache_Listener::TRIGGER_SAVE_POST );
 		}
 
-		return max( 0, (int)$count );
+		return max( 0, (int) $count );
 	}
 
 	/**
@@ -431,7 +431,7 @@ trait HTML_Cache {
 			$cache->set( $cache_key, $count, WEEK_IN_SECONDS, Cache_Listener::TRIGGER_SAVE_POST );
 		}
 
-		return max( (int)$count, 0 );
+		return max( (int) $count, 0 );
 	}
 
 	/**
