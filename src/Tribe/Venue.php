@@ -699,7 +699,10 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 
 		return static function () use ( $event ) {
 			$venue_ids = array_filter(
-				array_map( 'absint', (array) get_post_meta( $event, '_EventVenueID' ) )
+				array_map(
+					'absint',
+					(array)get_post_meta( $event, '_EventVenueID' )
+				)
 			);
 
 			$venues    = ! empty( $venue_ids )
