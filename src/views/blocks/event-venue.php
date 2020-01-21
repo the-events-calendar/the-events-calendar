@@ -9,13 +9,13 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.7
+ * @version 4.9.14
  *
  */
 
 $event_id = $this->get( 'post_id' );
 
-$map = tribe_get_embedded_map() ? 'tribe-block__venue--has-map' : '';
+$map = tribe_embed_google_map() ? 'tribe-block__venue--has-map' : '';
 ?>
 <div class="tribe-block tribe-block__venue <?php echo esc_attr( $map ); ?>">
 	<?php do_action( 'tribe_events_single_event_meta_secondary_section_start' ); ?>
