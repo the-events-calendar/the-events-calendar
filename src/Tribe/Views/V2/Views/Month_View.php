@@ -350,7 +350,7 @@ class Month_View extends By_Day_View {
 
 			$day_url = tribe_events_get_url( [ 'eventDisplay' => 'day', 'eventDate' => $day_date ] );
 
-			$day_data         = [
+			$day_data = [
 				'date'             => $day_date,
 				'is_start_of_week' => $is_start_of_week,
 				'year_number'      => $date_object->format( 'Y' ),
