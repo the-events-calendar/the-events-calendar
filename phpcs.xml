@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <ruleset name="The Events Calendar Coding Standards">
+	<rule ref="TribalScents"></rule>
 	<rule ref="WordPress-VIP-Go"></rule>
 	<rule ref="WordPress">
 		<exclude name="WordPress.Files.FileName"/>
@@ -7,7 +8,6 @@
 	<rule ref="WordPress-Extra"></rule>
 	<rule ref="WordPress-Docs"></rule>
 	<rule ref="WordPress-Core"></rule>
-	<rule ref="TribalScents"></rule>
 
 	<rule ref="Generic">
 		<exclude name="Generic.Arrays.DisallowShortArraySyntax"/>
