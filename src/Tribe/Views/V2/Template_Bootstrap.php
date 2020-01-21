@@ -360,7 +360,7 @@ class Template_Bootstrap {
 	public function filter_template_file( $file, $name, $template ) {
 		$template_name = end( $name );
 
-		// Bail when we dont are not loading 'default-template'
+		// Bail when we dont are not loading 'default-template'.
 		if ( 'default-template' !== $template_name ) {
 			return $file;
 		}
