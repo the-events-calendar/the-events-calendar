@@ -354,21 +354,28 @@ class Template_Bootstrap {
 	 * @param string $file      Complete path to include the PHP File
 	 * @param array  $name      Template name
 	 * @param object $template  Instance of the Tribe__Template
-	 * 
+	 *
 	 * @return string
 	 */
 	public function filter_template_file( $file, $name, $template ) {
-		
-		if ( 
+		if (
 			! is_singular( TEC::POSTTYPE )
 			&& 'single-event' !== tribe_context()->get( 'view' )
 		) {
 			return $file;
 		}
-		
-		$override = V1_Event_Templates::getTemplateHierarchy( 'default-template' );
-		
-		return ! empty( $override ) ? $override : $file;
+
+		$theme_file = locate_template( 'tribe-events/default-template.php', false, false );
+
+		if ( ! $theme_file ) {
+			return $file;
+		}
+
+		if ( ! tribe_is_showing_all() && tribe_is_past_event() ) {
+			Tribe__Notices::set_notice( 'event-past', sprintf( esc_html__( 'This %s has passed.', 'the-events-calendar' ), tribe_get_event_label_singular_lowercase() ) );
+		}
+
+		return $theme_file;
 	}
 
 }
