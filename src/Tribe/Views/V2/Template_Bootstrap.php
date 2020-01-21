@@ -358,6 +358,13 @@ class Template_Bootstrap {
 	 * @return string
 	 */
 	public function filter_template_file( $file, $name, $template ) {
+		$template_name = end( $name );
+
+		// Bail when we dont are not loading 'default-template'.
+		if ( 'default-template' !== $template_name ) {
+			return $file;
+		}
+
 		if (
 			! is_singular( TEC::POSTTYPE )
 			&& 'single-event' !== tribe_context()->get( 'view' )
