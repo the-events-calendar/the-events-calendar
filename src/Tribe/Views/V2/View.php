@@ -555,7 +555,10 @@ class View implements View_Interface {
 		$this->repository_args = $repository_args;
 
 		// If HTML_Cache is a class trait and we have content to display, display it.
-		if ( method_exists( $this, 'maybe_get_cached_html' ) && $cached_html = $this->maybe_get_cached_html() ) {
+		if (
+			method_exists( $this, 'maybe_get_cached_html' )
+			&& $cached_html = $this->maybe_get_cached_html()
+		) {
 			return $cached_html;
 		}
 
