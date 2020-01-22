@@ -303,13 +303,13 @@ class View implements View_Interface {
 
 		// Determine context based on the request parameters.
 		$do_not_override = [ 'event_display_mode' ];
-		$not_overrideable_params = array_intersect_key( $params, array_combine( $do_not_override, $do_not_override ) );
+		$not_overridable_params = array_intersect_key( $params, array_combine( $do_not_override, $do_not_override ) );
 		$context = tribe_context()
 			->alter(
 				array_merge(
 					$params,
 					tribe_context()->translate_sub_locations( $params, \Tribe__Context::REQUEST_VAR ),
-					$not_overrideable_params
+					$not_overridable_params
 				)
 			);
 
