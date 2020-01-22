@@ -1765,28 +1765,23 @@ class View implements View_Interface {
 	protected function get_breadcrumbs() {
 		$context     = $this->context;
 		$breadcrumbs = [];
-		$context_tax = $context->get( TEC::TAXONOMY, false );
+		$taxonomy    = TEC::TAXONOMY;
+		$context_tax = $context->get( $taxonomy, false );
 
 		// Get term slug if taxonomy is not empty
 		if ( ! empty( $context_tax ) ) {
-			$taxonomy  = $context->get( 'taxonomy', false );
-			$term_slug = $taxonomy ? $context->get( $taxonomy, false ) : false;
+			$term  = get_term_by( 'slug', $context_tax, $taxonomy );
+			if ( ! empty( $term->name ) ) {
+				$label = $term->name;
 
-			// Set up breadcrumbs for category
-			if ( ! empty( $term_slug ) ) {
-				$term  = get_term_by( 'slug', $term_slug, $taxonomy );
-				if ( ! empty( $term->name ) ) {
-					$label = $term->name;
-
-					$breadcrumbs[] = [
-						'link'  => $this->get_today_url( true ),
-						'label' => tribe_get_event_label_plural(),
-					];
-					$breadcrumbs[] = [
-						'link'  => '',
-						'label' => $label,
-					];
-				}
+				$breadcrumbs[] = [
+					'link'  => $this->get_today_url( true ),
+					'label' => tribe_get_event_label_plural(),
+				];
+				$breadcrumbs[] = [
+					'link'  => '',
+					'label' => $label,
+				];
 			}
 		}
 
