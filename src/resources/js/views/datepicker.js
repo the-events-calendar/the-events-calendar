@@ -82,7 +82,7 @@ tribe.events.views.datepicker = {};
 	/**
 	 * Object of key codes
 	 *
-	 * @since TBD
+	 * @since 5.0.0
 	 *
 	 * @type {PlainObject}
 	 */
@@ -282,7 +282,7 @@ tribe.events.views.datepicker = {};
 	/**
 	 * Handle datepicker keydown event
 	 *
-	 * @since TBD
+	 * @since 5.0.0
 	 *
 	 * @param {Event} event event object for 'keydown' event
 	 *

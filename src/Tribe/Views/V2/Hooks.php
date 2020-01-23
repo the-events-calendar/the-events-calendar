@@ -315,7 +315,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * Filters the `pre_get_document_title` to prevent conflicts when other plugins
 	 * modify this initial value on our pages.
 	 *
-	 * @since TBD
+	 * @since 5.0.0
 	 *
 	 * @param string $title The current title value.
 	 *
@@ -537,7 +537,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Filters rewrite rules to modify and update them for Views V2.
 	 *
-	 * @since TBD
+	 * @since 5.0.0
 	 *
 	 * @param array  $bases  An array of rewrite bases that have been generated.
 	 * @param string $method The method that's being used to generate the bases; defaults to `regex`.
@@ -555,7 +555,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Fires to manage sensitive information on password protected posts.
 	 *
-	 * @since TBD
+	 * @since 5.0.0
 	 *
 	 * @param \WP_Post|int $post The event post ID or object currently being decorated.
 	 */
@@ -569,7 +569,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * Updates and modifies the properties added to the event post object by the `tribe_get_event` function to
 	 * hide some sensitive information, if required.
 	 *
-	 * @since TBD
+	 * @since 5.0.0
 	 *
 	 * @param \WP_Post $event The event post object, decorated w/ properties added by the `tribe_get_event` function.
 	 *
@@ -590,12 +590,12 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @see   tribe_template_file
 	 *
-	 * @since TBD
+	 * @since 5.0.0
 	 *
 	 * @param string $file      Complete path to include the PHP File
 	 * @param array  $name      Template name
 	 * @param object $template  Instance of the Tribe__Template
-	 * 
+	 *
 	 * @return string
 	 */
 	public function filter_template_file( $file, $name, $template ) {

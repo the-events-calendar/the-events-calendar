@@ -859,7 +859,7 @@ class View implements View_Interface {
 	/**
 	 * Filters URL query args with a predictable filter
 	 *
-	 * @since TBD
+	 * @since 5.0.0
 	 *
 	 * @param array $query_args An array of query args that will be used to build the URL for the View.
 	 * @param bool  $canonical  Whether the URL should be the canonical one or not.
@@ -1935,7 +1935,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the show datepicker submit value.
 		 *
-		 * @since TBD
+		 * @since 5.0.0
 		 *
 		 * @param object $show_datepicker_submit The show datepicker submit value.
 		 * @param View   $this                   The current View instance being rendered.
@@ -1945,7 +1945,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the show datepicker submit value for a specific view.
 		 *
-		 * @since TBD
+		 * @since 5.0.0
 		 *
 		 * @param object $show_datepicker_submit The show datepicker submit value.
 		 * @param View   $this                   The current View instance being rendered.
@@ -1958,7 +1958,7 @@ class View implements View_Interface {
 	/**
 	 * Manipulates public views data, if necessary, and returns result.
 	 *
-	 * @since TBD
+	 * @since 5.0.0
 	 *
 	 * @param string|bool $url_event_date The value, `Y-m-d` format, of the `eventDate` request variable to
 	 *                                    append to the view URL, if any.
@@ -1984,7 +1984,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the public views.
 		 *
-		 * @since TBD
+		 * @since 5.0.0
 		 *
 		 * @param object $public_views The public views.
 		 * @param View   $this         The current View instance being rendered.
@@ -1994,7 +1994,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the public views for a specific view.
 		 *
-		 * @since TBD
+		 * @since 5.0.0
 		 *
 		 * @param object $public_views The public views.
 		 * @param View   $this         The current View instance being rendered.
@@ -2053,7 +2053,7 @@ class View implements View_Interface {
 	/**
 	 * Returns the filtered container data attributes for the View top-level container.
 	 *
-	 * @since TBD
+	 * @since 5.0.0
 	 *
 	 * @return array<string,string> The filtered list of data attributes for the View top-level container.
 	 */
@@ -2061,7 +2061,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the data for a View top-level container.
 		 *
-		 * @since TBD
+		 * @since 5.0.0
 		 *
 		 * @param array<string,string> $data      Associative array of data for the View top-level container.
 		 * @param string               $view_slug The current view slug.
