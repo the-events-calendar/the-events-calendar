@@ -2617,11 +2617,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Append Events structure
 			$slug = _x( Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' ), 'Archive Events Slug', 'the-events-calendar' );
 
-			$cache_event_url_slugs = tribe_get_var( $cache_var_name, [] );
+			$cache_event_url_slugs = tribe( 'cache' )->get( $cache_var_name, '', [] );
 
 			if ( ! isset( $cache_event_url_slugs[ $slug ] ) ) {
 				$cache_event_url_slugs[ $slug ] = trailingslashit( sanitize_title( $slug ) );
-				tribe_set_var( $cache_var_name, $cache_event_url_slugs );
+				tribe( 'cache' )->set( $cache_var_name, $cache_event_url_slugs, Tribe__Cache::NON_PERSISTENT );
 			}
 
 			$event_url .= $cache_event_url_slugs[ $slug ];
@@ -3814,7 +3814,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public function isVenue( $postId = null ) {
 			static $cache_var_name = __METHOD__;
 
-			$is_venue = tribe_get_var( $cache_var_name, [] );
+			$is_venue = tribe( 'cache' )->get( $cache_var_name, '', [] );
 
 			if ( $postId === null || ! is_numeric( $postId ) ) {
 				global $post;
@@ -3834,7 +3834,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$is_venue[ $postId ] = false;
 			}
 
-			tribe_set_var( $cache_var_name, $is_venue );
+			tribe( 'cache' )->set( $cache_var_name, $is_venue, Tribe__Cache::NON_PERSISTENT );
+
 			return $is_venue[ $postId ];
 		}
 
@@ -3848,7 +3849,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public function isOrganizer( $postId = null ) {
 			static $cache_var_name = __METHOD__;
 
-			$is_organizer = tribe_get_var( $cache_var_name, [] );
+			$is_organizer = tribe( 'cache' )->get( $cache_var_name, '', [] );
 
 			if ( $postId === null || ! is_numeric( $postId ) ) {
 				global $post;
@@ -3868,7 +3869,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$is_organizer[ $postId ] = false;
 			}
 
-			tribe_set_var( $cache_var_name, $is_organizer );
+			tribe( 'cache' )->set( $cache_var_name, $is_organizer, Tribe__Cache::NON_PERSISTENT );
 
 			return $is_organizer[ $postId ];
 		}

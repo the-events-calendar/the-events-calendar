@@ -9,6 +9,7 @@
 
 namespace Tribe\Events\Views\V2\Views\Traits;
 
+use Tribe__Cache as Cache;
 use Tribe__Cache_Listener as Cache_Listener;
 use Tribe__Context as Context;
 use Tribe__Date_Utils as Dates;
@@ -339,11 +340,11 @@ trait HTML_Cache {
 	 * @return string  Nonce based on action passed.
 	 */
 	protected function maybe_generate_nonce( $action ) {
-		$generated_nonces = tribe_get_var( __METHOD__, [] );
+		$generated_nonces = tribe( 'cache' )->get( __METHOD__, '', [] );
 
 		if ( ! isset( $generated_nonces[ $action ] ) ) {
 			$generated_nonces[ $action ] = wp_create_nonce( $action );
-			tribe_set_var( __METHOD__, $generated_nonces );
+			tribe( 'cache' )->set( __METHOD__, $generated_nonces, Cache::NON_PERSISTENT );
 		}
 
 		return $generated_nonces[ $action ];

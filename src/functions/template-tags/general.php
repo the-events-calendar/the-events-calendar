@@ -1053,7 +1053,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			return '';
 		}
 
-		$cache_details = tribe_get_var( $cache_var_name, [] );
+		$cache_details = tribe( 'cache' )->get( $cache_var_name, '', [] );
 		$cache_details_key    = "{$event->ID}:{$before}:{$after}:{$html}";
 
 		if ( ! isset( $cache_details[ $cache_details_key ] ) ) {
@@ -1145,7 +1145,8 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$inner .= $html ? '</span>' : '';
 
 			$cache_details[ $cache_details_key ] = $inner;
-			tribe_set_var( $cache_var_name, $cache_details );
+
+			tribe( 'cache' )->set( $cache_var_name, $cache_details, Tribe__Cache::NON_PERSISTENT );
 		}
 
 		/**
@@ -1465,7 +1466,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	function tribe_events_get_the_excerpt( $post = null, $allowed_html = null, $skip_postdata_manipulation = false ) {
 		static $cache_var_name = __FUNCTION__;
 
-		$cache_excerpts = tribe_get_var( $cache_var_name, [] );
+		$cache_excerpts = tribe( 'cache' )->get( $cache_var_name, '', [] );
 
 		// If post is not numeric or instance of WP_Post it defaults to the current Post ID
 		if ( ! is_numeric( $post ) && ! $post instanceof WP_Post ) {
@@ -1586,7 +1587,8 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			$cache_excerpts[ $cache_excerpts_key ] = wpautop( $excerpt );
-			tribe_set_var( $cache_var_name, $cache_excerpts );
+
+			tribe( 'cache' )->set( $cache_var_name, $cache_excerpts, Tribe__Cache::NON_PERSISTENT );
 		}
 
 		if ( ! $skip_postdata_manipulation ) {
