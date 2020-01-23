@@ -752,8 +752,11 @@ class View implements View_Interface {
 	 * {@inheritDoc}
 	 */
 	public function next_url( $canonical = false, array $passthru_vars = [] ) {
-		if ( isset( $this->cached_urls['next_url'] ) ) {
-			return $this->cached_urls['next_url'];
+		$cache_key  = __METHOD__ . '_' . md5( wp_json_encode( func_get_args() ) );
+		$cached_url = tribe( 'cache' )[ $cache_key ];
+
+		if ( false !== $cached_url ) {
+			return $cached_url;
 		}
 
 		$url = $this->get_url();
@@ -775,10 +778,6 @@ class View implements View_Interface {
 			$url        = '';
 		}
 
-		if ( ! empty( $url ) && $canonical ) {
-			$url = tribe( 'events.rewrite' )->get_clean_url( $url );
-		}
-
 		if ( ! empty( $passthru_vars ) && ! empty( $url ) ) {
 			// Re-apply the pass-thru query arguments.
 			$query_args = array_merge( $query_args, $passthru_vars );
@@ -791,9 +790,13 @@ class View implements View_Interface {
 			$url = add_query_arg( $query_args, $url );
 		}
 
+		if ( ! empty( $url ) && $canonical ) {
+			$url = tribe( 'events.rewrite' )->get_clean_url( $url );
+		}
+
 		$url = $this->filter_next_url( $canonical, $url );
 
-		$this->cached_urls['next_url'] = $url;
+		tribe( 'cache' )[ $cache_key ] = $url;
 
 		return $url;
 	}
@@ -802,8 +805,11 @@ class View implements View_Interface {
 	 * {@inheritDoc}
 	 */
 	public function prev_url( $canonical = false, array $passthru_vars = [] ) {
-		if ( isset( $this->cached_urls['prev_url'] ) ) {
-			return $this->cached_urls['prev_url'];
+		$cache_key  = __METHOD__ . '_' . md5( wp_json_encode( func_get_args() ) );
+		$cached_url = tribe( 'cache' )[ $cache_key ];
+
+		if ( false !== $cached_url ) {
+			return $cached_url;
 		}
 
 		$prev_page  = $this->repository->prev()->order_by( '__none' );
@@ -836,10 +842,6 @@ class View implements View_Interface {
 			unset( $query_args[ $this->page_key ] );
 		}
 
-		if ( ! empty( $url ) && $canonical ) {
-			$url = tribe( 'events.rewrite' )->get_clean_url( $url );
-		}
-
 		if ( ! empty( $passthru_vars ) && ! empty( $url ) ) {
 			// Re-apply the pass-thru query arguments.
 			$query_args = array_merge( $query_args, $passthru_vars );
@@ -852,9 +854,13 @@ class View implements View_Interface {
 			$url = add_query_arg( $query_args, $url );
 		}
 
+		if ( ! empty( $url ) && $canonical ) {
+			$url = tribe( 'events.rewrite' )->get_clean_url( $url );
+		}
+
 		$url = $this->filter_prev_url( $canonical, $url );
 
-		$this->cached_urls['prev_url'] = $url;
+		tribe( 'cache' )[ $cache_key ] = $url;
 
 		return $url;
 	}

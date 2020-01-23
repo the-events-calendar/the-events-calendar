@@ -58,8 +58,11 @@ class Month_View extends By_Day_View {
 	 * {@inheritDoc}
 	 */
 	public function prev_url( $canonical = false, array $passthru_vars = [] ) {
-		if ( isset( $this->cached_urls[ __METHOD__ ] ) ) {
-			return $this->cached_urls[ __METHOD__ ];
+		$cache_key  = __METHOD__ . '_' . md5( wp_json_encode( func_get_args() ) );
+		$cached_url = tribe( 'cache' )[ $cache_key ];
+
+		if ( false !== $cached_url ) {
+			return $cached_url;
 		}
 
 		// Setup the Default date for the month view here.
@@ -96,7 +99,7 @@ class Month_View extends By_Day_View {
 		$url = $this->build_url_for_date( $prev_date, $canonical, $passthru_vars );
 		$url = $this->filter_prev_url( $canonical, $url );
 
-		$this->cached_urls[ __METHOD__ ] = $url;
+		tribe( 'cache' )[ $cache_key ] = $url;
 
 		return $url;
 	}
@@ -105,8 +108,11 @@ class Month_View extends By_Day_View {
 	 * {@inheritDoc}
 	 */
 	public function next_url( $canonical = false, array $passthru_vars = [] ) {
-		if ( isset( $this->cached_urls[ __METHOD__ ] ) ) {
-			return $this->cached_urls[ __METHOD__ ];
+		$cache_key  = __METHOD__ . '_' . md5( wp_json_encode( func_get_args() ) );
+		$cached_url = tribe( 'cache' )[ $cache_key ];
+
+		if ( false !== $cached_url ) {
+			return $cached_url;
 		}
 
 		// Setup the Default date for the month view here.
@@ -143,7 +149,7 @@ class Month_View extends By_Day_View {
 		$url = $this->build_url_for_date( $next_date, $canonical, $passthru_vars );
 		$url = $this->filter_next_url( $canonical, $url );
 
-		$this->cached_urls[ __METHOD__ ] = $url;
+		tribe( 'cache' )[ $cache_key ] = $url;
 
 		return $url;
 	}
