@@ -48,10 +48,8 @@ class List_View extends View {
 	 */
 	public function prev_url( $canonical = false, array $passthru_vars = [] ) {
 		$cache_key  = __METHOD__ . '_' . md5( wp_json_encode( func_get_args() ) );
-		$cached_url = tribe( 'cache' )[ $cache_key ];
-
-		if ( false !== $cached_url ) {
-			return $cached_url;
+		if ( isset( $this->cached_urls[ $cache_key ] ) ) {
+			return $this->cached_urls[ $cache_key ];
 		}
 
 		$current_page = (int) $this->context->get( 'page', 1 );
@@ -67,7 +65,7 @@ class List_View extends View {
 
 		$url = $this->filter_prev_url( $canonical, $url );
 
-		tribe( 'cache' )[ $cache_key ] = $url;
+		$this->cached_urls[ $cache_key ] = $url;
 
 		return $url;
 	}
@@ -77,10 +75,8 @@ class List_View extends View {
 	 */
 	public function next_url( $canonical = false, array $passthru_vars = [] ) {
 		$cache_key  = __METHOD__ . '_' . md5( wp_json_encode( func_get_args() ) );
-		$cached_url = tribe( 'cache' )[ $cache_key ];
-
-		if ( false !== $cached_url ) {
-			return $cached_url;
+		if ( isset( $this->cached_urls[ $cache_key ] ) ) {
+			return $this->cached_urls[ $cache_key ];
 		}
 
 		$current_page = (int) $this->context->get( 'page', 1 );
@@ -96,7 +92,7 @@ class List_View extends View {
 
 		$url = $this->filter_next_url( $canonical, $url );
 
-		tribe( 'cache' )[ $cache_key ] = $url;
+		$this->cached_urls[ $cache_key ] = $url;
 
 		return $url;
 	}
