@@ -198,15 +198,6 @@ class View implements View_Interface {
 	protected static $date_in_url = true;
 
 	/**
-	 * Cached URLs
-	 *
-	 * @since 5.0.0
-	 *
-	 * @var array
-	 */
-	protected $cached_urls = [];
-
-	/**
 	 * View constructor.
 	 *
 	 * @since 4.9.11
