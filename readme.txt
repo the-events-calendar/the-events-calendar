@@ -215,7 +215,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
-= [5.0.0] TBD =
+= [5.0.0] 2020-01-27 =
 
 * Feature - Created new Month, Day, and List views with all new HTML, CSS, and JavaScript.
 * Feature - Add upgrade path for new Month, Day, and List views making it opt-in for any existing users.
