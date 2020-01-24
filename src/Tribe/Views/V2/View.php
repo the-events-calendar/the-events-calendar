@@ -752,8 +752,10 @@ class View implements View_Interface {
 	 * {@inheritDoc}
 	 */
 	public function next_url( $canonical = false, array $passthru_vars = [] ) {
-		if ( isset( $this->cached_urls['next_url'] ) ) {
-			return $this->cached_urls['next_url'];
+		$cache_key = __METHOD__ . '_' . md5( wp_json_encode( func_get_args() ) );
+
+		if ( isset( $this->cached_urls[ $cache_key ] ) ) {
+			return $this->cached_urls[ $cache_key ];
 		}
 
 		$url = $this->get_url();
@@ -804,8 +806,10 @@ class View implements View_Interface {
 	 * {@inheritDoc}
 	 */
 	public function prev_url( $canonical = false, array $passthru_vars = [] ) {
-		if ( isset( $this->cached_urls['prev_url'] ) ) {
-			return $this->cached_urls['prev_url'];
+		$cache_key = __METHOD__ . '_' . md5( wp_json_encode( func_get_args() ) );
+
+		if ( isset( $this->cached_urls[ $cache_key ] ) ) {
+			return $this->cached_urls[ $cache_key ];
 		}
 
 		$prev_page  = $this->repository->prev()->order_by( '__none' );
