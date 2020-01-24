@@ -14,8 +14,10 @@ class NavTest extends HtmlPartialTestCase
 	 */
 	public function test_render_with_all_links() {
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
-			'prev_url'  => 'http://test.tri.be',
-			'next_url'  => 'http://test.tri.be',
+			'prev_url'           => 'http://test.tri.be',
+			'next_url'           => 'http://test.tri.be',
+			'top_bar_prev_label' => 'Prev',
+			'top_bar_next_label' => 'Next',
 		] ) );
 	}
 
@@ -24,7 +26,9 @@ class NavTest extends HtmlPartialTestCase
 	 */
 	public function test_render_without_prev_url() {
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
-			'next_url'  => 'http://test.tri.be',
+			'next_url'           => 'http://test.tri.be',
+			'top_bar_prev_label' => 'Prev',
+			'top_bar_next_label' => 'Next',
 		] ) );
 	}
 
@@ -33,7 +37,9 @@ class NavTest extends HtmlPartialTestCase
 	 */
 	public function test_render_without_next_url() {
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
-			'prev_url'  => 'http://test.tri.be',
+			'prev_url'           => 'http://test.tri.be',
+			'top_bar_prev_label' => 'Prev',
+			'top_bar_next_label' => 'Next',
 		] ) );
 	}
 
@@ -41,6 +47,9 @@ class NavTest extends HtmlPartialTestCase
 	 * Test render without prev and next url
 	 */
 	public function test_render_without_prev_and_next_url() {
-		$this->assertMatchesSnapshot( $this->get_partial_html() );
+		$this->assertMatchesSnapshot( $this->get_partial_html( [
+			'top_bar_prev_label' => 'Prev',
+			'top_bar_next_label' => 'Next',
+		] ) );
 	}
 }

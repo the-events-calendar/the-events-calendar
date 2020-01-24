@@ -13,6 +13,8 @@ class Prev_DisabledTest extends HtmlPartialTestCase
 	 * Test render
 	 */
 	public function test_render() {
-		$this->assertMatchesSnapshot( $this->get_partial_html() );
+		$this->assertMatchesSnapshot( $this->get_partial_html( [
+			'top_bar_prev_label' => 'Prev',
+		] ) );
 	}
 }
