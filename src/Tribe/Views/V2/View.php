@@ -850,7 +850,7 @@ class View implements View_Interface {
 				$url = add_query_arg( $passthru_vars, $url );
 			}
 		} else {
-			$url        = '';
+			$url = '';
 		}
 
 		$url = $this->filter_prev_url( $canonical, $url );
