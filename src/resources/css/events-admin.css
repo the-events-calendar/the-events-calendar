@@ -240,6 +240,7 @@
 /* upgrades */
 #modern-tribe-info.tribe-upgrade{
 	padding: 0;
+	position: relative;
 }
 #modern-tribe-info.tribe-upgrade a, #modern-tribe-info.tribe-upgrade .dashicons {
 		color: #334AFF;
