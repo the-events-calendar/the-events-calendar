@@ -298,7 +298,7 @@ class View implements View_Interface {
 		if ( ! get_option( 'permalink_structure' ) ) {
 			$event_display_key = 'tribe_event_display';
 		}
-		$params['event_display_mode'] = Arr::get( $query_args, $event_display_key, false );
+		$params['event_display_mode'] = Arr::get( $query_args, $event_display_key, 'default' );
 
 		if ( ! empty( $slug ) ) {
 			/**
