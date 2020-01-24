@@ -18,8 +18,8 @@
 <li class="tribe-events-c-top-bar__nav-list-item">
 	<button
 		class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-left tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--prev"
-		aria-label="<?php esc_attr( $top_bar_prev_label ); ?>"
-		title="<?php esc_attr( $top_bar_prev_label ); ?>"
+		aria-label="<?php echo esc_attr( $top_bar_prev_label ); ?>"
+		title="<?php echo esc_attr( $top_bar_prev_label ); ?>"
 		disabled
 	>
 	</button>
