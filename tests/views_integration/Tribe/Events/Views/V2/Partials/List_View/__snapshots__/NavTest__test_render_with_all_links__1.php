@@ -8,7 +8,7 @@
 		data-js="tribe-events-view-link"
 	>
 		<span class="tribe-events-c-nav__prev-label">
-			Previous <span class="tribe-events-c-nav__prev-label-plural">Events</span>		</span>
+			Previous <span class="tribe-events-c-nav__prev-label-plural tribe-common-a11y-visual-hide">Events</span>		</span>
 	</a>
 </li>
 
@@ -29,7 +29,7 @@
 		data-js="tribe-events-view-link"
 	>
 		<span class="tribe-events-c-nav__next-label">
-			Next <span class="tribe-events-c-nav__next-label-plural">Events</span>		</span>
+			Next <span class="tribe-events-c-nav__next-label-plural tribe-common-a11y-visual-hide">Events</span>		</span>
 	</a>
 </li>
 	</ul>

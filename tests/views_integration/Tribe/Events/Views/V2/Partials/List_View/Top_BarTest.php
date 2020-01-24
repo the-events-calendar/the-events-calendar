@@ -37,6 +37,8 @@ class Top_BarTest extends HtmlPartialTestCase
 			'selected_end_date_mobile'   => '2018-01-01',
 			'selected_end_date_label'    => 'January 1',
 			'datepicker_date'            => '2018-01-01',
+			'top_bar_prev_label'         => 'Prev',
+			'top_bar_next_label'         => 'Next',
 		] ) );
 
 	}
