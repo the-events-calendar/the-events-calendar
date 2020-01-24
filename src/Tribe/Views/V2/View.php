@@ -755,17 +755,22 @@ class View implements View_Interface {
 
 		$url = $this->get_url();
 
+		$query_args = [];
+
 		if ( ! empty( $passthru_vars ) ) {
 			// Remove the pass-thru vars, we'll re-apply them to the URL later.
 			$url = remove_query_arg( array_keys( $passthru_vars ), $url );
 		}
 
 		// Make sure the view slug is always set to correctly match rewrites.
-		$url = add_query_arg( [ 'eventDisplay' => $this->slug ], $url );
+		$query_args['eventDisplay'] = $this->slug;
 
-		$url = $this->has_next_event ?
-			add_query_arg( [ $this->page_key => $this->url->get_current_page() + 1 ], $url )
-			: '';
+		if ( $this->has_next_event ) {
+			$query_args[ $this->page_key ] = $this->url->get_current_page() + 1;
+		} else {
+			$query_args = [];
+			$url        = '';
+		}
 
 		if ( ! empty( $url ) && $canonical ) {
 			$url = tribe( 'events.rewrite' )->get_clean_url( $url );
@@ -773,7 +778,14 @@ class View implements View_Interface {
 
 		if ( ! empty( $passthru_vars ) && ! empty( $url ) ) {
 			// Re-apply the pass-thru query arguments.
-			$url = add_query_arg( $passthru_vars, $url );
+			$query_args = array_merge( $query_args, $passthru_vars );
+		}
+
+		$query_args = $this->filter_query_args( $query_args, $url );
+		$query_args = array_filter( $query_args );
+
+		if ( ! empty( $url ) || ! empty( $query_args ) ) {
+			$url = add_query_arg( $query_args, $url );
 		}
 
 		$url = $this->filter_next_url( $canonical, $url );
@@ -793,8 +805,9 @@ class View implements View_Interface {
 
 		$prev_page  = $this->repository->prev()->order_by( '__none' );
 
-		$paged      = $this->url->get_current_page() - 1;
-		$query_args = $paged > 1
+		$paged           = $this->url->get_current_page() - 1;
+		$query_args      = [];
+		$page_query_args = $paged > 1
 			? [ $this->page_key => $paged ]
 			: [];
 
@@ -806,12 +819,18 @@ class View implements View_Interface {
 		}
 
 		// Make sure the view slug is always set to correctly match rewrites.
-		$url = add_query_arg( [ 'eventDisplay' => $this->slug ], $url );
+		$query_args['eventDisplay'] = $this->slug;
 
-		$url = $prev_page->count() > 0 ? add_query_arg( $query_args, $url ) : '';
+		if ( $prev_page->count() > 0 ) {
+			$query_args = array_merge( $query_args, $page_query_args );
+		} else {
+			$query_args = [];
+			$url        = '';
+		}
 
 		if ( ! empty( $url ) && $paged === 1 ) {
 			$url = remove_query_arg( $this->page_key, $url );
+			unset( $query_args[ $this->page_key ] );
 		}
 
 		if ( ! empty( $url ) && $canonical ) {
@@ -820,7 +839,14 @@ class View implements View_Interface {
 
 		if ( ! empty( $passthru_vars ) && ! empty( $url ) ) {
 			// Re-apply the pass-thru query arguments.
-			$url = add_query_arg( $passthru_vars, $url );
+			$query_args = array_merge( $query_args, $passthru_vars );
+		}
+
+		$query_args = $this->filter_query_args( $query_args, $url );
+		$query_args = array_filter( $query_args );
+
+		if ( ! empty( $url ) || ! empty( $query_args ) ) {
+			$url = add_query_arg( $query_args, $url );
 		}
 
 		$url = $this->filter_prev_url( $canonical, $url );
