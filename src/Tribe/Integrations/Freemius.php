@@ -64,7 +64,10 @@ class Tribe__Events__Integrations__Freemius {
 			'tribe-help',
 		];
 
-		if ( ! in_array( $this->page, $valid_page ) && 'plugins.php' !== $pagenow ) {
+		if (
+			! in_array( $this->page, $valid_page )
+			&& ! in_array( $pagenow, [ 'plugins.php', 'admin-ajax.php' ] )
+		) {
 			return;
 		}
 
@@ -86,7 +89,6 @@ class Tribe__Events__Integrations__Freemius {
 			return;
 		}
 
-
 		$this->instance = tribe( 'freemius' )->initialize(
 			$this->slug,
 			$this->freemius_id,
@@ -94,7 +96,8 @@ class Tribe__Events__Integrations__Freemius {
 			[
 				'menu' => [
 					'slug'    => $this->page,
-					'account' => true,
+					'account' => false,
+					'contact' => false,
 					'support' => false,
 				],
 				'is_premium'     => false,
@@ -156,6 +159,9 @@ class Tribe__Events__Integrations__Freemius {
 		) {
 			return TRIBE_EVENTS_INTEGRATIONS_SHOULD_LOAD_FREEMIUS;
 		}
+
+		// activate Freemius in all instances
+		return true;
 
 		// If we have the option we use it
 		$seed                  = tribe_get_option( 'freemius_random_seed', null );
