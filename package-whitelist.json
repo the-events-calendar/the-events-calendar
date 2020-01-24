@@ -29,5 +29,6 @@
   "vendor/jquery/*.css",
   "vendor/jquery/smoothness/*.css",
   "vendor/jquery/smoothness/images/*.png",
-  "vendor/php-date-formatter/js/*.js"
+  "vendor/php-date-formatter/js/*.js",
+  "uninstall.php"
 ]

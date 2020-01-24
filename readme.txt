@@ -4,7 +4,7 @@ Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.7
-Stable tag: 4.9.13
+Stable tag: 4.9.14
 Tested up to: 5.3
 Requires PHP: 5.6
 License: GPLv2 or later
@@ -214,6 +214,17 @@ Some things to consider before posting on the forum:
 Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to [@TheEventsCal](https://twitter.com/TheEventsCal) and tell us why. We'll do what we can to make it right.
 
 == Changelog ==
+
+= [4.9.14] 2020-01-15 =
+
+* Feature - Add Repository filter `where_meta_related_by_meta` for getting a post by the meta value an associated post. [133333]
+* Tweak - Modifications to the Freemius code initalization to allow better data around plugin uninstalls.
+* Tweak - Adjust tooltip title styles for Twenty Twenty theme. [TEC-2998]
+* Tweak - Changed views: `blocks/event-venue`
+* Fix - Cost field description no longer disapears when editing the block. [TEC-2992]
+* Fix - Organizer theme no longer getting overwritten by Blocks editor styles. [TEC-2974]
+* Fix - Venue block properly receives the correct HTML class. [TEC-3020]
+* Fix - Correct missing block when switching from blocks to classic editor. [131493]
 
 = [4.9.13] 2019-12-10 =
 
