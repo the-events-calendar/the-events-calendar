@@ -292,7 +292,7 @@ class View implements View_Interface {
 			 */
 			$slug = Arr::get( $params, 'eventDisplay', tribe_context()->get( 'view', 'default' ) );
 		}
-		
+
 		$params['event_display_mode'] = Arr::get( $query_args, Utils\View::get_past_event_display_key(), 'default' );
 
 		if ( ! empty( $slug ) ) {
