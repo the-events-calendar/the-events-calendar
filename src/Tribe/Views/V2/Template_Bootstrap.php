@@ -381,6 +381,12 @@ class Template_Bootstrap {
 	 * @return string
 	 */
 	public function filter_template_file( $file, $name, $template ) {
+		$template_name = end( $name );
+
+		// Bail when we dont are not loading 'default-template'.
+		if ( 'default-template' !== $template_name ) {
+			return $file;
+		}
 
 		if (
 			! is_singular( TEC::POSTTYPE )
@@ -389,9 +395,17 @@ class Template_Bootstrap {
 			return $file;
 		}
 
-		$override = V1_Event_Templates::getTemplateHierarchy( 'default-template' );
+		$theme_file = locate_template( 'tribe-events/default-template.php', false, false );
 
-		return ! empty( $override ) ? $override : $file;
+		if ( ! $theme_file ) {
+			return $file;
+		}
+
+		if ( ! tribe_is_showing_all() && tribe_is_past_event() ) {
+			Tribe__Notices::set_notice( 'event-past', sprintf( esc_html__( 'This %s has passed.', 'the-events-calendar' ), tribe_get_event_label_singular_lowercase() ) );
+		}
+
+		return $theme_file;
 	}
 
 }

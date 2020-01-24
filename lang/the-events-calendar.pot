@@ -1,15 +1,15 @@
-# Copyright (C) 2019 Modern Tribe
+# Copyright (C) 2020 Modern Tribe
 # This file is distributed under the same license as the The Events Calendar package.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 4.9.13\n"
+"Project-Id-Version: The Events Calendar 4.9.14\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/the-events-"
 "calendar\n"
-"POT-Creation-Date: 2019-12-10 00:35:20+00:00\n"
+"POT-Creation-Date: 2020-01-14 18:47:19+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2019-12-10 00:35\n"
+"PO-Revision-Date: 2020-01-14 18:47\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -2493,11 +2493,11 @@ msgstr ""
 msgid "Could not save %s."
 msgstr ""
 
-#: src/Tribe/Integrations/Freemius.php:247
+#: src/Tribe/Integrations/Freemius.php:253
 msgid "We hope you love %1$s"
 msgstr ""
 
-#: src/Tribe/Integrations/Freemius.php:252
+#: src/Tribe/Integrations/Freemius.php:258
 msgid ""
 "Hi, %1$s! This is an invitation to help %2$s community. If you opt-in, some "
 "data about your usage of %2$s will be shared with our teams (so they can "
@@ -2505,11 +2505,11 @@ msgid ""
 "events management, WordPress, and our products from time to time."
 msgstr ""
 
-#: src/Tribe/Integrations/Freemius.php:260
+#: src/Tribe/Integrations/Freemius.php:266
 msgid "And if you skip this, that's okay! %1$s will still work just fine."
 msgstr ""
 
-#: src/Tribe/Integrations/Freemius.php:266
+#: src/Tribe/Integrations/Freemius.php:272
 msgid "Powered by"
 msgstr ""
 
@@ -2639,7 +2639,7 @@ msgstr ""
 msgid "Upcoming Events"
 msgstr ""
 
-#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 4.9.13)  #-#-#-#-#
+#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 4.9.14)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: src/Tribe/Main.php:910 src/Tribe/Main.php:1365 src/Tribe/Privacy.php:29
 #: src/functions/template-tags/general.php:1358 the-events-calendar.php:56
