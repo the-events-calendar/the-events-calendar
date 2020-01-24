@@ -690,11 +690,14 @@ class View implements View_Interface {
 	 * {@inheritDoc}
 	 */
 	public function get_url( $canonical = false, $force = false ) {
+		$category = $this->context->get( 'event_category', false );
+
 		$query_args = [
 			'post_type'        => TEC::POSTTYPE,
 			'eventDisplay'     => $this->slug,
 			'tribe-bar-date'   => $this->context->get( 'event_date', '' ),
 			'tribe-bar-search' => $this->context->get( 'keyword', '' ),
+			TEC::TAXONOMY      => $category,
 		];
 
 		if ( $is_featured = tribe_is_truthy( $this->context->get( 'featured', false ) ) ) {
@@ -732,13 +735,22 @@ class View implements View_Interface {
 			$query_args[ $this->page_key ] = $page;
 		}
 
+		$event_display_mode = $this->context->get( 'event_display_mode', false );
+
+		if ( ! empty( $category ) && 'past' !== $event_display_mode ) {
+			$query_args['eventDisplay'] = 'default';
+			if ( (int) $page > 1 ) {
+				// Any page above 1 of category filtered events will always use the List View.
+				$query_args['eventDisplay'] = 'list';
+			}
+		}
+
 		$url = add_query_arg( array_filter( $query_args ), home_url() );
 
 		if ( $canonical ) {
 			$url = $this->rewrite->get_clean_url( $url, $force );
 		}
 
-		$event_display_mode = $this->context->get( 'event_display_mode', false );
 		if ( 'past' === $event_display_mode && $event_display_mode !== $this->context->get( 'eventDisplay' ) ) {
 			$url = add_query_arg( [ 'eventDisplay' => $event_display_mode ], $url );
 		}
@@ -1953,7 +1965,7 @@ class View implements View_Interface {
 
 			array_walk(
 				$public_views,
-				function ( &$view_data, $view_slug ) use ( $url_event_date, $query_args ) {
+				static function ( &$view_data, $view_slug ) use ( $url_event_date, $query_args ) {
 					$view_instance       = View::make( $view_data->view_class );
 					$view_data->view_url = $view_instance->url_for_query_args( $url_event_date, $query_args );
 				}
