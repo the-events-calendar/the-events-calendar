@@ -21,6 +21,7 @@ use Tribe__Events__Rewrite as TEC_Rewrite;
 use Tribe__Events__Venue as Venue;
 use Tribe__Repository__Interface as Repository;
 use Tribe__Utils__Array as Arr;
+use Tribe\Events\Views\V2\Utils;
 
 /**
  * Class View
@@ -216,6 +217,10 @@ class View implements View_Interface {
 	public function __construct( Messages $messages = null ) {
 		$this->messages = $messages ?: new Messages();
 		$this->rewrite = TEC_Rewrite::instance();
+
+		if ( ! get_option( 'permalink_structure' ) ) {
+			$this->page_key = 'page';
+		}
 	}
 
 	/**
@@ -287,7 +292,13 @@ class View implements View_Interface {
 			$slug = Arr::get( $params, 'eventDisplay', tribe_context()->get( 'view', 'default' ) );
 		}
 
-		$params['event_display_mode'] = Arr::get( $query_args, 'eventDisplay', false );
+		$event_display_key = 'eventDisplay';
+
+		// When dealing with "Plain Permalink" we need to move `past` into a separate url argument.
+		if ( ! get_option( 'permalink_structure' ) ) {
+			$event_display_key = 'tribe_event_display';
+		}
+		$params['event_display_mode'] = Arr::get( $query_args, $event_display_key, false );
 
 		if ( ! empty( $slug ) ) {
 			/**
@@ -704,10 +715,10 @@ class View implements View_Interface {
 
 		if ( ! empty( $query_args['tribe-bar-date'] ) ) {
 			// If the Events Bar date is the same as today's date, then drop it.
-			$today          = $this->context->get( 'today', 'today' );
-			$url_date_format         = $this->get_url_date_format();
-			$today_date     = Dates::build_date_object( $today ) ->format( $url_date_format );
-			$tribe_bar_date = Dates::build_date_object( $query_args['tribe-bar-date'] ) ->format( $url_date_format );
+			$today           = $this->context->get( 'today', 'today' );
+			$url_date_format = $this->get_url_date_format();
+			$today_date      = Dates::build_date_object( $today )->format( $url_date_format );
+			$tribe_bar_date  = Dates::build_date_object( $query_args['tribe-bar-date'] ) ->format( $url_date_format );
 
 			if ( static::$date_in_url ) {
 				if ( $today_date !== $tribe_bar_date ) {
@@ -736,8 +747,11 @@ class View implements View_Interface {
 		}
 
 		$event_display_mode = $this->context->get( 'event_display_mode', false );
-		if ( 'past' === $event_display_mode && $event_display_mode !== $this->context->get( 'eventDisplay' ) ) {
-			$url = add_query_arg( [ 'eventDisplay' => $event_display_mode ], $url );
+		if (
+			'past' === $event_display_mode
+			&& $event_display_mode !== $this->context->get( 'eventDisplay' )
+		) {
+			$url = add_query_arg( [ Utils\View::get_past_event_display_key() => $event_display_mode ], $url );
 		}
 
 		$url = $this->filter_view_url( $canonical, $url );
@@ -1063,7 +1077,7 @@ class View implements View_Interface {
 		 * the last item off the array if the returned posts are > events_per_page.
 		 *
 		 * @since 5.0.0
-		 */
+		*/
 		$args = [
 			'posts_per_page'       => $context_arr['events_per_page'] + 1,
 			'paged'                => max( Arr::get_first_set( array_filter( $context_arr ), [
@@ -1468,7 +1482,7 @@ class View implements View_Interface {
 	 * {@inheritDoc}
 	 */
 	public function get_today_url( $canonical = false ) {
-		$to_remove = [ 'tribe-bar-date', 'paged', 'page', 'eventDate' ];
+		$to_remove = [ 'tribe-bar-date', 'paged', 'page', 'eventDate', 'tribe_event_display' ];
 
 		// While we want to remove the date query vars, we want to keep any other query var.
 		$query_args = $this->url->get_query_args();
