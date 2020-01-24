@@ -781,25 +781,27 @@ class View implements View_Interface {
 
 		if ( $this->has_next_event ) {
 			$query_args[ $this->page_key ] = $this->url->get_current_page() + 1;
+
+			// Default to the current URL.
+			$url = $url ?: home_url( add_query_arg( [] ) );
+
+			$query_args = $this->filter_query_args( $query_args, $url );
+			$query_args = array_filter( $query_args );
+
+			if ( ! empty( $query_args ) ) {
+				$url = add_query_arg( $query_args, $url );
+			}
+
+			if ( $canonical ) {
+				$url = tribe( 'events.rewrite' )->get_clean_url( $url );
+			}
+
+			if ( ! empty( $passthru_vars ) && ! empty( $url ) ) {
+				// Re-apply the pass-thru query arguments.
+				$url = add_query_arg( $passthru_vars, $url );
+			}
 		} else {
-			$query_args = [];
-			$url        = '';
-		}
-
-		if ( ! empty( $url ) && $canonical ) {
-			$url = tribe( 'events.rewrite' )->get_clean_url( $url );
-		}
-
-		if ( ! empty( $passthru_vars ) && ! empty( $url ) ) {
-			// Re-apply the pass-thru query arguments.
-			$query_args = array_merge( $query_args, $passthru_vars );
-		}
-
-		$query_args = $this->filter_query_args( $query_args, $url );
-		$query_args = array_filter( $query_args );
-
-		if ( ! empty( $url ) || ! empty( $query_args ) ) {
-			$url = add_query_arg( $query_args, $url );
+			$url = '';
 		}
 
 		$url = $this->filter_next_url( $canonical, $url );
@@ -837,30 +839,32 @@ class View implements View_Interface {
 
 		if ( $prev_page->count() > 0 ) {
 			$query_args = array_merge( $query_args, $page_query_args );
+
+			// Default to the current URL.
+			$url = $url ?: home_url( add_query_arg( [] ) );
+
+			if ( $paged === 1 ) {
+				$url = remove_query_arg( $this->page_key, $url );
+				unset( $query_args[ $this->page_key ] );
+			}
+
+			$query_args = $this->filter_query_args( $query_args, $url );
+			$query_args = array_filter( $query_args );
+
+			if ( ! empty( $query_args ) ) {
+				$url = add_query_arg( $query_args, $url );
+			}
+
+			if ( $canonical ) {
+				$url = tribe( 'events.rewrite' )->get_clean_url( $url );
+			}
+
+			if ( ! empty( $passthru_vars ) ) {
+				// Re-apply the pass-thru query arguments.
+				$url = add_query_arg( $passthru_vars, $url );
+			}
 		} else {
-			$query_args = [];
-			$url        = '';
-		}
-
-		if ( ! empty( $url ) && $paged === 1 ) {
-			$url = remove_query_arg( $this->page_key, $url );
-			unset( $query_args[ $this->page_key ] );
-		}
-
-		if ( ! empty( $url ) && $canonical ) {
-			$url = tribe( 'events.rewrite' )->get_clean_url( $url );
-		}
-
-		if ( ! empty( $passthru_vars ) && ! empty( $url ) ) {
-			// Re-apply the pass-thru query arguments.
-			$query_args = array_merge( $query_args, $passthru_vars );
-		}
-
-		$query_args = $this->filter_query_args( $query_args, $url );
-		$query_args = array_filter( $query_args );
-
-		if ( ! empty( $url ) || ! empty( $query_args ) ) {
-			$url = add_query_arg( $query_args, $url );
+			$url = '';
 		}
 
 		$url = $this->filter_prev_url( $canonical, $url );
