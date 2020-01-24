@@ -93,6 +93,64 @@ class Day_View extends View {
 	/**
 	 * {@inheritDoc}
 	 */
+	public function top_bar_next_label() {
+		$top_bar_next_label = __( 'Next day', 'the-events-calendar' );
+
+		/**
+		 * Filters the next label that will be used for navigation for a View.
+		 *
+		 * @since TBD
+		 *
+		 * @param string         $top_bar_next_label Label for the next navigation link.
+		 * @param View_Interface $this               This view interface.
+		 */
+		$top_bar_next_label = apply_filters( 'tribe_events_views_v2_view_top_bar_next_label', $top_bar_next_label, $this );
+
+		/**
+		 * Filters the next label that will be used for navigation for a specific View.
+		 *
+		 * @since TBD
+		 *
+		 * @param string         $top_bar_next_label Label for the next navigation link.
+		 * @param View_Interface $this               This view interface.
+		 */
+		$top_bar_next_label = apply_filters( "tribe_events_views_v2_view_{$this->slug}_top_bar_next_label", $top_bar_next_label, $this );
+
+		return $top_bar_next_label;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function top_bar_prev_label() {
+		$top_bar_prev_label = __( 'Previous day', 'the-events-calendar' );
+
+		/**
+		 * Filters the previous label that will be used for navigation for a View.
+		 *
+		 * @since TBD
+		 *
+		 * @param string         $top_bar_prev_label Label for the previous navigation link.
+		 * @param View_Interface $this               This view interface.
+		 */
+		$top_bar_prev_label = apply_filters( 'tribe_events_views_v2_view_top_bar_prev_label', $top_bar_prev_label, $this );
+
+		/**
+		 * Filters the previous label that will be used for navigation for a specific View.
+		 *
+		 * @since TBD
+		 *
+		 * @param string         $top_bar_prev_label Label for the previous navigation link.
+		 * @param View_Interface $this               This view interface.
+		 */
+		$top_bar_prev_label = apply_filters( "tribe_events_views_v2_view_{$this->slug}_top_bar_prev_label", $top_bar_prev_label, $this );
+
+		return $top_bar_prev_label;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
 	protected function setup_repository_args( \Tribe__Context $context = null ) {
 		$context = null !== $context ? $context : $this->context;
 

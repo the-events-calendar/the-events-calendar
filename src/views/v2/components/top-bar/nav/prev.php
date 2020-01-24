@@ -9,18 +9,19 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @var string $link The URL to the previous page, if any, or an empty string.
+ * @var string $prev_url The URL to the previous page, if any, or an empty string.
+ * @var string $top_bar_prev_label The label for the previous page.
  *
- * @version 4.9.10
+ * @version TBD
  *
  */
 ?>
 <li class="tribe-events-c-top-bar__nav-list-item">
 	<a
-		href="<?php echo esc_url( $link ); ?>"
+		href="<?php echo esc_url( $prev_url ); ?>"
 		class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-left tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--prev"
-		aria-label="<?php esc_html_e( 'Previous', 'the-events-calendar' ); ?>"
-		title="<?php esc_html_e( 'Previous', 'the-events-calendar' ); ?>"
+		aria-label="<?php esc_attr( $top_bar_prev_label ); ?>"
+		title="<?php esc_attr( $top_bar_prev_label ); ?>"
 		data-js="tribe-events-view-link"
 	>
 	</a>

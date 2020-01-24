@@ -122,7 +122,7 @@ class Month_View extends By_Day_View {
 				->order( 'ASC' )
 				->first();
 			if ( ! $next_event instanceof \WP_Post ) {
-				return $this->filter_prev_url( $canonical, '' );
+				return $this->filter_next_url( $canonical, '' );
 			}
 
 			// At a minimum pick the next month or the month the next event starts in.
@@ -136,7 +136,7 @@ class Month_View extends By_Day_View {
 			// Let's make sure to prevent users from paginating endlessly forward when we know there are no more events.
 			$latest = tribe_get_option( 'latest_date', $next_date );
 			if ( $current_date->format( 'Y-m' ) === Dates::build_date_object( $latest )->format( 'Y-m' ) ) {
-				return $this->filter_prev_url( $canonical, '' );
+				return $this->filter_next_url( $canonical, '' );
 			}
 		}
 
@@ -146,6 +146,64 @@ class Month_View extends By_Day_View {
 		$this->cached_urls[ __METHOD__ ] = $url;
 
 		return $url;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function top_bar_next_label() {
+		$top_bar_next_label = __( 'Next month', 'the-events-calendar' );
+
+		/**
+		 * Filters the next label that will be used for navigation for a View.
+		 *
+		 * @since TBD
+		 *
+		 * @param string         $top_bar_next_label Label for the next navigation link.
+		 * @param View_Interface $this               This view interface.
+		 */
+		$top_bar_next_label = apply_filters( 'tribe_events_views_v2_view_top_bar_next_label', $top_bar_next_label, $this );
+
+		/**
+		 * Filters the next label that will be used for navigation for a specific View.
+		 *
+		 * @since TBD
+		 *
+		 * @param string         $top_bar_next_label Label for the next navigation link.
+		 * @param View_Interface $this               This view interface.
+		 */
+		$top_bar_next_label = apply_filters( "tribe_events_views_v2_view_{$this->slug}_top_bar_next_label", $top_bar_next_label, $this );
+
+		return $top_bar_next_label;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function top_bar_prev_label() {
+		$top_bar_prev_label = __( 'Previous month', 'the-events-calendar' );
+
+		/**
+		 * Filters the previous label that will be used for navigation for a View.
+		 *
+		 * @since TBD
+		 *
+		 * @param string         $top_bar_prev_label Label for the previous navigation link.
+		 * @param View_Interface $this               This view interface.
+		 */
+		$top_bar_prev_label = apply_filters( 'tribe_events_views_v2_view_top_bar_prev_label', $top_bar_prev_label, $this );
+
+		/**
+		 * Filters the previous label that will be used for navigation for a specific View.
+		 *
+		 * @since TBD
+		 *
+		 * @param string         $top_bar_prev_label Label for the previous navigation link.
+		 * @param View_Interface $this               This view interface.
+		 */
+		$top_bar_prev_label = apply_filters( "tribe_events_views_v2_view_{$this->slug}_top_bar_prev_label", $top_bar_prev_label, $this );
+
+		return $top_bar_prev_label;
 	}
 
 	/**
