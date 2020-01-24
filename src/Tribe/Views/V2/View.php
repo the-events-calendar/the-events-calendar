@@ -291,14 +291,8 @@ class View implements View_Interface {
 			 */
 			$slug = Arr::get( $params, 'eventDisplay', tribe_context()->get( 'view', 'default' ) );
 		}
-
-		$event_display_key = 'eventDisplay';
-
-		// When dealing with "Plain Permalink" we need to move `past` into a separate url argument.
-		if ( ! get_option( 'permalink_structure' ) ) {
-			$event_display_key = 'tribe_event_display';
-		}
-		$params['event_display_mode'] = Arr::get( $query_args, $event_display_key, 'default' );
+		
+		$params['event_display_mode'] = Arr::get( $query_args, Utils\View::get_past_event_display_key(), 'default' );
 
 		if ( ! empty( $slug ) ) {
 			/**
