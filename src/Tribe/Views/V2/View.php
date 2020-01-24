@@ -218,6 +218,7 @@ class View implements View_Interface {
 		$this->messages = $messages ?: new Messages();
 		$this->rewrite = TEC_Rewrite::instance();
 
+		// For plain permalinks, the pagination variable is "page".
 		if ( ! get_option( 'permalink_structure' ) ) {
 			$this->page_key = 'page';
 		}
