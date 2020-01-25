@@ -21,6 +21,8 @@
 		rel="next"
 		class="tribe-events-c-nav__next tribe-common-b2 tribe-common-b1--min-medium"
 		data-js="tribe-events-view-link"
+		aria-label="<?php echo esc_attr( sprintf( __( 'Next %1$s', 'the-events-calendar' ), tribe_get_event_label_plural() ) ); ?>"
+		title="<?php echo esc_attr( sprintf( __( 'Next %1$s', 'the-events-calendar' ), tribe_get_event_label_plural() ) ); ?>"
 	>
 		<span class="tribe-events-c-nav__next-label">
 			<?php
