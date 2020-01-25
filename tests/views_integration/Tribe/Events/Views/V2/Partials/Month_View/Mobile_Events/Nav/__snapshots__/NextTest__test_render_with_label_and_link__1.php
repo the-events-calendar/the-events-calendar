@@ -4,6 +4,8 @@
 		rel="next"
 		class="tribe-events-c-nav__next tribe-common-b2"
 		data-js="tribe-events-view-link"
+		aria-label="Next month, May"
+		title="Next month, May"
 	>
 		May	</a>
 </li>

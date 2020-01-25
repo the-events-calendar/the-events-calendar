@@ -193,6 +193,8 @@
 	href="http://test.tri.be/events/today/"
 	class="tribe-common-c-btn-border tribe-events-c-top-bar__today-button tribe-common-a11y-hidden"
 	data-js="tribe-events-view-link"
+	aria-label="Click to select today&#039;s date"
+	title="Click to select today&#039;s date"
 >
 	Today</a>
 
@@ -201,6 +203,8 @@
 		class="tribe-common-h3 tribe-common-h--alt tribe-events-c-top-bar__datepicker-button"
 		data-js="tribe-events-top-bar-datepicker-button"
 		type="button"
+		aria-label="Click to toggle datepicker"
+		title="Click to toggle datepicker"
 	>
 		<time
 			datetime="2019-01-01"
@@ -246,7 +250,12 @@
 		<nav class="tribe-events-calendar-day-nav tribe-events-c-nav">
 	<ul class="tribe-events-c-nav__list">
 		<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--prev">
-	<button class="tribe-events-c-nav__prev tribe-common-b2 tribe-common-b1--min-medium" disabled>
+	<button
+		class="tribe-events-c-nav__prev tribe-common-b2 tribe-common-b1--min-medium"
+		aria-label="Previous Day"
+		title="Previous Day"
+		disabled
+	>
 		Previous Day	</button>
 </li>
 
@@ -256,6 +265,8 @@
 		rel="next"
 		class="tribe-events-c-nav__next tribe-common-b2 tribe-common-b1--min-medium"
 		data-js="tribe-events-view-link"
+		aria-label="Next Day"
+		title="Next Day"
 	>
 		Next Day	</a>
 </li>
