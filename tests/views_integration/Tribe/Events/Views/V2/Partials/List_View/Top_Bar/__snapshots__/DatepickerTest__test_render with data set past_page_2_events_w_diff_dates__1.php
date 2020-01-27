@@ -5,16 +5,16 @@
 			data-js="tribe-events-top-bar-datepicker-button"
 			type="button"
 		>
-							<time
-					datetime="2019-01-01"
-					class="tribe-events-c-top-bar__datepicker-time"
-				>
-					<span class="tribe-events-c-top-bar__datepicker-mobile">
+			<time
+				datetime="2019-01-01"
+				class="tribe-events-c-top-bar__datepicker-time"
+			>
+									<span class="tribe-events-c-top-bar__datepicker-mobile">
 						2019-01-01					</span>
 					<span class="tribe-events-c-top-bar__datepicker-desktop tribe-common-a11y-hidden">
 						January 1					</span>
-				</time>
-										<span class="tribe-events-c-top-bar__datepicker-separator"> - </span>
+							</time>
+							<span class="tribe-events-c-top-bar__datepicker-separator"> - </span>
 				<time
 					datetime="2019-01-02"
 					class="tribe-events-c-top-bar__datepicker-time"
@@ -39,6 +39,7 @@
 			value="2019-01-01"
 			tabindex="-1"
 			autocomplete="off"
+			readonly="readonly"
 		/>
 		<div class="tribe-events-c-top-bar__datepicker-container" data-js="tribe-events-top-bar-datepicker-container"></div>
 	</div>

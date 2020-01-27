@@ -145,12 +145,35 @@ class Manager {
 
 		$views = array_filter(
 			$views,
-			static function ( $view_class, $slug ) use ( $enabled_views )
-			{
+			static function ( $view_class, $slug ) use ( $enabled_views ) {
 				return in_array( $slug, $enabled_views, true )
 				       && (bool) call_user_func( [ $view_class, 'is_publicly_visible' ] );
 			},
 			ARRAY_FILTER_USE_BOTH
+		);
+
+		return $views;
+	}
+
+	/**
+	 * Returns an array of data of the public views.
+	 *
+	 * @since 5.0.0
+	 *
+	 * @return array
+	 */
+	public function get_publicly_visible_views_data() {
+		$views = $this->get_publicly_visible_views();
+
+		array_walk(
+			$views,
+			function ( &$value, $view_slug ) {
+				$value = (object) [
+					'view_class' => $value,
+					'view_url'   => tribe_events_get_url( array_filter( [ 'eventDisplay' => $view_slug ] ) ),
+					'view_label' => $this->get_view_label_by_slug( $view_slug ),
+				];
+			}
 		);
 
 		return $views;
@@ -208,7 +231,7 @@ class Manager {
 	 *
 	 * @since 4.9.4
 	 *
-	 * @param  string $slug The view fully qualified class name.
+	 * @param  string $slug The view slug.
 	 *
 	 * @return string|false The class currently associated to a View slug if it is found, `false` otherwise.
 	 */
@@ -216,5 +239,104 @@ class Manager {
 		$registered_views = $this->get_registered_views();
 
 		return Arr::get( $registered_views, $slug, false );
+	}
+
+	/**
+	 * Returns the view label based on the fully qualified class name.
+	 *
+	 * @since 5.0.0
+	 *
+	 * @param  string $view_class The view fully qualified class name.
+	 *
+	 * @return string|false The label associated with a given View.
+	 */
+	public function get_view_label_by_class( $view_class ) {
+		$slug = $this->get_view_slug_by_class( $view_class );
+
+		if ( ! $slug ) {
+			return false;
+		}
+
+		return $this->prepare_view_label( $slug, $view_class );
+	}
+
+	/**
+	 * Returns the view label based on the view slug.
+	 *
+	 * @since 5.0.0
+	 *
+	 * @param  string $slug The view slug.
+	 *
+	 * @return string|false The label associated with a given View.
+	 */
+	public function get_view_label_by_slug( $slug ) {
+		$view_class = $this->get_view_class_by_slug( $slug );
+
+		if ( ! $view_class ) {
+			return false;
+		}
+
+		return $this->prepare_view_label( $slug, $view_class );
+	}
+
+	/**
+	 * Prepare the view Label with filters for the domain and label.
+	 *
+	 * @param  string $slug       The view slug.
+	 * @param  string $view_class The view fully qualified class name.
+	 *
+	 * @return string             The filtered label associated with a given View.
+	 */
+	protected function prepare_view_label( $slug, $view_class ) {
+		$label = ucfirst( $slug );
+
+		/**
+		 * Filters the label that will be used on the UI for views listing.
+		 *
+		 * @since 5.0.0
+		 *
+		 * @param string $domain       Text Domain for the View label.
+		 * @param string $slug         Slug of the view we are getting the label for.
+		 * @param string $view_class   Class Name of the view we are getting the label for.
+		 */
+		$domain = apply_filters( 'tribe_events_views_v2_manager_view_label_domain', 'the-events-calendar', $slug, $view_class );
+
+		/**
+		 * Filters the label that will be used on the UI for views listing.
+		 *
+		 * @since 5.0.0
+		 *
+		 * @param string $domain       Text Domain for the View label.
+		 * @param string $view_class   Class Name of the view we are getting the label for.
+		 */
+		$domain = apply_filters( "tribe_events_views_v2_manager_{$slug}_view_label_domain", $domain, $view_class );
+
+		/**
+		 * Pass by the translation engine, dont remove.
+		 */
+		$label = __( $label, $domain );
+
+		/**
+		 * Filters the label that will be used on the UI for views listing.
+		 *
+		 * @since 5.0.0
+		 *
+		 * @param string $label        Label of the Current view.
+		 * @param string $slug         Slug of the view we are getting the label for.
+		 * @param string $view_class   Class Name of the view we are getting the label for.
+		 */
+		$label = apply_filters( 'tribe_events_views_v2_manager_view_label', $label, $slug, $view_class );
+
+		/**
+		 * Filters the label that will be used on the UI for views listing.
+		 *
+		 * @since 5.0.0
+		 *
+		 * @param string $label        Label of the Current view.
+		 * @param string $view_class   Class Name of the view we are getting the label for.
+		 */
+		$label = apply_filters( "tribe_events_views_v2_manager_{$slug}_view_label", $label, $view_class );
+
+		return $label;
 	}
 }

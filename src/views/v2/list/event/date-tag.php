@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.13
+ * @version 5.0.0
  *
  * @var WP_Post            $event        The event post object with properties added by the `tribe_get_event` function.
  * @var \DateTimeInterface $request_date The request date object. This will be "today" if the user did not input any
@@ -29,8 +29,8 @@ $display_date = empty( $is_past ) && ! empty( $request_date )
 	? max( $event->dates->start_display, $request_date )
 	: $event->dates->start_display;
 
-$event_week_day  = $display_date->format( 'D' );
-$event_day_num   = $display_date->format( 'j' );
+$event_week_day  = $display_date->format_i18n( 'D' );
+$event_day_num   = $display_date->format_i18n( 'j' );
 $event_date_attr = $display_date->format( Dates::DBDATEFORMAT );
 ?>
 <div class="tribe-events-calendar-list__event-date-tag tribe-common-g-col">

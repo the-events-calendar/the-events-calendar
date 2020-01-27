@@ -23,7 +23,7 @@ tribe.events.views.viewSelector = {};
  * @since 4.9.4
  *
  * @param  {PlainObject} $   jQuery
- * @param  {PlainObject} obj tribe.events.views.manager
+ * @param  {PlainObject} obj tribe.events.views.viewSelector
  *
  * @return {void}
  */
@@ -159,15 +159,18 @@ tribe.events.views.viewSelector = {};
 
 			// If view selector is tabs (has 3 or less options)
 			if ( isTabs ) {
+				var containerState = $container.data( 'tribeEventsState' );
+				var isMobile = ( containerState && containerState.isMobile ) || true; // fallback to true if container state is undefined
+
 				// If viewport is mobile and mobile state is not initialized
-				if ( tribe.events.views.viewport.state.isMobile && ! state.mobileInitialized ) {
+				if ( isMobile && ! state.mobileInitialized ) {
 					obj.initViewSelectorAccordion( $container );
 					state.desktopInitialized = false;
 					state.mobileInitialized = true;
 					$viewSelector.data( 'tribeEventsState', state );
 
 				// If viewport is desktop and desktop state is not initialized
-				} else if ( ! tribe.events.views.viewport.state.isMobile && ! state.desktopInitialized ) {
+				} else if ( ! isMobile && ! state.desktopInitialized ) {
 					obj.deinitViewSelectorAccordion( $container );
 					state.mobileInitialized = false;
 					state.desktopInitialized = true;
@@ -250,9 +253,9 @@ tribe.events.views.viewSelector = {};
 	 */
 	obj.unbindEvents = function( $container ) {
 		$document
-			.off( 'resize.tribeEvents', obj.handleResize )
 			.off( 'click', obj.handleClick );
 		$container
+			.off( 'resize.tribeEvents', obj.handleResize )
 			.find( obj.selectors.viewSelectorButton )
 			.off( 'click', obj.handleViewSelectorButtonClick );
 	};
@@ -269,9 +272,8 @@ tribe.events.views.viewSelector = {};
 	obj.bindEvents = function( $container ) {
 		var $viewSelectorButton = $container.find( obj.selectors.viewSelectorButton );
 
-		$document
-			.on( 'resize.tribeEvents', { container: $container }, obj.handleResize )
-			.on( 'click', { container: $container }, obj.handleClick );
+		$document.on( 'click', { container: $container }, obj.handleClick );
+		$container.on( 'resize.tribeEvents', { container: $container }, obj.handleResize );
 		$viewSelectorButton.on( 'click', { target: $viewSelectorButton }, obj.handleViewSelectorButtonClick );
 	};
 
@@ -290,6 +292,7 @@ tribe.events.views.viewSelector = {};
 		var $container = event.data.container;
 		obj.deinitViewSelector( $container );
 		obj.unbindEvents( $container );
+		$container.off( 'beforeAjaxSuccess.tribeEvents', obj.deinit );
 	};
 
 	/**

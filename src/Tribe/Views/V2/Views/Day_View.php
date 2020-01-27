@@ -38,6 +38,10 @@ class Day_View extends View {
 	 * {@inheritDoc}
 	 */
 	public function prev_url( $canonical = false, array $passthru_vars = [] ) {
+		if ( isset( $this->cached_urls[ __METHOD__ ] ) ) {
+			return $this->cached_urls[ __METHOD__ ];
+		}
+
 		$date = $this->context->get( 'event_date', $this->context->get( 'today', 'today' ) );
 
 		$one_day       = new \DateInterval( 'P1D' );
@@ -51,13 +55,21 @@ class Day_View extends View {
 			$url = $this->build_url_for_date( $url_date, $canonical, $passthru_vars );
 		}
 
-		return $this->filter_prev_url( $canonical, $url );
+		$url = $this->filter_prev_url( $canonical, $url );
+
+		$this->cached_urls[ __METHOD__ ] = $url;
+
+		return $url;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public function next_url( $canonical = false, array $passthru_vars = [] ) {
+		if ( isset( $this->cached_urls[ __METHOD__ ] ) ) {
+			return $this->cached_urls[ __METHOD__ ];
+		}
+
 		$date = $this->context->get( 'event_date', $this->context->get( 'today', 'today' ) );
 
 		$one_day     = new \DateInterval( 'P1D' );
@@ -71,7 +83,11 @@ class Day_View extends View {
 			$url = $this->build_url_for_date( $url_date, $canonical, $passthru_vars );
 		}
 
-		return $this->filter_next_url( $canonical, $url );
+		$url = $this->filter_next_url( $canonical, $url );
+
+		$this->cached_urls[ __METHOD__ ] = $url;
+
+		return $url;
 	}
 
 	/**

@@ -29,6 +29,9 @@ class AbstractTest extends Events_TestCase {
 
 	function setUp() {
 		parent::setUp();
+
+		tribe_unset_var( \Tribe__Settings_Manager::OPTION_CACHE_VAR_NAME );
+
 		$this->factory()->import_record = new Import_Record();
 	}
 

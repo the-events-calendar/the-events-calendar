@@ -7,7 +7,8 @@
 .tribe-events {
 
 	.tribe-events-c-top-bar {
-		@media (--viewport-medium) {
+
+		.tribe-common--breakpoint-medium& {
 			align-items: center;
 			display: flex;
 			flex-direction: row;
@@ -16,7 +17,8 @@
 	}
 
 	.tribe-events-c-top-bar__nav {
-		@media (--viewport-medium) {
+
+		.tribe-common--breakpoint-medium& {
 			display: block !important;
 			flex: none;
 			visibility: visible;
@@ -40,7 +42,8 @@
 		display: block;
 
 		&:before {
-			@media (--viewport-medium) {
+
+			.tribe-common--breakpoint-medium& {
 				height: 18px;
 				width: 11px;
 			}
@@ -48,7 +51,8 @@
 	}
 
 	.tribe-events-c-top-bar__today-button {
-		@media (--viewport-medium) {
+
+		.tribe-common--breakpoint-medium& {
 			display: block !important;
 			flex: none;
 			margin-right: 15px;
@@ -65,20 +69,26 @@
 		flex: auto;
 		position: relative;
 
-		@media (--viewport-medium) {
+		.tribe-common--breakpoint-medium& {
 			margin: 0;
 			padding: 0;
 		}
 	}
 
+	.tribe-events-c-top-bar__datepicker-separator {
+		white-space: pre;
+	}
+
 	.tribe-events-c-top-bar__datepicker-mobile {
-		@media (--viewport-full) {
+
+		.tribe-common--breakpoint-full& {
 			@mixin hidden;
 		}
 	}
 
 	.tribe-events-c-top-bar__datepicker-desktop {
-		@media (--viewport-full) {
+
+		.tribe-common--breakpoint-full& {
 			display: block !important;
 			visibility: visible
 		}
@@ -97,14 +107,15 @@
 		position: absolute;
 		width: 363px;
 
-		@media (--viewport-medium) {
+		.tribe-common--breakpoint-medium& {
 			max-width: none;
 			min-width: 363px;
 		}
 	}
 
 	.tribe-events-c-top-bar__datepicker-submit {
-		@media (--viewport-medium) {
+
+		.tribe-common--breakpoint-medium& {
 			display: block !important;
 			flex: none;
 			margin-left: 15px;
@@ -113,9 +124,8 @@
 	}
 
 	.tribe-events-c-top-bar__actions {
-		@mixin hidden;
 
-		@media (--viewport-medium) {
+		.tribe-common--breakpoint-medium& {
 			display: block !important;
 			flex: none;
 			margin-left: auto;

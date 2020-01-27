@@ -9,15 +9,17 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.13
+ * @version 5.0.0
  *
- * @var string    $now                    The current date and time in the `Y-m-d H:i:s` format.
- * @var string    $grid_date              The current calendar grid date in the `Y-m-d` format.
- * @var string    $formatted_grid_date    The current calendar grid date in the format specified by the "Month and year
- *                                        format" option.
- * @var object    $date_formats           Object containing the date formats.
- * @var \DateTime $the_date               The Month current date object.
- * @var bool      $show_datepicker_submit Boolean on whether to show the datepicker submit button.
+ * @var string    $now                        The current date and time in the `Y-m-d H:i:s` format.
+ * @var string    $grid_date                  The current calendar grid date in the `Y-m-d` format.
+ * @var string    $formatted_grid_date        The current calendar grid date in the format specified by the "Month and
+ *                                            year format" option.
+ * @var string    $formatted_grid_date_mobile The current calendar grid date in the format specified by the "Compact
+ *                                            Date Format" option.
+ * @var object    $date_formats               Object containing the date formats.
+ * @var \DateTime $the_date                   The Month current date object.
+ * @var bool      $show_datepicker_submit     Boolean on whether to show the datepicker submit button.
  */
 use Tribe__Date_Utils as Dates;
 
@@ -45,7 +47,12 @@ $datepicker_date     = Dates::build_date_object( $selected_date_value )->format(
 				datetime="<?php echo esc_attr( $the_date->format( 'Y-m' ) ); ?>"
 				class="tribe-events-c-top-bar__datepicker-time"
 			>
-				<?php echo esc_html( $formatted_grid_date ); ?>
+				<span class="tribe-events-c-top-bar__datepicker-mobile">
+					<?php echo esc_html( $formatted_grid_date_mobile ); ?>
+				</span>
+				<span class="tribe-events-c-top-bar__datepicker-desktop tribe-common-a11y-hidden">
+					<?php echo esc_html( $formatted_grid_date ); ?>
+				</span>
 			</time>
 		</button>
 		<label
@@ -63,6 +70,7 @@ $datepicker_date     = Dates::build_date_object( $selected_date_value )->format(
 			value="<?php echo esc_attr( $datepicker_date ); ?>"
 			tabindex="-1"
 			autocomplete="off"
+			readonly="readonly"
 		/>
 		<div class="tribe-events-c-top-bar__datepicker-container" data-js="tribe-events-top-bar-datepicker-container"></div>
 	</div>

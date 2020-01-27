@@ -22,7 +22,7 @@
 	.tribe-events-c-nav {
 		padding-top: var(--spacer-4);
 
-		@media (--viewport-medium) {
+		.tribe-common--breakpoint-medium& {
 			padding-top: var(--spacer-6);
 		}
 	}
@@ -38,7 +38,7 @@
 		display: flex;
 		width: 33.33%;
 
-		@media (--viewport-medium) {
+		.tribe-common--breakpoint-medium& {
 			width: 50%;
 		}
 	}
@@ -54,7 +54,7 @@
 	.tribe-events-c-nav__list-item--today {
 		justify-content: center;
 
-		@media (--viewport-medium) {
+		.tribe-common--breakpoint-medium& {
 			@mixin hidden;
 		}
 	}
@@ -63,7 +63,7 @@
 	.tribe-events-c-nav__next-label-plural {
 		@mixin visually-hide;
 
-		@media (--viewport-medium) {
+		.tribe-common--breakpoint-medium& {
 			@mixin visually-show;
 		}
 	}

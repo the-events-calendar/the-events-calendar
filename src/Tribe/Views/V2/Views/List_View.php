@@ -9,10 +9,12 @@
 namespace Tribe\Events\Views\V2\Views;
 
 use Tribe\Events\Views\V2\View;
+use Tribe\Events\Views\V2\Views\Traits\List_Behavior;
 use Tribe__Context;
 use Tribe__Events__Main as TEC;
-use Tribe__Events__Rewrite as Rewrite;
+use Tribe__Events__Rewrite as TEC_Rewrite;
 use Tribe__Utils__Array as Arr;
+use Tribe\Events\Views\V2\Utils;
 
 class List_View extends View {
 	use List_Behavior;
@@ -46,11 +48,15 @@ class List_View extends View {
 	 * {@inheritDoc}
 	 */
 	public function prev_url( $canonical = false, array $passthru_vars = [] ) {
+		if ( isset( $this->cached_urls[ __METHOD__ ] ) ) {
+			return $this->cached_urls[ __METHOD__ ];
+		}
+
 		$current_page = (int) $this->context->get( 'page', 1 );
 		$display      = $this->context->get( 'event_display_mode', 'list' );
 
 		if ( 'past' === $display ) {
-			$url = parent::next_url( $canonical, [ 'eventDisplay' => 'past' ] );
+			$url = parent::next_url( $canonical, [ Utils\View::get_past_event_display_key() => 'past' ] );
 		} else if ( $current_page > 1 ) {
 			$url = parent::prev_url( $canonical );
 		} else {
@@ -59,6 +65,8 @@ class List_View extends View {
 
 		$url = $this->filter_prev_url( $canonical, $url );
 
+		$this->cached_urls[ __METHOD__ ] = $url;
+
 		return $url;
 	}
 
@@ -66,18 +74,24 @@ class List_View extends View {
 	 * {@inheritDoc}
 	 */
 	public function next_url( $canonical = false, array $passthru_vars = [] ) {
+		if ( isset( $this->cached_urls[ __METHOD__ ] ) ) {
+			return $this->cached_urls[ __METHOD__ ];
+		}
+
 		$current_page = (int) $this->context->get( 'page', 1 );
 		$display      = $this->context->get( 'event_display_mode', 'list' );
 
 		if ( $this->slug === $display || 'default' === $display ) {
 			$url = parent::next_url( $canonical );
-		} else if ( $current_page > 1 ) {
-			$url = parent::prev_url( $canonical, [ 'eventDisplay' => 'past' ] );
+		} elseif ( $current_page > 1 ) {
+			$url = parent::prev_url( $canonical, [ Utils\View::get_past_event_display_key() => 'past' ] );
 		} else {
 			$url = $this->get_upcoming_url( $canonical );
 		}
 
 		$url = $this->filter_next_url( $canonical, $url );
+
+		$this->cached_urls[ __METHOD__ ] = $url;
 
 		return $url;
 	}
@@ -102,14 +116,21 @@ class List_View extends View {
 			'paged'              => $page,
 		] ) ) );
 
+		$past->order_by( '__none' );
+
 		if ( $past->count() > 0 ) {
-			$past_url_object = clone $this->url->add_query_args( array_filter( [
+			$event_display_key = Utils\View::get_past_event_display_key();
+			$query_args        = [
 				'post_type'        => TEC::POSTTYPE,
-				'eventDisplay'     => 'past',
+				$event_display_key => 'past',
 				'eventDate'        => $event_date_var,
 				$this->page_key    => $page,
 				'tribe-bar-search' => $this->context->get( 'keyword' ),
-			] ) );
+			];
+
+			$query_args = $this->filter_query_args( $query_args, $canonical );
+
+			$past_url_object = clone $this->url->add_query_args( array_filter( $query_args ) );
 
 			$past_url = (string) $past_url_object;
 
@@ -118,7 +139,7 @@ class List_View extends View {
 			}
 
 			// We've got rewrite rules handling `eventDate` and `eventDisplay`, but not List. Let's remove it.
-			$canonical_url = Rewrite::instance()->get_clean_url(
+			$canonical_url = TEC_Rewrite::instance()->get_clean_url(
 				add_query_arg(
 					[ 'eventDisplay' => $this->slug ],
 					remove_query_arg( [ 'eventDate' ], $past_url )
@@ -126,7 +147,7 @@ class List_View extends View {
 			);
 
 			// We use the `eventDisplay` query var as a display mode indicator: we have to make sure it's there.
-			$url = add_query_arg( [ 'eventDisplay' => 'past' ], $canonical_url );
+			$url = add_query_arg( [ $event_display_key => 'past' ], $canonical_url );
 
 			// Let's re-add the `eventDate` if we had one and we're not already passing it with one of its aliases.
 			if ( ! (
@@ -159,18 +180,24 @@ class List_View extends View {
 		$url = '';
 
 		$upcoming = tribe_events()->by_args( $this->setup_repository_args( $this->context->alter( [
-			'eventDisplay' => 'list',
+			'eventDisplay' => $this->slug,
 			'paged'        => $page,
 		] ) ) );
 
+		$upcoming->order_by( '__none' );
+
 		if ( $upcoming->count() > 0 ) {
-			$upcoming_url_object = clone $this->url->add_query_args( array_filter( [
+			$query_args = [
 				'post_type'        => TEC::POSTTYPE,
-				'eventDisplay'     => 'list',
+				'eventDisplay'     => $this->slug,
 				$this->page_key    => $page,
 				'eventDate'        => $event_date_var,
 				'tribe-bar-search' => $this->context->get( 'keyword' ),
-			] ) );
+			];
+
+			$query_args = $this->filter_query_args( $query_args, $canonical );
+
+			$upcoming_url_object = clone $this->url->add_query_args( array_filter( $query_args ) );
 
 			$upcoming_url = (string) $upcoming_url_object;
 
@@ -180,7 +207,7 @@ class List_View extends View {
 
 			// We've got rewrite rules handling `eventDate`, but not List. Let's remove it to build the URL.
 			$url = tribe( 'events.rewrite' )->get_clean_url(
-				remove_query_arg( [ 'eventDate' ], $upcoming_url )
+				remove_query_arg( [ 'eventDate', 'tribe_event_display' ], $upcoming_url )
 			);
 
 			// Let's re-add the `eventDate` if we had one and we're not already passing it with one of its aliases.

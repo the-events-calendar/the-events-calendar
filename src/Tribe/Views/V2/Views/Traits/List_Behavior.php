@@ -7,7 +7,7 @@
  * @package Tribe\Events\Views\V2\Views
  */
 
-namespace Tribe\Events\Views\V2\Views;
+namespace Tribe\Events\Views\V2\Views\Traits;
 
 use Tribe__Context as Context;
 use Tribe__Date_Utils as Dates;
@@ -83,15 +83,36 @@ trait List_Behavior {
 		$show_now = $show_now && $this->context->get( 'page' ) <= 1;
 
 		if ( ! $is_past ) {
-			$start = $first_event instanceof \WP_Post ? $first_event->dates->start_display : $user_date;
-			$end   = $last_event instanceof \WP_Post ? $last_event->dates->start_display : $user_date;
+			if ( $page === 1 ) {
+				// On the first page show the date the user has implicitly (today) or explicitly (w/ bar) selected.
+				$start = $user_date;
+			} else {
+				// On following pages use the date of the first event, if any.
+				$start = $first_event instanceof \WP_Post ? $first_event->dates->start_display : $user_date;
+			}
+			$end = $last_event instanceof \WP_Post ? $last_event->dates->start_display : $user_date;
+
+			// Never let the start of the range be lower than the top bar date.
+			if ( $start < $user_date ) {
+				$start = $user_date;
+			}
 		} else {
 			$start = $first_event instanceof \WP_Post ? $first_event->dates->start_display : $user_date;
 			$end   = $last_event instanceof \WP_Post ? $last_event->dates->start_display : $user_date;
 		}
 
-		$end_is_now = ( $is_past && 1 === $page )
-		              || $now->format( 'Y-m-d' ) === $end->format( 'Y-m-d' );
+		// Never let the start of the range exceed the start.
+		if ( $start > $end ) {
+			$end = $user_date;
+		}
+
+		$is_first_past_page = $is_past && 1 === $page;
+
+		if ( $is_first_past_page ) {
+			$end = $user_date;
+		}
+
+		$end_is_now = $now->format( 'Y-m-d' ) === $end->format( 'Y-m-d' );
 
 		// Do the events all have the same start dates?
 		$diff_dates = count(
@@ -106,7 +127,7 @@ trait List_Behavior {
 			              )
 		              ) > 1;
 
-		$show_end = ( $is_past && 1 === $page )
+		$show_end = ( $is_first_past_page )
 		            || (
 			            $has_next_page
 			            && $diff_dates
@@ -117,17 +138,28 @@ trait List_Behavior {
 		$start_format_w_year      = $today->format( 'Y' ) !== $start->format( 'Y' );
 		$start_label_format       = tribe_get_date_format( $start_format_w_year );
 
-		$start_time_label = date_i18n( $start_label_format, $start_timestamp_w_offset );
+		$start_time_label  = date_i18n( $start_label_format, $start_timestamp_w_offset );
+		$start_date_mobile = $start->format( $compact_date_format );
 
-		$now_label = $now_text;
+		$now_label        = $now_text;
+		$now_label_mobile = $now_text;
 		if ( empty( $date_sorted_events ) || ! $has_next_page ) {
-			$onwards_label_start = $show_now ? $now_text : $start_time_label;
-			$now_label           = sprintf(
+			$onwards_label_start        = $show_now ? $now_text : $start_time_label;
+			$onwards_label_start_mobile = $show_now ? $now_text : $start_date_mobile;
+
+			$now_label = sprintf(
 			// translators: the placeholder is for the date range start, e.g. "Now" or "October 23".
 				_x( '%s onwards', 'The datepicker range definition when no events are found.', 'the-events-calendar' ),
 				$onwards_label_start
 			);
-			$show_now            = true;
+
+			$now_label_mobile = sprintf(
+			// translators: the placeholder is for the date range start, e.g. "Now" or "1/1/2020".
+				_x( '%s onwards', 'The datepicker range definition when no events are found (for mobile).', 'the-events-calendar' ),
+				$onwards_label_start_mobile
+			);
+
+			$show_now = true;
 		}
 
 		$end_timestamp_w_offset = $end->getTimestamp() + $end->getOffset();
@@ -137,9 +169,10 @@ trait List_Behavior {
 
 		$template_vars['show_now']                   = $show_now;
 		$template_vars['now_label']                  = $now_label;
+		$template_vars['now_label_mobile']           = $now_label_mobile;
 		$template_vars['show_end']                   = $show_end;
 		$template_vars['selected_start_datetime']    = date_i18n( 'Y-m-d', $start_timestamp_w_offset );
-		$template_vars['selected_start_date_mobile'] = $start->format( $compact_date_format );
+		$template_vars['selected_start_date_mobile'] = $start_date_mobile;
 		$template_vars['selected_start_date_label']  = $start_time_label;
 		$template_vars['selected_end_datetime']      = date_i18n( 'Y-m-d', $end_timestamp_w_offset );
 		$template_vars['selected_end_date_mobile']   = $end->format( $compact_date_format );

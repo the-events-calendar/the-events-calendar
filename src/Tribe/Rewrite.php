@@ -436,7 +436,7 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 	 * {@inheritDoc}
 	 */
 	protected function get_matcher_to_query_var_map() {
-		$matchers = [
+		$map = [
 			'month'    => 'eventDisplay',
 			'list'     => 'eventDisplay',
 			'today'    => 'eventDisplay',
@@ -456,9 +456,9 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 		 * @param  array  array of the current matchers for query vars.
 		 * @param  self   $rewrite
 		 */
-		$matchers = apply_filters( 'tribe_events_rewrite_matchers_to_query_vars_map', $matchers, $this );
+		$map = apply_filters( 'tribe_events_rewrite_matchers_to_query_vars_map', $map, $this );
 
-		return $matchers;
+		return $map;
 	}
 
 	/**
@@ -530,7 +530,7 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 	}
 
 	/**
-	 * Overrides the base method, from commmon, to filter the parsed query variables and handle some cases related to
+	 * Overrides the base method, from common, to filter the parsed query variables and handle some cases related to
 	 * the `eventDisplay` query variable.
 	 *
 	 * {@inheritDoc}

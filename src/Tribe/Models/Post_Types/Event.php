@@ -11,8 +11,8 @@ namespace Tribe\Events\Models\Post_Types;
 
 use DateInterval;
 use DatePeriod;
-use DateTimeImmutable;
 use DateTimeZone;
+use Tribe\Events\Collections\Lazy_Post_Collection;
 use Tribe\Models\Post_Types\Base;
 use Tribe\Utils\Lazy_Collection;
 use Tribe\Utils\Lazy_String;
@@ -46,22 +46,24 @@ class Event extends Base {
 
 			$post_id = $this->post->ID;
 
-			$start_date            = get_post_meta( $post_id, '_EventStartDate', true );
-			$start_date_utc        = get_post_meta( $post_id, '_EventStartDateUTC', true );
-			$end_date              = get_post_meta( $post_id, '_EventEndDate', true );
-			$end_date_utc          = get_post_meta( $post_id, '_EventEndDateUTC', true );
-			$duration              = (int) get_post_meta( $post_id, '_EventDuration', true );
+			$post_meta = get_post_meta( $post_id );
+
+			$start_date            = isset( $post_meta['_EventStartDate'][0] ) ? $post_meta['_EventStartDate'][0] : null;
+			$start_date_utc        = isset( $post_meta['_EventStartDateUTC'][0] ) ? $post_meta['_EventStartDateUTC'][0] : null;
+			$end_date              = isset( $post_meta['_EventEndDate'][0] ) ? $post_meta['_EventEndDate'][0] : null;
+			$end_date_utc          = isset( $post_meta['_EventEndDateUTC'][0] ) ? $post_meta['_EventEndDateUTC'][0] : null;
+			$duration              = (int) isset( $post_meta['_EventDuration'][0] ) ? $post_meta['_EventDuration'][0] : null;
 			$timezone_string       = Timezones::get_event_timezone_string( $post_id );
-			$all_day               = tribe_is_truthy( get_post_meta( $post_id, '_EventAllDay', true ) );
+			$all_day               = tribe_is_truthy( isset( $post_meta['_EventAllDay'][0] ) ? $post_meta['_EventAllDay'][0] : null );
 			$end_of_day            = tribe_end_of_day( $start_date );
 			$timezone              = Timezones::build_timezone_object( $timezone_string );
 			$site_timezone         = Timezones::build_timezone_object();
 			$utc_timezone          = new DateTimezone( 'UTC' );
-			$start_date_object     = new DateTimeImmutable( $start_date, $timezone );
-			$end_date_object       = new DateTimeImmutable( $end_date, $timezone );
-			$start_date_utc_object = new DateTimeImmutable( $start_date_utc, $utc_timezone );
-			$end_date_utc_object   = new DateTimeImmutable( $end_date_utc, $utc_timezone );
-			$end_of_day_object     = new DateTimeImmutable( $end_of_day, $timezone );
+			$start_date_object     = Dates::immutable( $start_date, $timezone );
+			$end_date_object       = Dates::immutable( $end_date, $timezone );
+			$start_date_utc_object = Dates::immutable( $start_date_utc, $utc_timezone );
+			$end_date_utc_object   = Dates::immutable( $end_date_utc, $utc_timezone );
+			$end_of_day_object     = Dates::immutable( $end_of_day, $timezone );
 
 			if ( empty( $duration ) ) {
 				// This is really an edge case, but here we have the information to rebuild it.
@@ -72,29 +74,36 @@ class Event extends Base {
 			 * An event is multi-day if its end date is after the end-of-day cutoff of the start date.
 			 * We add one second to make sure events ending at end-of-day, same day, cutoff are not marked as multi-day.
 			 */
-			$is_multiday = $end_of_day_object->add( $one_second ) < $end_date_object;
-			$multiday    = false;
+			$multiday = false;
+
+			if ( $all_day ) {
+				$start_end_diff = $start_date_object->diff( $end_date_object );
+				$is_multiday    = $start_end_diff->days > 1;
+				$multiday       = $is_multiday ? $start_end_diff->days : false;
+			} else {
+				$is_multiday = $end_of_day_object->add( $one_second ) < $end_date_object;
+
+				// Multi-day events will span at least two days: the day they start on and the following one.
+				if ( $is_multiday ) {
+					/*
+					 * Count the number of cut-offs happening before the end date and add 1.
+					 * Do not add 1 for all-day events as they span cut-off to cut-off.
+					 */
+					$multiday = 1;
+
+					// The end date should be inclusive, since it's not in the DatePeriod we work-around it adding a second.
+					$period = new DatePeriod( $end_of_day_object, $one_day, $end_date_object );
+					foreach ( $period as $date ) {
+						++ $multiday;
+					}
+				}
+			}
 
 			// Without a context these values will not make sense; we'll set them if the `$filter` argument is a date.
 			$starts_this_week   = null;
 			$ends_this_week     = null;
 			$happens_this_week  = null;
 			$this_week_duration = null;
-
-			// Multi-day events will span at least two days: the day they start on and the following one.
-			if ( $is_multiday ) {
-				/*
-				 * Count the number of cut-offs happening before the end date and add 1.
-				 * Do not add 1 for all-day events as they span cut-off to cut-off.
-				 */
-				$multiday = $all_day ? 0 : 1;
-
-				// The end date should be inclusive, since it's not in the DatePeriod we work-around it adding a second.
-				$period = new DatePeriod( $end_of_day_object, $one_day, $end_date_object );
-				foreach ( $period as $date ) {
-					++ $multiday;
-				};
-			}
 
 			if ( Dates::is_valid_date( $filter ) ) {
 				list( $week_start, $week_end ) = Dates::get_week_start_end( $filter );
@@ -130,9 +139,9 @@ class Event extends Base {
 						if ( $starts_this_week && $ends_this_week ) {
 							$this_week_duration = min( 7, max( 1, Dates::date_diff( $the_end_ymd, $the_start_ymd ) ) + $cross_day );
 						} elseif ( $ends_this_week ) {
-							$this_week_duration = $the_end_ymd - $week_start_ymd + $cross_day;
+							$this_week_duration = Dates::date_diff( $the_end_ymd, $week_start_ymd ) + $cross_day;
 						} elseif ( $starts_this_week ) {
-							$this_week_duration = $week_end_ymd - $the_start_ymd + $cross_day;
+							$this_week_duration = Dates::date_diff( $week_end_ymd, $the_start_ymd ) + $cross_day;
 						} else {
 							// If it happens this week and it doesn't start or end this week, then it spans the week.
 							$this_week_duration = 7;
@@ -141,7 +150,7 @@ class Event extends Base {
 				}
 			}
 
-			$featured        = tribe_is_truthy( get_post_meta( $post_id, Featured::FEATURED_EVENT_KEY, true ) );
+			$featured        = tribe_is_truthy( isset( $post_meta[ Featured::FEATURED_EVENT_KEY ][0] ) ? $post_meta[ Featured::FEATURED_EVENT_KEY ][0] : null );
 			$sticky          = get_post_field( 'menu_order', $post_id ) === -1;
 			$organizer_fetch = Organizer::get_fetch_callback( $post_id );
 			$venue_fetch     = Venue::get_fetch_callback( $post_id );
@@ -184,9 +193,17 @@ class Event extends Base {
 					false
 				) )->on_resolve( $cache_this ),
 				'organizers'             => ( new Lazy_Collection( $organizer_fetch ) )->on_resolve( $cache_this ),
-				'venues'                 => ( new Lazy_Collection( $venue_fetch ) )->on_resolve( $cache_this ),
+				'venues'                 => ( new Lazy_Post_Collection(
+					$venue_fetch,
+					'tribe_get_venue_object' )
+				)->on_resolve( $cache_this ),
 				'thumbnail'              => ( new Post_Thumbnail( $post_id ) )->on_resolve( $cache_this ),
-				'permalink'              => get_permalink( $post_id ),
+				'permalink'              => ( new Lazy_String(
+					static function () use ( $post_id ) {
+						return get_permalink( $post_id );
+					},
+					false
+				) )->on_resolve( $cache_this ),
 				'schedule_details'       => ( new Lazy_String(
 					static function () use ( $post_id ) {
 						return tribe_events_event_schedule_details( $post_id );
@@ -196,6 +213,12 @@ class Event extends Base {
 				'plain_schedule_details' => ( new Lazy_String(
 					static function () use ( $post_id ) {
 						return tribe_events_event_schedule_details( $post_id, '', '', false );
+					},
+					false
+				) )->on_resolve( $cache_this ),
+				'title'                  => ( new Lazy_String(
+					static function () use ( $post_id ) {
+						return get_the_title( $post_id );
 					},
 					false
 				) )->on_resolve( $cache_this ),

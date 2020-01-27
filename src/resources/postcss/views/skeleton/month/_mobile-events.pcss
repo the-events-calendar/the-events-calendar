@@ -5,7 +5,8 @@
 	 * ----------------------------------------------------------------------------- */
 
 	.tribe-events-calendar-month-mobile-events {
-		@media (--viewport-medium) {
+
+		.tribe-common--breakpoint-medium& {
 			@mixin hidden;
 		}
 	}
@@ -54,6 +55,10 @@
 
 	.tribe-events-calendar-month-mobile-events__mobile-event-datetime-featured-text {
 		margin-right: var(--spacer-1);
+	}
+
+	.tribe-events-calendar-month-mobile-events__mobile-event-title {
+		margin: 0;
 	}
 
 	.tribe-events-calendar-month-mobile-events__mobile-event-cost {

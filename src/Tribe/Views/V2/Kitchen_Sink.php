@@ -9,7 +9,6 @@ namespace Tribe\Events\Views\V2;
 
 use Tribe__Events__Main as Events;
 use Tribe__Template as Template;
-use Tribe__Events__Rewrite as Rewrite;
 
 /**
  * Class Kitchen_Sink
@@ -71,7 +70,7 @@ class Kitchen_Sink extends Template {
 	 *
 	 * @return void
 	 */
-	public function generate_rules( Rewrite $rewrite ) {
+	public function generate_rules( \Tribe__Events__Rewrite $rewrite ) {
 		$args = [
 			'post_type' => Events::POSTTYPE,
 			'tribe_events_views_kitchen_sink' => 'page',

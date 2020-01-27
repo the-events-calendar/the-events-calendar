@@ -1486,6 +1486,10 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 				case $timestamp_key:
 					$this->filter_query->orderby( [ $timestamp_key => $default_order ], null, null, $after );
 					break;
+				case '__none':
+					unset( $this->query_args['orderby'] );
+					unset( $this->query_args['order'] );
+					break;
 				default:
 					$after = $after || 1 === $loop;
 					if ( empty( $this->query_args['orderby'] ) ) {

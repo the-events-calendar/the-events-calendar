@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.13
+ * @version 5.0.0
  *
  * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
  *
@@ -22,10 +22,13 @@ $classes = [ 'tribe-events-calendar-month-mobile-events__mobile-event-title', 't
 <h3 <?php tribe_classes( $classes ); ?>>
 	<a
 		href="<?php echo esc_url( $event->permalink ) ?>"
-		title="<?php echo esc_attr( get_the_title( $event->ID ) ) ?>"
+		title="<?php echo esc_attr( $event->title ) ?>"
 		rel="bookmark"
 		class="tribe-events-calendar-month-mobile-events__mobile-event-title-link tribe-common-anchor"
 	>
-		<?php echo wp_kses_post( get_the_title( $event->ID ) ); ?>
+		<?php
+		// phpcs:ignore
+		echo $event->title;
+		?>
 	</a>
 </h3>

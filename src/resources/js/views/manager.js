@@ -89,14 +89,45 @@ tribe.events.views.manager = {};
 	obj.$containers = $();
 
 	/**
+	 * Clean up the container and event listeners
+	 *
+	 * @since 5.0.0
+	 *
+	 * @param  {jQuery} container Which element we are going to clean up
+	 *
+	 * @return {void}
+	 */
+	obj.cleanup = function( container ) {
+		var $container = $( container );
+		var $form = $container.find( obj.selectors.form );
+		var $data = $container.find( obj.selectors.dataScript );
+		var data  = {};
+
+		// If we have data element set it up.
+		if ( $data.length ) {
+			data = JSON.parse( $.trim( $data.text() ) );
+		}
+
+		$container.trigger( 'beforeCleanup.tribeEvents', [ $container, data ] );
+
+		$container.find( obj.selectors.link ).off( 'click.tribeEvents', obj.onLinkClick );
+
+		if ( $form.length ) {
+			$form.off( 'submit.tribeEvents', obj.onSubmit );
+		}
+
+		$container.trigger( 'afterCleanup.tribeEvents', [ $container, data ] );
+	};
+
+	/**
 	 * Setup the container for views management
 	 *
 	 * @since 4.9.2
 	 *
 	 * @todo  Requirement to setup other JS modules after hijacking Click and Submit
 	 *
-	 * @param  {integer} index     jQuery.each index param
-	 * @param  {Element} container Which element we are going to setup
+	 * @param  {integer}        index     jQuery.each index param
+	 * @param  {Element|jQuery} container Which element we are going to setup
 	 *
 	 * @return {void}
 	 */
@@ -116,14 +147,11 @@ tribe.events.views.manager = {};
 		$container.find( obj.selectors.link ).on( 'click.tribeEvents', obj.onLinkClick );
 
 		// Only catch the submit if properly setup on a form
-		if ( $form ) {
+		if ( $form.length ) {
 			$form.on( 'submit.tribeEvents', obj.onSubmit );
 		}
 
 		$container.trigger( 'afterSetup.tribeEvents', [ index, $container, data ] );
-
-		// Binds and action to the container that will update the URL based on backed
-		$container.on( 'updateUrl.tribeEvents', obj.onUpdateUrl );
 	};
 
 	/**
@@ -200,16 +228,14 @@ tribe.events.views.manager = {};
 	 *
 	 * @since 4.9.4
 	 *
-	 * @param  {Event}  event DOM Event related to the Click action
+	 * @param  {jQuery} $container Which element we are updating the URL from.
 	 *
 	 * @return {void}
 	 */
-	obj.onUpdateUrl = function( event ) {
-		var $container = $( this );
-
+	obj.updateUrl = function( $container ) {
 		// When handling popstate (broswer back/next) it will not handle this part.
 		if ( obj.doingPopstate ) {
-			return false;
+			return;
 		}
 
 		// Bail when we dont manage URLs
@@ -270,6 +296,7 @@ tribe.events.views.manager = {};
 		var currentUrl = window.location.href;
 		var nonce = $link.data( 'view-rest-nonce' );
 		var shouldManageUrl = obj.shouldManageUrl( $container );
+		var shortcodeId = $container.data( 'view-shortcode' );
 
 		// Fetch nonce from container if the link doesnt have any
 		if ( ! nonce ) {
@@ -277,11 +304,15 @@ tribe.events.views.manager = {};
 		}
 
 		var data = {
-			prev_url: currentUrl,
-			url: url,
+			prev_url: encodeURI( decodeURI( currentUrl ) ),
+			url: encodeURI( decodeURI( url ) ),
 			should_manage_url: shouldManageUrl,
-			_wpnonce: nonce
+			_wpnonce: nonce,
 		};
+
+		if ( shortcodeId ) {
+			data['shortcode'] = shortcodeId;
+		}
 
 		obj.request( data, $container );
 
@@ -350,15 +381,12 @@ tribe.events.views.manager = {};
 			obj.currentAjaxRequest.abort();
 		}
 
-		var containerData = obj.getContainerData( $container );
-
 		// Flag that we are doing popstate globally.
 		obj.doingPopstate = true;
 
 		$container.trigger( 'beforePopState.tribeEvents', event );
 
 		var nonce = $container.data( 'view-rest-nonce' );
-		var shouldManageUrl = obj.shouldManageUrl( $container );
 
 		var data = {
 			url: url,
@@ -513,18 +541,21 @@ tribe.events.views.manager = {};
 
 		var $html = $( data );
 
+		// Clean up the container and event listeners
+		obj.cleanup( $container );
+
 		// Replace the current container with the new Data.
 		$container.replaceWith( $html );
 		$container = $html;
 
 		// Setup the container with the data received.
-		obj.setup( 0, $html );
+		obj.setup( 0, $container );
 
 		// Update the global set of containers with all of the manager object.
 		obj.selectContainers();
 
 		// Trigger the browser pushState
-		$container.trigger( 'updateUrl.tribeEvents' );
+		obj.updateUrl( $container );
 
 		$container.trigger( 'afterAjaxSuccess.tribeEvents', [ data, textStatus, jqXHR ] );
 
