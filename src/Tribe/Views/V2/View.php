@@ -864,72 +864,6 @@ class View implements View_Interface {
 	}
 
 	/**
-	 * Returns the top bar navigation label associated with this View logical, next view.
-	 *
-	 * @since TBD
-	 *
-	 * @return string
-	 */
-	public function top_bar_next_label() {
-		$top_bar_next_label = __( 'Next', 'the-events-calendar' );
-
-		/**
-		 * Filters the next label that will be used for navigation for a View.
-		 *
-		 * @since TBD
-		 *
-		 * @param string         $top_bar_next_label Label for the next navigation link.
-		 * @param View_Interface $this               This view interface.
-		 */
-		$top_bar_next_label = apply_filters( 'tribe_events_views_v2_view_top_bar_next_label', $top_bar_next_label, $this );
-
-		/**
-		 * Filters the next label that will be used for navigation for a specific View.
-		 *
-		 * @since TBD
-		 *
-		 * @param string         $top_bar_next_label Label for the next navigation link.
-		 * @param View_Interface $this               This view interface.
-		 */
-		$top_bar_next_label = apply_filters( "tribe_events_views_v2_view_{$this->slug}_top_bar_next_label", $top_bar_next_label, $this );
-
-		return $top_bar_next_label;
-	}
-
-	/**
-	 * Returns the top bar navigation label associated with this View logical, previous view.
-	 *
-	 * @since TBD
-	 *
-	 * @return string
-	 */
-	public function top_bar_prev_label() {
-		$top_bar_prev_label = __( 'Previous', 'the-events-calendar' );
-
-		/**
-		 * Filters the previous label that will be used for navigation for a View.
-		 *
-		 * @since TBD
-		 *
-		 * @param string         $top_bar_prev_label Label for the previous navigation link.
-		 * @param View_Interface $this               This view interface.
-		 */
-		$top_bar_prev_label = apply_filters( 'tribe_events_views_v2_view_top_bar_prev_label', $top_bar_prev_label, $this );
-
-		/**
-		 * Filters the previous label that will be used for navigation for a specific View.
-		 *
-		 * @since TBD
-		 *
-		 * @param string         $top_bar_prev_label Label for the previous navigation link.
-		 * @param View_Interface $this               This view interface.
-		 */
-		$top_bar_prev_label = apply_filters( "tribe_events_views_v2_view_{$this->slug}_top_bar_prev_label", $top_bar_prev_label, $this );
-
-		return $top_bar_prev_label;
-	}
-
-	/**
 	 * Filters URL query args with a predictable filter
 	 *
 	 * @since TBD
@@ -1405,8 +1339,6 @@ class View implements View_Interface {
 			'url'                    => $this->get_url( true ),
 			'prev_url'               => $this->prev_url( true ),
 			'next_url'               => $this->next_url( true ),
-			'top_bar_prev_label'     => $this->top_bar_prev_label(),
-			'top_bar_next_label'     => $this->top_bar_next_label(),
 			'url_event_date'         => $url_event_date,
 			'bar'                    => [
 				'keyword' => $this->context->get( 'keyword', '' ),

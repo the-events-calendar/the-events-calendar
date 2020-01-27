@@ -96,64 +96,6 @@ class List_View extends View {
 	}
 
 	/**
-	 * {@inheritDoc}
-	 */
-	public function top_bar_next_label() {
-		$top_bar_next_label = sprintf( __( 'Next %1$s', 'the-events-calendar' ), tribe_get_event_label_plural() );
-
-		/**
-		 * Filters the next label that will be used for navigation for a View.
-		 *
-		 * @since TBD
-		 *
-		 * @param string         $top_bar_next_label Label for the next navigation link.
-		 * @param View_Interface $this               This view interface.
-		 */
-		$top_bar_next_label = apply_filters( 'tribe_events_views_v2_view_top_bar_next_label', $top_bar_next_label, $this );
-
-		/**
-		 * Filters the next label that will be used for navigation for a specific View.
-		 *
-		 * @since TBD
-		 *
-		 * @param string         $top_bar_next_label Label for the next navigation link.
-		 * @param View_Interface $this               This view interface.
-		 */
-		$top_bar_next_label = apply_filters( "tribe_events_views_v2_view_{$this->slug}_top_bar_next_label", $top_bar_next_label, $this );
-
-		return $top_bar_next_label;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public function top_bar_prev_label() {
-		$top_bar_prev_label = sprintf( __( 'Previous %1$s', 'the-events-calendar' ), tribe_get_event_label_plural() );
-
-		/**
-		 * Filters the previous label that will be used for navigation for a View.
-		 *
-		 * @since TBD
-		 *
-		 * @param string         $top_bar_prev_label Label for the previous navigation link.
-		 * @param View_Interface $this               This view interface.
-		 */
-		$top_bar_prev_label = apply_filters( 'tribe_events_views_v2_view_top_bar_prev_label', $top_bar_prev_label, $this );
-
-		/**
-		 * Filters the previous label that will be used for navigation for a specific View.
-		 *
-		 * @since TBD
-		 *
-		 * @param string         $top_bar_prev_label Label for the previous navigation link.
-		 * @param View_Interface $this               This view interface.
-		 */
-		$top_bar_prev_label = apply_filters( "tribe_events_views_v2_view_{$this->slug}_top_bar_prev_label", $top_bar_prev_label, $this );
-
-		return $top_bar_prev_label;
-	}
-
-	/**
 	 * Return the URL to a page of past events.
 	 *
 	 * @since 4.9.3
