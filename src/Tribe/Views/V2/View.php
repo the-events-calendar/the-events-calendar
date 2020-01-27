@@ -787,6 +787,9 @@ class View implements View_Interface {
 				$url = add_query_arg( $query_args, $url );
 			}
 
+			// Remove the inverse of the page key we are using.
+			$url = remove_query_arg( 'page' === $this->page_key ? 'paged' : 'page', $url );
+
 			if ( $canonical ) {
 				$url = tribe( 'events.rewrite' )->get_clean_url( $url );
 			}
@@ -849,6 +852,9 @@ class View implements View_Interface {
 			if ( ! empty( $query_args ) ) {
 				$url = add_query_arg( $query_args, $url );
 			}
+
+			// Remove the inverse of the page key we are using.
+			$url = remove_query_arg( 'page' === $this->page_key ? 'paged' : 'page', $url );
 
 			if ( $canonical ) {
 				$url = tribe( 'events.rewrite' )->get_clean_url( $url );
