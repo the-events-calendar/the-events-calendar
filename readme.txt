@@ -219,19 +219,19 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 * Feature - Created new Month, Day, and List views with all new HTML, CSS, and JavaScript.
 * Feature - Add upgrade path for new Month, Day, and List views making it opt-in for any existing users.
-* Feature - New templating engine to power the new Views. [See More]
+* Feature - New templating engine to power the new Views. [See More](http://m.tri.be/1aid)
 * Feature - Views initialization and instance includes more filters and actions to allow improved extensibility and customization. (See all filters below)
 * Feature - Views manager and bootstraping classes were created to allow more control over where and when views will be initialized. (See filters related to those below)
 * Feature - Reduced maintenance burden of customizations by leveraging atomic templates for the new views. (See list of files now available below)
-* Feature - CSS uses a Block Element Modifier (BEM) methodology to improve reusablility of components. [See More]
-* Feature - New Views share one JavaScript Manager, which contains multiple jQuery actions and customization points. [See More]
+* Feature - CSS uses a Block Element Modifier (BEM) methodology to improve reusablility of components. [See More](http://m.tri.be/1aib)
+* Feature - New Views share one JavaScript Manager, which contains multiple jQuery actions and customization points.
 * Feature - View navigation relies on the WP Rest API, improving reliability and caching opportunities.
 * Feature - Event permalinks are now more consistent across navigation using `WP_Rewrite` to map params to their matching URL, which improves SEO.
 * Feature - Event data filtering used across all new views: `tribe_get_event_before`, `tribe_get_event`, `tribe_get_event_after`, `tribe_events_organizers_fetch_callback`, `tribe_events_venues_fetch_callback`
 * Feature - Venue data filtering used across all new views: `tribe_get_venue_object_before`, `tribe_get_venue_object`
 * Tweak - Custom Before and After HTML on the Events > Settings page will now prefer event view styling over the Theme's CSS.
-* Tweak - Lowered the reliance on the global `$wp_query` to create more consistent output and faster maintenance. [See More]
-* Tweak - View overrides for the new views will look within a new folder in your theme to avoid conflicting with old The Events Calendar theme customizations [See More]
+* Tweak - Lowered the reliance on the global `$wp_query` to create more consistent output and faster maintenance. [See More](http://m.tri.be/1aic)
+* Tweak - View overrides for the new views will look within a new folder in your theme to avoid conflicting with old The Events Calendar theme customizations [See More](http://m.tri.be/1aia)
 * Tweak - Switch to a compact date while on day and month view in mobile [136789]
 * Tweak - Remove `tribe_events_getLink` in favor of `tribe_events_get_link` which was a deprecated filter since version 4.3
 * Hooks - View template include and render filters and actions: `tribe_template_before_include`, `tribe_template_before_include:{$template_path}`, `tribe_template_after_include`, `tribe_template_after_include:{$template_path}`, `tribe_template_html`, `tribe_template_html:{$template_path}`
