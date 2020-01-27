@@ -34,8 +34,6 @@ class Top_BarTest extends HtmlPartialTestCase
 			'now'                => '2018-01-01 12:00:00',
 			'today_url'          => 'http://test.tri.be',
 			'date_formats'       => $date_formats,
-			'top_bar_prev_label' => 'Prev',
-			'top_bar_next_label' => 'Next',
 		] ) );
 	}
 

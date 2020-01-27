@@ -3,21 +3,22 @@
 		<li class="tribe-events-c-top-bar__nav-list-item">
 	<button
 		class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-left tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--prev"
-		aria-label="Previous"
-		title="Previous"
+		aria-label="Previous Events"
+		title="Previous Events"
 		disabled
 	>
 	</button>
 </li>
 
 		<li class="tribe-events-c-top-bar__nav-list-item">
-	<button
+	<a
+		href="http://test.tri.be"
 		class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-right tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--next"
-		aria-label="Next"
-		title="Next"
-		disabled
+		aria-label="Next Events"
+		title="Next Events"
+		data-js="tribe-events-view-link"
 	>
-	</button>
+	</a>
 </li>
 	</ul>
 </nav>
