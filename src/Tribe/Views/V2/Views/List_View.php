@@ -14,6 +14,7 @@ use Tribe__Context;
 use Tribe__Events__Main as TEC;
 use Tribe__Events__Rewrite as TEC_Rewrite;
 use Tribe__Utils__Array as Arr;
+use Tribe\Events\Views\V2\Utils;
 
 class List_View extends View {
 	use List_Behavior;
@@ -57,7 +58,7 @@ class List_View extends View {
 		$display      = $this->context->get( 'event_display_mode', 'list' );
 
 		if ( 'past' === $display ) {
-			$url = parent::next_url( $canonical, [ 'eventDisplay' => 'past' ] );
+			$url = parent::next_url( $canonical, [ Utils\View::get_past_event_display_key() => 'past' ] );
 		} else if ( $current_page > 1 ) {
 			$url = parent::prev_url( $canonical );
 		} else {
@@ -86,8 +87,8 @@ class List_View extends View {
 
 		if ( $this->slug === $display || 'default' === $display ) {
 			$url = parent::next_url( $canonical );
-		} else if ( $current_page > 1 ) {
-			$url = parent::prev_url( $canonical, [ 'eventDisplay' => 'past' ] );
+		} elseif ( $current_page > 1 ) {
+			$url = parent::prev_url( $canonical, [ Utils\View::get_past_event_display_key() => 'past' ] );
 		} else {
 			$url = $this->get_upcoming_url( $canonical );
 		}
@@ -122,10 +123,10 @@ class List_View extends View {
 		$past->order_by( '__none' );
 
 		if ( $past->count() > 0 ) {
-
-			$query_args = [
+			$event_display_key = Utils\View::get_past_event_display_key();
+			$query_args        = [
 				'post_type'        => TEC::POSTTYPE,
-				'eventDisplay'     => 'past',
+				$event_display_key => 'past',
 				'eventDate'        => $event_date_var,
 				$this->page_key    => $page,
 				'tribe-bar-search' => $this->context->get( 'keyword' ),
@@ -150,7 +151,7 @@ class List_View extends View {
 			);
 
 			// We use the `eventDisplay` query var as a display mode indicator: we have to make sure it's there.
-			$url = add_query_arg( [ 'eventDisplay' => 'past' ], $canonical_url );
+			$url = add_query_arg( [ $event_display_key => 'past' ], $canonical_url );
 
 			// Let's re-add the `eventDate` if we had one and we're not already passing it with one of its aliases.
 			if ( ! (
@@ -210,7 +211,7 @@ class List_View extends View {
 
 			// We've got rewrite rules handling `eventDate`, but not List. Let's remove it to build the URL.
 			$url = tribe( 'events.rewrite' )->get_clean_url(
-				remove_query_arg( [ 'eventDate' ], $upcoming_url )
+				remove_query_arg( [ 'eventDate', 'tribe_event_display' ], $upcoming_url )
 			);
 
 			// Let's re-add the `eventDate` if we had one and we're not already passing it with one of its aliases.

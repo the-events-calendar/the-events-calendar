@@ -107,7 +107,7 @@ class Excerpt extends Base_Template {
 	 * One of those is the one holding the value of the filtered post excerpt.
 	 * This will cause an infinite loop if not handled.
 	 *
-	 * @since TBD
+	 * @since 5.0.0
 	 *
 	 * @param callable $function The function that should be resolved avoiding a filter infinite loop.
 	 *

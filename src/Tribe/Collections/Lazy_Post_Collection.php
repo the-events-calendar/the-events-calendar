@@ -3,7 +3,7 @@
  * Models a lazy collection of posts that will store the post IDs in cache during serialization and rebuild the
  * collection items from post IDs during unserialization.
  *
- * @since   TBD
+ * @since   5.0.0
  *
  * @package Tribe\Events\Collections
  */
@@ -15,7 +15,7 @@ use Tribe\Utils\Lazy_Collection;
 /**
  * Class Lazy_Post_Collection
  *
- * @since   TBD
+ * @since   5.0.0
  *
  * @package Tribe\Events\Collections
  */
@@ -23,7 +23,7 @@ class Lazy_Post_Collection extends Lazy_Collection {
 	/**
 	 * The callback function that should be called to rebuild the collection items from an array of post IDs.
 	 *
-	 * @since TBD
+	 * @since 5.0.0
 	 *
 	 * @var callable|string
 	 */
@@ -32,7 +32,7 @@ class Lazy_Post_Collection extends Lazy_Collection {
 	/**
 	 * Lazy_Post_Collection constructor.
 	 *
-	 * @since TBD
+	 * @since 5.0.0
 	 *
 	 * @param callable $callback             The callback that should be used to fetch the collection items.
 	 * @param string   $unserialize_callback The callback that should be used to rebuild the collection items from the
@@ -51,7 +51,7 @@ class Lazy_Post_Collection extends Lazy_Collection {
 	 * To avoid dealing with the lower level details of how the post object is built or decorated, here we extract
 	 * the post IDs to only store those.
 	 *
-	 * @since TBD
+	 * @since 5.0.0
 	 *
 	 * @param array<\WP_Post> $items The posts part of this collection.
 	 *
@@ -70,7 +70,7 @@ class Lazy_Post_Collection extends Lazy_Collection {
 	 * Custom handling of the lazy collection unserialization, this method will build complete post objects from
 	 * the serialized post IDs.
 	 *
-	 * @since TBD
+	 * @since 5.0.0
 	 *
 	 * @param string $serialized The serialized values, usually an array of post IDs.
 	 *

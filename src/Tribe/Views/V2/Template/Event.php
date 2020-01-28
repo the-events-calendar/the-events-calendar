@@ -25,7 +25,7 @@ class Event {
 	/**
 	 * The current template bootstrap instance.
 	 *
-	 * @since TBD
+	 * @since 5.0.0
 	 *
 	 * @var Template_Bootstrap
 	 */
@@ -34,7 +34,7 @@ class Event {
 	/**
 	 * Event constructor.
 	 *
-	 * @since TBD
+	 * @since 5.0.0
 	 *
 	 * @param Template_Bootstrap $template_bootstrap The current template bootstrap instance.
 	 */
@@ -62,7 +62,7 @@ class Event {
 	/**
 	 * Add/remove filters to hide/show sensitive event info on password protected posts
 	 *
-	 * @since TBD
+	 * @since 5.0.0
 	 *
 	 * @param int|\WP_Post $post The post ID or object to filter.
 	 **/
@@ -114,7 +114,7 @@ class Event {
 	 * Filters the post title as WordPress does in `get_the_title` to apply the password-protected prefix in
 	 * the context of AJAX requests.
 	 *
-	 * @since TBD
+	 * @since 5.0.0
 	 *
 	 * @param string      $title   The post title.
 	 * @param int|\WP_Post $post_id The post ID, or object, to apply the filter for.
@@ -146,7 +146,7 @@ class Event {
 	 * Filters and modifies the event WP_Post object returned from the `tribe_get_event` function to hide some
 	 * sensitive information if required.
 	 *
-	 * @since TBD
+	 * @since 5.0.0
 	 *
 	 * @param \WP_Post $event The event post object, decorated w/ properties added by the `tribe_get_event` function.
 	 *

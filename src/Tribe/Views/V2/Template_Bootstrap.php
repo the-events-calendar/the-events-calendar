@@ -189,7 +189,7 @@ class Template_Bootstrap {
 		/**
 		 * Filters the HTML for the view before we do any other logic around that.
 		 *
-		 * @since TBD
+		 * @since 5.0.0
 		 *
 		 * @param string          $pre_html  Allow pre-filtering the HTML that we will boostrap.
 		 * @param string          $view_slug The slug of the View that will be built, based on the context.
@@ -211,7 +211,7 @@ class Template_Bootstrap {
 		/**
 		 * Filters when we display the single for events.
 		 *
-		 * @since TBD
+		 * @since 5.0.0
 		 *
 		 * @param boolean         $should_display_single  If we are currently going to display single.
 		 * @param string          $view_slug              The slug of the View that will be built, based on the context.
@@ -277,7 +277,7 @@ class Template_Bootstrap {
 		/**
 		 * Allows filtering if bootstrap should load.
 		 *
-		 * @since TBD
+		 * @since 5.0.0
 		 *
 		 * @param null|boolean    $should_load  Anything other then null will be returned after casting as bool.
 		 * @param \WP_Query       $query        The current WP Query object.
@@ -372,7 +372,7 @@ class Template_Bootstrap {
 	 * Filter the template file in case we're in single event
 	 * and we need to use the theme overrides.
 	 *
-	 * @since  TBD
+	 * @since  5.0.0
 	 *
 	 * @param string $file      Complete path to include the PHP File
 	 * @param array  $name      Template name
