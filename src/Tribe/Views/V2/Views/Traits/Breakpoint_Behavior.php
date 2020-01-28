@@ -2,7 +2,7 @@
 /**
  * Provides methods for Views for breakpoint behavior.
  *
- * @since   TBD
+ * @since   5.0.0
  *
  * @package Tribe\Events\Views\V2\Views\Traits
  */
@@ -14,7 +14,7 @@ use Tribe\Events\Views\V2\View;
 /**
  * Trait Breakpoint_Behavior
  *
- * @since   TBD
+ * @since   5.0.0
  *
  * @package Tribe\Events\Views\V2\Views\Traits
  *
@@ -24,7 +24,7 @@ trait Breakpoint_Behavior {
 	/**
 	 * Default breakpoints used by TEC views.
 	 *
-	 * @since TBD
+	 * @since 5.0.0
 	 *
 	 * @var array
 	 */
@@ -37,7 +37,7 @@ trait Breakpoint_Behavior {
 	/**
 	 * Returns a given breakpoint.
 	 *
-	 * @since TBD
+	 * @since 5.0.0
 	 *
 	 * @param string $name Which index we getting the breakpoint for.
 	 *
@@ -57,7 +57,7 @@ trait Breakpoint_Behavior {
 	/**
 	 * Returns all of the available breakpoints.
 	 *
-	 * @since TBD
+	 * @since 5.0.0
 	 *
 	 * @return array Indexed array of all available breakpoints.
 	 */
@@ -67,7 +67,7 @@ trait Breakpoint_Behavior {
 		/**
 		 * Filters all the breakpoints available.
 		 *
-		 * @since TBD
+		 * @since 5.0.0
 		 *
 		 * @param array  $breakpoints All breapoints available.
 		 * @param View   $this        The current View instance being rendered.
@@ -77,7 +77,7 @@ trait Breakpoint_Behavior {
 		/**
 		 * Filters the medium breakpoint value for a specific view.
 		 *
-		 * @since TBD
+		 * @since 5.0.0
 		 *
 		 * @param array  $breakpoints All breapoints available.
 		 * @param View   $this        The current View instance being rendered.

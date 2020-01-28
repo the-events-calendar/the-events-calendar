@@ -581,7 +581,7 @@ class Tribe__Events__Template_Factory extends Tribe__Template_Factory {
 	 * Filters the post title as WordPress does in `get_the_title` to apply the password-protected prefix in
 	 * the context of AJAX requests.
 	 *
-	 * @since TBD
+	 * @since 5.0.0
 	 *
 	 * @param string      $title   The post title.
 	 * @param int|WP_Post $post_id The post ID, or object, to apply the filter for.

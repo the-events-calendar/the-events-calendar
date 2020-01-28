@@ -158,7 +158,7 @@ class Manager {
 	/**
 	 * Returns an array of data of the public views.
 	 *
-	 * @since TBD
+	 * @since 5.0.0
 	 *
 	 * @return array
 	 */
@@ -244,7 +244,7 @@ class Manager {
 	/**
 	 * Returns the view label based on the fully qualified class name.
 	 *
-	 * @since TBD
+	 * @since 5.0.0
 	 *
 	 * @param  string $view_class The view fully qualified class name.
 	 *
@@ -263,7 +263,7 @@ class Manager {
 	/**
 	 * Returns the view label based on the view slug.
 	 *
-	 * @since TBD
+	 * @since 5.0.0
 	 *
 	 * @param  string $slug The view slug.
 	 *
@@ -293,7 +293,7 @@ class Manager {
 		/**
 		 * Filters the label that will be used on the UI for views listing.
 		 *
-		 * @since TBD
+		 * @since 5.0.0
 		 *
 		 * @param string $domain       Text Domain for the View label.
 		 * @param string $slug         Slug of the view we are getting the label for.
@@ -304,7 +304,7 @@ class Manager {
 		/**
 		 * Filters the label that will be used on the UI for views listing.
 		 *
-		 * @since TBD
+		 * @since 5.0.0
 		 *
 		 * @param string $domain       Text Domain for the View label.
 		 * @param string $view_class   Class Name of the view we are getting the label for.
@@ -319,7 +319,7 @@ class Manager {
 		/**
 		 * Filters the label that will be used on the UI for views listing.
 		 *
-		 * @since TBD
+		 * @since 5.0.0
 		 *
 		 * @param string $label        Label of the Current view.
 		 * @param string $slug         Slug of the view we are getting the label for.
@@ -330,7 +330,7 @@ class Manager {
 		/**
 		 * Filters the label that will be used on the UI for views listing.
 		 *
-		 * @since TBD
+		 * @since 5.0.0
 		 *
 		 * @param string $label        Label of the Current view.
 		 * @param string $view_class   Class Name of the view we are getting the label for.

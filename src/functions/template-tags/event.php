@@ -154,7 +154,7 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 		 *
 		 * Note: this value will not be cached and the caching of this value is a duty left to the filtering function.
 		 *
-		 * @since TBD
+		 * @since 5.0.0
 		 *
 		 * @param WP_Post     $post        The event post object to filter and return.
 		 * @param int|WP_Post $event       The event object to fetch.
