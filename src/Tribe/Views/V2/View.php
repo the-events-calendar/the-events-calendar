@@ -2012,7 +2012,7 @@ class View implements View_Interface {
 
 			array_walk(
 				$public_views,
-				static function ( &$view_data, $view_slug ) use ( $url_event_date, $query_args ) {
+				static function ( &$view_data ) use ( $url_event_date, $query_args ) {
 					$view_instance       = View::make( $view_data->view_class );
 					$view_data->view_url = $view_instance->url_for_query_args( $url_event_date, $query_args );
 				}
