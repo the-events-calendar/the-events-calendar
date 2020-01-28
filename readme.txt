@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 4.9
 Stable tag: 5.0.0
-Tested up to: 5.3
+Tested up to: 5.3.2
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -241,23 +241,23 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Tweak - Adjust customizer labels for sites using the new views [TEC-3066]
 * Tweak - Allow start datetime and end datetime to be the same to hide end datetime in frontend when using block editor. [TEC-3009]
 
-= [5.0.0] TBD =
+= [5.0.0] 2020-01-27 =
 
 * Feature - Created new Month, Day, and List views with all new HTML, CSS, and JavaScript.
 * Feature - Add upgrade path for new Month, Day, and List views making it opt-in for any existing users.
-* Feature - New templating engine to power the new Views. [See More]
+* Feature - New templating engine to power the new Views. [See More](http://m.tri.be/1aid)
 * Feature - Views initialization and instance includes more filters and actions to allow improved extensibility and customization. (See all filters below)
 * Feature - Views manager and bootstraping classes were created to allow more control over where and when views will be initialized. (See filters related to those below)
 * Feature - Reduced maintenance burden of customizations by leveraging atomic templates for the new views. (See list of files now available below)
-* Feature - CSS uses a Block Element Modifier (BEM) methodology to improve reusablility of components. [See More]
-* Feature - New Views share one JavaScript Manager, which contains multiple jQuery actions and customization points. [See More]
+* Feature - CSS uses a Block Element Modifier (BEM) methodology to improve reusablility of components. [See More](http://m.tri.be/1aib)
+* Feature - New Views share one JavaScript Manager, which contains multiple jQuery actions and customization points.
 * Feature - View navigation relies on the WP Rest API, improving reliability and caching opportunities.
 * Feature - Event permalinks are now more consistent across navigation using `WP_Rewrite` to map params to their matching URL, which improves SEO.
 * Feature - Event data filtering used across all new views: `tribe_get_event_before`, `tribe_get_event`, `tribe_get_event_after`, `tribe_events_organizers_fetch_callback`, `tribe_events_venues_fetch_callback`
 * Feature - Venue data filtering used across all new views: `tribe_get_venue_object_before`, `tribe_get_venue_object`
 * Tweak - Custom Before and After HTML on the Events > Settings page will now prefer event view styling over the Theme's CSS.
-* Tweak - Lowered the reliance on the global `$wp_query` to create more consistent output and faster maintenance. [See More]
-* Tweak - View overrides for the new views will look within a new folder in your theme to avoid conflicting with old The Events Calendar theme customizations [See More]
+* Tweak - Lowered the reliance on the global `$wp_query` to create more consistent output and faster maintenance. [See More](http://m.tri.be/1aic)
+* Tweak - View overrides for the new views will look within a new folder in your theme to avoid conflicting with old The Events Calendar theme customizations [See More](http://m.tri.be/1aia)
 * Tweak - Switch to a compact date while on day and month view in mobile [136789]
 * Tweak - Remove `tribe_events_getLink` in favor of `tribe_events_get_link` which was a deprecated filter since version 4.3
 * Hooks - View template include and render filters and actions: `tribe_template_before_include`, `tribe_template_before_include:{$template_path}`, `tribe_template_after_include`, `tribe_template_after_include:{$template_path}`, `tribe_template_html`, `tribe_template_html:{$template_path}`
@@ -267,6 +267,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Hooks - Views Manager filters and actions: `tribe_events_views`, `tribe_events_views_v2_manager_default_view`, `tribe_events_views_v2_manager_view_label_domain`, `tribe_events_views_v2_manager_{$view_slug}_view_label_domain`, `tribe_events_views_v2_manager_view_label`, `tribe_events_views_v2_manager_{$view_slug}_view_label`
 * Hooks - Other views filters and actions: `tribe_events_views_v2_is_enabled`, `tribe_events_views_v2_assets_should_enqueue_frontend`, `tribe_events_views_v2_assets_should_enqueue_full_styles`, `tribe_events_v2_view_title`, `tribe_events_views_v2_should_replace_excerpt_more_link`, `tribe_events_views_v2_view_before_events_html`, `tribe_events_views_v2_view_after_events_html`, `tribe_events_views_v2_month_title`, `tribe_events_views_v2_day_title`, `tribe_events_views_v2_category_title`, `tribe_events_views_v2_theme_compatibility_registered`, `tribe_events_views_v2_stack_spacer`, `tribe_events_views_v2_stack_recycle_spaces`, `tribe_events_views_v2_stack_events`, `tribe_events_views_v2_stack_filter_event`, `tribe_events_views_v2_stack_normalize`
 * Templates - Views refactored template files: `v2/base`, `v2/components/after`, `v2/components/before`, `v2/components/breadcrumbs`, `v2/components/breadcrumbs/breadcrumb`, `v2/components/breadcrumbs/linked-breadcrumb`, `v2/components/breakpoints`, `v2/components/data`, `v2/components/events-bar`, `v2/components/events-bar/filters`, `v2/components/events-bar/search-button`, `v2/components/events-bar/search-button/icon`, `v2/components/events-bar/search`, `v2/components/events-bar/search/keyword`, `v2/components/events-bar/search/submit`, `v2/components/events-bar/tabs`, `v2/components/events-bar/views`, `v2/components/events-bar/views/list`, `v2/components/events-bar/views/list/item`, `v2/components/filter-bar`, `v2/components/ical-link`, `v2/components/loader`, `v2/components/messages`, `v2/components/read-more`, `v2/components/top-bar/actions`, `v2/components/top-bar/actions/content`, `v2/components/top-bar/datepicker/submit`, `v2/components/top-bar/nav`, `v2/components/top-bar/nav/next-disabled`, `v2/components/top-bar/nav/next`, `v2/components/top-bar/nav/prev-disabled`, `v2/components/top-bar/nav/prev`, `v2/components/top-bar/today`, `v2/day`, `v2/day/event`, `v2/day/event/cost`, `v2/day/event/date`, `v2/day/event/date/meta`, `v2/day/event/description`, `v2/day/event/featured-image`, `v2/day/event/title`, `v2/day/event/venue`, `v2/day/nav`, `v2/day/nav/next-disabled`, `v2/day/nav/next`, `v2/day/nav/prev-disabled`, `v2/day/nav/prev`, `v2/day/time-separator`, `v2/day/top-bar`, `v2/day/top-bar/datepicker`, `v2/day/type-separator`, `v2/index`, `v2/list`, `v2/list/event`, `v2/list/event/cost`, `v2/list/event/date-tag`, `v2/list/event/date`, `v2/list/event/date/meta`, `v2/list/event/description`, `v2/list/event/featured-image`, `v2/list/event/title`, `v2/list/event/venue`, `v2/list/month-separator`, `v2/list/nav`, `v2/list/nav/next-disabled`, `v2/list/nav/next`, `v2/list/nav/prev-disabled`, `v2/list/nav/prev`, `v2/list/nav/today`, `v2/list/top-bar`, `v2/list/top-bar/datepicker`, `v2/month`, `v2/month/calendar-body`, `v2/month/calendar-body/day`, `v2/month/calendar-body/day/calendar-events`, `v2/month/calendar-body/day/calendar-events/calendar-event`, `v2/month/calendar-body/day/calendar-events/calendar-event/date`, `v2/month/calendar-body/day/calendar-events/calendar-event/date/meta`, `v2/month/calendar-body/day/calendar-events/calendar-event/featured-image`, `v2/month/calendar-body/day/calendar-events/calendar-event/title`, `v2/month/calendar-body/day/calendar-events/calendar-event/tooltip`, `v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/cost`, `v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/date`, `v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/date/meta`, `v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/description`, `v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/featured-image`, `v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/title`, `v2/month/calendar-body/day/more-events`, `v2/month/calendar-body/day/multiday-events`, `v2/month/calendar-body/day/multiday-events/multiday-event-spacer`, `v2/month/calendar-body/day/multiday-events/multiday-event`, `v2/month/calendar-header`, `v2/month/mobile-events`, `v2/month/mobile-events/mobile-day`, `v2/month/mobile-events/mobile-day/day-marker`, `v2/month/mobile-events/mobile-day/mobile-event`, `v2/month/mobile-events/mobile-day/mobile-event/cost`, `v2/month/mobile-events/mobile-day/mobile-event/date`, `v2/month/mobile-events/mobile-day/mobile-event/date/meta`, `v2/month/mobile-events/mobile-day/mobile-event/featured-image`, `v2/month/mobile-events/mobile-day/mobile-event/title`, `v2/month/mobile-events/mobile-day/more-events`, `v2/month/mobile-events/nav`, `v2/month/mobile-events/nav/next-disabled`, `v2/month/mobile-events/nav/next`, `v2/month/mobile-events/nav/prev-disabled`, `v2/month/mobile-events/nav/prev`, `v2/month/mobile-events/nav/today`, `v2/month/top-bar`, `v2/month/top-bar/datepicker`, `v2/not-found`
+* Language - 2 new strings added, 169 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.9.14] 2020-01-15 =
 
