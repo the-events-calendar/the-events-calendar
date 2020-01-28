@@ -183,7 +183,7 @@ abstract class By_Day_View extends View {
 
 			if ( Timezones::is_mode( 'site' ) ) {
 				$start_meta_key = '_EventStartDateUTC';
-				$end_meta_key   = '_EventEndDateUTC';
+				$end_meta_key = '_EventEndDateUTC';
 			}
 
 			$results = [];
