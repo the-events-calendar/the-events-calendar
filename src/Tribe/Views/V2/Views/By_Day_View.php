@@ -181,11 +181,6 @@ abstract class By_Day_View extends View {
 			$start_meta_key = '_EventStartDate';
 			$end_meta_key   = '_EventEndDate';
 
-			if ( Timezones::is_mode( 'site' ) ) {
-				$start_meta_key = '_EventStartDateUTC';
-				$end_meta_key = '_EventEndDateUTC';
-			}
-
 			$results = [];
 			$request_chunks = array_chunk( $view_event_ids, $this->get_chunk_size() );
 
@@ -200,7 +195,7 @@ abstract class By_Day_View extends View {
 				WHERE
 					meta_key IN ( %s, %s )
 					AND post_id IN ( " . implode( ',', $chunk_ids ) . " )
-			";
+				";
 
 				$chunk_results = $wpdb->get_results( $wpdb->prepare( $sql, [ $start_meta_key, $end_meta_key ] ) );
 
