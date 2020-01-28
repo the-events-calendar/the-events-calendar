@@ -741,16 +741,6 @@ class View implements View_Interface {
 			$query_args[ $this->page_key ] = $page;
 		}
 
-		$event_display_mode = $this->context->get( 'event_display_mode', false );
-
-		if ( ! empty( $category ) && 'past' !== $event_display_mode ) {
-			$query_args['eventDisplay'] = 'default';
-			if ( (int) $page > 1 ) {
-				// Any page above 1 of category filtered events will always use the List View.
-				$query_args['eventDisplay'] = 'list';
-			}
-		}
-
 		$url = add_query_arg( array_filter( $query_args ), home_url() );
 
 		if ( $canonical ) {
