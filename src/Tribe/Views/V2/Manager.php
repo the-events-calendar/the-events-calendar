@@ -5,6 +5,7 @@ use Tribe\Events\Views\V2\Views\Day_View;
 use Tribe\Events\Views\V2\Views\List_View;
 use Tribe\Events\Views\V2\Views\Month_View;
 use Tribe\Events\Views\V2\Views\Reflector_View;
+use Tribe__Events__Main as TEC;
 use Tribe__Utils__Array as Arr;
 
 /**
@@ -165,6 +166,16 @@ class Manager {
 	public function get_publicly_visible_views_data() {
 		$views = $this->get_publicly_visible_views();
 
+		// By default keep the following query args, filter them later. Date is handled after, not here.
+		$keep    = [ TEC::TAXONOMY ];
+		$context = tribe_context();
+
+		// It would be convenient, from a code point-of-view, to use `Context::to_array()`, but it's expensive!
+		$url_args = [];
+		foreach ( $keep as $context_location ) {
+			$url_args[ $context_location ] = $context->get( $context_location, false );
+		}
+
 		/**
 		 * Filters the query arguments that should be applied to the View links.
 		 *
@@ -176,7 +187,7 @@ class Manager {
 		 *                                      the current request context.
 		 * @param array<View_Interface> $views The currently publicly available views.
 		 */
-		$url_args = apply_filters( 'tribe_events_views_v2_publicly_visible_views_query_args', [], $views );
+		$url_args = apply_filters( 'tribe_events_views_v2_publicly_visible_views_query_args', $url_args, $views );
 
 		array_walk(
 			$views,
