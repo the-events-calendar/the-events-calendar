@@ -51,7 +51,7 @@ const mapStateToProps = ( state ) => ( {
 const mapDispatchToProps = ( dispatch ) => ( {
 	...bindActionCreators( priceActions, dispatch ),
 	setInitialState: ( props ) => {
-		dispatch( priceActions.setInitialState( props ) );
+		// dispatch( priceActions.setInitialState( props ) );
 		dispatch( UIActions.setInitialState( props ) );
 	},
 	onClose: () => dispatch( UIActions.closeDashboardPrice() ),

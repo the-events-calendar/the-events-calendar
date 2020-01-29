@@ -44,7 +44,7 @@ const mapStateToProps = ( state ) => ( {
 
 const mapDispatchToProps = ( dispatch ) => ( {
 	setInitialState: ( props ) => {
-		dispatch( priceActions.setInitialState( props ) );
+		// dispatch( priceActions.setInitialState( props ) );
 		dispatch( dateTimeThunks.setInitialState( props ) );
 		dispatch( UIActions.setInitialState( props ) );
 	},

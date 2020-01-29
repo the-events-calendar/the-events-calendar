@@ -7,14 +7,30 @@ import { __ } from '@wordpress/i18n';
  * Internal dependencies
  */
 import { settings, priceSettings } from '@moderntribe/common/utils/globals';
-import { string } from '@moderntribe/common/utils';
+import { string, globals } from '@moderntribe/common/utils';
 import * as types from './types';
 
 const position = string.isTruthy( settings() && settings().reverseCurrencyPosition )
 	? 'suffix'
 	: 'prefix';
 
-export const DEFAULT_STATE = {
+export const getDefaultState = () => {
+	if ( globals.wpCoreEditor.isCleanNewPost() ) {
+		return;
+	}
+
+	const postId = globals.wpCoreEditor.getCurrentPostId();
+	const entityRecord = globals.wpCore.getEntityRecord( 'postType', 'tribe_events', postId );
+
+	DEFAULT_STATE = {
+		position: entityRecord.meta._EventCurrencyPosition,
+		symbol: entityRecord.meta._EventCurrencySymbol,
+		cost: entityRecord.meta._EventCost,
+		description: '',
+	};
+};
+
+export let DEFAULT_STATE = {
 	position: priceSettings() && priceSettings().defaultCurrencyPosition
 		? priceSettings().defaultCurrencyPosition
 		: position,
