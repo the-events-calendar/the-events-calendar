@@ -28,7 +28,7 @@ use Tribe__Date_Utils as Dates;
  * To keep the calendar accessible, in the context of a week, we'll print the event only on either its first day
  * or the first day of the week.
  */
-$should_display = $event->dates->start_display->format( 'Y-m-d' ) === $day_date
+$should_display = $event->dates->start->format( 'Y-m-d' ) === $day_date
                   || $is_start_of_week;
 
 $classes = tribe_get_post_class( [ 'tribe-events-calendar-month__multiday-event' ], $event->ID );
@@ -40,8 +40,8 @@ if ( $event->featured ) {
 }
 
 // If the event started on a previous month.
-$started_previous_month = $event->dates->start_display->format( 'Y-m-d' ) < $grid_start_date;
-$is_first_appearance    = ( $event->dates->start_display->format( 'Y-m-d' ) === $day_date )
+$started_previous_month = $event->dates->start->format( 'Y-m-d' ) < $grid_start_date;
+$is_first_appearance    = ( $event->dates->start->format( 'Y-m-d' ) === $day_date )
                           || ( $started_previous_month && $grid_start_date === $day_date );
 
 // If it starts today and this week, let's add the left border and set the width.
