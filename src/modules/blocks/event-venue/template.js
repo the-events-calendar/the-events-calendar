@@ -186,7 +186,7 @@ class EventVenue extends Component {
 			return null;
 		}
 
-		const { getCoordinates, getAddress } = utils;
+		const { getAddress } = utils;
 
 		this.getCoordinates( details );
 		const { coords } = this.state;

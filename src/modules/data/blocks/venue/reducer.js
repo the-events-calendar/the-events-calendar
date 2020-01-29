@@ -15,8 +15,6 @@ export const setInitialState = () => {
 	if ( entityRecord.meta._EventVenueID ) {
 		DEFAULT_STATE.venue = entityRecord.meta._EventVenueID;
 	}
-	DEFAULT_STATE.showMap = true;
-	DEFAULT_STATE.showMapLink = true;
 };
 
 export const DEFAULT_STATE = {
