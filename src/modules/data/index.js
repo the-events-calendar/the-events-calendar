@@ -9,8 +9,8 @@ import { store } from '@moderntribe/common/store';
 import * as blocks from './blocks';
 import initSagas from './sagas';
 
-const setInitialState = () => {
-	blocks.setInitialState();
+const setInitialState = ( entityRecord ) => {
+	blocks.setInitialState( entityRecord );
 };
 
 export const initStore = () => {
@@ -21,7 +21,12 @@ export const initStore = () => {
 
 		unsubscribe();
 
-		setInitialState();
+		if ( ! globals.wpCoreEditor.isCleanNewPost() ) {
+			const postId = globals.wpCoreEditor.getCurrentPostId();
+			const entityRecord = globals.wpCore.getEntityRecord( 'postType', 'tribe_events', postId );
+
+			setInitialState( entityRecord );
+		}
 
 		const { dispatch, injectReducers } = store;
 

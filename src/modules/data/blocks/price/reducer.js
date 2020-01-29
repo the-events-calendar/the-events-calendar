@@ -10,14 +10,7 @@ import { settings, priceSettings } from '@moderntribe/common/utils/globals';
 import { string, globals } from '@moderntribe/common/utils';
 import * as types from './types';
 
-export const setInitialState = () => {
-	if ( globals.wpCoreEditor.isCleanNewPost() ) {
-		return;
-	}
-
-	const postId = globals.wpCoreEditor.getCurrentPostId();
-	const entityRecord = globals.wpCore.getEntityRecord( 'postType', 'tribe_events', postId );
-
+export const setInitialState = ( entityRecord ) => {
 	DEFAULT_STATE.position = entityRecord.meta._EventCurrencyPosition;
 	DEFAULT_STATE.symbol = entityRecord.meta._EventCurrencySymbol;
 	DEFAULT_STATE.cost = entityRecord.meta._EventCost;

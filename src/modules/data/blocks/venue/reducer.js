@@ -4,14 +4,7 @@
 import * as types from './types';
 import { globals } from '@moderntribe/common/utils';
 
-export const setInitialState = () => {
-	if ( globals.wpCoreEditor.isCleanNewPost() ) {
-		return;
-	}
-
-	const postId = globals.wpCoreEditor.getCurrentPostId();
-	const entityRecord = globals.wpCore.getEntityRecord( 'postType', 'tribe_events', postId );
-
+export const setInitialState = ( entityRecord ) => {
 	if ( entityRecord.meta._EventVenueID ) {
 		DEFAULT_STATE.venue = entityRecord.meta._EventVenueID;
 	}

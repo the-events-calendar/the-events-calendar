@@ -15,6 +15,23 @@ import {
 } from '@moderntribe/common/utils';
 import * as types from './types';
 
+const { parseFormats, toTime } = momentUtil;
+
+export const setInitialState = ( entityRecord ) => {
+	if ( entityRecord.meta._EventStartDate ) {
+		DEFAULT_STATE.start = entityRecord.meta._EventStartDate
+		DEFAULT_STATE.startTimeInput = toTime( parseFormats( entityRecord.meta._EventStartDate ) );
+	}
+	if ( entityRecord.meta._EventEndDate ) {
+		DEFAULT_STATE.end = entityRecord.meta._EventEndDate
+		DEFAULT_STATE.endTimeInput = toTime( parseFormats( entityRecord.meta._EventEndDate ) );
+	}
+	DEFAULT_STATE.allDay = entityRecord.meta._EventAllDay;
+	DEFAULT_STATE.timeZone = entityRecord.meta._EventTimezone;
+	DEFAULT_STATE.dateTimeSeparator = entityRecord.meta._EventDateTimeSeparator;
+	DEFAULT_STATE.timeRangeSeparator = entityRecord.meta._EventTimeRangeSeparator;
+};
+
 const defaultStartTime = globals.defaultTimes().start ? globals.defaultTimes().start : '08:00:00';
 const defaultEndTime = globals.defaultTimes().end ? globals.defaultTimes().end : '17:00:00';
 const defaultStartTimeSeconds = time.toSeconds( defaultStartTime, time.TIME_FORMAT_HH_MM_SS );
