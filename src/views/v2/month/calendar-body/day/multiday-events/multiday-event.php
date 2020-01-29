@@ -41,20 +41,36 @@ $calc            = function ( DateTimeInterface $date ) {
 	return [ $begin, $end ];
 };
 
+	$calc_tribe_day_for_datetime = function( DateTimeInterface $date ) {
+		$one_day = Tribe__Date_Utils::interval( 'P1D' );
+
+		$begin_adjusted = Tribe__Date_Utils::build_date_object( tribe_beginning_of_day( $date->format( 'Y-m-d' ) ) );
+		$end_adjusted   = Tribe__Date_Utils::build_date_object( tribe_end_of_day( $date->format( 'Y-m-d' ) ) );
+
+		$begin_minus_one = Tribe__Date_Utils::build_date_object( $date->sub( $one_day )->format( 'Y-m-d' ) );
+		$end_minus_one = Tribe__Date_Utils::build_date_object( $date->sub( $one_day )->format( 'Y-m-d' ) );
+
+		$begin = Tribe__Date_Utils::build_date_object( $date->format( 'Y-m-d' ) );
+		$end   = Tribe__Date_Utils::build_date_object( $date->format( 'Y-m-d' ) );
+
+		$begin_plus_one = Tribe__Date_Utils::build_date_object( $date->add( $one_day )->format( 'Y-m-d' ) );
+		$end_plus_one = Tribe__Date_Utils::build_date_object( $date->add( $one_day )->format( 'Y-m-d' ) );
+
+		if ( ! ( $end_adjusted < $begin_minus_one || $begin_adjusted > $end_minus_one ) ) {
+			return [ $begin_minus_one, $end_minus_one ];
+		} elseif ( ! ( $end_adjusted < $begin || $begin_adjusted > $end ) ) {
+			return [ $begin, $end ];
+		} elseif ( ! ( $end_adjusted < $begin_plus_one || $begin_adjusted > $end_plus_one ) ) {
+			return [ $begin_plus_one, $end_plus_one ];
+		}
+	};
+
 // @todo @bordoni this stuff stays here, and clean up.
-list( $begin, $end ) = $calc( $event->dates->start_display );
-$this_day_cutoff = Tribe__Date_Utils::build_date_object( tribe_end_of_day( $day_date ) );
-//$start_day_date = $event->dates->start_display->format( 'Y-m-d' ) > $day_date ? $day_date : $event->dates->start_display->format( 'Y-m-d' );
-//$start_begin = Tribe__Date_Utils::build_date_object( tribe_beginning_of_day( $start_day_date ) );
-//$start_end = Tribe__Date_Utils::build_date_object( tribe_end_of_day( $start_day_date ) );
-$should_display = ( $this_day_cutoff >= $begin && $this_day_cutoff <= $end )
+list( $begin, $end ) = $calc_tribe_day_for_datetime( $event->dates->start_display );
+list( $this_day_cutoff_begin, $this_day_cutoff_end ) = $calc_tribe_day_for_datetime( Tribe__Date_Utils::build_date_object( $day_date ) );
+
+$should_display = ( ! ( $end < $this_day_cutoff_begin || $begin > $this_day_cutoff_end ) )
                   || $is_start_of_week;
-//$should_display = ( $this_day_cutoff > $event->dates->start_display && $this_day_cutoff < $event->dates->end_display )
-//                  || $is_start_of_week;
-//$should_display = ( $event->dates->start_display < $this_day_cutoff )
-//                  || $is_start_of_week;
-//$should_display = $event->dates->start_display->format( 'Y-m-d' ) === $day_date
-//                  || $is_start_of_week;
 
 $classes = tribe_get_post_class( [ 'tribe-events-calendar-month__multiday-event' ], $event->ID );
 
