@@ -2,7 +2,6 @@
  * Internal dependencies
  */
 import * as types from './types';
-import { DEFAULT_STATE } from './reducer';
 
 export const setVenue = ( id ) => ( {
 	type: types.SET_VENUE,

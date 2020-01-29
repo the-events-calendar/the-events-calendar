@@ -3,13 +3,15 @@
  */
 import reducer from './reducers';
 
-import { getDefaultState } from './blocks/price/reducer';
-
 import { globals } from '@moderntribe/common/utils';
 import { plugins } from '@moderntribe/common/data';
 import { store } from '@moderntribe/common/store';
 import * as blocks from './blocks';
 import initSagas from './sagas';
+
+const setInitialState = () => {
+	blocks.setInitialState();
+};
 
 export const initStore = () => {
 	const unsubscribe = wp.data.subscribe( () => {
@@ -19,7 +21,7 @@ export const initStore = () => {
 
 		unsubscribe();
 
-		// getDefaultState();
+		setInitialState();
 
 		const { dispatch, injectReducers } = store;
 

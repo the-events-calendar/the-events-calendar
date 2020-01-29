@@ -2,10 +2,25 @@
  * Internal dependencies
  */
 import * as types from './types';
-import { editorDefaults } from '@moderntribe/common/utils/globals';
+import { globals } from '@moderntribe/common/utils';
+
+export const setInitialState = () => {
+	if ( globals.wpCoreEditor.isCleanNewPost() ) {
+		return;
+	}
+
+	const postId = globals.wpCoreEditor.getCurrentPostId();
+	const entityRecord = globals.wpCore.getEntityRecord( 'postType', 'tribe_events', postId );
+
+	if ( entityRecord.meta._EventVenueID ) {
+		DEFAULT_STATE.venue = entityRecord.meta._EventVenueID;
+	}
+	DEFAULT_STATE.showMap = true;
+	DEFAULT_STATE.showMapLink = true;
+};
 
 export const DEFAULT_STATE = {
-	venue: editorDefaults().venue ? editorDefaults().venue : 0,
+	venue: globals.editorDefaults().venue ? globals.editorDefaults().venue : 0,
 	showMap: true,
 	showMapLink: true,
 };
