@@ -28,8 +28,33 @@ use Tribe__Date_Utils as Dates;
  * To keep the calendar accessible, in the context of a week, we'll print the event only on either its first day
  * or the first day of the week.
  */
-$should_display = $event->dates->start_display->format( 'Y-m-d' ) === $day_date
+// @todo @bordoni move it into Tribe__Date__Utils::start_end_of_day_for_date($date);
+$calc            = function ( DateTimeInterface $date ) {
+	$begin = Tribe__Date_Utils::build_date_object( tribe_beginning_of_day( $date->format( 'Y-m-d' ) ) );
+	$end   = Tribe__Date_Utils::build_date_object( tribe_end_of_day( $date->format( 'Y-m-d' ) ) );
+	if ( $begin > $date ) {
+		$one_day = Tribe__Date_Utils::interval( 'P1D' );
+		$begin   = $begin->sub( $one_day );
+		$end     = $end->sub( $one_day );
+	}
+
+	return [ $begin, $end ];
+};
+
+// @todo @bordoni this stuff stays here, and clean up.
+list( $begin, $end ) = $calc( $event->dates->start_display );
+$this_day_cutoff = Tribe__Date_Utils::build_date_object( tribe_end_of_day( $day_date ) );
+//$start_day_date = $event->dates->start_display->format( 'Y-m-d' ) > $day_date ? $day_date : $event->dates->start_display->format( 'Y-m-d' );
+//$start_begin = Tribe__Date_Utils::build_date_object( tribe_beginning_of_day( $start_day_date ) );
+//$start_end = Tribe__Date_Utils::build_date_object( tribe_end_of_day( $start_day_date ) );
+$should_display = ( $this_day_cutoff >= $begin && $this_day_cutoff <= $end )
                   || $is_start_of_week;
+//$should_display = ( $this_day_cutoff > $event->dates->start_display && $this_day_cutoff < $event->dates->end_display )
+//                  || $is_start_of_week;
+//$should_display = ( $event->dates->start_display < $this_day_cutoff )
+//                  || $is_start_of_week;
+//$should_display = $event->dates->start_display->format( 'Y-m-d' ) === $day_date
+//                  || $is_start_of_week;
 
 $classes = tribe_get_post_class( [ 'tribe-events-calendar-month__multiday-event' ], $event->ID );
 

@@ -157,13 +157,29 @@ class Event extends Base {
 				 * the event, in the site timezone, starts and ends in different days.
 				 */
 				if ( $all_day && ! $use_event_timezone ) {
-					// Calculate the cutoff of the last day of the event in the site timezone.
-					$end_day_cutoff = Dates::build_date_object(
-						tribe_beginning_of_day( $end_site->format( Dates::DBDATEFORMAT . ' 00:00:00' ) ),
-						$end_site->getTimezone()
-					);
+					// @todo @bordoni refactor this!
+					$calc            = function ( \DateTimeInterface $date ) {
+						$begin = \Tribe__Date_Utils::build_date_object( tribe_beginning_of_day( $date->format( 'Y-m-d' ) ) );
+						$end   = \Tribe__Date_Utils::build_date_object( tribe_end_of_day( $date->format( 'Y-m-d' ) ) );
+						if ( $begin > $date ) {
+							$one_day = \Tribe__Date_Utils::interval( 'P1D' );
+							$begin   = $begin->sub( $one_day );
+							$end     = $end->sub( $one_day );
+						}
 
-					$cross_day = $end_day_cutoff > $start_site && $end_site > $end_day_cutoff;
+						return [ $begin, $end ];
+					};
+
+					list( $start, $end ) = $calc( $end_site );
+
+					// Calculate the cutoff of the last day of the event in the site timezone.
+//					$end_day_cutoff = Dates::build_date_object(
+//						tribe_beginning_of_day( $end_site->format( Dates::DBDATEFORMAT . ' 00:00:00' ) ),
+//						$end_site->getTimezone()
+//					);
+
+					// @todo @bordoni this logic is not correct, needs to be revisited.
+					$cross_day = $end > $start_site && $end_site > $end;
 				}
 
 				if ( $happens_this_week ) {
