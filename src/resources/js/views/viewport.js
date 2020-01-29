@@ -81,7 +81,7 @@ tribe.events.views.viewport = {};
 	/**
 	 * Unbind events for window resize
 	 *
-	 * @since TBD
+	 * @since 5.0.0
 	 *
 	 * @param {jQuery} $container jQuery object of view container
 	 *
@@ -107,7 +107,7 @@ tribe.events.views.viewport = {};
 	/**
 	 * Deinitialize viewport JS
 	 *
-	 * @since  TBD
+	 * @since  5.0.0
 	 *
 	 * @param  {Event}       event    event object for 'beforeAjaxSuccess.tribeEvents' event
 	 * @param  {jqXHR}       jqXHR    Request object
