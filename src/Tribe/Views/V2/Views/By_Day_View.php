@@ -217,11 +217,11 @@ abstract class By_Day_View extends View {
 				FROM
 					{$wpdb->postmeta}
 				WHERE
-					meta_key IN ( %s, %s )
+					meta_key IN ( %s, %s, %s )
 					AND post_id IN ( " . implode( ',', $chunk_ids ) . " )
 			";
 
-				$chunk_results = $wpdb->get_results( $wpdb->prepare( $sql, [ $start_meta_key, $end_meta_key ] ) );
+				$chunk_results = $wpdb->get_results( $wpdb->prepare( $sql, [ $start_meta_key, $end_meta_key, '_EventTimezone' ] ) );
 
 				$results = array_merge( $results, $chunk_results );
 			}
@@ -234,10 +234,17 @@ abstract class By_Day_View extends View {
 						'ID'         => $row->post_id,
 						'start_date' => null,
 						'end_date'   => null,
+						'timezone'   => null,
 					];
 				}
 
-				$key = $start_meta_key === $row->meta_key ? 'start_date' : 'end_date';
+				$map = [
+					$start_meta_key  => 'start_date',
+					$end_meta_key    => 'end_date',
+					'_EventTimezone' => 'timezone',
+				];
+
+				$key = Arr::get( $map, $row->meta_key );
 
 				$indexed_results[ $row->post_id ][ $key ] = $row->meta_value;
 			}
@@ -248,6 +255,9 @@ abstract class By_Day_View extends View {
 		}
 
 		$all_day_event_ids = [];
+		$site_timezone = Timezones::build_timezone_object();
+		$use_site_timezone = Timezones::is_mode( 'site' );
+		$utc = Timezones::build_timezone_object( 'UTC' );
 
 		// phpcs:ignore
 		/** @var \DateTime $day */
@@ -277,10 +287,25 @@ abstract class By_Day_View extends View {
 				// Events overlap a day if Event start date <= Day End AND Event end date >= Day Start.
 				$results_in_day = array_filter(
 					$day_results,
-					static function ( $event ) use ( $start, $end ) {
-						return $event->start_date <= $end && $event->end_date >= $start;
-					}
-				);
+					static function ( $event ) use ( $start, $end, $use_site_timezone, $site_timezone, $utc ) {
+						// If the timezone setting is set to "manual timezone for each event" then this is correct.
+						if ( ! $use_site_timezone ) {
+							return $event->start_date <= $end && $event->end_date >= $start;
+						}
+
+						// If the timezone setting is set to "site-wide timezone setting" then this is NOT correct.
+						// What we should do is:
+						// * use the event UTC time
+						// * convert it to the current site timezone
+						// * check if the event fits into the day, given shifted start and end of day
+						$event_localized_start_date = Dates::build_date_object( $event->start_date, $utc )
+						                                   ->setTimezone( $site_timezone );
+						$event_localized_end_date   = Dates::build_date_object( $event->end_date, $utc )
+						                                   ->setTimezone( $site_timezone );
+
+						return $event_localized_start_date->format( Dates::DBDATETIMEFORMAT ) <= $end
+						       && $event_localized_end_date->format( Dates::DBDATETIMEFORMAT ) >= $start;
+					} );
 
 				$day_event_ids = array_map( 'absint', wp_list_pluck( $results_in_day, 'ID' ) );
 
