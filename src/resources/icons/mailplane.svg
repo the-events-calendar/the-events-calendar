@@ -1,16 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="47px" height="47px" viewBox="0 0 47 47" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
-    <title>send-message</title>
-    <desc>Created with Sketch.</desc>
-    <g id="Freemius" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Dashboard-Copy" transform="translate(-419.000000, -154.000000)" stroke-width="3">
-            <g id="Group" transform="translate(220.000000, 146.000000)">
-                <g id="send-message" transform="translate(203.000000, 10.000000)">
-                    <path d="M40.6132075,0.386792453 L17.4056604,23.5943396" id="Path" stroke="#16A0D6"></path>
-                    <polygon id="Path" stroke="#111111" stroke-linecap="square" points="40.6132075 0.386792453 26.6886792 40.6132075 17.4056604 23.5943396 0.386792453 14.3113208"></polygon>
-                </g>
-            </g>
-        </g>
-    </g>
-</svg>
+<svg width="47" height="47" xmlns="http://www.w3.org/2000/svg"><g stroke-width="3" fill="none" fill-rule="evenodd"><path d="M44.613 2.387L21.406 25.594" stroke="#16A0D6"/><path stroke="#111" stroke-linecap="square" d="M44.613 2.387L30.689 42.613l-9.283-17.019-17.019-9.283z"/></g></svg>
