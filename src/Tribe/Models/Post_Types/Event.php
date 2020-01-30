@@ -104,7 +104,7 @@ class Event extends Base {
 			$ends_this_week     = null;
 			$happens_this_week  = null;
 			$this_week_duration = null;
-			$displays_on = [];
+			$displays_on        = [];
 
 			if ( Dates::is_valid_date( $filter ) ) {
 				list( $week_start, $week_end ) = Dates::get_week_start_end( $filter );
@@ -123,6 +123,7 @@ class Event extends Base {
 						$the_start = $the_start->setTimezone( $site_timezone );
 						$the_end   = $the_end->setTimezone( $site_timezone );
 					}
+					$displays_on       = [ $the_start->format( Dates::DBDATEFORMAT ) ];
 					$week_start_ymd    = (int) $week_start->format( 'Ymd' );
 					$week_end_ymd      = (int) $week_end->format( 'Ymd' );
 					$the_start_ymd     = (int) $the_start->format( 'Ymd' );
@@ -149,6 +150,8 @@ class Event extends Base {
 								$this_week_duration = 7;
 							}
 						}
+
+						$this_week_duration = min( 7, $this_week_duration );
 					}
 				}
 			}

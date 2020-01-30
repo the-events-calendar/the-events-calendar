@@ -575,14 +575,16 @@ abstract class By_Day_View extends View {
 			$week_end   = end( $week_days );
 			foreach ( $week as $day => $events ) {
 				foreach ( $events as $event ) {
-					$cache_key          = $event . '_' . $week_start . '_week';
-					$happens_this_week  = true;
-					$event_obj = tribe_get_event( $event );
-					$event_start = $event_obj->dates->start_display->format( Dates::DBDATEFORMAT );
-					$event_end = $event_obj->dates->end_display->format( Dates::DBDATEFORMAT );
-					$starts_this_week   = $occurrences['first'][ $event ] >= $week_start && $event_start >= $week_start;
-					$ends_this_week     = $occurrences['last'][ $event ] <= $week_end && $event_end <= $week_end;
-					$this_week_duration = 7;
+					$cache_key             = $event . '_' . $week_start . '_week';
+					$happens_this_week     = true;
+					$event_obj             = tribe_get_event( $event );
+					$event_start           = $event_obj->dates->start_display->format( Dates::DBDATEFORMAT );
+					$event_end             = $event_obj->dates->end_display->format( Dates::DBDATEFORMAT );
+					$starts_this_week      = $occurrences['first'][ $event ] >= $week_start && $event_start >= $week_start;
+					$ends_this_week        = $occurrences['last'][ $event ] <= $week_end && $event_end <= $week_end;
+					$displays_on[ $event ] = [];
+					$this_week_duration    = 7;
+
 					if ( $starts_this_week && $ends_this_week ) {
 						$this_week_duration = $occurrences['count'][ $event ];
 						$displays_on[ $event ][] = $occurrences['first'][ $event ];
@@ -593,11 +595,12 @@ abstract class By_Day_View extends View {
 						$this_week_duration = Dates::date_diff( $occurrences['last'][ $event ], $week_start ) + 1;
 						$displays_on[ $event ][] = $week_start;
 					}
+
 					$data                = [
 						$happens_this_week,
 						$starts_this_week,
 						$ends_this_week,
-						$this_week_duration,
+						min( 7, $this_week_duration ),
 						$displays_on[ $event ],
 					];
 					$cache[ $cache_key ] = $data;
