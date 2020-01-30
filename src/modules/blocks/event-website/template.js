@@ -98,6 +98,7 @@ EventWebsite.propTypes = {
 	url: PropTypes.string,
 	setWebsite: PropTypes.func,
 	attributes: PropTypes.object,
+	setAttributes: PropTypes.func,
 };
 
 export default EventWebsite;

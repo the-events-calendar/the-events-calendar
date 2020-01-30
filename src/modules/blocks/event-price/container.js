@@ -33,30 +33,27 @@ const showCost = ( cost ) => {
 	return ! isEmpty( trim( parsed ) ) || range.isFree( cost );
 };
 
-const showCostDescription = ( description ) => ! isEmpty( trim( description ) );
-
-const mapStateToProps = ( state ) => ( {
+const mapStateToProps = ( state, ownProps ) => ( {
 	isDashboardOpen: UISelectors.getDashboardPriceOpen( state ),
 	isOpen: UISelectors.getDashboardPriceOpen( state ),
 	cost: priceSelectors.getPrice( state ),
 	currencyPosition: priceSelectors.getPosition( state ),
 	currencySymbol: priceSelectors.getSymbol( state ),
-	costDescription: priceSelectors.getDescription( state ),
 	showCurrencySymbol: showCurrencySymbol( priceSelectors.getPrice( state ) ),
 	showCost: showCost( priceSelectors.getPrice( state ) ),
-	showCostDescription: showCostDescription( priceSelectors.getDescription( state ) ),
+	showCostDescription: ! isEmpty( trim( ownProps.attributes.costDescription ) ),
 	isFree: range.isFree( priceSelectors.getPrice( state ) ),
 } );
 
-const mapDispatchToProps = ( dispatch ) => ( {
-	...bindActionCreators( priceActions, dispatch ),
-	setInitialState: ( props ) => {
-		// dispatch( priceActions.setInitialState( props ) );
-		dispatch( UIActions.setInitialState( props ) );
+const mapDispatchToProps = ( dispatch, ownProps ) => ( {
+	setCost: ( event ) => {
+		ownProps.setAttributes( { cost: event.target.value } );
+		dispatch( actions.setCost( event.target.value ) );
 	},
+	setSymbol: symbol  => dispatch( actions.setSymbol( symbol ) ),
+	setCurrencyPosition: value => dispatch( priceActions.togglePosition( ! value ) ),
 	onClose: () => dispatch( UIActions.closeDashboardPrice() ),
 	openDashboard: () => dispatch( UIActions.openDashboardPrice() ),
-	setCurrencyPosition: ( value ) => dispatch( priceActions.togglePosition( ! value ) ),
 } );
 
 export default compose(
