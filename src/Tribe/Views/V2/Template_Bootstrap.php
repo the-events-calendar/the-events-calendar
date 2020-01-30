@@ -126,8 +126,8 @@ class Template_Bootstrap {
 		$setting = $this->get_template_setting();
 
 		// A number of TEC, and third-party, functions, depend on this. Let's fire it.
-		global $post;
-		do_action( 'the_post', $post );
+		global $post, $wp_query;
+		do_action( 'the_post', $post, $wp_query );
 
 		ob_start();
 		if ( 'page' === $setting ) {
