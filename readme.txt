@@ -216,6 +216,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 == Changelog ==
 
 = [TBD] TBD =
+
 * Tweak - Minify the Freemius svg assets. [TEC-3215]
 
 = [5.0.0] 2020-01-27 =
