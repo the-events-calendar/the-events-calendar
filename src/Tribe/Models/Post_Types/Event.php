@@ -83,6 +83,13 @@ class Event extends Base {
 			} else {
 				$is_multiday = $end_of_day_object->add( $one_second ) < $end_date_object;
 
+				if (
+					! $is_multiday
+					&& $end_date_object->format( Dates::DBDATEFORMAT ) !== $start_date_object->format( Dates::DBDATEFORMAT )
+				) {
+					$is_multiday = true;
+				}
+
 				// Multi-day events will span at least two days: the day they start on and the following one.
 				if ( $is_multiday ) {
 					/*
