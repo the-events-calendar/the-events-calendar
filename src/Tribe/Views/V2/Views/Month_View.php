@@ -373,7 +373,7 @@ class Month_View extends By_Day_View {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function calculate_grid_start_end( $date ) {
+	protected function calculate_grid_start_end( $date ) {
 		$grid_start = Month::calculate_first_cell_date( $date );
 		$grid_end   = Month::calculate_final_cell_date( $date );
 
