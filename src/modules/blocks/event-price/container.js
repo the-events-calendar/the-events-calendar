@@ -3,7 +3,7 @@
  */
 import { trim, isEmpty } from 'lodash';
 import { connect } from 'react-redux';
-import { bindActionCreators, compose } from 'redux';
+import { compose } from 'redux';
 
 /**
  * Internal dependencies
@@ -13,6 +13,7 @@ import { withStore, withSaveData, withBlockCloser } from '@moderntribe/common/ho
 import {
 	actions as priceActions,
 	selectors as priceSelectors,
+	utils as priceUtils,
 } from '@moderntribe/events/data/blocks/price';
 import {
 	actions as UIActions,
@@ -48,10 +49,17 @@ const mapStateToProps = ( state, ownProps ) => ( {
 const mapDispatchToProps = ( dispatch, ownProps ) => ( {
 	setCost: ( event ) => {
 		ownProps.setAttributes( { cost: event.target.value } );
-		dispatch( actions.setCost( event.target.value ) );
+		dispatch( priceActions.setCost( event.target.value ) );
 	},
-	setSymbol: symbol  => dispatch( actions.setSymbol( symbol ) ),
-	setCurrencyPosition: value => dispatch( priceActions.togglePosition( ! value ) ),
+	setSymbol: ( symbol ) => {
+		ownProps.setAttributes( { currencySymbol: symbol } );
+		dispatch( priceActions.setSymbol( symbol ) );
+	},
+	setCurrencyPosition: ( value ) => {
+		const position = priceUtils.getPosition( ! value );
+		ownProps.setAttributes( { currencyPosition: position } );
+		dispatch( priceActions.setPosition( position ) );
+	},
 	onClose: () => dispatch( UIActions.closeDashboardPrice() ),
 	openDashboard: () => dispatch( UIActions.openDashboardPrice() ),
 } );

@@ -33,7 +33,6 @@ export function* setInitialState( action ) {
 		put( actions.setPosition( currencyPosition ) ),
 		put( actions.setSymbol( currencySymbol ) ),
 		put( actions.setCost( get( 'cost', DEFAULT_STATE.cost ) ) ),
-		put( actions.setDescription( get( 'costDescription', DEFAULT_STATE.description ) ) ),
 	] );
 }
 

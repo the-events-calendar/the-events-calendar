@@ -1,15 +1,7 @@
 /**
- * External dependencies
- */
-import configureStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
-/**
  * Internal dependencies
  */
-import { actions } from '@moderntribe/events/data/blocks/price';
-
-const middlewares = [ thunk ];
-const mockStore = configureStore( middlewares );
+import * as actions from '@moderntribe/events/data/blocks/price/actions';
 
 describe( '[STORE] - Price actions', () => {
 	it( 'Should set initial state', () => {
@@ -21,10 +13,6 @@ describe( '[STORE] - Price actions', () => {
 
 	it( 'Should set the position of the symbol', () => {
 		expect( actions.setPosition( 'suffix' ) ).toMatchSnapshot();
-	} );
-
-	it( 'Should set the price description', () => {
-		expect( actions.setDescription( 'My description' ) ).toMatchSnapshot();
 	} );
 
 	it( 'Should set the symbol', () => {

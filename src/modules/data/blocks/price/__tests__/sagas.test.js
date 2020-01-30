@@ -63,9 +63,6 @@ describe( 'Price Block sagas', () => {
 					put( actions.setPosition( settings.defaultCurrencyPosition ) ),
 					put( actions.setSymbol( settings.defaultCurrencySymbol ) ),
 					put( actions.setCost( action.payload.get( 'cost', DEFAULT_STATE.cost ) ) ),
-					put( actions.setDescription(
-						action.payload.get( 'costDescription', DEFAULT_STATE.description ) )
-					),
 				] )
 			);
 			expect( gen.next().done ).toEqual( true );
@@ -87,9 +84,6 @@ describe( 'Price Block sagas', () => {
 						action.payload.get( 'currencySymbol', DEFAULT_STATE.symbol )
 					) ),
 					put( actions.setCost( action.payload.get( 'cost', DEFAULT_STATE.cost ) ) ),
-					put( actions.setDescription(
-						action.payload.get( 'costDescription', DEFAULT_STATE.description ) )
-					),
 				] )
 			);
 			expect( gen.next().done ).toEqual( true );

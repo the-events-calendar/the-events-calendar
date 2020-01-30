@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[STORE] - Price utils Should get position 1`] = `"prefix"`;
+
+exports[`[STORE] - Price utils Should get position 2`] = `"suffix"`;

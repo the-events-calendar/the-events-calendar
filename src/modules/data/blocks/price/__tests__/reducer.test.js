@@ -1,7 +1,7 @@
 /**
  * Internal dependencies
  */
-import { actions } from '@moderntribe/events/data/blocks/price';
+import * as actions from '@moderntribe/events/data/blocks/price/actions';
 import reducer, { DEFAULT_STATE } from '@moderntribe/events/data/blocks/price/reducer';
 
 describe( '[STORE] - Price reducer', () => {
@@ -11,11 +11,6 @@ describe( '[STORE] - Price reducer', () => {
 
 	it( 'Should set the cost', () => {
 		expect( reducer( DEFAULT_STATE, actions.setCost( 10 ) ) ).toMatchSnapshot();
-	} );
-
-	it( 'Should set the cost description', () => {
-		expect( reducer( DEFAULT_STATE, actions.setDescription( 'Cost description' ) ) )
-			.toMatchSnapshot();
 	} );
 
 	it( 'Should set the symbol position', () => {

@@ -25,15 +25,6 @@ Object {
 }
 `;
 
-exports[`[STORE] - Price actions Should set the price description 1`] = `
-Object {
-  "payload": Object {
-    "description": "My description",
-  },
-  "type": "@@MT/EVENTS/SET_PRICE_DESCRIPTION",
-}
-`;
-
 exports[`[STORE] - Price actions Should set the symbol 1`] = `
 Object {
   "payload": Object {

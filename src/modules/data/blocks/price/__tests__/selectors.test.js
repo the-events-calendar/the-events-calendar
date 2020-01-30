@@ -1,7 +1,7 @@
 /**
  * Internal dependencies
  */
-import { selectors } from '@moderntribe/events/data/blocks/price';
+import * as selectors from '@moderntribe/events/data/blocks/price/selectors';
 import { DEFAULT_STATE } from '@moderntribe/events/data/blocks/price/reducer';
 
 const state = {
@@ -23,10 +23,6 @@ describe( '[STORE] - Price selectors', () => {
 
 	it( 'Should return the price value', () => {
 		expect( selectors.getPrice( state ) ).toEqual( DEFAULT_STATE.cost );
-	} );
-
-	it( 'Should return the price description', () => {
-		expect( selectors.getDescription( state ) ).toEqual( DEFAULT_STATE.description );
 	} );
 
 	it( 'Should return the price symbol', () => {

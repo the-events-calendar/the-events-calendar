@@ -112,46 +112,6 @@ const mergeProps = ( stateProps, dispatchProps, ownProps ) => {
 			) {
 				dispatch( dateTimeActions.setAllDay( allDay ) );
 			}
-
-			// if current state url is not the same as default state, do not update
-			// otherwise, update url state if attribute value is not the same as default state.
-			const url = get( 'url', WEBSITE_DEFAULT_STATE.url );
-			if (
-				stateProps.url === WEBSITE_DEFAULT_STATE.url
-					&& url !== WEBSITE_DEFAULT_STATE.url
-			) {
-				dispatch( websiteActions.setWebsite( url ) );
-			}
-
-			// if current state cost is not the same as default state, do not update
-			// otherwise, update cost state if attribute value is not the same as default state.
-			const cost = get( 'cost', PRICE_DEFAULT_STATE.cost );
-			if (
-				stateProps.cost === WEBSITE_DEFAULT_STATE.cost
-					&& cost !== WEBSITE_DEFAULT_STATE.cost
-			) {
-				dispatch( priceActions.setCost( cost ) );
-			}
-
-			// if current state currencySymbol is not the same as default state, do not update
-			// otherwise, update currencySymbol state if attribute value is not the same as default state.
-			const currencySymbol = get( 'currencySymbol', PRICE_DEFAULT_STATE.symbol );
-			if (
-				stateProps.currencySymbol === WEBSITE_DEFAULT_STATE.symbol
-					&& currencySymbol !== WEBSITE_DEFAULT_STATE.symbol
-			) {
-				dispatch( priceActions.setSymbol( currencySymbol ) );
-			}
-
-			// if current state currencyPosition is not the same as default state, do not update
-			// otherwise, update currencyPosition state if attribute value is not the same as default state.
-			const currencyPosition = get( 'currencyPosition', PRICE_DEFAULT_STATE.position );
-			if (
-				stateProps.currencyPosition === WEBSITE_DEFAULT_STATE.position
-					&& currencyPosition !== WEBSITE_DEFAULT_STATE.position
-			) {
-				dispatch( priceActions.setPosition( currencyPosition ) );
-			}
 		},
 	};
 };
