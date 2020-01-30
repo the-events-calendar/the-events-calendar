@@ -91,6 +91,25 @@ abstract class By_Day_View extends View {
 	}
 
 	/**
+	 * Returns the post IDs of all the events found in the View.
+	 *
+	 * Note: multi-day events will appear once; this is a conflation of all events on the View.
+	 *
+	 * @since 4.9.7
+	 *
+	 * @return array A flat array of all the events found on the calendar grid.
+	 */
+	public function found_post_ids() {
+		if ( empty( $this->grid_days_cache ) ) {
+			$this->get_grid_days();
+		}
+
+		return ! empty( $this->grid_days_cache )
+			? array_unique( array_merge( ... array_values( $this->grid_days_cache ) ) )
+			: [];
+	}
+
+	/**
 	 * Returns an array of event post IDs, divided by days.
 	 *
 	 * Note that multi-day events will show up in multiple days.
@@ -172,7 +191,7 @@ abstract class By_Day_View extends View {
 				->fields( 'ids' )
 				->by_args( $repository_args )
 				->where( 'date_overlaps', $start, $end, null, 2 )
-				->per_page( -1 )
+				->per_page( - 1 )
 				->order_by( $order_by, $order )
 				->all();
 
@@ -186,7 +205,7 @@ abstract class By_Day_View extends View {
 				$end_meta_key   = '_EventEndDateUTC';
 			}
 
-			$results = [];
+			$results        = [];
 			$request_chunks = array_chunk( $view_event_ids, $this->get_chunk_size() );
 
 			foreach ( $request_chunks as $chunk_ids ) {
@@ -245,7 +264,7 @@ abstract class By_Day_View extends View {
 					$event_ids = array_map( 'absint', $day_results->pluck( 'ID' ) );
 				}
 
-				if ( $events_per_day > -1 ) {
+				if ( $events_per_day > - 1 ) {
 					$day_event_ids = array_slice( $event_ids, 0, $events_per_day );
 				}
 
@@ -265,7 +284,7 @@ abstract class By_Day_View extends View {
 
 				$day_event_ids = array_map( 'absint', wp_list_pluck( $results_in_day, 'ID' ) );
 
-				if ( $events_per_day > -1 ) {
+				if ( $events_per_day > - 1 ) {
 					$day_event_ids = array_slice( $day_event_ids, 0, $events_per_day );
 				}
 
@@ -299,6 +318,8 @@ abstract class By_Day_View extends View {
 		array_pop( $this->grid_days_cache );
 		array_pop( $this->grid_days_found_cache );
 
+		$this->fill_week_duration_cache();
+
 		return $this->grid_days_cache;
 	}
 
@@ -314,43 +335,6 @@ abstract class By_Day_View extends View {
 	 * @return array The View grid first and final cell dates, each one an instance of the `DateTime` class.
 	 */
 	abstract protected function calculate_grid_start_end( $date );
-
-	/**
-	 * Returns the post IDs of all the events found in the View.
-	 *
-	 * Note: multi-day events will appear once; this is a conflation of all events on the View.
-	 *
-	 * @since 4.9.7
-	 *
-	 * @return array A flat array of all the events found on the calendar grid.
-	 */
-	public function found_post_ids() {
-		if ( empty( $this->grid_days_cache ) ) {
-			$this->get_grid_days();
-		}
-
-		return ! empty( $this->grid_days_cache )
-			? array_unique( array_merge( ... array_values( $this->grid_days_cache ) ) )
-			: [];
-	}
-
-	/**
-	 * Returns the number of events found for each day.
-	 *
-	 * The number of events found ignores the per-page setting and it includes any event happening on the day.
-	 * This includes multi-day events happening on the day.
-	 *
-	 * @since 4.9.7
-	 *
-	 * @return array An array of days, each containing the count of found events for that day;
-	 *               the array has shape `[ <Y-m-d> => <count> ]`;
-	 */
-	public function get_grid_days_counts() {
-		// Fetch the events for each day on the grid, if not done already.
-		$this->get_grid_days();
-
-		return $this->grid_days_found_cache;
-	}
 
 	/**
 	 * Returns the number of events to show per each day on the grid.
@@ -376,97 +360,24 @@ abstract class By_Day_View extends View {
 	}
 
 	/**
-	 * Builds the next or prev URL given the date that should be used.
+	 * Gets the current desired chunk size for breaking up batched queries.
 	 *
-	 * @since 4.9.9
+	 * @since 5.0.0
 	 *
-	 * @param mixed $date          The date to build the URL from, a date object or string.
-	 * @param bool  $canonical     Whether to return the canonical version of the URL or not.
-	 * @param array $passthru_vars An array of variables that should be preserved and applied to the resulting URL.
-	 *
-	 * @return string The URL as built from the event.
+	 * @return int
 	 */
-	protected function build_url_for_date( $date, $canonical, array $passthru_vars = [] ) {
-		$url  = $this->get_url();
-		$date = Dates::build_date_object( $date );
-
-		$event_date_aliases = $this->url->get_query_args_aliases_of( 'event_date', $this->context );
-		$event_date_aliases = array_unique( array_merge( $event_date_aliases, [ 'eventDate', 'tribe-bar-date' ] ) );
-
-		if ( ! empty( $event_date_aliases ) ) {
-			$url = remove_query_arg( $event_date_aliases, $this->get_url() );
-		}
-
-		$url = add_query_arg( [ 'eventDate' => $date->format( $this->get_url_date_format() ) ], $url );
-
-		if ( ! empty( $url ) && $canonical ) {
-			$input_url = $url;
-
-			if ( ! empty( $passthru_vars ) ) {
-				$input_url = remove_query_arg( array_keys( $passthru_vars ), $url );
-			}
-
-			// Make sure the view slug is always set to correctly match rewrites.
-			$input_url = add_query_arg( [ 'eventDisplay' => $this->slug ], $input_url );
-
-			$canonical_url = tribe( 'events.rewrite' )->get_clean_url( $input_url );
-
-			if ( ! empty( $passthru_vars ) ) {
-				$canonical_url = add_query_arg( $passthru_vars, $canonical_url );
-			}
-
-			$url = $canonical_url;
-		}
-
-		return $url;
-	}
-
-	/**
-	 * Adds the implied events to the grid days results.
-	 *
-	 * The combination of sticky events, other order rules and a limit to the number of events per day,
-	 * might yield incoherent results.
-	 * Fact: events do not have "gaps" in them (in the way we model them).
-	 * To avoid other queries here we apply the principle below and add "implied" events:
-	 * if a an event is present on day 1 and 3 or later, then it must be present on day 2 too.
-	 *
-	 * Note there's a fallacy in this method: if an event appears once and never again, in any of the days, then it
-	 * will never be implied. This is an issue, but this provides a close enough solution on most scenarios.
-	 *
-	 * @since 4.9.11
-	 *
-	 * @param array $grid_days The current array of grid days.
-	 *
-	 * @return array The grid days, modified to contain implied events, if required.
-	 */
-	protected function add_implied_events( array $grid_days ) {
-		$next_days = array_values( $grid_days );
-
-		foreach ( $grid_days as $day_string => &$event_ids ) {
-			$prev_day_events = isset( $prev_day_string ) ? $grid_days[ $prev_day_string ] : [];
-			$prev_day_string = $day_string;
-
-			// Move the next days forward by "cutting" the head.
-			array_shift( $next_days );
-			$next_events = $next_days;
-
-			if ( empty( $next_events ) ) {
-				// We're done: there cannot be more implied events.
-				break;
-			}
-
-			// We use `array_unique` here to speed up the following intersect and diff functions.
-			$next_events = array_unique( array_merge( ...$next_events ) );
-
-			$implied = array_diff( array_intersect( $prev_day_events, $next_events ), $event_ids );
-
-			if ( count( $implied ) ) {
-				// We append the days at the end; this might not in line w/ ordering criteria.
-				array_push( $event_ids, ...$implied );
-			}
-		}
-
-		return $grid_days;
+	protected function get_chunk_size() {
+		/**
+		 * Filters the chunk size used for building grid dates.
+		 *
+		 * @since 5.0.0
+		 *
+		 * @param int             $chunk_size Max number of values to query at a time.
+		 * @param \Tribe__Context $context    Context of request.
+		 * @param By_Day_View     $view       Current view object.
+		 */
+		return apply_filters( 'tribe_events_views_v2_by_day_view_chunk_size', self::CHUNK_SIZE, $this->get_context(),
+			$this );
 	}
 
 	/**
@@ -490,7 +401,7 @@ abstract class By_Day_View extends View {
 			// Prefetch provided events in a single query.
 			$event_results = tribe_events()
 				->in( $ids )
-				->per_page( -1 )
+				->per_page( - 1 )
 				->all();
 
 			// Massage events to be indexed by event ID.
@@ -567,6 +478,171 @@ abstract class By_Day_View extends View {
 	}
 
 	/**
+	 * Adds the implied events to the grid days results.
+	 *
+	 * The combination of sticky events, other order rules and a limit to the number of events per day,
+	 * might yield incoherent results.
+	 * Fact: events do not have "gaps" in them (in the way we model them).
+	 * To avoid other queries here we apply the principle below and add "implied" events:
+	 * if a an event is present on day 1 and 3 or later, then it must be present on day 2 too.
+	 *
+	 * Note there's a fallacy in this method: if an event appears once and never again, in any of the days, then it
+	 * will never be implied. This is an issue, but this provides a close enough solution on most scenarios.
+	 *
+	 * @since 4.9.11
+	 *
+	 * @param array $grid_days The current array of grid days.
+	 *
+	 * @return array The grid days, modified to contain implied events, if required.
+	 */
+	protected function add_implied_events( array $grid_days ) {
+		$next_days = array_values( $grid_days );
+
+		foreach ( $grid_days as $day_string => &$event_ids ) {
+			$prev_day_events = isset( $prev_day_string ) ? $grid_days[ $prev_day_string ] : [];
+			$prev_day_string = $day_string;
+
+			// Move the next days forward by "cutting" the head.
+			array_shift( $next_days );
+			$next_events = $next_days;
+
+			if ( empty( $next_events ) ) {
+				// We're done: there cannot be more implied events.
+				break;
+			}
+
+			// We use `array_unique` here to speed up the following intersect and diff functions.
+			$next_events = array_unique( array_merge( ...$next_events ) );
+
+			$implied = array_diff( array_intersect( $prev_day_events, $next_events ), $event_ids );
+
+			if ( count( $implied ) ) {
+				// We append the days at the end; this might not in line w/ ordering criteria.
+				array_push( $event_ids, ...$implied );
+			}
+		}
+
+		return $grid_days;
+	}
+
+	protected function fill_week_duration_cache() {
+		$cache       = tribe( 'cache' );
+		$occurrences = [ 'first' => [], 'last' => [], 'count' => [] ];
+		foreach ( $this->grid_days_cache as $day => $events ) {
+			foreach ( $events as $event ) {
+				if ( ! isset( $occurrences['first'][ $event ] ) ) {
+					$occurrences['first'][ $event ] = $day;
+				}
+
+				if ( isset( $occurrences['count'][ $event ] ) ) {
+					$occurrences['count'][ $event ] += 1;
+				} else {
+					$occurrences['count'][ $event ] = 1;
+				}
+
+				$occurrences['last'][ $event ] = $day;
+			}
+		}
+		$displays_on = [];
+		foreach ( array_chunk( $this->grid_days_cache, 7, true ) as $week ) {
+			$week_days  = array_keys( $week );
+			$week_start = reset( $week_days );
+			$week_end   = end( $week_days );
+			foreach ( $week as $day => $events ) {
+				foreach ( $events as $event ) {
+					$cache_key          = $event . '_' . $week_start . '_week';
+					$happens_this_week  = true;
+					$starts_this_week   = $occurrences['first'][ $event ] >= $week_start;
+					$ends_this_week     = $occurrences['last'][ $event ] <= $week_end;
+					$this_week_duration = 7;
+					if ( $starts_this_week && $ends_this_week ) {
+						$this_week_duration = $occurrences['count'][ $event ];
+						$displays_on[ $event ][] = $occurrences['first'][ $event ];
+					} elseif ( $starts_this_week ) {
+						$this_week_duration = Dates::date_diff( $week_end, $occurrences['first'][ $event ] ) + 1;
+						$displays_on[ $event ][] = $occurrences['first'][ $event ];
+					} elseif ( $ends_this_week ) {
+						$this_week_duration = Dates::date_diff( $occurrences['last'][ $event ], $week_start ) + 1;
+						$displays_on[ $event ][] = $week_start;
+					}
+					$data                = [
+						$happens_this_week,
+						$starts_this_week,
+						$ends_this_week,
+						$this_week_duration,
+						$displays_on[ $event ],
+					];
+					$cache[ $cache_key ] = $data;
+				}
+			}
+		}
+	}
+
+	/**
+	 * Returns the number of events found for each day.
+	 *
+	 * The number of events found ignores the per-page setting and it includes any event happening on the day.
+	 * This includes multi-day events happening on the day.
+	 *
+	 * @since 4.9.7
+	 *
+	 * @return array An array of days, each containing the count of found events for that day;
+	 *               the array has shape `[ <Y-m-d> => <count> ]`;
+	 */
+	public function get_grid_days_counts() {
+		// Fetch the events for each day on the grid, if not done already.
+		$this->get_grid_days();
+
+		return $this->grid_days_found_cache;
+	}
+
+	/**
+	 * Builds the next or prev URL given the date that should be used.
+	 *
+	 * @since 4.9.9
+	 *
+	 * @param mixed $date          The date to build the URL from, a date object or string.
+	 * @param bool  $canonical     Whether to return the canonical version of the URL or not.
+	 * @param array $passthru_vars An array of variables that should be preserved and applied to the resulting URL.
+	 *
+	 * @return string The URL as built from the event.
+	 */
+	protected function build_url_for_date( $date, $canonical, array $passthru_vars = [] ) {
+		$url  = $this->get_url();
+		$date = Dates::build_date_object( $date );
+
+		$event_date_aliases = $this->url->get_query_args_aliases_of( 'event_date', $this->context );
+		$event_date_aliases = array_unique( array_merge( $event_date_aliases, [ 'eventDate', 'tribe-bar-date' ] ) );
+
+		if ( ! empty( $event_date_aliases ) ) {
+			$url = remove_query_arg( $event_date_aliases, $this->get_url() );
+		}
+
+		$url = add_query_arg( [ 'eventDate' => $date->format( $this->get_url_date_format() ) ], $url );
+
+		if ( ! empty( $url ) && $canonical ) {
+			$input_url = $url;
+
+			if ( ! empty( $passthru_vars ) ) {
+				$input_url = remove_query_arg( array_keys( $passthru_vars ), $url );
+			}
+
+			// Make sure the view slug is always set to correctly match rewrites.
+			$input_url = add_query_arg( [ 'eventDisplay' => $this->slug ], $input_url );
+
+			$canonical_url = tribe( 'events.rewrite' )->get_clean_url( $input_url );
+
+			if ( ! empty( $passthru_vars ) ) {
+				$canonical_url = add_query_arg( $passthru_vars, $canonical_url );
+			}
+
+			$url = $canonical_url;
+		}
+
+		return $url;
+	}
+
+	/**
 	 * ${CARET}
 	 *
 	 * @since 4.9.13
@@ -576,25 +652,5 @@ abstract class By_Day_View extends View {
 	protected function using_period_repository() {
 		return defined( 'TRIBE_EVENTS_V2_VIEWS_USE_PERIOD_REPOSITORY' )
 		       && TRIBE_EVENTS_V2_VIEWS_USE_PERIOD_REPOSITORY;
-	}
-
-	/**
-	 * Gets the current desired chunk size for breaking up batched queries.
-	 *
-	 * @since 5.0.0
-	 *
-	 * @return int
-	 */
-	protected function get_chunk_size() {
-		/**
-		 * Filters the chunk size used for building grid dates.
-		 *
-		 * @since 5.0.0
-		 *
-		 * @param int $chunk_size Max number of values to query at a time.
-		 * @param \Tribe__Context $context Context of request.
-		 * @param By_Day_View $view Current view object.
-		 */
-		return apply_filters( 'tribe_events_views_v2_by_day_view_chunk_size', self::CHUNK_SIZE, $this->get_context(), $this );
 	}
 }
