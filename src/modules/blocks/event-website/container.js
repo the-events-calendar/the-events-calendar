@@ -15,11 +15,8 @@ import EventWebsite from './template';
 /**
  * Module Code
  */
-const isEmpty = ( label ) => label.trim() === '';
-
 const mapStateToProps = ( state ) => ( {
 	url: selectors.getUrl( state ),
-	isEmpty: isEmpty( selectors.getLabel( state ) ),
 } );
 
 const mapDispatchToProps = ( dispatch, ownProps ) => ( {

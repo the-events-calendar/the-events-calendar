@@ -9,7 +9,6 @@ export const setInitialState = ( entityRecord ) => {
 
 export const DEFAULT_STATE = {
 	url: '',
-	label: '',
 };
 
 export default ( state = DEFAULT_STATE, action ) => {
@@ -18,11 +17,6 @@ export default ( state = DEFAULT_STATE, action ) => {
 			return {
 				...state,
 				url: action.payload.url,
-			};
-		case types.SET_WEBSITE_LABEL:
-			return {
-				...state,
-				label: action.payload.label,
 			};
 		default:
 			return state;

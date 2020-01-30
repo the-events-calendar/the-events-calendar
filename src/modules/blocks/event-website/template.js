@@ -65,7 +65,7 @@ const renderLabelInput = ( { isSelected, attributes, setAttributes } ) => {
 			/>
 		</div>
 	);
-}
+};
 
 const renderPlaceholder = () => {
 	const classes = [
@@ -78,10 +78,9 @@ const renderPlaceholder = () => {
 			{ placeholder }
 		</button>
 	);
-}
+};
 
 const EventWebsite = ( props ) => {
-
 	const { isSelected, attributes } = props;
 	const eventWebsite = ( ! isSelected && ! attributes.urlLabel )
 		? renderPlaceholder()
@@ -92,14 +91,13 @@ const EventWebsite = ( props ) => {
 			{ eventWebsite }
 		</div>
 	);
-
-}
+};
 
 EventWebsite.propTypes = {
 	isSelected: PropTypes.bool,
-	isEmpty: PropTypes.bool,
 	url: PropTypes.string,
 	setWebsite: PropTypes.func,
-}
+	attributes: PropTypes.object,
+};
 
 export default EventWebsite;
