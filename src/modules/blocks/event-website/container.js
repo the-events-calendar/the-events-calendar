@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { connect } from 'react-redux';
-import { bindActionCreators, compose } from 'redux';
+import { compose } from 'redux';
 
 /**
  * Internal dependencies
@@ -15,16 +15,19 @@ import EventWebsite from './template';
 /**
  * Module Code
  */
-
 const isEmpty = ( label ) => label.trim() === '';
 
 const mapStateToProps = ( state ) => ( {
 	url: selectors.getUrl( state ),
-	urlLabel: selectors.getLabel( state ),
 	isEmpty: isEmpty( selectors.getLabel( state ) ),
 } );
 
-const mapDispatchToProps = ( dispatch ) => bindActionCreators( actions, dispatch );
+const mapDispatchToProps = ( dispatch, ownProps ) => ( {
+	setWebsite: ( website ) => {
+		ownProps.setAttributes( { url: website } );
+		dispatch( actions.setWebsite( website ) );
+	},
+} );
 
 export default compose(
 	withStore(),
