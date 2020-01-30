@@ -4,7 +4,13 @@ import { uniq } from 'lodash';
  */
 import * as types from './../types';
 
-export default ( state = [], action ) => {
+export const setInitialState = ( entityRecord ) => {
+	DEFAULT_STATE.push( entityRecord.meta._EventOrganizerID );
+};
+
+export const DEFAULT_STATE = [];
+
+export default ( state = DEFAULT_STATE, action ) => {
 	switch ( action.type ) {
 		case types.ADD_CLASSIC_ORGANIZERS:
 			return uniq( [ ...state, action.payload.organizer ] );
