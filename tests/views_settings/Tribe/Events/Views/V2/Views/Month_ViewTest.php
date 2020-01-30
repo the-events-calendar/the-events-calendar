@@ -19,6 +19,9 @@ class Month_ViewTest extends WPTestCase {
 					'timezone_string' => 'America/Los_Angeles',
 					'start_of_week'   => '0',
 				],
+				'tribe_options' => [
+					'multiDayCutoff' => '00:00',
+				],
 				'events'     => [
 					'first' => [
 						'title'      => 'On 2020-01-01, 8am to 5pm',
