@@ -67,13 +67,13 @@ const mapStateToProps = ( state ) => ( {
 } );
 
 const mapDispatchToProps = ( dispatch, ownProps ) => ( {
-	toggleVenueMap: () => {
-		ownProps.setAttributes( { showMap: ! ownProps.attributes.showMap } );
-		dispatch( actions.toggleVenueMap() );
+	toggleVenueMap: ( value ) => {
+		ownProps.setAttributes( { showMap: value } );
+		dispatch( actions.setVenueMap( value ) );
 	},
-	toggleVenueMapLink: () => {
-		ownProps.setAttributes( { showMapLink: ! ownProps.attributes.showMapLink } );
-		dispatch( actions.toggleVenueMapLink() );
+	toggleVenueMapLink: ( value ) => {
+		ownProps.setAttributes( { showMapLink: value } );
+		dispatch( actions.setVenueMapLink( value ) );
 	},
 	onFormSubmit: onFormSubmit( dispatch, ownProps ),
 	onItemSelect: onItemSelect( dispatch, ownProps ),

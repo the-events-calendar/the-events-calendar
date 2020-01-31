@@ -26,12 +26,4 @@ describe( '[STORE] - Venue reducer', () => {
 		expect( reducer( DEFAULT_STATE, actions.setShowMapLink( true ) ) ).toMatchSnapshot();
 		expect( reducer( DEFAULT_STATE, actions.setShowMapLink( false ) ) ).toMatchSnapshot();
 	} );
-
-	it( 'Should toggle the venue map link', () => {
-		expect( reducer( DEFAULT_STATE, actions.toggleVenueMapLink() ) ).toMatchSnapshot();
-	} );
-
-	it( 'Should toggle the venue map', () => {
-		expect( reducer( DEFAULT_STATE, actions.toggleVenueMap() ) ).toMatchSnapshot();
-	} );
 } );

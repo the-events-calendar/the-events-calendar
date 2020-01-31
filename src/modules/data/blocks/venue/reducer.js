@@ -23,20 +23,10 @@ export default ( state = DEFAULT_STATE, action ) => {
 				...state,
 				venue: action.payload.venue,
 			};
-		case types.TOGGLE_VENUE_MAP:
-			return {
-				...state,
-				showMap: ! state.showMap,
-			};
 		case types.SET_VENUE_MAP:
 			return {
 				...state,
 				showMap: action.payload.showMap,
-			};
-		case types.TOGGLE_VENUE_MAP_LINK:
-			return {
-				...state,
-				showMapLink: ! state.showMapLink,
 			};
 		case types.SET_VENUE_MAP_LINK:
 			return {

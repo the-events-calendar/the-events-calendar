@@ -32,12 +32,4 @@ describe( '[STORE] - Venue actions', () => {
 	test( 'action to set the venue removal', () => {
 		expect( actions.removeVenue() ).toMatchSnapshot();
 	} );
-
-	test( 'action to toggle the venue map', () => {
-		expect( actions.toggleVenueMap() ).toMatchSnapshot();
-	} );
-
-	test( 'action to toggle the venueMapLink', () => {
-		expect( actions.toggleVenueMapLink() ).toMatchSnapshot();
-	} );
 } );
