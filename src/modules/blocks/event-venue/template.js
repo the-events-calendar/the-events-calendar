@@ -86,14 +86,6 @@ class EventVenue extends Component {
 		}
 	}
 
-	componentWillUnmount() {
-		// TODO: this does not work as intended. If one deletes a block, then adds
-		// another block, the venue id persists because of the setInitialState()
-		// function. This will perform as intended once setInitialState() is
-		// removed.
-		this.props.removeVenue();
-	}
-
 	renderForm() {
 		const { fields, onFormSubmit } = this.props;
 		return (
