@@ -169,6 +169,7 @@ abstract class By_Day_View extends View {
 
 		// @todo remove this when the Event_Period repository is solid and clean up.
 		$using_period_repository = tribe_events_view_v2_use_period_repository();
+		$use_site_timezone       = Timezones::is_mode( 'site' );
 
 		if ( $using_period_repository ) {
 			/** @var Event_Period $repository */
@@ -200,7 +201,7 @@ abstract class By_Day_View extends View {
 			$start_meta_key = '_EventStartDate';
 			$end_meta_key   = '_EventEndDate';
 
-			if ( Timezones::is_mode( 'site' ) ) {
+			if ( $use_site_timezone ) {
 				$start_meta_key = '_EventStartDateUTC';
 				$end_meta_key   = '_EventEndDateUTC';
 			}
@@ -210,16 +211,16 @@ abstract class By_Day_View extends View {
 
 			foreach ( $request_chunks as $chunk_ids ) {
 				$sql = "
-				SELECT
-				  post_id,
-					meta_key,
-					meta_value
-				FROM
-					{$wpdb->postmeta}
-				WHERE
-					meta_key IN ( %s, %s, %s )
-					AND post_id IN ( " . implode( ',', $chunk_ids ) . " )
-			";
+					SELECT
+					  post_id,
+						meta_key,
+						meta_value
+					FROM
+						{$wpdb->postmeta}
+					WHERE
+						meta_key IN ( %s, %s, %s )
+						AND post_id IN ( " . implode( ',', $chunk_ids ) . " )
+				";
 
 				$chunk_results = $wpdb->get_results( $wpdb->prepare( $sql, [ $start_meta_key, $end_meta_key, '_EventTimezone' ] ) );
 
@@ -256,16 +257,16 @@ abstract class By_Day_View extends View {
 
 		$all_day_event_ids = [];
 		$site_timezone = Timezones::build_timezone_object();
-		$use_site_timezone = Timezones::is_mode( 'site' );
 		$utc = Timezones::build_timezone_object( 'UTC' );
 
 		// phpcs:ignore
-		/** @var \DateTime $day */
+		/** @var \Tribe\Utils\Date_I18n $day */
 		foreach ( $days as $day ) {
 			$day_string = $day->format( 'Y-m-d' );
 
 			if ( $using_period_repository && isset( $repository ) ) {
 				$day_results = $repository->by_date( $day_string )->get_set();
+				$day_event_ids = [];
 
 				$event_ids = [];
 				if ( $day_results->count() ) {
@@ -305,7 +306,8 @@ abstract class By_Day_View extends View {
 
 						return $event_localized_start_date->format( Dates::DBDATETIMEFORMAT ) <= $end
 						       && $event_localized_end_date->format( Dates::DBDATETIMEFORMAT ) >= $start;
-					} );
+					}
+				);
 
 				$day_event_ids = array_map( 'absint', wp_list_pluck( $results_in_day, 'ID' ) );
 
@@ -322,7 +324,7 @@ abstract class By_Day_View extends View {
 
 		$this->grid_events = $this->get_grid_events( $all_day_event_ids );
 
-		/*
+		/**
 		 * Multi-day events will always appear on the second day and forward, back-fill if they did not make the
 		 * cut (of events per day) on previous days.
 		 */
@@ -486,15 +488,39 @@ abstract class By_Day_View extends View {
 				continue;
 			}
 
+			$site_timezone     = Timezones::build_timezone_object();
+			$utc               = Timezones::build_timezone_object( 'UTC' );
+			$use_site_timezone = Timezones::is_mode( 'site' );
+
 			/** @var \DateTime $event_day */
 			foreach ( $event_period as $event_day ) {
 				$event_day_string = $event_day->format( Dates::DBDATEFORMAT );
+				$start            = tribe_beginning_of_day( $event_day->format( Dates::DBDATETIMEFORMAT ) );
+				$end              = tribe_end_of_day( $event_day->format( Dates::DBDATETIMEFORMAT ) );
 
 				if ( ! isset( $this->grid_days_cache[ $event_day_string ] ) ) {
 					continue;
 				}
 
-				if ( ! in_array( $event_id, $this->grid_days_cache[ $event_day_string ], true ) ) {
+				// If the timezone setting is set to "manual timezone for each event" then this is correct.
+				if ( ! $use_site_timezone ) {
+					$should_backfill = $event->start_date <= $end && $event->end_date >= $start;
+				} else {
+					// If the timezone setting is set to "site-wide timezone setting" then this is NOT correct.
+					// What we should do is:
+					// * use the event UTC time
+					// * convert it to the current site timezone
+					// * check if the event fits into the day, given shifted start and end of day
+					$event_localized_start_date = Dates::build_date_object( $event->start_date, $utc )
+						->setTimezone( $site_timezone );
+					$event_localized_end_date   = Dates::build_date_object( $event->end_date, $utc )
+						->setTimezone( $site_timezone );
+
+					$should_backfill = $event_localized_start_date->format( Dates::DBDATETIMEFORMAT ) <= $end
+					&& $event_localized_end_date->format( Dates::DBDATETIMEFORMAT ) >= $start;
+				}
+
+				if ( $should_backfill && ! in_array( $event_id, $this->grid_days_cache[ $event_day_string ], true ) ) {
 					$this->grid_days_cache[ $event_day_string ][] = $event_id;
 					// No need to update the found cache: that's already taking this event into account.
 				}
