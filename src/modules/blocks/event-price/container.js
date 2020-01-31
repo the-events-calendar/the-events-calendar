@@ -15,10 +15,6 @@ import {
 	selectors as priceSelectors,
 	utils as priceUtils,
 } from '@moderntribe/events/data/blocks/price';
-import {
-	actions as UIActions,
-	selectors as UISelectors,
-} from '@moderntribe/events/data/ui';
 import EventPrice from './template';
 
 /**
@@ -35,8 +31,6 @@ const showCost = ( cost ) => {
 };
 
 const mapStateToProps = ( state, ownProps ) => ( {
-	isDashboardOpen: UISelectors.getDashboardPriceOpen( state ),
-	isOpen: UISelectors.getDashboardPriceOpen( state ),
 	cost: priceSelectors.getPrice( state ),
 	currencyPosition: priceSelectors.getPosition( state ),
 	currencySymbol: priceSelectors.getSymbol( state ),
@@ -60,8 +54,6 @@ const mapDispatchToProps = ( dispatch, ownProps ) => ( {
 		ownProps.setAttributes( { currencyPosition: position } );
 		dispatch( priceActions.setPosition( position ) );
 	},
-	onClose: () => dispatch( UIActions.closeDashboardPrice() ),
-	openDashboard: () => dispatch( UIActions.openDashboardPrice() ),
 } );
 
 export default compose(

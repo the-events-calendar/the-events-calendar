@@ -20,10 +20,7 @@ import { InspectorControls } from '@wordpress/editor';
  * Internal dependencies
  */
 import { Dashboard } from '@moderntribe/events/elements';
-import {
-	input as inputUtil,
-	range,
-} from '@moderntribe/common/utils';
+import { range } from '@moderntribe/common/utils';
 import './style.pcss';
 
 /**
@@ -72,7 +69,7 @@ const renderDescription = ( { showCostDescription, attributes } ) => (
 );
 
 const renderLabel = ( props ) => {
-	const { currencyPosition, openDashboard } = props;
+	const { currencyPosition, open } = props;
 	const containerClass = classNames(
 		'tribe-editor__event-price__price',
 		`tribe-editor__event-price__price--${ currencyPosition }`,
@@ -81,7 +78,7 @@ const renderLabel = ( props ) => {
 	return (
 		<div
 			className={ containerClass }
-			onClick={ openDashboard }
+			onClick={ open }
 		>
 			{ renderCurrency( props ) }
 			{ renderPlaceholder( props ) }
@@ -92,7 +89,7 @@ const renderLabel = ( props ) => {
 };
 
 const renderDashboard = ( {
-	isDashboardOpen,
+	isOpen,
 	cost,
 	setCost,
 	attributes,
@@ -101,7 +98,7 @@ const renderDashboard = ( {
 	const setDescription = event => setAttributes( { costDescription: event.target.value } );
 
 	return (
-		<Dashboard isOpen={ isDashboardOpen }>
+		<Dashboard isOpen={ isOpen }>
 			<Fragment>
 				<section className="tribe-editor__event-price__dashboard">
 					<input
@@ -171,7 +168,7 @@ const EventPrice = ( props ) => ( [
 ] );
 
 EventPrice.propTypes = {
-	isDashboardOpen: PropTypes.bool,
+	isOpen: PropTypes.bool,
 	cost: PropTypes.string,
 	currencyPosition: PropTypes.oneOf( [ 'prefix', 'suffix', '' ] ),
 	currencySymbol: PropTypes.string,
@@ -184,7 +181,7 @@ EventPrice.propTypes = {
 	setCurrencyPosition: PropTypes.func,
 	onKeyDown: PropTypes.func,
 	onClick: PropTypes.func,
-	openDashboard: PropTypes.func,
+	open: PropTypes.func,
 	attributes: PropTypes.object,
 	setAttributes: PropTypes.func,
 };
