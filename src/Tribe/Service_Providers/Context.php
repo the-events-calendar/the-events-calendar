@@ -249,6 +249,15 @@ class Context extends \tad_DI52_ServiceProvider {
 				],
 				'tec_post_type'        => [
 					'read' => [
+						Tribe__Context::FUNC          => [
+							static function () {
+								return count( array_filter( [
+									! empty( tribe_get_request_var( TEC::POSTTYPE, false ) ),
+									! empty( tribe_get_request_var( Venue::POSTTYPE, false ) ),
+									! empty( tribe_get_request_var( Organizer::POSTTYPE, false ) ),
+								] ) );
+							}
+						],
 						Tribe__Context::LOCATION_FUNC => [
 							'post_type',
 							static function ( $post_type ) {
@@ -264,6 +273,11 @@ class Context extends \tad_DI52_ServiceProvider {
 				],
 				'event_post_type'      => [
 					'read' => [
+						Tribe__Context::FUNC          => [
+							static function () {
+								return ! empty( tribe_get_request_var( TEC::POSTTYPE, false ) );
+							}
+						],
 						Tribe__Context::LOCATION_FUNC => [
 							'post_type',
 							static function ( $post_type ) {
@@ -274,6 +288,11 @@ class Context extends \tad_DI52_ServiceProvider {
 				],
 				'venue_post_type'      => [
 					'read' => [
+						Tribe__Context::FUNC          => [
+							static function () {
+								return ! empty( tribe_get_request_var( Venue::POSTTYPE, false ) );
+							}
+						],
 						Tribe__Context::LOCATION_FUNC => [
 							'post_type',
 							static function ( $post_type ) {
@@ -284,6 +303,11 @@ class Context extends \tad_DI52_ServiceProvider {
 				],
 				'organizer_post_type'  => [
 					'read' => [
+						Tribe__Context::FUNC          => [
+							static function () {
+								return ! empty( tribe_get_request_var( Organizer::POSTTYPE, false ) );
+							}
+						],
 						Tribe__Context::LOCATION_FUNC => [
 							'post_type',
 							static function ( $post_type ) {
