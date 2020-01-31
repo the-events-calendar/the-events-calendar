@@ -44,7 +44,7 @@ class Events_Result_Set implements Collection_Interface {
 	/**
 	 * Returns whether a string represents a serialized instance of the class or not.
 	 *
-	 * @since TBD
+	 * @since 5.0.0
 	 *
 	 * @param mixed $value The value to test.
 	 *
@@ -63,7 +63,7 @@ class Events_Result_Set implements Collection_Interface {
 	/**
 	 * Unserializes, with error handling, a result set to return a new instance of this class.
 	 *
-	 * @since TBD
+	 * @since 5.0.0
 	 *
 	 * @param string $value The serialized version of the result set.
 	 *
@@ -85,7 +85,7 @@ class Events_Result_Set implements Collection_Interface {
 	/**
 	 * Builds a set from an array of event results.
 	 *
-	 * @since TBD
+	 * @since 5.0.0
 	 *
 	 * @param array<Event_Result> $event_results An array of event results.
 	 *
@@ -128,7 +128,7 @@ class Events_Result_Set implements Collection_Interface {
 	/**
 	 * Returns the number of Event Results in this set.
 	 *
-	 * @since TBD
+	 * @since 5.0.0
 	 *
 	 * @return int The number of Event Results in this set.
 	 */
@@ -139,7 +139,7 @@ class Events_Result_Set implements Collection_Interface {
 	/**
 	 * Orders the Event Results by a specified criteria.
 	 *
-	 * @since TBD
+	 * @since 5.0.0
 	 *
 	 * @param string $order_by The key to order the Event Results by, currently supported is only `start_date`.
 	 * @param string $order The order direction, one of `ASC` or `DESC`.

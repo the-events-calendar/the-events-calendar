@@ -213,7 +213,7 @@ class Template extends Base_Template {
 	/**
 	 * Returns the current template context.
 	 *
-	 * @since TBD
+	 * @since 5.0.0
 	 *
 	 * @return \Tribe__Context The template context instance, or the global context if no context is set.
 	 */
