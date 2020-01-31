@@ -215,7 +215,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
-= [5.0.0.1] TBD =
+= [5.0.0.1] 2020-01-31 =
 
 * Fix - Events with timezones that differ from the site timezone now display on the correct date. [TEC-3208]
 * Fix - Multi-day events now display on all days that they are supposed to. [TEC-3212]
