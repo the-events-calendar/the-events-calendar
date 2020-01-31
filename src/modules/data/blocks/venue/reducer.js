@@ -12,8 +12,8 @@ export const setInitialState = ( entityRecord ) => {
 
 export const DEFAULT_STATE = {
 	venue: globals.editorDefaults().venue ? globals.editorDefaults().venue : 0,
-	showMap: true,
-	showMapLink: true,
+	showMap: globals.mapsAPI().embed,
+	showMapLink: globals.mapsAPI().embed,
 };
 
 export default ( state = DEFAULT_STATE, action ) => {
