@@ -2990,14 +2990,17 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				return;
 			}
 
-			self::flushRewriteRules();
-
 			if ( ! class_exists( 'Tribe__Events__Editor__Compatibility' ) ) {
 				require_once $plugin_path . '/src/Tribe/Editor/Compatibility.php';
 			}
 
 			$editor_compatibility = new Tribe__Events__Editor__Compatibility();
 			$editor_compatibility->deactivate_gutenberg_extension_plugin();
+
+			if ( ! is_network_admin()  ) {
+				// We set with a string to avoid having to include a file here.
+				set_transient( '_tribe_events_delayed_flush_rewrite_rules', 'yes', 0 );
+			}
 
 			if ( ! is_network_admin() && ! isset( $_GET['activate-multi'] ) ) {
 				set_transient( '_tribe_events_activation_redirect', 1, 30 );
