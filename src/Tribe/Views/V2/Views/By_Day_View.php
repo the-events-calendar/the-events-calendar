@@ -169,7 +169,7 @@ abstract class By_Day_View extends View {
 
 		// @todo remove this when the Event_Period repository is solid and clean up.
 		$using_period_repository = tribe_events_view_v2_use_period_repository();
-		$use_site_timezone = Timezones::is_mode( 'site' );
+		$use_site_timezone       = Timezones::is_mode( 'site' );
 
 		if ( $using_period_repository ) {
 			/** @var Event_Period $repository */
@@ -211,15 +211,15 @@ abstract class By_Day_View extends View {
 
 			foreach ( $request_chunks as $chunk_ids ) {
 				$sql = "
-				SELECT
-				  post_id,
-					meta_key,
-					meta_value
-				FROM
-					{$wpdb->postmeta}
-				WHERE
-					meta_key IN ( %s, %s, %s )
-					AND post_id IN ( " . implode( ',', $chunk_ids ) . " )
+					SELECT
+					  post_id,
+						meta_key,
+						meta_value
+					FROM
+						{$wpdb->postmeta}
+					WHERE
+						meta_key IN ( %s, %s, %s )
+						AND post_id IN ( " . implode( ',', $chunk_ids ) . " )
 				";
 
 				$chunk_results = $wpdb->get_results( $wpdb->prepare( $sql, [ $start_meta_key, $end_meta_key, '_EventTimezone' ] ) );
@@ -324,11 +324,11 @@ abstract class By_Day_View extends View {
 
 		$this->grid_events = $this->get_grid_events( $all_day_event_ids );
 
-		/*
+		/**
 		 * Multi-day events will always appear on the second day and forward, back-fill if they did not make the
 		 * cut (of events per day) on previous days.
 		 */
-		 $this->backfill_multiday_event_ids( $this->grid_events );
+		$this->backfill_multiday_event_ids( $this->grid_events );
 
 		if ( $using_period_repository ) {
 			$post_ids = array_filter( array_unique( array_merge( ... array_values( $this->grid_days_cache ) ) ) );
