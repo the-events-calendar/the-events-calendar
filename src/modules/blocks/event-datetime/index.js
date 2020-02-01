@@ -13,8 +13,8 @@ import { get } from 'lodash';
  */
 import EventDateTime from './container';
 import { DateTime } from '@moderntribe/events/icons';
-import { date, globals } from '@moderntribe/common/utils';
 import './subblocks';
+import { globals, date } from '@moderntribe/common/utils';
 
 /**
  * Module Code
@@ -38,26 +38,6 @@ export default {
 	},
 
 	attributes: {
-		start: {
-			type: 'string',
-			source: 'meta',
-			meta: '_EventStartDate',
-		},
-		end: {
-			type: 'string',
-			source: 'meta',
-			meta: '_EventEndDate',
-		},
-		allDay: {
-			type: 'boolean',
-			source: 'meta',
-			meta: '_EventAllDay',
-		},
-		timeZone: {
-			type: 'string',
-			source: 'meta',
-			meta: '_EventTimezone',
-		},
 		separatorDate: {
 			type: 'string',
 			source: 'meta',
@@ -68,6 +48,11 @@ export default {
 			source: 'meta',
 			meta: '_EventTimeRangeSeparator',
 		},
+		timeZone: {
+			type: 'string',
+			source: 'meta',
+			meta: '_EventTimezone',
+		},
 		showTimeZone: {
 			type: 'boolean',
 			default: get( timeZone, 'showTimeZone', false ),
@@ -75,22 +60,6 @@ export default {
 		timeZoneLabel: {
 			type: 'string',
 			default: get( timeZone, 'label', date.FORMATS.TIMEZONE.string ),
-		},
-		// Only Available for classic users
-		cost: {
-			type: 'string',
-			source: 'meta',
-			meta: '_EventCost',
-		},
-		currencySymbol: {
-			type: 'string',
-			source: 'meta',
-			meta: '_EventCurrencySymbol',
-		},
-		currencyPosition: {
-			type: 'string',
-			source: 'meta',
-			meta: '_EventCurrencyPosition',
 		},
 	},
 

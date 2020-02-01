@@ -77,18 +77,13 @@ const mapStateToProps = ( state ) => ( {
 	end: dateTimeSelectors.getEnd( state ),
 	startTimeInput: dateTimeSelectors.getStartTimeInput( state ),
 	endTimeInput: dateTimeSelectors.getEndTimeInput( state ),
-	isDashboardOpen: UISelectors.getDashboardDateTimeOpen( state ),
 	multiDay: dateTimeSelectors.getMultiDay( state ),
 	separatorTime: dateTimeSelectors.getTimeSeparator( state ),
 	visibleMonth: UISelectors.getVisibleMonth( state ),
 } );
 
 const mapDispatchToProps = ( dispatch ) => ( {
-	...bindActionCreators( dateTimeThunks, dispatch ),
 	...bindActionCreators( dateTimeActions, dispatch ),
-	setInitialState: ( props ) => {
-		dispatch( dateTimeThunks.setInitialState( props ) );
-	},
 } );
 
 const mergeProps = ( stateProps, dispatchProps, ownProps ) => ( {

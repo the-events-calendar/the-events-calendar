@@ -8,37 +8,17 @@ import { compose } from 'redux';
  * Internal dependencies
  */
 import {
-	actions as dateTimeActions,
 	thunks as dateTimeThunks,
-	selectors as dateTimeSelectors,
 } from '@moderntribe/events/data/blocks/datetime';
 import {
 	actions as UIActions,
-	selectors as UISelectors,
 } from '@moderntribe/events/data/ui';
-import {
-	selectors as priceSelectors,
-} from '@moderntribe/events/data/blocks/price';
-import { withStore, withSaveData, withBlockCloser } from '@moderntribe/common/hoc';
+import { withStore, withBlockCloser } from '@moderntribe/common/hoc';
 import EventDateTime from './template';
 
 /**
  * Module Code
  */
-
-const mapStateToProps = ( state ) => ( {
-	start: dateTimeSelectors.getStart( state ),
-	end: dateTimeSelectors.getEnd( state ),
-	allDay: dateTimeSelectors.getAllDay( state ),
-	separatorDate: dateTimeSelectors.getDateSeparator( state ),
-	separatorTime: dateTimeSelectors.getTimeSeparator( state ),
-	showTimeZone: dateTimeSelectors.getTimeZoneVisibility( state ),
-	timeZone: dateTimeSelectors.getTimeZone( state ),
-	timeZoneLabel: dateTimeSelectors.getTimeZoneLabel( state ),
-	cost: priceSelectors.getPrice( state ),
-	currencySymbol: priceSelectors.getSymbol( state ),
-	currencyPosition: priceSelectors.getPosition( state ),
-} );
 
 const mapDispatchToProps = ( dispatch ) => ( {
 	setInitialState: ( props ) => {
@@ -50,7 +30,6 @@ const mapDispatchToProps = ( dispatch ) => ( {
 
 export default compose(
 	withStore(),
-	connect( mapStateToProps, mapDispatchToProps ),
-	withSaveData(),
+	connect( null, mapDispatchToProps ),
 	withBlockCloser,
 )( EventDateTime );

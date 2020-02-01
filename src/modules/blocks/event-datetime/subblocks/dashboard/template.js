@@ -162,11 +162,23 @@ const renderCalendars = ( {
 
 const EventDateTimeDashboard = ( props ) => {
 	const { multiDay, allDay, separatorTime } = props;
-	const { isOpen } = useContext(DateTimeContext);
+
+	const {
+		isOpen,
+		showTimeZone,
+		setShowTimeZone,
+		setDateTimeAttributes,
+	} = useContext(DateTimeContext);
+
+	const controlProps = {
+		showTimeZone,
+		setShowTimeZone,
+		setDateTimeAttributes,
+	};
 
 	return (
 		<Fragment>
-			<Controls />
+			<Controls { ...controlProps } />
 			<Dashboard isOpen={ isOpen }>
 				<Fragment>
 					<section className="tribe-editor__calendars">

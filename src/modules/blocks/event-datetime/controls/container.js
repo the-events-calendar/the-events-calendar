@@ -18,21 +18,26 @@ import EventDateTimeControls from './template';
  * Module Code
  */
 
-const onTimeZoneVisibilityChange = ( dispatch ) => ( checked ) => (
-	dispatch( dateTimeActions.setTimeZoneVisibility( checked ) )
-);
-
 const mapStateToProps = ( state ) => ( {
 	isEditable: dateTimeSelectors.isEditable( state ),
 	separatorDate: dateTimeSelectors.getDateSeparator( state ),
 	separatorTime: dateTimeSelectors.getTimeSeparator( state ),
-	showTimeZone: dateTimeSelectors.getTimeZoneVisibility( state ),
 	timeZone: dateTimeSelectors.getTimeZone( state ),
 } );
 
-const mapDispatchToProps = ( dispatch ) => ( {
-	...bindActionCreators( dateTimeActions, dispatch ),
-	onTimeZoneVisibilityChange: onTimeZoneVisibilityChange( dispatch ),
+const mapDispatchToProps = ( dispatch, ownProps ) => ( {
+	setSeparatorDate: ( value ) => {
+		ownProps.setDateTimeAttributes( { separatorDate: value } );
+		dispatch( dateTimeActions.setSeparatorDate( value ) );
+	},
+	setSeparatorTime: ( value ) => {
+		ownProps.setDateTimeAttributes( { separatorTime: value } );
+		dispatch( dateTimeActions.setSeparatorTime( value ) );
+	},
+	setTimeZone: ( value ) => {
+		ownProps.setDateTimeAttributes( { timeZone: value } );
+		dispatch( dateTimeActions.setTimeZone( value ) );
+	},
 } );
 
 export default compose(

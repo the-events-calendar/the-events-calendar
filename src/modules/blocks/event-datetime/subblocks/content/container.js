@@ -2,14 +2,12 @@
  * External dependencies
  */
 import { connect } from 'react-redux';
-import { compose, bindActionCreators } from 'redux';
-import { noop } from 'lodash';
+import { compose } from 'redux';
 
 /**
  * Internal dependencies
  */
 import {
-	actions as dateTimeActions,
 	selectors as dateTimeSelectors,
 } from '@moderntribe/events/data/blocks/datetime';
 import {
@@ -34,20 +32,17 @@ const mapStateToProps = ( state ) => ( {
 	sameStartEnd: dateTimeSelectors.getSameStartEnd( state ),
 	separatorDate: dateTimeSelectors.getDateSeparator( state ),
 	separatorTime: dateTimeSelectors.getTimeSeparator( state ),
-	showTimeZone: dateTimeSelectors.getTimeZoneVisibility( state ),
 	start: dateTimeSelectors.getStart( state ),
-	timeZone: dateTimeSelectors.getTimeZone( state ),
-	timeZoneLabel: dateTimeSelectors.getTimeZoneLabel( state ),
 } );
 
-const mapDispatchToProps = ( dispatch ) => ( {
-	...bindActionCreators( dateTimeActions, dispatch ),
-	...bindActionCreators( priceActions, dispatch ),
-	setInitialState: noop,
+const mapDispatchToProps = ( dispatch, ownProps ) => ( {
+	setCost: ( value ) => {
+		ownProps.setAttributes( { cost: value } );
+		dispatch( priceActions.setCost( value ) );
+	},
 } );
 
 export default compose(
 	withStore(),
 	connect( mapStateToProps, mapDispatchToProps ),
-	withSaveData(),
 )( EventDateTimeContent );

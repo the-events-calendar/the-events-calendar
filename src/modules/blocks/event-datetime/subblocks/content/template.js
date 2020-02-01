@@ -156,7 +156,9 @@ const renderEndTime = ( props ) => {
 	);
 }
 
-const renderTimezone = ( { setTimeZoneLabel, timeZoneLabel, showTimeZone } ) => {
+const renderTimezone = () => {
+	const { setTimeZoneLabel, timeZoneLabel, showTimeZone } = useContext(DateTimeContext);
+
 	return showTimeZone && (
 		<span
 			key="time-zone"
@@ -174,7 +176,7 @@ const renderTimezone = ( { setTimeZoneLabel, timeZoneLabel, showTimeZone } ) => 
 const renderExtras = ( props ) => {
 	return (
 		<Fragment>
-			{ renderTimezone( props ) }
+			{ renderTimezone() }
 			{ renderPrice( props ) }
 		</Fragment>
 	);
@@ -187,11 +189,24 @@ const EventDateTimeContent = ( props ) => {
 		sameStartEnd,
 		isEditable,
 	} = props;
-	const { isOpen, open } = useContext(DateTimeContext);
+
+	const {
+		isOpen,
+		open,
+		showTimeZone,
+		setShowTimeZone,
+		setDateTimeAttributes,
+	} = useContext(DateTimeContext);
+
+	const controlProps = {
+		showTimeZone,
+		setShowTimeZone,
+		setDateTimeAttributes,
+	};
 
 	return (
 		<Fragment>
-			<Controls />
+			<Controls { ...controlProps } />
 			{
 				isOpen && isEditable
 					? <HumanReadableInput after={ renderExtras( props ) } />
@@ -236,11 +251,7 @@ EventDateTimeContent.propTypes = {
 	separatorDate: PropTypes.string,
 	separatorTime: PropTypes.string,
 	setCost: PropTypes.func,
-	setTimeZoneLabel: PropTypes.func,
-	showTimeZone: PropTypes.bool,
 	start: PropTypes.string,
-	timeZone: PropTypes.string,
-	timeZoneLabel: PropTypes.string,
 };
 
 export default EventDateTimeContent;

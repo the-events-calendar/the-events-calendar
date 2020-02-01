@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import React, { PureComponent, Fragment } from 'react';
+import React, { Fragment } from 'react';
 
 /**
  * WordPress dependencies
@@ -19,34 +19,44 @@ import './style.pcss';
  * Module Code
  */
 
-class EventDateTime extends PureComponent {
-	get template() {
-		return [
-			[ 'tribe/event-datetime-dashboard', {} ],
-			[ 'tribe/event-datetime-content', {} ],
-		];
-	}
+const EventDateTime = ( props ) => {
+	const template = [
+		[ 'tribe/event-datetime-dashboard', {} ],
+		[ 'tribe/event-datetime-content', {} ],
+	];
 
-	render = () => {
-		const { isOpen, open } = this.props;
+	const { isOpen, open, attributes, setAttributes } = props;
 
-		return (
-			<Fragment>
-				<Controls />
-				<section
-					className="tribe-editor__subtitle tribe-editor__date-time tribe-common__plugin-block-hook"
-				>
-					<DateTimeContext.Provider value={ { isOpen, open } }>
-						<InnerBlocks
-							template={ this.template }
-							templateLock="all"
-							templateInsertUpdatesSelection={ false }
-						/>
-					</DateTimeContext.Provider>
-				</section>
-			</Fragment>
-		);
-	}
-}
+	const controlProps = {
+		showTimeZone: attributes.showTimeZone,
+		setShowTimeZone: value => setAttributes( { showTimeZone: value } ),
+		setDateTimeAttributes: setAttributes,
+	};
+
+	const contextValue = {
+		isOpen,
+		open,
+		timeZoneLabel: attributes.timeZoneLabel,
+		setTimeZoneLabel: label => setAttributes( { timeZoneLabel: label } ),
+		...controlProps,
+	};
+
+	return (
+		<Fragment>
+			<Controls { ...controlProps } />
+			<section
+				className="tribe-editor__subtitle tribe-editor__date-time tribe-common__plugin-block-hook"
+			>
+				<DateTimeContext.Provider value={ contextValue }>
+					<InnerBlocks
+						template={ template }
+						templateLock="all"
+						templateInsertUpdatesSelection={ false }
+					/>
+				</DateTimeContext.Provider>
+			</section>
+		</Fragment>
+	);
+};
 
 export default EventDateTime;
