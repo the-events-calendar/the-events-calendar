@@ -18,7 +18,6 @@ import {
 } from '@moderntribe/events/data/ui';
 import {
 	selectors as priceSelectors,
-	actions as priceActions,
 } from '@moderntribe/events/data/blocks/price';
 import { withStore, withSaveData, withBlockCloser } from '@moderntribe/common/hoc';
 import EventDateTime from './template';
@@ -28,7 +27,6 @@ import EventDateTime from './template';
  */
 
 const mapStateToProps = ( state ) => ( {
-	isOpen: UISelectors.getDashboardDateTimeOpen( state ),
 	start: dateTimeSelectors.getStart( state ),
 	end: dateTimeSelectors.getEnd( state ),
 	allDay: dateTimeSelectors.getAllDay( state ),
@@ -47,10 +45,6 @@ const mapDispatchToProps = ( dispatch ) => ( {
 		// dispatch( priceActions.setInitialState( props ) );
 		dispatch( dateTimeThunks.setInitialState( props ) );
 		dispatch( UIActions.setInitialState( props ) );
-	},
-	onClose: () => {
-		dispatch( dateTimeActions.setDateInputVisibility( false ) );
-		dispatch( UIActions.closeDashboardDateTime() );
 	},
 } );
 

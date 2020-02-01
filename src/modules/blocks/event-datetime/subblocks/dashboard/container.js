@@ -17,11 +17,10 @@ import {
 	defaultEndMoment,
 } from '@moderntribe/events/data/blocks/datetime/reducer';
 import {
-	actions as UIActions,
 	selectors as UISelectors,
 } from '@moderntribe/events/data/ui';
 import { moment as momentUtil } from '@moderntribe/common/utils';
-import { withStore, withSaveData, withBlockCloser } from '@moderntribe/common/hoc';
+import { withStore, withSaveData } from '@moderntribe/common/hoc';
 import EventDateTimeDashboard from './template';
 
 /**
@@ -87,11 +86,8 @@ const mapStateToProps = ( state ) => ( {
 const mapDispatchToProps = ( dispatch ) => ( {
 	...bindActionCreators( dateTimeThunks, dispatch ),
 	...bindActionCreators( dateTimeActions, dispatch ),
-	...bindActionCreators( UIActions, dispatch ),
-
 	setInitialState: ( props ) => {
 		dispatch( dateTimeThunks.setInitialState( props ) );
-		dispatch( UIActions.setInitialState( props ) );
 	},
 } );
 
@@ -113,5 +109,4 @@ export default compose(
 	withStore(),
 	connect( mapStateToProps, mapDispatchToProps, mergeProps ),
 	withSaveData(),
-	withBlockCloser,
 )( EventDateTimeDashboard );

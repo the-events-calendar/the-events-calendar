@@ -12,6 +12,7 @@ import Controls from './controls';
 /**
  * Internal dependencies
  */
+import DateTimeContext from './context';
 import './style.pcss';
 
 /**
@@ -27,17 +28,21 @@ class EventDateTime extends PureComponent {
 	}
 
 	render = () => {
+		const { isOpen, open } = this.props;
+
 		return (
 			<Fragment>
 				<Controls />
 				<section
 					className="tribe-editor__subtitle tribe-editor__date-time tribe-common__plugin-block-hook"
 				>
-					<InnerBlocks
-						template={ this.template }
-						templateLock="all"
-						templateInsertUpdatesSelection={ false }
-					/>
+					<DateTimeContext.Provider value={ { isOpen, open } }>
+						<InnerBlocks
+							template={ this.template }
+							templateLock="all"
+							templateInsertUpdatesSelection={ false }
+						/>
+					</DateTimeContext.Provider>
 				</section>
 			</Fragment>
 		);
