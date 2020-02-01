@@ -9,7 +9,7 @@ import { compose } from 'redux';
  * Internal dependencies
  */
 import { range } from '@moderntribe/common/utils';
-import { withStore, withSaveData, withBlockCloser } from '@moderntribe/common/hoc';
+import { withStore, withBlockCloser } from '@moderntribe/common/hoc';
 import {
 	actions as priceActions,
 	selectors as priceSelectors,
@@ -62,6 +62,5 @@ export default compose(
 		mapStateToProps,
 		mapDispatchToProps
 	),
-	withSaveData(),
 	withBlockCloser,
 )( EventPrice );

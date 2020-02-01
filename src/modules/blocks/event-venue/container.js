@@ -9,7 +9,7 @@ import { compose } from 'redux';
  */
 import EventVenue from './template';
 import { toVenue } from '@moderntribe/events/elements';
-import { withStore, withSaveData, withForm } from '@moderntribe/common/hoc';
+import { withStore, withForm } from '@moderntribe/common/hoc';
 import { withDetails } from '@moderntribe/events/hoc';
 import { actions, selectors } from '@moderntribe/events/data/blocks/venue';
 import { editor } from '@moderntribe/common/data';
@@ -88,5 +88,4 @@ export default compose(
 	withDetails( 'venue' ),
 	withForm( ( props ) => props.name ),
 	connect( null, mapDispatchToProps ),
-	withSaveData(),
 )( EventVenue );
