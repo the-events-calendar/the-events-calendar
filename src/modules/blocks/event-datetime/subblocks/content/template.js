@@ -188,6 +188,7 @@ const EventDateTimeContent = ( props ) => {
 		allDay,
 		sameStartEnd,
 		isEditable,
+		setAttributes,
 	} = props;
 
 	const {
@@ -209,7 +210,10 @@ const EventDateTimeContent = ( props ) => {
 			<Controls { ...controlProps } />
 			{
 				isOpen && isEditable
-					? <HumanReadableInput after={ renderExtras( props ) } />
+					? <HumanReadableInput
+							after={ renderExtras( props ) }
+							setAttributes={ setAttributes }
+						/>
 					: (
 						<Fragment>
 							<h2 className="tribe-editor__subtitle__headline">

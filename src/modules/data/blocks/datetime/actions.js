@@ -3,44 +3,50 @@
  */
 import * as types from './types';
 
-export const setNaturalLanguageLabel = ( label ) => ( {
+export const setNaturalLanguageLabel = ( label, meta = {} ) => ( {
 	type: types.SET_NATURAL_LANGUAGE_LABEL,
 	payload: {
 		label,
 	},
+	meta,
 } );
 
-export const setDateRange = ( payload ) => ( {
+export const setDateRange = ( payload, meta = {} ) => ( {
 	type: types.SET_DATE_RANGE,
 	payload,
+	meta,
 } );
 
-export const setStartDateTime = ( start ) => ( {
+export const setStartDateTime = ( start, meta = {} ) => ( {
 	type: types.SET_START_DATE_TIME,
 	payload: {
 		start,
 	},
+	meta,
 } );
 
-export const setEndDateTime = ( end ) => ( {
+export const setEndDateTime = ( end, meta = {} ) => ( {
 	type: types.SET_END_DATE_TIME,
 	payload: {
 		end,
 	},
+	meta,
 } );
 
-export const setStartTime = ( start ) => ( {
+export const setStartTime = ( start, meta = {} ) => ( {
 	type: types.SET_START_TIME,
 	payload: {
 		start,
 	},
+	meta,
 } );
 
-export const setEndTime = ( end ) => ( {
+export const setEndTime = ( end, meta = {} ) => ( {
 	type: types.SET_END_TIME,
 	payload: {
 		end,
 	},
+	meta,
 } );
 
 export const setStartTimeInput = ( startTimeInput ) => ( {

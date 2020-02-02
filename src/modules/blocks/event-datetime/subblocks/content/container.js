@@ -14,7 +14,7 @@ import {
 	selectors as priceSelectors,
 	actions as priceActions,
 } from '@moderntribe/events/data/blocks/price';
-import { withStore, withSaveData } from '@moderntribe/common/hoc';
+import { withStore } from '@moderntribe/common/hoc';
 import EventDateTimeContent from './template';
 
 /**

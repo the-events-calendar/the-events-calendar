@@ -2,21 +2,17 @@
  * External Dependencies
  */
 import React from 'react';
-import { get } from 'lodash';
 import { __ } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
  */
-import { globals, date } from '@moderntribe/common/utils';
 import { DateTime } from '@moderntribe/events/icons';
 
 /**
  * Internal dependencies
  */
 import EventDateTimeContent from './container';
-
-const timeZone = get( globals.tec(), 'timeZone', {} );
 
 export default {
 	id: 'event-datetime-content',
@@ -34,6 +30,21 @@ export default {
 	},
 
 	attributes: {
+		start: {
+			type: 'string',
+			source: 'meta',
+			meta: '_EventStartDate',
+		},
+		end: {
+			type: 'string',
+			source: 'meta',
+			meta: '_EventEndDate',
+		},
+		allDay: {
+			type: 'boolean',
+			source: 'meta',
+			meta: '_EventAllDay',
+		},
 		// Only Available for classic users
 		cost: {
 			type: 'string',
