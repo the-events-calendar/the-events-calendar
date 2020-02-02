@@ -65,10 +65,6 @@ describe( '[STORE] - Datetime selectors', () => {
 		expect( selectors.getNaturalLanguageLabel( state ) ).toBe( DEFAULT_STATE.naturalLanguage );
 	} );
 
-	it( 'Should return the natural language label', () => {
-		expect( selectors.getDateInputVisibility( state ) ).toBe( DEFAULT_STATE.showDateInput );
-	} );
-
 	it( 'Should return the editable', () => {
 		expect( selectors.isEditable( state ) ).toBe( DEFAULT_STATE.isEditable );
 	} );
