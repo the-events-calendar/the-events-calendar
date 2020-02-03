@@ -15,10 +15,6 @@ import {
 	defaultStartMoment,
 	defaultEndMoment,
 } from '@moderntribe/events/data/blocks/datetime/reducer';
-import {
-	actions as UIActions,
-	selectors as UISelectors,
-} from '@moderntribe/events/data/ui';
 import { moment as momentUtil } from '@moderntribe/common/utils';
 import { withStore } from '@moderntribe/common/hoc';
 import EventDateTimeDashboard from './template';

@@ -13,7 +13,6 @@ import {
 	thunks as dateTimeThunks,
 	selectors as dateTimeSelectors,
 } from '@moderntribe/events/data/blocks/datetime';
-import { DEFAULT_STATE as DATETIME_DEFAULT_STATE } from '@moderntribe/events/data/blocks/datetime/reducer';
 import {
 	actions as priceActions,
 	selectors as priceSelectors,
@@ -31,7 +30,6 @@ import {
 	actions as organizersActions,
 	selectors as organizerSelectors,
 } from '@moderntribe/events/data/blocks/organizers';
-import { actions as UIActions } from '@moderntribe/events/data/ui';
 import { withStore, withSaveData } from '@moderntribe/common/hoc';
 import ClassicEventDetails from './template';
 import dateTimeBlock from '@moderntribe/events/blocks/event-datetime';
@@ -60,7 +58,6 @@ const mapStateToProps = ( state ) => ( {
 const mapDispatchToProps = ( dispatch ) => ( {
 	...bindActionCreators( dateTimeActions, dispatch ),
 	...bindActionCreators( dateTimeThunks, dispatch ),
-	...bindActionCreators( UIActions, dispatch ),
 	...bindActionCreators( priceActions, dispatch ),
 	...bindActionCreators( websiteActions, dispatch ),
 	...bindActionCreators( classicActions, dispatch ),
@@ -82,36 +79,6 @@ const mergeProps = ( stateProps, dispatchProps, ownProps ) => {
 
 			dispatch( classicActions.setInitialState( props ) );
 			dispatch( organizersActions.setOrganizersInClassic( get( 'organizers', [] ) ) );
-
-			// if current state start is not the same as default state, do not update
-			// otherwise, update start state if attribute value is not the same as default state.
-			const start = get( 'start', DATETIME_DEFAULT_STATE.start );
-			if (
-				stateProps.start === DATETIME_DEFAULT_STATE.start
-					&& start !== DATETIME_DEFAULT_STATE.start
-			) {
-				dispatch( dateTimeActions.setStartDateTime( start ) );
-			}
-
-			// if current state end is not the same as default state, do not update
-			// otherwise, update end state if attribute value is not the same as default state.
-			const end = get( 'end', DATETIME_DEFAULT_STATE.end );
-			if (
-				stateProps.end === DATETIME_DEFAULT_STATE.end
-					&& end !== DATETIME_DEFAULT_STATE.end
-			) {
-				dispatch( dateTimeActions.setStartDateTime( end ) );
-			}
-
-			// if current state allDay is not the same as default state, do not update
-			// otherwise, update allDay state if attribute value is not the same as default state.
-			const allDay = get( 'allDay', DATETIME_DEFAULT_STATE.allDay );
-			if (
-				stateProps.allDay === DATETIME_DEFAULT_STATE.allDay
-					&& allDay !== DATETIME_DEFAULT_STATE.allDay
-			) {
-				dispatch( dateTimeActions.setAllDay( allDay ) );
-			}
 		},
 		toggleDashboardDateTime: () => {
 			// there may be a better way to do this, but for now there's no way to access context
