@@ -4,7 +4,7 @@
 import * as types from './types';
 
 export const DEFAULT_STATE = {
-	url: undefined,
+	url: '',
 	label: '',
 };
 

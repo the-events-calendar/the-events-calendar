@@ -10,92 +10,71 @@
 
 /* = Post Type Listing
 =============================================*/
-
 .events-cal .tablenav select[name=m],
 	.events-cal #post-query-submit {
 		display: none;
 	}
-
 .fixed .column-start-date,
 	.fixed .column-end-date,
 	.fixed .column-events-cats {
 		width: 14%;
 	}
-
 #additional-field-table input,
 	#additional-field-table select,
 	#additional-field-table textarea {
 		width: 200px;
 	}
-
 #additional-field-table tbody tr {
 		height: 72px;
 	}
-
 .tribe-restore-link + a {
 	display: none;
 }
-
 /* = Post Type Editing
 =============================================*/
-
 .eventForm {
 	margin-top: -20px;
 }
-
 .eventForm td {
 		font-size: 12px;
 		padding: 0 6px 10px 0;
 		vertical-align: middle;
 	}
-
 /* Add extra separation between form inputs when left aligned */
-
 .eventForm td input.alignleft, .eventForm td select.alignleft {
 				margin-right: 0.3rem;
 			}
-
 .eventForm #EventURL {
 		width: 70%;
 	}
-
 .eventForm #event-meta td {
 			vertical-align: top;
 		}
-
 .eventForm #event-meta td:first-child {
 				line-height: 30px;
 			}
-
 .eventForm #event-meta td div {
 				margin-bottom: 10px;
 			}
-
 .eventForm #event-meta td div:last-child {
 					margin-bottom: 20px;
 				}
-
 .eventForm textarea {
 		width: 100%;
 	}
-
 .eventForm h4 {
 		font-size: 1.2em;
 		margin: 1em 0 1em;
 	}
-
 .eventForm h4.event-time {
 			margin-top: 0;
 		}
-
 .eventForm .tribe_sectionheader {
 		padding-bottom: 5px;
 	}
-
 .eventForm p {
 		margin: 0 0 10px 0;
 	}
-
 .eventForm input[type="text"],
 	.eventForm input[type="password"],
 	.eventForm input[type="color"],
@@ -117,34 +96,28 @@
 		line-height: 20px;
 		margin-left: 0;
 	}
-
 .eventForm .event-dynamic-helper-text {
 		color: #999;
 		font-style: italic;
 		padding: 0;
 	}
-
 .eventForm .tribe-datetime-block .tribe-allday {
 			margin: 10px 0 0;
 		}
-
 .eventForm .tribe-datetime-block .tribe-field-start_date,
 		.eventForm .tribe-datetime-block .tribe-field-start_time,
 		.eventForm .tribe-datetime-block .tribe-field-end_date,
 		.eventForm .tribe-datetime-block .tribe-field-end_time {
 			height: 28px;
 		}
-
 .eventForm .tribe-datetime-block .tribe-field-start_date,
 		.eventForm .tribe-datetime-block .tribe-field-end_date {
 			width: 100px;
 		}
-
 .eventForm .tribe-datetime-block .tribe-field-start_time,
 		.eventForm .tribe-datetime-block .tribe-field-end_time {
 			width: 80px;
 		}
-
 .eventForm .tribe-datetime-block .tribe-field-timezone {
 			width: 100%;
 
@@ -153,74 +126,58 @@
 			margin-top: -2px;
 			display: none;
 		}
-
 .eventForm .tribe-datetime-block .tribe-field-timezone.select2-container {
 				display: inline-block;
 				margin-top: -4px;
 			}
-
 .eventForm .tribe-datetime-block .tribe-change-timezone {
 			white-space: nowrap;
 		}
-
 .eventForm .tribe-datetime-label {
 		vertical-align: top;
 		padding-top: 5px;
 	}
-
 /* Apply a grey highlight to 'today' */
-
 .ui-datepicker-calendar .ui-datepicker-today a {
 		background: linear-gradient(354deg, #ccc 0%, #eee 100%);
 		color: black;
 	}
-
 /* If today is also the current selected day, prefer the default blue highlight */
-
 .ui-datepicker-calendar .ui-datepicker-today.ui-datepicker-current-day a {
 		background: linear-gradient( 354deg, rgba( 10,85,160,1.00 ) 0%, rgba( 18,136,235,1.00 ) 100% );
 		color: #fff;
 	}
-
 .ui-datepicker select.ui-datepicker-month {
 	width: 8rem;
 }
-
 .tribe-community-event-info {
 	width: 100%;
 	margin: 10px;
 }
-
 .eventtable,
 #EventInfo {
 	width: 100%;
 	margin: 0;
 	padding-top: 0;
 }
-
 #event_tickets,
 .eventtable.ticket_list.eventForm {
 	table-layout: fixed;
 }
-
 #ticket_start_date,
 #ticket_end_date {
 	width: 100px;
 }
-
 .form-table form input {
 	border: none;
 }
-
 #submitLabel {
 	display: block;
 }
-
 #submitLabel input {
 		display: block;
 		padding: 0;
 	}
-
 #EventBriteDetailDiv h4,
 .tribe-community-event-info h4,
 .eventForm .tribe_sectionheader h4 {
@@ -228,102 +185,81 @@
 	text-transform: uppercase;
 	border-bottom: 1px solid #e5e5e5;
 }
-
 .tribe-events-error {
 	display: none;
 }
-
 .tribe-events-multi-event-day {
 	color: #0f81bb;
 }
-
 .ui-front {
 	z-index: 1000000;
 }
-
 .events-cal .ui-widget-overlay.ui-front {
 	z-index: 90;
 }
-
 .edit-linked-post-link {
 	display: inline-block;
 	margin-left: 10px;
 }
-
 .linked-post-wrapper tbody + tbody tr.saved_linked-post td,
 	.linked-post-wrapper tbody + tfoot tr td {
 		margin-top: 1em;
 		padding-top: 1em;
 	}
-
 .linked-post-wrapper .linked-post td:first-child {
 		padding-left: 30px;
 	}
-
 .move-linked-post-group {
 	padding-right: .5em;
 	cursor: move;
 }
-
 .tribe-delete-this {
 	float: right;
 	color: #444;
 }
-
 .tribe-delete-this:hover,
 	.tribe-delete-this.hover-state {
 		color: #a00;
 	}
-
 .tribe-delete-this.tribe-confirm-delete-this {
 		display : none;
 	}
-
 .tribe_community_edit .edit-linked-post-link a {
 			display: none;
 		}
-
 .tribe-linked-post-error.error {
 	display: inline;
 	margin-left: 5px;
 	padding: 5px 10px;
 }
-
 /* = Settings
 =============================================*/
-
 #tribe-field-toggle_blocks_editor_hidden_field {
 	display: none;
 }
-
 /* upgrades */
-
 #modern-tribe-info.tribe-upgrade{
 	padding: 0;
+	position: relative;
 }
-
 #modern-tribe-info.tribe-upgrade a, #modern-tribe-info.tribe-upgrade .dashicons {
 		color: #334AFF;
 	}
-
 #modern-tribe-info.tribe-upgrade h3 {
 		font-size: 24px;
+		line-height: 1.4em;
 	}
-
 #modern-tribe-info.tribe-upgrade ul {
 		list-style-type: none;
 		margin-left: 0;
 	}
-
 #modern-tribe-info.tribe-upgrade li > h4 {
 			margin-bottom: 0;
 		}
-
 #modern-tribe-info.tribe-upgrade li > p {
 			margin-top: 0;
 			padding-left: 1.5rem;
 		}
-
 #modern-tribe-info.tribe-upgrade #tribe-upgrade-step1,
 	#modern-tribe-info.tribe-upgrade #tribe-upgrade-step2,
 	#modern-tribe-info.tribe-upgrade #tribe-upgrade-complete {
@@ -335,15 +271,12 @@
 		-webkit-box-pack: justify;
 		        justify-content: space-between;
 	}
-
 #modern-tribe-info.tribe-upgrade #tribe-upgrade-step1.hidden, #modern-tribe-info.tribe-upgrade #tribe-upgrade-step2.hidden, #modern-tribe-info.tribe-upgrade #tribe-upgrade-complete.hidden {
 			display: none;
 		}
-
 #modern-tribe-info.tribe-upgrade #tribe-upgrade-step1 span {
 			color: #334AFF;
 		}
-
 #modern-tribe-info.tribe-upgrade .button, #modern-tribe-info.tribe-upgrade button {
 		background: #334AFF;
 		border-radius: 0.25rem;
@@ -359,22 +292,18 @@
 		white-space: nowrap;
 		width: 200px;
 	}
-
 #modern-tribe-info.tribe-upgrade .button {
 		height: 3rem;
 		line-height: 1rem;
 		text-align: center;
 	}
-
 #modern-tribe-info.tribe-upgrade .content-container {
 		max-width: 600px;
 		padding: 2rem;
 	}
-
 #modern-tribe-info.tribe-upgrade .image-container {
 		text-align: right;
 	}
-
 #modern-tribe-info.tribe-upgrade .image-container img {
 			border-radius: 0.5rem;
 			display: inline-block;
@@ -385,11 +314,9 @@
 			vertical-align: top;
 			width: 100%;
 		}
-
 #modern-tribe-info.tribe-upgrade .screenshot {
 		float: left;
 	}
-
 #modern-tribe-info.tribe-upgrade .step {
 		font-size: 0.9rem;
 		font-weight: 200;
@@ -397,7 +324,6 @@
 		text-align: center;
 		width: 200px;
 	}
-
 #upgrade-button {
 	background: #334AFF;
 	border-radius: 0.25rem;
@@ -411,16 +337,13 @@
 	vertical-align: top;
 	margin: 2px 0 0 0.75rem;
 }
-
 /* = Eventbrite
 =============================================*/
-
 .tribe-community-event-info small,
 #EventBriteDetailDiv small {
 	font-size: 10px;
 	color: #a3a3a3;
 }
-
 #eventBriteTicketing,
 #mainDonateRow {
 	margin: -11px 6px 0;
@@ -435,121 +358,96 @@
 	background: url(../images/bg_fade.png) repeat-x top left;
 	background-color: #fff;
 }
-
 #eventBriteTicketing h2 {
 	height: 80px;
 	margin: 0;
 	background: url(../images/eb_press_little.gif) no-repeat top right;
 }
-
 .tribe-community-event-info,
 table.eventForm {
 	width: 100%;
 }
-
 /* = Recurrence
 =============================================*/
-
 #custom-recurrence-weeks label {
 	display: block;
 	float: left;
 	width: 45px;
 	margin-bottom: 3px;
 }
-
 #custom-recurrence-frequency input {
 	width: 30px;
 }
-
 #custom-recurrence-years label {
 	display: block;
 	float: left;
 	width: 50px;
 	margin-bottom: 3px;
 }
-
 #recurrence-changed-row {
 	display: none;
 	color: red;
 }
-
 #rec-end-error {
 	color: red;
 }
-
 #rec-days-error {
 	color: red;
 }
-
 .rec-error {
 	display: none;
 }
-
 #recurrence-pattern-description {
 	font-style: italic;
 }
-
 .recurrence-pattern-description-row {
 	display: none;
 }
-
 /* = Chosen
 =============================================*/
-
 .chosen,
 .tribe-chosen,
 .chzn-container {
 	margin-right: 10px!important;
 }
-
 .events-dropdown,
 #eventsDefaultState,
 #defaultCountry,
 #StateProvinceSelect {
 	min-width: 220px;
 }
-
 .multi-day-cutoff-dropdown {
 	width: 100px !important;
 }
-
 /* fix for widgets + chosen support */
-
 .widget-liquid-right .widget,
 .inactive-sidebar .widget,
 .widget-liquid-right .sidebar-description {
 	overflow: visible !important;
 }
-
 .tribe-aggregator-import-details {
 	overflow: hidden;
 }
-
 .tribe-aggregator-import-details dt {
 		clear: left;
 		float: left;
 		margin-right: .25rem;
 	}
-
 .tribe-aggregator-import-details dd {
 		margin-left: 0;
 	}
-
 .tribe-aggregator-import-details .tribe-value {
 		font-weight: bold;
 	}
-
 .tribe-ea-eventbrite-disconnect {
 	color: #a00;
 	display: inline-block;
 	margin-left: 1rem;
 }
-
 .tribe-ea-eventbrite-disconnect:active,
 	.tribe-ea-eventbrite-disconnect:hover {
 		color: #f00;
 	}
-
 .tribe-ea-eventbrite-button {
 	border-radius: 3px;
 	color: #fff;
@@ -559,38 +457,31 @@ table.eventForm {
 	-webkit-transition: background-color 0.5s ease;
 	transition: background-color 0.5s ease;
 }
-
 .tribe-ea-eventbrite-button:active,
 	.tribe-ea-eventbrite-button:hover {
 		color: #fff;
 		cursor: pointer;
 	}
-
 .tribe-ea-eventbrite-button {
 	background: #f6682f;
 }
-
 .tribe-ea-eventbrite-button:active,
 	.tribe-ea-eventbrite-button:hover,
 	.tribe-ea-eventbrite-button:focus {
 		background: #c85b2f;
 	}
-
 /*
 	Meetup
 */
-
 .tribe-ea-meetup-disconnect {
 	color: #a00;
 	display: inline-block;
 	margin-left: 1rem;
 }
-
 .tribe-ea-meetup-disconnect:active,
 	.tribe-ea-meetup-disconnect:hover {
 		color: #f00;
 	}
-
 .tribe-ea-meetup-button {
 	border-radius: 3px;
 	color: #fff;
@@ -600,26 +491,21 @@ table.eventForm {
 	-webkit-transition: background-color 0.5s ease;
 	transition: background-color 0.5s ease;
 }
-
 .tribe-ea-meetup-button:active,
 	.tribe-ea-meetup-button:hover {
 		color: #fff;
 		cursor: pointer;
 	}
-
 .tribe-ea-meetup-button {
 	background: #f41940;
 }
-
 .tribe-ea-meetup-button:active,
 	.tribe-ea-meetup-button:hover,
 	.tribe-ea-meetup-button:focus {
 		background: #f41940;
 	}
-
 /* = Event Aggregator Status
 =============================================*/
-
 .event-aggregator-status {
 	background-color: #fff;
 	width: 100%;
@@ -627,75 +513,60 @@ table.eventForm {
 	border-spacing: 0;
 	margin-bottom: 16px;
 }
-
 .event-aggregator-status tbody tr:nth-child(even) td {
 		background-color: #f9f9f9;
 	}
-
 .event-aggregator-status th {
 		text-align: left;
 		border-bottom: 1px solid #e4e5e6;
 	}
-
 .event-aggregator-status th, .event-aggregator-status td {
 		padding: 8px 12px;
 		background-color: #fff;
 	}
-
 .event-aggregator-status td.label {
 		width: 220px;
 		/* @todo: responsive breakpoint? */
 	}
-
 .event-aggregator-status td.label img {
 		width: 18px;
 		height: 18px;
 		margin-right: 6px;
 		float: left;
 	}
-
 .event-aggregator-status td.indicator {
 		width: 20px;
 	}
-
 .event-aggregator-status td.indicator.good {
 		color: #38b042;
 	}
-
 .event-aggregator-status td.indicator.bad {
 		color: #ed5047;
 	}
-
 .event-aggregator-status td.indicator.warning {
 		color: #f3ae46;
 	}
-
 @media (max-width: 782px) {
-
 .eventForm .tribe-datetime-block .tribe-field-start_date,
 		.eventForm .tribe-datetime-block .tribe-field-end_date {
 				width: 63%;
 				display: inline-block
 		}
-
 .eventForm .tribe-datetime-block .tribe-field-start_time,
 		.eventForm .tribe-datetime-block .tribe-field-end_time {
 				width: 35%;
 				display: inline-block
 		}
-
 .eventForm .tribe-datetime-block .tribe-datetime-separator {
 				width: 100%;
 				display: block;
 				text-align: center;
 				padding: 5px 0
 		}
-
 .eventForm .tribe-datetime-block .tribe-field-timezone.select2-container {
 					display: table;
 					margin: 10px auto 0
 			}
-
 .eventForm .tribe-datetime-block .tribe-change-timezone {
 				width: 100%;
 				display: block;
@@ -703,10 +574,22 @@ table.eventForm {
 				padding: 5px 0
 		}
 			}
-
 @media( min-width: 1193px ) {
-
 .eventForm .tribe-datetime-block .tribe-field-timezone {
 			  width: calc(100% - 400px)
 		}
 			}
+@media (min-width: 480px) {
+			#modern-tribe-info.tribe-upgrade #tribe-upgrade-step1 .tribe-upgrade-absolute-text, #modern-tribe-info.tribe-upgrade #tribe-upgrade-step2 .tribe-upgrade-absolute-text, #modern-tribe-info.tribe-upgrade #tribe-upgrade-complete .tribe-upgrade-absolute-text {
+				position: absolute;
+				word-wrap: break-word;
+				white-space: nowrap;
+				bottom: 80px;
+			}
+		}
+@media (max-width: 480px) {
+			#modern-tribe-info.tribe-upgrade #tribe-upgrade-step1 .tribe-upgrade-absolute-text, #modern-tribe-info.tribe-upgrade #tribe-upgrade-step2 .tribe-upgrade-absolute-text, #modern-tribe-info.tribe-upgrade #tribe-upgrade-complete .tribe-upgrade-absolute-text {
+				display: block;
+				margin: 15px 10px;
+			}
+		}

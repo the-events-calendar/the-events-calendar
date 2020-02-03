@@ -197,4 +197,44 @@ class List_ViewTest extends ViewTestCase {
 
 		$this->assertEquals( $expected, $view->get_messages() );
 	}
+
+	public function pages_data_set() {
+		return [
+			'1' => [ 1 ],
+			'2' => [ 2 ],
+			'3' => [ 3 ],
+		];
+	}
+
+	/**
+	 * @dataProvider pages_data_set
+	 */
+	public function test_past_events_show_asc_order( $page ) {
+		$values  = [
+			'today'              => '2019-09-11',
+			'now'                => '2019-09-11 09:00:00',
+			'event_date'         => '2019-09-11',
+			'event_display_mode' => 'past',
+			'paged'              => $page,
+			'events_per_page'    => 2,
+		];
+		$context = $this->get_mock_context()->alter( array_filter( $values ) );
+		// Create 6 events, from 2019-09-01 to 2019-09-06. All before "today" date of 2019-09-11.
+		$mock_events = array_map( function ( $i ) {
+			return static::factory()->event->create( [ 'when' => '2019-09-0' . $i . ' 09:00:00' ] );
+		}, range( 1, 6 ) );
+		// Reverse the order to ease the expectation.
+		$mock_events = array_reverse( $mock_events );
+
+		$view = View::make( Photo_View::class, $context );
+
+		// Call this method to trigger the message population in the View.
+		$template_vars = $view->get_template_vars();
+		$this->assertArrayHasKey( 'events', $template_vars );
+		$this->assertCount( 2, $template_vars['events'] );
+		$found_event_ids = wp_list_pluck( $template_vars['events'], 'ID' );
+		// Invert the slice as events should show in ASC date order.
+		$slice = array_reverse( array_slice( $mock_events, $page * 2 - 2, 2 ) );
+		$this->assertEquals( $slice, $found_event_ids );
+	}
 }

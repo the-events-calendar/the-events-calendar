@@ -23,7 +23,7 @@ tribe.events.views.eventsBar = {};
  * @since 4.9.4
  *
  * @param  {PlainObject} $   jQuery
- * @param  {PlainObject} obj tribe.events.views.manager
+ * @param  {PlainObject} obj tribe.events.views.eventsBar
  *
  * @return {void}
  */
@@ -222,8 +222,7 @@ tribe.events.views.eventsBar = {};
 				$( tab )
 					.removeAttr( 'aria-selected' )
 					.removeAttr( 'tabindex' )
-					.off( 'keydown', obj.handleTabKeydown )
-					.off( 'click', obj.handleTabClick );
+					.off();
 			} );
 		$container
 			.find( obj.selectors.tabPanel )
@@ -444,9 +443,11 @@ tribe.events.views.eventsBar = {};
 		if ( $eventsBar.length ) {
 			var state = $eventsBar.data( 'tribeEventsState' );
 			var $filtersButton = $container.find( obj.selectors.filtersButton );
+			var containerState = $container.data( 'tribeEventsState' );
+			var isMobile = ( containerState && containerState.isMobile ) || true; // fallback to true if container state is undefined
 
 			// If viewport is mobile and mobile state is not initialized
-			if ( tribe.events.views.viewport.state.isMobile && ! state.mobileInitialized ) {
+			if ( isMobile && ! state.mobileInitialized ) {
 				if ( $filtersButton.length ) {
 					obj.initTablist( $container );
 					obj.deinitFiltersAccordion( $container );
@@ -457,7 +458,7 @@ tribe.events.views.eventsBar = {};
 				$eventsBar.data( 'tribeEventsState', state );
 
 			// If viewport is desktop and desktop state is not initialized
-			} else if ( ! tribe.events.views.viewport.state.isMobile && ! state.desktopInitialized ) {
+			} else if ( ! isMobile && ! state.desktopInitialized ) {
 				if ( $filtersButton.length ) {
 					obj.deinitTablist( $container );
 					obj.initFiltersAccordion( $container );
@@ -515,12 +516,13 @@ tribe.events.views.eventsBar = {};
 	 *
 	 * @since 4.9.7
 	 *
+	 * @param  {jQuery}  $container jQuery object of view container
+	 *
 	 * @return {void}
 	 */
-	obj.unbindEvents = function() {
-		$document
-			.off( 'resize.tribeEvents', obj.handleResize )
-			.off( 'click', obj.handleClick );
+	obj.unbindEvents = function( $container ) {
+		$container.off( 'resize.tribeEvents', obj.handleResize );
+		$document.off( 'click', obj.handleClick );
 	};
 
 	/**
@@ -533,9 +535,8 @@ tribe.events.views.eventsBar = {};
 	 * @return {void}
 	 */
 	obj.bindEvents = function( $container ) {
-		$document
-			.on( 'resize.tribeEvents', { container: $container }, obj.handleResize )
-			.on( 'click', { container: $container }, obj.handleClick );
+		$container.on( 'resize.tribeEvents', { container: $container }, obj.handleResize );
+		$document.on( 'click', { container: $container }, obj.handleClick );
 	};
 
 	/**
@@ -552,7 +553,8 @@ tribe.events.views.eventsBar = {};
 	obj.deinit = function( event, jqXHR, settings ) {
 		var $container = event.data.container;
 		obj.deinitEventsBar( $container );
-		obj.unbindEvents();
+		obj.unbindEvents( $container );
+		$container.off( 'beforeAjaxSuccess.tribeEvents', obj.deinit );
 	};
 
 	/**

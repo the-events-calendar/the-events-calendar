@@ -10,7 +10,7 @@
 		margin-top: var(--spacer-1);
 		padding: 0 var(--spacer-3) var(--spacer-3);
 
-		@media (--viewport-medium) {
+		.tribe-common--breakpoint-medium& {
 			margin-top: var(--spacer-3);
 		}
 
@@ -22,6 +22,7 @@
 		.prev,
 		.next {
 			padding: var(--spacer-4) 0;
+			vertical-align: middle;
 		}
 
 		.prev,
@@ -90,7 +91,7 @@
 
 		.day {
 			padding: 11px 0;
-			width: 48px; /* this is a hack to max out the day width to the container, not exactly 48px */
+			min-width: 48px; /* this is a hack to max out the day width to the container, not exactly 48px */
 		}
 
 		.month,
@@ -110,10 +111,10 @@
 
 	.admin-bar & .datepicker {
 		margin-top: var(--spacer-1);
+	}
 
-		@media (--viewport-medium) {
-			margin-top: var(--spacer-3);
-		}
+	.admin-bar &.tribe-common--breakpoint-medium .datepicker {
+		margin-top: var(--spacer-3);
 	}
 
 	/* -----------------------------------------------------------------------------

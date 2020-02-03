@@ -408,9 +408,14 @@ class Tribe__Events__Template_Factory extends Tribe__Template_Factory {
 			add_filter( 'tribe_events_recurrence_tooltip', '__return_false' );
 			add_filter( 'tribe_event_meta_venue_name', '__return_empty_string' );
 			add_filter( 'tribe_event_meta_venue_address', '__return_empty_string' );
+			add_filter( 'tribe_get_full_address', '__return_empty_string' );
 			add_filter( 'tribe_event_featured_image', '__return_empty_string' );
 			add_filter( 'tribe_get_venue', '__return_empty_string' );
 			add_filter( 'tribe_get_cost', '__return_empty_string' );
+
+			if ( wp_doing_ajax() ) {
+				add_filter( 'the_title', [ $this, 'filter_get_the_title' ], 10, 2 );
+			}
 
 			if ( is_singular( Tribe__Events__Main::POSTTYPE ) ) {
 				add_filter( 'the_title', '__return_empty_string' );
@@ -424,6 +429,10 @@ class Tribe__Events__Template_Factory extends Tribe__Template_Factory {
 			remove_filter( 'tribe_event_featured_image', '__return_empty_string' );
 			remove_filter( 'tribe_get_venue', '__return_empty_string' );
 			remove_filter( 'tribe_get_cost', '__return_empty_string' );
+
+			if ( wp_doing_ajax() ) {
+				remove_filter( 'the_title', [ $this, 'filter_get_the_title' ], 10 );
+			}
 
 			if ( is_singular( Tribe__Events__Main::POSTTYPE ) ) {
 				remove_filter( 'the_title', '__return_empty_string' );
@@ -566,5 +575,37 @@ class Tribe__Events__Template_Factory extends Tribe__Template_Factory {
 				'meta_before'  => '',
 				'meta_after'   => '',
 			) );
+	}
+
+	/**
+	 * Filters the post title as WordPress does in `get_the_title` to apply the password-protected prefix in
+	 * the context of AJAX requests.
+	 *
+	 * @since 5.0.0
+	 *
+	 * @param string      $title   The post title.
+	 * @param int|WP_Post $post_id The post ID, or object, to apply the filter for.
+	 *
+	 * @return string The filtered post title.
+	 */
+	public function filter_get_the_title( $title, $post_id = 0 ) {
+		$post = get_post( $post_id );
+
+		if ( ! $post instanceof WP_Post ) {
+			return $title;
+		}
+
+		if ( ! empty( $post->post_password ) ) {
+			/* translators: %s: Protected post title. */
+			$prepend = __( 'Protected: %s' );
+
+			/**
+			 * @see get_the_title() for the original filter documentation.
+			 */
+			$protected_title_format = apply_filters( 'protected_title_format', $prepend, $post );
+			$title                  = sprintf( $protected_title_format, $title );
+		}
+
+		return $title;
 	}
 }

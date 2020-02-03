@@ -158,6 +158,7 @@ class By_Day_ViewTest extends ViewTestCase {
 				parent::__construct( $messages, $stack );
 				$this->context = tribe_context()->alter(
 					[
+						'paged' => 1,
 						'events_per_page' => 2
 					]
 				);

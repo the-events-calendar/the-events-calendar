@@ -640,7 +640,12 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 		}
 
 		return static function () use ( $event ) {
-			$organizer_ids = array_map( 'absint', (array) get_post_meta( $event, '_EventOrganizerID' ) );
+			$organizer_ids = array_filter(
+				array_map(
+					'absint',
+					(array) get_post_meta( $event, '_EventOrganizerID' )
+				)
+			);
 
 			$organizers    = ! empty( $organizer_ids )
 				? array_map( 'tribe_get_organizer', $organizer_ids )

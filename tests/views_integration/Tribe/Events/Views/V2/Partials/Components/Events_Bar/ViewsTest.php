@@ -2,10 +2,6 @@
 
 namespace Tribe\Events\Views\V2\Partials\Components\Events_Bar;
 
-use Tribe\Events\Views\V2\View;
-use Tribe\Events\Views\V2\Views\Day_View;
-use Tribe\Events\Views\V2\Views\List_View;
-use Tribe\Events\Views\V2\Views\Month_View;
 use Tribe\Test\Products\WPBrowser\Views\V2\HtmlPartialTestCase;
 
 class ViewsTest extends HtmlPartialTestCase
@@ -17,16 +13,29 @@ class ViewsTest extends HtmlPartialTestCase
 	 * Test render with views with tabs style
 	 */
 	public function test_render_with_views_with_tabs_style() {
-		$views = [
-			'list'  => List_View::class,
-			'month' => Month_View::class,
-			'day'   => Day_View::class,
+		$public_views = [
+			'list'  => (object) [
+				'view_url'   => 'https://test.tri.be/events/list/',
+				'view_class' => 'Tribe\Events\Views\V2\Views\List_View',
+				'view_label' => 'List',
+			],
+			'month' => (object) [
+				'view_url'   => 'https://test.tri.be/events/month/',
+				'view_class' => 'Tribe\Events\Views\V2\Views\Month_View',
+				'view_label' => 'Month',
+			],
+			'day'   => (object) [
+				'view_url'   => 'https://test.tri.be/events/today/',
+				'view_class' => 'Tribe\Events\Views\V2\Views\Day_View',
+				'view_label' => 'Day',
+			],
 		];
-		$view  = View::make( List_View::class );
+
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
 			'disable_event_search' => false,
-			'views'                => $views,
-			'view'                 => $view,
+			'view_slug'            => 'list',
+			'view_label'           => 'List',
+			'public_views'         => $public_views,
 		] ) );
 	}
 
@@ -34,21 +43,35 @@ class ViewsTest extends HtmlPartialTestCase
 	 * Test render with views with label style
 	 */
 	public function test_render_with_views_with_label_style() {
-		// fake a 4th view by reusing month view to force Manager to return more than 3 publicly visible views
-		add_filter( 'tribe_events_views', function( $views ) {
-			return array_merge( $views, [ 'month2' => Month_View::class ] );
-		} );
-		$views = [
-			'list'   => List_View::class,
-			'month'  => Month_View::class,
-			'day'    => Day_View::class,
-			'month2' => Month_View::class,
+		// fake a 4th view
+		$public_views = [
+			'list'  => (object) [
+				'view_url'   => 'https://test.tri.be/events/list/',
+				'view_class' => 'Tribe\Events\Views\V2\Views\List_View',
+				'view_label' => 'List',
+			],
+			'month' => (object) [
+				'view_url'   => 'https://test.tri.be/events/month/',
+				'view_class' => 'Tribe\Events\Views\V2\Views\Month_View',
+				'view_label' => 'Month',
+			],
+			'day'   => (object) [
+				'view_url'   => 'https://test.tri.be/events/today/',
+				'view_class' => 'Tribe\Events\Views\V2\Views\Day_View',
+				'view_label' => 'Day',
+			],
+			'week'  => (object) [
+				'view_url'   => 'https://test.tri.be/events/week/',
+				'view_class' => 'Tribe\Events\Views\V2\Views\Week_View',
+				'view_label' => 'Week',
+			],
 		];
-		$view  = View::make( List_View::class );
+
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
 			'disable_event_search' => false,
-			'views'                => $views,
-			'view'                 => $view,
+			'view_slug'            => 'list',
+			'view_label'           => 'List',
+			'public_views'         => $public_views,
 		] ) );
 	}
 
@@ -56,16 +79,29 @@ class ViewsTest extends HtmlPartialTestCase
 	 * Test render with views with disabled event search
 	 */
 	public function test_render_with_views_with_disabled_event_search() {
-		$views = [
-			'list'  => List_View::class,
-			'month' => Month_View::class,
-			'day'   => Day_View::class,
+		$public_views = [
+			'list'  => (object) [
+				'view_url'   => 'https://test.tri.be/events/list/',
+				'view_class' => 'Tribe\Events\Views\V2\Views\List_View',
+				'view_label' => 'List',
+			],
+			'month' => (object) [
+				'view_url'   => 'https://test.tri.be/events/month/',
+				'view_class' => 'Tribe\Events\Views\V2\Views\Month_View',
+				'view_label' => 'Month',
+			],
+			'day'   => (object) [
+				'view_url'   => 'https://test.tri.be/events/today/',
+				'view_class' => 'Tribe\Events\Views\V2\Views\Day_View',
+				'view_label' => 'Day',
+			],
 		];
-		$view  = View::make( List_View::class );
+
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
 			'disable_event_search' => true,
-			'views'                => $views,
-			'view'                 => $view,
+			'view_slug'            => 'list',
+			'view_label'           => 'List',
+			'public_views'         => $public_views,
 		] ) );
 	}
 }

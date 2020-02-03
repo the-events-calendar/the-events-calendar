@@ -9,7 +9,7 @@
 		margin-top: var(--spacer-7);
 		padding-left: 54px;
 
-		@media (--viewport-medium) {
+		.tribe-common--breakpoint-medium& {
 			margin-bottom: var(--spacer-8);
 			margin-top: var(--spacer-9);
 			padding-left: 0;
@@ -18,13 +18,14 @@
 		&:last-child {
 			margin-bottom: var(--spacer-8);
 
-			@media (--viewport-medium) {
+			.tribe-common--breakpoint-medium& {
 				margin-bottom: var(--spacer-11);
 			}
 		}
 
 		&:before {
-			@media (--viewport-medium) {
+
+			.tribe-common--breakpoint-medium& {
 				content: '';
 				min-width: 90px;
 				width: var(--grid-width-1-of-9);
@@ -36,7 +37,7 @@
 	.tribe-events-calendar-day__type-separator + .tribe-events-calendar-day__event {
 		margin-top: var(--spacer-4);
 
-		@media (--viewport-medium) {
+		.tribe-common--breakpoint-medium& {
 			margin-top: var(--spacer-8);
 		}
 	}
@@ -44,7 +45,7 @@
 	.tribe-events-calendar-day__event-content {
 		flex: none;
 
-		@media (--viewport-medium) {
+		.tribe-common--breakpoint-medium& {
 			display: flex;
 			flex-direction: row-reverse;
 			justify-content: flex-end;
@@ -54,7 +55,8 @@
 		}
 
 		& > * {
-			@media (--viewport-medium) {
+
+			.tribe-common--breakpoint-medium& {
 				padding-left: var(--grid-gutter-half);
 				padding-right: var(--grid-gutter-half);
 			}
@@ -64,7 +66,7 @@
 	.tribe-events-calendar-day__event-featured-image-wrapper {
 		margin-bottom: var(--spacer-3);
 
-		@media (--viewport-medium) {
+		.tribe-common--breakpoint-medium& {
 			flex: none;
 			margin-bottom: 0;
 			width: calc(3 * var(--grid-width-1-of-8));
@@ -79,7 +81,7 @@
 	.tribe-events-calendar-day__event-details {
 		position: relative;
 
-		@media (--viewport-medium) {
+		.tribe-common--breakpoint-medium& {
 			flex: none;
 			width: calc(5 * var(--grid-width-1-of-8));
 		}
@@ -94,10 +96,10 @@
 
 	.tribe-events-calendar-day__event-datetime-wrapper,
 	.tribe-events-calendar-day__event-title {
-		margin-bottom: var(--spacer-1);
+		margin: 0 0 var(--spacer-1);
 
-		@media (--viewport-medium) {
-			margin-bottom: var(--spacer-3);
+		.tribe-common--breakpoint-medium& {
+			margin: 0 0 var(--spacer-3);
 		}
 
 		&:last-child {
@@ -111,7 +113,8 @@
 	}
 
 	.tribe-events-calendar-day__event-datetime-featured-text {
-		@media (--viewport-medium) {
+
+		.tribe-common--breakpoint-medium& {
 			@mixin visually-show;
 
 			margin-right: var(--spacer-1);
@@ -126,15 +129,14 @@
 	.tribe-events-calendar-day__event-venue {
 		margin-bottom: var(--spacer-1);
 
-		@media (--viewport-medium) {
+		.tribe-common--breakpoint-medium& {
 			margin-bottom: var(--spacer-3);
 		}
 	}
 
 	.tribe-events-calendar-day__event-description {
-		@mixin hidden;
 
-		@media (--viewport-medium) {
+		.tribe-common--breakpoint-medium& {
 			display: block !important;
 			margin-top: var(--spacer-3);
 			visibility: visible;
@@ -144,7 +146,7 @@
 	.tribe-events-calendar-day__event-cost {
 		margin-top: var(--spacer-2);
 
-		@media (--viewport-medium) {
+		.tribe-common--breakpoint-medium& {
 			margin-top: var(--spacer-3);
 		}
 	}
@@ -160,26 +162,30 @@
 			margin-top: var(--spacer-7);
 			padding-left: 54px;
 
-			@media (--viewport-medium) {
-				margin-bottom: var(--spacer-8);
-				margin-top: var(--spacer-9);
-				padding-left: 0;
-			}
-
 			&:last-child {
 				margin-bottom: var(--spacer-8);
+			}
+		}
 
-				@media (--viewport-medium) {
-					margin-bottom: var(--spacer-11);
-				}
+		&.tribe-common--breakpoint-medium .entry.tribe-events-calendar-day__event {
+			margin-bottom: var(--spacer-8);
+			margin-top: var(--spacer-9);
+			padding-left: 0;
+
+			&:last-child {
+				margin-bottom: var(--spacer-11);
 			}
 		}
 
 		.tribe-events-calendar-day__time-separator + .entry.tribe-events-calendar-day__event,
 		.tribe-events-calendar-day__type-separator + .entry.tribe-events-calendar-day__event {
 			margin-top: var(--spacer-4);
+		}
 
-			@media (--viewport-medium) {
+		&.tribe-common--breakpoint-medium {
+
+			.tribe-events-calendar-day__time-separator + .entry.tribe-events-calendar-day__event,
+			.tribe-events-calendar-day__type-separator + .entry.tribe-events-calendar-day__event {
 				margin-top: var(--spacer-8);
 			}
 		}
