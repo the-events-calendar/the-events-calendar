@@ -1,14 +1,11 @@
 <?php
 namespace Tribe\Events\functions\templateTags;
 
-use Tribe\Events\Test\Testcases\Events_TestCase;
-use Codeception\TestCase\WPTestCase;
-use PHPUnit\Framework\AssertionFailedError;
 use Tribe\Events\Test\Factories\Event;
 use Tribe\Events\Test\Factories\Organizer;
 use Tribe\Events\Test\Factories\Venue;
+use Tribe\Events\Test\Testcases\Events_TestCase;
 use Tribe\Test\PHPUnit\Traits\With_Filter_Manipulation;
-use Tribe__Events__Timezones as Timezones;
 
 
 class venueTest extends Events_TestCase {
@@ -342,5 +339,38 @@ class venueTest extends Events_TestCase {
 		$this->assertEquals( $queries_count, $this->queries()->countQueries() );
 		$this->assertEquals( array_values( (array) $venue ), tribe_get_venue_object( $venue_id, ARRAY_N ) );
 		$this->assertEquals( $queries_count, $this->queries()->countQueries() );
+	}
+
+	/**
+	 * Test tribe_get_region
+	 */
+	public function test_tribe_get_region() {
+		$venue_one_region = 'Alsace';
+		$venue_two_region = 'Puglia';
+		$venue_one        = static::factory()->venue->create([ 'meta_input' => [
+			'_VenueCountry' => 'France',
+			'_VenueProvince' => $venue_one_region,
+		]]);
+		$venue_two     = static::factory()->venue->create(['meta_input' => [
+			'_VenueCountry' => 'Italy',
+			'_VenueProvince' => $venue_two_region,
+		]]);
+		// Delete the meta to force the use of the `tribe_get_province` check.
+		delete_post_meta($venue_one, '_VenueStateProvince');
+		delete_post_meta($venue_two, '_VenueStateProvince');
+
+		global $post;
+		$post = $venue_one;
+
+		$this->assertEquals(
+			$venue_one_region,
+			tribe_get_region() ,
+			'When no Venue ID is passed the region should be that of the Venue global post object.'
+		);
+		$this->assertEquals(
+			$venue_two_region,
+			tribe_get_region($venue_two) ,
+			'When a Venue ID is passed the region should be that of the requested Venue.'
+		);
 	}
 }
