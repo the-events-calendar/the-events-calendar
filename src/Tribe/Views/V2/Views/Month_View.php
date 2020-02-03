@@ -309,7 +309,7 @@ class Month_View extends By_Day_View {
 				array_filter( $day_events, static function ( $event ) use ( $date_object ) {
 					$event = tribe_get_event( $event, OBJECT, $date_object->format( 'Y-m-d' ) );
 
-					return $event instanceof \WP_Post && ! ( $event->multiday || $event->all_day );
+					return $event instanceof \WP_Post && ! ( $event->multiday > 1 || $event->all_day );
 				} )
 			);
 
@@ -333,7 +333,7 @@ class Month_View extends By_Day_View {
 				 * In the context of the Month View we want to know if there are more events we're not seeing.
 				 * So we exclude the ones we see and the multi-day ones that we're seeing in the multi-day stack.
 				 */
-				$more_events = $day_found_events - $stack_events_count - count( $the_day_events );
+				$more_events = max( 0, $day_found_events - $stack_events_count - count( $the_day_events ) );
 			}
 
 			$featured_events = array_map( 'tribe_get_event',

@@ -241,6 +241,14 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Tweak - Adjust customizer labels for sites using the new views [TEC-3066]
 * Tweak - Allow start datetime and end datetime to be the same to hide end datetime in frontend when using block editor. [TEC-3009]
 
+= [5.0.0.1] 2020-01-31 =
+
+* Fix - Events with timezones that differ from the site timezone now display on the correct date. [TEC-3208]
+* Fix - Multi-day events now display on all days that they are supposed to. [TEC-3212]
+* Fix - End of day cutoff is now being observed appropriately when creating the day grid stack. [TEC-3210]
+* Fix - Fix number of parameters when doing `the_post` action, for the single event view in the new views. [TEC-3214]
+* Fix - 404s on permalinks have been resolved by moving the flush permalink action to a later moment of time on activation after all rules have been declared. [TEC-3211]
+
 = [5.0.0] 2020-01-27 =
 
 * Feature - Created new Month, Day, and List views with all new HTML, CSS, and JavaScript.
