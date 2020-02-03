@@ -84,11 +84,12 @@ export const setAllDay = ( allDay ) => ( {
 	},
 } );
 
-export const setMultiDay = ( multiDay ) => ( {
+export const setMultiDay = ( multiDay, meta = {} ) => ( {
 	type: types.SET_MULTI_DAY,
 	payload: {
 		multiDay,
 	},
+	meta,
 } );
 
 export const setTimeZone = ( timeZone ) => ( {

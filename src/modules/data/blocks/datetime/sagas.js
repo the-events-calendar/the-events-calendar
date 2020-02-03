@@ -547,6 +547,8 @@ export function* handler( action ) {
 
 		case types.SET_MULTI_DAY:
 			yield call( handleMultiDay, action );
+			yield call( setStartTimeInput );
+			yield call( setEndTimeInput );
 			yield call( resetNaturalLanguageLabel );
 			break;
 

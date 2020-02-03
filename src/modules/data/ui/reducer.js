@@ -6,7 +6,12 @@ import moment from 'moment/moment';
 /**
  * Internal dependencies
  */
+import { moment as momentUtil } from '@moderntribe/common/utils';
 import * as types from './types';
+
+export const setInitialState = ( entityRecord ) => {
+	DEFAULT_STATE.visibleMonth = momentUtil.toMoment( momentUtil.parseFormats( entityRecord.meta._EventStartDate ) ).startOf( 'month' ).toDate();
+};
 
 export const DEFAULT_STATE = {
 	dashboardDateTimeOpen: false,

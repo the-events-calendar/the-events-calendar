@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import React, { Fragment, useContext } from 'react';
+import React, { Fragment, useContext, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -135,29 +135,40 @@ const renderEndTimePicker = ( {
 	);
 }
 
-const renderCalendars = ( {
-	multiDay,
-	start,
-	end,
-	visibleMonth,
-	setVisibleMonth,
-	onSelectDay,
-} ) => {
-	const monthProps = {
-		onSelectDay: onSelectDay,
-		withRange: multiDay,
-		from: toMoment( start ).toDate(),
-		month: visibleMonth,
-		setVisibleMonth,
-	};
-
-	if ( multiDay ) {
-		monthProps.to = toMoment( end ).toDate();
+class Calendars extends PureComponent {
+	static propTypes = {
+		end: PropTypes.string,
+		multiDay: PropTypes.bool,
+		onSelectDay: PropTypes.func,
+		start: PropTypes.string,
 	}
 
-	return (
-		<Month { ...monthProps } />
-	);
+	constructor( props ) {
+		super( props );
+		this.state = { visibleMonth: toMoment( props.start ).toDate() };
+	}
+
+	setVisibleMonth = ( visibleMonth ) => {
+		this.setState( { visibleMonth } );
+	}
+
+	render() {
+		const { start, end, multiDay, onSelectDay } = this.props;
+
+		const monthProps = {
+			onSelectDay: onSelectDay,
+			withRange: multiDay,
+			from: toMoment( start ).toDate(),
+			month: this.state.visibleMonth,
+			setVisibleMonth: this.setVisibleMonth,
+		};
+
+		if ( multiDay ) {
+			monthProps.to = toMoment( end ).toDate();
+		}
+
+		return <Month { ...monthProps } />;
+	}
 }
 
 const EventDateTimeDashboard = ( props ) => {
@@ -182,7 +193,7 @@ const EventDateTimeDashboard = ( props ) => {
 			<Dashboard isOpen={ isOpen }>
 				<Fragment>
 					<section className="tribe-editor__calendars">
-						{ renderCalendars( props ) }
+						<Calendars { ...props } />
 					</section>
 					<footer className="tribe-editor__subtitle__footer">
 						<div className="tribe-editor__subtitle__footer-date">
@@ -225,10 +236,8 @@ EventDateTimeDashboard.propTypes = {
 	onStartTimePickerChange: PropTypes.func,
 	onStartTimePickerClick: PropTypes.func,
 	separatorTime: PropTypes.string,
-	setVisibleMonth: PropTypes.func,
 	start: PropTypes.string,
 	startTimeInput: PropTypes.string,
-	visibleMonth: PropTypes.instanceOf( Date ),
 };
 
 export default EventDateTimeDashboard;

@@ -29,7 +29,7 @@ export const setInitialState = ( entityRecord ) => {
 	DEFAULT_STATE.dateTimeSeparator = entityRecord.meta._EventDateTimeSeparator;
 	DEFAULT_STATE.timeRangeSeparator = entityRecord.meta._EventTimeRangeSeparator;
 	DEFAULT_STATE.allDay = entityRecord.meta._EventAllDay;
-	DEFAULT_STATE.multiDay = momentUtil.isSameDay( momentUtil.toMoment( start ), momentUtil.toMoment( end ) );
+	DEFAULT_STATE.multiDay = ! momentUtil.isSameDay( momentUtil.toMoment( start ), momentUtil.toMoment( end ) );
 	DEFAULT_STATE.timeZone = entityRecord.meta._EventTimezone;
 };
 

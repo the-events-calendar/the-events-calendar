@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { connect } from 'react-redux';
-import { compose, bindActionCreators } from 'redux';
+import { compose } from 'redux';
 
 /**
  * Internal dependencies
@@ -11,7 +11,7 @@ import {
 	actions as dateTimeActions,
 	selectors as dateTimeSelectors,
 } from '@moderntribe/events/data/blocks/datetime';
-import { withStore, withSaveData } from '@moderntribe/common/hoc';
+import { withStore } from '@moderntribe/common/hoc';
 import EventDateTimeControls from './template';
 
 /**
@@ -43,5 +43,4 @@ const mapDispatchToProps = ( dispatch, ownProps ) => ( {
 export default compose(
 	withStore(),
 	connect( mapStateToProps, mapDispatchToProps ),
-	withSaveData(),
 )( EventDateTimeControls );
