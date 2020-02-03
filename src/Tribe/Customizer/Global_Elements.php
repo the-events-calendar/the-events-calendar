@@ -162,66 +162,18 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 				}
 			';
 
-			// Pro styles.
 			$template .= '
-				.tribe-events-pro .tribe-events-pro-week-grid__header-column--current .tribe-events-pro-week-grid__header-column-daynum,
-				.tribe-events-pro .tribe-events-pro-week-grid__header-column--current .tribe-events-pro-week-grid__header-column-daynum-link {
-					color: <%= global_elements.accent_color %>;
-				}
-			';
-
-			$template .= '
-				.tribe-events-pro.tribe-events-view--week .datepicker .day.current::before {
-					background: <%= global_elements.accent_color %>;
-				}
-			';
-
-			$template .= '
-				.tribe-events-pro.tribe-events-view--week .datepicker .active .day,
-				.tribe-events-pro.tribe-events-view--week .datepicker .active .day:hover {
-					background: rgba( ' . $accent_css_rgb . ', 0.07);
-				}
-			';
-
-			$template .= '
-				.tribe-events-pro .tribe-events-pro-week-grid__event-link-inner {
-					background: rgba( ' . $accent_css_rgb . ', 0.1);
-				}
-			';
-			$template .= '
-				.tribe-events-pro .tribe-events-pro-week-grid__event-link:hover .tribe-events-pro-week-grid__event-link-inner,
-				.tribe-events-pro .tribe-events-pro-week-grid__event-link:focus .tribe-events-pro-week-grid__event-link-inner {
-					background: rgba( ' . $accent_css_rgb . ', 0.2);
-				}
-			';
-			$template .= '
-				.tribe-events-pro .tribe-events-pro-week-grid__multiday-event-bar-inner,
 				.tribe-events .tribe-events-calendar-month__multiday-event-bar-inner {
 					background-color: rgba( ' . $accent_css_rgb . ', 0.24);
 				}
 			';
 
 			$template .= '
-				.tribe-events .tribe-events-calendar-month__multiday-event-bar-inner--hover,
-				.tribe-events-pro .tribe-events-pro-week-grid__multiday-event-bar-inner--hover,
-				.tribe-events-pro .tribe-events-pro-week-grid__multiday-event-bar-inner:hover,
-				.tribe-events-pro .tribe-events-pro-week-grid__multiday-event-bar-inner:focus {
+				.tribe-events .tribe-events-calendar-month__multiday-event-bar-inner--hover {
 					background-color: rgba( ' . $accent_css_rgb . ', 0.54);
 				}
 			';
 
-			$template .= '
-				.tribe-events-pro .tribe-events-pro-week-day-selector__events-icon {
-					background-color: <%= global_elements.accent_color %>;
-				}
-			';
-
-			$template .= '
-				.tribe-events-pro .tribe-events-pro-map__event-card-wrapper--active .tribe-events-pro-map__event-card-button,
-				.tribe-events-pro .tribe-events-pro-week-day-selector__day--active {
-					border-color: <%= global_elements.accent_color %>;
-				}
-			';
 		}
 
 		if ( tribe_events_views_v2_is_enabled() ) {

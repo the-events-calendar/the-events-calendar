@@ -124,27 +124,6 @@ final class Tribe__Events__Customizer__Text extends Tribe__Customizer__Section {
 				}
 			';
 
-			// PRO Styles.
-			$template .= '
-				.tribe-events-pro .tribe-events-pro-week-grid__events-time-tag,
-				.tribe-events-pro .tribe-events-pro-week-grid__event-tooltip-datetime,
-				.tribe-events-pro .tribe-events-pro-week-grid__header-column--current .tribe-events-pro-week-grid__header-column-weekday {
-					color: <%= text.primary_text_color %>;
-				}
-			';
-
-			$template .= '
-				.tribe-events-pro.tribe-events-view--week .datepicker .day.disabled {
-					color: <%= text.primary_text_color %>;
-				}
-			';
-
-			$template .= '
-				.tribe-events-pro.tribe-events-view--week .datepicker .day.past {
-					color: rgba( ' . $primary_rgb . ', 0.62 );
-				}
-			';
-
 		}
 
 		if ( $customizer->has_option( $this->ID, 'secondary_text_color' ) ) {
@@ -175,13 +154,8 @@ final class Tribe__Events__Customizer__Text extends Tribe__Customizer__Section {
 				}
 			';
 
-			// PRO Styles.
 			$template .= '
-				.tribe-events .tribe-events-calendar-month__calendar-event-datetime,
-				.tribe-events-pro .tribe-events-pro-photo__event-date-tag-month,
-				.tribe-events-pro .tribe-events-pro-week-grid__event-datetime,
-				.tribe-events-pro .tribe-events-pro-map__event-date-tag-month,
-				.tribe-common--breakpoint-medium.tribe-events-pro .tribe-events-pro-map__event-distance {
+				.tribe-events .tribe-events-calendar-month__calendar-event-datetime {
 					color: <%= text.secondary_text_color %>;
 				}
 			';
