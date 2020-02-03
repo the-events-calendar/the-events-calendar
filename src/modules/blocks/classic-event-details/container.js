@@ -7,6 +7,7 @@ import { compose, bindActionCreators } from 'redux';
 /**
  * Internal dependencies
  */
+import { globals } from '@moderntribe/common/utils';
 import {
 	actions as dateTimeActions,
 	thunks as dateTimeThunks,
@@ -17,12 +18,10 @@ import {
 	actions as priceActions,
 	selectors as priceSelectors,
 } from '@moderntribe/events/data/blocks/price';
-import { DEFAULT_STATE as PRICE_DEFAULT_STATE } from '@moderntribe/events/data/blocks/price/reducer';
 import {
 	actions as websiteActions,
 	selectors as websiteSelectors,
 } from '@moderntribe/events/data/blocks/website';
-import { DEFAULT_STATE as WEBSITE_DEFAULT_STATE } from '@moderntribe/events/data/blocks/website/reducer';
 import {
 	actions as classicActions,
 	selectors as classicSelectors,
@@ -35,6 +34,7 @@ import {
 import { actions as UIActions } from '@moderntribe/events/data/ui';
 import { withStore, withSaveData } from '@moderntribe/common/hoc';
 import ClassicEventDetails from './template';
+import dateTimeBlock from '@moderntribe/events/blocks/event-datetime';
 
 /**
  * Module Code
@@ -112,6 +112,30 @@ const mergeProps = ( stateProps, dispatchProps, ownProps ) => {
 			) {
 				dispatch( dateTimeActions.setAllDay( allDay ) );
 			}
+		},
+		toggleDashboardDateTime: () => {
+			// there may be a better way to do this, but for now there's no way to access context
+			// outside of the provider.
+			const blocks = globals.wpCoreEditor.getBlocks();
+
+			const filteredBlocks = blocks.filter( ( block ) => {
+				return block.name === `tribe/${ dateTimeBlock.id }`;
+			} );
+
+			if ( ! filteredBlocks.length ) {
+				return;
+			}
+
+			const dateTimeButton = document
+				.querySelector( `[data-block="${ filteredBlocks[0].clientId }"]` )
+				.getElementsByClassName( 'tribe-editor__subtitle__headline-button' )[0];
+
+			if ( ! dateTimeButton ) {
+				return;
+			}
+
+			// simulate click event on date time button to open dashboard of first date time block
+			dateTimeButton.click();
 		},
 	};
 };

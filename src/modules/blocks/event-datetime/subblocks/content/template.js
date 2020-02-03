@@ -219,7 +219,7 @@ const EventDateTimeContent = ( props ) => {
 							<h2 className="tribe-editor__subtitle__headline">
 								<div className="tribe-editor__subtitle__headline-content">
 									<button
-										className="tribe-editor__btn--label"
+										className="tribe-editor__btn--label tribe-editor__subtitle__headline-button"
 										onClick={ open }
 										disabled={ ! isEditable }
 									>
