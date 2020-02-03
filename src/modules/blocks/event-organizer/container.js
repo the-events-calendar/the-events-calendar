@@ -1,13 +1,13 @@
 /**
  * External dependencies
  */
-import { compose, bindActionCreators } from 'redux';
+import { compose } from 'redux';
 import { connect } from 'react-redux';
 
 /**
  * Internal dependencies
  */
-import { withStore, withSaveData, withForm } from '@moderntribe/common/hoc';
+import { withStore, withForm } from '@moderntribe/common/hoc';
 import { withDetails } from '@moderntribe/events/hoc';
 import { actions, selectors } from '@moderntribe/events/data/blocks/organizers';
 import { actions as detailsActions } from '@moderntribe/events/data/details';
@@ -20,65 +20,58 @@ import { toOrganizer } from '@moderntribe/events/elements/organizer-form/utils';
  * Module Code
  */
 
-const onFormCompleted = ( dispatchProps, ownProps ) => ( body = {} ) => {
-	const {
-		setDetails,
-		addOrganizerInClassic,
-		addOrganizerInBlock
-	} = dispatchProps;
-
-	setDetails( body.id, body );
-	addOrganizerInClassic( body.id );
-	addOrganizerInBlock( ownProps.clientId, body.id );
+const onFormCompleted = ( dispatch ) => ( body = {} ) => {
+	dispatch( detailsActions.setDetails( body.id, body ) );
+	dispatch( actions.addOrganizerInClassic( body.id ) );
+	dispatch( actions.addOrganizerInBlock( body.id ) );
 };
 
-const onFormSubmit = ( dispatchProps, ownProps ) => ( fields ) => (
-	ownProps.sendForm( toOrganizer( fields ), onFormCompleted( dispatchProps, ownProps ) )
-);
-
-const onItemSelect = ( dispatchProps, ownProps ) => ( organizerID, details ) => {
-	const {
-		setDetails,
-		addOrganizerInClassic,
-		addOrganizerInBlock
-	} = dispatchProps;
-
-	setDetails( organizerID, details );
-	addOrganizerInClassic( organizerID );
-	addOrganizerInBlock( ownProps.clientId, organizerID );
-};
-
-const onCreateNew = ( ownProps ) => ( title ) => (
-	ownProps.createDraft( {
-		title: {
-			rendered: title,
-		},
-	} )
-);
-
-const mapStateToProps = ( state, ownProps ) => ( {
-	organizer: selectors.getOrganizerInBlock( state, ownProps ),
+const mapStateToProps = ( state ) => ( {
 	organizers: selectors.getOrganizersInBlock( state ),
 } );
 
-const mapDispatchToProps = ( dispatch ) => ( {
-	...bindActionCreators( actions, dispatch ),
-	...bindActionCreators( detailsActions, dispatch ),
-	setInitialState( { clientId, get } ) {
-		const organizer = get( 'organizer', '' );
-		if ( ! organizer ) {
+const mapDispatchToProps = ( dispatch, ownProps ) => ( {
+	onFormSubmit: ( fields ) => {
+		ownProps.sendForm( toOrganizer( fields ), onFormCompleted( dispatch ) );
+	},
+	onItemSelect: ( organizerID, details ) => {
+		dispatch( detailsActions.setDetails( organizerID, details ) );
+		dispatch( actions.addOrganizerInClassic( organizerID ) );
+		dispatch( actions.addOrganizerInBlock( organizerID ) );
+	},
+	onCreateNew: ( title ) => {
+		ownProps.createDraft( {
+			title: {
+				rendered: title,
+			},
+		} );
+	},
+	onEdit: () => {
+		ownProps.editEntry( ownProps.details );
+	},
+	onRemove: () => {
+		const { organizer, details, volatile } = ownProps;
+		dispatch( actions.removeOrganizerInBlock( organizer ) );
+
+		if ( volatile ) {
+			maybeRemoveEntry( details );
+			dispatch( actions.removeOrganizerInClassic( organizer ) );
+		}
+	},
+	onBlockAdded: () => {
+		if ( ! ownProps.organizer ) {
 			return;
 		}
-		dispatch( actions.addOrganizerInBlock( clientId, organizer ) );
-		dispatch( actions.addOrganizerInClassic( organizer ) );
+
+		dispatch( actions.addOrganizerInBlock( organizer ) );
 	},
-	onBlockRemoved( props ) {
-		const { clientId, organizer, volatile } = props;
+	onBlockRemoved: () => {
+		const { organizer, volatile } = ownProps;
 		if ( ! organizer ) {
 			return;
 		}
 
-		dispatch( actions.removeOrganizerInBlock( clientId, organizer ) );
+		dispatch( actions.removeOrganizerInBlock( organizer ) );
 
 		if ( volatile ) {
 			dispatch( actions.removeOrganizerInClassic( organizer ) );
@@ -91,22 +84,10 @@ const mapDispatchToProps = ( dispatch ) => ( {
 	},
 } );
 
-const mergeProps = ( stateProps, dispatchProps, ownProps ) => {
-	return {
-		...ownProps,
-		...stateProps,
-		...dispatchProps,
-		onFormSubmit: onFormSubmit( dispatchProps, ownProps ),
-		onItemSelect: onItemSelect( dispatchProps, ownProps ),
-		onCreateNew: onCreateNew( ownProps ),
-	};
-};
-
 export default compose(
 	withStore( { isolated: true, postType: editor.ORGANIZER } ),
 	withForm( ( props ) => props.clientId ),
 	connect( mapStateToProps ),
 	withDetails( 'organizer' ),
-	connect( null, mapDispatchToProps, mergeProps ),
-	withSaveData(),
+	connect( null, mapDispatchToProps ),
 )( EventOrganizer );

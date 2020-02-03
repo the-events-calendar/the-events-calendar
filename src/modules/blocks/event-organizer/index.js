@@ -26,7 +26,7 @@ export default {
 	attributes: {
 		organizer: {
 			type: 'html',
-			default: editorDefaults().organizer ? editorDefaults().organizer : undefined,
+			default: editorDefaults().organizer ? editorDefaults().organizer : 0,
 		},
 		organizers: {
 			type: 'array',

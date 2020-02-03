@@ -1,4 +1,5 @@
 import { uniq } from 'lodash';
+
 /**
  * Internal dependencies
  */
@@ -15,7 +16,7 @@ export default ( state = DEFAULT_STATE, action ) => {
 		case types.ADD_CLASSIC_ORGANIZERS:
 			return uniq( [ ...state, action.payload.organizer ] );
 		case types.REMOVE_CLASSIC_ORGANIZERS:
-			return state.filter( ( organizer ) => organizer !== action.payload.id );
+			return state.filter( ( organizer ) => organizer !== action.payload.organizer );
 		case types.SET_CLASSIC_ORGANIZERS:
 			return [ ...action.payload.organizers ];
 		default:
