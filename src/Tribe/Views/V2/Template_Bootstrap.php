@@ -26,6 +26,14 @@ use WP_Query;
  * @package Tribe\Events\Views\V2
  */
 class Template_Bootstrap {
+	/**
+	 * A cache array shared among instances.
+	 *
+	 * @since TBD
+	 *
+	 * @var array<string,array>
+	 */
+	protected static $cache = [ 'should_load' => [] ];
 
 	/**
 	 * An instance of the Template Manager object.
@@ -261,6 +269,11 @@ class Template_Bootstrap {
 			$query = tribe_get_global_query_object();
 		}
 
+		$should_load = null;
+		if ( ! empty( $query->query_vars_hash ) && isset( static::$cache['should_load'][ $query->query_vars_hash ] ) ) {
+			$should_load = static::$cache['should_load'][ $query->query_vars_hash ];
+		}
+
 		/**
 		 * Allows filtering if bootstrap should load.
 		 *
@@ -269,16 +282,22 @@ class Template_Bootstrap {
 		 * @param null|boolean    $should_load  Anything other then null will be returned after casting as bool.
 		 * @param \WP_Query       $query        The current WP Query object.
 		 */
-		$should_load = apply_filters( 'tribe_events_views_v2_bootstrap_pre_should_load', null, $query );
+		$should_load = apply_filters( 'tribe_events_views_v2_bootstrap_pre_should_load', $should_load, $query );
 		if ( null !== $should_load ) {
+			static::$cache['should_load'][ $query->query_vars_hash ] = (bool) $should_load;
+
 			return (bool) $should_load;
 		}
 
 		if ( ! $query instanceof \WP_Query ) {
+			static::$cache['should_load'][ $query->query_vars_hash ] = false;
+
 			return false;
 		}
 
 		if ( is_404() ) {
+			static::$cache['should_load'][ $query->query_vars_hash ] = false;
+
 			return false;
 		}
 
@@ -289,7 +308,11 @@ class Template_Bootstrap {
 		 *
 		 * @see \Tribe__Events__Query::parse_query() where this property is set.
 		 */
-		return $query->is_main_query() && ! empty( $query->tribe_is_event_query );
+		$should_load = $query->is_main_query() && ! empty( $query->tribe_is_event_query );
+
+		static::$cache['should_load'][ $query->query_vars_hash ] = $should_load;
+
+		return $should_load;
 	}
 
 	/**
