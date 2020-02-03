@@ -64,6 +64,7 @@ const mapStateToProps = ( state ) => ( {
 	venue: selectors.getVenue( state ),
 	showMapLink: selectors.getshowMapLink( state ),
 	showMap: selectors.getshowMap( state ),
+	embedMap: selectors.getMapEmbed(),
 } );
 
 const mapDispatchToProps = ( dispatch, ownProps ) => ( {

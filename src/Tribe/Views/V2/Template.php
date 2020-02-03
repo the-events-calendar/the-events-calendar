@@ -142,6 +142,7 @@ class Template extends Base_Template {
 			array_map(
 				static function ( array $folder ) {
 					$folder['path'] = str_replace( WP_CONTENT_DIR, '', $folder['path'] );
+					$folder['path'] = str_replace( WP_PLUGIN_DIR, '/plugins', $folder['path'] );
 					return $folder;
 				},
 				$this->get_template_path_list()

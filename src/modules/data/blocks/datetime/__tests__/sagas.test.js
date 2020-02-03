@@ -339,9 +339,23 @@ describe( 'Event Date time Block sagas', () => {
 			);
 			expect( gen.next( true ).done ).toEqual( true );
 		} );
-		it( 'should adjust time when start and end time are the same', () => {
+		it( 'should not adjust time when start and end time are the same', () => {
 			seconds.end = action.payload.start;
 
+			const gen = sagas.preventEndTimeBeforeStartTime( action );
+			expect( gen.next().value ).toEqual(
+				select( selectors.getMultiDay )
+			);
+			expect( gen.next().value ).toEqual(
+				call( sagas.deriveSecondsFromDates )
+			);
+			expect( gen.next( seconds ).value ).toEqual(
+				call( [ Object, 'assign' ], seconds, action.payload )
+			);
+
+			expect( gen.next().done ).toEqual( true );
+		} );
+		it( 'should adjust time when end time is before start time', () => {
 			const gen = sagas.preventEndTimeBeforeStartTime( action );
 			expect( gen.next().value ).toEqual(
 				select( selectors.getMultiDay )
@@ -379,7 +393,7 @@ describe( 'Event Date time Block sagas', () => {
 			expect( gen.next().done ).toEqual( true );
 		} );
 		it( 'should roll back start time when exceeds day time', () => {
-			action.payload.start = seconds.start = seconds.end = 86400;
+			action.payload.start = seconds.start = 86400;
 
 			const gen = sagas.preventEndTimeBeforeStartTime( action );
 			expect( gen.next().value ).toEqual(
@@ -791,6 +805,9 @@ describe( 'Event Date time Block sagas', () => {
 				call( sagas.setStartTimeInput )
 			);
 			expect( gen.next().value ).toEqual(
+				call( sagas.setEndTimeInput )
+			);
+			expect( gen.next().value ).toEqual(
 				call( sagas.resetNaturalLanguageLabel )
 			);
 			expect( gen.next().done ).toEqual( true );
@@ -807,6 +824,9 @@ describe( 'Event Date time Block sagas', () => {
 			);
 			expect( gen.next().value ).toEqual(
 				call( sagas.setEndTimeInput )
+			);
+			expect( gen.next().value ).toEqual(
+				call( sagas.setStartTimeInput )
 			);
 			expect( gen.next().value ).toEqual(
 				call( sagas.resetNaturalLanguageLabel )
@@ -831,6 +851,12 @@ describe( 'Event Date time Block sagas', () => {
 			const gen = sagas.handler( action );
 			expect( gen.next().value ).toEqual(
 				call( sagas.onHumanReadableChange, action )
+			);
+			expect( gen.next().value ).toEqual(
+				call( sagas.setStartTimeInput )
+			);
+			expect( gen.next().value ).toEqual(
+				call( sagas.setEndTimeInput )
 			);
 			expect( gen.next().done ).toEqual( true );
 		} );

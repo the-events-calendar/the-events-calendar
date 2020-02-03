@@ -52,6 +52,7 @@ class EventDateTimeContent extends Component {
 		isEditable: PropTypes.bool,
 		multiDay: PropTypes.bool,
 		onDateTimeLabelClick: PropTypes.func,
+		sameStartEnd: PropTypes.bool,
 		separatorDate: PropTypes.string,
 		separatorTime: PropTypes.string,
 		setCost: PropTypes.func,
@@ -135,9 +136,9 @@ class EventDateTimeContent extends Component {
 	}
 
 	renderEndTime = () => {
-		const { end, multiDay, allDay } = this.props;
+		const { end, multiDay, allDay, sameStartEnd } = this.props;
 
-		if ( allDay ) {
+		if ( allDay || sameStartEnd ) {
 			return null;
 		}
 
@@ -216,6 +217,7 @@ class EventDateTimeContent extends Component {
 		const {
 			multiDay,
 			allDay,
+			sameStartEnd,
 			showDateInput,
 			onDateTimeLabelClick,
 			isEditable,
@@ -238,7 +240,7 @@ class EventDateTimeContent extends Component {
 										>
 											{ this.renderStartDate() }
 											{ this.renderStartTime() }
-											{ ( multiDay || ! allDay ) && this.renderSeparator( 'time-range' ) }
+											{ ( multiDay || ( ! allDay && ! sameStartEnd ) ) && this.renderSeparator( 'time-range' ) }
 											{ this.renderEndDate() }
 											{ this.renderEndTime() }
 											{ allDay && this.renderSeparator( 'all-day' ) }

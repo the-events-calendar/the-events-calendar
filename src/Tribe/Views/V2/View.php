@@ -561,7 +561,10 @@ class View implements View_Interface {
 		$this->repository_args = $repository_args;
 
 		// If HTML_Cache is a class trait and we have content to display, display it.
-		if ( method_exists( $this, 'maybe_get_cached_html' ) && $cached_html = $this->maybe_get_cached_html() ) {
+		if (
+			method_exists( $this, 'maybe_get_cached_html' )
+			&& $cached_html = $this->maybe_get_cached_html()
+		) {
 			return $cached_html;
 		}
 
@@ -1384,7 +1387,6 @@ class View implements View_Interface {
 			'container_classes'      => $this->get_html_classes(),
 			'container_data'         => $this->get_container_data(),
 			'is_past'                => 'past' === $this->context->get( 'event_display_mode', false ),
-			'show_datepicker_submit' => $this->get_show_datepicker_submit(),
 			'breakpoints'            => $this->get_breakpoints(),
 			'is_initial_load'        => $this->context->doing_php_initial_state(),
 			'public_views'           => $this->get_public_views( $url_event_date ),

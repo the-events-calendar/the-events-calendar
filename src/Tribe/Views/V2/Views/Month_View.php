@@ -309,7 +309,7 @@ class Month_View extends By_Day_View {
 				array_filter( $day_events, static function ( $event ) use ( $date_object ) {
 					$event = tribe_get_event( $event, OBJECT, $date_object->format( 'Y-m-d' ) );
 
-					return $event instanceof \WP_Post && ! ( $event->multiday || $event->all_day );
+					return $event instanceof \WP_Post && ! ( $event->multiday > 1 || $event->all_day );
 				} )
 			);
 
@@ -333,7 +333,7 @@ class Month_View extends By_Day_View {
 				 * In the context of the Month View we want to know if there are more events we're not seeing.
 				 * So we exclude the ones we see and the multi-day ones that we're seeing in the multi-day stack.
 				 */
-				$more_events = $day_found_events - $stack_events_count - count( $the_day_events );
+				$more_events = max( 0, $day_found_events - $stack_events_count - count( $the_day_events ) );
 			}
 
 			$featured_events = array_map( 'tribe_get_event',
@@ -346,11 +346,11 @@ class Month_View extends By_Day_View {
 			);
 
 			$start_of_week = get_option( 'start_of_week', 0 );
-			$is_start_of_week = (int)$start_of_week === (int)$date_object->format( 'w' );
+			$is_start_of_week = (int) $start_of_week === (int) $date_object->format( 'w' );
 
 			$day_url = tribe_events_get_url( [ 'eventDisplay' => 'day', 'eventDate' => $day_date ] );
 
-			$day_data         = [
+			$day_data = [
 				'date'             => $day_date,
 				'is_start_of_week' => $is_start_of_week,
 				'year_number'      => $date_object->format( 'Y' ),

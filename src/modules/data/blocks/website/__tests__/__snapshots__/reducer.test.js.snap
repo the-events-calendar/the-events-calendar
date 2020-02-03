@@ -3,7 +3,7 @@
 exports[`[STORE] - Website reducer Should set the website label 1`] = `
 Object {
   "label": "Modern Tribe",
-  "url": undefined,
+  "url": "",
 }
 `;
 

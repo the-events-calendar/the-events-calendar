@@ -72,11 +72,13 @@ final class Tribe__Events__Customizer__Single_Event extends Tribe__Customizer__S
 			'details_bg_color' => '#e5e5e5',
 		);
 
+		$description = tribe_events_views_v2_is_enabled() ? esc_html__( 'Options selected here will override what was selected in the General and Text sections.', 'the-events-calendar' ) : esc_html__( 'Options selected here will override what was selected in the "General Theme" and "Global Elements" sections', 'the-events-calendar' );
+
 		$this->arguments = array(
 			'priority'    => 60,
 			'capability'  => 'edit_theme_options',
 			'title'       => esc_html__( 'Single Event', 'the-events-calendar' ),
-			'description' => esc_html__( 'Options selected here will override what was selected in the "General Theme" and "Global Elements" sections', 'the-events-calendar' ),
+			'description' => $description,
 		);
 	}
 
@@ -107,7 +109,7 @@ final class Tribe__Events__Customizer__Single_Event extends Tribe__Customizer__S
 				$manager,
 				$customizer->get_setting_name( 'post_title_color', $section ),
 				array(
-					'label'   => esc_html__( 'Post Title Color', 'the-events-calendar' ),
+					'label'   => tribe_events_views_v2_is_enabled() ? esc_html__( 'Event Title Color', 'the-events-calendar' ) : esc_html__( 'Post Title Color', 'the-events-calendar' ),
 					'section' => $section->id,
 				)
 			)
