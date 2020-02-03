@@ -126,7 +126,7 @@ class Month_View extends By_Day_View {
 				->order( 'ASC' )
 				->first();
 			if ( ! $next_event instanceof \WP_Post ) {
-				return $this->filter_prev_url( $canonical, '' );
+				return $this->filter_next_url( $canonical, '' );
 			}
 
 			// At a minimum pick the next month or the month the next event starts in.
@@ -140,7 +140,7 @@ class Month_View extends By_Day_View {
 			// Let's make sure to prevent users from paginating endlessly forward when we know there are no more events.
 			$latest = tribe_get_option( 'latest_date', $next_date );
 			if ( $current_date->format( 'Y-m' ) === Dates::build_date_object( $latest )->format( 'Y-m' ) ) {
-				return $this->filter_prev_url( $canonical, '' );
+				return $this->filter_next_url( $canonical, '' );
 			}
 		}
 

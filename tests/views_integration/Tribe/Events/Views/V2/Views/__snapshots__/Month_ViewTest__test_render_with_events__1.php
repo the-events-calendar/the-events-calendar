@@ -80,6 +80,7 @@
 		name="tribe-events-views[tribe-bar-search]"
 		value=""
 		placeholder="Search for events"
+		aria-label="Enter Keyword. Search for Events by Keyword."
 	/>
 </div>
 		</div>
@@ -161,8 +162,8 @@
 	<a
 		href="http://test.tri.be/events/month/2018-12/"
 		class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-left tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--prev"
-		aria-label="Previous"
-		title="Previous"
+		aria-label="Previous month"
+		title="Previous month"
 		data-js="tribe-events-view-link"
 	>
 	</a>
@@ -172,8 +173,8 @@
 	<a
 		href="http://test.tri.be/events/month/2019-02/"
 		class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-right tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--next"
-		aria-label="Next"
-		title="Next"
+		aria-label="Next month"
+		title="Next month"
 		data-js="tribe-events-view-link"
 	>
 	</a>
@@ -185,6 +186,8 @@
 	href="http://test.tri.be/events/month/"
 	class="tribe-common-c-btn-border tribe-events-c-top-bar__today-button tribe-common-a11y-hidden"
 	data-js="tribe-events-view-link"
+	aria-label="Click to select today&#039;s date"
+	title="Click to select today&#039;s date"
 >
 	Today</a>
 
@@ -193,6 +196,8 @@
 		class="tribe-common-h3 tribe-common-h--alt tribe-events-c-top-bar__datepicker-button"
 		data-js="tribe-events-top-bar-datepicker-button"
 		type="button"
+		aria-label="Click to toggle datepicker"
+		title="Click to toggle datepicker"
 	>
 		<time
 			datetime="2019-01"
@@ -2411,6 +2416,8 @@
 		rel="prev"
 		class="tribe-events-c-nav__prev tribe-common-b2"
 		data-js="tribe-events-view-link"
+		aria-label="Previous month, Dec"
+		title="Previous month, Dec"
 	>
 		Dec	</a>
 </li>
@@ -2420,6 +2427,8 @@
 		href="http://test.tri.be/events/month/"
 		class="tribe-events-c-nav__today tribe-common-b2"
 		data-js="tribe-events-view-link"
+		aria-label="Click to select today&#039;s date"
+		title="Click to select today&#039;s date"
 	>
 		Today	</a>
 </li>
@@ -2430,6 +2439,8 @@
 		rel="next"
 		class="tribe-events-c-nav__next tribe-common-b2"
 		data-js="tribe-events-view-link"
+		aria-label="Next month, Feb"
+		title="Next month, Feb"
 	>
 		Feb	</a>
 </li>

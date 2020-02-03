@@ -80,6 +80,7 @@
 		name="tribe-events-views[tribe-bar-search]"
 		value=""
 		placeholder="Search for events"
+		aria-label="Enter Keyword. Search for Events by Keyword."
 	/>
 </div>
 		</div>
@@ -160,8 +161,8 @@
 		<li class="tribe-events-c-top-bar__nav-list-item">
 	<button
 		class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-left tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--prev"
-		aria-label="Prev"
-		title="Prev"
+		aria-label="Previous Events"
+		title="Previous Events"
 		disabled
 	>
 	</button>
@@ -171,8 +172,8 @@
 	<a
 		href="http://test.tri.be/events/list/?page=1&#038;tribe-bar-date=2019-01-01%2009:00:00"
 		class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-right tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--next"
-		aria-label="Next"
-		title="Next"
+		aria-label="Next Events"
+		title="Next Events"
 		data-js="tribe-events-view-link"
 	>
 	</a>
@@ -184,6 +185,8 @@
 	href="http://test.tri.be/events/list/"
 	class="tribe-common-c-btn-border tribe-events-c-top-bar__today-button tribe-common-a11y-hidden"
 	data-js="tribe-events-view-link"
+	aria-label="Click to select today&#039;s date"
+	title="Click to select today&#039;s date"
 >
 	Today</a>
 
@@ -192,6 +195,8 @@
 		class="tribe-common-h3 tribe-common-h--alt tribe-events-c-top-bar__datepicker-button"
 		data-js="tribe-events-top-bar-datepicker-button"
 		type="button"
+		aria-label="Click to toggle datepicker"
+		title="Click to toggle datepicker"
 	>
 		<time
 			datetime="2019-01-01"
@@ -334,9 +339,14 @@
 		<nav class="tribe-events-calendar-list-nav tribe-events-c-nav">
 	<ul class="tribe-events-c-nav__list">
 		<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--prev">
-	<button class="tribe-events-c-nav__prev tribe-common-b2 tribe-common-b1--min-medium" disabled>
+	<button
+		class="tribe-events-c-nav__prev tribe-common-b2 tribe-common-b1--min-medium"
+		aria-label="Previous Events"
+		title="Previous Events"
+		disabled
+	>
 		<span class="tribe-events-c-nav__prev-label">
-			Previous <span class="tribe-events-c-nav__prev-label-plural">Events</span>		</span>
+			Previous <span class="tribe-events-c-nav__prev-label-plural tribe-common-a11y-visual-hide">Events</span>		</span>
 	</button>
 </li>
 
@@ -345,6 +355,8 @@
 		href="http://test.tri.be/events/list/"
 		class="tribe-events-c-nav__today tribe-common-b2"
 		data-js="tribe-events-view-link"
+		aria-label="Click to select today&#039;s date"
+		title="Click to select today&#039;s date"
 	>
 		Today	</a>
 </li>
@@ -355,9 +367,11 @@
 		rel="next"
 		class="tribe-events-c-nav__next tribe-common-b2 tribe-common-b1--min-medium"
 		data-js="tribe-events-view-link"
+		aria-label="Next Events"
+		title="Next Events"
 	>
 		<span class="tribe-events-c-nav__next-label">
-			Next <span class="tribe-events-c-nav__next-label-plural">Events</span>		</span>
+			Next <span class="tribe-events-c-nav__next-label-plural tribe-common-a11y-visual-hide">Events</span>		</span>
 	</a>
 </li>
 	</ul>
