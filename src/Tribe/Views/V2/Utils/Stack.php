@@ -349,7 +349,7 @@ class Stack {
 	protected function filter_stack_event( $event ) {
 		$post = tribe_get_event( $event );
 
-		$keep = $post instanceof \WP_Post && ( ! empty( $post->multiday ) || ! empty( $post->all_day ) );
+		$keep = $post instanceof \WP_Post && ( ( ! empty( $post->multiday ) && $post->multiday > 1 ) || ! empty( $post->all_day ) );
 
 		/**
 		 * Filters the result of the check to keep or discard an event from the stack.

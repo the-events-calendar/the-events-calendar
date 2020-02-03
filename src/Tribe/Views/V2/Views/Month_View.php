@@ -58,6 +58,12 @@ class Month_View extends By_Day_View {
 	 * {@inheritDoc}
 	 */
 	public function prev_url( $canonical = false, array $passthru_vars = [] ) {
+		$cache_key = __METHOD__ . '_' . md5( wp_json_encode( func_get_args() ) );
+
+		if ( isset( $this->cached_urls[ $cache_key ] ) ) {
+			return $this->cached_urls[ $cache_key ];
+		}
+
 		// Setup the Default date for the month view here.
 		$default_date = 'today';
 		$date         = $this->context->get( 'event_date', $default_date );
@@ -90,14 +96,23 @@ class Month_View extends By_Day_View {
 		}
 
 		$url = $this->build_url_for_date( $prev_date, $canonical, $passthru_vars );
+		$url = $this->filter_prev_url( $canonical, $url );
 
-		return $this->filter_prev_url( $canonical, $url );
+		$this->cached_urls[ $cache_key ] = $url;
+
+		return $url;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public function next_url( $canonical = false, array $passthru_vars = [] ) {
+		$cache_key = __METHOD__ . '_' . md5( wp_json_encode( func_get_args() ) );
+
+		if ( isset( $this->cached_urls[ $cache_key ] ) ) {
+			return $this->cached_urls[ $cache_key ];
+		}
+
 		// Setup the Default date for the month view here.
 		$default_date = 'today';
 		$date         = $this->context->get( 'event_date', $default_date );
@@ -111,7 +126,7 @@ class Month_View extends By_Day_View {
 				->order( 'ASC' )
 				->first();
 			if ( ! $next_event instanceof \WP_Post ) {
-				return $this->filter_prev_url( $canonical, '' );
+				return $this->filter_next_url( $canonical, '' );
 			}
 
 			// At a minimum pick the next month or the month the next event starts in.
@@ -125,13 +140,16 @@ class Month_View extends By_Day_View {
 			// Let's make sure to prevent users from paginating endlessly forward when we know there are no more events.
 			$latest = tribe_get_option( 'latest_date', $next_date );
 			if ( $current_date->format( 'Y-m' ) === Dates::build_date_object( $latest )->format( 'Y-m' ) ) {
-				return $this->filter_prev_url( $canonical, '' );
+				return $this->filter_next_url( $canonical, '' );
 			}
 		}
 
 		$url = $this->build_url_for_date( $next_date, $canonical, $passthru_vars );
+		$url = $this->filter_next_url( $canonical, $url );
 
-		return $this->filter_next_url( $canonical, $url );
+		$this->cached_urls[ $cache_key ] = $url;
+
+		return $url;
 	}
 
 	/**
@@ -211,26 +229,28 @@ class Month_View extends By_Day_View {
 
 		$days = $this->get_days_data( $grid_days );
 
-		$grid_date_str         = $this->context->get( 'event_date', 'today' );
-		$grid_date             = Dates::build_date_object( $grid_date_str );
-		$month_and_year_format = tribe_get_option( 'monthAndYearFormat', 'F Y' );
+		$grid_date_str                 = $this->context->get( 'event_date', 'today' );
+		$grid_date                     = Dates::build_date_object( $grid_date_str );
+		$month_and_year_format         = tribe_get_option( 'monthAndYearFormat', 'F Y' );
+		$month_and_year_format_compact = Dates::datepicker_formats( tribe_get_option( 'datepickerFormat', 'm1' ) );
 
 		$prev_month_num = Dates::build_date_object( $grid_date_str )->modify( 'first day of last month' )->format( 'n' );
 		$next_month_num = Dates::build_date_object( $grid_date_str )->modify( 'first day of next month' )->format( 'n' );
 		$prev_month     = Dates::wp_locale_month( $prev_month_num, 'short' );
 		$next_month     = Dates::wp_locale_month( $next_month_num, 'short' );
 
-		$today                                = $this->context->get( 'today' );
-		$template_vars['the_date']            = $grid_date;
-		$template_vars['today_date']          = Dates::build_date_object( $today )->format( 'Y-m-d' );
-		$template_vars['grid_date']           = $grid_date->format( 'Y-m-d' );
-		$template_vars['formatted_grid_date'] = $grid_date->format( $month_and_year_format );
-		$template_vars['events']              = $grid_days;
-		$template_vars['days']                = $days;
-		$template_vars['prev_label']          = $prev_month;
-		$template_vars['next_label']          = $next_month;
-		$template_vars['messages']            = $this->messages->to_array();
-		$template_vars['grid_start_date']     = $grid_start_date;
+		$today                                       = $this->context->get( 'today' );
+		$template_vars['the_date']                   = $grid_date;
+		$template_vars['today_date']                 = Dates::build_date_object( $today )->format( 'Y-m-d' );
+		$template_vars['grid_date']                  = $grid_date->format( 'Y-m-d' );
+		$template_vars['formatted_grid_date']        = $grid_date->format_i18n( $month_and_year_format );
+		$template_vars['formatted_grid_date_mobile'] = $grid_date->format( $month_and_year_format_compact );
+		$template_vars['events']                     = $grid_days;
+		$template_vars['days']                       = $days;
+		$template_vars['prev_label']                 = $prev_month;
+		$template_vars['next_label']                 = $next_month;
+		$template_vars['messages']                   = $this->messages->to_array();
+		$template_vars['grid_start_date']            = $grid_start_date;
 
 		return $template_vars;
 	}
@@ -293,7 +313,7 @@ class Month_View extends By_Day_View {
 				array_filter( $day_events, static function ( $event ) use ( $date_object ) {
 					$event = tribe_get_event( $event, OBJECT, $date_object->format( 'Y-m-d' ) );
 
-					return $event instanceof \WP_Post && ! ( $event->multiday || $event->all_day );
+					return $event instanceof \WP_Post && ! ( $event->multiday > 1 || $event->all_day );
 				} )
 			);
 
@@ -317,7 +337,7 @@ class Month_View extends By_Day_View {
 				 * In the context of the Month View we want to know if there are more events we're not seeing.
 				 * So we exclude the ones we see and the multi-day ones that we're seeing in the multi-day stack.
 				 */
-				$more_events = $day_found_events - $stack_events_count - count( $the_day_events );
+				$more_events = max( 0, $day_found_events - $stack_events_count - count( $the_day_events ) );
 			}
 
 			$featured_events = array_map( 'tribe_get_event',
@@ -330,12 +350,13 @@ class Month_View extends By_Day_View {
 			);
 
 			$start_of_week = get_option( 'start_of_week', 0 );
+			$is_start_of_week = (int) $start_of_week === (int) $date_object->format( 'w' );
 
 			$day_url = tribe_events_get_url( [ 'eventDisplay' => 'day', 'eventDate' => $day_date ] );
 
 			$day_data = [
 				'date'             => $day_date,
-				'is_start_of_week' => $start_of_week === $date_object->format( 'w' ),
+				'is_start_of_week' => $is_start_of_week,
 				'year_number'      => $date_object->format( 'Y' ),
 				'month_number'     => $date_object->format( 'm' ),
 				'day_number'       => $date_object->format( 'j' ),

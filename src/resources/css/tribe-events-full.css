@@ -1307,6 +1307,7 @@ select.tribe-events-dropdown {
 		clear: both;
 		font-size: 12px;
 		margin: 12px 0 .6em;
+		overflow: visible;
 		table-layout: fixed;
 		width: 100%;
 	}
@@ -1669,6 +1670,11 @@ select.tribe-events-dropdown {
 
 .datepicker td {
 		border-top: 1px solid #ededed;
+	}
+
+.datepicker td,
+	.datepicker th {
+		word-break: normal;
 	}
 
 .datepicker table tr td.active.active,
@@ -2493,6 +2499,14 @@ input[name*='tribe-bar-']:-moz-placeholder {
 
 .tribe-theme-twentynineteen .tribe-events-tooltip h3.entry-title {
 			font-size: 1rem;
+		}
+
+/* Twenty Twenty
+========================================================================== */
+
+.tribe-theme-twentytwenty .tribe-events-tooltip h3.entry-title {
+			font-size: 2.4rem;
+			margin: 0;
 		}
 
 /* = Events Retina

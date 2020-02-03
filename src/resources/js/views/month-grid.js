@@ -23,7 +23,7 @@ tribe.events.views.monthGrid = {};
  * @since 4.9.4
  *
  * @param  {PlainObject} $   jQuery
- * @param  {PlainObject} obj tribe.events.views.manager
+ * @param  {PlainObject} obj tribe.events.views.monthGrid
  *
  * @return {void}
  */
@@ -331,9 +331,7 @@ tribe.events.views.monthGrid = {};
 	 * @return {void}
 	 */
 	obj.unbindEvents = function( $grid ) {
-		$grid
-			.off( 'keydown', obj.handleKeydown )
-			.off( 'click', obj.handleClick );
+		$grid.off();
 	};
 
 	/**
@@ -363,8 +361,10 @@ tribe.events.views.monthGrid = {};
 	 * @return {void}
 	 */
 	obj.deinit = function( event, jqXHR, settings ) {
-		var $grid = event.data.container.find( obj.selectors.grid );
+		var $container = event.data.container;
+		var $grid = $container.find( obj.selectors.grid );
 		obj.unbindEvents( $grid );
+		$container.off( 'beforeAjaxSuccess.tribeEvents', obj.deinit );
 	};
 
 	/**

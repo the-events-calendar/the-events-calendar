@@ -42,6 +42,64 @@ class Events_Result_Set implements Collection_Interface {
 	}
 
 	/**
+	 * Returns whether a string represents a serialized instance of the class or not.
+	 *
+	 * @since 5.0.0
+	 *
+	 * @param mixed $value The value to test.
+	 *
+	 * @return bool Whether the input value is a string representing a serialized instance of the class or not.
+	 */
+	protected static function is_serialized( $value ) {
+		if ( ! is_string( $value ) ) {
+			return false;
+		}
+
+		$serialized_start = sprintf( 'C:%d:"%s"', strlen( __CLASS__ ), __CLASS__ );
+
+		return 0 === strpos( $value, $serialized_start );
+	}
+
+	/**
+	 * Unserializes, with error handling, a result set to return a new instance of this class.
+	 *
+	 * @since 5.0.0
+	 *
+	 * @param string $value The serialized version of the result set.
+	 *
+	 * @return Events_Result_Set The unserialized result set, or an empty result set on failure.
+	 */
+	protected static function from_serialized( $value ) {
+		try {
+			$set = unserialize( $value );
+			if ( false === $set || ! $set instanceof static ) {
+				return new Events_Result_Set( [] );
+			}
+
+			return $set;
+		} catch ( \Exception $e ) {
+			return new Events_Result_Set( [] );
+		}
+	}
+
+	/**
+	 * Builds a set from an array of event results.
+	 *
+	 * @since 5.0.0
+	 *
+	 * @param array<Event_Result> $event_results An array of event results.
+	 *
+	 * @return Events_Result_Set A new set, built from the input Event Results.
+	 */
+	protected static function from_array( $event_results ) {
+		try {
+			return new Events_Result_Set( $event_results );
+		} catch ( \Exception $e ) {
+			return new Events_Result_Set( [] );
+		}
+	}
+
+	/**
 	 * Builds a result set from different type of values.
 	 *
 	 * @since 4.9.13
@@ -57,20 +115,37 @@ class Events_Result_Set implements Collection_Interface {
 		}
 
 		if ( is_array( $value ) ) {
-			try {
-				return new Events_Result_Set( $value );
-			} catch ( \Exception $e ) {
-				return new Events_Result_Set( [] );
-			}
+			return self::from_array( $value );
+		}
+
+		if ( self::is_serialized( $value ) ) {
+			return self::from_serialized( $value );
 		}
 
 		return new Events_Result_Set( [] );
 	}
 
+	/**
+	 * Returns the number of Event Results in this set.
+	 *
+	 * @since 5.0.0
+	 *
+	 * @return int The number of Event Results in this set.
+	 */
 	public function count() {
 		return count( $this->items );
 	}
 
+	/**
+	 * Orders the Event Results by a specified criteria.
+	 *
+	 * @since 5.0.0
+	 *
+	 * @param string $order_by The key to order the Event Results by, currently supported is only `start_date`.
+	 * @param string $order The order direction, one of `ASC` or `DESC`.
+	 *
+	 * @return $this The current object, for chaining.
+	 */
 	public function order_by( $order_by, $order ) {
 		$order = strtoupper( $order );
 		if ( ! in_array( $order, [ 'ASC', 'DESC' ], true ) ) {

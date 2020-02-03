@@ -13,14 +13,20 @@
 		padding-bottom: var(--spacer-3);
 	}
 
+	.tribe-events-calendar-month__header-column-title {
+		margin: 0;
+	}
+
 	.tribe-events-calendar-month__header-column-title-mobile {
-		@media (--viewport-medium) {
+
+		.tribe-common--breakpoint-medium& {
 			@mixin hidden;
 		}
 	}
 
 	.tribe-events-calendar-month__header-column-title-desktop {
-		@media (--viewport-medium) {
+
+		.tribe-common--breakpoint-medium& {
 			display: block !important;
 			visibility: visible
 		}

@@ -21,6 +21,8 @@ class Month_ViewTest extends ViewTestCase {
 	public function setUp() {
 		parent::setUp();
 
+		tribe_unset_var( \Tribe__Settings_Manager::OPTION_CACHE_VAR_NAME );
+
 		$now = new \DateTime( $this->mock_date_value );
 
 		$this->context = tribe_context()->alter(
@@ -86,8 +88,10 @@ class Month_ViewTest extends ViewTestCase {
 		add_filter(
 			'tribe_events_views_v2_view_data',
 			function ( array $data ) use ( $remapped_post_ids ) {
-				foreach ( $data['events'] as &$day_events_ids ) {
-					$day_events_ids = $this->remap_post_id_array( $day_events_ids, $remapped_post_ids );
+				if ( ! empty( $data['events'] ) ) {
+					foreach ( $data['events'] as &$day_events_ids ) {
+						$day_events_ids = $this->remap_post_id_array( $day_events_ids, $remapped_post_ids );
+					}
 				}
 
 				return $data;

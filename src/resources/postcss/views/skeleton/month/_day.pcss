@@ -10,7 +10,7 @@
 		position: relative;
 		width: var(--grid-width-1-of-7);
 
-		@media (--viewport-medium) {
+		.tribe-common--breakpoint-medium& {
 			border-color: var(--color-border-secondary);
 			border-style: solid;
 			border-width: 0 1px 1px 0;
@@ -31,13 +31,14 @@
 		flex-direction: column;
 		text-align: center;
 
-		@media (--viewport-medium) {
+		.tribe-common--breakpoint-medium& {
 			@mixin hidden;
 		}
 	}
 
 	.tribe-events-calendar-month__day-cell--desktop {
-		@media (--viewport-medium) {
+
+		.tribe-common--breakpoint-medium& {
 			display: flex !important;
 			flex-direction: column;
 			visibility: visible;
@@ -45,7 +46,9 @@
 	}
 
 	.tribe-events-calendar-month__day-date {
-		@media (--viewport-medium) {
+		margin: 0;
+
+		.tribe-common--breakpoint-medium& {
 			flex: none;
 			padding: var(--spacer-1) var(--spacer-3);
 		}

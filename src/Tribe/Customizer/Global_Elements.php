@@ -41,6 +41,10 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 			';
 		}
 
+		if ( tribe_events_views_v2_is_enabled() ) {
+			return $template;
+		}
+
 		if ( $customizer->has_option( $this->ID, 'filterbar_color' ) ) {
 			$template .= '
 				#tribe-bar-form {
@@ -107,11 +111,15 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 	}
 
 	public function setup() {
+		$views_v2_is_enabled = tribe_events_views_v2_is_enabled();
+		$title               = $views_v2_is_enabled ? esc_html__( 'General', 'the-events-calendar' ) : esc_html__( 'Global Elements', 'the-events-calendar' );
+		$description         = $views_v2_is_enabled ? '' : esc_html__( 'Options selected here will override what was selected in the "General Theme" section', 'the-events-calendar' );
+
 		$this->arguments = array(
 			'priority'    => 20,
 			'capability'  => 'edit_theme_options',
-			'title'       => esc_html__( 'Global Elements', 'the-events-calendar' ),
-			'description' => esc_html__( 'Options selected here will override what was selected in the "General Theme" section', 'the-events-calendar' ),
+			'title'       => $title,
+			'description' => $description,
 		);
 	}
 
@@ -147,6 +155,12 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 				)
 			)
 		);
+
+		$customizer->add_setting_name( $customizer->get_setting_name( 'link_color', $section ) );
+
+		if ( tribe_events_views_v2_is_enabled() ) {
+			return;
+		}
 
 		$manager->add_setting(
 			$customizer->get_setting_name( 'filterbar_color', $section ),
@@ -218,12 +232,10 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 		}
 
 		// Introduced to make Selective Refresh have less code duplication
-		$customizer->add_setting_name( $customizer->get_setting_name( 'link_color', $section ) );
 		$customizer->add_setting_name( $customizer->get_setting_name( 'filterbar_color', $section ) );
 		$customizer->add_setting_name( $customizer->get_setting_name( 'button_color', $section ) );
 
 		// To add Live Edit Pins will require some JS refactor to be able to work
 		// $customizer->add_setting_name( $customizer->get_setting_name( 'map_pin', $section ) );
-
 	}
 }

@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.13
+ * @version 5.0.0
  *
  * @var WP_Post            $event        The event post object with properties added by the `tribe_get_event` function.
  * @var \DateTimeInterface $request_date The request date object. This will be "today" if the user did not input any
@@ -46,6 +46,6 @@ $sep_date = empty( $is_past ) && ! empty( $request_date )
 		datetime="<?php
 		echo esc_attr( $sep_date->format( 'Y-m' ) ); ?>"
 	>
-		<?php echo esc_html( $sep_date->format( 'F Y' ) ); ?>
+		<?php echo esc_html( $sep_date->format_i18n( 'F Y' ) ); ?>
 	</time>
 </div>

@@ -465,7 +465,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			if ( tribe_get_country( $venue_id ) == esc_html__( 'United States', 'the-events-calendar' ) ) {
 				$region = tribe_get_state( $venue_id );
 			} else {
-				$region = tribe_get_province();
+				$region = tribe_get_province( $venue_id );
 			}
 		}
 

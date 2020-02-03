@@ -70,12 +70,12 @@ class TitleTest extends \Codeception\TestCase\WPTestCase {
 			'event_date'      => '2018-02-02',
 		] );
 		$event_1  = $this->get_mock_event( 'events/single/1.template.json', [
-			'id'         => 23,
+			'ID'         => 25,
 			'start_date' => '2018-01-01',
 			'end_date'   => '2018-01-01',
 		] );
 		$event_2   = $this->get_mock_event( 'events/single/1.template.json', [
-			'id'         => 89,
+			'ID'         => 89,
 			'start_date' => '2018-03-03',
 			'end_date'   => '2018-03-03',
 		] );

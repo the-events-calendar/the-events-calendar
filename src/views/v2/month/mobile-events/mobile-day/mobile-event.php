@@ -9,13 +9,13 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.9
+ * @version 5.0.0
  *
  * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
  *
  * @see tribe_get_event() For the format of the event object.
  */
-$classes = get_post_class( [ 'tribe-events-calendar-month-mobile-events__mobile-event' ], $event->ID );
+$classes = tribe_get_post_class( [ 'tribe-events-calendar-month-mobile-events__mobile-event' ], $event->ID );
 $classes['tribe-events-calendar-month-mobile-events__mobile-event--featured'] = $event->featured;
 ?>
 

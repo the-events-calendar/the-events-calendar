@@ -19,11 +19,12 @@ namespace Tribe\Events\Views\V2;
 
 use Tribe\Events\Views\V2\Query\Abstract_Query_Controller;
 use Tribe\Events\Views\V2\Query\Event_Query_Controller;
-use Tribe\Events\Views\V2\Repository\Caching_Set_Decorator;
 use Tribe\Events\Views\V2\Repository\Event_Period;
 use Tribe\Events\Views\V2\Template\Title;
 use Tribe__Events__Main as TEC;
-use Tribe__Rewrite as Rewrite;
+use Tribe__Rewrite as TEC_Rewrite;
+use Tribe__Utils__Array as Arr;
+use Tribe__Date_Utils as Dates;
 
 /**
  * Class Hooks
@@ -58,6 +59,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_action( 'wp_enqueue_scripts', [ $this, 'action_disable_assets_v1' ], 0 );
 		add_action( 'tribe_events_pro_shortcode_tribe_events_after_assets', [ $this, 'action_disable_shortcode_assets_v1' ] );
 		add_action( 'updated_option', [ $this, 'action_save_wplang' ], 10, 3 );
+		add_action( 'the_post', [ $this, 'manage_sensitive_info' ] );
 	}
 
 	/**
@@ -66,8 +68,8 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @since 4.9.2
 	 */
 	protected function add_filters() {
-		add_filter( 'wp_redirect', [ $this, 'filter_prevent_canonical_embed_redirect' ] );
-		add_filter( 'redirect_canonical', [ $this, 'filter_prevent_canonical_embed_redirect' ] );
+		add_filter( 'wp_redirect', [ $this, 'filter_redirect_canonical' ], 10, 2 );
+		add_filter( 'redirect_canonical', [ $this, 'filter_redirect_canonical' ], 10, 2 );
 		add_action( 'tribe_events_parse_query', [ $this, 'parse_query' ] );
 		add_filter( 'template_include', [ $this, 'filter_template_include' ], 50 );
 		add_filter( 'embed_template', [ $this, 'filter_template_include' ], 50 );
@@ -84,10 +86,14 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'tribe_events_event_repository_map', [ $this, 'add_period_repository' ], 10, 3 );
 
 		add_filter( 'tribe_general_settings_tab_fields', [ $this, 'filter_general_settings_tab_live_update' ], 20 );
+		add_filter( 'tribe_events_rewrite_i18n_slugs_raw', [ $this, 'filter_rewrite_i18n_slugs_raw' ], 50, 2 );
+		add_filter( 'tribe_get_event_after', [ $this, 'filter_events_properties' ] );
+		add_filter( 'tribe_template_file', [ $this, 'filter_template_file' ], 10, 3 );
 
 		if ( tribe_context()->doing_php_initial_state() ) {
 			add_filter( 'wp_title', [ $this, 'filter_wp_title' ], 10, 2 );
 			add_filter( 'document_title_parts', [ $this, 'filter_document_title_parts' ] );
+			add_filter( 'pre_get_document_title', [ $this, 'pre_get_document_title' ], 20 );
 		}
 	}
 
@@ -159,7 +165,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @param  \Tribe__Events__Rewrite  $rewrite  An instance of the Tribe rewrite abstraction.
 	 */
-	public function on_tribe_events_pre_rewrite( Rewrite $rewrite ) {
+	public function on_tribe_events_pre_rewrite( TEC_Rewrite $rewrite ) {
 		$this->container->make( Kitchen_Sink::class )->generate_rules( $rewrite );
 	}
 
@@ -297,11 +303,31 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @return string The modified page title, if required.
 	 */
 	public function filter_wp_title( $title, $sep = null ) {
-		if ( ! $this->container->make( Template_Bootstrap::class )->should_load() ) {
+		$bootstrap = $this->container->make( Template_Bootstrap::class );
+		if ( ! $bootstrap->should_load() || $bootstrap->is_single_event() ) {
 			return $title;
 		}
 
 		return $this->container->make( Title::class )->filter_wp_title( $title, $sep );
+	}
+
+	/**
+	 * Filters the `pre_get_document_title` to prevent conflicts when other plugins
+	 * modify this initial value on our pages.
+	 *
+	 * @since 5.0.0
+	 *
+	 * @param string $title The current title value.
+	 *
+	 * @return string The current title or empty string.
+	 */
+	public function pre_get_document_title( $title ) {
+		$bootstrap = $this->container->make( Template_Bootstrap::class );
+		if ( ! $bootstrap->should_load() || $bootstrap->is_single_event() ) {
+			return $title;
+		}
+
+		return '';
 	}
 
 	/**
@@ -316,9 +342,11 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @return string The modified page title, if required.
 	 */
 	public function filter_document_title_parts( $title ) {
-		if ( ! $this->container->make( Template_Bootstrap::class )->should_load() ) {
+		$bootstrap = $this->container->make( Template_Bootstrap::class );
+		if ( ! $bootstrap->should_load() || $bootstrap->is_single_event() ) {
 			return $title;
 		}
+
 
 		return $this->container->make( Title::class )->filter_document_title_parts( $title );
 	}
@@ -376,15 +404,40 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @return string A redirection URL, or `false` to prevent redirection.
 	 */
-	public function filter_prevent_canonical_embed_redirect( $redirect_url = null ) {
-		$context = tribe_context();
-
-		// Any other URL we bail with the URL return.
-		if ( 'embed' !== $context->get( 'view' ) ) {
+	public function filter_redirect_canonical( $redirect_url = null, $original_url = null ) {
+		if ( trailingslashit( $original_url ) === trailingslashit( $redirect_url ) ) {
 			return $redirect_url;
 		}
 
-		return false;
+		$context = tribe_context();
+
+		$view = $context->get( 'view_request', null );
+
+		if ( 'embed' === $view ) {
+			// Do not redirect embedded Views.
+			return false;
+		}
+
+		if ( empty( $view ) || 'single-event' === $view ) {
+			// Let the redirection go on.
+			return $redirect_url;
+		}
+
+		$parsed = \Tribe__Events__Rewrite::instance()->parse_request( $redirect_url );
+
+		if (
+			empty( $parsed['tribe_redirected'] )
+			&& $view !== Arr::get( (array) $parsed, 'eventDisplay' )
+		) {
+
+			/*
+			 * If we're here we know we should be looking at a View URL.
+			 * If the proposed URL does not resolve to a View, do not redirect.
+			 */
+			return false;
+		}
+
+		return $redirect_url;
 	}
 
 	/**
@@ -398,11 +451,6 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 */
 	public function filter_general_settings_tab_live_update( $fields ) {
 		if ( empty( $fields['liveFiltersUpdate'] ) ) {
-			return $fields;
-		}
-
-		$disable_bar = tribe_is_truthy( tribe_get_option( 'tribeDisableTribeBar', false ) );
-		if ( $disable_bar ) {
 			return $fields;
 		}
 
@@ -484,5 +532,73 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		// Deleting `rewrite_rules` given that this is being executed after `init`
 		// And `flush_rewrite_rules()` doesn't take effect.
 		delete_option( 'rewrite_rules' );
+	}
+
+	/**
+	 * Filters rewrite rules to modify and update them for Views V2.
+	 *
+	 * @since 5.0.0
+	 *
+	 * @param array  $bases  An array of rewrite bases that have been generated.
+	 * @param string $method The method that's being used to generate the bases; defaults to `regex`.
+	 *
+	 * @return array<string,array> An array of rewrite rules. Modified, if required, to support Views V2.
+	 */
+	public function filter_rewrite_i18n_slugs_raw( $bases, $method ) {
+		if ( ! is_array( $bases ) ) {
+			return $bases;
+		}
+
+		return $this->container->make( Rewrite::class )->filter_raw_i18n_slugs( $bases, $method );
+	}
+
+	/**
+	 * Fires to manage sensitive information on password protected posts.
+	 *
+	 * @since 5.0.0
+	 *
+	 * @param \WP_Post|int $post The event post ID or object currently being decorated.
+	 */
+	public function manage_sensitive_info( $post ) {
+		if ( $this->container->make( Template_Bootstrap::class )->is_single_event() ) {
+			$this->container->make( Template\Event::class )->manage_sensitive_info( $post );
+		}
+	}
+
+	/**
+	 * Updates and modifies the properties added to the event post object by the `tribe_get_event` function to
+	 * hide some sensitive information, if required.
+	 *
+	 * @since 5.0.0
+	 *
+	 * @param \WP_Post $event The event post object, decorated w/ properties added by the `tribe_get_event` function.
+	 *
+	 * @return \WP_Post The event post object, decorated w/ properties added by the `tribe_get_event` function, some of
+	 *                  them updated to hide sensitive information, if required.
+	 */
+	public function filter_events_properties( $event ) {
+		if ( ! $event instanceof \WP_Post ) {
+			return $event;
+		}
+
+		return $this->container->make( Template\Event::class )->filter_event_properties( $event );
+	}
+
+	/**
+	 * Filter the template file in case we're in single event
+	 * and we need to use the theme overrides.
+	 *
+	 * @see   tribe_template_file
+	 *
+	 * @since 5.0.0
+	 *
+	 * @param string $file      Complete path to include the PHP File
+	 * @param array  $name      Template name
+	 * @param object $template  Instance of the Tribe__Template
+	 *
+	 * @return string
+	 */
+	public function filter_template_file( $file, $name, $template ) {
+		return $this->container->make( Template_Bootstrap::class )->filter_template_file( $file, $name, $template );
 	}
 }

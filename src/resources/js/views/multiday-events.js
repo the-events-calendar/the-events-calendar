@@ -23,7 +23,7 @@ tribe.events.views.multidayEvents = {};
  * @since 4.9.4
  *
  * @param  {PlainObject} $   jQuery
- * @param  {PlainObject} obj tribe.events.views.manager
+ * @param  {PlainObject} obj tribe.events.views.multidayEvents
  *
  * @return {void}
  */
@@ -122,10 +122,7 @@ tribe.events.views.multidayEvents = {};
 		var $hiddenMultidayEvents = $container.find( obj.selectors.hiddenMultidayEvent );
 
 		$hiddenMultidayEvents.each( function( hiddenIndex, hiddenMultidayEvent ) {
-			var $hiddenMultidayEvent = $( hiddenMultidayEvent );
-			$hiddenMultidayEvent
-				.off( 'mouseenter mouseleave', obj.toggleHoverClass )
-				.off( 'focus blur', obj.toggleFocusClass );
+			$( hiddenMultidayEvent ).off();
 		} );
 	};
 
@@ -201,6 +198,7 @@ tribe.events.views.multidayEvents = {};
 		var $container = event.data.container;
 		obj.deinitSelectors();
 		obj.unbindMultidayEvents( $container );
+		$container.off( 'beforeAjaxSuccess.tribeEvents', obj.unbindEvents );
 	};
 
 	/**

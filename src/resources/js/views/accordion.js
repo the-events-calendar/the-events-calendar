@@ -23,7 +23,7 @@ tribe.events.views.accordion = {};
  * @since 4.9.4
  *
  * @param  {PlainObject} $   jQuery
- * @param  {PlainObject} obj tribe.events.views.manager
+ * @param  {PlainObject} obj tribe.events.views.accordion
  *
  * @return {void}
  */
@@ -270,6 +270,7 @@ tribe.events.views.accordion = {};
 	obj.unbindEvents = function( event, jqXHR, settings ) {
 		var $container = event.data.container;
 		obj.unbindAccordionEvents( $container );
+		$container.off( 'beforeAjaxSuccess.tribeEvents', obj.unbindEvents );
 	};
 
 	/**

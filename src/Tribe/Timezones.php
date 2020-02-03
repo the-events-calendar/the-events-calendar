@@ -131,6 +131,16 @@ class Tribe__Events__Timezones extends Tribe__Timezones {
 	 * @return int
 	 */
 	protected static function get_event_timestamp( $event_id, $type = 'Start', $timezone = null ) {
+		static $cache_var_name = __METHOD__;
+
+		$timestamps = tribe_get_var( $cache_var_name, [] );
+
+		$cache_key = "{$event_id}:{$type}:{$timezone}";
+
+		if ( isset( $timestamps[ $cache_key ] ) ) {
+			return $timestamps[ $cache_key ];
+		}
+
 		$event    = get_post( Tribe__Events__Main::postIdHelper( $event_id ) );
 		$event_tz = get_post_meta( $event->ID, '_EventTimezone', true );
 		$site_tz  = self::wp_timezone_string();
@@ -151,7 +161,7 @@ class Tribe__Events__Timezones extends Tribe__Timezones {
 		if ( $use_event_tz || ( $use_site_tz && $site_zone_is_event_zone ) ) {
 			$datetime = get_post_meta( $event->ID, "_Event{$type}Date", true );
 
-			return strtotime( $datetime );
+			return $timestamps[ $cache_key ] = strtotime( $datetime );
 		}
 
 		// Otherwise lets load the event's UTC time and convert it
@@ -164,7 +174,11 @@ class Tribe__Events__Timezones extends Tribe__Timezones {
 			: $timezone;
 
 		$localized = self::to_tz( $datetime, $tzstring );
-		return strtotime( $localized );
+		$timestamps[ $cache_key ] = strtotime( $localized );
+
+		tribe_set_var( $cache_var_name, $timestamps );
+
+		return $timestamps[ $cache_key ];
 	}
 
 

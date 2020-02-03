@@ -55,7 +55,7 @@ Object {
 exports[`[STORE] - Venue actions action to set the venue removal 1`] = `
 Object {
   "payload": Object {
-    "venue": undefined,
+    "venue": 0,
   },
   "type": "@@MT/EVENTS/SET_VENUE",
 }

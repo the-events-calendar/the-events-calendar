@@ -29,7 +29,7 @@
 		<span class="tribe-events-calendar-month-mobile-events__mobile-event-datetime-featured-text">
 			Featured		</span>
 				<time datetime="2019-06-20">
-			<span class="tribe-event-date-start">June 20 @ 1:01 pm</span> - <span class="tribe-event-time">5:01 pm</span>		</time>
+			<span class="tribe-event-date-start">June 20, 2019 @ 1:01 pm</span> - <span class="tribe-event-time">5:01 pm</span>		</time>
 		</div>
 		<h3  class="tribe-events-calendar-month-mobile-events__mobile-event-title tribe-common-h7" >
 	<a
@@ -53,7 +53,7 @@
 
 		<div class="tribe-events-calendar-month-mobile-events__mobile-event-datetime tribe-common-b2">
 				<time datetime="2019-06-20">
-			<span class="tribe-event-date-start">June 20 @ 1:04 pm</span> - <span class="tribe-event-time">5:04 pm</span>		</time>
+			<span class="tribe-event-date-start">June 20, 2019 @ 1:04 pm</span> - <span class="tribe-event-time">5:04 pm</span>		</time>
 		</div>
 		<h3  class="tribe-events-calendar-month-mobile-events__mobile-event-title tribe-common-h7" >
 	<a
@@ -81,6 +81,8 @@
 		rel="prev"
 		class="tribe-events-c-nav__prev tribe-common-b2"
 		data-js="tribe-events-view-link"
+		aria-label="Previous month, May"
+		title="Previous month, May"
 	>
 		May	</a>
 </li>
@@ -90,6 +92,8 @@
 		href="http://test.tri.be"
 		class="tribe-events-c-nav__today tribe-common-b2"
 		data-js="tribe-events-view-link"
+		aria-label="Click to select today&#039;s date"
+		title="Click to select today&#039;s date"
 	>
 		Today	</a>
 </li>
@@ -100,6 +104,8 @@
 		rel="next"
 		class="tribe-events-c-nav__next tribe-common-b2"
 		data-js="tribe-events-view-link"
+		aria-label="Next month, July"
+		title="Next month, July"
 	>
 		July	</a>
 </li>

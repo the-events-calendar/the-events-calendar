@@ -707,7 +707,7 @@ class Event_Period implements Core_Read_Interface {
 		$results = $this->query_for_sets_ending_after_period_start(
 			$limit,
 			$start,
-			array_column( $starting_before_period_end, 'ID' )
+			wp_list_pluck( $starting_before_period_end, 'ID' )
 		);
 
 		if ( empty( $results ) ) {
@@ -715,7 +715,7 @@ class Event_Period implements Core_Read_Interface {
 		}
 
 		$starting_before_period_end = array_combine(
-			array_column( $starting_before_period_end, 'ID' ),
+			wp_list_pluck( $starting_before_period_end, 'ID' ),
 			$starting_before_period_end
 		);
 
@@ -725,7 +725,7 @@ class Event_Period implements Core_Read_Interface {
 		}
 		unset( $result );
 
-		$post_ids         = array_column( $results, 'ID' );
+		$post_ids         = wp_list_pluck( $results, 'ID' );
 		$timezone_details = $this->query_for_meta( $limit, '_EventTimezone', $post_ids );
 		$all_day_details  = $this->query_for_meta( $limit, '_EventAllDay', $post_ids, 'LEFT' );
 
@@ -925,7 +925,7 @@ class Event_Period implements Core_Read_Interface {
 
 		$results = $this->query_w_limit( $limit, $query, $prepare_args, $post_ids );
 
-		return array_combine( array_column( $results, 'ID' ), $results );
+		return array_combine( wp_list_pluck( $results, 'ID' ), $results );
 	}
 
 	/**
@@ -1222,11 +1222,9 @@ class Event_Period implements Core_Read_Interface {
 				/** @var \DateTimeInterface $day */
 				foreach ( $period as $day ) {
 					$day_string = $day->format( Dates::DBDATEFORMAT );
+					$cached     = $cache->get_transient( static::get_cache_key( $day_string . '_set' ), $trigger );
 
-					$sets[ $day_string ] = unserialize( $cache->get_transient(
-						static::get_cache_key( $day_string . '_set' ),
-						$trigger
-					) );
+					$sets[ $day_string ] = Events_Result_Set::from_value( $cached );
 				}
 
 				return $sets;
