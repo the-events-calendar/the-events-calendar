@@ -39,7 +39,7 @@ if ( ! $is_initial_load ) {
 
 		if ( 'function' !== typeof( window.tribe.events.views.breakpoints.setup ) ) {
 			return;
-			}
+		}
 
 		var container = document.querySelectorAll( '[data-view-breakpoint-pointer="<?php echo esc_js( $breakpoint_pointer ); ?>"]' );
 		if ( ! container ) {
