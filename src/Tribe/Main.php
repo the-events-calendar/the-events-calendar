@@ -1056,7 +1056,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			$data_attributes = array(
 				'live_ajax'         => tribe_get_option( 'liveFiltersUpdate', true ) ? 1 : 0,
-				'datepicker_format' => tribe_get_option( 'datepickerFormat' ),
+				'datepicker_format' => \Tribe__Date_Utils::get_datepicker_format_index(),
 				'category'          => $category,
 				'featured'          => tribe( 'tec.featured_events' )->is_featured_query(),
 			);
@@ -4392,7 +4392,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$value = $_REQUEST['tribe-bar-date'];
 			}
 
-			$datepicker_format = tribe_get_option( 'datepickerFormat' );
+			$datepicker_format = \Tribe__Date_Utils::get_datepicker_format_index();
 
 			$caption = esc_html__( 'Date', 'the-events-calendar' );
 			$format  = Tribe__Utils__Array::get( $formats_full, $datepicker_format, $formats_full[0] );
