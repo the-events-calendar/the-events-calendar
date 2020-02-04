@@ -21,25 +21,25 @@ if ( ! $is_initial_load ) {
 ?>
 <script class="tribe-events-breakpoints">
 	(function(){
-        if ( 'undefined' === typeof window.tribe ) {
-            return;
-        }
+		if ( 'undefined' === typeof window.tribe ) {
+			return;
+		}
 
-        if ( 'undefined' === typeof window.tribe.events ) {
-            return;
-        }
+		if ( 'undefined' === typeof window.tribe.events ) {
+			return;
+		}
 
-        if ( 'undefined' === typeof window.tribe.events.views ) {
-            return;
-        }
+		if ( 'undefined' === typeof window.tribe.events.views ) {
+			return;
+		}
 
-        if ( 'undefined' === typeof window.tribe.events.views.breakpoints ) {
-            return;
-        }
+		if ( 'undefined' === typeof window.tribe.events.views.breakpoints ) {
+			return;
+		}
 
-        if ( 'function' !== typeof( window.tribe.events.views.breakpoints.setup ) ) {
-            return;
-        }
+		if ( 'function' !== typeof( window.tribe.events.views.breakpoints.setup ) ) {
+			return;
+			}
 
 		var container = document.querySelectorAll( '[data-view-breakpoint-pointer="<?php echo esc_js( $breakpoint_pointer ); ?>"]' );
 		if ( ! container ) {
