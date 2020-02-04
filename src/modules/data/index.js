@@ -14,7 +14,7 @@ const setInitialState = ( entityRecord ) => {
 };
 
 export const initStore = () => {
-	const unsubscribe = wp.data.subscribe( () => {
+	const unsubscribe = globals.wpData.subscribe( () => {
 		if ( ! globals.wpCoreEditor.__unstableIsEditorReady() ) {
 			return;
 		}

@@ -24,10 +24,9 @@ import { toOrganizer } from '@moderntribe/events/elements/organizer-form/utils';
 const addOrganizer = ( { state, dispatch, ownProps, organizerID, details } ) => {
 	const organizers = selectors.getOrganizersInClassic( state );
 
-	ownProps.setAttributes( {
-		organizer: organizerID,
-		organizers: uniq( [ ...organizers, organizerID ] ),
-	} );
+	ownProps.setAttributes( { organizer: organizerID } );
+	ownProps.setAttributes( { organizers: uniq( [ ...organizers, organizerID ] ) } );
+
 	dispatch( detailsActions.setDetails( organizerID, details ) );
 	dispatch( actions.addOrganizerInClassic( organizerID ) );
 	dispatch( actions.addOrganizerInBlock( organizerID ) );
@@ -86,7 +85,7 @@ const mergeProps = ( stateProps, dispatchProps, ownProps ) => {
 			dispatch( actions.removeOrganizerInBlock( organizer ) );
 
 			if ( volatile ) {
-				maybeRemoveEntry( details );
+				ownProps.maybeRemoveEntry( details );
 
 				const organizers = selectors.getOrganizersInClassic( state );
 				const newOrganizers = organizers.filter( id => id !== organizer );
@@ -95,8 +94,11 @@ const mergeProps = ( stateProps, dispatchProps, ownProps ) => {
 				dispatch( actions.removeOrganizerInClassic( organizer ) );
 			}
 		},
-		// this might not work??
 		onBlockRemoved: () => {
+			/**
+			 * @todo: should not be dispatching actions in componentWillUnmount
+			 *        find out how to handle this another way.
+			 */
 			const { organizer, volatile } = ownProps;
 			if ( ! organizer ) {
 				return;
@@ -105,10 +107,11 @@ const mergeProps = ( stateProps, dispatchProps, ownProps ) => {
 			dispatch( actions.removeOrganizerInBlock( organizer ) );
 
 			if ( volatile ) {
-				const organizers = selectors.getOrganizersInClassic( state );
-				const newOrganizers = organizers.filter( id => id !== organizer );
-
-				ownProps.setAttributes( { organizers: newOrganizers } );
+				/**
+				 * @todo: cannot use setAttribute here to remove organizer from organizers meta
+				 *        the only way to remove organizers fully is to remove from classic block
+				 *        need to deal with this somehow.
+				 */
 				dispatch( actions.removeOrganizerInClassic( organizer ) );
 				/**
 				 * @todo: this one creates a connection with the Form event, however the form has no idea of
@@ -125,5 +128,5 @@ export default compose(
 	withForm( ( props ) => props.clientId ),
 	connect( mapStateToProps ),
 	withDetails( 'organizer' ),
-	connect( null, mapDispatchToProps, mergeProps ),
+	connect( mapStateToProps, mapDispatchToProps, mergeProps ),
 )( EventOrganizer );

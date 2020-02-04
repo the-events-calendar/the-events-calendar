@@ -40,7 +40,6 @@ class EventOrganizer extends PureComponent {
 		current: PropTypes.string,
 		setPost: PropTypes.func,
 		clear: PropTypes.func,
-		createDraft: PropTypes.func,
 		editPost: PropTypes.func,
 		onFormSubmit: PropTypes.func,
 		onItemSelect: PropTypes.func,

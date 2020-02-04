@@ -1,10 +1,11 @@
 /**
  * External dependencies
  */
-import React, { Fragment } from 'react';
+import React, { Fragment, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import AutosizeInput from 'react-input-autosize';
+import { isEqual, sortBy } from 'lodash';
 
 /**
  * WordPress dependencies
@@ -26,10 +27,40 @@ import EventDetailsOrganizers from './event-details-organizers/container';
 
 const { toMoment, toDate, toTime } = momentUtil;
 
-const ClassicEventDetails = ( props ) => {
+class ClassicEventDetails extends PureComponent {
+	static propTypes = {
+		url: PropTypes.string,
+		start: PropTypes.string,
+		end: PropTypes.string,
+		separatorDate: PropTypes.string,
+		cost: PropTypes.string,
+		currencyPosition: PropTypes.string,
+		currencySymbol: PropTypes.string,
+		allDay: PropTypes.bool,
+		isSelected: PropTypes.bool,
+		setWebsite: PropTypes.func,
+		setCost: PropTypes.func,
+		toggleDashboardDateTime: PropTypes.func,
+		setSymbol: PropTypes.func,
+		setCurrencyPosition: PropTypes.func,
+		setAllDay: PropTypes.func,
+	}
 
-	const renderTitle = () => {
-		const { attributes, setAttributes } = props;
+	componentDidUpdate() {
+		/**
+		 * @todo: remove this once we figure out how to manage organizers
+		 *        between classic block and organizer block
+		 */
+		const { attributes, setAttributes, organizers } = this.props;
+		if ( isEqual( sortBy( attributes.organizers ), sortBy( organizers ) ) ) {
+			return;
+		}
+
+		setAttributes( { organizers } );
+	}
+
+	renderTitle = () => {
+		const { attributes, setAttributes } = this.props;
 		const setDetailsTitle = ( e ) => setAttributes( { detailsTitle: e.target.value } );
 
 		return (
@@ -40,10 +71,10 @@ const ClassicEventDetails = ( props ) => {
 				onChange={ setDetailsTitle }
 			/>
 		);
-	};
+	}
 
-	const renderStart = () => {
-		const { start, allDay, toggleDashboardDateTime, separatorDate } = props;
+	renderStart = () => {
+		const { start, allDay, toggleDashboardDateTime, separatorDate } = this.props;
 
 		return (
 			<div>
@@ -62,10 +93,10 @@ const ClassicEventDetails = ( props ) => {
 				</button>
 			</div>
 		);
-	};
+	}
 
-	const renderEnd = () => {
-		const { end, allDay, toggleDashboardDateTime, separatorDate } = props;
+	renderEnd = () => {
+		const { end, allDay, toggleDashboardDateTime, separatorDate } = this.props;
 
 		return (
 			<div>
@@ -84,10 +115,10 @@ const ClassicEventDetails = ( props ) => {
 				</button>
 			</div>
 		);
-	};
+	}
 
-	const renderWebsite = () => {
-		const { url, setWebsite } = props;
+	renderWebsite = () => {
+		const { url, setWebsite } = this.props;
 
 		return (
 			<div>
@@ -100,10 +131,10 @@ const ClassicEventDetails = ( props ) => {
 				/>
 			</div>
 		);
-	};
+	}
 
-	const renderCost = () => {
-		const { setCost, cost, currencyPosition, currencySymbol } = props;
+	renderCost = () => {
+		const { setCost, cost, currencyPosition, currencySymbol } = this.props;
 		const textClassName = classNames( [
 			'tribe-editor__event-cost__value',
 			`tribe-editor-cost-symbol-position-${ currencyPosition }`,
@@ -122,98 +153,82 @@ const ClassicEventDetails = ( props ) => {
 				{ 'suffix' === currencyPosition && <span>{ currencySymbol }</span> }
 			</div>
 		);
-	};
+	}
 
-	const {
-		attributes,
-		isSelected,
-		allDay,
-		setAllDay,
-		currencyPosition,
-		setCurrencyPosition,
-		currencySymbol,
-		setSymbol,
-		setAttributes,
-	} = props;
+	render() {
+		const {
+			attributes,
+			isSelected,
+			allDay,
+			setAllDay,
+			currencyPosition,
+			setCurrencyPosition,
+			currencySymbol,
+			setSymbol,
+			setAttributes,
+		} = this.props;
 
-	const setOrganizerTitle = ( e ) => setAttributes( { organizerTitle: e.target.value } );
+		const setOrganizerTitle = ( e ) => setAttributes( { organizerTitle: e.target.value } );
 
-	return [
-		(
-			<div
-				key="event-details-box"
-				className="tribe-editor__block tribe-editor__event-details"
-			>
-				<MetaGroup groupKey="event-details">
-					{ renderTitle() }
-					{ renderStart() }
-					{ renderEnd() }
-					{ renderWebsite() }
-					{ renderCost() }
-					<TermsList
-						slug="tribe_events_cat"
-						label={ __( 'Event Category:', 'the-events-calendar' ) }
-					/>
-					<TermsList
-						slug="post_tag"
-						label={ __( 'Event Tags:', 'the-events-calendar' ) }
-					/>
-				</MetaGroup>
-				<MetaGroup groupKey="organizer">
-					<AutosizeInput
-						className="tribe-editor__events-section__headline"
-						value={ attributes.organizerTitle }
-						placeholder={ __( 'Organizer', 'the-events-calendar' ) }
-						onChange={ setOrganizerTitle }
-					/>
-					<EventDetailsOrganizers setAttributes={ setAttributes } />
-				</MetaGroup>
-			</div>
-		),
-		(
-			isSelected &&
-			<InspectorControls key="inspector">
-				<PanelBody title={ __( 'Date Time Settings', 'the-events-calendar' ) }>
-					<ToggleControl
-						label={ __( 'Is All Day Event', 'the-events-calendar' ) }
-						checked={ allDay }
-						onChange={ setAllDay }
-					/>
-				</PanelBody>
-				<PanelBody title={ __( 'Price Settings', 'the-events-calendar' ) }>
-					<ToggleControl
-						label={ __( 'Show symbol before', 'the-events-calendar' ) }
-						checked={ 'prefix' === currencyPosition }
-						onChange={ setCurrencyPosition }
-					/>
-					<TextControl
-						label={ __( ' Currency Symbol', 'the-events-calendar' ) }
-						value={ currencySymbol }
-						placeholder={ __( 'E.g.: $', 'the-events-calendar' ) }
-						onChange={ setSymbol }
-					/>
-				</PanelBody>
-			</InspectorControls>
-		),
-	];
-};
-
-ClassicEventDetails.propTypes = {
-	url: PropTypes.string,
-	start: PropTypes.string,
-	end: PropTypes.string,
-	separatorDate: PropTypes.string,
-	cost: PropTypes.string,
-	currencyPosition: PropTypes.string,
-	currencySymbol: PropTypes.string,
-	allDay: PropTypes.bool,
-	isSelected: PropTypes.bool,
-	setWebsite: PropTypes.func,
-	setCost: PropTypes.func,
-	toggleDashboardDateTime: PropTypes.func,
-	setSymbol: PropTypes.func,
-	setCurrencyPosition: PropTypes.func,
-	setAllDay: PropTypes.func,
-};
+		return [
+			(
+				<div
+					key="event-details-box"
+					className="tribe-editor__block tribe-editor__event-details"
+				>
+					<MetaGroup groupKey="event-details">
+						{ this.renderTitle() }
+						{ this.renderStart() }
+						{ this.renderEnd() }
+						{ this.renderWebsite() }
+						{ this.renderCost() }
+						<TermsList
+							slug="tribe_events_cat"
+							label={ __( 'Event Category:', 'the-events-calendar' ) }
+						/>
+						<TermsList
+							slug="post_tag"
+							label={ __( 'Event Tags:', 'the-events-calendar' ) }
+						/>
+					</MetaGroup>
+					<MetaGroup groupKey="organizer">
+						<AutosizeInput
+							className="tribe-editor__events-section__headline"
+							value={ attributes.organizerTitle }
+							placeholder={ __( 'Organizer', 'the-events-calendar' ) }
+							onChange={ setOrganizerTitle }
+						/>
+						<EventDetailsOrganizers setAttributes={ setAttributes } />
+					</MetaGroup>
+				</div>
+			),
+			(
+				isSelected &&
+				<InspectorControls key="inspector">
+					<PanelBody title={ __( 'Date Time Settings', 'the-events-calendar' ) }>
+						<ToggleControl
+							label={ __( 'Is All Day Event', 'the-events-calendar' ) }
+							checked={ allDay }
+							onChange={ setAllDay }
+						/>
+					</PanelBody>
+					<PanelBody title={ __( 'Price Settings', 'the-events-calendar' ) }>
+						<ToggleControl
+							label={ __( 'Show symbol before', 'the-events-calendar' ) }
+							checked={ 'prefix' === currencyPosition }
+							onChange={ setCurrencyPosition }
+						/>
+						<TextControl
+							label={ __( ' Currency Symbol', 'the-events-calendar' ) }
+							value={ currencySymbol }
+							placeholder={ __( 'E.g.: $', 'the-events-calendar' ) }
+							onChange={ setSymbol }
+						/>
+					</PanelBody>
+				</InspectorControls>
+			),
+		];
+	}
+}
 
 export default ClassicEventDetails;

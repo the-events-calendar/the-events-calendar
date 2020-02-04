@@ -17,6 +17,7 @@ import { Component } from '@wordpress/element';
 /**
  * Internal dependencies
  */
+import { globals } from '@moderntribe/common/utils';
 import { Input } from '@moderntribe/events/elements';
 
 /**
@@ -78,8 +79,13 @@ class OrganizerForm extends Component {
 	}
 
 	updateOrganizer( toSend ) {
-		const basePath = wp.api.getPostTypeRoute( this.props.postType );
-		const request = wp.apiRequest( {
+		/**
+		 * @todo: fetching a post type data using select('core').getPostType()
+		 *        is async, this function is not set up to handle async requests.
+		 * @todo: this api request doesn't even work!
+		 */
+		const basePath = 'tribe_organizer';
+		const request = globals.wpApiRequest( {
 			path: `/wp/v2/${ basePath }`,
 			method: 'POST',
 			body: JSON.stringify( toSend ),
