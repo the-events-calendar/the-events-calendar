@@ -25,7 +25,7 @@ $events_label_plural_lowercase   = tribe_get_event_label_plural_lowercase();
 	do_action( 'tribe_events_post_errors', $event->ID, true );
 	?>
 </div>
-<div id='eventDetails' class="inside eventForm" data-datepicker_format="<?php echo esc_attr( tribe_get_option( 'datepickerFormat' ) ); ?>">
+<div id='eventDetails' class="inside eventForm" data-datepicker_format="<?php echo esc_attr( \Tribe__Date_Utils::datepicker_formats( tribe_get_option( 'datepickerFormat' ) ) ); ?>">
 	<?php
 	/**
 	 * Fires inside the opening #eventDetails div of The Events Calendar meta box

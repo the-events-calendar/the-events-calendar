@@ -1055,7 +1055,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			$data_attributes = array(
 				'live_ajax'         => tribe_get_option( 'liveFiltersUpdate', true ) ? 1 : 0,
-				'datepicker_format' => tribe_get_option( 'datepickerFormat' ),
+				'datepicker_format' => \Tribe__Date_Utils::datepicker_formats( tribe_get_option( 'datepickerFormat' ) ),
 				'category'          => $category,
 				'featured'          => tribe( 'tec.featured_events' )->is_featured_query(),
 			);
