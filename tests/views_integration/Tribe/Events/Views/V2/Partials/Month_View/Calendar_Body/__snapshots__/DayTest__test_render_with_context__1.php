@@ -69,7 +69,7 @@
 				aria-describedby="tribe-events-tooltip-content-999997"
 			>
 								<h3 class="tribe-events-calendar-month__multiday-event-hidden-title tribe-common-h8">
-									</h3>
+					Test Multi-day Event &#8211; 2018-07-01 11am				</h3>
 			</a>
 		</div>
 			</article>
@@ -92,7 +92,7 @@
 				aria-describedby="tribe-events-tooltip-content-999996"
 			>
 								<h3 class="tribe-events-calendar-month__multiday-event-hidden-title tribe-common-h8">
-									</h3>
+					Test Multi-day Event &#8211; 2018-07-01 1pm				</h3>
 			</a>
 		</div>
 			</article>
@@ -117,14 +117,14 @@
 		<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h--alt">
 	<a
 		href="http://test.tri.be/?tribe_events=test-event-2018-07-01-11am"
-		title=""
+		title="Test Event &#8211; 2018-07-01 11am"
 		rel="bookmark"
 		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
 		data-js="tribe-events-tooltip"
 		data-tooltip-content="#tribe-events-tooltip-content-999999"
 		aria-describedby="tribe-events-tooltip-content-999999"
 	>
-			</a>
+		Test Event &#8211; 2018-07-01 11am	</a>
 </h3>
 
 		<div class="tribe-events-calendar-month__calendar-event-tooltip-template tribe-common-a11y-hidden">
@@ -140,11 +140,11 @@
 		<h3 class="tribe-events-calendar-month__calendar-event-tooltip-title tribe-common-h7">
 	<a
 		href="http://test.tri.be/?tribe_events=test-event-2018-07-01-11am"
-		title=""
+		title="Test Event &#8211; 2018-07-01 11am"
 		rel="bookmark"
 		class="tribe-events-calendar-month__calendar-event-tooltip-title-link tribe-common-anchor-thin"
 	>
-			</a>
+		Test Event &#8211; 2018-07-01 11am	</a>
 </h3>
 					</div>
 </div>
@@ -170,14 +170,14 @@
 		<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h--alt">
 	<a
 		href="http://test.tri.be/?tribe_events=test-event-2018-07-01-11am-2"
-		title=""
+		title="Test Event &#8211; 2018-07-01 11am"
 		rel="bookmark"
 		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
 		data-js="tribe-events-tooltip"
 		data-tooltip-content="#tribe-events-tooltip-content-999998"
 		aria-describedby="tribe-events-tooltip-content-999998"
 	>
-			</a>
+		Test Event &#8211; 2018-07-01 11am	</a>
 </h3>
 
 		<div class="tribe-events-calendar-month__calendar-event-tooltip-template tribe-common-a11y-hidden">
@@ -193,11 +193,11 @@
 		<h3 class="tribe-events-calendar-month__calendar-event-tooltip-title tribe-common-h7">
 	<a
 		href="http://test.tri.be/?tribe_events=test-event-2018-07-01-11am-2"
-		title=""
+		title="Test Event &#8211; 2018-07-01 11am"
 		rel="bookmark"
 		class="tribe-events-calendar-month__calendar-event-tooltip-title-link tribe-common-anchor-thin"
 	>
-			</a>
+		Test Event &#8211; 2018-07-01 11am	</a>
 </h3>
 					</div>
 </div>

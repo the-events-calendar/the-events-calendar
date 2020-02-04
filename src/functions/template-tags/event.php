@@ -99,8 +99,26 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 		}
 
 		$post = false;
+
 		if ( ! $force ) {
-			$cache_key = 'tribe_get_event_' . md5( json_encode( [ $event, $output, $filter ] ) );
+			$cache_post    = get_post( $event );
+			if ( empty( $cache_post ) ) {
+				return null;
+			}
+
+			$key_fields    = [
+				$cache_post->ID,
+				$cache_post->post_modified,
+				// Use the `post_password` field as we show/hide some information depending on that.
+				$cache_post->post_password,
+				// We must include options on cache key, because options influence the hydrated data on the Event object.
+				wp_json_encode( Tribe__Settings_Manager::get_options() ),
+				wp_json_encode( [ get_option( 'start_of_week' ), get_option( 'timezone_string' ), get_option( 'gmt_offset' ) ] ),
+				$output,
+				$filter
+			];
+
+			$cache_key     = 'tribe_get_event_' . md5( wp_json_encode( $key_fields ) );
 			/** @var Tribe__Cache $cache */
 			$cache = tribe( 'cache' );
 			$post  = $cache->get( $cache_key, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
@@ -130,6 +148,23 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 
 			$cache->set( $cache_key, $post, WEEK_IN_SECONDS, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
 		}
+
+		/**
+		 * Filters the event result after the event has been built from the function.
+		 *
+		 * Note: this value will not be cached and the caching of this value is a duty left to the filtering function.
+		 *
+		 * @since 5.0.0
+		 *
+		 * @param WP_Post     $post        The event post object to filter and return.
+		 * @param int|WP_Post $event       The event object to fetch.
+		 * @param string|null $output      The required return type. One of OBJECT, ARRAY_A, or ARRAY_N, which
+		 *                                 correspond to a `WP_Post` object, an associative array, or a numeric array,
+		 *                                 respectively. Defaults to `OBJECT`.
+		 * @param string      $filter      Type of filter to apply. Accepts 'raw', a valid date string or
+		 *                                 object to localize the event in a specific time-frame.
+		 */
+		$post = apply_filters( 'tribe_get_event_after', $post, $event, $output, $filter );
 
 		if ( OBJECT !== $output ) {
 			$post = ARRAY_A === $output ? (array) $post : array_values( (array) $post );

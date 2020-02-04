@@ -439,18 +439,18 @@ class Tribe__Events__iCal {
 			$timezone = $row['timezone'];
 
 			$ordered = [
-				'start' => array_column( $row['events'], 'start_year' ),
-				'end' => array_column( $row['events'], 'end_year' ),
+				'start' => wp_list_pluck( $row['events'], 'start_year' ),
+				'end'   => wp_list_pluck( $row['events'], 'end_year' ),
 			];
 
 			sort( $ordered['start'] );
 			rsort( $ordered['end'] );
 
 			$ordered['start'] = array_values( $ordered['start'] );
-			$ordered['end'] = array_values( $ordered['end'] );
+			$ordered['end']   = array_values( $ordered['end'] );
 
 			$start = reset( $ordered['start'] );
-			$end = reset( $ordered['end'] );
+			$end   = reset( $ordered['end'] );
 
 			if ( empty( $start ) || empty( $end ) ) {
 				continue;

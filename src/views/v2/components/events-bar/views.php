@@ -9,19 +9,13 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.11
+ * @version 5.0.0
  *
- * @var bool $disable_event_search Boolean on whether to disable the event search.
+ * @var string $view_slug            Slug of the current view.
+ * @var string $view_label           Label of the current view.
+ * @var array  $public_views         Array of data of the public views, with the slug as the key.
+ * @var bool   $disable_event_search Boolean on whether to disable the event search.
  */
-
-/**
- * @todo: @bordoni can we move this to context?
- */
-use Tribe\Events\Views\V2\Manager;
-
-$public_views = tribe( Manager::class )->get_publicly_visible_views();
-$view_slug = $this->get( 'view' )->get_slug();
-$view_label = $this->get( 'view' )->get_label();
 
 $is_tabs_style         = empty( $disable_event_search ) && 3 >= count( $public_views );
 $view_selector_classes = [
@@ -44,6 +38,6 @@ $view_selector_classes = [
 				<?php echo esc_html( $view_label ); ?>
 			</span>
 		</button>
-		<?php $this->template( 'components/events-bar/views/list', [ 'views' => $public_views ] ); ?>
+		<?php $this->template( 'components/events-bar/views/list' ); ?>
 	</div>
 </div>

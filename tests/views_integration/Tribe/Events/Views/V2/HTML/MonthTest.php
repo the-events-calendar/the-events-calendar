@@ -37,7 +37,7 @@ class MonthTest extends HtmlTestCase {
 	public function it_should_contain_a11y_attributes() {
 		$this->given_month_data();
 		$this->template->add_template_globals( [
-			'the_date' => Dates::build_date_object( '2019-08-01' )
+			'the_date' => Dates::build_date_object( '2019-08-01' ),
 		] );
 		$template = $this->template->template( 'month' );
 		$html       = $this->document->html( $template );
@@ -90,10 +90,11 @@ class MonthTest extends HtmlTestCase {
 			array_merge(
 				$this->template->get_global_values(),
 				[
-					'today_date'          => '2019-07-03',
-					'grid_date'           => '2019-07-03',
-					'formatted_grid_date' => '2019-07-03',
-					'days'                => $days
+					'today_date'                 => '2019-07-03',
+					'grid_date'                  => '2019-07-03',
+					'formatted_grid_date'        => '2019-07-03',
+					'formatted_grid_date_mobile' => '7/3/2019',
+					'days'                       => $days,
 				]
 			),
 			false

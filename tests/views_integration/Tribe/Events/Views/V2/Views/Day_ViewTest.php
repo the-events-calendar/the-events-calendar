@@ -16,6 +16,9 @@ class Day_ViewTest extends ViewTestCase {
 
 	public function setUp() {
 		parent::setUp();
+
+		tribe_unset_var( \Tribe__Settings_Manager::OPTION_CACHE_VAR_NAME );
+
 		// Remove v1 filtering to have consistent results.
 		remove_filter( 'tribe_events_before_html', [ TEC::instance(), 'before_html_data_wrapper' ] );
 		remove_filter( 'tribe_events_after_html', [ TEC::instance(), 'after_html_data_wrapper' ] );

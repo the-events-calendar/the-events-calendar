@@ -34,4 +34,24 @@ class View {
 
 		return empty( $found ) || $default === $found ? $default : $found;
 	}
+
+	/**
+	 * Based on the `permalink_structure` determines which variable the view should read `event_display_mode` for past
+	 * URL management.
+	 *
+	 * @since 5.0.0
+	 *
+	 * @return string URL Query Variable Key
+	 */
+	public static function get_past_event_display_key() {
+		$event_display_key = 'eventDisplay';
+
+		// When dealing with "Plain Permalink" we need to move `past` into a separate url argument.
+		if ( ! get_option( 'permalink_structure' ) ) {
+			$event_display_key = 'tribe_event_display';
+		}
+
+		return $event_display_key;
+	}
+
 }

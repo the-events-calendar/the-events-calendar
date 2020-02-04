@@ -9,8 +9,9 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.10
+ * @version 5.0.0
  *
+ * @var array $public_views Array of data of the public views, with the slug as the key.
  */
 ?>
 <div
@@ -19,8 +20,11 @@
 	data-js="tribe-events-view-selector-list-container"
 >
 	<ul class="tribe-events-c-view-selector__list">
-		<?php foreach ( $this->get( 'views' ) as $view => $view_class_name ) : ?>
-			<?php $this->template( 'components/events-bar/views/list/item', [ 'view_class_name' => $view_class_name ] ); ?>
+		<?php foreach ( $public_views as $public_view_slug => $public_view_data ) : ?>
+			<?php $this->template(
+				'components/events-bar/views/list/item',
+				[ 'public_view_slug' => $public_view_slug, 'public_view_data' => $public_view_data ]
+			); ?>
 		<?php endforeach; ?>
 	</ul>
 </div>

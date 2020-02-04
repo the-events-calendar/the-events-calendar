@@ -25,6 +25,7 @@ class DatepickerTest extends HtmlPartialTestCase
 				'today'                      => '2019-01-01',
 				'show_now'                   => true,
 				'now_label'                  => 'Now onwards',
+				'now_label_mobile'           => 'Now onwards',
 				'show_end'                   => false,
 				'selected_start_datetime'    => '2019-01-01',
 				'selected_start_date_mobile' => '2019-01-01',
@@ -33,7 +34,6 @@ class DatepickerTest extends HtmlPartialTestCase
 				'selected_end_date_mobile'   => '2019-01-01',
 				'selected_end_date_label'    => 'Now',
 				'datepicker_date'            => '2019-01-01',
-				'show_datepicker_submit'     => false,
 			],
 		];
 
@@ -43,6 +43,7 @@ class DatepickerTest extends HtmlPartialTestCase
 				'today'                      => '2019-01-01',
 				'show_now'                   => true,
 				'now_label'                  => 'Now onwards',
+				'now_label_mobile'           => 'Now onwards',
 				'show_end'                   => false,
 				'selected_start_datetime'    => '2019-01-02',
 				'selected_start_date_mobile' => '2019-01-02',
@@ -51,7 +52,6 @@ class DatepickerTest extends HtmlPartialTestCase
 				'selected_end_date_mobile'   => '2019-01-05',
 				'selected_end_date_label'    => 'January 5',
 				'datepicker_date'            => '2019-01-02',
-				'show_datepicker_submit'     => false,
 			],
 		];
 
@@ -61,6 +61,7 @@ class DatepickerTest extends HtmlPartialTestCase
 				'today'                      => '2019-01-01',
 				'show_now'                   => true,
 				'now_label'                  => 'Now',
+				'now_label_mobile'           => 'Now',
 				'show_end'                   => true,
 				'selected_start_datetime'    => '2019-01-02',
 				'selected_start_date_mobile' => '2019-01-02',
@@ -70,7 +71,6 @@ class DatepickerTest extends HtmlPartialTestCase
 				'selected_end_date_label'    => 'January 5',
 				'datepicker_date'            => '2019-01-02',
 				'next_url'                   => 'something',
-				'show_datepicker_submit'     => false,
 			],
 		];
 
@@ -80,6 +80,7 @@ class DatepickerTest extends HtmlPartialTestCase
 				'today'                      => '2019-01-01',
 				'show_now'                   => true,
 				'now_label'                  => 'January 2 onwards',
+				'now_label_mobile'           => '1/2/2019 onwards',
 				'show_end'                   => false,
 				'selected_start_datetime'    => '2019-01-02',
 				'selected_start_date_mobile' => '2019-01-02',
@@ -88,7 +89,6 @@ class DatepickerTest extends HtmlPartialTestCase
 				'selected_end_date_mobile'   => '2019-01-05',
 				'selected_end_date_label'    => 'January 5',
 				'datepicker_date'            => '2019-01-02',
-				'show_datepicker_submit'     => false,
 			],
 		];
 
@@ -98,6 +98,7 @@ class DatepickerTest extends HtmlPartialTestCase
 				'today'                      => '2019-01-01',
 				'show_now'                   => true,
 				'now_label'                  => 'Now',
+				'now_label_mobile'           => 'Now',
 				'show_end'                   => true,
 				'selected_start_datetime'    => '2019-01-02',
 				'selected_start_date_mobile' => '2019-01-02',
@@ -108,7 +109,6 @@ class DatepickerTest extends HtmlPartialTestCase
 				'datepicker_date'            => '2019-01-02',
 				'page'                       => 2,
 				'next_url'                   => 'something',
-				'show_datepicker_submit'     => false,
 			],
 		];
 
@@ -118,6 +118,7 @@ class DatepickerTest extends HtmlPartialTestCase
 				'today'                      => '2019-01-01',
 				'show_now'                   => true,
 				'now_label'                  => 'Now onwards',
+				'now_label_mobile'           => 'Now onwards',
 				'show_end'                   => false,
 				'selected_start_datetime'    => '2019-01-02',
 				'selected_start_date_mobile' => '2019-01-02',
@@ -126,7 +127,6 @@ class DatepickerTest extends HtmlPartialTestCase
 				'selected_end_date_mobile'   => '2019-01-02',
 				'selected_end_date_label'    => 'January 2',
 				'datepicker_date'            => '2019-01-02',
-				'show_datepicker_submit'     => false,
 			],
 		];
 
@@ -137,6 +137,7 @@ class DatepickerTest extends HtmlPartialTestCase
 				'next_url'                   => 'something',
 				'show_now'                   => false,
 				'now_label'                  => 'Now',
+				'now_label_mobile'           => 'Now',
 				'show_end'                   => true,
 				'selected_start_datetime'    => '2019-01-02',
 				'selected_start_date_mobile' => '2019-01-02',
@@ -145,7 +146,6 @@ class DatepickerTest extends HtmlPartialTestCase
 				'selected_end_date_mobile'   => '2019-01-05',
 				'selected_end_date_label'    => 'Now',
 				'datepicker_date'            => '2019-01-02',
-				'show_datepicker_submit'     => false,
 			],
 		];
 
@@ -156,6 +156,7 @@ class DatepickerTest extends HtmlPartialTestCase
 				'next_url'                   => 'something',
 				'show_now'                   => false,
 				'now_label'                  => 'Now',
+				'now_label_mobile'           => 'Now',
 				'show_end'                   => true,
 				'selected_start_datetime'    => '2019-01-02',
 				'selected_start_date_mobile' => '2019-01-02',
@@ -164,7 +165,6 @@ class DatepickerTest extends HtmlPartialTestCase
 				'selected_end_date_mobile'   => '2019-01-02',
 				'selected_end_date_label'    => 'Now',
 				'datepicker_date'            => '2019-01-02',
-				'show_datepicker_submit'     => false,
 			],
 		];
 
@@ -175,6 +175,7 @@ class DatepickerTest extends HtmlPartialTestCase
 				'next_url'                   => 'something',
 				'show_now'                   => false,
 				'now_label'                  => 'Now',
+				'now_label_mobile'           => 'Now',
 				'show_end'                   => true,
 				'selected_start_datetime'    => '2019-01-01',
 				'selected_start_date_mobile' => '2019-01-01',
@@ -183,7 +184,6 @@ class DatepickerTest extends HtmlPartialTestCase
 				'selected_end_date_mobile'   => '2019-01-02',
 				'selected_end_date_label'    => 'January 2',
 				'datepicker_date'            => '2019-01-01',
-				'show_datepicker_submit'     => false,
 			],
 		];
 
@@ -194,6 +194,7 @@ class DatepickerTest extends HtmlPartialTestCase
 				'next_url'                   => 'something',
 				'show_now'                   => false,
 				'now_label'                  => 'Now',
+				'now_label_mobile'           => 'Now',
 				'show_end'                   => false,
 				'selected_start_datetime'    => '2019-01-01',
 				'selected_start_date_mobile' => '2019-01-01',
@@ -202,45 +203,6 @@ class DatepickerTest extends HtmlPartialTestCase
 				'selected_end_date_mobile'   => '2019-01-01',
 				'selected_end_date_label'    => 'January 1',
 				'datepicker_date'            => '2019-01-01',
-				'show_datepicker_submit'     => false,
-			],
-		];
-
-		yield 'now_w_events_on_same_dates_w_datepicker_submit' => [
-			[
-				'now'                        => '2019-01-01 09:00:00',
-				'today'                      => '2019-01-01',
-				'show_now'                   => true,
-				'now_label'                  => 'Now onwards',
-				'show_end'                   => false,
-				'selected_start_datetime'    => '2019-01-02',
-				'selected_start_date_mobile' => '2019-01-02',
-				'selected_start_date_label'  => 'January 2',
-				'selected_end_datetime'      => '2019-01-02',
-				'selected_end_date_mobile'   => '2019-01-02',
-				'selected_end_date_label'    => 'January 2',
-				'datepicker_date'            => '2019-01-02',
-				'show_datepicker_submit'     => true,
-				'url'                        => 'https://test.tri.be/events/today/',
-			],
-		];
-
-		yield 'now_w_events_on_diff_dates_w_datepicker_submit' => [
-			[
-				'now'                        => '2019-01-01 09:00:00',
-				'today'                      => '2019-01-01',
-				'show_now'                   => true,
-				'now_label'                  => 'Now onwards',
-				'show_end'                   => false,
-				'selected_start_datetime'    => '2019-01-02',
-				'selected_start_date_mobile' => '2019-01-02',
-				'selected_start_date_label'  => 'January 2',
-				'selected_end_datetime'      => '2019-01-05',
-				'selected_end_date_mobile'   => '2019-01-05',
-				'selected_end_date_label'    => 'January 5',
-				'datepicker_date'            => '2019-01-02',
-				'show_datepicker_submit'     => true,
-				'url'                        => 'https://test.tri.be/events/today/',
 			],
 		];
 	}

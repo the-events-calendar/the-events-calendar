@@ -9,13 +9,14 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.11
+ * @version 5.0.0
  *
  * @var string   $rest_url             The REST URL.
  * @var string   $rest_nonce           The REST nonce.
  * @var int      $should_manage_url    int containing if it should manage the URL.
  * @var bool     $disable_event_search Boolean on whether to disable the event search.
  * @var string[] $container_classes    Classes used for the container of the view.
+ * @var array    $container_data       An additional set of container `data` attributes.
  */
 
 $header_classes = [ 'tribe-events-header' ];
@@ -29,6 +30,9 @@ if ( empty( $disable_event_search ) ) {
 	data-view-rest-nonce="<?php echo esc_attr( $rest_nonce ); ?>"
 	data-view-rest-url="<?php echo esc_url( $rest_url ); ?>"
 	data-view-manage-url="<?php echo esc_attr( $should_manage_url ); ?>"
+	<?php foreach ( $container_data as $key => $value ) : ?>
+		data-view-<?php echo esc_attr( $key ) ?>="<?php echo esc_attr( $value ) ?>"
+	<?php endforeach; ?>
 >
 	<div class="tribe-common-l-container tribe-events-l-container">
 		<?php $this->template( 'components/loader', [ 'text' => __( 'Loading...', 'the-events-calendar' ) ] ); ?>
@@ -72,3 +76,5 @@ if ( empty( $disable_event_search ) ) {
 	</div>
 
 </div>
+
+<?php $this->template( 'components/breakpoints' ); ?>

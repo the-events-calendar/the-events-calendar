@@ -10,6 +10,20 @@ use Tribe__Main as Common;
  * Permalinks magic Happens over here!
  */
 class Tribe__Events__Rewrite extends Tribe__Rewrite {
+
+	/**
+	 * Constant holding the transient key for delayed triggered flush from activation.
+	 *
+	 * If this value is updated make sure you look at the method in the main class of TEC.
+	 *
+	 * @see TEC::activate
+	 *
+	 * @since 5.0.0.1
+	 *
+	 * @var string
+	 */
+	const KEY_DELAYED_FLUSH_REWRITE_RULES = '_tribe_events_delayed_flush_rewrite_rules';
+
 	/**
 	 * After creating the Hooks on WordPress we lock the usage of the function
 	 * @var boolean
@@ -389,6 +403,30 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 		add_action( 'tribe_events_pre_rewrite', array( $this, 'generate_core_rules' ) );
 		add_filter( 'post_type_link', array( $this, 'filter_post_type_link' ), 15, 2 );
 		add_filter( 'url_to_postid', array( $this, 'filter_url_to_postid' ) );
+		add_action( 'wp_loaded', [ $this, 'maybe_delayed_flush_rewrite_rules' ] );
+	}
+
+	/**
+	 * When dealing with flush of rewrite rules we cannot do it from the activation process due to not all classes being
+	 * loaded just yet. We flag a transient without expiration on activation so that on the next page load we flush the
+	 * permalinks for the website.
+	 *
+	 * @see TEC::activate()
+	 *
+	 * @since 5.0.0.1
+	 *
+	 * @return void
+	 */
+	public function maybe_delayed_flush_rewrite_rules() {
+		$should_flush_rewrite_rules = tribe_is_truthy( get_transient( static::KEY_DELAYED_FLUSH_REWRITE_RULES ) );
+
+		if ( ! $should_flush_rewrite_rules ) {
+			return;
+		}
+
+		delete_transient( static::KEY_DELAYED_FLUSH_REWRITE_RULES );
+
+		flush_rewrite_rules();
 	}
 
 	/**
@@ -436,7 +474,7 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 	 * {@inheritDoc}
 	 */
 	protected function get_matcher_to_query_var_map() {
-		$matchers = [
+		$map = [
 			'month'    => 'eventDisplay',
 			'list'     => 'eventDisplay',
 			'today'    => 'eventDisplay',
@@ -456,9 +494,9 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 		 * @param  array  array of the current matchers for query vars.
 		 * @param  self   $rewrite
 		 */
-		$matchers = apply_filters( 'tribe_events_rewrite_matchers_to_query_vars_map', $matchers, $this );
+		$map = apply_filters( 'tribe_events_rewrite_matchers_to_query_vars_map', $map, $this );
 
-		return $matchers;
+		return $map;
 	}
 
 	/**
@@ -530,7 +568,7 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 	}
 
 	/**
-	 * Overrides the base method, from commmon, to filter the parsed query variables and handle some cases related to
+	 * Overrides the base method, from common, to filter the parsed query variables and handle some cases related to
 	 * the `eventDisplay` query variable.
 	 *
 	 * {@inheritDoc}

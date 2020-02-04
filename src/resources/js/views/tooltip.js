@@ -237,13 +237,9 @@ tribe.events.views.tooltip = {};
 			.find( obj.selectors.tooltipTrigger )
 			.each( function( index, trigger ) {
 				$( trigger )
-					.off( 'focus', obj.handleOriginFocus )
-					.off( 'blur', obj.handleOriginBlur )
-					.off( 'mouseenter touchstart', obj.handleOriginHoverIn )
-					.off( 'mouseleave touchleave', obj.handleOriginHoverOut )
+					.off()
 					.tooltipster( 'instance' )
-					.off( 'close', obj.handleInstanceClose )
-					.off( 'closing', obj.handleInstanceClosing );
+					.off();
 			} );
 	};
 
@@ -310,6 +306,7 @@ tribe.events.views.tooltip = {};
 	obj.deinit = function( event, jqXHR, settings ) {
 		var $container = event.data.container;
 		obj.deinitTooltips( $container );
+		$container.off( 'beforeAjaxSuccess.tribeEvents', obj.deinit );
 	};
 
 	/**

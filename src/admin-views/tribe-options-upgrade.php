@@ -54,7 +54,9 @@
 				<p><?php esc_html_e( 'We\'ve redesigned all of the calendar views to give you and your users a better experience. Beyond a brand new look, we\'ve optimized every design for mobile and introduced key improvements for each view.', 'the-events-calendar' ); ?></p>
 
 				<button type="button"><?php esc_html_e( 'Start your upgrade', 'the-events-calendar' ); ?></button>
-				<a href="http://m.tri.be/updated-views" target="_blank" rel="noopener"><?php esc_html_e( 'Learn more about the upgrade', 'the-events-calendar' ); ?></a>
+				<a href="http://m.tri.be/updated-views" target="_blank" rel="noopener" class="tribe-upgrade-absolute-text">
+					<?php esc_html_e( 'Learn more about the upgrade', 'the-events-calendar' ); ?>
+				</a>
 
 				<div class="step"><?php esc_html_e( 'Step 1 of 2', 'the-events-calendar' ); ?></div>
 			</div>
