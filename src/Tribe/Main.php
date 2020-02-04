@@ -599,7 +599,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe_register_provider( Tribe\Events\Views\V2\Service_Provider::class );
 
 			// Register and start the Customizer Sections
-			if ( ! tribe_events_views_v2_is_enabled() ){
+			if ( ! tribe_events_views_v2_is_enabled() ) {
 				tribe_singleton( 'tec.customizer.general-theme', new Tribe__Events__Customizer__General_Theme() );
 			}
 
