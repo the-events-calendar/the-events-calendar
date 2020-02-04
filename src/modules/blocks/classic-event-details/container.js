@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { connect } from 'react-redux';
-import { compose, bindActionCreators } from 'redux';
+import { compose } from 'redux';
 
 /**
  * Internal dependencies
@@ -10,27 +10,21 @@ import { compose, bindActionCreators } from 'redux';
 import { globals } from '@moderntribe/common/utils';
 import {
 	actions as dateTimeActions,
-	thunks as dateTimeThunks,
 	selectors as dateTimeSelectors,
 } from '@moderntribe/events/data/blocks/datetime';
 import {
 	actions as priceActions,
 	selectors as priceSelectors,
+	utils as priceUtils,
 } from '@moderntribe/events/data/blocks/price';
 import {
 	actions as websiteActions,
 	selectors as websiteSelectors,
 } from '@moderntribe/events/data/blocks/website';
 import {
-	actions as classicActions,
-	selectors as classicSelectors,
-} from '@moderntribe/events/data/blocks/classic';
-
-import {
-	actions as organizersActions,
 	selectors as organizerSelectors,
 } from '@moderntribe/events/data/blocks/organizers';
-import { withStore, withSaveData } from '@moderntribe/common/hoc';
+import { withStore } from '@moderntribe/common/hoc';
 import ClassicEventDetails from './template';
 import dateTimeBlock from '@moderntribe/events/blocks/event-datetime';
 
@@ -50,65 +44,58 @@ const mapStateToProps = ( state ) => ( {
 	currencyPosition: priceSelectors.getPosition( state ),
 	currencySymbol: priceSelectors.getSymbol( state ),
 	url: websiteSelectors.getUrl( state ),
-	detailsTitle: classicSelectors.detailsTitleSelector( state ),
-	organizerTitle: classicSelectors.organizerTitleSelector( state ),
 	organizers: organizerSelectors.getOrganizersInClassic( state ),
 } );
 
-const mapDispatchToProps = ( dispatch ) => ( {
-	...bindActionCreators( dateTimeActions, dispatch ),
-	...bindActionCreators( dateTimeThunks, dispatch ),
-	...bindActionCreators( priceActions, dispatch ),
-	...bindActionCreators( websiteActions, dispatch ),
-	...bindActionCreators( classicActions, dispatch ),
-	dispatch,
+const mapDispatchToProps = ( dispatch, ownProps ) => ( {
+	setAllDay: ( value ) => {
+		ownProps.setAttributes( { allDay: value } );
+		dispatch( dateTimeActions.setAllDay( value ) );
+	},
+	setCost: ( cost ) => {
+		ownProps.setAttributes( { cost } );
+		dispatch( priceActions.setCost( cost ) );
+	},
+	setCurrencyPosition: ( value ) => {
+		const position = priceUtils.getPosition( value );
+		ownProps.setAttributes( { currencyPosition: position } );
+		dispatch( priceActions.setPosition( position ) );
+	},
+	setSymbol: ( symbol ) => {
+		ownProps.setAttributes( { currencySymbol: symbol } );
+		dispatch( priceActions.setSymbol( symbol ) );
+	},
+	setWebsite: ( url ) => {
+		ownProps.setAttributes( { url } );
+		dispatch( websiteActions.setWebsite( url ) );
+	},
+	toggleDashboardDateTime: () => {
+		// there may be a better way to do this, but for now there's no way to access context
+		// outside of the provider.
+		const blocks = globals.wpCoreEditor.getBlocks();
+
+		const filteredBlocks = blocks.filter( ( block ) => {
+			return block.name === `tribe/${ dateTimeBlock.id }`;
+		} );
+
+		if ( ! filteredBlocks.length ) {
+			return;
+		}
+
+		const dateTimeButton = document
+			.querySelector( `[data-block="${ filteredBlocks[0].clientId }"]` )
+			.getElementsByClassName( 'tribe-editor__subtitle__headline-button' )[0];
+
+		if ( ! dateTimeButton ) {
+			return;
+		}
+
+		// simulate click event on date time button to open dashboard of first date time block
+		dateTimeButton.click();
+	},
 } );
-
-const mergeProps = ( stateProps, dispatchProps, ownProps ) => {
-	const { dispatch, ...restDispatchProps } = dispatchProps;
-
-	return {
-		...ownProps,
-		...stateProps,
-		...restDispatchProps,
-		setInitialState: ( props ) => {
-			/**
-			 * @todo: this method causes many problems. need to remove and hydrate initial state properly.
-			 */
-			const { get } = props;
-
-			dispatch( classicActions.setInitialState( props ) );
-			dispatch( organizersActions.setOrganizersInClassic( get( 'organizers', [] ) ) );
-		},
-		toggleDashboardDateTime: () => {
-			// there may be a better way to do this, but for now there's no way to access context
-			// outside of the provider.
-			const blocks = globals.wpCoreEditor.getBlocks();
-
-			const filteredBlocks = blocks.filter( ( block ) => {
-				return block.name === `tribe/${ dateTimeBlock.id }`;
-			} );
-
-			if ( ! filteredBlocks.length ) {
-				return;
-			}
-
-			const dateTimeButton = document
-				.querySelector( `[data-block="${ filteredBlocks[0].clientId }"]` )
-				.getElementsByClassName( 'tribe-editor__subtitle__headline-button' )[0];
-
-			if ( ! dateTimeButton ) {
-				return;
-			}
-
-			// simulate click event on date time button to open dashboard of first date time block
-			dateTimeButton.click();
-		},
-	};
-};
 
 export default compose(
 	withStore(),
-	connect( mapStateToProps, mapDispatchToProps, mergeProps ),
-	withSaveData(),
+	connect( mapStateToProps, mapDispatchToProps ),
 )( ClassicEventDetails );

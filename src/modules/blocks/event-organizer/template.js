@@ -43,7 +43,7 @@ class EventOrganizer extends PureComponent {
 		createDraft: PropTypes.func,
 		editPost: PropTypes.func,
 		onFormSubmit: PropTypes.func,
-		onSelectItem: PropTypes.func,
+		onItemSelect: PropTypes.func,
 		onCreateNew: PropTypes.func,
 		onEdit: PropTypes.func,
 		onRemove: PropTypes.func,
@@ -159,9 +159,11 @@ class EventOrganizer extends PureComponent {
 	renderSettings() {
 		const { isSelected, attributes } = this.props;
 
+		if ( ! isSelected || ! attributes.organizer ) {
+			return null;
+		}
+
 		return (
-			isSelected &&
-			attributes.organizer &&
 			<InspectorControls key="inspector">
 				<PanelBody title={ __( 'Organizer Settings', 'the-events-calendar' ) }>
 					<EditLink

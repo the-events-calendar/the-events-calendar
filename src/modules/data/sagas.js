@@ -9,10 +9,8 @@ import { store } from '@moderntribe/common/store';
  */
 import * as datetime from '@moderntribe/events/data/blocks/datetime';
 import * as price from '@moderntribe/events/data/blocks/price';
-import * as classic from '@moderntribe/events/data/blocks/classic';
 
 export default () => [
 	price.sagas,
-	classic.sagas,
 	datetime.sagas,
 ].forEach( sagas => store.run( sagas ) );

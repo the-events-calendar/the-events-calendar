@@ -2,7 +2,6 @@
  * Internal dependencies
  */
 import * as types from './types';
-import * as utils from './utils';
 
 export const setInitialState = ( props ) => ( {
 	type: types.SET_INITIAL_STATE,
@@ -22,10 +21,6 @@ export const setPosition = ( position ) => ( {
 		position,
 	},
 } );
-
-export const togglePosition = ( showBefore ) => {
-	return setPosition( utils.getPosition( showBefore ) );
-};
 
 export const setSymbol = ( symbol ) => ( {
 	type: types.SET_PRICE_SYMBOL,

@@ -11,7 +11,7 @@ export const setOrganizersInClassic = ( organizers ) => ( {
 	},
 } );
 
-export const removeOrganizerInClassic = ( id ) => ( {
+export const removeOrganizerInClassic = ( organizer ) => ( {
 	type: types.REMOVE_CLASSIC_ORGANIZERS,
 	payload: {
 		organizer,

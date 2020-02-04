@@ -3,6 +3,7 @@
  */
 import { compose } from 'redux';
 import { connect } from 'react-redux';
+import { uniq } from 'lodash';
 
 /**
  * Internal dependencies
@@ -20,25 +21,30 @@ import { toOrganizer } from '@moderntribe/events/elements/organizer-form/utils';
  * Module Code
  */
 
-const onFormCompleted = ( dispatch ) => ( body = {} ) => {
-	dispatch( detailsActions.setDetails( body.id, body ) );
-	dispatch( actions.addOrganizerInClassic( body.id ) );
-	dispatch( actions.addOrganizerInBlock( body.id ) );
+const addOrganizer = ( { state, dispatch, ownProps, organizerID, details } ) => {
+	const organizers = selectors.getOrganizersInClassic( state );
+
+	ownProps.setAttributes( {
+		organizer: organizerID,
+		organizers: uniq( [ ...organizers, organizerID ] ),
+	} );
+	dispatch( detailsActions.setDetails( organizerID, details ) );
+	dispatch( actions.addOrganizerInClassic( organizerID ) );
+	dispatch( actions.addOrganizerInBlock( organizerID ) );
 };
 
-const mapStateToProps = ( state ) => ( {
+const onFormCompleted = ( state, dispatch, ownProps ) => ( body = {} ) => {
+	addOrganizer( { state, dispatch, ownProps, organizerID: body.id, details: body } );
+};
+
+const mapStateToProps = ( state, ownProps ) => ( {
+	// @todo: the organizer prop is needed for withDetails, remove this if we fix it
+	organizer: ownProps.attributes.organizer,
 	organizers: selectors.getOrganizersInBlock( state ),
+	state,
 } );
 
 const mapDispatchToProps = ( dispatch, ownProps ) => ( {
-	onFormSubmit: ( fields ) => {
-		ownProps.sendForm( toOrganizer( fields ), onFormCompleted( dispatch ) );
-	},
-	onItemSelect: ( organizerID, details ) => {
-		dispatch( detailsActions.setDetails( organizerID, details ) );
-		dispatch( actions.addOrganizerInClassic( organizerID ) );
-		dispatch( actions.addOrganizerInBlock( organizerID ) );
-	},
 	onCreateNew: ( title ) => {
 		ownProps.createDraft( {
 			title: {
@@ -49,45 +55,75 @@ const mapDispatchToProps = ( dispatch, ownProps ) => ( {
 	onEdit: () => {
 		ownProps.editEntry( ownProps.details );
 	},
-	onRemove: () => {
-		const { organizer, details, volatile } = ownProps;
-		dispatch( actions.removeOrganizerInBlock( organizer ) );
-
-		if ( volatile ) {
-			maybeRemoveEntry( details );
-			dispatch( actions.removeOrganizerInClassic( organizer ) );
-		}
-	},
 	onBlockAdded: () => {
-		if ( ! ownProps.organizer ) {
+		if ( ! ownProps.attributes.organizer ) {
 			return;
 		}
 
-		dispatch( actions.addOrganizerInBlock( organizer ) );
+		dispatch( actions.addOrganizerInBlock( ownProps.attributes.organizer ) );
 	},
-	onBlockRemoved: () => {
-		const { organizer, volatile } = ownProps;
-		if ( ! organizer ) {
-			return;
-		}
-
-		dispatch( actions.removeOrganizerInBlock( organizer ) );
-
-		if ( volatile ) {
-			dispatch( actions.removeOrganizerInClassic( organizer ) );
-			/**
-			 * @todo: this one creates a connection with the Form event, however the form has no idea of
-			 * @todo: the ID to be removed so this one might be a good saga watcher
-			 */
-			dispatch( formActions.removeVolatile( organizer ) );
-		}
-	},
+	dispatch,
 } );
+
+const mergeProps = ( stateProps, dispatchProps, ownProps ) => {
+	const { state, ...restStateProps } = stateProps;
+	const { dispatch, ...restDispatchProps } = dispatchProps;
+
+	return {
+		...ownProps,
+		...restStateProps,
+		...restDispatchProps,
+		onFormSubmit: ( fields ) => {
+			ownProps.sendForm( toOrganizer( fields ), onFormCompleted( state, dispatch, ownProps ) );
+		},
+		onItemSelect: ( organizerID, details ) => {
+			addOrganizer( { state, dispatch, ownProps, organizerID, details } );
+		},
+		onRemove: () => {
+			const { organizer, details, volatile } = ownProps;
+
+			ownProps.setAttributes( { organizer: 0 } );
+			dispatch( actions.removeOrganizerInBlock( organizer ) );
+
+			if ( volatile ) {
+				maybeRemoveEntry( details );
+
+				const organizers = selectors.getOrganizersInClassic( state );
+				const newOrganizers = organizers.filter( id => id !== organizer );
+
+				ownProps.setAttributes( { organizers: newOrganizers } );
+				dispatch( actions.removeOrganizerInClassic( organizer ) );
+			}
+		},
+		// this might not work??
+		onBlockRemoved: () => {
+			const { organizer, volatile } = ownProps;
+			if ( ! organizer ) {
+				return;
+			}
+
+			dispatch( actions.removeOrganizerInBlock( organizer ) );
+
+			if ( volatile ) {
+				const organizers = selectors.getOrganizersInClassic( state );
+				const newOrganizers = organizers.filter( id => id !== organizer );
+
+				ownProps.setAttributes( { organizers: newOrganizers } );
+				dispatch( actions.removeOrganizerInClassic( organizer ) );
+				/**
+				 * @todo: this one creates a connection with the Form event, however the form has no idea of
+				 * @todo: the ID to be removed so this one might be a good saga watcher
+				 */
+				dispatch( formActions.removeVolatile( organizer ) );
+			}
+		},
+	};
+}
 
 export default compose(
 	withStore( { isolated: true, postType: editor.ORGANIZER } ),
 	withForm( ( props ) => props.clientId ),
 	connect( mapStateToProps ),
 	withDetails( 'organizer' ),
-	connect( null, mapDispatchToProps ),
+	connect( null, mapDispatchToProps, mergeProps ),
 )( EventOrganizer );

@@ -6,7 +6,7 @@ import { uniq } from 'lodash';
 import * as types from './../types';
 
 export const setInitialState = ( entityRecord ) => {
-	DEFAULT_STATE.push( entityRecord.meta._EventOrganizerID );
+	DEFAULT_STATE.push( ...entityRecord.meta._EventOrganizerID );
 };
 
 export const DEFAULT_STATE = [];
