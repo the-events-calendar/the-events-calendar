@@ -217,7 +217,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 = [5.0.0.2] 2020-02-06 =
 
-
+* Fix - New views mobile breakpoints interactions with Caching plugins resolved. [TEC-3221]
 
 = [5.0.0.1] 2020-01-31 =
 

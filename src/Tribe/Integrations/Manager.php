@@ -1,5 +1,5 @@
 <?php
-
+use \Tribe\Events\Integrations\WP_Rocket;
 
 /**
  * Class Tribe__Events__Integrations__Manager
@@ -38,6 +38,7 @@ class Tribe__Events__Integrations__Manager {
 		$this->load_twenty_seventeen_integration();
 		$this->load_wpml_integration();
 		$this->load_X_theme_integration();
+		$this->load_wp_rocket_integration();
 	}
 
 	/**
@@ -128,6 +129,21 @@ class Tribe__Events__Integrations__Manager {
 		}
 
 		Tribe__Events__Integrations__X_Theme__X_Theme::instance()->hook();
+
+		return true;
+	}
+
+	/**
+	 * Loads our WP Rocket plugin integration.
+	 *
+	 * @return bool
+	 */
+	private function load_wp_rocket_integration() {
+		if ( ! defined( 'WP_ROCKET_VERSION' ) ) {
+			return false;
+		}
+
+		tribe( WP_Rocket::class )->hook();
 
 		return true;
 	}
