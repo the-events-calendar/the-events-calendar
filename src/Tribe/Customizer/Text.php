@@ -24,7 +24,7 @@ final class Tribe__Events__Customizer__Text extends Tribe__Customizer__Section {
 
 	/**
 	 * Grab the CSS rules template.
-	 * 
+	 *
 	 * @since TBD
 	 *
 	 * @param string  $template
@@ -36,7 +36,7 @@ final class Tribe__Events__Customizer__Text extends Tribe__Customizer__Section {
 		if ( $customizer->has_option( $this->ID, 'primary_text_color' ) ) {
 			$primary_text_color     = new Tribe__Utils__Color( $settings['primary_text_color'] );
 			$primary_text_color_rgb = $primary_text_color::hexToRgb( $settings['primary_text_color'] );
-			
+
 			$template .= '
 				.tribe-common .tribe-common-b1,
 				.tribe-common .tribe-common-b2,
@@ -65,10 +65,10 @@ final class Tribe__Events__Customizer__Text extends Tribe__Customizer__Section {
 				.tribe-common a:visited,
 				.tribe-common .tribe-common-c-btn-border:hover,
 				.tribe-common .tribe-common-c-btn-border:focus,
-				.tribe-common a.tribe-common-c-btn-border:active, 
-				.tribe-common a.tribe-common-c-btn-border:focus, 
+				.tribe-common a.tribe-common-c-btn-border:active,
+				.tribe-common a.tribe-common-c-btn-border:focus,
 				.tribe-common a.tribe-common-c-btn-border:hover,
-				.tribe-theme-twentyseventeen .tribe-common a:hover, 
+				.tribe-theme-twentyseventeen .tribe-common a:hover,
 				.tribe-theme-twentyseventeen .tribe-common a:focus {
 					color: <%= text.primary_text_color %>;
 				}
@@ -87,61 +87,40 @@ final class Tribe__Events__Customizer__Text extends Tribe__Customizer__Section {
 					color: <%= text.primary_text_color %>;
 				}
 			';
-				
+
 			$template .= '
 				.tribe-events .datepicker .dow,
 				.tribe-events .datepicker .day,
-				.tribe-events .datepicker .month, 
+				.tribe-events .datepicker .month,
 				.tribe-events .datepicker .year,
 				.tribe-events .datepicker .datepicker-switch {
 					color: <%= text.primary_text_color %>;
 				}
 			';
-			
+
 			$template .= '
-				.tribe-common .tribe-common-anchor-thin:active, 
-				.tribe-common .tribe-common-anchor-thin:focus, 
+				.tribe-common .tribe-common-anchor-thin:active,
+				.tribe-common .tribe-common-anchor-thin:focus,
 				.tribe-common .tribe-common-anchor-thin:hover {
 					border-bottom-color: <%= text.primary_text_color %>;
 				}
 			';
-			
+
 			$template .= '
 				.tribe-events .tribe-events-calendar-month__day-date-link,
 				.tribe-events .tribe-events-calendar-month__calendar-event-tooltip-datetime {
 					color: <%= text.primary_text_color %>;
 				}
 			';
-			
+
 			$primary_rgb = $primary_text_color_rgb['R'] . ',' . $primary_text_color_rgb['G'] . ',' . $primary_text_color_rgb['B'];
 
 			$template .= '
-				.tribe-events .datepicker .datepicker-switch:hover, 
+				.tribe-events .datepicker .datepicker-switch:hover,
 				.tribe-events .datepicker .datepicker-switch:focus,
-				.tribe-events .tribe-events-c-view-selector__list-item-link:hover .tribe-events-c-view-selector__list-item-text, 
+				.tribe-events .tribe-events-c-view-selector__list-item-link:hover .tribe-events-c-view-selector__list-item-text,
 				.tribe-events .tribe-events-c-view-selector__list-item-link:focus .tribe-events-c-view-selector__list-item-text {
 					color: rgba( ' . $primary_rgb . ', 0.8 );
-				}
-			';
-			
-			// PRO Styles.
-			$template .= '
-				.tribe-events-pro .tribe-events-pro-week-grid__events-time-tag,
-				.tribe-events-pro .tribe-events-pro-week-grid__event-tooltip-datetime,
-				.tribe-events-pro .tribe-events-pro-week-grid__header-column--current .tribe-events-pro-week-grid__header-column-weekday {
-					color: <%= text.primary_text_color %>;
-				}
-			';
-		
-			$template .= '
-				.tribe-events-pro.tribe-events-view--week .datepicker .day.disabled {
-					color: <%= text.primary_text_color %>;
-				}
-			';
-
-			$template .= '
-				.tribe-events-pro.tribe-events-view--week .datepicker .day.past {
-					color: rgba( ' . $primary_rgb . ', 0.62 );
 				}
 			';
 
@@ -156,7 +135,7 @@ final class Tribe__Events__Customizer__Text extends Tribe__Customizer__Section {
 			';
 
 			$template .= '
-				.tribe-common .tribe-common-c-btn-border, 
+				.tribe-common .tribe-common-c-btn-border,
 				.tribe-common a.tribe-common-c-btn-border {
 					color: <%= text.secondary_text_color %>;
 				}
@@ -169,23 +148,35 @@ final class Tribe__Events__Customizer__Text extends Tribe__Customizer__Section {
 			';
 
 			$template .= '
-				.tribe-common--breakpoint-medium.tribe-events .tribe-events-c-nav__prev, 
+				.tribe-common--breakpoint-medium.tribe-events .tribe-events-c-nav__prev,
 				.tribe-common--breakpoint-medium.tribe-events .tribe-events-c-nav__next {
 					color: <%= text.secondary_text_color %>;
 				}
 			';
 
-			// PRO Styles.
 			$template .= '
-				.tribe-events .tribe-events-calendar-month__calendar-event-datetime,
-				.tribe-events-pro .tribe-events-pro-photo__event-date-tag-month,
-				.tribe-events-pro .tribe-events-pro-week-grid__event-datetime,
-				.tribe-events-pro .tribe-events-pro-map__event-date-tag-month,
-				.tribe-common--breakpoint-medium.tribe-events-pro .tribe-events-pro-map__event-distance {
+				.tribe-events .tribe-events-calendar-month__calendar-event-datetime {
 					color: <%= text.secondary_text_color %>;
 				}
 			';
-			
+
+		}
+
+		if ( $customizer->has_option( $this->ID, 'link_color' ) ) {
+			$template .= '
+				#tribe-events-content a,
+				.tribe-events-event-meta a {
+					color: <%= text.link_color %>;
+				}
+			';
+
+			$template .= '
+				.tribe-common .tribe-common-b1 a:not(.tribe-events-c-small-cta__link):not(.tribe-events-c-ical__link),
+				.tribe-common .tribe-common-b2 a:not(.tribe-events-c-small-cta__link):not(.tribe-events-c-ical__link),
+				.tribe-common .tribe-common-b3 a:not(.tribe-events-c-small-cta__link):not(.tribe-events-c-ical__link) {
+					color: <%= text.link_color %>;
+				}
+			';
 		}
 
 		return $template;
@@ -193,7 +184,7 @@ final class Tribe__Events__Customizer__Text extends Tribe__Customizer__Section {
 
 	/**
 	 * Setup the Customizer section.
-	 * 
+	 *
 	 * @since TBD
 	 *
 	 * @return void
@@ -202,6 +193,7 @@ final class Tribe__Events__Customizer__Text extends Tribe__Customizer__Section {
 		$this->defaults = [
 			'primary_text_color'   => '#141827',
 			'secondary_text_color' => '#727272',
+			'link_color'           => '#141827',
 		];
 
 		$this->arguments = [
@@ -265,8 +257,31 @@ final class Tribe__Events__Customizer__Text extends Tribe__Customizer__Section {
 			)
 		);
 
+		$manager->add_setting(
+			$customizer->get_setting_name( 'link_color', $section ),
+			array(
+				'default'              => $this->get_default( 'link_color' ),
+				'type'                 => 'option',
+
+				'sanitize_callback'    => 'sanitize_hex_color',
+				'sanitize_js_callback' => 'maybe_hash_hex_color',
+			)
+		);
+
+		$manager->add_control(
+			new WP_Customize_Color_Control(
+				$manager,
+				$customizer->get_setting_name( 'link_color', $section ),
+				array(
+					'label'   => esc_html__( 'Link Color', 'the-events-calendar' ),
+					'section' => $section->id,
+				)
+			)
+		);
+
 		// Introduced to make Selective Refresh have less code duplication.
 		$customizer->add_setting_name( $customizer->get_setting_name( 'primary_text_color', $section ) );
 		$customizer->add_setting_name( $customizer->get_setting_name( 'secondary_text_color', $section ) );
+		$customizer->add_setting_name( $customizer->get_setting_name( 'link_color', $section ) );
 	}
 }
