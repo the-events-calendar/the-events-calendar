@@ -55,6 +55,17 @@ trait Breakpoint_Behavior {
 	}
 
 	/**
+	 * Returns a given breakpoint pointer to a safer inline JS execution.
+	 *
+	 * @since 5.0.0.2
+	 *
+	 * @return int   Returns the breakpoint with that given name or 0 when not available.
+	 */
+	public function get_breakpoint_pointer() {
+		return wp_generate_uuid4();
+	}
+
+	/**
 	 * Returns all of the available breakpoints.
 	 *
 	 * @since 5.0.0

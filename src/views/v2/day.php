@@ -18,6 +18,7 @@
  * @var string[] $container_classes    Classes used for the container of the view.
  * @var bool     $should_manage_url    Whether the view should manage the URL or not.
  * @var array    $container_data       An additional set of container `data` attributes.
+ * @var string   $breakpoint_pointer   String we use as pointer to the current view we are setting up with breakpoints.
  */
 
 $header_classes = [ 'tribe-events-header' ];
