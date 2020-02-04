@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 5.0.0
+ * @version 5.0.0.2
  *
  * @var array    $events               The array containing the events.
  * @var string   $rest_url             The REST URL.
@@ -36,6 +36,9 @@ if ( empty( $disable_event_search ) ) {
 	<?php foreach ( $container_data as $key => $value ) : ?>
 		data-view-<?php echo esc_attr( $key ) ?>="<?php echo esc_attr( $value ) ?>"
 	<?php endforeach; ?>
+	<?php if ( ! empty( $breakpoint_pointer ) ) : ?>
+		data-view-breakpoint-pointer="<?php echo esc_attr( $breakpoint_pointer ); ?>"
+	<?php endif; ?>
 >
 	<div class="tribe-common-l-container tribe-events-l-container">
 		<?php $this->template( 'components/loader', [ 'text' => __( 'Loading...', 'the-events-calendar' ) ] ); ?>
