@@ -62,7 +62,29 @@ trait Breakpoint_Behavior {
 	 * @return int   Returns the breakpoint with that given name or 0 when not available.
 	 */
 	public function get_breakpoint_pointer() {
-		return wp_generate_uuid4();
+		$pointer = wp_generate_uuid4();
+
+		/**
+		 * Filters the pointer ID for all views.
+		 *
+		 * @since 5.0.0.2
+		 *
+		 * @param string $breakpoints Current pointer value.
+		 * @param View   $this        The current View instance being rendered.
+		 */
+		$pointer = apply_filters( "tribe_events_views_v2_view_breakpoint_pointer", $pointer, $this );
+
+		/**
+		 * Filters the pointer ID for a specific view.
+		 *
+		 * @since 5.0.0.2
+		 *
+		 * @param string $pointer   Current pointer value.
+		 * @param View   $this      The current View instance being rendered.
+		 */
+		$pointer = apply_filters( "tribe_events_views_v2_view_{$this->slug}_breakpoint_pointer", $pointer, $this );
+
+		return $pointer;
 	}
 
 	/**
@@ -80,17 +102,17 @@ trait Breakpoint_Behavior {
 		 *
 		 * @since 5.0.0
 		 *
-		 * @param array  $breakpoints All breapoints available.
+		 * @param array  $breakpoints All breakpoints available.
 		 * @param View   $this        The current View instance being rendered.
 		 */
 		$breakpoints = apply_filters( "tribe_events_views_v2_view_breakpoints", $breakpoints, $this );
 
 		/**
-		 * Filters the medium breakpoint value for a specific view.
+		 * Filters the breakpoints value for a specific view.
 		 *
 		 * @since 5.0.0
 		 *
-		 * @param array  $breakpoints All breapoints available.
+		 * @param array  $breakpoints All breakpoints available.
 		 * @param View   $this        The current View instance being rendered.
 		 */
 		$breakpoints = apply_filters( "tribe_events_views_v2_view_{$this->slug}_breakpoints", $breakpoints, $this );
