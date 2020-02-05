@@ -63,7 +63,7 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 
 	public function render_update_message() {
 		if ( ! Tribe__Events__Aggregator__Page::instance()->is_screen() ) {
-			return;
+			return false;
 		}
 
 		/** @var Tribe__Events__Aggregator__Record__Queue_Processor $processor */
