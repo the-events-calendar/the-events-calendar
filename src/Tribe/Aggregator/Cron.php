@@ -293,14 +293,13 @@ class Tribe__Events__Aggregator__Cron {
 		if ( ! tribe( 'events-aggregator.main' )->is_service_active() ) {
 			return;
 		}
-
 		$records = Tribe__Events__Aggregator__Records::instance();
 		$service = tribe( 'events-aggregator.service' );
 
-		$query = $records->query( array(
-			'post_status' => Tribe__Events__Aggregator__Records::$status->schedule,
+		$query = $records->query( [
+			'post_status'    => Tribe__Events__Aggregator__Records::$status->schedule,
 			'posts_per_page' => -1,
-		) );
+		] );
 
 		if ( ! $query->have_posts() ) {
 			tribe( 'logger' )->log_debug( 'No Records Scheduled, skipped creating children', 'EA Cron' );
@@ -516,22 +515,22 @@ class Tribe__Events__Aggregator__Cron {
 			)
 		);
 
-		$args = array(
-			'post_status' => array(
+		$args = [
+			'post_status'    => [
 				$statuses->pending,
 				$statuses->success,
 				$statuses->failed,
 				$statuses->draft,
-			),
-			'date_query' => array(
-				array(
+			],
+			'date_query'     => [
+				[
 					'before' => date( 'Y-m-d H:i:s', time() - $records->get_retention() ),
 					'column' => 'post_date_gmt',
-				),
-			),
-			'order' => 'ASC',
+				],
+			],
+			'order'          => 'ASC',
 			'posts_per_page' => 100,
-		);
+		];
 
 		if ( $records_to_retain ) {
 			$args['post__not_in'] = $records_to_retain;

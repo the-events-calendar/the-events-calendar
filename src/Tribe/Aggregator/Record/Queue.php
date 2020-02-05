@@ -78,7 +78,6 @@ class Tribe__Events__Aggregator__Record__Queue implements Tribe__Events__Aggrega
 
 		if ( is_wp_error( $items ) ) {
 			$this->null_process = true;
-
 			return;
 		}
 

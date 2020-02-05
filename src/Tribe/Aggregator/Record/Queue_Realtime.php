@@ -121,7 +121,6 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 		// Load the queue
 		/** @var \Tribe__Events__Aggregator__Record__Queue_Interface $queue */
 		$queue = $this->queue ? $this->queue : Tribe__Events__Aggregator__Record__Queue_Processor::build_queue( $this->record_id );
-
 		// We always need to setup the Current Queue
 		$this->queue_processor->set_current_queue( $queue );
 
@@ -138,7 +137,6 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 		$current_queue = $this->queue_processor->current_queue;
 		$done = $current_queue->is_empty() && empty( $current_queue->is_fetching );
 		$percentage    = $current_queue->progress_percentage();
-
  		$this->ajax_operations->exit_data( $this->get_progress_message_data( $current_queue, $percentage, $done ) );
 	}
 

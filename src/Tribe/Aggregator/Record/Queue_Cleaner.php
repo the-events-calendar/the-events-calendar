@@ -94,7 +94,7 @@ class Tribe__Events__Aggregator__Record__Queue_Cleaner {
 
 		$post_status = $record->post->post_status;
 
-		if ( ! in_array( $post_status, array( $pending, $failed ) ) ) {
+		if ( ! in_array( $post_status, [ $pending, $failed ], true ) ) {
 			return false;
 		}
 
