@@ -1,5 +1,5 @@
 <?php
-
+use Tribe\Events\Views\V2\Manager;
 $tec = Tribe__Events__Main::instance();
 
 $template_options = array(
@@ -159,10 +159,6 @@ $display_tab_fields = Tribe__Main::array_insert_before_key(
 								'<p class=\'description tribe-style-selection\'>' .
 								__( 'Only includes enough css to achieve complex layouts like calendar and week view.', 'the-events-calendar' ) .
 								'</p>',
-				'full'     => __( 'Full Styles', 'the-events-calendar' ) .
-								'<p class=\'description tribe-style-selection\'>' .
-								__( 'More detailed styling, tries to grab styles from your theme.', 'the-events-calendar' ) .
-								'</p>',
 				'tribe'    => __( 'Tribe Events Styles', 'the-events-calendar' ) .
 								'<p class=\'description tribe-style-selection\'>' .
 								__( 'A fully designed and styled theme for your events pages.', 'the-events-calendar' ) .
@@ -189,6 +185,13 @@ $display_tab_fields = Tribe__Main::array_insert_before_key(
 		],
 	]
 );
+
+if ( ! tribe_is_truthy( tribe_get_option( Manager::$option_enabled, false ) ) ) {
+	$display_tab_fields[ 'stylesheetOption' ]['options']['full'] = __( 'Full Styles', 'the-events-calendar' ) .
+	'<p class=\'description tribe-style-selection\'>' .
+	__( 'More detailed styling, tries to grab styles from your theme.', 'the-events-calendar' ) .
+	'</p>';
+}
 
 if ( tribe( 'tec.main' )->show_upgrade() ) {
 	$display_tab_fields = Tribe__Main::array_insert_before_key(
