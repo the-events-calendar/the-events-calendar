@@ -191,8 +191,6 @@ class Tribe__Events__Aggregator__Record__Queue implements Tribe__Events__Aggrega
 			return true;
 		}
 
-		return true;
-
 		return $this->has_lock && 0 === $this->count();
 	}
 
