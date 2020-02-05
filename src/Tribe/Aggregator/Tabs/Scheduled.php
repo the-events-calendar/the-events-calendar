@@ -336,16 +336,21 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 				continue;
 			}
 
-			$record->update_meta( 'last_import_status', 'success:queued' );
-			$child->update_meta( 'import_id', $status->data->import_id );
-
 			$child->finalize();
-			$child->process_posts( array(), true );
+			$post = $child->process_posts( [], true );
 
-			$success[ $record->id ] = $record;
+			if ( is_wp_error( $post ) )  {
+				$errors[ $record->id ] = $post;
+				$record->update_meta( 'last_import_status', 'error:import-failed' );
+			} else {
+				$record->update_meta( 'last_import_status', 'success:queued' );
+				$child->update_meta( 'import_id', $status->data->import_id );
+
+				$success[ $record->id ] = $record;
+			}
 		}
 
-		return array( $success, $errors );
+		return [ $success, $errors ];
 	}
 
 	/**
