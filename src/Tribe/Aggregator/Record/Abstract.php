@@ -761,11 +761,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			if ( 'core:aggregator:http_request-limit' === $response->get_error_code() ) {
 				$this->should_queue_import( true );
 				return $this->set_status_as_pending();
-			} else {
-				$error = $response;
-
-				return $this->set_status_as_failed( $error );
 			}
+
+			$error = $response;
+
+			return $this->set_status_as_failed( $error );
 		}
 
 		// if the Aggregator response has an unexpected format, set this record as failed
