@@ -244,6 +244,11 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Tweak - Allow start datetime and end datetime to be the same to hide end datetime in frontend when using block editor. [TEC-3009]
 * Tweak - Move the "Link Color" option in the customizer, for the new views. [TEC-3067]
 
+= [5.0.0.2] 2020-02-06 =
+
+* Fix - Datepicker format now properly defaults to the correct value when Display Settings have not been saved. [TEC-3229]
+* Fix - New views mobile breakpoints interactions with Caching plugins resolved. [TEC-3221]
+
 = [5.0.0.1] 2020-01-31 =
 
 * Fix - Events with timezones that differ from the site timezone now display on the correct date. [TEC-3208]
