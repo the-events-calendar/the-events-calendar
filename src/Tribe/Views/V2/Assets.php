@@ -406,14 +406,15 @@ class Assets extends \tad_DI52_ServiceProvider {
 	 */
 	public function is_skeleton_style() {
 		$style_option = tribe_get_option( 'stylesheetOption', 'tribe' );
+		bdump($style_option);
 		return 'skeleton' === $style_option;
 	}
 
 	/**
 	 * Verifies if we dont have skeleton active, which will trigger true for the two other possible options.
 	 * Options:
-	 * - `tribe` - Deprecated
-	 * - `full`  - All styles load
+	 * - `full` - Deprecated
+	 * - `tribe`  - All styles load
 	 *
 	 * @since  4.9.11
 	 *

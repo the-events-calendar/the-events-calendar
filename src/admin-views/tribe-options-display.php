@@ -12,6 +12,32 @@ foreach ( array_keys( $templates ) as $template ) {
 	$template_options[ $templates[ $template ] ] = $template;
 }
 
+$stylesheet_choices['skeleton'] = __( 'Skeleton Styles', 'the-events-calendar' ) . '<p class=\'description tribe-style-selection\'>' . __( 'Only includes enough css to achieve complex layouts like calendar and week view.', 'the-events-calendar' ) .'</p>';
+
+
+if ( ! tribe_events_views_v2_is_enabled() ) {
+	$stylesheet_choices['full'] =  __( 'Full Styles', 'the-events-calendar' ) . '<p class=\'description tribe-style-selection\'>' . __( 'More detailed styling, tries to grab styles from your theme.', 'the-events-calendar' ) . '</p>';
+}
+
+$stylesheet_choices['tribe'] =  __( 'Tribe Events Styles', 'the-events-calendar' ) . '<p class=\'description tribe-style-selection\'>' . __( 'A fully designed and styled theme for your events pages.', 'the-events-calendar' ) . '</p>';
+
+$stylesheet_option = [
+	'type'            => 'radio',
+	'label'           => __( 'Default stylesheet used for events templates', 'the-events-calendar' ),
+	'default'         => 'tribe',
+	'options'         => $stylesheet_choices,
+	'validation_type' => 'options',
+];
+
+$stylesheet_mode = [ 'type' => 'html'];
+
+if ( tribe_events_views_v2_is_enabled() ) {
+	$stylesheet_mode = $stylesheet_option;
+	$stylesheet_option = [ 'type' => 'html' ];
+}
+
+
+
 /**
  * Filter the array of views that are registered for the tribe bar
  * @param array array() {
@@ -150,22 +176,8 @@ $display_tab_fields = Tribe__Main::array_insert_before_key(
 			'type' => 'html',
 			'html' => '<h3>' . __( 'Basic Template Settings', 'the-events-calendar' ) . '</h3>',
 		],
-		'stylesheetOption'                   => [
-			'type'            => 'radio',
-			'label'           => __( 'Default stylesheet used for events templates', 'the-events-calendar' ),
-			'default'         => 'tribe',
-			'options'         => [
-				'skeleton' => __( 'Skeleton Styles', 'the-events-calendar' ) .
-								'<p class=\'description tribe-style-selection\'>' .
-								__( 'Only includes enough css to achieve complex layouts like calendar and week view.', 'the-events-calendar' ) .
-								'</p>',
-				'tribe'    => __( 'Tribe Events Styles', 'the-events-calendar' ) .
-								'<p class=\'description tribe-style-selection\'>' .
-								__( 'A fully designed and styled theme for your events pages.', 'the-events-calendar' ) .
-								'</p>',
-			],
-			'validation_type' => 'options',
-		],
+		'stylesheetOption'                   => $stylesheet_option,
+		'stylesheet_mode'                    => $stylesheet_mode,
 		'tribeEventsTemplate'                => [
 			'type'            => 'dropdown',
 			'label'           => __( 'Events template', 'the-events-calendar' ),
