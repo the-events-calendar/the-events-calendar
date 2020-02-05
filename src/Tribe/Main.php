@@ -3032,7 +3032,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				require_once dirname( dirname( __FILE__ ) ) . '/common/src/Tribe/Cache.php';
 			}
 
-			wp_clear_scheduled_hook( \Tribe__Cache::SCHEDULED_EVENT_DELETE_TRANSIENT );
+			$hook_name = 'tribe_schedule_transient_purge';
+
+			// Make sure we look for the constant if possible.
+			if ( defined( '\Tribe__Cache::SCHEDULED_EVENT_DELETE_TRANSIENT' ) ) {
+				$hook_name = \Tribe__Cache::SCHEDULED_EVENT_DELETE_TRANSIENT;
+			}
+
+			wp_clear_scheduled_hook( $hook_name );
 
 			$deactivation = new Tribe__Events__Deactivation( $network_deactivating );
 			add_action( 'shutdown', array( $deactivation, 'deactivate' ) );
