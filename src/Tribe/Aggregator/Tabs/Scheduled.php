@@ -301,7 +301,6 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 	 */
 	public function action_run_import( $records = [] ) {
 		$service = tribe( 'events-aggregator.service' );
-		$record_obj = Tribe__Events__Aggregator__Records::instance()->get_post_type();
 		$records = array_filter( (array) $records, 'is_numeric' );
 		$success = [];
 		$errors = [];
