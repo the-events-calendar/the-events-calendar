@@ -17,12 +17,12 @@
     "xamin/handlebars.php": "^0.10.3",
     "mikey179/vfsstream": "^1.6",
     "spatie/phpunit-snapshot-assertions": "^1.2",
-    "lucatume/wp-snaphot-assertions": "1.0.0",
+    "lucatume/wp-snaphot-assertions": "1.1.0",
     "lucatume/function-mocker": "^1.0",
     "phpunit/phpunit": "~6.0",
     "scotteh/php-dom-wrapper": "0.7.3",
     "facebook/webdriver": "1.6.0",
-    "moderntribe/tribe-testing-facilities": "dev-spotfix/include-views-exclusion-for-data-attr-breakpoints"
+    "moderntribe/tribe-testing-facilities": "dev-master"
   },
   "minimum-stability": "stable",
   "prefer-stable": true,
