@@ -70,7 +70,7 @@ class Tribe__Events__Aggregator__Record__Queue implements Tribe__Events__Aggrega
 			$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $record );
 		}
 
-		if ( ! is_object( $record ) || ! in_array( 'Tribe__Events__Aggregator__Record__Abstract', class_parents( $record ) ) ) {
+		if ( ! is_object( $record ) || ! $record instanceof \Tribe__Events__Aggregator__Record__Abstract ) {
 			$this->null_process = true;
 
 			return;
