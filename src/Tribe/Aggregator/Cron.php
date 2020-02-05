@@ -399,31 +399,34 @@ class Tribe__Events__Aggregator__Cron {
 
 		$records = Tribe__Events__Aggregator__Records::instance();
 
-		$query = $records->query( array(
+		$query = $records->query( [
 			'post_status'    => Tribe__Events__Aggregator__Records::$status->pending,
-			'posts_per_page' => - 1,
+			'posts_per_page' => -1,
 			'order'          => 'ASC',
-			'meta_query'     => array(
-				'origin-not-csv' => array(
-					'key' => '_tribe_aggregator_origin',
-					'value' => 'csv',
+			'meta_query'     => [
+				'origin-not-csv'                  => [
+					'key'     => '_tribe_aggregator_origin',
+					'value'   => 'csv',
 					'compare' => '!=',
-				),
-				// if not specified then assume batch push is not supported
-				'no-batch-push-support-specified' => array(
-					'key' => '_tribe_aggregator_allow_batch_push',
-					'value' => 'bug #23268',
-					'compare' => 'NOT EXISTS',
-				),
-				// if specified and not `1` then batch push is not supported
-				'explicit-no-batch-push-support' => array(
-					'key' => '_tribe_aggregator_allow_batch_push',
-					'value' => '1',
-					'compare' => '!=',
-				),
-			),
+				],
+				[
+					'relation'                        => 'OR',
+					// if not specified then assume batch push is not supported
+					'no-batch-push-support-specified' => [
+						'key'     => '_tribe_aggregator_allow_batch_push',
+						'value'   => 'bug #23268',
+						'compare' => 'NOT EXISTS',
+					],
+					// if specified and not `1` then batch push is not supported
+					'explicit-no-batch-push-support'  => [
+						'key'     => '_tribe_aggregator_allow_batch_push',
+						'value'   => '1',
+						'compare' => '!=',
+					],
+				],
+			],
 			'after'          => '-4 hours',
-		) );
+		] );
 
 		if ( ! $query->have_posts() ) {
 			tribe( 'logger' )->log_debug( 'No Records Pending, skipped Fetching from service', 'EA Cron' );
