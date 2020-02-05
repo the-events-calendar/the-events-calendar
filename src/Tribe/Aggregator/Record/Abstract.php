@@ -1263,6 +1263,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$items = $this->prep_import_data( $data );
 
 		if ( is_wp_error( $items ) ) {
+			$this->set_status_as_failed( $items );
 			return $items;
 		}
 

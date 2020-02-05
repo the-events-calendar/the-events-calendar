@@ -588,6 +588,10 @@ class Tribe__Events__Aggregator__Cron {
 		$import_data = $record->prep_import_data();
 
 		if ( empty( $import_data ) || $import_data instanceof WP_Error || ! is_array( $import_data ) ) {
+
+			$record->update_meta( 'last_import_status', 'error:import-failed' );
+			$record->set_status_as_failed( $import_data );
+
 			return;
 		}
 
