@@ -5,9 +5,7 @@ import * as types from './types';
 import { globals } from '@moderntribe/common/utils';
 
 export const setInitialState = ( entityRecord ) => {
-	if ( entityRecord.meta._EventVenueID ) {
-		DEFAULT_STATE.venue = entityRecord.meta._EventVenueID;
-	}
+	DEFAULT_STATE.venue = entityRecord.meta._EventVenueID;
 };
 
 export const DEFAULT_STATE = {

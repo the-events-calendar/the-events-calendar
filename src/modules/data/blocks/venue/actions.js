@@ -30,9 +30,3 @@ export const setShowMapLink = ( showMapLink ) => ( {
 		showMapLink,
 	},
 } );
-
-export const setInitialState = ( props ) => ( {
-	type: types.SET_INITIAL_STATE,
-	payload: props,
-} );
-

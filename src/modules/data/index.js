@@ -20,7 +20,7 @@ export const initStore = () => {
 		const coreEditorSelectors = globals.wpData.select( 'core/editor' );
 
 		/**
-		 * @todo: keep an eye on this, unstable function but is used in block editor core code.
+		 * @todo: keep an eye on this, unstable function but is also used in block editor core code.
 		 */
 		if ( ! coreEditorSelectors.__unstableIsEditorReady() ) {
 			return;

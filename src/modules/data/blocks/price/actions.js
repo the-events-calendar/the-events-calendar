@@ -3,11 +3,6 @@
  */
 import * as types from './types';
 
-export const setInitialState = ( props ) => ( {
-	type: types.SET_INITIAL_STATE,
-	payload: props,
-} );
-
 export const setCost = ( cost ) => ( {
 	type: types.SET_PRICE_COST,
 	payload: {
