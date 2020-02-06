@@ -189,7 +189,7 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 		 *
 		 * @param array $args - The array of variables
 		 *
-		 * @since TDB
+		 * @since 4.6.13
 		 */
 		$args = apply_filters( 'tribe_events_delete_old_events_sql_args', $args );
 
