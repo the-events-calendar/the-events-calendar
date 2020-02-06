@@ -47,7 +47,7 @@ class Event_Cleaner_SchedulerTest extends WPTestCase {
 	/**
 	 * @test
 	 */
-	public function it_should_delete_only_old_posts() {
+	public function it_should_delete_only_old_events() {
 		$to_delete = $this->factory()->event->create( [
 			'when' => '-3 months',
 		] );
