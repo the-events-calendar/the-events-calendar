@@ -1395,6 +1395,7 @@ class View implements View_Interface {
 			'container_data'         => $this->get_container_data(),
 			'is_past'                => 'past' === $this->context->get( 'event_display_mode', false ),
 			'breakpoints'            => $this->get_breakpoints(),
+			'breakpoint_pointer'     => $this->get_breakpoint_pointer(),
 			'is_initial_load'        => $this->context->doing_php_initial_state(),
 			'public_views'           => $this->get_public_views( $url_event_date ),
 		];
