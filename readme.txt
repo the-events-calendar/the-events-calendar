@@ -237,6 +237,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - Ensure map does not display if enable map setting is disabled. [TEC-3013]
 * Fix - Fix the datepicker width problem in Google Chrome, for the new views. [TEC-2995]
 * Fix - Fix an issue where Venue provinces would be incorrectly populated in iCal exports [TEC-3223]
+* Fix - Deleting events after X feature no longer will delete posts with `_EventEndDate` meta [TEC-3233]
 * Tweak - Adjust tooltip title styles for Twenty Twenty theme. [TEC-2998]
 * Tweak - Remove find events button and related data when events bar is disabled. [TEC-3074]
 * Tweak - Ensure datepicker always updates view via live refresh. [TEC-3073]
