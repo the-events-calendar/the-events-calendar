@@ -225,7 +225,7 @@ $general_tab_fields = Tribe__Main::array_insert_before_key(
 	'tribeEventsMiscellaneousTitle',
 	$general_tab_fields,
 	[
-		'tribeGoogleMapsSettings' => [
+		'tribeGoogleMapsSettingsTitle' => [
 			'type' => 'html',
 			'html' => '<h3>' . esc_html__( 'Map Settings', 'the-events-calendar' ) . '</h3>',
 		],
@@ -278,5 +278,7 @@ if ( tribe_events_views_v2_is_enabled() ) {
 }
 
 $general_tab_fields = tribe( 'events.editor.compatibility' )->insert_toggle_blocks_editor_field( $general_tab_fields );
+
+$general_tab_fields = apply_filters( 'tribe-event-general-settings-fields', $general_tab_fields );
 
 return $general_tab_fields;
