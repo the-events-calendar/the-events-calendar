@@ -8,6 +8,7 @@ import { plugins } from '@moderntribe/common/data';
 import { store } from '@moderntribe/common/store';
 import * as blocks from './blocks';
 import initSagas from './sagas';
+import initSubscribers from './subscribers';
 
 const setInitialState = ( entityRecord ) => {
 	blocks.setInitialState( entityRecord );
@@ -15,15 +16,21 @@ const setInitialState = ( entityRecord ) => {
 
 export const initStore = () => {
 	const unsubscribe = globals.wpData.subscribe( () => {
-		if ( ! globals.wpCoreEditor.__unstableIsEditorReady() ) {
+		const coreSelectors = globals.wpData.select( 'core' );
+		const coreEditorSelectors = globals.wpData.select( 'core/editor' );
+
+		/**
+		 * @todo: keep an eye on this, unstable function but is used in block editor core code.
+		 */
+		if ( ! coreEditorSelectors.__unstableIsEditorReady() ) {
 			return;
 		}
 
 		unsubscribe();
 
-		if ( ! globals.wpCoreEditor.isCleanNewPost() ) {
-			const postId = globals.wpCoreEditor.getCurrentPostId();
-			const entityRecord = globals.wpCore.getEntityRecord( 'postType', 'tribe_events', postId );
+		if ( ! coreEditorSelectors.isCleanNewPost() ) {
+			const postId = coreEditorSelectors.getCurrentPostId();
+			const entityRecord = coreSelectors.getEntityRecord( 'postType', 'tribe_events', postId );
 
 			setInitialState( entityRecord );
 		}
@@ -31,6 +38,7 @@ export const initStore = () => {
 		const { dispatch, injectReducers } = store;
 
 		initSagas();
+		initSubscribers();
 		dispatch( plugins.actions.addPlugin( 'events' ) );
 		injectReducers( { events: reducer } );
 	} );

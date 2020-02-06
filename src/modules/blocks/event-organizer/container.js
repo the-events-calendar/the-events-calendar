@@ -37,7 +37,9 @@ const onFormCompleted = ( state, dispatch, ownProps ) => ( body = {} ) => {
 };
 
 const mapStateToProps = ( state, ownProps ) => ( {
-	// @todo: the organizer prop is needed for withDetails, remove this if we fix it
+	/**
+	 * @todo: the organizer prop is needed for withDetails, remove this if we fix it
+	 */
 	organizer: ownProps.attributes.organizer,
 	organizers: selectors.getOrganizersInBlock( state ),
 	state,
