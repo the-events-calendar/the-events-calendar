@@ -12,14 +12,32 @@ foreach ( array_keys( $templates ) as $template ) {
 	$template_options[ $templates[ $template ] ] = $template;
 }
 
-$stylesheet_choices['skeleton'] = __( 'Skeleton Styles', 'the-events-calendar' ) . '<p class=\'description tribe-style-selection\'>' . __( 'Only includes enough css to achieve complex layouts like calendar and week view.', 'the-events-calendar' ) .'</p>';
+$stylesheet_choices = [
+	'skeleton' => __( 'Skeleton Styles', 'the-events-calendar' )
+				. '<p class=\'description tribe-style-selection\'>'
+				. __(
+					'Only includes enough css to achieve complex layouts like calendar and week view.',
+					'the-events-calendar'
+				) .'</p>',
+	'full'     => __( 'Full Styles', 'the-events-calendar' )
+					. '<p class=\'description tribe-style-selection\'>'
+				. __(
+						'More detailed styling, tries to grab styles from your theme.',
+						'the-events-calendar'
+				) . '</p>',
+	'tribe'    => __( 'Tribe Events Styles', 'the-events-calendar' )
+				. '<p class=\'description tribe-style-selection\'>'
+				. __(
+					'A fully designed and styled theme for your events pages.',
+					'the-events-calendar'
+				)
+				. '</p>',
+];
 
 
-if ( ! tribe_events_views_v2_is_enabled() ) {
-	$stylesheet_choices['full'] =  __( 'Full Styles', 'the-events-calendar' ) . '<p class=\'description tribe-style-selection\'>' . __( 'More detailed styling, tries to grab styles from your theme.', 'the-events-calendar' ) . '</p>';
+if ( tribe_events_views_v2_is_enabled() ) {
+	unset( $stylesheet_choices[ 'full' ] ) ;
 }
-
-$stylesheet_choices['tribe'] =  __( 'Tribe Events Styles', 'the-events-calendar' ) . '<p class=\'description tribe-style-selection\'>' . __( 'A fully designed and styled theme for your events pages.', 'the-events-calendar' ) . '</p>';
 
 $stylesheet_option = [
 	'type'            => 'radio',

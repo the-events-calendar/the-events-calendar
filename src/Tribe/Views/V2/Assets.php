@@ -406,7 +406,6 @@ class Assets extends \tad_DI52_ServiceProvider {
 	 */
 	public function is_skeleton_style() {
 		$style_option = tribe_get_option( 'stylesheetOption', 'tribe' );
-		bdump($style_option);
 		return 'skeleton' === $style_option;
 	}
 
