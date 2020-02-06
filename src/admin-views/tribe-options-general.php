@@ -47,15 +47,6 @@ $general_tab_fields = Tribe__Main::array_insert_before_key(
 			'default'         => tribe_events_views_v2_is_enabled() ? 12 : get_option( 'posts_per_page' ),
 			'validation_type' => 'positive_int',
 		],
-		'liveFiltersUpdate'             => [
-			'type'            => 'checkbox_bool',
-			'label'           => esc_html__( 'Enable live refresh', 'the-events-calendar' ),
-			'tooltip'         => tribe_get_option( 'tribeDisableTribeBar', false ) == true && ! tribe_events_views_v2_is_enabled() ? esc_html__( 'This option is disabled when "Disable the Event Search Bar" is checked on the Display settings tab.', 'the-events-calendar' ) : esc_html__( 'Instantly updates the calendar view when searching for or filtering events.', 'the-events-calendar' ),
-			'attributes'      => tribe_get_option( 'tribeDisableTribeBar', false ) == true && ! tribe_events_views_v2_is_enabled() ? [ 'disabled' => 'disabled' ] : null,
-			'default'         => true,
-			'validation_type' => 'boolean',
-			'class'           => tribe_get_option( 'tribeDisableTribeBar', false ) == true && ! tribe_events_views_v2_is_enabled() ? 'tribe-fieldset-disabled' : null,
-		],
 		'showComments'                  => [
 			'type'            => 'checkbox_bool',
 			'label'           => esc_html__( 'Show comments', 'the-events-calendar' ),
@@ -257,6 +248,34 @@ $general_tab_fields = Tribe__Main::array_insert_before_key(
 		],
 	]
 );
+
+$filter_activation = [
+	'liveFiltersUpdate'             => [
+		'type'            => 'radio',
+		'label'           => esc_html__( 'Filter Activation', 'the-events-calendar' ),
+		'tooltip'         => esc_html__( 'Immediate filter activation may not be fully compliant with Web Accessibility Standards.', 'the-events-calendar' ),
+		'default'         => 'automatic',
+		'validation_type' => 'options',
+		'options'         => [
+			'automatic' => __( 'Calendar view is updated immediately when a filter is selected', 'the-events-calendar' ),
+			'manual'    => __( 'Submit button activates any selected filters', 'the-events-calendar' ),
+		],
+		'class'           => tribe_get_option( 'tribeDisableTribeBar', false ) == true ? 'tribe-fieldset-disabled' : null,
+	]
+];
+
+if ( tribe_events_views_v2_is_enabled() ) {
+	add_filter( 'tribe-event-filters-settings-fields', function ( $fields ) use ( $filter_activation ) {
+		$fields[] = $filter_activation['liveFiltersUpdate'];
+		return $fields;
+	} );
+} else {
+	$general_tab_fields = Tribe__Main::array_insert_before_key(
+		'showComments',
+		$general_tab_fields,
+		$filter_activation
+	);
+}
 
 $general_tab_fields = tribe( 'events.editor.compatibility' )->insert_toggle_blocks_editor_field( $general_tab_fields );
 
