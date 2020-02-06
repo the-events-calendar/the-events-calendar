@@ -8,14 +8,16 @@ import { uniq } from 'lodash';
 /**
  * Internal dependencies
  */
+import { globals } from "@moderntribe/common/utils";
 import { withStore, withForm } from '@moderntribe/common/hoc';
 import { withDetails } from '@moderntribe/events/hoc';
 import { actions, selectors } from '@moderntribe/events/data/blocks/organizers';
 import { actions as detailsActions } from '@moderntribe/events/data/details';
 import { actions as formActions } from '@moderntribe/common/data/forms';
 import { editor } from '@moderntribe/common/data';
-import EventOrganizer from './template';
 import { toOrganizer } from '@moderntribe/events/elements/organizer-form/utils';
+import classicEventDetailsBlock from '@moderntribe/events/blocks/classic-event-details';
+import EventOrganizer from './template';
 
 /**
  * Module Code
@@ -29,7 +31,7 @@ const addOrganizer = ( { state, dispatch, ownProps, organizerID, details } ) => 
 
 	dispatch( detailsActions.setDetails( organizerID, details ) );
 	dispatch( actions.addOrganizerInClassic( organizerID ) );
-	dispatch( actions.addOrganizerInBlock( organizerID ) );
+	dispatch( actions.addOrganizerInBlock( ownProps.clientId, organizerID ) );
 };
 
 const onFormCompleted = ( state, dispatch, ownProps ) => ( body = {} ) => {
@@ -56,13 +58,6 @@ const mapDispatchToProps = ( dispatch, ownProps ) => ( {
 	onEdit: () => {
 		ownProps.editEntry( ownProps.details );
 	},
-	onBlockAdded: () => {
-		if ( ! ownProps.attributes.organizer ) {
-			return;
-		}
-
-		dispatch( actions.addOrganizerInBlock( ownProps.attributes.organizer ) );
-	},
 	dispatch,
 } );
 
@@ -81,12 +76,15 @@ const mergeProps = ( stateProps, dispatchProps, ownProps ) => {
 			addOrganizer( { state, dispatch, ownProps, organizerID, details } );
 		},
 		onRemove: () => {
-			const { organizer, details, volatile } = ownProps;
+			const { clientId, organizer, details, volatile } = ownProps;
 
 			ownProps.setAttributes( { organizer: 0 } );
-			dispatch( actions.removeOrganizerInBlock( organizer ) );
+			dispatch( actions.removeOrganizerInBlock( clientId, organizer ) );
 
-			if ( volatile ) {
+			const blocks = globals.wpData.select( 'core/editor' ).getBlocks();
+			const classicBlock = blocks.filter( block => block.name === `tribe/${ classicEventDetailsBlock.id }` );
+
+			if ( ! classicBlock.length || volatile ) {
 				ownProps.maybeRemoveEntry( details );
 
 				const organizers = selectors.getOrganizersInClassic( state );
@@ -94,31 +92,6 @@ const mergeProps = ( stateProps, dispatchProps, ownProps ) => {
 
 				ownProps.setAttributes( { organizers: newOrganizers } );
 				dispatch( actions.removeOrganizerInClassic( organizer ) );
-			}
-		},
-		onBlockRemoved: () => {
-			/**
-			 * @todo: should not be dispatching actions in componentWillUnmount
-			 *        find out how to handle this another way.
-			 */
-			const { organizer, volatile } = ownProps;
-			if ( ! organizer ) {
-				return;
-			}
-
-			dispatch( actions.removeOrganizerInBlock( organizer ) );
-
-			if ( volatile ) {
-				/**
-				 * @todo: cannot use setAttribute here to remove organizer from organizers meta
-				 *        the only way to remove organizers fully is to remove from classic block
-				 *        need to deal with this somehow.
-				 */
-				dispatch( actions.removeOrganizerInClassic( organizer ) );
-				/**
-				 * @todo: this one creates a connection with the Form event, however the form has no idea of
-				 * @todo: the ID to be removed so this one might be a good saga watcher
-				 */
 				dispatch( formActions.removeVolatile( organizer ) );
 			}
 		},

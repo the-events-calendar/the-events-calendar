@@ -6,7 +6,10 @@ import { difference } from 'lodash';
 
 export const getOrganizersInClassic = ( state ) => state.events.blocks.organizers.classic;
 
-export const getOrganizersInBlock = ( state ) => state.events.blocks.organizers.blocks;
+export const getOrganizerByClientId = ( state, props ) =>
+	state.events.blocks.organizers.blocks.byId[ props.clientId ];
+
+export const getOrganizersInBlock = ( state ) => state.events.blocks.organizers.blocks.allIds;
 
 export const getMappedOrganizers = createSelector(
 	[ getOrganizersInClassic, getOrganizersInBlock ],

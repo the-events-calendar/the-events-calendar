@@ -4,7 +4,7 @@
 import reducer from './reducers';
 
 import { globals } from '@moderntribe/common/utils';
-import { plugins } from '@moderntribe/common/data';
+import { editor, plugins } from '@moderntribe/common/data';
 import { store } from '@moderntribe/common/store';
 import * as blocks from './blocks';
 import initSagas from './sagas';
@@ -30,7 +30,7 @@ export const initStore = () => {
 
 		if ( ! coreEditorSelectors.isCleanNewPost() ) {
 			const postId = coreEditorSelectors.getCurrentPostId();
-			const entityRecord = coreSelectors.getEntityRecord( 'postType', 'tribe_events', postId );
+			const entityRecord = coreSelectors.getEntityRecord( 'postType', editor.EVENT, postId );
 
 			setInitialState( entityRecord );
 		}

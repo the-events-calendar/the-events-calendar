@@ -48,14 +48,6 @@ class EventOrganizer extends PureComponent {
 		onRemove: PropTypes.func,
 	};
 
-	componentDidMount() {
-		this.props.onBlockAdded();
-	}
-
-	componentWillUnmount() {
-		this.props.onBlockRemoved();
-	}
-
 	componentDidUpdate( prevProps ) {
 		const {
 			isSelected,

@@ -25,16 +25,18 @@ export const addOrganizerInClassic = ( organizer ) => ( {
 	},
 } );
 
-export const addOrganizerInBlock = ( organizer ) => ( {
+export const addOrganizerInBlock = ( id, organizer ) => ( {
 	type: types.ADD_BLOCK_ORGANIZER,
 	payload: {
+		id,
 		organizer,
 	},
 } );
 
-export const removeOrganizerInBlock = ( organizer ) => ( {
+export const removeOrganizerInBlock = ( id, organizer ) => ( {
 	type: types.REMOVE_BLOCK_ORGANIZER,
 	payload: {
+		id,
 		organizer,
 	},
 } );
