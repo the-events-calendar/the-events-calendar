@@ -52,4 +52,78 @@ class CronTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertEmpty( get_post( $record_post ) );
 	}
+
+	/**
+	 * It should process all pending records
+	 *
+	 * @test
+	 */
+	public function should_process_all_pending_records() {
+		$first = $this->factory()->post->create( [
+			'post_type'      => Records::$post_type,
+			'post_status'    => Records::$status->pending,
+			'post_mime_type' => 'ea/foo-bar'
+		] );
+
+		add_post_meta( $first, '_tribe_aggregator_origin', 'eventbrite' );
+
+		$second = $this->factory()->post->create( [
+			'post_type'      => Records::$post_type,
+			'post_status'    => Records::$status->pending,
+			'post_mime_type' => 'ea/foo-bar'
+		] );
+
+		add_post_meta( $second, '_tribe_aggregator_origin', 'meetup' );
+		add_post_meta( $second, '_tribe_aggregator_allow_batch_push', '0' );
+
+		$batch = $this->factory()->post->create( [
+			'post_type'      => Records::$post_type,
+			'post_status'    => Records::$status->pending,
+			'post_mime_type' => 'ea/foo-bar'
+		] );
+
+		add_post_meta( $batch, '_tribe_aggregator_origin', 'meetup' );
+		add_post_meta( $batch, '_tribe_aggregator_allow_batch_push', '1' );
+
+		// By pass the is_active() EA call.
+		add_filter( 'tribe_aggregator_api', function ( $api ) {
+			$api->key = 'foo-bar';
+
+			return $api;
+		} );
+		$cron = $this->make_instance();
+		$cron->verify_fetching_from_service();
+
+		$this->assertEquals( Records::$status->failed, get_post_status( $first ) );
+		$this->assertEquals( Records::$status->failed, get_post_status( $second ) );
+		$this->assertEquals( Records::$status->pending, get_post_status( $batch ) );
+	}
+
+	/**
+	 * Test batch records are not processed by cron task.
+	 *
+	 * @test
+	 */
+	public function it_should_bypass_batch_push_records() {
+		$batch = $this->factory()->post->create( [
+			'post_type'      => Records::$post_type,
+			'post_status'    => Records::$status->pending,
+			'post_mime_type' => 'ea/foo-bar'
+		] );
+
+		add_post_meta( $batch, '_tribe_aggregator_origin', 'meetup' );
+		add_post_meta( $batch, '_tribe_aggregator_allow_batch_push', '1' );
+
+		// By pass the is_active() EA call.
+		add_filter( 'tribe_aggregator_api', function ( $api ) {
+			$api->key = 'foo-bar';
+
+			return $api;
+		} );
+
+		$cron = $this->make_instance();
+		$cron->verify_fetching_from_service();
+
+		$this->assertEquals( Records::$status->pending, get_post_status( $batch ) );
+	}
 }
