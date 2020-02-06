@@ -16,6 +16,15 @@ class CronTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertInstanceOf( Cron::class, $sut );
 	}
 
+	public function _before() {
+		// By pass the is_active() EA call.
+		add_filter( 'tribe_aggregator_api', function ( $api ) {
+			$api->key = 'foo-bar';
+
+			return $api;
+		} );
+	}
+
 	/**
 	 * @return Cron
 	 */
@@ -43,11 +52,6 @@ class CronTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( Records::$status->schedule, get_post_status( $record_post ) );
 
 		$cron = $this->make_instance();
-		add_filter( 'tribe_aggregator_api', function ( $api ) {
-			$api->key = 'foo-bar';
-
-			return $api;
-		} );
 		$cron->verify_child_record_creation();
 
 		$this->assertEmpty( get_post( $record_post ) );
@@ -85,12 +89,6 @@ class CronTest extends \Codeception\TestCase\WPTestCase {
 		add_post_meta( $batch, '_tribe_aggregator_origin', 'meetup' );
 		add_post_meta( $batch, '_tribe_aggregator_allow_batch_push', '1' );
 
-		// By pass the is_active() EA call.
-		add_filter( 'tribe_aggregator_api', function ( $api ) {
-			$api->key = 'foo-bar';
-
-			return $api;
-		} );
 		$cron = $this->make_instance();
 		$cron->verify_fetching_from_service();
 
@@ -113,13 +111,6 @@ class CronTest extends \Codeception\TestCase\WPTestCase {
 
 		add_post_meta( $batch, '_tribe_aggregator_origin', 'meetup' );
 		add_post_meta( $batch, '_tribe_aggregator_allow_batch_push', '1' );
-
-		// By pass the is_active() EA call.
-		add_filter( 'tribe_aggregator_api', function ( $api ) {
-			$api->key = 'foo-bar';
-
-			return $api;
-		} );
 
 		$cron = $this->make_instance();
 		$cron->verify_fetching_from_service();
