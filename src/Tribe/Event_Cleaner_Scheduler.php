@@ -147,18 +147,25 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 
 		$event_post_type = Tribe__Events__Main::POSTTYPE;
 
-		$posts_with_parents_sql = "SELECT DISTINCT post_parent
+		$posts_with_parents_sql = "
+		SELECT DISTINCT post_parent
 		FROM {$wpdb->posts}
-		WHERE post_type= '$event_post_type'
+		WHERE 
+			post_type= '$event_post_type'
 			AND post_parent <> 0
 		";
 
-		$sql = "SELECT post_id
+		$sql = "
+		SELECT post_id
 		FROM {$wpdb->posts} AS t1
 		INNER JOIN {$wpdb->postmeta} AS t2 ON t1.ID = t2.post_id
-		WHERE t1.post_type = %d
+		WHERE 
+		    t1.post_type = %s
 			AND t2.meta_key = '_EventEndDate'
 			AND t2.meta_value <= DATE_SUB( CURDATE(), INTERVAL %d MONTH )
+		  	AND t2.meta_value != 0
+			AND t2.meta_value != ''
+			AND t2.meta_value IS NOT NULL
 			AND t1.post_parent = 0
 			AND t1.ID NOT IN ( $posts_with_parents_sql )
 		";
