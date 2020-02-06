@@ -603,8 +603,18 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		return $this->container->make( Template_Bootstrap::class )->filter_template_file( $file, $name, $template );
 	}
 
+	/**
+	 * Filter the stylesheet option to do some switching for V2
+	 *
+	 * @since TBD
+	 *
+	 * @param string $value The option value.
+	 * @param string $key   The option key.
+	 *
+	 * @return void
+	 */
 	public function filter_get_stylesheet_option( $value, $key ) {
-		// remove this filter so we don't loop infinitely.
+		// Remove this filter so we don't loop infinitely.
 		remove_filter( 'tribe_get_option', [ $this, 'filter_get_stylesheet_option' ], 10, 2 );
 
 		$default = 'tribe';
@@ -620,7 +630,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 			$value = tribe_get_option( 'stylesheet_mode', $default );
 		}
 
-		// add this filter back
+		// Add the filter back
 		add_filter( 'tribe_get_option', [ $this, 'filter_get_stylesheet_option' ], 10, 2 );
 
 		return $value;

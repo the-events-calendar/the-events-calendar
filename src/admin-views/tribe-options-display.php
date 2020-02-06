@@ -1,5 +1,4 @@
 <?php
-use Tribe\Events\Views\V2\Manager;
 $tec = Tribe__Events__Main::instance();
 
 $template_options = array(
@@ -18,13 +17,15 @@ $stylesheet_choices = [
 				. __(
 					'Only includes enough css to achieve complex layouts like calendar and week view.',
 					'the-events-calendar'
-				) .'</p>',
+				)
+				.'</p>',
 	'full'     => __( 'Full Styles', 'the-events-calendar' )
 					. '<p class=\'description tribe-style-selection\'>'
 				. __(
 						'More detailed styling, tries to grab styles from your theme.',
 						'the-events-calendar'
-				) . '</p>',
+				)
+				. '</p>',
 	'tribe'    => __( 'Tribe Events Styles', 'the-events-calendar' )
 				. '<p class=\'description tribe-style-selection\'>'
 				. __(
@@ -35,6 +36,7 @@ $stylesheet_choices = [
 ];
 
 
+// If V2 is ensabled, we don't show the (redundant) 'full' option
 if ( tribe_events_views_v2_is_enabled() ) {
 	unset( $stylesheet_choices[ 'full' ] ) ;
 }
@@ -49,6 +51,7 @@ $stylesheet_option = [
 
 $stylesheet_mode = [ 'type' => 'html'];
 
+// If V2 is ensabled, we swap the options so we don't overwrite. For backwards compatibility.
 if ( tribe_events_views_v2_is_enabled() ) {
 	$stylesheet_mode = $stylesheet_option;
 	$stylesheet_option = [ 'type' => 'html' ];
@@ -215,13 +218,6 @@ $display_tab_fields = Tribe__Main::array_insert_before_key(
 		],
 	]
 );
-
-if ( ! tribe_is_truthy( tribe_get_option( Manager::$option_enabled, false ) ) ) {
-	$display_tab_fields[ 'stylesheetOption' ]['options']['full'] = __( 'Full Styles', 'the-events-calendar' ) .
-	'<p class=\'description tribe-style-selection\'>' .
-	__( 'More detailed styling, tries to grab styles from your theme.', 'the-events-calendar' ) .
-	'</p>';
-}
 
 if ( tribe( 'tec.main' )->show_upgrade() ) {
 	$display_tab_fields = Tribe__Main::array_insert_before_key(
