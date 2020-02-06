@@ -163,7 +163,7 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 				t1.post_type = %s
 				AND t2.meta_key = '_EventEndDate'
 				AND t2.meta_value <= DATE_SUB( CURDATE(), INTERVAL %d MONTH )
-			    AND t2.meta_value != 0
+				AND t2.meta_value != 0
 				AND t2.meta_value != ''
 				AND t2.meta_value IS NOT NULL
 				AND t1.post_parent = 0
