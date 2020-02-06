@@ -89,6 +89,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'tribe_events_rewrite_i18n_slugs_raw', [ $this, 'filter_rewrite_i18n_slugs_raw' ], 50, 2 );
 		add_filter( 'tribe_get_event_after', [ $this, 'filter_events_properties' ] );
 		add_filter( 'tribe_template_file', [ $this, 'filter_template_file' ], 10, 3 );
+		add_filter( 'tribe_settings_do_content_parent_option', [ $this, 'settings_save_field_liveFiltersUpdate' ], 10, 2 );
 
 		if ( tribe_context()->doing_php_initial_state() ) {
 			add_filter( 'wp_title', [ $this, 'filter_wp_title' ], 10, 2 );
@@ -600,5 +601,15 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 */
 	public function filter_template_file( $file, $name, $template ) {
 		return $this->container->make( Template_Bootstrap::class )->filter_template_file( $file, $name, $template );
+	}
+
+	public function settings_save_field_liveFiltersUpdate( $parent_option, $key ) {
+		bdump('settings_save_field_liveFiltersUpdate');
+		bdump($key);
+		if ( 'liveFiltersUpdate' !== $key ) {
+			return $parent_option;
+		}
+
+		return Tribe__Main::OPTIONNAME;
 	}
 }
