@@ -541,7 +541,8 @@ class Tribe__Events__Aggregator__Service {
 		 * @since 4.6.18
 		 *
 		 * @param  array  $data      Which Arguments
-		 * @param  string  $image_id  Image ID
+		 * @param string	      $image_id  The image post ID.
+		 * @param array<string,mixed> $data      The image data.
 		 */
 		$data = apply_filters( 'tribe_aggregator_get_image_data_args', [], $record, $image_id );
 
