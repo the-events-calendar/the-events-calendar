@@ -181,7 +181,7 @@ class Tribe__Events__Aggregator__Record__Queue implements Tribe__Events__Aggrega
 	}
 
 	/**
-	 * Shortcut to check if this queue is empty or it has a null process
+	 * Shortcut to check if this queue is empty or it has a null process.
 	 *
 	 * @return boolean `true` if this queue instance has acquired the lock and
 	 *                 the count is 0, `false` otherwise.
