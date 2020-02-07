@@ -411,13 +411,13 @@ class Tribe__Events__Aggregator__Cron {
 				],
 				[
 					'relation'                        => 'OR',
-					// if not specified then assume batch push is not supported
+					// If not specified then assume batch push is not supported.
 					'no-batch-push-support-specified' => [
 						'key'     => '_tribe_aggregator_allow_batch_push',
 						'value'   => 'bug #23268',
 						'compare' => 'NOT EXISTS',
 					],
-					// if specified and not `1` then batch push is not supported
+					// If specified, and not `1`, then batch push is not supported.
 					'explicit-no-batch-push-support'  => [
 						'key'     => '_tribe_aggregator_allow_batch_push',
 						'value'   => '1',
