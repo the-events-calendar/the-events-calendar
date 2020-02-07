@@ -412,8 +412,8 @@ class Assets extends \tad_DI52_ServiceProvider {
 	/**
 	 * Verifies if we dont have skeleton active, which will trigger true for the two other possible options.
 	 * Options:
-	 * - `full` - Deprecated
-	 * - `tribe`  - All styles load
+	 * - `tribe` - Deprecated
+	 * - `full`  - All styles load
 	 *
 	 * @since  4.9.11
 	 *
