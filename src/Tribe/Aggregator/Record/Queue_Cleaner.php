@@ -9,7 +9,7 @@ class Tribe__Events__Aggregator__Record__Queue_Cleaner {
 	 * @var int The time a record is allowed to stall before have the status set to to failed since its creation in
 	 *          seconds.
 	 */
-	protected $time_to_live = HOUR_IN_SECONDS * 12; // For pre-PHP 5.6 compat, we do not define as 12 * HOUR_IN_SECONDS
+	protected $time_to_live = HOUR_IN_SECONDS * 12;
 
 	/**
 	 * @var int The time a record is allowed to stall before having
