@@ -251,22 +251,22 @@ $general_tab_fields = Tribe__Main::array_insert_before_key(
 
 $filter_activation = [
 	'liveFiltersUpdate'             => [
-		'type'            => 'radio',
-		'label'           => esc_html__( 'Filter Activation', 'the-events-calendar' ),
-		'tooltip'         => esc_html__( 'Immediate filter activation may not be fully compliant with Web Accessibility Standards.', 'the-events-calendar' ),
+		'class'           => tribe_get_option( 'tribeDisableTribeBar', false ) == true ? 'tribe-fieldset-disabled' : null,
 		'default'         => 'automatic',
-		'validation_type' => 'options',
+		'label'           => esc_html__( 'Filter Activation', 'the-events-calendar' ),
 		'options'         => [
 			'automatic' => __( 'Calendar view is updated immediately when a filter is selected', 'the-events-calendar' ),
 			'manual'    => __( 'Submit button activates any selected filters', 'the-events-calendar' ),
 		],
-		'class'           => tribe_get_option( 'tribeDisableTribeBar', false ) == true ? 'tribe-fieldset-disabled' : null,
+		'tooltip'         => esc_html__( 'Immediate filter activation may not be fully compliant with Web Accessibility Standards.', 'the-events-calendar' ),
+		'type'            => 'radio',
+		'validation_type' => 'options',
 	]
 ];
 
 if ( tribe_events_views_v2_is_enabled() ) {
 	add_filter( 'tribe-event-filters-settings-fields', function ( $fields ) use ( $filter_activation ) {
-		$fields[] = $filter_activation['liveFiltersUpdate'];
+		$fields += $filter_activation;
 		return $fields;
 	} );
 } else {
