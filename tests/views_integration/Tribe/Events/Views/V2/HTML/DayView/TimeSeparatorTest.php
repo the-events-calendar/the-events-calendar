@@ -1,24 +1,17 @@
 <?php
 namespace Tribe\Events\Views\V2\Views\HTML\DayView;
 
+use Tribe\Test\PHPUnit\Traits\With_Post_Remapping;
 use Tribe\Test\Products\WPBrowser\Views\V2\HtmlTestCase;
 
 class TimeSeparatorTest extends HtmlTestCase {
-
+	use With_Post_Remapping;
 
 	/**
 	 * @test
 	 */
 	public function it_should_contain_correct_html_classes() {
-		$args  = [
-			'start_date' => '2018-01-01 09:00:00',
-			'end_date'   => '2018-01-01 11:00:00',
-			'timezone'   => 'Europe/Paris',
-			'title'      => 'A test event',
-		];
-
-		$event = tribe_events()->set_args( $args )->create();
-		$event = tribe_get_event( $event->ID );
+		$event = $this->get_mock_event( 'events/single/1.json' );
 
 		$args = [
 			'events' => [ $event ],

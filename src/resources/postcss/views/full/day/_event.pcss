@@ -1,0 +1,61 @@
+.tribe-events {
+
+	/* -----------------------------------------------------------------------------
+	 * Event
+	 * ----------------------------------------------------------------------------- */
+
+	.tribe-events-calendar-day__event--featured {
+		position: relative;
+
+		&:after {
+			background-color: var(--color-accent-primary);
+			content: '';
+			height: 100%;
+			left: var(--grid-gutter-small-half);
+			position: absolute;
+			width: 3px;
+
+			.tribe-common--breakpoint-medium& {
+				left: calc(var(--grid-width-1-of-9) - var(--grid-gutter-half));
+				width: 4px;
+			}
+		}
+	}
+
+	.tribe-events-calendar-day__event-venue {
+		font-style: normal;
+	}
+
+	.tribe-events-calendar-day__event-featured-image-link {
+		transition: var(--transition-opacity);
+
+		&:hover,
+		&:focus {
+			opacity: var(--opacity-icon-hover);
+		}
+
+		&:active {
+			opacity: var(--opacity-icon-active);
+		}
+	}
+
+	.tribe-events-calendar-day__event-datetime-featured-text {
+
+		.tribe-common--breakpoint-medium& {
+			color: var(--color-accent-primary);
+			font-weight: var(--font-weight-bold);
+		}
+	}
+
+	.tribe-events-calendar-day__event-datetime-recurring-link {
+
+		&:hover,
+		&:focus {
+
+			.tribe-events-calendar-day__event-datetime-recurring-icon {
+				background-image: svg-inline(recurring);
+			}
+		}
+	}
+}
+

@@ -20,10 +20,13 @@
 
 		var $body        = $( 'body' );
 		var $navLink     = $( '[class^="tribe-events-nav-"] a' );
-		var initialDate  = tf.get_url_param( 'tribe-bar-date' );
 		var $wrapper     = $( document.getElementById( 'tribe-events' ) );
 		var $tribedate   = $( document.getElementById( 'tribe-bar-date' ) );
 		var dateMod      = false;
+		var maskKey      = 'm' + ts.datepicker_format.toString();
+		var dateFormat   = tribeDateFormat.masks[maskKey] || 'yyyy-mm';
+
+		let initialDateInfo = tribeUtils.getInitialDateInfo( maskKey, dateFormat, true );
 
 		if ( 1 > $wrapper.length ) {
 			return;
@@ -47,35 +50,8 @@
 		}
 
 		if ( $( '.tribe-events-calendar' ).length && $( document.getElementById( 'tribe-events-bar' ) ).length ) {
-			if ( initialDate && initialDate.length > 7 ) {
-				$( document.getElementById( 'tribe-bar-date-day' ) ).val( initialDate.slice( -3 ) );
-				$tribedate.val( initialDate.substring( 0, 7 ) );
-			}
-		}
-
-		// begin display date formatting
-
-		var dateFormat = 'yyyy-mm';
-
-		if ( '0' !== ts.datepicker_format ) {
-
-			// we are not using the default query date format, lets grab it from the data array
-
-			var arrKey  = parseInt( ts.datepicker_format );
-			var maskKey = 'm' + ts.datepicker_format.toString();
-
-			dateFormat = td.datepicker_formats.month[arrKey];
-
-			// if url date is set and datepicker format is different from query format
-			// we need to fix the input value to emulate that before kicking in the datepicker
-
-			if ( initialDate ) {
-				if ( initialDate.length <= 7 ) {
-					initialDate = initialDate + '-01';
-				}
-
-				$tribedate.val( tribeDateFormat( initialDate, maskKey ) );
-			}
+			$( document.getElementById( 'tribe-bar-date-day' ) ).val( initialDateInfo.defaultFormattedDate );
+			$tribedate.val( initialDateInfo.formattedDate );
 		}
 
 		td.datepicker_opts = {
@@ -95,9 +71,10 @@
 
 				var year  = e.date.getFullYear();
 				var month = ( '0' + ( e.date.getMonth() + 1 ) ).slice( -2 );
+				var day   = ( '0' + ( e.date.getDate() ) ).slice( -2 );
 
 				dateMod = true;
-				ts.date  = year + '-' + month;
+				ts.date = maybeAlterDayOfMonth( year + '-' + month + '-' + day );
 
 				if ( tt.no_bar() || tt.live_ajax() && tt.pushstate ) {
 					if ( ts.ajax_running || ts.updating_picker ) {
@@ -122,6 +99,33 @@
 				}
 
 			} );
+
+		function maybeAlterDayOfMonth( date ) {
+			if ( ! date ) {
+				return date;
+			}
+
+			var now = new Date();
+			var initialDateMonth = date.substr( 5, 2 );
+			var currentMonth     = ( '0' + ( now.getMonth() + 1 ) ).substr( -2 );
+			var currentDay       = ( '0' + now.getDate() ).substr( -2 );
+
+			if ( initialDateMonth === currentMonth ) {
+				if ( date.length <= 7 ) {
+					date = date + '-' + currentDay;
+				} else {
+					date = date.substr( 0, 8 ) + currentDay;
+				}
+			} else {
+				if ( date.length <= 7 ) {
+					date = date + '-01';
+				} else {
+					date = date.substr( 0, 8 ) + '01';
+				}
+			}
+
+			return date;
+		}
 
 		function tribe_mobile_load_events( date ) {
 			var $target = $( '.tribe-mobile-day[data-day="' + date + '"]' );
@@ -310,7 +314,7 @@
 				ts.date = $this.data( "month" );
 				ts.mdate = ts.date + '-01';
 				if ( '0' !== ts.datepicker_format ) {
-					tf.update_picker( tribeDateFormat( ts.mdate, maskKey ) );
+					tf.update_picker( ts.mdate );
 				}
 				else {
 					tf.update_picker( ts.date );
@@ -384,7 +388,8 @@
 					&& $tribedate.val().length
 				) {
 					if ( '0' !== ts.datepicker_format ) {
-						ts.date = tribeDateFormat( $tribedate.bootstrapDatepicker( 'getDate' ), 'tribeMonthQuery' );
+						let maskKey = ts.datepicker_format.toString();
+						ts.date = tribeUtils.formatDateWithMoment( $tribedate.bootstrapDatepicker( 'getDate' ), "tribeMonthQuery", maskKey );
 					}
 					else {
 						ts.date = $tribedate.val();

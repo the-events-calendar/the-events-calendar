@@ -1,0 +1,34 @@
+.tribe-events {
+
+	/* -----------------------------------------------------------------------------
+	 * Calendar Header
+	 * ----------------------------------------------------------------------------- */
+
+	.tribe-events-calendar-month__header-row {
+		display: flex;
+	}
+
+	.tribe-events-calendar-month__header-column {
+		width: var(--grid-width-1-of-7);
+		padding-bottom: var(--spacer-3);
+	}
+
+	.tribe-events-calendar-month__header-column-title {
+		margin: 0;
+	}
+
+	.tribe-events-calendar-month__header-column-title-mobile {
+
+		.tribe-common--breakpoint-medium& {
+			@mixin hidden;
+		}
+	}
+
+	.tribe-events-calendar-month__header-column-title-desktop {
+
+		.tribe-common--breakpoint-medium& {
+			display: block !important;
+			visibility: visible
+		}
+	}
+}

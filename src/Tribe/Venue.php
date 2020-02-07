@@ -697,14 +697,19 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 			return $callback;
 		}
 
-		// This query is bound by `posts_per_page` and it's fine and reasonable; do not make it unbound.
 		return static function () use ( $event ) {
-			$venue_ids = tribe_venues()->by( 'event', $event )->get_ids();
+			$venue_ids = array_filter(
+				array_map(
+					'absint',
+					(array) get_post_meta( $event, '_EventVenueID' )
+				)
+			);
+
 			$venues    = ! empty( $venue_ids )
-				? array_map( 'tribe_get_venue', $venue_ids )
+				? array_map( 'tribe_get_venue_object', $venue_ids )
 				: [];
 
-			return $venues;
+			return array_filter( $venues );
 		};
 	}
 }

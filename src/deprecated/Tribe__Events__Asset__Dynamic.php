@@ -21,7 +21,7 @@ class Tribe__Events__Asset__Dynamic extends Tribe__Events__Asset__Abstract_Asset
 			'date_with_year'          => tribe_get_date_option( 'dateWithYearFormat', Tribe__Date_Utils::DBDATEFORMAT ),
 			'date_no_year'            => tribe_get_date_option( 'dateWithoutYearFormat', Tribe__Date_Utils::DBDATEFORMAT ),
 			'datepicker_format'       => Tribe__Date_Utils::datepicker_formats( tribe_get_option( 'datepickerFormat' ) ),
-			'datepicker_format_index' => tribe_get_option( 'datepickerFormat' ),
+			'datepicker_format_index' => Tribe__Date_Utils::get_datepicker_format_index(),
 			'days'              => array(
 				__( 'Sunday' ),
 				__( 'Monday' ),

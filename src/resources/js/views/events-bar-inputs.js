@@ -23,7 +23,7 @@ tribe.events.views.eventsBarInputs = {};
  * @since 4.9.4
  *
  * @param  {PlainObject} $   jQuery
- * @param  {PlainObject} obj tribe.events.views.manager
+ * @param  {PlainObject} obj tribe.events.views.eventsBarInputs
  *
  * @return {void}
  */
@@ -80,7 +80,7 @@ tribe.events.views.eventsBarInputs = {};
 					return;
 				}
 
-				$input.off( 'change', obj.handleInputChange );
+				$input.off();
 			} );
 	};
 
@@ -97,7 +97,7 @@ tribe.events.views.eventsBarInputs = {};
 		$container
 			.find( obj.selectors.inputWrapper )
 			.each( function( index, wrapper ) {
-				var inputWrapperClass = wrapper.className.match( /tribe-common-c-search__input-control--[a-z]+/ );
+				var inputWrapperClass = wrapper.className.match( /tribe-events-c-search__input-control--[a-z]+/ );
 
 				if ( ! inputWrapperClass ) {
 					return;
@@ -132,12 +132,13 @@ tribe.events.views.eventsBarInputs = {};
 	obj.unbindEvents = function( event, jqXHR, settings ) {
 		var $container = event.data.container;
 		obj.unbindInputEvents( $container );
+		$container.off( 'beforeAjaxSuccess.tribeEvents', obj.unbindEvents );
 	};
 
 	/**
 	 * Binds events for the events bar input change listeners
 	 *
-	 * @since 4.9.4
+	 * @since 4.9.8
 	 *
 	 * @param  {Event}   event      event object for 'afterSetup.tribeEvents' event
 	 * @param  {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event
@@ -147,7 +148,12 @@ tribe.events.views.eventsBarInputs = {};
 	 * @return {void}
 	 */
 	obj.bindEvents = function( event, index, $container, data ) {
-		// Bind event for the keyword input.
+		var $inputWrapper = $container.find( obj.selectors.inputWrapper );
+
+		if ( ! $inputWrapper.length ) {
+			return;
+		}
+
 		obj.bindInputEvents( $container );
 		$container.on( 'beforeAjaxSuccess.tribeEvents', { container: $container }, obj.unbindEvents );
 	};

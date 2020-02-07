@@ -1,9 +1,11 @@
 <?php return '<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--next">
 	<a
-		href="#"
+		href="http://test.tri.be"
 		rel="next"
 		class="tribe-events-c-nav__next tribe-common-b2 tribe-common-b1--min-medium"
 		data-js="tribe-events-view-link"
+		aria-label="Next Day"
+		title="Next Day"
 	>
 		Next Day	</a>
 </li>

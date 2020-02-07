@@ -1,0 +1,57 @@
+/* -----------------------------------------------------------------------------
+ *
+ * iCal Link
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe-events {
+
+	.tribe-events-c-ical__link {
+		align-items: center;
+		color: var(--color-accent-primary);
+		border: 1px solid var(--color-accent-primary);
+		border-radius: var(--border-radius-default);
+		display: inline-flex;
+		font-weight: var(--font-weight-bold);
+		justify-content: center;
+
+		&:before {
+			background-image: svg-inline(plus-focus);
+			background-repeat: no-repeat;
+			background-size: contain;
+			content: '';
+			display: inline-block;
+			flex: none;
+			height: 10px;
+			margin-right: var(--spacer-1);
+			width: 10px;
+		}
+
+		&:hover,
+		&:focus,
+		&:active {
+			color: var(--color-background);
+			background-color: var(--color-accent-primary);
+
+			&:before {
+				background-image: svg-inline(plus-white);
+			}
+		}
+
+	}
+
+	/* -------------------------------------------------------------------------
+	 * Theme Overrides - Twenty Seventeen
+	 * ------------------------------------------------------------------------- */
+
+	 .tribe-theme-twentyseventeen & {
+
+		.tribe-events-c-ical__link {
+			&:hover,
+			&:focus,
+			&:active {
+				color: var(--color-background);
+			}
+		}
+	 }
+}

@@ -1,0 +1,181 @@
+/* -----------------------------------------------------------------------------
+ *
+ * Datepicker
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe-events {
+
+	.datepicker {
+		margin-top: var(--spacer-1);
+		padding: 0 var(--spacer-3) var(--spacer-3);
+
+		.tribe-common--breakpoint-medium& {
+			margin-top: var(--spacer-3);
+		}
+
+		table {
+			border-collapse: collapse;
+		}
+
+		.datepicker-switch,
+		.prev,
+		.next {
+			padding: var(--spacer-4) 0;
+			vertical-align: middle;
+		}
+
+		.prev,
+		.next {
+
+			.tribe-common-svgicon {
+				display: block;
+				height: 14px;
+				width: 9px;
+			}
+		}
+
+		.prev {
+
+			&:hover,
+			&:focus,
+			&:active {
+
+				.tribe-common-svgicon {
+					background-image: svg-inline(caret-left-active);
+				}
+			}
+
+			.tribe-common-svgicon {
+				background-image: svg-inline(caret-left-secondary);
+				margin-right: auto;
+			}
+		}
+
+		.next {
+
+			&:hover,
+			&:focus,
+			&:active {
+
+				.tribe-common-svgicon {
+					background-image: svg-inline(caret-right-active);
+				}
+			}
+
+			.tribe-common-svgicon {
+				background-image: svg-inline(caret-right-secondary);
+				margin-left: auto;
+			}
+		}
+
+		.datepicker-months,
+		.datepicker-years {
+
+			th,
+			td {
+				padding: 0;
+			}
+
+			.datepicker-switch,
+			.prev,
+			.next {
+				padding: var(--spacer-4) 0 var(--spacer-1);
+			}
+		}
+
+		.dow {
+			padding: 0;
+			width: var(--grid-width-1-of-7);
+		}
+
+		.day {
+			padding: 11px 0;
+			min-width: 48px; /* this is a hack to max out the day width to the container, not exactly 48px */
+		}
+
+		.month,
+		.year {
+			height: auto;
+			margin: 0;
+			padding: 15px 0;
+			width: 25%;
+		}
+	}
+
+	/* -----------------------------------------------------------------------------
+	 *
+	 * Datepicker: V1 Style Overrides
+	 *
+	 * ----------------------------------------------------------------------------- */
+
+	.admin-bar & .datepicker {
+		margin-top: var(--spacer-1);
+	}
+
+	.admin-bar &.tribe-common--breakpoint-medium .datepicker {
+		margin-top: var(--spacer-3);
+	}
+
+	/* -----------------------------------------------------------------------------
+	 *
+	 * Datepicker: Theme Overrides
+	 *
+	 * ----------------------------------------------------------------------------- */
+
+	/* -----------------------------------------------------------------------------
+	 * Theme Overrides - Divi
+	 * ----------------------------------------------------------------------------- */
+
+	.tribe-theme-divi #content-area & .datepicker {
+
+		.datepicker-switch,
+		.prev,
+		.next {
+			padding: var(--spacer-4) 0;
+		}
+
+		.datepicker-months,
+		.datepicker-years {
+
+			.datepicker-switch,
+			.prev,
+			.next {
+				padding: var(--spacer-4) 0 var(--spacer-1);
+			}
+		}
+
+		.dow {
+			padding: 0;
+		}
+
+		.day {
+			padding: 11px 0;
+		}
+	}
+
+	/* -----------------------------------------------------------------------------
+	 * Theme Overrides - Enfold
+	 * ----------------------------------------------------------------------------- */
+
+	.tribe-theme-enfold & .datepicker {
+		min-width: 0;
+		padding: 0 var(--spacer-3) var(--spacer-3);
+
+		.datepicker-switch {
+			cursor: pointer !important;
+		}
+	}
+
+	/* -----------------------------------------------------------------------------
+	 * Theme Overrides - Avada
+	 * ----------------------------------------------------------------------------- */
+
+	.tribe-theme-avada & .datepicker {
+		padding: 0 var(--spacer-3) var(--spacer-3);
+
+		.datepicker-months td {
+			padding: 0;
+		}
+	}
+}

@@ -10,9 +10,9 @@ class Next_DisabledTest extends HtmlPartialTestCase
 	protected $partial_path = 'day/nav/next-disabled';
 
 	/**
-	 * Test static render
+	 * Test render
 	 */
-	public function test_static_render() {
+	public function test_render() {
 		$this->assertMatchesSnapshot( $this->get_partial_html() );
 	}
 }

@@ -6,20 +6,6 @@
 	<ul>
 					<li>
 				<ul>
-					<li>Id: <code>child-theme</code></li>
-					<li>Priority: <code>10</code></li>
-					<li>Path: <code>/themes/twentynineteen/tribe/events</code></li>
-				</ul>
-			</li>
-					<li>
-				<ul>
-					<li>Id: <code>parent-theme</code></li>
-					<li>Priority: <code>15</code></li>
-					<li>Path: <code>/themes/twentynineteen/tribe/events</code></li>
-				</ul>
-			</li>
-					<li>
-				<ul>
 					<li>Id: <code>plugin</code></li>
 					<li>Priority: <code>20</code></li>
 					<li>Path: <code>/plugins/the-events-calendar/src/views/v2</code></li>

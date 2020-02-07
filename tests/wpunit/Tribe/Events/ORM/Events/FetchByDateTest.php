@@ -10,6 +10,8 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 		// before
 		parent::setUp();
 
+		tribe_unset_var( \Tribe__Settings_Manager::OPTION_CACHE_VAR_NAME );
+
 		// your set up methods here
 		$this->factory()->event = new Event();
 		// Explicitly set the timezone mode to use the site-wide setting.
@@ -626,11 +628,11 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 
 		$taipei_matches = tribe_events()
 			->where( 'on_date', '2018-01-10', 'Asia/Taipei' )
-			->order_by( 'event_date', 'DESC' )
-			->collect();
+			->order_by( 'event_date', 'ASC' )->collect();
+		codecept_debug( 'Asia/Taipei UTC Matches: ' . json_encode( $taipei_matches->pluck_meta( '_EventStartDateUTC' ) ) );
 		$this->assertEquals( [
-			'2018-01-10 10:00:00',
 			'2018-01-09 23:00:00',
+			'2018-01-10 10:00:00',
 		], $taipei_matches->pluck_meta( '_EventStartDate' ) );
 
 		codecept_debug( 'Event dates in ASC America/New_York date order: '
@@ -638,11 +640,12 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 
 		$ny_matches = tribe_events()
 			->where( 'on_date', '2018-01-10', 'America/New_York' )
-			->order_by( 'event_date', 'DESC' )
+			->order_by( 'event_date', 'ASC' )
 			->collect();
+		codecept_debug( 'America/New_York UTC Matches: ' . json_encode( $ny_matches->pluck_meta( '_EventStartDateUTC' ) ) );
 		$this->assertEquals( [
-			'2018-01-10 14:00:00',
 			'2018-01-10 10:00:00',
+			'2018-01-10 14:00:00',
 		], $ny_matches->pluck_meta( '_EventStartDate' ) );
 	}
 
@@ -669,8 +672,9 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 		$nine_events = tribe_events()
 			->use_utc( false )
 			->where( 'on_date', '2019-04-09' )
-			->order_by( 'event_date' )
+			->order_by( 'event_date', 'ASC' )
 			->collect();
+
 		codecept_debug(
 			'4/9 events UTC dates: ' . implode( PHP_EOL, $nine_events->pluck_meta( '_EventStartDateUTC' ) )
 		);
@@ -689,7 +693,7 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 		$ten_events = tribe_events()
 			->use_utc( false )
 			->where( 'on_date', '2019-04-10' )
-			->order_by( 'event_date' )
+			->order_by( 'event_date', 'ASC' )
 			->collect();
 		codecept_debug(
 			'4/10 events UTC dates: ' . implode( PHP_EOL, $ten_events->pluck_meta( '_EventStartDateUTC' ) )
@@ -707,7 +711,7 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 		$ten_utc_events = tribe_events()
 			->use_utc( true )
 			->where( 'on_date', '2019-04-10' )
-			->order_by( 'event_date' )
+			->order_by( 'event_date', 'ASC' )
 			->collect();
 		codecept_debug(
 			'4/10 events Europe/Paris dates: ' . implode( PHP_EOL, array_map( function ( $utc_date ) {
@@ -727,5 +731,55 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 			'Europe/Paris',
 			'America/Los_Angeles',
 		], $ten_utc_events->pluck_meta( '_EventTimezone' ) );
+	}
+
+	/**
+	 * It should allow fetching events by overlapping dates
+	 *
+	 * @test
+	 */
+	public function should_allow_fetching_events_by_overlapping_dates() {
+		$site_timezone = 'Europe/Paris';
+		update_option( 'timezone_string', $site_timezone );
+
+		extract( $this->create_events_from_dates( [
+			'paris_nine_event' => [ '2019-04-09 10:00:00', 2 * HOUR_IN_SECONDS ],
+			'paris_ten_event'  => [ '2019-04-10 11:00:00', 2 * HOUR_IN_SECONDS ],
+		], 'Europe/Paris' ) );
+		extract( $this->create_events_from_dates( [
+			// 4/10 1:30am in Europe/Paris.
+			'la_nine_event' => [ '2019-04-09 16:30:00', 2 * HOUR_IN_SECONDS ],
+			// 4/10 11:30pm in Europe/Paris.
+			'la_ten_event'  => [ '2019-04-10 14:30:00', 2 * HOUR_IN_SECONDS ],
+		], 'America/Los_Angeles' ) );
+
+		$this->assertEquals(
+			[ $paris_nine_event ],
+			tribe_events()->where( 'date_overlaps', '2019-04-09 00:00:00', '2019-04-09 12:00:00' )->get_ids()
+		);
+		$this->assertEquals(
+			[ $paris_nine_event, $la_nine_event, ],
+			tribe_events()->where( 'date_overlaps', '2019-04-09 00:00:00', '2019-04-10 02:00:00' )->get_ids()
+		);
+		$this->assertEquals(
+			[ $paris_nine_event, $la_nine_event, ],
+			tribe_events()->where(
+				'date_overlaps',
+				'2019-04-09 00:00:00',
+				'2019-04-10 02:30:00',
+				$site_timezone,
+				.4 * HOUR_IN_SECONDS
+			)->get_ids()
+		);
+		$this->assertEquals(
+			[ $paris_nine_event ],
+			tribe_events()->where(
+				'date_overlaps',
+				'2019-04-09 00:00:00',
+				'2019-04-10 02:00:00',
+				$site_timezone,
+				2 * HOUR_IN_SECONDS
+			)->get_ids()
+		);
 	}
 }

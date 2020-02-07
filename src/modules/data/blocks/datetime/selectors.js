@@ -74,3 +74,8 @@ export const isEditable = createSelector(
 	[ datetimeSelector ],
 	( datetime ) => datetime.isEditable,
 );
+
+export const getSameStartEnd = createSelector(
+	[ datetimeSelector ],
+	( datetime ) => datetime.start === datetime.end,
+);

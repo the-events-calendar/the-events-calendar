@@ -5,14 +5,11 @@
  * @since 4.9.7
  */
 
-use Tribe\Utils\Lazy_Collection;
-use Tribe\Utils\Post_Thumbnail;
-use Tribe__Date_Utils as Dates;
-use Tribe__Events__Timezones as Timezones;
+use Tribe\Events\Models\Post_Types\Event;
 
 if ( ! function_exists( 'tribe_get_event' ) ) {
 	/**
-	 * Fetches and returns a dedcorated post object representing an Event.
+	 * Fetches and returns a decorated post object representing an Event.
 	 *
 	 * @since 4.9.7
 	 *
@@ -22,6 +19,7 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 	 *                                 respectively. Defaults to `OBJECT`.
 	 * @param string           $filter Type of filter to apply. Accepts 'raw', a valid date string or
 	 *                                 object to localize the event in a specific time-frame.
+	 * @param bool             $force  Whether to force a re-fetch ignoring cached results or not.
 	 *
 	 * @return array|mixed|void|WP_Post|null {
 	 *                              The Event post object or array, `null` if not found.
@@ -35,6 +33,16 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 	 *                                              @type DateTimeImmutable $start_utc The event UTC start date object.
 	 *                                              @type DateTimeImmutable $end The event end date object.
 	 *                                              @type DateTimeImmutable $end_utc The event UTC end date object.
+	 *                                              @type DateTimeImmutable $start_site The event start date object in
+	 *                                                                                  the site timezone.
+	 *                                              @type DateTimeImmutable $end_site The event end date object in the
+	 *                                                                                  site timezone.
+	 *                                              @type DateTimeImmutable $start_display The event start date object
+	 *                                                                                     in the site or event timezone
+	 *                                                                                     depending on the setting.
+	 *                                              @type DateTimeImmutable $end_display The event end date object in
+	 *                                                                                     the site or event timezone
+	 *                                                                                     depending on the setting.
 	 *                                          }
 	 *                              @type string $timezone The event timezone string.
 	 *                              @type int $duration The event duration in seconds.
@@ -61,9 +69,13 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 	 *                              @type Lazy_Collection $venues A collection of Venues, lazily fetched and
 	 *                                                            eventually resolved to an array.
 	 *                              @type Post_Thumbnail $thumbnail The post thumbnail information.
+	 *                              @type Lazy_String $schedule_details The event schedule details, as produced by the
+	 *                                                                  `tribe_events_event_schedule_details` function.
+	 *                              @type Lazy_String $plain_schedule_details The event schedule details, without HTML
+	 *                                                                        tags.
 	 *                          }
 	 */
-	function tribe_get_event( $event = null, $output = OBJECT, $filter = 'raw' ) {
+	function tribe_get_event( $event = null, $output = OBJECT, $filter = 'raw', $force = false ) {
 		/**
 		 * Filters the event result before any logic applies.
 		 *
@@ -86,157 +98,77 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 			return $return;
 		}
 
-		$post = get_post( $event );
+		$post = false;
 
-		if ( ! $post instanceof WP_Post ) {
-			return null;
-		}
-
-		// Cache by post ID and filter.
-		$cache_key = 'events_' . $post->ID . '_' . $filter;
-		$cache     = new Tribe__Cache();
-		$cached    = $cache->get( $cache_key, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
-
-		if ( false !== $cached ) {
-			switch ( $output ) {
-				case ARRAY_A:
-					return (array) $cached;
-				case ARRAY_N:
-					return array_values( (array) $cached );
-				case OBJECT:
-				default;
-					return $cached;
+		if ( ! $force ) {
+			$cache_post    = get_post( $event );
+			if ( empty( $cache_post ) ) {
+				return null;
 			}
+
+			$key_fields    = [
+				$cache_post->ID,
+				$cache_post->post_modified,
+				// Use the `post_password` field as we show/hide some information depending on that.
+				$cache_post->post_password,
+				// We must include options on cache key, because options influence the hydrated data on the Event object.
+				wp_json_encode( Tribe__Settings_Manager::get_options() ),
+				wp_json_encode( [ get_option( 'start_of_week' ), get_option( 'timezone_string' ), get_option( 'gmt_offset' ) ] ),
+				$output,
+				$filter
+			];
+
+			$cache_key     = 'tribe_get_event_' . md5( wp_json_encode( $key_fields ) );
+			/** @var Tribe__Cache $cache */
+			$cache = tribe( 'cache' );
+			$post  = $cache->get( $cache_key, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
 		}
 
-		$post_id         = $post->ID;
-		$start_date      = get_post_meta( $post_id, '_EventStartDate', true );
-		$start_date_utc  = get_post_meta( $post_id, '_EventStartDateUTC', true );
-		$end_date        = get_post_meta( $post_id, '_EventEndDate', true );
-		$end_date_utc    = get_post_meta( $post_id, '_EventEndDateUTC', true );
-		$duration        = (int) get_post_meta( $post_id, '_EventDuration', true );
-		$timezone_string = Timezones::get_event_timezone_string( $post_id );
-		$all_day         = (bool) get_post_meta( $post_id, '_EventAllDay', true );
-		// An event is multi-day if its end date is after the end-of-day cutoff of the start date.
-		$end_of_day        = tribe_end_of_day( $start_date );
-		$timezone          = Timezones::build_timezone_object( $timezone_string );
-		$utc_timezone = new DateTimezone('UTC');
-		$start_date_object = new DateTimeImmutable( $start_date, $timezone );
-		$end_date_object = new DateTimeImmutable( $end_date, $timezone );
-		$start_date_utc_object = new DateTimeImmutable( $start_date_utc, $utc_timezone );
-		$end_date_utc_object = new DateTimeImmutable( $end_date_utc, $utc_timezone );
-		$end_of_day_object = new DateTimeImmutable( $end_of_day, $timezone );
-		$is_multiday       = $end_of_day_object < $end_date_object;
-		$multiday          = false;
-		// Without a context these values will not make sense; we'll set them if the `$filter` argument is a date.
-		$starts_this_week   = null;
-		$ends_this_week     = null;
-		$happens_this_week  = null;
-		$this_week_duration = null;
-		if ( Dates::is_valid_date( $filter ) ) {
-			$week_start = Dates::build_date_object( $filter, $timezone );
-			// Sunday is 0.
-			$week_start_day = (int) get_option( 'start_of_week' );
-			$offset         = (int) $week_start->format( 'N' ) >= $week_start_day
-				? $week_start_day
-				: $week_start->format( 'N' ) - $week_start_day;
+		if ( false === $post ) {
+			$post = Event::from_post( $event )->to_post( $output, $filter );
 
-			$week_start->setISODate( (int) $week_start->format( 'o' ), (int) $week_start->format( 'W' ), $offset );
-			$week_end = clone $week_start;
-			// 7 days later the week ends.
-			$week_end->add( new DateInterval( 'P7D' ) );
-			// Inclusive in respect to the start, exclusive to the end.
-			$starts_this_week   = $week_start <= $start_date_object && $start_date_object < $week_end;
-			$ends_this_week     = $week_start <= $end_date_object && $end_date_object < $week_end;
-			$happens_this_week = $week_start <= $end_date_object && $start_date_object <= $week_end;
-			if ( $happens_this_week ) {
-				$this_week_duration = 1;
-				if ( $is_multiday ) {
-					/*
-					 * We add one second during this calculation to cope with all-day events starting on 12:00 AM.
-					 * Due to how DateTime diff works diffing two following midnights would yield a diff of 2 days.
-					 */
-					$one_second = new \DateInterval( 'PT1S' );
-
-					$this_week_duration = min(
-						7,
-						$week_end->diff( $start_date_object->add( $one_second ) )->days + 1,
-						$end_date_object->diff( $week_start )->days + 1,
-						$end_date_object->diff( $start_date_object->add( $one_second ) )->days + 1
-					);
-				}
+			if ( empty( $post ) ) {
+				return null;
 			}
-		}
-		// Multi-day events will span at least two days: the day they start on and the following one.
-		if ( $is_multiday ) {
-			/*
-			 * Count the number of cut-offs happening before the end date and add 1.
-			 * Do not add 1 for all-day events as they span cut-off to cut-off.
+
+			/**
+			 * Filters the event post object before caching it and returning it.
+			 *
+			 * Note: this value will be cached; as such this filter might not run on each request.
+			 * If you need to filter the output value on each call of this function then use the `tribe_get_event_before`
+			 * filter.
+			 *
+			 * @since 4.9.7
+			 *
+			 * @param WP_Post $post   The event post object, decorated with a set of custom properties.
+			 * @param string  $output The output format to use.
+			 * @param string  $filter The filter, or context of the fetch.
 			 */
-			$multiday = $all_day ? 0 : 1;
-			$one_day  = new DateInterval( 'P1D' );
-			// The end date should be inclusive, since it's not in the DatePeriod we work-around it adding a second.
-			$period = new DatePeriod( $end_of_day_object, $one_day, $end_date_object );
-			foreach ( $period as $date ) {
-				++ $multiday;
-			};
-		}
-		$featured = (bool) get_post_meta( $post_id, Tribe__Events__Featured_Events::FEATURED_EVENT_KEY, true );
+			$post = apply_filters( 'tribe_get_event', $post, $output, $filter );
 
-		$organizer_fetch = Tribe__Events__Organizer::get_fetch_callback( $post_id );
-		$venue_fetch     = Tribe__Events__Venue::get_fetch_callback( $post_id );
-
-		$properties = [
-			'start_date'         => $start_date,
-			'start_date_utc'     => $start_date_utc,
-			'end_date'           => $end_date,
-			'end_date_utc'       => $end_date_utc,
-			'dates'              => (object) [
-				'start'     => $start_date_object,
-				'start_utc' => $start_date_utc_object,
-				'end'       => $end_date_object,
-				'end_utc'   => $end_date_utc_object,
-			],
-			'timezone'           => $timezone_string,
-			'duration'           => $duration,
-			'multiday'           => $multiday,
-			'all_day'            => $all_day,
-			'starts_this_week'   => $starts_this_week,
-			'ends_this_week'     => $ends_this_week,
-			'this_week_duration' => $this_week_duration,
-			'happens_this_week'  => $happens_this_week,
-			'featured'           => $featured,
-			'cost'               => tribe_get_cost( $post_id ),
-			'organizers'         => new Lazy_Collection( $organizer_fetch ),
-			'venues'             => new Lazy_Collection( $venue_fetch ),
-			'thumbnail'          => new Post_Thumbnail( $post_id ),
-			'permalink'          => get_permalink( $post_id ),
-		];
-
-		foreach ( $properties as $key => $value ) {
-			$post->{$key} = $value;
+			$cache->set( $cache_key, $post, WEEK_IN_SECONDS, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
 		}
 
 		/**
-		 * Filters the event post object before caching it and returning it.
+		 * Filters the event result after the event has been built from the function.
 		 *
-		 * Note: this value will be cached; as such this filter might not run on each request.
-		 * If you need to filter the output value on each call of this function then use the `tribe_get_event_before`
-		 * filter.
+		 * Note: this value will not be cached and the caching of this value is a duty left to the filtering function.
 		 *
-		 * @since 4.9.7
+		 * @since 5.0.0
 		 *
-		 * @param WP_Post $post   The event post object, decorated with a set of custom properties.
-		 * @param string  $output The output format to use.
-		 * @param string  $filter The filter, or context of the fetch.
+		 * @param WP_Post     $post        The event post object to filter and return.
+		 * @param int|WP_Post $event       The event object to fetch.
+		 * @param string|null $output      The required return type. One of OBJECT, ARRAY_A, or ARRAY_N, which
+		 *                                 correspond to a `WP_Post` object, an associative array, or a numeric array,
+		 *                                 respectively. Defaults to `OBJECT`.
+		 * @param string      $filter      Type of filter to apply. Accepts 'raw', a valid date string or
+		 *                                 object to localize the event in a specific time-frame.
 		 */
-		$post = apply_filters( 'tribe_get_event', $post, $output, $filter );
+		$post = apply_filters( 'tribe_get_event_after', $post, $event, $output, $filter );
 
-		/*
-		 * Cache without expiration, but only until a post of the types managed by The Events Calendar is
-		 * updated or created.
-		 */
-		$cache->set( $cache_key, $post, 0, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
+		if ( OBJECT !== $output ) {
+			$post = ARRAY_A === $output ? (array) $post : array_values( (array) $post );
+		}
 
 		return $post;
 	}

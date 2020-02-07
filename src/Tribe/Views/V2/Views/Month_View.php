@@ -8,7 +8,8 @@
 
 namespace Tribe\Events\Views\V2\Views;
 
-use Tribe\Events\Views\V2\Utils\Stack;
+use Tribe\Events\Views\V2\Messages;
+use Tribe\Utils\Query;
 use Tribe__Context as Context;
 use Tribe__Date_Utils as Dates;
 use Tribe__Events__Template__Month as Month;
@@ -23,7 +24,7 @@ class Month_View extends By_Day_View {
 	 *
 	 * @var int
 	 */
-	protected static $posts_per_page_default = 10;
+	protected static $posts_per_page_default = 12;
 
 	/**
 	 * Slug for this view.
@@ -38,30 +39,117 @@ class Month_View extends By_Day_View {
 	 * Visibility for this view.
 	 *
 	 * @since 4.9.4
+	 * @since 4.9.11 Made the property static.
 	 *
 	 * @var bool
 	 */
-	protected $publicly_visible = true;
+	protected static $publicly_visible = true;
 
 	/**
-     * An instance of the Week Stack object.
+	 * A instance cache property to store the currently fetched grid days.
 	 *
-	 * @since 4.9.7
+	 * @since 4.9.11
 	 *
-	 * @var Stack
+	 * @var array
 	 */
-	protected $stack;
+	protected $grid_days = [];
 
 	/**
-	 * Month_View constructor.
-	 *
-	 * @since 4.9.7
-	 *
-	 * @param Stack $stack An instance of the Stack object.
+	 * {@inheritDoc}
 	 */
-	public function __construct( Stack $stack) {
-		parent::__construct();
-		$this->stack = $stack;
+	public function prev_url( $canonical = false, array $passthru_vars = [] ) {
+		$cache_key = __METHOD__ . '_' . md5( wp_json_encode( func_get_args() ) );
+
+		if ( isset( $this->cached_urls[ $cache_key ] ) ) {
+			return $this->cached_urls[ $cache_key ];
+		}
+
+		// Setup the Default date for the month view here.
+		$default_date = 'today';
+		$date         = $this->context->get( 'event_date', $default_date );
+		$current_date = Dates::build_date_object( $date );
+
+		if ( $this->skip_empty() ) {
+			// Find the first event that starts before the start of this month.
+			$prev_event = tribe_events()
+				->by_args( $this->filter_repository_args( $this->setup_repository_args() ) )
+				->where( 'starts_before', tribe_beginning_of_day( $current_date->format( 'Y-m-01' ) ) )
+				->order( 'DESC' )
+				->first();
+			if ( ! $prev_event instanceof \WP_Post ) {
+				return $this->filter_prev_url( $canonical, '' );
+			}
+
+			// Show the closest date on which that event appears (but not the current date).
+			$prev_date = min(
+				$prev_event->dates->start,
+				$current_date->sub( new \DateInterval( 'P1M' ) )
+			);
+		} else {
+			$prev_date = Dates::build_date_object( $current_date->format( 'Y-m-01' ) );
+			$prev_date->sub( new \DateInterval( 'P1M' ) );
+			// Let's make sure to prevent users from paginating endlessly back when we know there are no more events.
+			$earliest = tribe_get_option( 'earliest_date', $prev_date );
+			if ( $current_date->format( 'Y-m' ) === Dates::build_date_object( $earliest )->format( 'Y-m' ) ) {
+				return $this->filter_prev_url( $canonical, '' );
+			}
+		}
+
+		$url = $this->build_url_for_date( $prev_date, $canonical, $passthru_vars );
+		$url = $this->filter_prev_url( $canonical, $url );
+
+		$this->cached_urls[ $cache_key ] = $url;
+
+		return $url;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function next_url( $canonical = false, array $passthru_vars = [] ) {
+		$cache_key = __METHOD__ . '_' . md5( wp_json_encode( func_get_args() ) );
+
+		if ( isset( $this->cached_urls[ $cache_key ] ) ) {
+			return $this->cached_urls[ $cache_key ];
+		}
+
+		// Setup the Default date for the month view here.
+		$default_date = 'today';
+		$date         = $this->context->get( 'event_date', $default_date );
+		$current_date = Dates::build_date_object( $date );
+
+		if ( $this->skip_empty() ) {
+			// The first event that ends after the end of the month; it could still begin in this month.
+			$next_event = tribe_events()
+				->by_args( $this->filter_repository_args( $this->setup_repository_args() ) )
+				->where( 'ends_after', tribe_end_of_day( $current_date->format( 'Y-m-t' ) ) )
+				->order( 'ASC' )
+				->first();
+			if ( ! $next_event instanceof \WP_Post ) {
+				return $this->filter_next_url( $canonical, '' );
+			}
+
+			// At a minimum pick the next month or the month the next event starts in.
+			$next_date = max(
+				$next_event->dates->start,
+				$current_date->add( new \DateInterval( 'P1M' ) )
+			);
+		} else {
+			$next_date = Dates::build_date_object( $current_date->format( 'Y-m-01' ) );
+			$next_date->add( new \DateInterval( 'P1M' ) );
+			// Let's make sure to prevent users from paginating endlessly forward when we know there are no more events.
+			$latest = tribe_get_option( 'latest_date', $next_date );
+			if ( $current_date->format( 'Y-m' ) === Dates::build_date_object( $latest )->format( 'Y-m' ) ) {
+				return $this->filter_next_url( $canonical, '' );
+			}
+		}
+
+		$url = $this->build_url_for_date( $next_date, $canonical, $passthru_vars );
+		$url = $this->filter_next_url( $canonical, $url );
+
+		$this->cached_urls[ $cache_key ] = $url;
+
+		return $url;
 	}
 
 	/**
@@ -74,24 +162,20 @@ class Month_View extends By_Day_View {
 		$context = null !== $context ? $context : $this->context;
 
 		// Let's override the ones the Month View will use differently.
-		$context_arr = $context->to_array();
 		// The setting governing the Events > Settings > Display > "Month view events per day" setting.
-		$args['posts_per_page'] = Arr::get( $context_arr, 'month_posts_per_page', static::$posts_per_page_default );
+		$args['posts_per_page'] = $context->get( 'month_posts_per_page', static::$posts_per_page_default );
 		// Per-day events never paginate.
 		unset( $args['paged'] );
 
-		$date = Arr::get( $context_arr, 'event_date', 'now' );
+		$date = $context->get( 'event_date', 'now' );
 
-		$this->user_date = ( new \DateTime( $date ) )->format( 'Y-m' );
+		$this->user_date = Dates::build_date_object( $date )->format( 'Y-m' );
 
-		$args['order_by'] = 'event_date';
+		$args['order_by'] = [
+			'menu_order' => 'ASC',
+			'event_date' => 'ASC',
+		];
 		$args['order']    = 'ASC';
-
-		/*
-		 * The event fetching will happen day-by-day so we set here the repository args we'll re-use fetching each
-		 * day events.
-		 */
-		$this->repository_args = $args;
 
 		return $args;
 	}
@@ -104,7 +188,7 @@ class Month_View extends By_Day_View {
 	 * @return int The Month view number of events per day.
 	 */
 	protected function get_events_per_day() {
-		$events_per_day = $this->context->get( 'month_posts_per_page', 10 );
+		$events_per_day = $this->context->get( 'month_posts_per_page', 12 );
 
 		/**
 		 * Filters the number of events per day to fetch in the Month view.
@@ -121,27 +205,52 @@ class Month_View extends By_Day_View {
 	 * {@inheritDoc}
 	 */
 	protected function setup_template_vars() {
-		/*
-		 * We'll run the fetches day-by-day, we do not want to run a potentially expensive query for ALL the events
-		 * in the month.
-		 */
-		$this->repository->void_query( true );
-		$template_vars = parent::setup_template_vars();
-		$this->repository->void_query( false );
-
 		// The events will be returned in an array with shape `[ <Y-m-d> => [...<events>], <Y-m-d> => [...<events>] ]`.
 		$grid_days = $this->get_grid_days();
-		$days      = $this->get_days_data( $grid_days );
+		// Set this to be used in the following methods.
+		$this->grid_days = $grid_days;
 
-		$grid_date             = Dates::build_date_object( $this->context->get( 'event_date', 'today' ) );
-		$month_and_year_format = tribe_get_option( 'monthAndYearFormat', 'F Y' );
+		$grid_start_date = array_keys( $grid_days );
+		$grid_start_date = reset( $grid_start_date );
 
-		$today                                = $this->context->get( 'today' );
-		$template_vars['today_date']          = Dates::build_date_object( $today )->format( 'Y-m-d' );
-		$template_vars['grid_date']           = $grid_date->format( 'Y-m-d' );
-		$template_vars['formatted_grid_date'] = $grid_date->format( $month_and_year_format );
-		$template_vars['events']              = $grid_days;
-		$template_vars['days']                = $days;
+		/*
+		 * We'll run the fetches day-by-day, we do not want to run a potentially expensive query so we pre-fill the
+		 * repository query with results we already have.
+		 * We replace the repository for the benefit of the parent method, and then restore it.
+		 */
+		$original_repository = $this->repository;
+		$this->repository = tribe_events();
+		$all_month_events = array_unique( array_merge( ...array_values( $grid_days ) ) );
+		$this->repository->set_query( Query::for_posts( $all_month_events ) );
+
+		$template_vars = parent::setup_template_vars();
+
+		$this->repository = $original_repository;
+
+		$days = $this->get_days_data( $grid_days );
+
+		$grid_date_str                 = $this->context->get( 'event_date', 'today' );
+		$grid_date                     = Dates::build_date_object( $grid_date_str );
+		$month_and_year_format         = tribe_get_option( 'monthAndYearFormat', 'F Y' );
+		$month_and_year_format_compact = Dates::datepicker_formats( tribe_get_option( 'datepickerFormat', 'm1' ) );
+
+		$prev_month_num = Dates::build_date_object( $grid_date_str )->modify( 'first day of last month' )->format( 'n' );
+		$next_month_num = Dates::build_date_object( $grid_date_str )->modify( 'first day of next month' )->format( 'n' );
+		$prev_month     = Dates::wp_locale_month( $prev_month_num, 'short' );
+		$next_month     = Dates::wp_locale_month( $next_month_num, 'short' );
+
+		$today                                       = $this->context->get( 'today' );
+		$template_vars['the_date']                   = $grid_date;
+		$template_vars['today_date']                 = Dates::build_date_object( $today )->format( 'Y-m-d' );
+		$template_vars['grid_date']                  = $grid_date->format( 'Y-m-d' );
+		$template_vars['formatted_grid_date']        = $grid_date->format_i18n( $month_and_year_format );
+		$template_vars['formatted_grid_date_mobile'] = $grid_date->format( $month_and_year_format_compact );
+		$template_vars['events']                     = $grid_days;
+		$template_vars['days']                       = $days;
+		$template_vars['prev_label']                 = $prev_month;
+		$template_vars['next_label']                 = $next_month;
+		$template_vars['messages']                   = $this->messages->to_array();
+		$template_vars['grid_start_date']            = $grid_start_date;
 
 		return $template_vars;
 	}
@@ -164,36 +273,6 @@ class Month_View extends By_Day_View {
 		}
 
 		return array_merge( ...$week_stacks );
-	}
-
-	/**
-	 * Returns a portion of the parsed multi-day stacks.
-	 *
-	 * @since 4.9.7
-	 *
-	 * @param \DateTime|string $from The start of the portion to return.
-	 * @param \DateTime|string $to   The end of the portion to return.
-	 *
-	 * @return array|null A slice of the multi-day stack, in the shape
-	 *               `[ '2019-07-01' => [2, 3, false], , '2019-07-03' => [false, 3, 4]]`.
-	 */
-	public function get_multiday_stack( $from, $to ) {
-		$from = Dates::build_date_object( $from )->setTime( 0, 0 );
-		$to   = Dates::build_date_object( $to )->setTime( 23, 59, 59 );
-
-		$events = $this->get_grid_days();
-		$multiday_stack = $this->build_day_stacks( $events );
-
-		$start_index = array_key_exists( $from->format( 'Y-m-d' ), $multiday_stack )
-			? array_search( $from->format( 'Y-m-d' ), array_keys( $multiday_stack ), true )
-			: 0;
-		$end_index   = array_key_exists( $to->format( 'Y-m-d' ), $multiday_stack )
-			? array_search( $to->format( 'Y-m-d' ), array_keys( $multiday_stack ), true )
-			: count( $multiday_stack ) - 1;
-
-		$stack = array_slice( $multiday_stack, $start_index, $end_index - $start_index + 1, true );
-
-		return $stack;
 	}
 
 	/**
@@ -234,7 +313,7 @@ class Month_View extends By_Day_View {
 				array_filter( $day_events, static function ( $event ) use ( $date_object ) {
 					$event = tribe_get_event( $event, OBJECT, $date_object->format( 'Y-m-d' ) );
 
-					return $event instanceof \WP_Post && ! ( $event->multiday || $event->all_day );
+					return $event instanceof \WP_Post && ! ( $event->multiday > 1 || $event->all_day );
 				} )
 			);
 
@@ -258,7 +337,7 @@ class Month_View extends By_Day_View {
 				 * In the context of the Month View we want to know if there are more events we're not seeing.
 				 * So we exclude the ones we see and the multi-day ones that we're seeing in the multi-day stack.
 				 */
-				$more_events = $day_found_events - $stack_events_count - count( $the_day_events );
+				$more_events = max( 0, $day_found_events - $stack_events_count - count( $the_day_events ) );
 			}
 
 			$featured_events = array_map( 'tribe_get_event',
@@ -271,18 +350,22 @@ class Month_View extends By_Day_View {
 			);
 
 			$start_of_week = get_option( 'start_of_week', 0 );
+			$is_start_of_week = (int) $start_of_week === (int) $date_object->format( 'w' );
+
+			$day_url = tribe_events_get_url( [ 'eventDisplay' => 'day', 'eventDate' => $day_date ] );
 
 			$day_data = [
 				'date'             => $day_date,
-				'is_start_of_week' => $start_of_week === $date_object->format( 'N' ),
+				'is_start_of_week' => $is_start_of_week,
 				'year_number'      => $date_object->format( 'Y' ),
 				'month_number'     => $date_object->format( 'm' ),
-				'day_number'       => $date_object->format( 'd' ),
+				'day_number'       => $date_object->format( 'j' ),
 				'events'           => $the_day_events,
 				'featured_events'  => $featured_events,
 				'multiday_events'  => $day_stack,
 				'found_events'     => $day_found_events,
 				'more_events'      => $more_events,
+				'day_url'          => $day_url,
 			];
 
 			$days[ $day_date ] = $day_data;
@@ -301,4 +384,73 @@ class Month_View extends By_Day_View {
 		return [ Dates::build_date_object( $grid_start ), Dates::build_date_object( $grid_end ) ];
 	}
 
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @since 4.9.9
+	 */
+	protected function get_label_format() {
+		// Something like "January".
+		return 'F';
+	}
+
+	/**
+	 * Whether months w/o any event should be skipped while building navigation links or not.
+	 *
+	 * By default empty months will not be skipped.
+	 *
+	 * @since 4.9.9
+	 *
+	 * @return bool Whether to skip empty months or not.
+	 */
+	protected function skip_empty() {
+		/**
+		 * Filters whether months w/o any event should be skipped while building navigation links or not.
+		 *
+		 * @since 4.9.9
+		 *
+		 * @param bool       $skip_empty   Whether months w/o any event should be skipped while building
+		 *                                 navigation links or not; defaults to `false`.
+		 * @param Month_View $this         This Month View instance.
+		 */
+		return (bool) apply_filters( 'tribe_events_views_v2_month_nav_skip_empty', false, $this );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	protected function get_url_date_format() {
+		return 'Y-m';
+	}
+
+	/**
+	 * Overrides the base method to handle messages specific to the Month View.
+	 *
+	 * @since 4.9.11
+	 *
+	 * @param array $events An array of events found on the Month.
+	 */
+	protected function setup_messages( array $events ) {
+		if ( ! empty( $events )
+		     || (
+			     ! empty( $this->grid_days )
+			     && 0 !== array_sum( array_map( 'count', $this->grid_days ) )
+		     )
+		) {
+			return;
+		}
+
+		$keyword = $this->context->get( 'keyword', false );
+
+		if ( $keyword ) {
+			$this->messages->insert(
+				Messages::TYPE_NOTICE,
+				Messages::for_key( 'month_no_results_found_w_keyword', trim( $keyword ) )
+			);
+
+			return;
+		}
+
+		$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( 'no_results_found' ), 9 );
+	}
 }

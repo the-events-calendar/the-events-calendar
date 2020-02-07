@@ -7,11 +7,17 @@ use PHPUnit\Framework\AssertionFailedError;
 use Tribe\Events\Test\Factories\Event;
 use Tribe\Events\Test\Factories\Organizer;
 use Tribe\Events\Test\Factories\Venue;
+use Tribe\Test\PHPUnit\Traits\With_Filter_Manipulation;
 use Tribe__Events__Timezones as Timezones;
 
 class eventTest extends WPTestCase {
+	use With_Filter_Manipulation;
+
 	public function setUp() {
 		parent::setUp();
+
+		tribe_unset_var( \Tribe__Settings_Manager::OPTION_CACHE_VAR_NAME );
+
 		static::factory()->event     = new Event();
 		static::factory()->organizer = new Organizer();
 		static::factory()->venue     = new Venue();
@@ -354,7 +360,7 @@ class eventTest extends WPTestCase {
 	/**
 	 * Test tribe_get_event allows specifying the output format.
 	 */
-	public function test_tribe_get_event_allows_specifying_the_output_format_() {
+	public function test_tribe_get_event_allows_specifying_the_output_format() {
 		$event_id = static::factory()->event->create();
 
 		$event = tribe_get_event( $event_id );
@@ -365,5 +371,37 @@ class eventTest extends WPTestCase {
 		$this->assertEquals( $queries_count, $this->queries()->countQueries() );
 		$this->assertEquals( array_values( (array) $event ), tribe_get_event( $event_id, ARRAY_N ) );
 		$this->assertEquals( $queries_count, $this->queries()->countQueries() );
+	}
+
+	/**
+	 * It should cache on shutdown and only if a lazy property was accessed
+	 *
+	 * @test
+	 */
+	public function should_cache_on_shutdown_and_only_if_a_lazy_property_was_accessed() {
+		$using_backup = wp_using_ext_object_cache();
+		wp_using_ext_object_cache( true );
+		$post_id = static::factory()->event->create();
+
+		$cache_key = 'events_' . $post_id . '_raw';
+		$cache     = new \Tribe__Cache();
+
+		$event = tribe_get_event( $post_id );
+
+		$cached_before = $cache->get( $cache_key, \Tribe__Cache_Listener::TRIGGER_SAVE_POST );
+
+		$this->assertFalse( $cached_before );
+
+		$this->suspending_filter_do( 'shutdown',
+			function () use ( $cache, $cache_key, $event ) {
+				$event->organizers->all();
+				do_action( 'shutdown' );
+				$cached = $cache->get( $cache_key, \Tribe__Cache_Listener::TRIGGER_SAVE_POST );
+				$this->assertInternalType( 'array', $cached );
+				$this->assertNotEmpty( array_intersect_key( get_object_vars( $event ), $cached ) );
+			}
+		);
+
+		wp_using_ext_object_cache( $using_backup );
 	}
 }

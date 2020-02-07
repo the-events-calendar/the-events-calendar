@@ -66,6 +66,8 @@ class Tribe__Events__Aggregator__Record__Queue implements Tribe__Events__Aggrega
 	 * @param Tribe__Events__Aggregator__Record__Queue_Cleaner|null $cleaner
 	 */
 	public function __construct( $record, $items = array(), Tribe__Events__Aggregator__Record__Queue_Cleaner $cleaner = null ) {
+		tribe( 'chunker' );
+
 		if ( is_numeric( $record ) ) {
 			$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $record );
 		}

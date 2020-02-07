@@ -72,4 +72,8 @@ describe( '[STORE] - Datetime selectors', () => {
 	it( 'Should return the editable', () => {
 		expect( selectors.isEditable( state ) ).toBe( DEFAULT_STATE.isEditable );
 	} );
+
+	it( 'Should return is same start end', () => {
+		expect( selectors.getSameStartEnd( state ) ).toBe( false );
+	} );
 } );

@@ -27,8 +27,10 @@
 			padding: 20px 0 0;
 			margin: 0 35px;
 			background-color: transparent;
+			display: -webkit-box;
 			display: flex;
-			align-items: center;
+			-webkit-box-align: center;
+			        align-items: center;
 			align-content: center;
 		}
 
@@ -148,18 +150,23 @@
 .events-cal #fs_connect .fs-actions, .toplevel_page_tribe-common #fs_connect .fs-actions {
 			padding: 20px 35px;
 			background-color: #f3f3f3;
+			display: -webkit-box;
 			display: flex;
-			flex-flow: row wrap;
+			-webkit-box-orient: horizontal;
+			-webkit-box-direction: normal;
+			        flex-flow: row wrap;
 		}
 
 .events-cal #fs_connect .fs-actions form, .toplevel_page_tribe-common #fs_connect .fs-actions form {
-				order: 1;
+				-webkit-box-ordinal-group: 2;
+				        order: 1;
 				float: none;
 				margin-right: 15px;
 			}
 
 .events-cal #fs_connect .fs-actions #skip_activation, .toplevel_page_tribe-common #fs_connect .fs-actions #skip_activation {
-				order: 2;
+				-webkit-box-ordinal-group: 3;
+				        order: 2;
 				float: none;
 			}
 
@@ -193,12 +200,14 @@
 
 .events-cal #fs_connect .fs-permissions.fs-open ul, .toplevel_page_tribe-common #fs_connect .fs-permissions.fs-open ul {
 					margin: 0;
+					display: -webkit-box;
 					display: flex;
 					flex-wrap: wrap;
 				}
 
 .events-cal #fs_connect .fs-permissions.fs-open ul li, .toplevel_page_tribe-common #fs_connect .fs-permissions.fs-open ul li {
-						flex: 0 50%;
+						-webkit-box-flex: 0;
+						        flex: 0 50%;
 						padding-bottom: 10px;
 					}
 

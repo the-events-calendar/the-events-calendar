@@ -439,18 +439,18 @@ class Tribe__Events__iCal {
 			$timezone = $row['timezone'];
 
 			$ordered = [
-				'start' => array_column( $row['events'], 'start_year' ),
-				'end' => array_column( $row['events'], 'end_year' ),
+				'start' => wp_list_pluck( $row['events'], 'start_year' ),
+				'end'   => wp_list_pluck( $row['events'], 'end_year' ),
 			];
 
 			sort( $ordered['start'] );
 			rsort( $ordered['end'] );
 
 			$ordered['start'] = array_values( $ordered['start'] );
-			$ordered['end'] = array_values( $ordered['end'] );
+			$ordered['end']   = array_values( $ordered['end'] );
 
 			$start = reset( $ordered['start'] );
-			$end = reset( $ordered['end'] );
+			$end   = reset( $ordered['end'] );
 
 			if ( empty( $start ) || empty( $end ) ) {
 				continue;
@@ -462,7 +462,7 @@ class Tribe__Events__iCal {
 			}
 
 			$id = $timezone->getName();
-			$item[] = 'TZID:"' .  $id . '"';
+			$item[] = 'TZID:' .  $id;
 
 			$last_transition = null;
 			foreach ( $transitions as $i => $transition ) {
@@ -619,8 +619,8 @@ class Tribe__Events__iCal {
 				$timezone_name = $this->get_timezone( $event_post );
 				$timezone = Tribe__Events__Timezones::build_timezone_object( $timezone_name );
 
-				$item[] = 'DTSTART;TZID="' . $timezone->getName() . '":' . $dtstart;
-				$item[] = 'DTEND;TZID="' . $timezone->getName() . '":' . $dtend;
+				$item[] = 'DTSTART;TZID=' . $timezone->getName() . ':' . $dtstart;
+				$item[] = 'DTEND;TZID=' . $timezone->getName() . ':' . $dtend;
 			}
 
 			$item[] = 'DTSTAMP:' . date( $full_format, time() );

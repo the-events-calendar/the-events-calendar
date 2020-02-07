@@ -23,7 +23,7 @@ tribe.events.views.accordion = {};
  * @since 4.9.4
  *
  * @param  {PlainObject} $   jQuery
- * @param  {PlainObject} obj tribe.events.views.manager
+ * @param  {PlainObject} obj tribe.events.views.accordion
  *
  * @return {void}
  */
@@ -201,7 +201,8 @@ tribe.events.views.accordion = {};
 	};
 
 	/**
-	 * Initializes accordion
+	 * Curry function to initialize accordion
+	 * Used to pass in `$container`
 	 *
 	 * @since 4.9.4
 	 *
@@ -210,6 +211,16 @@ tribe.events.views.accordion = {};
 	 * @return {function} function to add event listener to header
 	 */
 	obj.initAccordion = function( $container ) {
+		/**
+		 * Initializes accordion
+		 *
+		 * @since 4.9.4
+		 *
+		 * @param {integer} index jQuery.each index param
+		 * @param {HTMLElement} header header element from which to remove event
+		 *
+		 * @return {void}
+		 */
 		return function( index, header ) {
 			$( header ).on( 'click', { target: header, container: $container }, obj.toggleAccordion );
 		};
@@ -259,6 +270,7 @@ tribe.events.views.accordion = {};
 	obj.unbindEvents = function( event, jqXHR, settings ) {
 		var $container = event.data.container;
 		obj.unbindAccordionEvents( $container );
+		$container.off( 'beforeAjaxSuccess.tribeEvents', obj.unbindEvents );
 	};
 
 	/**

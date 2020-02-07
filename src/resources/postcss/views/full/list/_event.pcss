@@ -1,0 +1,69 @@
+.tribe-events {
+
+	/* -----------------------------------------------------------------------------
+	 * Event
+	 * ----------------------------------------------------------------------------- */
+
+	.tribe-events-calendar-list__event-row--featured {
+
+		.tribe-events-calendar-list__event-date-tag-datetime {
+
+			&:after {
+				background-color: var(--color-accent-primary);
+				content: '';
+				height: 100%;
+				right: calc(100% - 3px);
+				position: absolute;
+				width: 3px;
+
+				.tribe-common--breakpoint-medium& {
+					right: -1px;
+					width: 4px;
+				}
+			}
+		}
+	}
+
+	.tribe-events-calendar-list__event-venue {
+		font-style: normal;
+	}
+
+	.tribe-events-calendar-list__event-date-tag-weekday {
+		@mixin mobile-body-3;
+
+		color: var(--color-text-secondary);
+		text-transform: uppercase;
+	}
+
+	.tribe-events-calendar-list__event-featured-image-link {
+		transition: var(--transition-opacity);
+
+		&:hover,
+		&:focus {
+			opacity: var(--opacity-icon-hover);
+		}
+
+		&:active {
+			opacity: var(--opacity-icon-active);
+		}
+	}
+
+	.tribe-events-calendar-list__event-datetime-featured-text {
+
+		.tribe-common--breakpoint-medium& {
+			color: var(--color-accent-primary);
+			font-weight: var(--font-weight-bold);
+		}
+	}
+
+	.tribe-events-calendar-list__event-datetime-recurring-link {
+
+		&:hover,
+		&:focus {
+
+			.tribe-events-calendar-list__event-datetime-recurring-icon {
+				background-image: svg-inline(recurring);
+			}
+		}
+	}
+}

@@ -10,7 +10,7 @@ class LoaderTest extends HtmlTestCase {
 	 */
 	public function it_should_render() {
 		$text = '%placeholder-text%';
-		$html = $this->template->template( 'loader', [ 'text' => $text ] );
+		$html = $this->template->template( 'components/loader', [ 'text' => $text ] );
 
 		$this->assertMatchesSnapshot( $html, $this->driver );
 	}
@@ -19,7 +19,7 @@ class LoaderTest extends HtmlTestCase {
 	 * @test
 	 */
 	public function it_should_contain_correct_html_classes() {
-		$template = $this->template->template( 'loader', [ 'text' => 'test' ] );
+		$template = $this->template->template( 'components/loader', [ 'text' => 'test' ] );
 		$html = $this->document->html( $template );
 
 		$this->assertEquals(
@@ -35,8 +35,8 @@ class LoaderTest extends HtmlTestCase {
 		);
 
 		$this->assertTrue(
-			$html->find( '.tribe-events-view-loader' )->children()->is( '.tribe-events-view-loader__spinner' ),
-			'Loader HTML needs to contain ".tribe-events-view-loader__spinner" element'
+			$html->find( '.tribe-events-view-loader' )->children()->is( '.tribe-events-view-loader__dots' ),
+			'Loader HTML needs to contain ".tribe-events-view-loader__dots" element'
 		);
 	}
 
@@ -44,7 +44,7 @@ class LoaderTest extends HtmlTestCase {
 	 * @test
 	 */
 	public function it_should_contain_a11y_attributes() {
-		$template = $this->template->template( 'loader', [ 'text' => 'test' ] );
+		$template = $this->template->template( 'components/loader', [ 'text' => 'test' ] );
 		$html = $this->document->html( $template );
 		$loader = $html->find( '.tribe-events-view-loader' );
 
@@ -62,24 +62,9 @@ class LoaderTest extends HtmlTestCase {
 	/**
 	 * @test
 	 */
-	public function it_should_contain_text() {
-		$text = '%placeholder-text%';
-		$template = $this->template->template( 'loader', [ 'text' => $text ] );
-		$html = $this->document->html( $template );
-		$spinner = $html->find( '.tribe-events-view-loader__spinner' );
-
-		$this->assertEquals(
-			$text,
-			trim( $spinner->text() )
-		);
-	}
-
-	/**
-	 * @test
-	 */
 	public function it_should_escape_html_for_text() {
 		$text = '<strong class="find-me">%placeholder-text%</strong>';
-		$template = $this->template->template( 'loader', [ 'text' => $text ] );
+		$template = $this->template->template( 'components/loader', [ 'text' => $text ] );
 		$html = $this->document->html( $template );
 		$spinner = $html->find( '.tribe-events-view-loader__spinner' );
 		$find_element = $html->find( '.find-me' );

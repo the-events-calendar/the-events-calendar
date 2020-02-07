@@ -1,0 +1,33 @@
+/* -----------------------------------------------------------------------------
+ *
+ * Breadcrumbs
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe-events {
+
+	.tribe-events-c-breadcrumbs__list {
+		font-family: var(--font-family-base);
+		font-size: 24px;
+		line-height: var(--line-height-1);
+
+		.tribe-common--breakpoint-medium& {
+			font-size: 42px;
+			line-height: var(--line-height-0);
+		}
+	}
+
+	.tribe-events-c-breadcrumbs__list-item-link {
+		color: var(--color-text-secondary);
+		transition: var(--transition-color);
+
+		&:visited {
+			color: var(--color-text-secondary);
+		}
+
+		&:hover,
+		&:focus {
+			color: var(--color-text-primary);
+		}
+	}
+}

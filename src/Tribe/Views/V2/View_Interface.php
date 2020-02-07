@@ -43,10 +43,11 @@ interface View_Interface  extends View_Url_Provider_Interface, Repository_User_I
 	 * on the events-bar of the views UI.
 	 *
 	 * @since 4.9.4
+	 * @since 4.9.11 Made the method static.
 	 *
 	 * @return bool
 	 */
-	public function is_publicly_visible();
+	public static function is_publicly_visible();
 
 	/**
 	 * Returns the context instance the view will render from.
@@ -89,6 +90,26 @@ interface View_Interface  extends View_Url_Provider_Interface, Repository_User_I
 	public function get_slug();
 
 	/**
+	 * Returns all the parent views that the current class as an array of slugs.
+	 *
+	 * @since 4.9.13
+	 *
+	 * @return string[] Array of string with the slugs of all the registered views.
+	 */
+	public function get_parents_slug();
+
+	/**
+	 * Returns all html classes for the view instance we are handling.
+	 *
+	 * @since 4.9.13
+	 *
+	 * @param array $classes  Array of classes that are going to be appended to this instance.
+	 *
+	 * @return string[]       Array of string with the classes used
+	 */
+	public function get_html_classes( array $classes = [] );
+
+	/**
 	 * Returns a View template class.
 	 *
 	 * @since 4.9.2
@@ -123,8 +144,9 @@ interface View_Interface  extends View_Url_Provider_Interface, Repository_User_I
 	 *
 	 * @since 4.9.3
 	 *
-	 * @param  array|null  $args An associative array of arguments that will be mapped to the corresponding query
+	 * @param array|null $args   An associative array of arguments that will be mapped to the corresponding query
 	 *                           arguments by the View, or `null` to use the current URL.
+	 * @param bool       $merge  Whether to merge the arguments or override them.
 	 */
 	public function set_url( array $args = null, $merge = false );
 
@@ -166,4 +188,36 @@ interface View_Interface  extends View_Url_Provider_Interface, Repository_User_I
 	 * @return array An associative array of the View template variables.
 	 */
 	public function get_template_vars();
+
+	/**
+	 * Returns the URL to show the View for today.
+	 *
+	 * @since 4.9.8
+	 *
+	 * @param bool $canonical Whether to return the canonical, pretty, version of the URL or not; default to `false`.
+	 *
+	 * @return string
+	 */
+	public function get_today_url( $canonical = false );
+
+	/**
+	 * Returns an array of user-facing messages the View will display on the front-end.
+	 *
+	 * @since 4.9.11
+	 *
+	 * @return array An array of user-facing messages the View will display on the front-end.
+	 */
+	public function get_messages();
+
+	/**
+	 * Returns the URL to get the View for a date and a set of arguments.
+	 *
+	 * @since 4.9.13
+	 *
+	 * @param string|int|\DateTimeInterface $date       The date to return the URL for.
+	 * @param array|string                  $query_args The query string or arguments to append to the URL.
+	 *
+	 * @return string The URL to fetch the View for a date.
+	 */
+	public function url_for_query_args( $date = null, $query_args = null );
 }

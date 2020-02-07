@@ -105,4 +105,103 @@ class UrlTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertEquals( $expected, $found );
 	}
+
+	/**
+	 * It should build the URL as __construct would when providing empty params
+	 *
+	 * @test
+	 */
+	public function should_build_the_url_as_construct_would_when_providing_empty_params() {
+		$input_url     = add_query_arg( [ 'one' => 23, 'two' => 89 ], home_url( '/foo/bar' ) );
+		$construct_url = new Url( $input_url );
+		$params_url    = Url::from_url_and_params( $input_url, [] );
+
+		$this->assertEquals( (string) $construct_url, (string) $params_url );
+	}
+
+	/**
+	 * It should update the URL when providing tribe-bar- view data
+	 *
+	 * @test
+	 */
+	public function should_update_the_url_when_providing_tribe_bar_view_data() {
+		$input_url     = add_query_arg( [
+			'tribe-bar-location' => 'paris' ,
+			'tribe-bar-date' => '2019-03-23' ,
+		], home_url( '/foo/bar' ) );
+		$construct_url = new Url( $input_url );
+		$params_url    = Url::from_url_and_params( $input_url, [
+			'view_data' => [
+				'tribe-bar-location' => 'cairo',
+				'tribe-bar-date' => '',
+			],
+		] );
+
+		$this->assertNotEquals( (string) $construct_url, (string) $params_url );
+		$expected = add_query_arg( [ 'tribe-bar-location' => 'cairo' ], home_url( '/foo/bar' ) );
+		$this->assertEquals( $expected, (string) $params_url );
+	}
+
+	public function is_diff_data_set() {
+		yield 'list_w_added_date' => [
+			home_url( '/events/list/' ),
+			home_url( '/events/list/?tribe-bar-date=2019-10-12' ),
+			true,
+		];
+
+		yield 'list_w_diff_dates' => [
+			home_url( '/events/list/?tribe-bar-date=2019-10-01' ),
+			home_url( '/events/list/?tribe-bar-date=2019-10-12' ),
+			true,
+		];
+
+		yield 'diff_views_same_dates' => [
+			home_url( '/events/list/?tribe-bar-date=2019-10-12' ),
+			home_url( '/events/day/?tribe-bar-date=2019-10-12' ),
+			true,
+		];
+
+		yield 'same_view_diff_page' => [
+			home_url( '/events/list/?tribe-bar-date=2019-10-12' ),
+			home_url( '/events/list/page/2/?tribe-bar-date=2019-10-12' ),
+			false,
+			[ 'page', 'paged' ],
+		];
+
+		yield 'same_view_diff_filters' => [
+			home_url( '/events/list/?tribe-bar-search=one' ),
+			home_url( '/events/list/?tribe-bar-search=two' ),
+			true,
+		];
+
+		yield 'same_view_diff_dates_same_filters' => [
+			home_url( '/events/list/?tribe-bar-search=one&tribe-bar-date=2019-10-12' ),
+			home_url( '/events/list/?tribe-bar-search=one&tribe-bar-date=2019-10-01' ),
+			true,
+		];
+
+		yield 'same_view_same_filter_diff_page' => [
+			home_url( '/events/list/page/2/?tribe-bar-search=one' ),
+			home_url( '/events/list/?tribe-bar-search=one' ),
+			false,
+			[ 'page', 'paged' ],
+		];
+
+		yield 'same_view_diff_arg_order' => [
+			home_url( '/events/list/page/2/?tribe-bar-search=one&tribe-bar-date=2019-10-12' ),
+			home_url( '/events/list/?tribe-bar-date=2019-10-12&tribe-bar-search=one' ),
+			false,
+			[ 'page', 'paged' ],
+		];
+	}
+
+	/**
+	 * It should correctly spot different requests
+	 *
+	 * @test
+	 * @dataProvider is_diff_data_set
+	 */
+	public function should_correctly_spot_different_requests( $url_a, $url_b, $is_diff, $ignore = [] ) {
+		$this->assertEquals( $is_diff, URL::is_diff( $url_a, $url_b, $ignore ) );
+	}
 }

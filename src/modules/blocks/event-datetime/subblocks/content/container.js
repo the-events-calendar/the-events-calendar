@@ -3,13 +3,13 @@
  */
 import { connect } from 'react-redux';
 import { compose, bindActionCreators } from 'redux';
+import { noop } from 'lodash';
 
 /**
  * Internal dependencies
  */
 import {
 	actions as dateTimeActions,
-	thunks as dateTimeThunks,
 	selectors as dateTimeSelectors,
 } from '@moderntribe/events/data/blocks/datetime';
 import {
@@ -39,6 +39,7 @@ const mapStateToProps = ( state ) => ( {
 	end: dateTimeSelectors.getEnd( state ),
 	isEditable: dateTimeSelectors.isEditable( state ),
 	multiDay: dateTimeSelectors.getMultiDay( state ),
+	sameStartEnd: dateTimeSelectors.getSameStartEnd( state ),
 	separatorDate: dateTimeSelectors.getDateSeparator( state ),
 	separatorTime: dateTimeSelectors.getTimeSeparator( state ),
 	showDateInput: dateTimeSelectors.getDateInputVisibility( state ),
@@ -52,6 +53,7 @@ const mapDispatchToProps = ( dispatch ) => ( {
 	...bindActionCreators( dateTimeActions, dispatch ),
 	...bindActionCreators( priceActions, dispatch ),
 	onDateTimeLabelClick: onDateTimeLabelClick( dispatch ),
+	setInitialState: noop,
 } );
 
 export default compose(
