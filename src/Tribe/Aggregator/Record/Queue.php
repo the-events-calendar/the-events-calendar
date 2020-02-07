@@ -72,7 +72,7 @@ class Tribe__Events__Aggregator__Record__Queue implements Tribe__Events__Aggrega
 			$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $record );
 		}
 
-		if ( ! is_object( $record ) || ! in_array( 'Tribe__Events__Aggregator__Record__Abstract', class_parents( $record ) ) ) {
+		if ( ! is_object( $record ) || ! $record instanceof \Tribe__Events__Aggregator__Record__Abstract ) {
 			$this->null_process = true;
 
 			return;
@@ -80,7 +80,6 @@ class Tribe__Events__Aggregator__Record__Queue implements Tribe__Events__Aggrega
 
 		if ( is_wp_error( $items ) ) {
 			$this->null_process = true;
-
 			return;
 		}
 
@@ -184,12 +183,16 @@ class Tribe__Events__Aggregator__Record__Queue implements Tribe__Events__Aggrega
 	}
 
 	/**
-	 * Shortcut to check if this queue is empty.
+	 * Shortcut to check if this queue is empty or it has a null process.
 	 *
 	 * @return boolean `true` if this queue instance has acquired the lock and
 	 *                 the count is 0, `false` otherwise.
 	 */
 	public function is_empty() {
+		if ( $this->null_process ) {
+			return true;
+		}
+
 		return $this->has_lock && 0 === $this->count();
 	}
 
@@ -292,6 +295,7 @@ class Tribe__Events__Aggregator__Record__Queue implements Tribe__Events__Aggrega
 					|| is_wp_error( $data )
 				) {
 					$this->release_lock();
+					$this->is_fetching = false;
 					return $this->activity();
 				}
 

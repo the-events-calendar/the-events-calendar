@@ -217,9 +217,6 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 = [5.0.1] TBD =
 
-* Feature - Add the "Text" section in the customizer, for the new views. [TEC-3068]
-* Feature - Add the "Primary Text Color" option in the customizer, for the new views. [TEC-3070]
-* Feature - Add the "Secondary Text Color" option in the customizer, for the new views. [TEC-3071]
 * Feature - Add the "Accent Color" option in the customizer, for the new views. [TEC-3067]
 * Fix - Fix venue block title from being indented in Twenty Twenty theme. [TEC-3140]
 * Fix - Fix website block label from disappearing when adding event details classic block. [TEC-2971]
@@ -237,6 +234,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - Ensure map does not display if enable map setting is disabled. [TEC-3013]
 * Fix - Fix the datepicker width problem in Google Chrome, for the new views. [TEC-2995]
 * Fix - Fix an issue where Venue provinces would be incorrectly populated in iCal exports [TEC-3223]
+* Fix - Deleting events after X feature no longer will delete posts with `_EventEndDate` meta [TEC-3233]
 * Tweak - Adjust tooltip title styles for Twenty Twenty theme. [TEC-2998]
 * Tweak - Remove find events button and related data when events bar is disabled. [TEC-3074]
 * Tweak - Ensure datepicker always updates view via live refresh. [TEC-3073]
