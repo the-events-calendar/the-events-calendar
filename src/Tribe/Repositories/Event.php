@@ -1119,7 +1119,11 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 
 			$dates_make_sense = true;
 
-			if ( Tribe__Date_Utils::build_date_object( $end ) <= Tribe__Date_Utils::build_date_object( $start ) ) {
+			/*
+			 * To support both "punctual" (i.e. start === end) events and all-day events (that might be punctual at
+			 * this stage) do not make this check inclusive.
+			 */
+			if ( Tribe__Date_Utils::build_date_object( $end ) < Tribe__Date_Utils::build_date_object( $start ) ) {
 				unset(
 					$postarr['meta_input']['_EventStartDate'],
 					$postarr['meta_input']['_EventStartDateUTC'],
