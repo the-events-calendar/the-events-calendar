@@ -376,7 +376,7 @@ class CreateTest extends \Codeception\TestCase\WPTestCase {
 			'timezone'   => 'Australia/Darwin',
 		];
 		$event = tribe_events()->set_args( $args )->create();
-
+		
 		$expected = [
 			'_EventAllDay'       => 'yes',
 			'_EventStartDate'    => '2018-03-04 04:00:00',
