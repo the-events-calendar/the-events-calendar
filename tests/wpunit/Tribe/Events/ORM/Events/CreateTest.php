@@ -332,4 +332,61 @@ class CreateTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertEquals( '1', get_post_meta( $event->ID, '_tribe_featured', true ) );
 	}
+
+	/**
+	 * It should allow creating all-day events by just specifying start and end dates, w/o times
+	 *
+	 * @test
+	 */
+	public function should_allow_creating_all_day_events_by_just_specifying_start_and_end_dates_w_o_times() {
+		$args  = [
+			'all_day'    => true,
+			'title'      => 'An all-day test event',
+			'start_date' => '2018-03-04',
+			'end_date'   => '2018-03-04',
+			'timezone'   => 'Australia/Darwin',
+		];
+		$event = tribe_events()->set_args( $args )->create();
+
+		$expected = [
+			'_EventAllDay'       => 'yes',
+			'_EventStartDate'    => '2018-03-04 00:00:00',
+			'_EventEndDate'      => '2018-03-04 23:59:59',
+			'_EventStartDateUTC' => '2018-03-03 14:30:00',
+			'_EventEndDateUTC'   => '2018-03-04 14:29:59',
+		];
+
+		foreach ( $expected as $key => $value ) {
+			$this->assertEquals( $value, get_post_meta( $event->ID, $key, true ) );
+		}
+	}
+
+	/**
+	 * It should allow creating all day events by date only w/ not midnight eod cutoff
+	 *
+	 * @test
+	 */
+	public function should_allow_creating_all_day_events_by_date_only_w_not_midnight_eod_cutoff() {
+		tribe_update_option('multiDayCutoff','04:00');
+		$args  = [
+			'all_day'    => true,
+			'title'      => 'An all-day test event',
+			'start_date' => '2018-03-04',
+			'end_date'   => '2018-03-04',
+			'timezone'   => 'Australia/Darwin',
+		];
+		$event = tribe_events()->set_args( $args )->create();
+
+		$expected = [
+			'_EventAllDay'       => 'yes',
+			'_EventStartDate'    => '2018-03-04 04:00:00',
+			'_EventEndDate'      => '2018-03-05 03:59:59',
+			'_EventStartDateUTC' => '2018-03-03 18:30:00',
+			'_EventEndDateUTC'   => '2018-03-04 18:29:59',
+		];
+
+		foreach ( $expected as $key => $value ) {
+			$this->assertEquals( $value, get_post_meta( $event->ID, $key, true ) );
+		}
+	}
 }
