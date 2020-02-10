@@ -206,6 +206,16 @@ class Context extends \tad_DI52_ServiceProvider {
 							},
 						],
 						Tribe__Context::REQUEST_VAR => [ 's', 'search', 'tribe-bar-search' ],
+						Tribe__Context::LOCATION_FUNC => [
+							'view_data',
+							static function ( $data ) {
+								if ( ! is_array( $data ) || empty( $data['tribe-bar-search'] ) ) {
+									return Tribe__Context::NOT_FOUND;
+								}
+
+								return $data['tribe-bar-search'];
+							}
+						]
 					],
 				],
 				'events_per_page'      => [

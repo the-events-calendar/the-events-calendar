@@ -199,7 +199,7 @@ class Single_Event_SlugTest extends \Codeception\TestCase\WPRestApiTestCase {
 			'description' => 'An event content',
 			'start_date'  => 'tomorrow 9am',
 			'end_date'    => 'tomorrow 11am',
-			'venue'       => 23,
+			'venue'       => PHP_INT_MAX,
 		];
 
 		foreach ( $params as $key => $value ) {
@@ -230,7 +230,7 @@ class Single_Event_SlugTest extends \Codeception\TestCase\WPRestApiTestCase {
 			'description' => 'An event content',
 			'start_date'  => 'tomorrow 9am',
 			'end_date'    => 'tomorrow 11am',
-			'organizer'   => 23,
+			'organizer'   => PHP_INT_MAX,
 		];
 
 		foreach ( $params as $key => $value ) {
@@ -437,7 +437,7 @@ class Single_Event_SlugTest extends \Codeception\TestCase\WPRestApiTestCase {
 			'description' => 'An event content',
 			'start_date'  => 'tomorrow 9am',
 			'end_date'    => 'tomorrow 11am',
-			'venue'       => 23,
+			'venue'       => PHP_INT_MAX,
 		];
 
 		foreach ( $params as $key => $value ) {
@@ -473,7 +473,7 @@ class Single_Event_SlugTest extends \Codeception\TestCase\WPRestApiTestCase {
 			'description' => 'An event content',
 			'start_date'  => 'tomorrow 9am',
 			'end_date'    => 'tomorrow 11am',
-			'organizer'   => 23,
+			'organizer'   => PHP_INT_MAX,
 		];
 
 		foreach ( $params as $key => $value ) {

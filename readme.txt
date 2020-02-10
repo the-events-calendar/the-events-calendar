@@ -217,9 +217,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 = [5.0.1] TBD =
 
-* Feature - Add the "Text" section in the customizer, for the new views. [TEC-3068]
-* Feature - Add the "Primary Text Color" option in the customizer, for the new views. [TEC-3070]
-* Feature - Add the "Secondary Text Color" option in the customizer, for the new views. [TEC-3071]
+* Feature - Add the "Accent Color" option in the customizer, for the new views. [TEC-3067]
 * Fix - Fix venue block title from being indented in Twenty Twenty theme. [TEC-3140]
 * Fix - Fix website block label from disappearing when adding event details classic block. [TEC-2971]
 * Fix - Fix style overrides for new view shortcodes for Enfold theme. [ECP-315]
@@ -236,11 +234,18 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - Ensure map does not display if enable map setting is disabled. [TEC-3013]
 * Fix - Fix the datepicker width problem in Google Chrome, for the new views. [TEC-2995]
 * Fix - Fix an issue where Venue provinces would be incorrectly populated in iCal exports [TEC-3223]
+* Fix - Deleting events after X feature no longer will delete posts with `_EventEndDate` meta [TEC-3233]
 * Tweak - Adjust tooltip title styles for Twenty Twenty theme. [TEC-2998]
 * Tweak - Remove find events button and related data when events bar is disabled. [TEC-3074]
 * Tweak - Ensure datepicker always updates view via live refresh. [TEC-3073]
 * Tweak - Adjust customizer labels for sites using the new views [TEC-3066]
 * Tweak - Allow start datetime and end datetime to be the same to hide end datetime in frontend when using block editor. [TEC-3009]
+* Tweak - Move the "Link Color" option in the customizer, for the new views. [TEC-3067]
+
+= [5.0.0.2] 2020-02-06 =
+
+* Fix - Datepicker format now properly defaults to the correct value when Display Settings have not been saved. [TEC-3229]
+* Fix - New views mobile breakpoints interactions with Caching plugins resolved. [TEC-3221]
 
 = [5.0.0.1] 2020-01-31 =
 
