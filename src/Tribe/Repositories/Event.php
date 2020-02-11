@@ -1187,11 +1187,8 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			);
 
 			// Let's make sure the timezone is always a string.
-			if ( isset( $postarr['meta_input']['_EventTimezone'] ) ) {
-				$postarr['meta_input']['_EventTimezone'] = Timezones::build_timezone_object(
-					$postarr['meta_input']['_EventTimezone']
-				)->getName();
-			}
+			$postarr['meta_input']['_EventTimezone'] = Timezones::build_timezone_object( $input_timezone )->getName();
+
 		} catch ( Exception $e ) {
 			tribe( 'logger' )->log(
 				'There was an error updating the dates for event ' . $post_id . ': ' . $e->getMessage(),
