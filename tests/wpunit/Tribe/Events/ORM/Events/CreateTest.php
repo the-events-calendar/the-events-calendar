@@ -376,7 +376,7 @@ class CreateTest extends \Codeception\TestCase\WPTestCase {
 			'timezone'   => 'Australia/Darwin',
 		];
 		$event = tribe_events()->set_args( $args )->create();
-		
+
 		$expected = [
 			'_EventAllDay'       => 'yes',
 			'_EventStartDate'    => '2018-03-04 04:00:00',
@@ -388,5 +388,36 @@ class CreateTest extends \Codeception\TestCase\WPTestCase {
 		foreach ( $expected as $key => $value ) {
 			$this->assertEquals( $value, get_post_meta( $event->ID, $key, true ) );
 		}
+	}
+
+	public function timezone_creation_handling_data_set() {
+		return [
+			'null timezone'  => [ 'Europe/Paris', null ],
+			'empty timezone' => [ 'Europe/Paris', '' ],
+			'0 timezone'     => [ 'Europe/Paris', 0 ],
+			'wrong timezone' => [ 'UTC', 'Europe/Lorem_Dolor' ],
+		];
+	}
+
+	/**
+	 * It should correctly handle timezone input during creation
+	 *
+	 * @test
+	 * @dataProvider timezone_creation_handling_data_set
+	 */
+	public function should_correctly_handle_timezone_input_during_creation($expected, $input_timezone = null) {
+		update_option( 'timezone_string', 'Europe/Paris' );
+		$args = [
+			'title'      => 'Test',
+			'start_date' => '2018-03-04',
+			'end_date'   => '2018-03-04',
+		];
+
+		if ( null !== $input_timezone ) {
+			$args['timezone'] = $input_timezone;
+		}
+
+		$event = tribe_events()->set_args( $args )->create();
+		$this->assertEquals( $expected, get_post_meta( $event->ID, '_EventTimezone', true ) );
 	}
 }

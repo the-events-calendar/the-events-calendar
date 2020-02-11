@@ -1050,6 +1050,10 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 				'_EventTimezone',
 				$current_event_timezone_string
 			);
+
+			// Empty strings will use the site timezone.
+			$input_timezone = $input_timezone ?: $current_event_timezone_string;
+
 			$timezone                      = Tribe__Timezones::build_timezone_object( $input_timezone );
 			$timezone_changed              = $input_timezone !== $current_event_timezone_string;
 			$utc                           = $this->normal_timezone;
