@@ -91,6 +91,10 @@ class Month_ViewTest extends WPTestCase {
 	 * @test
 	 *
 	 * @dataProvider expected_events_per_day_alterations
+	 *
+	 * @param       $legend
+	 * @param array $alterations
+	 * @param array $expected
 	 */
 	public function should_return_the_expected_events_per_day( array $alterations = [], array $expected = [] ) {
 		$context = $this->setup_context( $alterations );
@@ -114,6 +118,15 @@ class Month_ViewTest extends WPTestCase {
 
 		$expected_days = $this->build_expected_days( $alterations );
 		list( $expected_event_ids_per_day, $expected_stack_per_day ) = $this->parse_expected_events( $expected );
+
+		$expected = $this->render_ascii_calendar(
+			reset( $expected_days ), end( $expected_days ), $expected_event_ids_per_day, 7
+		);
+		$actual = $this->render_ascii_calendar(
+			reset( $expected_days ), end( $expected_days ), $event_ids_per_day, 5
+		);
+
+		$this->assertEquals( $expected, $actual, $this->build_event_legend() );
 
 		$this->assertEquals( $expected_days, $the_days, 'The list of days does not match.' );
 		$this->assertEquals( $expected_event_ids_per_day, $event_ids_per_day, 'The events IDs per day do not match.' );
@@ -193,5 +206,101 @@ class Month_ViewTest extends WPTestCase {
 		);
 
 		return [ $expected_events, $expected_stack ];
+	}
+
+	/**
+	 * Renders an ASCII calendar.
+	 *
+	 * @todo move this to the Trait.
+	 *
+	 * @param string|\DateTimeInterface|int $start_day     The start date.
+	 * @param string|\DateTimeInterface|int $end_day       The end date.
+	 * @param array<string,array> $events_by_day           A complete, including all days, or partial (w/ gaps), list
+	 *                                                     of each day expected event post IDs.
+	 * @param int                           $week_size     The size of the week to format the calendar to.
+	 *
+	 * @return string The ASCII representation of the calendar.
+	 */
+	protected function render_ascii_calendar( $start_day, $end_day, array $events_by_day = [], $week_size = 7 ) {
+		$pad = static function ( $input ) {
+			return str_pad( $input, 5, ' ', STR_PAD_BOTH );
+		};
+		$all_days = [];
+		$header_row = [];
+		$week_rows = [];
+		$one_day = Dates::interval( 'P1D' );
+		$period = new \DatePeriod(
+			Dates::build_date_object( $start_day ),
+			$one_day,
+			Dates::build_date_object( $end_day )->add( $one_day )
+		);
+		foreach ( $period as $day ) {
+			$all_days[ $day->format( 'Y-m-d' ) ] = [];
+		}
+		$events_by_day = array_merge( $all_days, $events_by_day );
+		foreach ( array_chunk( $events_by_day, $week_size, true ) as $week ) {
+			$week_key               = array_keys( $week )[0];
+			$week_rows[ $week_key ] = [];
+
+			foreach ( $week as $day_date => $events ) {
+				// 3-letter representation.
+				$date_time = Dates::build_date_object( $day_date );
+				$day_name  = $date_time->format( 'D' );
+				$day_num   = $date_time->format('d');
+
+				if ( count( $header_row ) < $week_size ) {
+					$header_row[] = $day_name;
+				}
+				$week_rows[ $week_key ][ $day_num ] = $events_by_day[ $day_date ];
+			}
+		}
+
+		$weeks = implode( "\n", array_map( static function ( $week_row ) use($pad) {
+			$week_height = max( ...array_values( array_map( 'count', $week_row ) ) );
+			$result      = [];
+			$i           = 0;
+			do {
+				$array_map = array_map( static function ( $week_day ) use ( $i ) {
+					return isset( $week_day[ $i ] ) ? $week_day[ $i ] : ' ';
+				}, $week_row );
+				$i++;
+				$pieces    = array_map( $pad, $array_map );
+				$result[]  = implode( '|', $pieces );
+				$week_height --;
+			} while ( $week_height > 0 );
+
+			$result_header = str_repeat( '______', count( $week_row ) );
+			$result_header .= "\n" . implode( '|', array_map( $pad, array_keys( $week_row ) ) );
+			$result_header .= "\n" . str_repeat( '------', count( $week_row ) );
+
+			return $result_header . "\n" . implode( "\n", $result );
+		}, $week_rows ) );
+
+
+		$str = implode( ' | ', $header_row ) . "|\n" . $weeks;
+
+		return $str;
+	}
+
+	/**
+	 * Builds a "legend" of each event, by post ID.
+	 *
+	 * @todo move this to the Trait.
+	 *
+	 * The legend should be used to provide more information during debug of failures.
+	 *
+	 * @return string The event legend.
+	 */
+	protected function build_event_legend(){
+		return "Event legend:\n\n" . implode( "\n", array_map( static function ( $event ) {
+			return sprintf(
+				'%d - tz: %s; start: %s; end: %s; all-day: %s',
+				$event->ID,
+				get_post_meta( $event->ID, '_EventTimezone', true ),
+				get_post_meta( $event->ID, '_EventStartDate', true ),
+				get_post_meta( $event->ID, '_EventEndDate', true ),
+				get_post_meta( $event->ID, '_EventAllDay', true ) ? 'yes' : 'no'
+			);
+		}, $this->events ) ) . "\n";
 	}
 }
