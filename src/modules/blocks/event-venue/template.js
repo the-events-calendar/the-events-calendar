@@ -34,7 +34,7 @@ import { editor } from '@moderntribe/common/data';
 import VenueDetails from './venue-details';
 import { Venue as VenueIcon } from '@moderntribe/events/icons';
 import { utils } from '@moderntribe/events/data/blocks/venue';
-import { google, mapsAPI } from '@moderntribe/common/utils/globals';
+import { google } from '@moderntribe/common/utils/globals';
 import './style.pcss';
 
 /**
@@ -53,6 +53,7 @@ class EventVenue extends Component {
 		draft: PropTypes.object,
 		showMap: PropTypes.bool,
 		showMapLink: PropTypes.bool,
+		embedMap: PropTypes.bool,
 		createDraft: PropTypes.func,
 		editDraft: PropTypes.func,
 		removeDraft: PropTypes.func,
@@ -240,7 +241,14 @@ class EventVenue extends Component {
 	}
 
 	renderControls() {
-		const { venue, showMapLink, showMap, toggleVenueMap, toggleVenueMapLink } = this.props;
+		const {
+			venue,
+			showMapLink,
+			showMap,
+			embedMap,
+			toggleVenueMap,
+			toggleVenueMapLink,
+		} = this.props;
 
 		if ( ! this.hasVenue() ) {
 			return null;
@@ -254,11 +262,13 @@ class EventVenue extends Component {
 						checked={ showMapLink }
 						onChange={ toggleVenueMapLink }
 					/>
-					<ToggleControl
-						label={ __( 'Show Google Maps Embed', 'the-events-calendar' ) }
-						checked={ showMap }
-						onChange={ toggleVenueMap }
-					/>
+					{ embedMap && (
+						<ToggleControl
+							label={ __( 'Show Google Maps Embed', 'the-events-calendar' ) }
+							checked={ showMap }
+							onChange={ toggleVenueMap }
+						/>
+					) }
 				<EditLink
 					postId={ venue }
 					label={ __( 'Edit Venue', 'the-events-calendar' ) }

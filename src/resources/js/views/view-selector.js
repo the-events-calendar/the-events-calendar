@@ -160,7 +160,7 @@ tribe.events.views.viewSelector = {};
 			// If view selector is tabs (has 3 or less options)
 			if ( isTabs ) {
 				var containerState = $container.data( 'tribeEventsState' );
-				var isMobile = ( containerState && containerState.isMobile ) || true; // fallback to true if container state is undefined
+				var isMobile = containerState.isMobile;
 
 				// If viewport is mobile and mobile state is not initialized
 				if ( isMobile && ! state.mobileInitialized ) {

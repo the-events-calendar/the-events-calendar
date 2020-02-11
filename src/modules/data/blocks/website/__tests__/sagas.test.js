@@ -36,7 +36,7 @@ describe( 'Website Block sagas', () => {
 			const gen = cloneableGenerator( sagas.setInitialState )( action );
 			expect( gen.next().value ).toEqual(
 				all( [
-					put( actions.setWebsite( action.payload.get( 'url' ) ) ),
+					put( actions.setWebsite( action.payload.get( 'url', DEFAULT_STATE.url ) ) ),
 					put( actions.setLabel( action.payload.get( 'urlLabel', DEFAULT_STATE.label ) ) ),
 				] )
 			);

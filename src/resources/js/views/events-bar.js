@@ -444,7 +444,7 @@ tribe.events.views.eventsBar = {};
 			var state = $eventsBar.data( 'tribeEventsState' );
 			var $filtersButton = $container.find( obj.selectors.filtersButton );
 			var containerState = $container.data( 'tribeEventsState' );
-			var isMobile = ( containerState && containerState.isMobile ) || true; // fallback to true if container state is undefined
+			var isMobile = containerState.isMobile;
 
 			// If viewport is mobile and mobile state is not initialized
 			if ( isMobile && ! state.mobileInitialized ) {

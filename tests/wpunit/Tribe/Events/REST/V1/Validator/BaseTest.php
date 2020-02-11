@@ -9,9 +9,9 @@ class BaseTest extends Events_Testcase {
 
 	public function linked_post_bad_inputs() {
 		return [
-			[ 23 ],
+			[ PHP_INT_MAX ],
 			[ 'foo' ],
-			[ '23' ],
+			[ "{PHP_INT_MAX}" ],
 			[ [ 'website' => 'http://example.com' ] ],
 		];
 	}

@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 5.0.0
+ * @version 5.0.0.2
  *
  * @var string   $rest_url             The REST URL.
  * @var string   $rest_nonce           The REST nonce.
@@ -17,6 +17,7 @@
  * @var bool     $disable_event_search Boolean on whether to disable the event search.
  * @var string[] $container_classes    Classes used for the container of the view.
  * @var array    $container_data       An additional set of container `data` attributes.
+ * @var string   $breakpoint_pointer   String we use as pointer to the current view we are setting up with breakpoints.
  */
 
 $header_classes = [ 'tribe-events-header' ];
@@ -33,6 +34,9 @@ if ( empty( $disable_event_search ) ) {
 	<?php foreach ( $container_data as $key => $value ) : ?>
 		data-view-<?php echo esc_attr( $key ) ?>="<?php echo esc_attr( $value ) ?>"
 	<?php endforeach; ?>
+	<?php if ( ! empty( $breakpoint_pointer ) ) : ?>
+		data-view-breakpoint-pointer="<?php echo esc_attr( $breakpoint_pointer ); ?>"
+	<?php endif; ?>
 >
 	<div class="tribe-common-l-container tribe-events-l-container">
 		<?php $this->template( 'components/loader', [ 'text' => __( 'Loading...', 'the-events-calendar' ) ] ); ?>

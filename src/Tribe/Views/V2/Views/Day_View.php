@@ -38,8 +38,10 @@ class Day_View extends View {
 	 * {@inheritDoc}
 	 */
 	public function prev_url( $canonical = false, array $passthru_vars = [] ) {
-		if ( isset( $this->cached_urls[ __METHOD__ ] ) ) {
-			return $this->cached_urls[ __METHOD__ ];
+		$cache_key = __METHOD__ . '_' . md5( wp_json_encode( func_get_args() ) );
+
+		if ( isset( $this->cached_urls[ $cache_key ] ) ) {
+			return $this->cached_urls[ $cache_key ];
 		}
 
 		$date = $this->context->get( 'event_date', $this->context->get( 'today', 'today' ) );
@@ -57,7 +59,7 @@ class Day_View extends View {
 
 		$url = $this->filter_prev_url( $canonical, $url );
 
-		$this->cached_urls[ __METHOD__ ] = $url;
+		$this->cached_urls[ $cache_key ] = $url;
 
 		return $url;
 	}
@@ -66,8 +68,10 @@ class Day_View extends View {
 	 * {@inheritDoc}
 	 */
 	public function next_url( $canonical = false, array $passthru_vars = [] ) {
-		if ( isset( $this->cached_urls[ __METHOD__ ] ) ) {
-			return $this->cached_urls[ __METHOD__ ];
+		$cache_key = __METHOD__ . '_' . md5( wp_json_encode( func_get_args() ) );
+
+		if ( isset( $this->cached_urls[ $cache_key ] ) ) {
+			return $this->cached_urls[ $cache_key ];
 		}
 
 		$date = $this->context->get( 'event_date', $this->context->get( 'today', 'today' ) );
@@ -85,7 +89,7 @@ class Day_View extends View {
 
 		$url = $this->filter_next_url( $canonical, $url );
 
-		$this->cached_urls[ __METHOD__ ] = $url;
+		$this->cached_urls[ $cache_key ] = $url;
 
 		return $url;
 	}
