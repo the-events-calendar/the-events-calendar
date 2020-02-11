@@ -10,8 +10,10 @@ namespace Tribe\Events\Views\V2;
 
 use Tribe\Events\Views\V2\Template\Settings\Advanced_Display;
 use Tribe\Events\Views\V2\Template\Title;
+use Tribe\Events\Views\V2\Utils;
 use Tribe\Events\Views\V2\Views\Traits\Breakpoint_Behavior;
 use Tribe\Events\Views\V2\Views\Traits\HTML_Cache;
+use Tribe\Events\Views\V2\Views\Traits\Json_Ld_Data;
 use Tribe__Container as Container;
 use Tribe__Context as Context;
 use Tribe__Date_Utils as Dates;
@@ -21,7 +23,6 @@ use Tribe__Events__Rewrite as TEC_Rewrite;
 use Tribe__Events__Venue as Venue;
 use Tribe__Repository__Interface as Repository;
 use Tribe__Utils__Array as Arr;
-use Tribe\Events\Views\V2\Utils;
 
 /**
  * Class View
@@ -33,6 +34,7 @@ class View implements View_Interface {
 
 	use Breakpoint_Behavior;
 	use HTML_Cache;
+	use Json_Ld_Data;
 
 	/**
 	 * An instance of the DI container.
@@ -1034,6 +1036,9 @@ class View implements View_Interface {
 	 * @return array An associative array of variables that will be set, and exported, in the template.
 	 */
 	protected function filter_template_vars( array $template_vars ) {
+		$events                        = $template_vars['events'] ?: [];
+		$template_vars['json_ld_data'] = $this->build_json_ld_data( $events );
+
 		/**
 		 * Filters the variables that will be set on the View template.
 		 *
@@ -2101,4 +2106,5 @@ class View implements View_Interface {
 
 		return $data;
 	}
+
 }
