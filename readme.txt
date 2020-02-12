@@ -213,6 +213,14 @@ Some things to consider before posting on the forum:
 
 Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to [@TheEventsCal](https://twitter.com/TheEventsCal) and tell us why. We'll do what we can to make it right.
 
+== Upgrade Notice ==
+
+= [5.0] =
+
+Please see the changelog for the complete list of changes in this release.
+Previous versions of The Events Calendar are not cross-compatible with 5.X add-ons.
+Remember to always make a backup of your database and files before updating!
+
 == Changelog ==
 
 = [5.0.1] 2020-02-12 =
@@ -241,6 +249,8 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Tweak - Adjust customizer labels for sites using the new views [TEC-3066]
 * Tweak - Allow start datetime and end datetime to be the same to hide end datetime in frontend when using block editor. [TEC-3009]
 * Tweak - Move the "Link Color" option in the customizer, for the new views. [TEC-3067]
+* Tweak - Requires Events Filterbar >= 4.9.1
+* Tweak - Requires Events Calendar PRO >= 5.0.1
 * Language - 14 new strings added, 256 updated, 0 fuzzied, and 5 obsoleted
 
 = [5.0.0.2] 2020-02-06 =
