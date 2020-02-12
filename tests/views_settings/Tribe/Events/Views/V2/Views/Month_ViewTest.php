@@ -7,11 +7,50 @@ use Tribe\Events\Views\V2\View;
 use Tribe\Test\Products\Traits\With_Ascii_Calendar;
 use Tribe\Test\Products\Traits\With_Json_Data_Sets;
 use Tribe\Test\Products\Traits\With_View_Context;
+use Tribe__Date_Utils as Dates;
+use Tribe__Events__Template__Month as Month;
 
 class Month_ViewTest extends WPTestCase {
 	use With_View_Context;
 	use With_Json_Data_Sets;
 	use With_Ascii_Calendar;
+
+	/**
+	 * Builds the set of days we expect to see in the View results.
+	 *
+	 * @param array<string,mixed> $alterations The alterations to build the expected days from.
+	 *
+	 * @return array<string> An array of days, w/o gaps, each in the `Y-m-d` format.
+	 * @throws \Exception If a missing alteration key is missing.
+	 */
+	protected function build_expected_days( array $alterations = [] ) {
+		$this->ensure_alteration( __METHOD__, 'event_date', $alterations );
+		$this->ensure_alteration( __METHOD__, 'options.timezone_string', $alterations );
+		$this->ensure_alteration( __METHOD__, 'options.start_of_week', $alterations );
+
+		$event_date    = $alterations['event_date'];
+		$site_timezone = $alterations['options']['timezone_string'];
+		$start_of_week = $alterations['options']['start_of_week'];
+
+		$expected_days = [];
+		$one_day       = Dates::interval( 'P1D' );
+		$one_second    = Dates::interval( 'PT1S' );
+		$grid_start    = Dates::build_date_object( Month::calculate_first_cell_date( $event_date ), $site_timezone );
+		$grid_end      = Dates::build_date_object( Month::calculate_final_cell_date( $event_date ), $site_timezone );
+		// compensate for the last day, else it will not be included in the period.
+		$period = new \DatePeriod( $grid_start, $one_day, $grid_end->add( $one_second ) );
+
+		foreach ( $period as $day ) {
+			$expected_days[] = $day->format( Dates::DBDATEFORMAT );
+		}
+
+		// Sanity check.
+		$this->assertEquals( $grid_start->format( Dates::DBDATEFORMAT ), reset( $expected_days ) );
+		$this->assertEquals( $grid_end->format( Dates::DBDATEFORMAT ), end( $expected_days ) );
+		$this->assertEquals( $start_of_week, $grid_start->format( 'w' ) );
+
+		return $expected_days;
+	}
 
 	/**
 	 * It should return the expected events per day
