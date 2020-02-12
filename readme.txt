@@ -225,8 +225,8 @@ Remember to always make a backup of your database and files before updating!
 
 = [5.0.1] 2020-02-12 =
 
-* Version - The Events Calendar 5.0.1 is compatible with Filter Bar 4.9.1 and higher
-* Version - The Events Calendar 5.0.1 is compatible with Events Calendar PRO 5.0.1 and higher
+* Version - The Events Calendar 5.0.1 is only compatible with Filter Bar 4.9.1 and higher
+* Version - The Events Calendar 5.0.1 is only compatible with Events Calendar PRO 5.0.1 and higher
 * Feature - Add the "Accent Color" option in the customizer, for the new views. [TEC-3067]
 * Fix - Fix venue block title from being indented in Twenty Twenty theme. [TEC-3140]
 * Fix - Fix website block label from disappearing when adding event details classic block. [TEC-2971]
