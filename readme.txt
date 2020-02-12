@@ -215,7 +215,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
-= [5.0.1] TBD =
+= [5.0.1] 2020-02-12 =
 
 * Feature - Add the "Accent Color" option in the customizer, for the new views. [TEC-3067]
 * Fix - Fix venue block title from being indented in Twenty Twenty theme. [TEC-3140]
@@ -241,6 +241,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Tweak - Adjust customizer labels for sites using the new views [TEC-3066]
 * Tweak - Allow start datetime and end datetime to be the same to hide end datetime in frontend when using block editor. [TEC-3009]
 * Tweak - Move the "Link Color" option in the customizer, for the new views. [TEC-3067]
+* Language - 14 new strings added, 256 updated, 0 fuzzied, and 5 obsoleted
 
 = [5.0.0.2] 2020-02-06 =
 
