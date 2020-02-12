@@ -249,8 +249,8 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Adjust customizer labels for sites using the new views [TEC-3066]
 * Tweak - Allow start datetime and end datetime to be the same to hide end datetime in frontend when using block editor. [TEC-3009]
 * Tweak - Move the "Link Color" option in the customizer, for the new views. [TEC-3067]
-* Tweak - Requires Events Filterbar >= 4.9.1
-* Tweak - Requires Events Calendar PRO >= 5.0.1
+* Tweak - Requires minimum version of Events Filterbar >= 4.9.1
+* Tweak - Requires minimum version of Events Calendar PRO >= 5.0.1
 * Language - 14 new strings added, 256 updated, 0 fuzzied, and 5 obsoleted
 
 = [5.0.0.2] 2020-02-06 =
