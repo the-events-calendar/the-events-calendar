@@ -374,7 +374,7 @@ trait HTML_Cache {
 	 * purpose of caching) or running more complex logic.
 	 * The value is cached for a week or until an event is updated.
 	 *
-	 * @since TBD
+	 * @since 5.0.1
 	 *
 	 * @return int The number of events in the database that have a `post_status` of `private`.
 	 */
@@ -407,7 +407,7 @@ trait HTML_Cache {
 	 * purpose of caching) or running more complex logic.
 	 * The value is cached for a week or until an event is updated.
 	 *
-	 * @since TBD
+	 * @since 5.0.1
 	 *
 	 * @return int The number of password-protected events in the database.
 	 */
@@ -439,7 +439,7 @@ trait HTML_Cache {
 	 *
 	 * Salts are used to diversify HTML caches depending on the user capabilities or any "wider" context.
 	 *
-	 * @since TBD
+	 * @since 5.0.1
 	 *
 	 * @return array<string,bool> A list of salts, properties of the wider context, used to generate the HTML cache key.
 	 */

@@ -29,7 +29,7 @@ class Template_Bootstrap {
 	/**
 	 * A cache array shared among instances.
 	 *
-	 * @since TBD
+	 * @since 5.0.1
 	 *
 	 * @var array<string,array>
 	 */
