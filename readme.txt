@@ -215,7 +215,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
-= [5.0.1] TBD =
+= [5.0.1] 2020-02-12 =
 
 * Feature - Add the "Accent Color" option in the customizer, for the new views. [TEC-3067]
 * Fix - Fix venue block title from being indented in Twenty Twenty theme. [TEC-3140]
