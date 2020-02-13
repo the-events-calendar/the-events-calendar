@@ -3,7 +3,7 @@
  * The Events Calendar Customizer Section: Text.
  *
  * @package The Events Calendar
- * @since   TBD
+ * @since   5.0.1
  */
 
 // Don't load directly.
@@ -25,7 +25,7 @@ final class Tribe__Events__Customizer__Text extends Tribe__Customizer__Section {
 	/**
 	 * Grab the CSS rules template.
 	 *
-	 * @since TBD
+	 * @since 5.0.1
 	 *
 	 * @param string  $template
 	 * @return string $template
@@ -56,7 +56,7 @@ final class Tribe__Events__Customizer__Text extends Tribe__Customizer__Section {
 	/**
 	 * Setup the Customizer section.
 	 *
-	 * @since TBD
+	 * @since 5.0.1
 	 *
 	 * @return void
 	 */
