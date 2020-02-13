@@ -1190,10 +1190,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 				$timezone->getName()
 			);
 
-			if ( $timezone_changed || empty( get_post_meta( $post_id, '_EventTimezone', true ) ) ) {
-				// Let's make sure the timezone is always a string.
-				$postarr['meta_input']['_EventTimezone'] = Timezones::build_timezone_object( $input_timezone )->getName();
-			}
+			$postarr['meta_input']['_EventTimezone'] = Timezones::build_timezone_object( $input_timezone )->getName();
 
 		} catch ( Exception $e ) {
 			tribe( 'logger' )->log(
