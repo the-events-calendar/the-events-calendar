@@ -226,6 +226,9 @@ Remember to always make a backup of your database and files before updating!
 = [5.0.2] TBD =
 
 * Tweak - Move link color option to General tab in customizer and remove Text tab.  [TEC-3244]
+* Tweak - Freemius Opt-out workflow now present on all occasions [TEC-3171]
+* Tweak - Freemius updated to the latest version 2.3.2 [TEC-3171]
+* Fix - Freemius activation URL send via email works as expected [TEC-3218]
 
 = [5.0.1] 2020-02-12 =
 
