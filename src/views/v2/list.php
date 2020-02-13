@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 5.0.0.2
+ * @version TBD
  *
  * @var array    $events               The array containing the events.
  * @var string   $rest_url             The REST URL.

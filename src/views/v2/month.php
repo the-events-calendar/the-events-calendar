@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 5.0.0.2
+ * @version TBD
  *
  * @var string   $rest_url             The REST URL.
  * @var string   $rest_nonce           The REST nonce.
