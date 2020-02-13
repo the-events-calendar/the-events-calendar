@@ -219,7 +219,7 @@ class View implements View_Interface {
 		$this->rewrite = TEC_Rewrite::instance();
 
 		// For plain permalinks, the pagination variable is "page".
-		if ( ! get_option( 'permalink_structure' ) ) {
+		if ( $this->rewrite->is_plain_permalink() ) {
 			$this->page_key = 'page';
 		}
 	}
@@ -258,6 +258,18 @@ class View implements View_Interface {
 		// Let View data override any other data.
 		if ( isset( $params['view_data'] ) && is_array( $params['view_data'] ) ) {
 			$params = array_merge( $params, $params['view_data'] );
+		}
+
+		// Ensure plain permalink is covered.
+		if (
+			TEC_Rewrite::instance()->is_plain_permalink()
+			&& ! empty( $params['eventDate'] )
+			&& (
+				! empty( $params['tribe-event-date'] )
+				|| ! empty( $params['tribe-bar-date'] )
+			)
+		) {
+			unset( $params['eventDate'] );
 		}
 
 		/*
@@ -307,6 +319,7 @@ class View implements View_Interface {
 			$params = apply_filters( "tribe_events_views_v2_{$slug}_rest_params", $params, $request );
 		}
 
+
 		// Determine context based on the request parameters.
 		$do_not_override = [ 'event_display_mode' ];
 		$not_overridable_params = array_intersect_key( $params, array_combine( $do_not_override, $do_not_override ) );
@@ -314,7 +327,7 @@ class View implements View_Interface {
 			->alter(
 				array_merge(
 					$params,
-					tribe_context()->translate_sub_locations( $params, \Tribe__Context::REQUEST_VAR ),
+					tribe_context()->translate_sub_locations( $params, Context::REQUEST_VAR ),
 					$not_overridable_params
 				)
 			);
@@ -335,13 +348,13 @@ class View implements View_Interface {
 	 *
 	 * @since  4.9.2
 	 *
-	 * @param  string  $view  The view slug, as registered in the `tribe_events_views` filter, or class.
-	 * @param  \Tribe__Context|null  $context  The context this view should render from; if not set then the global
-	 *                                         one will be used.
+	 * @param  string        $view     The view slug, as registered in the `tribe_events_views` filter, or class.
+	 * @param  Context|null  $context  The context this view should render from; if not set then the global
+	 *                                 one will be used.
 	 *
-	 * @return \Tribe\Events\Views\V2\View_Interface An instance of the built view.
+	 * @return View_Interface An instance of the built view.
 	 */
-	public static function make( $view = null, \Tribe__Context $context = null ) {
+	public static function make( $view = null, Context $context = null ) {
 		$manager = tribe( Manager::class );
 
 		$default_view = $manager->get_default_view();
@@ -379,7 +392,7 @@ class View implements View_Interface {
 		 */
 		do_action( 'tribe_events_views_v2_before_make_view', $view_class, $view_slug );
 
-		/** @var \Tribe\Events\Views\V2\View_Interface $instance */
+		/** @var View_Interface $instance */
 		$instance = self::$container->make( $view_class );
 
 		$template = new Template( $instance );
@@ -417,10 +430,9 @@ class View implements View_Interface {
 		 *
 		 * @since 4.9.3
 		 *
-		 * @param  \Tribe__Context $view_context   The context abstraction object that will be passed to the
-		 *                                         view.
-		 * @param  string          $view           The current view slug.
-		 * @param View             $instance       The current View object.
+		 * @param  Context $view_context   The context abstraction object that will be passed to the view.
+		 * @param  string  $view           The current view slug.
+		 * @param  View    $instance       The current View object.
 		 */
 		$view_context = apply_filters( 'tribe_events_views_v2_view_context', $view_context, $view_slug, $instance );
 
@@ -429,9 +441,8 @@ class View implements View_Interface {
 		 *
 		 * @since 4.9.3
 		 *
-		 * @param  \Tribe__Context $view_context               The context abstraction object that will be passed to the
-		 *                                                     view.
-		 * @param View             $instance                   The current View object.
+		 * @param  Context $view_context    The context abstraction object that will be passed to the view.
+		 * @param  View    $instance        The current View object.
 		 */
 		$view_context = apply_filters( "tribe_events_views_v2_{$view_slug}_view_context", $view_context, $instance );
 
@@ -1077,11 +1088,11 @@ class View implements View_Interface {
 	 *
 	 * @since 4.9.3
 	 *
-	 * @param \Tribe__Context|null $context A context to use to setup the args, or `null` to use the View Context.
+	 * @param  Context|null $context A context to use to setup the args, or `null` to use the View Context.
 	 *
 	 * @return array The arguments, ready to be set on the View repository instance.
 	 */
-	protected function setup_repository_args( \Tribe__Context $context = null ) {
+	protected function setup_repository_args( Context $context = null ) {
 		$context = null !== $context ? $context : $this->context;
 
 		$context_arr = $context->to_array();
@@ -1395,6 +1406,7 @@ class View implements View_Interface {
 			'container_data'         => $this->get_container_data(),
 			'is_past'                => 'past' === $this->context->get( 'event_display_mode', false ),
 			'breakpoints'            => $this->get_breakpoints(),
+			'breakpoint_pointer'     => $this->get_breakpoint_pointer(),
 			'is_initial_load'        => $this->context->doing_php_initial_state(),
 			'public_views'           => $this->get_public_views( $url_event_date ),
 		];
@@ -1412,7 +1424,7 @@ class View implements View_Interface {
 	 *
 	 * @return array The filtered repository arguments.
 	 */
-	protected function filter_repository_args( array $repository_args, \Tribe__Context $context = null ) {
+	protected function filter_repository_args( array $repository_args, Context $context = null ) {
 		$context = null !== $context ? $context : $this->context;
 
 		/**
@@ -1421,7 +1433,7 @@ class View implements View_Interface {
 		 * @since 4.9.5
 		 *
 		 * @param array           $repository_args An array of repository arguments that will be set for all Views.
-		 * @param \Tribe__Context $context         The current render context object.
+		 * @param Context         $context         The current render context object.
 		 * @param View_Interface  $this            The View that will use the repository arguments.
 		 */
 		$repository_args = apply_filters( 'tribe_events_views_v2_view_repository_args', $repository_args, $context, $this );
@@ -1432,7 +1444,7 @@ class View implements View_Interface {
 		 * @since 4.9.5
 		 *
 		 * @param array           $repository_args An array of repository arguments that will be set for a specific View.
-		 * @param \Tribe__Context $context         The current render context object.
+		 * @param Context         $context         The current render context object.
 		 * @param View_Interface  $this            The View that will use the repository arguments.
 		 */
 		$repository_args = apply_filters(

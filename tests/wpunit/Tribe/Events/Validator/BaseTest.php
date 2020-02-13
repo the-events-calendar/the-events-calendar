@@ -133,7 +133,7 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 	public function it_should_not_validate_a_non_existing_post_id_as_organizer() {
 		$sut = $this->make_instance();
 
-		$this->assertFalse( $sut->is_organizer_id( 23 ) );
+		$this->assertFalse( $sut->is_organizer_id( PHP_INT_MAX ) );
 	}
 
 	/**
@@ -260,7 +260,7 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertTrue( $sut->is_organizer_id_list( implode( ', ', $organizers ) ) );
 		$this->assertTrue( $sut->is_organizer_id_list( implode( ' , ', $organizers ) ) );
 		$this->assertTrue( $sut->is_organizer_id_list( implode( ' ,', $organizers ) ) );
-		$this->assertFalse( $sut->is_organizer_id_list( implode( ' ,', array_merge( $organizers, [ 23 ] ) ) ) );
+		$this->assertFalse( $sut->is_organizer_id_list( implode( ' ,', array_merge( $organizers, [ PHP_INT_MAX ] ) ) ) );
 	}
 
 	public function post_id_bad_inputs() {
@@ -269,8 +269,8 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 			[ null ],
 			[ false ],
 			[ 'foo' ],
-			[ '23' ],
-			[ 23 ],
+			[ "{PHP_INT_MAX}" ],
+			[ PHP_INT_MAX ],
 			[ 0 ],
 			[ '0' ],
 		];
