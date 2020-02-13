@@ -261,8 +261,8 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 	private function action_delete_record( $records = array() ) {
 		$record_obj = Tribe__Events__Aggregator__Records::instance()->get_post_type();
 		$records = array_filter( (array) $records, 'is_numeric' );
-		$success = array();
-		$errors = array();
+		$success = [];
+		$errors = [];
 
 		foreach ( $records as $record_id ) {
 			$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $record_id );
@@ -287,7 +287,7 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 			$success[ $record->id ] = true;
 		}
 
-		return array( $success, $errors );
+		return [ $success, $errors ];
 	}
 
 	/**
@@ -299,12 +299,11 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 	 *
 	 * @return array
 	 */
-	public function action_run_import( $records = array() ) {
+	public function action_run_import( $records = [] ) {
 		$service = tribe( 'events-aggregator.service' );
-		$record_obj = Tribe__Events__Aggregator__Records::instance()->get_post_type();
 		$records = array_filter( (array) $records, 'is_numeric' );
-		$success = array();
-		$errors = array();
+		$success = [];
+		$errors = [];
 
 		foreach ( $records as $record_id ) {
 			$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $record_id );
@@ -337,16 +336,21 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 				continue;
 			}
 
-			$record->update_meta( 'last_import_status', 'success:queued' );
-			$child->update_meta( 'import_id', $status->data->import_id );
-
 			$child->finalize();
-			$child->process_posts( array(), true );
+			$post = $child->process_posts( [], true );
 
-			$success[ $record->id ] = $record;
+			if ( is_wp_error( $post ) )  {
+				$errors[ $record->id ] = $post;
+				$record->update_meta( 'last_import_status', 'error:import-failed' );
+			} else {
+				$record->update_meta( 'last_import_status', 'success:queued' );
+				$child->update_meta( 'import_id', $status->data->import_id );
+
+				$success[ $record->id ] = $record;
+			}
 		}
 
-		return array( $success, $errors );
+		return [ $success, $errors ];
 	}
 
 	/**
@@ -356,7 +360,7 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 	 */
 	public function maybe_display_aggregator_missing_license_key_message() {
 		if ( tribe( 'events-aggregator.main' )->is_service_active() ) {
-			return;
+			return '';
 		}
 
 		ob_start();

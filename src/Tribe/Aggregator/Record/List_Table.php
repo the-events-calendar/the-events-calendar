@@ -529,12 +529,14 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 
 		if ( 'scheduled' === $this->tab->get_slug() ) {
 			$last_import_error = $record->get_last_import_status( 'error' );
+			$status = 'success';
 
 			if ( $last_import_error ) {
 				$html[] = '<span class="dashicons dashicons-warning tribe-ea-status-failed" title="' . esc_attr( $last_import_error ) . '"></span>';
+				$status = 'failed';
 			}
 
-			$has_child_record = $record->get_child_record_by_status( 'success', 1 );
+			$has_child_record = $record->get_child_record_by_status( $status, 1 );
 
 			if ( ! $has_child_record ) {
 				$html[] = '<i>' . esc_html__( 'Unknown', 'the-events-calendar' ) . '</i>';

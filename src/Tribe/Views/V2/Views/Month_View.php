@@ -58,8 +58,10 @@ class Month_View extends By_Day_View {
 	 * {@inheritDoc}
 	 */
 	public function prev_url( $canonical = false, array $passthru_vars = [] ) {
-		if ( isset( $this->cached_urls[ __METHOD__ ] ) ) {
-			return $this->cached_urls[ __METHOD__ ];
+		$cache_key = __METHOD__ . '_' . md5( wp_json_encode( func_get_args() ) );
+
+		if ( isset( $this->cached_urls[ $cache_key ] ) ) {
+			return $this->cached_urls[ $cache_key ];
 		}
 
 		// Setup the Default date for the month view here.
@@ -96,7 +98,7 @@ class Month_View extends By_Day_View {
 		$url = $this->build_url_for_date( $prev_date, $canonical, $passthru_vars );
 		$url = $this->filter_prev_url( $canonical, $url );
 
-		$this->cached_urls[ __METHOD__ ] = $url;
+		$this->cached_urls[ $cache_key ] = $url;
 
 		return $url;
 	}
@@ -105,8 +107,10 @@ class Month_View extends By_Day_View {
 	 * {@inheritDoc}
 	 */
 	public function next_url( $canonical = false, array $passthru_vars = [] ) {
-		if ( isset( $this->cached_urls[ __METHOD__ ] ) ) {
-			return $this->cached_urls[ __METHOD__ ];
+		$cache_key = __METHOD__ . '_' . md5( wp_json_encode( func_get_args() ) );
+
+		if ( isset( $this->cached_urls[ $cache_key ] ) ) {
+			return $this->cached_urls[ $cache_key ];
 		}
 
 		// Setup the Default date for the month view here.
@@ -122,7 +126,7 @@ class Month_View extends By_Day_View {
 				->order( 'ASC' )
 				->first();
 			if ( ! $next_event instanceof \WP_Post ) {
-				return $this->filter_prev_url( $canonical, '' );
+				return $this->filter_next_url( $canonical, '' );
 			}
 
 			// At a minimum pick the next month or the month the next event starts in.
@@ -136,14 +140,14 @@ class Month_View extends By_Day_View {
 			// Let's make sure to prevent users from paginating endlessly forward when we know there are no more events.
 			$latest = tribe_get_option( 'latest_date', $next_date );
 			if ( $current_date->format( 'Y-m' ) === Dates::build_date_object( $latest )->format( 'Y-m' ) ) {
-				return $this->filter_prev_url( $canonical, '' );
+				return $this->filter_next_url( $canonical, '' );
 			}
 		}
 
 		$url = $this->build_url_for_date( $next_date, $canonical, $passthru_vars );
 		$url = $this->filter_next_url( $canonical, $url );
 
-		$this->cached_urls[ __METHOD__ ] = $url;
+		$this->cached_urls[ $cache_key ] = $url;
 
 		return $url;
 	}
@@ -346,11 +350,11 @@ class Month_View extends By_Day_View {
 			);
 
 			$start_of_week = get_option( 'start_of_week', 0 );
-			$is_start_of_week = (int)$start_of_week === (int)$date_object->format( 'w' );
+			$is_start_of_week = (int) $start_of_week === (int) $date_object->format( 'w' );
 
 			$day_url = tribe_events_get_url( [ 'eventDisplay' => 'day', 'eventDate' => $day_date ] );
 
-			$day_data         = [
+			$day_data = [
 				'date'             => $day_date,
 				'is_start_of_week' => $is_start_of_week,
 				'year_number'      => $date_object->format( 'Y' ),

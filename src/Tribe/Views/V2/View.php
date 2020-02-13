@@ -563,7 +563,10 @@ class View implements View_Interface {
 		$this->repository_args = $repository_args;
 
 		// If HTML_Cache is a class trait and we have content to display, display it.
-		if ( method_exists( $this, 'maybe_get_cached_html' ) && $cached_html = $this->maybe_get_cached_html() ) {
+		if (
+			method_exists( $this, 'maybe_get_cached_html' )
+			&& $cached_html = $this->maybe_get_cached_html()
+		) {
 			return $cached_html;
 		}
 
@@ -695,11 +698,14 @@ class View implements View_Interface {
 	 * {@inheritDoc}
 	 */
 	public function get_url( $canonical = false, $force = false ) {
+		$category = $this->context->get( 'event_category', false );
+
 		$query_args = [
 			'post_type'        => TEC::POSTTYPE,
 			'eventDisplay'     => $this->slug,
 			'tribe-bar-date'   => $this->context->get( 'event_date', '' ),
 			'tribe-bar-search' => $this->context->get( 'keyword', '' ),
+			TEC::TAXONOMY      => $category,
 		];
 
 		if ( $is_featured = tribe_is_truthy( $this->context->get( 'featured', false ) ) ) {
@@ -760,8 +766,10 @@ class View implements View_Interface {
 	 * {@inheritDoc}
 	 */
 	public function next_url( $canonical = false, array $passthru_vars = [] ) {
-		if ( isset( $this->cached_urls['next_url'] ) ) {
-			return $this->cached_urls['next_url'];
+		$cache_key = __METHOD__ . '_' . md5( wp_json_encode( func_get_args() ) );
+
+		if ( isset( $this->cached_urls[ $cache_key ] ) ) {
+			return $this->cached_urls[ $cache_key ];
 		}
 
 		$url = $this->get_url();
@@ -815,8 +823,10 @@ class View implements View_Interface {
 	 * {@inheritDoc}
 	 */
 	public function prev_url( $canonical = false, array $passthru_vars = [] ) {
-		if ( isset( $this->cached_urls['prev_url'] ) ) {
-			return $this->cached_urls['prev_url'];
+		$cache_key = __METHOD__ . '_' . md5( wp_json_encode( func_get_args() ) );
+
+		if ( isset( $this->cached_urls[ $cache_key ] ) ) {
+			return $this->cached_urls[ $cache_key ];
 		}
 
 		$prev_page  = $this->repository->prev()->order_by( '__none' );
@@ -1389,7 +1399,6 @@ class View implements View_Interface {
 			'container_classes'      => $this->get_html_classes(),
 			'container_data'         => $this->get_container_data(),
 			'is_past'                => 'past' === $this->context->get( 'event_display_mode', false ),
-			'show_datepicker_submit' => $this->get_show_datepicker_submit(),
 			'breakpoints'            => $this->get_breakpoints(),
 			'breakpoint_pointer'     => $this->get_breakpoint_pointer(),
 			'is_initial_load'        => $this->context->doing_php_initial_state(),
@@ -1999,7 +2008,7 @@ class View implements View_Interface {
 
 			array_walk(
 				$public_views,
-				function ( &$view_data, $view_slug ) use ( $url_event_date, $query_args ) {
+				static function ( &$view_data ) use ( $url_event_date, $query_args ) {
 					$view_instance       = View::make( $view_data->view_class );
 					$view_data->view_url = $view_instance->url_for_query_args( $url_event_date, $query_args );
 				}

@@ -32,7 +32,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '5.0.0.2';
+		const VERSION             = '5.0.1';
 
 		/**
 		 * Min Pro Addon
@@ -600,7 +600,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe_register_provider( Tribe\Events\Views\V2\Service_Provider::class );
 
 			// Register and start the Customizer Sections
-			if ( ! tribe_events_views_v2_is_enabled() ){
+			if ( ! tribe_events_views_v2_is_enabled() ) {
 				tribe_singleton( 'tec.customizer.general-theme', new Tribe__Events__Customizer__General_Theme() );
 			}
 
@@ -615,6 +615,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			if ( ! tribe_events_views_v2_is_enabled() ) {
 				tribe_singleton( 'tec.customizer.widget', new Tribe__Events__Customizer__Widget() );
+			} else {
+				tribe_singleton( 'tec.customizer.text', new Tribe__Events__Customizer__Text() );
 			}
 
 			/**

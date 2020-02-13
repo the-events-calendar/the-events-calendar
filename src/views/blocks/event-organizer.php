@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.7
+ * @version 5.0.1
  *
  */
 
@@ -26,7 +26,7 @@ $email   = tribe_get_organizer_email( $organizer );
 ?>
 <div class="tribe-block tribe-block__organizer__details tribe-clearfix">
 	<div class="tribe-block__organizer__title">
-		<h3><?php echo tribe_get_organizer( $organizer ); ?></h3>
+		<h3><?php echo tribe_get_organizer_link( $organizer ); ?></h3>
 	</div>
 	<?php if ( ! empty( $phone ) ) : ?>
 		<p class="tribe-block__organizer__phone"><?php echo esc_html( $phone ); ?></p>

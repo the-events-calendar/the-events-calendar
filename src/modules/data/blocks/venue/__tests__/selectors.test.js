@@ -13,6 +13,10 @@ const state = {
 };
 
 describe( '[STORE] - Venue selectors', () => {
+	it( 'Should return the map embed config', () => {
+		expect( selectors.getMapEmbed() ).toEqual( true );
+	} );
+
 	it( 'Should return the venue block', () => {
 		expect( selectors.venueBlockSelector( state ) ).toEqual( DEFAULT_STATE );
 	} );

@@ -2,7 +2,6 @@
  * External dependencies
  */
 import React, { PureComponent, Fragment } from 'react';
-import PropTypes from 'prop-types';
 
 /**
  * WordPress dependencies
@@ -22,8 +21,8 @@ import './style.pcss';
 class EventDateTime extends PureComponent {
 	get template() {
 		return [
-			[ 'tribe/event-datetime-dashboard', {}],
-			[ 'tribe/event-datetime-content', {}],
+			[ 'tribe/event-datetime-dashboard', {} ],
+			[ 'tribe/event-datetime-content', {} ],
 		];
 	}
 
