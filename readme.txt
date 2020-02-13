@@ -213,10 +213,20 @@ Some things to consider before posting on the forum:
 
 Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to [@TheEventsCal](https://twitter.com/TheEventsCal) and tell us why. We'll do what we can to make it right.
 
+== Upgrade Notice ==
+
+= [5.0] =
+
+Please see the changelog for the complete list of changes in this release.
+Previous versions of The Events Calendar are not cross-compatible with 5.X add-ons.
+Remember to always make a backup of your database and files before updating!
+
 == Changelog ==
 
 = [5.0.1] 2020-02-12 =
 
+* Version - The Events Calendar 5.0.1 is only compatible with Filter Bar 4.9.1 and higher
+* Version - The Events Calendar 5.0.1 is only compatible with Events Calendar PRO 5.0.1 and higher
 * Feature - Add the "Accent Color" option in the customizer, for the new views. [TEC-3067]
 * Fix - Fix venue block title from being indented in Twenty Twenty theme. [TEC-3140]
 * Fix - Fix website block label from disappearing when adding event details classic block. [TEC-2971]
