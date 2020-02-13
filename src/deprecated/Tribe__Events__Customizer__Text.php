@@ -1,4 +1,6 @@
 <?php
+_deprecated_file( __FILE__, 'TBD' );
+
 /**
  * The Events Calendar Customizer Section: Text.
  *
