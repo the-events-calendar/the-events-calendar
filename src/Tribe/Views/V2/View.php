@@ -1139,6 +1139,10 @@ class View implements View_Interface {
 			$args[ TEC::TAXONOMY ] = $context_arr[ TEC::TAXONOMY ];
 		}
 
+		if ( ! empty( $context_arr['event_category'] ) ) {
+			$args['event_category'] = $context_arr['event_category'];
+		}
+
 		// Setup featured only when set to true.
 		if ( $is_featured = tribe_is_truthy( $this->context->get( 'featured', false ) ) ) {
 			$args['featured'] = $is_featured;

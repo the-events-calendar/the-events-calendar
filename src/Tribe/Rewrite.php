@@ -4,6 +4,7 @@ defined( 'WPINC' ) or die;
 
 use Tribe__Events__Main as TEC;
 use Tribe__Main as Common;
+use Tribe__Utils__Array as Arr;
 
 /**
  * Rewrite Configuration Class
@@ -538,8 +539,9 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 				 * Categories can be hierarchical and the path will be something like
 				 * `/events/category/grand-parent/parent/child/list/page/2/`.
 				 * If we can match the category to an existing one then let's make sure to build the hierarchical slug.
+				 * We cast to comma-separated list to ensure multi-category queries will not resolve to a URL.
 				 */
-				$category_slug = $query_vars['tribe_events_cat'];
+				$category_slug = Arr::to_list( $query_vars['tribe_events_cat'] );
 				$category_term = get_term_by( 'slug', $category_slug, TEC::TAXONOMY );
 				if ( $category_term instanceof WP_Term ) {
 					$category_slug = get_term_parents_list(
