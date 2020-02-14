@@ -13,6 +13,8 @@ use Tribe\Events\Views\V2\Template\Title;
 use Tribe\Events\Views\V2\Utils;
 use Tribe\Events\Views\V2\Views\Traits\Breakpoint_Behavior;
 use Tribe\Events\Views\V2\Views\Traits\HTML_Cache;
+use Tribe\Events\Views\V2\Views\Traits\Json_Ld_Data;
+use Tribe\Events\Views\V2\Views\Traits\List_Behavior;
 use Tribe__Container as Container;
 use Tribe__Context as Context;
 use Tribe__Date_Utils as Dates;
@@ -33,6 +35,7 @@ class View implements View_Interface {
 
 	use Breakpoint_Behavior;
 	use HTML_Cache;
+	use Json_Ld_Data;
 
 	/**
 	 * An instance of the DI container.
@@ -1055,6 +1058,16 @@ class View implements View_Interface {
 	 * @return array An associative array of variables that will be set, and exported, in the template.
 	 */
 	protected function filter_template_vars( array $template_vars ) {
+		$events                        = $template_vars['events'] ?: [];
+
+		/*
+		 * Add the JSON-LD data here as all Views will pass from this code, but not all Views will call the
+		 * `View::setup_template_vars` method.
+		 *
+		 * Filters to control the data are available in the `Tribe__JSON_LD__Abstract` object and its extending classes.
+		 */
+		$template_vars['json_ld_data'] = $this->build_json_ld_data( $events );
+
 		/**
 		 * Filters the variables that will be set on the View template.
 		 *
