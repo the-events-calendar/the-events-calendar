@@ -29,7 +29,7 @@ class Template_Bootstrap {
 	/**
 	 * A cache array shared among instances.
 	 *
-	 * @since TBD
+	 * @since 5.0.1
 	 *
 	 * @var array<string,array>
 	 */
@@ -295,7 +295,7 @@ class Template_Bootstrap {
 			return false;
 		}
 
-		if ( is_404() ) {
+		if ( $query->is_404() ) {
 			static::$cache['should_load'][ $query->query_vars_hash ] = false;
 
 			return false;
@@ -325,6 +325,13 @@ class Template_Bootstrap {
 	 * @return string Path to the File that initalizes the template
 	 */
 	public function filter_template_include( $template ) {
+		$query = tribe_get_global_query_object();
+
+		// Global 404 needs to be respected.
+		if ( $query->is_404() ) {
+			return $template;
+		}
+
 		// Determine if we should load bootstrap or bail.
 		if ( ! $this->should_load() ) {
 			return $template;
@@ -332,8 +339,9 @@ class Template_Bootstrap {
 
 		$context   = tribe_context();
 		$view_slug = $context->get( 'view' );
+		$is_embed  = V1_Templates::is_embed() || 'embed' === $view_slug;
 
-		if ( V1_Templates::is_embed() || 'embed' === $view_slug ) {
+		if ( $is_embed ) {
 			return $this->get_v1_embed_template_path();
 		}
 
@@ -381,6 +389,10 @@ class Template_Bootstrap {
 	 * @return string
 	 */
 	public function filter_template_file( $file, $name, $template ) {
+		if ( is_404() ) {
+			return $file;
+		}
+
 		$template_name = end( $name );
 
 		// Bail when we dont are not loading 'default-template'.
