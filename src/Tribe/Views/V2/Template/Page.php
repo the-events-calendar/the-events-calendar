@@ -23,7 +23,7 @@ class Page {
 	 *
 	 * @since TBD
 	 *
-	 * @var array[ WP_Post ] $hijacked_post All WP_Posts on this query.w
+	 * @var array[ WP_Post ] $hijacked_post All WP_Posts on this query.
 	 */
 	protected $hijacked_posts;
 
@@ -188,7 +188,7 @@ class Page {
 
 	/**
 	 * Depending on params from Default templating for events we will Hijack
-	 * the main query for events to mimics a ghost page element so the theme
+	 * the main query for events to mimic a ghost page element so the theme
 	 * can properly run `the_content` so we can hijack the content of that page
 	 * as well as `the_title`.
 	 *

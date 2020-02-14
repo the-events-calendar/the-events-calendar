@@ -13,6 +13,7 @@ use Tribe\Events\Views\V2\Template\Page;
  * Integrations with Beaver Builder plugin.
  *
  * @package Tribe\Events\Integrations
+ *
  * @since TBD
  */
 class Beaver_Builder {
