@@ -230,6 +230,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Freemius activation URL send via email works as expected [TEC-3218]
 * Fix - More robust handling of `hide_from_listings` in REST API v2, thanks @maxm123
 * Fix - Make sure the new Views (v2) will correctly print JSON-LD schema information [TEC-3241]
+* Fix - Breakpoint code compatibility with the latest version of jQuery 3.4.1 [BTRIA-154]
 
 = [5.0.1] 2020-02-12 =
 
