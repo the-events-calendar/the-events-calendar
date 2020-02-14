@@ -163,6 +163,10 @@ class Page {
 	public function filter_prevent_edit_link( $url, $post_id ) {
 		$query = tribe_get_global_query_object();
 
+		if ( ! $query instanceof WP_Query ) {
+			return $url;
+		}
+
 		// Bail in case of any other page template.
 		if ( ! $this->should_hijack_page_template( $query ) ) {
 			return $url;
@@ -203,6 +207,10 @@ class Page {
 	 */
 	public function maybe_hijack_main_query() {
 		$wp_query = tribe_get_global_query_object();
+
+		if ( ! $wp_query instanceof WP_Query ) {
+			return false;
+		}
 
 		if ( ! $this->should_hijack_page_template( $wp_query ) ) {
 			return false;
@@ -245,6 +253,10 @@ class Page {
 
 		$wp_query = tribe_get_global_query_object();
 
+		if ( ! $wp_query instanceof WP_Query ) {
+			return;
+		}
+
 		$wp_query->posts = $this->get_hijacked_posts();
 		$wp_query->post_count = count( $wp_query->posts );
 
@@ -273,6 +285,10 @@ class Page {
 	 */
 	protected function prevent_page_looping() {
 		$wp_query = tribe_get_global_query_object();
+
+		if ( ! $wp_query instanceof WP_Query ) {
+			return;
+		}
 
 		$wp_query->current_post = -1;
 		$wp_query->post_count   = 0;
@@ -316,29 +332,33 @@ class Page {
 	public function should_hijack_page_template( WP_Query $query ) {
 		$should_hijack = true;
 
-		// don't hijack a feed.
-		if ( is_feed() ) {
+		if ( ! $query instanceof WP_Query ) {
 			$should_hijack = false;
-		}
+		} else {
+			// don't hijack a feed.
+			if ( is_feed() ) {
+				$should_hijack = false;
+			}
 
-		// don't hijack a password protected page.
-		if ( is_single() && post_password_required() ) {
-			$should_hijack = false;
-		}
+			// don't hijack a password protected page.
+			if ( is_single() && post_password_required() ) {
+				$should_hijack = false;
+			}
 
-		// Dont hijack non-page event based.
-		if ( 'page' !== tribe( Template_Bootstrap::class )->get_template_setting() ) {
-			$should_hijack = false;
-		}
+			// Dont hijack non-page event based.
+			if ( 'page' !== tribe( Template_Bootstrap::class )->get_template_setting() ) {
+				$should_hijack = false;
+			}
 
-		// We dont want the main Query.
-		if ( ! $query->is_main_query() ) {
-			$should_hijack = false;
-		}
+			// We dont want the main Query.
+			if ( ! $query->is_main_query() ) {
+				$should_hijack = false;
+			}
 
-		// We wont hijack in case we are not dealing with a Post Type query.
-		if ( empty( $query->tribe_is_event_query ) ) {
-			$should_hijack = false;
+			// We wont hijack in case we are not dealing with a Post Type query.
+			if ( empty( $query->tribe_is_event_query ) ) {
+				$should_hijack = false;
+			}
 		}
 
 		/**
