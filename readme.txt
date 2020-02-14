@@ -223,6 +223,12 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [5.0.2] 2020-02-12 =
+
+* Tweak - Freemius Opt-out workflow now present on all occasions [TEC-3171]
+* Tweak - Freemius updated to the latest version 2.3.2 [TEC-3171]
+* Fix - Freemius activation URL send via email works as expected [TEC-3218]
+
 = [5.0.1] 2020-02-12 =
 
 * Version - The Events Calendar 5.0.1 is only compatible with Filter Bar 4.9.1 and higher
