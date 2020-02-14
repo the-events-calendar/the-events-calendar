@@ -10,6 +10,7 @@ namespace Tribe\Events\Views\V2;
 
 use Tribe\Events\Views\V2\Template\Settings\Advanced_Display;
 use Tribe\Events\Views\V2\Template\Title;
+use Tribe\Events\Views\V2\Utils;
 use Tribe\Events\Views\V2\Views\Traits\Breakpoint_Behavior;
 use Tribe\Events\Views\V2\Views\Traits\HTML_Cache;
 use Tribe__Container as Container;
@@ -21,7 +22,6 @@ use Tribe__Events__Rewrite as TEC_Rewrite;
 use Tribe__Events__Venue as Venue;
 use Tribe__Repository__Interface as Repository;
 use Tribe__Utils__Array as Arr;
-use Tribe\Events\Views\V2\Utils;
 
 /**
  * Class View
@@ -1124,6 +1124,10 @@ class View implements View_Interface {
 		// Set's up category URL for all views.
 		if ( ! empty( $context_arr[ TEC::TAXONOMY ] ) ) {
 			$args[ TEC::TAXONOMY ] = $context_arr[ TEC::TAXONOMY ];
+		}
+
+		if ( ! empty( $context_arr['event_category'] ) ) {
+			$args['event_category'] = $context_arr['event_category'];
 		}
 
 		// Setup featured only when set to true.
