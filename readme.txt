@@ -223,11 +223,12 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [5.0.2] 2020-02-12 =
+= [5.0.2] TBD =
 
 * Tweak - Freemius Opt-out workflow now present on all occasions [TEC-3171]
 * Tweak - Freemius updated to the latest version 2.3.2 [TEC-3171]
 * Fix - Freemius activation URL send via email works as expected [TEC-3218]
+* Fix - More robust handling of `hide_from_listings` in REST API v2, thanks @maxm123
 
 = [5.0.1] 2020-02-12 =
 
