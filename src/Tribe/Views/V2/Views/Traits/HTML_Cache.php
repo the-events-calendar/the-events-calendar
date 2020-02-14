@@ -445,7 +445,8 @@ trait HTML_Cache {
 	 */
 	public function get_cache_html_key_salts() {
 		$can_read_private_posts = current_user_can( 'read_private_posts', TEC::POSTTYPE );
-		$salts                  = [
+
+		$salts = [
 			'current_user_can_read_private_events' => $can_read_private_posts,
 		];
 
