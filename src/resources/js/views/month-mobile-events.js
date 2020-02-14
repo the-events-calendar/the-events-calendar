@@ -200,7 +200,7 @@ tribe.events.views.monthMobileEvents = {};
 	obj.initState = function( $container ) {
 		var $mobileEvents = $container.find( obj.selectors.mobileEvents );
 		var containerState = $container.data( 'tribeEventsState' );
-		var isMobile = ( containerState && containerState.isMobile ) || true; // fallback to true if container state is undefined
+		var isMobile = containerState.isMobile;
 
 		var state = {
 			desktopInitialized: ! isMobile,
@@ -223,7 +223,7 @@ tribe.events.views.monthMobileEvents = {};
 		var $mobileEvents = $container.find( obj.selectors.mobileEvents );
 		var state = $mobileEvents.data( 'tribeEventsState' );
 		var containerState = $container.data( 'tribeEventsState' );
-		var isMobile = ( containerState && containerState.isMobile ) || true; // fallback to true if container state is undefined
+		var isMobile = containerState.isMobile;
 
 		if ( ! isMobile && ! state.desktopInitialized ) {
 			obj.closeAllEvents( $container );

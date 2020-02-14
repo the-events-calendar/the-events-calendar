@@ -655,7 +655,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 *                               post ID if the record had to be re-scheduled due to HTTP request
 	 *                               limit.
 	 */
-	public function queue_import( $args = array() ) {
+	public function queue_import( $args = [] ) {
 		$aggregator = tribe( 'events-aggregator.main' );
 
 		$is_previewing = (
@@ -761,11 +761,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			if ( 'core:aggregator:http_request-limit' === $response->get_error_code() ) {
 				$this->should_queue_import( true );
 				return $this->set_status_as_pending();
-			} else {
-				$error = $response;
-
-				return $this->set_status_as_failed( $error );
 			}
+
+			$error = $response;
+
+			return $this->set_status_as_failed( $error );
 		}
 
 		// if the Aggregator response has an unexpected format, set this record as failed
@@ -1207,7 +1207,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		if ( 'error:usage-limit-exceeded' === $status ) {
 			return __( 'When this import was last scheduled to run, the daily limit for your Event Aggregator license had already been reached.', 'the-events-calendar' );
 		}
-
 		return tribe( 'events-aggregator.service' )->get_service_message( $status );
 	}
 
@@ -1264,6 +1263,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$items = $this->prep_import_data( $data );
 
 		if ( is_wp_error( $items ) ) {
+			$this->set_status_as_failed( $items );
 			return $items;
 		}
 
