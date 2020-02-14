@@ -14,8 +14,19 @@ use Tribe\Events\Views\V2\Kitchen_Sink;
 use Tribe\Events\Views\V2\Template_Bootstrap;
 use Tribe__Events__Main as TEC;
 use Tribe__Utils__Array as Arr;
+use WP_Post;
+use WP_Query;
 
 class Page {
+	/**
+	 * Makes sure we save the current post before hijacking for a page.
+	 *
+	 * @since TBD
+	 *
+	 * @var array[ WP_Post ] $hijacked_post All WP_Posts on this query.w
+	 */
+	protected $hijacked_posts;
+
 	/**
 	 * Determines the Path for the PHP file to be used as the main template.
 	 * For Page base template setting it will select from theme or child theme.
@@ -41,9 +52,9 @@ class Page {
 	 *
 	 * @since  4.9.10
 	 *
-	 * @param  \WP_Query  $query
+	 * @param  WP_Query  $query
 	 */
-	public function hijack_on_loop_start( \WP_Query $query ) {
+	public function hijack_on_loop_start( WP_Query $query ) {
 		// After attaching itself it will prevent it from happening again.
 		remove_action( 'loop_start', [ $this, 'hijack_on_loop_start' ], 1000 );
 
@@ -56,11 +67,11 @@ class Page {
 	 *
 	 * @since  4.9.2
 	 *
-	 * @param  \WP_Query $query WordPress query executed to get here.
+	 * @param  WP_Query $query WordPress query executed to get here.
 	 *
 	 * @return boolean
 	 */
-	public function maybe_hijack_page_template( \WP_Query $query ) {
+	public function maybe_hijack_page_template( WP_Query $query ) {
 		if ( ! $this->should_hijack_page_template( $query ) ) {
 			return false;
 		}
@@ -95,6 +106,41 @@ class Page {
 		remove_filter( 'comments_template', [ $this, 'filter_remove_comments' ], 25 );
 
 		return false;
+	}
+
+	/**
+	 * Determines if we have hijacked posts for this request.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function has_hijacked_posts() {
+		return null !==  $this->hijacked_posts;
+	}
+
+	/**
+	 * Gets the hijacked posts that we stored.
+	 *
+	 * @since TBD
+	 *
+	 * @return array[ WP_Post ] Posts that we hijacked earlier.
+	 */
+	public function get_hijacked_posts() {
+		return $this->hijacked_posts;
+	}
+
+	/**
+	 * Sets the hijacked posts for later restoring.
+	 *
+	 * @since TBD
+	 *
+	 * @param array[WP_Post] $posts Which posts to be set as the one hijacked.
+	 *
+	 * @return void
+	 */
+	public function set_hijacked_posts( array $posts ) {
+		$this->hijacked_posts = $posts;
 	}
 
 	/**
@@ -142,13 +188,13 @@ class Page {
 
 	/**
 	 * Depending on params from Default templating for events we will Hijack
-	 * the main query for events to mimick a ghost page element so the theme
-	 * can propely run `the_content` so we can hijack the content of that page
+	 * the main query for events to mimics a ghost page element so the theme
+	 * can properly run `the_content` so we can hijack the content of that page
 	 * as well as `the_title`.
 	 *
 	 * @since  4.9.2
 	 *
-	 * @return void
+	 * @return boolean
 	 */
 	public function maybe_hijack_main_query() {
 		$wp_query = tribe_get_global_query_object();
@@ -157,8 +203,8 @@ class Page {
 			return false;
 		}
 
-		// Store old posts
-		$wp_query->tribe_hijacked_posts = $wp_query->posts;
+		// Store old posts.
+		$this->set_hijacked_posts( $wp_query->posts );
 
 		$mocked_post = $this->get_mocked_page();
 
@@ -169,58 +215,63 @@ class Page {
 
 		// re-do counting
 		$wp_query->rewind_posts();
+		$GLOBALS['wp_query'] = $GLOBALS['wp_the_query'] = $wp_query;
 
 		add_action( 'loop_start', [ $this, 'hijack_on_loop_start' ], 1000 );
 	}
 
 	/**
 	 * Restored the Hijacked posts from the main query so that we can run
-	 * the template method properly with a fully populated WP_Query object
+	 * the template method properly with a fully populated WP_Query object.
+	 *
+	 * @global WP_Query $wp_query Global WP query we are dealing with.
 	 *
 	 * @since 4.9.2
 	 *
 	 * @return void
 	 */
-	private function restore_main_query() {
-		$wp_query = tribe_get_global_query_object();
-
-		// If the query doesnt have hijacked posts
-		if ( ! isset( $wp_query->tribe_hijacked_posts ) ) {
+	public function restore_main_query() {
+		// If the query doesnt have hijacked posts.
+		if ( ! $this->has_hijacked_posts() ) {
 			return;
 		}
 
-		$wp_query->posts = $wp_query->tribe_hijacked_posts;
+		$wp_query = tribe_get_global_query_object();
+
+		$wp_query->posts = $this->get_hijacked_posts();
 		$wp_query->post_count = count( $wp_query->posts );
 
-		// If we have other posts besides the spoof, rewind and reset
+		// If we have other posts besides the spoof, rewind and reset.
 		if ( $wp_query->post_count > 0 ) {
+			$wp_query->post = reset( $wp_query->posts );
 			$wp_query->rewind_posts();
 			wp_reset_postdata();
 		}
-		// If there are no other posts, unset the $post property
+		// If there are no other posts, unset the $post property.
 		elseif ( 0 === $wp_query->post_count ) {
 			$wp_query->current_post = -1;
-			unset( $wp_query->post );
+			$wp_query->post = null;
 		}
 
-		// Unset the Posts Prop
-		unset( $wp_query->tribe_hijacked_posts );
+		$GLOBALS['wp_query'] = $GLOBALS['wp_the_query'] = $wp_query;
 	}
 
 	/**
 	 * Prevents Looping multiple pages when including Page templates
-	 * by modifing the global WP_Query object by pretending there are
+	 * by modifying the global WP_Query object by pretending there are
 	 * no posts to loop
 	 *
 	 * @since 4.9.2
 	 *
 	 * @return void
 	 */
-	private function prevent_page_looping() {
+	protected function prevent_page_looping() {
 		$wp_query = tribe_get_global_query_object();
 
 		$wp_query->current_post = -1;
 		$wp_query->post_count   = 0;
+
+		$GLOBALS['wp_query'] = $GLOBALS['wp_the_query'] = $wp_query;
 	}
 
 	/**
@@ -252,11 +303,11 @@ class Page {
 	 *
 	 * @since  4.9.2
 	 *
-	 * @param  \WP_Query $query WordPress query executed to get here.
+	 * @param  WP_Query $query WordPress query executed to get here.
 	 *
 	 * @return boolean
 	 */
-	public function should_hijack_page_template( \WP_Query $query ) {
+	public function should_hijack_page_template( WP_Query $query ) {
 		$should_hijack = true;
 
 		// don't hijack a feed
@@ -290,7 +341,7 @@ class Page {
 		 * @since  4.9.2
 		 *
 		 * @param  boolean  $should_hijack  Will we hijack and include our page template
-		 * @param  WP_Query $query          WordPress query excuted to get here
+		 * @param  WP_Query $query          WordPress query executed to get here
 		 */
 		return apply_filters( 'tribe_events_views_v2_should_hijack_page_template', $should_hijack, $query );
 	}

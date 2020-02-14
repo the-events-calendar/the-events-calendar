@@ -1,5 +1,6 @@
 <?php
 use \Tribe\Events\Integrations\WP_Rocket;
+use \Tribe\Events\Integrations\Beaver_Builder;
 
 /**
  * Class Tribe__Events__Integrations__Manager
@@ -39,6 +40,7 @@ class Tribe__Events__Integrations__Manager {
 		$this->load_wpml_integration();
 		$this->load_X_theme_integration();
 		$this->load_wp_rocket_integration();
+		$this->load_beaver_builder_integration();
 	}
 
 	/**
@@ -136,6 +138,8 @@ class Tribe__Events__Integrations__Manager {
 	/**
 	 * Loads our WP Rocket plugin integration.
 	 *
+	 * @since 5.0.0.2
+	 *
 	 * @return bool
 	 */
 	private function load_wp_rocket_integration() {
@@ -144,6 +148,23 @@ class Tribe__Events__Integrations__Manager {
 		}
 
 		tribe( WP_Rocket::class )->hook();
+
+		return true;
+	}
+
+	/**
+	 * Loads our beaver builder plugin integration.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	private function load_beaver_builder_integration() {
+		if ( ! class_exists( 'FLThemeBuilderLoader' ) || ! class_exists( 'FLBuilderLoader' ) ) {
+			return false;
+		}
+
+		tribe( Beaver_Builder::class )->hook();
 
 		return true;
 	}
