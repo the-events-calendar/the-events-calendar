@@ -11,8 +11,6 @@ describe( '[STORE] - Organizers types', () => {
 			.toBe( `${ PREFIX_EVENTS_STORE }/REMOVE_BLOCK_ORGANIZER` );
 		expect( types.ADD_CLASSIC_ORGANIZERS )
 			.toBe( `${ PREFIX_EVENTS_STORE }/ADD_CLASSIC_ORGANIZERS` );
-		expect( types.SET_CLASSIC_ORGANIZERS )
-			.toBe( `${ PREFIX_EVENTS_STORE }/SET_CLASSIC_ORGANIZERS` );
 		expect( types.REMOVE_CLASSIC_ORGANIZERS )
 			.toBe( `${ PREFIX_EVENTS_STORE }/REMOVE_CLASSIC_ORGANIZERS` );
 	} );

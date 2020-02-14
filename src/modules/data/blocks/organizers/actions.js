@@ -3,14 +3,6 @@
  */
 import { types } from '@moderntribe/events/data/blocks/organizers';
 
-// to remove
-export const setOrganizersInClassic = ( organizers ) => ( {
-	type: types.SET_CLASSIC_ORGANIZERS,
-	payload: {
-		organizers,
-	},
-} );
-
 export const removeOrganizerInClassic = ( organizer ) => ( {
 	type: types.REMOVE_CLASSIC_ORGANIZERS,
 	payload: {
