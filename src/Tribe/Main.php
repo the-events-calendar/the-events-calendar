@@ -962,7 +962,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			$this->run_scheduler();
 
-			$a = 1;
+			$a = [ 1 ];
 		}
 
 		/**
