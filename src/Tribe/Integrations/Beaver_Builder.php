@@ -22,9 +22,11 @@ class Beaver_Builder {
 	 * Hooks all the required methods for Beaver_Builder usage on our code.
 	 *
 	 * @since TBD
+	 *
+	 * @return void  Action hook with no return.
 	 */
 	public function hook() {
-		// Bail when not on V2
+		// Bail when not on V2.
 		if ( ! tribe_events_views_v2_is_enabled() ) {
 			return;
 		}
@@ -34,12 +36,12 @@ class Beaver_Builder {
 
 	/**
 	 * Restore main post for Beaver Builder plugin.
-	 *ww
+	 *
 	 * @since TBD
 	 *
-	 * @param int $post_id Items to be excluded by WP Rocket.
+	 * @param int    $post_id Which Beaver Builder layout.
 	 *
-	 * @return void
+	 * @return void           Action hook with no return.
 	 */
 	public function action_restore_post( $post_id ) {
 		/* @var Page $page_template */
