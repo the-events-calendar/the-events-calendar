@@ -961,6 +961,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$this->maybeSetTECVersion();
 
 			$this->run_scheduler();
+
+			$a = 1;
 		}
 
 		/**
