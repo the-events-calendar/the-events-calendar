@@ -15,6 +15,7 @@ class BreakpointsTest extends HtmlPartialTestCase
 	public function test_render_on_initial_load() {
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
 			'is_initial_load' => true,
+			'breakpoint_pointer' => 'random-id',
 		] ) );
 	}
 
@@ -24,6 +25,7 @@ class BreakpointsTest extends HtmlPartialTestCase
 	public function test_render_not_initial_load() {
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
 			'is_initial_load' => false,
+			'breakpoint_pointer' => 'random-id',
 		] ) );
 	}
 }

@@ -4,7 +4,7 @@ Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.9
-Stable tag: 5.0.0
+Stable tag: 5.0.1
 Tested up to: 5.3.2
 Requires PHP: 5.6
 License: GPLv2 or later
@@ -210,7 +210,58 @@ Some things to consider before posting on the forum:
 
 Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to [@TheEventsCal](https://twitter.com/TheEventsCal) and tell us why. We'll do what we can to make it right.
 
+== Upgrade Notice ==
+
+= [5.0] =
+
+Please see the changelog for the complete list of changes in this release.
+Previous versions of The Events Calendar are not cross-compatible with 5.X add-ons.
+Remember to always make a backup of your database and files before updating!
+
 == Changelog ==
+
+= [5.0.1] 2020-02-12 =
+
+* Version - The Events Calendar 5.0.1 is only compatible with Filter Bar 4.9.1 and higher
+* Version - The Events Calendar 5.0.1 is only compatible with Events Calendar PRO 5.0.1 and higher
+* Feature - Add the "Accent Color" option in the customizer, for the new views. [TEC-3067]
+* Fix - Fix venue block title from being indented in Twenty Twenty theme. [TEC-3140]
+* Fix - Fix website block label from disappearing when adding event details classic block. [TEC-2971]
+* Fix - Fix style overrides for new view shortcodes for Enfold theme. [ECP-315]
+* Fix - Fix events bar input class recognition for JS handling in new views. [TEC-3091]
+* Fix - Ensure datepicker does not get cut off in small width screens for new views. [TEC-2983]
+* Fix - Venue and organizer blocks link to venue and organizer pages if Events Calendar Pro is activated. [ECP-14]
+* Fix - Use proper check for map on venue block to apply proper class. [TEC-3020]
+* Fix - Remove font family applied to organizer block to allow theme styles to be applied. [TEC-2974]
+* Fix - Fix numbers breaking into two lines in datepicker in Twenty Twenty theme. [TEC-2999]
+* Fix - Fix tooltips being cut off and hidden in month view. [TEC-3000]
+* Fix - Fix event sharing block cutting off text in block editor admin when editing event. [TEC-2972]
+* Fix - Fix disappearing price description in block editor admin when editing event. [TEC-2992]
+* Fix - Allow venues to be properly removed by clicking the remove venue button in the venue block. [TEC-2965]
+* Fix - Ensure map does not display if enable map setting is disabled. [TEC-3013]
+* Fix - Fix the datepicker width problem in Google Chrome, for the new views. [TEC-2995]
+* Fix - Fix an issue where Venue provinces would be incorrectly populated in iCal exports [TEC-3223]
+* Fix - Deleting events after X feature no longer will delete posts with `_EventEndDate` meta [TEC-3233]
+* Tweak - Adjust tooltip title styles for Twenty Twenty theme. [TEC-2998]
+* Tweak - Remove find events button and related data when events bar is disabled. [TEC-3074]
+* Tweak - Ensure datepicker always updates view via live refresh. [TEC-3073]
+* Tweak - Adjust customizer labels for sites using the new views [TEC-3066]
+* Tweak - Allow start datetime and end datetime to be the same to hide end datetime in frontend when using block editor. [TEC-3009]
+* Tweak - Move the "Link Color" option in the customizer, for the new views. [TEC-3067]
+* Language - 14 new strings added, 256 updated, 0 fuzzied, and 5 obsoleted
+
+= [5.0.0.2] 2020-02-06 =
+
+* Fix - Datepicker format now properly defaults to the correct value when Display Settings have not been saved. [TEC-3229]
+* Fix - New views mobile breakpoints interactions with Caching plugins resolved. [TEC-3221]
+
+= [5.0.0.1] 2020-01-31 =
+
+* Fix - Events with timezones that differ from the site timezone now display on the correct date. [TEC-3208]
+* Fix - Multi-day events now display on all days that they are supposed to. [TEC-3212]
+* Fix - End of day cutoff is now being observed appropriately when creating the day grid stack. [TEC-3210]
+* Fix - Fix number of parameters when doing `the_post` action, for the single event view in the new views. [TEC-3214]
+* Fix - 404s on permalinks have been resolved by moving the flush permalink action to a later moment of time on activation after all rules have been declared. [TEC-3211]
 
 = [5.0.0] 2020-01-27 =
 

@@ -1,7 +1,12 @@
 <?php return '<nav class="tribe-events-calendar-day-nav tribe-events-c-nav">
 	<ul class="tribe-events-c-nav__list">
 		<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--prev">
-	<button class="tribe-events-c-nav__prev tribe-common-b2 tribe-common-b1--min-medium" disabled>
+	<button
+		class="tribe-events-c-nav__prev tribe-common-b2 tribe-common-b1--min-medium"
+		aria-label="Previous Day"
+		title="Previous Day"
+		disabled
+	>
 		Previous Day	</button>
 </li>
 
@@ -11,6 +16,8 @@
 		rel="next"
 		class="tribe-events-c-nav__next tribe-common-b2 tribe-common-b1--min-medium"
 		data-js="tribe-events-view-link"
+		aria-label="Next Day"
+		title="Next Day"
 	>
 		Next Day	</a>
 </li>

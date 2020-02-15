@@ -55,8 +55,9 @@ class Tribe__Events__Editor__Configuration implements Tribe__Editor__Configurati
 				'isClassic' => $this->post_is_from_classic_editor( tribe_get_request_var( 'post', 0 ) ),
 			),
 			'googleMap'     => array(
-				'zoom' => apply_filters( 'tribe_events_single_map_zoom_level', (int) tribe_get_option( 'embedGoogleMapsZoom', 8 ) ),
-				'key'  => tribe_get_option( 'google_maps_js_api_key' ),
+				'embed' => tribe_get_option( 'embedGoogleMaps', true ),
+				'zoom'  => apply_filters( 'tribe_events_single_map_zoom_level', (int) tribe_get_option( 'embedGoogleMapsZoom', 8 ) ),
+				'key'   => tribe_get_option( 'google_maps_js_api_key' ),
 			),
 			'timeZone'     => array(
 				'showTimeZone' => tribe_get_option( 'tribe_events_timezones_show_zone', false ),

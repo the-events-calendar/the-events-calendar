@@ -60,11 +60,6 @@
 		}
 	}
 
-	.tribe-events-c-top-bar__datepicker-form {
-		align-items: center;
-		display: flex;
-	}
-
 	.tribe-events-c-top-bar__datepicker {
 		flex: auto;
 		position: relative;
@@ -103,7 +98,7 @@
 	.tribe-events-c-top-bar__datepicker-container {
 		bottom: 0;
 		left: 0;
-		max-width: calc(100% + 66px); /* mobile search and view selector buttons have 66px width */
+		max-width: calc(100% + 29px); /* view selector buttons have 29px width */
 		position: absolute;
 		width: 363px;
 
@@ -113,13 +108,11 @@
 		}
 	}
 
-	.tribe-events-c-top-bar__datepicker-submit {
+	.tribe-events-header--has-event-search .tribe-events-c-top-bar__datepicker-container {
+		max-width: calc(100% + 66px); /* mobile search and view selector buttons have 66px width */
 
 		.tribe-common--breakpoint-medium& {
-			display: block !important;
-			flex: none;
-			margin-left: 15px;
-			visibility: visible;
+			max-width: none;
 		}
 	}
 
@@ -143,12 +136,21 @@
 	 * Theme Overrides - Enfold
 	 * ----------------------------------------------------------------------------- */
 
-	#top.tribe-theme-enfold & {
+	#top.tribe-theme-enfold &,
+	#top .main_color & {
 
 		.tribe-events-c-top-bar__datepicker-input {
 			@mixin visually-hide;
 		}
 	}
+
+	.entry-content-wrapper & {
+
+		.tribe-events-c-top-bar__nav-list-item {
+			padding-right: 15px;
+		}
+	}
+
 
 	/* -----------------------------------------------------------------------------
 	 * Theme Overrides - Avada

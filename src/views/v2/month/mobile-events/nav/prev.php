@@ -12,7 +12,7 @@
  * @var string $link The URL to the previous page, if any, or an empty string.
  * @var string $label The label for the previous link.
  *
- * @version 4.9.10
+ * @version 5.0.1
  *
  */
 ?>
@@ -22,6 +22,8 @@
 		rel="prev"
 		class="tribe-events-c-nav__prev tribe-common-b2"
 		data-js="tribe-events-view-link"
+		aria-label="<?php echo esc_attr( sprintf( __( 'Previous month, %1$s', 'the-events-calendar' ), $label ) ); ?>"
+		title="<?php echo esc_attr( sprintf( __( 'Previous month, %1$s', 'the-events-calendar' ), $label ) ); ?>"
 	>
 		<?php echo esc_html( $label ); ?>
 	</a>

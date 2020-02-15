@@ -32,7 +32,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '5.0.0';
+		const VERSION             = '5.0.1';
 
 		/**
 		 * Min Pro Addon
@@ -565,6 +565,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Integrations
 			tribe_singleton( 'tec.integrations.twenty-seventeen', 'Tribe__Events__Integrations__Twenty_Seventeen', array( 'hook' ) );
+			tribe_singleton( \Tribe\Events\Integrations\WP_Rocket::class, \Tribe\Events\Integrations\WP_Rocket::class );
 
 			// Linked Posts
 			tribe_singleton( 'tec.linked-posts', 'Tribe__Events__Linked_Posts' );
@@ -599,7 +600,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe_register_provider( Tribe\Events\Views\V2\Service_Provider::class );
 
 			// Register and start the Customizer Sections
-			if ( ! tribe_events_views_v2_is_enabled() ){
+			if ( ! tribe_events_views_v2_is_enabled() ) {
 				tribe_singleton( 'tec.customizer.general-theme', new Tribe__Events__Customizer__General_Theme() );
 			}
 
@@ -614,6 +615,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			if ( ! tribe_events_views_v2_is_enabled() ) {
 				tribe_singleton( 'tec.customizer.widget', new Tribe__Events__Customizer__Widget() );
+			} else {
+				tribe_singleton( 'tec.customizer.text', new Tribe__Events__Customizer__Text() );
 			}
 
 			/**
@@ -1055,7 +1058,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			$data_attributes = array(
 				'live_ajax'         => tribe_get_option( 'liveFiltersUpdate', true ) ? 1 : 0,
-				'datepicker_format' => tribe_get_option( 'datepickerFormat' ),
+				'datepicker_format' => \Tribe__Date_Utils::get_datepicker_format_index(),
 				'category'          => $category,
 				'featured'          => tribe( 'tec.featured_events' )->is_featured_query(),
 			);
@@ -2988,14 +2991,17 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				return;
 			}
 
-			self::flushRewriteRules();
-
 			if ( ! class_exists( 'Tribe__Events__Editor__Compatibility' ) ) {
 				require_once $plugin_path . '/src/Tribe/Editor/Compatibility.php';
 			}
 
 			$editor_compatibility = new Tribe__Events__Editor__Compatibility();
 			$editor_compatibility->deactivate_gutenberg_extension_plugin();
+
+			if ( ! is_network_admin()  ) {
+				// We set with a string to avoid having to include a file here.
+				set_transient( '_tribe_events_delayed_flush_rewrite_rules', 'yes', 0 );
+			}
 
 			if ( ! is_network_admin() && ! isset( $_GET['activate-multi'] ) ) {
 				set_transient( '_tribe_events_activation_redirect', 1, 30 );
@@ -3028,7 +3034,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				require_once dirname( dirname( __FILE__ ) ) . '/common/src/Tribe/Cache.php';
 			}
 
-			wp_clear_scheduled_hook( \Tribe__Cache::SCHEDULED_EVENT_DELETE_TRANSIENT );
+			$hook_name = 'tribe_schedule_transient_purge';
+
+			// Make sure we look for the constant if possible.
+			if ( defined( '\Tribe__Cache::SCHEDULED_EVENT_DELETE_TRANSIENT' ) ) {
+				$hook_name = \Tribe__Cache::SCHEDULED_EVENT_DELETE_TRANSIENT;
+			}
+
+			wp_clear_scheduled_hook( $hook_name );
 
 			$deactivation = new Tribe__Events__Deactivation( $network_deactivating );
 			add_action( 'shutdown', array( $deactivation, 'deactivate' ) );
@@ -4388,7 +4401,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$value = $_REQUEST['tribe-bar-date'];
 			}
 
-			$datepicker_format = tribe_get_option( 'datepickerFormat' );
+			$datepicker_format = \Tribe__Date_Utils::get_datepicker_format_index();
 
 			$caption = esc_html__( 'Date', 'the-events-calendar' );
 			$format  = Tribe__Utils__Array::get( $formats_full, $datepicker_format, $formats_full[0] );

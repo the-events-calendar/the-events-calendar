@@ -11,7 +11,7 @@
  *
  * @var array $bar The search bar contents.
  *
- * @version 4.9.10
+ * @version 5.0.1
  *
  */
 ?>
@@ -30,5 +30,6 @@
 		name="tribe-events-views[tribe-bar-search]"
 		value="<?php echo esc_attr( tribe_events_template_var( [ 'bar', 'keyword' ], '' ) ); ?>"
 		placeholder="<?php esc_attr_e( 'Search for events', 'the-events-calendar' ); ?>"
+		aria-label="<?php printf( esc_attr__( 'Enter Keyword. Search for %s by Keyword.', 'the-events-calendar' ), tribe_get_event_label_plural() ); ?>"
 	/>
 </div>

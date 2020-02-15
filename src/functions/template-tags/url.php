@@ -4,7 +4,6 @@
  *
  * @since 4.9.4
  */
-use Tribe__Events__Rewrite as Rewrite;
 
 /**
  * Given a set of query strings returns the clean and canonical URL.
@@ -22,5 +21,5 @@ function tribe_events_get_url( $query = [], $url = null ) {
 		$url = home_url( '/' . $events_archive_base );
 	}
 
-	return Rewrite::instance()->get_clean_url( add_query_arg( $query, $url ) );
+	return tribe( 'events.rewrite' )->get_clean_url( add_query_arg( $query, $url ) );
 }
