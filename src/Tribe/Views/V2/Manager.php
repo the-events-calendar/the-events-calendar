@@ -181,7 +181,7 @@ class Manager {
 		 *
 		 * The arguments will be used to build each View link, respecting the View URL handling and permalink settings.
 		 *
-		 * @since TBD
+		 * @since 5.0.1
 		 *
 		 * @param array<string,mixed> $url_args The current URL query arguments, created from a filtered version of
 		 *                                      the current request context.
@@ -204,7 +204,7 @@ class Manager {
 		/**
 		 * Filters the publicly available Views list.
 		 *
-		 * @since TBD
+		 * @since 5.0.1
 		 *
 		 * @param array<object> A list of Views, each entry an value object of View information.
 		 */

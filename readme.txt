@@ -213,10 +213,30 @@ Some things to consider before posting on the forum:
 
 Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to [@TheEventsCal](https://twitter.com/TheEventsCal) and tell us why. We'll do what we can to make it right.
 
+== Upgrade Notice ==
+
+= [5.0] =
+
+Please see the changelog for the complete list of changes in this release.
+Previous versions of The Events Calendar are not cross-compatible with 5.X add-ons.
+Remember to always make a backup of your database and files before updating!
+
 == Changelog ==
 
-= [5.0.1] TBD =
+= [5.0.2] TBD =
 
+* Tweak - Freemius Opt-out workflow now present on all occasions [TEC-3171]
+* Tweak - Freemius updated to the latest version 2.3.2 [TEC-3171]
+* Tweak - Minify the Freemius svg assets. [TEC-3215]
+* Fix - Freemius activation URL send via email works as expected [TEC-3218]
+* Fix - Improve compatibility from Updated Views V2 with Beaver Builder plugins [TEC-3248]
+* Fix - More robust handling of `hide_from_listings` in REST API v2, thanks @maxm123
+* Fix - Make sure the new Views (v2) will correctly print JSON-LD schema information [TEC-3241]
+
+= [5.0.1] 2020-02-12 =
+
+* Version - The Events Calendar 5.0.1 is only compatible with Filter Bar 4.9.1 and higher
+* Version - The Events Calendar 5.0.1 is only compatible with Events Calendar PRO 5.0.1 and higher
 * Feature - Add the "Accent Color" option in the customizer, for the new views. [TEC-3067]
 * Fix - Fix venue block title from being indented in Twenty Twenty theme. [TEC-3140]
 * Fix - Fix website block label from disappearing when adding event details classic block. [TEC-2971]
@@ -241,7 +261,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Tweak - Adjust customizer labels for sites using the new views [TEC-3066]
 * Tweak - Allow start datetime and end datetime to be the same to hide end datetime in frontend when using block editor. [TEC-3009]
 * Tweak - Move the "Link Color" option in the customizer, for the new views. [TEC-3067]
-* Tweak - Minify the Freemius svg assets. [TEC-3215]
+* Language - 14 new strings added, 256 updated, 0 fuzzied, and 5 obsoleted
 
 = [5.0.0.2] 2020-02-06 =
 

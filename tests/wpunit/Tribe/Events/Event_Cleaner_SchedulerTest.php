@@ -8,7 +8,7 @@ use Tribe__Events__Event_Cleaner_Scheduler as Cleaner_Scheduler;
 /**
  * Class Event_Cleaner_SchedulerTest
  *
- * @since TBD
+ * @since 5.0.1
  *
  * @package Tribe\Events\Test
  */
