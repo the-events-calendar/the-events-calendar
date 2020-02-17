@@ -228,6 +228,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Move link color option to General tab in customizer and remove Text tab.  [TEC-3244]
 * Tweak - Freemius Opt-out workflow now present on all occasions [TEC-3171]
 * Tweak - Freemius updated to the latest version 2.3.2 [TEC-3171]
+* Tweak - Remove the "Default stylesheet - full" option from display settings, for the new views. [TEC-3125]
 * Fix - Freemius activation URL send via email works as expected [TEC-3218]
 * Fix - Improve compatibility from Updated Views V2 with Beaver Builder plugins [TEC-3248]
 * Fix - More robust handling of `hide_from_listings` in REST API v2, thanks @maxm123
