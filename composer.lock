@@ -2542,12 +2542,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/moderntribe/TribalScents",
-                "reference": "c21dc3ee302234bbef3c185b89dafde544187096"
+                "reference": "3aa54f9c4b487ed69b19ff8b5e289f61ecf2b495"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/moderntribe/TribalScents/zipball/c21dc3ee302234bbef3c185b89dafde544187096",
-                "reference": "c21dc3ee302234bbef3c185b89dafde544187096",
+                "url": "https://api.github.com/repos/moderntribe/TribalScents/zipball/3aa54f9c4b487ed69b19ff8b5e289f61ecf2b495",
+                "reference": "3aa54f9c4b487ed69b19ff8b5e289f61ecf2b495",
                 "shasum": ""
             },
             "require": {
@@ -2602,7 +2602,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2020-02-14T20:57:04+00:00"
+            "time": "2020-02-17T17:50:09+00:00"
         },
         {
             "name": "moderntribe/tribe-testing-facilities",
