@@ -185,8 +185,12 @@ tribe.events.views.breakpoints = {};
 	 *
 	 * @return {void}
 	 */
-	obj.setup = function( script ) {
-		var $container = $( script ).prev( obj.selectors.container );
+	obj.setup = function( container ) {
+		var $container = $( container );
+
+		if ( ! $container.is( obj.selectors.container ) ) {
+			return;
+		}
 		var $data = $container.find( obj.selectors.dataScript );
 		var data = {};
 
