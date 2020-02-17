@@ -178,16 +178,14 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 
 		if ( tribe_events_views_v2_is_enabled() && $customizer->has_option( $this->ID, 'link_color' ) ) {
 			$template .= '
-				#tribe-events-content a,
-				.tribe-events-event-meta a {
-					color: <%= global_elements.link_color %>;
-				}
-			';
+				.tribe-events-single-event-description a,
+				.tribe-events-event-url a,
+				.tribe-venue-url a,
+				.tribe-organizer-url a,
 
-			$template .= '
-				.tribe-common .tribe-common-b1 a:not(.tribe-events-c-small-cta__link):not(.tribe-events-c-ical__link),
-				.tribe-common .tribe-common-b2 a:not(.tribe-events-c-small-cta__link):not(.tribe-events-c-ical__link),
-				.tribe-common .tribe-common-b3 a:not(.tribe-events-c-small-cta__link):not(.tribe-events-c-ical__link) {
+				.tribe-block__organizer__website a,
+				.tribe-block__venue__website a,
+				.tribe_events p a {
 					color: <%= global_elements.link_color %>;
 				}
 			';
