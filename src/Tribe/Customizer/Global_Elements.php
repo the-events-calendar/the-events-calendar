@@ -176,17 +176,33 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 
 		}
 
-		if ( tribe_events_views_v2_is_enabled() ) {
-			return $template;
-		}
-
-		if ( $customizer->has_option( $this->ID, 'link_color' ) ) {
+		if ( tribe_events_views_v2_is_enabled() && $customizer->has_option( $this->ID, 'link_color' ) ) {
 			$template .= '
 				#tribe-events-content a,
 				.tribe-events-event-meta a {
 					color: <%= global_elements.link_color %>;
 				}
 			';
+
+			$template .= '
+				.tribe-common .tribe-common-b1 a:not(.tribe-events-c-small-cta__link):not(.tribe-events-c-ical__link),
+				.tribe-common .tribe-common-b2 a:not(.tribe-events-c-small-cta__link):not(.tribe-events-c-ical__link),
+				.tribe-common .tribe-common-b3 a:not(.tribe-events-c-small-cta__link):not(.tribe-events-c-ical__link) {
+					color: <%= global_elements.link_color %>;
+				}
+			';
+		} elseif ( $customizer->has_option( $this->ID, 'link_color' ) ) {
+			$template .= '
+				#tribe-events-content a,
+				.tribe-events-event-meta a {
+					color: <%= global_elements.link_color %>;
+				}
+			';
+		}
+
+
+		if ( tribe_events_views_v2_is_enabled() ) {
+			return $template;
 		}
 
 		if ( $customizer->has_option( $this->ID, 'filterbar_color' ) ) {
@@ -259,6 +275,10 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 		$title               = $views_v2_is_enabled ? esc_html__( 'General', 'the-events-calendar' ) : esc_html__( 'Global Elements', 'the-events-calendar' );
 		$description         = $views_v2_is_enabled ? '' : esc_html__( 'Options selected here will override what was selected in the "General Theme" section', 'the-events-calendar' );
 
+		$this->defaults = [
+			'link_color'           => '#141827',
+		];
+
 		$this->arguments = array(
 			'priority'    => 20,
 			'capability'  => 'edit_theme_options',
@@ -302,10 +322,6 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 
 		$customizer->add_setting_name( $customizer->get_setting_name( 'accent_color', $section ) );
 
-		if ( tribe_events_views_v2_is_enabled() ) {
-			return;
-		}
-
 		$manager->add_setting(
 			$customizer->get_setting_name( 'link_color', $section ),
 			array(
@@ -330,6 +346,9 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 
 		$customizer->add_setting_name( $customizer->get_setting_name( 'link_color', $section ) );
 
+		if ( tribe_events_views_v2_is_enabled() ) {
+			return;
+		}
 
 		$manager->add_setting(
 			$customizer->get_setting_name( 'filterbar_color', $section ),

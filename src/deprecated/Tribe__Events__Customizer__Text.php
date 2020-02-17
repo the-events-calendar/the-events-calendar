@@ -1,4 +1,6 @@
 <?php
+_deprecated_file( __FILE__, 'TBD', 'Tribe__Events__Customizer__Global_Elements' );
+
 /**
  * The Events Calendar Customizer Section: Text.
  *
