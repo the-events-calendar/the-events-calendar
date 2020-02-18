@@ -9,13 +9,13 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.10
+ * @version 5.0.1
  *
  */
 ?>
 <div class="tribe-events-c-top-bar tribe-events-header__top-bar">
 
-	<?php $this->template( 'components/top-bar/nav' ); ?>
+	<?php $this->template( 'list/top-bar/nav' ); ?>
 
 	<?php $this->template( 'components/top-bar/today' ); ?>
 
