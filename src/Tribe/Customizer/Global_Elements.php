@@ -183,7 +183,9 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 				.tribe-venue-url a,
 				.tribe-organizer-url a,
 
+				.tribe-events-pro .tribe-events-pro-organizer__meta-website a,
 				.tribe-block__organizer__website a,
+				.tribe-events-pro .tribe-events-pro-venue__meta-website a,
 				.tribe-block__venue__website a,
 				.tribe_events p a {
 					color: <%= global_elements.link_color %>;
