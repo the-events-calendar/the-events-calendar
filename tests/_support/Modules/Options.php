@@ -22,7 +22,7 @@ class Options extends \Codeception\Module {
 			'latest_ecp_version'               => '4.0beta2',
 			'donate-link'                      => false,
 			'postsPerPage'                     => '10',
-			'liveFiltersUpdate'                => true,
+			'liveFiltersUpdate'                => 'automatic',
 			'showComments'                     => false,
 			'showEventsInMainLoop'             => false,
 			'eventsSlug'                       => 'events',
