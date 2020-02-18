@@ -1056,7 +1056,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			$data_attributes = array(
-				'live_ajax'         => tribe_get_option( 'liveFiltersUpdate', true ) ? 1 : 0,
+				'live_ajax'         => 'automatic' === tribe_get_option( 'liveFiltersUpdate', 'automatic' ) ? 1 : 0,
 				'datepicker_format' => \Tribe__Date_Utils::get_datepicker_format_index(),
 				'category'          => $category,
 				'featured'          => tribe( 'tec.featured_events' )->is_featured_query(),
@@ -1852,7 +1852,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function body_class( $classes ) {
 			if ( get_query_var( 'post_type' ) == self::POSTTYPE ) {
-				if ( ! is_admin() && tribe_get_option( 'liveFiltersUpdate', true ) ) {
+				if ( ! is_admin() && 'automatic' === tribe_get_option( 'liveFiltersUpdate', 'automatic' ) ) {
 					$classes[] = 'tribe-filter-live';
 				}
 			}

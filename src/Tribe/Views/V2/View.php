@@ -1417,7 +1417,7 @@ class View implements View_Interface {
 			'after_events'           => tribe( Advanced_Display::class )->get_after_events_html( $this ),
 			'display_events_bar'     => $this->filter_display_events_bar( $this->display_events_bar ),
 			'disable_event_search'   => tribe_is_truthy( tribe_get_option( 'tribeDisableTribeBar', false ) ),
-			'live_refresh'           => tribe_is_truthy( tribe_get_option( 'liveFiltersUpdate', true ) ),
+			'live_refresh'           => tribe_is_truthy( 'automatic' === tribe_get_option( 'liveFiltersUpdate', 'automatic' ) ),
 			'ical'                   => $this->get_ical_data(),
 			'container_classes'      => $this->get_html_classes(),
 			'container_data'         => $this->get_container_data(),
@@ -1984,7 +1984,7 @@ class View implements View_Interface {
 	 * @return bool
 	 */
 	protected function get_show_datepicker_submit() {
-		$live_refresh       = tribe_is_truthy( tribe_get_option( 'liveFiltersUpdate', true ) );
+		$live_refresh       = tribe_is_truthy( 'automatic' === tribe_get_option( 'liveFiltersUpdate', 'automatic' ) );
 		$disable_events_bar = tribe_is_truthy( tribe_get_option( 'tribeDisableTribeBar', false ) );
 
 		$show_datepicker_submit = empty( $live_refresh ) && ! empty( $disable_events_bar );
