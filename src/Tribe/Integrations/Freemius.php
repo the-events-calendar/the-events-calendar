@@ -88,6 +88,8 @@ class Tribe__Events__Integrations__Freemius {
 		if ( ! is_admin() ) {
 			return;
 		}
+		// Setup possible redirect.
+		add_action( 'wp_loaded', [ $this, 'action_redirect_incorrect_page' ] );
 
 		global $pagenow;
 
@@ -170,6 +172,41 @@ class Tribe__Events__Integrations__Freemius {
 		], 10, 6 );
 
 		add_action( 'admin_init', [ $this, 'maybe_remove_activation_complete_notice' ] );
+	}
+
+
+	/**
+	 * For some reason Freemius is redirecting some customers to a page that doesnt exist. So we catch that page and
+	 * redirect them back to the actual page that we are using to setup the plugins integration.
+	 *
+	 * @since TBD
+	 *
+	 * @link https://moderntribe.atlassian.net/browse/TEC-3218
+	 *
+	 * @return void  Retuning a Redirect header, so nothing gets returned otherwise.
+	 */
+	public function action_redirect_incorrect_page() {
+		$action = tribe_get_request_var( 'fs_action', false );
+
+		if ( 'sync_user' !== $action ) {
+			return;
+		}
+
+		$page = tribe_get_request_var( 'page', false );
+
+		if ( 'tribe-common-account' !== $page ) {
+			return;
+		}
+
+		$url = admin_url( 'admin.php' );
+		$url = add_query_arg( [
+			'fs_action' => $action,
+			'page'      => $this->page,
+			'_wpnonce'  => tribe_get_request_var( '_wpnonce' ),
+		], $url );
+
+		wp_safe_redirect( $url );
+		tribe_exit();
 	}
 
 	/**
