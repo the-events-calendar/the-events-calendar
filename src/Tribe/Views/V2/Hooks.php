@@ -89,6 +89,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'tribe_events_rewrite_i18n_slugs_raw', [ $this, 'filter_rewrite_i18n_slugs_raw' ], 50, 2 );
 		add_filter( 'tribe_get_event_after', [ $this, 'filter_events_properties' ] );
 		add_filter( 'tribe_template_file', [ $this, 'filter_template_file' ], 10, 3 );
+		add_filter( 'tribe_get_option', [ $this, 'filter_get_stylesheet_option' ], 10, 2 );
 
 		if ( tribe_context()->doing_php_initial_state() ) {
 			add_filter( 'wp_title', [ $this, 'filter_wp_title' ], 10, 2 );
@@ -315,7 +316,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * Filters the `pre_get_document_title` to prevent conflicts when other plugins
 	 * modify this initial value on our pages.
 	 *
-	 * @since TBD
+	 * @since 5.0.0
 	 *
 	 * @param string $title The current title value.
 	 *
@@ -537,7 +538,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Filters rewrite rules to modify and update them for Views V2.
 	 *
-	 * @since TBD
+	 * @since 5.0.0
 	 *
 	 * @param array  $bases  An array of rewrite bases that have been generated.
 	 * @param string $method The method that's being used to generate the bases; defaults to `regex`.
@@ -555,7 +556,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Fires to manage sensitive information on password protected posts.
 	 *
-	 * @since TBD
+	 * @since 5.0.0
 	 *
 	 * @param \WP_Post|int $post The event post ID or object currently being decorated.
 	 */
@@ -569,7 +570,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * Updates and modifies the properties added to the event post object by the `tribe_get_event` function to
 	 * hide some sensitive information, if required.
 	 *
-	 * @since TBD
+	 * @since 5.0.0
 	 *
 	 * @param \WP_Post $event The event post object, decorated w/ properties added by the `tribe_get_event` function.
 	 *
@@ -590,15 +591,48 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @see   tribe_template_file
 	 *
-	 * @since TBD
+	 * @since 5.0.0
 	 *
 	 * @param string $file      Complete path to include the PHP File
 	 * @param array  $name      Template name
 	 * @param object $template  Instance of the Tribe__Template
-	 * 
+	 *
 	 * @return string
 	 */
 	public function filter_template_file( $file, $name, $template ) {
 		return $this->container->make( Template_Bootstrap::class )->filter_template_file( $file, $name, $template );
+	}
+
+	/**
+	 * Filter the stylesheet option to do some switching for V2
+	 *
+	 * @since TBD
+	 *
+	 * @param string $value The option value.
+	 * @param string $key   The option key.
+	 *
+	 * @return void
+	 */
+	public function filter_get_stylesheet_option( $value, $key ) {
+		// Remove this filter so we don't loop infinitely.
+		remove_filter( 'tribe_get_option', [ $this, 'filter_get_stylesheet_option' ], 10, 2 );
+
+		$default = 'tribe';
+
+		if ( 'stylesheet_mode' === $key && empty( $value ) ) {
+			$value = tribe_get_option( 'stylesheetOption', $default );
+			if ( 'full' === $value ) {
+				$value = $default;
+			}
+		}
+
+		if ( 'stylesheetOption' === $key ) {
+			$value = tribe_get_option( 'stylesheet_mode', $default );
+		}
+
+		// Add the filter back
+		add_filter( 'tribe_get_option', [ $this, 'filter_get_stylesheet_option' ], 10, 2 );
+
+		return $value;
 	}
 }

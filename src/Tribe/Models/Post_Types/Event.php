@@ -83,6 +83,13 @@ class Event extends Base {
 			} else {
 				$is_multiday = $end_of_day_object->add( $one_second ) < $end_date_object;
 
+				if (
+					! $is_multiday
+					&& $end_date_object->format( Dates::DBDATEFORMAT ) !== $start_date_object->format( Dates::DBDATEFORMAT )
+				) {
+					$is_multiday = true;
+				}
+
 				// Multi-day events will span at least two days: the day they start on and the following one.
 				if ( $is_multiday ) {
 					/*
@@ -104,48 +111,54 @@ class Event extends Base {
 			$ends_this_week     = null;
 			$happens_this_week  = null;
 			$this_week_duration = null;
+			$displays_on        = [];
 
 			if ( Dates::is_valid_date( $filter ) ) {
 				list( $week_start, $week_end ) = Dates::get_week_start_end( $filter );
 
-				$the_start = $start_date_object;
-				$the_end   = $end_date_object;
+				$week_cache_key = $post_id . '_' . $week_start->format( Dates::DBDATEFORMAT ) . '_week';
+				$cached = tribe( 'cache' )[ $week_cache_key ];
 
-				// Take into account the timezone settings.
-				if ( Timezones::is_mode( Timezones::SITE_TIMEZONE ) ) {
-					// Move the event to the site timezone.
-					$the_start = $the_start->setTimezone( $site_timezone );
-					$the_end   = $the_end->setTimezone( $site_timezone );
-				}
-
-				$week_start_ymd = (int) $week_start->format( 'Ymd' );
-				$week_end_ymd   = (int) $week_end->format( 'Ymd' );
-				$the_start_ymd  = (int) $the_start->format( 'Ymd' );
-				$the_end_ymd    = (int) $the_end->format( 'Ymd' );
-
-				$starts_this_week  = $week_start_ymd <= $the_start_ymd && $the_start_ymd <= $week_end_ymd;
-				$ends_this_week    = $week_start_ymd <= $the_end_ymd && $the_end_ymd <= $week_end_ymd;
-				$happens_this_week = $week_start_ymd <= $the_end_ymd && $the_start_ymd <= $week_end_ymd;
-
-				/*
-				 * A day "crosses the EOD cutoff time" if the end is after the EOD cutoff of the start.
-				 * Here we look just for a boolean.
-				 */
-				$cross_day = tribe_end_of_day( $the_start->format( 'Y-m-d' ) ) < $the_end->format( 'Y-m-d H:i:s' );
-
-				if ( $happens_this_week ) {
-					$this_week_duration = 1;
-					if ( $is_multiday ) {
-						if ( $starts_this_week && $ends_this_week ) {
-							$this_week_duration = min( 7, max( 1, Dates::date_diff( $the_end_ymd, $the_start_ymd ) ) + $cross_day );
-						} elseif ( $ends_this_week ) {
-							$this_week_duration = Dates::date_diff( $the_end_ymd, $week_start_ymd ) + $cross_day;
-						} elseif ( $starts_this_week ) {
-							$this_week_duration = Dates::date_diff( $week_end_ymd, $the_start_ymd ) + $cross_day;
-						} else {
-							// If it happens this week and it doesn't start or end this week, then it spans the week.
-							$this_week_duration = 7;
+				if ( ! empty( $cached ) ) {
+					list( $happens_this_week, $starts_this_week, $ends_this_week, $this_week_duration, $displays_on) = $cached;
+					$displays_on = (array) $displays_on;
+				} else {
+					$the_start = $start_date_object;
+					$the_end   = $end_date_object;// Take into account the timezone settings.
+					if ( Timezones::is_mode( Timezones::SITE_TIMEZONE ) ) {
+						// Move the event to the site timezone.
+						$the_start = $the_start->setTimezone( $site_timezone );
+						$the_end   = $the_end->setTimezone( $site_timezone );
+					}
+					$displays_on       = [ $the_start->format( Dates::DBDATEFORMAT ) ];
+					$week_start_ymd    = (int) $week_start->format( 'Ymd' );
+					$week_end_ymd      = (int) $week_end->format( 'Ymd' );
+					$the_start_ymd     = (int) $the_start->format( 'Ymd' );
+					$the_end_ymd       = (int) $the_end->format( 'Ymd' );
+					$starts_this_week  = $week_start_ymd <= $the_start_ymd && $the_start_ymd <= $week_end_ymd;
+					$ends_this_week    = $week_start_ymd <= $the_end_ymd && $the_end_ymd <= $week_end_ymd;
+					$happens_this_week = $week_start_ymd <= $the_end_ymd && $the_start_ymd <= $week_end_ymd;/*
+					 * A day "crosses the EOD cutoff time" if the end is after the EOD cutoff of the start.
+					 * Here we look just for a boolean.
+					 */
+					$cross_day = tribe_end_of_day( $the_start->format( 'Y-m-d' ) ) < $the_end->format( 'Y-m-d H:i:s' );
+					if ( $happens_this_week ) {
+						$this_week_duration = 1;
+						if ( $is_multiday ) {
+							if ( $starts_this_week && $ends_this_week ) {
+								$this_week_duration = min( 7,
+									max( 1, Dates::date_diff( $the_end_ymd, $the_start_ymd ) ) + $cross_day );
+							} elseif ( $ends_this_week ) {
+								$this_week_duration = Dates::date_diff( $the_end_ymd, $week_start_ymd ) + $cross_day;
+							} elseif ( $starts_this_week ) {
+								$this_week_duration = Dates::date_diff( $week_end_ymd, $the_start_ymd ) + $cross_day;
+							} else {
+								// If it happens this week and it doesn't start or end this week, then it spans the week.
+								$this_week_duration = 7;
+							}
 						}
+
+						$this_week_duration = min( 7, $this_week_duration );
 					}
 				}
 			}
@@ -183,6 +196,7 @@ class Event extends Base {
 				'ends_this_week'         => $ends_this_week,
 				'this_week_duration'     => $this_week_duration,
 				'happens_this_week'      => $happens_this_week,
+				'displays_on'            => $displays_on,
 				'featured'               => $featured,
 				'sticky'                 => $sticky,
 				'cost'                   =>  tribe_get_cost( $post_id, true ),

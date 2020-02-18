@@ -4,6 +4,8 @@
 		rel="next"
 		class="tribe-events-c-nav__next tribe-common-b2 tribe-common-b1--min-medium"
 		data-js="tribe-events-view-link"
+		aria-label="Next Day"
+		title="Next Day"
 	>
 		Next Day	</a>
 </li>

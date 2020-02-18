@@ -9,7 +9,7 @@
  *
  * @link    {INSERT_ARTCILE_LINK_HERE}
  *
- * @version TBD
+ * @version 5.0.1
  *
  * @var bool   $is_now                     Whether the date selected in the datepicker is "now" or not.
  * @var bool   $show_now                   Whether to show the "Now" label as range start or not.
@@ -31,6 +31,8 @@
 		class="tribe-common-h3 tribe-common-h--alt tribe-events-c-top-bar__datepicker-button"
 		data-js="tribe-events-top-bar-datepicker-button"
 		type="button"
+		aria-label="<?php esc_attr_e( 'Click to toggle datepicker', 'the-events-calendar' ); ?>"
+		title="<?php esc_attr_e( 'Click to toggle datepicker', 'the-events-calendar' ); ?>"
 	>
 		<time
 			datetime="<?php echo esc_attr( $selected_start_datetime ); ?>"

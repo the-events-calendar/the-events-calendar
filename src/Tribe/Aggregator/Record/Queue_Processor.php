@@ -192,10 +192,10 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 
 		if ( empty( $waiting_records ) ) {
 			return $this->current_record_id = 0;
-		} else {
-			$next_record = array_shift( $waiting_records );
-			return $this->current_record_id = $next_record->ID;
 		}
+
+		$next_record = array_shift( $waiting_records );
+		return $this->current_record_id = $next_record->ID;
 	}
 
 	/**

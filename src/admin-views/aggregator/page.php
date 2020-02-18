@@ -1,5 +1,5 @@
 <?php
-$datepicker_format = tribe_get_option( 'datepickerFormat' );
+$datepicker_format = \Tribe__Date_Utils::get_datepicker_format_index();
 
 $state_class = 'tribe-aggregator-inactive';
 if ( tribe( 'events-aggregator.main' )->is_service_active() ) {

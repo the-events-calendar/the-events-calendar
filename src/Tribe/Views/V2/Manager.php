@@ -5,6 +5,7 @@ use Tribe\Events\Views\V2\Views\Day_View;
 use Tribe\Events\Views\V2\Views\List_View;
 use Tribe\Events\Views\V2\Views\Month_View;
 use Tribe\Events\Views\V2\Views\Reflector_View;
+use Tribe__Events__Main as TEC;
 use Tribe__Utils__Array as Arr;
 
 /**
@@ -158,23 +159,56 @@ class Manager {
 	/**
 	 * Returns an array of data of the public views.
 	 *
-	 * @since TBD
+	 * @since 5.0.0
 	 *
 	 * @return array
 	 */
 	public function get_publicly_visible_views_data() {
 		$views = $this->get_publicly_visible_views();
 
+		// By default keep the following query args, filter them later. Date is handled after, not here.
+		$keep    = [ TEC::TAXONOMY ];
+		$context = tribe_context();
+
+		// It would be convenient, from a code point-of-view, to use `Context::to_array()`, but it's expensive!
+		$url_args = [];
+		foreach ( $keep as $context_location ) {
+			$url_args[ $context_location ] = $context->get( $context_location, false );
+		}
+
+		/**
+		 * Filters the query arguments that should be applied to the View links.
+		 *
+		 * The arguments will be used to build each View link, respecting the View URL handling and permalink settings.
+		 *
+		 * @since 5.0.1
+		 *
+		 * @param array<string,mixed> $url_args The current URL query arguments, created from a filtered version of
+		 *                                      the current request context.
+		 * @param array<View_Interface> $views The currently publicly available views.
+		 */
+		$url_args = apply_filters( 'tribe_events_views_v2_publicly_visible_views_query_args', $url_args, $views );
+
 		array_walk(
 			$views,
-			function ( &$value, $view_slug ) {
-				$value = (object) [
+			function ( &$value, $view_slug ) use ( $url_args ) {
+				$url_args['eventDisplay'] = $view_slug;
+				$value                    = (object) [
 					'view_class' => $value,
-					'view_url'   => tribe_events_get_url( array_filter( [ 'eventDisplay' => $view_slug ] ) ),
+					'view_url'   => tribe_events_get_url( array_filter( $url_args ) ),
 					'view_label' => $this->get_view_label_by_slug( $view_slug ),
 				];
 			}
 		);
+
+		/**
+		 * Filters the publicly available Views list.
+		 *
+		 * @since 5.0.1
+		 *
+		 * @param array<object> A list of Views, each entry an value object of View information.
+		 */
+		$views = apply_filters( 'tribe_events_views_v2_publicly_visible_views', $views );
 
 		return $views;
 	}
@@ -244,7 +278,7 @@ class Manager {
 	/**
 	 * Returns the view label based on the fully qualified class name.
 	 *
-	 * @since TBD
+	 * @since 5.0.0
 	 *
 	 * @param  string $view_class The view fully qualified class name.
 	 *
@@ -263,7 +297,7 @@ class Manager {
 	/**
 	 * Returns the view label based on the view slug.
 	 *
-	 * @since TBD
+	 * @since 5.0.0
 	 *
 	 * @param  string $slug The view slug.
 	 *
@@ -293,7 +327,7 @@ class Manager {
 		/**
 		 * Filters the label that will be used on the UI for views listing.
 		 *
-		 * @since TBD
+		 * @since 5.0.0
 		 *
 		 * @param string $domain       Text Domain for the View label.
 		 * @param string $slug         Slug of the view we are getting the label for.
@@ -304,7 +338,7 @@ class Manager {
 		/**
 		 * Filters the label that will be used on the UI for views listing.
 		 *
-		 * @since TBD
+		 * @since 5.0.0
 		 *
 		 * @param string $domain       Text Domain for the View label.
 		 * @param string $view_class   Class Name of the view we are getting the label for.
@@ -319,7 +353,7 @@ class Manager {
 		/**
 		 * Filters the label that will be used on the UI for views listing.
 		 *
-		 * @since TBD
+		 * @since 5.0.0
 		 *
 		 * @param string $label        Label of the Current view.
 		 * @param string $slug         Slug of the view we are getting the label for.
@@ -330,7 +364,7 @@ class Manager {
 		/**
 		 * Filters the label that will be used on the UI for views listing.
 		 *
-		 * @since TBD
+		 * @since 5.0.0
 		 *
 		 * @param string $label        Label of the Current view.
 		 * @param string $view_class   Class Name of the view we are getting the label for.

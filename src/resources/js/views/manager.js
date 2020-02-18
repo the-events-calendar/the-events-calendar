@@ -91,7 +91,7 @@ tribe.events.views.manager = {};
 	/**
 	 * Clean up the container and event listeners
 	 *
-	 * @since TBD
+	 * @since 5.0.0
 	 *
 	 * @param  {jQuery} container Which element we are going to clean up
 	 *

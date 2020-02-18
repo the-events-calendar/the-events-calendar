@@ -133,13 +133,13 @@ These styles use a mobile-first approach. Given this, styles build on top of eac
 
 The reasoning for this is simple. Many of the views for The Events Calendar and Event Tickets depend on the theme to which they are applied. Some themes have an extremely wide spacing on the left and right while others have none. At our usual 768px breakpoint for the `--min-medium` modifier, the `.tribe-common` container could have very different widths based on the theme used and display the view inconsistently.
 
-To counter this, we've applied a type of container media queries. By applying JavaScript that runs as soon as the container is printed, we are able apply classes to the container based on its width rather than the viewport width. We currently use 3 breakpoints: `.tribe-common--breakpoint-xsmall`, `.tribe-common--breakpoint-medium`, and `.tribe-common--breakpoint-full`. These correspond to 500px, 768px, and 960px, respectively. These values can also be filtered to customize the breakpoint values.
+To counter this, we've applied a type of container media queries. By applying JavaScript that runs as soon as the container is printed, we are able to apply classes to the container based on its width rather than the viewport width. We currently use 3 breakpoints: `.tribe-common--breakpoint-xsmall`, `.tribe-common--breakpoint-medium`, and `.tribe-common--breakpoint-full`. These correspond to 500px, 768px, and 960px, respectively. These values can also be filtered to customize the breakpoint values.
 
 ## Theme overrides
 
 Modern Tribe plugins support a handful of themes. Some themes provide stylesheets that have high specificity for elements and override the plugin styles. To counter this, we've included theme overrides to ensure our plugin styles display as expected with the supported themes.
 
-The specificity to override the styles are matched to those applied to the theme. This means that if, for example, a theme applied an ID and 2 extra classes to a `datepicker` style, we might see the following theme override:
+The specificity to override the styles are matched to those applied to the theme. This means that if, for example, a theme applied an ID and 2 extra classes to a `.datepicker` style, we might see the following theme override:
 
 ```
 .tribe-events {

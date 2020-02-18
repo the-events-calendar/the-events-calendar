@@ -1,0 +1,67 @@
+{
+  "alterations": {
+    "event_date": "2020-01",
+    "options": {
+      "timezone_string": "America\/Los_Angeles",
+      "start_of_week": "0"
+    },
+    "tribe_options": {
+      "multiDayCutoff": "00:00"
+    },
+    "month_posts_per_page": 10,
+    "events": {
+      "on_2020_01_01_8am_to_5pm": {
+        "title": "On 2020-01-01, 8am to 5pm",
+        "start_date": "2020-01-01 09:00:00",
+        "duration": 14400,
+        "status": "publish"
+      },
+      "on_2020_01_01_8am_to_5pm_next_day": {
+        "title": "On 2020-01-01, 8am to 5pm on the next day",
+        "start_date": "2020-01-01 09:00:00",
+        "end_date": "2020-01-02 17:00:00",
+        "status": "publish"
+      },
+      "all_day_on_2020_01_01": {
+        "title": "All-day on 2020-01-01",
+        "start_date": "2020-01-01",
+        "end_date": "2020-01-01",
+        "all_day": true,
+        "status": "publish"
+      },
+      "all_day_on_2020_01_01_to_2020_01_02": {
+        "title": "All-day on 2020-01-01 to 2020-01-02",
+        "start_date": "2020-01-01",
+        "end_date": "2020-01-02",
+        "all_day": true,
+        "status": "publish"
+      }
+    }
+  },
+  "expectations": {
+    "events": {
+      "2020-01-01": [
+        "all_day_on_2020_01_01",
+        "all_day_on_2020_01_01_to_2020_01_02",
+        "on_2020_01_01_8am_to_5pm",
+        "on_2020_01_01_8am_to_5pm_next_day"
+      ],
+      "2020-01-02": [
+        "all_day_on_2020_01_01_to_2020_01_02",
+        "on_2020_01_01_8am_to_5pm_next_day"
+      ]
+    },
+    "stack": {
+      "2020-01-01": [
+        "all_day_on_2020_01_01",
+        "all_day_on_2020_01_01_to_2020_01_02",
+        "on_2020_01_01_8am_to_5pm_next_day"
+      ],
+      "2020-01-02": [
+        null,
+        "all_day_on_2020_01_01_to_2020_01_02",
+        "on_2020_01_01_8am_to_5pm_next_day"
+      ]
+    }
+  }
+}
