@@ -225,6 +225,8 @@ Remember to always make a backup of your database and files before updating!
 
 = [5.0.2] 2020-02-19 =
 
+* Version - The Events Calendar 5.0.2 is only compatible with Filter Bar 4.9.2 and higher
+* Version - The Events Calendar 5.0.2 is only compatible with Events Calendar PRO 5.0.2 and higher
 * Tweak - Modify Link Color Customizer option for single event links in description, the venue, the organizer, and the website link in classic editor.  [TEC-3219]
 * Tweak - Move link color option to General tab in Customizer and remove Text tab.  [TEC-3244]
 * Tweak - Freemius Opt-out workflow now present on all occasions [TEC-3171]
