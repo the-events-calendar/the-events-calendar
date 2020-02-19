@@ -223,7 +223,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [5.0.2] TBD =
+= [5.0.2] 2020-02-19 =
 
 * Tweak - Modify Link Color Customizer option for single event links in description, the venue, the organizer, and the website link in classic editor.  [TEC-3219]
 * Tweak - Move link color option to General tab in customizer and remove Text tab.  [TEC-3244]
@@ -235,6 +235,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Improve compatibility from Updated Views V2 with Beaver Builder plugins [TEC-3248]
 * Fix - More robust handling of `hide_from_listings` in REST API v2, thanks @maxm123
 * Fix - Make sure the new Views (v2) will correctly print JSON-LD schema information [TEC-3241]
+* Language - 4 new strings added, 248 updated, 1 fuzzied, and 3 obsoleted
 
 = [5.0.1] 2020-02-12 =
 
