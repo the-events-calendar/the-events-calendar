@@ -3,7 +3,7 @@
  */
 import { differenceBy } from 'lodash';
 
- /**
+/**
  * Internal dependencies
  */
 import { globals } from "@moderntribe/common/utils";
@@ -97,7 +97,7 @@ const onBlocksChangeListener = ( selector ) => {
 			onBlocksChangeHandler( currBlocks, prevBlocks )
 		}
 	};
-}
+};
 
 /**
  * @function subscribe
