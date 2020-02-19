@@ -31,9 +31,9 @@ class Top_BarTest extends HtmlPartialTestCase
 		];
 
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
-			'now'          => '2018-01-01 12:00:00',
-			'today_url'    => 'http://test.tri.be',
-			'date_formats' => $date_formats,
+			'now'                => '2018-01-01 12:00:00',
+			'today_url'          => 'http://test.tri.be',
+			'date_formats'       => $date_formats,
 		] ) );
 	}
 
