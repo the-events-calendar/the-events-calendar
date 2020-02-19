@@ -226,11 +226,11 @@ Remember to always make a backup of your database and files before updating!
 = [5.0.2] 2020-02-19 =
 
 * Tweak - Modify Link Color Customizer option for single event links in description, the venue, the organizer, and the website link in classic editor.  [TEC-3219]
-* Tweak - Move link color option to General tab in customizer and remove Text tab.  [TEC-3244]
+* Tweak - Move link color option to General tab in Customizer and remove Text tab.  [TEC-3244]
 * Tweak - Freemius Opt-out workflow now present on all occasions [TEC-3171]
 * Tweak - Freemius updated to the latest version 2.3.2 [TEC-3171]
 * Tweak - Remove the "Default stylesheet - full" option from display settings, for the new views. [TEC-3125]
-* Tweak - Change the live refresh option to a radio, adjust conditional checks to accomodate. [TEC-3072]
+* Tweak - Change the live refresh option to a radio, adjust conditional checks to accommodate. [TEC-3072]
 * Fix - Freemius activation URL send via email works as expected [TEC-3218]
 * Fix - Improve compatibility from Updated Views V2 with Beaver Builder plugins [TEC-3248]
 * Fix - More robust handling of `hide_from_listings` in REST API v2, thanks @maxm123
