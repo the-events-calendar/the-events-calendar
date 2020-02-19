@@ -21,7 +21,7 @@ class Page {
 	/**
 	 * Makes sure we save the current post before hijacking for a page.
 	 *
-	 * @since TBD
+	 * @since  5.0.2
 	 *
 	 * @var array[ WP_Post ] $hijacked_post All WP_Posts on this query.
 	 */
@@ -117,7 +117,7 @@ class Page {
 	/**
 	 * Determines if we have hijacked posts for this request.
 	 *
-	 * @since TBD
+	 * @since  5.0.2
 	 *
 	 * @return bool Did we hijack posts on this request.
 	 */
@@ -128,7 +128,7 @@ class Page {
 	/**
 	 * Gets the hijacked posts that we stored.
 	 *
-	 * @since TBD
+	 * @since  5.0.2
 	 *
 	 * @return array[ WP_Post ] Posts that we hijacked earlier.
 	 */
@@ -139,7 +139,7 @@ class Page {
 	/**
 	 * Sets the hijacked posts for later restoring.
 	 *
-	 * @since TBD
+	 * @since  5.0.2
 	 *
 	 * @param array[WP_Post] $posts Which posts to be set as the one hijacked.
 	 *

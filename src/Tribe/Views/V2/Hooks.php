@@ -606,7 +606,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Filter the stylesheet option to do some switching for V2
 	 *
-	 * @since TBD
+	 * @since  5.0.2
 	 *
 	 * @param string $value The option value.
 	 * @param string $key   The option key.

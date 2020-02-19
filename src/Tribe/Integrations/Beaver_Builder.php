@@ -14,14 +14,14 @@ use Tribe\Events\Views\V2\Template\Page;
  *
  * @package Tribe\Events\Integrations
  *
- * @since TBD
+ * @since 5.0.2
  */
 class Beaver_Builder {
 
 	/**
 	 * Hooks all the required methods for Beaver_Builder usage on our code.
 	 *
-	 * @since TBD
+	 * @since 5.0.2
 	 *
 	 * @return void  Action hook with no return.
 	 */
@@ -37,7 +37,7 @@ class Beaver_Builder {
 	/**
 	 * Restore main post for Beaver Builder plugin.
 	 *
-	 * @since TBD
+	 * @since 5.0.2
 	 *
 	 * @param int    $post_id Which Beaver Builder layout.
 	 *

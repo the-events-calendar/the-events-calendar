@@ -19,7 +19,7 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * The object class used for assets.
 	 *
-	 * @since  TBD
+	 * @since 5.0.2
 	 *
 	 * @var string
 	 */
@@ -28,7 +28,7 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Stores the public key for Freemius.
 	 *
-	 * @since  TBD
+	 * @since 5.0.2
 	 *
 	 * @var string
 	 */
@@ -55,7 +55,7 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Stores the name for the Freemius application.
 	 *
-	 * @since  TBD
+	 * @since 5.0.2
 	 *
 	 * @var string
 	 */
@@ -73,7 +73,7 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Tribe__Tickets__Integrations__Freemius constructor.
 	 *
-	 * @since TBD
+	 * @since  5.0.2
 	 */
 	public function __construct() {
 		$this->setup();
@@ -82,7 +82,7 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Performs setup for the Freemius integration singleton.
 	 *
-	 * @since  TBD
+	 * @since 5.0.2
 	 */
 	public function setup() {
 		if ( ! is_admin() ) {
@@ -179,7 +179,7 @@ class Tribe__Events__Integrations__Freemius {
 	 * For some reason Freemius is redirecting some customers to a page that doesnt exist. So we catch that page and
 	 * redirect them back to the actual page that we are using to setup the plugins integration.
 	 *
-	 * @since TBD
+	 * @since  5.0.2
 	 *
 	 * @link https://moderntribe.atlassian.net/browse/TEC-3218
 	 *
@@ -212,7 +212,7 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Get the connect page URL.
 	 *
-	 * @since TBD
+	 * @since  5.0.2
 	 *
 	 * @param string $connect_url Current connect page URL.
 	 *
@@ -236,7 +236,7 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Get the Settings page URL.
 	 *
-	 * @since TBD
+	 * @since  5.0.2
 	 *
 	 * @return string The Settings page URL.
 	 */
@@ -247,7 +247,7 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Get the plugin icon URL.
 	 *
-	 * @since TBD
+	 * @since  5.0.2
 	 *
 	 * @return string The plugin icon URL.
 	 */
@@ -260,7 +260,7 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Get the Settings page path.
 	 *
-	 * @since TBD
+	 * @since  5.0.2
 	 *
 	 * @return string The Settings page path.
 	 */
