@@ -143,15 +143,6 @@ EventLinks.propTypes = {
 	attributes: PropTypes.object,
 	isSelected: PropTypes.bool,
 	setAttributes: PropTypes.func,
-
-	// hasGoogleCalendar: PropTypes.bool,
-	// hasiCal: PropTypes.bool,
-	// googleCalendarLabel: PropTypes.string,
-	// iCalLabel: PropTypes.string,
-	// setiCalLabel: PropTypes.func,
-	// setGoogleCalendarLabel: PropTypes.func,
-	// toggleIcalLabel: PropTypes.func,
-	// toggleGoogleCalendar: PropTypes.func,
 };
 
 export default EventLinks;
