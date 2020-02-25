@@ -222,7 +222,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [5.0.2.1] 2020-02-25 =
 
-* Fix - Plugin dependency registration with `Plugin_Register` will not prevent loading of all plugins in list if the last loaded fails. [TCMN-41]
+* Fix - Plugin dependency registration with `Plugin_Register` will not prevent loading of all plugins in list if the last item loaded fails. [TCMN-41]
 
 = [5.0.2] 2020-02-19 =
 
