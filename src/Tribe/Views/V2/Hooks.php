@@ -89,6 +89,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'tribe_events_rewrite_i18n_slugs_raw', [ $this, 'filter_rewrite_i18n_slugs_raw' ], 50, 2 );
 		add_filter( 'tribe_get_event_after', [ $this, 'filter_events_properties' ] );
 		add_filter( 'tribe_template_file', [ $this, 'filter_template_file' ], 10, 3 );
+		add_filter( 'tribe_get_option', [ $this, 'filter_get_stylesheet_option' ], 10, 2 );
 
 		if ( tribe_context()->doing_php_initial_state() ) {
 			add_filter( 'wp_title', [ $this, 'filter_wp_title' ], 10, 2 );
@@ -600,5 +601,38 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 */
 	public function filter_template_file( $file, $name, $template ) {
 		return $this->container->make( Template_Bootstrap::class )->filter_template_file( $file, $name, $template );
+	}
+
+	/**
+	 * Filter the stylesheet option to do some switching for V2
+	 *
+	 * @since  5.0.2
+	 *
+	 * @param string $value The option value.
+	 * @param string $key   The option key.
+	 *
+	 * @return void
+	 */
+	public function filter_get_stylesheet_option( $value, $key ) {
+		// Remove this filter so we don't loop infinitely.
+		remove_filter( 'tribe_get_option', [ $this, 'filter_get_stylesheet_option' ], 10, 2 );
+
+		$default = 'tribe';
+
+		if ( 'stylesheet_mode' === $key && empty( $value ) ) {
+			$value = tribe_get_option( 'stylesheetOption', $default );
+			if ( 'full' === $value ) {
+				$value = $default;
+			}
+		}
+
+		if ( 'stylesheetOption' === $key ) {
+			$value = tribe_get_option( 'stylesheet_mode', $default );
+		}
+
+		// Add the filter back
+		add_filter( 'tribe_get_option', [ $this, 'filter_get_stylesheet_option' ], 10, 2 );
+
+		return $value;
 	}
 }

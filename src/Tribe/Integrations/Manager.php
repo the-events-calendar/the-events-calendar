@@ -155,7 +155,7 @@ class Tribe__Events__Integrations__Manager {
 	/**
 	 * Loads our beaver builder plugin integration.
 	 *
-	 * @since TBD
+	 * @since  5.0.2
 	 *
 	 * @return bool Whether we loaded Beaver Builder compatibility or not.
 	 */
