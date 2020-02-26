@@ -1,17 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 52.6 (67491) - http://www.bohemiancoding.com/sketch -->
-    <title>hybrid</title>
-    <desc>Created with Sketch.</desc>
-    <g id="Freemius" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="square">
-        <g id="Dashboard-Copy" transform="translate(-735.000000, -570.000000)" stroke-width="2">
-            <g id="hybrid" transform="translate(736.000000, 571.000000)">
-                <path d="M8,17 L22,17 L22,23 C22,26.8659932 18.8659932,30 15,30 C11.1340068,30 8,26.8659932 8,23 L8,17 Z" id="Path" stroke="#111111"></path>
-                <path d="M11,17 L11,13" id="Path" stroke="#111111"></path>
-                <path d="M19,17 L19,13" id="Path" stroke="#111111"></path>
-                <path d="M3,24 C-1.64124188,17.8116775 -0.815500915,9.10878685 4.90675541,3.90376579 C10.6290117,-1.30125526 19.3709883,-1.30125526 25.0932446,3.90376579 C30.8155009,9.10878685 31.6412419,17.8116775 27,24" id="Path" stroke="#16A0D6"></path>
-                <path d="M7,9 C8.88854382,6.48194157 11.852427,5 15,5 C18.147573,5 21.1114562,6.48194157 23,9" id="Path" stroke="#16A0D6"></path>
-            </g>
-        </g>
-    </g>
-</svg>
+<svg width="32" height="32" xmlns="http://www.w3.org/2000/svg"><g stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="square"><path d="M9 18h14v6a7 7 0 01-14 0v-6zM12 18v-4M20 18v-4" stroke="#111"/><path d="M4 25C-.641 18.812.184 10.109 5.907 4.904c5.722-5.205 14.464-5.205 20.186 0C31.816 10.109 32.641 18.812 28 25M8 10a10 10 0 0116 0" stroke="#16A0D6"/></g></svg>

@@ -221,6 +221,7 @@ Remember to always make a backup of your database and files before updating!
 == Changelog ==
 
 = [5.0.3] TBD =
+* Tweak - Minify the Freemius svg assets. [TEC-3215]
 
 = [5.0.2.1] 2020-02-25 =
 
