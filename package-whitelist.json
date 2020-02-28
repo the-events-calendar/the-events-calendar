@@ -9,7 +9,7 @@
   "src/admin-views/**/*",
   "src/deprecated/**/*",
   "src/functions/**/*",
-  "src/resources/css/**/*",
+  "src/resources/css/**/*.min.css",
   "src/resources/js/app/*.min.js",
   "src/resources/js/views/*",
   "src/resources/js/*",
