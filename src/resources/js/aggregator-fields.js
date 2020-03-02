@@ -186,10 +186,7 @@ tribe_aggregator.fields = {
 
 				// A "reset" of the Post Status select2 selector when an origin is selected.
 				if ( '' !== origin ) {
-					$( obj.selector.post_status )
-						.val( ea.default_settings[ origin ][ 'post_status' ] )
-						.select2( 'val', ea.default_settings[ origin ][ 'post_status' ] )
-						.trigger( 'change' );
+					$( obj.selector.post_status ).trigger( 'change' );
 				}
 
 				obj.maybeLimitUrlStartDate()
