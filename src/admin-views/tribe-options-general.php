@@ -270,9 +270,9 @@ if ( tribe_events_views_v2_is_enabled() ) {
 	} );
 } else {
 	if ( tribe_is_truthy( tribe_get_option( 'tribeDisableTribeBar', false ) ) ) {
-		$filter_activation[ 'attributes' ] = [ 'disabled' => 'disabled' ];
-		$filter_activation[ 'class' ]      = 'tribe-fieldset-disabled';
-		$filter_activation[ 'tooltip' ]    = esc_html__( 'This option is disabled when "Disable the Event Search Bar" is checked on the Display settings tab.', 'the-events-calendar' );
+		$filter_activation['attributes'] = [ 'disabled' => 'disabled' ];
+		$filter_activation['class']      = 'tribe-fieldset-disabled';
+		$filter_activation['tooltip']    = esc_html__( 'This option is disabled when "Disable the Event Search Bar" is checked on the Display settings tab.', 'the-events-calendar' );
 	}
 
 	$general_tab_fields = Tribe__Main::array_insert_before_key(

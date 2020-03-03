@@ -92,7 +92,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'tribe_get_option', [ $this, 'filter_get_stylesheet_option' ], 10, 2 );
 		add_filter( 'option_liveFiltersUpdate', [ $this, 'filter_live_filters_option_value' ], 10, 2 );
 		add_filter( 'tribe_get_option', [ $this, 'filter_live_filters_option_value' ], 10, 2 );
-		add_filter( 'tribe_field_value', [ $this, 'filter_live_filters_option_value'], 10, 2 );
+		add_filter( 'tribe_field_value', [ $this, 'filter_live_filters_option_value' ], 10, 2 );
 
 		if ( tribe_context()->doing_php_initial_state() ) {
 			add_filter( 'wp_title', [ $this, 'filter_wp_title' ], 10, 2 );
@@ -647,12 +647,12 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @since TBD
 	 *
 	 * @param string $value      The option value.
-	 * @param string $optionName The option key.
+	 * @param string $key The option key.
 	 *
-	 * @return void
+	 * @return string
 	 */
-	public function filter_live_filters_option_value( $value, $optionName ) {
-		if ( 'liveFiltersUpdate' !== $optionName ) {
+	public function filter_live_filters_option_value( $value, $key ) {
+		if ( 'liveFiltersUpdate' !== $key ) {
 			return $value;
 		}
 
