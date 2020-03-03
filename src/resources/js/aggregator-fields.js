@@ -347,17 +347,17 @@ tribe_aggregator.fields = {
 	 * Reset the post status to the default state when a new import is taking place
 	 */
 	obj.reset_post_status = function() {
-		var $origin = $( obj.selector.origin_field );
-		var origin = $origin.length === 0 ? '' : $origin.val();
+		var $origin = $( obj.selector.origin_field ); // eslint-disable-line no-var
+		var origin = $origin.length === 0 ? '' : $origin.val(); // eslint-disable-line no-var
 
-		if ( origin === ''  ) {
+		if ( origin === '' ) {
 			return;
 		}
 
 		// Set the default state of the post_status
 		$( obj.selector.post_status )
-			.val( ea.default_settings[ origin ][ 'post_status' ] )
-			.select2( 'val', ea.default_settings[ origin ][ 'post_status' ] )
+			.val( ea.default_settings[ origin ].post_status )
+			.select2( 'val', ea.default_settings[ origin ].post_status )
 			.trigger( 'change' );
 	};
 
