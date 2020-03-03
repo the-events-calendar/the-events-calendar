@@ -90,6 +90,9 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'tribe_get_event_after', [ $this, 'filter_events_properties' ] );
 		add_filter( 'tribe_template_file', [ $this, 'filter_template_file' ], 10, 3 );
 		add_filter( 'tribe_get_option', [ $this, 'filter_get_stylesheet_option' ], 10, 2 );
+		add_filter( 'option_liveFiltersUpdate', [ $this, 'filter_live_filters_option_value' ], 10, 2 );
+		add_filter( 'tribe_get_option', [ $this, 'filter_live_filters_option_value' ], 10, 2 );
+		add_filter( 'tribe_field_value', [ $this, 'filter_live_filters_option_value'], 10, 2 );
 
 		if ( tribe_context()->doing_php_initial_state() ) {
 			add_filter( 'wp_title', [ $this, 'filter_wp_title' ], 10, 2 );
@@ -634,5 +637,46 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'tribe_get_option', [ $this, 'filter_get_stylesheet_option' ], 10, 2 );
 
 		return $value;
+	}
+
+	/**
+	 * Filter the liveFiltersUpdate option to do some switching for V2.
+	 * Note: this triggers on option_liveFiltersUpdate, tribe_get_option, AND tribe_field_value. We
+	 * don't have to add/remove filters because we don't need to get the value - it's already provided.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $value      The option value.
+	 * @param string $optionName The option key.
+	 *
+	 * @return void
+	 */
+	public function filter_live_filters_option_value( $value, $optionName ) {
+		if ( 'liveFiltersUpdate' !== $optionName ) {
+			return $value;
+		}
+
+		return $this->live_filters_maybe_convert( $value );
+	}
+
+	/**
+	 * Converts old (boolean) values to the new string values.
+	 *
+	 * @since TBD
+	 *
+	 * @param mixed $value The value to maybe convert.
+	 *
+	 * @return string
+	 */
+	public function live_filters_maybe_convert( $value ) {
+		$return_value = 'automatic';
+
+		if ( empty( $value ) || 'manual' === $value ) {
+			$return_value = 'manual';
+		}
+
+		$return_value = apply_filters( 'tribe_events_filter_option_value_livefiltersupdate', $return_value );
+
+		return $return_value;
 	}
 }
