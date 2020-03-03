@@ -222,6 +222,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [5.0.3] TBD =
 * Tweak - Minify the Freemius svg assets. [TEC-3215]
+* Tweak - Remove "(beta)" label from URL source type of import. [TEC-3289]
 * Fix - Ensure that any values for `liveFilterUpdate` that are not `automatic` or `manual` get converted. [FBAR-83]
 
 = [5.0.2.1] 2020-02-25 =
