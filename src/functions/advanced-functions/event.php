@@ -33,8 +33,10 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * - EventShowMap bool - Set to true to embed the map in the Event view.
 	 * - EventCost string - Default cost of the Event.
 	 * - EventURL string - Link to the Event Website or Third-Party page
+ 	 * - FeaturedImage string - URL or ID of a featured image
 	 * - Venue array - Array of data to create or update an Venue to be associated with the Event. {@link tribe_create_venue}.
 	 * - Organizer array - Array of data to create or update an Organizer to be associated with the Event. {@link tribe_create_organizer}.
+	 * - _ecp_custom_[ID] string - Pro-only: custom fields
 	 *
 	 * Note: If ONLY the 'VenueID'/'OrganizerID' value is set in the 'Venue'/'Organizer' array,
 	 * then the specified Venue/Organizer will be associated with this Event without attempting
