@@ -1613,7 +1613,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 						if ( ! $venue_id ) {
 							$event['Venue']['ShowMap']     = $show_map_setting;
 							$event['Venue']['ShowMapLink'] = $show_map_setting;
-							$venue_id = $event['EventVenueID'] = Tribe__Events__Venue::instance()->create( $event['Venue'], $event['post_status'] );
+
+							$venue_id = $event['EventVenueID'] = Tribe__Events__Venue::instance()->create(
+								$event['Venue'],
+								Tribe__Utils__Array::get( $event, 'post_status', $args['post_status'] )
+							);
 
 							$found_venues[ $event['EventVenueID'] ] = $event['Venue']['Venue'];
 
