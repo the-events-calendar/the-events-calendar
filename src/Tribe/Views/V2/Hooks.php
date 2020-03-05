@@ -60,6 +60,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_action( 'tribe_events_pro_shortcode_tribe_events_after_assets', [ $this, 'action_disable_shortcode_assets_v1' ] );
 		add_action( 'updated_option', [ $this, 'action_save_wplang' ], 10, 3 );
 		add_action( 'the_post', [ $this, 'manage_sensitive_info' ] );
+		add_action( 'wp', [ $this, 'mange_single_json_ld' ] );
 	}
 
 	/**
@@ -564,6 +565,36 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		if ( $this->container->make( Template_Bootstrap::class )->is_single_event() ) {
 			$this->container->make( Template\Event::class )->manage_sensitive_info( $post );
 		}
+	}
+
+	/**
+	 * Fires to add JSON LD to Single Event
+	 *
+	 * @since TBD
+	 *
+	 */
+	public function mange_single_json_ld() {
+
+		// Check if we are in a single page.
+		if ( ! is_singular( \Tribe__Events__Main::POSTTYPE ) ) {
+			return;
+		}
+
+		$context = tribe_context();
+
+		// One more check for our Post Type.
+		if ( ! $context->is( 'tec_post_type' ) ) {
+			return;
+		}
+
+		// Bail when that action already exists.
+		if ( has_action( 'wp_head', [ \Tribe__Events__JSON_LD__Event::instance(), 'markup' ] ) ) {
+			return;
+		}
+
+		// Print JSON-LD markup on the`wp_head`
+		add_action( 'wp_head', [ \Tribe__Events__JSON_LD__Event::instance(), 'markup' ] );
+
 	}
 
 	/**
