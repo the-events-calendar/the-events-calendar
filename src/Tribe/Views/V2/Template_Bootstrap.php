@@ -79,11 +79,11 @@ class Template_Bootstrap {
 	 */
 	public function get_template_setting() {
 		$default_value = 'default';
-		$template = tribe_get_option( 'tribeEventsTemplate', $default_value );
+		$template      = tribe_get_option( 'tribeEventsTemplate', $default_value );
 
-		if ( empty( $template )  ) {
+		if ( empty( $template ) ) {
 			$template = 'event';
-		} elseif( $default_value === $template ) {
+		} elseif ( $default_value === $template ) {
 			$template = 'page';
 		}
 
@@ -102,7 +102,7 @@ class Template_Bootstrap {
 	public function get_template_object() {
 		$setting = $this->get_template_setting();
 
-		return $setting === 'event'
+		return 'event' === $setting
 			? tribe( Template\Event::class )
 			: tribe( Template\Page::class );
 	}
