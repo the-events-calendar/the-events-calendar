@@ -224,8 +224,10 @@ Remember to always make a backup of your database and files before updating!
 
 * Tweak - Minify the Freemius svg assets. [TEC-3215]
 * Tweak - Remove "(beta)" label from URL source type of import. [TEC-3289]
+* Tweak - Reword the Filter Activation setting's labels for better clarity. Add filters `tribe_events_liveupdate_automatic_label_text` and `tribe_events_liveupdate_manual_label_text` to allow Filter Bar to include itself in those lables. [FBAR-79]
 * Fix - Resolve conflict between datepicker holding consistent size when navigating and flexibility on small screen sizes. [TEC-3322]
 * Fix - Respect EA `post_status` from settings when an event does not have a defined value. [TEC-3255]
+
 
 = [5.0.2.1] 2020-02-25 =
 
