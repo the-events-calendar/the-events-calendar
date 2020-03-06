@@ -1,3 +1,4 @@
+/* eslint-disable */
 var tribe_aggregator = tribe_aggregator || {};
 
 // Setup the global Variable
