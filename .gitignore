@@ -6,7 +6,6 @@ vendor
 !vendor/jquery
 !vendor/jquery-placeholder
 !vendor/jquery-resize
-!vendor/tickets
 !vendor/tribe-common-libraries
 !vendor/ForceUTF8
 !vendor/php-date-formatter
@@ -36,4 +35,4 @@ lang/*.po
 # Resources Ignoring
 src/resources/**/app
 src/resources/css
-src/resources/**/*.min.js
+src/resources/js/**/*.min.js
