@@ -209,6 +209,12 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 				}
 			';
 
+			$template .= '
+				.tribe-common--breakpoint-medium.tribe-events .tribe-events-calendar-list__event-datetime-featured-text {
+					color: <%= global_elements.accent_color %>;
+				}
+			';
+
 			// overrides for tec views/full/month/_calendar-event.pcss
 			$template .= '
 				.tribe-events .tribe-events-calendar-month__calendar-event--featured:before {
