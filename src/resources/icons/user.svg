@@ -1,16 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="34px" height="34px" viewBox="0 0 34 34" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 52.6 (67491) - http://www.bohemiancoding.com/sketch -->
-    <title>circle-09</title>
-    <desc>Created with Sketch.</desc>
-    <g id="Freemius" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Dashboard-Copy" transform="translate(-219.000000, -508.000000)" stroke-width="2">
-            <g id="circle-09" transform="translate(220.000000, 509.000000)">
-                <path d="M26.5142857,28.3428571 C26.3120021,24.7042519 24.2815114,23.549485 21.3123153,22.5382957 C19.1888835,21.8148206 18.5054928,19.6231657 18.2857143,18.2857143" id="Path" stroke="#16A0D6"></path>
-                <path d="M13.7142857,19.2 C13.4949299,20.4178611 12.8155817,22.4137295 10.6962334,23.072239 C7.73274725,23.9926267 5.68760894,25.0299698 5.48571429,28.3428571" id="Path" stroke="#16A0D6"></path>
-                <path d="M15.5428571,19.2 C12.5130971,19.2 10.0571429,16.8122667 10.0571429,13.8666667 L10.0571429,11.7333333 C10.0571429,8.78773333 12.5130971,6.4 15.5428571,6.4 C18.5726171,6.4 21.0285714,8.78773333 21.0285714,11.7333333 L21.0285714,13.8666667 C21.0285714,16.8122667 18.5726171,19.2 15.5428571,19.2 Z" id="Path" stroke="#16A0D6" stroke-linecap="square"></path>
-                <circle id="Oval" stroke="#111111" stroke-linecap="square" cx="16" cy="16" r="16"></circle>
-            </g>
-        </g>
-    </g>
-</svg>
+<svg width="34" height="34" xmlns="http://www.w3.org/2000/svg"><g transform="translate(1 1)" stroke-width="2" fill="none" fill-rule="evenodd"><path d="M26.514 28.343c-.202-3.639-2.232-4.794-5.202-5.805-2.123-.723-2.807-2.915-3.026-4.252M13.714 19.2c-.22 1.218-.898 3.214-3.018 3.872-2.963.92-5.008 1.958-5.21 5.27" stroke="#16A0D6"/><path d="M15.543 19.2c-3.03 0-5.486-2.388-5.486-5.333v-2.134c0-2.945 2.456-5.333 5.486-5.333s5.486 2.388 5.486 5.333v2.134c0 2.945-2.456 5.333-5.486 5.333z" stroke="#16A0D6" stroke-linecap="square"/><circle stroke="#111" stroke-linecap="square" cx="16" cy="16" r="16"/></g></svg>
