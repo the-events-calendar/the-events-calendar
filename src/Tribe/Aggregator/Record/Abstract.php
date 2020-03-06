@@ -1366,14 +1366,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$initial_created_events = $activity->count( Tribe__Events__Main::POSTTYPE );
 		$expected_created_events = $initial_created_events + count( $items );
 
-		$args = array(
-			'post_status' => 'draft',
-		);
-
-		if ( ! empty( $this->meta['post_status'] ) && 'do_not_override' !== $this->meta['post_status'] ) {
-			$args['post_status'] = $this->meta['post_status'];
-		}
-
 		$unique_field = $this->get_unique_field();
 		$existing_ids = $this->get_existing_ids_from_import_data( $items );
 
@@ -1388,6 +1380,14 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		$import_settings        = tribe( 'events-aggregator.settings' )->default_settings_import( $origin );
 		$should_import_settings = tribe_is_truthy( $import_settings ) ? true : false;
+
+		$args = [
+			'post_status' => tribe( 'events-aggregator.settings' )->default_post_status( $origin ),
+		];
+
+		if ( ! empty( $this->meta['post_status'] ) && 'do_not_override' !== $this->meta['post_status'] ) {
+			$args['post_status'] = $this->meta['post_status'];
+		}
 
 		/**
 		 * When an event/venue/organizer is being updated/inserted in the context of an import then any change
@@ -1611,7 +1611,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 						if ( ! $venue_id ) {
 							$event['Venue']['ShowMap']     = $show_map_setting;
 							$event['Venue']['ShowMapLink'] = $show_map_setting;
-							$venue_id = $event['EventVenueID'] = Tribe__Events__Venue::instance()->create( $event['Venue'], $event['post_status'] );
+
+							$venue_id = $event['EventVenueID'] = Tribe__Events__Venue::instance()->create(
+								$event['Venue'],
+								Tribe__Utils__Array::get( $event, 'post_status', $args['post_status'] )
+							);
 
 							$found_venues[ $event['EventVenueID'] ] = $event['Venue']['Venue'];
 
