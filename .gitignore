@@ -31,6 +31,7 @@ wpml-config.xml
 
 # get from translate.wordpress.org as needed
 lang/*.po
+lang/*.mo
 
 # Resources Ignoring
 src/resources/**/app
