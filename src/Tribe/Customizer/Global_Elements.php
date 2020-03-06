@@ -39,12 +39,93 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 			$accent_color_rgb = $accent_color::hexToRgb( $settings['accent_color'] );
 			$accent_css_rgb   = $accent_color_rgb['R'] . ',' . $accent_color_rgb['G'] . ',' . $accent_color_rgb['B'];
 
+			$accent_color_hover  = 'rgba(' . $accent_css_rgb . ',0.8)';
+			$accent_color_active = 'rgba(' . $accent_css_rgb . ',0.9)';
+			$accent_color_background = 'rgba(' . $accent_css_rgb . ',0.07)';
+
+			// overrides for common base/full/forms/_toggles.pcss
+			$template .= '
+				.tribe-common .tribe-common-form-control-toggle__input:checked {
+					background-color: <%= global_elements.accent_color %>;
+				}
+			';
+
+			// overrides for common base/full/typography/_ctas.pcss
+			$template .= '
+				.tribe-common .tribe-common-cta--alt,
+				.tribe-common .tribe-common-cta--alt:active,
+				.tribe-common .tribe-common-cta--alt:hover,
+				.tribe-common .tribe-common-cta--alt:focus,
+				.tribe-common .tribe-common-cta--thin-alt,
+				.tribe-common .tribe-common-cta--thin-alt:active,
+				.tribe-common .tribe-common-cta--thin-alt:focus,
+				.tribe-common .tribe-common-cta--thin-alt:hover {
+					border-bottom-color: <%= global_elements.accent_color %>;
+				}
+			';
 
 			$template .= '
+				.tribe-common .tribe-common-cta--alt:active,
+				.tribe-common .tribe-common-cta--alt:hover,
+				.tribe-common .tribe-common-cta--alt:focus,
+				.tribe-common .tribe-common-cta--thin-alt:active,
+				.tribe-common .tribe-common-cta--thin-alt:hover,
+				.tribe-common .tribe-common-cta--thin-alt:focus,
+				.tribe-theme-twentyseventeen .tribe-common .tribe-common-cta--alt:hover,
+				.tribe-theme-twentyseventeen .tribe-common .tribe-common-cta--alt:focus,
+				.tribe-theme-twentyseventeen .tribe-common .tribe-common-cta--thin-alt:hover,
+				.tribe-theme-twentyseventeen .tribe-common .tribe-common-cta--thin-alt:focus {
+					color: <%= global_elements.accent_color %>;
+				}
+			';
+
+			// overrides for common components/full/buttons/_solid.pcss
+			$template .= '
 				.tribe-common .tribe-common-c-btn,
-				.tribe-common a.tribe-common-c-btn,
-				.tribe-theme-twentytwenty .tribe-common .tribe-common-c-btn,
-				.tribe-common .tribe-common-form-control-toggle__input:checked,
+				.tribe-common a.tribe-common-c-btn {
+					background-color: <%= global_elements.accent_color %>;
+				}
+			';
+
+			$template .= '
+				.tribe-common .tribe-common-c-btn:focus,
+				.tribe-common .tribe-common-c-btn:hover,
+				.tribe-common a.tribe-common-c-btn:focus,
+				.tribe-common a.tribe-common-c-btn:hover {
+					background-color: ' . $accent_color_hover . ';
+				}
+			';
+
+			$template .= '
+				.tribe-common .tribe-common-c-btn:active,
+				.tribe-common a.tribe-common-c-btn:active {
+					background-color: ' . $accent_color_active . ';
+				}
+			';
+
+			$template .= '
+				.tribe-common .tribe-common-c-btn:disabled,
+				.tribe-common a.tribe-common-c-btn:disabled {
+					background-color: ' . $accent_color_background . ';
+				}
+			';
+
+			$template .= '
+				.tribe-theme-twentytwenty .tribe-common .tribe-common-c-btn {
+					background-color: <%= global_elements.accent_color %>;
+				}
+			';
+
+			$template .= '
+				.tribe-theme-twentyseventeen .tribe-common .tribe-common-c-btn:hover,
+				.tribe-theme-twentyseventeen .tribe-common .tribe-common-c-btn:focus,
+				.tribe-theme-twentytwenty .tribe-common .tribe-common-c-btn:hover,
+				.tribe-theme-twentytwenty .tribe-common .tribe-common-c-btn:focus {
+					background-color: ' . $accent_color_hover . ';
+				}
+			';
+
+			$template .= '
 				.tribe-events .tribe-events-c-view-selector__button::before,
 				.tribe-events .tribe-events-c-events-bar__search-button::before,
 				.tribe-events .tribe-events-c-ical__link:hover,
@@ -59,23 +140,10 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 			';
 
 			$template .= '
-				.tribe-common .tribe-common-c-btn:focus,
-				.tribe-common .tribe-common-c-btn:hover,
-				.tribe-common a.tribe-common-c-btn:focus,
-				.tribe-common a.tribe-common-c-btn:hover,
 				.tribe-events .tribe-events-calendar-month__day-cell--selected,
 				.tribe-events .tribe-events-calendar-month__mobile-events-icon--event,
 				.tribe-theme-twentytwenty .tribe-events .tribe-events-calendar-month__day-cell--selected {
 					background-color: <%= global_elements.accent_color %>;
-				}
-			';
-
-			$template .= '
-				.tribe-theme-twentytwenty .tribe-common .tribe-common-c-btn:hover,
-				.tribe-theme-twentytwenty .tribe-common .tribe-common-c-btn:focus a,
-				.tribe-theme-twentyseventeen .tribe-common .tribe-common-c-btn:hover,
-				.tribe-theme-twentyseventeen .tribe-common .tribe-common-c-btn:focus a {
-					background: rgba( ' . $accent_css_rgb . ', 0.8);
 				}
 			';
 
@@ -130,28 +198,11 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 			';
 
 			$template .= '
-				.tribe-common .tribe-common-cta--alt:hover,
-				.tribe-common .tribe-common-cta--alt:focus,
-				.tribe-common .tribe-common-cta--thin-alt:hover,
-				.tribe-common .tribe-common-cta--thin-alt:focus,
-				.tribe-theme-twentyseventeen .tribe-common .tribe-common-cta--alt:hover,
-				.tribe-theme-twentyseventeen .tribe-common .tribe-common-cta--alt:focus,
-				.tribe-theme-twentyseventeen .tribe-common .tribe-common-cta--thin-alt:hover,
-				.tribe-theme-twentyseventeen .tribe-common .tribe-common-cta--thin-alt:focus,
 				.tribe-events .tribe-events-calendar-month__day--current .tribe-events-calendar-month__day-cell:not(.tribe-events-calendar-month__day-cell--selected) .tribe-events-calendar-month__day-date,
 				.tribe-events .tribe-events-calendar-month__day--current .tribe-events-calendar-month__day-cell:not(.tribe-events-calendar-month__day-cell--selected) .tribe-events-calendar-month__day-date-link,
 				.tribe-theme-twentyseventeen .tribe-events .tribe-events-calendar-month__day--current .tribe-events-calendar-month__day-date-link:hover,
 				.tribe-theme-twentyseventeen .tribe-events .tribe-events-calendar-month__day--current .tribe-events-calendar-month__day-date-link:focus {
 					color: <%= global_elements.accent_color %>;
-				}
-			';
-
-			$template .= '
-				.tribe-common .tribe-common-cta--thin-alt,
-				.tribe-common .tribe-common-cta--thin-alt:active,
-				.tribe-common .tribe-common-cta--thin-alt:focus,
-				.tribe-common .tribe-common-cta--thin-alt:hover {
-					border-bottom-color: <%= global_elements.accent_color %>;
 				}
 			';
 
