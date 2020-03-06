@@ -174,6 +174,19 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 				}
 			';
 
+			$template .= '
+				.tribe-events .tribe-events-calendar-list__event-row--featured .tribe-events-calendar-list__event-date-tag-datetime:after,
+				.tribe-events .tribe-events-calendar-month__calendar-event--featured:before,
+				.tribe-events .tribe-events-calendar-day__event--featured:after {
+					background-color: <%= global_elements.accent_color %>;
+				}
+			';
+
+			$template .= '
+				.tribe-events .tribe-events-calendar-month-mobile-events__mobile-event-datetime-featured-text {
+					color: <%= global_elements.accent_color %>;
+				}
+			';
 		}
 
 		if ( tribe_events_views_v2_is_enabled() && $customizer->has_option( $this->ID, 'link_color' ) ) {
