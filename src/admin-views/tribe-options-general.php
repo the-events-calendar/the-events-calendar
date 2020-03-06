@@ -258,14 +258,14 @@ $filter_activation = [
 			'automatic' => __( 'Calendar view is updated immediately when a filter is selected', 'the-events-calendar' ),
 			'manual'    => __( 'Submit button activates any selected filters', 'the-events-calendar' ),
 		],
-		'tooltip'         => esc_html__( 'Immediate filter activation may not be fully compliant with Web Accessibility Standards.', 'the-events-calendar' ),
+		'tooltip'         => esc_html__( 'Note: Automatic update may not be fully compliant with Web Accessibility Standards.', 'the-events-calendar' ),
 		'type'            => 'radio',
 		'validation_type' => 'options',
 	]
 ];
 
 if ( tribe_events_views_v2_is_enabled() ) {
-	// Push the control to the Filters tab
+	// Push the control to the Filters tab.
 	add_filter( 'tribe-event-filters-settings-fields', function ( $fields ) use ( $filter_activation ) {
 		$fields += $filter_activation;
 		return $fields;
@@ -280,7 +280,7 @@ if ( tribe_events_views_v2_is_enabled() ) {
 	 */
 	$automatic_text = apply_filters(
 		'tribe_events_liveupdate_automatic_label_text',
-		__( 'Enabled: datepicker selections automatically update calendar views.', 'the-events-calendar')
+		__( 'Enabled: datepicker selections automatically update calendar views', 'the-events-calendar' )
 	);
 	/**
 	 * Filters the text for the "manual" option.
@@ -289,16 +289,16 @@ if ( tribe_events_views_v2_is_enabled() ) {
 	 *
 	 * @param string the displayed text.
 	 */
-	$manual_text    = apply_filters(
+	$manual_text = apply_filters(
 		'tribe_events_liveupdate_manual_label_text',
-		__( 'Disabled: users must click Find Events to search by date.', 'the-events-calendar')
+		__( 'Disabled: users must click Find Events to search by date', 'the-events-calendar' )
 	);
 
 	$filter_activation['liveFiltersUpdate']['options']['automatic'] = $automatic_text;
-	$filter_activation['liveFiltersUpdate']['options']['manual'] = $manual_text;
-	$filter_activation['liveFiltersUpdate']['label'] = esc_html__( 'Live Refresh', 'the-events-calendar' );
+	$filter_activation['liveFiltersUpdate']['options']['manual']    = $manual_text;
+	$filter_activation['liveFiltersUpdate']['label']                = esc_html__( 'Live Refresh', 'the-events-calendar' );
 
-	// Insert the control
+	// Insert the control.
 	$general_tab_fields = Tribe__Main::array_insert_before_key(
 		'showComments',
 		$general_tab_fields,
