@@ -4,7 +4,7 @@ Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.9
-Stable tag: 5.0.2
+Stable tag: 5.0.3
 Tested up to: 5.3.2
 Requires PHP: 5.6
 License: GPLv2 or later
@@ -94,17 +94,14 @@ That's it! Just configure your settings as you see fit, and you're on your way t
 == Screenshots ==
 
 1. Month View with hover
-2. Month View
-3. List View
-4. Day View
-5. Single event
-6. Event Editor
-7. Events admin listing
-8. General Settings
-9. Display Settings
-10. Events List Widget
-11. Mobile Month View
-12. CSV Importer
+2. Mobile Views
+3. Single event
+4. List View
+5. Event Editor
+6. Events admin listing
+7. General Settings
+8. Display Settings
+9. CSV Importer
 
 == Frequently Asked Questions ==
 
@@ -226,9 +223,19 @@ Remember to always make a backup of your database and files before updating!
 = [5.0.3] TBD =
 
 * Fix - Breakpoint code compatibility with the latest version of jQuery 3.4.1 [BTRIA-154]
+* Tweak - Minify the Freemius svg assets. [TEC-3215]
+* Tweak - Remove "(beta)" label from URL source type of import. [TEC-3289]
+* Fix - Resolve conflict between datepicker holding consistent size when navigating and flexibility on small screen sizes. [TEC-3322]
+* Fix - Respect EA `post_status` from settings when an event does not have a defined value. [TEC-3255]
+
+= [5.0.2.1] 2020-02-25 =
+
+* Fix - Plugin dependency registration with `Plugin_Register` will not prevent loading of all plugins in list if the last item loaded fails. [TCMN-41]
 
 = [5.0.2] 2020-02-19 =
 
+* Version - The Events Calendar 5.0.2 is only compatible with Filter Bar 4.9.2 and higher
+* Version - The Events Calendar 5.0.2 is only compatible with Events Calendar PRO 5.0.2 and higher
 * Tweak - Modify Link Color Customizer option for single event links in description, the venue, the organizer, and the website link in classic editor.  [TEC-3219]
 * Tweak - Move link color option to General tab in Customizer and remove Text tab.  [TEC-3244]
 * Tweak - Freemius Opt-out workflow now present on all occasions [TEC-3171]
