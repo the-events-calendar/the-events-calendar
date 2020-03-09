@@ -403,7 +403,7 @@ jQuery( document ).ready( function( $ ) {
 
 		} else {
 			// Hide all fields and remove their values
-			$group.find( '.linked-post' ).hide().find( 'input' ).val( '' );
+			$group.find( '.linked-post' ).hide().find( 'input, select' ).val( '' );
 
 			$group.parents( '.tribe-section' ).removeClass( 'tribe-is-creating-linked-post' );
 
