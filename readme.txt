@@ -226,6 +226,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Remove "(beta)" label from URL source type of import. [TEC-3289]
 * Fix - Resolve conflict between datepicker holding consistent size when navigating and flexibility on small screen sizes. [TEC-3322]
 * Fix - Respect EA `post_status` from settings when an event does not have a defined value. [TEC-3255]
+* Fix - Save the `post_status` for a scheduled import when using a different value other than `publish` [TEC:3296]
 
 = [5.0.2.1] 2020-02-25 =
 
