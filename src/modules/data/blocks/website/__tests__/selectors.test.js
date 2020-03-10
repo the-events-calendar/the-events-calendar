@@ -14,10 +14,10 @@ const state = {
 
 describe( '[STORE] - Website selectors', () => {
 	it( 'Should return the website block', () => {
-		expect( selectors.getWebsiteBlock( state ) ).toEqual( DEFAULT_STATE );
+		expect( selectors.getWebsiteBlock( state ) ).toMatchSnapshot();
 	} );
 
 	it( 'Should return the website url', () => {
-		expect( selectors.getUrl( state ) ).toEqual( DEFAULT_STATE.url );
+		expect( selectors.getUrl( state ) ).toMatchSnapshot();
 	} );
 } );
