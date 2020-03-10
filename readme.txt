@@ -224,6 +224,7 @@ Remember to always make a backup of your database and files before updating!
 
 * Tweak - Minify the Freemius svg assets. [TEC-3215]
 * Tweak - Remove "(beta)" label from URL source type of import. [TEC-3289]
+* Fix - Customizer accent color affects featured line and text. [TEC-3277]
 * Fix - Resolve conflict between datepicker holding consistent size when navigating and flexibility on small screen sizes. [TEC-3322]
 * Fix - Respect EA `post_status` from settings when an event does not have a defined value. [TEC-3255]
 
