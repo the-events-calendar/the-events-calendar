@@ -46,14 +46,14 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 			$accent_color_multiday_hover = 'rgba(' . $accent_css_rgb . ',0.34)';
 			$color_background            = '#ffffff';
 
-			// overrides for common base/full/forms/_toggles.pcss
+			// overrides for common base/full/forms/_toggles.pcss.
 			$template .= '
 				.tribe-common .tribe-common-form-control-toggle__input:checked {
 					background-color: <%= global_elements.accent_color %>;
 				}
 			';
 
-			// overrides for common base/full/typography/_ctas.pcss
+			// overrides for common base/full/typography/_ctas.pcss.
 			$template .= '
 				.tribe-common .tribe-common-cta--alt,
 				.tribe-common .tribe-common-cta--alt:active,
@@ -82,7 +82,7 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 				}
 			';
 
-			// overrides for common components/full/buttons/_solid.pcss
+			// overrides for common components/full/buttons/_solid.pcss.
 			$template .= '
 				.tribe-common .tribe-common-c-btn,
 				.tribe-common a.tribe-common-c-btn {
@@ -128,7 +128,7 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 				}
 			';
 
-			// overrides for common components/full/_loader.pcss
+			// overrides for common components/full/_loader.pcss.
 			$template .= '
 				@keyframes tribe-common-c-loader-bounce {
 					0% {}
@@ -137,7 +137,7 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 				}
 			';
 
-			// overrides for tec components/full/_datepicker.pcss
+			// overrides for tec components/full/_datepicker.pcss.
 			$template .= '
 				.tribe-events .datepicker .day.current,
 				.tribe-events .datepicker .month.current,
@@ -172,14 +172,14 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 				}
 			';
 
-			// overrides for tec components/full/_events-bar.pcss
+			// overrides for tec components/full/_events-bar.pcss.
 			$template .= '
 				.tribe-events .tribe-events-c-events-bar__search-button:before {
 					background-color: <%= global_elements.accent_color %>;
 				}
 			';
 
-			// overrides for tec components/full/_ical-link.pcss
+			// overrides for tec components/full/_ical-link.pcss.
 			$template .= '
 				.tribe-events .tribe-events-c-ical__link {
 					border-color: <%= global_elements.accent_color %>;
@@ -195,14 +195,14 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 				}
 			';
 
-			// overrides for tec components/full/_view-selector.pcss
+			// overrides for tec components/full/_view-selector.pcss.
 			$template .= '
 				.tribe-events .tribe-events-c-view-selector__button:before {
 					background-color: <%= global_elements.accent_color %>;
 				}
 			';
 
-			// overrides for tec views/full/list/_event.pcss
+			// overrides for tec views/full/list/_event.pcss.
 			$template .= '
 				.tribe-events .tribe-events-calendar-list__event-row--featured .tribe-events-calendar-list__event-date-tag-datetime:after {
 					background-color: <%= global_elements.accent_color %>;
@@ -215,14 +215,14 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 				}
 			';
 
-			// overrides for tec views/full/month/_calendar-event.pcss
+			// overrides for tec views/full/month/_calendar-event.pcss.
 			$template .= '
 				.tribe-events .tribe-events-calendar-month__calendar-event--featured:before {
 					background-color: <%= global_elements.accent_color %>;
 				}
 			';
 
-			// overrides for tec views/full/month/_day.pcss
+			// overrides for tec views/full/month/_day.pcss.
 			$template .= '
 				.tribe-events .tribe-events-calendar-month__day--current .tribe-events-calendar-month__day-date,
 				.tribe-events .tribe-events-calendar-month__day--current .tribe-events-calendar-month__day-date-link {
@@ -289,14 +289,14 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 				}
 			';
 
-			// overrides for tec views/full/month/_mobile-events.pcss
+			// overrides for tec views/full/month/_mobile-events.pcss.
 			$template .= '
 				.tribe-events .tribe-events-calendar-month-mobile-events__mobile-event-datetime-featured-text {
 					color: <%= global_elements.accent_color %>;
 				}
 			';
 
-			// overrides for tec views/full/month/_multiday-events.pcss
+			// overrides for tec views/full/month/_multiday-events.pcss.
 			$template .= '
 				.tribe-events .tribe-events-calendar-month__multiday-event-bar-inner {
 					background-color: ' . $accent_color_multiday . ';
@@ -310,7 +310,7 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 				}
 			';
 
-			// overrides for tec views/full/day/_event.pcss
+			// overrides for tec views/full/day/_event.pcss.
 			$template .= '
 				.tribe-events .tribe-events-calendar-day__event--featured:after {
 					background-color: <%= global_elements.accent_color %>;
