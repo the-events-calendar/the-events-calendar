@@ -592,9 +592,8 @@ class Hooks extends \tad_DI52_ServiceProvider {
 			return;
 		}
 
-		// Print JSON-LD markup on the`wp_head`
+		// Print JSON-LD markup on the`wp_head`.
 		add_action( 'wp_head', [ \Tribe__Events__JSON_LD__Event::instance(), 'markup' ] );
-
 	}
 
 	/**
