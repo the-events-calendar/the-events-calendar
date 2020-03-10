@@ -222,6 +222,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [5.0.3] TBD =
 
+* Fix - Breakpoint code compatibility with the latest version of jQuery 3.4.1 [BTRIA-154]
 * Tweak - Minify the Freemius svg assets. [TEC-3215]
 * Tweak - Remove "(beta)" label from URL source type of import. [TEC-3289]
 * Fix - Customizer accent color affects featured line and text. [TEC-3277]
