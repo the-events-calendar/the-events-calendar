@@ -17,10 +17,6 @@ describe( '[STORE] - Website selectors', () => {
 		expect( selectors.getWebsiteBlock( state ) ).toEqual( DEFAULT_STATE );
 	} );
 
-	it( 'Should return the website label', () => {
-		expect( selectors.getLabel( state ) ).toEqual( DEFAULT_STATE.label );
-	} );
-
 	it( 'Should return the website url', () => {
 		expect( selectors.getUrl( state ) ).toEqual( DEFAULT_STATE.url );
 	} );

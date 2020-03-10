@@ -1,15 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`[STORE] - Website reducer Should set the website label 1`] = `
+exports[`[STORE] - Website reducer Should set the initial state 1`] = `
 Object {
-  "label": "Modern Tribe",
-  "url": "",
+  "url": "https://www.theeventscalendar.com/",
 }
 `;
 
 exports[`[STORE] - Website reducer Should set the website value 1`] = `
 Object {
-  "label": "",
   "url": "https://tri.be/",
 }
 `;
