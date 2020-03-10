@@ -14,6 +14,10 @@ import venue from './venue';
 import classic from './classic';
 import sharing from './sharing';
 
+export const setInitialState = ( entityRecord ) => {
+
+};
+
 export default combineReducers( {
 	datetime,
 	classic,
