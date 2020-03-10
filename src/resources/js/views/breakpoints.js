@@ -1,9 +1,10 @@
+/* globals jQuery, tribe */
 /**
  * Makes sure we have all the required levels on the Tribe Object
  *
  * @since 5.0.0
  *
- * @type   {PlainObject}
+ * @type   {Object}
  */
 tribe.events = tribe.events || {};
 tribe.events.views = tribe.events.views || {};
@@ -13,7 +14,7 @@ tribe.events.views = tribe.events.views || {};
  *
  * @since 5.0.0
  *
- * @type   {PlainObject}
+ * @type   {Object}
  */
 tribe.events.views.breakpoints = {};
 
@@ -22,8 +23,8 @@ tribe.events.views.breakpoints = {};
  *
  * @since  5.0.0
  *
- * @param  {PlainObject} $   jQuery
- * @param  {PlainObject} obj tribe.events.views.breakpoints
+ * @param  {FunctionConstructor} $   jQuery
+ * @param  {Object} obj tribe.events.views.breakpoints
  *
  * @return {void}
  */
@@ -36,7 +37,7 @@ tribe.events.views.breakpoints = {};
 	 *
 	 * @since 5.0.0
 	 *
-	 * @type {PlainObject}
+	 * @type {Object}
 	 */
 	obj.selectors = {
 		container: '[data-js="tribe-events-view"]',
@@ -49,7 +50,7 @@ tribe.events.views.breakpoints = {};
 	 *
 	 * @since 5.0.0
 	 *
-	 * @type {PlainObject}
+	 * @type {Object}
 	 */
 	obj.breakpoints = {};
 
@@ -123,13 +124,13 @@ tribe.events.views.breakpoints = {};
 	};
 
 	/**
-	 * Deinitialize breakpoints JS
+	 * De-initialize breakpoints JS
 	 *
 	 * @since  5.0.0
 	 *
 	 * @param  {Event}       event    event object for 'beforeAjaxSuccess.tribeEvents' event
 	 * @param  {jqXHR}       jqXHR    Request object
-	 * @param  {PlainObject} settings Settings that this request was made with
+	 * @param  {Object} settings Settings that this request was made with
 	 *
 	 * @return {void}
 	 */
@@ -148,6 +149,11 @@ tribe.events.views.breakpoints = {};
 	 * @return {void}
 	 */
 	obj.initTasks = function( $container, data ) {
+		if ( ! ( $container instanceof jQuery ) ) {
+			// eslint-disable-next-line no-param-reassign
+			$container = $( $container );
+		}
+
 		obj.bindEvents( $container, data );
 		obj.setContainerClasses( $container, data );
 
@@ -161,13 +167,18 @@ tribe.events.views.breakpoints = {};
 	 * @since  5.0.0
 	 *
 	 * @param  {Event}   event      event object for 'afterSetup.tribeEvents' event
-	 * @param  {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event.
+	 * @param  {int}     index      jQuery.each index param from 'afterSetup.tribeEvents' event.
 	 * @param  {jQuery}  $container jQuery object of view container.
 	 * @param  {object}  data       data object passed from 'afterSetup.tribeEvents' event.
 	 *
 	 * @return {void}
 	 */
 	obj.init = function( event, index, $container, data ) {
+		if ( ! ( $container instanceof jQuery ) ) {
+			// eslint-disable-next-line no-param-reassign
+			$container = $( $container );
+		}
+
 		var state = $container.data( 'tribeEventsBreakpoints' );
 		if ( state && state.initialized ) {
 			return;
@@ -181,7 +192,7 @@ tribe.events.views.breakpoints = {};
 	 *
 	 * @since  5.0.0
 	 *
-	 * @param  {HTMLElement} script HTML element of the script tag calling setup
+	 * @param  {HTMLElement} container HTML element of the script tag calling setup
 	 *
 	 * @return {void}
 	 */
