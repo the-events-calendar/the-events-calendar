@@ -39,8 +39,8 @@ export const initStore = () => {
 		const { dispatch, injectReducers } = store;
 
 		initSagas();
-		dispatch( actions.addPlugin( constants.EVENTS_PLUGIN ) );
 		injectReducers( { [ constants.EVENTS_PLUGIN ]: reducer } );
+		dispatch( actions.addPlugin( constants.EVENTS_PLUGIN ) );
 	} );
 };
 
