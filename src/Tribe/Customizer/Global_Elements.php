@@ -151,7 +151,7 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 				.tribe-events .datepicker .year.current:hover,
 				.tribe-events .datepicker .year.current:focus,
 				.tribe-events .datepicker .year.current.focused {
-					background: ' . $accent_color_background .';
+					background: ' . $accent_color_background . ';
 				}
 			';
 
