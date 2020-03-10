@@ -9,6 +9,8 @@ import { store } from '@moderntribe/common/store';
 import * as blocks from './blocks';
 import initSagas from './sagas';
 
+const { actions, constants } = plugins;
+
 const setInitialState = ( entityRecord ) => {
 
 };
@@ -37,8 +39,8 @@ export const initStore = () => {
 		const { dispatch, injectReducers } = store;
 
 		initSagas();
-		dispatch( plugins.actions.addPlugin( 'events' ) );
-		injectReducers( { events: reducer } );
+		dispatch( actions.addPlugin( constants.EVENTS_PLUGIN ) );
+		injectReducers( { [ constants.EVENTS_PLUGIN ]: reducer } );
 	} );
 };
 
