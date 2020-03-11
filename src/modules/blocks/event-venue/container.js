@@ -18,25 +18,23 @@ import { editor } from '@moderntribe/common/data';
  * Module Code
  */
 
-const setVenue = ( dispatch ) => ( id ) => {
-	const { setVenue, setShowMap, setShowMapLink } = actions;
-	dispatch( setVenue( id ) );
-	dispatch( setShowMap( true ) );
-	dispatch( setShowMapLink( true ) );
+const setVenue = ( dispatch, ownProps ) => ( id ) => {
+	ownProps.setAttributes( { venue: id } );
+	dispatch( actions.setVenue( id ) );
 };
 
 const onFormComplete = ( dispatch, ownProps ) => ( body ) => {
 	const { setDetails } = ownProps;
 	const { id } = body;
 	setDetails( id, body );
-	setVenue( dispatch )( id );
+	setVenue( dispatch, ownProps )( id );
 };
 
 const onFormSubmit = ( dispatch, ownProps ) => ( fields ) => (
 	ownProps.sendForm( toVenue( fields ), onFormComplete( dispatch, ownProps ) )
 );
 
-const onItemSelect = ( dispatch ) => setVenue( dispatch );
+const onItemSelect = ( dispatch, ownProps ) => setVenue( dispatch, ownProps );
 
 const onCreateNew = ( ownProps ) => ( title ) => ownProps.createDraft( {
 	title: {
@@ -49,6 +47,7 @@ const onCreateNew = ( ownProps ) => ( title ) => ownProps.createDraft( {
 const removeVenue = ( dispatch, ownProps ) => () => {
 	const { volatile, maybeRemoveEntry, details } = ownProps;
 
+	ownProps.setAttributes( { venue: 0 } );
 	dispatch( actions.removeVenue() );
 	if ( volatile ) {
 		maybeRemoveEntry( details );
@@ -68,9 +67,16 @@ const mapStateToProps = ( state ) => ( {
 } );
 
 const mapDispatchToProps = ( dispatch, ownProps ) => ( {
-	...bindActionCreators( actions, dispatch ),
+	toggleVenueMap: ( value ) => {
+		ownProps.setAttributes( { showMap: value } );
+		dispatch( actions.setVenueMap( value ) );
+	},
+	toggleVenueMapLink: ( value ) => {
+		ownProps.setAttributes( { showMapLink: value } );
+		dispatch( actions.setVenueMapLink( value ) );
+	},
 	onFormSubmit: onFormSubmit( dispatch, ownProps ),
-	onItemSelect: onItemSelect( dispatch ),
+	onItemSelect: onItemSelect( dispatch, ownProps ),
 	onCreateNew: onCreateNew( ownProps ),
 	removeVenue: removeVenue( dispatch, ownProps ),
 	editVenue: editVenue( ownProps ),
@@ -82,5 +88,4 @@ export default compose(
 	withDetails( 'venue' ),
 	withForm( ( props ) => props.name ),
 	connect( null, mapDispatchToProps ),
-	withSaveData(),
 )( EventVenue );
