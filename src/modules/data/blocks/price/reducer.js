@@ -10,6 +10,12 @@ import { settings, priceSettings } from '@moderntribe/common/utils/globals';
 import { string } from '@moderntribe/common/utils';
 import * as types from './types';
 
+export const setInitialState = ( entityRecord ) => {
+	DEFAULT_STATE.position = entityRecord.meta._EventCurrencyPosition;
+	DEFAULT_STATE.symbol = entityRecord.meta._EventCurrencySymbol;
+	DEFAULT_STATE.cost = entityRecord.meta._EventCost;
+};
+
 const position = string.isTruthy( settings() && settings().reverseCurrencyPosition )
 	? 'suffix'
 	: 'prefix';
@@ -22,7 +28,6 @@ export const DEFAULT_STATE = {
 		? priceSettings().defaultCurrencySymbol
 		: __( '$', 'the-events-calendar' ),
 	cost: '',
-	description: '',
 };
 
 export default ( state = DEFAULT_STATE, action ) => {
@@ -41,11 +46,6 @@ export default ( state = DEFAULT_STATE, action ) => {
 			return {
 				...state,
 				symbol: action.payload.symbol,
-			};
-		case types.SET_PRICE_DESCRIPTION:
-			return {
-				...state,
-				description: action.payload.description,
 			};
 		default:
 			return state;
