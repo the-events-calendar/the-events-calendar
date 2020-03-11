@@ -15,6 +15,9 @@ const state = {
 jest.mock( '@moderntribe/common/utils/globals', () => ( {
 	editorDefaults: () => ( {
 		venue: 0,
+		venueCountry: '',
+		venueState: '',
+		venueProvince: '',
 	} ),
 	list: () => ( {
 		countries: {},

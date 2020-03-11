@@ -48,3 +48,17 @@ Object {
   "lng": -122.448342,
 }
 `;
+
+exports[`Venue Utils Should return the venue country 1`] = `""`;
+
+exports[`Venue Utils Should return the venue country 2`] = `""`;
+
+exports[`Venue Utils Should return the venue country 3`] = `"Canada"`;
+
+exports[`Venue Utils Should return the venue state or province 1`] = `""`;
+
+exports[`Venue Utils Should return the venue state or province 2`] = `""`;
+
+exports[`Venue Utils Should return the venue state or province 3`] = `""`;
+
+exports[`Venue Utils Should return the venue state or province 4`] = `"Alberta"`;

@@ -1,7 +1,28 @@
 /**
  * Internal dependencies
  */
-import { getAddress, getCoordinates } from '@moderntribe/events/data/blocks/venue/utils';
+import {
+	getAddress,
+	getCoordinates,
+	getVenueCountry,
+	getVenueStateProvince
+} from '@moderntribe/events/data/blocks/venue/utils';
+
+jest.mock( '@moderntribe/common/utils/globals', () => ( {
+	editorDefaults: () => ( {
+		venue: 0,
+		venueCountry: '',
+		venueState: '',
+		venueProvince: '',
+	} ),
+	list: () => ( {
+		countries: {},
+		us_states: {},
+	} ),
+	mapsAPI: () => ( {
+		embed: true,
+	} ),
+} ) );
 
 describe( 'Venue Utils', () => {
 	it( 'Should return the address details', () => {
@@ -35,5 +56,20 @@ describe( 'Venue Utils', () => {
 		};
 
 		expect( getCoordinates( details ) ).toMatchSnapshot();
+	} );
+
+	it( 'Should return the venue country', () => {
+		expect( getVenueCountry( {} ) ).toMatchSnapshot();
+		expect( getVenueCountry( { _VenueCountry: '' } ) ).toMatchSnapshot();
+		expect( getVenueCountry( { _VenueCountry: 'Canada' } ) ).toMatchSnapshot();
+	} );
+
+	it( 'Should return the venue state or province', () => {
+		expect( getVenueStateProvince( {} ) ).toMatchSnapshot();
+		expect( getVenueStateProvince( { _VenueStateProvince: '' } ) ).toMatchSnapshot();
+		expect( getVenueStateProvince( { _VenueStateProvince: '', _VenueCountry: 'US' } ) )
+			.toMatchSnapshot();
+		expect( getVenueStateProvince( { _VenueStateProvince: 'Alberta', _VenueCountry: 'Canada' } ) )
+			.toMatchSnapshot();
 	} );
 } );
