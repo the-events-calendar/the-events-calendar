@@ -1,6 +1,5 @@
 <?php
 $tab                = $this->tabs->get_active();
-$service            = tribe( 'events-aggregator.service' );
 $origin_slug        = 'eventbrite';
 $field              = (object) array();
 $field->label       = __( 'Import Type:', 'the-events-calendar' );
@@ -11,9 +10,6 @@ $field->source      = 'eventbrite_import_type';
 
 $frequency              = (object) array();
 $frequency->placeholder = __( 'Import from Eventbrite', 'the-events-calendar' );
-if ( ! empty( $service->api()->licenses['tribe-eventbrite'] ) ) {
-	$frequency->placeholder = __( 'Import from your Eventbrite account', 'the-events-calendar' );
-}
 $frequency->help   = __( 'Select how often you would like events to be automatically imported.', 'the-events-calendar' );
 $frequency->source = 'eventbrite_import_frequency';
 
@@ -121,13 +117,6 @@ if ( ! class_exists( 'Tribe__Events__Tickets__Eventbrite__Main' ) ) {
 }
 
 $default_eb_source  = 'source_type_url';
-if ( ! empty( $service->api()->licenses['tribe-eventbrite'] ) ) {
-	$field->options[]  = array(
-		'id'   => 'https://www.eventbrite.com/me',
-		'text' => __( 'Import from your Eventbrite account', 'the-events-calendar' ),
-	);
-	$default_eb_source = 'https://www.eventbrite.com/me';
-}
 $field->options[] = array(
 	'id'   => 'source_type_url',
 	'text' => __( 'Import from Eventbrite URL', 'the-events-calendar' ),

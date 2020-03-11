@@ -9,12 +9,6 @@ $radius                  = new stdClass;
 $radius->placeholder     = sprintf( _x( 'Radius (%s)', 'Radius with abbreviation', 'the-events-calendar' ), Tribe__Events__Utils__Radius::get_abbreviation() );
 $depends_condition       = 'data-condition-not-empty';
 
-$location_depends = '#tribe-ea-field-origin';
-$keyword_depends = '#tribe-ea-field-origin';
-
-$keyword_exclusions = [ 'facebook' ];
-$location_exclusions = [ 'url', 'facebook' ];
-
 switch ( $origin_slug ) {
 	case 'ics':
 		$depends = "#tribe-ea-field-{$origin_slug}_file";
@@ -31,17 +25,10 @@ switch ( $origin_slug ) {
 	case 'eventbrite':
 		$depends = '#tribe-ea-field-eventbrite_import_source';
 		$radius->help = __( 'Use the filters to narrow down which events are fetched from Eventbrite.', 'the-events-calendar' );
-		$location_depends = '#tribe-ea-field-eventbrite_import_source';
-		$keyword_depends = '#tribe-ea-field-eventbrite_import_source';
-
-		$location_exclusions[] = 'https://www.eventbrite.com/me';
-		$keyword_exclusions[] = 'https://www.eventbrite.com/me';
-
 		// Only new events
 		if ( empty( $record->meta['start'] ) ) {
 			$record->meta['start'] = date_i18n( 'Y-m-d' );
 		}
-
 		break;
 	case 'ical':
 	default:
@@ -57,7 +44,9 @@ switch ( $origin_slug ) {
  *
  * @param array $keyword_exclusions List of origins excluded.
  */
-$keyword_exclusions = json_encode( apply_filters( 'tribe_events_aggregator_refine_keyword_exclusions', $keyword_exclusions ) );
+$keyword_exclusions = apply_filters( 'tribe_events_aggregator_refine_keyword_exclusions', [ 'facebook' ] );
+$keyword_exclusions = json_encode( $keyword_exclusions );
+
 /**
  * Allow filtering of origins excluded from refining EA results by location.
  *
@@ -65,16 +54,15 @@ $keyword_exclusions = json_encode( apply_filters( 'tribe_events_aggregator_refin
  *
  * @param array $location_exclusions List of origins excluded.
  */
-$location_exclusions = json_encode( apply_filters( 'tribe_events_aggregator_refine_location_exclusions', $location_exclusions ) );
-
-
+$location_exclusions = apply_filters( 'tribe_events_aggregator_refine_location_exclusions', [ 'url', 'facebook' ] );
+$location_exclusions = json_encode( $location_exclusions );
 ?>
 <tr class="tribe-dependent tribe-refine-filters <?php echo esc_attr( $origin_slug ) ?>" data-depends="<?php echo esc_attr( $depends ); ?>" <?php echo esc_attr( $depends_condition ); ?>>
 	<th scope="row">
 		<label for="tribe-ea-field-refine_keywords"><?php echo __( 'Refine:', 'the-events-calendar' ); ?></label>
 	</th>
 	<td>
-		<div class="tribe-refine tribe-dependent" data-depends="<?php echo esc_attr($keyword_depends); ?>" data-condition-not="<?php echo esc_attr( $keyword_exclusions ); ?>">
+		<div class="tribe-refine tribe-dependent" data-depends="#tribe-ea-field-origin" data-condition-not="<?php echo esc_attr( $keyword_exclusions ); ?>">
 			<input
 				name="aggregator[<?php echo esc_attr( $origin_slug ); ?>][keywords]"
 				type="text"
