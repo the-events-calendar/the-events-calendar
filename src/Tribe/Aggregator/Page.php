@@ -334,9 +334,9 @@ class Tribe__Events__Aggregator__Page {
 		 *
 		 * @since TBD
 		 *
-		 * @param string $file Complete path to include the PHP File.
-		 * @param string $name Template name.
-		 * @param array  $data The Data that will be used on this template.
+		 * @param string       $file Complete path to include the PHP File.
+		 * @param string|array $name Template name.
+		 * @param array        $data The Data that will be used on this template.
 		 *
 		 * @return string Complete path to the file to be included.
 		 */
