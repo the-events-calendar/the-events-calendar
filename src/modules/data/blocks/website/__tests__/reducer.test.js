@@ -15,12 +15,12 @@ describe( '[STORE] - Website reducer', () => {
 		expect( reducer( undefined, {} ) ).toMatchSnapshot();
 	} );
 
+	it( 'Should set the website value', () => {
+		expect( reducer( DEFAULT_STATE, actions.setWebsite( 'https://tri.be/' ) ) ).toMatchSnapshot();
+	} );
+
 	it( 'Should set the initial state', () => {
 		setInitialState( entityRecord );
 		expect( DEFAULT_STATE ).toMatchSnapshot();
-	} );
-
-	it( 'Should set the website value', () => {
-		expect( reducer( DEFAULT_STATE, actions.setWebsite( 'https://tri.be/' ) ) ).toMatchSnapshot();
 	} );
 } );
