@@ -73,12 +73,13 @@ $location_exclusions = json_encode( $location_exclusions );
 			>
 			<span class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help" data-bumpdown="<?php echo esc_attr( $radius->help ); ?>" data-width-rule="all-triggers"></span>
 		</div>
+		<?php if ( 'eventbrite' !== $origin_slug ) : ?>
 		<div class="tribe-refine">
 			<?php
-				$start = empty( $record->meta['start'] ) ? '' : $record->meta['start'];
-				if ( is_numeric( $start ) ) {
-					$start = date( Tribe__Date_Utils::DATEONLYFORMAT, $start );
-				}
+			$start = empty( $record->meta['start'] ) ? '' : $record->meta['start'];
+			if ( is_numeric( $start ) ) {
+				$start = date( Tribe__Date_Utils::DATEONLYFORMAT, $start );
+			}
 			?>
 			<input
 				name="aggregator[<?php echo esc_attr( $origin_slug ); ?>][start]"
@@ -87,10 +88,6 @@ $location_exclusions = json_encode( $location_exclusions );
 				class="tribe-ea-field tribe-ea-size-medium tribe-datepicker"
 				placeholder="<?php echo esc_attr( $start_date->placeholder ); ?>"
 				value="<?php echo esc_attr( $start ); ?>"
-				<?php if ( 'eventbrite' === $origin_slug ) : ?>
-					data-validation-is-required
-					data-validation-error="<?php esc_attr_e( 'Start date for Eventbrite Tickets is Required', 'the-events-calendar' ); ?>"
-				<?php endif; ?>
 			>
 			<span
 				class="tribe-dependent tribe-date-helper"
@@ -101,7 +98,9 @@ $location_exclusions = json_encode( $location_exclusions );
 				<span id="tribe-date-helper-date-<?php echo esc_attr( $origin_slug ); ?>"><?php echo esc_html( $start ); ?></span>
 			</span>
 		</div>
-		<div class="tribe-refine tribe-dependent" data-depends="<?php echo esc_attr( $location_depends ); ?>"
+		<?php endif; ?>
+
+		<div class="tribe-refine tribe-dependent" data-depends="#tribe-ea-field-origin"
 		     data-condition-relation="and" data-condition-not="<?php echo esc_attr( $location_exclusions ); ?>">
 			<input
 				name="aggregator[<?php echo esc_attr( $origin_slug ); ?>][location]"
