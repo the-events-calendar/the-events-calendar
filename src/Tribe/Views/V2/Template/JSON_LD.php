@@ -19,10 +19,9 @@ namespace Tribe\Events\Views\V2\Template;
 class JSON_LD {
 
 	/**
-	 * Fires to add JSON LD to Single Event
+	 * Fires to Print JSON LD to Single Event.
 	 *
 	 * @since TBD
-	 *
 	 */
 	public function print_single_json_ld() {
 
@@ -42,7 +41,7 @@ class JSON_LD {
 		if ( has_action( 'wp_head', [ \Tribe__Events__JSON_LD__Event::instance(), 'markup' ] ) ) {
 			return;
 		}
-		log_me('here');
+
 		// Print JSON-LD markup on the`wp_head`.
 		add_action( 'wp_head', [ \Tribe__Events__JSON_LD__Event::instance(), 'markup' ] );
 	}
