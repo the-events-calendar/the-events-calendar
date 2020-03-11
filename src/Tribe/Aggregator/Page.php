@@ -23,7 +23,6 @@ class Tribe__Events__Aggregator__Page {
 	 */
 	public $ID;
 
-
 	/**
 	 * Stores the Tabs Manager class
 	 *
@@ -330,6 +329,18 @@ class Tribe__Events__Aggregator__Page {
 		 * @param array  $data     The Data that will be used on this template
 		 */
 		$file = apply_filters( 'tribe_aggregator_template_file', $file, $name, $data );
+		/**
+		 * Crate a new filter using the file name as part of the filter to remove logic from callbacks.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $file Complete path to include the PHP File.
+		 * @param string $name Template name.
+		 * @param array  $data The Data that will be used on this template.
+		 *
+		 * @return string Complete path to the file to be included.
+		 */
+		$file = apply_filters( "tribe_aggregator_template_file/{$file_name}", $file, $name, $data );
 
 		if ( ! file_exists( $file ) ) {
 			return false;
