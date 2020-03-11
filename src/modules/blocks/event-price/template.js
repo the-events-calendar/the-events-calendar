@@ -20,10 +20,7 @@ import { InspectorControls } from '@wordpress/editor';
  * Internal dependencies
  */
 import { Dashboard } from '@moderntribe/events/elements';
-import {
-	input as inputUtil,
-	range,
-} from '@moderntribe/common/utils';
+import { range } from '@moderntribe/common/utils';
 import './style.pcss';
 
 /**

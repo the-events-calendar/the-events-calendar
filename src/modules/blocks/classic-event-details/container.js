@@ -16,8 +16,8 @@ import { DEFAULT_STATE as DATETIME_DEFAULT_STATE } from '@moderntribe/events/dat
 import {
 	actions as priceActions,
 	selectors as priceSelectors,
+	utils as priceUtils,
 } from '@moderntribe/events/data/blocks/price';
-import { DEFAULT_STATE as PRICE_DEFAULT_STATE } from '@moderntribe/events/data/blocks/price/reducer';
 import {
 	actions as websiteActions,
 	selectors as websiteSelectors,
@@ -61,9 +61,21 @@ const mapDispatchToProps = ( dispatch ) => ( {
 	...bindActionCreators( dateTimeActions, dispatch ),
 	...bindActionCreators( dateTimeThunks, dispatch ),
 	...bindActionCreators( UIActions, dispatch ),
-	...bindActionCreators( priceActions, dispatch ),
 	...bindActionCreators( websiteActions, dispatch ),
 	...bindActionCreators( classicActions, dispatch ),
+	setCost: ( cost ) => {
+		ownProps.setAttributes( { cost } );
+		dispatch( priceActions.setCost( cost ) );
+	},
+	setCurrencyPosition: ( value ) => {
+		const position = priceUtils.getPosition( value );
+		ownProps.setAttributes( { currencyPosition: position } );
+		dispatch( priceActions.setPosition( position ) );
+	},
+	setSymbol: ( symbol ) => {
+		ownProps.setAttributes( { currencySymbol: symbol } );
+		dispatch( priceActions.setSymbol( symbol ) );
+	},
 	dispatch,
 } );
 
@@ -121,36 +133,6 @@ const mergeProps = ( stateProps, dispatchProps, ownProps ) => {
 					&& url !== WEBSITE_DEFAULT_STATE.url
 			) {
 				dispatch( websiteActions.setWebsite( url ) );
-			}
-
-			// if current state cost is not the same as default state, do not update
-			// otherwise, update cost state if attribute value is not the same as default state.
-			const cost = get( 'cost', PRICE_DEFAULT_STATE.cost );
-			if (
-				stateProps.cost === WEBSITE_DEFAULT_STATE.cost
-					&& cost !== WEBSITE_DEFAULT_STATE.cost
-			) {
-				dispatch( priceActions.setCost( cost ) );
-			}
-
-			// if current state currencySymbol is not the same as default state, do not update
-			// otherwise, update currencySymbol state if attribute value is not the same as default state.
-			const currencySymbol = get( 'currencySymbol', PRICE_DEFAULT_STATE.symbol );
-			if (
-				stateProps.currencySymbol === WEBSITE_DEFAULT_STATE.symbol
-					&& currencySymbol !== WEBSITE_DEFAULT_STATE.symbol
-			) {
-				dispatch( priceActions.setSymbol( currencySymbol ) );
-			}
-
-			// if current state currencyPosition is not the same as default state, do not update
-			// otherwise, update currencyPosition state if attribute value is not the same as default state.
-			const currencyPosition = get( 'currencyPosition', PRICE_DEFAULT_STATE.position );
-			if (
-				stateProps.currencyPosition === WEBSITE_DEFAULT_STATE.position
-					&& currencyPosition !== WEBSITE_DEFAULT_STATE.position
-			) {
-				dispatch( priceActions.setPosition( currencyPosition ) );
 			}
 		},
 	};

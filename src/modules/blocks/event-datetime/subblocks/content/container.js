@@ -51,7 +51,10 @@ const mapStateToProps = ( state ) => ( {
 
 const mapDispatchToProps = ( dispatch ) => ( {
 	...bindActionCreators( dateTimeActions, dispatch ),
-	...bindActionCreators( priceActions, dispatch ),
+	setCost: ( value ) => {
+		ownProps.setAttributes( { cost: value } );
+		dispatch( priceActions.setCost( value ) );
+	},
 	onDateTimeLabelClick: onDateTimeLabelClick( dispatch ),
 	setInitialState: noop,
 } );

@@ -18,7 +18,6 @@ import {
 } from '@moderntribe/events/data/ui';
 import {
 	selectors as priceSelectors,
-	actions as priceActions,
 } from '@moderntribe/events/data/blocks/price';
 import { withStore, withSaveData, withBlockCloser } from '@moderntribe/common/hoc';
 import EventDateTime from './template';
@@ -44,7 +43,6 @@ const mapStateToProps = ( state ) => ( {
 
 const mapDispatchToProps = ( dispatch ) => ( {
 	setInitialState: ( props ) => {
-		dispatch( priceActions.setInitialState( props ) );
 		dispatch( dateTimeThunks.setInitialState( props ) );
 		dispatch( UIActions.setInitialState( props ) );
 	},
