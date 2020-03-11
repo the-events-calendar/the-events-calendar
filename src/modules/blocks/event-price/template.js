@@ -9,7 +9,6 @@ import classNames from 'classnames';
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { Component } from '@wordpress/element';
 import {
 	CheckboxControl,
 	TextControl,
@@ -31,7 +30,7 @@ import './style.pcss';
  * Module Code
  */
 
-const renderCurrency = ({ showCurrencySymbol, currencySymbol }) => (
+const renderCurrency = ( { showCurrencySymbol, currencySymbol } ) => (
 	showCurrencySymbol && (
 		<span className="tribe-editor__event-price__currency">
 			{ currencySymbol }
@@ -39,7 +38,7 @@ const renderCurrency = ({ showCurrencySymbol, currencySymbol }) => (
 	)
 );
 
-const renderPlaceholder = ({ showCost, currencySymbol, currencyPosition }) => {
+const renderPlaceholder = ( { showCost, currencySymbol, currencyPosition } ) => {
 	let placeholder = __( 'Add Price', 'the-events-calendar' );
 
 	placeholder = ( 'prefix' === currencyPosition )
@@ -52,7 +51,7 @@ const renderPlaceholder = ({ showCost, currencySymbol, currencyPosition }) => {
 	);
 };
 
-const renderCost = ({ showCost, isFree, cost }) => {
+const renderCost = ( { showCost, isFree, cost } ) => {
 	const parsed = range.parser( cost );
 
 	let value = parsed;
@@ -66,9 +65,9 @@ const renderCost = ({ showCost, isFree, cost }) => {
 	);
 };
 
-const renderDescription = ({ showCostDescription, costDescription }) => (
+const renderDescription = ( { showCostDescription, attributes } ) => (
 	showCostDescription && (
-		<span className="tribe-editor__event-price__description">{ costDescription }</span>
+		<span className="tribe-editor__event-price__description">{ attributes.costDescription }</span>
 	)
 );
 
@@ -92,39 +91,43 @@ const renderLabel = ( props ) => {
 	);
 };
 
-const renderDashboard = ({
+const renderDashboard = ( {
 	isDashboardOpen,
 	cost,
-	costDescription,
 	setCost,
-	setDescription
-}) => (
-	<Dashboard isOpen={ isDashboardOpen }>
-		<Fragment>
-			<section className="tribe-editor__event-price__dashboard">
-				<input
-					className={ classNames( 'tribe-editor__event-price__input', 'tribe-editor__event-price__input--price' ) }
-					name="description"
-					type="text"
-					placeholder={ __( 'Fixed Price or Range', 'the-events-calendar' ) }
-					onChange={ inputUtil.sendValue( setCost ) }
-					value={ cost }
-				/>
-				<input
-					className={ classNames( 'tribe-editor__event-price__input', 'tribe-editor__event-price__input--description' ) }
-					name="description"
-					type="text"
-					placeholder={ __( 'Description', 'the-events-calendar' ) }
-					onChange={ inputUtil.sendValue( setDescription ) }
-					value={ costDescription }
-				/>
-			</section>
-			<footer className="tribe-editor__event-price__dashboard__footer">
-				{ __( 'Enter 0 as price for free events', 'the-events-calendar' ) }
-			</footer>
-		</Fragment>
-	</Dashboard>
-);
+	attributes,
+	setAttributes,
+} ) => {
+	const setDescription = event => setAttributes( { costDescription: event.target.value } );
+
+	return (
+		<Dashboard isOpen={ isDashboardOpen }>
+			<Fragment>
+				<section className="tribe-editor__event-price__dashboard">
+					<input
+						className={ classNames( 'tribe-editor__event-price__input', 'tribe-editor__event-price__input--price' ) }
+						name="description"
+						type="text"
+						placeholder={ __( 'Fixed Price or Range', 'the-events-calendar' ) }
+						onChange={ setCost }
+						value={ cost }
+					/>
+					<input
+						className={ classNames( 'tribe-editor__event-price__input', 'tribe-editor__event-price__input--description' ) }
+						name="description"
+						type="text"
+						placeholder={ __( 'Description', 'the-events-calendar' ) }
+						onChange={ setDescription }
+						value={ attributes.costDescription }
+					/>
+				</section>
+				<footer className="tribe-editor__event-price__dashboard__footer">
+					{ __( 'Enter 0 as price for free events', 'the-events-calendar' ) }
+				</footer>
+			</Fragment>
+		</Dashboard>
+	);
+};
 
 const renderUI = ( props ) => (
 	<section key="event-price-box" className="tribe-editor__block">
@@ -162,16 +165,10 @@ const renderControls = ({
 	)
 );
 
-class EventPrice extends Component {
-
-	render() {
-		return [
-			renderUI( this.props ),
-			renderControls( this.props ),
-		];
-	}
-
-}
+const EventPrice = ( props ) => ( [
+	renderUI( props ),
+	renderControls( props ),
+] );
 
 EventPrice.propTypes = {
 	isDashboardOpen: PropTypes.bool,
@@ -190,6 +187,8 @@ EventPrice.propTypes = {
 	onKeyDown: PropTypes.func,
 	onClick: PropTypes.func,
 	openDashboard: PropTypes.func,
+	attributes: PropTypes.object,
+	setAttributes: PropTypes.func,
 };
 
 export default EventPrice;

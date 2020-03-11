@@ -3,16 +3,17 @@
  */
 import { trim, isEmpty } from 'lodash';
 import { connect } from 'react-redux';
-import { bindActionCreators, compose } from 'redux';
+import { compose } from 'redux';
 
 /**
  * Internal dependencies
  */
 import { range } from '@moderntribe/common/utils';
-import { withStore, withSaveData, withBlockCloser } from '@moderntribe/common/hoc';
+import { withStore, withBlockCloser } from '@moderntribe/common/hoc';
 import {
 	actions as priceActions,
 	selectors as priceSelectors,
+	utils as priceUtils,
 } from '@moderntribe/events/data/blocks/price';
 import {
 	actions as UIActions,
@@ -33,30 +34,34 @@ const showCost = ( cost ) => {
 	return ! isEmpty( trim( parsed ) ) || range.isFree( cost );
 };
 
-const showCostDescription = ( description ) => ! isEmpty( trim( description ) );
-
-const mapStateToProps = ( state ) => ( {
+const mapStateToProps = ( state, ownProps ) => ( {
 	isDashboardOpen: UISelectors.getDashboardPriceOpen( state ),
 	isOpen: UISelectors.getDashboardPriceOpen( state ),
 	cost: priceSelectors.getPrice( state ),
 	currencyPosition: priceSelectors.getPosition( state ),
 	currencySymbol: priceSelectors.getSymbol( state ),
-	costDescription: priceSelectors.getDescription( state ),
 	showCurrencySymbol: showCurrencySymbol( priceSelectors.getPrice( state ) ),
 	showCost: showCost( priceSelectors.getPrice( state ) ),
-	showCostDescription: showCostDescription( priceSelectors.getDescription( state ) ),
+	showCostDescription: ! isEmpty( trim( ownProps.attributes.costDescription ) ),
 	isFree: range.isFree( priceSelectors.getPrice( state ) ),
 } );
 
-const mapDispatchToProps = ( dispatch ) => ( {
-	...bindActionCreators( priceActions, dispatch ),
-	setInitialState: ( props ) => {
-		dispatch( priceActions.setInitialState( props ) );
-		dispatch( UIActions.setInitialState( props ) );
+const mapDispatchToProps = ( dispatch, ownProps ) => ( {
+	setCost: ( event ) => {
+		ownProps.setAttributes( { cost: event.target.value } );
+		dispatch( priceActions.setCost( event.target.value ) );
+	},
+	setSymbol: ( symbol ) => {
+		ownProps.setAttributes( { currencySymbol: symbol } );
+		dispatch( priceActions.setSymbol( symbol ) );
+	},
+	setCurrencyPosition: ( value ) => {
+		const position = priceUtils.getPosition( ! value );
+		ownProps.setAttributes( { currencyPosition: position } );
+		dispatch( priceActions.setPosition( position ) );
 	},
 	onClose: () => dispatch( UIActions.closeDashboardPrice() ),
 	openDashboard: () => dispatch( UIActions.openDashboardPrice() ),
-	setCurrencyPosition: ( value ) => dispatch( priceActions.togglePosition( ! value ) ),
 } );
 
 export default compose(
@@ -65,6 +70,5 @@ export default compose(
 		mapStateToProps,
 		mapDispatchToProps
 	),
-	withSaveData(),
 	withBlockCloser,
 )( EventPrice );
