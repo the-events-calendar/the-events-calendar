@@ -317,10 +317,10 @@ class Tribe__Events__Aggregator__Page {
 	 */
 	public function template( $name, $data = array(), $echo = true ) {
 		// Clean this Variable
-		$name = array_map( 'sanitize_title_with_dashes', (array) explode( '/', $name ) );
+		$name = array_map( 'sanitize_title_with_dashes', (array) explode( DIRECTORY_SEPARATOR, $name ) );
 
-		$file = Tribe__Events__Main::instance()->plugin_path;
-		$file .= 'src/admin-views/aggregator/' . implode( DIRECTORY_SEPARATOR, $name ) . '.php';
+		$file_name = implode( DIRECTORY_SEPARATOR, $name );
+		$file      = Tribe__Events__Main::instance()->plugin_path . "src/admin-views/aggregator/{$file_name}.php";
 
 		/**
 		 * A more Specific Filter that will include the template name
