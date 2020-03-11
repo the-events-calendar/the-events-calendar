@@ -10,9 +10,13 @@ import datetime from './datetime';
 import organizers from './organizers';
 import price from './price';
 import website from './website';
-import venue from './venue';
+import venue, { setInitialState as venueSetInitialState } from './venue';
 import classic from './classic';
 import sharing from './sharing';
+
+export const setInitialState = ( entityRecord ) => {
+	venueSetInitialState( entityRecord );
+};
 
 export default combineReducers( {
 	datetime,
