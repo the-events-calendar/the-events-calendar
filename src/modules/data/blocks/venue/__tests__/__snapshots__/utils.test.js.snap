@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Venue Utils Should return the address details 1`] = `Object {}`;
+
+exports[`Venue Utils Should return the address details 2`] = `Object {}`;
+
+exports[`Venue Utils Should return the address details 3`] = `
+Object {
+  "city": "San Francisco",
+  "country": "USA",
+  "province": "",
+  "street": "3301 Lyon St",
+  "zip": "",
+}
+`;
+
+exports[`Venue Utils Should return the coordinates of the address 1`] = `
+Object {
+  "lat": null,
+  "lng": null,
+}
+`;
+
+exports[`Venue Utils Should return the coordinates of the address 2`] = `
+Object {
+  "lat": null,
+  "lng": null,
+}
+`;
+
+exports[`Venue Utils Should return the coordinates of the address 3`] = `
+Object {
+  "lat": null,
+  "lng": null,
+}
+`;
+
+exports[`Venue Utils Should return the coordinates of the address 4`] = `
+Object {
+  "lat": null,
+  "lng": null,
+}
+`;
+
+exports[`Venue Utils Should return the coordinates of the address 5`] = `
+Object {
+  "lat": 37.802953,
+  "lng": -122.448342,
+}
+`;

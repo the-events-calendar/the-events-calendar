@@ -2,18 +2,18 @@
  * Internal dependencies
  */
 import * as types from './types';
-import { globals } from '@moderntribe/common/utils';
+import { editorDefaults, mapsAPI } from '@moderntribe/common/utils/globals';
 
 export const setInitialState = ( entityRecord ) => {
 	DEFAULT_STATE.venue = entityRecord.meta._EventVenueID;
-	DEFAULT_STATE.showMap = globals.mapsAPI().embed && entityRecord.meta._EventShowMap;
+	DEFAULT_STATE.showMap = mapsAPI().embed && entityRecord.meta._EventShowMap;
 	DEFAULT_STATE.showMapLink = entityRecord.meta._EventShowMapLink;
 };
 
 export const DEFAULT_STATE = {
-	venue: globals.editorDefaults().venue ? globals.editorDefaults().venue : 0,
-	showMap: globals.mapsAPI().embed,
-	showMapLink: globals.mapsAPI().embed,
+	venue: editorDefaults().venue ? editorDefaults().venue : 0,
+	showMap: mapsAPI().embed,
+	showMapLink: mapsAPI().embed,
 };
 
 export default ( state = DEFAULT_STATE, action ) => {

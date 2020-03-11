@@ -1,12 +1,33 @@
 /**
  * Internal dependencies
  */
-import reducer, { DEFAULT_STATE } from '@moderntribe/events/data/blocks/venue/reducer';
+import reducer, { DEFAULT_STATE, setInitialState } from '@moderntribe/events/data/blocks/venue/reducer';
 import { actions } from '@moderntribe/events/data/blocks/venue';
 
+const entityRecord = {
+	meta: {
+		_EventVenueID: 42,
+		_EventShowMap: false,
+		_EventShowMapLink: true,
+	},
+};
+
+jest.mock( '@moderntribe/common/utils/globals', () => ( {
+	editorDefaults: () => ( {
+		venue: 0,
+	} ),
+	list: () => ( {
+		countries: {},
+		us_states: {},
+	} ),
+	mapsAPI: () => ( {
+		embed: true,
+	} ),
+} ) );
+
 describe( '[STORE] - Venue reducer', () => {
-	it( 'Should set the initial state', () => {
-		expect( reducer( undefined, {} ) ).toEqual( DEFAULT_STATE );
+	it( 'Should return the initial state', () => {
+		expect( reducer( undefined, {} ) ).toMatchSnapshot();
 	} );
 
 	it( 'Should set the venue', () => {
@@ -27,11 +48,8 @@ describe( '[STORE] - Venue reducer', () => {
 		expect( reducer( DEFAULT_STATE, actions.setShowMapLink( false ) ) ).toMatchSnapshot();
 	} );
 
-	it( 'Should toggle the venue map link', () => {
-		expect( reducer( DEFAULT_STATE, actions.toggleVenueMapLink() ) ).toMatchSnapshot();
-	} );
-
-	it( 'Should toggle the venue map', () => {
-		expect( reducer( DEFAULT_STATE, actions.toggleVenueMap() ) ).toMatchSnapshot();
+	it( 'Should set the initial state', () => {
+		setInitialState( entityRecord );
+		expect( DEFAULT_STATE ).toMatchSnapshot();
 	} );
 } );

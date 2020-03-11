@@ -5,8 +5,8 @@ import { getAddress, getCoordinates } from '@moderntribe/events/data/blocks/venu
 
 describe( 'Venue Utils', () => {
 	it( 'Should return the address details', () => {
-		expect( getAddress() ).toEqual( {} );
-		expect( getAddress( { meta: {} } ) ).toEqual( {} );
+		expect( getAddress() ).toMatchSnapshot();
+		expect( getAddress( { meta: {} } ) ).toMatchSnapshot();
 
 		const details = {
 			meta: {
@@ -16,24 +16,16 @@ describe( 'Venue Utils', () => {
 			},
 		};
 
-		const expected = {
-			street: '3301 Lyon St',
-			city: 'San Francisco',
-			province: '',
-			zip: '',
-			country: 'USA',
-		};
-		expect( getAddress( details ) ).toEqual( expected );
+		expect( getAddress( details ) ).toMatchSnapshot();
 	} );
 
 	it( 'Should return the coordinates of the address', () => {
-		const emptyCoordinates = { lat: null, lng: null };
-		expect( getCoordinates( {} ) ).toEqual( emptyCoordinates );
-		expect( getCoordinates( { meta: {} } ) ).toEqual( emptyCoordinates );
+		expect( getCoordinates( {} ) ).toMatchSnapshot();
+		expect( getCoordinates( { meta: {} } ) ).toMatchSnapshot();
 		expect( getCoordinates( { meta: { _VenueLat: '', _VenueLng: '' } } ) )
-			.toEqual( emptyCoordinates );
+			.toMatchSnapshot();
 		expect( getCoordinates( { meta: { _VenueLat: 'Modern', _VenueLng: 'Tribe' } } ) )
-			.toEqual( emptyCoordinates );
+			.toMatchSnapshot();
 
 		const details = {
 			meta: {
@@ -42,10 +34,6 @@ describe( 'Venue Utils', () => {
 			},
 		};
 
-		const expected = {
-			lat: 37.802953,
-			lng: -122.448342,
-		};
-		expect( getCoordinates( details ) ).toEqual( expected );
+		expect( getCoordinates( details ) ).toMatchSnapshot();
 	} );
 } );
