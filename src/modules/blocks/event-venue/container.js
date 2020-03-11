@@ -2,14 +2,14 @@
  * External dependencies
  */
 import { connect } from 'react-redux';
-import { compose, bindActionCreators } from 'redux';
+import { compose } from 'redux';
 
 /**
  * Internal dependencies
  */
 import EventVenue from './template';
 import { toVenue } from '@moderntribe/events/elements';
-import { withStore, withSaveData, withForm } from '@moderntribe/common/hoc';
+import { withStore, withForm } from '@moderntribe/common/hoc';
 import { withDetails } from '@moderntribe/events/hoc';
 import { actions, selectors } from '@moderntribe/events/data/blocks/venue';
 import { editor } from '@moderntribe/common/data';
@@ -69,11 +69,11 @@ const mapStateToProps = ( state ) => ( {
 const mapDispatchToProps = ( dispatch, ownProps ) => ( {
 	toggleVenueMap: ( value ) => {
 		ownProps.setAttributes( { showMap: value } );
-		dispatch( actions.setVenueMap( value ) );
+		dispatch( actions.setShowMap( value ) );
 	},
 	toggleVenueMapLink: ( value ) => {
 		ownProps.setAttributes( { showMapLink: value } );
-		dispatch( actions.setVenueMapLink( value ) );
+		dispatch( actions.setShowMapLink( value ) );
 	},
 	onFormSubmit: onFormSubmit( dispatch, ownProps ),
 	onItemSelect: onItemSelect( dispatch, ownProps ),
