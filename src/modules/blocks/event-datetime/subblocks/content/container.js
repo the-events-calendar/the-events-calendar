@@ -49,7 +49,7 @@ const mapStateToProps = ( state ) => ( {
 	timeZoneLabel: dateTimeSelectors.getTimeZoneLabel( state ),
 } );
 
-const mapDispatchToProps = ( dispatch ) => ( {
+const mapDispatchToProps = ( dispatch, ownProps ) => ( {
 	...bindActionCreators( dateTimeActions, dispatch ),
 	setCost: ( value ) => {
 		ownProps.setAttributes( { cost: value } );

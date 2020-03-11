@@ -57,7 +57,7 @@ const mapStateToProps = ( state ) => ( {
 	organizers: organizerSelectors.getOrganizersInClassic( state ),
 } );
 
-const mapDispatchToProps = ( dispatch ) => ( {
+const mapDispatchToProps = ( dispatch, ownProps ) => ( {
 	...bindActionCreators( dateTimeActions, dispatch ),
 	...bindActionCreators( dateTimeThunks, dispatch ),
 	...bindActionCreators( UIActions, dispatch ),
