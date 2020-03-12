@@ -103,7 +103,7 @@ class Messages {
 			),
 			// translators: the placeholder is the formatted date string, e.g. "February 22, 2020".
 			'day_no_results_found'             => __(
-				'No events scheduled for %s. Please try another day.',
+				'No %1$s scheduled for %2$s. Please try another day.',
 				'the-events-calendar'
 			),
 		];
@@ -120,7 +120,15 @@ class Messages {
 		// If not found return the key itself.
 		$match = Arr::get( $map, $key, $key );
 
-		return count( $values ) ? sprintf( $match, ...$values ) : $match;
+		if ( empty( count( $values ) ) ) {
+			return $match;
+		}
+
+		if ( 'day_no_results_found' === $key ) {
+			array_unshift( $values, tribe_get_event_label_plural() );
+		}
+
+		return sprintf( $match, ...$values );
 	}
 
 	/**
