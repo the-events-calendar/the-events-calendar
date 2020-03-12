@@ -1940,9 +1940,10 @@ class View implements View_Interface {
 		 *
 		 * @param string $text The default link text, which is "Export Events".
 		 */
-		$link_text  = apply_filters(
+		$link_text = apply_filters(
 			'tribe_events_ical_export_text',
 			sprintf(
+				/* translators: %s: Events (plural). */
 				__( 'Export %s', 'the-events-calendar' ),
 				tribe_get_event_label_plural()
 			)

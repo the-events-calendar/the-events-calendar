@@ -29,7 +29,23 @@
 		id="tribe-events-events-bar-keyword"
 		name="tribe-events-views[tribe-bar-search]"
 		value="<?php echo esc_attr( tribe_events_template_var( [ 'bar', 'keyword' ], '' ) ); ?>"
-		placeholder="<?php printf( esc_attr__( 'Search for %s', 'the-events-calendar' ), tribe_get_event_label_plural() ); ?>"
-		aria-label="<?php printf( esc_attr__( 'Enter Keyword. Search for %s by Keyword.', 'the-events-calendar' ), tribe_get_event_label_plural() ); ?>"
+		placeholder="<?php
+			echo esc_attr(
+				sprintf(
+					/* translators: %s: Events (plural). */
+					__( 'Search for %s', 'the-events-calendar' ),
+					tribe_get_event_label_plural()
+				)
+			);
+		?>"
+		aria-label="<?php
+			echo esc_attr(
+				sprintf(
+					/* translators: %s: Events (plural). */
+					__( 'Enter Keyword. Search for %s by Keyword.', 'the-events-calendar' ),
+					tribe_get_event_label_plural()
+				)
+			);
+		?>"
 	/>
 </div>

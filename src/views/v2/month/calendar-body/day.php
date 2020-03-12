@@ -100,15 +100,47 @@ $events_label_plural   = tribe_get_event_label_plural();
 		<?php if ( ! empty( $day['featured_events'] ) ): ?>
 			<em
 				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--featured"
-				aria-label="<?php echo esc_attr( sprintf( __( 'Has featured %s', 'the-events-calendar' ), $events_label_plural ) ); ?>"
-				title="<?php echo esc_attr( sprintf( __( 'Has featured %s', 'the-events-calendar' ), $events_label_plural ) ); ?>"
+				aria-label="<?php
+					echo esc_attr(
+						sprintf(
+							/* translators: %s: Events (plural). */
+							__( 'Has featured %s', 'the-events-calendar' ),
+							$events_label_plural
+						)
+					);
+				?>"
+				title="<?php
+					echo esc_attr(
+						sprintf(
+							/* translators: %s: Events (plural). */
+							__( 'Has featured %s', 'the-events-calendar' ),
+							$events_label_plural
+						)
+					);
+				?>"
 			>
 			</em>
 		<?php elseif ( ! empty( $day['found_events'] ) ) : ?>
 			<em
 				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--event"
-				aria-label="<?php echo esc_attr( sprintf( __( 'Has %s', 'the-events-calendar' ), $events_label_plural ) ); ?>"
-				title="<?php echo esc_attr( sprintf( __( 'Has %s', 'the-events-calendar' ), $events_label_plural ) ); ?>"
+				aria-label="<?php
+					echo esc_attr(
+						sprintf(
+							/* translators: %s: Events (plural). */
+							__( 'Has %s', 'the-events-calendar' ),
+							$events_label_plural
+						)
+					);
+				?>"
+				title="<?php
+					echo esc_attr(
+						sprintf(
+							/* translators: %s: Events (plural). */
+							__( 'Has %s', 'the-events-calendar' ),
+							$events_label_plural
+						)
+					);
+				?>"
 			>
 			</em>
 		<?php endif ?>
