@@ -124,7 +124,18 @@ class Messages {
 			return $match;
 		}
 
-		if ( 'day_no_results_found' === $key ) {
+		$need_events_label_keys = [ 'day_no_results_found' ];
+
+		/**
+		 * Filters the array of keys of the messages that need the events label.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $need_events_label_keys Array of keys of the messages that need events label.
+		 */
+		$need_events_label_keys = apply_filters( 'tribe_events_views_v2_messages_need_events_label_keys', $need_events_label_keys );
+
+		if ( in_array( $key, $need_events_label_keys ) ) {
 			array_unshift( $values, tribe_get_event_label_plural() );
 		}
 
