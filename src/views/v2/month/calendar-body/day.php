@@ -102,7 +102,8 @@ $events_label_plural   = tribe_get_event_label_plural();
 		<?php if ( ! empty( $day['featured_events'] ) ): ?>
 			<em
 				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--featured"
-				aria-label="<?php
+				aria-label="
+					<?php
 					echo esc_attr(
 						sprintf(
 							/* translators: %s: Events (plural). */
@@ -110,8 +111,10 @@ $events_label_plural   = tribe_get_event_label_plural();
 							$events_label_plural
 						)
 					);
-				?>"
-				title="<?php
+					?>
+				"
+				title="
+					<?php
 					echo esc_attr(
 						sprintf(
 							/* translators: %s: Events (plural). */
@@ -119,13 +122,15 @@ $events_label_plural   = tribe_get_event_label_plural();
 							$events_label_plural
 						)
 					);
-				?>"
+					?>
+				"
 			>
 			</em>
 		<?php elseif ( ! empty( $day['found_events'] ) ) : ?>
 			<em
 				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--event"
-				aria-label="<?php
+				aria-label="
+					<?php
 					echo esc_attr(
 						sprintf(
 							/* translators: %s: Events (plural). */
@@ -133,8 +138,10 @@ $events_label_plural   = tribe_get_event_label_plural();
 							$events_label_plural
 						)
 					);
-				?>"
-				title="<?php
+					?>
+				"
+				title="
+					<?php
 					echo esc_attr(
 						sprintf(
 							/* translators: %s: Events (plural). */
@@ -142,7 +149,8 @@ $events_label_plural   = tribe_get_event_label_plural();
 							$events_label_plural
 						)
 					);
-				?>"
+					?>
+				"
 			>
 			</em>
 		<?php endif ?>

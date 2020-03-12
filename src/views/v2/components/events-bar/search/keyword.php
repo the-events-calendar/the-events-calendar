@@ -29,7 +29,8 @@
 		id="tribe-events-events-bar-keyword"
 		name="tribe-events-views[tribe-bar-search]"
 		value="<?php echo esc_attr( tribe_events_template_var( [ 'bar', 'keyword' ], '' ) ); ?>"
-		placeholder="<?php
+		placeholder="
+			<?php
 			echo esc_attr(
 				sprintf(
 					/* translators: %s: Events (plural). */
@@ -37,8 +38,10 @@
 					tribe_get_event_label_plural()
 				)
 			);
-		?>"
-		aria-label="<?php
+			?>
+		"
+		aria-label="
+			<?php
 			echo esc_attr(
 				sprintf(
 					/* translators: %s: Events (plural). */
@@ -46,6 +49,7 @@
 					tribe_get_event_label_plural()
 				)
 			);
-		?>"
+			?>
+		"
 	/>
 </div>
