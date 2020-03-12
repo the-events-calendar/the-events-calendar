@@ -635,8 +635,7 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 		$current_slug       = tribe_get_option( $option_name, $default_slug );
 		$using_default_slug = $default_slug === $current_slug;
 
-		$filter = static function ( $matcher ) use ( $default_slug )
-		{
+		$filter = static function ( $matcher ) use ( $default_slug ) {
 			return isset( $matcher['query_var'] )
 			       && 'post_type' === $matcher['query_var']
 			       && isset( $matcher['localized_slugs'] )
@@ -666,13 +665,13 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 			'(?:' . $default_slug . ')'              => [
 				'query_var'       => 'post_type',
 				'en_slug'         => $target_matcher['en_slug'],
-				'localized_slugs' => $target_matcher['localized_slugs']
+				'localized_slugs' => $target_matcher['localized_slugs'],
 			],
 			// Create an entry for the localized slug to replace `(?:events|foo|bar)`.
 			'(?:' . implode( '|', $all_slugs ) . ')' => [
 				'query_var'       => 'post_type',
 				'en_slug'         => $target_matcher['en_slug'],
-				'localized_slugs' => $target_matcher['localized_slugs']
+				'localized_slugs' => $target_matcher['localized_slugs'],
 			],
 		];
 
