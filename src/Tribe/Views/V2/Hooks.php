@@ -641,7 +641,6 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * Print Single Event JSON-LD.
 	 *
 	 * @since TBD
-	 *
 	 */
 	public function print_single_json_ld() {
 
