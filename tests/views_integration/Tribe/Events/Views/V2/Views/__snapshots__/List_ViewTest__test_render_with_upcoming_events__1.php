@@ -83,7 +83,7 @@
 		id="tribe-events-events-bar-keyword"
 		name="tribe-events-views[tribe-bar-search]"
 		value=""
-		placeholder="Search for events"
+		placeholder="Search for Events"
 		aria-label="Enter Keyword. Search for Events by Keyword."
 	/>
 </div>
