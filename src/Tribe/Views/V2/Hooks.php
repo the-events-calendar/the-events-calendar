@@ -100,7 +100,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 
 	/**
 	 * Includes includes edge cases for filtering when we need to manually overwrite theme's read
-	 * more link when excerpt is cut programatically.
+	 * more link when excerpt is cut programatically.z
 	 *
 	 * @see   tribe_events_get_the_excerpt
 	 *
@@ -287,10 +287,18 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @return array $classes
 	 */
 	public function filter_body_class( $classes ) {
-		if ( ! empty( tribe_context()->get( 'view_request', false ) ) ) {
+		global $post;
+
+		if ( tribe_is_event_query()
+			|| ( $post instanceof \WP_Post && has_shortcode( $post->post_content, 'tribe_events' ) )
+		) {
 			$classes = $this->container->make( Theme_Compatibility::class )->filter_add_body_classes( $classes );
 			$classes = $this->container->make( Template_Bootstrap::class )->filter_add_body_classes( $classes );
 		}
+		//if ( ! empty( tribe_context()->get( 'view_request', false ) ) ) {
+			//$classes = $this->container->make( Theme_Compatibility::class )->filter_add_body_classes( $classes );
+			//$classes = $this->container->make( Template_Bootstrap::class )->filter_add_body_classes( $classes );
+		//}
 
 		return $classes;
 	}
