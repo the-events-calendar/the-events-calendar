@@ -14,6 +14,12 @@
  * @version TBD
  *
  */
+
+/* translators: %s: Events (plural). */
+$placeholder = sprintf( __( 'Search for %s', 'the-events-calendar' ), tribe_get_event_label_plural() );
+
+/* translators: %s: Events (plural). */
+$aria_label = sprintf( __( 'Enter Keyword. Search for %s by Keyword.', 'the-events-calendar' ), tribe_get_event_label_plural() );
 ?>
 <div
 	class="tribe-common-form-control-text tribe-events-c-search__input-control tribe-events-c-search__input-control--keyword"
@@ -29,27 +35,7 @@
 		id="tribe-events-events-bar-keyword"
 		name="tribe-events-views[tribe-bar-search]"
 		value="<?php echo esc_attr( tribe_events_template_var( [ 'bar', 'keyword' ], '' ) ); ?>"
-		placeholder="
-			<?php
-			echo esc_attr(
-				sprintf(
-					/* translators: %s: Events (plural). */
-					__( 'Search for %s', 'the-events-calendar' ),
-					tribe_get_event_label_plural()
-				)
-			);
-			?>
-		"
-		aria-label="
-			<?php
-			echo esc_attr(
-				sprintf(
-					/* translators: %s: Events (plural). */
-					__( 'Enter Keyword. Search for %s by Keyword.', 'the-events-calendar' ),
-					tribe_get_event_label_plural()
-				)
-			);
-			?>
-		"
+		placeholder="<?php echo esc_attr( $placeholder ); ?>"
+		aria-label="<?php echo esc_attr( $aria_label ); ?>"
 	/>
 </div>
