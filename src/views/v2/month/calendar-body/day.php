@@ -87,7 +87,7 @@ $num_events_label = sprintf(
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
-				<?php echo esc_html( $num_events_label); ?>,
+				<?php echo esc_html( $num_events_label ); ?>,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
