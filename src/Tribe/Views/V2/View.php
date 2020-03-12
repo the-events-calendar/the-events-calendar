@@ -1944,7 +1944,7 @@ class View implements View_Interface {
 			'tribe_events_ical_export_text',
 			sprintf(
 				__( 'Export %s', 'the-events-calendar' ),
-				tribe_get_events_label_plural()
+				tribe_get_event_label_plural()
 			)
 		);
 
