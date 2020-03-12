@@ -55,6 +55,9 @@ if ( $today_date > $day_date ) {
 
 // Only add id if events exist on the day.
 $mobile_day_id = 'tribe-events-calendar-mobile-day-' . $day['year_number'] . '-' . $day['month_number'] . '-' . $day['day_number'];
+
+$events_label_singular = tribe_get_events_label_singular();
+$events_label_plural   = tribe_get_events_label_plural();
 ?>
 
 <div
@@ -76,7 +79,16 @@ $mobile_day_id = 'tribe-events-calendar-mobile-day-' . $day['year_number'] . '-'
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
-				<?php echo esc_html( sprintf( _n( '%s event', '%s events', $day['found_events'], 'the-events-calendar' ), number_format_i18n( $day['found_events'] ) ) ); ?>,
+				<?php
+				echo esc_html(
+					sprintf(
+						_n( '%1$s %2$s', '%1$s %3$s', $day['found_events'], 'the-events-calendar' ),
+						number_format_i18n( $day['found_events'] ),
+						$events_label_singular,
+						$events_label_plural
+					)
+				);
+				?>,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -88,15 +100,15 @@ $mobile_day_id = 'tribe-events-calendar-mobile-day-' . $day['year_number'] . '-'
 		<?php if ( ! empty( $day['featured_events'] ) ): ?>
 			<em
 				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--featured"
-				aria-label="<?php esc_attr_e( 'Has featured events', 'the-events-calendar' ); ?>"
-				title="<?php esc_attr_e( 'Has featured events', 'the-events-calendar' ); ?>"
+				aria-label="<?php echo esc_attr( sprintf( __( 'Has featured %s', 'the-events-calendar' ), $events_label_plural ) ); ?>"
+				title="<?php echo esc_attr( sprintf( __( 'Has featured %s', 'the-events-calendar' ), $events_label_plural ) ); ?>"
 			>
 			</em>
 		<?php elseif ( ! empty( $day['found_events'] ) ) : ?>
 			<em
 				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--event"
-				aria-label="<?php esc_attr_e( 'Has events', 'the-events-calendar' ); ?>"
-				title="<?php esc_attr_e( 'Has events', 'the-events-calendar' ); ?>"
+				aria-label="<?php echo esc_attr( sprintf( __( 'Has %s', 'the-events-calendar' ), $events_label_plural ) ); ?>"
+				title="<?php echo esc_attr( sprintf( __( 'Has %s', 'the-events-calendar' ), $events_label_plural ) ); ?>"
 			>
 			</em>
 		<?php endif ?>
@@ -108,7 +120,16 @@ $mobile_day_id = 'tribe-events-calendar-mobile-day-' . $day['year_number'] . '-'
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
 			<span class="tribe-common-a11y-visual-hide">
-				<?php echo esc_html( sprintf( _n( '%s event', '%s events', $day['found_events'], 'the-events-calendar' ), number_format_i18n( $day['found_events'] ) ) ); ?>,
+				<?php
+				echo esc_html(
+					sprintf(
+						_n( '%1$s %2$s', '%1$s %3$s', $day['found_events'], 'the-events-calendar' ),
+						number_format_i18n( $day['found_events'] ),
+						$events_label_singular,
+						$events_label_plural
+					)
+				);
+				?>,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
