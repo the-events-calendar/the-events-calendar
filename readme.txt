@@ -230,6 +230,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Resolve conflict between datepicker holding consistent size when navigating and flexibility on small screen sizes. [TEC-3322]
 * Fix - Respect EA `post_status` from settings when an event does not have a defined value. [TEC-3255]
 * Fix - Save the `post_status` for a scheduled import when using a different value other than `publish` [TEC:3296]
+* Fix - Resolve an issue in Views v2 that would break URLs when the event single and archive slugs have the same value due to the "Events URL slug" and "Single event URL slug" settings or due to their translations [TEC-3254]
 
 = [5.0.2.1] 2020-02-25 =
 
