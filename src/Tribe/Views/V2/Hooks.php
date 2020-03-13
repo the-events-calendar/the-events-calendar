@@ -691,7 +691,4 @@ class Hooks extends \tad_DI52_ServiceProvider {
 
 		return $return_value;
 	}
-
-	protected function control_query( \WP_Query $query ) {
-	}
 }
