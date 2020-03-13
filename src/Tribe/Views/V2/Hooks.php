@@ -611,14 +611,14 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @since  5.0.2
 	 *
-	 * @param string $value The option value.
-	 * @param string $key   The option key.
+	 * @param  string $value The option value.
+	 * @param  string $key   The option key.
 	 *
-	 * @return void
+	 * @return string Which value we are converting to.
 	 */
 	public function filter_get_stylesheet_option( $value, $key ) {
 		// Remove this filter so we don't loop infinitely.
-		remove_filter( 'tribe_get_option', [ $this, 'filter_get_stylesheet_option' ], 10, 2 );
+		remove_filter( 'tribe_get_option', [ $this, 'filter_get_stylesheet_option' ], 10 );
 
 		$default = 'tribe';
 
@@ -646,10 +646,10 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $value      The option value.
-	 * @param string $key The option key.
+	 * @param  string $value  The option value.
+	 * @param  string $key    The option key.
 	 *
-	 * @return string
+	 * @return string Converted value of the Live Filters string.
 	 */
 	public function filter_live_filters_option_value( $value, $key ) {
 		if ( 'liveFiltersUpdate' !== $key ) {
@@ -664,9 +664,9 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @since TBD
 	 *
-	 * @param mixed $value The value to maybe convert.
+	 * @param  mixed  $value The value to maybe convert.
 	 *
-	 * @return string
+	 * @return string Modified value of Live filters Update.
 	 */
 	public function live_filters_maybe_convert( $value ) {
 		$return_value = 'automatic';
@@ -675,7 +675,15 @@ class Hooks extends \tad_DI52_ServiceProvider {
 			$return_value = 'manual';
 		}
 
-		$return_value = apply_filters( 'tribe_events_filter_option_value_livefiltersupdate', $return_value );
+		/**
+		 * Allow filtering of the new value for Live Filters.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $return_value Which value we are going to return as the conversion.
+		 * @param string $value        Which value was previously used.
+		 */
+		$return_value = apply_filters( 'tribe_events_option_convert_live_filters', $return_value, $value );
 
 		return $return_value;
 	}
