@@ -636,9 +636,8 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 		$using_default_slug = $default_slug === $current_slug;
 
 		$filter = static function ( $matcher ) use ( $default_slug ) {
-			return isset( $matcher['query_var'] )
+			return isset( $matcher['query_var'], $matcher['localized_slugs'] )
 				   && 'post_type' === $matcher['query_var']
-				   && isset( $matcher['localized_slugs'] )
 				   && is_array( $matcher['localized_slugs'] );
 		};
 
