@@ -45,7 +45,7 @@ switch ( $origin_slug ) {
  * @param array $keyword_exclusions List of origins excluded.
  */
 $keyword_exclusions = apply_filters( 'tribe_events_aggregator_refine_keyword_exclusions', [ 'facebook' ] );
-$keyword_exclusions = json_encode( $keyword_exclusions );
+$keyword_exclusions = wp_json_encode( $keyword_exclusions );
 
 /**
  * Allow filtering of origins excluded from refining EA results by location.
@@ -55,7 +55,7 @@ $keyword_exclusions = json_encode( $keyword_exclusions );
  * @param array $location_exclusions List of origins excluded.
  */
 $location_exclusions = apply_filters( 'tribe_events_aggregator_refine_location_exclusions', [ 'url', 'facebook' ] );
-$location_exclusions = json_encode( $location_exclusions );
+$location_exclusions = wp_json_encode( $location_exclusions );
 ?>
 <tr class="tribe-dependent tribe-refine-filters <?php echo esc_attr( $origin_slug ) ?>" data-depends="<?php echo esc_attr( $depends ); ?>" <?php echo esc_attr( $depends_condition ); ?>>
 	<th scope="row">
@@ -78,7 +78,7 @@ $location_exclusions = json_encode( $location_exclusions );
 			<?php
 			$start = empty( $record->meta['start'] ) ? '' : $record->meta['start'];
 			if ( is_numeric( $start ) ) {
-				$start = date( Tribe__Date_Utils::DATEONLYFORMAT, $start );
+				$start = gmdate( Tribe__Date_Utils::DATEONLYFORMAT, $start );
 			}
 			?>
 			<input
