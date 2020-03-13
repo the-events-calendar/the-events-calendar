@@ -15,10 +15,10 @@
  *
  */
 
-/* translators: %s: Events (plural). */
+/* translators: %s: events (plural). */
 $placeholder = sprintf( __( 'Search for %s', 'the-events-calendar' ), tribe_get_event_label_plural_lowercase() );
 
-/* translators: %s: Events (plural). */
+/* translators: %s: events (plural). */
 $aria_label = sprintf( __( 'Enter Keyword. Search for %s by Keyword.', 'the-events-calendar' ), tribe_get_event_label_plural_lowercase() );
 ?>
 <div

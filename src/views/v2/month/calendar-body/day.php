@@ -60,7 +60,7 @@ $events_label_singular = tribe_get_event_label_singular_lowercase();
 $events_label_plural   = tribe_get_event_label_plural_lowercase();
 
 $num_events_label = sprintf(
-	/* translators: %1$s: number of events, %2$s: Event (singular), %3$s: Events (plural). */
+	/* translators: %1$s: number of events, %2$s: event (singular), %3$s: events (plural). */
 	_n( '%1$s %2$s', '%1$s %3$s', $day['found_events'], 'the-events-calendar' ),
 	number_format_i18n( $day['found_events'] ),
 	$events_label_singular,

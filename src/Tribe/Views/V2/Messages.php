@@ -101,7 +101,7 @@ class Messages {
 				'There were no results found for <strong>"%1$s"</strong> this month. Try searching next month.',
 				'the-events-calendar'
 			),
-			// translators: the placeholder is the formatted date string, e.g. "February 22, 2020".
+			// translators: %1$s: events (plural), %2$s: the formatted date string, e.g. "February 22, 2020".
 			'day_no_results_found'             => __(
 				'No %1$s scheduled for %2$s. Please try another day.',
 				'the-events-calendar'
