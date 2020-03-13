@@ -24,7 +24,6 @@ use Tribe\Events\Views\V2\Template\Title;
 use Tribe__Events__Main as TEC;
 use Tribe__Rewrite as TEC_Rewrite;
 use Tribe__Utils__Array as Arr;
-use Tribe__Date_Utils as Dates;
 
 /**
  * Class Hooks
@@ -686,5 +685,8 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		$return_value = apply_filters( 'tribe_events_option_convert_live_filters', $return_value, $value );
 
 		return $return_value;
+	}
+
+	protected function control_query( \WP_Query $query ) {
 	}
 }
