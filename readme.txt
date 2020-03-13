@@ -231,7 +231,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Resolve conflict between datepicker holding consistent size when navigating and flexibility on small screen sizes. [TEC-3322]
 * Fix - Respect EA `post_status` from settings when an event does not have a defined value. [TEC-3255]
 * Fix - Save the `post_status` for a scheduled import when using a different value other than `publish` [TEC:3296]
-* Hooks - More refine filter that is used to locate the aggregator admin files `tribe_aggregator_template_file/{$file_name}`. [EA-133]
+* Hooks - New filter to overwrite the location of an admin eventbrite file using only the location of the file name `tribe_aggregator_template_file/{$file_name}`. [EA-133]
 
 = [5.0.2.1] 2020-02-25 =
 

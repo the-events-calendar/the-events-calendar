@@ -330,7 +330,13 @@ class Tribe__Events__Aggregator__Page {
 		 */
 		$file = apply_filters( 'tribe_aggregator_template_file', $file, $name, $data );
 		/**
-		 * Crate a new filter using the file name as part of the filter to remove logic from callbacks.
+		 * Crate a new filter using the file name as part of the filter to remove logic from callbacks, it allow you to
+		 * change the location of the file to be loaded only with the file name like:
+		 *
+		 * Ex: tribe_aggregator_template_file/origins/eventbrite
+		 *
+		 * And removes the need to do a check for a file name inside of a callback fired from the filter above:
+		 * `tribe_aggregator_template_file`
 		 *
 		 * @since TBD
 		 *
@@ -340,7 +346,7 @@ class Tribe__Events__Aggregator__Page {
 		 *
 		 * @return string Complete path to the file to be included.
 		 */
-		$file = apply_filters( "tribe_aggregator_template_file/{$file_name}", $file, $name, $data );
+		$file = apply_filters( "tribe_aggregator_template_file/{$file_name}", $file, $name, $data ); // phpcs:ignore
 
 		if ( ! file_exists( $file ) ) {
 			return false;
@@ -354,7 +360,7 @@ class Tribe__Events__Aggregator__Page {
 		 * @param string $name     Template name
 		 * @param array  $data     The Data that will be used on this template
 		 */
-		do_action( 'tribe_aggregator_template_before_include', $file, $name, $data );
+		do_action( 'tribe_aggregator_template_before_include', $file, $name, $data ); // phpcs:ignore
 
 		// Make any provided variables available in the template's symbol table
 		if ( is_array( $data ) ) {
