@@ -16,10 +16,10 @@
  */
 
 /* translators: %s: Events (plural). */
-$placeholder = sprintf( __( 'Search for %s', 'the-events-calendar' ), tribe_get_event_label_plural() );
+$placeholder = sprintf( __( 'Search for %s', 'the-events-calendar' ), tribe_get_event_label_plural_lowercase() );
 
 /* translators: %s: Events (plural). */
-$aria_label = sprintf( __( 'Enter Keyword. Search for %s by Keyword.', 'the-events-calendar' ), tribe_get_event_label_plural() );
+$aria_label = sprintf( __( 'Enter Keyword. Search for %s by Keyword.', 'the-events-calendar' ), tribe_get_event_label_plural_lowercase() );
 ?>
 <div
 	class="tribe-common-form-control-text tribe-events-c-search__input-control tribe-events-c-search__input-control--keyword"

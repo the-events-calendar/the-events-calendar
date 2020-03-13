@@ -56,8 +56,8 @@ if ( $today_date > $day_date ) {
 // Only add id if events exist on the day.
 $mobile_day_id = 'tribe-events-calendar-mobile-day-' . $day['year_number'] . '-' . $day['month_number'] . '-' . $day['day_number'];
 
-$events_label_singular = tribe_get_event_label_singular();
-$events_label_plural   = tribe_get_event_label_plural();
+$events_label_singular = tribe_get_event_label_singular_lowercase();
+$events_label_plural   = tribe_get_event_label_plural_lowercase();
 
 $num_events_label = sprintf(
 	/* translators: %1$s: number of events, %2$s: Event (singular), %3$s: Events (plural). */

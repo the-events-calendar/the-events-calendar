@@ -136,7 +136,7 @@ class Messages {
 		$need_events_label_keys = apply_filters( 'tribe_events_views_v2_messages_need_events_label_keys', $need_events_label_keys );
 
 		if ( in_array( $key, $need_events_label_keys ) ) {
-			array_unshift( $values, tribe_get_event_label_plural() );
+			array_unshift( $values, tribe_get_event_label_plural_lowercase() );
 		}
 
 		return sprintf( $match, ...$values );
