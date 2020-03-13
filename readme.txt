@@ -233,7 +233,9 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Respect EA `post_status` from settings when an event does not have a defined value. [TEC-3255]
 * Fix - Save the `post_status` for a scheduled import when using a different value other than `publish` [TEC-3296]
 * Fix - Resolve an issue in Views v2 that would break URLs when the event single and archive slugs have the same value due to the "Events URL slug" and "Single event URL slug" settings or due to their translations [TEC-3254]
+* Fix - Restore correct handling of events RSS feeds; events will show in the RSS feed in ascending start date, starting from the current day and the event publish date will be set to the event start date [TEC-3252]
 * Hook - Add filters `tribe_events_liveupdate_automatic_label_text` and `tribe_events_liveupdate_manual_label_text` to allow Filter Bar to include itself in those lables. [TEC-3322]
+* Hook - Add the `tribe_views_v2_events_query_controller_active` filter; returning a falsy value from this filter will prevent Views v2 from altering the WordPress query. This filter allows handling situations where Views v2 might interfere with third party plugins (e.g. custom RSS feed implementations) [TEC-3252]
 
 = [5.0.2.1] 2020-02-25 =
 

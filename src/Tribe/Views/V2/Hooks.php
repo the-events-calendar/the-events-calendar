@@ -24,7 +24,6 @@ use Tribe\Events\Views\V2\Template\Title;
 use Tribe__Events__Main as TEC;
 use Tribe__Rewrite as TEC_Rewrite;
 use Tribe__Utils__Array as Arr;
-use Tribe__Date_Utils as Dates;
 
 /**
  * Class Hooks
@@ -98,6 +97,11 @@ class Hooks extends \tad_DI52_ServiceProvider {
 			add_filter( 'wp_title', [ $this, 'filter_wp_title' ], 10, 2 );
 			add_filter( 'document_title_parts', [ $this, 'filter_document_title_parts' ] );
 			add_filter( 'pre_get_document_title', [ $this, 'pre_get_document_title' ], 20 );
+		}
+
+		// Replace the `pubDate` in event feeds.
+		if ( ! has_filter( 'get_post_time', [ 'Tribe__Events__Templates', 'event_date_to_pubDate' ], 10 ) ) {
+			add_filter( 'get_post_time', [ 'Tribe__Events__Templates', 'event_date_to_pubDate' ], 10, 3 );
 		}
 	}
 
