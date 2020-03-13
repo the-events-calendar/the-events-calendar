@@ -222,6 +222,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [5.0.3] TBD =
 
+* Tweak - Add back missing JSON-LD to Single Events. [TEC-3262]
 * Tweak - Minify the Freemius svg assets. [TEC-3215]
 * Tweak - Remove "(beta)" label from URL source type of import. [TEC-3289]
 * Tweak - Reword the Filter Activation setting's labels for better clarity.  [FBAR-79]

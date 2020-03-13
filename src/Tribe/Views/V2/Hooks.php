@@ -59,6 +59,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_action( 'tribe_events_pro_shortcode_tribe_events_after_assets', [ $this, 'action_disable_shortcode_assets_v1' ] );
 		add_action( 'updated_option', [ $this, 'action_save_wplang' ], 10, 3 );
 		add_action( 'the_post', [ $this, 'manage_sensitive_info' ] );
+		add_action( 'get_header', [ $this, 'print_single_json_ld' ] );
 	}
 
 	/**
@@ -690,5 +691,15 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		$return_value = apply_filters( 'tribe_events_option_convert_live_filters', $return_value, $value );
 
 		return $return_value;
+	}
+
+	/**
+	 * Print Single Event JSON-LD.
+	 *
+	 * @since TBD
+	 */
+	public function print_single_json_ld() {
+
+		$this->container->make( Template\JSON_LD::class )->print_single_json_ld();
 	}
 }
