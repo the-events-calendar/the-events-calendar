@@ -221,9 +221,16 @@ Remember to always make a backup of your database and files before updating!
 == Changelog ==
 
 = [5.0.3] TBD =
+
 * Tweak - Minify the Freemius svg assets. [TEC-3215]
 * Tweak - Remove "(beta)" label from URL source type of import. [TEC-3289]
 * Fix - Ensure that any values for `liveFilterUpdate` that are not `automatic` or `manual` get converted. [FBAR-83]
+* Fix - Breakpoint code compatibility with the latest version of jQuery 3.4.1 [BTRIA-154]
+* Fix - Remove numbers from listed events in event list widget for Genesis theme. [TEC-2957]
+* Fix - Customizer accent color affects featured line and text. [TEC-3277]
+* Fix - Resolve conflict between datepicker holding consistent size when navigating and flexibility on small screen sizes. [TEC-3322]
+* Fix - Respect EA `post_status` from settings when an event does not have a defined value. [TEC-3255]
+* Fix - Save the `post_status` for a scheduled import when using a different value other than `publish` [TEC:3296]
 
 = [5.0.2.1] 2020-02-25 =
 

@@ -20,11 +20,11 @@ class TemplateBootstrapTest extends \Codeception\TestCase\WPTestCase {
 		return [
 			'invalid'       => [
 				'foo',
-				'event',
+				'foo',
 			],
 			'numeric'       => [
 				2,
-				'event',
+				2,
 			],
 			'default'       => [
 				'default',
@@ -56,7 +56,7 @@ class TemplateBootstrapTest extends \Codeception\TestCase\WPTestCase {
 			],
 			'slug_page'     => [
 				'page',
-				'event',
+				'page',
 			],
 		];
 	}
