@@ -14,7 +14,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 			<span class="tribe-common-a11y-visual-hide">
-				6 Events,
+				6 events,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
@@ -24,8 +24,8 @@
 		</h3>
 								<em
 				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--featured"
-				aria-label="Has featured Events"
-				title="Has featured Events"
+				aria-label="Has featured events"
+				title="Has featured events"
 			>
 			</em>
 			</button>
@@ -36,7 +36,7 @@
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
 			<span class="tribe-common-a11y-visual-hide">
-				6 Events,
+				6 events,
 			</span>
 			<time
 				class="tribe-events-calendar-month__day-date-daynum"
