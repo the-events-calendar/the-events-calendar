@@ -24,7 +24,6 @@ use Tribe\Events\Views\V2\Template\Title;
 use Tribe__Events__Main as TEC;
 use Tribe__Rewrite as TEC_Rewrite;
 use Tribe__Utils__Array as Arr;
-use Tribe__Date_Utils as Dates;
 
 /**
  * Class Hooks
@@ -60,6 +59,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_action( 'tribe_events_pro_shortcode_tribe_events_after_assets', [ $this, 'action_disable_shortcode_assets_v1' ] );
 		add_action( 'updated_option', [ $this, 'action_save_wplang' ], 10, 3 );
 		add_action( 'the_post', [ $this, 'manage_sensitive_info' ] );
+		add_action( 'get_header', [ $this, 'print_single_json_ld' ] );
 	}
 
 	/**
@@ -98,6 +98,11 @@ class Hooks extends \tad_DI52_ServiceProvider {
 			add_filter( 'wp_title', [ $this, 'filter_wp_title' ], 10, 2 );
 			add_filter( 'document_title_parts', [ $this, 'filter_document_title_parts' ] );
 			add_filter( 'pre_get_document_title', [ $this, 'pre_get_document_title' ], 20 );
+		}
+
+		// Replace the `pubDate` in event feeds.
+		if ( ! has_filter( 'get_post_time', [ 'Tribe__Events__Templates', 'event_date_to_pubDate' ], 10 ) ) {
+			add_filter( 'get_post_time', [ 'Tribe__Events__Templates', 'event_date_to_pubDate' ], 10, 3 );
 		}
 	}
 
@@ -686,5 +691,15 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		$return_value = apply_filters( 'tribe_events_option_convert_live_filters', $return_value, $value );
 
 		return $return_value;
+	}
+
+	/**
+	 * Print Single Event JSON-LD.
+	 *
+	 * @since TBD
+	 */
+	public function print_single_json_ld() {
+
+		$this->container->make( Template\JSON_LD::class )->print_single_json_ld();
 	}
 }
