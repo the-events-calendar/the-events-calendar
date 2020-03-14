@@ -84,7 +84,7 @@
 		name="tribe-events-views[tribe-bar-search]"
 		value=""
 		placeholder="Search for events"
-		aria-label="Enter Keyword. Search for Events by Keyword."
+		aria-label="Enter Keyword. Search for events by Keyword."
 	/>
 </div>
 		</div>
@@ -419,7 +419,7 @@
 			>
 				1			</time>
 		</h3>
-					<em
+								<em
 				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--event"
 				aria-label="Has events"
 				title="Has events"
