@@ -97,7 +97,7 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract extends Tribe__Tabbed_V
 		$record = Tribe__Events__Aggregator__Records::instance()->get_by_origin( $post_data['origin'] );
 
 		$meta = [
-			'import_name'   => empty ( $post_data['import_name'] ) ? '' : sanitize_text_field( trim( $post_data['import_name'] ) ),
+			'import_name'   => empty( $post_data['import_name'] ) ? '' : sanitize_text_field( trim( $post_data['import_name'] ) ),
 			'origin'        => $post_data['origin'],
 			'type'          => empty( $data['import_type'] ) ? 'manual' : $data['import_type'],
 			'frequency'     => empty( $data['import_frequency'] ) ? null : $data['import_frequency'],
