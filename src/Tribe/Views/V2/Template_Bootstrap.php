@@ -26,6 +26,14 @@ use WP_Query;
  * @package Tribe\Events\Views\V2
  */
 class Template_Bootstrap {
+	/**
+	 * A cache array shared among instances.
+	 *
+	 * @since 5.0.1
+	 *
+	 * @var array<string,array>
+	 */
+	protected static $cache = [ 'should_load' => [] ];
 
 	/**
 	 * An instance of the Template Manager object.
@@ -61,19 +69,21 @@ class Template_Bootstrap {
 	}
 
 	/**
-	 * Determines with backwards compatibility in mind, which template user has selected
-	 * on the Events > Settings page as their base Default template
+	 * Determines, with backwards compatibility in mind, which template user has selected
+	 * on the Events > Settings page as their base Default template.
 	 *
 	 * @since  4.9.2
+	 * @since TBD specifically pass 'event' to be clearer down the line where we check for custom templates.
 	 *
-	 * @return string Either 'event' or 'page' based templates
+	 * @return string Either 'event', 'page' or custom based templates
 	 */
 	public function get_template_setting() {
-		$template = 'event';
 		$default_value = 'default';
-		$setting = tribe_get_option( 'tribeEventsTemplate', $default_value );
+		$template      = tribe_get_option( 'tribeEventsTemplate', $default_value );
 
-		if ( $default_value === $setting ) {
+		if ( empty( $template ) ) {
+			$template = 'event';
+		} elseif ( $default_value === $template ) {
 			$template = 'page';
 		}
 
@@ -81,19 +91,20 @@ class Template_Bootstrap {
 	}
 
 	/**
-	 * Based on the base template setting we fetch the respective object
+	 * Based on the admin template setting we fetch the respective object
 	 * to handle the inclusion of the main file.
 	 *
 	 * @since  4.9.2
+	 * @since TBD inverted logic, as all the custom templates are page templates
 	 *
 	 * @return object
 	 */
 	public function get_template_object() {
 		$setting = $this->get_template_setting();
 
-		return $setting === 'page'
-			? tribe( Template\Page::class )
-			: tribe( Template\Event::class );
+		return 'event' === $setting
+			? tribe( Template\Event::class )
+			: tribe( Template\Page::class );
 	}
 
 	/**
@@ -126,8 +137,8 @@ class Template_Bootstrap {
 		$setting = $this->get_template_setting();
 
 		// A number of TEC, and third-party, functions, depend on this. Let's fire it.
-		global $post;
-		do_action( 'the_post', $post );
+		global $post, $wp_query;
+		do_action( 'the_post', $post, $wp_query );
 
 		ob_start();
 		if ( 'page' === $setting ) {
@@ -261,6 +272,11 @@ class Template_Bootstrap {
 			$query = tribe_get_global_query_object();
 		}
 
+		$should_load = null;
+		if ( ! empty( $query->query_vars_hash ) && isset( static::$cache['should_load'][ $query->query_vars_hash ] ) ) {
+			$should_load = static::$cache['should_load'][ $query->query_vars_hash ];
+		}
+
 		/**
 		 * Allows filtering if bootstrap should load.
 		 *
@@ -269,16 +285,22 @@ class Template_Bootstrap {
 		 * @param null|boolean    $should_load  Anything other then null will be returned after casting as bool.
 		 * @param \WP_Query       $query        The current WP Query object.
 		 */
-		$should_load = apply_filters( 'tribe_events_views_v2_bootstrap_pre_should_load', null, $query );
+		$should_load = apply_filters( 'tribe_events_views_v2_bootstrap_pre_should_load', $should_load, $query );
 		if ( null !== $should_load ) {
+			static::$cache['should_load'][ $query->query_vars_hash ] = (bool) $should_load;
+
 			return (bool) $should_load;
 		}
 
 		if ( ! $query instanceof \WP_Query ) {
+			static::$cache['should_load'][ $query->query_vars_hash ] = false;
+
 			return false;
 		}
 
-		if ( is_404() ) {
+		if ( $query->is_404() ) {
+			static::$cache['should_load'][ $query->query_vars_hash ] = false;
+
 			return false;
 		}
 
@@ -289,7 +311,11 @@ class Template_Bootstrap {
 		 *
 		 * @see \Tribe__Events__Query::parse_query() where this property is set.
 		 */
-		return $query->is_main_query() && ! empty( $query->tribe_is_event_query );
+		$should_load = $query->is_main_query() && ! empty( $query->tribe_is_event_query );
+
+		static::$cache['should_load'][ $query->query_vars_hash ] = $should_load;
+
+		return $should_load;
 	}
 
 	/**
@@ -302,6 +328,13 @@ class Template_Bootstrap {
 	 * @return string Path to the File that initalizes the template
 	 */
 	public function filter_template_include( $template ) {
+		$query = tribe_get_global_query_object();
+
+		// Global 404 needs to be respected.
+		if ( $query->is_404() ) {
+			return $template;
+		}
+
 		// Determine if we should load bootstrap or bail.
 		if ( ! $this->should_load() ) {
 			return $template;
@@ -309,8 +342,9 @@ class Template_Bootstrap {
 
 		$context   = tribe_context();
 		$view_slug = $context->get( 'view' );
+		$is_embed  = V1_Templates::is_embed() || 'embed' === $view_slug;
 
-		if ( V1_Templates::is_embed() || 'embed' === $view_slug ) {
+		if ( $is_embed ) {
 			return $this->get_v1_embed_template_path();
 		}
 
@@ -358,6 +392,10 @@ class Template_Bootstrap {
 	 * @return string
 	 */
 	public function filter_template_file( $file, $name, $template ) {
+		if ( is_404() ) {
+			return $file;
+		}
+
 		$template_name = end( $name );
 
 		// Bail when we dont are not loading 'default-template'.

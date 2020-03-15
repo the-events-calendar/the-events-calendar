@@ -11,7 +11,7 @@
  *
  * @var string $link The URL to the previous page.
  *
- * @version 5.0.0
+ * @version 5.0.1
  *
  */
 ?>
@@ -21,10 +21,12 @@
 		rel="prev"
 		class="tribe-events-c-nav__prev tribe-common-b2 tribe-common-b1--min-medium"
 		data-js="tribe-events-view-link"
+		aria-label="<?php echo esc_attr( sprintf( __( 'Previous %1$s', 'the-events-calendar' ), tribe_get_event_label_plural() ) ); ?>"
+		title="<?php echo esc_attr( sprintf( __( 'Previous %1$s', 'the-events-calendar' ), tribe_get_event_label_plural() ) ); ?>"
 	>
 		<span class="tribe-events-c-nav__prev-label">
 			<?php
-				$events_label = '<span class="tribe-events-c-nav__prev-label-plural">' . tribe_get_event_label_plural() . '</span>';
+				$events_label = '<span class="tribe-events-c-nav__prev-label-plural tribe-common-a11y-visual-hide">' . tribe_get_event_label_plural() . '</span>';
 				echo wp_kses(
 					/* translators: %s: Event (plural or singular). */
 					sprintf( __( 'Previous %1$s', 'the-events-calendar' ), $events_label ),

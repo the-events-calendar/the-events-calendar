@@ -4,7 +4,7 @@ Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.9
-Stable tag: 5.0.0
+Stable tag: 5.0.3
 Tested up to: 5.3.2
 Requires PHP: 5.6
 License: GPLv2 or later
@@ -94,17 +94,14 @@ That's it! Just configure your settings as you see fit, and you're on your way t
 == Screenshots ==
 
 1. Month View with hover
-2. Month View
-3. List View
-4. Day View
-5. Single event
-6. Event Editor
-7. Events admin listing
-8. General Settings
-9. Display Settings
-10. Events List Widget
-11. Mobile Month View
-12. CSV Importer
+2. Mobile Views
+3. Single event
+4. List View
+5. Event Editor
+6. Events admin listing
+7. General Settings
+8. Display Settings
+9. CSV Importer
 
 == Frequently Asked Questions ==
 
@@ -213,7 +210,97 @@ Some things to consider before posting on the forum:
 
 Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to [@TheEventsCal](https://twitter.com/TheEventsCal) and tell us why. We'll do what we can to make it right.
 
+== Upgrade Notice ==
+
+= [5.0] =
+
+Please see the changelog for the complete list of changes in this release.
+Previous versions of The Events Calendar are not cross-compatible with 5.X add-ons.
+Remember to always make a backup of your database and files before updating!
+
 == Changelog ==
+
+= [5.0.3] TBD =
+
+* Tweak - Add back missing JSON-LD to Single Events. [TEC-3262]
+* Tweak - Minify the Freemius svg assets. [TEC-3215]
+* Tweak - Remove "(beta)" label from URL source type of import. [TEC-3289]
+* Tweak - Reword the Filter Activation setting's labels for better clarity.  [FBAR-79]
+* Fix - Ensure that any values for `liveFilterUpdate` that are not `automatic` or `manual` get converted. [FBAR-83]
+* Fix - Breakpoint code compatibility with the latest version of jQuery 3.4.1 [BTRIA-154]
+* Fix - Remove numbers from listed events in event list widget for Genesis theme. [TEC-2957]
+* Fix - Customizer accent color affects featured line and text. [TEC-3277]
+* Fix - Resolve conflict between datepicker holding consistent size when navigating and flexibility on small screen sizes. [TEC-3322]
+* Fix - Respect EA `post_status` from settings when an event does not have a defined value. [TEC-3255]
+* Fix - Save the `post_status` for a scheduled import when using a different value other than `publish`. [TEC-3296]
+* Fix - Update events, venues, and organizers to use dynamic labels. [TEC-3280]
+* Fix - Resolve an issue in Views v2 that would break URLs when the event single and archive slugs have the same value due to the "Events URL slug" and "Single event URL slug" settings or due to their translations [TEC-3254]
+* Fix - Restore correct handling of events RSS feeds; events will show in the RSS feed in ascending start date, starting from the current day and the event publish date will be set to the event start date [TEC-3252]
+* Hook - Add filters `tribe_events_liveupdate_automatic_label_text` and `tribe_events_liveupdate_manual_label_text` to allow Filter Bar to include itself in those lables. [TEC-3322]
+* Hook - Add the `tribe_views_v2_events_query_controller_active` filter; returning a falsy value from this filter will prevent Views v2 from altering the WordPress query. This filter allows handling situations where Views v2 might interfere with third party plugins (e.g. custom RSS feed implementations) [TEC-3252]
+
+= [5.0.2.1] 2020-02-25 =
+
+* Fix - Plugin dependency registration with `Plugin_Register` will not prevent loading of all plugins in list if the last item loaded fails. [TCMN-41]
+
+= [5.0.2] 2020-02-19 =
+
+* Version - The Events Calendar 5.0.2 is only compatible with Filter Bar 4.9.2 and higher
+* Version - The Events Calendar 5.0.2 is only compatible with Events Calendar PRO 5.0.2 and higher
+* Tweak - Modify Link Color Customizer option for single event links in description, the venue, the organizer, and the website link in classic editor.  [TEC-3219]
+* Tweak - Move link color option to General tab in Customizer and remove Text tab.  [TEC-3244]
+* Tweak - Freemius Opt-out workflow now present on all occasions [TEC-3171]
+* Tweak - Freemius updated to the latest version 2.3.2 [TEC-3171]
+* Tweak - Remove the "Default stylesheet - full" option from display settings, for the new views. [TEC-3125]
+* Tweak - Change the live refresh option to a radio, adjust conditional checks to accommodate. [TEC-3072]
+* Fix - Freemius activation URL send via email works as expected [TEC-3218]
+* Fix - Improve compatibility from Updated Views V2 with Beaver Builder plugins [TEC-3248]
+* Fix - More robust handling of `hide_from_listings` in REST API v2, thanks @maxm123
+* Fix - Make sure the new Views (v2) will correctly print JSON-LD schema information [TEC-3241]
+* Language - 4 new strings added, 248 updated, 1 fuzzied, and 3 obsoleted
+
+= [5.0.1] 2020-02-12 =
+
+* Version - The Events Calendar 5.0.1 is only compatible with Filter Bar 4.9.1 and higher
+* Version - The Events Calendar 5.0.1 is only compatible with Events Calendar PRO 5.0.1 and higher
+* Feature - Add the "Accent Color" option in the customizer, for the new views. [TEC-3067]
+* Fix - Fix venue block title from being indented in Twenty Twenty theme. [TEC-3140]
+* Fix - Fix website block label from disappearing when adding event details classic block. [TEC-2971]
+* Fix - Fix style overrides for new view shortcodes for Enfold theme. [ECP-315]
+* Fix - Fix events bar input class recognition for JS handling in new views. [TEC-3091]
+* Fix - Ensure datepicker does not get cut off in small width screens for new views. [TEC-2983]
+* Fix - Venue and organizer blocks link to venue and organizer pages if Events Calendar Pro is activated. [ECP-14]
+* Fix - Use proper check for map on venue block to apply proper class. [TEC-3020]
+* Fix - Remove font family applied to organizer block to allow theme styles to be applied. [TEC-2974]
+* Fix - Fix numbers breaking into two lines in datepicker in Twenty Twenty theme. [TEC-2999]
+* Fix - Fix tooltips being cut off and hidden in month view. [TEC-3000]
+* Fix - Fix event sharing block cutting off text in block editor admin when editing event. [TEC-2972]
+* Fix - Fix disappearing price description in block editor admin when editing event. [TEC-2992]
+* Fix - Allow venues to be properly removed by clicking the remove venue button in the venue block. [TEC-2965]
+* Fix - Ensure map does not display if enable map setting is disabled. [TEC-3013]
+* Fix - Fix the datepicker width problem in Google Chrome, for the new views. [TEC-2995]
+* Fix - Fix an issue where Venue provinces would be incorrectly populated in iCal exports [TEC-3223]
+* Fix - Deleting events after X feature no longer will delete posts with `_EventEndDate` meta [TEC-3233]
+* Tweak - Adjust tooltip title styles for Twenty Twenty theme. [TEC-2998]
+* Tweak - Remove find events button and related data when events bar is disabled. [TEC-3074]
+* Tweak - Ensure datepicker always updates view via live refresh. [TEC-3073]
+* Tweak - Adjust customizer labels for sites using the new views [TEC-3066]
+* Tweak - Allow start datetime and end datetime to be the same to hide end datetime in frontend when using block editor. [TEC-3009]
+* Tweak - Move the "Link Color" option in the customizer, for the new views. [TEC-3067]
+* Language - 14 new strings added, 256 updated, 0 fuzzied, and 5 obsoleted
+
+= [5.0.0.2] 2020-02-06 =
+
+* Fix - Datepicker format now properly defaults to the correct value when Display Settings have not been saved. [TEC-3229]
+* Fix - New views mobile breakpoints interactions with Caching plugins resolved. [TEC-3221]
+
+= [5.0.0.1] 2020-01-31 =
+
+* Fix - Events with timezones that differ from the site timezone now display on the correct date. [TEC-3208]
+* Fix - Multi-day events now display on all days that they are supposed to. [TEC-3212]
+* Fix - End of day cutoff is now being observed appropriately when creating the day grid stack. [TEC-3210]
+* Fix - Fix number of parameters when doing `the_post` action, for the single event view in the new views. [TEC-3214]
+* Fix - 404s on permalinks have been resolved by moving the flush permalink action to a later moment of time on activation after all rules have been declared. [TEC-3211]
 
 = [5.0.0] 2020-01-27 =
 

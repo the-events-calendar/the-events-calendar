@@ -12,6 +12,7 @@
 		name="tribe-events-views[tribe-bar-search]"
 		value=""
 		placeholder="Search for events"
+		aria-label="Enter Keyword. Search for events by Keyword."
 	/>
 </div>
 ';

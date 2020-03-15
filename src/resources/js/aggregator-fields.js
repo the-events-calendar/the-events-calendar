@@ -1,3 +1,4 @@
+/* eslint-disable */
 var tribe_aggregator = tribe_aggregator || {};
 
 // Setup the global Variable
@@ -186,10 +187,7 @@ tribe_aggregator.fields = {
 
 				// A "reset" of the Post Status select2 selector when an origin is selected.
 				if ( '' !== origin ) {
-					$( obj.selector.post_status )
-						.val( ea.default_settings[ origin ][ 'post_status' ] )
-						.select2( 'val', ea.default_settings[ origin ][ 'post_status' ] )
-						.trigger( 'change' );
+					$( obj.selector.post_status ).trigger( 'change' );
 				}
 
 				obj.maybeLimitUrlStartDate()
@@ -292,6 +290,8 @@ tribe_aggregator.fields = {
 
 		var $form = $( '.tribe-ea-form.tribe-validation' );
 
+		obj.reset_post_status();
+
 		// Makes sure we have validation
 		$form.trigger( 'validation.tribe' );
 
@@ -342,6 +342,24 @@ tribe_aggregator.fields = {
 			// create the import
 			obj.create_import( data );
 		}
+	};
+
+	/**
+	 * Reset the post status to the default state when a new import is taking place
+	 */
+	obj.reset_post_status = function() {
+		var $origin = $( obj.selector.origin_field ); // eslint-disable-line no-var
+		var origin = $origin.length === 0 ? '' : $origin.val(); // eslint-disable-line no-var
+
+		if ( origin === '' ) {
+			return;
+		}
+
+		// Set the default state of the post_status
+		$( obj.selector.post_status )
+			.val( ea.default_settings[ origin ].post_status )
+			.select2( 'val', ea.default_settings[ origin ].post_status )
+			.trigger( 'change' );
 	};
 
 	obj.reset_polling_counter = function() {
