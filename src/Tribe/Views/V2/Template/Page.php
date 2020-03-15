@@ -43,7 +43,8 @@ class Page {
 		// If there wasn't any defined we fetch the Index.
 		if ( empty( $template ) ) {
 			$template = get_index_template();
-		} elseif ( 'default' === $template ) {
+		} elseif ( 'page' === $template ) {
+			// We check for page as default is converted to page in Tribe\Events\Views\V2\Template_Bootstrap->in get_template_setting().
 			$template = get_page_template();
 		} else {
 			// Admin setting set to a custom template.
