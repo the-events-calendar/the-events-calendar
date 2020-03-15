@@ -320,7 +320,7 @@ class Context extends \tad_DI52_ServiceProvider {
 						Tribe__Context::FUNC          => [
 							static function () {
 								return ! empty( tribe_get_request_var( Organizer::POSTTYPE, false ) ) ?: Tribe__Context::NOT_FOUND;
-							}
+							},
 						],
 						Tribe__Context::LOCATION_FUNC => [
 							'post_type',
