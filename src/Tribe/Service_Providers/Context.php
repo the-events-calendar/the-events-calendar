@@ -261,22 +261,26 @@ class Context extends \tad_DI52_ServiceProvider {
 					'read' => [
 						Tribe__Context::FUNC          => [
 							static function () {
-								return count( array_filter( [
+								$found = [
 									! empty( tribe_get_request_var( TEC::POSTTYPE, false ) ),
 									! empty( tribe_get_request_var( Venue::POSTTYPE, false ) ),
 									! empty( tribe_get_request_var( Organizer::POSTTYPE, false ) ),
-								] ) );
-							}
+								];
+								$found = array_filter( $found );
+
+								return count( $found ) ?: Tribe__Context::NOT_FOUND;
+							},
 						],
 						Tribe__Context::LOCATION_FUNC => [
 							'post_type',
 							static function ( $post_type ) {
-								return count(
+								$found = count(
 									array_intersect(
 										(array) $post_type,
-										[ TEC::POSTTYPE, Venue::POSTTYPE, Organizer::POSTTYPE ]
+										[ TEC::POSTTYPE, Venue::POSTTYPE, Organizer::POSTTYPE, ]
 									)
 								);
+								return $found ?: Tribe__Context::NOT_FOUND;
 							},
 						],
 					],
@@ -285,8 +289,8 @@ class Context extends \tad_DI52_ServiceProvider {
 					'read' => [
 						Tribe__Context::FUNC          => [
 							static function () {
-								return ! empty( tribe_get_request_var( TEC::POSTTYPE, false ) );
-							}
+								return ! empty( tribe_get_request_var( TEC::POSTTYPE, false ) ) ?: Tribe__Context::NOT_FOUND;
+							},
 						],
 						Tribe__Context::LOCATION_FUNC => [
 							'post_type',
@@ -300,8 +304,8 @@ class Context extends \tad_DI52_ServiceProvider {
 					'read' => [
 						Tribe__Context::FUNC          => [
 							static function () {
-								return ! empty( tribe_get_request_var( Venue::POSTTYPE, false ) );
-							}
+								return ! empty( tribe_get_request_var( Venue::POSTTYPE, false ) ) ?: Tribe__Context::NOT_FOUND;
+							},
 						],
 						Tribe__Context::LOCATION_FUNC => [
 							'post_type',
@@ -315,7 +319,7 @@ class Context extends \tad_DI52_ServiceProvider {
 					'read' => [
 						Tribe__Context::FUNC          => [
 							static function () {
-								return ! empty( tribe_get_request_var( Organizer::POSTTYPE, false ) );
+								return ! empty( tribe_get_request_var( Organizer::POSTTYPE, false ) ) ?: Tribe__Context::NOT_FOUND;
 							}
 						],
 						Tribe__Context::LOCATION_FUNC => [
