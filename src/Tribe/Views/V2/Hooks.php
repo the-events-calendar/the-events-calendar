@@ -303,10 +303,6 @@ class Hooks extends \tad_DI52_ServiceProvider {
 			$classes = $this->container->make( Theme_Compatibility::class )->filter_add_body_classes( $classes );
 			$classes = $this->container->make( Template_Bootstrap::class )->filter_add_body_classes( $classes );
 		}
-		//if ( ! empty( tribe_context()->get( 'view_request', false ) ) ) {
-			//$classes = $this->container->make( Theme_Compatibility::class )->filter_add_body_classes( $classes );
-			//$classes = $this->container->make( Template_Bootstrap::class )->filter_add_body_classes( $classes );
-		//}
 
 		return $classes;
 	}
