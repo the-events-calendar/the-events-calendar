@@ -125,6 +125,24 @@ wp_nonce_field( 'tribe-aggregator-save-import', 'tribe_aggregator_nonce' );
 			</td>
 		</tr>
 
+		<tr class="tribe-dependent" data-depends="#tribe-ea-field-origin" data-condition-not-empty>
+			<th scope="row">
+				<label for="tribe-ea-field-import_name"><?php echo esc_html__( 'Import Name:', 'the-events-calendar' ); ?></label>
+			</th>
+			<td>
+				<div class="tribe-refine">
+					<input
+						name="aggregator[import_name]"
+						type="text"
+						id="tribe-ea-field-import_name"
+						class="tribe-ea-field tribe-ea-size-large"
+						placeholder="<?php echo esc_attr__( 'Optional', 'the-events-calendar' ); ?>"
+						value="<?php echo esc_attr( empty( $record->meta['import_name'] ) ? '' : $record->meta['import_name'] ); ?>"
+					>
+				</div>
+			</td>
+		</tr>
+
 		<?php
 		$form_args = [
 			'record'            => $record,
