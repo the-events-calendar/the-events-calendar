@@ -324,7 +324,7 @@ class Tribe__Events__Integrations__Freemius {
 	) {
 		$class = $this->object_class;
 
-		wp_enqueue_style( 'tribe-' . $this->slug . '-freemius' );
+		tribe_asset_enqueue( "tribe-{$this->slug}-freemius" );
 
 		// Add the heading HTML.
 		$plugin_name = $this->name;
