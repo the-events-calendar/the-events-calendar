@@ -67,10 +67,10 @@ class Tribe__Events__Aggregator__API__Origins extends Tribe__Events__Aggregator_
 				'upsell' => true,
 			),
 			'url' => (object) array(
-				'id' => 'url',
-				'name' => __( 'Other URL (beta)', 'the-events-calendar' ),
+				'id'       => 'url',
+				'name'     => __( 'Other URL', 'the-events-calendar' ),
 				'disabled' => true,
-				'upsell' => true,
+				'upsell'   => true,
 			),
 		);
 

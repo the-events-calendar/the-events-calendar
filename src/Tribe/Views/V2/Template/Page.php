@@ -21,7 +21,7 @@ class Page {
 	/**
 	 * Makes sure we save the current post before hijacking for a page.
 	 *
-	 * @since TBD
+	 * @since  5.0.2
 	 *
 	 * @var array[ WP_Post ] $hijacked_post All WP_Posts on this query.
 	 */
@@ -36,12 +36,19 @@ class Page {
 	 * @return string Path for the Page template to be loaded.
 	 */
 	public function get_path() {
+
 		// Fetches the WP default path for Page.
-		$template = get_page_template();
+		$template = tribe( Template_Bootstrap::class )->get_template_setting();
 
 		// If there wasn't any defined we fetch the Index.
 		if ( empty( $template ) ) {
 			$template = get_index_template();
+		} elseif ( 'page' === $template ) {
+			// We check for page as default is converted to page in Tribe\Events\Views\V2\Template_Bootstrap->in get_template_setting().
+			$template = get_page_template();
+		} else {
+			// Admin setting set to a custom template.
+			$template = locate_template( $template );
 		}
 
 		return $template;
@@ -117,7 +124,7 @@ class Page {
 	/**
 	 * Determines if we have hijacked posts for this request.
 	 *
-	 * @since TBD
+	 * @since  5.0.2
 	 *
 	 * @return bool Did we hijack posts on this request.
 	 */
@@ -128,7 +135,7 @@ class Page {
 	/**
 	 * Gets the hijacked posts that we stored.
 	 *
-	 * @since TBD
+	 * @since  5.0.2
 	 *
 	 * @return array[ WP_Post ] Posts that we hijacked earlier.
 	 */
@@ -139,7 +146,7 @@ class Page {
 	/**
 	 * Sets the hijacked posts for later restoring.
 	 *
-	 * @since TBD
+	 * @since  5.0.2
 	 *
 	 * @param array[WP_Post] $posts Which posts to be set as the one hijacked.
 	 *
