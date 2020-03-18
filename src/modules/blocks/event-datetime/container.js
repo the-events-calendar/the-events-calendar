@@ -8,4 +8,4 @@ import EventDateTime from './template';
  * Module Code
  */
 
-withBlockCloser( EventDateTime );
+export default withBlockCloser( EventDateTime );

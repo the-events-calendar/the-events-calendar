@@ -72,7 +72,6 @@ const renderSeparator = ( props, type, className ) => {
 			);
 		default:
 			return null;
-		}
 	}
 };
 
