@@ -47,10 +47,6 @@ describe( '[STORE] - Datetime actions', () => {
 		expect( actions.setMultiDay( false ) ).toMatchSnapshot();
 	} );
 
-	test( 'Action to set the date input visibility', () => {
-		expect( actions.setDateInputVisibility( true ) ).toMatchSnapshot();
-		expect( actions.setDateInputVisibility( false ) ).toMatchSnapshot();
-	} );
 	test( 'Set editable', () => {
 		expect( actions.allowEdits() ).toMatchSnapshot();
 		expect( actions.disableEdits() ).toMatchSnapshot();

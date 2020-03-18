@@ -15,6 +15,24 @@ import {
 } from '@moderntribe/common/utils';
 import * as types from './types';
 
+const { parseFormats, toTime } = momentUtil;
+
+export const setInitialState = ( entityRecord ) => {
+	const start = entityRecord.meta._EventStartDate;
+	const end = entityRecord.meta._EventEndDate;
+
+	DEFAULT_STATE.start = start;
+	DEFAULT_STATE.startTimeInput = toTime( parseFormats( start ) );
+	DEFAULT_STATE.end = end;
+	DEFAULT_STATE.endTimeInput = toTime( parseFormats( end ) );
+	DEFAULT_STATE.naturalLanguage = date.rangeToNaturalLanguage( start, end );
+	DEFAULT_STATE.dateTimeSeparator = entityRecord.meta._EventDateTimeSeparator;
+	DEFAULT_STATE.timeRangeSeparator = entityRecord.meta._EventTimeRangeSeparator;
+	DEFAULT_STATE.allDay = entityRecord.meta._EventAllDay;
+	DEFAULT_STATE.multiDay = ! momentUtil.isSameDay( momentUtil.toMoment( start ), momentUtil.toMoment( end ) );
+	DEFAULT_STATE.timeZone = entityRecord.meta._EventTimezone;
+};
+
 const defaultStartTime = globals.defaultTimes().start ? globals.defaultTimes().start : '08:00:00';
 const defaultEndTime = globals.defaultTimes().end ? globals.defaultTimes().end : '17:00:00';
 const defaultStartTimeSeconds = time.toSeconds( defaultStartTime, time.TIME_FORMAT_HH_MM_SS );
@@ -40,7 +58,6 @@ export const DEFAULT_STATE = {
 	timeZone: date.FORMATS.TIMEZONE.string,
 	timeZoneLabel: date.FORMATS.TIMEZONE.string,
 	showTimeZone: false,
-	showDateInput: false,
 	isEditable: true,
 };
 
@@ -110,11 +127,6 @@ export default ( state = DEFAULT_STATE, action ) => {
 			return {
 				...state,
 				showTimeZone: action.payload.show,
-			};
-		case types.SET_DATE_INPUT_VISIBILITY:
-			return {
-				...state,
-				showDateInput: action.payload.show,
 			};
 		default:
 			return state;

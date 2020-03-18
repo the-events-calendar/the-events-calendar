@@ -14,66 +14,62 @@ const state = {
 
 describe( '[STORE] - Datetime selectors', () => {
 	it( 'Should return the block', () => {
-		expect( selectors.datetimeSelector( state ) ).toEqual( DEFAULT_STATE );
+		expect( selectors.datetimeSelector( state ) ).toMatchSnapshot();
 	} );
 
 	it( 'Should return the all day', () => {
-		expect( selectors.getAllDay( state ) ).toBe( DEFAULT_STATE.allDay );
+		expect( selectors.getAllDay( state ) ).toMatchSnapshot();
 	} );
 
 	it( 'Should return the start date', () => {
-		expect( selectors.getStart( state ) ).toBe( DEFAULT_STATE.start );
+		expect( selectors.getStart( state ) ).toMatchSnapshot();
 	} );
 
 	it( 'Should return the end date', () => {
-		expect( selectors.getEnd( state ) ).toBe( DEFAULT_STATE.end );
+		expect( selectors.getEnd( state ) ).toMatchSnapshot();
 	} );
 
 	it( 'Should return the start time input', () => {
-		expect( selectors.getStartTimeInput( state ) ).toBe( DEFAULT_STATE.startTimeInput );
+		expect( selectors.getStartTimeInput( state ) ).toMatchSnapshot();
 	} );
 
 	it( 'Should return the end time input', () => {
-		expect( selectors.getEndTimeInput( state ) ).toBe( DEFAULT_STATE.endTimeInput );
+		expect( selectors.getEndTimeInput( state ) ).toMatchSnapshot();
 	} );
 
 	it( 'Should return the timezone', () => {
-		expect( selectors.getTimeZone( state ) ).toBe( DEFAULT_STATE.timeZone );
+		expect( selectors.getTimeZone( state ) ).toMatchSnapshot();
 	} );
 
 	it( 'Should return the time zone label', () => {
-		expect( selectors.getTimeZoneLabel( state ) ).toBe( DEFAULT_STATE.timeZoneLabel );
+		expect( selectors.getTimeZoneLabel( state ) ).toMatchSnapshot();
 	} );
 
 	it( 'Should return the time zone visibility', () => {
-		expect( selectors.getTimeZoneVisibility( state ) ).toBe( DEFAULT_STATE.showTimeZone );
+		expect( selectors.getTimeZoneVisibility( state ) ).toMatchSnapshot();
 	} );
 
 	it( 'Should return the multi day', () => {
-		expect( selectors.getMultiDay( state ) ).toBe( DEFAULT_STATE.multiDay );
+		expect( selectors.getMultiDay( state ) ).toMatchSnapshot();
 	} );
 
 	it( 'Should return the date separator', () => {
-		expect( selectors.getDateSeparator( state ) ).toBe( DEFAULT_STATE.dateTimeSeparator );
+		expect( selectors.getDateSeparator( state ) ).toMatchSnapshot();
 	} );
 
 	it( 'Should return time range separator', () => {
-		expect( selectors.getTimeSeparator( state ) ).toBe( DEFAULT_STATE.timeRangeSeparator );
+		expect( selectors.getTimeSeparator( state ) ).toMatchSnapshot();
 	} );
 
 	it( 'Should return the natural language label', () => {
-		expect( selectors.getNaturalLanguageLabel( state ) ).toBe( DEFAULT_STATE.naturalLanguage );
-	} );
-
-	it( 'Should return the natural language label', () => {
-		expect( selectors.getDateInputVisibility( state ) ).toBe( DEFAULT_STATE.showDateInput );
+		expect( selectors.getNaturalLanguageLabel( state ) ).toMatchSnapshot();
 	} );
 
 	it( 'Should return the editable', () => {
-		expect( selectors.isEditable( state ) ).toBe( DEFAULT_STATE.isEditable );
+		expect( selectors.isEditable( state ) ).toMatchSnapshot();
 	} );
 
 	it( 'Should return is same start end', () => {
-		expect( selectors.getSameStartEnd( state ) ).toBe( false );
+		expect( selectors.getSameStartEnd( state ) ).toMatchSnapshot();
 	} );
 } );
