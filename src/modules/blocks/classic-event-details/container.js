@@ -77,19 +77,19 @@ const mapDispatchToProps = ( dispatch, ownProps ) => ( {
 		const filteredBlocks = blocks.filter( ( block ) => {
 			return block.name === `tribe/${ dateTimeBlock.id }`;
 		} );
-console.log('here in event handler');
+
 		if ( ! filteredBlocks.length ) {
 			return;
 		}
-console.log('has filtered blocks');
+
 		const dateTimeButton = document
 			.querySelector( `[data-block="${ filteredBlocks[0].clientId }"]` )
 			.getElementsByClassName( 'tribe-editor__subtitle__headline-button' )[0];
-console.log('looking for datetime button');
+
 		if ( ! dateTimeButton ) {
 			return;
 		}
-console.log('found datetime button');
+
 		// simulate click event on date time button to open dashboard of first date time block
 		dateTimeButton.click();
 	},
