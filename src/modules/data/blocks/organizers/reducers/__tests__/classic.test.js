@@ -19,9 +19,4 @@ describe( '[STORE] - Classic reducer', () => {
 		expect( classic( [ 20, 10 ], actions.removeOrganizerInClassic( 10 ) ) ).toEqual( [ 20 ] );
 		expect( classic( [], actions.removeOrganizerInClassic( 99 ) ) ).toEqual( [] );
 	} );
-
-	it( 'Should set the classic organizers', () => {
-		expect( classic( [], actions.setOrganizersInClassic( [ 1, 2, 3 ] ) ) ).toEqual( [ 1, 2, 3 ] );
-		expect( classic( [ 1 ], actions.setOrganizersInClassic( [ 2, 3 ] ) ) ).toEqual( [ 2, 3 ] );
-	} );
 } );

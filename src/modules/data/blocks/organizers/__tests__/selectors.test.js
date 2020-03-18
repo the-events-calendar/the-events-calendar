@@ -26,26 +26,29 @@ const state = {
 
 describe( '[STORE] - Organizers selectors', () => {
 	it( 'Should return the classic organizers', () => {
-		expect( selectors.getOrganizersInClassic( state ) ).toEqual( [ 98, 99, 100 ] );
+		expect( selectors.getOrganizersInClassic( state ) ).toMatchSnapshot();
 	} );
 
 	it( 'Should return the organizer block', () => {
 		expect( selectors.getOrganizerBlock( state, { clientId: 'firstBlock' } ) )
-			.toEqual( state.events.blocks.organizers.blocks.byId.firstBlock );
+			.toMatchSnapshot();
 		expect( selectors.getOrganizerBlock( state, { clientId: 'secondBlock' } ) )
-			.toEqual( state.events.blocks.organizers.blocks.byId.secondBlock );
+			.toMatchSnapshot();
 		expect( selectors.getOrganizerBlock( state, { clientId: 'thirdBlock' } ) )
-			.toEqual( undefined );
+			.toMatchSnapshot();
 	} );
 
 	it( 'Should return the organizer in a block', () => {
-		expect( selectors.getOrganizerInBlock( state, { clientId: 'firstBlock' } ) ).toEqual( 100 );
-		expect( selectors.getOrganizerInBlock( state, { clientId: 'secondBlock' } ) ).toEqual( 101 );
-		expect( selectors.getOrganizerInBlock( state, { clientId: 'thirdBlock' } ) ).toEqual( undefined );
+		expect( selectors.getOrganizerInBlock( state, { clientId: 'firstBlock' } ) )
+			.toMatchSnapshot();
+		expect( selectors.getOrganizerInBlock( state, { clientId: 'secondBlock' } ) )
+			.toMatchSnapshot();
+		expect( selectors.getOrganizerInBlock( state, { clientId: 'thirdBlock' } ) )
+			.toMatchSnapshot();
 	} );
 
 	it( 'Should return the organizers in a block', () => {
-		expect( selectors.getOrganizersInBlock( state ) ).toEqual( [ 100, 101 ] );
+		expect( selectors.getOrganizersInBlock( state ) ).toMatchSnapshot();
 	} );
 
 	it( 'Should return the mapped organizers', () => {

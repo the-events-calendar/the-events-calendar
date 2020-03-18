@@ -2,17 +2,7 @@
  * Internal dependencies
  */
 import { allIds, byId } from '@moderntribe/events/data/blocks/organizers/reducers/blocks';
-import block from '@moderntribe/events/data/blocks/organizers/reducers/block';
 import { actions } from '@moderntribe/events/data/blocks/organizers';
-
-jest.mock( '@moderntribe/events/data/blocks/organizers/reducers/block', () => {
-	const original = require.requireActual( '@moderntribe/events/data/search/reducers/search' );
-	return {
-		__esModule: true,
-		...original,
-		default: jest.fn( ( state = original.DEFAULT_STATE ) => state ),
-	};
-} );
 
 describe( '[STORE] - Organizer allIDs reducer', () => {
 	test( 'It should return the default state', () => {
@@ -47,7 +37,6 @@ describe( '[STORE] - Organizer byId reducer', () => {
 			byId( {}, action );
 			expect( block ).toHaveBeenCalledWith( undefined, action );
 			expect( block ).toHaveBeenCalledTimes( 1 );
-			block.mockClear();
 		} );
 	} );
 
@@ -64,7 +53,6 @@ describe( '[STORE] - Organizer byId reducer', () => {
 			byId( state, action );
 			expect( block ).toHaveBeenCalledWith( {}, action );
 			expect( block ).toHaveBeenCalledTimes( 1 );
-			block.mockClear();
 		} );
 	} );
 } );
