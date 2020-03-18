@@ -16,6 +16,19 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 	 * @var \WP_Rewrite
 	 */
 	protected $wp_rewrite;
+	/**
+	 * A map of Tribe__Events__Main::instance properties.
+	 *
+	 * @var array<string,string>
+	 */
+	protected $tec_prop_backup;
+
+	/**
+	 * A map of rewrite rules, in the format used by WordPress.
+	 *
+	 * @var array<string,string>
+	 */
+	protected $wp_rewrite_rules;
 
 	public function setUp() {
 		// before
@@ -33,6 +46,9 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 		$wp_rewrite->permalink_structure = '/%postname%/';
 		$wp_rewrite->rewrite_rules();
 
+		// Backup the global $wp_rewrite object rules to avoid interference w/ other tests.
+		$this->wp_rewrite_rules = $wp_rewrite->rules;
+
 		// Create some categories we'll need.
 		wp_create_tag( 'test' );
 		wp_insert_term( 'test', TEC::TAXONOMY );
@@ -40,10 +56,26 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 		list( $parent_id ) = array_values( wp_insert_term( 'parent', TEC::TAXONOMY, [ 'parent' => $grandparent_id ] ) );
 		wp_insert_term( 'child', TEC::TAXONOMY, [ 'parent' => $parent_id ] );
 		static::factory()->event = new Event();
+
+		$tec_main              = TEC::instance();
+		$this->tec_prop_backup = [
+			'rewriteSlug' => $tec_main->rewriteSlug	,
+			'rewriteSlugSingular' => $tec_main->rewriteSlugSingular,
+		];
 	}
 
 	public function tearDown() {
-		// your tear down methods here
+		// Restore backed up properties on TEC main instance.
+		if ( ! empty( $this->tec_prop_backup ) ) {
+			$tec_main = TEC::instance();
+			foreach ( $this->tec_prop_backup as $prop => $value ) {
+				$tec_main->{$prop} = $value;
+			}
+		}
+
+		// Restore the global $wp_rewrite rules array.
+		global $wp_rewrite;
+		$wp_rewrite->rules = $this->wp_rewrite_rules;
 
 		// then
 		parent::tearDown();
@@ -428,5 +460,39 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 		$rewrite->setup( $wp_rewrite );
 
 		$this->assertEquals( $expected, $rewrite->get_clean_url( $input_uri ) );
+	}
+
+	/**
+	 * It should allow single and archive events slugs to be the same
+	 *
+	 * @test
+	 */
+	public function should_allow_single_and_archive_events_slugs_to_be_the_same() {
+		tribe_update_option( 'eventsSlug', 'course' );
+		tribe_update_option( 'singleEventSlug', 'course' );
+		$tec_main                      = TEC::instance();
+		$tec_main->rewriteSlug         = 'course';
+		$tec_main->rewriteSlugSingular = 'course';
+		update_option(
+			'rewrite_rules',
+			json_decode( file_get_contents( codecept_data_dir( 'rewrite/course-rules.json' ) ), true )
+		);
+		/** @var \WP_Rewrite $wp_rewrite */
+		global $wp_rewrite;
+		$wp_rewrite->permalink_structure = '/%postname%/';
+		$expected_parsed = [
+			'post_type'    => TEC::POSTTYPE,
+			'eventDisplay' => 'list',
+		];
+
+		$rewrite = new Rewrite();
+		$rewrite->setup( $wp_rewrite );
+		$pretty_archive_url = home_url( '/course/list/' );
+		$ugly_archive_url   = add_query_arg( $expected_parsed, home_url() );
+		$parsed             = $rewrite->parse_request( $pretty_archive_url );
+		$canonical_url = $rewrite->get_canonical_url( $ugly_archive_url );
+
+		$this->assertEquals( $expected_parsed, $parsed );
+		$this->assertEquals( $pretty_archive_url, $canonical_url );
 	}
 }

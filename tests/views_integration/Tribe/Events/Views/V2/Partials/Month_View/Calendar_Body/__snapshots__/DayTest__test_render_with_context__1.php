@@ -22,7 +22,7 @@
 			>
 				1			</time>
 		</h3>
-					<em
+								<em
 				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--featured"
 				aria-label="Has featured events"
 				title="Has featured events"

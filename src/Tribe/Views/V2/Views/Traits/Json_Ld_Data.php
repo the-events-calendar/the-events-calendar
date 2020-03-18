@@ -4,7 +4,7 @@
  *
  * View classes using this Trait can define a `cache_key` property to cache the JSON-LD data output.
  *
- * @since   TBD
+ * @since   5.0.2
  *
  * @package Tribe\Events\Views\V2\Views\Traits
  */
@@ -16,7 +16,7 @@ use Tribe__Cache_Listener as Listener;
 /**
  * Trait Json_Ld_Data
  *
- * @since   TBD
+ * @since   5.0.2
  *
  * @package Tribe\Events\Views\V2\Views\Traits
  */
@@ -25,7 +25,7 @@ trait Json_Ld_Data {
 	/**
 	 * Build the JSON-LD markup for a View provided events.
 	 *
-	 * @since TBD
+	 * @since 5.0.2
 	 *
 	 * @param array<\WP_Post|int|array<string,int>> $events Either a list of event post objects or IDs (e.g. List View)
 	 *                                                      or a map of days and events per day (e.g. Month View).
