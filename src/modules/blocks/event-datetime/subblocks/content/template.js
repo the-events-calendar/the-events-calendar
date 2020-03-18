@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import React, { Component, Fragment } from 'react';
+import React, { Fragment, useContext } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -25,6 +25,7 @@ import { editor, settings } from '@moderntribe/common/utils/globals';
 import HumanReadableInput from '../../human-readable-input/container';
 import ContentHook from './hook';
 import Controls from '../../controls';
+import DateTimeContext from '../../context';
 
 /**
  * Module Code
@@ -42,219 +43,220 @@ FORMATS.date = settings() && settings().dateWithYearFormat
 	? settings().dateWithYearFormat
 	: __( 'F j', 'the-events-calendar' );
 
-class EventDateTimeContent extends Component {
-	static propTypes = {
-		allDay: PropTypes.bool,
-		cost: PropTypes.string,
-		currencyPosition: PropTypes.oneOf( [ 'prefix', 'suffix', '' ] ),
-		currencySymbol: PropTypes.string,
-		end: PropTypes.string,
-		isEditable: PropTypes.bool,
-		multiDay: PropTypes.bool,
-		onDateTimeLabelClick: PropTypes.func,
-		sameStartEnd: PropTypes.bool,
-		separatorDate: PropTypes.string,
-		separatorTime: PropTypes.string,
-		setCost: PropTypes.func,
-		setTimeZoneLabel: PropTypes.func,
-		showDateInput: PropTypes.bool,
-		showTimeZone: PropTypes.bool,
-		start: PropTypes.string,
-		timeZone: PropTypes.string,
-		timeZoneLabel: PropTypes.string,
+/**
+ * Renders a separator based on the type called
+ *
+ * @param {string} type - The type of separator
+ *
+ * @returns {ReactDOM} A React Dom Element null if none.
+ */
+const renderSeparator = ( props, type, className ) => {
+	const { separatorDate, separatorTime } = props;
+
+	switch ( type ) {
+		case 'date-time':
+			return (
+				<span className={ classNames( 'tribe-editor__separator', className ) }>
+					{ ' '.concat( separatorDate, ' ' ) }
+				</span>
+			);
+		case 'time-range':
+			return (
+				<span className={ classNames( 'tribe-editor__separator', className ) }>
+					{ ' '.concat( separatorTime, ' ' ) }
+				</span>
+			);
+		case 'all-day':
+			return (
+				<span className={ classNames( 'tribe-editor__separator', className ) }>{ __( 'All Day', 'the-events-calendar' ) }</span>
+			);
+		default:
+			return null;
+		}
+	}
+};
+
+const renderPrice = ( { cost, currencyPosition, currencySymbol, setCost } ) => {
+	// Bail when not classic
+	if ( ! editor() || ! editor().isClassic ) {
+		return null;
+	}
+
+	return (
+		<div
+			key="tribe-editor-event-cost"
+			className="tribe-editor__event-cost"
+		>
+			{ 'prefix' === currencyPosition && <span>{ currencySymbol }</span> }
+			<PlainText
+				className={ classNames( 'tribe-editor__event-cost__value', `tribe-editor-cost-symbol-position-${ currencyPosition }` ) }
+				value={ cost }
+				placeholder={ __( 'Enter price', 'the-events-calendar' ) }
+				onChange={ setCost }
+			/>
+			{ 'suffix' === currencyPosition && <span>{ currencySymbol }</span> }
+		</div>
+	);
+};
+
+const renderStartDate = ( { start, end } ) => {
+	let startDate = toDate( toMoment( start ) );
+
+	if ( isSameYear( start, end ) && isSameYear( start, TODAY ) ) {
+		startDate = toDateNoYear( toMoment( start ) );
+	}
+
+	return (
+		<span className="tribe-editor__subtitle__headline-date">{ startDate }</span>
+	);
+};
+
+const renderStartTime = ( props ) => {
+	const { start, allDay } = props;
+
+	if ( allDay ) {
+		return null;
+	}
+
+	return (
+		<Fragment>
+			{ renderSeparator( props, 'date-time' ) }
+			{ toTime( toMoment( start ), FORMATS.WP.time ) }
+		</Fragment>
+	);
+};
+
+const renderEndDate = ( { start, end, multiDay } ) => {
+	if ( ! multiDay ) {
+		return null;
+	}
+
+	let endDate = toDate( toMoment( end ) );
+
+	if ( isSameYear( start, end ) && isSameYear( start, TODAY ) ) {
+		endDate = toDateNoYear( toMoment( end ) );
+	}
+
+	return (
+		<span className="tribe-editor__subtitle__headline-date">{ endDate }</span>
+	);
+};
+
+const renderEndTime = ( props ) => {
+	const { end, multiDay, allDay, sameStartEnd } = props;
+
+	if ( allDay || sameStartEnd ) {
+		return null;
+	}
+
+	return (
+		<Fragment>
+			{ multiDay && renderSeparator( props, 'date-time' ) }
+			{ toTime( toMoment( end ), FORMATS.WP.time ) }
+		</Fragment>
+	);
+};
+
+const renderTimezone = () => {
+	const { setTimeZoneLabel, timeZoneLabel, showTimeZone } = useContext(DateTimeContext);
+
+	return showTimeZone && (
+		<span
+			key="time-zone"
+			className="tribe-editor__time-zone"
+		>
+			<TimeZone
+				value={ timeZoneLabel }
+				placeholder={ timeZoneLabel }
+				onChange={ setTimeZoneLabel }
+			/>
+		</span>
+	);
+};
+
+const renderExtras = ( props ) => {
+	return (
+		<Fragment>
+			{ renderTimezone() }
+			{ renderPrice( props ) }
+		</Fragment>
+	);
+};
+
+const EventDateTimeContent = ( props ) => {
+	const {
+		multiDay,
+		allDay,
+		sameStartEnd,
+		isEditable,
+		setAttributes,
+	} = props;
+
+	const {
+		isOpen,
+		open,
+		showTimeZone,
+		setShowTimeZone,
+		setDateTimeAttributes,
+	} = useContext(DateTimeContext);
+
+	const controlProps = {
+		showTimeZone,
+		setShowTimeZone,
+		setDateTimeAttributes,
 	};
 
-	renderPrice = () => {
-		const { cost, currencyPosition, currencySymbol, setCost } = this.props;
+	return (
+		<Fragment>
+			<Controls { ...controlProps } />
+			{
+				isOpen && isEditable
+					? <HumanReadableInput
+							after={ renderExtras( props ) }
+							setAttributes={ setAttributes }
+						/>
+					: (
+						<Fragment>
+							<h2 className="tribe-editor__subtitle__headline">
+								<div className="tribe-editor__subtitle__headline-content">
+									<button
+										className="tribe-editor__btn--label tribe-editor__subtitle__headline-button"
+										onClick={ open }
+										disabled={ ! isEditable }
+									>
+										{ renderStartDate( props ) }
+										{ renderStartTime( props ) }
+										{ ( multiDay || ( ! allDay && ! sameStartEnd ) ) && renderSeparator( props, 'time-range' ) }
+										{ renderEndDate( props ) }
+										{ renderEndTime( props ) }
+										{ allDay && renderSeparator( props, 'all-day' ) }
+									</button>
+									{ renderExtras( props ) }
+								</div>
+							</h2>
+							<ContentHook />
+						</Fragment>
+					)
+			}
+		</Fragment>
+	);
+};
 
-		// Bail when not classic
-		if ( ! editor() || ! editor().isClassic ) {
-			return null;
-		}
-
-		return (
-			<div
-				key="tribe-editor-event-cost"
-				className="tribe-editor__event-cost"
-			>
-				{ 'prefix' === currencyPosition && <span>{ currencySymbol }</span> }
-				<PlainText
-					className={ classNames( 'tribe-editor__event-cost__value', `tribe-editor-cost-symbol-position-${ currencyPosition }` ) }
-					value={ cost }
-					placeholder={ __( 'Enter price', 'the-events-calendar' ) }
-					onChange={ setCost }
-				/>
-				{ 'suffix' === currencyPosition && <span>{ currencySymbol }</span> }
-			</div>
-		);
-	}
-
-	renderStartDate = () => {
-		const { start, end } = this.props;
-		let startDate = toDate( toMoment( start ) );
-
-		if ( isSameYear( start, end ) && isSameYear( start, TODAY ) ) {
-			startDate = toDateNoYear( toMoment( start ) );
-		}
-
-		return (
-			<span className="tribe-editor__subtitle__headline-date">{ startDate }</span>
-		);
-	}
-
-	renderStartTime = () => {
-		const { start, allDay } = this.props;
-
-		if ( allDay ) {
-			return null;
-		}
-
-		return (
-			<Fragment>
-				{ this.renderSeparator( 'date-time' ) }
-				{ toTime( toMoment( start ), FORMATS.WP.time ) }
-			</Fragment>
-		);
-	}
-
-	renderEndDate = () => {
-		const { start, end, multiDay } = this.props;
-
-		if ( ! multiDay ) {
-			return null;
-		}
-
-		let endDate = toDate( toMoment( end ) );
-
-		if ( isSameYear( start, end ) && isSameYear( start, TODAY ) ) {
-			endDate = toDateNoYear( toMoment( end ) );
-		}
-
-		return (
-			<span className="tribe-editor__subtitle__headline-date">{ endDate }</span>
-		);
-	}
-
-	renderEndTime = () => {
-		const { end, multiDay, allDay, sameStartEnd } = this.props;
-
-		if ( allDay || sameStartEnd ) {
-			return null;
-		}
-
-		return (
-			<Fragment>
-				{ multiDay && this.renderSeparator( 'date-time' ) }
-				{ toTime( toMoment( end ), FORMATS.WP.time ) }
-			</Fragment>
-		);
-	}
-
-	renderTimezone = () => {
-		const { setTimeZoneLabel, timeZoneLabel, showTimeZone } = this.props;
-
-		return showTimeZone && (
-			<span
-				key="time-zone"
-				className="tribe-editor__time-zone"
-			>
-				<TimeZone
-					value={ timeZoneLabel }
-					placeholder={ timeZoneLabel }
-					onChange={ setTimeZoneLabel }
-				/>
-			</span>
-		);
-	}
-
-	/**
-	 * Renders a separator based on the type called
-	 *
-	 * @param {string} type - The type of separator
-	 *
-	 * @returns {ReactDOM} A React Dom Element null if none.
-	 */
-	renderSeparator = ( type, className ) => {
-		const { separatorDate, separatorTime } = this.props;
-
-		switch ( type ) {
-			case 'date-time':
-				return (
-					<span className={ classNames( 'tribe-editor__separator', className ) }>
-						{ ' '.concat( separatorDate, ' ' ) }
-					</span>
-				);
-			case 'time-range':
-				return (
-					<span className={ classNames( 'tribe-editor__separator', className ) }>
-						{ ' '.concat( separatorTime, ' ' ) }
-					</span>
-				);
-			case 'all-day':
-				return (
-					<span className={ classNames( 'tribe-editor__separator', className ) }>{ __( 'All Day', 'the-events-calendar' ) }</span>
-				);
-			default:
-				return null;
-		}
-	}
-
-	renderExtras = () => {
-		return (
-			<Fragment>
-				{ this.renderTimezone() }
-				{ this.renderPrice() }
-			</Fragment>
-		);
-	}
-
-	/**
-	 * Main label used to display the event
-	 *
-	 * @returns {ReactDOM} A React Dom Element null if none.
-	 */
-	render = () => {
-		const {
-			multiDay,
-			allDay,
-			sameStartEnd,
-			showDateInput,
-			onDateTimeLabelClick,
-			isEditable,
-		} = this.props;
-
-		return (
-			<Fragment>
-				<Controls />
-				{
-					showDateInput && isEditable
-						? <HumanReadableInput after={ this.renderExtras() } />
-						: (
-							<Fragment>
-								<h2 className="tribe-editor__subtitle__headline">
-									<div className="tribe-editor__subtitle__headline-content">
-										<button
-											className="tribe-editor__btn--label"
-											onClick={ onDateTimeLabelClick }
-											disabled={ ! isEditable }
-										>
-											{ this.renderStartDate() }
-											{ this.renderStartTime() }
-											{ ( multiDay || ( ! allDay && ! sameStartEnd ) ) && this.renderSeparator( 'time-range' ) }
-											{ this.renderEndDate() }
-											{ this.renderEndTime() }
-											{ allDay && this.renderSeparator( 'all-day' ) }
-										</button>
-										{ this.renderExtras() }
-									</div>
-								</h2>
-								<ContentHook />
-							</Fragment>
-						)
-				}
-			</Fragment>
-		);
-	}
-}
+EventDateTimeContent.propTypes = {
+	allDay: PropTypes.bool,
+	cost: PropTypes.string,
+	currencyPosition: PropTypes.oneOf( [ 'prefix', 'suffix', '' ] ),
+	currencySymbol: PropTypes.string,
+	end: PropTypes.string,
+	isEditable: PropTypes.bool,
+	isOpen: PropTypes.bool,
+	multiDay: PropTypes.bool,
+	open: PropTypes.func,
+	sameStartEnd: PropTypes.bool,
+	separatorDate: PropTypes.string,
+	separatorTime: PropTypes.string,
+	setCost: PropTypes.func,
+	start: PropTypes.string,
+};
 
 export default EventDateTimeContent;
