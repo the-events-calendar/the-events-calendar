@@ -11,7 +11,6 @@ import organizers, { setInitialState as organizersSetInitialState } from './orga
 import price from './price';
 import website from './website';
 import venue from './venue';
-import classic from './classic';
 import sharing from './sharing';
 
 export const setInitialState = ( entityRecord ) => {
@@ -20,7 +19,6 @@ export const setInitialState = ( entityRecord ) => {
 
 export default combineReducers( {
 	datetime,
-	classic,
 	venue,
 	organizers,
 	price,
