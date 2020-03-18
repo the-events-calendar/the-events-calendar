@@ -24,3 +24,10 @@ Array [
 exports[`[STORE] - Classic reducer Should remove an organizer from block 3`] = `Array []`;
 
 exports[`[STORE] - Classic reducer Should return the default state 1`] = `Array []`;
+
+exports[`[STORE] - Classic reducer Should set the initial state 1`] = `
+Array [
+  99,
+  100,
+]
+`;

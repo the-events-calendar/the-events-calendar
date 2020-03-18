@@ -25,6 +25,13 @@ exports[`[STORE] - Organizer allIDs reducer Should remove organizer block 3`] = 
 
 exports[`[STORE] - Organizer allIDs reducer Should return the default state 1`] = `Array []`;
 
+exports[`[STORE] - Organizer blocks reducer Should return the default state 1`] = `
+Object {
+  "allIds": Array [],
+  "byId": Object {},
+}
+`;
+
 exports[`[STORE] - Organizer byId reducer Should add organizer block 1`] = `
 Object {
   "99": 1,

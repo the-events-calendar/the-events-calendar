@@ -1,8 +1,14 @@
 /**
  * Internal dependencies
  */
-import classic from '@moderntribe/events/data/blocks/organizers/reducers/classic';
+import classic, { setInitialState } from '@moderntribe/events/data/blocks/organizers/reducers/classic';
 import { actions } from '@moderntribe/events/data/blocks/organizers';
+
+const entityRecord = {
+	meta: {
+		_EventOrganizerID: [ 99, 100 ],
+	},
+};
 
 describe( '[STORE] - Classic reducer', () => {
 	it( 'Should return the default state', () => {
@@ -18,5 +24,10 @@ describe( '[STORE] - Classic reducer', () => {
 		expect( classic( [ 20 ], actions.removeOrganizerInClassic( 20 ) ) ).toMatchSnapshot();
 		expect( classic( [ 20, 10 ], actions.removeOrganizerInClassic( 10 ) ) ).toMatchSnapshot();
 		expect( classic( [], actions.removeOrganizerInClassic( 99 ) ) ).toMatchSnapshot();
+	} );
+
+	it( 'Should set the initial state', () => {
+		setInitialState( entityRecord );
+		expect( classic( undefined, {} ) ).toMatchSnapshot();
 	} );
 } );
