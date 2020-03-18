@@ -1,15 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 52.6 (67491) - http://www.bohemiancoding.com/sketch -->
-    <title>megaphone</title>
-    <desc>Created with Sketch.</desc>
-    <g id="Freemius" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Dashboard-Copy" transform="translate(-735.000000, -505.000000)" stroke-width="2">
-            <g id="megaphone" transform="translate(736.000000, 507.000000)">
-                <path d="M11.449,17 L14.807,25.336 C15.3525873,26.7003858 14.6922437,28.249086 13.33,28.8 C11.9644884,29.3480602 10.413095,28.6866932 9.863,27.322 L5.667,17" id="Path" stroke="#16A0D6"></path>
-                <path d="M13,5 L6,5 C2.6862915,5 8.8817842e-16,7.6862915 4.4408921e-16,11 C8.8817842e-16,14.3137085 2.6862915,17 6,17 L13,17 L24,22 L24,0 L13,5 Z" id="Path" stroke="#111111" stroke-linecap="square"></path>
-                <path d="M27,8 C28.6568542,8 30,9.34314575 30,11 C30,12.6568542 28.6568542,14 27,14" id="Path" stroke="#16A0D6"></path>
-            </g>
-        </g>
-    </g>
-</svg>
+<svg width="32" height="32" xmlns="http://www.w3.org/2000/svg"><g stroke-width="2" fill="none" fill-rule="evenodd"><path d="M12.449 19l3.358 8.336A2.668 2.668 0 0114.33 30.8a2.667 2.667 0 01-3.467-1.478L6.667 19" stroke="#16A0D6"/><path d="M14 7H7a6 6 0 100 12h7l11 5V2L14 7z" stroke="#111" stroke-linecap="square"/><path d="M28 10a3 3 0 010 6" stroke="#16A0D6"/></g></svg>

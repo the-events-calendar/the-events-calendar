@@ -13,7 +13,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version TBD
+ * @version 5.0.2
  */
 
 
@@ -23,7 +23,7 @@
  * While this filter controls the markup at the view level, other earlier filters are available in the View template vars
  * and in the code responsible for the JSON-LD data.
  *
- * @since TBD
+ * @since 5.0.2
  *
  * @param array                                $json_ld_data The JSON-LD data markup for the current View and Context.
  * @param string                               $view_slug    The slug of the view currently being rendered.
