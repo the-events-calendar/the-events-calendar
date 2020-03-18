@@ -29,21 +29,12 @@ describe( '[STORE] - Organizers selectors', () => {
 		expect( selectors.getOrganizersInClassic( state ) ).toMatchSnapshot();
 	} );
 
-	it( 'Should return the organizer block', () => {
-		expect( selectors.getOrganizerBlock( state, { clientId: 'firstBlock' } ) )
+	it( 'Should return the organizer by clientId', () => {
+		expect( selectors.getOrganizerByClientId( state, { clientId: 'firstBlock' } ) )
 			.toMatchSnapshot();
-		expect( selectors.getOrganizerBlock( state, { clientId: 'secondBlock' } ) )
+		expect( selectors.getOrganizerByClientId( state, { clientId: 'secondBlock' } ) )
 			.toMatchSnapshot();
-		expect( selectors.getOrganizerBlock( state, { clientId: 'thirdBlock' } ) )
-			.toMatchSnapshot();
-	} );
-
-	it( 'Should return the organizer in a block', () => {
-		expect( selectors.getOrganizerInBlock( state, { clientId: 'firstBlock' } ) )
-			.toMatchSnapshot();
-		expect( selectors.getOrganizerInBlock( state, { clientId: 'secondBlock' } ) )
-			.toMatchSnapshot();
-		expect( selectors.getOrganizerInBlock( state, { clientId: 'thirdBlock' } ) )
+		expect( selectors.getOrganizerByClientId( state, { clientId: 'thirdBlock' } ) )
 			.toMatchSnapshot();
 	} );
 

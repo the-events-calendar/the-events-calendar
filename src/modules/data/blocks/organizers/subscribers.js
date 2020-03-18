@@ -18,11 +18,11 @@ import { selectors as detailSelectors } from '@moderntribe/events/data/details';
 
 const { getState, dispatch } = store;
 
-const compareBlocks = block => block.clientId;
+export const compareBlocks = block => block.clientId;
 
-const isOrganizerBlock = ( block ) => block.name === 'tribe/event-organizer';
+export const isOrganizerBlock = ( block ) => block.name === 'tribe/event-organizer';
 
-const handleBlockAdded = ( block ) => {
+export const handleBlockAdded = ( block ) => {
 	// only handle event organizer block addition
 	if ( ! isOrganizerBlock( block ) ) {
 		return;
@@ -36,7 +36,7 @@ const handleBlockAdded = ( block ) => {
 	dispatch( organizerActions.addOrganizerInBlock( block.clientId, block.attributes.organizer ) );
 };
 
-const handleBlockRemoved = ( currBlocks ) => ( block ) => {
+export const handleBlockRemoved = ( currBlocks ) => ( block ) => {
 	// only handle event organizer block removal
 	if ( ! isOrganizerBlock( block ) ) {
 		return;
@@ -70,7 +70,7 @@ const handleBlockRemoved = ( currBlocks ) => ( block ) => {
 	}
 };
 
-const onBlocksChangeHandler = ( currBlocks, prevBlocks ) => {
+export const onBlocksChangeHandler = ( currBlocks, prevBlocks ) => {
 	const blocksAdded = differenceBy( currBlocks, prevBlocks, compareBlocks );
 	const blocksRemoved = differenceBy( prevBlocks, currBlocks, compareBlocks );
 
@@ -83,7 +83,7 @@ const onBlocksChangeHandler = ( currBlocks, prevBlocks ) => {
 	}
 };
 
-const onBlocksChangeListener = ( selector ) => {
+export const onBlocksChangeListener = ( selector ) => {
 	let holdBlocks = selector();
 	return () => {
 		const prevBlocks = holdBlocks;

@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[STORE] - Organizer allIDs reducer Should add organizer block 1`] = `
+Array [
+  1,
+]
+`;
+
+exports[`[STORE] - Organizer allIDs reducer Should add organizer block 2`] = `
+Array [
+  1,
+  2,
+]
+`;
+
+exports[`[STORE] - Organizer allIDs reducer Should remove organizer block 1`] = `Array []`;
+
+exports[`[STORE] - Organizer allIDs reducer Should remove organizer block 2`] = `
+Array [
+  1,
+]
+`;
+
+exports[`[STORE] - Organizer allIDs reducer Should remove organizer block 3`] = `Array []`;
+
+exports[`[STORE] - Organizer allIDs reducer Should return the default state 1`] = `Array []`;
+
+exports[`[STORE] - Organizer byId reducer Should add organizer block 1`] = `
+Object {
+  "99": 1,
+}
+`;
+
+exports[`[STORE] - Organizer byId reducer Should add organizer block 2`] = `
+Object {
+  "100": 2,
+  "99": 1,
+}
+`;
+
+exports[`[STORE] - Organizer byId reducer Should remove organizer block 1`] = `Object {}`;
+
+exports[`[STORE] - Organizer byId reducer Should remove organizer block 2`] = `
+Object {
+  "100": 2,
+  "99": 1,
+}
+`;
+
+exports[`[STORE] - Organizer byId reducer Should remove organizer block 3`] = `
+Object {
+  "99": 1,
+}
+`;
