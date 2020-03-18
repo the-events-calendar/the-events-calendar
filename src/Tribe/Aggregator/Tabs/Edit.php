@@ -76,15 +76,15 @@ class Tribe__Events__Aggregator__Tabs__Edit extends Tribe__Events__Aggregator__T
 		if ( ! empty( $post_data['post_id'] ) ) {
 			$this->finalize_schedule_edit( $record, $post_data, $meta );
 			return;
-		} else {
-			$post = $record->create( $meta['type'], array(), $meta );
-
-			if ( is_wp_error( $post ) ) {
-				return $post;
-			}
-
-			$result = $record->queue_import();
 		}
+
+		$post = $record->create( $meta['type'], array(), $meta );
+
+		if ( is_wp_error( $post ) ) {
+			return $post;
+		}
+
+		$result = $record->queue_import();
 
 		if ( is_wp_error( $post ) ) {
 			return $post;

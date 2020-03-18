@@ -474,14 +474,18 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 			$source_info['title'] = implode( ', ', $source_info['title'] );
 		}
 
+		$title = $source_info['title'];
+		if ( ! empty( $record->meta['import_name'] ) ) {
+			$title = $record->meta['import_name'];
+		}
+
 		if ( $record->is_schedule && tribe( 'events-aggregator.main' )->is_service_active() ) {
-			$html[] = '<p><b><a href="' . get_edit_post_link( $post->ID ) . '">' . esc_html( $source_info['title'] ) . '</a></b></p>';
+			$html[] = '<p><b><a href="' . get_edit_post_link( $post->ID ) . '">' . esc_html( $title ) . '</a></b></p>';
 		} else {
-			$html[] = '<p><b>' . esc_html( $source_info['title'] ) . '</b></p>';
+			$html[] = '<p><b>' . esc_html( $title ) . '</b></p>';
 		}
 
 		$html[] = '<p>' . esc_html_x( 'via ', 'record via origin', 'the-events-calendar' ) . '<strong>' . $source_info['via']  . '</strong></p>';
-
 		if (
 			! empty( $record->meta['keywords'] )
 			|| ! empty( $record->meta['start'] )

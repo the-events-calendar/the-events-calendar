@@ -4,7 +4,7 @@ Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.9
-Stable tag: 5.0.1
+Stable tag: 5.0.3
 Tested up to: 5.3.2
 Requires PHP: 5.6
 License: GPLv2 or later
@@ -94,17 +94,14 @@ That's it! Just configure your settings as you see fit, and you're on your way t
 == Screenshots ==
 
 1. Month View with hover
-2. Month View
-3. List View
-4. Day View
-5. Single event
-6. Event Editor
-7. Events admin listing
-8. General Settings
-9. Display Settings
-10. Events List Widget
-11. Mobile Month View
-12. CSV Importer
+2. Mobile Views
+3. Single event
+4. List View
+5. Event Editor
+6. Events admin listing
+7. General Settings
+8. Display Settings
+9. CSV Importer
 
 == Frequently Asked Questions ==
 
@@ -223,18 +220,45 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [5.0.2] TBD =
+= [5.0.3] TBD =
 
+* Feature - Allow users to set a custom name for new Event Aggregator Imports. [TEC-3286]
+* Tweak - Add back missing JSON-LD to Single Events. [TEC-3262]
+* Tweak - Minify the Freemius svg assets. [TEC-3215]
+* Tweak - Remove "(beta)" label from URL source type of import. [TEC-3289]
+* Tweak - Reword the Filter Activation setting's labels for better clarity.  [FBAR-79]
+* Fix - Ensure that any values for `liveFilterUpdate` that are not `automatic` or `manual` get converted. [FBAR-83]
+* Fix - Breakpoint code compatibility with the latest version of jQuery 3.4.1 [BTRIA-154]
+* Fix - Remove numbers from listed events in event list widget for Genesis theme. [TEC-2957]
+* Fix - Customizer accent color affects featured line and text. [TEC-3277]
+* Fix - Resolve conflict between datepicker holding consistent size when navigating and flexibility on small screen sizes. [TEC-3322]
+* Fix - Respect EA `post_status` from settings when an event does not have a defined value. [TEC-3255]
+* Fix - Save the `post_status` for a scheduled import when using a different value other than `publish`. [TEC-3296]
+* Fix - Update events, venues, and organizers to use dynamic labels. [TEC-3280]
+* Fix - Resolve an issue in Views v2 that would break URLs when the event single and archive slugs have the same value due to the "Events URL slug" and "Single event URL slug" settings or due to their translations [TEC-3254]
+* Fix - Restore correct handling of events RSS feeds; events will show in the RSS feed in ascending start date, starting from the current day and the event publish date will be set to the event start date [TEC-3252]
+* Hook - Add filters `tribe_events_liveupdate_automatic_label_text` and `tribe_events_liveupdate_manual_label_text` to allow Filter Bar to include itself in those lables. [TEC-3322]
+* Hook - Add the `tribe_views_v2_events_query_controller_active` filter; returning a falsy value from this filter will prevent Views v2 from altering the WordPress query. This filter allows handling situations where Views v2 might interfere with third party plugins (e.g. custom RSS feed implementations) [TEC-3252]
+
+= [5.0.2.1] 2020-02-25 =
+
+* Fix - Plugin dependency registration with `Plugin_Register` will not prevent loading of all plugins in list if the last item loaded fails. [TCMN-41]
+
+= [5.0.2] 2020-02-19 =
+
+* Version - The Events Calendar 5.0.2 is only compatible with Filter Bar 4.9.2 and higher
+* Version - The Events Calendar 5.0.2 is only compatible with Events Calendar PRO 5.0.2 and higher
 * Tweak - Modify Link Color Customizer option for single event links in description, the venue, the organizer, and the website link in classic editor.  [TEC-3219]
-* Tweak - Move link color option to General tab in customizer and remove Text tab.  [TEC-3244]
+* Tweak - Move link color option to General tab in Customizer and remove Text tab.  [TEC-3244]
 * Tweak - Freemius Opt-out workflow now present on all occasions [TEC-3171]
 * Tweak - Freemius updated to the latest version 2.3.2 [TEC-3171]
 * Tweak - Remove the "Default stylesheet - full" option from display settings, for the new views. [TEC-3125]
-* Tweak - Change the live refresh option to a radio, adjust conditional checks to accomodate. [TEC-3072]
+* Tweak - Change the live refresh option to a radio, adjust conditional checks to accommodate. [TEC-3072]
 * Fix - Freemius activation URL send via email works as expected [TEC-3218]
 * Fix - Improve compatibility from Updated Views V2 with Beaver Builder plugins [TEC-3248]
 * Fix - More robust handling of `hide_from_listings` in REST API v2, thanks @maxm123
 * Fix - Make sure the new Views (v2) will correctly print JSON-LD schema information [TEC-3241]
+* Language - 4 new strings added, 248 updated, 1 fuzzied, and 3 obsoleted
 
 = [5.0.1] 2020-02-12 =
 

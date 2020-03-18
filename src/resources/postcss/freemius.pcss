@@ -10,17 +10,17 @@
 	#fs_connect {
 		background-color: #fff;
 		margin: 20px 20px 0 2px;
-		width: auto;
 		max-width: 1200px;
 		position: relative;
+		width: auto;
 
 		.fs-visual {
-			padding: 20px 0 0;
-			margin: 0 35px;
+			align-content: center;
+			align-items: center;
 			background-color: transparent;
 			display: flex;
-			align-items: center;
-			align-content: center;
+			margin: 0 35px;
+			padding: 20px 0 0;
 
 			.fs-site-icon,
 			.fs-plugin-icon,
@@ -28,13 +28,13 @@
 			.fs-second.dashicons-plus,
 			.fs-connect-logo {
 				border: 0;
-				position: relative;
-				margin: 0;
-				width: auto;
-				top: auto;
-				right: auto;
 				bottom: auto;
 				left: auto;
+				margin: 0;
+				position: relative;
+				right: auto;
+				top: auto;
+				width: auto;
 			}
 
 			.fs-site-icon,
@@ -44,8 +44,8 @@
 
 			.dashicons-plus {
 				color: #17a0d6;
-				padding-right: 4px;
 				padding-left: 4px;
+				padding-right: 4px;
 				width: auto;
 			}
 
@@ -55,15 +55,15 @@
 				}
 
 				&::before {
+					background-image: url( ../icons/the-events-calendar.svg );
+					background-position: center center;
+					background-repeat: no-repeat;
+					background-size: 85%;
 					content: '';
 					display: block;
-					background-image: url( ../icons/the-events-calendar.svg );
-					background-repeat: no-repeat;
-					background-position: center center;
-					background-size: 85%;
-					width: 100%;
 					height: 100%;
 					position: absolute;
+					width: 100%;
 				}
 			}
 
@@ -73,29 +73,29 @@
 				}
 
 				&::before {
+					background-image: url( ../icons/stethoscope.svg );
+					background-position: center center;
+					background-repeat: no-repeat;
+					background-size: 75%;
 					content: '';
 					display: block;
-					background-image: url( ../icons/stethoscope.svg );
-					background-repeat: no-repeat;
-					background-position: center center;
-					background-size: 75%;
-					width: 100%;
 					height: 100%;
 					position: absolute;
+					width: 100%;
 				}
 			}
 
 			.fs-connect-logo {
-				display: block;
-				-moz-box-sizing: border-box;
-				box-sizing: border-box;
 				background-image: url( ../icons/mailplane.svg );
-				background-repeat: no-repeat;
 				background-position: center center;
+				background-repeat: no-repeat;
 				background-size: 80%;
-				width: 60px;
+				box-sizing: border-box;
+				-moz-box-sizing: border-box;
+				display: block;
 				height: 80px;
 				padding-left: 60px;
+				width: 60px;
 			}
 		}
 
@@ -117,42 +117,42 @@
 			}
 
 			.tribe-powered-by-freemius {
-				position: absolute;
-				top: 25px;
-				right: 45px;
 				background-image: url( ../icons/freemius-logo.svg );
-				background-repeat: no-repeat;
 				background-position: right center;
+				background-repeat: no-repeat;
 				background-size: 100px;
-				width: 184px;
-				height: 30px;
-				line-height: 30px;
 				font-size: 1.1em;
 				font-style: italic;
+				height: 30px;
+				line-height: 30px;
+				position: absolute;
+				right: 45px;
+				top: 25px;
+				width: 184px;
 			}
 		}
 
 		.fs-actions {
-			padding: 20px 35px;
 			background-color: #f3f3f3;
 			display: flex;
 			flex-flow: row wrap;
+			padding: 20px 35px;
 
 			form {
-				order: 1;
 				float: none;
 				margin-right: 15px;
+				order: 1;
 			}
 
 			#skip_activation {
-				order: 2;
 				float: none;
+				order: 2;
 			}
 
 			.button {
-				padding: 7px 35px;
-				height: auto;
 
+				height: auto;
+				padding: 7px 35px;
 				&.button-primary {
 					padding-left: 35px;
 					padding-right: 35px;
@@ -161,27 +161,27 @@
 		}
 
 		.fs-permissions {
-			position: relative;
 			padding: 0;
+			position: relative;
 
 			.fs-trigger {
-				position: absolute;
-				top: -65px;
 				left: 380px;
 				padding: 10px;
+				position: absolute;
+				top: -65px;
 			}
 
 			&.fs-open {
-				position: absolute;
-				padding: 20px 35px;
+				box-shadow: 0px 1px 2px rgba(0,0,0,0.3);
 				-moz-box-shadow: 0px 1px 2px rgba(0,0,0,0.3);
 				-webkit-box-shadow: 0px 1px 2px rgba(0,0,0,0.3);
-				box-shadow: 0px 1px 2px rgba(0,0,0,0.3);
+				padding: 20px 35px;
+				position: absolute;
 
 				ul {
-					margin: 0;
 					display: flex;
 					flex-wrap: wrap;
+					margin: 0;
 
 					li {
 						flex: 0 50%;
@@ -193,8 +193,8 @@
 					}
 
 					.dashicons {
-						background-repeat: no-repeat;
 						background-position: left center;
+						background-repeat: no-repeat;
 						background-size: 65%;
 
 						&::before {
@@ -222,11 +222,11 @@
 		}
 
 		.fs-terms {
-			position: absolute;
+			background-color: transparent;
 			bottom: 30px;
+			position: absolute;
 			right: 10px;
 			width: 240px;
-			background-color: transparent;
 		}
 	}
 }

@@ -37,6 +37,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		$this->container->singleton( Theme_Compatibility::class, Theme_Compatibility::class );
 		$this->container->singleton( Rest_Endpoint::class, Rest_Endpoint::class );
 		$this->container->singleton( Template\Settings\Advanced_Display::class, Template\Settings\Advanced_Display::class );
+		$this->container->singleton( Template\JSON_LD::class, Template\JSON_LD::class );
 
 		$this->register_hooks();
 		$this->register_assets();
