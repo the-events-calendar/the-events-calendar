@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[STORE] - Datetime selectors Should return is same start end 1`] = `false`;
+
+exports[`[STORE] - Datetime selectors Should return the all day 1`] = `false`;
+
+exports[`[STORE] - Datetime selectors Should return the block 1`] = `
+Object {
+  "allDay": false,
+  "dateTimeSeparator": "@",
+  "end": "2020-03-18 17:00:00",
+  "endTimeInput": "5:00 pm",
+  "isEditable": true,
+  "multiDay": false,
+  "naturalLanguage": "",
+  "showTimeZone": false,
+  "start": "2020-03-18 08:00:00",
+  "startTimeInput": "8:00 am",
+  "timeRangeSeparator": "-",
+  "timeZone": "UTC",
+  "timeZoneLabel": "UTC",
+}
+`;
+
+exports[`[STORE] - Datetime selectors Should return the date separator 1`] = `"@"`;
+
+exports[`[STORE] - Datetime selectors Should return the editable 1`] = `true`;
+
+exports[`[STORE] - Datetime selectors Should return the end date 1`] = `"2020-03-18 17:00:00"`;
+
+exports[`[STORE] - Datetime selectors Should return the end time input 1`] = `"5:00 pm"`;
+
+exports[`[STORE] - Datetime selectors Should return the multi day 1`] = `false`;
+
+exports[`[STORE] - Datetime selectors Should return the natural language label 1`] = `""`;
+
+exports[`[STORE] - Datetime selectors Should return the start date 1`] = `"2020-03-18 08:00:00"`;
+
+exports[`[STORE] - Datetime selectors Should return the start time input 1`] = `"8:00 am"`;
+
+exports[`[STORE] - Datetime selectors Should return the time zone label 1`] = `"UTC"`;
+
+exports[`[STORE] - Datetime selectors Should return the time zone visibility 1`] = `false`;
+
+exports[`[STORE] - Datetime selectors Should return the timezone 1`] = `"UTC"`;
+
+exports[`[STORE] - Datetime selectors Should return time range separator 1`] = `"-"`;
