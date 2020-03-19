@@ -46,10 +46,17 @@ class Page {
 		} elseif ( 'page' === $template ) {
 			// We check for page as default is converted to page in Tribe\Events\Views\V2\Template_Bootstrap->in get_template_setting().
 			$template = get_page_template();
+
+			// TwentyTwenty does not have a Page Template...
+			if ( empty( $template ) ) {
+				$template = get_index_template();
+			}
 		} else {
 			// Admin setting set to a custom template.
 			$template = locate_template( $template );
 		}
+
+		// Maybe Check here instead for empty template and if empty try get_index_template()
 
 		return $template;
 	}
