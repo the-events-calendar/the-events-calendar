@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import React, { Fragment, useContext } from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -194,8 +194,6 @@ const EventDateTimeContent = ( props ) => {
 		open
 	} = props;
 
-	console.log('isOpen', isOpen);
-	console.log('isEditable', isEditable);
 	return (
 		isOpen && isEditable
 			? <HumanReadableInput

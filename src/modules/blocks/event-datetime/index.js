@@ -14,7 +14,6 @@ import { get } from 'lodash';
 import EventDateTime from './container';
 import { DateTime } from '@moderntribe/events/icons';
 import { date, globals } from '@moderntribe/common/utils';
-import './subblocks';
 
 /**
  * Module Code
