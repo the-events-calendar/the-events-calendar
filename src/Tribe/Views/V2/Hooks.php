@@ -414,6 +414,11 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @return string A redirection URL, or `false` to prevent redirection.
 	 */
 	public function filter_redirect_canonical( $redirect_url = null, $original_url = null ) {
+		// If the request is an admin URL one, then bail.
+		if ( 0 === strpos( $redirect_url, admin_url() ) ) {
+			return $redirect_url;
+		}
+
 		if ( trailingslashit( $original_url ) === trailingslashit( $redirect_url ) ) {
 			return $redirect_url;
 		}
@@ -431,6 +436,13 @@ class Hooks extends \tad_DI52_ServiceProvider {
 			// Let the redirection go on.
 			return $redirect_url;
 		}
+
+		// If the request is not for one of the enabled views, then bail.
+		$enabled_views = tribe_get_option( 'tribeEnableViews', array() );
+		if ( ! in_array( $view, $enabled_views, true ) ) {
+			return $redirect_url;
+		}
+
 
 		$parsed = \Tribe__Events__Rewrite::instance()->parse_request( $redirect_url );
 
