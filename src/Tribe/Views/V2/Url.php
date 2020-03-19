@@ -107,7 +107,7 @@ class Url {
 			return $slug;
 		}
 
-		return Arr::get_first_set( $this->get_query_args(), [ 'view', 'tribe_view', 'eventDisplay' ], $slug );
+		return Arr::get_first_set( $this->get_query_args(), [ View::query_var(), 'tribe_view', 'eventDisplay' ], $slug );
 	}
 
 	/**

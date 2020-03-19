@@ -14,7 +14,6 @@ use Tribe\Events\Views\V2\Utils;
 use Tribe\Events\Views\V2\Views\Traits\Breakpoint_Behavior;
 use Tribe\Events\Views\V2\Views\Traits\HTML_Cache;
 use Tribe\Events\Views\V2\Views\Traits\Json_Ld_Data;
-use Tribe\Events\Views\V2\Views\Traits\List_Behavior;
 use Tribe__Container as Container;
 use Tribe__Context as Context;
 use Tribe__Date_Utils as Dates;
@@ -247,7 +246,7 @@ class View implements View_Interface {
 			$params['prev_url'] = untrailingslashit( $params['prev_url'] );
 		}
 
-		$slug       = Arr::get( $params, 'view', false );
+		$slug       = Arr::get( $params, View::query_var(), false );
 		$url_object = Url::from_url_and_params( Arr::get( $params, 'url' ), $params );
 
 		$url = $url_object->__toString();
@@ -523,6 +522,39 @@ class View implements View_Interface {
 	 */
 	public static function set_container( Container $container ) {
 		static::$container = $container;
+	}
+
+	/**
+	 * Returns the filtered query variable to use to identify a View request in URLs.
+	 *
+	 * If a plugin conflict arises about the use of the default "view" query argument, then this is the filter to use
+	 * to solve that issue.
+	 * To avoid over-head the value is filtered once per request, its value is then cached and returned for any further
+	 * request fetch.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The filtered query argument to use to identify a View request, defaults to "view".
+	 */
+	public static function query_var() {
+		$value = tribe_get_var( 'tribe_views_v2_view_query_var', false );
+
+		if ( false !== $value ) {
+			return $value;
+		}
+
+		/**
+		 * Filters the query argument to use to identify a request.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $view_query_arg The query argument to use to identify a View request in the URL; def. "view".
+		 */
+		$value = apply_filters( 'tribe_views_v2_view_query_var', 'view' );
+
+		tribe_set_var( 'tribe_views_v2_view_query_var', $value );
+
+		return $value;
 	}
 
 	/**
