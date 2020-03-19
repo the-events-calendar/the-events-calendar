@@ -537,9 +537,9 @@ class View implements View_Interface {
 	 * @return string The filtered query argument to use to identify a View request, defaults to "view".
 	 */
 	public static function query_var() {
-		$value = tribe_get_var( 'tribe_views_v2_view_query_var', false );
+		$value = tribe_get_var( 'tribe_views_v2_view_query_var' );
 
-		if ( false !== $value ) {
+		if ( ! empty( $value ) ) {
 			return $value;
 		}
 

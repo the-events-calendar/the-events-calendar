@@ -46,6 +46,7 @@ class Context extends \tad_DI52_ServiceProvider {
 	 */
 	public function filter_context_locations( array $locations = [] ) {
 		$view_query_var = View::query_var();
+
 		$locations      = array_merge(
 			$locations,
 			[
@@ -62,7 +63,7 @@ class Context extends \tad_DI52_ServiceProvider {
 						Tribe__Context::QUERY_VAR   => 'eventDisplay',
 					],
 				],
-				$view_query_var      => [
+				'view'      => [
 					'read'  => [
 						Tribe__Context::WP_MATCHED_QUERY => [ 'eventDisplay' ],
 						Tribe__Context::WP_PARSED        => [ 'eventDisplay' ],
