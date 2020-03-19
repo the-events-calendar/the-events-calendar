@@ -51,6 +51,11 @@ class Page {
 			$template = locate_template( $template );
 		}
 
+		// If $template is empty, attempt to get the index template for themes such as TwentyTwenty, which does not have a page.php.
+		if ( empty( $template ) ) {
+			$template = get_index_template();
+		}
+
 		return $template;
 	}
 
