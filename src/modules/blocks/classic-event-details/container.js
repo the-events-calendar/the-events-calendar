@@ -59,7 +59,7 @@ const mapStateToProps = ( state ) => ( {
 
 const mapDispatchToProps = ( dispatch ) => ( {
 	...bindActionCreators( dateTimeActions, dispatch ),
-	...bindActionCreators( dateTimeThunks, dispatch ),
+	// ...bindActionCreators( dateTimeThunks, dispatch ),
 	...bindActionCreators( UIActions, dispatch ),
 	...bindActionCreators( priceActions, dispatch ),
 	...bindActionCreators( websiteActions, dispatch ),

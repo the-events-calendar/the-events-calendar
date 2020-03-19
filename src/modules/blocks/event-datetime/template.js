@@ -13,6 +13,7 @@ import Controls from './controls';
  * Internal dependencies
  */
 import DateTimeContext from './context';
+import Content from './content/container';
 import './style.pcss';
 
 /**
@@ -41,19 +42,28 @@ const EventDateTime = ( props ) => {
 		...controlProps,
 	};
 
+	const contentProps = {
+		isOpen,
+		open,
+		timeZoneLabel: attributes.timeZoneLabel,
+		showTimeZone: attributes.showTimeZone,
+		setAttributes,
+	};
+
 	return (
 		<Fragment>
-			<Controls { ...controlProps } />
+			<Controls { ...props } />
 			<section
 				className="tribe-editor__subtitle tribe-editor__date-time tribe-common__plugin-block-hook"
 			>
-				<DateTimeContext.Provider value={ contextValue }>
+				<Content { ...props } />
+				{/* <DateTimeContext.Provider value={ contextValue }>
 					<InnerBlocks
 						template={ template }
 						templateLock="all"
 						templateInsertUpdatesSelection={ false }
 					/>
-				</DateTimeContext.Provider>
+				</DateTimeContext.Provider> */}
 			</section>
 		</Fragment>
 	);

@@ -38,6 +38,21 @@ export default {
 	},
 
 	attributes: {
+		start: {
+			type: 'string',
+			source: 'meta',
+			meta: '_EventStartDate',
+		},
+		end: {
+			type: 'string',
+			source: 'meta',
+			meta: '_EventEndDate',
+		},
+		allDay: {
+			type: 'boolean',
+			source: 'meta',
+			meta: '_EventAllDay',
+		},
 		timeZone: {
 			type: 'string',
 			source: 'meta',
@@ -60,6 +75,12 @@ export default {
 		timeZoneLabel: {
 			type: 'string',
 			default: get( timeZone, 'label', date.FORMATS.TIMEZONE.string ),
+		},
+		// Only Available for classic users
+		cost: {
+			type: 'string',
+			source: 'meta',
+			meta: '_EventCost',
 		},
 	},
 

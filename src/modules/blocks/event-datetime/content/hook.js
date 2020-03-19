@@ -2,7 +2,6 @@
  * External dependencies
  */
 import React from 'react';
-import PropTypes from 'prop-types';
 
 /**
  * Internal Dependencies
@@ -12,7 +11,7 @@ import { PluginBlockHooks } from '@moderntribe/common/components';
 
 const PLUGIN_TEMPLATES = {
 	[ constants.EVENTS_PRO_PLUGIN ]: [
-		[ 'tribe/event-pro-recurrence-description', {}],
+		[ 'tribe/event-pro-recurrence-description', {} ],
 	],
 };
 

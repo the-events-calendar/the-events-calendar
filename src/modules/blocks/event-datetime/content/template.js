@@ -22,10 +22,8 @@ import {
 	moment as momentUtil,
 } from '@moderntribe/common/utils';
 import { editor, settings } from '@moderntribe/common/utils/globals';
-import HumanReadableInput from '../../human-readable-input/container';
+import HumanReadableInput from '../human-readable-input/container';
 import ContentHook from './hook';
-import Controls from '../../controls';
-import DateTimeContext from '../../context';
 
 /**
  * Module Code
@@ -156,8 +154,11 @@ const renderEndTime = ( props ) => {
 	);
 };
 
-const renderTimezone = () => {
-	const { setTimeZoneLabel, timeZoneLabel, showTimeZone } = useContext(DateTimeContext);
+const renderTimezone = ( props ) => {
+	const { attributes, setAttributes } = props;
+	const { timeZoneLabel, showTimeZone } = attributes;
+
+	const setTimeZoneLabel = label => setAttributes( { timeZoneLabel: label } );
 
 	return showTimeZone && (
 		<span
@@ -176,7 +177,7 @@ const renderTimezone = () => {
 const renderExtras = ( props ) => {
 	return (
 		<Fragment>
-			{ renderTimezone() }
+			{ renderTimezone( props ) }
 			{ renderPrice( props ) }
 		</Fragment>
 	);
@@ -189,55 +190,40 @@ const EventDateTimeContent = ( props ) => {
 		sameStartEnd,
 		isEditable,
 		setAttributes,
+		isOpen,
+		open
 	} = props;
 
-	const {
-		isOpen,
-		open,
-		showTimeZone,
-		setShowTimeZone,
-		setDateTimeAttributes,
-	} = useContext(DateTimeContext);
-
-	const controlProps = {
-		showTimeZone,
-		setShowTimeZone,
-		setDateTimeAttributes,
-	};
-
+	console.log('isOpen', isOpen);
+	console.log('isEditable', isEditable);
 	return (
-		<Fragment>
-			<Controls { ...controlProps } />
-			{
-				isOpen && isEditable
-					? <HumanReadableInput
-							after={ renderExtras( props ) }
-							setAttributes={ setAttributes }
-						/>
-					: (
-						<Fragment>
-							<h2 className="tribe-editor__subtitle__headline">
-								<div className="tribe-editor__subtitle__headline-content">
-									<button
-										className="tribe-editor__btn--label tribe-editor__subtitle__headline-button"
-										onClick={ open }
-										disabled={ ! isEditable }
-									>
-										{ renderStartDate( props ) }
-										{ renderStartTime( props ) }
-										{ ( multiDay || ( ! allDay && ! sameStartEnd ) ) && renderSeparator( props, 'time-range' ) }
-										{ renderEndDate( props ) }
-										{ renderEndTime( props ) }
-										{ allDay && renderSeparator( props, 'all-day' ) }
-									</button>
-									{ renderExtras( props ) }
-								</div>
-							</h2>
-							<ContentHook />
-						</Fragment>
-					)
-			}
-		</Fragment>
+		isOpen && isEditable
+			? <HumanReadableInput
+					after={ renderExtras( props ) }
+					setAttributes={ setAttributes }
+				/>
+			: (
+				<Fragment>
+					<h2 className="tribe-editor__subtitle__headline">
+						<div className="tribe-editor__subtitle__headline-content">
+							<button
+								className="tribe-editor__btn--label tribe-editor__subtitle__headline-button"
+								onClick={ open }
+								disabled={ ! isEditable }
+							>
+								{ renderStartDate( props ) }
+								{ renderStartTime( props ) }
+								{ ( multiDay || ( ! allDay && ! sameStartEnd ) ) && renderSeparator( props, 'time-range' ) }
+								{ renderEndDate( props ) }
+								{ renderEndTime( props ) }
+								{ allDay && renderSeparator( props, 'all-day' ) }
+							</button>
+							{ renderExtras( props ) }
+						</div>
+					</h2>
+					<ContentHook />
+				</Fragment>
+			)
 	);
 };
 
