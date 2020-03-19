@@ -273,7 +273,7 @@ if ( tribe_events_views_v2_is_enabled() ) {
 	/**
 	 * Filters the text for the "automatic" option.
 	 *
-	 * @since TBD
+	 * @since 5.0.3
 	 *
 	 * @param string the displayed text.
 	 */
@@ -284,7 +284,7 @@ if ( tribe_events_views_v2_is_enabled() ) {
 	/**
 	 * Filters the text for the "manual" option.
 	 *
-	 * @since TBD
+	 * @since 5.0.3
 	 *
 	 * @param string the displayed text.
 	 */

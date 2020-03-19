@@ -220,7 +220,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [5.0.3] TBD =
+= [5.0.3] 2020-03-23 =
 
 * Feature - Allow users to set a custom name for new Event Aggregator Imports. [TEC-3286]
 * Tweak - Add back missing JSON-LD to Single Events. [TEC-3262]

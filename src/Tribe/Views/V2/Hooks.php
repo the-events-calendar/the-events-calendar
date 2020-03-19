@@ -649,7 +649,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * Note: this triggers on option_liveFiltersUpdate, tribe_get_option, AND tribe_field_value. We
 	 * don't have to add/remove filters because we don't need to get the value - it's already provided.
 	 *
-	 * @since TBD
+	 * @since 5.0.3
 	 *
 	 * @param  string $value  The option value.
 	 * @param  string $key    The option key.
@@ -667,7 +667,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Converts old (boolean) values to the new string values.
 	 *
-	 * @since TBD
+	 * @since 5.0.3
 	 *
 	 * @param  mixed  $value The value to maybe convert.
 	 *
@@ -683,7 +683,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		/**
 		 * Allow filtering of the new value for Live Filters.
 		 *
-		 * @since TBD
+		 * @since 5.0.3
 		 *
 		 * @param string $return_value Which value we are going to return as the conversion.
 		 * @param string $value        Which value was previously used.
@@ -696,7 +696,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Print Single Event JSON-LD.
 	 *
-	 * @since TBD
+	 * @since 5.0.3
 	 */
 	public function print_single_json_ld() {
 
