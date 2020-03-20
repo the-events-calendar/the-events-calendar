@@ -47,32 +47,52 @@ class Context extends \tad_DI52_ServiceProvider {
 	public function filter_context_locations( array $locations = [] ) {
 		$view_query_var = View::query_var();
 
-		$locations      = array_merge(
+		$locations = array_merge(
 			$locations,
 			[
-				'event_display'      => [
+				'event_display'        => [
 					'read'  => [
 						Tribe__Context::WP_MATCHED_QUERY => [ 'eventDisplay' ],
 						Tribe__Context::WP_PARSED        => [ 'eventDisplay' ],
-						Tribe__Context::REQUEST_VAR      => [ $view_query_var, 'tribe_view', 'tribe_event_display', 'eventDisplay' ],
+						Tribe__Context::REQUEST_VAR      => [
+							$view_query_var,
+							'tribe_view',
+							'tribe_event_display',
+							'eventDisplay'
+						],
 						Tribe__Context::QUERY_VAR        => 'eventDisplay',
 						Tribe__Context::TRIBE_OPTION     => 'viewOption',
 					],
 					'write' => [
-						Tribe__Context::REQUEST_VAR => [ $view_query_var, 'tribe_view', 'tribe_event_display', 'eventDisplay' ],
+						Tribe__Context::REQUEST_VAR => [
+							$view_query_var,
+							'tribe_view',
+							'tribe_event_display',
+							'eventDisplay'
+						],
 						Tribe__Context::QUERY_VAR   => 'eventDisplay',
 					],
 				],
-				'view'      => [
+				'view'                 => [
 					'read'  => [
 						Tribe__Context::WP_MATCHED_QUERY => [ 'eventDisplay' ],
 						Tribe__Context::WP_PARSED        => [ 'eventDisplay' ],
-						Tribe__Context::REQUEST_VAR      => [ $view_query_var, 'tribe_view', 'tribe_event_display', 'eventDisplay' ],
+						Tribe__Context::REQUEST_VAR      => [
+							$view_query_var,
+							'tribe_view',
+							'tribe_event_display',
+							'eventDisplay'
+						],
 						Tribe__Context::QUERY_VAR        => [ 'tribe_view', 'eventDisplay' ],
 						Tribe__Context::TRIBE_OPTION     => 'viewOption',
 					],
 					'write' => [
-						Tribe__Context::REQUEST_VAR => [ $view_query_var, 'tribe_view', 'tribe_event_display', 'eventDisplay' ],
+						Tribe__Context::REQUEST_VAR => [
+							$view_query_var,
+							'tribe_view',
+							'tribe_event_display',
+							'eventDisplay'
+						],
 						Tribe__Context::QUERY_VAR   => [ 'tribe_view', 'eventDisplay' ],
 					],
 				],
@@ -150,8 +170,8 @@ class Context extends \tad_DI52_ServiceProvider {
 						Tribe__Context::WP_MATCHED_QUERY => 'featured',
 					],
 					'write' => [
-						Tribe__Context::REQUEST_VAR      => 'featured',
-						Tribe__Context::QUERY_VAR        => 'featured',
+						Tribe__Context::REQUEST_VAR => 'featured',
+						Tribe__Context::QUERY_VAR   => 'featured',
 					],
 				],
 				TEC::TAXONOMY          => [
@@ -174,24 +194,29 @@ class Context extends \tad_DI52_ServiceProvider {
 						Tribe__Context::QUERY_VAR   => 'tribe_remove_date_filters',
 					],
 				],
-				'event_display_mode' => [
+				'event_display_mode'   => [
 					/**
 					 * We use the `eventDisplay` query var with duplicity: when parsed from the path it represents the View, when
 					 * appended as a query var it represents the "view mode". Here we invert the order to read the appended query
 					 * var first and get, from its position, a clean variable we can consume in Views.
 					 */
 					'read' => [
-						Tribe__Context::REQUEST_VAR => [ $view_query_var, 'tribe_view', 'tribe_event_display', 'eventDisplay' ],
+						Tribe__Context::REQUEST_VAR => [
+							$view_query_var,
+							'tribe_view',
+							'tribe_event_display',
+							'eventDisplay'
+						],
 						Tribe__Context::WP_PARSED   => [ 'eventDisplay', 'tribe_event_display' ],
 						Tribe__Context::QUERY_VAR   => [ 'eventDisplay', 'tribe_event_display' ],
 					],
 				],
-				'tribe_event_display'   => [
+				'tribe_event_display'  => [
 					/**
 					 * On V1 we depend on `tribe_event_display` to handle Plain permalink usage of `past` events.
 					 * The context need to be aware of where to read and write this from.
 					 */
-					'read' => [
+					'read'  => [
 						Tribe__Context::REQUEST_VAR => [ 'tribe_event_display' ],
 						Tribe__Context::WP_PARSED   => [ 'tribe_event_display' ],
 						Tribe__Context::QUERY_VAR   => [ 'tribe_event_display' ],
@@ -203,12 +228,12 @@ class Context extends \tad_DI52_ServiceProvider {
 				],
 				'keyword'              => [
 					'read' => [
-						Tribe__Context::FUNC        => [
+						Tribe__Context::FUNC          => [
 							static function () {
 								return Utils\View::get_data( 'bar-keyword', Tribe__Context::NOT_FOUND );
 							},
 						],
-						Tribe__Context::REQUEST_VAR => [ 's', 'search', 'tribe-bar-search' ],
+						Tribe__Context::REQUEST_VAR   => [ 's', 'search', 'tribe-bar-search' ],
 						Tribe__Context::LOCATION_FUNC => [
 							'view_data',
 							static function ( $data ) {
@@ -244,8 +269,8 @@ class Context extends \tad_DI52_ServiceProvider {
 					'read' => [
 						Tribe__Context::FUNC => static function () {
 							return Dates::build_date_object()
-										->setTime( 0, 0, 0 )
-										->format( Dates::DBDATETIMEFORMAT );
+							            ->setTime( 0, 0, 0 )
+							            ->format( Dates::DBDATETIMEFORMAT );
 						},
 					],
 				],
@@ -283,6 +308,7 @@ class Context extends \tad_DI52_ServiceProvider {
 										[ TEC::POSTTYPE, Venue::POSTTYPE, Organizer::POSTTYPE, ]
 									)
 								);
+
 								return $found ?: Tribe__Context::NOT_FOUND;
 							},
 						],
@@ -292,7 +318,8 @@ class Context extends \tad_DI52_ServiceProvider {
 					'read' => [
 						Tribe__Context::FUNC          => [
 							static function () {
-								return ! empty( tribe_get_request_var( TEC::POSTTYPE, false ) ) ?: Tribe__Context::NOT_FOUND;
+								return ! empty( tribe_get_request_var( TEC::POSTTYPE,
+									false ) ) ?: Tribe__Context::NOT_FOUND;
 							},
 						],
 						Tribe__Context::LOCATION_FUNC => [
@@ -307,7 +334,8 @@ class Context extends \tad_DI52_ServiceProvider {
 					'read' => [
 						Tribe__Context::FUNC          => [
 							static function () {
-								return ! empty( tribe_get_request_var( Venue::POSTTYPE, false ) ) ?: Tribe__Context::NOT_FOUND;
+								return ! empty( tribe_get_request_var( Venue::POSTTYPE,
+									false ) ) ?: Tribe__Context::NOT_FOUND;
 							},
 						],
 						Tribe__Context::LOCATION_FUNC => [
@@ -322,7 +350,8 @@ class Context extends \tad_DI52_ServiceProvider {
 					'read' => [
 						Tribe__Context::FUNC          => [
 							static function () {
-								return ! empty( tribe_get_request_var( Organizer::POSTTYPE, false ) ) ?: Tribe__Context::NOT_FOUND;
+								return ! empty( tribe_get_request_var( Organizer::POSTTYPE,
+									false ) ) ?: Tribe__Context::NOT_FOUND;
 							},
 						],
 						Tribe__Context::LOCATION_FUNC => [
@@ -354,7 +383,8 @@ class Context extends \tad_DI52_ServiceProvider {
 								$date_k = 'tribe-bar-date';
 
 								return is_array( $data ) && isset( $data[ $date_k ] )
-									? add_query_arg( [ $date_k => $data[ $date_k ] ], tribe_get_request_var( 'url', home_url() ) )
+									? add_query_arg( [ $date_k => $data[ $date_k ] ],
+										tribe_get_request_var( 'url', home_url() ) )
 									: Tribe__Context::NOT_FOUND;
 							},
 						],
@@ -373,11 +403,16 @@ class Context extends \tad_DI52_ServiceProvider {
 						],
 					],
 				],
-				'view_request'       => [
-					'read'  => [
+				'view_request'         => [
+					'read' => [
 						Tribe__Context::WP_MATCHED_QUERY => [ 'eventDisplay' ],
 						Tribe__Context::WP_PARSED        => [ 'eventDisplay' ],
-						Tribe__Context::REQUEST_VAR      => [ $view_query_var, 'tribe_view', 'tribe_event_display', 'eventDisplay' ],
+						Tribe__Context::REQUEST_VAR      => [
+							$view_query_var,
+							'tribe_view',
+							'tribe_event_display',
+							'eventDisplay'
+						],
 						Tribe__Context::QUERY_VAR        => [ 'tribe_view', 'eventDisplay' ],
 					],
 				],

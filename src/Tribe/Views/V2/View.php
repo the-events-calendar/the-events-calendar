@@ -246,7 +246,7 @@ class View implements View_Interface {
 			$params['prev_url'] = untrailingslashit( $params['prev_url'] );
 		}
 
-		$slug       = Arr::get( $params, View::query_var(), false );
+		$slug       = Arr::get( $params, static::query_var(), false );
 		$url_object = Url::from_url_and_params( Arr::get( $params, 'url' ), $params );
 
 		$url = $url_object->__toString();
