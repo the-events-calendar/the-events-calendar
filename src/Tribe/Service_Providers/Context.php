@@ -58,7 +58,7 @@ class Context extends \tad_DI52_ServiceProvider {
 							$view_query_var,
 							'tribe_view',
 							'tribe_event_display',
-							'eventDisplay'
+							'eventDisplay',
 						],
 						Tribe__Context::QUERY_VAR        => 'eventDisplay',
 						Tribe__Context::TRIBE_OPTION     => 'viewOption',
@@ -68,7 +68,7 @@ class Context extends \tad_DI52_ServiceProvider {
 							$view_query_var,
 							'tribe_view',
 							'tribe_event_display',
-							'eventDisplay'
+							'eventDisplay',
 						],
 						Tribe__Context::QUERY_VAR   => 'eventDisplay',
 					],
@@ -81,7 +81,7 @@ class Context extends \tad_DI52_ServiceProvider {
 							$view_query_var,
 							'tribe_view',
 							'tribe_event_display',
-							'eventDisplay'
+							'eventDisplay',
 						],
 						Tribe__Context::QUERY_VAR        => [ 'tribe_view', 'eventDisplay' ],
 						Tribe__Context::TRIBE_OPTION     => 'viewOption',
@@ -91,7 +91,7 @@ class Context extends \tad_DI52_ServiceProvider {
 							$view_query_var,
 							'tribe_view',
 							'tribe_event_display',
-							'eventDisplay'
+							'eventDisplay',
 						],
 						Tribe__Context::QUERY_VAR   => [ 'tribe_view', 'eventDisplay' ],
 					],
@@ -205,7 +205,7 @@ class Context extends \tad_DI52_ServiceProvider {
 							$view_query_var,
 							'tribe_view',
 							'tribe_event_display',
-							'eventDisplay'
+							'eventDisplay',
 						],
 						Tribe__Context::WP_PARSED   => [ 'eventDisplay', 'tribe_event_display' ],
 						Tribe__Context::QUERY_VAR   => [ 'eventDisplay', 'tribe_event_display' ],
