@@ -438,7 +438,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		}
 
 		// If the request is not for one of the enabled views, then bail.
-		$enabled_views = tribe_get_option( 'tribeEnableViews', array() );
+		$enabled_views = tribe( Manager::class )->get_publicly_visible_views();
 		if ( ! in_array( $view, $enabled_views, true ) ) {
 			return $redirect_url;
 		}
