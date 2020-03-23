@@ -7,7 +7,8 @@ class Tribe__Events__Deactivation extends Tribe__Abstract_Deactivation {
 	 * and needs to be reinitialized if it is reactivated
 	 */
 	private function set_flags() {
-		require_once( dirname( __FILE__ ) . '/Updater.php' );
+		// Ensure the class is loaded before using it, we're in shutdown context and common autoloader might be unset.
+		require_once __DIR__ . '/Updater.php';
 		$updater = new Tribe__Events__Updater( Tribe__Main::VERSION );
 		$updater->reset();
 	}
@@ -16,6 +17,8 @@ class Tribe__Events__Deactivation extends Tribe__Abstract_Deactivation {
 	 * Remove event-related capabilities
 	 */
 	private function clear_capabilities() {
+		// Ensure the class is loaded before using it, we're in shutdown context and common autoloader might be unset.
+		require_once __DIR__ . '/Capabilities.php';
 		$capabilities = new Tribe__Events__Capabilities();
 		$capabilities->remove_all_caps();
 	}
