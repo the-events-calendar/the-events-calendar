@@ -24,7 +24,6 @@ use Tribe\Events\Views\V2\Template\Title;
 use Tribe__Events__Main as TEC;
 use Tribe__Rewrite as TEC_Rewrite;
 use Tribe__Utils__Array as Arr;
-use Tribe__Date_Utils as Dates;
 
 /**
  * Class Hooks
@@ -60,6 +59,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_action( 'tribe_events_pro_shortcode_tribe_events_after_assets', [ $this, 'action_disable_shortcode_assets_v1' ] );
 		add_action( 'updated_option', [ $this, 'action_save_wplang' ], 10, 3 );
 		add_action( 'the_post', [ $this, 'manage_sensitive_info' ] );
+		add_action( 'get_header', [ $this, 'print_single_json_ld' ] );
 	}
 
 	/**
@@ -90,11 +90,19 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'tribe_get_event_after', [ $this, 'filter_events_properties' ] );
 		add_filter( 'tribe_template_file', [ $this, 'filter_template_file' ], 10, 3 );
 		add_filter( 'tribe_get_option', [ $this, 'filter_get_stylesheet_option' ], 10, 2 );
+		add_filter( 'option_liveFiltersUpdate', [ $this, 'filter_live_filters_option_value' ], 10, 2 );
+		add_filter( 'tribe_get_option', [ $this, 'filter_live_filters_option_value' ], 10, 2 );
+		add_filter( 'tribe_field_value', [ $this, 'filter_live_filters_option_value' ], 10, 2 );
 
 		if ( tribe_context()->doing_php_initial_state() ) {
 			add_filter( 'wp_title', [ $this, 'filter_wp_title' ], 10, 2 );
 			add_filter( 'document_title_parts', [ $this, 'filter_document_title_parts' ] );
 			add_filter( 'pre_get_document_title', [ $this, 'pre_get_document_title' ], 20 );
+		}
+
+		// Replace the `pubDate` in event feeds.
+		if ( ! has_filter( 'get_post_time', [ 'Tribe__Events__Templates', 'event_date_to_pubDate' ], 10 ) ) {
+			add_filter( 'get_post_time', [ 'Tribe__Events__Templates', 'event_date_to_pubDate' ], 10, 3 );
 		}
 	}
 
@@ -608,14 +616,14 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @since  5.0.2
 	 *
-	 * @param string $value The option value.
-	 * @param string $key   The option key.
+	 * @param  string $value The option value.
+	 * @param  string $key   The option key.
 	 *
-	 * @return void
+	 * @return string Which value we are converting to.
 	 */
 	public function filter_get_stylesheet_option( $value, $key ) {
 		// Remove this filter so we don't loop infinitely.
-		remove_filter( 'tribe_get_option', [ $this, 'filter_get_stylesheet_option' ], 10, 2 );
+		remove_filter( 'tribe_get_option', [ $this, 'filter_get_stylesheet_option' ], 10 );
 
 		$default = 'tribe';
 
@@ -634,5 +642,64 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'tribe_get_option', [ $this, 'filter_get_stylesheet_option' ], 10, 2 );
 
 		return $value;
+	}
+
+	/**
+	 * Filter the liveFiltersUpdate option to do some switching for V2.
+	 * Note: this triggers on option_liveFiltersUpdate, tribe_get_option, AND tribe_field_value. We
+	 * don't have to add/remove filters because we don't need to get the value - it's already provided.
+	 *
+	 * @since 5.0.3
+	 *
+	 * @param  string $value  The option value.
+	 * @param  string $key    The option key.
+	 *
+	 * @return string Converted value of the Live Filters string.
+	 */
+	public function filter_live_filters_option_value( $value, $key ) {
+		if ( 'liveFiltersUpdate' !== $key ) {
+			return $value;
+		}
+
+		return $this->live_filters_maybe_convert( $value );
+	}
+
+	/**
+	 * Converts old (boolean) values to the new string values.
+	 *
+	 * @since 5.0.3
+	 *
+	 * @param  mixed  $value The value to maybe convert.
+	 *
+	 * @return string Modified value of Live filters Update.
+	 */
+	public function live_filters_maybe_convert( $value ) {
+		$return_value = 'automatic';
+
+		if ( empty( $value ) || 'manual' === $value ) {
+			$return_value = 'manual';
+		}
+
+		/**
+		 * Allow filtering of the new value for Live Filters.
+		 *
+		 * @since 5.0.3
+		 *
+		 * @param string $return_value Which value we are going to return as the conversion.
+		 * @param string $value        Which value was previously used.
+		 */
+		$return_value = apply_filters( 'tribe_events_option_convert_live_filters', $return_value, $value );
+
+		return $return_value;
+	}
+
+	/**
+	 * Print Single Event JSON-LD.
+	 *
+	 * @since 5.0.3
+	 */
+	public function print_single_json_ld() {
+
+		$this->container->make( Template\JSON_LD::class )->print_single_json_ld();
 	}
 }

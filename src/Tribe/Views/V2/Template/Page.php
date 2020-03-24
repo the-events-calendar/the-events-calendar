@@ -36,10 +36,22 @@ class Page {
 	 * @return string Path for the Page template to be loaded.
 	 */
 	public function get_path() {
+
 		// Fetches the WP default path for Page.
-		$template = get_page_template();
+		$template = tribe( Template_Bootstrap::class )->get_template_setting();
 
 		// If there wasn't any defined we fetch the Index.
+		if ( empty( $template ) ) {
+			$template = get_index_template();
+		} elseif ( 'page' === $template ) {
+			// We check for page as default is converted to page in Tribe\Events\Views\V2\Template_Bootstrap->in get_template_setting().
+			$template = get_page_template();
+		} else {
+			// Admin setting set to a custom template.
+			$template = locate_template( $template );
+		}
+
+		// If $template is empty, attempt to get the index template for themes such as TwentyTwenty, which does not have a page.php.
 		if ( empty( $template ) ) {
 			$template = get_index_template();
 		}

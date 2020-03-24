@@ -4,8 +4,8 @@ Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.9
-Stable tag: 5.0.2.1
-Tested up to: 5.3.2
+Stable tag: 5.0.3.1
+Tested up to: 5.4
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -219,6 +219,34 @@ Previous versions of The Events Calendar are not cross-compatible with 5.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [5.0.3.1] 2020-03-23 =
+
+* Fix - Assets class modification to prevent JavaScript and CSS failing to load when `SCRIPT_DEBUG=true` [TCMN-52]
+
+= [5.0.3] 2020-03-23 =
+
+* Feature - Allow users to set a custom name for new Event Aggregator Imports. [TEC-3286]
+* Tweak - Add back missing JSON-LD to Single Events. [TEC-3262]
+* Tweak - Minify the Freemius svg assets. [TEC-3215]
+* Tweak - Remove "(beta)" label from URL source type of import. [TEC-3289]
+* Tweak - Reword the Filter Activation setting's labels for better clarity.  [FBAR-79]
+* Fix - Ensure that any values for `liveFilterUpdate` that are not `automatic` or `manual` get converted. [FBAR-83]
+* Fix - Breakpoint code compatibility with the latest version of jQuery 3.4.1 [BTRIA-154]
+* Fix - Remove numbers from listed events in event list widget for Genesis theme. [TEC-2957]
+* Fix - Customizer accent color affects featured line and text. [TEC-3277]
+* Fix - Resolve conflict between datepicker holding consistent size when navigating and flexibility on small screen sizes. [TEC-3322]
+* Fix - Respect EA `post_status` from settings when an event does not have a defined value. [TEC-3255]
+* Fix - Save the `post_status` for a scheduled import when using a different value other than `publish`. [TEC-3296]
+* Fix - Update events, venues, and organizers to use dynamic labels. [TEC-3280]
+* Fix - Resolve an issue in Views v2 that would break URLs when the event single and archive slugs have the same value due to the "Events URL slug" and "Single event URL slug" settings or due to their translations [TEC-3254]
+* Fix - Restore correct handling of events RSS feeds; events will show in the RSS feed in ascending start date, starting from the current day and the event publish date will be set to the event start date [TEC-3252]
+* Hook - Add filters `tribe_events_liveupdate_automatic_label_text` and `tribe_events_liveupdate_manual_label_text` to allow Filter Bar to include itself in those lables. [TEC-3322]
+* Hook - Add the `tribe_views_v2_events_query_controller_active` filter; returning a falsy value from this filter will prevent Views v2 from altering the WordPress query. This filter allows handling situations where Views v2 might interfere with third party plugins (e.g. custom RSS feed implementations) [TEC-3252]
+* Tweak - Added filters: `tribe_events_option_convert_live_filters`, `tribe_events_views_v2_messages_need_events_label_keys`
+* Tweak - Removed filters: `tribe_events_ical_export_text`
+* Tweak - Changed views: `v2/components/events-bar/search/keyword`, `v2/month/calendar-body/day`
+* Language - 11 new strings added, 81 updated, 0 fuzzied, and 6 obsoleted
 
 = [5.0.2.1] 2020-02-25 =
 

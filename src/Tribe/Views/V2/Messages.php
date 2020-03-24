@@ -101,9 +101,9 @@ class Messages {
 				'There were no results found for <strong>"%1$s"</strong> this month. Try searching next month.',
 				'the-events-calendar'
 			),
-			// translators: the placeholder is the formatted date string, e.g. "February 22, 2020".
+			// translators: %1$s: events (plural), %2$s: the formatted date string, e.g. "February 22, 2020".
 			'day_no_results_found'             => __(
-				'No events scheduled for %s. Please try another day.',
+				'No %1$s scheduled for %2$s. Please try another day.',
 				'the-events-calendar'
 			),
 		];
@@ -120,7 +120,26 @@ class Messages {
 		// If not found return the key itself.
 		$match = Arr::get( $map, $key, $key );
 
-		return count( $values ) ? sprintf( $match, ...$values ) : $match;
+		if ( empty( count( $values ) ) ) {
+			return $match;
+		}
+
+		$need_events_label_keys = [ 'day_no_results_found' ];
+
+		/**
+		 * Filters the array of keys of the messages that need the events label.
+		 *
+		 * @since 5.0.3
+		 *
+		 * @param array $need_events_label_keys Array of keys of the messages that need events label.
+		 */
+		$need_events_label_keys = apply_filters( 'tribe_events_views_v2_messages_need_events_label_keys', $need_events_label_keys );
+
+		if ( in_array( $key, $need_events_label_keys ) ) {
+			array_unshift( $values, tribe_get_event_label_plural_lowercase() );
+		}
+
+		return sprintf( $match, ...$values );
 	}
 
 	/**
