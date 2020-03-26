@@ -396,8 +396,8 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @return string The modified html, if required.
 	 */
 	public function filter_admin_post_thumbnail_html( $html ) {
-
-		if ( TEC::POSTTYPE !== get_current_screen()->post_type ) {
+		$current_screen = get_current_screen();
+		if ( $current_screen === null || TEC::POSTTYPE !== $current_screen->post_type ) {
 			return $html;
 		}
 
