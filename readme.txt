@@ -222,7 +222,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [5.0.4] TBD =
 
-
+* Fix - Selecting other Page templates from Settings > Display now loads the correct template properly, to display events.
 
 = [5.0.3.1] 2020-03-23 =
 
