@@ -68,7 +68,7 @@ class Tribe__Events__Aggregator__Event {
 		$event = array();
 		$item = (object) $item;
 
-		$field_map = array(
+		$field_map = [
 			'title'              => 'post_title',
 			'description'        => 'post_content',
 			'excerpt'            => 'post_excerpt',
@@ -101,9 +101,9 @@ class Tribe__Events__Aggregator__Event {
 			'hide_from_listings' => 'hide_from_listings',
 			'sticky'             => 'sticky',
 			'featured'           => 'feature_event',
-		);
+		];
 
-		$venue_field_map = array(
+		$venue_field_map = [
 			'_venue_id'             => 'VenueID',
 			'meetup_id'             => 'VenueMeetupID',
 			'eventbrite_id'         => 'VenueEventBriteID',
@@ -119,9 +119,9 @@ class Tribe__Events__Aggregator__Event {
 			'overwrite_coordinates' => 'OverwriteCoords',
 			'latitude'              => 'Lat',
 			'longitude'             => 'Lng',
-		);
+		];
 
-		$organizer_field_map = array(
+		$organizer_field_map = [
 			'_organizer_id' => 'OrganizerID',
 			'meetup_id'     => 'OrganizerMeetupID',
 			'eventbrite_id' => 'OrganizerEventBriteID',
@@ -129,7 +129,7 @@ class Tribe__Events__Aggregator__Event {
 			'phone'         => 'Phone',
 			'email'         => 'Email',
 			'website'       => 'Website',
-		);
+		];
 
 		/**
 		 * Allows filtering to add other field mapping values.

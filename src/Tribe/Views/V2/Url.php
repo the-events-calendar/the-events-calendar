@@ -8,7 +8,8 @@
 
 namespace Tribe\Events\Views\V2;
 
-use Tribe__Events__Rewrite as Rewrite;
+use Tribe__Context as Context;
+use Tribe__Events__Rewrite as TEC_Rewrite;
 use Tribe__Utils__Array as Arr;
 
 /**
@@ -151,7 +152,7 @@ class Url {
 	 */
 	public function parse_url() {
 		$this->components = array_merge( static::$default_url_components, parse_url( $this->url ) );
-		$this->query_args = Rewrite::instance()->parse_request( $this->url );
+		$this->query_args = TEC_Rewrite::instance()->parse_request( $this->url );
 		if ( ! empty( $this->components['query'] ) ) {
 			parse_str( $this->components['query'], $query_component_args );
 			$this->query_args     = $this->query_overrides_path
@@ -196,5 +197,164 @@ class Url {
 		$this->query_overrides_path = (bool) $query_overrides_path;
 
 		return $this;
+	}
+
+	/**
+	 * Returns the alias of the variable set in the Url query args, if any.
+	 *
+	 * @since 4.9.4
+	 *
+	 * @param              string $var The name of the variable to search an alias for.
+	 * @param Context|null $context The Context object to use to fetch locations, if `null` the global Context will be
+	 *                              used.
+	 *
+	 * @return false|string The variable alias set in the URL query args, or `false` if no alias was found.
+	 */
+	public function get_query_arg_alias_of( $var, Context $context = null ) {
+		$aliases = $this->get_query_args_aliases_of( $var, $context, false );
+
+
+		return count( $aliases ) ? reset( $aliases ) : false;
+	}
+
+	/**
+	 * Returns the value of a query arg set on the URL, or a default value if not found.
+	 *
+	 * @since 4.9.4
+	 *
+	 * @param      string $key The
+	 * @param null $default
+	 *
+	 * @return mixed
+	 */
+	public function get_query_arg( $key, $default = null ) {
+		return Arr::get( (array) $this->get_query_args(), $key, $default );
+	}
+
+	/**
+	 * Returns all the aliases of the variable set in the Url query args, if any.
+	 *
+	 * @since 4.9.9
+	 *
+	 * @param string       $var     The name of the variable to search the aliases for.
+	 * @param Context|null $context The Context object to use to fetch locations, if `null` the global Context will be
+	 *                              used.
+	 *
+	 * @return array An array of the variable aliases set in the URL query args.
+	 */
+	public function get_query_args_aliases_of( $var, Context $context = null ) {
+		$context    = $context ?: tribe_context();
+		$query_args = $this->get_query_args();
+		$aliases    = $context->translate_sub_locations(
+			$query_args,
+			Context::QUERY_VAR,
+			'read'
+		);
+
+		if ( empty( $aliases ) ) {
+			return [];
+		}
+
+		$query_aliases   = (array) Arr::get( $context->get_locations(), [ $var, 'read', Context::QUERY_VAR ], [] );
+		$request_aliases = (array) Arr::get( $context->get_locations(), [ $var, 'read', Context::REQUEST_VAR ], [] );
+		$context_aliases = array_unique( array_merge( $query_aliases, $request_aliases ) );
+
+		$matches = array_intersect(
+			array_unique( array_merge( $context_aliases, [ $var ] ) ),
+			array_keys( array_merge( $query_args, tribe_get_request_vars() ) )
+		);
+
+		return $matches;
+	}
+
+	/**
+	 * Builds and returns an instance of the object taking care to parse additional parameters to use the correct URL.
+	 *
+	 * @since 4.9.10
+	 *
+	 * @param string $url The URL address to build the object on.
+	 * @param array  $params An array of additional parameters to parse; these parameters might be more up to date in
+	 *                       respect to the `$url` argument and will be used to build an instance of the class on the
+	 *                       correct URL. Passing an empty array here is, in fact, the same as calling
+	 *                       `new Url( $url )`;
+	 *
+	 * @return static The built instance of this class.
+	 */
+	public static function from_url_and_params( $url = null, array $params = [] ) {
+		if ( empty( $url ) ) {
+			$url = home_url( add_query_arg( [] ) );
+		}
+
+		if ( isset( $params['view_data'] ) ) {
+			// If we have it, then use the up-to-date View data to "correct" the URL.
+			$bar_params           = array_intersect_key(
+				$params['view_data'],
+				array_filter( $params['view_data'], static function ( $value, $key ) {
+					return 0 === strpos( $key, 'tribe-bar-' );
+				}, ARRAY_FILTER_USE_BOTH )
+			);
+			$empty_bar_params     = array_filter( $bar_params, static function ( $value ) {
+				return $value === '';
+			} );
+			$non_empty_bar_params = array_diff_key( $bar_params, $empty_bar_params );
+
+			/*
+			 * Here we add and remove tribe-bar parameters that might have been set in the View data, but
+			 * not yet reflected in the URL.
+			 */
+			if ( count( $bar_params ) ) {
+				$url = add_query_arg(
+					$non_empty_bar_params,
+					remove_query_arg(
+						array_keys( $empty_bar_params ),
+						$url
+					)
+				);
+			}
+		}
+
+		return new static( $url );
+	}
+
+	/**
+	 * Differentiates two URLs with knowledge of rewrite rules to check if, resolved request arguments wise, they are
+	 * the same or not.
+	 *
+	 * @since 4.9.11
+	 *
+	 * @param string $url_a  The first URL to check.
+	 * @param string $url_b  The second URL to check.
+	 * @param array  $ignore An array of resolved query arguments that should not be taken into account in the check.
+	 *
+	 * @return bool Whether the two URLs, resolved request arguments wise, they are the same or not.
+	 */
+	public static function is_diff( $url_a, $url_b, array $ignore = [] ) {
+		if ( $url_a === $url_b ) {
+			return false;
+		}
+
+		if ( empty( $url_a ) || empty( $url_b ) ) {
+			// We cannot know if one or both are empty.
+			return false;
+		}
+
+		if ( $url_a && $url_b ) {
+			$a_args = ( new static( $url_a ) )->get_query_args();
+			$b_args = ( new static( $url_b ) )->get_query_args();
+			// Ignore any argument that should not trigger a reset.
+			$a_args = array_diff_key( $a_args, array_combine( $ignore, $ignore ) );
+			$b_args = array_diff_key( $b_args, array_combine( $ignore, $ignore ) );
+
+			// Query vars might just be ordered differently, so we sort them.
+			ksort( $a_args );
+			ksort( $b_args );
+
+			if ( array_merge( $a_args, $b_args ) !== $a_args ) {
+				// If the quantity or quality of the arguments changes, then reset.
+				return true;
+			}
+		}
+
+		return false;
 	}
 }

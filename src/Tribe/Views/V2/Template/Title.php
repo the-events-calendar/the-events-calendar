@@ -1,0 +1,379 @@
+<?php
+/**
+ * Handles the manipulation of the template title to correctly render it in the context of a Views v2 request.
+ *
+ * @since   4.9.10
+ *
+ * @package Tribe\Events\Views\V2\Template
+ */
+
+namespace Tribe\Events\Views\V2\Template;
+
+use Tribe__Context as Context;
+use Tribe__Date_Utils as Dates;
+use Tribe__Events__Main as TEC;
+
+/**
+ * Class Title
+ *
+ * @since   4.9.10
+ *
+ * @package Tribe\Events\Views\V2\Template
+ */
+class Title {
+
+	/**
+	 * The instance of the Context object that will be used to build the title, the global one otherwise.
+	 *
+	 * @since 4.9.10
+	 *
+	 * @var Context
+	 */
+	protected $context;
+	/**
+	 * An array of the events matching the query the title should be built for.
+	 *
+	 * @since 4.9.10
+	 *
+	 * @var array
+	 */
+	protected $posts;
+
+	/**
+	 * The plural Events label.
+	 *
+	 * @since 4.9.10
+	 *
+	 * @var string
+	 */
+	protected $events_label_plural;
+
+	/**
+	 * Title constructor.
+	 *
+	 * @since 4.9.10
+	 */
+	public function __construct() {
+		$this->events_label_plural = tribe_get_event_label_plural();
+	}
+
+	/**
+	 * Builds and returns the page title, to be used to filter the `wp_title` tag.
+	 *
+	 * @since 4.9.10
+	 *
+	 * @param string      $title The page title built so far.
+	 * @param null|string $sep   The separator sequence to separate the title components..
+	 *
+	 * @return string the filtered page title.
+	 */
+	public function filter_wp_title( $title, $sep = null ) {
+		$new_title = $this->build_title( $title, false );
+
+		/**
+		 * Filters the page title built for event single or archive pages.
+		 *
+		 * @since 4.9.10
+		 *
+		 * @param string      $new_title The new title built for the page.
+		 * @param string      $title     The original title.
+		 * @param null|string $sep       The separator sequence to separate the title components.
+		 */
+		$the_title = apply_filters( 'tribe_events_title_tag', $new_title, $title, $sep );
+
+		return $the_title;
+	}
+
+	/**
+	 * Builds the page title from a context.
+	 *
+	 * This method is a rewrite of the `tribe_get_events_title` function to make it leverage the local context,
+	 * injectable and controllable, in place of the global one.
+	 *
+	 * @since 4.9.10
+	 *
+	 * @param string $current_title Current Title used on the page.
+	 * @param bool   $depth         Whether to use depth to build the taxonomy archive title, or not.
+	 *
+	 * @return string The page title.
+	 */
+	public function build_title( $current_title = '', $depth = true ) {
+		$context = $this->context ?: tribe_context();
+		$posts   = $this->get_posts();
+
+		if ( $context->is( 'featured' ) ) {
+			$this->events_label_plural = sprintf(
+				_x( 'Featured %s', 'featured events title', 'the-events-calendar' ),
+				$this->events_label_plural
+			);
+		}
+
+		if ( $context->is( 'single' ) && $context->is( 'event_post_type' ) ) {
+			// For single events, the event title itself is required
+			$title = get_the_title( $context->get( 'post_id' ) );
+		} else {
+			// For all other cases, start with 'upcoming events'
+			$title = sprintf( esc_html__( 'Upcoming %s', 'the-events-calendar' ), $this->events_label_plural );
+		}
+
+		// If there's a date selected in the tribe bar, show the date range of the currently showing events
+		$event_date = $context->get( 'event_date', false );
+
+		$event_display_mode = $context->get( 'event_display_mode' );
+		if ( $event_date && count( $posts ) ) {
+			$title = $this->build_post_range_title( $context, $event_date );
+		} elseif ( 'past' === $event_display_mode ) {
+			$title = sprintf( esc_html__( 'Past %s', 'the-events-calendar' ), $this->events_label_plural );
+		}
+
+		if ( 'month' === $event_display_mode ) {
+			$title = $this->build_month_title( $event_date );
+		}
+
+		if ( 'day' === $event_display_mode ) {
+			$title = $this->build_day_title( $event_date );
+		}
+
+		$term = $context->get( TEC::TAXONOMY, false );
+		if ( false !== $term && $depth ) {
+			$cat = get_term_by( 'slug', $term, TEC::TAXONOMY );
+
+			if ( $cat instanceof \WP_Term ) {
+				$title = $this->build_category_title( $title, $cat );
+			}
+		}
+
+		/**
+		 * Allows for customization of the "Events" page title.
+		 *
+		 * This is the same filter used in the `tribe_get_events_title` function.
+		 * This is by design, to allow the same filtering to apply. Since this method built the value using the context
+		 * that is passed to filtering functions as a third parameter.
+		 *
+		 * @since 4.9.10
+		 *
+		 * @param string  $title   The "Events" page title as it's been generated thus far.
+		 * @param bool    $depth   Whether to include the linked title or not.
+		 * @param Context $context The context used to build the title, it could be the global one, or one externally
+		 *                         set.
+		 */
+		$title = apply_filters( 'tribe_get_events_title', $title, $depth, $context );
+
+		/**
+		 * Filters the view title, specific to Views V2.
+		 *
+		 * While the `tribe_get_events_title` is called above this one for back-compatibility purposes, this filter
+		 * is exclusive to the Views V2 implementation.
+		 *
+		 * @since 4.9.10
+		 *
+		 * @param string  $title   The "Events" page title as it's been generated thus far.
+		 * @param bool    $depth   Whether to include the linked title or not.
+		 * @param Context $context The context used to build the title, it could be the global one, or one externally
+		 *                         set.
+		 * @param array $posts An array of posts fetched by the View.
+		 */
+		return apply_filters( 'tribe_events_v2_view_title', $title, $depth, $context, $posts );
+	}
+
+	/**
+	 * Builds the title for a range of posts.
+	 *
+	 * @since 4.9.10
+	 *
+	 * @param Context $context    The context to use to build the title.
+	 * @param mixed   $event_date The event date object, string or timestamp.
+	 *
+	 * @return array The built post range title.
+	 */
+	public function build_post_range_title( Context $context, $event_date ) {
+		$event_date = Dates::build_date_object( $event_date )->format( Dates::DBDATEFORMAT );
+		$posts      = $this->get_posts();
+
+		$first = reset( $posts );
+		$last  = end( $posts );
+
+		$first_returned_date = tribe_get_start_date( $first, false, Dates::DBDATEFORMAT );
+		$first_event_date    = tribe_get_start_date( $first, false );
+		$last_event_date     = tribe_get_end_date( $last, false );
+
+		/*
+		 * If we are on page 1 then we may wish to use the *selected* start date in place of the
+		 * first returned event date.
+		 */
+		$page = $context->get( 'paged', 1 );
+		if ( 1 == $page && $event_date < $first_returned_date ) {
+			$first_event_date = tribe_format_date( $event_date, false );
+		}
+
+		$title = sprintf( __( '%1$s for %2$s - %3$s', 'the-events-calendar' ), $this->events_label_plural, $first_event_date, $last_event_date );
+
+		return $title;
+	}
+
+	/**
+	 * Filters and returns the `title` part of the array produced by the  `wp_get_document_title` function.
+	 *
+	 * @since 4.9.10
+	 *
+	 * @param array $title The document title parts.
+	 *
+	 * @return array The filtered document title parts.
+	 */
+	public function filter_document_title_parts( array $title = [] ) {
+		$sep       = apply_filters( 'document_title_separator', '-' );
+		$the_title = $title['title'];
+
+		$new_title = $this->build_title( $title['title'], false );
+
+		/**
+		 * Filters the page title built for event single or archive pages.
+		 *
+		 * @since 4.9.10
+		 *
+		 * @param string      $new_title The new title built for the page.
+		 * @param string      $title     The original title.
+		 * @param null|string $sep       The separator sequence to separate the title components.
+		 */
+		$the_title = apply_filters( 'tribe_events_title_tag', $new_title, $the_title, $sep );
+
+		$title['title'] = $the_title;
+
+		return $title;
+	}
+
+	/**
+	 * Sets the context this title object should use to build the title.
+	 *
+	 * @since 4.9.10
+	 *
+	 * @param Context|null $context The context to use, `null` values will unset it causing the object ot use the
+	 *                              global context.
+	 *
+	 * @return $this For chaining.
+	 */
+	public function set_context( Context $context = null ) {
+		$this->context = $context;
+
+		return $this;
+	}
+
+	/**
+	 * Sets the posts this object should reference to build the title.
+	 *
+	 * We build some title components with notion of what events we found for a View. Here we set them.
+	 *
+	 * @since 4.9.10
+	 *
+	 * @param array|null $posts  An array of posts matching the context query, `null` will unset it causing the object
+	 *                           to use the posts found by the global `$wp_query` object.
+	 *
+	 * @return $this For chaining.
+	 */
+	public function set_posts( array $posts = null ) {
+		$this->posts = $posts;
+
+		return $this;
+	}
+
+	/**
+	 * Returns the post the title should use to build some title fragments.
+	 *
+	 * @since 4.9.10
+	 *
+	 * @return array An array of injected posts, or the globally found posts.
+	 */
+	protected function get_posts() {
+		$posts = $this->posts;
+
+		if ( null === $this->posts ) {
+			global $wp_query;
+			$posts = null !== $wp_query->posts ? $wp_query->posts : $wp_query->get_posts();
+		}
+
+		return $posts;
+	}
+
+	/**
+	 * Builds the Month view title.
+	 *
+	 * @since 4.9.10
+	 *
+	 * @param mixed $event_date The date to use to build the title.
+	 *
+	 * @return string The Month view title.
+	 */
+	public function build_month_title( $event_date ) {
+		$event_date = Dates::build_date_object( $event_date )->format( Dates::DBDATEFORMAT );
+
+		$title = sprintf(
+			esc_html_x( '%1$s for %2$s', 'month view', 'the-events-calendar' ),
+			$this->events_label_plural,
+			date_i18n( tribe_get_date_option( 'monthAndYearFormat', 'F Y' ), strtotime( $event_date ) )
+		);
+
+		/**
+		 * Filters the Month view title.
+		 *
+		 * @since 4.9.10
+		 *
+		 * @param string $title The Month view title.
+		 * @param string The date to use to build the title, in the `Y-m-d` format.
+		 */
+		return apply_filters( 'tribe_events_views_v2_month_title', $title, $event_date );
+	}
+
+	/**
+	 * Builds the Day view title.
+	 *
+	 * @since 4.9.10
+	 *
+	 * @param mixed $event_date The date to use to build the title.
+	 *
+	 * @return string The Day view title.
+	 */
+	protected function build_day_title( $event_date ) {
+		$title = sprintf(
+			esc_html_x( '%1$s for %2$s', 'day_view', 'the-events-calendar' ),
+			$this->events_label_plural,
+			date_i18n( tribe_get_date_format( true ), strtotime( $event_date ) )
+		);
+
+		/**
+		 * Filters the Day view title.
+		 *
+		 * @since 4.9.10
+		 *
+		 * @param string $title The Day view title.
+		 * @param string The date to use to build the title, in the `Y-m-d` format.
+		 */
+		return apply_filters( 'tribe_events_views_v2_day_title', $title, $event_date );
+}
+
+	/**
+	 * Builds, wrapping the current  title, the Event Category archive title.
+	 *
+	 * @since 4.9.10
+	 *
+	 * @param string $title The input title.
+	 * @param  \WP_Term $cat The category term to use to build the title.
+	 *
+	 * @return string The built category archive title.
+	 */
+	protected function build_category_title( $title, $cat ) {
+		$new_title = '<a href="' . esc_url( tribe_get_events_link() ) . '">' . $title . '</a>';
+		$new_title .= ' &#8250; ' . $cat->name;
+
+		/**
+		 * Filters the Event Category Archive title.
+		 *
+		 * @since 4.9.10
+		 *
+		 *
+		 * @param string $new_title The Event Category archive title.
+		 * @param string $title     The original title.
+		 * @param \WP_Term The Event Category term used to build the title.
+		 */
+		return apply_filters( 'tribe_events_views_v2_category_title', $new_title, $title, $cat );
+	}
+}

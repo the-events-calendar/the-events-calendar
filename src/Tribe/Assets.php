@@ -223,7 +223,7 @@ class Tribe__Events__Assets {
 			$plugin,
 			'tribe-events-calendar-script',
 			'tribe-events.js',
-			array( 'jquery', 'tribe-events-bootstrap-datepicker', 'tribe-events-jquery-resize', 'jquery-placeholder' ),
+			array( 'jquery', 'tribe-events-bootstrap-datepicker', 'tribe-events-jquery-resize', 'jquery-placeholder', 'tribe-moment' ),
 			'wp_enqueue_scripts',
 			array(
 				'conditionals' => array( $this, 'should_enqueue_frontend' ),
@@ -330,7 +330,7 @@ class Tribe__Events__Assets {
 			$plugin,
 			'the-events-calendar',
 			'tribe-events-ajax-calendar.js',
-			array( 'jquery', 'tribe-events-calendar-script', 'tribe-events-bootstrap-datepicker', 'tribe-events-jquery-resize', 'jquery-placeholder' ),
+			array( 'jquery', 'tribe-events-calendar-script', 'tribe-events-bootstrap-datepicker', 'tribe-events-jquery-resize', 'jquery-placeholder', 'tribe-moment' ),
 			null,
 			array(
 				'localize'     => array(
@@ -656,11 +656,18 @@ class Tribe__Events__Assets {
 	 * @return array
 	 */
 	public function get_js_calendar_script_data() {
-		$js_config_array = array(
+		$js_config_array = [
 			'permalink_settings' => get_option( 'permalink_structure' ),
 			'events_post_type'   => Tribe__Events__Main::POSTTYPE,
 			'events_base'        => tribe_get_events_link(),
-		);
+			'update_urls'        => [
+				'shortcode' => [
+					'list'  => true,
+					'month' => true,
+					'day'   => true,
+				],
+			],
+		];
 
 		/**
 		 * Allow filtering if we should display JS debug messages
@@ -683,6 +690,15 @@ class Tribe__Events__Assets {
 			$js_config_array['force_filtered_ical_link'] = true;
 		}
 
+		/**
+		 * Allows filtering the contents of the Javascript configuration object that will be printed on the page.
+		 *
+		 * @since 4.9.8
+		 *
+		 * @param array $js_config_array The Javascript configuration object that will be printed on the page.
+		 */
+		$js_config_array = apply_filters( 'tribe_events_js_config', $js_config_array );
+
 		return $js_config_array;
 	}
 
@@ -698,7 +714,7 @@ class Tribe__Events__Assets {
 			'date_with_year'          => tribe_get_date_option( 'dateWithYearFormat', Tribe__Date_Utils::DBDATEFORMAT ),
 			'date_no_year'            => tribe_get_date_option( 'dateWithoutYearFormat', Tribe__Date_Utils::DBDATEFORMAT ),
 			'datepicker_format'       => Tribe__Date_Utils::datepicker_formats( tribe_get_option( 'datepickerFormat' ) ),
-			'datepicker_format_index' => tribe_get_option( 'datepickerFormat' ),
+			'datepicker_format_index' => Tribe__Date_Utils::get_datepicker_format_index(),
 			'days'              => array(
 				__( 'Sunday' ),
 				__( 'Monday' ),

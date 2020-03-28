@@ -1,6 +1,6 @@
 {
   "name": "the-events-calendar",
-  "version": "4.9.4",
+  "version": "5.0.4",
   "repository": "git@github.com:moderntribe/the-events-calendar.git",
   "_zipname": "the-events-calendar",
   "_zipfoldername": "the-events-calendar",
@@ -120,7 +120,7 @@
     "google-maps-react": "^1.1.11",
     "he": "^1.2.0",
     "jquery": "3.2.1",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.15",
     "moment": "2.19.3",
     "moment-timezone": "0.5.13",
     "prop-types": "^15.6.2",

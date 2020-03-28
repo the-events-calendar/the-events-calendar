@@ -3,7 +3,9 @@
 namespace Tribe\Events\Views\V2;
 
 use Tribe\Events\Test\Factories\Event;
+use Tribe\Events\Views\V2\Views\Reflector_View;
 use Tribe__Context as Context;
+use Tribe__Date_Utils as Dates;
 
 require_once codecept_data_dir( 'Views/V2/classes/Test_View.php' );
 
@@ -27,7 +29,7 @@ class ViewTest extends \Codeception\TestCase\WPTestCase {
 	 * @return View
 	 */
 	private function make_instance() {
-		return new View();
+		return new View( new Messages() );
 	}
 
 	/**
@@ -111,28 +113,6 @@ class ViewTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * It should allow getting the slug currently associated to a View
-	 *
-	 * @test
-	 */
-	public function should_allow_getting_the_slug_currently_associated_to_a_view() {
-		add_filter( 'tribe_events_views', function () {
-			return [];
-		} );
-		$this->assertFalse( View::get_view_slug( Test_View::class ) );
-
-		add_filter( 'tribe_events_views', function () {
-			return [ 'test' => Test_View::class ];
-		} );
-		$this->assertEquals( 'test', View::get_view_slug( Test_View::class ) );
-
-		add_filter( 'tribe_events_views', function () {
-			return [];
-		} );
-		$this->assertFalse( View::get_view_slug( Test_View::class ) );
-	}
-
-	/**
 	 * It should use the global context if not assigned one
 	 *
 	 * @test
@@ -211,11 +191,13 @@ class ViewTest extends \Codeception\TestCase\WPTestCase {
 		$events = static::factory()->event->create_many( 3 );
 
 		$page_1_view = View::make( 'test' );
+		$page_1_view->set_has_next_event( true );
 		$page_1_view->setup_the_loop( [ 'posts_per_page' => 2, 'starts_after' => 'now' ] );
 
-		$this->assertEquals( home_url() . '?post_type=tribe_events&eventDisplay=test&paged=2', $page_1_view->next_url() );
+		$this->assertEquals( home_url() . '?post_type=tribe_events&eventDisplay=test&page=2', $page_1_view->next_url() );
 
 		$page_2_view = View::make( 'test' );
+		$page_2_view->set_has_next_event( false );
 		$page_2_view->setup_the_loop( [ 'posts_per_page' => 2, 'starts_after' => 'now', 'paged' => 2 ] );
 
 		$this->assertEquals( '', $page_2_view->next_url() );
@@ -232,15 +214,15 @@ class ViewTest extends \Codeception\TestCase\WPTestCase {
 		} );
 		$events = static::factory()->event->create_many( 3 );
 
-		$page_1_view = View::make( 'test' );
-		$page_1_view->setup_the_loop( [ 'paged' => 2, 'posts_per_page' => 2, 'starts_after' => 'now' ] );
-
-		$this->assertEquals( home_url() . "?post_type=tribe_events&eventDisplay=test", $page_1_view->prev_url() );
-
 		$page_2_view = View::make( 'test' );
-		$page_2_view->setup_the_loop( [ 'posts_per_page' => 2, 'starts_after' => 'now' ] );
+		$page_2_view->setup_the_loop( [ 'paged' => 2, 'posts_per_page' => 2, 'starts_after' => 'now' ] );
 
-		$this->assertEquals( '', $page_2_view->prev_url() );
+		$this->assertEquals( home_url() . "?post_type=tribe_events&eventDisplay=test", $page_2_view->prev_url() );
+
+		$page_1_view = View::make( 'test' );
+		$page_1_view->setup_the_loop( [ 'posts_per_page' => 2, 'starts_after' => 'now' ] );
+
+		$this->assertEquals( '', $page_1_view->prev_url() );
 	}
 
 	/**
@@ -254,18 +236,43 @@ class ViewTest extends \Codeception\TestCase\WPTestCase {
 		} );
 		$events = static::factory()->event->create_many( 3 );
 
-		$page_1_view = View::make( 'test' );
-		$page_1_view->setup_the_loop( [ 'posts_per_page' => 2, 'starts_after' => 'now', 'paged' => 2 ] );
-
-		$this->assertEquals( home_url() . '?post_type=tribe_events&eventDisplay=test', $page_1_view->prev_url() );
-
 		$page_2_view = View::make( 'test' );
-		$page_2_view->setup_the_loop( [ 'posts_per_page' => 2, 'starts_after' => 'now' ] );
+		$page_2_view->setup_the_loop( [ 'posts_per_page' => 2, 'starts_after' => 'now', 'paged' => 2 ] );
 
-		$this->assertEquals( '', $page_2_view->prev_url() );
+		$this->assertEquals( home_url() . '?post_type=tribe_events&eventDisplay=test', $page_2_view->prev_url() );
+
+		$page_1_view = View::make( 'test' );
+		$page_1_view->setup_the_loop( [ 'posts_per_page' => 2, 'starts_after' => 'now' ] );
+
+		$this->assertEquals( '', $page_1_view->prev_url() );
 	}
 
 	public function wpSetUpBeforeClass() {
 		static::factory()->event = new Event();
+	}
+
+	public function url_event_date_data_set() {
+		return [
+			'empty'      => [ '', false ],
+			'2019-10-11' => [ '2019-10-11', '2019-10-11' ],
+			'false'      => [ false, false ],
+			'now'        => [ 'now', false ],
+			'today'      => [ 'today', date( Dates::DBDATEFORMAT ) ],
+		];
+	}
+
+	/**
+	 * It should correctly set the url_event_date template var
+	 *
+	 * @test
+	 * @dataProvider url_event_date_data_set
+	 */
+	public function should_correctly_set_the_url_event_date_template_var( $event_date, $expected ) {
+		$view = View::make( Reflector_View::class );
+		$view->set_context( tribe_context()->alter( [ 'event_date' => $event_date ] ) );
+		$template_vars  = $view->get_template_vars();
+		$url_event_date = $template_vars['url_event_date'];
+
+		$this->assertEquals( $expected, $url_event_date );
 	}
 }

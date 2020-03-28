@@ -1,15 +1,15 @@
 <?php
 namespace Tribe\Events\Views\V2\Views\HTML;
 
-use Tribe\Events\Views\V2\TestHtmlCase;
+use Tribe\Test\Products\WPBrowser\Views\V2\HtmlTestCase;
 
-class DayTest extends TestHtmlCase {
+class DayTest extends HtmlTestCase {
 
 	/**
 	 * @test
 	 */
 	public function it_should_contain_correct_html_classes() {
-		$template = $this->template->template( 'day', [ 'events' => (object) [] ] );
+		$template = $this->template->template( 'day', [ 'events' => [] ] );
 		$html = $this->document->html( $template );
 
 		$this->assertEquals(

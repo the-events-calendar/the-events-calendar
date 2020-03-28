@@ -1,0 +1,271 @@
+/* -----------------------------------------------------------------------------
+ *
+ * Datepicker
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe-events {
+
+	.datepicker {
+		background-color: var(--color-background);
+		border: 1px solid var(--color-border-default);
+		border-radius: var(--border-radius-default);
+		box-shadow: var(--box-shadow-tooltip);
+
+		&:before,
+		&:after {
+			content: none;
+		}
+
+		.datepicker-switch,
+		.prev,
+		.next {
+
+			&:hover,
+			&:focus,
+			&:active {
+				background-color: var(--color-background);
+			}
+		}
+
+		.datepicker-switch {
+			@mixin desktop-body-1;
+
+			&:hover,
+			&:focus {
+				color: var(--color-accent-secondary-hover);
+			}
+
+			&:active {
+				color: var(--color-accent-secondary-active);
+			}
+		}
+
+		.dow {
+			@mixin mobile-body-3;
+		}
+
+		.day {
+			@mixin desktop-body-1;
+		}
+
+		.month,
+		.year {
+			@mixin desktop-body-3;
+		}
+
+		.past {
+			color: var(--color-text-primary-light);
+		}
+
+		.day,
+		.month,
+		.year {
+			border-radius: var(--border-radius-default);
+
+			&:hover,
+			&:focus,
+			&.focused {
+				background: var(--color-background-secondary);
+			}
+
+			&.current {
+				background: var(--color-accent-primary-background);
+
+				&:hover,
+				&:focus,
+				&.focused {
+					background: var(--color-accent-primary-background);
+				}
+			}
+
+			&.active {
+				color: var(--color-background);
+				background: var(--color-accent-primary);
+				text-shadow: none;
+
+				&:hover,
+				&:focus,
+				&.focused {
+					color: var(--color-background);
+					background: var(--color-accent-primary);
+					text-shadow: none;
+				}
+			}
+		}
+	}
+
+	/* -----------------------------------------------------------------------------
+	 *
+	 * Datepicker: V1 Style Overrides
+	 *
+	 * ----------------------------------------------------------------------------- */
+
+	.admin-bar & .datepicker {
+		margin-top: var(--spacer-1);
+	}
+
+	.admin-bar &.tribe-common--breakpoint-medium .datepicker {
+		margin-top: var(--spacer-3);
+	}
+
+	/* -----------------------------------------------------------------------------
+	 *
+	 * Datepicker: Theme Overrides
+	 *
+	 * ----------------------------------------------------------------------------- */
+
+	/* -----------------------------------------------------------------------------
+	 * Theme Overrides - Enfold
+	 * ----------------------------------------------------------------------------- */
+
+	.tribe-theme-enfold & .datepicker {
+		border: 1px solid var(--color-border-default);
+		border-radius: var(--border-radius-default);
+		box-shadow: var(--box-shadow-tooltip);
+
+		table,
+		tr,
+		th,
+		td {
+			background: transparent;
+		}
+
+		.datepicker-switch {
+			color: var(--color-text-primary) !important;
+
+			&:hover,
+			&:focus {
+				color: var(--color-accent-secondary-hover) !important;
+			}
+
+			&:active {
+				color: var(--color-accent-secondary-active) !important;
+			}
+		}
+
+		.day {
+			background-color: var(--color-background);
+
+			&.old,
+			&.new {
+				opacity: 1;
+			}
+		}
+
+		.day,
+		.month,
+		.year {
+			color: var(--color-text-primary);
+			background-color: var(--color-background);
+
+			&:hover,
+			&:focus,
+			&.focused {
+				background: var(--color-background-secondary);
+			}
+
+			&.past {
+				color: var(--color-text-primary-light);
+			}
+
+			&.current {
+				background: var(--color-accent-primary-background);
+
+				&:hover,
+				&:focus,
+				&.focused {
+					background: var(--color-accent-primary-background);
+				}
+			}
+
+			&.active {
+				color: var(--color-background);
+				background: var(--color-accent-primary);
+
+				&:hover,
+				&:focus,
+				&.focused {
+					color: var(--color-background);
+					background: var(--color-accent-primary);
+				}
+			}
+		}
+	}
+
+	/* -----------------------------------------------------------------------------
+	 * Theme Overrides - Avada
+	 * ----------------------------------------------------------------------------- */
+
+	.tribe-theme-avada & .datepicker {
+		border: 1px solid var(--color-border-default);
+		border-radius: var(--border-radius-default);
+
+		tbody td {
+			border: 0;
+		}
+
+		.datepicker-switch,
+		.prev,
+		.next {
+			background-color: var(--color-background);
+
+			&:hover {
+				background-color: var(--color-background);
+			}
+		}
+
+		.day {
+
+			&.old,
+			&.new {
+				background-color: transparent !important;
+				color: var(--color-text-primary) !important;
+
+				&:hover,
+				&:focus,
+				&.focused {
+					background: var(--color-background-secondary) !important;
+				}
+			}
+		}
+
+		.day,
+		.month {
+			background-color: transparent;
+			color: var(--color-text-primary);
+
+			&:hover,
+			&:focus,
+			&.focused {
+				background: var(--color-background-secondary);
+			}
+
+			&.past {
+				color: var(--color-text-primary-light) !important;
+			}
+
+			&.current {
+				background: var(--color-accent-primary-background);
+
+				&:hover,
+				&:focus,
+				&.focused {
+					background: var(--color-accent-primary-background);
+				}
+			}
+
+			&.active {
+				color: var(--color-background) !important;
+				background: var(--color-accent-primary) !important;
+
+				&:hover,
+				&:focus,
+				&.focused {
+					color: var(--color-background) !important;
+					background: var(--color-accent-primary) !important;
+				}
+			}
+		}
+	}
+}

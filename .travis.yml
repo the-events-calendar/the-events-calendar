@@ -40,7 +40,8 @@ before_install:
 
   # Tweak git to correctly work with submodules.
   - sed -i 's/git@github.com:/git:\/\/github.com\//' .gitmodules
-  - git submodule update --init --recursive
+  - git submodule update --init
+  - git submodule foreach --recursive "[ -f .gitmodules ] && sed -i 's/git@github.com:/git:\/\/github.com\//' .gitmodules; git submodule update --init;"
 
 install:
   # Disable XDebug to speed up the tests.
@@ -130,12 +131,13 @@ before_script:
   - cd ${PLUGIN_DIR}
 
 script:
-  - codecept run integration
-  - codecept run muintegration
-  - codecept run wpunit
-  - codecept run aggregatorv1
-  - codecept run restv1
-  - codecept run views_rest
-  - codecept run views_integration
-  - codecept run views_ui
+  - codecept run -f views_integration
+  - codecept run -f views_settings
+  - codecept run -f views_rest
+  - codecept run -f views_ui
+  - codecept run -f integration
+  - codecept run -f muintegration
+  - codecept run -f wpunit
+  - codecept run -f aggregatorv1
+  - codecept run -f restv1
   # - codecept run acceptance

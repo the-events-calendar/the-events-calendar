@@ -1,0 +1,136 @@
+.tribe-events {
+
+	/* -----------------------------------------------------------------------------
+	 * Calendar Event
+	 * ----------------------------------------------------------------------------- */
+
+	.tribe-events-calendar-month__calendar-event {
+		margin: var(--spacer-1) 0;
+		padding: 0 var(--spacer-3);
+		position: relative;
+
+		&:first-child {
+			margin-top: 0;
+		}
+
+		&:last-child {
+			margin-bottom: 0;
+			padding-bottom: var(--spacer-3);
+		}
+	}
+
+	.tribe-events-calendar-month__multiday-event-wrapper + .tribe-events-calendar-month__calendar-event {
+		margin-top: 0;
+	}
+
+	.tribe-events-calendar-month__multiday-event-wrapper + .tribe-events-calendar-month__calendar-event--featured {
+		margin-top: var(--spacer-1);
+	}
+
+	.tribe-events-calendar-month__calendar-event-datetime-featured-icon,
+	.tribe-events-calendar-month__calendar-event-datetime-recurring-icon {
+		display: inline-block;
+	}
+
+	.tribe-events-calendar-month__calendar-event-datetime-featured-icon {
+		margin-right: var(--spacer-0);
+	}
+
+	.tribe-events-calendar-month__calendar-event-datetime-recurring-icon {
+		margin-left: 2px;
+	}
+
+	.tribe-events-calendar-month__calendar-event-featured-image-wrapper {
+		margin-bottom: var(--spacer-0);
+	}
+
+	.tribe-events-calendar-month__calendar-event-featured-image-link,
+	.tribe-events-calendar-month__calendar-event-featured-image {
+		display: block;
+	}
+
+	.tribe-events-calendar-month__calendar-event-datetime {
+
+		> * {
+			vertical-align: middle;
+		}
+	}
+
+	/* -----------------------------------------------------------------------------
+	 * Calendar Event Tooltip
+	 * ----------------------------------------------------------------------------- */
+
+	.tribe-events-calendar-month__calendar-event-tooltip-featured-image-wrapper {
+		margin-bottom: var(--spacer-2);
+		width: 206px;
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+
+	.tribe-events-calendar-month__calendar-event-tooltip-featured-image-link,
+	.tribe-events-calendar-month__calendar-event-tooltip-featured-image {
+		display: block;
+	}
+
+	.tribe-events-calendar-month__calendar-event-tooltip-datetime {
+		margin-bottom: var(--spacer-0);
+	}
+
+	.tribe-events-calendar-month__calendar-event-tooltip-datetime-featured-icon,
+	.tribe-events-calendar-month__calendar-event-tooltip-datetime-recurring-icon {
+		display: inline-block;
+	}
+
+	.tribe-events-calendar-month__calendar-event-tooltip-datetime-featured-icon {
+		margin-right: var(--spacer-0);
+	}
+
+	.tribe-events-calendar-month__calendar-event-tooltip-datetime-recurring-icon {
+		margin-left: 2px;
+	}
+
+	.tribe-events-calendar-month__calendar-event-tooltip-title {
+		margin-bottom: var(--spacer-0);
+	}
+
+	.tribe-events-calendar-month__calendar-event-tooltip-description {
+		margin-bottom: var(--spacer-1);
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+
+	.tribe-events-calendar-month__calendar-event-title {
+		margin: 0;
+	}
+
+	.tribe-events-calendar-month__calendar-event-tooltip-cost {
+		margin-top: var(--spacer-3);
+	}
+
+	/* -------------------------------------------------------------------------
+	 * Theme Overrides - Twenty Nineteen
+	 * ------------------------------------------------------------------------- */
+
+	.tribe-theme-twentynineteen &,
+	.tribe-theme-twentynineteen .entry & {
+
+		.tribe-events-calendar-month__calendar-event {
+			margin: var(--spacer-1) 0;
+			padding: 0 var(--spacer-3);
+			position: relative;
+
+			&:first-child {
+				margin-top: 0;
+			}
+
+			&:last-child {
+				margin-bottom: 0;
+				padding-bottom: var(--spacer-3);
+			}
+		}
+	}
+}

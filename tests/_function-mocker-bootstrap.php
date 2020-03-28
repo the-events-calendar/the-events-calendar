@@ -54,7 +54,7 @@ $wp_php_files   = array_map( static function ( SplFileInfo $f ) {
 $wp_core_files  = array_merge( $wp_php_files, [ $wp_root . '/wp-admin', $wp_root . '/wp-includes' ] );
 
 tad\FunctionMocker\FunctionMocker::init( [
-	'redefinable-internals' => [ 'date' ],
+	'redefinable-internals' => [ 'date', 'time' ],
 	'cache-path'            => $cache_path,
 	// Include WP Core files and the plugin src files.
 	'include'               => array_merge( $wp_core_files, [ codecept_root_dir( 'src' ) ] ),

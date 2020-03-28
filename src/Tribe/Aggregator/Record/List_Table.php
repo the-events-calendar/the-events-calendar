@@ -474,14 +474,18 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 			$source_info['title'] = implode( ', ', $source_info['title'] );
 		}
 
+		$title = $source_info['title'];
+		if ( ! empty( $record->meta['import_name'] ) ) {
+			$title = $record->meta['import_name'];
+		}
+
 		if ( $record->is_schedule && tribe( 'events-aggregator.main' )->is_service_active() ) {
-			$html[] = '<p><b><a href="' . get_edit_post_link( $post->ID ) . '">' . esc_html( $source_info['title'] ) . '</a></b></p>';
+			$html[] = '<p><b><a href="' . get_edit_post_link( $post->ID ) . '">' . esc_html( $title ) . '</a></b></p>';
 		} else {
-			$html[] = '<p><b>' . esc_html( $source_info['title'] ) . '</b></p>';
+			$html[] = '<p><b>' . esc_html( $title ) . '</b></p>';
 		}
 
 		$html[] = '<p>' . esc_html_x( 'via ', 'record via origin', 'the-events-calendar' ) . '<strong>' . $source_info['via']  . '</strong></p>';
-
 		if (
 			! empty( $record->meta['keywords'] )
 			|| ! empty( $record->meta['start'] )
@@ -529,12 +533,14 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 
 		if ( 'scheduled' === $this->tab->get_slug() ) {
 			$last_import_error = $record->get_last_import_status( 'error' );
+			$status = 'success';
 
 			if ( $last_import_error ) {
 				$html[] = '<span class="dashicons dashicons-warning tribe-ea-status-failed" title="' . esc_attr( $last_import_error ) . '"></span>';
+				$status = 'failed';
 			}
 
-			$has_child_record = $record->get_child_record_by_status( 'success', 1 );
+			$has_child_record = $record->get_child_record_by_status( $status, 1 );
 
 			if ( ! $has_child_record ) {
 				$html[] = '<i>' . esc_html__( 'Unknown', 'the-events-calendar' ) . '</i>';

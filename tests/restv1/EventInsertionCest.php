@@ -1207,4 +1207,66 @@ class EventInsertionCest extends BaseRestCest {
 		$I->assertCount( 2, $response['tags'] );
 		$I->assertEquals( $tag_1_id, $response['tags'][0]['id'] );
 	}
+
+	/**
+	 * It should not hide event from listings w/ falsy hide_from_listings
+	 *
+	 * @test
+	 *
+	 * @example [false]
+	 * @example ["false"]
+	 */
+	public function should_not_hide_event_from_listings_w_falsy_hide_from_listings( Tester $I, \Codeception\Example $input ) {
+		$I->generate_nonce_for_role( 'editor' );
+
+		$params                       = [
+			'title' => 'An event',
+			'description' => 'An event content',
+			'start_date' => 'tomorrow 9am',
+			'end_date' => 'tomorrow 11am',
+		];
+		$params['hide_from_listings'] = $input[0];
+
+		$I->sendPOST( $this->events_url, $params );
+
+		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseIsJson();
+		$I->seeResponseContainsJson( [ 'hide_from_listings' => false ] );
+
+		$response = json_decode( $I->grabResponse(), false );
+		$post_id = $response->id;
+
+		$I->cantSeePostMetaInDatabase( [ 'post_id' => $post_id, 'meta_key' => '_EventHideFromUpcoming' ] );
+	}
+
+	/**
+	 * It should hide events w/ truthy hide_from_listings
+	 *
+	 * @test
+	 *
+	 * @example [true]
+	 * @example ["true"]
+	 */
+	public function should_hide_events_w_truthy_hide_from_listings(Tester $I, \Codeception\Example $input) {
+		$I->generate_nonce_for_role( 'editor' );
+
+		$params                       = [
+			'title' => 'An event',
+			'description' => 'An event content',
+			'start_date' => 'tomorrow 9am',
+			'end_date' => 'tomorrow 11am',
+		];
+		$params['hide_from_listings'] = $input[0];
+
+		$I->sendPOST( $this->events_url, $params );
+
+		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseIsJson();
+		$I->seeResponseContainsJson( [ 'hide_from_listings' => true ] );
+
+		$response = json_decode( $I->grabResponse(), false );
+		$post_id = $response->id;
+
+		$I->canSeePostMetaInDatabase( [ 'post_id' => $post_id, 'meta_key' => '_EventHideFromUpcoming', 'meta_value' => 'yes' ] );
+	}
 }

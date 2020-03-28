@@ -48,24 +48,9 @@ class Tribe__Events__Repositories__Organizer extends Tribe__Events__Repositories
 
 		$this->linked_id_meta_key = '_EventOrganizerID';
 
-		$this->schema = array_merge( $this->schema, array(
-			'name' => array( $this, 'filter_by_name' ),
-		) );
-
 		$this->add_simple_meta_schema_entry( 'email', '_OrganizerEmail' );
 		$this->add_simple_meta_schema_entry( 'phone', '_OrganizerPhone' );
 		$this->add_simple_meta_schema_entry( 'website', '_OrganizerWebsite' );
-	}
-
-	/**
-	 * Filters organizers by a specific name. This is an alias of ->search()
-	 *
-	 * @since 4.9
-	 *
-	 * @param string $value String to search with.
-	 */
-	public function filter_by_name( $value ) {
-		$this->search( $value );
 	}
 
 	/**

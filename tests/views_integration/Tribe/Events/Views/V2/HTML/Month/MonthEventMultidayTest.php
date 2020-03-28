@@ -1,48 +1,53 @@
 <?php
+
 namespace Tribe\Events\Views\V2\Views\HTML\Month;
 
-use Tribe\Events\Views\V2\TestHtmlCase;
+use Tribe\Test\PHPUnit\Traits\With_Post_Remapping;
+use Tribe\Test\Products\WPBrowser\Views\V2\HtmlTestCase;
 
-class MonthEventMultidayTest extends TestHtmlCase {
+class MonthEventMultidayTest extends HtmlTestCase {
+	use With_Post_Remapping;
 
 	/**
 	 * @test
 	 */
 	public function it_should_contain_correct_html_classes() {
 
-		// @todo: use the Event Factory here, once the templates use a real event and we have the real keys.
-		$event = [
-			'ID' => 0,
-			'title' => 'Lorem Ipsum',
-			'image' => 'test.jpg',
-			'featured' => true,
-			'multiday' => true,
-			'start_date' => 1,
-			'start_this_week' => true,
-			'end_this_week' => true,
-			'duration'      => 2
-		];
+		$event = $this->mock_event( 'events/featured/1.json' )->with_thumbnail()->is_multiday( 2 )->get();
+		$event->starts_this_week = true;
+		$event->ends_this_week   = true;
 
-		$template = $this->template->template( 'month/event-multiday', [ 'event' => (object) $event ] );
-		$html = $this->document->html( $template );
+		$template = $this->template->template(
+			'month/calendar-body/day/multiday-events/multiday-event',
+			[
+				'event'            => $event,
+				'day_date'         => '2019-01-01',
+				'is_start_of_week' => true,
+				'today_date'       => '2019-01-01',
+				'grid_start_date'  => '2019-01-01'
+			]
+		);
+		$html     = $this->document->html( $template );
 
 		$this->assertEquals(
-			$html->find( '.tribe-events-calendar-month__event-multiday' )->count(),
+			$html->find( '.tribe-events-calendar-month__multiday-event' )->count(),
 			1,
-			'Multiday HTML needs to contain one ".tribe-events-calendar-month__event-multiday" element'
+			'Multiday HTML needs to contain one ".tribe-events-calendar-month__multiday-event" element'
 		);
 
 
 		$this->assertTrue(
-			$html->find( '.tribe-events-calendar-month__event-multiday' )->children()->is( '.tribe-events-calendar-month__event-multiday-inner' ),
-			'Multiday HTML needs to contain ".tribe-events-calendar-month__event-multiday-inner" element'
+			$html->find( '.tribe-events-calendar-month__multiday-event-bar' )->children()->is(
+				'.tribe-events-calendar-month__multiday-event-bar-inner'
+			),
+			'Multiday HTML needs to contain ".tribe-events-calendar-month__multiday-event-bar-inner" element'
 		);
 
 
 		$this->assertEquals(
-			$html->find( '.tribe-events-calendar-month__event-multiday-title' )->count(),
+			$html->find( '.tribe-events-calendar-month__multiday-event-bar-title' )->count(),
 			1,
-			'Multiday HTML needs to contain one ".tribe-events-calendar-month__event-multiday-title" element'
+			'Multiday HTML needs to contain one ".tribe-events-calendar-month__multiday-event-bar-title" element'
 		);
 
 	}
@@ -52,29 +57,23 @@ class MonthEventMultidayTest extends TestHtmlCase {
 	 */
 	public function it_should_contain_a11y_attributes() {
 
-		$event = [
-			'ID' => 0,
-			'title' => 'Lorem Ipsum',
-			'image' => 'test.jpg',
-			'featured' => true,
-			'multiday' => true,
-			'start_date' => 1,
-			'start_this_week' => true,
-			'end_this_week' => true,
-			'duration'      => 2
-		];
+		$event = $this->mock_event( 'events/featured/1.json' )->with_thumbnail()->is_multiday( 2 )->get();
+		$event->starts_this_week = true;
+		$event->ends_this_week   = true;
 
-		$template = $this->template->template( 'month/event-multiday', [ 'event' => (object) $event ] );
-		$html = $this->document->html( $template );
-		$html = $html->find( '.tribe-events-calendar-month__event-multiday' );
-		$icon = $html->find( '.tribe-events-calendar-month__event-multiday-featured-icon' );
-
-
-		$this->markTestSkipped( 'The month multi-day event does not receive data yet' );
-
-		/*
-			@todo: If the event is featured we should check the following a11y classes for the icon
-		*/
+		$template = $this->template->template(
+			'month/calendar-body/day/multiday-events/multiday-event',
+			[
+				'event'            => $event,
+				'day_date'         => '2019-01-01',
+				'is_start_of_week' => true,
+				'today_date'       => '2019-01-01',
+				'grid_start_date'  => '2019-01-01'
+			]
+		);
+		$html     = $this->document->html( $template );
+		$html     = $html->find( '.tribe-events-calendar-month__multiday-event' );
+		$icon     = $html->find( '.tribe-events-calendar-month__multiday-event-bar-featured-icon' );
 
 		$this->assertTrue(
 			$icon->is( '[aria-label="Featured"]' ),

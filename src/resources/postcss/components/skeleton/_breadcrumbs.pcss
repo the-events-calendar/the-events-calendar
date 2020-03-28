@@ -1,0 +1,47 @@
+/* -----------------------------------------------------------------------------
+ *
+ * Breadcrumbs
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe-events {
+
+	.tribe-events-c-breadcrumbs {
+		margin-bottom: var(--spacer-5);
+		width: 100%;
+
+		.tribe-common--breakpoint-medium& {
+			margin-bottom: var(--spacer-9);
+		}
+	}
+
+	.tribe-events-c-breadcrumbs__list {
+		display: flex;
+		flex-wrap: wrap;
+	}
+
+	.tribe-events-c-breadcrumbs__list-item {
+		display: inline-flex;
+		align-items: center;
+
+		&:not(:last-child) {
+
+			&:after {
+				content: '';
+				background-image: svg-inline(caret-right);
+				background-repeat: no-repeat;
+				background-size: contain;
+				display: inline-block;
+				height: 10px;
+				width: 6px;
+				margin: 0 6px;
+
+				.tribe-common--breakpoint-medium& {
+					height: 16px;
+					width: 10px;
+					margin: 0 10px;
+				}
+			}
+		}
+	}
+}

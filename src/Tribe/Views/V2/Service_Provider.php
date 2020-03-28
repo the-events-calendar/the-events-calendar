@@ -17,8 +17,6 @@ namespace Tribe\Events\Views\V2;
  */
 class Service_Provider extends \tad_DI52_ServiceProvider {
 
-	const NAME_SPACE = 'tribe/views/v2';
-
 	/**
 	 * Binds and sets up implementations.
 	 */
@@ -29,12 +27,17 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 			return;
 		}
 
+		require_once tribe( 'tec.main' )->plugin_path . 'src/Tribe/Views/V2/functions/template-tags.php';
+
+		$this->container->singleton( Manager::class, Manager::class );
 		$this->container->singleton( Template_Bootstrap::class, Template_Bootstrap::class );
 		$this->container->singleton( Template\Event::class, Template\Event::class );
 		$this->container->singleton( Template\Page::class, Template\Page::class );
 		$this->container->singleton( Kitchen_Sink::class, Kitchen_Sink::class );
 		$this->container->singleton( Theme_Compatibility::class, Theme_Compatibility::class );
 		$this->container->singleton( Rest_Endpoint::class, Rest_Endpoint::class );
+		$this->container->singleton( Template\Settings\Advanced_Display::class, Template\Settings\Advanced_Display::class );
+		$this->container->singleton( Template\JSON_LD::class, Template\JSON_LD::class );
 
 		$this->register_hooks();
 		$this->register_assets();
@@ -44,12 +47,8 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		// Register the SP on the container
 		$this->container->singleton( 'events.views.v2.provider', $this );
 
-		// @todo: remove this when we hydrate the month view with data and we use the correct template tags.
-		require_once tribe( 'tec.main' )->plugin_path . 'src/Tribe/Views/V2/month-view-demo-template-tags.php';
-
 		// Since the View main class will act as a DI container itself let's provide it with the global container.
 		View::set_container( $this->container );
-
 	}
 
 	/**
@@ -86,7 +85,8 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	protected function register_v1_compat() {
 		$v1_compat = new V1_Compat( $this->container );
 		$v1_compat->register();
+
 		$this->container->singleton( V1_Compat::class, $v1_compat );
-		$this->container->singleton( 'views-v2.v1-compat', $v1_compat );
+		$this->container->singleton( 'events.views.v1-compat', $v1_compat );
 	}
 }

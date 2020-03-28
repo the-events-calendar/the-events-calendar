@@ -6,7 +6,6 @@ vendor
 !vendor/jquery
 !vendor/jquery-placeholder
 !vendor/jquery-resize
-!vendor/tickets
 !vendor/tribe-common-libraries
 !vendor/ForceUTF8
 !vendor/php-date-formatter
@@ -14,7 +13,7 @@ vendor
 # Tests - local config files
 codeception.yml
 tests/*.suite.yml
-.env.local
+.env*.local
 
 # Tests - local output files
 tests/_output
@@ -25,17 +24,16 @@ tests/_output
 node_modules
 compiler.jar
 *.ps1
+*.code-workspace
 
 wpml-config.xml
 .env.testing
 
 # get from translate.wordpress.org as needed
 lang/*.po
-
-# tribe-common-styles
-src/resources/postcss/utilities
+lang/*.mo
 
 # Resources Ignoring
 src/resources/**/app
 src/resources/css
-src/resources/**/*.min.js
+src/resources/js/**/*.min.js

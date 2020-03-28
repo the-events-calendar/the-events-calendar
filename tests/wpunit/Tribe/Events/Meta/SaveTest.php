@@ -201,4 +201,60 @@ class SaveTest extends \Codeception\TestCase\WPTestCase {
 		return new Save( $this->post->ID, $this->post, $this->context->reveal() );
 	}
 
+	/**
+	 * It should save events when classic editor and gutenberg blocks are activated
+	 *
+	 * @test
+	 */
+	public function should_save_events_when_classic_editor_and_gutenberg_blocks_are_activated() {
+		/** @var \Tribe__Events__Editor__Compatibility $compatibility */
+		$compatibility = tribe( 'events.editor.compatibility' );
+		// Enable checkbox value
+		\Tribe__Settings_Manager::set_option( $compatibility->get_toggle_blocks_editor_key(), true );
+		// Fake classic editor plugin is active.
+		add_filter( 'tribe_is_classic_editor_plugin_active', '__return_true' );
+		// Make sure user is logged in so we have an admin with permissions to create events.
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+
+		$id = wp_insert_post( [
+			'post_title' => 'A test event',
+			'post_type' => \Tribe__Events__Main::POSTTYPE,
+			'post_status' => 'publish',
+		] );
+
+		$event = get_post( $id );
+
+		$values = [
+			'EventStartDate'     => '2020-01-01',
+			'EventEndDate'       => '2020-01-03',
+			'EventStartHour'     => '01',
+			'EventStartMinute'   => '15',
+			'EventStartMeridian' => 'am',
+			'EventEndHour'       => '03',
+			'EventEndMinute'     => '25',
+			'EventEndMeridian'   => 'pm',
+			'EventTimezone'      => 'Europe/Paris',
+			'ecp_nonce'          => wp_create_nonce( \Tribe__Events__Main::POSTTYPE ),
+		];
+		// Fake values on $_POST when the hook is fired.
+		foreach ( $values as $key => $value ) {
+			$_POST[ $key ] = $value;
+		}
+
+		// Fire action on the post.
+		do_action( 'save_post', $id, $event, false );
+
+		$this->assertInstanceOf( \WP_Post::class, $event );
+		$this->assertEquals( 'Europe/Paris', get_post_meta( $event->ID, '_EventTimezone', true ) );
+		$this->assertEquals( '2020-01-01 01:15:00', get_post_meta( $event->ID, '_EventStartDate', true ) );
+		$this->assertEquals( '2020-01-03 15:25:00', get_post_meta( $event->ID, '_EventEndDate', true ) );
+		$this->assertEquals( 'A test event', $event->post_title );
+		$this->assertEmpty( $event->post_content );
+
+		// Cleanup
+		\Tribe__Settings_Manager::set_option( $compatibility->get_toggle_blocks_editor_key(), null );
+		foreach ( $values as $key => $value ) {
+			unset( $_POST[ $key ] );
+		}
+	}
 }

@@ -1,29 +1,18 @@
 <?php
 namespace Tribe\Events\Views\V2\Views\HTML\ListView\Event;
 
-use Tribe\Events\Views\V2\TestHtmlCase;
-use Tribe\Events\Test\Factories\Event;
+use Tribe\Test\PHPUnit\Traits\With_Post_Remapping;
+use Tribe\Test\Products\WPBrowser\Views\V2\HtmlTestCase;
 
-class ListEventDateTest extends TestHtmlCase {
-
-	public function setUp() {
-		parent::setUp();
-		$this->factory()->event = new Event();
-	}
+class ListEventDateTest extends HtmlTestCase {
+	use With_Post_Remapping;
 
 	/**
 	 * @test
 	 */
 	public function it_should_contain_correct_html_classes() {
 
-		$args  = [
-			'start_date' => '2018-01-01 09:00:00',
-			'end_date'   => '2018-01-01 11:00:00',
-			'timezone'   => 'Europe/Paris',
-			'title'      => 'A test event',
-		];
-
-		$event = tribe_events()->set_args( $args )->create();
+		$event = $this->get_mock_event( 'events/single/1.json' );
 
 		$template = $this->template->template( 'list/event/date', [ 'event' => $event ] );
 		$html = $this->document->html( $template );
@@ -37,7 +26,7 @@ class ListEventDateTest extends TestHtmlCase {
 		$this->assertEquals(
 			$html->find( '.tribe-events-calendar-list__event-datetime-featured-icon' )->count(),
 			0,
-			'List Event HTML date shouldnt to contain ".tribe-events-calendar-list__event-datetime-featured-icon" class if not featured'
+			'List Event HTML date shouldnt contain ".tribe-events-calendar-list__event-datetime-featured-icon" class if not featured'
 		);
 
 	}
@@ -47,15 +36,7 @@ class ListEventDateTest extends TestHtmlCase {
 	 */
 	public function it_should_contain_featured_when_featured() {
 
-		$args  = [
-			'start_date' => '2018-01-01 09:00:00',
-			'end_date'   => '2018-01-01 11:00:00',
-			'timezone'   => 'Europe/Paris',
-			'title'      => 'A featured test event',
-			'featured'   => true,
-		];
-
-		$event = tribe_events()->set_args( $args )->create();
+		$event = $this->get_mock_event( 'events/featured/1.json' );
 
 		$template = $this->template->template( 'list/event', [ 'event' => $event ] );
 		$html = $this->document->html( $template );
@@ -70,12 +51,12 @@ class ListEventDateTest extends TestHtmlCase {
 
 		$this->assertTrue(
 			$featured_icon->is( '[aria-label="Featured"]' ),
-			'Month calendar event featured icon needs to be aria-label="Featured"'
+			'List event featured icon needs to be aria-label="Featured"'
 		);
 
 		$this->assertTrue(
 			$featured_icon->is( '[title="Featured"]' ),
-			'Month calendar event featured icon needs to be title="Featured"'
+			'List event featured icon needs to be title="Featured"'
 		);
 
 	}

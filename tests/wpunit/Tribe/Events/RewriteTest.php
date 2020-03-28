@@ -2,6 +2,7 @@
 
 namespace Tribe\Events;
 
+use Tribe\Events\Test\Factories\Event;
 use Tribe__Events__Main as TEC;
 use Tribe__Events__Rewrite as Rewrite;
 
@@ -15,10 +16,28 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 	 * @var \WP_Rewrite
 	 */
 	protected $wp_rewrite;
+	/**
+	 * A map of Tribe__Events__Main::instance properties.
+	 *
+	 * @var array<string,string>
+	 */
+	protected $tec_prop_backup;
+
+	/**
+	 * A map of rewrite rules, in the format used by WordPress.
+	 *
+	 * @var array<string,string>
+	 */
+	protected $wp_rewrite_rules;
 
 	public function setUp() {
 		// before
 		parent::setUp();
+
+		tribe_unset_var( 'Tribe__Rewrite::get_handled_rewrite_rules' );
+		tribe_unset_var( 'Tribe__Rewrite::get_localized_matchers' );
+		tribe_unset_var( 'Tribe__Rewrite::get_rules_query_vars' );
+		tribe_unset_var( \Tribe__Settings_Manager::OPTION_CACHE_VAR_NAME );
 
 		// your set up methods here
 		$this->wp_rewrite = $this->prophesize( 'WP_Rewrite' );
@@ -27,16 +46,36 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 		$wp_rewrite->permalink_structure = '/%postname%/';
 		$wp_rewrite->rewrite_rules();
 
+		// Backup the global $wp_rewrite object rules to avoid interference w/ other tests.
+		$this->wp_rewrite_rules = $wp_rewrite->rules;
+
 		// Create some categories we'll need.
 		wp_create_tag( 'test' );
 		wp_insert_term( 'test', TEC::TAXONOMY );
 		list( $grandparent_id ) = array_values( wp_insert_term( 'grand-parent', TEC::TAXONOMY ) );
 		list( $parent_id ) = array_values( wp_insert_term( 'parent', TEC::TAXONOMY, [ 'parent' => $grandparent_id ] ) );
 		wp_insert_term( 'child', TEC::TAXONOMY, [ 'parent' => $parent_id ] );
+		static::factory()->event = new Event();
+
+		$tec_main              = TEC::instance();
+		$this->tec_prop_backup = [
+			'rewriteSlug' => $tec_main->rewriteSlug	,
+			'rewriteSlugSingular' => $tec_main->rewriteSlugSingular,
+		];
 	}
 
 	public function tearDown() {
-		// your tear down methods here
+		// Restore backed up properties on TEC main instance.
+		if ( ! empty( $this->tec_prop_backup ) ) {
+			$tec_main = TEC::instance();
+			foreach ( $this->tec_prop_backup as $prop => $value ) {
+				$tec_main->{$prop} = $value;
+			}
+		}
+
+		// Restore the global $wp_rewrite rules array.
+		global $wp_rewrite;
+		$wp_rewrite->rules = $this->wp_rewrite_rules;
 
 		// then
 		parent::tearDown();
@@ -80,7 +119,7 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 			],
 			'list_page_2'             => [
 				'/?post_type=tribe_events&eventDisplay=list&paged=2',
-				'/events/page/2/',
+				'/events/list/page/2/',
 			],
 			'list_page_1_w_extra'     => [
 				'/?post_type=tribe_events&eventDisplay=list&foo=bar',
@@ -323,5 +362,137 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 		$clean_url = $rewrite->get_clean_url( $input_uri );
 
 		$this->assertEquals( $expected, $clean_url );
+	}
+
+	public function list_rewrite_data_set() {
+		return [
+			'default_view_page_1'               => [ '/?post_type=tribe_events&eventDisplay=default', '/events/' ],
+			'default_view_page_1_w_pagenum'     => [
+				'/?post_type=tribe_events&eventDisplay=default&paged=1',
+				'/events/'
+			],
+			'default_view_page_2'               => [
+				'/?post_type=tribe_events&eventDisplay=default&paged=2',
+				'/events/page/2/'
+			],
+			'list_view_page_1'                  => [ '/?post_type=tribe_events&eventDisplay=list', '/events/list/' ],
+			'list_view_page_1_w_pagenum'        => [
+				'/?post_type=tribe_events&eventDisplay=list&paged=1',
+				'/events/list/'
+			],
+			'events_list_view_page_1'           => [
+				'/events/?post_type=tribe_events&eventDisplay=list',
+				'/events/list/'
+			],
+			'events_list_view_page_1_w_pagenum' => [
+				'/events/?post_type=tribe_events&eventDisplay=list&paged=1',
+				'/events/list/'
+			],
+			'list_view_page_2'                  => [
+				'/?post_type=tribe_events&eventDisplay=list&paged=2',
+				'/events/list/page/2/'
+			],
+			'event_list_view_page_2'            => [
+				'/events/?post_type=tribe_events&eventDisplay=list&paged=2',
+				'/events/list/page/2/'
+			],
+		];
+	}
+
+	/**
+	 * It should correctly handle /list rewrites
+	 *
+	 * @test
+	 * @dataProvider list_rewrite_data_set
+	 */
+	public function should_correctly_handle_list_rewrites( $input_uri, $expected_uri ) {
+		$input_uri = home_url( $input_uri );
+		$expected  = home_url( $expected_uri );
+
+		$rewrite = new Rewrite;
+		global $wp_rewrite;
+		$rewrite->setup( $wp_rewrite );
+		$clean_url = $rewrite->get_clean_url( $input_uri );
+
+		$this->assertEquals( $expected, $clean_url );
+	}
+
+	public function changed_archive_url_data_set() {
+		return [
+			'list_page_1' => [
+				'/?post_type=tribe_events&eventDisplay=list',
+				'/courses/list/',
+			],
+			'list_page_2' => [
+				'/?post_type=tribe_events&eventDisplay=list&paged=2',
+				'/courses/list/page/2/',
+			],
+			'month_view' => [
+				'/?post_type=tribe_events&eventDisplay=month',
+				'/courses/month/',
+			],
+			'day_page_1' => [
+				'/?post_type=tribe_events&eventDisplay=day',
+				'/courses/today/',
+			],
+			/*
+			 * Where is past? The query var is removed and re-added before each transformation by Views that support it.
+			 * We do not need to test it here.
+			 */
+		];
+	}
+
+	/**
+	 * It should correctly build canonical URLs when /events archive slug changes
+	 *
+	 * @test
+	 *
+	 * @dataProvider changed_archive_url_data_set
+	 */
+	public function should_correctly_build_canonical_ur_ls_when_events_archive_slug_changes( $input_uri, $expected ) {
+		$input_uri = home_url( $input_uri );
+		$expected  = home_url( $expected );
+
+		tribe_update_option( 'eventsSlug', 'courses' );
+
+		$rewrite = new Rewrite;
+		global $wp_rewrite;
+		$rewrite->setup( $wp_rewrite );
+
+		$this->assertEquals( $expected, $rewrite->get_clean_url( $input_uri ) );
+	}
+
+	/**
+	 * It should allow single and archive events slugs to be the same
+	 *
+	 * @test
+	 */
+	public function should_allow_single_and_archive_events_slugs_to_be_the_same() {
+		tribe_update_option( 'eventsSlug', 'course' );
+		tribe_update_option( 'singleEventSlug', 'course' );
+		$tec_main                      = TEC::instance();
+		$tec_main->rewriteSlug         = 'course';
+		$tec_main->rewriteSlugSingular = 'course';
+		update_option(
+			'rewrite_rules',
+			json_decode( file_get_contents( codecept_data_dir( 'rewrite/course-rules.json' ) ), true )
+		);
+		/** @var \WP_Rewrite $wp_rewrite */
+		global $wp_rewrite;
+		$wp_rewrite->permalink_structure = '/%postname%/';
+		$expected_parsed = [
+			'post_type'    => TEC::POSTTYPE,
+			'eventDisplay' => 'list',
+		];
+
+		$rewrite = new Rewrite();
+		$rewrite->setup( $wp_rewrite );
+		$pretty_archive_url = home_url( '/course/list/' );
+		$ugly_archive_url   = add_query_arg( $expected_parsed, home_url() );
+		$parsed             = $rewrite->parse_request( $pretty_archive_url );
+		$canonical_url = $rewrite->get_canonical_url( $ugly_archive_url );
+
+		$this->assertEquals( $expected_parsed, $parsed );
+		$this->assertEquals( $pretty_archive_url, $canonical_url );
 	}
 }

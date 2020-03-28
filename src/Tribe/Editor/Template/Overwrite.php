@@ -21,14 +21,6 @@ class Tribe__Events__Editor__Template__Overwrite {
 			add_filter( 'wp_editor_settings', array( $this, 'disable_editor_settings_wpautop' ), 10, 2 );
 		}
 
-		/**
-		 * @todo remove filter if WP 5.0 patches this function and filter
-		 */
-		if ( ! function_exists( 'gutenberg_wpautop' ) ) {
-			remove_filter( 'the_content', 'wpautop' );
-			add_filter( 'the_content', array( $this, 'wpautop' ), 6 );
-		}
-
 		add_filter( 'tribe_events_template_single-event.php', array( $this, 'silence' ) );
 		add_action( 'tribe_events_before_view', array( $this, 'include_blocks' ), 1, PHP_INT_MAX );
 	}
@@ -119,7 +111,7 @@ class Tribe__Events__Editor__Template__Overwrite {
 	 * @param  array  $settings  Original editor settings.
 	 * @param  string $editor_id ID for the editor instance.
 	 *
-	 * @return array             Filtered settings.
+	 * @return array  Filtered settings.
 	 */
 	public function disable_editor_settings_wpautop( $settings, $editor_id ) {
 		$post = get_post();
@@ -130,15 +122,16 @@ class Tribe__Events__Editor__Template__Overwrite {
 	}
 
 	/**
-	 * If function gutengerg_wpautop() does not exist, use this to disable wpautop.
+	 * If function gutenberg_wpautop() does not exist, use this to disable wpautop.
 	 *
-	 * @todo This function is a copy of gutenberg_wpautop() from the gutenberg plugin.
-	 * If WP 5.0 patches this, this function should be removed.
+	 * @deprecated 4.9.5
 	 *
 	 * @param  string $content Post content.
-	 * @return string          Paragraph-converted text if non-block content.
+	 * @return string Paragraph-converted text if non-block content.
 	 */
 	public function wpautop( $content ) {
+		_deprecated_function( __FUNCTION__, '4.9.5', 'Disabling wpautop is not needed anymore.' );
+
 		// don't bother if wpautop isn't applied
 		if ( ! has_filter( 'the_content', 'wpautop' ) ) {
 			return $content;

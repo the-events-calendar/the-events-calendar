@@ -97,11 +97,14 @@ class Tribe__Events__Meta__Save {
 	 * @return bool `true` if event meta was updated, `false` otherwise.
 	 */
 	public function save() {
+		/** @var Tribe__Editor $editor */
+		$editor = tribe( 'editor' );
+		/** @var Tribe__Events__Editor__Compatibility $compatibility */
+		$compatibility = tribe( 'events.editor.compatibility' );
+		$has_gutenberg_editor = $compatibility->is_blocks_editor_toggled_on() && ! $editor->is_classic_plugin_active();
 
-		if (
-			tribe( 'tec.gutenberg' )->should_display()
-			&& tribe( 'events.editor.compatibility' )->is_blocks_editor_toggled_on()
-		) {
+		// Save only the meta that does not have blocks when the Gutenberg editor is present.
+		if ( tribe( 'tec.gutenberg' )->should_display() && $has_gutenberg_editor ) {
 			return $this->save_block_editor_metadata( $this->post_id, $_POST, $this->post );
 		}
 

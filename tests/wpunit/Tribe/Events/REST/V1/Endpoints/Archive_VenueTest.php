@@ -26,6 +26,8 @@ class Archive_VenueTest extends \Codeception\TestCase\WPTestCase {
 		// before
 		parent::setUp();
 
+		tribe_unset_var( \Tribe__Settings_Manager::OPTION_CACHE_VAR_NAME );
+
 		// your set up methods here
 		$this->factory()->event = new Event();
 		$this->factory()->venue = new Venue();

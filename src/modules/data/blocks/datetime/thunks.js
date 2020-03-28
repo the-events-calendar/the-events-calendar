@@ -6,8 +6,7 @@ import {
 	setEndDateTime,
 	setStartTimeInput,
 	setEndTimeInput,
-	setAllDay as setAllDayAction,
-	setMultiDay as setMultiDayAction,
+	setAllDay,
 	setSeparatorDate,
 	setSeparatorTime,
 	setTimeZone,
@@ -18,9 +17,9 @@ import {
 import { DEFAULT_STATE } from './reducer';
 import { maybeBulkDispatch } from '@moderntribe/events/data/utils';
 import { date, moment } from '@moderntribe/common/utils';
+import { isEmpty } from 'lodash';
 
 const {
-	isSameDay,
 	parseFormats,
 	toDateTime,
 	toTime,
@@ -30,13 +29,17 @@ export const setInitialState = ( { get, attributes } ) => ( dispatch ) => {
 	const timeZone = get( 'timeZone', DEFAULT_STATE.timeZone );
 	const timeZoneLabel = get( 'timeZoneLabel', timeZone );
 
+	if ( isEmpty( attributes ) ) {
+		return;
+	}
+
 	/**
 	 * @todo: remove maybeBuildDispatch, dispatch declaratively instead
 	 */
 	maybeBulkDispatch( attributes, dispatch )( [
 		[ setStartDateTime, 'start', DEFAULT_STATE.start ],
 		[ setEndDateTime, 'end', DEFAULT_STATE.end ],
-		[ setAllDayAction, 'allDay', DEFAULT_STATE.allDay ],
+		[ setAllDay, 'allDay', DEFAULT_STATE.allDay ],
 		[ setSeparatorDate, 'separatorDate', DEFAULT_STATE.dateTimeSeparator ],
 		[ setSeparatorTime, 'separatorTime', DEFAULT_STATE.timeRangeSeparator ],
 		[ setTimeZone, 'timeZone', timeZoneLabel ],
@@ -65,5 +68,4 @@ export const setInitialState = ( { get, attributes } ) => ( dispatch ) => {
 	}
 
 	dispatch( setNaturalLanguageLabel( date.rangeToNaturalLanguage( values.start, values.end ) ) );
-	dispatch( setMultiDayAction( ! isSameDay( values.start, values.end ) ) );
 };

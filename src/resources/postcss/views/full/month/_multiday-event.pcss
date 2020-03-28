@@ -1,0 +1,74 @@
+.tribe-events {
+
+	/* -----------------------------------------------------------------------------
+	 * Multiday Event
+	 * ----------------------------------------------------------------------------- */
+
+	.tribe-events-calendar-month__multiday-event--start {
+
+		.tribe-events-calendar-month__multiday-event-bar {
+			border-top-left-radius: 9.5px;
+			border-bottom-left-radius: 9.5px;
+		}
+	}
+
+	.tribe-events-calendar-month__multiday-event--end {
+
+		.tribe-events-calendar-month__multiday-event-bar {
+			border-top-right-radius: 9.5px;
+			border-bottom-right-radius: 9.5px;
+		}
+	}
+
+	.tribe-events-calendar-month__multiday-event-bar-inner {
+		background-color: var(--color-accent-primary-multiday);
+		transition: var(--transition-background-color);
+
+		&:hover,
+		&:focus {
+			background-color: var(--color-accent-primary-multiday-hover);
+		}
+	}
+
+	.tribe-events-calendar-month__multiday-event-bar-inner--focus,
+	.tribe-events-calendar-month__multiday-event-bar-inner--hover {
+		background-color: var(--color-accent-primary-multiday-hover);
+	}
+
+	.tribe-events-calendar-month__multiday-event--past {
+
+		.tribe-events-calendar-month__multiday-event-bar-inner {
+			background-color: var(--color-background-secondary);
+
+			&:hover,
+			&:focus {
+				background-color: var(--color-background-secondary-hover);
+			}
+		}
+
+		.tribe-events-calendar-month__multiday-event-bar-inner--focus,
+		.tribe-events-calendar-month__multiday-event-bar-inner--hover {
+			background-color: var(--color-background-secondary-hover);
+		}
+
+		.tribe-events-calendar-month__multiday-event-bar-featured-icon,
+		.tribe-events-calendar-month__multiday-event-bar-title {
+			opacity: 0.64;
+		}
+	}
+
+	.tribe-events-calendar-month__multiday-event-bar-title {
+		font-weight: var(--font-weight-regular);
+		text-overflow: ellipsis;
+	}
+
+	/* -----------------------------------------------------------------------------
+	 * Theme Overrides - Avada
+	 * ----------------------------------------------------------------------------- */
+
+	.tribe-theme-avada #main & {
+		.tribe-events-calendar-month__multiday-event-bar-title {
+			font-weight: var(--font-weight-regular);
+		}
+	}
+}

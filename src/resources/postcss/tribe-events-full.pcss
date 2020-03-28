@@ -1189,6 +1189,7 @@ select.tribe-events-dropdown {
 		clear: both;
 		font-size: 12px;
 		margin: 12px 0 .6em;
+		overflow: visible;
 		table-layout: fixed;
 		width: 100%;
 
@@ -1518,16 +1519,12 @@ select.tribe-events-dropdown {
 =============================================*/
 
 .tribe-events-list-widget {
-	ol li {
-		list-style: none;
-		margin-bottom: .5rem;
-	}
-
 	.tribe-list-widget {
 		margin-left: 0;
 	}
 
 	.tribe-events-list-widget-events {
+		list-style: none;
 		padding: 0 1.5rem;
 		margin-bottom: 1.25rem;
 	}
@@ -1580,6 +1577,11 @@ select.tribe-events-dropdown {
 
 	td {
 		border-top: 1px solid #ededed;
+	}
+
+	td,
+	th {
+		word-break: normal;
 	}
 
 	table tr {
@@ -2468,6 +2470,20 @@ input[name*='tribe-bar-']:-moz-placeholder {
 		}
 	}
 }
+
+/* Twenty Twenty
+========================================================================== */
+.tribe-theme-twentytwenty {
+
+	.tribe-events-tooltip {
+
+		h3.entry-title {
+			font-size: 2.4rem;
+			margin: 0;
+		}
+	}
+}
+
 
 /* = Events Retina
 =============================================*/

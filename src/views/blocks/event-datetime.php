@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.7
+ * @version 5.0.1
  *
  */
 
@@ -57,8 +57,9 @@ if ( empty( $separator_date ) ) {
 	$separator_date = tribe_get_option( 'dateTimeSeparator', ' - ' );
 }
 
-$is_all_day       = tribe_event_is_all_day( $event_id );
-$is_same_day      = $formatted_start_date == $formatted_end_date;
+$is_all_day        = tribe_event_is_all_day( $event_id );
+$is_same_day       = $formatted_start_date == $formatted_end_date;
+$is_same_start_end = $formatted_start_date == $formatted_end_date && $formatted_start_time == $formatted_end_time;
 
 ?>
 
@@ -66,48 +67,50 @@ $is_same_day      = $formatted_start_date == $formatted_end_date;
 <div class="tribe-events-schedule tribe-clearfix">
 	<h2 class="tribe-events-schedule__datetime">
 		<span class="tribe-events-schedule__date tribe-events-schedule__date--start">
-			<?php echo $formatted_start_date; ?>
+			<?php echo esc_html( $formatted_start_date ); ?>
 		</span>
 
 		<?php if ( ! $is_all_day ) : ?>
 			<span class="tribe-events-schedule__separator tribe-events-schedule__separator--date">
-				<?php echo $separator_date; ?>
+				<?php echo esc_html( $separator_date ); ?>
 			</span>
 			<span class="tribe-events-schedule__time tribe-events-schedule__time--start">
-				<?php echo $formatted_start_time; ?>
+				<?php echo esc_html( $formatted_start_time ); ?>
 			</span>
 		<?php elseif ( $is_same_day ) : ?>
-			<span class="tribe-events-schedule__all-day"><?php echo __( 'All day', 'the-events-calendar' ); ?></span>
+			<span class="tribe-events-schedule__all-day"><?php echo esc_html__( 'All day', 'the-events-calendar' ); ?></span>
 		<?php endif; ?>
 
-		<?php if ( ! $is_all_day || ! $is_same_day ) : ?>
-			<span class="tribe-events-schedule__separator tribe-events-schedule__separator--time">
-				<?php echo $separator_time; ?>
-			</span>
-		<?php endif; ?>
-
-		<?php if ( ! $is_same_day ) : ?>
-			<span class="tribe-events-schedule__date tribe-events-schedule__date--end">
-				<?php echo $formatted_end_date; ?>
-			</span>
-
-			<?php if ( ! $is_all_day ) : ?>
-				<span class="tribe-events-schedule__separator tribe-events-schedule__separator--date">
-					<?php echo $separator_date; ?>
-				</span>
-				<span class="tribe-events-schedule__time tribe-events-schedule__time--end">
-					<?php echo $formatted_end_time; ?>
+		<?php if ( ! $is_same_start_end ) : ?>
+			<?php if ( ! $is_all_day || ! $is_same_day ) : ?>
+				<span class="tribe-events-schedule__separator tribe-events-schedule__separator--time">
+					<?php echo esc_html( $separator_time ); ?>
 				</span>
 			<?php endif; ?>
 
-		<?php elseif ( ! $is_all_day ) : ?>
-			<span class="tribe-events-schedule__time tribe-events-schedule__time--end">
-				<?php echo $formatted_end_time; ?>
-			</span>
-		<?php endif; ?>
+			<?php if ( ! $is_same_day ) : ?>
+				<span class="tribe-events-schedule__date tribe-events-schedule__date--end">
+					<?php echo esc_html( $formatted_end_date ); ?>
+				</span>
 
-		<?php if ( $show_time_zone ) : ?>
-			<span class="tribe-events-schedule__timezone"><?php echo esc_html( $time_zone_label ); ?></span>
+				<?php if ( ! $is_all_day ) : ?>
+					<span class="tribe-events-schedule__separator tribe-events-schedule__separator--date">
+						<?php echo esc_html( $separator_date ); ?>
+					</span>
+					<span class="tribe-events-schedule__time tribe-events-schedule__time--end">
+						<?php echo esc_html( $formatted_end_time ); ?>
+					</span>
+				<?php endif; ?>
+
+			<?php elseif ( ! $is_all_day ) : ?>
+				<span class="tribe-events-schedule__time tribe-events-schedule__time--end">
+					<?php echo esc_html( $formatted_end_time ); ?>
+				</span>
+			<?php endif; ?>
+
+			<?php if ( $show_time_zone ) : ?>
+				<span class="tribe-events-schedule__timezone"><?php echo esc_html( $time_zone_label ); ?></span>
+			<?php endif; ?>
 		<?php endif; ?>
 	</h2>
 </div>

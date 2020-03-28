@@ -1,0 +1,82 @@
+{
+  "ID": {{ id }},
+  "post_author": 1,
+  "post_date": "2019-09-17 16:00:32",
+  "post_date_gmt": "2019-09-17 14:00:32",
+  "post_content": "Venue {{ id }} content",
+  "post_title": "Venue {{ id }} title",
+  "post_excerpt": "Venue {{ id }} excerpt",
+  "post_status": "publish",
+  "comment_status": "closed",
+  "ping_status": "closed",
+  "post_password": "",
+  "post_name": "venue-{{ id }}",
+  "to_ping": "",
+  "pinged": "",
+  "post_modified": "2019-09-17 16:00:32",
+  "post_modified_gmt": "2019-09-17 14:00:32",
+  "post_content_filtered": "",
+  "post_parent": 0,
+  "guid": "http://products.tribe/?post_type=tribe_venue&#038;p={{ id }}",
+  "menu_order": 0,
+  "post_type": "tribe_venue",
+  "post_mime_type": "",
+  "comment_count": 0,
+  "filter": "raw",
+  "meta_input": {
+    "_VenueOrigin": [
+      "events-calendar"
+    ],
+    "_EventShowMapLink": [
+      "1"
+    ],
+    "_EventShowMap": [
+      "1"
+    ],
+    "_VenueShowMapLink": [
+      "1"
+    ],
+    "_VenueShowMap": [
+      "1"
+    ],
+    "_VenueAddress": [
+      "100 Rue de Le Chat"
+    ],
+    "_VenueCity": [
+      "Paris"
+    ],
+    "_VenueCountry": [
+      "France"
+    ],
+    "_VenueProvince": [
+      "Ile de France"
+    ],
+    "_VenueState": [
+      "Ile de France"
+    ],
+    "_VenueZip": [
+      "75019"
+    ],
+    "_VenuePhone": [
+      "11223344"
+    ],
+    "_VenueURL": [
+      "http://venue.org"
+    ],
+    "_VenueStateProvince": [
+      "Ile de France"
+    ],
+    "_VenueOverwriteCoords": [
+      "0"
+    ],
+    "_VenueGeoAddress": [
+      "100 Rue de Le Chat Ile de France Paris 75019 France"
+    ],
+    "_VenueLat": [
+      "48.8624784"
+    ],
+    "_VenueLng": [
+      "2.3648085"
+    ]
+  }
+}

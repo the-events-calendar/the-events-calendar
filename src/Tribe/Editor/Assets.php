@@ -5,6 +5,16 @@
  * @since 4.7
  */
 class Tribe__Events__Editor__Assets {
+
+	/**
+	 * Caches the result of the `should_enqueue_frontend` check.
+	 *
+	 * @since 4.9.13
+	 *
+	 * @var bool
+	 */
+	protected $should_enqueue_frontend;
+
 	/**
 	 *
 	 * @since 4.7
@@ -45,10 +55,15 @@ class Tribe__Events__Editor__Assets {
 	 * Checks if we should enqueue frontend assets
 	 *
 	 * @since 4.7
+	 * @since 4.9.13 Cache the check value.
 	 *
 	 * @return bool
 	 */
 	public function should_enqueue_frontend() {
+		if ( null !== $this->should_enqueue_frontend ) {
+			return $this->should_enqueue_frontend;
+		}
+
 		$should_enqueue = (
 			tribe_is_event_query()
 			|| tribe_is_event_organizer()
@@ -63,6 +78,10 @@ class Tribe__Events__Editor__Assets {
 		 *
 		 * @param bool $should_enqueue
 		 */
-		return apply_filters( 'tribe_events_editor_assets_should_enqueue_frontend', $should_enqueue );
+		$should_enqueue = apply_filters( 'tribe_events_editor_assets_should_enqueue_frontend', $should_enqueue );
+
+		$this->should_enqueue_frontend = $should_enqueue;
+
+		return $should_enqueue;
 	}
 }

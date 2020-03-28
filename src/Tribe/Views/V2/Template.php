@@ -12,6 +12,7 @@ use Tribe\Traits\Cache_User;
 use Tribe__Repository__Interface as Repository_Interface;
 use Tribe__Template as Base_Template;
 use Tribe__Utils__Array as Arr;
+use WP_Post;
 
 /**
  * Class Template
@@ -23,11 +24,11 @@ class Template extends Base_Template {
 	use Cache_User;
 
 	/**
-	 * The slug the template should use to build its path.
+	 * The view the template should use to build its path.
 	 *
-	 * @var string
+	 * @var View_Interface
 	 */
-	protected $slug;
+	protected $view;
 
 	/**
 	 * The repository instance that provided the template with posts, if any.
@@ -40,7 +41,7 @@ class Template extends Base_Template {
 	 * An array cache to keep track of  resolved template files on a per-name basis.
 	 * The file look-around needs not to be performed twice per request.
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @var array
 	 */
@@ -59,29 +60,39 @@ class Template extends Base_Template {
 		$context = wp_parse_args( $context_overrides, $this->context );
 		$context['_context'] = $context;
 
-		return parent::template( $this->slug, $context, false );
+		return parent::template( $this->view->get_template_slug(), $context, false );
 	}
 
 	/**
 	 * Template constructor.
 	 *
-	 * @param string $slug The slug the template should use to build its path.
+	 * @param View_Interface $view The view the template should use to build its path.
 	 *
 	 * @since 4.9.2
-	 *
+	 * @since 4.9.4 Modified the first param to only accept View_Interface instances.
 	 */
-	public function __construct( $slug ) {
-		$this->slug = $slug;
-		// Set some global defaults all Views are likely to search for; those will be overridden by each View.
-		$this->set_values( [
-			'slug'     => $slug,
-			'prev_url' => '',
-			'next_url' => '',
-		], false );
+	public function __construct( $view ) {
+		$this->set_view( $view );
+
 		$this->set_template_origin( tribe( 'tec.main' ) )
 		     ->set_template_folder( 'src/views/v2' )
 		     ->set_template_folder_lookup( true )
 		     ->set_template_context_extract( true );
+
+		// Set some global defaults all Views are likely to search for; those will be overridden by each View.
+		$this->set_values( [
+			'slug'     => $view->get_slug(),
+			'prev_url' => '',
+			'next_url' => '',
+		], false );
+
+		// Set some defaults on the template.
+		$this->set( 'view_class', get_class( $view ), false );
+		$this->set( 'view_slug', $view->get_slug(), false );
+		$this->set( 'view_label', $view->get_label(), false );
+
+		// Set which view globally.
+		$this->set( 'view', $view, false );
 	}
 
 	/**
@@ -97,7 +108,7 @@ class Template extends Base_Template {
 	 * @return string The path to the template file the View will use to render its contents.
 	 */
 	public function get_template_file( $name = null ) {
-		$name = null !== $name ? $name : $this->slug;
+		$name = null !== $name ? $name : $this->view->get_slug();
 
 		$cache_key = is_array( $name ) ? implode( '/', $name ) : $name;
 
@@ -126,12 +137,45 @@ class Template extends Base_Template {
 	 */
 	public function get_base_template_file() {
 		// Print the lookup folders as relative paths.
-		$this->set( 'lookup_folders', array_map( function ( array $folder ) {
-			$folder['path'] = str_replace( WP_CONTENT_DIR, '', $folder['path'] );
-			return $folder;
-		}, $this->get_template_path_list() ) );
+		$this->set(
+			'lookup_folders',
+			array_map(
+				static function ( array $folder ) {
+					$folder['path'] = str_replace( WP_CONTENT_DIR, '', $folder['path'] );
+					$folder['path'] = str_replace( WP_PLUGIN_DIR, '/plugins', $folder['path'] );
+					return $folder;
+				},
+				$this->get_template_path_list()
+			),
+			false
+		);
+
+		if ( $this->view instanceof View_Interface ) {
+			$this->set( 'view_slug', $this->view->get_slug(), false );
+			$this->set( 'view_label', $this->view->get_label(), false );
+			$this->set( 'view_class', get_class( $this->view ), false );
+		}
 
 		return parent::get_template_file( 'base' );
+	}
+
+	/**
+	 * Sets up the post data and replace the global post variable on all required places.
+	 *
+	 * @since 4.9.13
+	 *
+	 * @param WP_Post $event Which event will replace the Post for the templates
+	 *
+	 * @return bool|void  Returns whatever WP_Query::setup_postdata() sends back.
+	 */
+	public function setup_postdata( WP_Post $event ) {
+		global $post, $wp_query;
+
+		// Replace the global $post with the event given.
+		$post = $event;
+
+		// Setup Post data with the info passed.
+		return $wp_query->setup_postdata( $post );
 	}
 
 	/**
@@ -146,24 +190,35 @@ class Template extends Base_Template {
 	}
 
 	/**
-	 * Sets the template slug.
+	 * Sets the template view.
 	 *
-	 * @since TBD
+	 * @since 4.9.4 Modified the Param to only accept View_Interface instances
 	 *
-	 * @param string $slug The slug the template should use.
+	 * @param View_Interface  $view  Which view we are using this template on.
 	 */
-	public function set_slug( string $slug ) {
-		$this->slug = $slug;
+	public function set_view( $view ) {
+		$this->view = $view;
 	}
 
 	/**
-	 * Returns the current template slug, either set in the constructor or using the `set_slug` method.
+	 * Returns the current template view, either set in the constructor or using the `set_view` method.
 	 *
-	 * @since TBD
+	 * @since 4.9.4 Modified the Param to only accept View_Interface instances
 	 *
-	 * @return string The current template slug.
+	 * @return View_Interface The current template view.
 	 */
-	public function get_slug() {
-		return $this->slug;
+	public function get_view() {
+		return $this->view;
+	}
+
+	/**
+	 * Returns the current template context.
+	 *
+	 * @since 5.0.0
+	 *
+	 * @return \Tribe__Context The template context instance, or the global context if no context is set.
+	 */
+	public function get_context() {
+		return $this->context instanceof \Tribe__Context ? $this->context : tribe_context();
 	}
 }

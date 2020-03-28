@@ -1,0 +1,165 @@
+/* -----------------------------------------------------------------------------
+ *
+ * Top Bar
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe-events {
+
+	.tribe-events-c-top-bar {
+
+		.tribe-common--breakpoint-medium& {
+			align-items: center;
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+		}
+	}
+
+	.tribe-events-c-top-bar__nav {
+
+		.tribe-common--breakpoint-medium& {
+			display: block !important;
+			flex: none;
+			visibility: visible;
+		}
+	}
+
+	.tribe-events-c-top-bar__nav-list {
+		display: flex;
+	}
+
+	.tribe-events-c-top-bar__nav-list-item {
+		flex: none;
+		padding-right: 15px;
+
+		> * {
+			vertical-align: middle;
+		}
+	}
+
+	.tribe-events-c-top-bar__nav-link {
+		display: block;
+
+		&:before {
+
+			.tribe-common--breakpoint-medium& {
+				height: 18px;
+				width: 11px;
+			}
+		}
+	}
+
+	.tribe-events-c-top-bar__today-button {
+
+		.tribe-common--breakpoint-medium& {
+			display: block !important;
+			flex: none;
+			margin-right: 15px;
+			visibility: visible;
+		}
+	}
+
+	.tribe-events-c-top-bar__datepicker {
+		flex: auto;
+		position: relative;
+
+		.tribe-common--breakpoint-medium& {
+			margin: 0;
+			padding: 0;
+		}
+	}
+
+	.tribe-events-c-top-bar__datepicker-separator {
+		white-space: pre;
+	}
+
+	.tribe-events-c-top-bar__datepicker-mobile {
+
+		.tribe-common--breakpoint-full& {
+			@mixin hidden;
+		}
+	}
+
+	.tribe-events-c-top-bar__datepicker-desktop {
+
+		.tribe-common--breakpoint-full& {
+			display: block !important;
+			visibility: visible
+		}
+	}
+
+	.tribe-events-c-top-bar__datepicker-button {
+		align-items: center;
+		display: flex;
+		flex: none;
+	}
+
+	.tribe-events-c-top-bar__datepicker-container {
+		bottom: 0;
+		left: 0;
+		max-width: calc(100% + 29px); /* view selector buttons have 29px width */
+		position: absolute;
+		width: 363px;
+
+		.tribe-common--breakpoint-medium& {
+			max-width: none;
+			min-width: 363px;
+		}
+	}
+
+	.tribe-events-header--has-event-search .tribe-events-c-top-bar__datepicker-container {
+		max-width: calc(100% + 66px); /* mobile search and view selector buttons have 66px width */
+
+		.tribe-common--breakpoint-medium& {
+			max-width: none;
+		}
+	}
+
+	.tribe-events-c-top-bar__actions {
+
+		.tribe-common--breakpoint-medium& {
+			display: block !important;
+			flex: none;
+			margin-left: auto;
+			visibility: visible;
+		}
+	}
+
+	/* -----------------------------------------------------------------------------
+	 *
+	 * Top Bar: Theme Overrides
+	 *
+	 * ----------------------------------------------------------------------------- */
+
+	/* -----------------------------------------------------------------------------
+	 * Theme Overrides - Enfold
+	 * ----------------------------------------------------------------------------- */
+
+	#top.tribe-theme-enfold &,
+	#top .main_color & {
+
+		.tribe-events-c-top-bar__datepicker-input {
+			@mixin visually-hide;
+		}
+	}
+
+	.entry-content-wrapper & {
+
+		.tribe-events-c-top-bar__nav-list-item {
+			padding-right: 15px;
+		}
+	}
+
+
+	/* -----------------------------------------------------------------------------
+	 * Theme Overrides - Avada
+	 * ----------------------------------------------------------------------------- */
+
+	.tribe-theme-avada & {
+
+		.tribe-events-c-top-bar__datepicker-input {
+			@mixin visually-hide;
+		}
+	}
+}

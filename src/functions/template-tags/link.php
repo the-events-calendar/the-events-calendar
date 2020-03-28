@@ -363,7 +363,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$html  = sprintf(
 				'<a href="%s" target="%s">%s</a>',
 				esc_url( $url ),
-				apply_filters( 'tribe_get_event_website_link_target', '_self' ),
+				esc_attr( apply_filters( 'tribe_get_event_website_link_target', '_self' ) ),
 				apply_filters( 'tribe_get_event_website_link_label', $label )
 			);
 		} else {

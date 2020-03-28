@@ -36,7 +36,6 @@ class Tribe__Events__Aggregator__Record__Void_Queue
 
 			return;
 		}
-
 		$this->error = $error;
 	}
 

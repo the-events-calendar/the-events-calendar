@@ -1,0 +1,101 @@
+.tribe-events {
+
+	/* -----------------------------------------------------------------------------
+	 * Calendar Event
+	 * ----------------------------------------------------------------------------- */
+
+	.tribe-events-calendar-month__day--past {
+
+		.tribe-events-calendar-month__calendar-event {
+			opacity: 0.64;
+		}
+
+		.tribe-events-calendar-month__calendar-event-datetime {
+			color: var(--color-text-primary);
+			opacity: 0.94; /* This opacity is compounded with the calendar-event opacity above */
+		}
+
+	}
+
+	.tribe-events-calendar-month__calendar-event-featured-image-link {
+		transition: var(--transition-opacity);
+
+		&:hover,
+		&:focus {
+			opacity: var(--opacity-icon-hover);
+		}
+
+		&:active {
+			opacity: var(--opacity-icon-active);
+		}
+	}
+
+	.tribe-events-calendar-month__calendar-event-datetime {
+		@mixin mobile-body-3;
+
+		color: var(--color-text-secondary);
+	}
+
+	.tribe-events-calendar-month__calendar-event--featured {
+
+		&:before {
+			background-color: var(--color-accent-primary);
+			content: '';
+			height: 100%;
+			left: 7px;
+			position: absolute;
+			width: 2px;
+		}
+
+		&:last-child {
+
+			&:before {
+				height: calc(100% - var(--spacer-3));
+			}
+		}
+	}
+
+	.tribe-events-calendar-month__calendar-event-datetime-recurring-link {
+
+		&:hover,
+		&:focus {
+
+			.tribe-events-calendar-month__calendar-event-datetime-recurring-icon {
+				background-image: svg-inline(recurring);
+			}
+		}
+	}
+
+	/* -----------------------------------------------------------------------------
+	 * Calendar Event Tooltip
+	 * ----------------------------------------------------------------------------- */
+
+	.tribe-events-calendar-month__calendar-event-tooltip-featured-image-link {
+		transition: var(--transition-opacity);
+
+		&:hover,
+		&:focus {
+			opacity: var(--opacity-icon-hover);
+		}
+
+		&:active {
+			opacity: var(--opacity-icon-active);
+		}
+	}
+
+	.tribe-events-calendar-month__calendar-event-tooltip-datetime {
+		@mixin mobile-body-3;
+	}
+
+	.tribe-events-calendar-month__calendar-event-tooltip-datetime-recurring-link {
+
+		&:hover,
+		&:focus {
+
+			.tribe-events-calendar-month__calendar-event-tooltip-datetime-recurring-icon {
+				background-image: svg-inline(recurring);
+			}
+		}
+	}
+
+}

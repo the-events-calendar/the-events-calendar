@@ -2,13 +2,13 @@
 namespace Tribe\Events\Views\V2;
 
 class TemplateBootstrapTest extends \Codeception\TestCase\WPTestCase {
+
 	private function make_instance() {
-		return new Template_Bootstrap();
+		return new Template_Bootstrap( new Manager() );
 	}
 
 	/**
 	 * @test
-	 * it should be instantiatable
 	 */
 	public function it_should_be_instantiatable() {
 		$sut = $this->make_instance();
@@ -18,27 +18,27 @@ class TemplateBootstrapTest extends \Codeception\TestCase\WPTestCase {
 
 	public function base_template_options() {
 		return [
-			'invalid' => [
+			'invalid'       => [
 				'foo',
-				'event',
+				'foo',
 			],
-			'numeric' => [
+			'numeric'       => [
 				2,
-				'event',
+				2,
 			],
-			'default' => [
+			'default'       => [
 				'default',
 				'page',
 			],
-			'empty_string' => [
+			'empty_string'  => [
 				'',
 				'event',
 			],
-			'numeric_zero' => [
+			'numeric_zero'  => [
 				0,
 				'event',
 			],
-			'null' => [
+			'null'          => [
 				null,
 				'event',
 			],
@@ -46,24 +46,22 @@ class TemplateBootstrapTest extends \Codeception\TestCase\WPTestCase {
 				false,
 				'event',
 			],
-			'boolean_true' => [
+			'boolean_true'  => [
 				false,
 				'event',
 			],
-			'slug_event' => [
+			'slug_event'    => [
 				'event',
 				'event',
 			],
-			'slug_page' => [
+			'slug_page'     => [
 				'page',
-				'event',
+				'page',
 			],
 		];
 	}
 
 	/**
-	 * It should only allow permitted values on base template option
-	 *
 	 * @test
 	 * @dataProvider base_template_options
 	 */
@@ -76,8 +74,6 @@ class TemplateBootstrapTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * It should return template event instance
-	 *
 	 * @test
 	 */
 	public function it_should_return_template_event_instance() {
@@ -89,8 +85,6 @@ class TemplateBootstrapTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * It should return template page instance
-	 *
 	 * @test
 	 */
 	public function it_should_return_template_page_instance() {
@@ -103,75 +97,108 @@ class TemplateBootstrapTest extends \Codeception\TestCase\WPTestCase {
 
 	public function query_args_to_load() {
 		return [
-			'invalid' => [
-				'foo',
+			'not_main_event_query'       => [
+				true,
+				false,
 				false,
 			],
-			'post_type_eq_tribe_events' => [
-				[ 'post_type' => 'tribe_events' ],
+			'main_event_query'           => [
+				true,
+				true,
 				true,
 			],
-			'post_type_contains_tribe_events' => [
-				[ 'post_type' => [ 'tribe_events', 'invalid_post_type' ] ],
+			'main_query_not_event_query' => [
+				false,
 				true,
+				false,
 			],
-			'post_type_not_tribe_events' => [
-				[ 'post_type' => 'post' ],
+			'not_main_not_event_query'   => [
+				false,
+				false,
 				false,
 			],
 		];
 	}
 
 	/**
-	 * It should load only on correct wp query
-	 *
 	 * @test
 	 * @dataProvider query_args_to_load
 	 */
-	public function it_should_load_only_on_correct_wp_query( $query_args, $expected ) {
-		$query = new \WP_Query( $query_args );
+	public function it_should_load_only_on_correct_wp_query( $is_event_query, $is_main_query, $expected ) {
+		global $wp_query;
+		$query                       = $this->make(
+			\WP_Query::class,
+			[
+				'is_main_query' => $is_main_query,
+			]
+		);
+		$query->tribe_is_event_query = $is_event_query;
+		$wp_query                    = $query;
 
 		$should_load = $this->make_instance()->should_load( $query );
 
 		$this->assertEquals( $should_load, $expected );
 	}
 
+	/**
+	 * It should not load if query is not main query
+	 *
+	 * @test
+	 */
+	public function should_not_load_if_query_is_not_main_query() {
+		$query = $this->make(
+			\WP_Query::class,
+			[
+				'is_main_query' => false,
+			]
+		);
+
+		$this->assertFalse( $this->make_instance()->should_load( $query ) );
+	}
+
 	public function invalid_queries() {
 		return [
-			'string' => [
+			'string'        => [
 				'foo',
 			],
-			'numeric' => [
+			'numeric'       => [
 				2,
 			],
 			'boolean_false' => [
 				false,
 			],
-			'boolean_true' => [
+			'boolean_true'  => [
 				true,
 			],
-			'stdObject' => [
+			'stdObject'     => [
 				(object) [],
 			],
-			'array' => [
+			'array'         => [
 				[],
 			],
 		];
 	}
 
 	/**
-	 * It should use global query on invalid query
-	 *
 	 * @test
 	 * @dataProvider invalid_queries
 	 */
 	public function it_should_use_global_query_on_invalid_query( $invalid_query ) {
 		global $wp_query;
-		$wp_query = new \WP_Query( [ 'post_type' => 'tribe_events' ] );
+		$called                         = false;
+		$wp_query                       = $this->make(
+			\WP_Query::class,
+			[
+				'is_main_query' => static function () use ( &$called ) {
+					return $called = true;
+				},
+			]
+		);
+		$wp_query->tribe_is_event_query = true;
 
 		$should_load = $this->make_instance()->should_load( $invalid_query );
 
 		$this->assertTrue( $should_load );
+		$this->assertTrue( $called );
 	}
-
 }

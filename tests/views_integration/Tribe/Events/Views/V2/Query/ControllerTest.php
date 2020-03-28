@@ -10,6 +10,7 @@ class ControllerTest extends \Codeception\TestCase\WPTestCase {
 	public function setUp() {
 		parent::setUp();
 		static::factory()->event = new Event();
+		tribe_events()->per_page( - 1 )->delete();
 	}
 
 	/**
@@ -19,7 +20,7 @@ class ControllerTest extends \Codeception\TestCase\WPTestCase {
 	public function it_should_be_instantiatable() {
 		$sut = $this->make_instance();
 
-		$this->assertInstanceOf( Event_Query_Controller ::class, $sut );
+		$this->assertInstanceOf( Event_Query_Controller::class, $sut );
 	}
 
 	/**
