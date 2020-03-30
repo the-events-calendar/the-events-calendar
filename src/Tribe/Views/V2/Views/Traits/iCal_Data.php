@@ -110,7 +110,7 @@ trait iCal_Data {
 		$event_date = $this->get_event_date();
 
 		// If we don't have a date for some reason, give them the default iCal link.
-		$url = ! empty( $event_date ) ? tribe( 'tec.iCal' )->month_view_ical_link( $event_date ) : null;
+		$url = ! empty( $event_date ) ? tribe( 'tec.iCal' )->month_view_ical_link( $event_date ) : tribe( 'tec.iCal' )->get_ical_link();
 		return $url;
 	}
 

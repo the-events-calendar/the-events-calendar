@@ -223,6 +223,8 @@ Remember to always make a backup of your database and files before updating!
 = [5.0.4] TBD =
 
 * Fix - Prevent PHP errors from happening during bulk activation or deactivation of the plugin [TCMN-53]
+* Fix - Correct iCal link on month view for months other than the current one [TEC-3267]
+* Tweak - Add a constant to turn off views HTML caching.
 
 = [5.0.3.1] 2020-03-23 =
 
