@@ -78,7 +78,7 @@ class Tribe__Events__iCal {
 	/**
 	 * Make sure when we grab a month link it includes the correct month.
 	 *
-	 * @param $event_date
+	 * @param string $event_date Date of the month we are getting the link for.
 	 *
 	 * @return string
 	 */
@@ -184,7 +184,7 @@ class Tribe__Events__iCal {
 	}
 
 	/**
-	 * Executes the iCal generator when the appropiate query_var or $_GET is setup
+	 * Executes the iCal generator when the appropriate query_var or $_GET is setup.
 	 */
 	public function do_ical_template() {
 		// hijack to iCal template
@@ -317,7 +317,7 @@ class Tribe__Events__iCal {
 			'hide_upcoming' => true,
 		];
 
-		// Verify the Initial Category
+		// Verify the Initial Category.
 		if ( $wp_query->get( Tribe__Events__Main::TAXONOMY, false ) !== false ) {
 			$args[ Tribe__Events__Main::TAXONOMY ] = $wp_query->get( Tribe__Events__Main::TAXONOMY );
 		}

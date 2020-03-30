@@ -58,7 +58,7 @@ trait iCal_Data {
 
 		$link_title = __( 'Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps', 'the-events-calendar' );
 
-		switch( $slug ) {
+		switch ( $slug ) {
 			case 'month':
 				$url = $this->get_month_view_url();
 				break;
@@ -84,7 +84,7 @@ trait iCal_Data {
 		 * @param object $ical_data An object containing the ical data.
 		 * @param View   $this      The current View instance being rendered.
 		 */
-		$ical_data = apply_filters( "tribe_events_views_v2_view_ical_data", $ical_data, $this );
+		$ical_data = apply_filters( 'tribe_events_views_v2_view_ical_data', $ical_data, $this );
 
 		/**
 		 * Filters the ical data for a specific view.
@@ -123,7 +123,7 @@ trait iCal_Data {
 	 */
 	public function get_event_date() {
 		$event_date = null;
-		$context = $this->get_context();
+		$context    = $this->get_context();
 
 		if ( ! empty( $context->get( 'eventDate' ) ) ) {
 			$event_date = $context->get( 'eventDate' );
