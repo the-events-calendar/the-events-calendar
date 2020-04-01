@@ -100,4 +100,38 @@ class EventTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEqualSets( Arr::flatten( get_post_meta( $event ) ), $event_object->data( 'meta', [] ) );
 		$this->assertEquals( 2389, $event_object->data( 'foo-bar', 2389 ) );
 	}
+
+	/**
+	 * It should fix meta fields requiring fixes
+	 *
+	 * @test
+	 */
+	public function should_fix_meta_fields_requiring_fixes() {
+		$event = static::factory()->event->create( [
+			'meta_input' => [
+				'_EventAllDay'      => 'yes',
+				// '_EventCost'        => '',
+				'_EventVenueID'     => '89',
+				'_EventShowMap'     => 'no',
+			]
+		] );
+
+		// Add as the code on post save would add them.
+		foreach ( [ '23', '89', '2389' ] as $id ) {
+			add_post_meta( $event, '_EventOrganizerID', $id );
+		}
+
+		$meta = ( new Event( $event ) )->data( 'meta' );
+
+		$expected = [
+			'_EventAllDay'      => true,
+			'_EventOrganizerID' => [ 23, 89, 2389 ],
+			// '_EventCost'        => '',
+			'_EventVenueID'     => 89,
+			'_EventShowMap'     => false,
+		];
+		foreach ( $expected as $key => $value ) {
+			$this->assertEquals( $value, $meta[ $key ] );
+		}
+	}
 }
