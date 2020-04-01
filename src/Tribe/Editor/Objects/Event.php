@@ -61,6 +61,20 @@ class Event implements Editor_Object_Interface {
 			if ( $this->post instanceof \WP_Post && TEC::POSTTYPE === $this->post->post_type ) {
 				$meta = Arr::flatten( (array) \get_post_meta( $this->post->ID ) );
 
+				$meta_fix_map = [
+					'_EventAllDay'      => 'tribe_is_truthy',
+					'_EventOrganizerID' => [ Arr::class, 'list_to_array' ],
+					// '_EventCost'        => '',
+					'_EventVenueID'     => 'absint',
+					'_EventShowMap'     => 'tribe_is_truthy',
+				];
+
+				foreach ( $meta_fix_map as $meta_key => $fix ) {
+					if ( isset( $meta[ $meta_key ] ) ) {
+						$meta[ $meta_key ] = $fix( $meta[ $meta_key ] );
+					}
+				}
+
 				$this->data['is_new_post'] = false;
 				$this->data['meta']        = $meta;
 			}
