@@ -1,5 +1,8 @@
 <?php
+
+use Tribe\Events\Editor\Objects\Event as Event_Object;
 use Tribe__Events__Main as TEC;
+
 /**
  * Class Tribe__Events__Editor__Configuration
  *
@@ -17,48 +20,6 @@ class Tribe__Events__Editor__Configuration implements Tribe__Editor__Configurati
 	}
 
 	/**
-	 * Setup the initial Event Object.
-	 *
-	 * @since TBD
-	 *
-	 * @todo @backend Improve this method and verify if this is the correct place for this to live.
-	 *
-	 * @param null|int|WP_Post $event WP_Post object of event, post ID, or null.
-	 *
-	 * @return array Setup the Data for the Event Post Object.
-	 */
-	public function get_event_object( $event = null ) {
-		$data = [
-			'is_new_post' => true,
-		];
-
-		if ( ! $event ) {
-			$event = tribe_get_request_var( 'post', false );
-		}
-
-		if ( $event ) {
-			$event = get_post( $event );
-		}
-
-		if ( ! $event instanceof WP_Post ) {
-			return $data;
-		}
-
-		$meta = get_post_meta( $event->ID );
-		$meta = array_map(
-			static function( $value ) {
-				return count( $value ) === 1 ? reset( $value ) : $value;
-			},
-			$meta
-		);
-
-		$data['is_new_post'] = false;
-		$data['meta']        = $meta;
-
-		return $data;
-	}
-
-	/**
 	 * Add custom variables to be localized
 	 *
 	 * @since 4.7
@@ -71,7 +32,12 @@ class Tribe__Events__Editor__Configuration implements Tribe__Editor__Configurati
 		$editor_config['events'] = array_merge( (array) $tec, $this->localize() );
 
 		$post_objects                  = empty( $editor_config['post_objects'] ) ? [] : $editor_config['post_objects'];
-		$editor_config['post_objects'] = array_merge( (array) $post_objects, [ TEC::POSTTYPE => $this->get_event_object() ] );
+		$editor_config['post_objects'] = array_merge(
+			(array) $post_objects,
+			[
+				TEC::POSTTYPE => ( new Event_Object() )->data(),
+			]
+		);
 
 		return $editor_config;
 	}
