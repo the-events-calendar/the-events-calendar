@@ -110,7 +110,7 @@ class EventTest extends \Codeception\TestCase\WPTestCase {
 		$event = static::factory()->event->create( [
 			'meta_input' => [
 				'_EventAllDay'      => 'yes',
-				// '_EventCost'        => '',
+				 '_EventCost'        => '23',
 				'_EventVenueID'     => '89',
 				'_EventShowMap'     => 'no',
 				'_EventShowMapLink' => 'yes',
@@ -127,7 +127,7 @@ class EventTest extends \Codeception\TestCase\WPTestCase {
 		$expected = [
 			'_EventAllDay'      => true,
 			'_EventOrganizerID' => [ 23, 89, 2389 ],
-			// '_EventCost'        => '',
+			'_EventCost'        => '23',
 			'_EventVenueID'     => 89,
 			'_EventShowMap'     => false,
 			'_EventShowMapLink' => true,
@@ -135,5 +135,29 @@ class EventTest extends \Codeception\TestCase\WPTestCase {
 		foreach ( $expected as $key => $value ) {
 			$this->assertEquals( $value, $meta[ $key ] );
 		}
+	}
+
+	public function cost_meta_db_values() {
+		yield 'empty' => [ '', '' ];
+		yield 'one_value' => [ '23', '23' ];
+		yield 'two_values' => [ [ '23', 89 ], '23 – 89' ];
+		yield 'three_values' => [ [ '23', 89, 15 ], '15 – 89' ];
+		yield 'range_string' => [ [ '23 - 89' ], '23 – 89' ];
+	}
+
+	/**
+	 * Test cost meta output
+	 * @dataProvider cost_meta_db_values
+	 */
+	public function test_cost_meta_output( $cost_db_values, $expected ) {
+		$event = static::factory()->event->create();
+		// Add as the code on post save would add them.
+		foreach ( (array) $cost_db_values as $db_value ) {
+			add_post_meta( $event, '_EventCost', $db_value );
+		}
+
+		$meta = ( new Event( $event ) )->data( 'meta' );
+
+		$this->assertEquals( $expected, $meta['_EventCost'] );
 	}
 }
