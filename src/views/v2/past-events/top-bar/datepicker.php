@@ -34,7 +34,7 @@ $datepicker_date   = '2020-04-01';
 		title="<?php esc_attr_e( 'Click to toggle datepicker', 'the-events-calendar' ); ?>"
 	>
 		<time
-			datetime="<?php echo esc_attr( $selected_start_datetime ); ?>"
+			datetime="<?php echo esc_attr( $today_datetime ); ?>"
 			class="tribe-events-c-top-bar__datepicker-time"
 		>
 			<span class="tribe-events-c-top-bar__datepicker-mobile">
