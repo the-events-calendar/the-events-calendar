@@ -35,7 +35,7 @@ class Tribe__Events__Editor__Configuration implements Tribe__Editor__Configurati
 		$editor_config['post_objects'] = array_merge(
 			(array) $post_objects,
 			[
-				TEC::POSTTYPE => ( new Event_Object() )->data()
+				TEC::POSTTYPE => ( new Event_Object() )->data(),
 			]
 		);
 

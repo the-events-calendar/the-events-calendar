@@ -45,7 +45,7 @@ class Event implements Editor_Object_Interface {
 	 * @param int|\WP_Post|null $event The event post ID or object, or `null` to use the global `post` object.
 	 */
 	public function __construct( $event = null ) {
-		$event_candidate = $event ?: \tribe_get_request_var( 'post', false );
+		$event_candidate = null !== $event ? $event : \tribe_get_request_var( 'post', false );
 		$this->post      = \get_post( $event_candidate );
 	}
 
