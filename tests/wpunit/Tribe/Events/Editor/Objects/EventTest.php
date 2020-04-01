@@ -113,6 +113,7 @@ class EventTest extends \Codeception\TestCase\WPTestCase {
 				// '_EventCost'        => '',
 				'_EventVenueID'     => '89',
 				'_EventShowMap'     => 'no',
+				'_EventShowMapLink' => 'yes',
 			]
 		] );
 
@@ -129,6 +130,7 @@ class EventTest extends \Codeception\TestCase\WPTestCase {
 			// '_EventCost'        => '',
 			'_EventVenueID'     => 89,
 			'_EventShowMap'     => false,
+			'_EventShowMapLink' => true,
 		];
 		foreach ( $expected as $key => $value ) {
 			$this->assertEquals( $value, $meta[ $key ] );

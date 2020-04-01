@@ -67,6 +67,7 @@ class Event implements Editor_Object_Interface {
 					// '_EventCost'        => '',
 					'_EventVenueID'     => 'absint',
 					'_EventShowMap'     => 'tribe_is_truthy',
+					'_EventShowMapLink' => 'tribe_is_truthy',
 				];
 
 				foreach ( $meta_fix_map as $meta_key => $fix ) {
