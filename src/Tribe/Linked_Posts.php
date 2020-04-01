@@ -1147,11 +1147,23 @@ class Tribe__Events__Linked_Posts {
 				data-create-choice-template="<?php echo __( 'Create: <b><%= term %></b>', 'the-events-calendar' ); ?>"
 				data-allow-html
 				<?php endif; ?>
-				data-options="<?php echo esc_attr( json_encode( $data ) ); ?>"
-				<?php if ( empty( $current ) ) : ?>
-				data-is-empty="1"
-				<?php endif; ?>
 			'>
+				<option value="-1" <?php selected( empty( $current ) ); ?>>
+					<?php echo esc_html( $label ); ?>
+				</option>
+				<?php if ( ! empty( $data[0]['children'] ) ) : ?>
+					<?php foreach ( $data as $group ) : ?>
+						<optgroup label="<?php echo esc_attr( $group['text'] ); ?>">
+							<?php foreach ( $group['children'] as $value ) : ?>
+								<?php $render_option( $value ); ?>
+							<?php endforeach; ?>
+						</optgroup>
+					<?php endforeach; ?>
+				<?php else: ?>
+					<?php foreach ( $data as $value ) : ?>
+						<?php $render_option( $value ); ?>
+					<?php endforeach; ?>
+				<?php endif; ?>
 			</select>
 			<?php
 		} else {

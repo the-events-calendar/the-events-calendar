@@ -251,7 +251,7 @@ jQuery( document ).ready( function( $ ) {
 				section.find( '.move-linked-post-group' ).hide();
 			}
 
-			fields.find( '.tribe-dropdown' ).tribe_dropdowns().trigger( 'change' );
+			fields.find( '.tribe-dropdown' ).tribe_dropdowns();
 		});
 
 		section.on( 'change', '.linked-post-dropdown', toggle_linked_post_fields );
@@ -335,7 +335,7 @@ jQuery( document ).ready( function( $ ) {
 				add_sticky_linked_post_data( post_type, tribe_events_linked_posts.post_types[ post_type ], fields );
 			}
 
-			fields.find( '.tribe-dropdown' ).tribe_dropdowns().trigger( 'change' );
+			fields.find( '.tribe-dropdown' ).tribe_dropdowns();
 			group.append( fields );
 		} );
 
@@ -393,12 +393,12 @@ jQuery( document ).ready( function( $ ) {
 			// Apply the New Given Title to the Correct Field
 			$group.find( '.linked-post-name' ).val( choice.id ).parents( '.linked-post' ).eq( 0 ).attr( 'data-hidden', true );
 
-			$select.val( '' );
+			$select.val( '-1' );
 
 			// Display the Fields
 			$group
 				.find( '.linked-post' ).not( '[data-hidden]' ).show()
-				.find( '.tribe-dropdown' ).trigger( 'change' );
+				.find( '.tribe-dropdown' );
 
 			$group.parents( '.tribe-section' ).addClass( 'tribe-is-creating-linked-post' );
 
