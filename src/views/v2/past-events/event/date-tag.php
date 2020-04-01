@@ -11,10 +11,7 @@
  *
  * @version TBD
  *
- * @var WP_Post            $event        The event post object with properties added by the `tribe_get_event` function.
- * @var \DateTimeInterface $request_date The request date object. This will be "today" if the user did not input any
- *                                       date, or the user input date.
- * @var bool               $is_past      Whether the current display mode is "past" or not.
+ * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
  *
  * @see tribe_get_event() For the format of the event object.
  */
