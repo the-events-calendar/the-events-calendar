@@ -1034,6 +1034,8 @@ class Tribe__Events__Linked_Posts {
 					'text' => wp_kses( get_the_title( $my_linked_post->ID ), array() ),
 				);
 
+				$new_child['selected'] = ( (int) $current === (int) $my_linked_post->ID );
+
 				$edit_link = get_edit_post_link( $my_linked_post );
 
 				if ( ! empty( $edit_link ) ) {
@@ -1075,6 +1077,8 @@ class Tribe__Events__Linked_Posts {
 					'id' => $linked_post->ID,
 					'text' => wp_kses( get_the_title( $linked_post->ID ), array() ),
 				);
+
+				$new_child['selected'] = ( (int) $current === (int) $linked_post->ID );
 
 				$edit_link = get_edit_post_link( $linked_post );
 
@@ -1120,20 +1124,36 @@ class Tribe__Events__Linked_Posts {
 		// Get the label to use in placeholder attrs.
 		$label = $this->get_create_or_find_labels( $post_type, $creation_enabled );
 
+		$render_option = function ( $option ) {
+			?>
+			<option <?php selected( $option['selected'] ) ?> value="<?php echo esc_attr( $option['id'] ); ?>">
+				<?php echo esc_html( $option['text'] ); ?>
+			</option>
+			<?php
+		};
+
 		if ( $linked_posts || $my_linked_posts ) {
-			echo '<select
+
+			?>
+			<select
 				class="tribe-dropdown linked-post-dropdown hide-before-select2-init"
-				name="' . esc_attr( $name ) . '"
-				id="saved_' . esc_attr( $post_type ) . '"
-				data-placeholder="' . $label . '"
-				data-search-placeholder="' . $label . '" ' .
-				( $creation_enabled ?
-				'data-freeform
+				name="<?php echo esc_attr( $name ); ?>"
+				id="saved_<?php echo esc_attr( $post_type ); ?>"
+				data-placeholder="<?php echo esc_attr( $label ); ?>"
+				data-search-placeholder="<?php echo esc_attr( $label ); ?>"
+				<?php if ( $creation_enabled ) : ?>
+				data-freeform
 				data-sticky-search
-				data-create-choice-template="' . __( 'Create: <b><%= term %></b>', 'the-events-calendar' ) . '" data-allow-html ' : '' ) .
-				'data-options="' . esc_attr( json_encode( $data ) ) . '"' .
-				( empty( $current ) ? '' : ' value="' . esc_attr( $current ) . '"' ) .
-			'><option></option></select>';
+				data-create-choice-template="<?php echo __( 'Create: <b><%= term %></b>', 'the-events-calendar' ); ?>"
+				data-allow-html
+				<?php endif; ?>
+				data-options="<?php echo esc_attr( json_encode( $data ) ); ?>"
+				<?php if ( empty( $current ) ) : ?>
+				data-is-empty="1"
+				<?php endif; ?>
+			'>
+			</select>
+			<?php
 		} else {
 			echo '<p class="nosaved">' . sprintf( esc_attr__( 'No saved %s exists.', 'the-events-calendar' ), $singular_name_lowercase ) . '</p>';
 			printf( '<input type="hidden" name="%s" value="%d"/>', esc_attr( $name ), 0 );

@@ -609,8 +609,8 @@ jQuery( document ).ready( function( $ ) {
 	$( 'body' ).on( 'change', '#EventCountry', function () {
 		var $country        = $( this );
 		var $container      = $country.parents( 'div.eventForm' ).eq( 0 );
-		var $state_dropdown = $container.find( '#s2id_StateProvinceSelect' );
 		var $state_select   = $container.find( '#StateProvinceSelect' );
+		var $state_dropdown = $state_select.next( '.select2-container' );
 		var $state_text     = $container.find( '#StateProvinceText' );
 		var country         = $( this ).val();
 
