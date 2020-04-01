@@ -53,7 +53,7 @@ class Event implements Editor_Object_Interface {
 	 * {@inheritDoc}
 	 */
 	public function data( $key = null, $default = null ) {
-		if ( $this->data === null ) {
+		if ( null === $this->data ) {
 			$this->data = [
 				'is_new_post' => true,
 			];
