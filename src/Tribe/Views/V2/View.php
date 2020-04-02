@@ -11,6 +11,7 @@ namespace Tribe\Events\Views\V2;
 use Tribe\Events\Views\V2\Template\Settings\Advanced_Display;
 use Tribe\Events\Views\V2\Template\Title;
 use Tribe\Events\Views\V2\Utils;
+use Tribe\Events\Views\V2\Views\Recent_Past_View;
 use Tribe\Events\Views\V2\Views\Traits\Breakpoint_Behavior;
 use Tribe\Events\Views\V2\Views\Traits\HTML_Cache;
 use Tribe\Events\Views\V2\Views\Traits\Json_Ld_Data;
@@ -1068,6 +1069,8 @@ class View implements View_Interface {
 		 */
 		$template_vars['json_ld_data'] = $this->build_json_ld_data( $events );
 
+		$this->setup_additional_views( (array) $template_vars['events'], $template_vars );
+
 		/**
 		 * Filters the variables that will be set on the View template.
 		 *
@@ -1352,6 +1355,7 @@ class View implements View_Interface {
 	protected function setup_template_vars() {
 		if ( empty( $this->repository_args ) ) {
 			$this->repository_args = $this->filter_repository_args( $this->setup_repository_args() );
+			$this->repository = tribe_events();
 			$this->repository->by_args( $this->repository_args );
 		}
 
@@ -1426,6 +1430,7 @@ class View implements View_Interface {
 			'breakpoint_pointer'     => $this->get_breakpoint_pointer(),
 			'is_initial_load'        => $this->context->doing_php_initial_state(),
 			'public_views'           => $this->get_public_views( $url_event_date ),
+			'show_recent_past'       => $this->should_show_recent_past_events_view(),
 		];
 
 		return $template_vars;
@@ -1526,6 +1531,10 @@ class View implements View_Interface {
 	 */
 	public function get_today_url( $canonical = false ) {
 		$to_remove = [ 'tribe-bar-date', 'paged', 'page', 'eventDate', 'tribe_event_display' ];
+
+		if ( ! isset( $this->url ) ) {
+			$this->url = new Url();
+		}
 
 		// While we want to remove the date query vars, we want to keep any other query var.
 		$query_args = $this->url->get_query_args();
@@ -2144,5 +2153,93 @@ class View implements View_Interface {
 		$data = apply_filters( "tribe_events_views_v2_{$this->get_slug()}_view_data", $data, $this );
 
 		return $data;
+	}
+
+	protected function should_show_recent_past_events_view() {
+		$show = $this->context->get( 'show_recent_past', true );
+
+		/**
+		 * Filters Whether the Recent Past Events Should Show for all Views.
+		 *
+		 * @since TBD
+		 *
+		 * @param aboolean $show      If we should display Recent Past Events.
+		 * @param string   $view_slug The current view slug.
+		 * @param View     $instance  The current View object.
+		 */
+		$show = apply_filters( 'tribe_events_views_v2_show_recent_past_events_view', $show, $this->get_slug(), $this );
+
+		/**
+		 *  Filters Whether the Recent Past Events Should Show for a specific View.
+		 *
+		 * @since TBD
+		 *
+		 * @param boolean $show     If we should display Recent Past Events.
+		 * @param View    $instance The current View object.
+		 */
+		$show = apply_filters( "tribe_events_views_v2_{$this->get_slug()}_show_recent_past_events_view", $show, $this );
+
+		return $show;
+	}
+
+
+	/**
+	 * @param array $events
+	 * @param array $template_vars
+	 */
+	protected function setup_additional_views( array $events = [], array $template_vars = [] ) {
+		// todo: flatten the events if required (month, week)
+		// todo add threshold and filter
+		if ( 0 === count( $events ) && ! empty( $template_vars['show_recent_past'] ) ) {
+			$template_vars['show_recent_past'] = true;
+			$recent_past_view                  = new Recent_Past_View();
+			$recent_past_view->set_context( $this->context );
+			$instance = $recent_past_view->make( Recent_Past_View::Class );
+			$recent_past_view->template = new Template( $instance );
+			$template_vars['recent_past_view_data'] = $recent_past_view->get_template_vars();
+
+			$whitelist                              = [
+				'components/loader',
+				'components/json-ld-data',
+				'components/data',
+				'components/before',
+				'components/messages',
+				'components/breadcrumbs',
+				'components/events-bar',
+				'components/breadcrumbs',
+				'components/top-bar/today',
+				'components/top-bar/actions',
+				'components/events-bar/views/list',
+				'components/events-bar/search/keyword',
+				'components/events-bar/search/submit',
+				'components/events-bar/search-button',
+				'components/events-bar/tabs',
+				'components/events-bar/search',
+				'components/events-bar/filters',
+				'components/events-bar/views',
+				'components/events-bar/views/list/item',
+				'list/top-bar',
+				'list/top-bar/nav',
+				'list/top-bar/datepicker',
+				'list',
+				// todo: add here the templates we need and use in the recent past events view.
+			];
+			add_filter( 'tribe_template_done', static function ( $done = null, $name ) use ( $whitelist ) {
+				if ( in_array( $name, $whitelist, true ) ) {
+					return $done;
+				}
+
+				return '';
+			}, 1, 2 );
+
+			//todo hook into "tribe_template_html:components/messages" start filtering templates
+			//apply_filters( "tribe_template_html:$hook_name", $html, $file, $name, $this )
+
+			//todo hook into "tribe_template_html:month" - render
+			add_filter( 'tribe_template_html:events/v2/list', static function ( $html ) use ( $recent_past_view ) {
+
+				return $html . $recent_past_view->get_html();
+			} );
+		}
 	}
 }
