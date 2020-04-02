@@ -21,9 +21,8 @@ import {
 	date,
 	moment as momentUtil,
 } from '@moderntribe/common/utils';
-import { editor, settings } from '@moderntribe/common/utils/globals';
+import { editor, settings, wpHooks } from '@moderntribe/common/utils/globals';
 import HumanReadableInput from '../human-readable-input/container';
-import ContentHook from './hook';
 
 /**
  * Module Code
@@ -183,6 +182,10 @@ const renderExtras = ( props ) => {
 	);
 };
 
+const renderContentHook = ( props ) => (
+	wpHooks.applyFilters( 'blocks.eventDatetime.contentHook', null, props )
+);
+
 const EventDateTimeContent = ( props ) => {
 	const {
 		multiDay,
@@ -219,7 +222,7 @@ const EventDateTimeContent = ( props ) => {
 							{ renderExtras( props ) }
 						</div>
 					</h2>
-					<ContentHook />
+					{ renderContentHook( props ) }
 				</Fragment>
 			)
 	);

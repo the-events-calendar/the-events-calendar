@@ -28,7 +28,6 @@ import {
 	time,
 	globals,
 } from '@moderntribe/common/utils';
-import DashboardHook from './hook';
 
 /**
  * Module Code
@@ -41,13 +40,14 @@ const {
 	toDateNoYear,
 	isSameYear,
 } = momentUtil;
+const { editorConstants, settings, wpHooks } = globals;
 
-FORMATS.date = globals.settings() && globals.settings().dateWithYearFormat
-	? globals.settings().dateWithYearFormat
+FORMATS.date = settings() && settings().dateWithYearFormat
+	? settings().dateWithYearFormat
 	: __( 'F j', 'the-events-calendar' );
 
 const shouldHideUpsell = () => {
-	return globals.editorConstants().hideUpsell;
+	return editorConstants().hideUpsell;
 };
 
 const renderStartTimePicker = ( {
@@ -169,6 +169,10 @@ class Calendars extends PureComponent {
 	}
 }
 
+const renderDashboardHook = ( props ) => (
+	wpHooks.applyFilters( 'blocks.eventDatetime.dashboardHook', null, props )
+);
+
 const EventDateTimeDashboard = ( props ) => {
 	const { multiDay, allDay, separatorTime, isOpen } = props;
 
@@ -195,7 +199,7 @@ const EventDateTimeDashboard = ( props ) => {
 							{ renderMultiDayToggle( props ) }
 						</div>
 					</div>
-					<DashboardHook />
+					{ renderDashboardHook( props ) }
 					{ ! shouldHideUpsell() && <Upsell /> }
 				</footer>
 			</Fragment>
