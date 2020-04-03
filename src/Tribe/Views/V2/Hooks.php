@@ -420,6 +420,11 @@ class Hooks extends \tad_DI52_ServiceProvider {
 
 		$context = tribe_context();
 
+		// Bail with the original redirect if we are not dealing with a CPT from TEC.
+		if ( ! $context->is( 'tec_post_type' ) ) {
+			return $redirect_url;
+		}
+
 		$view = $context->get( 'view_request', null );
 
 		if ( 'embed' === $view ) {
