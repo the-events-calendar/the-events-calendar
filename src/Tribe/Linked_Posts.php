@@ -1126,7 +1126,7 @@ class Tribe__Events__Linked_Posts {
 
 		$render_option = function ( $option ) {
 			?>
-			<option <?php selected( $option['selected'] ) ?> value="<?php echo esc_attr( $option['id'] ); ?>">
+			<option <?php selected( $option['selected'] ); ?> value="<?php echo esc_attr( $option['id'] ); ?>">
 				<?php echo esc_html( $option['text'] ); ?>
 			</option>
 			<?php
@@ -1159,7 +1159,7 @@ class Tribe__Events__Linked_Posts {
 							<?php endforeach; ?>
 						</optgroup>
 					<?php endforeach; ?>
-				<?php else: ?>
+				<?php else : ?>
 					<?php foreach ( $data as $value ) : ?>
 						<?php $render_option( $value ); ?>
 					<?php endforeach; ?>
