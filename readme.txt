@@ -223,6 +223,7 @@ Remember to always make a backup of your database and files before updating!
 = [5.0.4] TBD =
 
 * Fix - Preventing redirects from updated Views V2 to be too broad and end up catching requests from other Plugins, reported by GravityView team on Gravity Forms bug with imports.
+* Fix - Prevent PHP errors from happening during bulk activation or deactivation of the plugin [TCMN-53]
 
 = [5.0.3.1] 2020-03-23 =
 
