@@ -10,10 +10,20 @@ import { settings, priceSettings } from '@moderntribe/common/utils/globals';
 import { string } from '@moderntribe/common/utils';
 import * as types from './types';
 
-export const setInitialState = ( entityRecord ) => {
-	DEFAULT_STATE.position = entityRecord.meta._EventCurrencyPosition;
-	DEFAULT_STATE.symbol = entityRecord.meta._EventCurrencySymbol;
-	DEFAULT_STATE.cost = entityRecord.meta._EventCost;
+export const setInitialState = ( data ) => {
+	const { meta } = data;
+	const defaultStateToMetaMap = {
+		position: '_EventCurrencyPosition',
+		symbol: '_EventCurrencySymbol',
+		cost: '_EventCost',
+	};
+
+	Object.keys( defaultStateToMetaMap ).forEach( ( key ) => {
+		const metaKey = defaultStateToMetaMap[ key ];
+		if ( meta.hasOwnProperty( metaKey ) ) {
+			DEFAULT_STATE[ key ] = meta[ metaKey ];
+		}
+	} );
 };
 
 const position = string.isTruthy( settings() && settings().reverseCurrencyPosition )

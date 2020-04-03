@@ -4,7 +4,7 @@
 import { actions } from '@moderntribe/events/data/blocks/price';
 import reducer, { DEFAULT_STATE, setInitialState } from '@moderntribe/events/data/blocks/price/reducer';
 
-const entityRecord = {
+const data = {
 	meta: {
 		_EventCurrencyPosition: 'prefix',
 		_EventCurrencySymbol: '€',
@@ -30,7 +30,7 @@ describe( '[STORE] - Price reducer', () => {
 	} );
 
 	it( 'Should set the initial state', () => {
-		setInitialState( entityRecord );
+		setInitialState( data );
 		expect( DEFAULT_STATE ).toMatchSnapshot();
 	} );
 } );
