@@ -11,8 +11,8 @@ import initSagas from './sagas';
 
 const { actions, constants } = plugins;
 
-const setInitialState = ( entityRecord ) => {
-	blocks.setInitialState( entityRecord );
+const setInitialState = ( data ) => {
+	blocks.setInitialState( data );
 };
 
 export const initStore = () => {

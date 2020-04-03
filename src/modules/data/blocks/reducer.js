@@ -14,8 +14,8 @@ import venue from './venue';
 import classic from './classic';
 import sharing from './sharing';
 
-export const setInitialState = ( entityRecord ) => {
-	websiteSetInitialState( entityRecord );
+export const setInitialState = ( data ) => {
+	websiteSetInitialState( data );
 };
 
 export default combineReducers( {

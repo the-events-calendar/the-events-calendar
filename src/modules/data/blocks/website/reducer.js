@@ -3,8 +3,11 @@
  */
 import * as types from './types';
 
-export const setInitialState = ( entityRecord ) => {
-	DEFAULT_STATE.url = entityRecord.meta._EventURL;
+export const setInitialState = ( data ) => {
+	const { meta } = data;
+	if ( meta.hasOwnProperty( '_EventURL' ) ) {
+		DEFAULT_STATE.url = data.meta._EventURL;
+	}
 };
 
 export const DEFAULT_STATE = {
