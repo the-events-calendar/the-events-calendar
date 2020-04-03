@@ -39,7 +39,7 @@ $frequencies = $cron->get_frequency();
 
 		<span
 			data-depends="#tribe-ea-field-ical_import_type"
-		    data-condition="schedule"
+			data-condition="schedule"
 		>
 			<select
 				name="aggregator[ical][import_frequency]"
