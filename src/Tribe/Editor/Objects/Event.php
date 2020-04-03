@@ -46,7 +46,7 @@ class Event implements Editor_Object_Interface {
 	 */
 	public function __construct( $event = null ) {
 		$event_candidate = null !== $event ? $event : \tribe_get_request_var( 'post', false );
-		$this->post      = \get_post( $event_candidate );
+		$this->post      = $event_candidate ? \get_post( $event_candidate ) : null;
 	}
 
 	/**
