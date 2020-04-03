@@ -14,8 +14,8 @@ import venue, { setInitialState as venueSetInitialState } from './venue';
 import classic from './classic';
 import sharing from './sharing';
 
-export const setInitialState = ( entityRecord ) => {
-	venueSetInitialState( entityRecord );
+export const setInitialState = ( data ) => {
+	venueSetInitialState( data );
 };
 
 export default combineReducers( {

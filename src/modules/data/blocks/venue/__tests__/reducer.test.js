@@ -4,7 +4,7 @@
 import reducer, { DEFAULT_STATE, setInitialState } from '@moderntribe/events/data/blocks/venue/reducer';
 import { actions } from '@moderntribe/events/data/blocks/venue';
 
-const entityRecord = {
+const data = {
 	meta: {
 		_EventVenueID: 42,
 		_EventShowMap: false,
@@ -52,7 +52,7 @@ describe( '[STORE] - Venue reducer', () => {
 	} );
 
 	it( 'Should set the initial state', () => {
-		setInitialState( entityRecord );
+		setInitialState( data );
 		expect( DEFAULT_STATE ).toMatchSnapshot();
 	} );
 } );

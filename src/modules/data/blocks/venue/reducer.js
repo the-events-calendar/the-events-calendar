@@ -4,10 +4,20 @@
 import * as types from './types';
 import { editorDefaults, mapsAPI } from '@moderntribe/common/utils/globals';
 
-export const setInitialState = ( entityRecord ) => {
-	DEFAULT_STATE.venue = entityRecord.meta._EventVenueID;
-	DEFAULT_STATE.showMap = mapsAPI().embed && entityRecord.meta._EventShowMap;
-	DEFAULT_STATE.showMapLink = entityRecord.meta._EventShowMapLink;
+export const setInitialState = ( data ) => {
+	const { meta } = data;
+	const defaultStateToMetaMap = {
+		venue: '_EventVenueID',
+		showMap: '_EventShowMap',
+		showMapLink: '_EventShowMapLink',
+	};
+
+	Object.keys( defaultStateToMetaMap ).forEach( ( key ) => {
+		const metaKey = defaultStateToMetaMap[ key ];
+		if ( meta.hasOwnProperty( metaKey ) ) {
+			DEFAULT_STATE[ key ] = meta[ metaKey ];
+		}
+	} );
 };
 
 export const DEFAULT_STATE = {
