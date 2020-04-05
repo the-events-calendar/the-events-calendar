@@ -81,8 +81,13 @@ if ( $missing_eventbrite_credentials ) :
 				data-hide-search
 				data-prevent-clear
 			>
-				<?php foreach ( $frequencies as $frequency_object ) : ?>
-					<option value="<?php echo esc_attr( $frequency_object->id ); ?>" <?php selected( empty( $record->meta['frequency'] ) ? 'daily' : $record->meta['frequency'], $frequency_object->id ); ?>><?php echo esc_html( $frequency_object->text ); ?></option>
+				<?php 
+				foreach ( $frequencies as $frequency_object ) : 
+					$selected = empty( $record->meta['frequency'] ) ? 'daily' : $record->meta['frequency'];  
+				?>
+					<option value="<?php echo esc_attr( $frequency_object->id ); ?>" <?php selected( $selected, $frequency_object->id ); ?>>
+						<?php echo esc_html( $frequency_object->text ); ?>
+					</option>
 				<?php endforeach; ?>
 			</select>
 			<span
