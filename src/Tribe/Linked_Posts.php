@@ -938,6 +938,31 @@ class Tribe__Events__Linked_Posts {
 	}
 
 	/**
+	 * Renders the option passed in the param.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $option Array with the option values to render the HTML for Select Option.
+	 *
+	 * @return bool
+	 */
+	private function render_select_option( $option = [] ) {
+		if ( empty( $option['text'] ) || empty( $option['id'] ) ) {
+			return false;
+		}
+
+		if ( ! isset( $option['selected'] ) ) {
+			$option['selected'] = false;
+		}
+
+		?>
+		<option <?php selected( $option['selected'] ); ?> value="<?php echo esc_attr( $option['id'] ); ?>">
+			<?php echo esc_html( $option['text'] ); ?>
+		</option>
+		<?php
+	}
+
+	/**
 	 * Helper function for displaying dropdowns for linked post types
 	 *
 	 * @param string $post_type Post type to display dropdown for.
@@ -1125,11 +1150,7 @@ class Tribe__Events__Linked_Posts {
 		$label = $this->get_create_or_find_labels( $post_type, $creation_enabled );
 
 		$render_option = function ( $option ) {
-			?>
-			<option <?php selected( $option['selected'] ); ?> value="<?php echo esc_attr( $option['id'] ); ?>">
-				<?php echo esc_html( $option['text'] ); ?>
-			</option>
-			<?php
+
 		};
 
 		if ( $linked_posts || $my_linked_posts ) {
@@ -1155,13 +1176,13 @@ class Tribe__Events__Linked_Posts {
 					<?php foreach ( $data as $group ) : ?>
 						<optgroup label="<?php echo esc_attr( $group['text'] ); ?>">
 							<?php foreach ( $group['children'] as $value ) : ?>
-								<?php $render_option( $value ); ?>
+								<?php $this->render_select_option( $value ); ?>
 							<?php endforeach; ?>
 						</optgroup>
 					<?php endforeach; ?>
 				<?php else : ?>
 					<?php foreach ( $data as $value ) : ?>
-						<?php $render_option( $value ); ?>
+						<?php $this->render_select_option( $value ); ?>
 					<?php endforeach; ?>
 				<?php endif; ?>
 			</select>
