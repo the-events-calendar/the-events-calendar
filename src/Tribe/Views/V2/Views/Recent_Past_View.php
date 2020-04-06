@@ -2,8 +2,8 @@
 /**
  * The Past Recent View.
  *
+ * @since   TBD
  * @package Tribe\Events\Views\V2\Views
- * @since TBD
  */
 
 namespace Tribe\Events\Views\V2\Views;
@@ -11,12 +11,9 @@ namespace Tribe\Events\Views\V2\Views;
 use Tribe\Events\Views\V2\View;
 use Tribe\Events\Views\V2\Views\Traits\List_Behavior;
 use Tribe__Context;
-use Tribe__Events__Main as TEC;
-use Tribe__Events__Rewrite as TEC_Rewrite;
-use Tribe__Utils__Array as Arr;
-use Tribe\Events\Views\V2\Utils;
 
 class Recent_Past_View extends View {
+
 	use List_Behavior;
 	/**
 	 * Slug for this view
@@ -36,6 +33,46 @@ class Recent_Past_View extends View {
 	 */
 	protected static $publicly_visible = true;
 
+	protected $whitelist = [
+		// Standard View Components.
+		'components/loader',
+		'components/json-ld-data',
+		'components/data',
+		'components/before',
+		'components/messages',
+		'components/breadcrumbs',
+		'components/events-bar',
+		'components/breadcrumbs',
+		'components/top-bar/today',
+		'components/top-bar/actions',
+		'components/events-bar/search/keyword',
+		'components/events-bar/search/submit',
+		'components/events-bar/search-button',
+		'components/events-bar/tabs',
+		'components/events-bar/search',
+		'components/events-bar/filters',
+		'components/events-bar/views',
+
+		// List View.
+		'components/events-bar/views/list',
+		'components/events-bar/views/list/item',
+		'list/top-bar',
+		'list/top-bar/nav',
+		'list/top-bar/datepicker',
+		'list',
+
+		// Recent Past Events Views.
+		'recent-past',
+		'recent-past/event',
+		'recent-past/event/date',
+		'recent-past/event/title',
+		'recent-past/event/venue',
+		'recent-past/event/description',
+		'recent-past/event/cost',
+		'recent-past/event/date-tag',
+		'recent-past/event/date/meta',
+	];
+
 	/**
 	 * Indicates Recent Past View supports the date as a query argument appended to its URL, not as part of a "pretty" URL.
 	 *
@@ -43,41 +80,14 @@ class Recent_Past_View extends View {
 	 */
 	protected static $date_in_url = false;
 
-		// Todo: remove this.
-
-	public function maybe_filter_current_view_slug( $view_slug, $context, $query ) {
-
-		/**
-		 *
-		 *
-		 * @since TBD
-		 *
-		 * @param string $return_value Which value we are going to return as the conversion.
-		 */
-		$prevent_recent_past = apply_filters( 'tribe_events_filter_recent_post_slug', false );
-
-		if ( $prevent_recent_past ) {
-			return $view_slug;
-		}
-
-		if ( tribe_events()->where( 'ends_after', 'now' )->count() === 0 ) {
-
-			return 'recent-past';
-		}
-
-		return $view_slug;
-	}
-
 	/**
 	 * {@inheritDoc}
 	 */
 	protected function setup_repository_args( Tribe__Context $context = null ) {
 		$context = null !== $context ? $context : $this->context;
+		$this->repository = tribe_events();
 
-		$args = parent::setup_repository_args( $context );
-
-		$date = $context->get( 'event_date', 'now' );
-
+		$date                   = $context->get( 'event_date', 'now' );
 		$args['posts_per_page'] = $context->get( 'events_per_page', 3 );
 		$args['order_by']       = 'event_date';
 		$args['order']          = 'DESC';
@@ -87,18 +97,58 @@ class Recent_Past_View extends View {
 	}
 
 	/**
-	 * Overrides the base View method to fix the order of the events in the `past` display mode.
+	 * Add Filters for Whitelist and Adding View HTML.
+	 *
+	 * @since TBD
+	 */
+	public function hook_whitelist_and_html_template() {
+
+		add_filter( 'tribe_template_html:components/messages', [ $this, 'hook_into_template_done_filter' ] );
+		add_filter( 'tribe_template_html:events/v2/list', [ $this, 'add_view' ] );
+	}
+
+	/**
+	 * Connect Whitelist Filter to Tribe Template Done.
+	 *
+	 * @since TBD
+	 */
+	public function hook_into_template_done_filter() {
+
+		add_filter( 'tribe_template_done', [ $this, 'filter_template_display_by_whitelist' ], 10, 4 );
+	}
+
+	/**
+	 * Filter the Template Files and Only Return HTML if in Whitelist.
 	 *
 	 * @since TBD
 	 *
-	 * @return array The List View template vars, modified if required.
+	 * @param string  $done    Whether to continue displaying the template or not.
+	 * @param array   $name    Template name.
+	 * @param array   $context Any context data you need to expose to this file.
+	 * @param boolean $echo    If we should also print the Template.
+	 *
+	 * @return string
 	 */
-	protected function setup_template_vars() {
-		$template_vars = parent::setup_template_vars();
+	public function filter_template_display_by_whitelist( $done, $name, $context, $echo ) {
 
-		$template_vars = $this->setup_datepicker_template_vars( $template_vars );
+		if ( in_array( $name, $this->whitelist, true ) ) {
+			return $done;
+		}
 
-		return $template_vars;
+		return '';
 	}
 
+	/**
+	 * Add the HTML for Recent Past Events to the HTML of the View Being Rendered.
+	 *
+	 * @since TBD
+	 *
+	 * @param $html string The HTML of the view being rendered.
+	 *
+	 * @return string The HTML of the View being Rendered and Recent Past Events HTML
+	 */
+	public function add_view( $html ) {
+
+		return $html . $this->get_html();
+	}
 }
