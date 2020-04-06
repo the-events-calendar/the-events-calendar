@@ -6,7 +6,7 @@ import reducer, { DEFAULT_STATE } from '@moderntribe/events/data/blocks/website/
 
 describe( '[STORE] - Website reducer', () => {
 	it( 'Should return the default state', () => {
-		expect( reducer( undefined, {} ) ).toEqual( DEFAULT_STATE );
+		expect( reducer( undefined, {} ) ).toMatchSnapshot();
 	} );
 
 	it( 'Should set the website value', () => {
