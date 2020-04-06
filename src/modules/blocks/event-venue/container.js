@@ -18,23 +18,25 @@ import { editor } from '@moderntribe/common/data';
  * Module Code
  */
 
-const setVenue = ( dispatch, ownProps ) => ( id ) => {
+const setVenue = ( stateProps, dispatch, ownProps ) => ( id ) => {
 	ownProps.setAttributes( { venue: id } );
+	ownProps.setAttributes( { showMapLink: stateProps.showMapLink } );
+	ownProps.setAttributes( { showMap: stateProps.showMap } );
 	dispatch( actions.setVenue( id ) );
 };
 
-const onFormComplete = ( dispatch, ownProps ) => ( body ) => {
+const onFormComplete = ( stateProps, dispatch, ownProps ) => ( body ) => {
 	const { setDetails } = ownProps;
 	const { id } = body;
 	setDetails( id, body );
-	setVenue( dispatch, ownProps )( id );
+	setVenue( stateProps, dispatch, ownProps )( id );
 };
 
-const onFormSubmit = ( dispatch, ownProps ) => ( fields ) => (
-	ownProps.sendForm( toVenue( fields ), onFormComplete( dispatch, ownProps ) )
+const onFormSubmit = ( stateProps, dispatch, ownProps ) => ( fields ) => (
+	ownProps.sendForm( toVenue( fields ), onFormComplete( stateProps, dispatch, ownProps ) )
 );
 
-const onItemSelect = ( dispatch, ownProps ) => setVenue( dispatch, ownProps );
+const onItemSelect = ( stateProps, dispatch, ownProps ) => setVenue( stateProps, dispatch, ownProps );
 
 const onCreateNew = ( ownProps ) => ( title ) => ownProps.createDraft( {
 	title: {
@@ -75,17 +77,28 @@ const mapDispatchToProps = ( dispatch, ownProps ) => ( {
 		ownProps.setAttributes( { showMapLink: value } );
 		dispatch( actions.setShowMapLink( value ) );
 	},
-	onFormSubmit: onFormSubmit( dispatch, ownProps ),
-	onItemSelect: onItemSelect( dispatch, ownProps ),
 	onCreateNew: onCreateNew( ownProps ),
 	removeVenue: removeVenue( dispatch, ownProps ),
 	editVenue: editVenue( ownProps ),
+	dispatch,
 } );
+
+const mergeProps = ( stateProps, dispatchProps, ownProps ) => {
+	const { dispatch, ...restDispatchProps } = dispatchProps;
+
+	return {
+		...ownProps,
+		...stateProps,
+		...restDispatchProps,
+		onFormSubmit: onFormSubmit( stateProps, dispatch, ownProps ),
+		onItemSelect: onItemSelect( stateProps, dispatch, ownProps ),
+	};
+}
 
 export default compose(
 	withStore( { postType: editor.VENUE } ),
 	connect( mapStateToProps ),
 	withDetails( 'venue' ),
 	withForm( ( props ) => props.name ),
-	connect( null, mapDispatchToProps ),
+	connect( mapStateToProps, mapDispatchToProps, mergeProps ),
 )( EventVenue );
