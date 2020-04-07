@@ -166,20 +166,15 @@ tribe_aggregator.fields = {
 				obj.maybeLimitUrlStartDate()
 			} )
 			.on( 'change'     , obj.selector.origin_field              , function() {
-				var selectData = $( this ).select2( 'data' );
-				var origin  = selectData[0] !== undefined ? selectData[0].id : null;
+				var $field = $( this );
+				var selectData = $( this ).data( 'select2' );
+				var origin  = $field.val();
 				obj.$.form.attr( 'data-origin', origin );
 				obj.reset_preview();
 
 				// reset all bumpdowns
 				$( '.tribe-bumpdown-active' ).removeClass( 'tribe-bumpdown-active' );
 				$( '.tribe-bumpdown:visible' ).hide();
-
-				// reset all the select2 fields other than the origin
-				// $( '.tribe-ea-tab-new .tribe-ea-dropdown:not([id$="tribe-ea-field-origin"])' ).select2( 'val', '' ).change();
-
-				// reset all the inputs to default values
-				// $( '.tribe-ea-tab-new .tribe-ea-form input' ).val( function() { return this.defaultValue; } ).change();
 
 				if ( 'redirect' === $( this ).val() ) {
 					window.open( 'https://theeventscalendar.com/wordpress-event-aggregator/?utm_source=importoptions&utm_medium=plugin-tec&utm_campaign=in-app', '_blank' );
@@ -213,8 +208,8 @@ tribe_aggregator.fields = {
 			} )
 			.on( 'change', obj.selector.field_url_source, function( e ) {
 				var $field = $( this );
-				var selectData = $field.select2( 'data' );
-				var value  = selectData[0] !== undefined ? selectData[0].id : null;
+				var selectData = $( this ).data( 'select2' );
+				var value  = $field.val();
 				var origin = null;
 
 				if ( ! value ) {
@@ -362,7 +357,6 @@ tribe_aggregator.fields = {
 		// Set the default state of the post_status
 		$( obj.selector.post_status )
 			.val( ea.default_settings[ origin ].post_status )
-			.select2( 'val', ea.default_settings[ origin ].post_status )
 			.trigger( 'change' );
 	};
 
@@ -376,7 +370,6 @@ tribe_aggregator.fields = {
 	 */
 	obj.reset_form = function() {
 		obj.$.fields.val( '' ).trigger( 'change' );
-		$( '.tribe-ea-dropdown' ).select2( 'data', null );
 		$( '[id$="import_frequency"]' ).val( 'daily' ).trigger( 'change' );
 		obj.$.form.removeClass( 'show-data' );
 	};
