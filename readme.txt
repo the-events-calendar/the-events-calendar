@@ -225,8 +225,13 @@ Remember to always make a backup of your database and files before updating!
 * Feature - Add Recent Past Events Views. [TEC-3385]
 * Fix - Selecting other Page templates from Settings > Display now loads the correct template properly, to display events.
 * Fix - Preventing redirects from updated Views V2 to be too broad and end up catching requests from other Plugins, reported by GravityView team on Gravity Forms bug with imports.
+* Fix - Selecting other Page templates from Settings > Display now loads the correct template properly, to display events.
+* Fix - Preventing redirects from updated Views V2 to be too broad and end up catching requests from other Plugins, reported by GravityView team on Gravity Forms bug with imports.
 * Fix - Prevent PHP errors from happening during bulk activation or deactivation of the plugin [TCMN-53]
 * Fix - Do not set the Venue country when creating Venues from the Event Block Editor [TEC-3361]
+* Fix - Correct a few incorrect and/or typoed text domains [TEC-3390]
+* Fix - Do not set the Venue country when creating Venues from the Event Block Editor [TEC-3361]
+
 
 = [5.0.3.1] 2020-03-23 =
 
