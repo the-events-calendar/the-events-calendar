@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[STORE] - Website types Should match the types values 1`] = `"@@MT/EVENTS/SET_WEBSITE_URL"`;

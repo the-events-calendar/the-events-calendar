@@ -2,12 +2,28 @@
  * Internal dependencies
  */
 import * as types from './types';
-import { editorDefaults } from '@moderntribe/common/utils/globals';
+import { editorDefaults, mapsAPI } from '@moderntribe/common/utils/globals';
+
+export const setInitialState = ( data ) => {
+	const { meta } = data;
+	const defaultStateToMetaMap = {
+		venue: '_EventVenueID',
+		showMap: '_EventShowMap',
+		showMapLink: '_EventShowMapLink',
+	};
+
+	Object.keys( defaultStateToMetaMap ).forEach( ( key ) => {
+		const metaKey = defaultStateToMetaMap[ key ];
+		if ( meta.hasOwnProperty( metaKey ) ) {
+			DEFAULT_STATE[ key ] = meta[ metaKey ];
+		}
+	} );
+};
 
 export const DEFAULT_STATE = {
 	venue: editorDefaults().venue ? editorDefaults().venue : 0,
-	showMap: true,
-	showMapLink: true,
+	showMap: mapsAPI().embed,
+	showMapLink: mapsAPI().embed,
 };
 
 export default ( state = DEFAULT_STATE, action ) => {
@@ -17,20 +33,10 @@ export default ( state = DEFAULT_STATE, action ) => {
 				...state,
 				venue: action.payload.venue,
 			};
-		case types.TOGGLE_VENUE_MAP:
-			return {
-				...state,
-				showMap: ! state.showMap,
-			};
 		case types.SET_VENUE_MAP:
 			return {
 				...state,
 				showMap: action.payload.showMap,
-			};
-		case types.TOGGLE_VENUE_MAP_LINK:
-			return {
-				...state,
-				showMapLink: ! state.showMapLink,
 			};
 		case types.SET_VENUE_MAP_LINK:
 			return {
