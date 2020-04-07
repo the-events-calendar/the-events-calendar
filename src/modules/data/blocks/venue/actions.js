@@ -2,7 +2,6 @@
  * Internal dependencies
  */
 import * as types from './types';
-import { DEFAULT_STATE } from './reducer';
 
 export const setVenue = ( id ) => ( {
 	type: types.SET_VENUE,
@@ -18,8 +17,6 @@ export const removeVenue = () => ( {
 	},
 } );
 
-export const toggleVenueMap = () => ( { type: types.TOGGLE_VENUE_MAP } );
-
 export const setShowMap = ( showMap ) => ( {
 	type: types.SET_VENUE_MAP,
 	payload: {
@@ -27,17 +24,9 @@ export const setShowMap = ( showMap ) => ( {
 	},
 } );
 
-export const toggleVenueMapLink = () => ( { type: types.TOGGLE_VENUE_MAP_LINK } );
-
 export const setShowMapLink = ( showMapLink ) => ( {
 	type: types.SET_VENUE_MAP_LINK,
 	payload: {
 		showMapLink,
 	},
 } );
-
-export const setInitialState = ( props ) => ( {
-	type: types.SET_INITIAL_STATE,
-	payload: props,
-} );
-
