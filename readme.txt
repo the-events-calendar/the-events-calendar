@@ -227,6 +227,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Prevent PHP errors from happening during bulk activation or deactivation of the plugin [TCMN-53]
 * Fix - Correct a few incorrect and/or typoed text domains [TEC-3390]
 * Fix - Do not set the Venue country when creating Venues from the Event Block Editor [TEC-3361]
+* Fix - Ensure we pass search keywords when changing views and in the top-bar nav [TEC-3282]
 
 
 = [5.0.3.1] 2020-03-23 =
