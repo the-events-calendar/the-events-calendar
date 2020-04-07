@@ -2155,7 +2155,7 @@ class View implements View_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @return mixed|void
+	 * @return boolean If we should display Recent Past Events.
 	 */
 	protected function should_show_recent_past_events_view() {
 		$show = $this->context->get( 'show_recent_past', true );
@@ -2194,13 +2194,33 @@ class View implements View_Interface {
 	 */
 	protected function setup_additional_views( array $events = [], array $template_vars = [] ) {
 
-		// todo: flatten the events if required (month, week)
-		// todo add threshold and filter
-		if ( 0 === count( $events ) && ! empty( $template_vars['show_recent_past'] ) ) {
+		// Flatten Month and Week View Events to Get Accurate Count
+		$views_to_flatten = [
+			'month',
+			'week',
+		];
+		if ( in_array( $this->get_slug(), $views_to_flatten ) ) {
+			$events = array_unique( array_merge( ...array_values( $events ) ) );
+		}
+
+		/**
+		 * Filters The Threshold to Show The Recent Past Events.
+		 * Defaults to show when there are Zero Events.
+		 *
+		 * @since TBD
+		 *
+		 * @param int   The threshold to show The Recent Past Events.
+		 * @param array $events        Array that will be counted to verify if we have events.
+		 * @param array $template_vars An associative array of variables that will be set, and exported, in the template.
+		 * @param View  $instance      The current View object.
+		 */
+		$recent_past_threshold = apply_filters( "tribe_events_views_v2_threshold_to_show_recent_past_events", 0, $events, $template_vars, $this );
+
+		if ( absint( $recent_past_threshold ) >= count( $events ) && ! empty( $template_vars['show_recent_past'] ) ) {
 			$template_vars['show_recent_past'] = true;
 			$recent_past_view                  = static::make( Recent_Past_View::Class );
 			$recent_past_view->set_context( $this->context );
-			$recent_past_view->hook_whitelist_and_html_template();
+			$recent_past_view->add_view_filters();
 		}
 	}
 }

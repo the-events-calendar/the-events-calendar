@@ -33,6 +33,13 @@ class Recent_Past_View extends View {
 	 */
 	protected static $publicly_visible = true;
 
+	/**
+	 * Whitelist of Templates to display when Recent Past Events is Active.
+	 *
+	 * @since TBD
+	 *
+	 * @var array
+	 */
 	protected $whitelist = [
 		// Standard View Components.
 		'components/loader',
@@ -53,6 +60,9 @@ class Recent_Past_View extends View {
 		'components/events-bar/filters',
 		'components/events-bar/views',
 
+		// Day View
+		'day',
+
 		// List View.
 		'components/events-bar/views/list',
 		'components/events-bar/views/list/item',
@@ -60,6 +70,18 @@ class Recent_Past_View extends View {
 		'list/top-bar/nav',
 		'list/top-bar/datepicker',
 		'list',
+
+		// Month View
+		'month',
+
+		// Map View
+		'map',
+
+		// Photo View
+		'photo',
+
+		// Week View
+		'week',
 
 		// Recent Past Events Views.
 		'recent-past',
@@ -101,10 +123,17 @@ class Recent_Past_View extends View {
 	 *
 	 * @since TBD
 	 */
-	public function hook_whitelist_and_html_template() {
+	public function add_view_filters() {
 
-		add_filter( 'tribe_template_html:components/messages', [ $this, 'hook_into_template_done_filter' ] );
+		add_filter( 'tribe_template_html:components/messages', [ $this, 'filter_template_done' ] );
+		add_filter( 'tribe_template_html:events/v2/day', [ $this, 'add_view' ] );
 		add_filter( 'tribe_template_html:events/v2/list', [ $this, 'add_view' ] );
+		add_filter( 'tribe_template_html:events/v2/month', [ $this, 'add_view' ] );
+
+		// PRO Views
+		add_filter( 'tribe_template_html:events-pro/v2/map', [ $this, 'add_view' ] );
+		add_filter( 'tribe_template_html:events-pro/v2/photo', [ $this, 'add_view' ] );
+		add_filter( 'tribe_template_html:events-pro/v2/week', [ $this, 'add_view' ] );
 	}
 
 	/**
@@ -112,7 +141,7 @@ class Recent_Past_View extends View {
 	 *
 	 * @since TBD
 	 */
-	public function hook_into_template_done_filter() {
+	public function filter_template_done() {
 
 		add_filter( 'tribe_template_done', [ $this, 'filter_template_display_by_whitelist' ], 10, 4 );
 	}
