@@ -2,7 +2,13 @@
  * Internal dependencies
  */
 import { actions } from '@moderntribe/events/data/blocks/website';
-import reducer, { DEFAULT_STATE } from '@moderntribe/events/data/blocks/website/reducer';
+import reducer, { setInitialState, DEFAULT_STATE } from '@moderntribe/events/data/blocks/website/reducer';
+
+const data = {
+	meta: {
+		_EventURL: 'https://www.theeventscalendar.com/',
+	},
+};
 
 describe( '[STORE] - Website reducer', () => {
 	it( 'Should return the default state', () => {
@@ -13,7 +19,8 @@ describe( '[STORE] - Website reducer', () => {
 		expect( reducer( DEFAULT_STATE, actions.setWebsite( 'https://tri.be/' ) ) ).toMatchSnapshot();
 	} );
 
-	it( 'Should set the website label', () => {
-		expect( reducer( DEFAULT_STATE, actions.setLabel( 'Modern Tribe' ) ) ).toMatchSnapshot();
+	it( 'Should set the initial state', () => {
+		setInitialState( data );
+		expect( DEFAULT_STATE ).toMatchSnapshot();
 	} );
 } );
