@@ -3,9 +3,15 @@
  */
 import * as types from './types';
 
+export const setInitialState = ( data ) => {
+	const { meta } = data;
+	if ( meta.hasOwnProperty( '_EventURL' ) ) {
+		DEFAULT_STATE.url = data.meta._EventURL;
+	}
+};
+
 export const DEFAULT_STATE = {
 	url: '',
-	label: '',
 };
 
 export default ( state = DEFAULT_STATE, action ) => {
@@ -14,11 +20,6 @@ export default ( state = DEFAULT_STATE, action ) => {
 			return {
 				...state,
 				url: action.payload.url,
-			};
-		case types.SET_WEBSITE_LABEL:
-			return {
-				...state,
-				label: action.payload.label,
 			};
 		default:
 			return state;
