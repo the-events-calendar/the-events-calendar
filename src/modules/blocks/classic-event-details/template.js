@@ -134,7 +134,7 @@ const ClassicEventDetails = ( props ) => {
 		allDay,
 		setAllDay,
 		currencyPosition,
-		togglePosition,
+		setCurrencyPosition,
 		currencySymbol,
 		setSymbol,
 	} = props;
@@ -185,7 +185,7 @@ const ClassicEventDetails = ( props ) => {
 					<ToggleControl
 						label={ __( 'Show symbol before', 'the-events-calendar' ) }
 						checked={ 'prefix' === currencyPosition }
-						onChange={ togglePosition }
+						onChange={ setCurrencyPosition }
 					/>
 					<TextControl
 						label={ __( ' Currency Symbol', 'the-events-calendar' ) }
@@ -217,7 +217,7 @@ ClassicEventDetails.propTypes = {
 	setCost: PropTypes.func,
 	toggleDashboardDateTime: PropTypes.func,
 	setSymbol: PropTypes.func,
-	togglePosition: PropTypes.func,
+	setCurrencyPosition: PropTypes.func,
 	setAllDay: PropTypes.func,
 };
 

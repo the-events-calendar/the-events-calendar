@@ -4,4 +4,4 @@
 import * as datetime from './datetime';
 
 export { datetime };
-export { default } from './reducer';
+export { default, setInitialState } from './reducer';
