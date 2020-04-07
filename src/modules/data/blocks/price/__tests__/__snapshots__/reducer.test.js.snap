@@ -3,16 +3,6 @@
 exports[`[STORE] - Price reducer Should set the cost 1`] = `
 Object {
   "cost": 10,
-  "description": "",
-  "position": "prefix",
-  "symbol": "$",
-}
-`;
-
-exports[`[STORE] - Price reducer Should set the cost description 1`] = `
-Object {
-  "cost": "",
-  "description": "Cost description",
   "position": "prefix",
   "symbol": "$",
 }
@@ -21,7 +11,14 @@ Object {
 exports[`[STORE] - Price reducer Should set the cost symbol 1`] = `
 Object {
   "cost": "",
-  "description": "",
+  "position": "prefix",
+  "symbol": "€",
+}
+`;
+
+exports[`[STORE] - Price reducer Should set the initial state 1`] = `
+Object {
+  "cost": "15",
   "position": "prefix",
   "symbol": "€",
 }
@@ -30,17 +27,7 @@ Object {
 exports[`[STORE] - Price reducer Should set the symbol position 1`] = `
 Object {
   "cost": "",
-  "description": "",
   "position": "prefix",
-  "symbol": "$",
-}
-`;
-
-exports[`[STORE] - Price reducer Should toggle the prefix of the position 1`] = `
-Object {
-  "cost": "",
-  "description": "",
-  "position": "suffix",
   "symbol": "$",
 }
 `;
