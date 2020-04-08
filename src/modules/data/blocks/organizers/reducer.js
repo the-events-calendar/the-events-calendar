@@ -12,8 +12,8 @@ import {
 	blocks,
 } from './reducers';
 
-export const setInitialState = ( entityRecord ) => {
-	classicSetInitialState( entityRecord );
+export const setInitialState = ( data ) => {
+	classicSetInitialState( data );
 };
 
 export default combineReducers( {

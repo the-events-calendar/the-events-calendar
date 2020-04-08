@@ -3,7 +3,7 @@
  */
 import reducer, { setInitialState } from '@moderntribe/events/data/blocks/organizers/reducer';
 
-const entityRecord = {
+const data = {
 	meta: {
 		_EventOrganizerID: [ 99, 100 ],
 	},
@@ -15,7 +15,7 @@ describe( '[STORE] - Organizers reducer', () => {
 	} );
 
 	it( 'Should set the initial state', () => {
-		setInitialState( entityRecord );
+		setInitialState( data );
 		expect( reducer( undefined, {} ) ).toMatchSnapshot();
 	} );
 } );
