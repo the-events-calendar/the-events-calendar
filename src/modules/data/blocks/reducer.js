@@ -11,7 +11,6 @@ import organizers, { setInitialState as organizersSetInitialState } from './orga
 import price, { setInitialState as priceSetInitialState } from './price';
 import website, { setInitialState as websiteSetInitialState } from './website';
 import venue, { setInitialState as venueSetInitialState } from './venue';
-import sharing from './sharing';
 
 export const setInitialState = ( data ) => {
 	organizersSetInitialState( data );
@@ -26,5 +25,4 @@ export default combineReducers( {
 	organizers,
 	price,
 	website,
-	sharing,
 } );
