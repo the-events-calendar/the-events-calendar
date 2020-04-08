@@ -33,12 +33,12 @@ const renderPlaceholder= ( label ) => (
 	</button>
 );
 
-const renderGoogleCalendar = ({
-	hasiCal,
-	hasGoogleCalendar,
-	googleCalendarLabel,
-	setGoogleCalendarLabel
-}) => {
+const renderGoogleCalendar = ( {
+	attributes,
+	setGoogleCalendarLabel,
+} ) => {
+	const { hasiCal, hasGoogleCalendar, googleCalendarLabel } = attributes;
+
 	if ( ! hasGoogleCalendar && ! hasiCal ) {
 		return renderPlaceholder( googleCalendarPlaceholder );
 	}
@@ -51,18 +51,18 @@ const renderGoogleCalendar = ({
 				className="tribe-editor__btn-input"
 				value={ googleCalendarLabel }
 				placeholder={ googleCalendarPlaceholder }
-				onChange={ input.sendValue( setGoogleCalendarLabel ) }
+				onChange={ setGoogleCalendarLabel }
 			/>
 		</div>
 	);
 };
 
-const renderiCal = ({
-	hasiCal,
-	hasGoogleCalendar,
-	iCalLabel,
-	setiCalLabel
-}) => {
+const renderiCal = ( {
+	attributes,
+	setiCalLabel,
+} ) => {
+	const { hasiCal, hasGoogleCalendar, iCalLabel } = attributes;
+
 	if ( ! hasGoogleCalendar && ! hasiCal ) {
 		return renderPlaceholder( iCalExportPlaceholder );
 	}
@@ -76,7 +76,7 @@ const renderiCal = ({
 				className="tribe-editor__btn-input"
 				value={ iCalLabel }
 				placeholder={ iCalExportPlaceholder }
-				onChange={ input.sendValue( setiCalLabel ) }
+				onChange={ setiCalLabel }
 			/>
 		</div>
 	);
@@ -89,37 +89,55 @@ const renderButtons = ( props ) => (
 	</div>
 );
 
-const renderControls = ({
-	hasGoogleCalendar,
-	hasiCal,
+const renderControls = ( {
+	attributes,
 	isSelected,
 	toggleIcalLabel,
 	toggleGoogleCalendar,
-}) => (
-	isSelected && (
-		<InspectorControls key="inspector">
-			<PanelBody title={ __( 'Share Settings', 'the-events-calendar' ) }>
-				<ToggleControl
-					label={ __( 'Google Calendar', 'the-events-calendar' ) }
-					checked={ hasGoogleCalendar }
-					onChange={ toggleGoogleCalendar }
-				/>
-				<ToggleControl
-					label={ __( 'iCal', 'the-events-calendar' ) }
-					checked={ hasiCal }
-					onChange={ toggleIcalLabel }
-				/>
-			</PanelBody>
-		</InspectorControls>
-	)
-);
+} ) => {
+	const { hasGoogleCalendar, hasiCal } = attributes;
 
-const EventLinks = ( props ) => (
-	[
-		renderButtons( props ),
-		renderControls( props ),
-	]
-);
+	return (
+		isSelected && (
+			<InspectorControls key="inspector">
+				<PanelBody title={ __( 'Share Settings', 'the-events-calendar' ) }>
+					<ToggleControl
+						label={ __( 'Google Calendar', 'the-events-calendar' ) }
+						checked={ hasGoogleCalendar }
+						onChange={ toggleGoogleCalendar }
+					/>
+					<ToggleControl
+						label={ __( 'iCal', 'the-events-calendar' ) }
+						checked={ hasiCal }
+						onChange={ toggleIcalLabel }
+					/>
+				</PanelBody>
+			</InspectorControls>
+		)
+	);
+};
+
+const EventLinks = ( props ) => {
+	const { setAttributes } = props;
+
+	const setiCalLabel = e => setAttributes( { iCalLabel: e.target.value } );
+	const setGoogleCalendarLabel = e => setAttributes( { googleCalendarLabel: e.target.value } );
+	const toggleIcalLabel = value => setAttributes( { hasiCal: value } );
+	const toggleGoogleCalendar = value => setAttributes( { hasGoogleCalendar: value } );
+
+	const combinedProps = {
+		...props,
+		setiCalLabel,
+		setGoogleCalendarLabel,
+		toggleIcalLabel,
+		toggleGoogleCalendar,
+	};
+
+	return [
+		renderButtons( combinedProps ),
+		renderControls( combinedProps ),
+	];
+};
 
 EventLinks.propTypes = {
 	hasGoogleCalendar: PropTypes.bool,
