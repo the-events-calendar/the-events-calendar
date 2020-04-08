@@ -9,7 +9,10 @@ import { uniq } from 'lodash';
 import * as types from './../types';
 
 export const setInitialState = ( data ) => {
-	DEFAULT_STATE.push( ...data.meta._EventOrganizerID );
+	const { meta } = data;
+	if ( meta.hasOwnProperty( '_EventOrganizerID' ) ) {
+		DEFAULT_STATE.push( ...meta._EventOrganizerID );
+	}
 };
 
 export const DEFAULT_STATE = [];
