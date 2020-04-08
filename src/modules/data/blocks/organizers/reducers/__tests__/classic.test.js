@@ -4,7 +4,7 @@
 import classic, { setInitialState } from '@moderntribe/events/data/blocks/organizers/reducers/classic';
 import { actions } from '@moderntribe/events/data/blocks/organizers';
 
-const entityRecord = {
+const data = {
 	meta: {
 		_EventOrganizerID: [ 99, 100 ],
 	},
@@ -27,7 +27,7 @@ describe( '[STORE] - Classic reducer', () => {
 	} );
 
 	it( 'Should set the initial state', () => {
-		setInitialState( entityRecord );
+		setInitialState( data );
 		expect( classic( undefined, {} ) ).toMatchSnapshot();
 	} );
 } );

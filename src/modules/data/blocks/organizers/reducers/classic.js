@@ -8,8 +8,8 @@ import { uniq } from 'lodash';
  */
 import * as types from './../types';
 
-export const setInitialState = ( entityRecord ) => {
-	DEFAULT_STATE.push( ...entityRecord.meta._EventOrganizerID );
+export const setInitialState = ( data ) => {
+	DEFAULT_STATE.push( ...data.meta._EventOrganizerID );
 };
 
 export const DEFAULT_STATE = [];

@@ -14,7 +14,7 @@ import venue, { setInitialState as venueSetInitialState } from './venue';
 import sharing from './sharing';
 
 export const setInitialState = ( data ) => {
-	organizersSetInitialState( entityRecord );
+	organizersSetInitialState( data );
 	priceSetInitialState( data );
 	venueSetInitialState( data );
 	websiteSetInitialState( data );
