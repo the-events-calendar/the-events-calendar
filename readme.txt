@@ -220,6 +220,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Several strings have been adjusted for consistency and better translatability [BTRIA-307]
+
 = [5.0.3.1] 2020-03-23 =
 
 * Fix - Assets class modification to prevent JavaScript and CSS failing to load when `SCRIPT_DEBUG=true` [TCMN-52]
