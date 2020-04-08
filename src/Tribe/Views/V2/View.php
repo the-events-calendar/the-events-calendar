@@ -2194,14 +2194,23 @@ class View implements View_Interface {
 	 */
 	protected function setup_additional_views( array $events = [], array $template_vars = [] ) {
 
+		$manager = tribe( Manager::class );
+		$default_slug = $manager->get_default_view_option();
+
+		// Only recent Past Events to only the default view.
+		if ( $this->get_slug() !== $default_slug ) {
+			return;
+		}
+
 		// Flatten Month and Week View Events to Get Accurate Count
-		$views_to_flatten = [
+/*		$views_to_flatten = [
 			'month',
 			'week',
 		];
+
 		if ( in_array( $this->get_slug(), $views_to_flatten ) ) {
 			$events = array_unique( array_merge( ...array_values( $events ) ) );
-		}
+		}*/
 
 		/**
 		 * Filters The Threshold to Show The Recent Past Events.
@@ -2216,7 +2225,15 @@ class View implements View_Interface {
 		 */
 		$recent_past_threshold = apply_filters( "tribe_events_views_v2_threshold_to_show_recent_past_events", 0, $events, $template_vars, $this );
 
-		if ( absint( $recent_past_threshold ) >= count( $events ) && ! empty( $template_vars['show_recent_past'] ) ) {
+		//todo change to get a saved value instead of running the query
+		$upcoming_events_count = tribe_events()->where( 'ends_after', 'now' )->count();
+
+		// If threshold is less than upcoming events, do not show Recent Past Events.
+		if ( absint( $recent_past_threshold ) < $upcoming_events_count ) {
+			return;
+		}
+
+		if ( ! empty( $template_vars['show_recent_past'] ) ) {
 			$template_vars['show_recent_past'] = true;
 			$recent_past_view                  = static::make( Recent_Past_View::Class );
 			$recent_past_view->set_context( $this->context );
