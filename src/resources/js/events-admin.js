@@ -377,21 +377,20 @@ jQuery( document ).ready( function( $ ) {
 		var selectData = $select.data( 'select2' );
 		var $group     = $select.closest( 'tbody' );
 		var $edit      = $group.find( '.edit-linked-post-link a' );
-		var choice     = 'undefined' === typeof selectData ? {} : selectData;
+		var value      = $select.val();
 		var editLink   = '';
 
-		if ( null !== selectData && 'string' === typeof selectData.edit ) {
-			editLink = selectData.edit;
+		if ( $select.find( ':selected' ).val() == value ) {
+			editLink = $select.find( ':selected' ).data( 'editLink' );
 		}
 
-		// Maybe Hide Edit link
-		if ( _.isEmpty( editLink ) ) {
-			$edit.hide();
-		}
-
-		if ( 'undefined' !== typeof choice.new && choice.new ) {
+		if (
+			( ! editLink || _.isEmpty( editLink ) )
+			&& -1 != value
+			&& $select.find( ':selected' ).length
+		) {
 			// Apply the New Given Title to the Correct Field
-			$group.find( '.linked-post-name' ).val( choice.id ).parents( '.linked-post' ).eq( 0 ).attr( 'data-hidden', true );
+			$group.find( '.linked-post-name' ).val( value ).parents( '.linked-post' ).eq( 0 ).attr( 'data-hidden', true );
 
 			$select.val( '-1' );
 
@@ -403,6 +402,8 @@ jQuery( document ).ready( function( $ ) {
 			$group.parents( '.tribe-section' ).addClass( 'tribe-is-creating-linked-post' );
 
 		} else {
+			$edit.hide();
+
 			// Hide all fields and remove their values
 			$group.find( '.linked-post' ).hide().find( 'input' ).val( '' );
 

@@ -955,8 +955,17 @@ class Tribe__Events__Linked_Posts {
 			$option['selected'] = false;
 		}
 
+		if ( ! isset( $option['edit'] ) ) {
+			$option['edit'] = false;
+		}
+
+
 		?>
-		<option <?php selected( $option['selected'] ); ?> value="<?php echo esc_attr( $option['id'] ); ?>">
+		<option
+			<?php selected( $option['selected'] ); ?>
+			value="<?php echo esc_attr( $option['id'] ); ?>"
+			data-edit-link="<?php echo esc_url( $option['edit'] ); ?>"
+		>
 			<?php echo esc_html( $option['text'] ); ?>
 		</option>
 		<?php
@@ -1149,10 +1158,6 @@ class Tribe__Events__Linked_Posts {
 		// Get the label to use in placeholder attrs.
 		$label = $this->get_create_or_find_labels( $post_type, $creation_enabled );
 
-		$render_option = function ( $option ) {
-
-		};
-
 		if ( $linked_posts || $my_linked_posts ) {
 
 			?>
@@ -1167,8 +1172,9 @@ class Tribe__Events__Linked_Posts {
 				data-sticky-search
 				data-create-choice-template="<?php echo __( 'Create: <b><%= term %></b>', 'the-events-calendar' ); ?>"
 				data-allow-html
+				data-force-search
 				<?php endif; ?>
-			'>
+			>
 				<option value="-1" <?php selected( empty( $current ) ); ?>>
 					<?php echo esc_html( $label ); ?>
 				</option>
