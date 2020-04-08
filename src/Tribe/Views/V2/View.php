@@ -2031,7 +2031,7 @@ class View implements View_Interface {
 	 */
 	protected function get_public_views( $url_event_date ) {
 		$public_views = tribe( Manager::class )->get_publicly_visible_views_data();
-		$query_args = wp_parse_url( $this->get_url(), PHP_URL_QUERY );
+		$query_args   = wp_parse_url( $this->get_url(), PHP_URL_QUERY );
 
 		if ( ! empty( $url_event_date ) || ! empty( $query_args ) ) {
 			// Each View expects the event date in a specific format, here we account for it.
@@ -2079,7 +2079,7 @@ class View implements View_Interface {
 			wp_parse_str( $str_args, $query_args );
 		}
 
-		// For "dateless" queries (today)
+		// For "dateless" queries (today).
 		if ( empty( $date ) ) {
 			$query_args = array_filter( array_merge( $query_args, [ 'eventDisplay' => $this->get_slug() ] ) );
 
