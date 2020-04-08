@@ -74,7 +74,7 @@ class Tribe__Events__Google__Maps_API_Key {
 						'the-events-calendar'
 					),
 					'<a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank" rel="noopener noreferrer">' . esc_html__( 'Google Maps API key', 'the-events-calendar' ) . '</a>',
-					'<a href="https://theeventscalendar.com/knowledgebase/setting-up-your-google-maps-api-key/" target="_blank" rel="noopener noreferrer">' . esc_html__( 'Read More', 'the-events-calendar' ) . '</a>'
+					'<a href="https://theeventscalendar.com/knowledgebase/setting-up-your-google-maps-api-key/" target="_blank" rel="noopener noreferrer">' . esc_html__( 'Read more', 'the-events-calendar' ) . '</a>'
 				) . '</p>',
 			),
 
