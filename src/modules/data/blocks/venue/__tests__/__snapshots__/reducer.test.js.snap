@@ -8,6 +8,22 @@ Object {
 }
 `;
 
+exports[`[STORE] - Venue reducer Should return the initial state 1`] = `
+Object {
+  "showMap": true,
+  "showMapLink": true,
+  "venue": 0,
+}
+`;
+
+exports[`[STORE] - Venue reducer Should set the initial state 1`] = `
+Object {
+  "showMap": false,
+  "showMapLink": true,
+  "venue": 42,
+}
+`;
+
 exports[`[STORE] - Venue reducer Should set the showMap 1`] = `
 Object {
   "showMap": true,
@@ -45,21 +61,5 @@ Object {
   "showMap": true,
   "showMapLink": true,
   "venue": 99,
-}
-`;
-
-exports[`[STORE] - Venue reducer Should toggle the venue map 1`] = `
-Object {
-  "showMap": false,
-  "showMapLink": true,
-  "venue": 0,
-}
-`;
-
-exports[`[STORE] - Venue reducer Should toggle the venue map link 1`] = `
-Object {
-  "showMap": true,
-  "showMapLink": false,
-  "venue": 0,
 }
 `;

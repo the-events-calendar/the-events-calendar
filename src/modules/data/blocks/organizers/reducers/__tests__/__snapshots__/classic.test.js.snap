@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[STORE] - Classic reducer Should add an organizer in classic 1`] = `
+Array [
+  20,
+]
+`;
+
+exports[`[STORE] - Classic reducer Should add an organizer in classic 2`] = `
+Array [
+  20,
+  10,
+]
+`;
+
+exports[`[STORE] - Classic reducer Should remove an organizer from block 1`] = `Array []`;
+
+exports[`[STORE] - Classic reducer Should remove an organizer from block 2`] = `
+Array [
+  20,
+]
+`;
+
+exports[`[STORE] - Classic reducer Should remove an organizer from block 3`] = `Array []`;
+
+exports[`[STORE] - Classic reducer Should return the default state 1`] = `Array []`;
+
+exports[`[STORE] - Classic reducer Should set the initial state 1`] = `
+Array [
+  99,
+  100,
+]
+`;

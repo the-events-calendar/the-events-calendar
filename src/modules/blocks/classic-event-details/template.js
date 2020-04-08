@@ -16,11 +16,7 @@ import { PlainText, InspectorControls } from '@wordpress/editor';
 /**
  * Internal dependencies
  */
-import {
-	date,
-	input,
-	moment as momentUtil,
-} from '@moderntribe/common/utils';
+import { date, moment as momentUtil } from '@moderntribe/common/utils';
 import { TermsList, MetaGroup } from '@moderntribe/events/elements';
 import EventDetailsOrganizers from './event-details-organizers/container';
 
@@ -33,14 +29,15 @@ const { toMoment, toDate, toTime } = momentUtil;
 const ClassicEventDetails = ( props ) => {
 
 	const renderTitle = () => {
-		const { detailsTitle, setDetailsTitle } = props;
+		const { attributes, setAttributes } = props;
+		const setDetailsTitle = ( e ) => setAttributes( { detailsTitle: e.target.value } );
 
 		return (
 			<AutosizeInput
 				className="tribe-editor__events-section__headline trigger-dashboard-datetime"
-				value={ detailsTitle }
+				value={ attributes.detailsTitle }
 				placeholder={ __( 'Details', 'the-events-calendar' ) }
-				onChange={ input.sendValue( setDetailsTitle ) }
+				onChange={ setDetailsTitle }
 			/>
 		);
 	};
@@ -128,16 +125,18 @@ const ClassicEventDetails = ( props ) => {
 	};
 
 	const {
-		organizerTitle,
-		setOrganizerTitle,
+		attributes,
 		isSelected,
 		allDay,
 		setAllDay,
 		currencyPosition,
-		togglePosition,
+		setCurrencyPosition,
 		currencySymbol,
 		setSymbol,
+		setAttributes,
 	} = props;
+
+	const setOrganizerTitle = ( e ) => setAttributes( { organizerTitle: e.target.value } );
 
 	return [
 		(
@@ -163,11 +162,11 @@ const ClassicEventDetails = ( props ) => {
 				<MetaGroup groupKey="organizer">
 					<AutosizeInput
 						className="tribe-editor__events-section__headline"
-						value={ organizerTitle }
+						value={ attributes.organizerTitle }
 						placeholder={ __( 'Organizer', 'the-events-calendar' ) }
-						onChange={ input.sendValue( setOrganizerTitle ) }
+						onChange={ setOrganizerTitle }
 					/>
-					<EventDetailsOrganizers />
+					<EventDetailsOrganizers setAttributes={ setAttributes } />
 				</MetaGroup>
 			</div>
 		),
@@ -185,7 +184,7 @@ const ClassicEventDetails = ( props ) => {
 					<ToggleControl
 						label={ __( 'Show symbol before', 'the-events-calendar' ) }
 						checked={ 'prefix' === currencyPosition }
-						onChange={ togglePosition }
+						onChange={ setCurrencyPosition }
 					/>
 					<TextControl
 						label={ __( ' Currency Symbol', 'the-events-calendar' ) }
@@ -200,7 +199,6 @@ const ClassicEventDetails = ( props ) => {
 };
 
 ClassicEventDetails.propTypes = {
-	organizerTitle: PropTypes.string,
 	url: PropTypes.string,
 	start: PropTypes.string,
 	end: PropTypes.string,
@@ -208,16 +206,13 @@ ClassicEventDetails.propTypes = {
 	cost: PropTypes.string,
 	currencyPosition: PropTypes.string,
 	currencySymbol: PropTypes.string,
-	detailsTitle: PropTypes.string,
 	allDay: PropTypes.bool,
 	isSelected: PropTypes.bool,
-	setOrganizerTitle: PropTypes.func,
-	setDetailsTitle: PropTypes.func,
 	setWebsite: PropTypes.func,
 	setCost: PropTypes.func,
 	toggleDashboardDateTime: PropTypes.func,
 	setSymbol: PropTypes.func,
-	togglePosition: PropTypes.func,
+	setCurrencyPosition: PropTypes.func,
 	setAllDay: PropTypes.func,
 };
 

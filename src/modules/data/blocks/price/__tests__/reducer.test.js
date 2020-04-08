@@ -2,7 +2,15 @@
  * Internal dependencies
  */
 import { actions } from '@moderntribe/events/data/blocks/price';
-import reducer, { DEFAULT_STATE } from '@moderntribe/events/data/blocks/price/reducer';
+import reducer, { DEFAULT_STATE, setInitialState } from '@moderntribe/events/data/blocks/price/reducer';
+
+const data = {
+	meta: {
+		_EventCurrencyPosition: 'prefix',
+		_EventCurrencySymbol: '€',
+		_EventCost: '15',
+	},
+};
 
 describe( '[STORE] - Price reducer', () => {
 	it( 'Should return the default state', () => {
@@ -13,11 +21,6 @@ describe( '[STORE] - Price reducer', () => {
 		expect( reducer( DEFAULT_STATE, actions.setCost( 10 ) ) ).toMatchSnapshot();
 	} );
 
-	it( 'Should set the cost description', () => {
-		expect( reducer( DEFAULT_STATE, actions.setDescription( 'Cost description' ) ) )
-			.toMatchSnapshot();
-	} );
-
 	it( 'Should set the symbol position', () => {
 		expect( reducer( DEFAULT_STATE, actions.setPosition( 'prefix' ) ) ).toMatchSnapshot();
 	} );
@@ -26,7 +29,8 @@ describe( '[STORE] - Price reducer', () => {
 		expect( reducer( DEFAULT_STATE, actions.setSymbol( '€' ) ) ).toMatchSnapshot();
 	} );
 
-	it( 'Should toggle the prefix of the position', () => {
-		expect( reducer( DEFAULT_STATE, actions.togglePosition( false ) ) ).toMatchSnapshot();
+	it( 'Should set the initial state', () => {
+		setInitialState( data );
+		expect( DEFAULT_STATE ).toMatchSnapshot();
 	} );
 } );

@@ -12,10 +12,6 @@ describe( '[STORE] - Organizer actions', () => {
 		expect( actions.addOrganizerInBlock( 'firstBlock', 99 ) ).toMatchSnapshot();
 	} );
 
-	test( 'Set organizer in classic', () => {
-		expect( actions.setOrganizersInClassic( [ 1, 2, 3 ] ) ).toMatchSnapshot();
-	} );
-
 	test( 'Remove organizer in classic', () => {
 		expect( actions.removeOrganizerInClassic( 2 ) ).toMatchSnapshot();
 	} );
