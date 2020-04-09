@@ -3,7 +3,7 @@
  * View: Top Bar - Date Picker
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/v2/past-events/top-bar/datepicker.php
+ * [your-theme]/tribe/events/v2/recent-past/top-bar/datepicker.php
  *
  * See more documentation about our views templating system.
  *

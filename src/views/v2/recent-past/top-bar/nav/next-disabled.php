@@ -3,7 +3,7 @@
  * View: Top Bar Navigation Next Disabled Template
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/v2/past-events/top-bar/nav/next-disabled.php
+ * [your-theme]/tribe/events/v2/recent-past/top-bar/nav/next-disabled.php
  *
  * See more documentation about our views templating system.
  *

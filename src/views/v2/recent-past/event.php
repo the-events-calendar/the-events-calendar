@@ -9,28 +9,29 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 5.0.0
+ * @version TBD
  *
  * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
  *
  * @see tribe_get_event() For the format of the event object.
  */
 
-$container_classes = [ 'tribe-common-g-row', 'tribe-events-calendar-list__event-row' ];
-$container_classes['tribe-events-calendar-list__event-row--featured'] = $event->featured;
+$container_classes = [ 'tribe-common-g-row', 'tribe-events-calendar-recent-past__event-row' ];
+$container_classes['tribe-events-calendar-recent-past__event-row--featured'] = $event->featured;
 
-$event_classes = tribe_get_post_class( [ 'tribe-events-calendar-list__event', 'tribe-common-g-row', 'tribe-common-g-row--gutters' ], $event->ID );
+$event_classes = tribe_get_post_class( [ 'tribe-events-calendar-recent-past__event', 'tribe-common-g-row', 'tribe-common-g-row--gutters' ], $event->ID );
 ?>
 <div <?php tribe_classes( $container_classes ); ?>>
 
 	<?php $this->template( 'recent-past/event/date-tag', [ 'event' => $event ] ); ?>
 
-	<div class="tribe-events-calendar-list__event-wrapper tribe-common-g-col">
+	<div class="tribe-events-calendar-recent-past__event-wrapper tribe-common-g-col">
 		<article <?php tribe_classes( $event_classes ) ?>>
+			<?php $this->template( 'recent-past/event/featured-image', [ 'event' => $event ] ); ?>
 
-			<div class="tribe-events-calendar-list__event-details tribe-common-g-col">
+			<div class="tribe-events-calendar-recent-past__event-details tribe-common-g-col">
 
-				<header class="tribe-events-calendar-list__event-header">
+				<header class="tribe-events-calendar-recent-past__event-header">
 					<?php $this->template( 'recent-past/event/date', [ 'event' => $event ] ); ?>
 					<?php $this->template( 'recent-past/event/title', [ 'event' => $event ] ); ?>
 					<?php $this->template( 'recent-past/event/venue', [ 'event' => $event ] ); ?>

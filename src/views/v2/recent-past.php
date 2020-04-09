@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 5.0.2
+ * @version TBD
  *
  * @var array    $events               The array containing the events.
  * @var string   $rest_url             The REST URL.
@@ -21,6 +21,10 @@
  * @var string   $breakpoint_pointer   String we use as pointer to the current view we are setting up with breakpoints.
  */
 
+$header_classes = [ 'tribe-events-header' ];
+if ( empty( $disable_event_search ) ) {
+	$header_classes[] = 'tribe-events-header--has-event-search';
+}
 ?>
 <div
 	<?php tribe_classes( $container_classes ); ?>
@@ -35,19 +39,41 @@
 		data-view-breakpoint-pointer="<?php echo esc_attr( $breakpoint_pointer ); ?>"
 	<?php endif; ?>
 >
-<h1>Recent Past View Test Title</h1>
 	<div class="tribe-common-l-container tribe-events-l-container">
+		<?php $this->template( 'components/loader', [ 'text' => __( 'Loading...', 'the-events-calendar' ) ] ); ?>
 
-		<div class="tribe-events-calendar-list">
+		<?php $this->template( 'components/json-ld-data' ); ?>
+
+		<?php $this->template( 'components/data' ); ?>
+
+		<?php $this->template( 'components/before' ); ?>
+
+		<header <?php tribe_classes( $header_classes ); ?>>
+			<?php $this->template( 'components/messages' ); ?>
+
+			<?php $this->template( 'components/breadcrumbs' ); ?>
+
+			<?php $this->template( 'components/events-bar' ); ?>
+
+			<?php $this->template( 'recent-past/top-bar' ); ?>
+		</header>
+
+		<div class="tribe-events-calendar-recent-past">
+
+			<?php $this->template( 'recent-past/heading' ); ?>
 
 			<?php foreach ( $events as $event ) : ?>
 				<?php $this->setup_postdata( $event ); ?>
 
-				<?php $this->template( 'list/event', [ 'event' => $event ] ); ?>
+				<?php $this->template( 'recent-past/event', [ 'event' => $event ] ); ?>
 
 			<?php endforeach; ?>
 
 		</div>
 
+		<?php $this->template( 'components/after' ); ?>
+
 	</div>
 </div>
+
+<?php $this->template( 'components/breakpoints' ); ?>
