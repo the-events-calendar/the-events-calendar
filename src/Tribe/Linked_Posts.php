@@ -812,6 +812,12 @@ class Tribe__Events__Linked_Posts {
 		$fields = array_keys( $submission );
 
 		foreach ( $submission[ $linked_post_type_id_field ] as $key => $id ) {
+			// Reset to 0 case of -1.
+			if ( -1 === (int) $id ) {
+				$id = null;
+				$submission[ $linked_post_type_id_field ][ $key ] = $id;
+			}
+
 			if ( ! empty( $id ) ) {
 				$post_ids_to_link[] = absint( $id );
 				continue;
