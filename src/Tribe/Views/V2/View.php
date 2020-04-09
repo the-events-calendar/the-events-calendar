@@ -11,6 +11,7 @@ namespace Tribe\Events\Views\V2;
 use Tribe\Events\Views\V2\Template\Settings\Advanced_Display;
 use Tribe\Events\Views\V2\Template\Title;
 use Tribe\Events\Views\V2\Utils;
+use Tribe\Events\Views\V2\Views\Recent_Past_View;
 use Tribe\Events\Views\V2\Views\Traits\Breakpoint_Behavior;
 use Tribe\Events\Views\V2\Views\Traits\HTML_Cache;
 use Tribe\Events\Views\V2\Views\Traits\Json_Ld_Data;
@@ -1068,6 +1069,8 @@ class View implements View_Interface {
 		 */
 		$template_vars['json_ld_data'] = $this->build_json_ld_data( $events );
 
+		$this->setup_additional_views( (array) $events, $template_vars );
+
 		/**
 		 * Filters the variables that will be set on the View template.
 		 *
@@ -1383,49 +1386,50 @@ class View implements View_Interface {
 			? Dates::build_date_object( $event_date )->format( Dates::DBDATEFORMAT )
 			: false;
 
-		$template_vars  = [
-			'title'                  => $this->get_title( $events ),
-			'events'                 => $events,
-			'url'                    => $this->get_url( true ),
-			'prev_url'               => $this->prev_url( true ),
-			'next_url'               => $this->next_url( true ),
-			'url_event_date'         => $url_event_date,
-			'bar'                    => [
+		$template_vars = [
+			'title'                => $this->get_title( $events ),
+			'events'               => $events,
+			'url'                  => $this->get_url( true ),
+			'prev_url'             => $this->prev_url( true ),
+			'next_url'             => $this->next_url( true ),
+			'url_event_date'       => $url_event_date,
+			'bar'                  => [
 				'keyword' => $this->context->get( 'keyword', '' ),
 				'date'    => $this->context->get( 'event_date', '' ),
 			],
-			'today'                  => $today,
-			'now'                    => $this->context->get( 'now', 'now' ),
-			'request_date'           => Dates::build_date_object( $this->context->get( 'event_date', $today ) ),
-			'rest_url'               => tribe( Rest_Endpoint::class )->get_url(),
-			'rest_nonce'             => wp_create_nonce( 'wp_rest' ),
-			'should_manage_url'      => $this->should_manage_url,
-			'today_url'              => $today_url,
-			'prev_label'             => $this->get_link_label( $this->prev_url( false ) ),
-			'next_label'             => $this->get_link_label( $this->next_url( false ) ),
-			'date_formats'           => (object) [
+			'today'                => $today,
+			'now'                  => $this->context->get( 'now', 'now' ),
+			'request_date'         => Dates::build_date_object( $this->context->get( 'event_date', $today ) ),
+			'rest_url'             => tribe( Rest_Endpoint::class )->get_url(),
+			'rest_nonce'           => wp_create_nonce( 'wp_rest' ),
+			'should_manage_url'    => $this->should_manage_url,
+			'today_url'            => $today_url,
+			'prev_label'           => $this->get_link_label( $this->prev_url( false ) ),
+			'next_label'           => $this->get_link_label( $this->next_url( false ) ),
+			'date_formats'         => (object) [
 				'compact'                => Dates::datepicker_formats( tribe_get_option( 'datepickerFormat' ) ),
 				'month_and_year_compact' => Dates::datepicker_formats( 'm' . tribe_get_option( 'datepickerFormat' ) ),
 				'month_and_year'         => tribe_get_date_option( 'monthAndYearFormat', 'F Y' ),
 				'time_range_separator'   => tribe_get_date_option( 'timeRangeSeparator', ' - ' ),
 				'date_time_separator'    => tribe_get_date_option( 'dateTimeSeparator', ' @ ' ),
 			],
-			'messages'               => $this->get_messages( $events ),
-			'start_of_week'          => get_option( 'start_of_week', 0 ),
-			'breadcrumbs'            => $this->get_breadcrumbs(),
-			'before_events'          => tribe( Advanced_Display::class )->get_before_events_html( $this ),
-			'after_events'           => tribe( Advanced_Display::class )->get_after_events_html( $this ),
-			'display_events_bar'     => $this->filter_display_events_bar( $this->display_events_bar ),
-			'disable_event_search'   => tribe_is_truthy( tribe_get_option( 'tribeDisableTribeBar', false ) ),
-			'live_refresh'           => tribe_is_truthy( 'automatic' === tribe_get_option( 'liveFiltersUpdate', 'automatic' ) ),
-			'ical'                   => $this->get_ical_data(),
-			'container_classes'      => $this->get_html_classes(),
-			'container_data'         => $this->get_container_data(),
-			'is_past'                => 'past' === $this->context->get( 'event_display_mode', false ),
-			'breakpoints'            => $this->get_breakpoints(),
-			'breakpoint_pointer'     => $this->get_breakpoint_pointer(),
-			'is_initial_load'        => $this->context->doing_php_initial_state(),
-			'public_views'           => $this->get_public_views( $url_event_date ),
+			'messages'             => $this->get_messages( $events ),
+			'start_of_week'        => get_option( 'start_of_week', 0 ),
+			'breadcrumbs'          => $this->get_breadcrumbs(),
+			'before_events'        => tribe( Advanced_Display::class )->get_before_events_html( $this ),
+			'after_events'         => tribe( Advanced_Display::class )->get_after_events_html( $this ),
+			'display_events_bar'   => $this->filter_display_events_bar( $this->display_events_bar ),
+			'disable_event_search' => tribe_is_truthy( tribe_get_option( 'tribeDisableTribeBar', false ) ),
+			'live_refresh'         => tribe_is_truthy( 'automatic' === tribe_get_option( 'liveFiltersUpdate', 'automatic' ) ),
+			'ical'                 => $this->get_ical_data(),
+			'container_classes'    => $this->get_html_classes(),
+			'container_data'       => $this->get_container_data(),
+			'is_past'              => 'past' === $this->context->get( 'event_display_mode', false ),
+			'breakpoints'          => $this->get_breakpoints(),
+			'breakpoint_pointer'   => $this->get_breakpoint_pointer(),
+			'is_initial_load'      => $this->context->doing_php_initial_state(),
+			'public_views'         => $this->get_public_views( $url_event_date ),
+			'show_recent_past'     => $this->should_show_recent_past_events_view(),
 		];
 
 		return $template_vars;
@@ -2144,5 +2148,96 @@ class View implements View_Interface {
 		$data = apply_filters( "tribe_events_views_v2_{$this->get_slug()}_view_data", $data, $this );
 
 		return $data;
+	}
+
+	/**
+	 * Filters Whether the Recent Past Events Should Show for a specific View.
+	 *
+	 * @since TBD
+	 *
+	 * @return boolean If we should display Recent Past Events.
+	 */
+	protected function should_show_recent_past_events_view() {
+		$show = $this->context->get( 'show_recent_past', true );
+
+		/**
+		 * Filters Whether the Recent Past Events Should Show for all Views.
+		 *
+		 * @since TBD
+		 *
+		 * @param boolean $show      If we should display Recent Past Events.
+		 * @param string  $view_slug The current view slug.
+		 * @param View    $instance  The current View object.
+		 */
+		$show = apply_filters( 'tribe_events_views_v2_show_recent_past_events_view', $show, $this->get_slug(), $this );
+
+		/**
+		 * Filters Whether the Recent Past Events Should Show for a specific View.
+		 *
+		 * @since TBD
+		 *
+		 * @param boolean $show     If we should display Recent Past Events.
+		 * @param View    $instance The current View object.
+		 */
+		$show = apply_filters( "tribe_events_views_v2_{$this->get_slug()}_show_recent_past_events_view", $show, $this );
+
+		return $show;
+	}
+
+	/**
+	 * Setup of Additional Views into another View.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $events        Array that will be counted to verify if we have events.
+	 * @param array $template_vars An associative array of variables that will be set, and exported, in the template.
+	 */
+	protected function setup_additional_views( array $events = [], array $template_vars = [] ) {
+
+		$manager = tribe( Manager::class );
+		$default_slug = $manager->get_default_view_option();
+
+		// Only recent Past Events to only the default view.
+		if ( $this->get_slug() !== $default_slug ) {
+			return;
+		}
+
+		// Flatten Month and Week View Events to Get Accurate Count
+/*		$views_to_flatten = [
+			'month',
+			'week',
+		];
+
+		if ( in_array( $this->get_slug(), $views_to_flatten ) ) {
+			$events = array_unique( array_merge( ...array_values( $events ) ) );
+		}*/
+
+		/**
+		 * Filters The Threshold to Show The Recent Past Events.
+		 * Defaults to show when there are Zero Events.
+		 *
+		 * @since TBD
+		 *
+		 * @param int   The threshold to show The Recent Past Events.
+		 * @param array $events        Array that will be counted to verify if we have events.
+		 * @param array $template_vars An associative array of variables that will be set, and exported, in the template.
+		 * @param View  $instance      The current View object.
+		 */
+		$recent_past_threshold = apply_filters( "tribe_events_views_v2_threshold_to_show_recent_past_events", 0, $events, $template_vars, $this );
+
+		//todo change to get a saved value instead of running the query
+		$upcoming_events_count = tribe_events()->where( 'ends_after', 'now' )->count();
+
+		// If threshold is less than upcoming events, do not show Recent Past Events.
+		if ( absint( $recent_past_threshold ) < $upcoming_events_count ) {
+			return;
+		}
+
+		if ( ! empty( $template_vars['show_recent_past'] ) ) {
+			$template_vars['show_recent_past'] = true;
+			$recent_past_view                  = static::make( Recent_Past_View::Class );
+			$recent_past_view->set_context( $this->context );
+			$recent_past_view->add_view_filters();
+		}
 	}
 }

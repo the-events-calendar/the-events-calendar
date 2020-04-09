@@ -3,7 +3,7 @@
  * View: List Single Event Venue
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/v2/list/event/venue.php
+ * [your-theme]/tribe/events/v2/recent-past/event/venue.php
  *
  * See more documentation about our views templating system.
  *
@@ -20,7 +20,7 @@ if ( ! $event->venues->count() ) {
 	return;
 }
 
-$separator            = esc_html_x( ', ', 'Address separator', 'the-events-calendar' );
+$separator            = esc_html_x( ', ', 'Address separator', 'events-calendar-pro' );
 $venue                = $event->venues[0];
 $append_after_address = array_filter( array_map( 'trim', [ $venue->city, $venue->state_province, $venue->state, $venue->province ] ) );
 $address              = $venue->address . ( $venue->address && $append_after_address ? $separator : '' );
