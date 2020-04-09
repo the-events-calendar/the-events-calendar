@@ -1,8 +1,12 @@
 /**
  * Internal dependencies
  */
-import reducer, { DEFAULT_STATE, setInitialState } from '@moderntribe/events/data/blocks/venue/reducer';
 import { actions } from '@moderntribe/events/data/blocks/venue';
+import reducer, {
+	DEFAULT_STATE,
+	defaultStateToMetaMap,
+	setInitialState,
+} from '@moderntribe/events/data/blocks/venue/reducer';
 
 const data = {
 	meta: {
@@ -49,6 +53,10 @@ describe( '[STORE] - Venue reducer', () => {
 	it( 'Should set the showMapLink', () => {
 		expect( reducer( DEFAULT_STATE, actions.setShowMapLink( true ) ) ).toMatchSnapshot();
 		expect( reducer( DEFAULT_STATE, actions.setShowMapLink( false ) ) ).toMatchSnapshot();
+	} );
+
+	it( 'Should return the default state to meta map', () => {
+		expect( defaultStateToMetaMap ).toMatchSnapshot();
 	} );
 
 	it( 'Should set the initial state', () => {

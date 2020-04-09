@@ -2,7 +2,11 @@
  * Internal dependencies
  */
 import { actions } from '@moderntribe/events/data/blocks/website';
-import reducer, { setInitialState, DEFAULT_STATE } from '@moderntribe/events/data/blocks/website/reducer';
+import reducer, {
+	DEFAULT_STATE,
+	defaultStateToMetaMap,
+	setInitialState,
+} from '@moderntribe/events/data/blocks/website/reducer';
 
 const data = {
 	meta: {
@@ -17,6 +21,10 @@ describe( '[STORE] - Website reducer', () => {
 
 	it( 'Should set the website value', () => {
 		expect( reducer( DEFAULT_STATE, actions.setWebsite( 'https://tri.be/' ) ) ).toMatchSnapshot();
+	} );
+
+	it( 'Should return the default state to meta map', () => {
+		expect( defaultStateToMetaMap ).toMatchSnapshot();
 	} );
 
 	it( 'Should set the initial state', () => {

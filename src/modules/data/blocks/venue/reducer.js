@@ -4,13 +4,14 @@
 import * as types from './types';
 import { editorDefaults, mapsAPI } from '@moderntribe/common/utils/globals';
 
+export const defaultStateToMetaMap = {
+	venue: '_EventVenueID',
+	showMap: '_EventShowMap',
+	showMapLink: '_EventShowMapLink',
+};
+
 export const setInitialState = ( data ) => {
 	const { meta } = data;
-	const defaultStateToMetaMap = {
-		venue: '_EventVenueID',
-		showMap: '_EventShowMap',
-		showMapLink: '_EventShowMapLink',
-	};
 
 	Object.keys( defaultStateToMetaMap ).forEach( ( key ) => {
 		const metaKey = defaultStateToMetaMap[ key ];
