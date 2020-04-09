@@ -3,6 +3,7 @@
  */
 import { compose } from 'redux';
 import { connect } from 'react-redux';
+import { uniq } from 'lodash';
 
 /**
  * Internal dependencies
