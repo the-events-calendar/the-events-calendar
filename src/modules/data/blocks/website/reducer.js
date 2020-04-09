@@ -6,7 +6,7 @@ import * as types from './types';
 export const setInitialState = ( data ) => {
 	const { meta } = data;
 	if ( meta.hasOwnProperty( '_EventURL' ) ) {
-		DEFAULT_STATE.url = data.meta._EventURL;
+		DEFAULT_STATE.url = meta._EventURL;
 	}
 };
 

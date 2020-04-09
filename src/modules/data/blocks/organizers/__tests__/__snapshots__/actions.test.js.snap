@@ -6,7 +6,7 @@ Object {
     "id": "firstBlock",
     "organizer": 99,
   },
-  "type": "@@MT/EVENTS/ADD_ORGANIZER_BLOCK",
+  "type": "@@MT/EVENTS/ADD_BLOCK_ORGANIZER",
 }
 `;
 
@@ -25,28 +25,15 @@ Object {
     "id": "firstBlock",
     "organizer": 100,
   },
-  "type": "@@MT/EVENTS/REMOVE_ORGANIZER_BLOCK",
+  "type": "@@MT/EVENTS/REMOVE_BLOCK_ORGANIZER",
 }
 `;
 
 exports[`[STORE] - Organizer actions Remove organizer in classic 1`] = `
 Object {
   "payload": Object {
-    "id": 2,
+    "organizer": 2,
   },
   "type": "@@MT/EVENTS/REMOVE_CLASSIC_ORGANIZERS",
-}
-`;
-
-exports[`[STORE] - Organizer actions Set organizer in classic 1`] = `
-Object {
-  "payload": Object {
-    "organizers": Array [
-      1,
-      2,
-      3,
-    ],
-  },
-  "type": "@@MT/EVENTS/SET_CLASSIC_ORGANIZERS",
 }
 `;

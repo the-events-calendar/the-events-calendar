@@ -1,70 +1,45 @@
 /**
  * Internal dependencies
  */
-import { allIds, byId } from '@moderntribe/events/data/blocks/organizers/reducers/blocks';
-import block from '@moderntribe/events/data/blocks/organizers/reducers/block';
+import blocks, { allIds, byId } from '@moderntribe/events/data/blocks/organizers/reducers/blocks';
 import { actions } from '@moderntribe/events/data/blocks/organizers';
 
-jest.mock( '@moderntribe/events/data/blocks/organizers/reducers/block', () => {
-	const original = require.requireActual( '@moderntribe/events/data/search/reducers/search' );
-	return {
-		__esModule: true,
-		...original,
-		default: jest.fn( ( state = original.DEFAULT_STATE ) => state ),
-	};
-} );
-
 describe( '[STORE] - Organizer allIDs reducer', () => {
-	test( 'It should return the default state', () => {
-		expect( allIds( undefined, {} ) ).toEqual( [] );
+	test( 'Should return the default state', () => {
+		expect( allIds( undefined, {} ) ).toMatchSnapshot();
 	} );
 
-	test( 'Add organizer block', () => {
-		expect( allIds( [], actions.addOrganizerInBlock( 99, 1 ) ) ).toEqual( [ 1 ] );
-		expect( allIds( [ 1 ], actions.addOrganizerInBlock( 100, 2 ) ) ).toEqual( [ 1, 2 ] );
+	test( 'Should add organizer block', () => {
+		expect( allIds( [], actions.addOrganizerInBlock( 99, 1 ) ) ).toMatchSnapshot();
+		expect( allIds( [ 1 ], actions.addOrganizerInBlock( 100, 2 ) ) ).toMatchSnapshot();
 	} );
 
-	test( 'Remove organizer block', () => {
-		expect( allIds( [], actions.removeOrganizerInBlock( 102, 3 ) ) ).toEqual( [] );
-		expect( allIds( [ 1, 2 ], actions.removeOrganizerInBlock( 100, 2 ) ) ).toEqual( [ 1 ] );
-		expect( allIds( [ 1 ], actions.removeOrganizerInBlock( 99, 1 ) ) ).toEqual( [] );
+	test( 'Should remove organizer block', () => {
+		expect( allIds( [], actions.removeOrganizerInBlock( 102, 3 ) ) ).toMatchSnapshot();
+		expect( allIds( [ 1, 2 ], actions.removeOrganizerInBlock( 100, 2 ) ) ).toMatchSnapshot();
+		expect( allIds( [ 1 ], actions.removeOrganizerInBlock( 99, 1 ) ) ).toMatchSnapshot();
 	} );
 } );
 
 describe( '[STORE] - Organizer byId reducer', () => {
-	test( 'It should return the default state', () => {
+	test( 'Should return the default state', () => {
 		expect( byId( undefined, {} ) ).toEqual( {} );
 	} );
 
-
-	it( 'Should pass the actions to the child reducer when block not present', () => {
-		const groupAction = [
-			actions.addOrganizerInBlock( 10, 99 ),
-			actions.removeOrganizerInBlock( 10, 99 ),
-		];
-
-		groupAction.forEach( ( action ) => {
-			byId( {}, action );
-			expect( block ).toHaveBeenCalledWith( undefined, action );
-			expect( block ).toHaveBeenCalledTimes( 1 );
-			block.mockClear();
-		} );
+	it( 'Should add organizer block', () => {
+		expect( byId( {}, actions.addOrganizerInBlock( 99, 1 ) ) ).toMatchSnapshot();
+		expect( byId( { '99': 1 }, actions.addOrganizerInBlock( 100, 2 ) ) ).toMatchSnapshot();
 	} );
 
-	it( 'It should pass the block to the child reducer', () => {
-		const groupAction = [
-			actions.addOrganizerInBlock( 10, 99 ),
-			actions.removeOrganizerInBlock( 10, 99 ),
-		];
+	it( 'Should remove organizer block', () => {
+		expect( byId( {}, actions.removeOrganizerInBlock( 102, 3 ) ) ).toMatchSnapshot();
+		expect( byId( { '99': 1, '100': 2 }, actions.removeOrganizerInBlock( 100, 2 ) ) ).toMatchSnapshot();
+		expect( byId( { '99': 1 }, actions.removeOrganizerInBlock( 99, 1 ) ) ).toMatchSnapshot();
+	} );
+} );
 
-		const state = {
-			10: {},
-		};
-		groupAction.forEach( ( action ) => {
-			byId( state, action );
-			expect( block ).toHaveBeenCalledWith( {}, action );
-			expect( block ).toHaveBeenCalledTimes( 1 );
-			block.mockClear();
-		} );
+describe( '[STORE] - Organizer blocks reducer', () => {
+	test( 'Should return the default state', () => {
+		expect( blocks( undefined, {} ) ).toMatchSnapshot();
 	} );
 } );

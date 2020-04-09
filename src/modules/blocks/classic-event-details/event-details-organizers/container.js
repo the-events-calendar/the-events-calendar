@@ -3,6 +3,7 @@
  */
 import { compose } from 'redux';
 import { connect } from 'react-redux';
+import { uniq } from 'lodash';
 
 /**
  * Internal dependencies
@@ -19,25 +20,37 @@ import EventDetailsOrganizers from './template';
  * Module Code
  */
 
-const addOrganizer = ( dispatch ) => ( id, details ) => {
-	dispatch( detailsActions.setDetails( id, details ) );
-	dispatch( organizersActions.addOrganizerInClassic( id ) );
-};
-
-const removeOrganizer = ( dispatch ) => ( id ) => () => (
-	dispatch( organizersActions.removeOrganizerInClassic( id ) )
-);
-
 const mapStateToProps = ( state ) => ( {
 	organizers: organizersSelectors.getMappedOrganizers( state ),
+	state,
 } );
 
-const mapDispatchToProps = ( dispatch ) => ( {
-	addOrganizer: addOrganizer( dispatch ),
-	removeOrganizer: removeOrganizer( dispatch ),
-} );
+const mergeProps = ( stateProps, dispatchProps, ownProps ) => {
+	const { state, ...restStateProps } = stateProps;
+	const { dispatch, ...restDispatchProps } = dispatchProps;
+
+	return {
+		...ownProps,
+		...restStateProps,
+		...restDispatchProps,
+		addOrganizer: ( id, details ) => {
+			const organizers = organizersSelectors.getOrganizersInClassic( state );
+
+			ownProps.setAttributes( { organizers: uniq( [ ...organizers, id ] ) } );
+			dispatch( detailsActions.setDetails( id, details ) );
+			dispatch( organizersActions.addOrganizerInClassic( id ) );
+		},
+		removeOrganizer: ( id ) => () => {
+			const organizers = organizersSelectors.getOrganizersInClassic( state );
+			const newOrganizers = organizers.filter( organizerId => organizerId !== id );
+
+			ownProps.setAttributes( { organizers: newOrganizers } );
+			dispatch( organizersActions.removeOrganizerInClassic( id ) );
+		},
+	};
+};
 
 export default compose(
 	withStore(),
-	connect( mapStateToProps, mapDispatchToProps ),
+	connect( mapStateToProps, null, mergeProps ),
 )( EventDetailsOrganizers );
