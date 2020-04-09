@@ -7,7 +7,12 @@ import { DEFAULT_STATE } from '@moderntribe/events/data/blocks/datetime/reducer'
 const state = {
 	events: {
 		blocks: {
-			datetime: DEFAULT_STATE,
+			datetime: {
+				...DEFAULT_STATE,
+				start: '2018-07-19 08:00:00',
+				end: '2018-07-19 17:00:00',
+				naturalLanguageLabel: 'July 19 2018 at 8:00 am - 5:00 pm',
+			},
 		},
 	}
 };
