@@ -180,12 +180,16 @@ describe( 'Event Date time Block sagas', () => {
 		} );
 
 		describe( 'onHumanReadableChange', () => {
-			test( 'On change handler when dates are null', () => {
-				const action = {
+			let action;
+
+			beforeEach( () => {
+				action = {
 					meta: {
 						setAttributes: jest.fn(),
 					},
 				};
+			} );
+			test( 'On change handler when dates are null', () => {
 				const gen = sagas.onHumanReadableChange( action );
 				const label = { start: null, end: null };
 
@@ -205,11 +209,6 @@ describe( 'Event Date time Block sagas', () => {
 			} );
 
 			test( 'On change handler when dates are set', () => {
-				const action = {
-					meta: {
-						setAttributes: jest.fn(),
-					},
-				};
 				const gen = sagas.onHumanReadableChange( action );
 
 				const label = { start: '12-25-1995', end: '12-25-1995' };
