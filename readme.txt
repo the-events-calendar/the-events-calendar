@@ -228,7 +228,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Correct a few incorrect and/or typoed text domains [TEC-3390]
 * Fix - Do not set the Venue country when creating Venues from the Event Block Editor [TEC-3361]
 * Fix - Ensure we pass search keywords when changing views and in the top-bar nav [TEC-3282]
-
+* Fix - Several strings have been adjusted for consistency and better translatability [BTRIA-307]
 
 = [5.0.3.1] 2020-03-23 =
 
