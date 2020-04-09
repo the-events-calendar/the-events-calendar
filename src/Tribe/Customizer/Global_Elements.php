@@ -421,7 +421,7 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 	public function setup() {
 		$views_v2_is_enabled = tribe_events_views_v2_is_enabled();
 		$title               = $views_v2_is_enabled ? esc_html__( 'General', 'the-events-calendar' ) : esc_html__( 'Global Elements', 'the-events-calendar' );
-		$description         = $views_v2_is_enabled ? '' : esc_html__( 'Options selected here will override what was selected in the "General Theme" section', 'the-events-calendar' );
+		$description         = $views_v2_is_enabled ? '' : esc_html__( 'Options selected here will override what was selected in the "General Theme" section.', 'the-events-calendar' );
 
 		$this->defaults = [
 			'link_color'           => '#141827',
