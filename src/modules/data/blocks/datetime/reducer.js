@@ -18,19 +18,20 @@ import * as types from './types';
 const { parseFormats, toTime } = momentUtil;
 
 export const setInitialState = ( data ) => {
-	const start = data.meta._EventStartDate;
-	const end = data.meta._EventEndDate;
+	const { meta } = data;
+	const start = meta._EventStartDate;
+	const end = meta._EventEndDate;
 
 	DEFAULT_STATE.start = start;
 	DEFAULT_STATE.startTimeInput = toTime( parseFormats( start ) );
 	DEFAULT_STATE.end = end;
 	DEFAULT_STATE.endTimeInput = toTime( parseFormats( end ) );
 	DEFAULT_STATE.naturalLanguage = date.rangeToNaturalLanguage( start, end );
-	DEFAULT_STATE.dateTimeSeparator = data.meta._EventDateTimeSeparator;
-	DEFAULT_STATE.timeRangeSeparator = data.meta._EventTimeRangeSeparator;
-	DEFAULT_STATE.allDay = data.meta._EventAllDay;
+	DEFAULT_STATE.dateTimeSeparator = meta._EventDateTimeSeparator;
+	DEFAULT_STATE.timeRangeSeparator = meta._EventTimeRangeSeparator;
+	DEFAULT_STATE.allDay = meta._EventAllDay;
 	DEFAULT_STATE.multiDay = ! momentUtil.isSameDay( momentUtil.toMoment( start ), momentUtil.toMoment( end ) );
-	DEFAULT_STATE.timeZone = data.meta._EventTimezone;
+	DEFAULT_STATE.timeZone = meta._EventTimezone;
 };
 
 const defaultStartTime = globals.defaultTimes().start ? globals.defaultTimes().start : '08:00:00';
