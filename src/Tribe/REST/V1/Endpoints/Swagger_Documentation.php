@@ -123,7 +123,7 @@ class Tribe__Events__REST__V1__Endpoints__Swagger_Documentation
 			'get' => array(
 				'responses' => array(
 					'200' => array(
-						'description' => __( 'Returns the documentation for The Events Calendar REST API in Swagger consumable format.', 'the-event-calendar' )
+						'description' => __( 'Returns the documentation for The Events Calendar REST API in Swagger consumable format.', 'the-events-calendar' ),
 					),
 				),
 			),
