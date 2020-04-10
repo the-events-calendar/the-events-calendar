@@ -736,7 +736,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			 * @param int $post_id The venue ID.
 			 */
 			$website_link_target = apply_filters( 'tribe_get_venue_website_link_target', '_self', $post_id );
-			$rel                 = ( '_blank' === $website_link_target  ) ? 'noopener noreferrer' : 'external';
+			$rel                 = ( '_blank' === $website_link_target ) ? 'noopener noreferrer' : 'external';
 
 			/**
 			 * Allows customization of a venue's website link label.

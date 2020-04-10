@@ -359,7 +359,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	function tribe_get_event_website_link( $event = null, $label = null ) {
 		$url    = tribe_get_event_website_url( $event );
 		$target = apply_filters( 'tribe_get_event_website_link_target', '_self' );
-		$rel    = ( '_blank' === $target  ) ? 'noopener noreferrer' : 'external';
+		$rel    = ( '_blank' === $target ) ? 'noopener noreferrer' : 'external';
 
 		if ( ! empty( $url ) ) {
 			$label = is_null( $label ) ? $url : $label;

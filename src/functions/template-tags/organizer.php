@@ -275,10 +275,13 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				if ( empty( $url ) || empty( $name ) ) {
 					$link = false;
 				} else {
-					$link  = sprintf(
+					$link = sprintf(
 						'<a href="%s" title="%s" target="%s" rel="%s">%s</a>',
 						esc_url( $url ),
-						the_title_attribute( array( 'post' => $org_id, 'echo' => false ) ),
+						the_title_attribute( [
+							'post' => $org_id,
+							'echo' => false
+						] ),
 						esc_attr( $target ),
 						esc_attr( $rel ),
 						esc_html( $name )
@@ -347,9 +350,9 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	function tribe_get_organizer_website_link( $post_id = null, $label = null ) {
 		$post_id = tribe_get_organizer_id( $post_id );
 		$url     = tribe_get_event_meta( $post_id, '_OrganizerWebsite', true );
-		$target = apply_filters( 'tribe_get_event_organizer_link_target', '_self' );
-		$rel    = ( '_blank' === $target  ) ? 'noopener noreferrer' : 'external';
-		$label = apply_filters( 'tribe_get_organizer_website_link_label', $label );
+		$target  = apply_filters( 'tribe_get_event_organizer_link_target', '_self' );
+		$rel     = ( '_blank' === $target ) ? 'noopener noreferrer' : 'external';
+		$label   = apply_filters( 'tribe_get_organizer_website_link_label', $label );
 
 		if ( ! empty( $url ) ) {
 			$label = is_null( $label ) ? $url : $label;
