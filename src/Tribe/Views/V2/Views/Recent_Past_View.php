@@ -141,6 +141,8 @@ class Recent_Past_View extends View {
 
 		$date                   = $context->get( 'event_date', 'now' );
 		//$args['posts_per_page'] = $context->get( 'events_per_page', 3 );
+
+		//todo mockup is to display 3 items, the context above uses a db setting. I think calling it recent_past_per_page with a default of 3 will fix this.
 		$args['posts_per_page'] = 3;
 		$args['order_by']       = 'event_date';
 		$args['order']          = 'DESC';
@@ -159,6 +161,10 @@ class Recent_Past_View extends View {
 		add_filter( 'tribe_template_html:events/v2/components/messages', [ $this, 'filter_template_done' ] );
 		//add_filter( 'tribe_template_html:events/v2/day', [ $this, 'add_view' ] );
 
+
+		//todo loading on the ical link goes below the existing view, although the existing view is not whitelisted so no longer shows.
+		//todo this also places it in the existing view wrap and prevents display issues with the footer padding.
+		//todo this works in all views
 		add_filter( 'tribe_template_html:events/v2/components/ical-link', [ $this, 'add_view' ] );
 		//add_filter( 'tribe_template_html:events/v2/month', [ $this, 'add_view' ] );
 

@@ -2195,6 +2195,7 @@ class View implements View_Interface {
 	protected function setup_additional_views( array $events = [], array $template_vars = [] ) {
 
 		// Only return if on the current or upcoming view and not in the past.
+		// todo this still displays on day view in the past if it is
 		if ( $template_vars[ 'is_past' ] ) {
 			return;
 		}
