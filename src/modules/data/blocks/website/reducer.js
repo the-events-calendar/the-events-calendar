@@ -3,11 +3,19 @@
  */
 import * as types from './types';
 
+export const defaultStateToMetaMap = {
+	url: '_EventURL',
+};
+
 export const setInitialState = ( data ) => {
 	const { meta } = data;
-	if ( meta.hasOwnProperty( '_EventURL' ) ) {
-		DEFAULT_STATE.url = meta._EventURL;
-	}
+
+	Object.keys( defaultStateToMetaMap ).forEach( ( key ) => {
+		const metaKey = defaultStateToMetaMap[ key ];
+		if ( meta.hasOwnProperty( metaKey ) ) {
+			DEFAULT_STATE[ key ] = meta[ metaKey ];
+		}
+	} );
 };
 
 export const DEFAULT_STATE = {

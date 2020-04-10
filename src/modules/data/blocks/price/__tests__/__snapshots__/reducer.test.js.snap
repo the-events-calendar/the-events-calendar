@@ -1,5 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`[STORE] - Price reducer Should return the default state to meta map 1`] = `
+Object {
+  "cost": "_EventCost",
+  "position": "_EventCurrencyPosition",
+  "symbol": "_EventCurrencySymbol",
+}
+`;
+
 exports[`[STORE] - Price reducer Should set the cost 1`] = `
 Object {
   "cost": 10,

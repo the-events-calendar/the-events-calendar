@@ -8,6 +8,14 @@ Object {
 }
 `;
 
+exports[`[STORE] - Venue reducer Should return the default state to meta map 1`] = `
+Object {
+  "showMap": "_EventShowMap",
+  "showMapLink": "_EventShowMapLink",
+  "venue": "_EventVenueID",
+}
+`;
+
 exports[`[STORE] - Venue reducer Should return the initial state 1`] = `
 Object {
   "showMap": true,

@@ -2,7 +2,11 @@
  * Internal dependencies
  */
 import { actions } from '@moderntribe/events/data/blocks/price';
-import reducer, { DEFAULT_STATE, setInitialState } from '@moderntribe/events/data/blocks/price/reducer';
+import reducer, {
+	DEFAULT_STATE,
+	defaultStateToMetaMap,
+	setInitialState,
+} from '@moderntribe/events/data/blocks/price/reducer';
 
 const data = {
 	meta: {
@@ -27,6 +31,10 @@ describe( '[STORE] - Price reducer', () => {
 
 	it( 'Should set the cost symbol', () => {
 		expect( reducer( DEFAULT_STATE, actions.setSymbol( '€' ) ) ).toMatchSnapshot();
+	} );
+
+	it( 'Should return the default state to meta map', () => {
+		expect( defaultStateToMetaMap ).toMatchSnapshot();
 	} );
 
 	it( 'Should set the initial state', () => {
