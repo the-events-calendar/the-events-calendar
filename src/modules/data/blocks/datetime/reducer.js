@@ -17,20 +17,31 @@ import * as types from './types';
 
 const { parseFormats, toTime } = momentUtil;
 
-export const setInitialState = ( entityRecord ) => {
-	const start = entityRecord.meta._EventStartDate;
-	const end = entityRecord.meta._EventEndDate;
+export const defaultStateToMetaMap = {
+	start: '_EventStartDate',
+	end: '_EventEndDate',
+	dateTimeSeparator: '_EventDateTimeSeparator',
+	timeRangeSeparator: '_EventTimeRangeSeparator',
+	allDay: '_EventAllDay',
+	timeZone: '_EventTimezone',
+};
 
-	DEFAULT_STATE.start = start;
+export const setInitialState = ( data ) => {
+	const { meta } = data;
+
+	Object.keys( defaultStateToMetaMap ).forEach( ( key ) => {
+		const metaKey = defaultStateToMetaMap[ key ];
+		if ( meta.hasOwnProperty( metaKey ) ) {
+			DEFAULT_STATE[ key ] = meta[ metaKey ];
+		}
+	} );
+
+	const { start, end } = DEFAULT_STATE;
+
 	DEFAULT_STATE.startTimeInput = toTime( parseFormats( start ) );
-	DEFAULT_STATE.end = end;
 	DEFAULT_STATE.endTimeInput = toTime( parseFormats( end ) );
 	DEFAULT_STATE.naturalLanguage = date.rangeToNaturalLanguage( start, end );
-	DEFAULT_STATE.dateTimeSeparator = entityRecord.meta._EventDateTimeSeparator;
-	DEFAULT_STATE.timeRangeSeparator = entityRecord.meta._EventTimeRangeSeparator;
-	DEFAULT_STATE.allDay = entityRecord.meta._EventAllDay;
 	DEFAULT_STATE.multiDay = ! momentUtil.isSameDay( momentUtil.toMoment( start ), momentUtil.toMoment( end ) );
-	DEFAULT_STATE.timeZone = entityRecord.meta._EventTimezone;
 };
 
 const defaultStartTime = globals.defaultTimes().start ? globals.defaultTimes().start : '08:00:00';
@@ -41,12 +52,15 @@ const defaultEndTimeSeconds = time.toSeconds( defaultEndTime, time.TIME_FORMAT_H
 export const defaultStartMoment = moment().startOf( 'day' ).seconds( defaultStartTimeSeconds );
 export const defaultEndMoment = moment().startOf( 'day' ).seconds( defaultEndTimeSeconds );
 
+const defaultStartDateTime = momentUtil.toDateTime( defaultStartMoment );
+const defaultEndDateTime = momentUtil.toDateTime( defaultEndMoment );
+
 export const DEFAULT_STATE = {
-	start: momentUtil.toDateTime( defaultStartMoment ),
-	end: momentUtil.toDateTime( defaultEndMoment ),
+	start: defaultStartDateTime,
+	end: defaultEndDateTime,
 	startTimeInput: momentUtil.toTime( defaultStartMoment ),
 	endTimeInput: momentUtil.toTime( defaultEndMoment ),
-	naturalLanguage: '',
+	naturalLanguage: date.rangeToNaturalLanguage( defaultStartDateTime, defaultEndDateTime ),
 	dateTimeSeparator: globals.settings().dateTimeSeparator
 		? globals.settings().dateTimeSeparator
 		: __( '@', 'the-events-calendar' ),

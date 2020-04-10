@@ -1,27 +1,33 @@
 /**
  * Internal dependencies
  */
-import classic from '@moderntribe/events/data/blocks/organizers/reducers/classic';
+import classic, { setInitialState } from '@moderntribe/events/data/blocks/organizers/reducers/classic';
 import { actions } from '@moderntribe/events/data/blocks/organizers';
+
+const data = {
+	meta: {
+		_EventOrganizerID: [ 99, 100 ],
+	},
+};
 
 describe( '[STORE] - Classic reducer', () => {
 	it( 'Should return the default state', () => {
-		expect( classic( undefined, {} ) ).toEqual( [] );
+		expect( classic( undefined, {} ) ).toMatchSnapshot();
 	} );
 
 	it( 'Should add an organizer in classic', () => {
-		expect( classic( [], actions.addOrganizerInClassic( 20 ) ) ).toEqual( [ 20 ] );
-		expect( classic( [ 20 ], actions.addOrganizerInClassic( 10 ) ) ).toEqual( [ 20, 10 ] );
+		expect( classic( [], actions.addOrganizerInClassic( 20 ) ) ).toMatchSnapshot();
+		expect( classic( [ 20 ], actions.addOrganizerInClassic( 10 ) ) ).toMatchSnapshot();
 	} );
 
 	it( 'Should remove an organizer from block', () => {
-		expect( classic( [ 20 ], actions.removeOrganizerInClassic( 20 ) ) ).toEqual( [] );
-		expect( classic( [ 20, 10 ], actions.removeOrganizerInClassic( 10 ) ) ).toEqual( [ 20 ] );
-		expect( classic( [], actions.removeOrganizerInClassic( 99 ) ) ).toEqual( [] );
+		expect( classic( [ 20 ], actions.removeOrganizerInClassic( 20 ) ) ).toMatchSnapshot();
+		expect( classic( [ 20, 10 ], actions.removeOrganizerInClassic( 10 ) ) ).toMatchSnapshot();
+		expect( classic( [], actions.removeOrganizerInClassic( 99 ) ) ).toMatchSnapshot();
 	} );
 
-	it( 'Should set the classic organizers', () => {
-		expect( classic( [], actions.setOrganizersInClassic( [ 1, 2, 3 ] ) ) ).toEqual( [ 1, 2, 3 ] );
-		expect( classic( [ 1 ], actions.setOrganizersInClassic( [ 2, 3 ] ) ) ).toEqual( [ 2, 3 ] );
+	it( 'Should set the initial state', () => {
+		setInitialState( data );
+		expect( classic( undefined, {} ) ).toMatchSnapshot();
 	} );
 } );

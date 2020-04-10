@@ -54,13 +54,13 @@ const renderSeparator = ( props, type, className ) => {
 		case 'date-time':
 			return (
 				<span className={ classNames( 'tribe-editor__separator', className ) }>
-					{ ' '.concat( separatorDate, ' ' ) }
+					{ ` ${ separatorDate } ` }
 				</span>
 			);
 		case 'time-range':
 			return (
 				<span className={ classNames( 'tribe-editor__separator', className ) }>
-					{ ' '.concat( separatorTime, ' ' ) }
+					{ ` ${ separatorTime } ` }
 				</span>
 			);
 		case 'all-day':
