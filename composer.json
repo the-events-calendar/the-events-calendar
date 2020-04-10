@@ -13,7 +13,7 @@
     "wp-coding-standards/wpcs": "^2.1",
     "automattic/vipwpcs": "^2.0",
     "moderntribe/TribalScents": "dev-master",
-    "lucatume/wp-browser": "2.3.4",
+    "lucatume/wp-browser": "^2.2.37",
     "xamin/handlebars.php": "^0.10.3",
     "mikey179/vfsstream": "^1.6",
     "spatie/phpunit-snapshot-assertions": "^1.2",
