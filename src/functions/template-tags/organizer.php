@@ -278,10 +278,12 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 					$link = sprintf(
 						'<a href="%s" title="%s" target="%s" rel="%s">%s</a>',
 						esc_url( $url ),
-						the_title_attribute( [
-							'post' => $org_id,
-							'echo' => false
-						] ),
+						the_title_attribute(
+							[
+								'post' => $org_id,
+								'echo' => false,
+							]
+						),
 						esc_attr( $target ),
 						esc_attr( $rel ),
 						esc_html( $name )
