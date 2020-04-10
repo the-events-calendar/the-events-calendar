@@ -22,7 +22,15 @@
     "phpunit/phpunit": "~6.0",
     "scotteh/php-dom-wrapper": "0.7.3",
     "facebook/webdriver": "1.6.0",
-    "moderntribe/tribe-testing-facilities": "dev-master"
+    "moderntribe/tribe-testing-facilities": "dev-master",
+    "codeception/module-asserts": "^1.0",
+    "codeception/module-phpbrowser": "^1.0",
+    "codeception/module-webdriver": "^1.0",
+    "codeception/module-db": "^1.0",
+    "codeception/module-filesystem": "^1.0",
+    "codeception/module-cli": "^1.0",
+    "codeception/util-universalframework": "^1.0",
+    "codeception/module-rest": "^1.0"
   },
   "minimum-stability": "stable",
   "prefer-stable": true,
