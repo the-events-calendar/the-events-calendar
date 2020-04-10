@@ -1533,6 +1533,8 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * This will remove all text that resembles a shortcode [shortcode 5].
 		 *
+		 * @since TBD
+		 *
 		 * @param bool $remove_shortcodes Whether shortcodes content should be removed from the excerpt or not.
 		 * @param WP_Post $post The current post object.
 		 */
