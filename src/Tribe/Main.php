@@ -714,7 +714,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 * because of the way $wp_locale works
 			 */
 			add_action( 'init', array( $this, 'setup_l10n_strings' ), 5 );
-			add_action( 'tribe_load_text_domain', [ $this, 'load_text_domain' ], 5 );
+			add_action( 'tribe_load_text_domains', [ $this, 'load_text_domain' ], 5 );
 
 			// Since TEC is active, change the base page for the Event Settings page
 			Tribe__Settings::$parent_page = 'edit.php';
