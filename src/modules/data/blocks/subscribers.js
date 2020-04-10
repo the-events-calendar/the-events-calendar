@@ -83,6 +83,7 @@ const subscribe = () => {
 			website: [ websiteMap, websiteSelectors.getWebsiteBlock ],
 		};
 		const blockKeys = Object.keys( blockToMapAndSelectorMap );
+		const postId = wpSelect( 'core/editor' ).getCurrentPostId();
 
 		const meta = blockKeys.reduce( ( prevValue, blockKey ) => ( {
 			...prevValue,
