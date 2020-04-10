@@ -18,10 +18,32 @@ import { selectors as detailSelectors } from '@moderntribe/events/data/details';
 
 const { getState, dispatch } = store;
 
+/**
+ * Returns criteria for comparing blocks.
+ *
+ * @exports
+ * @param {Object} block Object with block attributes and data.
+ *
+ * @returns {string} Client ID of the block.
+ */
 export const compareBlocks = block => block.clientId;
 
+/**
+ * Checks whether the block is the organizer block.
+ *
+ * @exports
+ * @param {Object} block Object with block attributes and data.
+ *
+ * @returns {boolean} Whether the block is the organizer block or not.
+ */
 export const isOrganizerBlock = ( block ) => block.name === 'tribe/event-organizer';
 
+/**
+ * Handles the block that was added.
+ *
+ * @exports
+ * @param {Object} block Object with block attributes and data.
+ */
 export const handleBlockAdded = ( block ) => {
 	// only handle event organizer block addition
 	if ( ! isOrganizerBlock( block ) ) {
@@ -36,6 +58,14 @@ export const handleBlockAdded = ( block ) => {
 	dispatch( organizerActions.addOrganizerInBlock( block.clientId, block.attributes.organizer ) );
 };
 
+/**
+ * Handles the block that was removed.
+ *
+ * @exports
+ * @param {array} currBlocks Array of current blocks in the editor.
+ *
+ * @returns {Function} Function that handles the block that was removed.
+ */
 export const handleBlockRemoved = ( currBlocks ) => ( block ) => {
 	// only handle event organizer block removal
 	if ( ! isOrganizerBlock( block ) ) {
@@ -70,6 +100,13 @@ export const handleBlockRemoved = ( currBlocks ) => ( block ) => {
 	}
 };
 
+/**
+ * Handles changes in the blocks in the editor.
+ *
+ * @exports
+ * @param {Array} currBlocks Array of current blocks in the editor.
+ * @param {Array} prevBlocks Array of previous blocks in the editor.
+ */
 export const onBlocksChangeHandler = ( currBlocks, prevBlocks ) => {
 	const blocksAdded = differenceBy( currBlocks, prevBlocks, compareBlocks );
 	const blocksRemoved = differenceBy( prevBlocks, currBlocks, compareBlocks );
@@ -83,6 +120,14 @@ export const onBlocksChangeHandler = ( currBlocks, prevBlocks ) => {
 	}
 };
 
+/**
+ * Listener for blocks change in the editor.
+ *
+ * @exports
+ * @param {Function} selector Selector function to get current blocks.
+ *
+ * @returns {Function} Listener that subscribes to WP store.
+ */
 export const onBlocksChangeListener = ( selector ) => {
 	let holdBlocks = selector();
 	return () => {
