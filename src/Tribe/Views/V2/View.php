@@ -2194,6 +2194,11 @@ class View implements View_Interface {
 	 */
 	protected function setup_additional_views( array $events = [], array $template_vars = [] ) {
 
+		// Only return if on the current or upcoming view and not in the past.
+		if ( $template_vars[ 'is_past' ] ) {
+			return;
+		}
+
 		$manager = tribe( Manager::class );
 		$default_slug = $manager->get_default_view_option();
 

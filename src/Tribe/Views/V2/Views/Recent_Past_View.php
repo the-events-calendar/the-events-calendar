@@ -59,32 +59,62 @@ class Recent_Past_View extends View {
 		'components/events-bar/search',
 		'components/events-bar/filters',
 		'components/events-bar/views',
+		'components/ical-link',
 
 		// Day View
 		'day',
+		'day/top-bar',
+		'day/top-bar/nav',
+		'day/top-bar/nav/prev',
+		'day/top-bar/nav/next-disabled',
+		'day/top-bar/datepicker',
 
 		// List View.
 		'components/events-bar/views/list',
 		'components/events-bar/views/list/item',
 		'list/top-bar',
 		'list/top-bar/nav',
+		'list/top-bar/nav/prev',
+		'list/top-bar/nav/next-disabled',
 		'list/top-bar/datepicker',
 		'list',
 
 		// Month View
 		'month',
+		'month/top-bar',
+		'month/top-bar/nav',
+		'month/top-bar/nav/prev',
+		'month/top-bar/nav/next-disabled',
+		'month/top-bar/datepicker',
+
 
 		// Map View
 		'map',
+		'map/top-bar',
+		'map/top-bar/nav',
+		'map/top-bar/nav/prev',
+		'map/top-bar/nav/next-disabled',
+		'map/top-bar/datepicker',
 
 		// Photo View
 		'photo',
+		'photo/top-bar',
+		'photo/top-bar/nav',
+		'photo/top-bar/nav/prev',
+		'photo/top-bar/nav/next-disabled',
+		'photo/top-bar/datepicker',
 
 		// Week View
 		'week',
+		'week/top-bar',
+		'week/top-bar/nav',
+		'week/top-bar/nav/prev',
+		'week/top-bar/nav/next-disabled',
+		'week/top-bar/datepicker',
 
 		// Recent Past Events Views.
 		'recent-past',
+		'recent-past/heading',
 		'recent-past/event',
 		'recent-past/event/date',
 		'recent-past/event/title',
@@ -110,7 +140,8 @@ class Recent_Past_View extends View {
 		$this->repository = tribe_events();
 
 		$date                   = $context->get( 'event_date', 'now' );
-		$args['posts_per_page'] = $context->get( 'events_per_page', 3 );
+		//$args['posts_per_page'] = $context->get( 'events_per_page', 3 );
+		$args['posts_per_page'] = 3;
 		$args['order_by']       = 'event_date';
 		$args['order']          = 'DESC';
 		$args['ends_before']    = $date;
@@ -125,15 +156,16 @@ class Recent_Past_View extends View {
 	 */
 	public function add_view_filters() {
 
-		add_filter( 'tribe_template_html:components/messages', [ $this, 'filter_template_done' ] );
-		add_filter( 'tribe_template_html:events/v2/day', [ $this, 'add_view' ] );
-		add_filter( 'tribe_template_html:events/v2/list', [ $this, 'add_view' ] );
-		add_filter( 'tribe_template_html:events/v2/month', [ $this, 'add_view' ] );
+		add_filter( 'tribe_template_html:events/v2/components/messages', [ $this, 'filter_template_done' ] );
+		//add_filter( 'tribe_template_html:events/v2/day', [ $this, 'add_view' ] );
+
+		add_filter( 'tribe_template_html:events/v2/components/ical-link', [ $this, 'add_view' ] );
+		//add_filter( 'tribe_template_html:events/v2/month', [ $this, 'add_view' ] );
 
 		// PRO Views
-		add_filter( 'tribe_template_html:events-pro/v2/map', [ $this, 'add_view' ] );
-		add_filter( 'tribe_template_html:events-pro/v2/photo', [ $this, 'add_view' ] );
-		add_filter( 'tribe_template_html:events-pro/v2/week', [ $this, 'add_view' ] );
+		//add_filter( 'tribe_template_html:events-pro/v2/map', [ $this, 'add_view' ] );
+		//add_filter( 'tribe_template_html:events-pro/v2/photo', [ $this, 'add_view' ] );
+		//add_filter( 'tribe_template_html:events-pro/v2/week', [ $this, 'add_view' ] );
 	}
 
 	/**
@@ -141,9 +173,11 @@ class Recent_Past_View extends View {
 	 *
 	 * @since TBD
 	 */
-	public function filter_template_done() {
+	public function filter_template_done( $html ) {
 
 		add_filter( 'tribe_template_done', [ $this, 'filter_template_display_by_whitelist' ], 10, 4 );
+
+		return $html;
 	}
 
 	/**
@@ -178,6 +212,6 @@ class Recent_Past_View extends View {
 	 */
 	public function add_view( $html ) {
 
-		return $html . $this->get_html();
+		return $this->get_html();
 	}
 }
