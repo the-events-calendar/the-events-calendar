@@ -228,6 +228,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Correct a few incorrect and/or typoed text domains [TEC-3390]
 * Fix - Do not set the Venue country when creating Venues from the Event Block Editor [TEC-3361]
 * Fix - Several strings have been adjusted for consistency and better translatability [BTRIA-307]
+* Tweak - Add some filters for better control of link targets, standardize the way we create those links [TEC-3402]
 
 = [5.0.3.1] 2020-03-23 =
 
