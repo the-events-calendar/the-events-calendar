@@ -40,7 +40,7 @@ class Tribe__Events__Editor__Configuration implements Tribe__Editor__Configurati
 			]
 		);
 
-		$blocks = empty( $editor_config['blocks'] ) ? [] : $editor_config['blocks'];
+		$blocks                  = empty( $editor_config['blocks'] ) ? [] : $editor_config['blocks'];
 		$editor_config['blocks'] = array_merge(
 			(array) $blocks,
 			[

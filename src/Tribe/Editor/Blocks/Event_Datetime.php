@@ -100,7 +100,7 @@ extends Tribe__Editor__Blocks__Abstract {
 					'type'    => 'string',
 					'default' => class_exists( 'Tribe__Timezones' ) ? Tribe__Timezones::wp_timezone_string() : get_option( 'timezone_string', 'UTC' ),
 				],
-				// Only available for classic users
+				// Only available for classic users.
 				'cost'          => [
 					'type'   => 'string',
 					'source' => 'meta',
