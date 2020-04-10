@@ -94,10 +94,48 @@ class Day_View extends View {
 		return $url;
 	}
 
+	public function fast_forward( $canonical = false, array $passthru_vars = [] ) {
+
+		$cache_key = __METHOD__ . '_' . md5( wp_json_encode( func_get_args() ) );
+
+		//if ( isset( $this->cached_urls[ $cache_key ] ) ) {
+		//	return $this->cached_urls[ $cache_key ];
+		//}
+		$next_event = tribe_events()->where( 'ends_after', 'now' )->per_page(1)->get_ids();
+		$next_event = reset( $next_event );
+		$next_event = tribe_get_event( $next_event );
+
+		$date = $next_event->start_date;
+		//$date = $this->context->get( 'event_date', $this->context->get( 'today', 'today' ) );
+
+		//$one_day     = new \DateInterval( 'P1D' );
+		$url_date    = Dates::build_date_object( $date );
+		//$latest      = tribe_get_option( 'latest_date', $url_date );
+		//$latest_date = Dates::build_date_object( $latest )->setTime( 0, 0, 0 );
+
+		//if ( $url_date > $latest_date ) {
+			$url = '';
+		//} else {
+			$url = $this->build_url_for_date( $url_date, $canonical, $passthru_vars );
+	//	}
+
+	//	$url = $this->filter_next_url( $canonical, $url );
+
+		//$this->cached_urls[ $cache_key ] = $url;
+
+		return '<a href="'.$url.'">Fast Forward</a>';
+		}
+
+	public function filter_fast_forward( $html ) {
+		return $html . $this->fast_forward();
+	}
 	/**
 	 * {@inheritDoc}
 	 */
 	protected function setup_repository_args( \Tribe__Context $context = null ) {
+
+		add_filter( 'tribe_template_html:events/v2/components/messages', [ $this, 'filter_fast_forward' ] );
+
 		$context = null !== $context ? $context : $this->context;
 
 		$args = parent::setup_repository_args( $context );
