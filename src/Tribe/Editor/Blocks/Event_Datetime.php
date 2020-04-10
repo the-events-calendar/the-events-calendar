@@ -56,7 +56,7 @@ extends Tribe__Editor__Blocks__Abstract {
 	 *
 	 * @since TBD
 	 *
-	 * @return array
+	 * @return array<string,mixed> The block data for the editor.
 	 */
 	public function block_data() {
 		$block_data = [
