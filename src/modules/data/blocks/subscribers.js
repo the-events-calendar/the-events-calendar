@@ -90,7 +90,6 @@ const subscribe = () => {
 			...setBlockMeta( blockToMapAndSelectorMap, blockKey ),
 		} ), {} );
 
-		console.log( 'editing entity record:', meta );
 		wpDispatch( 'core' ).editEntityRecord( 'postType', editor.EVENT, postId, { meta } );
 	} );
 };
