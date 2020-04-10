@@ -115,7 +115,7 @@ extends Tribe__Editor__Blocks__Abstract {
 		 * @param array  $block_data The block data
 		 * @param object $this       The current object
 		 */
-		$block_data = apply_filters( 'tribe_block_block_data' . $this->slug(), $block_data, $this );
+		$block_data = apply_filters( 'tribe_block_block_data', $block_data, $this );
 
 		/**
 		 * Filters the block data for the block
