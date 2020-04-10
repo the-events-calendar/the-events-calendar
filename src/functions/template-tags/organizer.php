@@ -267,7 +267,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		if ( class_exists( 'Tribe__Events__Pro__Main' ) && get_post_status( $org_id ) == 'publish' ) {
 			$url    = esc_url_raw( get_permalink( $org_id ) );
 			$target = apply_filters( 'tribe_get_event_organizer_link_target', '_self' );
-			$rel    = ( '_blank' === $target  ) ? 'noopener noreferrer' : '';
+			$rel    = ( '_blank' === $target ) ? 'noopener noreferrer' : '';
 
 			if ( $full_link ) {
 				$name = tribe_get_organizer( $org_id );
