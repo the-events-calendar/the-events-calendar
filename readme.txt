@@ -222,7 +222,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [5.0.4] TBD =
 
-
+* Tweak - Load plugin text domain on the new `tribe_load_text_domain` action hook, which fires on 'init' instead of on the 'plugins_loaded' hook. [TCMN-58]
 
 = [5.0.3.1] 2020-03-23 =
 
