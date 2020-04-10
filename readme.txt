@@ -222,7 +222,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [5.0.4] TBD =
 
-* Tweak - Load plugin text domain on the new `tribe_load_text_domain` action hook, which fires on 'init' instead of on the 'plugins_loaded' hook. [TCMN-58]
+* Tweak - Load plugin text domain on the new `tribe_load_text_domains` action hook, which fires on `init` instead of on the `plugins_loaded` hook. [TCMN-58]
 * Fix - Selecting other Page templates from Settings > Display now loads the correct template properly, to display events.
 * Fix - Preventing redirects from updated Views V2 to be too broad and end up catching requests from other Plugins, reported by GravityView team on Gravity Forms bug with imports.
 * Fix - Prevent PHP errors from happening during bulk activation or deactivation of the plugin [TCMN-53]
