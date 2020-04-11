@@ -251,7 +251,7 @@ class Day_View extends View {
 			__( 'Jump to the %1$snext upcoming event(s)%2$s.', 'the-events-calendar' ),
 			'<a href="' . esc_url( $url ) . '">',
 			'</a>'
-	   );
+		);
 
 		return $link;
 	}
