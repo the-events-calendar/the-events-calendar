@@ -94,6 +94,7 @@ class Messages {
 				'There were no results found.',
 				'the-events-calendar'
 			),
+			// translators: the placeholder an html link to the next month with available events.
 			'month_no_results_found'           => __(
 				'There were no results found for this view. %1$s',
 				'the-events-calendar'
@@ -108,7 +109,7 @@ class Messages {
 				'There were no results found for <strong>"%1$s"</strong> this month. Try searching next month.',
 				'the-events-calendar'
 			),
-			// translators: %1$s: events (plural), %2$s: the formatted date string, e.g. "February 22, 2020".
+			// translators: %1$s: events (plural), %2$s: the formatted date string, e.g. "February 22, 2020". %3$s html link to next day with available events.
 			'day_no_results_found'             => __(
 				'No %1$s scheduled for %2$s. %3$s',
 				'the-events-calendar'

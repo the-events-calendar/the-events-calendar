@@ -434,7 +434,7 @@ class Month_View extends By_Day_View {
 	public function fast_forward( $canonical = false, array $passthru_vars = [] ) {
 		if ( ! empty( $this->context->get( 'tribe-bar-date' ) ) ) {
 			$date = $this->context->get( 'tribe-bar-date' );
-		} else if ( ! empty( $this->context->get( 'event_date' ) ) ) {
+		} elseif ( ! empty( $this->context->get( 'event_date' ) ) ) {
 			$date = $this->context->get( 'event_date' );
 		} else {
 			$date = strtok( $this->context->get( 'today' ), ' ' );
@@ -457,8 +457,8 @@ class Month_View extends By_Day_View {
 		$link = sprintf(
 			/* translators: 1: Name of a city 2: ZIP code */
 			__( 'Jump to the %1$snext upcoming event(s)%2$s.', 'the-events-calendar' ),
-		   '<a href="' . esc_url( $url )  . '">',
-		   '</a>'
+			'<a href="' . esc_url( $url ) . '">',
+			'</a>'
 	   );
 
 		return $link;
