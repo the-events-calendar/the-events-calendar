@@ -95,48 +95,6 @@ class Day_View extends View {
 	}
 
 	/**
-	 * Creates a HTML link and "fast forward" message to append to the "no events found" message.
-	 *
-	 * @param bool  $canonical         Whether to return the canonical (pretty) version of the URL or not.
-	 * @param array $passthru_vars     An optional array of query variables that should pass thru the method untouched
-	 *                                 in key and value.
-	 * @return string                  The html link and message.
-	 */
-	public function fast_forward( $canonical = false, array $passthru_vars = [] ) {
-		$date = 'now';
-		if ( ! empty( $this->context->get( 'tribe-bar-date' ) ) ) {
-			$date = $this->context->get( 'tribe-bar-date' );
-		} else if ( ! empty( $this->context->get( 'event_date' ) ) ) {
-			$date = $this->context->get( 'event_date' );
-		} else {
-			$date = strtok( $this->context->get( 'today' ), ' ' );
-		}
-
-		$cache_key = __METHOD__ . '_' . md5( wp_json_encode( array_merge( [ $date ] ) ) );
-
-		if ( isset( $this->cached_urls[ $cache_key ] ) ) {
-			return $this->cached_urls[ $cache_key ];
-		}
-
-		$next_event = (array) tribe_events()->where( 'starts_after', $date )->per_page(1)->get_ids();
-		$next_event = tribe_get_event( array_shift( $next_event ) );
-		$url_date   = Dates::build_date_object( $next_event->start_date );
-		$url        = $this->build_url_for_date( $url_date, $canonical, $passthru_vars );
-
-		$this->cached_urls[ $cache_key ] = $url;
-
-
-		$link = sprintf(
-			/* translators: 1: Name of a city 2: ZIP code */
-			__( 'Or jump to the %1$snext upcoming event(s)%2$s.', 'the-events-calendar' ),
-		   '<a href="' . esc_url( $url )  . '">',
-		   '</a>'
-	   );
-
-		return $link;
-	}
-
-	/**
 	 * {@inheritDoc}
 	 */
 	protected function setup_repository_args( \Tribe__Context $context = null ) {
@@ -255,6 +213,47 @@ class Day_View extends View {
 
 		return array_values( $all_day + $ongoing + $hourly );
 
+	}
+
+	/**
+	 * Creates a HTML link and "fast forward" message to append to the "no events found" message.
+	 *
+	 * @param bool  $canonical         Whether to return the canonical (pretty) version of the URL or not.
+	 * @param array $passthru_vars     An optional array of query variables that should pass thru the method untouched
+	 *                                 in key and value.
+	 * @return string                  The html link and message.
+	 */
+	public function fast_forward( $canonical = false, array $passthru_vars = [] ) {
+		if ( ! empty( $this->context->get( 'tribe-bar-date' ) ) ) {
+			$date = $this->context->get( 'tribe-bar-date' );
+		} else if ( ! empty( $this->context->get( 'event_date' ) ) ) {
+			$date = $this->context->get( 'event_date' );
+		} else {
+			$date = strtok( $this->context->get( 'today' ), ' ' );
+		}
+
+		$cache_key = __METHOD__ . '_' . md5( wp_json_encode( array_merge( [ $date ] ) ) );
+
+		if ( isset( $this->cached_urls[ $cache_key ] ) ) {
+			return $this->cached_urls[ $cache_key ];
+		}
+
+		$next_event = (array) tribe_events()->where( 'starts_after', $date )->per_page(1)->get_ids();
+		$next_event = tribe_get_event( array_shift( $next_event ) );
+		$url_date   = Dates::build_date_object( $next_event->start_date );
+		$url        = $this->build_url_for_date( $url_date, $canonical, $passthru_vars );
+
+		$this->cached_urls[ $cache_key ] = $url;
+
+
+		$link = sprintf(
+			/* translators: 1: Name of a city 2: ZIP code */
+			__( 'Jump to the %1$snext upcoming event(s)%2$s.', 'the-events-calendar' ),
+		   '<a href="' . esc_url( $url )  . '">',
+		   '</a>'
+	   );
+
+		return $link;
 	}
 
 	/**

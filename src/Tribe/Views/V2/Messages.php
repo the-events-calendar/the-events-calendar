@@ -90,7 +90,10 @@ class Messages {
 	 */
 	public static function for_key( $key, ...$values ) {
 		$map = [
-			'no_results_found'                 => __( 'There were no results found.', 'the-events-calendar' ),
+			'no_results_found'                 => __(
+				'There were no results found for this view. %1$s',
+				'the-events-calendar'
+			),
 			// translators: the placeholder is the keyword(s), as the user entered it in the bar.
 			'no_results_found_w_keyword'       => __(
 				'There were no results found for <strong>"%1$s"</strong>.',
