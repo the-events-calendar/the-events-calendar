@@ -249,21 +249,23 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	/**
 	 * Organizer Page Link
 	 *
-	 * Returns the event Organizer Name with a link to their single organizer page
+	 * Returns the event Organizer Name with a link to their single organizer page.
 	 *
-	 * @param int  $postId    Can supply either event id or organizer id, if none specified, current post is used
-	 * @param bool $full_link If true outputs a complete HTML <a> link, otherwise only the URL is output
-	 * @param bool $echo      Deprecated. If true, echo the link, otherwise return
+	 * @param int  $post_id    Can supply either event id or organizer id, if none specified, current post is used.
+	 * @param bool $full_link If true outputs a complete HTML <a> link, otherwise only the URL is output.
+	 * @param bool $echo      Deprecated. If true, echo the link, otherwise return.
 	 *
 	 * @return string Organizer Name and Url
 	 */
-	function tribe_get_organizer_link( $postId = null, $full_link = true, $echo = false ) {
+	function tribe_get_organizer_link( $post_id = null, $full_link = true, $echo = false ) {
 
 		// As of TEC 4.0 this argument is deprecated
 		// If needed precede the call to this function with echo
-		if ( $echo != false ) _deprecated_argument( __FUNCTION__, '4.0', 'As of TEC 4.0 this argument is deprecated. If needed, precede the call to this function with echo' );
+		if ( false != $echo ) {
+			_deprecated_argument( __FUNCTION__, '4.0', 'As of TEC 4.0 this argument is deprecated. If needed, precede the call to this function with echo' );
+		}
 
-		$org_id = tribe_get_organizer_id( $postId );
+		$org_id = tribe_get_organizer_id( $post_id );
 		if ( class_exists( 'Tribe__Events__Pro__Main' ) && get_post_status( $org_id ) == 'publish' ) {
 			/**
 			 * Filter the organizer link target attribute.
@@ -307,7 +309,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			 *
 			 * @param string the link HTML.
 			 */
-			return apply_filters( 'tribe_get_organizer_link', $link, $postId, $full_link, $url );
+			return apply_filters( 'tribe_get_organizer_link', $link, $post_id, $full_link, $url );
 			}
 		}
 
@@ -380,7 +382,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @param string the link label/text.
 		 */
-		$label  = apply_filters( 'tribe_get_organizer_website_link_label', $label );
+		$label = apply_filters( 'tribe_get_organizer_website_link_label', $label );
 
 		if ( ! empty( $url ) ) {
 			$label = is_null( $label ) ? $url : $label;

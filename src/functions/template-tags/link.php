@@ -357,7 +357,8 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string $html
 	 */
 	function tribe_get_event_website_link( $event = null, $label = null ) {
-		$url    = tribe_get_event_website_url( $event );
+		$url = tribe_get_event_website_url( $event );
+
 		/**
 		 * Filter the target attribute for the event website link
 		 *
