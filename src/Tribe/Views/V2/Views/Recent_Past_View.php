@@ -88,7 +88,6 @@ class Recent_Past_View extends View {
 		'month/top-bar/nav/next-disabled',
 		'month/top-bar/datepicker',
 
-
 		// Map View
 		'map',
 		'map/top-bar',

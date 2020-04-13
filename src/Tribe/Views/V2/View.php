@@ -2199,7 +2199,7 @@ class View implements View_Interface {
 			return;
 		}
 
-		$manager = tribe( Manager::class );
+		$manager      = tribe( Manager::class );
 		$default_slug = $manager->get_default_view_option();
 
 		// Show Recent Past Events only on the default view.
@@ -2208,7 +2208,7 @@ class View implements View_Interface {
 		}
 
 		$latest = tribe_events_latest_date();
-		$now = $this->context->get( 'now' );
+		$now    = $this->context->get( 'now' );
 
 		// If now is less then the latest event published, do not show.
 		if ( $now < $latest ) {
