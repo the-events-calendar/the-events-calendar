@@ -2195,28 +2195,35 @@ class View implements View_Interface {
 	protected function setup_additional_views( array $events = [], array $template_vars = [] ) {
 
 		// Only return if on the current or upcoming view and not in the past.
-		// todo this still displays on day view in the past if it is
-		if ( $template_vars[ 'is_past' ] ) {
+		if ( 'past' === $this->context->get( 'event_display_mode' ) ) {
 			return;
 		}
 
 		$manager = tribe( Manager::class );
 		$default_slug = $manager->get_default_view_option();
 
-		// Only recent Past Events to only the default view.
+		// Show Recent Past Events only on the default view.
 		if ( $this->get_slug() !== $default_slug ) {
 			return;
 		}
 
+		$latest = tribe_events_latest_date();
+		$now = $this->context->get( 'now' );
+
+		// If now is less then the latest event published, do not show.
+		if ( $now < $latest ) {
+			return;
+		}
+
 		// Flatten Month and Week View Events to Get Accurate Count
-/*		$views_to_flatten = [
+		$views_to_flatten = [
 			'month',
 			'week',
 		];
 
 		if ( in_array( $this->get_slug(), $views_to_flatten ) ) {
 			$events = array_unique( array_merge( ...array_values( $events ) ) );
-		}*/
+		}
 
 		/**
 		 * Filters The Threshold to Show The Recent Past Events.
@@ -2231,11 +2238,8 @@ class View implements View_Interface {
 		 */
 		$recent_past_threshold = apply_filters( "tribe_events_views_v2_threshold_to_show_recent_past_events", 0, $events, $template_vars, $this );
 
-		//todo change to get a saved value instead of running the query
-		$upcoming_events_count = tribe_events()->where( 'ends_after', 'now' )->count();
-
 		// If threshold is less than upcoming events, do not show Recent Past Events.
-		if ( absint( $recent_past_threshold ) < $upcoming_events_count ) {
+		if ( absint( $recent_past_threshold ) < count( $events ) ) {
 			return;
 		}
 
