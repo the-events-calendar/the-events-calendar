@@ -151,8 +151,7 @@ class Day_View extends View {
 			}
 
 			// Make sure the view slug is always set to correctly match rewrites.
-			$input_url = add_query_arg( [ 'eventDisplay' => $this->slug ], $input_url );
-
+			$input_url     = add_query_arg( [ 'eventDisplay' => $this->slug ], $input_url );
 			$canonical_url = tribe( 'events.rewrite' )->get_clean_url( $input_url );
 
 			if ( ! empty( $passthru_vars ) ) {
@@ -223,31 +222,23 @@ class Day_View extends View {
 	 *                                 in key and value.
 	 * @return string                  The html link and message.
 	 */
-	public function fast_forward( $canonical = false, array $passthru_vars = [] ) {
-		if ( ! empty( $this->context->get( 'tribe-bar-date' ) ) ) {
-			$date = $this->context->get( 'tribe-bar-date' );
-		} elseif ( ! empty( $this->context->get( 'event_date' ) ) ) {
-			$date = $this->context->get( 'event_date' );
-		} else {
-			$date = strtok( $this->context->get( 'today' ), ' ' );
-		}
-
-		$cache_key = __METHOD__ . '_' . md5( wp_json_encode( array_merge( [ $date ] ) ) );
+	public function get_fast_forward_link( $canonical = false, array $passthru_vars = [] ) {
+		$date      = $this->context->get( 'event_date', $this->context->get( 'today' ) );
+		$cache_key = __METHOD__ . '_' . md5( wp_json_encode( array_merge( [ $date, $canonical ], $passthru_vars ) ) );
 
 		if ( isset( $this->cached_urls[ $cache_key ] ) ) {
 			return $this->cached_urls[ $cache_key ];
 		}
 
-		$next_event = (array) tribe_events()->where( 'starts_after', $date )->per_page( 1 )->get_ids();
+		$next_event = (array) tribe_events()->where( 'starts_after', $date )->per_page( 1 )->fields( 'ids' )->first();
 		$next_event = tribe_get_event( array_shift( $next_event ) );
 		$url_date   = Dates::build_date_object( $next_event->start_date );
 		$url        = $this->build_url_for_date( $url_date, $canonical, $passthru_vars );
 
 		$this->cached_urls[ $cache_key ] = $url;
 
-
 		$link = sprintf(
-			/* translators: 1: Name of a city 2: ZIP code */
+			/* translators: 1: opening href tag 2: closing href tag */
 			__( 'Jump to the %1$snext upcoming event(s)%2$s.', 'the-events-calendar' ),
 			'<a href="' . esc_url( $url ) . '">',
 			'</a>'
@@ -277,7 +268,7 @@ class Day_View extends View {
 				);
 				$this->messages->insert(
 					Messages::TYPE_NOTICE,
-					Messages::for_key( 'day_no_results_found', $date_label, $this->fast_forward() )
+					Messages::for_key( 'day_no_results_found', $date_label, $this->get_fast_forward_link() )
 				);
 			}
 		}
