@@ -94,7 +94,7 @@ class Messages {
 				'There were no results found.',
 				'the-events-calendar'
 			),
-			// translators: the placeholder an html link to the next month with available events.
+			// translators: the placeholder is an html link to the next month with available events.
 			'month_no_results_found'           => __(
 				'There were no results found for this view. %1$s',
 				'the-events-calendar'
