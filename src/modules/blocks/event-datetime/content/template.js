@@ -173,14 +173,12 @@ const renderTimezone = ( props ) => {
 	);
 };
 
-const renderExtras = ( props ) => {
-	return (
-		<Fragment>
-			{ renderTimezone( props ) }
-			{ renderPrice( props ) }
-		</Fragment>
-	);
-};
+const renderExtras = ( props ) => (
+	<Fragment>
+		{ renderTimezone( props ) }
+		{ renderPrice( props ) }
+	</Fragment>
+);
 
 const renderContentHook = ( props ) => (
 	wpHooks.applyFilters( 'blocks.eventDatetime.contentHook', null, props )

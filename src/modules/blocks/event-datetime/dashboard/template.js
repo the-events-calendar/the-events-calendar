@@ -46,9 +46,7 @@ FORMATS.date = settings() && settings().dateWithYearFormat
 	? settings().dateWithYearFormat
 	: __( 'F j', 'the-events-calendar' );
 
-const shouldHideUpsell = () => {
-	return editorConstants().hideUpsell;
-};
+const shouldHideUpsell = () => editorConstants().hideUpsell;
 
 const renderStartTimePicker = ( {
 	start,
@@ -189,7 +187,7 @@ const EventDateTimeDashboard = ( props ) => {
 							{
 								( multiDay || ! allDay ) && (
 									<span className={ classNames( 'tribe-editor__separator', 'tribe-editor__time-picker__separator' ) }>
-										{ ' '.concat( separatorTime, ' ' ) }
+										{ ` ${ separatorTime } ` }
 									</span>
 								)
 							}
