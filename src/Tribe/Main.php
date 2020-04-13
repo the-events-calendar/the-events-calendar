@@ -479,14 +479,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 */
 		public function bootstrap() {
-
-			Tribe__Main::instance( $this )->load_text_domain( 'the-events-calendar', $this->plugin_dir . 'lang/' );
-
 			$this->bind_implementations();
 			$this->loadLibraries();
 			$this->addHooks();
 			$this->register_active_plugin();
-
 		}
 
 		/**
@@ -506,6 +502,17 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			$autoloader->register_autoloader();
+		}
+
+		/**
+		 * Load The Events Calendar text domain.
+		 *
+		 * @since TBD
+		 *
+		 * @return bool
+		 */
+		public function load_text_domain() {
+			return Tribe__Main::instance( $this )->load_text_domain( 'the-events-calendar', $this->plugin_dir . 'lang/' );
 		}
 
 		/**
@@ -707,6 +714,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 * because of the way $wp_locale works
 			 */
 			add_action( 'init', array( $this, 'setup_l10n_strings' ), 5 );
+			add_action( 'tribe_load_text_domains', [ $this, 'load_text_domain' ], 5 );
 
 			// Since TEC is active, change the base page for the Event Settings page
 			Tribe__Settings::$parent_page = 'edit.php';
