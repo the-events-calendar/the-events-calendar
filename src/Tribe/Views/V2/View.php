@@ -11,7 +11,7 @@ namespace Tribe\Events\Views\V2;
 use Tribe\Events\Views\V2\Template\Settings\Advanced_Display;
 use Tribe\Events\Views\V2\Template\Title;
 use Tribe\Events\Views\V2\Utils;
-use Tribe\Events\Views\V2\Views\Recent_Past_View;
+use Tribe\Events\Views\V2\Views\Latest_past_View;
 use Tribe\Events\Views\V2\Views\Traits\Breakpoint_Behavior;
 use Tribe\Events\Views\V2\Views\Traits\HTML_Cache;
 use Tribe\Events\Views\V2\Views\Traits\Json_Ld_Data;
@@ -1429,7 +1429,7 @@ class View implements View_Interface {
 			'breakpoint_pointer'   => $this->get_breakpoint_pointer(),
 			'is_initial_load'      => $this->context->doing_php_initial_state(),
 			'public_views'         => $this->get_public_views( $url_event_date ),
-			'show_recent_past'     => $this->should_show_recent_past_events_view(),
+			'show_latest_past'     => $this->should_show_latest_past_events_view(),
 		];
 
 		return $template_vars;
@@ -2151,35 +2151,35 @@ class View implements View_Interface {
 	}
 
 	/**
-	 * Filters Whether the Recent Past Events Should Show for a specific View.
+	 * Filters Whether the Latest Past Events Should Show for a specific View.
 	 *
 	 * @since TBD
 	 *
-	 * @return boolean If we should display Recent Past Events.
+	 * @return boolean If we should display Latest Past Events.
 	 */
-	protected function should_show_recent_past_events_view() {
-		$show = $this->context->get( 'show_recent_past', true );
+	protected function should_show_latest_past_events_view() {
+		$show = $this->context->get( 'show_latest_past', true );
 
 		/**
-		 * Filters Whether the Recent Past Events Should Show for all Views.
+		 * Filters Whether the Latest Past Events Should Show for all Views.
 		 *
 		 * @since TBD
 		 *
-		 * @param boolean $show      If we should display Recent Past Events.
+		 * @param boolean $show      If we should display Latest Past Events.
 		 * @param string  $view_slug The current view slug.
 		 * @param View    $instance  The current View object.
 		 */
-		$show = apply_filters( 'tribe_events_views_v2_show_recent_past_events_view', $show, $this->get_slug(), $this );
+		$show = apply_filters( 'tribe_events_views_v2_show_latest_past_events_view', $show, $this->get_slug(), $this );
 
 		/**
-		 * Filters Whether the Recent Past Events Should Show for a specific View.
+		 * Filters Whether the Latest Past Events Should Show for a specific View.
 		 *
 		 * @since TBD
 		 *
-		 * @param boolean $show     If we should display Recent Past Events.
+		 * @param boolean $show     If we should display Latest Past Events.
 		 * @param View    $instance The current View object.
 		 */
-		$show = apply_filters( "tribe_events_views_v2_{$this->get_slug()}_show_recent_past_events_view", $show, $this );
+		$show = apply_filters( "tribe_events_views_v2_{$this->get_slug()}_show_latest_past_events_view", $show, $this );
 
 		return $show;
 	}
@@ -2197,7 +2197,7 @@ class View implements View_Interface {
 		$manager      = tribe( Manager::class );
 		$default_slug = $manager->get_default_view_option();
 
-		// Show Recent Past Events only on the default view.
+		// Show Latest Past Events only on the default view.
 		if ( $this->get_slug() !== $default_slug ) {
 			return;
 		}
@@ -2243,28 +2243,28 @@ class View implements View_Interface {
 		}
 
 		/**
-		 * Filters The Threshold to Show The Recent Past Events.
+		 * Filters The Threshold to Show The Latest Past Events.
 		 * Defaults to show when there are Zero Events.
 		 *
 		 * @since TBD
 		 *
-		 * @param int   The threshold to show The Recent Past Events.
+		 * @param int   The threshold to show The Latest Past Events.
 		 * @param array $events        Array that will be counted to verify if we have events.
 		 * @param array $template_vars An associative array of variables that will be set, and exported, in the template.
 		 * @param View  $instance      The current View object.
 		 */
-		$recent_past_threshold = apply_filters( "tribe_events_views_v2_threshold_to_show_recent_past_events", 0, $events, $template_vars, $this );
+		$latest_past_threshold = apply_filters( "tribe_events_views_v2_threshold_to_show_latest_past_events", 0, $events, $template_vars, $this );
 
-		// If threshold is less than upcoming events, do not show Recent Past Events.
-		if ( absint( $recent_past_threshold ) < count( $events ) ) {
+		// If threshold is less than upcoming events, do not show Latest Past Events.
+		if ( absint( $latest_past_threshold ) < count( $events ) ) {
 			return;
 		}
 
-		if ( ! empty( $template_vars['show_recent_past'] ) ) {
-			$template_vars['show_recent_past'] = true;
-			$recent_past_view                  = static::make( Recent_Past_View::Class );
-			$recent_past_view->set_context( $this->context );
-			$recent_past_view->add_view_filters();
+		if ( ! empty( $template_vars['show_latest_past'] ) ) {
+			$template_vars['show_latest_past'] = true;
+			$latest_past_view                  = static::make( Latest_past_View::Class );
+			$latest_past_view->set_context( $this->context );
+			$latest_past_view->add_view_filters();
 		}
 	}
 }
