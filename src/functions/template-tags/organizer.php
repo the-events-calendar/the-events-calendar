@@ -310,7 +310,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			 * @param string the link HTML.
 			 */
 			return apply_filters( 'tribe_get_organizer_link', $link, $post_id, $full_link, $url );
-			}
 		}
 
 		//Return Organizer Name if Pro is not Active
