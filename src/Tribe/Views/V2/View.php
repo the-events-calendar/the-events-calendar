@@ -2218,8 +2218,9 @@ class View implements View_Interface {
 			$today_formatted     = Dates::build_date_object( $today )->format( Dates::DBYEARMONTHTIMEFORMAT );
 			$view_date_formatted = Dates::build_date_object( $view_date )->format( Dates::DBYEARMONTHTIMEFORMAT );
 		} elseif ( 'week' === $this->get_slug() ) {
-			list( $today_week_start, $today_week_end ) = Dates::get_week_start_end( $today, (int) $this->context->get( 'start_of_week', 0 ) );
-			list( $view_week_start, $view_week_end ) = Dates::get_week_start_end( $view_date, (int) $this->context->get( 'start_of_week', 0 ) );
+			list( $today_week_start, $today_week_end )  = Dates::get_week_start_end( $today, (int) $this->context->get( 'start_of_week', 0 ) );
+			list( $view_week_start, $view_week_end )    = Dates::get_week_start_end( $view_date, (int) $this->context->get( 'start_of_week', 0 ) );
+
 			$today_formatted     = $today_week_start->format( Dates::DBDATEFORMAT );
 			$view_date_formatted = $view_week_start->format( Dates::DBDATEFORMAT );
 		} else {
