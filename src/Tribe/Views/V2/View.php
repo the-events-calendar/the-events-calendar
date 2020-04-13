@@ -2194,11 +2194,6 @@ class View implements View_Interface {
 	 */
 	protected function setup_additional_views( array $events = [], array $template_vars = [] ) {
 
-		// Only return if on the current or upcoming view and not in the past.
-		if ( 'past' === $this->context->get( 'event_display_mode' ) ) {
-			return;
-		}
-
 		$manager      = tribe( Manager::class );
 		$default_slug = $manager->get_default_view_option();
 
@@ -2207,11 +2202,33 @@ class View implements View_Interface {
 			return;
 		}
 
-		$latest = tribe_events_latest_date();
 		$now    = $this->context->get( 'now' );
+		$latest = tribe_events_latest_date();
 
 		// If now is less then the latest event published, do not show.
 		if ( $now < $latest ) {
+			return;
+		}
+
+
+		// Checks to verify on the initial load of a view or if using today's date for the view.
+		$today     = $this->context->get( 'today' );
+		$view_date = $this->context->get( 'event_date', '' );
+		if ( 'month' === $this->get_slug() ) {
+			$today_formatted     = Dates::build_date_object( $today )->format( Dates::DBYEARMONTHTIMEFORMAT );
+			$view_date_formatted = Dates::build_date_object( $view_date )->format( Dates::DBYEARMONTHTIMEFORMAT );
+		} elseif ( 'week' === $this->get_slug() ) {
+			list( $today_week_start, $today_week_end ) = Dates::get_week_start_end( $today, (int) $this->context->get( 'start_of_week', 0 ) );
+			list( $view_week_start, $view_week_end ) = Dates::get_week_start_end( $view_date, (int) $this->context->get( 'start_of_week', 0 ) );
+			$today_formatted     = $today_week_start->format( Dates::DBDATEFORMAT );
+			$view_date_formatted = $view_week_start->format( Dates::DBDATEFORMAT );
+		} else {
+			$today_formatted     = Dates::build_date_object( $today )->format( Dates::DBDATEFORMAT );
+			$view_date_formatted = Dates::build_date_object( $view_date )->format( Dates::DBDATEFORMAT );
+		}
+
+		// If view date is not empty and today does not equal the view date, then do not show.
+		if ( ! empty( $view_date ) && $today_formatted !== $view_date_formatted ) {
 			return;
 		}
 
