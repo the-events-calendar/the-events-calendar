@@ -72,7 +72,7 @@ final class Tribe__Events__Customizer__Single_Event extends Tribe__Customizer__S
 			'details_bg_color' => '#e5e5e5',
 		);
 
-		$description = tribe_events_views_v2_is_enabled() ? esc_html__( 'Options selected here will override what was selected in the General and Text sections.', 'the-events-calendar' ) : esc_html__( 'Options selected here will override what was selected in the "General Theme" and "Global Elements" sections', 'the-events-calendar' );
+		$description = tribe_events_views_v2_is_enabled() ? esc_html__( 'Options selected here will override what was selected in the General and Text sections.', 'the-events-calendar' ) : esc_html__( 'Options selected here will override what was selected in the "General Theme" and "Global Elements" sections.', 'the-events-calendar' );
 
 		$this->arguments = array(
 			'priority'    => 60,
