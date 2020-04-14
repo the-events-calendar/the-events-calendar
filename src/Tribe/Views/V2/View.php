@@ -2210,6 +2210,11 @@ class View implements View_Interface {
 			return;
 		}
 
+		// If doing a search, do not show.
+		if ( $this->context->get( 'keyword', '' ) ) {
+			return;
+		}
+
 		// If no events found, do not show.
 		if ( 0 === tribe_events()->found() ) {
 			return;
