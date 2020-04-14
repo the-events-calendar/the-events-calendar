@@ -65,7 +65,7 @@ class Manager {
 			'list'        => List_View::class,
 			'month'       => Month_View::class,
 			'day'         => Day_View::class,
-			'latest-past' => Latest_past_View::class,
+			'latest-past' => Latest_Past_View::class,
 		] );
 
 		// Make sure the Reflector View is always available.
