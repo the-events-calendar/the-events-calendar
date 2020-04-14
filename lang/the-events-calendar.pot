@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the The Events Calendar package.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 5.0.2\n"
+"Project-Id-Version: The Events Calendar 5.0.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/the-events-"
 "calendar\n"
-"POT-Creation-Date: 2020-02-19 15:59:37+00:00\n"
+"POT-Creation-Date: 2020-03-19 04:43:09+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2020-02-19 15:59\n"
+"PO-Revision-Date: 2020-03-19 04:43\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -65,7 +65,7 @@ msgstr ""
 
 #: src/Tribe/Admin/Bar/Default_Configurator.php:73
 #: src/Tribe/Aggregator/Page.php:279
-#: src/admin-views/aggregator/tabs/import-form.php:277
+#: src/admin-views/aggregator/tabs/import-form.php:292
 msgid "Import"
 msgstr ""
 
@@ -159,14 +159,14 @@ msgid "%s Categories"
 msgstr ""
 
 #: src/Tribe/Admin_List.php:252
-#: src/admin-views/aggregator/tabs/import-form.php:205
-#: src/admin-views/aggregator/tabs/import-form.php:217
+#: src/admin-views/aggregator/tabs/import-form.php:221
+#: src/admin-views/aggregator/tabs/import-form.php:233
 msgid "Start Date"
 msgstr ""
 
 #: src/Tribe/Admin_List.php:253
-#: src/admin-views/aggregator/tabs/import-form.php:207
-#: src/admin-views/aggregator/tabs/import-form.php:219
+#: src/admin-views/aggregator/tabs/import-form.php:223
+#: src/admin-views/aggregator/tabs/import-form.php:235
 msgid "End Date"
 msgstr ""
 
@@ -215,7 +215,8 @@ msgid "Meetup"
 msgstr ""
 
 #: src/Tribe/Aggregator/API/Origins.php:71
-msgid "Other URL (beta)"
+#: src/Tribe/Aggregator/Record/Url.php:17
+msgid "Other URL"
 msgstr ""
 
 #: src/Tribe/Aggregator/API/Origins.php:227 src/Tribe/Aggregator.php:227
@@ -513,7 +514,7 @@ msgid ""
 msgstr ""
 
 #: src/Tribe/Aggregator/Page.php:96
-#: src/Tribe/Aggregator/Record/List_Table.php:492
+#: src/Tribe/Aggregator/Record/List_Table.php:496
 msgid "View Filters"
 msgstr ""
 
@@ -764,17 +765,17 @@ msgstr ""
 msgid "Import preview"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:483
+#: src/Tribe/Aggregator/Record/List_Table.php:488
 #: src/Tribe/Ignored_Events.php:337
 msgctxt "record via origin"
 msgid "via "
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:496
+#: src/Tribe/Aggregator/Record/List_Table.php:500
 msgid "Keywords:"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:505
+#: src/Tribe/Aggregator/Record/List_Table.php:509
 #: src/deprecated/Tribe__Events__Advanced_Functions__Register_Meta.php:48
 #: src/deprecated/Tribe__Events__Advanced_Functions__Register_Meta.php:80
 #: src/views/blocks/parts/details.php:76 src/views/blocks/parts/details.php:101
@@ -782,69 +783,69 @@ msgstr ""
 msgid "Start:"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:509
+#: src/Tribe/Aggregator/Record/List_Table.php:513
 msgid "Location:"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:513
+#: src/Tribe/Aggregator/Record/List_Table.php:517
 msgid "Radius:"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:542
+#: src/Tribe/Aggregator/Record/List_Table.php:546
 msgid "Unknown"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:563 src/Tribe/Aggregator.php:599
+#: src/Tribe/Aggregator/Record/List_Table.php:567 src/Tribe/Aggregator.php:599
 #: src/Tribe/Ignored_Events.php:355
 msgctxt "human readable time ago"
 msgid "about %s ago"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:565 src/Tribe/Aggregator.php:601
+#: src/Tribe/Aggregator/Record/List_Table.php:569 src/Tribe/Aggregator.php:601
 #: src/Tribe/Ignored_Events.php:357
 msgctxt "in human readable time"
 msgid "in about %s"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:576
+#: src/Tribe/Aggregator/Record/List_Table.php:580
 msgctxt "in human readable time"
 msgid "retrying in about %s"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:579
+#: src/Tribe/Aggregator/Record/List_Table.php:583
 msgctxt "when the retry will happen, a date"
 msgid "retrying at %s"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:595
+#: src/Tribe/Aggregator/Record/List_Table.php:599
 msgid "Invalid Frequency"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:598
+#: src/Tribe/Aggregator/Record/List_Table.php:602
 msgid "One Time"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:624
+#: src/Tribe/Aggregator/Record/List_Table.php:628
 msgid "all time"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:626
+#: src/Tribe/Aggregator/Record/List_Table.php:630
 msgid "Latest Import:"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:629
-#: src/Tribe/Aggregator/Record/List_Table.php:637
-#: src/Tribe/Aggregator/Record/List_Table.php:645
+#: src/Tribe/Aggregator/Record/List_Table.php:633
+#: src/Tribe/Aggregator/Record/List_Table.php:641
+#: src/Tribe/Aggregator/Record/List_Table.php:649
 msgid "new"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:631
-#: src/Tribe/Aggregator/Record/List_Table.php:640
-#: src/Tribe/Aggregator/Record/List_Table.php:648
+#: src/Tribe/Aggregator/Record/List_Table.php:635
+#: src/Tribe/Aggregator/Record/List_Table.php:644
+#: src/Tribe/Aggregator/Record/List_Table.php:652
 msgid "updated"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:666
+#: src/Tribe/Aggregator/Record/List_Table.php:670
 msgid "Select %s"
 msgstr ""
 
@@ -882,10 +883,6 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Record/Unsupported.php:58
 msgid "Unsupported"
-msgstr ""
-
-#: src/Tribe/Aggregator/Record/Url.php:17
-msgid "Other URL"
 msgstr ""
 
 #: src/Tribe/Aggregator/Records.php:110
@@ -1390,27 +1387,27 @@ msgstr ""
 msgid "There was a problem processing your import. Please try again."
 msgstr ""
 
-#: src/Tribe/Aggregator/Tabs/Abstract.php:135
+#: src/Tribe/Aggregator/Tabs/Abstract.php:136
 msgid "click here to edit it"
 msgstr ""
 
-#: src/Tribe/Aggregator/Tabs/Abstract.php:136
+#: src/Tribe/Aggregator/Tabs/Abstract.php:137
 msgid "A record already exists with these settings, %1$s."
 msgstr ""
 
-#: src/Tribe/Aggregator/Tabs/Abstract.php:170
+#: src/Tribe/Aggregator/Tabs/Abstract.php:171
 msgid "Please provide the file that you wish to import."
 msgstr ""
 
-#: src/Tribe/Aggregator/Tabs/Abstract.php:175
+#: src/Tribe/Aggregator/Tabs/Abstract.php:176
 msgid "Please provide a Eventbrite URL when importing from Eventbrite."
 msgstr ""
 
-#: src/Tribe/Aggregator/Tabs/Abstract.php:180
+#: src/Tribe/Aggregator/Tabs/Abstract.php:181
 msgid "Please provide a Meetup URL when importing from Meetup."
 msgstr ""
 
-#: src/Tribe/Aggregator/Tabs/Abstract.php:224
+#: src/Tribe/Aggregator/Tabs/Abstract.php:225
 msgid "Please provide the URL that you wish to import."
 msgstr ""
 
@@ -1887,7 +1884,7 @@ msgid "Global configurations for the styling of The Events Calendar"
 msgstr ""
 
 #: src/Tribe/Customizer/General_Theme.php:291
-#: src/Tribe/Customizer/Global_Elements.php:317
+#: src/Tribe/Customizer/Global_Elements.php:465
 msgid "Accent Color"
 msgstr ""
 
@@ -1937,34 +1934,34 @@ msgstr ""
 msgid "Custom"
 msgstr ""
 
-#: src/Tribe/Customizer/Global_Elements.php:275
+#: src/Tribe/Customizer/Global_Elements.php:423
 msgid "General"
 msgstr ""
 
-#: src/Tribe/Customizer/Global_Elements.php:275
+#: src/Tribe/Customizer/Global_Elements.php:423
 msgid "Global Elements"
 msgstr ""
 
-#: src/Tribe/Customizer/Global_Elements.php:276
+#: src/Tribe/Customizer/Global_Elements.php:424
 msgid ""
 "Options selected here will override what was selected in the \"General Theme"
 "\" section"
 msgstr ""
 
-#: src/Tribe/Customizer/Global_Elements.php:341
+#: src/Tribe/Customizer/Global_Elements.php:489
 #: src/deprecated/Tribe__Events__Customizer__Text.php:105
 msgid "Link Color"
 msgstr ""
 
-#: src/Tribe/Customizer/Global_Elements.php:369
+#: src/Tribe/Customizer/Global_Elements.php:517
 msgid "Filter Bar Color"
 msgstr ""
 
-#: src/Tribe/Customizer/Global_Elements.php:391
+#: src/Tribe/Customizer/Global_Elements.php:539
 msgid "Button Color"
 msgstr ""
 
-#: src/Tribe/Customizer/Global_Elements.php:415
+#: src/Tribe/Customizer/Global_Elements.php:563
 msgid "Map Pin"
 msgstr ""
 
@@ -2051,9 +2048,9 @@ msgstr ""
 
 #: src/Tribe/Editor/Template.php:70 src/Tribe/Template/Embed.php:59
 #: src/Tribe/Template/Single_Event.php:119
-#: src/Tribe/Views/V2/Template_Bootstrap.php:132
-#: src/Tribe/Views/V2/Template_Bootstrap.php:168
-#: src/Tribe/Views/V2/Template_Bootstrap.php:417
+#: src/Tribe/Views/V2/Template_Bootstrap.php:135
+#: src/Tribe/Views/V2/Template_Bootstrap.php:171
+#: src/Tribe/Views/V2/Template_Bootstrap.php:420
 msgid "This %s has passed."
 msgstr ""
 
@@ -2510,11 +2507,11 @@ msgstr ""
 msgid "Could not save %s."
 msgstr ""
 
-#: src/Tribe/Integrations/Freemius.php:323
+#: src/Tribe/Integrations/Freemius.php:331
 msgid "We hope you love %1$s"
 msgstr ""
 
-#: src/Tribe/Integrations/Freemius.php:328
+#: src/Tribe/Integrations/Freemius.php:336
 msgid ""
 "Hi, %1$s! This is an invitation to help our %2$s community. If you opt-in, "
 "some data about your usage of %2$s will be shared with our teams (so they "
@@ -2522,11 +2519,11 @@ msgid ""
 "on events management, WordPress, and our products from time to time."
 msgstr ""
 
-#: src/Tribe/Integrations/Freemius.php:332
+#: src/Tribe/Integrations/Freemius.php:340
 msgid "And if you skip this, that's okay! %1$s will still work just fine."
 msgstr ""
 
-#: src/Tribe/Integrations/Freemius.php:336
+#: src/Tribe/Integrations/Freemius.php:344
 msgid "Powered by"
 msgstr ""
 
@@ -2656,7 +2653,7 @@ msgstr ""
 msgid "Upcoming Events"
 msgstr ""
 
-#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 5.0.2)  #-#-#-#-#
+#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 5.0.3)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: src/Tribe/Main.php:921 src/Tribe/Main.php:1376 src/Tribe/Privacy.php:29
 #: src/functions/template-tags/general.php:1373 the-events-calendar.php:56
@@ -2876,8 +2873,8 @@ msgstr ""
 msgid "Events"
 msgstr ""
 
-#: src/Tribe/Main.php:1446 src/admin-views/aggregator/tabs/import-form.php:208
-#: src/admin-views/aggregator/tabs/import-form.php:220
+#: src/Tribe/Main.php:1446 src/admin-views/aggregator/tabs/import-form.php:224
+#: src/admin-views/aggregator/tabs/import-form.php:236
 #: src/functions/template-tags/general.php:63
 msgid "Event"
 msgstr ""
@@ -4578,7 +4575,9 @@ msgid ""
 "day."
 msgstr ""
 
-#: src/Tribe/Template/Day.php:154
+#. translators: %1$s: events (plural), %2$s: the formatted date string, e.g.
+#. "February 22, 2020".
+#: src/Tribe/Template/Day.php:154 src/Tribe/Views/V2/Messages.php:105
 msgid "No %1$s scheduled for %2$s. Please try another day."
 msgstr ""
 
@@ -4694,15 +4693,15 @@ msgstr ""
 msgid "Unnamed Venue"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:396
+#: src/Tribe/Views/V2/Hooks.php:404
 msgid "We recommend a 16:9 aspect ratio for featured images."
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:458
+#: src/Tribe/Views/V2/Hooks.php:466
 msgid "Recommended for all sites using the updated calendar views."
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:473
+#: src/Tribe/Views/V2/Hooks.php:481
 msgid "The Events Calendar - View V2"
 msgstr ""
 
@@ -4718,12 +4717,6 @@ msgstr ""
 msgid ""
 "There were no results found for <strong>\"%1$s\"</strong> this month. Try "
 "searching next month."
-msgstr ""
-
-#. translators: the placeholder is the formatted date string, e.g. "February
-#. 22, 2020".
-#: src/Tribe/Views/V2/Messages.php:105
-msgid "No events scheduled for %s. Please try another day."
 msgstr ""
 
 #: src/Tribe/Views/V2/Template/Title.php:106
@@ -4777,11 +4770,12 @@ msgstr ""
 msgid "Featured"
 msgstr ""
 
-#: src/Tribe/Views/V2/View.php:1943 src/Tribe/iCal.php:162
-msgid "Export Events"
+#. translators: %s: Events (plural).
+#: src/Tribe/Views/V2/View.php:1947
+msgid "Export %s"
 msgstr ""
 
-#: src/Tribe/Views/V2/View.php:1945 src/Tribe/iCal.php:163
+#: src/Tribe/Views/V2/View.php:1952 src/Tribe/iCal.php:163
 msgid ""
 "Use this to share calendar data with Google Calendar, Apple iCal and other "
 "compatible apps"
@@ -4822,6 +4816,10 @@ msgstr ""
 
 #: src/Tribe/iCal.php:110 src/views/blocks/event-links.php:45
 msgid "Download .ics file"
+msgstr ""
+
+#: src/Tribe/iCal.php:162
+msgid "Export Events"
 msgstr ""
 
 #: src/Tribe/iCal.php:410
@@ -5288,7 +5286,7 @@ msgstr ""
 #: src/admin-views/aggregator/origins/ical.php:111
 #: src/admin-views/aggregator/origins/ics.php:54
 #: src/admin-views/aggregator/origins/url.php:122
-#: src/admin-views/aggregator/tabs/import-form.php:280
+#: src/admin-views/aggregator/tabs/import-form.php:295
 msgid "Cancel"
 msgstr ""
 
@@ -5881,127 +5879,135 @@ msgstr ""
 msgid "Limited connectivity with Meetup"
 msgstr ""
 
-#: src/admin-views/aggregator/tabs/import-form.php:31
+#: src/admin-views/aggregator/tabs/import-form.php:30
 msgid "No Additional Categories"
 msgstr ""
 
-#: src/admin-views/aggregator/tabs/import-form.php:44
+#: src/admin-views/aggregator/tabs/import-form.php:43
 msgid "Import Origin:"
 msgstr ""
 
-#: src/admin-views/aggregator/tabs/import-form.php:45
+#: src/admin-views/aggregator/tabs/import-form.php:44
 msgid "Select Origin"
 msgstr ""
 
-#: src/admin-views/aggregator/tabs/import-form.php:46
+#: src/admin-views/aggregator/tabs/import-form.php:45
 msgid "Choose where you are importing from."
 msgstr ""
 
-#: src/admin-views/aggregator/tabs/import-form.php:108
+#: src/admin-views/aggregator/tabs/import-form.php:106
 msgid "Add more sources"
 msgstr ""
 
-#: src/admin-views/aggregator/tabs/import-form.php:111
+#: src/admin-views/aggregator/tabs/import-form.php:109
 msgid "Access more event sources and automatic imports!"
 msgstr ""
 
-#: src/admin-views/aggregator/tabs/import-form.php:112
+#: src/admin-views/aggregator/tabs/import-form.php:110
 msgid "Buy Event Aggregator"
 msgstr ""
 
-#: src/admin-views/aggregator/tabs/import-form.php:167
+#: src/admin-views/aggregator/tabs/import-form.php:130
+msgid "Import Name:"
+msgstr ""
+
+#: src/admin-views/aggregator/tabs/import-form.php:139
+msgid "Optional"
+msgstr ""
+
+#: src/admin-views/aggregator/tabs/import-form.php:183
 msgid ""
 "Choose a status for the event(s) to be imported with and/or define an Event "
 "Category to automatically assign. An assigned category will be added to the "
 "event in addition to any Event Categories from the import source."
 msgstr ""
 
-#: src/admin-views/aggregator/tabs/import-form.php:168
+#: src/admin-views/aggregator/tabs/import-form.php:184
 msgid ""
 "These settings will also apply to events imported in the future via this "
 "scheduled import."
 msgstr ""
 
-#: src/admin-views/aggregator/tabs/import-form.php:170
+#: src/admin-views/aggregator/tabs/import-form.php:186
 msgid ""
 "Select the Event Field that best matches your CSV file column. The contents "
 "of that column will then be mapped to the specified event field when the "
 "event is created."
 msgstr ""
 
-#: src/admin-views/aggregator/tabs/import-form.php:172
+#: src/admin-views/aggregator/tabs/import-form.php:188
 msgid ""
 "When you save this scheduled import, the events above will begin importing."
 msgstr ""
 
-#: src/admin-views/aggregator/tabs/import-form.php:183
+#: src/admin-views/aggregator/tabs/import-form.php:199
 msgid ""
 "This is a preview of the type of content you will be getting in during the "
 "import based on what is on the calendar now."
 msgstr ""
 
-#: src/admin-views/aggregator/tabs/import-form.php:186
+#: src/admin-views/aggregator/tabs/import-form.php:202
 msgid "Column Mapping:"
 msgstr ""
 
-#: src/admin-views/aggregator/tabs/import-form.php:192
+#: src/admin-views/aggregator/tabs/import-form.php:208
 msgid ""
 "The following preview does not necessarily contain all of the data from your "
 "CSV file. The data displayed below is meant as a guide to help you map your "
 "CSV file's columns to the appropriate Event fields."
 msgstr ""
 
-#: src/admin-views/aggregator/tabs/import-form.php:202
-#: src/admin-views/aggregator/tabs/import-form.php:214
+#: src/admin-views/aggregator/tabs/import-form.php:218
+#: src/admin-views/aggregator/tabs/import-form.php:230
 msgid "Select All"
 msgstr ""
 
-#: src/admin-views/aggregator/tabs/import-form.php:206
-#: src/admin-views/aggregator/tabs/import-form.php:218
+#: src/admin-views/aggregator/tabs/import-form.php:222
+#: src/admin-views/aggregator/tabs/import-form.php:234
 msgid "Start Time"
 msgstr ""
 
-#: src/admin-views/aggregator/tabs/import-form.php:230
 #: src/admin-views/aggregator/tabs/import-form.php:246
+#: src/admin-views/aggregator/tabs/import-form.php:261
 msgid "Status:"
 msgstr ""
 
-#: src/admin-views/aggregator/tabs/import-form.php:260
+#: src/admin-views/aggregator/tabs/import-form.php:275
 msgid "Category:"
 msgstr ""
 
-#: src/admin-views/aggregator/tabs/import-form.php:306
+#: src/admin-views/aggregator/tabs/import-form.php:321
 msgid "Eventbrite imports can fetch up to 50 events from your source."
 msgstr ""
 
-#: src/admin-views/aggregator/tabs/import-form.php:313
+#: src/admin-views/aggregator/tabs/import-form.php:328
 msgid ""
 "Events will be imported with the same timezone as defined on eventbrite.com. "
 "You can make use of The Events Calendar's"
 msgstr ""
 
-#: src/admin-views/aggregator/tabs/import-form.php:315
+#: src/admin-views/aggregator/tabs/import-form.php:330
 msgid "timezone settings"
 msgstr ""
 
-#: src/admin-views/aggregator/tabs/import-form.php:317
+#: src/admin-views/aggregator/tabs/import-form.php:332
 msgid "to change how the actual time is displayed on your calendar."
 msgstr ""
 
-#: src/admin-views/aggregator/tabs/import-form.php:324
+#: src/admin-views/aggregator/tabs/import-form.php:339
 msgid ""
 "The number of events available in the preview may be limited by your "
 "%1$sImport Settings.%2$s"
 msgstr ""
 
-#: src/admin-views/aggregator/tabs/import-form.php:333
+#: src/admin-views/aggregator/tabs/import-form.php:348
 msgid ""
 "Events will be imported with the time zone defined by the source. If no time "
 "zone is specified, events will be assigned your site's default time zone "
 "( see"
 msgstr ""
 
-#: src/admin-views/aggregator/tabs/import-form.php:335
+#: src/admin-views/aggregator/tabs/import-form.php:350
 msgid "Settings > General"
 msgstr ""
 
@@ -6852,22 +6858,40 @@ msgstr ""
 msgid "0 = zoomed out; 21 = zoomed in."
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:256
+#: src/admin-views/tribe-options-general.php:255
 msgid "Filter Activation"
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:258
+#: src/admin-views/tribe-options-general.php:257
 msgid "Calendar view is updated immediately when a filter is selected"
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:259
+#: src/admin-views/tribe-options-general.php:258
 msgid "Submit button activates any selected filters"
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:261
+#: src/admin-views/tribe-options-general.php:260
 msgid ""
-"Immediate filter activation may not be fully compliant with Web "
-"Accessibility Standards."
+"Note: Automatic update may not be fully compliant with Web Accessibility "
+"Standards."
+msgstr ""
+
+#: src/admin-views/tribe-options-general.php:282
+msgid "Enabled: datepicker selections automatically update calendar views"
+msgstr ""
+
+#: src/admin-views/tribe-options-general.php:293
+msgid "Disabled: users must click Find Events to search by date"
+msgstr ""
+
+#: src/admin-views/tribe-options-general.php:298
+msgid "Live Refresh"
+msgstr ""
+
+#: src/admin-views/tribe-options-general.php:304
+msgid ""
+"This option is disabled when \"Disable the Event Search Bar\" is checked on "
+"the Display settings tab."
 msgstr ""
 
 #: src/admin-views/tribe-options-timezones.php:7
@@ -7330,7 +7354,6 @@ msgid "Find out more"
 msgstr ""
 
 #: src/views/kitchen-sink/page.php:255
-#: src/views/v2/components/events-bar/search/keyword.php:32
 msgid "Search for events"
 msgstr ""
 
@@ -7424,8 +7447,14 @@ msgstr ""
 msgid "see all"
 msgstr ""
 
-#: src/views/v2/components/events-bar/search/keyword.php:23
-#: src/views/v2/components/events-bar/search/keyword.php:33
+#. translators: %s: events (plural).
+#: src/views/v2/components/events-bar/search/keyword.php:19
+msgid "Search for %s"
+msgstr ""
+
+#. translators: %s: events (plural).
+#: src/views/v2/components/events-bar/search/keyword.php:22
+#: src/views/v2/components/events-bar/search/keyword.php:29
 msgid "Enter Keyword. Search for %s by Keyword."
 msgstr ""
 
@@ -7505,21 +7534,22 @@ msgid_plural "+ %d More"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/views/v2/month/calendar-body/day.php:79
-#: src/views/v2/month/calendar-body/day.php:111
-msgid "%s event"
-msgid_plural "%s events"
+#. translators: %1$s: number of events, %2$s: event (singular), %3$s: events
+#. (plural).
+#: src/views/v2/month/calendar-body/day.php:64
+msgid "%1$s %2$s"
+msgid_plural "%1$s %3$s"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/views/v2/month/calendar-body/day.php:91
-#: src/views/v2/month/calendar-body/day.php:92
-msgid "Has featured events"
+#. translators: %s: Events (plural).
+#: src/views/v2/month/calendar-body/day.php:102
+msgid "Has featured %s"
 msgstr ""
 
-#: src/views/v2/month/calendar-body/day.php:98
-#: src/views/v2/month/calendar-body/day.php:99
-msgid "Has events"
+#. translators: %s: Events (plural).
+#: src/views/v2/month/calendar-body/day.php:113
+msgid "Has %s"
 msgstr ""
 
 #: src/views/v2/month/mobile-events/nav/next-disabled.php:22

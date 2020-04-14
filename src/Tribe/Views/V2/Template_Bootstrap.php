@@ -73,7 +73,7 @@ class Template_Bootstrap {
 	 * on the Events > Settings page as their base Default template.
 	 *
 	 * @since  4.9.2
-	 * @since TBD specifically pass 'event' to be clearer down the line where we check for custom templates.
+	 * @since 5.0.3 specifically pass 'event' to be clearer down the line where we check for custom templates.
 	 *
 	 * @return string Either 'event', 'page' or custom based templates
 	 */
@@ -95,7 +95,7 @@ class Template_Bootstrap {
 	 * to handle the inclusion of the main file.
 	 *
 	 * @since  4.9.2
-	 * @since TBD inverted logic, as all the custom templates are page templates
+	 * @since 5.0.3 inverted logic, as all the custom templates are page templates
 	 *
 	 * @return object
 	 */

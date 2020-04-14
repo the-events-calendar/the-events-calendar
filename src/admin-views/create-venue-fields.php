@@ -118,7 +118,7 @@ if ( ! $_POST && is_admin() ) {
 			name='venue[Country][]'
 			id="EventCountry"
 			aria-label="<?php esc_html_e( 'Venue Country', 'the-events-calendar' ); ?>"
-
+			data-prevent-clear
 		>
 			<?php
 			foreach ( $countries as $abbr => $fullname ) {
@@ -151,6 +151,7 @@ if ( ! $_POST && is_admin() ) {
 			id="StateProvinceSelect"
 			name="venue[State]"
 			aria-label="<?php esc_html_e( 'Venue State', 'the-events-calendar' ); ?>"
+			data-prevent-clear
 		>
 			<option value=""><?php esc_html_e( 'Select a State:', 'the-events-calendar' ); ?></option>
 			<?php
