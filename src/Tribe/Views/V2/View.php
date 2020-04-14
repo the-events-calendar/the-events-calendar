@@ -2262,7 +2262,7 @@ class View implements View_Interface {
 
 		if ( ! empty( $template_vars['show_latest_past'] ) ) {
 			$template_vars['show_latest_past'] = true;
-			$latest_past_view                  = static::make( Latest_past_View::Class );
+			$latest_past_view                  = static::make( Latest_Past_View::Class );
 			$latest_past_view->set_context( $this->context );
 			$latest_past_view->add_view_filters();
 		}
