@@ -12,7 +12,7 @@ use Tribe\Events\Views\V2\View;
 use Tribe\Events\Views\V2\Views\Traits\List_Behavior;
 use Tribe__Context;
 
-class Latest_past_View extends View {
+class Latest_Past_View extends View {
 
 	use List_Behavior;
 	/**
