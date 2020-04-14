@@ -357,8 +357,8 @@ class Page {
 				$should_hijack = false;
 			}
 
-			// Dont hijack non-page event based.
-			if ( 'page' !== tribe( Template_Bootstrap::class )->get_template_setting() ) {
+			// Dont hijack event based.
+			if ( 'event' === tribe( Template_Bootstrap::class )->get_template_setting() ) {
 				$should_hijack = false;
 			}
 

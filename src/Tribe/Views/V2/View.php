@@ -2031,10 +2031,10 @@ class View implements View_Interface {
 	 */
 	protected function get_public_views( $url_event_date ) {
 		$public_views = tribe( Manager::class )->get_publicly_visible_views_data();
+		$query_args   = wp_parse_url( $this->get_url(), PHP_URL_QUERY );
 
-		if ( ! empty( $url_event_date ) ) {
+		if ( ! empty( $url_event_date ) || ! empty( $query_args ) ) {
 			// Each View expects the event date in a specific format, here we account for it.
-			$query_args = wp_parse_url( $this->get_url( false ), PHP_URL_QUERY );
 
 			array_walk(
 				$public_views,
@@ -2072,13 +2072,21 @@ class View implements View_Interface {
 	 * {@inheritDoc}
 	 */
 	public function url_for_query_args( $date = null, $query_args = [] ) {
-		$event_date = Dates::build_date_object( $date )->format( $this->get_url_date_format() );
-
 		if ( ! empty( $query_args ) && is_string( $query_args ) ) {
 			$str_args   = $query_args;
 			$query_args = [];
+
 			wp_parse_str( $str_args, $query_args );
 		}
+
+		// For "dateless" queries (today).
+		if ( empty( $date ) ) {
+			$query_args = array_filter( array_merge( $query_args, [ 'eventDisplay' => $this->get_slug() ] ) );
+
+			return tribe_events_get_url( $query_args );
+		}
+
+		$event_date = Dates::build_date_object( $date )->format( $this->get_url_date_format() );
 
 		$url_query_args = array_filter( array_merge( $query_args, [
 			'eventDisplay' => $this->get_slug(),

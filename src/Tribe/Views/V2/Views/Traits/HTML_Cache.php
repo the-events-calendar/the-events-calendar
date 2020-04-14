@@ -116,6 +116,10 @@ trait HTML_Cache {
 	 * @return bool Whether the View HTML should be cached or not.
 	 */
 	public function should_cache_html() {
+		if ( defined( 'TRIBE_CACHE_VIEWS' ) && ! TRIBE_CACHE_VIEWS ) {
+			return false;
+		}
+
 		$context = $this->get_context();
 
 		$cached_views = [
