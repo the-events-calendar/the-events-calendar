@@ -59,6 +59,8 @@ class Recent_Past_View extends View {
 		'components/events-bar/search',
 		'components/events-bar/filters',
 		'components/events-bar/views',
+		'components/events-bar/views/list',
+		'components/events-bar/views/list/item',
 		'components/ical-link',
 		'components/breakpoints',
 
@@ -71,8 +73,6 @@ class Recent_Past_View extends View {
 		'day/top-bar/datepicker',
 
 		// List View.
-		'components/events-bar/views/list',
-		'components/events-bar/views/list/item',
 		'list/top-bar',
 		'list/top-bar/nav',
 		'list/top-bar/nav/prev',
@@ -160,7 +160,8 @@ class Recent_Past_View extends View {
 	}
 
 	/**
-	 * Connect Whitelist Filter to Tribe Template Done.
+	 * Connect Whitelist Filter to Tribe Template Done to Prevent some of the current View's
+	 * Templates from Displaying when the Latest Past Events Displays.
 	 *
 	 * @since TBD
 	 */
