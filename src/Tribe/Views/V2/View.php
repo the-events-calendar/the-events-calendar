@@ -2202,7 +2202,7 @@ class View implements View_Interface {
 			return;
 		}
 
-		$now    = $this->context->get( 'now' );
+		$now    = $this->context->get( 'now', time() );
 		$latest = tribe_events_latest_date();
 
 		// If now is less then the latest event published, do not show.
