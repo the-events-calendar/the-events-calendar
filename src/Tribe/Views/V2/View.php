@@ -2194,23 +2194,60 @@ class View implements View_Interface {
 	 */
 	protected function setup_additional_views( array $events = [], array $template_vars = [] ) {
 
-		$manager = tribe( Manager::class );
+		$manager      = tribe( Manager::class );
 		$default_slug = $manager->get_default_view_option();
 
-		// Only recent Past Events to only the default view.
+		// Show Recent Past Events only on the default view.
 		if ( $this->get_slug() !== $default_slug ) {
 			return;
 		}
 
-		// Flatten Month and Week View Events to Get Accurate Count
-/*		$views_to_flatten = [
-			'month',
-			'week',
-		];
+		// If no events found, do not show.
+		if ( 0 === tribe_events()->found() ) {
+			return;
+		}
 
-		if ( in_array( $this->get_slug(), $views_to_flatten ) ) {
+		$now    = $this->context->get( 'now', time() );
+		$latest = tribe_events_latest_date();
+
+		// If now is less then the latest event published, do not show.
+		if ( $now < $latest ) {
+			return;
+		}
+
+		// Checks to verify on the initial load of a view or if using today's date for the view.
+		$today     = $this->context->get( 'today' );
+		$view_date = $this->context->get( 'event_date', '' );
+
+		switch ( $this->get_slug() ) {
+			case 'month':
+				$today_formatted     = Dates::build_date_object( $today )->format( Dates::DBYEARMONTHTIMEFORMAT );
+				$view_date_formatted = Dates::build_date_object( $view_date )->format( Dates::DBYEARMONTHTIMEFORMAT );
+				break;
+
+			case 'week':
+				list( $today_week_start, $today_week_end ) = Dates::get_week_start_end( $today, (int) $this->context->get( 'start_of_week', 0 ) );
+				list( $view_week_start, $view_week_end )   = Dates::get_week_start_end( $view_date, (int) $this->context->get( 'start_of_week', 0 ) );
+
+				$today_formatted     = $today_week_start->format( Dates::DBDATEFORMAT );
+				$view_date_formatted = $view_week_start->format( Dates::DBDATEFORMAT );
+				break;
+
+			default:
+				$today_formatted     = Dates::build_date_object( $today )->format( Dates::DBDATEFORMAT );
+				$view_date_formatted = Dates::build_date_object( $view_date )->format( Dates::DBDATEFORMAT );
+		}
+
+		// If view date is not empty and today does not equal the view date, then do not show.
+		if ( ! empty( $view_date ) && $today_formatted !== $view_date_formatted ) {
+			return;
+		}
+
+		// Flatten Views such as Month and Week that have an array values.
+		$first_value = reset( $events );
+		if ( is_array( $first_value ) ) {
 			$events = array_unique( array_merge( ...array_values( $events ) ) );
-		}*/
+		}
 
 		/**
 		 * Filters The Threshold to Show The Recent Past Events.
@@ -2223,13 +2260,10 @@ class View implements View_Interface {
 		 * @param array $template_vars An associative array of variables that will be set, and exported, in the template.
 		 * @param View  $instance      The current View object.
 		 */
-		$recent_past_threshold = apply_filters( "tribe_events_views_v2_threshold_to_show_recent_past_events", 0, $events, $template_vars, $this );
-
-		//todo change to get a saved value instead of running the query
-		$upcoming_events_count = tribe_events()->where( 'ends_after', 'now' )->count();
+		$recent_past_threshold = apply_filters( 'tribe_events_views_v2_threshold_to_show_recent_past_events', absint( 0 ), $events, $template_vars, $this );
 
 		// If threshold is less than upcoming events, do not show Recent Past Events.
-		if ( absint( $recent_past_threshold ) < $upcoming_events_count ) {
+		if ( $recent_past_threshold < count( $events ) ) {
 			return;
 		}
 
