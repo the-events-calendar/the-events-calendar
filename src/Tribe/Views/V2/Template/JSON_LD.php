@@ -2,7 +2,7 @@
 /**
  * Handles JSON-LD for V2.
  *
- * @since TBD
+ * @since 5.0.3
  *
  * @package Tribe\Events\Views\V2\Template
  */
@@ -12,7 +12,7 @@ namespace Tribe\Events\Views\V2\Template;
 /**
  * Class JSON_LD
  *
- * @since TBD
+ * @since 5.0.3
  *
  * @package Tribe\Events\Views\V2\Template
  */
@@ -21,7 +21,7 @@ class JSON_LD {
 	/**
 	 * Fires to Print JSON LD to Single Event.
 	 *
-	 * @since TBD
+	 * @since 5.0.3
 	 */
 	public function print_single_json_ld() {
 

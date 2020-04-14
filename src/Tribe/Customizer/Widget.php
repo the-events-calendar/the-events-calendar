@@ -57,7 +57,7 @@ final class Tribe__Events__Customizer__Widget extends Tribe__Customizer__Section
 			'priority'    => 70,
 			'capability'  => 'edit_theme_options',
 			'title'       => esc_html__( 'Widgets', 'the-events-calendar' ),
-			'description' => esc_html__( 'Options selected here will override what was selected in the "General Theme" and "Global Elements" sections', 'the-events-calendar' ),
+			'description' => esc_html__( 'Options selected here will override what was selected in the "General Theme" and "Global Elements" sections.', 'the-events-calendar' ),
 		);
 	}
 

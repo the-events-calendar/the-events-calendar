@@ -1374,8 +1374,11 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 
 					if ( class_exists( 'Tribe__Events__Pro__Recurrence__Event_Query' ) ) {
 						$recurrence_query = new Tribe__Events__Pro__Recurrence__Event_Query();
-						$recurrence_query->set_parent_event( get_post( $args['post_parent'] ) );
-						add_filter( 'posts_where', array( $recurrence_query, 'include_parent_event' ), 100 );
+						$parent_post      = get_post( $args['post_parent'] );
+						if ( $parent_post instanceof WP_Post ) {
+							$recurrence_query->set_parent_event( $parent_post );
+							add_filter( 'posts_where', array( $recurrence_query, 'include_parent_event' ), 100 );
+						}
 					}
 				}
 

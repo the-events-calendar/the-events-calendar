@@ -129,7 +129,7 @@ class Messages {
 		/**
 		 * Filters the array of keys of the messages that need the events label.
 		 *
-		 * @since TBD
+		 * @since 5.0.3
 		 *
 		 * @param array $need_events_label_keys Array of keys of the messages that need events label.
 		 */

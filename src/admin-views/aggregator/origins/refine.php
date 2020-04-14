@@ -130,14 +130,10 @@ $location_exclusions = json_encode( apply_filters( 'tribe_events_aggregator_refi
 				placeholder="<?php echo esc_attr( $radius->placeholder ); ?>"
 				data-hide-search
 			>
-				<option value=""></option>
-				<?php
-				foreach ( Tribe__Events__Utils__Radius::get_radii() as $name => $value ) {
-					?>
+				<option value=""><?php echo esc_attr( $radius->placeholder ); ?></option>
+				<?php foreach ( Tribe__Events__Utils__Radius::get_radii() as $name => $value ) : ?>
 					<option value="<?php echo esc_attr( $value ); ?>" <?php selected( $value, empty( $record->meta['radius'] ) ? '' : $record->meta['radius'] ); ?>><?php esc_html_e( $name ); ?></option>
-					<?php
-				}
-				?>
+				<?php endforeach; ?>
 			</select>
 		</div>
 	</td>
