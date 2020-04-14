@@ -4,7 +4,7 @@ namespace Tribe\Events\Views\V2;
 use Tribe\Events\Views\V2\Views\Day_View;
 use Tribe\Events\Views\V2\Views\List_View;
 use Tribe\Events\Views\V2\Views\Month_View;
-use Tribe\Events\Views\V2\Views\Recent_Past_View;
+use Tribe\Events\Views\V2\Views\Latest_Past_View;
 use Tribe\Events\Views\V2\Views\Reflector_View;
 use Tribe__Events__Main as TEC;
 use Tribe__Utils__Array as Arr;
@@ -57,7 +57,7 @@ class Manager {
 		 * will be built according to the binding rules; objects will be returned as they are.
 		 *
 		 * @since 4.9.2
-		 * @since TBD - Add Recent Past Events.
+		 * @since TBD - Add Latest Past Events.
 		 *
 		 * @param array $views An associative  array of views in the shape `[ <slug> => <class> ]`.
 		 */
@@ -65,7 +65,7 @@ class Manager {
 			'list'        => List_View::class,
 			'month'       => Month_View::class,
 			'day'         => Day_View::class,
-			'recent-past' => Recent_Past_View::class,
+			'latest-past' => Latest_Past_View::class,
 		] );
 
 		// Make sure the Reflector View is always available.
