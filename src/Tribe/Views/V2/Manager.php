@@ -4,7 +4,7 @@ namespace Tribe\Events\Views\V2;
 use Tribe\Events\Views\V2\Views\Day_View;
 use Tribe\Events\Views\V2\Views\List_View;
 use Tribe\Events\Views\V2\Views\Month_View;
-use Tribe\Events\Views\V2\Views\Latest_past_View;
+use Tribe\Events\Views\V2\Views\Latest_Past_View;
 use Tribe\Events\Views\V2\Views\Reflector_View;
 use Tribe__Events__Main as TEC;
 use Tribe__Utils__Array as Arr;
