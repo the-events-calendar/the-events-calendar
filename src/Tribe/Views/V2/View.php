@@ -2202,7 +2202,7 @@ class View implements View_Interface {
 			return;
 		}
 
-		$now    = $this->context->get( 'now' );
+		$now    = $this->context->get( 'now', time() );
 		$latest = tribe_events_latest_date();
 
 		// If now is less then the latest event published, do not show.
@@ -2210,21 +2210,27 @@ class View implements View_Interface {
 			return;
 		}
 
-
 		// Checks to verify on the initial load of a view or if using today's date for the view.
 		$today     = $this->context->get( 'today' );
 		$view_date = $this->context->get( 'event_date', '' );
-		if ( 'month' === $this->get_slug() ) {
-			$today_formatted     = Dates::build_date_object( $today )->format( Dates::DBYEARMONTHTIMEFORMAT );
-			$view_date_formatted = Dates::build_date_object( $view_date )->format( Dates::DBYEARMONTHTIMEFORMAT );
-		} elseif ( 'week' === $this->get_slug() ) {
-			list( $today_week_start, $today_week_end ) = Dates::get_week_start_end( $today, (int) $this->context->get( 'start_of_week', 0 ) );
-			list( $view_week_start, $view_week_end ) = Dates::get_week_start_end( $view_date, (int) $this->context->get( 'start_of_week', 0 ) );
-			$today_formatted     = $today_week_start->format( Dates::DBDATEFORMAT );
-			$view_date_formatted = $view_week_start->format( Dates::DBDATEFORMAT );
-		} else {
-			$today_formatted     = Dates::build_date_object( $today )->format( Dates::DBDATEFORMAT );
-			$view_date_formatted = Dates::build_date_object( $view_date )->format( Dates::DBDATEFORMAT );
+
+		switch ( $this->get_slug() ) {
+			case 'month':
+				$today_formatted     = Dates::build_date_object( $today )->format( Dates::DBYEARMONTHTIMEFORMAT );
+				$view_date_formatted = Dates::build_date_object( $view_date )->format( Dates::DBYEARMONTHTIMEFORMAT );
+				break;
+
+			case 'week':
+				list( $today_week_start, $today_week_end ) = Dates::get_week_start_end( $today, (int) $this->context->get( 'start_of_week', 0 ) );
+				list( $view_week_start, $view_week_end )   = Dates::get_week_start_end( $view_date, (int) $this->context->get( 'start_of_week', 0 ) );
+
+				$today_formatted     = $today_week_start->format( Dates::DBDATEFORMAT );
+				$view_date_formatted = $view_week_start->format( Dates::DBDATEFORMAT );
+				break;
+
+			default:
+				$today_formatted     = Dates::build_date_object( $today )->format( Dates::DBDATEFORMAT );
+				$view_date_formatted = Dates::build_date_object( $view_date )->format( Dates::DBDATEFORMAT );
 		}
 
 		// If view date is not empty and today does not equal the view date, then do not show.
@@ -2232,13 +2238,8 @@ class View implements View_Interface {
 			return;
 		}
 
-		// Flatten Month and Week View Events to Get Accurate Count
-		$views_to_flatten = [
-			'month',
-			'week',
-		];
-
-		if ( in_array( $this->get_slug(), $views_to_flatten ) ) {
+		// Flatten Views such as Month and Week that have an array values.
+		if ( isset( $events[0] ) && is_array( $events[0] ) ) {
 			$events = array_unique( array_merge( ...array_values( $events ) ) );
 		}
 
@@ -2253,10 +2254,10 @@ class View implements View_Interface {
 		 * @param array $template_vars An associative array of variables that will be set, and exported, in the template.
 		 * @param View  $instance      The current View object.
 		 */
-		$latest_past_threshold = apply_filters( "tribe_events_views_v2_threshold_to_show_latest_past_events", 0, $events, $template_vars, $this );
+		$recent_past_threshold = apply_filters( 'tribe_events_views_v2_threshold_to_show_recent_past_events', absint( 0 ), $events, $template_vars, $this );
 
-		// If threshold is less than upcoming events, do not show Latest Past Events.
-		if ( absint( $latest_past_threshold ) < count( $events ) ) {
+		// If threshold is less than upcoming events, do not show Recent Past Events.
+		if ( $recent_past_threshold < count( $events ) ) {
 			return;
 		}
 
