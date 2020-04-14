@@ -2239,7 +2239,8 @@ class View implements View_Interface {
 		}
 
 		// Flatten Views such as Month and Week that have an array values.
-		if ( isset( $events[0] ) && is_array( $events[0] ) ) {
+		$first_value = reset($events);
+		if ( is_array( $first_value ) ) {
 			$events = array_unique( array_merge( ...array_values( $events ) ) );
 		}
 
