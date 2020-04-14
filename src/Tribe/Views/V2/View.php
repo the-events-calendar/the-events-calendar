@@ -2202,6 +2202,11 @@ class View implements View_Interface {
 			return;
 		}
 
+		// If no events found, do not show.
+		if ( 0 === tribe_events()->found() ) {
+			return;
+		}
+
 		$now    = $this->context->get( 'now', time() );
 		$latest = tribe_events_latest_date();
 
