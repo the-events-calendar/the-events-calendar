@@ -2228,7 +2228,7 @@ class View implements View_Interface {
 				$view_date_formatted = $view_week_start->format( Dates::DBDATEFORMAT );
 				break;
 
-			default :
+			default:
 				$today_formatted     = Dates::build_date_object( $today )->format( Dates::DBDATEFORMAT );
 				$view_date_formatted = Dates::build_date_object( $view_date )->format( Dates::DBDATEFORMAT );
 		}
@@ -2254,7 +2254,7 @@ class View implements View_Interface {
 		 * @param array $template_vars An associative array of variables that will be set, and exported, in the template.
 		 * @param View  $instance      The current View object.
 		 */
-		$recent_past_threshold = apply_filters( "tribe_events_views_v2_threshold_to_show_recent_past_events", absint( 0 ), $events, $template_vars, $this );
+		$recent_past_threshold = apply_filters( 'tribe_events_views_v2_threshold_to_show_recent_past_events', absint( 0 ), $events, $template_vars, $this );
 
 		// If threshold is less than upcoming events, do not show Recent Past Events.
 		if ( $recent_past_threshold < count( $events ) ) {
