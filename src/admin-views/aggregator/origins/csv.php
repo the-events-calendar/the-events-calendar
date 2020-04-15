@@ -25,7 +25,7 @@ $post_types = $csv_record->get_import_post_types();
 			data-hide-search
 			data-prevent-clear
 		>
-			<option value=""></option>
+			<option value=""><?php echo esc_attr( $field->placeholder ); ?></option>
 			<?php foreach ( $post_types as $post_type ) : ?>
 				<option value="<?php echo esc_attr( $post_type->name ); ?>"><?php echo esc_html( $post_type->labels->name ); ?></option>
 			<?php endforeach; ?>
