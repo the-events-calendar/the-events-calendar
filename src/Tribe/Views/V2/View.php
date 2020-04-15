@@ -2205,6 +2205,12 @@ class View implements View_Interface {
 		$manager      = tribe( Manager::class );
 		$default_slug = $manager->get_default_view_option();
 
+		// If slug is `default`, get the slug another way.x
+		if ( 'default' === $default_slug ) {
+			$default_class = $manager->get_default_view();
+			$default_slug  = $manager->get_view_slug_by_class( $default_class );
+		}
+
 		// Show Latest Past Events only on the default view.
 		if ( $this->get_slug() !== $default_slug ) {
 			return;
