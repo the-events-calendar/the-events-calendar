@@ -28,6 +28,7 @@ class Event implements Editor_Object_Interface {
 	 * @var array<string,mixed>
 	 */
 	protected $data;
+	
 	/**
 	 * The post object to model the data on.
 	 *
