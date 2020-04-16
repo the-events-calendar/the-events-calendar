@@ -273,6 +273,11 @@ class Template_Bootstrap {
 			$query = tribe_get_global_query_object();
 		}
 
+		if ( ! $query instanceof WP_Query ) {
+			// Cannot discriminate, bail.
+			return false;
+		}
+
 		$should_load = null;
 		if ( ! empty( $query->query_vars_hash ) && isset( static::$cache['should_load'][ $query->query_vars_hash ] ) ) {
 			$should_load = static::$cache['should_load'][ $query->query_vars_hash ];
