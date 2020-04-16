@@ -220,7 +220,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [5.0.4] TBD =
+= [5.1.0] TBD =
 
 * Tweak - Load plugin text domain on the new `tribe_load_text_domains` action hook, which fires on `init` instead of on the `plugins_loaded` hook. [TEC-3406]
 * Fix - Selecting other Page templates from Settings > Display now loads the correct template properly, to display events.
