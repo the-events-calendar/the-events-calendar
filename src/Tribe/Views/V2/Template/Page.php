@@ -40,10 +40,7 @@ class Page {
 		// Fetches the WP default path for Page.
 		$template = tribe( Template_Bootstrap::class )->get_template_setting();
 
-		// If there wasn't any defined we fetch the Index.
-		if ( empty( $template ) ) {
-			$template = get_index_template();
-		} elseif ( 'page' === $template ) {
+		if ( 'page' === $template ) {
 			// We check for page as default is converted to page in Tribe\Events\Views\V2\Template_Bootstrap->in get_template_setting().
 			$template = get_page_template();
 		} else {
@@ -51,7 +48,12 @@ class Page {
 			$template = locate_template( $template );
 		}
 
-		// If $template is empty, attempt to get the index template for themes such as TwentyTwenty, which does not have a page.php.
+		// Following WordPress order, we check for Singular before Index.
+		if ( empty( $template ) ) {
+			$template = get_singular_template();
+		}
+
+		// Attempt to get the index template for themes such as TwentyTwenty, which does not have a page.php.
 		if ( empty( $template ) ) {
 			$template = get_index_template();
 		}
@@ -100,7 +102,7 @@ class Page {
 		add_action( 'the_post', [ $this, 'hijack_the_post' ], 25 );
 
 		// Load our page Content.
-		add_filter( 'the_content', [ $this, 'filter_hijack_page_content' ], 25 );
+		add_filter( 'the_content', [ $this, 'filter_hijack_page_content' ], 1 );
 
 		// Prevent edit link from showing.
 		add_filter( 'get_edit_post_link', [ $this, 'filter_prevent_edit_link' ], 25, 2 );
