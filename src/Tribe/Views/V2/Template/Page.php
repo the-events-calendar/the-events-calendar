@@ -102,7 +102,7 @@ class Page {
 		add_action( 'the_post', [ $this, 'hijack_the_post' ], 25 );
 
 		// Load our page Content.
-		add_filter( 'the_content', [ $this, 'filter_hijack_page_content' ], 1 );
+		add_filter( 'the_content', [ $this, 'filter_hijack_page_content' ], 25 );
 
 		// Prevent edit link from showing.
 		add_filter( 'get_edit_post_link', [ $this, 'filter_prevent_edit_link' ], 25, 2 );
