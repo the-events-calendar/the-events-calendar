@@ -4,13 +4,11 @@
 import React from 'react';
 import { compose } from 'redux';
 import { unescape } from 'lodash';
-import { stringify } from 'querystringify';
 
 /**
  * WordPress dependencies
  */
-import { Component } from '@wordpress/element';
-import { Spinner, withAPIData } from '@wordpress/components';
+import { Spinner } from '@wordpress/components';
 import { withSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 

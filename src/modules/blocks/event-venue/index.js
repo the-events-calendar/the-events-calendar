@@ -28,9 +28,6 @@ export default {
 	},
 
 	attributes: {
-		venueTitle: {
-			type: 'html',
-		},
 		venue: {
 			type: 'integer',
 			source: 'meta',

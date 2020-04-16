@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[STORE] - Website selectors Should return the website block 1`] = `
+Object {
+  "url": "",
+}
+`;
+
+exports[`[STORE] - Website selectors Should return the website url 1`] = `""`;
