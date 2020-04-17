@@ -45,11 +45,6 @@ export default {
 			source: 'meta',
 			meta: '_EventAllDay',
 		},
-		separatorTime: {
-			type: 'string',
-			source: 'meta',
-			meta: '_EventTimeRangeSeparator',
-		},
 	},
 
 	edit: EventDateTimeDashboard,

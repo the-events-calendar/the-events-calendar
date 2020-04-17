@@ -4,7 +4,7 @@ Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.9
-Stable tag: 5.0.4
+Stable tag: 5.1.0
 Tested up to: 5.4
 Requires PHP: 5.6
 License: GPLv2 or later
@@ -220,7 +220,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [5.0.4] TBD =
+= [5.1.0] TBD =
 
 * Feature - Add a "fast forward" link to Month and Day views when there are no events to show. [TEC-3400]
 * Tweak - Load plugin text domain on the new `tribe_load_text_domains` action hook, which fires on `init` instead of on the `plugins_loaded` hook. [TEC-3406]
@@ -231,6 +231,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Do not set the Venue country when creating Venues from the Event Block Editor [TEC-3361]
 * Fix - Ensure we pass search keywords when changing views and in the top-bar nav [TEC-3282]
 * Fix - Several strings have been adjusted for consistency and better translatability [BTRIA-307]
+* Tweak - Add some filters for better control of link targets, standardize the way we create those links [TEC-3402]
 
 = [5.0.3.1] 2020-03-23 =
 

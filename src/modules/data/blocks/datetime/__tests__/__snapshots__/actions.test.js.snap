@@ -18,26 +18,9 @@ Object {
 }
 `;
 
-exports[`[STORE] - Datetime actions Action to set the date input visibility 1`] = `
-Object {
-  "payload": Object {
-    "show": true,
-  },
-  "type": "@@MT/EVENTS/SET_DATE_INPUT_VISIBILITY",
-}
-`;
-
-exports[`[STORE] - Datetime actions Action to set the date input visibility 2`] = `
-Object {
-  "payload": Object {
-    "show": false,
-  },
-  "type": "@@MT/EVENTS/SET_DATE_INPUT_VISIBILITY",
-}
-`;
-
 exports[`[STORE] - Datetime actions Action to set the multi day 1`] = `
 Object {
+  "meta": Object {},
   "payload": Object {
     "multiDay": true,
   },
@@ -47,6 +30,7 @@ Object {
 
 exports[`[STORE] - Datetime actions Action to set the multi day 2`] = `
 Object {
+  "meta": Object {},
   "payload": Object {
     "multiDay": false,
   },
@@ -74,6 +58,7 @@ Object {
 
 exports[`[STORE] - Datetime actions Action to set the start time 1`] = `
 Object {
+  "meta": Object {},
   "payload": Object {
     "start": "June 5, 2018 5:00 pm",
   },
@@ -83,6 +68,7 @@ Object {
 
 exports[`[STORE] - Datetime actions Action to set the start time 2`] = `
 Object {
+  "meta": Object {},
   "payload": Object {
     "end": "June 25, 2018 4:00 pm",
   },
@@ -128,6 +114,7 @@ Object {
 
 exports[`[STORE] - Datetime actions Set Natural Language Label 1`] = `
 Object {
+  "meta": Object {},
   "payload": Object {
     "label": "2 weeks from now",
   },
@@ -155,6 +142,7 @@ Object {
 
 exports[`[STORE] - Datetime actions setDateRange 1`] = `
 Object {
+  "meta": Object {},
   "payload": Object {
     "from": 0,
     "to": 1,
@@ -165,6 +153,7 @@ Object {
 
 exports[`[STORE] - Datetime actions setEndTime 1`] = `
 Object {
+  "meta": Object {},
   "payload": Object {
     "end": 6000,
   },
@@ -183,6 +172,7 @@ Object {
 
 exports[`[STORE] - Datetime actions setStartTime 1`] = `
 Object {
+  "meta": Object {},
   "payload": Object {
     "start": 6000,
   },

@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[STORE] - Venue types Should return the venue types 1`] = `"@@MT/EVENTS/SET_VENUE"`;
+
+exports[`[STORE] - Venue types Should return the venue types 2`] = `"@@MT/EVENTS/SET_VENUE_MAP_LINK"`;
+
+exports[`[STORE] - Venue types Should return the venue types 3`] = `"@@MT/EVENTS/SET_VENUE_MAP"`;

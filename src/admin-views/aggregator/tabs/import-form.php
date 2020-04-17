@@ -288,6 +288,16 @@ $scheduled_save_help = esc_html__( 'When you save this scheduled import, the eve
 			data-width-rule="all-triggers"
 		></span>
 	</div>
+
+	<?php
+	/**
+	 * Allows output of custom import preview options.
+	 *
+	 * @since TBD
+	 */
+	do_action( 'tribe_events_aggregator_import_form_preview_options' );
+	?>
+
 	<textarea style="display:none;" name="aggregator[selected_rows]" id="tribe-selected-rows"></textarea>
 </div>
 <div class="tribe-finalize-container">
