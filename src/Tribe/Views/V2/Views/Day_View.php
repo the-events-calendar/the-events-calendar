@@ -239,8 +239,8 @@ class Day_View extends View {
 			return false;
 		}
 
-		$url_date   = Dates::build_date_object( $next_event->start_date );
-		$url        = $this->build_url_for_date( $url_date, $canonical, $passthru_vars );
+		$url_date = Dates::build_date_object( $next_event->start_date );
+		$url      = $this->build_url_for_date( $url_date, $canonical, $passthru_vars );
 
 		$this->cached_urls[ $cache_key ] = $url;
 

@@ -433,7 +433,7 @@ class Month_View extends By_Day_View {
 	 *                                 in key and value.
 	 * @return string                  The html link and message.
 	 */
-	public function fast_forward( $canonical = false, array $passthru_vars = [] ) {
+	public function get_fast_forward_link( $canonical = false, array $passthru_vars = [] ) {
 		$date      = $this->context->get( 'event_date', $this->context->get( 'today' ) );
 		$cache_key = __METHOD__ . '_' . md5( wp_json_encode( array_merge( [ $date, $canonical ], $passthru_vars ) ) );
 
@@ -448,8 +448,8 @@ class Month_View extends By_Day_View {
 			return false;
 		}
 
-		$url_date   = Dates::build_date_object( $next_event->start_date );
-		$url        = $this->build_url_for_date( $url_date, $canonical, $passthru_vars );
+		$url_date = Dates::build_date_object( $next_event->start_date );
+		$url      = $this->build_url_for_date( $url_date, $canonical, $passthru_vars );
 
 		$this->cached_urls[ $cache_key ] = $url;
 
@@ -491,6 +491,6 @@ class Month_View extends By_Day_View {
 			return;
 		}
 
-		$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( 'month_no_results_found', $this->fast_forward() ), 9 );
+		$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( 'month_no_results_found', $this->get_fast_forward_link() ), 9 );
 	}
 }
