@@ -178,9 +178,9 @@ class Day_View extends View {
 	}
 
 	/**
-	 * Add timeslot and sort events for the day view.
+	 * Add time slot and sort events for the day view.
 	 *
-	 * Iterate over the day events to add timeslots and sort them.
+	 * Iterate over the day events to add time slots and sort them.
 	 *
 	 * @since 4.9.11
 	 *
@@ -234,6 +234,11 @@ class Day_View extends View {
 
 		$next_event = (array) tribe_events()->where( 'starts_after', $date )->per_page( 1 )->fields( 'ids' )->first();
 		$next_event = tribe_get_event( array_shift( $next_event ) );
+
+		if ( empty( $next_event ) ) {
+			return false;
+		}
+
 		$url_date   = Dates::build_date_object( $next_event->start_date );
 		$url        = $this->build_url_for_date( $url_date, $canonical, $passthru_vars );
 
