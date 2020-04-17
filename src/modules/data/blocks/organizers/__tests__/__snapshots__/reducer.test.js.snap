@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[STORE] - Organizers reducer Should return the default state 1`] = `
+Object {
+  "blocks": Object {
+    "allIds": Array [],
+    "byId": Object {},
+  },
+  "classic": Array [],
+}
+`;
+
+exports[`[STORE] - Organizers reducer Should set the initial state 1`] = `
+Object {
+  "blocks": Object {
+    "allIds": Array [],
+    "byId": Object {},
+  },
+  "classic": Array [
+    99,
+    100,
+  ],
+}
+`;

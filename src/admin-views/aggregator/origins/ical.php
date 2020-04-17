@@ -32,40 +32,39 @@ $frequencies = $cron->get_frequency();
 				data-hide-search
 				data-prevent-clear
 			>
-				<option value=""></option>
 				<option value="manual"><?php echo esc_html__( 'One-Time Import', 'the-events-calendar' ); ?></option>
 				<option value="schedule"><?php echo esc_html__( 'Scheduled Import', 'the-events-calendar' ); ?></option>
 			</select>
 		<?php endif; ?>
 
-		<select
-			name="aggregator[ical][import_frequency]"
-			id="tribe-ea-field-ical_import_frequency"
-			class="tribe-ea-field tribe-ea-dropdown tribe-ea-size-large tribe-dependent"
-			placeholder="<?php echo esc_attr( $frequency->placeholder ); ?>"
-			data-hide-search
+		<span
 			data-depends="#tribe-ea-field-ical_import_type"
 			data-condition="schedule"
-			data-prevent-clear
 		>
-			<option value=""></option>
-			<?php foreach ( $frequencies as $frequency_object ) : ?>
-				<option value="<?php echo esc_attr( $frequency_object->id ); ?>" <?php selected( empty( $record->meta['frequency'] ) ? 'daily' : $record->meta['frequency'], $frequency_object->id ); ?>><?php echo esc_html( $frequency_object->text ); ?></option>
-			<?php endforeach; ?>
-		</select>
+			<select
+				name="aggregator[ical][import_frequency]"
+				id="tribe-ea-field-ical_import_frequency"
+				class="tribe-ea-field tribe-ea-dropdown tribe-ea-size-large"
+				placeholder="<?php echo esc_attr( $frequency->placeholder ); ?>"
+				data-hide-search
+				data-prevent-clear
+			>
+				<?php foreach ( $frequencies as $frequency_object ) : ?>
+					<option value="<?php echo esc_attr( $frequency_object->id ); ?>" <?php selected( empty( $record->meta['frequency'] ) ? 'daily' : $record->meta['frequency'], $frequency_object->id ); ?>><?php echo esc_html( $frequency_object->text ); ?></option>
+				<?php endforeach; ?>
+			</select>
+			<span
+				class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help"
+				data-bumpdown="<?php echo esc_attr( $frequency->help ); ?>"
+				data-width-rule="all-triggers"
+			></span>
+		</span>
 		<span
 			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
 			data-bumpdown="<?php echo esc_attr( $field->help ); ?>"
 			data-depends="#tribe-ea-field-ical_import_type"
 			data-condition-not="schedule"
 			data-condition-empty
-			data-width-rule="all-triggers"
-		></span>
-		<span
-			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
-			data-bumpdown="<?php echo esc_attr( $frequency->help ); ?>"
-			data-depends="#tribe-ea-field-ical_import_type"
-			data-condition="schedule"
 			data-width-rule="all-triggers"
 		></span>
 	</td>
