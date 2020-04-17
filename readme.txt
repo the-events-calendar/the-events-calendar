@@ -223,11 +223,12 @@ Remember to always make a backup of your database and files before updating!
 = [5.1.0] TBD =
 
 * Tweak - Load plugin text domain on the new `tribe_load_text_domains` action hook, which fires on `init` instead of on the `plugins_loaded` hook. [TEC-3406]
+* Tweak - Add a constant `TRIBE_CACHE_VIEWS` to turn off views HTML caching.
 * Fix - Selecting other Page templates from Settings > Display now loads the correct template properly, to display events.
 * Fix - Preventing redirects from updated Views V2 to be too broad and end up catching requests from other Plugins, reported by GravityView team on Gravity Forms bug with imports.
 * Fix - Prevent PHP errors from happening during bulk activation or deactivation of the plugin [TCMN-53]
+* Fix - Correct iCal link on month view for months other than the current one [TEC-3267]
 * Fix - Correct a few incorrect and/or typoed text domains [TEC-3390]
-* Fix - Do not set the Venue country when creating Venues from the Event Block Editor [TEC-3361]
 * Fix - Ensure we pass search keywords when changing views and in the top-bar nav [TEC-3282]
 * Fix - Several strings have been adjusted for consistency and better translatability [BTRIA-307]
 * Tweak - Add some filters for better control of link targets, standardize the way we create those links [TEC-3402]
