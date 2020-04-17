@@ -80,7 +80,7 @@ class Tribe__Events__iCal {
 	 *
 	 * @param string $event_date Date of the month we are getting the link for.
 	 *
-	 * @return string
+	 * @return string The iCal export URL for the Month view.
 	 */
 	public function month_view_ical_link( $event_date = null ) {
 		$tec = Tribe__Events__Main::instance();

@@ -104,7 +104,7 @@ trait iCal_Data {
 	 *
 	 * @since TBD
 	 *
-	 * @return string
+	 * @return string The iCAl URL for the month view.
 	 */
 	public function get_month_view_url() {
 		$event_date = $this->get_event_date();
