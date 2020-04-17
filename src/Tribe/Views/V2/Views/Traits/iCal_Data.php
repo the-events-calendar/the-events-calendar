@@ -77,21 +77,21 @@ trait iCal_Data {
 		];
 
 		/**
-		 * Filters the ical data.
+		 * Filters the iCal data.
 		 *
 		 * @since 4.9.13
 		 *
-		 * @param object $ical_data An object containing the ical data.
+		 * @param object $ical_data An object containing the iCal data.
 		 * @param View   $this      The current View instance being rendered.
 		 */
 		$ical_data = apply_filters( 'tribe_events_views_v2_view_ical_data', $ical_data, $this );
 
 		/**
-		 * Filters the ical data for a specific view.
+		 * Filters the iCal data for a specific view.
 		 *
 		 * @since 4.9.13
 		 *
-		 * @param object $ical_data An object containing the ical data.
+		 * @param object $ical_data An object containing the iCal data.
 		 * @param View   $this      The current View instance being rendered.
 		 */
 		$ical_data = apply_filters( "tribe_events_views_v2_view_{$slug}_ical_data", $ical_data, $this );
@@ -107,33 +107,10 @@ trait iCal_Data {
 	 * @return string The iCAl URL for the month view.
 	 */
 	public function get_month_view_url() {
-		$event_date = $this->get_event_date();
+		$event_date = $this->context->get( 'event_date', 'now' );
 
 		// If we don't have a date for some reason, give them the default iCal link.
 		$url = ! empty( $event_date ) ? tribe( 'tec.iCal' )->month_view_ical_link( $event_date ) : tribe( 'tec.iCal' )->get_ical_link();
 		return $url;
-	}
-
-	/**
-	 * Gets the event date from the Context.
-	 *
-	 * @since TBD
-	 *
-	 * @return string
-	 */
-	public function get_event_date() {
-		$event_date = null;
-		$context    = $this->get_context();
-
-		if ( ! empty( $context->get( 'eventDate' ) ) ) {
-			$event_date = $context->get( 'eventDate' );
-		}
-
-		// On page refresh, 'eventDate' is set as 'event_date'.
-		if ( empty( $event_date ) && ! empty( $context->get( 'event_date' ) ) ) {
-			$event_date = $context->get( 'event_date' );
-		}
-
-		return $event_date;
 	}
 }
