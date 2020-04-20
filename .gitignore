@@ -37,3 +37,7 @@ lang/*.mo
 src/resources/**/app
 src/resources/css
 src/resources/js/**/*.min.js
+
+# tric configuration files
+*.tric
+*.tric.*
