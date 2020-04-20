@@ -152,7 +152,10 @@ class Template_Bootstrap {
 		echo '</main>';
 
 		$html = ob_get_clean();
-		$html = do_blocks( $html );
+
+		if ( function_exists( 'do_blocks' ) ) {
+			$html = do_blocks( $html );
+		}
 
 		return $html;
 	}
