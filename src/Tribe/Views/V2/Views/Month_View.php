@@ -424,6 +424,46 @@ class Month_View extends By_Day_View {
 	}
 
 	/**
+	 * Creates a HTML link and "fast forward" message to append to the "no events found" message.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool  $canonical         Whether to return the canonical (pretty) version of the URL or not.
+	 * @param array $passthru_vars     An optional array of query variables that should pass thru the method untouched
+	 *                                 in key and value.
+	 * @return string                  The html link and message.
+	 */
+	public function get_fast_forward_link( $canonical = false, array $passthru_vars = [] ) {
+		$date      = $this->context->get( 'event_date', $this->context->get( 'today' ) );
+		$cache_key = __METHOD__ . '_' . md5( wp_json_encode( array_merge( [ $date, $canonical ], $passthru_vars ) ) );
+
+		if ( isset( $this->cached_urls[ $cache_key ] ) ) {
+			return $this->cached_urls[ $cache_key ];
+		}
+
+		$next_event = (array) tribe_events()->where( 'starts_after', $date )->per_page( 1 )->fields( 'ids' )->first();
+		$next_event = tribe_get_event( array_shift( $next_event ) );
+
+		if ( empty( $next_event ) ) {
+			return false;
+		}
+
+		$url_date = Dates::build_date_object( $next_event->start_date );
+		$url      = $this->build_url_for_date( $url_date, $canonical, $passthru_vars );
+
+		$this->cached_urls[ $cache_key ] = $url;
+
+		$link = sprintf(
+			/* translators: 1: opening href tag 2: closing href tag */
+			__( 'Jump to the %1$snext upcoming event(s)%2$s.', 'the-events-calendar' ),
+			'<a href="' . esc_url( $url ) . '">',
+			'</a>'
+		);
+
+		return $link;
+	}
+
+	/**
 	 * Overrides the base method to handle messages specific to the Month View.
 	 *
 	 * @since 4.9.11
@@ -451,6 +491,6 @@ class Month_View extends By_Day_View {
 			return;
 		}
 
-		$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( 'no_results_found' ), 9 );
+		$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( 'month_no_results_found', $this->get_fast_forward_link() ), 9 );
 	}
 }
