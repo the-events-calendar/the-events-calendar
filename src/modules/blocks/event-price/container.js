@@ -15,10 +15,6 @@ import {
 	selectors as priceSelectors,
 	utils as priceUtils,
 } from '@moderntribe/events/data/blocks/price';
-import {
-	actions as UIActions,
-	selectors as UISelectors,
-} from '@moderntribe/events/data/ui';
 import EventPrice from './template';
 
 /**
