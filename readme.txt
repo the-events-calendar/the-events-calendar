@@ -222,6 +222,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [5.1.0] TBD =
 
+* Feature - Add a "fast forward" link to Month and Day views when there are no events to show. [TEC-3400]
 * Feature - Add Recent Past Events Views. [TEC-3385]
 * Tweak - Load plugin text domain on the new `tribe_load_text_domains` action hook, which fires on `init` instead of on the `plugins_loaded` hook. [TEC-3406]
 * Tweak - Add a constant `TRIBE_CACHE_VIEWS` to turn off views HTML caching.

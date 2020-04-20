@@ -49,7 +49,7 @@ class List_ViewTest extends ViewTestCase {
 	 */
 	public function test_render_with_upcoming_events() {
 		// @todo @backend investigate and fix.
-		$this->markTestSkipped( 'CI issues prevent this from consistenly passing.' );
+		$this->markTestSkipped( 'CI issues prevent this from consistently passing.' );
 
 		$events = [];
 
