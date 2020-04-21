@@ -441,11 +441,10 @@ class Month_View extends By_Day_View {
 			return $this->cached_urls[ $cache_key ];
 		}
 
-		$next_event = (array) tribe_events()->where( 'starts_after', $date )->per_page( 1 )->fields( 'ids' )->first();
-		$next_event = tribe_get_event( array_shift( $next_event ) );
+		$next_event = tribe_events()->where( 'starts_after', $date )->per_page( 1 )->first();
 
-		if ( empty( $next_event ) ) {
-			return false;
+		if ( ! $next_event instanceof \WP_Post ) {
+			return '';
 		}
 
 		$url_date = Dates::build_date_object( $next_event->start_date );
@@ -456,7 +455,7 @@ class Month_View extends By_Day_View {
 		$link = sprintf(
 			/* translators: 1: opening href tag 2: closing href tag */
 			__( 'Jump to the %1$snext upcoming event(s)%2$s.', 'the-events-calendar' ),
-			'<a href="' . esc_url( $url ) . '">',
+			'<a href="' . esc_url( $url ) . '" class="tribe-events-c-messages__message-list-item-link tribe-common-anchor-thin-alt">',
 			'</a>'
 		);
 
@@ -491,6 +490,10 @@ class Month_View extends By_Day_View {
 			return;
 		}
 
-		$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( 'month_no_results_found', $this->get_fast_forward_link() ), 9 );
+		$this->messages->insert(
+			Messages::TYPE_NOTICE,
+			Messages::for_key( 'month_no_results_found', $this->get_fast_forward_link( true ) ),
+			9
+		);
 	}
 }
