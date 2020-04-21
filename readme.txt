@@ -220,7 +220,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [5.1.0] TBD =
+= [5.1.0] 2020-04-22 =
 
 * Feature - Add a "fast forward" link to Month and Day views when there are no events to show. [TEC-3400]
 * Feature - Add Recent Past Events Views. [TEC-3385]
