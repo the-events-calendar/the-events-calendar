@@ -490,9 +490,26 @@ class Month_View extends By_Day_View {
 			return;
 		}
 
+		$tax     = $this->context->get('taxonomy');
+		$filters = array_filter( (array) $this->context->get( 'view_data' ) );
+
+		unset( $filters[ 'url' ], $filters[ 'form_submit' ] );
+
+		if (
+			empty( array_values( $filters ) )
+				&& empty( $tax )
+		) {
+			$this->messages->insert(
+				Messages::TYPE_NOTICE,
+				Messages::for_key( 'month_no_results_found', $this->get_fast_forward_link( true ) ),
+				9
+			);
+			return;
+		}
+
 		$this->messages->insert(
 			Messages::TYPE_NOTICE,
-			Messages::for_key( 'month_no_results_found', $this->get_fast_forward_link( true ) ),
+			Messages::for_key( 'no_results_found', null ),
 			9
 		);
 	}

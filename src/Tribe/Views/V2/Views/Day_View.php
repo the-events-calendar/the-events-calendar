@@ -266,17 +266,37 @@ class Day_View extends View {
 
 			if ( $keyword ) {
 				$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( 'no_results_found_w_keyword', trim( $keyword ) ) );
-			} else {
-				$date_time  = Dates::build_date_object( $this->context->get( 'event_date', 'today' ) );
-				$date_label = date_i18n(
-					tribe_get_date_format( true ),
-					$date_time->getTimestamp() + $date_time->getOffset()
-				);
+
+				return;
+			}
+
+			$date_time  = Dates::build_date_object( $this->context->get( 'event_date', 'today' ) );
+			$date_label = date_i18n(
+				tribe_get_date_format( true ),
+				$date_time->getTimestamp() + $date_time->getOffset()
+			);
+
+			$tax     = $this->context->get('taxonomy');
+			$filters = array_filter( (array) $this->context->get( 'view_data' ) );
+
+			unset( $filters[ 'url' ], $filters[ 'form_submit' ] );
+
+			if (
+				empty( array_values( $filters ) )
+				&& empty( $tax )
+			) {
 				$this->messages->insert(
 					Messages::TYPE_NOTICE,
 					Messages::for_key( 'day_no_results_found', $date_label, $this->get_fast_forward_link( true ) )
 				);
+
+				return;
 			}
+
+			$this->messages->insert(
+				Messages::TYPE_NOTICE,
+				Messages::for_key( 'day_no_results_found', $date_label, null )
+			);
 		}
 	}
 
