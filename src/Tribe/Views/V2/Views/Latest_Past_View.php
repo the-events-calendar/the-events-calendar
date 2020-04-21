@@ -2,7 +2,7 @@
 /**
  * The Past Latest View.
  *
- * @since   TBD
+ * @since   5.1.0
  * @package Tribe\Events\Views\V2\Views
  */
 
@@ -18,7 +18,7 @@ class Latest_Past_View extends View {
 	/**
 	 * Slug for this view
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @var string
 	 */
@@ -27,7 +27,7 @@ class Latest_Past_View extends View {
 	/**
 	 * Visibility for this view.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @var bool
 	 */
@@ -36,7 +36,7 @@ class Latest_Past_View extends View {
 	/**
 	 * Whitelist of Templates to display when Latest Past Events is Active.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @var array
 	 */
@@ -151,7 +151,7 @@ class Latest_Past_View extends View {
 	/**
 	 * Add Filters for Whitelist and Adding View HTML.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 */
 	public function add_view_filters() {
 
@@ -163,7 +163,7 @@ class Latest_Past_View extends View {
 	 * Connect Whitelist Filter to Tribe Template Done to Prevent some of the current View's
 	 * Templates from Displaying when the Latest Past Events Displays.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 */
 	public function filter_template_done( $html ) {
 
@@ -175,7 +175,7 @@ class Latest_Past_View extends View {
 	/**
 	 * Filter the Template Files and Only Return HTML if in Whitelist.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @param string  $done    Whether to continue displaying the template or not.
 	 * @param array   $name    Template name.
@@ -196,7 +196,7 @@ class Latest_Past_View extends View {
 	/**
 	 * Add the HTML for Latest Past Events to the HTML of the View Being Rendered.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @param $html string The HTML of the view being rendered.
 	 *

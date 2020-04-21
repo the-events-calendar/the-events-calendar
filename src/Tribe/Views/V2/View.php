@@ -2094,7 +2094,7 @@ class View implements View_Interface {
 	/**
 	 * Filters Whether the Latest Past Events Should Show for a specific View.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @return boolean If we should display Latest Past Events.
 	 */
@@ -2104,7 +2104,7 @@ class View implements View_Interface {
 		/**
 		 * Filters Whether the Latest Past Events Should Show for all Views.
 		 *
-		 * @since TBD
+		 * @since 5.1.0
 		 *
 		 * @param boolean $show      If we should display Latest Past Events.
 		 * @param string  $view_slug The current view slug.
@@ -2115,7 +2115,7 @@ class View implements View_Interface {
 		/**
 		 * Filters Whether the Latest Past Events Should Show for a specific View.
 		 *
-		 * @since TBD
+		 * @since 5.1.0
 		 *
 		 * @param boolean $show     If we should display Latest Past Events.
 		 * @param View    $instance The current View object.
@@ -2128,7 +2128,7 @@ class View implements View_Interface {
 	/**
 	 * Setup of Additional Views into another View.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @param array $events        Array that will be counted to verify if we have events.
 	 * @param array $template_vars An associative array of variables that will be set, and exported, in the template.
@@ -2205,7 +2205,7 @@ class View implements View_Interface {
 		 * Filters The Threshold to Show The Latest Past Events.
 		 * Defaults to show when there are Zero Events.
 		 *
-		 * @since TBD
+		 * @since 5.1.0
 		 *
 		 * @param int   The threshold to show The Latest Past Events.
 		 * @param array $events        Array that will be counted to verify if we have events.

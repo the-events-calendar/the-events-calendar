@@ -149,7 +149,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		/**
 		 * Allows output of custom import preview options.
 		 *
-		 * @since TBD
+		 * @since 5.1.0
 		 *
 		 * @param Tribe__Events__Aggregator__Record__Abstract $record Import record.
 		 * @param array                                       $data   List of import options.

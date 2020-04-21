@@ -57,7 +57,7 @@ class Manager {
 		 * will be built according to the binding rules; objects will be returned as they are.
 		 *
 		 * @since 4.9.2
-		 * @since TBD - Add Latest Past Events.
+		 * @since 5.1.0 - Add Latest Past Events.
 		 *
 		 * @param array $views An associative  array of views in the shape `[ <slug> => <class> ]`.
 		 */

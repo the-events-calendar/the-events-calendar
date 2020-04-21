@@ -946,7 +946,7 @@ class Tribe__Events__Linked_Posts {
 	/**
 	 * Renders the option passed in the param.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @param array $option Array with the option values to render the HTML for Select Option.
 	 *

@@ -122,7 +122,7 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract extends Tribe__Tabbed_V
 		/**
 		 * Filters the meta used during submit.
 		 *
-		 * @since TBD
+		 * @since 5.1.0
 		 *
 		 * @param array $meta Import meta.
 		 */

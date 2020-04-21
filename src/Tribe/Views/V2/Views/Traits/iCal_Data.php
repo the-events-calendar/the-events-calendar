@@ -2,7 +2,7 @@
 /**
  * Provides methods for getting iCal data for views
  *
- * @since   TBD
+ * @since   5.1.0
  *
  * @package Tribe\Events\Views\V2\Views
  */
@@ -14,7 +14,7 @@ use Tribe\Events\Views\V2\View;
 /**
  * Trait iCal_Data
  *
- * @since   TBD
+ * @since   5.1.0
  *
  * @package Tribe\Events\Views\V2\Views\Traits
  *
@@ -24,7 +24,7 @@ trait iCal_Data {
 	/**
 	 * Returns the iCal data we're sending to the view.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @return object
 	 */
@@ -102,7 +102,7 @@ trait iCal_Data {
 	/**
 	 * Gets the iCal url for the month view.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @return string The iCAl URL for the month view.
 	 */

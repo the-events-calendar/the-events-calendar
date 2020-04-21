@@ -217,7 +217,7 @@ class Day_View extends View {
 	/**
 	 * Creates a HTML link and "fast forward" message to append to the "no events found" message.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @param bool  $canonical         Whether to return the canonical (pretty) version of the URL or not.
 	 * @param array $passthru_vars     An optional array of query variables that should pass thru the method untouched

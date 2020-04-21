@@ -293,7 +293,7 @@ $scheduled_save_help = esc_html__( 'When you save this scheduled import, the eve
 	/**
 	 * Allows output of custom import preview options.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 */
 	do_action( 'tribe_events_aggregator_import_form_preview_options' );
 	?>

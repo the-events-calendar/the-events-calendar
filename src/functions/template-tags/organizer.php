@@ -270,7 +270,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			/**
 			 * Filter the organizer link target attribute.
 			 *
-			 * @since TBD
+			 * @since 5.1.0
 			 *
 			 * @param string the target attribute string. Defaults to "_self".
 			 */
@@ -367,7 +367,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Filter the organizer link target attribute.
 		 *
-		 * @since TBD
+		 * @since 5.1.0
 		 *
 		 * @param string the target attribute string. Defaults to "_self".
 		 */
@@ -377,7 +377,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Filter the organizer link label
 		 *
-		 * @since TBD
+		 * @since 5.1.0
 		 *
 		 * @param string the link label/text.
 		 */

@@ -362,7 +362,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Filter the target attribute for the event website link
 		 *
-		 * @since TBD
+		 * @since 5.1.0
 		 *
 		 * @param string the target attribute string. Defaults to "_self".
 		 */

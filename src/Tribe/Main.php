@@ -507,7 +507,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Load The Events Calendar text domain.
 		 *
-		 * @since TBD
+		 * @since 5.1.0
 		 *
 		 * @return bool
 		 */

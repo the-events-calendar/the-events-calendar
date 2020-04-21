@@ -1533,7 +1533,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * This will remove all text that resembles a shortcode [shortcode 5].
 		 *
-		 * @since TBD
+		 * @since 5.1.0
 		 *
 		 * @param bool $remove_shortcodes Whether shortcodes content should be removed from the excerpt or not.
 		 * @param WP_Post $post The current post object.
@@ -1546,7 +1546,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 * If truthy then block whose content does not belong in the excerpt, will be removed.
 		 * This removal is done using WordPress Core `excerpt_remove_blocks` function.
 		 *
-		 * @since TBD
+		 * @since 5.1.0
 		 *
 		 * @param bool $remove_blocks Whether blocks whose content should not be part of the excerpt should be removed
 		 *                            or not from the excerpt.
