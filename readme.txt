@@ -234,6 +234,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Ensure we pass search keywords when changing views and in the top-bar nav [TEC-3282]
 * Fix - Several strings have been adjusted for consistency and better translatability [BTRIA-307]
 * Tweak - Add some filters for better control of link targets, standardize the way we create those links [TEC-3402]
+* Language - 4 new strings added, 286 updated, 1 fuzzied, and 2 obsoleted
 
 = [5.0.3.1] 2020-03-23 =
 
