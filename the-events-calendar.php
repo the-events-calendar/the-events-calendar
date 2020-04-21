@@ -11,6 +11,7 @@
  * @package TEC
  */
 
+
 /**
  * Copyright 2009-2012 by Modern Tribe Inc and the contributors
  *
