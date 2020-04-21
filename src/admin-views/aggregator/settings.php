@@ -46,7 +46,7 @@ $change_authority = [
 	],
 	'info-update_authority' => [
 		'type' => 'html',
-		'html' => '<p>' . esc_html__( 'You can make changes to imported events via The Events Calendar and see those changes reflected on your site’s calendar. The owner of the original event source (e.g. the iCalendar feed or Meetup group) might also make changes to their event. If you choose to re-import an altered event (manually or via a scheduled import), any changes made at the source or on your calendar will need to be addressed.', 'the-events-calendar' ) . '</p>',
+		'html' => '<p>' . esc_html__( "You can make changes to imported events via The Events Calendar and see those changes reflected on your site's calendar. The owner of the original event source (e.g. the iCalendar feed or Meetup group) might also make changes to their event. If you choose to re-import an altered event (manually or via a scheduled import), any changes made at the source or on your calendar will need to be addressed.", 'the-events-calendar' ) . '</p>',
 		'priority' => 1.2,
 	],
 	'tribe_aggregator_default_update_authority' => [
