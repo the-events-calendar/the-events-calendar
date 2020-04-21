@@ -441,11 +441,10 @@ class Month_View extends By_Day_View {
 			return $this->cached_urls[ $cache_key ];
 		}
 
-		$next_event = (array) tribe_events()->where( 'starts_after', $date )->per_page( 1 )->fields( 'ids' )->first();
-		$next_event = tribe_get_event( array_shift( $next_event ) );
+		$next_event = tribe_events()->where( 'starts_after', $date )->per_page( 1 )->first();
 
-		if ( empty( $next_event ) ) {
-			return false;
+		if ( ! $next_event instanceof \WP_Post ) {
+			return '';
 		}
 
 		$url_date = Dates::build_date_object( $next_event->start_date );
