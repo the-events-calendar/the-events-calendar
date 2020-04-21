@@ -50,7 +50,7 @@ class Tribe__Events__Integrations__WPML__Meta {
 				$array = (array) unserialize( $post_id );
 				foreach ( $array as & $id ) {
 					/**
-					 * Returns an element's ID in the current language or in another specified language.
+					 * Returns an element’s ID in the current language or in another specified language.
 					 * @param int     $id    The ID of the post type or taxonomy term to filter
 					 * @param string  $type  The type of element the ID belongs to.
 					 * @param bool    true   If set to true it will always return a value (the original value, if translation is missing)
@@ -60,7 +60,7 @@ class Tribe__Events__Integrations__WPML__Meta {
 				$post_id = $array;
 			} else {
 				/**
-				 * Returns an element's ID in the current language or in another specified language.
+				 * Returns an element’s ID in the current language or in another specified language.
 				 * @param int     $post_id   The ID of the post type or taxonomy term to filter
 				 * @param string  $type      The type of element the ID belongs to.
 				 * @param bool    true       If set to true it will always return a value (the original value, if translation is missing)

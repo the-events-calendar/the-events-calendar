@@ -8,7 +8,7 @@
 
 <p class="tribe-welcome-message"><?php esc_html_e( 'The Events Calendar provides the tools you need—like customizable templates, widgets, views, and more—to make sharing your events online a breeze.', 'the-events-calendar' ); ?></p>
 
-<p class="tribe-welcome-message"><?php esc_html_e( "Check out the resources below for a comprehensive introduction to your new plugin. With just a few quick clicks, you'll be sharing and promoting your events in no time!", 'the-events-calendar' ); ?></p>
+<p class="tribe-welcome-message"><?php esc_html_e( 'Check out the resources below for a comprehensive introduction to your new plugin. With just a few quick clicks, you’ll be sharing and promoting your events in no time!', 'the-events-calendar' ); ?></p>
 
 <div class="tribe-row">
 

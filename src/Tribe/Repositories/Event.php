@@ -565,7 +565,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	}
 
 	/**
-	 * Filters events to include only those events that appear on the given month's calendar grid.
+	 * Filters events to include only those events that appear on the given month’s calendar grid.
 	 *
 	 * @since 4.9
 	 *

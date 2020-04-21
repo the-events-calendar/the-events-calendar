@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<h2><?php esc_html_e( 'What personal data we collect and why we collect it', 'the-events-calendar' ); ?></h2>
 
 	<h3><?php esc_html_e( 'Event, Venue, and Organizer Information', 'the-events-calendar' ); ?></h3>
-	<p class="privacy-policy-tutorial"><?php esc_html_e( "Through the usage of The Events Calendar, Events Calendar PRO, The Events Calendar Filter Bar, Eventbrite Tickets, and Community Events plugins, as well as our Event Aggregator Import service (contained within The Events Calendar plugin), information may be collected and stored within your website's database.", 'the-events-calendar' ); ?></p>
+	<p class="privacy-policy-tutorial"><?php esc_html_e( 'Through the usage of The Events Calendar, Events Calendar PRO, The Events Calendar Filter Bar, Eventbrite Tickets, and Community Events plugins, as well as our Event Aggregator Import service (contained within The Events Calendar plugin), information may be collected and stored within your website’s database.', 'the-events-calendar' ); ?></p>
 	<p class="privacy-policy-tutorial"><strong><?php esc_html_e( 'Suggested text:', 'event-tickets' ); ?></strong></p>
 	<p><?php esc_html_e( 'If you create, submit, import, save, or publish Event, Venue, or Organizer information, such information is retained in the local database:', 'the-events-calendar' ); ?></p>
 
@@ -54,7 +54,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<p class="privacy-policy-tutorial"><?php esc_html_e( 'All information (data) is retained in the local database indefinitely, unless otherwise deleted.', 'the-events-calendar' ); ?></p>
 
-	<p class="privacy-policy-tutorial"><?php esc_html_e( "Certain data may be exported or removed upon users' requests via the existing Exporter or Eraser. Please note, however, that several “edge cases” exist in which we are unable to perfect the gathering and export of all data for your end users. We suggest running a search in your local database, as well as within the WordPress Dashboard, in order to identify all data collected and stored for your specific user requests.", 'the-events-calendar' ); ?></p>
+	<p class="privacy-policy-tutorial"><?php esc_html_e( 'Certain data may be exported or removed upon users’ requests via the existing Exporter or Eraser. Please note, however, that several “edge cases” exist in which we are unable to perfect the gathering and export of all data for your end users. We suggest running a search in your local database, as well as within the WordPress Dashboard, in order to identify all data collected and stored for your specific user requests.', 'the-events-calendar' ); ?></p>
 
 	<h3 class="privacy-policy-tutorial"><?php esc_html_e( 'Where We Send Your Data', 'the-events-calendar' ); ?></h3>
 

@@ -70,7 +70,7 @@ class Tribe__Events__Google__Maps_API_Key {
 				'type' => 'html',
 				'html' => '<p>' . sprintf(
 					__(
-						"The Events Calendar comes with an API key for basic maps functionality. If you'd like to use more advanced features like custom map pins or dynamic map loads, you'll need to get your own %1$s. %2$s.",
+						'The Events Calendar comes with an API key for basic maps functionality. If you’d like to use more advanced features like custom map pins or dynamic map loads, you’ll need to get your own %1$s. %2$s.',
 						'the-events-calendar'
 					),
 					'<a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank" rel="noopener noreferrer">' . esc_html__( 'Google Maps API key', 'the-events-calendar' ) . '</a>',
