@@ -241,14 +241,14 @@ class Day_View extends View {
 		$url_date = Dates::build_date_object( $next_event->start_date );
 		$url      = $this->build_url_for_date( $url_date, $canonical, $passthru_vars );
 
-		$this->cached_urls[ $cache_key ] = $url;
-
 		$link = sprintf(
 			/* translators: 1: opening href tag 2: closing href tag */
 			__( 'Jump to the %1$snext upcoming event(s)%2$s.', 'the-events-calendar' ),
 			'<a href="' . esc_url( $url ) . '" class="tribe-events-c-messages__message-list-item-link tribe-common-anchor-thin-alt">',
 			'</a>'
 		);
+
+		$this->cached_urls[ $cache_key ] = $link;
 
 		return $link;
 	}
