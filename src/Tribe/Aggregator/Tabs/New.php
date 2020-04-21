@@ -154,7 +154,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		 * @param Tribe__Events__Aggregator__Record__Abstract $record Import record.
 		 * @param array                                       $data   List of import options.
 		 */
-		do_action( 'tribe_events_aggregator_tabs_new_handle_impot_finalize', $record, $data );
+		do_action( 'tribe_events_aggregator_tabs_new_handle_import_finalize', $record, $data );
 
 		// if we get here, we're good! Set the status to pending
 		$record->set_status_as_pending();
