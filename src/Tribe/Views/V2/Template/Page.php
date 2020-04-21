@@ -15,6 +15,7 @@ use Tribe\Events\Views\V2\Template_Bootstrap;
 use Tribe__Events__Main as TEC;
 use Tribe__Utils__Array as Arr;
 use WP_Post;
+use Tribe__Date_Utils as Dates;
 use WP_Query;
 
 class Page {
@@ -395,16 +396,17 @@ class Page {
 	 * @return object A Mocked stdClass that mimics a WP_Post.
 	 */
 	protected function get_mocked_page() {
+		$date_string = Dates::build_date_object( 'today' )->format( Dates::DBDATETIMEFORMAT );
 		$page = [
 			'ID'                    => 0,
 			'post_status'           => 'publish',
 			'post_author'           => 0,
 			'post_parent'           => 0,
 			'post_type'             => 'page',
-			'post_date'             => 0,
-			'post_date_gmt'         => 0,
-			'post_modified'         => 0,
-			'post_modified_gmt'     => 0,
+			'post_date'             => $date_string,
+			'post_date_gmt'         => $date_string,
+			'post_modified'         => $date_string,
+			'post_modified_gmt'     => $date_string,
 			'post_content'          => '',
 			'post_title'            => '',
 			'post_excerpt'          => '',
