@@ -147,7 +147,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		$record->update_meta( 'ids_to_import', empty( $data['selected_rows'] ) ? 'all' : json_decode( stripslashes( $data['selected_rows'] ) ) );
 
 		/**
-		 * Allows output of custom import preview options.
+		 * Allow hooking into the import record saving process.
 		 *
 		 * @since 5.1.0
 		 *
