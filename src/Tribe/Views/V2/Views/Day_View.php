@@ -276,13 +276,22 @@ class Day_View extends View {
 				$date_time->getTimestamp() + $date_time->getOffset()
 			);
 
-			$tax     = $this->context->get('taxonomy');
+			$tax = $this->context->get( 'taxonomy' );
+
+			// @todo move this to Filterbar @stephen
 			$filters = array_filter( (array) $this->context->get( 'view_data' ) );
 
-			unset( $filters[ 'url' ], $filters[ 'form_submit' ] );
+			if ( isset( $filters['url'] ) ) {
+				unset( $filters['url'] );
+			}
+			if ( isset( $filters['form_submit'] ) ) {
+				unset( $filters['form_submit'] );
+			}
+
+			$filters = array_values( $filters );
 
 			if (
-				empty( array_values( $filters ) )
+				empty( $filters )
 				&& empty( $tax )
 			) {
 				$this->messages->insert(
