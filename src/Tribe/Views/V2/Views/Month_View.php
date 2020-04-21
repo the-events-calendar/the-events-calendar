@@ -490,6 +490,10 @@ class Month_View extends By_Day_View {
 			return;
 		}
 
-		$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( 'month_no_results_found', $this->get_fast_forward_link() ), 9 );
+		$this->messages->insert(
+			Messages::TYPE_NOTICE,
+			Messages::for_key( 'month_no_results_found', $this->get_fast_forward_link( true ) ),
+			9
+		);
 	}
 }

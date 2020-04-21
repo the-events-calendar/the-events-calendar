@@ -274,7 +274,7 @@ class Day_View extends View {
 				);
 				$this->messages->insert(
 					Messages::TYPE_NOTICE,
-					Messages::for_key( 'day_no_results_found', $date_label, $this->get_fast_forward_link() )
+					Messages::for_key( 'day_no_results_found', $date_label, $this->get_fast_forward_link( true ) )
 				);
 			}
 		}
