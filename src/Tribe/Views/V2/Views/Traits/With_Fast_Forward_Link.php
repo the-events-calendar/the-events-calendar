@@ -40,7 +40,7 @@ trait With_Fast_Forward_Link {
 		$cache_key = __METHOD__ . '_' . md5( wp_json_encode( array_merge( [ $date, $canonical ], $passthru_vars ) ) );
 
 		if ( isset( $this->cached_urls[ $cache_key ] ) ) {
-			//return $this->cached_urls[ $cache_key ];
+			return $this->cached_urls[ $cache_key ];
 		}
 
 		$next_event = tribe_events()->where( 'starts_after', $date )->per_page( 1 )->first();
