@@ -218,7 +218,7 @@ abstract class Abstract_Query_Controller {
 	/**
 	 * Checks whether the query controller should control the query or not.
 	 *
-	 * @since TBD
+	 * @since 5.0.3
 	 *
 	 * @param null|\WP_Query $query The current query object.
 	 *
@@ -228,7 +228,7 @@ abstract class Abstract_Query_Controller {
 		/**
 		 * Toggle filter to control the query controller and, if required, deactivate it.
 		 *
-		 * @since TBD
+		 * @since 5.0.3
 		 *
 		 * @param bool                      $active Whether this query controller should be active or not.
 		 * @param \WP_Query|null            $query  The current query object.

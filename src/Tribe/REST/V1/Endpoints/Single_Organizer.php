@@ -128,7 +128,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 				'parameters' => $this->swaggerize_args( $this->READ_args(), $GET_defaults ),
 				'responses'  => array(
 					'200' => array(
-						'description' => __( 'Returns the data of the organizer with the specified post ID', 'the-event-calendar' ),
+						'description' => __( 'Returns the data of the organizer with the specified post ID', 'the-events-calendar' ),
 						'schema'      => array(
 							'$ref' => '#/definitions/Organizer',
 						),
@@ -149,7 +149,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 				'parameters' => $this->swaggerize_args( $post_args, $POST_defaults ),
 				'responses'  => array(
 					'201' => array(
-						'description' => __( 'Returns the data of the created organizer', 'the-event-calendar' ),
+						'description' => __( 'Returns the data of the created organizer', 'the-events-calendar' ),
 						'schema'      => array(
 							'$ref' => '#/definitions/Organizer',
 						),
@@ -166,7 +166,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 				'parameters' => $this->swaggerize_args( $this->DELETE_args(), $DELETE_defaults ),
 				'responses'  => array(
 					'200' => array(
-						'description' => __( 'Deletes an organizer and returns its data', 'the-event-calendar' ),
+						'description' => __( 'Deletes an organizer and returns its data', 'the-events-calendar' ),
 						'schema'      => array(
 							'$ref' => '#/definitions/Organizer',
 						),

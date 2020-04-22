@@ -63,7 +63,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Tag
 				'parameters' => $this->swaggerize_args( $this->READ_args(), $GET_defaults ),
 				'responses'  => array(
 					'200' => array(
-						'description' => __( 'Returns the data of the event tag with the specified term ID', 'the-event-calendar' ),
+						'description' => __( 'Returns the data of the event tag with the specified term ID', 'the-events-calendar' ),
 						'schema'      => array(
 							'$ref' => '#/definitions/Term',
 						),
@@ -81,13 +81,13 @@ class Tribe__Events__REST__V1__Endpoints__Single_Tag
 				'parameters' => $this->swaggerize_args( $post_args, $POST_defaults ),
 				'responses'  => array(
 					'200' => array(
-						'description' => __( 'Returns the data of the updated event tag', 'the-event-calendar' ),
+						'description' => __( 'Returns the data of the updated event tag', 'the-events-calendar' ),
 						'schema'      => array(
 							'$ref' => '#/definitions/Term',
 						),
 					),
 					'201' => array(
-						'description' => __( 'Returns the data of the created event tag', 'the-event-calendar' ),
+						'description' => __( 'Returns the data of the created event tag', 'the-events-calendar' ),
 						'schema'      => array(
 							'$ref' => '#/definitions/Term',
 						),
@@ -104,7 +104,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Tag
 				'parameters' => $this->swaggerize_args( $this->DELETE_args(), $DELETE_defaults ),
 				'responses'  => array(
 					'200' => array(
-						'description' => __( 'Deletes an event tag and returns its data', 'the-event-calendar' ),
+						'description' => __( 'Deletes an event tag and returns its data', 'the-events-calendar' ),
 						'schema'      => array(
 							'$ref' => '#/definitions/Term',
 						),

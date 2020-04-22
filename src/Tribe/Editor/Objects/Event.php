@@ -2,7 +2,7 @@
 /**
  * Models an event (the post type) in the context of the Block Editor.
  *
- * @since   TBD
+ * @since   5.1.0
  *
  * @package Tribe\Events\Editory\Objects
  */
@@ -15,7 +15,7 @@ use Tribe__Utils__Array as Arr;
 /**
  * Class Event
  *
- * @since   TBD
+ * @since   5.1.0
  *
  * @package Tribe\Events\Editory\Objects
  */
@@ -23,15 +23,16 @@ class Event implements Editor_Object_Interface {
 	/**
 	 * The event data in the format required by the block editor.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @var array<string,mixed>
 	 */
 	protected $data;
+
 	/**
 	 * The post object to model the data on.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @var \WP_Post
 	 */
@@ -40,7 +41,7 @@ class Event implements Editor_Object_Interface {
 	/**
 	 * Event constructor.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @param int|\WP_Post|null $event The event post ID or object, or `null` to use the global `post` object.
 	 */

@@ -14,16 +14,16 @@ $category_dropdown = wp_dropdown_categories( [
 ] );
 preg_match_all( '!\<option.*value="([^"]+)"[^\>]*\>(.*)\</option\>!m', $category_dropdown, $matches );
 $categories = [
-	'' => __( 'No default category', 'the-events-calendar' ),
+	'-1' => __( 'No default category', 'the-events-calendar' ),
 ];
 $events_aggregator_is_active = tribe( 'events-aggregator.main' )->is_service_active();
 
 $origin_post_statuses = $events_aggregator_is_active
-	? array( '' => $use_global_settings_phrase ) + $post_statuses
+	? array( '-1' => $use_global_settings_phrase ) + $post_statuses
 	: $post_statuses;
 
 $origin_categories = array(
-	'' => $events_aggregator_is_active ? $use_global_settings_phrase : esc_html__( 'None', 'the-events-calendar' ),
+	'-1' => $events_aggregator_is_active ? $use_global_settings_phrase : esc_html__( 'None', 'the-events-calendar' ),
 );
 
 foreach ( $matches[1] as $key => $match ) {
@@ -36,7 +36,7 @@ $yes_no_options = [
 	'yes' => __( 'Yes', 'the-events-calendar' ),
 ];
 
-$origin_show_map_options = array( '' => $use_global_settings_phrase ) + $yes_no_options;
+$origin_show_map_options = array( '-1' => $use_global_settings_phrase ) + $yes_no_options;
 
 $change_authority = [
 	'import-defaults-update_authority' => [
@@ -161,7 +161,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 			'size'            => 'medium',
 			'validation_type' => 'options',
 			'default'         => 'no',
-			'can_be_empty'    => true,
+			'can_be_empty'    => false,
 			'parent_option'   => Tribe__Events__Main::OPTIONNAME,
 			'options'         => $yes_no_options,
 			'priority'        => 5.4,
@@ -496,7 +496,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 
 	// Unset EA's "Use global import settings" option if it's there.
 	if ( $events_aggregator_is_active ) {
-		unset( $eventbrite_origin_post_statuses[''] );
+		unset( $eventbrite_origin_post_statuses['-1'] );
 	}
 
 	$eb_fields = [

@@ -31,7 +31,7 @@ export function getCountries() {
 
 export function getCountryCode( name ) {
 	const result = find( getCountries(), ( country ) => country.name === name );
-	return get( result, 'code', 'US' );
+	return get( result, 'code', '' );
 }
 
 export function getStateCode( countryCode, name ) {

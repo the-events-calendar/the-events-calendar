@@ -4,8 +4,8 @@ Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.9
-Stable tag: 5.0.3
-Tested up to: 5.3.2
+Stable tag: 5.1.0
+Tested up to: 5.4
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -220,7 +220,29 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [5.0.3] TBD =
+= [5.1.0] 2020-04-22 =
+
+* Feature - Add a "fast forward" link to Month and Day views when there are no events to show. [TEC-3400]
+* Feature - Add Recent Past Events Views. [TEC-3385]
+* Tweak - Load plugin text domain on the new `tribe_load_text_domains` action hook, which fires on `init` instead of on the `plugins_loaded` hook. [TEC-3406]
+* Tweak - Add a constant `TRIBE_CACHE_VIEWS` to turn off views HTML caching.
+* Fix - Theme navigation warning around `post_date = '0'` no longer happens when using Page template for Updated Views [TEC-3434]
+* Fix - Selecting other Page templates from Settings > Display now loads the correct template properly, to display events.
+* Fix - Preventing redirects from updated Views V2 to be too broad and end up catching requests from other Plugins, reported by GravityView team on Gravity Forms bug with imports.
+* Fix - Prevent PHP errors from happening during bulk activation or deactivation of the plugin [TCMN-53]
+* Fix - Correct iCal link on month view for months other than the current one [TEC-3267]
+* Fix - Correct a few incorrect and/or typoed text domains [TEC-3390]
+* Fix - Ensure we pass search keywords when changing views and in the top-bar nav [TEC-3282]
+* Fix - Several strings have been adjusted for consistency and better translatability [BTRIA-307]
+* Hook - Add the `tribe_events_blocks_editor_is_on` filter; returning a falsy value from this filter will prevent the Blocks Editor to ever be active on Events; else the settings from Events > Settings will apply [TEC-3349]
+* Tweak - Add some filters for better control of link targets, standardize the way we create those links [TEC-3402]
+* Language - 4 new strings added, 286 updated, 1 fuzzied, and 2 obsoleted
+
+= [5.0.3.1] 2020-03-23 =
+
+* Fix - Assets class modification to prevent JavaScript and CSS failing to load when `SCRIPT_DEBUG=true` [TCMN-52]
+
+= [5.0.3] 2020-03-23 =
 
 * Feature - Allow users to set a custom name for new Event Aggregator Imports. [TEC-3286]
 * Tweak - Add back missing JSON-LD to Single Events. [TEC-3262]
@@ -239,7 +261,10 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Restore correct handling of events RSS feeds; events will show in the RSS feed in ascending start date, starting from the current day and the event publish date will be set to the event start date [TEC-3252]
 * Hook - Add filters `tribe_events_liveupdate_automatic_label_text` and `tribe_events_liveupdate_manual_label_text` to allow Filter Bar to include itself in those lables. [TEC-3322]
 * Hook - Add the `tribe_views_v2_events_query_controller_active` filter; returning a falsy value from this filter will prevent Views v2 from altering the WordPress query. This filter allows handling situations where Views v2 might interfere with third party plugins (e.g. custom RSS feed implementations) [TEC-3252]
-* Hook - Add the `tribe_events_blocks_editor_is_on` filter; returning a falsy value from this filter will prevent the Blocks Editor to ever be active on Events; else the settings from Events > Settings will apply [TEC-3349]
+* Tweak - Added filters: `tribe_events_option_convert_live_filters`, `tribe_events_views_v2_messages_need_events_label_keys`
+* Tweak - Removed filters: `tribe_events_ical_export_text`
+* Tweak - Changed views: `v2/components/events-bar/search/keyword`, `v2/month/calendar-body/day`
+* Language - 11 new strings added, 81 updated, 0 fuzzied, and 6 obsoleted
 
 = [5.0.2.1] 2020-02-25 =
 
