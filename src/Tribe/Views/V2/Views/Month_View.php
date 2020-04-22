@@ -453,7 +453,7 @@ class Month_View extends By_Day_View {
 			return;
 		}
 
-		$fast_forward_link  = $this->get_fast_forward_link( true );
+		$fast_forward_link = $this->get_fast_forward_link( true );
 
 		if ( ! empty( $fast_forward_link ) ) {
 			$this->messages->insert(

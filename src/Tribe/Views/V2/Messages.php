@@ -114,12 +114,12 @@ class Messages {
 				'the-events-calendar'
 			),
 			// translators: the placeholder is an html link to the next month with available events.
-			'month_no_results_found_w_ff_link'           => __(
+			'month_no_results_found_w_ff_link'  => __(
 				'There were no results found for this view. %1$s',
 				'the-events-calendar'
 			),
 			// translators: %1$s: events (plural), %2$s: the formatted date string, e.g. "February 22, 2020". %3$s html link to next day with available events.
-			'day_no_results_found_w_ff_link'             => __(
+			'day_no_results_found_w_ff_link'    => __(
 				'No %1$s scheduled for %2$s. %3$s',
 				'the-events-calendar'
 			),
