@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import React, { Fragment, useContext, PureComponent } from 'react';
+import React, { Fragment, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -28,9 +28,6 @@ import {
 	time,
 	globals,
 } from '@moderntribe/common/utils';
-import DashboardHook from './hook';
-import Controls from '../../controls';
-import DateTimeContext from '../../context';
 
 /**
  * Module Code
@@ -43,14 +40,13 @@ const {
 	toDateNoYear,
 	isSameYear,
 } = momentUtil;
+const { editorConstants, settings, wpHooks } = globals;
 
-FORMATS.date = globals.settings() && globals.settings().dateWithYearFormat
-	? globals.settings().dateWithYearFormat
+FORMATS.date = settings() && settings().dateWithYearFormat
+	? settings().dateWithYearFormat
 	: __( 'F j', 'the-events-calendar' );
 
-const shouldHideUpsell = () => {
-	return globals.editorConstants().hideUpsell;
-};
+const shouldHideUpsell = () => editorConstants().hideUpsell;
 
 const renderStartTimePicker = ( {
 	start,
@@ -171,53 +167,41 @@ class Calendars extends PureComponent {
 	}
 }
 
+const renderDashboardHook = ( props ) => (
+	wpHooks.applyFilters( 'blocks.eventDatetime.dashboardHook', null, props )
+);
+
 const EventDateTimeDashboard = ( props ) => {
-	const { multiDay, allDay, separatorTime } = props;
-
-	const {
-		isOpen,
-		showTimeZone,
-		setShowTimeZone,
-		setDateTimeAttributes,
-	} = useContext(DateTimeContext);
-
-	const controlProps = {
-		showTimeZone,
-		setShowTimeZone,
-		setDateTimeAttributes,
-	};
+	const { multiDay, allDay, separatorTime, isOpen } = props;
 
 	return (
-		<Fragment>
-			<Controls { ...controlProps } />
-			<Dashboard isOpen={ isOpen }>
-				<Fragment>
-					<section className="tribe-editor__calendars">
-						<Calendars { ...props } />
-					</section>
-					<footer className="tribe-editor__subtitle__footer">
-						<div className="tribe-editor__subtitle__footer-date">
-							<div className="tribe-editor__subtitle__time-pickers">
-								{ renderStartTimePicker( props ) }
-								{
-									( multiDay || ! allDay ) && (
-										<span className={ classNames( 'tribe-editor__separator', 'tribe-editor__time-picker__separator' ) }>
-											{ ' '.concat( separatorTime, ' ' ) }
-										</span>
-									)
-								}
-								{ renderEndTimePicker( props ) }
-							</div>
-							<div className="tribe-editor__subtitle__footer-multiday">
-								{ renderMultiDayToggle( props ) }
-							</div>
+		<Dashboard isOpen={ isOpen }>
+			<Fragment>
+				<section className="tribe-editor__calendars">
+					<Calendars { ...props } />
+				</section>
+				<footer className="tribe-editor__subtitle__footer">
+					<div className="tribe-editor__subtitle__footer-date">
+						<div className="tribe-editor__subtitle__time-pickers">
+							{ renderStartTimePicker( props ) }
+							{
+								( multiDay || ! allDay ) && (
+									<span className={ classNames( 'tribe-editor__separator', 'tribe-editor__time-picker__separator' ) }>
+										{ ` ${ separatorTime } ` }
+									</span>
+								)
+							}
+							{ renderEndTimePicker( props ) }
 						</div>
-						<DashboardHook />
-						{ ! shouldHideUpsell() && <Upsell /> }
-					</footer>
-				</Fragment>
-			</Dashboard>
-		</Fragment>
+						<div className="tribe-editor__subtitle__footer-multiday">
+							{ renderMultiDayToggle( props ) }
+						</div>
+					</div>
+					{ renderDashboardHook( props ) }
+					{ ! shouldHideUpsell() && <Upsell /> }
+				</footer>
+			</Fragment>
+		</Dashboard>
 	);
 };
 

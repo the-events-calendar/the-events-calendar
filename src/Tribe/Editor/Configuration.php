@@ -1,5 +1,6 @@
 <?php
 
+use Tribe\Events\Editor\Blocks\Event_Datetime;
 use Tribe\Events\Editor\Objects\Event as Event_Object;
 use Tribe__Events__Main as TEC;
 
@@ -36,6 +37,14 @@ class Tribe__Events__Editor__Configuration implements Tribe__Editor__Configurati
 			(array) $post_objects,
 			[
 				TEC::POSTTYPE => ( new Event_Object() )->data(),
+			]
+		);
+
+		$blocks                  = empty( $editor_config['blocks'] ) ? [] : $editor_config['blocks'];
+		$editor_config['blocks'] = array_merge(
+			(array) $blocks,
+			[
+				tribe( 'events.editor.blocks.event-datetime' )->slug() => tribe( 'events.editor.blocks.event-datetime' )->block_data(),
 			]
 		);
 

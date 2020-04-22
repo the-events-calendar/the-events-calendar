@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import React, { Fragment, useContext } from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -21,11 +21,8 @@ import {
 	date,
 	moment as momentUtil,
 } from '@moderntribe/common/utils';
-import { editor, settings } from '@moderntribe/common/utils/globals';
-import HumanReadableInput from '../../human-readable-input/container';
-import ContentHook from './hook';
-import Controls from '../../controls';
-import DateTimeContext from '../../context';
+import { editor, settings, wpHooks } from '@moderntribe/common/utils/globals';
+import HumanReadableInput from '../human-readable-input/container';
 
 /**
  * Module Code
@@ -156,8 +153,11 @@ const renderEndTime = ( props ) => {
 	);
 };
 
-const renderTimezone = () => {
-	const { setTimeZoneLabel, timeZoneLabel, showTimeZone } = useContext(DateTimeContext);
+const renderTimezone = ( props ) => {
+	const { attributes, setAttributes } = props;
+	const { timeZoneLabel, showTimeZone } = attributes;
+
+	const setTimeZoneLabel = label => setAttributes( { timeZoneLabel: label } );
 
 	return showTimeZone && (
 		<span
@@ -173,14 +173,16 @@ const renderTimezone = () => {
 	);
 };
 
-const renderExtras = ( props ) => {
-	return (
-		<Fragment>
-			{ renderTimezone() }
-			{ renderPrice( props ) }
-		</Fragment>
-	);
-};
+const renderExtras = ( props ) => (
+	<Fragment>
+		{ renderTimezone( props ) }
+		{ renderPrice( props ) }
+	</Fragment>
+);
+
+const renderContentHook = ( props ) => (
+	wpHooks.applyFilters( 'blocks.eventDatetime.contentHook', null, props )
+);
 
 const EventDateTimeContent = ( props ) => {
 	const {
@@ -189,55 +191,38 @@ const EventDateTimeContent = ( props ) => {
 		sameStartEnd,
 		isEditable,
 		setAttributes,
+		isOpen,
+		open
 	} = props;
 
-	const {
-		isOpen,
-		open,
-		showTimeZone,
-		setShowTimeZone,
-		setDateTimeAttributes,
-	} = useContext(DateTimeContext);
-
-	const controlProps = {
-		showTimeZone,
-		setShowTimeZone,
-		setDateTimeAttributes,
-	};
-
 	return (
-		<Fragment>
-			<Controls { ...controlProps } />
-			{
-				isOpen && isEditable
-					? <HumanReadableInput
-							after={ renderExtras( props ) }
-							setAttributes={ setAttributes }
-						/>
-					: (
-						<Fragment>
-							<h2 className="tribe-editor__subtitle__headline">
-								<div className="tribe-editor__subtitle__headline-content">
-									<button
-										className="tribe-editor__btn--label tribe-editor__subtitle__headline-button"
-										onClick={ open }
-										disabled={ ! isEditable }
-									>
-										{ renderStartDate( props ) }
-										{ renderStartTime( props ) }
-										{ ( multiDay || ( ! allDay && ! sameStartEnd ) ) && renderSeparator( props, 'time-range' ) }
-										{ renderEndDate( props ) }
-										{ renderEndTime( props ) }
-										{ allDay && renderSeparator( props, 'all-day' ) }
-									</button>
-									{ renderExtras( props ) }
-								</div>
-							</h2>
-							<ContentHook />
-						</Fragment>
-					)
-			}
-		</Fragment>
+		isOpen && isEditable
+			? <HumanReadableInput
+					after={ renderExtras( props ) }
+					setAttributes={ setAttributes }
+				/>
+			: (
+				<Fragment>
+					<h2 className="tribe-editor__subtitle__headline">
+						<div className="tribe-editor__subtitle__headline-content">
+							<button
+								className="tribe-editor__btn--label tribe-editor__subtitle__headline-button"
+								onClick={ open }
+								disabled={ ! isEditable }
+							>
+								{ renderStartDate( props ) }
+								{ renderStartTime( props ) }
+								{ ( multiDay || ( ! allDay && ! sameStartEnd ) ) && renderSeparator( props, 'time-range' ) }
+								{ renderEndDate( props ) }
+								{ renderEndTime( props ) }
+								{ allDay && renderSeparator( props, 'all-day' ) }
+							</button>
+							{ renderExtras( props ) }
+						</div>
+					</h2>
+					{ renderContentHook( props ) }
+				</Fragment>
+			)
 	);
 };
 
