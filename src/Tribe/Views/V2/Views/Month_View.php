@@ -518,7 +518,7 @@ class Month_View extends By_Day_View {
 
 		$this->messages->insert(
 			Messages::TYPE_NOTICE,
-			Messages::for_key( 'no_results_found', null ),
+			Messages::for_key( 'month_no_results_found', null ),
 			9
 		);
 	}
