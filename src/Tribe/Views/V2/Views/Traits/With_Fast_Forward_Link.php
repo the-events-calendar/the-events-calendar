@@ -32,7 +32,7 @@ trait With_Fast_Forward_Link {
 	 * @return string                  The html link and message.
 	 */
 	public function get_fast_forward_link( $canonical = false, array $passthru_vars = [] ) {
-		if ( $this->use_ff_link( $canonical, $passthru_vars ) ) {
+		if ( ! $this->use_ff_link( $canonical, $passthru_vars ) ) {
 			return '';
 		}
 
@@ -40,7 +40,7 @@ trait With_Fast_Forward_Link {
 		$cache_key = __METHOD__ . '_' . md5( wp_json_encode( array_merge( [ $date, $canonical ], $passthru_vars ) ) );
 
 		if ( isset( $this->cached_urls[ $cache_key ] ) ) {
-			return $this->cached_urls[ $cache_key ];
+			//return $this->cached_urls[ $cache_key ];
 		}
 
 		$next_event = tribe_events()->where( 'starts_after', $date )->per_page( 1 )->first();
@@ -76,6 +76,28 @@ trait With_Fast_Forward_Link {
 	 * @return bool Whether the View should use canonical links or not.
 	 */
 	public function use_ff_link( $canonical = false, array $passthru_vars = [] ) {
+		// Default is true.
+		$use_ff_link = true;
+		$tax         = $this->context->get( 'taxonomy' );
+		$use_ff_link = empty( $tax );
+
+		// Don't do filter checks if taxonomy check has failed.
+		if ( $use_ff_link ) {
+			// @todo move this to Filterbar @stephen
+			$filters = array_filter( (array) $this->context->get( 'view_data' ) );
+
+			if ( isset( $filters['url'] ) ) {
+				unset( $filters['url'] );
+			}
+			if ( isset( $filters['form_submit'] ) ) {
+				unset( $filters['form_submit'] );
+			}
+
+			$filters     = \array_values( $filters );
+			$use_ff_link = empty( $filters );
+		}
+
+
 		/**
 		 * Filters whether the fast-forward link should be used in Views or not whenever possible.
 		 *
@@ -87,7 +109,7 @@ trait With_Fast_Forward_Link {
 		 *                                      canonical link  resolution.
 		 * @param View_Interface $this          The View currently rendering.
 		 */
-		$use_ff_link = apply_filters( 'tribe_events_views_v2_use_ff_link', true, $canonical, $passthru_vars, $this );
+		$use_ff_link = apply_filters( 'tribe_events_views_v2_use_ff_link', $use_ff_link, $canonical, $passthru_vars, $this );
 
 		/**
 		 * Filters whether the fast-forward link should be used for this specific View or not whenever possible.
