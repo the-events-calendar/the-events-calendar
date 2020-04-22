@@ -31,16 +31,18 @@ const { timezonesAsSelectData } = date;
 
 const EventDateTimeControls = ( props ) => {
 	const {
+		attributes,
 		separatorDate,
 		separatorTime,
 		setSeparatorDate,
 		setSeparatorTime,
-		setShowTimeZone,
 		setTimeZone,
-		showTimeZone,
+		setAttributes,
 		timeZone,
 		isEditable,
 	} = props;
+
+	const setShowTimeZone = value => setAttributes( { showTimeZone: value } );
 
 	return isEditable && (
 		<InspectorControls key="inspector">
@@ -68,7 +70,7 @@ const EventDateTimeControls = ( props ) => {
 				/>
 				<ToggleControl
 					label={ __( 'Show Time Zone', 'the-events-calendar' ) }
-					checked={ showTimeZone }
+					checked={ attributes.showTimeZone }
 					onChange={ setShowTimeZone }
 				/>
 			</PanelBody>
@@ -77,6 +79,7 @@ const EventDateTimeControls = ( props ) => {
 };
 
 EventDateTimeControls.propTypes = {
+	attributes: PropTypes.object,
 	isEditable: PropTypes.bool.isRequired,
 	onTimeZoneVisibilityChange: PropTypes.func,
 	separatorDate: PropTypes.string,
@@ -84,7 +87,7 @@ EventDateTimeControls.propTypes = {
 	setSeparatorDate: PropTypes.func,
 	setSeparatorTime: PropTypes.func,
 	setTimeZone: PropTypes.func,
-	showTimeZone: PropTypes.bool,
+	setAttributes: PropTypes.func,
 	timeZone: PropTypes.string,
 };
 
