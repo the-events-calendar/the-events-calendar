@@ -9,6 +9,7 @@
 namespace Tribe\Events\Views\V2\Views;
 
 use Tribe\Events\Views\V2\Messages;
+use Tribe\Events\Views\V2\Views\Traits\With_Fast_Forward_Link;
 use Tribe\Utils\Query;
 use Tribe__Context as Context;
 use Tribe__Date_Utils as Dates;
@@ -16,6 +17,7 @@ use Tribe__Events__Template__Month as Month;
 use Tribe__Utils__Array as Arr;
 
 class Month_View extends By_Day_View {
+	use With_Fast_Forward_Link;
 
 	/**
 	 * The default number of events to show per-day.
@@ -424,45 +426,6 @@ class Month_View extends By_Day_View {
 	}
 
 	/**
-	 * Creates a HTML link and "fast forward" message to append to the "no events found" message.
-	 *
-	 * @since 5.1.0
-	 *
-	 * @param bool  $canonical         Whether to return the canonical (pretty) version of the URL or not.
-	 * @param array $passthru_vars     An optional array of query variables that should pass thru the method untouched
-	 *                                 in key and value.
-	 * @return string                  The html link and message.
-	 */
-	public function get_fast_forward_link( $canonical = false, array $passthru_vars = [] ) {
-		$date      = $this->context->get( 'event_date', $this->context->get( 'today' ) );
-		$cache_key = __METHOD__ . '_' . md5( wp_json_encode( array_merge( [ $date, $canonical ], $passthru_vars ) ) );
-
-		if ( isset( $this->cached_urls[ $cache_key ] ) ) {
-			return $this->cached_urls[ $cache_key ];
-		}
-
-		$next_event = tribe_events()->where( 'starts_after', $date )->per_page( 1 )->first();
-
-		if ( ! $next_event instanceof \WP_Post ) {
-			return '';
-		}
-
-		$url_date = Dates::build_date_object( $next_event->start_date );
-		$url      = $this->build_url_for_date( $url_date, $canonical, $passthru_vars );
-
-		$this->cached_urls[ $cache_key ] = $url;
-
-		$link = sprintf(
-			/* translators: 1: opening href tag 2: closing href tag */
-			__( 'Jump to the %1$snext upcoming event(s)%2$s.', 'the-events-calendar' ),
-			'<a href="' . esc_url( $url ) . '" class="tribe-events-c-messages__message-list-item-link tribe-common-anchor-thin-alt" data-js="tribe-events-view-link">',
-			'</a>'
-		);
-
-		return $link;
-	}
-
-	/**
 	 * Overrides the base method to handle messages specific to the Month View.
 	 *
 	 * @since 4.9.11
@@ -490,35 +453,21 @@ class Month_View extends By_Day_View {
 			return;
 		}
 
-		$tax = $this->context->get('taxonomy');
+		$fast_forward_link = $this->get_fast_forward_link( true );
 
-		// @todo move this to Filterbar @stephen
-		$filters = array_filter( (array) $this->context->get( 'view_data' ) );
-
-		if ( isset( $filters['url'] ) ) {
-			unset( $filters['url'] );
-		}
-		if ( isset( $filters['form_submit'] ) ) {
-			unset( $filters['form_submit'] );
-		}
-
-		$filters = array_values( $filters );
-
-		if (
-			empty( $filters )
-			&& empty( $tax )
-		) {
+		if ( ! empty( $fast_forward_link ) ) {
 			$this->messages->insert(
 				Messages::TYPE_NOTICE,
-				Messages::for_key( 'month_no_results_found', $this->get_fast_forward_link( true ) ),
+				Messages::for_key( 'month_no_results_found_w_ff_link', $fast_forward_link ),
 				9
 			);
+
 			return;
 		}
 
 		$this->messages->insert(
 			Messages::TYPE_NOTICE,
-			Messages::for_key( 'month_no_results_found', null ),
+			Messages::for_key( 'no_results_found' ),
 			9
 		);
 	}
