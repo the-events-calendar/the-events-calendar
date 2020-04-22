@@ -25,17 +25,17 @@ const mapStateToProps = ( state ) => ( {
 	timeZone: dateTimeSelectors.getTimeZone( state ),
 } );
 
-const mapDispatchToProps = ( dispatch, { setDateTimeAttributes } ) => ( {
+const mapDispatchToProps = ( dispatch, { setAttributes } ) => ( {
 	setSeparatorDate: ( value ) => {
-		setDateTimeAttributes( { separatorDate: value } );
+		setAttributes( { separatorDate: value } );
 		dispatch( dateTimeActions.setSeparatorDate( value ) );
 	},
 	setSeparatorTime: ( value ) => {
-		setDateTimeAttributes( { separatorTime: value } );
+		setAttributes( { separatorTime: value } );
 		dispatch( dateTimeActions.setSeparatorTime( value ) );
 	},
 	setTimeZone: ( value ) => {
-		setDateTimeAttributes( { timeZone: value } );
+		setAttributes( { timeZone: value } );
 		dispatch( dateTimeActions.setTimeZone( value ) );
 	},
 } );

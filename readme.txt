@@ -234,6 +234,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Correct a few incorrect and/or typoed text domains [TEC-3390]
 * Fix - Ensure we pass search keywords when changing views and in the top-bar nav [TEC-3282]
 * Fix - Several strings have been adjusted for consistency and better translatability [BTRIA-307]
+* Hook - Add the `tribe_events_blocks_editor_is_on` filter; returning a falsy value from this filter will prevent the Blocks Editor to ever be active on Events; else the settings from Events > Settings will apply [TEC-3349]
 * Tweak - Add some filters for better control of link targets, standardize the way we create those links [TEC-3402]
 * Language - 4 new strings added, 286 updated, 1 fuzzied, and 2 obsoleted
 

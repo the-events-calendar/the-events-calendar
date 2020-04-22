@@ -77,9 +77,18 @@ class Tribe__Events__Editor__Compatibility {
 	 * @return bool
 	 */
 	public function is_blocks_editor_toggled_on() {
-		$option = tribe_get_option( $this->get_toggle_blocks_editor_key(), false );
+		$is_on = tribe_get_option( $this->get_toggle_blocks_editor_key(), false );
 
-		return tribe_is_truthy( $option );
+		/**
+		 * Filters whether the Blocks Editor is on or not.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool $is_on Whether the Blocks Editor is on or not.
+		 */
+		$is_on = (bool) apply_filters( 'tribe_events_blocks_editor_is_on', $is_on );
+
+		return tribe_is_truthy( $is_on );
 	}
 
 	/**
