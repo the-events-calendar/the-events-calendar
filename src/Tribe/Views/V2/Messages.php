@@ -141,7 +141,7 @@ class Messages {
 			return $match;
 		}
 
-		$need_events_label_keys = [ 'day_no_results_found' ];
+		$need_events_label_keys = [ 'day_no_results_found', 'day_no_results_found_w_ff_link' ];
 
 		/**
 		 * Filters the array of keys of the messages that need the events label.
