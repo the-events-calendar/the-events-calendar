@@ -453,25 +453,9 @@ class Month_View extends By_Day_View {
 			return;
 		}
 
-		$tax = $this->context->get('taxonomy');
-
-		// @todo move this to Filterbar @stephen
-		$filters = array_filter( (array) $this->context->get( 'view_data' ) );
-
-		if ( isset( $filters['url'] ) ) {
-			unset( $filters['url'] );
-		}
-		if ( isset( $filters['form_submit'] ) ) {
-			unset( $filters['form_submit'] );
-		}
-
 		$fast_forward_link  = $this->get_fast_forward_link( true );
 
-		if (
-			empty( $filters )
-			&& empty( $tax )
-			&& ! empty( $fast_forward_link )
-		) {
+		if ( ! empty( $fast_forward_link ) ) {
 			$this->messages->insert(
 				Messages::TYPE_NOTICE,
 				Messages::for_key( 'month_no_results_found_w_ff_link', $fast_forward_link ),
