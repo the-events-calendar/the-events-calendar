@@ -220,7 +220,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [5.1.0] 2020-04-22 =
+= [5.1.0] 2020-04-23 =
 
 * Feature - Add a "fast forward" link to Month and Day views when there are no events to show. [TEC-3400]
 * Feature - Add `tribe_events_views_v2_use_ff_link` and `tribe_events_views_v2_{$this->slug}_use_ff_link` filters to allow control of the link. [TEC-3400]
