@@ -11,10 +11,13 @@ namespace Tribe\Events\Views\V2\Views;
 use Tribe\Events\Views\V2\Messages;
 use Tribe\Events\Views\V2\Url;
 use Tribe\Events\Views\V2\View;
+use Tribe\Events\Views\V2\Views\Traits\With_Fast_Forward_Link;
 use Tribe__Date_Utils as Dates;
 use Tribe__Utils__Array as Arr;
 
 class Day_View extends View {
+	use With_Fast_Forward_Link;
+
 	/**
 	 * Slug for this view
 	 *
@@ -215,45 +218,6 @@ class Day_View extends View {
 	}
 
 	/**
-	 * Creates a HTML link and "fast forward" message to append to the "no events found" message.
-	 *
-	 * @since 5.1.0
-	 *
-	 * @param bool  $canonical         Whether to return the canonical (pretty) version of the URL or not.
-	 * @param array $passthru_vars     An optional array of query variables that should pass thru the method untouched
-	 *                                 in key and value.
-	 * @return string                  The html link and message.
-	 */
-	public function get_fast_forward_link( $canonical = false, array $passthru_vars = [] ) {
-		$date      = $this->context->get( 'event_date', $this->context->get( 'today' ) );
-		$cache_key = __METHOD__ . '_' . md5( wp_json_encode( array_merge( [ $date, $canonical ], $passthru_vars ) ) );
-
-		if ( isset( $this->cached_urls[ $cache_key ] ) ) {
-			return $this->cached_urls[ $cache_key ];
-		}
-
-		$next_event = tribe_events()->where( 'starts_after', $date )->per_page( 1 )->first();
-
-		if ( ! $next_event instanceof \WP_Post ) {
-			return '';
-		}
-
-		$url_date = Dates::build_date_object( $next_event->start_date );
-		$url      = $this->build_url_for_date( $url_date, $canonical, $passthru_vars );
-
-		$link = sprintf(
-			/* translators: 1: opening href tag 2: closing href tag */
-			__( 'Jump to the %1$snext upcoming event(s)%2$s.', 'the-events-calendar' ),
-			'<a href="' . esc_url( $url ) . '" class="tribe-events-c-messages__message-list-item-link tribe-common-anchor-thin-alt" data-js="tribe-events-view-link">',
-			'</a>'
-		);
-
-		$this->cached_urls[ $cache_key ] = $link;
-
-		return $link;
-	}
-
-	/**
 	 * Overrides the base View method to implement logic tailored to the Day View.
 	 *
 	 * @since 4.9.11
@@ -288,15 +252,16 @@ class Day_View extends View {
 				unset( $filters['form_submit'] );
 			}
 
-			$filters = array_values( $filters );
+			$fast_forward_link = $this->get_fast_forward_link( true );
 
 			if (
 				empty( $filters )
 				&& empty( $tax )
+				&& ! empty( $fast_forward_link )
 			) {
 				$this->messages->insert(
 					Messages::TYPE_NOTICE,
-					Messages::for_key( 'day_no_results_found', $date_label, $this->get_fast_forward_link( true ) )
+					Messages::for_key( 'day_no_results_found_w_ff_link', $date_label, $fast_forward_link )
 				);
 
 				return;
