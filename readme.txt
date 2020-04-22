@@ -225,6 +225,8 @@ Remember to always make a backup of your database and files before updating!
 * Feature - Add a "fast forward" link to Month and Day views when there are no events to show. [TEC-3400]
 * Feature - Add `tribe_events_views_v2_use_ff_link` and `tribe_events_views_v2_{$this->slug}_use_ff_link` filters to allow control of the link. [TEC-3400]
 * Feature - Add Recent Past Events Views. [TEC-3385]
+* Tweak - Improved on meta data handling of for Blocks editor.
+* Tweak - Deprecate Select2 3.5.4 in favor of SelectWoo
 * Tweak - Load plugin text domain on the new `tribe_load_text_domains` action hook, which fires on `init` instead of on the `plugins_loaded` hook. [TEC-3406]
 * Tweak - Add a constant `TRIBE_CACHE_VIEWS` to turn off views HTML caching.
 * Fix - Theme navigation warning around `post_date = '0'` no longer happens when using Page template for Updated Views [TEC-3434]
@@ -234,6 +236,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Correct iCal link on month view for months other than the current one [TEC-3267]
 * Fix - Correct a few incorrect and/or typoed text domains [TEC-3390]
 * Fix - Ensure we pass search keywords when changing views and in the top-bar nav [TEC-3282]
+* Fix - Prevent Blocks editor from throwing browser alert when leaving the page without any changes applied to the edited post.
 * Fix - Several strings have been adjusted for consistency and better translatability [BTRIA-307]
 * Hook - Add the `tribe_events_blocks_editor_is_on` filter; returning a falsy value from this filter will prevent the Blocks Editor to ever be active on Events; else the settings from Events > Settings will apply [TEC-3349]
 * Tweak - Add some filters for better control of link targets, standardize the way we create those links [TEC-3402]
