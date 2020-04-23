@@ -124,7 +124,7 @@
     "moment": "2.19.3",
     "moment-timezone": "0.5.13",
     "prop-types": "^15.6.2",
-    "querystringify": "^1.0.0",
+    "querystringify": "^2.0.0",
     "react": "16.3.0",
     "react-day-picker": "^7.2.4",
     "react-dom": "16.3.0",
