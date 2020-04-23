@@ -397,7 +397,13 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 */
 	public function filter_admin_post_thumbnail_html( $html ) {
 
-		if ( TEC::POSTTYPE !== get_current_screen()->post_type ) {
+		$screen = get_current_screen();
+
+		if ( ! $screen instanceof \WP_Screen ) {
+			return $html;
+		}
+
+		if ( TEC::POSTTYPE !== $screen->post_type ) {
 			return $html;
 		}
 
