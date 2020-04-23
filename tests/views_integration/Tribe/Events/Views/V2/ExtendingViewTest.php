@@ -3,6 +3,9 @@
 namespace Tribe\Events\Views\V2;
 
 use org\bovigo\vfs\vfsStream;
+use Tribe\Events\Views\V2\Views\List_View;
+use Tribe\Events\Views\V2\Views\Month_View;
+use Tribe\Events\Views\V2\Views\Reflector_View;
 use Tribe\Test\Products\WPBrowser\Views\V2\TestCase;
 
 require_once codecept_data_dir( 'Views/V2/classes/Test_Template_View.php' );
@@ -111,14 +114,23 @@ class ExtendingViewTest extends TestCase {
 	/**
 	 * @test
 	 */
-	public function should_render_the_not_found_view_if_trying_to_render_not_registered_view() {
-		$this->markTestSkipped( 'Skipping the 404 since we need to revist the behavior here.' );
+	public function should_render_the_default_view_if_view_not_found() {
+		add_filter( 'tribe_events_views', static function () {
+			return [
+				'reflector' => Reflector_View::class,
+				'list'      => List_View::class,
+				'month'     => Month_View::class,
+			];
+		} );
+		$view = View::make( 'not-set', tribe_context()->alter( [
+			'today' => '2020-01-01',
+			'now'   => '2020-01-01 09:00:00'
+		] ) );
 
-		$view = View::make( 'not-set' );
-
+		$this->assertInstanceOf( Reflector_View::class, $view );
 		$template = $view->get_template();
 		$this->assertInstanceOf( Template::class, $template );
-		$this->assertEquals( $template->get_not_found_template(), $template->get_template_file() );
+		$this->assertNotEquals( $template->get_not_found_template(), $template->get_template_file() );
 
 		$this->assertMatchesSnapshot( $view->get_html() );
 	}
