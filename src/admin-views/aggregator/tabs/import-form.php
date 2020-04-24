@@ -1,6 +1,6 @@
 <?php
 $has_license_key = tribe( 'events-aggregator.main' )->is_service_active();
-$hide_upsell     = false || defined( 'TRIBE_HIDE_UPSELL' );
+$hide_upsell     = defined( 'TRIBE_HIDE_UPSELL' );
 
 if ( 'edit' === $aggregator_action ) {
 	$default_post_status = get_post_meta( $record->post->ID, Tribe__Events__Aggregator__Record__Abstract::$meta_key_prefix . 'post_status', true );
@@ -10,14 +10,15 @@ if ( 'edit' === $aggregator_action ) {
 // Set up the generic default post statuses and category.
 $default_post_status = empty( $default_post_status ) ? tribe_get_option( 'tribe_aggregator_default_post_status', 'draft' ) : $default_post_status;
 $default_category    = empty( $default_category ) ? tribe_get_option( 'tribe_aggregator_default_category', '' ) : $default_category;
-$post_statuses       = get_post_statuses( array() );
+$post_statuses       = get_post_statuses();
 
 // Ensure the "(do not override)" status is set up for Eventbrite imports, and "Published" is removed.
 $do_not_override_status   = [ 'do_not_override' => esc_html__( '(do not override)', 'the-events-calendar' ) ];
 $eventbrite_post_statuses = $do_not_override_status + $post_statuses;
 unset( $eventbrite_post_statuses['publish'] );
 
-$category_dropdown = array();
+$category_placeholder = esc_attr__( 'No Additional Categories', 'the-events-calendar' );
+
 $category_dropdown = wp_dropdown_categories( [
 	'echo'       => false,
 	'name'       => 'aggregator[category]',
@@ -28,7 +29,8 @@ $category_dropdown = wp_dropdown_categories( [
 	'taxonomy'   => Tribe__Events__Main::TAXONOMY,
 ] );
 $category_dropdown = preg_replace( '!\<select!', '<select data-hide-search', $category_dropdown );
-$category_dropdown = preg_replace( '!(\<select[^\>]*\>)!', '$1<option value="">' . __( 'No Additional Categories', 'the-events-calendar' ) . '</option>', $category_dropdown );
+$category_dropdown = preg_replace( '!\<select!', sprintf( '<select placeholder="%s"', $category_placeholder ), $category_dropdown );
+$category_dropdown = preg_replace( '!(\<select[^\>]*\>)!', '$1<option value="">' . $category_placeholder . '</option>', $category_dropdown );
 $category_dropdown = preg_replace( '!(value="' . $default_category . '")!', '$1 selected', $category_dropdown );
 
 wp_nonce_field( 'tribe-aggregator-save-import', 'tribe_aggregator_nonce' );
@@ -46,7 +48,6 @@ wp_nonce_field( 'tribe-aggregator-save-import', 'tribe_aggregator_nonce' );
 		$field->help           = esc_attr__( 'Choose where you are importing from.', 'the-events-calendar' );
 		$field->options        = tribe( 'events-aggregator.main' )->api( 'origins' )->get();
 		$field->upsell_options = array();
-
 		foreach ( $field->options as $key => $option ) {
 
 			$option->disabled = isset( $option->disabled ) ? $option->disabled : null;
@@ -93,7 +94,7 @@ wp_nonce_field( 'tribe-aggregator-save-import', 'tribe_aggregator_nonce' );
 						data-hide-search
 						data-prevent-clear
 					>
-						<option value=""></option>
+						<option></option>
 						<?php foreach ( $field->options as $option ) : ?>
 							<option
 								value="<?php echo esc_attr( $option->id ); ?>"
@@ -124,6 +125,24 @@ wp_nonce_field( 'tribe-aggregator-save-import', 'tribe_aggregator_nonce' );
 						<?php endif; ?>
 				<?php endif; ?>
 				<span class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help" data-bumpdown="<?php echo esc_attr( $field->help ); ?>" data-width-rule="all-triggers"></span>
+			</td>
+		</tr>
+
+		<tr class="tribe-dependent" data-depends="#tribe-ea-field-origin" data-condition-not-empty>
+			<th scope="row">
+				<label for="tribe-ea-field-import_name"><?php echo esc_html__( 'Import Name:', 'the-events-calendar' ); ?></label>
+			</th>
+			<td>
+				<div class="tribe-refine">
+					<input
+						name="aggregator[import_name]"
+						type="text"
+						id="tribe-ea-field-import_name"
+						class="tribe-ea-field tribe-ea-size-large"
+						placeholder="<?php echo esc_attr__( 'Optional', 'the-events-calendar' ); ?>"
+						value="<?php echo esc_attr( empty( $record->meta['import_name'] ) ? '' : $record->meta['import_name'] ); ?>"
+					>
+				</div>
 			</td>
 		</tr>
 
@@ -234,13 +253,12 @@ $scheduled_save_help = esc_html__( 'When you save this scheduled import, the eve
 				class="tribe-ea-field tribe-ea-dropdown tribe-ea-size-large tribe-ea-field-post_status"
 				data-hide-search
 			>
-				<option value=""></option>
+				<option value=""><?php esc_html__( '(do not override)', 'the-events-calendar' ); ?></option>
 				<?php foreach ( $eventbrite_post_statuses as $slug => $post_status ) : ?>
 					<option value="<?php echo esc_attr( $slug ); ?>" <?php selected( $default_post_status, $slug ); ?>><?php echo esc_html( $post_status ); ?></option>
 				<?php endforeach; ?>
 			</select>
 		</div>
-
 		<div class="tribe-dependent tribe-ea-field-wrapper-post_status" data-depends="#tribe-ea-field-origin" data-condition-not="eventbrite">
 
 			<label for="tribe-ea-field-post_status"><?php esc_html_e( 'Status:', 'the-events-calendar' ); ?></label>
@@ -270,6 +288,16 @@ $scheduled_save_help = esc_html__( 'When you save this scheduled import, the eve
 			data-width-rule="all-triggers"
 		></span>
 	</div>
+
+	<?php
+	/**
+	 * Allows output of custom import preview options.
+	 *
+	 * @since 5.1.0
+	 */
+	do_action( 'tribe_events_aggregator_import_form_preview_options' );
+	?>
+
 	<textarea style="display:none;" name="aggregator[selected_rows]" id="tribe-selected-rows"></textarea>
 </div>
 <div class="tribe-finalize-container">

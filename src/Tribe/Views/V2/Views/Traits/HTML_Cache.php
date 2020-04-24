@@ -116,6 +116,10 @@ trait HTML_Cache {
 	 * @return bool Whether the View HTML should be cached or not.
 	 */
 	public function should_cache_html() {
+		if ( defined( 'TRIBE_CACHE_VIEWS' ) && ! TRIBE_CACHE_VIEWS ) {
+			return false;
+		}
+
 		$context = $this->get_context();
 
 		$cached_views = [
@@ -445,7 +449,8 @@ trait HTML_Cache {
 	 */
 	public function get_cache_html_key_salts() {
 		$can_read_private_posts = current_user_can( 'read_private_posts', TEC::POSTTYPE );
-		$salts                  = [
+
+		$salts = [
 			'current_user_can_read_private_events' => $can_read_private_posts,
 		];
 

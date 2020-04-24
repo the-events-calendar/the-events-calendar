@@ -46,6 +46,10 @@ abstract class Abstract_Query_Controller {
 			return $posts;
 		}
 
+		if ( ! $this->control_query( $query ) ) {
+			return $posts;
+		}
+
 		$this->filtering_query = $query;
 		// Let's flag the query as one we've handled.
 		$query->tribe_controller = $this;
@@ -210,4 +214,31 @@ abstract class Abstract_Query_Controller {
 	 *
 	 */
 	abstract protected function repository();
+
+	/**
+	 * Checks whether the query controller should control the query or not.
+	 *
+	 * @since 5.0.3
+	 *
+	 * @param null|\WP_Query $query The current query object.
+	 *
+	 * @return bool Whether the query controller should control the query or not.
+	 */
+	protected function control_query( $query = null ) {
+		/**
+		 * Toggle filter to control the query controller and, if required, deactivate it.
+		 *
+		 * @since 5.0.3
+		 *
+		 * @param bool                      $active Whether this query controller should be active or not.
+		 * @param \WP_Query|null            $query  The current query object.
+		 * @param Abstract_Query_Controller $this   This query controller instance.
+		 */
+		return apply_filters(
+			"tribe_views_v2_{$this->get_filter_name()}_query_controller_active",
+			true,
+			$query,
+			$this
+		);
+	}
 }

@@ -18,8 +18,13 @@ const mapStateToProps = ( state ) => ( {
 	naturalLanguageLabel: dateTimeSelectors.getNaturalLanguageLabel( state ),
 } );
 
-const mapDispatchToProps = ( dispatch ) => ( {
-	onChange: ( event ) => dispatch( dateTimeActions.setNaturalLanguageLabel( event.target.value ) ),
+const mapDispatchToProps = ( dispatch, ownProps ) => ( {
+	onChange: ( event ) => {
+		dispatch( dateTimeActions.setNaturalLanguageLabel(
+			event.target.value,
+			{ setAttributes: ownProps.setAttributes }
+		) );
+	},
 } );
 
 export default compose(

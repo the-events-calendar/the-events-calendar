@@ -1050,6 +1050,10 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 				'_EventTimezone',
 				$current_event_timezone_string
 			);
+
+			// Empty strings will use the site timezone.
+			$input_timezone = $input_timezone ?: $current_event_timezone_string;
+
 			$timezone                      = Tribe__Timezones::build_timezone_object( $input_timezone );
 			$timezone_changed              = $input_timezone !== $current_event_timezone_string;
 			$utc                           = $this->normal_timezone;
@@ -1119,7 +1123,11 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 
 			$dates_make_sense = true;
 
-			if ( Tribe__Date_Utils::build_date_object( $end ) <= Tribe__Date_Utils::build_date_object( $start ) ) {
+			/*
+			 * To support both "punctual" (i.e. start === end) events and all-day events (that might be punctual at
+			 * this stage) do not make this check inclusive.
+			 */
+			if ( Tribe__Date_Utils::build_date_object( $end ) < Tribe__Date_Utils::build_date_object( $start ) ) {
 				unset(
 					$postarr['meta_input']['_EventStartDate'],
 					$postarr['meta_input']['_EventStartDateUTC'],
@@ -1182,12 +1190,8 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 				$timezone->getName()
 			);
 
-			// Let's make sure the timezone is always a string.
-			if ( isset( $postarr['meta_input']['_EventTimezone'] ) ) {
-				$postarr['meta_input']['_EventTimezone'] = Timezones::build_timezone_object(
-					$postarr['meta_input']['_EventTimezone']
-				)->getName();
-			}
+			$postarr['meta_input']['_EventTimezone'] = Timezones::build_timezone_object( $input_timezone )->getName();
+
 		} catch ( Exception $e ) {
 			tribe( 'logger' )->log(
 				'There was an error updating the dates for event ' . $post_id . ': ' . $e->getMessage(),

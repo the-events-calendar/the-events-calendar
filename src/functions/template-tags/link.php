@@ -358,18 +358,45 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 */
 	function tribe_get_event_website_link( $event = null, $label = null ) {
 		$url = tribe_get_event_website_url( $event );
+
+		/**
+		 * Filter the target attribute for the event website link
+		 *
+		 * @since 5.1.0
+		 *
+		 * @param string the target attribute string. Defaults to "_self".
+		 */
+		$target = apply_filters( 'tribe_get_event_website_link_target', '_self' );
+		$rel    = ( '_blank' === $target ) ? 'noopener noreferrer' : 'external';
+
 		if ( ! empty( $url ) ) {
 			$label = is_null( $label ) ? $url : $label;
+			/**
+			 * Filter the website link label
+			 *
+			 * @since 3.0
+			 *
+			 * @param string the link label/text.
+			 */
+			$label = apply_filters( 'tribe_get_event_website_link_label', $label );
 			$html  = sprintf(
-				'<a href="%s" target="%s">%s</a>',
+				'<a href="%s" target="%s" rel="%s">%s</a>',
 				esc_url( $url ),
-				esc_attr( apply_filters( 'tribe_get_event_website_link_target', '_self' ) ),
-				apply_filters( 'tribe_get_event_website_link_label', $label )
+				esc_attr( $target ),
+				esc_attr( $rel ),
+				esc_html( $label )
 			);
 		} else {
 			$html = '';
 		}
 
+		/**
+		 * Filter the website link HTML
+		 *
+		 * @since 3.0
+		 *
+		 * @param string the link HTML.
+		 */
 		return apply_filters( 'tribe_get_event_website_link', $html );
 	}
 

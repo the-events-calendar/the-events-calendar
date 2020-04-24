@@ -50,16 +50,6 @@ export default {
 			source: 'meta',
 			meta: '_EventAllDay',
 		},
-		start: {
-			type: 'string',
-			source: 'meta',
-			meta: '_EventStartDate',
-		},
-		end: {
-			type: 'string',
-			source: 'meta',
-			meta: '_EventEndDate',
-		},
 		url: {
 			type: 'string',
 			source: 'meta',

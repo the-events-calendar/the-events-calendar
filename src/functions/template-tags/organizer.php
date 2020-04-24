@@ -249,38 +249,69 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	/**
 	 * Organizer Page Link
 	 *
-	 * Returns the event Organizer Name with a link to their single organizer page
+	 * Returns the event Organizer Name with a link to their single organizer page.
 	 *
-	 * @param int  $postId    Can supply either event id or organizer id, if none specified, current post is used
-	 * @param bool $full_link If true outputs a complete HTML <a> link, otherwise only the URL is output
-	 * @param bool $echo      If true, echo the link, otherwise return
+	 * @param int  $post_id    Can supply either event id or organizer id, if none specified, current post is used.
+	 * @param bool $full_link If true outputs a complete HTML <a> link, otherwise only the URL is output.
+	 * @param bool $echo      Deprecated. If true, echo the link, otherwise return.
 	 *
 	 * @return string Organizer Name and Url
 	 */
-	function tribe_get_organizer_link( $postId = null, $full_link = true, $echo = false ) {
+	function tribe_get_organizer_link( $post_id = null, $full_link = true, $echo = false ) {
 
 		// As of TEC 4.0 this argument is deprecated
 		// If needed precede the call to this function with echo
-		if ( $echo != false ) _deprecated_argument( __FUNCTION__, '4.0' );
+		if ( false != $echo ) {
+			_deprecated_argument( __FUNCTION__, '4.0', 'As of TEC 4.0 this argument is deprecated. If needed, precede the call to this function with echo' );
+		}
 
-		$org_id = tribe_get_organizer_id( $postId );
+		$org_id = tribe_get_organizer_id( $post_id );
 		if ( class_exists( 'Tribe__Events__Pro__Main' ) && get_post_status( $org_id ) == 'publish' ) {
-			$url = esc_url_raw( get_permalink( $org_id ) );
+			/**
+			 * Filter the organizer link target attribute.
+			 *
+			 * @since 5.1.0
+			 *
+			 * @param string the target attribute string. Defaults to "_self".
+			 */
+			$target = apply_filters( 'tribe_get_event_organizer_link_target', '_self' );
+			$rel    = ( '_blank' === $target ) ? 'noopener noreferrer' : '';
+			$url    = esc_url_raw( get_permalink( $org_id ) );
+
 			if ( $full_link ) {
 				$name = tribe_get_organizer( $org_id );
-				$attr_title = the_title_attribute( array( 'post' => $org_id, 'echo' => false ) );
-				$link = ! empty( $url ) && ! empty( $name ) ? '<a href="' . esc_url( $url ) . '" title="'.$attr_title.'">' . $name . '</a>' : false;
+
+				if ( empty( $url ) || empty( $name ) ) {
+					$link = false;
+				} else {
+					$link = sprintf(
+						'<a href="%s" title="%s" target="%s" rel="%s">%s</a>',
+						esc_url( $url ),
+						the_title_attribute(
+							[
+								'post' => $org_id,
+								'echo' => false,
+							]
+						),
+						esc_attr( $target ),
+						esc_attr( $rel ),
+						esc_html( $name )
+					);
+				}
 			} else {
 				$link = $url;
 			}
 
-			// Remove this in or before 5.x to fully deprecate the echo arg
-			if ( $echo ) {
-				echo apply_filters( 'tribe_get_organizer_link', $link, $postId, $echo, $url );
-			} else {
-				return apply_filters( 'tribe_get_organizer_link', $link, $postId, $full_link, $url );
-			}
+			/**
+			 * Filter the organizer link HTML
+			 *
+			 * @since 4.0
+			 *
+			 * @param string the link HTML.
+			 */
+			return apply_filters( 'tribe_get_organizer_link', $link, $post_id, $full_link, $url );
 		}
+
 		//Return Organizer Name if Pro is not Active
 		return tribe_get_organizer( $org_id );
 	}
@@ -332,8 +363,29 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	function tribe_get_organizer_website_link( $post_id = null, $label = null ) {
 		$post_id = tribe_get_organizer_id( $post_id );
 		$url     = tribe_get_event_meta( $post_id, '_OrganizerWebsite', true );
+
+		/**
+		 * Filter the organizer link target attribute.
+		 *
+		 * @since 5.1.0
+		 *
+		 * @param string the target attribute string. Defaults to "_self".
+		 */
+		$target = apply_filters( 'tribe_get_event_organizer_link_target', '_self' );
+		$rel    = ( '_blank' === $target ) ? 'noopener noreferrer' : 'external';
+
+		/**
+		 * Filter the organizer link label
+		 *
+		 * @since 5.1.0
+		 *
+		 * @param string the link label/text.
+		 */
+		$label = apply_filters( 'tribe_get_organizer_website_link_label', $label );
+
 		if ( ! empty( $url ) ) {
 			$label = is_null( $label ) ? $url : $label;
+
 			if ( ! empty( $url ) ) {
 				$parseUrl = parse_url( $url );
 				if ( empty( $parseUrl['scheme'] ) ) {
@@ -341,15 +393,23 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				}
 			}
 			$html = sprintf(
-				'<a href="%s" target="%s">%s</a>',
+				'<a href="%s" target="%s" rel="%s">%s</a>',
 				esc_attr( esc_url( $url ) ),
-				apply_filters( 'tribe_get_organizer_website_link_target', '_self' ),
-				apply_filters( 'tribe_get_organizer_website_link_label', esc_html( $label ) )
+				esc_attr( $target ),
+				esc_attr( $rel ),
+				esc_html( $label )
 			);
 		} else {
 			$html = '';
 		}
 
+		/**
+		 * Filter the organizer link HTML
+		 *
+		 * @since 3.0
+		 *
+		 * @param string the link HTML.
+		 */
 		return apply_filters( 'tribe_get_organizer_website_link', $html );
 	}
 

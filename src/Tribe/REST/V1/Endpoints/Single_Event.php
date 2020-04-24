@@ -115,7 +115,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 				'parameters' => $this->swaggerize_args( $this->READ_args(), $GET_defaults ),
 				'responses'  => array(
 					'200' => array(
-						'description' => __( 'Returns the data of the event with the specified post ID', 'the-event-calendar' ),
+						'description' => __( 'Returns the data of the event with the specified post ID', 'the-events-calendar' ),
 						'schema'      => array(
 							'$ref' => '#/definitions/Event',
 						),
@@ -136,13 +136,13 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 				'parameters' => $this->swaggerize_args( $post_args, $POST_defaults ),
 				'responses'  => array(
 					'200' => array(
-						'description' => __( 'Returns the data of the updated event', 'the-event-calendar' ),
+						'description' => __( 'Returns the data of the updated event', 'the-events-calendar' ),
 						'schema'      => array(
 							'$ref' => '#/definitions/Event',
 						),
 					),
 					'201' => array(
-						'description' => __( 'Returns the data of the created event', 'the-event-calendar' ),
+						'description' => __( 'Returns the data of the created event', 'the-events-calendar' ),
 						'schema'      => array(
 							'$ref' => '#/definitions/Event',
 						),
@@ -159,7 +159,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 				'parameters' => $this->swaggerize_args( $this->DELETE_args(), $DELETE_defaults ),
 				'responses'  => array(
 					'200' => array(
-						'description' => __( 'Deletes an event and returns its data', 'the-event-calendar' ),
+						'description' => __( 'Deletes an event and returns its data', 'the-events-calendar' ),
 						'schema'      => array(
 							'$ref' => '#/definitions/Event',
 						),
@@ -622,7 +622,9 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 		// Event presentation data
 		$postarr['EventShowMap']          = tribe_is_truthy( $request['show_map'] );
 		$postarr['EventShowMapLink']      = tribe_is_truthy( $request['show_map_link'] );
-		$postarr['EventHideFromUpcoming'] = tribe_is_truthy( $request['hide_from_listings'] ) ? 'yes' : false;
+		if ( tribe_is_truthy( $request['hide_from_listings'] ) ) {
+			$postarr['EventHideFromUpcoming'] = 'yes';
+		}
 		$postarr['EventShowInCalendar']   = tribe_is_truthy( $request['sticky'] );
 		$postarr['feature_event']         = tribe_is_truthy( $request['featured'] );
 

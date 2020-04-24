@@ -69,19 +69,21 @@ class Template_Bootstrap {
 	}
 
 	/**
-	 * Determines with backwards compatibility in mind, which template user has selected
-	 * on the Events > Settings page as their base Default template
+	 * Determines, with backwards compatibility in mind, which template user has selected
+	 * on the Events > Settings page as their base Default template.
 	 *
 	 * @since  4.9.2
+	 * @since 5.0.3 specifically pass 'event' to be clearer down the line where we check for custom templates.
 	 *
-	 * @return string Either 'event' or 'page' based templates
+	 * @return string Either 'event', 'page' or custom based templates
 	 */
 	public function get_template_setting() {
-		$template = 'event';
 		$default_value = 'default';
-		$setting = tribe_get_option( 'tribeEventsTemplate', $default_value );
+		$template      = tribe_get_option( 'tribeEventsTemplate', $default_value );
 
-		if ( $default_value === $setting ) {
+		if ( empty( $template ) ) {
+			$template = 'event';
+		} elseif ( $default_value === $template ) {
 			$template = 'page';
 		}
 
@@ -89,19 +91,20 @@ class Template_Bootstrap {
 	}
 
 	/**
-	 * Based on the base template setting we fetch the respective object
+	 * Based on the admin template setting we fetch the respective object
 	 * to handle the inclusion of the main file.
 	 *
 	 * @since  4.9.2
+	 * @since 5.0.3 inverted logic, as all the custom templates are page templates
 	 *
 	 * @return object
 	 */
 	public function get_template_object() {
 		$setting = $this->get_template_setting();
 
-		return $setting === 'page'
-			? tribe( Template\Page::class )
-			: tribe( Template\Event::class );
+		return 'event' === $setting
+			? tribe( Template\Event::class )
+			: tribe( Template\Page::class );
 	}
 
 	/**
@@ -149,6 +152,10 @@ class Template_Bootstrap {
 		echo '</main>';
 
 		$html = ob_get_clean();
+
+		if ( function_exists( 'do_blocks' ) ) {
+			$html = do_blocks( $html );
+		}
 
 		return $html;
 	}
@@ -267,6 +274,11 @@ class Template_Bootstrap {
 	public function should_load( $query = null ) {
 		if ( ! $query instanceof \WP_Query ) {
 			$query = tribe_get_global_query_object();
+		}
+
+		if ( ! $query instanceof WP_Query ) {
+			// Cannot discriminate, bail.
+			return false;
 		}
 
 		$should_load = null;

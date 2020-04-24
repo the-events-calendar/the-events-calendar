@@ -4,6 +4,7 @@ defined( 'WPINC' ) or die;
 
 use Tribe__Events__Main as TEC;
 use Tribe__Main as Common;
+use Tribe__Utils__Array as Arr;
 
 /**
  * Rewrite Configuration Class
@@ -538,8 +539,9 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 				 * Categories can be hierarchical and the path will be something like
 				 * `/events/category/grand-parent/parent/child/list/page/2/`.
 				 * If we can match the category to an existing one then let's make sure to build the hierarchical slug.
+				 * We cast to comma-separated list to ensure multi-category queries will not resolve to a URL.
 				 */
-				$category_slug = $query_vars['tribe_events_cat'];
+				$category_slug = Arr::to_list( $query_vars['tribe_events_cat'] );
 				$category_term = get_term_by( 'slug', $category_slug, TEC::TAXONOMY );
 				if ( $category_term instanceof WP_Term ) {
 					$category_slug = get_term_parents_list(
@@ -630,32 +632,46 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 	 *               an entry..
 	 */
 	protected function get_option_controlled_slug_entry( array $localized_matchers, $default_slug, $option_name ) {
-		$using_default_archive_slug = $default_slug === tribe_get_option( $option_name, $default_slug );
+		$current_slug       = tribe_get_option( $option_name, $default_slug );
+		$using_default_slug = $default_slug === $current_slug;
 
-		$filter = static function ( $matcher ) use ( $default_slug )
-		{
-			return isset( $matcher['query_var'] )
-			       && 'post_type' === $matcher['query_var']
-			       && isset( $matcher['localized_slugs'] )
-			       && is_array( $matcher['localized_slugs'] )
-			       && in_array( $default_slug, $matcher['localized_slugs'], true );
+		$filter = static function ( $matcher ) use ( $default_slug ) {
+			return isset( $matcher['query_var'], $matcher['localized_slugs'] )
+				   && 'post_type' === $matcher['query_var']
+				   && is_array( $matcher['localized_slugs'] );
 		};
 
-		$archive_localized_matcher = array_filter( $localized_matchers, $filter );
-		$archive_localized_matcher = reset( $archive_localized_matcher );
+		$target_matcher = array_filter( $localized_matchers, $filter );
+		$target_matcher = reset( $target_matcher );
 
-		if ( $using_default_archive_slug || false === $archive_localized_matcher ) {
+		if ( $using_default_slug || false === $target_matcher ) {
 			return [];
 		}
 
-		$archive_localized_matcher['localized_slugs'][] = $archive_localized_matcher['en_slug'];
-		// Create an entry for each localized slug to replace (?:events).
+		/**
+		 * Add the slugs in the following order: default slug, option-controlled slug, localized slug.
+		 */
+		array_unshift( $target_matcher['localized_slugs'], $default_slug, $current_slug );
+
+		// Make sure we do not have duplicated slugs.
+		$target_matcher['localized_slugs'] = array_unique( $target_matcher['localized_slugs'] );
+
+		// Create a replacement string that contains all of them.
+		$all_slugs = array_unique( array_reverse( $target_matcher['localized_slugs'] ) );
+
 		$entry = [
-			'(?:' . $default_slug . ')' => [
+			// Create an entry for the localized slug to replace `(?:events)`.
+			'(?:' . $default_slug . ')'              => [
 				'query_var'       => 'post_type',
-				'en_slug'         => $archive_localized_matcher['en_slug'],
-				'localized_slugs' => $archive_localized_matcher['localized_slugs']
-			]
+				'en_slug'         => $target_matcher['en_slug'],
+				'localized_slugs' => $target_matcher['localized_slugs'],
+			],
+			// Create an entry for the localized slug to replace `(?:events|foo|bar)`.
+			'(?:' . implode( '|', $all_slugs ) . ')' => [
+				'query_var'       => 'post_type',
+				'en_slug'         => $target_matcher['en_slug'],
+				'localized_slugs' => $target_matcher['localized_slugs'],
+			],
 		];
 
 		return $entry;

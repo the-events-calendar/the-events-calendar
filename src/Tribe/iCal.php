@@ -76,6 +76,19 @@ class Tribe__Events__iCal {
 	}
 
 	/**
+	 * Make sure when we grab a month link it includes the correct month.
+	 *
+	 * @param string $event_date Date of the month we are getting the link for.
+	 *
+	 * @return string The iCal export URL for the Month view.
+	 */
+	public function month_view_ical_link( $event_date = null ) {
+		$tec = Tribe__Events__Main::instance();
+
+		return add_query_arg( [ 'ical' => 1 ], $tec->getLink( 'month', $event_date ) );
+	}
+
+	/**
 	 * Make sure ical link has the date in the URL instead of "today" on day view
 	 *
 	 * @param $link
@@ -171,7 +184,7 @@ class Tribe__Events__iCal {
 	}
 
 	/**
-	 * Executes the iCal generator when the appropiate query_var or $_GET is setup
+	 * Executes the iCal generator when the appropriate query_var or $_GET is setup.
 	 */
 	public function do_ical_template() {
 		// hijack to iCal template
@@ -304,7 +317,7 @@ class Tribe__Events__iCal {
 			'hide_upcoming' => true,
 		];
 
-		// Verify the Intial Category
+		// Verify the Initial Category.
 		if ( $wp_query->get( Tribe__Events__Main::TAXONOMY, false ) !== false ) {
 			$args[ Tribe__Events__Main::TAXONOMY ] = $wp_query->get( Tribe__Events__Main::TAXONOMY );
 		}

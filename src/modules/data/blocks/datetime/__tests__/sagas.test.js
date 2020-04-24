@@ -180,8 +180,17 @@ describe( 'Event Date time Block sagas', () => {
 		} );
 
 		describe( 'onHumanReadableChange', () => {
+			let action;
+
+			beforeEach( () => {
+				action = {
+					meta: {
+						setAttributes: jest.fn(),
+					},
+				};
+			} );
 			test( 'On change handler when dates are null', () => {
-				const gen = sagas.onHumanReadableChange();
+				const gen = sagas.onHumanReadableChange( action );
 				const label = { start: null, end: null };
 
 				expect( gen.next().value ).toEqual(
@@ -200,7 +209,7 @@ describe( 'Event Date time Block sagas', () => {
 			} );
 
 			test( 'On change handler when dates are set', () => {
-				const gen = sagas.onHumanReadableChange();
+				const gen = sagas.onHumanReadableChange( action );
 
 				const label = { start: '12-25-1995', end: '12-25-1995' };
 
@@ -241,6 +250,14 @@ describe( 'Event Date time Block sagas', () => {
 
 				expect( gen.next( dates ).value ).toEqual(
 					all( [
+						call( action.meta.setAttributes, { start: dates.start } ),
+						call( action.meta.setAttributes, { end: dates.end } ),
+						call( action.meta.setAttributes, { allDay: false } ),
+					] )
+				);
+
+				expect( gen.next().value ).toEqual(
+					all( [
 						put( actions.setStartDateTime( dates.start ) ),
 						put( actions.setEndDateTime( dates.end ) ),
 						put( actions.setMultiDay( false ) ),
@@ -274,11 +291,17 @@ describe( 'Event Date time Block sagas', () => {
 	describe( 'handleDateRangeChange', () => {
 		it( 'should update date range', () => {
 			const payload = { from: '2015-01-01', to: '2015-01-10' };
-			const action = { payload };
+			const meta = { setAttributes: jest.fn() };
+			const action = { payload, meta };
 			const moments = {
 				from: moment( payload.from, 'MM-DD-YYYY' ),
 				to: moment( payload.to, 'MM-DD-YYYY' ),
 			};
+			const dates = {
+				start: '2015-01-01',
+				end: '2015-01-10',
+			};
+
 			const gen = sagas.handleDateRangeChange( action );
 
 			expect( gen.next().value ).toEqual(
@@ -298,17 +321,24 @@ describe( 'Event Date time Block sagas', () => {
 				call( momentUtil.adjustStart, moments.start, moments.end )
 			);
 
-			expect( gen.next( { start: 1, end: 2 } ).value ).toEqual(
+			expect( gen.next( dates ).value ).toEqual(
 				all( {
-					start: call( momentUtil.toDateTime, 1 ),
-					end: call( momentUtil.toDateTime, 2 ),
+					start: call( momentUtil.toDateTime, dates.start ),
+					end: call( momentUtil.toDateTime, dates.end ),
 				} )
 			);
 
-			expect( gen.next( { start: 1, end: 2 } ).value ).toEqual(
+			expect( gen.next( dates ).value ).toEqual(
 				all( [
-					put( actions.setStartDateTime( 1 ) ),
-					put( actions.setEndDateTime( 2 ) ),
+					call( action.meta.setAttributes, { start: dates.start } ),
+					call( action.meta.setAttributes, { end: dates.end } ),
+				] )
+			);
+
+			expect( gen.next().value ).toEqual(
+				all( [
+					put( actions.setStartDateTime( dates.start ) ),
+					put( actions.setEndDateTime( dates.end ) ),
 				] )
 			);
 
@@ -324,6 +354,9 @@ describe( 'Event Date time Block sagas', () => {
 				type: types.SET_START_TIME,
 				payload: {
 					start: 55000,
+				},
+				meta: {
+					setAttributes: jest.fn(),
 				},
 			};
 			seconds = {
@@ -385,6 +418,12 @@ describe( 'Event Date time Block sagas', () => {
 			);
 			expect( gen.next( moments ).value ).toEqual(
 				all( [
+					call( action.meta.setAttributes, { start: moments.start } ),
+					call( action.meta.setAttributes, { end: moments.end } ),
+				] )
+			);
+			expect( gen.next().value ).toEqual(
+				all( [
 					put( actions.setStartDateTime( moments.start ) ),
 					put( actions.setEndDateTime( moments.end ) ),
 				] )
@@ -424,6 +463,12 @@ describe( 'Event Date time Block sagas', () => {
 			);
 			expect( gen.next( moments ).value ).toEqual(
 				all( [
+					call( action.meta.setAttributes, { start: moments.start } ),
+					call( action.meta.setAttributes, { end: moments.end } ),
+				] )
+			);
+			expect( gen.next( moments ).value ).toEqual(
+				all( [
 					put( actions.setStartDateTime( moments.start ) ),
 					put( actions.setEndDateTime( moments.end ) ),
 				] )
@@ -440,6 +485,9 @@ describe( 'Event Date time Block sagas', () => {
 				type: types.SET_END_TIME,
 				payload: {
 					end: 55000,
+				},
+				meta: {
+					setAttributes: jest.fn(),
 				},
 			};
 			seconds = {
@@ -485,6 +533,12 @@ describe( 'Event Date time Block sagas', () => {
 			);
 			expect( gen.next( moments ).value ).toEqual(
 				all( [
+					call( action.meta.setAttributes, { start: moments.start } ),
+					call( action.meta.setAttributes, { end: moments.end } ),
+				] )
+			);
+			expect( gen.next().value ).toEqual(
+				all( [
 					put( actions.setStartDateTime( moments.start ) ),
 					put( actions.setEndDateTime( moments.end ) ),
 				] )
@@ -522,6 +576,12 @@ describe( 'Event Date time Block sagas', () => {
 			);
 			expect( gen.next( moments ).value ).toEqual(
 				all( [
+					call( action.meta.setAttributes, { start: moments.start } ),
+					call( action.meta.setAttributes, { end: moments.end } ),
+				] )
+			);
+			expect( gen.next().value ).toEqual(
+				all( [
 					put( actions.setStartDateTime( moments.start ) ),
 					put( actions.setEndDateTime( moments.end ) ),
 				] )
@@ -533,7 +593,12 @@ describe( 'Event Date time Block sagas', () => {
 
 	describe( 'setAllDay', () => {
 		it( 'it should set all day', () => {
-			const gen = sagas.setAllDay();
+			const action = {
+				meta: {
+					setAttributes: jest.fn(),
+				},
+			};
+			const gen = sagas.setAllDay( action );
 			const moments = { start: 1, end: 2 };
 
 			expect( gen.next().value ).toEqual(
@@ -556,6 +621,14 @@ describe( 'Event Date time Block sagas', () => {
 
 			expect( gen.next( moments ).value ).toEqual(
 				all( [
+					call( action.meta.setAttributes, { start: moments.start } ),
+					call( action.meta.setAttributes, { end: moments.end } ),
+					call( action.meta.setAttributes, { allDay: true } ),
+				] )
+			);
+
+			expect( gen.next().value ).toEqual(
+				all( [
 					put( actions.setStartDateTime( moments.start ) ),
 					put( actions.setEndDateTime( moments.end ) ),
 					put( actions.setAllDay( true ) ),
@@ -571,6 +644,9 @@ describe( 'Event Date time Block sagas', () => {
 			action = {
 				payload: {
 					multiDay: true,
+				},
+				meta: {
+					setAttributes: jest.fn(),
 				},
 			};
 		} );
@@ -592,6 +668,9 @@ describe( 'Event Date time Block sagas', () => {
 				call( momentUtil.toDateTime, moments.end )
 			);
 			expect( gen.next( 5 ).value ).toEqual(
+				call( action.meta.setAttributes, { end: 5 } )
+			);
+			expect( gen.next().value ).toEqual(
 				put( actions.setEndDateTime( 5 ) )
 			);
 		} );
@@ -617,6 +696,12 @@ describe( 'Event Date time Block sagas', () => {
 			);
 			expect( gen.next( moments ).value ).toEqual(
 				all( [
+					call( action.meta.setAttributes, { start: moments.start } ),
+					call( action.meta.setAttributes, { end: moments.end } ),
+				] )
+			);
+			expect( gen.next().value ).toEqual(
+				all( [
 					put( actions.setStartDateTime( moments.start ) ),
 					put( actions.setEndDateTime( moments.end ) ),
 				] )
@@ -626,14 +711,18 @@ describe( 'Event Date time Block sagas', () => {
 
 	describe( 'handleStartTimeChange', () => {
 		it( 'should handle all day', () => {
-			const gen = sagas.handleStartTimeChange( {
+			const action = {
 				payload: {
 					start: 'all-day',
 				},
-			} );
+				meta: {
+					setAttributes: jest.fn(),
+				},
+			};
+			const gen = sagas.handleStartTimeChange( action );
 
 			expect( gen.next().value ).toEqual(
-				call( sagas.setAllDay )
+				call( sagas.setAllDay, action )
 			);
 			expect( gen.next().done ).toEqual( true );
 		} );
@@ -642,9 +731,15 @@ describe( 'Event Date time Block sagas', () => {
 				payload: {
 					start: 50000,
 				},
+				meta: {
+					setAttributes: jest.fn(),
+				},
 			};
 			const gen = sagas.handleStartTimeChange( action );
 
+			expect( gen.next().value ).toEqual(
+				call( action.meta.setAttributes, { allDay: false } )
+			);
 			expect( gen.next().value ).toEqual(
 				put( actions.setAllDay( false ) )
 			);
@@ -658,6 +753,9 @@ describe( 'Event Date time Block sagas', () => {
 				call( momentUtil.toDateTime, 55000 )
 			);
 			expect( gen.next( '2017-01-01' ).value ).toEqual(
+				call( action.meta.setAttributes, { start: '2017-01-01' } )
+			);
+			expect( gen.next().value ).toEqual(
 				put( actions.setStartDateTime( '2017-01-01' ) )
 			);
 			expect( gen.next().done ).toEqual( true );
@@ -666,14 +764,18 @@ describe( 'Event Date time Block sagas', () => {
 
 	describe( 'handleEndTimeChange', () => {
 		it( 'should handle all day', () => {
-			const gen = sagas.handleEndTimeChange( {
+			const action = {
 				payload: {
 					end: 'all-day',
 				},
-			} );
+				meta: {
+					setAttributes: jest.fn(),
+				},
+			};
+			const gen = sagas.handleEndTimeChange( action );
 
 			expect( gen.next().value ).toEqual(
-				call( sagas.setAllDay )
+				call( sagas.setAllDay, action )
 			);
 			expect( gen.next().done ).toEqual( true );
 		} );
@@ -682,9 +784,15 @@ describe( 'Event Date time Block sagas', () => {
 				payload: {
 					end: 50000,
 				},
+				meta: {
+					setAttributes: jest.fn(),
+				},
 			};
 			const gen = sagas.handleEndTimeChange( action );
 
+			expect( gen.next().value ).toEqual(
+				call( action.meta.setAttributes, { allDay: false } )
+			);
 			expect( gen.next().value ).toEqual(
 				put( actions.setAllDay( false ) )
 			);
@@ -698,6 +806,9 @@ describe( 'Event Date time Block sagas', () => {
 				call( momentUtil.toDateTime, 55000 )
 			);
 			expect( gen.next( '2017-01-01' ).value ).toEqual(
+				call( action.meta.setAttributes, { end: '2017-01-01' } )
+			);
+			expect( gen.next().value ).toEqual(
 				put( actions.setEndDateTime( '2017-01-01' ) )
 			);
 			expect( gen.next().done ).toEqual( true );
@@ -839,6 +950,12 @@ describe( 'Event Date time Block sagas', () => {
 			const gen = sagas.handler( action );
 			expect( gen.next().value ).toEqual(
 				call( sagas.handleMultiDay, action )
+			);
+			expect( gen.next().value ).toEqual(
+				call( sagas.setStartTimeInput )
+			);
+			expect( gen.next().value ).toEqual(
+				call( sagas.setEndTimeInput )
 			);
 			expect( gen.next().value ).toEqual(
 				call( sagas.resetNaturalLanguageLabel )

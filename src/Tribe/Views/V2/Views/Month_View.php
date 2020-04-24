@@ -9,6 +9,7 @@
 namespace Tribe\Events\Views\V2\Views;
 
 use Tribe\Events\Views\V2\Messages;
+use Tribe\Events\Views\V2\Views\Traits\With_Fast_Forward_Link;
 use Tribe\Utils\Query;
 use Tribe__Context as Context;
 use Tribe__Date_Utils as Dates;
@@ -16,6 +17,7 @@ use Tribe__Events__Template__Month as Month;
 use Tribe__Utils__Array as Arr;
 
 class Month_View extends By_Day_View {
+	use With_Fast_Forward_Link;
 
 	/**
 	 * The default number of events to show per-day.
@@ -451,6 +453,22 @@ class Month_View extends By_Day_View {
 			return;
 		}
 
-		$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( 'no_results_found' ), 9 );
+		$fast_forward_link = $this->get_fast_forward_link( true );
+
+		if ( ! empty( $fast_forward_link ) ) {
+			$this->messages->insert(
+				Messages::TYPE_NOTICE,
+				Messages::for_key( 'month_no_results_found_w_ff_link', $fast_forward_link ),
+				9
+			);
+
+			return;
+		}
+
+		$this->messages->insert(
+			Messages::TYPE_NOTICE,
+			Messages::for_key( 'no_results_found' ),
+			9
+		);
 	}
 }

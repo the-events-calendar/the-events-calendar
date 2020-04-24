@@ -90,7 +90,14 @@ class Messages {
 	 */
 	public static function for_key( $key, ...$values ) {
 		$map = [
-			'no_results_found'                 => __( 'There were no results found.', 'the-events-calendar' ),
+			'no_results_found'                 => __(
+				'There were no results found.',
+				'the-events-calendar'
+			),
+			'month_no_results_found'           => __(
+				'There were no results found for this view.',
+				'the-events-calendar'
+			),
 			// translators: the placeholder is the keyword(s), as the user entered it in the bar.
 			'no_results_found_w_keyword'       => __(
 				'There were no results found for <strong>"%1$s"</strong>.',
@@ -101,9 +108,19 @@ class Messages {
 				'There were no results found for <strong>"%1$s"</strong> this month. Try searching next month.',
 				'the-events-calendar'
 			),
-			// translators: the placeholder is the formatted date string, e.g. "February 22, 2020".
+			// translators: %1$s: events (plural), %2$s: the formatted date string, e.g. "February 22, 2020".
 			'day_no_results_found'             => __(
-				'No events scheduled for %s. Please try another day.',
+				'No %1$s scheduled for %2$s.',
+				'the-events-calendar'
+			),
+			// translators: the placeholder is an html link to the next month with available events.
+			'month_no_results_found_w_ff_link'  => __(
+				'There were no results found for this view. %1$s',
+				'the-events-calendar'
+			),
+			// translators: %1$s: events (plural), %2$s: the formatted date string, e.g. "February 22, 2020". %3$s html link to next day with available events.
+			'day_no_results_found_w_ff_link'    => __(
+				'No %1$s scheduled for %2$s. %3$s',
 				'the-events-calendar'
 			),
 		];
@@ -120,7 +137,26 @@ class Messages {
 		// If not found return the key itself.
 		$match = Arr::get( $map, $key, $key );
 
-		return count( $values ) ? sprintf( $match, ...$values ) : $match;
+		if ( empty( count( $values ) ) ) {
+			return $match;
+		}
+
+		$need_events_label_keys = [ 'day_no_results_found', 'day_no_results_found_w_ff_link' ];
+
+		/**
+		 * Filters the array of keys of the messages that need the events label.
+		 *
+		 * @since 5.0.3
+		 *
+		 * @param array $need_events_label_keys Array of keys of the messages that need events label.
+		 */
+		$need_events_label_keys = apply_filters( 'tribe_events_views_v2_messages_need_events_label_keys', $need_events_label_keys );
+
+		if ( in_array( $key, $need_events_label_keys ) ) {
+			array_unshift( $values, tribe_get_event_label_plural_lowercase() );
+		}
+
+		return sprintf( $match, ...$values );
 	}
 
 	/**

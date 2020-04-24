@@ -7,16 +7,25 @@ import { combineReducers } from 'redux';
  * Internal dependencies
  */
 import * as types from './../types';
-import block from './block';
 
 export const byId = ( state = {}, action ) => {
 	switch ( action.type ) {
-		case types.ADD_ORGANIZER_BLOCK:
-		case types.REMOVE_ORGANIZER_BLOCK:
+		case types.ADD_BLOCK_ORGANIZER:
 			return {
 				...state,
-				[ action.payload.id ]: block( state[ action.payload.id ], action ),
+				[ action.payload.id ]: action.payload.organizer,
 			};
+		case types.REMOVE_BLOCK_ORGANIZER:
+			return Object.keys( state ).reduce( ( newState, id ) => {
+				if ( id === action.payload.id ) {
+					return newState;
+				}
+
+				return {
+					...newState,
+					[ id ]: state[ id ],
+				};
+			}, {} );
 		default:
 			return state;
 	}
@@ -24,10 +33,10 @@ export const byId = ( state = {}, action ) => {
 
 export const allIds = ( state = [], action ) => {
 	switch ( action.type ) {
-		case types.ADD_ORGANIZER_BLOCK:
+		case types.ADD_BLOCK_ORGANIZER:
 			return [ ...state, action.payload.organizer ];
-		case types.REMOVE_ORGANIZER_BLOCK:
-			return [ ...state ].filter( ( organizer ) => organizer !== action.payload.organizer );
+		case types.REMOVE_BLOCK_ORGANIZER:
+			return state.filter( organizer => organizer !== action.payload.organizer );
 		default:
 			return state;
 	}

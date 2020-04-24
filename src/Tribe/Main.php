@@ -32,7 +32,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '5.0.1';
+		const VERSION             = '5.1.0';
 
 		/**
 		 * Min Pro Addon
@@ -479,14 +479,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 */
 		public function bootstrap() {
-
-			Tribe__Main::instance( $this )->load_text_domain( 'the-events-calendar', $this->plugin_dir . 'lang/' );
-
 			$this->bind_implementations();
 			$this->loadLibraries();
 			$this->addHooks();
 			$this->register_active_plugin();
-
 		}
 
 		/**
@@ -506,6 +502,17 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			$autoloader->register_autoloader();
+		}
+
+		/**
+		 * Load The Events Calendar text domain.
+		 *
+		 * @since 5.1.0
+		 *
+		 * @return bool
+		 */
+		public function load_text_domain() {
+			return Tribe__Main::instance( $this )->load_text_domain( 'the-events-calendar', $this->plugin_dir . 'lang/' );
 		}
 
 		/**
@@ -566,6 +573,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Integrations
 			tribe_singleton( 'tec.integrations.twenty-seventeen', 'Tribe__Events__Integrations__Twenty_Seventeen', array( 'hook' ) );
 			tribe_singleton( \Tribe\Events\Integrations\WP_Rocket::class, \Tribe\Events\Integrations\WP_Rocket::class );
+			tribe_singleton( \Tribe\Events\Integrations\Beaver_Builder::class, \Tribe\Events\Integrations\Beaver_Builder::class );
 
 			// Linked Posts
 			tribe_singleton( 'tec.linked-posts', 'Tribe__Events__Linked_Posts' );
@@ -615,8 +623,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			if ( ! tribe_events_views_v2_is_enabled() ) {
 				tribe_singleton( 'tec.customizer.widget', new Tribe__Events__Customizer__Widget() );
-			} else {
-				tribe_singleton( 'tec.customizer.text', new Tribe__Events__Customizer__Text() );
 			}
 
 			/**
@@ -708,6 +714,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 * because of the way $wp_locale works
 			 */
 			add_action( 'init', array( $this, 'setup_l10n_strings' ), 5 );
+			add_action( 'tribe_load_text_domains', [ $this, 'load_text_domain' ], 5 );
 
 			// Since TEC is active, change the base page for the Event Settings page
 			Tribe__Settings::$parent_page = 'edit.php';
@@ -1057,7 +1064,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			$data_attributes = array(
-				'live_ajax'         => tribe_get_option( 'liveFiltersUpdate', true ) ? 1 : 0,
+				'live_ajax'         => 'automatic' === tribe_get_option( 'liveFiltersUpdate', 'automatic' ) ? 1 : 0,
 				'datepicker_format' => \Tribe__Date_Utils::get_datepicker_format_index(),
 				'category'          => $category,
 				'featured'          => tribe( 'tec.featured_events' )->is_featured_query(),
@@ -1853,7 +1860,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function body_class( $classes ) {
 			if ( get_query_var( 'post_type' ) == self::POSTTYPE ) {
-				if ( ! is_admin() && tribe_get_option( 'liveFiltersUpdate', true ) ) {
+				if ( ! is_admin() && 'automatic' === tribe_get_option( 'liveFiltersUpdate', 'automatic' ) ) {
 					$classes[] = 'tribe-filter-live';
 				}
 			}

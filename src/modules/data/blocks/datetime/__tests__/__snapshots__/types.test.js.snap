@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[STORE] - Datetime types Should return the types values 1`] = `"@@MT/EVENTS/SET_START_DATE_TIME"`;
+
+exports[`[STORE] - Datetime types Should return the types values 2`] = `"@@MT/EVENTS/SET_END_DATE_TIME"`;
+
+exports[`[STORE] - Datetime types Should return the types values 3`] = `"@@MT/EVENTS/SET_START_TIME"`;
+
+exports[`[STORE] - Datetime types Should return the types values 4`] = `"@@MT/EVENTS/SET_END_TIME"`;
+
+exports[`[STORE] - Datetime types Should return the types values 5`] = `"@@MT/EVENTS/SET_DATE_RANGE"`;
+
+exports[`[STORE] - Datetime types Should return the types values 6`] = `"@@MT/EVENTS/SET_START_TIME_INPUT"`;
+
+exports[`[STORE] - Datetime types Should return the types values 7`] = `"@@MT/EVENTS/SET_END_TIME_INPUT"`;
+
+exports[`[STORE] - Datetime types Should return the types values 8`] = `"@@MT/EVENTS/SET_NATURAL_LANGUAGE_LABEL"`;
+
+exports[`[STORE] - Datetime types Should return the types values 9`] = `"@@MT/EVENTS/SET_MULTI_DAY"`;
+
+exports[`[STORE] - Datetime types Should return the types values 10`] = `"@@MT/EVENTS/SET_ALL_DAY"`;
+
+exports[`[STORE] - Datetime types Should return the types values 11`] = `"@@MT/EVENTS/SET_SEPARATOR_DATE"`;
+
+exports[`[STORE] - Datetime types Should return the types values 12`] = `"@@MT/EVENTS/SET_SEPARATOR_TIME"`;
+
+exports[`[STORE] - Datetime types Should return the types values 13`] = `"@@MT/EVENTS/SET_TIME_ZONE"`;
+
+exports[`[STORE] - Datetime types Should return the types values 14`] = `"@@MT/EVENTS/SET_TIMEZONE_VISIBILITY"`;
+
+exports[`[STORE] - Datetime types Should return the types values 15`] = `"@@MT/EVENTS/SET_TIMEZONE_LABEL"`;
+
+exports[`[STORE] - Datetime types Should return the types values 16`] = `"@@MT/EVENTS/SET_DATETIME_BLOCK_EDITABLE_STATE"`;

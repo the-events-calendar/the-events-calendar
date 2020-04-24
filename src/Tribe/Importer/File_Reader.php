@@ -28,9 +28,8 @@ class Tribe__Events__Importer__File_Reader {
 
 	public function get_header() {
 		$this->file->rewind();
-		$row = $this->file->current();
 
-		return $row;
+		return $this->file->current();
 	}
 
 	public function set_row( $row_number ) {

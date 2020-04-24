@@ -3,17 +3,10 @@
  */
 import { types } from '@moderntribe/events/data/blocks/organizers';
 
-export const setOrganizersInClassic = ( organizers ) => ( {
-	type: types.SET_CLASSIC_ORGANIZERS,
-	payload: {
-		organizers,
-	},
-} );
-
-export const removeOrganizerInClassic = ( id ) => ( {
+export const removeOrganizerInClassic = ( organizer ) => ( {
 	type: types.REMOVE_CLASSIC_ORGANIZERS,
 	payload: {
-		id,
+		organizer,
 	},
 } );
 
@@ -25,7 +18,7 @@ export const addOrganizerInClassic = ( organizer ) => ( {
 } );
 
 export const addOrganizerInBlock = ( id, organizer ) => ( {
-	type: types.ADD_ORGANIZER_BLOCK,
+	type: types.ADD_BLOCK_ORGANIZER,
 	payload: {
 		id,
 		organizer,
@@ -33,7 +26,7 @@ export const addOrganizerInBlock = ( id, organizer ) => ( {
 } );
 
 export const removeOrganizerInBlock = ( id, organizer ) => ( {
-	type: types.REMOVE_ORGANIZER_BLOCK,
+	type: types.REMOVE_BLOCK_ORGANIZER,
 	payload: {
 		id,
 		organizer,
