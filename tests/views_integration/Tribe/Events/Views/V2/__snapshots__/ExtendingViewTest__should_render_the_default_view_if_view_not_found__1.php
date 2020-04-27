@@ -11,5 +11,7 @@
     "start_of_week": "1",
     "event_post_type": false,
     "venue_post_type": false,
-    "organizer_post_type": false
+    "organizer_post_type": false,
+    "latest_event_date": "",
+    "earliest_event_date": ""
 }';
