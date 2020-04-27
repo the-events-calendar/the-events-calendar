@@ -381,18 +381,18 @@ class Context extends \tad_DI52_ServiceProvider {
 				],
 				'latest_event_date'    => [
 					'read'  => [
-						Tribe__Context::TRIBE_OPTION => [ 'latest_date' ]
+						Tribe__Context::TRIBE_OPTION => [ 'latest_date' ],
 					],
 					'write' => [
-						Tribe__Context::TRIBE_OPTION => [ 'latest_date' ]
+						Tribe__Context::TRIBE_OPTION => [ 'latest_date' ],
 					],
 				],
 				'earliest_event_date'  => [
 					'read'  => [
-						Tribe__Context::TRIBE_OPTION => [ 'earliest_date' ]
+						Tribe__Context::TRIBE_OPTION => [ 'earliest_date' ],
 					],
 					'write' => [
-						Tribe__Context::TRIBE_OPTION => [ 'earliest_date' ]
+						Tribe__Context::TRIBE_OPTION => [ 'earliest_date' ],
 					],
 				],
 			]
