@@ -37,8 +37,6 @@ class MainQueryControlTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_exclude_v_1_main_query_filters_from_events_page_when_v_2_is_active() {
-		// @todo @be fix this and do not skip it.
-		$this->markTestSkipped('Passing when ran alone, not when in test group.');
 		$this->record_filter_callbacks();
 
 		$this->go_to( '/events' );
