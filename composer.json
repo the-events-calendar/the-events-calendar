@@ -25,7 +25,7 @@
     "lucatume/wp-snaphot-assertions": "1.1.0",
     "mikey179/vfsstream": "^1.6",
     "moderntribe/tribalscents": "dev-master",
-    "moderntribe/tribe-testing-facilities": "dev-fix/views-v2-better-reset",
+    "moderntribe/tribe-testing-facilities": "dev-master",
     "phpunit/phpunit": "~6.0",
     "scotteh/php-dom-wrapper": "0.7.3",
     "spatie/phpunit-snapshot-assertions": "^1.2",
