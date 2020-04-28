@@ -94,6 +94,21 @@ class TemplateTest extends \Codeception\TestCase\WPTestCase {
 		$sut->set( [ 'attributes', 'test_index' ], 'fnord' );
 		$attr = $sut->attr( 'test_index', 'default' );
 
-		$this->assertEquals( $attr, 'fnord', 'Failed getting set local value with attr()' );
+		$this->assertEquals( $attr, 'fnord', 'Failed getting set value with attr()' );
+	}
+
+	/**
+	 * @test
+	 * it should return default for an unset attribute with attr()
+	 *
+	 * @return void
+	 */
+	public function it_should_return_default_for_an_unset_attribute_with_attr() {
+		$sut = $this->make_instance();
+
+		// Attributes are set one-deep in the 'attributes' array.
+		$attr = $sut->attr( 'test_index', 'default' );
+
+		$this->assertEquals( $attr, 'default', 'Failed getting default value with attr()' );
 	}
 }
