@@ -39,7 +39,7 @@ class Tribe__Events__Updater {
 				}
 			}
 
-			foreach ( $this->get_constant_update_callbacks() as $callback )  {
+			foreach ( $this->get_constant_update_callbacks() as $callback ) {
 				call_user_func( $callback );
 			}
 
@@ -192,7 +192,7 @@ class Tribe__Events__Updater {
 	 */
 	public function set_capabilities() {
 
-		tribe('tec.capabilities')->init_set_caps();
+		tribe( 'tec.capabilities' )->init_set_caps();
 		add_action( 'wp_loaded', [ $this, 'reload_current_user' ], 11, 0 );
 	}
 
