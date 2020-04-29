@@ -83,7 +83,7 @@ class Tribe__Events__Capabilities {
 	 */
 	public function init_set_caps() {
 
-		set_transient( $this->key_delayed_capabilities_update, 'yes', 0 );
+		set_transient( $this->key_delayed_capabilities_update, 'yes', DAY_IN_SECONDS );
 
 	}
 
