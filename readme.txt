@@ -220,6 +220,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Enqueue Customizer stylesheets properly via `tribe_customizer_inline_stylesheets` in Common. [TEC-3401]
+
 = [5.1.0] 2020-04-23 =
 
 * Feature - Add a "fast forward" link to Month and Day views when there are no events to show. [TEC-3400]
