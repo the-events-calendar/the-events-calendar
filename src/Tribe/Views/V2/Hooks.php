@@ -730,8 +730,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 			'tribe-events-views-v2-full',
 		];
 
-
-
+		// Unenqueue legacy sheets.
 		if ( ( $keys = array_keys( $sheets, 'tribe-events-calendar-style' ) ) !== [] ) {
 			foreach( $keys as $key ) {
 				unset( $sheets[$key] );
