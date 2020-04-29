@@ -39,7 +39,7 @@ class Tribe__Events__Updater {
 				}
 			}
 
-			foreach ( $this->constant_updates() as $callback )  {
+			foreach ( $this->get_constant_update_callbacks() as $callback )  {
 				call_user_func( $callback );
 			}
 
