@@ -1,9 +1,40 @@
 <?php
 
 class Tribe__Events__Capabilities {
-	public $set_initial_caps = false;
-	private $cap_aliases = array(
-		'editor' => array( // full permissions to a post type
+
+	/**
+	 * The transient key for delayed capabilities updates.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	protected $key_delayed_capabilities_update = '_tribe_events_delayed_capabilities_update';
+
+	/**
+	 * An array of roles to update capabilities.
+	 *
+	 * @since TBD
+	 *
+	 * @var array
+	 */
+	protected $roles = [
+		'administrator',
+		'editor',
+		'author',
+		'contributor',
+		'subscriber'
+	];
+
+	/**
+	 * An array of capabilities aliases by role.
+	 *
+	 * @since TBD
+	 *
+	 * @var array
+	 */
+	private $cap_aliases = [
+		'editor' => [ // full permissions to a post type
 			'read',
 			'read_private_posts',
 			'edit_posts',
@@ -15,24 +46,55 @@ class Tribe__Events__Capabilities {
 			'delete_private_posts',
 			'delete_published_posts',
 			'publish_posts',
-		),
-		'author' => array( // full permissions for content the user created
+		],
+		'author' => [ // full permissions for content the user created
 			'read',
 			'edit_posts',
 			'edit_published_posts',
 			'delete_posts',
 			'delete_published_posts',
 			'publish_posts',
-		),
-		'contributor' => array( // create, but not publish
+		],
+		'contributor' => [ // create, but not publish
 			'read',
 			'edit_posts',
 			'delete_posts',
-		),
-		'subscriber' => array( // read only
+		],
+		'subscriber' => [ // read only
 			'read',
-		),
-	);
+		],
+	];
+
+	/**
+	 * Initialize Setting the Capabilities.
+	 *
+	 * @since TBD
+	 */
+	public function init_set_caps() {
+
+		set_transient( $this->key_delayed_capabilities_update, 'yes', 0 );
+
+		add_action( 'wp_loaded', [ $this, 'set_initial_caps' ] );
+	}
+
+	/**
+	 * Get the Roles to Modify Capabilities.
+	 *
+	 * @since TBD
+	 *
+	 * @return array An array of roles to modify capabilities.
+	 */
+	public function get_roles() {
+
+		/**
+		 * Filters the Roles for Tribe Events Capabilities.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $roles An array of roles to add capabilities.
+		 */
+		return apply_filters( 'tribe_events_filter_roles_with_capabilities', $this->roles );
+	}
 
 	/**
 	 * Grant caps for the given post type to the given role
@@ -100,30 +162,43 @@ class Tribe__Events__Capabilities {
 	/**
 	 * Set the initial capabilities for events and related post types on default roles
 	 *
+	 * @since TBD - use get_roles() method, add check for transient.
+	 *
 	 * @return void
 	 */
 	public function set_initial_caps() {
-		// this is a flag for testing purposes to make sure this function is firing
-		$this->set_initial_caps = true;
-		foreach ( array( 'administrator', 'editor', 'author', 'contributor', 'subscriber' ) as $role ) {
+
+		$should_update_capabilities = tribe_is_truthy( get_transient( $this->key_delayed_capabilities_update ) );
+
+		if ( ! $should_update_capabilities ) {
+			return;
+		}
+
+		foreach ( $this->get_roles() as $role ) {
 			$this->register_post_type_caps( Tribe__Events__Main::POSTTYPE, $role );
 			$this->register_post_type_caps( Tribe__Events__Main::VENUE_POST_TYPE, $role );
 			$this->register_post_type_caps( Tribe__Events__Main::ORGANIZER_POST_TYPE, $role );
 			$this->register_post_type_caps( Tribe__Events__Aggregator__Records::$post_type, $role );
 		}
+
+		delete_transient( $this->key_delayed_capabilities_update );
 	}
 
 	/**
 	 * Remove capabilities for events and related post types from default roles
 	 *
+	 * @since TBD - use get_roles() method.
+	 *
 	 * @return void
 	 */
 	public function remove_all_caps() {
-		foreach ( array( 'administrator', 'editor', 'author', 'contributor', 'subscriber' ) as $role ) {
+
+		foreach ( $this->get_roles() as $role ) {
 			$this->remove_post_type_caps( Tribe__Events__Main::POSTTYPE, $role );
 			$this->remove_post_type_caps( Tribe__Events__Main::VENUE_POST_TYPE, $role );
 			$this->remove_post_type_caps( Tribe__Events__Main::ORGANIZER_POST_TYPE, $role );
 			$this->remove_post_type_caps( Tribe__Events__Aggregator__Records::$post_type, $role );
 		}
 	}
+
 }
