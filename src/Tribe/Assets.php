@@ -779,7 +779,7 @@ class Tribe__Events__Assets {
 	 * Add legacy stylesheets to customizer styles array to check.
 	 *
 	 * @param array  $sheets Array of sheets to search for.
-	 * @param string  $css_template String containing the inline css to add.
+	 * @param string $css_template String containing the inline css to add.
 	 *
 	 * @return array Modified array of sheets to search for.
 	 */
