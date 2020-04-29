@@ -721,6 +721,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * Remove unused legacy stylesheets.
 	 *
 	 * @param array $sheets Array of sheets to search for.
+	 * @param string $css_template String containing the inline css to add.
 	 *
 	 * @return array Modified array of sheets to search for.
 	 */
@@ -731,9 +732,10 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		];
 
 		// Unenqueue legacy sheets.
-		if ( ( $keys = array_keys( $sheets, 'tribe-events-calendar-style' ) ) !== [] ) {
-			foreach( $keys as $key ) {
-				unset( $sheets[$key] );
+		$keys = array_keys( $sheets, 'tribe-events-calendar-style' );
+		if ( ! empty( $keys ) ) {
+			foreach ( $keys as $key ) {
+				unset( $sheets[ $key ] );
 			}
 		}
 
