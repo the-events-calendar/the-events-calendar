@@ -34,34 +34,38 @@ class Tribe__Events__Capabilities {
 	 * @var array
 	 */
 	private $cap_aliases = [
-		'editor'      => [ // full permissions to a post type
-		                   'read',
-		                   'read_private_posts',
-		                   'edit_posts',
-		                   'edit_others_posts',
-		                   'edit_private_posts',
-		                   'edit_published_posts',
-		                   'delete_posts',
-		                   'delete_others_posts',
-		                   'delete_private_posts',
-		                   'delete_published_posts',
-		                   'publish_posts',
+		//Full permissions to a post type.
+		'editor'      => [
+			'read',
+			'read_private_posts',
+			'edit_posts',
+			'edit_others_posts',
+			'edit_private_posts',
+			'edit_published_posts',
+			'delete_posts',
+			'delete_others_posts',
+			'delete_private_posts',
+			'delete_published_posts',
+			'publish_posts',
 		],
-		'author'      => [ // full permissions for content the user created
-		                   'read',
-		                   'edit_posts',
-		                   'edit_published_posts',
-		                   'delete_posts',
-		                   'delete_published_posts',
-		                   'publish_posts',
+		//Full permissions for content the user created.
+		'author'      => [
+			'read',
+			'edit_posts',
+			'edit_published_posts',
+			'delete_posts',
+			'delete_published_posts',
+			'publish_posts',
 		],
-		'contributor' => [ // create, but not publish
-		                   'read',
-		                   'edit_posts',
-		                   'delete_posts',
+		//Create, but not publish.
+		'contributor' => [
+			'read',
+			'edit_posts',
+			'delete_posts',
 		],
-		'subscriber'  => [ // read only
-		                   'read',
+		//Read only.
+		'subscriber'  => [
+			'read',
 		],
 	];
 
