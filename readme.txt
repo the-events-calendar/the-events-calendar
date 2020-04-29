@@ -220,6 +220,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Adjust tempaltes to show time zone in event details when "Show time zone" is checked. [TEC-2979]
+
 = [5.1.0] 2020-04-23 =
 
 * Feature - Add a "fast forward" link to Month and Day views when there are no events to show. [TEC-3400]
