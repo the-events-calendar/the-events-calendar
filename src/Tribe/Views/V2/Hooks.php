@@ -720,8 +720,8 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * Add views stylesheets to customizer styles array to check.
 	 * Remove unused legacy stylesheets.
 	 *
-	 * @param array $sheets Array of sheets to search for.
-	 * @param string $css_template String containing the inline css to add.
+	 * @param array  $sheets Array of sheets to search for.
+	 * @param string  $css_template String containing the inline css to add.
 	 *
 	 * @return array Modified array of sheets to search for.
 	 */
