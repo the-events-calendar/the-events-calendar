@@ -34,7 +34,7 @@ class Tribe__Events__Capabilities {
 	 * @var array
 	 */
 	private $cap_aliases = [
-		//Full permissions to a post type.
+		// Full permissions to a post type.
 		'editor'      => [
 			'read',
 			'read_private_posts',
@@ -48,7 +48,7 @@ class Tribe__Events__Capabilities {
 			'delete_published_posts',
 			'publish_posts',
 		],
-		//Full permissions for content the user created.
+		// Full permissions for content the user created.
 		'author'      => [
 			'read',
 			'edit_posts',
@@ -57,13 +57,13 @@ class Tribe__Events__Capabilities {
 			'delete_published_posts',
 			'publish_posts',
 		],
-		//Create, but not publish.
+		// Create, but not publish.
 		'contributor' => [
 			'read',
 			'edit_posts',
 			'delete_posts',
 		],
-		//Read only.
+		// Read only.
 		'subscriber'  => [
 			'read',
 		],
