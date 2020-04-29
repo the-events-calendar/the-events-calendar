@@ -66,6 +66,13 @@ class Tribe__Events__Capabilities {
 	];
 
 	/**
+	 * @deprecated TBD
+	 *
+	 * @var bool
+	 */
+	public $set_initial_caps = false;
+
+	/**
 	 * Initialize Setting the Capabilities.
 	 *
 	 * @since TBD
@@ -200,5 +207,4 @@ class Tribe__Events__Capabilities {
 			$this->remove_post_type_caps( Tribe__Events__Aggregator__Records::$post_type, $role );
 		}
 	}
-
 }
