@@ -81,7 +81,6 @@ class Tribe__Events__Capabilities {
 
 		set_transient( $this->key_delayed_capabilities_update, 'yes', 0 );
 
-		add_action( 'wp_loaded', [ $this, 'set_initial_caps' ] );
 	}
 
 	/**
