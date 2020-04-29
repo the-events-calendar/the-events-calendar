@@ -220,6 +220,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [5.1.1] TBD =
+
+* Fix - Not being able to create events because capabilities were not set on activation or update of the plugin. [TEC-3350]
+
 = [5.1.0] 2020-04-23 =
 
 * Feature - Add a "fast forward" link to Month and Day views when there are no events to show. [TEC-3400]
