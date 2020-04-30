@@ -558,7 +558,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe_singleton( 'tec.ignored-events', 'Tribe__Events__Ignored_Events', array( 'hook' ) );
 
 			// Capabilities.
-			tribe_singleton( 'tec.capabilities', 'Tribe__Events__Capabilities' );
+			tribe_singleton( Tribe__Events__Capabilities::class, Tribe__Events__Capabilities::class, [ 'hook' ] );
 
 			// Assets loader
 			tribe_singleton( 'tec.assets', 'Tribe__Events__Assets', array( 'register', 'hook' ) );
@@ -826,9 +826,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Upgrade material.
 			add_action( 'init', array( $this, 'run_updates' ), 0, 0 );
 
-			// Update Capabilities.
-			add_action( 'wp_loaded', tribe_callback( 'tec.capabilities', 'set_initial_caps' ) );
-
 			if ( defined( 'WP_LOAD_IMPORTERS' ) && WP_LOAD_IMPORTERS ) {
 				add_filter( 'wp_import_post_data_raw', array( $this, 'filter_wp_import_data_before' ), 10, 1 );
 				add_filter( 'wp_import_post_data_processed', array( $this, 'filter_wp_import_data_after' ), 10, 1 );
@@ -916,6 +913,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe( 'tec.admin.notice.timezones' );
 			tribe( 'tec.admin.notice.marketing' );
 			tribe( 'tec.privacy' );
+			tribe( Tribe__Events__Capabilities::class );
 		}
 
 		/**

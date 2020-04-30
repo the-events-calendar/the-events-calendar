@@ -9,7 +9,7 @@ class Tribe__Events__Capabilities {
 	 *
 	 * @var string
 	 */
-	protected $key_delayed_capabilities_update = '_tribe_events_delayed_capabilities_update';
+	public static $key_needs_init = '_tribe_events_needs_capability_init';
 
 	/**
 	 * An array of roles to update capabilities.
@@ -77,14 +77,46 @@ class Tribe__Events__Capabilities {
 	public $set_initial_caps = false;
 
 	/**
-	 * Initialize Setting the Capabilities.
+	 * Hook up the correct methods to the places required to setup the capabilities.
 	 *
 	 * @since TBD
 	 */
-	public function init_set_caps() {
+	public function hook() {
+		// Update Capabilities.
+		add_action( 'wp_loaded', [ $this, 'set_initial_caps' ], 10, 0 );
+	}
 
-		set_transient( $this->key_delayed_capabilities_update, 'yes', DAY_IN_SECONDS );
+	/**
+	 * Set the transient for flagging the transients needs a initialization.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool Status of set_transient.
+	 */
+	public function set_needs_init() {
+		return set_transient( static::$key_needs_init, 'yes', DAY_IN_SECONDS );
+	}
 
+	/**
+	 * Deletes the transient for flagging the transients needs a initialization.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool Status of delete_transient.
+	 */
+	public function delete_needs_init() {
+		return delete_transient( static::$key_needs_init );
+	}
+
+	/**
+	 * Determines if capabilities need initialization on this request.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool Caps need initialisation.
+	 */
+	public function needs_init() {
+		return tribe_is_truthy( get_transient( static::$key_needs_init ) );
 	}
 
 	/**
@@ -174,13 +206,13 @@ class Tribe__Events__Capabilities {
 	 *
 	 * @since TBD - use get_roles() method, add check for transient.
 	 *
+	 * @param boolean $force Force the registering of new caps without checking any flags.
+	 *
 	 * @return void
 	 */
-	public function set_initial_caps() {
-
-		$should_update_capabilities = tribe_is_truthy( get_transient( $this->key_delayed_capabilities_update ) );
-
-		if ( ! $should_update_capabilities ) {
+	public function set_initial_caps( $force = false ) {
+		// Allows bailing on check for needs init.
+		if ( ! $force && ! $this->needs_init() ) {
 			return;
 		}
 
@@ -191,7 +223,7 @@ class Tribe__Events__Capabilities {
 			$this->register_post_type_caps( Tribe__Events__Aggregator__Records::$post_type, $role );
 		}
 
-		delete_transient( $this->key_delayed_capabilities_update );
+		$this->delete_needs_init();
 	}
 
 	/**
