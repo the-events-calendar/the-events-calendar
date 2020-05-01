@@ -26,4 +26,4 @@ if ( ! empty( $event->featured ) ) : ?>
 	<span class="tribe-events-calendar-day__event-datetime-featured-text tribe-common-a11y-visual-hide">
 		<?php esc_html_e( 'Featured', 'the-events-calendar' ); ?>
 	</span>
-<?php endif; ?>
+<?php endif;

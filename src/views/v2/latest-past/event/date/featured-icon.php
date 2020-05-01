@@ -15,6 +15,7 @@
  *
  * @see tribe_get_event() For the format of the event object.
  */
+
 if ( $event->featured ) : ?>
 	<em
 		class="tribe-events-calendar-latest-past__event-datetime-featured-icon tribe-common-svgicon tribe-common-svgicon--featured"
@@ -25,4 +26,5 @@ if ( $event->featured ) : ?>
 	<span class="tribe-events-calendar-latest-past__event-datetime-featured-text tribe-common-a11y-visual-hide">
 		<?php esc_html_e( 'Featured', 'the-events-calendar' ); ?>
 	</span>
-<?php endif; ?>
+<?php endif;
+

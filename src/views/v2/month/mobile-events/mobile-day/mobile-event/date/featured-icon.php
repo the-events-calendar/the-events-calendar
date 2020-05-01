@@ -17,13 +17,13 @@
  */
 
 if ( ! empty( $event->featured ) ) : ?>
-		<em
-			class="tribe-events-calendar-month-mobile-events__mobile-event-datetime-featured-icon tribe-common-svgicon tribe-common-svgicon--featured"
-			aria-label="<?php esc_attr_e( 'Featured', 'the-events-calendar' ) ?>"
-			title="<?php esc_attr_e( 'Featured', 'the-events-calendar' ) ?>"
-		>
-		</em>
-		<span class="tribe-events-calendar-month-mobile-events__mobile-event-datetime-featured-text">
-			<?php esc_html_e( 'Featured', 'the-events-calendar' ); ?>
-		</span>
-	<?php endif; ?>
+	<em
+		class="tribe-events-calendar-month-mobile-events__mobile-event-datetime-featured-icon tribe-common-svgicon tribe-common-svgicon--featured"
+		aria-label="<?php esc_attr_e( 'Featured', 'the-events-calendar' ) ?>"
+		title="<?php esc_attr_e( 'Featured', 'the-events-calendar' ) ?>"
+	>
+	</em>
+	<span class="tribe-events-calendar-month-mobile-events__mobile-event-datetime-featured-text">
+		<?php esc_html_e( 'Featured', 'the-events-calendar' ); ?>
+	</span>
+<?php endif;
