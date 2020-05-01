@@ -220,8 +220,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [TBD] TBD =
-Fix - Correct bad defaults from `Template->attr()` and ensure that the timezone info is correctly hydrated in the case of an unchanged block. [TEC-2964]
+= [5.1.1] TBD =
+
+* Fix - Adjust templates to show time zone in event details when "Show time zone" is checked. [TEC-2979]
+* Fix - Correct bad defaults from `Template->attr()` and ensure that the timezone info is correctly hydrated in the case of an unchanged block. [TEC-2964]
 
 = [5.1.0] 2020-04-23 =
 
