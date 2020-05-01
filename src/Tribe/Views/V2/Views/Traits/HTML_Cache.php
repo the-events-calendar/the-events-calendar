@@ -452,6 +452,7 @@ trait HTML_Cache {
 
 		$salts = [
 			'current_user_can_read_private_events' => $can_read_private_posts,
+			'locale'                               => get_locale(),
 		];
 
 		return $salts;
