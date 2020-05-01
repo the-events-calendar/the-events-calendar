@@ -21,17 +21,7 @@ $event_date_attr = $event->dates->start->format( Dates::DBDATEFORMAT );
 
 ?>
 <div class="tribe-events-calendar-latest-past__event-datetime-wrapper tribe-common-b2">
-	<?php if ( $event->featured ) : ?>
-		<em
-			class="tribe-events-calendar-latest-past__event-datetime-featured-icon tribe-common-svgicon tribe-common-svgicon--featured"
-			aria-label="<?php esc_attr_e( 'Featured', 'the-events-calendar' ); ?>"
-			title="<?php esc_attr_e( 'Featured', 'the-events-calendar' ); ?>"
-		>
-		</em>
-		<span class="tribe-events-calendar-latest-past__event-datetime-featured-text tribe-common-a11y-visual-hide">
-			<?php esc_html_e( 'Featured', 'the-events-calendar' ); ?>
-		</span>
-	<?php endif; ?>
+<?php $this->template( 'latest-past/event/date/featured-icon', [ 'event' => $event ] ); ?>
 	<time class="tribe-events-calendar-latest-past__event-datetime" datetime="<?php echo esc_attr( $event_date_attr ); ?>">
 		<?php echo $event->schedule_details->value(); ?>
 	</time>

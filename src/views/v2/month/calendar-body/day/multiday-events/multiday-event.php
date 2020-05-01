@@ -85,13 +85,7 @@ if ( $should_display ) {
 				data-tooltip-content="#tribe-events-tooltip-content-<?php echo esc_attr( $event->ID ); ?>"
 				aria-describedby="tribe-events-tooltip-content-<?php echo esc_attr( $event->ID ); ?>"
 			>
-				<?php if ( $event->featured ) : ?>
-					<em
-						class="tribe-events-calendar-month__multiday-event-hidden-featured-icon tribe-common-svgicon tribe-common-svgicon--featured"
-						aria-label="<?php esc_attr_e( 'Featured', 'the-events-calendar' ); ?>"
-						title="<?php esc_attr_e( 'Featured', 'the-events-calendar' ); ?>"
-					></em>
-				<?php endif; ?>
+			<?php $this->template( 'month/calendar-body/day/multiday-events/date/featured-icon-hidden', [ 'event' => $event ] ); ?>
 				<h3 class="tribe-events-calendar-month__multiday-event-hidden-title tribe-common-h8">
 					<?php
 					// phpcs:ignore
@@ -103,13 +97,7 @@ if ( $should_display ) {
 		<?php if ( $should_display ) : ?>
 			<div class="tribe-events-calendar-month__multiday-event-bar">
 				<div class="tribe-events-calendar-month__multiday-event-bar-inner">
-					<?php if ( $event->featured ) : ?>
-						<em
-							class="tribe-events-calendar-month__multiday-event-bar-featured-icon tribe-common-svgicon tribe-common-svgicon--featured"
-							aria-label="<?php esc_attr_e( 'Featured', 'the-events-calendar' ); ?>"
-							title="<?php esc_attr_e( 'Featured', 'the-events-calendar' ); ?>"
-						></em>
-					<?php endif; ?>
+				<?php $this->template( 'month/calendar-body/day/multiday-events/date/featured-icon', [ 'event' => $event ] ); ?>
 					<h3 class="tribe-events-calendar-month__multiday-event-bar-title tribe-common-h8">
 						<?php
 						// phpcs:ignore
