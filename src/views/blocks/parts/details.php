@@ -61,7 +61,7 @@ $website = tribe_get_event_website_link();
 		<?php if ( empty( $attributes['detailsTitle'] ) ) : ?>
 			<?php esc_html_e( 'Details', 'the-events-calendar' ); ?>
 		<?php else : ?>
-			<?php echo is_array( $attributes['detailsTitle'] ) ? reset( $attributes['detailsTitle'] ) : esc_html( $attributes['detailsTitle'] ); ?>
+			<?php echo is_array( $attributes['detailsTitle'] ) ? esc_html( reset( $attributes['detailsTitle'] ) ) : esc_html( $attributes['detailsTitle'] ); ?>
 		<?php endif; ?>
 
 	</h3>
@@ -76,13 +76,13 @@ $website = tribe_get_event_website_link();
 
 			<dt> <?php esc_html_e( 'Start:', 'the-events-calendar' ); ?> </dt>
 			<dd>
-				<abbr class="tribe-events-abbr tribe-events-start-datetime published dtstart" title="<?php esc_attr_e( $start_ts ); ?>"> <?php echo esc_html( $start_date ); ?> </abbr>
+				<abbr class="tribe-events-abbr tribe-events-start-datetime published dtstart" title="<?php echo esc_attr( $start_ts ); ?>"> <?php echo esc_html( $start_date ); ?> </abbr>
 
 			</dd>
 
 			<dt> <?php esc_html_e( 'End:', 'the-events-calendar' ); ?> </dt>
 			<dd>
-				<abbr class="tribe-events-abbr dtend" title="<?php esc_attr_e( $end_ts ); ?>"> <?php echo esc_html( $end_date ); ?> </abbr>
+				<abbr class="tribe-events-abbr dtend" title="<?php echo esc_attr( $end_ts ); ?>"> <?php echo esc_html( $end_date ); ?> </abbr>
 			</dd>
 
 		<?php
@@ -92,7 +92,7 @@ $website = tribe_get_event_website_link();
 
 			<dt> <?php esc_html_e( 'Date:', 'the-events-calendar' ); ?> </dt>
 			<dd>
-				<abbr class="tribe-events-abbr tribe-events-start-datetime published dtstart" title="<?php esc_attr_e( $start_ts ); ?>"> <?php echo esc_html( $start_date ); ?> </abbr>
+				<abbr class="tribe-events-abbr tribe-events-start-datetime published dtstart" title="<?php echo esc_attr( $start_ts ); ?>"> <?php echo esc_html( $start_date ); ?> </abbr>
 			</dd>
 
 		<?php
@@ -102,7 +102,7 @@ $website = tribe_get_event_website_link();
 
 			<dt> <?php esc_html_e( 'Start:', 'the-events-calendar' ); ?> </dt>
 			<dd>
-				<abbr class="tribe-events-abbr updated published dtstart" title="<?php esc_attr_e( $start_ts ); ?>"> <?php echo esc_html( $start_datetime ); ?> </abbr>
+				<abbr class="tribe-events-abbr updated published dtstart" title="<?php echo esc_attr( $start_ts ); ?>"> <?php echo esc_html( $start_datetime ); ?> </abbr>
 				<?php if ( $show_time_zone ) : ?>
 					<span class="tribe-events-abbr tribe-events-time-zone published"><?php echo esc_html( $time_zone_label ); ?></span>
 				<?php endif; ?>
@@ -110,7 +110,7 @@ $website = tribe_get_event_website_link();
 
 			<dt> <?php esc_html_e( 'End:', 'the-events-calendar' ); ?> </dt>
 			<dd>
-				<abbr class="tribe-events-abbr dtend" title="<?php esc_attr_e( $end_ts ); ?>"> <?php echo esc_html( $end_datetime ); ?> </abbr>
+				<abbr class="tribe-events-abbr dtend" title="<?php echo esc_attr( $end_ts ); ?>"> <?php echo esc_html( $end_datetime ); ?> </abbr>
 				<?php if ( $show_time_zone ) : ?>
 					<span class="tribe-events-abbr tribe-events-time-zone published"><?php echo esc_html( $time_zone_label ); ?></span>
 				<?php endif; ?>
@@ -123,12 +123,12 @@ $website = tribe_get_event_website_link();
 
 			<dt> <?php esc_html_e( 'Date:', 'the-events-calendar' ); ?> </dt>
 			<dd>
-				<abbr class="tribe-events-abbr tribe-events-start-date published dtstart" title="<?php esc_attr_e( $start_ts ); ?>"> <?php echo esc_html( $start_date ); ?> </abbr>
+				<abbr class="tribe-events-abbr tribe-events-start-date published dtstart" title="<?php echo esc_attr( $start_ts ); ?>"> <?php echo esc_html( $start_date ); ?> </abbr>
 			</dd>
 
 			<dt> <?php echo esc_html( $time_title ); ?> </dt>
 			<dd>
-				<div class="tribe-events-abbr tribe-events-start-time published dtstart" title="<?php esc_attr_e( $end_ts ); ?>">
+				<div class="tribe-events-abbr tribe-events-start-time published dtstart" title="<?php echo esc_attr( $end_ts ); ?>">
 					<?php echo $time_formatted; ?>
 					<?php if ( $show_time_zone ) : ?>
 						<span class="tribe-events-abbr tribe-events-time-zone published"><?php echo esc_html( $time_zone_label ); ?></span>
