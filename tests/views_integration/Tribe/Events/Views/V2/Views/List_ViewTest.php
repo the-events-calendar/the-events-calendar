@@ -25,9 +25,11 @@ class List_ViewTest extends ViewTestCase {
 
 		$context = tribe_context()->alter(
 			[
-				'today'      => $this->mock_date_value,
-				'now'        => $this->mock_date_value,
-				'event_date' => $this->mock_date_value,
+				'event_display'      => 'list',
+				'event_display_mode' => 'list',
+				'today'              => $this->mock_date_value,
+				'now'                => $this->mock_date_value,
+				'event_date'         => $this->mock_date_value,
 			]
 		);
 
@@ -48,9 +50,6 @@ class List_ViewTest extends ViewTestCase {
 	 * Test render with upcoming events
 	 */
 	public function test_render_with_upcoming_events() {
-		// @todo @backend investigate and fix.
-		$this->markTestSkipped( 'CI issues prevent this from consistently passing.' );
-
 		$events = [];
 
 		// Create the events.
@@ -79,12 +78,16 @@ class List_ViewTest extends ViewTestCase {
 		] );
 
 		$list_view = View::make( List_View::class );
-		$list_view->set_context( tribe_context()->alter( [
-			'today'      => $this->mock_date_value,
-			'now'        => $this->mock_date_value,
-			'event_date' => $this->mock_date_value,
-			'events_per_page' => 2,
-		] ) );
+		$context = tribe_context()->alter( [
+			'event_display'      => 'list',
+			'event_display_mode' => 'list',
+			'today'              => $this->mock_date_value,
+			'now'                => $this->mock_date_value,
+			'event_date'         => $this->mock_date_value,
+			'events_per_page'    => 2,
+		] );
+
+		$list_view->set_context( $context );
 		$html = $list_view->get_html();
 
 		// Let's make sure the View is displaying what events we expect it to display.
