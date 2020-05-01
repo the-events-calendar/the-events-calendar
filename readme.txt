@@ -223,6 +223,7 @@ Remember to always make a backup of your database and files before updating!
 = [5.1.1] TBD =
 
 * Fix - Not being able to create events because capabilities were not set on activation or update of the plugin. [TEC-3350]
+* Fix - Correct bad defaults from `Template->attr()` and ensure that the timezone info is correctly hydrated in the case of an unchanged block. [TEC-2964]
 
 = [5.1.0] 2020-04-23 =
 
