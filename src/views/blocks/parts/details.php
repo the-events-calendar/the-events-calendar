@@ -161,7 +161,7 @@ $website = tribe_get_event_website_link();
 		);
 		?>
 
-		<?php echo tribe_meta_event_tags( sprintf( esc_html__( '%s Tags:', 'the-events-calendar' ), tribe_get_event_label_singular() ), ', ', false ); ?>
+		<?php tribe_meta_event_tags( sprintf( esc_html__( '%s Tags:', 'the-events-calendar' ), tribe_get_event_label_singular() ), ', ', true ); ?>
 
 		<?php
 		// Event Website
