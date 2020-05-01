@@ -221,7 +221,10 @@ Remember to always make a backup of your database and files before updating!
 == Changelog ==
 
 = [TBD] TBD =
-Fix - Correct bad defaults from `Template->attr()` and ensure that the timezone info is correctly hydrated in the case of an unchanged block. [TEC-2964]
+
+* Fix - Correct bad defaults from `Template->attr()` and ensure that the timezone info is correctly hydrated in the case of an unchanged block. [TEC-2964]
+* Fix - Show the correct counts on the Event Aggregator Import "History" tab for non-Event content types being imported.
+* Tweak - Add new filter `tribe_aggregator_manage_record_column_source_html` to customize the source column content HTML used on the Event Aggregator Import "History" tab.
 
 = [5.1.0] 2020-04-23 =
 
