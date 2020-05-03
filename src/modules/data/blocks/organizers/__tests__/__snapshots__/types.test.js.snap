@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[STORE] - Organizers types Should return the organizers types 1`] = `"@@MT/EVENTS/ADD_BLOCK_ORGANIZER"`;
+
+exports[`[STORE] - Organizers types Should return the organizers types 2`] = `"@@MT/EVENTS/REMOVE_BLOCK_ORGANIZER"`;
+
+exports[`[STORE] - Organizers types Should return the organizers types 3`] = `"@@MT/EVENTS/ADD_CLASSIC_ORGANIZERS"`;
+
+exports[`[STORE] - Organizers types Should return the organizers types 4`] = `"@@MT/EVENTS/REMOVE_CLASSIC_ORGANIZERS"`;

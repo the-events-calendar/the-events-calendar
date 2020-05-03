@@ -172,6 +172,14 @@ class Tribe__Events__Integrations__Freemius {
 		], 10, 6 );
 
 		add_action( 'admin_init', [ $this, 'maybe_remove_activation_complete_notice' ] );
+
+		tribe_asset(
+			Tribe__Events__Main::instance(),
+			"tribe-{$this->slug}-freemius",
+			'freemius.css',
+			[],
+			null
+		);
 	}
 
 
@@ -316,7 +324,7 @@ class Tribe__Events__Integrations__Freemius {
 	) {
 		$class = $this->object_class;
 
-		wp_enqueue_style( 'tribe-' . $this->slug . '-freemius', $class::instance()->plugin_url . '/src/resources/css/freemius.css' );
+		tribe_asset_enqueue( "tribe-{$this->slug}-freemius" );
 
 		// Add the heading HTML.
 		$plugin_name = $this->name;

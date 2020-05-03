@@ -2,16 +2,31 @@
  * Internal dependencies
  */
 import { actions } from '@moderntribe/events/data/blocks/datetime';
-import reducer, { DEFAULT_STATE } from '@moderntribe/events/data/blocks/datetime/reducer';
+import reducer, {
+	DEFAULT_STATE,
+	defaultStateToMetaMap,
+	setInitialState,
+} from '@moderntribe/events/data/blocks/datetime/reducer';
 
 jest.mock( 'moment', () => () => {
 	const moment = require.requireActual( 'moment' );
 	return moment( 'July 19, 2018 7:30 pm', 'MMMM D, Y h:mm a' );
 } );
 
+const data = {
+	meta: {
+		_EventStartDate: '2020-04-01 09:30:00',
+		_EventEndDate: '2018-04-01 12:15:00',
+		_EventDateTimeSeparator: 'at',
+		_EventTimeRangeSeparator: 'to',
+		_EventAllDay: false,
+		_EventTimezone: 'UTC+8',
+	},
+};
+
 describe( '[STORE] - Datetime reducer', () => {
 	it( 'Should set the default state', () => {
-		expect( reducer( undefined, {} ) ).toEqual( DEFAULT_STATE );
+		expect( reducer( undefined, {} ) ).toMatchSnapshot();
 	} );
 
 	it( 'Should set the start', () => {
@@ -68,12 +83,17 @@ describe( '[STORE] - Datetime reducer', () => {
 			.toMatchSnapshot();
 	} );
 
-	it( 'Should set the date input visibility', () => {
-		expect( reducer( DEFAULT_STATE, actions.setDateInputVisibility( true ) ) ).toMatchSnapshot();
-		expect( reducer( DEFAULT_STATE, actions.setDateInputVisibility( false ) ) ).toMatchSnapshot();
-	} );
 	it( 'Should set the editability', () => {
 		expect( reducer( DEFAULT_STATE, actions.allowEdits() ) ).toMatchSnapshot();
 		expect( reducer( DEFAULT_STATE, actions.disableEdits() ) ).toMatchSnapshot();
+	} );
+
+	it( 'Should return the default state to meta map', () => {
+		expect( defaultStateToMetaMap ).toMatchSnapshot();
+	} );
+
+	it( 'Should set the initial state', () => {
+		setInitialState( data );
+		expect( DEFAULT_STATE ).toMatchSnapshot();
 	} );
 } );

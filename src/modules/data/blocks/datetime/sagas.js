@@ -148,7 +148,7 @@ export function* resetNaturalLanguageLabel() {
  *
  * @returns {IterableIterator<*>}
  */
-export function* onHumanReadableChange() {
+export function* onHumanReadableChange( action ) {
 	const label = yield select( selectors.getNaturalLanguageLabel );
 	const { start, end } = yield call( dateUtil.labelToDate, label );
 
@@ -173,6 +173,12 @@ export function* onHumanReadableChange() {
 			start: call( momentUtil.toDateTime, result.start ),
 			end: call( momentUtil.toDateTime, result.end ),
 		} );
+
+		yield all( [
+			call( action.meta.setAttributes, { start: dates.start } ),
+			call( action.meta.setAttributes, { end: dates.end } ),
+			call( action.meta.setAttributes, { allDay: isAllDay } ),
+		] );
 
 		yield all( [
 			put( actions.setStartDateTime( dates.start ) ),
@@ -229,6 +235,11 @@ export function* handleDateRangeChange( action ) {
 	} );
 
 	yield all( [
+		call( action.meta.setAttributes, { start: dates.start } ),
+		call( action.meta.setAttributes, { end: dates.end } ),
+	] );
+
+	yield all( [
 		put( actions.setStartDateTime( dates.start ) ),
 		put( actions.setEndDateTime( dates.end ) ),
 	] );
@@ -280,6 +291,11 @@ export function* preventEndTimeBeforeStartTime( action ) {
 		} );
 
 		yield all( [
+			call( action.meta.setAttributes, { start: dates.start } ),
+			call( action.meta.setAttributes, { end: dates.end } ),
+		] );
+
+		yield all( [
 			put( actions.setStartDateTime( dates.start ) ),
 			put( actions.setEndDateTime( dates.end ) ),
 		] );
@@ -328,6 +344,11 @@ export function* preventStartTimeAfterEndTime( action ) {
 		} );
 
 		yield all( [
+			call( action.meta.setAttributes, { start: dates.start } ),
+			call( action.meta.setAttributes, { end: dates.end } ),
+		] );
+
+		yield all( [
 			put( actions.setStartDateTime( dates.start ) ),
 			put( actions.setEndDateTime( dates.end ) ),
 		] );
@@ -339,7 +360,7 @@ export function* preventStartTimeAfterEndTime( action ) {
  * @export
  * @since 4.7
  */
-export function* setAllDay() {
+export function* setAllDay( action ) {
 	const moments = yield call( deriveMomentsFromDates );
 
 	// NOTE: Mutation
@@ -352,6 +373,12 @@ export function* setAllDay() {
 		start: call( momentUtil.toDateTime, moments.start ),
 		end: call( momentUtil.toDateTime, moments.end ),
 	} );
+
+	yield all( [
+		call( action.meta.setAttributes, { start: dates.start } ),
+		call( action.meta.setAttributes, { end: dates.end } ),
+		call( action.meta.setAttributes, { allDay: true } ),
+	] );
 
 	yield all( [
 		put( actions.setStartDateTime( dates.start ) ),
@@ -376,6 +403,8 @@ export function* handleMultiDay( action ) {
 		// NOTE: Mutation
 		yield call( [ end, 'add' ], RANGE_DAYS, 'days' );
 		const endDate = yield call( momentUtil.toDateTime, end );
+
+		yield call( action.meta.setAttributes, { end: endDate } );
 		yield put( actions.setEndDateTime( endDate ) );
 	} else {
 		const newEnd = yield call( momentUtil.replaceDate, end, start );
@@ -385,6 +414,11 @@ export function* handleMultiDay( action ) {
 			start: call( momentUtil.toDateTime, result.start ),
 			end: call( momentUtil.toDateTime, result.end ),
 		} );
+
+		yield all( [
+			call( action.meta.setAttributes, { start: dates.start } ),
+			call( action.meta.setAttributes, { end: dates.end } ),
+		] );
 
 		yield all( [
 			put( actions.setStartDateTime( dates.start ) ),
@@ -402,15 +436,18 @@ export function* handleMultiDay( action ) {
  */
 export function* handleStartTimeChange( action ) {
 	if ( action.payload.start === 'all-day' ) {
-		yield call( setAllDay );
+		yield call( setAllDay, action );
 	} else {
 		// Set All day to false in case they're editing.
+		yield call( action.meta.setAttributes, { allDay: false } );
 		yield put( actions.setAllDay( false ) );
 
 		const { start } = yield call( deriveMomentsFromDates );
 		// NOTE: Mutation
 		yield call( momentUtil.setTimeInSeconds, start, action.payload.start );
 		const startDate = yield call( momentUtil.toDateTime, start );
+
+		yield call( action.meta.setAttributes, { start: startDate } );
 		yield put( actions.setStartDateTime( startDate ) );
 	}
 }
@@ -424,16 +461,19 @@ export function* handleStartTimeChange( action ) {
  */
 export function* handleEndTimeChange( action ) {
 	if ( action.payload.end === 'all-day' ) {
-		yield call( setAllDay );
+		yield call( setAllDay, action );
 	} else {
 
 		// Set All day to false in case they're editing.
+		yield call( action.meta.setAttributes, { allDay: false } );
 		yield put( actions.setAllDay( false ) );
 
 		const { end } = yield call( deriveMomentsFromDates );
 		// NOTE: Mutation
 		yield call( momentUtil.setTimeInSeconds, end, action.payload.end );
 		const endDate = yield call( momentUtil.toDateTime, end );
+
+		yield call( action.meta.setAttributes, { end: endDate } );
 		yield put( actions.setEndDateTime( endDate ) );
 	}
 }
@@ -508,6 +548,8 @@ export function* handler( action ) {
 
 		case types.SET_MULTI_DAY:
 			yield call( handleMultiDay, action );
+			yield call( setStartTimeInput );
+			yield call( setEndTimeInput );
 			yield call( resetNaturalLanguageLabel );
 			break;
 

@@ -2,14 +2,14 @@
  * External dependencies
  */
 import { connect } from 'react-redux';
-import { compose, bindActionCreators } from 'redux';
+import { compose } from 'redux';
 
 /**
  * Internal dependencies
  */
 import EventVenue from './template';
 import { toVenue } from '@moderntribe/events/elements';
-import { withStore, withSaveData, withForm } from '@moderntribe/common/hoc';
+import { withStore, withForm } from '@moderntribe/common/hoc';
 import { withDetails } from '@moderntribe/events/hoc';
 import { actions, selectors } from '@moderntribe/events/data/blocks/venue';
 import { editor } from '@moderntribe/common/data';
@@ -18,25 +18,23 @@ import { editor } from '@moderntribe/common/data';
  * Module Code
  */
 
-const setVenue = ( dispatch ) => ( id ) => {
-	const { setVenue, setShowMap, setShowMapLink } = actions;
-	dispatch( setVenue( id ) );
-	dispatch( setShowMap( true ) );
-	dispatch( setShowMapLink( true ) );
+const setVenue = ( dispatch, ownProps ) => ( id ) => {
+	ownProps.setAttributes( { venue: id } );
+	dispatch( actions.setVenue( id ) );
 };
 
 const onFormComplete = ( dispatch, ownProps ) => ( body ) => {
 	const { setDetails } = ownProps;
 	const { id } = body;
 	setDetails( id, body );
-	setVenue( dispatch )( id );
+	setVenue( dispatch, ownProps )( id );
 };
 
 const onFormSubmit = ( dispatch, ownProps ) => ( fields ) => (
 	ownProps.sendForm( toVenue( fields ), onFormComplete( dispatch, ownProps ) )
 );
 
-const onItemSelect = ( dispatch ) => setVenue( dispatch );
+const onItemSelect = ( dispatch, ownProps ) => setVenue( dispatch, ownProps );
 
 const onCreateNew = ( ownProps ) => ( title ) => ownProps.createDraft( {
 	title: {
@@ -49,6 +47,7 @@ const onCreateNew = ( ownProps ) => ( title ) => ownProps.createDraft( {
 const removeVenue = ( dispatch, ownProps ) => () => {
 	const { volatile, maybeRemoveEntry, details } = ownProps;
 
+	ownProps.setAttributes( { venue: 0 } );
 	dispatch( actions.removeVenue() );
 	if ( volatile ) {
 		maybeRemoveEntry( details );
@@ -68,12 +67,19 @@ const mapStateToProps = ( state ) => ( {
 } );
 
 const mapDispatchToProps = ( dispatch, ownProps ) => ( {
-	...bindActionCreators( actions, dispatch ),
-	onFormSubmit: onFormSubmit( dispatch, ownProps ),
-	onItemSelect: onItemSelect( dispatch ),
+	toggleVenueMap: ( value ) => {
+		ownProps.setAttributes( { showMap: value } );
+		dispatch( actions.setShowMap( value ) );
+	},
+	toggleVenueMapLink: ( value ) => {
+		ownProps.setAttributes( { showMapLink: value } );
+		dispatch( actions.setShowMapLink( value ) );
+	},
 	onCreateNew: onCreateNew( ownProps ),
 	removeVenue: removeVenue( dispatch, ownProps ),
 	editVenue: editVenue( ownProps ),
+	onFormSubmit: onFormSubmit( dispatch, ownProps ),
+	onItemSelect: onItemSelect( dispatch, ownProps ),
 } );
 
 export default compose(
@@ -81,6 +87,5 @@ export default compose(
 	connect( mapStateToProps ),
 	withDetails( 'venue' ),
 	withForm( ( props ) => props.name ),
-	connect( null, mapDispatchToProps ),
-	withSaveData(),
+	connect( mapStateToProps, mapDispatchToProps ),
 )( EventVenue );

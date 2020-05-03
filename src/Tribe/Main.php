@@ -32,7 +32,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '5.0.2.1';
+		const VERSION             = '5.1.0';
 
 		/**
 		 * Min Pro Addon
@@ -479,14 +479,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 */
 		public function bootstrap() {
-
-			Tribe__Main::instance( $this )->load_text_domain( 'the-events-calendar', $this->plugin_dir . 'lang/' );
-
 			$this->bind_implementations();
 			$this->loadLibraries();
 			$this->addHooks();
 			$this->register_active_plugin();
-
 		}
 
 		/**
@@ -506,6 +502,17 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			$autoloader->register_autoloader();
+		}
+
+		/**
+		 * Load The Events Calendar text domain.
+		 *
+		 * @since 5.1.0
+		 *
+		 * @return bool
+		 */
+		public function load_text_domain() {
+			return Tribe__Main::instance( $this )->load_text_domain( 'the-events-calendar', $this->plugin_dir . 'lang/' );
 		}
 
 		/**
@@ -707,6 +714,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 * because of the way $wp_locale works
 			 */
 			add_action( 'init', array( $this, 'setup_l10n_strings' ), 5 );
+			add_action( 'tribe_load_text_domains', [ $this, 'load_text_domain' ], 5 );
 
 			// Since TEC is active, change the base page for the Event Settings page
 			Tribe__Settings::$parent_page = 'edit.php';
@@ -1353,7 +1361,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 				sprintf( __( '%s: A complete look at the features you can expect to see right out of the box as well as how to use them.', 'the-events-calendar' ), '<strong><a href="https://m.tri.be/18jc" target="_blank">' . esc_html__( 'Features overview', 'the-events-calendar' ) . '</a></strong>' ),
 
-				sprintf( __( '%s: Our most comprehensive outline for customizing the calendar to suit your needs, including custom layouts and styles.', 'the-events-calendar' ), '<strong><a href="https://m.tri.be/18jg" target="_blank">' . esc_html__( 'Themer’s Guide', 'the-events-calendar' ) . '</a></strong>' ),
+				sprintf( __( '%s: Our most comprehensive outline for customizing the calendar to suit your needs, including custom layouts and styles.', 'the-events-calendar' ), '<strong><a href="https://m.tri.be/18jg" target="_blank">' . esc_html__( "Themer's Guide", 'the-events-calendar' ) . '</a></strong>' ),
 
 				sprintf( __( '%s: An overview of the default templates and styles that are included in the plugin, as well as how to change them.', 'the-events-calendar' ), '<strong><a href="https://m.tri.be/18jd" target="_blank">' . esc_html__( 'Using stylesheets and page templates', 'the-events-calendar' ) . '</a></strong>' ),
 

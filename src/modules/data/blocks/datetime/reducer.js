@@ -15,6 +15,35 @@ import {
 } from '@moderntribe/common/utils';
 import * as types from './types';
 
+const { parseFormats, toTime } = momentUtil;
+
+export const defaultStateToMetaMap = {
+	start: '_EventStartDate',
+	end: '_EventEndDate',
+	dateTimeSeparator: '_EventDateTimeSeparator',
+	timeRangeSeparator: '_EventTimeRangeSeparator',
+	allDay: '_EventAllDay',
+	timeZone: '_EventTimezone',
+};
+
+export const setInitialState = ( data ) => {
+	const { meta } = data;
+
+	Object.keys( defaultStateToMetaMap ).forEach( ( key ) => {
+		const metaKey = defaultStateToMetaMap[ key ];
+		if ( meta.hasOwnProperty( metaKey ) ) {
+			DEFAULT_STATE[ key ] = meta[ metaKey ];
+		}
+	} );
+
+	const { start, end } = DEFAULT_STATE;
+
+	DEFAULT_STATE.startTimeInput = toTime( parseFormats( start ) );
+	DEFAULT_STATE.endTimeInput = toTime( parseFormats( end ) );
+	DEFAULT_STATE.naturalLanguage = date.rangeToNaturalLanguage( start, end );
+	DEFAULT_STATE.multiDay = ! momentUtil.isSameDay( momentUtil.toMoment( start ), momentUtil.toMoment( end ) );
+};
+
 const defaultStartTime = globals.defaultTimes().start ? globals.defaultTimes().start : '08:00:00';
 const defaultEndTime = globals.defaultTimes().end ? globals.defaultTimes().end : '17:00:00';
 const defaultStartTimeSeconds = time.toSeconds( defaultStartTime, time.TIME_FORMAT_HH_MM_SS );
@@ -23,12 +52,15 @@ const defaultEndTimeSeconds = time.toSeconds( defaultEndTime, time.TIME_FORMAT_H
 export const defaultStartMoment = moment().startOf( 'day' ).seconds( defaultStartTimeSeconds );
 export const defaultEndMoment = moment().startOf( 'day' ).seconds( defaultEndTimeSeconds );
 
+const defaultStartDateTime = momentUtil.toDateTime( defaultStartMoment );
+const defaultEndDateTime = momentUtil.toDateTime( defaultEndMoment );
+
 export const DEFAULT_STATE = {
-	start: momentUtil.toDateTime( defaultStartMoment ),
-	end: momentUtil.toDateTime( defaultEndMoment ),
+	start: defaultStartDateTime,
+	end: defaultEndDateTime,
 	startTimeInput: momentUtil.toTime( defaultStartMoment ),
 	endTimeInput: momentUtil.toTime( defaultEndMoment ),
-	naturalLanguage: '',
+	naturalLanguage: date.rangeToNaturalLanguage( defaultStartDateTime, defaultEndDateTime ),
 	dateTimeSeparator: globals.settings().dateTimeSeparator
 		? globals.settings().dateTimeSeparator
 		: __( '@', 'the-events-calendar' ),
@@ -40,7 +72,6 @@ export const DEFAULT_STATE = {
 	timeZone: date.FORMATS.TIMEZONE.string,
 	timeZoneLabel: date.FORMATS.TIMEZONE.string,
 	showTimeZone: false,
-	showDateInput: false,
 	isEditable: true,
 };
 
@@ -110,11 +141,6 @@ export default ( state = DEFAULT_STATE, action ) => {
 			return {
 				...state,
 				showTimeZone: action.payload.show,
-			};
-		case types.SET_DATE_INPUT_VISIBILITY:
-			return {
-				...state,
-				showDateInput: action.payload.show,
 			};
 		default:
 			return state;

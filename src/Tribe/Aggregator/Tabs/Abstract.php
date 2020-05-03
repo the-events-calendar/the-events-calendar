@@ -96,7 +96,8 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract extends Tribe__Tabbed_V
 
 		$record = Tribe__Events__Aggregator__Records::instance()->get_by_origin( $post_data['origin'] );
 
-		$meta = array(
+		$meta = [
+			'import_name'   => empty( $post_data['import_name'] ) ? '' : sanitize_text_field( trim( $post_data['import_name'] ) ),
 			'origin'        => $post_data['origin'],
 			'type'          => empty( $data['import_type'] ) ? 'manual' : $data['import_type'],
 			'frequency'     => empty( $data['import_frequency'] ) ? null : $data['import_frequency'],
@@ -111,12 +112,21 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract extends Tribe__Tabbed_V
 			'content_type'  => empty( $data['content_type'] ) ? null : $data['content_type'],
 			'schedule_day'  => empty( $data['schedule_day'] ) ? null : $data['schedule_day'],
 			'schedule_time' => empty( $data['schedule_time'] ) ? null : $data['schedule_time'],
-		);
+		];
 
 		// Special source types can override source (Eventbrite current profile URL)
 		if ( ! empty( $meta['source_type'] ) ) {
 			$meta['source'] = $meta['source_type'];
 		}
+
+		/**
+		 * Filters the meta used during submit.
+		 *
+		 * @since 5.1.0
+		 *
+		 * @param array $meta Import meta.
+		 */
+		$meta = apply_filters( 'tribe_aggregator_import_submit_meta', $meta );
 
 		// Only apply this verification when dealing with Creating new items
 		if ( ! empty( $post_data['action'] ) && 'new' === $post_data['action'] ) {
