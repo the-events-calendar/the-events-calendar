@@ -15,6 +15,7 @@ use Tribe\Events\Views\V2\Template_Bootstrap;
 use Tribe__Events__Main as TEC;
 use Tribe__Utils__Array as Arr;
 use WP_Post;
+use Tribe__Date_Utils as Dates;
 use WP_Query;
 
 class Page {
@@ -36,10 +37,24 @@ class Page {
 	 * @return string Path for the Page template to be loaded.
 	 */
 	public function get_path() {
-		// Fetches the WP default path for Page.
-		$template = get_page_template();
 
-		// If there wasn't any defined we fetch the Index.
+		// Fetches the WP default path for Page.
+		$template = tribe( Template_Bootstrap::class )->get_template_setting();
+
+		if ( 'page' === $template ) {
+			// We check for page as default is converted to page in Tribe\Events\Views\V2\Template_Bootstrap->in get_template_setting().
+			$template = get_page_template();
+		} else {
+			// Admin setting set to a custom template.
+			$template = locate_template( $template );
+		}
+
+		// Following WordPress order, we check for Singular before Index.
+		if ( empty( $template ) ) {
+			$template = get_singular_template();
+		}
+
+		// Attempt to get the index template for themes such as TwentyTwenty, which does not have a page.php.
 		if ( empty( $template ) ) {
 			$template = get_index_template();
 		}
@@ -345,8 +360,8 @@ class Page {
 				$should_hijack = false;
 			}
 
-			// Dont hijack non-page event based.
-			if ( 'page' !== tribe( Template_Bootstrap::class )->get_template_setting() ) {
+			// Dont hijack event based.
+			if ( 'event' === tribe( Template_Bootstrap::class )->get_template_setting() ) {
 				$should_hijack = false;
 			}
 
@@ -381,16 +396,17 @@ class Page {
 	 * @return object A Mocked stdClass that mimics a WP_Post.
 	 */
 	protected function get_mocked_page() {
+		$date_string = Dates::build_date_object( 'today' )->format( Dates::DBDATETIMEFORMAT );
 		$page = [
 			'ID'                    => 0,
 			'post_status'           => 'publish',
 			'post_author'           => 0,
 			'post_parent'           => 0,
 			'post_type'             => 'page',
-			'post_date'             => 0,
-			'post_date_gmt'         => 0,
-			'post_modified'         => 0,
-			'post_modified_gmt'     => 0,
+			'post_date'             => $date_string,
+			'post_date_gmt'         => $date_string,
+			'post_modified'         => $date_string,
+			'post_modified_gmt'     => $date_string,
 			'post_content'          => '',
 			'post_title'            => '',
 			'post_excerpt'          => '',

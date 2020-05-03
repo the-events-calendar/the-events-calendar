@@ -10,6 +10,23 @@ import { settings, priceSettings } from '@moderntribe/common/utils/globals';
 import { string } from '@moderntribe/common/utils';
 import * as types from './types';
 
+export const defaultStateToMetaMap = {
+	position: '_EventCurrencyPosition',
+	symbol: '_EventCurrencySymbol',
+	cost: '_EventCost',
+};
+
+export const setInitialState = ( data ) => {
+	const { meta } = data;
+
+	Object.keys( defaultStateToMetaMap ).forEach( ( key ) => {
+		const metaKey = defaultStateToMetaMap[ key ];
+		if ( meta.hasOwnProperty( metaKey ) ) {
+			DEFAULT_STATE[ key ] = meta[ metaKey ];
+		}
+	} );
+};
+
 const position = string.isTruthy( settings() && settings().reverseCurrencyPosition )
 	? 'suffix'
 	: 'prefix';
@@ -22,7 +39,6 @@ export const DEFAULT_STATE = {
 		? priceSettings().defaultCurrencySymbol
 		: __( '$', 'the-events-calendar' ),
 	cost: '',
-	description: '',
 };
 
 export default ( state = DEFAULT_STATE, action ) => {
@@ -41,11 +57,6 @@ export default ( state = DEFAULT_STATE, action ) => {
 			return {
 				...state,
 				symbol: action.payload.symbol,
-			};
-		case types.SET_PRICE_DESCRIPTION:
-			return {
-				...state,
-				description: action.payload.description,
 			};
 		default:
 			return state;

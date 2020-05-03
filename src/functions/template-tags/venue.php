@@ -736,6 +736,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			 * @param int $post_id The venue ID.
 			 */
 			$website_link_target = apply_filters( 'tribe_get_venue_website_link_target', '_self', $post_id );
+			$rel                 = ( '_blank' === $website_link_target ) ? 'noopener noreferrer' : 'external';
 
 			/**
 			 * Allows customization of a venue's website link label.
@@ -749,10 +750,11 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$website_link_label = apply_filters( 'tribe_get_venue_website_link_label', esc_html( $label ), $post_id );
 
 			$html = sprintf(
-				'<a href="%s" target="%s">%s</a>',
+				'<a href="%s" target="%s" rel="%s">%s</a>',
 				esc_attr( esc_url( $url ) ),
-				$website_link_target,
-				$website_link_label
+				esc_attr( $website_link_target ),
+				esc_attr( $rel ),
+				esc_html( $website_link_label )
 			);
 		} else {
 			$html = '';

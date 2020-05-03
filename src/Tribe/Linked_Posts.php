@@ -812,6 +812,12 @@ class Tribe__Events__Linked_Posts {
 		$fields = array_keys( $submission );
 
 		foreach ( $submission[ $linked_post_type_id_field ] as $key => $id ) {
+			// Reset to 0 case of -1.
+			if ( -1 === (int) $id ) {
+				$id = null;
+				$submission[ $linked_post_type_id_field ][ $key ] = $id;
+			}
+
 			if ( ! empty( $id ) ) {
 				$post_ids_to_link[] = absint( $id );
 				continue;
@@ -938,6 +944,40 @@ class Tribe__Events__Linked_Posts {
 	}
 
 	/**
+	 * Renders the option passed in the param.
+	 *
+	 * @since 5.1.0
+	 *
+	 * @param array $option Array with the option values to render the HTML for Select Option.
+	 *
+	 * @return bool
+	 */
+	private function render_select_option( $option = [] ) {
+		if ( empty( $option['text'] ) || empty( $option['id'] ) ) {
+			return false;
+		}
+
+		if ( ! isset( $option['selected'] ) ) {
+			$option['selected'] = false;
+		}
+
+		if ( ! isset( $option['edit'] ) ) {
+			$option['edit'] = false;
+		}
+
+
+		?>
+		<option
+			<?php selected( $option['selected'] ); ?>
+			value="<?php echo esc_attr( $option['id'] ); ?>"
+			data-edit-link="<?php echo esc_url( $option['edit'] ); ?>"
+		>
+			<?php echo esc_html( $option['text'] ); ?>
+		</option>
+		<?php
+	}
+
+	/**
 	 * Helper function for displaying dropdowns for linked post types
 	 *
 	 * @param string $post_type Post type to display dropdown for.
@@ -1034,6 +1074,8 @@ class Tribe__Events__Linked_Posts {
 					'text' => wp_kses( get_the_title( $my_linked_post->ID ), array() ),
 				);
 
+				$new_child['selected'] = ( (int) $current === (int) $my_linked_post->ID );
+
 				$edit_link = get_edit_post_link( $my_linked_post );
 
 				if ( ! empty( $edit_link ) ) {
@@ -1075,6 +1117,8 @@ class Tribe__Events__Linked_Posts {
 					'id' => $linked_post->ID,
 					'text' => wp_kses( get_the_title( $linked_post->ID ), array() ),
 				);
+
+				$new_child['selected'] = ( (int) $current === (int) $linked_post->ID );
 
 				$edit_link = get_edit_post_link( $linked_post );
 
@@ -1121,20 +1165,40 @@ class Tribe__Events__Linked_Posts {
 		$label = $this->get_create_or_find_labels( $post_type, $creation_enabled );
 
 		if ( $linked_posts || $my_linked_posts ) {
-			echo '<input
-				type="hidden"
-				class="tribe-dropdown linked-post-dropdown"
-				name="' . esc_attr( $name ) . '"
-				id="saved_' . esc_attr( $post_type ) . '"
-				data-placeholder="' . $label . '"
-				data-search-placeholder="' . $label . '" ' .
-				( $creation_enabled ?
-				'data-freeform
+
+			?>
+			<select
+				class="tribe-dropdown linked-post-dropdown hide-before-select2-init"
+				name="<?php echo esc_attr( $name ); ?>"
+				id="saved_<?php echo esc_attr( $post_type ); ?>"
+				data-placeholder="<?php echo esc_attr( $label ); ?>"
+				data-search-placeholder="<?php echo esc_attr( $label ); ?>"
+				<?php if ( $creation_enabled ) : ?>
+				data-freeform
 				data-sticky-search
-				data-create-choice-template="' . __( 'Create: <b><%= term %></b>', 'the-events-calendar' ) . '" data-allow-html ' : '' ) .
-				'data-options="' . esc_attr( json_encode( $data ) ) . '"' .
-				( empty( $current ) ? '' : ' value="' . esc_attr( $current ) . '"' ) .
-			'>';
+				data-create-choice-template="<?php echo __( 'Create: <b><%= term %></b>', 'the-events-calendar' ); ?>"
+				data-allow-html
+				data-force-search
+				<?php endif; ?>
+			>
+				<option value="-1" <?php selected( empty( $current ) ); ?>>
+					<?php echo esc_html( $label ); ?>
+				</option>
+				<?php if ( ! empty( $data[0]['children'] ) ) : ?>
+					<?php foreach ( $data as $group ) : ?>
+						<optgroup label="<?php echo esc_attr( $group['text'] ); ?>">
+							<?php foreach ( $group['children'] as $value ) : ?>
+								<?php $this->render_select_option( $value ); ?>
+							<?php endforeach; ?>
+						</optgroup>
+					<?php endforeach; ?>
+				<?php else : ?>
+					<?php foreach ( $data as $value ) : ?>
+						<?php $this->render_select_option( $value ); ?>
+					<?php endforeach; ?>
+				<?php endif; ?>
+			</select>
+			<?php
 		} else {
 			echo '<p class="nosaved">' . sprintf( esc_attr__( 'No saved %s exists.', 'the-events-calendar' ), $singular_name_lowercase ) . '</p>';
 			printf( '<input type="hidden" name="%s" value="%d"/>', esc_attr( $name ), 0 );

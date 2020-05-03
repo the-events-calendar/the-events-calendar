@@ -1508,10 +1508,13 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			);
 		}
 
+		$post_id = $post->ID;
+
 		/**
 		 * Allow developers to filter what are the allowed HTML on the Excerpt
 		 *
-		 * @var array Must be compatible to wp_kses structure
+		 * @param array Must be compatible to wp_kses structure.
+		 * @param WP_Post $post The current post object.
 		 *
 		 * @link https://codex.wordpress.org/Function_Reference/wp_kses
 		 */
@@ -1520,17 +1523,38 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Allow shortcodes to be Applied on the Excerpt or not
 		 *
-		 * @var bool
+		 * @param bool Whether shortcodes are allowed in the Event excerpt or not.
+		 * @param WP_Post $post The current post object.
 		 */
-		$allow_shortcodes = apply_filters( 'tribe_events_excerpt_allow_shortcode', false );
+		$allow_shortcodes = apply_filters( 'tribe_events_excerpt_allow_shortcode', false, $post );
 
 		/**
-		 * Filter to stop removal of shortcode markup in the Excerpt
-		 * This will remove all text that resembles a shortcode [shortcode 5]
+		 * Filter to stop removal of shortcode markup in the excerpt.
 		 *
-		 * @var bool
+		 * This will remove all text that resembles a shortcode [shortcode 5].
+		 *
+		 * @since 5.1.0
+		 *
+		 * @param bool $remove_shortcodes Whether shortcodes content should be removed from the excerpt or not.
+		 * @param WP_Post $post The current post object.
 		 */
-		$remove_shortcodes = apply_filters( 'tribe_events_excerpt_shortcode_removal', true );
+		$remove_shortcodes = apply_filters( 'tribe_events_excerpt_shortcode_removal', true, $post );
+
+		/**
+		 * Filters whether the content produced by block editor blocks should be removed or not from the excerpt.
+		 *
+		 * If truthy then block whose content does not belong in the excerpt, will be removed.
+		 * This removal is done using WordPress Core `excerpt_remove_blocks` function.
+		 *
+		 * @since 5.1.0
+		 *
+		 * @param bool $remove_blocks Whether blocks whose content should not be part of the excerpt should be removed
+		 *                            or not from the excerpt.
+		 * @param WP_Post $post The current post object.
+		 *
+		 * @see   excerpt_remove_blocks() The WordPress Core function that will handle the block removal from the excerpt.
+		 */
+		$remove_blocks = (bool) apply_filters( 'tribe_events_excerpt_blocks_removal', true, $post );
 
 		$cache_excerpts_key = implode( ':', [
 			$post->ID,
@@ -1541,10 +1565,17 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		] );
 
 		if ( ! isset( $cache_excerpts[ $cache_excerpts_key ] ) ) {
-			// Get the Excerpt or content based on what is available
+			// Get the Excerpt or content based on what is available.
 			$excerpt = has_excerpt( $post->ID ) ? $post->post_excerpt : $post->post_content;
 
-			// If shortcode filter is enabled let's process them
+			/*
+			 * If blocks should be removed from the excerpt, remove them now.
+			 */
+			if ( $remove_blocks && function_exists( 'excerpt_remove_blocks' ) ) {
+				$excerpt = excerpt_remove_blocks( $excerpt );
+			}
+
+			// If shortcode filter is enabled let's process them.
 			if ( $allow_shortcodes ) {
 				$excerpt = do_shortcode( $excerpt );
 			}

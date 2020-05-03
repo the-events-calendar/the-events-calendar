@@ -11,8 +11,10 @@ namespace Tribe\Events\Views\V2;
 use Tribe\Events\Views\V2\Template\Settings\Advanced_Display;
 use Tribe\Events\Views\V2\Template\Title;
 use Tribe\Events\Views\V2\Utils;
+use Tribe\Events\Views\V2\Views\Latest_Past_View;
 use Tribe\Events\Views\V2\Views\Traits\Breakpoint_Behavior;
 use Tribe\Events\Views\V2\Views\Traits\HTML_Cache;
+use Tribe\Events\Views\V2\Views\Traits\iCal_Data;
 use Tribe\Events\Views\V2\Views\Traits\Json_Ld_Data;
 use Tribe\Events\Views\V2\Views\Traits\List_Behavior;
 use Tribe__Container as Container;
@@ -35,6 +37,7 @@ class View implements View_Interface {
 
 	use Breakpoint_Behavior;
 	use HTML_Cache;
+	use iCal_Data;
 	use Json_Ld_Data;
 
 	/**
@@ -1068,6 +1071,8 @@ class View implements View_Interface {
 		 */
 		$template_vars['json_ld_data'] = $this->build_json_ld_data( $events );
 
+		$this->setup_additional_views( (array) $events, $template_vars );
+
 		/**
 		 * Filters the variables that will be set on the View template.
 		 *
@@ -1383,49 +1388,50 @@ class View implements View_Interface {
 			? Dates::build_date_object( $event_date )->format( Dates::DBDATEFORMAT )
 			: false;
 
-		$template_vars  = [
-			'title'                  => $this->get_title( $events ),
-			'events'                 => $events,
-			'url'                    => $this->get_url( true ),
-			'prev_url'               => $this->prev_url( true ),
-			'next_url'               => $this->next_url( true ),
-			'url_event_date'         => $url_event_date,
-			'bar'                    => [
+		$template_vars = [
+			'title'                => $this->get_title( $events ),
+			'events'               => $events,
+			'url'                  => $this->get_url( true ),
+			'prev_url'             => $this->prev_url( true ),
+			'next_url'             => $this->next_url( true ),
+			'url_event_date'       => $url_event_date,
+			'bar'                  => [
 				'keyword' => $this->context->get( 'keyword', '' ),
 				'date'    => $this->context->get( 'event_date', '' ),
 			],
-			'today'                  => $today,
-			'now'                    => $this->context->get( 'now', 'now' ),
-			'request_date'           => Dates::build_date_object( $this->context->get( 'event_date', $today ) ),
-			'rest_url'               => tribe( Rest_Endpoint::class )->get_url(),
-			'rest_nonce'             => wp_create_nonce( 'wp_rest' ),
-			'should_manage_url'      => $this->should_manage_url,
-			'today_url'              => $today_url,
-			'prev_label'             => $this->get_link_label( $this->prev_url( false ) ),
-			'next_label'             => $this->get_link_label( $this->next_url( false ) ),
-			'date_formats'           => (object) [
+			'today'                => $today,
+			'now'                  => $this->context->get( 'now', 'now' ),
+			'request_date'         => Dates::build_date_object( $this->context->get( 'event_date', $today ) ),
+			'rest_url'             => tribe( Rest_Endpoint::class )->get_url(),
+			'rest_nonce'           => wp_create_nonce( 'wp_rest' ),
+			'should_manage_url'    => $this->should_manage_url,
+			'today_url'            => $today_url,
+			'prev_label'           => $this->get_link_label( $this->prev_url( false ) ),
+			'next_label'           => $this->get_link_label( $this->next_url( false ) ),
+			'date_formats'         => (object) [
 				'compact'                => Dates::datepicker_formats( tribe_get_option( 'datepickerFormat' ) ),
 				'month_and_year_compact' => Dates::datepicker_formats( 'm' . tribe_get_option( 'datepickerFormat' ) ),
 				'month_and_year'         => tribe_get_date_option( 'monthAndYearFormat', 'F Y' ),
 				'time_range_separator'   => tribe_get_date_option( 'timeRangeSeparator', ' - ' ),
 				'date_time_separator'    => tribe_get_date_option( 'dateTimeSeparator', ' @ ' ),
 			],
-			'messages'               => $this->get_messages( $events ),
-			'start_of_week'          => get_option( 'start_of_week', 0 ),
-			'breadcrumbs'            => $this->get_breadcrumbs(),
-			'before_events'          => tribe( Advanced_Display::class )->get_before_events_html( $this ),
-			'after_events'           => tribe( Advanced_Display::class )->get_after_events_html( $this ),
-			'display_events_bar'     => $this->filter_display_events_bar( $this->display_events_bar ),
-			'disable_event_search'   => tribe_is_truthy( tribe_get_option( 'tribeDisableTribeBar', false ) ),
-			'live_refresh'           => tribe_is_truthy( 'automatic' === tribe_get_option( 'liveFiltersUpdate', 'automatic' ) ),
-			'ical'                   => $this->get_ical_data(),
-			'container_classes'      => $this->get_html_classes(),
-			'container_data'         => $this->get_container_data(),
-			'is_past'                => 'past' === $this->context->get( 'event_display_mode', false ),
-			'breakpoints'            => $this->get_breakpoints(),
-			'breakpoint_pointer'     => $this->get_breakpoint_pointer(),
-			'is_initial_load'        => $this->context->doing_php_initial_state(),
-			'public_views'           => $this->get_public_views( $url_event_date ),
+			'messages'             => $this->get_messages( $events ),
+			'start_of_week'        => get_option( 'start_of_week', 0 ),
+			'breadcrumbs'          => $this->get_breadcrumbs(),
+			'before_events'        => tribe( Advanced_Display::class )->get_before_events_html( $this ),
+			'after_events'         => tribe( Advanced_Display::class )->get_after_events_html( $this ),
+			'display_events_bar'   => $this->filter_display_events_bar( $this->display_events_bar ),
+			'disable_event_search' => tribe_is_truthy( tribe_get_option( 'tribeDisableTribeBar', false ) ),
+			'live_refresh'         => tribe_is_truthy( 'automatic' === tribe_get_option( 'liveFiltersUpdate', 'automatic' ) ),
+			'ical'                 => $this->get_ical_data(),
+			'container_classes'    => $this->get_html_classes(),
+			'container_data'       => $this->get_container_data(),
+			'is_past'              => 'past' === $this->context->get( 'event_display_mode', false ),
+			'breakpoints'          => $this->get_breakpoints(),
+			'breakpoint_pointer'   => $this->get_breakpoint_pointer(),
+			'is_initial_load'      => $this->context->doing_php_initial_state(),
+			'public_views'         => $this->get_public_views( $url_event_date ),
+			'show_latest_past'     => $this->should_show_latest_past_events_view(),
 		];
 
 		return $template_vars;
@@ -1915,68 +1921,6 @@ class View implements View_Interface {
 	}
 
 	/**
-	 * Returns the iCal data we're sending to the view.
-	 *
-	 * @todo  @bordoni move this method to a supporting class.
-	 *
-	 * @since 4.9.13
-	 *
-	 * @return object
-	 */
-	protected function get_ical_data() {
-		/**
-		 * A filter to control whether the "iCal Import" link shows up or not.
-		 *
-		 * @since unknown
-		 *
-		 * @param boolean $show Whether to show the "iCal Import" link; defaults to true.
-		 */
-		$display_ical = apply_filters( 'tribe_events_list_show_ical_link', true );
-
-		/**
-		 * Allow for customization of the iCal export link "Export Events" text.
-		 *
-		 * @since unknown
-		 *
-		 * @param string $text The default link text, which is "Export Events".
-		 */
-		$link_text  = apply_filters( 'tribe_events_ical_export_text', __( 'Export Events', 'the-events-calendar' ) );
-
-		$link_title = __( 'Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps', 'the-events-calendar' );
-
-		$ical_data = (object) [
-			'display_link' => $display_ical,
-			'link'         => (object) [
-				'url'   => esc_url( tribe_get_ical_link() ),
-				'text'  => $link_text,
-				'title' => $link_title,
-			],
-		];
-
-		/**
-		 * Filters the ical data.
-		 *
-		 * @since 4.9.13
-		 *
-		 * @param object $ical_data An object containing the ical data.
-		 * @param View   $this      The current View instance being rendered.
-		 */
-		$ical_data = apply_filters( "tribe_events_views_v2_view_ical_data", $ical_data, $this );
-
-		/**
-		 * Filters the ical data for a specific view.
-		 *
-		 * @since 4.9.13
-		 *
-		 * @param object $ical_data An object containing the ical data.
-		 * @param View   $this      The current View instance being rendered.
-		 */
-		$ical_data = apply_filters( "tribe_events_views_v2_view_{$this->slug}_ical_data", $ical_data, $this );
-
-		return $ical_data;
-	}
-
-	/**
 	 * Returns a boolean on whether to show the datepicker submit button.
 	 *
 	 * @since 4.9.13
@@ -2024,10 +1968,10 @@ class View implements View_Interface {
 	 */
 	protected function get_public_views( $url_event_date ) {
 		$public_views = tribe( Manager::class )->get_publicly_visible_views_data();
+		$query_args   = wp_parse_url( $this->get_url(), PHP_URL_QUERY );
 
-		if ( ! empty( $url_event_date ) ) {
+		if ( ! empty( $url_event_date ) || ! empty( $query_args ) ) {
 			// Each View expects the event date in a specific format, here we account for it.
-			$query_args = wp_parse_url( $this->get_url( false ), PHP_URL_QUERY );
 
 			array_walk(
 				$public_views,
@@ -2065,13 +2009,21 @@ class View implements View_Interface {
 	 * {@inheritDoc}
 	 */
 	public function url_for_query_args( $date = null, $query_args = [] ) {
-		$event_date = Dates::build_date_object( $date )->format( $this->get_url_date_format() );
-
 		if ( ! empty( $query_args ) && is_string( $query_args ) ) {
 			$str_args   = $query_args;
 			$query_args = [];
+
 			wp_parse_str( $str_args, $query_args );
 		}
+
+		// For "dateless" queries (today).
+		if ( empty( $date ) ) {
+			$query_args = array_filter( array_merge( $query_args, [ 'eventDisplay' => $this->get_slug() ] ) );
+
+			return tribe_events_get_url( $query_args );
+		}
+
+		$event_date = Dates::build_date_object( $date )->format( $this->get_url_date_format() );
 
 		$url_query_args = array_filter( array_merge( $query_args, [
 			'eventDisplay' => $this->get_slug(),
@@ -2137,5 +2089,141 @@ class View implements View_Interface {
 		$data = apply_filters( "tribe_events_views_v2_{$this->get_slug()}_view_data", $data, $this );
 
 		return $data;
+	}
+
+	/**
+	 * Filters Whether the Latest Past Events Should Show for a specific View.
+	 *
+	 * @since 5.1.0
+	 *
+	 * @return boolean If we should display Latest Past Events.
+	 */
+	protected function should_show_latest_past_events_view() {
+		$show = $this->context->get( 'show_latest_past', true );
+
+		/**
+		 * Filters Whether the Latest Past Events Should Show for all Views.
+		 *
+		 * @since 5.1.0
+		 *
+		 * @param boolean $show      If we should display Latest Past Events.
+		 * @param string  $view_slug The current view slug.
+		 * @param View    $instance  The current View object.
+		 */
+		$show = apply_filters( 'tribe_events_views_v2_show_latest_past_events_view', $show, $this->get_slug(), $this );
+
+		/**
+		 * Filters Whether the Latest Past Events Should Show for a specific View.
+		 *
+		 * @since 5.1.0
+		 *
+		 * @param boolean $show     If we should display Latest Past Events.
+		 * @param View    $instance The current View object.
+		 */
+		$show = apply_filters( "tribe_events_views_v2_{$this->get_slug()}_show_latest_past_events_view", $show, $this );
+
+		return $show;
+	}
+
+	/**
+	 * Setup of Additional Views into another View.
+	 *
+	 * @since 5.1.0
+	 *
+	 * @param array $events        Array that will be counted to verify if we have events.
+	 * @param array $template_vars An associative array of variables that will be set, and exported, in the template.
+	 */
+	protected function setup_additional_views( array $events = [], array $template_vars = [] ) {
+
+		$manager      = tribe( Manager::class );
+		$default_slug = $manager->get_default_view_option();
+
+		// If the slug is `default`, get the slug another way.
+		if ( 'default' === $default_slug ) {
+			$default_class = $manager->get_default_view();
+			$default_slug  = $manager->get_view_slug_by_class( $default_class );
+		}
+
+		// Show Latest Past Events only on the default view.
+		if ( $this->get_slug() !== $default_slug ) {
+			return;
+		}
+
+		// If doing a search, do not show.
+		if ( $this->context->get( 'keyword', '' ) ) {
+			return;
+		}
+
+		// If no events found, do not show.
+		if ( 0 === tribe_events()->found() ) {
+			return;
+		}
+
+		$now    = $this->context->get( 'now', time() );
+		$latest = tribe_events_latest_date();
+
+		// If now is less then the latest event published, do not show.
+		if ( $now < $latest ) {
+			return;
+		}
+
+		// Checks to verify on the initial load of a view or if using today's date for the view.
+		$today     = $this->context->get( 'today' );
+		$view_date = $this->context->get( 'event_date', '' );
+
+		switch ( $this->get_slug() ) {
+			case 'month':
+				$today_formatted     = Dates::build_date_object( $today )->format( Dates::DBYEARMONTHTIMEFORMAT );
+				$view_date_formatted = Dates::build_date_object( $view_date )->format( Dates::DBYEARMONTHTIMEFORMAT );
+				break;
+
+			case 'week':
+				list( $today_week_start, $today_week_end ) = Dates::get_week_start_end( $today, (int) $this->context->get( 'start_of_week', 0 ) );
+				list( $view_week_start, $view_week_end )   = Dates::get_week_start_end( $view_date, (int) $this->context->get( 'start_of_week', 0 ) );
+
+				$today_formatted     = $today_week_start->format( Dates::DBDATEFORMAT );
+				$view_date_formatted = $view_week_start->format( Dates::DBDATEFORMAT );
+				break;
+
+			default:
+				$today_formatted     = Dates::build_date_object( $today )->format( Dates::DBDATEFORMAT );
+				$view_date_formatted = Dates::build_date_object( $view_date )->format( Dates::DBDATEFORMAT );
+		}
+
+		// If view date is not empty and today does not equal the view date, then do not show.
+		if ( ! empty( $view_date ) && $today_formatted !== $view_date_formatted ) {
+			return;
+		}
+
+		// Flatten Views such as Month and Week that have an array values.
+		$first_value = reset( $events );
+		if ( is_array( $first_value ) ) {
+			$events = array_unique( array_merge( ...array_values( $events ) ) );
+		}
+
+		/**
+		 * Filters The Threshold to Show The Latest Past Events.
+		 * Defaults to show when there are Zero Events.
+		 *
+		 * @since 5.1.0
+		 *
+		 * @param int   The threshold to show The Latest Past Events.
+		 * @param array $events        Array that will be counted to verify if we have events.
+		 * @param array $template_vars An associative array of variables that will be set, and exported, in the template.
+		 * @param View  $instance      The current View object.
+		 */
+		$latest_past_threshold = apply_filters( 'tribe_events_views_v2_threshold_to_show_latest_past_events', absint( 0 ), $events, $template_vars, $this );
+
+		// If threshold is less than upcoming events, do not show Recent Past Events.
+		if ( $latest_past_threshold < count( $events ) ) {
+			return;
+		}
+
+		if ( ! empty( $template_vars['show_latest_past'] ) ) {
+			$template_vars['show_latest_past'] = true;
+			$latest_past_view                  = static::make( Latest_Past_View::Class );
+			$latest_past_view->set_context( $this->context );
+			$latest_past_view->add_view_filters();
+		}
 	}
 }

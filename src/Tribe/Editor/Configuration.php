@@ -1,4 +1,9 @@
 <?php
+
+use Tribe\Events\Editor\Blocks\Event_Datetime;
+use Tribe\Events\Editor\Objects\Event as Event_Object;
+use Tribe__Events__Main as TEC;
+
 /**
  * Class Tribe__Events__Editor__Configuration
  *
@@ -24,8 +29,25 @@ class Tribe__Events__Editor__Configuration implements Tribe__Editor__Configurati
 	 * @return array
 	 */
 	public function editor_config( $editor_config ) {
-		$tec = empty( $editor_config['events'] ) ? array() : $editor_config['events'];
+		$tec                     = empty( $editor_config['events'] ) ? [] : $editor_config['events'];
 		$editor_config['events'] = array_merge( (array) $tec, $this->localize() );
+
+		$post_objects                  = empty( $editor_config['post_objects'] ) ? [] : $editor_config['post_objects'];
+		$editor_config['post_objects'] = array_merge(
+			(array) $post_objects,
+			[
+				TEC::POSTTYPE => ( new Event_Object() )->data(),
+			]
+		);
+
+		$blocks                  = empty( $editor_config['blocks'] ) ? [] : $editor_config['blocks'];
+		$editor_config['blocks'] = array_merge(
+			(array) $blocks,
+			[
+				tribe( 'events.editor.blocks.event-datetime' )->slug() => tribe( 'events.editor.blocks.event-datetime' )->block_data(),
+			]
+		);
+
 		return $editor_config;
 	}
 
@@ -39,15 +61,16 @@ class Tribe__Events__Editor__Configuration implements Tribe__Editor__Configurati
 	public function localize() {
 		/** @var Tribe__Events__Admin__Event_Meta_Box $events_meta_box */
 		$events_meta_box = tribe( 'tec.admin.event-meta-box' );
-		return array(
+
+		$data = [
 			'settings'      => tribe( 'events.editor.settings' )->get_options(),
 			'timezoneHTML'  => tribe_events_timezone_choice( Tribe__Events__Timezones::get_event_timezone_string() ),
-			'priceSettings' => array(
+			'priceSettings' => [
 				'defaultCurrencySymbol'   => tribe_get_option( 'defaultCurrencySymbol', '$' ),
 				'defaultCurrencyPosition' => (
 					tribe_get_option( 'reverseCurrencyPosition', false ) ? 'suffix' : 'prefix'
 				),
-			),
+			],
 			'dateSettings'  => array(
 				'datepickerFormat' => Tribe__Date_Utils::datepicker_formats( tribe_get_option( 'datepickerFormat' ) ),
 			),
@@ -67,7 +90,9 @@ class Tribe__Events__Editor__Configuration implements Tribe__Editor__Configurati
 				'start' => $events_meta_box->get_timepicker_default( 'start' ),
 				'end' => $events_meta_box->get_timepicker_default( 'end' ),
 			),
-		);
+		];
+
+		return $data;
 	}
 
 

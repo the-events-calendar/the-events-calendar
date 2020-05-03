@@ -14,6 +14,8 @@ vendor
 codeception.yml
 tests/*.suite.yml
 .env*.local
+*.tric
+*.tric.yml
 
 # Tests - local output files
 tests/_output
@@ -37,3 +39,7 @@ lang/*.mo
 src/resources/**/app
 src/resources/css
 src/resources/js/**/*.min.js
+
+# tric configuration files
+*.tric
+*.tric.*

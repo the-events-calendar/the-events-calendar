@@ -53,7 +53,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 				'parameters' => $this->swaggerize_args( $this->READ_args(), array( 'in' => 'query', 'default' => '' ) ),
 				'responses'  => array(
 					'200' => array(
-						'description' => __( 'Returns all the organizers matching the search criteria', 'the-event-calendar' ),
+						'description' => __( 'Returns all the organizers matching the search criteria', 'the-events-calendar' ),
 						'schema'      => array(
 							'title' => 'organizers',
 							'type'  => 'array',

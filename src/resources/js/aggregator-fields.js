@@ -1,3 +1,4 @@
+/* eslint-disable */
 var tribe_aggregator = tribe_aggregator || {};
 
 // Setup the global Variable
@@ -157,7 +158,7 @@ tribe_aggregator.fields = {
 
 				var importType = $this.val();
 
-				$frequency.select2( 'val', ( 'schedule' === importType ? 'daily' : '' ) ).change();
+				$frequency.val( ( 'schedule' === importType ? 'daily' : '' ) ).change();
 
 				// set a data attribute on the form indicating the schedule type
 				obj.$.form.attr( 'data-type', importType );
@@ -165,19 +166,15 @@ tribe_aggregator.fields = {
 				obj.maybeLimitUrlStartDate()
 			} )
 			.on( 'change'     , obj.selector.origin_field              , function() {
-				var origin = $( this ).val();
+				var $field = $( this );
+				var selectData = $( this ).data( 'select2' );
+				var origin  = $field.val();
 				obj.$.form.attr( 'data-origin', origin );
 				obj.reset_preview();
 
 				// reset all bumpdowns
 				$( '.tribe-bumpdown-active' ).removeClass( 'tribe-bumpdown-active' );
 				$( '.tribe-bumpdown:visible' ).hide();
-
-				// reset all the select2 fields other than the origin
-				// $( '.tribe-ea-tab-new .tribe-ea-dropdown:not([id$="tribe-ea-field-origin"])' ).select2( 'val', '' ).change();
-
-				// reset all the inputs to default values
-				// $( '.tribe-ea-tab-new .tribe-ea-form input' ).val( function() { return this.defaultValue; } ).change();
 
 				if ( 'redirect' === $( this ).val() ) {
 					window.open( 'https://theeventscalendar.com/wordpress-event-aggregator/?utm_source=importoptions&utm_medium=plugin-tec&utm_campaign=in-app', '_blank' );
@@ -188,7 +185,6 @@ tribe_aggregator.fields = {
 				if ( '' !== origin ) {
 					$( obj.selector.post_status )
 						.val( ea.default_settings[ origin ][ 'post_status' ] )
-						.select2( 'val', ea.default_settings[ origin ][ 'post_status' ] )
 						.trigger( 'change' );
 				}
 
@@ -212,7 +208,8 @@ tribe_aggregator.fields = {
 			} )
 			.on( 'change', obj.selector.field_url_source, function( e ) {
 				var $field = $( this );
-				var value = $field.val();
+				var selectData = $( this ).data( 'select2' );
+				var value  = $field.val();
 				var origin = null;
 
 				if ( ! value ) {
@@ -292,6 +289,8 @@ tribe_aggregator.fields = {
 
 		var $form = $( '.tribe-ea-form.tribe-validation' );
 
+		obj.reset_post_status();
+
 		// Makes sure we have validation
 		$form.trigger( 'validation.tribe' );
 
@@ -344,6 +343,23 @@ tribe_aggregator.fields = {
 		}
 	};
 
+	/**
+	 * Reset the post status to the default state when a new import is taking place
+	 */
+	obj.reset_post_status = function() {
+		var $origin = $( obj.selector.origin_field ); // eslint-disable-line no-var
+		var origin = $origin.length === 0 ? '' : $origin.val(); // eslint-disable-line no-var
+
+		if ( origin === '' ) {
+			return;
+		}
+
+		// Set the default state of the post_status
+		$( obj.selector.post_status )
+			.val( ea.default_settings[ origin ].post_status )
+			.trigger( 'change' );
+	};
+
 	obj.reset_polling_counter = function() {
 		obj.polling_frequency_index = 0;
 		obj.result_fetch_count = 0;
@@ -354,7 +370,6 @@ tribe_aggregator.fields = {
 	 */
 	obj.reset_form = function() {
 		obj.$.fields.val( '' ).trigger( 'change' );
-		$( '.tribe-ea-dropdown' ).select2( 'data', null );
 		$( '[id$="import_frequency"]' ).val( 'daily' ).trigger( 'change' );
 		obj.$.form.removeClass( 'show-data' );
 	};
@@ -532,7 +547,6 @@ tribe_aggregator.fields = {
 
 				$setting_field
 					.val( ea.default_settings[ origin ][ settings_key ] )
-					.select2( 'val', ea.default_settings[ origin ][ settings_key ] )
 					.trigger( 'change' );
 			}
 		}

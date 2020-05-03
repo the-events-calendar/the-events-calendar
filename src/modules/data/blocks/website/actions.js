@@ -9,15 +9,3 @@ export const setWebsite = ( url ) => ( {
 		url,
 	},
 } );
-
-export const setLabel = ( label ) => ( {
-	type: types.SET_WEBSITE_LABEL,
-	payload: {
-		label,
-	},
-} );
-
-export const setInitialState = ( props ) => ( {
-	type: types.SET_INITIAL_STATE,
-	payload: props,
-} );

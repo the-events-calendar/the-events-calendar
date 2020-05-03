@@ -3,9 +3,23 @@
  */
 import * as types from './types';
 
+export const defaultStateToMetaMap = {
+	url: '_EventURL',
+};
+
+export const setInitialState = ( data ) => {
+	const { meta } = data;
+
+	Object.keys( defaultStateToMetaMap ).forEach( ( key ) => {
+		const metaKey = defaultStateToMetaMap[ key ];
+		if ( meta.hasOwnProperty( metaKey ) ) {
+			DEFAULT_STATE[ key ] = meta[ metaKey ];
+		}
+	} );
+};
+
 export const DEFAULT_STATE = {
 	url: '',
-	label: '',
 };
 
 export default ( state = DEFAULT_STATE, action ) => {
@@ -14,11 +28,6 @@ export default ( state = DEFAULT_STATE, action ) => {
 			return {
 				...state,
 				url: action.payload.url,
-			};
-		case types.SET_WEBSITE_LABEL:
-			return {
-				...state,
-				label: action.payload.label,
 			};
 		default:
 			return state;

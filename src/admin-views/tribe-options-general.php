@@ -251,25 +251,59 @@ $general_tab_fields = Tribe__Main::array_insert_before_key(
 
 $filter_activation = [
 	'liveFiltersUpdate'             => [
-		'class'           => tribe_get_option( 'tribeDisableTribeBar', false ) == true ? 'tribe-fieldset-disabled' : null,
 		'default'         => 'automatic',
 		'label'           => esc_html__( 'Filter Activation', 'the-events-calendar' ),
 		'options'         => [
 			'automatic' => __( 'Calendar view is updated immediately when a filter is selected', 'the-events-calendar' ),
 			'manual'    => __( 'Submit button activates any selected filters', 'the-events-calendar' ),
 		],
-		'tooltip'         => esc_html__( 'Immediate filter activation may not be fully compliant with Web Accessibility Standards.', 'the-events-calendar' ),
+		'tooltip'         => esc_html__( 'Note: Automatic update may not be fully compliant with Web Accessibility Standards.', 'the-events-calendar' ),
 		'type'            => 'radio',
 		'validation_type' => 'options',
 	]
 ];
 
 if ( tribe_events_views_v2_is_enabled() ) {
+	// Push the control to the Filters tab.
 	add_filter( 'tribe-event-filters-settings-fields', function ( $fields ) use ( $filter_activation ) {
 		$fields += $filter_activation;
 		return $fields;
 	} );
 } else {
+	/**
+	 * Filters the text for the "automatic" option.
+	 *
+	 * @since 5.0.3
+	 *
+	 * @param string the displayed text.
+	 */
+	$automatic_text = apply_filters(
+		'tribe_events_liveupdate_automatic_label_text',
+		__( 'Enabled: datepicker selections automatically update calendar views', 'the-events-calendar' )
+	);
+	/**
+	 * Filters the text for the "manual" option.
+	 *
+	 * @since 5.0.3
+	 *
+	 * @param string the displayed text.
+	 */
+	$manual_text = apply_filters(
+		'tribe_events_liveupdate_manual_label_text',
+		__( 'Disabled: users must click Find Events to search by date', 'the-events-calendar' )
+	);
+
+	$filter_activation['liveFiltersUpdate']['options']['automatic'] = $automatic_text;
+	$filter_activation['liveFiltersUpdate']['options']['manual']    = $manual_text;
+	$filter_activation['liveFiltersUpdate']['label']                = esc_html__( 'Live Refresh', 'the-events-calendar' );
+
+	// Insert the control.
+	if ( tribe_is_truthy( tribe_get_option( 'tribeDisableTribeBar', false ) ) ) {
+		$filter_activation['attributes'] = [ 'disabled' => 'disabled' ];
+		$filter_activation['class']      = 'tribe-fieldset-disabled';
+		$filter_activation['tooltip']    = esc_html__( 'This option is disabled when "Disable the Event Search Bar" is checked on the Display settings tab.', 'the-events-calendar' );
+	}
+
 	$general_tab_fields = Tribe__Main::array_insert_before_key(
 		'showComments',
 		$general_tab_fields,
