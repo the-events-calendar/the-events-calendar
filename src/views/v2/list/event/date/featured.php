@@ -1,6 +1,6 @@
 <?php
 /**
- * View: Month View - Calendar Event Featured Icon
+ * View: List View - Single Event Featured Icon
  *
  * Override this template in your own theme by creating a file at:
  * [your-theme]/tribe/events/v2/list/event/date/featured.php
