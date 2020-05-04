@@ -14,7 +14,6 @@
  * @var WP_Post $event An event post object with event-specific properties added from the the `tribe_get_event`
  *
  * @see tribe_get_event() For the format of the event object and its properties.
- *
  */
 
 ?>
