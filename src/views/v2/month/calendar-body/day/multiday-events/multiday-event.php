@@ -85,7 +85,7 @@ if ( $should_display ) {
 				data-tooltip-content="#tribe-events-tooltip-content-<?php echo esc_attr( $event->ID ); ?>"
 				aria-describedby="tribe-events-tooltip-content-<?php echo esc_attr( $event->ID ); ?>"
 			>
-			<?php $this->template( 'month/calendar-body/day/multiday-events/date/featured-hidden', [ 'event' => $event ] ); ?>
+				<?php $this->template( 'month/calendar-body/day/multiday-events/date/featured-hidden', [ 'event' => $event ] ); ?>
 				<h3 class="tribe-events-calendar-month__multiday-event-hidden-title tribe-common-h8">
 					<?php
 					// phpcs:ignore
