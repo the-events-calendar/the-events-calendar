@@ -22,8 +22,6 @@
  *
  */
 
-use Tribe__Date_Utils as Dates;
-
 /*
  * To keep the calendar accessible, in the context of a week, we'll print the event only on either its first day
  * or the first day of the week.
@@ -71,41 +69,9 @@ if ( $should_display ) {
 ?>
 <div class="tribe-events-calendar-month__multiday-event-wrapper">
 	<article <?php tribe_classes( $classes ); ?> data-event-id="<?php echo esc_attr( $event->ID ); ?>">
-		<div class="tribe-events-calendar-month__multiday-event-hidden">
-			<time
-				datetime="<?php echo esc_attr( $event->dates->start->format( Dates::DBDATEFORMAT ) ); ?>"
-				class="tribe-common-a11y-visual-hide"
-			>
-				<?php echo esc_attr( $event->dates->start->format( Dates::DBDATEFORMAT ) ); ?>
-			</time>
-			<a
-				href="<?php echo esc_url( $event->permalink ); ?>"
-				class="tribe-events-calendar-month__multiday-event-hidden-link"
-				data-js="tribe-events-tooltip"
-				data-tooltip-content="#tribe-events-tooltip-content-<?php echo esc_attr( $event->ID ); ?>"
-				aria-describedby="tribe-events-tooltip-content-<?php echo esc_attr( $event->ID ); ?>"
-			>
-				<?php $this->template( 'month/calendar-body/day/multiday-events/date/featured-hidden', [ 'event' => $event ] ); ?>
-				<h3 class="tribe-events-calendar-month__multiday-event-hidden-title tribe-common-h8">
-					<?php
-					// phpcs:ignore
-					echo $event->title;
-					?>
-				</h3>
-			</a>
-		</div>
+		<?php $this->template( 'month/calendar-body/day/multiday-events/multiday-event/hidden', [ 'event' => $event ] ); ?>
 		<?php if ( $should_display ) : ?>
-			<div class="tribe-events-calendar-month__multiday-event-bar">
-				<div class="tribe-events-calendar-month__multiday-event-bar-inner">
-					<?php $this->template( 'month/calendar-body/day/multiday-events/date/featured', [ 'event' => $event ] ); ?>
-					<h3 class="tribe-events-calendar-month__multiday-event-bar-title tribe-common-h8">
-						<?php
-						// phpcs:ignore
-						echo $event->title;
-						?>
-					</h3>
-				</div>
-			</div>
+			<?php $this->template( 'month/calendar-body/day/multiday-events/multiday-event/bar', [ 'event' => $event ] ); ?>
 			<?php if ( $is_first_appearance ) : ?>
 				<?php $this->template( 'month/calendar-body/day/calendar-events/calendar-event/tooltip', [ 'event' => $event ] ); ?>
 			<?php endif; ?>
