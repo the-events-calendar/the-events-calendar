@@ -97,7 +97,7 @@ if ( $should_display ) {
 		<?php if ( $should_display ) : ?>
 			<div class="tribe-events-calendar-month__multiday-event-bar">
 				<div class="tribe-events-calendar-month__multiday-event-bar-inner">
-				<?php $this->template( 'month/calendar-body/day/multiday-events/date/featured', [ 'event' => $event ] ); ?>
+					<?php $this->template( 'month/calendar-body/day/multiday-events/date/featured', [ 'event' => $event ] ); ?>
 					<h3 class="tribe-events-calendar-month__multiday-event-bar-title tribe-common-h8">
 						<?php
 						// phpcs:ignore
