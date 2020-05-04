@@ -3,13 +3,13 @@
  * View: Month View - Calendar Event Featured Icon
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/v2/month/calendar-body/day/calendar-events/calendar-event/date/featured-icon.php
+ * [your-theme]/tribe/events/v2/month/calendar-body/day/calendar-events/calendar-event/date/featured.php
  *
  * See more documentation about our views templating system.
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @since 5.1.1
+ * @since TBD
  *
  * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
  *
@@ -23,4 +23,4 @@ if ( ! empty( $event->featured ) ) : ?>
 		title="<?php esc_attr_e( 'Featured', 'the-events-calendar' ) ?>"
 	>
 	</em>
-<?php endif; ?>
+<?php endif;

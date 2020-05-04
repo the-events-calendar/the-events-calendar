@@ -20,7 +20,7 @@ use Tribe__Date_Utils as Dates;
 $event_date_attr = $event->dates->start->format( Dates::DBDATEFORMAT );
 ?>
 <div class="tribe-events-calendar-month__calendar-event-tooltip-datetime">
-	<?php $this->template( 'month/calendar-body/day/calendar-events/calendar-event/tooltip/date/featured-icon', [ 'event' => $event ] ); ?>
+	<?php $this->template( 'month/calendar-body/day/calendar-events/calendar-event/tooltip/date/featured', [ 'event' => $event ] ); ?>
 	<time datetime="<?php echo esc_attr( $event_date_attr ); ?>">
 		<?php echo $event->schedule_details->value(); ?>
 	</time>

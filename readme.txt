@@ -222,7 +222,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [5.1.1] TBD =
 
-* Feature - Move all the featured Event icons to templates. [TEC-3441]
+* Feature - Move all the featured event icons to templates. [TEC-3441]
 * Fix - Adjust templates to show time zone in event details when "Show time zone" is checked. [TEC-2979]
 * Fix - Correct bad defaults from `Template->attr()` and ensure that the timezone info is correctly hydrated in the case of an unchanged block. [TEC-2964]
 
