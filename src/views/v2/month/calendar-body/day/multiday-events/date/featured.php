@@ -22,4 +22,4 @@ if ( $event->featured ) : ?>
 		aria-label="<?php esc_attr_e( 'Featured', 'the-events-calendar' ); ?>"
 		title="<?php esc_attr_e( 'Featured', 'the-events-calendar' ); ?>"
 	></em>
-<?php endif;
+<?php endif; ?>

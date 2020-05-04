@@ -26,4 +26,4 @@ if ( ! empty( $event->featured ) ) : ?>
 	<span class="tribe-events-calendar-month-mobile-events__mobile-event-datetime-featured-text">
 		<?php esc_html_e( 'Featured', 'the-events-calendar' ); ?>
 	</span>
-<?php endif;
+<?php endif; ?>
