@@ -28,9 +28,14 @@ $label = sprintf( __( 'Previous %1$s', 'the-events-calendar' ), tribe_get_event_
 		title="<?php echo esc_attr( $label ); ?>"
 	>
 		<span class="tribe-events-c-nav__prev-label">
-			<span class="tribe-events-c-nav__prev-label-plural tribe-common-a11y-visual-hide">
-				<?php echo esc_attr( $label ); ?>
-			</span>
+			<?php
+				$events_label = '<span class="tribe-events-c-nav__prev-label-plural tribe-common-a11y-visual-hide">' . tribe_get_event_label_plural() . '</span>';
+				echo wp_kses(
+					/* translators: %s: Event (plural or singular). */
+					sprintf( __( 'Previous %1$s', 'the-events-calendar' ), $events_label ),
+					[ 'span' => [ 'class' => [] ] ]
+				);
+			?>
 		</span>
 	</a>
 </li>
